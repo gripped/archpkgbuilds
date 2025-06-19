@@ -2,7 +2,7 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=python-psycopg
-pkgver=3.2.6
+pkgver=3.2.9
 pkgrel=1
 pkgdesc='PostgreSQL database adapter for Python'
 arch=('x86_64')
@@ -22,9 +22,16 @@ makedepends=(
 )
 checkdepends=('python-pytest' 'python-pytest-asyncio')
 source=("$pkgname::git+https://github.com/psycopg/psycopg.git#tag=$pkgver")
-sha512sums=('cf23618e5ee1374b7087a1405ae68edfc1fe04acd068061adaf76ad68451d740d08bbe9d6503c666a663640b1bd612d270506c76a8cf726981194a9710af7767')
-b2sums=('a3f36499a14e24f96023e831e4ae41d1b6064dd4b7a51a319ca95ef7bc8d785666f1d1674aab923bd73693cf71a613170d4de3968ee60725fd0e3f13eb119456')
+sha512sums=('30d3d0f5a952e9c666c1dc573146b94c23c20093f8f063b746d67476c4be470b1d821220b9970b5b63b2ddaaee36791d7929d8a380d805c6b6c6353f3c4b0ca5')
+b2sums=('f034ade2fc4e372ce78a0e26e9a4ba9a43992c0b84d9c83c5b0037ae9c10747a990b90375618e30c470449e2e475a405d8d0c1f3c0944451026801ee74429e5d')
 
+prepare() {
+  cd "$pkgname"
+
+  # revert version constraint for Cython (issue fixed in Cython 3.1.2 release)
+  # https://github.com/tianhm/cython/commit/e466fe29ad545ca4a459be9679ab1842c38c1c64
+  git revert --no-commit 91daf1bd3e6d28b8bc8a9c3860654429a76cd17a
+}
 build(){
   cd "$pkgname"
 
