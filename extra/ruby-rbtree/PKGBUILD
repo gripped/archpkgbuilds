@@ -3,19 +3,27 @@
 pkgname=ruby-rbtree
 _pkgname="${pkgname#ruby-}"
 pkgver=0.4.6
-pkgrel=6
+pkgrel=7
 pkgdesc='A sorted associative collection that is implemented with a Red-Black Tree'
 arch=('x86_64')
-url='https://rubygems.org/gems/rbtree'
+url='https://github.com/mame/rbtree'
 license=('MIT')
 depends=('ruby')
+makedepends=('git')
 options=('!emptydirs')
-source=("$pkgname-$pkgver.gem::https://rubygems.org/downloads/$_pkgname-$pkgver.gem")
-noextract=("$pkgname-$pkgver.gem")
-sha512sums=('7c9f5ac83ee78191efe3fb7fd6ef0afaa7506245191dbe92f3eb9e5f19b9fcd8157f19901d49d5ff9b4661a498a67d79e39ca86c79d8df99fcf11603b54a0158')
-b2sums=('cd44852f8de9138d9f590825c62b1863e8a4fc51a3f150317f929e200430b9a4fcc7f7b83deb0904def84cfe3debf102e7b200fe1e894422b0515297ed44baff')
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('3c99b3e3b111f437308ae65edfbd6c156e16ad989f380317093d56852a9c1daa31c870ad9d3645ec350e1330895b0b7d61e74fe3c48edf1bbb649baf741ebffa')
+b2sums=('0c7b9f1efeffe89c1a395599b4e33dc12f57d9e38d50b689c257bbe02a737b591a916cfd6cba57c5a20e2aaec419edf478704a3207b5eb0b84578ec1bc0cf418')
+
+build() {
+  cd "$pkgname"
+
+  gem build "$_pkgname.gemspec"
+}
 
 package() {
+  cd "$pkgname"
+
   local _gemdir="$(gem env gemdir)"
 
   gem install \
@@ -25,7 +33,7 @@ package() {
     --no-user-install \
     --install-dir "$pkgdir/$_gemdir" \
     --bindir "$pkgdir/usr/bin" \
-    "$pkgname-$pkgver.gem"
+    "$_pkgname-$pkgver.gem"
 
   # delete unnecessary files/folders
   rm -rf "$pkgdir/$_gemdir/cache"
