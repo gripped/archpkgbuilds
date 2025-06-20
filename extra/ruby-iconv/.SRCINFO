@@ -1,15 +1,15 @@
 pkgbase = ruby-iconv
 	pkgdesc = Wrapper library for iconv
 	pkgver = 1.1.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/ruby/iconv
 	arch = x86_64
 	license = BSD-2-Clause
+	makedepends = git
 	depends = ruby
-	noextract = iconv-1.1.0.gem
 	options = !emptydirs
-	source = https://rubygems.org/downloads/iconv-1.1.0.gem
-	sha512sums = 0b3a95f07d921d5d08e3e54e14914af2174bb6086911cf880a30a6953003b5993d67cd329aa9d7dd42dd198a7ff9baec3c229874fd2803b55cd2bbb7cc98b469
-	b2sums = ba061bd7457dc2df29c78823dbb8b8f16b4a663dc2f75db0549e44197b6e069078dfda85d3fc54d05579425de83576ae24e7d699fe3f1542f6191da1610492c2
+	source = ruby-iconv::git+https://github.com/ruby/iconv#tag=v1.1.0
+	sha512sums = be63582e5863c34ce0da3887ea11036037cefb1ee2cf5d0e177dc22ba93120c3d8b397f9758f66906a26832c7e6ada6359ad03f49b1ec75d86ffbbfb8ef11140
+	b2sums = 32d2f7a14b25b13790c82ec4d8be0a26b0d411cf948463996ffabae1621dbcabaa2c04fb287191a56afcc5794924caff4cddfe581eb0d1d45c7c9a39fec937e8
 
 pkgname = ruby-iconv
