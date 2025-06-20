@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=plasma-desktop
-pkgver=6.3.5
+pkgver=6.4.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE Plasma Desktop'
@@ -15,7 +15,6 @@ depends=(attica
          emoji-font # for clock and language KCMs
          gcc-libs
          glibc
-         icu
          kauth
          kbookmarks
          kcmutils
@@ -98,7 +97,7 @@ makedepends=(extra-cmake-modules
              xorg-server-devel)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('047f79e931f2094354b184d4b1fca9154a732c7498bf1871a8010207f8029f9a'
+sha256sums=('18e114033c182d263c937f5bc41793252931dcdac22b04d49d33a0109bb2aeb2'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
