@@ -1,0 +1,35 @@
+From 3eb809696aafb918fe6e1e7f5c5a8bba6ad39b94 Mon Sep 17 00:00:00 2001
+From: Marc Hassan <marc.j.hassan@gmail.com>
+Date: Tue, 20 May 2025 10:45:06 -0400
+Subject: [PATCH] cli: fix `TypeError` in `HelpfulArgumentParser` for python
+ 3.12.8 and 3.13.1 (#15692)
+
+cli: fix `TypeError` in `HelpfulArgumentParser` for python 3.12.8 and 3.13.1 (related #15687)
+
+Signed-off-by: mhassan1 <marc.j.hassan@gmail.com>
+---
+ awxkit/awxkit/cli/utils.py | 8 --------
+ 1 file changed, 8 deletions(-)
+
+diff --git a/awxkit/awxkit/cli/utils.py b/awxkit/awxkit/cli/utils.py
+index 61c2fe8f5e..9e6b5d38ff 100644
+--- a/awxkit/awxkit/cli/utils.py
++++ b/awxkit/awxkit/cli/utils.py
+@@ -40,14 +40,6 @@ class HelpfulArgumentParser(ArgumentParser):
+         self._print_message('\n')
+         self.exit(2, '%s: %s\n' % (self.prog, message))
+ 
+-    def _parse_known_args(self, args, ns):
+-        for arg in ('-h', '--help'):
+-            # the -h argument is extraneous; if you leave it off,
+-            # awx-cli will just print usage info
+-            if arg in args:
+-                args.remove(arg)
+-        return super(HelpfulArgumentParser, self)._parse_known_args(args, ns)
+-
+ 
+ def color_enabled():
+     return _color.enabled
+-- 
+2.50.0
+

@@ -1,0 +1,37 @@
+From e68370f2aa2dc0fb435de39835beb0edc1c55225 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Sviatoslav=20Sydorenko=20=28=D0=A1=D0=B2=D1=8F=D1=82=D0=BE?=
+ =?UTF-8?q?=D1=81=D0=BB=D0=B0=D0=B2=20=D0=A1=D0=B8=D0=B4=D0=BE=D1=80=D0=B5?=
+ =?UTF-8?q?=D0=BD=D0=BA=D0=BE=29?= <wk@sydorenko.org.ua>
+Date: Fri, 13 Sep 2024 19:39:14 +0200
+Subject: [PATCH] Replace `pkg_resources` with `importlib.metadata` (#15441)
+
+---
+ awxkit/awxkit/cli/client.py                   | 4 ++--
+ 7 files changed, 13 insertions(+), 17 deletions(-)
+
+diff --git a/awxkit/awxkit/cli/client.py b/awxkit/awxkit/cli/client.py
+index 46dc4fa333..de790e184e 100755
+--- a/awxkit/awxkit/cli/client.py
++++ b/awxkit/awxkit/cli/client.py
+@@ -2,8 +2,8 @@ from __future__ import print_function
+ 
+ import logging
+ import os
+-import pkg_resources
+ import sys
++from importlib.metadata import version as _get_version
+ 
+ from requests.exceptions import RequestException
+ 
+@@ -16,7 +16,7 @@ from awxkit.cli.utils import HelpfulArgumentParser, cprint, disable_color, color
+ from awxkit.awx.utils import uses_sessions  # noqa
+ 
+ 
+-__version__ = pkg_resources.get_distribution('awxkit').version
++__version__ = _get_version('awxkit')
+ 
+ 
+ class CLI(object):
+-- 
+2.50.0
+
