@@ -2,7 +2,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=libmodulemd
-pkgver=2.15.1
+pkgver=2.15.2
 pkgrel=1
 pkgdesc="C Library for manipulating module metadata files"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('file' 'glib2' 'libyaml' 'rpm-tools')
 makedepends=('glib2-devel' 'gobject-introspection' 'help2man' 'meson' 'python-gobject')
 optdepends=('python-gobject: for python bindings')
 source=("$url/releases/download/$pkgver/${pkgname#lib}-$pkgver.tar.xz")
-sha256sums=('f981ff9f580f19736303e035938e94ad886ecc3cdd8c864c138de9b2e35c7ba3')
+sha256sums=('6fb926e270ba44d1981d1abadaa6728c5e357636eee3b3bb533e95b92d104970')
 
 build() {
   cd ${pkgname#lib}-$pkgver
