@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=print-manager
-pkgver=6.3.5
+pkgver=6.4.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 epoch=1
@@ -18,7 +18,6 @@ depends=(gcc-libs
          kcoreaddons
          kdbusaddons
          ki18n
-         kiconthemes
          kio
          kirigami
          kitemmodels
@@ -34,7 +33,7 @@ makedepends=(extra-cmake-modules
 optdepends=('system-config-printer: auto-detect the printer driver')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('77151f395ad91eda6b644eb6c87fe289be198eab41c039e60bdbb3b16d559ac1'
+sha256sums=('2abb28b8944b3e4c48413cb31b54e078c9fa8d1fd8c115a6150731039d92cbfd'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
