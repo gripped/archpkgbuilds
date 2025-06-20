@@ -5,7 +5,7 @@
 pkgname=kwin-x11
 pkgver=6.4.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=2
+pkgrel=1
 pkgdesc='An easy to use, but flexible, X Window Manager'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -47,6 +47,7 @@ depends=(aurorae
          libqaccessibilityclient-qt6
          libx11
          libxcb
+         libxcvt
          libxi
          libxkbcommon
          libxkbcommon-x11
@@ -66,6 +67,7 @@ depends=(aurorae
          xcb-util-wm)
 makedepends=(extra-cmake-modules
              kdoctools
+             kwayland
              plasma-wayland-protocols
              python
              wayland-protocols)
