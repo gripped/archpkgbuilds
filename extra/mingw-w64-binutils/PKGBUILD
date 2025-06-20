@@ -3,7 +3,7 @@
 
 pkgname=mingw-w64-binutils
 pkgver=2.44
-pkgrel=1
+pkgrel=2
 pkgdesc="Cross binutils for the MinGW-w64 cross-compiler"
 arch=('x86_64')
 url="http://www.gnu.org/software/binutils"
