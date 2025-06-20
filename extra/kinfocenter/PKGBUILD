@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kinfocenter
-pkgver=6.3.5
+pkgver=6.4.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=2
+pkgrel=1
 pkgdesc='A utility that provides information about a computer system'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -30,6 +30,7 @@ depends=(aha
          libdrm
          libpulse # pactl
          libusb
+         lm_sensors
          mesa-utils
          qt6-base
          qt6-declarative
@@ -43,10 +44,11 @@ makedepends=(extra-cmake-modules
              fwupd
              kdoctools
              vulkan-headers)
-optdepends=('fwupd: firmware security module')
+optdepends=('fwupd: firmware security module'
+            'plasma-disks: SMART devices health monitor')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('403544aeeb606ffb3be55da4213d1712cbf93534c0982e38204ad863e01ae8c3'
+sha256sums=('4d2deaf4c1ff76ff100ed6b07d7cb158ba116c4c221b7b5f7b25440285054494'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
