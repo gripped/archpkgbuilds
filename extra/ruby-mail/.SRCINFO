@@ -1,14 +1,23 @@
 pkgbase = ruby-mail
 	pkgdesc = A really Ruby Mail handler
 	pkgver = 2.8.1
-	pkgrel = 5
+	pkgrel = 7
 	url = https://github.com/mikel/mail
 	arch = any
 	license = MIT
+	checkdepends = ruby-activesupport
+	checkdepends = ruby-bundler
+	checkdepends = ruby-rake
+	checkdepends = ruby-rspec
+	makedepends = git
+	makedepends = ruby-rdoc
 	depends = ruby-mini_mime
-	noextract = mail-2.8.1.gem
+	depends = ruby-net-imap
+	depends = ruby-net-pop
+	depends = ruby-net-smtp
 	options = !emptydirs
-	source = https://rubygems.org/downloads/mail-2.8.1.gem
-	sha256sums = ec3b9fadcf2b3755c78785cb17bc9a0ca9ee9857108a64b6f5cfc9c0b5bfc9ad
+	source = ruby-mail::git+https://github.com/mikel/mail#tag=2.8.1
+	sha512sums = 5507731ef316bbddfcf5d4f11cc86dc1196cf390f1a3191fe9b461363368beacd80b0a79a81779c4fc4f162db30a247a82cfa182d088bf940b6804e49717a90c
+	b2sums = cacea6d4f7568ba3896009dbb3592dd73bbd4f933cbd305ff39c28f44ea3771ba97b7f5683973e08f453d8e99a13811c0e0467fc133bd0db0099687be101b233
 
 pkgname = ruby-mail

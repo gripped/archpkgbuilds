@@ -1,28 +1,114 @@
-# Maintainer: Maxime Gauduin <alucryd@gmail.com>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Maxime Gauduin <alucryd@gmail.com>
 # Contributor: Emiliano Vavassori <syntaxerrormmm@gmail.com>
 # Contributor: Alexsandr Pavlov <kidoz@mail.ru>
 
+_gemname=mail
 pkgname=ruby-mail
 pkgver=2.8.1
-pkgrel=5
+pkgrel=7
 pkgdesc='A really Ruby Mail handler'
 arch=('any')
 url='https://github.com/mikel/mail'
 license=('MIT')
-depends=('ruby-mini_mime')
+depends=(
+  'ruby-mini_mime'
+  'ruby-net-imap'
+  'ruby-net-pop'
+  'ruby-net-smtp'
+)
+makedepends=(
+  'git'
+  'ruby-rdoc'
+)
+checkdepends=(
+  'ruby-activesupport'
+  'ruby-bundler'
+  'ruby-rake'
+  'ruby-rspec'
+)
 options=('!emptydirs')
-source=("https://rubygems.org/downloads/${pkgname#*-}-${pkgver}.gem")
-noextract=("${pkgname#*-}-${pkgver}.gem")
-sha256sums=('ec3b9fadcf2b3755c78785cb17bc9a0ca9ee9857108a64b6f5cfc9c0b5bfc9ad')
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('5507731ef316bbddfcf5d4f11cc86dc1196cf390f1a3191fe9b461363368beacd80b0a79a81779c4fc4f162db30a247a82cfa182d088bf940b6804e49717a90c')
+b2sums=('cacea6d4f7568ba3896009dbb3592dd73bbd4f933cbd305ff39c28f44ea3771ba97b7f5683973e08f453d8e99a13811c0e0467fc133bd0db0099687be101b233')
+
+prepare() {
+  cd "$pkgname"
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended 's|~>|>=|g' "${_gemname}.gemspec"
+
+  # Remove unpackaged development dependencies
+  sed --in-place '/rspec-benchmark/d;/rufo/d' "${_gemname}.gemspec"
+
+  # Do not use git checkout of activesupport
+  sed --in-place 's/, :git.*//' Gemfile
+
+  # Do not require byebug
+  sed --in-place '/byebug/d' Gemfile
+
+  # Remove benchmarking
+  sed --in-place '/[Bb]enchmark/d' spec/spec_helper.rb
+}
+
+build() {
+  cd "$pkgname"
+
+  local _gemdir="$(gem env gemdir)"
+
+  gem build --verbose "${_gemname}.gemspec"
+
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --no-user-install \
+    --install-dir "tmp_install${_gemdir}" \
+    --bindir "tmp_install/usr/bin" \
+    "${_gemname}-${pkgver}.gem"
+
+  # remove unrepreducible files
+  rm --force --recursive --verbose \
+    "tmp_install${_gemdir}/cache/" \
+    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
+    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
+
+  find "tmp_install${_gemdir}/gems/" \
+    -type f \
+    \( \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
+    \) \
+    -delete
+
+  find "tmp_install${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
+}
+
+check() {
+  cd "$pkgname"
+
+  local _gemdir="$(gem env gemdir)"
+
+  GEM_HOME="tmp_install${_gemdir}" rake spec
+}
 
 package() {
-  local _gemdir="$(ruby -e'puts Gem.default_dir')"
+  cd "$pkgname"
 
-  gem install --ignore-dependencies --no-user-install -N -i "${pkgdir}"/${_gemdir} ${pkgname#*-}-${pkgver}.gem
-  find "${pkgdir}" -type f -name *.gem -delete
+  cp --archive --verbose tmp_install/* "${pkgdir}"
 
-  install -dm 755 "${pkgdir}"/usr/share/licenses/${pkgname}
-  ln -s ${_gemdir}/gems/${pkgname#*-}-${pkgver}/MIT-LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install --verbose -D --mode=0644 MIT-LICENSE --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 README.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
 }
 
 # vim: ts=2 sw=2 et:
