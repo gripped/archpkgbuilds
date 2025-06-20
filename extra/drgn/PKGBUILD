@@ -2,8 +2,8 @@
 # Contributor: Omar Sandoval <osandov at osandov dot com>
 
 pkgname=drgn
-pkgver=0.0.31
-pkgrel=2
+pkgver=0.0.32
+pkgrel=1
 pkgdesc='Programmable debugger'
 arch=('x86_64')
 url='https://github.com/osandov/drgn'
@@ -25,10 +25,11 @@ makedepends=(
 optdepends=(
     'python-prompt_toolkit: enhanced terminal support in contrib/ptdrgn.py'
     'debuginfod: for libdebuginfod support'
+    'xz: for MiniDebugInfo support'
 )
 checkdepends=('check')
 source=("$pkgname::git+https://github.com/osandov/drgn#tag=v${pkgver}")
-sha256sums=('76fa976c2d5f6a06667845c655d93d8f48b7370b3376fbb7fc318468c3ca538a')
+sha256sums=('7b796197bba490d953842a0961097d383984afcca4412237bef35514ebb7f165')
 
 build() {
     cd $pkgname

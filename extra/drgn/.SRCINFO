@@ -1,7 +1,7 @@
 pkgbase = drgn
 	pkgdesc = Programmable debugger
-	pkgver = 0.0.31
-	pkgrel = 2
+	pkgver = 0.0.32
+	pkgrel = 1
 	url = https://github.com/osandov/drgn
 	arch = x86_64
 	license = LGPL-2.1-or-later
@@ -18,7 +18,8 @@ pkgbase = drgn
 	depends = python
 	optdepends = python-prompt_toolkit: enhanced terminal support in contrib/ptdrgn.py
 	optdepends = debuginfod: for libdebuginfod support
-	source = drgn::git+https://github.com/osandov/drgn#tag=v0.0.31
-	sha256sums = 76fa976c2d5f6a06667845c655d93d8f48b7370b3376fbb7fc318468c3ca538a
+	optdepends = xz: for MiniDebugInfo support
+	source = drgn::git+https://github.com/osandov/drgn#tag=v0.0.32
+	sha256sums = 7b796197bba490d953842a0961097d383984afcca4412237bef35514ebb7f165
 
 pkgname = drgn
