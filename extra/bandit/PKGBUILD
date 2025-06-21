@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=bandit
-pkgver=1.8.3
+pkgver=1.8.5
 pkgrel=1
 pkgdesc='Python security linter from OpenStack Security'
 arch=('any')
@@ -10,7 +10,7 @@ license=('Apache')
 depends=('python-yaml' 'python-stevedore' 'python-gitpython' 'python-rich')
 makedepends=('python-setuptools' 'python-pbr' 'git')
 source=(https://files.pythonhosted.org/packages/source/${pkgname::1}/${pkgname}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('50f2ee3f39c2991f030790674e7d25337dac9a4cd0d83d2b76e3152fc3833fb9d8228c347347d3558795b50c2973b825b9e8ab9546ccf6fec60f4f5fbd8ededc')
+sha512sums=('04f6c6362b54973b9b0b8958331dec60ee22544e7a297230575f31db7cbacd5bcfaa56330cb7eff954f666384a0eaff67244485672739c3db76d9a18e5a106b7')
 
 build() {
     cd bandit-$pkgver
