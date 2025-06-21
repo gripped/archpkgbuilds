@@ -1,7 +1,17 @@
-diff -Nurp PkgConfig-LibPkgConf-0.11/t/client.t PkgConfig-LibPkgConf-0.11-2.0.3/t/client.t
---- PkgConfig-LibPkgConf-0.11/t/client.t	2023-11-22 19:46:56.204983196 +0100
-+++ PkgConfig-LibPkgConf-0.11-2.0.3/t/client.t	2023-11-22 19:48:31.990180955 +0100
-@@ -216,13 +216,13 @@ subtest 'path attributes' => sub {
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Wed, 22 Nov 2023 19:50:46 +0100
+Subject: [PATCH] Get tests to pass
+
+---
+ t/client.t | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/t/client.t b/t/client.t
+index db115fe14120..9398195a9a53 100644
+--- a/t/client.t
++++ b/t/client.t
+@@ -216,39 +216,39 @@ subtest 'path attributes' => sub {
  
      _is_deeply
        [PkgConfig::LibPkgConf::Client->new->path],
@@ -18,7 +28,9 @@ diff -Nurp PkgConfig-LibPkgConf-0.11/t/client.t PkgConfig-LibPkgConf-0.11-2.0.3/
  
    };
  
-@@ -232,10 +232,10 @@ subtest 'path attributes' => sub {
+   subtest 'filter lib dirs' => sub {
+ 
+     local $ENV{PKG_CONFIG_SYSTEM_LIBRARY_PATH} = join $sep, map { "$root$_" } '/foo/lib', '/bar/lib';
  
      _is_deeply
        [PkgConfig::LibPkgConf::Client->new->filter_lib_dirs],
@@ -31,7 +43,9 @@ diff -Nurp PkgConfig-LibPkgConf-0.11/t/client.t PkgConfig-LibPkgConf-0.11-2.0.3/
  
    };
  
-@@ -245,10 +245,10 @@ subtest 'path attributes' => sub {
+   subtest 'filter include dirs' => sub {
+ 
+     local $ENV{PKG_CONFIG_SYSTEM_INCLUDE_PATH} = join $sep, map { "$root$_" } '/foo/include', '/bar/include';
  
      _is_deeply
        [PkgConfig::LibPkgConf::Client->new->filter_include_dirs],
