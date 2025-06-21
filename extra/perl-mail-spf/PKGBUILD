@@ -3,7 +3,7 @@
 # Contributor: François Charette <francois.archlinux.org>
 
 pkgname=perl-mail-spf
-pkgver=3.20240923
+pkgver=3.20250505
 pkgrel=1
 pkgdesc="Perl module that provides SPF support"
 arch=('any')
@@ -13,8 +13,8 @@ depends=('perl-error' 'perl-netaddr-ip' 'perl-uri' 'perl-net-dns' 'perl')
 makedepends=('perl-module-build' 'perl-net-dns-resolver-programmable')
 conflicts=('perl-mail-spf-query')
 options=('!emptydirs')
-source=("https://search.cpan.org/CPAN/authors/id/M/MB/MBRADSHAW/Mail-SPF-${pkgver}.tar.gz")
-sha256sums=('dd348caaf4947ec5013f79cc66ae99b92b38b8723619efbe36760e12cb221430')
+source=("https://search.cpan.org/CPAN/authors/id/A/AD/ADAVIS/Mail-SPF-${pkgver}.tar.gz")
+sha256sums=('9ac60d00b957e849bafe90a8defdeee2e5ffab1c87ac5a4abc452875e9904863')
 
 build() {
   cd Mail-SPF-${pkgver}
