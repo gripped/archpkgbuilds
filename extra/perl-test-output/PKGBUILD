@@ -1,7 +1,7 @@
 # Maintainer: Sébastien Luttringer
 
 pkgname=perl-test-output
-pkgver=1.035
+pkgver=1.036
 pkgrel=1
 pkgdesc='Utilities to test STDOUT and STDERR messages'
 arch=('any')
@@ -14,7 +14,7 @@ depends=('perl-sub-exporter'
 url='https://search.cpan.org/dist/Test-Output'
 options=('!emptydirs')
 source=("https://search.cpan.org/CPAN/authors/id/B/BR/BRIANDFOY/Test-Output-$pkgver.tar.gz")
-sha512sums=('dcd251d0ba26663b36dc23d52e0e36fa039e97655bcb489ccf61c3dd7fad6b5ed4a38a35db45b02193b541c1b4b1149d8f19eceac3ddfe0784dc87fb33727188')
+sha512sums=('b0ede8079146644bac23f772c8f842e0b9b518817327d0d3583b7a04233a6c545137ce85246d24fbe19ee627894c8d3f7d8158e3708f324a5c2c2a13ed1cc0ca')
 
 build() {
   cd Test-Output-$pkgver
