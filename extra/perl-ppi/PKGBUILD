@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=perl-ppi
-pkgver=1.281
+pkgver=1.283
 pkgrel=1
 pkgdesc="Parse, Analyze and Manipulate Perl (without perl)"
 arch=('any')
@@ -12,7 +12,7 @@ makedepends=('perl-class-inspector' 'perl-file-remove' 'perl-test-deep' 'perl-te
              'perl-test-subcalls')
 options=('!emptydirs')
 source=("https://cpan.metacpan.org/authors/id/M/MI/MITHALDU/PPI-$pkgver.tar.gz")
-sha512sums=('feabf11a55ba42cf08fc5ca6606d6ac412a68ca6ba71246cf9ebc824f03ac9ee6880e3fb0d84146576b462da80e5d56ec8de297618c089e75589f05b4f3b939e')
+sha512sums=('97f108567f1351afc871d824d38f003ab2e7542493ec7debd93685c792a92a504dc961796a03492ec8cb7a85f3ffd3b3d460fd88d2865d8bb9f834470107651a')
 
 build() {
   cd PPI-$pkgver
