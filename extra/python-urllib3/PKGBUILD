@@ -6,7 +6,7 @@
 
 _name=urllib3
 pkgname=python-urllib3
-pkgver=2.4.0
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="HTTP library with thread-safe connection pooling and file post support"
 arch=("any")
@@ -50,7 +50,7 @@ source=(
   "$url/archive/$pkgver/$pkgname-$pkgver.tar.gz"
   "https://github.com/urllib3/hypercorn/archive/$_urllib3_hypercorn_commit/hypercorn-$_urllib3_hypercorn_commit.tar.gz"
 )
-sha512sums=('78afd6daea5594381783cae2cc3efbfcc89455da7f86994a17bd86c3c840d2e304fd3b744e8c0789cbbe6704502ef03a1bbaaadd2b1713b084adb250cfdffb9f'
+sha512sums=('492ebb3e0481ee5433f45bef184ddb01714dedcbe2eb61665c781f3dcd0d9a226204052d64215c02e8972155560bc146395022723f79c076cb59abe1c0ef51ff'
             '62d6787d88a2e716f0ac04fc49f6cdc586e473a660ee754ff66961922ae78bcc75d1f78b091e78557dd60f006e8e480114738c7b4ff71beac804e4fc9603240b')
 
 build() {
