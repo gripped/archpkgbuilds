@@ -1,17 +1,27 @@
 pkgbase = ruby-ffi
 	pkgdesc = Ruby FFI
 	pkgver = 1.17.1
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/ffi/ffi
 	arch = x86_64
 	license = BSD-3-Clause
 	license = MIT
+	checkdepends = ruby-bigdecimal
+	makedepends = git
+	makedepends = ruby-bundler
+	makedepends = ruby-rake
+	makedepends = ruby-rake-compiler
 	makedepends = ruby-rdoc
+	makedepends = ruby-rspec
+	depends = glibc
+	depends = libffi
 	depends = ruby
-	noextract = ffi-1.17.1.gem
 	options = !emptydirs
-	source = https://rubygems.org/downloads/ffi-1.17.1.gem
-	sha512sums = b467ef8bcd0f3877705b352502489d4918113fed741a44e1e954bfa921a6b5620730829e677c739c356473e8b4d4c7a57e302439b06d06bf46e36c09b17b78f7
-	b2sums = 2d96b4bc2a4e46e4de6b13ad20bec05f33f8651c4d8fc91bf927459e65526f514395242cdabbeede370c5132e27119d345579ebf38a20df0f7554608940fc067
+	source = ruby-ffi::git+https://github.com/ffi/ffi#tag=v1.17.1
+	source = github.com-libffi-libffi::git+https://github.com/libffi/libffi
+	sha512sums = 1df58ff0354e46cff0951a7ef0179aa76d1d715d6c0fbe3f8a898b6d5f1e8ab732725db56f37d12c3ba7782228507f938c859109291ac777a0763df1fd42b498
+	sha512sums = SKIP
+	b2sums = e80602970fce51a32070e8fbc20313656c6bac3730d2272244f80af811185da76ac876a2354626cbc000da68bae81ea83a89732ff239bfd759b2b6cb55a89e0b
+	b2sums = SKIP
 
 pkgname = ruby-ffi
