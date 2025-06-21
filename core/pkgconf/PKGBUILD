@@ -5,7 +5,7 @@
 # Contributor: Bartlomiej Piotrowski <nospam@bpiotrowski.pl>
 
 pkgname=pkgconf
-pkgver=2.4.3
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="Package compiler and linker metadata toolkit"
 url="https://github.com/pkgconf/pkgconf"
@@ -29,7 +29,7 @@ source=(
   "git+$url#tag=pkgconf-$pkgver"
   {x86_64,i686}-pc-linux-gnu.personality
 )
-b2sums=('54fb510c563818199f1a5161cf5a2ba0fba70b09f4288a31ece936cf42197f5ee9cf2021733a927ae778a9bb1fa3dfbfbcba898826266c01b45b3f3154699db6'
+b2sums=('d092bc06c88f1d7bbbc565b929c3f43d4c566733de16055b955bbc9efa31c19096949c572cfaf0e1ac984bb1a03a3867d52794385a021358406a1bd1cab206a0'
         'c04583e19149c1035cb7777a59f0fbc4988b672d8e45105e33def3d0f9054464e33a400a3e7c7e8b99b334e4fe06aaa9d7e34662e806096d4374bd6b12d803db'
         '94c8fd12b5f33611fd6dbeae03b20e72bcf2937e764766e2633b2fd4c14925860d57eee234016c81b0563a47b112ac9ef4a8b3bb9fa3fc0dd266f355bc156c58')
 
