@@ -9,7 +9,7 @@ pkgname=(
   udisks2-docs
 )
 pkgver=2.10.1
-pkgrel=5
+pkgrel=6
 pkgdesc="Daemon, tools and libraries to access and manipulate disks, storage devices and technologies"
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/udisks/"
@@ -59,6 +59,7 @@ _pick() {
 
 prepare() {
   cd udisks
+  git cherry-pick -n 5e7277debea926370e587408517560afe87d28c9  # Mount private mounts with 'nodev,nosuid'
   NOCONFIGURE=1 ./autogen.sh
 }
 
