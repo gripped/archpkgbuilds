@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=harper
-pkgver=0.43.0
+pkgver=0.44.0
 pkgrel=1
 pkgdesc="The Grammar Checker for Developers"
 url='https://github.com/elijah-potter/harper'
@@ -16,8 +16,8 @@ makedepends=(
 )
 options=(!lto)
 source=(https://github.com/elijah-potter/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('c49eefa86b96295ba033c1ab4324d195df26f3caec48ca885003a86ce64dcb63')
-b2sums=('4c2ee8d9873f48291ca586a3cecc6eedfcc5e65cd30bc08d69c49f3c6a54adfbc914cb76f6855a46b07ac8a6c26bd269960f13d08f8761ab0b80b58fd9453abb')
+sha256sums=('bb5bb86ded921a63629d3db2731282fe1cdfc755bdb6c88a9e6d006970bbdf84')
+b2sums=('b8ec499f817ebb37ff61737df9cbc83501dc51339c87e88924716cc8e98020c0ad445e2f7b58dd4cdb83f09e2bd94111ce22f8cb1f07eee30cdde11e7e8dc7b4')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
