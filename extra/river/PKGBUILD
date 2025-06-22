@@ -2,7 +2,7 @@
 # Contributor: Andrea Feletto <andrea@andreafeletto.com>
 
 pkgname=river
-pkgver=0.3.9
+pkgver=0.3.10
 pkgrel=1
 pkgdesc='A dynamic tiling wayland compositor'
 arch=('x86_64')
@@ -16,23 +16,31 @@ depends=('glibc'
          'pixman'
          'sh'
          'wayland'
-         'wlroots0.18'
+         'wlroots0.19'
          'xorg-xwayland')
 makedepends=('git'
              'scdoc'
              'wayland-protocols'
              'zig')
 optdepends=('polkit: access seat through systemd-logind')
-source=(  git+https://codeberg.org/river/river.git#tag=v${pkgver}?signed)
+source=(git+https://codeberg.org/river/river.git#tag=v${pkgver}?signed)
+# PACKAGING.md -> build.zig.zon
+source+=(zig-pixman-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-pixman/archive/v0.3.0.tar.gz
+         zig-wayland-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.3.0.tar.gz
+         zig-wlroots-v0.19.1.tar.gz::https://codeberg.org/ifreund/zig-wlroots/archive/v0.19.1.tar.gz
+         zig-xkbcommon-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.3.0.tar.gz)
+noextract=("${source[@]:1}")
 validpgpkeys=('5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11') # Isaac Freund <mail@isaacfreund.com>
-sha256sums=('65a381b74bd537c280fbae2ea46b6a4a5664d561d21310a9f0e9c7df0db8bf01')
-
+sha256sums=('8b91a92ebb9b514e8c064d5b892098c7cc134eb6b923a89af40128e7a84022e5'
+            'cd7fe3415d4d58685a94fdedd308e9994a37f012828940cfb603461de7f2c6ad'
+            'c54f08ac44d214e28a410320c15c9128bc0669e93851268a5e0e3d4bda074934'
+            '7fc82dc672adbb5c59721887d96d07720264cb0d60ee0ae50db2f066b19e541e'
+            '1e185423e6b23ed9729614e66751ab7522db4487df4e0dcc7a2b06375aacda23')
 prepare() {
-    # PACKAGING.md -> build.zig.zon
-    zig fetch --global-cache-dir ./zig-global-cache https://codeberg.org/ifreund/zig-pixman/archive/v0.3.0.tar.gz
-    zig fetch --global-cache-dir ./zig-global-cache https://codeberg.org/ifreund/zig-wayland/archive/v0.3.0.tar.gz
-    zig fetch --global-cache-dir ./zig-global-cache https://codeberg.org/ifreund/zig-wlroots/archive/v0.18.2.tar.gz
-    zig fetch --global-cache-dir ./zig-global-cache https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.3.0.tar.gz
+    zig fetch --global-cache-dir ./zig-global-cache "./${source[1]%%::*}"
+    zig fetch --global-cache-dir ./zig-global-cache "./${source[2]%%::*}"
+    zig fetch --global-cache-dir ./zig-global-cache "./${source[3]%%::*}"
+    zig fetch --global-cache-dir ./zig-global-cache "./${source[4]%%::*}"
 }
 
 build() {
