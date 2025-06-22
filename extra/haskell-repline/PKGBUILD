@@ -2,8 +2,8 @@
 
 _hkgname=repline
 pkgname=haskell-repline
-pkgver=0.4.2.0
-pkgrel=3
+pkgver=0.4.3.0
+pkgrel=1
 pkgdesc="Haskeline wrapper for GHCi-like REPL interfaces"
 url="https://github.com/sdiehl/repline"
 license=('MIT')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('058792cdc7b8efdd332188d2be02af8b29507bc60012dafc64c090921e88a86b00ac3683142a0862f8d890b2536f5232dc1d7103cbcce256fa21e5ca4377b74b')
+sha512sums=('925e19f463812aff71e4247d2150b8852e59422b789901694504b7760e11446be30420220c1a30f114d9ed944f8fdf164a03b146a2065586a7add8307807ae69')
 
 build() {
     cd $_hkgname-$pkgver
