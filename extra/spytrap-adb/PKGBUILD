@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=spytrap-adb
-pkgver=0.3.4
+pkgver=0.3.5
 pkgrel=1
 pkgdesc="Test a phone for stalkerware using adb and usb debugging to scan for suspicious apps and configuration"
 url='https://github.com/spytrap-org/spytrap-adb'
@@ -17,8 +17,8 @@ makedepends=(
 )
 options=(!lto)
 source=(https://github.com/spytrap-org/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('8553beb5c403f3cbcf7b5e7ded052e4b31efe8e798ec81e2bcc16aba315f5429')
-b2sums=('dc75536e46db9ebaffe5c8d77d45b01d95a18160385d43dfe0aaf7357b310cd5f702fad7e7cba613c4d1f359370cc811f94a567753950902a2bb8f2a09c4fa00')
+sha256sums=('e33a342aa461b56a8d857c2c29b743658bd87b4ade7bed20399dea2cea01b0f8')
+b2sums=('56b349c307bd42beba9db28ab3cedb9e98f9d535f465bb38ebdb6d2953e93c5a6f1902bdc22d1f3a98a4c3f4567be8bdb77f683cc6c387f7c5a557afb651be4b')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
