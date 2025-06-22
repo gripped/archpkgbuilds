@@ -1,18 +1,22 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Sirat18 <aur@sirat18.de>
 # Contributor: Paolo Giangrandi <peoro.noob@gmail.com>
 
 pkgname=impacket
 pkgver=0.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Collection of classes for working with network protocols'
 url='https://github.com/CoreSecurity/impacket'
 arch=(any)
 license=(Apache-2.0)
 depends=(
   python
+  python-charset-normalizer
+  python-dnspython
   python-flask
   python-ldap3
+  python-ldapdomaindump
   python-pcapy
   python-pyasn1
   python-pyasn1-modules
@@ -20,7 +24,6 @@ depends=(
   python-pycryptodomex
   python-pyopenssl
   python-setuptools  # https://github.com/fortra/impacket/issues/885#issuecomment-1197218746
-  python-charset-normalizer
   python-six
 )
 makedepends=(
@@ -32,8 +35,7 @@ checkdepends=(
   python-cryptography
   python-pytest
 )
-source=(https://github.com/CoreSecurity/impacket/archive/impacket_${pkgver//./_}.tar.gz)
-sha256sums=('1c41951a29c03a03ff749ad68caa0f050072873850c09d7a7f1bca75c41fd66c')
+source=("${url}/archive/impacket_${pkgver//./_}.tar.gz")
 sha512sums=('3d30209f6ef73dd002fb5619af3366cc403c9a3d8ce7bc47b88f33facb1bc752266c148c8c7389fbd5720a10adf60f0d90334c33687a49a7d9a8051987648e63')
 
 build() {
@@ -52,7 +54,7 @@ check() {
 package() {
   cd ${pkgname}-${pkgname}_${pkgver//./_}
   python -m installer --destdir="${pkgdir}" dist/*.whl
-  install -Dm 644 ChangeLog.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -vDm 644 ChangeLog.md -t "${pkgdir}/usr/share/doc/${pkgname}"
   local PYTHONVERSION="$(python -c 'import sys; print("{}.{}".format(sys.version_info.major, sys.version_info.minor))')"
   ln -s "/usr/lib/python${PYTHONVERSION}/site-packages/impacket/examples" "${pkgdir}/usr/share/doc/${pkgname}/examples"
 }
