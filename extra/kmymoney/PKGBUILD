@@ -7,26 +7,28 @@
 
 pkgname=kmymoney
 pkgver=5.2.0
-pkgrel=1
+pkgrel=3
 pkgdesc="Personal finance manager for KDE which operates similarly to MS-Money or Quicken"
 arch=('x86_64')
 url="https://kmymoney.org/"
 license=('GPL')
-depends=('aqbanking' 'gwenhywfar' 'libalkimia' 'sqlcipher' 'qt6-base' 'gpgmepp' 'karchive'
+depends=('glibc' 'gcc-libs' 'gmp' 'libalkimia' 'sqlcipher' 'qt6-base' 'qt6-5compat' 'gpgmepp' 'karchive'
          'kcoreaddons' 'kconfig' 'kwidgetsaddons' 'ki18n' 'kcompletion' 'kcmutils' 'kitemmodels'
-         'kitemviews' 'kxmlgui' 'ktextwidgets' 'kio' 'kholidays'
-         'kdiagram' 'libical' 'shared-mime-info' 'libofx' 'qtkeychain-qt6')
-makedepends=('extra-cmake-modules' 'kdoctools' 'doxygen')
+         'kitemviews' 'kxmlgui' 'ktextwidgets' 'kio' 'kholidays' 'kjobwidgets' 'sonnet'
+         'kcolorscheme' 'kconfigwidgets' 'kdiagram' 'libical' 'libofx' 'qtkeychain-qt6'
+         'kidentitymanagement' 'libakonadi' 'kcontacts') # 'aqbanking' 'gwenhywfar' - not ported to Qt6 yet
+makedepends=('extra-cmake-modules' 'kdoctools' 'doxygen' 'qgpgme')
 optdepends=('perl: for financequote.pl')
 changelog=$pkgname.changelog
-source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig}
+        identitymanagement.patch)
 validpgpkeys=('D69A745A55331F44F404D8258D4DE062AA2EB01C')
-sha256sums=('c99d83c0a33efcebcb81196890b5c6e4366fc285840d136e13e622fbad4e9876'
-            'SKIP')
+sha256sums=('f308b0a2297f22f43d9bbe46b4c7dc6aac08bd594454e635a844d06abda4d33c'
+            'SKIP'
+            'a92ed7427764bbff9e043b45a38280a1e752ef70413605d34957acb3caaa9761')
 
 prepare() {
-# it docs fail to build
-  rm -r $pkgname-$pkgver/po/it/docs
+  patch -d $pkgname-$pkgver -p1 < identitymanagement.patch
 }
 
 build() {
