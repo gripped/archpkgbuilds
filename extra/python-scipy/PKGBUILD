@@ -8,7 +8,7 @@
 
 _name=scipy
 pkgname=python-scipy
-pkgver=1.15.3
+pkgver=1.16.0
 pkgrel=1
 pkgdesc='Open-source software for mathematics, science, and engineering'
 arch=(x86_64)
@@ -41,7 +41,7 @@ source=(git+https://github.com/scipy/scipy#tag=v$pkgver
         git+https://github.com/cobyqa/cobyqa
         git+https://github.com/scipy/pocketfft
         git+https://github.com/scipy/unuran)
-sha256sums=('2408d7751503fdc805f50a06a6529b1cee4bebb7fc1349a21e44c2ac82cdea94'
+sha256sums=('f8e44d6b774cc6f9306be5699e40dbb9250cc09deabd414980e605767652c78a'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -53,7 +53,7 @@ prepare() {
   cd $_name
   git submodule init
   git submodule set-url scipy/_lib/array_api_compat "$srcdir"/array-api-compat
-  git submodule set-url scipy/_lib/boost_math "$srcdir"/math
+  git submodule set-url subprojects/boost_math/math "$srcdir"/math
   git submodule set-url scipy/_lib/cobyqa "$srcdir"/cobyqa
   git submodule set-url scipy/_lib/pocketfft "$srcdir"/pocketfft
   git submodule set-url scipy/_lib/unuran "$srcdir"/unuran
