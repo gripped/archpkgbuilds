@@ -2,7 +2,7 @@
 
 pkgname=ktimetracker
 pkgver=6.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Todo management and time tracker'
 url='https://apps.kde.org/ktimetracker/'
 license=(GPL-2.0-or-later)
@@ -28,17 +28,16 @@ depends=(gcc-libs
          qt6-5compat
          qt6-base)
 makedepends=(extra-cmake-modules
-             git
              kdoctools)
-#source=(https://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-source=(git+https://invent.kde.org/pim/ktimetracker#tag=v$pkgver)
-sha256sums=('0b971117077db320e5a66359385bda9534b336184f3d6277f3e3645b4d46f215')
-validpgpkeys=(D7A4AE3E9A5A18C98F36477DC7AF5D57818E49C3) # Alexander Potashev <aspotashev@gmail.com>
+source=(https://download.kde.org/unstable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('50597e689f08efdaa79439a0aa9886ce47aaddb5a6018a57ffeea6cb7f666e69'
+            'SKIP')
+validpgpkeys=(D7A4AE3E9A5A18C98F36477DC7AF5D57818E49C3  # Alexander Potashev <aspotashev@gmail.com>
+              82F66DFD203000800F830A48CA1824A774CDA188) # Thiago Sueto <herzenschein@gmail.com>
 
 build() {
-  cmake -B build -S $pkgname \
-    -DBUILD_TESTING=OFF \
-    -DCMAKE_BUILD_TYPE=None
+  cmake -B build -S $pkgname-$pkgver \
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
