@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=yamlfmt
-pkgver=0.17.0
+pkgver=0.17.1
 pkgrel=1
 pkgdesc='An extensible command line tool or library to format yaml files.'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('glibc')
 makedepends=('go')
 options=('!lto')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha512sums=('b62f74f565a3a87bf080750fe2f1c3eeb5a4f31cd11b5db969e44bb9acb60234ec3198a36bd7c7edc9066c31012c26cddc7ceb28e5f544b01a954f6164ef1f46')
+sha512sums=('e54ecd42c74df8da0ffcf16b71f4b629bffcd2a6b6c845a13d11c2b77c2159bbeb15007c562d43c4668ed5ef4196efbeb42aa78ad48f83cfdf1baf97e6705929')
 
 prepare() {
   cd ${pkgname}-${pkgver}
