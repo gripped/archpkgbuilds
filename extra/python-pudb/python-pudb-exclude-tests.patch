@@ -1,0 +1,15 @@
+diff --unified --recursive --text --new-file pudb-2025.1.orig/pyproject.toml pudb-2025.1/pyproject.toml
+--- pudb-2025.1.orig/pyproject.toml	2025-06-17 09:18:32.286880130 +0200
++++ pudb-2025.1/pyproject.toml	2025-06-17 09:18:51.961850384 +0200
+@@ -61,6 +61,11 @@
+     "/examples",
+ ]
+ 
++[tool.hatch.build]
++exclude = [
++    "pudb/test/**",
++]
++
+ [tool.ruff]
+ preview = true
+ 
