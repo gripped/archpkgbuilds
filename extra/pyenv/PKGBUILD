@@ -2,8 +2,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=pyenv
-pkgver=2.6.2
-pkgrel=1
+pkgver=2.6.3
+pkgrel=2
 epoch=1
 pkgdesc="Easily switch between multiple versions of Python"
 arch=(any)
@@ -11,9 +11,14 @@ url="https://github.com/pyenv/pyenv"
 license=(MIT)
 depends=(bash)
 optdepends=('git: installing development versions')
-source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('d93bb3f463c49f7bd01afc70a096183bda76f63dc21bddd526bb2219a85e9bac20a6fa0c47f0ddf5d5a3f1099726edb191d561f75636305e5bcc125cdb893cc8')
-b2sums=('ddfa1f8283a03c9ac851a2918bff6f2deae44cb03f940f37846e4209c9c92a7090f210bedacb4320114a94673d9e3dd09cb74a7fa94f41598d5cd1a3943ceabf')
+source=(
+  "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+  "pyenv.zsh"
+)
+sha512sums=('98402520767326701f6591363b709448995b7d9b17fcf41f540a3cf14618c19bbddb7044c447c59173437eaaae901a533818edf7d3b87fa5504a12c8e17a669c'
+            '0db4e464d3f79a3402fca8457ef5fe66078c360596c8d899f1fe2759700171299100421ebcaa12ab6a96ec4c4450fa9245879f3d0058632b10c8acff2ceeb106')
+b2sums=('a02431642fa385c197cdfb7ab6bfdf05c992c0043bffdeb1106daf8b8bef4a143e13c58e08336ab4be43093a0477544df3b7208e33c3ec7f28b882c196bfd147'
+        '853a2e62a3d1c1963bf32e297a086d74e3142784f32b16df0738e5694587719954e868744d66e4a265aa6197a1fa1ae74b0b1300bda5b924feb6854bcb1f4aaf')
 
 package() {
   cd $pkgname-$pkgver
@@ -46,4 +51,7 @@ package() {
   # docs
   install -vDm 644 {CHANGELOG,COMMANDS,README}.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -vDm 644 plugins/python-build/README.md "$pkgdir/usr/share/doc/$pkgname/README-python-build.md"
+  # Fix zsh-completion. See:
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/pyenv/-/issues/1
+  install -vDm644 ../pyenv.zsh "$pkgdir/usr/share/zsh/site-functions/_pyenv"
 }
