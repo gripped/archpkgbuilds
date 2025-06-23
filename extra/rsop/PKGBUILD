@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=rsop
-pkgver=0.7.0
+pkgver=0.7.1
 pkgrel=1
 pkgdesc="Stateless OpenPGP (SOP) based on rpgp"
 arch=(x86_64)
@@ -21,8 +21,8 @@ makedepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/$pkgname/v$pkgver.tar.gz
 )
-sha512sums=('1fdad63d8c28bbbc5674ebc4987a1fa048c76811af1b3e6dc265d2951b1d783d7c493cf889554939bda952972d4b7dddc1304297c93f6cca3107e4fa4e199865')
-b2sums=('a5a76619efe1ea61983762f2d8a5553ed09697a58fd07eeb88ca2e959b90e55fc109b3586dc42952b9cf86b5e8b150507665fe4e63e21a9f7014bf61795c5b28')
+sha512sums=('51f4305b06700549212d71d0b0ba10314b1bda0b97c8504c2336571b97473b451f84ab96b20d4b684418a254c739b3d881f72cf5e00139428cde9efa2f46f290')
+b2sums=('022203578944f53cb83fa066c6377de2611d45494fc2478159f21cf966ab22f052ab58c07874fbfa9946824b347c0bc2f805a55931271e90ab965e07d30539f6')
 
 prepare() {
   cd $pkgname
