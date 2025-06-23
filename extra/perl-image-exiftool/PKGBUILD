@@ -6,16 +6,19 @@
 
 pkgname=perl-image-exiftool
 pkgver=13.30
-pkgrel=1
+pkgrel=2
 pkgdesc="Reader and rewriter of EXIF information that supports raw files"
 arch=('any')
 url="https://exiftool.org/"
-license=('GPL')
+license=('Artistic-1.0-Perl OR GPL-3.0-or-later')
 makedepends=('git')
 depends=('perl')
 optdepends=('perl-archive-zip: Support for zip files, including epub'
             'perl-io-compress-brotli: Support for brotli-compressed metadata')
-provides=("perl-exiftool=${pkgver}")
+provides=(
+  exiftool
+  "perl-exiftool=${pkgver}"
+)
 replaces=("perl-exiftool")
 options=('!emptydirs')
 source=("git+https://github.com/exiftool/exiftool.git#tag=${pkgver}")
