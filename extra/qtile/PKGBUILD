@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=qtile
-pkgver=0.31.0
+pkgver=0.32.0
 pkgrel=1
 pkgdesc="A full-featured, pure-Python tiling window manager"
 arch=(x86_64)
@@ -47,6 +47,7 @@ checkdepends=(
   xorg-server-xvfb
   xorg-xrandr
   xorg-xwayland
+  xterm
 )
 optdepends=(
   'alsa-utils: for volume widget'
@@ -74,8 +75,8 @@ optdepends=(
 )
 install=$pkgname.install
 source=("git+$_url?signed#tag=v$pkgver")
-sha512sums=('981ab1f7475f854b1f776743267358e36c895b9f32fbca059cbb5909a11742159a81f86135c8dbca63202cafdeeab5cab24deac8d96706ba854baeb9898e98e7')
-b2sums=('6f6801917be9de95172c643ea41d30ae0940185c405dbf7291128345bfe538df07a6b060214d82a76abb93576feaa3fe0bf835e41ad6d427906f48765b0a5fc1')
+sha512sums=('fdbd2a14b54bfa8bfef3a1382ea4523afc0d8a911feddac7ba205a211ef2655963ebe0f6e7a34ae1f5bcd26b86cb66dc66eb403481a64926f6343d1734a7b076')
+b2sums=('6d18e55c07a81076bfb234815254a0e1610ec79285c8a3ff2c19a7ec7a3fd2698d0067deb07b53bef60977ddef63437f0bc6cbea7a3dedc991b46ec2450a3460')
 validpgpkeys=(
   '3CCAB226289DE0160C61BDB418D18F1BC464DCA3' # Tycho Andersen <tycho@tycho.pizza>
   '35D92E7CC7357A81173EA1C974F9FDD20984FBEC' # Matt Colligan <mcol@posteo.net>
@@ -105,21 +106,18 @@ check() {
     -vv
     --backend x11
     --backend wayland
-    # disable failing tests: https://github.com/qtile/qtile/issues/4762
-    --deselect test/backend/x11/test_window.py::test_urgent_hook_fire[wayland-2]
-    --deselect test/widgets/test_clock.py::test_clock_datetime_timezone
-    --deselect test/widgets/test_clock.py::test_clock_pytz_timezone
-    --deselect test/widgets/test_clock.py::test_clock_dateutil_timezone
-    --deselect test/widgets/test_clock.py::test_clock_change_timezones
-
+    # disable failing tests: https://github.com/qtile/qtile/issues/5283
+    --deselect 'test/widgets/test_vertical_clock.py::test_vclock_default[1-x11]'
+    --deselect 'test/widgets/test_vertical_clock.py::test_vclock_extra_lines[1-x11-vclock_manager0]'
   )
   local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
   cd $pkgname
   # install to temporary location, as importlib is used
   python -m installer --destdir=test_dir dist/*.whl
-  export LC_TYPE=en_US.UTF-8
-  export PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH"
+  LC_TYPE=en_US.UTF-8 \
+  PYTHONPATH="$PWD/test_dir/$_site_packages:$PYTHONPATH" \
+  PATH="$PWD/test_dir/usr/bin:$PATH" \
   pytest "${pytest_options[@]}"
 }
 
@@ -127,6 +125,7 @@ package() {
   depends+=(
     wlroots0.17 libwlroots.so
   )
+
   cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
   # license
