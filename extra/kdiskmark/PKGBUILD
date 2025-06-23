@@ -4,33 +4,35 @@
 
 arch=('x86_64')
 _pkgname=KDiskMark
-_singleapplication_commit=f1e1508
 pkgname=kdiskmark
-pkgver=3.1.4
-pkgrel=2
+pkgver=3.2.0
+pkgrel=1
 pkgdesc="HDD and SSD benchmark tool with a very friendly graphical user interface"
 url="https://github.com/JonMagon/${_pkgname}"
 license=(GPL-3.0-or-later)
-depends=(qt5-base fio libaio hicolor-icon-theme glibc gcc-libs polkit-qt5)
-makedepends=(git cmake extra-cmake-modules qt5-tools)
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/JonMagon/${_pkgname}/archive/${pkgver}.tar.gz"
-        "git+https://github.com/itay-grudev/SingleApplication.git#commit=${_singleapplication_commit}")
-sha256sums=('f66ddefe2c7c2eaf07869d75c437df14565dd06bcb914d89aead002f3b9c1da5'
+depends=(qt6-base fio libaio hicolor-icon-theme glibc gcc-libs polkit-qt6)
+makedepends=(git cmake extra-cmake-modules qt6-tools qt6-declarative clang)
+source=("git+https://github.com/JonMagon/${_pkgname}#tag=$pkgver"
+        "git+https://github.com/itay-grudev/SingleApplication.git")
+sha256sums=('c4182293e1612fe42bb2cb58d6b3d0fdc7302388820ae420543c8b90df177c8e'
             'SKIP')
 
-
 prepare() {
-    cd "${_pkgname}-${pkgver}"
-    rmdir "src/singleapplication"
-    mv "$srcdir/SingleApplication" "src/singleapplication"
+  cd "${_pkgname}"
+
+  git submodule init
+
+  git config submodule."src/singleapplication".url "${srcdir}/SingleApplication"
+
+  git -c protocol.file.allow=always submodule update
 }
 
 build() {
-    cmake -B build -S "${_pkgname}-${pkgver}" \
-        -DCMAKE_INSTALL_PREFIX='/usr' \
-        -DCMAKE_INSTALL_LIBEXECDIR='lib' \
-        -Wno-dev
-    make -C build
+  cmake -B build -S "${_pkgname}" \
+    -DCMAKE_INSTALL_PREFIX='/usr' \
+    -DCMAKE_INSTALL_LIBEXECDIR='lib' \
+    -Wno-dev
+  make -C build
 }
 
 package() {
