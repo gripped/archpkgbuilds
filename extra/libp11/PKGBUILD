@@ -5,7 +5,7 @@
 # Contributor: Rene Pärts <rene87@hot.ee>
 
 pkgname=libp11
-pkgver=0.4.15
+pkgver=0.4.16
 pkgrel=1
 pkgdesc="A library implementing a small layer on top of the PKCS11 API"
 arch=('x86_64')
@@ -13,7 +13,7 @@ url="https://github.com/OpenSC/libp11/wiki"
 license=('LGPL-2.1-or-later')
 depends=('openssl')
 source=("https://github.com/OpenSC/${pkgname}/releases/download/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.gz"{,.asc})
-sha256sums=('4867d9048f984a08e218f9946526b4dc70bc3921793f7b26685f8e00b1146a08'
+sha256sums=('97777640492fa9e5831497e5892e291dfbf39a7b119d9cb6abb3ec8c56d17553'
             'SKIP')
 validpgpkeys=('AC915EA30645D9D3D4DAE4FEB1048932DD3AAAA3')
 
