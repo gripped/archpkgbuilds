@@ -1,15 +1,17 @@
 pkgbase = opensmtpd-filter-dkimsign
 	pkgdesc = OpenSMTPD filter for signing mail with DKIM
 	pkgver = 0.6
-	pkgrel = 4
-	url = https://imperialat.at/dev/filter-dkimsign/
+	pkgrel = 5
+	url = https://src.imperialat.at/?action=summary&path=filter-dkimsign
 	arch = x86_64
-	license = BSD
+	license = ISC
+	makedepends = git
 	makedepends = gzip
 	makedepends = mandoc
+	depends = glibc
 	depends = libopensmtpd
 	depends = openssl
-	source = https://src.imperialat.at/releases/filter-dkimsign-0.6.tar.gz
-	sha512sums = 723b86f7acbe55d1a1e12f630c562e9c621adb34c5eb3ee7709fd18cef03b916b5035cc338f4b641c26cc1fc56f1e14cf02e47734e4fb22a08fcf23b3dcdde1e
+	source = git+ssh://anonymous@src.imperialat.at/filter-dkimsign#tag=v0.6
+	sha512sums = b92ceec6abc756a39fb3a8da4643d7122ad264f108e8bbdb6cf26624d485e9b8fffbeed33a76d0163f9d9ec37cd141bdaf89152375446cbc5f59ecdeb53aaf18
 
 pkgname = opensmtpd-filter-dkimsign
