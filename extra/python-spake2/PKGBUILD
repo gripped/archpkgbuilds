@@ -2,17 +2,17 @@
 # Contributor: Storm Dragon <stormdragon2976@gmail.com>
 
 pkgname=python-spake2
-pkgver=0.8
-pkgrel=13
+pkgver=0.9
+pkgrel=1
 pkgdesc="Pure-python implementation of the SPAKE2 Password-Authenticated Key"
 arch=('any')
 url="https://github.com/warner/python-spake2"
 license=('MIT')
-depends=('python' 'python-hkdf')
+depends=('python' 'python-hkdf' 'python-cryptography')
 makedepends=('python-setuptools' 'python-versioneer')
 checkdepends=('python-pytest')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/warner/python-spake2/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('908c377c831f4a11551973ca917b113d51a66c533d35fd19b2692fdb7e575ed2a5045d9b632bc55c37b68ad092f01dff5da191e9dfbfb5599b72844788438d68')
+sha512sums=('557b17b8e28214b9c2cd0362c991ac0f61996812fd747e66397c48fdbbb314eb4e9acba9670ca41d0924f4b688931f2b32a7e9ba947ee1db3df00e9e9670d497')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
