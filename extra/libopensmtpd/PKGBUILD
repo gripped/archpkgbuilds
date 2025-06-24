@@ -3,23 +3,23 @@
 
 pkgname=libopensmtpd
 pkgver=1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for creating OpenSMTPD filters"
-license=(BSD)
-url="https://imperialat.at/dev/libopensmtpd/"
+license=(ISC)
+url="https://src.imperialat.at/?action=summary&path=libopensmtpd"
 arch=(x86_64)
-depends=(libevent)
-makedepends=(gzip mandoc)
-source=(https://src.imperialat.at/releases/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('e42bfcc6ec5c8b54c397c7b8e7200cfb515ac3c1e4f47634b68bebb7600c15c84a47c9d2d89ea6c987ab506fe26e12f29e6c665ccd326ea9f21462760f5a4d18')
+depends=(glibc libevent)
+makedepends=(git gzip mandoc)
+source=(git+ssh://anonymous@src.imperialat.at/$pkgname#tag=v$pkgver)
+sha512sums=('fde042bd4cea0b4fbdc13441d4c33c07e0d03d21e563864b226bda637f2996699211cc15d876e9db7bf36f5d3cd70243d49a07ea13c3ccedc48766d8aebf4e48')
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd $pkgname
   make -f Makefile.gnu
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  make -f Makefile.gnu DESTDIR="${pkgdir}" install
-  install -Dm644 LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+  cd $pkgname
+  make -f Makefile.gnu DESTDIR="$pkgdir" install
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
