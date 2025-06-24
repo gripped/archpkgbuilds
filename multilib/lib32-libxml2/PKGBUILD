@@ -9,7 +9,7 @@ pkgname=(
   lib32-libxml2
 )
 pkgver=2.14.4
-pkgrel=1
+pkgrel=2
 pkgdesc="XML C parser and toolkit (32-bit)"
 url="https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home"
 arch=(x86_64)
@@ -36,6 +36,11 @@ b2sums=('b83cacaa96d747ca4ada13a77c0b41522817c6d42561f119d4d06e9ca074532bc4da2bd
 
 prepare() {
   cd libxml2
+
+  # Backport CMake fixes
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/libxml2/-/issues/5
+  git cherry-pick -n 5700d989cc18889e1601c651ad69a41af8b32073 \
+                     d3e33dc214276498e73b61188be02b2863c9670a
 
   # Use xmlconf from conformance test suite
   ln -s ../xmlconf
