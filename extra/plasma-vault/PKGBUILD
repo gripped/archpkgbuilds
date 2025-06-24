@@ -1,9 +1,9 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma-vault
-pkgver=6.4.0
+pkgver=6.4.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=2
+pkgrel=1
 pkgdesc='Plasma applet and services for creating encrypted vaults'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -31,7 +31,7 @@ depends=(fuse2
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('cdd0edabe1a215c85668c47349f3ac8eed95a461bbd564d67ec8df2170eae76c'
+sha256sums=('6b23ae9a4a76f0c68696d4346b0763b43e524d605c78570db32fd10b8667a76c'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
