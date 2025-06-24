@@ -1,0 +1,50 @@
+pkgname=arch-pkg-repo-updater
+pkgver=0.0.1
+pkgrel=1
+pkgdesc='Arch Linux packaging Git repository updater'
+url='https://gitlab.archlinux.org/archlinux/buildbtw/-/tree/main/arch-pkg-repo-updater'
+arch=(x86_64)
+license=(GPL-3.0-or-later)
+depends=(
+  gcc-libs
+  glibc
+  libgit2
+  openssh
+  openssl
+)
+makedepends=(
+  cargo
+  git
+  sqlite
+)
+options=(!lto)
+source=(buildbtw::"git+https://gitlab.archlinux.org/archlinux/buildbtw.git#tag=${pkgname}/v${pkgver}?signed")
+sha256sums=('5f47c9629d0fb26016cf40f960365b052a68759861b77057786ffa5f0ba52482')
+b2sums=('956cde2f4280404b909788826a5cba88df1dba9155fdba4246bf0bc72f3ba05b8fbd51ddd32a5821741651d72100b08bfdb4ac6a0153b9f8f00b96991eba1201')
+validpgpkeys=(
+  E240B57E2C4630BA768E2F26FC1B547C8D8172C8 # Levente Polyak <anthraxx@archlinux.org>
+  AAE2599CE2DFD58B8E884726B4EFE6DC59FAE118 # Rafael Epplée <raffomania@archlinux.org>
+  8FC15A064950A99DD1BD14DD39E4B877E62EB915 # Sven-Hendrik Haase <svenstaro@archlinux.org>
+)
+
+prepare() {
+  cd buildbtw/${pkgname}
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd buildbtw/${pkgname}
+  cargo build --package ${pkgname} --frozen --release
+}
+
+check() {
+  cd buildbtw/${pkgname}
+  cargo test --package ${pkgname} --frozen
+}
+
+package() {
+  cd buildbtw
+  install -Dm 755 target/release/${pkgname} -t "${pkgdir}/usr/bin"
+}
+
+# vim: ts=2 sw=2 et:
