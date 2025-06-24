@@ -5,8 +5,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=soundconverter
-pkgver=4.0.5
-pkgrel=3
+pkgver=4.1.0
+pkgrel=1
 pkgdesc='A simple sound converter application for GNOME'
 arch=(any)
 license=(GPL3)
@@ -23,7 +23,7 @@ makedepends=(python-{build,installer,wheel}
 #makedepends=(intltool python-distutils-extra)
 _archive="$pkgname-$pkgver"
 source=("https://launchpad.net/soundconverter/trunk/$pkgver/+download/$_archive.tar.gz")
-sha256sums=('79b05a36685ddce5de24f0a23d08e00a014ed89e62971fe94c1d3fb836eb79f3')
+sha256sums=('5ce06ac7113f0ca33b770eb79d6b26416e650a6148db80b06e9a1bfc82b4a81e')
 
 build() {
   cd "$_archive"
