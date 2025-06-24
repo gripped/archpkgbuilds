@@ -4,7 +4,7 @@
 
 pkgname=iniparser
 pkgver=4.2.6
-pkgrel=1
+pkgrel=2
 pkgdesc='A free stand-alone ini file parsing library written in portable ANSI C'
 arch=('x86_64')
 url='https://github.com/ndevilla/iniparser'
@@ -22,7 +22,8 @@ build() {
   cmake \
     "${pkgname}-${pkgver}" \
     -B build \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_STATIC_LIBS=false
   cmake --build build
 }
 
