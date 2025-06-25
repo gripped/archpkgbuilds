@@ -3,12 +3,12 @@
 # Contributor: Christian Krause ("wookietreiber") <christian.krause@mailbox.org>
 
 pkgname=freeorion
-pkgver=0.5.1.rc2.r11.ge291ce1
-pkgrel=2
+pkgver=0.5.1.1
+pkgrel=1
 pkgdesc='A turn-based space empire and galactic conquest game'
 url='https://www.freeorion.org'
 arch=('x86_64')
-license=('GPL2')
+license=('GPL-2.0-only CC-BY-SA-3.0')
 depends=(
   'boost-libs'
   'python'
@@ -24,32 +24,31 @@ makedepends=(
   'cmake'
   'boost'
 )
-_commit=e291ce1075f4c4fc9d07b0d42def4fd7621170ae
 source=(
-  "$pkgname::git+https://github.com/freeorion/freeorion.git#commit=$_commit"
+  "$pkgname::git+https://github.com/freeorion/freeorion.git#tag=v$pkgver"
   'fix-version-string.patch'
 )
-sha512sums=('6fa7154bcf63ca82cfe8c67080ae1082fdf6c879858e8272056983edc434cd20542804a325edacd42d21bb920af52d33a2fa1ca583b2f4d907e880564726aea7'
+sha512sums=('de2bf3b0acc03d03905038f3448f887bdd70fb61ab46312c6a10815493de692dcf9e468c878b3875a619e7d5eb3b5405ad3196d6da606f5acd2c4bc7454678e6'
             'ee322500818e5b55cbcdeb36c89aa7e1f2e8e193bec1c296e133927aa033cb30912544e2d3a22cc9273ad7b63d843d35ea856fae7e6d1644e6db89b9bcda74aa')
-b2sums=('87824d91559997ed63a1af4435555ca0baaf979fd0beee757174981185b73de14518b0b81ece5dc6de2fb280670b13ab8767802ae2c80abbbcfb9db51edb52bc'
+b2sums=('84e20bea9ee8b8a0cc7a19816eb5e8a26bc026edd97e3bf76b17072b5a8aee123cfed3b53d9d92f5639f9510068be3f81c1c0cc5846b77d2c1bccc4399d3905c'
         '93f18116fbd973e5bf62595572bdf744a4bd7225fad1266b7d6c81a76f1344fa4b082053c449041f2643563e27c45f893573f86b90c566d8b2b51f9122a2523c')
 
-pkgver() {
-  cd "$pkgname"
-  git describe --long --abbrev=7 | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
-}
-
 prepare() {
-  cd $pkgname
-  git apply ../fix-version-string.patch
+  cd "$pkgname"
+
+  git apply "$srcdir/fix-version-string.patch"
 }
 
 build() {
-  cmake \
-    -B build \
-    -S "$pkgname" \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release
+  local cmake_options=(
+    -B build
+    -S "$pkgname"
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_INSTALL_PREFIX=/usr
+  )
+
+  cmake "${cmake_options[@]}"
 
   cmake --build build
 }
