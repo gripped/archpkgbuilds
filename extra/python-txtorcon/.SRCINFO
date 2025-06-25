@@ -1,7 +1,7 @@
 pkgbase = python-txtorcon
 	pkgdesc = A Twisted-based Python asynchronous controller library for Tor
-	pkgver = 23.11.0
-	pkgrel = 4
+	pkgver = 24.8.0
+	pkgrel = 1
 	url = https://txtorcon.readthedocs.org/
 	arch = any
 	license = MIT
@@ -9,6 +9,7 @@ pkgbase = python-txtorcon
 	checkdepends = python-pyopenssl
 	checkdepends = lsof
 	makedepends = python-build
+	makedepends = git
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
@@ -18,13 +19,11 @@ pkgbase = python-txtorcon
 	depends = python-idna
 	depends = python-pyopenssl
 	depends = python-service-identity
-	depends = python-six
+	depends = python-geoip
 	depends = python-twisted
 	depends = python-zope-interface
-	source = txtorcon-23.11.0.tar.gz::https://github.com/meejah/txtorcon/releases/download/v23.11.0/txtorcon-23.11.0.tar.gz
-	source = txtorcon-23.11.0.tar.gz.asc::https://github.com/meejah/txtorcon/releases/download/v23.11.0/txtorcon-23.11.0.tar.gz.asc
+	source = txtorcon::git+https://github.com/meejah/txtorcon.git#tag=v24.8.0
 	validpgpkeys = 9D5A2BD5688ECB889DEBCD3FC2602803128069A7
-	sha512sums = abc9776ad6e071a09f13e54c7582b5adab17efc752d485ff7a94baa3e71eb9c093983ceebeebd2218c85ed193bfd0b39dcd11a73d54bd2a28f9d9b2b9149ecd6
-	sha512sums = SKIP
+	sha512sums = 8103ec01c72361b09116b495c3b086ed37831e4fc15e619f882100bd4e547eca7711b35496b06d787a4a76acc561dd53c220a2272b81ac906c3f77ddff004ba2
 
 pkgname = python-txtorcon
