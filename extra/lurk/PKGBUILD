@@ -2,7 +2,7 @@
 # Contributor: Kyle Manna <kyle [at] kylemanna [dot] com>
 
 pkgname=lurk
-pkgver=0.3.9
+pkgver=0.3.10
 pkgrel=1
 pkgdesc="A pretty (simple) alternative to strace"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT' 'Apache-2.0')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('375916bb1ef5e64c99623e09b4f73a7126978688341ab1ec108d87865ed25327b1df196c3137c21d249a488533a00f57e461049ee25fcd13fa3521151c3425c1')
+sha512sums=('dafe023f60767393d7b3514d367b09cbbe9eeee960ad510d4c4d48a2c9e5a5d115b41a4ca443360618c9cce214d5c9f7ae661556a5a352830d4e76ae016fb37d')
 
 prepare() {
   cd "$pkgname-$pkgver"
