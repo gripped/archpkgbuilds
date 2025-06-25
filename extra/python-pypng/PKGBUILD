@@ -2,8 +2,8 @@
 # Contributor: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=python-pypng
-pkgver=0.20231004.0
-pkgrel=5
+pkgver=0.20250521.0
+pkgrel=1
 pkgdesc='Pure Python library for PNG image encoding/decoding'
 arch=('any')
 url='https://gitlab.com/drj11/pypng'
@@ -17,8 +17,8 @@ makedepends=(
   'python-wheel'
 )
 source=("$pkgname::git+$url#tag=pypng-$pkgver")
-sha512sums=('a0209e8e2e6b83eca583518d5ff1083290633ce17adab84616e6f513c98731a3127ecf72dcaa3303297d6c67922ce6425e66e32c9fef3a5d03bc59e9b044a72f')
-b2sums=('e1f5419fbc47f008c42f5ab1c2088c895f129de5e28a9aa8e7de909b04f79a820be5c9efa96ff7dd612e4f1bb5e61ac50044918d03b05b3a3eb1b5daeb013ea4')
+sha512sums=('a9d08a04df69e8cabe9bb968de184f9a3fdf5f2692950019a60ff782b23edd772bd02d9e73c0ec03905affebc0eafe91f282f0b3a38a3697a056e4d962bd96f4')
+b2sums=('237753f8c1b60f32857223d307fcb0dee57e1aadab4dd60175dd497d9462d2bb99d41e8cf76a1a7cc211ca6427f6a8b53c5293ba8444d83bcda827144452606a')
 
 #prepare() {
 #  cd $_pkgname-$_pkgname-$pkgver
