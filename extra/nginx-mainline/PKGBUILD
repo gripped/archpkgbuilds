@@ -16,9 +16,9 @@ pkgname=(
   nginx-mainline-mod-xslt
   nginx-mainline-src
 )
-pkgver=1.27.5
-pkgrel=3
-_tests_commit=17c6a06e7b692351f4af53ca6511b919e9e510b8
+pkgver=1.29.0
+pkgrel=1
+_tests_commit=7f1e88e10dca8e4c135ab9e688df0c2484091125
 arch=(x86_64)
 pkgdesc='Lightweight HTTP server and IMAP/POP3 proxy server, mainline release'
 url='https://nginx.org'
@@ -54,6 +54,7 @@ source=(
   "git+https://github.com/nginx/nginx-tests.git#commit=${_tests_commit}"
   nginx.service
   logrotate
+  perl-io-socket-ssl-2.094-tests-fix.patch
 )
 # https://nginx.org/en/pgp_keys.html
 validpgpkeys=(
@@ -62,13 +63,19 @@ validpgpkeys=(
   'D6786CE303D9A9022998DC6CC8464D549AF75C0A'  # Sergey Kandaurov <s.kandaurov@f5.com>
   '13C82A63B603576156E30A4EA0EA981B66B0D967'  # Konstantin Pavlov <thresh@nginx.com>
 )
-sha512sums=('d4bd037ee39acf950e0605b195e351e244d6ee85960e1676876dfaa4d7ca4306bf1534b0621df882bca5ce1b27ab3f9b0ce49f2a6308c2f1117c382d3cd41554'
-            'SKIP'
+sha512sums=('97d07f0e6477bbeb2959e9cdd9136e2ed6e6386902c3579ff82a452df88241b628441e6bfa7c14cc40bd6137fb47eb66b001d156bd801a60f7866f9c3098aa1d'
+            'be9754cf158b50fad4aa039b77ad590ec5d84fe00f66b3c81ebafcca3bf78da354486cad4a14451252d403e3ee0e7a7e28370a1a397422871d6d976869567523'
             'f469b3b14def666e955abf6f2d3c68a47631cad7bee90c92039ffe5bf629aa7e32bb4250844d52c0f963740fb07bf7fea5f8887cc1d5199403f07be6214fcb8d'
-            '2f4dfcfa711b8bcbc5918ba635f5e430ef7132e66276261ade62bb1cba016967432c8dce7f84352cb8b07dc7c6b18f09177aa3eb92c8e358b2a106c8ca142fe9')
+            '2f4dfcfa711b8bcbc5918ba635f5e430ef7132e66276261ade62bb1cba016967432c8dce7f84352cb8b07dc7c6b18f09177aa3eb92c8e358b2a106c8ca142fe9'
+            '2d4ba6e53ee078bbf0921d0221ea7c7acf5a391ce8b3dc9d135cc4c68c1508569a00dedcfaca382f0f912d97e3ced71691573e0aef3b62b124099b33554fbdde')
 
 prepare() {
   cp -r $_pkgbase{,-src}
+
+  # perl-io-socket-ssl-2.094 broke 3 ssl related tests
+  # the tests are still passing correctly with perl-io-socket-ssl-2.089
+  cd nginx-tests
+  patch -p1 -i ../perl-io-socket-ssl-2.094-tests-fix.patch
 }
 
 build() {
