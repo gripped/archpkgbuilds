@@ -4,7 +4,7 @@
 # Contributor: Spider.007 <archlinux AT spider007 DOT net>
 
 pkgname=opensearch-dashboards
-pkgver=2.19.2
+pkgver=3.0.0
 pkgrel=1
 pkgdesc='Open source visualization dashboards for OpenSearch'
 url='https://opensearch.org/docs/dashboards/index/'
@@ -35,17 +35,15 @@ source=(
   opensearch-dashboards.service
   tmpfile.conf
   user.conf
-  # Switch to NodeJS LTS 22 "Jod"
-  "https://github.com/hashworks/OpenSearch-Dashboards/commit/1a602a8e117f735154230cc5199153a57ec5bbb6.patch"
 )
-sha512sums=('807618a5bccdba99f3d3874cc37452f30ffbbd039fab75bbebbe4e352ebccb9ef327d1648d67abf8977b6154f7a4ff4e6a350d6cf056d5fc9c5bf774f1f4caf9'
+sha512sums=('77e0dc4d930239858fafbe32ee719122ff3a331642f1b802376db0b85c0fd6283f8762587a5068debb0f65ea42e2100355e2fd628e2afefcf7c40f4fb4d3a03f'
             'c404c8f576ccc5d9202b6808eaf0ec4a1545eec63480ea5189f0f5b66f3e22f431090ece3e7488f6e7d20472e55e784110d4d393bef94ad959c8ee0665290d36'
             '55bb1b7e86bafb9938b787c973aab318848bdb7a498d547948d58ee06fc8b96f9a184d6c00a9f1e7accb5caf64992b0db86cf4b31b0d0eb66c8a88f09b609d3e'
             'bd3bb6a1d64b80bc0a5a5d73ccce7689b8aaf035262424414de404083085ae8e482770f62e5d8219313adeecd65003b7ce1bbe8943418dbd6a432e739e124493'
             'bec175171d7ce2d9769b4247931f13e73713f6f6f5eba1c1c184c450e694ae52e54d16e79853331df5fa6b50ebc42e1408cf022dbb8e025526c9be783dfca5c2'
             'ee7a82eb8b5a719913250159485b144ab94219e64f09a73210bd4cf82345e4f7d1b594e6e8d67aca7faaf6087a672bec478f19ce1493ca64d42e6c39f6b586b8'
             'db097dc6676db6db7d729c956bc8f418e82918987c4979b4d64a7f880ea98d785db1fa968314d3601781095544d418b0583dc9ef502e53ec8a63b6661c2dd7a9'
-            '374672858f8ac2cbc29f2f740c4290e65cf41b9b0c655ead5f0c3208f29f31bb41abc2acbbd563bb87c2598be96426da49d413effb5378f7ba5f0e36f3751f15')
+)
 
 prepare() {
   cd "OpenSearch-Dashboards"
