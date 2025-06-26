@@ -7,9 +7,9 @@
 # Contributor: Guillaume Gauvrit <guillaume@gauvr.it>
 
 pkgbase=uv
-pkgname=("$pkgbase" "python-$pkgbase")
+pkgname=("$pkgbase" "python-$pkgbase"{,-build})
 pkgver=0.7.15
-pkgrel=2
+pkgrel=3
 pkgdesc='An extremely fast Python package installer and resolver written in Rust'
 arch=('x86_64')
 url="https://github.com/astral-sh/uv"
@@ -39,6 +39,7 @@ build() {
 
   # Note: do not use --all-features as in enables a self-updater
   maturin build --locked --release --target "$tripple" --strip --compatibility linux
+  maturin build --locked --release --target "$tripple" --strip --compatibility linux -m crates/uv-build/Cargo.toml
   local compgen="target/$tripple/release/uv --generate-shell-completion"
   $compgen bash > "completions/$pkgbase"
   $compgen elvish > "completions/$pkgbase.elv"
@@ -75,12 +76,19 @@ package_uv() {
 }
 
 package_python-uv() {
+  desc+=' (python wrapper)'
   cd "$pkgbase"
   _package_common
-  depends=(python "$pkgbase")
-  provides=("$pkgname-build=$pkgver")
-  python -m installer -d "$pkgdir" target/wheels/*.whl
+  depends=(python "$pkgbase=$pkgver")
+  python -m installer -d "$pkgdir" target/wheels/uv-$pkgver-*.whl
   rm -rf "$pkgdir/usr/bin"
+}
+
+package_python-uv-build() {
+  desc+=' (python build backend)'
+  cd "$pkgbase"
+  _package_common
+  python -m installer -d "$pkgdir" target/wheels/uv_build-$pkgver-*.whl
 }
 
 # vim: ts=2 sw=2 et:
