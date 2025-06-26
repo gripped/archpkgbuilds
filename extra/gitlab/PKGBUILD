@@ -10,7 +10,7 @@
 
 pkgname=gitlab
 pkgver=18.1.1
-pkgrel=1
+pkgrel=3
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
 url='https://gitlab.com/gitlab-org/gitlab-foss'
@@ -25,9 +25,10 @@ depends=(git
          openssl
          perl-image-exiftool
          re2 libre2.so
-         valkey
          ruby
-         ruby-bundler)
+         ruby-bundler
+         valkey
+         yajl libyajl.so)
 makedepends=(cargo
              clang
              cmake
@@ -145,21 +146,17 @@ build() {
 	# https://github.com/nodejs/node/issues/48444
 	export UV_USE_IO_URING=0
 
+        # https://gitlab.archlinux.org/archlinux/packaging/packages/gitlab/-/issues/19
+        export USE_SYSTEM_LIBYAJL2=1
+
 	# Enable build on Ruby newer than what the Gemfile.lock was created with
 	# TODO: remove thin when possible
 	bundle config set frozen false
 
 	echo "Fetching bundled gems..."
 	# Gems will be installed into vendor/bundle
-	# Remove -Werror=format-security from the CFLAGS used by the C extension of the google-protobuf gem
 	# Disable LTO which breaks the C extension of the google-protobuf gem https://github.com/protocolbuffers/protobuf/issues/11935
-	bundle config --local build.google-protobuf "-- --with-cflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CFLAGS"]' | sed -e 's/-Werror=format-security//' -e 's/-flto=auto/-fno-lto/')' --with-ldflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["LDFLAGS"]' | sed -e 's/-flto=auto/-fno-lto/')'"
-	# Avoid build errors that started with clang 19
-	CXXFLAGS+=' -Wno-missing-template-arg-list-after-template-kw'
-	# Avoid build errors due to -Werror=incompatible-pointer-types enabled by default in GCC 14
-	bundle config --local build.grpc "-- --with-cflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CFLAGS"]') -Wno-incompatible-pointer-types'"
-	# ICU 75 requires C++17
-	bundle config --local build.static_holmes "-- --with-cxxflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CXXFLAGS"]') -std=c++17'"
+	bundle config --local build.google-protobuf "-- --with-cflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CFLAGS"]' | sed -e 's/-flto=auto/-fno-lto/')' --with-ldflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["LDFLAGS"]' | sed -e 's/-flto=auto/-fno-lto/')'"
 	bundle config --local build.gpgme --use-system-libraries # See https://bugs.archlinux.org/task/63654
 	bundle config --local build.re2 --enable-system-libraries # See https://gitlab.archlinux.org/archlinux/packaging/packages/gitlab/-/issues/5
 	# Avoid build errors due to change in C std to gnu23 with GCC 15
