@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-query-workbench-plugin'
 _pluginname='query-workbench-dashboards-plugin'
-pkgver=2.19.2.0
-_dashboardsver=2.19.2
+pkgver=3.0.0.0
+_dashboardsver=3.0.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Query Workbench Plugin'
 url='https://opensearch.org/docs/latest/query-workbench/index/'
@@ -15,12 +15,10 @@ options=('!strip' 'emptydirs')
 source=(
   "git+https://github.com/opensearch-project/dashboards-query-workbench.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
-  # Switch to NodeJS LTS 22 "Jod"
-  "https://github.com/hashworks/OpenSearch-Dashboards/commit/1a602a8e117f735154230cc5199153a57ec5bbb6.patch"
 )
-sha256sums=('30eb2ca82ee7f25ced024293e8e52bc9e16b51923b421b7fd89184a316d45db3'
-            '3814efbc447c01c38ff97eea46a7749172d59c826813451107f6dd21817e5745'
-            'e916c1dd34871372ff4e7ca71e66cb14c472ca94c9143e6b6da28dbef1b25738')
+sha256sums=('043b8ae41ad9748fcf6669781660bfb4b5aed031ab79ca0d8e298db0756909a7'
+            '5d3e0b9b92e4dd3d7267ea5941c2d41f52c90db19d3faea9566f6c0a37006161'
+)
 
 prepare() {
   nodeVersion="$(node -v)"
