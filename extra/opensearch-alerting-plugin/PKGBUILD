@@ -1,10 +1,10 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-alerting-plugin
-pkgver=2.19.2.0
+pkgver=3.0.0.0
 pkgrel=1
-_opensearchver=2.19.2
-_jdkver=11
+_opensearchver=3.0.0
+_jdkver=21
 pkgdesc="OpenSearch Alerting Plugin"
 arch=('x86_64')
 url="https://opensearch.org/docs/latest/observing-your-data/alerting/index/"
@@ -13,15 +13,8 @@ depends=("opensearch=${_opensearchver}" "opensearch-notifications-plugin")
 makedepends=("java-environment-openjdk=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/alerting/archive/${pkgver}.tar.gz"
-  "remove-empty-file-without-headers.patch"
 )
-sha256sums=('efa6f8d8fb12cf8e14a4fe376422facfb29b6d44d2d22e3e02a9533cf7c3870c'
-            '5bebae69c5b4074b6bf985546dec6fc418e1e7936051ac848d1e5bf47256de0e')
-
-prepare() {
-  cd "alerting-${pkgver}"
-  patch -Np1 < "$srcdir/remove-empty-file-without-headers.patch"
-}
+sha256sums=('ce306826dd3526ab20b5ce3f68c7e956405edb5b3d32ac320d557bdc1321906c')
 
 build() {
   cd "alerting-${pkgver}"
