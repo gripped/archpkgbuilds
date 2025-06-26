@@ -5,7 +5,7 @@
 
 pkgname=difftastic
 pkgver=0.64.0
-pkgrel=1
+pkgrel=2
 pkgdesc='An experimental diff tool that compares files based on their syntax'
 arch=('x86_64')
 url='https://difftastic.wilfred.me.uk'
@@ -64,6 +64,7 @@ package() {
   # documentation
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
   cp -vr manual/book "$pkgdir/usr/share/doc/$pkgname/manual"
+  install -vDm644 -t "$pkgdir/usr/share/man/man1" difft.1
 
   # license
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
