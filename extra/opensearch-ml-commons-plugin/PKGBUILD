@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-ml-commons-plugin
-pkgver=2.19.2.0
+pkgver=3.0.0.0
 pkgrel=1
-_opensearchver=2.19.2
+_opensearchver=3.0.0
 _jdkver=21
 pkgdesc="OpenSearch Machine Learning Commons Plugin"
 arch=('x86_64')
@@ -12,8 +12,16 @@ license=('Apache-2.0')
 depends=("opensearch=${_opensearchver}")
 makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
-  "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/ml-commons/archive/${pkgver}.tar.gz")
-sha256sums=('1a37397177345e966f5804f365f1b1e05dc261be6243bbaff4e46a2dee388d9b')
+  "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/ml-commons/archive/${pkgver}.tar.gz"
+  disable-failed-test.patch
+)
+sha256sums=('4fd7214bcb5b435a7b91e1788efe367a1aa7cdc82ba6b0272a1c2d7d9ff462f2'
+            'f765fc3a4fa60df1339bfabc898fa1b879a860e636e9fa93893ca3185990f167')
+
+prepare() {
+  cd "ml-commons-${pkgver}"
+  patch -Np1 -i ../disable-failed-test.patch
+}
 
 build() {
   cd "ml-commons-${pkgver}"

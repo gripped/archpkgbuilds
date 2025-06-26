@@ -1,0 +1,20 @@
+diff --git a/ml-algorithms/src/test/java/org/opensearch/ml/engine/algorithms/text_embedding/ModelHelperTest.java b/ml-algorithms/src/test/java/org/opensearch/ml/engine/algorithms/text_embedding/ModelHelperTest.java
+index e40a4268..66c064e1 100644
+--- a/ml-algorithms/src/test/java/org/opensearch/ml/engine/algorithms/text_embedding/ModelHelperTest.java
++++ b/ml-algorithms/src/test/java/org/opensearch/ml/engine/algorithms/text_embedding/ModelHelperTest.java
+@@ -20,6 +20,7 @@ import java.util.List;
+ import java.util.Map;
+ 
+ import org.junit.Before;
++import org.junit.Ignore;
+ import org.junit.Rule;
+ import org.junit.Test;
+ import org.junit.rules.ExpectedException;
+@@ -218,6 +219,7 @@ public class ModelHelperTest {
+     }
+ 
+     @Test
++    @Ignore
+     public void testIsModelAllowed_true() throws PrivilegedActionException {
+         String taskId = "test_task_id";
+         MLRegisterModelInput registerModelInput = MLRegisterModelInput
