@@ -3,7 +3,7 @@
 
 pkgname=python-aws-sam-translator
 _pkgname=serverless-application-model
-pkgver=1.98.0
+pkgver=1.99.0
 pkgrel=1
 pkgdesc='AWS Serverless Application Model (AWS SAM) prescribes rules for expressing Serverless applications on AWS'
 arch=(any)
@@ -27,12 +27,13 @@ checkdepends=(
   python-parameterized
   python-pytest
   python-pytest-rerunfailures
+  python-pytest-xdist
   # python-yaml is needed by samtranslator.yaml_helper, while the latter is
   # used in tests only
   python-yaml
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('84c1e6c25759f1881c131a3d1d9a384d7cb1cf1d2f4c08405d0645857de1c9f0')
+sha256sums=('e2095931e598fe9bfdc137b70ae114987c665d2095c4bcbe7b745d7f8afd11ff')
 
 prepare() {
   cd $_pkgname-$pkgver
@@ -48,7 +49,7 @@ build() {
 check() {
   cd $_pkgname-$pkgver
   AWS_DEFAULT_REGION=us-east-1 PYTHONPATH="$PWD" pytest tests \
-    --override-ini="addopts="
+    -n auto --override-ini="addopts="
 }
 
 package() {
