@@ -2,7 +2,7 @@
 # Contributor: greyltc (AUR)
 
 pkgname=wasm-component-ld
-pkgver=0.5.13
+pkgver=0.5.14
 pkgrel=1
 pkgdesc="Command line linker for creating WebAssembly components"
 arch=(x86_64)
@@ -19,7 +19,7 @@ makedepends=(
 )
 checkdepends=(rust-wasm)
 source=("git+$url#tag=v$pkgver")
-b2sums=('4272d15df4810fd47451ed4d2e23f8316e45ab711be5e7d167099d79d0e24b63c627a23a3dad43fb3440dd1da16ae9a940ae4f2845a044af6b024536649ccd70')
+b2sums=('2f3e2905aa9a1a22ed11b2a6d9808712b501a279fc8d0b1ca4b77e7e32b0339366ef6ae3444c9cf5c28496ba6c910acfb6cfec2420dd517f9d78faec7b9d0756')
 
 prepare() {
   cd wasm-component-ld
@@ -30,7 +30,7 @@ build() {
   cd wasm-component-ld
 
   # Use debug
-  export CARGO_PROFILE_RELEASE_DEBUG=2
+  export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
 
   # Use LTO
   export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
