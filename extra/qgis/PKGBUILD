@@ -10,8 +10,8 @@
 # Contributor: Eric Forgeot < http://esclinux.tk >
 
 pkgname=qgis
-pkgver=3.42.3
-pkgrel=2
+pkgver=3.44.0
+pkgrel=1
 pkgdesc="Geographic Information System (GIS) that supports vector, raster & database formats"
 arch=(x86_64)
 url="https://qgis.org/"
@@ -26,14 +26,8 @@ optdepends=('fcgi: Map server'
             'gpsbabel: GPS Tools plugin')
 source=(
   https://qgis.org/downloads/$pkgname-$pkgver.tar.bz2
-  qgis-sip-6.11.patch
 )
-sha256sums=('677d465a26be245a1230941f005c8e51567604dd6b42387bd41fc8b7eb7a8d3a'
-            '74ee06d9dcd748fcebff021849f4491a7ff9678bc0eed78f4e17066e0c8f84ff')
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < qgis-sip-6.11.patch # Fix build with SIP 6.11
-}
+sha256sums=('81e5088060f38ab4e9835b05e5eec1ba7cc2eb903105830808b60215ae2cd320')
 
 build() {
   cmake -S $pkgname-$pkgver -B build -G Ninja \
