@@ -3,7 +3,7 @@
 # Contributor: Andrew Rabert <ar@nullsum.net>
 
 pkgname=scrcpy
-pkgver=3.3
+pkgver=3.3.1
 pkgrel=1
 pkgdesc='Display and control your Android device'
 arch=(x86_64)
@@ -13,8 +13,8 @@ depends=(android-tools ffmpeg sdl2 glibc libusb)
 makedepends=(git meson)
 source=("git+$url#tag=v$pkgver"
         "$pkgname-server-$pkgver.apk::$url/releases/download/v$pkgver/$pkgname-server-v$pkgver")
-b2sums=('8d00904f6c2f90697738a78c96ba1c452937c3e18ec44370e4007288fe22c46dfa5f7cb26e6dd1d5b1508277e8188cc1919a13a16851ef92132771b929313847'
-        '202969bc7f2a45a907b93033fdd57498c403bb8ccf7a31e9bcd33ba06fa09a8e14c898f828f1ee2e58a01d50db0ac11c86705a6afeb644cb3e7cfc7b6bddbed3')
+b2sums=('fba1fb975bac1447bedcf41c626aca04f0a9f7369b1316364358886ce6f981aedf0254bd4fc1ee71d0cf93312c978fa4cfe6edb96b5eca041feb618f22190141'
+        'c000aaa1d3f54494bb98c4a90a2086c0af8370381f29b4e6f7efc01f27afccba5bc0116b2394fa53fe1678bbf393accd79f997391c28993f8a54b30374bb5964')
 
 build() {
   mkdir -p build
