@@ -1,0 +1,20 @@
+diff -ru playwright-python.orig/setup.py playwright-python/setup.py
+--- playwright-python.orig/setup.py	2025-06-25 22:38:16.267711698 +0200
++++ playwright-python/setup.py	2025-06-25 22:39:42.441483093 +0200
+@@ -20,6 +20,7 @@
+ import sys
+ import zipfile
+ from typing import Dict
++from pathlib import Path
+ 
+ driver_version = "1.53.0"
+ 
+@@ -176,7 +177,7 @@
+             if InWheel:
+                 wheelhouse_whl = os.path.join("wheelhouse", os.path.basename(whlfile))
+                 shutil.move(whlfile, wheelhouse_whl)
+-                with InWheel(in_wheel=wheelhouse_whl, out_wheel=whlfile):
++                with InWheel(in_wheel=Path(wheelhouse_whl), out_wheel=Path(whlfile)):
+                     print(f"Updating RECORD file of {whlfile}")
+         print("Copying new wheels")
+         shutil.rmtree("wheelhouse")

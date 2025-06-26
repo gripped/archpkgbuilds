@@ -4,7 +4,7 @@
 
 _name=playwright-python
 pkgname=python-playwright
-pkgver=1.52.0
+pkgver=1.53.0
 pkgrel=1
 pkgdesc='A Python library to automate Chromium, Firefox and WebKit browsers with a single API'
 arch=(any)
@@ -30,16 +30,20 @@ checkdepends=(python-autobahn
               python-pytest-playwright
               python-requests)
 source=(git+https://github.com/microsoft/$_name#tag=v$pkgver
-        https://playwright.azureedge.net/builds/driver/playwright-$pkgver-linux.zip)
+        https://playwright.azureedge.net/builds/driver/playwright-$pkgver-linux.zip
+        auditwheel-6.3.patch)
 noextract=(playwright-$pkgver-linux.zip)
-sha256sums=('b8ad02ba44045e1a0af016964e98a5f4a3557bb36550279b5d5fd4b81ca9c047'
-            '4c4697a67c49d2aa9fb96bedfd0ef6b0c8082602828162ad845c191b45aa8e7d')
+sha256sums=('f3f6f6cf9235d611bfa883e0fc473e422b9ae297769609f7721f3b9265d9c81f'
+            'da7774b5d7b9441ec31c332802ce0b209d13f61f8462726ea953af86eb29a3f0'
+            '8af7d2f2a41582212fc20665ec5a38e569b79195d85ec35e25f4ec421cb5db32')
 
 prepare() {
   cd $_name
   sed -e 's|==.*\"|"|' -i pyproject.toml # Drop dependency version constraints
   sed -e "s|driver_version = \".*\"|driver_version = \"$pkgver\"|" -i setup.py
   install -Dm644 "$srcdir"/playwright-$pkgver-linux.zip -t driver
+
+  patch -p1 -i ../auditwheel-6.3.patch
 }
 
 build() {
