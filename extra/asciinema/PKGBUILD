@@ -3,7 +3,7 @@
 # Contributor: Marcin Kulik <marcin@asciinema.org>
 
 pkgname=asciinema
-pkgver=3.0.0rc.4
+pkgver=3.0.0rc.5
 pkgrel=1
 pkgdesc='Record and share terminal sessions'
 arch=(any)
@@ -11,8 +11,8 @@ url='https://asciinema.org'
 license=(GPL-3.0-only)
 makedepends=(cargo git)
 options=(!lto)
-source=("git+https://github.com/$pkgname/$pkgname#commit=6779be971533b90b9a805f093a11fe41d5479285") # v3.0.0-rc.3, in prep. for the stable release
-b2sums=('b4ea34c191eb46683520511cdd5e30d65347a88148e8b307ae7e4432993f1e637bc97080a61b67f5b02b81f73e92549c6dc3cd1a6e98dd6d3a204f3988c60f6d')
+source=("git+https://github.com/$pkgname/$pkgname#tag=v${pkgver/rc/-rc}")
+b2sums=('786b22babb42e28d60606c7ab28598b9219328704415ecf8729726115bfc0aebdaa5a68029a10def3425d336700e88091d9261afcd4b71f36c6ce5b78d13398b')
 
 prepare() {
   cd $pkgname
@@ -34,10 +34,11 @@ check() {
   cd $pkgname
   local skipped=(
     pty::tests::exec_basic # PTY interaction
-    pty::tests::exec_quick # PTY interaction
     pty::tests::exec_extra_env
     pty::tests::exec_no_output
+    pty::tests::exec_quick # PTY interaction
     pty::tests::exec_winsize_override
+    pty::tests::spawn_basic # PTY interaction
   )
   cargo test --frozen -- ${skipped[@]/#/--skip }
 }
