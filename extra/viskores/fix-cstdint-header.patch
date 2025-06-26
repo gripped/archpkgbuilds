@@ -1,0 +1,33 @@
+From b01476c5dd1951e4d6dd411be3ac6023e7a6e04c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jakub=20Klinkovsk=C3=BD?=
+ <1289205+lahwaacz@users.noreply.github.com>
+Date: Wed, 25 Jun 2025 22:06:18 +0200
+Subject: [PATCH] Include cstdint header for the intptr_t type
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Otherwise GCC 15 complains:
+
+/build/viskores/src/viskores-1.0.0/viskores/thirdparty/diy/viskoresdiy/include/viskoresdiy/thirdparty/itlib/small_vector.hpp:204:22: error: ‘intptr_t’ does not name a type [-Wtemplate-body]
+  204 |     static constexpr intptr_t revert_to_static_size = RevertToStaticSize;
+      |                      ^~~~~~~~
+---
+ .../include/viskoresdiy/thirdparty/itlib/small_vector.hpp        | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/viskores/thirdparty/diy/viskoresdiy/include/viskoresdiy/thirdparty/itlib/small_vector.hpp b/viskores/thirdparty/diy/viskoresdiy/include/viskoresdiy/thirdparty/itlib/small_vector.hpp
+index 37386cbc6..133b62e79 100644
+--- a/viskores/thirdparty/diy/viskoresdiy/include/viskoresdiy/thirdparty/itlib/small_vector.hpp
++++ b/viskores/thirdparty/diy/viskoresdiy/include/viskoresdiy/thirdparty/itlib/small_vector.hpp
+@@ -140,6 +140,7 @@
+ 
+ #include <type_traits>
+ #include <cstddef>
++#include <cstdint>
+ #include <memory>
+ 
+ #define ITLIB_SMALL_VECTOR_ERROR_HANDLING_NONE  0
+-- 
+2.50.0
+
