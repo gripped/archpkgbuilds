@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-alerting-plugin'
 _pluginname='alerting-dashboards-plugin'
-pkgver=2.19.2.0
-_dashboardsver=2.19.2
+pkgver=3.0.0.0
+_dashboardsver=3.0.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Alerting Plugin'
 url='https://opensearch.org/docs/latest/monitoring-plugins/alerting'
@@ -15,12 +15,10 @@ options=('!strip' 'emptydirs')
 source=(
   "git+https://github.com/opensearch-project/${_pluginname}.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
-  # Switch to NodeJS LTS 22 "Jod"
-  "https://github.com/hashworks/OpenSearch-Dashboards/commit/1a602a8e117f735154230cc5199153a57ec5bbb6.patch"
 )
-sha256sums=('b6b211fdcd1aac6c93184c95d66f58531354619ec6876e07e4e086a3b6c517fb'
-            '3814efbc447c01c38ff97eea46a7749172d59c826813451107f6dd21817e5745'
-            'e916c1dd34871372ff4e7ca71e66cb14c472ca94c9143e6b6da28dbef1b25738')
+sha256sums=('e7e09a03baf03f1208a09a567500cdeea404bc75130baafc9a21e75f3428a196'
+            '5d3e0b9b92e4dd3d7267ea5941c2d41f52c90db19d3faea9566f6c0a37006161'
+)
 
 prepare() {
   nodeVersion="$(node -v)"
