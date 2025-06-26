@@ -5,19 +5,28 @@
 
 pkgname=onefetch
 pkgver=2.24.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Git repository summary on your terminal"
 url="https://github.com/o2sh/onefetch"
 license=('MIT')
 arch=('x86_64')
-depends=('gcc-libs')
+depends=('gcc-libs' 'zlib-ng')
 makedepends=('cargo' 'cmake' 'git')
 source=("git+$url.git#tag=$pkgver")
 sha256sums=('4d785d93639171d532b01ad1c06cadb141b39355d3e9704a1ed80c961ad5db5a')
 
 prepare() {
   cd "$pkgname"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # Rust target triple.
+  local target=$(rustc -vV | sed -n 's/host: //p')
+  # Use zlib-ng
+  mkdir -p .cargo
+	cat > .cargo/config.toml <<-EOF
+		[target.$target]
+		z-ng = { rustc-link-lib = ["z-ng"], rustc-cfg = ["zng"] }
+	EOF
+  cargo fetch --locked --target $target
   mkdir -p completions
 }
 
