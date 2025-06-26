@@ -2,7 +2,7 @@
 
 _name=nethsm-sdk-py
 pkgname=python-nethsm-sdk-py
-pkgver=1.4.0
+pkgver=1.4.1
 pkgrel=1
 pkgdesc="Client-side Python SDK for NetHSM"
 arch=(any)
@@ -24,8 +24,8 @@ makedepends=(
 )
 provides=(python-nethsm)
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('a6f01cf970081815107b9bc9d8b5c650ba2d54123e449b9120ca7a5a1de32cac0dad8a2de4f41c5c745840fc71f969039bcf65d0e21decb8bb3d2ec60402cbb1')
-b2sums=('222aea18eaad292d1b65b2cb433257d39f89949c25891c8d115495fc6dfea12e18af4d63672361de67e912e0009ef4e844cf46917387ffecd23ee69d48294fbd')
+sha512sums=('b12c17b4894f5129f9704cb253d181d898e2b7436c09a3666e14c1e22756c0a30e47be677ca2f594e99e3176567a5458e368176a5383c66fa2b25f97a2e3e2b1')
+b2sums=('7efd514823d0a374874ede4075c7ee4f2ca8b2d5f0c030dff8a840fed69e3b4a2e998b8cfd072caa0c7d5c2f32ed0b647f251f22df6f14c6df25e1372b22fa5a')
 
 build() {
   cd $_name-$pkgver
