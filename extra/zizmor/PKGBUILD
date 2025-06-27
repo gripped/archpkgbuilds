@@ -2,7 +2,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=zizmor
-pkgver=1.9.0
+pkgver=1.10.0
 pkgrel=1
 pkgdesc="A static analysis tool for GitHub Actions"
 url='https://github.com/zizmorcore/zizmor'
@@ -17,8 +17,8 @@ makedepends=(
 )
 options=(!lto)
 source=(https://github.com/zizmorcore/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('27da51a31dfb553a9fe0acfa3a129f0d5e55b8593c502f2c99b332e5f3156e0e')
-b2sums=('f3b4535f95413ffb8152f8a884984ddf3e57ae20b70d4cfc7bb1a8995b0d835e5274352cfcc6b26e052a8f99755ef6ddfee883d3e924e2384ac2f82453ed1b8f')
+sha256sums=('f87f6298325b980f5b5415ac2d381302e00cd624528d6b858ed54487655ef1ce')
+b2sums=('68d528a7f8025acb7efb76e3081796e72d65900fb1ed7e1e63745f35cb79d98ae264611bef5d99fcfa545fe1eff18ed088b82b6935816d31ea5cfb4312fd445f')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
