@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=anubis
-pkgver=1.19.1
+pkgver=1.20.0
 pkgrel=1
 pkgdesc="Reverse proxy to protect against scraper bots"
 url="https://anubis.techaro.lol/"
@@ -25,19 +25,14 @@ options=(
 )
 source=(
   "git+https://github.com/TecharoHQ/anubis?signed#tag=v${pkgver/[a-z]/-&}"
-  0001-fix-web-Avoid-timestamping-main.mjs.gz.patch
 )
-b2sums=('1930a3a156555257ba358bf05d2372949facb771cc70d98f6a97e0609d563969ed1458b18fb177efdb02a93f90702a085ce71987aae4c1e1ade3fdff3ed9c5bb'
-        '00f0e216eb328d9305932a5a96c1542861a59b48fd95e02d1b0f7568f8c5afbdf9f6c44c89c60a83986db47028f00474fccccf2dc366b4c5f5e941804ee89103')
+b2sums=('3e058531e506ce0dfb18fb067cecab0fde6a859b505a55a9324cf66d64e11246467aa81291bf4a3b2c6f50299f49436921349a004742c6b48ad1b1af1ac4d9bc')
 validpgpkeys=(
   833F64161167B501058C394756375DA2DF02ABFF # Techaro Packages Signatures <gpg+packages@techaro.lol>
 )
 
 prepare() {
   cd anubis
-
-  # Reproducibility fix
-  git apply -3 ../0001-fix-web-Avoid-timestamping-main.mjs.gz.patch
 
   make deps
 }
@@ -59,6 +54,7 @@ package() {
   cd anubis
 
   install -D var/anubis -t "$pkgdir/usr/bin"
+  install -D var/robots2policy "$pkgdir/usr/bin/anubis-robots2policy"
 
   install -Dm644 run/anubis@.service -t "$pkgdir/usr/lib/systemd/system"
   install -Dm644 run/default.env -t "$pkgdir/etc/anubis"
