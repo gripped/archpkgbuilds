@@ -1,7 +1,7 @@
 pkgbase = miopen-hip
 	pkgdesc = AMD's Machine Intelligence Library (HIP backend)
 	pkgver = 6.4.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://rocm.docs.amd.com/projects/MIOpen/en/latest/index.html
 	arch = x86_64
 	license = MIT
@@ -15,7 +15,6 @@ pkgbase = miopen-hip
 	makedepends = nlohmann-json
 	makedepends = eigen
 	makedepends = functional-plus
-	makedepends = frugally-deep
 	depends = rocm-core
 	depends = glibc
 	depends = gcc-libs
@@ -36,9 +35,11 @@ pkgbase = miopen-hip
 	source = miopen-hip-MIFin::git+https://github.com/ROCm/MIFin.git
 	source = miopen-hip-rocmlir::git+https://github.com/ROCm/rocMLIR#tag=rocm-6.4.1
 	source = miopen-hip-half::git+https://github.com/ROCm/half#tag=rocm-6.4.1
+	source = miopen-hip-frugally-deep::git+https://github.com/Dobiasd/frugally-deep#tag=v0.15.31
 	sha256sums = ccb9d303537b7572196e60c6077965771716f7c2edac0644e5bf4f778bb7763f
 	sha256sums = SKIP
 	sha256sums = 91451c3352320d088adaf2c4721ec0d7942248adfd22ad4a981a2f143fbee4fd
 	sha256sums = 16e5a6405dd766339a9409665cd1ccdaceed3c0cb7fe12835fa17bd3914aa6cd
+	sha256sums = d1e1d55945eded7219c50f59f55967327118d6792df5a283c01131b18a3f061f
 
 pkgname = miopen-hip
