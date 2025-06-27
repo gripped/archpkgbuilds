@@ -1,6 +1,6 @@
 pkgbase = firecracker
 	pkgdesc = Secure and fast microVMs for serverless computing
-	pkgver = 1.12.0
+	pkgver = 1.12.1
 	pkgrel = 1
 	url = https://firecracker-microvm.github.io
 	arch = x86_64
@@ -12,13 +12,14 @@ pkgbase = firecracker
 	makedepends = cmake
 	options = !lto
 	options = !buildflags
-	source = firecracker::git+https://github.com/firecracker-microvm/firecracker.git#tag=v1.12.0
-	sha512sums = cfce9241364591cbb6bbc4254811cf20d844ea1e1e22d29e5fa603010f1dc6bd2e768d94fdea48d8b5a1d47a359c130ecbc97a8777e3fe098a0f83bdc7873c3a
-	b2sums = 769bb85cab4758ff9769ee9a2e7542a394b45c0446121281ce610e4303664e9d4ce612e5475b45e6467a74dc10be75e863d7534469f36631cc2ec8da73848575
+	source = firecracker::git+https://github.com/firecracker-microvm/firecracker.git#tag=v1.12.1
+	sha512sums = 739c6258af03a70f03ebef5c91df7625b5e70c7f789536b441150d2a469b26eb7f4cc983933887dee2adf7f8805a479714ff209e67f5bced14ad6ef12b63459e
+	b2sums = 38a1f8e69fcae9f144ccc70ca9ae8e3cd539e80f2d6dc64975976d1f331a2ec927953c13b3ca97501764dde859a1f1b9755efdcde65e8251feebd1b042d0beb5
 
 pkgname = firecracker
 	depends = glibc
 	depends = gcc-libs
+	depends = libseccomp
 
 pkgname = firecracker-docs
 	pkgdesc = Secure and fast microVMs for serverless computing (documentation)
