@@ -4,7 +4,7 @@
 # Contributor: Yosef Or Boczko <yoseforb@gnome.org>
 
 pkgname=gnome-software
-pkgver=48.2
+pkgver=48.3
 pkgrel=1
 pkgdesc="Allows you to find and install new apps"
 url="https://apps.gnome.org/Software"
@@ -53,7 +53,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-software.git?signed#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/mwleeds/gnome-pwa-list.git"
 )
-b2sums=('2a532088463f7783b2b5398269c758059faf4fd5883f503ad4e832a395876e65cb5efe6602fb813c132b8d45a62bb96dba921dd82aeb450b0057fd9e15c73323'
+b2sums=('84416c7bd04f6263dbaf90254b5b5cf659fe00488b5d095d592e6e65d8ec561f207baaf360582a8ecaa93be0340c5a69414f96913bff6ec428824de0222df72f'
         'SKIP')
 validpgpkeys=(
   2AA441054BD2F1715EC11610FB183E7EF3C36A0D # Milan Crha <mcrha@redhat.com>
