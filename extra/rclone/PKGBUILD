@@ -3,7 +3,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=rclone
-pkgver=1.70.1
+pkgver=1.70.2
 pkgrel=1
 pkgdesc="Sync files to and from Google Drive, S3, Swift, Cloudfiles, Dropbox and Google Cloud Storage"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('glibc')
 optdepends=('fuse3: for rclone mount')
 makedepends=('python' 'go' 'git' 'fuse3')
 source=("git+https://github.com/rclone/rclone.git#tag=v${pkgver}?signed")
-sha512sums=('22da463261a77540e50c3118b6186d94441cd279f1314221d08b3c34234f10260dd450836c0684701479c334f90cf3246ffae44495168707d2afe61fc184125f')
+sha512sums=('8a1bf55db0b005681b52167d6d60b96182c20b535bd98301a862298192ee2b3c4990a96e578714bd8ea707b73d7d2bd29e7fb53b64b2c1956731e450f31a7904')
 validpgpkeys=(E3B358DC858FB307F48170B9CB0DBEBC5F32C81D) # Nick Craig-Wood
 options=(!lto)
 
