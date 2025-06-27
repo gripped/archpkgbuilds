@@ -4,7 +4,7 @@
 
 _name=fastapi
 pkgname=python-$_name
-pkgver=0.115.13
+pkgver=0.115.14
 pkgrel=1
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=(any)
@@ -71,9 +71,9 @@ optdepends=(
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz
         0001-Allow-httpx-0.28.x-relax-pins.patch)
-sha512sums=('834264fca1bf1a48323036454685402065804fc7eb0ce7467d14994651d475c4c62b7abdb4b355f69f6cafb01c9a76e35e4fa83383ce1d40be5382502c784a4d'
+sha512sums=('028e6f78caa6aef165b1646b8132080f019b9ae8b58ce72d2b16a2ecec72d5097dd3ca0e82ddc067c73d3e80061f70fa7c57f43fa7ba74a361d1200706a0cbc1'
             '2f0ef2997233f5524ef342261f9f3c8da394dd1b0664a45d7b777391387328636d7b527a4cd98db2182c4e10c57caf13e1a66e60404d2b796e5ec5d93efcdd8e')
-b2sums=('7b016d1ca88bfe5d579bf1b46beb349face01b045507d8c8bd158ad1cc26f5667ceb9f8a5c6e82c6463a90910ea21dbcad14e02a3af1de5b7d585c22d9dd2db3'
+b2sums=('813813d36d0b83b12fd6f7cbfb2df5a9345c12f040e8b8875cf38aa0a0dce0c112db6e0d00f2f825646a2cd00877cbc8883ea6eab35a7e2809062c1ebf8d2644'
         'f929b6de37bdf34549b55ad1c8bc36a04de1fa44fe231b7e4dc9beb24c06d74ee0dc115d5e1b29339be41ecbdb2601e1ce050aafb1c41ba5f6f0c5f542b8e859')
 
 prepare() {
