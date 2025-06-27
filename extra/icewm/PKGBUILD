@@ -3,7 +3,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=icewm
-pkgver=3.7.5
+pkgver=3.8.0
 pkgrel=1
 pkgdesc="Window Manager designed for speed, usability, and consistency"
 url="https://ice-wm.org/"
@@ -13,7 +13,7 @@ depends=('alsa-lib' 'imlib2' 'librsvg' 'libsndfile' 'libxcomposite' 'libxdamage'
 makedepends=('asciidoctor' 'cmake' 'xorg-mkfontscale')
 optdepends=('perl: for icewm-menu-xrandr')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ice-wm/icewm/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('ffcaa0eb86af022edbf8b3ad7d57c6c20125a64f678cf451a0665d891a4683e0')
+sha256sums=('11a3e1287036a967b140f5606a5891b912541fbca919253dcbba4a544c98b490')
 
 build() {
 	cmake -B build -S "${pkgname}-${pkgver}" \
