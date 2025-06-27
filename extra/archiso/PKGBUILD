@@ -4,7 +4,7 @@
 # Contributor: Gerardo Exequiel Pozzi <djgera@archlinux.org>
 
 pkgname=archiso
-pkgver=83
+pkgver=84
 pkgrel=1
 pkgdesc="Tools for creating Arch Linux live and install iso images"
 arch=(any)
@@ -28,14 +28,14 @@ makedepends=(
 checkdepends=(shellcheck)
 optdepends=(
   'edk2-ovmf: for emulating UEFI with run_archiso'
-  'gnupg: for PGP signature verification of rootfs over PXE'
+  'gnupg: for OpenPGP signature verification of rootfs over PXE'
   'grub: for grub support in the ISO'
   'openssl: for CMS signature verification of PXE artifacts and rootfs over PXE'
   'qemu-desktop: for run_archiso'
 )
 source=(git+$url.git?signed#tag=v$pkgver)
-sha512sums=('372fb41e9422b06de0225635083d9cf583ca0b44d6e83a652612537ae24ad7526776b5cfd12fc9ddb778b68a607ad85ecc5798b46ed9509c3ffd871a5460f21e')
-b2sums=('faf148ecae6623ae70f3ce72503fabf2be496e31b9462b2d4cd9cb9cba4aa3a2a31447341333efd98cc63b1cc61e7f9eedb70523f82f45637ee890acc601bd0e')
+sha512sums=('b749e08cf8216de4955f2bd9d98e800da2d0af9339afba6a8d0f974de1f8325a911323b97cc24af96ff6737dc5ec4922f831a90716e6b0319f781bccdfe2f20e')
+b2sums=('de54cf9ff2c10f6b0e8e53c883bc087cc0ed3e4d06d68e318e5d778b046c176728bb2a94ed59936f28481c1393940d0452d2bc49f21dc24eedf523fd056399fc')
 validpgpkeys=(
   '991F6E3F0765CF6295888586139B09DA5BF0D338' # David Runge <dvzrv@archlinux.org>
   'BB8E6F1B81CF0BB301D74D1CBF425A01E68B38EF' # nl6720 <nl6720@archlinux.org>
