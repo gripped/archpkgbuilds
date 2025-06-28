@@ -2,8 +2,8 @@
 # Contributor: Simon Hanna <simon dot hanna AT serve-me DOT info>
 
 pkgname=python-zope-event
-pkgver=5.0
-pkgrel=4
+pkgver=5.1
+pkgrel=1
 pkgdesc="Provides a simple event system"
 arch=(any)
 license=('ZPL')
@@ -12,7 +12,7 @@ depends=('python')
 makedepends=('python-setuptools')
 checkdepends=('python-zope-testrunner')
 source=("https://github.com/zopefoundation/zope.event/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('df1719f87e68fafe83b775293bd06a26ab82c1d75e7106fe81f04dc8ec8fc43d966e05171b50052e7c1bdf675b0882fba8d71f087f4756f89ded91a3fb94782c')
+sha512sums=('0050092b07b2339c9c41e8bb554dd158e41779d77e0ea8345e95db62606440d814aa4ae0567e8010a509fd5c4f89801c79e8192c545df92dd15a6e48b9edd2ce')
 
 build() {
   cd zope.event-$pkgver
