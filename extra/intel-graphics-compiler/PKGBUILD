@@ -3,13 +3,13 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=2.11.7
+pkgver=2.12.5
 _llvmmaj=15
 _llvmver="${_llvmmaj}.0.7"
 _vciver=0.22.1
 _spirv_tools_ver=2025.1.rc1
 _spirv_headers_commit=0e710677989b4326ac974fd80c5308191ed80965
-_spirv_llvm_commit=2d4f2e7a7968392de017fcd3e4b503a75f0c12d2
+_spirv_llvm_commit=f0adc9091989ceb3bec0dfbea7700a30748cadac
 _opencl_clang_commit=58242977b4092cf5eb94a10dd144691c12c87001
 pkgrel=1
 epoch=1
@@ -31,9 +31,9 @@ source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${p
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}"
         '010-intel-graphics-compiler-disable-werror.patch')
-sha256sums=('93581fa3f7b469a9c4aafa4e5cad93a51db8948bfa174e2062030dd373f7a839'
+sha256sums=('30348c8263dce8845a4330df09aab95100ac8bad2d04c0c58518fe27b153bbdd'
             '11fbabe4654a13a6f1248448e62e12ae28b6605bbf8e444675d6e2f0588d23e7'
-            'aefcc9afb7c1475b7131ea3c2d9b0ed8b1813a31f42543fa3ebfe9498c8ce869'
+            '95c8d12ce76ae7c55af101bdcfd9220b5e1bca9d5c9527a8d47f189bcab5cd56'
             '7659e07da76ea409cdf6665c6a28c1b88702c7846062f03c9be7917c9114376e'
             'c2b9afa462bddbb499642fe69f8f932719ce4bfe866fe107cbec1f816d300b09'
             'cc4961a1701dc241d9a3c8c7f0d9a1ab8302f6f70b3df036e73313c32bf551f2'
@@ -82,7 +82,6 @@ build() {
         -DIGC_OPTION__LLVM_MODE=Source \
         -DIGC_OPTION__LLVM_PREFERRED_VERSION="${_llvmver}" \
         -DIGC_OPTION__SPIRV_TOOLS_MODE=Source \
-        -DIGC_OPTION__USE_KHRONOS_SPIRV_TRANSLATOR_IN_SC=ON \
         -DIGC_OPTION__USE_PREINSTALLED_SPIRV_HEADERS=OFF \
         -DIGC_OPTION__VC_INTRINSICS_MODE=Source \
         -Wno-dev
