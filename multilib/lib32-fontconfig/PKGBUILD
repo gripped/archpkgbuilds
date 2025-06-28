@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=lib32-fontconfig
-pkgver=2.16.2
+pkgver=2.17.0
 pkgrel=1
 epoch=2
 pkgdesc="Library for configuring and customizing font access"
@@ -23,10 +23,10 @@ makedepends=(
 )
 install=fontconfig-32.install
 source=(
-  "git+https://gitlab.freedesktop.org/fontconfig/fontconfig.git#tag=$pkgver"
+  "git+https://gitlab.freedesktop.org/fontconfig/fontconfig.git?signed#tag=$pkgver"
   fontconfig-32.hook
 )
-b2sums=('fb48c39cf69ee0e156ee4872b69d28fb0c074afac47b97cf31829d56e6c88aa48a26d97c8348d2ee79e338c4400c098d79458bdc65eeffbd0f7a4464d6620aad'
+b2sums=('8ba4930ffcc3c6ad0af99e40bc6199dd674fccc2597746935f0e99fe23aae989e7f9194eb4804a704129e0280047abcad4e55b75daaa76eb0ba14d86738a1ad1'
         '1cba71810c9bde6ecb6fac124e458fb7260be3ea72ade82b836e0e8e1eaa7c7df31e6e92e405fa420325cec0ce14d0f19630e777308032b0c26ec96a3d668d93')
 validpgpkeys=(
   F77A64C4B5B45FF8763A278F65755979B34E1294 # Akira TAGOH <akira@tagoh.org>
