@@ -1,20 +1,20 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=srgn
-pkgver=0.13.7
+pkgver=0.14.0
 pkgrel=1
 pkgdesc="A code surgeon for precise text and code transplantation"
 url="https://github.com/alexpovel/srgn"
 arch=(x86_64)
-license=('MIT OR Apache-2.0')
+license=('MIT')
 depends=(
   gcc-libs
   glibc
 )
 makedepends=(cargo)
 options=(!lto)
-source=("$pkgname-$pkgver.tar.gz::$url/archive/srgn-v$pkgver.tar.gz")
-sha256sums=('324e31e732646bcc0344ce0ecc684f0d852ee1ce370dae162a9b9544432c133a')
+source=("$url/archive/$pkgname-v$pkgver.tar.gz")
+sha256sums=('b6219c19214ad932b5df67c8ee00f32755014bf5ea2a1b6b57c6913c3124d202')
 
 prepare() {
   cd $pkgname-srgn-v$pkgver
@@ -39,7 +39,7 @@ check() {
 package() {
   cd $pkgname-srgn-v$pkgver
   install -vDm755 -t "$pkgdir/usr/bin" target/release/srgn
-  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE-MIT
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
   cp -va -t "$pkgdir/usr/share/doc/$pkgname" docs
 
