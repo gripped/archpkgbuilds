@@ -5,13 +5,12 @@
 _name=sqlalchemy-utils
 pkgname=python-sqlalchemy-utils
 pkgver=0.42.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Various utility functions, new data types and helpers for SQLAlchemy'
 url='https://github.com/kvesteri/sqlalchemy-utils'
-depends=('python' 'python-sqlalchemy' 'python-anyjson' 'python-babel'
-         'python-arrow' 'python-intervals' 'python-phonenumbers' 'python-passlib'
-         'python-colour' 'python-dateutil' 'python-furl' 'python-cryptography'
-         'python-pendulum')
+depends=('python' 'python-sqlalchemy' 'python-babel' 'python-arrow'
+         'python-intervals' 'python-phonenumbers' 'python-passlib' 'python-colour'
+         'python-dateutil' 'python-furl' 'python-cryptography' 'python-pendulum')
 checkdepends=('python-pytest' 'python-flexmock' 'python-jinja')
 makedepends=('python' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 license=('BSD')
