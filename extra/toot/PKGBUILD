@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=toot
-pkgver=0.47.1
+pkgver=0.48.1
 pkgrel=1
 pkgdesc='A Mastodon CLI client'
 arch=('any')
@@ -16,6 +16,7 @@ depends=(
   'python-tomlkit'
   'python-click'
   'python-typing_extensions'
+  'python-dateutil'
 )
 makedepends=(
   'git'
@@ -25,9 +26,13 @@ makedepends=(
   'python-setuptools-scm'
   'python-wheel'
 )
+optdepends=(
+  'python-term-image: image support'
+  'python-urwidgets: rich text support'
+)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('3fb1a685b5e814c7093af4c1df7c389b097a6aa9890d52db8a7b897d109e2ef8a62cd694065b3319beefc35a8e352dd96a5982f96beee85479e60b069be7fb87')
-b2sums=('7d448776ee97b7f378c6afd60aac11228a83f9aee2fcf079f86c0af9b7038c1d601ec00ffce91db22baa67237f43292872443930bdeaa6c7645e15b02d7783e4')
+sha512sums=('04c2062e8f31d256ed301ea0143c0a91089d56fee92f6dc81666e99da9015c8062d2106af3c32b04f708d90863e091ab55bfa4d3cf50da9fd45dc2e1ba542072')
+b2sums=('8df641c2e602eac85d748753a36b5014a54fd50094aae4421988cbe936b871677846f73574a13e25a670e562aa14296ebdf5ff2ed6a1dad42803aa98761cd4a1')
 
 build() {
   cd "$pkgname"
