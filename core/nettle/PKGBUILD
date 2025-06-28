@@ -2,7 +2,7 @@
 # Contributor: bender02 at gmx dot com
 
 pkgname=nettle
-pkgver=3.10.1
+pkgver=3.10.2
 pkgrel=1
 pkgdesc="A low-level cryptographic library"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('glibc' 'gmp')
 provides=('libnettle.so' 'libhogweed.so')
 checkdepends=('valgrind')
 source=(https://ftp.gnu.org/gnu/$pkgname/$pkgname-$pkgver.tar.gz{,.sig})
-sha256sums=('b0fcdd7fc0cdea6e80dcf1dd85ba794af0d5b4a57e26397eee3bc193272d9132'
+sha256sums=('fe9ff51cb1f2abb5e65a6b8c10a92da0ab5ab6eaf26e7fc2b675c45f1fb519b5'
             'SKIP')
 validpgpkeys=('343C2FF0FBEE5EC2EDBEF399F3599FF828C67298') # Niels Möller <nisse@lysator.liu.se>
 
