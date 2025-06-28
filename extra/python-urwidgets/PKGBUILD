@@ -1,0 +1,35 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-urwidgets
+pkgver=0.2.1
+pkgrel=2
+pkgdesc='A collection of widgets for urwid'
+arch=(any)
+url='https://github.com/AnonymouX47/urwidgets'
+license=(MIT)
+depends=(python python-urwid)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('7fc0b8f66bab7446e59ef37c083c45009c2083c298dc47d583bfa2df5afdeb188db36367882f38dfdb39f08de7d7b69d45720014e969ff2ff4e8e2a985fd64d4')
+b2sums=('8e0fdf214df11f8ec038b0bff26b21f23d9bb975bc1943e058b98b3a210f6d2015336fea0512dbff6ebd7b771d0089f2e7a52b48dd6244dd340ba1a2aa0c8928')
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}
