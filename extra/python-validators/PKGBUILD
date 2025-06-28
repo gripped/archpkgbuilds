@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-validators
-pkgver=0.26.0
+pkgver=0.27.0
 pkgrel=1
 pkgdesc="Python Data Validation for Humans"
 url="https://github.com/kvesteri/validators"
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools')
 checkdepends=('python-pytest')
 source=("git+https://github.com/kvesteri/validators.git#tag=$pkgver")
-sha512sums=('ae62a761f0d17608991ed245bb6ecd7fe90a853d8fbe6693f63b67d16b2ad04d18f22082685671a34789befa279bbd845111c95b12f322641e1fff05e957cbea')
+sha512sums=('c8594adc42f68c780236e1287f190115d28172d11ad60733c3bd250c50faa6c52e7a85947446ac01cb042779a7a83008faeb4e2b5df01c4ac13ab6519c425b2a')
 
 build() {
   cd validators
