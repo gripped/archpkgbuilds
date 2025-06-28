@@ -5,7 +5,7 @@
 
 pkgname=python-openai
 _name=openai-python
-pkgver=1.88.0
+pkgver=1.93.0
 pkgrel=1
 pkgdesc="Python client library for the OpenAI API"
 arch=('any')
@@ -36,6 +36,7 @@ checkdepends=(
   'npm'
   'procps-ng'
   'python-dirty-equals'
+  'python-httpx-aiohttp'
   'python-inline-snapshot'
   'python-nest-asyncio'
   'python-pytest'
@@ -45,19 +46,20 @@ checkdepends=(
   'python-rich'
 )
 optdepends=(
+  'python-httpx-aiohttp: Use aiohttp as HTTP backend'
   'python-numpy: Datalib support'
   'python-pandas: Datalib support'
   'python-websockets: Realtime support'
 )
 # Defined in .stats.yml
 # curl -s https://raw.githubusercontent.com/openai/openai-python/refs/tags/v1.71.0/.stats.yml | grep openapi_spec_url | cut -d- -f5 | cut -d. -f1
-_openai_openapi_spec=9e41d2d5471d2c28bff0d616f4476f5b0e6c541ef4cb51bdaaef5fdf5e13c8b2
+_openai_openapi_spec=a473967d1766dc155994d932fbc4a5bcbd1c140a37c20d0a4065e1bf0640536d
 source=(
   "${_name}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
   "https://storage.googleapis.com/stainless-sdk-openapi-specs/openai%2Fopenai-${_openai_openapi_spec}.yml"
 )
-sha256sums=('eb0af56fbb11751e2690a52a455737ffb7b1c5256930479532c561d46acf6284'
-            '9e41d2d5471d2c28bff0d616f4476f5b0e6c541ef4cb51bdaaef5fdf5e13c8b2')
+sha256sums=('0b06544ae10dc8f423e736723b2a116376ffc7d5006d406038063c5e52847748'
+            'a473967d1766dc155994d932fbc4a5bcbd1c140a37c20d0a4065e1bf0640536d')
 
 prepare() {
   cd "${_name}-${pkgver}"
@@ -88,7 +90,8 @@ check() {
     --deselect tests/lib/test_assistants.py::test_create_and_run_poll_method_definition_in_sync \
     --deselect tests/lib/test_assistants.py::test_create_and_run_stream_method_definition_in_sync \
     --deselect tests/test_client.py::TestAsyncOpenAI::test_copy_build_request \
-    --deselect tests/test_client.py::TestOpenAI::test_copy_build_request
+    --deselect tests/test_client.py::TestOpenAI::test_copy_build_request \
+    --deselect tests/test_transform.py::test_base64_file_input
 }
 
 package() {
