@@ -2,11 +2,11 @@
 
 pkgname=adwaita-fonts
 pkgver=49.0
-pkgrel=1
+pkgrel=2
 pkgdesc="The typefaces for GNOME"
 arch=('any')
 url="https://gitlab.gnome.org/GNOME/adwaita-fonts"
-license=('GPL-3.0-or-later')
+license=('OFL-1.1')
 makedepends=(
   git
   meson
@@ -20,4 +20,6 @@ build() {
 
 package() {
   meson install -C build --destdir "$pkgdir"
+
+  install -Dm 0644 "${srcdir}/${pkgname}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
