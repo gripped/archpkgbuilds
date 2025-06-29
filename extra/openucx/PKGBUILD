@@ -3,7 +3,7 @@
 _name=ucx
 pkgname=openucx
 pkgver=1.18.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Communication framework for data-centric and high-performance applications"
 arch=(x86_64)
 url="https://openucx.org/"
@@ -35,9 +35,11 @@ provides=(
 source=(
   $pkgname-$pkgver.tar.gz::https://github.com/openucx/$_name/archive/refs/tags/v$pkgver.tar.gz
   fix-headers-before-c-decls.patch
+  ucx-conf.patch
 )
 b2sums=('4fcf866c6a446f367fc1e8981b1272f405a081d0f241f7f7bc0e7a1cef961230a8b4e07d7e72e4366c80846d3d517f3998cfdc79afcf7c67ebdb8cd82bbf985b'
-        'e34e1b1fc3c0bbda825a29a0d907f79ceac7f63ed664b66f82c54d4e06aea5fe2a41ab3d77c703d0addb76be9339870f3f13b7bb2a07a4d455c611d65458bfeb')
+        'e34e1b1fc3c0bbda825a29a0d907f79ceac7f63ed664b66f82c54d4e06aea5fe2a41ab3d77c703d0addb76be9339870f3f13b7bb2a07a4d455c611d65458bfeb'
+        '2b3b4575ce64b947ecc42c9055934bcd7e5feb30031c6504f8cc3057cfc138b28c2826a6cc55be56d186e09e20c6201dacfc308647d9b62a5d33688348d15a68')
 
 prepare() {
   cd $_name-$pkgver
@@ -45,6 +47,9 @@ prepare() {
   # TOOLS/PERF: Include headers before BEGIN_C_DECLS
   # https://github.com/openucx/ucx/pull/10668/commits/1adf2aecb6fedd82227e9c293a77473ad42632be
   patch -Np1 -i ../fix-headers-before-c-decls.patch
+
+  # Do not hijack SIGHUP https://gitlab.archlinux.org/archlinux/packaging/packages/openucx/-/issues/3
+  patch -Np1 -i ../ucx-conf.patch
 }
 
 build() {
