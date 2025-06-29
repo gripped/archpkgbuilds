@@ -1,0 +1,45 @@
+# Maintainer: Maxime Gauduin <aiucryd@archlinux.org>
+# Contributor: Ivan Shapovalov <intelfx@intelfx.name>
+# Contributor: fanyujun <dlutfyj@outlook.com>
+
+pkgname=python-lap
+epoch=1
+pkgver=0.5.12
+pkgrel=2
+pkgdesc='Linear Assignment Problem solver using Jonker-Volgenant algorithm (LAPJV/LAPMOD)'
+arch=(x86_64)
+url=https://github.com/gatagat/lap
+license=(BSD-2-Clause)
+depends=(
+  glibc
+  python
+  python-numpy
+)
+makedepends=(
+  cython
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+_tag=600c210d9bef793ee0fe502cbc350e676a6e083a
+source=(git+https://github.com/gatagat/lap.git#tag=${_tag})
+b2sums=('7e107d144c1a0dff21fa72496ca89d192041bb3952c79c5309cf2ed2a0dc8a7b9ca5132358b4ada8e9f52201be4424ab2f5a4bf8a08443e9c67674a1d5ff4b73')
+
+pkgver() {
+  cd lap
+  git describe --tags | sed 's/^v//'
+}
+
+build() {
+  cd lap
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  python -m installer --destdir="${pkgdir}" lap/dist/*.whl
+  install -Dm 644 lap/LICENSE -t "${pkgdir}"/usr/share/licenses/python-lap/
+}
+
+# vim: ts=2 sw=2 et:
