@@ -6,7 +6,7 @@
 
 pkgname=crosstool-ng
 pkgver=1.27.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A versatile (cross-)toolchain generator'
 arch=(x86_64)
 url=https://crosstool-ng.github.io/
@@ -23,11 +23,18 @@ depends=(
   unzip
 )
 _tag=70c2b00ad79a0a21a48e5a0eedc9f91c374af21d
-source=(git+https://github.com/crosstool-ng/crosstool-ng.git#tag=${_tag})
-b2sums=('9e0fda92af84bb1c49d6e22417629edc3e1d7d067bc45542fa861cba9242f14764aba2771048e0a1f43643d8151d93e1e51ffeb645d15daf227841f0e569755b')
+source=(git+https://github.com/crosstool-ng/crosstool-ng.git#tag=${_tag}
+        strip_gzip_timestamps.patch)
+b2sums=('9e0fda92af84bb1c49d6e22417629edc3e1d7d067bc45542fa861cba9242f14764aba2771048e0a1f43643d8151d93e1e51ffeb645d15daf227841f0e569755b'
+        'eef5ae3796a443f5a514ab3c088b815302795f09bd3683cbc0b4ac89c06f12ccada0c7b8a4c462df244aa7b26fb41f558c7c58c49073400feea2087c93e351fd')
 
 prepare() {
   cd crosstool-ng
+
+  # Don't save the timestamp in the gzip header to ensure reproducibility
+  # https://github.com/crosstool-ng/crosstool-ng/commit/7ab4c0c8d7b9676ec2f9bbf2677cbe09777bc6ac
+  patch -Np1 -i "${srcdir}/strip_gzip_timestamps.patch"
+
   ./bootstrap
 }
 

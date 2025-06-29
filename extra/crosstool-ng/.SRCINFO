@@ -1,7 +1,7 @@
 pkgbase = crosstool-ng
 	pkgdesc = A versatile (cross-)toolchain generator
 	pkgver = 1.27.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://crosstool-ng.github.io/
 	arch = x86_64
 	license = GPL2
@@ -15,6 +15,8 @@ pkgbase = crosstool-ng
 	depends = rsync
 	depends = unzip
 	source = git+https://github.com/crosstool-ng/crosstool-ng.git#tag=70c2b00ad79a0a21a48e5a0eedc9f91c374af21d
+	source = strip_gzip_timestamps.patch
 	b2sums = 9e0fda92af84bb1c49d6e22417629edc3e1d7d067bc45542fa861cba9242f14764aba2771048e0a1f43643d8151d93e1e51ffeb645d15daf227841f0e569755b
+	b2sums = eef5ae3796a443f5a514ab3c088b815302795f09bd3683cbc0b4ac89c06f12ccada0c7b8a4c462df244aa7b26fb41f558c7c58c49073400feea2087c93e351fd
 
 pkgname = crosstool-ng
