@@ -5,7 +5,7 @@ pkgname=(
   jsonrpc-glib
   jsonrpc-glib-docs
 )
-pkgver=3.44.1
+pkgver=3.44.2
 pkgrel=1
 pkgdesc="JSON-RPC / GVariant RPC library for GLib"
 url="https://gitlab.gnome.org/GNOME/jsonrpc-glib"
@@ -26,7 +26,7 @@ makedepends=(
   vala
 )
 source=("git+https://gitlab.gnome.org/GNOME/jsonrpc-glib.git#tag=$pkgver")
-b2sums=('a7a1f74165bf8f8124f15f10b30d67cf9be724662d687e73a5320a4e1b82ebd29453898b0de6614b6ca8a227769f26ab5de8dbaf8a4c2071e10299224fd047ea')
+b2sums=('3be861722c34aa65d290357100514b2750d7f0173b92e6b767a05776bc4f6bf04c1903bd2649f2388d03e85756b2e82a332d218119820b4b9e454c7ded317a9a')
 
 prepare() {
   cd $pkgname
