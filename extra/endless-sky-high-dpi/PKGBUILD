@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <george@rawlinson.net.nz>
 
 pkgname=endless-sky-high-dpi
-pkgver=0.10.12
+pkgver=0.10.14
 pkgrel=1
 pkgdesc='High DPI sprites for Endless Sky'
 arch=('any')
@@ -16,8 +16,8 @@ license=(
 depends=('endless-sky')
 makedepends=('git')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('2ece2b312f5a595e944d7c699d8b678707b3fa5f610f614169dd409f8ab0c9719ed5b28bd8307eeea38483bde79ca62ba546db65b5227b625406b76dd61640fd')
-b2sums=('f51599b6d2aae1bf728ccbb81c342bd2374b235b77a95023f0cf5178cbdb8ff530e015ad08077d13f80eaaa3c0a64a585920b01970d459573ea8b33a07d8e2b5')
+sha512sums=('96a3954755d7b709edcca26f823b71f236f138792ceb03e11024b02d41c49d0245721ec28dab63c282632b006e47661982adc16d7471ed9f5a2cd0bf55eef066')
+b2sums=('c6179e611d22fef439a59c08f3e355a500cd61d19de68c19854580a767c8fd2919ec903a45b1c90963c6738642489a97aa5a3e9d878499e23f0ad20001f3bc50')
 
 package() {
   cd "$pkgname"
