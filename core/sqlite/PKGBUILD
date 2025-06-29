@@ -3,10 +3,10 @@
 
 pkgbase="sqlite"
 pkgname=('sqlite' 'sqlite-tcl' 'sqlite-analyzer' 'lemon' 'sqlite-doc')
-_srcver=3500100
+_srcver=3500200
 _docver=${_srcver}
 #_docver=3440000
-pkgver=3.50.1
+pkgver=3.50.2
 pkgrel=1
 pkgdesc="A C library that implements an SQL database engine"
 arch=('x86_64')
@@ -19,8 +19,8 @@ source=(https://www.sqlite.org/2025/sqlite-src-${_srcver}.zip
         sqlite-lemon-system-template.patch
         license.txt)
 # upstream now switched to sha3sums - currently not supported by makepkg
-sha256sums=('9090597773c60a49caebb3c1ac57db626fac4d97cb51890815a8b529a4d9c3dc'
-            '662205f63382e57d1071eaabd3c7908dd72114a820a8ebcf1a0d71a9d6b382b4'
+sha256sums=('091eeec3ae2ccb91aac21d0e9a4a58944fb2cb112fa67bffc3e08c2eca2d85c8'
+            '9f8ba2b53a3aa2c9166d46a02d911b85d3b8b0b840c491d321d5fc62150e3419'
             '55746d93b0df4b349c4aa4f09535746dac3530f9fd6de241c9f38e2c92e8ee97'
             '4e57d9ac979f1c9872e69799c2597eeef4c6ce7224f3ede0bf9dc8d217b1e65d')
 
