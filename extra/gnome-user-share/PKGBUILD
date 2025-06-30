@@ -2,7 +2,7 @@
 # Contributor: Roman Kyrylych <roman@archlinux.org>
 
 pkgname=gnome-user-share
-pkgver=48.0
+pkgver=48.1
 pkgrel=1
 pkgdesc="Easy to use user-level file sharing for GNOME"
 url="https://gitlab.gnome.org/GNOME/gnome-user-share"
@@ -27,14 +27,14 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-user-share.git#tag=${pkgver/[a-z]/.&}"
   0001-build-Use-cargo-release-for-all-buildtypes-except-de.patch
 )
-b2sums=('1294180e23983e01ee02c0bb45bfe6c6be2fdbf3f1f24779f6e1841701616e636e0c48c52f0f5f1365e094a961c8faa9303a9dc9264039520b99b8d9b4ff8f10'
+b2sums=('7d9e11cb2afce7711ecda308672a79626e61bd1573ef361b1b7cf709c83b917fb31f3d9dc5bd1922d5f490d0a95746cf22b4ecf05970ed1e3b7eff120f936c58'
         '936f92722d7d189b36c47dad2f0c70c0771923b7c0e9c141006f94a26fe9f41bc7faed529ca2df869bfbad0f8379847bd2d96b2bcbaf2c2c4bd8681ef5aef9e6')
 
 # Use LTO
 export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 # Use debug
-export CARGO_PROFILE_RELEASE_DEBUG=2
+export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
 
 prepare() {
   cd $pkgname
