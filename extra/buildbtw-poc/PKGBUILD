@@ -1,0 +1,63 @@
+pkgname=buildbtw-poc
+pkgver=0.0.0.r314.c63e736
+_commit=c63e736bd93992bc3237faeda479e195637825a0
+pkgrel=1
+pkgdesc='Service for building new versions of packages (proof-of-concept)'
+url='https://gitlab.archlinux.org/archlinux/buildbtw/'
+arch=(x86_64)
+license=(GPL-3.0-or-later)
+depends=(
+  gcc-libs
+  glibc
+  libgit2
+  openssh
+  openssl
+  sqlite
+  sqlx-cli
+)
+makedepends=(
+  cargo
+  git
+  just
+)
+options=(!lto)
+source=(buildbtw::"git+https://gitlab.archlinux.org/archlinux/buildbtw.git#commit=${_commit}")
+sha256sums=('67280deb98b0e279b93c8971aed5f18be25587b8424e406ecc600c9d7f7fcde4')
+b2sums=('9340cdb9f0c02f23a64f1185eafa410f4afd6d267ea6a6925c41d5ea067423e7142ec3dcfa046d89d812777a16d2da7e9a4b7ec9339d17af7f06682567c67baf')
+validpgpkeys=(
+  E240B57E2C4630BA768E2F26FC1B547C8D8172C8 # Levente Polyak <anthraxx@archlinux.org>
+  AAE2599CE2DFD58B8E884726B4EFE6DC59FAE118 # Rafael Epplée <raffomania@archlinux.org>
+  8FC15A064950A99DD1BD14DD39E4B877E62EB915 # Sven-Hendrik Haase <svenstaro@archlinux.org>
+)
+
+pkgver() {
+  cd buildbtw/${pkgname}
+  printf "%s.r%s.%s" "0.0.0" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd buildbtw/${pkgname}
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd buildbtw/${pkgname}
+  export DATABASE_URL=sqlite:buildbtw_server.sqlite
+  just create-db
+  cargo build --frozen --release
+}
+
+check() {
+  cd buildbtw/${pkgname}
+  cargo test --frozen
+}
+
+package() {
+  cd buildbtw
+  install -Dm 755 target/release/buildbtw-{client,server,worker} -t "${pkgdir}/usr/bin"
+  ln -sf /usr/bin/buildbtw-client "${pkgdir}/usr/bin/bbtw"
+  install -Dm 644 "notes/PoC User Guide.md" -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 buildbtw-poc/migrations/*.sql -t "${pkgdir}/usr/lib/${pkgname}/migrations"
+}
+
+# vim: ts=2 sw=2 et:
