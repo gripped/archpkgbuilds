@@ -4,7 +4,7 @@
 
 pkgname=lib32-fontconfig
 pkgver=2.17.0
-pkgrel=1
+pkgrel=2
 epoch=2
 pkgdesc="Library for configuring and customizing font access"
 url=https://www.freedesktop.org/wiki/Software/fontconfig/
@@ -35,6 +35,10 @@ validpgpkeys=(
 
 prepare() {
   cd fontconfig
+
+  # Fix a buffer overflow
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/fontconfig/-/issues/3
+  git cherry-pick -n b9bec06d73340f1b5727302d13ac3df307b7febc
 }
 
 build() {
