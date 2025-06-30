@@ -9,10 +9,10 @@
 # ask to download it. Do not update the package to the latest
 # version without checking the version required by wine. This
 # can be checked here (change wine version accordingly):
-# https://gitlab.winehq.org/wine/wine/-/blob/wine-9.12/dlls/appwiz.cpl/addons.c#L59
+# https://gitlab.winehq.org/wine/wine/-/blob/wine-10.11/dlls/appwiz.cpl/addons.c#L59
 
 pkgname=wine-mono
-pkgver=10.0.0
+pkgver=10.1.0
 pkgrel=1
 pkgdesc="Wine's built-in replacement for Microsoft's .NET Framework"
 arch=('x86_64')
@@ -20,7 +20,7 @@ url='https://gitlab.winehq.org/wine/wine/-/wikis/Wine-Mono'
 license=('GPL-2.0-or-later' 'LGPL-2.1-only' 'MPL-1.1')
 depends=('wine')
 source=("https://dl.winehq.org/wine/${pkgname}/${pkgver}/${pkgname}-${pkgver}-x86.tar.xz")
-sha512sums=('e7e5867d34b64a9603fb919280d31cc3ae726fcfd22b4972bbfeda470aaddeb618b50f7d63b0a0ea15fd40f7d5e242c335bd84504a67d4e49b457591741acf5c')
+sha512sums=('6b2e08840715ccb26c5d624ab47fe443d93adcb550df565ae344b963c25ccd12aae31932a259cdc36ed02754e2f77806ce9bc919362d34bf35341075db5b4da9')
 
 package() {
   install -d -m755 "${pkgdir}/usr/share/wine/mono"
