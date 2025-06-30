@@ -3,8 +3,8 @@
 
 pkgname=('lact' 'lact-libadwaita')
 pkgbase=lact
-pkgver=0.7.4
-pkgrel=1
+pkgver=0.8.0
+pkgrel=2
 pkgdesc="Linux GPU Configuration Tool"
 arch=('x86_64')
 url="https://github.com/ilya-zlobintsev/LACT"
@@ -28,10 +28,12 @@ checkdepends=(
 )
 install="$pkgbase.install"
 source=("git+https://github.com/ilya-zlobintsev/LACT.git#tag=v$pkgver")
-sha256sums=('348b3c1f2402c15836384322b2b41540a1ebcb3cfdebbd039419b50264c1d69a')
-b2sums=('118ade61cdd4d020891fd18fb24a3f7f9df6b4ff80b8f3fcd588fb969c6af4f9e1297f3fc9438b2882c9a5f4a37e9970308d5b48758fe1d1d2bfef1e11d3bcc9')
+sha256sums=('86fca3e8ada54c3f26e7b85089f8ca6c222119ee2fb5861191462be7c12930ef')
+b2sums=('7f2b8f96bb5843a633027df0f87b3ed7321e28adc13a4adab5b037ee5f9180b0797180138049b1c97dd2a02e6cd99f68d51bf3fba05caca309854c90a2caba60')
 
-_backports=()
+_backports=(
+  'c9a59e48a36d590d7522c22bd15a8f9208bef0ee' #                                             chore: vendor pci.ids file for test purposes
+)
 
 _reverts=(
 )
