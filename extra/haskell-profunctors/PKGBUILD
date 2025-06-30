@@ -3,34 +3,34 @@
 
 _hkgname=profunctors
 pkgname=haskell-profunctors
-pkgver=5.6.2
-pkgrel=225
+pkgver=5.6.3
+pkgrel=1
 pkgdesc="Profunctors"
 url="https://github.com/ekmett/profunctors/"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-bifunctors' 'haskell-comonad'
          'haskell-contravariant' 'haskell-distributive' 'haskell-tagged')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('ddf33426fdf52dbe0ffea5c9124e1d35b79696564b8e88bcd7a015b8361634566e5d35135cee69c6dc2fa2bbb870d9f624710f98e122078f7f3a82bbdacad690')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u base-orphans
-}
+sha512sums=('2d1e52faa014041fb35749fe6a5a70e9e7cddfbd8df1bb23811b0ece03a96885e3542a59a85a9beac5b2499aa385400ea2a5124e439e4ec26244d7ce875a564d')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
