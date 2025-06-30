@@ -2,7 +2,7 @@
 # Contributor: Micha Alt <micha.tucker at gmail dot com>
 
 pkgname=gulp
-pkgver=5.0.0
+pkgver=5.0.1
 pkgrel=1
 pkgdesc="The streaming build system"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('nodejs' 'semver')
 makedepends=('npm')
 source=("https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz")
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('4bc67cd3ae924a295e698c354b637523ae0851cfe6c88d9ba9eda284e0733bafa72a9bcd4a0ed971626dfc0c05f0b0bf35537efd0679eb409bff938fb3286486')
+sha512sums=('3c4ae89370d9480e5618c77a5d757721134ed26941fb05b73b384524b11e7358d21118368f56f127a7b9161e8de9f9f7147d93f403f851835bfe962500307db0')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
