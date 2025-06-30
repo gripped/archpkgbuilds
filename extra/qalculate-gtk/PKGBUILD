@@ -2,7 +2,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=qalculate-gtk
-pkgver=5.5.1
+pkgver=5.6.0
 pkgrel=1
 pkgdesc='GTK frontend for libqalculate'
 arch=(x86_64)
@@ -20,11 +20,11 @@ makedepends=(intltool
              git
              glib2-devel)
 source=(git+https://github.com/Qalculate/qalculate-gtk#tag=v$pkgver)
-sha256sums=('a7a2055d87a0e74fb8c1c02109dad4ade90dac7a77d90b4c62745c8334998c3a')
+sha256sums=('3d18f771e3a472de99e27df115aa710df2cc143153636daaa4019573e2221a5f')
 
 prepare() {
   cd $pkgname
-  ./autogen.sh
+  autoreconf -vif -I /usr/share/gettext/m4
 }
 
 build() {
