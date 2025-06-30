@@ -1,7 +1,7 @@
 pkgbase = flashrom
 	pkgdesc = Utility for reading, writing, erasing and verifying flash ROM chips
 	pkgver = 1.5.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.flashrom.org/
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -9,6 +9,7 @@ pkgbase = flashrom
 	makedepends = git
 	makedepends = meson
 	makedepends = python-sphinx
+	depends = libcrypto.so
 	depends = libftdi
 	depends = libusb
 	depends = pciutils
