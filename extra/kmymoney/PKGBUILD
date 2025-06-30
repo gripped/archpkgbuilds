@@ -7,7 +7,7 @@
 
 pkgname=kmymoney
 pkgver=5.2.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Personal finance manager for KDE which operates similarly to MS-Money or Quicken"
 arch=('x86_64')
 url="https://kmymoney.org/"
@@ -21,14 +21,17 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'doxygen' 'qgpgme')
 optdepends=('perl: for financequote.pl')
 changelog=$pkgname.changelog
 source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig}
-        identitymanagement.patch)
+        identitymanagement.patch
+        https://invent.kde.org/office/kmymoney/-/commit/aac0449b.patch)
 validpgpkeys=('D69A745A55331F44F404D8258D4DE062AA2EB01C')
 sha256sums=('f308b0a2297f22f43d9bbe46b4c7dc6aac08bd594454e635a844d06abda4d33c'
             'SKIP'
-            'a92ed7427764bbff9e043b45a38280a1e752ef70413605d34957acb3caaa9761')
+            'a92ed7427764bbff9e043b45a38280a1e752ef70413605d34957acb3caaa9761'
+            'ce90c9b944fb69598f30a08c3e390bb606a124590c2fee275eebef40d93bd64f')
 
 prepare() {
   patch -d $pkgname-$pkgver -p1 < identitymanagement.patch
+  patch -d $pkgname-$pkgver -p1 < aac0449b.patch # Fix action links
 }
 
 build() {
