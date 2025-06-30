@@ -2,12 +2,12 @@
 # Contributor: Shinlun Hsieh <yngwiexx@yahoo.com.tw>
 
 pkgname=hatari
-pkgver=2.5.0
+pkgver=2.6.0
 pkgrel=1
 pkgdesc='An Atari ST and STE emulator'
 arch=('x86_64')
-url='http://hatari.sourceforge.net/'
-license=('GPL')
+url='https://www.hatari-emu.org/'
+license=('GPL-2.0-or-later')
 depends=(
   'glibc'
   'hicolor-icon-theme'
@@ -24,8 +24,8 @@ optdepends=(
   'python: for atari-convert-dir'
   'sh: for atari-hd-image, zip2st, hatari-prg-args'
 )
-source=("https://download.tuxfamily.org/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.bz2")
-sha256sums=('d76c22fc3de69fb1bb4af3e8ba500b7e40f5a2a45d07783f24cb7101e53c3457')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/${pkgname}/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('abb1e7ec9a689785cede60c050936df9f208c90a023f94662e18b79bdcf1a810')
 
 build() {
   cd ${pkgname}-${pkgver}
