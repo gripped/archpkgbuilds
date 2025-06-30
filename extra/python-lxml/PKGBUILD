@@ -3,7 +3,7 @@
 
 pkgbase=python-lxml
 pkgname=('python-lxml' 'python-lxml-docs')
-pkgver=5.4.0
+pkgver=6.0.0
 pkgrel=1
 pkgdesc="Python3 binding for the libxml2 and libxslt libraries"
 arch=('x86_64')
@@ -19,12 +19,12 @@ makedepends=('python-setuptools' 'python-pygments' 'python-sphinx' 'python-sphin
              'cython')
 checkdepends=('python-cssselect' 'python-html5lib' 'python-beautifulsoup4')
 source=("https://github.com/lxml/lxml/archive/lxml-$pkgver.tar.gz")
-sha512sums=('a7f297b94fd88f20de9371bef207f8e95243a060b24e4006ec310c4a94f6147c8bb38fc3cff0f874f0b76282e745bb62e65a5cba2ce6e34ee54be0e3fde66724')
+sha512sums=('05519e03067de5d85be76994070c0a25f35eb52c2df5fc540aa6d2661af09636021c9b6b60d102c687cd9b8f800ecffdb9f2407d7d0f5bbbc43c4c0b38a3b18e')
 
 prepare() {
   mv lxml-lxml-$pkgver lxml-$pkgver
   cd lxml-$pkgver
-
+  
   # Setting LC_CTYPE to workaround encoding issue
   export LC_CTYPE=en_US.UTF-8
 }
