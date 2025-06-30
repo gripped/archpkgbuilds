@@ -1,0 +1,33 @@
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+
+pkgname=tombi
+pkgver=0.4.16
+pkgrel=1
+pkgdesc='TOML Formatter / Linter / Language Server'
+arch=(x86_64)
+url=https://tombi-toml.github.io/tombi/
+license=(MIT)
+depends=(gcc-libs)
+makedepends=(
+  git
+  rust
+)
+options=(!lto)
+source=("git+https://github.com/tombi-toml/tombi.git#tag=v$pkgver")
+b2sums=('f80ce21a2c3dee9a838d11cedadab08980e307415dd0dcc4a5abc46fbbd5d424b88bb90ff0d8dad905c1cfe041f20c42304def9294e5f55b4b657d7426cf2966')
+
+prepare() {
+  cd $pkgname
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $pkgname
+  cargo build --release --locked --offline
+}
+
+package() {
+  cd $pkgname
+  install -Dt "$pkgdir"/usr/bin target/release/$pkgname
+  install -Dt "$pkgdir"/usr/share/licenses/$pkgname LICENSE
+}
