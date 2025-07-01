@@ -4,7 +4,7 @@
 
 pkgname=passff-host
 pkgver=1.2.5
-pkgrel=1
+pkgrel=3
 epoch=1
 pkgdesc="PassFF native messaging host application for Firefox, Chromium, Chrome, Vivaldi"
 url="https://codeberg.org/PassFF/passff-host"
