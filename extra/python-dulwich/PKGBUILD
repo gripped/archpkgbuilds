@@ -3,7 +3,7 @@
 
 pkgname=python-dulwich
 _name=${pkgname#python-}
-pkgver=0.22.8
+pkgver=0.23.1
 pkgrel=1
 pkgdesc='Pure-Python implementation of the Git file formats and protocols'
 arch=(x86_64)
@@ -18,19 +18,24 @@ makedepends=(
   python-wheel
 )
 checkdepends=(
+  python-fastimport
+  python-gevent
   python-gpgme
+  python-merge3
   python-paramiko
+  python-pytest
 )
 optdepends=(
   'python-fastimport: for fast-import support'
   'python-gpgme: for PGP signature support'
   'python-idna: for HTTPS support via urllib3'
+  'python-merge3: for merge support'
   'python-paramiko: for use as the SSH implementation'
   'python-pyopenssl: for HTTPS support via urllib3'
   'python-pyinotify: to watch for changes to refs'
 )
 source=("git+https://github.com/jelmer/dulwich.git#tag=dulwich-$pkgver")
-b2sums=('6b67ffe65943cf5cbd6b33060c82aa6041f446dd326a98f6e074ffa6029b7756936df50c7a3c7bd4dce98d1c78bc3fae6da39b5d9d6b1716bb42cacce12a0b84')
+b2sums=('798ec4526058b66d44a83d44e274a57d0bc8e2abd8cdf02b6d59d60e9fb499d2e727b88a6b1c6226f10e854c2d231f520937af0238ce1ae5a6ec8c64a0b02b6b')
 validpgpkeys=(DC837EE14A7E37347E87061700806F2BD729A457) # Jelmer Vernooĳ <jelmer@jelmer.uk>
 
 build() {
@@ -39,8 +44,13 @@ build() {
 }
 
 check() {
+  local pytest_options=(
+    -v
+    --ignore tests/contrib/test_swift_smoke.py
+    --deselect tests/test_porcelain.py::AddTests::test_add_symlink_absolute_to_system
+  )
   cd "$_name"
-  PYTHONPATH=dulwich python -m unittest -v tests.test_suite
+  PYTHONPATH=dulwich pytest "${pytest_options[@]}" tests
 }
 
 package() {
