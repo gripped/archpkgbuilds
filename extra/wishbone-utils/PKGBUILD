@@ -3,15 +3,21 @@
 
 pkgname=wishbone-utils
 pkgver=0.7.8
-pkgrel=1
+pkgrel=2
 pkgdesc='Utilities for working with a Wishbone bridge'
 arch=(x86_64)
 url="https://github.com/litex-hub/wishbone-utils"
-license=(BSD)
+license=(Apache-2.0)
 depends=(glibc gcc-libs)
 makedepends=(rust)
+options=(!lto)
 source=($pkgname-$pkgver.tar.gz::https://github.com/litex-hub/wishbone-utils/archive/v$pkgver.tar.gz)
 sha512sums=('ca61e335f97c3e5ed0b02d71601c4d2102c87ea40051f7345514c1624c06bdaa47bb6acca66c0709968c9e39faf570f49e5ec81cb444909029498043240e506d')
+
+prepare() {
+  cd $pkgname-$pkgver/wishbone-tool
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
 
 build() {
   cd $pkgname-$pkgver/wishbone-tool
