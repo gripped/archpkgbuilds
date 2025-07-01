@@ -3,8 +3,8 @@
 # Contributor: Aaron Blair <aaron@aaronpb.me>
 
 pkgname=gobuster
-pkgver=3.6.0
-pkgrel=2
+pkgver=3.7.0
+pkgrel=1
 pkgdesc="Directory/File, DNS and VHost busting tool written in Go"
 arch=('x86_64')
 url="https://github.com/OJ/gobuster"
@@ -17,8 +17,8 @@ makedepends=(
 )
 options=(!lto)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/OJ/gobuster/archive/v${pkgver}.tar.gz")
-sha256sums=('509b16ca713de02f8fcdc7b33d97e7e18b687bb99634dde076be38297d4b401b')
-b2sums=('404f506898272cc3c20f849ddfcd5b1f8be2e7ca6f8d1a8beb067dbe7aee2a85b59a84fd34699482715cc83639d589703bb9588301a970b5edaf87bbed1627b4')
+sha256sums=('893f1979b453d655880c19552e1f894110a661a4057a58e95a4d7505bf6d7fa8')
+b2sums=('47601f1a31af29cfe206936144a19c88352fa914b906afa85b16288ef05fd0b33c92d5231b8641b8f1dad7ddae3728fe7e785fc3c296ced172702a43e027d9e8')
 
 build() {
   cd "${pkgname}-${pkgver}"
