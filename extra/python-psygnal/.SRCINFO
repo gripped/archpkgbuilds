@@ -1,11 +1,13 @@
 pkgbase = python-psygnal
 	pkgdesc = Python observer pattern (callback/event system) modeled after Qt Signals & Slots (but independent of Qt)
-	pkgver = 0.13.0
+	pkgver = 0.14.0
 	pkgrel = 1
 	url = https://github.com/pyapp-kit/psygnal
 	arch = any
 	license = BSD-3-Clause
 	checkdepends = python-pytest
+	checkdepends = python-pytest-asyncio
+	checkdepends = python-anyio
 	checkdepends = python-attrs
 	checkdepends = python-dask
 	checkdepends = python-numpy
@@ -17,7 +19,7 @@ pkgbase = python-psygnal
 	makedepends = python-hatchling
 	makedepends = python-installer
 	depends = python
-	source = python-psygnal-0.13.0.tar.gz::https://github.com/pyapp-kit/psygnal/archive/refs/tags/v0.13.0.tar.gz
-	b2sums = fcfb71201a5f1f5e0063863b16738c8186f0b9206a4804bd4e80673f9ba6233d68f0e1b84827c9581844956943cb93ef321c1a4775c10a427a46857239dbff03
+	source = python-psygnal-0.14.0.tar.gz::https://github.com/pyapp-kit/psygnal/archive/refs/tags/v0.14.0.tar.gz
+	b2sums = 6328a068bd8182e8020b5d00cda77efc8e9c5a09315d6f20d3adc17b9b68a02ff9aac05adc457f011188d715fab2eee0fd9137c60e12b94e4c939b121d9cb4ef
 
 pkgname = python-psygnal
