@@ -2,7 +2,7 @@
 
 pkgname=goaurrpc
 pkgver=1.2.3
-pkgrel=2
+pkgrel=3
 license=('MIT')
 pkgdesc="An implementation of the aurweb /rpc service in go"
 depends=('glibc')
@@ -13,9 +13,9 @@ _tag_commit=5ffa987642b5886ccb290a80a882dee9938e0560 # git show-ref -d v1.2.3
 source=("git+https://github.com/moson-mo/goaurrpc.git#tag=${_tag_commit}?signed"
         goaurrpc.service
         goaurrpc.sysusers)
-sha256sums=('SKIP'
+sha256sums=('23618f493c18b7749be60cd8f9595b814d8cd5a5fdd39e83bd665f1367e07519'
             'e6a298e647fcf3b255d9886180b992f0dc447e763509c50513473f6d9b9ac5e3'
-            '45ac878e62e8e43c55645ebbd71fc8e10ce32c81d1a769979f48ac5f25392ff3')
+            '85b94030647aefedf69b02764729b11fc8287301c8682599c063397e214eebc0')
 validpgpkeys=(
   D5AD89388A7C6C9C22E790994A4760AB4EE15296  # Mario Oenning <moson-mo@users.noreply.github.com>, retrieved from https://github.com/moson-mo.gpg
 )
