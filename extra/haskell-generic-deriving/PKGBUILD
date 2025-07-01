@@ -3,8 +3,8 @@
 
 _hkgname=generic-deriving
 pkgname=haskell-generic-deriving
-pkgver=1.14.5
-pkgrel=53
+pkgver=1.14.6
+pkgrel=1
 pkgdesc="Generic programming library for generalised deriving."
 url="https://github.com/dreixel/generic-deriving"
 license=("BSD")
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-th-abstraction')
 makedepends=('ghc')
 checkdepends=('haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('d3fc4e77a9c81ee570b20db6666f1c8bf32d1362cd045731401ff43db65b96c741752deec9f6239e8478d480e7d22e9bbc195fb473498cc380d7f94339563e3c')
+sha512sums=('98f2c27f873e80b18e8d14ea597fd119b2f5c42dd71586b02a060536c74893ae64feed52cc6fa4f571f02994356e76019487ecf590bb2552e00ee8a0596a0d70')
 
 build() {
     cd $_hkgname-$pkgver
