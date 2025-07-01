@@ -3,8 +3,8 @@
 
 pkgbase=luadbi
 pkgname=(lua51-dbi lua52-dbi lua53-dbi lua-dbi)
-pkgver=0.7.2
-pkgrel=2
+pkgver=0.7.4
+pkgrel=1
 pkgdesc="Database interface library for Lua"
 arch=('x86_64')
 url="https://github.com/mwild1/luadbi"
@@ -19,8 +19,10 @@ makedepends=('sqlite3'
 optdepends=('sqlite3: sqlite3 Support'
             'postgresql-libs: postgresql Support'
             'mariadb-libs: mysql Support')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/mwild1/luadbi/archive/v$pkgver.tar.gz")
-sha512sums=('891f99cbc8f1b5327ef820641a1608abf41410f2f28584b975cc3cf65154b9bebf6f1b9ca7d1818b9c965738ad700dd17ae042dfd2a7146cf755871ebae535b9')
+source=(
+  "$pkgname-$pkgver.tar.gz::https://github.com/mwild1/luadbi/archive/v$pkgver.tar.gz"
+)
+sha512sums=('9614b19c4e2fd134ec4bb196fa67f498a58ff66f06144a42d390ac7a52bab66293e4961f4d4227ea3b24b0662764de2e6497bc40d4976933aa7ffff5ec0929ec')
 
 prepare() {
   cp -r "$srcdir"/luadbi-$pkgver "$srcdir"/luadbi51-$pkgver
@@ -30,38 +32,38 @@ prepare() {
 
 build() {
   cd "$srcdir/luadbi51-$pkgver"
-  make free LUA_V=5.1
+  make mysql psql sqlite3 LUA_V=5.1
 
   cd "$srcdir/luadbi52-$pkgver"
-  make free LUA_V=5.2
+  make mysql psql sqlite3 LUA_V=5.2
 
   cd "$srcdir/luadbi53-$pkgver"
-  make free LUA_V=5.3
+  make mysql psql sqlite3 LUA_V=5.3
 
   cd "$srcdir/luadbi-$pkgver"
-  make free LUA_V=5.4
+  make mysql psql sqlite3 LUA_V=5.4
 }
 
 package_lua51-dbi() {
   cd "$srcdir/luadbi51-$pkgver"
-  make install_free DESTDIR="$pkgdir" LUA_V=5.1
+  make install_mysql install_psql install_sqlite3 DESTDIR="$pkgdir" LUA_V=5.1
   install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
 }
 
 package_lua52-dbi() {
   cd "$srcdir/luadbi52-$pkgver"
-  make install_free DESTDIR="$pkgdir" LUA_V=5.2
+  make install_mysql install_psql install_sqlite3 DESTDIR="$pkgdir" LUA_V=5.2
   install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
 }
 
 package_lua53-dbi() {
   cd "$srcdir/luadbi53-$pkgver"
-  make install_free DESTDIR="$pkgdir" LUA_V=5.3
+  make install_mysql install_psql install_sqlite3 DESTDIR="$pkgdir" LUA_V=5.3
   install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
 }
 
 package_lua-dbi() {
   cd "$srcdir/luadbi-$pkgver"
-  make install_free DESTDIR="$pkgdir" LUA_V=5.4
+  make install_mysql install_psql install_sqlite3 DESTDIR="$pkgdir" LUA_V=5.4
   install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
 }
