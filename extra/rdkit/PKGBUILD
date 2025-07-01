@@ -1,7 +1,7 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=rdkit
-pkgver=2025.03.3
+pkgver=2025.03.4
 pkgrel=1
 pkgdesc="Open-source toolkit for cheminformatics"
 arch=(x86_64)
@@ -26,7 +26,7 @@ makedepends=(
   ninja
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/Release_${pkgver//./_}.tar.gz)
-b2sums=('4aa75df9604cf2714b407e7716ca23446feac0f02a101db579e26ab0744226dc624ced1bc85e1c1501df145d599a61701cff61e7f694ec5704439521ae9a1acf')
+b2sums=('5042475d37eeff458a67df33ece381bde44f20a1bf76e8d0c4f9230d9e5e623f0913178ace0e98cf2183dc81f6e3ce3d69ecfce90532393258001b316e4259ab')
 
 build() {
   local cmake_options=(
