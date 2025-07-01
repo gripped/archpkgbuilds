@@ -2,7 +2,7 @@
 
 _name=mwparserfromhell
 pkgname=python-$_name
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=1
 pkgdesc="A Python parser for MediaWiki wikicode"
 arch=(x86_64)
@@ -25,7 +25,7 @@ checkdepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
 )
-b2sums=('4f906c87e21aedcde1bdc318e877275a39324085b3c12844dd63f0a16dad604e699509009a2dee370c66076a3d3478bc9a22013ddbea81fc534d34e0f561467c')
+b2sums=('d0c77fea4aded8889babadccd104a6fb390ff2bfeae34b1e47c64db868fb5b4c454fa185c1aea209f91546e8a98693e073efae6a4f61d6b1de0573a8479b915a')
 
 build() {
   cd $_name-$pkgver
