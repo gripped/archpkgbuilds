@@ -2,8 +2,8 @@
 # Maintainer: T.J. Townsend <blakkheim@archlinux.org>
 
 pkgname=sudo-rs
-pkgver=0.2.6
-pkgrel=2
+pkgver=0.2.7
+pkgrel=1
 pkgdesc="A memory-safe implementation of sudo and su"
 arch=('x86_64')
 url="https://github.com/trifectatechfoundation/sudo-rs"
@@ -16,7 +16,6 @@ depends=(
 makedepends=(
   cargo
   git
-  pandoc
 )
 checkdepends=(
   # Not really needed directly, but the tests assume it exists
@@ -26,7 +25,7 @@ optdepends=(
   "sudo: default configuration files"
 )
 source=(git+https://github.com/trifectatechfoundation/sudo-rs.git#tag=v${pkgver}?signed)
-sha256sums=('2a985614e551a99ae62aee4cc2ac4c8d2615f8ab101eb5335a596a786eeacf30')
+sha256sums=('bc2c158f95af7b8711b071c07846f9289c10cdd41db2d0abece555ca657da546')
 validpgpkeys=(C2E4CAC4B12225DE1C3BB1C9289D082003D01E95) # Marc Schoolderman
 
 prepare() {
@@ -35,25 +34,8 @@ prepare() {
 }
 
 build() {
-  local man_file out_dir target_file section
-
   cd "$pkgname"
   cargo build --release --frozen
-
-  # upstream uses a docker container to build man pages, this is roughly what
-  # it tries to do.
-  out_dir=target/docs/man
-  mkdir --parents --verbose "$out_dir"
-  for man_file in docs/man/*.md; do
-    target_file="$out_dir/$(basename "$man_file" .md)"
-    pandoc --standalone --to man "$man_file" -o "$target_file"
-  done
-
-  # Rename man files with a suffix -rs so we don't conflict with the sudo
-  # package
-  for man_file in "$out_dir/"*.{1,5,8}; do
-    mv --verbose "$man_file" "${man_file%%.*}-rs.${man_file#*.}"
-  done
 }
 
 check() {
@@ -66,16 +48,22 @@ package() {
 
   cd "$pkgname"
 
-  install -vDm4755 target/release/sudo "$pkgdir/usr/bin/sudo-rs"
-  install -vDm4755 target/release/su "$pkgdir/usr/bin/su-rs"
-  install -vDm0755 target/release/visudo "$pkgdir/usr/bin/visudo-rs"
+  install -Dm4755 target/release/sudo "$pkgdir/usr/bin/sudo-rs"
+  install -Dm4755 target/release/su "$pkgdir/usr/bin/su-rs"
+  install -Dm0755 target/release/visudo "$pkgdir/usr/bin/visudo-rs"
 
-  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE-*
-  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" CHANGELOG.md README.md SECURITY.md
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE-*
+  install -Dm644 -t "$pkgdir/usr/share/doc/$pkgname" CHANGELOG.md README.md SECURITY.md
 
   for section in 1 5 8; do
-    install -vDm644 -t "$pkgdir/usr/share/man/man$section" target/docs/man/*.$section
+    install -d "$pkgdir/usr/share/man/man$section"
   done
+
+  # Rename man pages with an -rs suffix so we don't conflict with sudo
+  install -Dm0644 docs/man/su.1.man "$pkgdir/usr/share/man/man1/su-rs.1"
+  install -Dm0644 docs/man/sudo.8.man "$pkgdir/usr/share/man/man8/sudo-rs.8"
+  install -Dm0644 docs/man/sudoers.5.man "$pkgdir/usr/share/man/man5/sudoers-rs.5"
+  install -Dm0644 docs/man/visudo.8.man "$pkgdir/usr/share/man/man8/visudo-rs.8"
 }
 
 # vim:set ts=2 sw=2 et:
