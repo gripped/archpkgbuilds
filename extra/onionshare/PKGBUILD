@@ -3,20 +3,25 @@
 # Contributor: Ye Shu <shuye02 at outlook.com>
 
 pkgname=onionshare
-pkgver=2.6.2
-pkgrel=5
+pkgver=2.6.3
+pkgrel=1
 pkgdesc='Share a file over Tor Hidden Services anonymously and securely'
 url='https://github.com/onionshare/onionshare'
 arch=('any')
-license=('GPL-3.0-only')
+license=('GPL-3.0-or-later')
 depends=(
   'hicolor-icon-theme'
   'pyside6'
   'python'
+  'python-cffi'
   'python-colorama'
+  'python-eventlet'
   'python-flask'
   'python-flask-compress'
   'python-flask-socketio'
+  'python-gevent'
+  'python-gevent-websocket'
+  'python-gnupg'
   'python-packaging'
   'python-psutil'
   'python-pynacl'
@@ -24,10 +29,11 @@ depends=(
   'python-qrcode'
   'python-requests'
   'python-setuptools'
+  'python-stem'
   'python-unidecode'
+  'python-urllib3'
   'python-waitress'
   'python-werkzeug'
-  'stem'
   'tor'
 )
 makedepends=(
@@ -43,8 +49,8 @@ checkdepends=(
   'python-pytest'
 )
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/onionshare/onionshare/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('544b288fbab26ea74fb4a23fb9e390ebf4b0a8854677f7dccfa1d2bf5119cc6fe539e7737cb926beb7ce31d08b45077011d9155926d7b52b5672c5c564684692')
-b2sums=('e9a85206a69c2c97b55d3f27afd231610b7272973868c0b359ea88f6f623fd1e68b9997f58b256f96c3e977aec6ce1eb1b54a687c79b939f5c3938c5a841f760')
+sha512sums=('0ea925230617c303c47fd5558066f8dec58f5d2f920738a7351c83fa2655e7d9fd1433ee0c552d1e8affea6f18cb3d489696d640847129b4082f00fa7481f220')
+b2sums=('9a6f75f1cf05de3bce9f7847f7cf4146550e45c102ae9f8b193f55825924fe2665925e33709a6137b6da743c4187204607cabdf5f8d559ab5ab044e01b2e22af')
 
 prepare() {
   sed -i '/^onionshare-cli = /d' ${pkgname}-${pkgver}/desktop/pyproject.toml
