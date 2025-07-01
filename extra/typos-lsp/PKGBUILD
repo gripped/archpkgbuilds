@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=typos-lsp
-pkgver=0.1.39
+pkgver=0.1.40
 pkgrel=1
 pkgdesc='Language server for the typos source code spell checker'
 arch=(x86_64)
@@ -13,7 +13,7 @@ makedepends=(
   rust
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('fececb2e07a6413cbd38f1da9540fce36f8e3e393866e4711e8914487155bd18b1083ea0e563cef3a40b80cf57e96073bfac3b0d74537e7d2c18085aaed7a5d5')
+b2sums=('a82a6d365871f47ad99f1fe5113cb6d2dde54a3a9e7dd8fb37ceb01d28256f21b799d03f20b4b8ea465ea3fd06292f2ae7dce0b5b80ec52057534c349891e7c8')
 
 prepare() {
   cd $pkgname
