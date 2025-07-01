@@ -5,18 +5,29 @@
 
 _target=riscv64-linux-gnu
 pkgname=$_target-gcc
-pkgver=14.2.0
+pkgver=15.1.0
 pkgrel=1
 pkgdesc='Cross compiler for 32-bit and 64-bit RISC-V'
 arch=('x86_64')
 url='https://gcc.gnu.org/'
 license=('GPL' 'LGPL' 'FDL')
 groups=('risc-v')
-depends=("$_target-binutils" "$_target-glibc" 'libmpc' 'libisl' 'zstd')
+depends=(
+  "$_target-binutils"
+  "$_target-glibc"
+  'gcc-libs'
+  'glibc'
+  'gmp'
+  'libisl' 'libisl.so'
+  'libmpc'
+  'mpfr' 'libmpfr.so'
+  'zlib' 'libz.so'
+  'zstd' 'libzstd.so'
+)
 options=(!emptydirs !strip  staticlibs !lto)
 source=("https://gcc.gnu.org/pub/gcc/releases/gcc-$pkgver/gcc-$pkgver.tar.xz")
-sha256sums=('a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9')
-b2sums=('87baf2a06dfa75d8fb6cd62c747ef1f57d3b9bbbe33a360d9ed3de4b4dbeaa8d920504c67e409bd9863414202c14fd854b46108e984418171205119216d03d3b')
+sha256sums=('e2b09ec21660f01fecffb715e0120265216943f038d0e48a9868713e54f06cea')
+b2sums=('a902ce99db4e93615879e435bcd0b96d5a16ea0af42598ca0e6d12913b2ce3651a98574c3264b2717b848e6b5a823b403ccca0adde463938d5b41aa3f1da0d34')
 
 if [[ -n "$_snapshot" ]]; then
   _basedir=gcc-$_snapshot
