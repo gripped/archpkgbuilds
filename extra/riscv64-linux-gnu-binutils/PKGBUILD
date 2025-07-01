@@ -4,18 +4,23 @@
 
 _target=riscv64-linux-gnu
 pkgname=$_target-binutils
-pkgver=2.43.1
+pkgver=2.44
 pkgrel=1
 pkgdesc='Assemble and manipulate binary and object files for 32-bit and 64-bit RISC-V'
 arch=(x86_64)
 url='https://gnu.org/software/binutils/'
 license=(GPL-2.0-or-later)
 groups=(risc-v)
-depends=(libelf)
+depends=(
+  glibc
+  libelf
+  zlib libz.so
+  zstd libzstd.so
+)
 makedepends=(setconf)
 source=("https://ftp.gnu.org/gnu/binutils/binutils-$pkgver.tar.xz")
-sha256sums=('13f74202a3c4c51118b797a39ea4200d3f6cfbe224da6d1d95bb938480132dfd')
-b2sums=('c4cd765cea326cd00b5cfe306e2937d820603b42f07a714ceb1349d36ddba0d45c3e125599dadf290d97954035c381781067155600ed87066e494cb9c4b34b45')
+sha256sums=('ce2017e059d63e67ddb9240e9d4ec49c2893605035cd60e92ad53177f4377237')
+b2sums=('0eb031ace9fb5a7047b81b5a05b1760f7d332c8ed67f98899f153a45f181b83e661a484551af05c0a9b2adc422da84619103c7b1f3c9fad5327872832b5446aa')
 
 prepare() {
   setconf binutils-$pkgver/libiberty/configure ac_cpp "'\$CPP \$CPPFLAGS -O2'"
@@ -32,6 +37,7 @@ build() {
     --enable-gold \
     --enable-ld=default \
     --enable-multilib \
+    --enable-new-dtags \
     --enable-plugins \
     --prefix=/usr \
     --target=$_target \
