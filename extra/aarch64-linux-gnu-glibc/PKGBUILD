@@ -4,7 +4,7 @@
 _target=aarch64-linux-gnu
 pkgname=$_target-glibc
 pkgver=2.41
-pkgrel=1
+pkgrel=2
 pkgdesc="GNU C Library ARM64 target"
 arch=(any)
 url='https://www.gnu.org/software/libc/'
