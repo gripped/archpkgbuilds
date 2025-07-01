@@ -2,7 +2,7 @@
 
 pkgbase=sheldon
 pkgname=('sheldon' 'sheldon-docs')
-pkgver=0.8.2
+pkgver=0.8.3
 pkgrel=1
 pkgdesc='A fast and configurable shell plugin manager'
 arch=('x86_64')
@@ -16,8 +16,8 @@ makedepends=(
 )
 options=('!lto')
 source=("git+https://github.com/rossmacarthur/sheldon.git#tag=$pkgver")
-sha512sums=('2a0a1b4b5005d62241aa27ad0285ce6c64c26d5334832b71e49c03d30cc5ba6aa19696e25e73da7f8c8b3c3e5b7f515dd3030219b81fec0b2fcccc13a0375438')
-b2sums=('ddef8d79d73fb4b7e0286fc9eaa69b6e3c84a956b5a85b0e7fd3cc33e40c99d673e0be874dfcfa3508a203caff3c28173227277705fbd60dc9d196ab68ce7bd1')
+sha512sums=('d53510ab68c8e1f9f9f06104a4042140a1d4cdbe9ef0c79206fe90b4db69820bd129afd917dc414cbeed77903fbdc241a97a31701fe47c3fa8cfddcfa6148d66')
+b2sums=('5bc6bc99c5b19ea0b7c8f7df085d7d4abe2db1046c5ff7b0ed0ed41ae823506a981980f79565eefa14dd3d6c03deb2ef7b7218d6602341794c20d651abfe4098')
 
 prepare() {
   cd "$pkgbase"
