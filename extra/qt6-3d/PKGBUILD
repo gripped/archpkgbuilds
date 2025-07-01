@@ -5,7 +5,7 @@
 pkgname=qt6-3d
 _pkgver=6.9.1
 pkgver=${_pkgver/-/}
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -27,8 +27,14 @@ optdepends=('assimp: assimp importer plugin'
             'qt6-shadertools: RHI renderer')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
-source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('8ec08036b76670c69236497c8b53fea63cd8415341af8e2028e8486bd23763ed')
+source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
+        assimp-6.patch)
+sha256sums=('8ec08036b76670c69236497c8b53fea63cd8415341af8e2028e8486bd23763ed'
+            '244589b0a353da757d61ce6b86d4fcf2fc8c11e9c0d9c5b109180cec9273055a')
+
+prepare() {
+  patch -d $_pkgfn -p1 < assimp-6.patch
+}
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
