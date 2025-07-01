@@ -3,7 +3,7 @@
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 
 pkgname=nzbget
-pkgver=25.0
+pkgver=25.1
 pkgrel=1
 pkgdesc="Efficient usenet downloader"
 arch=('x86_64')
@@ -34,9 +34,9 @@ source=(
   "git+https://github.com/nzbgetcom/par2cmdline-turbo.git"
   "use-par2cmdline-turbo-from-sources.patch"
 )
-sha256sums=('7d4f949bdde5f81cfac715ec80fafc086659be57a8cb263d22fa3d71869ad47e'
+sha256sums=('39f36d611879245f86d09f6a262f3be6c1c6adb6104cd4c174d0220574663307'
             'SKIP'
-            '937adf1d55c677f93f93c4e69a637782cfc52dd67ac7a601254e84a432f1592f')
+            '2740de0450bf5af3645e0e72642a1d323a85b6d50757c5916df4ccab68fd9970')
 
 prepare() {
   cd $pkgname-$pkgver
