@@ -2,7 +2,7 @@
 
 pkgname=gammaray
 pkgver=3.2.0
-pkgrel=3
+pkgrel=4
 pkgdesc='A tool for examining the internals of a Qt application and to some extent also manipulate it'
 arch=(x86_64)
 url='https://www.kdab.com/gammaray/'
@@ -17,29 +17,13 @@ depends=(gcc-libs
 makedepends=(cmake
              doxygen
              git
-             qt5-connectivity
-             qt5-location
-             qt5-script
-             qt5-scxml
-             qt5-svg
-             qt5-wayland
-             qt5-webengine
-             syntax-highlighting5
              qt6-connectivity
              qt6-location
              qt6-scxml
              qt6-shadertools
              qt6-wayland
              qt6-webengine)
-optdepends=('qt5-base: Qt5 applications support'
-            'qt5-svg: Qt5 applications support'
-            'syntax-highlighting5: Qt5 applications support'
-            'qt5-wayland: Qt5 Wayland compositor inspector plugin'
-            'qt5-webengine: Qt5 web inspector plugin'
-            'qt5-scxml: Qt5 state machine viewer plugin'
-            'qt5-script: Qt5 script engine debugger plugin'
-            'qt5-connectivity: Qt5 bluetooth plugin'
-            'qt6-declarative: QML support'
+optdepends=('qt6-declarative: QML support'
             'qt6-positioning: Qt Positioning support'
             'qt6-scxml: state machine viewer plugin'
             'qt6-wayland: Wayland compositor inspector plugin'
@@ -55,24 +39,15 @@ prepare() {
 }
 
 build() {
-  cmake -B build5 -S GammaRay \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DQT_VERSION_MAJOR=5 \
-    -DGAMMARAY_INSTALL_QT_LAYOUT=ON \
-    -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt/mkspecs/modules \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt/plugins/gammaray
-  cmake --build build5
-
-  cmake -B build6 -S GammaRay \
+  cmake -B build -S GammaRay \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DQT_VERSION_MAJOR=6 \
     -DGAMMARAY_INSTALL_QT_LAYOUT=ON \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt6/mkspecs/modules \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt6/plugins/gammaray
-  cmake --build build6
+  cmake --build build
 }
 
 package() {
-  DESTDIR="$pkgdir" cmake --install build5
-  DESTDIR="$pkgdir" cmake --install build6
+  DESTDIR="$pkgdir" cmake --install build
 }
