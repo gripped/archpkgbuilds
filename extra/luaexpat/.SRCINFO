@@ -1,0 +1,25 @@
+pkgbase = luaexpat
+	pkgdesc = SAX XML parser based on the Expat library
+	pkgver = 1.5.1
+	pkgrel = 2
+	url = https://github.com/lunarmodules/luaexpat
+	arch = x86_64
+	license = MIT
+	makedepends = lua
+	makedepends = lua51
+	makedepends = lua52
+	makedepends = lua53
+	makedepends = luarocks
+	depends = expat
+	source = https://github.com/lunarmodules/luaexpat/archive/1.5.1/luaexpat-1.5.1.tar.gz
+	sha512sums = 45834b02d863a65c6de2ad3c5c671935ae512dd906233a647269438aeeb37c7bbd6e7166aefd8da72480b33e1aa79a86ed070ed8800a8e0f303ccc74918f3bb8
+
+pkgname = lua-expat
+
+pkgname = lua51-expat
+	conflicts = luaexpat
+	replaces = luaexpat
+
+pkgname = lua52-expat
+
+pkgname = lua53-expat
