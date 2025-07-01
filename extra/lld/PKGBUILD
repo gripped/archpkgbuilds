@@ -2,7 +2,7 @@
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
 
 pkgname=lld
-pkgver=20.1.6
+pkgver=20.1.7
 pkgrel=1
 pkgdesc="Linker from the LLVM project"
 arch=('x86_64')
@@ -15,13 +15,13 @@ source=($_source_base/lld-$pkgver.src.tar.xz{,.sig}
         $_source_base/llvm-$pkgver.src.tar.xz{,.sig}
         $_source_base/libunwind-$pkgver.src.tar.xz{,.sig}
         $_source_base/cmake-$pkgver.src.tar.xz{,.sig})
-sha256sums=('280239aa9d9b94df484022cd7c28e5601acea5d60d06bc99d6b7de5b4dc516fe'
+sha256sums=('9cb94dac7db0e1f2b664469e1574c0b350bec3eacd0cbc524481a6f65fc0f185'
             'SKIP'
-            'f09e304ca98bb809f492ec34f94f587361b4b0d06ed783fb3a41e7fb218e47a1'
+            '10b62d003f16afbd1a5ee0aa6397704c13d9a12a2562103998a8c1eff4a0f1ea'
             'SKIP'
-            'bdf90d0428c2cb7b763677c0932509b6dca9f210183e9e73c129ab32d7b658ef'
+            '46081293b2f857caca68a266cf11fad8366315c470a9a6766868ed6c369bac0c'
             'SKIP'
-            'b4b3efa5d5b01b3f211f1ba326bb6f0c318331f828202d332c95b7f30fca5f8c'
+            'afdab526c9b337a4eacbb401685beb98a18fb576037ecfaa93171d4c644fe791'
             'SKIP')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
               'D574BD5D1D0E98895E3BF90044F2485E45D59042') # Tobias Hieta <tobias@hieta.se>
