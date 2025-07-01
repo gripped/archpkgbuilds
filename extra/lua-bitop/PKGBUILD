@@ -6,7 +6,7 @@
 pkgbase=lua-bitop
 pkgname=(lua51-bitop lua52-bitop)
 pkgver=1.0.2
-pkgrel=9
+pkgrel=10
 pkgdesc='Bitwise operations on numbers'
 arch=('x86_64')
 license=('MIT')
