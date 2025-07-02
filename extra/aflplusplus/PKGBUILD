@@ -3,7 +3,7 @@
 
 pkgname=afl++
 pkgver=4.32c
-pkgrel=1
+pkgrel=2
 pkgdesc='instrumentation-driven fuzzer for binary format'
 url='https://aflplus.plus/'
 arch=(x86_64)
