@@ -1,25 +1,29 @@
 # Maintainer: Christian Hesse <mail@eworm.de>
 
 pkgname=pacredir
-pkgver=0.4.8
+pkgver=0.4.9
 pkgrel=1
 pkgdesc='redirect pacman requests, assisted by avahi service discovery'
 arch=('x86_64')
 url='https://github.com/eworm-de/pacredir'
-license=('GPL')
-depends=('systemd-libs' 'avahi' 'curl' 'iniparser' 'darkhttpd' 'libmicrohttpd')
+license=('GPL-3.0-or-later')
+depends=('systemd-libs' 'avahi' 'curl' 'iniparser' 'darkhttpd' 'libmicrohttpd' 'sh')
 makedepends=('systemd' 'discount')
 conflicts=('pacserve')
 install=pacredir.install
 backup=('etc/pacman.d/pacredir'
-        'etc/pacredir.conf')
+        'etc/pacredir.conf'
+        'etc/pacserve.conf')
 validpgpkeys=('BD84DE71F493DF6814B0167254EDC91609BC9183') # Christian Hesse <mail@eworm.de>
 source=("https://www.eworm.de/download/${pkgname}/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha256sums=('bc53c83ded4cfa218cd2a9f92e1926a386bd2c01ca9b308bcb16c39f09103f55'
+sha256sums=('3a3ff549beac99eca9b0a19ea18c658a4d281f8871e1e1beaa457667e7da3410'
             'SKIP')
 
 build() {
   cd ${pkgname}-${pkgver}/
+
+  # https://github.com/curl/curl/pull/17790
+  CFLAGS+=' -Wno-attribute-warning'
 
   make
 }
