@@ -1,0 +1,40 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=cargo-psp
+pkgver=0.2.8
+pkgrel=1
+pkgdesc='cargo build wrapper for creating Sony PSP executables'
+url='https://github.com/overdrivenpotato/rust-psp'
+arch=('x86_64')
+license=('MIT')
+depends=(
+  'gcc-libs'
+  'glibc'
+  'cargo'
+)
+source=("${pkgname}-${pkgver}.tar.gz::https://crates.io/api/v1/crates/${pkgname}/${pkgver}/download")
+sha256sums=('12c6f07f9a48f52053df4764a77156c09aa7be9da2612e8fd1abccb408ee2ed9')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  CFLAGS+=' -ffat-lto-objects'
+  cargo build --frozen --release
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+  cargo test --frozen
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  install -Dm 755 -t "${pkgdir}/usr/bin" \
+    target/release/{cargo-psp,mksfo,pack-pbp,prxgen,prxmin}
+}
+
+# vim: ts=2 sw=2 et:
