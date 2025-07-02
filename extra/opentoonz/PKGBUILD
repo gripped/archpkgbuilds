@@ -3,7 +3,7 @@
 
 pkgname=opentoonz
 pkgver=1.7.1
-pkgrel=6
+pkgrel=7
 pkgdesc='Software for producing a 2D animation'
 arch=('x86_64')
 url='https://opentoonz.github.io/e/'
@@ -31,7 +31,9 @@ build() {
   cmake -S $pkgname-$pkgver/toonz/sources -B build -G Ninja \
     -DCMAKE_INSTALL_PREFIX='/usr' \
     -DCMAKE_SKIP_RPATH=YES \
-    -DWITH_TRANSLATION=OFF
+    -DWITH_TRANSLATION=OFF \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+    -DCMAKE_C_STANDARD=17
   # WITH_TRANSLATION doesn't do anything, generated translations aren't installed
   cmake --build build
 }
