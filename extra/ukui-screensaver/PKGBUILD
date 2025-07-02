@@ -2,7 +2,7 @@
 
 pkgname=ukui-screensaver
 pkgver=3.0.2
-pkgrel=9
+pkgrel=10
 pkgdesc="Screensaver for UKUI desktop environment"
 arch=('x86_64')
 license=('GPL')
@@ -27,7 +27,8 @@ prepare() {
 build() {
   cd build
   cmake ../$pkgname-$pkgver \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   make
 }
 
