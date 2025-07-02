@@ -2,7 +2,7 @@
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
 
 pkgname=clang
-pkgver=20.1.6
+pkgver=20.1.7
 pkgrel=1
 pkgdesc="C language family frontend for LLVM"
 arch=('x86_64')
@@ -24,15 +24,15 @@ source=($_source_base/clang-$pkgver.src.tar.xz{,.sig}
         $_source_base/third-party-$pkgver.src.tar.xz{,.sig}
         0001-Revert-clang-driver-When-fveclib-ArmPL-flag-is-in-us.patch
         enable-fstack-protector-strong-by-default.patch)
-sha256sums=('49a16d6b6878a6bdd9ead2d31ffb94c792675607471afa40096fbd48b3cbab66'
+sha256sums=('cb74965a2481008ae405419357a55fda2df6fa3aee262a0a9293a558532a29ae'
             'SKIP'
-            '988db645aa1287649f66cbcbbc69f229da2900194df567453fa13aae0dc8c4e8'
+            '0e1c675cf36bc5625514bf0dc582d39cb9b1cd0909601a46a2190f3afbc95633'
             'SKIP'
-            'f09e304ca98bb809f492ec34f94f587361b4b0d06ed783fb3a41e7fb218e47a1'
+            '10b62d003f16afbd1a5ee0aa6397704c13d9a12a2562103998a8c1eff4a0f1ea'
             'SKIP'
-            'b4b3efa5d5b01b3f211f1ba326bb6f0c318331f828202d332c95b7f30fca5f8c'
+            'afdab526c9b337a4eacbb401685beb98a18fb576037ecfaa93171d4c644fe791'
             'SKIP'
-            '33530189d31b2396b76a7ebac8f938747b3619154cc37015cef9dea29292f7e2'
+            '592019ad4d17ffa6e0162c7584474b2ae8883a61bbfade5f15382ed26b7ce52a'
             'SKIP'
             'e88768730a7a46e7952758ec80f831997e30e7dbab53077decae3f71f4fc315e'
             'ef319e65f927718e1d3b1a23c480d686b1d292e2a0bf27229540964f9734117a')
