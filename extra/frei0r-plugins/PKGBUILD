@@ -3,7 +3,7 @@
 
 pkgname=frei0r-plugins
 pkgver=2.3.3
-pkgrel=3
+pkgrel=4
 pkgdesc='Collection of video effect plugins'
 arch=(x86_64)
 url='https://frei0r.dyne.org/'
@@ -31,7 +31,8 @@ validpgpkeys=(6113D89CA825C5CEDD02C87273B35DA54ACB7D10) # Denis Roio (Jaromil)
 
 build() {
   cmake -S frei0r -B build -G Ninja \
-    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake --build build
 }
 
