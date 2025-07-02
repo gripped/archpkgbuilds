@@ -1,0 +1,26 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Robert Tari <robert at tari dot in>
+
+pkgname=cmake-extras
+pkgver=1.8
+pkgrel=1
+pkgdesc="A collection of add-ons for the CMake build tool"
+arch=("any")
+url="https://gitlab.com/ubports/development/core/${pkgname}"
+license=('LGPL-3.0-or-later')
+depends=('cmake' 'python' 'bash')
+makedepends=('git' 'ninja')
+source=("git+https://gitlab.com/ubports/development/core/cmake-extras.git#tag=$pkgver")
+sha512sums=('3ca3905d8084d77752c6a46d5a67db4c873adcf88b3733aff5b82d5fef4e866dac484b116e04451c1533481e2e215504c6ca6eb3ec46940f5c793ecbef24153d')
+
+build() {
+  cd cmake-extras
+  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+  ninja
+}
+
+package() {
+  cd cmake-extras
+  DESTDIR="$pkgdir" ninja install
+}
+
