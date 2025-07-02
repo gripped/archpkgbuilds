@@ -6,7 +6,7 @@
 
 pkgname=gpsd
 pkgver=3.26.1
-pkgrel=1
+pkgrel=2
 pkgdesc="GPS daemon and library to support USB/serial GPS devices"
 arch=('x86_64')
 url="http://catb.org/gpsd/"
@@ -28,11 +28,17 @@ optdepends=('gtk3: GUI frontends'
 makedepends=('scons' 'docbook-xsl' 'qt5-base' 'python-gobject' 'python-cairo' 'python-pyserial' 'gtk3' 'python-setuptools')
 backup=('etc/default/gpsd')
 source=(https://download-mirror.savannah.gnu.org/releases/$pkgname/$pkgname-$pkgver.tar.gz
-        $pkgname.conf)
+        $pkgname.conf
+        fix-group.patch)
 sha256sums=('dc7e465968c1540e61bc57c7586d6a57a0047212a014efdad348f907bc2e0990'
-            'dcfa71c4c730b486269995468bdcfa8e96bf3c282db1dadea9384d32015d277f')
+            'dcfa71c4c730b486269995468bdcfa8e96bf3c282db1dadea9384d32015d277f'
+            '4bf6111d916e541dcf07de4a9a7fccad4a861bc8c69b26039fb8854d63d62561')
 validpgpkeys=('EED4A0893DCC705DB309E202CCF29C7238522905'  # Gary E. Miller <gem@rellim.com>
               'DB239ACA177A35AFBC13F819DD3DD9BBA8F257E8') # Eric S. Raymond
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < fix-group.patch
+}
 
 build() {
   cd $pkgname-$pkgver
