@@ -5,7 +5,7 @@
 pkgname=qt6-quick3d
 _pkgver=6.9.1
 pkgver=${_pkgver/-/}
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -29,8 +29,14 @@ makedepends=(assimp
 optdepends=('assimp: assimp import plugin')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
-source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('58e515af2b656fe193da073e51a9586ae56eb455a5f40ff213fbf0024508e97b')
+source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
+        assimp-6.patch)
+sha256sums=('58e515af2b656fe193da073e51a9586ae56eb455a5f40ff213fbf0024508e97b'
+            '573f00cdad90d77786fba80066d61d5ee97fc56a8b11d0896949acd16bda8e91')
+
+prepare() {
+  patch -d $_pkgfn -p1 < assimp-6.patch
+}
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
