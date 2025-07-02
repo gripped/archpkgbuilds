@@ -2,8 +2,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=fontconfig
-pkgver=2.17.0
-pkgrel=2
+pkgver=2.17.1
+pkgrel=1
 epoch=2
 pkgdesc="Library for configuring and customizing font access"
 url=https://www.freedesktop.org/wiki/Software/fontconfig/
@@ -34,7 +34,7 @@ source=(
   40-fontconfig-config.hook
   fontconfig.hook
 )
-b2sums=('8ba4930ffcc3c6ad0af99e40bc6199dd674fccc2597746935f0e99fe23aae989e7f9194eb4804a704129e0280047abcad4e55b75daaa76eb0ba14d86738a1ad1'
+b2sums=('2fbcf5b9df5d1d9c7ce2a02c7fe5d28631b2ad6ba56905b159dfd8a57224d10cb75e89ca4a1d5c9c07dc09949b384ced4e7fd6c8790aa196a2744ba8ca59c293'
         '7fb63e76ab126bc0a7decfd74c53429ad1ce6d13de2f14037259616d8d4150b8fa4601c7f02b75918ccd5995d424816dc9d01a5fe7e39dc3dd1fcc83dfdb0fe8'
         'b06b3f2b8c0c38139a9247c26a641e6dc01d50b530478dd14133175a603f60b0af901af16c9fcf1ce73d23786ea14bfdbacd39f1dcfd88f6382965ad22be1411'
         'dfbf47c069c88da7687511356cef5bb94b7190e558a6f08390d6976fa7065ba7137ccb0a5ca1defdef655091afe74eb8a3d33fb9f3e0633409aa79f753ad276d')
@@ -45,14 +45,12 @@ validpgpkeys=(
 
 prepare() {
   cd fontconfig
-
-  # Fix a buffer overflow
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/fontconfig/-/issues/3
-  git cherry-pick -n b9bec06d73340f1b5727302d13ac3df307b7febc
 }
 
 build() {
   local meson_options=(
+    -D bitmap-conf=noinstall
+    -D default-sub-pixel-rendering=noinstall
     -D doc-html=enabled
     -D doc-pdf=disabled
     -D doc-txt=disabled
