@@ -2,7 +2,7 @@
 
 pkgname=ukui-biometric-auth
 pkgver=1.2.2
-pkgrel=9
+pkgrel=10
 pkgdesc="Biometric authentication for UKUI"
 arch=('x86_64')
 license=('GPL')
@@ -22,9 +22,10 @@ prepare() {
 
 build() {
   cd build
-  CFLAGS+=" -Wno-implicit-function-declaration" \
+  CFLAGS+=" -Wno-implicit-function-declaration -Wno-incompatible-pointer-types" \
   cmake ../$pkgname-$pkgver \
-    -GNinja -DCMAKE_INSTALL_PREFIX=/usr
+    -GNinja -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   ninja
 }
 
