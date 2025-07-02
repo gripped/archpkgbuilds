@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=systemsettings
-pkgver=6.4.1
+pkgver=6.4.2
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE system manager for hardware, software, and workspaces'
@@ -38,7 +38,7 @@ makedepends=(extra-cmake-modules
              kdoctools)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('a27f312a292ac4c5c3efa1af71e70ca834d7ec8e8f37a710cf85ae2d7bbeff95'
+sha256sums=('bc56680aed6da67dea026a0bc60574c3f3a5cfab3993131923b698d28102d60b'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
