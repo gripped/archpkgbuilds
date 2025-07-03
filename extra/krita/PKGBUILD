@@ -1,9 +1,9 @@
 # Maintainer: Antonio Rojas <arojas@archlinux,org>
 
 pkgname=krita
-_pkgver=5.2.9
+_pkgver=5.2.10
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=1
 pkgdesc='Edit and paint images'
 arch=(x86_64)
 url='https://krita.org'
@@ -71,16 +71,19 @@ optdepends=('kimageformats5: PSD support'
             'poppler-qt5: PDF filter'
             'python-pyqt5: for the Python plugins')
 source=(https://download.kde.org/stable/krita/$_pkgver/$pkgname-$_pkgver.tar.gz{,.sig}
-        sip-6.8.patch)
-sha256sums=('08c9af556debf26931bd6506792e391b4b7a3334a5a20f516b324904334acba6'
+        sip-6.8.patch
+        libheif-1.20.patch)
+sha256sums=('a49ac972b3bb9645348775cf1693800cbf735c835ca9f9f54e17a9e1f30772d5'
             'SKIP'
-            'bb3b503993030bb98a99c6a0376c65ee74d0c32c1e8932110698682eed1e3d3c')
+            'bb3b503993030bb98a99c6a0376c65ee74d0c32c1e8932110698682eed1e3d3c'
+            '5f9c4fce2c2ad252453ac3a5317063dfd9011997f481c27f63d148b0c1c94102')
 validpgpkeys=('05D00A8B73A686789E0A156858B9596C722EA3BD'  # Boudewijn Rempt <foundation@krita.org>
               'E9FB29E74ADEACC5E3035B8AB69EB4CF7468332F'  # Dmitry Kazakov (main key) <dimula73@gmail.com>
               '064182440C674D9F8D0F6F8B4DA79EDA231C852B') # Stichting Krita Foundation <foundation@krita.org>
 
 prepare() {
   patch -d $pkgname-$_pkgver -p1 < sip-6.8.patch
+  patch -d $pkgname-$_pkgver -p1 < libheif-1.20.patch
 }
 
 build() {
