@@ -3,15 +3,15 @@
 # Contributor: Dan McGee <dan@archlinux.org>
 
 pkgname=pacman-mirrorlist
-pkgver=20250522
-pkgrel=1
+pkgver=20250702
+pkgrel=2
 pkgdesc="Arch Linux mirror list for use by pacman"
 arch=('any')
 url="https://www.archlinux.org/mirrorlist/"
 license=('GPL-2.0-or-later')
 backup=(etc/pacman.d/mirrorlist)
 source=(mirrorlist)
-b2sums=('8f46577a9ebeefec013ae6aae90f26178989d8ae13018a5c21579cc2f442bcbc7e12ff216ad014a14eafd90c412ebe01310e8e0dc22d27e9fb29a7843f52d7dd')
+b2sums=('908fc6b7cb92926009310a7bbe383694d415c2f359cc3fdb4c208c378806dab6c8ad356a424729de5ff21b6c1492967bd9b4bb66a23e9e244ff84db226afffaf')
 
 # NOTE on building this package:
 # * Run bash -c ". PKGBUILD; updatelist"
@@ -19,8 +19,18 @@ b2sums=('8f46577a9ebeefec013ae6aae90f26178989d8ae13018a5c21579cc2f442bcbc7e12ff2
 # * Build the package
 
 updatelist() {
+  # cleanup first
   rm -f mirrorlist
-  curl -o mirrorlist https://archlinux.org/mirrorlist/all/
+  # get a full list (sorted)
+  curl -o mirrorlist.all 'https://archlinux.org/mirrorlist/?country=all'
+  # get a list of working mirrors (unsorted)
+  curl -o mirrorlist.checked 'https://archlinux.org/mirrorlist/?country=all&protocol=http&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on'
+  # write new sorted list
+  while IFS= read -r line; do
+      grep -q "$line" mirrorlist.checked && echo "$line" >> mirrorlist
+  done < mirrorlist.all
+  # cleanup
+  rm -f mirrorlist.{all,checked}
 }
 
 package() {
