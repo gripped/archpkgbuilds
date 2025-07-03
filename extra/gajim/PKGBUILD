@@ -3,13 +3,13 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=gajim
-pkgver=2.2.0
+pkgver=2.3.2
 pkgrel=1
 pkgdesc="Full featured and easy to use XMPP (Jabber) client"
 url="https://gajim.org/"
 arch=('any')
 license=('GPL-3.0-only')
-depends=('gtk4' 'gtksourceview5' 'python-cairo' 'python-gobject' 'python-keyring' 'python-nbxmpp' 'python-cryptography' 'python-precis_i18n' 'python-css-parser' 'python-distro' 'hicolor-icon-theme' 'python-pillow' 'python-gssapi' 'python-netifaces' 'python-qrcode' 'python-omemo-dr' 'python-packaging' 'pango' 'sqlite' 'python-sqlalchemy' 'python-setuptools' 'python-emoji')
+depends=('gtk4' 'gtksourceview5' 'libadwaita' 'python-cairo' 'python-gobject' 'python-keyring' 'python-nbxmpp' 'python-cryptography' 'python-precis_i18n' 'python-css-parser' 'python-distro' 'hicolor-icon-theme' 'python-pillow' 'python-gssapi' 'python-netifaces' 'python-qrcode' 'python-omemo-dr' 'python-packaging' 'pango' 'sqlite' 'python-sqlalchemy' 'python-setuptools' 'python-emoji')
 makedepends=('python-build' 'python-installer' 'python-wheel')
 optdepends=('python-dbus: to have gajim-remote working'
             'python-sentry_sdk: for Sentry error reporting to dev.gajim.org (users decide whether to send reports or not)'
@@ -32,8 +32,8 @@ optdepends=('python-dbus: to have gajim-remote working'
             'emoji-font: for emojis support'
             'webp-pixbuf-loader: for WebP images support')
 source=("https://dev.gajim.org/gajim/gajim/-/archive/${pkgver}/gajim-${pkgver}.tar.gz")
-sha512sums=('0613053171d0fc4e00a8497f7331363f34e71530c45b635f9b82f8606f8be9641d004f4599312fe5f88795d2f0c934d0f8a192e008351883a715ba7d5c45810c')
-b2sums=('38af487f17865003f923d740b8fc421eab1f8b7dcf01e7db1c7a1770e6e3b34a4d6bd6c3e4c1d3c434c5297035ee942fe68df57416f0a855dda5d58129c780de')
+sha512sums=('f920539467474025c69cc525b14de9123096669def98b4d7e91bfc9f478258996b6f317f6d17b9e6d5cca29cc267407712a3f539a1936327762aa297b2e942eb')
+b2sums=('c518374d09afa26bfc736d046d65adcde463e32b414dd4a944b7934fa36f021c63c50e2f961d4e5c128107b83286c08cad258062f29726a00534583ad0def8d2')
 
 
 build() {
