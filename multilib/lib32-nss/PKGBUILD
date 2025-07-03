@@ -7,7 +7,7 @@ pkgbase=lib32-nss
 pkgname=(
   lib32-nss
 )
-pkgver=3.113
+pkgver=3.113.1
 pkgrel=1
 pkgdesc="Network Security Services (32-bit)"
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
@@ -31,7 +31,7 @@ source=(
   "hg+https://hg.mozilla.org/projects/nss#tag=NSS_${pkgver//./_}_RTM"
   0001-Hack-mpi_x86.s-to-work-with-fno-plt.patch
 )
-b2sums=('16b80fbfc332ec36f63ddbdce742ce79d6388a050871fcc69a3d9195acbf9ddab88f2195184f5d45926cc8b03f91afb2c973f53e26bb39af4a36155b4b4e2470'
+b2sums=('b3312ed41e228fe8c0be47ca391d591fb837dace67e90c210a2b648989bd3f82360af2f6f2c96537e24c0c97c4e1fac07b27a35a0ddf41ec22fd55673fb76a66'
         '6d7bfcfc2b7681ca24b220b8f07d55e305342ee4e3475a221f71d21c83b5a5e998ef9e2779ca1c76d9075a80de0f42a7f97565ab568dc47530ee2accc9eec966')
 
 prepare() {
@@ -73,8 +73,7 @@ package_lib32-nss() {
   install -Dt "$pkgdir$libdir" dist/Release/lib/*.so
 
   # Replace built-in trust with p11-kit connection
-  ln -s pkcs11/p11-kit-trust.so "$pkgdir$libdir/p11-kit-trust.so"
-  ln -sf p11-kit-trust.so "$pkgdir$libdir/libnssckbi.so"
+  ln -sf pkcs11/p11-kit-trust.so "$pkgdir$libdir/libnssckbi.so"
 }
 
 # vim:set sw=2 sts=-1 et:
