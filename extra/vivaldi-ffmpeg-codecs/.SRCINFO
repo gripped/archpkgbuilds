@@ -1,18 +1,17 @@
 pkgbase = vivaldi-ffmpeg-codecs
 	pkgdesc = additional support for proprietary codecs for vivaldi
-	pkgver = 136.0.7103.113
-	pkgrel = 1
-	url = https://ffmpeg.org/
+	pkgver = 138.0.7204.55
+	pkgrel = 2
+	url = https://chromium.googlesource.com/chromium/third_party/ffmpeg
 	arch = x86_64
 	license = LGPL2.1
-	makedepends = gn
-	makedepends = ninja
-	makedepends = python
-	makedepends = nss
-	makedepends = libva
-	makedepends = libxkbcommon
+	makedepends = gcc
+	makedepends = diffutils
+	makedepends = nasm
+	makedepends = sed
+	makedepends = git
 	depends = glibc
-	source = https://commondatastorage.googleapis.com/chromium-browser-official/chromium-136.0.7103.113.tar.xz
-	sha512sums = 4a946b0d99ca6ccf7035877dbf3e2de28fe7f30960362a3886faa93d86cc84150a43b27feb512ce4aef8d9533bdbe26dd9788666d4822ee1e2053c1269c441fe
+	source = chromium-ffmpeg::git+https://chromium.googlesource.com/chromium/third_party/ffmpeg.git#commit=dcdd0fa51b65a0b1688ff6b8f0cc81908f09ded2
+	sha256sums = 8708023dc5aec3ebd5e05677b3f44d7676e287bfc755937bcd6356876e8415e6
 
 pkgname = vivaldi-ffmpeg-codecs
