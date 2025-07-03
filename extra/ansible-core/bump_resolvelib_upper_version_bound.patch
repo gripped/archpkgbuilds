@@ -7,7 +7,7 @@ index 7578cae785..ae86b2a715 100644
  # TODO: add python requirements to ansible-test's ansible-core distribution info and remove the hardcoded lowerbound/upperbound fallback
  RESOLVELIB_LOWERBOUND = SemanticVersion("0.5.3")
 -RESOLVELIB_UPPERBOUND = SemanticVersion("1.1.0")
-+RESOLVELIB_UPPERBOUND = SemanticVersion("1.1.1")
++RESOLVELIB_UPPERBOUND = SemanticVersion("2.0.0")
  RESOLVELIB_VERSION = SemanticVersion.from_loose_version(LooseVersion(resolvelib_version))
  
  
@@ -20,7 +20,7 @@ index 5eaf9f2cbc..92bd8e3977 100644
  # NOTE: When updating the upper bound, also update the latest version used
  # NOTE: in the ansible-galaxy-collection test suite.
 -resolvelib >= 0.5.3, < 1.1.0  # dependency resolver used by ansible-galaxy
-+resolvelib >= 0.5.3, < 1.1.1  # dependency resolver used by ansible-galaxy
++resolvelib >= 0.5.3, < 2.0.0  # dependency resolver used by ansible-galaxy
 diff --git a/test/lib/ansible_test/_data/requirements/ansible.txt b/test/lib/ansible_test/_data/requirements/ansible.txt
 index 5eaf9f2cbc..92bd8e3977 100644
 --- a/test/lib/ansible_test/_data/requirements/ansible.txt
@@ -30,4 +30,4 @@ index 5eaf9f2cbc..92bd8e3977 100644
  # NOTE: When updating the upper bound, also update the latest version used
  # NOTE: in the ansible-galaxy-collection test suite.
 -resolvelib >= 0.5.3, < 1.1.0  # dependency resolver used by ansible-galaxy
-+resolvelib >= 0.5.3, < 1.1.1  # dependency resolver used by ansible-galaxy
++resolvelib >= 0.5.3, < 2.0.0  # dependency resolver used by ansible-galaxy
