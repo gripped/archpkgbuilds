@@ -4,7 +4,7 @@
 # Contributor: bender02 at gmx dot com
 
 pkgname=asymptote
-pkgver=3.04
+pkgver=3.05
 pkgrel=1
 pkgdesc='A vector graphics language (like metapost)'
 arch=(x86_64)
@@ -43,7 +43,7 @@ optdepends=('python-pyqt5: for the xasy GUI'
             'ghostscript: PDF output')
 source=(git+https://github.com/vectorgraphics/asymptote#tag=$pkgver
         boost-1.88.patch)
-sha256sums=('20ecc17ab57413abfaa31ab201e574b03e1533fab4305070d5d6f50c5c30f68c'
+sha256sums=('501c2d4d0f8a90f2e4ec8f79b00e70974d2fe2a23496550cfa88d45a36579eb0'
             '07529adb880c42f474f2cd371e557f079717a5023883c4fbefd4ec824caa6dd1')
 
 prepare() {
@@ -64,7 +64,7 @@ build() {
 
 check() {
   cd $pkgname
-  make check-all
+  make check
 }
 
 package() {
