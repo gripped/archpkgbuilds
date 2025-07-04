@@ -3,20 +3,25 @@
 
 pkgname=znc-clientbuffer
 pkgver=1.0.48
-pkgrel=5
+pkgrel=6
 pkgdesc='ZNC module for client specific buffers'
 arch=('x86_64')
-url='https://github.com/CyberShadow/znc-clientbuffer'
+url='https://github.com/CyberShadow/znc-clientbuffer/'
 license=('Apache-2.0')
-depends=('znc')
-makedepends=('cmake' 'python')
+depends=(
+    'gcc-libs'
+    'glibc'
+    'znc')
+makedepends=(
+    'cmake'
+    'python')
 source=("https://github.com/CyberShadow/znc-clientbuffer/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
 sha512sums=('eac4d748b670a8e3563a424fcb5c9c411af6c9b1f9965f065936ddfcfbff946783e34e0d6b32de18fb3b87fb27db129ff58bedfb179473c804750a9b770897f6')
 
 build() {
-  make -C "${pkgname}-${pkgver}" PREFIX='/usr'
+    make -C "${pkgname}-${pkgver}" PREFIX='/usr'
 }
 
 package() {
-  make -C "${pkgname}-${pkgver}" PREFIX='/usr' DESTDIR="$pkgdir" install
+    make -C "${pkgname}-${pkgver}" PREFIX='/usr' DESTDIR="$pkgdir" install
 }
