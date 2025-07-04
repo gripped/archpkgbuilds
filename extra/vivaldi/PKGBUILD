@@ -2,8 +2,8 @@
 # Contributor: TZ86
 
 pkgname=vivaldi
-_rpmversion=7.5.3735.41-1
-pkgver=7.5.3735.41
+_rpmversion=7.5.3735.44-1
+pkgver=7.5.3735.44
 pkgrel=1
 pkgdesc='An advanced browser made with the power user in mind.'
 url="https://vivaldi.com"
@@ -37,7 +37,7 @@ optdepends=(
 )
 source=("https://downloads.vivaldi.com/stable/vivaldi-stable-${_rpmversion}.x86_64.rpm"
         '0001-add-support-for-user-flags.patch')
-sha512sums=('e62fbda78de6ca9edb1c8a98564ac341b4eb0bde4700d300acfd698f6ae522f83439a93d581877557cdeeb8654a941257f33f32009ea83a0741ec71e4085e8b2'
+sha512sums=('dafcec5210b1ac9c18e99ba47abd682bdbca28567fe06eca93bda7763ce63e30070c8d6c4c7418b39b17f977401c289f2b862becf542ba6bbc18eff5691e750d'
             'a9bdab0fb0f394af17d1b126bae2d0cdc55e63eaa6eaf36eb994735047d3d7bc5000d75ab930f74b76b283c5addefbd4e4e63c5e4f2908bd53c270e73641c19d')
 
 package() {
@@ -65,15 +65,11 @@ package() {
         ln -s /opt/vivaldi/vivaldi "$binf"
     fi
 
-    # install icons
-    for res in 16 22 24 32 48 64 128 256; do
-        install -Dm644 "$pkgdir/opt/$pkgname/product_logo_${res}.png" \
-            "$pkgdir/usr/share/icons/hicolor/${res}x${res}/apps/$pkgname.png"
-    done
-
-    # install global icon in case hicolor theme gets bypassed
-    install -Dm644 "$pkgdir/opt/$pkgname/product_logo_256.png" \
-        "$pkgdir/usr/share/pixmaps/$pkgname.png"
+    # Vivaldi has different design for each size of icons. Avoid using them.
+    install -d "$pkgdir/usr/share/pixmaps"
+    # TEMP hack, should be properly provided icon
+    ln -sf /opt/${pkgname}/resources/${pkgname}/resources/welcomepage-vivaldi.svg "$pkgdir/usr/share/pixmaps/${pkgname}.svg"
+    ln -sf /opt/${pkgname}/product_logo_256.png "$pkgdir/usr/share/pixmaps/${pkgname}.png"
 
     # license
     install -dm755 "$pkgdir/usr/share/licenses/$pkgname"
