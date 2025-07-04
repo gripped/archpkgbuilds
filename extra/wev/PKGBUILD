@@ -2,16 +2,16 @@
 # Contributor: Thayne McCombs <astrothayne at gmail dot com>
 
 pkgname=wev
-pkgver=1.0.0
-pkgrel=13
+pkgver=1.1.0
+pkgrel=1
 pkgdesc="A tool for debugging wayland events on a Wayland window, analagous to the X11 tool xev"
 url='https://git.sr.ht/~sircmpwn/wev'
-license=('custom')
+license=('MIT')
 arch=('x86_64')
 depends=('wayland' 'libxkbcommon')
 makedepends=('scdoc' 'wayland-protocols')
 source=("$pkgname-$pkgver.tar.gz::https://git.sr.ht/~sircmpwn/wev/archive/$pkgver.tar.gz")
-b2sums=('e777cf1f19a5ad051b81ccd878067ba043c5121f460aed26fa41c999812d9c52e30837cbcb72351de4e532f0427cb2e8f707ca1ddaa09d992cdff3c422638ec2')
+b2sums=('2e2a232d33ec274e5d9afa4ea3f11a13eb3f91e7ba1faddd6b324dc6ef93ecf71ffae81fd4f50ab9f48b4aaae68f498302b2799dd5aa688c73aef3cfa54e36c1')
 
 build() {
     cd "$pkgname-$pkgver"
