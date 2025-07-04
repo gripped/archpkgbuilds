@@ -2,7 +2,7 @@
 # Contributor: Joakim Hernberg <jhernberg at alchemy dot lu>
 
 pkgname=rt-tests
-pkgver=2.8
+pkgver=2.9
 pkgrel=1
 pkgdesc="A collection of latency testing tools for the linux(-rt) kernel"
 arch=(x86_64)
@@ -20,8 +20,8 @@ optdepends=(
   'python: for get_cyclictest_snapshot and hwlatdetect'
 )
 source=($url/snapshot/$pkgname-$pkgver.tar.gz)
-sha512sums=('a4ce557b5e3d0542e32e969f5268638cb8e1fb642b700adedfc77a623aae9c9720991fcf2772a19068e1f5d8e55df10a68fced689e8504b82a1464c65aa927e0')
-b2sums=('c820a2e0c021e4c6624cabb6b3f4c79af5cca474b317f2e92740b7fb66ea0013ca3912342c67de98566c4574d66bb4966df0a81a89245f600c40699dd7d3beef')
+sha512sums=('23608ea3c20e793defa00f61f81233d99a14ce60d7457899a0a91864a65ec5a474fa85fa392364b87b1fee3437f1c94fecae8edff797018690c81b737bbe691e')
+b2sums=('788174bf5bbf95b04a69ce69b54ef6ba2b8ec3bbba2a70bd562839728b822d85c9abdfd77cb9a060167a8654955978f87d04ee8d8f25000a36cc06ed05327887')
 
 build() {
   export PYLIB=$(python -c 'import distutils.sysconfig;  print(distutils.sysconfig.get_python_lib())')
