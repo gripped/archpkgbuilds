@@ -4,8 +4,8 @@
 # Contributor: Peter Wu <lekensteyn at gmail dot com>
 
 pkgname=babel-cli
-pkgver=7.21.0
-pkgrel=3
+pkgver=7.27.2
+pkgrel=1
 pkgdesc="A compiler for writing next generation JavaScript"
 arch=('any')
 url="https://babeljs.io/"
@@ -17,7 +17,7 @@ conflicts=('nodejs-babel-cli' 'openbabel<3')
 replaces=('nodejs-babel-cli')
 source=("$pkgname-$pkgver.tgz::https://registry.npmjs.org/@babel/cli/-/cli-$pkgver.tgz")
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('c62ec2c724bc5e34b28b050609fc1ff9baed2718d6d7f6537015243f5d316b02045cb5f91f32e7fb7697920c68cdc3f6521461b4a4e642eaf0f5469eb3b8d9ac')
+sha512sums=('71f77b0e71a5847e8e232b8f4928f7bdc7c87676d7ba4840c8a63c35a66b15a742ee95f22fd98e2f95a08dca6d88424b8b99378fc698bcb2150b37b3ad64da88')
 
 package() {
   npm install -g --legacy-peer-deps --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
