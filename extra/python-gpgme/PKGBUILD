@@ -1,10 +1,8 @@
 # Maintainer:
 
 pkgname=python-gpgme
-# no 2.x tags yet
-pkgver=2
-_tag=gpgmepy-2-base
-pkgrel=3
+pkgver=2.0.0
+pkgrel=1
 pkgdesc='Python bindings for GPGME'
 arch=(x86_64)
 url='https://gnupg.org/software/gpgme/index.html'
@@ -17,20 +15,25 @@ makedepends=(cmake
              python-installer
              python-setuptools
              swig)
-source=(git+https://dev.gnupg.org/source/gpgmepy#tag=$_tag)
-sha256sums=('ba626ef4e95242fe03d926567c8ec665896f7d74ce44deb5f99e60243e8e7259')
+source=(git+https://dev.gnupg.org/source/gpgmepy#tag=gpgmepy-$pkgver)
+sha256sums=('d63332dd713eef8b94974a4cdc01c0863fef6abc2f3e7e246c9d0d1693cff13a')
 
 prepare() {
   cd gpgmepy
-  git cherry-pick -n 6671f74e0a3f7960bf71c69c8534e4ae7021d8d8 # Fix build with gpgme 2.0
+  sed -e 's|, \"swig\"||' -i pyproject.toml
   autoreconf -fiv
 }
 
 build() {
   cd gpgmepy
-  ./configure --prefix=/usr
+  ./configure # Required to set the version number
   mv src gpg
   python -m build --wheel --no-isolation
+}
+
+check() {
+  cd gpgmepy
+  TESTFLAGS="--python-libdir=$PWD/$(ls -d build/lib*)" make -C tests check
 }
 
 package() {
