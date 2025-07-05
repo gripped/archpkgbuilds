@@ -6,14 +6,16 @@
 
 pkgname=openscenegraph
 pkgver=3.6.5
-pkgrel=27
+pkgrel=28
 pkgdesc='Open Source, high performance real-time graphics toolkit'
 url='http://www.openscenegraph.org'
 arch=('x86_64')
 license=('custom:OSGPL')
 depends=('fontconfig' 'libglvnd' 'libxinerama' 'libxrandr')
-makedepends=('cmake' 'ffmpeg4.4' 'gdal' 'gst-plugins-base-libs' 'jasper' 'librsvg' 'libvncserver' 'openexr' 'poppler-glib')
-optdepends=('ffmpeg4.4' 'gdal' 'gst-plugins-base-libs' 'jasper' 'librsvg' 'libvncserver' 'openexr' 'poppler-glib')
+makedepends=('cmake' 'ffmpeg4.4' 'gdal' 'gst-plugins-base-libs' 'jasper' 'librsvg' 'libvncserver' 'openexr' 'poppler-glib'
+             'collada-dom' 'boost-libs' 'boost')
+optdepends=('ffmpeg4.4' 'gdal' 'gst-plugins-base-libs' 'jasper' 'librsvg' 'libvncserver' 'openexr' 'poppler-glib'
+            'collada-dom' 'boost-libs')
 conflicts=('openthreads')
 provides=('openthreads')
 source=(https://github.com/openscenegraph/OpenSceneGraph/archive/OpenSceneGraph-${pkgver}.tar.gz
