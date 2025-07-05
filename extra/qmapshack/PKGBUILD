@@ -3,16 +3,16 @@
 # Contributor: Martin Brodbeck <martin@brodbeck-online.de>
 
 pkgname=qmapshack
-pkgver=1.17.1
-pkgrel=7
+pkgver=1.18.0
+pkgrel=1
 pkgdesc='Consumer grade GIS software'
 arch=('x86_64')
 url='https://github.com/Maproom/qmapshack/wiki'
 license=('GPL3')
-depends=('alglib' 'gdal' 'proj' 'qt5-tools' 'qt5-webengine' 'quazip' 'routino>=3.1')
-makedepends=('cmake')
+depends=('alglib' 'gdal' 'proj' 'qt6-webengine' 'qt6-tools' 'qt6-declarative' 'qt6-5compat' 'quazip-qt6' 'routino>=3.1')
+makedepends=('cmake' 'clang')
 source=($pkgname-$pkgver.tar.gz::https://github.com/Maproom/qmapshack/archive/refs/tags/V_$pkgver.tar.gz)
-sha256sums=('39c704087c3e93da31216a740b494c14502b4c0e692a941a7ee4d2d520570d74')
+sha256sums=('e094123f7a0e68c466cbf39473402a6a06343c7fa1e54450eb8fdcc9c95625ca')
 
 build() {
   cmake -B build -S $pkgname-V_$pkgver \
