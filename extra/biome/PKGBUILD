@@ -2,7 +2,7 @@
 
 pkgname=biome
 pkgver=2.0.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Formatter, linter, and more for Javascript, Typescript, JSON, and CSS'
 arch=(x86_64)
 url=https://biomejs.dev
@@ -29,7 +29,7 @@ _srcenv() {
 
 build() {
 	_srcenv
-	cargo build -p "${pkgname}_cli"  --frozen --release --all-features
+	BIOME_VERSION=$pkgver cargo build -p "${pkgname}_cli"  --frozen --release --all-features
 }
 
 check() {
