@@ -1,54 +1,74 @@
-# Maintainer: Jonas Witschel <diabonas@archlinux.org>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Jonas Witschel <diabonas@archlinux.org>
+
 pkgname=python-python-pkcs11
-_name=${pkgname#python-}
-pkgver=0.7.0
-pkgrel=9
+pkgver=0.8.1
+pkgrel=1
 pkgdesc='PKCS#11/Cryptoki support for Python'
-arch=('x86_64')
-url='https://github.com/danni/python-pkcs11'
-license=('MIT')
-depends=('python' 'python-asn1crypto')
-makedepends=('cython' 'python-build' 'python-installer' 'python-setuptools'
-             'python-setuptools-scm' 'python-wheel')
-checkdepends=('python-cryptography' 'python-oscrypto' 'python-pytest' 'softhsm')
-source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz"
-        'python-pkcs11_mark-tests-as-xfail.patch'
-	'use-functools-cached-property.patch')
-sha256sums=('9737e0c24cabb8bc9d48bf8c57c3df2a70f8cdd96b70c50290803286f9e46bf7'
-            '28a5ce996fe6cb455b55c98e8a46fcd0539dc0b3a70677a390f4dddbe1b55d65'
-            '33a3d051e2730d28f68735c73697f8ca24ea61dad93f2dc387e1375cec15d073')
+arch=(x86_64)
+url='https://github.com/pyauth/python-pkcs11'
+license=(MIT)
+depends=(
+  glibc
+  python
+  python-asn1crypto
+)
+makedepends=(
+  git
+  cython
+  python-build
+  python-installer
+  python-setuptools
+  python-setuptools-scm
+  python-wheel
+)
+checkdepends=(
+  python-cryptography
+  python-oscrypto
+  python-parameterized
+  python-pytest
+  softhsm
+)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('1eaae39e7836177b3f2fcb4620bde263bdc402b9d1a18badf6e1e3bc9ac22cfffd119787724bda59e649ec505a2c99768a5f6e961a5bfa7ae852c6a9f01e1594')
+b2sums=('416e29e2d04350defd24f30b621bb569708d80751251df34dbd082e37cf33bf94f64d85bc5e25b8b126d1c3b3356c23cbc3da3b8973d337550435fde41c1edb5')
 
 prepare() {
-	cd "$_name-$pkgver"
+  cd "$pkgname"
 
-	# https://github.com/pyauth/python-pkcs11/pull/176
-	patch -Np1 -i ${srcdir}/use-functools-cached-property.patch
-
-	sed -n '/^Copyright/,$p' README.rst > LICENSE
-
-	# test_sign_eddsa and test_self_sign_certificate always fail in our build environment
-	# (https://github.com/danni/python-pkcs11/issues/63#issuecomment-526812900)
-	patch --forward --strip=1 --input="$srcdir/python-pkcs11_mark-tests-as-xfail.patch"
+  sed -n '/^Copyright/,$p' README.rst > LICENSE
 }
 
 build() {
-	cd "$_name-$pkgver"
-	python -m build --wheel --no-isolation
+  cd "$pkgname"
+
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --no-isolation
 }
 
 check() {
-	cd "$_name-$pkgver"
-	softhsm2-util --init-token --free --label TEST --pin 1234 --so-pin 5678
-	export PKCS11_MODULE=/usr/lib/libsofthsm2.so
-	export PKCS11_TOKEN_LABEL=TEST
-	export PKCS11_TOKEN_PIN=1234
-	export PKCS11_TOKEN_SO_PIN=5678
-	local _python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
-	PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$_python_version" pytest --import-mode=append
+  cd "$pkgname"
+
+  export PKCS11_MODULE=/usr/lib/libsofthsm2.so
+  export PKCS11_TOKEN_LABEL=TEST
+  export PKCS11_TOKEN_PIN=1234
+  export PKCS11_TOKEN_SO_PIN=5678
+
+  softhsm2-util \
+    --init-token \
+    --free \
+    --label "${PKCS11_TOKEN_LABEL}" \
+    --pin "${PKCS11_TOKEN_PIN}" \
+    --so-pin "${PKCS11_TOKEN_SO_PIN}"
+
+  local _python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
+  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$_python_version" pytest --import-mode=append
 }
 
 package() {
-	cd "$_name-$pkgver"
-	python -m installer --destdir="$pkgdir" dist/*.whl
-	install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }

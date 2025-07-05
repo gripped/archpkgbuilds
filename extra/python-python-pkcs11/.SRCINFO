@@ -1,27 +1,27 @@
 pkgbase = python-python-pkcs11
 	pkgdesc = PKCS#11/Cryptoki support for Python
-	pkgver = 0.7.0
-	pkgrel = 9
-	url = https://github.com/danni/python-pkcs11
+	pkgver = 0.8.1
+	pkgrel = 1
+	url = https://github.com/pyauth/python-pkcs11
 	arch = x86_64
 	license = MIT
 	checkdepends = python-cryptography
 	checkdepends = python-oscrypto
+	checkdepends = python-parameterized
 	checkdepends = python-pytest
 	checkdepends = softhsm
+	makedepends = git
 	makedepends = cython
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-setuptools-scm
 	makedepends = python-wheel
+	depends = glibc
 	depends = python
 	depends = python-asn1crypto
-	source = https://files.pythonhosted.org/packages/source/p/python-pkcs11/python-pkcs11-0.7.0.tar.gz
-	source = python-pkcs11_mark-tests-as-xfail.patch
-	source = use-functools-cached-property.patch
-	sha256sums = 9737e0c24cabb8bc9d48bf8c57c3df2a70f8cdd96b70c50290803286f9e46bf7
-	sha256sums = 28a5ce996fe6cb455b55c98e8a46fcd0539dc0b3a70677a390f4dddbe1b55d65
-	sha256sums = 33a3d051e2730d28f68735c73697f8ca24ea61dad93f2dc387e1375cec15d073
+	source = python-python-pkcs11::git+https://github.com/pyauth/python-pkcs11#tag=v0.8.1
+	sha512sums = 1eaae39e7836177b3f2fcb4620bde263bdc402b9d1a18badf6e1e3bc9ac22cfffd119787724bda59e649ec505a2c99768a5f6e961a5bfa7ae852c6a9f01e1594
+	b2sums = 416e29e2d04350defd24f30b621bb569708d80751251df34dbd082e37cf33bf94f64d85bc5e25b8b126d1c3b3356c23cbc3da3b8973d337550435fde41c1edb5
 
 pkgname = python-python-pkcs11
