@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=libpoly
-pkgver=0.1.13
+pkgver=0.2.0
 pkgrel=1
 pkgdesc='C library for manipulating polynomials'
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('LGPL')
 depends=('gmp')
 makedepends=('cmake' 'ninja' 'python')
 source=("https://github.com/SRI-CSL/libpoly/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('1531e54e8616964851bfd65cb3995519f7e1d3a96310dc56cf131f8f11b8c84b7c10cc75bd2bb20d74caf8b9a1cdc504618fd86a8823c82d7f23c3e03e05c0d3')
+sha512sums=('eaada4a9ce9c760beab4279b44584fd131ad5ba34dd86c71262f2afc6e718007f789601bd553aad5e38f44083a61a9d279e91fa57194eaa5a5ba79be6ce6734f')
 
 build() {
   cd libpoly-$pkgver
