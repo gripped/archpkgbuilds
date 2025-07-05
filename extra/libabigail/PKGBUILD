@@ -2,11 +2,11 @@
 # Contributor: Alexander 'z33ky' Hirsch <1zeeky@gmail.com>
 
 pkgname=libabigail
-pkgver=2.4
-pkgrel=2
+pkgver=2.8
+pkgrel=1
 pkgdesc='ABI Generic Analysis and Instrumentation Library'
 arch=('x86_64')
-license=('Apache')
+license=('Apache-2.0')
 url='https://sourceware.org/libabigail/'
 depends=(
   'glibc'
@@ -16,20 +16,16 @@ depends=(
   'libelf'
   'elfutils'
   'python'
+  'xxhash'
+  'xz'
 )
 makedepends=(
   'git'
   'python-sphinx'
 )
-_commit='067bb0f5228e1afc3c503b2d2fa32a61be5a4cd5'
-source=("git+https://sourceware.org/git/libabigail.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^libabigail-//'
-}
+source=("git://sourceware.org/git/libabigail.git#tag=libabigail-$pkgver")
+sha512sums=('7322deb92019d3dc79f977d56c663c2e641f348ffcfa8e1a756d6fe455c40505f7e5a6cd3e941e33035d294c146ac0cc448165823ab3b25dc6b27eec12588252')
+b2sums=('77c00046bb9cec6c67420f1a0feeafa32b1806379e5d5a7fb2d91e4fe60f45d7abd261ede19ca166fc5e948194e67b01f768cde25ba6dfe90e1aa567b81d3626')
 
 prepare() {
   cd "$pkgname"
