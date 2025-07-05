@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=babel-core
-pkgver=7.21.4
-pkgrel=3
+pkgver=7.27.7
+pkgrel=1
 pkgdesc="A compiler for writing next generation JavaScript"
 arch=('any')
 url="https://babeljs.io/"
@@ -11,7 +11,7 @@ depends=('nodejs' 'semver')
 makedepends=('npm')
 source=("$pkgname-$pkgver.tgz::https://registry.npmjs.org/@babel/core/-/core-$pkgver.tgz")
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('aadfd8575e3d2666a7ffa01f9a5c49d382cc22ef1b328ca5dd107dd724c5af142681bad2bd0332edc23c43ad851f1d6df3027c0797eed140e82f01c0854a3540')
+sha512sums=('054d9ff6d94a439080b6188c220a73021e1e0d32d6a359aa8bd8ea1363b1306d04fce335f7d549b76abc073b53c699d25b48b5ca67702d74499d8cef0cce6bdb')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
