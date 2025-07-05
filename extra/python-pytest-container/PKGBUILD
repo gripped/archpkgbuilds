@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=python-pytest-container
-pkgver=0.4.3
+pkgver=0.4.4
 pkgrel=1
 pkgdesc="Pytest fixtures for writing container based tests"
 arch=('any')
@@ -9,14 +9,16 @@ license=('LGPL')
 url="https://dcermak.github.io/pytest_container/"
 checkdepends=('podman' 'buildah' 'python-typeguard')
 depends=(python python-pytest python-pytest-testinfra python-filelock python-deprecation)
-makedepends=(python-build python-installer python-wheel python-poetry-core git)
+makedepends=(python-build python-installer python-wheel python-setuptools-scm python-setuptools git)
 optdepends=(
   'podman: podman support'
   'buildah: podman support'
   'docker: docker support'
 )
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/dcermak/pytest_container/archive/refs/tags/${pkgver}.tar.gz)
-sha256sums=('d7e712d0f4cb47a2b2596a4aca0c4db093e53ad7e241f2bac4d5348afd57c6a2')
+sha256sums=('ba99166a23dc89b3704c3557b6de9b59572b920a8067ace752b1e989f70f242e')
+
+export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 
 prepare() {
   cd pytest_container-${pkgver}
