@@ -2,12 +2,16 @@
 
 pkgname=python-django-allauth
 _name=${pkgname#python-}
-pkgver=65.7.0
+pkgver=65.9.0
 pkgrel=1
 pkgdesc="Authentication, registration, account management and 3rd party account authentication"
 arch=(any)
 url="https://codeberg.org/allauth/django-allauth"
 license=(MIT)
+# NOTE: Upstream seems to be of the opinion that indirectly depending on a set of libraries is just fine.
+# So we have a growing list of false-positive dependencies that we are not supposed to add as direct dependencies...
+# python-django-rest-framework: https://codeberg.org/allauth/django-allauth/issues/4431
+# python-django-ninja: https://codeberg.org/allauth/django-allauth/issues/4432
 depends=(
   python
   python-asgiref
@@ -48,8 +52,8 @@ optdepends=(
   'python-saml: for SAML support'
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('6e460779e1227bd127bd05a215c220ebecd74addc8e87f207fd3ee781c8339a7dfcd239649f4c0b1087dd7bd5fbb14da66dbf1a33bc0c8c520423c577b2aa711')
-b2sums=('4744857c22aa44470d70288d6e7d7168742d04bfccbc393ef8991d1c26d5765a2af54ff813bb34e99a10c163c5cce2453e5cf84afc8b01ef8e10ea61912cb4d5')
+sha512sums=('3b9161137f1ce512408efa86a544c712adf6d5705705690f5b4f31f9d2b4bfb9b3633fd3b058d4f3be550830104a11622d30019ae2dab61051275dc7a5d464ea')
+b2sums=('a914f73d1a6fec25bab212ce4a9ce9f1de1345620cbdcd643b22cedff2e9d855c40c19f91f6e8eea3b5b52fd14dd5b099fe58b9e147a0c1cf5c30d254db3455d')
 
 build() {
   cd $_name
