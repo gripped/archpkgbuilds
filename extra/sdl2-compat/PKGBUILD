@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=sdl2-compat
 pkgver=2.32.56
-pkgrel=1
+pkgrel=2
 pkgdesc="An SDL2 compatibility layer that uses SDL3 behind the scenes"
 url="https://github.com/libsdl-org/sdl2-compat"
 depends=('sdl3' 'glibc')
@@ -17,6 +17,7 @@ sha512sums=('6117480fb29df01779b38e54596994a0e21f7c2247791ac3e2c8e416ea4c1048a3c
 validpgpkeys=('1528635D8053A57F77D1E08630A59377A7763BE6') # Sam Lantinga
 
 build() {
+  CFLAGS+=" -ffat-lto-objects"
   cmake -S sdl2-compat-$pkgver \
     -B build -G Ninja \
     -DCMAKE_INSTALL_PREFIX=/usr \
