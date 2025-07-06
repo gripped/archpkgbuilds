@@ -3,12 +3,12 @@
 
 pkgname=termusic
 pkgver=0.11.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Music Player TUI written in Rust"
 arch=('x86_64')
 url="https://github.com/tramhao/termusic"
 license=('MIT' 'GPL3')
-depends=('gstreamer' 'gst-plugins-base' 'gst-plugins-good' 'gst-plugins-bad' 'gst-plugins-ugly' 'gst-libav' 'dbus' 'ueberzug' 'protobuf' 'libsixel')
+depends=('gstreamer' 'gst-plugins-base' 'gst-plugins-good' 'gst-plugins-bad' 'gst-plugins-ugly' 'gst-libav' 'dbus' 'ueberzug' 'protobuf' 'libsixel' 'libmpv.so')
 optdepends=('yt-dlp: download mp3'
   'ffmpeg: download mp3'
   'emoji-font: for displaying emojis')
@@ -24,12 +24,12 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --features cover --release --frozen
+  cargo build --features cover,all-backends --release --frozen
 }
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --frozen -- --skip "config"
+  cargo test --frozen
 }
 
 package() {
