@@ -1,0 +1,144 @@
+diff -ru topcom-1.1.2.orig/configure.ac topcom-1.1.2/configure.ac
+--- topcom-1.1.2.orig/configure.ac	2025-07-06 00:17:13.903115360 +0200
++++ topcom-1.1.2/configure.ac	2025-07-06 00:46:52.221571706 +0200
+@@ -43,9 +43,6 @@
+   AC_MSG_NOTICE([... done])
+ fi
+ 
+-dnl Make libcddgmp:
+-make -C external cdd
+-
+ dnl Check for requests for third-party packages:
+ dnl Check for qsopt_ex:
+ AC_MSG_CHECKING(whether QSOpt_ex support was enabled)
+@@ -57,13 +54,6 @@
+ if test "x$enable_qsoptex" = "xyes"; then
+   AC_MSG_RESULT(yes)
+   AC_DEFINE(HAVE_LIBQSOPTEX)
+-
+-  dnl Check for compression libraries (qsopt_ex uses them if they are present):
+-  AC_CHECK_LIB([z], [gzopen], [], AC_MSG_NOTICE([compiling without libz]))
+-  AC_CHECK_LIB([bz2], [BZ2_bzopen], [], AC_MSG_NOTICE([compiling without libbz2]))
+-
+-  dnl Make libqsopt_ex:
+-  make -C external qso
+ else
+   AC_MSG_RESULT(no)
+ fi
+@@ -76,9 +66,6 @@
+ )
+ if test "x$enable_soplex" = "xyes"; then  
+   AC_MSG_RESULT(yes)
+-
+-  dnl Check for compression library (soplex needs it):
+-  AC_CHECK_LIB([z], [gzopen], [LIBS="-lsoplex $LIBS"; AC_DEFINE(HAVE_LIBSOPLEX)], AC_MSG_NOTICE([libz missing => soplex not enabled]))
+ else
+   AC_MSG_RESULT(no)
+ fi
+diff -ru topcom-1.1.2.orig/lib-src/Makefile.am topcom-1.1.2/lib-src/Makefile.am
+--- topcom-1.1.2.orig/lib-src/Makefile.am	2025-07-06 00:17:13.915626677 +0200
++++ topcom-1.1.2/lib-src/Makefile.am	2025-07-06 00:36:30.950193345 +0200
+@@ -134,7 +134,7 @@
+ 
+ AM_CPPFLAGS    += -I../lib-src-reg
+ AM_CPPFLAGS    += -I../wrap-gmp-gmpxx
+-AM_CPPFLAGS    += -I../external/include
++AM_CPPFLAGS    += -I$(includedir)/cddlib
+ AM_CPPFLAGS    += -I$(includedir)
+ 
+ AM_CPPFLAGS    += -ftemplate-depth=100
+diff -ru topcom-1.1.2.orig/lib-src-reg/Makefile.am topcom-1.1.2/lib-src-reg/Makefile.am
+--- topcom-1.1.2.orig/lib-src-reg/Makefile.am	2025-07-06 00:17:13.903322931 +0200
++++ topcom-1.1.2/lib-src-reg/Makefile.am	2025-07-06 00:31:58.297146959 +0200
+@@ -14,7 +14,7 @@
+ 
+ AM_CPPFLAGS    += -I../lib-src
+ AM_CPPFLAGS    += -I../wrap-gmp-gmpxx
+-AM_CPPFLAGS    += -I../external/include
++AM_CPPFLAGS    += -I$(includedir)/cddlib
+ AM_CPPFLAGS    += -I$(includedir)
+ 
+ AM_CPPFLAGS    += -ftemplate-depth=100
+diff -ru topcom-1.1.2.orig/Makefile.am topcom-1.1.2/Makefile.am
+--- topcom-1.1.2.orig/Makefile.am	2025-07-06 00:17:13.903626675 +0200
++++ topcom-1.1.2/Makefile.am	2025-07-06 00:21:04.990997083 +0200
+@@ -1,7 +1,2 @@
+ SUBDIRS      = wrap-gmp-gmpxx lib-src-reg lib-src src-reg src examples share
+-EXTRA_DIST   = external/Makefile
+-EXTRA_DIST  += external/gmp-6.2.1.tar.bz2
+-EXTRA_DIST  += external/cddlib-0.94j-TOPCOMb.tar.gz
+-EXTRA_DIST  += external/qsopt_ex-2.5.10.3.tar.gz
+-EXTRA_DIST  += external/gmpxx-patch
+ 
+diff -ru topcom-1.1.2.orig/src/Makefile.am topcom-1.1.2/src/Makefile.am
+--- topcom-1.1.2.orig/src/Makefile.am	2025-07-06 00:17:13.919626678 +0200
++++ topcom-1.1.2/src/Makefile.am	2025-07-06 00:29:39.075816333 +0200
+@@ -122,13 +122,13 @@
+ santos_22_triang_SOURCES           = santos_22_triang.cc
+ 
+ LDADD           = ../lib-src/libTOPCOM.a \
+-                  ../lib-src-reg/libCHECKREG.a \
+-                  ../external/lib/libcddgmp.a
++                  ../lib-src-reg/libCHECKREG.a
++LIBS		+= -lcddgmp
+ if USE_QSOPTEX
+-LDADD          += ../external/lib/libqsopt_ex.a
++LIBS		+= -lqsopt_ex
+ endif
+ if USE_SOPLEX
+-LDADD          += ../external/lib/libsoplex.a
++LIBS		+= -lsoplex_shared
+ endif
+ if USE_LOCAL_GMP
+ LDADD          += ../external/lib/libgmpxx.a \
+@@ -141,7 +141,7 @@
+ AM_CPPFLAGS    += -I../lib-src
+ AM_CPPFLAGS    += -I../lib-src-reg
+ AM_CPPFLAGS    += -I../wrap-gmp-gmpxx
+-AM_CPPFLAGS    += -I../external/include
++AM_CPPFLAGS    += -I$(includedir)/cddlib
+ AM_CPPFLAGS    += -I$(includedir)
+ 
+ AM_CPPFLAGS    += -ftemplate-depth=100
+Sólo en topcom-1.1.2.orig/src: .Makefile.am.kate-swp
+diff -ru topcom-1.1.2.orig/src-reg/Makefile.am topcom-1.1.2/src-reg/Makefile.am
+--- topcom-1.1.2.orig/src-reg/Makefile.am	2025-07-06 00:17:13.919065846 +0200
++++ topcom-1.1.2/src-reg/Makefile.am	2025-07-06 00:40:55.212595974 +0200
+@@ -3,14 +3,14 @@
+ checkregularity_SOURCES = checkregularity.cc
+ 
+ LDADD           = ../lib-src/libTOPCOM.a \
+-                  ../lib-src-reg/libCHECKREG.a \
+-                  ../external/lib/libcddgmp.a
++                  ../lib-src-reg/libCHECKREG.a
++LIBS		+= -lcddgmp
+ if USE_QSOPTEX
+-LDADD          += ../external/lib/libqsopt_ex.a
++LIBS		+= -lqsopt_ex
+ endif
+ 
+ if USE_SOPLEX
+-LDADD          += ../external/lib/libsoplex.a
++LIBS		+= -lsoplex_shared
+ endif
+ if USE_LOCAL_GMP
+ LDADD          += ../external/lib/libgmpxx.a \
+@@ -22,7 +22,7 @@
+ AM_CPPFLAGS    += -I../lib-src
+ AM_CPPFLAGS    += -I../lib-src-reg
+ AM_CPPFLAGS    += -I../wrap-gmp-gmpxx
+-AM_CPPFLAGS    += -I../external/include
++AM_CPPFLAGS    += -I$(includedir)/cddlib
+ AM_CPPFLAGS    += -I$(includedir)
+ 
+ AM_CPPFLAGS    += -ftemplate-depth=100
+diff -ru topcom-1.1.2.orig/wrap-gmp-gmpxx/Makefile.am topcom-1.1.2/wrap-gmp-gmpxx/Makefile.am
+--- topcom-1.1.2.orig/wrap-gmp-gmpxx/Makefile.am	2025-07-06 00:17:13.912659991 +0200
++++ topcom-1.1.2/wrap-gmp-gmpxx/Makefile.am	2025-07-06 00:34:12.153781915 +0200
+@@ -2,5 +2,5 @@
+ Integer.h \
+ Rational.h
+ 
+-AM_CPPFLAGS       += -I../external/include
++AM_CPPFLAGS       += -I$(includedir)/cddlib
+ AM_CPPFLAGS       += -I$(includedir)
