@@ -2,7 +2,7 @@
 # Contributor: Rafael Dominiquini <rafaeldominiquini at gmail dor com>
 
 pkgname=inferno
-pkgver=0.12.2
+pkgver=0.12.3
 pkgrel=1
 pkgdesc="A Rust port of FlameGraph"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('CDDL-1.0')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('0640ea6ad6dfaef4bfca4f36fde4bd463b47ead5591dcfef9bd8e15c4bd64a88')
+sha256sums=('46a04074f40bd51cbb0eac0761d28e84152e947372ce79f923974b52b75e3ec2')
 
 prepare() {
   cd "$pkgname-$pkgver"
