@@ -25,13 +25,12 @@ pkgname=(
   opensearch-repository-hdfs-plugin
   opensearch-repository-s3-plugin
   opensearch-store-smb-plugin
-  opensearch-transport-nio-plugin
 )
-pkgver=2.19.2
+pkgver=3.0.0
 pkgrel=1
 # See https://github.com/opensearch-project/OpenSearch/blob/main/.ci/java-versions.properties
-_jrever=17
-_jdkver=17
+_jrever=21
+_jdkver=21
 arch=('x86_64')
 url="https://opensearch.org/docs/opensearch/index/"
 license=('Apache-2.0')
@@ -46,14 +45,15 @@ source=(
   opensearch-tmpfile.conf
   opensearch.default
 )
-sha256sums=('660eaf0958e79198c3f5483361b70a1f7618ae965955d25f2ca48ca2d113ed18'
+sha256sums=('5701c0a0e801a27cb1fb6521c17138c43a0933e364fa2cfb5a62cfcdcb4e1270'
             'b59d064ce8e348f22b969cc2b7522a1c7b64d4b4e3fd98d9ad1f01d842e94d46'
             '02bfe1e723f6522d7b5bf72d43c7847c4d9329d105b543583aa5b9c952e7d54d'
             '097de1fc6ef1f12e99d2b3def9c9803cf0dd8609aeace608048d599a2cb85c5c'
             'a133b8944d57d81224caf03f8d0e5b127f2570123b2a1e2d2f6eb199446448ae'
             '515e509f811a367cfd0a6cbafb3f8f472276410d53df7957aa878d8047a3cfc6'
             'eb1ea6146d2bd16eeb63061dfcdb7ebed55da556397c7d6c924941b1564f1f72'
-            '66401172f710e80e1f715c89bc6ed5a6d0ad567c58ad03101e59556c52245158')
+            '66401172f710e80e1f715c89bc6ed5a6d0ad567c58ad03101e59556c52245158'
+)
 
 build() {
   cd "OpenSearch-${pkgver}"
@@ -83,8 +83,7 @@ build() {
     mapper-annotated-text \
     mapper-murmur3 \
     mapper-size \
-    store-smb \
-    transport-nio; do
+    store-smb; do
     echo "======================== Building plugin ${p} ========================"
     ./gradlew :plugin:${p}:build
   done
@@ -122,7 +121,6 @@ package_opensearch() {
     'opensearch-repository-hdfs-plugin'
     'opensearch-repository-s3-plugin'
     'opensearch-store-smb-plugin'
-    'opensearch-transport-nio-plugin'
     'opensearch-alerting-plugin'
     'opensearch-anomaly-detection-plugin'
     'opensearch-asynchronous-search-plugin'
@@ -315,10 +313,4 @@ package_opensearch-store-smb-plugin() {
   pkgdesc="The Store SMB plugin adds support for SMB stores."
   depends=("opensearch=${pkgver}")
   _package_plugin store-smb
-}
-
-package_opensearch-transport-nio-plugin() {
-  pkgdesc="The nio transport."
-  depends=("opensearch=${pkgver}")
-  _package_plugin transport-nio
 }
