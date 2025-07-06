@@ -6,7 +6,7 @@
 # Contributor: Nikos Skalkotos <skalkoto (at) Gmail.com>
 
 pkgname=libguestfs
-pkgver=1.56.0
+pkgver=1.56.1
 pkgrel=1
 pkgdesc="Access and modify virtual machine disk images"
 arch=(x86_64)
@@ -18,13 +18,11 @@ license=(
 # NOTE: see appliance/packagelist.in
 _appliancedeps=(
   btrfs-progs
-  debootstrap
   dhcpcd
   dosfstools
   exfatprogs
   f2fs-tools
   gptfdisk
-  grub
   iproute2
   iputils
   jfsutils
@@ -36,7 +34,6 @@ _appliancedeps=(
   lzop
   mdadm
   mtools
-  multipath-tools
   nilfs-utils
   ntfs-3g
   openssh
@@ -60,7 +57,7 @@ depends=(
   glib2
   glibc
   hivex
-  jansson
+  json-c
   sleuthkit
   libconfig
   libtirpc
@@ -120,10 +117,10 @@ source=(
   https://download.libguestfs.org/${pkgver%.*}-stable/$pkgname-$pkgver.tar.gz{,.sig}
   $pkgname-1.48.1-disable_php_tests.patch
 )
-sha512sums=('2aae2a4222680000ff06954adf074825e2f6ef182694d84b3e0f39ba4b2e942b3a214f438f937341fd5c72be67620d97330639739720cde6312502fc81d868ae'
+sha512sums=('8ec8db8b3de7471c7ab77161fa98349d7b6f88a803ab563f1859606a2ef55737f323b1cf3ef2ebb3055770f4140aabb056f97099ef76fa7ad0f7bd792cc699fc'
             'SKIP'
             'd59cad07e275f1fa5e82448993db5b3a6dc8cdd1fc97a8839ef0403ad3f1753a5d13df27b184d6c73fa8dda8bd75e63ad68aaad26001986682d5bc7eeb58273a')
-b2sums=('40d2c3bb15d2694274dd56c88fb6405e2b08ff50c252579464c88f37966ae95be324968a0d73dd1a4639e810ae1e939871acc8fc2a07e9f1a193e4ac5050a6eb'
+b2sums=('4b43c4f5c579553f200e0a6ed36f02f30b155157861b9b1cd6dd6d16f20791b1c956ea53523cb5bd12c3a9918f881b2e6b16989dda26a02173dac7b26d88dbb9'
         'SKIP'
         '2f7c429875d80b2b3a70286f83764ce6ed8be86055232fc059ab55ebf8393f9d29a2241401c7ab55af7ba9180ea85909647fe06ca51880f93bc66b488bcec78c')
 validpgpkeys=('F7774FB1AD074A7E8C8767EA91738F73E1B768A0') # Richard W.M. Jones <rjones@redhat.com>
@@ -143,7 +140,7 @@ build() {
     --prefix=/usr
     --sbindir=/usr/bin
     --sysconfdir=/etc
-    --with-extra-packages="libldm systemd-sysvcompat openssh qemu"
+    --with-extra-packages="libldm systemd-sysvcompat openssh"
     --with-guestfs-path=/usr/lib/guestfs
   )
 
