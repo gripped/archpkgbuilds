@@ -11,7 +11,7 @@ _llvm_project_revision=8f7e57485ee73205e108d74abb5565d5c63beaca
 # https://github.com/emscripten-core/emscripten/issues/12252
 # I'm obviously unhappy about that but it appears to be the only practical solution for the time being.
 pkgver=4.0.10
-pkgrel=1
+pkgrel=2
 pkgdesc="Compile C and C++ into highly-optimizable JavaScript for the web"
 arch=('x86_64')
 url="https://emscripten.org"
@@ -83,7 +83,7 @@ package() {
 
   # Clean up some unnecessary bins and libs
   rm clang-check clang-cl clang-cpp clang-extdef-mapping clang-format \
-      clang-offload-bundler clang-refactor clang-scan-deps \
+      clang-offload-bundler clang-refactor \
       lld-link ld.lld llvm-lib
   cd ../lib
   rm libclang.so
