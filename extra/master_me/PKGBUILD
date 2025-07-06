@@ -5,13 +5,14 @@ pkgname=(
   master_me
   master_me-{clap,ladspa,lv2,standalone,vst,vst3}
 )
-pkgver=1.2.0
-pkgrel=2
+pkgver=1.3.1
+pkgrel=1
 pkgdesc="Automatic mastering plugin for live streaming, podcasts and internet radio"
 arch=(x86_64)
 url="https://github.com/trummerschlunk/master_me"
-license=(GPL3)
+license=(GPL-3.0-or-later)
 makedepends=(
+  dbus
   faustpp
   gcc-libs
   gendesk
@@ -21,9 +22,9 @@ makedepends=(
   libxext
   libxrandr
 )
-source=(https://github.com/trummerschlunk/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz)
-sha512sums=('a47b156f176003ffb0eaa96b72bc9da749892507901a895cbb5aa27d3bdc1e0abc1a3ff9c0d008353e80c859c09c0668678a67b3727b8f5821490bf48ded2948')
-b2sums=('356f7c9c6a6c10cb8ac3ea77ccb0c51376c01424955bd059466ea2655d12f8709d96a65b4dc15b9ffeebc9ab9a02940da19502b3c9ef6ecd33fa038378cd5704')
+source=(https://github.com/trummerschlunk/$pkgname/releases/download/$pkgver/$pkgname-$pkgver-src.tar.xz)
+sha512sums=('55f82383885fd71385a97e3650fd06b735d0ccb7cbb62659a9d1e9a68f1779aa614ac23bac951b542751e2acefc1efa49887eb86b387728b196b7f8c44f629fb')
+b2sums=('dc0b89d9d12d990f69ba5a5c1a98c550a6064730fd47d46eeb2cba99aa4ac031335637cde8068346a9cf5f164002618a586218bf9a15d45a62023c66807d9867')
 
 _pick() {
   local p="$1" f d; shift
@@ -73,6 +74,7 @@ package_master_me() {
 package_master_me-clap() {
   pkgdesc+=" - CLAP plugin"
   depends=(
+    dbus
     gcc-libs
     glibc
     libglvnd
@@ -101,6 +103,7 @@ package_master_me-ladspa() {
 package_master_me-lv2() {
   pkgdesc+=" - LV2 plugin"
   depends=(
+    dbus
     gcc-libs
     glibc
     libglvnd
@@ -117,6 +120,7 @@ package_master_me-lv2() {
 package_master_me-standalone() {
   pkgdesc+=" - standalone"
   depends=(
+    dbus
     gcc-libs
     glibc
     hicolor-icon-theme
@@ -137,6 +141,7 @@ package_master_me-standalone() {
 package_master_me-vst() {
   pkgdesc+=" - VST plugin"
   depends=(
+    dbus
     gcc-libs
     glibc
     libglvnd
@@ -153,6 +158,7 @@ package_master_me-vst() {
 package_master_me-vst3() {
   pkgdesc+=" - VST3 plugin"
   depends=(
+    dbus
     gcc-libs
     glibc
     libglvnd
