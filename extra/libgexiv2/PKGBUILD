@@ -2,7 +2,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=libgexiv2
-pkgver=0.14.5
+pkgver=0.14.6
 pkgrel=1
 pkgdesc='GObject-based wrapper around the Exiv2 library'
 url='https://gitlab.gnome.org/GNOME/gexiv2'
@@ -11,7 +11,7 @@ license=(GPL-2.0-or-later)
 depends=(exiv2 gcc-libs glib2 glibc)
 makedepends=(git glib2-devel gobject-introspection meson python-gobject vala)
 source=("git+$url.git?signed#tag=gexiv2-$pkgver")
-b2sums=('ef665a3a8cbcfc00f1d0ece6c01d4a036d3cd6d673ed8aa527c08d85f873d6ecff4b7d89d22cd1a5d2b45ccdae30f1da24f06cd31a6685c7b78d6f44cfcd826c')
+b2sums=('458c6beace8137de8ac4ee5ec9c128b0db423da557f153c865de354664c1c05bc78c13f118915319c7cae6df0a2460ab3945a61ddcf9c7a91ff348f5cf8b6414')
 validpgpkeys=(AC9CD4E32D7C7F6357BA8ADD10F6E970175D29E1) # Jens Georg <mail@jensge.org>
 
 build() {
