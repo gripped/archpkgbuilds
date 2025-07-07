@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-index-management-plugin
-pkgver=3.0.0.0
+pkgver=3.1.0.0
 pkgrel=1
-_opensearchver=3.0.0
+_opensearchver=3.1.0
 _jdkver=21
 pkgdesc="OpenSearch Index Management Plugin"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/index-management/archive/${pkgver}.tar.gz"
 )
-sha256sums=('d70eda2b88279e5a6c4d01f829b2e5e186aabf39c733c8eca7b15c47e5859dec')
+sha256sums=('e6bf325df7331d0c28bd916cc98d5009b85128a396c0618c4b28e8c1ee270e34')
 
 build() {
   cd "index-management-${pkgver}"
