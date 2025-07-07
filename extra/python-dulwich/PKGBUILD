@@ -3,7 +3,7 @@
 
 pkgname=python-dulwich
 _name=${pkgname#python-}
-pkgver=0.23.1
+pkgver=0.23.2
 pkgrel=1
 pkgdesc='Pure-Python implementation of the Git file formats and protocols'
 arch=(x86_64)
@@ -35,7 +35,7 @@ optdepends=(
   'python-pyinotify: to watch for changes to refs'
 )
 source=("git+https://github.com/jelmer/dulwich.git#tag=dulwich-$pkgver")
-b2sums=('798ec4526058b66d44a83d44e274a57d0bc8e2abd8cdf02b6d59d60e9fb499d2e727b88a6b1c6226f10e854c2d231f520937af0238ce1ae5a6ec8c64a0b02b6b')
+b2sums=('6e2927bd558e9a573c158d2db24cb2b200373f4f115609aa141014165d9b0b15de29f02bfff2347fff6e41b89063b5a6e1d3d2efb63db1e2312daf9cc0839dfa')
 validpgpkeys=(DC837EE14A7E37347E87061700806F2BD729A457) # Jelmer Vernooĳ <jelmer@jelmer.uk>
 
 build() {
@@ -49,8 +49,11 @@ check() {
     --ignore tests/contrib/test_swift_smoke.py
     --deselect tests/test_porcelain.py::AddTests::test_add_symlink_absolute_to_system
   )
+
   cd "$_name"
-  PYTHONPATH=dulwich pytest "${pytest_options[@]}" tests
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest "${pytest_options[@]}" tests
 }
 
 package() {
