@@ -7,7 +7,7 @@
 
 pkgname=kmymoney
 pkgver=5.2.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Personal finance manager for KDE which operates similarly to MS-Money or Quicken"
 arch=('x86_64')
 url="https://kmymoney.org/"
@@ -16,28 +16,32 @@ depends=('glibc' 'gcc-libs' 'gmp' 'libalkimia' 'sqlcipher' 'qt6-base' 'qt6-5comp
          'kcoreaddons' 'kconfig' 'kwidgetsaddons' 'ki18n' 'kcompletion' 'kcmutils' 'kitemmodels'
          'kitemviews' 'kxmlgui' 'ktextwidgets' 'kio' 'kholidays' 'kjobwidgets' 'sonnet'
          'kcolorscheme' 'kconfigwidgets' 'kdiagram' 'libical' 'libofx' 'qtkeychain-qt6'
-         'kidentitymanagement' 'libakonadi' 'kcontacts') # 'aqbanking' 'gwenhywfar' - not ported to Qt6 yet
+         'kidentitymanagement' 'libakonadi' 'kcontacts' 'aqbanking' 'gwenhywfar')
 makedepends=('extra-cmake-modules' 'kdoctools' 'doxygen' 'qgpgme')
 optdepends=('perl: for financequote.pl')
 changelog=$pkgname.changelog
 source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig}
         identitymanagement.patch
-        https://invent.kde.org/office/kmymoney/-/commit/aac0449b.patch)
+        https://invent.kde.org/office/kmymoney/-/commit/aac0449b.patch
+        https://invent.kde.org/office/kmymoney/-/commit/a6542b9e.patch)
 validpgpkeys=('D69A745A55331F44F404D8258D4DE062AA2EB01C')
 sha256sums=('f308b0a2297f22f43d9bbe46b4c7dc6aac08bd594454e635a844d06abda4d33c'
             'SKIP'
             'a92ed7427764bbff9e043b45a38280a1e752ef70413605d34957acb3caaa9761'
-            'ce90c9b944fb69598f30a08c3e390bb606a124590c2fee275eebef40d93bd64f')
+            'ce90c9b944fb69598f30a08c3e390bb606a124590c2fee275eebef40d93bd64f'
+            'a6338c26ea290ba64648c42a6f7c764143b834bd92ecd890e0b45386d96845f4')
 
 prepare() {
   patch -d $pkgname-$pkgver -p1 < identitymanagement.patch
   patch -d $pkgname-$pkgver -p1 < aac0449b.patch # Fix action links
+  patch -d $pkgname-$pkgver -p1 < a6542b9e.patch # Fix KBanking build with Qt6
 }
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
     -DBUILD_WITH_QT6=ON \
     -DCMAKE_SKIP_RPATH=YES \
+    -DBUILD_TESTING=OFF \
     -Wno-dev
   cmake --build build
 }
