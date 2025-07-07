@@ -2,7 +2,7 @@
 # Contributor: Sanpi <sanpi+aur@homecomputing.fr>
 
 pkgname=jaq
-pkgver=2.2.0
+pkgver=2.3.0
 pkgrel=1
 pkgdesc='A jq clone focussed on correctness, speed, and simplicity'
 url="https://github.com/01mf02/$pkgname"
@@ -13,7 +13,7 @@ depends=(gcc-libs
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('f2337ab0d86c9f5a1c380d3c83ab4f2171749eaaae9551e98d91331080b5beb9')
+sha256sums=('80fae7c5bbbc244580ca77d3e5a4fc6e9c3ea08a5526d562e3c5300edd44fe8b')
 
 prepare() {
 	cd "$_archive"
