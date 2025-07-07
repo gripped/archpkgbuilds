@@ -1,7 +1,7 @@
 pkgbase = sudo-rs
 	pkgdesc = A memory-safe implementation of sudo and su
 	pkgver = 0.2.7
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/trifectatechfoundation/sudo-rs
 	arch = x86_64
 	license = Apache-2.0 AND MIT
@@ -12,6 +12,7 @@ pkgbase = sudo-rs
 	depends = glibc
 	depends = pam
 	optdepends = sudo: default configuration files
+	optdepends = apparmor: apparmor support
 	source = git+https://github.com/trifectatechfoundation/sudo-rs.git#tag=v0.2.7?signed
 	validpgpkeys = C2E4CAC4B12225DE1C3BB1C9289D082003D01E95
 	sha256sums = bc2c158f95af7b8711b071c07846f9289c10cdd41db2d0abece555ca657da546

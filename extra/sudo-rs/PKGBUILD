@@ -3,7 +3,7 @@
 
 pkgname=sudo-rs
 pkgver=0.2.7
-pkgrel=1
+pkgrel=2
 pkgdesc="A memory-safe implementation of sudo and su"
 arch=('x86_64')
 url="https://github.com/trifectatechfoundation/sudo-rs"
@@ -23,6 +23,7 @@ checkdepends=(
 )
 optdepends=(
   "sudo: default configuration files"
+  "apparmor: apparmor support"
 )
 source=(git+https://github.com/trifectatechfoundation/sudo-rs.git#tag=v${pkgver}?signed)
 sha256sums=('bc2c158f95af7b8711b071c07846f9289c10cdd41db2d0abece555ca657da546')
@@ -35,12 +36,12 @@ prepare() {
 
 build() {
   cd "$pkgname"
-  cargo build --release --frozen
+  cargo build --release --frozen --features apparmor
 }
 
 check() {
   cd "$pkgname"
-  cargo test --frozen
+  cargo test --frozen --features apparmor
 }
 
 package() {
@@ -54,10 +55,6 @@ package() {
 
   install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE-*
   install -Dm644 -t "$pkgdir/usr/share/doc/$pkgname" CHANGELOG.md README.md SECURITY.md
-
-  for section in 1 5 8; do
-    install -d "$pkgdir/usr/share/man/man$section"
-  done
 
   # Rename man pages with an -rs suffix so we don't conflict with sudo
   install -Dm0644 docs/man/su.1.man "$pkgdir/usr/share/man/man1/su-rs.1"
