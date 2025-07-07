@@ -4,7 +4,7 @@
 # Contributor: Jon Gjengset <jon@tsp.io>
 pkgname=rustup
 pkgver=1.28.2
-pkgrel=2
+pkgrel=3
 pkgdesc="The Rust toolchain installer"
 arch=('x86_64')
 url="https://github.com/rust-lang/rustup.rs"
@@ -16,6 +16,10 @@ depends=(
   'zstd'
 )
 makedepends=('cargo')
+makedepends_armv7h=(
+  'clang'
+  'cmake'
+)
 optdepends=('lldb: rust-lldb script'
             'gdb: rust-gdb script')
 provides=('rust' 'cargo' 'rust-nightly' 'cargo-nightly' 'rustfmt' 'rust-src'
