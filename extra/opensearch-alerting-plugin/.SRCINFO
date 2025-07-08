@@ -1,15 +1,17 @@
 pkgbase = opensearch-alerting-plugin
 	pkgdesc = OpenSearch Alerting Plugin
-	pkgver = 3.0.0.0
+	pkgver = 3.1.0.0
 	pkgrel = 1
 	url = https://opensearch.org/docs/latest/observing-your-data/alerting/index/
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = java-environment-openjdk=21
 	makedepends = unzip
-	depends = opensearch=3.0.0
+	depends = opensearch=3.1.0
 	depends = opensearch-notifications-plugin
-	source = opensearch-alerting-plugin-3.0.0.0.tar.gz::https://github.com/opensearch-project/alerting/archive/3.0.0.0.tar.gz
-	sha256sums = ce306826dd3526ab20b5ce3f68c7e956405edb5b3d32ac320d557bdc1321906c
+	source = opensearch-alerting-plugin-3.1.0.0.tar.gz::https://github.com/opensearch-project/alerting/archive/3.1.0.0.tar.gz
+	source = add-licence-header.patch
+	sha256sums = c866cf361d1b9bfc99ecf2a1df09f9b8e69acee8ac5866094a72bf4ef9b55e6d
+	sha256sums = 446d9a0e034142042cb013e192361ed3be33c088531faeb29d44623efcc2c039
 
 pkgname = opensearch-alerting-plugin
