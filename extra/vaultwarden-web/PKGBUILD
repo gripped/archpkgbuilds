@@ -4,7 +4,7 @@
 
 pkgname=vaultwarden-web
 pkgver=2025.5.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Bitwarden web vault with the patches to make it work with Vaultwarden'
 arch=(any)
 url=https://github.com/vaultwarden/vw_web_builds
@@ -34,8 +34,7 @@ build() {
   # https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
   # Workaround for "JavaScript heap out of memory" on 32-bit systems
   if [[ $(getconf LONG_BIT) -eq 32 ]]; then
-    export NODE_OPTIONS="--max-old-space-size=1536"
-    npm pkg set scripts.build:oss=webpack
+    npm pkg set scripts.build:oss='cross-env NODE_OPTIONS="--max-old-space-size=1536" webpack'
   fi
 
   npm run dist:oss:selfhost
