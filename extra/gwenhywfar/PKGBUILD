@@ -4,25 +4,26 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=gwenhywfar
-pkgver=5.12.0
+pkgver=5.12.1
 pkgrel=1
 pkgdesc="OS abstraction functions for various projects"
 arch=('x86_64')
 url="https://www.aquamaniac.de/rdm/"
 license=('LGPL')
 depends=('gnutls' 'libgcrypt' 'openssl')
-makedepends=('git' 'gtk3' 'qt5-base')
+makedepends=('git' 'gtk3' 'qt6-base')
 optdepends=('gtk3: for the GTK3 UI'
-            'qt5-base: for the Qt5 UI')
-source=(https://www.aquamaniac.de/rdm/attachments/download/529/$pkgname-$pkgver.tar.gz
-        https://www.aquamaniac.de/rdm/attachments/download/528/$pkgname-$pkgver.tar.gz.asc)
-sha256sums=('0ad5f1447703211f1610053a94bce1e82abceda2222a2ecc9cf45b148395d626'
+            'qt6-base: for the Qt6 UI')
+source=(https://www.aquamaniac.de/rdm/attachments/download/533/$pkgname-$pkgver.tar.gz
+        https://www.aquamaniac.de/rdm/attachments/download/532/$pkgname-$pkgver.tar.gz.asc)
+sha256sums=('d188448b9c3a9709721422ee0134b9d0b7790ab7514058d99e04399e39465dda'
             'SKIP')
 validpgpkeys=(42400AF5EB2A17F0A69BB551E9899D784A977416) # AqBanking Package Key <packages@aqbanking.de>
 
 build() {
   cd $pkgname-$pkgver
   GPGRT_CONFIG="/usr/bin/gpgrt-config" \
+  PATH="/usr/lib/qt6/bin:$PATH" \
   ./configure --prefix=/usr --sysconfdir=/etc --enable-system-certs --with-guis="gtk3 qt5"
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
