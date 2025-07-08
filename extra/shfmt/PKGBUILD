@@ -4,7 +4,7 @@
 # Contributor: Daniel Martí <mvdan@mvdan.cc>
 
 pkgname=shfmt
-pkgver=3.11.0
+pkgver=3.12.0
 pkgrel=1
 pkgdesc="Format shell programs"
 url="https://github.com/mvdan/sh"
@@ -17,7 +17,7 @@ makedepends=(
 )
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-b2sums=('0545d2955d55ee20707d773820488747e3302e5a032b5932616ffc9aff806082390c2fb5b2565dc7daf049f1bfa22bacb0561ebf90e2b6271b0a07918f7a4810')
+b2sums=('e3a8bee5b77c5b23eafa883e7498712d1dfa272692d8c413f656e3871150dc435e7660a1657a04f2994421ade6e77c45f450463af455d2c334ac5c566c08c9c5')
 
 prepare() {
   cd "sh-$pkgver"
