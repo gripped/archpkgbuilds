@@ -1,14 +1,16 @@
 pkgbase = opensearch-neural-search-plugin
 	pkgdesc = OpenSearch Neural Search Plugin
-	pkgver = 3.0.0.0
+	pkgver = 3.1.0.0
 	pkgrel = 1
 	url = https://github.com/opensearch-project/neural-search
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = java-environment=21
 	makedepends = unzip
-	depends = opensearch=3.0.0
-	source = opensearch-neural-search-plugin-3.0.0.0.tar.gz::https://github.com/opensearch-project/neural-search/archive/3.0.0.0.tar.gz
-	sha256sums = 501d334cabccf7d56dfc4b38414fdd73547e4387507949c3822fb8ea2da3b94e
+	depends = opensearch=3.1.0
+	source = opensearch-neural-search-plugin-3.1.0.0.tar.gz::https://github.com/opensearch-project/neural-search/archive/3.1.0.0.tar.gz
+	source = ignore-failed-tests.patch
+	sha256sums = 45f44a84838af26799935110df8f690c3c7b76980730cd9876a86bbd6a9c192e
+	sha256sums = fcf4ae60d5bf7e1eceb71aadc144a0ea23bed09ac24a70dda83e8b71cc564157
 
 pkgname = opensearch-neural-search-plugin

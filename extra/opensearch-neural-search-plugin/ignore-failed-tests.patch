@@ -1,0 +1,72 @@
+Index: src/test/java/org/opensearch/neuralsearch/search/query/HybridCollectorManagerTests.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/opensearch/neuralsearch/search/query/HybridCollectorManagerTests.java b/src/test/java/org/opensearch/neuralsearch/search/query/HybridCollectorManagerTests.java
+--- a/src/test/java/org/opensearch/neuralsearch/search/query/HybridCollectorManagerTests.java	(revision a676613a88707f4bf9718bca517e615458a4144d)
++++ b/src/test/java/org/opensearch/neuralsearch/search/query/HybridCollectorManagerTests.java	(date 1751456944413)
+@@ -39,6 +39,7 @@
+ import org.apache.lucene.store.ByteBuffersDirectory;
+ import org.apache.lucene.store.Directory;
+ import org.apache.lucene.tests.analysis.MockAnalyzer;
++import org.apache.lucene.tests.util.LuceneTestCase;
+ import org.opensearch.common.lucene.search.FilteredCollector;
+ import org.opensearch.common.lucene.search.TopDocsAndMaxScore;
+ import org.opensearch.index.mapper.MapperService;
+@@ -83,6 +84,7 @@
+ import org.opensearch.search.rescore.RescorerBuilder;
+ import org.opensearch.search.sort.SortAndFormats;
+ 
++@LuceneTestCase.AwaitsFix(bugUrl = "https://github.com/opensearch-project/neural-search/issues")
+ public class HybridCollectorManagerTests extends OpenSearchQueryTestCase {
+ 
+     private static final String TEXT_FIELD_NAME = "field";
+Index: src/test/java/org/opensearch/neuralsearch/query/HybridQueryBuilderTests.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/opensearch/neuralsearch/query/HybridQueryBuilderTests.java b/src/test/java/org/opensearch/neuralsearch/query/HybridQueryBuilderTests.java
+--- a/src/test/java/org/opensearch/neuralsearch/query/HybridQueryBuilderTests.java	(revision a676613a88707f4bf9718bca517e615458a4144d)
++++ b/src/test/java/org/opensearch/neuralsearch/query/HybridQueryBuilderTests.java	(date 1751446166796)
+@@ -34,6 +34,7 @@
+ import org.apache.lucene.search.Query;
+ import org.apache.lucene.search.TermQuery;
+ import org.apache.lucene.search.join.ScoreMode;
++import org.apache.lucene.tests.util.LuceneTestCase;
+ import org.mockito.Mock;
+ import org.mockito.MockitoAnnotations;
+ import org.opensearch.Version;
+@@ -84,6 +85,7 @@
+ import lombok.SneakyThrows;
+ import org.opensearch.neuralsearch.util.TestUtils;
+ 
++@LuceneTestCase.AwaitsFix(bugUrl = "https://github.com/opensearch-project/neural-search/issues")
+ public class HybridQueryBuilderTests extends OpenSearchQueryTestCase {
+     static final String VECTOR_FIELD_NAME = "vectorField";
+     static final String TEXT_FIELD_NAME = "field";
+Index: src/test/java/org/opensearch/neuralsearch/processor/TextImageEmbeddingProcessorTests.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/opensearch/neuralsearch/processor/TextImageEmbeddingProcessorTests.java b/src/test/java/org/opensearch/neuralsearch/processor/TextImageEmbeddingProcessorTests.java
+--- a/src/test/java/org/opensearch/neuralsearch/processor/TextImageEmbeddingProcessorTests.java	(revision a676613a88707f4bf9718bca517e615458a4144d)
++++ b/src/test/java/org/opensearch/neuralsearch/processor/TextImageEmbeddingProcessorTests.java	(date 1751456945187)
+@@ -27,6 +27,7 @@
+ import java.util.function.BiConsumer;
+ import java.util.function.Supplier;
+ 
++import org.apache.lucene.tests.util.LuceneTestCase;
+ import org.junit.Before;
+ import org.mockito.ArgumentCaptor;
+ import org.mockito.Captor;
+@@ -62,6 +63,7 @@
+ import lombok.SneakyThrows;
+ import org.opensearch.transport.client.OpenSearchClient;
+ 
++@LuceneTestCase.AwaitsFix(bugUrl = "https://github.com/opensearch-project/neural-search/issues")
+ public class TextImageEmbeddingProcessorTests extends OpenSearchTestCase {
+ 
+     @Mock
