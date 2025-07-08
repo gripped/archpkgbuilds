@@ -3,7 +3,7 @@
 pkgname=xdg-desktop-portal-hyprland
 pkgver=1.3.9
 _protocolver=4d29e48433270a2af06b8bc711ca1fe5109746cd
-pkgrel=10
+pkgrel=11
 pkgdesc='xdg-desktop-portal backend for hyprland'
 url="https://github.com/hyprwm/$pkgname"
 arch=(x86_64)
