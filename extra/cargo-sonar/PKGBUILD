@@ -1,8 +1,8 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-sonar
-pkgver=1.3.0
-pkgrel=2
+pkgver=1.3.1
+pkgrel=1
 pkgdesc="Produce Sonar-compatible format from different Rust tools"
 arch=('x86_64')
 url="https://gitlab.com/woshilapin/cargo-sonar"
@@ -10,11 +10,11 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/-/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('d2b6e0a35e324b295fdecf6624c0ff3bf24697c679d4cb6392f9db7a7d160932')
+sha256sums=('9a71a8b06f2af5a93734cc0cd6b8d331c2cb1ff08dd7edcc3b674e158bcc3412')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
   mkdir completions
 }
 
