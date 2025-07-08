@@ -4,8 +4,8 @@
 # Contributor: Tony Sokhon <tonyskn@gmail.com>
 
 pkgname=perl-par-packer
-pkgver=1.063
-pkgrel=4
+pkgver=1.064
+pkgrel=1
 pkgdesc='PAR Packager'
 arch=('x86_64')
 url='https://metacpan.org/release/PAR-Packer'
@@ -15,7 +15,7 @@ depends=('perl-archive-zip' 'perl-getopt-argvfile' 'perl-ipc-run3'
 makedepends=('perl')
 options=('!emptydirs' purge)
 source=("https://cpan.metacpan.org/authors/id/R/RS/RSCHUPP/PAR-Packer-${pkgver}.tar.gz")
-b2sums=('a1382f69c68170bd0d398f508c3f0f2286ee61c6996589924e727d14c52ec6e3b2a8e628fb49163664f64b6d4fc96c63e839ff359787dc41a8f4aec1ece7ae49')
+b2sums=('20b31df0752430fa23be6ed5cb90a726c75aca2330bc757fc5e81ff159079f5685a69a7ab2e4ce90c1a5b7a1f91f18396e6be275c600459306da48e39939464b')
 
 build() {
   cd PAR-Packer-${pkgver}
@@ -33,8 +33,14 @@ check() {
 }
 
 package() {
-  local _perlver=$(perl -e 'print substr($^V, 1)')
-  depends+=("perl=${_perlver}") # versioned dependency down to patch version
+  if [[ "$BUILDTOOL" == devtools ]]; then
+    local perl_dep="perl=$(perl -e 'print substr($^V, 1)')"
+    # this is added to the PKGINFO data
+    depends+=($perl_dep)
+  else
+    # this is adde to the SRCINFO data
+    depends+=(perl)
+  fi
 
   cd PAR-Packer-${pkgver}
   unset PERL5LIB PERL_MM_OPT PERL_LOCAL_LIB_ROOT
