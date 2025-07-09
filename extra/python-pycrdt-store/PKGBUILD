@@ -2,7 +2,7 @@
 
 _pyname=pycrdt-store
 pkgname=python-$_pyname
-pkgver=0.1.1
+pkgver=0.1.2
 pkgrel=1
 pkgdesc='Persistent storage for pycrdt'
 arch=(any)
@@ -19,7 +19,7 @@ makedepends=(git
              python-trio)
 checkdepends=(python-pytest)
 source=(git+https://github.com/y-crdt/pycrdt-store#tag=$pkgver)
-sha256sums=('055d394509e2e61b60c0b96e6c8a8931cb7b691ce28858604ca9a753e452fde6')
+sha256sums=('1d27b3a4544a2e99727e9a957431b7d9f3848cea252d98997fcd0c91c8b7fe7a')
 
 build() {
   cd $_pyname
