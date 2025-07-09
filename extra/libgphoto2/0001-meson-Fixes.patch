@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Sun, 6 Jul 2025 19:27:46 +0200
+Subject: [PATCH] meson: Fixes
+
+ - Correct project version.
+ - Fix konica localization dir.
+---
+ camlibs/konica/meson.build | 2 +-
+ meson.build                | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/camlibs/konica/meson.build b/camlibs/konica/meson.build
+index 9e4ef8421fa2..a53c1373f81d 100644
+--- a/camlibs/konica/meson.build
++++ b/camlibs/konica/meson.build
+@@ -1,5 +1,5 @@
+ 
+-konica_localization_dir = camlibs_dir_suffix / 'konica'
++konica_localization_dir = camlibs_datadir / 'konica'
+ install_data(
+   files(
+     'localization/english',
+diff --git a/meson.build b/meson.build
+index 4c959a5135f5..615a9e6c884f 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,5 +1,5 @@
+ project('libgphoto2', 'c',
+-  version : '2.5.31.1',
++  version : '2.5.32',
+   meson_version : '>= 1.4.0',
+   default_options : [
+     'buildtype=debugoptimized',
+@@ -159,6 +159,7 @@ iolibs_dir = get_option('prefix') / get_option('libdir') / iolibs_dir_suffix
+ 
+ camlibs_dir_suffix = meson.project_name() / meson.project_version()
+ camlibs_dir = get_option('prefix') / get_option('libdir') / camlibs_dir_suffix
++camlibs_datadir = get_option('prefix') / get_option('datadir') / camlibs_dir_suffix
+ 
+ config_data = configuration_data()
+ config_data.set_quoted('PACKAGE_VERSION', meson.project_version())
