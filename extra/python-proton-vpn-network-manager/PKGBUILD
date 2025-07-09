@@ -2,7 +2,7 @@
 # Contributor: Ali Molaei <ali dot molaei at protonmail dot com>
 
 pkgname=python-proton-vpn-network-manager
-pkgver=0.12.13
+pkgver=0.12.14
 pkgrel=1
 pkgdesc="The proton-vpn-network-manager component provides the necessary functionality for other components to interact with NetworkManager."
 arch=(any)
@@ -25,7 +25,7 @@ makedepends=(
 source=("git+https://github.com/ProtonVPN/${pkgname}.git#tag=v${pkgver}")
 optdepends=("network-manager-applet: password prompt on Gnome and other GTK DEs"
             "plasma-nm: password prompt on KDE Plasma")
-sha256sums=('be5db2cff3b5456aa8f0a6f8c89a5231e331aa8bd8dfa23fc5f4977a14d44bcc')
+sha256sums=('d61aa2207d13d5a7b9328864ff3ec0c1bf1ae5716665dfcf96a44a14306778d4')
 
 build() {
   cd "$pkgname"
