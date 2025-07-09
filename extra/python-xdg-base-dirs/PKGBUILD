@@ -1,0 +1,34 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-xdg-base-dirs
+pkgver=6.0.2
+pkgrel=1
+pkgdesc='Python module for accessing XDG base directory paths'
+arch=(any)
+url='https://github.com/srstevenson/xdg-base-dirs'
+license=(ISC)
+depends=(python)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-poetry-core
+)
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('3206e5a10b39e91cb3d982abe5845a073bfd063dd5c189aa2d89fe3a9c5a881793494d907f2e1c4c5181226d16c7b3dea8167b6c9da0f5feee8cb03bd831c95e')
+b2sums=('2b87a04ed14befd6c745ecb828a4a98bf4cb8b329ed7b1add9ec8acdafc94bc13b93adbf4c1b93b251e9cf22c101e3f00fc6569b6ef90cba583d2a1d38dba22f')
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}
