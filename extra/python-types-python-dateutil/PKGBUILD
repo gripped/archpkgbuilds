@@ -4,7 +4,7 @@
 
 _name=types_python_dateutil
 pkgname=python-${_name//_/-}
-pkgver=2.9.0.20250516
+pkgver=2.9.0.20250708
 pkgrel=1
 pkgdesc="Typing stubs for python-dateutil"
 arch=(any)
@@ -18,7 +18,7 @@ makedepends=(
   python-wheel
 )
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
-b2sums=('83628d39b59cc4815122de3d3567b2e363d0bd556449e18476a6b94f1d921d7570a478007abf4e7890f38b7488ef853dc8714eddc784e4ca5e1526c247a420e9')
+b2sums=('74dc12a0be7a81065f4e1dbdddf003fc343b58d61bb352f6b678e8fb3950854fa7a1b9d73b175f68fef283cda796f895d569525606fe948af6fa8852f92580cf')
 
 build() {
   cd $_name-$pkgver
