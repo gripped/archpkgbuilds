@@ -2,7 +2,7 @@
 
 pkgname=kasts
 pkgver=25.04.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Kirigami-based podcast player'
 url='https://apps.kde.org/kasts/'
 arch=(x86_64)
@@ -20,6 +20,7 @@ depends=(breeze-icons
          kirigami
          kirigami-addons
          kwindowsystem
+         libvlc
          qqc2-desktop-style
          qt6-base
          qt6-declarative
@@ -28,7 +29,7 @@ depends=(breeze-icons
          syndication
          taglib
          threadweaver
-         vlc)
+         vlc-plugins-base)
 makedepends=(extra-cmake-modules
              python)
 groups=(kde-applications
