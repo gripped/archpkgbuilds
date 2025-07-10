@@ -3,7 +3,7 @@
 # Contributor: Mikko Seppälä <t-r-a-y@mbnet.fi>
 
 pkgname=lib32-e2fsprogs
-pkgver=1.47.2
+pkgver=1.47.3
 pkgrel=1
 pkgdesc='Ext2/3/4 filesystem libraries (32-bit)'
 arch=('x86_64')
@@ -17,7 +17,7 @@ provides=('libcom_err.so'
           'libss.so')
 validpgpkeys=('3AB057B7E78D945C8C5591FBD36F769BC11804F0') # Theodore Ts'o <tytso@mit.edu>
 source=("https://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v${pkgver}/e2fsprogs-${pkgver}.tar."{xz,sign})
-sha256sums=('08242e64ca0e8194d9c1caad49762b19209a06318199b63ce74ae4ef2d74e63c'
+sha256sums=('857e6ef800feaa2bb4578fbc810214be5d3c88b072ea53c5384733a965737329'
             'SKIP')
 
 build() {
