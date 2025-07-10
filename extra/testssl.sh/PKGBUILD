@@ -2,11 +2,11 @@
 # Contributor: Johannes Schleifenbaum <johannes [at] js-webcoding [dot] de>
 
 pkgname=testssl.sh
-_pkgver=3.0.9
+_pkgver=3.2.1
 pkgver=${_pkgver/-/.}
 pkgrel=1
 pkgdesc='Testing TLS/SSL encryption'
-url=https://github.com/drwetter/testssl.sh
+url=https://github.com/testssl/testssl.sh
 arch=(any)
 license=(GPL-2.0-only)
 depends=(
@@ -27,14 +27,14 @@ source=(
   "https://github.com/drwetter/testssl.sh/archive/v${_pkgver}/${pkgname}-${pkgver}.tar.gz"
   set-install-dir.patch
 )
-sha512sums=('006180d175492f1cba6d056a92a57247725d4b68cddbebeea80a5d339d542f5103ddc8226f3a554775cb83bbef836a5d5bfc1bcf4fba7b18b9541473122ff720'
-            '82bb83a5553bdc8d02cb655c76163ac9c86b0fc1cff9c5627cb035eae016c5a8b76a3a9e278de4578779bf63a35548815a53911288872530d65c1100c065f621')
-b2sums=('424569411022b68f105a20ad5b60db7c8994d1170482612ae7aed741230bd3fca43cd853dfb00660d5ba7cfdc717fa887a2fe9b6c59bbcef881f8f6473ccad3e'
-        '26f90e385085e0c50bd877b37e85f489177bcef0be90baad096c6f3e95732542e2adcaf2aa03ba75d264607d869ea479b768834ba476e258eea291c452f4f3b9')
+sha512sums=('d8dfe4ca6157668d2fecc72fa15dde77e557ae3230698068454aea957ff01b94c751c5f267da8b97d702b35718274726f1d520b88c5357e6ff4c9298f955ffb8'
+            '3272f29564325ff08cd9b28077969fcef8c7e5c72e3cd50ba3002b52f6dca0ce5933434a8f3052e0c94face96e7e4fd2af9b6da39c6f3f58565aa01e182fd9c1')
+b2sums=('ecbc5481b60c02ce51ccd6669880c1d755896fc67edead72e39b12046048b44799f0449267e77266c4b25fcc6ab547be6f9d715f10dd6c6704f5c9187ab02418'
+        'c4f51614e4f7d029f6b27d08a507fe7ac8a04e3dac2a7cc50705c008c1900e7ac4db5d0a3f29e2dac2834ab022b6c6bae26907d9b388fc73ad78dfa59278b963')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
-  patch -p0 < "${srcdir}/set-install-dir.patch"
+  patch -Np1 < "${srcdir}/set-install-dir.patch"
   rm bin/openssl.Linux*
 }
 
