@@ -3,7 +3,7 @@
 
 _pyname=ufoLib2
 pkgname=python-${_pyname,,}
-pkgver=0.17.1
+pkgver=0.18.0
 pkgrel=1
 pkgdesc='A library to deal with UFO font sources'
 arch=(any)
@@ -22,7 +22,7 @@ checkdepends=(python-msgpack
               python-pytest)
 _archive="${_pyname,,}-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
-sha256sums=('f6ab3171ff20615bb81c888faae1d871566bd14de6bdc94cc8f3971f6377bbd0')
+sha256sums=('8d894c7d7a3c03bdab7d7b7700b7bd1a5c4594c8fd04b38d6c35fd38c048b32a')
 
 build() {
 	cd "$_archive"
