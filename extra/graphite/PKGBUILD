@@ -3,11 +3,11 @@
 pkgbase=graphite
 pkgname=(graphite graphite-docs)
 pkgver=1.3.14
-pkgrel=4
+pkgrel=5
 epoch=1
 arch=('x86_64')
-url="https://github.com/silnrsi/graphite"
-pkgdesc='reimplementation of the SIL Graphite text processing engine'
+url="https://graphite.sil.org/"
+pkgdesc="a \"smart font\" system to handle the complexities of lesser-known languages of the world"
 license=('LGPL-2.1-or-later OR MPL-2.0 OR GPL-2.0-or-later')
 depends=('gcc-libs' 'glibc')
 makedepends=('cmake' 'freetype2' 'python'
@@ -15,13 +15,20 @@ makedepends=('cmake' 'freetype2' 'python'
              'doxygen' 'dblatex' 'graphviz' 'asciidoc' 'texlive-xetex')
 checkdepends=('python-fonttools')
 # https://github.com/silnrsi/graphite/releases/download/1.3.14/graphite2-1.3.14.sha256sum
-source=(https://github.com/silnrsi/graphite/releases/download/${pkgver}/graphite2-${pkgver}.tgz)
-sha256sums=('f99d1c13aa5fa296898a181dff9b82fb25f6cc0933dbaa7a475d8109bd54209d')
+source=(https://github.com/silnrsi/graphite/releases/download/${pkgver}/graphite2-${pkgver}.tgz
+        gcc15.patch)
+sha256sums=('f99d1c13aa5fa296898a181dff9b82fb25f6cc0933dbaa7a475d8109bd54209d'
+            '2296d1c189cfb129403f83e7a704a333147856b37475320965c463386ef9d8ef')
+prepare() {
+    cd graphite2-${pkgver}
+    patch -Np1 -i ../gcc15.patch  # https://github.com/silnrsi/graphite/pull/97
+}
 
 build() {
   local cmake_options=(
     -DCMAKE_BUILD_TYPE=None
     -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     -DCMAKE_SKIP_INSTALL_RPATH=ON
     -DGRAPHITE2_COMPARE_RENDERER=OFF
     -DGRAPHITE2_VM_TYPE=direct
