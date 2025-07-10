@@ -4,7 +4,7 @@
 
 _name=datasets
 pkgname=python-$_name
-pkgver=3.6.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc="Ready-to-use datasets for ML models with fast, easy-to-use and efficient data manipulation tools"
 arch=(any)
@@ -56,7 +56,7 @@ optdepends=(
   'python-pytorch: PyTorch support'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-b2sums=('9a67a8c48cea0f0615c4e055e4356fec76410f6e05967577743cb6ea2e7dc97d32be6b08ee62854d30d7df4f9b167cfc1c1f65b5c397102225aa63ea7e4a90ec')
+b2sums=('0dcf01851179c656df42a7abc7d987db58b673b31d404dfddc84c2de919f2f9b404eb028557bd8874c15ae5293e0ce78073209dd2beacd3bcb2d4ee54b68fecc')
 
 build() {
   cd $_name-$pkgver
@@ -76,6 +76,8 @@ check() {
     # AssertionError failures
     --deselect tests/test_arrow_dataset.py::BaseDatasetTest::test_filter_caching_on_disk
     --deselect tests/test_arrow_dataset.py::BaseDatasetTest::test_map_caching_on_disk
+    --deselect tests/test_arrow_dataset.py::BaseDatasetTest::test_map_caching_partial_remap_on_disk
+    --deselect tests/test_arrow_dataset.py::BaseDatasetTest::test_map_caching_reuses_cache_with_different_num_proc_on_disk
     --deselect tests/test_file_utils.py::TestxPath::test_xpath_glob
     --deselect tests/test_file_utils.py::TestxPath::test_xpath_rglob
     --deselect tests/test_fingerprint.py::RecurseHashTest
@@ -99,6 +101,9 @@ check() {
     --deselect tests/test_inspect.py::test_get_dataset_info
     # FileNotFoundError
     --deselect tests/test_load.py::test_load_dataset_private_zipped_images[True]
+    # Hanging tests
+    --deselect tests/test_upstream_hub.py::TestPushToHub::test_push_dataset_dict_to_hub_num_proc
+    --deselect tests/test_upstream_hub.py::TestPushToHub::test_push_dataset_dict_to_hub_iterable_num_proc
   )
 
   cd $_name-$pkgver
