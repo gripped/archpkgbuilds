@@ -1,0 +1,17 @@
+[Unit]
+Description=Matrix authentication service worker
+After=network.target
+
+[Service]
+User=mas
+ExecStart=/usr/bin/mas-cli worker -c /etc/matrix-authentication-service/config.yaml
+Restart=on-failure
+
+# Hardening
+ProtectSystem=yes
+PrivateTmp=true
+MemoryDenyWriteExecute=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

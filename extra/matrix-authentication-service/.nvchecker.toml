@@ -1,0 +1,7 @@
+[matrix-authentication-service]
+source = "git"
+git = "https://github.com/element-hq/matrix-authentication-service.git"
+include_regex = 'v\d+(\.\d+)*'
+prefix = "v"
+from_pattern = '\.([a-z])'
+to_pattern = '\1'

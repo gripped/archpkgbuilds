@@ -1,0 +1,11 @@
+[Unit]
+Description=Matrix authentication service
+After=network.target
+
+[Service]
+User=mas
+ExecStart=/usr/bin/mas-cli server --migrate --no-worker -c /etc/matrix-authentication-service/config.yaml
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

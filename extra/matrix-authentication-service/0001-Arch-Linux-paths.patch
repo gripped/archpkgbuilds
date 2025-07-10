@@ -1,0 +1,113 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Fri, 28 Mar 2025 01:51:25 +0100
+Subject: [PATCH] Arch Linux paths
+
+---
+ crates/config/src/sections/http.rs      | 2 +-
+ crates/config/src/sections/policy.rs    | 2 +-
+ crates/config/src/sections/templates.rs | 6 +++---
+ docs/reference/configuration.md         | 4 ++--
+ 4 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/crates/config/src/sections/http.rs b/crates/config/src/sections/http.rs
+index 51bce2d386d7..cadfa12e54ba 100644
+--- a/crates/config/src/sections/http.rs
++++ b/crates/config/src/sections/http.rs
+@@ -43,7 +43,7 @@ fn http_listener_assets_path_default() -> Utf8PathBuf {
+ 
+ #[cfg(feature = "docker")]
+ fn http_listener_assets_path_default() -> Utf8PathBuf {
+-    "/usr/local/share/mas-cli/assets/".into()
++    "/usr/share/mas-cli/assets/".into()
+ }
+ 
+ #[cfg(feature = "dist")]
+diff --git a/crates/config/src/sections/policy.rs b/crates/config/src/sections/policy.rs
+index 37d052ade7f6..9bd06d4603de 100644
+--- a/crates/config/src/sections/policy.rs
++++ b/crates/config/src/sections/policy.rs
+@@ -18,7 +18,7 @@ fn default_policy_path() -> Utf8PathBuf {
+ 
+ #[cfg(feature = "docker")]
+ fn default_policy_path() -> Utf8PathBuf {
+-    "/usr/local/share/mas-cli/policy.wasm".into()
++    "/usr/share/mas-cli/policy.wasm".into()
+ }
+ 
+ #[cfg(feature = "dist")]
+diff --git a/crates/config/src/sections/templates.rs b/crates/config/src/sections/templates.rs
+index 5656de44bfab..8acc2376d775 100644
+--- a/crates/config/src/sections/templates.rs
++++ b/crates/config/src/sections/templates.rs
+@@ -17,45 +17,45 @@ fn default_path() -> Utf8PathBuf {
+ 
+ #[cfg(feature = "docker")]
+ fn default_path() -> Utf8PathBuf {
+-    "/usr/local/share/mas-cli/templates/".into()
++    "/usr/share/mas-cli/templates/".into()
+ }
+ 
+ #[cfg(feature = "dist")]
+ fn default_path() -> Utf8PathBuf {
+     "./share/templates/".into()
+ }
+ 
+ fn is_default_path(value: &Utf8PathBuf) -> bool {
+     *value == default_path()
+ }
+ 
+ #[cfg(not(any(feature = "docker", feature = "dist")))]
+ fn default_assets_path() -> Utf8PathBuf {
+     "./frontend/dist/manifest.json".into()
+ }
+ 
+ #[cfg(feature = "docker")]
+ fn default_assets_path() -> Utf8PathBuf {
+-    "/usr/local/share/mas-cli/manifest.json".into()
++    "/usr/share/mas-cli/manifest.json".into()
+ }
+ 
+ #[cfg(feature = "dist")]
+ fn default_assets_path() -> Utf8PathBuf {
+     "./share/manifest.json".into()
+ }
+ 
+ fn is_default_assets_path(value: &Utf8PathBuf) -> bool {
+     *value == default_assets_path()
+ }
+ 
+ #[cfg(not(any(feature = "docker", feature = "dist")))]
+ fn default_translations_path() -> Utf8PathBuf {
+     "./translations/".into()
+ }
+ 
+ #[cfg(feature = "docker")]
+ fn default_translations_path() -> Utf8PathBuf {
+-    "/usr/local/share/mas-cli/translations/".into()
++    "/usr/share/mas-cli/translations/".into()
+ }
+ 
+ #[cfg(feature = "dist")]
+diff --git a/docs/reference/configuration.md b/docs/reference/configuration.md
+index 3d4f5c4aeafe..044e210e57d5 100644
+--- a/docs/reference/configuration.md
++++ b/docs/reference/configuration.md
+@@ -155,7 +155,7 @@ templates:
+   assets_manifest: /to/manifest.json
+ 
+   # From where to load the translation files
+-  # Default in Docker distribution: `/usr/local/share/mas-cli/translations/`
++  # Default in Docker distribution: `/usr/share/mas-cli/translations/`
+   # Default in pre-built binaries: `./share/translations/`
+   # Default in locally-built binaries: `./translations/`
+   translations_path: /to/translations
+@@ -378,7 +378,7 @@ Policy settings
+ ```yaml
+ policy:
+   # Path to the WASM module
+-  # Default in Docker distribution: `/usr/local/share/mas-cli/policy.wasm`
++  # Default in Docker distribution: `/usr/share/mas-cli/policy.wasm`
+   # Default in pre-built binaries: `./share/policy.wasm`
+   # Default in locally-built binaries: `./policies/policy.wasm`
+   wasm_module: ./policies/policy.wasm
