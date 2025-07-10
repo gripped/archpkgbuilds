@@ -6,7 +6,7 @@ pkgname=(llvm-julia
          llvm-julia-libs)
 _pkgver=16.0.6-3
 pkgver=${_pkgver/-/.}
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url='https://julialang.org/'
 license=('custom:Apache 2.0 with LLVM Exception')
@@ -25,6 +25,13 @@ makedepends=(cmake
 options=(!lto) # https://github.com/llvm/llvm-project/issues/57740
 source=(llvm-julia::git+https://github.com/JuliaLang/llvm-project#tag=julia-$_pkgver)
 sha256sums=('6591971f0e4bcff0255d99676c55f9495f3c22c078ea982d10c5211bb53b41f5')
+
+prepare() {
+  cd llvm-julia
+  git cherry-pick -n 20dbc097256ca1bf1cfeb738d7a4610d379da8f5 \
+                     18021ff5420ed1945f9aa1e67679094112680f6b \
+                     7b28655847aa1d37dbf7e09f57a3db0284874115 # Fix build with GCC 15
+}
 
 # Utilizing LLVM_DISTRIBUTION_COMPONENTS to avoid
 # installing static libraries; inspired by Gentoo
