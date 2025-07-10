@@ -4,7 +4,7 @@
 # Contributor: Keith Hughitt <khughitt@umd.edu>
 
 pkgname=python-pandas
-pkgver=2.2.3
+pkgver=2.3.1
 pkgrel=1
 pkgdesc='High-performance, easy-to-use data structures and data analysis tools for Python'
 arch=(x86_64)
@@ -108,7 +108,7 @@ checkdepends=(
 # No test data in upstream tarballs
 #source=(https://github.com/pandas-dev/pandas/releases/download/v${pkgver}/pandas-${pkgver}.tar.gz)
 source=(git+https://github.com/pandas-dev/pandas#tag=v${pkgver})
-sha256sums=('d0dc0272f48e837c1176f2853bd67d331a0c196677c263f5d41093f62bb22488')
+sha256sums=('e015ac83d62dd45c1e665772e76dd1cedf38a4f5e08fa1d9af385b2faece41af')
 
 build() {
   cd pandas
