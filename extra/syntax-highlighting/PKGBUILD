@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=syntax-highlighting
-pkgver=6.15.0
+pkgver=6.16.0
 pkgrel=1
 pkgdesc='Syntax highlighting engine for structured text and code'
 arch=(x86_64)
@@ -18,7 +18,7 @@ makedepends=(doxygen
 optdepends=('qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('7b2490e6ba656fd85974d9776aede828a0a450eb44ead7969d484ed9486c74cc'
+sha256sums=('74a13719b4f3fa5dba72352b5673cb6e7bb6121bde1e2886f1daff27e2f24f5a'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
