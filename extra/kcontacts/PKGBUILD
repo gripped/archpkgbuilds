@@ -2,7 +2,7 @@
 
 pkgname=kcontacts
 epoch=1
-pkgver=6.15.0
+pkgver=6.16.0
 pkgrel=1
 pkgdesc='Address book API for KDE'
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(doxygen
 optdepends=('qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('9b180955c80f7a09f8f552df7a708501fdb4c4f0bcee10c2e473ac67ea2b457a'
+sha256sums=('ff57a9ab119b95895335d427481009cff72ae9cf6d0fc2fa9a504f96cfac6a5e'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
