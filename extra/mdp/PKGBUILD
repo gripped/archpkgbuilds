@@ -1,16 +1,17 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 # Contributor: Maxim Andersson <thesilentboatman@gmail.com>
 
 pkgname=mdp
-pkgver=1.0.15
-pkgrel=3
+pkgver=1.0.18
+pkgrel=1
 pkgdesc="A command-line based markdown presentation tool"
 arch=('x86_64')
 url="https://github.com/visit1985/mdp"
 license=('GPL3')
 depends=('ncurses')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/visit1985/${pkgname}/archive/${pkgver}.tar.gz")
-sha256sums=('3edc8ea1551fdf290d6bba721105e2e2c23964070ac18c13b4b8d959cdf6116f')
+sha256sums=('36861161513c508c0589014510cdafd940a6e661e517022a3bea48ecf8d5fac4')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
