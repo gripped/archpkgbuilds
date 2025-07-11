@@ -3,10 +3,10 @@
 pkgname=nethsm-cli
 _name=signstar
 pkgver=0.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A command line interface (CLI) for the Nitrokey NetHSM"
 arch=(x86_64)
-url="https://gitlab.archlinux.org/archlinux/signstar/-/tree/main/nethsm-cli"
+url="https://signstar.archlinux.page/nethsm-cli"
 _url="https://gitlab.archlinux.org/archlinux/signstar"
 license=('Apache-2.0 OR MIT')
 depends=(
@@ -20,7 +20,6 @@ makedepends=(
   rust
   rust-script
 )
-options=(!lto)  # ring does not work with LTO
 source=($_name::git+$_url.git?signed#tag=$pkgname/$pkgver)
 sha512sums=('f5c77c3de28651d8f1812771e5c46e7b3c67fc418b84fe02352438bc7d0ba25a0dfc344876a3a738b6438889a2aef70941fe3c84d2881438fca6ec9f16eb0590')
 b2sums=('3eb010afbe68e8bdd9f13f5611b53597feeb281a8cd0580c1a99e678a012fc311fe5e24a108f34e431dcc2cfcdf34d452a6eeec61d7552ed46d6ec312f0302f3')
@@ -33,6 +32,7 @@ prepare() {
 
 build() {
   cd $_name
+  CFLAGS+=' -ffat-lto-objects'
   RUSTUP_TOOLCHAIN=stable CARGO_TARGET_DIR=target cargo build --frozen --release --all-features --package $pkgname
   just generate shell_completions $pkgname
   just generate manpages $pkgname
