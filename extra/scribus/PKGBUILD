@@ -8,7 +8,7 @@
 
 pkgname=scribus
 pkgver=1.6.4
-pkgrel=4
+pkgrel=5
 pkgdesc="Desktop publishing software"
 arch=(x86_64)
 url="https://www.scribus.net/"
@@ -49,10 +49,10 @@ optdepends=('gdal: enable gdal plugin'
 options=(!lto)
 _archive="$pkgname-$pkgver"
 source=("https://downloads.sourceforge.net/${pkgname}/$_archive.tar.xz"{,.asc}
-        fix_build_with_poppler_25.06.0.patch)
+        fix_build_with_poppler_25.07.0.patch)
 sha256sums=('533be7af03acfaa736ec5f7a3fc2562abd200fef5ca2a7cdee02b5f44d61829e'
             'SKIP'
-            'db1148fb1cafbde7aa527029a420acda9b4a9e153146360680c7445a4b23fdf5')
+            'f7dc5ba74cf0c6045bb1da4c3a910544e49e3858445a87aebf88575b0788daca')
 validpgpkeys=(5086B8D68E70FDDF4C40045AEF7B95E7F60166DA  # Peter Linnell <plinnell@scribus.net>
               757F5E9B13DD648887AD50092D47C099E782504E  # The Scribus Team (www.scribus.net) <the_scribus_team@scribus.net>
               6558BE84D27273A438A151198BEA48118AEBEE64) # Craig Bradney <cbradney@zipworld.com.au>
@@ -61,9 +61,10 @@ prepare() {
     cd "$_archive"
     sed -e 's|WANT_CPP17|WANT_CPP20|g' -e 's|CMAKE_CXX_STANDARD 17|CMAKE_CXX_STANDARD 20|g' -i CMakeLists.txt
 
-    # Fix build with Poppler 25.06.0
+    # Fix build with Poppler 25.07.0
     # https://github.com/scribusproject/scribus/commit/8dcf8d777bd85a0741c455961f2de382e3ed47ec
-    patch -Np1 -i "$srcdir/fix_build_with_poppler_25.06.0.patch"
+    # https://github.com/scribusproject/scribus/commit/ff6c6abfa8683028e548a269dee6a859b6f63335
+    patch -Np1 -i "$srcdir/fix_build_with_poppler_25.07.0.patch"
 }
 
 pkgver() {
