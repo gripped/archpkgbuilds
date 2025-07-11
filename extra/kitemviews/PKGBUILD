@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kitemviews
-pkgver=6.15.0
+pkgver=6.16.0
 pkgrel=1
 pkgdesc='Widget addons for Qt Model/View'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('0f27d189147bb992b94e1a6a55ced62e2aaf5c5b3d83e41f26d6b0e269765780'
+sha256sums=('c45541d85ec1b06d160b819c03f073cf001a60411f1d45706a611d9eab9214dd'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
