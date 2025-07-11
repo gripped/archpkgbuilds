@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=impala
-pkgver=0.2.4
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="TUI for managing wifi"
 url="https://github.com/pythops/impala"
@@ -10,7 +10,7 @@ makedepends=('cargo')
 arch=('x86_64')
 license=('GPL-3.0-only')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('1212ea9fe10f5561fc4e9248889fe4cd206b0fb006d19953c3fe1abcbe6943c571bdb833322796b3b19540160f9520b083db02d83be6df370e5418fa541229e4')
+sha512sums=('4e11f4328ea42126b5e94cf76aa8d8908d9a1c16c186b7a16f56b6fe2a453123838e0f31dbc948d10d42a73bb6184816230a573f425bc6447a32062fd16e9da4')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
