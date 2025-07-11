@@ -2,7 +2,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=a2ps
-pkgver=4.15.6
+pkgver=4.15.7
 pkgrel=1
 pkgdesc='An Any to PostScript filter'
 arch=(x86_64)
@@ -18,7 +18,7 @@ _archive="$pkgname-$pkgver"
 source=("https://ftp.gnu.org/gnu/$pkgname/$_archive.tar.gz"{,.sig}
         "$pkgname-4.13c-emacs.patch"
         "$pkgname-adhere-source-date-epoch.patch")
-sha256sums=('87ff9d801cb11969181d5b8cf8b65e65e5b24bb0c76a1b825e8098f2906fbdf4'
+sha256sums=('715f38670afd950b4ca71c01f468feefad265ca52d3f112934c63c0a8bfbb8af'
             'SKIP'
             '943739a788db47f10942477754f42c8c9b22cdaad4463bea4103c31a330de76a'
             '305ba7b9a44e7d6480a23098efb27aab5daedde71defcfe2f1b01b70d025e3db')
