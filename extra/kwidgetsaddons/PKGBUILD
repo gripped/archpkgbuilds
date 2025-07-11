@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kwidgetsaddons
-pkgver=6.15.0
+pkgver=6.16.0
 pkgrel=1
 pkgdesc='Addons to QtWidgets'
 arch=(x86_64)
@@ -21,7 +21,7 @@ makedepends=(doxygen
 optdepends=('pyside6: Python bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('23557e83da5d49bf1722aad07846015a1fcecc10a70342ac9cb54b7acff88435'
+sha256sums=('7663f88052fd8ca947b9fe0bbead04ff228e884f124498a328cc30e9f172915c'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D  # Jonathan Esk-Riddell <jr@jriddell.org>
