@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kpty
-pkgver=6.15.0
+pkgver=6.16.0
 pkgrel=1
 pkgdesc='Pty abstraction'
 arch=(x86_64)
@@ -20,7 +20,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('d2a69c8c9cc6d696c4c717357bb6d6581f5ddf64aad83e9ae98903b1f2e0a8b1'
+sha256sums=('9761b1f5af7fa10e7e3ca8b52a9a10e24af994de7ae642c155dba7c99b14e9cf'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
