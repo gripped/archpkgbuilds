@@ -1,17 +1,24 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=typescript-language-server
-pkgver=4.3.3
+pkgver=4.3.4
 pkgrel=1
 pkgdesc='Language Server Protocol (LSP) implementation for TypeScript using tsserver'
 url=https://github.com/typescript-language-server/typescript-language-server
-arch=('any')
-license=('Apache')
-depends=('typescript')
-makedepends=('git' 'jq' 'yarn')
-checkdepends=('npm')
+arch=(any)
+license=(
+  Apache-2.0
+  MIT
+)
+depends=(typescript)
+makedepends=(
+  git
+  jq
+  yarn
+)
+checkdepends=(npm)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('SKIP')
+b2sums=('5ba358b49caff78a55f0b47decf8c3dce4ae9ae26cc705da2e27063c99b8ff2a301cef073e9a2e2507178fb7a1dcd283cc7d04ccde9e07b20971c467d3af7e7e')
 
 prepare() {
   cd $pkgname
@@ -19,9 +26,9 @@ prepare() {
 
   cd test-data/yarn-pnp
   mkdir bin
-  corepack enable --install-directory bin
-  bin/yarn set version stable
-  bin/yarn install --immutable
+  corepack enable --install-directory bin yarn
+  yes | bin/yarn set version stable
+  yes | bin/yarn install --immutable
 }
 
 build() {
@@ -36,6 +43,7 @@ check() {
 
 package() {
   local mod_dir=/usr/lib/node_modules/$pkgname
+
   install -d "$pkgdir"/{usr/bin,$mod_dir}
   ln -s $mod_dir/lib/cli.mjs "$pkgdir"/usr/bin/$pkgname
 
@@ -49,4 +57,5 @@ package() {
   cp -r lib package.json "$pkgdir"/$mod_dir
   chmod +x "$pkgdir"/$mod_dir/lib/cli.mjs
   install -Dm644 -t "$pkgdir"/usr/share/doc/$pkgname {CHANGELOG,README}.md
+  install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
 }
