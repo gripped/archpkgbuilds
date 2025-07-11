@@ -1,0 +1,21 @@
+pkgbase = signstar-sign
+	pkgdesc = A command line tool for creating signatures for signing requests
+	pkgver = 0.1.0
+	pkgrel = 1
+	url = https://signstar.archlinux.page/signstar-sign
+	arch = x86_64
+	license = Apache-2.0 OR MIT
+	makedepends = git
+	makedepends = jq
+	makedepends = just
+	makedepends = mold
+	makedepends = rust
+	makedepends = rust-script
+	depends = gcc-libs
+	depends = glibc
+	source = signstar::git+https://gitlab.archlinux.org/archlinux/signstar.git?signed#tag=signstar-sign/0.1.0
+	validpgpkeys = 991F6E3F0765CF6295888586139B09DA5BF0D338
+	sha512sums = 18c45adfbce43c6cbfb92c7377b1a422628ed2a9fcad8a77935c15d3c4360c442bf695ca9606003d6685f79c4d63e8971ca26548151adec2dbe3f6618c8078b5
+	b2sums = 88c763ed758499fd41e3a4092cbf1eabd2239d3d8095118d8943203407ba1cf23091f0cd40bebf9d6caef8bb7678f0e3197b9428e05b76ac261d5ce4a748862f
+
+pkgname = signstar-sign
