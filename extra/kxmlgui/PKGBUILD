@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kxmlgui
-pkgver=6.15.0
+pkgver=6.16.0
 pkgrel=1
 pkgdesc='User configurable main windows'
 arch=(x86_64)
@@ -30,7 +30,7 @@ makedepends=(doxygen
 optdepends=('pyside6: Python bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('40ce8d472d171a819806af0d5a68c3f91d596b5ae8b4b29c46592a0978d7c305'
+sha256sums=('26fe5375d95029c5a828d5b47fc4b20e8684bc3be88df1bc94082821ce32a74e'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D  # Jonathan Esk-Riddell <jr@jriddell.org>
