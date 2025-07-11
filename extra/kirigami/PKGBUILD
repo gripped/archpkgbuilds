@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kirigami
-pkgver=6.15.0
-pkgrel=2
+pkgver=6.16.0
+pkgrel=1
 pkgdesc='A QtQuick based components set'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -17,19 +17,13 @@ makedepends=(doxygen
              qt6-shadertools
              qt6-tools)
 groups=(kf6)
-source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/frameworks/kirigami/-/commit/21788be6.patch)
-sha256sums=('733ac7d9c197fe7de90f41643549be3ce0f3723ecd4d4a15758c4c71cafc2531'
-            'SKIP'
-            'c1d50690c8f03ac726512deaf6b67da786817f4479937995f694860fc88aac60')
+source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('16d1142aacd8514f95cf9bdb44b2a720f3397b5ee68a489a54c86a560af55516'
+            'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
               90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1 # Nicolas Fella <nicolas.fella@kde.org>
               )
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < 21788be6.patch # Fix menubar in Merkuro
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
