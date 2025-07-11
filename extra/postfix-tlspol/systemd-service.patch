@@ -2,11 +2,13 @@ diff --git a/init/postfix-tlspol.service b/init/postfix-tlspol.service
 index e75f945..68e68f8 100644
 --- a/init/postfix-tlspol.service
 +++ b/init/postfix-tlspol.service
-@@ -6,16 +6,10 @@ Wants=nss-lookup.target
+@@ -6,16 +6,12 @@ Wants=nss-lookup.target
  [Service]
  ExecStart=/usr/bin/postfix-tlspol -config /etc/postfix-tlspol/config.yaml
  ExecReload=/bin/kill -HUP $MAINPID
 -DynamicUser=yes
++User=tlspol
++Group=postfix
  Restart=always
  RestartSec=5
 -MemoryDenyWriteExecute=yes
