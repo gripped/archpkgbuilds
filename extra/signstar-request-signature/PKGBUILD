@@ -3,10 +3,10 @@
 pkgname=signstar-request-signature
 _name=signstar
 pkgver=0.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A commandline tool for creating, reading and writing of signing requests for files"
 arch=(x86_64)
-url="https://gitlab.archlinux.org/archlinux/signstar/-/tree/main/signstar-request-signature"
+url="https://signstar.archlinux.page/signstar-request-signature"
 _url="https://gitlab.archlinux.org/archlinux/signstar"
 license=('Apache-2.0 OR MIT')
 depends=(
@@ -51,7 +51,7 @@ package() {
   install -vDm 755 $_name/target/release/$pkgname -t "$pkgdir/usr/bin/"
   install -vDm 644 $_name/$pkgname/{CHANGELOG,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 $_name/$pkgname/resources/docs/design.md -t "$pkgdir/usr/share/doc/$pkgname/"
-  install -vDm 644 $_name/LICENSES/MIT.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 $_name/LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
   install -vDm 644 $_name/target/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
   install -vDm 644 $_name/target/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completion/completions/$pkgname"
   install -vDm 644 $_name/target/shell_completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
