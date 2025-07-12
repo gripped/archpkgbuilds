@@ -1,40 +1,42 @@
-# Maintainer: Rémy Oudompheng <remy@archlinux.org>
-# CPAN Name  : Business::ISBN
-# Contributor: Anton Leontiev <bunder /at/ t-25.ru>
-# Generator  : CPANPLUS::Dist::Arch 1.29
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Rémy Oudompheng <remy@archlinux.org>
 
 pkgname=perl-business-isbn
-_dist=Business-ISBN
-pkgver=3.011
+pkgver=3.012
 pkgrel=1
-pkgdesc='Perl package to work with International Standard Book Numbers'
-arch=('any')
-url="https://metacpan.org/release/${_dist}"
-license=('PerlArtistic' 'GPL')
-depends=('perl' 'perl-business-isbn-data')
+pkgdesc='Perl package to deal with International Standard Book Numbers'
+arch=(any)
+url='https://github.com/briandfoy/business-isbn'
+license=(Artistic-2.0)
+depends=(perl perl-business-isbn-data)
+makedepends=(git)
+checkdepends=(perl-test-pod)
 optdepends=('perl-libwww: for access to the xISBN service')
-checkdepends=('perl-test-pod')
 options=(!emptydirs)
-source=(https://search.cpan.org/CPAN/authors/id/B/BR/BRIANDFOY/${_dist}-${pkgver}.tar.gz)
-sha256sums=('d882fa0d467cb6975a64944d4276d00abfd2dfdd36f0885935fd3de4e3dc4ba4')
+source=("$pkgname::git+$url#tag=release-${pkgver}")
+sha512sums=('9025f30db9d22c342676d7d0dd8497883ef12fd06fc236715425a1df14899d3529e10cd753d91e815213f65b564fb759313eeacb37784b75248868905d938373')
+b2sums=('54d9f26c8a48b3020befdc165ceddeb6864695b104590b256969ffe9753566792cad27beb5580b41411161c740bc88f1af4c54e520d3b90ff5beda4d39e65fc3')
 
 build() {
-	cd "${srcdir}/${_dist}-${pkgver}"
-	unset PERL5LIB PERL_MM_OPT PERL_MB_OPT PERL_LOCAL_LIB_ROOT
-	export PERL_MM_USE_DEFAULT=1 PERL_AUTOINSTALL=--skipdeps
-	perl Makefile.PL
-	make
+  cd "$pkgname"
+
+  unset PERL5LIB PERL_MM_OPT PERL_MB_OPT PERL_LOCAL_LIB_ROOT
+  export PERL_MM_USE_DEFAULT=1 PERL_AUTOINSTALL=--skipdeps
+  perl Makefile.PL
+  make
 }
 
 check() {
-	cd "${srcdir}/${_dist}-${pkgver}"
-	unset PERL5LIB PERL_MM_OPT PERL_MB_OPT PERL_LOCAL_LIB_ROOT
-	export PERL_MM_USE_DEFAULT=1
-	make test
+  cd "$pkgname"
+
+  unset PERL5LIB PERL_MM_OPT PERL_MB_OPT PERL_LOCAL_LIB_ROOT
+  export PERL_MM_USE_DEFAULT=1
+  make test
 }
 
 package() {
-	cd "${srcdir}/${_dist}-${pkgver}"
-	unset PERL5LIB PERL_MM_OPT PERL_MB_OPT PERL_LOCAL_LIB_ROOT
-	make install INSTALLDIRS=vendor DESTDIR="$pkgdir"
+  cd "$pkgname"
+
+  unset PERL5LIB PERL_MM_OPT PERL_MB_OPT PERL_LOCAL_LIB_ROOT
+  make install INSTALLDIRS=vendor DESTDIR="$pkgdir"
 }
