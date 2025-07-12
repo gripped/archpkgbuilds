@@ -3,8 +3,8 @@
 # Contributor: naelstrof <naelstrof@gmail.com>
 
 pkgname=maim
-pkgver=5.8.0
-pkgrel=3
+pkgver=5.8.1
+pkgrel=1
 pkgdesc='Utility to take a screenshot using imlib2'
 arch=('x86_64')
 url='https://github.com/naelstrof/maim'
@@ -12,7 +12,7 @@ license=('GPL3')
 depends=('freetype2' 'libpng' 'libjpeg-turbo' 'libwebp' 'libx11' 'libxcomposite' 'libxext' 'libxfixes' 'libxrandr' 'slop')
 makedepends=('cmake' 'glm')
 source=("${pkgname}-${pkgver}.tar.gz"::"$url/archive/v${pkgver}.tar.gz")
-sha256sums=('ecafe01dcbe4246071c58ff36acdcd93d290ed501f67933334b646436650450e')
+sha256sums=('6111555224a277b3698b465c24cef758c2cb7ef101ad22f0308ecd56ccd6c1e7')
 
 prepare() {
   cd "$pkgname-$pkgver"
