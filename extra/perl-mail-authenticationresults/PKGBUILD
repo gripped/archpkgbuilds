@@ -1,45 +1,40 @@
-# Maintainer: Florian Pritz <bluewind@xinu.at>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Florian Pritz <bluewind@xinu.at>
 
 pkgname=perl-mail-authenticationresults
-pkgver=2.20231031
-pkgrel=2
+pkgver=2.20250709
+pkgrel=1
 pkgdesc='Object Oriented Authentication-Results Headers'
 arch=(any)
-license=(PerlArtistic GPL)
+license=(GPL-1.0-or-later Artistic-1.0-Perl)
 options=(!emptydirs)
-depends=('perl>=5.8' perl-clone perl-json)
+depends=(perl perl-clone perl-json)
 checkdepends=(perl-test-exception)
-url=https://metacpan.org/release/Mail-AuthenticationResults
-source=("https://cpan.metacpan.org/authors/id/M/MB/MBRADSHAW/Mail-AuthenticationResults-$pkgver.tar.gz")
-md5sums=('ebabfd9e0946ca04e9693e3190ee2f2e')
-sha512sums=('fc1a1f9099e1d3c3a2185bb2ba9f53be6799779b71dc1e7524e117b78e3868e9d264668bde188e787868a303d62262e9ded2fa9e1657d1987e9cbe488d06ed8e')
+source=("$pkgname-$pkgver.tar.gz::https://cpan.metacpan.org/authors/id/M/MB/MBRADSHAW/Mail-AuthenticationResults-$pkgver.tar.gz")
+sha512sums=('79b691daa41a2c265243e4a25b9b3bf3815187549b2213272b04f2c2335c3e536441b17c878c4b8068c2367a9912358072c15695d9d6ef5d02b5dc48cfac969b')
+b2sums=('6c2bdf6bf7021bae059b07813ffae85d7b2d65ff6d2473651fb3210d210290bc2f18edccc64ea576f802355c8fff9d16ebe577c0571fa7e173438c011e1d5b79')
 _ddir="Mail-AuthenticationResults-$pkgver"
 
-build()
-(
-  cd "$srcdir/$_ddir"
+build() {
+  cd "$_ddir"
+
   export PERL_MM_USE_DEFAULT=1 PERL_AUTOINSTALL=--skipdeps
   unset PERL5LIB PERL_MM_OPT
-  /usr/bin/perl Makefile.PL
+  perl Makefile.PL
   make
-)
+}
 
-check()
-(
-  cd "$srcdir/$_ddir"
+check() {
+  cd "$_ddir"
+
   export PERL_MM_USE_DEFAULT=1
   unset PERL5LIB
   make test
-)
+}
 
-package()
-(
-  cd "$srcdir/$_ddir"
+package() {
+  cd "$_ddir"
+
   make install INSTALLDIRS=vendor DESTDIR="$pkgdir"
-)
-
-# Local Variables:
-# mode: shell-script
-# sh-basic-offset: 2
-# End:
+}
 # vim:set ts=2 sw=2 et:
