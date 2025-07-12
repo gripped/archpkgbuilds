@@ -2,8 +2,8 @@
 # Contributor: emersion <contact@emersion.fr>
 
 pkgname=grim
-pkgver=1.4.1
-pkgrel=3
+pkgver=1.5.0
+pkgrel=1
 pkgdesc='Screenshot utility for Wayland'
 arch=(x86_64)
 url='https://gitlab.freedesktop.org/emersion/grim'
@@ -11,7 +11,7 @@ license=(MIT)
 depends=(cairo libjpeg-turbo wayland)
 makedepends=(fish git meson ninja pango scdoc wayland-protocols)
 source=("git+$url#tag=v$pkgver")
-b2sums=('090e6d195d13dd057e9d1535e6e8cf1188bd439960865694702b9b73c12c2cda6ab5e2469242667584804b13e8e738e694bc8f2fb85b2103b111dffa240ee103')
+b2sums=('fcb867a416bcc1acad28e35ab1a2e1aeea4d5c04196ee74b7ad372256ef780ab77bb2afd93badb8c203c0a320ea7b229a999dfd9faa575c8c42150e5fcbcbd9a')
 
 build() {
   arch-meson build $pkgname
