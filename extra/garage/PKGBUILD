@@ -2,7 +2,7 @@
 
 pkgname=garage
 pkgver=2.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A S3-compatible distributed object storage service tailored for self-hosting'
 arch=(x86_64)
 url='https://garagehq.deuxfleurs.fr/'
@@ -11,6 +11,7 @@ depends=(
   glibc
   gcc-libs
   libsodium
+  sqlite
   lmdb
   zstd
 )
@@ -49,7 +50,7 @@ build() {
     --frozen
     --release
     --no-default-features
-    --features 'system-libs,metrics,k2v,lmdb'
+    --features 'system-libs,metrics,lmdb,sqlite,k2v'
   )
 
   cargo build "${_cargo_options[@]}"
