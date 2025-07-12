@@ -2,7 +2,7 @@
 # Contributor: ObserverOfTime <chronobserver@disroot.org>
 
 pkgname=tree-sitter-vim
-pkgver=0.6.0
+pkgver=0.7.0
 pkgrel=1
 pkgdesc='Vimscript grammar for tree-sitter'
 arch=(x86_64)
@@ -16,7 +16,7 @@ makedepends=(
 optdepends=('tree-sitter: core library')
 provides=("lib$pkgname.so")
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('048af8e07b643fecdbd73f90a73648854d2151ad122de60b8a7a063609fe11ef879b53179655d1244b413b514bbb6f0379a330e9edc57e1f9bde10731babc3ec')
+b2sums=('9d6b56a784adf29c9395eb212820d3e007b4ba98939f4debcb9856748fce90044911895a00deda48902dc5c154e49b189c654fb44f92e44db513ce31b2ec61f0')
 
 prepare() {
   cd $pkgname
