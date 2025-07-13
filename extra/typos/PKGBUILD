@@ -4,7 +4,7 @@
 
 pkgname=typos
 pkgver=1.34.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Source code spell checker"
 arch=('x86_64')
 url="https://github.com/crate-ci/typos"
@@ -32,8 +32,12 @@ check() {
 package() {
   cd "${pkgname}-${pkgver}"
   install -Dm755 "target/release/${pkgname}" -t "${pkgdir}/usr/bin"
+  install -Dm644 "LICENSE-MIT" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-MIT"
+
   install -Dm644 "README.md" "${pkgdir}/usr/share/doc/${pkgname}/README.md"
-  install -Dm644 "LICENSE-MIT"    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-MIT"
+  for file in ./docs/*; do
+    install -Dm644 "$file" -t "${pkgdir}/usr/share/doc/${pkgname}/docs"
+  done
 }
 
 # vim: ts=2 sw=2 et:
