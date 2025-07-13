@@ -2,7 +2,7 @@
 
 pkgname=qgpgme
 pkgver=2.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Qt bindings for GPGME'
 arch=(x86_64)
 url='https://gnupg.org/software/gpgme/index.html'
@@ -18,6 +18,10 @@ provides=(qgpgme-qt6)
 replaces=(qgpgme-qt6)
 source=(git+https://dev.gnupg.org/source/gpgmeqt#tag=gpgmeqt-$pkgver)
 sha256sums=('d48db1e5c6cb36eeff4379169a9a7558da8e134a5ce6b88409ecbc70e3183afc')
+
+prepare() {
+  git -C gpgmeqt cherry-pick -n 150b23c105f3ea7034e6f106e60686aea4e4a13e # Fix kmail crashes
+}
 
 build() {
   cmake -B build -S gpgmeqt \
