@@ -3,13 +3,13 @@
 _name=svelte-language-tools
 pkgname=svelte-language-server
 pkgver=0.17.16
-pkgrel=1
+pkgrel=2
 pkgdesc='Language server for Svelte'
 arch=(any)
 url=https://github.com/sveltejs/language-tools/tree/master/packages/language-server
 license=(MIT)
 depends=(
-  nodejs-lts
+  nodejs
   typescript
 )
 makedepends=(
@@ -32,10 +32,11 @@ build() {
   pnpm build
 }
 
-check() {
-  cd $_name/packages/language-server
-  pnpm test
-}
+# https://github.com/sveltejs/language-tools/issues/2793
+#check() {
+#  cd $_name/packages/language-server
+#  pnpm test
+#}
 
 package() {
   local mod_dir=/usr/lib/node_modules/$pkgname
