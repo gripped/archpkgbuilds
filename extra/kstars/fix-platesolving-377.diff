@@ -1,0 +1,104 @@
+diff --git a/kstars/auxiliary/dms.cpp b/kstars/auxiliary/dms.cpp
+index 268c92003e3652506096c63b8fcb9112a3162a93..a2f928a0d40cdb02f3468332717a1931ad20563f 100644
+--- a/kstars/auxiliary/dms.cpp
++++ b/kstars/auxiliary/dms.cpp
+@@ -284,7 +284,7 @@ const dms dms::deltaAngle(dms angle) const
+         return dms(angleDiff);
+ }
+ 
+-const QString dms::toDMSString(const bool forceSign, const bool machineReadable, const bool highPrecision) const
++const QString dms::toDMSString(const bool forceSign, const bool machineReadable, const bool highPrecision, char machineReadableSeparator) const
+ {
+     QString dummy;
+     char pm(' ');
+@@ -316,9 +316,11 @@ const QString dms::toDMSString(const bool forceSign, const bool machineReadable,
+         pm = '+';
+ 
+     if (machineReadable)
+-        return QString("%1%2:%3:%4").arg(pm)
++        return QString("%1%2%3%4%5%6").arg(pm)
+                 .arg(dd, 2, 10, QChar('0'))
++                .arg(machineReadableSeparator)
+                 .arg(dm, 2, 10, QChar('0'))
++                .arg(machineReadableSeparator)
+                 .arg(ds, 2, 10, QChar('0'));
+ 
+     if (highPrecision)
+@@ -375,7 +377,7 @@ const QString dms::toDMSString(const bool forceSign, const bool machineReadable,
+ #endif
+ }
+ 
+-const QString dms::toHMSString(const bool machineReadable, const bool highPrecision) const
++const QString dms::toHMSString(const bool machineReadable, const bool highPrecision, char machineReadableSeparator) const
+ {
+     QChar zero('0');
+     dms angle;
+@@ -393,9 +395,11 @@ const QString dms::toHMSString(const bool machineReadable, const bool highPrecis
+     }
+ 
+     if (machineReadable)
+-        return QString("%1:%2:%3").arg(hh, 2, 10, zero)
+-                                  .arg(hm, 2, 10, zero)
+-                                  .arg(hs, 2, 10, zero);
++        return QString("%1%2%3%4%5").arg(hh, 2, 10, zero)
++                                    .arg(machineReadableSeparator)
++                                    .arg(hm, 2, 10, zero)
++                                    .arg(machineReadableSeparator)
++                                    .arg(hs, 2, 10, zero);
+ 
+     if (highPrecision)
+     {
+diff --git a/kstars/auxiliary/dms.h b/kstars/auxiliary/dms.h
+index 4d1e9ec43781424c1a1b048668fb989d8f43756c..1538c1ef3f53e847a1d90ff8186776b71aaedb55 100644
+--- a/kstars/auxiliary/dms.h
++++ b/kstars/auxiliary/dms.h
+@@ -370,14 +370,14 @@ class dms
+          * @param machineReadable uses a colon separator and produces +/-dd:mm:ss format instead
+          * @param highPrecision adds milliseconds, if @c false the seconds will be shown as an integer
+          */
+-    const QString toDMSString(const bool forceSign = false, const bool machineReadable = false, const bool highPrecision=false) const;
++    const QString toDMSString(const bool forceSign = false, const bool machineReadable = false, const bool highPrecision=false, char machineReadableSeparator=':') const;
+ 
+     /** @return a nicely-formatted string representation of the angle
+          * in hours, minutes, and seconds.
+          * @param machineReadable uses a colon separator and produces hh:mm:ss format instead
+          * @param highPrecision adds milliseconds, if @c false the seconds will be shown as an integer
+          */
+-    const QString toHMSString(const bool machineReadable = false, const bool highPrecision=false) const;
++    const QString toHMSString(const bool machineReadable = false, const bool highPrecision=false, char machineReadableSeparator=':') const;
+ 
+     /** PI is a const static member; it's public so that it can be used anywhere,
+          * as long as dms.h is included.
+diff --git a/kstars/fitsviewer/fitsdata.cpp b/kstars/fitsviewer/fitsdata.cpp
+index 4fe9339850d61905cea39cf2c6cfc40d8bd7c466..1cc5f18afccd4cb278796eb41e298de51c9e01aa 100644
+--- a/kstars/fitsviewer/fitsdata.cpp
++++ b/kstars/fitsviewer/fitsdata.cpp
+@@ -4853,9 +4853,11 @@ void FITSData::injectWCS(double orientation, double ra, double dec, double pixsc
+ 
+     if (fptr)
+     {
+-        fits_update_key(fptr, TDOUBLE, "OBJCTRA", &ra, "Object RA", &status);
+-        fits_update_key(fptr, TDOUBLE, "OBJCTDEC", &dec, "Object DEC", &status);
+-
++        char radec[16];
++        strcpy(radec, dms(ra).toHMSString(true, false, ' ').toStdString().c_str());
++        fits_update_key(fptr, TSTRING, "OBJCTRA", radec, "Object RA", &status);
++        strcpy(radec, dms(dec).toDMSString(true, true, false, ' ').toStdString().c_str());
++        fits_update_key(fptr, TSTRING, "OBJCTDEC", radec, "Object DEC", &status);
+         int epoch = 2000;
+ 
+         fits_update_key(fptr, TINT, "EQUINOX", &epoch, "Equinox", &status);
+@@ -4907,8 +4909,11 @@ void FITSData::injectWCS(double orientation, double ra, double dec, double pixsc
+ void FITSData::updateWCSHeaderData(const double orientation, const double ra, const double dec, const double pixscale,
+                                    const bool eastToTheRight)
+ {
+-    updateRecordValue("OBJCTRA", ra, "Object RA");
+-    updateRecordValue("OBJCTDEC", dec, "Object DEC");
++
++
++    updateRecordValue("OBJCTRA", dms(ra).toHMSString(true, false, ' '), "Object RA");
++    updateRecordValue("OBJCTDEC", dms(dec).toDMSString(true, true, false, ' '), "Object DEC");
++
+     updateRecordValue("EQUINOX", 2000, "Equinox");
+     updateRecordValue("CRVAL1", ra, "CRVAL1");
+     updateRecordValue("CRVAL2", dec, "CRVAL2");
