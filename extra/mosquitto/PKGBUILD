@@ -4,7 +4,7 @@
 # Contributor: Dan Anderson <dan-anderson at cox dptnet>
 
 pkgname=mosquitto
-pkgver=2.0.21
+pkgver=2.0.22
 pkgrel=1
 pkgdesc="An Open Source MQTT Broker"
 arch=(x86_64)
@@ -37,14 +37,12 @@ source=(
   https://mosquitto.org/files/source/mosquitto-$pkgver.tar.gz{,.asc}
   "$pkgname.service"
   "sysusers_mosquitto.conf"
-  "broken-ssl-certs.patch"
 )
 backup=("etc/$pkgname/$pkgname.conf")
-sha512sums=('3acc093ef709c3f0f9d837abbb9e39e4e4ed60488c6180e2da733d65b19107f607c1fb89592d39a14faea531c8689227232e7cb13f3f58cb5ee43dad317c7cd6'
+sha512sums=('5aae399b308d8262a758a72064c613bfd6930e1a54f34939e30454d988c65c9d7c4c139ed70a016baa1264a0100a0c842c00e843ffe3ef83f90be440403e7482'
             'SKIP'
             '4d844ac5de505d1fb97052d291e4046d5da725e4cf78f8bc6b2a8d27426ac23f29983408b1904f5aa7985e8a4d6f6ed2938003b721a872e233dbb1c9d5be1ec2'
-            '22b7472ad47f077bef025c476ca9181b0e0ccefce84a7ee0b5a212a84ddd1e46f6f6e64b0722d9d359178c74e74920fe95bcee7ea895449f2aa26e284b4b11b1'
-            '4924172fd3cc5a9fef889ba85fc2910b51ca4919b8cf1ef386957d3bda2b313c1902f0d197653d760009f3eb62d3c4867ceb0d8f959a049f12ba415b9a04fb29')
+            '22b7472ad47f077bef025c476ca9181b0e0ccefce84a7ee0b5a212a84ddd1e46f6f6e64b0722d9d359178c74e74920fe95bcee7ea895449f2aa26e284b4b11b1')
 validpgpkeys=('A0D6EEA1DCAE49A635A3B2F0779B22DFB3E717B7')
 
 prepare() {
@@ -53,7 +51,6 @@ prepare() {
   sed '/client test/d' -i $pkgname-$pkgver/test/Makefile
 
   cd $pkgname-$pkgver
-  patch -Np1 -i ${srcdir}/broken-ssl-certs.patch
 }
 
 build() {
