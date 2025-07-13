@@ -6,7 +6,7 @@
 pkgbase=kea
 pkgname=("${pkgbase}" "${pkgbase}-docs")
 pkgver=3.0.0
-pkgrel=4
+pkgrel=5
 pkgdesc="High-performance, extensible DHCP server engine from ISC, supporting both DHCPv4 and DHCPv6"
 url="https://kea.isc.org"
 arch=('x86_64')
@@ -24,11 +24,11 @@ source=("https://ftp.isc.org/isc/${pkgbase}/${pkgver}/${pkgbase}-${pkgver}.tar.x
         'kea-ctrl-agent.service')
 b2sums=('1d08d226b2e8523355c734968032ffa30035b6daebe4b9ce2db45fee887100d54b422f7cb8771d1e7b0b04e0f13329b8ddd03c4e7b81e73bd60f2435623ccd89'
         'SKIP'
-        '89422802e78e958113165864d171c6cb0818949089b1ba7426c71814455be76c35a5814e9d828af578b27004e4352371f1b5aa12fdf1d8cfa437b89ff5a993d5'
-        'b25f29b3cd8657508d766eb4c92c8c2b9ebebd60c3639930cb0439f69d205352b6ef066409d704228721ae252b0d954e5f6a3a26bb46c33bbc9ede4170c22e94'
-        '60167919868547b03bfd37ffdd88a636019f1b6340aadd5c44fa99e77f66f47595fe89830bb53de11b91702d1dff986988d4c7df29a16e9456b1976760496259'
-        '01035d110b87bed6664e49f11d3d483a4e6a7b9290b05c85a43e485b309c8f15dc00b09959804f5dc3d7590abea36334300010e557988de587a2bf9043966d67'
-        'f7be743d8b90ffc82551c3afc28477c8bef10596c77368ccb63e61de7355518e5e668429ab277e3f1a994cdc8b3ef542867ddb91bc7f23860dfe2d72f67b99ba')
+        '485e1700f842e65fbcf3f9e5f67abe2da3b8ea697fc7f852a8e7ad8a535975cdf919e1791deb0a530ff62b823e78d11c71c42d6e33c27f4e61bb6872a2d0f6b9'
+        '4000c128807c0a4dd2c2e48b47b8effe1b4e011e517575bb824601f9ae5121ee5d64ca0643b0192cad75bc1daa4a17680e171b3497b9926fcff10fa05e834e7e'
+        'd08096cb995b0bf0133ba2c287df3ec44a6090a041e6fc0676422243a7b84c7cfc03f9b8a1739a89216d9bf81cf9f2fdb222dc73f3ee3b486b349679d751e74d'
+        '65660fb97706c8ccf0c18cbdf0a0aaedead4ebc23276ddcbedbd287996c51b7c5c46e552fa9b9ae2a2589a9c609bc921f8d696e2ac66df84d72ee25b4e449566'
+        '0385f582889ce832e3aaabb413128503cb83e5cad27a89b8c91025bcf2be716994c117e212cc119f2a1d4bc004401ab0dffe765fd5da5e644f3654a1f1091d54')
 validpgpkeys=('BE0E9748B718253A28BB89FFF1B11BF05CF02E57'  # Internet Systems Consortium, Inc. (Signing key, 2017-2018) <codesign@isc.org>
               'AE3FAC796711EC59FC007AA474BB6B9A4CBB3D38'  # Internet Systems Consortium, Inc. (Signing key, 2019-2020) <codesign@isc.org>
               '7E1C91AC8030A5A59D1EFAB9750F3C87723E4012'  # Internet Systems Consortium, Inc. (Signing key, 2021-2022) <codesign@isc.org>
@@ -80,8 +80,8 @@ package_kea() {
 	install -Dm 644 kea-dhcp-ddns.service "${pkgdir}/usr/lib/systemd/system/kea-dhcp-ddns.service"
 	install -Dm 644 kea-ctrl-agent.service "${pkgdir}/usr/lib/systemd/system/kea-ctrl-agent.service"
 
-	# Do not package /run & /var/run
-	rm -rf "${pkgdir}/run" "${pkgdir}/var/run"
+	# Do not package /var/run
+	rm -rf "${pkgdir}/var/run"
 
 	# Split docs in a separate package
 	rm -rf "${pkgdir}/usr/share/"{doc,man}
