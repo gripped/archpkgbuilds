@@ -5,8 +5,8 @@
 # Generator  : CPANPLUS::Dist::Arch 1.15
 
 pkgname=perl-term-readline-gnu
-pkgver=1.46
-pkgrel=4
+pkgver=1.47
+pkgrel=1
 pkgdesc="GNU Readline XS library wrapper"
 arch=('x86_64')
 license=('PerlArtistic' 'GPL')
@@ -14,7 +14,7 @@ options=('!emptydirs')
 depends=('perl>=5.7')
 url='https://search.cpan.org/dist/Term-ReadLine-Gnu'
 source=("https://search.cpan.org/CPAN/authors/id/H/HA/HAYASHI/Term-ReadLine-Gnu-${pkgver}.tar.gz")
-sha512sums=('574c97b5915f6afbe75506758aa0def7a23372ef3c696e081c8e9732a57828b29ec8c9d643f767188d264a212b60595f43cb1c59bf8ffee74af73c9588a362b9')
+sha512sums=('f61a3b57e719ff74504cc1b4540111ee677d6d47779f8cba944b3a950b2b5ab0c7a5ffdb7af52b31d881f99f68c9ab36fe5a400cce62396b1a72343713a626d6')
 
 build() {
   cd "${srcdir}/Term-ReadLine-Gnu-$pkgver"
