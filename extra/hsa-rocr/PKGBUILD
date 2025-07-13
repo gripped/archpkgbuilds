@@ -8,13 +8,13 @@
 
 pkgname=hsa-rocr
 pkgver=6.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc='HSA Runtime API and runtime for ROCm'
 arch=('x86_64')
 url='https://github.com/ROCm/ROCR-Runtime'
 license=('NCSA')
 depends=('rocm-core' 'glibc' 'gcc-libs' 'numactl' 'pciutils' 'libelf' 'libdrm'
-         'rocm-device-libs')
+         'rocm-device-libs' 'rocprofiler-register')
 provides=("hsakmt-roct=$pkgver")
 replaces=('hsakmt-roct')
 makedepends=('cmake' 'rocm-llvm' 'xxd')
