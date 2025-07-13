@@ -3,17 +3,17 @@
 
 pkgname=swaync
 _pkgname=SwayNotificationCenter
-pkgver=0.11.0
+pkgver=0.12.0
 pkgrel=1
 pkgdesc="A simple GTK based notification daemon for Sway"
 url="https://github.com/ErikReider/SwayNotificationCenter"
 arch=('x86_64')
 license=('GPL-3.0-only')
-depends=('gtk3' 'gtk-layer-shell' 'glib2' 'libgee' 'json-glib' 'libhandy' 'libpulse' 'granite')
-makedepends=('vala' 'meson' 'git' 'scdoc' 'sassc' 'gobject-introspection')
+depends=('gtk4' 'gtk4-layer-shell' 'libadwaita' 'glib2' 'libgee' 'json-glib' 'libpulse' 'granite7')
+makedepends=('vala' 'meson' 'git' 'scdoc' 'sassc' 'gobject-introspection' 'blueprint-compiler')
 optdepends=('gvfs: Get album art in MPRIS widget')
 source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('7f69fe248994404af4115d335929b3bd2faf8c6321374b5b3e3fa2c97d169c90')
+sha256sums=('9dcc103fddad0cff872755c09c937642989e6bc0af73040e2af7982667bfdec7')
 
 build() {
 	arch-meson "${_pkgname}-${pkgver}" build -Dscripting=true
