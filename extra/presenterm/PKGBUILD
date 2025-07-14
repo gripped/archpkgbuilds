@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=presenterm
-pkgver=0.14.0
+pkgver=0.15.0
 pkgrel=1
 pkgdesc="A markdown terminal slideshow tool"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('gcc-libs' 'libsixel' 'oniguruma')
 makedepends=('cargo')
 optdepends=('python-weasyprint: PDF export support')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('a9c581b544eb864d55e7f17bb5a74927d29ca16c41a87eaba9f9003edc43394ea7cf69d9d314ffad41175efd32225b47f54314e5845ab3067fd694c93673d127')
+sha512sums=('5603f2153875f6e43bcdc3039117703e4bd5157701f92645e639618832b9658cf92ff98948004708c9b9e2fd1db4918838e5ddb81a1670d27b517d72c0d6ff25')
 options=('!lto')
 
 prepare() {
