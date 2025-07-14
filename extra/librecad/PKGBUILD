@@ -5,7 +5,7 @@
 # Contributor: GazJ Gary James <garyjames82 at gmail dot com> (CADuntu PKGBUILD)
 
 pkgname=librecad
-pkgver=2.2.1.1
+pkgver=2.2.1.2
 pkgrel=1
 pkgdesc='A 2D CAD drawing tool based on the community edition of QCad'
 arch=('x86_64')
@@ -16,7 +16,7 @@ makedepends=('git' 'qt5-tools' 'boost' 'imagemagick' 'librsvg')
 conflicts=('librecad-git')
 replaces=('librecad-svn' 'caduntu' 'caduntu-svn')
 source=("git+https://github.com/LibreCAD/LibreCAD.git#tag=v${pkgver}")
-sha256sums=('0676e7f035e985bee015369785e55ab3e3fdadc442fd79cb030d33a706032136')
+sha256sums=('47f6e6eda09c536cba882cca784098e8c79c120c9d350184da5fa165166adbc2')
 
 build() {
 	cd "${srcdir}/LibreCAD"
