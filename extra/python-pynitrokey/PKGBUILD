@@ -4,7 +4,7 @@
 
 _name=pynitrokey
 pkgname=python-pynitrokey
-pkgver=0.8.5
+pkgver=0.9.0
 pkgrel=1
 pkgdesc="A command line interface for the Nitrokey FIDO2 and Nitrokey Start"
 arch=(any)
@@ -37,7 +37,7 @@ depends=(
 makedepends=(
   git
   python-build
-  python-flit-core
+  python-poetry-core
   python-installer
   python-wheel
 )
@@ -49,8 +49,8 @@ optdepends=(
 source=(
   "$_name::git+$url.git?signed#tag=v$pkgver"
 )
-sha512sums=('72a7c67636a38f7e38dc35936f0654d184084cf6797540af4ee75437dfda31c28fe889ab00aa547670736228ef794c587a6223817cf87bc0a12a2ed38e60137a')
-b2sums=('7326364e6f93178194963bd694efc58ed6eac5348f822327d1ffb1d7121334782f5219628b21fdaf6aa3745065d6c7343099c35fefaa8c477c36b2e30b48f681')
+sha512sums=('4c4764e63c0b06a3adb7adeb30f08593f8c05ee601c03c4a2393547608a0d2fb394039c97c7876a5013a3edbb32553deee1e8f61e7bfab9bdee5bc0049d9a792')
+b2sums=('838a2fef0609a917b66885bbc12bfe6c8ee7b4aa73e9501972d88105ca9f58ca42475800a3b7ea8d877c41da1927e2710b775cf2c138370f011a4165f726d61d')
 validpgpkeys=(
   868184069239FF65DE0BCD7DD9BAE35991DE5B22  # Szczepan Zalega <szczepan@nitrokey.com> (@szszszsz)
   CC74B7120BFAA36FF42868724C1449F1C9804176  # Markus Meissner <meissner@nitrokey.com> (@daringer)
