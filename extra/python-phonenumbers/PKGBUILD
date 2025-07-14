@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-phonenumbers
-pkgver=9.0.7
+pkgver=9.0.8
 pkgrel=1
 pkgdesc="Python version of Google's common library for parsing, formatting, storing and validating international phone numbers"
 arch=('any')
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-protobuf')
 source=("git+https://github.com/daviddrysdale/python-phonenumbers.git#tag=v$pkgver")
-sha512sums=('39c564040838e5dbb4443a18b0f2cf760bbaa9d801667f89e704f3e939f83dbf8595542bc075bd83a1be17ea743018d9a35a87791718c1f2281df19cd365a469')
+sha512sums=('48ea12f2919fe4f3642f83c1e14544f0cf38ab6e1c562b75bbee5fa02e2fa2a40337df42cb1beb3ee9d9ecf6901693cb43676c70133f937a555d27445f5267ae')
 
 build() {
   # Regenerate the protobuf files
