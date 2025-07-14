@@ -2,7 +2,7 @@
 
 pkgname=glirc
 pkgver=2.40
-pkgrel=70
+pkgrel=71
 pkgdesc="Console IRC client"
 url="https://github.com/glguy/irc-core"
 license=("ISC")
@@ -20,7 +20,7 @@ sha256sums=('704fe9eb07f5d1de73236ecde52544f06a0805a6c3911b2e333e18899814d27f')
 
 prepare() {
   cd $pkgname-$pkgver
-  uusi -u irc-core
+  uusi -u irc-core -u vty
 }
 
 build() {
