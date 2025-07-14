@@ -1,17 +1,17 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 
 pkgname=miniserve
-pkgver=0.30.0
+pkgver=0.31.0
 pkgrel=1
 pkgdesc="Tool to serve files via HTTP"
 arch=('x86_64')
 url="https://github.com/svenstaro/miniserve"
 license=('MIT')
-depends=('gcc-libs' 'bzip2')
+depends=('gcc-libs' 'glibc')
 makedepends=('rust')
 options=(!lto)
 source=(miniserve-$pkgver.tar.gz::https://github.com/svenstaro/miniserve/archive/v${pkgver}.tar.gz)
-sha512sums=('d9e9bf79c6916a3c51186cc430d30e817a6841643c5db259cd723ad73eeec167a87b4d2f6d06a1e6f78d8dd43dc4f3ef86ec679599497093c674f4d961ab9041')
+sha512sums=('be379204172347b88a04a14481a48c0e07051fe97a3102a9f3348d39ae61e2462068a5ab734bc7df4deccb3181281e7aa07f19cf04e65f88d798b77003724d25')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
