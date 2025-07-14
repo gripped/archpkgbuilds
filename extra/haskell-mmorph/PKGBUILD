@@ -3,21 +3,16 @@
 
 _hkgname=mmorph
 pkgname=haskell-mmorph
-pkgver=1.2.0
-pkgrel=7
+pkgver=1.2.1
+pkgrel=1
 pkgdesc="Monad morphisms"
-url="https://hackage.haskell.org/package/${_hkgname}"
-license=("BSD")
+url="https://github.com/Gabriella439/Haskell-MMorph-Library"
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-transformers-compat')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('06c9e2b2d7caa65c6049225ba40a54cf9480e561a6ea521b4c83e38094beea0c2ed595244f434793c6964c6161ac3122da5a8b53fe772d527fbefb15e4cc2c14')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u transformers-compat $_hkgname.cabal
-}
+sha512sums=('d5bf5f0a153eca4d0db184c50359093c95fcb62cc6672cc2af30464c73ba9882c57425a029832051b91415f492acde04929b7a6f623a413cc72debfe84c34e32')
 
 build() {
     cd $_hkgname-$pkgver
@@ -30,6 +25,11 @@ build() {
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
