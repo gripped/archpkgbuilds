@@ -1,0 +1,44 @@
+# Maintainer: Christian Heusel <gromit@archlinux.org>
+
+pkgname=framework-system
+pkgver=0.4.5
+pkgrel=2
+pkgdesc='Tools to interact with the Framework Computer systems'
+url='https://github.com/FrameworkComputer/framework-system'
+arch=(x86_64)
+license=(BSD-3-Clause)
+depends=(
+  gcc-libs
+  glibc
+)
+makedepends=(
+  cargo
+  git
+)
+options=(!lto)
+source=($pkgname::"git+https://github.com/FrameworkComputer/framework-system.git#tag=v${pkgver}")
+sha256sums=('8054125e841b1518d5324d42a3920759e469649323ac898318d17a6ae2a9a6b5')
+b2sums=('f2008168a6099ab2fa346d927dd8aaa0b00815f5ac1277c50087643cf824c8a252de95d3d42972e85b1fe2e8b543eb8aacb9f32a710d91ab5916970a1a7582ec')
+
+prepare() {
+  cd $pkgname
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $pkgname
+  cargo build --frozen --release
+}
+
+check() {
+  cd $pkgname
+  cargo test --frozen
+}
+
+package() {
+  cd $pkgname
+  install -Dm 755 target/release/framework_tool -t "${pkgdir}/usr/bin"
+  install -Dm 644 -t "${pkgdir}/usr/share/licenses/${pkgname}/" 'LICENSE.md'
+}
+
+# vim: ts=2 sw=2 et:
