@@ -1,7 +1,7 @@
 pkgbase = svelte-language-server
 	pkgdesc = Language server for Svelte
 	pkgver = 0.17.16
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/sveltejs/language-tools/tree/master/packages/language-server
 	arch = any
 	license = MIT
@@ -10,6 +10,7 @@ pkgbase = svelte-language-server
 	makedepends = pnpm
 	depends = nodejs
 	depends = typescript
+	options = !emptydirs
 	source = svelte-language-tools::git+https://github.com/sveltejs/language-tools.git#tag=language-server-0.17.16
 	b2sums = f5783fc8daed5d7082368106c5591db34aff5ec2581da9318cb471e86cd748a87d2ed0a0c18f7920c6d6e279086722f9e671ab442286679423439f2e39a05311
 
