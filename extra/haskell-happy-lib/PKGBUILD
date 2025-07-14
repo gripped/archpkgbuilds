@@ -2,16 +2,16 @@
 
 _hkgname=happy-lib
 pkgname=haskell-happy-lib
-pkgver=2.1.4
-pkgrel=2
-pkgdesc="Happy is a parser generator for Haskell implemented using this library"
+pkgver=2.1.5
+pkgrel=1
+pkgdesc="A parser generator for Haskell implemented using this library"
 url="https://www.haskell.org/happy/"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('7eeb499c69291c18c317e59ade03979c61f6225e68caba901c7d7b417d9bfa8a')
+sha256sums=('a25a6c5a2db150caf4b8c91e048e302f776372034b84b8f9461fea0483da94eb')
 
 prepare() {
   cd $_hkgname-$pkgver
