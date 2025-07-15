@@ -3,8 +3,8 @@
 # Contributor: John Proctor <jproctor@prium.net>
 
 pkgname=libogg
-pkgver=1.3.5
-pkgrel=2
+pkgver=1.3.6
+pkgrel=1
 pkgdesc='Ogg bitstream and framing library'
 arch=(x86_64)
 url=https://www.xiph.org/ogg/
@@ -17,7 +17,7 @@ makedepends=(
 )
 provides=(libogg.so)
 source=(git+https://github.com/xiph/ogg.git?signed#tag=v${pkgver})
-sha256sums=('8ecebc1f247ef0da4d9913e41c5e217fad5e3b311cc74a09469194356cc22d30')
+sha256sums=('2e83a0b16d3863e87f3d9372686b00fa0bf62a2641b458b929185103645fdf35')
 validpgpkeys=(B7B00AEE1F960EEA0FED66FB9259A8F2D2D44C84) # Ralph Giles <giles@thaumas.net>
 
 prepare() {
