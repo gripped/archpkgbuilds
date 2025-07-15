@@ -2,17 +2,17 @@
 
 _hkgname=fin
 pkgname=haskell-fin
-pkgver=0.3
-pkgrel=59
+pkgver=0.3.1
+pkgrel=1
 pkgdesc="Nat and Fin: peano naturals and finite numbers"
 url="https://github.com/phadej/vec"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-boring' 'haskell-dec' 'haskell-hashable'
          'haskell-some' 'haskell-universe-base')
 makedepends=('ghc' 'uusi' 'haskell-inspection-testing' 'haskell-tagged')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('5cc54bda2abd1d53a718ab3399392d215c8079b3e7fba37ce89e68993584fff2c46ef9f1492acc593dbe46971718e095696580ca6721cfa9fca9fa45df839658')
+sha512sums=('9ac0c08756ceda42dd404a413b28613ca6a8e376c5e41ffbf72a1926b6ec35ae0deaf44a87b538b8afc001273875b937a10e5069a77a72bfe7638a20eb93ae72')
 
 prepare() {
   cd $_hkgname-$pkgver
