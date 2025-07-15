@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=wiremix
-pkgver=0.5.0
+pkgver=0.6.2
 pkgrel=1
 pkgdesc="A simple TUI audio mixer for PipeWire"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT' 'Apache-2.0')
 depends=('gcc-libs' 'libpipewire')
 makedepends=('cargo' 'clang')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('078ab12a83f301ffac25792bbbadeaa45711b1ae4db13e5abd44c915b2fa2878')
+sha256sums=('a8a1515cd5a51162cd74d8444f3bc55acabd71aa5fb7823d17d3246e2afa75da')
 options=('!lto')
 
 prepare() {
@@ -20,7 +20,7 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --frozen
+  VERGEN_GIT_DESCRIBE="$pkgver-$pkgrel (Arch Linux)" cargo build --release --frozen
 }
 
 check() {
