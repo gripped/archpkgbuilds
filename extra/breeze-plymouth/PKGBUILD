@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=breeze-plymouth
-pkgver=6.4.2
+pkgver=6.4.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Plymouth theme for the Breeze visual style for the Plasma Desktop'
@@ -13,7 +13,7 @@ depends=(glibc
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('fd5eb31dcf66092da481c797c8728659070003deb595dc95c4fea3bdff4add3e'
+sha256sums=('044eaaa73224c726344b3d5992c7d28a580dc481c065da203782a20fda95dc3f'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
