@@ -1,0 +1,161 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Tue, 15 Jul 2025 08:00:46 +0100
+Subject: [PATCH] meson: Add missing version info
+
+Necessary for compatibility with the autotools+libtool-built libraries.
+
+Also add the missing export of `gp_filesystem_get_storageinfo`.
+---
+ libgphoto2/libgphoto2.sym                   |  1 +
+ libgphoto2/meson.build                      | 20 +++++++++++++++++++-
+ libgphoto2/sym_to_ver.py                    | 12 ++++++++++++
+ libgphoto2_port/libgphoto2_port/meson.build | 13 +++++++++++++
+ meson.build                                 |  6 ++++++
+ 5 files changed, 51 insertions(+), 1 deletion(-)
+ create mode 100644 libgphoto2/sym_to_ver.py
+
+diff --git a/libgphoto2/libgphoto2.sym b/libgphoto2/libgphoto2.sym
+index d53f8043a74d..043a1f40b3f3 100644
+--- a/libgphoto2/libgphoto2.sym
++++ b/libgphoto2/libgphoto2.sym
+@@ -105,6 +105,7 @@ gp_filesystem_get_file
+ gp_filesystem_read_file
+ gp_filesystem_get_folder
+ gp_filesystem_get_info
++gp_filesystem_get_storageinfo
+ gp_filesystem_list_files
+ gp_filesystem_list_folders
+ gp_filesystem_make_dir
+diff --git a/libgphoto2/meson.build b/libgphoto2/meson.build
+index ae30cf942b18..26449d8bb636 100644
+--- a/libgphoto2/meson.build
++++ b/libgphoto2/meson.build
+@@ -115,26 +115,44 @@ gphoto2_endian = configure_file(
+ 
+ libgphoto2_private_headers += gphoto2_endian
+ 
++libgphoto2_link_args = []
++libgphoto2_link_deps = []
++
++if has_version_script
++  libgphoto2_version_script = custom_target(
++    'libgphoto2.ver',
++    output: 'libgphoto2.ver',
++    input: files('sym_to_ver.py', 'libgphoto2.sym'),
++    command: [python, '@INPUT0@', '@INPUT1@', '@OUTPUT@'],
++  )
++  libgphoto2_link_args += ['-Wl,--version-script=@0@'.format(
++    libgphoto2_version_script.full_path()
++  )]
++  libgphoto2_link_deps += [libgphoto2_version_script]
++endif
++
+ libgphoto2_lib = library(
+   'gphoto2',
+   libgphoto2_sources,
+   libgphoto2_headers,
+   libgphoto2_private_headers,
+   include_directories: libgphoto2_root_inc,
+   version: '@0@.@1@.@2@'.format(libgphoto2_current_min, libgphoto2_age, libgphoto2_revision),
+   soversion: libgphoto2_current_min,
+   install: true,
+   dependencies: [
+     ltdl_dep,
+     libexif_dep,
+     m_dep,
+     intl_dep,
+     libgphoto2_port_dep,
+     config_dep,
+   ],
+   c_args: [
+     '-D_GPHOTO2_INTERNAL_CODE',
+-  ]
++  ],
++  link_args: libgphoto2_link_args,
++  link_depends: libgphoto2_link_deps,
+ )
+ 
+ install_headers(
+diff --git a/libgphoto2/sym_to_ver.py b/libgphoto2/sym_to_ver.py
+new file mode 100644
+index 000000000000..5df20ac35720
+--- /dev/null
++++ b/libgphoto2/sym_to_ver.py
+@@ -0,0 +1,12 @@
++#!/usr/bin/env python
++
++import sys
++
++input = open(sys.argv[1], 'r')
++output = open(sys.argv[2], 'w')
++
++print('{ global:', file=output)
++for line in input:
++    line = line.strip()
++    print(f'{line};', file=output)
++print('local: *; };', file=output)
+diff --git a/libgphoto2_port/libgphoto2_port/meson.build b/libgphoto2_port/libgphoto2_port/meson.build
+index 59c61400d928..0d46bb715924 100644
+--- a/libgphoto2_port/libgphoto2_port/meson.build
++++ b/libgphoto2_port/libgphoto2_port/meson.build
+@@ -24,22 +24,35 @@ libgphoto2_port_private_headers = files(
+   'compiletime-assert.h',
+ )
+ 
++libgphoto2_port_link_args = []
++libgphoto2_port_link_deps = []
++
++if has_version_script
++  libgphoto2_port_version_script = files('libgphoto2_port.ver')[0]
++  libgphoto2_port_link_args += ['-Wl,--version-script=@0@'.format(
++    libgphoto2_port_version_script.full_path()
++  )]
++  libgphoto2_port_link_deps += [libgphoto2_port_version_script]
++endif
++
+ libgphoto2_port_lib = library(
+   'gphoto2_port',
+   libgphoto2_port_sources,
+   libgphoto2_port_headers,
+   libgphoto2_port_private_headers,
+   include_directories: [libgphoto2_root_inc, libgphoto2_port_root_inc],
+   version: '@0@.@1@.@2@'.format(libgphoto2_port_current_min, libgphoto2_port_age, libgphoto2_port_revision),
+   soversion: libgphoto2_port_current_min,
+   install: true,
+   dependencies: [
+     ltdl_dep,
+     lockdev_dep,
+     m_dep,
+     intl_dep,
+     config_dep,
+   ],
++  link_args: libgphoto2_port_link_args,
++  link_depends: libgphoto2_port_link_deps,
+ )
+ 
+ install_headers(
+diff --git a/meson.build b/meson.build
+index 615a9e6c884f..cb18b0821756 100644
+--- a/meson.build
++++ b/meson.build
+@@ -11,6 +11,8 @@ project('libgphoto2', 'c',
+ 
+ i18n = import('i18n')
+ pkg = import('pkgconfig')
++py = import('python')
++python = py.find_installation()
+ 
+ libxml_req         = '>= 2.0'
+ libcurl_req        = '>= 7.1'
+@@ -152,6 +154,10 @@ if intl_dep.found()
+   add_project_arguments('-DENABLE_NLS=1', language: 'c')
+ endif
+ 
++has_version_script = cc.has_link_argument('-Wl,--version-script=@0@'.format(
++  meson.current_source_dir() / 'libgphoto2_port' / 'libgphoto2_port' / 'libgphoto2_port.ver'
++))
++
+ libgphoto2_root_inc = include_directories('.')
+ 
+ iolibs_dir_suffix = libgphoto2_port_name / libgphoto2_port_version
