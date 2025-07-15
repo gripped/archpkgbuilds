@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma-thunderbolt
-pkgver=6.4.2
+pkgver=6.4.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Plasma integration for controlling Thunderbolt devices'
@@ -22,7 +22,7 @@ depends=(bolt
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('70d8c4ecdfa26dc72f6bb64472d6dc5513ca94f0823d82694ffeec9ed5ab3a16'
+sha256sums=('6989f9d61aa8b4fa21da23de00b23164ed15375986d27160191a90b5ac133f52'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
