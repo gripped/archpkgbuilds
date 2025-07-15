@@ -2,8 +2,8 @@
 
 _hkgname=toml-parser
 pkgname=haskell-toml-parser
-pkgver=2.0.1.0
-pkgrel=16
+pkgver=2.0.1.1
+pkgrel=1
 pkgdesc="TOML 1.0.0 parser"
 url="https://github.com/glguy/toml-parser"
 license=("ISC")
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-prettyprinter')
 makedepends=('ghc' 'uusi' 'alex' 'happy' 'haskell-hspec' 'haskell-hspec-discover'
              'haskell-markdown-unlit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('03366d727abac9e30055487dbfa07973c321aff571a0de9e504337aa586697e1')
+sha256sums=('919be975dc4846808b22ae92ebc88a4e2a2cae9fb60fee19e5368289e27e0f51')
 
 prepare() {
   cd $_hkgname-$pkgver
