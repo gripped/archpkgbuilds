@@ -5,7 +5,7 @@
 
 pkgname=hivex
 pkgver=1.3.24
-pkgrel=3
+pkgrel=4
 pkgdesc="System for extracting the contents of Windows Registry"
 arch=(x86_64)
 url="http://libguestfs.org"
