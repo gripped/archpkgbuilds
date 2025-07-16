@@ -2,7 +2,7 @@
 
 pkgname=perl-log-message-simple
 pkgver=0.10
-pkgrel=11
+pkgrel=12
 pkgdesc='Simplified interface to Log::Message'
 arch=(any)
 license=(PerlArtistic GPL)
