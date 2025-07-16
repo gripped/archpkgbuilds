@@ -3,7 +3,7 @@
 
 pkgname=perl-string-crc32
 pkgver=2.100
-pkgrel=4
+pkgrel=5
 pkgdesc="Perl/CPAN Module String::CRC32 : ZMODEMlike CRC32 generation"
 arch=("x86_64")
 url="https://search.cpan.org/dist/String-CRC32"
