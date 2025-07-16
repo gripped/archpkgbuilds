@@ -2,7 +2,7 @@
 
 pkgname=perl-test-yaml
 pkgver=1.07
-pkgrel=9
+pkgrel=10
 pkgdesc="Testing Module for YAML Implementations"
 arch=('any')
 url="https://search.cpan.org/dist/Test-YAML/"
