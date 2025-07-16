@@ -5,7 +5,7 @@
 pkgname="perl-b-hooks-endofscope"
 _cpanname="B-Hooks-EndOfScope"
 pkgver=0.28
-pkgrel=2
+pkgrel=3
 pkgdesc="Execute code after a scope finished compilation"
 arch=("any")
 license=("PerlArtistic" "GPL")
@@ -17,7 +17,7 @@ depends=("perl-module-implementation"
 	 "perl-try-tiny"
 	 "perl-variable-magic>=0.34"
 	 "perl>=5.5.0")
-url="https://search.cpan.org/~bobtfish/B-Hooks-EndOfScope-$pkgver/"
+url="https://metacpan.org/dist/B-Hooks-EndOfScope"
 source=("https://search.cpan.org/CPAN/authors/id/E/ET/ETHER/B-Hooks-EndOfScope-$pkgver.tar.gz")
 sha256sums=('edac77a17fc36620c8324cc194ce1fad2f02e9fcbe72d08ad0b2c47f0c7fd8ef')
 
