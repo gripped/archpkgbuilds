@@ -3,7 +3,7 @@
 
 pkgname=perl-dbd-pg
 pkgver=3.18.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Postgres Driver for DBI"
 arch=('x86_64')
 url="https://search.cpan.org/dist/DBD-Pg"
@@ -15,7 +15,7 @@ sha512sums=('0a81d1993f22a923776ab57f1437dbee2b5c42de091e274355dbcc9bb07e3db0c22
 
 build() {
   cd  DBD-Pg-${pkgver}
-  PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
+  PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$CFLAGS -std=gnu17"
   make
 }
 
