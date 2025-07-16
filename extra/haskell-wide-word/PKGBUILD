@@ -2,17 +2,17 @@
 
 _hkgname=wide-word
 pkgname=haskell-wide-word
-pkgver=0.1.7.0
-pkgrel=43
+pkgver=0.1.7.1
+pkgrel=1
 pkgdesc="Data types for large but fixed width signed and unsigned integers"
 url="https://github.com/erikd/wide-word"
-license=("BSD")
+license=('BSD-2-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-primitive')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-hedgehog' 'haskell-quickcheck-classes'
              'haskell-semirings')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('486bcbb5698087759ff02b9f9a8ee8baced7aa6731b91daef4564dc3d8023d07')
+sha256sums=('aa049f0e82333c539f2bfd36f5a65da40c0b97310965b1301226471b019882c0')
 
 build() {
   cd $_hkgname-$pkgver
