@@ -2,7 +2,7 @@
 
 pkgname=perl-inline-c
 pkgver=0.82
-pkgrel=5
+pkgrel=6
 pkgdesc="C Language Support for Inline"
 arch=('any')
 license=('PerlArtistic')
