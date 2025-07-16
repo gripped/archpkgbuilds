@@ -8,7 +8,7 @@
 pkgbase=rxvt-unicode
 pkgname=('rxvt-unicode' 'rxvt-unicode-terminfo')
 pkgver=9.31
-pkgrel=7
+pkgrel=8
 arch=('x86_64')
 url='https://software.schmorp.de/pkg/rxvt-unicode.html'
 license=('GPL-3.0-only')
