@@ -2,7 +2,7 @@
 
 pkgname=perl-ppix-quotelike
 pkgver=0.023
-pkgrel=4
+pkgrel=5
 pkgdesc="Parse Perl string literals and string-literal-like things"
 arch=('any')
 license=('PerlArtistic')
