@@ -10,7 +10,7 @@
 
 pkgname='perl-convert-uulib'
 pkgver='1.8'
-pkgrel=4
+pkgrel=5
 pkgdesc='Perl interface to the uulib library (a.k.a. uudeview/uuenview).'
 _dist=Convert-UUlib
 arch=('x86_64')
@@ -27,7 +27,7 @@ build() {
   unset PERL5LIB PERL_MM_OPT CPPFLAGS
   export PERL_MM_USE_DEFAULT=1 PERL_AUTOINSTALL=--skipdeps
 
-  perl Makefile.PL
+  perl Makefile.PL OPTIMIZE="$CFLAGS -std=gnu17"
   make
 }
 
