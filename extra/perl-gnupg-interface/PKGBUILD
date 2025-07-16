@@ -4,16 +4,24 @@
 _pkg=GnuPG-Interface
 pkgname=perl-${_pkg,,}
 pkgver=1.04
-pkgrel=2
+pkgrel=3
 pkgdesc="Object-oriented methods for interacting with GnuPG"
 arch=('any')
 url="https://metacpan.org/release/${_pkg}"
 license=('PerlArtistic' 'GPL')
 options=('!emptydirs')
-depends=('gnupg' 'perl-math-bigint' 'perl-moo' 'perl-moox-handlesvia' 'perl-moox-late')
+depends=('gnupg' 'perl-moo' 'perl-moox-handlesvia' 'perl-moox-late')
 makedepends=('perl-module-install')
-source=("https://cpan.metacpan.org/authors/id/B/BP/BPS/${_pkg}-${pkgver}.tar.gz")
-sha512sums=('27394f08210aa1581c91640aa18006f1946098cfbe13870706cbc910de39dfa80985d265e4541cdebee70149d59c89361297f76aab0417bf904cf47ba10d1afd')
+source=("https://cpan.metacpan.org/authors/id/B/BP/BPS/${_pkg}-${pkgver}.tar.gz"
+         gnupg-2.4.patch)
+sha512sums=('27394f08210aa1581c91640aa18006f1946098cfbe13870706cbc910de39dfa80985d265e4541cdebee70149d59c89361297f76aab0417bf904cf47ba10d1afd'
+            '325c668ce69d42e987333a08457e1e83a0e14041ffa03276f146063c48768d657619340c7d22bd7fa8826e2b6dfa8016219b572902700ee97c5ab53027ec1b79')
+
+prepare() {
+  cd ${_pkg}-${pkgver}
+# https://github.com/bestpractical/gnupg-interface/pull/16
+  patch -p1 -i ../gnupg-2.4.patch
+}
 
 build() {
     cd ${_pkg}-${pkgver}
