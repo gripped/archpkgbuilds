@@ -5,7 +5,7 @@
 _hkgname=hakyll
 pkgname=haskell-hakyll
 pkgver=4.16.2.0
-pkgrel=55
+pkgrel=56
 pkgdesc="A static website compiler library"
 url="https://jaspervdj.be/hakyll"
 license=("BSD")
@@ -17,10 +17,15 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-blaze-html' 'haskell-blaze-markup'
          'haskell-resourcet' 'haskell-scientific' 'haskell-tagsoup' 'haskell-time-locale-compat'
          'haskell-unordered-containers' 'haskell-vector' 'haskell-wai' 'haskell-wai-app-static'
          'haskell-warp' 'haskell-yaml')
-makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-golden'
+makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-golden'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('6b0a689fd244dcf9ef9ffb40bd1db1a16c296c0b4e06f21ff08179025c3b91f759ac45424ae72c01100d4aac1a63ccbc0af13aad1fe748a23e6a5b483b4d69d9')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u file-embed
+}
 
 build() {
     cd $_hkgname-$pkgver
