@@ -2,7 +2,7 @@
 
 pkgname=perl-encode-locale
 pkgver=1.05
-pkgrel=13
+pkgrel=14
 pkgdesc="Determine the locale encoding"
 arch=('any')
 url="https://search.cpan.org/dist/Encode-Locale"
