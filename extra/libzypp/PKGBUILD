@@ -5,7 +5,7 @@ pkgname=(
     libzypp
     libzypp-docs
 )
-pkgver=17.37.10
+pkgver=17.37.11
 pkgrel=1
 pkgdesc="ZYpp Package Management library"
 arch=(x86_64)
@@ -40,14 +40,15 @@ makedepends=(
 # checkdepends=(
 #     nginx
 #     vsftpd
+#     squid
 # )
 source=("git+https://github.com/openSUSE/libzypp.git#tag=${pkgver}")
-sha256sums=('b5d94d5fc3bc6aeb87bfd2602632e0e0ff198d93781a7de7075b6a872336d562')
+sha256sums=('40f638320ffb11dc1539ddd033191271fc7e1b4439d579e328ab11bce70ea7a3')
 
 prepare() {
-  # Fix compat with libxml 2.14
-  # https://github.com/openSUSE/libzypp/issues/635
-  git -C $pkgname cherry-pick -n 7001aa82291d95c687ae923552b88779a71264df
+  # Fix compat with disabled mediabackend tests
+  # https://github.com/openSUSE/libzypp/issues/661
+  git -C $pkgname cherry-pick -n 92cae38cd5b09624f2db1fbdae438c555dc5a4f2
 }
 
 build() {
