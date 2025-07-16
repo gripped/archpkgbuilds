@@ -2,7 +2,7 @@
 
 pkgname=kvirc
 pkgver=5.2.6
-pkgrel=2
+pkgrel=3
 pkgdesc='Qt based IRC client'
 arch=('x86_64')
 url='http://kvirc.net/'
@@ -12,9 +12,15 @@ makedepends=('cmake' 'ninja' 'python')
 optdepends=('perl: scripting support'
             'python: scripting support')
 source=("https://github.com/kvirc/KVIrc/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        'kvirc.appdata.xml')
+        'kvirc.appdata.xml'
+         qt-6.9.patch)
 sha256sums=('e8de989b5df8d9286da3e26146682a349fe496864dc2e7d7eae8dc27167fdd25'
-            '433c6b2d36479ae2c4a0342dc9750ba79ffd9f4fa479f28740cd1c4303bc71da')
+            '433c6b2d36479ae2c4a0342dc9750ba79ffd9f4fa479f28740cd1c4303bc71da'
+            '979a4da7d8610b242b4ea67c0ff19264bf2c76091dbe6c63103e60b8d2e78676')
+
+prepare() {
+  patch -d KVIrc-$pkgver -p1 < qt-6.9.patch # Fix build with Qt 6.9
+}
 
 build() {
   cmake -S KVIrc-$pkgver -B build -G Ninja -DCMAKE_INSTALL_PREFIX='/usr' \
