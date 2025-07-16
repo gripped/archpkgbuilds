@@ -1,38 +1,40 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=immich-go
 pkgver=0.26.3
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Unofficial immich-cli alternative"
 arch=('x86_64')
 url="https://github.com/simulot/immich-go"
 license=('AGPL3')
-makedepends=('go')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/simulot/immich-go/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('1b23c6ddf35a7d3fee597f7d505c9471c984c0ce0317f764e37bca6663eb8146aba25c14e1ca771b08519f39f3beadcdb7b2c00f10764fe10d41ee9de1f59a0e')
+makedepends=('go' 'git')
+source=("git+https://github.com/simulot/immich-go.git#tag=v$pkgver")
+sha512sums=('98abb43ba3c96cacc5fbe2a78632a8ec32cfdcb0ce893fa53c8e43dd325317aa58f9305184dcf81c049f5615104beaf1b2097554cb597effb98f4a4a6514126a')
 
 prepare() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   mkdir -p build
 }
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
-  go build -o build main.go
+  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+  go build \
+    -ldflags "-linkmode=external -X github.com/simulot/immich-go/app.Version=$pkgver-arch -X github.com/simulot/immich-go/app.Commit=$(git rev-parse HEAD)" \
+    -o build main.go
 }
 
 check() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   go test -v -x ./...
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   ls -lha build
   install -Dsm755 build/main "$pkgdir/usr/bin/immich-go"
 }
