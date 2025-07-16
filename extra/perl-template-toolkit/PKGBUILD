@@ -5,7 +5,7 @@
 
 pkgname=perl-template-toolkit
 pkgver=3.102
-pkgrel=2
+pkgrel=3
 pkgdesc="Perl template processing system"
 arch=('x86_64')
 url="https://search.cpan.org/dist/Template-Toolkit/"
