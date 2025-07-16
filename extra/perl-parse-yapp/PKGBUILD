@@ -3,7 +3,7 @@
 
 pkgname=perl-parse-yapp
 pkgver=1.21
-pkgrel=8
+pkgrel=9
 pkgdesc="Perl/CPAN Module Parse::Yapp : Generates OO LALR parser modules"
 arch=("any")
 url="https://search.cpan.org/dist/Parse-Yapp"
