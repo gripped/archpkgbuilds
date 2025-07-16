@@ -3,7 +3,7 @@
 
 pkgname=perl-object-realize-later
 pkgver=0.21
-pkgrel=8
+pkgrel=9
 pkgdesc="Perl/CPAN Module Object::Realize::Later : Delay construction of real data until used"
 arch=("any")
 url="https://search.cpan.org/~markov/Object-Realize-Later/"
