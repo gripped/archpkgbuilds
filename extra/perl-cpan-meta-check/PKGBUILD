@@ -3,7 +3,7 @@
 
 pkgname=perl-cpan-meta-check
 pkgver=0.018
-pkgrel=4
+pkgrel=5
 pkgdesc="Verify requirements in a CPAN::Meta object"
 arch=('any')
 license=('PerlArtistic' 'GPL')
