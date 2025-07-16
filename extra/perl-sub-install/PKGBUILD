@@ -3,7 +3,7 @@
 
 pkgname=perl-sub-install
 pkgver=0.929
-pkgrel=2
+pkgrel=3
 pkgdesc="Install subroutines into packages easily"
 arch=('any')
 url="https://metacpan.org/release/Sub-Install"
