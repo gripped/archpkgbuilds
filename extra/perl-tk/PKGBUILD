@@ -5,7 +5,7 @@
 
 pkgname=perl-tk
 pkgver=804.036
-pkgrel=7
+pkgrel=8
 pkgdesc="A graphical user interface toolkit for Perl"
 arch=('x86_64')
 url="https://search.cpan.org/dist/Tk"
@@ -27,7 +27,7 @@ build() {
   cd Tk-$pkgver
 
   perl Makefile.PL INSTALLDIRS=vendor
-  sed -E 's|(^OPTIMIZE.*)|\1 -Wno-incompatible-pointer-types -Wno-implicit-int|' -i Makefile
+  sed -E 's|(^OPTIMIZE.*)|\1 -Wno-incompatible-pointer-types -Wno-implicit-int -std=gnu17|' -i Makefile
   make
 }
 
