@@ -2,8 +2,8 @@
 # Contributor: Martin Rodriguez Reboredo <yakoyoku@gmail.com>
 
 pkgname=ihaskell
-pkgver=0.11.0.0
-pkgrel=29
+pkgver=0.12.0.0
+pkgrel=2
 pkgdesc="A Haskell backend kernel for the Jupyter project."
 url="https://github.com/gibiansky/IHaskell"
 license=("MIT")
@@ -16,7 +16,7 @@ depends=('ghc-libs' 'ipython' 'python-jupyter_client' 'haskell-aeson' 'haskell-b
 makedepends=('ghc' 'haskell-hunit' 'haskell-hspec' 'haskell-hspec-contrib' 'haskell-raw-strings-qq'
              'haskell-setenv')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('0d965e7ea299e590e95114f8cd54f58e80d8dfd43add8f9391755eb565d552d6')
+sha256sums=('90814d7a887c0b08b1a4d8d4936b4895fba93fd39d7797754feb05cdff6ade6b')
 
 build() {
   cd $pkgname-$pkgver
