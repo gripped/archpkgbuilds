@@ -1,0 +1,12 @@
+diff -ru epic4-2.10.11.orig/Makefile.in epic4-2.10.11/Makefile.in
+--- epic4-2.10.11.orig/Makefile.in	2025-07-14 18:41:38.889888390 +0200
++++ epic4-2.10.11/Makefile.in	2025-07-14 18:42:12.686949219 +0200
+@@ -198,7 +198,7 @@
+ 		$(IP)$(DESTDIR)$(mandir)/man1
+ 
+ test.o: @srcdir@/test.c
+-	$(CC) -c @srcdir@/test.c
++	$(CC) $(CFLAGS) -c @srcdir@/test.c
+ test: test.o
+ 	$(CC) test.o -o my_test
+ 
