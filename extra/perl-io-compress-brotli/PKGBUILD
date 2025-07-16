@@ -3,7 +3,7 @@
 pkgname=perl-io-compress-brotli
 epoch=1
 pkgver=0.019
-pkgrel=1
+pkgrel=2
 pkgdesc='Read/write Brotli buffers/streams'
 url="https://metacpan.org/release/IO-Compress-Brotli"
 arch=('x86_64')
