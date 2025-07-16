@@ -3,7 +3,7 @@
 
 pkgname=perl-sub-exporter
 pkgver=0.991
-pkgrel=2
+pkgrel=3
 pkgdesc="A sophisticated exporter for custom-built routines"
 arch=('any')
 license=('PerlArtistic' 'GPL')
