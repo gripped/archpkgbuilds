@@ -3,7 +3,7 @@
 pkgname=perl-text-csv
 _dist=Text-CSV
 pkgver=2.06
-pkgrel=1
+pkgrel=2
 pkgdesc="Comma-separated values manipulator"
 url="https://metacpan.org/dist/$_dist"
 arch=(any)
