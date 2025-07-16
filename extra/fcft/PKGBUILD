@@ -4,7 +4,7 @@
 # TODO: un-vendor nanosvg, migrate package from AUR and build against that
 
 pkgname=fcft
-pkgver=3.3.1
+pkgver=3.3.2
 pkgrel=1
 pkgdesc='Simple library for font loading and glyph rasterization'
 arch=(x86_64)
@@ -21,7 +21,7 @@ makedepends=(meson
 checkdepends=(ttf-dejavu)
 provides=(libfcft.so)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('f18bf79562e06d41741690cd1e07a02eb2600ae39eb5752eef8a698f603a482c')
+sha256sums=('79e52aaafc0b57fa2b68ed6127de13e98318050399a939691b8ca30d44d48591')
 
 build() {
 	arch-meson $pkgname build \
