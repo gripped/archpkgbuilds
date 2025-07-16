@@ -2,7 +2,7 @@
 
 pkgname=perl-hash-ordered
 pkgver=0.014
-pkgrel=4
+pkgrel=5
 pkgdesc='A fast, pure-Perl ordered hash class'
 arch=(any)
 license=(PerlArtistic GPL)
