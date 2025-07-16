@@ -3,7 +3,7 @@
 
 pkgname=perl-sub-identify
 pkgver=0.14
-pkgrel=13
+pkgrel=14
 pkgdesc="Retrieve names of code references"
 arch=('x86_64')
 license=('PerlArtistic' 'GPL')
