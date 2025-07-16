@@ -2,7 +2,7 @@
 
 pkgname=perl-importer
 pkgver=0.026
-pkgrel=6
+pkgrel=7
 pkgdesc="Alternative but compatible interface to modules that export symbols."
 arch=('any')
 license=('PerlArtistic')
