@@ -2,7 +2,7 @@
 
 pkgname=perl-http-negotiate
 pkgver=6.01
-pkgrel=14
+pkgrel=15
 pkgdesc="Choose a variant to serve"
 arch=('any')
 url="https://search.cpan.org/dist/HTTP-Negotiate"
