@@ -3,22 +3,22 @@
 
 _hkgname=shelly
 pkgname=haskell-shelly
-pkgver=1.10.0.1
-pkgrel=88
+pkgver=1.11.0
+pkgrel=1
 pkgdesc="Shell-like (systems) programming in Haskell"
 url="https://github.com/gregwebs/Shelly.hs"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-unix-compat' 'haskell-monad-control' 'haskell-lifted-base'
          'haskell-lifted-async' 'haskell-enclosed-exceptions'
          'haskell-async' 'haskell-transformers-base')
 makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-hspec' 'haskell-hspec-contrib')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('8e90587a1f8580b9dade4a72c59d54962a1bb52eb468f059378c02f3fbd94730fe66d1e960afeccce2748e1ffe49b06a49bf90d53c9d7f8ee3b7173099c45796')
+sha512sums=('4b4eb09b337e8683933aa79cbe7d8b8729337143ecdd176c7a527866a9f9853ef34cd1124a9e64f655613d57709c4565b99872b2dd87a872225f3705d9fa1a6c')
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u unix-compat $_hkgname.cabal
+    uusi -u unix-compat
 }
 
 build() {
