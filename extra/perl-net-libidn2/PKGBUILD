@@ -4,7 +4,7 @@
 
 pkgname=perl-net-libidn2
 pkgver=1.02
-pkgrel=4
+pkgrel=5
 pkgdesc="Perl bindings for GNU Libidn2"
 arch=('x86_64')
 url='https://search.cpan.org/dist/Net-LibIDN2'
