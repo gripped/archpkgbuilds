@@ -5,7 +5,7 @@
 pkgbase=highlight
 pkgname=('highlight' 'highlight-perl' 'highlight-gui')
 pkgver=4.16
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast and flexible source code highlighter"
 url="http://www.andre-simon.de/doku/highlight/highlight.html"
 license=('GPL-3.0-or-later')
