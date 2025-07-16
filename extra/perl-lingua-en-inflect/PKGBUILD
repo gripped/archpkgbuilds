@@ -2,7 +2,7 @@
 
 pkgname=perl-lingua-en-inflect
 pkgver=1.905
-pkgrel=6
+pkgrel=7
 pkgdesc='Convert singular to plural. Select "a" or "an"'
 arch=('any')
 license=('PerlArtistic')
