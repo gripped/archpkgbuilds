@@ -2,13 +2,12 @@
 
 pkgname=perl-test2-tools-process
 pkgver=0.07
-pkgrel=4
+pkgrel=6
 pkgdesc="Unit tests for code that calls exit, exec, system or qx()"
 arch=('any')
 license=('PerlArtistic')
 url="https://metacpan.org/release/Test2-Tools-Process"
-depends=('perl-capture-tiny' 'perl-class-tiny' 'perl-ref-util' 'perl-return-multilevel'
-         'perl-test2-suite')
+depends=('perl-capture-tiny' 'perl-class-tiny' 'perl-ref-util' 'perl-return-multilevel')
 options=('!emptydirs')
 source=("https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Test2-Tools-Process-$pkgver.tar.gz")
 sha512sums=('f6ec30289fbdec85bdc24227fab270b50d25cc45cd91dbcf61229bcc1494ba585f3d79fecde359bd25a7e222c34d81fb5cff78533cec57d035da0ba22d2ad544')
