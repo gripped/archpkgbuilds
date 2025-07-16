@@ -4,7 +4,7 @@
 pkgname=perl-file-which
 _dist=File-Which
 pkgver=1.27
-pkgrel=6
+pkgrel=7
 pkgdesc="Portable implementation of which"
 url="https://metacpan.org/dist/$_dist"
 arch=(any)
