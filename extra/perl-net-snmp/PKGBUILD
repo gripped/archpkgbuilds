@@ -3,7 +3,7 @@
 
 pkgname=perl-net-snmp
 pkgver=6.0.1
-pkgrel=13
+pkgrel=14
 pkgdesc="Perl interface to SNMP"
 arch=('any')
 url="https://search.cpan.org/dist/Net-SNMP"
