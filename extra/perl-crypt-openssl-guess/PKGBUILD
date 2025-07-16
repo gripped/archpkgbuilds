@@ -2,7 +2,7 @@
 
 pkgname=perl-crypt-openssl-guess
 pkgver=0.15
-pkgrel=5
+pkgrel=6
 pkgdesc='Guess OpenSSL include path'
 arch=(any)
 license=(PerlArtistic GPL)
