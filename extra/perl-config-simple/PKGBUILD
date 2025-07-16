@@ -2,7 +2,7 @@
 
 pkgname=perl-config-simple
 pkgver=4.59
-pkgrel=18
+pkgrel=19
 pkgdesc="Simple configuration file class to create and read config files"
 arch=(any)
 license=(PerlArtistic GPL)
@@ -31,7 +31,6 @@ check() {
 }
 
 package() {
-  cd "$_distdir"
   cd "${srcdir}/Config-Simple-${pkgver}"
   make DESTDIR="$pkgdir" install
   find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
