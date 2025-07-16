@@ -2,7 +2,7 @@
 
 pkgname=perl-http-cookiejar
 pkgver=0.014
-pkgrel=3
+pkgrel=4
 pkgdesc='A minimalist HTTP user agent cookie jar'
 _dist='HTTP-CookieJar'
 arch=(any)
