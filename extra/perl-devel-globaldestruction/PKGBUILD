@@ -2,7 +2,7 @@
 
 pkgname=perl-devel-globaldestruction
 pkgver=0.14
-pkgrel=11
+pkgrel=12
 pkgdesc="Expose the flag which marks global"
 arch=('any')
 url="https://search.cpan.org/dist/Devel-GlobalDestruction"
