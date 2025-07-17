@@ -2,7 +2,7 @@
 
 pkgname=go-licenses
 pkgver=1.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Reports on the licenses used by a Go package and its dependencies"
 url="https://github.com/google/go-licenses"
 arch=('x86_64')
