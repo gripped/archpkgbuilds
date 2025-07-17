@@ -4,7 +4,7 @@
 
 pkgname=minisign
 pkgver=0.12
-pkgrel=1
+pkgrel=2
 pkgdesc="A dead-simple tool to sign files and verify digital signatures"
 arch=('x86_64')
 url="https://github.com/jedisct1/minisign"
