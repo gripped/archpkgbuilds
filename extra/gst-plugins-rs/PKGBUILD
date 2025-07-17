@@ -7,12 +7,14 @@ pkgname=(
   gst-plugin-cdg
   gst-plugin-claxon
   gst-plugin-dav1d
+  gst-plugin-elevenlabs
   gst-plugin-fallbackswitch
   gst-plugin-ffv1
   gst-plugin-fmp4
   gst-plugin-gif
   gst-plugin-gopbuffer
   gst-plugin-gtk4
+  gst-plugin-hlsmultivariantsink
   gst-plugin-hlssink3
   gst-plugin-hsv
   gst-plugin-json
@@ -39,15 +41,19 @@ pkgname=(
   gst-plugin-rsvideofx
   gst-plugin-rswebp
   gst-plugin-rswebrtc
+  gst-plugin-skia
   gst-plugin-sodium
+  gst-plugin-speechmatics
   gst-plugin-spotify
+  gst-plugin-streamgrouper
   gst-plugin-textahead
   gst-plugin-textwrap
   gst-plugin-threadshare
   gst-plugin-togglerecord
+  gst-plugin-uriplaylistbin
   gst-plugin-webrtchttp
 )
-pkgver=0.13.6
+pkgver=0.14.0
 pkgrel=1
 pkgdesc="Multimedia graph framework"
 url="https://gstreamer.freedesktop.org/"
@@ -63,9 +69,12 @@ makedepends=(
   cairo
   cargo-c
   dav1d
+  fontconfig
+  freetype2
   git
   graphene
   gst-plugins-bad
+  gst-plugins-bad-libs
   gst-plugins-base
   gst-plugins-base-libs
   gst-plugins-good
@@ -80,7 +89,7 @@ options=(!lto)
 source=(
   "git+https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs.git?signed#tag=$pkgver"
 )
-b2sums=('aa42d141a53bd9c6ed4f7e01fdeb2062101a3fcc2fbb0ca578c2ea31a756c514143733beea4215e4f223fe02c84266921a6da4e40947e12387cf15e34099cd9e')
+b2sums=('88a30bd8b960689d08eec40f05de9cc2c3647e277e143e6fab1c81abc6dc55f81df3aae5acf011ae4785649abe2ec44cebd69c52c734477a67d16b9c96ab6fa4')
 validpgpkeys=(
   7F4BC7CC3CA06F97336BBFEB0668CC1486C2D7B5 # Sebastian Dröge <sebastian@centricular.com>
 )
@@ -88,11 +97,12 @@ validpgpkeys=(
 _cargo_c_options=(
   --prefix /usr
   --library-type cdylib
-  --features asm,dmabuf,dssim,gtk_v4_16,v1_22,waylandegl,x11egl,x11glx
+  --features asm,dmabuf,dssim,gtk_v4_18,v1_22,v1_26,waylandegl,x11egl,x11glx
   --workspace
+  --exclude gst-plugin-analytics
   --exclude gst-plugin-csound
   --exclude gst-plugin-ndi
-  --exclude gst-plugin-uriplaylistbin
+  --exclude gst-plugin-vvdec
 )
 
 # Link with libsodium from system
@@ -196,6 +206,16 @@ package_gst-plugin-dav1d() {
     -t "$pkgdir/usr/share/licenses/$pkgname"
 }
 
+package_gst-plugin-elevenlabs() {
+  pkgdesc+=" - elevenlabs plugin"
+  depends+=(
+    gst-plugins-base-libs
+    openssl
+  )
+
+  mv plugin-elevenlabs/* "$pkgdir"
+}
+
 package_gst-plugin-fallbackswitch() {
   pkgdesc+=" - fallbackswitch plugin"
   depends+=(
@@ -251,6 +271,16 @@ package_gst-plugin-gtk4() {
   )
 
   mv plugin-gtk4/* "$pkgdir"
+}
+
+package_gst-plugin-hlsmultivariantsink() {
+  pkgdesc+=" - hlsmultivariantsink plugin"
+  depends+=(
+    gst-plugin-hlssink3
+    gst-plugins-base-libs
+  )
+
+  mv plugin-hlsmultivariantsink/* "$pkgdir"
 }
 
 package_gst-plugin-hlssink3() {
@@ -366,12 +396,14 @@ package_gst-plugin-rsaudiofx() {
 package_gst-plugin-rsclosedcaption() {
   pkgdesc+=" - rsclosedcaption plugin"
   depends+=(
-    "gst-plugin-aws=$pkgver-$pkgrel"
     "gst-plugin-textwrap=$pkgver-$pkgrel"
     cairo
     gst-plugins-bad
     gst-plugins-base-libs
     pango
+  )
+  optdepends=(
+    "gst-plugin-aws: transcriberbin, translationbin"
   )
 
   mv plugin-rsclosedcaption/* "$pkgdir"
@@ -446,6 +478,7 @@ package_gst-plugin-rsrtsp() {
 
 package_gst-plugin-rstracers() {
   pkgdesc+=" - rstracers plugin"
+  depends+=(openssl)
 
   mv plugin-rstracers/* "$pkgdir"
 }
@@ -483,6 +516,17 @@ package_gst-plugin-rswebrtc() {
   mv plugin-rswebrtc/* "$pkgdir"
 }
 
+package_gst-plugin-skia() {
+  pkgdesc+=" - skia plugin"
+  depends+=(
+    fontconfig
+    freetype2
+    gst-plugins-base-libs
+  )
+
+  mv plugin-skia/* "$pkgdir"
+}
+
 package_gst-plugin-sodium() {
   pkgdesc+=" - sodium plugin"
   license=(MIT)
@@ -494,10 +538,26 @@ package_gst-plugin-sodium() {
     -t "$pkgdir/usr/share/licenses/$pkgname"
 }
 
+package_gst-plugin-speechmatics() {
+  pkgdesc+=" - speechmatics plugin"
+  depends+=(
+    gst-plugins-base-libs
+    openssl
+  )
+
+  mv plugin-speechmatics/* "$pkgdir"
+}
+
 package_gst-plugin-spotify() {
   pkgdesc+=" - spotify plugin"
 
   mv plugin-spotify/* "$pkgdir"
+}
+
+package_gst-plugin-streamgrouper() {
+  pkgdesc+=" - streamgrouper plugin"
+
+  mv plugin-streamgrouper/* "$pkgdir"
 }
 
 package_gst-plugin-textahead() {
@@ -525,6 +585,12 @@ package_gst-plugin-togglerecord() {
   depends+=(gst-plugins-base-libs)
 
   mv plugin-togglerecord/* "$pkgdir"
+}
+
+package_gst-plugin-uriplaylistbin() {
+  pkgdesc+=" - uriplaylistbin plugin"
+
+  mv plugin-uriplaylistbin/* "$pkgdir"
 }
 
 package_gst-plugin-webrtchttp() {
