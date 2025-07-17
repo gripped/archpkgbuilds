@@ -3,28 +3,33 @@
 
 _hkgname=monadLib
 pkgname=haskell-monadlib
-pkgver=3.10.2
+pkgver=3.10.3
 pkgrel=1
 pkgdesc="A collection of monad transformers"
-url="https://wiki.github.com/yav/monadlib"
-license=("BSD")
+url="https://github.com/yav/monadlib"
+license=('ISC')
 arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('2fbaa0103d133f585bfb1c53520bb53e38bebb89195122a697c2f9c94a72e218e0089cd73774ea9c094271af1128078cae24af5f13f2cfa6a478362a6c08d5b1')
+sha512sums=('93f1a111f1398da2411b932890890e25d78e9a12c25276dfa56a12fc07f8e2a9a652c4947755bfa959e5f3a4ed1c733d71c0ab5a86ab43634462070ff1ed0036')
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
