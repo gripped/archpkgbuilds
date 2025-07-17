@@ -1,4 +1,10 @@
 [vulkan-docs]
+# vulkan-docs doesn't have SDK tags
+# but we still want to keep it synced with the other vulkan packages ($pkgver wise)
+# so we point to another package of the suite instead
 source = "git"
-git = "https://github.com/KhronosGroup/Vulkan-Docs.git"
-prefix = "v"
+git = "https://github.com/KhronosGroup/Vulkan-Headers.git"
+include_regex = 'vulkan-sdk-\d+(\.\d+)*'
+prefix = "vulkan-sdk-"
+from_pattern = '(\d+\.\d+\.\d+)\.\d+'
+to_pattern = '\1'
