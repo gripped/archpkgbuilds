@@ -2,7 +2,7 @@
 # Maintainer: Laurent Carlier <lordheavym@gmail.com>
 
 pkgname=volk
-pkgver=1.4.313.0
+pkgver=1.4.321.0
 pkgrel=1
 pkgdesc="Meta loader for Vulkan API"
 url="https://github.com/zeux/volk"
@@ -20,7 +20,7 @@ options=(
   !lto
 )
 source=("git+$url#tag=vulkan-sdk-$pkgver")
-b2sums=('a095c8ce7ce5c9cec5b14b797ab85533e7051dde5c1b3906d872ec20d44ec0598ae0579f3150b68dd164b9a59155336534b02ed4e0b90e64248b0b9ade0a7cef')
+b2sums=('5450a6884143b7b9ef8bc7bcb17c6edd61f80031772c625e6ed0f65b3d278508b75103bca82ff3f5607d48efebca7befd630e8fd80b1b010a3b9fa311f9a7c23')
 
 build() {
   local cmake_options=(
