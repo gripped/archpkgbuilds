@@ -4,7 +4,7 @@
 pkgname=glib-perl
 pkgver=1.329.4
 _pkgver=1.3294
-pkgrel=2
+pkgrel=3
 pkgdesc="Perl wrappers for glib 2.x, including GObject"
 arch=(x86_64)
 license=('LGPL')
