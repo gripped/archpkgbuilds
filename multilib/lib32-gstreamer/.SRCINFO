@@ -1,6 +1,6 @@
 pkgbase = lib32-gstreamer
 	pkgdesc = Multimedia graph framework (32-bit)
-	pkgver = 1.26.3
+	pkgver = 1.26.4
 	pkgrel = 1
 	url = https://gstreamer.freedesktop.org/
 	arch = x86_64
@@ -65,11 +65,11 @@ pkgbase = lib32-gstreamer
 	makedepends = lib32-zlib
 	makedepends = meson
 	makedepends = wayland-protocols
-	source = git+https://gitlab.freedesktop.org/gstreamer/gstreamer.git?signed#tag=1.26.3
+	source = git+https://gitlab.freedesktop.org/gstreamer/gstreamer.git?signed#tag=1.26.4
 	source = 0001-HACK-meson-Disable-broken-tests.patch
 	validpgpkeys = D637032E45B8C6585B9456565D2EEE6F6F349D7C
-	b2sums = 1a52ebc76919fa9b27401012d7bff702f584358cef61eb3169aa3a17627139cd5dbac48079329af8d4178cd8840c437815c401a227e5ef1620967c85aa7868ca
-	b2sums = c95d516e5c39362bc9b386e35e216c2a6aa04fab06b4000dc911d50ca483357e3a3e675b71842411cef2e023128aa79681e1d707fe26261753aea61bbba6d2b7
+	b2sums = 6e16ecd6de30d36082dd1364c002e8fda559cbaf0e26ff8eb1f00a47ba5c878c07f0ffe8664ce872e9e607dd1a5debdb462379aabc3dc05bfe3fdcb603690f10
+	b2sums = a6296c60f797afde867f5fa529477cc249a7628742b2bcdb2ab0ea66d79a0d005c5af38b8f2903715d63d099891dc57e3d76cc00d4419deea985b914fb6e608b
 
 pkgname = lib32-gstreamer
 	pkgdesc = Multimedia graph framework (32-bit) - core
@@ -85,7 +85,7 @@ pkgname = lib32-gstreamer
 
 pkgname = lib32-gst-plugins-base-libs
 	pkgdesc = Multimedia graph framework (32-bit) - base
-	depends = lib32-gstreamer=1.26.3-1
+	depends = lib32-gstreamer=1.26.4-1
 	depends = gst-plugins-base-libs
 	depends = lib32-gcc-libs
 	depends = lib32-glib2
@@ -107,8 +107,8 @@ pkgname = lib32-gst-plugins-base-libs
 
 pkgname = lib32-gst-plugins-base
 	pkgdesc = Multimedia graph framework (32-bit) - base plugins
-	depends = lib32-gst-plugins-base-libs=1.26.3-1
-	depends = lib32-gstreamer=1.26.3-1
+	depends = lib32-gst-plugins-base-libs=1.26.4-1
+	depends = lib32-gstreamer=1.26.4-1
 	depends = gst-plugins-base
 	depends = lib32-alsa-lib
 	depends = lib32-cairo
@@ -123,8 +123,8 @@ pkgname = lib32-gst-plugins-base
 
 pkgname = lib32-gst-plugins-good
 	pkgdesc = Multimedia graph framework (32-bit) - good plugins
-	depends = lib32-gst-plugins-base-libs=1.26.3-1
-	depends = lib32-gstreamer=1.26.3-1
+	depends = lib32-gst-plugins-base-libs=1.26.4-1
+	depends = lib32-gstreamer=1.26.4-1
 	depends = gst-plugins-good
 	depends = lib32-aalib
 	depends = lib32-bzip2
