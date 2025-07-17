@@ -5,7 +5,7 @@
 _target=riscv64-linux-gnu
 pkgname=$_target-binutils
 pkgver=2.44
-pkgrel=1
+pkgrel=2
 pkgdesc='Assemble and manipulate binary and object files for 32-bit and 64-bit RISC-V'
 arch=(x86_64)
 url='https://gnu.org/software/binutils/'
