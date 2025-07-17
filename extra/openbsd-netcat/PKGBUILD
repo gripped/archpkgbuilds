@@ -4,7 +4,7 @@
 pkgname="openbsd-netcat"
 pkgver=1.229_1
 _ver="${pkgver/_/-}"
-pkgrel=1
+pkgrel=2
 pkgdesc="TCP/IP swiss army knife. OpenBSD variant."
 arch=('x86_64')
 url="https://salsa.debian.org/debian/netcat-openbsd"
