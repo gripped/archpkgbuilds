@@ -2,7 +2,7 @@
 # Contributor: Alex Henrie <alexhenrie24@gmail.com>
 
 pkgname=git-cinnabar
-pkgver=0.7.2
+pkgver=0.7.3
 pkgrel=1
 pkgdesc="Git remote helper to interact with Mercurial repositories"
 url="https://github.com/glandium/git-cinnabar"
@@ -24,7 +24,7 @@ source=(
   "git+$url#tag=$pkgver"
   "git-for-windows::git+https://github.com/git-for-windows/git"
 )
-b2sums=('b216d0bb5e69e195d1c76f534e1c3981e9eb67c837da4085d36da182e32907810d3829cf04d207ea9ea8535b9e8bb7c7369212985b6cd557d1f15a79bfcb50fc'
+b2sums=('492508111eded4d1031d31abd64dfbff1eb288fb83b1d41e60f7767ee73e81904a4d477cd19e2c66e5089b33f0caf682c5c7571a9387f54a2ecce73627fa042f'
         'SKIP')
 
 prepare() {
@@ -41,7 +41,7 @@ build() {
   cd git-cinnabar
 
   # Use debug
-  export CARGO_PROFILE_RELEASE_DEBUG=2
+  export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
 
   # Use LTO
   export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
