@@ -3,16 +3,16 @@
 
 _hkgname=config-ini
 pkgname=haskell-config-ini
-pkgver=0.2.6.0
-pkgrel=82
+pkgver=0.2.7.0
+pkgrel=1
 pkgdesc="A library for simple INI-based configuration files."
 url="https://github.com/aisamanra/config-ini"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-unordered-containers' 'haskell-megaparsec')
 makedepends=('ghc' 'uusi' 'haskell-ini' 'haskell-hedgehog' 'haskell-doctest' 'haskell-microlens')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('33e0f5d6a4cca28c39fc4b37ba00cb0a69c9cd37a75700b2b62bc70e7f2b09abe49bc422bcc7a7e5b2fe48ea3db590c0e3b60fd20ce506004199f903bcbc6ffe')
+sha512sums=('99ba4f27df6a23e96dd07a9b6a0cd287cd75e0cb91a9ffe10ca19538e953046b754dc292e7a0518db6cc1f77ee078dba6bb7788ce888dda35002a96f8a05cd7e')
 
 prepare() {
     cd $_hkgname-$pkgver
