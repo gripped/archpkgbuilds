@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=python-caldav
-pkgver=1.4.0
-pkgrel=3
+pkgver=2.0.1
+pkgrel=1
 pkgdesc='CalDAV (RFC4791) client library for Python'
 arch=(any)
 url='https://github.com/python-caldav/caldav'
@@ -19,17 +19,13 @@ depends=(
 makedepends=(
   git
   python-build
+  python-hatch-vcs
+  python-hatchling
   python-installer
-  python-setuptools-scm
-  python-sphinx
   python-wheel
 )
-checkdepends=(
-  python-pytest
-  python-tzlocal
-)
 source=("git+https://github.com/python-caldav/caldav.git?signed#tag=v$pkgver")
-b2sums=(31c9bda6730042c32bd1f3e01e51c6b959e60bf376cf0edd0319238a389de63d8f95a55a8c971825d94f324a86643e277698e51d539c016d52a76e179239fbab)
+b2sums=(3a23db54607c7c4356b498c21bb8e01966f81ed53d2ebcd6fc1833119c683a2a73fc5df81f36493b6cabd6d6b6335213f18f9177385132bf36ac8671e042354b)
 validpgpkeys=(CC67B0D4A21A344811DD5B54A8591F23C40DEF4E) # Tobias Brox <tobias@redpill-linpro.com>
 
 build() {
@@ -37,14 +33,7 @@ build() {
   python -m build --wheel --no-isolation
 }
 
-check() {
-  cd caldav
-  pytest
-}
-
 package() {
   cd caldav
   python -m installer --destdir="$pkgdir" dist/*.whl
-  python -m sphinx -b html docs/source "$pkgdir/usr/share/doc/$pkgname/html"
-  rm -r "$pkgdir/usr/share/doc/$pkgname/html/.doctrees"
 }

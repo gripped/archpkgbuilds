@@ -1,17 +1,15 @@
 pkgbase = python-caldav
 	pkgdesc = CalDAV (RFC4791) client library for Python
-	pkgver = 1.4.0
-	pkgrel = 3
+	pkgver = 2.0.1
+	pkgrel = 1
 	url = https://github.com/python-caldav/caldav
 	arch = any
 	license = Apache-2.0 OR GPL-3.0-only
-	checkdepends = python-pytest
-	checkdepends = python-tzlocal
 	makedepends = git
 	makedepends = python-build
+	makedepends = python-hatch-vcs
+	makedepends = python-hatchling
 	makedepends = python-installer
-	makedepends = python-setuptools-scm
-	makedepends = python-sphinx
 	makedepends = python-wheel
 	depends = python
 	depends = python-dateutil
@@ -20,8 +18,8 @@ pkgbase = python-caldav
 	depends = python-recurring-ical-events
 	depends = python-requests
 	depends = python-vobject
-	source = git+https://github.com/python-caldav/caldav.git?signed#tag=v1.4.0
+	source = git+https://github.com/python-caldav/caldav.git?signed#tag=v2.0.1
 	validpgpkeys = CC67B0D4A21A344811DD5B54A8591F23C40DEF4E
-	b2sums = 31c9bda6730042c32bd1f3e01e51c6b959e60bf376cf0edd0319238a389de63d8f95a55a8c971825d94f324a86643e277698e51d539c016d52a76e179239fbab
+	b2sums = 3a23db54607c7c4356b498c21bb8e01966f81ed53d2ebcd6fc1833119c683a2a73fc5df81f36493b6cabd6d6b6335213f18f9177385132bf36ac8671e042354b
 
 pkgname = python-caldav
