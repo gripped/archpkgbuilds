@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=python-generic
-pkgver=1.1.4
-pkgrel=2
+pkgver=1.1.5
+pkgrel=1
 pkgdesc='Generic programming library for Python'
 arch=(any)
 url='https://github.com/gaphor/generic'
@@ -18,7 +18,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("git+https://github.com/gaphor/generic.git#tag=$pkgver")
-b2sums=(f5ee5cd88f952b941f64db1de323605f168a5b8863e89f56233b16041b7bfabb275df1deecec2a9222fee3b9642cddef87e4b3c285ad4892d36be4b15e7b49ca)
+b2sums=(6ebaa4aeb375ebac41206ce3ed919f635e4bcd38cba0fd102d1a726cf5a5872827bebae88c04f7cd29e10504a900b281995f13790484ce991172250c2700188f)
 
 prepare() {
   cd generic
