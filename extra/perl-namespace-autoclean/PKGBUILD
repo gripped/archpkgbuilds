@@ -4,7 +4,7 @@
 
 pkgname=perl-namespace-autoclean
 pkgver=0.31
-pkgrel=1
+pkgrel=2
 pkgdesc="Keep imports out of your namespace"
 arch=('any')
 license=('PerlArtistic' 'GPL')
