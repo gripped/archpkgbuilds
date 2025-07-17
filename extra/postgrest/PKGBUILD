@@ -3,7 +3,7 @@
 
 pkgname=postgrest
 pkgver=10.0.0
-pkgrel=382
+pkgrel=383
 pkgdesc="REST API for any Postgres database"
 url="https://github.com/begriffs/postgrest"
 license=("MIT")
@@ -32,7 +32,7 @@ sha512sums=('c7a4d631b0cdd4bc79501433f21e4a4366bc496e8ae3e94fe5124defcf79cab07a9
 prepare() {
     cd $pkgname-$pkgver
     patch -p1 -i ../postgresql-15.patch
-    uusi -u aeson -u hspec -u HTTP -u jose -u lens -u lens-aeson -u optparse-applicative -u vector $pkgname.cabal
+    uusi -u Ranged-sets -u aeson -u hspec -u HTTP -u jose -u lens -u lens-aeson -u optparse-applicative -u vector
     # GHC 9.4
     uusi -u base -u text -u time
 
