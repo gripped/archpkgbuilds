@@ -2,7 +2,7 @@
 
 pkgname='perl-types-serialiser'
 pkgver=1.01
-pkgrel=4
+pkgrel=5
 pkgdesc="simple data types for common serialisation formats"
 arch=('any')
 license=('PerlArtistic' 'GPL')
