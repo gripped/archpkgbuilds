@@ -3,33 +3,33 @@
 
 _hkgname=bzlib
 pkgname=haskell-bzlib
-pkgver=0.5.1.0
-pkgrel=10
+pkgver=0.5.2.0
+pkgrel=1
 pkgdesc="Compression and decompression in the bzip2 format"
-url="https://hackage.haskell.org/package/${_hkgname}"
-license=('BSD')
+url="https://github.com/haskell/bzlib"
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'bzip2')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('2d4e200abc8ef7f158b4b726e81a389d5018615dd04f5704f50323498f5a1991e217a05abd10f86cab791326bc95802d22a17b55656e5289cb07ca93698a1537')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u base -u bytestring $_hkgname.cabal
-}
+sha512sums=('511c7345776592be828a74913c9e61d239498119e0d98aa991c8e84a8386852f87dfd7a1619a51dadc043e4cdaba86bdc2523b9ba1145df3a1648c2fb76672f8')
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
