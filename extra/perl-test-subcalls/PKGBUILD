@@ -2,7 +2,7 @@
 
 pkgname=perl-test-subcalls
 pkgver=1.10
-pkgrel=8
+pkgrel=9
 pkgdesc="Track the number of times subs are called"
 arch=('any')
 license=('PerlArtistic')
