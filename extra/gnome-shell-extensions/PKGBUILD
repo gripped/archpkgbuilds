@@ -3,7 +3,7 @@
 
 pkgname=gnome-shell-extensions
 pkgver=48.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Extensions for GNOME shell, including classic mode"
 url="https://gitlab.gnome.org/GNOME/gnome-shell-extensions"
 arch=(any)
@@ -20,7 +20,6 @@ optdepends=(
   'gnome-menus: Apps Menu extension'
   'libgtop: System Monitor extension'
 )
-groups=(gnome)
 source=(
   # GSE tags use SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/gnome-shell-extensions.git#tag=${pkgver/[a-z]/.&}"
