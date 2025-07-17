@@ -1,21 +1,27 @@
 pkgbase = python-readability-lxml
 	pkgdesc = Fast html to text parser (article readability tool) python library
-	pkgver = 0.8.1
-	pkgrel = 10
+	pkgver = 0.8.4.1
+	pkgrel = 1
 	url = https://github.com/buriy/python-readability
 	arch = any
 	license = Apache-2.0
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = python-setuptools
+	makedepends = python-myst-parser
+	makedepends = python-poetry-core
+	makedepends = python-sphinx_rtd_theme
 	makedepends = python-wheel
 	depends = python
 	depends = python-chardet
 	depends = python-cssselect
 	depends = python-lxml
 	depends = python-lxml-html-clean
-	source = git+https://github.com/buriy/python-readability.git#tag=v0.8.1
-	b2sums = a1b05013ff0c7103e2d49ed748b338d38d1e7f5112e8f79442df87c56f38053fe79108149b9d4798ffba84df1275e38ecde515a21096b71cc6d2a1f724a195b2
+	source = git+https://github.com/buriy/python-readability.git#tag=0.8.4.1
+	b2sums = 355f6a54e3909eec9b928b0e796c3adcb0b7b267bd59812d747a4b3e1d2dbd627139a1a1dcc317c7f3435585d6ade24a2f967a89b55bcef336d2639fed004be7
 
 pkgname = python-readability-lxml
+
+pkgname = python-readability-lxml-docs
+	pkgdesc = Developer documentation for python-readability-lxml
+	depends = 
