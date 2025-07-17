@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=fastfetch
-pkgver=2.47.0
+pkgver=2.48.0
 pkgrel=1
 pkgdesc="A feature-rich and performance oriented neofetch like system information tool"
 url="https://github.com/fastfetch-cli/fastfetch"
@@ -30,7 +30,7 @@ optdepends=('chafa: Image output as ascii art'
             'xfconf: Needed for XFWM theme and XFCE Terminal font'
             'zlib: Faster image output when using kitty graphics protocol')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('c1482b8075718a2b2db95f823419b04b81384237fdba8af56092f184e89797d3')
+sha256sums=('2d7107f59518c847bca4a44007a189a64902b71a8e517eb121d4653a1bcfc172')
 
 build() {
 	cmake -B build -S "${pkgname}-${pkgver}" \
