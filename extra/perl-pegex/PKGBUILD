@@ -4,7 +4,7 @@
 
 pkgname='perl-pegex'
 pkgver=0.75
-pkgrel=6
+pkgrel=7
 pkgdesc="Acmeist PEG Parser Framework"
 arch=('any')
 license=('PerlArtistic' 'GPL')
