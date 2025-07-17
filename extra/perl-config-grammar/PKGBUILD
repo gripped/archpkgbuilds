@@ -4,7 +4,7 @@
 
 pkgname='perl-config-grammar'
 pkgver=1.13
-pkgrel=4
+pkgrel=5
 pkgdesc="A grammar-based, user-friendly config parser"
 arch=('any')
 license=('PerlArtistic' 'GPL')
