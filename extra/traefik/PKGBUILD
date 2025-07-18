@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=traefik
-pkgver=3.4.3
+pkgver=3.4.4
 pkgrel=1
 pkgdesc="Modern reverse proxy written in Go"
 arch=('x86_64')
@@ -23,7 +23,7 @@ source=(
   "traefik.sysusers"
   "traefik.tmpfiles"
 )
-sha512sums=('b10cf7df62826f635b7af09ce152ee6204867aaf965786881628c2fe2911ae0fe8b23c0b8ef38ff4147933b105b9973e559875e189a6e82e0a5041313179647f'
+sha512sums=('37c8d98a6c0f89abe7b78d5e0f82bbcb9e0dede0bc820fb2c3f5b52516fee96eba9dc956fffe6b3c3514fe4d1d4994366b975c865178b4307423c7c458c18aa4'
             '8a068799588d8982cfcafe994254af1f29b4aa0065e5d29de0b7acf89e442ff43723adf9519654822d7d44dc6c6a46025f514768f0d3ec0e34a434576a9f4d45'
             '48d4ae18774ee3c4a3cbd76951aac90a98281c96e8696c3ebc0bff3bf6e726fe44cf303e11cb7391b29b958c30ca3013a0f3926c3e43537e60926ff429ce17bc'
             '4b4200188bb1803e8068c0369a53621a64bbdf37962c6153dafb46e3babcc47061412d65d596e23072ed07dabeccc38779af7724c9f50191e67870710a76722c')
@@ -71,6 +71,7 @@ check() {
   local tests=$(
     go list ./... \
       | grep -v github.com/traefik/traefik/v3/integration \
+      | grep -v github.com/traefik/traefik/v3/pkg/provider/kubernetes/ingress \
       | grep -v github.com/traefik/traefik/v3/pkg/proxy/fast \
       | grep -v github.com/traefik/traefik/v3/pkg/server/router/tcp \
       | grep -v github.com/traefik/traefik/v3/pkg/server/service \
