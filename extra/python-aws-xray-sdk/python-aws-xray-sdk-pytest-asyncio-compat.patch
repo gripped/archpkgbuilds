@@ -1,0 +1,36 @@
+diff --git i/tests/test_async_recorder.py w/tests/test_async_recorder.py
+index 96a2fb9..d53a54c 100644
+--- i/tests/test_async_recorder.py
++++ w/tests/test_async_recorder.py
+@@ -4,6 +4,7 @@ from .util import get_new_stubbed_recorder
+ from aws_xray_sdk.version import VERSION
+ from aws_xray_sdk.core.async_context import AsyncContext
+ import asyncio
++import pytest
+ 
+ 
+ xray_recorder = get_new_stubbed_recorder()
+@@ -19,6 +20,7 @@ async def async_method():
+     await async_method2()
+ 
+ 
++@pytest.mark.asyncio
+ async def test_capture(event_loop):
+     xray_recorder.configure(
+         service='test', sampling=False, context=AsyncContext(loop=event_loop)
+@@ -46,6 +48,7 @@ async def test_capture(event_loop):
+     assert platform.python_implementation() == service.get('runtime')
+     assert platform.python_version() == service.get('runtime_version')
+ 
++@pytest.mark.asyncio
+ async def test_concurrent_calls(event_loop):
+     xray_recorder.configure(
+         service='test', sampling=False, context=AsyncContext(loop=event_loop)
+@@ -71,6 +74,7 @@ async def test_concurrent_calls(event_loop):
+             assert subseg_parent_id == segment.id
+ 
+ 
++@pytest.mark.asyncio
+ async def test_async_context_managers(event_loop):
+     xray_recorder.configure(
+         service='test', sampling=False, context=AsyncContext(loop=event_loop)
