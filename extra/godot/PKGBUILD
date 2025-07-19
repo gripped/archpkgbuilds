@@ -9,7 +9,7 @@
 pkgbase=godot
 pkgname=(godot godot-mono)
 pkgver=4.4.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Advanced cross-platform 2D and 3D game engine'
 url='https://godotengine.org/'
 license=(MIT)
@@ -92,6 +92,7 @@ build() {
     builtin_zstd=no
     colored=yes
     disable_exceptions=false
+    debug_symbols=yes
     platform=linuxbsd
     production=yes
     pulseaudio=yes
