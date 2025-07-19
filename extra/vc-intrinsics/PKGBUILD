@@ -2,15 +2,19 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=vc-intrinsics
-pkgver=0.22.1
-pkgrel=2
+pkgver=0.23.1
+pkgrel=1
 pkgdesc="Set of new intrinsics on top of core LLVM IR instructions that represent SIMD semantics of a program targeting GPU"
 arch=(x86_64)
 url="https://github.com/intel/vc-intrinsics"
 license=(MIT)
-makedepends=(cmake python llvm git)
+makedepends=(
+  cmake
+  git
+  llvm
+  python)
 source=(git+${url}.git#tag=v$pkgver)
-sha256sums=('11fbabe4654a13a6f1248448e62e12ae28b6605bbf8e444675d6e2f0588d23e7')
+sha256sums=('b05cabc364c71450738b999906df5ffae683c3501760a3edaa71f113b3cbc1a0')
 
 build() {
   export CXXFLAGS+=" -ffat-lto-objects"
