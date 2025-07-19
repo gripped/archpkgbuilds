@@ -5,7 +5,7 @@ pkgname=(
     libzypp
     libzypp-docs
 )
-pkgver=17.37.11
+pkgver=17.37.12
 pkgrel=1
 pkgdesc="ZYpp Package Management library"
 arch=(x86_64)
@@ -43,7 +43,7 @@ makedepends=(
 #     squid
 # )
 source=("git+https://github.com/openSUSE/libzypp.git#tag=${pkgver}")
-sha256sums=('40f638320ffb11dc1539ddd033191271fc7e1b4439d579e328ab11bce70ea7a3')
+sha256sums=('3bb8e6e15fd0c4cfe508fd4b837d8ab16cc9d906509d78b18a4c835e9000bf44')
 
 prepare() {
   # Fix compat with disabled mediabackend tests
