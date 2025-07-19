@@ -3,7 +3,7 @@
 # Contributor: Mikaela Szekely <qyriad@gmail.com>
 
 pkgname=cargo-update
-pkgver=16.3.2
+pkgver=16.4.0
 pkgrel=1
 pkgdesc="A cargo subcommand for checking and applying updates to installed executables"
 arch=('x86_64')
@@ -12,8 +12,8 @@ license=('MIT')
 depends=('cargo' 'gcc-libs' 'zlib' 'openssl')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "Cargo.lock")
-sha256sums=('49e016c8189b779af4663c62c2b304f770e5a4358ed5348ae61e68bf3034a689'
-            '501b1e13120a813033438b35bcae66a4da6acd51bcc15f4b885309ee852ab4c5')
+sha256sums=('2b47a69d0f0508c733a388330393ea5d15bc2878229995885fb1ac9e1493f166'
+            '5c9076a0e32846355c59f4f072b34dd85888c30cdd0792d82a6d2ed72da1b4b1')
 options=('!lto')
 
 prepare() {
