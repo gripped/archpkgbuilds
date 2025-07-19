@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=libsemigroups
-pkgver=2.7.3
-pkgrel=2
+pkgver=2.7.4
+pkgrel=1
 pkgdesc='C++ library for semigroups and monoids'
 url='https://libsemigroups.github.io'
 arch=(x86_64)
@@ -10,12 +10,18 @@ license=(GPL-3.0-or-later)
 depends=(fmt
          gcc-libs
          glibc)
-makedepends=(eigen)
-source=(https://github.com/libsemigroups/libsemigroups/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('d4d88a11651c7d7d497f847fea97e3ff60a39b25b851c1d0d7ccf41e052612be')
+makedepends=(eigen
+             git)
+source=(git+https://github.com/libsemigroups/libsemigroups#tag=v$pkgver)
+sha256sums=('4c680b41875d6676bf25c4080ad1dc6e5ee76ff992daebffd7ce323593075d25')
+
+prepare() {
+  cd $pkgname
+  autoreconf -vif
+}
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   ./configure --prefix=/usr \
               --disable-hpcombi \
               --enable-fmt \
@@ -25,6 +31,6 @@ build() {
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
