@@ -5,7 +5,7 @@
 _name=vde-2
 pkgname=vde2
 pkgver=2.3.3
-pkgrel=6
+pkgrel=7
 pkgdesc="Virtual Distributed Ethernet for emulators like qemu"
 arch=(x86_64)
 url="https://github.com/virtualsquare/vde-2"
@@ -42,6 +42,8 @@ build() {
     --sysconfdir=/etc
   )
 
+  # Fix for use with gcc>=15
+  CFLAGS+=' -std=gnu17'
   cd $_name-$pkgver
   ./configure "${configure_options[@]}"
   make V=1
