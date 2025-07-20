@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=4ti2
-pkgver=1.6.12
+pkgver=1.6.13
 pkgrel=1
 pkgdesc='A software package for algebraic, geometric and combinatorial problems on linear spaces'
 arch=(x86_64)
@@ -14,7 +14,7 @@ depends=(gcc-libs
          sh)
 makedepends=(git)
 source=(git+https://github.com/4ti2/4ti2#tag=Release_${pkgver//./_})
-sha256sums=('339d3f1e67901797a052480aba2dd566dd3c0c02b8bf1bef63837b7511b287ac')
+sha256sums=('2345dcc8d17c3632716950af16d416a971a3d81f36ca858e63e8d3ee42f166cb')
 
 prepare() {
   cd $pkgname
