@@ -18,7 +18,7 @@ _minorver=0
 _securityver=27
 _updatever=6
 pkgver=${_majorver}.${_minorver}.${_securityver}.u${_updatever}
-pkgrel=2
+pkgrel=3
 _git_tag=jdk-${_majorver}.${_minorver}.${_securityver}+${_updatever}
 arch=('x86_64')
 url='https://openjdk.java.net/'
@@ -82,7 +82,7 @@ _nonheadless=(
   lib/libsplashscreen.so
 )
 
-_common=(
+_commondeps=(
   'java-runtime-common>=3'
   ca-certificates-utils
   freetype2
