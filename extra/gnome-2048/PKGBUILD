@@ -2,7 +2,7 @@
 
 pkgname=gnome-2048
 pkgver=3.38.2
-pkgrel=4
+pkgrel=5
 pkgdesc="Obtain the 2048 tile"
 url="https://wiki.gnome.org/Apps/2048"
 arch=(x86_64)
@@ -19,7 +19,6 @@ makedepends=(
   vala
   yelp-tools
 )
-groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-2048.git#tag=$pkgver"
         gnome-2048-command-line.patch
         gnome-2048-create-window.patch
