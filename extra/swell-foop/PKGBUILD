@@ -4,7 +4,7 @@
 
 pkgname=swell-foop
 pkgver=48.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Clear the screen by removing groups of colored and shaped tiles"
 url="https://gitlab.gnome.org/GNOME/swell-foop"
 arch=(x86_64)
@@ -29,6 +29,7 @@ makedepends=(
   vala
   yelp-tools
 )
+groups=(gnome-extra)
 source=("git+$url.git#tag=${pkgver/[a-z]/.&}")
 b2sums=('2a5d99370352e19a01b7ee69888490a4549bd237c90697f84be26eba531d160bc47d06f4e911c1eaa6bb5d88acd5ed44f33d8fced3f85a03f0a4ad0782af2390')
 
