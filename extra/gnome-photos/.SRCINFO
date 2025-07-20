@@ -1,14 +1,14 @@
 pkgbase = gnome-photos
 	pkgdesc = Access, organize, and share your photos on GNOME
 	pkgver = 44.0
-	pkgrel = 4
+	pkgrel = 5
 	epoch = 1
 	url = https://wiki.gnome.org/Apps/Photos
 	arch = x86_64
-	groups = gnome-extra
 	license = GPL
 	makedepends = docbook-xsl
 	makedepends = git
+	makedepends = glib2-devel
 	makedepends = meson
 	makedepends = python
 	makedepends = yelp-tools
@@ -25,9 +25,9 @@ pkgbase = gnome-photos
 	depends = libportal-gtk3
 	depends = librsvg
 	depends = tracker3-miners
-	source = git+https://gitlab.gnome.org/GNOME/gnome-photos.git#commit=a0eb37bfb6760aa1414fa41ee1ff007336301b8c
+	source = git+https://gitlab.gnome.org/GNOME/gnome-photos.git#tag=44.0
 	source = git+https://gitlab.gnome.org/GNOME/libgd.git
-	b2sums = SKIP
+	b2sums = a85d6f4f5c8cce703b44d1de1f319db16d71ce2f5bc1fa02017eafafaa0deedc07e6178d7c1c955470e2e88a187a42f5680df0584c1833c548ec32c8d675c64d
 	b2sums = SKIP
 
 pkgname = gnome-photos

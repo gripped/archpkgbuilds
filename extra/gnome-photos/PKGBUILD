@@ -2,7 +2,7 @@
 
 pkgname=gnome-photos
 pkgver=44.0
-pkgrel=4
+pkgrel=5
 epoch=1
 pkgdesc="Access, organize, and share your photos on GNOME"
 url="https://wiki.gnome.org/Apps/Photos"
@@ -26,23 +26,17 @@ depends=(
 makedepends=(
   docbook-xsl
   git
+  glib2-devel
   meson
   python
   yelp-tools
 )
-groups=(gnome-extra)
-_commit=a0eb37bfb6760aa1414fa41ee1ff007336301b8c  # tags/44.0^0
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-photos.git#commit=$_commit"
+  "git+https://gitlab.gnome.org/GNOME/gnome-photos.git#tag=$pkgver"
   "git+https://gitlab.gnome.org/GNOME/libgd.git"
 )
-b2sums=('SKIP'
+b2sums=('a85d6f4f5c8cce703b44d1de1f319db16d71ce2f5bc1fa02017eafafaa0deedc07e6178d7c1c955470e2e88a187a42f5680df0584c1833c548ec32c8d675c64d'
         'SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
 
 prepare() {
   cd $pkgname
