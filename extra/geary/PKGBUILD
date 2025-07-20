@@ -5,7 +5,7 @@
 
 pkgname=geary
 pkgver=46.0
-pkgrel=5
+pkgrel=6
 epoch=1
 pkgdesc='A lightweight email client for the GNOME desktop'
 arch=(x86_64)
@@ -15,7 +15,6 @@ license=(
   CC-BY-SA-3.0
   LGPL-2.1-or-later
 )
-groups=(gnome-extra)
 depends=(
   at-spi2-core
   cairo
