@@ -2,29 +2,21 @@
 # Contributor: t3ddy  <t3ddy1988 "at" gmail {dot} com>
 # Contributor: Adrián Chaves Fernández (Gallaecio) <adriyetichaves@gmail.com>
 pkgname=0ad
-pkgver=a27
-_pkgver=0.27.0
-pkgrel=8
+pkgver=a27.1
+_pkgver=0.27.1
+pkgrel=1
 pkgdesc="Cross-platform, 3D and historically-based real-time strategy game"
 arch=('x86_64')
 url="http://play0ad.com/"
-license=('GPL-2.0-or-later' 'CCPL')
+license=('GPL-2.0-or-later')
 depends=('0ad-data' 'binutils' 'boost-libs' 'curl' 'enet' 'libogg' 'libpng' 'libvorbis'
          'libxml2' 'openal' 'sdl2' 'wxwidgets-gtk3' 'zlib' 'libgl' 'glu' 'fmt'
          'gloox' 'miniupnpc' 'libminiupnpc.so' 'icu' 'nspr' 'libsodium' 'which')
 makedepends=('boost' 'cmake' 'mesa' 'zip' 'libsm' 'rust' 'git' 'python' 'llvm')
 options=('!lto') # breaks spidermonkey linking (https://bugs.gentoo.org/746947)
-source=("https://releases.wildfiregames.com/$pkgname-$_pkgver-unix-build.tar.xz"
-        0ad-fix-missing-includes.patch)
+source=("https://releases.wildfiregames.com/$pkgname-$_pkgver-unix-build.tar.xz")
 validpgpkeys=('A035C8C19219BA821ECEA86B64E628F8D684696D')  # Pablo Galindo Salgado <pablogsal@gmail.com>
-sha512sums=('c22dc99f873924dab21737a9ac2d85c5a250acd094d61e15ce1b196dbd2d9315f0d31712cc6056b1bfc32aebb4e6c5beaa60bde4e05cb70aa662dea28e47210e'
-            '9e50792c5fc03cc3a618d907886a3b7a506f3bacd47bb109e17dc435f7dd6ab1a3bbcacb0ff936c8f1b5a8006ccee6c5fb1181569ae97eb9c5e2b5484e88abcf')
-
-prepare() {
-  cd "$pkgname-$_pkgver"
-
-  patch -Np1 -i "$srcdir"/0ad-fix-missing-includes.patch
-}
+sha512sums=('7ddc355afed44511f3c62bb4119e308f921fc9624980a3171853d923042777eeb248a1ce326d3768f23596d75e8346025321d7d72d6fa3b1106a5818ca62b40d')
 
 build() {
   cd "$pkgname-$_pkgver"
