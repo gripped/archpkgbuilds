@@ -3,7 +3,7 @@
 
 pkgname=gnome-dictionary
 pkgver=40.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Look up words in dictionary sources"
 url="https://wiki.gnome.org/Apps/Dictionary"
 arch=(x86_64)
@@ -16,7 +16,6 @@ makedepends=(
   meson
   yelp-tools
 )
-groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-dictionary.git?signed#tag=$pkgver"
         0001-metainfo-Fix-screenshots.patch
         0001-Fix-crash-in-strv_concat.patch
