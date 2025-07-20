@@ -3,7 +3,7 @@
 
 pkgname=gnome-robots
 pkgver=41.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Avoid the robots and make them crash into each other"
 url="https://wiki.gnome.org/Apps/Robots"
 arch=(x86_64)
@@ -30,6 +30,7 @@ makedepends=(
   rust
   yelp-tools
 )
+groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-robots.git#tag=${pkgver/[a-z]/.&}")
 b2sums=('a014e7ed291da79c3266532c4231e8ca8d03227a2ab802e0b299f40b5cf2b82173928a5aa3603c41266e967475bbc30b52d5201557e536ea5ff4dfa83584a3f5')
 
