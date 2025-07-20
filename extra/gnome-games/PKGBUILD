@@ -3,12 +3,11 @@
 
 pkgname=gnome-games
 pkgver=40.0
-pkgrel=8
+pkgrel=9
 pkgdesc='Simple game launcher for GNOME'
 arch=(x86_64)
 url='https://wiki.gnome.org/Apps/Games'
 license=(GPL-3.0-or-later)
-groups=(gnome-extra)
 depends=(
   cairo
   dconf
