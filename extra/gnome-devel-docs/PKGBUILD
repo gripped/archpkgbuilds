@@ -3,22 +3,15 @@
 
 pkgname=gnome-devel-docs
 pkgver=40.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Developer documentation for GNOME"
 url="https://gitlab.gnome.org/GNOME/gnome-devel-docs"
 arch=(any)
 license=(FDL)
 depends=(yelp)
 makedepends=(yelp-tools git)
-groups=(gnome-extra)
-_commit=6032dcd16a893c9e6463af9a3b0f0e505d0ce1ce  # tags/40.3^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-devel-docs.git#commit=$_commit")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-devel-docs.git#tag=$pkgver")
+b2sums=('4a81ecba337050dc8f8baa29f0ef8f4bc626d09231b50587bd914cf31b12ca782317d3d0fa647bf3e7ac18765f1fe2a46d7c1bfd29b1ffc834a4500a1ebbe658')
 
 prepare() {
   cd $pkgname
