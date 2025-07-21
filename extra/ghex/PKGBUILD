@@ -7,8 +7,8 @@ pkgname=(
   ghex
   ghex-docs
 )
-pkgver=46.2
-pkgrel=2
+pkgver=46.3
+pkgrel=1
 pkgdesc="A simple binary editor for the Gnome desktop"
 url="https://wiki.gnome.org/Apps/Ghex"
 arch=(x86_64)
@@ -31,14 +31,8 @@ makedepends=(
   vala
   yelp-tools
 )
-source=("git+https://gitlab.gnome.org/GNOME/ghex.git#tag=${pkgver/[a-z]/.&}"
-        ghex-dbus-activatable.patch
-        ghex-window-group.patch
-        ghex-modal-dialog.patch)
-b2sums=('21f4608873e948b4464b9bfcd2308b39e48d05ba362fd8d56a4d09a2ae87642c042397adb6e9e9d3223aa0412b4522cfa47637ac419dc1b181ee200ff47e76ae'
-        'a3e271eb15f72691696e16b41f9d636b17d24f2a7b999229b31777934527d955cb6e29943dfa4af80dde15a3533c8e6390048730b72a3afa5f2fae5d6cfd7000'
-        'abe440a2ed1430a45f1697969850463dc6a10c14fa53cdd139d74d53d5d3eeb42fb9b2fc7f48fcc684c185b2ee99651e7735295c2b0e2b83a7867c9afd570f8c'
-        '33406fc2102803224b5b82733262ba6fc0052f2aa051f4dfd6f7120c63ad082ceb79a781d36a9e94b2cd9c9ae004afa9c1b698e84a320d8a6c46c81f50a03b73')
+source=("git+https://gitlab.gnome.org/GNOME/ghex.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('a8d3c0efe47cc51233bdb5c44126fed57e1d7b2c44786a8c6d938e208e5149dde6d33b2bee35797a29040fc2233f0c8473e053ac1411fa9364c5ee6d90fed415')
 
 prepare() {
   cd ghex
@@ -49,19 +43,19 @@ prepare() {
 
   # Add "new-window" command-line option
   # https://gitlab.gnome.org/GNOME/ghex/-/merge_requests/68
-  git cherry-pick -n  faf50189f5dd43c48e4f8ae37815d554999a41c1
-
-  # Add D-Bus service file
-  # https://gitlab.gnome.org/GNOME/ghex/-/merge_requests/70
-  git apply -3 ../ghex-dbus-activatable.patch
-
-  # Put each main window into its own group
-  # https://gitlab.gnome.org/GNOME/ghex/-/merge_requests/71
-  git apply -3 ../ghex-window-group.patch
+  git cherry-pick -n faf50189f5dd43c48e4f8ae37815d554999a41c1
 
   # Setting file selection dialog for 'Open' and 'Save As' as modal dialog.
   # https://gitlab.gnome.org/GNOME/ghex/-/merge_requests/72
-  git apply -3 ../ghex-modal-dialog.patch
+  git cherry-pick -n 985be1f4082d3f9524a1920d4718559c8bfdb2b8
+
+  # Add D-Bus service file
+  # https://gitlab.gnome.org/GNOME/ghex/-/merge_requests/70
+  git cherry-pick -n e985d13eef809f2bb2a7e843b51bf9d66451dac1
+
+  # Put each main window into its own group
+  # https://gitlab.gnome.org/GNOME/ghex/-/merge_requests/71
+  git cherry-pick -n 1be63bfb79936a79d2c724a238f89abe78667322
 }
 
 build() {
