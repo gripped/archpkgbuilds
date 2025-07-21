@@ -3,7 +3,7 @@
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
 
 pkgname=('lib32-llvm' 'lib32-llvm-libs')
-pkgver=20.1.6
+pkgver=20.1.8
 pkgrel=1
 epoch=1
 arch=('x86_64')
@@ -16,11 +16,11 @@ _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkg
 source=($_source_base/llvm-$pkgver.src.tar.xz{,.sig}
         $_source_base/cmake-$pkgver.src.tar.xz{,.sig}
         $_source_base/third-party-$pkgver.src.tar.xz{,.sig})
-sha256sums=('f09e304ca98bb809f492ec34f94f587361b4b0d06ed783fb3a41e7fb218e47a1'
+sha256sums=('e1363888216b455184dbb8a74a347bf5612f56a3f982369e1cba6c7e0726cde1'
             'SKIP'
-            'b4b3efa5d5b01b3f211f1ba326bb6f0c318331f828202d332c95b7f30fca5f8c'
+            '3319203cfd1172bbac50f06fa68e318af84dcb5d65353310c0586354069d6634'
             'SKIP'
-            '33530189d31b2396b76a7ebac8f938747b3619154cc37015cef9dea29292f7e2'
+            '9a4e452a8163732d417db067a89190fcda823cb3aa33199e834ac7c028923f4b'
             'SKIP')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
               'D574BD5D1D0E98895E3BF90044F2485E45D59042') # Tobias Hieta <tobias@hieta.se>
