@@ -1,11 +1,16 @@
 pkgbase = dnsdist
 	pkgdesc = Highly DNS-, DoS- and abuse-aware loadbalancer
-	pkgver = 1.9.10
+	pkgver = 2.0.0
 	pkgrel = 1
 	url = https://dnsdist.org/
 	arch = x86_64
 	license = GPL-2.0-only
 	makedepends = boost
+	makedepends = cargo
+	makedepends = clang
+	makedepends = meson
+	makedepends = lld
+	makedepends = python-yaml
 	makedepends = systemd
 	depends = fstrm
 	depends = gcc-libs
@@ -24,11 +29,12 @@ pkgbase = dnsdist
 	depends = quiche>=0.20.1
 	depends = re2
 	depends = tinycdb
-	source = https://downloads.powerdns.com/releases/dnsdist-1.9.10.tar.bz2
-	source = https://downloads.powerdns.com/releases/dnsdist-1.9.10.tar.bz2.asc
+	options = !lto
+	source = https://downloads.powerdns.com/releases/dnsdist-2.0.0.tar.xz
+	source = https://downloads.powerdns.com/releases/dnsdist-2.0.0.tar.xz.asc
 	source = sysusers.conf
 	validpgpkeys = D6300CABCBF469BBE392E503A208ED4F8AF58446
-	sha512sums = d7249861bb5454dce3d179701e1c686c5c5ed177ca39b07ca6b1f27d2ab7a014d0d255ee6b70153962dc5d9a84545ae4a4a55c53c8e75f308cda5406eed57e9b
+	sha512sums = dee84019ae317bc4e0b4d2f94e38a221bfa94460d3bb8d82ad152eed99bef1e2bd2631f5c1e6930fb9957a928ed9cf891ef8165137cd8ec1902fb734d5aab8fb
 	sha512sums = SKIP
 	sha512sums = d55ccd612cbe08b353815027d30a3b0f0ec7bf6b0d74a0a634939be53ce6e6b41d23e54c2328946f00738c03e9f306ce4f2dabe5e4b11d9fb28d0abf49917893
 
