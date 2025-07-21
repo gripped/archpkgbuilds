@@ -5,7 +5,7 @@
 
 pkgname=accerciser
 pkgver=3.46.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Interactive Python accessibility explorer for the GNOME desktop"
 url="https://wiki.gnome.org/Apps/Accerciser"
 arch=(any)
@@ -36,7 +36,6 @@ makedepends=(
   meson
   yelp-tools
 )
-groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/accerciser.git#tag=$pkgver")
 b2sums=('87cbc2086e9cb37f786d79abd7d95f80b5f8e27c2ccae93a2e58ab950fdcf41e9f936f9269825717cf78302dc1facab0a952017aa9c4067ef9c0e18456b0411d')
 
