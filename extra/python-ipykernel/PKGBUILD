@@ -3,8 +3,8 @@
 
 _pyname=ipykernel
 pkgname=python-$_pyname
-pkgver=6.29.5
-pkgrel=3
+pkgver=6.30.0
+pkgrel=1
 pkgdesc='The ipython kernel for Jupyter'
 arch=(any)
 url='https://pypi.org/project/ipykernel/'
@@ -32,7 +32,7 @@ checkdepends=(python-debugpy
               python-pytest-timeout)
 optdepends=('python-debugpy: debugger support')
 source=(git+https://github.com/ipython/ipykernel#tag=v$pkgver)
-sha256sums=('0f4f7eb5f4613cb9a696da68521a3fdc180738e89edd35219bd1b210e5a98b48')
+sha256sums=('f3dbf83cdfbad1af89dd41b7a1ef90415c2addcceda9e8d43bbe5d6e05e9d071')
 
 prepare() {
   cd $_pyname
