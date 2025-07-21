@@ -2,7 +2,7 @@
 
 pkgname=okularpart5
 pkgver=23.08.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Qt5 Okular KPart'
 arch=(x86_64)
 url='https://apps.kde.org/okular/'
@@ -33,7 +33,6 @@ depends=(discount
          libkexiv2-qt5
          libspectre
          libtiff
-         phonon-qt5
          poppler-qt5
          purpose5
          qt5-base
@@ -59,7 +58,7 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 build() {
   cmake -B build -S okular-$pkgver \
     -DBUILD_TESTING=OFF \
-    -DFORCE_NOT_REQUIRED_DEPENDENCIES="KF5DocTools;CHM;KF5KHtml;QMobipocket"
+    -DFORCE_NOT_REQUIRED_DEPENDENCIES="KF5DocTools;CHM;KF5KHtml;QMobipocket;Phonon4Qt5"
   cmake --build build
 }
 
