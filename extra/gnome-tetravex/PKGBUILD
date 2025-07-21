@@ -3,14 +3,13 @@
 
 pkgname=gnome-tetravex
 pkgver=3.38.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Complete the puzzle by matching numbered tiles"
 url="https://wiki.gnome.org/Apps/Tetravex"
 arch=(x86_64)
 license=(GPL)
 depends=(gtk3)
 makedepends=(meson gobject-introspection vala yelp-tools appstream-glib git)
-groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-tetravex.git#tag=$pkgver"
         gnome-tetravex-highscore.patch
         gnome-tetravex-prgname.patch
