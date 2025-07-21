@@ -3,7 +3,7 @@
 
 pkgname=hitori
 pkgver=44.0
-pkgrel=3
+pkgrel=4
 pkgdesc="GTK application to generate and let you play games of Hitori"
 url="https://wiki.gnome.org/Apps/Hitori"
 arch=(x86_64)
@@ -15,11 +15,10 @@ makedepends=(
   meson
   yelp-tools
 )
-groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/hitori.git?signed#tag=$pkgver"
         hitori-dbus-activatable.patch)
-sha256sums=('0ee9c2bb31698e3e974705d96943a178843881017e4c91d8b7f3bd1a864618ad'
-            '8695a3358c15b905423be0461783a7690a075f0ae132a1b1793652eee9160969')
+b2sums=('57c5e93536d15f12a7b63013235a1644c8db1c899b3b68837f25f602374d79459af16b9b0ddf12972bc52933ff2faba48c4b179cededd1bd5ff9c6655bb16b1f'
+        'fbe7073831f936f1c03823885234c5b7868fd0bd2ee73813a60346365a1ac48d940152a2a7b8f7df25a783fd8f29deed7d22e397f38f700e84f880280b488351')
 validpgpkeys=(923B7025EE03C1C59F42684CF0942E894B2EAFA0) # Philip Withnall <philip@tecnocode.co.uk>
 
 prepare() {
