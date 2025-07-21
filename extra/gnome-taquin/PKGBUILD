@@ -3,21 +3,20 @@
 
 pkgname=gnome-taquin
 pkgver=3.38.1+r43+g33ad61e
-pkgrel=1
+pkgrel=2
 pkgdesc="Move tiles so that they reach their places"
 url="https://wiki.gnome.org/Apps/Taquin"
 arch=(x86_64)
 license=(GPL3)
 depends=(gtk3 librsvg gsound)
 makedepends=(meson vala yelp-tools appstream-glib git)
-groups=(gnome-extra)
 _commit=33ad61ea2aa838da2cd5efaba39494b71696289d  # master
 source=("git+https://gitlab.gnome.org/GNOME/gnome-taquin.git#commit=$_commit"
         gnome-taquin-prgname.patch
         gnome-taquin-create-window.patch)
-sha256sums=('5c2f0c0cde9c19103fbaa7c31829fc2b25b1f95cdf9f941446547068c35ca90f'
-            '56ff72909591d3407f1c83cd0c74b5001982efc34aea5e3aeece43dedd2be2aa'
-            'b74e0aeef8c8ba9bfd2e74c0aded0d791a8b95902a825f000151bdfde37a5904')
+b2sums=('499ba900241b0d249f667ec13f6a47f963216c5e6f5fce82ad17e73b3ae73a323f4155514181bbe6239bb667f774413e8e91ea8c603a22c76415542c1bc41d1c'
+        'dc846f32dcb43d295aa1fc2b7c92146f3ccc60bac8d98e78389640fc27d165011daf42f65f6bda1360e6a3cb7f3a36d64bf247513099e42ab49b720f486e4e2a'
+        '5500ee91114e8d230bee704b60cde67fee9e4b77e233bc00e2feb61bc9462247c536f4b10d547cdb4ee29f3f5371595ba6d41216f0b3e61df86caea30c40b410')
 
 pkgver() {
   cd $pkgname
