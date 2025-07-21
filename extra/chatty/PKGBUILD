@@ -2,7 +2,7 @@
 
 pkgname=chatty
 pkgver=0.8.8
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple to use SMS and Matrix messaging application'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/Chatty'
@@ -36,6 +36,7 @@ makedepends=(
   meson
 )
 checkdepends=(xorg-server-xvfb)
+groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/World/Chatty.git?signed#tag=v$pkgver")
 b2sums=('2770375826ad4d67966c8e7551f1c3e7ffeccbc92d57b4338cbe9ec6e6558a268b5731ac630fab13c6cdda45eaa7eaeabe6e313a799dc5bde7bda8c43b52a9a3')
 validpgpkeys=(
