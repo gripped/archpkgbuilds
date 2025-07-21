@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=scip
-pkgver=9.2.2
+pkgver=9.2.3
 pkgrel=1
 pkgdesc='Solving Constraint Integer Programs'
 arch=(x86_64)
@@ -20,7 +20,7 @@ makedepends=(boost
              papilo
              soplex)
 source=(git+https://github.com/scipopt/scip#tag=v${pkgver//./})
-sha256sums=('3d4872a57bdc8c84f3fc06804ef27007504c98e6b472338d9c2d381fd90601b4')
+sha256sums=('91f2f293fbf0acee546a0b934f9a25cc18655f3c51d333022279a7ecd24dc00f')
 
 build() {
   cmake -B build -S $pkgname \
