@@ -3,14 +3,13 @@
 
 pkgname=tali
 pkgver=40.9
-pkgrel=4
+pkgrel=5
 pkgdesc="Beat the odds in a poker-style dice game"
 url="https://wiki.gnome.org/Apps/Tali"
 arch=(x86_64)
 license=(GPL)
 depends=(gtk3 librsvg libgnome-games-support)
 makedepends=(meson gobject-introspection yelp-tools appstream-glib git)
-groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/tali.git?signed#tag=$pkgver"
         tali-prgname.patch
         tali-fix-activate.patch
