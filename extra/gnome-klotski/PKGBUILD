@@ -3,22 +3,21 @@
 
 pkgname=gnome-klotski
 pkgver=3.38.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Slide blocks to solve the puzzle"
 url="https://wiki.gnome.org/Apps/Klotski"
 arch=(x86_64)
 license=(GPL)
 depends=(gtk3 librsvg libgnome-games-support)
 makedepends=(meson gobject-introspection yelp-tools appstream-glib vala git)
-groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-klotski.git#tag=$pkgver"
         gnome-klotski-prgname.patch
         gnome-klotski-appname.patch
         gnome-klotski-create-window.patch)
-sha256sums=('41db5c3125d224e1f49e2bcb2606a0b5a86068cc8676224f52c5c3999b171f17'
-            '750bdddc28a7bf81e7f7cae77f24fd40f18e42ba57232cb037f813292daa04be'
-            '99270c091aab76389429af3e7177422ceb090e06ce298dc1195d3dfc6e9b30ac'
-            'bbf2cc40c0b5dccdea311825ca3816049b14b29655798ba740289f1df705ce9d')
+b2sums=('7a3be2584ea6399799d163b0effca5129a5a7bf773998f39a517f90d184fdb72476def3897fc71ae95b0266d12998ff7f340822c45145ab3c77fae5b388846f1'
+        'cd9345cbab3248cb21515e41aa2c52772d05ed261d4cd3de2ea08404c4c5e37eebd4241d70628d2989479b65a48ab3b6dfc529bd49524b137669712ff6c4268b'
+        '53fd87a698590b6e530f97e85ef9bc799d5d4eede34353cd9305ed53e3de2b857931ee610fa23726b3335547ae172d76719b89e1810288ba12e23ce2f8037648'
+        '5a9b171dec08f982af095a45240d66ca42fcff5e913f8b177d5fff34d4e4c322482c6d82e34e1bb736a03a98b2630dc3bed321c8385d5fb64c1a04a1e5dcf5f8')
 
 prepare() {
   cd $pkgname
