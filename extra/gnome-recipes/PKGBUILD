@@ -2,12 +2,11 @@
 
 pkgname=gnome-recipes
 pkgver=2.0.4
-pkgrel=12
+pkgrel=13
 pkgdesc='Recipe management application for GNOME'
 arch=(x86_64)
 url='https://wiki.gnome.org/Apps/Recipes'
 license=(GPL-3.0-or-later)
-groups=(gnome-extra)
 depends=(
   cairo
   dconf
