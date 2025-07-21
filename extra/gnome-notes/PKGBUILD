@@ -2,7 +2,7 @@
 
 pkgname=gnome-notes
 pkgver=40.1
-pkgrel=9
+pkgrel=10
 pkgdesc="Write out notes, every detail matters"
 url="https://wiki.gnome.org/Apps/Notes"
 arch=(x86_64)
@@ -36,21 +36,8 @@ makedepends=(
 provides=("bijiben=$pkgver")
 conflicts=(bijiben)
 replaces=(bijiben)
-groups=(gnome-extra)
-source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-notes.git#tag=BIJIBEN_${pkgver//./_}"
-  gnome-notes-activate.patch
-  gnome-notes-invalid-search.patch
-  gnome-notes-prgname.patch
-  gnome-notes-new-note.patch
-  gnome-notes-note-trashed.patch
-)
-b2sums=('794f39b637b48a8a64a0fdb98fbd1d346f0a22dc2c752dfbba97f3ffe1c3c6b5d44cd3bbe64fdcc4877065140d6e7b3d3f3961ca872df05c4df22b617729a83d'
-        'a198a7af2695dafd3cd39987eac066674e42820e7c774296a887c68225262afb6bfa8bd0e97c0935e9d691d5753c8cc3bc2407162fc1cec34775f4dd4846714f'
-        '67f9f875c2847dab0b6a9215ab42b65f47744a5a31b9b802371efd4df3e4a44f8a6e2065279f234e26e76d4f9ae9f0a725cb70f66a0ac311eeb93d37139657ec'
-        'e521d8c0d57aba276749cd6e95d9c1e4441c4488a117f57594c79d5857b5bb5e14855a6b2228ec845cb0f1d2630bb9823a8703d65e48729298e3fc676a2a2574'
-        '47b4f9403a0edeb376f8117004b3364808b9ed7b728cbbc02121eafc0916610a44405e05b0dde5353d68eff2b6b224332602fdf066032187c8e1decfc0315eac'
-        'f5de2fa18f5643dfb5819842cec60e9ddf602d7bdf8ab26846386a58f6ce43669c8b12bca6ed2666f42cc33054fb9c24febf59fbd423c31372eea8a88a0582d2')
+source=("git+https://gitlab.gnome.org/GNOME/gnome-notes.git#tag=BIJIBEN_${pkgver//./_}")
+b2sums=('794f39b637b48a8a64a0fdb98fbd1d346f0a22dc2c752dfbba97f3ffe1c3c6b5d44cd3bbe64fdcc4877065140d6e7b3d3f3961ca872df05c4df22b617729a83d')
 
 prepare() {
   cd $pkgname
@@ -74,23 +61,23 @@ prepare() {
 
   # Fix activate
   # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/195
-  git apply -3 ../gnome-notes-activate.patch
-
-  # Don't build result when invalid ID specified
-  # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/196
-  git apply -3 ../gnome-notes-invalid-search.patch
+  git cherry-pick -n caf9f66cc08c9ce13cfec19a88d2e4b8bf907c1f
 
   # Set prgname to application ID
   # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/197
-  git apply -3 ../gnome-notes-prgname.patch
+  git cherry-pick -n 563749884dee27290ca60a4e117dbc2a5e6c3f0e
 
   # Fix creating new note from remote instance
   # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/198
-  git apply -3 ../gnome-notes-new-note.patch
+  git cherry-pick -n a5cdcba89847991424f67c161ab7fc9fb1788628
 
   # Don't try to switch to main view if detached
   # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/199
-  git apply -3 ../gnome-notes-note-trashed.patch
+  git cherry-pick -n 185d73c3251977b745f96e414c8d27eeff29caab
+
+  # Don't build result when invalid ID specified
+  # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/196
+  git cherry-pick -n 71717af97837d771667997e9297312cf73825e97
 }
 
 build() {
