@@ -1,15 +1,15 @@
 pkgbase = clblast
 	pkgdesc = Tuned OpenCL BLAS library
 	pkgver = 1.6.3
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/CNugteren/CLBlast
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = cmake
+	makedepends = opencl-headers
 	depends = gcc-libs
 	depends = glibc
 	depends = ocl-icd
-	depends = opencl-headers
 	provides = libclblast.so
 	source = https://github.com/CNugteren/clblast/archive/1.6.3/clblast-1.6.3.tar.gz
 	sha256sums = c05668c7461e8440fce48c9f7a8966a6f9e0923421acd7c0357ece9b1d83f20e
