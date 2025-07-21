@@ -6,7 +6,7 @@
 
 pkgname=gnome-calls
 pkgver=48.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Phone dialer and call handler"
 arch=(x86_64)
 url="https://gitlab.gnome.org/GNOME/calls"
@@ -39,6 +39,7 @@ makedepends=(
   python-docutils
   vala
 )
+groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/calls.git?signed#tag=v${pkgver/[a-z]/_&}"
         "git+https://gitlab.gnome.org/World/Phosh/libcall-ui.git")
 b2sums=('b21b768be9f02c98d14181bbf306689623bf50e67f2f222f108f3d2740c3656f461231e8f1c4f16ea0f68c24cd2d68b07f9e89b709e0293d02e7bbae991bc838'
