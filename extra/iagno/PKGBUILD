@@ -2,20 +2,17 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=iagno
-pkgver=3.38.1+r125+ge144444
+pkgver=3.38.1+r137+g0d01085
 pkgrel=1
 pkgdesc="Dominate the board in a classic version of Reversi"
 url="https://wiki.gnome.org/Apps/Reversi"
 arch=(x86_64)
 license=(GPL)
 depends=(gtk3 gsound librsvg)
-makedepends=(meson gobject-introspection yelp-tools appstream-glib vala git)
-groups=(gnome-extra)
-_commit=e1444446698ddf2a6486f927a44ee2777cf6800f  # master
-source=("git+https://gitlab.gnome.org/GNOME/iagno.git#commit=$_commit"
-        iagno-create-window.patch)
-sha256sums=('600ceb7d2ab143c6c952ab3d30305a854cb277b93a96965e35a672b03c8f01da'
-            '16a7a21a89a1d6d69a77c5931446d609ebe1f94aa36822c7413f068c255f0d15')
+makedepends=(meson gobject-introspection yelp-tools appstream vala git)
+_commit=0d0108571402e40761f95274cf1fad0b03fda8c9  # master
+source=("git+https://gitlab.gnome.org/GNOME/iagno.git#commit=$_commit")
+b2sums=('90be43ed4ac67181703f36d0c8c88257f1800c2721abf158c13b6988783f97909e5bf12d4bdc304abf866ddd2a9179275f4a6c662feb6e1ada1555de251a359f')
 
 pkgver() {
   cd $pkgname
@@ -24,10 +21,6 @@ pkgver() {
 
 prepare() {
   cd $pkgname
-
-  # Fix hang when running as GApplication service
-  # https://gitlab.gnome.org/GNOME/iagno/-/merge_requests/27
-  git apply -3 ../iagno-create-window.patch
 }
 
 build() {
