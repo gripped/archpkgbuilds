@@ -2,8 +2,8 @@
 
 pkgbase=hyperqueue
 pkgname=(hyperqueue python-hyperqueue)
-pkgver=0.22.0
-pkgrel=2
+pkgver=0.23.0
+pkgrel=1
 pkgdesc="Scheduler for sub-node tasks for HPC systems with batch scheduling"
 arch=(x86_64)
 url="https://github.com/It4innovations/hyperqueue/"
@@ -30,7 +30,7 @@ checkdepends=(
   python-ruff
 )
 source=($pkgbase-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('b2abb0748b79dac3a8192c5cb122b6c9e1b697b02474ead574f5ebd51575c261d737007366c4115c26afa726e19a6686a41eef8ef5de4885b870ebd922e2c2a3')
+b2sums=('ea3320fe46cc93712d897480fe2b28f69ac27c4109f97a73628b23aac8fc30d5cea842d8b0d0c41e8085fc0a1a3fc9d858964390c55e4298511d1ccd4cea462b')
 
 prepare() {
   cd $pkgbase-$pkgver
@@ -38,6 +38,10 @@ prepare() {
 
   # run Python tests with the release binary
   sed -i 's|"target", directory, "hq"|"target", "release", "hq"|' tests/conftest.py
+
+  # avoid test failure due to slow domain resolution of non-existing hostname
+  # see https://github.com/It4innovations/hyperqueue/issues/963
+  sed -i 's|"nonexistingx:1"|"localhost:1"|' crates/tako/src/internal/datasrv/tests.rs
 }
 
 build() {
