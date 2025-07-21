@@ -10,18 +10,20 @@ post_install() {
 }
 
 post_upgrade() {
-  # return if old package version greater 0.6...
-  (( $(vercmp $2 '0.6') > 0 )) && return
+  # return if old package version greater 0.7...
+  (( $(vercmp $2 '0.7') > 0 )) && return
 
-  # upgrade from pre-0.6 version, avahi service names changed
+  # upgrade from pre-0.7 version, avahi service names changed
   cat <<-EOM
-	 > This upgrade from pacredir $2 to pacredir $1 changes avahi service
-	 > names. Make sure to update all your installations for compatibility.
-	 > The services will be restarted post transaction.
+	 > This upgrade to pacredir $1 changes the backend used for service discovery,
+	 > it depends on systemd-resolved now. By default that is used to announce the
+	 > service as well, so disable and stop avahi, and reload systemd-resolved:
+	 >   # systemctl disable avahi-daemon.socket avahi-daemon.service
+	 >   # systemctl stop avahi-daemon.socket avahi-daemon.service
+	 >   # systemctl reload systemd-resolved.service
+	 > Alternatively install the optional avahi compatibility package
+	 > 'pacredir-avahi' on top.
+	 > Finally restart the services:
+	 >   # systemctl restart pacredir.service pacserve.service
 	EOM
-
-  # mark for restart
-  for UNIT in pac{redir,serve}.service; do
-    systemctl set-property --runtime "${UNIT}" Markers=needs-restart
-  done
 }

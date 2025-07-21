@@ -1,42 +1,58 @@
 # Maintainer: Christian Hesse <mail@eworm.de>
 
-pkgname=pacredir
-pkgver=0.6.0
+pkgbase=pacredir
+pkgname=(pacredir pacredir-avahi)
+pkgver=0.7.2
 pkgrel=1
-pkgdesc='redirect pacman requests, assisted by avahi service discovery'
+pkgdesc='redirect pacman requests, assisted by mDNS service discovery'
 arch=('x86_64')
 url='https://github.com/eworm-de/pacredir'
 license=('GPL-3.0-or-later')
-depends=('avahi' 'libavahi-client.so' 'libavahi-common.so'
-         'curl' 'libcurl.so'
-         'darkhttpd'
-         'iniparser' 'libiniparser.so'
-         'libmicrohttpd' 'libmicrohttpd.so'
-         'sh'
-         'systemd-libs' 'libsystemd.so')
-makedepends=('systemd' 'discount')
-conflicts=('pacserve')
-install=pacredir.install
-backup=('etc/pacman.d/pacredir'
-        'etc/pacredir.conf'
-        'etc/pacserve.conf')
+makedepends=('coreutils'
+             'curl'
+             'discount'
+             'iniparser'
+             'libmicrohttpd'
+             'librsvg'
+             'oxipng'
+             'sh'
+             'systemd')
 validpgpkeys=('BD84DE71F493DF6814B0167254EDC91609BC9183') # Christian Hesse <mail@eworm.de>
 source=("https://www.eworm.de/download/${pkgname}/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha256sums=('249f315bd7dde87fe43748f43cd0ddcc00b7886d25c8ee8633e318d2ad4a9a86'
+sha256sums=('44af77c713ece6bb6efe7273fe3239b317adc2fcc78871e3afc5d0a19ee03859'
             'SKIP')
 
 build() {
-  cd ${pkgname}-${pkgver}/
-
-  # https://github.com/curl/curl/pull/17790
-  CFLAGS+=' -Wno-attribute-warning'
+  cd ${pkgbase}-${pkgver}/
 
   make
 }
 
-package() {
-  cd ${pkgname}-${pkgver}/
+package_pacredir() {
+  depends=('curl' 'libcurl.so'
+           'darkhttpd'
+           'iniparser' 'libiniparser.so'
+           'libmicrohttpd' 'libmicrohttpd.so'
+           'sh'
+           'systemd-libs' 'libsystemd.so')
+  optdepends=('pacredir-avahi: compatibility for avahi-daemon')
+  install=pacredir.install
+  backup=('etc/pacman.d/pacredir'
+          'etc/pacredir.conf'
+          'etc/pacserve.conf'
+          'etc/systemd/resolved.conf.d//01-pacredir-MulticastDNS-yes.conf')
+
+  cd ${pkgbase}-${pkgver}/
 
   make DESTDIR="${pkgdir}" install
 }
 
+package_pacredir-avahi() {
+  pkgdesc='redirect pacman requests, assisted by mDNS service discovery, avahi compatibility'
+  depends=('pacredir' 'avahi')
+  backup=('etc/systemd/resolved.conf.d/02-pacredir-avahi-MulticastDNS-resolve.conf')
+
+  cd ${pkgbase}-${pkgver}/
+
+  make DESTDIR="${pkgdir}" install-avahi
+}
