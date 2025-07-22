@@ -1,13 +1,15 @@
 pkgbase = geany-plugins
 	pkgdesc = Plugins for Geany
-	pkgver = 2.0
-	pkgrel = 6
-	url = https://plugins.geany.org/
+	pkgver = 2.1
+	pkgrel = 1
+	url = https://plugins.geany.org
 	arch = x86_64
 	license = GPL-2.0-or-later
+	makedepends = cppcheck
+	makedepends = git
 	makedepends = intltool
 	depends = ctpl
-	depends = geany>=2.0
+	depends = geany>=2.1
 	depends = gpgme
 	depends = gtkspell3
 	depends = libgit2
@@ -15,12 +17,7 @@ pkgbase = geany-plugins
 	depends = python
 	depends = vte3
 	depends = webkit2gtk
-	source = https://plugins.geany.org/geany-plugins/geany-plugins-2.0.tar.bz2
-	source = https://plugins.geany.org/geany-plugins/geany-plugins-2.0.tar.bz2.sig
-	source = https://github.com/geany/geany-plugins/commit/f1148d56.patch
-	validpgpkeys = 986FA7E80256D3D16F30FB7A01380DF54FD09D02
-	b2sums = 6175f91a3a7effa081393e9397336e0f5f59846fdadd0e31584f237c14863016cc4ab1b17745e1e2804ad88161dc7e43aef97a2332a5c18a7f1baf10d2ea42ba
-	b2sums = SKIP
-	b2sums = ac4b9605c0f39139d38d3676355e7b1b453d9088251d365e49ff5ded50463463141eed5ea720193b4f5df6198138aa3fed9223b75b6e5e3339c4526b02a013b8
+	source = git+https://github.com/geany/geany-plugins#tag=2.1.0
+	b2sums = 172910079ef579ecc4c985c538ab6c89c63cfa82ad9031248997e4a85ef676ff215f09710691d651bb12c6a2a57cf79400a61b038e724a9a4ae7afcc0165537d
 
 pkgname = geany-plugins
