@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=glim
-pkgver=0.1.0
+pkgver=0.2.1
 pkgrel=1
 pkgdesc="A TUI for monitoring GitLab CI/CD pipelines and projects"
 arch=('x86_64')
@@ -9,11 +9,11 @@ url="https://github.com/junkdog/glim"
 license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgname-$pkgver.tar.gz")
-sha512sums=('9462c10a6ea421515dfe6e419e8b3e6a9215b54375f9ab0f5c1e0f7e7124eb7df64fab156595f77d886174608b5ec860c2b0e090d2088443e2acf9d8e808fcfd')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgname-v$pkgver.tar.gz")
+sha512sums=('234ba06ea4518afe2d4a44c2b9fb4e231395040c009f210cba40a0173431d8a1d6d1ac916250033531336d834ceac0e0382bd19996cd6c3c3df9d33bf6659ea2')
 
 prepare() {
-  mv "$pkgname-$pkgname-$pkgver" "$pkgname-$pkgver"
+  mv "$pkgname-$pkgname-v$pkgver" "$pkgname-$pkgver"
   cd "$pkgname-$pkgver"
   cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')" # --locked
 }
