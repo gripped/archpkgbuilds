@@ -3,7 +3,7 @@
 
 pkgname=npm
 pkgver=11.4.2
-pkgrel=1
+pkgrel=2
 pkgdesc='JavaScript package manager'
 arch=(any)
 url=https://www.npmjs.com
@@ -66,10 +66,10 @@ package() {
     title=${name@U}
 
     sed -Ei "s/^\.TH \"$title\"/.TH \"NPM-$title\"/" "$page"
+    sed -Ei 's/^(\.TH "NPM-'"$title"'" "[^"]+") "[^"]+"/\1 ""/' "$page"
+
     mv "$page" "${page/\///npm-}"
   done
-
-  gzip man?/*
 
   # Support both `man` and `npm help`
   local dest sec_dir
