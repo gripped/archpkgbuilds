@@ -2,17 +2,17 @@
 
 _hkgname=curve25519
 pkgname=haskell-curve25519
-pkgver=0.2.8
-pkgrel=42
+pkgver=0.2.8.1
+pkgrel=1
 pkgdesc="Fast implementations of the curve25519 elliptic curve primitives."
 url="https://github.com/acw/curve25519"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-crypto-api')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tagged' 'haskell-test-framework'
              'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('31a113ff43215b07a9093d7897a4f55a9f0893d25b06512ebae74f9a260cc2ec')
+sha256sums=('b2cd7b959e4fb222335ed28050467dc5e56cd146e76e9ffb5d9d9d439aea595c')
 
 build() {
   cd $_hkgname-$pkgver
