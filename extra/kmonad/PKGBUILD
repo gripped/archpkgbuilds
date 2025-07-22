@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=kmonad
-pkgver=0.4.3
-pkgrel=64
+pkgver=0.4.4
+pkgrel=1
 pkgdesc="Advanced keyboard remapping utility"
 url="https://hackage.haskell.org/package/kmonad"
 license=("MIT")
@@ -11,7 +11,7 @@ depends=('ghc-libs' 'haskell-cereal' 'haskell-lens' 'haskell-megaparsec'
          'haskell-optparse-applicative' 'haskell-resourcet' 'haskell-rio' 'haskell-unliftio')
 makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-hspec-discover' 'git')
 source=("git+https://github.com/kmonad/kmonad.git#tag=$pkgver")
-sha256sums=('0e0a9aae28df0189e2fc01b4dbd5dd1aa03debe3feddcc3c23eece9337c3d712')
+sha256sums=('595a6337aa1d1b7b9e16bce53421fc379a5c3df321c589a5b2b8a3aa14ce1c3a')
 
 prepare() {
   cd $pkgname
