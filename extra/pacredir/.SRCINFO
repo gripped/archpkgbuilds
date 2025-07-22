@@ -1,6 +1,6 @@
 pkgbase = pacredir
 	pkgdesc = redirect pacman requests, assisted by mDNS service discovery
-	pkgver = 0.7.2
+	pkgver = 0.7.3
 	pkgrel = 1
 	url = https://github.com/eworm-de/pacredir
 	arch = x86_64
@@ -8,17 +8,16 @@ pkgbase = pacredir
 	makedepends = coreutils
 	makedepends = curl
 	makedepends = discount
+	makedepends = git
 	makedepends = iniparser
 	makedepends = libmicrohttpd
 	makedepends = librsvg
 	makedepends = oxipng
 	makedepends = sh
 	makedepends = systemd
-	source = https://www.eworm.de/download/pacredir/pacredir-0.7.2.tar.xz
-	source = https://www.eworm.de/download/pacredir/pacredir-0.7.2.tar.xz.asc
+	source = git+https://github.com/eworm-de/pacredir.git#tag=0.7.3?signed
 	validpgpkeys = BD84DE71F493DF6814B0167254EDC91609BC9183
-	sha256sums = 44af77c713ece6bb6efe7273fe3239b317adc2fcc78871e3afc5d0a19ee03859
-	sha256sums = SKIP
+	sha256sums = aff8aa0e801d8ddb76e833edc2bc46ee518c90f4557f87340cc3efd3e7054bd2
 
 pkgname = pacredir
 	install = pacredir.install
