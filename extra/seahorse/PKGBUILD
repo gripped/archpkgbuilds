@@ -4,9 +4,9 @@
 
 pkgname=seahorse
 pkgver=47.0.1
-pkgrel=3
+pkgrel=4
 epoch=1
-pkgdesc="GNOME application for managing PGP keys."
+pkgdesc="GNOME application for managing PGP keys"
 url="https://wiki.gnome.org/Apps/Seahorse"
 arch=(x86_64)
 license=('GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-SA-3.0')
@@ -36,7 +36,6 @@ makedepends=(
   yelp-tools
 )
 provides=(x11-ssh-askpass)
-groups=(gnome-extra)
 source=(
   "git+https://gitlab.gnome.org/GNOME/seahorse.git?signed#tag=${pkgver/[a-z]/.&}"
   gpgme-2.0.patch
