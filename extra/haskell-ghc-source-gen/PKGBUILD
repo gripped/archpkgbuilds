@@ -2,17 +2,17 @@
 
 _hkgname=ghc-source-gen
 pkgname=haskell-ghc-source-gen
-pkgver=0.4.5.0
-pkgrel=30
+pkgver=0.4.6.0
+pkgrel=1
 pkgdesc="Constructs Haskell syntax trees for the GHC API."
 url="https://github.com/google/ghc-source-gen#readme"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-ghc')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-ghc-paths' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('7b5377a9dbc81ccb10862d1b45f8e82ffe595f0412e07f32cf4b1c69148866a3')
+sha256sums=('948e1c058739097ef5bb213da4fa13759ae4a15e58d969934fe2557994762f03')
 
 build() {
   cd $_hkgname-$pkgver
