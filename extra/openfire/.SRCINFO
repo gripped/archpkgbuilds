@@ -1,14 +1,13 @@
 pkgbase = openfire
 	pkgdesc = High performance XMPP (Jabber) server.
-	pkgver = 4.9.2
-	pkgrel = 2
+	pkgver = 5.0.1
+	pkgrel = 1
 	url = https://www.igniterealtime.org/projects/openfire/
 	arch = any
 	license = APACHE-2.0
 	makedepends = maven
-	makedepends = jre11-openjdk-headless
-	makedepends = jdk11-openjdk
-	depends = java-runtime-headless<19
+	makedepends = java-environment=17
+	depends = java-runtime-headless>=17
 	backup = etc/conf.d/openfire
 	backup = etc/openfire/openfire.xml
 	backup = etc/openfire/security.xml
@@ -16,17 +15,19 @@ pkgbase = openfire
 	backup = etc/openfire/security/truststore
 	backup = etc/openfire/security/client.truststore
 	backup = etc/openfire/security/keystore
-	source = openfire-4.9.2.tar.gz::https://github.com/igniterealtime/Openfire/archive/refs/tags/v4.9.2.tar.gz
+	source = openfire-5.0.1.tar.gz::https://github.com/igniterealtime/Openfire/archive/refs/tags/v5.0.1.tar.gz
 	source = openfire.sh
 	source = openfire.conf
 	source = openfire.service
 	source = user.conf
 	source = tmpfile.conf
-	sha256sums = 3918dc46664ec6a1a8d6094858d7a6f8e3d923780de3625767bb3d8ac7a13db9
+	source = force-java17.patch
+	sha256sums = cd29305ff1bc9ee544aaa60fb11f32f5c6783a433069b589e9cb82d556a67c76
 	sha256sums = c850f376d53134ccc8d1035322dea792ba9145a5ab37f1801598c60bc70d0ed1
 	sha256sums = c8a612abee90bdc9a2869e562a4bbbf596159c60adcd23368833a0e2ca27c1d4
 	sha256sums = bc58f7e80cbdaee8523874990bf061cfd0e6480c676102e2131fe487d2782061
 	sha256sums = ea08e0c4d4b51b2a1adca71decfa1a856826898f00fb8ef857844f6326277e1e
 	sha256sums = c63396991984a067d05e21094a664255d6aed2bf294bddd3885a7da75472b886
+	sha256sums = f7104310b0921f2b5d088dc76e619f3b06f642f66402083a936419755b15232e
 
 pkgname = openfire

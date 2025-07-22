@@ -1,0 +1,14 @@
+diff -ura package.orig/Openfire-5.0.1/pom.xml package.new/Openfire-5.0.1/pom.xml
+--- package.orig/Openfire-5.0.1/pom.xml	2025-07-22 13:17:58.078298706 +0100
++++ package.new/Openfire-5.0.1/pom.xml	2025-07-22 13:19:22.418365175 +0100
+@@ -127,6 +127,10 @@
+         <slf4j.version>2.0.9</slf4j.version>
+         <log4j.version>2.20.0</log4j.version>
+         <ojdbc.version>23.7.0.25.01</ojdbc.version>
++
++        <!-- Force Java 17 for building and testing Openfire -->
++        <maven.compiler.release>17</maven.compiler.release>
++        <maven.compiler.testRelease>17</maven.compiler.testRelease>
+     </properties>
+ 
+     <profiles>
