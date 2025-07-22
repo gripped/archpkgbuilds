@@ -5,7 +5,7 @@
 # Contributor: Allan McRae <mcrae_allan@hotmail.com>
 
 pkgname=geany
-pkgver=2.0
+pkgver=2.1
 pkgrel=1
 pkgdesc='Fast and lightweight IDE'
 arch=(x86_64)
@@ -16,7 +16,7 @@ makedepends=(doxygen intltool python-lxml)
 optdepends=('geany-plugins: additional functionality'
             'vte3: embedded terminal support')
 source=("https://download.geany.org/$pkgname-$pkgver.tar.bz2")
-b2sums=('9a810827c3c8e5156329ec2e693d7181183d341ea74b5cbca940904912004e09b1ac0307710d2a6bec76c3c4b3e08c0a5231ffe5e65ba1234b33900192703d1a')
+b2sums=('b6249ea8c8637516c4133e6cfb6cd8cde2495f7b507342918f7850feb4f447ddf6513a9f12fc67cd0c909543346eeb4cff0ddfd26658dee9128fa899770a1bb7')
 
 build() {
   cd $pkgname-$pkgver
