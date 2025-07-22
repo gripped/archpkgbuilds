@@ -2,23 +2,23 @@
 
 _hkgname=fourmolu
 pkgname=haskell-fourmolu
-pkgver=0.10.1.0
-pkgrel=21
+pkgver=0.11.0.0
+pkgrel=1
 pkgdesc="A formatter for Haskell source code"
 url="https://github.com/parsonsmatt/fourmolu"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-diff' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-dlist'
-         'haskell-file-embed' 'haskell-ghc-lib-parser' 'haskell-gitrev' 'haskell-megaparsec' 'haskell-memotrie'
-         'haskell-optparse-applicative' 'haskell-syb' 'haskell-th-env' 'haskell-th-lift-instances' 'haskell-yaml')
+         'haskell-file-embed' 'haskell-ghc-lib-parser' 'haskell-megaparsec' 'haskell-memotrie'
+         'haskell-optparse-applicative' 'haskell-syb' 'haskell-th-env' 'haskell-yaml')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover'
              'haskell-hspec-megaparsec' 'haskell-path' 'haskell-path-io' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('e442b4aa21c320994c57f0c87bb7e6bf005207a167cb7e812c5142e4b8687f3e')
+sha256sums=('b9c581f07d2183eb0b673f3e1212cb144a6126e2fe62be34991f2b2df22047c3')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u aeson -u ansi-terminal -u optparse-applicative $_hkgname.cabal
+  uusi -u ansi-terminal -u optparse-applicative
 }
 
 build() {
