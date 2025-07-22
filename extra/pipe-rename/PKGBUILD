@@ -2,19 +2,18 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=pipe-rename
-pkgver=1.6.5
-pkgrel=3
+pkgver=1.6.6
+pkgrel=1
 pkgdesc='Rename your files using your favorite text editor'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/marcusbuffett/pipe-rename'
-license=('MIT')
-depends=('gcc-libs' 'glibc')
-makedepends=('cargo' 'git')
-options=('!lto')
-source=("git+$url#tag=$pkgver"
-        ${pkgname}-license::https://raw.githubusercontent.com/marcusbuffett/pipe-rename/833bd82800ba772e30b495f65ad073c6f5305c82/LICENSE)
-sha256sums=('7f19f03aae18641ca8b52528eba6779ef11dc59b0948d5c6386d59b9a4417128'
-            'cc7ce819e6fe29512855a738274da29acf1d78a3ab9afde619154581a19ccdef')
+license=(MIT)
+depends=(gcc-libs glibc)
+makedepends=(git rust)
+options=(!lto)
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('e1aef55bfcdbcf373b97a13a28e3dffd8043259d056848c4f6cc7acc7f5f3f52ecfbd30fb4ae367b78c7d52d853a47e0b73c130987806aa5bb87acbf961107bd')
+b2sums=('1630b02b1eeb934aeab2c5943cd8ec35214e29ba2f849aa31ac95bcef77a12d2990b4b64a5c0931a4ceb0ba927fe310f54480e3ce3adb805e69aa8bd13f9b7af')
 
 prepare() {
   cd "$pkgname"
@@ -38,5 +37,5 @@ package() {
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
 
   # license
-  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$srcdir"/${pkgname}-license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
