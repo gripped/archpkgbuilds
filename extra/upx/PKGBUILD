@@ -6,15 +6,16 @@
 # Contributor: Wang Haoyu
 
 pkgname=upx
-pkgver=5.0.1
+pkgver=5.0.2
 pkgrel=1
 pkgdesc='Extendable, high-performance executable packer for several executable formats'
 arch=(x86_64)
 url='https://github.com/upx/upx'
-license=(custom GPL2)
+license=(custom GPL-2.0-or-later)
+depends=(gcc-libs glibc)
 makedepends=(cmake git perl)
-# https://github.com/upx/upx/tree/v5.0.1/vendor
-# b='v5.0.1'; for x in doctest lzma-sdk ucl valgrind zlib; do echo "git+\$url-vendor-$x#commit=$(git ls-remote https://github.com/upx/upx-vendor-$x $b-upx-vendor | cut -b-40)"; done
+# https://github.com/upx/upx/tree/v5.0.2/vendor
+#b='v5.0.2'; for x in doctest lzma-sdk ucl valgrind zlib; do echo "git+\$url-vendor-$x#commit=$(git ls-remote https://github.com/upx/upx-vendor-$x $b-upx-vendor | cut -b-40)"; done
 source=(
   "git+$url-vendor-doctest#commit=835aaee34666173532e98437b057f37b385076c9"
   "git+$url-vendor-lzma-sdk#commit=f9637f9f563d17b6ecf33ae2212dcd44866bfb25"
@@ -27,7 +28,7 @@ b2sums=('dc777d999688281298c64d9d7e9e215f5ecb2a2d38cb75f5cbeafae062bc915b5bf4e2e
         'c900e601815a246a8beb792a99eba2242879f3b257d69907dd292d6e5f661c1230eae2a2c5e5533a42d293a6df7579f4d28db07aa812dedd3b9dee10837825ef'
         'e09769482c2484b38845234630344b774ee1b229cc910d4e0de85d439d277db4aa4a8eb3c47e0970b67cab065f61efacb17a23d67640288cf8b59fe53125a03f'
         '19433a84172cbdd8ff3a00091da2ac90459636834ae97412534efdb5a74df4c50c34cc7d7d0339d889dac58ce03c6e031f512a3b9d55e2b953c6c53d45645bfd'
-        '772a018898f461ff3b1691fad1b4149b6c565e9717e2e5d78869b33cff4ddcbd8a1969dcd5f7986842c2b5df311696cade874eddee32e3c5fcb05a735b326164')
+        '5830d9d7ab45e5362218ea0a3fcdc8e641fc3dcd93d3dc78b25ba3fdac20018980ae76348e2d1ec593259df44e00d35c177adbb4fc6305dcf25a17f9d36b8fb7')
 
 prepare() {
   cd $pkgname
@@ -47,7 +48,7 @@ build() {
 }
 
 check() {
-  # Check that the version has the proper version number and not something like "git-877911+".
+  # Check that the version has the proper version number and not something like "git-877911+"
   $pkgname/build/release/upx --help | grep -q "^UPX $pkgver" || exit 1
 
   # Run tests
