@@ -1,36 +1,29 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgbase=sg-323
-pkgname=(
-  'sg-323-clap'
-  'sg-323-vst3'
-)
-pkgver=1.0.0
+pkgname=(sg-323-{clap,vst3,lv2})
+pkgver=1.0.1
 pkgrel=1
 pkgdesc='Emulation of the Ursa Major Stargate 323 digital reverb'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/greyboxaudio/SG-323'
-license=('GPL-3.0-only')
-groups=('pro-audio')
+license=(GPL-3.0-only)
+groups=(pro-audio)
 _common_depends=(
-  'glibc'
-  'gcc-libs'
-  'alsa-lib'
-  'freetype2'
+  glibc
+  gcc-libs
+  alsa-lib
+  freetype2
 )
 makedepends=(
   "${_common_depends[@]}"
-  'git'
-  'cmake'
-  'curl'
-  'gendesk'
-  'jack'
-  'libpng'
-  'libx11'
-  'libxrandr'
-  'libxinerama'
-  'libxcursor'
-  'webkit2gtk'
+  git
+  cmake
+  fontconfig
+  libx11
+  libxrandr
+  libxinerama
+  libxcursor
 )
 source=(
   "$pkgbase::git+$url#tag=$pkgver"
@@ -39,12 +32,12 @@ source=(
   'github.com-free-audio-clap::git+https://github.com/free-audio/clap'
   'github.com-free-audio-clap-helpers::git+https://github.com/free-audio/clap-helpers'
 )
-sha512sums=('4bd3fcfd7e08435bbe61c46f0fe90a1dd89caea6835755c05332e38ff647568eabacd3a66e9531e87c4e637c9c16d57c29d335178e5611cc14f95126705ce8e6'
+sha512sums=('19914fee7c849bd8949647a8d6897ec479ed14a4afecab4de1c6aeba60871ec9d3ca2c915370d5839d2125c4f3e1144ec876585ad3fd92e69f6a48431ff27b7d'
             'SKIP'
             'SKIP'
             'SKIP'
             'SKIP')
-b2sums=('7da2f16048bb6cb866a69d68206e3f736c410824659ce85af1614dfe7c88bddb5e1e47d896068882ac9a04b8745593333d5a19e004a315cb1cd0a88dded02c1d'
+b2sums=('dd59ada94363cb677c04f6d2c5688dd46ce8ded8d0885f3a0d6858d64a176d4187c3f27d3b4043b5dcf6fd260c3f82ba5d03abed7a5b8417d358f3fbb9bcf1c9'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -81,10 +74,10 @@ build() {
 
 package_sg-323-clap() {
   pkgdesc+=' - CLAP plugin'
-  groups+=('clap-plugins')
+  groups+=(clap-plugins)
   depends=(
     "${_common_depends[@]}"
-    'clap-host'
+    clap-host
   )
 
   install -vDm644 -t "$pkgdir/usr/lib/clap" build/SG323_artefacts/CLAP/SG-323.clap
@@ -92,12 +85,24 @@ package_sg-323-clap() {
 
 package_sg-323-vst3() {
   pkgdesc+=' - VST3 plugin'
-  groups+=('vst3-plugins')
+  groups+=(vst3-plugins)
   depends=(
     "${_common_depends[@]}"
-    'vst3-host'
+    vst3-host
   )
 
   install -vd "$pkgdir/usr/lib/vst3"
   cp -vr build/SG323_artefacts/VST3/SG-323.vst3 "$pkgdir/usr/lib/vst3"
+}
+
+package_sg-323-lv2() {
+  pkgdesc+=' - LV2 plugin'
+  groups+=(lv2-plugins)
+  depends=(
+    "${_common_depends[@]}"
+    lv2-host
+  )
+
+  install -vd "$pkgdir/usr/lib/lv2"
+  cp -vr build/SG323_artefacts/LV2/* "$pkgdir/usr/lib/lv2"
 }
