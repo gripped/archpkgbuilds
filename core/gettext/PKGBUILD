@@ -1,7 +1,7 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=gettext
-pkgver=0.25.1
+pkgver=0.26
 pkgrel=1
 pkgdesc="GNU internationalization library"
 url="https://www.gnu.org/software/gettext/"
@@ -31,7 +31,7 @@ options=(!docs)
 source=(
   https://ftp.gnu.org/pub/gnu/gettext/$pkgname-$pkgver.tar.gz{,.sig}
 )
-b2sums=('921f5a0ccc84a910029288fcf9eb55f76c18e9a65f590b6cdc16e88d1312beca38db6150bfafa08d740d34ea14711b976ae251afe121bcfc6b664ec0592fb0e4'
+b2sums=('f8e6b6d232b0a92f333d934c273a6923af40a9d6c632e20d240c7260d13f4be4bacd89efe4ccc2cce5a847e45e87911d692ef6c6f749c1821d1d5508daa14188'
         'SKIP')
 validpgpkeys=('462225C3B46F34879FC8496CD605848ED7E69871'  # Daiki Ueno
               '68D94D8AAEEAD48AE7DC5B904F494A942E4616C2'
