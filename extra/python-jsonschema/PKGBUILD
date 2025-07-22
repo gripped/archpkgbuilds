@@ -5,8 +5,8 @@
 # Contributor: Ismo Toijala <ismo.toijala@gmail.com>
 
 pkgname=python-jsonschema
-pkgver=4.23.0
-pkgrel=2
+pkgver=4.25.0
+pkgrel=1
 pkgdesc='An implementation of JSON Schema validation for Python'
 arch=('any')
 url='https://github.com/python-jsonschema/jsonschema'
@@ -33,6 +33,7 @@ checkdepends=(
   'python-fqdn'
   'python-idna'
   'python-jsonpointer'
+  'python-jsonpath-ng'
   'python-rfc3339-validator'
   'python-rfc3987'
   'python-uri-template'
@@ -49,8 +50,8 @@ optdepends=(
   'python-webcolors: for color format'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('0bff4113408fe14d591ee1ea501587bbec7d52df0d50b9d8e4bedfca9003f934c8c474015f1806f76ab1c6e37a9c22db5aea94d0d5ef889ad02c6d86a62cf19e')
-b2sums=('03b9165737b058b1d84be08c5ea11131f69ea77c4c6788eb816689339f7cdf4416cbf8ffc15690ef8917181d94711ad9a55fe5edf11202381002f6a091e4abea')
+sha512sums=('fb603a3812896e78b5a6ac67013f5dc4badf34ae1b64b5552fe2f68f0d6c7e24c73c34604f2a2bd3b240fa722a66c81c78af663add40d3b9d01c6679343c0633')
+b2sums=('632544ec7ae102b708001f865304f8d3e480dcc55b09923186036a7d9f42daa60cb8c702831569bbc749b2b305f551b9921ad9ab09bae4e54fa37b8f0c00ebf3')
 
 build() {
   cd "$pkgname"
