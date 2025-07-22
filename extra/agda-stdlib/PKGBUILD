@@ -2,28 +2,28 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=agda-stdlib
-pkgver=1.7.3
+pkgver=2.0
 _agdaver=2.6.4.3
-pkgrel=4
+pkgrel=1
 pkgdesc="Agda standard libraries"
 url="https://github.com/agda/agda-stdlib"
 license=("MIT")
 arch=('x86_64')
 depends=("agda=$_agdaver")
-makedepends=('ghc' 'haskell-filemanip')
+makedepends=('git' 'ghc' 'haskell-filemanip')
 options=('staticlibs')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/agda/agda-stdlib/archive/v$pkgver.tar.gz"
+source=("git+https://github.com/agda/agda-stdlib.git#tag=v$pkgver"
         standard-library.agda-lib.in)
-sha512sums=('23649e41bf52df03a448e9395360e4a1eb815940a48ae6d86e16681ecd756be6129059b8f90f78bba7aa79e7668cccca5a2f7cb39c2b920ae043b257fdbfc120'
+sha512sums=('febf55173ef8640d312b5be57c44b24427396ae992cbc2ceaacae37b14a581128bfce77e69ec9cdb23a8e6bb8d720fe2a6559f8bdf24414107fa7b856549c023'
             '9b666bd3b6122b196353b68a4a6bdf15318f276a644f04ffa001793de1c78ba7c9bd875c3011c1c0363d81c9f94f4901b9aa4766aa5f1825057a109b03021701')
 
 prepare() {
-    cd $pkgname-$pkgver
+    cd $pkgname
     rm standard-library.agda-lib
 }
 
 build() {
-    cd $pkgname-$pkgver
+    cd $pkgname
 
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla
     runhaskell Setup build $MAKEFLAGS
@@ -36,7 +36,7 @@ build() {
 package() {
     install -Dm644 standard-library.agda-lib.in "$pkgdir"/usr/share/agda/lib/standard-library.agda-lib
 
-    cd $pkgname-$pkgver
+    cd $pkgname
     install -dm755 "$pkgdir"/usr/share/agda/lib/stdlib
     cp -pr src/* "$pkgdir"/usr/share/agda/lib/stdlib/
 
