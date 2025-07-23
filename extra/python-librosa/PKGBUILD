@@ -3,8 +3,8 @@
 # Contributor: Jose Riha <jose1711@gmail.com>
 
 pkgname=python-librosa
-pkgver=0.10.2.post1
-pkgrel=3
+pkgver=0.11.0
+pkgrel=1
 pkgdesc='Python library for music and audio analysis'
 arch=(any)
 url=https://librosa.org
@@ -23,7 +23,6 @@ depends=(
   python-resampy
   python-scikit-learn
   python-scipy
-  python-six
   python-soundfile
   python-soxr
   python-typing_extensions
@@ -35,23 +34,22 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-_tag=c295e2ada7c307bc55765b1fc72ef5c1cb7cbbac
-source=(git+https://github.com/librosa/librosa.git#tag=${_tag})
-b2sums=('15f5d0d872351a9d42a521b2cc103ab73f7679f598dc81de9f5cc6bbfa10af4f4957fae6ff1012af94a1268226c624072db98671e0d62f58c421f7d0ee11d7ba')
-
-pkgver() {
-  cd librosa
-  git describe --tags
-}
+source=("$pkgname::git+https://github.com/librosa/librosa.git#tag=$pkgver")
+sha512sums=('dad526d004cd9b217a2128d82cd14c377704b1349afc37770f558c953c1d5474a78cefae78cbb781599e9a016a628fc3bad3e5fabd1dd0ce40ef3d910847bf19')
+b2sums=('bee55cdb828545779fff9bae1cb615603a6d51636af6ed85e099288ac74eaa66a597cb3b34576a9a7cac805ce78b92dbe57bda4ac39f397a2523885b2f13cbc1')
 
 build() {
-  cd librosa
+  cd "$pkgname"
+
   python -m build --wheel --no-isolation
 }
 
 package() {
-  python -m installer --destdir="${pkgdir}" librosa/dist/*.whl
-  install -Dm 644 librosa/LICENSE.md -t "${pkgdir}"/usr/share/licenses/python-librosa/
-}
+  cd "$pkgname"
 
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.md
+}
 # vim:set ts=2 sw=2 et:
