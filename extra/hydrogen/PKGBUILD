@@ -4,7 +4,7 @@
 # Contributor: tobias <tobias@archlinux.org>
 
 pkgname=hydrogen
-pkgver=1.2.4
+pkgver=1.2.5
 pkgrel=1
 pkgdesc="An advanced drum machine"
 arch=(x86_64)
@@ -39,8 +39,8 @@ optdepends=('new-session-manager: for session management')
 source=(
   https://github.com/$pkgname-music/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz
 )
-sha512sums=('3f1522ac0535aa482c828382965822c6a81e5359bece93cbd7ed5029d8a1e192f187e10c5205274cc0ca5c030e958cfd062650f47fb9188f13a176dface64475')
-b2sums=('ed718e75d7016dae234148d3eafd676127248bbebc2f8bd98db2c6ca52e62e4df282035afba0de0692a5e4c0cceb7a920dab6d3688aec9c3793f448f8db54a7b')
+sha512sums=('def3904d9e0ce5abe889d65c2114e8306e1c3ea422349e42b07649a13f04d19565fa7bc5ce48b02310934eee747e11414daf20e66d9e5e290d17ebf25cd7d856')
+b2sums=('f6cfb575a9795a54d8955ea32cfcd2261896332f50d07f16c4bd291cfc37bce475d6a2e797387b29b7866d4d59724c400ab929fdda979bcefa8c8f798eae4409')
 
 build() {
   local cmake_options=(
@@ -84,7 +84,7 @@ package() {
   )
 
   DESTDIR="$pkgdir" cmake --install build
-  install -vDm 644 $pkgname-$pkgver/{ChangeLog,DEVELOPERS,INSTALL.md,README.md} -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 $pkgname-$pkgver/{CHANGELOG,INSTALL,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
 }
 
 # vim:set ts=2 sw=2 et:
