@@ -5,7 +5,7 @@ pkgname=(
   papers
   papers-lib-docs
 )
-pkgver=48.4
+pkgver=48.5
 pkgrel=1
 pkgdesc='Document viewer for PDF and other document formats aimed at the GNOME desktop'
 arch=(x86_64)
@@ -43,8 +43,8 @@ makedepends=(
   meson
   rust
 )
-source=("git+https://gitlab.gnome.org/GNOME/Incubator/papers.git#tag=$pkgver")
-b2sums=('cfd1693e9bd86b9e3b876dc1e6989238ef10ed95a8c1751b6509bf614b5d931ec5404e1ee700f1fe3045827c71bbd366519b70ab55b8df660cda162e239b0dea')
+source=("git+https://gitlab.gnome.org/GNOME/papers.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('2f2c6146aac10258304fb540cde94f0b0591654e4a6f51f28526e00d86a5d5bd592414c07f33a7c77cbd5c32c4c7f724041f2178690a6348172a0376a9a49b97')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false

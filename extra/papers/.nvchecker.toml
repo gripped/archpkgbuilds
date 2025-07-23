@@ -1,3 +1,6 @@
 [papers]
 source = "git"
-git = "https://gitlab.gnome.org/GNOME/Incubator/papers.git"
+git = "https://gitlab.gnome.org/GNOME/papers.git"
+include_regex = '\d+(\.\d+)*'
+from_pattern = '\.([a-z])'
+to_pattern = '\1'
