@@ -2,8 +2,8 @@
 
 _name=pytest-services
 pkgname=python-pytest-services
-pkgver=2.2.1
-pkgrel=12
+pkgver=2.2.2
+pkgrel=1
 pkgdesc="Services plugin for pytest testing framework"
 arch=(any)
 url="https://github.com/pytest-dev/pytest-services"
@@ -29,13 +29,13 @@ checkdepends=(
   python-pylibmc
   xorg-server-xvfb
 )
-source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('95d70431a7c3fa3b1602e6ad0e72975cecf5f0464e1bbc21d5b4eee6aefee52794c7b1d8dacf0681cc4cbb5ae7910075a7d0b3859647cc55298a2792489c4bfb')
-b2sums=('6f4b66b713ca4976eae61bf516bfecf13b8d6f56e03ae772ba9465e7c4c52b8d5ffa713b9441c73538a0b05665da7b7aa53d5f5da1626c6c208edf1c8239b1b1')
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
+sha512sums=('d59c27e9b2041204425e1bbffceb6fa7ad5d19d3af062e24d67f5ddb464008a572ff539614405fa8134b5b4cd4605a067b20b912dcbdede9eca1dc5a544181e6')
+b2sums=('f17e4f544a2a72c597290a94adbd86acf6b5110de126e3d43f99b96e924978893249fb90a83e23f814377cd86126bbdcd395f3cce0da935f783cee1cb473eece')
 
 build() {
   cd $_name-$pkgver
-  python -m build --wheel --no-isolation
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --no-isolation
 }
 
 check() {
