@@ -2,7 +2,7 @@
 
 pkgbase=erofs-utils
 pkgname=(erofs-utils erofsfuse)
-pkgver=1.8.9
+pkgver=1.8.10
 pkgrel=1
 pkgdesc="Userspace utilities for linux-erofs file system"
 arch=(x86_64)
@@ -23,8 +23,8 @@ makedepends=(
   zstd
 )
 source=($url/snapshot/$pkgname-$pkgver.tar.gz)
-sha512sums=('f9ef2fae7de177a86a757f6b025eddcb8293f16218ae73425aaf39701165fe749928c31847f788518a911370693f30828dcd8a3b3a0c83f81fce45047cea3956')
-b2sums=('b17654f68f264f535f4f1d021c2e264886f46d5c1b6f69a0f47eba352e3f2d8bfbd6d5e0190a55fd0e07328fe89e6ebcd3d7d83f7a4be67f85348178dda94e54')
+sha512sums=('8c7afd3db55fd4c4f7aa9fbd7ed40fa40de0bfffcee601a3f5dce823d406a32b5e939e24cd6dc336e3033e940fb16ee93f8821f627f90b10e6137113949933dd')
+b2sums=('9575258115192dc0ef7999dd1fa44f619f9f62c93cfe28e3e65fd5d9a601b09acdce293552c90f51c2f7b557d8830e856d6706af6ccd98fc157b05f819d136b4')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -41,7 +41,7 @@ build() {
   )
 
   cd $pkgname-$pkgver
-  ./configure "${configure_options[@]}"
+  MAX_BLOCK_SIZE=65536 ./configure "${configure_options[@]}"
   # prevent excessive overlinking due to libtool
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
