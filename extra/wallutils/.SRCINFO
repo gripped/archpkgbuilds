@@ -1,6 +1,6 @@
 pkgbase = wallutils
 	pkgdesc = Utilities for handling resolutions, wallpapers and timed wallpapers
-	pkgver = 5.12.9
+	pkgver = 5.14.1
 	pkgrel = 1
 	url = https://github.com/xyproto/wallutils
 	arch = x86_64
@@ -9,12 +9,14 @@ pkgbase = wallutils
 	makedepends = go
 	makedepends = libxcursor
 	makedepends = libxmu
+	makedepends = libxpm
 	makedepends = upx
 	makedepends = xbitmaps
 	makedepends = xorgproto
+	depends = bash
+	depends = glibc
 	depends = libheif
 	depends = libx11
-	depends = libxpm
 	depends = wayland
 	optdepends = feh: for setting the wallpaper for some window managers that runs under X
 	optdepends = imagemagick: for supporting HEIF/HEIC (macOS wallpaper) files
@@ -23,7 +25,7 @@ pkgbase = wallutils
 	optdepends = swaybg: for the Sway and Labwc window managers
 	options = !strip
 	options = !lto
-	source = git+https://github.com/xyproto/wallutils#commit=8da65d99b7b8e12dd7e4f9df2c278ae3725f7570
-	b2sums = 8230472933819b2805c943ef8da261bd13f32aebcd6912e8d983af95b6f12bdb3ec64a8bba2fb6b23733c3cdca618e97a26ccc3807f8232d43aa965fa799a714
+	source = git+https://github.com/xyproto/wallutils#tag=v5.14.1
+	b2sums = f8cec26c7a8c4e73bdbb1d36529860ffd200697652727140415d5a6ab8f8f3e2824ea83dd5720ad6198621e2c652d67efd539c74acd64ca64815a5abda7b991d
 
 pkgname = wallutils
