@@ -6,7 +6,7 @@
 
 pkgname=esptool
 pkgver=5.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Espressif SoC serial bootloader utility'
 arch=(any)
 url='https://github.com/espressif/esptool'
@@ -26,15 +26,19 @@ depends=(
   python-rich-click
 )
 optdepends=('python-python-pkcs11: Support for HSM devices')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-b2sums=('ab152173616aeabbc026b9502e5430075e90ecc63542840c3fa84b2fc9612ed36a0d4317f2f34c97faa66c9faa964c9f5010b7c4a439c98a7efdf769ff0d38cc')
+source=("git+$url.git#tag=v$pkgver")
+b2sums=('54198ca32418a59d8c539af2d90d6ce460794ede52efd34b593e48636c54e2c3b5d2c3ce657e48d00f9a6c6d90172cceb61a0dfb7b72072e705ebc4c7c45f343')
+
+prepare() {
+  git -C $pkgname cherry-pick -n 0779a019603129d92833b3d275e82074b4a49ac4 # fix click >8.2.0 compat
+}
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m build --wheel --no-isolation
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
