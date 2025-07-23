@@ -5,23 +5,27 @@
 
 pkgname=yazi
 pkgver=25.5.31
-pkgrel=1
+pkgrel=2
 pkgdesc="Blazing fast terminal file manager written in Rust, based on async I/O"
 url="https://github.com/sxyazi/yazi"
 arch=("x86_64")
 license=('MIT')
 depends=('gcc-libs' 'ttf-nerd-fonts-symbols')
 optdepends=(
-	'jq: for JSON preview'
-	'7zip: for archive preview'
 	'ffmpeg: for video thumbnails'
+	'7zip: for archive extraction and preview'
+	'jq: for JSON preview'
+	'poppler: for PDF preview'
 	'fd: for file searching'
 	'ripgrep: for file content searching'
-	'fzf: for directory jumping'
-	'poppler: for PDF preview'
-	'zoxide: for directory jumping'
-	'imagemagick: for previewing fonts'
-	'chafa: for previewing images'
+	'fzf: for quick file subtree navigation'
+	'zoxide: for historical directories navigation'
+	'resvg: for SVG preview'
+	'imagemagick: for image and font preview'
+	'xclip: for X11 clipboard support'
+	'xsel: for X11 clipboard support'
+	'wl-clipboard: for Wayland clipboard support'
+	'chafa: for ASCII image preview as fallback'
 )
 makedepends=('cargo' 'imagemagick')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/sxyazi/$pkgname/archive/v$pkgver.tar.gz")
