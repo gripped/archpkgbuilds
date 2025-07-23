@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=osquery
-pkgver=5.17.0
+pkgver=5.18.1
 pkgrel=1
 pkgdesc="SQL powered operating system instrumentation, monitoring, and analytics"
 arch=(x86_64)
@@ -78,29 +78,29 @@ source=(
   "$pkgname-util-linux::git+https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git"
   # Patchset maintained here:
   # https://github.com/carlsmedstad/osquery/tree/build-on-archlinux
-  "$pkgname-0001-Use-system-libraries-where-possible.patch::$_url/commit/dd08b4e2f1db5d19003e1728ed6122474060ef91.patch"
-  "$pkgname-0002-Disable-submodule-fetching.patch::$_url/commit/e6e3b683fe8ae9131bcbeb4aeb4ae0a4549a4aeb.patch"
-  "$pkgname-0003-Remove-include-of-non-existing-header-xlocale.h.patch::$_url/commit/6528b181ebdf75316d145a2819cffa8dcb3a4ec9.patch"
-  "$pkgname-0005-Fix-remaining-compilation-issues.patch::$_url/commit/a0d28a211afb7291c2ebed321cd91e2c7a686a21.patch"
-  "$pkgname-0006-Do-not-build-system_controls-tables.patch::$_url/commit/c52b0ae5a9717ef1da45c05f91f8af4884e6aecd.patch"
-  "$pkgname-0007-Do-not-build-block_devices-tables.patch::$_url/commit/c80a3a215eb155c570e76888e74bc81e17ccbeb1.patch"
-  "$pkgname-0008-Do-not-build-utils-requiring-libdpkg.patch::$_url/commit/8ae3260cd2bfc7fa108c5bb345a3227b58ba5d7e.patch"
-  "$pkgname-0009-Fix-systemd-service-and-systemctl-script.patch::$_url/commit/d792974525c271cfb9984f42d0ee157ed6444705.patch"
-  "$pkgname-0010-Adapt-installation-to-using-system-packages.patch::$_url/commit/63d89a012efcd9b4e773abbc63be0e445a58675d.patch"
+  "$pkgname-0001-Use-system-libraries-where-possible.patch::$_url/commit/cfba4b8acdbb4ed805bcd07e473d5cccefa8e3e6.patch"
+  "$pkgname-0002-Disable-submodule-fetching.patch::$_url/commit/1613c65e69bdc69cff1aa6121f46200e533eba68.patch"
+  "$pkgname-0003-Remove-include-of-non-existing-header-xlocale.h.patch::$_url/commit/3f963b910767aff9b8e8ed180ff5ed8ccba7f163.patch"
+  "$pkgname-0004-Fix-remaining-compilation-issues.patch::$_url/commit/fb198049d765f228f06f0feaa491e531bf1c0905.patch"
+  "$pkgname-0005-Do-not-build-system_controls-tables.patch::$_url/commit/db441c2c031dc61afcba1e903ed9a7f7161e7d64.patch"
+  "$pkgname-0006-Do-not-build-block_devices-tables.patch::$_url/commit/58b78b8dba31952990166087ec920ee58eb61bb0.patch"
+  "$pkgname-0007-Do-not-build-utils-requiring-libdpkg.patch::$_url/commit/4aae30a46a4a3744e308ab0a82653dba79ad79ff.patch"
+  "$pkgname-0008-Fix-systemd-service-and-systemctl-script.patch::$_url/commit/4904934ca19902146215f44a8f6d710f6060dbf3.patch"
+  "$pkgname-0009-Adapt-installation-to-using-system-packages.patch::$_url/commit/0777b63c0c2c2cee13f78ab2b6e3100ee1399dd3.patch"
   "gcc-15.patch"
 )
-sha256sums=('2c046a52b374bd50b0b43c142561de24dd0a72c593b4ed90474775fd2733d0db'
+sha256sums=('44270a3b277eed57929067a811779c7850c77ffc8e5996cf8fd02bf18f81859d'
             'SKIP'
             'SKIP'
-            '9a29ecc1bf238db6e879d4ebe11b0cff440efe749f5c8e247607ca314e5a96c8'
-            'ccc3d0a50873f3b941270ef2b64f089f56a34ee9dda730126509395e5f30adec'
-            'bc977d07d62073668767b95799ddb057b7acb79f1cf784aaf69eae6faed8e86a'
-            'd5b77ea645455d8c0a7e1e9166bb845f06198c1ce6aae3ca6f0ffa435d20f7e5'
-            '6fb0e2147e7cbe60bd29d7f1e3a8ea3fb1e57d7b49192ebcb06d2958f1b13082'
-            '1eb626046a244b662bc9b54f2eff5be169246ea30098529e73cd2470375a70b2'
-            '93852062408d75eb647d686a0d4002bad2520d6c373bfe53be9615c689f2c626'
-            '3d6428c3209a941ca37d14955f087627db438e94fc68542f7f5a799e7a087edb'
-            'ab11afda86d32bedf61f7f37cc2d3b3a37c62c9bf22a584c1a12d1427225ca7e'
+            '343191e2dc7f58c4671912151e52fbad98ac03a077b3d36f1e8e27783689c548'
+            '1d3dbfaa3d67637f6aab20ba9833d3f0f909cf0506fc1c968a1d26bf115ce8ab'
+            '657cfa3e170d49ead14a872317a4d0291afa23ecc60d5830418793996c1c713f'
+            '1aeedb7b74a72d5398e5867d3cf845e89edb37d4aac051203db0c3f2c35f788a'
+            '3d9f70aa55001bec7005d84e75f302f2e84ae93d1c4b679fcff7d96ebb53e7d7'
+            '7d4b0f46a6872de17bf2a2092570cca816c2684c1946632a0c5ec1abcbdf45d4'
+            '56ed0eba778aacf96115a4a8ff392e6cd622598595f082db9e7db05229ee6c5f'
+            'fb9dee5aa0504d59a24e05a9588888bdf1c0db13c75dad39c6ca9a6adc490696'
+            'e50be792bb5e6d0b0cfd32ab5f30043aefc9b40c343bf8124f9bd510709c83aa'
             '21e0bf884039ba7f0c16cefca5ca7d39b5daeee49518c5c0d4a374b15a27e1ae')
 
 prepare() {
