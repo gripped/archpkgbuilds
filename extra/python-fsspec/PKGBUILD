@@ -3,7 +3,7 @@
 
 _pkgname=filesystem_spec
 pkgname=python-fsspec
-pkgver=2025.5.1
+pkgver=2025.7.0
 pkgrel=1
 pkgdesc="Specification that python filesystems should adhere to"
 arch=(any)
@@ -62,7 +62,7 @@ optdepends=(
   'python-zstandard: zstandard (zstd) compression support'
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('a71eacc36f0a5cefcd8c7b0754cba1970a51e4d6c9b1a6c08ecc9ad01923acd5')
+sha256sums=('7d9e29f6a8b55caf945d59bb96c8c0642f773752b5b4afe2c953fbca47074156')
 
 build() {
   cd $_pkgname-$pkgver
