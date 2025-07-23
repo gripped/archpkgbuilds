@@ -1,0 +1,45 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-audioop-lts
+pkgver=0.2.1
+pkgrel=2
+pkgdesc="A LTS port of Python's 'audioop' module"
+arch=(x86_64)
+url='https://github.com/AbstractUmbra/audioop'
+license=(PSF-2.0)
+depends=(glibc python)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(python-pytest)
+provides=(python-audioop)
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('473358b4c634225511d802a45bc0dd419fce8f030cacbac7e4a1de160112aab39a35f9c2c0904f518d5c3c2dd03b7f217194863140ec8f51f564e025b5b8d959')
+b2sums=('000be9b03692074b3e7774482341977b52fd215bebb98fc9ff02cf7f426f747466e331167ee4ebd574b3dae46bfba5471ca411cc3de75dc141583d57cdb88cee')
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "$pkgname"
+
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
+  # install to temporary directory
+  python -m installer --destdir="$PWD/tmp_install" dist/*.whl
+
+  PYTHONPATH="$PWD/tmp_install$site_packages" pytest -v
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
