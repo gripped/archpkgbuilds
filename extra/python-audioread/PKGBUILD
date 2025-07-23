@@ -1,10 +1,11 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
 # Contributor: Jingbei Li <i@jingbei.li>
 # Contributor: Jose Riha <jose1711i@gmail.com>
 
 pkgname=python-audioread
 pkgver=3.0.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Cross-library (GStreamer + Core Audio + MAD + FFmpeg) audio decoding for Python"
 arch=(any)
 url=https://github.com/beetbox/audioread
@@ -19,23 +20,45 @@ makedepends=(
   python-pymad
   python-wheel
 )
+checkdepends=(
+  python-pytest
+  python-standard-aifc
+  python-standard-sunau
+)
 optdepends=(
   'gst-python: GStreamer backend'
   'python-gobject: GStreamer backend'
   'python-pymad: MAD backend'
+  'python-standard-aifc: AIFF/AIFF-C file support'
+  'python-standard-sunau: Sun AU file support'
 )
-_tag=724b884c0083edb753a3d473164922d75d7d3beb
-source=(git+https://github.com/beetbox/audioread.git#tag=${_tag})
+source=("$pkgname::git+https://github.com/beetbox/audioread.git#tag=v$pkgver")
+sha512sums=('f96f57a2f8f8ff763b9f04e58ac733b739d664956a93938343bd13c2cccd448a0edc5227902cff1cd914cdfcdc10ee4279aeb5c0ea8f6fa68f6f61d3440ccd9b')
 b2sums=('4585f05c0b7e4769cf6fd8f9745ac7f00083cfe7267097ab6a260bdd6a696e9e8b29eb616b1b78f38430037771e202413173108290cee4b0983511744a0c1827')
 
 build() {
-  cd audioread
+  cd "$pkgname"
+
   python -m build --wheel --no-isolation
 }
 
-package() {
-  python -m installer --destdir="${pkgdir}" audioread/dist/*.whl
-  install -Dm 644 audioread/LICENSE -t "${pkgdir}"/usr/share/licenses/python-audioread/
+check() {
+  cd "$pkgname"
+
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
+  # install to temporary directory
+  python -m installer --destdir="$PWD/tmp_install" dist/*.whl
+
+  PYTHONPATH="$PWD/tmp_install$site_packages" pytest -v
 }
 
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}
 # vim:set ts=2 sw=2 et:

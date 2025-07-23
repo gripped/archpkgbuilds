@@ -1,10 +1,13 @@
 pkgbase = python-audioread
 	pkgdesc = Cross-library (GStreamer + Core Audio + MAD + FFmpeg) audio decoding for Python
 	pkgver = 3.0.1
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/beetbox/audioread
 	arch = any
 	license = MIT
+	checkdepends = python-pytest
+	checkdepends = python-standard-aifc
+	checkdepends = python-standard-sunau
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-flit-core
@@ -16,7 +19,10 @@ pkgbase = python-audioread
 	optdepends = gst-python: GStreamer backend
 	optdepends = python-gobject: GStreamer backend
 	optdepends = python-pymad: MAD backend
-	source = git+https://github.com/beetbox/audioread.git#tag=724b884c0083edb753a3d473164922d75d7d3beb
+	optdepends = python-standard-aifc: AIFF/AIFF-C file support
+	optdepends = python-standard-sunau: Sun AU file support
+	source = python-audioread::git+https://github.com/beetbox/audioread.git#tag=v3.0.1
+	sha512sums = f96f57a2f8f8ff763b9f04e58ac733b739d664956a93938343bd13c2cccd448a0edc5227902cff1cd914cdfcdc10ee4279aeb5c0ea8f6fa68f6f61d3440ccd9b
 	b2sums = 4585f05c0b7e4769cf6fd8f9745ac7f00083cfe7267097ab6a260bdd6a696e9e8b29eb616b1b78f38430037771e202413173108290cee4b0983511744a0c1827
 
 pkgname = python-audioread
