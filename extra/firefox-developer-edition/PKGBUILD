@@ -2,7 +2,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=firefox-developer-edition
-pkgver=141.0b9
+pkgver=142.0b1
 pkgrel=1
 pkgdesc="Fast, Private & Safe Web Browser (Developer Edition)"
 url="https://www.mozilla.org/firefox/developer/"
@@ -85,23 +85,22 @@ validpgpkeys=(
   # https://blog.mozilla.org/security/2025/04/01/updated-gpg-key-for-signing-firefox-releases-2/
   14F26682D0916CDD81E37B6D61B7B526D98F0353
 )
-sha256sums=('ff6f88c7eb4db93f4a8fdce69e63a68fd5d33097e10c7f796f85601881bbe8da'
+sha256sums=('c40dd20029f84940495a33d18fa8c871a6b33ffe0548f1c511004ec6ec6c4d45'
             'SKIP'
             'a9b8b4a0a1f4a7b4af77d5fc70c2686d624038909263c795ecc81e0aec7711e9'
             '4b3a21f98bb14aca2c9970257042f5355a93ed1f292e86e3ad57197b47a50981'
             '48e33f75f3760387305997ee0a3fcea030a1e7310fc461e92d7b73e6cf600096'
             '883ca2fa723a7572269d18559d5b82412782ad63e5dd3820eeb0540e3fe34314')
-b2sums=('42c833bdf4dab8882c60e1b5699b7f9729d102d2f516569500554de9a5693fda948477071209bdccfbef4198b430cb42a62632537b16870c7c27f65fc844c9f2'
+b2sums=('4d3c8e268b208e4fbae92dd7644fb691252f00b4ab53bec58ffc1d7705c279e26108274a40bd899388fa5d0d70c773ba234bfb8004802cb44b290ef27fe9a15e'
         'SKIP'
         '63a8dd9d8910f9efb353bed452d8b4b2a2da435857ccee083fc0c557f8c4c1339ca593b463db320f70387a1b63f1a79e709e9d12c69520993e26d85a3d742e34'
         '546fb9ce1266681f2f6525f41a6f24ece80207a4686c586754575d2c6ebe0117de5164e334ac2a31f0693b64687eaa5b2fde4de83ebdfd8eae3b65dcf19100bb'
         '826db294d078c66e6bf3561c3c6de32d7522251b2ccbd47ab26fb6380988f117d854a726c36f45ddd2e846a1456ca0f6c883733d1c660351430f2d1fbc95b1eb'
         '8a894b01e405b628877483e40e9b018647977cb053b6af02afc901ed24d6e1f767f3db8c321070e33aea4a05ba16f1eb47ae600e5299b5f9caad03d20ba38cf5')
 
-# Google API keys (see http://www.chromium.org/developers/how-tos/api-keys)
+# Google API keys (see https://www.chromium.org/developers/how-tos/api-keys)
 # Note: These are for Arch Linux use ONLY. For your own distribution, please
-# get your own set of keys. Feel free to contact foutrelis@archlinux.org for
-# more information.
+# get your own set of keys. 
 _google_api_key=AIzaSyDwr302FpOSkGRpLlUpPThNTDPbXcIn_FM
 
 prepare() {
