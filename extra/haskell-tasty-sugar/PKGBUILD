@@ -2,18 +2,18 @@
 
 _hkgname=tasty-sugar
 pkgname=haskell-tasty-sugar
-pkgver=2.2.1.0
-pkgrel=17
+pkgver=2.2.2.0
+pkgrel=1
 pkgdesc="Tests defined by Search Using Golden Answer References"
 url="https://github.com/kquick/tasty-sugar"
-license=("custom:ISC")
+license=("ISC")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-filemanip' 'haskell-kvitable' 'haskell-logict' 'haskell-microlens'
          'haskell-optparse-applicative' 'haskell-parallel' 'haskell-prettyprinter' 'haskell-tasty')
 makedepends=('ghc' 'haskell-hedgehog' 'haskell-pretty-show' 'haskell-raw-strings-qq'
              'haskell-tasty-hedgehog' 'haskell-tasty-hunit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('1b3f1e604b09ed6cc28bb0965c29007d8ddb65cd7a04346f80362fb4034d4b0c')
+sha256sums=('2b8f54c6d96c37d386031aa998bc89fada879018536b69f18d45e04c716489a9')
 
 build() {
   cd $_hkgname-$pkgver
