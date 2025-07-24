@@ -1,0 +1,76 @@
+From 1dfba7261a4210f826250577326ed268c807e126 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 24 Jul 2025 10:59:38 +0200
+Subject: [PATCH 1/2] Revert "spice-display: Only downscale displays"
+
+Disabling upscale causing very small screen size on HiDPI displays, which
+is unreadable.
+
+This reverts commit 5d4f78a81ed668157ee6244543e883fbbc02a8c1.
+---
+ src/spice-display.vala | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/src/spice-display.vala b/src/spice-display.vala
+index 166f42825..865666f3d 100644
+--- a/src/spice-display.vala
++++ b/src/spice-display.vala
+@@ -86,11 +86,6 @@ private string get_box_name () {
+ 
+                 agent_connected_id = main_channel.notify["agent-connected"].connect (() => {
+                     is_guest_agent_connected = main_channel.agent_connected;
+-
+-                    if (is_guest_agent_connected) {
+-                        var display = get_display (0) as Spice.Display;
+-                        display.only_downscale = false;
+-                    }
+                 });
+             }
+     }
+@@ -172,7 +167,6 @@ public override Gtk.Widget get_display (int n) {
+             });
+             config.save_properties (this, display_saved_properties);
+             display.scaling = true;
+-            display.only_downscale = true;
+ 
+             displays.replace (n, display);
+         }
+-- 
+GitLab
+
+
+From 7aa5ba076aa5b2cfda97a88022b3276623772ed7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 24 Jul 2025 11:43:58 +0200
+Subject: [PATCH 2/2] spice-display: Set zoom level based on scale factor
+
+Without scaling the display, the guest resolution become too large when
+the guest agent is connected, making the screen unreadable.
+---
+ src/spice-display.vala | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/src/spice-display.vala b/src/spice-display.vala
+index 865666f3d..723d30915 100644
+--- a/src/spice-display.vala
++++ b/src/spice-display.vala
+@@ -168,6 +168,16 @@ public override Gtk.Widget get_display (int n) {
+             config.save_properties (this, display_saved_properties);
+             display.scaling = true;
+ 
++            var gdk_window = machine.window.get_window();
++            int scale_factor = gdk_window.get_scale_factor();
++            display.zoom_level = 100 * scale_factor;
++
++            machine.window.configure_event.connect((event) => {
++                scale_factor = gdk_window.get_scale_factor();
++                display.zoom_level = 100 * scale_factor;
++                return false;
++            });
++
+             displays.replace (n, display);
+         }
+ 
+-- 
+GitLab
+

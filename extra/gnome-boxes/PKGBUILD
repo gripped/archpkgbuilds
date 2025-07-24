@@ -6,7 +6,7 @@
 
 pkgname=gnome-boxes
 pkgver=48.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Simple GNOME application to access virtual systems'
 arch=(x86_64)
 url='https://apps.gnome.org/Boxes/'
@@ -52,12 +52,14 @@ source=(
   gnome-boxes-fallback-dirs.patch
   gnome-boxes-parse-options.patch
   gnome-boxes-activate-window.patch
+  gnome-boxes-scale-factor.patch
 )
 b2sums=('38dca4d850d3d7d54d05c46e281a5fad7da6d89b24d63be05ea467b81644e5a140600a7e019841eb6978bbb76707ca340ac6b99e24f41395851114e45e4fea03'
         'SKIP'
         'db647db5c9e3a1d1f0ad1e8821f37539879b1aab88ef1b9d08eaf1e680d3ef48fc89d52de9f0a2c99d87f3d6fb394cb77c2af6f71e7dd978516e61e3edde0884'
         'e26ced09f96c2da765c8765f8543983ade3b652c2c5555739a1783189c0bdadbb53ad7a19f7aa16ffe412e064982d93e41920d615ae0b36f3b5c00517becb542'
-        '11af28770a58d529d4c2f983aa1e6352ccc096d2da8dc17b713865bb8e1ab67568d2297af74edcb7a2bb38c736dd4c2e198d30f1a79d8360b2f3e2cdd2b878dd')
+        '11af28770a58d529d4c2f983aa1e6352ccc096d2da8dc17b713865bb8e1ab67568d2297af74edcb7a2bb38c736dd4c2e198d30f1a79d8360b2f3e2cdd2b878dd'
+        '2becde66d172707a5bf101114ad1574aed05b0b7c0fcedf0e515fa79b01490839691908702ef72a263e8d15743bb3e9336f813929d57edb7d25a76e9e3369b72')
 
 prepare() {
   cd $pkgname
@@ -77,6 +79,10 @@ prepare() {
   # Present existing window on activation
   # https://gitlab.gnome.org/GNOME/gnome-boxes/-/merge_requests/678
   git apply -3 ../gnome-boxes-activate-window.patch
+
+  # Set zoom level based on scale factor
+  # https://gitlab.gnome.org/GNOME/gnome-boxes/-/merge_requests/684
+  git apply -3 ../gnome-boxes-scale-factor.patch
 }
 
 build() {
