@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=linbox
-pkgver=1.7.0
-pkgrel=5
+pkgver=1.7.1
+pkgrel=1
 pkgdesc='A template library for exact, high-performance linear algebra computation with dense, sparse, and structured matrices over the integers and over finite fields'
 arch=(x86_64)
 url='https://linalg.org/'
@@ -11,32 +11,24 @@ license=(GPL-2.0-or-later
 depends=(fflas-ffpack
          gcc-libs
          glibc
-         ntl
          sh)
 makedepends=(iml
              flint
              fplll
              git
              lapack
-             m4rie)
-source=(git+https://github.com/linbox-team/linbox#tag=v$pkgver
-        gcc-15.patch)
-sha256sums=('e9ffe8860c687e45b3351bf10261e5ba97090b43b5cbd6ee33d9743f39400ed9'
-            'abf8d1231e6f797d6a768dc247a056300e9a82edf005eb63db70fcecaeebb229')
+             m4rie
+             ntl)
+source=(git+https://github.com/linbox-team/linbox#tag=v$pkgver)
+sha256sums=('4bf588e21058c7220a257076db1dada34259138d23190466cef1885227e1cfc1')
 
 prepare() {
   cd $pkgname
-  git cherry-pick -n 79acfcbbd0411b79b94ca1f61fc582bab748316d \
-                     b8f2d4ccdc0af4418d14f72caf6c4d01969092a3
-  git cherry-pick -n 4a1e1395804d4630ec556c61ba3f2cb67e140248 # GCC 15 fix
-  patch -p1 -i ../gcc-15.patch # GCC 15 fix
   autoreconf -vif
 }
 
 build() {
   cd $pkgname
-
-  export CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}" # https://github.com/linbox-team/linbox/issues/304
   ./configure \
     --prefix=/usr \
     --enable-sage \
