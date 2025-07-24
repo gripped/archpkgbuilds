@@ -4,15 +4,15 @@
 
 pkgname=fceux
 pkgver=2.6.6
-pkgrel=4
+pkgrel=5
 pkgdesc='Fast and ultra-compatible NES/Famicom emulator'
 arch=(x86_64)
 url='https://github.com/TASEmulators/fceux'
-license=(GPL)
+license=(GPL-2.0-or-later)
 depends=(gd lua minizip qt5-base sdl2)
-makedepends=(cmake git glu mesa-libgl ninja setconf scons)
+makedepends=(cmake git glu mesa-libgl setconf scons)
 optdepends=('ffmpeg: for recording')
-source=("git+$url#commit=34eb7601c415b81901fd02afbd5cfdc84b5047ac") # tag: v2.6.6
+source=("git+$url#tag=v$pkgver")
 b2sums=('df1b8706f3639c52ec5905a542052ee0eb7c5a727c9ee27af7c9f53b2b9f97b0445c6c6ff9f9504cef51a90cddc97b08b7f92ee7882de1bfb2baf879eac613c1')
 
 prepare() {
@@ -28,13 +28,12 @@ build() {
     -D CMAKE_C_FLAGS="$CFLAGS -fPIC -w" \
     -D CMAKE_CXX_FLAGS="$CXXFLAGS -fPIC -w" \
     -D CMAKE_INSTALL_PREFIX=/usr \
-    -G Ninja \
     -S $pkgname
-  ninja -C build
+  make -C build
 }
 
 package() {
-  DESTDIR="$pkgdir" ninja -C build install
+  DESTDIR="$pkgdir" make -C build install
   install -d "$pkgdir/usr/share/doc/$pkgname"
   cp -r $pkgname/documentation/* "$pkgdir/usr/share/doc/$pkgname/"
   install -Dm644 $pkgname/changelog.txt \
