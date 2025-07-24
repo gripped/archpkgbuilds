@@ -3,7 +3,7 @@
 _name=hosc
 pkgname=haskell-hosc
 pkgver=0.20
-pkgrel=66
+pkgrel=67
 pkgdesc="Haskell Open Sound Control"
 arch=(x86_64)
 url="https://github.com/rd--/hosc"
@@ -35,6 +35,7 @@ build() {
     --libsubdir=\$compiler/site-local/\$pkgid
     --prefix=/usr
   )
+
   cd $_name-$pkgver
   runhaskell Setup configure "${setup_configure_options[@]}"
   runhaskell Setup build $MAKEFLAGS
