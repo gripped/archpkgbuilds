@@ -3,8 +3,8 @@
 
 _hkgname=binary-parser
 pkgname=haskell-binary-parser
-pkgver=0.5.7.6
-pkgrel=36
+pkgver=0.5.7.7
+pkgrel=1
 pkgdesc="An efficient but limited parser API specialised to bytestrings"
 url="https://github.com/nikita-volkov/binary-parser"
 license=("MIT")
@@ -13,7 +13,7 @@ depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-base-prelude' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('e1c2886bea38b63074dad925a9abf43a9b044f4e6aaa935ab64a4d5eb44f05fad6393abdbed1f0b39b10b8a8124d760c4ab238b31e01a8ec634110c75ad8fec6')
+sha512sums=('135b625d5d72d91f34117ebff7e21ef08a2d3709cddf9a5e0bc2393cde391eeaa4603b2803fb2c018decd15383d5200d0907e0343eb9ab7fef99962ebf6d93dc')
 
 prepare() {
     cd $_hkgname-$pkgver
