@@ -5,8 +5,8 @@
 # Contributor: Anton Shestakov <engored*ya.ru>
 
 pkgname=flashrom
-pkgver=1.5.1
-pkgrel=2
+pkgver=1.6.0
+pkgrel=1
 pkgdesc="Utility for reading, writing, erasing and verifying flash ROM chips"
 arch=(x86_64)
 url="https://www.flashrom.org/"
@@ -25,7 +25,7 @@ makedepends=(
 )
 optdepends=('dmidecode: for SMBIOS/DMI table decoder support')
 source=(git+https://github.com/flashrom/flashrom.git#tag=v${pkgver})
-sha256sums=('4a755be0c279d95e68f5d8c8c0ea478c9cb2a372cbf211bc2dc67055400e32b8')
+sha256sums=('2e27f7b13161c03d1ccec0de14601722f6114214555c7f025a5d91f08259eb38')
 
 prepare() {
   sed -i 's#GROUP="plugdev"#TAG+="uaccess"#g' flashrom/util/flashrom_udev.rules
