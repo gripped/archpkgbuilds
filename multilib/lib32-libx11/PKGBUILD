@@ -2,7 +2,7 @@
 
 pkgname=lib32-libx11
 pkgver=1.8.12
-pkgrel=1
+pkgrel=2
 pkgdesc="X11 client-side library (32-bit)"
 arch=(x86_64)
 url="https://gitlab.freedesktop.org/xorg/lib/libx11"
@@ -19,8 +19,11 @@ build() {
   export PKG_CONFIG="i686-pc-linux-gnu-pkg-config"
 
   cd libX11-${pkgver}
-  ./configure --prefix=/usr --disable-static --disable-xf86bigfont --disable-thread-safety-constructor \
-      --libdir=/usr/lib32 --disable-specs
+  ./configure --prefix=/usr \
+    --disable-static \
+    --disable-xf86bigfont \
+    --libdir=/usr/lib32 \
+    --disable-specs
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
