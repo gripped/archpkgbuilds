@@ -3,21 +3,16 @@
 
 _hkgname=either
 pkgname=haskell-either
-pkgver=5.0.2
-pkgrel=178
+pkgver=5.0.3
+pkgrel=1
 pkgdesc="An either monad transformer"
 url="https://github.com/ekmett/either/"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-bifunctors' 'haskell-profunctors' 'haskell-semigroupoids')
-makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-test-framework' 'haskell-test-framework-quickcheck2')
+makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('fbb7e83e2a7de8520fef8bca8b3b0e991e4db8777e8b144b45787d679dd5d13462c3b4d271bc4bba2c7223e11ec5871c915259c564a3636d4f3dab6a5ccf25a8')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u semigroupoids
-}
+sha512sums=('e1290bbee22b6f99fca8ef3ba47b5397f3ba7b065190e2deea4c5411e8d9648130b4c91ef0aa15accb3414ce3a44b91fa3fb2f4fe4db8923b06c3ca5916002e0')
 
 build() {
     cd $_hkgname-$pkgver
