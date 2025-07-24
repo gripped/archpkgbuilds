@@ -6,7 +6,7 @@
 # Contributor: Johannes Sjolund <j.sjolund@gmail.com>
 
 pkgname=gnome-commander
-pkgver=1.18.2
+pkgver=1.18.3
 pkgrel=1
 pkgdesc='Graphical two-pane filemanager for GNOME'
 arch=(x86_64)
@@ -36,15 +36,8 @@ makedepends=(
   meson
   smbclient
 )
-checkdepends=(xorg-server-xvfb)
-source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-commander.git?signed#tag=$pkgver"
-  gnome-commander-prgname.patch
-)
-b2sums=(
-  9a9ef4ce4ef4152de834bb84a224feef00a89cb648ac433f0ca07339b6c3e7f29001c3adedb15b1a94fd0c01e5634da0f6e457321a02a5cff1d67060eafe4793
-  62e7453c198dcbd7da3d7705bb5284c260de25c2de2f66703b19ffd17cd88116974cf8b236f92d9521f4eae5fa2f5589a4e6d2e425d4b265520af11d0847728a
-)
+source=("git+https://gitlab.gnome.org/GNOME/gnome-commander.git?signed#tag=$pkgver")
+b2sums=(665c5faef5d0cdd2b73952dcf5e45179a22316ad5cb5f14ee9c6fe72b011d04da265f63896731ed36e275df1cddca242e0da2fcc747aad37250a51d31df590a1)
 validpgpkeys=(7627E6FCECF4FC066A03B673F50A89A3ADE4C6E8) # Uwe Scholz <u.scholz83@gmx.de>
 
 prepare() {
@@ -52,20 +45,16 @@ prepare() {
 
   # Don't check for pixbufloader-xpm; we build gdk-pixbuf2 with xpm support
   git revert -n 9077d4423f0ca0b02fc6000b8ff95d7fac1d4b74
-
-  # https://gitlab.gnome.org/GNOME/gnome-commander/-/merge_requests/274
-  git apply -3 ../gnome-commander-prgname.patch
 }
 
 build() {
-  arch-meson $pkgname build
+  arch-meson $pkgname build \
+    -D tests=disabled
   meson compile -C build
 }
 
 check() {
-  dbus-run-session xvfb-run \
-    -s '-screen 0 1920x1080x24 -nolisten local' \
-    meson test -C build --print-errorlogs
+  meson test -C build --print-errorlogs
 }
 
 package() {
