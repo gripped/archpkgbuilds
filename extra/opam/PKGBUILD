@@ -2,8 +2,8 @@
 # Contributor: Vincent B. <vb@luminar.eu.org>
 
 pkgname=opam
-pkgver=2.3.0
-pkgrel=4
+pkgver=2.4.1
+pkgrel=1
 pkgdesc='OCaml package manager'
 arch=(x86_64)
 url='https://opam.ocaml.org/'
@@ -14,7 +14,7 @@ optdepends=('darcs: For downloading packages with darcs'
             'mercurial: For downloading packages with mercurial'
             'rsync: For downloading packages with rsync')
 source=("https://github.com/ocaml/opam/releases/download/${pkgver%_*}/opam-full-${pkgver/_/-}.tar.gz")
-b2sums=('698b196ac6366d653bb1385231f0c3dd8df9f7da40c9fd27ed81d1e43b1f3e34ef621f92b989e8a70864bf79b319b10eb875616b2183d99b61aae21c092a7cde')
+b2sums=('5b2fbca21955c4ce88ab4ef05e7cabe32e4fe9b787b333a1641e735b440ffc1b0b6c3f4c3e4cc3fbe13265ca39c6a896067553a6db4fc0d5ee09aa76106160d5')
 
 build() {
   cd opam-full-${pkgver%_*}
