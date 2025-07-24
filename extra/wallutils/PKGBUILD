@@ -1,7 +1,7 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
 
 pkgname=wallutils
-pkgver=5.14.1
+pkgver=5.14.2
 pkgrel=1
 pkgdesc='Utilities for handling resolutions, wallpapers and timed wallpapers'
 arch=(x86_64)
@@ -16,7 +16,7 @@ optdepends=('feh: for setting the wallpaper for some window managers that runs u
             'procps-ng: for the Labwc window manager'
             'swaybg: for the Sway and Labwc window managers')
 source=("git+$url#tag=v$pkgver")
-b2sums=('f8cec26c7a8c4e73bdbb1d36529860ffd200697652727140415d5a6ab8f8f3e2824ea83dd5720ad6198621e2c652d67efd539c74acd64ca64815a5abda7b991d')
+b2sums=('09eaaa510134090c2a6b9b8ec06910cb4abe442007162de573941249fd58c55bce0d46552fd5b37319ccf081b747d5fc75a435fee0cf412a54b5c3d84055b7aa')
 
 build() {
   export CGO_CFLAGS="$CFLAGS -fcf-protection=full"
