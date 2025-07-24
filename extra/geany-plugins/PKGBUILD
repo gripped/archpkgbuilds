@@ -2,16 +2,17 @@
 # Contributor: Angel 'angvp' Velasquez <angvp@archlinux.org>
 # Contributor: Gerardo Exequiel Pozzi <vmlinuz386@gmail.com>
 # Contributor: Patrick Melo <patrick@patrickmelo.eti.br>
+# Contributor: loqs
 
 pkgname=geany-plugins
 pkgver=2.1
 _tag=$pkgver.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Plugins for Geany'
 arch=(x86_64)
 url='https://plugins.geany.org'
 license=(GPL-2.0-or-later)
-depends=(ctpl "geany>=$pkgver" gpgme gtkspell3 libgit2 lua51 python vte3 webkit2gtk)
+depends=(ctpl "geany>=$pkgver" gpgme gtkspell3 libgit2 lua51 python vte3 webkit2gtk-4.1)
 makedepends=(cppcheck git intltool)
 source=("git+https://github.com/geany/geany-plugins#tag=$_tag")
 b2sums=('172910079ef579ecc4c985c538ab6c89c63cfa82ad9031248997e4a85ef676ff215f09710691d651bb12c6a2a57cf79400a61b038e724a9a4ae7afcc0165537d')
