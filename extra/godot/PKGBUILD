@@ -9,13 +9,13 @@
 pkgbase=godot
 pkgname=(godot godot-mono)
 pkgver=4.4.1
-pkgrel=4
+pkgrel=5
 pkgdesc='Advanced cross-platform 2D and 3D game engine'
 url='https://godotengine.org/'
 license=(MIT)
 arch=(x86_64)
-makedepends=(alsa-lib dotnet-sdk nuget pulse-native-provider scons setconf yasm)
-depends=(brotli ca-certificates embree freetype2 graphite harfbuzz harfbuzz-icu libglvnd libspeechd libsquish libtheora libvorbis
+makedepends=(alsa-lib dotnet-sdk-8.0 nuget pulse-native-provider scons setconf yasm)
+depends=(brotli ca-certificates embree freetype2 graphite libglvnd libspeechd libsquish libtheora libvorbis
          libwebp libwslay libxcursor libxi libxinerama libxrandr miniupnpc openxr pcre2)
 optdepends=('pipewire-alsa: for audio support'
             'pulse-native-provider: for audio support')
@@ -33,8 +33,8 @@ prepare() {
   # Prepare the Godot Mono desktop file
   cp -f org.godotengine.Godot.desktop org.godotengine.Godot-mono.desktop
   setconf org.godotengine.Godot-mono.desktop Exec godot-mono
-  setconf org.godotengine.Godot-mono.desktop Name 'Godot Engine Mono'
   setconf org.godotengine.Godot-mono.desktop Icon godot-mono.svg
+  setconf org.godotengine.Godot-mono.desktop Name 'Godot Engine Mono'
 
   # Fix the MIME info, ref FS#77810
   sed -i 's,xmlns="https://specifications.freedesktop.org/shared-mime-info-spec",xmlns="http://www.freedesktop.org/standards/shared-mime-info",g' \
@@ -67,19 +67,18 @@ build() {
     builtin_embree=no
     builtin_enet=yes
     builtin_freetype=no
-    builtin_msdfgen=yes
     builtin_glslang=yes
     builtin_graphite=no
-    builtin_harfbuzz=no
+    builtin_harfbuzz=yes
     builtin_icu4c=yes
     builtin_libogg=no
     builtin_libpng=no
     builtin_libtheora=no
     builtin_libvorbis=no
     builtin_libwebp=no
-    builtin_wslay=yes
     builtin_mbedtls=yes
     builtin_miniupnpc=no
+    builtin_msdfgen=yes
     builtin_openxr=no
     builtin_pcre2=no
     builtin_pcre2_with_jit=no
@@ -87,12 +86,13 @@ build() {
     builtin_rvo2_2d=yes
     builtin_rvo2_3d=yes
     builtin_squish=no
+    builtin_wslay=yes
     builtin_xatlas=yes
     builtin_zlib=no
     builtin_zstd=no
     colored=yes
-    disable_exceptions=false
     debug_symbols=yes
+    disable_exceptions=false
     platform=linuxbsd
     production=yes
     pulseaudio=yes
@@ -127,7 +127,7 @@ package_godot() {
 }
 
 package_godot-mono(){
-  depends+=(dotnet-sdk)
+  depends+=(dotnet-sdk-8.0)
 
   cd $pkgbase-$pkgver-stable
 
