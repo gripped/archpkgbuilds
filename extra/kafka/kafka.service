@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 Environment=KAFKA_PID_DIR=/run/kafka/
 Environment=LOG_DIR=/var/log/kafka
-Environment=KAFKA_LOG4J_OPTS="-Dlog4j2.configurationFile=file:/etc/kafka/log4j.yaml"
+Environment="KAFKA_LOG4J_OPTS=-Dlog4j.configurationFile=/etc/kafka/log4j2.yaml"
 User=kafka
 WorkingDirectory=/var/lib/kafka
 ExecStart=/usr/bin/kafka-server-start.sh /etc/kafka/server.properties
