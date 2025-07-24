@@ -6,7 +6,7 @@
 
 pkgname=electrum
 pkgver=4.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Lightweight Bitcoin wallet"
 arch=('any')
 url="https://electrum.org"
@@ -28,8 +28,9 @@ depends=(
   'python-pillow'
   'python-protobuf'
   'python-pyaes'
-  'python-pyqt5'
+  'python-pyqt6'
   'python-qrcode'
+  'qt6-declarative'
 )
 makedepends=(
   'git'
@@ -40,9 +41,7 @@ makedepends=(
 )
 checkdepends=(
   'python-pycryptodomex'
-  'python-pyqt6'
   'python-pytest'
-  'qt6-declarative'
 )
 optdepends=(
   # Moved to AUR - dead project/upstream
@@ -52,8 +51,6 @@ optdepends=(
   'python-pycryptodomex: use PyCryptodome AES implementation instead of pyaes'
   'python-qdarkstyle: optional dark theme in graphical mode'
   'python-rpyc: send commands to Electrum Python console from an external script'
-  'python-pyqt6: QML GUI'
-  'qt6-declarative: QML GUI'
   'zbar: QR code reading support'
 )
 source=(
