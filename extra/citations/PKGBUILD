@@ -2,11 +2,12 @@
 
 pkgname=citations
 pkgver=0.8.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Manage your bibliographies using the BibTeX format'
 arch=(x86_64)
 url='https://apps.gnome.org/Citations/'
 license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
   cairo
   dconf
@@ -52,6 +53,9 @@ prepare() {
   # https://gitlab.gnome.org/World/citations/-/merge_requests/96
   git cherry-pick -n 4b02a7aa5a610ddf2cfbb0cb15ba4d8a5a2b12f8
   git cherry-pick -n e1e55aa8200c2d7dd90e943e33dfb200333a6269
+
+  # https://gitlab.gnome.org/World/citations/-/merge_requests/101
+  git cherry-pick -n 39296d157a433ce88f7ee38251ce458041531964
 
   # https://gitlab.gnome.org/World/citations/-/merge_requests/97
   git apply -3 ../citations-new-window.patch
