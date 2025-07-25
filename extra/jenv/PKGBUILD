@@ -2,8 +2,8 @@
 # Contributor: Gerard Ribugent <ribugent@gmail.com>
 
 pkgname=jenv
-pkgver=0.5.7
-pkgrel=2
+pkgver=0.5.9
+pkgrel=1
 pkgdesc='Manage your Java environment'
 arch=(any)
 url=https://github.com/jenv/jenv
@@ -15,15 +15,9 @@ optdepends=(
   'fish: Fish support'
   'zsh: Zsh support'
 )
-_tag=1032e0036da40f720766e563d766272699a420f7
+_tag=fdc4b046640140a77cf9ea3ec340a5406e32b84a
 source=(git+https://github.com/jenv/jenv.git#tag=${_tag})
-b2sums=(SKIP)
-
-prepare() {
-  cd jenv
-  # fish has no hash command
-  git cherry-pick -n 4af54a52c6d2758a493315e99c7bcaad5bda3a2c
-}
+b2sums=('2da295c87c5b5d1724e048481df3d1bf38d9e99f6354fb9fce4687bf883b131a51ede28da101fe428c77903e4466d0f71f9941b4c2c71b089ae4be996a0f6f6f')
 
 pkgver() {
   cd jenv
