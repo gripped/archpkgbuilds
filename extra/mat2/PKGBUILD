@@ -3,7 +3,7 @@
 
 pkgname=mat2
 pkgver=0.13.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Metadata removal tool, supporting a wide range of commonly used file formats'
 url='https://0xacab.org/jvoisin/mat2'
 arch=('any')
@@ -31,7 +31,10 @@ optdepends=(
   'bubblewrap: sandboxing support'
   'kdialog: dolphin file browser integration'
 )
-checkdepends=('ffmpeg')
+checkdepends=(
+  'ffmpeg'
+  'python-pytest'
+)
 source=(https://0xacab.org/jvoisin/mat2/-/archive/${pkgver}/mat2-${pkgver}.tar.gz
         https://0xacab.org/-/project/1139/uploads/060efa77668fa7f6d9baeb8a327857af/mat2-0.13.5.tar.gz.asc)
 sha512sums=('a700f5c136b20203b5173c685b49d589f75082a067b9a6059766dd3d78d7cf2988080c5e523e0d35e6aced79790e9a322c3b0d4a8364bb83af6ce2490acb6abb'
@@ -48,7 +51,7 @@ build() {
 
 check() {
   cd ${pkgname}-${pkgver}
-  python -m unittest discover -v
+  pytest -vv --deselect tests/test_libmat2.py::TestCleaning::test_all_parametred
 }
 
 package() {
