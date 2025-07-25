@@ -6,7 +6,7 @@
 pkgname=unzip
 pkgver=6.0
 _pkgver=${pkgver/./}
-pkgrel=22
+pkgrel=23
 pkgdesc='For extracting and viewing files in .zip archives'
 url='http://infozip.sourceforge.net/UnZip.html'
 arch=('x86_64')
@@ -120,7 +120,7 @@ build() {
 
 	make -f unix/Makefile prefix=/usr \
 		D_USE_BZ2=-DUSE_BZIP2 L_BZ2=-lbz2 \
-		LF2="$LDFLAGS" CF="$CFLAGS $CPPFLAGS -I. $DEFINES" \
+		LF2="$LDFLAGS" CF="$CFLAGS $CPPFLAGS -I. $DEFINES -std=gnu17" \
 		unzips
 }
 
