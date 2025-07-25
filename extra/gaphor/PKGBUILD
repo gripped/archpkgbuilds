@@ -2,11 +2,12 @@
 
 pkgname=gaphor
 pkgver=3.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple UML and SysML modeling tool'
 arch=(any)
 url='https://apps.gnome.org/Gaphor/'
 license=(Apache-2.0)
+groups=(gnome-circle)
 depends=(
   dconf
   gdk-pixbuf2
@@ -38,19 +39,8 @@ makedepends=(
   python-sphinx-intl
   python-wheel
 )
-source=(
-  "git+https://github.com/gaphor/gaphor.git#tag=$pkgver"
-  gaphor-gaphas5.patch
-)
-b2sums=('2ae31a7f21478baa4f131b686473a124174f6f73cb21b76d322ba802423f282b50a9b8fa8fc963f5b92e6539cd60babd1c96215fd2892f06fad40b481872dbc7'
-        '5f5667625b0c240c1d85e958580a0e98abebe1d970659efeeebbec393d3636ac0ef5f18558a7671bd33cf736068dc4c815c01276bb42a9ac64184bdbdac89843')
-
-prepare() {
-  cd $pkgname
-
-  # Port to Gaphas 5
-  git apply -3 ../gaphor-gaphas5.patch
-}
+source=("git+https://github.com/gaphor/gaphor.git#tag=$pkgver")
+b2sums=(2ae31a7f21478baa4f131b686473a124174f6f73cb21b76d322ba802423f282b50a9b8fa8fc963f5b92e6539cd60babd1c96215fd2892f06fad40b481872dbc7)
 
 build() {
   cd $pkgname
