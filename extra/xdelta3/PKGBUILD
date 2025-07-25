@@ -5,16 +5,15 @@
 
 pkgname=xdelta3
 pkgver=3.1.0
-pkgrel=5
+pkgrel=7
 pkgdesc='Diff utility for binary files'
 arch=(x86_64)
-# No HTTPS available
-url='http://xdelta.org/'
+url='https://github.com/jmacd/xdelta'
 license=(Apache)
 depends=(ncompress)
-makedepends=(git python)
-source=("git+https://github.com/jmacd/xdelta#commit=4b4aed71a959fe11852e45242bb6524be85d3709") # tag: v3.1.0
-b2sums=(SKIP)
+makedepends=(git python python-fissix)
+source=("git+$url#tag=v$pkgver")
+b2sums=('290bc609fb6631ab73d2739452fd6f4b5378ff50e6cdcd0f719dc4955fea7520ea1d1228cb3e419ada4a76c72850ec850e06d94ebccba52e7d624e0c70070dbc')
 
 build() {
   cd xdelta/xdelta3
@@ -38,7 +37,7 @@ check() {
   cd xdelta/xdelta3/testing
 
   # Thanks Gentoo <3
-  2to3 -w -n --no-diffs *.py
+  python -m fissix -w -n --no-diffs *.py
   sed -i -e '/python/s:2.6:2:' xdelta3-regtest.py
   sed -i -e '/python/s:2.7:2:' xdelta3-test.py
   ../xdelta3regtest
@@ -47,5 +46,3 @@ check() {
 package() {
   DESTDIR="$pkgdir" make -C xdelta/xdelta3 install
 }
-
-# getver: github.com/jmacd/xdelta
