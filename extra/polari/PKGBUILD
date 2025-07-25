@@ -2,7 +2,7 @@
 
 pkgname=polari
 pkgver=46.0
-pkgrel=3
+pkgrel=4
 pkgdesc="An IRC Client for GNOME"
 url="https://apps.gnome.org/Polari/"
 arch=(x86_64)
@@ -33,8 +33,7 @@ makedepends=(
   yelp-tools
 )
 optdepends=('webkit2gtk-4.1: URL preview feature')
-groups=(gnome-extra)
-_commit=9ea71de3d20fdc96e76bb55362418b9118e7cf07  # tags/45.0^0
+groups=(gnome-circle)
 source=(
   # Polari tags use SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/polari.git#tag=${pkgver/[a-z]/.&}"
