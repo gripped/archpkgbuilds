@@ -1,7 +1,7 @@
 pkgbase = plymouth
 	pkgdesc = Graphical boot splash screen
 	pkgver = 24.004.60
-	pkgrel = 10
+	pkgrel = 11
 	url = https://www.freedesktop.org/wiki/Software/Plymouth/
 	install = plymouth.install
 	arch = x86_64
@@ -27,6 +27,7 @@ pkgbase = plymouth
 	depends = systemd-libs
 	depends = xkeyboard-config
 	optdepends = gtk3: x11 renderer
+	backup = etc/logrotate.d/bootlog
 	backup = etc/plymouth/plymouthd.conf
 	source = git+https://gitlab.freedesktop.org/plymouth/plymouth.git#tag=24.004.60
 	source = plymouth.initcpio_hook

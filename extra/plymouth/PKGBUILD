@@ -6,7 +6,7 @@
 
 pkgname=plymouth
 pkgver=24.004.60
-pkgrel=10
+pkgrel=11
 pkgdesc='Graphical boot splash screen'
 arch=(x86_64)
 url='https://www.freedesktop.org/wiki/Software/Plymouth/'
@@ -36,7 +36,10 @@ makedepends=(
   meson
 )
 optdepends=('gtk3: x11 renderer')
-backup=(etc/plymouth/plymouthd.conf)
+backup=(
+  etc/logrotate.d/bootlog
+  etc/plymouth/plymouthd.conf
+)
 install='plymouth.install'
 source=(
   "git+https://gitlab.freedesktop.org/plymouth/$pkgname.git#tag=$pkgver"
@@ -57,7 +60,7 @@ prepare() {
   cd $pkgname
 
   # Various fixes from upstream
-  git cherry-pick -n -m 1 24.004.60..a0e8b6cf50114482e8b5d17ac2e99ff0f274d4c5
+  git cherry-pick -n -m 1 24.004.60..287ae4de4547c944cd1dad696aa999b1699540bd
 
   # Use mkinitcpio to update initrd
   sed -i 's/^dracut -f$/mkinitcpio -P/' scripts/plymouth-update-initrd
