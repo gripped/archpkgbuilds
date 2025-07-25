@@ -1,0 +1,27 @@
+pkgbase = manifold
+	pkgdesc = Geometry library for topological robustness
+	pkgver = 3.2.0
+	pkgrel = 1
+	url = https://github.com/elalish/manifold
+	arch = x86_64
+	license = Apache-2.0
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = git
+	makedepends = nanobind
+	makedepends = pybind11
+	makedepends = onetbb
+	source = https://github.com/elalish/manifold/releases/download/v3.2.0/manifold-3.2.0.tar.gz
+	sha256sums = 0bca30f38ebf88a9954a90e521905d5ed36fe66b220fe4ca1cada66c2835f604
+
+pkgname = manifold
+	depends = glibc
+	depends = gcc-libs
+	depends = nanobind
+	depends = pybind11
+	depends = onetbb
+
+pkgname = python-manifold3d
+	depends = glibc
+	depends = gcc-libs
+	depends = manifold
