@@ -4,31 +4,32 @@
 
 pkgname=httptunnel
 pkgver=3.3
-pkgrel=8
+pkgrel=9
 pkgdesc="Creates a bidirectional virtual data connection tunnelled in HTTP requests"
 arch=('x86_64')
 url="https://github.com/larsbrinkhoff/httptunnel"
 license=('GPL2')
 depends=('glibc')
 source=("https://ftp.gnu.org/pub/gnu/${pkgname}/$pkgname-$pkgver.tar.gz"
-        'httptunnel-3.3-build-fix.patch')
-md5sums=('493cc0f5f21e9955db27ee9cd9a976d5'
-         '65c1f8a2a847fb4af106c9358f9e0be8')
-sha256sums=('142f82b204876c2aa90f19193c7ff78d90bb4c2cba99dfd4ef625864aed1c556'
-            'c5580f347a4641507e8396cd439df8d5155724b42b93bf2d98bfdbc63655c6cd')
+        httptunnel-configure-c99.patch
+        httptunnel-headers-c99.patch)
+sha512sums=('84503e27e84cd39441a7592d6446e30fce07a54b940e4398407dc105fabc6c8f96d3b5d05137d6dab22b2088c5b114728551337429748c900bd6fe7d6b6109e5'
+            '1924495575cc2005576c50261dca220fea3ee4364d38ffa303790763d3c301d37d1e56290521cda286a85f45b5df1fdee708cb577574a7df7ff0defc1eddea94'
+            '5febe7c2723de9f255f721062c9838874adc289c93028f13f5216c87f2fc6fe62fa717dca691c96621185a36c749963349c0c8d6909d62808004a5c03e211216')
 
 prepare() {
-  cd "${srcdir}"/$pkgname-$pkgver
-  patch -p0 -i ../httptunnel-3.3-build-fix.patch
+	cd "${srcdir}"/$pkgname-$pkgver
+	patch -p1 -i ../httptunnel-configure-c99.patch
+	patch -p1 -i ../httptunnel-headers-c99.patch
 }
 
 build() {
-  cd "${srcdir}"/$pkgname-$pkgver
-  ./configure --prefix=/usr --mandir=/usr/share/man
-  make
+	cd "${srcdir}"/$pkgname-$pkgver
+	./configure --prefix=/usr --mandir=/usr/share/man
+	make CFLAGS="$CFLAGS -std=gnu17"
 }
 
 package() {
-  cd "${srcdir}"/$pkgname-$pkgver
-  make DESTDIR="${pkgdir}" install
+	cd "${srcdir}"/$pkgname-$pkgver
+	make DESTDIR="${pkgdir}" install
 }
