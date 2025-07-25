@@ -10,7 +10,7 @@
 
 pkgname=nodejs
 pkgver=24.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Evented I/O for V8 javascript ("Current" release)'
 arch=('x86_64')
 url='https://nodejs.org/'
@@ -55,9 +55,8 @@ _set_flags() {
 
 prepare() {
   cd node
-  # Fix flaky test-config test https://github.com/nodejs/node/pull/58799
-  git cherry-pick -n cd685fe3b6b18d2a1433f2635470513896faebe6
-  git cherry-pick -n 100c6da238bec44ea0b18a3df4e82080a8ae05b3
+  # https://github.com/nodejs/node/issues/59029
+  git cherry-pick -n 049664bbdc421c63b2145c85a18c64d184b40aa5
 }
 
 build() {
