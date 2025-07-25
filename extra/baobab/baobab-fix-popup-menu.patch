@@ -1,0 +1,234 @@
+From 07d53b0e00111f5752111fec604ad409912c6ced Mon Sep 17 00:00:00 2001
+From: Chris Heywood <15127-cheywood@users.noreply.gitlab.gnome.org>
+Date: Tue, 24 Jun 2025 12:59:44 +1000
+Subject: [PATCH] fix: Popup menus acting on wrong items
+
+Both the column list view and chart views have bugs where due to the
+mechanism used to retrieve the item to be actioned the wrong item can be
+used depending on where the mouse has moved. This easily results in data
+loss by moving the wrong file or folder to trash.
+
+Closes #157
+Closes #183
+---
+ data/ui/baobab-main-window.ui |  7 ++-
+ src/baobab-chart.vala         | 10 ++--
+ src/baobab-window.vala        | 96 ++++++++++++++++++++++-------------
+ 3 files changed, 74 insertions(+), 39 deletions(-)
+
+diff --git a/data/ui/baobab-main-window.ui b/data/ui/baobab-main-window.ui
+index 379135db..33e564d0 100644
+--- a/data/ui/baobab-main-window.ui
++++ b/data/ui/baobab-main-window.ui
+@@ -121,7 +121,6 @@
+                                           <object class="GtkColumnView" id="columnview">
+                                             <property name="hexpand">True</property>
+                                             <property name="reorderable">False</property>
+-                                            <property name="single-click-activate">True</property>
+                                             <signal name="activate" handler="columnview_activate"/>
+                                             <property name="model">
+                                               <object class="GtkSingleSelection" id="columnview_selection">
+@@ -192,6 +191,12 @@
+                                                 </property>
+                                               </object>
+                                             </child>
++                                            <child>
++                                              <object class="GtkGestureClick">
++                                                <property name="button">1</property>
++                                                <signal name="released" handler="treeview_left_click_gesture_released"/>
++                                              </object>
++                                            </child>
+                                             <child>
+                                               <object class="GtkGestureClick" id="treeview_right_click_gesture">
+                                                 <property name="button">3</property>
+diff --git a/src/baobab-chart.vala b/src/baobab-chart.vala
+index 59627137..78d7f64b 100644
+--- a/src/baobab-chart.vala
++++ b/src/baobab-chart.vala
+@@ -68,6 +68,8 @@ namespace Baobab {
+ 
+         List<ChartItem> items;
+ 
++        ChartItem? popover_item = null;
++
+         Location location_;
+         public Location location {
+             set {
+@@ -461,15 +463,15 @@ namespace Baobab {
+         }
+ 
+         public void open_file () {
+-            ((Window) get_root ()).open_item (highlighted_item.results);
++            ((Window) get_root ()).open_item (popover_item.results);
+         }
+ 
+         public void copy_path () {
+-            ((Window) get_root ()).copy_path (highlighted_item.results);
++            ((Window) get_root ()).copy_path (popover_item.results);
+         }
+ 
+         public void trash_file () {
+-            ((Window) get_root ()).trash_file (highlighted_item.results);
++            ((Window) get_root ()).trash_file (popover_item.results);
+         }
+ 
+         protected bool can_move_up_root () {
+@@ -504,6 +506,8 @@ namespace Baobab {
+ 
+         void show_popover_at (int x, int y) {
+             var enable = highlighted_item != null;
++            popover_item = highlighted_item;
++
+             var action = action_group.lookup_action ("open-file") as SimpleAction;
+             action.set_enabled (enable);
+             action = action_group.lookup_action ("copy-path") as SimpleAction;
+diff --git a/src/baobab-window.vala b/src/baobab-window.vala
+index 560baeb8..255bafbe 100644
+--- a/src/baobab-window.vala
++++ b/src/baobab-window.vala
+@@ -69,6 +69,7 @@ namespace Baobab {
+         private bool is_busy = false;
+         private ulong scan_completed_handler = 0;
+         private uint scanning_progress_id = 0;
++        private Scanner.Results? popover_item = null;
+ 
+         static Gdk.Cursor busy_cursor;
+ 
+@@ -314,10 +315,15 @@ namespace Baobab {
+         }
+ 
+         bool show_treeview_popover (Gtk.PopoverMenu popover, int x, int y) {
+-            Gdk.Rectangle  rect = { x, y, 0, 0, };
+-            popover.set_pointing_to (rect);
+-            popover.popup ();
+-            return Gdk.EVENT_STOP;
++            popover_item = get_selected_item();
++            if (popover_item != null) {
++                Gdk.Rectangle  rect = { x, y, 0, 0, };
++                popover.set_pointing_to (rect);
++                popover.popup ();
++                return Gdk.EVENT_STOP;
++            } else {
++                return Gdk.EVENT_PROPAGATE;
++            }
+         }
+ 
+         public void open_item (Scanner.Results results) {
+@@ -443,21 +449,18 @@ namespace Baobab {
+         }
+ 
+         void on_treeview_open_folder () {
+-            var item = get_selected_item ();
+-            if (item != null)
+-                open_item (item);
++            if (popover_item != null)
++                open_item (popover_item);
+         }
+ 
+         void on_treeview_copy () {
+-            var item = get_selected_item ();
+-            if (item != null)
+-                copy_path (item);
++            if (popover_item != null)
++                copy_path (popover_item);
+         }
+ 
+         void on_treeview_trash () {
+-            var item = get_selected_item ();
+-            if (item != null)
+-                trash_file (item);
++            if (popover_item != null)
++                trash_file (popover_item);
+         }
+ 
+         void hide_columnview_header () {
+@@ -479,34 +482,29 @@ namespace Baobab {
+         }
+ 
+         [GtkCallback]
+-        void treeview_right_click_gesture_pressed (int n_press, double x, double y) {
+-            var child = columnview.pick (x, y, Gtk.PickFlags.INSENSITIVE | Gtk.PickFlags.NON_TARGETABLE);
+-            var row = child.get_ancestor (Type.from_name ("GtkColumnViewRowWidget"));
+-
+-            if (row == null) {
++        void treeview_left_click_gesture_released (int n_press, double x, double y) {
++            var position = get_columnview_position_at_coords (x, y);
++            if (position == null) {
+                 return;
+             }
+ 
+-            for (var cell = row.get_first_child (); cell != null; cell = cell.get_next_sibling ()) {
+-                var cell_content = cell.get_first_child ();
+-
+-                if (cell_content == null ||
+-                    cell_content.get_type () != typeof (FileCell)) {
+-                    continue;
+-                }
+-
+-                var file_cell = cell_content as FileCell;
+-                uint position = 0;
++            var row = columnview.model.get_object (position) as Gtk.TreeListRow;
++            var path = row.item as Scanner.Results;
++            reroot_treeview (path, true);
++        }
+ 
+-                if (columnview_selection_find (file_cell.item, true, out position)) {
+-                    columnview.scroll_to (position,
+-                                          null,
+-                                          Gtk.ListScrollFlags.FOCUS | Gtk.ListScrollFlags.SELECT,
+-                                          null);
+-                }
+-                break;
++        [GtkCallback]
++        void treeview_right_click_gesture_pressed (int n_press, double x, double y) {
++            var position = get_columnview_position_at_coords (x, y);
++            if (position == null) {
++                return;
+             }
+ 
++            columnview.scroll_to (position,
++                                  null,
++                                  Gtk.ListScrollFlags.FOCUS | Gtk.ListScrollFlags.SELECT,
++                                  null);
++
+             show_treeview_popover (treeview_popover_menu,  (int) x, (int) y);
+         }
+ 
+@@ -684,6 +682,34 @@ namespace Baobab {
+             scan_location (location);
+         }
+ 
++        uint? get_columnview_position_at_coords (double x, double y) {
++            var child = columnview.pick (x, y, Gtk.PickFlags.INSENSITIVE | Gtk.PickFlags.NON_TARGETABLE);
++            var row = child.get_ancestor (Type.from_name ("GtkColumnViewRowWidget"));
++
++            if (row == null) {
++                return null;
++            }
++
++            for (var cell = row.get_first_child (); cell != null; cell = cell.get_next_sibling ()) {
++                var cell_content = cell.get_first_child ();
++
++                if (cell_content == null ||
++                    cell_content.get_type () != typeof (FileCell)) {
++                    continue;
++                }
++
++                var file_cell = cell_content as FileCell;
++                uint position = 0;
++
++                if (columnview_selection_find (file_cell.item, true, out position)) {
++                    return position;
++                }
++                break;
++            }
++
++            return null;
++        }
++
+         [GtkCallback]
+         private void folder_cell_setup (GLib.Object object) {
+             var item = object as Gtk.ColumnViewCell;
+-- 
+GitLab
+
