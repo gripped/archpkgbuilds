@@ -1,12 +1,13 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=deja-dup
-pkgver=48.2
+pkgver=48.3
 pkgrel=1
 pkgdesc='Simple backup tool, GTK frontend for duplicity'
 arch=(x86_64)
 url='https://apps.gnome.org/DejaDup/'
 license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
   dconf
   duplicity
@@ -35,7 +36,7 @@ optdepends=(
   'restic: Alternative backend, experimental'
 )
 source=("git+https://gitlab.gnome.org/World/$pkgname.git#tag=$pkgver")
-b2sums=('c07cca55cc54443fd865221907cb307d6d07d2d7e47f5cf6066b8a8889e708b5020f386397323f994e5a1eb7f853a13d914f3e67adc9cf56259e374bece668b1')
+b2sums=(5188304b3e12174f3884582e80506eef15edb01d5fd1096221512077431b2547b4144b7ca6bd7492cdbacbacaf41e3f4a1e75fc4b7c546c9382135917a4ac8d0)
 validpgpkeys=(A3A5C2FC56AE7341D308D8571B50ECA373F3F233) # Michael Terry <mike@mterry.name>
 
 build() {
