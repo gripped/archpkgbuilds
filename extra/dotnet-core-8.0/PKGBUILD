@@ -12,7 +12,7 @@ pkgname=(
  aspnet-targeting-pack-8.0
  dotnet-source-built-artifacts-8.0
 )
-pkgver=8.0.15.sdk115
+pkgver=8.0.18.sdk118
 pkgrel=1
 arch=(x86_64)
 url=https://dotnet.microsoft.com
@@ -43,9 +43,9 @@ options=(
   !lto
   staticlibs
 )
-_tag=4d246579080efa41c77ddfa9ec8e133d7cf52666
+_tag=f4d2dc9c002dee003c875b89729d1ce958c24a9e
 source=(git+https://github.com/dotnet/dotnet.git#tag=${_tag})
-b2sums=('49f3cfd0820728420eb0bd55302e33f12edd1ff915a5ce4a394637cea2be9486277998faf60c3c4f781a4abdf86f8e5a3a49753533e5a4fac8597f02ce258d36')
+b2sums=('c08cc660e79567a39121bb05fd5bf96004efd0db259d190e695b05696f02dbea20783903c621ef5f74b27957d3ab1f00df94f57877b247f8eeeb32917a26c44d')
 
 prepare() {
   cd dotnet
@@ -108,23 +108,6 @@ build() {
   unset LDFLAGS
 
   ./build.sh --clean-while-building --online
-}
-
-package_dotnet-host() {
-  pkgdesc='A generic driver for the .NET Core Command Line Interface'
-  depends=(
-    gcc-libs
-    glibc
-  )
-  optdepends=('bash-completion: Bash completion support')
-
-  install -dm 755 "${pkgdir}"/usr/{bin,lib,share/{dotnet,licenses/dotnet-host}}
-  bsdtar -xf dotnet/artifacts/x64/Release/dotnet-sdk-${pkgver%.*.sdk*}.${pkgver#*sdk}-arch-x64.tar.gz -C "${pkgdir}"/usr/share/dotnet/ --no-same-owner dotnet host
-  bsdtar -xf dotnet/artifacts/x64/Release/dotnet-sdk-${pkgver%.*.sdk*}.${pkgver#*sdk}-arch-x64.tar.gz -C "${pkgdir}"/usr/share/licenses/dotnet-host/ --no-same-owner LICENSE.txt ThirdPartyNotices.txt
-  ln -s /usr/share/dotnet/dotnet "${pkgdir}"/usr/bin/dotnet
-  ln -s /usr/share/dotnet/host/fxr/${pkgver%.sdk*}/libhostfxr.so "${pkgdir}"/usr/lib/libhostfxr.so
-  install -Dm 644 dotnet/src/sdk/scripts/register-completions.bash "${pkgdir}"/usr/share/bash-completion/completions/dotnet
-  install -Dm 644 dotnet/src/sdk/scripts/register-completions.zsh "${pkgdir}"/usr/share/zsh/site-functions/_dotnet
 }
 
 package_dotnet-runtime-8.0() {
