@@ -1,0 +1,45 @@
+From 6d1a1f9468d5f774cfd7afeca9c656d25cfb0fb8 Mon Sep 17 00:00:00 2001
+From: Levente Polyak <levente@leventepolyak.net>
+Date: Thu, 24 Jul 2025 23:24:54 +0200
+Subject: [PATCH] avoid massive overlinking by using gcc
+
+dbusmenu-gtk3-0.4 pkg-config reports a huge list of libraries it uses
+for features. Vala does not properly avoid overlinking even if the
+application at hand doesn't make use of any of these symbols.
+
+Fix this by using gcc for linking which properly handles --as-needed
+and removes overlinked libraries.
+---
+ makefile | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/makefile b/makefile
+index 3fef248..d0be1f2 100644
+--- a/makefile
++++ b/makefile
+@@ -1,6 +1,7 @@
+ PKG = gtk+-3.0 gio-2.0 Dbusmenu-0.4 DbusmenuGtk3-0.4
+ CPKG = dbusmenu-gtk3-0.4
+-SRC = src/*.vala version.vala
++SRC = $(wildcard src/*.vala) version.vala
++OBJ = $(patsubst %.vala,%.o,$(SRC))
+ 
+ PREFIX ?= /usr
+ BINDIR ?= /bin
+@@ -10,8 +11,11 @@ PKG := $(foreach pkg, $(PKG), --pkg $(pkg))
+ CFLAGS := $(CFLAGS) $(shell pkg-config --cflags --libs $(CPKG))
+ VFLAGS := $(foreach flag, $(CFLAGS) $(LDFLAGS), -X $(flag)) $(VFLAGS)
+ 
+-snixembed: $(SRC)
+-	valac -o $@ $(VFLAGS) $(PKG) $(SRC)
++snixembed: $(OBJ)
++	cc -o $@ $^ $(LDFLAGS) $(CFLAGS) $(CPPFLAGS)
++
++%c:
++	valac -C $(VFLAGS) $(PKG) $(SRC)
+ 
+ version.vala: # update version from git if possible
+ ifneq (,$(wildcard ./.git/HEAD))
+-- 
+2.50.0
+
