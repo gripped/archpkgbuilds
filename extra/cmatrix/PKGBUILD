@@ -3,7 +3,7 @@
 
 pkgname=cmatrix
 pkgver=2.0
-pkgrel=3
+pkgrel=4
 pkgdesc="A curses-based scrolling 'Matrix'-like screen"
 arch=('x86_64')
 url="https://www.asty.org/cmatrix/"
@@ -26,8 +26,8 @@ prepare() {
 build() {
   cd build
   cmake ../$pkgname-$pkgver \
-    -D CMAKE_BUILD_TYPE=Release \
     -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     #-D CONSOLE_FONTS_DIRS=/usr/share/kbd/consolefonts \
     #-D X_FONTS_DIRS=/usr/share/fonts/misc \
     #-D UNIX=true
