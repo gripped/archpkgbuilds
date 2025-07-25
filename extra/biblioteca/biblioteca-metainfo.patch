@@ -1,0 +1,28 @@
+From b627181cbfbd0e0174d79d6af54886e41cc8c8c4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 24 Jul 2025 23:23:37 +0200
+Subject: [PATCH] metainfo: Fix validation
+
+---
+ data/app.metainfo.xml.in | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/data/app.metainfo.xml.in b/data/app.metainfo.xml.in
+index dd5f7db..10ce157 100644
+--- a/data/app.metainfo.xml.in
++++ b/data/app.metainfo.xml.in
+@@ -102,12 +102,12 @@
+     </release>
+     <release version="1.1" date="2023-11-12">
+       <description translatable="no">
+-        Various bug fixes.
++        <p>Various bug fixes.</p>
+       </description>
+     </release>
+     <release version="1.0" date="2023-11-10">
+       <description translatable="no">
+-        This is the first release of Biblioteca with GNOME 45 documentation. We hope you like it.
++        <p>This is the first release of Biblioteca with GNOME 45 documentation. We hope you like it.</p>
+       </description>
+     </release>
+   </releases>
