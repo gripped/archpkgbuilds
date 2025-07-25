@@ -1,4 +1,4 @@
-From 5a0a8b609cee5f2dc7a5dfb52cfbe6db06687c6e Mon Sep 17 00:00:00 2001
+From f943047dad333b079b8fed266a358c9068ba00c8 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Sun, 13 Apr 2025 08:33:57 +0200
 Subject: [PATCH] Add D-Bus service file
@@ -37,15 +37,17 @@ index b4fadc9..1409cca 100644
  message(datadir)
  subdir('icons')
 diff --git a/data/org.gnome.gitlab.somas.Apostrophe.desktop.in.in b/data/org.gnome.gitlab.somas.Apostrophe.desktop.in.in
-index 1221422..bf17621 100644
+index 8efa148..bc20e1c 100644
 --- a/data/org.gnome.gitlab.somas.Apostrophe.desktop.in.in
 +++ b/data/org.gnome.gitlab.somas.Apostrophe.desktop.in.in
-@@ -10,4 +10,5 @@ Icon=@icon@
+@@ -10,6 +10,7 @@ Icon=@icon@
  Terminal=false
  Type=Application
  StartupNotify=true
 +DBusActivatable=true
  MimeType=text/x-markdown;text/plain;
+ Actions=new-window;
+ 
 diff --git a/data/org.gnome.gitlab.somas.Apostrophe.service.in b/data/org.gnome.gitlab.somas.Apostrophe.service.in
 new file mode 100644
 index 0000000..3933d1c

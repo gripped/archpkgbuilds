@@ -2,11 +2,12 @@
 
 pkgname=apostrophe
 pkgver=3.2
-pkgrel=7
+pkgrel=8
 pkgdesc='Distraction free Markdown editor'
 arch=(any)
 url='https://apps.gnome.org/Apostrophe/'
 license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
   dconf
   glib2
@@ -21,6 +22,7 @@ depends=(
   python-chardet
   python-gobject
   python-pypandoc
+  python-regex
   webkitgtk-6.0
 )
 makedepends=(
@@ -36,92 +38,20 @@ optdepends=(
 )
 source=(
   "git+https://gitlab.gnome.org/World/apostrophe.git#tag=v$pkgver"
-  apostrophe-open-exists.patch
-  apostrophe-decoding-error.patch
-  apostrophe-advanced-export-path.patch
-  apostrophe-new-window.patch
-  apostrophe-raise-window.patch
   apostrophe-dbus-activatable.patch
 )
 b2sums=(
   cdc29505c886181ca7ae8c66559a17ceec2884a6a656819930015fc8ba210bdab71d7f216cd9bac580710559c7d74d010f84a9a9e9ed0fb50c8b1f41be1c9178
-  1c0be37bbf09e908e69095226978c3fc2725cb687f689fe14f097c81cf87a40754804f9dad368caefa71571d21e37d79f3f339e5058da159e7fd0d36f4c9abbb
-  f8250671e7fa53869a13baf9714cbb2a9bfb25a73aace53eb063e0fd0d4e8c8bab7e4c251481e0ab985c402efce9eeb109a2206f436d2b1f659b7b0755e490f3
-  eb029ce12fb96a9379e9c68993921122a9e3935f4223dbac5b19039394917f8a83c0412fa8a8b7778e8f54ae406b6f728651426340d32a838eaffc3add8bf095
-  bce511eedc9f8106279c95fc34771282f14f6f906ad09dec8bf7fd7fa453c622ac8c820a50fdd08e3e3b0b63c88ca0e0ecce2397324075bb4e9ac4f3017d6e8d
-  a7bd40ba97eca5d1881c85d144208be3bc00738e2adfff2609052966c5cedbaa4814db3d95938ecee1fc22e095a69ffe3f23ae7e140b50e5c6ed7b1471868690
-  a605c247da00c0173314d6af6584ba26b858a477118f3c6e5ef998cfc562e192dd55f24dba03241c849e30adc3fb9abb6b03798d98670c9066ec428ef068e03d
+  fc16255b5aa89f3083d68fdea701c482d53d6cf1899b4247e26e818504039906f7ddcf58c2215ad979cee7cb6d43874ead9344b082b101ac8fb7954e5748a76b
 )
 
 prepare() {
   cd $pkgname
 
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/301
-  git cherry-pick -n bd6e4503582f1622742c633b9a788c1477f94cd5
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/294
-  git cherry-pick -n a09f8ce7ba06ef12474b5a1b9b932007f0db39f8
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/264
-  git cherry-pick -n 2fc464da1a7054c072234111bff27456c157f87e
-
-  # https://gitlab.gnome.org/World/apostrophe/-/issues/559
-  git cherry-pick -n 01770a0ce4e350d713ed3b92793f20a69bb82f38
-
-  # https://gitlab.gnome.org/World/apostrophe/-/issues/572
-  git cherry-pick -n bde1e4614adea99d79673158c796a14356654c56
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/304
-  git cherry-pick -n 4d7d7c9a44d915e1ba97f1ebe78fcc0c9857d692
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/305
-  git cherry-pick -n 67ea7fe899f52b7c82528dd7be57dd42e22f296b
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/306
-  git cherry-pick -n 624b73a42a07d970f6d11fabbc9cb5e2a9ded391
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/307
-  git cherry-pick -n d00b0fb7b1b73b27bbc8a540a4479e5c79d5450e
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/308
-  git cherry-pick -n 9dfb69f5dfc9adf7d3f0c8f0ac848e747bcc4a5b
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/309
-  git cherry-pick -n c9005d5b6e2ec9c8fa9ad3ee9bbfd96bc0b60d99
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/310
-  git cherry-pick -n f86c570d988dba8c2177d655386a1b8b64b10742
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/311
-  git cherry-pick -n 186500dbd004bc607d77258eb7b4923bbc8b313f
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/313
-  git cherry-pick -n 9c1605fec90405b5179658338953ed49b72585f9
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/323
-  git cherry-pick -n f560aa04f8739e65e5ffd4cab3d0974cb9bce91e
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/321
-  git cherry-pick -n f9dc3f096317bae12b405a0f4dc7b519c40df141
-  git cherry-pick -n e79566c7973c9e5a9345d835f97a7017735a38bf
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/325
-  git apply -3 ../apostrophe-open-exists.patch
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/326
-  git apply -3 ../apostrophe-decoding-error.patch
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/327
-  git apply -3 ../apostrophe-advanced-export-path.patch
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/328
-  git apply -3 ../apostrophe-new-window.patch
-
-  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/329
-  git apply -3 ../apostrophe-raise-window.patch
+  # Various fixes from upstream
+  git cherry-pick -n -m 1 v3.2..268c6371b64dc3513ac1d0ddc0be0d43f306c817
 
   # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/330
-  git cherry-pick -n d72f5f3dd2c5c07be4742a990ec1cabf1b863b4e
   git apply -3 ../apostrophe-dbus-activatable.patch
 }
 
