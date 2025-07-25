@@ -5,7 +5,7 @@
 
 pkgname=libotr
 pkgver=4.1.1
-pkgrel=5
+pkgrel=6
 pkgdesc='Off-the-Record Messaging Library and Toolkit'
 url='https://otr.cypherpunks.ca/'
 license=(
@@ -16,7 +16,6 @@ arch=('x86_64')
 depends=(
   'glibc'
   'libgcrypt'
-  'libgpg-error'
 )
 validpgpkeys=('22DF3305DF56667CE15784FCF24DE08F42C2ABAD') # OTR Dev Team
 source=(https://otr.cypherpunks.ca/${pkgname}-${pkgver}.tar.gz{,.asc}
@@ -28,6 +27,8 @@ sha256sums=('8b3b182424251067a952fb4e6c7b95a21e644fbb27fbd5f8af2b2ed87ca419f5'
 prepare() {
     # FS#75450
     patch -d "$pkgname-$pkgver" -N -p 1 -i "${srcdir}/$pkgname-4.1.1-include-socket.h.patch"
+    cd $pkgname-$pkgver
+    autoreconf -vif
 }
 
 build() {
