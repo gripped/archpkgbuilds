@@ -2,11 +2,12 @@
 
 pkgname=hieroglyphic
 pkgver=2.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Search through over 1000 different LaTeX symbols by sketching'
 arch=(x86_64)
 url='https://apps.gnome.org/Hieroglyphic/'
 license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
   dconf
   gcc-libs
@@ -24,14 +25,8 @@ makedepends=(
   rust
 )
 options=(!lto)
-source=(
-  "git+https://github.com/FineFindus/Hieroglyphic.git#tag=v$pkgver"
-  hieroglyphic-dbus-activatable.patch
-)
-b2sums=(
-  d30a3b29c65531a9a0480de484418df28225000e38db300c924c581142974a596aaa693993ab3fad0ad3577e8596c62ef3319e170c2862bd680f8dc9eae652db
-  e6e67ae4a261f749e4ea14dabbf237fe6d7e1f2595526567174505aaf2e90c894960c38d59fd26b31966f71d66572f4400cd653ca7531b0334e4ade4e51dd799
-)
+source=("git+https://github.com/FineFindus/Hieroglyphic.git#tag=v$pkgver")
+b2sums=(d30a3b29c65531a9a0480de484418df28225000e38db300c924c581142974a596aaa693993ab3fad0ad3577e8596c62ef3319e170c2862bd680f8dc9eae652db)
 
 prepare() {
   cd Hieroglyphic
@@ -40,7 +35,7 @@ prepare() {
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 
   # https://github.com/FineFindus/Hieroglyphic/pull/41
-  git apply -3 ../hieroglyphic-dbus-activatable.patch
+  git cherry-pick -n 2127fb95f24c8eb874f992c8b0cf4ae0dc5f55a4
 }
 
 build() {
