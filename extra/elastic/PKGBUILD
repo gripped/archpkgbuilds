@@ -1,12 +1,13 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=elastic
-pkgver=0.1.7
+pkgver=0.1.9
 pkgrel=1
 pkgdesc='Design and export spring physics-based animations to use with libadwaita'
 arch=(x86_64)
 url='https://apps.gnome.org/Elastic/'
 license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
   dconf
   glib2
@@ -19,12 +20,13 @@ depends=(
 )
 makedepends=(
   appstream
+  blueprint-compiler
   git
   meson
   vala
 )
 source=("git+https://gitlab.gnome.org/World/elastic.git#tag=$pkgver")
-b2sums=(5ca67854bd0761dc5fee0ffe2c01dd3045aec8d16aed7cd3b888f59afe12848a3282bb35cc554098f9faa2f8667f7c5c585df9ee1d361d156947cfc5be9fa3c5)
+b2sums=(604b2fb58131f7e66b005da2505e69d62476732d9dbbbf90952dce112ea94ce3994fec7bcd704882bffdaf5ac29251051c3f75ee94ed63e789bb9be92b1363c4)
 
 build() {
   arch-meson $pkgname build
