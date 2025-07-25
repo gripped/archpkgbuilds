@@ -1,12 +1,13 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=bustle
-pkgver=0.11.0
-pkgrel=3
+pkgver=0.12.0
+pkgrel=1
 pkgdesc='Draw sequence diagrams of D-Bus traffic'
 arch=(x86_64)
 url='https://apps.gnome.org/Bustle/'
 license=(LGPL-2.1-or-later)
+groups=(gnome-circle)
 depends=(
   dconf
   gcc-libs
@@ -25,25 +26,13 @@ makedepends=(
   rust
 )
 source=("git+https://gitlab.gnome.org/World/bustle.git#tag=$pkgver")
-b2sums=(0bbe84f3e404f1e72f9e13c3b56ab1534b92cfa79d5e4cf8ddfa5b346def946fcfacfed1abba24b3cb3155bdcd0731d16b207153910442f9bce4e5aa760254a6)
+b2sums=(d4ea7da4f21c5abd03279491aed4bd81ab261195c9dd0554622c5a8c9f4d86c4925098e7c93357167be5ca459e4fa779a6a0893b69ee6d0915b15ad6f8fc6619)
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-
-  # Remove new-window action entry
-  # https://gitlab.gnome.org/World/bustle/-/merge_requests/149
-  git cherry-pick -n 970db29f959b7b81b6d091bc84cc2d0429cbed75
-
-  # Add D-Bus service file
-  # https://gitlab.gnome.org/World/bustle/-/merge_requests/151
-  git cherry-pick -n fefded8ae1c80b861fadaf801b2c14945335a2d6
-
-  # Add "new-window" command-line option
-  # https://gitlab.gnome.org/World/bustle/-/merge_requests/150
-  git cherry-pick -n 93b0beee8e7a3576ce01ca6626900a677da901ea
 }
 
 build() {
