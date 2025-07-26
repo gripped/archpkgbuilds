@@ -1,8 +1,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=eog-plugins
-pkgver=44.0
-pkgrel=3
+pkgver=44.1
+pkgrel=1
 pkgdesc="Plugins for Eye of Gnome"
 url="https://wiki.gnome.org/Apps/EyeOfGnome/Plugins"
 arch=(x86_64)
@@ -18,7 +18,7 @@ makedepends=(
   meson
 )
 source=("git+https://gitlab.gnome.org/GNOME/eog-plugins.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('13e362677b7078b53be0c7b615e9b2808823aa6f01a4c24f1f4d2b3873097efcba2afdbaa62932c84e45bc086c8e7135caaabf89525520b478268c9e33d2cd62')
+b2sums=('4dd845ddba303d8f2acfd40bc30e10087ab3d179b2c01b0bf62cd9bd94b0ee8d701fd1fc14ea352d8c2c22cf7002cb6162f0797804508003e343b0afdbce4d8e')
 
 prepare() {
   cd $pkgname
