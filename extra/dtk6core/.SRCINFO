@@ -1,7 +1,7 @@
 pkgbase = dtk6core
 	pkgdesc = DTK core modules
-	pkgver = 6.0.31
-	pkgrel = 2
+	pkgver = 6.0.32
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/dtk6core
 	arch = x86_64
 	license = LGPL3
@@ -20,9 +20,11 @@ pkgbase = dtk6core
 	depends = lshw
 	depends = qt6-base
 	depends = uchardet
-	source = git+https://github.com/linuxdeepin/dtk6core.git#tag=6.0.31
+	source = git+https://github.com/linuxdeepin/dtk6core.git#tag=6.0.32
 	source = dtk6core-qt-6.9.patch::https://github.com/linuxdeepin/dtkcore/commit/8db10c91452d25fc3d380f685847bd53b769d3ad.patch
-	sha512sums = e4bb377b6aed61a245ee332dc9d3487a8e44a5681ca4b57b7e138ddf0f5b9dab005e04c7f74e97f6dbf7f728ce3542fd93e8eea9c32fec245259bda71a86a369
+	source = dtk6core-qt-6.9-new.patch::https://github.com/linuxdeepin/dtkcore/commit/c250cf2111e5e3fb619f7507ac58e6d08150d89e.patch
+	sha512sums = 60a5972bbef855feb13c14cef883987781ae576576177acf9fb1661a8c5e5689a3a329ac196671f31ca5ca1febc9edbe8eaae9fc1bf441ee7cc800592bfabd78
 	sha512sums = 37c2e476d47e2fd2b10b19e6ff81994ffa8b961dcd54c4056ec5c00a07684d44df4ab2dc57d617a6ee300dfd8bec88485d933485076cd200f420df36bc6ae674
+	sha512sums = d116a8425c4c27ed423aff6be485775ae7df391d0ae568c81f24fc71cc6b4cb08bf4bd47a936d7387e6580d166bc3e4cc58827c6a1bed9399f5bc265aa9c1047
 
 pkgname = dtk6core
