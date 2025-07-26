@@ -3,7 +3,7 @@
 # Contributor: Vitaliy Berdinskikh <ur6lad@i.ua>
 
 pkgname=tomcat-native
-pkgver=2.0.8
+pkgver=2.0.9
 pkgrel=1
 pkgdesc='Optional component for Tomcat to use certain native resources for performance, compatibility'
 arch=(x86_64)
@@ -19,12 +19,12 @@ makedepends=(
   python
 )
 options=(!emptydirs)
-_tag=da9d510960b8cef95359b08b30ec1dba995183eb
+_tag=540d06a0741444d002e2caff8b244daf4a2963b8
 source=(
   git+https://github.com/apache/tomcat-native.git#tag=${_tag}
   tomcat-native-buildconf.patch
 )
-b2sums=('04ab630d071994be6ffd4cf650119a10df9df8765ba1676706f213c2967f47570c182ba0ddf5d0e41568d9c826999d5e35921e72ceac0319ebe553758831624a'
+b2sums=('ee7b983dcef7eb7908e3a68230da0ed49caf993e725d14b91240e977241ffd4bdbd633ba5e0663f26c58fb71ee69f052ef0a634e251761b625e91706eb2b9410'
         'd3603079626b908644331c193452088ef3ce89e92c775c60b232d16d04b8c49d40106d55c76f81c87daea93d335868140df0046c7102796d92b08431ac8749a4')
 
 pkgver() {
