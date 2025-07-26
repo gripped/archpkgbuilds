@@ -2,7 +2,7 @@
 
 _id=browserpass@maximbaz.com
 pkgname=browserpass-firefox
-pkgver=3.10.2
+pkgver=3.11.0
 pkgrel=1
 pkgdesc="Firefox extension for Browserpass, browser extension for zx2c4's pass (password manager)"
 arch=('any')
@@ -14,7 +14,7 @@ source=("${pkgname}-${pkgver}.xpi::https://addons.mozilla.org/firefox/downloads/
         "https://raw.githubusercontent.com/browserpass/browserpass-extension/master/LICENSE")
 noextract=("${pkgname}-${pkgver}.xpi")
 b2sums=('66ba736e23376c96b21579f2584864129a8ff6f29b1ccb5af63d7aaa5d09e5231632c464f89f81e0bcd839da5a49eee5ba33d6ebd02a1ee541dc7f66e372314b'
-        '9e54d91167393d3f3159c3598aa729434c1e7d8ef39083aa40ba6241c9b4b560c64bac1af43efa7be2dac72d8c35413b057b9f67eb41934e10bd8c733437e407')
+        'a29664104e1ee73ca0aee1d633e9095d92a57c92787f8d8740bdb7211ba3205782ed8677f539bdb8cae3dd75a3694be3132e185fa3fc4b3f401e1f88eb776101')
 
 package() {
     install -Dm644 "${pkgname}-${pkgver}.xpi" "${pkgdir}/usr/lib/firefox/browser/extensions/${_id}.xpi"
