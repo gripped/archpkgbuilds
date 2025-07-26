@@ -2,31 +2,35 @@
 # Contributor: Simon Hanna <simon dot hanna AT serve-me DOT info>
 
 pkgname=python-zope-event
-pkgver=5.1
+_pkgname=zope.event
+pkgver=5.1.1
 pkgrel=1
 pkgdesc="Provides a simple event system"
 arch=(any)
-license=('ZPL')
 url="https://github.com/zopefoundation/zope.event"
+license=('ZPL-2.1')
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=(
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
 checkdepends=('python-zope-testrunner')
-source=("https://github.com/zopefoundation/zope.event/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('0050092b07b2339c9c41e8bb554dd158e41779d77e0ea8345e95db62606440d814aa4ae0567e8010a509fd5c4f89801c79e8192c545df92dd15a6e48b9edd2ce')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('1eef1aa743ab30b3b7e4582a1aafdfe275644485dd6b39c3638a05d478a90cb07e35e5319e48a9316809aeeda39f07eff61c246d56692ba853f790bdd83de618')
 
 build() {
-  cd zope.event-$pkgver
-  python setup.py build
+  cd $_pkgname-$pkgver
+  python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
-  cd zope.event-$pkgver
-  PYTHONPATH="$PWD/src" python -m zope.testrunner --test-path=src
+  cd $_pkgname-$pkgver
+  PYTHONPATH="$PWD/build/lib:$PYTHONPATH" python -m zope.testrunner --test-path=src
 }
 
 package() {
-  cd zope.event-$pkgver
-  python setup.py install --root="$pkgdir/" --optimize=1
+  cd $_pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
-
-# vim:set ts=2 sw=2 et:
