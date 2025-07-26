@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-beetle-pce-fast
-pkgver=1267
+pkgver=1278
 pkgrel=1
 pkgdesc='NEC PC Engine/CD core'
 arch=(x86_64)
@@ -15,9 +15,9 @@ depends=(
   zlib
 )
 makedepends=(git)
-_commit=9f2b7943db1fb784daf0948b0b493bc7f76919f8
+_commit=71675959c7df0f4235a90e6eeb271bf7c1bde019
 source=(libretro-beetle-pce-fast::git+https://github.com/libretro/beetle-pce-fast-libretro.git#commit=${_commit})
-sha256sums=('3dc40a05a9408f177b57ae3e44a92c90d1b301cb2d230b67a9cbee260d9818ff')
+sha256sums=('bdca9efd234342fb0b88622825273dfbe2690661bef860fc03555e653d49336a')
 
 pkgver() {
   cd libretro-beetle-pce-fast
