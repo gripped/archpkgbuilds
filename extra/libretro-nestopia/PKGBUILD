@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-nestopia
-pkgver=146
+pkgver=151
 pkgrel=1
 epoch=1
 pkgdesc='Nintendo Entertainment System core'
@@ -11,9 +11,9 @@ license=(GPL2)
 groups=(libretro)
 depends=(libretro-core-info)
 makedepends=(git)
-_commit=b3eb368603cd519d54bb4886d2934ee4fd188081
+_commit=0e82a1642d4acafab4da9ce937954b85d846952b
 source=(libretro-nestopia::git+https://github.com/libretro/nestopia.git#commit=${_commit})
-sha256sums=('de08717549af14681f14d369c933fcfc09480343be6fd8dfb1e94b24db94f0a0')
+sha256sums=('a2824774b024293337e727ef384cf4d54e4b4d6dc255967711fbcd5ff8bc777e')
 
 pkgver() {
   cd libretro-nestopia
