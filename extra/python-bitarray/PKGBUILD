@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-bitarray
-pkgver=3.5.1
+pkgver=3.5.2
 pkgrel=1
 pkgdesc="Efficient arrays of booleans for Python"
 arch=(x86_64)
@@ -19,7 +19,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$url/archive/$pkgver/${pkgname#python-}-$pkgver.tar.gz")
-sha256sums=('5af43fec33a56f03da42a062b1cbf432028c391a01c917f4c0cf9156f48effd7')
+sha256sums=('3a8bdf36e009a31568aab9fb49d195b3dc9dceba30ac9233fa1622641db84ae6')
 
 build() {
   cd ${pkgname#python-}-$pkgver
