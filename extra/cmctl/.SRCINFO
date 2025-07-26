@@ -1,17 +1,15 @@
 pkgbase = cmctl
-	pkgdesc = Automatically provision and manage TLS certificates in Kubernetes
-	pkgver = 1.17.1
-	pkgrel = 1
-	url = https://github.com/jetstack/cert-manager
+	pkgdesc = CLI tool manage and configure cert-manager resources for Kubernetes
+	pkgver = 2.3.0
+	pkgrel = 2
+	url = https://github.com/cert-manager/cmctl
 	arch = x86_64
-	arch = aarch64
-	groups = kubectl-plugins
-	license = Apache
+	license = Apache-2.0
 	makedepends = git
 	makedepends = go
-	depends = kubectl
-	source = https://github.com/jetstack/cert-manager/archive/v1.17.1/cmctl-1.17.1.tar.gz
-	sha512sums = 975a7831fe82e3cb02a454f96a757556a06603d8f8be7cfc5d8b93daeb60ccd1c7a2a53b040f20faa1c6df3b438d98a97890940abc7630db225690964b72d432
-	b2sums = f303fa23f1abef8f384b0faab9708c89b4e0ef471fb6dafb68fbbf02d81029c662b5250e3e7d9c352e7558990d3192207085945ae983f1956326f66c7b04121b
+	depends = glibc
+	source = git+https://github.com/cert-manager/cmctl.git#tag=v2.3.0
+	sha512sums = 9134bce0de2ea962afc60e5a743d5419bad7fbf0ec2f2c2506227bccacae27dc1581b509ef040aa42f63a63a3e4f41f7e3c9b2b8abcb3b6173df4e4242954576
+	b2sums = 2bc9301c9dbea9b9aaf0580e64b320056d1ce47cf2ca335aa006bcccd67db698efe3e22761d417e3004ded6927832a43e7711fb8e9c6591ba9b611a6b8d9ce24
 
 pkgname = cmctl
