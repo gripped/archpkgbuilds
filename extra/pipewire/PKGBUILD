@@ -23,7 +23,7 @@ pkgname=(
   pipewire-session-manager
   pulse-native-provider
 )
-pkgver=1.4.6
+pkgver=1.4.7
 pkgrel=1
 epoch=1
 pkgdesc="Low-latency audio/video router and processor"
@@ -77,7 +77,7 @@ checkdepends=(
 source=(
   "git+https://gitlab.freedesktop.org/pipewire/pipewire.git#tag=$pkgver"
 )
-b2sums=('8af1e4d8ae525dec782df4168ca9cfa9328c9809b47573e63f33f40e9fca5a95c6aece17003943f590503302feba4c2a79ec32d91f2a2bbd909094af02182105')
+b2sums=('3d708fd818288432c0963761a35dfc4c716ddd5753e5ccc7cf3ad6db3a4e8c3d3b43babbc0de8b8dc3284c9fec8bc3c26adee8461980b89610a2ec70b5e45ba8')
 
 prepare() {
   cd pipewire
