@@ -1,9 +1,10 @@
 pkgbase = letterpress
 	pkgdesc = Convert your images into a picture made up of ASCII characters, using jp2a
 	pkgver = 2.1
-	pkgrel = 9
+	pkgrel = 10
 	url = https://apps.gnome.org/Letterpress/
 	arch = any
+	groups = gnome-circle
 	license = GPL-3.0-or-later
 	makedepends = appstream
 	makedepends = blueprint-compiler
@@ -20,15 +21,15 @@ pkgbase = letterpress
 	depends = python-pillow
 	source = git+https://gitlab.gnome.org/World/Letterpress.git#tag=2.1
 	source = letterpress-ref-dialog.patch
-	source = letterpress-window-icon.patch
 	source = letterpress-drop-target.patch
 	source = letterpress-png-convert.patch
 	source = letterpress-clear-tmpfiles.patch
+	source = letterpress-dbus-activatable.patch
 	b2sums = 150cec7703733d6466008baa29aa77310749328ae4aab193e23da4dac25cbeb810058551a144069852b0f647b403e89060c65673124032ca37340c1c34ab441b
 	b2sums = 85b95ddf80a445a8fd13856086da45e7702d171a780deb62512b27ef03ed56acd30ddf43cd27c67a935961b11cab2fe8a68607d3d6519802cfa4edaaedc6710d
-	b2sums = 001ea58a749bc573f69f6a6de235572a07092d99f414f9e66f2a8180ad1df523988536d5b21589e3d6f2c8869fa0cfd08fea8b203abb8043bcbc9d143975cd0f
 	b2sums = 4030ec1653f77719e00f28435a615a431fd139833db2a706af165866ac0ecc8f5edeb6c0ac66f931a53d50ae57578e1b97fcb7af423dedbb67b5a034fccabd4c
 	b2sums = 5f6cc0075f3a78a77e04827805e0f76f645db41f2b2378740586ff6ddc40b8bd39c84f1a3697c856b72cb15e85a214cd6e64cfd1515f8a0008cc0bcd66ea0d9e
 	b2sums = 78b5fcc46accc00bc558053bef023cbce2ee57b16c76d84a68bcec325daec6ea7db99dbd92b52a3936a3416620e5d0724f1cd8791519bb23a4dbeb901d26b0ae
+	b2sums = f1e492d0383195f8aa9ccf34fbc1b0b964c6b8c6c80455a2d15087aceb364efd1d3b8231630b9485ac862c74557ed2717ec73819d6d13941818807c52c97bc9b
 
 pkgname = letterpress
