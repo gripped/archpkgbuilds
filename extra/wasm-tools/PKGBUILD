@@ -1,0 +1,45 @@
+# Maintainer: Quentin Michaud <mh4ckt3mh4ckt1c4s@archlinux.org>
+
+pkgname=wasm-tools
+pkgver=1.235.0
+pkgrel=2
+pkgdesc="Low level tooling for WebAssembly in Rust"
+arch=("x86_64")
+url="https://github.com/bytecodealliance/wasm-tools"
+license=("Apache-2.0")
+depends=("glibc" "gcc-libs")
+# Update using ./retrieve-testsuite-commit.sh <pkgver>
+_wasm_testsuite_commit=970d36b21676828f0d4482abee5554cd2c9813e6
+makedepends=("cargo")
+source=(
+	"$pkgname-$pkgver.tar.gz::https://github.com/bytecodealliance/$pkgname/archive/refs/tags/v$pkgver.tar.gz"
+	"wasm-testsuite-$_wasm_testsuite_commit.tar.gz::https://github.com/WebAssembly/testsuite/archive/$_wasm_testsuite_commit.tar.gz"
+)
+sha256sums=('babd9a5d3173882997458985842b9d990f31bf5d2871ded0845c2e33bbdc4c93'
+            '65770a82eeaf34af066ca3a692d7ef22d88f07ac626efc55a287b1b5302dc388')
+
+prepare() {
+    cd "$pkgname-$pkgver"
+    export RUSTUP_TOOLCHAIN=stable
+    rm -r tests/testsuite
+    cp -r "$srcdir/testsuite-$_wasm_testsuite_commit" tests/testsuite
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+    cd "$pkgname-$pkgver"
+    export RUSTUP_TOOLCHAIN=stable
+    export CARGO_TARGET_DIR=target
+    cargo build --frozen --release --all-features --bin wasm-tools
+}
+
+check() {
+    cd "$pkgname-$pkgver"
+    export RUSTUP_TOOLCHAIN=stable
+    cargo test --frozen
+}
+
+package() {
+    cd "$pkgname-$pkgver"
+    install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
+}
