@@ -1,14 +1,14 @@
 pkgbase = rofimoji
 	pkgdesc = Emoji, unicode and general character picker for rofi and rofi-likes
-	pkgver = 6.5.0
-	pkgrel = 2
+	pkgver = 6.6.0
+	pkgrel = 1
 	url = https://github.com/fdw/rofimoji
 	arch = any
 	license = MIT
 	makedepends = git
 	makedepends = python-build
+	makedepends = python-hatchling
 	makedepends = python-installer
-	makedepends = python-poetry-core
 	depends = python-configargparse
 	optdepends = emoji-font: for the emojis character file
 	optdepends = nerd-fonts: for the nerd_font character file
@@ -25,8 +25,9 @@ pkgbase = rofimoji
 	optdepends = wmenu: for one of the Wayland selectors
 	optdepends = wofi: for one of the Wayland selectors
 	optdepends = wl-clipboard: for the Wayland clipboarder
-	optdepends = wtype: for the Wayland typer
-	source = git+https://github.com/fdw/rofimoji.git#tag=6.5.0
-	b2sums = 70ca4e376db58604fcb7438ad5250257cb8265eb2f833917c48e9da231c401508a624812fb26745fe4fb95584fe0d36796d18c37dfd93f9b9b039dc7796ab40d
+	optdepends = wtype: for one of the Wayland typers
+	optdepends = ydotool: for one of the Wayland typers
+	source = git+https://github.com/fdw/rofimoji.git#tag=6.6.0
+	b2sums = 0310025491fed6b3ca8c1742f8da5583bbb646e1f88b67cfcca680f219e71c5ac109382e9bcc7322d1906fbf77a3364033283b993abe2dd75243e82cc692ae60
 
 pkgname = rofimoji
