@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-aiodiscover
-pkgver=2.6.1
+pkgver=2.7.0
 pkgrel=1
 pkgdesc='Discover Hosts via ARP and PTR lookup'
 arch=(any)
@@ -21,9 +21,9 @@ makedepends=(
   python-poetry-core
   python-wheel
 )
-_tag=f76c7915091a9e91d67ed69f5e2ba95de1262380
+_tag=8ee4840b3cf6f9762c25db3418ba45899e47d286
 source=(git+https://github.com/bdraco/aiodiscover.git#tag=${_tag})
-b2sums=('7d5bed6a7561d8c4d49dad5e8f5edc53aa1f02a5f456ed6dd65fa505a5de40c4004929f0f9c34553344c046f9625bcd2d0d89c83adf6faf986e6b1e69ea48f73')
+b2sums=('abb0248180883207a90858838213d2f7173143a1b4137809db0b9eb98ac1d6eb05786bc39b7de108265fdc101a08303546f79ac755dd847dec40fad61af8674f')
 
 pkgver() {
   cd aiodiscover
