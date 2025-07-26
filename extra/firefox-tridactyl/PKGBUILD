@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=firefox-tridactyl
-pkgver=1.24.2
+pkgver=1.24.3
 pkgrel=1
 pkgdesc="Replace Firefox's control mechanism with one modelled on Vim"
 arch=(any)
@@ -16,7 +16,7 @@ makedepends=(
   yarn
 )
 source=("git+$url.git#commit=$pkgver?signed")
-b2sums=('bcc1303586e3e78c095712b655fb8f3b9e6397697f7d2e2bd1aea4b6ddf05d1aa6392c47907ad85a81915f50e109f2a98636ace1a86fc5382412b4fe1093b8e6')
+b2sums=('e14c44ceeb79cbe47a3f1c8d581af41437d7c550c1e109a206800257e423c60dd6a8300faee835defe10407bc47eb3b30c86faa13b00972ac638e9ae7a8c77c0')
 validpgpkeys=(15D03C86837936A0A638AA2D2BB8C36BB504BFF3) # Oliver Blanthorn <freedom4cows@gmail.com>
 
 prepare() {
