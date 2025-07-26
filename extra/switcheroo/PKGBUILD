@@ -2,11 +2,12 @@
 
 pkgname=switcheroo
 pkgver=2.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Convert between different image filetypes and resize them easily'
 arch=(x86_64)
 url='https://apps.gnome.org/Converter/'
 license=(GPL-3.0-only)
+groups=(gnome-circle)
 depends=(
   dconf
   gcc-libs
@@ -34,14 +35,28 @@ makedepends=(
   meson
   rust
 )
-source=("git+https://gitlab.com/adhami3310/Switcheroo.git#tag=v$pkgver")
-b2sums=('4444bf56196611fb3dab3ded32c6964008a06618f15c9918bb2a23e0561a46f013cc062a449d7ff8714ad217b4e2445b38b1a4afbef6b78111e29e0fcf56aafd')
+source=(
+  "git+https://gitlab.com/adhami3310/Switcheroo.git#tag=v$pkgver"
+  switcheroo-new-window.patch
+  switcheroo-dbus-activatable.patch
+)
+b2sums=(
+  4444bf56196611fb3dab3ded32c6964008a06618f15c9918bb2a23e0561a46f013cc062a449d7ff8714ad217b4e2445b38b1a4afbef6b78111e29e0fcf56aafd
+  45bca35ab0fe294f729c87c28a8808c5b55abe2731368153d3c958c8519f4dd2a91e0d76c0bd5d635e349d78dad02249aad73e0f898058817f4af22fcd78e28a
+  50caed75392c64f20eac256e49e8b8a3071703e908e7214b6a68dc1fd6cdae5df23b679c0348857533d8e863d4fe019f3b5710822ba82bb53917300df017f028
+)
 
 prepare() {
   cd Switcheroo
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.com/adhami3310/Switcheroo/-/merge_requests/94
+  git apply -3 ../switcheroo-new-window.patch
+
+  # https://gitlab.com/adhami3310/Switcheroo/-/merge_requests/95
+  git apply -3 ../switcheroo-dbus-activatable.patch
 }
 
 build() {
