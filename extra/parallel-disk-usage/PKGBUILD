@@ -3,7 +3,7 @@
 
 pkgname=parallel-disk-usage
 _pkgname=pdu
-pkgver=0.13.1
+pkgver=0.20.0
 pkgrel=1
 pkgdesc='Summarize disk usage of the set of files, recursively for directories'
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('Apache-2.0')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('8270eb74ffd80999a0521dfb30e905a606e381daab18d65000532ba6c63eafd5254228cba1c1c33bc8af6dcaf17d980796ffe04b0065c66bb65e306d6322c371')
+sha512sums=('2e278e2931c0d5091003e223e6cebc419f4e7486ab94ee28eea015dd4e56d3ac90bc08ae1d20842c0bec84ec5497d2726f5e365b1144f510690f1a20653a6e10')
 
 prepare() {
   cd "$pkgname-$pkgver"
