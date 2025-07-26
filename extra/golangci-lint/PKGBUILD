@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=golangci-lint
-pkgver=2.2.2
+pkgver=2.3.0
 pkgrel=1
 pkgdesc="Fast linters runner for Go"
 arch=(x86_64)
@@ -14,7 +14,7 @@ makedepends=(
 )
 options=(!lto)
 source=("git+$url.git#tag=v$pkgver")
-sha256sums=('48f011396b86d6001258a5bae81b744088365f2caac770f5062e2595c7a35a1e')
+sha256sums=('a7c250905f364598e16e16d320d5920632d12d74294433f1e4b7325eb2b6d0eb')
 
 prepare() {
   cd $pkgname
