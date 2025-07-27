@@ -1,0 +1,32 @@
+From a390d82c9bd12aca9da8f06b64ccf96e00415a80 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 27 Jul 2025 01:16:46 +0200
+Subject: [PATCH] Switch to existing window on activation
+
+Instead of creating a new window on every launch, just switch to the
+existing instance.
+---
+ src/gcolor3-application.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/src/gcolor3-application.c b/src/gcolor3-application.c
+index 826f4b8..de0b6e9 100644
+--- a/src/gcolor3-application.c
++++ b/src/gcolor3-application.c
+@@ -166,6 +166,13 @@ gcolor3_application_activate (GApplication *application)
+ 	Gcolor3ApplicationPrivate *priv;
+ 	Gcolor3Window *window;
+ 
++	window = GCOLOR3_WINDOW (gtk_application_get_active_window (GTK_APPLICATION (application)));
++
++	if (window) {
++		gtk_window_present_with_time (GTK_WINDOW (window), GDK_CURRENT_TIME);
++		return;
++	}
++
+ 	priv = gcolor3_application_get_instance_private (GCOLOR3_APPLICATION (application));
+ 
+ 	window = gcolor3_window_new (GCOLOR3_APPLICATION (application), priv->colors);
+-- 
+GitLab
+
