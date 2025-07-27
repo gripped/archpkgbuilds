@@ -3,14 +3,14 @@
 
 pkgname=python-heatclient
 pkgver=4.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenStack Orchestration API Client Library"
 arch=('any')
 url="https://docs.openstack.org/python-heatclient/latest/"
 license=('Apache')
 depends=('python-pbr' 'python-cliff' 'python-iso8601' 'python-osc-lib' 'python-prettytable'
          'python-oslo-i18n' 'python-oslo-serialization' 'python-oslo-utils' 'python-keystoneauth1'
-         'python-swiftclient' 'python-yaml' 'python-requests' 'python-six')
+         'python-swiftclient' 'python-yaml' 'python-requests')
 makedepends=('git' 'python-build' 'python-installer')
 checkdepends=('python-stestr' 'python-testscenarios' 'python-requests-mock')
 source=("git+https://github.com/openstack/python-heatclient.git#tag=$pkgver")
