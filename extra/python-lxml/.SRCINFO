@@ -1,28 +1,40 @@
 pkgbase = python-lxml
-	pkgdesc = Python3 binding for the libxml2 and libxslt libraries
+	pkgdesc = Python binding for the libxml2 and libxslt libraries
 	pkgver = 6.0.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://lxml.de/
 	arch = x86_64
-	license = BSD
-	license = custom
+	license = BSD-3-Clause
+	license = MIT
+	license = MIT-CMU
+	license = GPL-2.0-only
+	license = LicenseRef-RNG2Schtrn
+	license = LicenseRef-XSD2Schtrn
 	checkdepends = python-cssselect
 	checkdepends = python-html5lib
 	checkdepends = python-beautifulsoup4
+	checkdepends = python-lxml-html-clean
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	makedepends = python-pygments
 	makedepends = python-sphinx
 	makedepends = python-sphinx_rtd_theme
 	makedepends = cython
+	depends = glibc
 	depends = python
 	depends = libxslt
+	depends = libxml2
 	optdepends = python-beautifulsoup4: support for beautifulsoup parser to parse not well formed HTML
 	optdepends = python-cssselect: support for cssselect
 	optdepends = python-html5lib: support for html5lib parser
 	optdepends = python-lxml-docs: offline docs
 	optdepends = python-lxml-html-clean: enable htmlclean feature
-	source = https://github.com/lxml/lxml/archive/lxml-6.0.0.tar.gz
-	sha512sums = 05519e03067de5d85be76994070c0a25f35eb52c2df5fc540aa6d2661af09636021c9b6b60d102c687cd9b8f800ecffdb9f2407d7d0f5bbbc43c4c0b38a3b18e
+	source = python-lxml::git+https://github.com/lxml/lxml#tag=lxml-6.0.0
+	sha512sums = 6e67dafdcdfd3eb97261dab446e6437fd1259dd4a23b0c8e94a1e5fbc93803f8cc0c7934c64db3c3b464190e067add5024f613752a9e1000655c85c147b49126
+	b2sums = 6c749eb4aacb6f3ae8fde1a51111451e54c5ca66029a93fa6de69cd98e5e8e5c86641cb230d3682c7e1309a0dbcb8bb6fe37a984de09a0bd20ab73aef93daec6
 
 pkgname = python-lxml
 
