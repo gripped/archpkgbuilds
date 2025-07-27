@@ -1,7 +1,7 @@
 post_upgrade() {
-  if (($(vercmp $2 1.6.17) -le 0)); then
+  if [ "$(vercmp "$2" 1.6.17)" -le 0 ]; then
     echo ""
-    echo "NOTE: The executable has changed to `tx-cli` to avoid conflicts"
+    echo "NOTE: The executable has changed to 'tx-cli' to avoid conflicts"
     echo "with other packages"
     echo ""
   fi
