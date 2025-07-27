@@ -1,0 +1,35 @@
+From 06223b04c64747db3cef5c2fde98af34b4d2819c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 21 Jun 2024 22:38:15 +0000
+Subject: [PATCH] Don't abort if failed to create XdpPortal instance
+
+xdp_portal_new() aborts the whole program if fails. Use xdp_portal_initable_new() instead.
+---
+ src/photos-application.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/src/photos-application.c b/src/photos-application.c
+index 18f1a62c..02a79b8e 100644
+--- a/src/photos-application.c
++++ b/src/photos-application.c
+@@ -1964,7 +1964,16 @@ photos_application_set_bg_common (PhotosApplication *self, XdpWallpaperFlags fla
+   item = PHOTOS_BASE_ITEM (photos_base_manager_get_active_object (self->state->item_mngr));
+   g_return_if_fail (item != NULL);
+ 
+-  portal = xdp_portal_new ();
++  {
++    g_autoptr (GError) error = NULL;
++
++    portal = xdp_portal_initable_new (&error);
++    if (error != NULL) {
++      g_warning ("Failed to create XdpPortal instance: %s", error->message);
++      return;
++    }
++  }
++
+   parent = gtk_application_get_active_window (GTK_APPLICATION (self));
+   parent_window = xdp_parent_new_gtk (parent);
+ 
+-- 
+GitLab
+

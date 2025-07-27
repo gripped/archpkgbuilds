@@ -2,7 +2,7 @@
 
 pkgname=gnome-photos
 pkgver=44.0
-pkgrel=5
+pkgrel=6
 epoch=1
 pkgdesc="Access, organize, and share your photos on GNOME"
 url="https://wiki.gnome.org/Apps/Photos"
@@ -34,9 +34,15 @@ makedepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-photos.git#tag=$pkgver"
   "git+https://gitlab.gnome.org/GNOME/libgd.git"
+  gnome-photos-xdp-portal.patch
+  gnome-photos-window-icon.patch
+  gnome-photos-fix-search-provider.patch
 )
 b2sums=('a85d6f4f5c8cce703b44d1de1f319db16d71ce2f5bc1fa02017eafafaa0deedc07e6178d7c1c955470e2e88a187a42f5680df0584c1833c548ec32c8d675c64d'
-        'SKIP')
+        'SKIP'
+        '0bfd295a050f72802df0ea75afa2cc44b1e414a5bd6a85ff9dc1f524acb15a211001499005b07d60dd2c73ca8c2510731173e0ec5d19d373470fe760f0acf9f3'
+        'f7a1c9204fa33203d3c7ece9a29809192f2e7882e9cf0f1180a7cacb5c00d90b223ccdf22800344e38be727aa7b540b7b77e1432cef3c58943c945d21ebdbc11'
+        'ae57996420631effe3eef058247a92550a3913652b96788d89a341c6a297cfcfa4c691cf3b7b9d0aa9fa581317bfcd25af3ebf401699ea1e4beedc3757961f43')
 
 prepare() {
   cd $pkgname
@@ -44,6 +50,18 @@ prepare() {
   git submodule init
   git submodule set-url subprojects/libgd "$srcdir/libgd"
   git -c protocol.file.allow=always submodule update
+
+  # Don't abort if failed to create XdpPortal instance
+  git apply -3 ../gnome-photos-xdp-portal.patch
+
+  # Set default window icon
+  git apply -3 ../gnome-photos-window-icon.patch
+
+  # Fixes for the search provider
+  git apply -3 ../gnome-photos-fix-search-provider.patch
+
+  # Don't hide outside of GNOME
+  sed -i '/^OnlyShowIn=GNOME/d' data/org.gnome.Photos.desktop.in.in
 }
 
 build() {

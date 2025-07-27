@@ -1,0 +1,56 @@
+From 2a43879c614b3998713f9ff25c9c0ee5379f4028 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 27 Jul 2025 19:51:33 +0200
+Subject: [PATCH] Fixes for the search provider
+
+- Set inactivity timeout to avoid quit while typing search terms.
+
+- Don't crash if invalid ID is specified for GetResultMetas.
+---
+ src/photos-application.c     | 5 +++++
+ src/photos-fetch-metas-job.c | 6 ++++++
+ 2 files changed, 11 insertions(+)
+
+diff --git a/src/photos-application.c b/src/photos-application.c
+index 18f1a62c..48c84971 100644
+--- a/src/photos-application.c
++++ b/src/photos-application.c
+@@ -571,6 +571,8 @@ photos_application_destroy (PhotosApplication *self)
+ 
+   self->main_window = NULL;
+ 
++  g_application_set_inactivity_timeout (G_APPLICATION (self), 0);
++
+   g_hash_table_iter_init (&iter, self->refresh_miner_ids);
+   while (g_hash_table_iter_next (&iter, NULL, &refresh_miner_id_data))
+     {
+@@ -2803,6 +2805,9 @@ photos_application_startup (GApplication *application)
+                             "load-started",
+                             G_CALLBACK (photos_application_load_changed),
+                             self);
++
++  if ((g_application_get_flags (G_APPLICATION (self)) & G_APPLICATION_IS_SERVICE) != 0)
++    g_application_set_inactivity_timeout (G_APPLICATION (self), 10000);
+ }
+ 
+ 
+diff --git a/src/photos-fetch-metas-job.c b/src/photos-fetch-metas-job.c
+index 129fc415..667ed1c7 100644
+--- a/src/photos-fetch-metas-job.c
++++ b/src/photos-fetch-metas-job.c
+@@ -163,6 +163,12 @@ photos_fetch_metas_job_executed (GObject *source_object, GAsyncResult *res, gpoi
+       goto out;
+     }
+ 
++  if (cursor == NULL)
++    {
++      photos_fetch_metas_job_collector (self);
++      goto out;
++    }
++
+   item = photos_item_manager_create_item (PHOTOS_ITEM_MANAGER (self->item_mngr), G_TYPE_NONE, cursor, FALSE);
+   id = photos_filterable_get_id (PHOTOS_FILTERABLE (item));
+   title = photos_base_item_get_name_with_fallback (item);
+-- 
+2.50.1
+
