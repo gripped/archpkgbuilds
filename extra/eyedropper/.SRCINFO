@@ -1,9 +1,10 @@
 pkgbase = eyedropper
 	pkgdesc = Color picker and formatter
 	pkgver = 2.1.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://apps.gnome.org/Eyedropper/
 	arch = x86_64
+	groups = gnome-circle
 	license = GPL-3.0-or-later
 	makedepends = appstream
 	makedepends = blueprint-compiler
@@ -20,6 +21,10 @@ pkgbase = eyedropper
 	depends = hicolor-icon-theme
 	depends = libadwaita
 	source = git+https://github.com/FineFindus/eyedropper.git#tag=v2.1.0
+	source = eyedropper-fix-search-provider.patch
+	source = eyedropper-dbus-activatable.patch
 	b2sums = 2b2f2f5cc9a979599d9562fc25dabdb47ec43527d45a1bd0224afac6bc429583ae35320c269203295b37e71df8a6895b664d8c47a7f8beb9ad23acd60f5280b0
+	b2sums = a0dc135e8a31baa574d512e18ca1babca56264b2c4a3025ef5eca76fdee6142dd45d8d55734f0c9367f1732a2b2381a07a9c76c77d81aee98270d8822c1295ee
+	b2sums = 70f08f70da63d7e15cd2aa89aea6cb8e81fe31be5cc30fc1a0b2cbc95cd148c713af1970340090026397f5e839c305ab0846137bad169d181e931d0daf2701b2
 
 pkgname = eyedropper

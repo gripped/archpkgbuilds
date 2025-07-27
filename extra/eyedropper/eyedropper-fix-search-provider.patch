@@ -1,0 +1,51 @@
+From 71dfc007fd5be3eddb0794c66018cfbae272d8cf Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 27 Jul 2025 11:22:46 +0200
+Subject: [PATCH] search provider: Don't try to process if ID is invalid
+
+It causes a panic if invalid ID is sent via D-Bus.
+---
+ src/application.rs | 23 +++++++++++++----------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
+
+diff --git a/src/application.rs b/src/application.rs
+index d88bbec6..5fa60ede 100644
+--- a/src/application.rs
++++ b/src/application.rs
+@@ -320,7 +320,11 @@ impl SearchProviderImpl for App {
+     fn activate_result(&self, identifier: ResultID, _terms: &[String], _timestamp: u32) {
+         self.activate();
+         let window = self.main_window();
+-        window.set_color(gdk::RGBA::parse(identifier).unwrap().into());
++
++        if let Ok(rgba) = gdk::RGBA::parse(identifier) {
++            window.set_color(rgba.into());
++        }
++
+         window.present();
+     }
+ 
+@@ -335,15 +339,14 @@ impl SearchProviderImpl for App {
+     fn result_metas(&self, identifiers: &[ResultID]) -> Vec<ResultMeta> {
+         identifiers
+             .iter()
+-            .map(|identifier| {
+-                ResultMeta::builder(identifier.to_owned(), identifier)
+-                    .icon_data(IconData::from(
+-                        &App::icon(
+-                            gdk::RGBA::parse(identifier).expect("Failed to parse identifier color"),
+-                        )
+-                        .expect("Failed to render search icon"),
+-                    ))
+-                    .build()
++            .filter_map(|identifier| {
++                gdk::RGBA::parse(identifier).ok().and_then(|rgba| {
++                    App::icon(rgba).ok().map(|icon| {
++                        ResultMeta::builder(identifier.to_owned(), identifier)
++                            .icon_data(IconData::from(&icon))
++                            .build()
++                    })
++                })
+             })
+             .collect::<Vec<_>>()
+     }
