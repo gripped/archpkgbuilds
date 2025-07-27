@@ -6,7 +6,7 @@
 
 pkgname='asciidoctor'
 pkgver=2.0.23
-pkgrel=7
+pkgrel=8
 pkgdesc='An implementation of AsciiDoc in Ruby'
 arch=('any')
 url='https://asciidoctor.org'
@@ -18,6 +18,20 @@ makedepends=(
   git
   ruby-rdoc
 )
+checkdepends=(
+    'ruby-bundler'
+    'ruby-coderay'
+    'ruby-concurrent'
+    'ruby-cucumber'
+    'ruby-erubi'
+    'ruby-haml'
+    'ruby-minitest'
+    'ruby-nokogiri'
+    'ruby-rake'
+    'ruby-rouge'
+    'ruby-slim'
+    'ruby-tilt'
+)
 options=('!emptydirs')
 source=("git+https://github.com/asciidoctor/asciidoctor#tag=v${pkgver}")
 sha512sums=('ab545c2e6b4c96573b1cb900fa778e252dbc176c0fda2e30de5b8a281f827a87c0d0bae0cc1b723be99c1b767d252e0428fe4323506d7f20ce168359341f5a06')
@@ -25,6 +39,9 @@ b2sums=('8deb7bab70a8697086b2daca4a1f23e14f1e97421139fb10c54d7d9d072c45c3eff335d
 
 prepare() {
   cd "${pkgname}"
+
+  # resolves #4634 normalize output from inspect when comparing to fixture
+  git cherry-pick -n e5442fc2848680eada862841b0e92dc9265e1a29
 
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended \
@@ -73,6 +90,16 @@ build() {
       -iname "gem_make.out" \
     \) \
     -delete
+}
+
+check() {
+  cd "${pkgname}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  # Exclude two tests that require unpackaged Gem open-uri-cached
+  GEM_HOME="tmp_install/${_gemdir}" rake test \
+    TESTOPTS="--exclude='/test_should_cache_remote_SVG_when_allow_uri_read_cache_uri_and_inline_option_are_set|test_should_cache_remote_image_when_allow_uri_read_cache_uri_and_data_uri_are_set/'"
 }
 
 package() {
