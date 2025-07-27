@@ -1,6 +1,6 @@
 pkgbase = shadowsocks-rust
 	pkgdesc = A Rust port of shadowsocks
-	pkgver = 1.23.4
+	pkgver = 1.23.5
 	pkgrel = 1
 	url = https://github.com/shadowsocks/shadowsocks-rust
 	arch = x86_64
@@ -12,12 +12,12 @@ pkgbase = shadowsocks-rust
 	depends = gcc-libs
 	depends = openssl
 	options = !lto
-	source = git+https://github.com/shadowsocks/shadowsocks-rust.git#tag=v1.23.4
+	source = git+https://github.com/shadowsocks/shadowsocks-rust.git#tag=v1.23.5
 	source = git+https://github.com/rust-rocksdb/rust-rocksdb.git#commit=392e1dc059f6c4865ab68711ae4f06e0f05362a0
 	source = rocksdb-gcc15-add-missing-includes.patch::https://github.com/facebook/rocksdb/pull/13437.diff
 	source = shadowsocks-rust@.service
 	source = shadowsocks-rust-server@.service
-	sha512sums = a50f0dee4e140fd33c31a794892a711ff43b59a80d3147a15ef074ede8efa49a1e4678b87e6aa29797f42a9b884f35735e63961d0cebd06dc6a7aa726f2f685e
+	sha512sums = 3fab9864d14b23ae844c6583b94e31d7fb6ae3537f92d55bcd764b3d7e045d902e263343f95827f68bad49ade0908c769808cc99f6a1980bdb8f1458a944ffc8
 	sha512sums = 1f4cb37811982ccc82532c9548038b9db2757ca6f6026b63e4a2c081d4917463864ad2bba2bb4af72b985dc976f90ef9f83df9c718d3c599e66371b53f9eea03
 	sha512sums = 2bbac1496330116d2fb8e0514315c23ca6b2f312f0534a98ce0220d537518e97241f7602999ac46274f3af01723f4a9247ff3ccf7211e53e50b64bb027e1ea6e
 	sha512sums = 90ee8735104795b5c50bc855ad11ee9c741fa1695409d72de7c69b89b0aa80c9596459edbb3a2c1d49e9414e3d06bc55328126c0062f1e28cac141ea202e455d
