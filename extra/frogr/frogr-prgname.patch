@@ -1,0 +1,26 @@
+From 85520bb8579bcd9c42bc61224220ebc402be8e0d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 26 Jul 2025 22:14:57 +0000
+Subject: [PATCH] Set prgname to application ID
+
+Using the application ID ensures that Wayland compositors could match the
+window with the application and show the appropriate icon for them.
+---
+ src/frogr-controller.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/frogr-controller.c b/src/frogr-controller.c
+index 764a9b5..3b2c71e 100644
+--- a/src/frogr-controller.c
++++ b/src/frogr-controller.c
+@@ -2504,6 +2504,7 @@ frogr_controller_run_app (FrogrController *self, int argc, char **argv)
+ 
+   /* Initialize and run the Gtk application */
+   g_set_application_name(APP_SHORTNAME);
++  g_set_prgname(APP_ID);
+   app = gtk_application_new (APP_ID,
+                              G_APPLICATION_NON_UNIQUE
+                              | G_APPLICATION_HANDLES_OPEN);
+-- 
+GitLab
+
