@@ -4,7 +4,7 @@
 
 _name=django-debug-toolbar
 pkgname=python-django-debug-toolbar
-pkgver=5.2.0
+pkgver=6.0.0
 pkgrel=1
 pkgdesc='A configurable set of panels that display various debug information about the current request/response.'
 arch=(any)
@@ -14,7 +14,7 @@ makedepends=(python-build python-installer python-wheel python-hatchling)
 checkdepends=(python-jinja python-html5lib)
 depends=(python-django python-sqlparse)
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/jazzband/${_name}/archive/${pkgver}.tar.gz)
-sha256sums=('971f7fbe3a35af6d4d3772dc2f1c7c5f5e1c951a6e645fd29c6f3dcdffbefc19')
+sha256sums=('c0b3d24ba9479a9830df74da3ae8e0e2ee028565b51e58930db08c368d50faa6')
 
 prepare() {
   cd "${_name}-${pkgver}"
