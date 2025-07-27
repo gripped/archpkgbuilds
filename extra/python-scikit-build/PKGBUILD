@@ -5,7 +5,7 @@
 
 pkgname=python-scikit-build
 pkgver=0.18.1
-pkgrel=4
+pkgrel=5
 pkgdesc="Improved build system generator for CPython C, C++, Cython and Fortran extensions"
 arch=(any)
 url="https://scikit-build.readthedocs.io/"
@@ -22,7 +22,6 @@ checkdepends=(
     python-pytest
     python-pytest-mock
     python-requests
-    python-six
     python-virtualenv
 )
 source=(git+https://github.com/scikit-build/scikit-build.git#tag=$pkgver?signed)
