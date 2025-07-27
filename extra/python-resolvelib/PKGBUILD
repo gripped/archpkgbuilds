@@ -4,7 +4,7 @@
 _name=resolvelib
 pkgname=python-resolvelib
 pkgver=1.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Resolve abstract dependencies into concrete ones"
 url="https://github.com/sarugaku/resolvelib"
 license=(ISC)
@@ -17,7 +17,6 @@ makedepends=(
   python-wheel
 )
 checkdepends=(
-  python-commentjson
   python-packaging
   python-pytest
 )
