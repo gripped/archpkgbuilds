@@ -1,10 +1,10 @@
 pkgbase = hledger-ui
 	pkgdesc = Curses-style terminal interface for the hledger accounting system
 	pkgver = 1.32.1
-	pkgrel = 187
+	pkgrel = 188
 	url = http://hledger.org
 	arch = x86_64
-	license = GPL
+	license = GPL-3.0-or-later
 	makedepends = ghc
 	makedepends = uusi
 	depends = ghc-libs
@@ -25,8 +25,10 @@ pkgbase = hledger-ui
 	depends = haskell-text-zipper
 	depends = haskell-vector
 	depends = haskell-brick
-	depends = haskell-vty5
+	depends = haskell-vty
 	source = https://hackage.haskell.org/packages/archive/hledger-ui/1.32.1/hledger-ui-1.32.1.tar.gz
+	source = vty6.patch
 	sha512sums = f28fa45e6db0c6f2853470aabd72eb2436fa577c74eac74dbcc3284a8f0058e75741f702b46a1f283c5e5510467ac9895fc4d63ff1c27a03da27ad9dba7bb71f
+	sha512sums = 1bd0d4c1ab204b85cb67f9b1271d809771ce9e5ce2f9c6d41fca31b7dad8cc8a7761852cb49f1066aa8a7bb3e12cef2b630e63e57da95b82cf1a9ca5d8766c07
 
 pkgname = hledger-ui
