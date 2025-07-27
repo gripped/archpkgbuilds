@@ -2,21 +2,21 @@
 
 _hkgname=sandwich
 pkgname=haskell-sandwich
-pkgver=0.1.5.2
-pkgrel=86
+pkgver=0.2.0.0
+pkgrel=1
 pkgdesc="Yet another test framework for Haskell"
 url="https://codedownio.github.io/sandwich"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-async' 'haskell-brick'
          'haskell-colour' 'haskell-free' 'haskell-src-exts' 'haskell-lifted-async'
          'haskell-microlens' 'haskell-microlens-th' 'haskell-monad-control' 'haskell-monad-logger'
          'haskell-optparse-applicative' 'haskell-pretty-show' 'haskell-safe'
          'haskell-safe-exceptions' 'haskell-string-interpolate' 'haskell-transformers-base'
-         'haskell-unliftio-core' 'haskell-vector' 'haskell-vty5')
+         'haskell-unliftio-core' 'haskell-vector' 'haskell-vty' 'haskell-vty-crossplatform')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('214f74ecbed388d68a268969e28b7083a0f34568ccde52b827db59b4b1b12a77')
+sha256sums=('ce3c800e7894c71ac8efd0b15b3bacff75570d027a982899a33f391d7d0719a2')
 
 build() {
   cd $_hkgname-$pkgver
