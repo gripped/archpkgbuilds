@@ -4,13 +4,13 @@
 
 pkgname=spice
 pkgver=0.16.0
-pkgrel=1
+pkgrel=2
 pkgdesc="SPICE server"
 arch=('x86_64')
 url="https://www.spice-space.org"
 license=('LGPL-2.1-or-later')
 depends=('pixman' 'opus' 'libjpeg-turbo' 'glib2' 'libsasl' 'lz4' 'spice-protocol' 'libcacard')
-makedepends=('meson' 'python-six' 'python-pyparsing' 'glib2-devel')
+makedepends=('meson' 'python-pyparsing' 'glib2-devel')
 checkdepends=('gdk-pixbuf2' 'glib-networking')
 provides=('libspice-server.so')
 source=("https://www.spice-space.org/download/releases/spice-server/$pkgname-$pkgver.tar.bz2"{,.sig})
