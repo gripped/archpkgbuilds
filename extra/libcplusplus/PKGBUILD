@@ -6,14 +6,13 @@
 pkgbase=libc++
 pkgname=(libc++ libc++abi)
 pkgver=20.1.6
-pkgrel=1
+pkgrel=2
 pkgdesc="LLVM C++ standard library"
 url="https://libcxx.llvm.org/"
 license=('Apache-2.0 WITH LLVM-exception')
 arch=('x86_64')
 depends=('gcc-libs' 'glibc')
-makedepends=('clang' 'cmake' 'ninja' 'python')
-checkdepends=('llvm')
+makedepends=('clang' 'cmake' 'ninja' 'python' 'llvm')
 options=('!lto' 'staticlibs')
 source=("https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkgver/llvm-project-$pkgver.src.tar.xz"{,.sig})
 sha512sums=('aae652fdc61bda3f80b1340a3270b687355bfb6817f4bc05dac2268a2f8c5fc677eadb515cda7c8518005f1dc39e7ce5d1c34bbc5a25f106ef8e6c8f1ecfdf6d'
