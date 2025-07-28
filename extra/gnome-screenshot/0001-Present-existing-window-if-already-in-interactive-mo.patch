@@ -1,0 +1,63 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 28 Jul 2025 03:30:49 +0200
+Subject: [PATCH] Present existing window if already in interactive mode
+
+Parsing the arguments when we are already in interactive mode causes
+unexpected behavior.
+---
+ src/screenshot-application.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/src/screenshot-application.c b/src/screenshot-application.c
+index 654bc69..ab2bf31 100644
+--- a/src/screenshot-application.c
++++ b/src/screenshot-application.c
+@@ -651,6 +651,14 @@ screenshot_application_command_line (GApplication            *app,
+   GVariantDict *options;
+   gint exit_status = EXIT_SUCCESS;
+   gboolean res;
++  GtkWindow *window;
++
++  window = gtk_application_get_active_window (GTK_APPLICATION (self));
++  if (window != NULL)
++    {
++      gtk_window_present (GTK_WINDOW (window));
++      goto out;
++    }
+ 
+   options = g_application_command_line_get_options_dict (command_line);
+   g_variant_dict_lookup (options, "clipboard", "b", &clipboard_arg);
+@@ -767,6 +775,14 @@ action_screen_shot (GSimpleAction *action,
+                     gpointer user_data)
+ {
+   ScreenshotApplication *self = SCREENSHOT_APPLICATION (user_data);
++  GtkWindow *window;
++
++  window = gtk_application_get_active_window (GTK_APPLICATION (self));
++  if (window != NULL)
++    {
++      gtk_window_present (GTK_WINDOW (window));
++      return;
++    }
+ 
+   screenshot_config_parse_command_line (FALSE, /* clipboard */
+                                         FALSE,  /* window */
+@@ -787,6 +803,14 @@ action_window_shot (GSimpleAction *action,
+                     gpointer user_data)
+ {
+   ScreenshotApplication *self = SCREENSHOT_APPLICATION (user_data);
++  GtkWindow *window;
++
++  window = gtk_application_get_active_window (GTK_APPLICATION (self));
++  if (window != NULL)
++    {
++      gtk_window_present (GTK_WINDOW (window));
++      return;
++    }
+ 
+   screenshot_config_parse_command_line (FALSE, /* clipboard */
+                                         TRUE,  /* window */
+-- 
+2.50.1
+

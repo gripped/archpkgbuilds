@@ -1,12 +1,14 @@
-# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-screenshot
-pkgver=41.0+r39+ga362197
-pkgrel=3
-pkgdesc="Take pictures of your screen"
-url="https://gitlab.gnome.org/GNOME/gnome-screenshot"
+pkgver=41.0
+pkgrel=1
+epoch=1
+pkgdesc='Take pictures of your screen'
 arch=(x86_64)
+url='https://gitlab.gnome.org/GNOME/gnome-screenshot'
 license=(GPL-2.0-or-later)
 depends=(
   cairo
@@ -22,28 +24,38 @@ depends=(
   libxext
 )
 makedepends=(
+  appstream
   git
   meson
 )
-_commit=a36219781bd08201d0454bc6101ff9502430aea3  # master
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-screenshot.git#commit=$_commit"
+  "git+https://gitlab.gnome.org/GNOME/gnome-screenshot.git#tag=$pkgver"
   0001-Fix-various-fallback-paths.patch
+  0001-Present-existing-window-if-already-in-interactive-mo.patch
 )
-b2sums=('83f2327f72e839f1fa8c50787c1709407150bcceb67418ad719ba48fbf91a09dfb9040961fe10406459ab1138a28ea1a0f5f91523e029a0cd3e7b25f1c88ff78'
-        '543ba200a41eb5948c40dadf0ffa2c2c484f6e83f10ea0d9a4c3bb8c91a7b27e0ea14d9f4cee8c85355f981a7fa87b3ba04dad16251d396c65011967a53da9aa')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+b2sums=(
+  15ad277923e91e5282dd7792796b254800ad1f0084761a4dd70107afd3c7d68c516b2d48dc2a8eeb733702f88d0590bbbf4c78aec11d3a7086f11a529dfc3db6
+  543ba200a41eb5948c40dadf0ffa2c2c484f6e83f10ea0d9a4c3bb8c91a7b27e0ea14d9f4cee8c85355f981a7fa87b3ba04dad16251d396c65011967a53da9aa
+  e410e92cfed63a520b8f3f52be83027bcaa22675f9926ddd58bd8a6bd0e0d6b11fac94227f8080e34392b916039b1ed42198882b761282b40935ceff24c38ab4
+)
 
 prepare() {
   cd $pkgname
 
+  # Various fixes from upstream
+  git cherry-pick -n -m 1 41.0..a734ec1198b6aa02e40665cb8a3339eb5e0cee24
+
   # Fix various fallback paths
   # https://gitlab.gnome.org/GNOME/gnome-screenshot/-/merge_requests/72
-  patch -Np1 -i ../0001-Fix-various-fallback-paths.patch
+  git apply -3 ../0001-Fix-various-fallback-paths.patch
+
+  # Present existing window if already in interactive mode
+  # https://gitlab.gnome.org/GNOME/gnome-screenshot/-/merge_requests/76
+  git apply -3 ../0001-Present-existing-window-if-already-in-interactive-mo.patch
+
+  # Fix typo in appstreamcli command name
+  # https://gitlab.gnome.org/GNOME/gnome-screenshot/-/merge_requests/75
+  sed -i 's/appstreamctl/appstreamcli/' data/meson.build
 }
 
 build() {
@@ -58,5 +70,3 @@ check() {
 package() {
   meson install -C build --destdir "$pkgdir"
 }
-
-# vim:set sw=2 sts=-1 et:
