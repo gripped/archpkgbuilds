@@ -7,20 +7,21 @@
 # Contributor: Marcus Fritzsch <fritschy@googlemail.com>
 
 pkgname=coin
-pkgver=4.0.4
+pkgver=4.0.3
+epoch=1 # downgrade, ref https://gitlab.archlinux.org/archlinux/packaging/packages/freecad/-/issues/23
 pkgrel=1
 pkgdesc='3D graphics library compatible with Open Inventor'
 url='https://github.com/coin3d/coin'
 license=(BSD-3-Clause)
 arch=(x86_64)
 depends=(libgl)
-makedepends=(boost cmake doxygen ninja git glu)
+makedepends=(boost cmake doxygen git glu ninja)
 optdepends=('fontconfig: dynamic linking support'
             'freetype2: dynamic linking support'
             'openal: audio/dynamic linking support'
             'zlib: dynamic linking support')
 source=("git+$url#tag=v$pkgver")
-b2sums=('68f39e57f3e2152bd218b63bcca80dc11c8e965595b429413580e54fce5ce521fc1f7a1349526bff6be5af4f3b33e070dc50a4ba4e040db3320a4721ac39fe04')
+b2sums=('f3375cfd7a006751cd544573e13c3c1e0da6b24391eecc9ffec42f76e1d6802263ac8ed4a45515b28f4e542e7bcf53d5cff78137319ce4475f56e29cd64db14c')
 
 build() {
   cmake \
@@ -30,6 +31,7 @@ build() {
     -D CMAKE_CXX_FLAGS="$CXXFLAGS -fPIC -w" \
     -D CMAKE_INSTALL_LIBDIR=lib \
     -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.10 \
     -D COIN_BUILD_DOCUMENTATION=ON \
     -D COIN_BUILD_DOCUMENTATION_CHM=OFF \
     -D COIN_BUILD_DOCUMENTATION_MAN=ON \
