@@ -2,7 +2,7 @@
 
 pkgname=avisynthplus
 pkgver=3.7.5
-pkgrel=1
+pkgrel=2
 pkgdesc='An improved version of the AviSynth frameserver'
 arch=('x86_64')
 url='https://avs-plus.net/'
@@ -20,9 +20,17 @@ makedepends=(
     'soundtouch')
 provides=('libavisynth.so')
 source=("https://github.com/AviSynth/AviSynthPlus/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+        '010-avisynthplus-fix-symbol-conflict-with-vmaf.patch'::'https://github.com/AviSynth/AviSynthPlus/commit/d1a32d5229602f181574c95fa0db68bcf1762606.patch'
         'avisynthplus.xml')
 sha256sums=('2533fafe5b5a8eb9f14d84d89541252a5efd0839ef62b8ae98f40b9f34b3f3d5'
+            '30aeed221e21aef5aa1d99687bf49a5543602681e0f05bd857d3cf717343a6ee'
             'c4b270a3df7fbe1c153400215169c4ae4cae3b7a8710c843393e3a6ed0fd8a3e')
+
+prepare() {
+    # https://gitlab.archlinux.org/archlinux/packaging/packages/ffmpeg/-/issues/19
+    patch -d "AviSynthPlus-${pkgver}" -Np1 -i "${srcdir}/010-avisynthplus-fix-symbol-conflict-with-vmaf.patch"
+    rm "AviSynthPlus-${pkgver}/avs_core/include/avisynth.h.orig" # included in the package if not removed
+}
 
 build() {
     cmake -B build -S "AviSynthPlus-${pkgver}" \
