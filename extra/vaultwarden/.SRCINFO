@@ -1,7 +1,7 @@
 pkgbase = vaultwarden
 	pkgdesc = Unofficial Bitwarden compatible server written in Rust
-	pkgver = 1.34.1
-	pkgrel = 2
+	pkgver = 1.34.2
+	pkgrel = 1
 	url = https://github.com/dani-garcia/vaultwarden
 	install = vaultwarden.install
 	arch = x86_64
@@ -15,21 +15,21 @@ pkgbase = vaultwarden
 	optdepends = vaultwarden-web: for the web app
 	options = !lto
 	backup = etc/vaultwarden.env
-	source = git+https://github.com/dani-garcia/vaultwarden.git#tag=1.34.1
+	source = git+https://github.com/dani-garcia/vaultwarden.git#tag=1.34.2
 	source = systemd.service
 	source = sysusers.conf
 	source = tmpfiles.conf
 	source = env-overrides.patch
-	sha512sums = 6d9895f401913ca00161eec2c88566fe931dc4e60e5512d397e273a9e80bcecda9d1a899c55963db1eaa4fa129a6058d7732914a8c2a6a99db173a5ce385257c
+	sha512sums = 99315e3866fbca8e9e57417bc085a954aa3e705fb25950defbaea0768eedd893c5af42c2041cca9d512445f91276d32066146d010cf5f7d552f47d51374ac6e9
 	sha512sums = a12e993bbb568370b9a19f1634085eceda33c1f6bc98ea2c4fa2686a91676f3e9aafc681ab83450bf90b52e553770aabec871c311746faf2098e589cb67c7436
 	sha512sums = d133aec7f75cc5653e847e81bd11c36374eb20da62b2e197bbdcd306ef9c5d4d1de9fc41b7afe88645bebecc1397f64089bfd57c22eb2c9fb83b1da7b44c23aa
 	sha512sums = efbe316f8d22f14c88b5020ea163b58a42e9a0de1028d04af6e439276a55eefc7f7631dd9c4aee5cf5ca2fb642e4fa5b31eedef4370d6d785e106474c0940afe
-	sha512sums = bcd7fcd50f8939601f142e18a0f0e548183fce732f1c9648c9ec43f3a9a4a06731e82340498f45f676642aee8ee5df889bc2a13d3dddf8de594198c2b8e37d07
-	b2sums = 5e6a6f7c1b736fd0c22557aa22edff39143079605ae27b7c81ef003467d3ef350b71f49d7181939e8cc3efb799db6a90a71371ff079e3f1d4108d39f96a0d04c
+	sha512sums = 0094aeea62c204080b6ba6f476840ef8b40a8d799d4dce1cfe025cce03a145d91468aade7140af7764c00cde5d5bc418aef3a79ef507531e5a0b8695dcc8c639
+	b2sums = 0339dc8b24072bb6344912cd83e76289449ad74d2f6d853784ebff496d8cd53e01be0ad15e1d2ca80b4362cb9eb953030ecdeb6ea28f633da0984237267f4320
 	b2sums = ff8e896f820b88f079d3d4f4c2eb394362569c921f53693e25d3badaf9fdca841e4d7665862e09d22421f544802f3a64014696fd92d7f0b923faf41f8d99e472
 	b2sums = bfda155679ece4df7fa364eaa0d8dbe2f08701a83f5e438282ec7e6ab56afe741c9820ae6fe2da5c9d7691c647fb4c862c4bed588eee248f0de943cec155f392
 	b2sums = 9cdcd6c997c884eb3c1ad0c9b8cd91e68ec6762a27f9b80a7eb6c0cb1ffa4e500a654da6f17e9f985cc67add154efe737761f74e4e5f72892fc0e9d457314973
-	b2sums = 464b78a7cf336b745b64e351bdebbc7ba0b329b3be5890ce8a2f8c7811082856f8fc327583f551e7bee8dec35c2604c082abb051885c02c2a76afd1cb7833474
+	b2sums = dff624472c0a64485bdece7cc2997919b145f556cbb40766df001495bafe64ae0a23b541c563ff6f395ae777ab934341a86e2c77cd7953793cc15d065df2794a
 	depends_x86_64 = mariadb-libs
 	depends_x86_64 = postgresql-libs
 

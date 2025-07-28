@@ -1,17 +1,17 @@
 diff --git a/.env.template b/.env.template
-index ff0af609..b3f8a2ff 100644
+index 6d272388..c0731ce5 100644
 --- a/.env.template
 +++ b/.env.template
-@@ -15,7 +15,7 @@
- ####################
- 
- ## Main data folder
+@@ -23,7 +23,7 @@
+ ## When using an external location, make sure to set TMP_FOLDER,
+ ## TEMPLATES_FOLDER, and DATABASE_URL to local paths and/or a remote database
+ ## location.
 -# DATA_FOLDER=data
 +DATA_FOLDER=/var/lib/vaultwarden
  
  ## Individual folders, these override %DATA_FOLDER%
  # RSA_KEY_FILENAME=data/rsa_key
-@@ -31,8 +31,8 @@
+@@ -42,8 +42,8 @@
  # RELOAD_TEMPLATES=false
  
  ## Web vault settings
@@ -22,7 +22,7 @@ index ff0af609..b3f8a2ff 100644
  
  #########################
  ### Database settings ###
-@@ -370,7 +370,7 @@
+@@ -386,7 +386,7 @@
  # USE_SYSLOG=false
  
  ## Logging to file
