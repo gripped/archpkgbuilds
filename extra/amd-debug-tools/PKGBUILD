@@ -1,7 +1,7 @@
 # Maintainer: Peter Jung <ptr1337@archlinux.org>
 
 pkgname=amd-debug-tools
-pkgver=0.2.4
+pkgver=0.2.5
 pkgrel=1
 pkgdesc="A collection of Python-based tools for debugging AMD platforms, particularly Zen-based systems."
 arch=('any')
@@ -27,7 +27,7 @@ makedepends=(
   python-wheel
 )
 source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/superm1/amd-debug-tools.git#tag=${pkgver}")
-sha256sums=('55922d1544e17bbbdea0a61454804ce1b364a25a73663bbaa607f58b67e6cdff')
+sha256sums=('f60750d21a777a26a2a49c2eb8b206c7b241f38b9fc1d606105c6b2d08f6869d')
 
 build() {
   cd "$pkgname"
