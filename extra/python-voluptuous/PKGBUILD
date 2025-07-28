@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-voluptuous
-pkgver=0.15.0
+pkgver=0.15.1
 pkgrel=1
 pkgdesc="A Python data validation library"
 url="https://github.com/alecthomas/voluptuous"
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('git' 'python-setuptools')
 checkdepends=('python-pytest')
 source=(git+https://github.com/alecthomas/voluptuous.git#tag=$pkgver)
-sha512sums=('99a940f9e9253459d806d604db931731ed320b78581cce0180c29b5997ffb2db26b74c461a1ec69bc2b542d66a190d6ce6c6698a0ab543b2a545df1fcf48ffb7')
+sha512sums=('85a9db9f2c9cfcf4092928dbca23aa731f3100dffd327b6339f7fdce0d62f5084594ae113a3efa771c30a9af9afc030973f76a976d72a8adb32082a2f0d9ba10')
 
 build() {
   cd voluptuous
