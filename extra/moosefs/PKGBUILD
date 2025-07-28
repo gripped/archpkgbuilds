@@ -2,7 +2,7 @@
 
 pkgname=moosefs
 pkgver=4.57.7
-pkgrel=1
+pkgrel=2
 pkgdesc='High performing and fault tolerant distributed file system'
 url='https://moosefs.com/'
 replaces=(mfs-chunkserver mfs-client mfs-master)
@@ -17,6 +17,11 @@ source=("git+https://github.com/moosefs/moosefs#tag=v$pkgver"
 b2sums=('93a5142b592654e994c6b26e4f50422cd27924b86912c27e9fb9aeb06095e61763db8d4b33541d97c8dac767580b504ed931df903175728ac45114232027189b'
         '60c51df91a09e6680e10ffd0b3284a594ba585226f4acad7d389d6b39e98243d980155cb2ab83acf1a1b4ccf167bc682b7672121587e69280832127d472ede38'
         '138c34c230cb72492d2eafeca2269dc1443018e5cd7c8f6d16c0f50f55f22f3c5e1592f05f4070dce68b6e56fb9c36aabc9a2f52737ba3f9c061eb4f6bc983da')
+
+prepare() {
+  # ref https://gitlab.archlinux.org/archlinux/packaging/packages/moosefs/-/issues/1
+  echo -n 'MFSM NEW' > metadata.mfs.empty
+}
 
 build() {
   cd $pkgname
@@ -36,6 +41,8 @@ package() {
 
   install -Dm644 "$pkgname.tmpfiles" "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
   install -Dm644 "$pkgname.sysusers" "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
+
+  install -Dm644 metadata.mfs.empty "$pkgdir/var/lib/mfs/metadata.mfs.empty"
 
   # Move mount.moosefs from sbin to usr/bin to silence a warning
   mv "$pkgdir/sbin/"* "$pkgdir/usr/bin/"
