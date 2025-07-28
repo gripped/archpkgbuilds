@@ -2,8 +2,8 @@
 # Contributor: Chocobo1 <chocobo1 AT archlinux DOT net>
 
 pkgname=chewing-editor
-pkgver=0.1.1
-pkgrel=11
+pkgver=0.1.2
+pkgrel=1
 pkgdesc="Cross platform chewing user phrase editor"
 arch=('x86_64')
 url='https://chewing.im/'
@@ -12,29 +12,8 @@ license=('GPL-2.0-or-later')
 depends=('glibc' 'libchewing' 'qt5-base')
 makedepends=('cmake' 'qt5-tools' 'help2man' 'gtest' 'gmock')
 checkdepends=('valgrind')
-source=("https://github.com/chewing/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        system-gtest.patch
-        chewing-editor-reproducibility.patch::https://github.com/chewing/chewing-editor/commit/7db328e7372f870dc741436ba2da8ceb5199f2f9.patch
-        no-rebuild-manpage.diff)
-sha256sums=('ad59ba32bb258d7a1ee6c105a4be54357d2de18cc324277a1429f53fbb23709b'
-            'a3c147d40ba5146d5eb3c0adf3347e3941cdcb5bf11e9630c2007f0e06b32620'
-            '36a2aa702f58e90f306f3de07dee2cac74f013dff4762e277fd0048d9476c430'
-            '864a7f5a0b50a96edb21cbc76448010b375d65bb35e2f012640d41839fb13df3')
-
-prepare() {
-    cd $pkgname-$pkgver
-
-    # based on commits from https://github.com/iblis17/chewing-editor/tree/cmake-gtest
-    patch -Np1 -i ../system-gtest.patch
-
-    patch -Np1 -i ../chewing-editor-reproducibility.patch
-
-    # Building the man page requires an environment for Qt (see below). This
-    # patch avoids preparing the environment twice.
-    patch -Np1 -i ../no-rebuild-manpage.diff
-
-    rm -r gmock
-}
+source=("https://github.com/chewing/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('3b228268325dc7d0e78063ee89ec6c505b9ab5e7b674df7723d7a1a100651dc0')
 
 build() {
     cmake -S $pkgname-$pkgver -B build \
