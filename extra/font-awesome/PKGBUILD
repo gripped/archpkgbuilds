@@ -3,26 +3,34 @@
 # Contributor: Alad Wenter <https://wiki.archlinux.org/index.php/Special:EmailUser/Alad>
 
 pkgbase=font-awesome
-pkgname=(ttf-font-awesome otf-font-awesome)
-pkgver=6.7.2
-pkgrel=1
+_pkgbase=Font-Awesome
+pkgname=('woff2-font-awesome' 'otf-font-awesome')
+pkgver=7.0.0
+pkgrel=4
 pkgdesc="Iconic font designed for Bootstrap"
 url="https://fontawesome.com/"
 license=('LicenseRef-OFL')
 arch=('any')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/FortAwesome/Font-Awesome/archive/$pkgver.tar.gz")
-sha256sums=('fdebdf3f1b8641a4b665c61f1f48e482b140a817ce619113559201b8a1fcdd51')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/FortAwesome/Font-Awesome/archive/${pkgver}.tar.gz")
+sha256sums=('ac6013cd8c7c49f3f388506bf2ef4c280edea38cc0267d83b445cf1f8a3c1e4b')
 
-package_ttf-font-awesome() {
-  cd "Font-Awesome-${pkgver}"
-  install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE.txt"
-  install -d "$pkgdir/usr/share/fonts/TTF"
-  install -m644 ./webfonts/*.ttf "$pkgdir/usr/share/fonts/TTF"
+package_woff2-font-awesome() {
+pkgdesc="${pkgdesc} - woff2 format"
+provides=('ttf-font-awesome')
+replaces=('ttf-font-awesome')
+install="${pkgname}.install"
+
+	cd "${_pkgbase}-${pkgver}"
+	install -d "${pkgdir}/usr/share/fonts/WOFF2"
+	install -m 644 ./webfonts/*.woff2 "${pkgdir}/usr/share/fonts/WOFF2"
+	install -Dm 644 LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
 }
 
 package_otf-font-awesome() {
-  cd "Font-Awesome-${pkgver}"
-  install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE.txt"
-  install -d "$pkgdir/usr/share/fonts/OTF"
-  install -m644 ./otfs/*.otf "$pkgdir/usr/share/fonts/OTF"
+pkgdesc="${pkgdesc} - otf format"
+
+	cd "${_pkgbase}-${pkgver}"
+	install -d "${pkgdir}/usr/share/fonts/OTF"
+	install -m 644 ./otfs/*.otf "${pkgdir}/usr/share/fonts/OTF"
+	install -Dm 644 LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
 }
