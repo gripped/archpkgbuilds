@@ -4,8 +4,8 @@
 # Contributor: John Proctor <jproctor@prium.net>
 
 pkgname=graphviz
-pkgver=13.1.0
-pkgrel=2
+pkgver=13.1.1
+pkgrel=1
 pkgdesc='Graph visualization software'
 url='https://www.graphviz.org/'
 license=('EPL')
@@ -21,31 +21,30 @@ optdepends=('mono: sharp bindings'
             'tcl: tcl bindings'
             'qt6-base: gvedit'
             'xterm: vimdot')
-source=("https://gitlab.com/graphviz/graphviz/-/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        'ghostscript918.patch')
-sha256sums=('04d4b182a0a383b2f000465312a141acbf1c05b2b0ce6a542f3f1d0220294c30'
-            '0083d126e27f2223ec4226fc1d71c9c84106968a0fdf65de838aee1e4882bfdb')
-install=install
+source=("https://gitlab.com/graphviz/graphviz/-/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('2183297bc5030951fed6c0511b39712057126d2098baa02fd914b09b5a19b820')
+b2sums=('60bb8fcb3e66fc34bbc11506cf55ac99f918388bd81a3df4a6017a7a24715cbf61304af3eefc297771648f6dc66f47a801bb3ecfb1b386d1f281f1d59d73c47b')
+install='graphviz.install'
 
 prepare() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
-	patch -p1 -i ../ghostscript918.patch
 	./autogen.sh NOCONFIG
 }
 
 build() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
+
 	export LIBPOSTFIX=/
 	export CXXFLAGS+=' -fPIC -fpermissive'
 
-	./configure --prefix=/usr \
-           --enable-python3=yes --disable-python --enable-lefty
+	./configure --prefix=/usr --enable-python3=yes --disable-python --enable-lefty
         sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool # Fix overlinking
 	make
 }
 
 package() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
+
 	make DESTDIR="${pkgdir}" install
 
 	# fix symlink to symlink that doesn't get picked up by makepkg's zipman
