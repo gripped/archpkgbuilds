@@ -5,7 +5,7 @@
 pkgname=devtools
 epoch=1
 pkgver=1.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Tools for Arch Linux package maintainers'
 arch=('any')
 license=('GPL-3.0-or-later')
@@ -27,6 +27,7 @@ depends=(
   jq
   openssh
   parallel
+  reuse
   rsync
   sed
   util-linux
@@ -47,7 +48,6 @@ optdepends=(
   'btrfs-progs: btrfs support'
   'bat: pretty printing for pkgctl search'
   'nvchecker: pkgctl version subcommand'
-  'reuse: pkgctl license subcommand'
 )
 source=(https://gitlab.archlinux.org/archlinux/devtools/-/releases/v${pkgver}/downloads/devtools-${pkgver}.tar.gz{,.sig})
 validpgpkeys=(
