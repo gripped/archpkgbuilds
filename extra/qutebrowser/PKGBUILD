@@ -5,7 +5,7 @@
 
 pkgname=qutebrowser
 pkgver=3.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A keyboard-driven, vim-like browser based on Python and Qt"
 arch=("any")
 url="https://www.qutebrowser.org/"
@@ -14,7 +14,7 @@ depends=("python-jinja" "python-pyqt6" "python-yaml" "qt6-base" "python-pyqt6-we
 makedepends=("asciidoc" "python-setuptools")
 optdepends=("python-adblock: adblocking backend"
             "python-pygments"
-            "pdfjs: displaying PDF in-browser")
+            "pdfjs-legacy: displaying PDF in-browser")
 options=(!emptydirs)
 source=("https://github.com/qutebrowser/qutebrowser/releases/download/v$pkgver/qutebrowser-$pkgver.tar.gz"
         "https://github.com/qutebrowser/qutebrowser/releases/download/v$pkgver/qutebrowser-$pkgver.tar.gz.asc")
