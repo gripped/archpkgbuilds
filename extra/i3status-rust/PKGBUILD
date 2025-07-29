@@ -4,7 +4,7 @@
 
 pkgname=i3status-rust
 pkgver=0.34.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Resourcefriendly and feature-rich replacement for i3status, written in pure Rust'
 arch=('x86_64')
 url='https://github.com/greshake/i3status-rust'
@@ -26,7 +26,7 @@ optdepends=('alsa-utils: for the volume block'
             'powerline-fonts: for all themes using the Powerline arrow char'
             'pulseaudio: for the volume block'
             'speedtest-cli: for the speedtest block'
-            'ttf-font-awesome: for the awesome icons'
+            'otf-font-awesome: for the awesome icons'
             'upower: for the battery block')
 options=(!lto)
 source=(${pkgname}-${pkgver}.tar.gz::"https://github.com/greshake/i3status-rust/archive/refs/tags/v${pkgver}.tar.gz")
