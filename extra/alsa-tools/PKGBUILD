@@ -6,7 +6,7 @@
 
 pkgname=alsa-tools
 pkgver=1.2.14
-pkgrel=1
+pkgrel=2
 pkgdesc="Advanced tools for certain sound cards"
 arch=(x86_64)
 url="https://alsa-project.org/"
