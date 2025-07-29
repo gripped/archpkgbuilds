@@ -3,7 +3,7 @@
 
 pkgname=totem
 pkgver=43.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Movie player for the GNOME desktop based on GStreamer"
 url="https://apps.gnome.org/Totem/"
 arch=(x86_64)
@@ -75,6 +75,10 @@ prepare() {
   git submodule init subprojects/libgd # Skip flatpak/shared-modules
   git submodule set-url subprojects/libgd "$srcdir/libgd"
   git -c protocol.file.allow=always -c protocol.allow=never submodule update
+
+  # Raise window on activation
+  # https://gitlab.gnome.org/GNOME/totem/-/merge_requests/450
+  git cherry-pick -n 65cffb5535a201d2896ab6b88a545a8b3f8e9a6a
 }
 
 build() {
