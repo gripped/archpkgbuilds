@@ -1,10 +1,10 @@
-# Maintainer:
+# Maintainer: Lukas Fleischer <lfleischer@archlinux.org>
 # Contributor: Tobias Kieslich <tobias@justdreams.de>
 # Contributor: tobias <tobias@archlinux.org>
 
 pkgname=inkscape
 pkgver=1.4.2
-pkgrel=5
+pkgrel=6
 pkgdesc='Professional vector graphics editor'
 url='https://inkscape.org/'
 license=('GPL' 'LGPL')
@@ -59,7 +59,6 @@ depends=(
   'python-cairo'
   'python-certifi'
   'python-chardet'
-  'python-coverage'
   'python-cssselect'
   'python-filelock'
   'python-gobject'
