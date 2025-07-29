@@ -1,7 +1,7 @@
 pkgbase = tigervnc
 	pkgdesc = Suite of VNC servers and clients based on the VNC 4 branch of TightVNC
 	pkgver = 1.15.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://www.tigervnc.org
 	arch = x86_64
 	license = GPL-2.0-only
@@ -10,6 +10,7 @@ pkgbase = tigervnc
 	makedepends = imagemagick
 	makedepends = java-environment=8
 	makedepends = nasm
+	makedepends = strip-nondeterminism
 	makedepends = xorg-font-util
 	makedepends = xorg-util-macros
 	makedepends = xorgproto
@@ -22,7 +23,6 @@ pkgbase = tigervnc
 	depends = gmp
 	depends = gnutls
 	depends = hicolor-icon-theme
-	depends = java-runtime=8
 	depends = libgl
 	depends = libjpeg-turbo
 	depends = libunwind
@@ -50,6 +50,7 @@ pkgbase = tigervnc
 	depends = xorg-xkbcomp
 	depends = xorg-xsetroot
 	depends = zlib
+	optdepends = java-runtime: for java-based client
 	conflicts = tightvnc
 	backup = etc/pam.d/tigervnc
 	backup = etc/tigervnc/vncserver-config-defaults
