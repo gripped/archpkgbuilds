@@ -3,8 +3,8 @@
 # Contributor: Johannes Dewender   arch at JonnyJD dot net
 
 pkgname=python-discid
-pkgver=1.2.0
-pkgrel=10
+pkgver=1.3.0
+pkgrel=1
 pkgdesc="Python binding of MusicBrainz libdiscid"
 url="https://github.com/JonnyJD/python-discid"
 license=(LGPL-3.0-or-later)
@@ -21,8 +21,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('239cb608508e94109aa9b8b582bc3de1fb9408b508d56698d7f17ec9ebb0d37c1fb76557d98b6d194c1532e3047efcde3adc5d6e9634bc87533d331423a7f19f')
-b2sums=('616613de23b66adfc92227a9f36b710649f2a419ffd83443766ebcf1dbfaf528b7d933011bcbdcd19f5092726b81e40d905a62a64262a528dfad89e561210992')
+sha512sums=('1556d3cb40a6397583702a41cc41e9506cee848edc4b05c0ced32dd9197464c0c68b2f6cd1770245a9737449a313f9985cbce30956d98f21691ce48b32929770')
+b2sums=('ca51b5c40babc4f13ac849e2570a104de55cfc30fbf83ebcc2693dae182ae61285d4579aa7a8417f0cabe8beba7dfa78c5bd4e3da2fdda7fae6152a5715a5350')
 
 build() {
   cd $pkgname-$pkgver
@@ -31,9 +31,7 @@ build() {
 
 check() {
   cd $pkgname-$pkgver
-  # disable tests relying on /dev/cdrom:
-  # https://github.com/JonnyJD/python-discid/issues/51
-  pytest -v -k "not test_read_features and not test_read_put and not test_read_simple"
+  pytest -vv
 }
 
 package() {
