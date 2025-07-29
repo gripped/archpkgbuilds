@@ -1,0 +1,47 @@
+# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+
+pkgname=roboden
+pkgver=0.26 # build 26
+pkgrel=1
+pkgdesc='An indirect control real-time strategy game about robot colonies'
+arch=(x86_64)
+url='https://github.com/quasilyte/roboden-game'
+license=(MIT)
+depends=(alsa-lib glibc libgl libx11 libxcursor libxi libxinerama libxrandr libxxf86vm)
+makedepends=(gendesk go git setconf)
+source=("$pkgname::git+$url#commit=9a5d355f3ddcd0767c9083233bc814f0b54246cf") # latest commit 2025-07-29
+b2sums=('73eb17d2393f5f8e536ceb162a0b40b8e7dcc4b362927f491737b1ce80c5335d02ae6bf0d03511db59ed273fff736a179a1e73a63ad87cb1aeb644c585b07c85')
+
+prepare() {
+  gendesk -f -n --pkgname=$pkgname --pkgdesc="$pkgdesc" --categories="Game;StrategyGame"
+
+  setconf $pkgname/src/cmd/internal/game/game.go gameDataFolder '"/usr/share/roboden"'
+}
+
+build() {
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export CGO_LDFLAGS="$LDFLAGS"
+  export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
+
+  cd $pkgname/src
+  go build -o ../bin/roboden ./cmd/game
+}
+
+package() {
+  cd $pkgname
+
+  # Executable
+  install -Dm755 bin/roboden "$pkgdir/usr/bin/roboden"
+
+  # Game data
+  install -d "$pkgdir/usr/share/$pkgname"
+  cp -r roboden_data/* "$pkgdir/usr/share/$pkgname/"
+
+  # Desktop shortcut and icon
+  install -Dm644 ../$pkgname.desktop "$pkgdir/usr/share/applications/$pkgname.desktop"
+  install -Dm644 _metadata/logo.png "$pkgdir/usr/share/pixmaps/$pkgname.png"
+
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
