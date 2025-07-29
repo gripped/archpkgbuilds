@@ -2,7 +2,7 @@
 
 pkgname=letterpress
 pkgver=2.1
-pkgrel=10
+pkgrel=11
 pkgdesc='Convert your images into a picture made up of ASCII characters, using jp2a'
 arch=(any)
 url='https://apps.gnome.org/Letterpress/'
@@ -38,8 +38,8 @@ b2sums=(
   85b95ddf80a445a8fd13856086da45e7702d171a780deb62512b27ef03ed56acd30ddf43cd27c67a935961b11cab2fe8a68607d3d6519802cfa4edaaedc6710d
   4030ec1653f77719e00f28435a615a431fd139833db2a706af165866ac0ecc8f5edeb6c0ac66f931a53d50ae57578e1b97fcb7af423dedbb67b5a034fccabd4c
   5f6cc0075f3a78a77e04827805e0f76f645db41f2b2378740586ff6ddc40b8bd39c84f1a3697c856b72cb15e85a214cd6e64cfd1515f8a0008cc0bcd66ea0d9e
-  78b5fcc46accc00bc558053bef023cbce2ee57b16c76d84a68bcec325daec6ea7db99dbd92b52a3936a3416620e5d0724f1cd8791519bb23a4dbeb901d26b0ae
-  f1e492d0383195f8aa9ccf34fbc1b0b964c6b8c6c80455a2d15087aceb364efd1d3b8231630b9485ac862c74557ed2717ec73819d6d13941818807c52c97bc9b
+  dcccb1bb4204ae4992d5dfdd2f1e27285b1f190abba8a469e77f497f51ac7bee57aaf24a03a60df9d09c1efb17a378fb377e783bd170d7e2d00aa9ef3e44a018
+  c15a496388374b5f655ea3c19c6b08df7eeafdc5903ce73a5be658b813cd3fc8a8734c1b6f33cdff1a1c7968718fde3e7793d1195adeb1b560c555c4bfc3e5ac
 )
 
 prepare() {
@@ -54,11 +54,11 @@ prepare() {
   # https://gitlab.gnome.org/World/Letterpress/-/merge_requests/27
   git apply -3 ../letterpress-png-convert.patch
 
-  # https://gitlab.gnome.org/World/Letterpress/-/merge_requests/21
-  git apply -3 ../letterpress-clear-tmpfiles.patch
-
   # https://gitlab.gnome.org/World/Letterpress/-/merge_requests/30
   git apply -3 ../letterpress-dbus-activatable.patch
+
+  # https://gitlab.gnome.org/World/Letterpress/-/merge_requests/21
+  patch -Np1 -i ../letterpress-clear-tmpfiles.patch
 
   # Don't maximize window by default, reduce output width
   sed -i '/"window-is-maximized"/{n;s/>true</>false</}

@@ -1,4 +1,4 @@
-From 24d853875e530bd574d3c23ca0eb20642d0a338a Mon Sep 17 00:00:00 2001
+From 0cc0066a0e0fdf952512bec0f7ef2cb3fe883a46 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Sat, 26 Jul 2025 22:18:58 +0200
 Subject: [PATCH] Add D-Bus service file
@@ -9,8 +9,8 @@ launchers to activate it via D-Bus.
  data/io.gitlab.gregorni.Letterpress.desktop.in.in | 1 +
  data/io.gitlab.gregorni.Letterpress.service.in    | 3 +++
  data/meson.build                                  | 8 ++++++++
- src/main.py                                       | 1 +
- 4 files changed, 13 insertions(+)
+ src/main.py                                       | 7 ++++++-
+ 4 files changed, 18 insertions(+), 1 deletion(-)
  create mode 100644 data/io.gitlab.gregorni.Letterpress.service.in
 
 diff --git a/data/io.gitlab.gregorni.Letterpress.desktop.in.in b/data/io.gitlab.gregorni.Letterpress.desktop.in.in
@@ -57,9 +57,18 @@ index 2bf0ac4..f9dc266 100644
 +
  subdir('icons')
 diff --git a/src/main.py b/src/main.py
-index d77553d..8c97a49 100644
+index d77553d..a788ebd 100644
 --- a/src/main.py
 +++ b/src/main.py
+@@ -40,7 +40,7 @@ class LetterpressApplication(Adw.Application):
+     def __init__(self):
+         super().__init__(
+             application_id=APP_ID,
+-            flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE,
++            flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE | Gio.ApplicationFlags.HANDLES_OPEN,
+             resource_base_path="/io/gitlab/gregorni/Letterpress",
+         )
+         self.__create_action("quit", lambda *args: self.quit(), ["<primary>q"])
 @@ -71,6 +71,7 @@ class LetterpressApplication(Adw.Application):
          self.__create_action(
              "open-output", self.__open_output, param=GLib.VariantType("s")
@@ -68,6 +77,17 @@ index d77553d..8c97a49 100644
          self.file = None
  
      def do_activate(self):
+@@ -90,6 +91,10 @@ class LetterpressApplication(Adw.Application):
+         if self.file != None:
+             win.check_is_image(Gio.File.new_for_path(self.file))
+ 
++    def do_open(self, files, _n_files, _hint):
++        self.file = files[0].get_path()
++        self.activate()
++
+     def __paste_image(self, *args):
+         win = self.get_active_window()
+         Paster().paste_image(win, win.check_is_image)
 -- 
 GitLab
 

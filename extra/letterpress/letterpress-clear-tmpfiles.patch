@@ -24,8 +24,8 @@ index 6f9bd0e..d5ca002 100644
      def do_activate(self):
          """Called when the application is activated.
 @@ -107,6 +109,17 @@ class LetterpressApplication(Adw.Application):
-         if self.file != None:
-             win.check_is_image(Gio.File.new_for_path(self.file))
+         self.file = files[0].get_path()
+         self.activate()
  
 +    def do_shutdown(self):
 +        self.converted_tmpfile = None
