@@ -5,7 +5,7 @@
 _name=vde-2
 pkgname=vde2
 pkgver=2.3.3
-pkgrel=7
+pkgrel=8
 pkgdesc="Virtual Distributed Ethernet for emulators like qemu"
 arch=(x86_64)
 url="https://github.com/virtualsquare/vde-2"
