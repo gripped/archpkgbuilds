@@ -2,12 +2,12 @@
 _name="sass-embedded"
 pkgname="ruby-$_name"
 pkgver=1.89.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Embedded Sass Host for Ruby"
 arch=("any")
 url="https://github.com/sass-contrib/sass-embedded-host-ruby"
 license=('MIT')
-depends=("dart-sass" "ruby" "ruby-google-protobuf")
+depends=("dart-sass" "ruby" "ruby-google-protobuf" "ruby-rake")
 makedepends=("ruby-rake" "ruby-rdoc" "protobuf")
 checkdepends=("ruby-bundler" "ruby-rspec")
 source=("$pkgname-$pkgver::https://github.com/sass-contrib/sass-embedded-host-ruby/archive/refs/tags/v$pkgver.tar.gz"
