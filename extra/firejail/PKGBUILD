@@ -4,8 +4,8 @@
 # Contributor: ajs124 < aur AT ajs124 DOT de >
 
 pkgname=firejail
-pkgver=0.9.74
-pkgrel=2
+pkgver=0.9.76
+pkgrel=1
 pkgdesc='Linux namespaces sandbox program'
 arch=('x86_64')
 url=https://github.com/netblue30/firejail
@@ -18,16 +18,10 @@ backup=('etc/apparmor.d/local/firejail-default'
         'etc/firejail/firejail.config'
         'etc/firejail/login.users')
 install=firejail.install
-source=("git+$url.git#tag=$pkgver")
-sha256sums=('5f0c747749d36189973926372220fef2e96b2a496da2f519ba1ad1537157724d')
-b2sums=('c868d381e40637b5794fbead2d504b395c44efd74bf0bd098be25517a406ca5dc2a22a5727a6aee95953aada6140e29d52f9bb918d2a0d1d345064447c08f29a')
+source=("git+https://github.com/netblue30/firejail.git#tag=$pkgver")
+sha256sums=('2480946d5fc2cda77482cf2ea557a99392e5bcf1616fcb1b1855fb18492dbdf0')
+b2sums=('7cbace0bf6c81399524f569b98c00fdf16cbaf60230bad1a776e2c4f85390a4483b899a8ae1974db9da13426b92f73d41e2ef5e1fc7025c4dc1846af6d7f8887')
 #validpgpkeys=('F951164995F5C4006A73411E2CCB36ADFC5849A7')
-
-prepare() {
-  cd $pkgname
-  # https://github.com/netblue30/firejail/pull/6775
-  git cherry-pick --no-commit 344f8deb33bdba23bff18af498a5440462a42832
-}
 
 build() {
   cd $pkgname
