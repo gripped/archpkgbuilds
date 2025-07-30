@@ -1,16 +1,15 @@
-From 8d1e8bc75343aa277448f4abd44a2b0d16fb932b Mon Sep 17 00:00:00 2001
+From e6496bc028dac9b9c6ca4971d9170cb9b6177398 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
-Date: Wed, 16 Oct 2024 00:33:45 +0200
+Date: Wed, 30 Jul 2025 22:12:46 +0200
 Subject: [PATCH] Fix detecting audio sink when pipewire is used
 
-The pipewire device provider does not have 'is-default' property, and
-the device element does not have a 'device' property.
+The pipewire device element does not have a 'device' property.
 ---
- src/app.rs | 28 +++++++++++++---------------
- 1 file changed, 13 insertions(+), 15 deletions(-)
+ src/app.rs | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/src/app.rs b/src/app.rs
-index b16e89f..65dee3b 100644
+index b16e89f..395f316 100644
 --- a/src/app.rs
 +++ b/src/app.rs
 @@ -18,7 +18,7 @@ use std::cell::OnceCell;
@@ -22,44 +21,17 @@ index b16e89f..65dee3b 100644
  use gstreamer_rtsp_server::prelude::*;
  use gstreamer_rtsp_server::{RTSPMediaFactory, RTSPServer};
  use gtk::prelude::*;
-@@ -182,25 +182,23 @@ mod imp {
-         fn find_device_name(&self) -> Option<String> {
-             // Use gstreamer device monitor to find out the sink which we want to stream
-             let device_monitor = DeviceMonitor::new();
-+            device_monitor.add_filter(Some("Audio/Sink"), None);
-             device_monitor
-                 .start()
-                 .expect("Unable to start gstreamer device monitor");
+@@ -191,8 +191,8 @@ mod imp {
+                 let is_default = device.properties()?.get::<bool>("is-default").ok();
  
-             for device in device_monitor.devices() {
--                let is_sink = device.device_class() == "Audio/Sink";
--                let is_default = device.properties()?.get::<bool>("is-default").ok();
--
--                if is_sink && is_default == Some(true) {
+                 if is_sink && is_default == Some(true) {
 -                    let element = device.create_element(None).ok()?;
 -                    let node_name = element.property::<Option<String>>("device")?;
--                    info!(
--                        "Using \"{}\" as device ({}).",
--                        device.display_name(),
--                        node_name
--                    );
--
--                    device_monitor.stop();
--                    return Some(node_name);
-+                if let Some(structure) = device.property::<Option<Structure>>("properties") {
-+                    if let Ok(node_name) = structure.get::<String>("node.name") {
-+                        info!(
-+                            "Using \"{}\" as device ({}).",
-+                            device.display_name(),
-+                            node_name
-+                        );
-+
-+                        device_monitor.stop();
-+                        return Some(node_name);
-+                    }
-                 }
-             }
- 
++                    let structure = device.property::<Option<Structure>>("properties")?;
++                    let node_name = structure.get::<String>("node.name").ok()?;
+                     info!(
+                         "Using \"{}\" as device ({}).",
+                         device.display_name(),
 -- 
 GitLab
 
