@@ -5,41 +5,70 @@
 
 pkgname=libx86
 pkgver=1.1
-pkgrel=8
-pkgdesc="Provides an lrmi interface that works on x86, am64 and alpha"
-arch=('x86_64')
-url="https://www.codon.org.uk/~mjg59/libx86/"
-license=('custom')
-depends=('glibc')
-source=("https://www.codon.org.uk/~mjg59/${pkgname}/downloads/${pkgname}-${pkgver}.tar.gz" 
-        'libx86-ifmask.patch')
-md5sums=('41bee1f8e22b82d82b5f7d7ba51abc2a'
-         '573897186eb8670d8d97c64ea7614001')
-sha256sums=('5bf13104cb327472b5cb65643352a9138646becacc06763088d83001d832d048'
-            'b8070e57c5d267b3736b133e4c3c92965cc5a62e72466b705b506ad2ce39dd25')
+pkgrel=9
+pkgdesc='A library for real-mode x86 calls with an emulated x86 processor'
+arch=(x86_64)
+url='https://www.codon.org.uk/~mjg59/libx86/'
+license=(MIT)
+depends=(glibc)
+source=(
+  # upstream is 404, that particular tarball has been backed up here:
+  "$pkgname-$pkgver.tar.gz::https://gitlab.archlinux.org/grawlinson/libx86/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz"
+  https://src.fedoraproject.org/rpms/libx86/raw/rawhide/f/libx86-1.1-24-fix-invalid-hlt-opcode.patch
+  https://src.fedoraproject.org/rpms/libx86/raw/rawhide/f/libx86-add-pkgconfig.patch
+  https://src.fedoraproject.org/rpms/libx86/raw/rawhide/f/libx86-c99-2.patch
+  https://src.fedoraproject.org/rpms/libx86/raw/rawhide/f/libx86-c99.patch
+  https://src.fedoraproject.org/rpms/libx86/raw/rawhide/f/libx86-fix_processor_flags.patch
+  https://src.fedoraproject.org/rpms/libx86/raw/rawhide/f/libx86-ld_flags.patch
+  https://src.fedoraproject.org/rpms/libx86/raw/rawhide/f/libx86-libc-test.patch
+  https://src.fedoraproject.org/rpms/libx86/raw/rawhide/f/libx86-mmap-offset.patch 
+)
+sha512sums=('13b9795764a2b434c490c538fd3e12b2245900fff846aa59494af9905d521ee6ad42e057f8b8f5640f3da7d41a70365d1829f40703662ee97ea3187fb383352a'
+            'c955866dc2a59667978c045b46861ccd0a1ce5ca870b0ac2fad04c3d66bbd9e960ee7706b40524490a376a87c2930bfdbb8c867169ed5ae9a3829ada30f47a60'
+            'e377b5c48cbff5462175d120d7636331e2a3d331ddf0a77ad6b0f5b5a83cbf0d4785d15062a3a0970876044e09658df474a359c02199760729532aefbd1928c6'
+            '841b11aa5f9c54e3216005f4cbcddfb28d5ec9be48055db4132c6924db0c0fabe7ab51d8990f103efbee4c69b28e73a388dafc84c4d9c1e919f3e886e418ca57'
+            'ce95d1628123a34a33ff8072c37f884e549e92f6335dbba0ccd4b593aee88c4ed57a4d3a5a5b11952962059d92de613d341ce36f87eadeab929755c67a4d0ae1'
+            '6de7acfeee4d04115d4231b63ea2ebe0fe0c299b505f40e936b5fb7864f1401ba0522ffd188a9e6e714f9c17d7afa5c74bf6d692abebb05da0f43e13cb5767aa'
+            'fd4e5dc30e16f403b205b9a828d3bcc446f50e999f4522417bfb7a6571579ab59a8eec3c3a490d4bb66845a1009cf18fa0d5fdc6dd99ed91b7d16af3b4f411ae'
+            'd7778e8b3327d1b6ebeacbc76d056a73dce96fc15f14d4a743732343271d59bb1cf2fbea76cc30411ad671c02be4db2a8733b93a5b0aeb67d6203f0ac4b439f7'
+            '423734ea547fd8d5e894af3d797b27b95419921b3c61427d606fc4a81070455bb1498038ad9a7a619f0cd1e7acba92c1ee2bdefcb4ac670f86c87f3c8d94feab')
+b2sums=('d8480c88647da85cf03c2a48e7063f4ab44fbe82e3d5a65ed9902830e043f7b8f6fdcf0047b7cdb9d6d75b112e6b31169cd48e087bd41c269fe98b69f1c37d60'
+        'ef0e9199fd60af184ea9f8cb857c38e9d98781c914e35ad63dd91119f5ddd5cd4a4e26c7a2211dd3874085d6813477ebc110f4d96faf23df4b8fafa9bfb9bf67'
+        'b1f624ff1e77e056950f2c1b71ff9cbf235a437b29a0c57f67758dd498c0eb9cfed1d3976a71d7cc0fa50425e328a2b69cce1dfd6aa2b0a4a87d71912432b54a'
+        '1264d401437e6fe0831ffccfeae34a7b10e808d396118cbf95af8b96358cb2e553bb756ec7fca08cf077b2afb9732aa6c473410183c16c2c300e9206b4fa6cab'
+        '0291020e251e235c27e506b6a409e4495bf0832fb21167d9c2f67247155b891ebac7fe45ebbcde6d355a0e08c5e075df3c3567ef211d1b8e6ecdf6724ae9708c'
+        '8e0a80ad03eabc2acc1c0055bb71f2c95ce136344a55bf5c697471f360c4082c191d3cca4a5780a97ff0651ef6f6aeaa4fdbc6777ff947ab66fd1e81b0f2c4a6'
+        'd8ab463d9545ea0a21af9b790da8ab5e67a6ee6c0a7f747cc6f9ab9c18b8cdec01642add790c14feb2ffa1e2a77685cffa18a6e7fd17d98e135fe474f209bee7'
+        '0cd862a77e82d27e8a10c2f78c8b3d63327d807921fa184db75661d9f7cb7dbaaab582a502590581e838502ff2f0c12fcf371cfdc17471af7718ce491919df10'
+        '84c024a9da72b6436ab0a01e7b249d9df2a960f0bcbd9ddbffe92b4b519425962c89bc26c367d06f9a02bdb63176237c9c14ea1f4c36101d9c3a53338ab2d5ba')
 
 build() {
-  cd "${srcdir}"/$pkgname-$pkgver
+  cd "$pkgname-v$pkgver"
 
-  # lrmi.c patch courtesy of Gentoo
-  patch -Np0 -i "${srcdir}"/libx86-ifmask.patch
-
-  # FS#48120 courtesy of rrika
-  CFLAGS="$CFLAGS -fno-delete-null-pointer-checks"
+  # all patches courtesy of Fedora
+  # https://src.fedoraproject.org/rpms/libx86
+  patch -p1 -i "$srcdir/libx86-add-pkgconfig.patch"
+  patch -p1 -i "$srcdir/libx86-mmap-offset.patch"
+  patch -p1 -i "$srcdir/libx86-libc-test.patch"
+  patch -p1 -i "$srcdir/libx86-fix_processor_flags.patch"
+  patch -p0 -i "$srcdir/libx86-ld_flags.patch"
+  patch -p1 -i "$srcdir/libx86-1.1-24-fix-invalid-hlt-opcode.patch"
+  patch -p1 -i "$srcdir/libx86-c99.patch"
+  patch -p1 -i "$srcdir/libx86-c99-2.patch"
 
   # compensate for x86_64
   if [ "$CARCH" = "x86_64" ]; then
-    make BACKEND=x86emu
+    make BACKEND=x86emu LIBRARY=shared
   else
-    make
+    make LIBRARY=shared
   fi
 }
 
 package() {
-  cd "${srcdir}"/$pkgname-$pkgver
+  cd "$pkgname-v$pkgver"
 
   make DESTDIR="${pkgdir}" install
-  chmod 644 "${pkgdir}"/usr/lib/libx86.a
 
-  install -D -m 644 COPYRIGHT "${pkgdir}"/usr/share/licenses/$pkgname/LICENSE
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" COPYRIGHT
 }
