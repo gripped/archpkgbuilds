@@ -4,26 +4,27 @@
 
 pkgname=python-sanic
 pkgver=24.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Async Python 3.8+ web server/framework | Build fast. Run fast.'
 arch=("any")
 url='https://sanic.dev/'
 license=("MIT")
 depends=('python-sanic-routing' 'python-httptools' 'python-uvloop' 'python-ujson' 'python-aiofiles'
-         'python-websockets' 'python-multidict' 'python-tracerite' 'python-html5tagger')
-makedepends=('git' 'python-setuptools')
+         'python-websockets' 'python-multidict' 'python-tracerite' 'python-html5tagger'
+         'python-typing_extensions')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("git+https://github.com/sanic-org/sanic.git#tag=v$pkgver")
 sha256sums=('1cd54cf69752808c3a6fb93d1f3fee63ea6223e7a38b3eaf0f8fa61a965831a3')
 
 build() {
     cd sanic
-    python setup.py build
+    python -m build --wheel --no-isolation
 }
 
 # TODO: tests
 
 package() {
     cd sanic
-    python setup.py install --skip-build --root="$pkgdir" --optimize=1
+    python -m installer --destdir="$pkgdir" dist/*.whl
     install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
