@@ -3,7 +3,7 @@
 
 pkgname=stack
 pkgver=2.9.1
-pkgrel=192
+pkgrel=193
 pkgdesc="The Haskell Tool Stack"
 url="https://github.com/commercialhaskell/stack"
 license=('BSD-3-Clause')
@@ -33,14 +33,17 @@ conflicts=('haskell-stack')
 replaces=('haskell-stack')
 install="stack.install"
 source=("git+https://github.com/commercialhaskell/stack.git#tag=v$pkgver"
-        stack-persistent-2.14.patch)
-sha512sums=('SKIP'
-            'c0a3830988f878fa4c51667842dd2852523a5bc3c736353c9e7dbbf3b5be676e287393eb439f0a115a23a79fc1daa68a0c284a3a0ee133be07dbefe10a9cbb32')
+        stack-persistent-2.14.patch
+        stack-pantry-0.6.patch)
+sha512sums=('adc416921b667fff9aeff366af82170bf65a6473f42bd5a2a4ebde95b5f42808f3b32058cb21f03be98d7d1764057308bba38f448671903ece61d409930b7e15'
+            'c0a3830988f878fa4c51667842dd2852523a5bc3c736353c9e7dbbf3b5be676e287393eb439f0a115a23a79fc1daa68a0c284a3a0ee133be07dbefe10a9cbb32'
+            '69e0268ca68b106f7fbf54f2df50bdcaab35e4ec57cc6942dde4b1cef1fbecb2758b28a25f87e5f1f61f57b03d8877648056847468a1e2121130aeb3441a6c82')
 
 prepare() {
   cd $pkgname
   patch -p1 -i ../stack-persistent-2.14.patch
-  uusi -d semigroups -d persistent-template -r cryptonite:crypton -r cryptonite-conduit:crypton-conduit $pkgname.cabal
+  patch -p1 -i ../stack-pantry-0.6.patch
+  uusi -d semigroups -d persistent-template -r cryptonite:crypton -r cryptonite-conduit:crypton-conduit
   sed -i 's/cryptonite/crypton/' src/Stack/Setup.hs
 
   # rio-prettyprint 0.1.4.0
