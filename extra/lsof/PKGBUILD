@@ -9,7 +9,7 @@
 
 pkgname=lsof
 pkgver=4.99.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Lists open files for running Unix processes'
 url='https://github.com/lsof-org/lsof'
 arch=('x86_64')
@@ -21,21 +21,12 @@ depends=(
 makedepends=(
   groff
 )
-source=(${url}/archive/refs/tags/${pkgver}.tar.gz
-        reproducible-builds.patch)
-sha256sums=('3c591556c665196e0aada5982ff43c75e248187bad78bb1368d8fb9c1c527e6e'
-            'fdc62c85a7ace604aec5248d0543e6789c0042bc8be1ae0717561e088c85eb08')
-b2sums=('998ce85c7a0e742e6f7696d00ee3b6bb8aa6b6e5c30d5c76ac1fc74ea7d8062d73da4de54f433147b74ef4a6d6ac168f70ee68773c82269e07ec3f90bd9b8a8c'
-        'f42255d02b1b56692e1b28a282b9490901882a0c4b3991ae39e8fcfc62a4eb8183db370b26e67e700334d1141dcc3e725d9ee8a1981f9108c992c88fd4089732')
-
-prepare() {
-  cd ${pkgname}-${pkgver}
-  # https://github.com/lsof-org/lsof/issues/310
-  patch -Np1 -i ../reproducible-builds.patch
-}
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
+sha256sums=('3c591556c665196e0aada5982ff43c75e248187bad78bb1368d8fb9c1c527e6e')
+b2sums=('998ce85c7a0e742e6f7696d00ee3b6bb8aa6b6e5c30d5c76ac1fc74ea7d8062d73da4de54f433147b74ef4a6d6ac168f70ee68773c82269e07ec3f90bd9b8a8c')
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd "${pkgname}-${pkgver}"
   autoreconf -fiv
   ./configure \
     --prefix=/usr \
@@ -46,9 +37,9 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd "${pkgname}-${pkgver}"
   make DESTDIR="${pkgdir}" install
-  install -Dm 644 COPYING -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm 644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
 }
 
 # vim: ts=2 sw=2 et:
