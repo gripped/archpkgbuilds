@@ -4,7 +4,7 @@
 
 pkgname=gnome-music
 pkgver=48.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Music player and management application"
 url="https://apps.gnome.org/Music/"
@@ -46,11 +46,17 @@ optdepends=(
   'gst-plugins-ugly: Extra media codecs'
 )
 groups=(gnome)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-music.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('980f1f76ff4508c6fec589d06a448afa03df990fab4151df5b58f6c28873daa266c1d0508156c1c13eb1cf5977e165d9365077f21e88acac0984ec40fc382aa9')
+source=("git+https://gitlab.gnome.org/GNOME/gnome-music.git#tag=${pkgver/[a-z]/.&}"
+        gnome-music-fix-non-responsive-window.patch)
+b2sums=('980f1f76ff4508c6fec589d06a448afa03df990fab4151df5b58f6c28873daa266c1d0508156c1c13eb1cf5977e165d9365077f21e88acac0984ec40fc382aa9'
+        '1213d56fcf265489c080fc7df7c55f9e3c54129a09580b6d71aecb624c6a1f5ec041723d4739f27d3afb0f052efb3a28dbcfb9e7a50a6c50fb893988d5a38bab')
 
 prepare() {
   cd $pkgname
+
+  # Fix non-responsive window when XDG_MUSIC does not exist
+  # https://gitlab.gnome.org/GNOME/gnome-music/-/merge_requests/1076
+  git apply -3 ../gnome-music-fix-non-responsive-window.patch
 }
 
 build() {

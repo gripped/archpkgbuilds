@@ -1,0 +1,56 @@
+From a11c9343d9b402fad4089668888065f1112ef20e Mon Sep 17 00:00:00 2001
+From: Marinus Schraal <mschraal@gnome.org>
+Date: Sun, 29 Sep 2024 15:32:50 +0200
+Subject: [PATCH] statusnavigationpage: Fix non-responsive window
+
+When XDG_MUSIC does not exist, the window becomes completely blank and
+non-responsive on startup.
+
+Rearrange the init logic, so the widget does get initialized properly.
+
+Fixes: #628
+---
+ gnomemusic/widgets/statusnavigationpage.py | 22 ++++++++++------------
+ 1 file changed, 10 insertions(+), 12 deletions(-)
+
+diff --git a/gnomemusic/widgets/statusnavigationpage.py b/gnomemusic/widgets/statusnavigationpage.py
+index a508700bb..3fb417980 100644
+--- a/gnomemusic/widgets/statusnavigationpage.py
++++ b/gnomemusic/widgets/statusnavigationpage.py
+@@ -49,23 +49,21 @@ class StatusNavigationPage(Adw.NavigationPage):
+             assert music_folder is not None
+         except (TypeError, AssertionError):
+             self._content_text = _("Your XDG Music directory is not set.")
+-            return
+-
+-        music_folder = Tracker.sparql_escape_string(
+-            GLib.filename_to_uri(music_folder))
+-
+-        href_text = "<a href='{}'>{}</a>".format(
+-            music_folder, _("Music Folder"))
++        else:
++            music_folder = Tracker.sparql_escape_string(
++                GLib.filename_to_uri(music_folder))
++            href_text = "<a href='{}'>{}</a>".format(
++                music_folder, _("Music Folder"))
++            # TRANSLATORS: This is a label to display a link to open
++            # a user's music folder. {} will be replaced with the
++            # translated text 'Music folder'
++            folder_text = _("The contents of your {} will appear here.")
++            self._content_text = folder_text.format(href_text)
+ 
+         self._headerbar = HeaderBar(application)
+         self._headerbar.props.state = HeaderBar.State.EMPTY
+         self._toolbar.add_top_bar(self._headerbar)
+ 
+-        # TRANSLATORS: This is a label to display a link to open user's music
+-        # folder. {} will be replaced with the translated text 'Music folder'
+-        folder_text = _("The contents of your {} will appear here.")
+-        self._content_text = folder_text.format(href_text)
+-
+         # Hack to get to AdwClamp, so it can be hidden for the
+         # initial state.
+         child_of_child = self._status_page.get_first_child().get_first_child()
+-- 
+GitLab
+
