@@ -2,11 +2,12 @@
 
 pkgname=amberol
 pkgver=2025.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Small and simple sound and music player that is well integrated with GNOME'
 arch=(x86_64)
 url='https://apps.gnome.org/Amberol/'
 license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
   dconf
   gcc-libs
@@ -36,7 +37,7 @@ optdepends=(
   'gst-plugins-ugly: Extra media codecs'
 )
 source=("git+https://gitlab.gnome.org/World/amberol.git?signed#tag=$pkgver")
-b2sums=('4b0ae6c6f3e85321f70bec5dee387f37b4bce08d35de1918f8f10636b641707e7e6c3c3b4e814a75c3b3c7cc277b5bcf6db2be735c2aed9d744f3a5e2eb7a0c8')
+b2sums=(4b0ae6c6f3e85321f70bec5dee387f37b4bce08d35de1918f8f10636b641707e7e6c3c3b4e814a75c3b3c7cc277b5bcf6db2be735c2aed9d744f3a5e2eb7a0c8)
 validpgpkeys=(53EF3DC3B63E2899271BD26322E8091EEA11BBB7) # Emmanuele Bassi (GNOME) <ebassi@gnome.org>
 
 prepare() {
