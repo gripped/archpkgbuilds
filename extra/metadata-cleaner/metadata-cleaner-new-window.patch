@@ -1,0 +1,71 @@
+From 6a0224aabeced405a311b8f9465003993c2fb67f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 31 Jul 2025 16:49:05 +0200
+Subject: [PATCH] Add "new-window" command-line option
+
+This allows the user to choose the desired action when the application is
+launched: when the "new-window" command-line option is requested, a new
+window will be opened, otherwise raise the existing window.
+
+Specify the action also in the desktop file. This allows application
+launchers to provide direct access to this action.
+---
+ .../fr.romainvigier.MetadataCleaner.desktop.in  |  5 +++++
+ application/metadatacleaner/app.py              | 17 ++++++++++++++++-
+ 2 files changed, 21 insertions(+), 1 deletion(-)
+
+diff --git a/application/data/fr.romainvigier.MetadataCleaner.desktop.in b/application/data/fr.romainvigier.MetadataCleaner.desktop.in
+index 9dd4eeb5..42bd2415 100644
+--- a/application/data/fr.romainvigier.MetadataCleaner.desktop.in
++++ b/application/data/fr.romainvigier.MetadataCleaner.desktop.in
+@@ -12,3 +12,8 @@ DBusActivatable=true
+ Categories=GNOME;GTK;Utility;
+ # Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+ Keywords=Metadata;Remover;Cleaner;
++Actions=new-window;
++
++[Desktop Action new-window]
++Name=New Window
++Exec=metadata-cleaner --new-window
+diff --git a/application/metadatacleaner/app.py b/application/metadatacleaner/app.py
+index 1b270d4a..3f98dfb7 100644
+--- a/application/metadatacleaner/app.py
++++ b/application/metadatacleaner/app.py
+@@ -40,11 +40,17 @@ class MetadataCleaner(Adw.Application):
+         self.version = version
+         self.settings = Gio.Settings.new(self.get_application_id())
+ 
++        self.add_main_option("new-window", b"w", GLib.OptionFlags.NONE,
++                             GLib.OptionArg.NONE, "Open a new window", None)
++
+     # APPLICATION METHODS #
+ 
+     def do_activate(self) -> None:
+         """Run on application activation."""
+-        self.new_window()
++        if window := self.get_active_window():
++            window.present()
++        else:
++            self.new_window()
+ 
+     def do_startup(self) -> None:
+         """Run on application startup."""
+@@ -56,6 +62,15 @@ class MetadataCleaner(Adw.Application):
+         """Run when files are passed to the command line."""
+         self.new_window(gfiles=gfiles)
+ 
++    def do_handle_local_options(self, options: GLib.VariantDict) -> int:
++        if options.contains("new-window"):
++            self.register()
++            if self.get_is_remote():
++                self.activate_action("new-window")
++                return 0
++
++        return -1
++
+     # SETUP #
+ 
+     def _setup_actions(self) -> None:
+-- 
+GitLab
+
