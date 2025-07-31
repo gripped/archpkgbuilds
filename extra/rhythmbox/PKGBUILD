@@ -4,7 +4,7 @@
 
 pkgname=rhythmbox
 pkgver=3.4.8
-pkgrel=3
+pkgrel=4
 pkgdesc="Music playback and management application"
 url="https://gitlab.gnome.org/GNOME/rhythmbox"
 arch=(x86_64)
@@ -75,6 +75,10 @@ b2sums=('b4b8b61e7f6978a06982e9cc00fd49ec1011f94bfe6f696f19f228d651b1e2499f6ce3e
 
 prepare() {
   cd $pkgname
+
+  # Fix window not being matched to application
+  # https://gitlab.gnome.org/GNOME/rhythmbox/-/merge_requests/198
+  git cherry-pick -n 7700cd63fc569abb858a9cb134ced01b9ce0d292
 }
 
 build() {
