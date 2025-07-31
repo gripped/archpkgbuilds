@@ -4,7 +4,7 @@
 
 pkgname=transmageddon
 pkgver=1.5
-pkgrel=13
+pkgrel=14
 pkgdesc='Simple python application for transcoding video into formats supported by GStreamer'
 arch=(any)
 url='http://www.linuxrising.org/'
@@ -31,6 +31,7 @@ makedepends=(
   intltool
 )
 optdepends=(
+  'graphviz: Debug option'
   'gst-libav: Extra media codecs'
   'gst-plugins-bad: Extra media codecs'
   'gst-plugins-good: Extra media codecs'
@@ -41,6 +42,7 @@ source=(
   transmageddon-autotools-fixes.patch
   transmageddon-xml.etree.ElementTree.patch
   transmageddon-gi-versions.patch
+  transmageddon-no-appmenu.patch
   transmageddon-set-prgname.patch
   transmageddon-translatable.patch
 )
@@ -49,6 +51,7 @@ b2sums=(
   53873a074cdf44bca6250feafadd85f746310a64b661af7325e57b456eedffab66cabfc24d401e1ca38df462d703b422c768b5c8bd07a5110735ffe414f6e0e9
   fae826bbc928c500de2b7652d2b314243271a57145e2a5dcd9bf76bc8816e5ac745b8a9572750f30d3cb79240d4c0620814b253095d69f1bb0950d61a7b02c78
   7558881c0d814f96505f69f79354f751d9972879edca8fd6358933d2d53ff9b460de8aa079442aa896bc7ca6ba2fe0eed5ea99dc2b0e9d25872cc653adff5040
+  f1af2caac80e40aeff616eacda16471819666c307154309c9a7996d9a3aad3c217d0096278bbf04ebc052db68f03d9f693b746d70b2219b14c4a01ec5aad8975
   1c85341a4316ea09674ac4d97079f36703ffc336b2881a470644fb69df715eb3f40380698a2eecfb6d23f88486d416cf03c27117661703790755df5af5df7007
   ec2e2474fb07540ddab6c310666a1f44636d47204973f80a735e3e3b1624ad855881c844eb607fe595e6baaf819e2d4f9dec6e6b92a4d4ddc3872c89ed976284
 )
@@ -68,6 +71,9 @@ prepare() {
 
   # Fix run when GTK 4 is installed
   git apply -3 ../transmageddon-gi-versions.patch
+
+  # Replace app menu with menubar
+  git apply -3 ../transmageddon-no-appmenu.patch
 
   # Set prgname to application ID
   git apply -3 ../transmageddon-set-prgname.patch

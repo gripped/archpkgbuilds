@@ -1,0 +1,35 @@
+From ff5f9d0c1a4c9be9ed0880435bb85560893d18aa Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 31 Jul 2025 21:10:45 +0200
+Subject: [PATCH] Replace app menu with menubar
+
+See: https://wiki.gnome.org/Design/Whiteboards/AppMenuMigration
+---
+ src/transmageddon.py | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/transmageddon.py b/src/transmageddon.py
+index 0721249..56a8ac4 100644
+--- a/src/transmageddon.py
++++ b/src/transmageddon.py
+@@ -161,6 +161,7 @@ class Transmageddon(Gtk.Application):
+        Gtk.Application.do_startup(self)
+ 
+        # create a menu
++       menubar = Gio.Menu()
+        menu = Gio.Menu()
+        # append to the menu the options
+        menu.append(_("About"), "app.about")
+@@ -168,7 +169,8 @@ class Transmageddon(Gtk.Application):
+        menu.append(_("Debug"), "app.debug")
+        
+        # set the menu as menu of the application
+-       self.set_app_menu(menu)
++       menubar.append_submenu("Transmageddon", menu)
++       self.set_menubar(menubar)
+ 
+        # create an action for the option "new" of the menu
+        debug_action = Gio.SimpleAction.new("debug", None)
+-- 
+2.50.1
+
