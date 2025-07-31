@@ -2,7 +2,7 @@
 
 pkgname=eyedropper
 pkgver=2.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Color picker and formatter'
 arch=(x86_64)
 url='https://apps.gnome.org/Eyedropper/'
@@ -26,16 +26,8 @@ makedepends=(
   meson
   rust
 )
-source=(
-  "git+https://github.com/FineFindus/eyedropper.git#tag=v$pkgver"
-  eyedropper-fix-search-provider.patch
-  eyedropper-dbus-activatable.patch
-)
-b2sums=(
-  2b2f2f5cc9a979599d9562fc25dabdb47ec43527d45a1bd0224afac6bc429583ae35320c269203295b37e71df8a6895b664d8c47a7f8beb9ad23acd60f5280b0
-  a0dc135e8a31baa574d512e18ca1babca56264b2c4a3025ef5eca76fdee6142dd45d8d55734f0c9367f1732a2b2381a07a9c76c77d81aee98270d8822c1295ee
-  70f08f70da63d7e15cd2aa89aea6cb8e81fe31be5cc30fc1a0b2cbc95cd148c713af1970340090026397f5e839c305ab0846137bad169d181e931d0daf2701b2
-)
+source=("git+https://github.com/FineFindus/eyedropper.git#tag=v$pkgver")
+b2sums=(2b2f2f5cc9a979599d9562fc25dabdb47ec43527d45a1bd0224afac6bc429583ae35320c269203295b37e71df8a6895b664d8c47a7f8beb9ad23acd60f5280b0)
 
 prepare() {
   cd $pkgname
@@ -47,11 +39,14 @@ prepare() {
   git cherry-pick -n 549d1e11290a37660c0207865b52310d5c580a32 \
                      5182e34ae171d4669ca2a0a65f54638116a7ad08
 
-  # https://github.com/FineFindus/eyedropper/pull/202
-  git apply -3 ../eyedropper-fix-search-provider.patch
-
   # https://github.com/FineFindus/eyedropper/pull/203
-  git apply -3 ../eyedropper-dbus-activatable.patch
+  git cherry-pick -n 4b5f913e2025eb51c6ec94b171aaf181532060ee
+
+  # https://github.com/FineFindus/eyedropper/pull/202
+  git cherry-pick -n 913d7f70377c721e6f67d1b395fa784258ffb639
+
+  # https://github.com/FineFindus/eyedropper/pull/204
+  git cherry-pick -n fb6db3a7f94be28e133c77d12808690aa5daaf6e
 }
 
 build() {
