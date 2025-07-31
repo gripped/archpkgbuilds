@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-elementpath
-pkgver=5.0.1
+pkgver=5.0.2
 pkgrel=1
 pkgdesc="XPath 1.0/2.0 parsers and selectors for ElementTree and lxml"
 url="https://github.com/sissaschool/elementpath"
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools')
 checkdepends=('python-lxml' 'python-pytest' 'python-xmlschema')
 source=("git+https://github.com/sissaschool/elementpath.git#tag=v$pkgver")
-sha512sums=('d20eaca3ee002fea2b6e9ffc562644980bfa6336e5704d5f7db82314e7eaec213c291fdfa0a9bdcec183f07cdf0a1e1a62f84e01263a17b04b3015045eb0a6c0')
+sha512sums=('7508c23c7412a63e49954abe775a1149462db287b66de37545b722cd9d0c79dbd71e7dab1b12e94df0d42315c79925edbb5aaeffdb2637acdad4f11a973834cc')
 
 build() {
   cd elementpath
