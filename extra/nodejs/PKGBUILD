@@ -10,7 +10,7 @@
 
 pkgname=nodejs
 pkgver=24.4.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Evented I/O for V8 javascript ("Current" release)'
 arch=('x86_64')
 url='https://nodejs.org/'
@@ -56,7 +56,9 @@ _set_flags() {
 prepare() {
   cd node
   # https://github.com/nodejs/node/issues/59029
-  git cherry-pick -n 049664bbdc421c63b2145c85a18c64d184b40aa5
+  git cherry-pick --no-commit 049664bbdc421c63b2145c85a18c64d184b40aa5
+  # https://github.com/nodejs/node/issues/59057
+  git cherry-pick --no-commit fc4a8af4305562aaef19a05c5b7bdfb7400b7a55
 }
 
 build() {
