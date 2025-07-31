@@ -1,6 +1,6 @@
-From eb95331cf042ac847cbf9d28cf3fd4dc7759a4a0 Mon Sep 17 00:00:00 2001
+From d845857ee648e863e067f46abf32ab79ff2faae1 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
-Date: Thu, 13 Jun 2024 16:55:25 +0200
+Date: Thu, 31 Jul 2025 18:51:42 +0200
 Subject: [PATCH] Various improvements for dialog handling
 
 - Set prgname to 'org.gnome.Shell.Extensions' so dialogs will have proper
@@ -20,8 +20,8 @@ Subject: [PATCH] Various improvements for dialog handling
  app/ding.js             |  2 ++
  app/fileItemMenu.js     | 12 ++++++++++--
  app/preferences.js      | 16 ++++++++++++----
- emulateX11WindowType.js |  8 +++++---
- 5 files changed, 36 insertions(+), 10 deletions(-)
+ emulateX11WindowType.js | 12 +++++++-----
+ 5 files changed, 38 insertions(+), 12 deletions(-)
 
 diff --git a/app/autoAr.js b/app/autoAr.js
 index b4211d9bf..373a3b8ed 100644
@@ -145,10 +145,10 @@ index c6517a336..ffa9051e8 100644
  }
  
 diff --git a/emulateX11WindowType.js b/emulateX11WindowType.js
-index acae59a0c..4ebfa5cca 100644
+index 26e33f53a..dfc52195f 100644
 --- a/emulateX11WindowType.js
 +++ b/emulateX11WindowType.js
-@@ -66,16 +66,18 @@ class ManageWindow {
+@@ -67,17 +67,19 @@ class ManageWindow {
              }
          }));
          this._signalIDs.push(window.connect('notify::minimized', () => {
@@ -158,18 +158,34 @@ index acae59a0c..4ebfa5cca 100644
 +            }
          }));
          this._signalIDs.push(window.connect('notify::maximized-vertically', () => {
--            if (!window.maximized_vertically) {
-+            if (this._fixed && !window.maximized_vertically) {
-                 window.maximize(Meta.MaximizeFlags.VERTICAL);
+             if (window.is_maximized) {
+                 // Gnome Shell >= 49 API
+-                if (!window.is_maximized()) {
++                if (this._fixed && !window.is_maximized()) {
+                     window.maximize();
+                 }
+             } else {
+                 // Gnome Shell < 49 API
+-                if (!window.maximized_vertically) {
++                if (this._fixed && !window.maximized_vertically) {
+                     window.maximize(Meta.MaximizeFlags.VERTICAL);
+                 }
              }
-             this._moveIntoPlace();
-         }));
+@@ -86,12 +88,12 @@ class ManageWindow {
          this._signalIDs.push(window.connect('notify::maximized-horizontally', () => {
--            if (!window.maximized_horizontally) {
-+            if (this._fixed && !window.maximized_horizontally) {
-                 window.maximize(Meta.MaximizeFlags.HORIZONTAL);
+             if (window.is_maximized) {
+                 // Gnome Shell >= 49 API
+-                if (!window.is_maximized()) {
++                if (this._fixed && !window.is_maximized()) {
+                     window.maximize();
+                 }
+             } else {
+                 // Gnome Shell < 49 API
+-                if (!window.maximized_horizontally) {
++                if (this._fixed && !window.maximized_horizontally) {
+                     window.maximize(Meta.MaximizeFlags.HORIZONTAL);
+                 }
              }
-             this._moveIntoPlace();
 -- 
 GitLab
 
