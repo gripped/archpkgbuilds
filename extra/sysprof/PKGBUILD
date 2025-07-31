@@ -12,7 +12,7 @@ pkgname=(
   libsysprof-capture
 )
 pkgver=48.0
-pkgrel=5
+pkgrel=6
 pkgdesc="Kernel based performance profiler"
 url="https://apps.gnome.org/Sysprof/"
 license=(GPL-3.0-or-later)
