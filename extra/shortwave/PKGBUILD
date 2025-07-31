@@ -2,11 +2,12 @@
 
 pkgname=shortwave
 pkgver=5.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Internet radio player'
 arch=(x86_64)
 url='https://apps.gnome.org/Shortwave/'
 license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
   bubblewrap
   dconf
@@ -30,7 +31,6 @@ depends=(
   openssl
   pango
   sqlite
-  zlib
 )
 makedepends=(
   appstream
@@ -40,7 +40,7 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://gitlab.gnome.org/World/Shortwave.git#tag=$pkgver")
-b2sums=('d0019aaf3069c44cf8ceb92e2d66d94de586a26c7a623c09f5fccce358d0dfbb62c3a6e557e4ff911c00a15ff12e915b4d4bff89a1722dfe89fd21ab2dbf97a1')
+b2sums=(d0019aaf3069c44cf8ceb92e2d66d94de586a26c7a623c09f5fccce358d0dfbb62c3a6e557e4ff911c00a15ff12e915b4d4bff89a1722dfe89fd21ab2dbf97a1)
 
 prepare() {
   cd Shortwave
