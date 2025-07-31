@@ -1,0 +1,78 @@
+From c0610eb85e07e403a5f77adcdfd7b2b42f328b01 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 31 Jul 2025 17:53:11 +0200
+Subject: [PATCH] Don't create window in startup phase
+
+The main window is not supposed to be shown when running as GApplication
+service.
+---
+ src/sj-main.c | 38 ++++++++++++++++++++++++--------------
+ 1 file changed, 24 insertions(+), 14 deletions(-)
+
+diff --git a/src/sj-main.c b/src/sj-main.c
+index 64ec87f6..a58e62f7 100644
+--- a/src/sj-main.c
++++ b/src/sj-main.c
+@@ -1773,10 +1773,6 @@ static const gchar *action_accels[][5] = {
+ static void
+ startup_cb (GApplication *app, gpointer user_data)
+ {
+-  gsize i;
+-  GtkTreeSelection *selection;
+-  GError *error = NULL;
+-
+   g_setenv ("PULSE_PROP_media.role", "music", TRUE);
+ 
+   sj_debug_init ();
+@@ -1813,6 +1809,20 @@ startup_cb (GApplication *app, gpointer user_data)
+   g_action_map_add_action_entries (G_ACTION_MAP (app),
+                                    app_entries, G_N_ELEMENTS (app_entries),
+                                    NULL);
++}
++
++static void
++activate_cb (GApplication *app, gpointer user_data)
++{
++  gsize i;
++  GtkTreeSelection *selection;
++  GError *error = NULL;
++
++  if (main_window != NULL) {
++    gtk_window_present (GTK_WINDOW (main_window));
++    return;
++  }
++
+   g_type_ensure (SJ_TYPE_TREE_VIEW);
+   builder = gtk_builder_new_from_resource ("/org/gnome/sound-juicer/sound-juicer.ui");
+ 
+@@ -2060,17 +2070,17 @@ static void
+ shutdown_cb (GApplication *app, gpointer user_data)
+ {
+   sj_metadata_helper_cleanup ();
+-  g_object_unref (sj_base_uri);
+-  g_object_unref (metadata);
+-  g_object_unref (sj_extractor);
+-  g_object_unref (sj_settings);
+-  brasero_media_library_stop ();
+-}
+ 
+-static void
+-activate_cb (GApplication *app, gpointer user_data)
+-{
+-  gtk_window_present (GTK_WINDOW (main_window));
++  if (sj_base_uri != NULL)
++    g_object_unref (sj_base_uri);
++  if (metadata != NULL)
++    g_object_unref (metadata);
++  if (sj_extractor != NULL)
++    g_object_unref (sj_extractor);
++  if (sj_settings != NULL)
++    g_object_unref (sj_settings);
++
++  brasero_media_library_stop ();
+ }
+ 
+ static GAction*
+-- 
+2.50.1
+
