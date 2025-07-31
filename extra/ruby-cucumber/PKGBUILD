@@ -1,8 +1,9 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=ruby-cucumber
-pkgver=9.2.1
-pkgrel=4
+pkgver=10.0.0
+pkgrel=1
 pkgdesc="Behaviour Driven Development with elegance and joy"
 arch=(any)
 url='https://github.com/cucumber/cucumber-ruby'
@@ -37,12 +38,9 @@ checkdepends=(
 options=(!emptydirs)
 source=(
   "https://github.com/cucumber/cucumber-ruby/archive/v$pkgver/cucumber-cucumber-ruby-$pkgver.tar.gz"
-  "$pkgname-ruby-3.4.patch::https://patch-diff.githubusercontent.com/raw/cucumber/cucumber-ruby/pull/1771.patch"
 )
-sha512sums=('9278a0c1b747a580445d2ac0fab1c451c6745d653aa91d050ac4a055b569d0281a25df287141f7a56dc97c13e6721ffa84875244d78e41deb8002dba59279d32'
-            '4f6a232e213255272e21abf18b0bbe8087b5fbe7f1a55de30bdd0026463980b3ccd78c8928d68181d8a0d90650136d5a26b77547317c66de05ce722394330b30')
-b2sums=('f573c9731cb155daf7c5aecb0b86fe57273b607846006949b76e78e16a96d4a9bd44fc702c070ac35441f0c4913f55c77a77c098532042122ff955ea77d68abd'
-        '2b09aa61a0276d4b242128bdf976de394db8522630caab93fcc5e540a5fbd08cca038909f7bb0655ab764aab4cfb446cba2f7c61ecc8e9be2f1fa477f13af80c')
+sha512sums=('5c7dff086ef421c5c4e0f747f0faa20c4f41715277f25c8ff0b53d66f4fd37787683f2cc256894767e5e0c42451d8e903c412d94ec9cc1a7dc237571ec5ba6bb')
+b2sums=('a9916c4f7c393e5ad574ad0154264848e3cc925ee1b99b8698cfd78c81e670c2a9f8c8b9338e09f89f14e1dd8a27d91b216df441211a3e6b456c5e106f7eedf9')
 
 prepare() {
   cd cucumber-ruby-$pkgver
