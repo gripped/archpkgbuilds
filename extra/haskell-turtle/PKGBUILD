@@ -4,7 +4,7 @@
 _hkgname=turtle
 pkgname=haskell-turtle
 pkgver=1.6.2
-pkgrel=80
+pkgrel=81
 pkgdesc="Shell programming, Haskell-style"
 url="https://github.com/Gabriel439/turtle"
 license=('BSD')
@@ -12,12 +12,13 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-ansi-wl-pprint' 'haskell-async' 'haskell-clock' 'haskell-foldl'
          'haskell-hostname' 'haskell-managed' 'haskell-optparse-applicative' 'haskell-optional-args'
          'haskell-streaming-commons' 'haskell-temporary' 'haskell-unix-compat')
-makedepends=('ghc' 'haskell-doctest' 'haskell-tasty' 'haskell-tasty-hunit')
+makedepends=('ghc' 'uusi' 'haskell-doctest' 'haskell-tasty' 'haskell-tasty-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('7d83a0fdd62768ddc2d07fceed68253591d7d996cc4e7518839fe51f15b64c50f588ec8bcb174b68807b9c5f7e62aaae1fa4ea03295083c57db60f460a482be1')
 
 prepare() {
     cd $_hkgname-$pkgver
+    uusi -u ansi-wl-pprint
     sed -i 's/]/, "-dynamic"]/' test/Main.hs
 }
 
