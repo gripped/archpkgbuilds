@@ -1,0 +1,50 @@
+From 25bbcfd6d865e428071484e28fd85df890c31000 Mon Sep 17 00:00:00 2001
+From: Enno Cramer <ecramer@memfrob.de>
+Date: Thu, 14 Sep 2023 22:41:17 +0200
+Subject: [PATCH] Bump upper version bounds on optparse-applicative
+
+---
+ CHANGELOG.md     | 1 +
+ floskell.cabal   | 3 ++-
+ src/main/Main.hs | 3 ++-
+ 3 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/floskell.cabal b/floskell.cabal
+index 14cdeaf7..b9904b76 100644
+--- a/floskell.cabal
++++ b/floskell.cabal
+@@ -83,11 +83,12 @@
+         base >=4.9 && <4.19,
+         floskell -any,
+         aeson-pretty >=0.8.2 && <0.9,
++        ansi-wl-pprint >=0.6.6 && <1.1,
+         bytestring >=0.10.8.1 && <0.12,
+         directory >=1.2.6.2 && <1.4,
+         ghc-prim >=0.5.0.0 && <0.11,
+         haskell-src-exts >=1.19 && <1.24,
+-        optparse-applicative >=0.12.1.0 && <0.18,
++        optparse-applicative >=0.12.1.0 && <0.19,
+         text >=1.2.2.2 && <2.1
+
+ test-suite floskell-test
+diff --git a/src/main/Main.hs b/src/main/Main.hs
+index f2df7230..e246624d 100644
+--- a/src/main/Main.hs
++++ b/src/main/Main.hs
+@@ -35,7 +35,6 @@ import           Options.Applicative
+                  ( ParseError(..), abortOption, argument, execParser, footerDoc
+                  , fullDesc, header, help, helper, hidden, info, long, metavar
+                  , option, progDesc, short, str, switch )
+-import qualified Options.Applicative.Help.Pretty as PP
+ 
+ import           Paths_floskell                  ( version )
+ 
+@@ -45,6 +44,8 @@ import           System.Directory
+ import           System.IO
+                  ( FilePath, hClose, hFlush, openTempFile, stdout )
+ 
++import qualified Text.PrettyPrint.ANSI.Leijen as PP
++
+ -- | Program options.
+ data Options = Options { optStyle         :: Maybe String
+                        , optLanguage      :: Maybe String

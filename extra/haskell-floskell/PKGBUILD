@@ -3,17 +3,24 @@
 _hkgname=floskell
 pkgname=haskell-floskell
 pkgver=0.10.8
-pkgrel=101
+pkgrel=102
 pkgdesc="A flexible Haskell source code pretty printer"
 url="https://github.com/ennocramer/floskell"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-attoparsec'
-         'haskell-data-default' 'haskell-src-exts' 'haskell-monad-dijkstra'
+depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-ansi-wl-pprint'
+         'haskell-attoparsec' 'haskell-data-default' 'haskell-src-exts' 'haskell-monad-dijkstra'
          'haskell-optparse-applicative' 'haskell-unordered-containers' 'haskell-utf8-string')
-makedepends=('ghc' 'haskell-hspec')
-source=("https://github.com/ennocramer/floskell/archive/floskell-$pkgver.tar.gz")
-sha256sums=('6e312f9ab13bf224550f9ffd77ee5d03eb27a7165d1fdc20339dbb228daa82e5')
+makedepends=('ghc' 'uusi' 'haskell-hspec')
+source=("https://github.com/ennocramer/floskell/archive/floskell-$pkgver.tar.gz"
+        optparse-applicative-0.18.patch)
+sha256sums=('6e312f9ab13bf224550f9ffd77ee5d03eb27a7165d1fdc20339dbb228daa82e5'
+            'fa2f92bfc0426f9e61489d96533e982cff1a70136303a3701907cb0a28c78b8f')
+
+prepare() {
+  cd $_hkgname-floskell-$pkgver
+  patch -p1 -i ../optparse-applicative-0.18.patch
+}
 
 build() {
   cd $_hkgname-floskell-$pkgver
