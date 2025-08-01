@@ -1,23 +1,29 @@
-# Maintainer:
+# Maintainer: George Hu <integral@archlinux.org>
 
 pkgname=expected-lite
-pkgver=0.8.0
-pkgrel=1
-pkgdesc='Expected objects in C++11 and later in a single-file header-only library'
-url='https://github.com/martinmoene/expected-lite'
-arch=(any)
-license=(BSL-1.0)
-makedepends=(cmake
-             git)
-source=(git+https://github.com/martinmoene/expected-lite#tag=v$pkgver)
-sha256sums=('060a3575dc2857d400d950d68318ed011431c4222975caaa6c8c5abaa5594ff7')
+pkgver=0.9.0
+pkgrel=2
+pkgdesc="Expected objects in C++11 and later in a single-file header-only library"
+url="https://github.com/martinmoene/${pkgname}"
+arch=('any')
+license=('BSL-1.0')
+makedepends=('cmake')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('e1b3ac812295ef8512c015d8271204105a71957323f8ab4e75f6856d71b8868d')
 
 build() {
-  cmake -B build -S $pkgname \
-    -DCMAKE_INSTALL_PREFIX=/usr
-  cmake --build build
+	cmake -B build \
+		-S "${pkgname}-${pkgver}" \
+		-D CMAKE_BUILD_TYPE=None \
+		-D CMAKE_INSTALL_PREFIX=/usr
+
+	cmake --build build
+}
+
+check() {
+	ctest --test-dir build --output-on-failure
 }
 
 package() {
-  DESTDIR="$pkgdir" cmake --install build
+	DESTDIR="${pkgdir}" cmake --install build
 }
