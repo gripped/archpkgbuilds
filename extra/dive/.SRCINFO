@@ -1,14 +1,15 @@
 pkgbase = dive
 	pkgdesc = A tool for exploring layers in a docker image
-	pkgver = 0.13.0
+	pkgver = 0.13.1
 	pkgrel = 1
 	url = https://github.com/wagoodman/dive
 	arch = x86_64
 	license = MIT
 	checkdepends = python
 	makedepends = go
+	makedepends = git
 	depends = glibc
-	source = dive-0.13.0.tar.gz::https://github.com/wagoodman/dive/archive/v0.13.0.tar.gz
-	sha256sums = 91449d9777c3b52ddfd9cf922b8bb980cd9270eaf056ea70b319a8779f7e2c2b
+	source = git+https://github.com/wagoodman/dive.git#tag=v0.13.1
+	sha256sums = SKIP
 
 pkgname = dive

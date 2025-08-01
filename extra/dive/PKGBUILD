@@ -4,20 +4,20 @@
 # Contributor: David Stark <david@starkers.org>
 
 pkgname=dive
-pkgver=0.13.0
+pkgver=0.13.1
 pkgrel=1
 pkgdesc="A tool for exploring layers in a docker image"
 arch=('x86_64')
 url="https://github.com/wagoodman/dive"
 license=('MIT')
 depends=('glibc')
-makedepends=('go')
+makedepends=('go' 'git')
 checkdepends=('python')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('91449d9777c3b52ddfd9cf922b8bb980cd9270eaf056ea70b319a8779f7e2c2b')
+source=("git+$url.git#tag=v$pkgver")
+sha256sums=('SKIP')
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   go build \
     -trimpath \
     -buildmode=pie \
@@ -29,14 +29,14 @@ build() {
 }
 
 check() {
-  cd "$pkgname-$pkgver"
+  cd $pkgname
   make test
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd $pkgname
   install -Dm 755 "bin/$pkgname" -t "$pkgdir/usr/bin"
-  install -Dm 644 LICENSE  -t "$pkgdir/usr/share/licenses/$pkgname"
+  install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
 }
 
