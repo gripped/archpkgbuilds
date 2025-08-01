@@ -3,7 +3,7 @@
 
 pkgname=stylish-haskell
 pkgver=0.14.4.0
-pkgrel=37
+pkgrel=39
 pkgdesc="Haskell code prettifier"
 url="https://github.com/haskell/stylish-haskell"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('942d8e801f85ce28e4d4bfe467ab0577d0d7b4f3bedd411c29afb692ed0c170db20
 
 prepare() {
     cd $pkgname-$pkgver
-    uusi -u strict
+    uusi -u optparse-applicative -u strict
 }
 
 build() {
