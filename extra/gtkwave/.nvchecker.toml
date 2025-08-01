@@ -1,0 +1,4 @@
+[gtkwave]
+source = "jq"
+url = "https://sourceforge.net/projects/gtkwave/best_release.json"
+filter = '.release.filename | split("/") | .[1] | split("-") | .[-1]'
