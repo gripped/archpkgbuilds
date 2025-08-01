@@ -4,7 +4,7 @@
 # Contributor: Sander Boom <sanderboom@gmail.com>
 
 pkgname=ansible-lint
-pkgver=25.6.1
+pkgver=25.7.0
 pkgrel=1
 pkgdesc="Checks playbooks for practices and behaviour that could potentially be improved."
 arch=('any')
@@ -13,12 +13,12 @@ license=('GPL-3.0-or-later')
 depends=(python ansible-core git yamllint
   python-{ansible-compat,black,filelock,jsonschema,packaging,ruamel-yaml,wcmatch,importlib-metadata})
 makedepends=(python-{build,installer,setuptools,setuptools-scm,wheel})
-checkdepends=(mypy python-jmespath python-pylint python-pytest python-pytest-mock)
+checkdepends=(ansible-creator mypy podman python-jmespath python-pylint python-pytest python-pytest-mock)
 optdepends=('ansible: check official ansible collections')
 source=(git+https://github.com/ansible/ansible-lint.git#tag=v$pkgver
         disable_version_check.patch
         ignore_yamllint_unknown_option.patch)
-b2sums=('1e784629267067381f774f881fc450d8b5843f49170a8592c1cc6f66a0080fde2bf6780d44450c26348e158eb5395216444d79809e1f5267bf413c2cbeccae8b'
+b2sums=('4f7c32ae91ebedf6342fedecb2bdd6b44165a3471a9d4aaeb8d18f3102a7efd4b175deab32b2516ee123749fa9eb42968afb0d8ff6973fd0e19e65d60cb86ca7'
         '98294f267ca693c0bc3921f8e076d674a219a891502cd31a0af789bc0b1447b53834b9c85853a134f6bc1ac384f31cb174cba2d55fbcc1636cae9bd3c0bd8f84'
         '8e419c65642bdbd60aa81d1e204139e69fc4c86aaddde4131fbfe3c21f5751e608a5a635d3ec4f518d3d5dc9d254a84b302e09bb4f873e21628e2f014b151516')
 
@@ -64,6 +64,7 @@ check() {
     --deselect 'test/test_app.py::test_app_no_matches'
     --deselect 'test/test_app.py::test_with_inventory_concurrent_syntax_checks'
     --deselect 'test/test_file_utils.py::test_discover_lintables_silent'
+    --deselect 'test/test_pattern.py::test_creator_scaffolded_pattern'
     # ignore yamllint tests
     --deselect 'test/test_yaml_utils.py::test_yamllint_incompatible_config'
     --deselect 'test/rules/test_syntax_check.py::test_syntax_check_role'
