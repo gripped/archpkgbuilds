@@ -1,12 +1,13 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=eartag
-pkgver=0.6.5
+pkgver=1.0.0
 pkgrel=1
 pkgdesc='Simple audio file tag editor'
 arch=(any)
 url='https://apps.gnome.org/EarTag/'
 license=(MIT)
+groups=(gnome-circle)
 depends=(
   dconf
   gdk-pixbuf2
@@ -16,11 +17,15 @@ depends=(
   libadwaita
   pango
   python
+  python-aiofiles
+  python-aiohttp
+  python-aiohttp-retry
+  python-filetype
   python-gobject
-  python-magic
   python-mutagen
   python-pillow
   python-pyacoustid
+  python-xxhash
 )
 makedepends=(
   appstream
@@ -28,9 +33,22 @@ makedepends=(
   git
   meson
 )
-checkdepends=(python-pytest)
+checkdepends=(
+  python-pytest
+  python-pytest-asyncio
+)
 source=("git+https://gitlab.gnome.org/World/eartag.git#tag=$pkgver")
-b2sums=('8cfd2e7161d1bece7d1d4d0a9988ea5592175bbddb32a683098f39fc121e190d6dfbe74957af38085ce39394a5d60b8d95c55b2ccabb45f34792dd9cfcc00a5b')
+b2sums=(111bbe0bd5a9460e81dfd91788c0b803f488a626e1f99660a0c2fd677c7832bb8286ab520c19809e02e9271db3ab8e83bdab8cf9e7d7823438cd8c7f7d38a7af)
+
+prepare () {
+  cd $pkgname
+
+  # https://gitlab.gnome.org/World/eartag/-/merge_requests/145
+  git cherry-pick -n e77c452588a39df8e4ed03474f0673e7b8934043
+
+  # https://gitlab.gnome.org/World/eartag/-/merge_requests/146
+  git cherry-pick -n eb711cff56568fad1ae95a072d9c6266a0b89b45
+}
 
 build() {
   arch-meson $pkgname build

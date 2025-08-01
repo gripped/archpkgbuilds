@@ -1,11 +1,13 @@
 pkgbase = eartag
 	pkgdesc = Simple audio file tag editor
-	pkgver = 0.6.5
+	pkgver = 1.0.0
 	pkgrel = 1
 	url = https://apps.gnome.org/EarTag/
 	arch = any
+	groups = gnome-circle
 	license = MIT
 	checkdepends = python-pytest
+	checkdepends = python-pytest-asyncio
 	makedepends = appstream
 	makedepends = blueprint-compiler
 	makedepends = git
@@ -18,12 +20,16 @@ pkgbase = eartag
 	depends = libadwaita
 	depends = pango
 	depends = python
+	depends = python-aiofiles
+	depends = python-aiohttp
+	depends = python-aiohttp-retry
+	depends = python-filetype
 	depends = python-gobject
-	depends = python-magic
 	depends = python-mutagen
 	depends = python-pillow
 	depends = python-pyacoustid
-	source = git+https://gitlab.gnome.org/World/eartag.git#tag=0.6.5
-	b2sums = 8cfd2e7161d1bece7d1d4d0a9988ea5592175bbddb32a683098f39fc121e190d6dfbe74957af38085ce39394a5d60b8d95c55b2ccabb45f34792dd9cfcc00a5b
+	depends = python-xxhash
+	source = git+https://gitlab.gnome.org/World/eartag.git#tag=1.0.0
+	b2sums = 111bbe0bd5a9460e81dfd91788c0b803f488a626e1f99660a0c2fd677c7832bb8286ab520c19809e02e9271db3ab8e83bdab8cf9e7d7823438cd8c7f7d38a7af
 
 pkgname = eartag
