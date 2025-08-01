@@ -3,17 +3,17 @@
 
 _hkgname=bytestring-tree-builder
 pkgname=haskell-bytestring-tree-builder
-pkgver=0.2.7.10
-pkgrel=151
+pkgver=0.2.7.11
+pkgrel=1
 pkgdesc="A very efficient ByteString builder implementation based on the binary tree"
 url="https://github.com/nikita-volkov/bytestring-tree-builder"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-base-prelude' 'haskell-tasty' 'haskell-tasty-quickcheck'
-             'haskell-tasty-hunit' 'haskell-quickcheck-instances' 'haskell-quickcheck')
+             'haskell-tasty-hunit' 'haskell-quickcheck-instances')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('49e4c74b7338cbfdc8aa8f008b4859b6faedbf3dd63af50ce04a6aed8d01530ef89d060a1abb5118d81e18793d919d4a84044050beb628cd9670cddd3e29d50b')
+sha512sums=('d3294f3f22f7d3163ca6273524f7056f4409a34606fd88641c15014dac4ed771be591d9a25fe791749fd5914f6db4eaae66814314444d35e16fd9c5887fb10ef')
 
 prepare() {
     cd $_hkgname-$pkgver
