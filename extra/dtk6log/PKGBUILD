@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dtk6log
-pkgver=0.0.4
+pkgver=0.0.5
 pkgrel=1
 pkgdesc='Simple, convinient and thread safe logger for Qt-based C++ apps'
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('LGPL3')
 depends=('glibc' 'libsystemd' 'qt6-base' 'spdlog' 'fmt' 'gcc-libs')
 makedepends=('git' 'cmake' 'ninja')
 source=("git+https://github.com/linuxdeepin/dtk6log.git#tag=$pkgver")
-sha512sums=('29d6f986285d9a99b663837eda0c2c293aa8cbbc828635eb0c190ec582e52235d9ae575f14920b57fc976af5035dc100d54c54d1f96e59ff14ce63510c3afe19')
+sha512sums=('5460f82ac4ed14304150dae0bc87da2c5537d6a4c736fb8084b17cfdbe218db5914fb9fea8bcd377d0cfc9d6028253f94478f66f8efe54ee532b86457700c862')
 
 build() {
   cd dtk6log
@@ -19,8 +19,7 @@ build() {
     -DMKSPECS_INSTALL_DIR=lib/qt6/mkspecs/modules \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_WITH_SYSTEMD=ON \
-    -DBUILD_WITH_QT6=ON \
-    -DDLOG_VERSION=$pkgver
+    -DBUILD_WITH_QT6=ON
   ninja
 }
 
