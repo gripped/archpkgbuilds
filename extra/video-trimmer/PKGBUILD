@@ -2,11 +2,12 @@
 
 pkgname=video-trimmer
 pkgver=25.03
-pkgrel=1
+pkgrel=2
 pkgdesc='Cut out a fragment of a video quickly'
 arch=(x86_64)
 url='https://apps.gnome.org/VideoTrimmer/'
 license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
   dconf
   ffmpeg
@@ -33,7 +34,7 @@ optdepends=(
   'gst-plugins-ugly: Extra media codecs'
 )
 source=("git+https://gitlab.gnome.org/YaLTeR/video-trimmer.git#tag=v$pkgver")
-b2sums=('c7f60b1aba8ca191a34a5d19f4c36d2ed8fec00dd13aefb84010e3c14ea0a50c7c375d4830fe22f88eb1cabee307886e734b4aeaf5cef31d34b6bf50f62b9f97')
+b2sums=(c7f60b1aba8ca191a34a5d19f4c36d2ed8fec00dd13aefb84010e3c14ea0a50c7c375d4830fe22f88eb1cabee307886e734b4aeaf5cef31d34b6bf50f62b9f97)
 
 prepare() {
   cd $pkgname
