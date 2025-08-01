@@ -1,12 +1,12 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: jose <jose1711 [at] gmail (dot) com>
 
 pkgname=caph
 arch=('x86_64')
 pkgver=1.1
-pkgrel=8
+pkgrel=9
 pkgdesc='Sandbox game based on physics which uses doodles as a primary gameplay element'
-license=('GPL')
+license=('GPL-3.0-only')
 url='http://sourceforge.net/projects/caphgame/'
 depends=('sdl' 'libgl' 'libpng')
 makedepends=('mesa')
@@ -28,6 +28,8 @@ package() {
   install -Dm644 ../share/caph/brush.png "$pkgdir"/usr/share/pixmaps/caph.png
   cp -r ../share/caph "$pkgdir"/usr/share
   cp -r ../doc "$pkgdir"/usr/share/doc
+
+  install -Dm644 ../doc/caph/COPYING "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 # vim: sw=2:ts=2 et:
