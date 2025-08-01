@@ -1,7 +1,7 @@
 pkgbase = gnome-sound-recorder
 	pkgdesc = A utility to make simple audio recording from your GNOME desktop
 	pkgver = 42.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://wiki.gnome.org/Apps/SoundRecorder
 	arch = any
 	groups = gnome-extra
@@ -15,7 +15,9 @@ pkgbase = gnome-sound-recorder
 	depends = gst-plugins-good
 	depends = gtk4
 	depends = libadwaita
-	source = git+https://gitlab.gnome.org/GNOME/gnome-sound-recorder.git#commit=0fabec18319c0baf0c627131c023f7c191af65d9
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/gnome-sound-recorder.git#tag=42.0
+	source = gnome-sound-recorder-dbus-activatable.patch
+	b2sums = be3e4e1a0508075bc1e0fe895e2fa0660a1b5cbc4bb69db61c76c7aef0630e1eaa5567e1766b4d666a147383a532d06fced94078d43b5b557df4fc3ec477865f
+	b2sums = cad5e8831e6f8b09fd1cd86af4faa1167f5e4691d3178534be10a568deaf967023a3a699c336ca0b000074b84d8d98a502bd3d6198f3f8eb322081af14fe61bc
 
 pkgname = gnome-sound-recorder

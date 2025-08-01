@@ -3,7 +3,7 @@
 
 pkgname=gnome-sound-recorder
 pkgver=42.0
-pkgrel=3
+pkgrel=4
 pkgdesc="A utility to make simple audio recording from your GNOME desktop"
 url="https://wiki.gnome.org/Apps/SoundRecorder"
 arch=(any)
@@ -22,17 +22,29 @@ makedepends=(
   meson
 )
 groups=(gnome-extra)
-_commit=0fabec18319c0baf0c627131c023f7c191af65d9  # tags/42.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-sound-recorder.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-sound-recorder.git#tag=$pkgver"
+        gnome-sound-recorder-dbus-activatable.patch)
+b2sums=('be3e4e1a0508075bc1e0fe895e2fa0660a1b5cbc4bb69db61c76c7aef0630e1eaa5567e1766b4d666a147383a532d06fced94078d43b5b557df4fc3ec477865f'
+        'cad5e8831e6f8b09fd1cd86af4faa1167f5e4691d3178534be10a568deaf967023a3a699c336ca0b000074b84d8d98a502bd3d6198f3f8eb322081af14fe61bc')
 
 prepare() {
   cd $pkgname
+
+  # https://gitlab.gnome.org/GNOME/gnome-sound-recorder/-/merge_requests/193
+  # Remove unnecessary help-overlay creation
+  git cherry-pick -n 3d9a5aab50823f3b6b64c8dd253abc43261d5e6b
+  # Do not overwrite the existing window on activation
+  git cherry-pick -n 7568e10297d3bf1f2bc5ca87e15fa6e322a77b92
+  # Fix the close_request vfunc implementation
+  git cherry-pick -n 8547fe753695a332d0efa045dc31a16a84eb8601
+
+  # Fix missing icon
+  # https://gitlab.gnome.org/GNOME/gnome-sound-recorder/-/merge_requests/235
+  sed -i 's/emblem-ok-symbolic/object-select-symbolic/' data/ui/row.ui
+
+  # Add D-Bus service file
+  # https://gitlab.gnome.org/GNOME/gnome-sound-recorder/-/merge_requests/236
+  git apply -3 ../gnome-sound-recorder-dbus-activatable.patch
 }
 
 build() {
