@@ -2,11 +2,12 @@
 
 pkgname=wike
 pkgver=3.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Wikipedia reader for the GNOME desktop'
 arch=(any)
 url='https://apps.gnome.org/Wike/'
 license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
   dconf
   glib2
@@ -24,8 +25,36 @@ makedepends=(
   git
   meson
 )
-source=("git+https://github.com/hugolabe/Wike.git#tag=$pkgver")
-b2sums=('b648c72b3bc94939594557f421e60a188e99dd1c89e12b2b879dc6e7f174aa5c2188e70aceb2b1e3df6d38966d200df459acb1c96825b1189a89eaf3322f5f92')
+source=(
+  "git+https://github.com/hugolabe/Wike.git#tag=$pkgver"
+  wike-soup-version.patch
+  wike-search-provider-fix.patch
+  wike-new-tab.patch
+  wike-dbus-activatable.patch
+)
+b2sums=(
+  b648c72b3bc94939594557f421e60a188e99dd1c89e12b2b879dc6e7f174aa5c2188e70aceb2b1e3df6d38966d200df459acb1c96825b1189a89eaf3322f5f92
+  a6a96e0a127ef9472b65e10ccc9aa1a04f29e9264b140796dd3d36ce5c6a9ae23830a6d5f85246c7629993fdfa54d2730b5d1e764d0c03278b44def2e6d85c66
+  056ffbe0bfdb8d776ffda7380643221c600911e5c97507e95fb4e02f70e1cc7c91603d99802f80ceef54dbe88f74cdc56b0f8a3e76606de9cdf1da8a0407317c
+  13619b237284607377e89f3b5d1a0d98ab8ee0e4066df705a2e121f321fec56a55ce151756b43596002836afc2636dd898b54d59566fbabb8384a31a3d6788e6
+  3ea100f29aa3d50c27fad0218446d351bac43be4431f9a270e9e37302acaac40fdadf0fbba4981275b4f55742abd14d20e69f3c10f2084f8b5b09cd99bfccd72
+)
+
+prepare() {
+  cd Wike
+
+  # https://github.com/hugolabe/Wike/pull/216
+  git apply -3 ../wike-soup-version.patch
+
+  # https://github.com/hugolabe/Wike/pull/219
+  git apply -3 ../wike-search-provider-fix.patch
+
+  # https://github.com/hugolabe/Wike/pull/220
+  git apply -3 ../wike-new-tab.patch
+
+  # https://github.com/hugolabe/Wike/pull/221
+  git apply -3 ../wike-dbus-activatable.patch
+}
 
 build() {
   arch-meson Wike build

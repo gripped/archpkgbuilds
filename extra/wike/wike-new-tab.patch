@@ -1,0 +1,88 @@
+From 7d6724b6d60aaa8995e41e4896fe1c81bb365f26 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 1 Aug 2025 19:40:47 +0200
+Subject: [PATCH] Add "new-tab" command-line option
+
+This allows the user to choose the desired action when the application is
+launched: when the "new-tab" command-line option is requested, a new
+tab will be opened, otherwise raise the existing window.
+
+Specify the action also in the desktop file. This allows application
+launchers to provide direct access to this action.
+---
+ data/com.github.hugolabe.Wike.desktop.in |  5 +++++
+ src/application.py                       | 25 +++++++++++++++++++-----
+ 2 files changed, 25 insertions(+), 5 deletions(-)
+
+diff --git a/data/com.github.hugolabe.Wike.desktop.in b/data/com.github.hugolabe.Wike.desktop.in
+index a08a86c..d65b94d 100644
+--- a/data/com.github.hugolabe.Wike.desktop.in
++++ b/data/com.github.hugolabe.Wike.desktop.in
+@@ -11,3 +11,8 @@ Categories=Network;GTK;
+ Keywords=Wikipedia;Encyclopedia;
+ # Translators: Do not translate or transliterate this text
+ X-Purism-FormFactor=Workstation;Mobile;
++Actions=new-tab;
++
++[Desktop Action new-tab]
++Exec=wike --new-tab
++Name=New Tab
+diff --git a/src/application.py b/src/application.py
+index c6cdae8..2c91a91 100644
+--- a/src/application.py
++++ b/src/application.py
+@@ -31,6 +31,7 @@ def __init__(self):
+     self._launch_uri = ''
+ 
+     self.add_main_option('url', b'u', GLib.OptionFlags.NONE, GLib.OptionArg.STRING, 'Open Wikipedia URL', None)
++    self.add_main_option('new-tab', b'n', GLib.OptionFlags.NONE, GLib.OptionArg.NONE, 'Open new tab', None)
+ 
+   # Load custom css and set actions
+ 
+@@ -53,6 +54,10 @@ def do_startup(self):
+       case 3:
+         self._style_manager.set_color_scheme(Adw.ColorScheme.PREFER_LIGHT)
+ 
++    action = Gio.SimpleAction.new('new-tab', None)
++    action.connect('activate', self._new_tab)
++    self.add_action(action)
++
+     action = Gio.SimpleAction.new('prefs', None)
+     action.connect('activate', self._prefs_cb)
+     self.add_action(action)
+@@ -90,12 +95,13 @@ def do_command_line(self, command_line):
+ 
+     if 'url' in options:
+       self._launch_uri = options['url']
++      self.activate_action("new-tab")
++    elif 'new-tab' in options:
++      self._launch_uri = ''
++      self.activate_action("new-tab")
++    else:
++      self.activate()
+ 
+-    if self._window:
+-      self._window.new_page(self._launch_uri, None, True)
+-      return 0
+-
+-    self.activate()
+     return 0
+ 
+   # Create main window and connect close event
+@@ -105,7 +111,16 @@ def do_activate(self):
+       self._window = Window(self, self._launch_uri)
+       self._window.connect('close-request',self._window_close_cb)
+ 
++    self._window.present()
++
++  # Open new tab
++
++  def _new_tab(self, action, parameter):
++    if self._window:
++      self._window.new_page(self._launch_uri, None, True)
+       self._window.present()
++    else:
++      self.activate()
+ 
+   # Set theme system
+ 

@@ -1,0 +1,23 @@
+From 9ddf14606472dd5130bc0f15bbe7496010f50196 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 1 Aug 2025 19:02:18 +0200
+Subject: [PATCH] Check if params are exists before processing
+
+---
+ src/wike-sp.in | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/wike-sp.in b/src/wike-sp.in
+index c202d35..00f24d2 100755
+--- a/src/wike-sp.in
++++ b/src/wike-sp.in
+@@ -115,7 +115,8 @@ class WikeSearchService:
+       self._results.clear()
+       text = id.replace('search:', '', 1)
+       params = text.split(':', 1)
+-      self._get_results(params[1], params[0])
++      if (len(params) > 1):
++         self._get_results(params[1], params[0])
+       if len(self._results) > 0:
+         uri = list(self._results.keys())[0]
+       else:

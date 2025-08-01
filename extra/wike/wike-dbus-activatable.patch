@@ -1,0 +1,54 @@
+From 0f3b440ec672f58ce942aa4b226502a30ff92f85 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 1 Aug 2025 19:46:49 +0200
+Subject: [PATCH] Add D-Bus service file
+
+And mark the application as D-Bus activatable. This allows application
+launchers to activate it via D-Bus.
+---
+ data/com.github.hugolabe.Wike.desktop.in | 1 +
+ data/com.github.hugolabe.Wike.service.in | 3 +++
+ data/meson.build                         | 8 ++++++++
+ 3 files changed, 12 insertions(+)
+ create mode 100644 data/com.github.hugolabe.Wike.service.in
+
+diff --git a/data/com.github.hugolabe.Wike.desktop.in b/data/com.github.hugolabe.Wike.desktop.in
+index a08a86c..2172724 100644
+--- a/data/com.github.hugolabe.Wike.desktop.in
++++ b/data/com.github.hugolabe.Wike.desktop.in
+@@ -6,6 +6,7 @@ Exec=wike
+ Terminal=false
+ Type=Application
+ StartupNotify=true
++DBusActivatable=true
+ Categories=Network;GTK;
+ # Translators: Do not translate or localize the semicolons
+ Keywords=Wikipedia;Encyclopedia;
+diff --git a/data/com.github.hugolabe.Wike.service.in b/data/com.github.hugolabe.Wike.service.in
+new file mode 100644
+index 0000000..b3886bd
+--- /dev/null
++++ b/data/com.github.hugolabe.Wike.service.in
+@@ -0,0 +1,3 @@
++[D-BUS Service]
++Name=com.github.hugolabe.Wike
++Exec=@BIN@ --gapplication-service
+diff --git a/data/meson.build b/data/meson.build
+index 7156d96..c97546d 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -63,6 +63,14 @@ configure_file(
+   install_dir: join_paths(get_option('prefix'), get_option('datadir'), 'dbus-1', 'services')
+ )
+ 
++configure_file(
++  input: 'com.github.hugolabe.Wike.service.in',
++  output: 'com.github.hugolabe.Wike.service',
++  configuration: conf,
++  install: true,
++  install_dir: join_paths(get_option('prefix'), get_option('datadir'), 'dbus-1', 'services')
++)
++
+ icondir = join_paths(get_option('prefix'), get_option('datadir'), 'icons', 'hicolor')
+ install_data('icons/com.github.hugolabe.Wike.svg', install_dir: join_paths(icondir, 'scalable/apps'))
+ install_data('icons/com.github.hugolabe.Wike-symbolic.svg', install_dir: join_paths(icondir, 'symbolic/apps'))
