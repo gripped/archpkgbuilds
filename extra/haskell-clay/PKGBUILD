@@ -2,16 +2,16 @@
 
 _hkgname=clay
 pkgname=haskell-clay
-pkgver=0.15.0
-pkgrel=42
+pkgver=0.16.0
+pkgrel=1
 pkgdesc="CSS preprocessor as embedded Haskell."
 url="http://fvisser.nl/clay"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('7be4b49258247b04fdbf429b2e50e8d15cc116c0c161a846abb204cecce9e7be')
+sha256sums=('8160248f960dd544cd1af8e4c7efea76bee62817708d44a406935df648e1861c')
 
 build() {
   cd $_hkgname-$pkgver
