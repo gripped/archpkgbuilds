@@ -5,8 +5,9 @@
 # Contributor: Erik Mank <erik@braindisorder.org>
 
 pkgname=tt-rss
-pkgver=r11769.59cf21814
-pkgrel=1
+# Check https://community.tt-rss.org/c/announcements/10 when updating pkgver
+pkgver=r12246.8b07dc845
+pkgrel=2
 epoch=2
 pkgdesc='Web-based news feed (RSS/Atom) aggregator'
 arch=(any)
@@ -14,19 +15,19 @@ url='https://tt-rss.org'
 # https://gitlab.tt-rss.org/tt-rss/tt-rss/-/blob/master/README.md
 license=('GPL-3.0-or-later')
 backup=(etc/webapps/tt-rss/config.php)
-depends=(php-interpreter)
+# PHP 8.2 is required https://gitlab.tt-rss.org/tt-rss/tt-rss/-/blob/8b07dc8453e0d029b000d8a73ebc059f95994400/classes/Config.php#L534
+depends=('php-interpreter>=8.2')
 install=tt-rss.install
-optdepends=('mysql'
-            'postgresql'
+optdepends=('postgresql'
             'php-gd-interpreter: for coloured feed badges')
 makedepends=('git')
-_commit=59cf2181445e3e52124893adcf0a9ecfc4b5a05f
+_commit=8b07dc8453e0d029b000d8a73ebc059f95994400
 # periodic releases are over https://srv.tt-rss.org/oldforum/viewtopic.php@f=10&t=3262.html
 source=(git+https://gitlab.tt-rss.org/tt-rss/tt-rss.git#commit=$_commit
        tt-rss.service)
-sha1sums=('SKIP'
+sha1sums=('9c62da66bc7680f18b03eb27f98cd01d83e6f580'
           'd764e22065f8e0104b4f1d5dcf41cce01cd7bec5')
-sha512sums=('SKIP'
+sha512sums=('628485124b75c8a315a06d48edce234d00185c75d7a08f6f99b2adf0773100d0dd12cd9f85bbe19dfe80579205267645086ab36de7b1ab58efce8334e4ae4dfe'
             'ffc4316d8f332b75932b36e9e0a18fb346a62a8f83094d3ca510b06b0d9ae0478bdc05e23bca4fe5e6dfcfc8a8c57ab1654b7c6d16a007f151afbcad31e359a5')
 
 pkgver() {

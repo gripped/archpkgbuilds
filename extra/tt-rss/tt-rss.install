@@ -1,6 +1,14 @@
 # arg 1:  the new package version
 # arg 2:  the old package version
 post_upgrade() {
+  if [ "$(vercmp $2 2:r12246.8b07dc845-2)" -le 0 ]; then
+      cat << EOF
+===> Upstream dropped support for MySQL. See
+===> https://community.tt-rss.org/t/support-for-mysql-is-no-more/6897
+===> for more details and tips for migration to PostgreSQL.
+EOF
+  fi
+
   if [ "$(vercmp $2 2:r10820.4e81233ac-1)" -le 0 ]; then
     cat << EOF
 ===> tt-rss switched back to PHP 8.
