@@ -1,0 +1,52 @@
+From 22d507ed405851ed52232c4c2d61efa6f532a3f5 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 1 Aug 2025 00:17:14 +0200
+Subject: [PATCH] Add D-Bus service file
+
+And mark the application as D-Bus activatable. This allows application
+launchers to activate it via D-Bus.
+---
+ data/io.github.seadve.Mousai.desktop.in.in |  1 +
+ data/io.github.seadve.Mousai.service.in    |  3 +++
+ data/meson.build                           | 11 +++++++++++
+ 3 files changed, 15 insertions(+)
+ create mode 100644 data/io.github.seadve.Mousai.service.in
+
+diff --git a/data/io.github.seadve.Mousai.desktop.in.in b/data/io.github.seadve.Mousai.desktop.in.in
+index d1104394..f27d28d8 100644
+--- a/data/io.github.seadve.Mousai.desktop.in.in
++++ b/data/io.github.seadve.Mousai.desktop.in.in
+@@ -9,4 +9,5 @@ Categories=GNOME;GTK;Utility;
+ Keywords=Shazam;Audio;Music;Song;Recognize;Identify;Recognition;
+ Icon=@icon@
+ StartupNotify=true
++DBusActivatable=true
+ X-Purism-FormFactor=Workstation;Mobile;
+diff --git a/data/io.github.seadve.Mousai.service.in b/data/io.github.seadve.Mousai.service.in
+new file mode 100644
+index 00000000..90514e93
+--- /dev/null
++++ b/data/io.github.seadve.Mousai.service.in
+@@ -0,0 +1,3 @@
++[D-BUS Service]
++Name=@app-id@
++Exec=@bindir@/mousai --gapplication-service
+diff --git a/data/meson.build b/data/meson.build
+index 4c69671c..a3d1f39b 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -74,3 +74,14 @@ if glib_compile_schemas.found()
+     ],
+   )
+ endif
++
++# D-Bus service file
++service_conf = configuration_data()
++service_conf.set('app-id', application_id)
++service_conf.set('bindir', bindir)
++configure_file(
++  input: '@0@.service.in'.format(base_id),
++  output: '@0@.service'.format(application_id),
++  configuration: service_conf,
++  install_dir: datadir / 'dbus-1' / 'services'
++)

@@ -2,11 +2,12 @@
 
 pkgname=mousai
 pkgver=0.7.8
-pkgrel=2
+pkgrel=3
 pkgdesc='Simple application to identify songs'
 arch=(x86_64)
 url='https://apps.gnome.org/Mousai/'
 license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
   cairo
   dconf
@@ -29,14 +30,23 @@ makedepends=(
   rust
 )
 options=(!lto)
-source=("git+https://github.com/SeaDve/Mousai.git#tag=v$pkgver")
-b2sums=(920db48befa1986001777937078cf4162ccc906e2fa1f5ac71861156a44ba402b10d302798d431d5f8d227185dbf1170e699f6e4ce8e41a008117526f95ef5fd)
+source=(
+  "git+https://github.com/SeaDve/Mousai.git#tag=v$pkgver"
+  mousai-dbus-activatable.patch
+)
+b2sums=(
+  920db48befa1986001777937078cf4162ccc906e2fa1f5ac71861156a44ba402b10d302798d431d5f8d227185dbf1170e699f6e4ce8e41a008117526f95ef5fd
+  a0c3653ea3cd58c39c1d1c5f9e86c4e7775607cb3ccd95004b711b16d47c2b22fa2f668cf1ef11fa36b46df7ba0f96ca099e09b5d0c985eac57ac10690805f74
+)
 
 prepare() {
   cd Mousai
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://github.com/SeaDve/Mousai/pull/162
+  git apply -3 ../mousai-dbus-activatable.patch
 }
 
 build() {
