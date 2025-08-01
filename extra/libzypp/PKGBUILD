@@ -5,7 +5,7 @@ pkgname=(
     libzypp
     libzypp-docs
 )
-pkgver=17.37.14
+pkgver=17.37.15
 pkgrel=1
 pkgdesc="ZYpp Package Management library"
 arch=(x86_64)
@@ -43,7 +43,7 @@ makedepends=(
 #     squid
 # )
 source=("git+https://github.com/openSUSE/libzypp.git#tag=${pkgver}")
-sha256sums=('287289ac685f6bb840f12640edbc15a6f438af7fe1c08e44a68ad9a2ffe91e58')
+sha256sums=('9dfd8dbe2117d3344b96f5810dc82699229c1ac86a95b63e21fc00efa42889a7')
 
 build() {
     local cmake_options=(
