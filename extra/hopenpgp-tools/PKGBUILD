@@ -2,8 +2,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hopenpgp-tools
-pkgver=0.23.7
-pkgrel=338
+pkgver=0.23.8
+pkgrel=1
 pkgdesc="hOpenPGP-based command-line tools"
 url="https://salsa.debian.org/clint/hopenpgp-tools"
 license=("AGPL3")
@@ -14,17 +14,14 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-base16-bytestring' 'haskell-binary-
          'haskell-http-client-tls' 'haskell-http-types' 'haskell-ixset-typed' 'haskell-lens'
          'haskell-memory' 'haskell-monad-loops' 'haskell-openpgp-asciiarmor'
          'haskell-optparse-applicative' 'haskell-prettyprinter'
-         'haskell-prettyprinter-ansi-terminal' 'haskell-prettyprinter-convert-ansi-wl-pprint'
-         'haskell-resourcet' 'haskell-time-locale-compat' 'haskell-unordered-containers'
-         'haskell-vector' 'haskell-yaml')
+         'haskell-prettyprinter-ansi-terminal' 'haskell-resourcet' 'haskell-time-locale-compat'
+         'haskell-unordered-containers' 'haskell-vector' 'haskell-yaml')
 makedepends=('uusi' 'alex' 'happy' 'ghc')
 source=(https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('6710829a097050615a981a903537e08bff5aee7b1e6f3222cf033d953ba08193da3cd7bd2c4aad2afabd9831fe6313135d3efb95742a15826a59a46f77601a0d')
+sha512sums=('aa83cb30cc78dc5ffab4d039095940824337de8e478e3cfe5784b7b9d0ab6b65b0759e2c90b30afd58bfcecf4ec301be720647007bdc1a9f537f72cc62ab0b85')
 
 prepare() {
     cd "${srcdir}/${pkgname}-${pkgver}"
-    # https://salsa.debian.org/clint/hopenpgp-tools/-/issues/6#note_435444
-    rm -r dist
     uusi -r cryptonite:crypton
 }
 
