@@ -1,11 +1,12 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 # Contributor: Stéphane Gaudreault <stephane@archlinux.org>
 
 _name=pycuda
 pkgname=python-pycuda
-pkgver=2025.1
-pkgrel=2
+pkgver=2025.1.1
+pkgrel=1
 pkgdesc="Python wrapper for Nvidia CUDA"
 arch=(x86_64)
 url="https://documen.tician.de/pycuda/"
@@ -39,8 +40,8 @@ provides=(pycuda-headers)
 conflicts=(pycuda-headers)
 replaces=(pycuda-headers)
 source=($_name-$pkgver.tar.gz::https://github.com/inducer/pycuda/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('d9327192e27e5ae5b6703b3843fa2d394ab99d78bf8d4602dcb1e564900994c6abe2f0b1fe27de925f33bd949a20c2f7067bd84d7a53ceef44fb1a2c979c5f11')
-b2sums=('f545c79308b7d752c74054f9e6da5ab69acbd9c694382377be91800a3eb92086f53c477ff9d61c5f085f90e8051bd258b76d2374eeb510b581106553f57d8b89')
+sha512sums=('fb1710ea9a77ea70c9e6955e6db0a7cfea1f52db28fa0f48b17717d4fe3222d61d324879297cb34059a7c943bfb1faa02ebb935f4c8ffb800c7c8110088107db')
+b2sums=('99c74e5d06b2917385beb64a594b95b5996aee90c585eb0c5f8640aac42a4a7e2e61840b4bd3820c980b05007b84f93f3c391928d449ea0d848365d28c754eb1')
 
 prepare() {
   local lib_arch=''
