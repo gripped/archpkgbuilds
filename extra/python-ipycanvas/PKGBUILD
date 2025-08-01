@@ -2,14 +2,15 @@
 
 _pyname=ipycanvas
 pkgname=python-$_pyname
-pkgver=0.13.3
-pkgrel=2
+pkgver=0.14.1
+pkgrel=1
 pkgdesc="Interactive widgets library exposing the browser's Canvas API"
 url='https://ipycanvas.readthedocs.io/en/latest/'
 arch=(any)
 license=(BSD-3-Clause)
 source=(git+https://github.com/jupyter-widgets-contrib/ipycanvas#tag=v$pkgver)
-depends=(python
+depends=(ipython
+         python
          python-ipywidgets
          python-numpy
          python-pillow
@@ -21,10 +22,20 @@ makedepends=(git
              python-hatchling
              python-installer
              yarn)
-sha256sums=('df79d708a175f3a779e31d34a3abace1b61ed1ed69fff3ffa76374a9b44c8053')
+sha256sums=('cb10f5e29d6f20437df549f71f00b5ccdae58eb6e7c955a40f86082b79ff763b')
 
+prepare() {
+  cd $_pyname
+# ipycanvas requires yarn>=3
+  mkdir bin
+  corepack enable --install-directory bin yarn
+  yes | bin/yarn set version stable
+  yes | bin/yarn install
+}
+  	
 build() {
   cd $_pyname
+  PATH="$PWD/bin:$PATH" \
   python -m build --wheel --no-isolation --skip-dependency-check
 }
 
