@@ -2,7 +2,7 @@
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=mailutils
-pkgver=3.19
+pkgver=3.20
 pkgrel=1
 pkgdesc="MUA command line tool (mailx)"
 arch=(x86_64)
@@ -14,16 +14,14 @@ options=(!emptydirs)
 validpgpkeys=('325F650C4C2B6AD58807327A3602B07F55D0C732'
 	      '4BE4E62655488EB92ABB468F79FFD94BFCE230B1')
 source=(https://ftp.gnu.org/gnu/mailutils/mailutils-$pkgver.tar.bz2{,.sig}
-        fix-build-mb-len-max.patch)
-sha512sums=('dce9577a9de07bdef6e4285e230e04240bbd5c93d9c9c3be6b478aa9cc6d12c1977be4bddeb59eb13f0e394894e33f172486c9ff70fee2dc972beb8925980c5e'
+        fix-build.patch)
+sha512sums=('f7a8303a941a46e99b17bc96a0a35c50dcb33c1a426dffb0c2c85adbceb2c2c2860b71d28d6768c927526879f4f8c386df25932fad70850081b7515b231b50f9'
             'SKIP'
-            '48248bfae1cc3b80c3decfcb99f803b65fd0d068f6c09625eb5e3763b3184090d7bd97fa3bc916b3e2e8c737b2bd501aa25482a96aceb555c08307b54c2a24a8')
+            'f9e5333a02aa1f55fe94c442ebecfa0a665a2d7ceb9e8c1aa5e566db13891390ad2cd823c8b9701024e991f54ed97377f95264cb36f9bea6ebe2801ca4519013')
 
 prepare() {
   cd "$srcdir/mailutils-$pkgver"
-  # Include limits.h in frm/frm.h so it doesn't misdefine MB_LEN_MAX to 4
-  # (patch from github.com/NixOS/nixpkgs)
-#  patch -Np1 -i ../fix-build-mb-len-max.patch
+  patch -Np1 -i ../fix-build.patch
 }
 
 build() {
@@ -39,7 +37,6 @@ build() {
 	--with-gnutls \
 	--disable-python \
 	--without-guile
-#  make CFLAGS="$CFLAGS -O2 -Wno-error" || make CFLAGS="$CFLAGS -O2 -Wno-error" LDFLAGS="-L`pwd`/lib -lmutcpwrap -ltinfo"
   make
 }
 
