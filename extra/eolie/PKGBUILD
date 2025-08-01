@@ -3,7 +3,7 @@
 
 pkgname=eolie
 pkgver=0.9.101
-pkgrel=12
+pkgrel=13
 pkgdesc='Simple web browser for GNOME'
 arch=(any)
 url='https://wiki.gnome.org/Apps/Eolie'
@@ -42,6 +42,8 @@ source=(
   eolie-private-option.patch
   eolie-dbus-activatable.patch
   eolie-clear-tmpdir.patch
+  eolie-search-provider-timeout.patch
+  eolie-missing-icons.patch
 )
 b2sums=(
   1728085b113cffa00a44a81be6ce6880d6430eba0ac686a89bbb9affe5d9af09e5cbd95076f4ab5d6676ffe5f20d77c69b17ed0f8c7f0c9721678dfd70266b96
@@ -53,6 +55,8 @@ b2sums=(
   4f05c3bd006ab54e0b53e5545e077739ca71ddcb2f4506f925781eb8ef63333f796224cc5d1a86e048cbbf338c360d5738e9d38a0887d97e8a7745c639820623
   22337f6f6f350dd91cdde7919af5d3e71a744aca0201068194dbe9f5d9975712ffcc9e22bc2ee2013012749e7edbc8fb0f5503c304b970ec0e276ea61064cb40
   56124b61de5ae16def6cb343d9f65125fce8d7bd8d34a0b084b4a37b073653170cb9e7451de4ea2cb907ceedec2701c01d982d402abf6f06a916c0ebb9437c37
+  788fb8621377a0bb47581a9d3001a398cb4aa599e4d10bf34ee1daa745f1ee568a67d4ade93034f8448a97b7ded9eb3d882a1380d2f7b0d56a819797c05335d5
+  5fc770f58fb3dd5c793f1ce6876556bf4f809633278ed218c071451cf241796132ddc3d57020dd17bd61a58730253e0760d137cbc3b1f9c66c7889194f9ee7d4
 )
 
 prepare() {
@@ -82,6 +86,12 @@ prepare() {
 
   # https://gitlab.gnome.org/World/eolie/-/merge_requests/292
   git apply -3 ../eolie-clear-tmpdir.patch
+
+  # https://gitlab.gnome.org/World/eolie/-/merge_requests/293
+  git apply -3 ../eolie-search-provider-timeout.patch
+
+  # https://gitlab.gnome.org/World/eolie/-/merge_requests/294
+  git apply -3 ../eolie-missing-icons.patch
 }
 
 build() {
