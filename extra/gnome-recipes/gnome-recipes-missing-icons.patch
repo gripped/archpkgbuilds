@@ -1,0 +1,39 @@
+From 52703c87046d4831ec7bf83c52d5b78c3a49516d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 1 Aug 2025 20:58:49 +0200
+Subject: [PATCH] Replace emblem icons removed from Adwaita
+
+---
+ src/gr-details-page.ui | 2 +-
+ src/gr-recipe-tile.ui  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/gr-details-page.ui b/src/gr-details-page.ui
+index 8e8e69f2..af0b4e9e 100644
+--- a/src/gr-details-page.ui
++++ b/src/gr-details-page.ui
+@@ -547,7 +547,7 @@
+             <child>
+               <object class="GtkImage">
+                 <property name="visible">1</property>
+-                <property name="icon-name">emblem-favorite-symbolic</property>
++                <property name="icon-name">emote-love-symbolic</property>
+                 <property name="icon-size">1</property>
+               </object>
+             </child>
+diff --git a/src/gr-recipe-tile.ui b/src/gr-recipe-tile.ui
+index bdc6ffb3..7f44c774 100644
+--- a/src/gr-recipe-tile.ui
++++ b/src/gr-recipe-tile.ui
+@@ -51,7 +51,7 @@
+                     </child>
+                     <child>
+                       <object class="GtkImage" id="shared_icon">
+-                        <property name="icon-name">emblem-shared-symbolic</property>
++                        <property name="icon-name">folder-publicshare-symbolic</property>
+                         <property name="icon-size">1</property>
+                         <property name="halign">end</property>
+                         <property name="margin-end">10</property>
+-- 
+GitLab
+

@@ -1,15 +1,22 @@
-From 9e3ff7706f2de9ef8c45b3d0f748ec3a833c7e6c Mon Sep 17 00:00:00 2001
+From ab57d620321509f462c7470fd5fb730c7c8aa96c Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Fri, 2 Aug 2024 18:43:52 +0200
-Subject: [PATCH] Don't try to show recipe with invalid ID
+Subject: [PATCH] Fixes for the search provider
+
+- Don't try to show recipe with invalid ID
+
+- Set inactivity timeout to avoid quit while typing search terms.
+
+- Lowercase terms before search.
 
 Closes: https://gitlab.gnome.org/GNOME/recipes/-/issues/140
 ---
- src/gr-app.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ src/gr-app.c                   | 7 ++++++-
+ src/gr-shell-search-provider.c | 4 +++-
+ 2 files changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/src/gr-app.c b/src/gr-app.c
-index 140e3598..6f6b02f0 100644
+index 140e3598..2aa5473a 100644
 --- a/src/gr-app.c
 +++ b/src/gr-app.c
 @@ -171,7 +171,8 @@ details_activated (GSimpleAction *action,
@@ -22,6 +29,34 @@ index 140e3598..6f6b02f0 100644
  }
  
  static void
+@@ -383,6 +384,10 @@ gr_app_startup (GApplication *application)
+         setup_actions_and_accels (application);
+         load_application_menu (application);
+         load_application_css (application);
++
++        if ((g_application_get_flags (application) & G_APPLICATION_IS_SERVICE) != 0) {
++                g_application_set_inactivity_timeout (application, 10000);
++        }
+ }
+ 
+ static void
+diff --git a/src/gr-shell-search-provider.c b/src/gr-shell-search-provider.c
+index f19a19a4..13a3a6a5 100644
+--- a/src/gr-shell-search-provider.c
++++ b/src/gr-shell-search-provider.c
+@@ -103,9 +103,11 @@ execute_search (GrShellSearchProvider  *self,
+                 gchar                 **terms)
+ {
+         PendingSearch *pending_search;
++        g_autofree gchar *joined = NULL;
+         g_autofree gchar *string = NULL;
+ 
+-        string = g_strjoinv (" ", terms);
++        joined = g_strjoinv (" ", terms);
++        string = g_utf8_strdown (joined, -1);
+ 
+         if (self->cancellable != NULL) {
+                 g_cancellable_cancel (self->cancellable);
 -- 
 GitLab
 

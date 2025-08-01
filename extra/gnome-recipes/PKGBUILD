@@ -2,7 +2,7 @@
 
 pkgname=gnome-recipes
 pkgver=2.0.4
-pkgrel=13
+pkgrel=14
 pkgdesc='Recipe management application for GNOME'
 arch=(x86_64)
 url='https://wiki.gnome.org/Apps/Recipes'
@@ -39,6 +39,7 @@ source=(
   gnome-recipes-ingredients-title.patch
   gnome-recipes-details-activated.patch
   gnome-recipes-no-appmenu.patch
+  gnome-recipes-missing-icons.patch
 )
 b2sums=(
   73f026063407e0d9b679a52bd8611efe6e859ce413e47f0856c446d5ca392bf57ade01fc09d8f499b4bc64a58beea2ab603bd8e55c29d91f9fefddfa686d66ab
@@ -49,8 +50,9 @@ b2sums=(
   7c4891ac74c9544c6e52d51c767316f05f3f4365e95b5294e9f1514b35b74ce32858720176a31d10a15ca1aaa39dfdbfcd4afbb04fde19e9477e87f74d1c0455
   e3d3640e2ce0ecd67c2ee8452dd77cd125675a80b2c5ae14d9c4b6dcc41725ef7978287792af228cfdc0e22fc0b13ba4fb4f246c81be5747042b8b354172cf19
   8d17c8de881ead4b28e76127369d7c7295517e27fd93f509be45eb834fd0fc6f222896479609531bb8d31c891e1d830a8401e2abce4f82695fc61bdf8f59af3b
-  e4a5099786300a98bf00f9d538bbd8511df87c90c118624f5bdbedc48c7ce68da14caa9993ecb4cd12f3e396b05354cf6e067563f4c92c3aab087685756bf4c4
+  855c377793a20de9952bf9b85170fba45983941aa4316524c372eb4fc2ec07507e18308455a2b1b4c75e2a2f5a4695a5f20547f2594473f722ca6f90ee605ad1
   b5a624d7210661d657e0e17e3856d200411d3db518c93d73458ca12012f019901dc34bb09a4ce543e58297dc78ab5ab139d2ffee3b00c1ae50c269ed55704b09
+  3b2497f9c240bb60e76f6a74b0e2c4772a772db1947fb25f3dfb5531e7d2d483714efb1101025c8c1217e7202fce87560cb5284d120fd61bcb626dfb6b3e1cd7
 )
 
 prepare() {
@@ -90,6 +92,9 @@ prepare() {
 
   # https://gitlab.gnome.org/GNOME/recipes/-/merge_requests/55
   patch -Np1 -i ../gnome-recipes-no-appmenu.patch
+
+  # https://gitlab.gnome.org/GNOME/recipes/-/merge_requests/56
+  git apply -3 ../gnome-recipes-missing-icons.patch
 }
 
 build() {
