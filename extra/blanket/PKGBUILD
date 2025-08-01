@@ -2,12 +2,13 @@
 # Contributor: Mark Wagie <mark dot wagie at tutanota dot com>
 
 pkgname=blanket
-pkgver=0.7.0
-pkgrel=4
+pkgver=0.8.0
+pkgrel=2
 pkgdesc='Improve focus and increase your productivity by listening to different sounds'
 arch=(any)
 url='https://apps.gnome.org/Blanket/'
 license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
   dconf
   glib2
@@ -30,18 +31,18 @@ makedepends=(
 )
 source=(
   "git+https://github.com/rafaelmardojai/blanket.git#tag=$pkgver"
-  blanket-icon-names.patch
+  blanket-dbus-activatable.patch
 )
 b2sums=(
-  75a027e0d7a80b91fd394b7c4fafaa481da8480fe4b3d788e8b438c106d7204fc107754a7533e87fa9a939bd1a0fafda51dc79add92f69c9f381d5316d765ff3
-  61dde4d1c981f015bb8802a441049d8af8e2733820ebba22dcd6f0cf748be41a13bee4b9e021059f2aefc297b850de8e662a23c9a62c7f5f35a298c340114515
+  f1aeab8d64b23098b57309f42d1822a31a0fef56c4ca43e515a99ab6cf65fe668af27e8d1c71b5f2646f164b94fb67756fad2b21d3695242dc50964227370843
+  8455f6a57d62ddba9cf9986e7bf30fc8bc24be2837fd2926c2a84de31f61f0d9c5b48d760dd3cea882e229dc98f8c0efe367e4c8303a735c62ecad34782af69c
 )
 
 prepare() {
   cd $pkgname
 
-  # https://github.com/rafaelmardojai/blanket/pull/364
-  git apply -3 ../blanket-icon-names.patch
+  # https://github.com/rafaelmardojai/blanket/pull/378
+  git apply -3 ../blanket-dbus-activatable.patch
 }
 
 build() {
