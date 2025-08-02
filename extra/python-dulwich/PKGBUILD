@@ -3,7 +3,7 @@
 
 pkgname=python-dulwich
 _name=${pkgname#python-}
-pkgver=0.23.2
+pkgver=0.24.1
 pkgrel=1
 pkgdesc='Pure-Python implementation of the Git file formats and protocols'
 arch=(x86_64)
@@ -33,9 +33,10 @@ optdepends=(
   'python-paramiko: for use as the SSH implementation'
   'python-pyopenssl: for HTTPS support via urllib3'
   'python-pyinotify: to watch for changes to refs'
+  'python-rich: for colorized diff support'
 )
 source=("git+https://github.com/jelmer/dulwich.git#tag=dulwich-$pkgver")
-b2sums=('6e2927bd558e9a573c158d2db24cb2b200373f4f115609aa141014165d9b0b15de29f02bfff2347fff6e41b89063b5a6e1d3d2efb63db1e2312daf9cc0839dfa')
+b2sums=('bca1f76f46871d1d0b62acac70aa7aba7bab553e190150cb4615ae875feca3ddebf284c350f97eb04ff30279cce9fd5030bfeddd5243fe4cdb7ef0495ca18ef0')
 validpgpkeys=(DC837EE14A7E37347E87061700806F2BD729A457) # Jelmer Vernooĳ <jelmer@jelmer.uk>
 
 build() {
