@@ -3,7 +3,7 @@
 _hkgname=insert-ordered-containers
 pkgname=haskell-insert-ordered-containers
 pkgver=0.2.5.3
-pkgrel=118
+pkgrel=119
 pkgdesc="Associative containers retating insertion order for traversals."
 url="https://github.com/phadej/insert-ordered-containers"
 license=('BSD')
@@ -11,9 +11,14 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-hashable' 'haskell-indexed-traversable' 'haskell-lens'
          'haskell-optics-core' 'haskell-optics-extra' 'haskell-semigroupoids'
          'haskell-unordered-containers')
-makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-quickcheck')
+makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('9e903314911f42b797da75623a4423df19ed1af355f5d00026a84a04738e8cf0dbb6c1ff6ddd88445d53699074b68101bc011c80120ba17dd61f9563347596e7')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u lens
+}
 
 build() {
     cd $_hkgname-$pkgver
