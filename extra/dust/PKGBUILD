@@ -3,16 +3,16 @@
 # Contributor: Knut Ahlers <knut at ahlers dot me>
 
 pkgname=dust
-pkgver=1.2.2
+pkgver=1.2.3
 pkgrel=1
 pkgdesc='A more intuitive version of du in rust'
 arch=('x86_64')
 url='https://github.com/bootandy/dust'
 license=('Apache-2.0')
 depends=('gcc-libs' 'glibc')
-makedepends=('cargo' 'git')
+makedepends=('rust' 'git')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha256sums=('40cfdffcff40b894db7fc597f102ae02120974c582150bcd18acb95288907f32')
+sha256sums=('3f681bf4268d364352b2c7e8be377151478aa2ef05e25d2224e5d765f7efa8f9')
 
 prepare() {
   cd "$pkgname"
