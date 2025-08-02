@@ -2,7 +2,7 @@
 
 pkgname=clash-ghc
 pkgver=1.8.1
-pkgrel=112
+pkgrel=113
 pkgdesc="CAES Language for Synchronous Hardware"
 url="https://clash-lang.org/"
 license=("BSD")
@@ -13,10 +13,15 @@ depends=('ghc-libs' 'haskell-clash-lib' 'haskell-clash-prelude' 'haskell-concurr
          'haskell-lens' 'haskell-primitive' 'haskell-reflection' 'haskell-split'
          'haskell-string-interpolate' 'haskell-uniplate' 'haskell-unordered-containers'
          'haskell-utf8-string' 'haskell-vector')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 conflicts=('clash')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
 sha512sums=('08aa80de443c5cb0e1ef5109fdd084247bcd71e332642a24ad9a82620ad2d2d898e50b7455138be1048673f800e914eb08c685374e47c05f41a0f495b20a1c0b')
+
+prepare() {
+  cd $pkgname-$pkgver
+  uusi -u lens
+}
 
 build() {
   cd $pkgname-$pkgver
