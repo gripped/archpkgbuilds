@@ -1,9 +1,9 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=xdg-desktop-portal-hyprland
-pkgver=1.3.9
+pkgver=1.3.10
 _protocolver=4d29e48433270a2af06b8bc711ca1fe5109746cd
-pkgrel=11
+pkgrel=1
 pkgdesc='xdg-desktop-portal backend for hyprland'
 url="https://github.com/hyprwm/$pkgname"
 arch=(x86_64)
@@ -22,6 +22,7 @@ depends=(gcc-libs
          util-linux-libs libuuid.so
          xdg-desktop-portal)
 makedepends=(cmake
+             hyprland-protocols
              wayland
              wayland-protocols)
 optdepends=('grim: required for the screenshot portal to function'
@@ -29,7 +30,7 @@ optdepends=('grim: required for the screenshot portal to function'
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz"
         "https://github.com/hyprwm/hyprland-protocols/archive/$_protocolver.tar.gz")
-sha256sums=('3f7d94fd408ed5e3a9b639d3dd8502e2169decc34f285e8552434da5fddf497e'
+sha256sums=('5f7b1d83e700ecfa702dfc4c6da1dfdc5d9b1239e8b7d8dd3986116327d84bbf'
             '5f6be4d870e94314f05ec7ff9c9c1f028748230ff80a7f89aeaf66c08e5c70e0')
 
 prepare() {
