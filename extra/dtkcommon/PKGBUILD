@@ -1,16 +1,16 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dtkcommon
-pkgver=5.7.14
+pkgver=5.7.15
 pkgrel=1
 pkgdesc='DTK common files'
 arch=('any')
 url="https://github.com/linuxdeepin/dtkcommon"
-license=('LGPL3')
+license=('BSD-3-Clause')
 depends=('dconf')
 makedepends=('git' 'cmake' 'ninja')
 source=("git+https://github.com/linuxdeepin/dtkcommon.git#tag=$pkgver")
-sha512sums=('20d162cf3155de2947fd0000b018e115e21312e141af264050ba0c3ac52e58958b9e7f9bd0109db7ef8f8d28688fbb40b33ccec5248d745ede62bbf00521b4eb')
+sha512sums=('e03b08fc7e927a0206d646d3e39be031cb4f5ee5dc96c8978a39a2a14c27d2fb5b25612a57d7f54c4c6bd8f9b5388bcf9b9084a6b80be6d2b532c4a83554cdd2')
 
 build() {
   cd dtkcommon
@@ -24,4 +24,5 @@ build() {
 package() {
   cd dtkcommon
   DESTDIR="$pkgdir" ninja install
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
