@@ -4,7 +4,7 @@
 
 pkgname=seahorse
 pkgver=47.0.1
-pkgrel=5
+pkgrel=6
 epoch=1
 pkgdesc="GNOME application for managing PGP keys"
 url="https://wiki.gnome.org/Apps/Seahorse"
@@ -42,7 +42,7 @@ source=(
   gpgme-2.0.patch
 )
 b2sums=('e8d8fae487e872c180ee1e8743a95a58445f89b41471067c065745c052703f57b003b49364f350a4fe76fdcdf0ce38b7c8b16baab4a86120dcc90906b5aab390'
-        '4ddbd5a396b12dac02b195a18c50ea005af8a17ca49960178a8c41a45c343e4ba94b4fe368cb2fa339ca416c22588a91d307499537dd9168d15b886456c2fc42'
+        'c5df3ec69f030d422a4688d9f167b3b7ab8001f65912a815b5ec9999a2d7e109ce995da0844c6b7228d772e758c1e79405fe7b90ad61a02e2532f49bf037ab17'
         '38a4de15a485d12328bcc8645f6c08f3080664e1b699e2acaf21bf06af85af91a734454f542b00b06f6391112d30d1c9eb79544cbc1cf7ece33dd10fd0a83654')
 validpgpkeys=('A7C626E13F9AD776776BD9CA1D8A57CF2E8D36A3') # Niels De Graef (nielsdg) <nielsdegraef@gmail.com>
 
