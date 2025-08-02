@@ -1,30 +1,35 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=julius
-pkgver=1.7.0
-pkgrel=2
+pkgver=1.8.0
+pkgrel=1
 pkgdesc='An enhanced re-implementation of Caesar III'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/bvschaik/julius'
-license=('AGPL-3.0-only')
+license=(AGPL-3.0-only)
 depends=(
-  'glibc'
-  'hicolor-icon-theme'
-  'sdl2'
-  'sdl2_mixer'
+  glibc
+  hicolor-icon-theme
+  libpng
+  sdl2
+  sdl2_mixer
 )
-makedepends=('git' 'cmake')
+makedepends=(git cmake)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('b6c9f1596d7a39b4a6ffb288a483468ee6ec9040e039526964abc33f6aec3e41cb7d5b6b4f0888c95b98928491e3e1fcc15f6460327eb1d7d9d2ec3a4a19bf4e')
-b2sums=('4efefff3b34c8beff14b68f1cc123958ffa38dc690efafeaa56c8f09119416f5502f8c87331b6e86abe678302a1fbef41c6ba8a654c4df4983c7e09f72660127')
+sha512sums=('b85e47461ed4a88175dd1bb17bff0b627f341366fc79f41fdf87c5e15a7c1c4b4f233d251ba91ac5488f99e690a059c8243f84e066647591544cad365a9b2de7')
+b2sums=('bf1e2ef415efec5110040669b1e5278492e400fc7586872bec2f401a694118faf143d0e28874b9d2079df310308b7abb539fe8d0244c590611e9ffccace993cd')
 
 build() {
-  cmake \
-    -S "$pkgname" \
-    -B build \
-    -D CMAKE_INSTALL_PREFIX='/usr' \
-    -D CMAKE_BUILD_TYPE='Release' \
+  local cmake_options=(
+    -B build
+    -S "$pkgname"
+    -D CMAKE_INSTALL_PREFIX='/usr'
+    -D CMAKE_BUILD_TYPE='Release'
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -D SYSTEM_LIBS=ON
+  )
+
+  cmake "${cmake_options[@]}"
 
   cmake --build build
 }
