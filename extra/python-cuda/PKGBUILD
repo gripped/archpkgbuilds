@@ -4,11 +4,11 @@
 pkgbase=python-cuda
 pkgname=(python-cuda python-cuda-core python-cuda-bindings)
 pkgver=12.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Python interface for CUDA provided by NVIDIA"
 arch=(x86_64)
 url="https://nvidia.github.io/cuda-python"
-license=(LicenseRef-NVIDIA)
+license=(Apache-2.0 LicenseRef-NVIDIA)
 makedepends=(
   cuda
   cython
@@ -70,6 +70,7 @@ check() {
 }
 
 package_python-cuda-bindings() {
+  license=(LicenseRef-NVIDIA)
   depends=(
     cuda
     gcc-libs
@@ -80,11 +81,12 @@ package_python-cuda-bindings() {
   cd $pkgbase/cuda_bindings
 
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -vDm 644 ../LICENSE.md -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
   install -vDm 644 ../README.md -t "$pkgdir"/usr/share/doc/$pkgname/
 }
 
 package_python-cuda-core() {
+  license=(Apache-2.0)
   depends=(
     gcc-libs
     glibc
@@ -96,11 +98,12 @@ package_python-cuda-core() {
   cd $pkgbase/cuda_core
 
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -vDm 644 ../LICENSE.md -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
   install -vDm 644 ../README.md -t "$pkgdir"/usr/share/doc/$pkgname/
 }
 
 package_python-cuda() {
+  license=(LicenseRef-NVIDIA)
   depends=(
     python-cuda-bindings
     python-cuda-core
@@ -109,6 +112,6 @@ package_python-cuda() {
   cd $pkgbase/cuda_python
 
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -vDm 644 ../LICENSE.md -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
   install -vDm 644 ../README.md -t "$pkgdir"/usr/share/doc/$pkgname/
 }

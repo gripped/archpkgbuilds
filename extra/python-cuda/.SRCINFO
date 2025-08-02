@@ -1,9 +1,10 @@
 pkgbase = python-cuda
 	pkgdesc = Python interface for CUDA provided by NVIDIA
 	pkgver = 12.9.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://nvidia.github.io/cuda-python
 	arch = x86_64
+	license = Apache-2.0
 	license = LicenseRef-NVIDIA
 	checkdepends = python-pytest
 	checkdepends = python-pytest-benchmark
@@ -25,10 +26,12 @@ pkgbase = python-cuda
 	b2sums = db50fcdae97ddda91c400c6ad41d1d7e25ac406f8b57ccef8db9ed97ed83a1104ea4942a0f853b0b8fd02c8dbf6d5672b8181eb616515063604b345702792db7
 
 pkgname = python-cuda
+	license = LicenseRef-NVIDIA
 	depends = python-cuda-bindings
 	depends = python-cuda-core
 
 pkgname = python-cuda-core
+	license = Apache-2.0
 	depends = gcc-libs
 	depends = glibc
 	depends = python
@@ -36,6 +39,7 @@ pkgname = python-cuda-core
 	depends = python-numpy
 
 pkgname = python-cuda-bindings
+	license = LicenseRef-NVIDIA
 	depends = cuda
 	depends = gcc-libs
 	depends = glibc
