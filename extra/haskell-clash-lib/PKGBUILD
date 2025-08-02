@@ -3,7 +3,7 @@
 _hkgname=clash-lib
 pkgname=haskell-clash-lib
 pkgver=1.8.1
-pkgrel=108
+pkgrel=109
 pkgdesc="Clash: a functional hardware description language - As a library"
 url="https://clash-lang.org/"
 license=("BSD")
@@ -18,11 +18,16 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec-aeson' 'haskell-aeson-pr
          'haskell-string-interpolate' 'haskell-stringsearch' 'haskell-temporary'
          'haskell-terminal-size' 'haskell-trifecta' 'haskell-unordered-containers' 'haskell-vector'
          'haskell-vector-binary-instances' 'haskell-yaml')
-makedepends=('ghc' 'expac' 'haskell-doctest-parallel' 'haskell-ghc-typelits-knownnat'
+makedepends=('ghc' 'uusi' 'expac' 'haskell-doctest-parallel' 'haskell-ghc-typelits-knownnat'
              'haskell-quickcheck-text' 'haskell-src-exts' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck' 'haskell-tasty-th')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha512sums=('7f249b37b1f71a69174a4824267fc172eb118cfb7f17ff5b273073c17e40a240bf8bc5add5483f9be7d25516773a99d0f6767aa8e27d356112806e237e384aca')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  uusi -u lens
+}
 
 build() {
   cd $_hkgname-$pkgver
