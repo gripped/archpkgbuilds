@@ -3,7 +3,7 @@
 # Contributor: Storm Dragon <stormdragon2976@gmail.com>
 
 pkgname=magic-wormhole
-pkgver=0.19.2
+pkgver=0.20.0
 pkgrel=1
 pkgdesc="Securely transfer data between computers"
 arch=(any)
@@ -33,7 +33,7 @@ checkdepends=(python-magic-wormhole-mailbox-server
               python-pytest-twisted)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha512sums=('c8235cdc170c9b47a3ccfa52f7173fa76301476cd9637a5b5fa3a2083f2dd61d8b5d7e714d68a5169ca30061af6f28ab4e4e98ccfc943eb9b6076c72ada776b1')
+sha512sums=('bd5c49424c1bbe70421fea49223bd9b7995509d94739a9a48e4e4fb365d63b8186f65a44751b29d44c1e3c73217014c9e3617790b57eb83801271f347b83a583')
 
 prepare() {
 	cd "${pkgname#python-}-$pkgver"
