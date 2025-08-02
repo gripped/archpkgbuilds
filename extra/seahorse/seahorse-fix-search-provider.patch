@@ -1,0 +1,84 @@
+From 28ac748fd411ab9efd8c7eb69573521f59b59a84 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 2 Aug 2025 08:37:57 +0200
+Subject: [PATCH] Fix search provider
+
+- Set inactivity timeout in service mode to avoid quit while typing search
+terms.
+
+- Instead of creating a new hidden KeyManager, activate the app before
+showing the result to avoid keep running in the background after the window
+is closed.
+
+- Release the app even if the identifier is invalid.
+---
+ src/application.vala     |  7 +++++--
+ src/search-provider.vala | 13 +++++++------
+ 2 files changed, 12 insertions(+), 8 deletions(-)
+
+diff --git a/src/application.vala b/src/application.vala
+index 469844ad8..669b1a109 100644
+--- a/src/application.vala
++++ b/src/application.vala
+@@ -70,7 +70,8 @@ public class Seahorse.Application : Gtk.Application {
+         GLib.Object (
+             application_id: Config.APPLICATION_ID,
+             resource_base_path: "/org/gnome/Seahorse",
+-            flags: ApplicationFlags.HANDLES_OPEN
++            flags: ApplicationFlags.HANDLES_OPEN,
++            inactivity_timeout: 10000
+         );
+         this.search_provider = new SearchProvider(this);
+ 
+@@ -116,8 +117,10 @@ public class Seahorse.Application : Gtk.Application {
+     }
+ 
+     public override void activate() {
+-        if (get_active_window() == null)
++        if (get_active_window() == null) {
+             this.key_mgr = new Seahorse.KeyManager(this);
++            set_inactivity_timeout (0);
++        }
+ 
+         this.key_mgr.present();
+     }
+diff --git a/src/search-provider.vala b/src/search-provider.vala
+index 6873f1912..42e65675b 100644
+--- a/src/search-provider.vala
++++ b/src/search-provider.vala
+@@ -25,12 +25,12 @@ public class Seahorse.SearchProvider : GLib.Object {
+         = new HashTable<string, weak GLib.Object>.full(str_hash, str_equal, free, null);
+ 
+     private Gcr.FilterCollection collection;
+-    private GLib.Application app;
++    private Gtk.Application app;
+     private int n_loading = 0;
+     private RWLock n_loading_lock = RWLock();
+     private bool loaded = false;
+ 
+-    public SearchProvider(GLib.Application app) {
++    public SearchProvider(Gtk.Application app) {
+         this.app = app;
+         this.collection = new Gcr.FilterCollection.with_callback(this.union_collection, filter_objects);
+     }
+@@ -189,12 +189,13 @@ public class Seahorse.SearchProvider : GLib.Object {
+         unowned GLib.Object? object = null;
+         identifier.scanf("%p", &object);
+         object = this.handles.lookup(identifier);
+-        if (object == null || !(object in this.collection) || !(object is Viewable))
++        if (object == null || !(object in this.collection) || !(object is Viewable)) {
++            this.app.release ();
+             return; // Bogus value
++        }
+ 
+-        KeyManager key_manager = new KeyManager(GLib.Application.get_default() as Application);
+-        /* key_manager.show(timestamp); */
+-        Viewable.view(object, (Gtk.Window) key_manager);
++        this.app.activate ();
++        Viewable.view (object, this.app.get_active_window());
+ 
+         this.app.release ();
+     }
+-- 
+GitLab
+
