@@ -3,23 +3,18 @@
 
 _hkgname=bifunctors
 pkgname=haskell-bifunctors
-pkgver=5.6
-pkgrel=198
+pkgver=5.6.1
+pkgrel=1
 pkgdesc="Bifunctors"
 url="https://github.com/ekmett/bifunctors/"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-comonad' 'haskell-foldable1-classes-compat' 'haskell-tagged'
-         'haskell-th-abstraction')
-makedepends=('ghc' 'uusi')
+depends=('ghc-libs' 'haskell-assoc' 'haskell-comonad' 'haskell-foldable1-classes-compat'
+         'haskell-tagged' 'haskell-th-abstraction')
+makedepends=('ghc')
 checkdepends=('haskell-hspec' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('05854dba4b20eb51dbba2ae7c1c294065f0e85d5aa883a1b2cb484af7d7f1a31d60a4e6d1c8386a5639d0191b1d3a2c02a8de49224be3e4bb83b963bd406ca43')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -d bifunctor-classes-compat $_hkgname.cabal
-}
+sha512sums=('9fb2767f22a48bab6e713806a5ef806790b61fcda68cf34adc73b5c2216692b7a48eedfc6c0d45e3df46467c55320d2e6c5d8e0d5648232e545d8a9340954367')
 
 build() {
     cd $_hkgname-$pkgver
