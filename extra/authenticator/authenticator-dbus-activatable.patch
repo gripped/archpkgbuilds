@@ -1,0 +1,61 @@
+From cc1877bb92044fa110e22ac02b0fdc84235250c8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 3 Aug 2025 15:36:56 +0200
+Subject: [PATCH] Add D-Bus service file
+
+And mark the application as D-Bus activatable. This allows application
+launchers to activate it via D-Bus.
+---
+ data/com.belmoussaoui.Authenticator.desktop.in.in | 1 +
+ data/com.belmoussaoui.Authenticator.service.in    | 3 +++
+ data/meson.build                                  | 8 +++++++-
+ 3 files changed, 11 insertions(+), 1 deletion(-)
+ create mode 100644 data/com.belmoussaoui.Authenticator.service.in
+
+diff --git a/data/com.belmoussaoui.Authenticator.desktop.in.in b/data/com.belmoussaoui.Authenticator.desktop.in.in
+index 86c8180c..b0bd6173 100644
+--- a/data/com.belmoussaoui.Authenticator.desktop.in.in
++++ b/data/com.belmoussaoui.Authenticator.desktop.in.in
+@@ -10,6 +10,7 @@ Keywords=Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;
+ # Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+ Icon=@icon@
+ StartupNotify=true
++DBusActivatable=true
+ MimeType=x-scheme-handler/otpauth
+ # Translators: Do NOT translate or transliterate this text (these are enum types)!
+ X-Purism-FormFactor=Workstation;Mobile;
+diff --git a/data/com.belmoussaoui.Authenticator.service.in b/data/com.belmoussaoui.Authenticator.service.in
+new file mode 100644
+index 00000000..940bca86
+--- /dev/null
++++ b/data/com.belmoussaoui.Authenticator.service.in
+@@ -0,0 +1,3 @@
++[D-BUS Service]
++Name=@appid@
++Exec=@bindir@/@name@ --gapplication-service
+diff --git a/data/meson.build b/data/meson.build
+index 7dc24cc2..af66fccb 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -80,11 +80,17 @@ if appstreamcli.found()
+ endif
+ 
+ 
+-# Search Provider
++# D-Bus service file and Search Provider
+ service_conf = configuration_data()
+ service_conf.set('appid', application_id)
+ service_conf.set('name', meson.project_name())
+ service_conf.set('bindir', bindir)
++configure_file(
++  input: 'com.belmoussaoui.Authenticator.service.in',
++  output: '@0@.service'.format(application_id),
++  configuration: service_conf,
++  install_dir: datadir / 'dbus-1' / 'services'
++)
+ configure_file(
+   input: 'com.belmoussaoui.Authenticator.SearchProvider.service.in',
+   output: '@0@.SearchProvider.service'.format(application_id),
+-- 
+GitLab
+
