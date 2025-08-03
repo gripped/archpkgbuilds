@@ -1,9 +1,10 @@
 pkgbase = chess-clock
 	pkgdesc = Simple application to provide time control for over-the-board chess games
 	pkgver = 0.6.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://apps.gnome.org/Chessclock/
 	arch = any
+	groups = gnome-circle
 	license = GPL-3.0-or-later
 	makedepends = appstream
 	makedepends = git
@@ -17,11 +18,9 @@ pkgbase = chess-clock
 	depends = python
 	depends = python-gobject
 	source = git+https://gitlab.gnome.org/World/chess-clock.git?signed#tag=v0.6.1
-	source = chess-clock-metainfo.patch
-	source = chess-clock-window-icon.patch
+	source = chess-clock-dbus-activatable.patch
 	validpgpkeys = B9386554B7DD266BCB8E29A990F0C9B18A6B4A19
 	b2sums = cab2d861a373f06e956fa9d4ac34f9c244538b4a7eea7348c24b5c7cfee874c55728a790352ee38255f2cd1786d1500422a8551dfbbbb439e939b19981cf6a5e
-	b2sums = 193926c2f170a040232f0acca8919a9f1c01a314ba92b9e544612d60eff826e3c68c1b59b19d284419a670a36fbb88d9c4b10599001febac0430185759dc35fb
-	b2sums = 7c7a666d64eea1bbd637e75bc018d4caf3dd3c0b4741d7ebb25f758ae1054831f2e5ee88e042524474c33cd92d3aa6d92e4c991ee71eb9b98ca6591171f8aedc
+	b2sums = 02f1a280590a85dd065f838e91a1bc405556b9faf25f58c3d71c35f53ab761bb1700b1db4f3608866ec0b63be4a4624c73eed59ccf395c2e21cfa254a7386cd5
 
 pkgname = chess-clock

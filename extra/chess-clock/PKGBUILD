@@ -2,11 +2,12 @@
 
 pkgname=chess-clock
 pkgver=0.6.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Simple application to provide time control for over-the-board chess games'
 arch=(any)
 url='https://apps.gnome.org/Chessclock/'
 license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
   dconf
   glib2
@@ -24,13 +25,11 @@ makedepends=(
 )
 source=(
   "git+https://gitlab.gnome.org/World/chess-clock.git?signed#tag=v$pkgver"
-  chess-clock-metainfo.patch
-  chess-clock-window-icon.patch
+  chess-clock-dbus-activatable.patch
 )
 b2sums=(
   cab2d861a373f06e956fa9d4ac34f9c244538b4a7eea7348c24b5c7cfee874c55728a790352ee38255f2cd1786d1500422a8551dfbbbb439e939b19981cf6a5e
-  193926c2f170a040232f0acca8919a9f1c01a314ba92b9e544612d60eff826e3c68c1b59b19d284419a670a36fbb88d9c4b10599001febac0430185759dc35fb
-  7c7a666d64eea1bbd637e75bc018d4caf3dd3c0b4741d7ebb25f758ae1054831f2e5ee88e042524474c33cd92d3aa6d92e4c991ee71eb9b98ca6591171f8aedc
+  02f1a280590a85dd065f838e91a1bc405556b9faf25f58c3d71c35f53ab761bb1700b1db4f3608866ec0b63be4a4624c73eed59ccf395c2e21cfa254a7386cd5
 )
 validpgpkeys=(B9386554B7DD266BCB8E29A990F0C9B18A6B4A19) # Evangelos Ribeiro Tzaras <devrtz@fortysixandtwo.eu>
 
@@ -38,10 +37,13 @@ prepare() {
   cd $pkgname
 
   # https://gitlab.gnome.org/World/chess-clock/-/merge_requests/31
-  git apply -3 ../chess-clock-metainfo.patch
+  git cherry-pick -n 6bf9d30e8fbe8e35104191424285bdbe917f9965
 
-  # https://gitlab.gnome.org/World/chess-clock/-/merge_requests/32
-  git apply -3 ../chess-clock-window-icon.patch
+  # https://gitlab.gnome.org/World/chess-clock/-/merge_requests/33
+  git cherry-pick -n 466bc82c1607e111181181c4344fc1650d1e5386
+
+  # https://gitlab.gnome.org/World/chess-clock/-/merge_requests/36
+  git apply -3 ../chess-clock-dbus-activatable.patch
 }
 
 build() {
