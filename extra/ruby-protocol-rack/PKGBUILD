@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-protocol-rack
-pkgver=0.13.0
+pkgver=0.16.0
 pkgrel=1
 pkgdesc='An implementation of the Rack protocol/specification'
 arch=(any)
@@ -28,8 +28,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(https://github.com/socketry/protocol-rack/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('564e2740540642d4e4e6d08860dc3cee697ade1210d88fc68d97f8a174984e68a88ff919cee14fda6b1a4f55c836bf530dace2d4406fa947e78bbe350007be28')
-b2sums=('c6de1c4d4b61677c063be7ef727101b68af755b04e359f230113d78741cceed9b0a0360bf32d208077cd79b243fa1cf650a9961a3af3eea26d8c3e0ce151b70f')
+sha512sums=('0e9e9c894b55dcba7dec8c9339fd137b30487f5199f56496bd9fa74c1dac9c9d17cef7f22ec521a1e1417accea09d20e00a159da91ccdefb6c8a4ee6880a7f62')
+b2sums=('8ec240d1a1b312351ffae59d8c897d83f201d897a88271352be7c713c498ae464e50bf16f9c8f6327743743143c83fc65663b266554d9032b1a2c5ac484ba91a')
 
 prepare() {
   cd protocol-rack-$pkgver
