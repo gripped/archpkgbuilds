@@ -2,11 +2,12 @@
 
 pkgname=collision
 pkgver=3.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc='GUI tool to generate, compare and verify MD5, SHA-1, SHA-256, SHA-512, Blake3, CRC32 and Adler32 hashes'
 arch=(x86_64)
 url='https://apps.gnome.org/Collision/'
 license=(BSD-2-Clause)
+groups=(gnome-circle)
 depends=(
   dconf
   gc
@@ -16,7 +17,6 @@ depends=(
   gtk4
   hicolor-icon-theme
   libadwaita
-  libevent
   openssl
   pcre2
   zlib
@@ -28,12 +28,25 @@ makedepends=(
   shards
 )
 optdepends=('nautilus-python: Nautilus context menu extension')
-source=("git+https://github.com/GeopJr/Collision.git#tag=v$pkgver")
-b2sums=('f8a210eea927da2f3f7ed2fa2f9d257d5be89983d67c6d3674447abba423dbd85ecfe40b3aed2dc39eaaa1627db412764d15645e7aae8586acb0b183507f9c9b')
+source=(
+  "git+https://github.com/GeopJr/Collision.git#tag=v$pkgver"
+  collision-nonexistent-file.patch
+)
+b2sums=(
+  f8a210eea927da2f3f7ed2fa2f9d257d5be89983d67c6d3674447abba423dbd85ecfe40b3aed2dc39eaaa1627db412764d15645e7aae8586acb0b183507f9c9b
+  b61dea8e8982255fa3bcf7467aeb06d8b69c714da5114699d3a4b1c58e07334a40bea7b942e0a91f8e20aac793906606c75fa8714c5774a5c4955cccf52309d0
+)
 
 prepare() {
   cd Collision
   shards install
+
+  # https://github.com/hugopl/harfbuzz.cr/pull/2
+  echo '  - hb_ot_layout_lookup_collect_glyphs' >>lib/harfbuzz/src/bindings/harfbuzz/binding.yml
+
+  # https://github.com/GeopJr/Collision/pull/226
+  git apply -3 ../collision-nonexistent-file.patch
+
   sed -i -e '/gtk-update-icon-cache/d' -e '/glib-compile-schemas/d' Makefile
 }
 

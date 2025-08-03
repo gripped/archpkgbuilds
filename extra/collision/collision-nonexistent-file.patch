@@ -1,0 +1,23 @@
+From 9c28aab4a424ef5323d94ad43a5f64b61656e059 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 3 Aug 2025 18:53:59 +0200
+Subject: [PATCH] Don't make exception by default if a file does not exists
+
+Closes: https://github.com/GeopJr/Collision/issues/225
+---
+ src/collision/functions/file_utils.cr | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/collision/functions/file_utils.cr b/src/collision/functions/file_utils.cr
+index 8958863..7447754 100644
+--- a/src/collision/functions/file_utils.cr
++++ b/src/collision/functions/file_utils.cr
+@@ -14,7 +14,7 @@ module Collision::FileUtils
+   # Checks if path is a File and exists.
+   # If it doesn't, it will either raise an exception
+   # or just log an error based on the `exception` param.
+-  def file?(file : Path | String, exception : Bool = true) : Bool
++  def file?(file : Path | String, exception : Bool = false) : Bool
+     return true if File.file?(file)
+ 
+     msg = "\"#{file}\" does not exist or is not a File"
