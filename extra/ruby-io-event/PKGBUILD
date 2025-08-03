@@ -2,7 +2,7 @@
 
 _gemname='io-event'
 pkgname="ruby-${_gemname}"
-pkgver=1.10.2
+pkgver=1.12.1
 pkgrel=1
 pkgdesc='An event loop'
 arch=('x86_64')
@@ -23,8 +23,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('755c39c4baf6293ddddf1e7c2be9b7c1e2d052e7cf9b5d13f056cf51346bf081a975c0f904548e795e1fe23f5f6b58487dfb16e5be538efa9571910276bd43c3')
-b2sums=('3ed508fbfd73628716c12ad3f0b27b055d5708eb545a78b5a3fde07e8b88191ae3abac2079fac75ca4a9f0f11e13106c3ee8d6d712dafa41b212f81353e054ff')
+sha512sums=('00c2001d3f01062991b1e041acaa3f4a6c2c8dd2dee25247bd59d1c9314f77470bdb83e25e1fe2a9f631d1e67bcd025dcb3a2158ee2e6ede1938362e32ed17a4')
+b2sums=('ac707b13fbbe177481e26fd3b1edf638be4e5c6e376c74e99e362d6c58dd8553a46f239ca143bc825809ca46e7130ad29ac2e02fdbd2937743b2ed682db428af')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
@@ -36,6 +36,7 @@ prepare() {
 
   sed --in-place \
     --expression '/group :maintenance/,/end/d' \
+    --expression '/agent-context/d' \
     --expression '/rubocop/d' \
     gems.rb
 }
