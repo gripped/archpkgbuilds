@@ -1,7 +1,7 @@
 pkgbase = key-rack
 	pkgdesc = Password manager for GNOME
 	pkgver = 0.4.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://gitlab.gnome.org/World/key-rack
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -15,8 +15,10 @@ pkgbase = key-rack
 	depends = hicolor-icon-theme
 	depends = libadwaita
 	source = git+https://gitlab.gnome.org/World/key-rack.git#tag=0.4.0
-	source = key-rack-manifest-path.patch
+	source = key-rack-create-window.patch
+	source = key-rack-dbus-activatable.patch
 	b2sums = 9f6bba19184eb157e60bd58c1e002d7134f263d54990e5d20a6c679def701d209ad6040d96ab5e6ed9ca5eec4166a2654a689a97c2dcad72357f8a28ca108d6e
-	b2sums = cee8c7db52e99fe3868e1c759f538fb9228fdf2199b4043432751028f5ae563a9a011a4a74d8a4b5b95dfdd6be554742d8264437eafab0cfa2efbb401f342d68
+	b2sums = c674adb93105aaf31fa8d2ce4eb7a50705098407cf7bb746359ba37ac48d69f681d5d5ff8e1bcfb71fcba35e48f721f8b246ce09a0301d7a4158e1f810830d82
+	b2sums = af4e520fb105dfb359340a1a2ac32b64990fd72f5747209ddc24057b6446c777c868f98d128ebffc974b9a6a3681e942c7564b12dc9ca96ad5e903f59684e81c
 
 pkgname = key-rack

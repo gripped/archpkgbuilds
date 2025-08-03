@@ -1,0 +1,49 @@
+From 00a57b60ec2231e820f2890617784c8e8bbb7dd0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 3 Aug 2025 10:07:57 +0200
+Subject: [PATCH] Don't create window in startup phase
+
+This fixes the problem that the process does not exit after timeout when
+running as GApplication service.
+---
+ src/app.rs | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/src/app.rs b/src/app.rs
+index 3585d14..417f23e 100644
+--- a/src/app.rs
++++ b/src/app.rs
+@@ -28,10 +28,15 @@ mod imp {
+     impl ObjectImpl for KrApp {}
+ 
+     impl ApplicationImpl for KrApp {
+-        fn startup(&self) {
+-            self.parent_startup();
++        fn activate(&self) {
++            self.parent_activate();
+             let obj = self.obj();
+ 
++            if let Some(window) = self.window.get() {
++                window.present();
++                return;
++            }
++
+             let window = KrMainWindow::new();
+             self.window.set(window.clone()).unwrap();
+             obj.add_window(&window);
+@@ -65,11 +70,8 @@ mod imp {
+                     }
+                 }
+             }));
+-        }
+ 
+-        fn activate(&self) {
+-            self.parent_activate();
+-            self.obj().window().present();
++            window.present();
+         }
+     }
+ 
+-- 
+GitLab
+

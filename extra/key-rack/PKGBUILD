@@ -2,7 +2,7 @@
 
 pkgname=key-rack
 pkgver=0.4.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Password manager for GNOME'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/key-rack'
@@ -22,11 +22,13 @@ makedepends=(
 )
 source=(
   "git+https://gitlab.gnome.org/World/key-rack.git#tag=$pkgver"
-  key-rack-manifest-path.patch
+  key-rack-create-window.patch
+  key-rack-dbus-activatable.patch
 )
 b2sums=(
   9f6bba19184eb157e60bd58c1e002d7134f263d54990e5d20a6c679def701d209ad6040d96ab5e6ed9ca5eec4166a2654a689a97c2dcad72357f8a28ca108d6e
-  cee8c7db52e99fe3868e1c759f538fb9228fdf2199b4043432751028f5ae563a9a011a4a74d8a4b5b95dfdd6be554742d8264437eafab0cfa2efbb401f342d68
+  c674adb93105aaf31fa8d2ce4eb7a50705098407cf7bb746359ba37ac48d69f681d5d5ff8e1bcfb71fcba35e48f721f8b246ce09a0301d7a4158e1f810830d82
+  af4e520fb105dfb359340a1a2ac32b64990fd72f5747209ddc24057b6446c777c868f98d128ebffc974b9a6a3681e942c7564b12dc9ca96ad5e903f59684e81c
 )
 
 prepare() {
@@ -36,7 +38,13 @@ prepare() {
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 
   # https://gitlab.gnome.org/World/key-rack/-/merge_requests/43
-  git apply -3 ../key-rack-manifest-path.patch
+  git cherry-pick -n 5084dda8d41b60fb1c28ce1c1ec271913bc8a71d
+
+  # https://gitlab.gnome.org/World/key-rack/-/merge_requests/45
+  git apply -3 ../key-rack-create-window.patch
+
+  # https://gitlab.gnome.org/World/key-rack/-/merge_requests/46
+  git apply -3 ../key-rack-dbus-activatable.patch
 }
 
 build() {

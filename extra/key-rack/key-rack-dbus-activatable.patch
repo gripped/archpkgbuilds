@@ -1,0 +1,61 @@
+From 11138818a6b0886f025ae75c061cb10c53d47b81 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 3 Aug 2025 09:51:54 +0200
+Subject: [PATCH] Add D-Bus service file
+
+And mark the application as D-Bus activatable. This allows application
+launchers to activate it via D-Bus.
+---
+ data/app.drey.KeyRack.desktop.in |  1 +
+ data/app.drey.KeyRack.service.in |  3 +++
+ data/meson.build                 | 13 +++++++++++++
+ 3 files changed, 17 insertions(+)
+ create mode 100644 data/app.drey.KeyRack.service.in
+
+diff --git a/data/app.drey.KeyRack.desktop.in b/data/app.drey.KeyRack.desktop.in
+index 9a9ae2a..8b2bfdd 100644
+--- a/data/app.drey.KeyRack.desktop.in
++++ b/data/app.drey.KeyRack.desktop.in
+@@ -10,5 +10,6 @@ Categories=Utility;GTK;GNOME
+ # Translators: Do not translate or transliterate this text (this is an icon file name)!
+ Icon=@app_id@
+ Exec=key-rack
++DBusActivatable=true
+ Keywords=passwords;key;
+ X-Purism-FormFactor=Workstation;Mobile;
+diff --git a/data/app.drey.KeyRack.service.in b/data/app.drey.KeyRack.service.in
+new file mode 100644
+index 0000000..d78bf74
+--- /dev/null
++++ b/data/app.drey.KeyRack.service.in
+@@ -0,0 +1,3 @@
++[D-BUS Service]
++Name=@app_id@
++Exec=@bindir@/key-rack --gapplication-service
+diff --git a/data/meson.build b/data/meson.build
+index 375141a..93d7ee6 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -31,6 +31,19 @@ i18n.merge_file(
+     install_dir: usrdir / 'metainfo'
+ )
+ 
++
++# D-Bus service
++
++service_conf = configuration_data()
++service_conf.set('app_id', application_id)
++service_conf.set('bindir', bindir)
++configure_file(
++  input: '@0@.service.in'.format(plain_id),
++  output: '@0@.service'.format(application_id),
++  configuration: service_conf,
++  install_dir: usrdir / 'dbus-1' / 'services'
++)
++
+ # App icons
+ 
+ install_data(
+-- 
+GitLab
+
