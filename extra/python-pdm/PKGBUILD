@@ -2,7 +2,7 @@
 
 _name=pdm
 pkgname=python-pdm
-pkgver=2.25.4
+pkgver=2.25.5
 pkgrel=1
 pkgdesc="A modern Python package and dependency manager supporting the latest PEP standards"
 arch=(any)
@@ -61,8 +61,8 @@ optdepends=(
   'python-uv: use uv as installer and resolver'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('95797249ed01487d0bda7b51136b8adc26bb372ccd85e8833818000ac9d17a246eff386ff6d891cb13754205de1ed7c2a30663aa3c50ce9bbaf1e7b0c29f5028')
-b2sums=('f66edf96c5bd3f9cf579fe90f1780b27f4aa1f75b4ddb9240968bbe956ff14cc0d51e4f25f8f44476d7ea4ec03def08458de372dc08ad1707ba3c3018b372a4f')
+sha512sums=('a6b508964e23153e3fbd21b740604a992397d4dbf4aa30bfa5442b610ae6e537c85b91dfbbd924470faeaccfdc328f6fd77e3434e712e7f4f1fb8abfc1bfd604')
+b2sums=('fd31149bf79a3a7dad659444d26f1c3fb01425909d5f2b0734e60a53a32e884c3aef5728457d2cbd926df9dcf45a9ad3240f08e5bcdb1a13a6997b70710488a4')
 
 build() {
   cd $_name-$pkgver
@@ -77,6 +77,8 @@ check() {
     --deselect tests/test_project.py::test_access_index_with_auth
     # unclear issue with no isolation build
     --deselect tests/cli/test_build.py::test_build_with_no_isolation
+    # issue since 2.25.5: https://github.com/pdm-project/pdm/issues/3590
+    --deselect tests/cli/test_install.py::test_install_from_lock_with_higher_version
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
