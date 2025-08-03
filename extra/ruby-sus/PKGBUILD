@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-sus
-pkgver=0.32.0
-pkgrel=2
+pkgver=0.33.1
+pkgrel=1
 pkgdesc='A fast and scalable test runner'
 arch=(any)
 url='https://github.com/socketry/sus'
@@ -23,8 +23,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/socketry/sus.git#tag=v$pkgver)
-sha512sums=('969e49824fc6e71c81171e7be372eb161dcf4c4a91066b42e62da51c30f6876810a6ddf1c2037689c1f98b47a4574081fb4d527fa6fa54e389a485cbc9e833ec')
-b2sums=('7f126e74c73a86c56bb6670852d9f0471ecb5a6d2661e6008194dbe400a37ee8d3aa7f8aaba931cc75439799a44b882b13c2e06153fcf6afcf17bec1b1054c65')
+sha512sums=('9402b6752a18debea6b9ba28c3eef3747ceba545cf44dd1bf61ab9ca32e28c756496247278b7363881e035704a9f61cca4ff136b5f0c7d7ccb116e09e11689b8')
+b2sums=('c76b611a26024f5924a258fbadaa40f8dfce907aa0bbf9fdfbe023fdc8ef234233c50df2f4115ba508f8ba439bbe18a27a492fbd9b7f86ca08caec25d2437463')
 
 prepare() {
   cd sus
@@ -36,6 +36,7 @@ prepare() {
 
   sed --in-place \
     --expression '/group :maintenance/,/end/d' \
+    --expression '/agent-context/d' \
     --expression '/rubocop/d' \
     gems.rb
 }
