@@ -2,8 +2,8 @@
 
 _gemname='super_diff'
 pkgname="ruby-${_gemname}"
-pkgver=0.15.0
-pkgrel=2
+pkgver=0.16.0
+pkgrel=1
 pkgdesc='A gem that hooks into RSpec to intelligently display the differences between two data structures of any type'
 arch=('any')
 url="https://github.com/splitwise/${_gemname}"
@@ -19,8 +19,8 @@ makedepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('344a7ac1344561144f22bd860e6febc18466402790aa20d50e1fbf61cc8decb36f40f8ba2dad91f8dd528cd6e52a5e9ab9d32d08701d33f096c0e84c612e389d')
-b2sums=('43d857979c4e93c6615854563b8116b7fe21d33e92ca8abd6f4a55a78d4077fdc23b451c3f8b13fb702ec89690bc507f5b02df2686e1f58452c4f967d4e8d6c0')
+sha512sums=('6633087667944717adaaab7c95bb860c36d1603f45da0398b8b97cb40e1227910967814847c4af35d188f1ea3d818234bacbfba44cbe89c147b2210b836c6971')
+b2sums=('dc77ed58881eb6eef08886b807843e583e81a8c24ec018a7420733632910d5d7cefd91e58c1376aa0033a4a29941a54cdb504825d779d6c2e7365200917151fd')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
