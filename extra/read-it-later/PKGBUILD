@@ -2,7 +2,7 @@
 
 pkgname=read-it-later
 pkgver=0.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple Wallabag client'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/read-it-later'
@@ -29,14 +29,21 @@ makedepends=(
 options=(!lto)
 source=(
   "git+https://gitlab.gnome.org/World/read-it-later.git#tag=$pkgver"
+  read-it-later-dbus-activatable.patch
 )
-b2sums=('62f306e82e4a62d951b41e74a7a9a74fb96cd6bd506ca5d3fbad89a984cc9631e3ffe2db79b8659a5f75144d92145f7bff10ca0d9bc86d0cfd3c8c25c6113066')
+b2sums=(
+  62f306e82e4a62d951b41e74a7a9a74fb96cd6bd506ca5d3fbad89a984cc9631e3ffe2db79b8659a5f75144d92145f7bff10ca0d9bc86d0cfd3c8c25c6113066
+  41511c867a29a24b51937076c97d684fa284f1af7c3b76fd67a6c31b36009cc11612e87787a33d68734079a13b78098e4af4424c072ee2ef8d78be86f394f458
+)
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/read-it-later/-/merge_requests/134
+  git apply -3 ../read-it-later-dbus-activatable.patch
 }
 
 build() {
