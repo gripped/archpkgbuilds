@@ -2,7 +2,7 @@
 
 pkgname=wildcard
 pkgver=0.3.3
-pkgrel=2
+pkgrel=3
 pkgdesc='Provides a simple interface to test/practice regular expressions'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/Wildcard'
@@ -23,8 +23,14 @@ makedepends=(
   meson
   rust
 )
-source=("git+https://gitlab.gnome.org/World/Wildcard.git?signed#tag=v$pkgver")
-b2sums=(53bed5b291c0374d03960a293450f610c46eb6c2f24ef0c781d3b112073d81c506ce9ccc5e13daf99ceca49dcabe9f2bae78b36df16af6a5ef6fd0441b8b1160)
+source=(
+  "git+https://gitlab.gnome.org/World/Wildcard.git?signed#tag=v$pkgver"
+  wildcard-dbus-activatable.patch
+)
+b2sums=(
+  53bed5b291c0374d03960a293450f610c46eb6c2f24ef0c781d3b112073d81c506ce9ccc5e13daf99ceca49dcabe9f2bae78b36df16af6a5ef6fd0441b8b1160
+  7b34d31405fbfed89c9b1e050aaf9e4d88685859c1da057787a0a9458f7e30793dbbeb8d949a2264c826b56a988b99b4031c971a94cfcf8336ffc315de6779f4
+)
 validpgpkeys=(9CBBC6850B53EDB5DC61B072FE494A5BBA386771) # Felipe Kinoshita <kinofhek@gmail.com>
 
 prepare() {
@@ -32,6 +38,9 @@ prepare() {
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/Wildcard/-/merge_requests/40
+  git apply -3 ../wildcard-dbus-activatable.patch
 }
 
 build() {
