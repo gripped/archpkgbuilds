@@ -1,6 +1,8 @@
---- bitwarden-2024.10.0/apps/desktop/src/main/native-messaging.main.ts.orig	2024-10-17 21:45:41.000000000 +0200
-+++ bitwarden-2024.10.0/apps/desktop/src/main/native-messaging.main.ts	2024-10-25 22:25:27.180541673 +0200
-@@ -328,26 +328,7 @@ export class NativeMessagingMain {
+diff --git a/apps/desktop/src/main/native-messaging.main.ts b/apps/desktop/src/main/native-messaging.main.ts
+index 93525164ff..3b13121344 100644
+--- a/apps/desktop/src/main/native-messaging.main.ts
++++ b/apps/desktop/src/main/native-messaging.main.ts
+@@ -417,26 +417,7 @@ export class NativeMessagingMain {
    }
  
    private binaryPath() {
@@ -27,4 +29,4 @@
 +    return '/usr/lib/bitwarden/desktop_proxy'
    }
  
-   private getRegeditInstance() {
+   private homedir() {

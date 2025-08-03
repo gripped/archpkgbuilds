@@ -2,31 +2,29 @@
 # Contributor: libertylocked <libertylocked@disroot.org>
 
 pkgname=bitwarden
-pkgver=2025.4.2
+pkgver=2025.7.0
 pkgrel=1
-_electronversion=34
+_electronversion=36
 pkgdesc='A secure and free password manager for all of your devices'
 arch=('x86_64')
-url='https://github.com/bitwarden/clients/tree/master/apps/desktop'
+url='https://github.com/bitwarden/clients/tree/main/apps/desktop'
 license=('GPL-3.0-only')
 depends=("electron$_electronversion" 'libnotify' 'org.freedesktop.secrets' 'libxtst' 'libxss' 'libnss_nis')
-makedepends=('git' 'npm' 'python' 'python-setuptools' 'node-gyp' 'nodejs-lts-iron' 'jq' 'rust' 'fdupes')
+makedepends=('git' 'npm' 'python' 'python-setuptools' 'node-gyp' 'nodejs-lts-jod' 'jq' 'rust' 'fdupes')
 source=(bitwarden::git+https://github.com/bitwarden/clients.git#tag=desktop-v$pkgver
         messaging.main.ts.patch
         nativelib.patch
         native-messaging.main.ts.patch
-        remove-argon2-browser.patch
         no-sourcemaps.patch
         remove-unnecessary-deps.patch
         ${pkgname}.sh
         ${pkgname}.desktop)
-sha512sums=('8112d6a40b185c4400d79b001a97f63c07132858bb2d8d48639f39bf81636742de40d58a3362bc160eb44ff7af41766e88debb9b59592a3cdff7fd6016fc77fd'
-            '759db11cae26b8228000c98eb7bd21d0a46c964a858d27655f8f09114f5f7cba856623c3cad07424ba360e74144d9c0c050ee7219f8fe530cd9059d9f937f023'
-            '985a41cd851710d74ee55bfe9cb9000e8e2c29d8d6aab82f5d3c4072c12511d2fcb4484b2f8b608856b68d36aa6a495c05094e7e67dda357a937a8a4802da5e4'
-            'f12482139463c6f471b49f789cd7f7e1748ecd06e169e5519edb29d762f456b9050871043336f98595b1cf15d99206bcad41f92a7145beb67c154e2a01e4c740'
-            'e5b83c9f0f8669d37f31870856f10447126ebeca2a42b042830983fe6d26073473afbc24e63c1c3f8ae43df6b6799de49a5fd82fc11fc3fd8db6088cfc625cd0'
-            '38ac6c885c690b9abb135e2ba22f1eeebdb314a413598f35db726dd87c442ef90acc6a30ab2d94e9fa6f57e44226571789a1989958a8c127cf23664a2153d962'
-            '5bbdce165d0431452768db5fa1d4487b20286fb5e8c995823fe6be237e51d384c7be8a7e5719b39781d3eebe59e96553bdf744b3714590ba1993a6ebb71728c7'
+sha512sums=('06754009cb404a82303923fc54daf61eb4e46e0ea0122fb6c7e5baf81525cb290c0ca9a2660bcf4065b1e6af7fa9cad82cf3a236b71f07d0c4b3df1d73b0f4e6'
+            '5ab18ad2debbb4ee6eabac9bee4ab27a5f94b9db352ba1759907b1777908c4ab84fb489e4d021cb1ae44ce2cc2ba9779c09ea094cf439017f665fa9b8b0af480'
+            'ea4e2875240f8ffc84700540f203fcf22fb0fd31aa1960a8d6add05fcd6c30ae4b8904b5ce146d00a7af0ea4ad954187edcd9e236a9f7376853f17f49965207d'
+            'c7cb11d7ec3807d85a50fe7689eb0c9f8814ca7c562d05195c3f0c8c4f1e7448c9a56ad759c7a2a1b36be5619a858f391142da18a691baf81fcbeac1e2f1f537'
+            '53e60102f099b2c265d88f2bac9d934f21f82b1fd3e3d0d73dead17fb9fc31f0ff29de3f82f8e9f2050e53ec62e9a1beec51908d02eb11b4e2e1f5146bc15b36'
+            'c1ab574e5abf06a4e05688aeef1985dd73160686dd85b79e11ea3d10bd8166c35fc95643a77cbd0921f6ae06e92c52fbadab692346ecbcbd780de6d78f314c75'
             '09acb1f4a7fb04fda120eda79ee847f285a421bc5bf5c3d42c78767f01f2051984b928019707c7c59e48e87728ab45ee2a98ff7ccee6b4e14bfdff93cd1106f0'
             'fdc047aadc1cb947209d7ae999d8a7f5f10ae46bf71687080bc13bc3082cc5166bbbe88c8f506b78adb5d772f5366ec671b04a2f761e7d7f249ebe5726681e30')
 
@@ -53,7 +51,6 @@ prepare() {
 	patch -p1 -i "$srcdir/nativelib.patch"
 	# patches from opensuse
 	patch -p1 -i "$srcdir/no-sourcemaps.patch"
-	patch -p1 -i "$srcdir/remove-argon2-browser.patch"
 	patch -p1 -i "$srcdir/remove-unnecessary-deps.patch"
 	npm ci
 	pushd apps/desktop/desktop_native

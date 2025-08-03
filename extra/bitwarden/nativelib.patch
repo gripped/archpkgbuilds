@@ -1,5 +1,7 @@
---- i/apps/desktop/desktop_native/napi/index.js
-+++ w/apps/desktop/desktop_native/napi/index.js
+diff --git a/apps/desktop/desktop_native/napi/index.js b/apps/desktop/desktop_native/napi/index.js
+index acfd0dffb8..b3345f2c7d 100644
+--- a/apps/desktop/desktop_native/napi/index.js
++++ b/apps/desktop/desktop_native/napi/index.js
 @@ -1,126 +1,7 @@
 -const { existsSync } = require("fs");
 -const { join } = require("path");
@@ -9,7 +11,7 @@
  let nativeBinding = null;
 -let localFileExisted = false;
  let loadError = null;
-
+ 
 -function loadFirstAvailable(localFiles, nodeModule) {
 -  for (const localFile of localFiles) {
 -    if (existsSync(join(__dirname, localFile))) {
@@ -125,12 +127,13 @@
 -    throw new Error(`Unsupported OS: ${platform}, architecture: ${arch}`);
 -}
 +nativeBinding = require('./desktop_napi.node')
-
+ 
  if (!nativeBinding) {
    if (loadError) {
-
---- w/apps/desktop/electron-builder.json
-+++ w/apps/desktop/electron-builder.json
+diff --git a/apps/desktop/electron-builder.json b/apps/desktop/electron-builder.json
+index 35831dad41..8a0ed56313 100644
+--- a/apps/desktop/electron-builder.json
++++ b/apps/desktop/electron-builder.json
 @@ -18,7 +18,7 @@
      "**/*",
      "!**/node_modules/@bitwarden/desktop-napi/**/*",
@@ -138,5 +141,5 @@
 -    "**/node_modules/@bitwarden/desktop-napi/desktop_napi.${platform}-${arch}*.node"
 +    "**/node_modules/@bitwarden/desktop-napi/desktop_napi.node"
    ],
-   "electronVersion": "33.2.1",
+   "electronVersion": "36.3.1",
    "generateUpdatesFilesForAllChannels": true,
