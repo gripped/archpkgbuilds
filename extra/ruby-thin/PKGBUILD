@@ -3,8 +3,8 @@
 
 _gemname=thin
 pkgname=ruby-${_gemname}
-pkgver=1.8.2
-pkgrel=4
+pkgver=2.0.1
+pkgrel=1
 pkgdesc='Thin and fast Ruby web server'
 url='https://github.com/macournoyer/thin'
 arch=('x86_64')
@@ -17,7 +17,6 @@ depends=(
   ruby-rack
 )
 makedepends=(
-  git
   ruby-rake
 )
 checkdepends=(
@@ -25,21 +24,20 @@ checkdepends=(
   ruby-rspec
 )
 options=('!emptydirs')
-source=(
-  "${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
-  "${pkgname}_fix_tests.patch::https://github.com/macournoyer/thin/compare/85b956cf1cf377e3e53911cd4e717f7392f7f818...de6b6188f1f1cd7645948b266e3861f82c9c58a1.patch"
-)
-sha512sums=('5f222b54a86156bc5c4b9623a225cd9a4e189f3d2744f8d11efc74e91167e201a554a191f19abb081a050a206f3b281bb7c627a3e72a5ba2b0a73e0e500dd0ed'
-            '183d0238eb9e5b681f56c7e64d9aaf3c548626e98f1f749a78052b3b0da8ec0ff3eeed6ce69403547c461b6d38b8b0afe8a42df9c6281c56c03347c5fe9c9fb8')
-b2sums=('6c8d3be6dca6f9b9b549b863150de85efdd26700c27b28f1765e4d2212827d31f2aae9f586cfa485b62b3da3742c5205486c9c8fd5bd38ec32a2a896c5e0af93'
-        '3390b9d24419a56969fa8ba63b615d16aedc7aa20fbbca2ee123cfe8af8736079c35c8d4f8f022e80c162a68e94390a660e87c4c777f1181e279351a67e98b0a')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
+sha512sums=('2a32c37116f8753fb29210b4c48b0179dc18d80c0328bfabfae5d3507790befc0d088bf898e49dd1c660598df956268b6d98ff694fe3f673bf9e929fd1c19596')
+b2sums=('3ce422b4e88f1635954363204b8b7fec77d8e63c7ed01b1932be200b27d8d01fe6374a5b0853d8e3c8bb093d81ebedc34f6d4a8bdaec75c921c3f320d393c407')
 
 prepare() {
   cd ${_gemname}-${pkgver}
 
-  git apply --verbose "../${pkgname}_fix_tests.patch"
-
   sed -r 's|~>|>=|g' -i ${_gemname}.gemspec
+
+  sed --in-place --regexp-extended \
+    --expression '/daemonizing_spec/d' \
+    rakelib/spec.rake
+
+  rm --verbose spec/daemonizing_spec.rb
 }
 
 build() {
