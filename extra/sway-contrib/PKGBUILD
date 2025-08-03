@@ -2,13 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=sway-contrib
-# Upstream versions with <current_sway_version>-contrib.<version>. Since that
-# is illegal in PKGBUILD-land, let's just remove the "-contrib" portion
-# entirely.
-# EDIT: Seems like they stopped doing that?
-# At least, latest tag doesn't have the "-contrib" suffix.
-pkgver=1.10.1
-#_upstream_pkgver="$(echo "$pkgver" | sed -E 's/^([0-9]+\.[0-9]+)\.(.*)$/\1-contrib.\2/')"
+pkgver=1.11
 pkgrel=1
 pkgdesc="A collection of user-contributed scripts for sway"
 arch=('any')
@@ -24,23 +18,33 @@ depends=(
     "sway"
     "wl-clipboard"
 )
+makedepends=(
+    'scdoc'
+)
 source=("$pkgname-$pkgver::https://github.com/OctopusET/$pkgname/archive/refs/tags/$pkgver.tar.gz")
-sha256sums=('92d936dce14b36eec55b63efdebe83ee6128d9b7474827a830b163a33f3b6956')
+sha256sums=('cba416852de5e3db92c36d2444a709d2c87cf7c631f40e3e2b615bd4ab1b3eab')
 
 package() {
     cd "$pkgname-$pkgver"
 
+    # Utilities more specific to sway rather than general-purpose utilities
     install -dm755 "$pkgdir/usr/share/$pkgname"
     for util in autoname-workspaces.py \
                 firefox-focus-monitor.py \
-                grimpicker/grimpicker \
-                grimshot/grimshot \
                 float-window-manager/float-window-managerd.sh \
                 inactive-windows-transparency.py \
                 layout-per-window.py \
+                swaystack.py \
                 switch-top-level.py; do
         install -Dm755 "$util" -t \
                        "$pkgdir/usr/share/$pkgname/"
+    done
+
+    # General-purpose utilities
+    install -dm755 "$pkgdir/usr/bin"
+    for bin in grimpicker/grimpicker \
+               grimshot/grimshot; do
+        install -Dm755 "$bin" -t "$pkgdir/usr/bin/"
     done
 
     install -dm755 "$pkgdir/usr/lib/systemd/user/"
@@ -51,7 +55,8 @@ package() {
     install -Dm644 float-window-manager/float-window-managerd-readme.txt -t "$pkgdir/usr/share/doc/$pkgname"
 
     install -dm755 "$pkgdir/usr/share/man/man1"
-    install -Dm644 grimshot/grimshot.1 -t "$pkgdir/usr/share/man/man1"
+    scdoc < grimshot/grimshot.1.scd > "$pkgdir/usr/share/man/man1/grimshot.1"
+    scdoc < grimpicker/grimpicker.1.scd > "$pkgdir/usr/share/man/man1/grimpicker.1"
 
     install -dm755 "$pkgdir/usr/share/bash-completion/completions/"
     install -Dm644 grimpicker/completion.bash "$pkgdir/usr/share/bash-completion/completions/grimpicker"
