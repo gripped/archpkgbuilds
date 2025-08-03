@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=just-lsp
-pkgver=0.2.4
+pkgver=0.2.5
 pkgrel=1
 pkgdesc="A language server for just"
 arch=(x86_64)
@@ -13,10 +13,9 @@ depends=(
   glibc
 )
 makedepends=(rust)
-options=(!lto) # LTO does not work as the sources include C-code from tree-sitter
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('cb25b08fe3c2b85216f153b4aa23c6240fcb834424b6d3d00200f1f3f1d29c6a08ac8c66326314471474c3eb932397dd890a81d4cdbc1feabea3153093e306d3')
-b2sums=('d2c83ab0e89ceeef60b60bb43e78c58e732a29169b1825217713d5a4beb03f6cf037af60c424bc1283ccda704314cb82f63f4e600d7807797bd34eee8b03e201')
+sha512sums=('25fbd93aac9e1ca43a3104f3e3cfb8cb38d8a915c0128a33022806cace370722033bbdfe7bc134099c9333a043d98ec70fdd6ce033f2c50b04c685f49f512e08')
+b2sums=('689a0816679b3507afc3cb66b341ae84a7871d7cc33796929e611b53706122769723cc62c02401ad61d1429700e930ab7e982284ac41aad29eba165453f6b786')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -24,13 +23,14 @@ prepare() {
 }
 
 build() {
+  CFLAGS+=' -ffat-lto-objects'
   cd $pkgname-$pkgver
-  cargo build --frozen --release --all-features
+  cargo build --frozen --release
 }
 
 check() {
   cd $pkgname-$pkgver
-  cargo test --frozen --all-features
+  cargo test --frozen
 }
 
 package() {
