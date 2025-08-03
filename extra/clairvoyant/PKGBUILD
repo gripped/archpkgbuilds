@@ -2,11 +2,12 @@
 
 pkgname=clairvoyant
 pkgver=3.1.10
-pkgrel=1
+pkgrel=2
 pkgdesc='Get psychic answers from this fortune teller'
 arch=(x86_64)
 url='https://apps.gnome.org/Clairvoyant/'
 license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
   dconf
   glib2
@@ -23,7 +24,7 @@ makedepends=(
   vala
 )
 source=("git+https://github.com/cassidyjames/clairvoyant.git#tag=$pkgver")
-b2sums=('8f4bee45beee54a4b60984808adc9840ea8c627b4fe35fb43712d7befdbbc91e33657755a28d635cff1c863ac8987f761fd1354312406940cc40eefab209fa55')
+b2sums=(8f4bee45beee54a4b60984808adc9840ea8c627b4fe35fb43712d7befdbbc91e33657755a28d635cff1c863ac8987f761fd1354312406940cc40eefab209fa55)
 
 prepare() {
   cd $pkgname
@@ -43,5 +44,5 @@ check() {
 
 package() {
   meson install -C build --destdir "$pkgdir"
-  ln -s com.github.cassidyjames.clairvoyant "$pkgdir/usr/bin/clairvoyant"
+  ln -s com.cassidyjames.clairvoyant "$pkgdir/usr/bin/clairvoyant"
 }
