@@ -2,26 +2,22 @@
 
 _hkgname=linear
 pkgname=haskell-linear
-pkgver=1.22
-pkgrel=161
+pkgver=1.23
+pkgrel=1
 pkgdesc="Linear Algebra"
 url="https://github.com/ekmett/linear/"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-adjunctions' 'haskell-base-orphans' 'haskell-bytes' 'haskell-cereal'
          'haskell-distributive' 'haskell-hashable' 'haskell-indexed-traversable' 'haskell-lens'
          'haskell-random' 'haskell-reflection' 'haskell-semigroupoids' 'haskell-tagged'
          'haskell-transformers-compat' 'haskell-unordered-containers' 'haskell-vector'
          'haskell-void')
-makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-simple-reflect' 'haskell-test-framework'
-             'haskell-test-framework-hunit')
+makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-simple-reflect'
+             'haskell-test-framework' 'haskell-test-framework-hunit'
+             'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('cfe43e392d0e9b2fd5647bde962b0678681de580260ad30e5f29ae490a03b9b5')
-
-prepare() {
-  cd $_hkgname-$pkgver
-  uusi -u semigroupoids
-}
+sha256sums=('8d526163a5ab0aa266b52edde15280d1ea8609fdc7d3cc6d1008106c7990868f')
 
 build() {
   cd $_hkgname-$pkgver
