@@ -3,7 +3,7 @@
 
 pkgname=dvd+rw-tools
 pkgver=7.1
-pkgrel=11
+pkgrel=12
 pkgdesc="Tools to master DVD media"
 arch=(x86_64)
 url='https://fy.chalmers.se/~appro/linux/DVD+RW'
@@ -13,8 +13,9 @@ depends=(
   gcc-libs
   glibc
 )
+# Original source: https://fy.chalmers.se/~appro/linux/DVD+RW/tools/dvd+rw-tools-7.1.tar.gz
 source=(
-  "https://fy.chalmers.se/~appro/linux/DVD+RW/tools/$pkgname-$pkgver.tar.gz"
+  "https://ftp2.osuosl.org/pub/blfs/conglomeration/dvd+rw-tools/$pkgname-$pkgver.tar.gz"
   dvd+rw-tools-7.0-wexit.patch
   dvd+rw-tools-7.0-glibc2.6.90.patch
   dvd+rw-tools-7.0-reload.patch
