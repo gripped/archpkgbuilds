@@ -2,7 +2,7 @@
 # Contributor: Michael Straube <straubem@gmx.de>
 
 pkgname=doomretro
-pkgver=5.7.1
+pkgver=5.7.2
 pkgrel=1
 pkgdesc='The classic, refined DOOM source port'
 arch=('x86_64')
@@ -17,8 +17,8 @@ depends=(
 makedepends=('git' 'cmake')
 optdepends=('timidity++: for music playback')
 source=("$pkgname::git+https://github.com/bradharding/doomretro.git#tag=v$pkgver")
-sha512sums=('85272164329e9b47ff1b7f43125a1a930ad3f49c05e94ec5b9bb8b4249384f3dfa39123f606ea7d66126441ca99690615b7fedecb3df9a96216e72dfcafafa89')
-b2sums=('dc206c6f4c660993271f686246ec5107ef0b38ef2f291d364d9750c5f557ecf3bc0a7aad7f0b2cc0a2fff145dc248bef1cf6cdf1689cdcbb8788fe0c3473b4d6')
+sha512sums=('ef025eac8daf34086dde3f499fb6e5b1150da7152a7c366bf71649e3827d36a7ffc47b430bb852ab146374c7dba2c3b6c9ef085a0313914aa7578c15db719685')
+b2sums=('2a2f4127b72974e61f3e39b4a7b71ad5bebc6b3466ee2a39a88a2a2e9f7dfbc959ab778d62040b95cc35064ab59b24761b289c276762bdc9a00c3698595bc8aa')
 
 build() {
   cmake \
