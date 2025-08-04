@@ -2,11 +2,12 @@
 
 pkgname=identity
 pkgver=25.03
-pkgrel=1
+pkgrel=2
 pkgdesc='Compare multiple versions of an image or video'
 arch=(x86_64)
 url='https://apps.gnome.org/Identity/'
 license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
   bubblewrap
   dav1d
@@ -42,7 +43,7 @@ optdepends=(
 )
 options=(!lto)
 source=("git+https://gitlab.gnome.org/YaLTeR/identity.git#tag=v$pkgver")
-b2sums=('8c6c009696eb284756d073d4ca2aaabef5c972bcc90d85fcec1325ceb099a8fa749f17a293672de9b31606b4ee177332a292a46f7ffd8f4b36699aea95931ed3')
+b2sums=(8c6c009696eb284756d073d4ca2aaabef5c972bcc90d85fcec1325ceb099a8fa749f17a293672de9b31606b4ee177332a292a46f7ffd8f4b36699aea95931ed3)
 
 prepare() {
   cd $pkgname
