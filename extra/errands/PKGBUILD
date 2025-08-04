@@ -2,11 +2,12 @@
 
 pkgname=errands
 pkgver=46.2.8
-pkgrel=1
+pkgrel=2
 pkgdesc='Todo application for those who prefer simplicity'
 arch=(any)
 url='https://apps.gnome.org/List/'
 license=(MIT)
+groups=(gnome-circle)
 depends=(
   dconf
   glib2
@@ -29,7 +30,7 @@ makedepends=(
   meson
 )
 source=("git+https://github.com/mrvladus/Errands.git#tag=$pkgver")
-b2sums=('fd4abf8c828fc119f06e732e65ef11d39c8d6dd1640a228c83ecd274839b621781c2905fd60c84271efa77c676ff58a180544f9164208c08ed91b8142654ccaf')
+b2sums=(fd4abf8c828fc119f06e732e65ef11d39c8d6dd1640a228c83ecd274839b621781c2905fd60c84271efa77c676ff58a180544f9164208c08ed91b8142654ccaf)
 
 build() {
   arch-meson Errands build
