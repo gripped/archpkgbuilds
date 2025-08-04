@@ -5,7 +5,7 @@
 
 pkgname=libimobiledevice
 pkgver=1.3.0
-pkgrel=16
+pkgrel=17
 pkgdesc='Library to communicate with services on iOS devices using native protocols'
 arch=(x86_64)
 url='https://libimobiledevice.org/'
@@ -42,6 +42,7 @@ prepare() {
   # Fix build with cython 3
   git cherry-pick -n fb1dec7e2cbb2eae14536d8d68db25d3f9384ac1
   git cherry-pick -n 59ec38cb6465f794cf8e2ab204711b9a10dd9eda
+  git cherry-pick -n 0bf0f9e941c85d06ce4b5909d7a61b3a4f2a6a05
 
   # Use SHA256 signature instead of SHA1 for pairing
   # https://github.com/libimobiledevice/libimobiledevice/pull/1616
