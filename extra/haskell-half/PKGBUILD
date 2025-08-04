@@ -2,17 +2,16 @@
 
 _hkgname=half
 pkgname=haskell-half
-pkgver=0.3.2
-pkgrel=24
+pkgver=0.3.3
+pkgrel=1
 pkgdesc="Half-precision floating-point"
 url="https://github.com/ekmett/half"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-test-framework'
-             'haskell-test-framework-quickcheck2')
+makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('610cfea17155a6b876a1da786ec0868f62e2ef13a23767e2cb7b174fc04baa0be5c1951097ccd7920fea0fbeaa2249f15a73d0ee7ff2cdcd810d951d0ed4ddc5')
+sha512sums=('29ead74cc345252afb1dcae7a189a104b2e3863eea10565ae463a667cf7686dc5506f512e00ffc8028970f7266c809e8cd7fa174109b9bb5eb2842ab17298755')
 
 prepare() {
     cd $_hkgname-$pkgver
@@ -34,8 +33,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    # https://github.com/ekmett/half/issues/35
-    runhaskell Setup test --show-details=direct || echo "Tests failed"
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
