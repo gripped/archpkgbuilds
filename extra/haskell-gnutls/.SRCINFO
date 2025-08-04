@@ -1,15 +1,16 @@
 pkgbase = haskell-gnutls
 	pkgdesc = Bindings for GNU libgnutls
-	pkgver = 0.2
-	pkgrel = 27
-	url = https://john-millikin.com/software/haskell-gnutls/
+	pkgver = 0.3
+	pkgrel = 1
+	url = https://git.singpolyma.net/haskell-gnutls
 	arch = x86_64
-	license = GPL3
+	license = GPL-3.0-only
 	makedepends = ghc
+	makedepends = c2hs
 	depends = ghc-libs
 	depends = gnutls
-	depends = haskell-monads-tf
-	source = https://hackage.haskell.org/packages/archive/gnutls/0.2/gnutls-0.2.tar.gz
-	sha512sums = 9b5e3083fae30e4ac8584c825ed1f1c07b24136ca6d30c627f17d1c7793a515a091919784791b3a5bcd05038d8d43419802e036cefe8525efac9ee3f9ebf9e8b
+	depends = haskell-unexceptionalio-trans
+	source = https://hackage.haskell.org/packages/archive/gnutls/0.3/gnutls-0.3.tar.gz
+	sha512sums = 4299a959e741c22ab888ea4b6616339435272a4b0e6dbdfa47c06899edb88604f75187e997cd139d6e11bc9f4b048473a7cfe1c468534ee9a7f24de4d3a37f57
 
 pkgname = haskell-gnutls

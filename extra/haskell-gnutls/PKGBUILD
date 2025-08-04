@@ -3,28 +3,33 @@
 
 _hkgname=gnutls
 pkgname=haskell-gnutls
-pkgver=0.2
-pkgrel=27
+pkgver=0.3
+pkgrel=1
 pkgdesc="Bindings for GNU libgnutls"
-url="https://john-millikin.com/software/haskell-gnutls/"
-license=("GPL3")
+url="https://git.singpolyma.net/haskell-gnutls"
+license=('GPL-3.0-only')
 arch=('x86_64')
-depends=('ghc-libs' "gnutls" "haskell-monads-tf")
-makedepends=('ghc')
+depends=('ghc-libs' "gnutls" "haskell-unexceptionalio-trans")
+makedepends=('ghc' 'c2hs')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('9b5e3083fae30e4ac8584c825ed1f1c07b24136ca6d30c627f17d1c7793a515a091919784791b3a5bcd05038d8d43419802e036cefe8525efac9ee3f9ebf9e8b')
+sha512sums=('4299a959e741c22ab888ea4b6616339435272a4b0e6dbdfa47c06899edb88604f75187e997cd139d6e11bc9f4b048473a7cfe1c468534ee9a7f24de4d3a37f57')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
