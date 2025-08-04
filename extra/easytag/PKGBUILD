@@ -7,7 +7,7 @@
 
 pkgname=easytag
 pkgver=2.4.3
-pkgrel=14
+pkgrel=15
 pkgdesc='Simple application for viewing and editing tags in audio files'
 arch=(x86_64)
 url='https://wiki.gnome.org/Apps/EasyTAG'
@@ -115,7 +115,8 @@ build() {
     --sysconfdir=/etc \
     --localstatedir=/var \
     --enable-compile-warnings \
-    --disable-appdata-validate
+    --disable-appdata-validate \
+    CFLAGS="$CFLAGS -std=gnu11"
   make
 }
 
