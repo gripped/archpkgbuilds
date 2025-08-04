@@ -2,11 +2,12 @@
 
 pkgname=cartridges
 pkgver=2.12.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple game launcher written in Python using GTK4 and Libadwaita'
 arch=(any)
 url='https://apps.gnome.org/Cartridges/'
 license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
   dconf
   gdk-pixbuf2
@@ -29,16 +30,18 @@ makedepends=(
   meson
 )
 source=(
-  "git+https://github.com/kra-mo/cartridges.git#tag=v$pkgver"
+  "git+https://codeberg.org/kramo/cartridges.git#tag=v$pkgver"
   cartridges-save-cover.patch
 )
-b2sums=('e15ee8046903a4b0307af88ab79c5dc951bfc69ea8a76109fec4690f95ddf6eec8cef2c2d083444e00520493d7e6d2f4c165e2dafcdaa026b4784cfd7bd1fc90'
-        'd0f7ec28c561cc3d6b92943884bc6c467fac642d0f4950e0954061f027d4ecac691436dc8e4d9f863fa7318a9007eafda94cde30b72cf8e8871dfa154b97e299')
+b2sums=(
+  e15ee8046903a4b0307af88ab79c5dc951bfc69ea8a76109fec4690f95ddf6eec8cef2c2d083444e00520493d7e6d2f4c165e2dafcdaa026b4784cfd7bd1fc90
+  d0f7ec28c561cc3d6b92943884bc6c467fac642d0f4950e0954061f027d4ecac691436dc8e4d9f863fa7318a9007eafda94cde30b72cf8e8871dfa154b97e299
+)
 
 prepare() {
   cd $pkgname
 
-  # https://github.com/kra-mo/cartridges/pull/306
+  # https://codeberg.org/kramo/cartridges/pulls/306
   git apply -3 ../cartridges-save-cover.patch
 }
 
