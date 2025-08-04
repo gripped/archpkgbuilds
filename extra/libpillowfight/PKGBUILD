@@ -6,7 +6,7 @@ pkgname=(
   python-pillowfight
 )
 pkgver=0.3.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Small library containing various image processing algorithms'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/OpenPaperwork/libpillowfight'
@@ -32,7 +32,8 @@ b2sums=(a9e696f1d36581ec4e426901529fb18a3319b0aa1f8a27b6f8c49c3a6aa848fb4fa2a2d3
 build() {
   make -C $pkgbase src/pillowfight/_version.h
   cmake -S $pkgbase -B build -G Ninja \
-    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake --build build
 
   cd $pkgbase
