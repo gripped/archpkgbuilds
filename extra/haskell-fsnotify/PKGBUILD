@@ -3,17 +3,18 @@
 
 _hkgname=fsnotify
 pkgname=haskell-fsnotify
-pkgver=0.4.1.0
-pkgrel=95
+pkgver=0.4.2.0
+pkgrel=1
 pkgdesc="Cross platform library for file change notification."
 url="https://github.com/haskell-fswatch/hfsnotify"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-async' 'haskell-hinotify' 'haskell-monad-control'
-         'haskell-safe-exceptions' 'haskell-unix-compat')
-makedepends=('ghc' 'haskell-retry' 'haskell-sandwich' 'haskell-temporary' 'haskell-unliftio')
+         'haskell-monad-logger' 'haskell-random' 'haskell-retry' 'haskell-safe-exceptions'
+         'haskell-string-interpolate' 'haskell-temporary' 'haskell-unix-compat' 'haskell-unliftio')
+makedepends=('ghc' 'haskell-sandwich')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('bf924fb9712572e1ded14c630b1fab98daadb81cc87bbd18964176e0db3b41e1024744b996bcc205c7a57f55e63fc28db0ae4fa4009623d26316d1322ddf1c03')
+sha512sums=('6803040f3ffa42f18be2e3d273cefe78349bb757dee6ad557845944010569231806e32d9cc4862cc37d87fa9bfe5a81e69eb90a19adda4fafd66cdb1c2df34c7')
 
 build() {
     cd $_hkgname-$pkgver
@@ -41,4 +42,6 @@ package() {
     runhaskell Setup copy --destdir="$pkgdir"
     install -D -m644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
     rm -f "$pkgdir"/usr/share/doc/$pkgname/LICENSE
+
+    mv "$pkgdir"/usr/bin/{,fsnotify-}example
 }
