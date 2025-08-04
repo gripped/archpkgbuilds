@@ -2,11 +2,11 @@
 
 _hkgname=quic
 pkgname=haskell-quic
-pkgver=0.1.9
-pkgrel=30
+pkgver=0.1.10
+pkgrel=1
 pkgdesc="QUIC"
 url="https://github.com/kazu-yamamoto/quic"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-base16-bytestring' 'haskell-crypto-token' 'haskell-crypton'
          'haskell-crypton-x509' 'haskell-crypton-x509-system' 'haskell-data-default-class'
@@ -14,9 +14,14 @@ depends=('ghc-libs' 'haskell-base16-bytestring' 'haskell-crypto-token' 'haskell-
          'haskell-network-byte-order' 'haskell-network-control' 'haskell-network-udp'
          'haskell-random' 'haskell-tls' 'haskell-unix-time' 'haskell-unliftio'
          'haskell-unliftio-core')
-makedepends=('ghc' 'haskell-quickcheck' 'haskell-async' 'haskell-hspec' 'haskell-hspec-discover')
+makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-async' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('2216657b64d51ea97aa934bbf7f5032c0ec15025473244962a240fabf58a6675')
+sha256sums=('3e55b391f53a391a154b3f271c4fcf3798ec4073309299e705f898d02e050037')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  uusi -u crypton
+}
 
 build() {
   cd $_hkgname-$pkgver
