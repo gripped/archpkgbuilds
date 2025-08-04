@@ -1,0 +1,26 @@
+diff --git a/conf/zabbix_proxy.conf b/conf/zabbix_proxy.conf
+index 6091369938d..8f96c381be4 100644
+--- a/conf/zabbix_proxy.conf
++++ b/conf/zabbix_proxy.conf
+@@ -137,7 +137,7 @@ LogFile=/tmp/zabbix_proxy.log
+ #
+ # Mandatory: no
+ # Default:
+-# SocketDir=/tmp
++SocketDir=/run/zabbix
+ 
+ ### Option: DBHost
+ #	Database host name.
+diff --git a/conf/zabbix_server.conf b/conf/zabbix_server.conf
+index 71a7f89a37f..cadc5a1e41d 100644
+--- a/conf/zabbix_server.conf
++++ b/conf/zabbix_server.conf
+@@ -73,7 +73,7 @@ LogFile=/tmp/zabbix_server.log
+ #
+ # Mandatory: no
+ # Default:
+-# SocketDir=/tmp
++SocketDir=/run/zabbix
+ 
+ ### Option: DBHost
+ #	Database host name.

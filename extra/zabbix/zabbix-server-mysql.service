@@ -1,12 +1,12 @@
 [Unit]
 Description=Zabbix Server with MySQL
-After=network.target mysql.service
-Conflicts=zabbix-server.service zabbix-server-pgsql.service
+After=network-online.target mysql.service
+Conflicts=zabbix-server-pgsql.service
 
 [Service]
 Type=simple
 ExecStart=/usr/bin/zabbix_server_mysql -f
-User=zabbix-server
+User=zabbix
 PrivateDevices=yes
 PrivateTmp=yes
 ProtectSystem=full

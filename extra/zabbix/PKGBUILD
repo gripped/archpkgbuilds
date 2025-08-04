@@ -3,248 +3,240 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 
 pkgbase=zabbix
-pkgname=(zabbix-server zabbix-agent{,2} zabbix-proxy zabbix-frontend-php zabbix-web-service)
-pkgver=7.4.0
-pkgrel=1
-arch=(x86_64)
-url='https://www.zabbix.com/'
+pkgname=('zabbix-common' 'zabbix-server' 'zabbix-frontend-php' 'zabbix-web-service' 'zabbix-proxy' 'zabbix-agent' 'zabbix-agent2')
+pkgver=7.4.1
+pkgrel=2
+pkgdesc="The universal, open-source observability solution for IT & OT"
+url="https://www.zabbix.com"
+arch=('x86_64')
 license=('GPL-2.0-only')
-makedepends=(postgresql-libs libxml2 unixodbc net-snmp mariadb-libs libldap libevent go pkgconfig pcre2 openipmi)
-source=("https://cdn.zabbix.com/zabbix/sources/stable/${pkgver%.*}/zabbix-${pkgver}.tar.gz"
-        zabbix-agent.{service,sysusers,tmpfiles}
-        zabbix-agent2.service
-        zabbix-server{-mysql,-pgsql}.service zabbix-server.{sysusers,tmpfiles}
-        zabbix-proxy{-sqlite,-mysql,-pgsql}.service zabbix-proxy.{sysusers,tmpfiles}
-        zabbix-web-service.{service,sysusers,tmpfiles})
-
-sha512sums=('aee2c06dea0777c54b3f73f0e98a04de139045bedb8b372f38980a426db2b3a3d187e52cc78af682a15d733254807a68b97bb9d90bd2fc821a8f13781a28064d'
-            'c0cde34564772e403a66f09c0aaf343532e4a36782ecfb0a5426b669fa0d51037f32457baba37d9b599b3efd5b49b46ded8dd403ec6ca26f1bef0491c94ce28f'
-            '7a04f644e32f337794d5cba778ad755b6390830b5598ddfbc135fcb1646f63f0b136a484fbd9238634d3bf43d3ff8e5b17f4d34a8079f72b67f5c9985d664f7f'
-            'ca6b4779de23829dfdd80ee21e924fbe4e2754f4e693bed4b1a2aa846cd87d150e399b1169d7fe58d30c50ed837c1b8254e580de420267d0a1834d6dc409c43d'
-            '80a79218085b9fc4719f5de2953152aab2a9aa3ac2bd6e1262683bda226ddc9388168ab900582e625755f3292141f4f785321ed3199f9f867e2b26998ea23360'
-            'b35155a5d151eb7258bca62d53e7099a05605e58adac9d1510e12c2219abc22f931e92ea5d36bf86900e30982e893e429235d983a7823610d76c15082c373d1f'
-            'ac968d9954e5d9523eb7a9b8dcbcef40d4b47c1db3b2ff86d5fbc3f1871fcd03aff14f5b0cfeeeb494fdeb2d95e2e32b8622297c714a90d22c68ab3b3b914475'
-            '50012749cb7c5d7d2f8361a64bcbb10e70f90688b1f55917c0f19b045506427b32b891aac930c2576cae4f6e6da5ab45d3be093399e442e440ffe15aef663a36'
-            'b6d548a26f845ef1a39724e3273aa521715272e20a0038144f86d377a26dfec6e3e129404cfda77632cad2f5cd6bab4a33f70a26c8c67b0d0b2abb3678ad2d83'
-            '7b5829caa77c6b5da8c2195ab840f0020f722a94f01a437324afdbe2a4372a594dcca6d63d2fdda5cfad81353ab4e4e0b2c6b67436203266dd44740a5e03b58e'
-            '94701f34fe5df4859c6a4d0459c16062374e8f89f4f51c414e71c9c2db14f61e087721e68dddb3e8d88bf1c097477c1a21e27ba4705fd07d88c60adb41acc1be'
-            'ce026b748df9b7597452a69c6cb04244a95bf99b00ea795d96d7d4ca5a68190af1b2dbf141dfd8e63bb4405131de81d8aa8a831ddde2595f1b859026b9fb0faa'
-            'b52ab5099a74d851c2de521230929523fc8a9aa6fea3face9a3b97b24b09e78f2e3ec5c186393bd8d86ab1af3a554b9c01c173beef283551c27ae43b3365bb2c'
-            '64042ddf511b56b2a5a311e34643f4e049c09d909ea65b7343a8a9637f33dc59f2b1342201290ca0774cbcbf616096b3696982047fb622b7d51afb5eceb298dd'
-            '545bb284ac28386f8b9f33f0c5066bb73b3634fab8760861bc172fe83897f22e54ecaf186970f0ef178256c9ff152a3e806636145a77af78964f7af0fdcec1a1'
-            '985da35f11eb29cb134fb9e1facfe55e69be6a10ccc70e98fafc36e6e8498bdc85881b1726d3c47b454e638584ec75082f5eb6b1b815a1574bd670d630a8c79f'
-            '309f55c8c381364eca6d31c4709a0ebb7e04cefad9e51f44173d839a58e7f8e95e3c678922f9e1fe42cff90dba5144cc7ee3a6e1c236b079b501c0e08ad2152d')
+makedepends=('postgresql-libs' 'libxml2' 'unixodbc' 'net-snmp' 'mariadb-libs' 'libldap' 'libevent' 'go' 'pkgconfig' 'pcre2' 'openipmi' 'git')
+source=("git+https://git.zabbix.com/scm/zbx/zabbix.git#tag=${pkgver}"
+        'zabbix-common.sysusers'
+        'zabbix-common.tmpfiles'
+        'zabbix-server-mysql.service'
+        'zabbix-server-pgsql.service'
+        'zabbix-server.tmpfiles'
+        'zabbix-web-service.service'
+        'zabbix-web-service.tmpfiles'
+        'zabbix-proxy-sqlite.service'
+        'zabbix-proxy-mysql.service'
+        'zabbix-proxy-pgsql.service'
+        'zabbix-proxy.tmpfiles'
+        'zabbix-agent.service'
+        'zabbix-agent.tmpfiles'
+        'zabbix-agent2.service'
+        'zabbix-agent2.tmpfiles'
+        'write_log_to_syslog.patch'
+        'set_socket_paths.patch')
+sha512sums=('e9d22d5a0dd8ba4996d2b64a57e32fe7b4fff87a3eec35bd276858e019d38ca7ac298fb99d5a58074e7261acd8f5cfdfee0182e3ea35f55880ea0d7361a19d78'
+            '0c3e974c6f8366d46e7156f6669e42b76a184cd9727e2474abc9253064d42f806bd7c2dd31d214dd083f039eac48d14a79bd8e16935a3a43a45b880dce15bbc1'
+            '7c39d1cb1d269e8a2a22c634612c7d110e9e67c170f32add33312f97bc2e7f8f19bf5bb1d1c71df43afc893043472069b9f828dfc5a9f2946606798ed54c73a0'
+            '3123591ea18b285db8dd40119e4699e022369b49c460184a2d9d8560899e9624a618859a21d66c3dbca30c31cea0a594ddd786a16a2eb13e7a989b0c00b02d07'
+            '8932c4feda770c976ef1e326a555c0ed4c7a38062a8127c1ddcf2c927ea0c32012bc5a2f6f7b21cfb8f3b9935a7b637097ffa3a7f8a04211280f0ffd15e84a6a'
+            'c82056591146e7ef0020a3cd9865322407a116e20beb1ddd6fc2afdec09306b6d249d9a2afe8d9234932861b506b3b50a3b528944ab3889c076e5088cd7e63ed'
+            'e0c5fd049af65f8bab2759f5ca877b2a4d501c0804bc675720ae8d83fcd26cc3340e4b24f21a19f90be394fa52eb96092b4c5fdeedfef65536a1e56ca381cb2f'
+            '3c3e64be4dd050b3cc483098e1a2165c87ba9a4a421aa29f1bc49b9536ce446457949bf85b3bd87cd3f1842b6c4d5db675e343078ef90820557a8278293019f7'
+            '28fbdf6261ccbcd2f859d1e0e193a0097b0001945abf467071974c9044b00d17c342aeced91aa36e7ce7cb03d217a3e2242c59060b53e0cae192c36fcd4ce4d5'
+            '2d95f9acd77dd589b6edda142e26e2204e3f3f0488000d7a519792a729ff2afde21c36caeffd66b3088d6a8166a419e4412c836aeb98a134f791ec887a841dbe'
+            'ba43cbff7af59dca1ae53ab88490e07c79bb85e7fc697ba07bf5f8da216743f562fc861c59154f9051b174fb6935799e8185602139a5b4252906b51b32c8a989'
+            'd4d7fd47bb0aaaec02802edb1d6895791300ab2491c71ff9dc59ec26659c906918d0ea9162b4bc799e358abef186356544e5a2cc9e14a6ec82c08f6240bc0946'
+            'ab3ecc109e44dea93ace28ada44d2b3e1163649a5a5a041a3095c76ff5b2f8885039033261df607fbd430be6499cbe7a8c1dbecdb0ca23f4270f2cd86d7c058f'
+            '02c2107d37221ce1a987d4aaea3673008df2553f00a6a0b044e3f4bb39a52b2ff68477575cc968209fd397ecfe27a21bf89a0d3ca2010e7c942c2d9546df4d8d'
+            'cb2a6571edb88db442f107717fba636e45bbeab2c9fc08d4d9d110a1d808299e3ba384d1ce1496deb9013f8724218bb0ed5ea2e0b25769a6cce02eda98e47560'
+            '0f8d0db314f8e0ed1cfc1bc1951aaa81455f52ea3012f2eb54bed37056d7d89ad1dd22af18039f1ce9c96430050b2b30e4d24ff8606f3f364f1596838435252b'
+            '49a197a97536745818664593cf597540eb51e1f0c2429efea6be9ab85ee57f2a4b6e72a197bf02440c9b49a80a7ea0417f9b5a23bef003dc3337d7f08792cbf5'
+            '55dec0ef08d54e7972421e3958119cb7df9e0ef10ff6c58836306d4ad6e3724fb902e819070d76e4a5fa24428610d838db7eb0425f05b19493b5e2c9b5919931')
 
 prepare() {
-  cd $pkgbase-$pkgver
-  sed -i \
-    -e '/^LogFile=.*/d' \
-    -e 's/# LogType=file/LogType=system/' \
-    conf/zabbix_{agentd,proxy,server}.conf src/go/conf/zabbix_web_service.conf
+	cd "${pkgbase}"
 
-  autoreconf -fi
+	./bootstrap.sh
+
+	# Write logs to syslog (rather than log files)
+	patch -Np1 -i "${srcdir}/write_log_to_syslog.patch"
+
+	# Set socket paths to `/run/zabbix`
+	patch -Np1 -i "${srcdir}/set_socket_paths.patch"
+
+	autoreconf -fiv
+
+	# Clean up git residues and delete development tests
+	find . -type f -name ".gitignore" -exec rm {} \;
+	rm -rf ui/tests
 }
 
 build() {
-  export GOPATH="$srcdir"/go
-  export AGENT_LDFLAGS="${LDFLAGS}"
+	export GOPATH="${srcdir}/go"
+	export AGENT_LDFLAGS="${LDFLAGS}"
 
-  _configure_flags=(
-    --disable-static
-    --prefix=/usr
-    --infodir=/usr/share/info
-    --mandir=/usr/share/man
-    --sysconfdir=/etc/zabbix
-    --enable-agent
-    --enable-agent2
-    --enable-ipv6
-    --with-ldap
-    --with-libcurl
-    --with-libxml2
-    --with-net-snmp
-    --with-openssl
-    --with-libpcre2
-    --with-ssh2
-    --with-unixodbc
-    --with-openipmi
-    --enable-webservice
-  )
+	_configure_flags=(
+		--disable-static
+		--prefix=/usr
+		--infodir=/usr/share/info
+		--mandir=/usr/share/man
+		--sysconfdir=/etc/zabbix
+		--enable-agent
+		--enable-agent2
+		--enable-ipv6
+		--with-ldap
+		--with-libcurl
+		--with-libxml2
+		--with-net-snmp
+		--with-openssl
+		--with-libpcre2
+		--with-ssh2
+		--with-unixodbc
+		--with-openipmi
+		--enable-webservice
+	)
 
-  cd $pkgbase-$pkgver
+	cd "${pkgbase}"
 
-  # Make copies since `make clean` removes the files and they cannot be rebuilt easily
-  for db in postgresql mysql sqlite3; do
-	  mkdir -p ../copies/database/$db
-	  cp database/$db/*.sql ../copies/database/$db/
-  done
+	for db in postgresql mysql; do
+		./configure "${_configure_flags[@]}" --enable-server --with-"${db}"
+		make clean
+		make gettext
+		make dbschema
+		make
+		mkdir -p "${srcdir}/copies/database_server/${db}"
+		cp database/"${db}"/*.sql "${srcdir}/copies/database_server/${db}/"
+		mv src/zabbix_server/zabbix_server{,_"${db}"}
+	done
 
-  for db in postgresql mysql; do
-    ./configure ${_configure_flags[@]} --enable-server --with-$db
-    make clean
-    make
-    mv src/zabbix_server/zabbix_server{,_$db}
-  done
+	for db in postgresql mysql sqlite3; do
+		./configure "${_configure_flags[@]}" --enable-proxy --with-"${db}"
+		make clean
+		make gettext
+		make dbschema
+		make
+		mkdir -p "${srcdir}/copies/database_proxy/${db}"
+		cp database/"${db}"/*.sql "${srcdir}/copies/database_proxy/${db}/"
+		mv src/zabbix_proxy/zabbix_proxy{,_"${db}"}
+	done
+}
 
-  for db in postgresql mysql sqlite3; do
-    ./configure ${_configure_flags[@]} --enable-proxy --with-$db
-    make clean
-    make
-    mv src/zabbix_proxy/zabbix_proxy{,_$db}
-  done
+package_zabbix-common() {
+	pkgdesc="Zabbix user and group required by zabbix packages"
+
+	install -Dm 644 "${pkgname}.sysusers" "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"
+	install -Dm 644 "${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
 }
 
 package_zabbix-server() {
-  pkgdesc='Monitoring software for networks and applications'
-  depends=(net-snmp curl libxml2 unixodbc libldap libevent pcre2 openipmi)
-  optdepends=('postgresql-libs: for PostgreSQL support'
-              'mariadb-libs: for MariaDB support'
-              'zabbix-web-service: for scheduled PDF report generation')
-  backup=(etc/zabbix/zabbix_server.conf)
+	pkgdesc="Monitoring software for networks and applications"
+	depends=('zabbix-common' 'net-snmp' 'curl' 'libxml2' 'unixodbc' 'libldap' 'libevent' 'pcre2' 'openipmi')
+	optdepends=('postgresql-libs: for PostgreSQL support'
+	            'mariadb-libs: for MariaDB support'
+	            'zabbix-web-service: for scheduled PDF report generation')
+	backup=('etc/zabbix/zabbix_server.conf')
 
-  cd $pkgbase-$pkgver
+	cd "${pkgbase}"
 
-  for db in postgresql mysql; do
-    install -Dm755 src/zabbix_server/zabbix_server_$db \
-      "$pkgdir/usr/bin/zabbix_server_$db"
+	for db in postgresql mysql; do
+		install -Dm 755 "src/zabbix_server/zabbix_server_${db}" "${pkgdir}/usr/bin/zabbix_server_${db}"
+		install -d "${pkgdir}/usr/share/${pkgname}/${db}"
+		install -m 644 "${srcdir}/copies/database_server/${db}"/*.sql -t "${pkgdir}/usr/share/${pkgname}/${db}/"
+	done
 
-    install -d "$pkgdir/usr/share/$pkgname/$db"
-    install -m644 ../copies/database/$db/*.sql -t "$pkgdir/usr/share/$pkgname/$db"
-  done
-  install -Dm755 src/zabbix_get/zabbix_get "$pkgdir/usr/bin/zabbix_get"
+	install -Dm 755 src/zabbix_get/zabbix_get "${pkgdir}/usr/bin/zabbix_get"
 
-  install -Dm644 man/zabbix_server.man "$pkgdir/usr/share/man/man8/zabbix_server.8"
-  install -Dm644 man/zabbix_get.man "$pkgdir/usr/share/man/man1/zabbix_get.1"
+	install -Dm 644 man/zabbix_server.man "${pkgdir}/usr/share/man/man8/zabbix_server.8"
+	install -Dm 644 man/zabbix_get.man "${pkgdir}/usr/share/man/man1/zabbix_get.1"
 
-  install -Dm644 conf/zabbix_server.conf "$pkgdir/etc/zabbix/zabbix_server.conf"
-  chown 170:170 "$pkgdir/etc/zabbix/zabbix_server.conf"
+	install -Dm 644 conf/zabbix_server.conf "${pkgdir}/etc/zabbix/zabbix_server.conf"
+	install -Dm 644 "${srcdir}/${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
 
-  install -Dm644 "$srcdir/zabbix-server-pgsql.service" \
-    "$pkgdir/usr/lib/systemd/system/zabbix-server-pgsql.service"
-  install -Dm644 "$srcdir/zabbix-server-mysql.service" \
-    "$pkgdir/usr/lib/systemd/system/zabbix-server-mysql.service"
-
-  install -Dm644 "$srcdir/zabbix-server.sysusers" \
-	"$pkgdir/usr/lib/sysusers.d/zabbix-server.conf"
-  install -Dm644 "$srcdir/zabbix-server.tmpfiles" \
-	"$pkgdir/usr/lib/tmpfiles.d/zabbix-server.conf"
-
-  # Fix socket paths to avoid 10 day cleanup in /tmp
-  echo "d /run/$pkgname 750 $pkgname $pkgname" >> "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
-  sed -i \
-    -e "s/# SocketDir=\/tmp/SocketDir=\/run\/$pkgname/" \
-    "$pkgdir/etc/zabbix/"*.conf
-}
-
-package_zabbix-agent() {
-  pkgdesc='Monitoring agent for Zabbix'
-  depends=(curl pcre2)
-  backup=(etc/zabbix/zabbix_agentd.conf)
-
-  cd $pkgbase-$pkgver
-  install -Dm755 src/zabbix_agent/zabbix_agentd "$pkgdir/usr/bin/zabbix_agentd"
-  install -Dm755 src/zabbix_sender/zabbix_sender "$pkgdir/usr/bin/zabbix_sender"
-
-  install -Dm644 conf/zabbix_agentd.conf "$pkgdir/etc/zabbix/zabbix_agentd.conf"
-  chown 172:172 "$pkgdir/etc/zabbix/zabbix_agentd.conf"
-
-  install -Dm644 conf/zabbix_agentd/userparameter_examples.conf \
-	"$pkgdir/usr/share/zabbix-agent/userparameter_examples.conf"
-  install -Dm644 conf/zabbix_agentd/userparameter_mysql.conf \
-	"$pkgdir/usr/share/zabbix-agent/userparameter_mysql.conf"
-
-  install -Dm644 man/zabbix_agentd.man \
-	"$pkgdir/usr/share/man/man8/zabbix_agentd.8"
-  install -Dm644 man/zabbix_sender.man \
-	"$pkgdir/usr/share/man/man1/zabbix_sender.1"
-
-  install -Dm644 "$srcdir/zabbix-agent.service" \
-	"$pkgdir/usr/lib/systemd/system/zabbix-agent.service"
-  install -Dm644 "$srcdir/zabbix-agent.sysusers" \
-	"$pkgdir/usr/lib/sysusers.d/zabbix-agent.conf"
-  install -Dm644 "$srcdir/zabbix-agent.tmpfiles" \
-	"$pkgdir/usr/lib/tmpfiles.d/zabbix-agent.conf"
-}
-
-package_zabbix-agent2() {
-  pkgdesc='Monitoring agent for Zabbix (version 2)'
-  depends=(curl pcre2)
-  backup=(etc/zabbix/zabbix_agent2.conf)
-
-  cd $pkgbase-$pkgver
-  install -Dm755 src/go/bin/zabbix_agent2 "$pkgdir/usr/bin/zabbix_agent2"
-  install -Dm644 src/go/conf/zabbix_agent2.conf "$pkgdir/etc/zabbix/zabbix_agent2.conf"
-  chown 172:172 "$pkgdir/etc/zabbix/zabbix_agent2.conf"
-  mkdir -p "$pkgdir/etc/zabbix/zabbix_agent2.d/plugins.d/"
-  chown 172:172 "$pkgdir/etc/zabbix/zabbix_agent2.d/plugins.d/"
-
-  install -Dm644 man/zabbix_agent2.man \
-	"$pkgdir/usr/share/man/man8/zabbix_agent2.8"
-
-  install -Dm644 "$srcdir/zabbix-agent2.service" \
-	"$pkgdir/usr/lib/systemd/system/zabbix-agent2.service"
-}
-
-package_zabbix-proxy() {
-  pkgdesc='Data collecting proxy for Zabbix'
-  depends=(net-snmp curl libxml2 sqlite unixodbc libldap pcre2 libevent openipmi)
-  optdepends=('mariadb-libs: for MariaDB support'
-              'postgresql-libs: for PostgreSQL support')
-  backup=(etc/zabbix/zabbix_proxy.conf)
-
-  cd $pkgbase-$pkgver
-  for db in postgresql mysql sqlite3; do
-    install -Dm755 src/zabbix_proxy/zabbix_proxy_$db \
-      "$pkgdir/usr/bin/zabbix_proxy_$db"
-
-    install -d "$pkgdir/usr/share/$pkgname/$db"
-    install -m644 ../copies/database/$db/schema.sql -t "$pkgdir/usr/share/$pkgname/$db"
-  done
-  install -Dm644 conf/zabbix_proxy.conf "$pkgdir/etc/zabbix/zabbix_proxy.conf"
-  chown 171:171 "$pkgdir/etc/zabbix/zabbix_proxy.conf"
-
-  install -Dm644 "$srcdir/zabbix-proxy-sqlite.service" \
-    "$pkgdir/usr/lib/systemd/system/zabbix-proxy-sqlite.service"
-  install -Dm644 "$srcdir/zabbix-proxy-pgsql.service" \
-    "$pkgdir/usr/lib/systemd/system/zabbix-proxy-pgsql.service"
-  install -Dm644 "$srcdir/zabbix-proxy-mysql.service" \
-    "$pkgdir/usr/lib/systemd/system/zabbix-proxy-mysql.service"
-
-  install -Dm644 "$srcdir/zabbix-proxy.sysusers" \
-	"$pkgdir/usr/lib/sysusers.d/zabbix-proxy.conf"
-  install -Dm644 "$srcdir/zabbix-proxy.tmpfiles" \
-	"$pkgdir/usr/lib/tmpfiles.d/zabbix-proxy.conf"
-
-  # Fix socket paths to avoid 10 day cleanup in /tmp
-  echo "d /run/$pkgname 750 $pkgname $pkgname" >> "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
-  sed -i \
-    -e "s/# SocketDir=\/tmp/SocketDir=\/run\/$pkgname/" \
-    "$pkgdir/etc/zabbix/"*.conf
+	install -Dm 644 "${srcdir}/zabbix-server-pgsql.service" "${pkgdir}/usr/lib/systemd/system/zabbix-server-pgsql.service"
+	install -Dm 644 "${srcdir}/zabbix-server-mysql.service" "${pkgdir}/usr/lib/systemd/system/zabbix-server-mysql.service"
 }
 
 package_zabbix-frontend-php() {
-  pkgdesc='PHP frontend for Zabbix'
-  depends=(zabbix-server php php-gd)
+	pkgdesc="PHP frontend for Zabbix"
+	depends=('zabbix-server' 'php' 'php-gd')
 
-  cd $pkgbase-$pkgver
-  install -d "$pkgdir/usr/share/webapps/zabbix"
-  cp -a ui/* "$pkgdir/usr/share/webapps/zabbix"
-  chown 33:33 ${pkgdir}/usr/share/webapps/zabbix/conf/ # write access for http user
+	cd "${pkgbase}"
+
+	install -d "${pkgdir}/usr/share/webapps/zabbix"
+	cp -av ui/* "${pkgdir}/usr/share/webapps/zabbix"
+
+	# Write access for http user
+	chown 33:33 "${pkgdir}/usr/share/webapps/zabbix/conf/"
 }
 
 package_zabbix-web-service() {
-  pkgdesc='Zabbix web service used to generate and send scheduled reports'
-  depends=(chromium)
-  backup=(etc/zabbix/zabbix_web_service.conf)
+	pkgdesc="Zabbix web service used to generate and send scheduled reports"
+	depends=('zabbix-common' 'chromium')
+	backup=('etc/zabbix/zabbix_web_service.conf')
 
-  cd $pkgbase-$pkgver
-  install -Dm755 src/go/bin/zabbix_web_service "$pkgdir/usr/bin/zabbix_web_service"
-  install -Dm644 src/go/conf/zabbix_web_service.conf "$pkgdir/etc/zabbix/zabbix_web_service.conf"
-  chown 173:173 "$pkgdir/etc/zabbix/zabbix_web_service.conf"
+	cd "${pkgbase}"
 
-  install -Dm644 "$srcdir/zabbix-web-service.service" \
-	"$pkgdir/usr/lib/systemd/system/zabbix-web-service.service"
-  install -Dm644 "$srcdir/zabbix-web-service.sysusers" \
-	"$pkgdir/usr/lib/sysusers.d/zabbix-web-service.conf"
-  install -Dm644 "$srcdir/zabbix-web-service.tmpfiles" \
-	"$pkgdir/usr/lib/tmpfiles.d/zabbix-web-service.conf"
+	install -Dm 755 src/go/bin/zabbix_web_service "${pkgdir}/usr/bin/zabbix_web_service"
+
+	install -Dm 644 src/go/conf/zabbix_web_service.conf "${pkgdir}/etc/zabbix/zabbix_web_service.conf"
+	install -Dm 644 "${srcdir}/${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
+
+	install -Dm 644 "${srcdir}/zabbix-web-service.service" "${pkgdir}/usr/lib/systemd/system/zabbix-web-service.service"
+}
+
+package_zabbix-proxy() {
+	pkgdesc="Data collecting proxy for Zabbix"
+	depends=('zabbix-common' 'net-snmp' 'curl' 'libxml2' 'sqlite' 'unixodbc' 'libldap' 'pcre2' 'libevent' 'openipmi')
+	optdepends=('mariadb-libs: for MariaDB support'
+	            'postgresql-libs: for PostgreSQL support')
+	backup=('etc/zabbix/zabbix_proxy.conf')
+
+	cd "${pkgbase}"
+
+	for db in postgresql mysql sqlite3; do
+		install -Dm 755 "src/zabbix_proxy/zabbix_proxy_${db}" "${pkgdir}/usr/bin/zabbix_proxy_${db}"
+		install -Dm 644 "${srcdir}/copies/database_proxy/${db}/schema.sql" "${pkgdir}/usr/share/${pkgname}/${db}/schema.sql"
+	done
+
+	install -Dm 644 conf/zabbix_proxy.conf "${pkgdir}/etc/zabbix/zabbix_proxy.conf"
+	install -Dm 644 "${srcdir}/${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
+
+	install -Dm 644 "${srcdir}/zabbix-proxy-sqlite.service" "${pkgdir}/usr/lib/systemd/system/zabbix-proxy-sqlite.service"
+	install -Dm 644 "${srcdir}/zabbix-proxy-pgsql.service" "${pkgdir}/usr/lib/systemd/system/zabbix-proxy-pgsql.service"
+	install -Dm 644 "${srcdir}/zabbix-proxy-mysql.service" "${pkgdir}/usr/lib/systemd/system/zabbix-proxy-mysql.service"
+}
+
+package_zabbix-agent() {
+	pkgdesc="Monitoring agent for Zabbix"
+	depends=('zabbix-common' 'curl' 'pcre2')
+	backup=('etc/zabbix/zabbix_agentd.conf')
+
+	cd "${pkgbase}"
+
+	install -Dm 755 src/zabbix_agent/zabbix_agentd "${pkgdir}/usr/bin/zabbix_agentd"
+	install -Dm 755 src/zabbix_sender/zabbix_sender "${pkgdir}/usr/bin/zabbix_sender"
+
+	install -Dm 644 conf/zabbix_agentd.conf "${pkgdir}/etc/zabbix/zabbix_agentd.conf"
+	install -Dm 644 "${srcdir}/${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
+
+	install -Dm 644 conf/zabbix_agentd/userparameter_examples.conf "${pkgdir}/usr/share/zabbix-agent/userparameter_examples.conf"
+	install -Dm 644 conf/zabbix_agentd/userparameter_mysql.conf "${pkgdir}/usr/share/zabbix-agent/userparameter_mysql.conf"
+
+	install -Dm 644 man/zabbix_agentd.man "${pkgdir}/usr/share/man/man8/zabbix_agentd.8"
+	install -Dm 644 man/zabbix_sender.man "${pkgdir}/usr/share/man/man1/zabbix_sender.1"
+
+	install -Dm 644 "${srcdir}/zabbix-agent.service" "${pkgdir}/usr/lib/systemd/system/zabbix-agent.service"
+}
+
+package_zabbix-agent2() {
+	pkgdesc="Monitoring agent for Zabbix (version 2)"
+	depends=('zabbix-common' 'curl' 'pcre2')
+	backup=('etc/zabbix/zabbix_agent2.conf')
+
+	cd "${pkgbase}"
+
+	install -Dm 755 src/go/bin/zabbix_agent2 "${pkgdir}/usr/bin/zabbix_agent2"
+
+	mkdir -p "${pkgdir}/etc/zabbix/zabbix_agent2.d/plugins.d/"
+	install -Dm 644 src/go/conf/zabbix_agent2.conf "${pkgdir}/etc/zabbix/zabbix_agent2.conf"
+	install -Dm 644 "${srcdir}/${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
+
+	install -Dm 644 man/zabbix_agent2.man "${pkgdir}/usr/share/man/man8/zabbix_agent2.8"
+
+	install -Dm 644 "${srcdir}/zabbix-agent2.service" "${pkgdir}/usr/lib/systemd/system/zabbix-agent2.service"
 }

@@ -1,0 +1,76 @@
+diff --git a/conf/zabbix_agentd.conf b/conf/zabbix_agentd.conf
+index 4aa1cbfdbbe..36e026f8a6f 100644
+--- a/conf/zabbix_agentd.conf
++++ b/conf/zabbix_agentd.conf
+@@ -18,7 +18,7 @@
+ #
+ # Mandatory: no
+ # Default:
+-# LogType=file
++LogType=system
+ 
+ ### Option: LogFile
+ #	Log file name for LogType 'file' parameter.
+@@ -27,7 +27,6 @@
+ # Default:
+ # LogFile=
+ 
+-LogFile=/tmp/zabbix_agentd.log
+ 
+ ### Option: LogFileSize
+ #	Maximum size of log file in MB.
+diff --git a/conf/zabbix_proxy.conf b/conf/zabbix_proxy.conf
+index 6091369938d..d77c45cfce8 100644
+--- a/conf/zabbix_proxy.conf
++++ b/conf/zabbix_proxy.conf
+@@ -72,7 +72,7 @@ Hostname=Zabbix proxy
+ #
+ # Mandatory: no
+ # Default:
+-# LogType=file
++LogType=system
+ 
+ ### Option: LogFile
+ #	Log file name for LogType 'file' parameter.
+@@ -81,7 +81,6 @@ Hostname=Zabbix proxy
+ # Default:
+ # LogFile=
+ 
+-LogFile=/tmp/zabbix_proxy.log
+ 
+ ### Option: LogFileSize
+ #	Maximum size of log file in MB.
+diff --git a/conf/zabbix_server.conf b/conf/zabbix_server.conf
+index 71a7f89a37f..1a022918986 100644
+--- a/conf/zabbix_server.conf
++++ b/conf/zabbix_server.conf
+@@ -26,7 +26,7 @@
+ #
+ # Mandatory: no
+ # Default:
+-# LogType=file
++LogType=system
+ 
+ ### Option: LogFile
+ #	Log file name for LogType 'file' parameter.
+@@ -35,7 +35,6 @@
+ # Default:
+ # LogFile=
+ 
+-LogFile=/tmp/zabbix_server.log
+ 
+ ### Option: LogFileSize
+ #	Maximum size of log file in MB.
+diff --git a/src/go/conf/zabbix_web_service.conf b/src/go/conf/zabbix_web_service.conf
+index 69ee1255b37..6bd89710963 100644
+--- a/src/go/conf/zabbix_web_service.conf
++++ b/src/go/conf/zabbix_web_service.conf
+@@ -11,7 +11,7 @@
+ #
+ # Mandatory: no
+ # Default:
+-# LogType=file
++LogType=system
+ 
+ ### Option: LogFile
+ #	Log file name for LogType 'file' parameter.

@@ -1,11 +1,11 @@
 [Unit]
 Description=Zabbix Web Service
-After=network.target
+After=network-online.target
 
 [Service]
 Type=simple
 ExecStart=/usr/bin/zabbix_web_service -f
-User=zabbix-web-service
+User=zabbix
 
 [Install]
 WantedBy=multi-user.target

@@ -1,12 +1,12 @@
 [Unit]
 Description=Zabbix proxy with PostgreSQL
-After=network.target postgresql.service
-Conflicts=zabbix-proxy.service zabbix-proxy-mysql.service
+After=network-online.target postgresql.service
+Conflicts=zabbix-proxy-sqlite.service zabbix-proxy-mysql.service
 
 [Service]
 Type=simple
 ExecStart=/usr/bin/zabbix_proxy_postgresql -f
-User=zabbix-proxy
+User=zabbix
 PrivateDevices=yes
 PrivateTmp=yes
 ProtectSystem=full

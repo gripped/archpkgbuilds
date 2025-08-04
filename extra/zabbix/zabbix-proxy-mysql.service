@@ -1,12 +1,12 @@
 [Unit]
 Description=Zabbix proxy with MySQL
-After=network.target mysql.service
-Conflicts=zabbix-proxy.service zabbix-proxy-pgsql.service
+After=network-online.target mysql.service
+Conflicts=zabbix-proxy-sqlite.service zabbix-proxy-pgsql.service
 
 [Service]
 Type=simple
 ExecStart=/usr/bin/zabbix_proxy_mysql -f
-User=zabbix-proxy
+User=zabbix
 PrivateDevices=yes
 PrivateTmp=yes
 ProtectSystem=full
