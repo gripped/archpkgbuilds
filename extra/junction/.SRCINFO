@@ -1,9 +1,10 @@
 pkgbase = junction
 	pkgdesc = Application chooser to open files and links
-	pkgver = 1.8
-	pkgrel = 4
+	pkgver = 1.9
+	pkgrel = 1
 	url = https://apps.gnome.org/Junction/
 	arch = any
+	groups = gnome-circle
 	license = GPL-3.0-only
 	makedepends = appstream
 	makedepends = blueprint-compiler
@@ -17,11 +18,13 @@ pkgbase = junction
 	depends = libadwaita
 	depends = libportal
 	depends = libportal-gtk4
-	source = git+https://github.com/sonnyp/Junction.git#tag=v1.8
+	source = git+https://github.com/sonnyp/Junction.git#tag=v1.9
 	source = git+https://github.com/sonnyp/troll.git
-	source = junction-gtk-init.patch
-	b2sums = 3112b4ef690933fc57260554fe3d406aab56fdbe9f46f5be5affaebce71cc7a5d3eebb6ba6badf81f23680c1579e6ccd054a03a0f4b2fbaca93941ddd24bcc57
+	source = junction-fix-metainfo.patch
+	source = junction-single-welcome-window.patch
+	b2sums = bc5fa852ef949762ed45f22b5054c26b9911f5d04213e415e84a7fcba7055fea18a12eafc0b28618001ee84976bc5fda089fdd492624f1bca228fbc97b68739d
 	b2sums = SKIP
-	b2sums = 64eaed94c4b158c8ba37ee982112fe384840b43dae9697d89e142a6c3b08695a5258e9a618e8a9d2055fb530eb8a23c6ed8679b208fa27fadeeea508f18d2ef4
+	b2sums = 3d3c81a419a6564ea4cef6b0004ccd5dad9b4bdc6eefd2f7270fa72589e9d02d17894b4e8bdad77460bae092b23f76d7b781e01fc1b6cdecd79f5bef8dab13d3
+	b2sums = dad057cf4155e08fb109f84cb38e6804b4e67f654d84d04b9bba7af6ddd79fa42a01eb68184bb6e674f0633b95a9bd76ebb863236650cefb549cc5eb0730f556
 
 pkgname = junction

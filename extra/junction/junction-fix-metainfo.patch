@@ -1,0 +1,25 @@
+From 345bba6597c51000bc391d1158ccb13da49aae12 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 3 Aug 2025 20:10:11 +0200
+Subject: [PATCH] metainfo: Fix validation
+
+---
+ data/re.sonny.Junction.metainfo.xml | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/data/re.sonny.Junction.metainfo.xml b/data/re.sonny.Junction.metainfo.xml
+index 3046559..f58aba4 100644
+--- a/data/re.sonny.Junction.metainfo.xml
++++ b/data/re.sonny.Junction.metainfo.xml
+@@ -150,8 +150,9 @@
+       </description>
+     </release>
+     <release version="1.0.0" date="2021-10-16">
+-      <description
+-      >This is the first release of Junction. We hope you like it.</description>
++      <description>
++        <p>This is the first release of Junction. We hope you like it.</p>
++      </description>
+     </release>
+   </releases>
+   <kudos>

@@ -1,0 +1,40 @@
+From 20a720e2a1ead1a448d8d5ae38ad292187fc8e48 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 3 Aug 2025 20:21:23 +0200
+Subject: [PATCH] Present only one welcome window
+
+Showing multiple welcome windows is not really useful.
+---
+ src/application.js | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/src/application.js b/src/application.js
+index 223d5c0..3c238c0 100644
+--- a/src/application.js
++++ b/src/application.js
+@@ -16,6 +16,8 @@ export default function Application() {
+     flags: Gio.ApplicationFlags.HANDLES_OPEN,
+   });
+ 
++  let welcome;
++
+   // https://gitlab.gnome.org/GNOME/glib/-/issues/1960
+   // https://github.com/sonnyp/Junction/commit/5140f410ffd2899a3bb1aba5929f9891741e02fb
+   if (Xdp.Portal.running_under_sandbox()) {
+@@ -51,9 +53,13 @@ export default function Application() {
+   });
+ 
+   application.connect("activate", () => {
+-    Welcome({
+-      application,
+-    });
++    if (!welcome) {
++      welcome = Welcome({
++        application,
++      });
++    }
++
++    welcome.window.present();
+   });
+ 
+   application.connect("handle-local-options", (self, options) => {
