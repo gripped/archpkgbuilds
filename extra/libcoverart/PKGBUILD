@@ -2,7 +2,7 @@
 
 pkgname=libcoverart
 pkgver=1.0.0
-pkgrel=7
+pkgrel=8
 pkgdesc='C/C++ library for accessing the MusicBrainz Cover Art Archive'
 arch=(x86_64)
 url='https://musicbrainz.org/doc/libcoverart'
@@ -37,12 +37,16 @@ prepare() {
   git cherry-pick -n 7d6019355037b5fc2445ad53c117f41ad703013c
   patch -Np1 -i ../libcoverart-out-of-tree.patch
 
-  sed -i 's/ -Werror//' */CMakeLists.txt
+  # Fix build with cmake 3.18
+  git cherry-pick -n 8b8d3ef2177e7236602c60716779d3cb53f6569a
+
+  sed -i 's/ -Werror//' ./*/CMakeLists.txt
 }
 
 build() {
   cmake -S $pkgname -B build -G Ninja \
-    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake --build build
   cmake --build build --target docs
 }
