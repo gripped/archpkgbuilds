@@ -4,14 +4,14 @@
 
 pkgname=libmpeg2
 pkgver=0.5.1
-pkgrel=10
+pkgrel=11
 pkgdesc='Library for decoding MPEG-1 and MPEG-2 video streams'
-arch=('x86_64')
+arch=(x86_64)
 url='https://libmpeg2.sourceforge.io/'
-license=('GPL-2.0-or-later')
-depends=('glibc')
-source=("https://libmpeg2.sourceforge.io/files/$pkgname-$pkgver.tar.gz")
-sha256sums=('dee22e893cb5fc2b2b6ebd60b88478ab8556cb3b93f9a0d7ce8f3b61851871d4')
+license=(GPL-2.0-or-later)
+depends=(glibc)
+source=("https://download.videolan.org/contrib/libmpeg2/$pkgname-$pkgver.tar.gz")
+b2sums=(29b71740fa601c668a8f5b0a43aa763bda2fc66587f5bff847d4bc6d03dd831abe46428616b770aaaabf2d42877daad8c305ab4dd988cc91a4c90decfcc19c9a)
 
 prepare() {
   cd $pkgname-$pkgver
@@ -20,7 +20,10 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
-  ./configure --prefix=/usr
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
   make
 }
 
