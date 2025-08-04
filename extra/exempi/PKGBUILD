@@ -4,7 +4,7 @@
 
 pkgname=exempi
 pkgver=2.6.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Library to parse XMP metadata'
 arch=(x86_64)
 url='https://libopenraw.freedesktop.org/exempi/'
@@ -33,7 +33,8 @@ build() {
   ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
-    --localstatedir=/var
+    --localstatedir=/var \
+    --disable-unittest
   make
 }
 
