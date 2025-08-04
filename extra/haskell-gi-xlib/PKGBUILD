@@ -2,16 +2,16 @@
 
 _hkgname=gi-xlib
 pkgname=haskell-gi-xlib
-pkgver=2.0.13
-pkgrel=108
+pkgver=2.0.14
+pkgrel=1
 pkgdesc="xlib bindings"
 url="https://github.com/haskell-gi/haskell-gi"
-license=("LGPL2.1")
+license=('LGPL-2.1-only')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-gi' 'haskell-gi-base' 'haskell-gi-overloading' 'libx11')
 makedepends=('ghc' 'gobject-introspection')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('14bf7aaaf861e803c78a5555ee22e1dd068471b03906b35cef113ac7a0d3df84')
+sha256sums=('8fc25add8af287912237a137c2b17995a09fe20bc06a3c95acf43d8c90dbfd77')
 
 build() {
   cd $_hkgname-$pkgver
