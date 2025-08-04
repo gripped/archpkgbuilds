@@ -2,22 +2,21 @@
 
 _hkgname=integer-roots
 pkgname=haskell-integer-roots
-pkgver=1.0.2.0
-pkgrel=106
+pkgver=1.0.3.0
+pkgrel=1
 pkgdesc="Integer roots and perfect powers"
 url="https://github.com/Bodigrim/integer-roots"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'uusi' 'haskell-doctest' 'haskell-smallcheck' 'haskell-tasty'
-             'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')
+makedepends=('ghc' 'uusi' 'haskell-smallcheck' 'haskell-tasty' 'haskell-tasty-hunit'
+             'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('291683e7b1229f5930827ff02ae279387cc520c24bb4ebc7870bd7284afcbd0daa78055f7eb39471f02709207d513488f8cffe4ef4cb8964f5e7158f8bb365f5')
+sha512sums=('28debf30df60a58111e83693377c864d742c89c324bb4c86c7801acfd14c664145d774d6edef6562d1e04314e5575a1df6ba4ef292166e931b8b21395b2ffe50')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u ghc-bignum
 }
 
 build() {
