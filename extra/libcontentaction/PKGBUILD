@@ -1,27 +1,25 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=libcontentaction
-pkgver=0.4.3
-pkgrel=2
+pkgver=0.4.4
+pkgrel=1
 pkgdesc="Library for associating content with actions"
 arch=('x86_64')
 url="https://github.com/sailfishos/libcontentaction"
-license=('LGPL')
+license=('LGPL-2.1')
 depends=('qt5-systems' 'mlite')
-makedepends=('python' 'qt5-tools')
-source=("https://github.com/sailfishos/libcontentaction/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('63a95b89b2c0a295b61c376bbcd623978149fb310eff1b2ff574439fe726c342e970530cfe049b687217a88437c9e116f84596525580a3575e31a32bd733c308')
+makedepends=('git' 'python' 'qt5-tools')
+source=("git+https://github.com/sailfishos/libcontentaction.git#tag=$pkgver")
+sha512sums=('d2ece6a545fdf4c06ed01319d97e403c19610f41586da2fff65e408d552814fe3234892a10518d96bd4658ad68249a7336d42529b7dc50b0396b0916857c748c')
 
 build() {
-  cd libcontentaction-$pkgver
-
+  cd libcontentaction
   qmake-qt5
   make
 }
 
 package() {
-  cd libcontentaction-$pkgver
-
+  cd libcontentaction
   make INSTALL_ROOT="$pkgdir" install
 
   # Remove tests
