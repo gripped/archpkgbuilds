@@ -7,7 +7,7 @@
 
 pkgname=upx
 pkgver=5.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Extendable, high-performance executable packer for several executable formats'
 arch=(x86_64)
 url='https://github.com/upx/upx'
