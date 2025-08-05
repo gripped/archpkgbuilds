@@ -7,8 +7,8 @@ pkgname=(
   libmm-glib
   modemmanager-docs
 )
-pkgver=1.24.0
-pkgrel=2
+pkgver=1.24.2
+pkgrel=1
 pkgdesc="Mobile broadband modem management service"
 url="https://www.freedesktop.org/wiki/Software/ModemManager/"
 arch=(x86_64)
@@ -48,7 +48,7 @@ checkdepends=(
 source=(
   "git+https://gitlab.freedesktop.org/mobile-broadband/ModemManager.git?signed#tag=${pkgver/[a-z]/-&}"
 )
-b2sums=('71728bbd6abda4b88c24b7ba727f809fbe84db556ceab914bd1e3982e009ea5992da4214a8efc6ac76b6ebd9f6727f3da287d4c8206e37d97b405ea74e970963')
+b2sums=('fbf202dc30af2201ba2a675183bdf8b12d0f8665e4a73454c7d7bca8cc7acf4ee93c42c291f9ddfa84c696b7c05a1b68e4211f7e75707aea0000f77bff6cc72b')
 validpgpkeys=(
   A814D09B9C5BC01945A64308AECE0239C6606AD5 # Aleksander Morgado <aleksandermj@chromium.org>
   3A948E16E8860C68CD68441D734614319E26A433 # Dan Williams <dan@ioncontrol.co>
