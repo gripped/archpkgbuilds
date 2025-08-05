@@ -4,21 +4,28 @@
 _hkgname=resourcet
 pkgname=haskell-resourcet
 pkgver=1.2.6
-pkgrel=86
+pkgrel=89
 pkgdesc="Deterministic allocation and freeing of scarce resources."
 url="https://github.com/snoyberg/conduit"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-primitive' 'haskell-unliftio-core')
-makedepends=('ghc' 'haskell-hspec')
+makedepends=('ghc')
+checkdepends=('haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('2b08c99ad102fd3bef1e1e9363c000f48f03d1ac3e5122c8c764c71f90905697a818a70391f0f67e5074b4cc0b030bd5cfecd3477930e3e4ec64049e10d8fa3a')
 
 build() {
     cd $_hkgname-$pkgver
 
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
+
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
