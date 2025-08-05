@@ -3,7 +3,7 @@
 
 pkgname=java-hamcrest
 pkgver=3.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Java matcher objects library'
 arch=(any)
 url='https://github.com/hamcrest/JavaHamcrest'
