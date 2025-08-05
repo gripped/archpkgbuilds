@@ -1,4 +1,4 @@
-From 32db54cd7772d460c538f888102d2381b0be343b Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Wed, 9 Apr 2025 17:57:09 +0200
 Subject: [PATCH] Add D-Bus service file
@@ -14,7 +14,7 @@ launchers to activate it via D-Bus.
  create mode 100644 data/org.gnome.Quadrapassel.service.in
 
 diff --git a/data/meson.build b/data/meson.build
-index 83bf626..34e2848 100644
+index 83bf62648c1c..34e284853119 100644
 --- a/data/meson.build
 +++ b/data/meson.build
 @@ -16,6 +16,19 @@ install_data(
@@ -38,7 +38,7 @@ index 83bf626..34e2848 100644
  desktop_file = i18n.merge_file(
      input: '@0@.desktop.in'.format(project_id),
 diff --git a/data/org.gnome.Quadrapassel.desktop.in b/data/org.gnome.Quadrapassel.desktop.in
-index 5ac575b..acf6be1 100644
+index 5ac575b51c83..acf6be115ec1 100644
 --- a/data/org.gnome.Quadrapassel.desktop.in
 +++ b/data/org.gnome.Quadrapassel.desktop.in
 @@ -10,3 +10,4 @@ Categories=GNOME;GTK;Game;BlocksGame;
@@ -48,7 +48,7 @@ index 5ac575b..acf6be1 100644
 +DBusActivatable=true
 diff --git a/data/org.gnome.Quadrapassel.service.in b/data/org.gnome.Quadrapassel.service.in
 new file mode 100644
-index 0000000..861a401
+index 000000000000..861a401e45f8
 --- /dev/null
 +++ b/data/org.gnome.Quadrapassel.service.in
 @@ -0,0 +1,3 @@
@@ -56,7 +56,7 @@ index 0000000..861a401
 +Name=org.gnome.Quadrapassel
 +Exec=@bindir@/quadrapassel --gapplication-service
 diff --git a/meson.build b/meson.build
-index cc92ed6..4d2c566 100644
+index cc92ed603e3f..4d2c56687e6c 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -30,6 +30,7 @@ add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), la
@@ -67,6 +67,3 @@ index cc92ed6..4d2c566 100644
  
  conf = configuration_data ()
  conf.set_quoted ('VERSION', meson.project_version())
--- 
-GitLab
-
