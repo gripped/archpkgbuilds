@@ -2,17 +2,17 @@
 
 _hkgname=crypton
 pkgname=haskell-crypton
-pkgver=1.0.0
-pkgrel=10
+pkgver=1.0.1
+pkgrel=1
 pkgdesc="Cryptography Primitives sink"
 url="https://github.com/kazu-yamamoto/crypton"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-basement' 'haskell-memory')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-kat'
              'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('9d413ab9a5a94cfe44968260618a42f283a621694beb3d3d3494a10dcfd833e0')
+sha256sums=('9142bb14748cc57356cf4dacec822e80eaf6dba8e1538ec93be17ee37027c7a4')
 
 build() {
   cd $_hkgname-$pkgver
