@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=python-evdev
-pkgver=1.9.0
+pkgver=1.9.2
 pkgrel=1
 pkgdesc="Python bindings for the Linux input subsystem"
 url="https://python-evdev.readthedocs.io/en/latest/"
@@ -19,21 +19,19 @@ makedepends=(
   python-wheel
 )
 source=("git+https://github.com/gvalkov/python-evdev#tag=v$pkgver")
-b2sums=('f4d5967bfccd81ab2c4e6bac10af7547cae4f3af60afc2f9b5f022183aa5641c7e0c75cb441113a899ac3d1163b7cf22d732005741b8e82482638af8fece4a36')
+b2sums=('0b8949b3ad9c7664ca8fae2dd30e26e5c4f3a83bd549bba62c97cccef60f0e1f3b11e7c1d511640e940d3e4061ff6236f68ed630f35e39adfd1a3ede4e070779')
 
 prepare() {
   cd $pkgname
 }
 
 build() {
-  cd $pkgname
-  python -m build --wheel --no-isolation
+  python -m build --wheel --no-isolation $pkgname
 }
 
 package() {
-  cd $pkgname
-  python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 LICENSE
+  python -m installer --destdir="$pkgdir" $pkgname/dist/*.whl
+  install -Dm644 $pkgname/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
 }
 
 # vim:set sw=2 sts=-1 et:
