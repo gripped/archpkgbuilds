@@ -1,8 +1,12 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
-pkgname=pam_wrapper
-pkgver=1.1.7
-pkgrel=2
+pkgbase=pam_wrapper
+pkgname=(
+  pam_wrapper
+  pam_wrapper-docs
+)
+pkgver=1.1.8
+pkgrel=1
 pkgdesc="Tool to test PAM applications and PAM modules"
 url="https://cwrap.org/pam_wrapper.html"
 arch=(x86_64)
@@ -21,14 +25,10 @@ makedepends=(
   ninja
   python-setuptools
 )
-provides=(
-  libpam_wrapper.so
-  libpamtest.so
-)
 source=(
   "git+https://git.samba.org/pam_wrapper.git#tag=pam_wrapper-$pkgver"
 )
-b2sums=('4cf21b6021e43c32656376f43551dd19dcd2683f527cf9705af2befcc4d8d9cf8aa18d333bfa6ba3fe7d321853aed5809ba2389ef3cad56cc32cc0f2f72210d7')
+b2sums=('69ae8379e6134896b47cfeff1a2cb42f9b072ddbd6871991a06e1159aa987001baa9331bb242457faebf8827bf0440c258800ca243735465aaaa6792cbc93e82')
 
 prepare() {
   cd $pkgname
@@ -50,12 +50,22 @@ check() {
   ctest --test-dir build --output-on-failure --stop-on-failure -j$(nproc)
 }
 
-package() {
-  DESTDIR="$pkgdir" cmake --install build
+package_pam_wrapper() {
+  provides=(
+    libpam_wrapper.so
+    libpamtest.so
+  )
 
-  mkdir -p "$pkgdir/usr/share/doc"
-  cp -a build/doc/html "$pkgdir/usr/share/doc/$pkgname"
-  cp -a build/doc/man/man3 "$pkgdir/usr/share/man"
+  DESTDIR="$pkgdir" cmake --install build
+}
+
+package_pam_wrapper-docs() {
+  pkgdesc+=" (documentation)"
+  depends=()
+
+  mkdir -p "$pkgdir"/usr/share/{doc,man}
+  cp -a build/doc/html -T "$pkgdir/usr/share/doc/$pkgname"
+  cp -a build/doc/man/man3 -t "$pkgdir/usr/share/man"
 }
 
 # vim:set sw=2 sts=-1 et:
