@@ -7,22 +7,29 @@
 _hkgname=unordered-containers
 pkgname=haskell-unordered-containers
 pkgver=0.2.20
-pkgrel=64
+pkgrel=66
 pkgdesc="Efficient hashing-based container types"
 url="https://github.com/haskell-unordered-containers/unordered-containers"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hashable')
-makedepends=('ghc' 'haskell-chasingbottoms' 'haskell-hunit' 'haskell-nothunks' 'haskell-quickcheck'
-             'haskell-random' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
+makedepends=('ghc')
+checkdepends=('haskell-chasingbottoms' 'haskell-hunit' 'haskell-nothunks' 'haskell-quickcheck'
+              'haskell-random' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('836077c204dc5a8f12abd6bfe3de1b6334bcf35c43e0a81025bc154a5450d2c5e70c3ce1f1c8967d3601c1b972be1a4c1d573c92052bf13eae28ee76211a7a19')
 
 build() {
     cd $_hkgname-$pkgver
-    
+
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
+
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-debug
     runhaskell Setup build $MAKEFLAGS
