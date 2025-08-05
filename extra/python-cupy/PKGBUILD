@@ -1,0 +1,132 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+_name=cupy
+pkgbase=python-cupy
+pkgname=(python-cupy python-cupy-rocm)
+pkgver=13.5.1
+pkgrel=3
+# release tarballs do not contain third-party code, check github for each release
+_cccl_commit=3a388b7b01512d48474b98389a3e776c8d8f817a
+_dlpack_commit=cd0d5e4ff888b388aef4f9b6bd5d9aa5737a020e
+_jitify_commit=1a0ca0e837405506f3b8f7883bacb71c20d86d96
+pkgdesc="NumPy/SciPy-compatible array library for GPU-accelerated computing with Python"
+arch=(x86_64)
+url="https://github.com/cupy/cupy"
+license=(MIT)
+makedepends=(
+  git
+  cython
+  python-build
+  python-installer
+  python-wheel
+  python-setuptools
+  # common depends
+  python-fastrlock
+  python-numpy
+  # CUDA build
+  cuda
+  # NOTE: cudnn 9 causes compilation errors and will be dropped https://github.com/cupy/cupy/issues/8215
+  # TODO: package cusparselt and cutensor
+  nccl
+  # ROCm build
+  hip-runtime-amd
+  hipblas
+  hipcub
+  hipfft
+  hiprand
+  hipsparse
+  rccl
+  rocfft
+  rocprim
+  rocrand
+  rocsolver
+  rocsparse
+  rocthrust
+  roctracer
+)
+optdepends=(
+  'python-scipy: for copying sparse matrices from GPU to CPU'
+  'python-optuna: for using using Automatic Kernel Parameters Optimizations (cupyx.optimizing)'
+)
+source=(
+  $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
+  git+https://github.com/NVIDIA/cccl.git#commit=$_cccl_commit
+  git+https://github.com/dmlc/dlpack.git#commit=$_dlpack_commit
+  git+https://github.com/NVIDIA/jitify.git#commit=$_jitify_commit
+)
+b2sums=('38cc5bdc3f6bdf04db28b86738a1b7f9a11352f35da5185266628757943013cf59157c0286fe24e3656c4f7f560cfe4032660a8429b73e9e2d4069128ea5414e'
+        '398fea632811425ea79cff315eeb7fcbe9370e706445477784e05cc2e2517ab7106606d52603175a1ac83b0026daa5a09a07cebe2efd8edae50e48b1b82efbeb'
+        'ee9287869ad46f81bd6ec67a0f17cd3a28c7a4921177e1d3bc5bf3469223d0518ab71b8bfab3ecc9dca0030f55fbac607c20e33d0b2951b042b0423893c1d46d'
+        'a03479f41e38b1f35c39a14ea8d13ecaec3d57f8f1c12fd37a9d53af8406ba328628493a76882c37cad82d2da441a34142407caf610d480122a072b73bbb1c61')
+
+prepare() {
+  cd $_name-$pkgver
+  rmdir third_party/{cccl,dlpack,jitify}
+  ln -sT ../../cccl third_party/cccl
+  ln -sT ../../dlpack third_party/dlpack
+  ln -sT ../../jitify third_party/jitify
+}
+
+build() {
+  cd $_name-$pkgver
+
+  export CUPY_NUM_BUILD_JOBS="$(nproc)"
+  export CUPY_NUM_NVCC_THREADS="$(nproc)"
+
+  # CUDA build
+  LDFLAGS="$LDFLAGS -L/opt/cuda/targets/x86_64-linux/lib/stubs" \
+  python -m build --wheel --no-isolation
+  mv dist dist-$pkgbase
+  rm -rf build
+
+  # ROCm build
+  CUDA_PATH= \
+  CUPY_INSTALL_USE_HIP=1 \
+  ROCM_HOME=/opt/rocm \
+  HCC_AMDGPU_TARGET=gfx900,gfx906:xnack-,gfx908:xnack-,gfx90a,gfx940,gfx941,gfx942,gfx1010,gfx1012,gfx1030,gfx1100,gfx1101,gfx1102,gfx1151,gfx1200,gfx1201 \
+  python -m build --wheel --no-isolation
+  mv dist dist-$pkgbase-rocm
+}
+
+package_python-cupy() {
+  depends=(
+    cuda
+    gcc-libs
+    glibc
+    python
+    python-fastrlock
+    python-numpy
+  )
+  optdepends+=(
+    'nccl: for collective multi-GPU computations'
+  )
+
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist-$pkgname/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+package_python-cupy-rocm() {
+  depends=(
+    gcc-libs
+    glibc
+    hip-runtime-amd
+    hipblas
+    hipfft
+    hiprand
+    hipsparse
+    rccl
+    rocblas
+    rocsolver
+    roctracer
+    python
+    python-fastrlock
+    python-numpy
+  )
+  conflicts=(python-cupy)
+  provides=(python-cupy)
+
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist-$pkgname/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
