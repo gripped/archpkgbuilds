@@ -3,15 +3,20 @@
 _hkgname=pcg-random
 pkgname=haskell-pcg-random
 pkgver=0.1.4.0
-pkgrel=59
+pkgrel=60
 pkgdesc="Haskell bindings to the PCG random number generator."
 url="https://github.com/cchalmers/pcg-random"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-entropy' 'haskell-primitive' 'haskell-random')
-makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-doctest')
+makedepends=('ghc' 'uusi' 'haskell-cabal-doctest' 'haskell-doctest')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('6ec9a7d627331ea0262118b741434ef517f096a678cb74ecd563fd3ed6641626')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  uusi -u primitive
+}
 
 build() {
   cd $_hkgname-$pkgver
