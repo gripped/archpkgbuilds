@@ -3,13 +3,14 @@
 _hkgname=nothunks
 pkgname=haskell-nothunks
 pkgver=0.2.0
-pkgrel=50
+pkgrel=54
 pkgdesc="Examine values for unexpected thunks"
 url="https://github.com/input-output-hk/nothunks"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-vector')
-makedepends=('ghc' 'uusi' 'haskell-hedgehog' 'haskell-random' 'haskell-tasty' 'haskell-tasty-hedgehog')
+makedepends=('ghc' 'uusi')
+checkdepends=('haskell-hedgehog' 'haskell-random' 'haskell-tasty' 'haskell-tasty-hedgehog')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('09310685bc3c334d285bd2a28e3d635ff86923c1540706bf007d2f0068ccc9b8')
 
@@ -21,8 +22,14 @@ prepare() {
 build() {
   cd $_hkgname-$pkgver
 
+  if (( CHECKFUNC )); then
+    _opts=('--enable-tests')
+  else
+    _opts=('--disable-tests')
+  fi
+
   runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie' \
