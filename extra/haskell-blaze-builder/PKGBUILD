@@ -3,28 +3,35 @@
 
 _hkgname=blaze-builder
 pkgname=haskell-blaze-builder
-pkgver=0.4.2.3
-pkgrel=3
+pkgver=0.4.3
+pkgrel=1
 pkgdesc="Efficient buffered output"
 url="https://github.com/blaze-builder/blaze-builder"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc')
+makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
+             'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2'
+             'haskell-utf8-string')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('6fe6c817a764ff05564254232820a47cb62e21f1ff2126379456bd796f97c434dfee4787c13aa1567c2864b2a3fae336bb2c0451301218157bcf6af3753271dd')
+sha512sums=('8ade4ddb57567192fb0de5f07be188c8d09167fd00e57cca920f5ef4fb1f4eba19ba2a11361bd1637da75952f618f23cc037329d1e9af87f7387f4a0b5a53622')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
