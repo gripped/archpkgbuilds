@@ -7,7 +7,7 @@
 pkgname=geany-plugins
 pkgver=2.1
 _tag=$pkgver.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Plugins for Geany'
 arch=(x86_64)
 url='https://plugins.geany.org'
