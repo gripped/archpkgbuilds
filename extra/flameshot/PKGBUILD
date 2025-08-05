@@ -4,32 +4,43 @@
 # Contributor: xyzzy <628208@gmail.com>
 
 pkgname=flameshot
-pkgver=12.1.0
-pkgrel=6
+pkgver=13.0.0
+pkgrel=3
 pkgdesc="Powerful yet simple to use screenshot software"
-arch=('x86_64')
 url="https://github.com/flameshot-org/flameshot"
+arch=('x86_64')
 license=('GPL-3.0-or-later')
-depends=('qt5-svg' 'hicolor-icon-theme' 'kguiaddons5')
-makedepends=('qt5-tools' 'cmake')
-optdepends=(
-    'gnome-shell-extension-appindicator: for system tray icon if you are using Gnome'
-    'grim: for wlroots wayland support'
-    'xdg-desktop-portal: for wayland support, you will need the implementation for your wayland desktop environment'
-    'qt5-imageformats: for additional export image formats (e.g. tiff, webp, and more)'
-)
+depends=('qt6-svg' 'hicolor-icon-theme' 'kguiaddons')
+makedepends=('qt6-tools' 'cmake' 'git')
+optdepends=('gnome-shell-extension-appindicator: for system tray icon if you are using Gnome'
+            'grim: for wlroots wayland support'
+            'xdg-desktop-portal: for wayland support, you will need the implementation for your wayland desktop environment'
+            'qt6-imageformats: for additional export image formats (e.g. tiff, webp, and more)')
 source=("${pkgname}-v${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('c82c05d554e7a6d810aca8417ca12b21e4f74864455ab4ac94602668f85ac22a')
+sha256sums=('bca804732618b57687045be34001f4a157aa9c45e59b60fd90fd4ed33f241eee')
 
 build() {
-  cmake -B build -S "${pkgname}-${pkgver}" \
-    -DCMAKE_BUILD_TYPE=None \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DUSE_WAYLAND_CLIPBOARD=1 \
-    -Wno-dev
-  cmake --build build
+	cmake -B build -S "${pkgname}-${pkgver}" \
+		-DCMAKE_BUILD_TYPE=None \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DUSE_WAYLAND_CLIPBOARD=ON \
+		-DDISABLE_UPDATE_CHECKER=ON \
+		-DUSE_KDSINGLEAPPLICATION=OFF \
+		-Wno-dev
+	cmake --build build
 }
 
 package() {
-  DESTDIR="${pkgdir}" cmake --install build
+	DESTDIR="${pkgdir}" cmake --install build
+
+	# Remove vendored static builds of shared libraries (used for single application, which we disable)
+	# See https://github.com/flameshot-org/flameshot/blob/v13.0.0/packaging/rpm/fedora/flameshot.spec#L64-L70
+	rm -rf "${pkgdir}/usr/include/QtColorWidgets/" \
+		"${pkgdir}/usr/include/kdsingleapplication-qt6/" \
+		"${pkgdir}/usr/lib/cmake/KDSingleApplication-qt6/" \
+		"${pkgdir}/usr/lib/cmake/QtColorWidgets/" \
+		"${pkgdir}/usr/lib/libQtColorWidgets.a" \
+		"${pkgdir}/usr/lib/libkdsingleapplication-qt6.a" \
+		"${pkgdir}/usr/lib/pkgconfig/QtColorWidgets.pc"
+	rmdir "${pkgdir}/usr/include/" "${pkgdir}/usr/lib/"{cmake,pkgconfig,}
 }
