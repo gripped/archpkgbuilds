@@ -3,22 +3,29 @@
 _hkgname=barbies
 pkgname=haskell-barbies
 pkgver=2.0.5.0
-pkgrel=53
+pkgrel=55
 pkgdesc="Classes for working with types that can change clothes."
 url="https://github.com/jcpetruzza/barbies#readme"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-distributive')
-makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
-             'haskell-tasty-quickcheck')
+makedepends=('ghc')
+checkdepends=('haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
+              'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('d522ca55fb46587efcda07e0b5293be9120fbcb788594c084f71a71e66210cc9')
 
 build() {
   cd $_hkgname-$pkgver
 
+  if (( CHECKFUNC )); then
+    _opts=('--enable-tests')
+  else
+    _opts=('--disable-tests')
+  fi
+
   runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie'
