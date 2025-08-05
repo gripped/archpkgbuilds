@@ -1,6 +1,6 @@
 pkgbase = qtile
 	pkgdesc = A full-featured, pure-Python tiling window manager
-	pkgver = 0.32.0
+	pkgver = 0.33.0
 	pkgrel = 1
 	url = https://qtile.org/
 	install = qtile.install
@@ -11,6 +11,7 @@ pkgbase = qtile
 	checkdepends = imagemagick
 	checkdepends = lm_sensors
 	checkdepends = procps-ng
+	checkdepends = python-anyio
 	checkdepends = python-bowler
 	checkdepends = python-dbus-fast
 	checkdepends = python-gobject
@@ -63,12 +64,12 @@ pkgbase = qtile
 	optdepends = python-xdg: launchbar widget
 	optdepends = python-xkbcommon: for Wayland backend
 	optdepends = xorg-xwayland: for XWayland support
-	source = git+https://github.com/qtile/qtile?signed#tag=v0.32.0
+	source = git+https://github.com/qtile/qtile?signed#tag=v0.33.0
 	validpgpkeys = 3CCAB226289DE0160C61BDB418D18F1BC464DCA3
 	validpgpkeys = 35D92E7CC7357A81173EA1C974F9FDD20984FBEC
 	validpgpkeys = A6BAA1E17D2664ADB97B2C6F58A9AA7C86727DF7
-	sha512sums = fdbd2a14b54bfa8bfef3a1382ea4523afc0d8a911feddac7ba205a211ef2655963ebe0f6e7a34ae1f5bcd26b86cb66dc66eb403481a64926f6343d1734a7b076
-	b2sums = 6d18e55c07a81076bfb234815254a0e1610ec79285c8a3ff2c19a7ec7a3fd2698d0067deb07b53bef60977ddef63437f0bc6cbea7a3dedc991b46ec2450a3460
+	sha512sums = 27c84c093a272b489baf9cf7227dfcbbf179bddd46002ea4dd4b5d3d79d902e08974f7e277a518b81e8a9c4a9ba566b986dc61c61984144573c3a37162ec4aa0
+	b2sums = f24baa1e7897c34d4eb767d19dbddd697aea0a9a69ffd70a6e2a91ed1c825ec89aa721b182e92eb77de1cf5026eeb512acbc9e9b66ab99490a98e17a20aa8403
 
 pkgname = qtile
 	depends = gdk-pixbuf2
