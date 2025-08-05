@@ -3,7 +3,7 @@
 # Contributor: gilbus
 
 pkgname=swaylock
-pkgver=1.8.2
+pkgver=1.8.3
 pkgrel=1
 license=("MIT")
 pkgdesc="Screen locker for Wayland"
@@ -11,7 +11,7 @@ makedepends=(
     'meson'
     'scdoc'
     'wayland-protocols'
-    'git'  # To make the version string
+    'git'
 )
 depends=(
     'cairo'
@@ -24,7 +24,7 @@ arch=('x86_64')
 url="https://github.com/swaywm/swaylock"
 backup=('etc/pam.d/swaylock')
 source=("git+$url.git#tag=v$pkgver?signed")
-sha256sums=('888f4d91033a89fb27f812a0b4a56fcd41c626274d6f88ecbfb97f525642c099')
+sha256sums=('37f49f4d94e17ab1db4908ce7e8c298c65735997e42ece8d218522998fd34f07')
 validpgpkeys=(
     "9DDA3B9FA5D58DD5392C78E652CB6609B22DA89A"  # Drew DeVault
     "34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48"  # Simon Ser
