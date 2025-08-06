@@ -4,14 +4,15 @@
 _hkgname=scientific
 pkgname=haskell-scientific
 pkgver=0.3.7.0
-pkgrel=150
+pkgrel=154
 pkgdesc="Numbers represented using scientific notation"
 url="https://github.com/basvandijk/scientific"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-integer-logarithms' 'haskell-primitive')
-makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-smallcheck' 'haskell-tasty' 'haskell-tasty-hunit'
-             'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')
+makedepends=('ghc' 'uusi')
+checkdepends=('haskell-quickcheck' 'haskell-smallcheck' 'haskell-tasty' 'haskell-tasty-hunit'
+              'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('dbd13060a6d1d101138715b4106382a78d115cff247859cb6f83aca3cdb6f6caf8a2c52d7ae99be64845c5e4a7959940bbf31df6265b15079c236f193b087865')
 
@@ -22,9 +23,15 @@ prepare() {
 
 build() {
     cd $_hkgname-$pkgver
+
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-integer-simple -f-bytestring-builder
     runhaskell Setup build $MAKEFLAGS
