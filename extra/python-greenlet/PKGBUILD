@@ -3,7 +3,7 @@
 # Contributor: Ralf Schmitt <ralf@systemexit.de>
 
 pkgname=python-greenlet
-pkgver=3.2.1
+pkgver=3.2.3
 pkgrel=1
 pkgdesc="Lightweight in-process concurrent programming"
 license=("MIT")
@@ -14,10 +14,13 @@ makedepends=('python-build' 'python-installer' 'python-setuptools'
              'python-wheel')
 checkdepends=('python-objgraph' 'python-psutil')
 source=("https://files.pythonhosted.org/packages/source/g/greenlet/greenlet-${pkgver}.tar.gz")
-sha512sums=('75fd697d0bde99c60d4c741c61c1010e2bae659e93661e8ea37f6683c1223422a7f862aa770b80bc3299593a9791ec515fd31797fd36216ed784f4e2f4103420')
+sha512sums=('3153123855b4900387454fa1d4223b321980e3462e1e139b9f90b4eb2d0772102e06375055c6eb612530d7037169ff6e28166f95efe09073ea331db76284d39d')
 
 build() {
     cd greenlet-$pkgver
+    # see https://github.com/python-greenlet/greenlet/issues/454
+    export CFLAGS="$CFLAGS -fcf-protection=none"
+    export CXXFLAGS="$CXXFLAGS -fcf-protection=none"
     python -m build --wheel --skip-dependency-check --no-isolation
 }
 
