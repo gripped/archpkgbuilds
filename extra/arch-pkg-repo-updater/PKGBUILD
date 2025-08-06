@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=arch-pkg-repo-updater
-pkgver=0.0.2
+pkgver=0.0.3
 pkgrel=1
 pkgdesc='Arch Linux packaging Git repository updater'
 url='https://gitlab.archlinux.org/archlinux/buildbtw/-/tree/main/arch-pkg-repo-updater'
@@ -22,8 +22,8 @@ makedepends=(
 )
 options=(!lto)
 source=(buildbtw::"git+https://gitlab.archlinux.org/archlinux/buildbtw.git#tag=${pkgname}/v${pkgver}?signed")
-sha256sums=('881c12e6e18df17c4dbd161239d9f0c7da3e0961c609e25d55aee59bb701f382')
-b2sums=('0ee7cec0ea53c216ddc489177ed2df493c5338015985ae72ff7c548c607c5ee303748b634fe00a1357a5a91a0a067195bec922c362eb5b2b330fc1779233a3fe')
+sha256sums=('71a007a82b006c0cdcf8ebdf1b67b726ce3212ebfb01b71c0151d1785b156f47')
+b2sums=('b760b3696ec0ca3b3ae8f33b01e54f2f21de0b9704721f91b85a1c7e50627c6498b8f60b1eff552e732b49d20b7fda89833e5d4763ce4f35d4e354301dd0b1ca')
 validpgpkeys=(
   E240B57E2C4630BA768E2F26FC1B547C8D8172C8 # Levente Polyak <anthraxx@archlinux.org>
   AAE2599CE2DFD58B8E884726B4EFE6DC59FAE118 # Rafael Epplée <raffomania@archlinux.org>
@@ -33,7 +33,7 @@ validpgpkeys=(
 
 prepare() {
   cd buildbtw/${pkgname}
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
