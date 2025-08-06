@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-geoip2
-pkgver=5.0.1
+pkgver=5.1.0
 pkgrel=1
 pkgdesc="MaxMind GeoIP2 API"
 url="https://github.com/maxmind/GeoIP2-python"
@@ -29,7 +29,7 @@ source=(
   git+https://github.com/maxmind/GeoIP2-python.git#tag=v$pkgver
   git+https://github.com/maxmind/MaxMind-DB.git
 )
-sha512sums=('3069908b57c221ba5dcf650ee7b509efd7b6d416dd14911ba2c6ce1cc1570bd6efd9f91f9d3a625ba42a13941693668f9ea8445a6c8e57b2da789ff62f4404d7'
+sha512sums=('7148ae01ab01920a39ba0b167955ad93f756cd52d8da243b38006f06b0661a176bbe7aee41af5dceaf37ac19c7b65bf1bde14f6a04c74ff5a84c096e7a31134b'
             'SKIP')
 
 prepare() {
