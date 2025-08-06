@@ -4,22 +4,29 @@
 _hkgname=uuid-types
 pkgname=haskell-uuid-types
 pkgver=1.0.6
-pkgrel=24
+pkgrel=28
 pkgdesc="Type definitions for Universally Unique Identifiers"
 url="https://github.com/aslatter/uuid"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-random')
-makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
-             'haskell-tasty-quickcheck')
+makedepends=('ghc')
+checkdepends=('haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
+              'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('9d5cd688cee15f8210aeaceb8884144bbd679e9556ca43e4c61a9ce4115809dbc30aaace013daa8f1bc6774a07e70e9d478c4f7c5599724ac5ee1ae0cae013da')
 
 build() {
     cd $_hkgname-$pkgver
+
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
