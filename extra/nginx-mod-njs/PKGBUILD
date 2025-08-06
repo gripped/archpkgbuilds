@@ -2,7 +2,7 @@
 
 pkgbase=nginx-mod-njs
 pkgname=(nginx-mod-njs nginx-mod-njs-stream)
-pkgver=0.9.0
+pkgver=0.9.1
 pkgrel=1
 
 _modname="${pkgname#nginx-mod-}"
@@ -15,7 +15,7 @@ url="https://nginx.org/en/docs/njs_about.html"
 license=('BSD-2-Clause')
 
 source=(https://github.com/nginx/njs/archive/refs/tags/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('7b0446f0b3e0b63b57883e0464d883f0ac4eab82ec7746599d37563dc6808203')
+sha256sums=('61365eea69c6862fc8a5b5df531503ae49499f6bcd5af932496b84850a2824a4')
 
 prepare() {
   mkdir -p build
@@ -67,9 +67,12 @@ package_nginx-mod-njs-stream() {
   backup=('etc/nginx/modules.d/20-njs-stream.conf')
 
   if [[ "$BUILDTOOL" == devtools ]]; then
-    local nginx_ver="$(nginx -v 2>&1 | sed 's|.*/||')"
-    depends+=("nginx=$nginx_ver" "nginx-mod-stream=$nginx_ver")
+    local nginx_dep="nginx=$(nginx -v 2>&1 | sed 's|.*/||')"
+    local nginx_mod_stream_dep="nginx-mod-stream=$(nginx -v 2>&1 | sed 's|.*/||')"
+    # this is added to PKGINFO data
+    depends+=($nginx_dep $nginx_mod_stream_dep)
   else
+    # this is added to SRCINFO data
     depends+=(nginx nginx-mod-stream)
   fi
 
