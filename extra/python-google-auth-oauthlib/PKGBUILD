@@ -2,8 +2,8 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=python-google-auth-oauthlib
-pkgver=1.2.1
-pkgrel=2
+pkgver=1.2.2
+pkgrel=1
 pkgdesc="oauthlib integration for Google auth."
 url="http://google-auth-oauthlib.readthedocs.io/en/latest/"
 checkdepends=('python-click' 'python-pytest')
@@ -13,7 +13,7 @@ optdepends=('python-click')
 license=('Apache')
 arch=('any')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/googleapis/google-auth-library-python-oauthlib/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('9c5bebe2d0c4d65f7904b17dd21a2c4d7229fa8702ec910a75d48abf9f533075')
+sha256sums=('ea495bc6d97714353ff53258ee3c497a4bc1c2f4c3c63eefb7f6ace30aa06851')
 
 # check() {
 #     cd "google-auth-library-python-oauthlib-${pkgver}"
@@ -27,5 +27,4 @@ package() {
 
     # Remove conflicting files
     local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
-    rm -r "${pkgdir}/usr/lib/python${python_version}/site-packages/docs"
 }
