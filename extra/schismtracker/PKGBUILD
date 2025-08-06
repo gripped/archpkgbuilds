@@ -3,7 +3,7 @@
 # Contributor: Brandon Mulcahy <brandon@jangler.info>
 
 pkgname=schismtracker
-pkgver=20250415
+pkgver=20250728
 pkgrel=1
 pkgdesc='An old-school sample-based music composition tool'
 arch=('x86_64')
@@ -19,8 +19,8 @@ depends=(
 )
 makedepends=('git' 'python' 'alsa-lib' 'jack2')
 source=("$pkgname::git+https://github.com/schismtracker/schismtracker#tag=$pkgver")
-sha512sums=('d60b1b12f4ad8f064164e1a2bf976e47120c3feee2e98dccdb611f529504b0232ef8c607983bea309e1ecac0c1befa931cbabc5612bd5e5fa17100d10951c2cf')
-b2sums=('89430ab6d78db688e3d9f482d41052487c7553a7e85b509c53d2f157b165a82a0b407470c57d1baef15bcf3fb4ef351251b87dd7c45a01068b2810674022175e')
+sha512sums=('da3783e22b467cfd2c11cc9c998e90e6edd7d0acf58e291672059196d96f03e1f3fa44ba2071a163b579e3d360ddbda4b96eccf34d14ab0f8f45561178afa861')
+b2sums=('0a73435e5987d4b0066c767e2ca58cf8118a9a846ab11454711e61b584c2c5d73bff925696d537d9893e9dcb7e12a2dd55ad0dcdcfb80eab3c1456eb02737a7f')
 
 prepare() {
   cd "$pkgname"
