@@ -4,21 +4,28 @@
 _hkgname=constraints
 pkgname=haskell-constraints
 pkgver=0.13.4
-pkgrel=88
+pkgrel=91
 pkgdesc="Constraint manipulation"
 url="https://github.com/ekmett/constraints/"
 license=("custom:BSD2")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-transformers-compat' 'haskell-type-equality')
-makedepends=('ghc' 'haskell-hspec')
+makedepends=('ghc')
+checkdepends=('haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('3e4cf62ee897cc103332ae1823552c52568fe090968ee763b83a0cc95c978c6766db02a4cbc4e2c9d6f83d04bb731a91421d5078904847d204e5cc8d8ee59d5f')
 
 build() {
     cd $_hkgname-$pkgver
-    
+
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
+
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
