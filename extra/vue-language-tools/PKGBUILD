@@ -2,24 +2,28 @@
 # Contributor: Yufan You <ouuansteve at gmail>
 
 pkgbase=vue-language-tools
-pkgname=(
-  vue-language-server
-  vue-typescript-plugin
-)
-pkgver=2.2.12
+pkgname=vue-language-server
+pkgver=3.0.5
 pkgrel=1
 pkgdesc='Language server for Vue'
 arch=(any)
 url=https://github.com/vuejs/language-tools/tree/master/packages/language-server
 license=(MIT)
+depends=(
+  nodejs
+  typescript
+)
 makedepends=(
   git
   jq
   npm
   pnpm
 )
+provides=(vue-typescript-plugin)
+replaces=(vue-typescript-plugin)
+options=(!emptydirs)
 source=("$pkgbase::git+https://github.com/vuejs/language-tools.git#tag=v$pkgver")
-b2sums=('ed402382023f9e0f2afbd8577acd2658aa8395470e75211753fc78237d551bc94cce09eb15ea6afd4c081233d70f74beef9454612472b9e6848d7ebd5d9aca74')
+b2sums=('194afb0a4a23354afef4e4230e326c4d7a1091ef8ef19a25f9ba308fa7937b5b6ca4ec9a479de40967e169f8fb8f4b7a4c333c7498438f0dd449ede3232d2897')
 
 prepare() {
   cd $pkgbase
@@ -36,10 +40,7 @@ check() {
   COREPACK_ENABLE_STRICT=0 pnpm test
 }
 
-package_vue-language-server() {
-  depends=(nodejs)
-  optdepends=('typescript: for use in typescript.tsdk')
-
+package() {
   local mod_dir=/usr/lib/node_modules/@vue/language-server
 
   install -d "$pkgdir"/{/usr/bin,$mod_dir}
@@ -48,35 +49,12 @@ package_vue-language-server() {
   cd $pkgbase/packages/language-server
   # Prune unnecessary packages
   rm -r node_modules
-  npm install --omit=dev
+  npm install --omit=dev --omit=peer
 
   shopt -s globstar
   export GLOBIGNORE='node_modules/*'
   mapfile -t mod_files < <(jq -r '.files[]' package.json)
   # shellcheck disable=SC2068
   cp --parents -r ${mod_files[@]} node_modules package.json "$pkgdir"/$mod_dir
-  install -Dm644 -t "$pkgdir"/usr/share/licenses/"${pkgname[0]}" LICENSE
-}
-
-package_vue-typescript-plugin() {
-  depends=(
-    nodejs
-    typescript
-  )
-
-  local mod_dir=/usr/lib/node_modules/@vue/typescript-plugin
-
-  install -d "$pkgdir"/$mod_dir
-
-  cd $pkgbase/packages/typescript-plugin
-  # Prune unnecessary packages
-  rm -r node_modules
-  npm install --omit=dev
-
-  shopt -s globstar
-  export GLOBIGNORE='node_modules/*'
-  mapfile -t mod_files < <(jq -r '.files[]' package.json)
-  # shellcheck disable=SC2068
-  cp --parents -r ${mod_files[@]} node_modules package.json "$pkgdir"/$mod_dir
-  install -Dm644 -t "$pkgdir"/usr/share/licenses/"${pkgname[1]}" LICENSE
+  install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
 }

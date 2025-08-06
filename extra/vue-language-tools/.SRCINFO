@@ -1,6 +1,6 @@
 pkgbase = vue-language-tools
 	pkgdesc = Language server for Vue
-	pkgver = 2.2.12
+	pkgver = 3.0.5
 	pkgrel = 1
 	url = https://github.com/vuejs/language-tools/tree/master/packages/language-server
 	arch = any
@@ -9,13 +9,12 @@ pkgbase = vue-language-tools
 	makedepends = jq
 	makedepends = npm
 	makedepends = pnpm
-	source = vue-language-tools::git+https://github.com/vuejs/language-tools.git#tag=v2.2.12
-	b2sums = ed402382023f9e0f2afbd8577acd2658aa8395470e75211753fc78237d551bc94cce09eb15ea6afd4c081233d70f74beef9454612472b9e6848d7ebd5d9aca74
-
-pkgname = vue-language-server
-	depends = nodejs
-	optdepends = typescript: for use in typescript.tsdk
-
-pkgname = vue-typescript-plugin
 	depends = nodejs
 	depends = typescript
+	provides = vue-typescript-plugin
+	replaces = vue-typescript-plugin
+	options = !emptydirs
+	source = vue-language-tools::git+https://github.com/vuejs/language-tools.git#tag=v3.0.5
+	b2sums = 194afb0a4a23354afef4e4230e326c4d7a1091ef8ef19a25f9ba308fa7937b5b6ca4ec9a479de40967e169f8fb8f4b7a4c333c7498438f0dd449ede3232d2897
+
+pkgname = vue-language-server
