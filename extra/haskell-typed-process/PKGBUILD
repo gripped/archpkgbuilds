@@ -4,22 +4,29 @@
 _hkgname=typed-process
 pkgname=haskell-typed-process
 pkgver=0.2.13.0
-pkgrel=7
+pkgrel=9
 pkgdesc="Run external processes, with strong typing of streams"
 url="https://github.com/fpco/typed-process"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-async' 'haskell-unliftio-core')
-makedepends=('ghc' 'haskell-base64-bytestring' 'haskell-hspec' 'haskell-hspec-discover'
-             'haskell-temporary')
+makedepends=('ghc')
+checkdepends=('haskell-base64-bytestring' 'haskell-hspec' 'haskell-hspec-discover'
+              'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('5d380906ca0ac4df28460c6d870bed3c6a78f8e98819c8684647f2a106d8753e22d4e65688133140512226e15ee71e7854965b70b6eecb931fd7176625d1fbcf')
 
 build() {
     cd $_hkgname-$pkgver
 
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
+
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
