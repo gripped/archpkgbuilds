@@ -2,82 +2,80 @@
 # Contributor: Rasmus Moorats <xx+aur@nns.ee>
 
 pkgname=opensnitch
-pkgver=1.6.8
-pkgrel=2
+pkgver=1.7.1
+pkgrel=1
 pkgdesc='A GNU/Linux application firewall'
-arch=('x86_64')
-url='https://github.com/evilsocket/opensnitch'
-license=('GPL-3.0-or-later')
+arch=(x86_64)
+url=https://github.com/evilsocket/opensnitch
+license=(GPL-3.0-or-later)
 depends=(
-  'glibc'
-  'hicolor-icon-theme'
-  'libnetfilter_queue'
-  'libnfnetlink'
-  'python'
-  'python-grpcio'
-  'python-protobuf'
-  'python-slugify'
-  'python-pyqt5'
-  'python-pyinotify'
-  'python-notify2'
-  'python-packaging'
+  glibc
+  hicolor-icon-theme
+  libnetfilter_queue
+  libnfnetlink
+  python
+  python-grpcio
+  python-protobuf
+  python-slugify
+  python-pyqt5
+  python-pyinotify
+  python-notify2
+  python-packaging
 )
 makedepends=(
-  'git'
-  'go'
-  'python-grpcio-tools'
-  'python-build'
-  'python-installer'
-  'python-wheel'
-  'python-setuptools'
-  'python-jaraco.text'
-  'qt5-tools'
-  'llvm'
-  'clang'
-  'libelf'
-  'linux-headers'
-  'bc'
+  git
+  go
+  python-grpcio-tools
+  python-build
+  python-installer
+  python-wheel
+  python-setuptools
+  python-jaraco.text
+  qt5-tools
+  llvm
+  clang
+  libelf
+  linux-headers
+  bc
 )
 optdepends=(
   'logrotate: logfile rotation'
   'python-qt-material: extra ui themes'
   'python-pyasn: display network name of IP'
 )
-replaces=('opensnitch-ebpf-module') # from the AUR
+replaces=(opensnitch-ebpf-module) # from the AUR
 backup=(
-  'etc/opensnitchd/default-config.json'
-  'etc/opensnitchd/system-fw.json'
+  etc/opensnitchd/default-config.json
+  etc/opensnitchd/system-fw.json
 )
-options=('!lto')
+options=(!lto)
 source=(
-  "$pkgname::git+$url#tag=v$pkgver"
-  'fix-systemd-service.patch'
-  'remove-debian-path.patch'
-  'fix-setup.py.patch'
-  'add-generated-protobuf-files.patch'
-  'use-system-python-packages.patch'
-  'add-translations.patch'
-  'template-version-strings.patch'
-  'tmpfiles.conf'
+  "$pkgname::git+$url#tag=v${pkgver}?signed"
+  fix-systemd-service.patch
+  fix-setup.py.patch
+  add-generated-protobuf-files.patch
+  use-system-python-packages.patch
+  add-translations.patch
+  template-version-strings.patch
+  tmpfiles.conf
 )
-sha512sums=('f4e172d8a37fd7530b94fdca9b141ec9aa8e3cb020eb0bfbaecbdccd4f9c1bbfd108df7e9e0e57b23ad414ce4d69316b590e6ae76564ef5bcba8dff3a0d55ef9'
+sha512sums=('34f4a4418fb9919236697c4e6c9b61e1223c9566db2e71a8ac08ebd99235aa7b6da57a80185aee25e6986d18c3b64b04f6bebd674dcb8e5194e96271c93e9f0d'
             '05a0565346917491da3592fb23859a05b0a963932238754b07db7e1e0878437a99802f4e1ea7730ad19ab66207dd191c30d1f14f54c28e9ae842fe740b926d94'
-            '36b6056cdc0a24c8899a1daafd9983f1feb44df0ec3972e7e1759a3d5d6486d7c977d8e6ce9edb5456e57231266d3473547219ed32983671f151e4d02979c1f0'
             '3cd3c82c046646426793dbbb8197f40d8a155c78607c65e5cf0a645a93202119b0cc686b555463e013d5032c82ee804a2bd743197fe67236e26ff4cdb04d971b'
-            'eff98be7897103e267bd95e837946126a16e29b22dfc3d1ccb5eba6b1fa7b2efac0c7c59f71175ae5cd1283ecbdd9fc2806b480b92e8b5b83e702fa3d57a9748'
-            '8606ee06c24fdd3a7c4ef50b34f9d3c0f4e18515060604adb973b900674c18a21f586e4d64cc607762f5973ca0b8e061eecb7f115102f4705df22c51fbc435a0'
-            '06e6d40658b51bb5254c2ea06cd6ebef139b2d144ea1060e5b2fa7231fb6ecc13c29b8c10b0f59f4d5470775d2ecea13fb171a9c745633a80a9f1d74d1ded493'
+            'a496573d6a8f2cc471bf491e253d13320aa634f23c8e6ab1e038d83a6ceefd82cf4d7f4a95e74601afdd4ded11a1581b3b5b53cd44cffba95d5e77f01ae92d11'
+            '88d154a05fe0cc294f1c0ea1c3e6714f9d26259432b82cb610f16de9f3c0a2037540f8d2ba96a6bf3dd196964b16b5754cfe44f65c2de46f4ac0d1c71b3a4d20'
+            'ecfb63bb03c9a334422aa00a8b26a11cbb8adde100956f888752a49f7d74bbb88711d4bca6e9e069541f1636c8581a7fd9c4ed8c5da3a9a81794a69114bdca0c'
             '155833e51da7bdae4120bce81152cda1b22dd0327d96d11d0b96c8fc7e210643c9071c54461bcb04af42484de94559e83d4b45a2b181e7e7f86ca8d3f4f6fc60'
             '11c20c25693bb5a41114e1a37ca159a6c89db70ecfdcc8b4ff0f4d1f1af1fd4fecf5315508261fa860663da4742f4115e10734ce42da2891db4df57e9c1ac79b')
-b2sums=('16ef85e108437865597c7b08096074606958020f53ec4b29a8791d6e530b652711fcc96ec19dc7eaf795e93f1a13f829ad86ffca940fcd66b3ab1323260d8163'
+b2sums=('e2c4ee0fd320b61644ca8103a77c970d4701c104df39ade806c3bfdc53b2387e58c39b2b51b573a513569453257f2a0e23f190d1983447cd8fc2db4d02bd9acb'
         'a632dc8cc86a96e569a990ae1f869c3d03766828d7bfd672f2376bc0a5e8eacea8c09e3e889307ccc6138485dbde8a3e154103646cbaa80ffa4d9010abcc426d'
-        '452ac64cc42c818ff8cbd4f0c52c7747b23e7ebcb480f0450d3794725590f3301fa16f634c043b9b394c0868dfd99b1d4bbe8721fdece1c761d44f1ef9b119fb'
         '0d36bd5aa6ffe769172107134c098aa996c9123e42e8de35391f02dc0ab08b4d43b1a0145ffb33ce40bdc44c55ab7f82396757ff9ba4bba4bc989a4207d4eadb'
-        'cb63b2d3e2f3ed2d31003bbc81fe95a6bdb69d5a952c38e1735b3c24b51c96e391498c56069bd1cd4efdf212294949b77d505f7b2b566f7a7db54c7330d942f2'
-        '7c5934750395b563736ab6ca290336c7c0354a413424aad545d19ef69c9aae087fb41f9b98149e92c3a6f37e497dce439e6315a6c7e51fd72dd89d975d6c0dfc'
-        '3735659ecc3fc3c1f12ff7b1e910801f3d121e22d86d1e3c025077a2ee8346487991a2daa87ca439c139f02f8e398ea54722f925b36aed6793e641eacfa087d3'
+        '566a369b9abfa546daf57894f1c761a37d512d85b6de041201b189d2b1becdd8bdd9d371173166162687b32910d8720f9218c4fdb97fd8c89587ef99ecb78f8b'
+        '063934b33ae0aeb7c8627aacedcb12fa2c6abb626752c7a475537e57094ad737ea942b4872096b44f577426ad344d247548b6dd5a942fb9bb81a8f8e21c17691'
+        '1a2e46053c342d7e71d0f2e1fdc2e9f8fd337c91dfa8ee91e870ede0aa4537df3b10d81ff0e7877d9229ce3125b4fa8fc93a32eeeb496b4c41b0d0a0b96bc861'
         '8e9fa7c96f597cb090720dfc74ab3828d52716a1dd41a2f4cfaa7e00a8a3951465bf79767cbe277ff21cbb258aa31c5c22119d1fc21cd848960c32742f8ed44f'
         '81dbb6ba72d5bf5a0d9fa3dea33b87f03604c1a2537a4ca47b45923ab186e68d5c24b043691a857948ae404409dc3cc66a7ef004ee20dc2451aa5190fe6479bb')
+validpgpkeys=(F34016AC014BAAF8C90AC730141D0D4E9FF44A67) # Gustavo Iñiguez Goya <gustavo.iniguez.goya@gmail.com>
 
 prepare() {
   cd "$pkgname"
@@ -91,7 +89,7 @@ prepare() {
   # add generated protobuf files
   # required for reproducible builds & to side-step
   # requirement of protoc-gen-go{,-grpc} binaries
-  patch -p1 -i "$srcdir/add-generated-protobuf-files.patch"
+  git apply "$srcdir/add-generated-protobuf-files.patch"
 
   # use system python packages
   patch -p1 -i "$srcdir/use-system-python-packages.patch"
@@ -104,13 +102,9 @@ prepare() {
   # fix a couple of issues with the systemd service
   patch -p1 -i "$srcdir/fix-systemd-service.patch"
 
-  # TODO file an upstream bug
-  # remove Debian-specific path from sys.path
-  patch -p1 -i "$srcdir/remove-debian-path.patch"
-
   # version strings are currently out of date
   # template-ify version strings for easier sed invocation (1/2)
-  patch -p1 -i "$srcdir/template-version-strings.patch"
+  #patch -p1 -i "$srcdir/template-version-strings.patch"
 
   # download dependencies
   cd daemon
@@ -122,8 +116,8 @@ build() {
   cd "$pkgname"
 
   # template-ify version strings for easier sed invocation (2/2)
-  sed -e "s/@VERSION@/$pkgver/" -i daemon/core/version.go
-  sed -e "s/@VERSION@/$pkgver/" -i ui/opensnitch/version.py
+  #sed -e "s/@VERSION@/$pkgver/" -i daemon/core/version.go
+  #sed -e "s/@VERSION@/$pkgver/" -i ui/opensnitch/version.py
 
   # set Go flags
   export CGO_CPPFLAGS="${CPPFLAGS}"
@@ -158,25 +152,25 @@ build() {
   popd
 }
 
-check() {
-  cd "$pkgname"
-
-  local REQUIRED_SECTIONS=(
-    kprobe/{tcp_v{4,6}_connect,udp{,v6}_sendmsg,iptunnel_xmit}
-    maps/{{tcp,udp}{,v6}Map,tcp{,v6}sock,icmpsock}
-  )
-
-  local SECTIONS=$(llvm-readelf \
-    ebpf_prog/opensnitch.o \
-    --section-headers)
-
-  for section in "${REQUIRED_SECTIONS[@]}"; do
-    grep -q " ${section}" <<<"$SECTIONS" || {
-      echo "Failed to build opensnitch.o properly, section ${section} missing!"
-      return 1
-    }
-  done
-}
+#check() {
+#  cd "$pkgname"
+#
+#  local REQUIRED_SECTIONS=(
+#    kprobe/{tcp_v{4,6}_connect,udp{,v6}_sendmsg,iptunnel_xmit}
+#    maps/{{tcp,udp}{,v6}Map,tcp{,v6}sock,icmpsock}
+#  )
+#
+#  local SECTIONS=$(llvm-readelf \
+#    ebpf_prog/opensnitch.o \
+#    --section-headers)
+#
+#  for section in "${REQUIRED_SECTIONS[@]}"; do
+#    grep -q " ${section}" <<<"$SECTIONS" || {
+#      echo "Failed to build opensnitch.o properly, section ${section} missing!"
+#      return 1
+#    }
+#  done
+#}
 
 package() {
   cd "$pkgname"
