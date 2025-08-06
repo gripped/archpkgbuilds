@@ -2,28 +2,33 @@
 
 _hkgname=ghc-tcplugins-extra
 pkgname=haskell-ghc-tcplugins-extra
-pkgver=0.4.6
-pkgrel=2
+pkgver=0.5
+pkgrel=1
 pkgdesc="Utilities for writing GHC type-checker plugins"
 url="https://github.com/clash-lang/ghc-tcplugins-extra"
-license=('custom:BSD2')
+license=('BSD-2-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-ghc')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('498a12f9ffad2c5a39b5421edc95a3e6b85eaa28ef6d1ca0699de313d3d608fd2a945b732845c1e3f7a0002ad815148777815e92b296cc11c781a7338a30a2ea')
+sha512sums=('c86ef2c9c0ae29877d81e9f8319199b62434332cb5801369d5bb30927fbce8219dab0dd3b8bd91723798bffd4dc36472719b0ec4b88bc408503cf2e5f611952f')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
