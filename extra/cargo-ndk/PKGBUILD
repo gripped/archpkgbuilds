@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-ndk
-pkgver=4.0.3
+pkgver=4.1.1
 pkgrel=1
 pkgdesc="Compile Rust projects against the Android NDK without hassle"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT' 'Apache-2.0')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('56027b78e84cbf037c2e93f86cbf72c8de2226a8d7800441188d268be8f4c5d0')
+sha256sums=('af519b7098ada565bafdefeb9d58e5ccd70727e83375ca3b9e93f0e8086068b2')
 
 prepare() {
   cd "$pkgname-$pkgver"
