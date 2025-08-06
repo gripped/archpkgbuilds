@@ -1,12 +1,13 @@
 pkgbase = python-time-machine
 	pkgdesc = Travel through time in your tests
-	pkgver = 2.16.0
-	pkgrel = 2
+	pkgver = 2.17.0
+	pkgrel = 1
 	url = https://github.com/adamchainz/time-machine
 	arch = x86_64
 	license = MIT
 	checkdepends = python-pytest
 	checkdepends = python-pytest-randomly
+	checkdepends = python-tokenize-rt
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
@@ -15,7 +16,8 @@ pkgbase = python-time-machine
 	depends = python
 	depends = python-dateutil
 	optdepends = python-pytest: for pytest plugin
-	source = python-time-machine::git+https://github.com/adamchainz/time-machine#tag=2.16.0
-	b2sums = 800fd97077b62497eac4378d732ff32dfde9b16261237ded7cb55452b4d11acd44ade247a56749e8cd05165ada0c464130f14a18319172d5b8d33d5c52c8cad5
+	optdepends = python-tokenize-rt: for the migration tool
+	source = python-time-machine::git+https://github.com/adamchainz/time-machine#tag=2.17.0
+	b2sums = 1b8b9810558e5cc310134ba05fece8d1ae51aa16aef0e4901b8d4ddf8b5f261a990d23a414f0b56b743f8f91fe2ec91c14f84e4d10ac8497956a6f352ea70cd7
 
 pkgname = python-time-machine
