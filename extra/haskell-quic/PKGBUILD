@@ -2,9 +2,9 @@
 
 _hkgname=quic
 pkgname=haskell-quic
-pkgver=0.1.10
-pkgrel=3
-pkgdesc="QUIC"
+pkgver=0.1.11
+pkgrel=1
+pkgdesc="Library for QUIC: A UDP-Based Multiplexed and Secure Transport"
 url="https://github.com/kazu-yamamoto/quic"
 license=('BSD-3-Clause')
 arch=('x86_64')
@@ -16,7 +16,7 @@ depends=('ghc-libs' 'haskell-base16-bytestring' 'haskell-crypto-token' 'haskell-
          'haskell-unliftio-core')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-async' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('3e55b391f53a391a154b3f271c4fcf3798ec4073309299e705f898d02e050037')
+sha256sums=('e79d53bf11c6b2c5b02da1ff19f15e95e5c637a8fa9865dba365029629aa0812')
 
 prepare() {
   cd $_hkgname-$pkgver
