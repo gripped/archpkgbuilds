@@ -3,22 +3,19 @@
 # Contributor: naelstrof <naelstrof@gmail.com>
 
 pkgname=slop
-pkgver=7.6
-pkgrel=6
+pkgver=7.7
+pkgrel=1
 pkgdesc='Utility to query the user for a selection and print the region to stdout'
 arch=('x86_64')
 url='https://github.com/naelstrof/slop'
 license=('GPL3')
 depends=('libxext' 'libx11' 'mesa' 'glew' 'libxrender')
 makedepends=('cmake' 'glm')
-source=("${pkgname}-${pkgver}.tar.gz::$url/archive/v${pkgver}.tar.gz"
-        bugfix-add-missed-header.patch)
-sha256sums=('ec45f9a69d7a24df621f5c634d202451ddca987d550cf588c5c427b99106fb6b'
-            '2e48f2cee54cfe2f08ad821d02b548ad9a4911e091418c859e8db78c39824cbd')
+source=("${pkgname}-${pkgver}.tar.gz::$url/archive/v${pkgver}.tar.gz")
+sha256sums=('a69a6e5c41d7fff1c6aa35b367a5c5a6dc98e621fa9a1908808d6308c2b40f4e')
 
 prepare() {
 	cd "$pkgname-$pkgver"
-	patch -Np1 -i ../bugfix-add-missed-header.patch
         sed -e 's|CXX_STANDARD 11|CXX_STANDARD 17|g' -i CMakeLists.txt # Fix build with ICU 74
 }
 
