@@ -1,7 +1,7 @@
 # Maintainer: Pierre Schmitz <pierre@archlinux.de>
 
 pkgname=openssl
-pkgver=3.5.1
+pkgver=3.5.2
 pkgrel=1
 pkgdesc='The Open Source toolkit for Secure Sockets Layer and Transport Layer Security'
 arch=('x86_64')
@@ -15,7 +15,7 @@ provides=('libcrypto.so' 'libssl.so')
 backup=('etc/ssl/openssl.cnf')
 source=("https://github.com/${pkgname}/${pkgname}/releases/download/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.gz"{,.asc}
         'ca-dir.patch')
-sha256sums=('529043b15cffa5f36077a4d0af83f3de399807181d607441d734196d889b641f'
+sha256sums=('c53a47e5e441c930c3928cf7bf6fb00e5d129b630e0aa873b08258656e7345ec'
             'SKIP'
             '0a32d9ca68e8d985ce0bfef6a4c20b46675e06178cc2d0bf6d91bd6865d648b7')
 validpgpkeys=('EFC0A467D613CB83C7ED6D30D894E2CE8B3D79F5'
@@ -31,8 +31,16 @@ prepare() {
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
 
+	local _platform="linux-$CARCH"
+	case "${CARCH}" in
+	"riscv64")
+		_platform="linux64-$CARCH"
+		;;
+	esac
+
+
 	./Configure --prefix=/usr --openssldir=/etc/ssl --libdir=lib \
-		shared enable-ktls enable-ec_nistp_64_gcc_128 linux-${CARCH}
+		shared enable-ktls enable-ec_nistp_64_gcc_128 ${_platform}
 
 	make depend
 	make
@@ -45,7 +53,13 @@ check() {
 	# revert this patch for make test
 	patch -Rp1 -i "$srcdir/ca-dir.patch"
 
-	make HARNESS_JOBS=$(nproc) test
+	if [[ "${CARCH}" == "riscv64" ]] || [[ "${CARCH}" == "aarch64" ]]; then
+		# https://github.com/openssl/openssl/issues/12242
+		make HARNESS_JOBS=$(nproc) TESTS=-test_afalg test
+	else
+		make HARNESS_JOBS=$(nproc) test
+	fi
+
 
 	patch -Np1 -i "$srcdir/ca-dir.patch"
 	# re-run make to re-generate CA.pl from the patched .in file.
