@@ -7,7 +7,7 @@
 
 pkgname=darktable
 epoch=2
-pkgver=5.2.0
+pkgver=5.2.1
 pkgrel=1
 pkgdesc='Utility to organize and develop raw images'
 arch=(x86_64)
@@ -50,7 +50,7 @@ makedepends=(clang
              python-jsonschema)
 _archive="$pkgname-$pkgver"
 source=("$_url/releases/download/release-$pkgver/$_archive.tar.xz"{,.asc})
-sha256sums=('53a46cd46ef7118485c4abf4ab407c181639bb8634243ec0ed1f7c1e8299bec6'
+sha256sums=('02f1aa9ae93949e7bc54c34eeb5ff92c2b87f95d2547865df55c60467564ee11'
             'SKIP')
 validpgpkeys=(C4CBC150699956E2A3268EF5BB5CC8295B1779C9  # darktable releases <release@darktable.org>
               F10F9686652B0E949FCD94C318DCA123F949BD3B) # Pascal Obry <pascal@obry.net>
