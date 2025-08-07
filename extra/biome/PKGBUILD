@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=biome
-pkgver=2.1.3
+pkgver=2.1.4
 pkgrel=1
 pkgdesc='Formatter, linter, and more for Javascript, Typescript, JSON, and CSS'
 arch=(x86_64)
@@ -15,7 +15,7 @@ replaces=(rome
           "$pkgname-bin")
 _archive="$pkgname--biomejs-biome-$pkgver"
 source=("$_url/archive/@biomejs/biome@$pkgver/$_archive.tar.gz")
-sha256sums=('1b9e7227cd27827e3951054bf8daa1a8b42c6a53ab5c05de20f62719332f4356')
+sha256sums=('4700c0d0fc95f6ea7d053d5efabde79d2cb4e7dc2f600da2e97f3f1ec8b18a92')
 
 prepare() {
 	cd "$_archive/crates/${pkgname}_cli"
