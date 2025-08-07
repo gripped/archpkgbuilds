@@ -9,7 +9,7 @@
 
 pkgname=xmms2
 pkgver=0.9.5
-pkgrel=5
+pkgrel=6
 pkgdesc='X-platform Music Multiplexing System 2'
 arch=(x86_64)
 url='https://github.com/xmms2/wiki/wiki'
@@ -63,7 +63,7 @@ sha256sums=('695f2305e4085e9d7a07cabc6c5669a00a55745fe7d6013651dd21fa1f621333'
 build() {
   cd xmms2-$pkgver
   export LINKFLAGS="$LDFLAGS"
-  ./waf configure --prefix=/usr --sbindir=/usr/bin --without-ldconfig \
+  ./waf configure --prefix=/usr --libdir=/usr/lib --sbindir=/usr/bin --without-ldconfig \
     --with-ruby-archdir=`ruby -e 'puts RbConfig::CONFIG["vendorarchdir"]'` \
     --with-ruby-libdir=`ruby -e 'puts RbConfig::CONFIG["vendorlibdir"]'` \
     --with-perl-archdir=`perl -V:installvendorarch | cut -f2 -d\'` \
