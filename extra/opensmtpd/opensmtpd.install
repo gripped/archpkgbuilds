@@ -1,0 +1,14 @@
+post_install() {
+	# Fix ownership of smtpctl. On systems that were first set up a long
+	# time ago, smtpd/smtpq UIDs and GIDs are different from the UIDs/GIDs
+	# used in the package. See https://bugs.archlinux.org/task/66718 and
+	# https://gitlab.archlinux.org/archlinux/packaging/packages/opensmtpd/-/issues/5
+	# for details.
+	systemd-sysusers /usr/lib/sysusers.d/opensmtpd.conf
+	chgrp smtpq /usr/bin/smtpctl
+	chmod 2555 /usr/bin/smtpctl
+}
+
+post_upgrade() {
+	post_install
+}
