@@ -1,15 +1,15 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Tom Hacohen <tom@stosb.com>
 pkgname=acme-tiny
-pkgver=5.0.1
-pkgrel=2
+pkgver=5.0.2
+pkgrel=1
 pkgdesc="A tiny script to issue and renew TLS certs from Let's Encrypt"
 url="https://github.com/diafygi/acme-tiny"
 depends=('python' 'openssl')
 license=('MIT')
 arch=('any')
 source=($pkgname-$pkgver.tar.gz::https://github.com/diafygi/acme-tiny/archive/${pkgver}.tar.gz)
-sha256sums=('8205736d0de258283e337f6fbc35892cb54fac19e10b770f4dc8b0941b1a08a5')
+sha256sums=('f0436c37a2cc33b8a228a7be356b38cf7fa992aca1a52af9bb164e180bdef649')
 
 package() {
     cd "$srcdir"/acme-tiny-${pkgver}
