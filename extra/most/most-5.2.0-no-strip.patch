@@ -1,0 +1,11 @@
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -89,7 +89,7 @@ installdirs:
+ 	$(MKINSDIR) $(DEST_MANDIR)/man1
+ 	$(MKINSDIR) $(DEST_BINDIR)
+ install: all installdirs
+-	$(INSTALL) -s $(OBJDIR)/most $(DEST_BINDIR)
++	$(INSTALL) $(OBJDIR)/most $(DEST_BINDIR)
+ 	$(INSTALL_DATA) ../doc/most.1 $(DEST_MANDIR)/man1
+ 	@for i in $(DOC_FILES); \
+ 	do \
