@@ -3,10 +3,10 @@
 
 pkgbase="sqlite"
 pkgname=('sqlite' 'sqlite-tcl' 'sqlite-analyzer' 'lemon' 'sqlite-doc')
-_srcver=3500300
+pkgver=3.50.4
+_srcver=$(echo "$pkgver" | awk -F. '{ printf "%d%02d%02d00", $1, $2, $3 }')
 _docver=${_srcver}
 #_docver=3440000
-pkgver=3.50.3
 pkgrel=1
 pkgdesc="A C library that implements an SQL database engine"
 arch=('x86_64')
@@ -19,16 +19,15 @@ source=(https://www.sqlite.org/2025/sqlite-src-${_srcver}.zip
         sqlite-lemon-system-template.patch
         license.txt)
 # upstream now switched to sha3sums - currently not supported by makepkg
-sha256sums=('119862654b36e252ac5f8add2b3d41ba03f4f387b48eb024956c36ea91012d3f'
-            'bdbd4e47d52c64c7acc332d1294aa67ad6251ef370abeb0b086ee0cbec91186d'
-            '55746d93b0df4b349c4aa4f09535746dac3530f9fd6de241c9f38e2c92e8ee97'
+sha256sums=('b7b4dc060f36053902fb65b344bbbed592e64b2291a26ac06fe77eec097850e9'
+            'f8a03cf461500310c7a785c9d6f86121ac9465601982cdcac6de0c5987dbfc2f'
+            'ce0083835e458236c83d4f74ad398816e29859cd2f940c7aad9080835b50dcec'
             '4e57d9ac979f1c9872e69799c2597eeef4c6ce7224f3ede0bf9dc8d217b1e65d')
 
 prepare() {
   cd sqlite-src-$_srcver
 
-  # patch taken from Fedora
-  # https://src.fedoraproject.org/rpms/sqlite/blob/master/f/sqlite.spec
+  # Support system-wide template (located at /usr/share/lemon/lempar.c) in lemon.
   patch -Np1 -i ../sqlite-lemon-system-template.patch
 
   #autoreconf -vfi
