@@ -4,8 +4,8 @@
 # Contributor: xyzzy <628208@gmail.com>
 
 pkgname=flameshot
-pkgver=13.0.0
-pkgrel=3
+pkgver=13.0.1
+pkgrel=1
 pkgdesc="Powerful yet simple to use screenshot software"
 url="https://github.com/flameshot-org/flameshot"
 arch=('x86_64')
@@ -17,7 +17,7 @@ optdepends=('gnome-shell-extension-appindicator: for system tray icon if you are
             'xdg-desktop-portal: for wayland support, you will need the implementation for your wayland desktop environment'
             'qt6-imageformats: for additional export image formats (e.g. tiff, webp, and more)')
 source=("${pkgname}-v${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('bca804732618b57687045be34001f4a157aa9c45e59b60fd90fd4ed33f241eee')
+sha256sums=('548867ae67a5cf0fbb8b2bb5dec2ac4e113c2980eda9abb7878041c374e5afa6')
 
 build() {
 	cmake -B build -S "${pkgname}-${pkgver}" \
