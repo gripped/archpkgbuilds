@@ -3,10 +3,10 @@
 
 pkgname=libfakekey
 pkgver=0.3
-pkgrel=3
+pkgrel=4
 pkgdesc='X virtual keyboard library.'
 arch=('x86_64')
-url='https://www.yoctoproject.org/tools-resources/projects/matchbox'
+url='https://git.yoctoproject.org/libfakekey/'
 license=('GPL')
 depends=('libxtst')
 source=("https://git.yoctoproject.org/cgit/cgit.cgi/$pkgname/snapshot/$pkgname-$pkgver.tar.gz")
