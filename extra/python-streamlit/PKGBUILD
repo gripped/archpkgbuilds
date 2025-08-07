@@ -2,7 +2,7 @@
 
 _name=streamlit
 pkgname=python-$_name
-pkgver=1.47.1
+pkgver=1.48.0
 pkgrel=1
 pkgdesc="A faster way to build and share data apps"
 arch=(any)
@@ -67,7 +67,7 @@ source=(
   # build requires git in frontend/protobuf/scripts/generate-proto.js
   git+https://github.com/streamlit/streamlit#tag=$pkgver
 )
-b2sums=('8a5cc5070d9e739ee2996d4c13ad6e01d4599fdb7877bc2547c6ec53d0d062de156697b0e7429e02f0511ad0607ff928e42c258d521f599fd120b7614b7b252f')
+b2sums=('93ab04e2fc623a84c449b4bde8637d3382ec0ded5d6d320dbda6f95544c9aaa27fba24df76d3126d696cf93de6d4c761fc3fabce98d29f89310bc8d6d5db689f')
 
 # based on https://github.com/streamlit/streamlit/blob/develop/Makefile
 build() {
