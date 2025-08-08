@@ -1,5 +1,6 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 pkgname=sea-orm-cli
-pkgver=1.1.3
+pkgver=1.1.14
 pkgrel=1
 pkgdesc='An async & dynamic ORM for Rust'
 url='https://www.sea-ql.org/SeaORM/'
@@ -19,8 +20,8 @@ source=(
   "git+https://github.com/SeaQL/sea-orm.git#tag=${pkgver}"
   Cargo.lock
 )
-sha256sums=('e9c967ab3e87e8364429f568c9cc72f565a642923fb70b589a26eddd48de0264'
-            '811b05bc7806b4df4f113f937c9c9e266d6035f66608ad5b11f10be4e032aa28')
+sha256sums=('b2ceb19ea270c1af1b84bb9c2693f702fd18c27732e0945369431941d88742b5'
+            '9a498ad1a429cb6b0d90182bb4be8e9633674967a75088f2679df6b0fe68a235')
 
 prepare() {
     cd sea-orm/sea-orm-cli
@@ -44,6 +45,6 @@ check() {
 
 package() {
     cd sea-orm
-    install -Dm 755 "sea-orm-cli/target/release/${pkgname}" -t "${pkgdir}/usr/bin/" 
+    install -Dm 755 "sea-orm-cli/target/release/${pkgname}" -t "${pkgdir}/usr/bin/"
     install -Dm 644 LICENSE* -t "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
