@@ -2,7 +2,7 @@
 
 pkgname=hyprgraphics
 pkgver=0.1.5
-pkgrel=1
+pkgrel=2
 pkgdesc='hyprland graphics resources and utilities'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -14,7 +14,7 @@ depends=(cairo # libcairo.so
          hyprutils libhyprutils.so
          libjpeg-turbo libjpeg.so
          libjxl libjxl.so libjxl_threads.so
-         libspng libspng.so
+         libpng # libpng.so
          libwebp libwebp.so
          pixman)
 makedepends=(cmake)
