@@ -1,13 +1,14 @@
 pkgbase = orbiton
 	pkgdesc = Configuration-free text editor and IDE
 	pkgver = 2.70.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://roboticoverlords.org/orbiton/
 	arch = x86_64
 	license = BSD-3-Clause
 	makedepends = git
 	makedepends = go
 	makedepends = vte3
+	depends = glibc
 	options = !lto
 	source = git+https://github.com/xyproto/orbiton#tag=v2.70.0
 	b2sums = 588ad4c336ceff1abbcfc37faf1772bd3ccf5c76f6969248479a9a38d9c7d343c1bdc0dfa815698ec6180a45dc81d0b881b5144e618c388797fb83140fb16156
@@ -53,11 +54,13 @@ pkgname = orbiton
 
 pkgname = orbiton-gtk3
 	pkgdesc = Configuration-free text editor and IDE (GTK3/VTE3)
+	depends = glibc
 	depends = orbiton
 	depends = vte3
 
 pkgname = orbiton-nano
 	pkgdesc = Configuration-free text editor and IDE (Nano/Pico Mode)
+	depends = glibc
 	depends = orbiton
 	provides = nano
 	conflicts = nano
