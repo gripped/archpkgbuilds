@@ -10,7 +10,7 @@ pkgname=(
   libgphoto2-docs
 )
 pkgver=2.5.32
-pkgrel=2
+pkgrel=3
 pkgdesc="Digital camera access library"
 url="http://www.gphoto.org/"
 arch=(x86_64)
@@ -34,20 +34,20 @@ makedepends=(
 )
 source=(
   "git+https://github.com/gphoto/libgphoto2#tag=v$pkgver"
-  0001-meson-Fixes.patch
-  0002-meson-Add-missing-version-info.patch
 )
-b2sums=('de9380961e1731b7510d5555b0f8ec4a691461aa269bcde98e457cf06867f3cd841244f9f5a267b8998e9ab983ac398a49241d7fbc1c6dd7795b87c899926b04'
-        '0b68877e0580a6a219003757b5b57328897ed1059d0a416c663978ae21d5cbe6bb76e8f0283218c3527e8c542de01b8aabd0ac9cdbb6391671074ccdef7cd61a'
-        '7d0129e5b889a7d5a3985efcd7884bfbea9c6910f1ad858bc39c64b10aaeb6295fc70322b748e668238c7fa1d2a7fc1da34252776c981e5046e676df2d5038a1')
+b2sums=('de9380961e1731b7510d5555b0f8ec4a691461aa269bcde98e457cf06867f3cd841244f9f5a267b8998e9ab983ac398a49241d7fbc1c6dd7795b87c899926b04')
 validpgpkeys=(
   7C4AFD61D8AAE7570796A5172209D6902F969C95 # Marcus Meissner <marcus@jet.franken.de>
 )
 
 prepare() {
   cd $pkgbase
-  git apply -3 ../0001-meson-Fixes.patch
-  git apply -3 ../0002-meson-Add-missing-version-info.patch
+
+  # Meson fixes
+  git cherry-pick -n 53a0d5e8ed57ac2582c54a5fc0c425455e9eafc1 \
+                     fd294cdf2d905472519e937b3383cd6928230322 \
+                     2eaa91be3c24835667e99cc5214ecf8429b5aecf
+  sed -i 's/2\.5\.32\.1/2.5.32/' meson.build
 }
 
 build() {
@@ -68,22 +68,25 @@ package_libgphoto2() {
 
   meson install -C build --destdir "$pkgdir"
 
+  local camlibdir="$pkgdir/usr/lib/libgphoto2/$pkgver"
+  test -d "$camlibdir"
+
   # Remove unused udev helper
-  rm -rv "$pkgdir/usr/lib/udev"
+  rm -v "$pkgdir/usr/lib/udev/check-ptp-camera"
+
+  (
+    export LD_LIBRARY_PATH="$pkgdir/usr/lib"
+    export CAMLIBS="$camlibdir"
+
+    build/packaging/generic/print-camera-list hwdb \
+      | install -Dm644 /dev/stdin "$pkgdir/usr/lib/udev/hwdb.d/20-gphoto.hwdb"
+    build/packaging/generic/print-camera-list udev-rules version 201 \
+      | install -Dm644 /dev/stdin "$pkgdir/usr/lib/udev/rules.d/40-gphoto.rules"
+  )
 
   # Split docs
   mkdir -p doc/usr/share
   mv {"$pkgdir",doc}/usr/share/doc
-
-  (
-    export LD_LIBRARY_PATH="$pkgdir/usr/lib"
-    export CAMLIBS="$PWD/$pkgver"
-
-    "$pkgdir/usr/lib/libgphoto2/print-camera-list" hwdb \
-      | install -Dm644 /dev/stdin "$pkgdir/usr/lib/udev/hwdb.d/20-gphoto.hwdb"
-    "$pkgdir/usr/lib/libgphoto2/print-camera-list" udev-rules version 201 \
-      | install -Dm644 /dev/stdin "$pkgdir/usr/lib/udev/rules.d/40-gphoto.rules"
-  )
 }
 
 package_libgphoto2-docs() {
