@@ -4,8 +4,8 @@
 # Contributor: Parmjot Singh <parmjotsinghrobot at gmail dot com>
 
 pkgname=waybar
-pkgver=0.13.0
-pkgrel=3
+pkgver=0.14.0
+pkgrel=1
 pkgdesc='Highly customizable Wayland bar for Sway and Wlroots based compositors'
 arch=('x86_64')
 url="https://github.com/Alexays/Waybar/"
@@ -56,26 +56,8 @@ backup=(
 optdepends=(
     'otf-font-awesome: Icons in the default configuration'
 )
-source=(
-    "$pkgname-$pkgver.tar.gz::https://github.com/Alexays/Waybar/archive/$pkgver.tar.gz"
-    'fix_hyprland_language_layout_parsing.patch'
-    'fix_default_icon.patch'
-)
-b2sums=('5e234046d4dc276c59a8cda57363c43967e21abc618f046dfde8c1952ca5001b2e1575cfaf19bef032d212a7f9fc681e854d758b4a2ca496e4b6f2108d92493c'
-        'b1c123ccf58cc2cb4f72cd9886f05e551d1071ca1345c0b1840f31ed3b38b72ac19d21f60c55c0ae77bfb2909dc22aa39115924369b26a51b3a3fd945f285f55'
-        'e222b10bc86b962822e8a176410b701ade843110fa12b79bd5fe44f52673d7b8c21c9631d79d1127f711cfb0cedbcb16aa06d2e72c2ab235c00daf01b472fdac')
-
-prepare() {
-    cd "Waybar-$pkgver"
-
-    # https://github.com/Alexays/Waybar/issues/4229   
-    # https://github.com/Alexays/Waybar/pull/4242
-    patch -Np1 -i "$srcdir/fix_hyprland_language_layout_parsing.patch"
-
-    # https://github.com/Alexays/Waybar/issues/4231
-    # https://github.com/Alexays/Waybar/pull/4234
-    patch -Np1 -i "$srcdir/fix_default_icon.patch"
-}
+source=("$pkgname-$pkgver.tar.gz::https://github.com/Alexays/Waybar/archive/$pkgver.tar.gz")
+b2sums=('257f179dfb3af6c1fd2ce927e7134e641666aa6ac35c5ebbe6fa44c94c1c0100e2efc91faf461be56835a5a4148c2ccaa84a0289e75561ddbe398f5ae17e5886')
 
 build() {
     cd "Waybar-$pkgver"
