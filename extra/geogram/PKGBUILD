@@ -1,21 +1,21 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: bartus <arch-user-repoᘓbartus.33mail.com>
 pkgname=geogram
-pkgver=1.9.1
-pkgrel=2
+pkgver=1.9.6
+pkgrel=1
 pkgdesc="Library of geometric algorithms"
 arch=('x86_64')
 url="https://github.com/BrunoLevy/geogram"
-license=('BSD')
+license=('BSD-3-Clause')
 depends=('glu' 'glfw-x11')
 makedepends=('cmake' 'ninja')
 source=("https://github.com/BrunoLevy/geogram/releases/download/v${pkgver}/geogram_${pkgver}.tar.gz")
-sha256sums=('bfd2e1051d1240cd3a9e58ca7390cff593d093af682bd2257ed8a43a4cf1eec0')
+sha256sums=('79dbe919737d8988668d6a72196a82389e0dfd8760250d26a28414afd558477f')
 
 build() {
   cd ${pkgname}_${pkgver}
 
-  CFLAGS+=" -Wno-incompatible-pointer-types" \
+  CFLAGS+=" -Wno-incompatible-pointer-types -std=gnu99" \
   cmake \
     -Bbuild \
     -GNinja \
