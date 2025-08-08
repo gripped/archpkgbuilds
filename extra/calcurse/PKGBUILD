@@ -3,8 +3,8 @@
 # Contributor: wain <wain.at.gmx.net>
 
 pkgname=calcurse
-pkgver=4.8.1
-pkgrel=2
+pkgver=4.8.2
+pkgrel=1
 pkgdesc='A text-based personal organizer'
 arch=('x86_64')
 url='https://calcurse.org/'
@@ -17,9 +17,9 @@ optdepends=(
   'python-oauth2client: for Google Calendar support'
 )
 source=("https://calcurse.org/files/${pkgname}-${pkgver}.tar.gz"{,.asc})
-sha512sums=('a0a0bcfceb28a4e363168711a3c2de8f6e94d7f12aa78ff40f157c247ea6a41646bd218a1defba2d128b131ed0ab71c4d417820a0af0adbaa215011b11f0a040'
+sha512sums=('9949eb32b79022c3c2e7c8cdf32de34cc370d7550e4211146666fadf2a00110b9c9f2e224b4ecd0caaf0b6437d73675b016f20caa123a3fef9d10ebe03c42460'
             'SKIP')
-b2sums=('0c34b85313c3414dffc08635f6f37feb0a1e0f6c03bcf3b71a6cc95ed8fb4430ab1339abce72850364251884d707acb6cbbed0143d930f8bb76310ca5951b779'
+b2sums=('53951b8bfc94bab8847b1c1d819d2ac10e988725232d3ba84a37966c77b468cde86fa60b8fd3548657947792bdabcf32bf2db16a8d809c1b71a7b7664d59fbf4'
         'SKIP')
 validpgpkeys=('2E36D8620221482FC45CB7F2A91764759326B440') # Lukas Fleischer <lfleischer@calcurse.org>
 
