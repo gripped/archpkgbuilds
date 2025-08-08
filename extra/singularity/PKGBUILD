@@ -1,21 +1,20 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Lone_Wolf <lonewolf@xs4all.nl>
 # Contributor: sausageandeggs <s_stoakley at hotmail.co.uk>
 
 pkgname=singularity
-_commit=f4c912c9c6a5fdf82ddd413ea4f8c95ec63a3ba5
-pkgver=1.00.git1.${_commit:0:7}
-pkgrel=10
+pkgver=1.1
+pkgrel=1
 pkgdesc="Endgame: Singularity - simulation of true AI"
 arch=('any')
 url="http://emhsoft.com/singularity/index.html"
 license=('GPL-2.0-or-later' 'CC-BY-SA-3.0' 'CC0-1.0')
 depends=('python' 'python-pygame' 'python-numpy' 'python-polib')
 makedepends=('python-setuptools' 'git')
-source=("git+https://github.com/singularity/singularity.git#commit=${_commit}"
+source=("git+https://github.com/singularity/singularity.git#tag=v${pkgver}"
         https://github.com/singularity/singularity-music/archive/025e2696638bcc3bf7690679c3a17c0b46823bbe.tar.gz
         "singularity.desktop")
-sha512sums=('e53b2edba160fb9a882934df19d2913cbd8baba43aa691a38e00b8b2948a90038416b0b4ed77ef40bfd82bb4e755fe002819c2428fcab0150eaf56471d08fe48'
+sha512sums=('cd07b3535ee6ba7b415e448c7b092fcb1348a163fc838a65e6957d790a9ad6b6a89708a38deae41dca6e0ebffd0b06a1a8d693b808de3db313f3dfaf60ebd17f'
             '9ec095e8882aa3981a4bbfe551f8d61c876fc6d0ee082f558f8e0f3015bfb65d23d76e5c3557a3e9ab41ddfe896eff618934c043ce8cee58709548f02fa81625'
             'd37e1a2a6d8e832a81114133df0ea5d5aeb531c81ba606b6bd49a6a38db1825660de9248593b9bfb40ddab4e1c9f794b6b5ed11ea273adb8bd9b4a363896b135')
 
