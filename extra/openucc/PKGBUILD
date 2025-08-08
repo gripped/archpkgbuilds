@@ -3,7 +3,7 @@
 _name=ucc
 pkgname=openucc
 pkgver=1.4.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Unified Collective Communication Library"
 arch=(x86_64)
 url="https://github.com/openucx/ucc"
