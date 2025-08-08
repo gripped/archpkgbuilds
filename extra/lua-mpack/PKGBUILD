@@ -3,16 +3,16 @@
 
 pkgbase=lua-mpack
 pkgname=(lua51-mpack lua52-mpack lua53-mpack lua-mpack)
-pkgver=1.0.10
+pkgver=1.0.12
 pkgdesc="libmpack lua binding"
-pkgrel=2
+pkgrel=1
 arch=('x86_64')
 url='https://github.com/libmpack/libmpack-lua'
 depends=('libmpack')
 makedepends=('lua51' 'lua52' 'lua53' 'lua')
 license=('MIT')
 source=("libmpack-lua-${pkgver}.tar.gz::https://github.com/libmpack/libmpack-lua/archive/${pkgver}.tar.gz")
-sha256sums=('b58a25a0b48e1ec584beee6c80e0e31182dad7a45005ce58e88e6cfff3a3f3e4')
+sha256sums=('7c3f0a5fcd0d7c169fd7bc95978412628d8f59eb9da1d32cf3e8a864b741ec92')
 
 build() {
   cd "libmpack-lua-${pkgver}"
