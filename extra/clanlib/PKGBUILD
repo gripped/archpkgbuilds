@@ -1,18 +1,20 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=clanlib
-pkgver=4.1.0
-pkgrel=3
+pkgver=4.2.0
+pkgrel=1
 pkgdesc="A multi-platform game development library."
 arch=('x86_64')
 url="https://github.com/sphair/ClanLib"
-license=('custom:zlib')
+license=('Zlib')
 depends=('alsa-lib' 'fontconfig' 'libgl' 'libxrender')
 makedepends=('doxygen' 'graphviz')
 source=($pkgname-$pkgver.tar.gz::https://github.com/sphair/ClanLib/archive/v${pkgver}.tar.gz)
-sha512sums=('34f5d1fdb7b071a218f081a6b06a6018a9c20cedc4c8500a9796be02d335f06fa148304379eeb1a35e08b9a734e504ceb490a6558a43d1611187bd97be01f4b0')
+sha512sums=('d3e2df4e2b1c9c661df9322e97a8582b46aaacb7fddd4d86f05a6bf6e02cd5cd3cbe80dbfae16a664b23107b9606a925ac10b4baad92d352ab33bb78d8696da8')
 
 build() {
 	cd ClanLib-$pkgver
+
+  sed -i "s/1.17/1.18/g" autogen.sh
 
 	./autogen.sh
 	./configure --prefix=/usr
