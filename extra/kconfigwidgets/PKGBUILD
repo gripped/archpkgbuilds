@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kconfigwidgets
-pkgver=6.16.0
+pkgver=6.17.0
 pkgrel=1
 pkgdesc='Widgets for KConfig'
 arch=(x86_64)
@@ -23,7 +23,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('61c0256fdae049b12586bd1e0d931e80515d3c702f1785a88994ee54eee2d5c5'
+sha256sums=('0bc5366d38dcbe12aea32aa84e77e9c278d3c63aeed6f509af52848a30a41e21'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
