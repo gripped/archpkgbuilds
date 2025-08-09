@@ -4,16 +4,21 @@
 _hkgname=vty
 pkgname=haskell-vty5
 pkgver=5.39
-pkgrel=41
+pkgrel=42
 pkgdesc="A simple terminal UI library (Legacy 5.x version)"
 url="https://github.com/jtdaugherty/vty"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-blaze-builder' 'haskell-microlens'
          'haskell-microlens-mtl' 'haskell-microlens-th' 'haskell-utf8-string' 'haskell-vector')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('7692a4a1ce0f3b332b23ead8bf49b6ed580d84bea1d40c01fdf732d124c13ae53bf712bc1fc864ac33dfd704e861f9a9c44a7c32c123c7e7b254e6f4ed2951d9')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u microlens
+}
 
 build() {
     cd $_hkgname-$pkgver
