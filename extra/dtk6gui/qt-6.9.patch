@@ -1,27 +1,3 @@
-diff --git a/src/util/dicontheme.cpp b/src/util/dicontheme.cpp
-index 3fe7033..643c7de 100644
---- a/src/util/dicontheme.cpp
-+++ b/src/util/dicontheme.cpp
-@@ -12,6 +12,7 @@
- #include <qpa/qplatformtheme.h>
- #include <private/qguiapplication_p.h>
- #include <private/qiconloader_p.h>
-+#include <private/qicon_p.h>
- #endif
- 
- #include <DStandardPaths>
-diff --git a/src/util/private/dciiconengine.cpp b/src/util/private/dciiconengine.cpp
-index 9dfc525..902b86c 100644
---- a/src/util/private/dciiconengine.cpp
-+++ b/src/util/private/dciiconengine.cpp
-@@ -8,6 +8,7 @@
- 
- #include <QPainter>
- #include <QPixmap>
-+#include <QPixmapCache>
- 
- #include <private/qhexstring_p.h>
- #include <private/qiconloader_p.h>
 diff --git a/tests/platform-plugin-test/qminimalintegration.cpp b/tests/platform-plugin-test/qminimalintegration.cpp
 index 5587de6..1a01609 100644
 --- a/tests/platform-plugin-test/qminimalintegration.cpp
