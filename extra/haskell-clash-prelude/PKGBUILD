@@ -2,29 +2,28 @@
 
 _hkgname=clash-prelude
 pkgname=haskell-clash-prelude
-pkgver=1.8.1
-pkgrel=101
+pkgver=1.8.2
+pkgrel=1
 pkgdesc="Clash: a functional hardware description language - Prelude library"
 url="https://github.com/clash-lang/clash-prelude"
-license=('BSD')
+license=('BSD-2-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-arrows' 'haskell-constraints' 'haskell-data-binary-ieee754'
          'haskell-data-default-class' 'haskell-extra' 'haskell-ghc-typelits-extra'
          'haskell-ghc-typelits-knownnat' 'haskell-ghc-typelits-natnormalise' 'haskell-half'
          'haskell-hashable' 'haskell-infinite-list' 'haskell-lens' 'haskell-quickcheck'
          'haskell-recursion-schemes' 'haskell-reflection' 'haskell-singletons'
-         'haskell-string-interpolate' 'haskell-th-abstraction' 'haskell-th-lift'
+         'haskell-string-interpolate' 'haskell-tagged' 'haskell-th-abstraction' 'haskell-th-lift'
          'haskell-th-orphans' 'haskell-type-errors' 'haskell-uniplate' 'haskell-vector')
 makedepends=('ghc' 'uusi' 'haskell-doctest-parallel' 'haskell-hedgehog' 'haskell-hint'
              'haskell-quickcheck-classes-base' 'haskell-tasty' 'haskell-tasty-hedgehog'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'haskell-tasty-th')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('a61271f0f1e14fd1301b6c73df81d7241d53cb5e72ddf4ffe4b0953909f2ddb919bac104a919c5364398697fe20cf1283cb14aa57e1cec644d8eca952249b366')
+sha512sums=('7a0dc39145ce61afbc0bde93c459a4a59fac495835b90267fb2fb1f60d5d75ba8b0f7967839f02284e717e4bca60a3a355403f91e85d1d2c9093ee2163ad7818')
 
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
-    uusi -u lens
 }
 
 build() {
