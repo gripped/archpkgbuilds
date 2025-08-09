@@ -5,8 +5,8 @@
 # Contributor: Allen Li <darkfeline at abagofapples.com>
 
 pkgname=python-flake8
-pkgver=7.2.0
-pkgrel=2
+pkgver=7.3.0
+pkgrel=1
 epoch=1
 pkgdesc="The modular source code checker: pep8, pyflakes and co"
 arch=('any')
@@ -30,8 +30,8 @@ checkdepends=('python-pytest')
 provides=('flake8')
 replaces=('flake8')
 source=("$pkgname::git+https://github.com/PyCQA/flake8#tag=$pkgver")
-sha512sums=('cafc73920adae015316dc484826fb94bf84348605ac0a9d00f8fbb4c71fa45155d6353c9d1eeed22acc6e25211f30e3db524c944e251b6a7ec54d8a13ae15ace')
-b2sums=('476f879cbdf6616c5cc9b7c7ee0170cdd143e17e40b8f2edf613c72873b656262ddf98e7a1b061c651fa32f20db086b41e8311988367ff31e20bb6b7a8ed1246')
+sha512sums=('5066ff7bd1381990ab3433f0727a7b5f0c9b75f46c8525d2548f03b0c023ce1a922cd08704d2f0a19823134aa74287f951442456551b4a01d77912a7bb34b962')
+b2sums=('0a956766198c911d886b6130aebef62f8297d89270fed7ab0e7f6851e547333f5d1a489562ea976103466253349dbef6707c0db6c8f39ccd604b840a4aa8c164')
 
 prepare() {
   cd "$pkgname"
@@ -57,7 +57,15 @@ check() {
   # hack entry points by installing it to a temporary directory
   python -m installer --destdir="$PWD/tmp_install" dist/*.whl
   local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
-  PYTHONPATH="$PWD/tmp_install/usr/lib/python${python_version}/site-packages:$PYTHONPATH" pytest -k 'not test_local_plugin_can_add_option'
+  export PYTHONPATH="$PWD/tmp_install/usr/lib/python${python_version}/site-packages:$PYTHONPATH"
+
+  local deselected=(
+    tests/unit/test_pyflakes_codes.py::test_all_pyflakes_messages_have_flake8_codes_assigned
+    tests/integration/test_plugins.py::test_local_plugin_can_add_option
+  )
+
+  pytest ${deselected[@]/#/--deselect }
+
 }
 
 package() {
@@ -65,8 +73,8 @@ package() {
 
   python -m installer --destdir="$pkgdir" dist/*.whl
 
-    # license
-    install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
 
 # vim:set ts=2 sw=2 et:
