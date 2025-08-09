@@ -3,7 +3,7 @@
 _hkgname=ghcide
 pkgname=haskell-ghcide
 pkgver=2.0.0.0
-pkgrel=100
+pkgrel=101
 pkgdesc="The core of an IDE"
 url="https://github.com/haskell/haskell-language-server/tree/master/ghcide#readme"
 license=("Apache-2.0")
@@ -32,6 +32,7 @@ sha512sums=('23bdb9478c31be98f2389c524c274a8e9ef89d79e3d5f45e86c6d3b3d2e3d029a43
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u implicit-hie
   find test/data -name \*.cabal -exec uusi --add-options-all=-dynamic {} \;
 }
 
