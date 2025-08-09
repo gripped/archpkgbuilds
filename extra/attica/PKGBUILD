@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=attica
-pkgver=6.16.0
+pkgver=6.17.0
 pkgrel=1
 arch=(x86_64)
 pkgdesc='Qt library that implements the Open Collaboration Services API'
@@ -17,7 +17,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('5d1c88f64d06f78d82584b5275f2062356866f82b7fdfb9728ac4dc4d509be6a'
+sha256sums=('2fab4a2d32e98f62465b81bda6e416ff7fa99d6aa494c4b261f8772758f6b71a'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
