@@ -4,7 +4,7 @@
 # Contributor: John Proctor <jproctor@prium.net>
 
 pkgname=graphviz
-pkgver=13.1.1
+pkgver=13.1.2
 pkgrel=1
 pkgdesc='Graph visualization software'
 url='https://www.graphviz.org/'
@@ -22,8 +22,8 @@ optdepends=('mono: sharp bindings'
             'qt6-base: gvedit'
             'xterm: vimdot')
 source=("https://gitlab.com/graphviz/graphviz/-/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('2183297bc5030951fed6c0511b39712057126d2098baa02fd914b09b5a19b820')
-b2sums=('60bb8fcb3e66fc34bbc11506cf55ac99f918388bd81a3df4a6017a7a24715cbf61304af3eefc297771648f6dc66f47a801bb3ecfb1b386d1f281f1d59d73c47b')
+sha256sums=('0e79b8402e8ea13f05c0fc0e30604f1d0731cd3f60f85850cedac7e0ee420ef8')
+b2sums=('57f49b76d027aea491d1ca8ede48a4b6e9c4843a2281fef25389b2210fb5c4a9e622effd0df26e95d81d753f50448509919ed5326a0efd5141b2d06e0802b558')
 install='graphviz.install'
 
 prepare() {
