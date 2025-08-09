@@ -2,28 +2,33 @@
 
 _hkgname=microlens-mtl
 pkgname=haskell-microlens-mtl
-pkgver=0.2.0.3
-pkgrel=3
+pkgver=0.2.1.0
+pkgrel=1
 pkgdesc="microlens support for Reader/Writer/State from mtl"
-url="https://github.com/monadfix/microlens"
-license=('BSD')
+url="https://github.com/stevenfontanella/microlens"
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-microlens' 'haskell-transformers-compat')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('b8fee6a3ae6ecae28b2564566063d26cd048cef525dbfdbb63913d32197fdbb07d23608c37b0863a08794978066876c350b996282ce0c2df6731006221ef0fc1')
+sha512sums=('9a2b112bce23276decf3d7a673d0fef02c6b3b2560291b369f0d0cfc0db437e77dcb97bf04785a6d26b5e76f51571ecad56d0c91837b2f90dfda24a24ec7c43b')
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
