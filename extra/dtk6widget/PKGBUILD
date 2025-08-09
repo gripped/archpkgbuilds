@@ -3,19 +3,19 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=dtk6widget
-pkgver=6.0.33
+pkgver=6.0.34
 pkgrel=1
 pkgdesc='Deepin base graphical widgets library'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtk6widget"
-license=('LGPL3')
+license=('LGPL-3.0-or-later')
 # qt6-imageformats is needed for webp (dci) icons
 depends=('dtk6core' 'dtk6gui' 'gcc-libs' 'glibc' 'libx11' 'libxcb' 'libxext' 'libxi'
          'qt6-base' 'qt6-imageformats' 'qt6-svg' 'startup-notification' 'xcb-util')
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'gtest' 'doxygen')
 source=("git+https://github.com/linuxdeepin/dtk6widget.git#tag=$pkgver"
          qt-6.9.patch)
-sha512sums=('efc0efd53ba7159a6717c130052fa4d87e554d4947dbf804d1f76ff7241be5e3bfe75b255de2abf3f382b1c5bb9bb7dacd8d350fbbf7271a28d0770ef177b64d'
+sha512sums=('d1f08ea0bc9f457c73ce100f2d0084e36e2739f5809008de2e5e59c9f3a67b5dd55181ea3c036af19fc5b0bb14ab39eb8ed2ae53edefe5066091b0d235e9c2c0'
             '04824cbb6ae5b996661a5976e529785535d352d3f69ae8d0d0ca371c889db8af0679dcb905be104ea508da1819714174cf910639cec37bff8838eb2b62109611')
 
 prepare() {
