@@ -4,8 +4,8 @@
 
 pkgname=python-platformdirs
 _name="${pkgname#python-}"
-pkgver=4.3.6
-pkgrel=2
+pkgver=4.3.8
+pkgrel=1
 pkgdesc='A library to determine platform-specific system directories'
 arch=('any')
 url='https://github.com/tox-dev/platformdirs'
@@ -24,8 +24,8 @@ checkdepends=(
   'python-appdirs'
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('99759ceddeefc7817a5307eae543504cbbf2c27fe6d5c314d4ceb8bc578a91afc69c562bbd93b1a72d7c72ef06f6f3e9c932a7247d4b5137aa814d834224e99b')
-b2sums=('c4f5c4c547fe56faeb84927f69d5968ef31409d819ad33d6f9781f1acea8514a46c83a5ea8383c472936bbb2ed2d52ec74f022e27fa208f08a29796a29dee8e6')
+sha512sums=('b353217c92335f249bc7b1dab6ad356a8cba4a137a32f4541dd9faa72d1bbabb7e9d9b371b861e5e242f099597eb9e4364604187fd6629c4a51aa337f824c4ba')
+b2sums=('e2265c6f4d699d00023ab765d863dc64485b928d0539d2391c844c6a9d6dd4d82ac696e4283b25310cee944b03132ba3d97245071d50a679b4bb348722d725b4')
 
 build() {
   cd "$pkgname"
