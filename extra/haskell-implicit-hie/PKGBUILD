@@ -2,16 +2,16 @@
 
 _hkgname=implicit-hie
 pkgname=haskell-implicit-hie
-pkgver=0.1.2.7
-pkgrel=235
+pkgver=0.1.4.0
+pkgrel=1
 pkgdesc="Auto generate hie-bios cradles & hie.yaml"
 url="https://github.com/Avi-D-coder/implicit-hie#readme"
-license=("custom:BSD3")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-filepattern' 'haskell-yaml')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-attoparsec')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('b0746867352b29dd2d4c4535ce6f4d61c3cc61ed31f3f18d49e3f657b12d470a9a53a7ef8a785a9e19b8ff12fb8d8b1cfa80c5c22c90af65bf4b39ab62bbd768')
+sha512sums=('55d96274a61911b86e5154977c639ceb202aaecc0f7e12a4167bd907867cad5b585e99ca43de0673aca8b208d4172eeab5acf689568ec6299865fa38153326cf')
 
 build() {
   cd $_hkgname-$pkgver
