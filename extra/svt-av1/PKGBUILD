@@ -3,7 +3,7 @@
 # Contributor: Thomas Schneider <maxmusterm@gmail.com>
 
 pkgname=svt-av1
-pkgver=3.0.2
+pkgver=3.1.0
 pkgrel=1
 pkgdesc='Scalable Video Technology AV1 encoder and decoder'
 arch=(x86_64)
@@ -19,9 +19,9 @@ makedepends=(
   nasm
   ninja
 )
-_tag=efc905a7c2ed155b3654d7968173622734eeb0c0
+_tag=cc569c1eb16832b7f1a649cac0b3bd1a8e4a814d
 source=(git+https://gitlab.com/AOMediaCodec/SVT-AV1.git#tag=${_tag})
-b2sums=('1667052b5558e9fc444eac24b2f2bbeaa91abb0abf3cd9af4bcda15f784aa094d6f6a1e2ba108534f5eba1e71f9a329fb1e4420ec28626dc295d689e5fa566fa')
+b2sums=('c28d4a1f288de94be6b5563a48f3aee001cca9a147d49cfc6a25543420292b0cd9340380710ed459919c0bd9f818ae8f54f979a25c4dd788f13ad039b4546051')
 
 prepare() {
   sed '/CMAKE_BUILD_TYPE Release/d' -i SVT-AV1/CMakeLists.txt
