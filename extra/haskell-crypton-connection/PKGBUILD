@@ -2,18 +2,18 @@
 
 _hkgname=crypton-connection
 pkgname=haskell-crypton-connection
-pkgver=0.4.1
-pkgrel=20
-pkgdesc="Simple and easy network connections API"
+pkgver=0.4.2
+pkgrel=1
+pkgdesc="Simple and easy network connection API"
 url="https://github.com/kazu-yamamoto/crypton-connection"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-basement' 'haskell-crypton-x509' 'haskell-crypton-x509-store'
          'haskell-crypton-x509-system' 'haskell-crypton-x509-validation'
-         'haskell-data-default-class' 'haskell-network' 'haskell-socks' 'haskell-tls')
+         'haskell-data-default' 'haskell-network' 'haskell-socks' 'haskell-tls')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('96783feb8012e0c94a746c81d41f3d9a8d99a4e0da0a927529ac3671710e3668')
+sha256sums=('e6c02d071c7a353b55def93cd25c120d694d0fd99598b46811d7306abaeda7b4')
 
 build() {
   cd $_hkgname-$pkgver
