@@ -2,20 +2,20 @@
 
 _hkgname=doctest-exitcode-stdio
 pkgname=haskell-doctest-exitcode-stdio
-pkgver=0.0
-pkgrel=175
+pkgver=0.0.0.1
+pkgrel=1
 pkgdesc="Run doctest's in a Cabal.Test.exitcode-stdio environment"
 url="https://hub.darcs.net/thielema/doctest-exitcode-stdio/"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-doctest-lib')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('1dec779d5e67ea46c8b0d69d454e0717383654e87323bdebc2bc0a8cb33f6cbc')
+sha256sums=('73b7747859fc37a4271e6f5d5039edb0c7adbdc5b83323d9c5dbc74778ece54d')
 
 prepare() {
   cd $_hkgname-$pkgver
-  sed -i '/semigroups/d' $_hkgname.cabal
+  uusi -d semigroups
 }
 
 build() {
@@ -32,6 +32,11 @@ build() {
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
   sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+  cd $_hkgname-$pkgver
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
