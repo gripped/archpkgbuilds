@@ -1,0 +1,97 @@
+diff --git a/Gemfile b/Gemfile
+index 70f70843e..8917f82e2 100644
+--- a/Gemfile
++++ b/Gemfile
+@@ -4,20 +4,10 @@ source ENV['GEM_SOURCE'] || 'https://rubygems.org'
+ 
+ gemspec name: 'facter'
+ 
+-group(:release, optional: true) do
+-  gem 'octokit', '~> 4.18.0'
+-end
+-
+-gem 'packaging', require: false
+-
+ local_gemfile = File.expand_path('Gemfile.local', __dir__)
+ eval_gemfile(local_gemfile) if File.exist?(local_gemfile)
+ 
+ group(:integration, optional: true) do
+   # 1.16.0 - 1.16.2 are broken on Windows
+-  gem 'ffi', '>= 1.15.5', '< 1.17.0', '!= 1.16.0', '!= 1.16.1', '!= 1.16.2', require: false
+-end
+-
+-group(:documentation) do
+-  gem 'ronn', '~> 0.7.3', require: false, platforms: [:ruby]
++  gem 'ffi', '>= 1.15.5', require: false
+ end
+diff --git a/facter.gemspec b/facter.gemspec
+index 8ff4deb55..385149f8c 100644
+--- a/facter.gemspec
++++ b/facter.gemspec
+@@ -35,17 +35,13 @@ Gem::Specification.new do |spec|
+   # gems from runtime dependencies is to allow users to be able to install
+   # Facter without a compiler.
+   # ffi 1.16.0 - 1.16.2 are broken on Windows
+-  spec.add_development_dependency 'ffi', '>= 1.15.5', '< 1.17.0', '!= 1.16.0', '!= 1.16.1', '!= 1.16.2'
+-  spec.add_development_dependency 'rake', '~> 13.0', '>= 13.0.6'
+-  spec.add_development_dependency 'rspec', '~> 3.0'
+-  spec.add_development_dependency 'rubocop', '~> 1.28' # last version to support 2.5
+-  spec.add_development_dependency 'rubocop-performance', '~> 1.5.2'
+-  spec.add_development_dependency 'rubocop-rspec', '~> 2.10' # last version to support 2.5
+-  spec.add_development_dependency 'simplecov', '~> 0.17.1'
+-  spec.add_development_dependency 'sys-filesystem', '~> 1.4'
+-  spec.add_development_dependency 'webmock', '~> 3.12'
+-  spec.add_development_dependency 'yard', '~> 0.9'
++  spec.add_development_dependency 'ffi', '>= 1.15.5'
++  spec.add_development_dependency 'rake', '>= 13.0.6'
++  spec.add_development_dependency 'rspec', '>= 3.0'
++  spec.add_development_dependency 'sys-filesystem', '>= 1.4'
++  spec.add_development_dependency 'webmock', '>= 3.12'
++  spec.add_development_dependency 'yard', '>= 0.9'
+ 
+-  spec.add_runtime_dependency 'hocon', '~> 1.3'
+-  spec.add_runtime_dependency 'thor', ['>= 1.0.1', '< 1.3'] # Thor 1.3.0 drops support for Ruby 2.5
++  spec.add_runtime_dependency 'hocon', '>= 1.3'
++  spec.add_runtime_dependency 'thor', '>= 1.0.1'
+ end
+diff --git a/spec/spec_helper.rb b/spec/spec_helper.rb
+index 9ba346961..3e1262146 100644
+--- a/spec/spec_helper.rb
++++ b/spec/spec_helper.rb
+@@ -8,14 +8,6 @@ ENV['RACK_ENV'] = 'test'
+ 
+ require 'bundler/setup'
+ 
+-require 'simplecov'
+-
+-# Configure SimpleCov
+-SimpleCov.start do
+-  track_files 'lib/**/*.rb'
+-  add_filter 'spec'
+-end
+-
+ require 'open3'
+ require 'thor'
+ require 'fileutils'
+@@ -37,8 +29,6 @@ if unit_tests
+   Dir.glob(File.join('./lib/facter/resolvers', '/**/*/', '*.rb')).sort.each(&method(:require))
+ end
+ 
+-default_coverage = 90
+-SimpleCov.minimum_coverage ENV['COVERAGE'] || default_coverage
+ 
+ def colorize(str, color)
+   "#{color}#{str}#{Facter::RESET}"
+diff --git a/tasks/rubocop.rake b/tasks/rubocop.rake
+deleted file mode 100644
+index 1a83f5f38..000000000
+--- a/tasks/rubocop.rake
++++ /dev/null
+@@ -1,7 +0,0 @@
+-# frozen_string_literal: true
+-
+-require 'rubocop/rake_task'
+-
+-RuboCop::RakeTask.new(:rubocop) do |t|
+-  t.options = ['--display-cop-names', '--parallel']
+-end

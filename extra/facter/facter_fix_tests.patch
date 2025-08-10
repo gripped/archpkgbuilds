@@ -1,5 +1,5 @@
 diff --git a/spec/facter/facter_spec.rb b/spec/facter/facter_spec.rb
-index 78c7cbfb3..37bf61510 100644
+index 78c7cbfb3..8fecede0f 100644
 --- a/spec/facter/facter_spec.rb
 +++ b/spec/facter/facter_spec.rb
 @@ -598,7 +598,7 @@ describe Facter do
@@ -7,7 +7,7 @@ index 78c7cbfb3..37bf61510 100644
          let(:message) { { 'a': 1 } }
          let(:exception) { { 'b': 2 } }
 -        let(:expected_message) { '{:a=>1}' }
-+        let(:expected_message) { "#{{ a: 1 }}" }
++        let(:expected_message) { '{a: 1}' }
  
          it_behaves_like 'when exception param is not an exception'
        end
@@ -16,7 +16,7 @@ index 78c7cbfb3..37bf61510 100644
          let(:message) { { 'a': 1 } }
          let(:exception) { { 'b': 2 } }
 -        let(:expected_message) { '{:a=>1}' }
-+        let(:expected_message) { "#{{ a: 1 }}" }
++        let(:expected_message) { '{a: 1}' }
  
          it_behaves_like 'when exception param is not an exception'
        end
@@ -25,7 +25,7 @@ index 78c7cbfb3..37bf61510 100644
  
      it 'when message is a hash' do
 -      expect(logger).to receive(:warn).with('{:warn=>"message"}')
-+      expect(logger).to receive(:warn).with("#{{ warn: "message" }}")
++      expect(logger).to receive(:warn).with('{warn: "message"}')
  
        Facter.warn({ warn: 'message' })
      end

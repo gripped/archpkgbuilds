@@ -10,7 +10,7 @@
 
 pkgname=facter
 pkgver=4.10.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Collect and display system facts"
 arch=('x86_64')
 url="https://github.com/puppetlabs/${pkgname}"
@@ -18,6 +18,7 @@ license=('Apache-2.0')
 depends=(
   dmidecode
   pciutils
+  ruby
   ruby-base64
   ruby-hocon
   ruby-sys-filesystem
@@ -32,47 +33,45 @@ checkdepends=(
   ruby-bundler
   ruby-rake
   ruby-rspec
-  ruby-octokit
   ruby-webmock
   ruby-yard
-  systemd
 )
 optdepends=('puppet: retrieve puppet facts')
-conflicts=('libwhereami' 'cpp-hocon' 'leatherman')
-replaces=('libwhereami' 'cpp-hocon' 'leatherman')
+conflicts=(
+  cpp-hocon
+  leatherman
+  libwhereami
+)
+replaces=(
+  cpp-hocon
+  leatherman
+  libwhereami
+)
 source=(
-  "https://downloads.puppet.com/$pkgname/$pkgname-$pkgver.gem"{,.asc}
-  "git+https://github.com/puppetlabs/facter.git#tag=$pkgver"
-  "disable-simplecov.patch"
+  "git+${url}.git#tag=${pkgver}"
+  "${pkgname}_fix_dependencies.patch"
   "${pkgname}_fix_tests.patch"
 )
-validpgpkeys=('D6811ED3ADEEB8441AF5AA8F4528B6CD9E61EF26') # "Puppet, Inc. Release Key (Puppet, Inc. Release Key) <release@puppet.com>"
-sha512sums=('2d624aa1b40cf057d36fb52ed884662c306d8e98d9dd00f5f3a4f4e990a1ac2ab54c31b60089c67530f478c4f264444775b15dd0ee6b90f50a5187df3392049e'
-            'SKIP'
-            '316710cc78935f87758332bbc47333bf2439603f9153e4332a56371ef12f342380e3bae6475bae83d0a16ab2f4e4af834abe86f7791dfc8ef5f5ecde7e89080f'
-            'fd44b3ad3832ee5443733fee3bd2f865c467bae6af6faeac1d1f3671170db83a3f2207a16ba7cd65f10af21b2a9851a9b1d3ccf4d6473fd538ba09414a8cad88'
-            '8924ce1245e04c7c41e4eb400c485b264beb7146e4f69f067cf88da687d0e0693747c69be6f6ee10a61f0f50c5ff67d732447981e4e951e3f92cc9f3081271a8')
-noextract=($pkgname-$pkgver.gem)
+sha512sums=('316710cc78935f87758332bbc47333bf2439603f9153e4332a56371ef12f342380e3bae6475bae83d0a16ab2f4e4af834abe86f7791dfc8ef5f5ecde7e89080f'
+            'e4542e950848eb58dee97673b4e78fb58dce493e82dc695d5fa1ff8dc6aae949caca31db280de30d5dba7f53762683de2cb7886de3957e04fddab0db65b2b5a2'
+            '11fba5746523d4bded73c6ce254c7e70179616690f342d9b136f5335764c47967f32a40e4f9006f4a3631e53b870a8cfe1708f623f9aa1e989411a4c3cae8334')
+b2sums=('eed921cefe35e7bf1525ef8c8aed5d2a3c5527efafd8cdfd80797b34f5e4a92116954bcaf4a456ae1b7529d39be900c51b4bcadb5ae3d1af12e1fea2f245a9ac'
+        'e3b869d8d71e6bcdc21365653fe1c2faa26b2a234055b26cabe2bc78b6b0ec0445b9264029ba582b9b8af335f01ffe5cef2f88c8acc16e618b3fbf0e9500b75f'
+        'cd712b81f4b7d118dd94b26370fb331216888ef9849c57b6292d750fc4c4852822c27ea0a29a05d60d9cc522f667059fedc3df19060222d10487cc4259b8f9b7')
 
 prepare() {
-  cd $pkgname
+  cd "${pkgname}"
 
-  # remove development deps
-  rm Gemfile
-  sed --in-place '/add_development_dependency/g' facter.gemspec
-
-  # don't try to load simplecov
-  patch --forward --verbose --strip=1 --input='../disable-simplecov.patch'
-
-  rm tasks/rubocop.rake
-
+  patch --verbose --strip=1 --input="../${pkgname}_fix_dependencies.patch"
   patch --verbose --strip=1 --input="../${pkgname}_fix_tests.patch"
 }
 
 build() {
-  cd $pkgname
+  cd "${pkgname}"
 
   local _gemdir="$(gem env gemdir)"
+
+  gem build --verbose "${pkgname}.gemspec"
 
   gem install \
     --local \
@@ -81,23 +80,13 @@ build() {
     --no-user-install \
     --install-dir "tmp_install${_gemdir}" \
     --bindir "tmp_install/usr/bin" \
-    "../${pkgname}-${pkgver}.gem"
+    "${pkgname}-${pkgver}.gem"
 
-  # update gemspec/Gemfile to allow newer version of the dependencies
-  sed --in-place --regexp-extended --expression 's|~>|>=|g' \
-    --expression "s/, *' *< *[0-9\.]+ *'//" \
-    facter.gemspec \
-    "tmp_install${_gemdir}/specifications/facter-${pkgver}.gemspec"
-
-  # remove upper version constraint for thor
-  # https://github.com/puppetlabs/facter/pull/2751
-  sed --in-place 's/, "< 1.3"//' facter.gemspec "tmp_install${_gemdir}/specifications/facter-${pkgver}.gemspec"
-
-  # remove unrepreducible files
+  # remove unreproducible files
   rm --force --recursive --verbose \
     "tmp_install${_gemdir}/cache/" \
-    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
-    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
+    "tmp_install${_gemdir}/gems/${pkgname}-${pkgver}/vendor/" \
+    "tmp_install${_gemdir}/doc/${pkgname}-${pkgver}/ri/ext/"
 
   find "tmp_install${_gemdir}/gems/" \
     -type f \
@@ -120,18 +109,21 @@ build() {
     -delete
 }
 
-check(){
-  cd $pkgname
+check() {
+  cd "${pkgname}"
 
   local _gemdir="$(gem env gemdir)"
 
-  GEM_HOME="tmp_install/${_gemdir}" rspec --exclude-pattern ./spec/framework/detector/os_detector_spec.rb
+  GEM_HOME="tmp_install${_gemdir}" rake spec
 }
 
 package() {
-  cd $pkgname
+  cd "${pkgname}"
 
   cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose -D --mode=0644 LICENSE* --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
 }
 
-# vim: ts=2 sw=2 et:
+# vim: tabstop=2 shiftwidth=2 expandtab:
