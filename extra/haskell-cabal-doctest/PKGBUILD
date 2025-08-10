@@ -3,8 +3,8 @@
 
 _hkgname=cabal-doctest
 pkgname=haskell-cabal-doctest
-pkgver=1.0.10
-pkgrel=2
+pkgver=1.0.11
+pkgrel=1
 pkgdesc="A Setup.hs helper for running doctests"
 url="https://github.com/ulidtko/cabal-doctest"
 license=('BSD-3-Clause')
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('9fb5fc6084986729ca539f6813decdfc44927ad501a1087f6810375bc04ed1826ad1cb4c53d8e07f3be370ad53efd4d40978f79919c901800718311b7f449d31')
+sha512sums=('c90a34bb78b4aa191b2349d2014d96e35aabbb1fb5cc128c7af9764d9637f58f832dd860739b830a3f6158e9ae932618c8b5a26971ba4a6582d79fdec34522b7')
 
 build() {
     cd $_hkgname-$pkgver
