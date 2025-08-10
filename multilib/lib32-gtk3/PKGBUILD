@@ -3,7 +3,7 @@
 # Contributor: GordonGR <ntheo1979@gmail.com>
 
 pkgname=lib32-gtk3
-pkgver=3.24.49
+pkgver=3.24.50
 pkgrel=1
 epoch=1
 pkgdesc="GObject-based multi-platform GUI toolkit (32-bit)"
@@ -50,17 +50,12 @@ source=(
   gtk-query-immodules-3.0-32.hook
   0001-Allow-disabling-legacy-Tracker-search.patch
 )
-b2sums=('d406c2d0ce8c578af27624550a49e298ad5ebacb4e6c6998011cf31fe12dfd8aef3227cf8972820d48d2a87465165384b16f927b25be235f7617dea1944b7611'
+b2sums=('93ee986e75b2b94b50f1485a183d6ab558306bf17ab15a500ea485c40123257873a6a99fc5e20f864da6c561f0f6f4c7a15f42694bd691db03aeddd5dd6587d2'
         'c7136723735c4cbfe654851d0ccc1698142fa8f90b724ed9a970ebd6a74b4f59ea558e134e600736a1041417fc7fd9b3baa8bc561ed9598f2fbf45392dcc9159'
-        'ae371c52f24d00153037622de12a7e0026223c50fcb4b83e88138e2fd8b69a27422dfc91dae3a83c24705c57370bc9d75de4228210041c10c55482443478e240')
+        'f63a30a5823c564861145128a91b6d6ca4f13fd40cf09d1b8897bccaf8664af085b3cbe20ba7da6289439a820440a7af17b6281efea1f84a8c4decd62df00a54')
 
 prepare() {
   cd gtk
-
-  # Try to fix monitor geometry on sway
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/gtk3/-/issues/8
-  # https://gitlab.gnome.org/GNOME/gtk/-/issues/6939
-  git cherry-pick -n 1cf0520454f8f55256b7f6cdfeefa8360a5842c7
 
   # Don't try to use the old Tracker
   git apply -3 ../0001-Allow-disabling-legacy-Tracker-search.patch
