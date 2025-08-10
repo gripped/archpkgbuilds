@@ -3,17 +3,17 @@
 
 _hkgname=fast-logger
 pkgname=haskell-fast-logger
-pkgver=3.2.2
-pkgrel=15
+pkgver=3.2.3
+pkgrel=1
 pkgdesc="A fast logging system"
 url="https://github.com/kazu-yamamoto/logger"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-auto-update' 'haskell-easy-file' 'haskell-unix-compat'
          'haskell-unix-time')
 makedepends=('ghc' 'haskell-async' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('2a132b3c6eea08a127ad32d376ea749e1efc9fb7a9dc08272dd21945e3c6c5a966a73afb3ed13a1f427d5a63d5c6846cd3a025f9e7eb2c1a347c0c57d916bd3e')
+sha512sums=('3b9c8c5b73a90eef1d686cf934db62aa257f08c7f4c7a6ab9b528424ca5312ce24bd1ccf120919862f15f9b920e405c1b1c9c1e5c6811006a592ffe257d6a169')
 
 build() {
     cd $_hkgname-$pkgver
