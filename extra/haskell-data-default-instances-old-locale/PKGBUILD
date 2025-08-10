@@ -2,27 +2,32 @@
 
 _hkgname=data-default-instances-old-locale
 pkgname=haskell-data-default-instances-old-locale
-pkgver=0.0.1
-pkgrel=40
+pkgver=0.0.1.1
+pkgrel=1
 pkgdesc="Default instances for types in old-locale"
 url="https://hackage.haskell.org/package/${_hkgname}"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-data-default-class' 'haskell-old-locale')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('bbaf4626c922820dca8cc230585fef80b6f6bd6278d335cc7abd4e5b7a857f0626ca9937ea95066e7655387dfcc684e6fbb0f6f5bc6905e539fbd1176ddd99ec')
+sha512sums=('719110a20e1e651b787907e70a55146aa7635ca0378ac9df892e463543aeb3cac02f023c54dd182e25e200d371e220b51c67fc4d179d79751187e029d6ec7c57')
 
 build() {
-    cd ${srcdir}/${_hkgname}-${pkgver}
+    cd $_hkgname-$pkgver
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid -fnetwork-uri
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register   --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
