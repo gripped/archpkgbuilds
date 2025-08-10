@@ -1,5 +1,5 @@
 diff --git a/init/postfix-tlspol.service b/init/postfix-tlspol.service
-index e75f945..68e68f8 100644
+index 326a638..0448083 100644
 --- a/init/postfix-tlspol.service
 +++ b/init/postfix-tlspol.service
 @@ -6,16 +6,12 @@ Wants=nss-lookup.target
@@ -21,21 +21,20 @@ index e75f945..68e68f8 100644
  ProtectControlGroups=yes
  ProtectKernelLogs=yes
  ProtectKernelModules=yes
-@@ -23,8 +17,6 @@ ProtectKernelTunables=yes
+@@ -23,8 +19,6 @@ ProtectKernelTunables=yes
  ProtectClock=yes
- ProtectSystem=strict
+ ProtectSystem=full
  ProtectHostname=yes
 -ProtectProc=invisible
 -ProcSubset=pid
  RestrictRealtime=yes
  RestrictNamespaces=yes
  RestrictSUIDSGID=yes
-@@ -34,12 +26,7 @@ SystemCallArchitectures=native
+@@ -34,11 +28,7 @@ SystemCallArchitectures=native
  SystemCallFilter=@system-service
  SystemCallFilter=~@privileged @resources
  SystemCallErrorNumber=EPERM
 -CapabilityBoundingSet=
--SecureBits=noroot noroot-locked
  ReadOnlyPaths=/etc/postfix-tlspol
 -UMask=0111
 -RuntimeDirectory=postfix-tlspol
