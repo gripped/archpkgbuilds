@@ -3,21 +3,22 @@
 
 _hkgname=criterion
 pkgname=haskell-criterion
-pkgver=1.6.1.0
-pkgrel=101
+pkgver=1.6.2.0
+pkgrel=1
 pkgdesc="Robust, reliable performance measurement and analysis"
 url="http://www.serpentine.com/criterion"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-base-compat-batteries' 'haskell-binary-orphans'
          'haskell-cassava' 'haskell-code-page' 'haskell-criterion-measurement' 'haskell-glob'
          'haskell-js-chart' 'haskell-microstache' 'haskell-mwc-random'
-         'haskell-optparse-applicative' 'haskell-statistics' 'haskell-transformers-compat'
+         'haskell-optparse-applicative' 'haskell-prettyprinter'
+         'haskell-prettyprinter-ansi-terminal' 'haskell-statistics' 'haskell-transformers-compat'
          'haskell-vector' 'haskell-vector-algorithms')
 makedepends=('ghc' 'haskell-base-compat' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tasty'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('47a3b5bf7ff243bf2696ce741fa3cc9188827763fb7c88e5d2633da3107bd1714f6c858228b35c278afedcd6aaf282ef1b50b3398bb7b4830afbe0d2fae10f8b')
+sha512sums=('59e9c1b8da1f0667fc6b3c6e5fbf9b533271e77b6a7432f5069e04c04a7767ee9dee90e8e3f7ea8422750ded825febc2c5fd1ba113d33cf7bf78f24ddd843868')
 
 build() {
     cd $_hkgname-$pkgver
