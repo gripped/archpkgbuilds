@@ -4,8 +4,8 @@
 
 _hkgname=brick
 pkgname=haskell-brick
-pkgver=2.1
-pkgrel=2
+pkgver=2.1.1
+pkgrel=1
 pkgdesc="A declarative terminal user interface library"
 url="https://github.com/jtdaugherty/brick"
 license=('BSD-3-Clause')
@@ -16,7 +16,7 @@ depends=('ghc-libs' 'haskell-bimap' 'haskell-config-ini' 'haskell-data-clist' 'h
 makedepends=('ghc' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz"
         $pkgname-testsuite-vty-crossplatform.patch::https://github.com/jtdaugherty/brick/commit/31f94e1b76aaddf0cc5ff49be27ae6c3a82dc98b.patch)
-sha512sums=('3c8c6bddd50682719cfa3fbccd889cd26f562e9af5e47e5dd597f12a22116fe976a0f41a05d30bbb469039aba2cac31e7e7e8d64e5c4711f7bf30dd680df80a3'
+sha512sums=('a87ef2faec32c5eafe9ff89e69f61711b7ac89d9f84414b218b6c4e02ea0b64e8291698075a60639b0329b34756eb1d3bed14a94b2d64505ffa181ef0de0e811'
             '898d233cce1cc31690b8644b7b7877d9af52a34c785a709ffeb68ff0150731077ab6add5b6c39170977b5816634569426b5584d004b839b4167b86bbcad444da')
 
 prepare() {
