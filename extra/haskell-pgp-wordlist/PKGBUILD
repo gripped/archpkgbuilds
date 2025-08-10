@@ -3,22 +3,29 @@
 _hkgname=pgp-wordlist
 pkgname=haskell-pgp-wordlist
 pkgver=0.1.0.3
-pkgrel=277
+pkgrel=282
 pkgdesc="Translate between binary data and a human-readable collection of words."
 url="https://github.com/quchen/pgp-wordlist"
 license=('BSD')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-vector')
-makedepends=('ghc' 'haskell-doctest' 'haskell-hunit' 'haskell-tasty' 'haskell-tasty-hunit'
-             'haskell-tasty-quickcheck')
+makedepends=('ghc')
+checkdepends=('haskell-doctest' 'haskell-hunit' 'haskell-tasty' 'haskell-tasty-hunit'
+              'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
 sha512sums=('b7c6db47c1f9a0b10c5c94ea46b8eee282988e5990ef3dafa2d07a5bfc0718572b04494d23ddab063811ef2452546d6b17010c6490a89031f4b071f1a43d989b')
 
 build() {
     cd $_hkgname-$pkgver
     
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
+    
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
