@@ -2,22 +2,22 @@
 # Contributor: justforlxz <justforlxz@gmail.com>
 
 pkgname=deepin-shell
-pkgver=1.0.4
-pkgrel=4
+pkgver=1.0.5
+pkgrel=1
 pkgdesc='New DDE shell'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-shell"
 license=('LGPL3')
-depends=('deepin-tray-loader' 'dtk6core' 'dtk6gui' 'dtk6widget' 'dtk6declarative' 'gcc-libs' 'glibc'
-         'libx11' 'libxcb' 'libxtst' 'qt6-5compat' 'qt6-base' 'qt6-declarative' 'qt6-wayland'
-         'xcb-util-wm' 'wayland' 'yaml-cpp')
+depends=('deepin-application-manager' 'deepin-tray-loader' 'dtk6core' 'dtk6gui' 'dtk6widget'
+         'dtk6declarative' 'gcc-libs' 'glibc' 'libx11' 'libxcb' 'libxtst' 'qt6-5compat' 'qt6-base'
+         'qt6-declarative' 'qt6-wayland' 'xcb-util-wm' 'wayland' 'yaml-cpp')
 makedepends=('git' 'extra-cmake-modules' 'cmake' 'ninja' 'qt6-tools' 'wayland-protocols'
              'treeland-protocols')
 groups=('deepin')
 replaces=('deepin-dock')
 conflicts=('deepin-dock')
 source=("git+https://github.com/linuxdeepin/dde-shell.git#tag=$pkgver")
-sha512sums=('c2b28d609f88b87ba6d7196c80438ffaa43d3d12c9eb8b600a051a21b3fb206a16bf07eeff90856f21fc2e0f3b73b9313df2ff3c2899b40cdc5d90d58d67c0a8')
+sha512sums=('c8faef3111fc7c68383b86eaf1b05104d3691daf88e7130dc28e87959216c25faf8e9f1cfe813ee0b29428e3c4f2d66d444503f76c8bc84cc0a7504244e2c050')
 
 prepare() {
   cd dde-shell
