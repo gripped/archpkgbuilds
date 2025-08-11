@@ -3,11 +3,11 @@
 
 _hkgname=citeproc
 pkgname=haskell-citeproc
-pkgver=0.8.1
-pkgrel=196
+pkgver=0.8.1.1
+pkgrel=2
 pkgdesc="Generates citations and bibliography from CSL styles."
 url="https://github.com/jgm/citeproc"
-license=("BSD")
+license=('BSD-2-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-attoparsec'
          'haskell-case-insensitive' 'haskell-data-default' 'haskell-file-embed'
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-attoparsec'
          'haskell-unicode-collation' 'haskell-uniplate' 'haskell-vector' 'haskell-xml-conduit')
 makedepends=('ghc' 'uusi' 'haskell-diff' 'haskell-timeit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('7bce91a19e8db475b7c0c7f1f324e356dfb895fddc575b59d3fcdb8955b1ee17a82d3943edc383669a7bb5cc9fb14b3ff1cea766a2d322157017a97acddeee32')
+sha512sums=('6af14a19bcbfdd2c6ab0da3e6cdbc31c40aa8a8bb1cb1bf6324ab155f610d442eb4a7e349ed48a488f600e3d1fff5841b2da7d5bafd364e412c4c05303da9c62')
 
 prepare() {
   cd $_hkgname-$pkgver
