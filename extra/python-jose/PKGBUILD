@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-jose
-pkgver=3.4.0
+pkgver=3.5.0
 pkgrel=1
 pkgdesc="A JOSE implementation in Python"
 arch=('any')
@@ -13,7 +13,7 @@ optdepends=('python-cryptography: one option for better performance'
 makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-cryptography' 'python-pycryptodome' 'python-pytest')
 source=("git+https://github.com/mpdavis/python-jose.git#tag=$pkgver")
-sha512sums=('2646acf38f450a267191518225135765855bfdc97cc297f3a5e1fea9fd76e24738cc0956ef3c638f84f8e9b4e5205e9e349e3549aeb7d0f92be2fa3efb8f916b')
+sha512sums=('1cb4d1768aa39e556312b4952a09ea51287a920cf941f477a56679c55c3ec06f7e54787e4579915d16a0c3e6744c220e0f2c0495cf5a53c17285ffde7ad964cb')
 
 prepare() {
   cd python-jose
