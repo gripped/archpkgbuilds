@@ -2,18 +2,18 @@
 
 _hkgname=hls-module-name-plugin
 pkgname=haskell-hls-module-name-plugin
-pkgver=2.0.0.0
-pkgrel=102
+pkgver=2.0.0.1
+pkgrel=1
 pkgdesc="Module name plugin for Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-module-name-plugin"
-license=("Apache")
+license=('Apache-2.0')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ghcide' 'haskell-hls-plugin-api' 'haskell-lsp'
          'haskell-unordered-containers')
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('4024a41332a6327a0daf19ebb6c0bb3ecc194531d6cc5e306c9eea886028850addad1398d4f4c465ae3e0983d0e4d1e7b01a383e9ca95f4c0c8189bba4a8fbe3')
+sha512sums=('77bc5509387af1db9d518cfb32924b50d5f368d1ea86000cdd5ab88738252dce12c42a2d5df0984d81cc24a49c641bfb3bf52fde708ba0e8fbb6f8c3d7fa35b6')
 
 prepare() {
   cd $_hkgname-$pkgver
