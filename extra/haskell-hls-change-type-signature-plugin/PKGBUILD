@@ -2,18 +2,18 @@
 
 _hkgname=hls-change-type-signature-plugin
 pkgname=haskell-hls-change-type-signature-plugin
-pkgver=2.0.0.0
-pkgrel=102
+pkgver=2.0.0.1
+pkgrel=1
 pkgdesc="Change a declarations type signature with a Code Action"
 url="https://github.com/haskell/haskell-language-server.git"
-license=("Apache")
+license=('Apache-2.0')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-ghcide' 'haskell-hls-plugin-api' 'haskell-lsp-types'
          'haskell-regex-tdfa' 'haskell-syb' 'haskell-unordered-containers')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hls-test-utils' 'haskell-lsp')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('0393ea1fa3b1a0de745fa1529e81cb3370044b41a0a997519059e47d44cb9731')
+sha256sums=('a54e477a302e3775af1dc7a64fd1055a4fee5271842f9a2cad2323aae59c4cd6')
 
 prepare() {
   cd $_hkgname-$pkgver
