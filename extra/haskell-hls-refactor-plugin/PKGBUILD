@@ -2,11 +2,11 @@
 
 _hkgname=hls-refactor-plugin
 pkgname=haskell-hls-refactor-plugin
-pkgver=2.0.0.0
-pkgrel=104
+pkgver=2.0.0.1
+pkgrel=1
 pkgdesc="Exactprint refactorings for Haskell Language Server"
 url="https://github.com/haskell/haskell-language-server.git"
-license=("Apache")
+license=('Apache-2.0')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-data-default' 'haskell-dlist' 'haskell-extra'
          'haskell-ghc' 'haskell-ghc-exactprint' 'haskell-ghcide' 'haskell-hls-graph'
@@ -17,7 +17,7 @@ makedepends=('ghc' 'uusi' 'haskell-async' 'haskell-ghcide-test-utils' 'haskell-h
              'haskell-parser-combinators' 'haskell-shake' 'haskell-tasty'
              'haskell-tasty-expected-failure' 'haskell-tasty-hunit' 'haskell-tasty-rerun')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('0e3669033c2161679134d0f429babea1d82908c3beed77f05955ac5f4d259200')
+sha256sums=('37a16d097b7cf7551f23e91ce825603d56a3138057d27235f494f8f8948c8773')
 
 prepare() {
   cd $_hkgname-$pkgver
