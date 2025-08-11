@@ -2,18 +2,29 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hindent
-pkgver=5.3.4
-pkgrel=236
+pkgver=6.0.0
+pkgrel=1
 pkgdesc="Extensible Haskell pretty printer"
 url="https://github.com/mihaimaruseac/hindent"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-monad-loops' 'haskell-optparse-applicative'
-         'haskell-path' 'haskell-path-io' 'haskell-src-exts' 'haskell-unix-compat'
-         'haskell-utf8-string' 'haskell-yaml')
-makedepends=('ghc' 'haskell-diff' 'haskell-hspec')
+depends=('ghc-libs' 'haskell-ghc-lib-parser-ex' 'haskell-monad-loops'
+         'haskell-optparse-applicative' 'haskell-path' 'haskell-path-io' 'haskell-regex-tdfa'
+         'haskell-split' 'haskell-syb' 'haskell-unicode-show' 'haskell-utf8-string' 'haskell-yaml')
+makedepends=('ghc' 'uusi' 'haskell-diff' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('b6d648c965bde63c19c93505f085e634ff37f5d3a21048aee3e67e42ae4c7238949e49dd14f4c5ba231a748be3996fb7e750764f848b61f3232a8521803fafee')
+sha512sums=('f1aa15523b0329ada3590bb46596a4ec358afba0847884af50a8a8602155aa3dca86dbc88525a26eb076e4a94cb6ed8064e2b2db1f971bcbcb7d57274681ba18')
+
+prepare() {
+    cd $pkgname-$pkgver
+    uusi -r ghc-lib-parser:ghc,ghc-boot
+    sed -e 's/"ghc-lib-parser" //' -e 's/ghc_lib_parser/ghc/' -i \
+        src/HIndent/Pretty.hs \
+        src/HIndent/Pretty/NodeComments.hs \
+        src/HIndent/Pretty/Types.hs \
+        src/HIndent/Parse.hs \
+        src/HIndent/ModulePreprocessing.hs
+}
 
 build() {
     cd $pkgname-$pkgver
