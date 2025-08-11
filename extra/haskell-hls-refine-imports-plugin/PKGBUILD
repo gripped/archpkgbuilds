@@ -2,11 +2,11 @@
 
 _hkgname=hls-refine-imports-plugin
 pkgname=haskell-hls-refine-imports-plugin
-pkgver=2.0.0.0
-pkgrel=102
+pkgver=2.0.0.1
+pkgrel=1
 pkgdesc="Refine imports plugin for Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-refine-imports-plugin"
-license=("Apache")
+license=('Apache-2.0')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ghc' 'haskell-ghcide'
          'haskell-hls-explicit-imports-plugin' 'haskell-hls-graph' 'haskell-hls-plugin-api'
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-ghc' 'haskell-ghcide'
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('80e4f5383af36e889606aef85b1a5ca932a07ad1ee81f41b8663ae5a00f0584b')
+sha256sums=('8ebe2df70f255eef9034fcbdcab693f60d901c6263550ef8dffb0bf008fe7243')
 
 prepare() {
   cd $_hkgname-$pkgver
