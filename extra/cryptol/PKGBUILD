@@ -1,24 +1,25 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=cryptol
-pkgver=3.1.0
-pkgrel=104
+pkgver=3.2.0
+pkgrel=1
 pkgdesc="The Language of Cryptography"
 url="https://www.cryptol.net"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'z3' 'haskell-ansi-terminal' 'haskell-arithmoi' 'haskell-async'
          'haskell-base-compat' 'haskell-blaze-html' 'haskell-bv-sized'
-         'haskell-criterion-measurement' 'haskell-cryptohash-sha1' 'haskell-extra' 'haskell-gitrev'
-         'haskell-graphscc' 'haskell-heredoc' 'haskell-hgmp' 'haskell-language-c99'
-         'haskell-language-c99-simple' 'haskell-libbf' 'haskell-libffi' 'haskell-memotrie'
-         'haskell-monad-control' 'haskell-monadlib' 'haskell-optparse-applicative'
-         'haskell-panic' 'haskell-parameterized-utils' 'haskell-pretty-show' 'haskell-prettyprinter'
-         'haskell-sbv' 'haskell-simple-smt' 'haskell-strict' 'haskell-temporary' 'haskell-tf-random'
-         'haskell-transformers-base' 'haskell-what4' 'haskell-vector')
+         'haskell-criterion-measurement' 'haskell-cryptohash-sha1' 'haskell-extra'
+         'haskell-file-embed' 'haskell-gitrev' 'haskell-graphscc' 'haskell-hgmp'
+         'haskell-language-c99' 'haskell-language-c99-simple' 'haskell-libbf' 'haskell-libffi'
+         'haskell-memotrie' 'haskell-monad-control' 'haskell-monadlib'
+         'haskell-optparse-applicative' 'haskell-panic' 'haskell-parameterized-utils'
+         'haskell-pretty-show' 'haskell-prettyprinter' 'haskell-sbv' 'haskell-simple-smt'
+         'haskell-strict' 'haskell-temporary' 'haskell-tf-random' 'haskell-transformers-base'
+         'haskell-what4' 'haskell-vector')
 makedepends=('ghc' 'alex' 'happy')
 source=(https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('6316d3b984925597eae1b528ec23d8fffa3256744f36ab625c2bd8559bb37f2a3076645e9949c103cf800462ae2efe19f071b22e10c2dade18e3f69dd86f2b5f')
+sha512sums=('5f1e6aebd499bddea0618426d4b71987f9a5cfec111f944bc24c9eb27810b6aa04ff844c5cec5d1b8583cab06682c7889e44c174608b45fe78bf7f466584f679')
 
 build() {
     cd $pkgname-$pkgver
