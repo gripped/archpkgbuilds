@@ -53,7 +53,7 @@ pkgname=(
   gst-plugin-uriplaylistbin
   gst-plugin-webrtchttp
 )
-pkgver=0.14.0
+pkgver=0.14.1
 pkgrel=1
 pkgdesc="Multimedia graph framework"
 url="https://gstreamer.freedesktop.org/"
@@ -89,7 +89,7 @@ options=(!lto)
 source=(
   "git+https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs.git?signed#tag=$pkgver"
 )
-b2sums=('88a30bd8b960689d08eec40f05de9cc2c3647e277e143e6fab1c81abc6dc55f81df3aae5acf011ae4785649abe2ec44cebd69c52c734477a67d16b9c96ab6fa4')
+b2sums=('74b3d5449bb56c0672e4f647df5a4612dae39d66b04583503cbc722d4149935fc1b1d52caaf752a53f89a9e2bfcfb24acfbdb2b94f182df9a272b0ba487103d5')
 validpgpkeys=(
   7F4BC7CC3CA06F97336BBFEB0668CC1486C2D7B5 # Sebastian Dröge <sebastian@centricular.com>
 )
