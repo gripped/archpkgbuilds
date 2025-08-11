@@ -1,11 +1,11 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=haskell-language-server
-pkgver=2.0.0.0
-pkgrel=125
+pkgver=2.0.0.1
+pkgrel=1
 pkgdesc="LSP server for GHC"
 url="https://github.com/haskell/haskell-language-server#readme"
-license=("Apache")
+license=('Apache-2.0')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-async'
          'haskell-base16-bytestring' 'haskell-cryptohash-sha1' 'haskell-data-default'
@@ -19,7 +19,8 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-async'
          'haskell-hls-explicit-record-fields-plugin' 'haskell-hls-floskell-plugin'
          'haskell-hls-fourmolu-plugin' 'haskell-hls-gadt-plugin' 'haskell-hls-ormolu-plugin'
          'haskell-hls-graph' 'haskell-hls-hlint-plugin' 'haskell-hls-module-name-plugin'
-         'haskell-hls-ormolu-plugin' 'haskell-hls-plugin-api' 'haskell-hls-pragmas-plugin'
+         'haskell-hls-ormolu-plugin' 'haskell-hls-overloaded-record-dot-plugin'
+         'haskell-hls-plugin-api' 'haskell-hls-pragmas-plugin'
          'haskell-hls-qualify-imported-names-plugin' 'haskell-hls-refactor-plugin'
          'haskell-hls-refine-imports-plugin' 'haskell-hls-rename-plugin' 'haskell-hls-retrie-plugin'
          'haskell-hls-splice-plugin' 'haskell-hls-stylish-haskell-plugin' 'haskell-lens'
@@ -31,7 +32,7 @@ makedepends=('ghc' 'uusi' 'haskell-ghcide-test-utils' 'haskell-hls-test-utils'
              'haskell-hspec-expectations' 'haskell-lsp-test')
 checkdepends=('cabal-install')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('ea20189a2734c1328be9638bfed376df4039d5079615e2b3e995e7819a50c0b22a548438e043afb3377344e0b75bf1a60f21723d1d5b34c733a8a109b2f7d6d2')
+sha512sums=('03f6651d28a1474d3a52a80991592e201e6b611db306b34d437b4e3cbc6d1050a694f1f135d03efd0613769c0d8ffae2abfc8e6291fbdff46cf148ad9b515b46')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -49,7 +50,7 @@ build() {
     -fignore-plugins-ghc-bounds -fcabal -fclass -fcallHierarchy -f-haddockComments -feval -fimportLens \
     -frefineImports -frename -fretrie -fhlint -fmoduleName -fpragmas -fsplice \
     -falternateNumberFormat -fqualifyImportedNames -fcodeRange -fchangeTypeSignature \
-    -fexplicitFields -f-tactic \
+    -fexplicitFields -f-tactic -foverloadedrecorddot \
     -ffloskell -ffourmolu -formolu -fstylishHaskell -fstan -fgadt -fexplicitFixity \
     -frefactor -fcabalfmt \
     -fdynamic
