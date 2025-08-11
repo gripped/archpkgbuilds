@@ -2,11 +2,11 @@
 
 _hkgname=ghcide
 pkgname=haskell-ghcide
-pkgver=2.0.0.0
-pkgrel=105
+pkgver=2.0.0.1
+pkgrel=1
 pkgdesc="The core of an IDE"
 url="https://github.com/haskell/haskell-language-server/tree/master/ghcide#readme"
-license=("Apache-2.0")
+license=('Apache-2.0')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-diff' 'haskell-glob' 'haskell-aeson' 'haskell-aeson-pretty'
          'haskell-async' 'haskell-base16-bytestring' 'haskell-case-insensitive'
@@ -27,7 +27,7 @@ makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-fuzzy' 'haskell-ghc-type
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'haskell-tasty-rerun')
 checkdepends=('cabal-install')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('23bdb9478c31be98f2389c524c274a8e9ef89d79e3d5f45e86c6d3b3d2e3d029a43bee497f6519f97d596a9f17d6df70ab676f0c5fd8e6fe3ff3dd0ff42cc404')
+sha512sums=('67f72e85133a063ee0f4fa6343f08bdb1ebb1363b720810c4f01f3469f32b6ccefec2d0cf2bcadc6a6c51c848d531b5a72b7792e55da2755d32d3e5b535b2ecb')
 
 prepare() {
   cd $_hkgname-$pkgver
