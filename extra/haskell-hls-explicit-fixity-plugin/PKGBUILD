@@ -2,17 +2,17 @@
 
 _hkgname=hls-explicit-fixity-plugin
 pkgname=haskell-hls-explicit-fixity-plugin
-pkgver=2.0.0.0
-pkgrel=102
+pkgver=2.0.0.1
+pkgrel=1
 pkgdesc="Show fixity explicitly while hovering"
 url="https://github.com/haskell/haskell-language-server.git"
-license=("Apache")
+license=('Apache-2.0')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-extra' 'haskell-ghc' 'haskell-ghcide' 'haskell-hashable'
          'haskell-hls-plugin-api' 'haskell-lsp')
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('c75abe2f57e202ed4704c6827b881d94bc744eb11f45fa67ff843882128c8b24')
+sha256sums=('b59e154bfbc54cea238456524a12ac1b72041f779a4c21845244f35f1e8235d7')
 
 prepare() {
   cd $_hkgname-$pkgver
