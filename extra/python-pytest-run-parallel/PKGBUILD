@@ -2,7 +2,7 @@
 
 _name=pytest-run-parallel
 pkgname=python-pytest-run-parallel
-pkgver=0.5.0
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="A simple pytest plugin to run tests concurrently"
 arch=(any)
@@ -24,8 +24,8 @@ checkdepends=(
     python-tox
 )
 source=("git+https://github.com/Quansight-Labs/pytest-run-parallel.git#tag=v${pkgver}")
-sha512sums=('496e7fc153f45cc915a2726ca8671c5c9c9dcb8c3901c38ac9bc12e78d07a56d6cf3244b297c6da66349fabfc0410a7935462cea6b9deeace0cbbc0c5449dfa5')
-b2sums=('7530ac8769541369443da19d23ba0af4a61c5ded465b4b3a9bb83242fc41da72c2f59bf10b374e4846bfe5eab4122aa1fa3d14f951f4878299d87425ead4c90d')
+sha512sums=('ac67cc2185071c77006e6adebb2cc204a5c87b7ae9d22af20126af066fefbe5f28a16d978590ba7c9c3e90d582cc99f1bb41fc6fe4d231551ba689e2c7e59a25')
+b2sums=('8adacec140953126819bcfb95a11fc69a8aaefc11795194ab5368a80d035d01476faadcb9a19754a5b72ef1d784bf24b96001ee301d2990759b0b883723b5a8b')
 
 build() {
     cd $_name
@@ -45,4 +45,5 @@ package() {
     cd $_name
 
     python -m installer --destdir="$pkgdir" dist/*.whl
+    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
