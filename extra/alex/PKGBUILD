@@ -5,7 +5,7 @@
 # Contributor: Philip Nilsson <pnilsson@nullref.se>
 
 pkgname=alex
-pkgver=3.4.0.0
+pkgver=3.4.0.1
 pkgrel=1
 pkgdesc='Lexical analyser generator for Haskell'
 arch=(x86_64)
@@ -14,7 +14,7 @@ license=(BSD-3-Clause)
 depends=(ghc-libs)
 makedepends=(ghc happy)
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('4e35238c4e9a383d148f8c8535f7cabe2b6735fb242e5819aafb4695299134342baa95817cbba49b05f6ccc23ee978fa1b7c30a2aa162b53482f5c9feab55fb6')
+sha512sums=('6e187dacc6b1ce784cb6cf4e72ce8aed49d3fdb16a9cfc6735830184c12d68e78f0cf38bb737884b451db871bfa8ab9337f320e111eb6026faa0a9eb9ff2ac77')
 
 build() {
   cd $pkgname-$pkgver
