@@ -2,11 +2,11 @@
 
 _hkgname=hls-rename-plugin
 pkgname=haskell-hls-rename-plugin
-pkgver=2.0.0.0
-pkgrel=104
+pkgver=2.0.0.1
+pkgrel=1
 pkgdesc="Rename plugin for Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-rename-plugin"
-license=("Apache")
+license=('Apache-2.0')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-extra' 'haskell-ghc' 'haskell-ghc-exactprint' 'haskell-ghcide'
          'haskell-hashable' 'haskell-hie-compat' 'haskell-hiedb' 'haskell-hls-plugin-api'
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-extra' 'haskell-ghc' 'haskell-ghc-exactprint' 'hask
 makedepends=('ghc' 'uusi' 'haskell-aeson' 'haskell-hls-test-utils')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('a69f26f923a4e4cc8a207c3e123af8088163880087660696de5ba830403b4686')
+sha256sums=('f6a992cc43f167955f6c95ac74e49ee98d1cad133802262757c9e650023c6c2c')
 
 prepare() {
   cd $_hkgname-$pkgver
