@@ -5,20 +5,21 @@
 # Contributor: Dan McGee <dan@archlinux.org>
 
 pkgname=qgit
-pkgver=2.11
+pkgver=2.12
 pkgrel=1
 pkgdesc='A GIT GUI viewer built on Qt/C++'
 url="https://github.com/tibirna/$pkgname"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-2.0-only)
 makedepends=(cmake)
 depends=(git
          hicolor-icon-theme
-         qt5-base
-         qt5-svg)
+         qt6-5compat
+         qt6-base
+         qt6-svg)
 optdepends=(source-highlight)
 source=("git+$url.git#tag=$pkgname-$pkgver")
-sha256sums=('fbee98c360583a25efe2c85685f506899e7f54a70822abdc2591a444265c3724')
+sha256sums=('f3e4c19ffb96290637796c2f3ef00a11388a33915bb38933d3afae277eee9831')
 
 prepare() {
 	cd "$pkgname"
