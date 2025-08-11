@@ -2,9 +2,9 @@
 # Maintainer: Konstantin Gizdov <arch at kge dot pw>
 
 pkgbase=python-cuda
-pkgname=(python-cuda python-cuda-core python-cuda-bindings)
+pkgname=(python-cuda python-cuda-core python-cuda-bindings python-cuda-pathfinder)
 pkgver=12.9.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Python interface for CUDA provided by NVIDIA"
 arch=(x86_64)
 url="https://nvidia.github.io/cuda-python"
@@ -57,6 +57,10 @@ build() {
   python -m build --wheel --no-isolation
   popd
 
+  pushd cuda_pathfinder
+  python -m build --wheel --no-isolation
+  popd
+
   pushd cuda_python
   python -m build --wheel --no-isolation
   popd
@@ -79,6 +83,7 @@ package_python-cuda-bindings() {
     gcc-libs
     glibc
     python
+    python-cuda-pathfinder
   )
 
   cd $pkgbase/cuda_bindings
@@ -105,11 +110,25 @@ package_python-cuda-core() {
   install -vDm 644 ../README.md -t "$pkgdir"/usr/share/doc/$pkgname/
 }
 
+package_python-cuda-pathfinder() {
+  license=(Apache-2.0)
+  depends=(
+    python
+  )
+
+  cd $pkgbase/cuda_pathfinder
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -vDm 644 ../README.md -t "$pkgdir"/usr/share/doc/$pkgname/
+}
+
 package_python-cuda() {
   license=(LicenseRef-NVIDIA)
   depends=(
     python-cuda-bindings
     python-cuda-core
+    python-cuda-pathfinder
   )
 
   cd $pkgbase/cuda_python
