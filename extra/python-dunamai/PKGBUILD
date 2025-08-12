@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-dunamai
-pkgver=1.23.1
+pkgver=1.25.0
 pkgrel=1
 pkgdesc='A library for producing dynamic version strings, derived from VCS tags'
 arch=('any')
@@ -19,8 +19,8 @@ makedepends=(
 )
 checkdepends=('python-pytest' 'python-setuptools')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('170b93cea2ab4d487e9fd979831a60e182eede283d446eebc1483ce1575fdfa6f4e33b82bf2d52de2956a312a6ad4c7ff343c801df6aa20a81788380a6152b6d')
-b2sums=('f5c2b5695e452443b9e6348458a78f7b6db4baa4567d4dbd35763d47bf8c67057938a36a737a728695ca150b706cf376f09b46bb180ae6bd74fc669bbacc3873')
+sha512sums=('826f6c4adcb76a79f25ab8ff2f0ed7fccc579687baaa73b9053708eed36674f1bd1a62dae84fc6bd4e4f3b927088962900e1d5e0123fe3a609ff4714498d5c38')
+b2sums=('bad2f992467e78c6c6c50926561c514363043f8f34f6bf71a4123e9034c5400260309200b7d78f42640fbe79735f0faa88e2e33032ee89f69f39b41390304819')
 
 build() {
   cd "$pkgname"
@@ -39,15 +39,20 @@ check() {
   export PATH="$(pwd)/tmp/usr/bin:$PATH"
   export PYTHONPATH="$(pwd)/tmp/$site_packages"
 
-  # run tests, skipping annoying ones that require messing with global git config
-  pytest -v \
-    --deselect tests/integration/test_dunamai.py::test__version__from_git__with_annotated_tags \
-    --deselect tests/integration/test_dunamai.py::test__version__from_git__with_lightweight_tags \
-    --deselect tests/integration/test_dunamai.py::test__version__from_git__with_mixed_tags \
-    --deselect tests/integration/test_dunamai.py::test__version__from_git__with_nonchronological_commits \
-    --deselect tests/integration/test_dunamai.py::test__version__from_git__gitflow \
-    --deselect tests/integration/test_dunamai.py::test__version__from_git__exclude_decoration \
-    --deselect tests/integration/test_dunamai.py::test__version__from_git__broken_ref
+  # skip tests that require messing with global git config
+  local deselected=(
+    tests/integration/test_dunamai.py::test__version__from_git__with_annotated_tags
+    tests/integration/test_dunamai.py::test__version__from_git__with_lightweight_tags
+    tests/integration/test_dunamai.py::test__version__from_git__with_mixed_tags
+    tests/integration/test_dunamai.py::test__version__from_git__with_nonchronological_commits
+    tests/integration/test_dunamai.py::test__version__from_git__gitflow
+    tests/integration/test_dunamai.py::test__version__from_git__exclude_decoration
+    tests/integration/test_dunamai.py::test__version__from_git__broken_ref
+    tests/integration/test_dunamai.py::test__version__from_git__trace_env_var
+    tests/integration/test_dunamai.py::test__version__from_git__initial_commit_empty_and_tagged
+  )
+
+  pytest -v ${deselected[@]/#/--deselect }
 }
 
 package() {
