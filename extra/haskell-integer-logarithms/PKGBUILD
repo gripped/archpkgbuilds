@@ -3,22 +3,29 @@
 _hkgname=integer-logarithms
 pkgname=haskell-integer-logarithms 
 pkgver=1.0.4
-pkgrel=18
+pkgrel=20
 pkgdesc="Integer logarithms"
 url="https://github.com/Bodigrim/integer-logarithms"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-quickcheck' 'haskell-smallcheck' 'haskell-tasty' 'haskell-tasty-hunit'
-             'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')
+makedepends=('ghc')
+checkdepends=('haskell-quickcheck' 'haskell-smallcheck' 'haskell-tasty' 'haskell-tasty-hunit'
+              'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('aa9eddff5bc8db9f1cca8a9250388d6d84498b1d443acecae116ac79ef50c7d5aa0ff3d018e8d999f0990d2862d5de87ec8971339bec571b417db6bbeaca8586')
 
 build() {
     cd $_hkgname-$pkgver
+
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -finteger-gmp -f-check-bounds
     runhaskell Setup build $MAKEFLAGS
