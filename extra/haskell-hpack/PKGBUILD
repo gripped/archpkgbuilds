@@ -4,20 +4,20 @@
 
 pkgname=haskell-hpack
 _hkgname=hpack
-pkgver=0.35.2
-pkgrel=230
+pkgver=0.35.3
+pkgrel=1
 pkgdesc="A modern format for Haskell packages"
 url="https://github.com/sol/hpack#readme"
 license=("MIT")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-aeson' 'haskell-bifunctors' 'haskell-cryptonite' 'haskell-glob'
+depends=('ghc-libs' 'haskell-aeson' 'haskell-bifunctors' 'haskell-crypton' 'haskell-glob'
          'haskell-http-client' 'haskell-http-client-tls' 'haskell-http-types'
          'haskell-infer-license' 'haskell-scientific' 'haskell-unordered-containers'
          'haskell-vector' 'haskell-yaml')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-hspec' 'haskell-interpolate'
              'haskell-mockery' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-${pkgver}.tar.gz")
-sha512sums=('0b07a509bc429199fefecfc6963aee71987540cdb8901b4d26034db426252d9a42f206607ee162c917343b7146a9cd1eb560703f4bb65594537d3f62255d0ca7')
+sha512sums=('e85fd856666254f0ae75f8b7088cc80381906e8ef9f02a7ddf693bf6f3af66ffd4bee59b88f44de64f91a635bb6ef6e65a76daf54938080b7352f82d59a5fe66')
 
 build() {
   cd $_hkgname-$pkgver
@@ -33,7 +33,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  runhaskell Setup test || echo "https://github.com/sol/hpack/issues/358"
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
