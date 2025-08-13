@@ -1,7 +1,7 @@
 # Maintainer: Peter Jung <ptr1337@archlinux.org>
 
 pkgname=egl-x11
-pkgver=1.0.2
+pkgver=1.0.3
 pkgrel=1
 pkgdesc="NVIDIA XLib and XCB EGL Platform Library"
 arch=('x86_64')
@@ -20,7 +20,7 @@ makedepends=(
   git
 )
 source=("git+https://github.com/NVIDIA/egl-x11#tag=v$pkgver")
-sha256sums=('ae4b77a7a8b26916e597d3ad4904d68730ea0c1ec012dae4b5978d686f971dc7')
+sha256sums=('ebef20d89f8001df3b89488f1f968a5a8624fa42430a0b595672925cb210d656')
 
 build() {
   arch-meson "$pkgname" build
