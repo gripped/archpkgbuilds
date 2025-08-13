@@ -4,7 +4,7 @@
 
 pkgname=magic-wormhole
 pkgver=0.20.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Securely transfer data between computers"
 arch=(any)
 url="https://github.com/magic-wormhole/magic-wormhole"
@@ -64,8 +64,8 @@ package() {
 	python -m installer -d "$pkgdir" dist/*.whl
 	install -vDm 644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 	install -vDm 644 -t "$pkgdir/usr/share/man/man1/" docs/wormhole.1
-	mkdir -p "$pkgdir/usr/share/"{bash_completion/completions,fish/vendor_completions.d,zsh/site-functions}/
-	mv "$pkgdir/usr/"{wormhole_complete.bash,share/bash_completion/completions/wormhole}
+	mkdir -p "$pkgdir/usr/share/"{bash-completion/completions,fish/vendor_completions.d,zsh/site-functions}/
+	mv "$pkgdir/usr/"{wormhole_complete.bash,share/bash-completion/completions/wormhole}
 	mv "$pkgdir/usr/"{wormhole_complete.fish,share/fish/vendor_completions.d/wormhole.fish}
 	mv "$pkgdir/usr/"{wormhole_complete.zsh,share/zsh/site-functions/_wormhole}
 }
