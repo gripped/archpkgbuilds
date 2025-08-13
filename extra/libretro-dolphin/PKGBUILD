@@ -1,12 +1,12 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-dolphin
-pkgver=33044
-pkgrel=3
+pkgver=33059
+pkgrel=1
 pkgdesc='Nintendo GC/Wii core'
 arch=(x86_64)
 url=https://github.com/libretro/dolphin
-license=(GPL2)
+license=(GPL-2.0-only)
 groups=(libretro)
 depends=(
   alsa-lib
@@ -40,20 +40,17 @@ makedepends=(
   ninja
   python
 )
-_commit=89a4df725d4eb24537728f7d655cddb1add25c18
+_commit=83438f9b1a2c832319876a1fda130a5e33d4ef87
 source=(
   libretro-dolphin::git+https://github.com/libretro/dolphin.git#commit=${_commit}
-  libretro-dolphin-missing-headers.patch
   fmt-10.patch
 )
-b2sums=('3be9f3efc9a41f677543ba27c44d5e60470c93ef210005e76a44b5785381eb7ebf3e54eee6d302e2651feea37aec94f905b4ee213936f303c78c30bda593bd98'
-        'b2f532c0b878e300bbe3da9f0113bdb1388fa4621c56eafbf9ba9a7b44de5ed05eaf8a6698dc9558ead2510df8eee1bf8bb609a9b4dc821596d24aa772c415ef'
+b2sums=('1307455835872b063ba87df95c7258b544a4e2e691a38aaa9b2b620e492f437fb05d6a759572dbce861ba56bbf8e5af186b992f64e534ee9767e1ea304632801'
         'e669c2497beaa42e5bde4033ebac00b85bb4f28ebff910c952dc4354de174267fcf2a1d27d6ca8b421c5c1e81591f7375150b0954d92c172d144e7a89a884186')
 
 prepare() {
   cd libretro-dolphin
-  patch -Np1 -i ../libretro-dolphin-missing-headers.patch
-  patch -p1 -i ../fmt-10.patch # Fix build with fmt 10
+  patch -Np1 -i ../fmt-10.patch
 }
 
 pkgver() {
@@ -67,6 +64,7 @@ build() {
   cmake -S libretro-dolphin -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DENABLE_LTO=ON \
     -DENABLE_NOGUI=OFF \
     -DENABLE_QT=OFF \

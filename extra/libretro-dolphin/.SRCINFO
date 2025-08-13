@@ -1,11 +1,11 @@
 pkgbase = libretro-dolphin
 	pkgdesc = Nintendo GC/Wii core
-	pkgver = 33044
-	pkgrel = 3
+	pkgver = 33059
+	pkgrel = 1
 	url = https://github.com/libretro/dolphin
 	arch = x86_64
 	groups = libretro
-	license = GPL2
+	license = GPL-2.0-only
 	makedepends = clang
 	makedepends = cmake
 	makedepends = git
@@ -34,11 +34,9 @@ pkgbase = libretro-dolphin
 	depends = xz
 	depends = zlib
 	depends = zstd
-	source = libretro-dolphin::git+https://github.com/libretro/dolphin.git#commit=89a4df725d4eb24537728f7d655cddb1add25c18
-	source = libretro-dolphin-missing-headers.patch
+	source = libretro-dolphin::git+https://github.com/libretro/dolphin.git#commit=83438f9b1a2c832319876a1fda130a5e33d4ef87
 	source = fmt-10.patch
-	b2sums = 3be9f3efc9a41f677543ba27c44d5e60470c93ef210005e76a44b5785381eb7ebf3e54eee6d302e2651feea37aec94f905b4ee213936f303c78c30bda593bd98
-	b2sums = b2f532c0b878e300bbe3da9f0113bdb1388fa4621c56eafbf9ba9a7b44de5ed05eaf8a6698dc9558ead2510df8eee1bf8bb609a9b4dc821596d24aa772c415ef
+	b2sums = 1307455835872b063ba87df95c7258b544a4e2e691a38aaa9b2b620e492f437fb05d6a759572dbce861ba56bbf8e5af186b992f64e534ee9767e1ea304632801
 	b2sums = e669c2497beaa42e5bde4033ebac00b85bb4f28ebff910c952dc4354de174267fcf2a1d27d6ca8b421c5c1e81591f7375150b0954d92c172d144e7a89a884186
 
 pkgname = libretro-dolphin
