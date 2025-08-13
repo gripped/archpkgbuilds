@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=havn
-pkgver=0.2.1
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="A fast configurable port scanner with reasonable defaults"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('fb6b6020f46da25d47297bc4ef6532d05ab2b4a6e15d2b2fa604c94332d29106')
+sha256sums=('8bb9d57dc6868006b5339e93b2498806d72e44165e3a2221b3596ee04c99d61b')
 
 prepare() {
   cd "$pkgname-$pkgver"
