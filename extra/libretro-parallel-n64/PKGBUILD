@@ -2,7 +2,7 @@
 # Contributor: Thomas Schneider <maxmusterm@gmail.com>
 
 pkgname=libretro-parallel-n64
-pkgver=5259
+pkgver=5262
 pkgrel=1
 pkgdesc='Nintendo 64 core'
 arch=(x86_64)
@@ -14,12 +14,13 @@ depends=(
   libretro-core-info
 )
 makedepends=(
+  clang
   git
   mesa
 )
-_commit=e372c5e327dcd649e9d840ffc3d88480b6866eda
+_commit=50d3ddd55b5774da643d90d7ad1e3cbd2c618883
 source=(libretro-parallel-n64::git+https://github.com/libretro/parallel-n64.git#commit=${_commit})
-sha256sums=('5c409445fe4bd9e9165e97a9dbdb858aa0c713af3dd6e9f6e444ba0e5fc670f9')
+sha256sums=('c0b8bb0c4ec735500102bec54b3d7177795d77c1d57726cc258833cb30ce43bf')
 options=(!lto)
 
 pkgver() {
@@ -29,6 +30,7 @@ pkgver() {
 
 build() {
   make -C libretro-parallel-n64 \
+    CC=clang \
     WITH_DYNAREC=x86_64 \
     HAVE_PARALLEL=1 \
     HAVE_PARALLEL_RSP=1 \
