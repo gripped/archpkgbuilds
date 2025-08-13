@@ -2,15 +2,16 @@
 # Contributor: Paul Boyd <boyd.paul2@gmail.com>
 
 pkgname=amfora
-pkgver=1.10.0
-pkgrel=2
+pkgver=1.11.0
+pkgrel=1
 pkgdesc='Terminal browser for the Gemini protocol'
 arch=(x86_64)
 url='https://github.com/makeworld-the-better-one/amfora'
-license=(GPL3)
+license=(GPL-3.0-only)
+depends=(glibc)
 makedepends=(git go imagemagick)
-source=("git+$url#commit=2534983d96c431430e9263c27ce5bfa36b66c3d5") # tag: v1.10.0
-b2sums=('7fc7424d5d436e7415dfa4825ff883dcbd0e6d695c822cd11e503dd0b39413ee70035cb300f0c180a8d5dfd5b8aca0bd05c57e743ecccddad7fcbb5e892bfa7b')
+source=("git+$url#tag=v$pkgver")
+b2sums=('0d7c8a7c699090715805dc36f8d5c1bed78e3d321c24dec5d51d500267db4c29a9c81726a9b3627db154f4132419284ba3ddd81a443fe0ee49023df9766b683c')
 
 prepare() {
   cd $pkgname
