@@ -2,8 +2,8 @@
 # Contributor: Duck Hunt <vaporeon@tfwno.gf>
 
 pkgname=libretro-mgba
-pkgver=9298
-pkgrel=2
+pkgver=9839
+pkgrel=1
 pkgdesc='Nintendo Game Boy Advance core'
 arch=(x86_64)
 url=https://github.com/libretro/mgba
@@ -11,9 +11,9 @@ license=(custom:MPL2)
 groups=(libretro)
 depends=(libretro-core-info)
 makedepends=(git)
-_commit=b2564482c86378581a7a43ef4e254b2a75167bc7
+_commit=affc86e4c07b6e1e8363e0bc1c5ffb813a2e32c9
 source=(libretro-mgba::git+https://github.com/libretro/mgba.git#commit=${_commit})
-sha256sums=(SKIP)
+sha256sums=('37dac929267b635f7cb387b3b537b9399eecd42487afb803bad77d300b3c24d6')
 
 pkgver() {
   cd libretro-mgba
