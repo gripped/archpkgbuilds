@@ -3,7 +3,7 @@
 # Contributor: Sematre <sematre at gmx dot de>
 
 pkgname=typos
-pkgver=1.35.3
+pkgver=1.35.4
 pkgrel=1
 pkgdesc="Source code spell checker"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('MIT OR Apache-2.0')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('4fe92c20520e358935172f396d8e88050be39512425230a754a6e958dc268d69')
+sha256sums=('a1e46dc0992ce0118c53bb3c4dda5c20d10d2e6c7a1df18b7c80ba2460597963')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
@@ -32,9 +32,9 @@ check() {
 package() {
   cd "${pkgname}-${pkgver}"
   install -Dm755 "target/release/${pkgname}" -t "${pkgdir}/usr/bin"
-  install -Dm644 "LICENSE-MIT" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-MIT"
+  install -Dm644 LICENSE-MIT -t "${pkgdir}/usr/share/licenses/${pkgname}"
 
-  install -Dm644 "README.md" "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+  install -Dm644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
   for file in ./docs/*; do
     install -Dm644 "$file" -t "${pkgdir}/usr/share/doc/${pkgname}/docs"
   done
