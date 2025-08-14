@@ -4,12 +4,12 @@
 # Contributor: Dr.Egg <rwhite@archlinux.us>
 
 pkgname=musescore
-pkgver=4.4.4
-pkgrel=4
+pkgver=4.5.2
+pkgrel=1
 pkgdesc='Create, play and print beautiful sheet music'
 arch=(x86_64)
 url=https://musescore.org/
-license=(GPL)
+license=(GPL-3.0-only)
 groups=(pro-audio)
 depends=(
   gcc-libs
@@ -43,7 +43,16 @@ makedepends=(
 optdepends=('lame: MP3 export')
 options=(!lto)
 source=(git+https://github.com/musescore/MuseScore.git#tag=v${pkgver})
-sha256sums=('470c1ab07e0ef613943a8c296c5bdc330da46c77ecbf918ccd90ad3c87786316')
+sha256sums=('a5ebc0484855d3984b85dbf9cb818563d5936a35402712f4a9f6113ebb654ee4')
+
+prepare() {
+  cd MuseScore
+  # Fix build failures
+  git cherry-pick -n \
+    05056ed19520060c3912a09a3adfa0927057f956 \
+    da3301afb1def9ac17915424d35829beb46dce4b \
+    c537785a6ff098ffd8a87597a0d073e40794afe7
+}
 
 build() {
   cmake -S MuseScore -B build -G Ninja \
