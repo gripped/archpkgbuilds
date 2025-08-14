@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=dnf5
-pkgver=5.2.15.0
+pkgver=5.2.16.0
 pkgrel=1
 pkgdesc="Next-generation RPM package management system"
 arch=('x86_64')
@@ -23,7 +23,7 @@ options=('!emptydirs')
 conflicts=(dnf)
 replaces=(dnf)
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('f9a3a5717db171c23217f160d1b2775942308b2b32b417909b032c02edd368d8')
+sha256sums=('d2f1cc91f82eb6d04239a8548dede4cc1688c07d2440284fa5ee6042380ccadb')
 
 prepare() {
   cd "$pkgname-$pkgver"
