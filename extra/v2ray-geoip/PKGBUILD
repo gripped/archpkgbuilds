@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=v2ray-geoip
-pkgver=202508091008
+pkgver=202508140022
 pkgrel=1
 pkgdesc="GeoIP List for V2Ray"
 arch=('any')
