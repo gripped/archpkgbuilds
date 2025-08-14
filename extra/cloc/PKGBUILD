@@ -2,7 +2,7 @@
 # Contributor: Diogo Ferreira <diogo@underdev.org>
 
 pkgname=cloc
-pkgver=2.04
+pkgver=2.06
 pkgrel=1
 pkgdesc="Count lines of code"
 arch=('any')
@@ -11,7 +11,7 @@ license=('GPL-2.0-or-later')
 depends=('perl' 'perl-algorithm-diff' 'perl-regexp-common'
          'perl-parallel-forkmanager')
 source=(https://github.com/AlDanial/cloc/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('6113bce8314ba70ad3c790de402235e0cd3f7d55222e2008a760bfef770efc7a')
+sha256sums=('27b6b007a5d482e5f50b23984cbe10f6a9f26e1052e9c7e010edfdcf879dc554')
 
 package() {
   cd $pkgname-$pkgver/Unix
