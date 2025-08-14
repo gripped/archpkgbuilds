@@ -3,8 +3,8 @@
 
 _hkgname=network-protocol-xmpp
 pkgname=haskell-network-protocol-xmpp
-pkgver=0.5.1
-pkgrel=6
+pkgver=0.5.2
+pkgrel=1
 pkgdesc="Client library for the XMPP protocol."
 url="https://git.sr.ht/~singpolyma/network-protocol-xmpp"
 license=('GPL-3.0-only')
@@ -13,7 +13,7 @@ depends=('ghc-libs' "haskell-gnuidn" "haskell-gnutls" "haskell-gsasl" "haskell-l
          "haskell-network" "haskell-network-simple" "haskell-xml-types")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('ba17e30d6ab5471a25633179acd87c43353d5b67ab5f8a3b5408ef76ad73533fbe5ef7afbc346a14cc85f992aa96836d596b3ca2dc0c5dd1bc09829266a8b980')
+sha512sums=('41bd9507708df3f57f2092f709782d9632cd8a10ab3c326b114750aec7eb9933686aa1c512d6d6d9af459922297e0c6a79c08c2753ff132304a255454968017e')
 
 build() {
     cd $_hkgname-$pkgver
