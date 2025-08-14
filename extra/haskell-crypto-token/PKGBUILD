@@ -2,16 +2,16 @@
 
 _hkgname=crypto-token
 pkgname=haskell-crypto-token
-pkgver=0.0.2
-pkgrel=53
+pkgver=0.1.0
+pkgrel=1
 pkgdesc="Crypto tokens"
 url="https://github.com/kazu-yamamoto/crypto-token"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-crypton' 'haskell-memory')
-makedepends=('ghc')
+depends=('ghc-libs' 'haskell-crypton' 'haskell-memory' 'haskell-network-byte-order')
+makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('ee4ae4cfc2a2fa5f73713e36f8a53f73bd7065ff598c87bf6b1c39bb9b5b2d13')
+sha256sums=('b2e58c7508c03ab4e63cbf1ac8f03cf0e2c71aa784101d11c26e8302bff52a2c')
 
 build() {
   cd $_hkgname-$pkgver

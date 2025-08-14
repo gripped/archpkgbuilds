@@ -1,15 +1,18 @@
 pkgbase = haskell-crypto-token
 	pkgdesc = Crypto tokens
-	pkgver = 0.0.2
-	pkgrel = 53
+	pkgver = 0.1.0
+	pkgrel = 1
 	url = https://github.com/kazu-yamamoto/crypto-token
 	arch = x86_64
-	license = BSD
+	license = BSD-3-Clause
 	makedepends = ghc
+	makedepends = haskell-hspec
+	makedepends = haskell-hspec-discover
 	depends = ghc-libs
 	depends = haskell-crypton
 	depends = haskell-memory
-	source = https://hackage.haskell.org/packages/archive/crypto-token/0.0.2/crypto-token-0.0.2.tar.gz
-	sha256sums = ee4ae4cfc2a2fa5f73713e36f8a53f73bd7065ff598c87bf6b1c39bb9b5b2d13
+	depends = haskell-network-byte-order
+	source = https://hackage.haskell.org/packages/archive/crypto-token/0.1.0/crypto-token-0.1.0.tar.gz
+	sha256sums = b2e58c7508c03ab4e63cbf1ac8f03cf0e2c71aa784101d11c26e8302bff52a2c
 
 pkgname = haskell-crypto-token
