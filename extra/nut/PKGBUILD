@@ -7,8 +7,8 @@
 # Contributor: Dan Ziemba <zman0900@gmail.com>
 
 pkgname=nut
-pkgver=2.8.3
-pkgrel=4
+pkgver=2.8.4
+pkgrel=1
 pkgdesc='A collection of programs which provide a common interface for monitoring and administering UPS, PDU and SCD hardware'
 arch=(x86_64)
 url=https://networkupstools.org/
@@ -51,7 +51,7 @@ backup=(
   etc/nut/upsstats.html
   etc/nut/upsstats-single.html
 )
-_tag=c0acf09af3be41752abad90a19a11a26c9256b28
+_tag=9beabff191ff18272165cf8883ba48d033550883
 source=(
   git+https://github.com/networkupstools/nut.git#tag=${_tag}
   nut.sysusers
@@ -61,7 +61,7 @@ source=(
   nut-openssl-1.1.patch
   nut-snmp-usb-order.patch
 )
-b2sums=('4f682933d4c68dcd97a4da3a7b52bfbf1ef4637f7fb69305cc7c1fc3cb59c6147e9d8e8009440305c047c438b1bdb7278c47437d069dc4f69114f389f1ea521d'
+b2sums=('0e0c242d586d438b60688279f708c6c3cb35c65ee3a8426a14e02e994a38a06361c3db45f62f41f2c172f665c692a083fa93936f2e349aa8afa1a046e2a090d9'
         '7f953900fc567b7076f05acddd442889c89898c1729fecead712a2aa85e091d8f4a474476dd477804b54d72a51a8e7a973e4bf4726106e3c1c85cce1b18a7e1c'
         'f03e8fefbbf029ce484519bda8c770295acbcece403e2166cd6fe67d9191048fa315c62a1f1db610b0b8e2d98c5d05c78203c8d8a1d2859f2b4a792e4b5ca471'
         'cdd11335a8d60b2cada25a2cd9be2d0f1c911029a46e3adf8eda7d8687c1b2caf0fd66cd92c41ecbd660d44bc2606e92aa81d4a2c9746b2ef9e15c4048679487'
