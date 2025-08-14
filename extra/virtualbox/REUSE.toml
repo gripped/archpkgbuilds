@@ -1,0 +1,44 @@
+version = 1
+
+[[annotations]]
+path = [
+    "LocalConfig.kmk",
+    "PKGBUILD",
+    "README.md",
+    "build.sh",
+    "keys/**",
+    "vboxdrmclient.path",
+    "virtualbox.modprobe",
+    "vboxreload",
+    "virtualbox-host-dkms.conf",
+    ".SRCINFO",
+    ".nvchecker.toml",
+    "*.install",
+    "*.sysusers",
+    "*.tmpfiles",
+    "*.logrotate",
+    "*.pam",
+    "*.rules",
+    "*.service",
+    "*.socket",
+    "*.timer",
+    "*.desktop",
+    "*.hook",
+]
+SPDX-FileCopyrightText = "Arch Linux contributors"
+SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "001-disable-update.patch",
+    "004-drop-Wno-format.patch",
+    "008-no-vboxvideo.patch",
+    "009-properly-handle-i3wm.patch",
+    "012-vbglR3GuestCtrlDetectPeekGetCancelSupport.patch",
+    "013-support-building-from-dkms.patch",
+    "018-upate-xclient-script.patch",
+    "020-python-3-12.patch",
+    "021-python-3-13.patch",
+]
+SPDX-FileCopyrightText = "virtualbox contributors"
+SPDX-License-Identifier = "GPL-3.0-only"
