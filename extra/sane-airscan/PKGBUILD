@@ -3,7 +3,7 @@
 # Contributor: Thomas Kiss <thokis@gmail.com>
 
 pkgname=sane-airscan
-pkgver=0.99.35
+pkgver=0.99.36
 pkgrel=1
 pkgdesc="SANE - SANE backend for AirScan (eSCL) and WSD document scanners"
 url="https://github.com/alexpevzner/sane-airscan"
@@ -15,7 +15,7 @@ depends=('sane' 'avahi' 'gnutls' 'libxml2' 'libjpeg-turbo'
 optdepends=('ipp-usb: allows to send HTTP requests via a USB connection on devices without Ethernet or WiFi connections')
 backup=(etc/sane.d/airscan.conf)
 source=("$pkgname-$pkgver.tar.gz"::"https://github.com/alexpevzner/${pkgname}/archive/${pkgver}.tar.gz")
-sha256sums=('c947246c0e3bf0e2c79b3d795a8b59f0159d4ac81650ba8328ba8d49545eb308')
+sha256sums=('43d3436c0199496ee18aca4f875fe3926a40a0fae781bc280cdb96f7b5068ac0')
 
 build() {
     cd ${pkgname}-${pkgver}
