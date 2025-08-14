@@ -2,15 +2,14 @@
 # Contributor: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>
 
 pkgname=python-blessed
-pkgver=1.20.0
-pkgrel=8
+pkgver=1.21.0
+pkgrel=2
 pkgdesc='A thin, practical wrapper around terminal styling, screen positioning, and keyboard input'
 arch=(any)
 url=https://github.com/jquast/blessed
 license=(MIT)
 depends=(
   python
-  python-six
   python-wcwidth
 )
 makedepends=(
@@ -22,9 +21,9 @@ checkdepends=(
   python-pytest-rerunfailures
   python-pytest-xdist
 )
-_tag=d404d8ccde9ba900bc968c1213b915a691581603
+_tag=e4554e12a5f33d7fd2236b1e2be976842c110e7c
 source=(git+https://github.com/jquast/blessed.git#tag=${_tag})
-b2sums=('194e081007d155eb7a27a3ab2d8243dd17d574f5da76844d30ea9d405167d5f248f5ff745b11f397a4446a3444f26499151654a95a6cf85277c8a2b1e8c04cf8')
+b2sums=('02f61a32ba0a75346a7ad47856be614ce9f61396a0d743402fe7751fe4925b9f31c35e3fc4126a3a2621866892de19003ddbd3f8a9d12d5f7640a708ad5f0af1')
 
 pkgver() {
   cd blessed
