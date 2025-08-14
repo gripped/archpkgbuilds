@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=gtk-theme-elementary
-pkgver=8.2.0
+pkgver=8.2.1
 pkgrel=1
 pkgdesc='elementary GTK theme'
 arch=(any)
@@ -14,9 +14,9 @@ makedepends=(
   sassc
 )
 optdepends=('gtk-engine-murrine: GTK2 theme')
-_tag=039492a3b1cfb99524dd2982dd2dc4d3cb9c78d6
+_tag=5bd252f584929be05e3a0cef23aba4d006c3c133
 source=(gtk-theme-elementary::git+https://github.com/elementary/stylesheet.git#tag=${_tag})
-sha256sums=('0173a61b87f850efc2c608b2fd4e1bffb5969f404c03506ba597bec46400ce02')
+sha256sums=('490e79eb9f2cd45d09bb1a06ed4fc6ac5b140f55b6ad2503512c76b8c422f789')
 
 pkgver() {
   cd gtk-theme-elementary
