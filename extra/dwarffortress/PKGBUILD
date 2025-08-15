@@ -4,13 +4,13 @@
 # Contributor: djnm <nmihalich [at} gmail dott com>
 
 pkgname=dwarffortress
-pkgver=52.02
+pkgver=52.03
 _pkgver=${pkgver/./_}
 pkgrel=1
 pkgdesc="A single-player fantasy game in which you build a dwarven outpost or play an adventurer in a randomly generated world"
 arch=('x86_64')
 url="https://www.bay12games.com/dwarves/"
-license=('custom:dwarffortress')
+license=('LicenseRef-dwarffortress')
 depends=('libice' 'gtk3' 'glu' 'sdl2' 'sdl2_image' 'sdl2_mixer' 'sdl2_ttf'
          'libsndfile' 'libsm'  'openal' 'glew' 'gcc-libs' 'glib2')
 makedepends=('git' 'cmake')
@@ -19,21 +19,21 @@ optdepends=('nvidia-utils: If you have nvidia graphics'
             'libpulse: for pulse sound')
 options=('!strip' '!buildflags' '!debug')
 install=$pkgname.install
-source=(dwarffortress
+source=(dwarffortress.sh
         dwarffortress.desktop
         dwarffortress.png
         https://www.bay12games.com/dwarves/df_${_pkgver}_linux.tar.bz2)
 sha256sums=('c23b984face14541e48af1b6845c318fae74800b9774c97a1d5b8aa4bfa19b6a'
             'e79e3d945c6cc0da58f4ca30a210c7bf1bc3149fd10406d1262a6214eb40445a'
             '83183abc70b11944720b0d86f4efd07468f786b03fa52fe429ca8e371f708e0f'
-            'f35ce0ec0bffee8c1f2ec02a12087d400d669b4abf01f391dccab47d58eebb9f')
+            '1b362e6d1ba426118d0ffc4bdebcc3a6684b5519885860603f9ea5946b64448e')
 
 noextract=(df_${_pkgver}_linux.tar.bz2)
 
 prepare() {
-    # tar archive has no root directory
-    mkdir -p df_${_pkgver}_linux
-    tar -xf df_${_pkgver}_linux.tar.bz2 -C df_${_pkgver}_linux
+  # tar archive has no root directory
+  mkdir -p df_${_pkgver}_linux
+  tar -xf df_${_pkgver}_linux.tar.bz2 -C df_${_pkgver}_linux
 }
 
 package() {
@@ -46,7 +46,7 @@ package() {
   find "$pkgdir"/opt/$pkgname -type f -name "*.so*" -exec chmod 755 {} +
   chmod 755 "$pkgdir"/opt/$pkgname/{*.so*,run_df,dwarfort}
 
-  install -Dm755 "$srcdir"/dwarffortress "$pkgdir"/usr/bin/$pkgname
+  install -Dm755 "$srcdir"/dwarffortress.sh "$pkgdir"/usr/bin/$pkgname
 
   # Desktop launcher with icon
   install -Dm644 "$srcdir"/dwarffortress.desktop "$pkgdir"/usr/share/applications/"$pkgname".desktop
