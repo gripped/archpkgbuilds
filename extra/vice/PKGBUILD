@@ -4,7 +4,7 @@
 pkgbase=vice
 pkgname=(vice vice-sdl2)
 pkgver=3.9
-pkgrel=3
+pkgrel=4
 pkgdesc='Versatile Commodore Emulator'
 arch=(x86_64)
 license=(GPL-2.0-only)
