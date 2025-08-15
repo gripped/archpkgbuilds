@@ -3,7 +3,7 @@
 
 pkgname=opam
 pkgver=2.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc='OCaml package manager'
 arch=(x86_64)
 url='https://opam.ocaml.org/'
