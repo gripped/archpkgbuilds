@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-clevercsv
-pkgver=0.8.2
-pkgrel=2
+pkgver=0.8.3
+pkgrel=1
 pkgdesc="A Python package for handling messy CSV files"
 url="https://github.com/alan-turing-institute/CleverCSV"
 license=('MIT')
@@ -13,7 +13,7 @@ optdepends=('python-pandas' 'python-tabview' 'python-wilderness' 'python-ccharde
 checkdepends=('python-pytest' 'python-pandas' 'python-tabview' 'python-wilderness'
               'python-faust-cchardet' 'python-termcolor')
 source=("git+https://github.com/alan-turing-institute/CleverCSV.git#tag=v$pkgver")
-sha512sums=('15c16e65eafd426cfb1993ddaeca4433938e6020df1be7766a97a157c262c76142e0d6e0bf6c08ee5efc1f35d1cc7988589069b5cf38def42cacf5dc4c7e6672')
+sha512sums=('eeaf9fddf0f8d2924f22bbf616747f920a208ece49ba5c233d4789d0871e5aa17cf6b6d54790e35a686a4c1bcafc0f7e2719958599fa338bdfc6f1c2f75831ee')
 
 build() {
   cd CleverCSV
