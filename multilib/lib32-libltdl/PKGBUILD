@@ -8,10 +8,10 @@
 # NOTE: requires rebuilt with each new gcc version
 
 pkgname=lib32-libltdl
-pkgver=2.5.4+r23+g5b582aed
-_commit=5b582aed255d0a998bc2b678597ce7b03aef6ffa
+pkgver=2.5.4+r62+g6389dce8
+_commit=6389dce814b2f233844510a12eb59b2733933a66
 pkgrel=1
-_gccver=15.1.1
+_gccver=15.2.1
 pkgdesc='A generic library support script (32-bit)'
 arch=(x86_64)
 url='https://www.gnu.org/software/libtool'
@@ -26,12 +26,10 @@ source=(
   git+https://git.savannah.gnu.org/git/libtool.git#commit=$_commit
   git+https://git.savannah.gnu.org/git/gnulib.git
   gnulib-bootstrap::git+https://github.com/gnulib-modules/bootstrap.git
-  disable-lto-link-order2.patch
 )
-b2sums=('a1a3f6d95c5a26e6317439419042586ec41573e74a2728780a2e895932097d2e9b6fd2c4a9e88e9c0511c51288d3c6276da4dad837280c9794dd530f70a79759'
+b2sums=('9691ab298b423133e877dcd59e32637ec06ca29ca5c3fe106d2b7ecfcfc69ca0de312b7b999a02e3594bbd353374004496f93844928e63a1abc0a2e1ec770863'
         'SKIP'
-        'SKIP'
-        '9d1e0460b9ef56ba33ac498814b409d1b1d7c3e8ed41a3aed2a86d86341ed7051ca88a5adfa92bd87da968460514230058c3d490b58537d95722e68d7d1687ff')
+        'SKIP')
 
 pkgver() {
   cd libtool
@@ -40,11 +38,6 @@ pkgver() {
 
 prepare() {
   cd libtool
-
-  # test 67 is broken with lto
-  # this patch removes the -flto flag for this very test
-  # adapt when -ffat-lto-objects is enabled by Arch
-  patch -Np1 -i "${srcdir}"/disable-lto-link-order2.patch
 
   git submodule init
   git config --local submodule.gnulib.url "${srcdir}"/gnulib
