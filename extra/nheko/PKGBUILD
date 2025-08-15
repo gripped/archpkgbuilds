@@ -4,8 +4,8 @@
 # Contributor: Konstantinos Sideris <siderisk at auth dot gr>
 
 pkgname=nheko
-pkgver=0.12.0
-pkgrel=12
+pkgver=0.12.1
+pkgrel=1
 pkgdesc="Desktop client for the Matrix protocol"
 arch=('x86_64')
 url="https://nheko.im/nheko-reborn/nheko"
@@ -13,7 +13,6 @@ license=(GPL-3.0-or-later)
 depends=(qt6-base qt6-svg qt6-multimedia qtkeychain-qt6 \
          qt6-declarative qt6-imageformats coeurl mtxclient lmdb cmark libolm hicolor-icon-theme \
          kdsingleapplication gst-plugins-bad-libs 'org.freedesktop.secrets')
-makedepends=("git" "cmake" "gcc" "fontconfig" "qt6-tools" "nlohmann-json" "asciidoc")
 optdepends=('qt6-jdenticon: Auto-generated profile pictures (identicons)'
             'kimageformats: Extends the formats nheko supports for image attachments'
             'gst-plugins-base-libs: VoIP/Video calls' 
@@ -22,27 +21,17 @@ optdepends=('qt6-jdenticon: Auto-generated profile pictures (identicons)'
             'libnice: VoIP/Video calls'
             'gst-libav: Video messages'
             'gst-plugin-qml6: Video calls support')
-makedepends=(cmake ninja qt6-tools fontconfig nlohmann-json asciidoc lmdbxx spdlog)
-source=("$pkgname-$pkgver.tar.gz::https://nheko.im/nheko-reborn/${pkgname}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
-        nheko-0_12_0-fix-fmt11-build-error1.patch::https://nheko.im/nheko-reborn/nheko/-/commit/8ff28245275eeb0cfe4ed40bd62b97cebbce4861.patch
-        nheko-0_12_0-fix-fmt11-build-error2.patch::https://nheko.im/nheko-reborn/nheko/-/commit/2d9142d491fed4feed00342193adfc7a268ce71d.patch
-        nheko-0_12_0-fix-system-emoji-font.patch::https://nheko.im/nheko-reborn/nheko/-/commit/5cfc8b55e30cb0bd6ef624dc5115db7fc58be75b.patch)
-sha512sums=('2b69fa093168c9af9c43b7791f4186d0409caed1f272ca72e0e932da03ffb9ceb5609a495d4d7978f8b5666340aa97f358f904c7c61c67b6bd7221093c3cb66c'
-            '54d028096c65a68bce883ad9ccc7e0b9da850bfa1c40b4029e9c79b2dd0052cc3dec2a9cd4b103c0d04e59256633f0370c67cff5efb24a6eb370c0c76b89380b'
-            'a801cd3f3a61d8370b1f8a49a7368b681ee43256d98c2b726ba62d7ea63827d8da5ec1c7fb92b0e5e6c2c6bf1018a154c1988d4b88dec3b92d3397a039526197'
-            '683a04265b95f8857e5215c9288fb68b0907a9229445ddd61bad5c815e31f9795d21d6879ad8c1868d3250fcbc13042e9f5e7d675fcbf5e13b759535366c904b')
-
-prepare() {
-  patch -Np1 -d "$pkgname-v$pkgver" -i "${srcdir}/nheko-0_12_0-fix-fmt11-build-error1.patch"
-  patch -Np1 -d "$pkgname-v$pkgver" -i "${srcdir}/nheko-0_12_0-fix-fmt11-build-error2.patch"
-  patch -Np1 -d "$pkgname-v$pkgver" -i "${srcdir}/nheko-0_12_0-fix-system-emoji-font.patch"
-}
+makedepends=(git cmake ninja qt6-tools fontconfig nlohmann-json asciidoc lmdbxx spdlog)
+source=("git+https://github.com/Nheko-Reborn/nheko.git?signed#tag=v${pkgver}")
+sha512sums=('c2d002e463b9bc3cb7fe52f156959b30c3adb1c0726f9b596302b5cebca724f25e2e33feaa361aaa9952687446d16c11d8bf19b3181df1fba354de405fb8e158')
+b2sums=('55697e5b306826c5ff20b332aa9bbb21bfbe7fd973fec7eb35830e0b5030e298d1c9f4c497da75fbcc5c4a5a116e9816a500fc8c4164fafd186dfaca4c6d2406')
+validpgpkeys=('D58B462425A6A37125C6FEDB9206AE1B231E05BB') # Nicolas Werner @deepbluev7 https://nheko.im/deepbluev7.gpg
 
 build() {
   cmake \
     -Bbuild \
     -GNinja \
-    -S "$pkgname-v$pkgver" \
+    -S "$pkgname" \
     -DCMAKE_BUILD_TYPE='None' \
     -DCMAKE_INSTALL_PREFIX='/usr' \
     -DCMAKE_INSTALL_LIBDIR='lib' \
