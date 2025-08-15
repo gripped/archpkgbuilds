@@ -5,11 +5,11 @@
 
 pkgname=eclipse-ecj
 pkgver=4.31
-pkgrel=2
+pkgrel=3
 _date=202402290520
 pkgdesc='Eclipse java bytecode compiler'
 arch=(any)
-license=(EPL)
+license=(EPL-2.0)
 url=https://www.eclipse.org/
 source=(
   https://archive.eclipse.org/eclipse/downloads/drops4/R-${pkgver}-${_date}/ecj-${pkgver}.jar
