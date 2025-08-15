@@ -2,56 +2,59 @@
 # Contributor: Sven Wick <sven.wick@gmx.de>
 
 pkgname=ssh-tools
-pkgver=1.8
+pkgver=1.9
 pkgrel=1
 pkgdesc='A collection of tools making SSH more convenient'
-arch=('any')
+arch=(x86_64)
 url='https://codeberg.org/vaporup/ssh-tools'
-license=('GPL-3.0-only')
-depends=('openssh' 'bash' 'perl')
+license=(GPL-3.0-only)
+depends=(glibc openssh bash perl)
+makedepends=(git go)
 optdepends=('colordiff: colors for ssh-diff')
-makedepends=('git' 'help2man')
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('b99281074d4c5eb48eef2ac11e7e19f9f03b71c637ca941f1ef0d79e04ff591ed4a9468fcc27d89112008dbce16c4aeeb9776915d832431956538f9311860441')
-b2sums=('fa1c586cc6ff20dabec99c369df6dbe1c24b792b162a6b377de29876d3187628079be40d48f655e08b6bda2b6d0faa1d4842cf6d80a7ae1965135118a253da48')
+sha512sums=('aa541b95dc354bc9d2e0fc1bcea451e5b880e202cb6140cc2f77bada892221332e38f84a42c15d9ce49672583704578a6af159f2a3ac9c26387a7f51bc06bba9')
+b2sums=('b45c5ea5801b0279181784a8d63223e970f4cd3ba55c79ca7f957d8987f142dc2d7f90f35f81d004ea4bf9af2760da302c516339eb827085d328ef23e54e5410')
 
 prepare() {
   cd "$pkgname"
 
-  mkdir man
+  # create directory for build output
+  mkdir build
+
+  # download dependencies
+  export GOPATH="${srcdir}"
+  go mod download
 }
 
 build() {
   cd "$pkgname"
 
-  # dict with command:description pairings
-  declare -A pages
-  pages["ssh-ping"]="check if host is reachable using ssh_config"
-  pages["ssh-version"]="shows version of the ssh server you are connecting to"
-  pages["ssh-diff"]="diff a file over ssh"
-  pages["ssh-facts"]="get some facts about the remote system"
-  pages["ssh-hostkeys"]="prints server host keys in several formats"
-  pages["ssh-keyinfo"]="prints keys in several formats"
-  pages["ssh-certinfo"]="shows validity and information of ssh certificates"
-  pages["ssh-force-password"]="enforces password authentication"
+  # set Go flags
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export GOPATH="${srcdir}"
 
-  # generate man pages
-  for page in "${!pages[@]}"; do
-    help2man \
-      --name "${pages[${page}]}" \
-      --source "${pkgname^^}" \
-      --no-info \
-      --version-string "$pkgver" \
-      --output "man/${page}.1" \
-     "./${page}"
-  done
+  go build -v \
+    -buildmode=pie \
+    -mod=readonly \
+    -modcacherw \
+    -ldflags "-compressdwarf=false \
+    -linkmode external \
+    -extldflags '${LDFLAGS}'" \
+    -o build \
+    ./cmd/go/...
 }
 
 package() {
   cd "$pkgname"
 
   # scripts
-  install -vDm755 -t "$pkgdir/usr/bin" ssh-*
+  install -vDm755 \
+    -t "$pkgdir/usr/bin" \
+    build/* \
+    ./cmd/bash/*/ssh-* \
+    ./cmd/perl/*/ssh-*
 
   # man pages
   install -vDm644 -t "$pkgdir/usr/share/man/man1" man/*
