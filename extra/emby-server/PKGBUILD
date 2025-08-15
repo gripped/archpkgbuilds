@@ -3,15 +3,18 @@
 
 pkgname=emby-server
 pkgver=4.8.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Bring together your videos, music, photos, and live television'
 arch=(x86_64)
 url=https://emby.media
-license=(custom)
+license=(LicenseRef-emby)
 depends=(
   aspnet-runtime-6.0
+  bash
   dotnet-runtime-6.0
   emby-ffmpeg
+  gcc-libs
+  glibc
   libvips
   skia-sharp
   sqlite
@@ -30,10 +33,10 @@ source=(
   emby-server
   emby-server.conf
   emby-server.service
-  license.docx
+  LicenseRef-emby.docx
   Permission_to_distribute.mbox
 )
-noextract=(license.docx)
+noextract=(LicenseRef-emby.docx)
 backup=(etc/conf.d/emby-server)
 b2sums=('c6fd90882b6f035e2d9310e9d819732bb126b0d63d815a9e8e8979b99001ac7ea2743d89c12ef23b1ca9fba26a5cc1700b90c87e4ad65f9312a10735b5fcd068'
         '48c11601d00121e725951fd48ba34137804d4a67aa12528a29ca4d43d301d19311182421e96bef7b7ddbc4929dc9d5b577b1659cb0b716b1c1f6938283465c46'
@@ -52,7 +55,7 @@ package() {
   install -Dm 755 emby-server -t "${pkgdir}"/usr/bin/
   install -Dm 644 emby-server.service -t "${pkgdir}"/usr/lib/systemd/system/
   install -Dm 644 emby-server.conf "${pkgdir}"/etc/conf.d/emby-server
-  install -Dm 644 license.docx -t "${pkgdir}"/usr/share/licenses/emby-server/
+  install -Dm 644 LicenseRef-emby.docx -t "${pkgdir}"/usr/share/licenses/emby-server/
 }
 
 # vim: ts=2 sw=2 et:
