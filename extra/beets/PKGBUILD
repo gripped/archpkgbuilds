@@ -3,7 +3,7 @@
 
 pkgname=beets
 pkgver=2.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Flexible music library manager and tagger'
 arch=(any)
 url=https://beets.io/
@@ -70,8 +70,9 @@ optdepends=(
   'python-requests-oauthlib: Beatport plugin'
   'python-xdg: Thumbnails plugin'
 )
+_tag=d487d675b9115672c484eab8a6729b1f0fd24b68
 source=(
-  git+https://github.com/beetbox/beets.git#tag=v${pkgver}
+  git+https://github.com/beetbox/beets.git#tag=${_tag}
   beet
   fix-failing-tests.patch
 )
@@ -81,7 +82,7 @@ b2sums=('9235806eccdf216dba0ed2e82c0ac07069c86bf5de27ac834e7287be64e8370d122558d
 
 prepare() {
   cd beets
-
+  git describe --tags | sed 's/^v//'
   patch -p1 -i "$srcdir/fix-failing-tests.patch"
 }
 
