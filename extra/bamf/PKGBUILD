@@ -3,17 +3,29 @@
 
 pkgname=bamf
 pkgver=0.5.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Application matching framework'
 arch=(x86_64)
 url=https://launchpad.net/bamf
-license=(GPL)
+license=(
+  GPL-3.0-only
+  LGPL-2.1-only
+  LGPL-3.0-only
+)
 depends=(
+  bash
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
   libgtop
   libwnck3
+  libx11
+  startup-notification
 )
 makedepends=(
   git
+  glib2-devel
   gnome-common
   gobject-introspection
   vala
