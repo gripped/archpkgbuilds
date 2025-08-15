@@ -4,7 +4,7 @@
 
 pkgname=calf
 pkgver=0.90.8
-pkgrel=2
+pkgrel=3
 pkgdesc='LV2 plug-in suite and standalone Jack host'
 arch=(x86_64)
 url='https://calf-studio-gear.org'
