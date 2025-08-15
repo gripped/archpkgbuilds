@@ -2,11 +2,14 @@
 
 pkgname=emby-ffmpeg
 pkgver=2023_06_25
-pkgrel=6
+pkgrel=7
 pkgdesc='Emby fork of ffmpeg'
 arch=(x86_64)
 url=https://emby.media
-license=(custom)
+license=(
+  GPL-3.0-only
+  LicenseRef-emby
+)
 depends=(
   aribb24
   bzip2
@@ -52,7 +55,7 @@ source=(
   https://github.com/FFmpeg/FFmpeg/commit/d2b46c1ef768bc31ba9180f6d469d5b8be677500.patch
   https://github.com/FFmpeg/FFmpeg/commit/43b417d516b0fabbec1f02120d948f636b8a018e.patch
   06c2a2c425f22e7dba5cad909737a631cc676e3f.patch
-  license.docx
+  LicenseRef-emby.docx
   Permission_to_distribute.mbox
 )
 noextract=(license.docx)
@@ -126,7 +129,7 @@ package() {
   install -Dm 755 bin/ffdetect "${pkgdir}"/usr/bin/ffdetect-emby
   install -Dm 755 ffmpeg-${pkgver}_public/ffmpeg "${pkgdir}"/usr/bin/ffmpeg-emby
   install -Dm 755 ffmpeg-${pkgver}_public/ffprobe "${pkgdir}"/usr/bin/ffprobe-emby
-  install -Dm 644 license.docx -t "${pkgdir}"/usr/share/licenses/emby-ffmpeg/
+  install -Dm 644 LicenseRef-emby.docx -t "${pkgdir}"/usr/share/licenses/emby-ffmpeg/
 }
 
 # vim: ts=2 sw=2 et:
