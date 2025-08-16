@@ -6,8 +6,8 @@
 
 pkgname=ruby-pkg-config
 _pkgname="${pkgname#ruby-}"
-pkgver=1.5.7
-pkgrel=4
+pkgver=1.6.2
+pkgrel=1
 pkgdesc='Implementation of pkg-config in Ruby'
 arch=('any')
 url='https://github.com/ruby-gnome/pkg-config'
@@ -23,8 +23,8 @@ provides=('ruby-pkgconfig')
 replaces=('ruby-pkgconfig')
 conflicts=('ruby-pkgconfig')
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('3fc3cb0c286b5be7ea92bf2edd472cca88c93b24c65e0b4e67befc49653a03159ca3c878549bdb22869192ae5aedce8dba27be148084403788ec14d2fb4657c7')
-b2sums=('47342399581cce2a3a8bbb1da8fc6a783bcefe0f87fe6ef33cd163a60ac47103f606b569f50fd534c06ac2af6a26563c8f3c8c46fc3c11936db41ab9d555b049')
+sha512sums=('1a4d42f93fe4d539c26d0c241f48af4fca777e156485a152d040cbcc0d07109ccbcfff08c7a980f1e648366c86383a53eda7879da7a4765704cbed72a2ec00e8')
+b2sums=('63d282e31d0d8afd9eb466fe3a761877cb191a1c0662e0068fa1d7d73cb774663b2a685bd03841c3b47a2f237534a4bbbdc6e2b458a80fc5d94fcf161684a727')
 
 build() {
   cd "$pkgname"
