@@ -2,44 +2,46 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=kalzium
-pkgver=25.04.3
-pkgrel=1
+pkgver=25.08.0
+pkgrel=2
 pkgdesc='Periodic Table of Elements'
 url='https://apps.kde.org/kalzium/'
 arch=(x86_64)
 license=(GPL-2.0-or-later LGPL-2.0-or-later)
 depends=(avogadrolibs
-         avogadrolibs-qt5
+         avogadrolibs-qt
          gcc-libs
          glibc
-         kcompletion5
-         kconfig5
-         kconfigwidgets5
-         kcoreaddons5
-         kcrash5
-         ki18n5
-         kio5
-         kitemviews5
-         knewstuff5
-         kplotting5
-         ktextwidgets5
-         kwidgetsaddons5
-         kxmlgui5
-         kunitconversion5
+         kcompletion
+         kconfig
+         kconfigwidgets
+         kcoreaddons
+         kcrash
+         ki18n
+         kio
+         kitemviews
+         knewstuff
+         kplotting
+         ktextwidgets
+         kwidgetsaddons
+         kxmlgui
+         kunitconversion
          openbabel
-         qt5-base
-         qt5-script
-         qt5-svg)
+         qt6-5compat
+         qt6-base
+         qt6-declarative
+         qt6-scxml
+         qt6-svg)
 makedepends=(eigen
              extra-cmake-modules
              facile
-             kdoctools5
+             kdoctools
              ocaml
              python)
 groups=(kde-applications
         kde-education)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('d8d76ae3d123d93fe0ddf33992d7c85292ec5560b76a634f9bf2d731c2fccada'
+sha256sums=('8765737e7baeb7fb0d0c16112ce11694ddb90a102e8e6b3e723dae9d595b8529'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
