@@ -4,7 +4,7 @@
 # Contributor: Pierre Schmitz <pierre@archlinux.de>
 
 pkgname=dolphin
-pkgver=25.04.3
+pkgver=25.08.0
 pkgrel=1
 pkgdesc='KDE File Manager'
 arch=(x86_64)
@@ -40,15 +40,17 @@ depends=(baloo
          kwidgetsaddons
          kwindowsystem
          kxmlgui
-         phonon-qt6
          qt6-base
+         qt6-multimedia
          solid)
 makedepends=(extra-cmake-modules
              kdoctools)
 optdepends=('ffmpegthumbs: video thumbnails'
+            'filelight: detailed disk usage statistics'
             'kde-cli-tools: for editing file type options'
             'kdegraphics-thumbnailers: PDF and PS thumbnails'
             'kdenetwork-filesharing: samba usershare properties menu'
+            'kdf: view disk usage'
             'kio-admin: for managing files as administrator'
             'kompare: comparing files menu action'
             'konsole: terminal panel'
@@ -56,7 +58,7 @@ optdepends=('ffmpegthumbs: video thumbnails'
 groups=(kde-applications
         kde-system)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('e822faf02d3d727faf14789eacd331288cb8a74bb9b9881f1e7cd1789752c3f1'
+sha256sums=('ddd5e5622594792490695999188c6215c3a0821787c71dfb57dbfdd08e1ce935'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
