@@ -3,11 +3,11 @@
 
 pkgname=python-pyfiglet
 _name=${pkgname#python-}
-pkgver=1.0.3
+pkgver=1.0.4
 pkgrel=1
 pkgdesc='Pure-python FIGlet implementation'
 url=https://github.com/pwaller/pyfiglet
-license=(GPL)
+license=(MIT)
 arch=(any)
 depends=(python)
 makedepends=(
@@ -23,7 +23,7 @@ checkdepends=(
   toilet
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('c99e58f4390e1bf2b2aafdb61b584716cbad8d9da5f8f9eefb1d224e9131d63b6a9517b87033a94da443c136002d5d4a9a85a5663b9b70c383803e38aabe36ca')
+b2sums=('6b5f4050246ef03d05c86b9de2c3ca7eaa5189dcc65982091a88d23089dfd484797383e14c4ad497e734cf68dc4dda050aace72c08ed985f30549f879f9b53e2')
 
 build() {
   cd "$_name"
@@ -42,6 +42,11 @@ check() {
 }
 
 package() {
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  install -d "$pkgdir"/usr/share/licenses/$pkgname
+  ln -s "$site_packages"/"$_name"-$pkgver.dist-info/licenses/LICENSE \
+    "$pkgdir"/usr/share/licenses/$pkgname
+
   cd "$_name"
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
