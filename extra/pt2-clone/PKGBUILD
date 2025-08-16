@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=pt2-clone
-pkgver=1.72
+pkgver=1.76
 pkgrel=1
 pkgdesc='A highly accurate clone of the classic ProTracker 2.3D software for Amiga'
 arch=('x86_64') # note: not compatible with big-endian CPUs
@@ -11,8 +11,8 @@ depends=('glibc' 'alsa-lib' 'sdl2' 'hicolor-icon-theme')
 makedepends=('git' 'cmake')
 install='pt2-clone.install'
 source=("$pkgname::git+https://github.com/8bitbubsy/pt2-clone#tag=v$pkgver")
-sha512sums=('347fc42375af490e4e8e1ac745d4ba870b7ab1f0cedd2d1cc70430fe7a6af526ae56ee3613c841811658f81d50ca3414d8f94bd37a20490ff524437337e3d97a')
-b2sums=('f0170a6ff381a9f5304aa7a4405e75fa348afa08d184824f698cde429a78fc294ed436a841fd2aadf3431a7409cebefd086fdcf270946e96381e342ab7c490ea')
+sha512sums=('3b61cf81a37b3d3cd8153416246a6dc6a36ec79523294433b219361e97dcb56d4da62a526f59fe7233962339a7829f7e379a2fc6999250e0e199b4e35a8992d5')
+b2sums=('6224c092becfd3c901fbb9010daaa989f8f75348c28713f8f3bc50ce3f926b470ea20cd6ecbdcba7a2896f540d918d665a476cd6f128d3cec83023c111230eee')
 
 prepare() {
   cd "$pkgname"
