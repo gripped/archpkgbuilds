@@ -5,8 +5,8 @@
 
 _gemname=ffi
 pkgname=ruby-$_gemname
-pkgver=1.17.1
-pkgrel=4
+pkgver=1.17.2
+pkgrel=1
 pkgdesc='Ruby FFI'
 arch=('x86_64')
 url='https://github.com/ffi/ffi'
@@ -30,9 +30,9 @@ source=(
   "$pkgname::git+$url#tag=v$pkgver"
   "github.com-libffi-libffi::git+https://github.com/libffi/libffi"
 )
-sha512sums=('1df58ff0354e46cff0951a7ef0179aa76d1d715d6c0fbe3f8a898b6d5f1e8ab732725db56f37d12c3ba7782228507f938c859109291ac777a0763df1fd42b498'
+sha512sums=('c48ef741bd54af6b0e95699b9e21c689f0c52182bee9ba8da652c9b0820784b231290dbbd89392da79b17cc30e3073996c9cc7211c00360d9660aaf042f3db75'
             'SKIP')
-b2sums=('e80602970fce51a32070e8fbc20313656c6bac3730d2272244f80af811185da76ac876a2354626cbc000da68bae81ea83a89732ff239bfd759b2b6cb55a89e0b'
+b2sums=('eac62f5668e1d4f9c51a78bcec3d51efaf89a2f8526aa4119d44ff82bd505e00189802cb14e3f721ab392aee0956c00a045ed05d0b2de8ba14ea4f0d2e08e086'
         'SKIP')
 
 prepare() {
