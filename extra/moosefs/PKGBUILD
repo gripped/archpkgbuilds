@@ -2,7 +2,7 @@
 
 pkgname=moosefs
 pkgver=4.57.7
-pkgrel=4
+pkgrel=5
 pkgdesc='High performing and fault tolerant distributed file system'
 url='https://moosefs.com/'
 replaces=(mfs-chunkserver mfs-client mfs-master)
@@ -21,6 +21,9 @@ b2sums=('93a5142b592654e994c6b26e4f50422cd27924b86912c27e9fb9aeb06095e61763db8d4
 prepare() {
   # ref https://gitlab.archlinux.org/archlinux/packaging/packages/moosefs/-/issues/1
   echo -n 'MFSM NEW' > metadata.mfs.empty
+
+  cd $pkgname
+  autoreconf -fiv
 }
 
 build() {
