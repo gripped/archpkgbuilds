@@ -2,13 +2,18 @@
 
 pkgname=hm
 pkgver=18.0
-pkgrel=1
+pkgrel=2
 pkgdesc='HEVC Test Model - the reference software for HEVC'
 arch=('x86_64')
 url='https://hevc.hhi.fraunhofer.de/'
-license=('BSD')
-depends=('gcc-libs')
-makedepends=('cmake' 'lsb-release' 'openmp')
+license=('BSD-3-Clause')
+depends=(
+    'gcc-libs'
+    'glibc')
+makedepends=(
+    'cmake'
+    'lsb-release'
+    'openmp')
 source=("https://vcgit.hhi.fraunhofer.de/jct-vc/HM/-/archive/HM-${pkgver}/HM-HM-${pkgver}.tar.bz2"
         '010-hm-disable-werror.patch')
 sha256sums=('799d5f937cb1df3a3294fe8c04e0628fc7208a636d1afea3b6bb05a9af46a83a'

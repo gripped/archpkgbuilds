@@ -1,14 +1,15 @@
 pkgbase = hm
 	pkgdesc = HEVC Test Model - the reference software for HEVC
 	pkgver = 18.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://hevc.hhi.fraunhofer.de/
 	arch = x86_64
-	license = BSD
+	license = BSD-3-Clause
 	makedepends = cmake
 	makedepends = lsb-release
 	makedepends = openmp
 	depends = gcc-libs
+	depends = glibc
 	source = https://vcgit.hhi.fraunhofer.de/jct-vc/HM/-/archive/HM-18.0/HM-HM-18.0.tar.bz2
 	source = 010-hm-disable-werror.patch
 	sha256sums = 799d5f937cb1df3a3294fe8c04e0628fc7208a636d1afea3b6bb05a9af46a83a
