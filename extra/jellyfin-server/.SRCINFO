@@ -1,7 +1,7 @@
 pkgbase = jellyfin-server
 	pkgdesc = Jellyfin server backend
 	pkgver = 10.10.7
-	pkgrel = 1
+	pkgrel = 2
 	url = https://jellyfin.org
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -19,8 +19,8 @@ pkgbase = jellyfin-server
 	backup = etc/jellyfin/jellyfin.env
 	source = jellyfin-server::git+https://github.com/jellyfin/jellyfin#tag=v10.10.7
 	source = jellyfin-packaging::git+https://github.com/jellyfin/jellyfin-packaging
-	source = sysusers.conf
-	source = tmpfiles.conf
+	source = jellyfin-server.sysusers
+	source = jellyfin-server.tmpfiles
 	source = fix-envfile-path.patch
 	sha512sums = 5da3c59c2544f4a2028dde3fb0ea76500d591cfbe7551ac7bb680c718db9c2ed074493c605b432b53f8b0ec66436b5da632578a6f16f1a14712aa51a77366e2e
 	sha512sums = SKIP
