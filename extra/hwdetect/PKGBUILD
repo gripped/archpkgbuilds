@@ -1,6 +1,6 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 pkgname=hwdetect
-pkgver=2025.03.06.1935
+pkgver=2025.08.16.1333
 pkgrel=1
 pkgdesc="Hardware detection script with loading modules and mkinitcpio.conf"
 arch=(any)
@@ -11,7 +11,7 @@ optdepends=('cryptsetup: for encrypt mkinitcpio config support'
             'lvm2:       for lvm2 mkinitcpio config support'
             'mdadm:      for raid mkinitcpio config support')
 source=(hwdetect)
-b2sums=('1dd49a60cd7633142baca0409e8507e04937fbaf7d38ee0644d9e9227aa0967bcf6503c206e617e1c6829c82c7d1446f13f37ffdabfc973cd85b4caea8951cb6')
+b2sums=('fe74d9f916ea4c26d92e41b9e378ec86a62e02ed94a274b87f22f9378dcf5248d51bbee2257b09b1a7599b7477d1a461b2a8fe897e20c6a9542d76d319596b17')
 
 package() {
   install -D -m 755 "${srcdir}/hwdetect" "${pkgdir}/usr/bin/hwdetect"
