@@ -3,35 +3,31 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=dragon
-pkgver=25.04.3
+pkgver=25.08.0
 pkgrel=1
 pkgdesc='A multimedia player where the focus is on simplicity, instead of features'
 arch=(x86_64)
 url='https://apps.kde.org/dragonplayer/'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
+depends=(ffmpeg
+         gcc-libs
          glibc
          kconfig
-         kconfigwidgets
          kcoreaddons
          kcrash
-         kdbusaddons
          ki18n
          kio
-         kparts
+         kirigami
          kservice
-         kwidgetsaddons
          kwindowsystem
-         kxmlgui
-         phonon-qt6
          qt6-base
-         solid)
-makedepends=(extra-cmake-modules
-             kdoctools)
+         qt6-declarative
+         qt6-multimedia)
+makedepends=(extra-cmake-modules)
 groups=(kde-applications
         kde-multimedia)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('41b4bb755052147c5de8ed8ea6cd6c77b21e804c95d6be2143a9369ecc9f77c2'
+sha256sums=('b72c06f1ce465dd3d7be47d69ec3a3588ddd464cc0f5d351a8d7ed47c85846a9'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
