@@ -6,16 +6,16 @@ pkgbase='python-pyroute2'
 _pkgbase="${pkgbase//python-/}"
 pkgname=("python-${_pkgbase}")
 pkgdesc="A pure Python netlink and Linux network configuration library"
-pkgver=0.9.2
-pkgrel=2
+pkgver=0.9.4
+pkgrel=1
 arch=('any')
 url="https://docs.pyroute2.org/"
 license=('GPL-2.0-or-later OR Apache-2.0')
 depends=('python')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
-checkdepends=('python-pytest' 'python-netaddr')
+checkdepends=('python-pytest' 'python-netaddr' 'python-pytest-asyncio')
 source=("${_pkgbase}-${pkgver}.tar.gz::https://github.com/svinota/${_pkgbase}/archive/${pkgver}.tar.gz")
-sha512sums=('7105d2ac9d7f7fc82b5b9337be5a40de047271be6c308cf4132fa0aedb35cda165b7f0a4500d855b2812a27f251d81a4e45e9fb3053b89c32e0b67a7a3be9edc')
+sha512sums=('1a873cdf395b7306e85cde25e2ebe89a59271b00be3f1017eb8502c5bc5b8b4558762e437a023e05a96ba6c2a658ae5ce0a1eec5acc8f2020f79c5d862655fc4')
 
 prepare() {
   cd "${srcdir}/${_pkgbase}-${pkgver}"
