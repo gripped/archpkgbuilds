@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-audioop-lts
-pkgver=0.2.1
-pkgrel=2
+pkgver=0.2.2
+pkgrel=1
 pkgdesc="A LTS port of Python's 'audioop' module"
 arch=(x86_64)
 url='https://github.com/AbstractUmbra/audioop'
@@ -18,8 +18,8 @@ makedepends=(
 checkdepends=(python-pytest)
 provides=(python-audioop)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('473358b4c634225511d802a45bc0dd419fce8f030cacbac7e4a1de160112aab39a35f9c2c0904f518d5c3c2dd03b7f217194863140ec8f51f564e025b5b8d959')
-b2sums=('000be9b03692074b3e7774482341977b52fd215bebb98fc9ff02cf7f426f747466e331167ee4ebd574b3dae46bfba5471ca411cc3de75dc141583d57cdb88cee')
+sha512sums=('171d299538e62d68ac2c19449f7a296ddb660e572a07dc3e33a0373ab2c493f220dfaf2004822972a443a10afb64ba305b145e3fc269fbd348f2e41b5c19fdec')
+b2sums=('e7143b62b9e8e1fa43964894f6c7dac02947fab4d0d8c33014c87e0b1304aba2e951ef4a840b1d58f56e03521bef460013149c7751c6b1812d945f24862b0081')
 
 build() {
   cd "$pkgname"
