@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kget
-pkgver=25.04.3
+pkgver=25.08.0
 pkgrel=1
 pkgdesc='Download Manager'
 url='https://apps.kde.org/kget/'
@@ -42,18 +42,15 @@ optdepends=('libktorrent: torrent support'
             'libmms: MMS support')
 groups=(kde-applications
         kde-network)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
-        gpgmepp-2.0.patch)
-sha256sums=('4b74aaecfd730208488f480bc75f977e8b489cc1fe5737627f26c486e2909544'
-            'SKIP'
-            'd2a8b207f99d0d85b70f3790a571ece233a510ecb730d16cbc6d83f1d18d1c25')
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+
+sha256sums=('153e2fc21af6188f2f2b0b9763496192966d1694382f536625e1c820779e4a2c'
+            'SKIP')
+
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
 
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < gpgmepp-2.0.patch
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
