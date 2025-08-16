@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=ark
-pkgver=25.04.3
+pkgver=25.08.0
 pkgrel=1
 pkgdesc='Archiving Tool'
 arch=(x86_64)
@@ -32,7 +32,6 @@ depends=(breeze-icons
          libarchive
          libzip
          qt6-base
-         sh
          zlib)
 makedepends=(extra-cmake-modules
              kdoctools)
@@ -45,7 +44,7 @@ optdepends=('arj: ARJ format support'
 groups=(kde-applications
         kde-utilities)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('f93a428c88226d61e5a632e0660391189731f80adb574825108015a07bb1051c'
+sha256sums=('391fae7a08757dd5cc2b0081251c513859345e49d30ce7f10c3da5f4ce4ba3a0'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
