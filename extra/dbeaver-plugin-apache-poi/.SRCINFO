@@ -1,16 +1,19 @@
 pkgbase = dbeaver-plugin-apache-poi
 	pkgdesc = DBeaver library for Microsoft Office documents
-	pkgver = 5.2.5
+	pkgver = 5.4.1
 	pkgrel = 1
 	url = https://dbeaver.io/
 	arch = any
 	license = Apache-2.0
 	makedepends = unzip
 	depends = dbeaver>=4.2.5
-	noextract = org.jkiss.bundle.apache.poi_5.2.5.jar
-	source = https://dbeaver.io/update/ce/latest/plugins/org.jkiss.bundle.apache.poi_5.2.5.jar
+	noextract = org.jkiss.bundle.apache.poi_5.4.1.jar
+	noextract = org.apache.commons.commons-compress_1.28.0.jar
+	source = https://dbeaver.io/update/ce/latest/plugins/org.jkiss.bundle.apache.poi_5.4.1.jar
+	source = org.apache.commons.commons-compress_1.28.0.jar::https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.28.0/commons-compress-1.28.0.jar
 	source = dbeaver-plugin-apache-poi.info
-	sha256sums = 1f979af0c82db69228a116bce039a42f1a0984e4251bfd4e2f4c6ea63699f1de
-	sha256sums = fda06eb4854d7cd78bfca9df3954a5ec00b0143250b92a0565f29bcd2643085d
+	sha256sums = 8459883a08730a78807b63d3d9896cffd8476eb211471d89a968603955a544e8
+	sha256sums = e1522945218456f3649a39bc4afd70ce4bd466221519dba7d378f2141a4642ca
+	sha256sums = 99527792f5ff74ac20d68513fb2d3f87345775de5b9c8599e655248a5eea55ed
 
 pkgname = dbeaver-plugin-apache-poi
