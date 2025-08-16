@@ -3,24 +3,18 @@
 
 _gemname=pg
 pkgname=ruby-$_gemname
-pkgver=1.5.4
-pkgrel=5
+pkgver=1.6.1
+pkgrel=1
 pkgdesc='Ruby interface to the PostgreSQL RDBMS'
 url='https://github.com/ged/ruby-pg'
 arch=('x86_64')
-license=('custom:BSDL')
+license=('BSD-2-Clause')
 depends=('glibc' 'ruby' 'ruby-rspec-core' 'postgresql-libs')
 makedepends=('git' 'ruby-rdoc')
 options=('!emptydirs')
-_commit='635d29e951fe1577a46d52aa16985994e213a0d3'
-source=("$pkgname::git+$url.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+$url.git#tag=v$pkgver")
+sha512sums=('6fa6059101e02ee50e0a1366930d71a467030b0068763bd0e0f73b4621cbfc5f0e4f23c3d58a3ad9662f6d07a30b6506b06b7e8be72ce3310d1daeb4b9724edf')
+b2sums=('0b9cdf6eb0712d8886280c42e3a32e0ba41308570ef5aca863e554968b8bb3bc81fc99e6e37fc826b943146932989785960785783106cee6f08d18a6fb9be991')
 
 prepare() {
   cd "$pkgname"
