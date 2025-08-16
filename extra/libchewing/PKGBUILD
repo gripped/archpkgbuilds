@@ -4,7 +4,7 @@
 # Contributor: damir <damir@archlinux.org>
 
 pkgname=libchewing
-_pkgver=0.10.1
+_pkgver=0.10.2
 pkgver=${_pkgver/-rc./rc}
 pkgrel=1
 pkgdesc='Intelligent Chinese phonetic input method'
@@ -18,8 +18,8 @@ optdepends=(
   'chewing-editor: view and modify libchewing user phrases database'
 )
 source=("https://github.com/chewing/libchewing/releases/download/v${_pkgver}/libchewing-${_pkgver}.tar.zst"{,.minisig})
-sha256sums=('4f2538affadd0c09738166d8a700853866811c4094fc256c05585f443e50b842'
-            'ad68706cb4ff1a9589ffd7ebfdea01d9dd2e0939d2b3c50d20c785faa720d8c9')
+sha256sums=('f2c23a3bb8bc01a9a43eaa190c62ab0f00e7591e8f28bc97ce916e01e3779116'
+            'f618a47d0dc872f4a958c0ae36972ee608dbdbe26d673a9fa61df568a40bcb89')
 # The key is mentioned on https://github.com/chewing/libchewing
 _validminisignkey='RWRzJFnXiLZleAyCIv1talBjyRewelcy9gzYQq9pd3SKSFBPoy57sf5s'
 
