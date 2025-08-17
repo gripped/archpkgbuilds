@@ -1,18 +1,18 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
-_name=jaraco.logging
 pkgname=python-jaraco.logging
-pkgver=3.3.0
-pkgrel=3
-pkgdesc="Quickly solicit log level info from command-line parameters"
+pkgver=3.4.0
+pkgrel=1
+pkgdesc='Quickly solicit log level info from command-line parameters'
 arch=(any)
-url="https://github.com/jaraco/jaraco.logging"
+url='https://github.com/jaraco/jaraco.logging'
 license=(MIT)
 depends=(
   python
   python-tempora
 )
 makedepends=(
+  git
   python-build
   python-installer
   python-setuptools
@@ -22,23 +22,32 @@ makedepends=(
 )
 conflicts=(python-jaraco)
 replaces=(python-jaraco)
-source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('72466b94d3a82be8c3b45ed7a536560ff9de2725c21e501e21f84a3d5b07f4e2')
-b2sums=('df49d73e6d1475f470d4b536d593123548bbd85c56a9d5cfcd72c0deeb61a4c9c4732b2a673aefb0bc93fc59b2c3be26177e51f6ac6a5a100318652a2e4bf64e')
+source=(
+  "$pkgname::git+$url#tag=v$pkgver"
+  remove-pointless-crap.patch
+)
+sha512sums=('4427f2c312dc0aa94cfc51a4cbe96a7594df7e1dc205483a4a3cdf7e09e6baa8946cdcc191a5194bd88bba66564f212de076ea5d8dce818e20cbc5c143624908'
+            'caa08f462820e6d11a9286fd038d36161113b3896ba90b991aae6549dc38d2c8b7c90f76320a707cf2bb64544757801a007b05c1bb07403f4441e31d0bf560bc')
+b2sums=('c41f70a8bd247203b5778121f6af1a1b72b11266ae7aa459ef0493cfca01de59923ef243afd1c402386794975d0af7246428891b0bd29b5fa1f0a4ea5fc2edc5'
+        '4684fd4824449f294a29530b88aa15c426e52ee745c39dfef8cf6997d0fb89adaba13371be92f5de39fa866e553088d86d8410da9f92e1486af8af194dabd713')
+
+prepare() {
+  cd "$pkgname"
+
+  patch -p1 -i "$srcdir/remove-pointless-crap.patch"
+}
 
 build() {
-  cd $_name-$pkgver
+  cd "$pkgname"
+
   SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --no-isolation
 }
 
-check() {
-  cd $_name-$pkgver
-  # NOTE: there are actually no tests to run
-}
-
 package() {
-  cd $_name-$pkgver
+  cd "$pkgname"
+
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
-  install -vDm 644 *.rst -t "$pkgdir/usr/share/doc/$pkgname/"
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.rst
 }
