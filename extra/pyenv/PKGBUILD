@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=pyenv
-pkgver=2.6.5
+pkgver=2.6.7
 pkgrel=1
 epoch=1
 pkgdesc="Easily switch between multiple versions of Python"
@@ -15,9 +15,9 @@ source=(
   "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
   "pyenv.zsh"
 )
-sha512sums=('b0efb0b36f2e238d6e0a143d9b3f15058e0f83e4f1ee6608d48846f2443edadfe2d7d0649d12515e5802495c532be22cca2c0d5eb978b8091d2f3c482ce9cb88'
+sha512sums=('9e19834e4fb787abc0e771ae08fbe874e0a9b9adb1aba380f21f9c76f2fcd58c92927df5f20751b5d20a5c24168c05751d96184c85b43d97627c556ae66a4f86'
             '0db4e464d3f79a3402fca8457ef5fe66078c360596c8d899f1fe2759700171299100421ebcaa12ab6a96ec4c4450fa9245879f3d0058632b10c8acff2ceeb106')
-b2sums=('a74b0d6c2feccd3fd7ecb0be40aeab038c1fdd06b192230c11d6a618e7d20c6da5df754702cb071d0a72ac08149db507ed412ec2ca72b679a54fe9fbb80255bb'
+b2sums=('aa0a0476735552ba6a0e1e8e53a3a8949b8effbe725a9df8c713fafc62d82d8b5ffca470714b493133411b827ef5b8305744091abaeab0b933b737d77d47830c'
         '853a2e62a3d1c1963bf32e297a086d74e3142784f32b16df0738e5694587719954e868744d66e4a265aa6197a1fa1ae74b0b1300bda5b924feb6854bcb1f4aaf')
 
 package() {
