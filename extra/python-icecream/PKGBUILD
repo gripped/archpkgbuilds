@@ -1,39 +1,51 @@
-# Maintainer:
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
 # Contributor: Luis Martinez <luis dot martinez at disroot dot org>
 
-_pyname=icecream
-pkgname=python-$_pyname
-pkgver=2.1.3
-pkgrel=6
+pkgname=python-icecream
+pkgver=2.1.6
+pkgrel=1
 pkgdesc='Sweet and creamy print debugging'
 arch=(any)
 url='https://github.com/gruns/icecream'
 license=(MIT)
-depends=(python-colorama python-pygments python-executing python-asttokens)
-makedepends=(python-build python-installer python-setuptools python-wheel)
-source=(https://files.pythonhosted.org/packages/source/i/$_pyname/$_pyname-$pkgver.tar.gz
-	python-3.12-unittest.patch)
-sha256sums=('0aa4a7c3374ec36153a1d08f81e3080e83d8ac1eefd97d2f4fe9544e8f9b49de'
-            'cf82d09a5989402412b601603884333f7ebf325a172153220176e64c4aab2bab')
-
-prepare() {
-  cd $_pyname-$pkgver
-  patch -Np1 -i ${srcdir}/python-3.12-unittest.patch
-}
+depends=(
+  python
+  python-colorama
+  python-pygments
+  python-executing
+  python-asttokens
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('359a0bf581e13c4ca4b847097fb1a84e23cafc10c0ba54539f1806d500400e15554b905e138482e853a35c2c099cd9596eec8012c19402b56ab9b991ad38a8f1')
+b2sums=('a91e4370c7145ec7260b7a91ad21fe0b76fd244db83f18b89061a380f037c41a6400f3a53438f5f7e842745190fc4b9283a83cf83b768661628e1c3c2f16fa65')
 
 build() {
-  cd $_pyname-$pkgver
+  cd "$pkgname"
+
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_pyname-$pkgver
-  python3 -m unittest discover tests
+  cd "$pkgname"
+
+  python -m unittest
 }
 
 package() {
-  cd $_pyname-$pkgver
+  cd "$pkgname"
+
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 README.md -t "$pkgdir"/usr/share/doc/$pkgname
-  install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
 }
