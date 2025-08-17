@@ -1,34 +1,34 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-poetry-dynamic-versioning
-pkgver=1.8.2
+pkgver=1.9.1
 pkgrel=1
 pkgdesc='Plugin for Poetry to enable dynamic versioning based on VCS tags'
-arch=('any')
+arch=(any)
 url='https://github.com/mtkennerly/poetry-dynamic-versioning'
-license=('MIT')
+license=(MIT)
 depends=(
-  'python'
-  'python-dunamai'
-  'python-tomlkit'
-  'python-jinja'
-  'python-poetry'
-  'python-cleo'
-  'python-poetry-core'
-  'python-packaging'
+  python
+  python-dunamai
+  python-tomlkit
+  python-jinja
+  python-poetry
+  python-cleo
+  python-poetry-core
+  python-packaging
 )
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-poetry-core'
+  git
+  python-build
+  python-installer
+  python-poetry-core
 )
 checkdepends=(
-  'python-pytest'
+  python-pytest
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('894ae0e5cf0449da330b96450f821b4eb414add641b46e7b98e0c3869aaab94dc8fc1b74fe73a20f144648f8e04c9546561b9fea5808c483798b3ca71d0253c0')
-b2sums=('4e3306f2b192f0fcc518dfd50e1662c1600d25c260229335e3ccccd3edd45f2a23454140ca31b4ab3401b2fdd2e9707b33c52dbc0bd3d6dfda772ec8cecb6a1f')
+sha512sums=('06f957d8f9d32685a539f5c1911754745c97e6df6d3aed25d7139c35bf1dac82e2f11f262619af64b76d869658d0d85c99404cb0fae9e1f9c3a4e01d725814f3')
+b2sums=('ba22ddf1640a5005e10f6ee5f0f609bfea9a2679f5ccd9683f1f03b896ef96d5ea9eec193011503f2e206d744742dd851ec5bf4e7276acc01ed7af1dde867616')
 
 build() {
   cd "$pkgname"
