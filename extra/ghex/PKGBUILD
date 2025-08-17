@@ -7,9 +7,9 @@ pkgname=(
   ghex
   ghex-docs
 )
-pkgver=46.3
+pkgver=48.0
 pkgrel=1
-pkgdesc="A simple binary editor for the Gnome desktop"
+pkgdesc="Hex editor for the GNOME desktop"
 url="https://wiki.gnome.org/Apps/Ghex"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
@@ -32,30 +32,10 @@ makedepends=(
   yelp-tools
 )
 source=("git+https://gitlab.gnome.org/GNOME/ghex.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('a8d3c0efe47cc51233bdb5c44126fed57e1d7b2c44786a8c6d938e208e5149dde6d33b2bee35797a29040fc2233f0c8473e053ac1411fa9364c5ee6d90fed415')
+b2sums=('ede9bf0bf2e38c5d691a5baa9099b93f933017cb84f74dce2007fa8e2943dd3c6be781870eb5ac8d4b026c5edcae1e593820dbfcd1a6833bfb7b487d333db3d6')
 
 prepare() {
   cd ghex
-
-  # Implement new-window action
-  # https://gitlab.gnome.org/GNOME/ghex/-/merge_requests/67
-  git cherry-pick -n c81f6666462bee1f79cb52a2e448b7a46c27ef45
-
-  # Add "new-window" command-line option
-  # https://gitlab.gnome.org/GNOME/ghex/-/merge_requests/68
-  git cherry-pick -n faf50189f5dd43c48e4f8ae37815d554999a41c1
-
-  # Setting file selection dialog for 'Open' and 'Save As' as modal dialog.
-  # https://gitlab.gnome.org/GNOME/ghex/-/merge_requests/72
-  git cherry-pick -n 985be1f4082d3f9524a1920d4718559c8bfdb2b8
-
-  # Add D-Bus service file
-  # https://gitlab.gnome.org/GNOME/ghex/-/merge_requests/70
-  git cherry-pick -n e985d13eef809f2bb2a7e843b51bf9d66451dac1
-
-  # Put each main window into its own group
-  # https://gitlab.gnome.org/GNOME/ghex/-/merge_requests/71
-  git cherry-pick -n 1be63bfb79936a79d2c724a238f89abe78667322
 }
 
 build() {
