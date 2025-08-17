@@ -2,7 +2,7 @@
 
 pkgname=postfix-tlspol
 pkgver=1.8.13
-pkgrel=1
+pkgrel=2
 pkgdesc="Lightweight MTA-STS + DANE/TLSA resolver and TLS policy server for Postfix, prioritizing DANE"
 url="https://github.com/Zuplu/postfix-tlspol"
 arch=('x86_64')
@@ -36,8 +36,8 @@ build() {
 	export CGO_CFLAGS="${CFLAGS}"
 	export CGO_CXXFLAGS="${CXXFLAGS}"
 	export CGO_LDFLAGS="${LDFLAGS}"
-	export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
-	go build -ldflags "-X main.Version=${pkgver}" -o "build/${pkgname}" *.go
+	export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+	go build -ldflags="-s -w -linkmode=external -buildid='' -X main.Version=${pkgver}" -o "build/${pkgname}" *.go
 }
 
 check() {
