@@ -3,7 +3,7 @@
 pkgname=python-mergedict
 _name="${pkgname#python-}"
 pkgver=1.0.0
-pkgrel=9
+pkgrel=10
 pkgdesc="A Python dict with a merge() method"
 arch=(any)
 url="https://github.com/schettino72/mergedict/"
@@ -35,5 +35,5 @@ package() {
   cd $_name-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
-  install -vDm 644 {CHANGES,README.rst} -t "$pkgdir/usr/share/doc/$pkgnam/"
+  install -vDm 644 {CHANGES,README.rst} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
