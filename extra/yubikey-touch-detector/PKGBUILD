@@ -3,7 +3,7 @@
 
 pkgname=yubikey-touch-detector
 pkgver=1.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A tool that can detect when your YubiKey is waiting for a touch"
 url="https://github.com/maximbaz/yubikey-touch-detector"
 arch=('x86_64')
@@ -29,8 +29,8 @@ build() {
 	export CGO_CFLAGS="${CFLAGS}"
 	export CGO_CXXFLAGS="${CXXFLAGS}"
 	export CGO_LDFLAGS="${LDFLAGS}"
-	export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
-	go build -o "build/${pkgname}"
+	export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+	go build -ldflags="-s -w -linkmode=external -buildid=''" -o "build/${pkgname}"
 
 	scdoc < "${pkgname}.1.scd" > "${pkgname}.1"
 }
