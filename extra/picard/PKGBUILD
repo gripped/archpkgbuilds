@@ -5,7 +5,7 @@
 
 pkgname=picard
 pkgver=2.13.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Official MusicBrainz tagger"
 arch=(x86_64)
 url="https://github.com/metabrainz/picard"
@@ -45,7 +45,7 @@ validpgpkeys=('68990DD0B1EDC129B856958167997E14D563DA7C') # MusicBrainz Picard D
 
 build() {
   cd $pkgname-$pkgver
-  python -m build --wheel --no-isolation
+  PICARD_DISABLE_AUTOUPDATE=1  python -m build --wheel --no-isolation
 }
 
 check() {
