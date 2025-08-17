@@ -4,24 +4,18 @@
 
 pkgname=ruby-mixlib-config
 _pkgname="${pkgname#ruby-}"
-pkgver=3.0.29
-pkgrel=5
+pkgver=3.1.1
+pkgrel=1
 pkgdesc='A class based configuration library'
-arch=('any')
+arch=(any)
 url='https://github.com/chef/mixlib-config'
-license=('Apache')
-depends=('ruby-tomlrb')
-makedepends=('git' 'ruby-rdoc' 'ruby-rake' 'ruby-bundler' 'ruby-rspec')
-options=('!emptydirs')
-_commit='39e44bcf2634bd6d7e42b436d3ffdb556f700ffc'
-source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+license=(Apache-2.0)
+depends=(ruby-tomlrb)
+makedepends=(git ruby-rdoc ruby-rake ruby-bundler ruby-rspec)
+options=(!emptydirs)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('1bfd64cd1ca2831199aa0ddd286ec021fe0607b16dfb0a5313284c5b3ec4f4a17915c8f823f24226ab59912c2e62c895505fe6a51347f11cd9413d5fffcecd80')
+b2sums=('52e480b530fe923a0c39a3f83a87d39e47fbc4a18de0a6a35681e6e9dfcdeb66b73e8371c3dc44c0afabc82c3e270552f5c8283ff022530bc8261372633e676c')
 
 build() {
   cd "$pkgname"
