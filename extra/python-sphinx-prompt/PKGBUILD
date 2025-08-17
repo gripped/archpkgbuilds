@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-sphinx-prompt
-pkgver=1.9.0
-pkgrel=3
+pkgver=1.10.1
+pkgrel=1
 pkgdesc='Sphinx directive to add unselectable prompt'
 arch=('any')
 url='https://github.com/sbrunner/sphinx-prompt'
@@ -25,12 +25,12 @@ source=(
   'pyproject.toml-template.patch'
   'remove-unnecessary-dependencies.patch'
 )
-sha512sums=('caa90d9acdee7fe709119ba43c0307c78fe5327ec944baabc4767202aee75de8e0d5144401f96ad72f8e5cba888aafad556823ffc4e96eff4f5591ac0cd49468'
-            '090ce2fba167aebf8809e2f368ffc2ce6c3d2500c88f2873c5f67599ba6bae8bac5fe5eaefee69f6e00117039af8daf089e392fe28fad7b64800f47a9b1afdb1'
-            'b3f868acce55474129c4ddfce566635e26aace3f5737f7be6974be0c8bbd3fef07610ea2f57166167d1f24fff0781c8dd4a1ff955b9526eb3e785b263f764d95')
-b2sums=('a3c2ad86a479579e3d174e8915ee1e1b72e8171378d95d16733654a7cb58c751c664eff27cb47c06624ec7e37495397e53303a60887b6e6a8af05fac6ffb0194'
-        '9ebc31d79afe81f3aa2c50a9797e550fe05155f625436ca02c5ea4cf3a147c513a7a6a84dbde56ab91043c7003a71ea6f5b9b97b9366762398ca9e2b004a9a01'
-        '80650ab9af6f6820803fd5839c5fefdb280a047a128dba1d64398dcf7d8a3f2b9d6750dfa7b817a9c42e31d6a825622246fd9e2abaf769e688a869f3979f4b48')
+sha512sums=('776a8582de15eb8b6559c581df2ae1832c93cb75c2ee9ef3507c8c5370422f60b74161730d3a4ea422231aa40aed37ec9c28b27632ea9416f2c2e2495e6c1a75'
+            '7d706f2d0cbd9393c390c7e489c5f23c030c0ba62145f3954baa7d27026a5f7dba8efe61c25c8ca17d0245d96c46059df5df33a733e41ec5ecff2afa33a46901'
+            '2ae1c57464924e7c0061501288274c8e34c61d19c91db80aaf57f7537d99cab0f6b548ad57e7a19d559a4198304ac163db4f59ee0e6e1879b8237ae89184fdb1')
+b2sums=('0eb5592847688181aad8788e7a7288f2cc4498f6b66882f7244720bb629d9ea7cc4efe03da78329c2f69166cee93fabaa74359a9fb3f368dc3c23dfadf09c236'
+        'd15cddaf61bb25498ce225de227c7e8849669af8eb74dd93c0d192986ca2d57c44b2ea4b36820653ecc51fc0e285d52993241ab3344251db5013c23be7c354d8'
+        '9eaf5a38be518b989a5d2e1554ebe87104e4edacaede302e6c2d6568d221c27a853e121030c3b1ef7c6e80f817b5d5e4a652567efb1e6575a6036a861ca9d4fa')
 
 prepare() {
   cd "$pkgname"
@@ -60,9 +60,6 @@ package() {
 
   python -m installer --destdir="$pkgdir" dist/*.whl
 
-  # symlink license file
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -d "$pkgdir/usr/share/licenses/$pkgname"
-  ln -s "$site_packages/sphinx_prompt-$pkgver.dist-info/LICENSE" \
-    "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
