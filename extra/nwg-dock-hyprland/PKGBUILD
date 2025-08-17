@@ -3,7 +3,7 @@
 
 pkgname=nwg-dock-hyprland
 pkgver=0.4.8
-pkgrel=1
+pkgrel=2
 pkgdesc="GTK3-based dock for Hyprland Wayland compositor"
 url="https://github.com/nwg-piotr/nwg-dock-hyprland"
 arch=('x86_64')
@@ -25,8 +25,8 @@ build() {
         export CGO_CFLAGS="${CFLAGS}"
         export CGO_CXXFLAGS="${CXXFLAGS}"
         export CGO_LDFLAGS="${LDFLAGS}"
-        export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
-        go build -o "build/${pkgname}" *.go
+        export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+        go build -ldflags="-s -w -linkmode=external -buildid=''" -o "build/${pkgname}" *.go
 }
 
 package() {
