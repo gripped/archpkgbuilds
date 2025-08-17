@@ -3,34 +3,28 @@
 # Contributor: neodarz <neodarz at neodarz dot net>
 
 pkgname=python-flake8-isort
-pkgver=6.1.1
-pkgrel=4
+pkgver=6.1.2
+pkgrel=1
 pkgdesc='Flake8 plugin to validate annotations complexity'
-arch=('any')
+arch=(any)
 url='https://github.com/gforcada/flake8-isort'
-license=('GPL-2.0-only')
+license=(GPL-2.0-only)
 depends=(
-  'python'
-  'flake8'
-  'python-isort'
+  python
+  flake8
+  python-isort
 )
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-wheel'
-  'python-hatchling'
+  git
+  python-build
+  python-installer
+  python-wheel
+  python-hatchling
 )
-checkdepends=('python-pytest' 'python-toml')
-_commit='3b2f1dd9a67c385f140b503a714e07ca3483f4c2'
-source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('d21369c31a11221655972c30dfef91c16d6a2b393fd12d46b1f9370b5a2c86828cabf09938258fa8d9c9582255e50df1f4c989ddfdb04e821396287d1ca46ccc')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+checkdepends=(python-pytest python-toml)
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('c83f15fc753fea8a05b4c536aec6cc8cdc2582bdd733a60cd2d693d98a1a4264d76d815dc6ce6750dd2590dc60a03129f87f564ed04a74bfdbf54bfd02908456')
+b2sums=('59898002f7650d9e364370f823cb7a278bb7e49f39f8502be97536ab8d85644f1c440d5ef90829c05acc1e281324df4baf037e44c13fb45f709041c7802d2d44')
 
 build() {
   cd "$pkgname"
