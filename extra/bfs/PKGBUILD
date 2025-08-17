@@ -2,7 +2,7 @@
 # Contributor: Tavian Barnes <tavianator@tavianator.com>
 
 pkgname=bfs
-pkgver=4.0.7
+pkgver=4.1
 pkgrel=1
 pkgdesc='A breadth-first version of find'
 arch=('x86_64')
@@ -17,8 +17,8 @@ depends=(
 )
 makedepends=('git')
 source=("$pkgname::git+https://github.com/tavianator/bfs#tag=$pkgver")
-sha512sums=('21133dbf84420db4c3d9c0683e311ed4a7cd1cbfb4b4c0509ce67abc03b58112e48c04f6a1301275f13d106522d488d00b51b0f0402a33fbc7eab45a8e7103d7')
-b2sums=('80bb5a706ac401cfb47dbfb690cad3e9a5db36a8257392c82e42e082d3052ede1dfbc9df3b6faac82411c4a806d7ee72622d62bf49d05c32011aa96520a0c2d9')
+sha512sums=('b91c080020c3ea2ad01583b8d5c03295412fbae6e5a632715845705564d37f135e733cbdb4fa0653c94f973ff8ed085b94aa9cc30c189649297dbb559b16810c')
+b2sums=('f00aade00f588b943c158f07331ba803ac1ee6c98f214967611ede8616657b4212d50cc8366bb8d96afadfb7f04d148ed45f88e8a3628ba4c13dcdd7451dccaf')
 
 build() {
   cd "$pkgname"
