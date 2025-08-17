@@ -1,17 +1,19 @@
 pkgbase = cargo-supply-chain
 	pkgdesc = Gather author, contributor and publisher data on crates in your dependency graph
-	pkgver = 0.3.2
-	pkgrel = 2
+	pkgver = 0.3.4
+	pkgrel = 1
 	url = https://github.com/rust-secure-code/cargo-supply-chain
 	arch = x86_64
-	license = Apache
+	license = Apache-2.0
 	license = MIT
-	license = ZLIB
+	license = Zlib
+	makedepends = git
 	makedepends = rust
+	depends = glibc
 	depends = gcc-libs
 	options = !lto
-	source = cargo-supply-chain-0.3.2.tar.gz::https://static.crates.io/crates/cargo-supply-chain/cargo-supply-chain-0.3.2.crate
-	sha512sums = 1ae7882db47c1fd2b0cbbfb8bd43b1a571bb72bfd5ba3d113102b1fc56d2f8a7ae79d2b700de0d6435b48b0d553d485dd633240934034e50ee10c817d279875e
-	b2sums = c196e9b8bd6882c6fa4360f27d623ff91275a0209612a1b74043a9869ead3e21557052d107d15d8daa378e35722ead6a519f5969d5882c63622547d467b6a6b4
+	source = cargo-supply-chain::git+https://github.com/rust-secure-code/cargo-supply-chain#tag=v0.3.4
+	sha512sums = 4aca6973549aeb27382e81bdb91934eb3028d386d4bc0b051ce31e8bb90e673f0313bcecee8ef0072679a3c5115d6422efa465f2723e389fc4d06009dd9482d2
+	b2sums = d013d26e1f91307d5c104df9a0002692e68fb719b7d51b7433978cf225632eb794adca4c5ff391308dd678c2dc9b5e37c642555a336c479cc5a8ab419887fde1
 
 pkgname = cargo-supply-chain
