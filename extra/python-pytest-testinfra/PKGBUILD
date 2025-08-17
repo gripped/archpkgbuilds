@@ -1,25 +1,27 @@
-# Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: David Runge <dvzrv@archlinux.org>
 # Contributor: Christian Rebischke <chris.rebischke@archlinux.org>
 # Contributor: Lex Black <autumn-wind@web.de>
 # Contributor: gardar <aur@gardar.net>
 # Contributor: Morten Linderud <morten@linderud.pw>
 
-_name=pytest-testinfra
 pkgname=python-pytest-testinfra
-pkgver=10.1.1
-pkgrel=4
+pkgver=10.2.2
+pkgrel=1
 pkgdesc='Testinfra test your infrastructures'
 arch=(any)
-url="https://github.com/pytest-dev/pytest-testinfra"
+url='https://github.com/pytest-dev/pytest-testinfra'
 license=(Apache-2.0)
 depends=(
   python
   python-pytest
 )
 makedepends=(
+  git
   python-build
   python-installer
-  python-setuptools-scm
+  python-hatchling
+  python-hatch-vcs
   python-sphinx
   python-wheel
 )
@@ -40,45 +42,53 @@ optdepends=(
   'python-pywinrm: for testing on Windows hosts'
   'salt: for tests using saltstack'
 )
-source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
-	python3-13-crypt-module-removal.patch)
-sha512sums=('f20c87c0842871edfe9711b4ffeeca9ca26481cd92d87f238c98c8b865b7a2662ebf2e2fae23affb82a5f130270ec4e68f6470ea993d50882ea171bf2acb2d8e'
-            '82e01971725cd3df3e031a38ae9dc7ca515d3c4f9f0cd1ac51a4353f31c89b29ab79d4a3273d45af9b3ef9d422aa83fc2dc572bf9c9a49590c6d23f6e0f9a610')
-b2sums=('e8e5b2bfe88438e3d56c41c122d6c3f97094bf719cb4951b888976383e0f03619bf46232679cc18002aa45346ec17e5c0ca3f5d749e242a05cee358c619fae38'
-        '0c1317c7f3cead513c4cfb9cfa76bee38d8f75100dc577707873ea664ad79fde451262e07ec5a75d79f01173dc091083105877ed9016df56c3f406f8b29b0560')
-
-prepare() {
-  cd $_name-$pkgver
-  patch -Np1 -i ${srcdir}/python3-13-crypt-module-removal.patch
-}
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('5b61f4b8322aed2303cab4aa327b5f9f5c63786de5f3a31b00ab9203cda477b8245d4f81a9e5b8555a4092e2aa357c2c854e6be7fff61e99e8ab47fa0bbe6244')
+b2sums=('0f4d8fb9164d02315f0cf3477d5d0c9d72e7475292a05b0aab4bfdef89034c1c948f9e158d63f6693bec301d5a8e528eba10794ccd0acdeb442bef817a027a70')
 
 build() {
-  cd $_name-$pkgver
-  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --no-isolation
-  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver make -C doc man
+  cd "$pkgname"
+
+  export SETUPTOOLS_SCM_PRETEND_VERSION="$pkgver"
+
+  # build wheel
+  python -m build --wheel --no-isolation
+
+  # install to temporary directory
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  python -m installer --destdir="$PWD/tmp_install" dist/*.whl
+
+  # build man page
+  PYTHONPATH="$PWD/tmp_install$site_packages" make -C doc man
 }
 
 check() {
   local pytest_options=(
     -vv
   )
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
-  cd $_name-$pkgver
+  cd "$pkgname"
 
   # install to temporary location
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   python -m installer --destdir=test_dir dist/*.whl
-  export PYTHONPATH="test_dir/$site_packages:$PYTHONPATH"
+
   # We don't have salt in the repos
   pytest_options=(
-  	-k 'not test_backend_importables'
+    -k 'not test_backend_importables'
   )
-  pytest "${pytest_options[@]}"
+
+  PYTHONPATH="test_dir/$site_packages:$PYTHONPATH" pytest "${pytest_options[@]}"
 }
 
 package() {
-  cd $_name-$pkgver
+  cd "$pkgname"
+
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm 644 doc/build/man/*.1 -t "$pkgdir/usr/share/man/man1/"
-  install -vDm 644 {CHANGELOG,CONTRIBUTING,README}.rst -t "$pkgdir/usr/share/doc/$pkgname/"
+
+  # man pages
+  install -vDm644 -t "$pkgdir/usr/share/man/man1" doc/build/man/*.1
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" {CHANGELOG,CONTRIBUTING,README}.rst
 }
