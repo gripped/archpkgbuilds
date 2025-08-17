@@ -2,18 +2,18 @@
 
 _hkgname=barbies
 pkgname=haskell-barbies
-pkgver=2.0.5.0
-pkgrel=72
+pkgver=2.1.0.0
+pkgrel=2
 pkgdesc="Classes for working with types that can change clothes."
 url="https://github.com/jcpetruzza/barbies#readme"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-distributive')
 makedepends=('ghc')
 checkdepends=('haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
               'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('d522ca55fb46587efcda07e0b5293be9120fbcb788594c084f71a71e66210cc9')
+sha256sums=('429a64feabd03a777f43111f07f11ce279bc6a68cce22d17145b5ffc8a79fa46')
 
 build() {
   cd $_hkgname-$pkgver
