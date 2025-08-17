@@ -2,17 +2,17 @@
 # Contributor: Thomas Hipp <thomashipp at gmail dot com>
 
 pkgname=dqlite
-pkgver=1.18.1
+pkgver=1.18.2
 pkgrel=1
 pkgdesc="Distributed SQLite"
 arch=('x86_64')
 url="https://github.com/CanonicalLtd/dqlite"
 license=('LGPL-3.0-only')
-depends=('libuv' 'sqlite')
+depends=('glibc' 'libuv' 'sqlite' 'lz4')
 makedepends=('tcl' 'readline' 'zlib')
 options=(strip)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/canonical/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('9d663dfae2e4a3b3fbd94416a84ff2270f218a70733bb211d1fd148078e07c43')
+sha256sums=('ce569a30958b6f673cbb7f8632706bc6868bc5b82ae4b04e0f63f3ad24125aaf')
 
 build() {
 	cd "$pkgname-$pkgver"
