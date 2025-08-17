@@ -3,24 +3,18 @@
 
 pkgname=ruby-mixlib-cli
 _pkgname="${pkgname#ruby-}"
-pkgver=2.1.10
-pkgrel=5
+pkgver=2.2.1
+pkgrel=1
 pkgdesc='A simple mixin for CLI interfaces, including option parsing'
-arch=('any')
+arch=(any)
 url='https://github.com/chef/mixlib-cli'
-license=('Apache')
-depends=('ruby')
-makedepends=('git' 'ruby-rake' 'ruby-rdoc' 'ruby-bundler')
-options=('!emptydirs')
-_commit='6569ee9a3477bdb3cdf1232082026ae48ac61ca6'
-source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+license=(Apache-2.0)
+depends=(ruby)
+makedepends=(git ruby-rake ruby-rdoc ruby-bundler)
+options=(!emptydirs)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('3f20e72317c0b54ed73cbfa53128d8edd1964e3929c0c8500f13873e9e63c6f04819453b739d126bbcca69891d5e6ab339069c18f4f09180dc4ef920db33c2c5')
+b2sums=('3cc8b9aa5b95a8af51a12669a0b42f4451335d3e8df0157a04eb0538620b386705b9c54fbd82d98ede4db5c7e46173f598f7fe50e034981e14049e056ea55bfc')
 
 build() {
   cd "$pkgname"
