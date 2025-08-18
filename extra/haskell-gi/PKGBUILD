@@ -3,8 +3,8 @@
 
 _hkgname=haskell-gi
 pkgname=haskell-gi
-pkgver=0.26.13
-pkgrel=14
+pkgver=0.26.14
+pkgrel=1
 pkgdesc="Generate Haskell bindings for GObject Introspection capable libraries"
 url="https://github.com/haskell-gi/haskell-gi"
 license=('LGPL-2.0-only')
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'glib2' 'gobject-introspection-runtime' 'haskell-gi-base'
          'haskell-xdg-basedir' 'haskell-xml-conduit' 'haskell-regex-tdfa')
 makedepends=('ghc' 'gobject-introspection' 'haskell-cabal-doctest' 'haskell-doctest')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('b7df825697b3aab3a62160bd16c81312ecde8a54db9b8491764a186000a83e589887418c440912cc06d6db29018d9693f7aa827ba6d8cdfe4d8dfe407740c800')
+sha512sums=('95f7dbf831ed3a28335002bca1cbd060660d8692a18d182bf5827d8c0a22eff6b20cb706ddac24bbc1c25b2134a094f3ee0018b441684bc9183aee876c570392')
 
 build() {
     cd $_hkgname-$pkgver
