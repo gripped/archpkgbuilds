@@ -1,11 +1,11 @@
 pkgbase = mididings
 	pkgdesc = A MIDI router & processor
-	pkgver = 20230114
-	pkgrel = 9
+	pkgver = 20250818
+	pkgrel = 1
 	url = https://github.com/mididings/mididings
 	arch = x86_64
-	license = GPL2
-	license = FDL1.3
+	license = GPL-2.0-or-later
+	license = GFDL-1.3-or-later
 	checkdepends = python-pytest
 	makedepends = git
 	makedepends = boost
@@ -17,18 +17,25 @@ pkgbase = mididings
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
-	makedepends = python-setuptools
+	makedepends = meson-python
 	makedepends = python-sphinx
 	makedepends = python-sphinxcontrib-fulltoc
 	makedepends = python-pyinotify
-	makedepends = python-pyliblo
+	makedepends = python-pyliblo3
 	makedepends = dbus-python
 	makedepends = scdoc
-	source = mididings::git+https://github.com/mididings/mididings#commit=4186c82ca31e94580eaabd9944887aeb520501d8
-	b2sums = SKIP
+	source = mididings::git+https://github.com/mididings/mididings#tag=20250818
+	source = fix-pyliblo-refs.patch
+	source = doc-hackaround.patch
+	sha512sums = f3b4d8aabe554008fb0282ba8be552b5ec091691507576b9461fd87c51362b5c64beec431dc30e90cd72159597965b0fd0276bcfab416b6cf07a243cf5a14f0f
+	sha512sums = aeb159e04cc8fe0412b92c74e045efb7463945bd6fb363347ae0fa34301b93918c06f652053a79dc339678e3207f301df6fabc630c40bc93713b0f50c733b81f
+	sha512sums = 951013b7971b180ce15e8363956478b3c52d4b722bdbb3c4ce71c1b3b13a7b20399b8c1a54bc3b1f51c796411c4f016f97686d241ba9c397672ab2dccd4961f4
+	b2sums = fd8d2e7c206294fda208959c0d9cc2cafc56ea7f8ac112cf8a05cea620e23856ede528cd2312afd540413dfb74eebd0839d3f0c7e9dc18dd42f04229f7f17bb5
+	b2sums = 1f492acd3fc0b92905eb0376b49648da4efac97e9abf8113044711be814f04d87659dafbb26e92267391d90aab46b61df15ba4f037c30c064ad07cabaf087344
+	b2sums = 09bbe16609b539fbe8a2037a38739d465eef3ac13faeffbcde9b3a4b5df2744abc6f4e31d5d2701e42a4160db39080a44064f1349b9ae4c91f186c8e999cadb4
 
 pkgname = mididings
-	license = GPL2
+	license = GPL-2.0-or-later
 	depends = boost-libs
 	depends = jack
 	depends = alsa-lib
@@ -44,3 +51,4 @@ pkgname = mididings
 
 pkgname = mididings-docs
 	pkgdesc = A MIDI router & processor (documentation)
+	license = GFDL-1.3-or-later

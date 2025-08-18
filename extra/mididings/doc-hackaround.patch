@@ -1,0 +1,25 @@
+--- a/doc/conf.py
++++ b/doc/conf.py
+@@ -5,12 +5,10 @@ import re
+ from sphinx.domains.python import PyFunction
+ from sphinx import addnodes
+ 
+-import mesonconf
+-
+ # project-specific configuration
+ project = "mididings"
+ copyright = "mididings contributors"
+-version = mesonconf.version
++version = "@VERSION@"
+ 
+ # general configuration
+ extensions = [
+--- a/tests/test_version.py
++++ b/tests/test_version.py
+@@ -32,6 +32,5 @@ class TestVersion:
+         assert version is not None
+         assert mididings_version is not None
+         assert version == mididings_version
+-        assert documentation_version == "mesonconf.version"
+         assert pyproject_version == "dynamic"
+ 
