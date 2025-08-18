@@ -1,6 +1,6 @@
 pkgbase = podman
 	pkgdesc = Tool and library for running OCI-based containers in pods
-	pkgver = 5.5.2
+	pkgver = 5.6.0
 	pkgrel = 1
 	url = https://github.com/containers/podman
 	arch = x86_64
@@ -15,13 +15,15 @@ pkgbase = podman
 	makedepends = libseccomp
 	makedepends = man-db
 	makedepends = shadow
+	makedepends = sqlite
 	makedepends = systemd
 	options = !lto
-	source = git+https://github.com/containers/podman?signed#tag=v5.5.2
+	source = git+https://github.com/containers/podman?signed#tag=v5.6.0
 	validpgpkeys = B7DBDCA456F7335E91F1C25CD3624C551D0515C4
 	validpgpkeys = 7CE1E6F8C90CB53E7E4D8F2D502E08DB0BBF8EEE
 	validpgpkeys = 9E33DD8704CC03E2DEB84D9A1C1EDD7CC7C3A0DD
-	sha256sums = a55ab001bfe0020dbff13a0401e6d1ab9dfe900a19a6282154aa9f71b61492d9
+	sha512sums = abe0a3086d0bb8df96f0631de3176271f61560a749788a173dc154382a4b78e0df4164e2cf42dd1a635b0131c6b796d9b08571ef37349288904ac64bb4e38680
+	b2sums = 0ddf6c9e8b7a96e32981acd98ac6ac5e3fd7ecfb07f36c8fa882c7054b9d3b188fd1e2c9ec5a3fdf5d39adf09f1a7d70acafc7252d92698757c364bfaa83c0d2
 
 pkgname = podman
 	depends = catatonit
@@ -37,10 +39,10 @@ pkgname = podman
 	depends = libseccomp.so
 	depends = passt
 	depends = shadow
+	depends = sqlite
 	optdepends = apparmor: for AppArmor support
 	optdepends = btrfs-progs: support btrfs backend devices
-	optdepends = cni-plugins: for an alternative container-network-stack implementation
-	optdepends = fuse-overlayfs: for storage driver in rootless environment
+	optdepends = fuse-overlayfs: for deprecated storage driver in rootless environment
 	optdepends = slirp4netns: for alternative rootless network support
 	optdepends = podman-compose: for docker-compose compatibility
 	optdepends = podman-docker: for Docker-compatible CLI

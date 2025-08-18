@@ -4,7 +4,7 @@
 
 pkgbase=podman
 pkgname=(podman podman-docker)
-pkgver=5.5.2
+pkgver=5.6.0
 pkgrel=1
 pkgdesc='Tool and library for running OCI-based containers in pods'
 arch=(x86_64)
@@ -21,6 +21,7 @@ makedepends=(
   libseccomp
   man-db
   shadow
+  sqlite
   systemd
 )
 # https://github.com/containers/podman/issues/13297
@@ -35,7 +36,8 @@ validpgpkeys=(
   7CE1E6F8C90CB53E7E4D8F2D502E08DB0BBF8EEE  # Ashley Cui <acui@redhat.com>
   9E33DD8704CC03E2DEB84D9A1C1EDD7CC7C3A0DD  # Lokesh Mandvekar <lsm5@redhat.com>
 )
-sha256sums=('a55ab001bfe0020dbff13a0401e6d1ab9dfe900a19a6282154aa9f71b61492d9')
+sha512sums=('abe0a3086d0bb8df96f0631de3176271f61560a749788a173dc154382a4b78e0df4164e2cf42dd1a635b0131c6b796d9b08571ef37349288904ac64bb4e38680')
+b2sums=('0ddf6c9e8b7a96e32981acd98ac6ac5e3fd7ecfb07f36c8fa882c7054b9d3b188fd1e2c9ec5a3fdf5d39adf09f1a7d70acafc7252d92698757c364bfaa83c0d2')
 
 build() {
   export CGO_CPPFLAGS="${CPPFLAGS}"
@@ -62,12 +64,12 @@ package_podman() {
     libseccomp libseccomp.so
     passt
     shadow
+    sqlite
   )
   optdepends=(
     'apparmor: for AppArmor support'
     'btrfs-progs: support btrfs backend devices'
-    'cni-plugins: for an alternative container-network-stack implementation'
-    'fuse-overlayfs: for storage driver in rootless environment'
+    'fuse-overlayfs: for deprecated storage driver in rootless environment'
     'slirp4netns: for alternative rootless network support'
     'podman-compose: for docker-compose compatibility'
     'podman-docker: for Docker-compatible CLI'
