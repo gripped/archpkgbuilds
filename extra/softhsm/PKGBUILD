@@ -3,35 +3,34 @@
 
 pkgname=softhsm
 pkgver=2.6.1
-pkgrel=5
+pkgrel=6
 pkgdesc="Software PKCS#11 store"
 arch=('x86_64')
-url="https://www.opendnssec.org/softhsm/"
+url="https://opendnssec.readthedocs.io/en/latest/softhsm2/"
 license=('BSD-2-Clause')
 depends=('botan' 'sqlite3' 'openssl' 'p11-kit')
+makedepends=('git')
 checkdepends=('cppunit')
 backup=("etc/softhsm2.conf")
 options=(!libtool !lto)
-source=("https://dist.opendnssec.org/source/$pkgname-$pkgver.tar.gz"{,.sig}
+source=("git+https://github.com/softhsm/SoftHSMv2.git#tag=$pkgver"
         "softhsm-openssl3-tests.patch"
         "softhsm-2.6.1-rh1831086-exit.patch")
-sha256sums=('61249473054bcd1811519ef9a989a880a7bdcc36d317c9c25457fc614df475f2'
-            'SKIP'
+sha256sums=('2d0995378e98cec51c67bdde6dad5a1a6fe03734c7d2567aac558affed05f0ad'
             'd97f51e8d41e8bf0ef2ee3959be746d0349e8e1c0130ddaf3d905c23f8e43230'
             '163338a73ab1bcc475e07b96f054d3c8f67ac9d2637b8f74ddaa97aa6b4171e1')
-validpgpkeys=('4D0388CE86BB398B387B663041F623BE4FCB0B94')
 
 prepare() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/SoftHSMv2"
   patch -p1 -i "$srcdir/softhsm-openssl3-tests.patch"
   patch -p1 -i "$srcdir/softhsm-2.6.1-rh1831086-exit.patch"
   sed -i 's:^full_libdir=":#full_libdir=":g' configure.ac
-  sed -i "s:libdir)/@PACKAGE@:libdir):" Makefile.in
   autoreconf -vfi
+  sed -i "s:libdir)/@PACKAGE@:libdir):" Makefile.in
 }
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/SoftHSMv2"
   ./configure \
     --prefix=/usr \
     --libdir=/usr/lib/pkcs11 \
@@ -48,12 +47,12 @@ build() {
 }
 
 check() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/SoftHSMv2"
   make check
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/SoftHSMv2"
   make DESTDIR="$pkgdir/" install
   install -Dm0644 "LICENSE" "$pkgdir/usr/share/licenses/softhsm/LICENSE"
   rm "$pkgdir/etc/softhsm2.conf.sample"
