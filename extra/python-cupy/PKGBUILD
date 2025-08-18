@@ -3,8 +3,8 @@
 _name=cupy
 pkgbase=python-cupy
 pkgname=(python-cupy python-cupy-rocm)
-pkgver=13.5.1
-pkgrel=3
+pkgver=13.6.0
+pkgrel=1
 # release tarballs do not contain third-party code, check github for each release
 _cccl_commit=3a388b7b01512d48474b98389a3e776c8d8f817a
 _dlpack_commit=cd0d5e4ff888b388aef4f9b6bd5d9aa5737a020e
@@ -54,7 +54,7 @@ source=(
   git+https://github.com/dmlc/dlpack.git#commit=$_dlpack_commit
   git+https://github.com/NVIDIA/jitify.git#commit=$_jitify_commit
 )
-b2sums=('38cc5bdc3f6bdf04db28b86738a1b7f9a11352f35da5185266628757943013cf59157c0286fe24e3656c4f7f560cfe4032660a8429b73e9e2d4069128ea5414e'
+b2sums=('be2eb7cc3cdb80f0ff953be8faeae48641c16526f6f73995c9c8caeccdbf26bc8fdc98b813c2ca2e0c7a12ab93197fd836e1e37df1105e104d69fecc7e9b9b13'
         '398fea632811425ea79cff315eeb7fcbe9370e706445477784e05cc2e2517ab7106606d52603175a1ac83b0026daa5a09a07cebe2efd8edae50e48b1b82efbeb'
         'ee9287869ad46f81bd6ec67a0f17cd3a28c7a4921177e1d3bc5bf3469223d0518ab71b8bfab3ecc9dca0030f55fbac607c20e33d0b2951b042b0423893c1d46d'
         'a03479f41e38b1f35c39a14ea8d13ecaec3d57f8f1c12fd37a9d53af8406ba328628493a76882c37cad82d2da441a34142407caf610d480122a072b73bbb1c61')
