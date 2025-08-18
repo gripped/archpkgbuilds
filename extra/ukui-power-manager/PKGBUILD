@@ -1,31 +1,30 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ukui-power-manager
-pkgver=3.0.1
-pkgrel=2
+pkgver=3.1.1
+pkgrel=1
 pkgdesc="Power management tool for the UKUI desktop"
 arch=('x86_64')
 license=('GPL')
 url="https://github.com/ukui/ukui-power-manager"
 groups=('ukui')
-depends=('dbus-glib' 'gtk3' 'libgnome-keyring' 'libnotify' 'upower'
-         'libcanberra')
-makedepends=('intltool' 'mate-common' 'yelp-tools')
+depends=('qt5-x11extras' 'ukui-interface' 'kwindowsystem5')
+makedepends=('qt5-tools')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ukui/ukui-power-manager/archive/v$pkgver.tar.gz")
-sha512sums=('0b7be755c7f16e5c5534c2630cb77340fb1d0387a9207004c74b0ff241adecfd80ccc06167913f9dd6b6d22f62032af4eb40f5d4682d2eb403f517f29cb9e0d3')
+sha512sums=('7fbfc947330806617cc8befab92d61c3dbb1ccb15afc4bfef6e67059588c10b8f883db10b490ef104eb82e44d7e23b782f6f60521d3ab32efd63780e4878b2b2')
 
 prepare() {
   cd $pkgname-$pkgver
-  NOCONFIGURE=1 ./autogen.sh
+  sed -i 's|/etc/dbus-1/system.d/|/usr/share/dbus-1/system.d/|' registeredQDbus/registeredQDbus.pro
 }
 
 build() {
   cd $pkgname-$pkgver
-  ./configure --prefix=/usr --libexecdir=/usr/lib/$pkgname --sbindir=/usr/bin --sysconfdir=/etc
+  qmake-qt5 PREFIX=/usr
   make
 }
 
 package() {
   cd $pkgname-$pkgver
-  make DESTDIR="$pkgdir" install dbusdir=/usr/share/dbus-1/system.d systemddir=/usr/lib/systemd/system
+  make INSTALL_ROOT="$pkgdir" install
 }
