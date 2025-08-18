@@ -3,7 +3,7 @@
 pkgname=syd
 _pkgname=sydbox
 pkgver=3.37.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Seccomp and landlock based application sandbox with support for namespaces"
 url="https://lib.rs/crates/syd"
 arch=('x86_64')
@@ -11,11 +11,19 @@ license=('GPL-3.0-only')
 depends=('bash' 'gcc-libs' 'glibc' 'libseccomp')
 makedepends=('cargo' 'scdoc')
 provides=("${_pkgname}")
-source=("${pkgname}-${pkgver}.tar.gz::https://gitlab.exherbo.org/${_pkgname}/${_pkgname}/-/archive/v${pkgver}/${_pkgname}-v${pkgver}.tar.gz")
-sha256sums=('9263f87f63eb42b7783c95686d321715aa4386859897cfb47dc6e008cfa29bef')
+source=("${pkgname}-${pkgver}.tar.gz::https://gitlab.exherbo.org/${_pkgname}/${_pkgname}/-/archive/v${pkgver}/${_pkgname}-v${pkgver}.tar.gz"
+        'reproducible_build.patch')
+sha256sums=('9263f87f63eb42b7783c95686d321715aa4386859897cfb47dc6e008cfa29bef'
+            '85566cf3982324c749fd4ffc104c1ca97dec166541d227a8cd3945e4e52c8fd3')
 
 prepare() {
 	cd "${_pkgname}-v${pkgver}"
+
+	# Don't record non-deterministic information if SDE is set
+	# This is required for reproducible builds
+	# See https://gitlab.exherbo.org/sydbox/sydbox/-/merge_requests/14
+	patch -Np1 -i "${srcdir}/reproducible_build.patch"
+
 	export RUSTUP_TOOLCHAIN=stable
 	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }

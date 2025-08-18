@@ -1,7 +1,7 @@
 pkgbase = syd
 	pkgdesc = Seccomp and landlock based application sandbox with support for namespaces
 	pkgver = 3.37.8
-	pkgrel = 1
+	pkgrel = 2
 	url = https://lib.rs/crates/syd
 	arch = x86_64
 	license = GPL-3.0-only
@@ -13,6 +13,8 @@ pkgbase = syd
 	depends = libseccomp
 	provides = sydbox
 	source = syd-3.37.8.tar.gz::https://gitlab.exherbo.org/sydbox/sydbox/-/archive/v3.37.8/sydbox-v3.37.8.tar.gz
+	source = reproducible_build.patch
 	sha256sums = 9263f87f63eb42b7783c95686d321715aa4386859897cfb47dc6e008cfa29bef
+	sha256sums = 85566cf3982324c749fd4ffc104c1ca97dec166541d227a8cd3945e4e52c8fd3
 
 pkgname = syd

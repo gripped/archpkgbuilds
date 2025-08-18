@@ -1,0 +1,38 @@
+From e0238757c27364b1d4781895828f3fb572de5251 Mon Sep 17 00:00:00 2001
+From: Robin Candau <antiz@archlinux.org>
+Date: Mon, 18 Aug 2025 14:06:58 +0200
+Subject: [PATCH] build: Don't record non-determistic info if SDE is set (for
+ reproducible builds)
+
+Gathering build host's kernel information results in a non-deterministic information recording, which may prevent [reproducible builds](https://reproducible-builds.org/) (see [`diffoscope` output](https://reproducible.archlinux.org/api/v0/builds/849882/diffoscope)).
+
+This commit sets `SYD_BUILDHOST` to "?" also if the [`SOURCE_DATE_EPOCH` environment variable](https://reproducible-builds.org/docs/source-date-epoch/) is set (which should be done in every build environment that expects reproducible builds).
+---
+ build.rs | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/build.rs b/build.rs
+index 46082d9a1..57479d6b3 100644
+--- a/build.rs
++++ b/build.rs
+@@ -56,9 +56,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
+         env::var("CARGO_CFG_TARGET_FEATURE").unwrap_or("?".to_string())
+     );
+
+-    // Gather information on build host.
+-    let host = if let Ok(output) = Command::new("uname").arg("-mr").output() {
+-        String::from_utf8_lossy(&output.stdout).trim().to_string()
++    // Gather information on build host (unless SDE is set for reproducible builds).
++    let host = if env::var("SOURCE_DATE_EPOCH").is_err() {
++        if let Ok(output) = Command::new("uname").arg("-mr").output() {
++            String::from_utf8_lossy(&output.stdout).trim().to_string()
++        } else {
++            "?".to_string()
++        }
+     } else {
+         "?".to_string()
+     };
+--
+GitLab
+
+
