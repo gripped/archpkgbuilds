@@ -1,18 +1,25 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=peony
-pkgver=3.2.3
-pkgrel=2
+pkgver=3.2.4
+pkgrel=1
 pkgdesc="File manager for the UKUI desktop"
 arch=('x86_64')
 license=('GPL')
 url="https://github.com/ukui/peony"
 depends=('gsettings-qt' 'kwayland5' 'kwindowsystem5' 'libcanberra' 'libnotify' 'poppler-qt5'
-         'qt5-ukui-platformtheme' 'qt5-x11extras' 'udisks2')
+         'qt5-ukui-platformtheme' 'qt5-x11extras' 'udisks2' 'ukui-interface')
 makedepends=('qt5-tools')
 groups=('ukui')
-source=("https://github.com/ukui/peony/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('352e533538ed900f4e38f06634f9a2709161f6b0b27f66765ddf0b97abea6c72289465688065511cf667bacd5f325be0a1e0fda49ece213f4aefaf181285a7d0')
+source=("https://github.com/ukui/peony/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+        'fix-build.patch')
+sha512sums=('7cd5806e6cd16e6c866982fd58e7000c248678a8d6975aed7a54636f545b1906ac5eae73fbece534f96ea580cb1d09a6c4dee5978ba41f8bc9eda39f255e571f'
+            '7d3cab024e23ce74e31323e0fec8fd7ffc7ae7d4f201d8168bd9d421bcc63c22f9bec2272044d9c19d291bbaa99e84697357fb7bbd36bbe8673938827023ffcf')
+
+prepare() {
+  cd peony-$pkgver
+  patch -Np1 -i ../fix-build.patch  # https://github.com/ukui/peony/commit/1faf4060fbdec23c9717e1ae804d8d9738168e62
+}
 
 build() {
   cd peony-$pkgver

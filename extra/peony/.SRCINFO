@@ -1,7 +1,7 @@
 pkgbase = peony
 	pkgdesc = File manager for the UKUI desktop
-	pkgver = 3.2.3
-	pkgrel = 2
+	pkgver = 3.2.4
+	pkgrel = 1
 	url = https://github.com/ukui/peony
 	arch = x86_64
 	groups = ukui
@@ -16,7 +16,10 @@ pkgbase = peony
 	depends = qt5-ukui-platformtheme
 	depends = qt5-x11extras
 	depends = udisks2
-	source = https://github.com/ukui/peony/archive/v3.2.3/peony-3.2.3.tar.gz
-	sha512sums = 352e533538ed900f4e38f06634f9a2709161f6b0b27f66765ddf0b97abea6c72289465688065511cf667bacd5f325be0a1e0fda49ece213f4aefaf181285a7d0
+	depends = ukui-interface
+	source = https://github.com/ukui/peony/archive/v3.2.4/peony-3.2.4.tar.gz
+	source = fix-build.patch
+	sha512sums = 7cd5806e6cd16e6c866982fd58e7000c248678a8d6975aed7a54636f545b1906ac5eae73fbece534f96ea580cb1d09a6c4dee5978ba41f8bc9eda39f255e571f
+	sha512sums = 7d3cab024e23ce74e31323e0fec8fd7ffc7ae7d4f201d8168bd9d421bcc63c22f9bec2272044d9c19d291bbaa99e84697357fb7bbd36bbe8673938827023ffcf
 
 pkgname = peony

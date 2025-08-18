@@ -1,0 +1,52 @@
+From 1faf4060fbdec23c9717e1ae804d8d9738168e62 Mon Sep 17 00:00:00 2001
+From: Yue-Lan <lanyue@ubuntukylin.com>
+Date: Fri, 28 Jan 2022 10:29:04 +0800
+Subject: [PATCH] =?UTF-8?q?=E5=8E=BB=E9=99=A4kf5=E6=8E=A5=E5=8F=A3?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ libpeony-qt/file-launcher/file-launch-action.cpp            | 6 +++---
+ .../desktops/desktop/view/desktop-icon-view.cpp             | 4 ++--
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/libpeony-qt/file-launcher/file-launch-action.cpp b/libpeony-qt/file-launcher/file-launch-action.cpp
+index b58d42d0..adf6a76d 100644
+--- a/libpeony-qt/file-launcher/file-launch-action.cpp
++++ b/libpeony-qt/file-launcher/file-launch-action.cpp
+@@ -280,7 +280,7 @@ void pid_callback(GDesktopAppInfo *appinfo, GPid pid, gpointer user_data) {
+ 
+     KStartupInfoData data;
+     data.addPid(pid);
+-    data.setIconGeometry(QRect(0, 0, 1, 1));  // ugly
++    //data.setIconGeometry(QRect(0, 0, 1, 1));  // ugly
+ 
+     KStartupInfo::sendChange(*startInfoId, data);
+     KStartupInfo::resetStartupEnv();
+@@ -480,8 +480,8 @@ void FileLaunchAction::lauchFileAsync(bool forceWithArg, bool skipDialog)
+     float scale = qApp->devicePixelRatio();
+     QRect rect = fileInfo.get()->property("iconGeometry").toRect();
+     rect.moveTo(rect.x() * scale, rect.y() * scale);
+-    if (rect.isValid())
+-        data.setIconGeometry(rect);
++    //if (rect.isValid())
++        //data.setIconGeometry(rect);
+     data.setLaunchedBy(getpid());
+ 
+     KStartupInfo::sendStartup(*startInfoId, data);
+diff --git a/peony-qt-desktop/desktop-icon-view.cpp b/peony-qt-desktop/desktop-icon-view.cpp
+index a66d3332..40c88048 100644
+--- a/peony-qt-desktop/desktop-icon-view.cpp
++++ b/peony-qt-desktop/desktop-icon-view.cpp
+@@ -934,8 +934,8 @@ void DesktopIconView::openFileByUri(QString uri)
+             data.setHostname();
+             data.addPid(pid);
+             QRect rect = info.get()->property("iconGeometry").toRect();
+-            if (rect.isValid())
+-                data.setIconGeometry(rect);
++            //if (rect.isValid())
++                //data.setIconGeometry(rect);
+             data.setLaunchedBy(getpid());
+             KStartupInfo::sendStartup(startInfoId, data);
+ #else
