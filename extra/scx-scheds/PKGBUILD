@@ -5,7 +5,7 @@
 pkgname=scx-scheds
 _gitname=scx
 pkgver=1.0.15
-pkgrel=1
+pkgrel=2
 pkgdesc='sched_ext schedulers and tools'
 url='https://github.com/sched-ext/scx'
 arch=('x86_64')
@@ -33,9 +33,16 @@ makedepends=(
   rust
 )
 options=(!lto)
-source=("git+https://github.com/sched-ext/scx#tag=v${pkgver}")
-sha256sums=('e2966b2915c9f8f09204bf23710cdb2089c66c0cf953916208a94d64c853fc43')
+source=("git+https://github.com/sched-ext/scx#tag=v${pkgver}"
+        "https://patch-diff.githubusercontent.com/raw/sched-ext/scx/pull/2624.patch")
+sha256sums=('e2966b2915c9f8f09204bf23710cdb2089c66c0cf953916208a94d64c853fc43'
+            'efdbb41f49addae1b4672b1b8b90639762a4e1ea53ce62fe2b9cfd1bbe14c355')
 
+prepare() {
+  cd $_gitname
+  # Fix scx being enabled as default
+  patch -Np1 < ../2624.patch
+}
 build() {
   cd $_gitname
   arch-meson . build -D openrc=disabled \
