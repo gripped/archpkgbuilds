@@ -3,7 +3,7 @@
 
 pkgname=apptainer
 pkgver=1.4.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Application containers for secure high performance computing'
 arch=('x86_64')
 url='https://apptainer.org/'
@@ -42,7 +42,6 @@ makedepends=(
   'cryptsetup'
 )
 conflicts=('singularity')
-replaces=('singularity-container')
 options=('!lto' '!debug')
 source=(
   "$pkgname::git+https://github.com/apptainer/apptainer.git#tag=v$pkgver"
