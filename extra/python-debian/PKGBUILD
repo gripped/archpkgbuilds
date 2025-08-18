@@ -4,39 +4,33 @@
 # Contributor: Johannes Dewender   arch at JonnyJD dot net
 
 pkgname=python-debian
-pkgver=0.1.49
-pkgrel=6
+pkgver=1.0.1
+pkgrel=1
 pkgdesc='Python module to work with Debian-related data formats'
-arch=('any')
+arch=(any)
 url='https://salsa.debian.org/python-debian-team/python-debian'
-license=('GPL-2.0-or-later')
+license=(GPL-2.0-or-later)
 depends=(
-  'python'
-  'python-chardet'
+  python
+  python-chardet
 )
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-wheel'
-  'python-setuptools'
+  git
+  python-build
+  python-installer
+  python-wheel
+  python-setuptools
+  python-setuptools-scm
 )
-checkdepends=('python-pytest')
+checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('cb7ce3b3d67c2aed758c3e810ed786a635cb312c7e5b2fff88198d496f589e640dbafe5702b0b8a0b4d1e536f991694dbcfcc9d8878eafb40a4be3f7eccab158')
-b2sums=('0d62ed2ab58db6f566fc19d041984fbd2d4efb4b7147ddee8a341a2ccf422e99ba1a199f80c47dbb79e4bd6b65034ce017f16c2282cbf7ddd9139018b654254f')
-
-prepare() {
-  cd "$pkgname/lib/debian"
-
-  # taken from debian/rules
-  sed -e "s/__CHANGELOG_VERSION__/$pkgver/" _version.py.in > _version.py
-}
+sha512sums=('012f2ffca71ac79140f309fd2a723e6c68d3c01ac4228ab14258c0d4eeadf36699899f91c5e71f397851e4dd4dae78b1549c8ec1823f396ceeed70caebd0c50c')
+b2sums=('2b9ed525aed0d67ce6028529d5823b584c2d39def09f1bed43fef2b457a6a3b74867d0874273616869f0492b1edad45ec266cec47ee66d98a00204d5c88db4b9')
 
 build() {
   cd "$pkgname"
 
-  python -m build --wheel --no-isolation
+SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --no-isolation
 }
 
 check() {
