@@ -1,20 +1,23 @@
 pkgbase = python-cython-lint
 	pkgdesc = A tool to lint Cython files
-	pkgver = 0.16.0
-	pkgrel = 3
+	pkgver = 0.16.7
+	pkgrel = 1
 	url = https://github.com/MarcoGorelli/cython-lint
 	arch = any
 	license = MIT
 	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
 	makedepends = python-setuptools
+	makedepends = python-hatchling
 	depends = python
 	depends = cython
 	depends = python-tokenize-rt
 	depends = python-pycodestyle
-	source = cython-lint-0.16.0.tar.gz::https://github.com/MarcoGorelli/cython-lint/archive/refs/tags/v0.16.0.tar.gz
-	b2sums = 784172d204b575b9e7c4009dd8e6e65ca7d25b4a5fd13edfe5c464d9b6d385fce2232ac92c606663623fd1aad2cf2f4a99742d8cd458a0393f4d7ef91188ec76
+	source = python-cython-lint::git+https://github.com/MarcoGorelli/cython-lint#tag=v0.16.7
+	sha512sums = 30cd69e1123da3be532337d2d95d905cc1603272212b62811904aaa0d992c052a911d2c1694f933e7052989924b1a18df824edf24dad8a2b45acf2b9ba66f6dd
+	b2sums = 66b8c0e27100a2cff00015d36c4c8e5ef225e283c1853607426423e236aca98955ea5063cdbb5d7a059e70b23444081a495f49ab0ece9a9bc2b283da5d0b87d6
 
 pkgname = python-cython-lint
