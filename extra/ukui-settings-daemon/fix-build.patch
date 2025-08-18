@@ -1,0 +1,13 @@
+diff --git a/common/clib-syslog.c b/common/clib-syslog.c
+index 7219da3..55b445f 100644
+--- a/common/clib-syslog.c
++++ b/common/clib-syslog.c
+@@ -317,7 +317,7 @@ REWRITE:
+         if (fd > 0) {
+             close(fd);
+         }
+-        return 0;
++        return;
+     }
+ 
+     snprintf(logMsg,sizeof(logMsg),"{%04d-%02d-%02d %02d:%02d:%02d}:%s\n",tmTime.tm_year+1970, tmTime.tm_mon+1, tmTime.tm_mday,tmTime.tm_hour, tmTime.tm_min,tmTime.tm_sec,buf);
