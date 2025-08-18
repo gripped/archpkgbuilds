@@ -6,8 +6,8 @@ pkgname=(
   libcomps
   libcomps-docs
 )
-pkgver=0.1.21
-pkgrel=5
+pkgver=0.1.22
+pkgrel=1
 pkgdesc="Comps XML file manipulation library"
 arch=('x86_64')
 url="https://github.com/rpm-software-management/$pkgbase"
@@ -17,21 +17,11 @@ makedepends=('cmake' 'python' 'python-setuptools' 'doxygen' 'graphviz' 'python-s
 checkdepends=('check')
 source=(
   "$url/archive/$pkgver/$pkgbase-$pkgver.tar.gz"
-  '0001-Return-self-from-iter-iterator.patch'
-  '0002-Build-with-CMake-4.patch'
 )
-sha256sums=('84d7555ed795458f3799d57cceccb096634c38461c3db7cb1739d42c038b2785'
-            '88e414b33c6ae0af3e8cfc4f11ed20a38e70a31f29347f826723cfd4da2b033a'
-            'b730d8476c38490f595a1e1c068d051f2493fe496db12897f5a4583f56b62871')
+sha256sums=('ed4f80c4106a8abaab09e4094ed8d712dedd376699815bc4957c5cf690cdc53d')
 
 prepare() {
   cd "$pkgbase-$pkgver"
-
-  # https://github.com/rpm-software-management/libcomps/pull/116
-  patch -Np1 -i ../0001-Return-self-from-iter-iterator.patch
-
-  # Build with CMake 4
-  patch -Np1 -i ../0002-Build-with-CMake-4.patch
 }
 
 build() {
@@ -42,6 +32,7 @@ build() {
         -DCMAKE_C_FLAGS_RELEASE='-DNDEBUG' \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_INSTALL_LIBDIR=lib \
+        -DENABLE_DOCS=ON \
         -Wno-dev
 
   make -C build
