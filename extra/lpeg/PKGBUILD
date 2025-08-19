@@ -5,21 +5,17 @@
 pkgbase=lpeg
 pkgname=(lua-$pkgbase lua51-$pkgbase lua52-$pkgbase lua53-$pkgbase)
 pkgver=1.1.0
-pkgrel=3
+pkgrel=4
 _rockrel=2
 pkgdesc='Parsing Expression Grammars For Lua'
 arch=(x86_64)
 url="https://www.inf.puc-rio.br/~roberto/$pkgbase/"
 license=(MIT)
 depends=(glibc)
-makedepends=(lua
-             lua51
-             lua52
-             lua53
-             luarocks)
+makedepends=(lua lua51 lua52 lua53 luarocks)
 _archive="$pkgbase-$pkgver"
 source=("https://luarocks.org/manifests/gvvaughan/$_archive-$_rockrel.src.rock"
-        LICENSE)
+        LICENSE-upstream)
 sha256sums=('836d315b920a5cdd62e21786c6c9fad547c4faa131d5583ebca64f0b6595ee76'
             '6be7688c9c648e7c7cde693081be938c869a10aa4de09fe0a4c4c1d66b3cf03d')
 
@@ -27,7 +23,7 @@ _package() {
 	pkgdesc+=" for Lua $1"
 	luarocks --lua-version "$1" --tree "$pkgdir/usr/" \
 		install --deps-mode none --no-manifest -- "${source[0]##*/}"
-	install -Dm0664 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+	install -Dm0664 LICENSE-upstream "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 
 package_lua-lpeg() {
