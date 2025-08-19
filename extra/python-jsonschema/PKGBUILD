@@ -5,39 +5,39 @@
 # Contributor: Ismo Toijala <ismo.toijala@gmail.com>
 
 pkgname=python-jsonschema
-pkgver=4.25.0
+pkgver=4.25.1
 pkgrel=1
 pkgdesc='An implementation of JSON Schema validation for Python'
-arch=('any')
+arch=(any)
 url='https://github.com/python-jsonschema/jsonschema'
-license=('MIT')
+license=(MIT)
 depends=(
-  'python'
-  'python-attrs'
-  'python-referencing'
-  'python-jsonschema-specifications'
+  python
+  python-attrs
+  python-referencing
+  python-jsonschema-specifications
 )
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-wheel'
-  'python-hatchling'
-  'python-hatch-vcs'
-  'python-hatch-fancy-pypi-readme'
+  git
+  python-build
+  python-installer
+  python-wheel
+  python-hatchling
+  python-hatch-vcs
+  python-hatch-fancy-pypi-readme
 )
 checkdepends=(
-  'python-pip'
-  'python-twisted'
-  'python-isoduration'
-  'python-fqdn'
-  'python-idna'
-  'python-jsonpointer'
-  'python-jsonpath-ng'
-  'python-rfc3339-validator'
-  'python-rfc3987'
-  'python-uri-template'
-  'python-webcolors'
+  python-pip
+  python-twisted
+  python-isoduration
+  python-fqdn
+  python-idna
+  python-jsonpointer
+  python-jsonpath-ng
+  python-rfc3339-validator
+  python-rfc3987
+  python-uri-template
+  python-webcolors
 )
 optdepends=(
   'python-isoduration: for duration format'
@@ -50,8 +50,8 @@ optdepends=(
   'python-webcolors: for color format'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('fb603a3812896e78b5a6ac67013f5dc4badf34ae1b64b5552fe2f68f0d6c7e24c73c34604f2a2bd3b240fa722a66c81c78af663add40d3b9d01c6679343c0633')
-b2sums=('632544ec7ae102b708001f865304f8d3e480dcc55b09923186036a7d9f42daa60cb8c702831569bbc749b2b305f551b9921ad9ab09bae4e54fa37b8f0c00ebf3')
+sha512sums=('9ef699d39101c09ba8dcbbe77908a250a85486044e51eed0b17d69fa3ffb7bdab60023f94c051e1b1e5755f959429ce12e8533cc5016e95f0bbc3f1fd1523dc0')
+b2sums=('75f6818875929eba7e18f11f35b522defe90208b5ed561da305f24c3ea6021c4a4e7a33948889204bd5e423e0e61fb65eaeb98a359d6324f7565c507eb090337')
 
 build() {
   cd "$pkgname"
@@ -62,10 +62,9 @@ build() {
 check() {
   cd "$pkgname"
 
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-
   # install to temporary directory
   python -m installer --destdir="$PWD/tmp_install" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
   PYTHONPATH="$PWD/tmp_install$site_packages" \
     JSON_SCHEMA_TEST_SUITE=json trial jsonschema
@@ -76,9 +75,6 @@ package() {
 
   python -m installer --destdir="$pkgdir" dist/*.whl
 
-  # symlink license file
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -d "$pkgdir/usr/share/licenses/$pkgname"
-  ln -s "$site_packages/${pkgname#python-}-$pkgver.dist-info/licenses/COPYING" \
-    "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" COPYING
 }
