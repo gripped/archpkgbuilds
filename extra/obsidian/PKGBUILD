@@ -4,17 +4,17 @@
 
 pkgname=obsidian
 pkgver=1.9.10
-pkgrel=1
+pkgrel=2
 pkgdesc="A powerful knowledge base that works on top of a local folder of plain text Markdown files"
 arch=('x86_64')
-url="https://obsidian.md/"
-license=('LicenseRef-Obsidian-LicenseOverview')
+url="https://obsidian.md"
+license=('LicenseRef-Obsidian')
 depends=('glibc' 'gcc-libs' 'fontconfig' 'bash' 'zlib' 'hicolor-icon-theme' 'fuse' 'electron37')
 install=obsidian.install
 options=(!strip)
 source=("obsidian.sh"
         "obsidian.desktop"
-        "Obsidian-LicenseOverview.txt"
+        "LICENSE-Obsidian"
         "https://github.com/obsidianmd/obsidian-releases/releases/download/v${pkgver}/obsidian-${pkgver}.tar.gz")
 sha256sums=('a014dab212e65bd79901b736f2bdd87c88ea646d94192fde274b77566f3abe8c'
             'be67713e873a5935d910efc6f6005c104b35c7b3a002dfcb5643fd185d1b0056'
@@ -39,5 +39,5 @@ package() {
     find . -type d -exec install -d {,"$pkgdir"/usr/lib/obsidian/}{} \;
     find . -type f -exec install -D {,"$pkgdir"/usr/lib/obsidian/}{} \;
 
-    install -Dm644 "$srcdir"/Obsidian-LicenseOverview.txt "$pkgdir"/usr/share/licenses/$pkgname/Obsidian-LicenseOverview
+    install -Dm644 "$srcdir"/LICENSE-Obsidian "$pkgdir"/usr/share/licenses/$pkgname/LICENSE-Obsidian
 }
