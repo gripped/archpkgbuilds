@@ -1,15 +1,18 @@
 pkgbase = proxytunnel
 	pkgdesc = Creates tunnels through HTTP(S) proxies for any TCP based protocol
-	pkgver = 1.12.2
+	pkgver = 1.12.3
 	pkgrel = 1
 	url = https://github.com/proxytunnel/proxytunnel
 	arch = x86_64
-	license = GPL
+	license = GPL-2.0-only WITH cryptsetup-OpenSSL-exception
+	license = BSD-3-Clause
+	makedepends = git
 	makedepends = asciidoc
 	makedepends = xmlto
 	depends = glibc
 	depends = openssl
-	source = https://github.com/proxytunnel/proxytunnel/archive/v1.12.2/proxytunnel-1.12.2.tar.gz
-	b2sums = ffa518278660c816b27ae6c497d744d6588ba9be29fab2ce254bcbc4695fc8e5339e836da541c6aed7a73c2d1e5207f529ca9b818ddbf02b699856d43bb85a57
+	source = proxytunnel::git+https://github.com/proxytunnel/proxytunnel#tag=v1.12.3
+	sha512sums = 808b3eac785785b6ef0cac38b3f39fec5e6a8cf2a7370b0c51a78c94999d9eb36369b262ef7be5b2294c67578a23014626f0f96aebb6ebdf3764580a1060a7b2
+	b2sums = adf9c97299941a5b6683834f81caef840a878314da929a8e82932b727ab06322c475849c69a26943c603acb050ba6c28dd8793c32428f0190f4c72579fca0325
 
 pkgname = proxytunnel

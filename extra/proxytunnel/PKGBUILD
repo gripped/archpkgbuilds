@@ -4,19 +4,20 @@
 # Contributor: Georg Grabler (STiAT) <ggrabler@gmail.com>
 
 pkgname=proxytunnel
-pkgver=1.12.2
+pkgver=1.12.3
 pkgrel=1
 pkgdesc="Creates tunnels through HTTP(S) proxies for any TCP based protocol"
 arch=('x86_64')
 url="https://github.com/proxytunnel/proxytunnel"
-license=('GPL')
+license=('GPL-2.0-only WITH cryptsetup-OpenSSL-exception' 'BSD-3-Clause')
 depends=('glibc' 'openssl')
-makedepends=('asciidoc' 'xmlto')
-source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('ffa518278660c816b27ae6c497d744d6588ba9be29fab2ce254bcbc4695fc8e5339e836da541c6aed7a73c2d1e5207f529ca9b818ddbf02b699856d43bb85a57')
+makedepends=('git' 'asciidoc' 'xmlto')
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('808b3eac785785b6ef0cac38b3f39fec5e6a8cf2a7370b0c51a78c94999d9eb36369b262ef7be5b2294c67578a23014626f0f96aebb6ebdf3764580a1060a7b2')
+b2sums=('adf9c97299941a5b6683834f81caef840a878314da929a8e82932b727ab06322c475849c69a26943c603acb050ba6c28dd8793c32428f0190f4c72579fca0325')
 
 prepare() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   # append -DOPENSSL11 to CFLAGS via SSL-specific OPTFLAGS: See ptstream.c
   sed -i '/^OPTFLAGS += -DUSE_SSL$/ s/$/ -DOPENSSL11/' Makefile
   # fixup modes otherwise strip fails
@@ -24,14 +25,17 @@ prepare() {
 }
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   CFLAGS+=' -fcommon' # https://wiki.gentoo.org/wiki/Gcc_10_porting_notes/fno_common
   make prefix=/usr
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   make prefix=/usr DESTDIR="$pkgdir" install
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
 }
 
 # vim: ts=2 sw=2 et:
