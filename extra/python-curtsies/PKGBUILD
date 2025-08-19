@@ -2,28 +2,28 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=python-curtsies
-pkgver=0.4.2
-pkgrel=5
+pkgver=0.4.3
+pkgrel=1
 pkgdesc='Curses-like terminal wrapper with a display based on compositing 2d arrays of text'
-arch=('any')
+arch=(any)
 url='https://github.com/bpython/curtsies'
-license=('MIT')
+license=(MIT)
 depends=(
-  'python'
-  'python-blessed'
-  'python-cwcwidth'
+  python
+  python-blessed
+  python-cwcwidth
 )
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
 )
-checkdepends=('python-pyte' 'python-pytest')
+checkdepends=(python-pyte python-pytest)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('2bf28ddaef73d4f42ca42919e5c9ec7dbaeed8f530c6dbd1d412db032032e1284f9bf99685cff558e521abc3acbac3d1bbe06da0dc00b6d27df5d53f2f636b13')
-b2sums=('24450be8c76141abaac6db300afe7363056cbf7992c4de1edb99f37c38fcd473caab952c5e1e2f1219407412ad4b9eaef5ab482e13d1720000199cca2023572c')
+sha512sums=('0e47e42c0b96a6235e5316101e3680d50b5b094ecf479ff625ca2b42f9a4d268a557fa133b8fa0497c5c68fcf31e12b91c0860e02e4147e17d1d0c831535166c')
+b2sums=('16a27151e6083bac70b8a87bd3d7c46f00559b74043b1ed4c261a727d8a33745589722fdebb4099a9017a58de137cba84b13401e61e2b60f1b6e2e6f1d2b2e67')
 
 build() {
   cd "$pkgname"
