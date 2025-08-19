@@ -2,7 +2,7 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 
 pkgname=kustomize
-pkgver=5.7.0
+pkgver=5.7.1
 pkgrel=1
 pkgdesc="Template-free customization of Kubernetes YAML manifests"
 arch=('x86_64')
@@ -13,8 +13,8 @@ depends=('glibc')
 optdepends=('helm')
 options=('!lto')
 source=("https://github.com/kubernetes-sigs/kustomize/archive/kustomize/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('ecefbf45cdebc619575a61f712eb6d093aaa0e66eb998d902376d26b05c12b8fadb61ec6d191ebe280f3a9c665fb1e69580a628f975cd67488fd1fc07f44f1a3')
-b2sums=('248f0bca7838741df8f2b8da1ff3a2bfe1e7d2e6ad7f7077de5d5dda943062f270ab355fb1386dbc3b5c8409dddb3f2402023d2542361fd20f4af9aa4a6a86f8')
+sha512sums=('f329932caaec5d21a9ea4d98a836bd5be3c108ea4f942af37f91739c05df4762271cf23bd0da3ad16598c507a2dfa2b71032680aa38f6675261e6abcf6b2a7cb')
+b2sums=('394116f2fb92cfa5f4f1fcab7ab6d6c66acdd36bf8d5b3edd1d7b28319f061cb917ed8503327b5b3d2d91a66f8c66f8f6dc1f3ee75b915a522cd25fac72f0b44')
 
 prepare() {
   cd "kustomize-kustomize-v${pkgver}/kustomize"
