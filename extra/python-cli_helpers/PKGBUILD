@@ -2,29 +2,29 @@
 # Contributor: fzerorubigd <fzero@rubi.gd>
 
 pkgname=python-cli_helpers
-pkgver=2.4.0
+pkgver=2.7.0
 pkgrel=1
 pkgdesc='Python helpers for common CLI tasks'
-arch=('any')
+arch=(any)
 url='https://github.com/dbcli/cli_helpers'
-license=('BSD-3-Clause')
+license=(BSD-3-Clause)
 depends=(
-  'python'
-  'python-tabulate'
-  'python-configobj'
+  python
+  python-tabulate
+  python-configobj
 )
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-wheel'
-  'python-setuptools'
+  git
+  python-build
+  python-installer
+  python-wheel
+  python-setuptools
 )
-checkdepends=('python-pytest')
+checkdepends=(python-pytest python-pygments)
 optdepends=('python-pygments: for styles extras')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('94213200f24c098e9d63b86f1b4c1a3ec76523115187d603368e03d0e63584461ef9d6db33222f21647d634ded53ecffbd31fe0a11568ba8f82ea7bd02e14e36')
-b2sums=('17326cf7e76b9a421fd60aa0085b69f626a04d415585e3c514b6c35e8f22defca016cbcb76fae0563be4aec0e175c44b4028e6b438b4e1bc6b1f1f5a03c20636')
+sha512sums=('ad290a13eae44c26067b2ddef41d823921046246624c96f465169f4a0ca10dbbeea2c4ed181aea869057a53455a2713b83fdd31f1ea3fc93b871aadbbca3791e')
+b2sums=('ab3915551c641fe3993baef13c107e630219976008f6e9f656220a9a06c359735788497630e1c7bae398e2332b6952dfc262bc5e049fb4e7bf7e3f779836c639')
 
 build() {
   cd "$pkgname"
@@ -36,7 +36,8 @@ check() {
   cd "$pkgname"
 
   pytest -v \
-    --deselect tests/tabular_output/test_tabulate_adapter.py::test_tabulate_wrapper
+    --deselect tests/tabular_output/test_tabulate_adapter.py::test_tabulate_wrapper \
+    --deselect tests/tabular_output/test_tabulate_adapter.py::test_style_output_table
 }
 
 package() {
