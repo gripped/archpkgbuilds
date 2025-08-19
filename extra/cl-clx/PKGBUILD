@@ -2,21 +2,21 @@
 
 pkgname=cl-clx
 _pkgname="${pkgname#cl-}"
-pkgver=0.7.6
+pkgver=0.7.7
 pkgrel=1
 pkgdesc='An implementation of the X Window System protocol in Common Lisp'
-arch=('any')
+arch=(any)
 url='https://github.com/sharplispers/clx'
-license=('MIT')
+license=(MIT)
 depends=(
-  'common-lisp'
-  'cl-asdf'
-  'xorg-server'
+  common-lisp
+  cl-asdf
+  xorg-server
 )
-makedepends=('git')
+makedepends=(git)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('fc3f3b08372b35a2623f56b6ebd6839990a0308f6b3d03f7c7b19f8d2312206f2e1979776ac3143e57af9f3c9d82344c8894db7715a0da623a1f6f66ab61ff6d')
-b2sums=('8e532a5c610d96b80d077d296e1699420b743e3184458ad6cc929b5ab2ca87c7fac4a3f6359f087b0df36e1e57b5a490981b4a44e2fbbaa9c89039117bc0864a')
+sha512sums=('0e4b953221892001f7ca66e16387aef9640dd4af27ca9e06cd825a2e0bce8227b70008308437dada7442744fd6c284178999da8eed5d3b11d4e21cc9178c8a19')
+b2sums=('eaf95d333c8c6bdae6b1bfbb293d3d61739ee8415e78c5bfd88695687123dbc5504746d3c4c69a0dfd8f90fe4dac421006f9051ec35ad8e7d2f224f8e9ae9134')
 
 build() {
   cd "$pkgname/manual"
