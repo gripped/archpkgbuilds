@@ -2,8 +2,8 @@
 
 pkgname=ruby-unicode-display_width
 _pkgname="${pkgname#ruby-}"
-pkgver=3.1.4
-pkgrel=3
+pkgver=3.1.5
+pkgrel=1
 pkgdesc='Determines the monospace display width of a string in Ruby'
 arch=('any')
 url='https://github.com/janlelis/unicode-display_width'
@@ -13,8 +13,8 @@ makedepends=('git' 'ruby-rdoc')
 checkdepends=('ruby-rake' 'ruby-rspec')
 options=('!emptydirs')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('f4ea4ea82f8093c5384370b301be4b58480d15aad0b4003a02222d7cbe9b52d55710bc1e9c343f7d7d1df3e9248b7f58ca851abb0aeab496503dc3d0fe2b16ab')
-b2sums=('81b295a62766242f3c33aa2a8dd5acc1c9e8615198ccc649a295d214a612e0c1efb750c87d75347343a6da669e492d31eb020842096b97553189fb1f912815cc')
+sha512sums=('2593d3203c6ca185d7c8ce6b1a249649ba86a147f1a0e752ddd84c0f008bd9f6f6c6910e410ea3321673f5db6b464c429b01ffed162b7ddce888328e39ece11d')
+b2sums=('f1292c7390bdeee30dee1eaa1e496507050edd62d9adc7cd5f4a2c260c097d642cc133ad3d2016f0ef3c543c0565a126b883f6fb836329d74be93a2127172e05')
 
 build() {
   cd "$pkgname"
