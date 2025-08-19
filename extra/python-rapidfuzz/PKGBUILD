@@ -3,35 +3,42 @@
 # Contributor: Caltlgin Stsodaat <contact@fossdaily.xyz>
 
 pkgname=python-rapidfuzz
-pkgver=3.12.2
+pkgver=3.13.0
 pkgrel=1
 pkgdesc='Rapid fuzzy string matching in Python using various string metrics'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/rapidfuzz/RapidFuzz'
-license=('MIT')
+license=(MIT)
 depends=(
-  'glibc'
-  'gcc-libs'
-  'python'
+  glibc
+  gcc-libs
+  python
 )
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'cython'
-  'python-scikit-build-core'
-  'rapidfuzz-cpp'
+  git
+  python-build
+  python-installer
+  cython
+  python-scikit-build-core
+  rapidfuzz-cpp
 )
-checkdepends=('python-hypothesis' 'python-pandas' 'python-pytest')
-optdepends=('python-numpy')
+checkdepends=(
+  python-hypothesis
+  python-pandas
+  python-pytest
+)
+optdepends=(python-numpy)
 source=(
   "$pkgname::git+$url#tag=v$pkgver"
   'github.com-taskflow-taskflow::git+https://github.com/taskflow/taskflow'
+  remove-version-constraints.patch
 )
-sha512sums=('f25c0e8a01bb251b930993888eed777d8a8d97cbbc0ca73d99f9010561d94990a724dab6d951ee99a66091cafdc3f9378b7a24401d7677988775e2ee28933682'
-            'SKIP')
-b2sums=('fcaae6b1ff2879c7875bb4ee29a339f60265f4e72fc342f79cbbb49719154079caff1b5c37d246c719a3c917a29e34e634ffefcf1ed4adde6d26ef5ca46bf190'
-        'SKIP')
+sha512sums=('024f084879018e6ac6a165a776405e7bd6b5265c8842e77119c8f9b139580500a603c754e504b080d7311ba59721193ead6a61e125f5a45027ce3da90da59b8e'
+            'SKIP'
+            '48d6f5d903b7aad221d518f1e9133b11736dd1a83dd5a7246f612c9caeb41673c8a7b3ae16bad112ef4506f94470cedcd23d94167def914f284ca73edf43614f')
+b2sums=('f5aeff8827d52327220ab91a896c0085c84fd214cb4079f8140681d7bb82a019e8316aaf4596464fcfd6fcead5d6ef20b27cb16717ca9cf6e96128f9f45ee244'
+        'SKIP'
+        '74d5f512da462245c146d2f26efce13e80781a2d5b78bd0ad77b6730882b26bd2c0a9587a4fa0ded7920e4fa595264c64bcc54d5fe6780ff33d3ab8d238d8401')
 
 prepare() {
   cd "$pkgname"
@@ -40,6 +47,8 @@ prepare() {
   git submodule init extern/taskflow
   git config submodule.extern/taskflow.url "$srcdir/github.com-taskflow-taskflow"
   git -c protocol.file.allow=always submodule update
+
+  patch -p1 -i "$srcdir/remove-version-constraints.patch"
 }
 
 build() {
