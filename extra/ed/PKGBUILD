@@ -3,7 +3,7 @@
 # Contributor: Andreas Radke <andyrtr@archlinux.org>
 
 pkgname=ed
-pkgver=1.22.1
+pkgver=1.22.2
 pkgrel=1
 pkgdesc='A POSIX-compliant line-oriented text editor'
 arch=(x86_64)
@@ -14,7 +14,7 @@ depends=(glibc
 options=(!emptydirs)
 _archive="$pkgname-$pkgver"
 source=("https://ftp.gnu.org/gnu/ed/$_archive.tar.lz"{,.sig})
-sha256sums=('1af541116796d6b9e4b66ef9c45ddce0e15a19ed62bfca362ccd7d472cc1c8fb'
+sha256sums=('f58d15242056e15af76f13f34c60d890fa2a2d5cb0abef91c115e4d83794ffe3'
             'SKIP')
 validpgpkeys=('1D41C14B272A2219A739FA4F8FE99503132D7742') # Antonio Diaz Diaz
 
