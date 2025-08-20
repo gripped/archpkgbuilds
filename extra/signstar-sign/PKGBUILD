@@ -2,7 +2,7 @@
 
 pkgname=signstar-sign
 _name=signstar
-pkgver=0.1.0
+pkgver=0.1.1
 pkgrel=1
 pkgdesc="A command line tool for creating signatures for signing requests"
 arch=(x86_64)
@@ -22,8 +22,8 @@ makedepends=(
   rust-script
 )
 source=($_name::git+$_url.git?signed#tag=$pkgname/$pkgver)
-sha512sums=('18c45adfbce43c6cbfb92c7377b1a422628ed2a9fcad8a77935c15d3c4360c442bf695ca9606003d6685f79c4d63e8971ca26548151adec2dbe3f6618c8078b5')
-b2sums=('88c763ed758499fd41e3a4092cbf1eabd2239d3d8095118d8943203407ba1cf23091f0cd40bebf9d6caef8bb7678f0e3197b9428e05b76ac261d5ce4a748862f')
+sha512sums=('f43307d5e104e3432d842038c424753fdb517afcd1945b477e0356f688b06294ee5278b68324a6e05c29bcedf2493f1feeaa77796b032663925161ead7ad5820')
+b2sums=('05393e322bc846f7aebdf5f6b7885c5d98576069ac0131906ccc0674741ffd7adbed46f7d93bfbda99921e78f2c4331f2247fbaa86819ed46e68fa8d78710967')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
@@ -38,10 +38,16 @@ build() {
   export CARGO_TARGET_DIR=target
   CFLAGS+=' -ffat-lto-objects'
   cargo build --frozen --release --package $pkgname
+  just generate shell_completions $pkgname
+  just generate manpages $pkgname
 }
 
 package() {
   install -vDm 755 $_name/target/release/$pkgname -t "$pkgdir/usr/bin/"
   install -vDm 644 $_name/$pkgname/{CHANGELOG,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 $_name/LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 $_name/target/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
+  install -vDm 644 $_name/target/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+  install -vDm 644 $_name/target/shell_completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
+  install -vDm 644 $_name/target/shell_completions/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
 }
