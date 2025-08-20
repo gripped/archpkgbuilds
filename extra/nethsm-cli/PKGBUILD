@@ -2,8 +2,8 @@
 
 pkgname=nethsm-cli
 _name=signstar
-pkgver=0.8.0
-pkgrel=2
+pkgver=0.9.0
+pkgrel=1
 pkgdesc="A command line interface (CLI) for the Nitrokey NetHSM"
 arch=(x86_64)
 url="https://signstar.archlinux.page/nethsm-cli"
@@ -21,8 +21,8 @@ makedepends=(
   rust-script
 )
 source=($_name::git+$_url.git?signed#tag=$pkgname/$pkgver)
-sha512sums=('f5c77c3de28651d8f1812771e5c46e7b3c67fc418b84fe02352438bc7d0ba25a0dfc344876a3a738b6438889a2aef70941fe3c84d2881438fca6ec9f16eb0590')
-b2sums=('3eb010afbe68e8bdd9f13f5611b53597feeb281a8cd0580c1a99e678a012fc311fe5e24a108f34e431dcc2cfcdf34d452a6eeec61d7552ed46d6ec312f0302f3')
+sha512sums=('c82196b067634d12a7a86d67d1eadf31eb384e64941b66efc0a9388068914ce3261f5c0e4739f5a14df317680702e093f0071d2267393ceb3ecd1f9832f081cc')
+b2sums=('46ac03369cdf041c4b3d5c3906e74b9a65e0596263ea91655ddcf0f27dc3cb02363e282556ee8baa99ba049b3b092890f45afddf79e43a3b8326cbf385424cac')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
