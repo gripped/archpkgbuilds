@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=python-ulid
-pkgver=3.0.0
-pkgrel=2
+pkgver=3.1.0
+pkgrel=1
 pkgdesc="ULID implementation for Python"
 arch=(any)
 url="https://github.com/mdomke/python-ulid"
@@ -23,8 +23,8 @@ checkdepends=(
 )
 optdepends=('python-pydantic: for pydantic integration')
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('2258fe497536453afa25f499e466bbfd515aa3c524fab064f3ea842c1c5fdad86e1a300217fe800dfd2c9747a65f6c1a4a3d70d358cc889fc8b79474c4d6c6e4')
-b2sums=('17fb1de869c22c63d9456dc099013d5d71f4626947a64ecb8962cd43a8f07f2b07794622db44e46d7c192227c4bac93cf1eb8dc2eb370daca65a02e3b2c9abdb')
+sha512sums=('3dc614681b06a8e4f6bed28442806e8a728ffa6ccae6f42b9555bf15d84a61d50ef305cf8d09fcbb9d6a1eb672604db0478f60c2df7055598dfb735d797700e1')
+b2sums=('25189f057898a535f0d134ceb377e36816d7a0f238c1e0b683742b039cde20e59dfca2a6dfe67a4104e2d77817c352b69b597b2fee183414b9aaee0d68248cf6')
 
 build() {
   cd $pkgname-$pkgver
