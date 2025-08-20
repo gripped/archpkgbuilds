@@ -1,5 +1,8 @@
 #!/bin/bash
-
+#
+# SPDX-FileCopyrightText: 2025 Arch Linux Contributors
+# SPDX-License-Identifier: 0BSD
+#
 # invocation:
 # urlgetter.sh <source> <destination>
 # where source is a remote path
