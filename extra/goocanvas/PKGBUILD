@@ -4,7 +4,7 @@
 
 pkgname=goocanvas
 pkgver=3.0.0
-pkgrel=8
+pkgrel=9
 pkgdesc='Cairo canvas widget for GTK'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/GooCanvas'
@@ -19,37 +19,49 @@ depends=(
   pango
 )
 makedepends=(
+  git
   glib2-devel
   gobject-introspection
+  gtk-doc
   python-gobject
 )
 source=(
-  "https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz"
+  "git+https://gitlab.gnome.org/Archive/goocanvas.git#tag=$pkgver"
+  goocanvas-fix-docs.patch
   goocanvas-incompatible-pointer.patch
 )
 b2sums=(
-  4ee632a614b6b881000bbee8d5e21a166151a94667c603c92b94c5e076fab78a6df44fe1d45fb4d7c4d65c0e060b599abf3970313542836a63efbca33d6a075b
+  923af31727c2c7144df958f37c53ab7dc5e38ef06557dab1e8d83640b279c0adabc173bce795233b25db04c65a1443058f5cf2595ebdb842cf1fec7c2611cc90
+  b60ecc4bb08f935b4fe03d8052947108fd83ecc38b9f9db0f80764a7ef1d770abab766482955938a1a8d82c1e4dd1d3fe14457e8a42c8670f32f6a23ae7d618a
   f663817c987cd02011b5325808d8c40144d49bac1f51998929530d64c5056cd14681476b0d0c302b82f1eb9fd220d53e784c433e80ef83f7aabe677e96ee9589
 )
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
+
+  # https://gitlab.gnome.org/Archive/goocanvas/-/merge_requests/11
+  git apply -3 ../goocanvas-fix-docs.patch
 
   # https://gitlab.gnome.org/Archive/goocanvas/-/merge_requests/15
-  patch -Np1 -i ../goocanvas-incompatible-pointer.patch
+  git apply -3 ../goocanvas-incompatible-pointer.patch
+
+  autoreconf -fi -I /usr/share/gettext/m4/
+  aclocal -I m4
+  autoconf
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
-    --localstatedir=/var
+    --localstatedir=/var \
+    --enable-gtk-doc
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
