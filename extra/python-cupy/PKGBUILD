@@ -4,7 +4,7 @@ _name=cupy
 pkgbase=python-cupy
 pkgname=(python-cupy python-cupy-rocm)
 pkgver=13.6.0
-pkgrel=1
+pkgrel=2
 # release tarballs do not contain third-party code, check github for each release
 _cccl_commit=3a388b7b01512d48474b98389a3e776c8d8f817a
 _dlpack_commit=cd0d5e4ff888b388aef4f9b6bd5d9aa5737a020e
@@ -65,27 +65,30 @@ prepare() {
   ln -sT ../../cccl third_party/cccl
   ln -sT ../../dlpack third_party/dlpack
   ln -sT ../../jitify third_party/jitify
+
+  # copy the source tree for the ROCm build
+  # (most artifacts end up in the build/ directory but .cpp files get generated
+  # along the other sources)
+  cd "$srcdir"
+  cp -ar $_name-$pkgver $_name-$pkgver-rocm
 }
 
 build() {
-  cd $_name-$pkgver
-
   export CUPY_NUM_BUILD_JOBS="$(nproc)"
   export CUPY_NUM_NVCC_THREADS="$(nproc)"
 
   # CUDA build
+  cd "$srcdir"/$_name-$pkgver
   LDFLAGS="$LDFLAGS -L/opt/cuda/targets/x86_64-linux/lib/stubs" \
   python -m build --wheel --no-isolation
-  mv dist dist-$pkgbase
-  rm -rf build
 
   # ROCm build
+  cd "$srcdir"/$_name-$pkgver-rocm
   CUDA_PATH= \
   CUPY_INSTALL_USE_HIP=1 \
   ROCM_HOME=/opt/rocm \
   HCC_AMDGPU_TARGET=gfx900,gfx906:xnack-,gfx908:xnack-,gfx90a,gfx940,gfx941,gfx942,gfx1010,gfx1012,gfx1030,gfx1100,gfx1101,gfx1102,gfx1151,gfx1200,gfx1201 \
   python -m build --wheel --no-isolation
-  mv dist dist-$pkgbase-rocm
 }
 
 package_python-cupy() {
@@ -102,7 +105,7 @@ package_python-cupy() {
   )
 
   cd $_name-$pkgver
-  python -m installer --destdir="$pkgdir" dist-$pkgname/*.whl
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
@@ -126,7 +129,7 @@ package_python-cupy-rocm() {
   conflicts=(python-cupy)
   provides=(python-cupy)
 
-  cd $_name-$pkgver
-  python -m installer --destdir="$pkgdir" dist-$pkgname/*.whl
+  cd $_name-$pkgver-rocm
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
