@@ -2,9 +2,9 @@
 # Contributor: Enlightenment Developers <enlightenment-devel@enlightenment.org>
 
 pkgbase=efl
-pkgname=('efl')
-pkgver=1.28.1
-pkgrel=1
+pkgname=('efl' 'efl-docs')
+pkgver=1.27.0
+pkgrel=4
 pkgdesc="Enlightenment Foundation Libraries"
 arch=('x86_64')
 url="https://www.enlightenment.org"
@@ -31,7 +31,7 @@ makedepends=('doxygen' 'libraw' 'librsvg' 'libspectre' 'meson' 'ninja' 'poppler'
              'texlive-basic' 'texlive-fontutils' 'wayland-protocols')
 options=('!emptydirs')
 source=(https://download.enlightenment.org/rel/libs/${pkgname}/$pkgname-$pkgver.tar.xz)
-sha256sums=('84cf6145f9cc82bfff690005be24392c8f3c52f8e00ff04d8eea371429c09424')
+sha256sums=('3dfb99fbcc268c0bc797e2f83e8c503ef9de66284f40b381bb597a08185c00f4')
 
 
 
@@ -54,12 +54,13 @@ build() {
     -Dbindings= \
     -Dbuild-examples=false \
     -Dbuild-tests=false \
+    -Ddocs=true \
     . build
 
   ninja -C build
 
-#  cd build/doc
-#  doxygen -w html ../../doc/head.html ../../doc/foot.html ../../doc/e.css Doxyfile
+  cd build/doc
+  doxygen
 }
 
 package_efl(){
@@ -75,16 +76,14 @@ package_efl(){
     "${pkgdir}/usr/share/licenses/${pkgname}/COPYING.SMALL"
 }
 
-# doxygen is broken - it just hangs for no apparent reason, but works
-# outside of docker conrainers, so disable docs.
-#package_efl-docs() {
-#  pkgdesc="Documentation for the Enlightenment Foundation Libraries"
-#  depends=()
-#
-#  cd "${srcdir}/${pkgbase}-${pkgver}/build"
-#  install -d "${pkgdir}/usr/share/doc/${pkgbase}"
-#  cp -a html "${pkgdir}/usr/share/doc/${pkgbase}/html"
-#  cp -a latex "${pkgdir}/usr/share/doc/${pkgbase}/latex"
-#  #cp -a man "${pkgdir}/usr/share"
-#
-#}
+package_efl-docs() {
+  pkgdesc="Documentation for the Enlightenment Foundation Libraries"
+  depends=()
+
+  cd "${srcdir}/${pkgbase}-${pkgver}/build"
+  install -d "${pkgdir}/usr/share/doc/${pkgbase}"
+  cp -a html "${pkgdir}/usr/share/doc/${pkgbase}/html"
+  cp -a latex "${pkgdir}/usr/share/doc/${pkgbase}/latex"
+  #cp -a man "${pkgdir}/usr/share"
+  
+}
