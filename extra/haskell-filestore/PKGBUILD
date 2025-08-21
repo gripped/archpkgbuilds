@@ -3,7 +3,7 @@
 _hkgname=filestore
 pkgname=haskell-filestore
 pkgver=0.6.5
-pkgrel=91
+pkgrel=92
 pkgdesc="Interface for versioning file stores."
 url="https://github.com/jgm/filestore.git"
 license=("BSD")
@@ -12,11 +12,14 @@ depends=('ghc-libs' 'haskell-diff' 'haskell-old-locale' 'haskell-split' 'haskell
          'haskell-xml')
 makedepends=('ghc' 'uusi' 'haskell-hunit')
 checkdepends=('git' 'mercurial')
-source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('b0052e1149e582d55078f8fd84ffb4e97111dab90ff8b589cc5ae2b6c711497c')
+source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz"
+        $pkgname-git-2.51.patch::https://github.com/jgm/filestore/pull/40.patch)
+sha256sums=('b0052e1149e582d55078f8fd84ffb4e97111dab90ff8b589cc5ae2b6c711497c'
+            '95b8ca8f95db26c5775cc5ef0d539b19f0dfb5033b53ece3eb39d42000649a35')
 
 prepare() {
   cd $_hkgname-$pkgver
+  patch -p1 -i ../$pkgname-git-2.51.patch
   uusi -u time
 }
 
