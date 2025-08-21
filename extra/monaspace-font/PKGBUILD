@@ -3,27 +3,49 @@
 
 _name=monaspace
 pkgbase=$_name-font
-pkgname=(otf-$_name ttf-$_name-variable)
-pkgver=1.200
+pkgname=(otf-$_name otf-$_name-nerdfonts ttf-$_name-frozen ttf-$_name-variable)
+pkgver=1.300
 pkgrel=1
 pkgdesc='An innovative superfamily of fonts for code, by GitHub'
 arch=(any)
 url="https://github.com/githubnext/$_name"
-license=(OFL)
-_archive="$_name-v$pkgver"
-source=("$url/releases/download/v$pkgver/$_archive.zip")
-sha256sums=('544b94719be76dd2d7e69f8464c5f8c0d612e59e9bde8d9ecc8867c9aa4940af')
+license=(OFL-1.0-RFN)
+_archive="$_name-FLAVOR-v$pkgver"
+source=("$url/releases/download/v$pkgver/${_archive/FLAVOR/frozen}.zip"
+        "$url/releases/download/v$pkgver/${_archive/FLAVOR/nerdfonts}.zip"
+        "$url/releases/download/v$pkgver/${_archive/FLAVOR/static}.zip"
+        "$url/releases/download/v$pkgver/${_archive/FLAVOR/variable}.zip"
+        "$_name-$pkgver-LICENSE::$url/raw/refs/tags/v$pkgver/LICENSE")
+sha256sums=('22676c3a486c8fed22bba510a1db69b48afb2bdd1d77edf9e0ec71e37c56e52d'
+            'a02bddd0c73682accf7eab90f242b693bdc3a8af42b7a79c43377bc5daa148ac'
+            'b857609c97dcf8c55e3fc408c6bf3e62b50b53122d6b1cc6813554e39cbebccc'
+            'ad5ae96b716ac4273a574729c49cdcb7814915785c749e3fdc88ba4c063be449'
+            '0e84e5f7dd6f05e74a00f2fb828ca43e489d954f5509ff0fa439ea18c0d35fe9')
 
 package_otf-monaspace() {
 	provides=("$pkgbase")
-	cd "$_archive"
-	install -Dm0644 -t "$pkgdir/usr/share/fonts/OTF/" fonts/otf/*.otf
-	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+	install -Dm0644 "$_name-$pkgver-LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+	cd "Static Fonts"
+	install -Dm0644 -t "$pkgdir/usr/share/fonts/OTF/" */*.otf
+}
+
+package_otf-monaspace-nerdfonts() {
+	provides=("$pkgbase" ttf-font-nerd)
+	install -Dm0644 "$_name-$pkgver-LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+	cd "NerdFonts"
+	install -Dm0644 -t "$pkgdir/usr/share/fonts/OTF/" */*.otf
+}
+
+package_ttf-monaspace-frozen() {
+	provides=("$pkgbase")
+	install -Dm0644 "$_name-$pkgver-LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+	cd "Frozen Fonts"
+	install -Dm0644 -t "$pkgdir/usr/share/fonts/TTF/" */*.ttf
 }
 
 package_ttf-monaspace-variable() {
 	provides=("$pkgbase-variable")
-	cd "$_archive"
-	install -Dm0644 -t "$pkgdir/usr/share/fonts/OTF/" fonts/variable/*.ttf
-	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+	install -Dm0644 "$_name-$pkgver-LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+	cd "Variable Fonts"
+	install -Dm0644 -t "$pkgdir/usr/share/fonts/TTF/" */*.ttf
 }
