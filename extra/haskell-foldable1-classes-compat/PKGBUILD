@@ -2,18 +2,18 @@
 
 _hkgname=foldable1-classes-compat
 pkgname=haskell-foldable1-classes-compat
-pkgver=0.1
-pkgrel=213
+pkgver=0.1.1
+pkgrel=2
 pkgdesc="Compatibility package for the Foldable1 and Bifoldable1 type classes"
 url="https://github.com/haskell-compat/foldable1-classes-compat"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-tagged')
 makedepends=('ghc')
 checkdepends=('haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-test-framework'
               'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('d057c3f358e1a6b72c73519bc64ba6aa959f066c08fed69f73258555ef95ff12')
+sha256sums=('afed4de868445bbfffae36e3d50be42b42eb32284cd09c0d6a36b322ca60b59f')
 
 build() {
   cd $_hkgname-$pkgver
