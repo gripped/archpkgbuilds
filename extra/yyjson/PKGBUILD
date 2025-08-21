@@ -3,7 +3,7 @@
 # Contributor: Vincent Bernardoff <vb@luminar.eu.org>
 
 pkgname=yyjson
-pkgver=0.11.1
+pkgver=0.12.0
 pkgrel=1
 pkgdesc="A high performance JSON library written in ANSI C"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('glibc')
 makedepends=('cmake')
 provides=('libyyjson.so')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ibireme/yyjson/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('610a38a5e59192063f5f581ce0c3c1869971c458ea11b58dfe00d1c8269e255d')
+sha256sums=('b16246f617b2a136c78d73e5e2647c6f1de1313e46678062985bdcf1f40bb75d')
 
 build() {
 	cmake -B build -S "${pkgname}-${pkgver}" \
