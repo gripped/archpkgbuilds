@@ -1,36 +1,33 @@
-# Maintainer: Kyle Keen <keenerd@gmail.com>
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Kyle Keen <keenerd@gmail.com>
 # Contributor: wizzomafizzo <wizzomafizzo@gmail.com>
 # Contributor: Mateusz Herych <heniekk@gmail.com>
 # Contributor: Benjamin Andresen <benny AT klapmuetz DOT org>
 # Contributor: Douglas Thrift <douglas@douglasthrift.net>
 
 pkgname=rlwrap
-pkgver=0.46.2
+pkgver=0.47.1
 pkgrel=1
 pkgdesc='Adds readline-style editing and history to programs'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/hanslub42/rlwrap'
-license=('GPL-2.0-only')
+license=(GPL-2.0-only)
 depends=(
-  'glibc'
-  'readline'
-  'ncurses'
-  'perl'
-  'python'
-  'python-pexpect'
+  glibc
+  readline
+  ncurses
+  perl
+  python
+  python-pexpect
+  libptytty
 )
-makedepends=('git')
+makedepends=(git)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('e36d7850ad85126ae18d3c571e848a627618d8ba51e7a88bec7d8de23022fd090b38e56a3e1a9f744f05be832f3c9eac5ecc306fbd068be1691b48303b8b4450')
-b2sums=('cf31e37b1fc5b65ca35b6e714cf02b4f50ee751b49989dcf0a9b3183ee71a97c6d8c2d8ccb863817a41367b9befae0cce340dae16da6740ba1dd5db2d0bd7aca')
+sha512sums=('f2d7b9b9b52b503390859508f9511d1e03b5ce313d2695bc238e23bd72570d0d0ab09701623fee8ad2effee0d40a1e16ba5d05bb0a7cf03347bb1d065f8bcf6e')
+b2sums=('c08511b7e33de33ee154ec606faec56da549fd3856d9704b83fe8ce6e292177ae0b4290e428ee98775573cec85b5cab7bb0f6bfb8c70835fd7ab5d868e4ef99e')
 
 prepare() {
   cd "$pkgname"
-
-  # FTBFS for gcc15
-  # https://github.com/hanslub42/rlwrap/issues/195
-  git cherry-pick --no-commit e26de78cb6312ddeb2de42b2cc25835ca7ea830d
 
   autoreconf -vi
 }
