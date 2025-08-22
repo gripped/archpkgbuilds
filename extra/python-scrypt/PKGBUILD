@@ -2,7 +2,7 @@
 # Contributor: Daniel Micay <danielmicay@gmail.com>
 
 pkgname=python-scrypt
-pkgver=0.8.29
+pkgver=0.9.4
 pkgrel=1
 pkgdesc='Bindings for the scrypt key derivation function library'
 url='https://github.com/holgern/py-scrypt'
@@ -10,9 +10,10 @@ arch=('x86_64')
 license=('BSD-2-Clause')
 depends=('python' 'glibc' 'openssl')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
+checkdepends=('python-pytest')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('a985e31289011d56486d89b2b16a93a4e26d9be2316e9f84909b695b8f497664eee678aaaf830ad0912eb0372549fdacee30e707e77a80db4321d5632359806b')
-b2sums=('d662acf6181656fae6489674576099d167581ed2697988d1cf444cdc4225f5c906b8c590c0db0b62811e3d7867edbccdadbfb9bf9aa344860f922dd2ce4ecbd0')
+sha512sums=('8a8a0bbbf23538538d7efaf40e7fd36bf0a05d15ed9dfe9245f2d79751e30562e680c63f3157c8473881225c73554e385f34523be5bcc089e7949d483f01e8ef')
+b2sums=('819230b4b7b47221d2ba3e89ebb2e6401256ffbb735c514d4e8e68df55d388e02fffa2b434b60b5ab71fc759c28952492eb85c54fb3fb3244e4b6172a5248e38')
 
 build() {
   cd py-scrypt-${pkgver}
@@ -22,7 +23,7 @@ build() {
 check() {
   cd py-scrypt-${pkgver}
   local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
-  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-${python_version}" python -m unittest discover -vs .
+  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-${python_version}" pytest .
 }
 
 package() {
