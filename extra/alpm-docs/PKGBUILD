@@ -4,7 +4,7 @@ pkgname=alpm-docs
 _upstream=alpm
 _upstream_project=alpm-types
 pkgver=0.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Specifications for Arch Linux Package Management"
 arch=(any)
 url="https://alpm.archlinux.page/"
@@ -23,8 +23,16 @@ b2sums=('6791f1256fe75b3a438357f0cc4f7d9d0742f93eef50459644e50520b7c2a3dea927b47
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 build() {
+  local projects=(
+    $_upstream_project
+    alpm-package
+    alpm-state-repo
+  )
+
   cd $_upstream
-  just generate specifications $_upstream_project
+  for project in "${projects[@]}"; do
+    just generate specifications "$project"
+  done
 }
 
 package() {
