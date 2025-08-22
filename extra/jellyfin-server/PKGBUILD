@@ -4,19 +4,20 @@
 pkgname=jellyfin-server
 _pkgname="${pkgname%-server}"
 pkgver=10.10.7
-pkgrel=2
+pkgrel=3
 pkgdesc='Jellyfin server backend'
-arch=('x86_64')
+arch=(x86_64)
 url='https://jellyfin.org'
 _url='https://github.com/jellyfin/jellyfin'
-license=('GPL-2.0-or-later')
+license=(GPL-2.0-or-later)
 _dotnet_runtime=linux-x64
 depends=(
-  'aspnet-runtime-8.0'
-  'bash'
-  'sqlite'
-  'fontconfig'
-  'jellyfin-ffmpeg'
+  aspnet-runtime-8.0
+  bash
+  sqlite
+  fontconfig
+  jellyfin-ffmpeg
+  jemalloc
 )
 makedepends=(
   'git'
@@ -34,28 +35,36 @@ options=('!debug')
 source=(
   "$pkgname::git+$_url#tag=v$pkgver"
   "jellyfin-packaging::git+${_url}-packaging"
-  $pkgname.{sysusers,tmpfiles}
-  'fix-envfile-path.patch'
+  sysusers.conf
+  tmpfiles.conf
+  fix-envfile-path.patch
+  use-system-jemalloc.patch
 )
 sha512sums=('5da3c59c2544f4a2028dde3fb0ea76500d591cfbe7551ac7bb680c718db9c2ed074493c605b432b53f8b0ec66436b5da632578a6f16f1a14712aa51a77366e2e'
-  'SKIP'
-  '3d2699174fe8719536e4f3ad98bac609a959815e38491f166257d248c195f007745634fa1907557d55c814bb06235130e9cea2d226770956004650d7d9b2b564'
-  '3e12ec3d3fcb15975d5f86bc3ce3363ae89b0e9e0b2580c29fc8a612c0220a74a067138b15c48ae27bb3c5777eca33055f10651949678a1ee7bd094293f6abb6'
-  '26d4a2c081c5a2563863fb21a427e6b5ff0f551549b7ba77075054e81fbda064991e3443ec3f11f42ffdcc8adef0e20363f00d248d7967d327656280db919672')
+            'SKIP'
+            '3d2699174fe8719536e4f3ad98bac609a959815e38491f166257d248c195f007745634fa1907557d55c814bb06235130e9cea2d226770956004650d7d9b2b564'
+            '3e12ec3d3fcb15975d5f86bc3ce3363ae89b0e9e0b2580c29fc8a612c0220a74a067138b15c48ae27bb3c5777eca33055f10651949678a1ee7bd094293f6abb6'
+            '26d4a2c081c5a2563863fb21a427e6b5ff0f551549b7ba77075054e81fbda064991e3443ec3f11f42ffdcc8adef0e20363f00d248d7967d327656280db919672'
+            '5e1903a424efc444fb1dfa2d6a0c1488bd0eb1213b7c872b39c0e240150366c4ce379b9d39bb43dc2dc8eed25f8f9402c8ba545ba7a66fa93ee6acda0315ca94')
 b2sums=('c1be3bbe2b9352c002b560b4a6727630fdfbb9a86552fcad333fb7f05c5bd804e919c194197e8315b2e87a2191f8bd3f67ee70585162b98bdbf7ce57b3355fca'
-  'SKIP'
-  '5aa5e041513db1cd58e4b0dd91b712931be956d0c4e240c92f5183260a55ad48b6d34612b9a22bf49eb9c80418b2437b01f2cfef200f035a3475a0737d6871ea'
-  'bc8001cf28ebf76a125e7ab0d9d5a8fcf35e0def5b907dc5fe90e16cdbb3fdf8b7f098779ced9a44e7a3918ee605058b379d445a224178456a32a6a99cd084b4'
-  '4f63c425fc60e80c36c958674f0bbd704feb79cac9e8d05e76e0bc01d6d3e10555395a45f994e240a68433c01f9a14d5a1db1765eccb7409f11da34161c75ffc')
+        'SKIP'
+        '5aa5e041513db1cd58e4b0dd91b712931be956d0c4e240c92f5183260a55ad48b6d34612b9a22bf49eb9c80418b2437b01f2cfef200f035a3475a0737d6871ea'
+        'bc8001cf28ebf76a125e7ab0d9d5a8fcf35e0def5b907dc5fe90e16cdbb3fdf8b7f098779ced9a44e7a3918ee605058b379d445a224178456a32a6a99cd084b4'
+        '4f63c425fc60e80c36c958674f0bbd704feb79cac9e8d05e76e0bc01d6d3e10555395a45f994e240a68433c01f9a14d5a1db1765eccb7409f11da34161c75ffc'
+        '32019a53b03e548d8f80e8ba602cd83cdfcd0fcc72993c3eaa56072088e1654350b0d283ebe4f2df749fd3c0253586435e1fb57f15b349b7b9d9a70320daca72')
 
 prepare() {
   cd jellyfin-packaging
 
   # fix envfile path in systemd service
   patch -p1 -i "$srcdir/fix-envfile-path.patch"
+
+  # use system jemalloc
+  # https://github.com/jellyfin/jellyfin/issues/11588
+  patch -p1 -i "$srcdir/use-system-jemalloc.patch"
 }
 
-build() {
+build(){
   cd "$pkgname"
 
   # disable dotnet telemetry
@@ -68,7 +77,8 @@ build() {
     Jellyfin.Server \
     --configuration Release \
     --output builddir \
-    --self-contained false --runtime "$_dotnet_runtime" \
+    --self-contained false\
+    --runtime "$_dotnet_runtime" \
     -p:DebugSymbols=false \
     -p:DebugType=none
 }
@@ -89,8 +99,8 @@ package() {
 
   # systemd integration
   install -vDm644 jellyfin.service -t "$pkgdir/usr/lib/systemd/system"
-  install -vDm644 "$srcdir/$pkgname.sysusers" "$pkgdir/usr/lib/sysusers.d/$_pkgname.conf"
-  install -vDm644 "$srcdir/$pkgname.tmpfiles" "$pkgdir/usr/lib/tmpfiles.d/$_pkgname.conf"
+  install -vDm644 "$srcdir/sysusers.conf" "$pkgdir/usr/lib/sysusers.d/$_pkgname.conf"
+  install -vDm644 "$srcdir/tmpfiles.conf" "$pkgdir/usr/lib/tmpfiles.d/$_pkgname.conf"
   # set /etc/jellyfin to 750 according to tmpfiles
   install -vdm750 "$pkgdir/etc/$_pkgname"
   install -vDm640 jellyfin "$pkgdir/etc/$_pkgname/$_pkgname.env"

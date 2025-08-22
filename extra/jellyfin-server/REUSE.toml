@@ -7,23 +7,9 @@ path = [
     "keys/**",
     ".SRCINFO",
     ".nvchecker.toml",
-    "*.install",
-    "*.sysusers",
-    "*.tmpfiles",
-    "*.logrotate",
-    "*.pam",
-    "*.service",
-    "*.socket",
-    "*.timer",
-    "*.desktop",
-    "*.hook",
+    "sysusers.conf",
+    "tmpfiles.conf",
+    "*.patch",
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
-
-[[annotations]]
-path = [
-    "fix-envfile-path.patch",
-]
-SPDX-FileCopyrightText = "jellyfin-server contributors"
-SPDX-License-Identifier = "GPL-2.0-or-later"
