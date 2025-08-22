@@ -2,8 +2,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-chess
-pkgver=48.0
-pkgrel=2
+pkgver=49.0
+pkgrel=1
 pkgdesc="Play the classic two-player boardgame of chess"
 url="https://wiki.gnome.org/Apps/Chess"
 arch=(x86_64)
@@ -29,15 +29,11 @@ makedepends=(
 optdepends=('gnuchess: Play against computer')
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-chess.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('b9d6547655cd3148488179c831a6222f48a27adbcad2dd61ef801e4cb2cc2501c25c6046471abec62f403de68d694164641c3a6501ebcd18642a05bc31b136a1')
+b2sums=('9768ace572f982c1ed2a574ae17de0fa1c9c13c76bb50165ad89d1237a3413693c58e44fa50701133c2d4b375b11d1fb87a4f8c434b94a13518e7d87da8b59e3')
 validpgpkeys=(EF033B6B1044EEE7F743A1737F71B64279363298) # Michael Catanzaro <mcatanzaro@innerfocus.xyz>
 
 prepare() {
   cd $pkgname
-
-  # Fix hang when running as GApplication service
-  # https://gitlab.gnome.org/GNOME/gnome-chess/-/merge_requests/70
-  git cherry-pick -n 28b91c9527756f3b8df5ccecceb856da10b3663e
 }
 
 build() {
