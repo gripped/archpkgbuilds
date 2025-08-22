@@ -2,7 +2,7 @@
 # Contributor: Kyle Keen <keenerd at gmail dot com>
 
 pkgname=python-pyzmq
-pkgver=27.0.1
+pkgver=27.0.2
 pkgrel=1
 pkgdesc='Python bindings for ZeroMQ'
 arch=('x86_64')
@@ -20,8 +20,8 @@ makedepends=(
   'cython'
 )
 source=("$pkgname::git+https://github.com/zeromq/pyzmq#tag=v$pkgver")
-sha512sums=('f76417ab0ccac163927310dc7779fdd630f5268007d519e7c36e3c51dcd6a620de1c0aa1631a8276c9db47de81914865ca77d0879ea01743fae9de8300b3bbe5')
-b2sums=('31a8620aa66ad0c64448f678bab39a1fac8ced2aca2bb5180a90012d7b97ef24c2bd9a0e13f3fa6a2c645c42735b8c8402072308fb1fcc85109aa30d671b11dd')
+sha512sums=('22fd115841404cfe6645b6d7a34b725e8c099ce1079f714bdf99f6b78590f12cd7db2c2f9cb4293625458d55264954ecb699e3c6d094ff6171d4cbaff02545fb')
+b2sums=('3b09f249b14c9c79cfd22b25e4125152799ab6ddbb54ae09b5a7680ccdd545739c51b345e60cbb7c53c51057fb675c022165232e4b1d73c40d05261410962553')
 
 pkgver() {
   cd "$pkgname"
