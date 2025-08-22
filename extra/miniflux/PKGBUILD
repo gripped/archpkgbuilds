@@ -4,7 +4,7 @@
 # Contributor: somini <dev at somini dot xyz>
 
 pkgname=miniflux
-pkgver=2.2.11
+pkgver=2.2.12
 pkgrel=1
 pkgdesc='Minimalist and opinionated feed reader'
 arch=('x86_64')
@@ -21,9 +21,9 @@ source=(
   "$pkgname::git+https://github.com/miniflux/v2.git#tag=$pkgver"
   'sysusers.conf'
 )
-sha512sums=('ed19baae21f9be1e20cc7e70445f3de79ccae1b8f8bd133634b051aafb689e5258e392f3ff91176126063eb8760a93773d7a080f75ca77e2547a4388a12625ee'
+sha512sums=('9be3ab668d7d15614ece58bf4d7a4f0de028d76a3cfedaf3cc5a34353ee896d2fef26a145cc8126933ec57c09818b1441e053a982ccefc4eb3bb6018db0a82e0'
             '4a51cccf15f37da66c56e4721171ab858b894f4f74f3210fb275b437fc7fa99cce21a8a98703462e07163ce3f9ea35d8e2a9f8b5ad147cb819092a037c42c17e')
-b2sums=('b3a4ba5e98ab1b938fe37c1cb98296210f9172292aff7fd9f71840818143e159b0ff8640822c5300e7a675548ccd18def9b0947ee7f8cf4ec0ff7531aa5a7e20'
+b2sums=('6289e61ea3425c00f59d583261a98a592f4705e0c37d34ad917488f3593bfb7d6f9121251a18d7087ec25f0be84e039df27ef914ff6c4457d06767002ac8b558'
         '6c1bbc5bebb319d921c9f511a156c4e578811319423e99cead87f2044e6269abf38654733376b83f8dbb7432c816f795918935bae741529d7395f249027b2932')
 
 prepare() {
@@ -79,7 +79,7 @@ package() {
 
   # documentation
   install -vDm644 -t "$pkgdir/usr/share/man/man1" "$pkgname.1"
-  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" *.md ChangeLog
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" *.md
 
   # license
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
