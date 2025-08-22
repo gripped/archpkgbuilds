@@ -6,7 +6,7 @@
 # Contributor: Pieter Lexis <pieter[dot]lexis[at]powerdns[dot]com>
 
 pkgname=powerdns
-pkgver=4.9.7
+pkgver=5.0.0
 pkgrel=1
 pkgdesc='Authoritative DNS server'
 url='https://www.powerdns.com/'
@@ -29,11 +29,11 @@ conflicts=('pdns')
 backup=('etc/powerdns/pdns.conf')
 source=(https://downloads.powerdns.com/releases/pdns-${pkgver}.tar.bz2{,.asc}
         sysusers.conf)
-sha512sums=('4eece67d21e706be64b95af5023acf1fd9e4da8e044436318f6f8c0f721647aa10d7ed89f2e8c8bf51a52c002bed412096b917295dee56328b91b22d4888308f'
+sha512sums=('580254aca3394f81a36038c8af62aa3b5bf4f3e09470a95f26374adde1b11eedeb5cb7cb560d5b98c19799aecd29be50873f53a81e4872d3ffbf4e5e506577d1'
             'SKIP'
             'c18fc317082b93d52e59526af2df0f1b45cc37622526cc727cac9e6d73dc343ab3d33ad6b5365b30e079650f1c220096f7baf2f750bf1a558d89c144fbc583ac')
 validpgpkeys=('B76CD4671C0968BAA87DE61C5E50715BF2FFE1A7'   # Winkels, Erik <erik.winkels@open-xchange.com>
-              '16E12866B7738C73976A57436FFC33439B0D04DF' ) # Peter van Dijk <peter.van.dijk@powerdns.com>
+              'FBAE0323821C7706A5CA151BDCF513FA7EED19F3' ) # Peter van Dijk <peter.van.dijk@powerdns.com>
 
 prepare() {
   cd pdns-${pkgver}
