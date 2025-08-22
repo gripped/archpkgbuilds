@@ -5,8 +5,8 @@
 
 pkgbase=profanity
 pkgname=('profanity' 'profanity-gtk')
-pkgver=0.15.0
-pkgrel=2
+pkgver=0.15.1
+pkgrel=1
 epoch=1
 pkgdesc='Console based XMPP client'
 url='http://www.profanity.im'
@@ -24,21 +24,16 @@ makedepends=(
   ${_clidepends[@]} ${_gtkdepends[@]} 'autoconf-archive'
   )
 checkdepends=('cmocka')
-source=(https://github.com/profanity-im/profanity/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz
-        gpgme-2.0.patch)
-sha256sums=('a18aed3ce35e2581e120551991be11b853c42b0f748b9bff7f8e0304abb0fdcc'
-            'c57c580b0fb6206c6d30782fef313b1ba0ee8d81b6a67a57e5daafe25dcb57a8')
-sha512sums=('ad197a90d3a729c05167559b9c202886983c5fac56f6986cbd78a89e7457dbbe784a8252ce08fb947262c013371e562d81a5a4e2d94354c6ed04be053d187fe2'
-            'efd48fbb234f39001ce894dc53aad601fb606bb1db2b1fe6807ed897572f94003e69916a4640d737a73291fad854b8f589ccf53103540a97dc60b1514c04035a')
-b2sums=('c9a649fc316ae647fa4939f261931d43c328c355523f3a18e8559947ef7b69a671098415e3553039d43e9022f2045d754ccffcd043e120292d8d62f27ec5c552'
-        '8ead1dedd613661a1944c8729f43ced2880f3c27a96e43432e9024768ee2b8a2994fb923ade38373e03381885d57a44b17d550b125dbbf44b86bfdd011199e9c')
+source=(https://github.com/profanity-im/profanity/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz)
+sha256sums=('8cb5104fad69094a3d2991879089b9d30a5650f92e6ba2b19033ee29e9a639b1')
+sha512sums=('176d1cf0041bbd779a712afc96d66ba7f8511d1477f32465bb50cbca9db4d5c9af7f7cb5e871b84aaede8cd29b30e5b2729eb14e1409def60cb69627d5ce109a')
+b2sums=('a88845d55b0a12d2c37e33fad017d70f0cb10a772945d08aecdf9325ee6bd38848c4440f9143eb92d00eaccaa374d2e4c46886d04934e0997138f98de39aca6d')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
   mkdir -p m4
   autoreconf -fiv
-  patch -p1 -i ../gpgme-2.0.patch # Fix build with gpgme 2.0
   cp -a "${srcdir}"/${pkgname}-${pkgver}{,-gtk}
 }
 
