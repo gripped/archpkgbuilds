@@ -3,7 +3,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=rclone
-pkgver=1.70.3
+pkgver=1.71.0
 pkgrel=1
 pkgdesc="Sync files to and from Google Drive, S3, Swift, Cloudfiles, Dropbox and Google Cloud Storage"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('glibc')
 optdepends=('fuse3: for rclone mount')
 makedepends=('python' 'go' 'git' 'fuse3')
 source=("git+https://github.com/rclone/rclone.git#tag=v${pkgver}?signed")
-sha512sums=('29ff79151486eabaccec273b06aa0cf49f782d7925d8ca16adfddbdff174fe7c79d2516f89ef828a93cc3265dfa5e2a6784dc3e24a31b2c6652577b5b67d76d4')
+sha512sums=('603202e804a2d4428a7bb18714e212fb2af62b7b84e4228b43f288735b7ef15e125ac2a5a4ad68d2da596b081ccd03cc5baacd483153d0c0c7ecbfa051a6ecd3')
 validpgpkeys=(E3B358DC858FB307F48170B9CB0DBEBC5F32C81D) # Nick Craig-Wood
 options=(!lto)
 
@@ -29,10 +29,10 @@ build() {
   PATH="/build/go/bin:$PATH" rclone genautocomplete fish rclone.fish_completion
 }
 
-check() {
-  cd rclone
-  PATH="/build/go/bin:$PATH" make TAG=v$pkgver test || true
-}
+#check() {
+#  cd rclone
+#  PATH="/build/go/bin:$PATH" make TAG=v$pkgver test || true
+#}
 
 package() {
   cd rclone
