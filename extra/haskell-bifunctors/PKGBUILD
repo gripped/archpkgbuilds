@@ -3,8 +3,8 @@
 
 _hkgname=bifunctors
 pkgname=haskell-bifunctors
-pkgver=5.6.1
-pkgrel=10
+pkgver=5.6.2
+pkgrel=1
 pkgdesc="Bifunctors"
 url="https://github.com/ekmett/bifunctors/"
 license=('BSD-3-Clause')
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-assoc' 'haskell-comonad' 'haskell-foldable1-classes
 makedepends=('ghc')
 checkdepends=('haskell-hspec' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('9fb2767f22a48bab6e713806a5ef806790b61fcda68cf34adc73b5c2216692b7a48eedfc6c0d45e3df46467c55320d2e6c5d8e0d5648232e545d8a9340954367')
+sha512sums=('c63cd579b9ab94e1c89e60ce11a076e9d9b4c7106634e6d18502c7c8d7389a9e31d03aba6d4dc99cb85b4f07e0ab93aa27ccc689d4e89868afe3f1665916317f')
 
 build() {
     cd $_hkgname-$pkgver
