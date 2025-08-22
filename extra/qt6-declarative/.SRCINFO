@@ -1,7 +1,7 @@
 pkgbase = qt6-declarative
 	pkgdesc = Classes for QML and JavaScript languages
 	pkgver = 6.9.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://www.qt.io
 	arch = x86_64
 	groups = qt6
@@ -22,6 +22,8 @@ pkgbase = qt6-declarative
 	depends = qt6-base
 	optdepends = qt6-svg: for QtQuickVectorImage and svgtoqml
 	source = git+https://code.qt.io/qt/qtdeclarative#tag=v6.9.1
+	source = qt6-fix-qmlcachegen-crash.patch
 	sha256sums = 407186c6c32798b93d625a6f4cd76e6c82ad2a611fddb0161b4c4febbe4677f2
+	sha256sums = 67267cfbbcd1e6033f1f5d56cd34e1bbf11631f9f79fdb9ad3193754f5d0c609
 
 pkgname = qt6-declarative

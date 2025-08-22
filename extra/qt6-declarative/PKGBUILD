@@ -5,7 +5,7 @@
 pkgname=qt6-declarative
 _pkgver=6.9.1
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -27,11 +27,14 @@ makedepends=(cmake
 optdepends=('qt6-svg: for QtQuickVectorImage and svgtoqml')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
-source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('407186c6c32798b93d625a6f4cd76e6c82ad2a611fddb0161b4c4febbe4677f2')
+source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
+        qt6-fix-qmlcachegen-crash.patch)
+sha256sums=('407186c6c32798b93d625a6f4cd76e6c82ad2a611fddb0161b4c4febbe4677f2'
+            '67267cfbbcd1e6033f1f5d56cd34e1bbf11631f9f79fdb9ad3193754f5d0c609')
 
 prepare() {
   git -C $_pkgfn cherry-pick -n 55ca0456ec98735322e71e08a5bcfe12c6079286 # http://bugreports.qt.io/browse/QTBUG-135158
+  patch -d $_pkgfn -p1 < qt6-fix-qmlcachegen-crash.patch
 }
 
 build() {
