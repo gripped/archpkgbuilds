@@ -3,7 +3,7 @@
 
 pkgname=nvidia-open
 pkgver=580.76.05
-pkgrel=4
+pkgrel=5
 pkgdesc="NVIDIA open kernel modules"
 arch=('x86_64')
 url="https://github.com/NVIDIA/open-gpu-kernel-modules"
