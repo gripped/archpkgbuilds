@@ -2,21 +2,21 @@
 
 _hkgname=rio-prettyprint
 pkgname=haskell-rio-prettyprint
-pkgver=0.1.7.0
-pkgrel=60
+pkgver=0.1.8.0
+pkgrel=1
 pkgdesc="Pretty-printing for RIO"
 url="https://github.com/commercialhaskell/rio-prettyprint"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-annotated-wl-pprint' 'haskell-ansi-terminal'
          'haskell-colour' 'haskell-path' 'haskell-rio')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('60e28ea0054bc172b6f78cd4b516b95700b991e0972e2af06849684e4c8f2df2237bef390863035e97c7a5b88740e5b2da7386c1824e9849602440e94c1b432a')
+sha512sums=('fcbf527be422e0721bce571c1eaff51566d8d8dd874ddb2bd0d429e163238b4c3eac78edede1e966f8336baf6c2784e32d12e90d917e55a42806f37738dc3ec9')
 
 prepare() {
     cd $_hkgname-$pkgver
-    echo -e "import Distribution.Simple\nmain = defaultMain" > Setup.hs
+    gen-setup
 }
 
 build() {
