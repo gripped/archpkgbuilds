@@ -6,7 +6,7 @@
 pkgname=python-pytables
 _pkgname=PyTables
 pkgver=3.10.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A Python package to manage extremely large amounts of data"
 arch=(x86_64)
 url="https://www.pytables.org"
@@ -51,6 +51,7 @@ prepare() {
 
 build() {
   cd $_pkgname
+  export CFLAGS="$CFLAGS -std=gnu11"
   python -m build --wheel --no-isolation
 }
 
