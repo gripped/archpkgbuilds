@@ -1,7 +1,7 @@
 pkgbase = soju
 	pkgdesc = A user-friendly IRC bouncer
 	pkgver = 0.9.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://soju.im
 	arch = x86_64
 	license = AGPL-3.0-or-later
@@ -9,9 +9,12 @@ pkgbase = soju
 	makedepends = go
 	makedepends = scdoc
 	makedepends = sqlite
+	makedepends = pam
 	depends = glibc
 	optdepends = postgresql: PostgreSQL support
 	optdepends = sqlite: SQLite support
+	optdepends = sh: for soju-casemap-logs
+	optdepends = pam: PAM support
 	options = !lto
 	backup = etc/soju/config
 	source = soju::git+https://codeberg.org/emersion/soju#tag=v0.9.0
