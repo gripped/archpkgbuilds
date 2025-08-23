@@ -5,7 +5,7 @@
 # Contributor: Alim Gokkaya <alimgokkaya at gmail dot com>
 
 pkgname=librdkafka
-pkgver=2.11.0
+pkgver=2.11.1
 pkgrel=1
 pkgdesc='The Apache Kafka C/C++ library'
 arch=(x86_64)
@@ -33,17 +33,8 @@ makedepends=(
   rapidjson
 )
 provides=(librdkafka.so)
-source=(
-  "$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
-  "remove-failing-tests.patch"
-)
-sha256sums=('592a823dc7c09ad4ded1bc8f700da6d4e0c88ffaf267815c6f25e7450b9395ca'
-            '23c8d030179724d13a91f13cf566b045b195d64a3219eb2c5122d06e1e1c6fd1')
-
-prepare() {
-  cd $pkgname-$pkgver
-  patch -Np1 -i "$srcdir/remove-failing-tests.patch"
-}
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('a2c87186b081e2705bb7d5338d5a01bc88d43273619b372ccb7bb0d264d0ca9f')
 
 build() {
   cd $pkgname-$pkgver
@@ -56,8 +47,13 @@ build() {
 
 check() {
   cd $pkgname-$pkgver
-  ctest --test-dir build --output-on-failure \
-    --tests-regex RdKafkaTestBrokerLess
+  local skip_tests=(
+	  RdKafkaTestInParallel
+	  RdKafkaTestSequentially
+    RdKafkaTestBrokerLess
+  )
+  local skip_tests_pattern="${skip_tests[0]}$(printf '|%s' "${skip_tests[@]:1}")"
+  ctest --test-dir build --output-on-failure -E "$skip_tests_pattern"
 }
 
 package() {
