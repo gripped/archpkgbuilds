@@ -2,8 +2,8 @@
 
 _hkgname=lsp-test
 pkgname=haskell-lsp-test
-pkgver=0.14.1.0
-pkgrel=212
+pkgver=0.15.0.1
+pkgrel=1
 pkgdesc="Functional test framework for LSP servers."
 url="https://github.com/haskell/lsp/blob/master/lsp-test/README.md"
 license=("BSD")
@@ -11,11 +11,11 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-diff' 'haskell-glob' 'haskell-aeson' 'haskell-aeson-pretty'
          'haskell-ansi-terminal' 'haskell-async' 'haskell-co-log-core' 'haskell-conduit'
          'haskell-conduit-parse' 'haskell-data-default' 'haskell-lens' 'haskell-lsp'
-         'haskell-lsp-types' 'haskell-parser-combinators' 'haskell-some' 'haskell-unliftio'
-         'haskell-unordered-containers')
+         'haskell-lsp-types' 'haskell-parser-combinators' 'haskell-row-types' 'haskell-some'
+         'haskell-unliftio')
 makedepends=('ghc' 'uusi' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('2b4ba5c8d8cfcad3f1edb8fc410078cb483e6a837023fe2746b1188f485b849d24840d9ad1cfaa06a3cee1fa41e53516d8f7fd867494cf5f1f8d3464c784c2fe')
+sha512sums=('93dc514a59b866a84c56bfccfc61a750830c89440b8c68585d9a58d4c94dfe94942c3098cb97d50b6c72044410583f46a7cb092f62d186377b1a85a239d092ad')
 
 prepare() {
   cd $_hkgname-$pkgver
