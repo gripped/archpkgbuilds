@@ -1,7 +1,7 @@
 pkgbase = sagemath
 	pkgdesc = Open Source Mathematics Software, free alternative to Magma, Maple, Mathematica, and Matlab
-	pkgver = 10.6
-	pkgrel = 6
+	pkgver = 10.7
+	pkgrel = 1
 	url = http://www.sagemath.org
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -11,6 +11,9 @@ pkgbase = sagemath
 	makedepends = cython
 	makedepends = git
 	makedepends = mcqd
+	makedepends = meson-python
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-jinja
 	makedepends = python-pkgconfig
 	makedepends = python-setuptools
@@ -69,6 +72,7 @@ pkgbase = sagemath
 	depends = python-numpy
 	depends = python-pexpect
 	depends = python-pillow
+	depends = python-platformdirs
 	depends = python-pplpy
 	depends = python-primecountpy
 	depends = python-pygments
@@ -124,13 +128,9 @@ pkgbase = sagemath
 	optdepends = shared_meataxe: faster matrix arithmetic over finite fields
 	optdepends = sirocco: for computing the fundamental group of the complement of a plane curve
 	optdepends = topcom: to compute triangulations of point configurations
-	source = git+https://github.com/sagemath/sage#tag=10.6
+	source = git+https://github.com/sagemath/sage#tag=10.7
 	source = latte-count.patch
-	source = sagemath-10.6-ecl-gcc-15-cython.patch
-	source = cython-3.1.patch
-	sha256sums = 0990685793b8c8fa19016a130baddc0c611a352992283c43eee376b480d2bf70
+	sha256sums = 4f3e35ed9448064fdf261885aa5220cb939ea475c6b3012492baf687ea82e992
 	sha256sums = f1dd7fea298f38be0f03f46ed4bc9281267f03ec3eee2582edb385ca4cb5db09
-	sha256sums = 49632afef18ae78df3ca94af70ea68076e57a565a09c68339a7b0f30b1ce8935
-	sha256sums = 9767a263c6f5f0bbaabbd9aae60fbc592ccd5e9c8536edea5c2774b566d9845b
 
 pkgname = sagemath
