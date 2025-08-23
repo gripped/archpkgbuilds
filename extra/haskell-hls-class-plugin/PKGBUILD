@@ -2,8 +2,8 @@
 
 _hkgname=hls-class-plugin
 pkgname=haskell-hls-class-plugin
-pkgver=2.0.0.1
-pkgrel=10
+pkgver=2.1.0.0
+pkgrel=1
 pkgdesc="Class/instance management plugin for Haskell Language Server"
 url="https://github.com/haskell/haskell-language-server#readme"
 license=('Apache-2.0')
@@ -11,10 +11,10 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-extra' 'haskell-ghc' 'haskell-ghc-exactprint'
          'haskell-ghcide' 'haskell-hls-graph' 'haskell-hls-plugin-api' 'haskell-lens'
          'haskell-lsp')
-makedepends=('ghc' 'uusi' 'haskell-hls-test-utils' 'haskell-lsp-types')
+makedepends=('ghc' 'uusi' 'haskell-hls-test-utils' 'haskell-lsp-types' 'haskell-row-types')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('84fa95318e3cac9582e90a12cb3e9fc9f5e24a6ba63ca65a52dc88f9bf8e363de6ec099fe2bd7c123bc6b33738d4e3e95ecd45c4d0eae2e0afbb9da3ebf623f1')
+sha512sums=('01ed6b872d20d240f9514e0adfa682868763b8fd7bca10483daeda42fc017dc81c8d4c994a792fa36a22b965e6e6c4808dc5d3aa44c16266b423d8fa24513f6f')
 
 prepare() {
   cd $_hkgname-$pkgver
