@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=labplot
-pkgver=2.12.0
-pkgrel=1
+pkgver=2.12.1
+pkgrel=2
 arch=(x86_64)
 pkgdesc='KDE Application for interactive graphing and analysis of scientific data'
 url='https://labplot.kde.org/'
@@ -57,17 +57,8 @@ makedepends=(boost
              extra-cmake-modules
              kdoctools
              knewstuff)
-source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz
-        fix-qxlsx.patch
-        fix-qt-advanced-docking-system.patch)
-sha256sums=('25f1751261ec2d11312f0179049ea1f16db33b3a89800dc572d68ad8d267afe7'
-            'c9bd0853e11133c25c9cb53b6a5c11d7cb174f96811ee877bde1f79d779f6ea0'
-            '5ccef2f374d230d034781022c27764d9d7b12e4da57b7c7fd5496339c509f81d')
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < fix-qxlsx.patch
-  patch -d $pkgname-$pkgver -p1 < fix-qt-advanced-docking-system.patch
-}
+source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz)
+sha256sums=('e28155bfddf40e5b6f7c4791313556d1e48138044f216f210d515b9f6d6c106a')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
