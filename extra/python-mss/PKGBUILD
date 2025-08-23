@@ -2,8 +2,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-mss
-pkgver=10.0.0
-pkgrel=2
+pkgver=10.1.0
+pkgrel=1
 pkgdesc="Ultra fast cross-platform multiple screenshots module"
 arch=(any)
 url="https://github.com/BoboTiG/python-mss"
@@ -24,7 +24,7 @@ checkdepends=(
   xorg-server-xvfb
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('9af1906ee50bc79f094f6bb2b75a0e31411ef30e4f021432f26716ed99acc6b4')
+sha256sums=('47e2b8e507c1ef34ceb568bdc007f48319eb1ea13e3a5b21d842df92ef57a36f')
 
 build() {
   cd $pkgname-$pkgver
