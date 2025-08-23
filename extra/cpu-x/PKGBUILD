@@ -2,7 +2,7 @@
 # Contributor: UnicornDarkness
 
 pkgname=cpu-x
-pkgver=5.3.1
+pkgver=5.4.0
 pkgrel=1
 pkgdesc="A Free software that gathers information on CPU, motherboard and more"
 arch=(x86_64)
@@ -39,7 +39,7 @@ optdepends=('opengl-driver: packaged openGL driver'
             'vulkan-driver: packaged Vulkan driver'
             'opencl-driver: packaged OpenCL driver')
 source=("cpu-x::git+https://github.com/TheTumultuousUnicornOfDarkness/CPU-X.git#tag=v${pkgver}")
-sha512sums=('2958d548cb3368ce3da6f61394929deb953032d7e34d666faa13bc590d797b460cb8b8dd6ac09afb7b770ef65d0f80974c0f07652d70aa152a3d2a02df71334b')
+sha512sums=('c68ac208d1ba6684a07c0d545cd60c8225a5b95234ae8bc98f01a10f8b940e67b28e27b6fbd5f5a37d50433f57977331eadf340af1ade9cd0d69cc090fca75a0')
 
 build() {
 	cmake -S "$pkgname" -B build -GNinja -DCMAKE_BUILD_TYPE=None -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR="lib/cpu-x"
