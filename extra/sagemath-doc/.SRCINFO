@@ -1,12 +1,14 @@
 pkgbase = sagemath-doc
 	pkgdesc = HTML documentation for SageMath
-	pkgver = 10.6
+	pkgver = 10.7
 	pkgrel = 1
 	url = http://www.sagemath.org
 	arch = any
 	license = GPL-2.0-or-later
+	makedepends = boost
 	makedepends = cython
 	makedepends = git
+	makedepends = meson
 	makedepends = python-docutils
 	makedepends = python-jupyter-client
 	makedepends = python-jupyter-sphinx
@@ -19,9 +21,9 @@ pkgbase = sagemath-doc
 	depends = mathjax
 	depends = python-pplpy
 	options = !strip
-	source = git+https://github.com/sagemath/sage#tag=10.6
-	source = sphinx-8.2.patch
-	sha256sums = 0990685793b8c8fa19016a130baddc0c611a352992283c43eee376b480d2bf70
-	sha256sums = a7056b285bb31697219c015e417b4720f6265f6e38f4d185f6fa8522899b121d
+	source = git+https://github.com/sagemath/sage#tag=10.7
+	source = warnings.patch
+	sha256sums = 4f3e35ed9448064fdf261885aa5220cb939ea475c6b3012492baf687ea82e992
+	sha256sums = 06ce501d3be154f854bdbabd57f79287aec6b7d1b0ddf3abb904c68f79d51464
 
 pkgname = sagemath-doc
