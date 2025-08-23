@@ -3,7 +3,7 @@
 # Contributor: Lukas Jirkovsky <l.jirkovsky@gmail.com>
 
 pkgname=lib32-lcms2
-pkgver=2.16
+pkgver=2.17
 pkgrel=1
 pkgdesc="Small-footprint color management engine, version 2 (32-bit)"
 arch=('x86_64')
@@ -13,7 +13,7 @@ provides=('liblcms2.so')
 makedepends=('gcc-multilib')
 url="https://www.littlecms.com"
 source=("https://github.com/mm2/Little-CMS/releases/download/lcms${pkgver}/lcms2-${pkgver}.tar.gz")
-sha512sums=('638dd6ad6787456c8145510d18b2d0727bd0a446a13ac2934aabc9531d1156eca2a2c0fd780a453823fbd35a1895f9d8de5dc4b3cab505459dd3f0535b4e837d')
+sha512sums=('81885c70fb26a9b7d37a398f43ccb0d1d3ab8f43de7da8f760b26d053a0d7e0543e7d3b0cdcaf9b3b681a1b88f032134c5a3c1a6774a9abc66a8a3f10ba64398')
 
 build() {
   export CC="gcc -m32"
