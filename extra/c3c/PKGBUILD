@@ -2,8 +2,8 @@
 # Contributor: Eduardo Jose Gomez Hernandez <eduardo@edujgh.net>
 
 pkgname=c3c
-pkgver=0.7.3
-pkgrel=3
+pkgver=0.7.4
+pkgrel=1
 pkgdesc='Compiler for the C3 language'
 arch=(x86_64)
 url='https://github.com/c3lang/c3c'
@@ -11,7 +11,7 @@ license=(LGPL-3.0-or-later MIT)
 depends=(curl lld llvm-libs)
 makedepends=(clang cmake git libedit llvm)
 source=("git+$url#tag=v$pkgver")
-b2sums=('efb20550cde5998756c7316f6c2f31ff3631836a65bb09b31353ea3da4c45064eab9cda009d8ba233422fb8d2e8df414e857562845f897f2acab80103e065a12')
+b2sums=('7b91479ca5f9b6d5562ad1663bb11ac058f0001a16227bfc216fb2789eb538e7f538b335cda87f0080a3e3b37e8332b524a3e859eba8f549b0b170ae74f1145a')
 
 prepare() {
   cd $pkgname
@@ -25,8 +25,8 @@ build() {
     -B build \
     -D C3_LINK_DYNAMIC=ON \
     -D CMAKE_BUILD_TYPE=Release \
-    -D CMAKE_CXX_FLAGS_RELEASE="$CXXFLAGS" \
     -D CMAKE_C_FLAGS_RELEASE="$CFLAGS" \
+    -D CMAKE_CXX_FLAGS_RELEASE="$CXXFLAGS" \
     -S $pkgname
   make -C build
 }
