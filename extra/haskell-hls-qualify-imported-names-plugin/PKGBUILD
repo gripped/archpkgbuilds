@@ -2,17 +2,18 @@
 
 _hkgname=hls-qualify-imported-names-plugin
 pkgname=haskell-hls-qualify-imported-names-plugin
-pkgver=2.0.0.1
-pkgrel=10
+pkgver=2.1.0.0
+pkgrel=1
 pkgdesc="A Haskell Language Server plugin that qualifies imported names"
 url="https://github.com/haskell/haskell-language-server"
 license=('Apache-2.0')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-dlist' 'haskell-ghc' 'haskell-ghcide'
-         'haskell-hls-graph' 'haskell-hls-plugin-api' 'haskell-lsp' 'haskell-unordered-containers')
+         'haskell-hls-graph' 'haskell-hls-plugin-api' 'haskell-lens' 'haskell-lsp'
+         'haskell-unordered-containers')
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('d31cb2b35831bde36fb06e98940f03005e2ee93a32d4ce1d1aaf38b0c2c84365')
+sha256sums=('a1887ca834cc741e1c1aeb314bee4025e31c4ca2371bd1a04ee71223d4138cd1')
 
 prepare() {
   cd $_hkgname-$pkgver
