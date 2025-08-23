@@ -2,8 +2,8 @@
 
 _hkgname=ghcide
 pkgname=haskell-ghcide
-pkgver=2.0.0.1
-pkgrel=10
+pkgver=2.1.0.0
+pkgrel=1
 pkgdesc="The core of an IDE"
 url="https://github.com/haskell/haskell-language-server/tree/master/ghcide#readme"
 license=('Apache-2.0')
@@ -18,16 +18,17 @@ depends=('ghc-libs' 'haskell-diff' 'haskell-glob' 'haskell-aeson' 'haskell-aeson
          'haskell-hls-plugin-api' 'haskell-implicit-hie-cradle' 'haskell-lens' 'haskell-list-t'
          'haskell-lsp' 'haskell-lsp-types' 'haskell-opentelemetry' 'haskell-optparse-applicative'
          'haskell-parallel' 'haskell-prettyprinter' 'haskell-prettyprinter-ansi-terminal'
-         'haskell-random' 'haskell-regex-tdfa' 'haskell-safe-exceptions' 'haskell-sorted-list'
-         'haskell-sqlite-simple' 'haskell-stm-containers' 'haskell-syb' 'haskell-text-rope'
-         'haskell-unliftio' 'haskell-unliftio-core' 'haskell-unordered-containers' 'haskell-vector')
+         'haskell-random' 'haskell-regex-tdfa' 'haskell-row-types' 'haskell-safe-exceptions'
+         'haskell-sorted-list' 'haskell-sqlite-simple' 'haskell-stm-containers' 'haskell-syb'
+         'haskell-text-rope' 'haskell-unliftio' 'haskell-unliftio-core'
+         'haskell-unordered-containers' 'haskell-vector')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-fuzzy' 'haskell-ghc-typelits-knownnat'
              'haskell-implicit-hie' 'haskell-lsp-test' 'haskell-monoid-subclasses'
              'haskell-network-uri' 'haskell-shake' 'haskell-tasty' 'haskell-tasty-expected-failure'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'haskell-tasty-rerun')
 checkdepends=('cabal-install')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('67f72e85133a063ee0f4fa6343f08bdb1ebb1363b720810c4f01f3469f32b6ccefec2d0cf2bcadc6a6c51c848d531b5a72b7792e55da2755d32d3e5b535b2ecb')
+sha512sums=('204968bde2baa4105ae656e0d79597beb5fbb78442d73d05c3b07118f28dceb1e2376381e9041b096ca33305c70c3dfc24b6a97bb522cbf0e500b7187339c93f')
 
 prepare() {
   cd $_hkgname-$pkgver
