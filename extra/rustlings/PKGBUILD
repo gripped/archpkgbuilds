@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=rustlings
-pkgver=6.4.0
+pkgver=6.5.0
 pkgrel=1
 pkgdesc="Small exercises to get you used to reading and writing Rust code"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('gcc-libs')
 makedepends=('cargo')
 install="rustlings.install"
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('314b284c611b2938cb43abec186f9fc7fdb5975436f3aa06c58e09457d7cd82a')
+sha256sums=('d3b394c77145b272bba4f4b94435dd6b1a6accb9e2531238391c5fa42ccb348d')
 
 prepare() {
   cd "$pkgname-$pkgver"
