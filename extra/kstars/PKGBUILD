@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kstars
-pkgver=3.7.7
-pkgrel=3
+pkgver=3.7.8
+pkgrel=1
 epoch=1
 pkgdesc='Desktop Planetarium'
 url='https://kstars.kde.org/'
@@ -46,18 +46,14 @@ makedepends=(eigen
              extra-cmake-modules
              kdoctools)
 optdepends=('xplanet: XPlanet support')
-source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig}
-        fix-platesolving-377.diff)
-sha256sums=('f2dbd6c26c45512aa7c3924f0bf0606a8ef978e468c54505dcc0cb2fe1200245'
-            'SKIP'
-            'ede1fb564d22b63c356577b26ad917349bb880bfe6f9d24c08e4f2e65557c5d0')
+source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('55b3aef29ec1aba50906bd393d565e8a7e0b5b3a5d2e8e3cdfc1b58d718d2c0c'
+            'SKIP')
 validpgpkeys=(259D9FCEE9175351965633696D9CE2AEE028C4F3) # Jasem Mutlaq <mutlaqja@ikarustech.com>
 
 prepare() {
 # Fix data install dir
   sed -e 's|DATA_INSTALL_DIR|CMAKE_INSTALL_DATADIR|g' -i $pkgname-$pkgver/kstars/data/*/CMakeLists.txt
-# use human readable (HMS/DMS) values for OBJCTRA/OBJCTDEC
-  patch -p1 -d $pkgname-$pkgver < fix-platesolving-377.diff
 }
 
 build() {
