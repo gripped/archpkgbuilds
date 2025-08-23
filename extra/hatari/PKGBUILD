@@ -2,7 +2,7 @@
 # Contributor: Shinlun Hsieh <yngwiexx@yahoo.com.tw>
 
 pkgname=hatari
-pkgver=2.6.0
+pkgver=2.6.1
 pkgrel=1
 pkgdesc='An Atari ST and STE emulator'
 arch=('x86_64')
@@ -25,7 +25,7 @@ optdepends=(
   'sh: for atari-hd-image, zip2st, hatari-prg-args'
 )
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/${pkgname}/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('abb1e7ec9a689785cede60c050936df9f208c90a023f94662e18b79bdcf1a810')
+sha256sums=('75f09c8deddb511b8c1574b84c507743097db9abc6edbb078f942efa8677547e')
 
 build() {
   cd ${pkgname}-${pkgver}
