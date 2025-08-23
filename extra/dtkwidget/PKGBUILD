@@ -3,19 +3,19 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=dtkwidget
-pkgver=5.7.16
+pkgver=5.7.17
 pkgrel=1
 pkgdesc='Deepin base graphical widgets library'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtkwidget"
-license=('LGPL3')
+license=('LGPL-3.0-or-later')
 # qt5-imageformats is needed for webp (dci) icons
 depends=('dtkcore' 'dtkgui' 'gcc-libs' 'glibc' 'gsettings-qt' 'libx11' 'libxcb' 'libxext' 'libxi'
          'qt5-base' 'qt5-imageformats' 'qt5-svg' 'qt5-x11extras' 'startup-notification' 'xcb-util')
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'gtest' 'doxygen')
 replaces=('deepin-tool-kit')
 source=("git+https://github.com/linuxdeepin/dtkwidget.git#tag=$pkgver")
-sha512sums=('dec47d6b223a4f5bfda81e7ca76bfc915f016591d82d4f082afb7b943e3a4e79c3904b67766d3cf99137fa9a8f8f95fe3b1ba2a310af74b5e853d7d0e5ef8107')
+sha512sums=('7cdead554d110c60905f87ed4e0dcd3a0bd5e3e59a4cfb31f50eb9170ec6b60cda5b9638e81649fc42ce5490910953cfe7c6bda9d267d8967adc19e1c75830e7')
 
 build() {
   cd dtkwidget
@@ -27,7 +27,6 @@ build() {
       -DQCH_INSTALL_DESTINATION=share/doc/qt \
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DCMAKE_INSTALL_PREFIX=/usr \
-      -DDTK_VERSION=$pkgver \
       -DCMAKE_BUILD_TYPE=None
   ninja
 }
