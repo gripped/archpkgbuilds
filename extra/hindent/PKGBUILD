@@ -2,8 +2,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hindent
-pkgver=6.0.0
-pkgrel=9
+pkgver=6.1.0
+pkgrel=1
 pkgdesc="Extensible Haskell pretty printer"
 url="https://github.com/mihaimaruseac/hindent"
 license=('BSD-3-Clause')
@@ -13,17 +13,23 @@ depends=('ghc-libs' 'haskell-ghc-lib-parser-ex' 'haskell-monad-loops'
          'haskell-split' 'haskell-syb' 'haskell-unicode-show' 'haskell-utf8-string' 'haskell-yaml')
 makedepends=('ghc' 'uusi' 'haskell-diff' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('f1aa15523b0329ada3590bb46596a4ec358afba0847884af50a8a8602155aa3dca86dbc88525a26eb076e4a94cb6ed8064e2b2db1f971bcbcb7d57274681ba18')
+sha512sums=('9cefb6b44aa4608c40f69cc3ee67d904bc36b095a2b9228dc252395fa13cf9f853b1a08d14e2220328288027190ff3bb72de2e43818ba48e66309f85e6d37c8f')
 
 prepare() {
     cd $pkgname-$pkgver
     uusi -r ghc-lib-parser:ghc,ghc-boot
     sed -e 's/"ghc-lib-parser" //' -e 's/ghc_lib_parser/ghc/' -i \
         src/HIndent/Pretty.hs \
+        src/HIndent/Pretty/Combinators/Outputable.hs \
+        src/HIndent/Pretty/Import/Sort.hs \
         src/HIndent/Pretty/NodeComments.hs \
+        src/HIndent/Pretty/Pragma.hs \
         src/HIndent/Pretty/Types.hs \
         src/HIndent/Parse.hs \
-        src/HIndent/ModulePreprocessing.hs
+        src/HIndent/ModulePreprocessing.hs \
+        src/HIndent/ModulePreprocessing/CommentRelocation.hs \
+        src/HIndent/GhcLibParserWrapper/GHC/Hs.hs
+
 }
 
 build() {
