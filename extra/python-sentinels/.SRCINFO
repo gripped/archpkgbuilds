@@ -1,17 +1,18 @@
 pkgbase = python-sentinels
 	pkgdesc = Various objects to denote special meanings in python
-	pkgver = 1.0.0
-	pkgrel = 12
+	pkgver = 1.1.0
+	pkgrel = 1
 	url = https://github.com/vmalloc/sentinels
 	arch = any
 	license = BSD-3-Clause
 	checkdepends = python-pytest
-	makedepends = python-setuptools
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = python-wheel
+	makedepends = python-hatchling
+	makedepends = python-hatch-vcs
 	depends = python
-	source = python-sentinels-1.0.0.tar.gz::https://github.com/vmalloc/sentinels/archive/1.0.0.tar.gz
-	sha512sums = 80f5bc13eb902f7e8cba5a227eae3c92187d4d3203493e3e507998338c726985fe3b121e352a4235d5975bf19c3643b8120c1d15756768c268406689c2fc5489
+	source = git+https://github.com/vmalloc/sentinels.git#tag=1.1.0
+	sha512sums = 7b0892b756fde3aaae1cefcf6a955553afe6045720243121fdf1cda477c056c02b64819d3c85397a2676ec9f4eb1a3bd712afab1389192a6a86dcc505ed4e37f
 
 pkgname = python-sentinels
