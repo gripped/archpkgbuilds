@@ -3,8 +3,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hledger
-pkgver=1.33.1
-pkgrel=8
+pkgver=1.34
+pkgrel=2
 pkgdesc="Command-line interface for the hledger accounting system"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
@@ -18,7 +18,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-cmdargs'
          'haskell-utility-ht' 'haskell-wizards')
 makedepends=('ghc' 'haskell-extra' 'haskell-timeit')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('72d3b936025d70c25c96ce16c758d3436221ef5ae2dde9def70735918e8eb39a4491eee5a3330b30207ab502a1300a0789194dac9ef8e4d83f4ecc38274a0d72')
+sha512sums=('3cc71f216dd1a83ecd3590a2790c132a959b61d0bb8d207bc733a05bddc06ab3a0bcc1c58e030c7197aee4ff00441d9be07424f6bda9cdf14c7beb598e858559')
 
 build() {
     cd $pkgname-$pkgver
@@ -45,6 +45,6 @@ package() {
     runhaskell Setup copy --destdir="$pkgdir"
     rm -f "$pkgdir"/usr/share/doc/$pkgname/LICENSE
 
-    install -Dm644 hledger.1 -t "$pkgdir"/usr/share/man/man1/
+    install -Dm644 embeddedfiles/hledger.1 -t "$pkgdir"/usr/share/man/man1/
     install -Dm644 shell-completion/hledger-completion.bash "$pkgdir"/usr/share/bash-completion/completions/hledger
 }
