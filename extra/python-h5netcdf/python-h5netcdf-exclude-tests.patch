@@ -1,0 +1,13 @@
+diff --unified --recursive --text --new-file h5netcdf-1.6.4.orig/pyproject.toml h5netcdf-1.6.4/pyproject.toml
+--- h5netcdf-1.6.4.orig/pyproject.toml	2025-08-18 20:30:36.782295249 +0200
++++ h5netcdf-1.6.4/pyproject.toml	2025-08-18 20:30:44.037353439 +0200
+@@ -48,7 +48,8 @@
+ readme = { file = ["README.rst"]}
+ 
+ [tool.setuptools]
+-packages = ["h5netcdf", "h5netcdf.tests"]
++packages = ["h5netcdf"]
++include-package-data = false
+ 
+ [tool.setuptools_scm]
+ write_to = "h5netcdf/_version.py"
