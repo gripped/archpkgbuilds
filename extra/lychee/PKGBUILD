@@ -2,7 +2,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=lychee
-pkgver=0.19.1
+pkgver=0.20.0
 pkgrel=1
 pkgdesc='Fast, async, resource-friendly link checker written in Rust'
 arch=('x86_64')
@@ -27,7 +27,7 @@ replaces=(
 )
 options=('!lto')
 source=("git+https://github.com/lycheeverse/lychee.git#tag=lychee-v$pkgver")
-b2sums=('0f67689714d26417c0b68c5a862b8d55bb6d57aba02a9ab0b6d0681084d155ea1676c3b5d2e289f3dabb6106ed73a24eed64d7e95ad64629836537073654c4ec')
+b2sums=('ecdcf74767662687da46ab00ea06c83bacbf2baefb24f77000bd7598ebf04ae13260ff1fcd6bda2d7d289fcdb29c25a06f862b4871aa165da0dda8d36ef5d12a')
 
 prepare() {
   cd $pkgname
