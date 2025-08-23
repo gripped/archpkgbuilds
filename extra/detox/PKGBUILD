@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=detox
-pkgver=2.0.0
+pkgver=3.0.1
 pkgrel=1
 pkgdesc="An utility designed to clean up filenames by replacing characters with standard equivalents"
 arch=('x86_64')
@@ -11,17 +11,12 @@ license=('BSD-3-Clause')
 depends=('glibc')
 makedepends=('check')
 backup=('etc/detox/detoxrc')
-source=(
-  "$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
-  "fix-security-warning-in-table-resize-unit-tests.patch::https://github.com/dharple/detox/commit/29f85b2471fc2c45e35695a26d06f0f00df05365.patch"
-)
-sha256sums=('46e646855cfeae5aa51d00c834f7eeeb5967188aaa17f8882a14f98343d82924'
-            'be5937b40ed1b974c90c031af25033e2c2e2ecee4ea8e55bfb050884090d0b02')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('15dc32ca5856a3edc2fff237c8cbcb29979a25292aac738a272181d2152699ea')
 
 prepare() {
   cd $pkgname-$pkgver
   sed -i 's/-D_FORTIFY_SOURCE=2//' src/Makefile.am tests/unit/Makefile.am
-  patch -Np1 -i "$srcdir/fix-security-warning-in-table-resize-unit-tests.patch"
 }
 
 build() {
