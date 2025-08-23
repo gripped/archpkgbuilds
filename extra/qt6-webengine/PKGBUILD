@@ -4,7 +4,7 @@
 pkgname=qt6-webengine
 _pkgver=6.9.1
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=3
 _chromium=636332b6a05ac3f78877509af61361e2cf126d99
 arch=(x86_64)
 url='https://www.qt.io'
@@ -87,6 +87,10 @@ prepare() {
   git submodule init
   git submodule set-url src/3rdparty "$srcdir"/qtwebengine-chromium
   git -c protocol.file.allow=always submodule update
+
+  # Fix rendering glitches (see https://bugreports.qt.io/browse/QTBUG-138641
+  # and https://bugreports.qt.io/browse/QTBUG-139091).
+  git cherry-pick -n 9dd5105673f30fa6e8dc9bb3ee5cf4f51cec6ed2
 
   # Bump chromium to head of stable branch
   cd src/3rdparty
