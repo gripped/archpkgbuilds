@@ -3,29 +3,34 @@
 
 _hkgname=tls-session-manager
 pkgname=haskell-tls-session-manager
-pkgver=0.0.4
-pkgrel=444
-pkgdesc="In-memory TLS session manager"
+pkgver=0.0.5
+pkgrel=1
+pkgdesc="In-memory TLS session DB and session ticket"
 url="https://hackage.haskell.org/package/tls-session-manager"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' "haskell-auto-update" 'haskell-basement' "haskell-clock" 'haskell-memory'
-         "haskell-psqueues" "haskell-tls")
+depends=('ghc-libs' 'haskell-auto-update' 'haskell-basement' 'haskell-clock' 'haskell-crypto-token'
+         'haskell-memory' 'haskell-psqueues' 'haskell-serialise' 'haskell-tls')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('8516a2a6a12ee33ca3cbfcf33f5108218dcfea54b092a5292cbe0935b1c181d1aa26d171eb1f62d93ac80bebca21221598a07e225be5513743b227ef6908fbec')
+sha512sums=('dd3486fbc391754f21d38394283bdd67d2421e95051f4e9d0efb9cecd90c78a6cb0508d342e70b8fb610d9eabfdda55b6065d171aaa1d27e7ba47167c029b829')
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
