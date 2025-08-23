@@ -1,11 +1,11 @@
 pkgbase = element.io
 	pkgdesc = Glossy Matrix collaboration client —
-	pkgver = 1.11.103
+	pkgver = 1.11.109
 	pkgrel = 1
 	url = https://element.io
 	arch = x86_64
 	license = Apache
-	makedepends = electron36
+	makedepends = electron37
 	makedepends = git
 	makedepends = jq
 	makedepends = libxcrypt-compat
@@ -16,14 +16,14 @@ pkgbase = element.io
 	makedepends = rust
 	makedepends = tcl
 	makedepends = yarn
-	source = git+https://github.com/element-hq/element-desktop.git#tag=v1.11.103?signed
-	source = git+https://github.com/element-hq/element-web.git#tag=v1.11.103?signed
+	source = git+https://github.com/element-hq/element-desktop.git#tag=v1.11.109?signed
+	source = git+https://github.com/element-hq/element-web.git#tag=v1.11.109?signed
 	source = autolaunch.patch
 	source = io.element.Element.desktop
 	source = element-desktop.sh
 	validpgpkeys = 712BFBEE92DCA45252DB17D7C7BE97EFA179B100
-	sha256sums = eeeff356e6b3b1083f375b6c730eecd7a8713ea3c7907642b1b893d920bc0abd
-	sha256sums = 238f2d5aafba3fd6d9dbbba2987e78723782b8b35523a512eafe7badcaf79590
+	sha256sums = c0d218a3cdd36303793608e966ff5d07101d4bba57f570cd4a9816ec75d8d63c
+	sha256sums = c828e7e22722d52a82ee53b347071245dc6395c0d23598462c34fe50de3634f3
 	sha256sums = 268485f35103d00a89be7f5c84703e3d393350c71f4f90932f7bcb5ea2fd094f
 	sha256sums = 16a21cd4ad144641e0f4cbe18ed1b665565ed6f3f3e67d5bccba2806491674a9
 	sha256sums = c1bd9ace215e3ec9af14d7f28b163fc8c8b42e23a2cf04ce6f4ce2fcc465feba
@@ -35,8 +35,8 @@ pkgname = element-web
 
 pkgname = element-desktop
 	pkgdesc = Glossy Matrix collaboration client — desktop version.
-	depends = element-web=1.11.103
-	depends = electron36
+	depends = element-web=1.11.109
+	depends = electron37
 	depends = libsecret
 	replaces = riot-desktop
 	backup = etc/element/config.json
