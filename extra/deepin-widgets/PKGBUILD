@@ -1,26 +1,26 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-widgets
-pkgver=6.0.14
-pkgrel=2
+pkgver=6.0.15
+pkgrel=1
 pkgdesc='Desktop widgets service/implementation for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-widgets"
 license=('GPL3')
 # startdde: org.deepin.dde.Display1
 depends=('qt5-base' 'dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 'gcc-libs' 'startdde')
-makedepends=('cmake' 'ninja' 'gtest' 'qt5-tools')
+makedepends=('git' 'cmake' 'ninja' 'gtest' 'qt5-tools')
 groups=('deepin')
-source=("https://github.com/linuxdeepin/dde-widgets/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('d9f6ab3d3039f653ab738e73f6bfef6519c3f94d56c4bbabdbf5b0f928f6c3eefce83761b6cf6fbd666ce19c357c1d32e197e807199034b050d631d6be3ff272')
+source=("git+https://github.com/linuxdeepin/dde-widgets.git#tag=$pkgver")
+sha512sums=('b962000dc4bb62cbcc281ef7005928c3f4f7c56a51e433c145ff64f9deb2c3775542c8ffab52d2d56b7c475ccd5c5c30f68a4623f8ed7be71e7844fe82adc2fa')
 
 build() {
-  cd dde-widgets-$pkgver
+  cd dde-widgets
   cmake . -GNinja
   ninja
 }
 
 package() {
-  cd dde-widgets-$pkgver
+  cd dde-widgets
   DESTDIR="$pkgdir" ninja install
 }
