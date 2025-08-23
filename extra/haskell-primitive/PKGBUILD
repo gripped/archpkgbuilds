@@ -2,8 +2,8 @@
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=haskell-primitive
-pkgver=0.9.0.0
-pkgrel=20
+pkgver=0.9.1.0
+pkgrel=2
 pkgdesc="Wrappers for primitive operations"
 url="https://hackage.haskell.org/package/primitive"
 license=('BSD-3-Clause')
@@ -14,7 +14,7 @@ checkdepends=('haskell-base-orphans' 'haskell-quickcheck' 'haskell-quickcheck-cl
               'haskell-tasty' 'haskell-tasty-quickcheck' 'haskell-tagged'
               'haskell-transformers-compat')
 source=("https://hackage.haskell.org/packages/archive/primitive/${pkgver}/primitive-${pkgver}.tar.gz")
-sha512sums=('18ce3185ff30761f35486573906362319175eab89daaf4399bfd09019430a57db108e7cca21061bed84f51944ab533a294273b333629dd3babcead7d1c6b4b39')
+sha512sums=('e57face42b62a6ae552ad2f3a20251bc7e4913d7114355535f1581899da9c45d33b27976fc09670452dbe870b3bac00d0831c0556756ae831c9121769b7e6a05')
 
 prepare() {
   cd primitive-$pkgver
