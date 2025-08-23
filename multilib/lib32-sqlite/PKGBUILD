@@ -1,13 +1,13 @@
+# Maintainer: Laurent Carlier <lordheavym@archlinux.org>
 # Contributor: Andreas Radke <andyrtr@archlinux.org>
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 # Contributor: Biru Ionut <ionut@archlinux.ro>
 # Contributor: Mikko Seppälä <t-r-a-y@mbnet.fi>
 # Contributor: Kaos < gianlucaatlas dot gmail dot com >
 
-pkgbase="lib32-sqlite"
 pkgname=('lib32-sqlite')
-_srcver=3500200
-pkgver=3.50.2
+pkgver=3.50.4
+_srcver=$(echo "$pkgver" | awk -F. '{ printf "%d%02d%02d00", $1, $2, $3 }')
 pkgrel=1
 pkgdesc="A C library that implements an SQL database engine (32-bit)"
 arch=('x86_64')
@@ -18,7 +18,7 @@ options=('!emptydirs')
 source=(https://www.sqlite.org/2025/sqlite-src-${_srcver}.zip
         license.txt)
 # upstream now switched to sha3sums - currently not supported by makepkg
-sha256sums=('091eeec3ae2ccb91aac21d0e9a4a58944fb2cb112fa67bffc3e08c2eca2d85c8'
+sha256sums=('b7b4dc060f36053902fb65b344bbbed592e64b2291a26ac06fe77eec097850e9'
             '4e57d9ac979f1c9872e69799c2597eeef4c6ce7224f3ede0bf9dc8d217b1e65d')
 
 prepare() {
@@ -75,6 +75,6 @@ package_lib32-sqlite() {
 
   rm -r "${pkgdir}"/usr/{bin,include,share/man}
 
-  # license - no linking required because pkgbase=pkgname
-  install -D -m644 "${srcdir}"/license.txt "${pkgdir}"/usr/share/licenses/${pkgbase}/license.txt
+  # license
+  install -D -m644 "${srcdir}"/license.txt "${pkgdir}"/usr/share/licenses/${pkgname}/license.txt
 }
