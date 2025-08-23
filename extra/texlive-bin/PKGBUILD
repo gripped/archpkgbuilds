@@ -5,7 +5,7 @@
 
 pkgname=(texlive-bin libsynctex)
 pkgver=2025.2
-pkgrel=1
+pkgrel=2
 license=(GPL-2.0-or-later)
 arch=(x86_64)
 makedepends=(bash
@@ -40,15 +40,16 @@ makedepends=(bash
              potrace
              readline
              subversion
-             t1lib
              zlib
              zziplib)
 url='https://tug.org/texlive/'
 _commit=8115c4d97aa0e68da1f957a56bca780449d1be59
 source=(git+https://github.com/Tex-Live/texlive-source.git#commit=$_commit
-        ptex-debug-print.patch)
+        ptex-debug-print.patch
+        lua-root.patch)
 sha256sums=('842fc0a45cb4d363253eefcaae1f88be7b8446def80d78cce251dad32d3802ec'
-            'aa838f09003c62c2efb5770a8de66f99b409df049fbd65098d80fd1957d06c50')
+            'aa838f09003c62c2efb5770a8de66f99b409df049fbd65098d80fd1957d06c50'
+            'c2d6a8b14dd8197874c1d894e70df80ad076f28ee4d1cff81e3b7811d9264fb9')
 
 prepare() {
   cd texlive-source
@@ -60,6 +61,8 @@ prepare() {
   sed -i s/SELFAUTOPARENT/TEXMFROOT/ texk/tex4htk/t4ht.c
 # remove spurious ptex "guessed encoding" print
   patch -p1 -i ../ptex-debug-print.patch
+# Fix LUA_ROOT define
+  patch -p1 -i ../lua-root.patch
 }
 
 build() {
@@ -68,7 +71,7 @@ build() {
   mkdir -p build
   cd build
   CFLAGS=${CFLAGS/FORTIFY_SOURCE=3/FORTIFY_SOURCE=2} # https://gitlab.archlinux.org/archlinux/packaging/packages/texlive-bin/-/issues/3 
-  CFLAGS+=" -Wno-incompatible-pointer-types" \
+  CFLAGS+=" -Wno-incompatible-pointer-types -std=gnu17" \
   ax_cv_c_float_words_bigendian=no \
   ../configure --prefix=/usr -C \
     --sysconfdir=/etc \
