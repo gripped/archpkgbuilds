@@ -2,22 +2,23 @@
 
 _hkgname=hls-refactor-plugin
 pkgname=haskell-hls-refactor-plugin
-pkgver=2.0.0.1
-pkgrel=10
+pkgver=2.1.0.0
+pkgrel=1
 pkgdesc="Exactprint refactorings for Haskell Language Server"
 url="https://github.com/haskell/haskell-language-server.git"
 license=('Apache-2.0')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-data-default' 'haskell-dlist' 'haskell-extra'
          'haskell-ghc' 'haskell-ghc-exactprint' 'haskell-ghcide' 'haskell-hls-graph'
-         'haskell-hls-plugin-api' 'haskell-lens' 'haskell-lsp' 'haskell-regex-tdfa'
-         'haskell-retrie' 'haskell-syb' 'haskell-text-rope' 'haskell-unordered-containers')
+         'haskell-hls-plugin-api' 'haskell-lens' 'haskell-lsp' 'haskell-parser-combinators'
+         'haskell-regex-applicative' 'haskell-regex-tdfa' 'haskell-retrie' 'haskell-syb'
+         'haskell-text-rope' 'haskell-unordered-containers')
 makedepends=('ghc' 'uusi' 'haskell-async' 'haskell-ghcide-test-utils' 'haskell-hls-test-utils'
-             'haskell-lsp-test' 'haskell-lsp-types' 'haskell-network-uri'
-             'haskell-parser-combinators' 'haskell-shake' 'haskell-tasty'
-             'haskell-tasty-expected-failure' 'haskell-tasty-hunit' 'haskell-tasty-rerun')
+             'haskell-lsp-test' 'haskell-lsp-types' 'haskell-network-uri' 'haskell-shake'
+             'haskell-tasty' 'haskell-tasty-expected-failure' 'haskell-tasty-hunit'
+             'haskell-tasty-rerun')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('37a16d097b7cf7551f23e91ce825603d56a3138057d27235f494f8f8948c8773')
+sha256sums=('0d2b9eb96b51675601c6845a9fcf3e22f52b5e970903bf622f0442d1f573266d')
 
 prepare() {
   cd $_hkgname-$pkgver
