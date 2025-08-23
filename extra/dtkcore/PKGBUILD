@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=dtkcore
-pkgver=5.7.16
+pkgver=5.7.17
 pkgrel=1
 epoch=1
 pkgdesc='DTK core modules'
@@ -14,7 +14,7 @@ depends=('deepin-desktop-base' 'dtkcommon' 'dtklog' 'gcc-libs' 'glibc' 'gsetting
          'lshw' 'qt5-base' 'uchardet')
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'gtest' 'doxygen')
 source=("git+https://github.com/linuxdeepin/dtkcore.git#tag=$pkgver")
-sha512sums=('4c1736a0521c80d4b5741efb5f68d2c7261acf5823e691b8b4b377fced2d7427f6031f531c7cc2b2b824bc5c3a70285dfc5e2a81be97bbd1fc182d96b5ce8049')
+sha512sums=('d7e5b2cb1bf469f92b3d2aef22c81fe1727b669f4a636488b1cb52f23080eec3c163946ac218b49e7ba5a0a6cc2427b255cc01fcadefb9016a3ffb313c0206a9')
 
 prepare() {
   cd dtkcore
@@ -32,8 +32,7 @@ build() {
       -DQCH_INSTALL_DESTINATION=share/doc/qt \
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DCMAKE_INSTALL_LIBEXECDIR=lib \
-      -DCMAKE_INSTALL_PREFIX=/usr \
-      -DDTK_VERSION=$pkgver
+      -DCMAKE_INSTALL_PREFIX=/usr
 
   ninja
 }
