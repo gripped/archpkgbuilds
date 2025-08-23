@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=rebar3
-pkgver=3.25.0
+pkgver=3.25.1
 pkgrel=1
 pkgdesc="Erlang build tool that makes it easy to compile and test Erlang applications and releases"
 arch=('any')
@@ -17,7 +17,7 @@ depends=(
   erlang-parsetools
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('7d3f42dc0e126e18fb73e4366129f11dd37bad14d404f461e0a3129ce8903440')
+sha256sums=('458d6ceaf7822dd7682288354ab3ba74e14b3ed11cc5b551af9eb312de894106')
 
 build() {
   cd $pkgname-$pkgver
