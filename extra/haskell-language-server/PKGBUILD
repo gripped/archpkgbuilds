@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=haskell-language-server
-pkgver=2.0.0.1
-pkgrel=13
+pkgver=2.1.0.0
+pkgrel=1
 pkgdesc="LSP server for GHC"
 url="https://github.com/haskell/haskell-language-server#readme"
 license=('Apache-2.0')
@@ -22,17 +22,17 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-async'
          'haskell-hls-ormolu-plugin' 'haskell-hls-overloaded-record-dot-plugin'
          'haskell-hls-plugin-api' 'haskell-hls-pragmas-plugin'
          'haskell-hls-qualify-imported-names-plugin' 'haskell-hls-refactor-plugin'
-         'haskell-hls-refine-imports-plugin' 'haskell-hls-rename-plugin' 'haskell-hls-retrie-plugin'
+         'haskell-hls-rename-plugin' 'haskell-hls-retrie-plugin'
          'haskell-hls-splice-plugin' 'haskell-hls-stylish-haskell-plugin' 'haskell-lens'
          'haskell-lens-aeson' 'haskell-lsp' 'haskell-lsp-types' 'haskell-optparse-applicative'
          'haskell-optparse-simple' 'haskell-prettyprinter' 'haskell-regex-tdfa'
          'haskell-safe-exceptions' 'haskell-sqlite-simple' 'haskell-temporary'
          'haskell-unliftio-core' 'haskell-unordered-containers')
 makedepends=('ghc' 'uusi' 'haskell-ghcide-test-utils' 'haskell-hls-test-utils'
-             'haskell-hspec-expectations' 'haskell-lsp-test')
+             'haskell-hspec-expectations' 'haskell-lsp-test' 'haskell-row-types')
 checkdepends=('cabal-install')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('03f6651d28a1474d3a52a80991592e201e6b611db306b34d437b4e3cbc6d1050a694f1f135d03efd0613769c0d8ffae2abfc8e6291fbdff46cf148ad9b515b46')
+sha512sums=('accd6deedc55649251dd1719ea0a0fc8e0007fc006141c6c745c0fd28786b727a7d1c6eaa9bb85766eb3f87b10ae4d12927dd360c187cfa8b3cdd33a9b0e07bb')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -48,7 +48,7 @@ build() {
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie' \
     -fignore-plugins-ghc-bounds -fcabal -fclass -fcallHierarchy -f-haddockComments -feval -fimportLens \
-    -frefineImports -frename -fretrie -fhlint -fmoduleName -fpragmas -fsplice \
+    -frename -fretrie -fhlint -fmoduleName -fpragmas -fsplice \
     -falternateNumberFormat -fqualifyImportedNames -fcodeRange -fchangeTypeSignature \
     -fexplicitFields -f-tactic -foverloadedrecorddot \
     -ffloskell -ffourmolu -formolu -fstylishHaskell -fstan -fgadt -fexplicitFixity \
