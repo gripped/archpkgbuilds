@@ -1,34 +1,44 @@
-# Maintainer:
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
-_pipname=argon2-cffi-bindings
-pkgname=python-$_pipname
-pkgver=21.2.0
-pkgrel=6
+pkgname=python-argon2-cffi-bindings
+pkgver=25.1.0
+pkgrel=1
 pkgdesc='Low-level CFFI bindings for Argon2'
 arch=(x86_64)
 url='https://github.com/hynek/argon2-cffi-bindings'
 license=(MIT)
-depends=(python-cffi argon2)
-makedepends=(python-build python-installer python-setuptools-scm python-wheel)
+depends=(
+  argon2
+  glibc
+  python
+  python-cffi
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools-scm
+  python-wheel
+)
 checkdepends=(python-pytest)
-source=(https://pypi.io/packages/source/${_pipname:0:1}/$_pipname/$_pipname-$pkgver.tar.gz)
-sha256sums=('bb89ceffa6c791807d1305ceb77dbfacc5aa499891d2c55661c6459651fc39e3')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('204ac0e36e4f4fe97c7fa07b2ce1e5587633999786b055d1372cb27bb0402d4c')
 
 build() {
-  cd $_pipname-$pkgver
-  ARGON2_CFFI_USE_SYSTEM=1 \
+  cd ${pkgname#python-}-$pkgver
+  export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
+  export ARGON2_CFFI_USE_SYSTEM=1
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_pipname-$pkgver
+  cd ${pkgname#python-}-$pkgver
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m pytest
 }
 
 package() {
-  cd $_pipname-$pkgver 
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+  install -vDm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
 }

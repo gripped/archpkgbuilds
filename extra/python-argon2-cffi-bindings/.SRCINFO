@@ -1,7 +1,7 @@
 pkgbase = python-argon2-cffi-bindings
 	pkgdesc = Low-level CFFI bindings for Argon2
-	pkgver = 21.2.0
-	pkgrel = 6
+	pkgver = 25.1.0
+	pkgrel = 1
 	url = https://github.com/hynek/argon2-cffi-bindings
 	arch = x86_64
 	license = MIT
@@ -10,9 +10,11 @@ pkgbase = python-argon2-cffi-bindings
 	makedepends = python-installer
 	makedepends = python-setuptools-scm
 	makedepends = python-wheel
-	depends = python-cffi
 	depends = argon2
-	source = https://pypi.io/packages/source/a/argon2-cffi-bindings/argon2-cffi-bindings-21.2.0.tar.gz
-	sha256sums = bb89ceffa6c791807d1305ceb77dbfacc5aa499891d2c55661c6459651fc39e3
+	depends = glibc
+	depends = python
+	depends = python-cffi
+	source = https://github.com/hynek/argon2-cffi-bindings/archive/25.1.0/python-argon2-cffi-bindings-25.1.0.tar.gz
+	sha256sums = 204ac0e36e4f4fe97c7fa07b2ce1e5587633999786b055d1372cb27bb0402d4c
 
 pkgname = python-argon2-cffi-bindings
