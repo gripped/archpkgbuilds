@@ -3,8 +3,8 @@
 pkgbase=fcitx5-pinyin-zhwiki
 pkgname=(fcitx5-pinyin-zhwiki rime-pinyin-zhwiki)
 _converterver=0.2.5
-_zhwikiver=20250720
-_webslangver=20250731
+_zhwikiver=20250820
+_webslangver=20250823
 pkgver=$_converterver.$_webslangver
 pkgrel=1
 epoch=1
@@ -18,8 +18,8 @@ source=(git+https://github.com/felixonmars/fcitx5-pinyin-zhwiki.git#tag=$_conver
         https://dumps.wikimedia.org/zhwiki/$_zhwikiver/zhwiki-$_zhwikiver-all-titles-in-ns0.gz
         https://www.gnu.org/licenses/fdl-1.3.txt)
 sha512sums=('798da47ab1c08529204134f52f7a3dadf7daccd03bd7badd85021d4f2e216af605c8074c5e0986ba6b4aadbeec615afcf48c02c86f67e66f98dca54a3e3994f9'
-            '66b29a72c568cd9e1d2839ca16c816895040b8ee3b11a9770507fe59e840c3bd68c63b6d2812723ce13a63d346d191d9fd15b3496ec3c6cce6cb2124d6ccd222'
-            '11fc5b777558ad12ef259b2cbcf89fead7ccec65edaffe345c7edec627b56829cedc9f99e3cb095492907414bc7072529989439851fc793ddb2eb516906fa4d1'
+            '8aed7fe21643715f7759289e61cc4a547c92bc909497b4185969629aa94ece288188df1ba0f935dd4bd5961a54fc0b0034094672de4cf6da55fc9c1e767ea135'
+            'fa9b15b727ddb4a13a682d19c0403df337b97f474b763739a2aaef953e93deed5ed4c973c5d0144c5146b377c4a86a3b01644bc7c691f0ab46c9aa845ca8fd5d'
             '22d46818d3998ad841f537af4de7c50440dd918099fb6c5d4ab324cd71dc03066bfe1b67210a5efde77abd1d97b88da3c3dbfc39a24ae7248ee2d64e7f0fe6bb')
 
 _make="make -L VERSION=$_zhwikiver WEB_SLANG_VERSION=$_webslangver"
