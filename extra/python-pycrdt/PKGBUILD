@@ -1,8 +1,8 @@
-# Maintainer: Antonio Rojas <arojas@archlinux.com>
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 _pyname=pycrdt
 pkgname=python-$_pyname
-pkgver=0.12.26
+pkgver=0.12.27
 pkgrel=1
 pkgdesc='CRDTs based on Yrs'
 arch=(x86_64)
@@ -23,7 +23,7 @@ checkdepends=(python-anyio
               python-trio
               python-y-py)
 source=(git+https://github.com/jupyter-server/pycrdt#tag=$pkgver)
-sha256sums=('1c0527354e3c8aaa8b742721dbb263cdb26c14af40f3f44283993649e355875b')
+sha256sums=('0e1b0e77fc40f9733c438d91c2e1bd484fa81b7012a4b991e287923c70a5e1fc')
 
 build() {
   cd $_pyname
