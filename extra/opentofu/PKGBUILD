@@ -2,7 +2,7 @@
 # Contributor: Marcel Campello <marcel@prafrentex.com.br>
 
 pkgname=opentofu
-pkgver=1.10.3
+pkgver=1.10.5
 pkgrel=1
 pkgdesc="Lets you declaratively manage your cloud infrastructure"
 arch=(x86_64)
@@ -13,7 +13,7 @@ makedepends=(go)
 provides=(terragrunt-iac-provider)
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('2279dbe3823282b7646d321106b43842203606b4eeddc1a1d3b9de51cdf74953')
+sha256sums=('efa95ba022d05a4cdc983d06007f389bd3ff50557b58309b9a22af52292a589a')
 
 prepare() {
   cd $pkgname-$pkgver
