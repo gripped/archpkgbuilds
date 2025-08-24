@@ -1,7 +1,7 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=vpl-gpu-rt
-pkgver=25.2.5
+pkgver=25.2.6
 pkgrel=1
 pkgdesc='Intel VPL runtime implementation for Intel GPUs (Tiger Lake and newer)'
 arch=('x86_64')
@@ -19,7 +19,7 @@ conflicts=('onevpl-intel-gpu')
 replaces=('onevpl-intel-gpu')
 source=("https://github.com/intel/vpl-gpu-rt/archive/intel-onevpl-${pkgver}/${pkgname}-${pkgver}.tar.gz"
         '010-vpl-gpu-rt-disable-verbose-makefile.patch')
-sha256sums=('8b37ed5f019d722551b5b5c7a31fa2af3ed0287338fd5c8c18b3a41dac0d4eae'
+sha256sums=('d236ede2ab87063d0d8d52932779ff446a885b8dc4ef840d1a756c6776ef6fef'
             'c6b17b7026d16d02c3cab7b5081366c24021a86fa173eaee5db310691ce76879')
 
 prepare() {
