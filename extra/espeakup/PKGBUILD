@@ -4,11 +4,11 @@
 
 pkgname=espeakup
 pkgver=0.90
-pkgrel=3
+pkgrel=4
 pkgdesc="A light weight connector for espeak-ng and speakup"
 arch=(x86_64)
 url="https://github.com/linux-speakup/espeakup"
-license=(GPL3)
+license=(GPL-3.0-or-later)
 depends=(
   glibc
   espeak-ng
