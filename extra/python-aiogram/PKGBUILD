@@ -3,7 +3,7 @@
 # Contributor: Evgeniy Filimonov <evgfilim1@gmail.com>
 
 pkgname=python-aiogram
-pkgver=3.21.0
+pkgver=3.22.0
 pkgrel=1
 pkgdesc="A modern and fully asynchronous framework for Telegram Bot API"
 arch=('any')
@@ -14,6 +14,7 @@ depends=(
   'python-aiofiles'
   'python-aiohttp'
   'python-certifi'
+  'python-cryptography'
   'python-magic-filter'
   'python-pydantic'
 )
@@ -49,7 +50,7 @@ optdepends=(
   'python-babel: i18n support'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('d39ad0dce5a6800ac1223fdfbda8a461dea0a8db4d82af2bfa2d73f0893fe70e')
+sha256sums=('5554a6feccce80efa6c1f3a76f529a2f0b85951783208297d205543f78799a5a')
 
 build() {
   cd ${pkgname#python-}-$pkgver
