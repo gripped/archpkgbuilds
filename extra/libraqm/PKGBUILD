@@ -2,7 +2,7 @@
 # Contributor: Daniel Bermond < yahoo-com: danielbermond >
 
 pkgname=libraqm
-pkgver=0.10.2
+pkgver=0.10.3
 pkgrel=1
 pkgdesc='A library that encapsulates the logic for complex text layout'
 arch=(x86_64)
@@ -16,7 +16,7 @@ makedepends=(git
              gtk-doc
              meson)
 source=(git+https://github.com/HOST-Oman/libraqm#tag=v$pkgver)
-sha256sums=('0f658897cf44d23181e3dd4f07f12bb49a8b98658ce7778a3d6a6b9a4c4abbec')
+sha256sums=('c7cb864437cce83cfd00d8309027c0b1a908506c260bce234310d2df57042d80')
 
 build() {
   meson build libraqm \
