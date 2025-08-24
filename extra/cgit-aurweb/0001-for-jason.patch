@@ -1,7 +1,7 @@
 From 87fdb57d6040a71f261b2e87112492c281cd5246 Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Sat, 14 Sep 2024 21:51:14 +0200
-Subject: [PATCH 1/9] git: update to v2.46.1
+Subject: [PATCH 01/10] git: update to v2.46.1
 
 Update to git version v2.46.1, no additional changes required.
 
@@ -35,7 +35,7 @@ index 39bf06a..a731929 160000
 From 1cb701a9b615acf2d4a9f5c6c2668cd11343e124 Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Tue, 24 Sep 2024 07:49:00 +0200
-Subject: [PATCH 2/9] git: update to v2.46.2
+Subject: [PATCH 02/10] git: update to v2.46.2
 
 Update to git version v2.46.2, no additional changes required.
 
@@ -69,7 +69,7 @@ index a731929..4f71522 160000
 From c1733e28d91bea5647e11fe099751fbc839669d7 Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Thu, 26 Sep 2024 19:41:29 +0200
-Subject: [PATCH 3/9] git: update to v2.47.0
+Subject: [PATCH 03/10] git: update to v2.47.0
 
 Update to git version v2.47.0, this requires changes for these
 upstream commits:
@@ -187,7 +187,7 @@ index 6fae72d..4250b89 100644
 From 99a2f47c96b1d01c642d4bad0f7e2a6d27f5df99 Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Mon, 25 Nov 2024 10:04:00 +0100
-Subject: [PATCH 4/9] git: update to v2.47.1
+Subject: [PATCH 04/10] git: update to v2.47.1
 
 Update to git version v2.47.1, no additional changes required.
 
@@ -221,7 +221,7 @@ index 777489f..92999a4 160000
 From be06bedb037982608171b6646d7c951a957c70c7 Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Mon, 16 Dec 2024 22:37:25 +0100
-Subject: [PATCH 5/9] git: update to v2.48.0
+Subject: [PATCH 05/10] git: update to v2.48.0
 
 Update to git version v2.48.0, no additional changes required.
 
@@ -255,7 +255,7 @@ index 92999a4..fbe8d30 160000
 From ce4a66b9d7a3f393708fa7c9725b077b3ded71d0 Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Tue, 14 Jan 2025 20:14:41 +0100
-Subject: [PATCH 6/9] git: update to v2.48.1
+Subject: [PATCH 06/10] git: update to v2.48.1
 
 Update to git version v2.48.0, no additional changes required.
 
@@ -289,7 +289,7 @@ index fbe8d30..f93ff17 160000
 From 994d3fe1a8fa56d5a1dd36aae62c788169160c3a Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Wed, 12 Mar 2025 17:13:02 +0100
-Subject: [PATCH 7/9] git: update to v2.49.0
+Subject: [PATCH 07/10] git: update to v2.49.0
 
 Update to git version v2.49.0, this requires changes for these
 upstream commits:
@@ -363,7 +363,7 @@ index 31989a5..2ed3e1c 100644
 From d8095e083e6f940a2b3d0bb473b0fe10854eba9d Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Fri, 30 May 2025 19:21:53 +0200
-Subject: [PATCH 8/9] git: update to v2.50.0
+Subject: [PATCH 08/10] git: update to v2.50.0
 
 Update to git version v2.50.0, no additional changes required.
 
@@ -397,7 +397,7 @@ index 683c54c..16bd9f2 160000
 From 20ac8f55d43bcc789e8ecca1a5c878087394b5e3 Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Tue, 8 Jul 2025 19:48:35 +0200
-Subject: [PATCH 9/9] git: update to v2.50.1
+Subject: [PATCH 09/10] git: update to v2.50.1
 
 Update to git version v2.50.1, no additional changes required.
 
@@ -427,3 +427,68 @@ index 16bd9f2..d82adb6 160000
 @@ -1 +1 @@
 -Subproject commit 16bd9f20a403117f2e0d9bcda6c6e621d3763e77
 +Subproject commit d82adb61ba2fd11d8f2587fca1b6bd7925ce4044
+
+From 334640962c7fa96d407d1c71df709c94708bcef9 Mon Sep 17 00:00:00 2001
+From: Christian Hesse <mail@eworm.de>
+Date: Sat, 9 Aug 2025 00:17:51 +0200
+Subject: [PATCH 10/10] git: update to v2.51.0
+
+Update to git version v2.51.0, this requires changes for these
+upstream commits:
+
+* 8f49151763cb81adf4bcec53c1ae67057081b02d
+  object-store: rename files to "odb.{c,h}"
+
+Signed-off-by: Christian Hesse <mail@eworm.de>
+---
+ Makefile   | 2 +-
+ cgit.h     | 2 +-
+ git        | 2 +-
+ ui-clone.c | 1 -
+ 4 files changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index a97d9d4..60075af 100644
+--- a/Makefile
++++ b/Makefile
+@@ -14,7 +14,7 @@ htmldir = $(docdir)
+ pdfdir = $(docdir)
+ mandir = $(prefix)/share/man
+ SHA1_HEADER = <openssl/sha.h>
+-GIT_VER = 2.50.1
++GIT_VER = 2.51.0
+ GIT_URL = https://www.kernel.org/pub/software/scm/git/git-$(GIT_VER).tar.xz
+ INSTALL = install
+ COPYTREE = cp -r
+diff --git a/cgit.h b/cgit.h
+index 9146d9a..653ec28 100644
+--- a/cgit.h
++++ b/cgit.h
+@@ -17,7 +17,7 @@
+ #include <notes.h>
+ #include <object.h>
+ #include <object-name.h>
+-#include <object-store.h>
++#include <odb.h>
+ #include <path.h>
+ #include <refs.h>
+ #include <revision.h>
+diff --git a/git b/git
+index d82adb6..c44beea 160000
+--- a/git
++++ b/git
+@@ -1 +1 @@
+-Subproject commit d82adb61ba2fd11d8f2587fca1b6bd7925ce4044
++Subproject commit c44beea485f0f2feaf460e2ac87fdd5608d63cf0
+diff --git a/ui-clone.c b/ui-clone.c
+index 2ed3e1c..0fadf24 100644
+--- a/ui-clone.c
++++ b/ui-clone.c
+@@ -14,7 +14,6 @@
+ #include "html.h"
+ #include "ui-shared.h"
+ #include "packfile.h"
+-#include "object-store.h"
+ 
+ static int print_ref_info(const char *refname, const char *referent UNUSED,
+ 			  const struct object_id *oid, int flags, void *cb_data)

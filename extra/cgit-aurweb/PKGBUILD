@@ -8,7 +8,7 @@
 pkgname=cgit-aurweb
 _commit='09d24d7cd0b7e85633f2f43808b12871bb209d69'
 pkgver=1.2.3.r70.g09d24d7
-pkgrel=10
+pkgrel=11
 pkgdesc='A web interface for git written in plain C (aurweb branch)'
 arch=('x86_64')
 url='https://git.zx2c4.com/cgit/'
@@ -32,11 +32,11 @@ source=("git+https://git.zx2c4.com/cgit.git#commit=${_commit}"
         'git+https://github.com/git/git.git'
         '0001-for-jason.patch'
         '1001-aurweb.patch'
-        'tmpfiles.conf'
+        'cgit.tmpfiles'
         'apache.example.conf')
 sha256sums=('423a95f4fee9bdc5a50e332703d5e5f5289f523f620e275d26b950d92ae5a836'
             'SKIP'
-            'fd76dbf4cdad6f2730e2bfdd02c53fd680bcb77726beb80e089193379d6a03ec'
+            'f2e1dbfea4d1f6df9ed1fd194cec97ac201e4ae9343da893f94cb50dbc0e6c2a'
             '559ac2f5edba496444bbbe989a52939513fa16515417b673a78793811fa67c59'
             'c1d03b2abdd4091f10e777644242762d2e34f903b4587e1683a0560bebc45eea'
             'fde213191b38137c1e29b123eb777004dc84cc6ca9d97d5f78ad717689def5f1')
@@ -88,7 +88,7 @@ package() {
     filterdir="/usr/lib/${pkgname}/filters" \
     install install-man
 
-  install -vDm0644 "${srcdir}/tmpfiles.conf" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
+  install -vDm0644 "${srcdir}/cgit.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
   install -vDm0644 "${srcdir}/apache.example.conf" "${pkgdir}/etc/webapps/${pkgname}/apache.example.conf"
   install -d "${pkgdir}/usr/lib/${pkgname}"
   mv "${pkgdir}/usr/share/webapps/${pkgname}/cgit.cgi" "${pkgdir}/usr/lib/${pkgname}"
