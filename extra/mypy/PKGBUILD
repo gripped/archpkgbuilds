@@ -5,7 +5,7 @@
 # Contributor: hexchain <i@hexchain.org>
 
 pkgname=mypy
-pkgver=1.17.0
+pkgver=1.17.1
 pkgrel=1
 pkgdesc='Optional static typing for Python (PEP484)'
 arch=('any')
@@ -41,7 +41,7 @@ source=(
   "$pkgname-$pkgver.tar.gz::https://github.com/python/mypy/archive/v$pkgver.tar.gz"
   "$pkgname-exclude-tests.patch"
 )
-sha256sums=('d9d5362f087415c58a8a48c53fe2f6e81e9afd97e833fa862661208b44ee243d'
+sha256sums=('d20cff07c21d1d7dbeda8ba6e8a96ab26ac83e39bdeda9ccf9a6333a709faabd'
             '4f270a2ab4e20366ae2ebc912c2589edd070f488a224d2a6b3209c731c3a28f9')
 
 prepare() {
