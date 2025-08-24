@@ -3,7 +3,7 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=python-moto
-pkgver=5.1.8
+pkgver=5.1.10
 pkgrel=1
 pkgdesc='Moto is a library to mock out the boto library.'
 arch=(any)
@@ -76,7 +76,7 @@ source=(
   "git+https://github.com/getmoto/moto#tag=$pkgver"
   "fix-tests.diff"
 )
-sha256sums=('59559b4f61edd3fa2bdd7616df63484a1922f6f0fcac9a1c864c4c915d1398ae'
+sha256sums=('e29795a90ec60392f4d20fd568b7706de78f4a2f3cd8da785edad41cf043e138'
             '21305cdf3d650ced1acb1d0f7dde8760b26e32a94c56a5571e798d6b6976cf5a')
 
 prepare() {
