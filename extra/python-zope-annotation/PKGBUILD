@@ -3,7 +3,7 @@
 
 pkgname=python-zope-annotation
 _pkgname=zope.annotation
-pkgver=5.1
+pkgver=5.2
 pkgrel=1
 pkgdesc="Object annotation mechanism"
 arch=('any')
@@ -28,11 +28,11 @@ checkdepends=(
   'python-zope-testrunner'
 )
 source=("$pkgname-$pkgver.tar.gz::https://github.com/zopefoundation/zope.annotation/archive/$pkgver.tar.gz")
-sha512sums=('7477cfa0d8c35511025d1dba9469b0a66dbbbeeeaa951b8b57ac2cf7c2c4d0caf4bcd778ad45cff88c1de7c5db92cab511f03eb8adc5e5274d15792dc3941790')
+sha512sums=('d754f8e37fc98b7250213386f35c76a20109fa42ab11b3c02d921f36c0959f4e265b607eccab8195da1d6944d0650e9eb6433f269c74a8c6cf9fe913407fd9bc')
 
 build() {
   cd $_pkgname-$pkgver
-  python -m build --wheel --no-isolation
+  python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
