@@ -4,7 +4,7 @@
 
 pkgname=python-awscrt
 _pkgname=aws-crt-python
-pkgver=0.27.4
+pkgver=0.27.6
 pkgrel=1
 pkgdesc='A common runtime for AWS Python projects'
 arch=(x86_64)
@@ -33,7 +33,7 @@ makedepends=(
 )
 checkdepends=(python-websockets)
 source=("git+$url.git#tag=v$pkgver")
-sha256sums=('c5295b05275c36b276e5035ad009cc51e11aa1b715f37cfd2f433f64bff2a2c3')
+sha256sums=('ca71e3fa944f915d16cec2c648362394536c69912c7ce24b8352d00d6c97657c')
 
 prepare() {
   cd $_pkgname
