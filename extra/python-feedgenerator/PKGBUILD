@@ -4,7 +4,7 @@
 # Contributor: Chaoswizard <chaoswizard@gmail.com>
 
 pkgname=python-feedgenerator
-pkgver=2.2.0
+pkgver=2.2.1
 pkgrel=1
 pkgdesc="Standalone version of Django's feedgenerator module"
 url="https://github.com/getpelican/feedgenerator"
@@ -19,7 +19,7 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("$url/archive/$pkgver/${pkgname#python-}-$pkgver.tar.gz")
-sha512sums=('b3cbf9c09821b184767f5291388c62af91e5897289ddcf199fcf0cbd4199964127d4af88ab1f87427195a77c30dd200159ef61646cc3db393f1afff4a5ad0888')
+sha512sums=('83f49e1aabfdc72bb95b2134a55ce8dbae1cd8bd75a7bf48d50cd3ca4afb5c6021eb04835e6e0d04e131acd9ce3bb6901e5ada42cf327a540ffe1dd514f1d21e')
 
 build() {
   cd ${pkgname#python-}-$pkgver
