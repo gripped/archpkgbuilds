@@ -3,16 +3,16 @@
 
 _hkgname=commonmark
 pkgname=haskell-commonmark
-pkgver=0.2.5.1
-pkgrel=43
+pkgver=0.2.6
+pkgrel=1
 pkgdesc="Pure Haskell commonmark parser"
 url="https://github.com/jgm/commonmark-hs"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-unicode-data' 'haskell-unicode-transforms')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-quickcheck' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('bf2e06ef30ca21aba10634ae1dc09a446353c83f4d792a3a37653d55f0e3e66a878b7c1dbf829875a7e19319050dce2ca1315d3e27fc199470ed78377a3afa7e')
+sha512sums=('a13bd02ce9d2c1bb686b0a369cdc93d40cefdfb94e0388da5d9bd684c405198e066c005aaa9dd7c701735bab8d0aa494e72b753e4cacfe4a9117d4d875f9f3d1')
 
 build() {
     cd $_hkgname-$pkgver
