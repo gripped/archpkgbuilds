@@ -3,7 +3,7 @@
 # Contributor: Joakim Saario <saario.joakim@gmail.com>
 
 pkgname=docker-buildx
-pkgver=0.26.1
+pkgver=0.27.0
 pkgrel=1
 pkgdesc="Docker CLI plugin for extended build capabilities with BuildKit"
 arch=('x86_64')
@@ -13,7 +13,7 @@ makedepends=('go' 'git')
 depends=('glibc')
 options=(!lto)
 source=("git+https://github.com/docker/buildx.git#tag=v${pkgver}")
-sha512sums=('45fb8d48e2ded3fa68754a0415ce6d7d6639923cdcdad438ed13669b71b1a3c351b6b3e3375b08ea2b336641578d761d0aaf5b2bd3cbd218421642398031f2c8')
+sha512sums=('e1af1a5ac2bb2557db12ee751c041ac4be59e2b90f776631ec79d5f95636fff462b9db1733663cf30a11d709579d4f9b3bd14fa8394d43c7fe38773ed6305700')
 
 build() {
   cd "buildx"
