@@ -3,13 +3,13 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=2.14.1
+pkgver=2.16.0
 _llvmmaj=15
 _llvmver="${_llvmmaj}.0.7"
 _vciver=0.23.1
 _spirv_tools_ver=2025.1.rc1
-_spirv_headers_commit=0e710677989b4326ac974fd80c5308191ed80965
-_spirv_llvm_commit=b3d425c0b265ee9f583894892ae0b0a192a2137c
+_spirv_headers_commit=aa6cef192b8e693916eb713e7a9ccadf06062ceb
+_spirv_llvm_commit=6fd7ff4e76b344dd17cca735af60ee613f322440
 _opencl_clang_commit=7eef46576eca117685ae431735c2725ddb889260
 pkgrel=1
 epoch=1
@@ -40,14 +40,14 @@ source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${p
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}"
         '010-intel-graphics-compiler-disable-werror.patch')
-sha256sums=('036faaa5b15d98e8d3165f0cb6a5a3f975a9daa375a079dc840947da5179a86d'
+sha256sums=('e8b74139d28e3c3be6acde94ac9e106af913dcaa495e2c687cdcb520f0a26538'
             'b05cabc364c71450738b999906df5ffae683c3501760a3edaa71f113b3cbc1a0'
-            'ce477b995db6a7d95e79d9c03d7c268a51b70d8ad001d287def64407347cc17b'
+            '476261320cc1eb22dd6bc46b4632abde878a3703352909928e71773ee7059246'
             '7659e07da76ea409cdf6665c6a28c1b88702c7846062f03c9be7917c9114376e'
-            'c2b9afa462bddbb499642fe69f8f932719ce4bfe866fe107cbec1f816d300b09'
+            '0d9741de558943f181437dd5141dbb0af4d266aed63fc1eb6356708dfca25258'
             '20b358895a331ebaf921d5dfce5042a03f2f262b9b64b33a421710abd2255a93'
             '5e0b72ca37446fdf0fa54f1bb4cea6d3a53c19bdf373fa054b6a8ce640519024'
-            '186b37a5f4352ea6635aa76b39c86cb5a080b1a9a8711f43d3ccf54a68f73456')
+            '505a6f3e4cd4a47bb23b6567c965127a2399a04e1246d0d7b1dfddf1b9c6c1e2')
 
 prepare() {
     # rename to prevent SPIRV-LLVM-Translator from being included
@@ -84,7 +84,6 @@ build() {
         -DCMAKE_INSTALL_LIBDIR=lib \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_POLICY_VERSION_MINIMUM=3.5.0 \
-        -DIGC_OPTION__ARCHITECTURE_TARGET=Linux64 \
         -DIGC_OPTION__CLANG_MODE=Source \
         -DIGC_OPTION__LINK_KHRONOS_SPIRV_TRANSLATOR=ON \
         -DIGC_OPTION__LLD_MODE=Source \

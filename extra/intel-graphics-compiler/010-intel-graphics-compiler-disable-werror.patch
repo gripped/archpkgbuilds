@@ -1,6 +1,6 @@
 --- a/IGC/CMakeLists.txt
 +++ b/IGC/CMakeLists.txt
-@@ -566,7 +566,7 @@ elseif(_igc_compiler_is_gnu)
+@@ -565,7 +565,7 @@ elseif(_igc_compiler_is_gnu)
        GROUP NAME Exceptions         "-f(no-)?exceptions"
        GROUP NAME Optimization       "-O[0-3sg]?"
        GROUP NAME Rtti               "-f(no-)?rtti"
@@ -9,7 +9,7 @@
  
        ALIAS AdditionalOptions
        ALIAS CallingConvCdecl
-@@ -594,8 +594,8 @@ elseif(_igc_compiler_is_gnu)
+@@ -593,8 +593,8 @@ elseif(_igc_compiler_is_gnu)
        ALIAS RtMultiThreadedSharedDebug
        ALIAS RttiDisabled               "-fno-rtti"
        ALIAS RttiEnabled                "-frtti"
@@ -20,7 +20,7 @@
        ALIAS UnreferencedVariable
        ALIAS UninitializedVarWarning
        ALIAS WholeProgramOptimization
-@@ -930,7 +930,7 @@ foreach(_compilerFlagName IN ITEMS "CMAK
+@@ -929,7 +929,7 @@ foreach(_compilerFlagName IN ITEMS "CMAK
              #-march=armv8.2-a+fp+simd+sve2
              -march=armv8-a+fp+simd
              -fms-extensions
@@ -29,7 +29,7 @@
              -Wno-unused-parameter
              -Wno-missing-field-initializers
              -Wwrite-strings
-@@ -995,7 +995,7 @@ foreach(_compilerFlagName IN ITEMS "CMAK
+@@ -994,7 +994,7 @@ foreach(_compilerFlagName IN ITEMS "CMAK
            -march=corei7
            -mstackrealign
            -fms-extensions
