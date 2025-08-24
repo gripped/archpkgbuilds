@@ -2,7 +2,7 @@
 
 _pkg=xarray
 pkgname=python-${_pkg}
-pkgver=2025.07.1
+pkgver=2025.08.0
 pkgrel=1
 pkgdesc="N-D labeled arrays and datasets in Python"
 arch=(any)
@@ -28,6 +28,7 @@ checkdepends=(
   python-dask
   python-distributed
   python-fsspec
+  python-h5netcdf
   python-h5py
   python-hypothesis
   python-matplotlib
@@ -36,15 +37,16 @@ checkdepends=(
   python-pint
   python-pyarrow
   python-pytest
+  python-pytest-asyncio
   python-pytest-xdist
   python-scipy
   python-seaborn
 )
 optdepends=(
   'python-netcdf4: netCDF4 support'
+  'python-h5netcdf: alternative for netCDF4 support'
   'python-scipy: interpolation features & fallback for netCDF3 support'
 #  'python-pydap: fallback for accessing OPeNDAP'
-#  'python-h5netcdf: alternative for netCDF4 support'
 #  'python-zarr: chunked, compressed N-dimensional arrays'
   'python-cftime: datetimes support for non-standard calendars or distant dates'
 #  'python-pseudonetcdf: atmospheric science specific file formats support'
@@ -64,7 +66,7 @@ optdepends=(
   'python-pint: units of measure support'
 )
 source=("https://github.com/pydata/xarray/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('51198ab129d8584ab8be453e33a746f646b1af1d8e0b71d3c6c953c6e32c770c')
+sha256sums=('8417bf0cdc6d64bb923feec08eedd5f4f8b777e51f8f1a49516fc50093743cd7')
 
 build() {
   cd ${_pkg}-${pkgver}
