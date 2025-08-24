@@ -2,19 +2,27 @@
 
 _hkgname=HTF
 pkgname=haskell-htf
-pkgver=0.15.0.1
-pkgrel=150
+pkgver=0.15.0.2
+pkgrel=1
 pkgdesc="The Haskell Test Framework"
 url="https://github.com/skogsbaer/HTF/"
-license=("LGPL2")
+license=('LGPL-2.1-only')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-diff' 'haskell-hunit' 'haskell-quickcheck' 'haskell-aeson'
          'haskell-base64-bytestring' 'haskell-cpphs' 'haskell-src' 'haskell-lifted-base'
          'haskell-monad-control' 'haskell-old-time' 'haskell-random' 'haskell-regex-compat'
          'haskell-vector' 'haskell-xmlgen')
-makedepends=('ghc' 'haskell-aeson-pretty' 'haskell-temporary' 'haskell-unordered-containers')
+makedepends=('ghc' 'uusi' 'haskell-aeson-pretty' 'haskell-temporary' 'haskell-unordered-containers')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('bc16a958bd36b03f673388470eed7fea01daaa1604677bb08dfb910598d39856')
+sha256sums=('a8c7c196fa14e09436ea014bc06cbb5a639c54ee543cbf5aab8dd9ac59683505')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  gen-setup
+
+  # https://github.com/skogsbaer/HTF/issues/133#issuecomment-3217664957
+  chmod +x scripts/local-htfpp
+}
 
 build() {
   cd $_hkgname-$pkgver
@@ -34,7 +42,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  # https://github.com/skogsbaer/HTF/issues/123
+  # https://github.com/skogsbaer/HTF/issues/133#issuecomment-3217664957
   runhaskell Setup test --show-details=direct || echo "Tests failed"
 }
 
