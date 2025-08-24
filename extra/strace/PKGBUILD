@@ -4,7 +4,7 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=strace
-pkgver=6.15
+pkgver=6.16
 pkgrel=1
 pkgdesc='A diagnostic, debugging and instructional userspace tracer'
 arch=(x86_64)
@@ -15,7 +15,7 @@ depends=(
   libunwind
 )
 source=("https://github.com/strace/strace/releases/download/v$pkgver/strace-$pkgver.tar.xz"{,.asc})
-sha256sums=('8552dfab08abc22a0f2048c98fd9541fd4d71b6882507952780dab7c7c512f51'
+sha256sums=('3d7aee7e4f044b2f67f3d51a8a76eda18076e9fb2774de54ac351d777d4ebffa'
             'SKIP')
 validpgpkeys=('296D6F29A020808E8717A8842DB5BD89A340AEB7') # Dmitry V. Levin <ldv@altlinux.org>
 
