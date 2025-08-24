@@ -1,18 +1,18 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=sirocco
-pkgver=2.1.0
-pkgrel=3
+pkgver=2.1.1
+pkgrel=1
 pkgdesc='C++ library that allows to compute piecewise linear approximations of the path followed by the root of a complex polynomial'
 arch=(x86_64)
-url='https://iuma.unizar.es/es/investigacion/software/sirocco'
+url='https://github.com/miguelmarco/SIROCCO2'
 license=(GPL-3.0-or-later)
 depends=(gcc-libs
          glibc
          mpfr)
 makedepends=(git)
 source=(git+https://github.com/miguelmarco/SIROCCO2#tag=$pkgver)
-sha256sums=('c56e200effdf8e7e2b413685aa41e1b6e2424fe13cad3c1ad049cd0d3d431a8d')
+sha256sums=('b8834acb165469c1c21e5468963f98c055005280110813b1b9da8e7312f028be')
 
 prepare() {
   cd SIROCCO2
