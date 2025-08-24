@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=libgnome-games-support-2
-pkgver=2.0.1
+pkgver=2.0.2
 pkgrel=1
 pkgdesc="Code shared between GNOME games"
 url="https://gitlab.gnome.org/GNOME/libgnome-games-support"
@@ -20,9 +20,9 @@ makedepends=(
 )
 provides=("libgnome-games-support-${pkgver%%.*}.so")
 source=(
-  "git+$url.git?signed#tag=${pkgver/[a-z]/.&}"
+  "git+$url.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('7476259308b35fba7b91372b06b33394dcd4cb37cddce26dc38bae51e188690ca898b20c1dd381b811aed59a7a627683b76a2c8a47568b6bfefafc475df9e42a')
+b2sums=('a1291f218e492a87ffe03a41c0346e434763dfe5f39da387cc7f486b346cb50770d65835ae52adab5de2c5aacedeb6cb388311afb6bf0b280cfb1de91d83997c')
 validpgpkeys=(
   EF033B6B1044EEE7F743A1737F71B64279363298 # Michael Catanzaro <mcatanzaro@redhat.com>
 )
