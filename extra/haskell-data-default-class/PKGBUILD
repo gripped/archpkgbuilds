@@ -2,16 +2,16 @@
 
 _hkgname=data-default-class
 pkgname=haskell-data-default-class
-pkgver=0.1.2.0
-pkgrel=26
+pkgver=0.1.2.1
+pkgrel=1
 pkgdesc="A class for types with a default value"
 url="https://hackage.haskell.org/package/${_hkgname}"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('293c899cb2b5cded58baa086251110e4c5e7a15477f1864c33be30be8d16d6fadb55e1b5fa8117f4c47ac5c86ac09abb2f7f8b3b4fb658d1492eadd099f6f7b2')
+sha512sums=('d49cefb2754e443c87eb8cdee02e30899bccca4f79ed7a639d7ae2dae5174eee6912e16df1b052dc61b68da7a18ba167f369a5f2c751c8cd5e3fa212254b2f0f')
 
 build() {
     cd ${srcdir}/${_hkgname}-${pkgver}
