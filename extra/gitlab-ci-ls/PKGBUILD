@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=gitlab-ci-ls
-pkgver=1.1.9
+pkgver=1.1.10
 pkgrel=1
 pkgdesc='Language server for Gitlab CI'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(
 )
 options=(!lto)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('43012cfeb4c36c3a13b2bb28b84d791b5de27cab5219eb76e2f480e9945d9c7018252c1c3164af1baef9fd8011d57cc7e72d622614e08feedc4a93798781d298')
+b2sums=('63db4239d4eedcadf3a6c85ab1934713a4ca79f8e6ea608839a5c859ddc8b2ff53b7ab8573dfdff647242bdb3184ec9eddeb3e88f4ff6a50a5806d892635d4de')
 
 prepare() {
   cd $pkgname
