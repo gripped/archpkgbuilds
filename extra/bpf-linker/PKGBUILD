@@ -2,7 +2,7 @@
 # Contributor: Eric Long <i@hack3r.moe>
 
 pkgname=bpf-linker
-pkgver=0.9.14
+pkgver=0.9.15
 pkgrel=1
 pkgdesc="Simple BPF static linker"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('Apache-2.0' 'MIT')
 depends=('glibc' 'gcc-libs' 'llvm-libs')
 makedepends=('cargo' 'llvm')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/aya-rs/$pkgname/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('2c201c8aea43fa06156eb3fa67d290aa53e8032f4a7c800896eb42ee089a2129')
+sha256sums=('90e53daa07e0f047a0ef91042a69417d0b0fa961ce9a6afe1d8fbf9f0f048fc1')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -20,7 +20,7 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --frozen --features llvm-sys/force-dynamic
+  cargo build --release --frozen
 }
 
 check() {
@@ -30,7 +30,7 @@ check() {
   # failed to build sysroot: "/usr/lib/rustlib/src/rust/library" does not seem to be a rust library
   # source folder: `src/Cargo.toml` not found
   CARGO_MANIFEST_DIR="$PWD" cargo test --frozen \
-    --features llvm-sys/force-dynamic -- --skip compile_test
+    -- --skip compile_test
 }
 
 package() {
