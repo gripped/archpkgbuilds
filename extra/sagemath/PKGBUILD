@@ -7,7 +7,7 @@
 
 pkgname=sagemath
 pkgver=10.7
-pkgrel=1
+pkgrel=2
 pkgdesc='Open Source Mathematics Software, free alternative to Magma, Maple, Mathematica, and Matlab'
 arch=(x86_64)
 url='http://www.sagemath.org'
@@ -136,15 +136,19 @@ makedepends=(bliss
              sirocco
              treedec)
 source=(git+https://github.com/sagemath/sage#tag=$pkgver
-        latte-count.patch)
+        latte-count.patch
+        maxima-5.48.patch)
 sha256sums=('4f3e35ed9448064fdf261885aa5220cb939ea475c6b3012492baf687ea82e992'
-            'f1dd7fea298f38be0f03f46ed4bc9281267f03ec3eee2582edb385ca4cb5db09')
+            'f1dd7fea298f38be0f03f46ed4bc9281267f03ec3eee2582edb385ca4cb5db09'
+            'c8ffb48852764378520c0a88d45ea9999b2212152b502174b1f0309512a51009')
 
 prepare(){
   cd sage
 
 # use correct latte-count binary name
   patch -p1 -i ../latte-count.patch
+# adapt to maxima 5.48 changes
+  patch -p1 -i ../maxima-5.48.patch
 }
 
 build() {
