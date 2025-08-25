@@ -3,7 +3,7 @@
 _hkgname=prettyprinter-interp
 pkgname=haskell-prettyprinter-interp
 pkgver=0.2.0.0
-pkgrel=97
+pkgrel=98
 pkgdesc="Efficient interpolation for Prettyprinter"
 url="https://github.com/DigitalBrains1/prettyprinter-interp"
 license=("BSD")
@@ -16,6 +16,7 @@ sha256sums=('ce812e060c4a582f5091131a70535bf3ce5b5bd90e036cc1351ad8443c328056')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u tasty
 }
 
 build() {
