@@ -1,21 +1,22 @@
 pkgbase = hashcat
 	pkgdesc = Multithreaded advanced password recovery utility
-	pkgver = 7.1.1
+	pkgver = 7.1.2
 	pkgrel = 1
 	epoch = 1
 	url = https://hashcat.net/hashcat
 	arch = x86_64
 	license = MIT
 	makedepends = opencl-headers
+	makedepends = rust
 	depends = ocl-icd
 	depends = xxhash
 	depends = zlib
 	depends = minizip
 	provides = libhashcat.so
-	source = https://hashcat.net/files/hashcat-7.1.1.tar.gz
-	source = https://hashcat.net/files/hashcat-7.1.1.tar.gz.asc
+	source = https://hashcat.net/files/hashcat-7.1.2.tar.gz
+	source = https://hashcat.net/files/hashcat-7.1.2.tar.gz.asc
 	validpgpkeys = A70833229D040B4199CC00523C17DA8B8A16544F
-	sha512sums = ce7878a335d7c541a4619cb004838aa420c91f7f02bf43b2e410229430c59d6e85830c2dd569537440543980f80a9567222de756eed98b49e9564dbed12f8f03
+	sha512sums = 89213058aaa2be3aa62dfab8acd5c61a7c8bd58a63ce2c3c1472960e122ca554f63482cb201f4e285acb97d94b1c1038bc93a203d66bd5a428f31ad8c709873c
 	sha512sums = SKIP
 
 pkgname = hashcat
