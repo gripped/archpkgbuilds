@@ -2,11 +2,14 @@
 
 pkgname=openapi-diff
 pkgver=2.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc=" Utility for comparing two OpenAPI specifications"
 arch=('any')
 url="https://github.com/OpenAPITools/openapi-diff"
-license=(Apache-2.0)
+license=(
+  0BSD
+  Apache-2.0
+)
 depends=(
   bash
   java-runtime=8
@@ -18,11 +21,14 @@ makedepends=(
 source=(
   $url/archive/$pkgver/$pkgname-$pkgver.tar.gz
   $pkgname.sh
+  LICENSE
 )
 sha512sums=('df8e91d5b6b5a3ee01ce768064cc34f4305b63a5729db03950aff8c15dd1257b1cfa53656dfc17ddeccf9d8786b461f09d76cd1d36a327b10b83b155fe66e5a9'
-            'e4143cff09abc59958f50a969ed3f010ab39e640cf77081e47e77cf3e2bb785645100572fd18bc508ea441732bc13a5a811332fdbfdbd7f8a0d6865f301f978e')
+            'e4143cff09abc59958f50a969ed3f010ab39e640cf77081e47e77cf3e2bb785645100572fd18bc508ea441732bc13a5a811332fdbfdbd7f8a0d6865f301f978e'
+            'a33658d9271e5c537ccd41bf540b463ad2a5eca4a060c80486ff42a736f0aa042d10436e7177c34d792177cb11285243dee1f31c4df54fb0bfaabbc306406930')
 b2sums=('2aa443240d1a4a0e74dbb61d2fe386de32d1b57cdb04d2bcf878da75418301d0e1daa57ae97e7e1ad84e6544bc17fa4bd1a0611d8279433666567a5a9274b499'
-        'a28a194b1b5c731fd3093c22754fc7f6641441ae2acb1ad177b8ee573d8e3787af2b249740ffd1e3472f721e0274d0866c0acf1bf5c85f4a22fe1c2dcf24af7b')
+        'a28a194b1b5c731fd3093c22754fc7f6641441ae2acb1ad177b8ee573d8e3787af2b249740ffd1e3472f721e0274d0866c0acf1bf5c85f4a22fe1c2dcf24af7b'
+        'a29664104e1ee73ca0aee1d633e9095d92a57c92787f8d8740bdb7211ba3205782ed8677f539bdb8cae3dd75a3694be3132e185fa3fc4b3f401e1f88eb776101')
 
 build() {
   cd $pkgname-$pkgver
@@ -35,4 +41,5 @@ package() {
   install -vDm 755 ../$pkgname.sh "$pkgdir/usr/bin/$pkgname"
   ln -svf $pkgname "$pkgdir/usr/bin/$pkgname-cli"
   install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 ../LICENSE "$pkgdir/usr/share/licenses/$pkgname/0BSD.txt"
 }
