@@ -3,15 +3,20 @@
 _hkgname=paramtree
 pkgname=haskell-paramtree
 pkgver=0.1.2
-pkgrel=16
+pkgrel=17
 pkgdesc="Generate labelled test/benchmark trees from sets of parameters"
 url="https://github.com/merijn/paramtree"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-golden' 'haskell-tasty-hunit' 'haskell-temporary')
+makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-golden' 'haskell-tasty-hunit' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('3637b5bbdf969f67e63596ccbdb9c779c2de3272dd0131e3f58dfab290a16061')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  uusi -u tasty
+}
 
 build() {
   cd $_hkgname-$pkgver
