@@ -4,16 +4,21 @@
 _hkgname=blaze-markup
 pkgname=haskell-blaze-markup
 pkgver=0.8.3.0
-pkgrel=57
+pkgrel=58
 pkgdesc="A blazingly fast markup combinator library for Haskell"
 url="https://jaspervdj.be/blaze"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-blaze-builder')
-makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
+makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('a92bebbf879eac7e09cf0fc5a52175867e79e2210853765c9e689a5f8d30b9061803b02cba62708b92366503dbf1e2ddbaa31e4a11dd9c919b749b004103c646')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u tasty
+}
 
 build() {
     cd $_hkgname-$pkgver
