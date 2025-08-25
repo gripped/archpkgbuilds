@@ -2,7 +2,7 @@
 
 pkgname=dhall-yaml
 pkgver=1.2.12
-pkgrel=85
+pkgrel=86
 pkgdesc="Convert between Dhall and YAML"
 url="https://github.com/dhall-lang/dhall-haskell/tree/master/dhall-yaml"
 license=("GPL3")
@@ -17,7 +17,7 @@ sha512sums=('440e78b5d32979bece9fd4655e8131c65624ed53b2e3f82028eacd39761133e8e64
 prepare() {
   cd $pkgname-$pkgver
   gen-setup
-  uusi -u ansi-terminal -u optparse-applicative
+  uusi -u ansi-terminal -u optparse-applicative -u tasty
 }
 
 build() {
