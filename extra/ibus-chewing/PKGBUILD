@@ -6,7 +6,7 @@
 # Contributor: Hiroshi Yui <hiroshiyui@gmail.com>
 
 pkgname=ibus-chewing
-_pkgver=2.1.5
+_pkgver=2.1.6
 pkgver=${_pkgver/-rc./rc}
 pkgrel=1
 pkgdesc='Chinese Chewing Engine for IBus Framework'
@@ -18,8 +18,8 @@ depends=('ibus' 'libchewing>=0.9.0' 'gtk4' 'libadwaita')
 makedepends=('cmake' 'minisign' 'glib2-devel')
 checkdepends=('dbus' 'xorg-server-xvfb')
 source=("https://github.com/chewing/ibus-chewing/releases/download/v$_pkgver/$pkgname-$_pkgver-Source.tar.xz"{,.minisig})
-sha512sums=('f83b5dec8aa292eb25b68928214b705cfa88253465c6b5784a7b8ebfb60d8179cef196c5b4b36050f60e449461e2e39e6890ce4a30d81b9cc345940ba465956b'
-            'dbd93f2c2be70b0239e0b324c8bc07f89aaad43712c43b40a175a7e03639fa261736b419c475f8c2a0a77b4c952ece57c441ca70445ec481f673ac460f569ed9')
+sha512sums=('b8820588309401832ab90a53a8bda2921fc55faa8e99848103b95f4c8f9a7c21a5ee7c506b14a3e3d77317029aae9610b12a63801c3dc844f1345188fbd18272'
+            '3d8bbc246d4fe88d76c39b5d4d8b701288eaa02f944188178f3f37e259a4d7c8606e2a9208f20c49a4143f2f0aa6f0cc37e6065189dadcfa8742b7114ea69ebc')
 # The key is mentioned on https://github.com/chewing/ibus-chewing
 _validminisignkey='RWRzJFnXiLZleAyCIv1talBjyRewelcy9gzYQq9pd3SKSFBPoy57sf5s'
 
