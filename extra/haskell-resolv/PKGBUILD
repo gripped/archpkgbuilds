@@ -3,15 +3,20 @@
 _hkgname=resolv
 pkgname=haskell-resolv
 pkgver=0.2.0.2
-pkgrel=247
+pkgrel=248
 pkgdesc="Domain Name Service (DNS) lookup via the libresolv standard library routines"
 url="https://github.com/hvr/resolv"
 license=('GPL')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-base16-bytestring')
-makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit')
+makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
 sha512sums=('df61ab0e3d1c2faa525271416fca3976378ac6fcbaf9f729c7ed3f07454625a03f6aafcd2fd56f2001bc61d365ccb2b4c4f2bd693696576450df20a20e7102df')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u tasty
+}
 
 build() {
     cd $_hkgname-$pkgver
