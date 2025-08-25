@@ -4,7 +4,7 @@
 _hkgname=turtle
 pkgname=haskell-turtle
 pkgver=1.6.2
-pkgrel=99
+pkgrel=100
 pkgdesc="Shell programming, Haskell-style"
 url="https://github.com/Gabriel439/turtle"
 license=('BSD')
@@ -18,7 +18,7 @@ sha512sums=('7d83a0fdd62768ddc2d07fceed68253591d7d996cc4e7518839fe51f15b64c50f58
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u ansi-wl-pprint
+    uusi -u ansi-wl-pprint -u tasty
     sed -i 's/]/, "-dynamic"]/' test/Main.hs
 }
 
