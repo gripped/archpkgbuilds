@@ -4,7 +4,7 @@
 _hkgname=microstache
 pkgname=haskell-microstache
 pkgver=1.0.2.3
-pkgrel=149
+pkgrel=150
 pkgdesc="Mustache templates for Haskell"
 url="https://github.com/phadej/microstache"
 license=("BSD")
@@ -16,7 +16,7 @@ sha512sums=('c50fa66a019116ca81e63de59951df29316c39c50d3672197353987ac431f63cc97
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u base-orphans
+    uusi -u base-orphans -u tasty
 }
 
 build() {
