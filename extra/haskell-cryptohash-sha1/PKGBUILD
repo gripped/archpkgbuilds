@@ -3,7 +3,7 @@
 _hkgname=cryptohash-sha1
 pkgname=haskell-cryptohash-sha1
 pkgver=0.11.101.0
-pkgrel=129
+pkgrel=130
 pkgdesc="Fast, pure and practical SHA-1 implementation"
 url="https://github.com/hvr/cryptohash-sha1"
 license=("BSD")
@@ -16,7 +16,7 @@ sha512sums=('4384fc2f63750400561b5dbea0a343510306d755131121346d6a52cb9420cb12fc7
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u base
+    uusi -u base -u tasty
 }
 
 build() {
