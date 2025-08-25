@@ -2,7 +2,7 @@
 
 pkgname=virt-firmware
 pkgver=25.7.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Collection of tools for edk2 firmware images"
 arch=(any)
 url="https://gitlab.com/kraxel/virt-firmware"
@@ -12,11 +12,11 @@ depends=(
   python-crc32c  # undeclared runtime dependency: https://gitlab.com/kraxel/virt-firmware/-/issues/4
   python-cryptography
   python-pefile
-  python-setuptools
 )
 makedepends=(
   python-build
   python-installer
+  python-setuptools
   python-wheel
 )
 checkdepends=(
