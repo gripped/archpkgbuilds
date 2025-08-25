@@ -2,8 +2,8 @@
 
 _hkgname=hslua-aeson
 pkgname=haskell-hslua-aeson
-pkgver=2.3.0.1
-pkgrel=116
+pkgver=2.3.1
+pkgrel=1
 pkgdesc="Allow aeson data types to be used with Lua."
 url="https://hslua.org/"
 license=("MIT")
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-hashable' 'haskell-hslua-core'
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-tasty'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('838adb847538b9fc1d8d61df5cc6fad20564f8098a101a8c8bc167a38fffd5ba')
+sha256sums=('bfc95d1295d94c8b3d2318f755138708b5894c421ff156cddaa5949e60a406f2')
 
 prepare() {
   cd $_hkgname-$pkgver
