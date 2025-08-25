@@ -3,8 +3,8 @@
 
 _hkgname=dbus
 pkgname=haskell-dbus
-pkgver=1.3.2
-pkgrel=10
+pkgver=1.3.3
+pkgrel=1
 pkgdesc="A client library for the D-Bus IPC system"
 url="https://john-millikin.com/software/haskell-dbus/"
 license=('Apache-2.0')
@@ -16,7 +16,7 @@ makedepends=('ghc' 'uusi' 'haskell-extra' 'haskell-quickcheck' 'haskell-resource
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'haskell-temporary')
 checkdepends=('dbus')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('6c52e3c5e0fe1787b4c4bb4c8e305ce6c2af6cb244b8d523a3849f1e70ba546304503850f7798e098ff68bf60fda2c90df0811a259df61544924b526fe060ee9')
+sha512sums=('70b0514d5c5a59d17ef0f51c4d2f6be91e72517666d21d902d1411efc256e009f97d62f23a96137cdc2f4fb75399b92f7ffe4c6e6b4bdf19980f28bdb80ba548')
 
 prepare() {
     cd $_hkgname-$pkgver
