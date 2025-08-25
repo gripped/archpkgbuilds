@@ -2,7 +2,7 @@
 
 pkgname=dhall-json
 pkgver=1.7.12
-pkgrel=82
+pkgrel=83
 pkgdesc='Convert between Dhall and JSON or YAML'
 url='https://dhall-lang.org'
 license=('BSD-3-Clause')
@@ -16,7 +16,7 @@ sha512sums=('5cd925bd3803fedd3aabbfe93db77b234f39e7d3a4dae5caba09e31de940fbfc54e
 
 prepare() {
     cd $pkgname-$pkgver
-    uusi -u ansi-terminal -u optparse-applicative
+    uusi -u ansi-terminal -u optparse-applicative -u tasty
 }
 
 build() {
