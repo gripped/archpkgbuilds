@@ -1,10 +1,10 @@
 pkgbase = gearmand
 	pkgdesc = Distributed job queue server.
-	pkgver = 1.1.21
-	pkgrel = 6
+	pkgver = 1.1.22
+	pkgrel = 1
 	url = http://gearman.org/
 	arch = x86_64
-	license = CUSTOM
+	license = BSD-3-Clause
 	makedepends = boost
 	makedepends = gperf
 	makedepends = python-sphinx
@@ -14,15 +14,15 @@ pkgbase = gearmand
 	depends = postgresql-libs
 	depends = sqlite
 	depends = hiredis
-	provides = gearman=1.1.21
+	provides = gearman=1.1.22
 	conflicts = gearman
 	replaces = gearman
 	backup = etc/gearmand.conf
-	source = https://github.com/gearman/gearmand/releases/download/1.1.21/gearmand-1.1.21.tar.gz
+	source = https://github.com/gearman/gearmand/releases/download/1.1.22/gearmand-1.1.22.tar.gz
 	source = gearmand.service
 	source = gearmand.conf
 	source = user.conf
-	sha256sums = 2688b83e48f26fdcd4fbaef2413ff1a76c9ecb067d1621d0e0986196efecd308
+	sha256sums = c5d18f6a13625ebdd7e514596aed39e31203358eee688dfedcedd989a2f02d7a
 	sha256sums = 1ce84be1a03697ababe099889c80abac79262f625e8591f83a325827ff6e091d
 	sha256sums = 6c14fdcd94105338e13bdd59dbed4f9b77430a517b2c125ac2e6d3bc43bdf506
 	sha256sums = eeb9e706dc4216b704c08daa7e60e80cd9f6cef1c17bc67d02612271742abca5

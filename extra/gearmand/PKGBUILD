@@ -4,8 +4,8 @@
 # Contributor: John Gerritse <reaphsharc@gmail.com>
 
 pkgname=gearmand
-pkgver=1.1.21
-pkgrel=6
+pkgver=1.1.22
+pkgrel=1
 pkgdesc="Distributed job queue server."
 arch=('x86_64')
 depends=('libevent' 'boost-libs' 'mariadb-libs' 'postgresql-libs' 'sqlite' 'hiredis')
@@ -14,13 +14,13 @@ conflicts=('gearman')
 replaces=('gearman')
 provides=("gearman=$pkgver")
 url="http://gearman.org/"
-license=('CUSTOM')
+license=('BSD-3-Clause')
 backup=('etc/gearmand.conf')
 source=(https://github.com/gearman/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz
         gearmand.service
         gearmand.conf
         user.conf)
-sha256sums=('2688b83e48f26fdcd4fbaef2413ff1a76c9ecb067d1621d0e0986196efecd308'
+sha256sums=('c5d18f6a13625ebdd7e514596aed39e31203358eee688dfedcedd989a2f02d7a'
             '1ce84be1a03697ababe099889c80abac79262f625e8591f83a325827ff6e091d'
             '6c14fdcd94105338e13bdd59dbed4f9b77430a517b2c125ac2e6d3bc43bdf506'
             'eeb9e706dc4216b704c08daa7e60e80cd9f6cef1c17bc67d02612271742abca5')
