@@ -1,47 +1,39 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=toot
-pkgver=0.50.0
+pkgver=0.50.1
 pkgrel=1
 pkgdesc='A Mastodon CLI client'
-arch=('any')
+arch=(any)
 url='https://github.com/ihabunek/toot'
-license=('GPL-3.0-only')
+license=(GPL-3.0-only)
 depends=(
-  'python'
-  'python-requests'
-  'python-beautifulsoup4'
-  'python-wcwidth'
-  'python-urwid'
-  'python-urwidgets'
-  'python-tomlkit'
-  'python-click'
-  'python-typing_extensions'
-  'python-dateutil'
+  python
+  python-requests
+  python-beautifulsoup4
+  python-wcwidth
+  python-urwid
+  python-urwidgets
+  python-tomlkit
+  python-click
+  python-typing_extensions
+  python-dateutil
 )
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-setuptools-scm'
-  'python-wheel'
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-setuptools-scm
+  python-wheel
 )
 optdepends=(
   'python-term-image: image support'
   'python-pillow: image support'
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('b85ce17388846ff7ab7792241f893b3eb721aceb437f75af80e8e22fb0caa3952c416dd1350ac7c284bebf9a822b07a65f01fbbdf3f779d9337fc5162bd467dc')
-b2sums=('582e911953b2940befe64337dfbe1498d80153f61b91ff88d697edf11b3581bc26ca837113a0c310d456dcef26917a9a3c728d771f78795124fccf484cbdbc46')
-
-prepare() {
-  cd "$pkgname"
-
-  git revert --no-commit \
-    3c20a82ac1813eba6c69d2ea9b083ddc9cd47270 \
-    cf0f1868f1afbb17e088e4405175f78246bf9d26
-}
+sha512sums=('f48aabbf638a601ce253ebff2abcac6b558fc6b4ffe0fe0e268201cd3fb5ab4ef4751aec3433d7f86ca4e154592935a324b936abdeddc2f8a79f66a02532a211')
+b2sums=('bd706c84eb98089ee24e42db64cdf3db1d110fe53d82c71cbe468b56e147619429eaffd4b5a3118011def2d4b27dc6eec724f9f8ae87735a78c2c94a464c1f95')
 
 build() {
   cd "$pkgname"
