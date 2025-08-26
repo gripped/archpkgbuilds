@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: Markus Näther <naether.markus@gmail.com>
 pkgname=hipblas
-pkgver=6.4.1
+pkgver=6.4.3
 pkgrel=1
 pkgdesc='ROCm BLAS marshalling library'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'hipblas-common' 'rocb
 makedepends=('rocm-cmake' 'git' 'cmake' 'gcc-fortran')
 _git='https://github.com/ROCm/hipBLAS'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('3fa0a690bf96104afb093d19a4f565012a59ab6df378df8aef5420914e82d91b')
+sha256sums=('75121df09f9b0b3116c19258c9526e0cff3d8845361031305ba0369f140fd8b8')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 build() {
