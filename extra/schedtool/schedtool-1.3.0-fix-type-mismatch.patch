@@ -1,0 +1,74 @@
+From 4e6c29a651ae975254ae37364fc7b6188fb91bb6 Mon Sep 17 00:00:00 2001
+From: Adam Sampson <ats@offog.org>
+Date: Fri, 11 Jul 2025 16:17:01 +0100
+Subject: [PATCH 1/2] Fix type mismatch in set_process
+
+Patch from Debian, by Stephen Kitt <skitt@debian.org>.
+---
+ schedtool.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/schedtool.c b/schedtool.c
+index d55f9ce..139f9bb 100644
+--- a/schedtool.c
++++ b/schedtool.c
+@@ -422,19 +422,19 @@ int set_process(pid_t pid, int policy, int prio)
+ 	struct sched_param p;
+ 	int ret;
+ 
+-	char *msg1="could not set PID %d to %s";
+-	char *msg2="could not set PID %d to raw policy #%d";
+-
+ 	p.sched_priority=prio;
+ 
+ 	/* anything other than 0 indicates error */
+ 	if((ret=sched_setscheduler(pid, policy, &p))) {
+ 
+-                /* la la pointer mismatch .. lala */
+-		decode_error((CHECK_RANGE_POLICY(policy) ? msg1 : msg2),
+-			     pid,
+-			     (CHECK_RANGE_POLICY(policy) ? TAB[policy] : policy)
+-			    );
++		if (CHECK_RANGE_POLICY(policy)) {
++			decode_error("could not set PID %d to %s",
++				     pid, TAB[policy]);
++		} else {
++			decode_error("could not set PID %d to raw policy #%d",
++				     pid, policy);
++		}
++
+ 		return(ret);
+ 	}
+ 	return(0);
+
+From 630919bbb9221e9d7e4031ef1df82a592a8c0abc Mon Sep 17 00:00:00 2001
+From: Adam Sampson <ats@offog.org>
+Date: Fri, 11 Jul 2025 16:18:40 +0100
+Subject: [PATCH 2/2] Remove unused variable
+
+Reported by clang's scan-build.
+---
+ schedtool.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/schedtool.c b/schedtool.c
+index 139f9bb..bd5fe24 100644
+--- a/schedtool.c
++++ b/schedtool.c
+@@ -542,7 +542,6 @@ int parse_affinity(cpu_set_t *mask, char *arg)
+ {
+ 	cpu_set_t tmp_aff;
+ 	char *tmp_arg;
+-	size_t valid_len;
+ 
+         CPU_ZERO(&tmp_aff);
+ 
+@@ -550,7 +549,7 @@ int parse_affinity(cpu_set_t *mask, char *arg)
+ 		/* we're in standard hex mode */
+ 		str_to_cpuset(&tmp_aff, arg);
+ 
+-	} else if( (valid_len=strspn(arg, "0123456789,.")) ) {
++	} else if(strspn(arg, "0123456789,.")) {
+ 		/* new list mode: schedtool -a 0,2 -> run on CPU0 and CPU2 */
+ 
+ 		/* split on ',' and '.', because '.' is near ',' :) */
