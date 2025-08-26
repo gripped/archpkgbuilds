@@ -3,7 +3,7 @@
 
 pkgname=sssd
 pkgver=2.11.1
-pkgrel=1
+pkgrel=2
 pkgdesc="System Security Services Daemon"
 arch=('x86_64')
 url="https://github.com/SSSD/sssd"
@@ -23,6 +23,7 @@ depends=(
   'libldb.so'
   'curl'
   'pcre2'
+  'libfido2'      # for passkeys
 )
 makedepends=(
   'docbook-xsl'

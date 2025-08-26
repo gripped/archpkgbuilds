@@ -1,7 +1,7 @@
 pkgbase = sssd
 	pkgdesc = System Security Services Daemon
 	pkgver = 2.11.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/SSSD/sssd
 	install = sssd.install
 	arch = x86_64
@@ -35,6 +35,7 @@ pkgbase = sssd
 	depends = libldb.so
 	depends = curl
 	depends = pcre2
+	depends = libfido2
 	options = !lto
 	backup = etc/logrotate.d/sssd
 	source = https://github.com/SSSD/sssd/releases/download/2.11.1/sssd-2.11.1.tar.gz
