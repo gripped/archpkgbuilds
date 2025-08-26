@@ -1,4 +1,6 @@
 [networkmanager-vpnc]
 source = "git"
 git = "https://gitlab.gnome.org/GNOME/NetworkManager-vpnc.git"
-include_regex = '[^.]+\.[^.]*[02468]\.[^.]*[02468]'
+include_regex = '\d+(\.\d+)*'
+from_pattern = '-([a-z])'
+to_pattern = '\1'

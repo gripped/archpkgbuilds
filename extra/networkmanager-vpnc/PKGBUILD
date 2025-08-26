@@ -1,30 +1,31 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
-pkgname=networkmanager-vpnc
+pkgbase=networkmanager-vpnc
+pkgname=(
+  networkmanager-vpnc
+  networkmanager-vpn-plugin-vpnc
+)
 pkgver=1.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="NetworkManager VPN plugin for VPNC"
 url="https://networkmanager.dev/docs/vpn/"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
-  gcc-libs
   glib2
   glibc
+  gtk3
   libnm
+  libnma
   libsecret
-  vpnc
 )
 makedepends=(
+  gcc-libs
   git
-  libnma
   libnma-gtk4
   python
-)
-optdepends=(
-  "libnma-gtk4: GUI support (GTK 4)"
-  "libnma: GUI support (GTK 3)"
+  vpnc
 )
 source=("git+https://gitlab.gnome.org/GNOME/NetworkManager-vpnc.git?signed#tag=$pkgver")
 b2sums=('fd745613d8cddb67f70783465c03192656231ce3ae1beea36e397a7af3cecf9f3d60e87e280a43d91a45c0e59a46e608ec5987cd51d6c93001269d14c5661d4e')
@@ -53,9 +54,46 @@ build() {
   make
 }
 
-package() {
+_pick() {
+  local p="$1" f d; shift
+  for f; do
+    d="$srcdir/$p/${f#$pkgdir/}"
+    mkdir -p "$(dirname "$d")"
+    mv "$f" "$d"
+    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+  done
+}
+
+package_networkmanager-vpnc() {
+  pkgdesc+=" (with GUI)"
+  depends+=(
+    "networkmanager-vpn-plugin-vpnc=$pkgver-$pkgrel"
+  )
+  optdepends=(
+    "libnma-gtk4: GUI support (GTK 4)"
+  )
+
   cd NetworkManager-vpnc
   make DESTDIR="$pkgdir" install dbusservicedir=/usr/share/dbus-1/system.d
+
+  cd "$pkgdir"
+  _pick plugin usr/lib/NetworkManager/VPN
+  _pick plugin usr/lib/NetworkManager/libnm-vpn-plugin-vpnc.so
+  _pick plugin usr/lib/nm-vpnc-service*
+  _pick plugin usr/share/dbus-1
+}
+
+package_networkmanager-vpn-plugin-vpnc() {
+  pkgdesc+=" (VPN plugin only)"
+  depends=(
+    gcc-libs
+    glib2
+    glibc
+    libnm
+    vpnc
+  )
+
+  mv plugin/* "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
