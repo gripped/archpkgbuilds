@@ -3,8 +3,7 @@
 # Contributor: Michael Yeatts <mwyeatts@gmail.com>
 
 pkgname=python-typing_extensions
-_name=${pkgname#python-}
-pkgver=4.14.1
+pkgver=4.15.0
 pkgrel=1
 pkgdesc='Backported and Experimental Type Hints for Python 3.8+'
 arch=(any)
@@ -18,25 +17,25 @@ makedepends=(
   python-installer
 )
 checkdepends=(python-tests)
-source=("git+$url.git#tag=$pkgver")
-b2sums=('0991c03e833292757947b7492f44f2ee2fa4a1fdfeaef386b7c4109d46491ee526d5c8389509ba498b7f460466f4af90b56dbc9fb9bd343ecd4a3ca3efc930ab')
+source=("$pkgname::git+$url.git#tag=$pkgver")
+sha512sums=('471fd5003f8230c8e1b70515de6394f2273253eab577cece43012f81178ad2b08d6eaf90ead473b477349dc4dcbc3260e83dbf9aba54dfc5645a231a1e820654')
+b2sums=('17f1071cd2fc5276c203ea14bf0de468d6238d59e5960b710d8a60cb3dec251f3b837ae7551f4373877aaba20a307d1d5333fd9650ea3743aee085e3a4adec4d')
 
 build() {
-  cd "$_name"
+  cd "$pkgname"
   python -m build --wheel --skip-dependency-check --no-isolation
 }
 
 check() {
-  cd "$_name"
+  cd "$pkgname"
   PYTHONPATH="$PWD/src" python -m unittest discover src
 }
 
 package() {
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s "$site_packages/$_name"-$pkgver.dist-info/licenses/LICENSE \
-    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  cd "$pkgname"
 
-  cd "$_name"
   python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
