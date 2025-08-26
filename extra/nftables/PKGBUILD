@@ -3,7 +3,7 @@
 pkgname=nftables
 epoch=1
 pkgver=1.1.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Netfilter tables userspace tools'
 arch=('x86_64')
 url='https://netfilter.org/projects/nftables/'
@@ -24,6 +24,11 @@ sha256sums=('af9029347c5cbec915cf4d1f4503a269908cee86a15e35b9f4526b465823ed78'
 
 prepare() {
   cd $pkgname
+
+  # json: Do not reduce single-item arrays on output
+  git cherry-pick -n \
+    '5e492307c2c93b7eb654691ca87ddc7ad86640d8'
+
   autoreconf -fiv
 }
 
