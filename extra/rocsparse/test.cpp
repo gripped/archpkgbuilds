@@ -8,7 +8,7 @@
 int main()
 {
     using rint = rocsparse_int;
-    rint n = 1024;
+    rint n = 4096;
 
     std::random_device rd;
     std::mt19937 gen(rd());
