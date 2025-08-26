@@ -3,23 +3,18 @@
 
 _hkgname=scientific
 pkgname=haskell-scientific
-pkgver=0.3.7.0
-pkgrel=186
+pkgver=0.3.8.0
+pkgrel=2
 pkgdesc="Numbers represented using scientific notation"
 url="https://github.com/basvandijk/scientific"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-integer-logarithms' 'haskell-primitive')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc')
 checkdepends=('haskell-quickcheck' 'haskell-smallcheck' 'haskell-tasty' 'haskell-tasty-hunit'
               'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('dbd13060a6d1d101138715b4106382a78d115cff247859cb6f83aca3cdb6f6caf8a2c52d7ae99be64845c5e4a7959940bbf31df6265b15079c236f193b087865')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u base -u hashable -u primitive -u template-haskell -u text
-}
+sha512sums=('7d56ffb6806d2fc8d771bb666dc417a0256b618e2d530f41065cdf94ae7842f4d24bc9323a5bab006dd5d50ffff5fc899b25b7361c51d62aeb73a2a0ac0195d4')
 
 build() {
     cd $_hkgname-$pkgver
