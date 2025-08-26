@@ -4,11 +4,15 @@
 
 pkgname=cacti
 pkgver=1.2.30
-pkgrel=1
+pkgrel=2
 pkgdesc="Network graphing solution using RRDTool"
 arch=(any)
 url="https://www.cacti.net"
-license=(GPL-2.0-or-later)
+_url="https://github.com/Cacti/cacti"
+license=(
+  0BSD
+  GPL-2.0-or-later
+)
 depends=(
   php
   php-gd
@@ -27,26 +31,29 @@ backup=(
   etc/webapps/cacti/config.php
 )
 source=(
-  https://www.$pkgname.net/downloads/$pkgname-$pkgver.tar.gz
+  $pkgname-$pkgver.tar.gz::$_url/archive/refs/tags/release/$pkgver.tar.gz
   $pkgname.uwsgi
   $pkgname.sysusers
   $pkgname.tmpfiles
+  LICENSE
 )
 install=$pkgname.install
-sha512sums=('8c4ded2c64c0f3b87c5d4c1acee0897bf16ef08dcdd1eec996876ece85144ddd1eebae48d95aae84ae3484a30a20316c8d05d2d31204a133c56df7538aec7766'
+sha512sums=('e0e147df4d2bd863c03bac486309fb7c307e4cce5171207325c460b74a97d027bdcc011eead0eb5bd456c37b08f5135bbaca6a21f87c8c7df2e9f551a3d26c96'
             'ba421785a3a86535dba210b5ac34ad059fac72b809a9027308d047a967de43aa204eda56e129b28f6400859427de123734b338c5d8cd3da1944893fa3ef33e48'
-            '847e2b791de44d0790a2fdb81c77c8af9a66da9d44500f3f8a8d1c0f406d3a20082cc8fef1c6afe4de93ad989d35c79c9809abe14693a9ac6ea74d4696e3b6c1'
-            'e833e411f74e77773c32589ba83cb1b2f28ca9b35931626480ab7daa63420d47ecfc3061e6703323646b69e1d98536b6f3afdd36faa483fb13aac9b818af0c6e')
-b2sums=('38a2c1b0458b3939cabd70e4f6579afbd6222eab61cc0f6887309aed78d7f74b47ee3af488f79a84ca2a9adebff99de9ec2f68a1c8d88b529a3f0ca96d8a7027'
+            'bc823237a9b744516dd2b18ce68bba214fff9e8c48dee28262b2112da9ff23060f3e47f55809c0e7aa14eb02821431d8fd92011d4bfabffd081e8d3bf4f501ff'
+            'e833e411f74e77773c32589ba83cb1b2f28ca9b35931626480ab7daa63420d47ecfc3061e6703323646b69e1d98536b6f3afdd36faa483fb13aac9b818af0c6e'
+            'a33658d9271e5c537ccd41bf540b463ad2a5eca4a060c80486ff42a736f0aa042d10436e7177c34d792177cb11285243dee1f31c4df54fb0bfaabbc306406930')
+b2sums=('3c62c1ebf3e403e05e90433723a8dd7482566d522ffc7904f1421a1c56b363a53c5c0459e944964b87ce5851a26307528a963710bb5e9b7a49a46ad5e8a3b335'
         '880cfc1a87abd95a624ffef6f1ae5ac416b4020ae40edc32355314bb33b5003b21ab8ed082b520d70b166739a1b056339cca7b6a6bb82167c14925ae3ca0d34f'
-        '2ec9956b690ab9244e31a58d295ab56b5d0df9fc9586c74edbd55c12d3383430b8a1a8a708d7d747abadb67eee42094562da510ddfc7797978c2683e7b86a252'
-        '0a532bbbd07b21da18ea21eec3f268510740069fb732e3d387f224b93f0539e3e968ba6332bf647ff62f2d98910abc33e35a3e82d335cf7d29a503609e22651f')
+        '24256c05d935a7fa5e82b5b527021a1bf30e224336c38ed69b3e3832eebead12540431ba1a9cc8bdafdc662cf7964f00db70d7ed4da022fe29c5d64f4f3a39fe'
+        '0a532bbbd07b21da18ea21eec3f268510740069fb732e3d387f224b93f0539e3e968ba6332bf647ff62f2d98910abc33e35a3e82d335cf7d29a503609e22651f'
+        'a29664104e1ee73ca0aee1d633e9095d92a57c92787f8d8740bdb7211ba3205782ed8677f539bdb8cae3dd75a3694be3132e185fa3fc4b3f401e1f88eb776101')
 
 prepare() {
   # adding default .htaccess
   echo "Require all denied" > $pkgname-htaccess
 
-  cd $pkgname-$pkgver
+  cd $pkgname-release-$pkgver
   # setting correct install path for spine
   sed -e 's|/usr/local/spine/bin/spine|/usr/bin/spine|g' -i install/functions.php
   # setting correct path for dejavu font
@@ -56,7 +63,7 @@ prepare() {
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname-release-$pkgver
 
   # install webapp dir
   install -vdm 755 "$pkgdir/usr/share/webapps/$pkgname/include/"
@@ -98,6 +105,7 @@ package() {
   install -vDm 644 ../$pkgname.sysusers "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
   # uwsgi config
   install -vDm 644 ../$pkgname.uwsgi "$pkgdir/etc/uwsgi/$pkgname.ini"
+  install -vDm 644 ../LICENSE "$pkgdir/usr/share/licenses/$pkgname/0BSD.txt"
 
   # remove already installed files/folder so that they are not installed again
   rm -frv include/config.php.dist rra/ resource/ scripts/ cache/ log/ {CHANGELOG,README.md}
