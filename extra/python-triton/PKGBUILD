@@ -1,0 +1,69 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+_pkgname=triton
+pkgname=python-${_pkgname}
+pkgver=3.4.0
+pkgrel=1
+pkgdesc="Language and compiler for writing highly efficient custom Deep-Learning primitives"
+url="https://triton-lang.org/main/index.html"
+license=(MIT)
+arch=(x86_64)
+depends=(
+	glibc
+	gcc-libs
+	python
+)
+makedepends=(
+	git
+	cmake
+	ninja
+	pybind11
+	python-setuptools
+	python-build
+	python-wheel
+	python-installer
+)
+_git="https://github.com/triton-lang/triton"
+_llvm="https://github.com/llvm/llvm-project"
+# https://github.com/triton-lang/triton/blob/v3.4.0/cmake/llvm-hash.txt
+_commit=8957e64a20fc7f4277565c6cfe3e555c119783ce
+source=(
+	"${pkgname}-${pkgver}.tar.gz::${_git}/archive/refs/tags/v${pkgver}.tar.gz"
+	"${pkgname}-llvm-${pkgver}::git+${_llvm}#commit=${_commit}"
+	)
+sha256sums=('a96e87a911794c907fab30e0c7a3f96ef4e9e8fdc8812cd8bbc6f0457619072f'
+            'c9871b1dd59b20f9b30b3501b367095da26c23879e403d280355aa37d6172b10')
+
+prepare() {
+	cd "${_pkgname}-${pkgver}"
+	# We bring our own pybind11, cmake and ninja
+	sed -i '/requires = \[/s/.*/requires = \["setuptools"\]/' pyproject.toml
+	# Werror breaks build with current gcc
+	sed -i 's/-Werror//' CMakeLists.txt
+}
+
+build() {
+	local llvm_args=(
+		-G Ninja
+		-S "${pkgname}-llvm-${pkgver}/llvm"
+		-B build-llvm
+		-DCMAKE_BUILD_TYPE=Release
+		-DLLVM_ENABLE_ASSERTIONS=ON
+		-DLLVM_ENABLE_PROJECTS="mlir;llvm;lld"
+		-DLLVM_TARGETS_TO_BUILD="X86;NVPTX;AMDGPU"
+	)
+	cmake "${llvm_args[@]}"
+	cmake --build build-llvm
+
+	cd "${_pkgname}-${pkgver}"
+	export LLVM_BUILD_DIR="${srcdir}"/build-llvm
+	LLVM_INCLUDE_DIRS="${LLVM_BUILD_DIR}"/include \
+	LLVM_LIBRARY_DIR="${LLVM_BUILD_DIR}"/lib \
+	LLVM_SYSPATH="${LLVM_BUILD_DIR}" \
+	python -m build --wheel --no-isolation
+}
+
+package() {
+	cd "${_pkgname}-${pkgver}"
+	python -m installer --destdir="$pkgdir" dist/*.whl
+	install -Dm644 LICENSE "${pkgdir}"/usr/share/licenses/"${pkgname}"/LICENSE
+}

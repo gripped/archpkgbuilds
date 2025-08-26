@@ -1,0 +1,24 @@
+pkgbase = python-triton
+	pkgdesc = Language and compiler for writing highly efficient custom Deep-Learning primitives
+	pkgver = 3.4.0
+	pkgrel = 1
+	url = https://triton-lang.org/main/index.html
+	arch = x86_64
+	license = MIT
+	makedepends = git
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = pybind11
+	makedepends = python-setuptools
+	makedepends = python-build
+	makedepends = python-wheel
+	makedepends = python-installer
+	depends = glibc
+	depends = gcc-libs
+	depends = python
+	source = python-triton-3.4.0.tar.gz::https://github.com/triton-lang/triton/archive/refs/tags/v3.4.0.tar.gz
+	source = python-triton-llvm-3.4.0::git+https://github.com/llvm/llvm-project#commit=8957e64a20fc7f4277565c6cfe3e555c119783ce
+	sha256sums = a96e87a911794c907fab30e0c7a3f96ef4e9e8fdc8812cd8bbc6f0457619072f
+	sha256sums = c9871b1dd59b20f9b30b3501b367095da26c23879e403d280355aa37d6172b10
+
+pkgname = python-triton
