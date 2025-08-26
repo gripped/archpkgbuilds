@@ -1,0 +1,7 @@
+[network-manager-sstp]
+source = "git"
+git = "https://gitlab.gnome.org/GNOME/network-manager-sstp.git"
+include_regex = 'release-\d+(\.\d+)*'
+prefix = "release-"
+from_pattern = '-([a-z])'
+to_pattern = '\1'
