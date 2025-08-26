@@ -4,8 +4,8 @@
 
 _hkgname=hledger-lib
 pkgname=haskell-hledger-lib
-pkgver=1.34
-pkgrel=5
+pkgver=1.40
+pkgrel=1
 pkgdesc="A library providing the core functionality of hledger"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
@@ -15,12 +15,13 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-ansi-termina
          'haskell-cassava-megaparsec' 'haskell-cmdargs' 'haskell-colour' 'haskell-data-default'
          'haskell-decimal' 'haskell-doclayout' 'haskell-extra' 'haskell-file-embed' 'haskell-glob'
          'haskell-hashtables' 'haskell-megaparsec' 'haskell-microlens' 'haskell-microlens-th'
-         'haskell-pager' 'haskell-parser-combinators' 'haskell-pretty-simple' 'haskell-regex-tdfa'
-         'haskell-safe' 'haskell-tabular' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-terminal-size' 'haskell-text-ansi'
-         'haskell-timeit' 'haskell-uglymemo' 'haskell-unordered-containers' 'haskell-utf8-string')
+         'haskell-lucid' 'haskell-pager' 'haskell-parser-combinators' 'haskell-pretty-simple'
+         'haskell-regex-tdfa' 'haskell-safe' 'haskell-tabular' 'haskell-tasty' 'haskell-tasty-hunit'
+         'haskell-terminal-size' 'haskell-text-ansi' 'haskell-timeit' 'haskell-uglymemo'
+         'haskell-unordered-containers' 'haskell-utf8-string')
 makedepends=('ghc' 'haskell-doctest')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('a8dd6fb13c7d586dade2b9f288840814cfc916fcf8ebcda0504feb2286a72ebfdce6f5c648abf434b7bac6b2c0a594077a8cef56cf674dd7c1f62d36c993cbe6')
+sha512sums=('0802e7396581c83dce37ad5d5767ba4b97566bf1cd5ae954cc01f69e8c482c6d14c259a43faa6d99d286e94d9c487db852dbf8c96f4d7d81f6c84e28d29300f3')
 
 build() {
     cd $_hkgname-$pkgver
