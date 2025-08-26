@@ -2,8 +2,8 @@
 # Contributor: linus.mussmaecher@gmail.com
 
 pkgname=rucola
-pkgver=0.5.0
-pkgrel=2
+pkgver=0.6.0
+pkgrel=1
 pkgdesc="Terminal-based markdown note manager"
 arch=('x86_64')
 url="https://github.com/Linus-Mussmaecher/rucola"
@@ -12,7 +12,8 @@ depends=('gcc-libs')
 makedepends=('cargo')
 replaces=('rucola-notes')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('7c5fe6e47751486763c823d51c6d46870cb7f4413f1e4de95f1b15e617081225')
+sha256sums=('f7d3557588a5658615489180896bbb549ad4d2be69e7e9e0bd7973179bf9f922')
+options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
