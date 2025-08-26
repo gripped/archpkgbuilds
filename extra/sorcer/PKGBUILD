@@ -3,11 +3,11 @@
 _name=openAV-Sorcer
 pkgname=sorcer
 pkgver=1.1.3
-pkgrel=5
+pkgrel=6
 pkgdesc="A polyphonic wavetable synth LV2 plugin"
 arch=(x86_64)
 url="https://github.com/openavproductions/openav-sorcer"
-license=(GPL3)
+license=(GPL-3.0-or-later)
 groups=(
   lv2-plugins
   pro-audio
@@ -49,6 +49,7 @@ build() {
     -B build
     -D CMAKE_INSTALL_PREFIX=/usr
     -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -S $_name-release-$pkgver
     -W no-dev
   )
