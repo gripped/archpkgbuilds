@@ -3,17 +3,17 @@
 
 _hkgname=megaparsec
 pkgname=haskell-megaparsec
-pkgver=9.6.1
-pkgrel=50
+pkgver=9.7.0
+pkgrel=1
 pkgdesc="Monadic parser combinators"
 url="https://github.com/mrkkrp/megaparsec"
-license=("custom:BSD2")
+license=('BSD-2-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-case-insensitive' 'haskell-parser-combinators'
          'haskell-scientific')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('f8eeab5aaa5d13ae2e92d195c7ee390ce148f6e904000e12dd5d983b5078d8e66686e94fe38f1d12227324ee3b543e77dff679c30e64b218c31f0084f0b1dbda')
+sha512sums=('20fd0b670c0dc4cfa249a34c63e876794dbe25e6e7b688a14a966092658d8ed716d8f2b10763c86679fbc3fbff9cd2592f16cf753bc826be043351058a781abc')
 
 prepare() {
     cd $_hkgname-$pkgver
@@ -32,6 +32,11 @@ build() {
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
