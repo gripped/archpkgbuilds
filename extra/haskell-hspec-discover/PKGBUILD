@@ -2,8 +2,8 @@
 
 _hkgname=hspec-discover
 pkgname=haskell-hspec-discover
-pkgver=2.10.10
-pkgrel=31
+pkgver=2.11.0
+pkgrel=2
 pkgdesc="Automatically discover and run Hspec tests"
 url="https://hspec.github.io/"
 license=('MIT')
@@ -12,7 +12,7 @@ depends=('ghc-libs')
 makedepends=('ghc')
 checkdepends=('haskell-quickcheck' 'haskell-hspec-meta' 'haskell-mockery')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('a474f767f50b19e770d6482fe34781ec0ce62ddc34708238401b2bab990cbc78a32140738e060e1a50132b7b6c782db93f412234a7c4d6780dcbd94b2ead535f')
+sha512sums=('93b9b3128f573829724773d5b9eb623d79383680f261901113d7e94a284d954e9767bbc666be84283c7408a17b0c71f9b6533682d37166dbc055a44f5d6944f1')
 
 build() {
     cd $_hkgname-$pkgver
