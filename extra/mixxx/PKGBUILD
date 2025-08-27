@@ -5,8 +5,8 @@
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 
 pkgname=mixxx
-pkgver=2.5.1
-pkgrel=4
+pkgver=2.5.2
+pkgrel=1
 pkgdesc="Free, open source software for digital DJing"
 arch=(x86_64)
 url="https://www.mixxx.org"
@@ -68,9 +68,17 @@ makedepends=(
 )
 source=(
   $_url/archive/$pkgver/$pkgname-$pkgver.tar.gz
+  $_url/commit/2189621b6d09a352a9ec16f84a4106f66d1dbc29.patch
 )
-sha512sums=('14ca19b58e5f3bb2502a3a79125c2e4f149d002ff6e89bd3bad61a6bb268cfcecaaf1ee31eac3eb39bfdcdf77bae38ea6ef0ad3cdb8df9bfb842070b642b3ffc')
-b2sums=('a1541e74753ba97aa5faf0785f987619b60e061faf21500723568eb599fd72cc03b3948a1a8012dcfeb111a2e2e20256aa39dbeb15e49355830bb94aeef7d625')
+sha512sums=('3ea8faef80c5a8b28ffd1bd6384d2b60b318da6b77dc34d1a68a626e48756e235fe854cb5a7b1bbfab1f8c2b8be2489dd238c11f072b08d0fde86618ddd55c0f'
+            '1bfeb329924c178bde5497edeb5d702abbd7e4bbbedc7a495e67ff9b5cd7f17704fea3deb7401ef46b908b524ad673cad49e4f9953247fe3adffac73dae7a211')
+b2sums=('f9ff48c45af4092ef8fcba5220d31d80b639d06b2803573b433b307d0062d6295337cde490b50ca1d9dfcab91d34ed9a6e299ffc9e84dfa39df3c15cc40006ef'
+        '8a4c02659761f031cb2b38568065086b7ebb50a9b19fce37b64a322bc39d3e6755e8d2707df60da974e8e8659dcaf1aa7ff9dcd94f4ff3ccf75b8af4dfd08937')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  patch -p1 -i ../2189621b6d09a352a9ec16f84a4106f66d1dbc29.patch
+}
 
 build() {
   local cmake_options=(
