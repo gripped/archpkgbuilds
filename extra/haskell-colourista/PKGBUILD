@@ -4,7 +4,7 @@
 _hkgname=colourista
 pkgname=haskell-colourista
 pkgver=0.1.0.2
-pkgrel=88
+pkgrel=89
 pkgdesc="Convenient interface for printing colourful messages based on the ansi-terminal library."
 url="https://github.com/kowainik/colourista"
 license=('MPL2')
@@ -17,7 +17,7 @@ sha512sums=('eb3fd127f0eb1b855c99f8d370993d9485e03d55ab45cdbd2231129417dc9e6299e
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u ansi-terminal
+  uusi -u ansi-terminal -u hspec
 }
 
 build() {
