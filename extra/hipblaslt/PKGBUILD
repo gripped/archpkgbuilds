@@ -1,24 +1,28 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=hipblaslt
-pkgver=6.4.1
+pkgver=6.4.3
 pkgrel=1
 pkgdesc='General matrix-matrix operations beyond a traditional BLAS library'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/hipBLASLt/en/latest/index.html'
 license=('MIT')
 depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'hipblas' 'rocblas')
-makedepends=('rocm-cmake' 'python' 'cmake' 'git' 'ninja'
-             'msgpack-cxx' 'python-msgpack' 'python-joblib' 'python-pyaml' 'hipblas-common')
+makedepends=('rocm-cmake'  'rocm-toolchain' 'python' 'cmake' 'git' 'ninja'
+             'msgpack-cxx' 'python-msgpack' 'python-setuptools' 'python-joblib'
+             'python-pyaml' 'hipblas-common')
 _git='https://github.com/ROCm/hipBLASLt'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
-        "$pkgname-find-msgpack5.patch")
-sha256sums=('929f781f86df40143c3ab98df2d746170dedb6788e368335e24c84796285a8a4'
-            '8e6d134a1d45de814099dfe591296de5e1d47f9906ccf9c51d7f2228e992c5f4')
+        "$pkgname-find-msgpack5.patch"
+        "$pkgname-clang.patch")
+sha256sums=('64252588faf8a9089838e8f427e911617916fd6905a8cc65370e8d25fafdf0e4'
+            '8e6d134a1d45de814099dfe591296de5e1d47f9906ccf9c51d7f2228e992c5f4'
+            '46a816b7d0555f30362467713e2356af83865e7ff2d727484690606bf89b9f14')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 prepare() {
   cd "$_dirname"
   patch -Np1 -i "$srcdir/$pkgname-find-msgpack5.patch"
+  patch -Np1 -i "$srcdir/$pkgname-clang.patch"
 }
 
 build() {
@@ -33,7 +37,7 @@ build() {
     -D CMAKE_CXX_COMPILER=amdclang++
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D Tensile_CODE_OBJECT_VERSION=default
-    -D AMDGPU_TARGETS="gfx908;gfx908;gfx90a;gfx90a;gfx942;gfx1100;gfx1101"
+    -D AMDGPU_TARGETS="gfx900;gfx908;gfx90a:xnack+;gfx90a:xnack-;gfx942;gfx1100;gfx1101;gfx1102;gfx1150;gfx1151;gfx1200;gfx1201"
   )
   # -fcf-protection is not supported by HIP, see
   # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
