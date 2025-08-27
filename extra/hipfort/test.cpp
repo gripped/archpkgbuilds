@@ -1,3 +1,4 @@
+// copied from https://github.com/ROCm/hipfort/blob/develop/test/f2003/vecadd/hip_implementation.cpp
 #include <hip/hip_runtime.h>
 #include <cstdio>
 
