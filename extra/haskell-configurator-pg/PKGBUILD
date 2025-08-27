@@ -4,15 +4,20 @@
 _hkgname=configurator-pg
 pkgname=haskell-configurator-pg
 pkgver=0.2.10
-pkgrel=35
+pkgrel=36
 pkgdesc="Reduced parser for configurator-ng config files"
 url="https://github.com/robx/configurator-pg"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-megaparsec' 'haskell-protolude' 'haskell-scientific')
-makedepends=('ghc' 'haskell-hunit' 'haskell-test-framework' 'haskell-test-framework-hunit')
+makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-test-framework' 'haskell-test-framework-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('52faf02d2e512b9fd903ff07ddc4dd1b8ac109bacf4a04c002cae3ecec81a154c024c0cdb35639cc5d504a35e480bc69a8c4962adf71adf07aa8cd1bcf490853')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u megaparsec
+}
 
 build() {
     cd $_hkgname-$pkgver
