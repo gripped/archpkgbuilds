@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 
 pkgname=composable-kernel
-pkgver=6.4.1
+pkgver=6.4.3
 pkgrel=1
 pkgdesc="High Performance Composable Kernel for AMD GPUs"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd')
 makedepends=('git' 'cmake' 'ninja' 'rocm-cmake' 'rocm-llvm' 'openmp')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('6db4d36673da6506ca52625b3bd40c29d3b376d31a224fd221ffe60cf97564bf')
+sha256sums=('70d9a2da51d7967e95329884dbd0154753b3ffaecd7272501c59e951bb5160cc')
 # Build without default flags as they cause the final linking step to fail
 # https://github.com/ROCmSoftwarePlatform/composable_kernel/issues/736
 options=(!lto !buildflags)
