@@ -4,7 +4,7 @@
 _hkgname=http-api-data
 pkgname=haskell-http-api-data
 pkgver=0.6
-pkgrel=3
+pkgrel=4
 pkgdesc="Converting to/from HTTP API data like URL pieces, headers and query parameters."
 url="https://github.com/fizruk/http-api-data"
 license=('BSD-3-Clause')
@@ -16,6 +16,11 @@ makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-hunit' 'haskell-quickcheck'
              'haskell-quickcheck-instances')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('36d871aedaaf95ffc024ed73a5927f1e10e841493027e79e3d69f5dd5d9801926f0c9c98f082d52f239fe4ea73cbcc54f98a72aa31b0051774150ef93938af0d')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u hspec
+}
 
 build() {
     cd $_hkgname-$pkgver
