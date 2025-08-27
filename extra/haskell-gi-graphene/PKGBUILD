@@ -2,17 +2,17 @@
 
 _hkgname=gi-graphene
 pkgname=haskell-gi-graphene
-pkgver=1.0.7
-pkgrel=171
+pkgver=1.0.8
+pkgrel=1
 pkgdesc="Graphene bindings"
 url="https://github.com/haskell-gi/haskell-gi"
-license=("LGPL2_1")
+license=('LGPL-2.1-only')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-gi-glib' 'haskell-gi-gobject' 'haskell-gi' 'haskell-gi-base'
          'haskell-gi-overloading' 'graphene')
 makedepends=('ghc' 'gobject-introspection')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('7a8c4906987d2c1d8c2432d68c4ddc4d54cfafa3e53374262e01d54436f797ea')
+sha256sums=('3359e162a855cc62f26a253d2a57dec98fb89bcabb1cebf9c2678f2aced42ea1')
 
 build() {
   cd $_hkgname-$pkgver
