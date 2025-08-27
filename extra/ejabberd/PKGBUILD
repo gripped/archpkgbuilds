@@ -3,8 +3,8 @@
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 
 pkgname=ejabberd
-pkgver=25.04
-pkgrel=1
+pkgver=25.08
+pkgrel=2
 pkgdesc="Jabber server written in Erlang"
 arch=('x86_64')
 url="https://www.ejabberd.im/"
@@ -51,10 +51,12 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/processone/ejabberd/archive
 	"xmpp::git+https://github.com/processone/xmpp"
 	"yconf::git+https://github.com/processone/yconf"
 	"luerl::git+https://github.com/rvirding/luerl"
+	"eredis2::git+https://github.com/wooga/eredis/"
 	"$pkgname.logrotate"
-	"sysuser.conf")
-sha256sums=('54beae3e7729fdaab1d578a9d59046f31d8ce31c851ae5aca9532821ff22cb45'
+	"$pkgname.sysusers")
+sha256sums=('edc95cff239d74bfb16e437f7cf84f0e86144e5fe764d7ee7dc248b2d59778f1'
             'a8e1be2d9daf8dd2dfedc11736a9677f3ed5c520c0f2ddf183689d2182b9151a'
+            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -148,7 +150,7 @@ package() {
   chmod ug+r "$pkgdir/etc/$pkgname/"*
   chmod a+rx "$pkgdir/usr/bin/ejabberdctl"
   rm -rf "$pkgdir/var/lock"
-  install -Dm644 "$srcdir"/sysuser.conf "$pkgdir"/usr/lib/sysusers.d/ejabberd.conf
+  install -Dm644 "$srcdir"/$pkgname.sysusers "$pkgdir"/usr/lib/sysusers.d/ejabberd.conf
   install -Dm644 tools/ejabberdctl.bc "$pkgdir"/usr/share/bash-completion/completions/ejabberdctl
 
   cat <<EOF >>"$pkgdir"/etc/ejabberd/ejabberdctl.cfg
