@@ -1,0 +1,63 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+_pkgname=aotriton
+pkgname=python-${_pkgname}
+pkgver=0.10b
+pkgrel=1
+pkgdesc="Ahead of Time Triton Math Library"
+url="https://github.com/ROCm/aotriton"
+license=(MIT)
+arch=(x86_64)
+depends=(
+	rocm-core
+	glibc
+	gcc-libs
+	python
+	python-triton
+	hip-runtime-amd
+)
+makedepends=(
+	rocm-toolchain
+	cmake
+	ninja
+	pybind11
+	python-msgpack
+	python-filelock
+	python-iniconfig
+	python-packaging
+	python-pluggy
+	python-numpy
+	python-setuptools
+	python-wheel
+	python-pandas
+)
+source=(
+	"${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz"
+	disable-venv.patch
+	)
+sha256sums=('d0099104e665e24555e3c0f21c43e09be11f7f1ee850622f4204c7b1f2a75308'
+            '524c12055b11a7572d79813649e6c9d12d183b2b63295f71d1a4e1f783eb5386')
+
+prepare() {
+	cd ${_pkgname}-${pkgver}
+	patch -p1 -i ../disable-venv.patch
+}
+
+build() {
+	local cmake_args=(
+		-G Ninja
+		-Wno-dev
+		-S "${_pkgname}-${pkgver}"
+		-B build
+		-D CMAKE_BUILD_TYPE=None
+		-D CMAKE_INSTALL_PREFIX=/usr
+		-D AOTRITON_GPU_BUILD_TIMEOUT=0
+		# List taken from release notes
+		-D AOTRITON_TARGET_ARCH="gfx950;gfx1201;gfx1101;gfx1151;gfx1150;gfx1200"
+	)
+	cmake "${cmake_args[@]}"
+	cmake --build build
+}
+
+package() {
+	DESTDIR="${pkgdir}" cmake --install build
+}
