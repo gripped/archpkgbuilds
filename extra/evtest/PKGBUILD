@@ -3,8 +3,8 @@
 # Contributor: Andrej Gelenberg <andrej.gelenberg@udo.edu>
 
 pkgname=evtest
-pkgver=1.35
-pkgrel=2
+pkgver=1.36
+pkgrel=1
 pkgdesc='Input device event monitor and query tool'
 arch=(x86_64)
 url='https://cgit.freedesktop.org/evtest/'
@@ -12,7 +12,7 @@ license=(GPL)
 depends=(glibc)
 makedepends=(asciidoc xmlto)
 source=(https://gitlab.freedesktop.org/libevdev/evtest/-/archive/evtest-${pkgver}/evtest-evtest-${pkgver}.tar.gz)
-sha256sums=('06dfe6b9760b78f3f73aca2120cbcb79339b33e59d5c79a49b4bd5d34844b054')
+sha256sums=('3b9a66c92e48b0cd13b689530b5729c031bc1bcbfe9d19c258f9245e2f8d2a0f')
 
 build() {
   cd $pkgname-$pkgname-$pkgver
