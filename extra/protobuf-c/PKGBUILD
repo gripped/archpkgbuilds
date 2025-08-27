@@ -1,14 +1,15 @@
 # Maintainer: Lukas Fleischer <lfleischer@archlinux.org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 # Contributor: Aurélien Wailly <aurelien.wailly@gmail.com>
 
 pkgname=protobuf-c
 pkgver=1.5.2
-pkgrel=4
+pkgrel=5
 pkgdesc='Protocol Buffers implementation in C'
 arch=('x86_64')
 url='https://github.com/protobuf-c/protobuf-c'
-license=('BSD')
+license=('BSD-2-Clause')
 depends=('protobuf')
 provides=('libprotobuf-c.so')
 options=('!lto') # https://github.com/protobuf-c/protobuf-c/issues/488
