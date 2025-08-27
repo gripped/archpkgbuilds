@@ -3,7 +3,7 @@ diff --color -aur --color root-6.26.00-old/main/src/nbmain.cxx root-6.26.00-new/
 +++ root-6.26.00-new/main/src/nbmain.cxx	2022-03-08 17:36:29.881271963 +0200
 @@ -34,10 +34,6 @@
  #define NB_OPT             "notebook"
- #define JUPYTER_CONF_DIR_V "JUPYTER_CONFIG_DIR"
+ #define JUPYTER_CONF_PATH_V "JUPYTER_CONFIG_PATH"
  #define JUPYTER_PATH_V     "JUPYTER_PATH"
 -#define NB_CONF_DIR        "notebook"
 -#define ROOTNB_DIR         ".rootnb"
@@ -175,6 +175,6 @@ diff --color -aur --color root-6.26.00-old/main/src/nbmain.cxx root-6.26.00-new/
     // Set IPython directory for the ROOT notebook flavour
 -   string rootnbpath = homedir + pathsep + ROOTNB_DIR;
 +   string rootnbpath = pathsep + string("etc") + pathsep + string("root") + pathsep + string("notebook");
-    string jupyconfdir(JUPYTER_CONF_DIR_V + ("=" + rootnbpath));
+    string jupyconfpathdir(JUPYTER_CONF_PATH_V + ("=" + rootnbpath));
     string jupypathdir(JUPYTER_PATH_V + ("=" + rootnbpath));
-    putenv((char *)jupyconfdir.c_str());
+    putenv((char *)jupyconfpathdir.c_str());
