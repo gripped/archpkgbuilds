@@ -2,19 +2,20 @@
 
 pkgname=dnf5
 pkgver=5.2.16.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Next-generation RPM package management system"
 arch=('x86_64')
 url="https://github.com/rpm-software-management/$pkgname"
 license=('GPL-2.0-or-later')
-depends=('appstream' 'curl' 'fmt' 'glib2' 'json-c'
+depends=('curl' 'fmt' 'glib2' 'json-c'
          'libmodulemd' 'librepo' 'libsolv' 'libxml2'
          'rpm-tools' 'sdbus-cpp' 'sqlite' 'systemd-libs'
          'util-linux-libs' 'zlib')
-makedepends=('bash-completion' 'cmake' 'doxygen' 'gettext' 'perl'
+makedepends=('appstream' 'bash-completion' 'cmake' 'doxygen' 'gettext' 'perl'
              'python' 'python-breathe' 'python-sphinx' 'python-sphinx_rtd_theme'
              'toml11' 'swig' 'systemd')
 checkdepends=('cppunit' 'createrepo_c' 'perl-test-exception')
+optdepends=('appstream: dnf appstream plugin support')
 backup=('etc/dnf/dnf.conf'
         'etc/dnf/libdnf5-plugins/actions.conf'
         'etc/dnf/libdnf5-plugins/appstream.conf'
