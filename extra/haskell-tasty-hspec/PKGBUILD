@@ -2,17 +2,17 @@
 
 _hkgname=tasty-hspec
 pkgname=haskell-tasty-hspec
-pkgver=1.2.0.3
-pkgrel=79
+pkgver=1.2.0.4
+pkgrel=1
 pkgdesc="Hspec support for the Tasty test framework"
 url="https://github.com/mitchellwrosen/tasty-hspec"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-hspec' 'haskell-hspec-core' 'haskell-quickcheck' 'haskell-tasty'
-         'haskell-tasty-smallcheck' 'haskell-tasty-quickcheck')
+depends=('ghc-libs' 'haskell-hspec' 'haskell-hspec-api' 'haskell-hspec-core' 'haskell-quickcheck'
+         'haskell-tasty' 'haskell-tasty-smallcheck' 'haskell-tasty-quickcheck')
 makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('7b1c23a3ad2f3392fa0200bcf193a2c6c743f1729208e308173ab4b11c4b5358aaf5146eff8a37a25934d7b2d01847a7de4e82fb0b642cc57a9fc46f373f77b3')
+sha512sums=('eea02800ddc34fe8fe26ae2e1792603e502c68e36b31966a69440c411f9ba097cf005a05f2ad0f758699acca9ab2ee7857e638288e61751dd0bf5da9d60c9561')
 
 prepare() {
     cd $_hkgname-$pkgver
