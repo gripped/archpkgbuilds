@@ -4,7 +4,7 @@
 pkgname=qt6-grpc
 _pkgver=6.9.1
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
