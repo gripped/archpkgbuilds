@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 
 pkgname=rocm-dbgapi
-pkgver=6.4.1
+pkgver=6.4.3
 pkgrel=1
 pkgdesc="Support library necessary for a debugger of AMD's GPUs"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('rocm-core' 'glibc' 'gcc-libs' 'comgr' 'hsa-rocr')
 makedepends=('cmake' 'rocm-cmake')
 _git='https://github.com/ROCm/ROCdbgapi'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('c4c16510b691506c3d0e17d6b2f1eb93529e99dee7877c44fa955a8083337463')
+sha256sums=('3f0df9d1f350cd6d88ddd41c2e574e4f385c109fcc1524b1de3bd69fce05f5b6')
 _dirname=$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")
 
 build() {
