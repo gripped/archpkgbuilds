@@ -1,6 +1,6 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=rocdecode
-pkgver=6.4.1
+pkgver=6.4.3
 pkgrel=1
 pkgdesc='High performance video decode SDK for AMD hardware'
 arch=('x86_64')
@@ -21,15 +21,15 @@ makedepends=(
 )
 _git='https://github.com/ROCm/rocDecode'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('35e364cec1405c76cfbb91215e1a327efea1e60340d8c8df12c0e5b2f0e1321e')
+sha256sums=('dd485e1cf24eb6f7315c32afcd2eb639a64dfb100a747bdbef3aa3235c4e3fa9')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 prepare() {
   cd "$_dirname"
   # https://src.fedoraproject.org/rpms/rocdecode/blob/rawhide/f/rocdecode.spec
   sed -i "s|\(llvm/bin/clang++\)|\1 CACHE STRING \"ROCm Compiler path\"|" \
-		CMakeLists.txt \
-		samples/*/CMakeLists.txt
+    CMakeLists.txt \
+    samples/*/CMakeLists.txt
   sed -i "s|/opt/amdgpu/include NO_DEFAULT_PATH|/usr/include|" cmake/FindLibva.cmake
   sed -i -e 's@${LINK_LIBRARY_LIST} ${LIBVA_DRM_LIBRARY}@${LINK_LIBRARY_LIST} ${LIBVA_DRM_LIBRARY} -ldrm_amdgpu@' CMakeLists.txt
 }
