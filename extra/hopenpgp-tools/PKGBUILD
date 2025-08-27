@@ -2,8 +2,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hopenpgp-tools
-pkgver=0.23.8
-pkgrel=40
+pkgver=0.23.9
+pkgrel=1
 pkgdesc="hOpenPGP-based command-line tools"
 url="https://salsa.debian.org/clint/hopenpgp-tools"
 license=("AGPL3")
@@ -16,22 +16,22 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-base16-bytestring' 'haskell-binary-
          'haskell-optparse-applicative' 'haskell-prettyprinter'
          'haskell-prettyprinter-ansi-terminal' 'haskell-resourcet' 'haskell-time-locale-compat'
          'haskell-unordered-containers' 'haskell-vector' 'haskell-yaml')
-makedepends=('uusi' 'alex' 'happy' 'ghc')
+makedepends=('alex' 'happy' 'ghc')
 source=(https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('aa83cb30cc78dc5ffab4d039095940824337de8e478e3cfe5784b7b9d0ab6b65b0759e2c90b30afd58bfcecf4ec301be720647007bdc1a9f537f72cc62ab0b85')
-
-prepare() {
-    cd "${srcdir}/${pkgname}-${pkgver}"
-    uusi -r cryptonite:crypton
-}
+sha512sums=('6345a327b350ff922964c332e67fd72b16f13240c411d1466d5eae49b154b90354d3b3fabfa4b4d31691af82688e0bef89d91bb947dab4e60818d535ef848e3c')
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"
 
     runhaskell Setup configure -O --enable-executable-dynamic --prefix=/usr \
-        --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --ghc-option='-pie'
     runhaskell Setup build $MAKEFLAGS
+}
+
+check() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    runhaskell Setup test
 }
 
 package() {
