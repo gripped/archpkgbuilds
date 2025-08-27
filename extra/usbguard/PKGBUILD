@@ -3,7 +3,7 @@
 
 pkgname=usbguard
 pkgver=1.1.3
-pkgrel=16
+pkgrel=17
 pkgdesc='Software framework for implementing USB device authorization policies'
 url='https://github.com/USBGuard/usbguard'
 arch=(x86_64)
