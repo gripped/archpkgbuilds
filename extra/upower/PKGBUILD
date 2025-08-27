@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=upower
-pkgver=1.90.9
+pkgver=1.90.10
 pkgrel=1
 pkgdesc="Abstraction for enumerating power devices, listening to device events and querying history and statistics"
 url="https://upower.freedesktop.org"
@@ -38,7 +38,7 @@ checkdepends=(
 )
 backup=(etc/UPower/UPower.conf)
 source=("git+https://gitlab.freedesktop.org/upower/upower.git#tag=v$pkgver")
-b2sums=('b3c05566c8f2c2a9f65c42196f572e8eb815d04fb30fb379060a9d7051af03488c0ae7a1be8a477de06d6eeba3b931b1e5cd140c16c3a8fbdf3fb758157ac286')
+b2sums=('bd3add1a05b237576b6829e92fb83535d5be3d9fe1b46d29fb388984cc6d54684abd6d0ad1482f148a138916528f0f4e9c4252f13b636b3c9359dbcea51c384a')
 
 prepare() {
   cd upower
