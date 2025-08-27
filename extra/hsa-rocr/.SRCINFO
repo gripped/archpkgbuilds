@@ -1,7 +1,7 @@
 pkgbase = hsa-rocr
 	pkgdesc = HSA Runtime API and runtime for ROCm
-	pkgver = 6.4.1
-	pkgrel = 2
+	pkgver = 6.4.3
+	pkgrel = 1
 	url = https://github.com/ROCm/ROCR-Runtime
 	arch = x86_64
 	license = NCSA
@@ -17,12 +17,12 @@ pkgbase = hsa-rocr
 	depends = libdrm
 	depends = rocm-device-libs
 	depends = rocprofiler-register
-	provides = hsakmt-roct=6.4.1
+	provides = hsakmt-roct=6.4.3
 	replaces = hsakmt-roct
 	options = !lto
-	source = hsa-rocr-6.4.1.tar.gz::https://github.com/ROCm/ROCR-Runtime/archive/rocm-6.4.1.tar.gz
+	source = hsa-rocr-6.4.3.tar.gz::https://github.com/ROCm/ROCR-Runtime/archive/rocm-6.4.3.tar.gz
 	source = hsa-rocr-6.4-fix-missing-include.patch
-	sha256sums = f72d100a46a2dd9f4c870cef156604777f1bdb1841df039d14bf37b19814b9da
+	sha256sums = 3b23bed04cbed72304d31d69901eb76afa2099c7ac37f055348dfcda2d25e41a
 	sha256sums = 6b7c62245fd9021ade8046e6a769e48c8c1868131dbac19531befc5f2a4c25b5
 
 pkgname = hsa-rocr
