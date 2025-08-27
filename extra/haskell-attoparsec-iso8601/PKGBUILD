@@ -2,16 +2,16 @@
 
 _hkgname=attoparsec-iso8601
 pkgname=haskell-attoparsec-iso8601
-pkgver=1.1.0.0
-pkgrel=103
+pkgver=1.1.0.1
+pkgrel=1
 pkgdesc="Parsing of ISO 8601 dates, originally from aeson"
 url="https://github.com/haskell/aeson"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-attoparsec' 'haskell-base-compat-batteries' 'haskell-time-compat')
+depends=('ghc-libs' 'haskell-attoparsec' 'haskell-integer-conversion' 'haskell-time-compat')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('4613c2e1b492c4ebf30d1788e8b067592e507e226bd85caacc1844d5a486c1b9c8727117e426763122836205b7341b8603ac15566facd3f0338b55e784f4dfe0')
+sha512sums=('5dba79b29ea66fdc5bc0ac64d5bc3aa6e3f83de0f35257a97f1b66e587bcf9a13f6571703c32ba71bd176613b669af718be069b20c200db05afa1c3c7ed6d74e')
 
 prepare() {
     cd $_hkgname-$pkgver
@@ -22,7 +22,7 @@ build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-developer -f-fast
     runhaskell Setup build $MAKEFLAGS
@@ -30,6 +30,11 @@ build() {
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
