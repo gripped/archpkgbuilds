@@ -6,7 +6,7 @@
 pkgname=kismet
 pkgver=2023_07_R2
 _realver="${pkgver//_/-}"
-pkgrel=5
+pkgrel=6
 pkgdesc="802.11 layer2 wireless network detector, sniffer, and intrusion detection system"
 url="https://www.kismetwireless.net/"
 arch=('x86_64')
