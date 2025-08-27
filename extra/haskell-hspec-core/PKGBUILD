@@ -2,19 +2,19 @@
 
 _hkgname=hspec-core
 pkgname=haskell-hspec-core
-pkgver=2.10.10
-pkgrel=65
+pkgver=2.11.0
+pkgrel=4
 pkgdesc="A Testing Framework for Haskell"
 url="https://hspec.github.io/"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-call-stack' 'haskell-hspec-expectations'
          'haskell-hunit' 'haskell-lexer' 'haskell-quickcheck' 'haskell-quickcheck-io'
-         'haskell-random' 'haskell-setenv' 'haskell-tf-random')
+         'haskell-random' 'haskell-tf-random')
 makedepends=('ghc' 'uusi')
 checkdepends=('haskell-base-orphans' 'haskell-hspec-meta' 'haskell-silently' 'haskell-temporary')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('432f673fb56605b60264c53c085c8c4ba663b4a1bac0f1940dfc4454cc0ad4020ce830fc7fc332a2bfe3b721025b1cfef2c154a12d5be0227349de1a4724294f')
+sha512sums=('2b89ff6b1905229edb0e92a85a11472fbc1aab446a62b2282ffd49a2afa07571b4109c6ac5985c27b3305318e823ceda0a32fc9f9cafdb536a5a1bd9b708bfe3')
 
 prepare() {
     cd $_hkgname-$pkgver
