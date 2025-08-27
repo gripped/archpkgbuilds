@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 pkgname=rocr-debug-agent
-pkgver=6.4.1
+pkgver=6.4.3
 pkgrel=1
 pkgdesc="ROCr Debug Agent Library"
 arch=('x86_64')
@@ -13,7 +13,7 @@ makedepends=('cmake')
 provides=("rocm-debug-agent=$pkgver")
 _git='https://github.com/ROCm/rocr_debug_agent'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('0e9fc4626e16eea1c701b5206349fceab4ec596a1d22738977e779f673a26769')
+sha256sums=('4be5783e3df89e8c3e35c5690d9414ca8a0b695081352bb945bb533e01de1d65')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 build() {
