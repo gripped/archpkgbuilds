@@ -3,29 +3,29 @@
 # Contributor: Christian Muehlhaeuser <muesli at gmail dot com>
 
 pkgname=soft-serve
-pkgver=0.9.1
+pkgver=0.10.0
 pkgrel=1
 pkgdesc='A self-hosted Git server for the command line'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/charmbracelet/soft-serve'
-license=('MIT')
-depends=('glibc' 'git')
-makedepends=('go')
-backup=('etc/soft-serve.conf')
-options=('!lto')
+license=(MIT)
+depends=(glibc git)
+makedepends=(go)
+backup=(etc/soft-serve.conf)
+options=(!lto)
 source=(
   "git+$url.git#tag=v$pkgver"
-  'soft-serve.conf'
-  'systemd.service'
-  'sysusers.conf'
-  'tmpfiles.conf'
+  soft-serve.conf
+  systemd.service
+  sysusers.conf
+  tmpfiles.conf
 )
-sha512sums=('670cbabd01b7b29c8de5565bbda99249610b8c14a38df142d5c09cbe8180713fb2e1f222749b369fec5fce1f5b768f083ebc278765204905b2ce93a0ea44739e'
+sha512sums=('427ab8ff377473fe1ff21cd0a7531ce65dfe5f64b36b2ee2e76484e4cade53dbff3093b896302169870e64f17b2814fbb1ee48a6bfcaaab7b9dc30fb6eec7df2'
             'dbb0cb5d5e6c20ddb178c4659e52412ddf386b9938e095ecf9135f5e72791b2ec784466b9387c38576acd6319cd67365f772263926fcecae3abe52d82ae073a5'
             '44704f5a55f9fa8376ee278775f7894fc7489a65ec2caea649abff3b19a37ec5aea77758248d1e18bea1e3a894c8f26016e00b0d0fecac99dcefd3fbe4d4d221'
             'e6e91c34aa172c784dfce0b03d464dd48876fbb42e398ed7ef1b0ce4004bb723ed5a9778553d2341718afc908f09d5534c3971734304bac5b07e5650a035d45b'
             'ece4b43029ac22bbac3b2afebab134df5781d92deed5ef24a96d720da3a0f1a033f0cf3a4a5f6ab40d379f5fb4d10730e8873b1ef94943876cdca8f209b89a59')
-b2sums=('b97c94d29d303f02aeee2c1c96be8eab755c15f959c388451e3a8c71f4fb18a5fb8f02dfa8431f615b81146462f9973ee0745cfc9308d35f19e81e644750cc61'
+b2sums=('da00a83def85dec4fa186729eb78587f60c880f65b4ad64b422117f6acaaf76855064c3b66b364ff1bf8650a2fdbb7eada624f5fbd0b09dc6fc1bbd830a57f96'
         '9cf6dd9d3296bffa2047209e73801328877cefacbf5ce1feaeefbdcffb11ed86531a762299d7d379efe4e6401b135cd8200b506b2f8ac66d032a9d0bddce37e7'
         '8c1f734d414f22efe201dacafe31b8f4a4aea49698c9fa52c567d4398b45c0c8670d0d3da122e2c099524e88c04dca6270b9a81f38f2e95a8c6336a267ccefcd'
         'd167812509d31d7fba1c1d19ff15eda4329190164cc53ba18d7b1da25c1a6293255a3d501335cc0e67572adb173be7da86b0c7fb6970b11429ec7d4409d93286'
