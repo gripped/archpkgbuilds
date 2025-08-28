@@ -2,24 +2,17 @@
 
 _hkgname=primitive-unlifted
 pkgname=haskell-primitive-unlifted
-pkgver=2.1.0.0
-pkgrel=28
+pkgver=2.2.0.0
+pkgrel=1
 pkgdesc="Primitive GHC types with unlifted types inside"
 url="https://github.com/haskell-primitive/primitive-unlifted"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-primitive' 'haskell-text-short')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-classes-base' 'haskell-tasty'
              'haskell-tasty-quickcheck')
-source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz"
-        $pkgname-primitive-0.9.patch::https://github.com/haskell-primitive/primitive-unlifted/commit/26922952ef20c4771d857f3e96c9e710cb3c2df9.patch)
-sha256sums=('613421078a2f4c012a99233dbc7a8ff0a17a0cb5abfd9baf544f4695751a3d1e'
-            '97fb0bcf87264a9bd5529305b8dd57f3d05c3375bcf07512b82b1dc1785b5283')
-
-prepare() {
-  cd $_hkgname-$pkgver
-  patch -p1 -i ../$pkgname-primitive-0.9.patch
-}
+source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
+sha256sums=('c9ec46305a1c2ade05c8399e3eeb2b56cb859692d539b4f7fd4485dbca06211b')
 
 build() {
   cd $_hkgname-$pkgver
