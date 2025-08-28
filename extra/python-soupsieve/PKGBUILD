@@ -2,27 +2,27 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-soupsieve
-pkgver=2.7
+pkgver=2.8
 pkgrel=1
 pkgdesc='A CSS4 selector implementation for Beautiful Soup'
-arch=('any')
+arch=(any)
 url='https://github.com/facelessuser/soupsieve'
-license=('MIT')
-depends=('python' 'python-beautifulsoup4')
+license=(MIT)
+depends=(python python-beautifulsoup4)
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-hatchling'
+  git
+  python-build
+  python-installer
+  python-hatchling
 )
 checkdepends=(
-  'python-pytest'
-  'python-html5lib'
-  'python-lxml'
+  python-pytest
+  python-html5lib
+  python-lxml
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('bb69c96099ae070b7c86bd9831c57c4a10e9019f6e7c436c595e43c41b9ea1b8e97db665f49c38f4ba293cd3f120625a359640b4a631abf8fc858cd56329327a')
-b2sums=('5c0bcd0a113d76abac8405cad735b02f6aca6abb67ba4aabc889df462269ffe6df3ae533e722ce2cbfb6f5721e655698586e2097a3869cdeca06ab35ad4b92ec')
+sha512sums=('258ed00d4596127dee27029becc07ffd42f8e1e674e72e68bfa938eb7a07a6a41189a1ec7873e1120ef564b2aa15c7e4fe5ae9379258f939b0b028fa5d2380b9')
+b2sums=('08bcfa1a9215ed7157552a11ae7600ed23743724689bf4d08ed80ecd67d44a83d59020349e34412d5026e42467d815435b519138f1d3c805a370062d349530af')
 
 build() {
   cd "$pkgname"
