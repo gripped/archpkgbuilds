@@ -3,16 +3,16 @@
 
 _hkgname=hspec-golden
 pkgname=haskell-hspec-golden
-pkgver=0.2.1.0
-pkgrel=75
+pkgver=0.2.2.0
+pkgrel=1
 pkgdesc="Golden tests for hspec."
 url="https://github.com/stackbuilders/hspec-golden"
-license=('BSD')
+license=('MIT')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-hspec-core' 'haskell-optparse-applicative')
+depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-hspec-core' 'haskell-optparse-applicative')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover' 'haskell-silently')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('1b95180bc04a976127b8f5792161824384f7ff13dfb165de83b1f31ac06bc1c9dfe7fc31061e51d2dc7db90e17a006b6ed198ba2ef43f23d25fb379cb0c0e8e2')
+sha512sums=('2049366f9b55f884d1225c483f633d5ff00eee5060110764612f21cfef2d2d64ec6baa7846393ce6684f0243cdf6a83a3486afcd6f1ba483f456faffc2b18562')
 
 build() {
   cd $_hkgname-$pkgver    
