@@ -1,7 +1,7 @@
 pkgbase = sysprof
 	pkgdesc = Kernel based performance profiler
-	pkgver = 48.0
-	pkgrel = 7
+	pkgver = 48.1
+	pkgrel = 1
 	url = https://apps.gnome.org/Sysprof/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -25,8 +25,10 @@ pkgbase = sysprof
 	depends = pango
 	depends = polkit
 	depends = systemd-libs
-	source = git+https://gitlab.gnome.org/GNOME/sysprof.git#tag=48.0
-	b2sums = 87dd3a47350b0e2d2d15072fcaef53578e4614b9c14a1f4ac3ff83233538adbc3486b5550500231b91ce267e99c0f0a96820878dadf280909fe0bfc8e311a3a8
+	source = git+https://gitlab.gnome.org/GNOME/sysprof.git#tag=48.1
+	source = 0001-libsysprof-capture-Disallow-unloading-the-capture-li.patch
+	b2sums = 725decd5bfc4c5313040308b7ea3f18d4f34ae347b793d7af00644464520db1481fc6f348ad291d1a8e51f6a1d4ff994a6dc5ad2c430ccfd4eb27c24bcdac512
+	b2sums = 5f3b9e5524dd898b3c42683f1785845f7eab23e64ef0870a756dd501b202112884f2c92b82c9c166b4c300445fe76ae1ce7f9a242671236942439e0f0094d3ee
 
 pkgname = sysprof
 	groups = gnome-extra
