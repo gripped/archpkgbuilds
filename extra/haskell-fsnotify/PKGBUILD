@@ -3,8 +3,8 @@
 
 _hkgname=fsnotify
 pkgname=haskell-fsnotify
-pkgver=0.4.2.0
-pkgrel=32
+pkgver=0.4.3.0
+pkgrel=1
 pkgdesc="Cross platform library for file change notification."
 url="https://github.com/haskell-fswatch/hfsnotify"
 license=('BSD-3-Clause')
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-async' 'haskell-hinotify' 'haskell-monad-control'
          'haskell-string-interpolate' 'haskell-temporary' 'haskell-unix-compat' 'haskell-unliftio')
 makedepends=('ghc' 'haskell-sandwich')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('6803040f3ffa42f18be2e3d273cefe78349bb757dee6ad557845944010569231806e32d9cc4862cc37d87fa9bfe5a81e69eb90a19adda4fafd66cdb1c2df34c7')
+sha512sums=('344f4598ce5dfe977bce89699ac4ed06565fd5d4702d8f75546f88f4f1cbdf29fab771dcb6353e102a0f2906cbe6f0673378ae5fb8e711f56af61c08467de4c8')
 
 build() {
     cd $_hkgname-$pkgver
