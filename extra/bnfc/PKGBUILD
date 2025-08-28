@@ -3,11 +3,11 @@
 
 _hkgname=BNFC
 pkgname=bnfc
-pkgver=2.9.5
-pkgrel=54
+pkgver=2.9.6.1
+pkgrel=1
 pkgdesc="A compiler front-end generator."
 url="https://bnfc.digitalgrammars.com/"
-license=("GPL2")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-string-qq')
 optdepends=('ghc: for default haskell backend'
@@ -16,7 +16,7 @@ optdepends=('ghc: for default haskell backend'
 makedepends=('ghc' 'uusi' 'alex' 'happy' 'haskell-hunit' 'haskell-quickcheck' 'haskell-hspec'
              'haskell-hspec-discover' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('1c1d44a85abe2a8720ba407429f65a05d067cdf3d51813919ffde77aa6ebc9ec664184e207892ae86e8246f81bc312925655a0d90dfcf2255c195a1d3d7387a1')
+sha512sums=('c2c943987bb56929383ad011263fc548095415881d0499d4dce3ca25e43621abab34da97658ea825c8676fc18d03395fe6631353d15aeb0450a4cd81dcf53112')
 
 prepare() {
   cd $_hkgname-$pkgver
