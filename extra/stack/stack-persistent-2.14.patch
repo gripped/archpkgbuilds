@@ -16,14 +16,14 @@ index 058f5fef32..44974610ba 100644
 @@ -14,6 +14,10 @@ module Stack.Storage.Util
  
  import qualified Data.Set as Set
- import Database.Persist
+ import           Database.Persist
 +                   ( BaseBackend, EntityField, PersistEntity
 +                   , PersistEntityBackend, PersistField, PersistQueryWrite
 +                   , SafeToInsert, (<-.), (==.), deleteWhere, insertMany_
 +                   )
- import Stack.Prelude hiding (MigrationFailure)
+ import           Stack.Prelude
+ import           Stack.Types.Storage ( StoragePrettyException (..) )
  
- -- | Efficiently update a set of values stored in a database table 
 @@ -26,6 +30,7 @@ updateSet ::
         , PersistEntity record
         , MonadIO m

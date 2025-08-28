@@ -8,27 +8,47 @@ Subject: [PATCH] Eliminate need for `hsubparser'`
  1 file changed, 4 insertions(+), 18 deletions(-)
 
 diff --git a/src/Options/Applicative/Complicated.hs b/src/Options/Applicative/Complicated.hs
-index 39a85d5e3..65f661d81 100644
+index 4f213f07ce..ea64db5f54 100644
 --- a/src/Options/Applicative/Complicated.hs
 +++ b/src/Options/Applicative/Complicated.hs
-@@ -135,20 +135,9 @@ complicatedParser commandMetavar commonParser commandParser =
-    (,) <$>
-    commonParser <*>
-    case runWriter (runExceptT commandParser) of
--     (Right (),d) -> hsubparser' commandMetavar d
-+     (Right (),m) -> hsubparser (m <> metavar commandMetavar)
-      (Left b,_) -> pure (b,mempty)
-
+@@ -18,16 +18,13 @@ module Options.Applicative.Complicated
+ import           Control.Monad.Trans.Except ( runExceptT )
+ import           Control.Monad.Trans.Writer ( runWriter, tell )
+ import           Options.Applicative
+-                   ( CommandFields, Parser, ParserFailure, ParserHelp
+-                   , ParserInfo (..), ParserResult (..), (<**>), abortOption
+-                   , command, execParserPure, footer, fullDesc
++                   ( Parser, ParserFailure, ParserHelp, ParserResult (..)
++                   , abortOption, command, execParserPure, footer, fullDesc
+                    , handleParseResult, header, help, info, infoOption, long
+                    , metavar, noBacktrack, prefs, progDesc, showHelpOnEmpty
++                   , hsubparser
+                    )
+ import           Options.Applicative.Builder.Extra ( showHelpText )
+-import           Options.Applicative.Builder.Internal
+-                   ( Mod (..), mkCommand, mkParser )
+-import           Options.Applicative.Types ( OptReader (..) )
+ import           Stack.Prelude
+ import           Stack.Types.AddCommand ( AddCommand )
+ import           Stack.Types.GlobalOptsMonoid ( GlobalOptsMonoid )
+@@ -172,20 +169,9 @@ complicatedParser commandMetavar commonParser commandParser =
+   (,)
+     <$> commonParser
+     <*> case runWriter (runExceptT commandParser) of
+-          (Right (), d) -> hsubparser' commandMetavar d
++          (Right (), m) -> hsubparser (m <> metavar commandMetavar)
+           (Left b, _) -> pure (b, mempty)
+ 
 --- | Subparser with @--help@ argument. Borrowed with slight modification
 --- from Options.Applicative.Extra.
 -hsubparser' :: String -> Mod CommandFields a -> Parser a
 -hsubparser' commandMetavar m = mkParser d g rdr
--  where
--    Mod _ d g = metavar commandMetavar `mappend` m
--    (groupName, cmds, subs) = mkCommand m
--    rdr = CmdReader groupName cmds (fmap add_helper . subs)
--    add_helper pinfo = pinfo
--      { infoParser = infoParser pinfo <**> helpOption }
+- where
+-  Mod _ d g = metavar commandMetavar `mappend` m
+-  (groupName, cmds, subs) = mkCommand m
+-  rdr = CmdReader groupName cmds (fmap add_helper . subs)
+-  add_helper pinfo = pinfo
+-    { infoParser = infoParser pinfo <**> helpOption }
 -
  -- | Non-hidden help option.
  helpOption :: Parser (a -> a)

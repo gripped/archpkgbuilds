@@ -2,8 +2,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=stack
-pkgver=2.9.1
-pkgrel=251
+pkgver=2.9.3
+pkgrel=2
 pkgdesc="The Haskell Tool Stack"
 url="https://github.com/commercialhaskell/stack"
 license=('BSD-3-Clause')
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-annotated-wl-pprint' 'haskell-ansi-
          'haskell-async' 'haskell-attoparsec' 'haskell-base64-bytestring' 'haskell-casa-client'
          'haskell-casa-types' 'haskell-colour' 'haskell-conduit' 'haskell-conduit-extra'
          'haskell-crypton' 'haskell-crypton-conduit' 'haskell-echo' 'haskell-extra'
-         'haskell-file-embed' 'haskell-filelock' 'haskell-fsnotify0.3' 'haskell-generic-deriving'
+         'haskell-file-embed' 'haskell-filelock' 'haskell-fsnotify' 'haskell-generic-deriving'
          'haskell-githash' 'haskell-hackage-security' 'haskell-hashable' 'haskell-hi-file-parser'
          'haskell-hpack' 'haskell-http-client' 'haskell-http-client-tls' 'haskell-http-conduit'
          'haskell-http-download' 'haskell-http-types' 'haskell-memory' 'haskell-microlens'
@@ -34,17 +34,14 @@ replaces=('haskell-stack')
 install="stack.install"
 source=("git+https://github.com/commercialhaskell/stack.git#tag=v$pkgver"
         stack-persistent-2.14.patch
-        stack-pantry-0.6.patch
         optparse-applicative-0.18.patch)
-sha512sums=('adc416921b667fff9aeff366af82170bf65a6473f42bd5a2a4ebde95b5f42808f3b32058cb21f03be98d7d1764057308bba38f448671903ece61d409930b7e15'
-            'c0a3830988f878fa4c51667842dd2852523a5bc3c736353c9e7dbbf3b5be676e287393eb439f0a115a23a79fc1daa68a0c284a3a0ee133be07dbefe10a9cbb32'
-            '69e0268ca68b106f7fbf54f2df50bdcaab35e4ec57cc6942dde4b1cef1fbecb2758b28a25f87e5f1f61f57b03d8877648056847468a1e2121130aeb3441a6c82'
-            '7e17f00439f2ded204a817b692106f5187b74efd4355a7695501f629667a321f1b8e70ade564c94e7d277899946b0aae6d30316fcdedbd0bdfed7d5c5651c984')
+sha512sums=('b67349ebd94d9e86c069d7f3bd232dfadcfb1252bf8655bd488d652813520a884c38c83c038f19ed09a3b7a7c53a8992a6d43b473e3b693f843bc32671539b5d'
+            '7666230add174e53eddbe4210943fc58379bf592066584dc3eefb055fe50ffbfe93eff3b3976a0d3a52c8411320566af245cc44adef4513530d4e9218b668768'
+            '3f8f70238374ced2f6eff6db49d27a0e8f4e4f0d0ca6ffa256fab70521058c0e4bb74ab4b27cccb5859f6243f6fac16128d6345ead3c785c29c0d12b68ae635b')
 
 prepare() {
   cd $pkgname
   patch -p1 -i ../stack-persistent-2.14.patch
-  patch -p1 -i ../stack-pantry-0.6.patch
   patch -p1 -i ../optparse-applicative-0.18.patch
   uusi -d semigroups -d persistent-template -r cryptonite:crypton -r cryptonite-conduit:crypton-conduit
   sed -i 's/cryptonite/crypton/' src/Stack/Setup.hs
