@@ -3,25 +3,17 @@
 
 _hkgname=hashtables
 pkgname=haskell-hashtables
-pkgver=1.4.0
-pkgrel=19
+pkgver=1.4.1
+pkgrel=1
 pkgdesc="Mutable hash tables in the ST monad"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'sh' 'haskell-hashable' 'haskell-primitive' 'haskell-vector')
-makedepends=('ghc' 'haskell-mwc-random' 'haskell-quickcheck' 'haskell-hunit'
-             'haskell-test-framework' 'haskell-test-framework-quickcheck2'
-             'haskell-test-framework-hunit')
-source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz"
-        $pkgname-c23.patch::https://github.com/gregorycollins/hashtables/commit/41ae2d28b0948e740bbb064a07097750727c64a8.patch)
-sha512sums=('889796614aeee97882cc50b2dea86599b32c38e0a962e5b5a27e12220528bed880f6c2ccc045b29d150c17f8a70a04a111fe5f5f191ee7ae4a9f43c1a74c7b1c'
-            '4dd240b67711e368aaefc54f57433ef5aebe60ed5e8593c57672079622adaf2dda8d6b00e87c7a5f20585ab0e9bf6d071e416ac339d2939a1abae9f408ca7b4d')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    patch -p1 < ../$pkgname-c23.patch
-}
+makedepends=('ghc' 'haskell-quickcheck' 'haskell-mwc-random' 'haskell-tasty'
+             'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
+source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
+sha512sums=('5e4306c201bebce4030422f70fb78b5fc2c9185ef286dd5d0dc964b59b96faea88951b984dc8072abd8d16c7474c58e1ac91e5bf2743fe82f7d94e31747f0e25')
 
 build() {
     cd $_hkgname-$pkgver
