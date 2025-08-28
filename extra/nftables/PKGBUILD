@@ -2,8 +2,8 @@
 
 pkgname=nftables
 epoch=1
-pkgver=1.1.4
-pkgrel=2
+pkgver=1.1.5
+pkgrel=1
 pkgdesc='Netfilter tables userspace tools'
 arch=('x86_64')
 url='https://netfilter.org/projects/nftables/'
@@ -18,16 +18,12 @@ source=("git+https://git.netfilter.org/nftables.git#tag=v${pkgver}?signed"
         'nftables.conf'
         'nftables.service')
 install=nftables.install
-sha256sums=('af9029347c5cbec915cf4d1f4503a269908cee86a15e35b9f4526b465823ed78'
+sha256sums=('5a257ae8eb39044e7f618be1ce8f21ab4713ee9ced933fe066d1e08f873eadf4'
             'f83d6f2f99f306866850c60ff0e343bbd9bc0c989d333ebe288563f7be4afe20'
             'deffeef36fe658867dd9203ec13dec85047a6d224ea63334dcf60db97e1809ea')
 
 prepare() {
   cd $pkgname
-
-  # json: Do not reduce single-item arrays on output
-  git cherry-pick -n \
-    '5e492307c2c93b7eb654691ca87ddc7ad86640d8'
 
   autoreconf -fiv
 }
