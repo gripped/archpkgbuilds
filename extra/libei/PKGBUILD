@@ -6,7 +6,7 @@ pkgname=(
   libei
   libei-docs
 )
-pkgver=1.4.1
+pkgver=1.5.0
 pkgrel=1
 pkgdesc="Library for Emulated Input"
 url="https://libinput.pages.freedesktop.org/libei/"
@@ -39,7 +39,7 @@ source=(
   "git+https://gitlab.freedesktop.org/libinput/libei.git?signed#tag=$pkgver"
   "nemequ-munit::git+https://github.com/nemequ/munit#commit=fbbdf1467eb0d04a6ee465def2e529e4c87f2118"
 )
-b2sums=('24178626c207b5ac1a6ed0f1b22eb1fcc676784b7f320de145efb9a24f7628dc7509584efab4ef3bf7ca716cc19f7b3914273d19a1a2e444da5c0577f0fe3694'
+b2sums=('82c48f2d47e67f718bb3c779b1b5218af28b720f78f7d972f84059674fb8d63729eaea083dbae03c1c4ddd02f418cb06114572d58a8a58b7dc03f0103fba954f'
         'f9ffee024bf38c09736da3a4fe5aff85e95422d5be131ff5c6e392c1bd4f6c5f6a9cfff16ea044096e033fb24f1840520ef3a1ff2157b0e002c45597e45c2207')
 validpgpkeys=(
   3C2C43D9447D5938EF4551EBE23B7E70B467F0BF # Peter Hutterer <peter.hutterer@who-t.net>
