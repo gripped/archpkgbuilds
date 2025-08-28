@@ -3,21 +3,21 @@ From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
 Date: Thu, 28 Aug 2025 00:18:01 +0200
 Subject: [PATCH] libsysprof-capture: Disallow unloading the capture library
 
-When a shared library that built in libsysprof-capture gets unloaded,
+When a shared library with a built-in libsysprof-capture gets unloaded,
 the `sysprof_collector_free` function which was registered as a TSD
 destructor with `pthread_key_create` will also vanish, causing crashes
 when threads terminate.
 
 See: https://gitlab.freedesktop.org/mesa/mesa/-/issues/13571
 ---
- src/libsysprof-capture/meson.build | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ src/libsysprof-capture/meson.build | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/src/libsysprof-capture/meson.build b/src/libsysprof-capture/meson.build
-index 828b8ed2fef5..487b4a24eb29 100644
+index 828b8ed2fef5..7a06ed257f92 100644
 --- a/src/libsysprof-capture/meson.build
 +++ b/src/libsysprof-capture/meson.build
-@@ -48,34 +48,41 @@ libsysprof_capture_deps = [
+@@ -48,33 +48,41 @@ libsysprof_capture_deps = [
    dependency('threads'),
  ]
  
@@ -55,8 +55,7 @@ index 828b8ed2fef5..487b4a24eb29 100644
          subdirs: [ sysprof_header_subdir ],
      description: 'The static capture library for tools that generate profiling capture data',
        variables: [ 'datadir=' + datadir_for_pc_file ],
--    libraries_private: libsysprof_capture_deps,
-+    libraries_private: libsysprof_capture_deps + libsysprof_capture_link_args,
++    libraries: libsysprof_capture_link_args,
+     libraries_private: libsysprof_capture_deps,
    )
  endif
- 
