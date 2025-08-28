@@ -6,7 +6,7 @@
 pkgbase=vigra
 pkgname=(vigra python-vigra)
 pkgver=1.12.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Computer vision library'
 arch=(x86_64)
 url="https://ukoethe.github.io/$pkgname"
