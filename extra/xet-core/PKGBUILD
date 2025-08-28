@@ -2,7 +2,7 @@
 
 pkgbase=xet-core
 pkgname=(python-hf-xet)
-pkgver=1.1.8
+pkgver=1.1.9
 pkgrel=1
 pkgdesc="xet client tech, used in Huggingface Hub"
 arch=(x86_64)
@@ -15,7 +15,7 @@ makedepends=(
   openssl
 )
 source=($pkgbase-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('227b812dce90ade8d9dc9c52187bc834bcc3a98e7d969a5636097153f3407e36a83890dd9ead67187e79ad5587575b9ac0c7751579c8197e2544146a554ccb47')
+b2sums=('2fecc9b93432b2b14c979b000b263af8e9961c7f286fc4e1ffe64ffa13d45beae67ca015508aebec571ef0bb8ed00ebd47f40f21eb966b671a08d32a9f8104e2')
 
 prepare() {
   cd $pkgbase-$pkgver
@@ -25,6 +25,9 @@ prepare() {
 build() {
   # fix building with LTO
   CFLAGS+=' -ffat-lto-objects'
+
+  # always use system openssl https://docs.rs/openssl/latest/openssl/
+  export OPENSSL_NO_VENDOR=1
 
   cd $pkgbase-$pkgver
   # there don't seem to be any useful tools for users...
@@ -40,6 +43,8 @@ build() {
     # wheel compatibility tag - native linux ensures we don't bundle openssl libs
     # https://github.com/PyO3/maturin/issues/2038
     --compatibility linux
+    # use native-tls instead of native-tls-vendored
+    --features native-tls
   )
   maturin build "${maturin_options[@]}"
 }
