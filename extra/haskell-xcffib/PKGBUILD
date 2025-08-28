@@ -2,17 +2,18 @@
 
 _hkgname=xcffib
 pkgname=haskell-xcffib
-pkgver=1.5.0
-pkgrel=53
+pkgver=1.6.0
+pkgrel=1
 pkgdesc="A cffi-based python binding for X"
 url="https://github.com/tych0/xcffib"
-license=('Apache')
+license=('Apache-2.0')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-attoparsec' 'haskell-either' 'haskell-filemanip' 'haskell-language-python'
+depends=('ghc-libs' 'haskell-attoparsec' 'haskell-either' 'haskell-filemanip'
          'haskell-optparse-applicative' 'haskell-split' 'haskell-xcb-types')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-test-framework'
+             'haskell-test-framework-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('c720132d7fb99aa59a8b7570b9ebc63c19cc2682546e3e980fce6c9eef25ae766537bd6866bff564b8e4f8a3e13285f0394715b4b721eb8d1f7fed379b277b0c')
+sha512sums=('ac2d38079df221c02a8247b89f2428100e2148a59b399017da1030fc80f4b9fcdb4687289168976c9c891d91e56b0a478f28c5a9f0fee9740db913751afa3462')
 
 prepare() {
     cd $_hkgname-$pkgver
@@ -23,13 +24,18 @@ build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
