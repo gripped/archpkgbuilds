@@ -3,13 +3,12 @@
 
 pkgname=mission-center
 pkgver=1.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Monitor your CPU, Memory, Disk, Network and GPU usage"
 arch=(x86_64)
 url="https://missioncenter.io"
 license=(GPL-3.0-or-later)
 depends=(
-  cairo
   dconf
   dmidecode
   gcc-libs
@@ -21,7 +20,6 @@ depends=(
   libadwaita
   mesa
   nvtop
-  pango
   protobuf
   systemd
   systemd-libs
@@ -51,11 +49,14 @@ prepare() {
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')"
 
+  cd subprojects/magpie
+  CARGO_HOME="$srcdir/build/subprojects/magpie/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
   CFLAGS+=" -ffat-lto-objects"
-  arch-meson "$pkgname" build
+  arch-meson "$pkgname" build --buildtype=release
 
   CARGO_PROFILE_RELEASE_LTO=true \
     CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
