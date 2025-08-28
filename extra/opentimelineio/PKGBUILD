@@ -2,7 +2,7 @@
 
 pkgname=opentimelineio
 pkgver=0.17.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Open Source API and interchange format for editorial timeline information'
 url='http://opentimeline.io/'
 license=(Apache-2.0)
