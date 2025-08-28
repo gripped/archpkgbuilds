@@ -2,24 +2,40 @@
 
 pkgname=python-geographiclib
 _name="${pkgname#python-}-python"
-pkgver=2.0
-pkgrel=6
+pkgver=2.1
+pkgrel=1
 pkgdesc="Python implementation of the geodesic routines in GeographicLib"
 arch=(any)
 url="https://github.com/geographiclib/geographiclib-python"
 license=(MIT)
 depends=(python)
-makedepends=(python-build python-installer python-setuptools python-wheel)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
 checkdepends=(python-pytest)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('6e9e43eb8c42f051b7f36996bf62d533b3d636fec2f9e9403a8b31d61432bf1f053918e6dd31b8760d2067d24fb2688400800abf91770ca38469dd93b42f838f')
-b2sums=('496e35dfe8f00b3b8ea278cf28640e3a075db118b248d40a5b02727a3c52dd620465d321bd479925eb990b2ff5a77f99cfaecc332f978b7bb240802f18e886f6')
+sha512sums=('62d018dcc6ef0eaa8856a828d34ddadebf1e5c2f4a5fc9fa9dd2f58af04a5cea357a949c0331b1577d43a16dbef3f86ab7d32765106bd93d5bf7db0d76caa004')
+b2sums=('3a2e86ca0ac58286ff3801d346e731c00eb7617b963084e3b7c4f8cfc4321d6058ccb0e33de4bc3db12ed4872cf6dab665889efbe23aef03612462316948d178')
 
 prepare() {
   cd $_name-$pkgver
-  # some people have bizarre ideas about how to do Python packaging...
-  sed "s/@Python_VERSION_NUMBER@/3/; s/@PROJECT_VERSION@/$pkgver/; s/@PROJECT_FULLVERSION@/$pkgver/" setup.py.in > setup.py
-  sed "s/@PROJECT_VERSION_MAJOR@/2/; s/@PROJECT_VERSION_MINOR@/0/; s/@PROJECT_VERSION_PATCH@/$pkgver/; s/@PROJECT_VERSION@/$pkgver/; s/@PROJECT_FULLVERSION@/$pkgver/; s/@RELEASE_DATE@/2022-04-23/" "${pkgname#python-}/__init__.py.in" > "${pkgname#python-}/__init__.py"
+  local python_version_number="$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')"
+  # Extract the version parts from pkgver and use them as needed.
+  IFS='.' read -r -a _version_parts <<< "$pkgver"
+  local project_version_major="${_version_parts[0]}"
+  local project_version_minor="${_version_parts[1]}"
+  if [[ "${#_version_parts[@]}" -eq 3 ]]; then
+    local project_version_patch="${_version_parts[2]}"
+  else
+    local project_version_patch="0"
+  fi
+
+  # Upstream uses cmake to configure (and directly publish) artifacts on PyPI, so we have to do this manually... :(
+  sed "s/@Python_VERSION_NUMBER@/$python_version_number/" setup.cfg.in > setup.cfg
+  sed "s/@PROJECT_VERSION_MAJOR@/$project_version_major/; s/@PROJECT_VERSION_MINOR@/$project_version_minor/; s/@PROJECT_VERSION_PATCH@/$project_version_patch/; s/@PROJECT_FULLVERSION@/$pkgver/; s/@RELEASE_DATE@/1970-01-01/" "${pkgname#python-}/__init__.py.in" > "${pkgname#python-}/__init__.py"
 }
 
 build() {
