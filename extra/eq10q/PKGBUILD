@@ -2,11 +2,13 @@
 
 pkgname=eq10q
 pkgver=2.2
-pkgrel=6
+pkgrel=7
 pkgdesc="Audio plugin bundle over the LV2 standard for Linux"
 arch=(x86_64)
 url="http://eq10q.sourceforge.net/"
-license=(GPL3)
+license=(
+  GPL-3.0-or-later
+)
 groups=(
   lv2-plugins
   pro-audio
@@ -58,6 +60,7 @@ build() {
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -W no-dev
     -S $pkgname-$pkgver
   )
