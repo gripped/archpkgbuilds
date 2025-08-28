@@ -1,10 +1,10 @@
-# Maintainer: Sven-Hendrik Haase <sh@lutzhaase.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 # Contributor: Donald Carr <sirspudd@gmail.com>
 # Contributor: Jake Petroules <jake.petroules@qt.io>
 
 pkgname=qbs
-pkgver=3.0.1
+pkgver=3.0.2
 pkgrel=1
 pkgdesc='Cross platform build tool'
 arch=(x86_64)
@@ -17,7 +17,7 @@ depends=(gcc-libs
 makedepends=(cmake
              git)
 source=(git+https://code.qt.io/qbs/qbs#tag=v$pkgver)
-sha256sums=('7f2a1109a3cf69c216a7c74ed6a3d2d20e4e6c4a1e6cb0567aa2d444042d9fd0')
+sha256sums=('85911455dc5f7c3422c5f566ddfc080c01405322fc299373f4235d3df0500e9d')
 
 build() {
   cmake -B build -S $pkgname \
