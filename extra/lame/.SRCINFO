@@ -1,11 +1,12 @@
 pkgbase = lame
 	pkgdesc = A high quality MPEG Audio Layer III (MP3) encoder
 	pkgver = 3.100
-	pkgrel = 5
+	pkgrel = 6
 	url = http://lame.sourceforge.net/
 	arch = x86_64
-	license = LGPL
+	license = LGPL-2.0-only
 	makedepends = nasm
+	depends = glibc
 	depends = ncurses
 	provides = libmp3lame.so
 	source = https://downloads.sourceforge.net/lame/lame-3.100.tar.gz
