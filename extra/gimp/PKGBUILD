@@ -5,7 +5,7 @@
 
 pkgname=gimp
 pkgver=3.0.4
-pkgrel=3
+pkgrel=4
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
 arch=('x86_64')
@@ -90,11 +90,9 @@ install=gimp.install
 source=(
   git+https://gitlab.gnome.org/GNOME/gimp.git#tag=GIMP_${pkgver//./_}
   git+https://gitlab.gnome.org/GNOME/gimp-data.git
-  linux.gpl
 )
 sha256sums=('f4c2c753d4966dceea2136848af2fddd6b2b2fcfc5e36613175b17accbdadce7'
-            'SKIP'
-            '1003bbf5fc292d0d63be44562f46506f7b2ca5729770da9d38d3bb2e8a2f36b3')
+            'SKIP')
 
 prepare() {
   cd $pkgname
