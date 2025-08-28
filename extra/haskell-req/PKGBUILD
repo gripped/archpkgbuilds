@@ -2,8 +2,8 @@
 
 _hkgname=req
 pkgname=haskell-req
-pkgver=3.13.2
-pkgrel=40
+pkgver=3.13.3
+pkgrel=1
 pkgdesc="HTTP client library"
 url="https://github.com/mrkkrp/req"
 license=('BSD-3-Clause')
@@ -15,13 +15,11 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-authenticate-oauth' 'haskell-blaze-
          'haskell-transformers-base' 'haskell-unliftio-core')
 makedepends=('git' 'ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-core')
 source=("git+https://github.com/mrkkrp/req#tag=$pkgver")
-sha512sums=('6200a8cb964f56b85da0f079837914513d2a8b3a313e30c531227ace398d78bda74b35fe702ce401c0e91dde8dbb1a39f686ede3d4463dd69bacbc809db5079c')
+sha512sums=('2f480e8614165ec37fc2b34bf9c9e3cc475ca466df8b1f19fff848d6732f95753d0b1f8e63f6c21be6f5f9312381fe34fc977a0ee0218ca3825e14707fe0f6bd')
 
 prepare() {
   cd $_hkgname
   gen-setup
-  # crypton-connection-0.4
-  git cherry-pick -n 3a3219516d7151b8abd6f04d5aa286d7bb518326
 }
 
 build() {
