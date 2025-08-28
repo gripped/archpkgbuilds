@@ -2,7 +2,7 @@
 
 _name=falcon
 pkgname=python-falcon
-pkgver=4.0.2
+pkgver=4.1.0
 pkgrel=1
 pkgdesc="Web API framework for fast and reliable microservices, proxies, and app backends"
 arch=(x86_64)
@@ -12,8 +12,6 @@ license=(Apache-2.0)
 depends=(
   glibc
   python
-  # TODO: remove when bumping to 4.x
-  python-cgi
 )
 makedepends=(
   cython
@@ -55,8 +53,8 @@ optdepends=(
   'python-pprofile: for falcon-bench'
 )
 source=($_name-$pkgver.tar.gz::$_url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('48f13834f9ba5829aa7050a6c86839533332c47282f12dc96d3d2f82a67f7a53878bf5f96b249bd79f5985eb1e2bde94ad246c2d0f3e1deebb4c04f364a23ac4')
-b2sums=('d4e8c353a340508404117a5ba18bb3ddbf383eadfd22bafbdd82b6515521103c4c33abe65a4c1f6c6eb9b506473ba238ff0526f91c825737b61b0d43fd672d35')
+sha512sums=('847c6537d0afe8d0ed26531763fc7c09f74cd4f76c3463abac30de850015b8526e67cc57a1a81aba607cc4905309fe0f09466749d3810e0894657cf62eebbaa3')
+b2sums=('383285c6fc03ad9fbb30b890535f3f98c8a9aa39977804caee4f0a4d4c4923fa2206bb9ac2a216926e81d6681f24beceeb0c7e313cadccfbf2e78fa7f2354e5b')
 
 prepare() {
   cd $_name-$pkgver
