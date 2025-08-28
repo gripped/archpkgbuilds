@@ -3,8 +3,8 @@
 
 _hkgname=blaze-builder
 pkgname=haskell-blaze-builder
-pkgver=0.4.3
-pkgrel=18
+pkgver=0.4.4
+pkgrel=1
 pkgdesc="Efficient buffered output"
 url="https://github.com/blaze-builder/blaze-builder"
 license=('BSD-3-Clause')
@@ -14,7 +14,7 @@ makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
              'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2'
              'haskell-utf8-string')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('8ade4ddb57567192fb0de5f07be188c8d09167fd00e57cca920f5ef4fb1f4eba19ba2a11361bd1637da75952f618f23cc037329d1e9af87f7387f4a0b5a53622')
+sha512sums=('8d52ecd921c67acd037e415cce07f8569d9df3c80a1e035bc3979b09767b28f28ad524c70c355e77042cc2026b7d155f46023d362edb2915995412ac52458722')
 
 build() {
     cd $_hkgname-$pkgver
