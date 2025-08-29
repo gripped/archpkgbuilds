@@ -1,10 +1,10 @@
 pkgbase = vdirsyncer
 	pkgdesc = Synchronize CalDAV and CardDAV
-	pkgver = 0.19.3
-	pkgrel = 2
+	pkgver = 0.20.0
+	pkgrel = 1
 	url = https://vdirsyncer.pimutils.org/en/stable/
 	arch = any
-	license = BSD
+	license = BSD-3-Clause
 	checkdepends = python-aioresponses
 	checkdepends = python-hypothesis
 	checkdepends = python-pytest
@@ -18,15 +18,14 @@ pkgbase = vdirsyncer
 	makedepends = python-setuptools-scm
 	makedepends = python-sphinx
 	makedepends = python-wheel
+	depends = python
 	depends = python-aiohttp
 	depends = python-aiostream
-	depends = python-atomicwrites
 	depends = python-click
 	depends = python-click-log
 	depends = python-requests
-	depends = python-requests-toolbelt
 	optdepends = python-aiohttp-oauthlib: Google support
-	source = git+https://github.com/pimutils/vdirsyncer.git#tag=v0.19.3
-	b2sums = c15609d678f6e190bc891a6fc1d8565c646ef7652b4730d991f91224bb8074d9450c3728b3804c142ef80e32eba70d5313cfdcf9fa24d6263635efa712e89d00
+	source = git+https://github.com/pimutils/vdirsyncer.git#tag=v0.20.0
+	b2sums = c548f23993526e5b0844098c3ba32281a2f7e30cacc6e206e2543bbd3944dad27489a0f4e10fb8ac9244617f911833cc1e87ad1d619f091c17d03bc2d3b228f2
 
 pkgname = vdirsyncer
