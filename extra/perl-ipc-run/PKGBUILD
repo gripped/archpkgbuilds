@@ -4,8 +4,8 @@
 # Contributor: Francois Charette <firmicus@gmx.net>
 
 pkgname=perl-ipc-run
-pkgver=20231003.0
-pkgrel=2
+pkgver=20250809.0
+pkgrel=1
 pkgdesc="IPC::Run - system() and background procs w/ piping, redirs, ptys"
 arch=('any')
 url="https://search.cpan.org/dist/IPC-Run"
@@ -13,8 +13,8 @@ license=('GPL' 'PerlArtistic')
 # IPC::Run depends on IO::Pty which is provided by perl-io-tty
 depends=('perl' 'perl-io-tty')
 options=('!emptydirs')
-source=("https://search.cpan.org/CPAN/authors/id/T/TO/TODDR/IPC-Run-$pkgver.tar.gz")
-sha256sums=('eb25bbdf5913d291797ef1bfe998f15130b455d3ed02aacde6856f0b25e4fe57')
+source=("https://cpan.metacpan.org/authors/id/N/NJ/NJM/IPC-Run-$pkgver.tar.gz")
+sha256sums=('b1e85a30405786ed8378b68dd57159315ad7ddc0a55e432aa9eeca6166ca53fe')
 
 build() {
   cd "$srcdir"/IPC-Run-$pkgver
