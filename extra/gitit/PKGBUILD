@@ -2,7 +2,7 @@
 
 pkgname=gitit
 pkgver=0.15.1.2
-pkgrel=1
+pkgrel=3
 pkgdesc="Wiki using happstack, git or darcs, and pandoc."
 url="https://github.com/jgm/gitit"
 license=('GPL-2.0-or-later')
@@ -29,14 +29,14 @@ prepare() {
 build() {
   cd $pkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie' \
     -fplugins
 
-  runhaskell Setup build
+  runhaskell Setup build $MAKEFLAGS
   runhaskell Setup register --gen-script
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
@@ -45,7 +45,7 @@ build() {
 
 check() {
   cd $pkgname-$pkgver
-  runhaskell Setup test
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
