@@ -4,7 +4,7 @@
 
 _pkgname=coveragepy
 pkgname=python-coverage
-pkgver=7.10.5
+pkgver=7.10.6
 pkgrel=1
 pkgdesc="A tool for measuring code coverage of Python programs"
 arch=('x86_64')
@@ -16,8 +16,8 @@ checkdepends=('python-flaky' 'python-hypothesis'
               'python-pytest' 'python-pytest-xdist'
               'python-unittest-mixins' 'python-virtualenv')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/nedbat/coveragepy/archive/$pkgver.tar.gz")
-sha512sums=('717fa86ac61265b19703937321dbb867ab19fd2cb12fc8f007d00da7fc15f8ec3bf9337b2f99f85611364378c6cd89622af5c72842b9b41579d45b45d2899917')
-b2sums=('43be17f5c3d082f5d2f452a0d224415edda0151abffc4f5a130f862c62d270b0393e171c1ebf30799823857d29a8f8a5a2a302980daf73caee0187ad00baad4e')
+sha512sums=('fae32bd181e2e945ea7e90a734e75faf0121ad45e2aeb9a740a0e3666a10f868468684142828ae1bee4c12cd9f5e2cdf9127532f64634cd102d4e46d9b89d095')
+b2sums=('9d8b2851b7cc315d82110e49b0c1096e95382cd08d899e9d3fb610b533a12c038673690ef071acedf5441da8eb9039d151e3ebccd9cf415facaa5a7c26a498a1')
 
 build() {
   cd $_pkgname-$pkgver
