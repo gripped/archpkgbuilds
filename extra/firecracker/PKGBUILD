@@ -1,18 +1,18 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgbase=firecracker
-pkgname=('firecracker' 'firecracker-docs')
-pkgver=1.12.1
+pkgname=(firecracker firecracker-docs)
+pkgver=1.13.0
 pkgrel=1
 pkgdesc='Secure and fast microVMs for serverless computing'
-arch=('x86_64')
+arch=(x86_64)
 url='https://firecracker-microvm.github.io'
-license=('Apache-2.0' 'BSD-3-Clause') # firecracker is Apache, Chromium components is BSD
-makedepends=('git' 'rust' 'clang' 'cmake')
-options=('!lto' '!buildflags')
+license=(Apache-2.0 BSD-3-Clause) # firecracker is Apache, Chromium components is BSD
+makedepends=(git rust clang cmake)
+options=(!lto !buildflags)
 source=("$pkgname::git+https://github.com/firecracker-microvm/firecracker.git#tag=v$pkgver")
-sha512sums=('739c6258af03a70f03ebef5c91df7625b5e70c7f789536b441150d2a469b26eb7f4cc983933887dee2adf7f8805a479714ff209e67f5bced14ad6ef12b63459e')
-b2sums=('38a1f8e69fcae9f144ccc70ca9ae8e3cd539e80f2d6dc64975976d1f331a2ec927953c13b3ca97501764dde859a1f1b9755efdcde65e8251feebd1b042d0beb5')
+sha512sums=('b344e2ed269df2864a65e585f96992b3226f5d7ad14af8a051f301778a493369f0b3d86af80aba95e5083fa883aabef033e23c9763370051d907b732955b4e41')
+b2sums=('5328c523ad9734e90ec643de813906a363f969aeadf4eb951c87a91b741d76e1e68ac912cc73d11e59f8a463d53407fe761eecfdbf8e6e024e28841ff071020b')
 
 prepare() {
   cd "$pkgbase"
@@ -37,7 +37,7 @@ build() {
 }
 
 package_firecracker() {
-  depends=('glibc' 'gcc-libs' 'libseccomp')
+  depends=(glibc gcc-libs libseccomp)
 
   cd "$pkgbase"
 
@@ -54,7 +54,7 @@ package_firecracker() {
 }
 
 package_firecracker-docs() {
-  #arch=('any')
+  #arch=(any)
   pkgdesc+=" (documentation)"
 
   cd "$pkgbase"
