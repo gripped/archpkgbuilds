@@ -1,15 +1,16 @@
 pkgbase = cargo-sort
 	pkgdesc = Check if tables and items in a .toml file are lexically sorted
-	pkgver = 2.0.1
+	pkgver = 2.0.2
 	pkgrel = 1
 	url = https://github.com/DevinR528/cargo-sort
 	arch = x86_64
 	license = Apache-2.0
 	license = MIT
+	makedepends = git
 	makedepends = rust
 	depends = gcc-libs
-	source = cargo-sort-2.0.1.tar.gz::https://github.com/DevinR528/cargo-sort/archive/v2.0.1.tar.gz
-	sha512sums = 65c1eedfb65b627e73e61f65c92dd86bc59f1d12d2fac22f2cc2527bb0d1d4f4b5d6ff3359f4fbea0d9b8a180f7dfc5d584b485322556a2583fe1af0d0b7ea8c
-	b2sums = abd581ab6d5243bf387be254e75a24b725f1b517da7df0d227f3cc24e0d6368b72af12df111edbedd821e0f5431a4f389887c69c961aa73b372e7a093f52395d
+	source = cargo-sort::git+https://github.com/DevinR528/cargo-sort#tag=v2.0.2
+	sha512sums = 09e9590fe06b3d889c4eeb6a9216e0eb0e1374aea96c4d8721b35d911b060613a707dd656234cb7c3e256bf5c75de45f679ad277d65484903fd53d4cc7f09969
+	b2sums = 920e1ce0d51309bcf0451706e36726c9a9db3552cb2e46fef0801a5513b6354c406ad0f4389ebb9e21639fbd9ec0c8a8fd266ba16542cd4dae7f737fcab75661
 
 pkgname = cargo-sort
