@@ -3,7 +3,7 @@
 # Contributor: Lubosz Sarnecki <lubosz@gmail.com>
 pkgname=rocblas
 pkgver=6.4.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Next generation BLAS implementation for ROCm platform'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocBLAS/en/latest/index.html'
@@ -38,7 +38,7 @@ source=("$pkgname-$pkgver.tar.gz::$_rocblas/archive/refs/tags/rocm-$pkgver.tar.g
         "$pkgname-tensile-$pkgver.tar.gz::$_tensile/archive/refs/tags/rocm-$pkgver.tar.gz")
 sha256sums=('754dcc88b30468a2293d2406d7fe40f78dc92dd77c193758f937532217ecdad3'
             '0190bfc7050c6ea73fb20ce4d35a056644e129f792f3b016b079ee6cc237a598')
-options=(!lto)
+options=(!buildflags)
 _dirname="$(basename "$_rocblas")-$(basename "${source[0]}" ".tar.gz")"
 _tensile_dir="$(basename "$_tensile")-$(basename "${source[1]}" ".tar.gz")"
 
@@ -53,7 +53,7 @@ build() {
     -Wno-dev
     -S "$_dirname"
     -B build
-    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_BUILD_TYPE=RelWithDebInfo
     -D CMAKE_C_COMPILER=/opt/rocm/lib/llvm/bin/amdclang
     -D CMAKE_CXX_COMPILER=/opt/rocm/lib/llvm/bin/amdclang++
     -D CMAKE_TOOLCHAIN_FILE=toolchain-linux.cmake

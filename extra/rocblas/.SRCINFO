@@ -1,7 +1,7 @@
 pkgbase = rocblas
 	pkgdesc = Next generation BLAS implementation for ROCm platform
 	pkgver = 6.4.3
-	pkgrel = 1
+	pkgrel = 2
 	url = https://rocm.docs.amd.com/projects/rocBLAS/en/latest/index.html
 	arch = x86_64
 	license = MIT
@@ -25,7 +25,7 @@ pkgbase = rocblas
 	depends = gcc-libs
 	depends = openmp
 	depends = cblas
-	options = !lto
+	options = !buildflags
 	source = rocblas-6.4.3.tar.gz::https://github.com/ROCm/rocBLAS/archive/refs/tags/rocm-6.4.3.tar.gz
 	source = rocblas-tensile-6.4.3.tar.gz::https://github.com/ROCm/Tensile/archive/refs/tags/rocm-6.4.3.tar.gz
 	sha256sums = 754dcc88b30468a2293d2406d7fe40f78dc92dd77c193758f937532217ecdad3
