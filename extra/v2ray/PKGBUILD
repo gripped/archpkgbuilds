@@ -2,7 +2,7 @@
 # Contributor: pandada8 <pandada8@gmail.com>
 
 pkgname=v2ray
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="A platform for building proxies to bypass network restrictions"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('glibc' 'v2ray-domain-list-community' 'v2ray-geoip')
 makedepends=('go' 'git')
 backup=(etc/v2ray/config.json)
 source=("git+https://github.com/v2fly/v2ray-core.git#tag=v$pkgver")
-sha512sums=('1c765362962db8f42f6a7ad39f7b173ba567486e0415f79155fff9dfb117660dfdfc254f73a37d0d1d5785738f75c41a71d16099189b12e6ef787fdcee8172e9')
+sha512sums=('67ab31436929e5ecaa5e04124c4c43678c98a09545c04acebca5ebd7ebe6ed8280c961ec286830a688335e45a4c3e5c99dacf1a64f3c7c06ded0caf5099d3e67')
 
 prepare() {
   cd v2ray-core
