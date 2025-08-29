@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=serie
-pkgver=0.4.7
+pkgver=0.5.0
 pkgrel=1
 pkgdesc="A rich git commit graph in your terminal"
 url="https://github.com/lusingander/serie"
@@ -12,7 +12,7 @@ makedepends=(cargo 'git')
 arch=(x86_64)
 license=(MIT)
 source=("git+$url#tag=v$pkgver")
-sha512sums=('c302be8e9c7e518cd3700919a3b43f3660eb8facbce60f6345b3064cc6c7e736c99af188523133d5d43a9681974a50d899f8dce703f170ec2fbd5564c0e374d5')
+sha512sums=('bcf09188ff31f4020053f37edce2b4da8c7314e0d55dc5cbe431b2ed1b354305a059fd38ee8afc844c0ca08d10539e30239657379eadc00af7ed74a9d8690354')
 
 prepare() {
   cd "$pkgname"
