@@ -6,32 +6,32 @@
 # Contributor: Gaetan Bisson <bisson@archlinux.org>
 
 pkgname=djview
-pkgver=4.12
-pkgrel=5
+pkgver=4.12.3
+pkgrel=1
 pkgdesc='Viewer for DjVu documents'
 arch=('x86_64')
 url='http://djvu.sourceforge.net/djview4.html'
 license=('GPL2')
-depends=('qt5-base' 'djvulibre')
-makedepends=('qt5-tools')
+depends=('qt6-base' 'qt6-5compat' 'djvulibre')
+makedepends=('qt6-tools')
 source=("https://downloads.sourceforge.net/djvu/$pkgname-$pkgver.tar.gz"
         'djvulibre-djview4.appdata.xml')
-sha256sums=('5673c6a8b7e195b91a1720b24091915b8145de34879db1158bc936b100eaf3e3'
-            '6527ff07bf11f3f2b7c79a97c5617d445343040ae070d18b52cfd4f91434c119')
+sha256sums=('17bfb9731ab8070e01235381f08e57b1231ffb5f49eb031873ebfa189cdaf47d'
+            '8d14017cd80fbf5c1520aed88f0db8b1ab091987b4f69543d8eaf40801e739f9')
 
 prepare() {
-  cd ${pkgname}4-$pkgver
+  cd $pkgname-$pkgver
   NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
-  cd ${pkgname}4-$pkgver
-  ./configure --prefix=/usr --disable-nsdejavu
+  cd $pkgname-$pkgver
+  ./configure --prefix=/usr --disable-nsdejavu QMAKE=qmake6
   make
 }
 
 package() {
-  cd ${pkgname}4-$pkgver
+  cd $pkgname-$pkgver
   make DESTDIR="$pkgdir" install
   install -Dm644 ../djvulibre-djview4.appdata.xml "$pkgdir/usr/share/metainfo/djvulibre-djview4.appdata.xml"
   ln -s djview "$pkgdir/usr/bin/djview4"
