@@ -2,28 +2,33 @@
 
 _hkgname=criterion-measurement
 pkgname=haskell-criterion-measurement
-pkgver=0.2.2.0
-pkgrel=82
+pkgver=0.2.3.0
+pkgrel=1
 pkgdesc="Criterion measurement functionality and associated types"
 url="https://github.com/haskell/criterion"
-license=('MIT')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-base-compat' 'haskell-vector')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('3e276236a5285387135bd30abba4f532fa6bb3805854d017427b3ca3c8260df5d84e86748aad7c723011c76a12d85db844f2106bc64e63f1ab512c7ddb5c124a')
+sha512sums=('2cf6ff81a77b38098c9e797c99a2b72e4b837973f4e601f53a155eaaa07cc76b0c8c409225f958b760fac6671beff065ffd7115b09160de70fd967e012183174')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
