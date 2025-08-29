@@ -4,13 +4,12 @@
 
 pkgname=pgbackrest
 pkgver=2.55.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Reliable PostgreSQL backup and restore'
 arch=(x86_64)
 url="https://github.com/pgbackrest/pgbackrest"
 license=(MIT)
-depends=(gcc-libs postgresql-libs)
-depends=(bzip2 libssh2 libxml2 lz4 openssl postgresql-libs zstd)
+depends=(bzip2 glibc libssh2 libxml2 lz4 openssl postgresql-libs zlib zstd)
 makedepends=(meson libyaml)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/release/$pkgver.tar.gz")
 b2sums=('7cd1e97874c6d1611c0cdc8d8551dfa552dbd323d0c84dd58910d5dd0f6e8a8cd1c08b4595fab6bd8d1e8a1ece97db3d0ad82f0df32828cd71db3f1cc5819e5c')
@@ -18,15 +17,10 @@ backup=(etc/$pkgname/$pkgname.conf)
 
 prepare() {
   echo '# Placeholder config. See https://pgbackrest.org/configuration.html for more info.' > example.conf
-
-  export CFLAGS="$CFLAGS -fcf-protection"
-  export CXXFLAGS="$CXXFLAGS -fcf-protection"
-  export LDFLAGS="$LDFLAGS -Wl,-z,relro -Wl,-z,now -Wl,-z,shstk"
-
-  arch-meson $pkgname-release-$pkgver build
 }
 
 build() {
+  arch-meson $pkgname-release-$pkgver build
   meson compile -C build
 }
 
