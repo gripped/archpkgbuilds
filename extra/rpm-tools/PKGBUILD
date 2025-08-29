@@ -9,12 +9,12 @@
 
 pkgname=rpm-tools
 pkgver=4.20.1
-pkgrel=1
+pkgrel=2
 pkgdesc="RPM Package Manager - RPM.org fork, used in major RPM distros"
 arch=('x86_64')
 url='https://rpm.org/'
-license=('GPL2')
-depends=('lua' 'file' 'nss' 'popt' 'elfutils' 'libarchive' 'libcap' 'rpm-sequoia')
+license=('GPL-2.0-or-later')
+depends=('lua' 'file' 'popt' 'elfutils' 'libarchive' 'libcap' 'rpm-sequoia')
 makedepends=('python' 'pkg-config' 'cmake' 'podman')
 conflicts=('rpm' 'rpmextract')
 options=('!libtool')
