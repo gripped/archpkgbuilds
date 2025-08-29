@@ -3,28 +3,38 @@
 
 _hkgname=monads-tf
 pkgname=haskell-monads-tf
-pkgver=0.1.0.3
-pkgrel=25
+pkgver=0.2.0.0
+pkgrel=1
 pkgdesc="Monad classes, using type families"
-url="https://hackage.haskell.org/package/${_hkgname}"
-license=("BSD")
+url="https://github.com/typeclasses/monads-tf"
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('e1be602c584b42390b617cee164c8cb1c4bb17093c44033275924f273c94212e53faceb35aeabadf43e68f9631830e41266858daa10aa2f3af6300ebc20f3ea4')
+sha512sums=('1c80fee03e340fcd4cf10cd57c5ae446659b3134a9ee833300f243380e927f07c518b362c8750b9909719f86105974280c3c5f0dccbd1796cb0ae81e7a87011f')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    gen-setup
+}
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
