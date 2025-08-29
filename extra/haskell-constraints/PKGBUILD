@@ -3,17 +3,17 @@
 
 _hkgname=constraints
 pkgname=haskell-constraints
-pkgver=0.14
-pkgrel=12
+pkgver=0.14.1
+pkgrel=2
 pkgdesc="Constraint manipulation"
 url="https://github.com/ekmett/constraints/"
 license=('BSD-2-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-boring' 'haskell-hashable' 'haskell-type-equality')
+depends=('ghc-libs' 'haskell-boring' 'haskell-hashable')
 makedepends=('ghc')
 checkdepends=('haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('6a3fece894dfa2e18517c33ed39b5bdede496dab009e88348d07eece7662bb999eb306d6448dd7e69e4ae3efc03316bb6530855b4e98afb3f0817e98406ce678')
+sha512sums=('3e20387f57c4391c7d032dffefc480809af57f02367217a1dcb89440fda17786d38fa8f2bec3f40ce489352d7669285e42f2aaa0ff01082dab3b388720fd5a51')
 
 build() {
     cd $_hkgname-$pkgver
