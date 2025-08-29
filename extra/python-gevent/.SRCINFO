@@ -1,6 +1,6 @@
 pkgbase = python-gevent
 	pkgdesc = Python network library that uses greenlet and libenv for easy and scalable concurrency
-	pkgver = 25.5.1
+	pkgver = 25.8.1
 	pkgrel = 1
 	url = http://www.gevent.org
 	arch = x86_64
@@ -17,15 +17,16 @@ pkgbase = python-gevent
 	makedepends = python-wheel
 	makedepends = cython
 	makedepends = python-cffi
-	makedepends = libuv
+	depends = glibc
 	depends = c-ares
 	depends = libev
+	depends = libuv
 	depends = python-greenlet
 	depends = python-setuptools
 	depends = python-zope-event
 	depends = python-zope-interface
-	source = python-gevent::git+https://github.com/gevent/gevent#tag=25.5.1
-	sha512sums = 5d66c25fefa8bb1fd9cac447375449a8731646d217293f4447bd2d815c8b4ab9d997bffc471f7fcba9498c80fc697dcd5f72317da9736ccdacc7e5c31b10177e
-	b2sums = 93a9e57a0e2d444472493d829507877d0f5ce8608513a4701f8807b249ae10ff58c36caf95e3ffc30b8ac133fbbda0848d9bf6a2e30c3a383a255acc3d9f48ca
+	source = python-gevent::git+https://github.com/gevent/gevent#tag=25.8.1
+	sha512sums = 4b668287f27267a055147c3906fc90362ec97cc4b42171c0740f206500a8898c978961925d24493ba4b8d3a671988b751b7c501a4ae51b9ef1df005b1efff9c1
+	b2sums = a9c42dc8e00e361b7e3d4377f6edbd6adebd184e3d0db87d3595780135f03ea9c274632d891008532d01ac72a36935a8d79cf25ceb42175fb06cf7529a5b42d7
 
 pkgname = python-gevent
