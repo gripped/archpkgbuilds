@@ -3,7 +3,7 @@
 
 pkgname=python-tiktoken
 _name=${pkgname#python-}
-pkgver=0.8.0
+pkgver=0.11.0
 pkgrel=1
 pkgdesc="A fast BPE tokeniser for use with OpenAI's models"
 arch=(x86_64)
@@ -32,7 +32,7 @@ optdepends=(
 )
 
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-sha256sums=('6ac7a9cfe9f9c4d111ea633b7ae2214ba504a6a4e994b26dff28b3bdee919293')
+sha256sums=('a9b489f53e867e789fcbc019b9f98acdfeaa9108a3e13d8bf0ddd25e56a9eddc')
 
 _archive="$_name-$pkgver"
 
