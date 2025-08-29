@@ -2,18 +2,18 @@
 
 _hkgname=crypton-x509-validation
 pkgname=haskell-crypton-x509-validation
-pkgver=1.6.13
-pkgrel=39
+pkgver=1.6.14
+pkgrel=1
 pkgdesc="X.509 Certificate and CRL validation"
 url="https://github.com/kazu-yamamoto/crypton-certificate"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-asn1-encoding' 'haskell-asn1-types' 'haskell-crypton'
          'haskell-crypton-x509' 'haskell-crypton-x509-store' 'haskell-data-default'
-         'haskell-hourglass' 'haskell-memory' 'haskell-pem')
+         'haskell-hourglass' 'haskell-iproute' 'haskell-memory' 'haskell-pem')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('51275325511db717f0697d4f2561fdde05087807cd8a1a09223a811e41cc15d5')
+sha256sums=('ed0e394127db59d66a0a8e4bde28fa0b8cc67cc9a810793b54a58e96df4c601d')
 
 build() {
   cd $_hkgname-$pkgver
