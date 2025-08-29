@@ -4,13 +4,13 @@
 _hkgname=language-python
 pkgname=haskell-language-python
 pkgver=0.5.8
-pkgrel=207
+pkgrel=209
 pkgdesc="Parsing and pretty printing of Python code."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-monads-tf' 'haskell-utf8-string')
-makedepends=('happy' 'alex' 'ghc')
+makedepends=('happy' 'alex' 'ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz"
         "$pkgname-happy-2.patch::https://github.com/bjpop/language-python/pull/78.patch")
 sha512sums=('fa2d9c1a20460e38dcc370be60157090e7279386a4ebc0f4c4bac56fb3a8f65541c41fa789d2df31e385eeea3c05e2f84c44f77917379194eb4e29372ab4c20d'
@@ -19,6 +19,7 @@ sha512sums=('fa2d9c1a20460e38dcc370be60157090e7279386a4ebc0f4c4bac56fb3a8f65541c
 prepare() {
     cd $_hkgname-$pkgver
     patch -Np2 -i ../$pkgname-happy-2.patch
+    uusi -u monads-tf
 }
 
 build() {
