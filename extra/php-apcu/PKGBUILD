@@ -2,7 +2,7 @@
 
 pkgbase=php-apcu
 pkgname=('php-apcu' 'php-legacy-apcu')
-pkgver=5.1.26
+pkgver=5.1.27
 pkgrel=1
 arch=('x86_64')
 pkgdesc='A userland caching module for PHP'
@@ -11,7 +11,7 @@ makedepends=('php' 'php-legacy')
 license=('PHP')
 source=("https://pecl.php.net/get/apcu-$pkgver.tgz"
         'apcu.ini')
-sha256sums=('aed8d359d98c33723b65e4ba58e5422e5cf794c54fbd2241be31f83a49b44dde'
+sha256sums=('1a2c37fcad2ae2a1aea779cd6ca9353d8b38d4e27dde2327c52ff3892dfadb3f'
             '18b2d904848b185bdc7c0c6a5f7c82ec809e9ed3f137cd6d3420160f4756630f')
 
 prepare() {
