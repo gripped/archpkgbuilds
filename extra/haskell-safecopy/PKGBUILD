@@ -2,22 +2,17 @@
 
 _hkgname=safecopy
 pkgname=haskell-safecopy
-pkgver=0.10.4.2
-pkgrel=376
+pkgver=0.10.4.3
+pkgrel=1
 pkgdesc="Binary serialization with version control."
 url="https://github.com/acid-state/safecopy"
-license=('custom:PublicDomain')
+license=('LicenseRef-PublicDomain')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-cereal' 'haskell-generic-data' 'haskell-old-time' 'haskell-vector')
-makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-lens' 'haskell-lens-action' 'haskell-quickcheck'
-             'haskell-quickcheck-instances' 'haskell-tasty' 'haskell-tasty-quickcheck')
+makedepends=('ghc' 'haskell-hunit' 'haskell-lens' 'haskell-lens-action' 'haskell-tasty'
+             'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('2b6ae8488ac00bb5048e63886433aea6c2b13c9bea252fb8622ee1b673bce9e259639fbb68ef47a17ceac65edec2631ee95bc34a665c039f5c651d6192418bf5')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u lens -u template-haskell -u text -u time -u vector $_hkgname.cabal
-}
+sha512sums=('2b9be8d7ee4b0fe545329c2820c39a5411e2f35b763062e280aa6e2cd923bd71769631436f1e208cd14ba7183d72ad7ee739e0901d5658a576edb284c71a6c4f')
 
 build() {
     cd $_hkgname-$pkgver
