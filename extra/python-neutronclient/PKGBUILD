@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-neutronclient
-pkgver=11.5.0
+pkgver=11.6.0
 pkgrel=1
 pkgdesc="OpenStack Networking (Neutron) Client"
 arch=('any')
@@ -13,10 +13,10 @@ depends=('python-pbr' 'python-cliff' 'python-debtcollector' 'python-netaddr'
          'python-oslo-serialization' 'python-oslo-utils' 'python-os-client-config'
          'python-keystoneauth1' 'python-keystoneclient' 'python-requests')
 makedepends=('git')
-checkdepends=('python-oslotest' 'python-osprofiler' 'python-openstackclient' 'python-subunit'
+checkdepends=('python-oslotest' 'python-osprofiler' 'python-openstackclient'
               'python-requests-mock' 'python-stestr' 'python-testtools')
 source=("git+https://github.com/openstack/python-neutronclient.git#tag=$pkgver")
-sha512sums=('02f71b8c93a5b6dbde4db29f938842fbe1e0b0a1bd569ccf5e19347d07cb46d27171711a8d251020ea00bbcb7c5f68cdafdc78c87287a4cd869c91f7be956622')
+sha512sums=('2d29b1448ea15f9f47fc2c0b67944791aabd59ed3bace52432b0e263ca594c9b0074a63b6815e372512e9655c4c8cfa4f82e7e1b72d4ee388aa6014824684ef1')
 
 build() {
   cd python-neutronclient
