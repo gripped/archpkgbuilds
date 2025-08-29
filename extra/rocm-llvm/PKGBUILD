@@ -4,7 +4,7 @@
 pkgbase=rocm-llvm
 pkgname=(rocm-llvm rocm-device-libs comgr)
 pkgver=6.4.3
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://rocm.docs.amd.com/en/latest/reference/rocmcc.html'
 makedepends=('git' 'cmake' 'python' 'ninja' 'rocm-core' 'rocm-cmake' 'perl'
@@ -72,6 +72,7 @@ build() {
         -D LIBCXXABI_INSTALL_STATIC_LIBRARY=OFF
         -D LLVM_TARGETS_TO_BUILD='AMDGPU;NVPTX;X86'
         -D CLANG_DEFAULT_LINKER=lld
+        -D ENABLE_LINKER_BUILD_ID=ON
         -D CLANG_DEFAULT_RTLIB=compiler-rt
         -D CLANG_DEFAULT_UNWINDLIB=libgcc
         -D LLVM_INSTALL_UTILS=ON
