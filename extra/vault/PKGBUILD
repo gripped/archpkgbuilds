@@ -6,7 +6,7 @@
 
 pkgname=vault
 pkgdesc='A tool for managing secrets'
-pkgver=1.20.1
+pkgver=1.20.3
 pkgrel=1
 url="https://vaultproject.io/"
 license=('BUSL-1.1')
@@ -19,7 +19,7 @@ source=("git+https://github.com/hashicorp/vault#tag=v${pkgver}"
   'vault.sysusers'
   'vault.tmpfiles'
   'vault.hcl')
-sha512sums=('2e9eb14c4e4185e71740dd6386f810050ac2a38d1362753427d496ce85cdd7566eace65fa60d547d8aa2a2ac7907b3f6963265bde249f865ce1709758a774a84'
+sha512sums=('c4d2ef7c90e703700e48a5fd797b938717e33aa8814e32545c1b8a0fc6db8ed1a6b95a3e7198fd85583e888a976e989a57eaea2a99d8488290561acbee20bdde'
             '92616ccf83fa5ca9f8b0d022cf8ceb1f3549e12b66bf21d9f77f3eb26bd75ec1dc36c155948ec987c642067b85fbfc30a9217d6c503d952a402aa5ef63e50928'
             'db327aae6f821ee1ea608abdb3fc82aeeae72ce873d78ada44461644add32afd6c0197019427734498bc28ae187b6f741a02196e40a620caab597e5eef32ca7a'
             '75d654ec4eadfe983f57951d470fff8b9eb953b42c08e7b6b3a1baaa0721fd7a9d5be37480b0e4f4fd8518f375348bdd8394848f0fb27cb1d425279acb67f693')
