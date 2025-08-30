@@ -1,7 +1,7 @@
 pkgname=perl-sub-quote
 epoch=1
-pkgver=2.006008
-pkgrel=5
+pkgver=2.006009
+pkgrel=1
 pkgdesc="efficient generation of subroutines via string eval"
 arch=('any')
 license=('PerlArtistic' 'GPL')
@@ -10,7 +10,7 @@ depends=('perl')
 makedepends=('perl-test-fatal>=0.010')
 url='https://search.cpan.org/dist/Sub-Quote'
 source=("https://search.cpan.org/CPAN/authors/id/H/HA/HAARG/Sub-Quote-$pkgver.tar.gz")
-sha256sums=('94bebd500af55762e83ea2f2bc594d87af828072370c7110c60c238a800d15b2')
+sha256sums=('967282d54d2d51b198c67935594f93e4dea3e54d1e5bced158c94e29be868a4b')
 
 build() {
   ( export PERL_MM_USE_DEFAULT=1 PERL5LIB=""                 \
