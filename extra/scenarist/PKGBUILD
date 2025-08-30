@@ -3,7 +3,7 @@
 
 pkgname=scenarist
 pkgver=0.7.2.rc15
-pkgrel=1
+pkgrel=2
 pkgdesc='Screenwriting software to create screenplays which oriented at international standards in the field of film production'
 arch=('x86_64')
 url='https://kitscenarist.ru/en/'
@@ -29,7 +29,7 @@ prepare() {
   cd KITScenarist
   git submodule init
   git submodule set-url src/bin/scenarist-core "$srcdir/KITScenaristCore"
-  git submodule update
+  git -c protocol.file.allow=always submodule update
 
   # Use system hunspell
   sed -i '/hunspell/d
