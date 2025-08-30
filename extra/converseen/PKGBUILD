@@ -3,24 +3,16 @@
 # Contributor: archtux <antonio.arias99999 at gmail.com>
 
 pkgname=converseen
-pkgver=0.14.0.0
+pkgver=0.15.0.2
 pkgrel=1
 pkgdesc='Batch image converter and resizer'
 arch=('x86_64')
-url='http://converseen.fasterland.net/'
+url='https://converseen.fasterland.net/'
 license=('GPL3')
 depends=('hicolor-icon-theme' 'imagemagick' 'qt6-base')
 makedepends=('cmake' 'qt6-tools')
 source=("https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2")
-sha256sums=('0de5f6d0b130fb7f5ec853d6d986ece56be9b406d00c8ccf1912631cb7638f22')
-
-prepare() {
-  cd $pkgname-$pkgver
-  convert res/converseen.png +set date:create +set date:modify -resize 256x256 -alpha on res/converseen.png
-  sed -i 's|/share/pixmaps|/share/icons/hicolor/256x256/apps|' CMakeLists.txt
-# Install service menu to modern path
-  sed -e 's|kservices5/ServiceMenus|kio/servicemenus|' -i CMakeLists.txt
-}
+sha256sums=('3588c4a6e21573fe9dc59be756408efa07a024a50339c10b78db9613bc9131ff')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
