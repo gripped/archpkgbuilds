@@ -6,7 +6,7 @@
 # Contributor: Douglas Soares de Andrade <dsa@aur.archlinux.org>
 
 pkgname=ipython
-pkgver=9.4.0
+pkgver=9.5.0
 pkgrel=1
 pkgdesc='Enhanced Interactive Python shell'
 arch=(any)
@@ -55,7 +55,7 @@ source=(
   "git+https://github.com/ipython/ipython.git#tag=$pkgver?signed"
   'IPython-icon.png::https://www.packal.org/sites/default/files/public/styles/icon_large/public/workflow-files/nkeimipynbworkflow/icon/icon.png'
 )
-b2sums=('71f5d5bc77f228b4e34a8e67e0cd88819edf0354fee0077bae95bd152ffcd6e14f2c02ad128d643519a520573a44a90eb9c235f92aef6a0654716048fee7ff87'
+b2sums=('883fed602c5a9cee020cf6f1e10bdf3ac6451e688ccf132c5ba2f8f05c2559d937eb63a661ef3d8ef454c62d440f5f2eb920c0618f51e1fa5e08ebadb360ce93'
         'd445e2bc7a037db8715ea103611720e965987e155c32e445b0ef783e519fca8a0301b16c5763fd9a5d8d169c3b0d7b4db6c0bd0f9772842258b135dcb1d6d5a2')
 validpgpkeys=(
   99B17F64FD5C94692E9EF8064968B2CC0208DCC8 # Matthias Bussonnier <bussonniermatthias@gmail.com>
@@ -76,7 +76,7 @@ package() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/$pkgname-$pkgver.dist-info/licenses/LICENSE \
-    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+    "$pkgdir"/usr/share/licenses/$pkgname
 
   # FS#47046
   install -Dm644 IPython-icon.png "$pkgdir"/usr/share/pixmaps/ipython.png
