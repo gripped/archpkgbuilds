@@ -2,7 +2,7 @@
 
 pkgname=cryptol
 pkgver=3.2.0
-pkgrel=28
+pkgrel=29
 pkgdesc="The Language of Cryptography"
 url="https://www.cryptol.net"
 license=('BSD-3-Clause')
@@ -17,9 +17,14 @@ depends=('ghc-libs' 'z3' 'haskell-ansi-terminal' 'haskell-arithmoi' 'haskell-asy
          'haskell-pretty-show' 'haskell-prettyprinter' 'haskell-sbv' 'haskell-simple-smt'
          'haskell-strict' 'haskell-temporary' 'haskell-tf-random' 'haskell-transformers-base'
          'haskell-what4' 'haskell-vector')
-makedepends=('ghc' 'alex' 'happy')
+makedepends=('ghc' 'uusi' 'alex' 'happy')
 source=(https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz)
 sha512sums=('5f1e6aebd499bddea0618426d4b71987f9a5cfec111f944bc24c9eb27810b6aa04ff844c5cec5d1b8583cab06682c7889e44c174608b45fe78bf7f466584f679')
+
+prepare() {
+    cd $pkgname-$pkgver
+    uusi -u base-compat
+}
 
 build() {
     cd $pkgname-$pkgver
