@@ -6,7 +6,7 @@ pkgname=(plasma-integration
          plasma5-integration)
 pkgver=6.4.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=3
 pkgdesc='Qt Platform Theme integration plugins for the Plasma workspaces'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
