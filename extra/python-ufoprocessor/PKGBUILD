@@ -3,8 +3,8 @@
 
 pkgname=python-ufoprocessor
 _name=ufoProcessor
-pkgver=1.13.3
-pkgrel=2
+pkgver=1.14.0
+pkgrel=1
 pkgdesc='library to process and generate UFO files based on fontTools.designSpaceLib'
 arch=(any)
 url="https://github.com/LettError/$_name"
@@ -18,7 +18,7 @@ _archive="$_name-$pkgver"
 # https://github.com/LettError/ufoProcessor/issues/56
 # source=("https://pypi.org/packages/source/${_name:0:1}/$_name/$_archive.zip")
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('b86448358739d84625ae4e09537b9e8f2a9a1ca1ce16fbf47a1ca46fcbadc19d')
+sha256sums=('b2512617ad0ca4d338e4d1e2b607804b5823ab83afbb65b0dfcdddeaba09e5b8')
 
 build() {
 	cd "$_archive"
