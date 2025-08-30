@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-serialbus
-_pkgver=6.9.1
+_pkgver=6.9.2
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('04146512e78aa24399c8c2c5a2fa7bbe14acc96a4032b0257e6a585dda5d04d1')
+sha256sums=('bde892253e96b1ffcc3e4b8acae7f49114282d398ba0f35c1d62d5fe4a71846a')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
