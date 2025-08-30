@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-tools
-_pkgver=6.9.1
+_pkgver=6.9.2
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -32,7 +32,7 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
         git+https://code.qt.io/playground/qlitehtml)
-sha256sums=('7bc25a2a68017566823384df67e1caf1a13c35d2e5ff0801cc9f29bdce096c25'
+sha256sums=('dbbbcd067eb34c733187e7df4c2b2fec922555e13646c41616e3b2b9ab9a7a6b'
             'SKIP')
 
 prepare() {
@@ -47,6 +47,7 @@ prepare() {
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
     -DQT_INSTALL_XDG_DESKTOP_ENTRIES=ON \
+    -DQLITEHTML_USE_SYSTEM_LITEHTML=ON \
     -DCMAKE_MESSAGE_LOG_LEVEL=STATUS
   cmake --build build
 }
