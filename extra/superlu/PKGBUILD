@@ -4,16 +4,16 @@
 # Contributor: Stefan Paquay <stefanpaquay@gmail.com>
 
 pkgname=superlu
-pkgver=7.0.0
+pkgver=7.0.1
 pkgrel=1
 pkgdesc='Set of subroutines to solve a sparse linear system'
 arch=('x86_64')
 url='https://github.com/xiaoyeli/superlu/'
 license=('BSD')
 depends=('blas')
-makedepends=('cmake' 'gcc-fortran' 'ninja')
+makedepends=('cmake' 'ninja')
 source=("https://github.com/xiaoyeli/$pkgname/archive/v${pkgver}/$pkgname-$pkgver.tar.gz")
-sha256sums=('d7b91d4e0bb52644ca74c1a4dd466a694ddf1244a7bbf93cb453e8ca1f6527eb')
+sha256sums=('86dcca1e086f8b8079990d07f00eb707fc9ef412cf3b2ce808b37956f0de2cb8')
 
 build() {
   cmake -S $pkgname-$pkgver -B build -G Ninja \
