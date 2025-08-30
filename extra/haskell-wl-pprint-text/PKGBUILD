@@ -4,15 +4,20 @@
 _hkgname=wl-pprint-text
 pkgname=haskell-wl-pprint-text
 pkgver=1.2.0.2
-pkgrel=8
+pkgrel=9
 pkgdesc="A Wadler/Leijen Pretty Printer for Text values"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-base-compat')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('842b3b539d393d536d05933b53738daa325c6e14fcbf877adef90b1c1dde402cd11c7365c63de11b886e79dacb70d0f29cf7b5dd3bd5b49f280e813233452ab5')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u base-compat
+}
 
 build() {
     cd $_hkgname-$pkgver
