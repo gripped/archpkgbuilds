@@ -9,7 +9,7 @@
 
 pkgname=calibre
 pkgver=8.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Ebook management application'
 arch=(x86_64)
 url=https://calibre-ebook.com
@@ -54,7 +54,7 @@ depends=(hunspell
          libstemmer
          libusb
          libwmf
-         mathjax
+#        mathjax
          mtdev
          optipng
          podofo
@@ -109,7 +109,9 @@ build() {
 	python setup.py iso639
 	python setup.py iso3166
 	python setup.py liberation_fonts --system-liberation_fonts --path-to-liberation_fonts /usr/share/fonts/liberation
-	python setup.py mathjax --system-mathjax --path-to-mathjax /usr/share/mathjax
+#	MathJax 4 not supported
+#	python setup.py mathjax --system-mathjax --path-to-mathjax /usr/share/mathjax
+	python setup.py mathjax
 	python setup.py gui
 }
 
