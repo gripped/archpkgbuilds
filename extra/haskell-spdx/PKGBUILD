@@ -4,7 +4,7 @@
 _hkgname=spdx
 pkgname=haskell-spdx
 pkgver=1.0.0.3
-pkgrel=112
+pkgrel=113
 pkgdesc="SPDX license expression language, Extras"
 url="https://github.com/phadej/spdx"
 license=("BSD-3-Clause")
@@ -19,7 +19,7 @@ sha512sums=('16c7e3126d77b9284fc3ef27dd94e551cae5496595df32b47e08722ff0328876677
 prepare() {
     cd $_hkgname-$pkgver
     patch -Np1 -i ../$pkgname-cabal-3.8.patch
-    uusi -u tasty
+    uusi -u base-compat -u tasty
 }
 
 build() {
