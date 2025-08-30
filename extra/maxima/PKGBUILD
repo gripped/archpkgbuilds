@@ -5,38 +5,42 @@
 pkgbase=maxima
 pkgname=($pkgbase{,-sbcl,-ecl,-fas})
 pkgver=5.48.1
-_sbclver=2.5.7
+_sbclver=2.5.8
 _eclver=24.5.10
-pkgrel=3
+pkgrel=4
 pkgdesc='A sophisticated computer algebra system'
 arch=(x86_64)
 license=(GPL-2.0-only)
 url='http://maxima.sourceforge.net'
 makedepends=(ecl
              emacs
+             git
              python
              sbcl)
 # needs rebuild when bash changes version
 # needs a rebuild when ecl or sbcl changes version
 options=(!zipman) # don't zip info pages or they won't work inside maxima
-source=(https://downloads.sourceforge.net/sourceforge/$pkgname/$pkgname-$pkgver.tar.gz
+source=(maxima::git://git.code.sf.net/p/maxima/code#tag=$pkgver
         matrixexp.patch
         maxima-sbcl-gmp.patch
         0001-ECL-Fix-autoconf-options-on-whitespace.patch)
-sha256sums=('b0916b5fb37b6eeaae400083175e68e28f80b9a1ab580c106a05448cf1c496b2'
+sha256sums=('111cf0d00d14db0ab0401adbe2a026e37ef3423d637383811a777daf68c5e89f'
             'ef1bc6a15fc982ff8c6aa1800bbbd3284d9e060ca27abf9d8c1266632c0c2619'
             '7e85da0b6672b096d7aefac861573a57323dfe805e08d033781448f7ca6ed856'
             '05f6f82550e03af3927379d71a4e2a762ea523fa0c0ea1021741c7dd51414c32')
 
 
 prepare() {
-  patch -d $pkgname-$pkgver -p1 < matrixexp.patch # fix matrix exponentiation
-  patch -d $pkgname-$pkgver -p1 < maxima-sbcl-gmp.patch # Use GMP arithmetic with sbcl (Void Linux)
-  patch -d $pkgname-$pkgver -p1 < 0001-ECL-Fix-autoconf-options-on-whitespace.patch # Handle whitespace in LDFLAGS correctly
+  patch -d $pkgname -p1 < matrixexp.patch # fix matrix exponentiation
+  patch -d $pkgname -p1 < maxima-sbcl-gmp.patch # Use GMP arithmetic with sbcl (Void Linux)
+  patch -d $pkgname -p1 < 0001-ECL-Fix-autoconf-options-on-whitespace.patch # Handle whitespace in LDFLAGS correctly
+  cd $pkgbase
+  rm -r .git # prevent a dirty version number
+  autoreconf -fiv
 }
 
 build() {
-  cd $pkgbase-$pkgver
+  cd $pkgbase
   ./configure \
     --prefix=/usr \
     --mandir=/usr/share/man \
@@ -52,7 +56,7 @@ build() {
 }
 
 #check() {  # test 23&129 fail from rtest_taylor
-#  cd $pkgname-$pkgver
+#  cd $pkgbase
 #  make check
 #}
 
@@ -64,7 +68,7 @@ package_maxima() {
               'rlwrap: readline support via /usr/bin/rmaxima'
               'tk: graphical xmaxima interface')
 
-  cd $pkgbase-$pkgver
+  cd $pkgbase
   make DESTDIR="$pkgdir" emacsdir=/usr/share/emacs/site-lisp/maxima install
 
 # Remove backends
@@ -76,7 +80,7 @@ package_maxima-sbcl() {
   depends=(sbcl=$_sbclver)
   provides=(maxima-backend)
 
-  install -Dm755 $pkgbase-$pkgver/src/binary-sbcl/maxima.core -t "$pkgdir"/usr/lib/maxima/$pkgver/binary-sbcl
+  install -Dm755 $pkgbase/src/binary-sbcl/maxima.core -t "$pkgdir"/usr/lib/maxima/$pkgver/binary-sbcl
 }
 
 package_maxima-ecl() {
@@ -85,7 +89,7 @@ package_maxima-ecl() {
            glibc)
   provides=(maxima-backend)
 
-  install -Dm755 $pkgbase-$pkgver/src/binary-ecl/maxima -t "$pkgdir"/usr/lib/maxima/$pkgver/binary-ecl
+  install -Dm755 $pkgbase/src/binary-ecl/maxima -t "$pkgdir"/usr/lib/maxima/$pkgver/binary-ecl
 }
 
 package_maxima-fas() {
@@ -93,5 +97,5 @@ package_maxima-fas() {
   depends+=(ecl=$_eclver
             maxima)
 
-  install -Dm644 $pkgbase-$pkgver/src/binary-ecl/maxima.fas -t "$pkgdir"/usr/lib/ecl-$_eclver
+  install -Dm644 $pkgbase/src/binary-ecl/maxima.fas -t "$pkgdir"/usr/lib/ecl-$_eclver
 }
