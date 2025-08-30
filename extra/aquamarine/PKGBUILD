@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=aquamarine
-pkgver=0.9.3
+pkgver=0.9.4
 pkgrel=1
 pkgdesc='a very light linux rendering backend library'
 arch=(x86_64 aarch64)
@@ -27,7 +27,7 @@ makedepends=(cmake)
 provides=("lib$pkgname.so")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('18f4bd8f3aff78160b4f8464e9c71b24809e2f028fbaad5e65c93b5848c84b0a')
+sha256sums=('fccc7c4e9b42b34082690ba672ba54025b781eca46c48ec304b7e5b2ba775893')
 
 build() {
 	cd "$_archive"
