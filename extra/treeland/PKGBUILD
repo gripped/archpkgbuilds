@@ -2,7 +2,7 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=treeland
-pkgver=0.6.1
+pkgver=0.6.2
 pkgrel=1
 pkgdesc='New wayland compositer for DDE'
 arch=('x86_64')
@@ -16,7 +16,7 @@ makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'wayland-protocols' 'wlr-protocol
 replaces=('waylib' 'qwlroots')
 conflicts=('waylib' 'qwlroots')
 source=("git+https://github.com/linuxdeepin/treeland.git#tag=$pkgver")
-sha256sums=('1b73536dc6f7ce1466d7323945796df8a6cfb2cfafb7f6a77da0b32f59827735')
+sha256sums=('a728fc6ec684e4c63afce10fd062a86730cb0431a38fd35c665688c4a7a62ce1')
 
 build() {
 	cd treeland
