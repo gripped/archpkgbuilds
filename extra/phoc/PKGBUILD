@@ -1,21 +1,57 @@
-# Maintainer: Jelle van der Waa <jelle@archlinux.org>
+# Maintainer: Dan Johansen <strit@archlinux.org>
+# Contributor: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=phoc
-pkgver=0.46.0
-pkgrel=2
+pkgver=0.48.0
+pkgrel=1
 pkgdesc='Display compositor designed for phones'
-arch=(x86_64 aarch64)
+arch=('x86_64' 'aarch64')
 url='https://gitlab.gnome.org/World/Phosh/phoc'
 license=(GPL-3.0-only)
-depends=(gnome-desktop wlroots0.18 gsettings-desktop-schemas pixman libinput libxcb libxkbcommon
-	 json-glib glib2 dconf cairo wayland libgmobile)
-checkdepends=(xorg-server-xvfb xorg-xauth mutter pixman)
-makedepends=(cmake meson git wayland-protocols python-jinja python-pygments python-typogrify libgirepository libgmobile glib2-devel)
+depends=(
+        "gnome-desktop"
+        "wlroots0.19"
+        "gsettings-desktop-schemas"
+        "pixman"
+        "libinput"
+        "libxcb"
+        "libxkbcommon"
+        "json-glib"
+        "glib2"
+        "dconf"
+        "cairo"
+        "wayland"
+        "libgmobile"
+)
+checkdepends=(
+              "xorg-server-xvfb"
+              "xorg-xauth"
+              "mutter"
+              "pixman"
+)
+makedepends=(
+            "cmake"
+            "meson"
+            "git"
+            "wayland-protocols"
+            "python-jinja"
+            "python-pygments"
+            "python-typogrify"
+            "libgirepository"
+            "libgmobile"
+            "glib2-devel"
+)
 optdepends=('xorg-wayland: run X clients under phoc')
-source=(https://gitlab.gnome.org/World/Phosh/phoc/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz)
-sha256sums=('3eab0c6cb9b2eadf329b3e194e7b0af5d04ae834855e54277ae4b28055b68d93')
+_gvdb="4758f6fb7f889e074e13df3f914328f3eecb1fd3"
+source=(
+      "${url}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
+      "git+https://gitlab.gnome.org/GNOME/gvdb.git#commit=${_gvdb}" #new dependency with no release
+)
+sha256sums=('3533a26d6a991b4c6ede98a725b4429788e81a7b22f895f2d298488dea5bb4f3'
+            'ebe771e60943547279fbf29acb6aea6346fc20df6388252f71bf2bf679d3a7a8')
 
 prepare() {
+  cp -r gvdb "${pkgname}-v${pkgver}/subprojects"
   cd "${pkgname}-v${pkgver}"
 }
 
