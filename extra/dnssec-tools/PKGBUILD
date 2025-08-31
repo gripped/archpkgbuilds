@@ -1,9 +1,10 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+
 # Contributor: Luca Fulchir <luca@fulchir.it>
 
 pkgname=dnssec-tools
 pkgver=2.2.3
-pkgrel=14
+pkgrel=15
 pkgdesc="libval & dnssec management tools"
 arch=('x86_64')
 url="http://www.dnssec-tools.org"
@@ -44,6 +45,7 @@ prepare() {
       -e 's:/usr/sbin/dnssec-signzone:/usr/bin/dnssec-signzone:' \
       -i tools/etc/dnssec-tools/dnssec-tools.conf
 
+  autoreconf -fiv
 }
 
 build() {
