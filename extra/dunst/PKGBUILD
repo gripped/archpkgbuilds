@@ -1,10 +1,11 @@
 # Maintainer: Johannes Löthberg <johannes@kyriasis.com>
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Maintainer: Morten Linderud <foxboron@archlinux.org>
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 # Contributor: feuri
 
 pkgname=dunst
-pkgver=1.12.2
+pkgver=1.13.0
 pkgrel=1
 pkgdesc="Customizable and lightweight notification-daemon"
 url="https://dunst-project.org/"
@@ -16,7 +17,7 @@ optdepends=('libnotify: dunstify')
 backup=('etc/dunst/dunstrc')
 provides=('notification-daemon')
 source=("dunst-$pkgver.tar.gz::https://github.com/dunst-project/dunst/archive/v$pkgver.tar.gz")
-sha256sums=('8f7664bd4e6083e9604e282145fe5b8dee7655fa0b099a5b682a2549e1f33d32')
+sha256sums=('7a8a1813977ad5941488c66b914501703fc0f6e12e631dc18506ad617242e7a0')
 
 build() {
   cd dunst-$pkgver
