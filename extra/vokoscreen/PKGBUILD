@@ -6,25 +6,18 @@
 
 pkgname=vokoscreen
 _pkgname=vokoscreenNG
-pkgver=4.5.0
+pkgver=4.6.1
 pkgrel=1
 pkgdesc='Easy to use screencast creator'
 arch=('x86_64')
 url='https://linuxecke.volkoh.de/vokoscreen/vokoscreen.html'
 license=('GPL2')
-depends=('gst-plugins-good' 'qt6-multimedia')
-optdepends=('gst-plugins-bad: record audio into AAC format'
-            'gst-plugins-ugly: record screen into H.264 format')
+depends=('gst-plugins-bad' 'gst-plugins-base' 'gst-plugins-good' 'qt6-multimedia')
 makedepends=('git' 'qt6-tools')
-source=("git+https://github.com/vkohaupt/$_pkgname.git#tag=${pkgver}"
-        '0001-Add-better-integration-for-Linux.patch')
-sha256sums=('8e487489fa4c30e9b163fbbd40b19e3b39cc115a5d57a2655b279cb0d668ae82'
-            '422d0cd05d2fe1a1973f8eb50e95c7e4898ce3afeae97b7e67ab384f3958ffa2')
-
-prepare() {
-  cd $_pkgname
-  patch -Np1 -F3 -i ../0001-Add-better-integration-for-Linux.patch
-}
+source=("git+https://github.com/vkohaupt/$_pkgname.git#tag=$pkgver"
+        'vokoscreenNG.appdata.xml')
+sha256sums=('2901f5db4f874746ff284eb74d274d632fa48cdaf3c3a4eb7fa0428e17a2295c'
+            'b40fdfaf0166e1735be00a08bc55091176df758af7aff6585be4122423c73dda')
 
 build() {
   cd $_pkgname
@@ -34,5 +27,8 @@ build() {
 
 package() {
   cd $_pkgname
-  make INSTALL_ROOT="$pkgdir" install
+  install -Dm755 vokoscreenNG "$pkgdir/usr/bin/vokoscreenNG"
+  install -Dm644 src/applications/vokoscreenNG.png "$pkgdir/usr/share/icons/hicolor/256x256/apps/vokoscreenNG.png"
+  install -Dm644 src/applications/vokoscreenNG.desktop "$pkgdir/usr/share/applications/vokoscreenNG.desktop"
+  install -Dm644 ../vokoscreenNG.appdata.xml "$pkgdir/usr/share/metainfo/vokoscreenNG.appdata.xml"
 }
