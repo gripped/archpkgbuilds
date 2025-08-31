@@ -1,11 +1,11 @@
 pkgbase = phosh-mobile-settings
 	pkgdesc = A settings app for mobile specific things
-	pkgver = 0.46.0
+	pkgver = 0.48.0
 	pkgrel = 1
 	url = https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings
 	arch = x86_64
 	arch = aarch64
-	license = GPL3
+	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = meson
 	makedepends = wayland-protocols
@@ -16,9 +16,10 @@ pkgbase = phosh-mobile-settings
 	depends = lm_sensors
 	depends = phoc
 	depends = phosh
-	source = https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/archive/v0.46.0/phosh-mobile-settings-v0.46.0.tar.gz
-	source = https://gitlab.gnome.org/World/Phosh/gmobile/-/archive/a3c67a1184bfa73c593edefabe77cce57a5e38f6/gmobile-a3c67a1184bfa73c593edefabe77cce57a5e38f6.tar.gz
-	sha256sums = 6dae5888449688b3957fb6fa82c3bc388996a950032f6ba4dcf379f177b94a9c
-	sha256sums = 1aeac55a790525c2028a66562de877a8f99ce391636d8e0e3d059b0899c7a7ec
+	depends = libgmobile
+	source = https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/archive/v0.48.0/phosh-mobile-settings-v0.48.0.tar.gz
+	source = git+https://gitlab.gnome.org/GNOME/libgnome-volume-control#commit=5f9768a2eac29c1ed56f1fbb449a77a3523683b6
+	sha256sums = f6bc8ca17a303189c4902322a4d8e3eb18e8a6991cfac10750550a5ee6341411
+	sha256sums = 587319b45ff7d989635aed0c3bd9ef834d6e53ae46788cb6ba083d42d7e63855
 
 pkgname = phosh-mobile-settings

@@ -1,24 +1,39 @@
-# Maintainer: Jelle van der Waa <jelle@archlinux.org
+# Maintainer: Dan Johansen <strit@archlinux.org>
+# Contributor: Jelle van der Waa <jelle@archlinux.org
 # Contributor: Thomas Booker <tw.booker@outlook.com>
 
-libgmobile_commit=a3c67a1184bfa73c593edefabe77cce57a5e38f6
-
 pkgname=phosh-mobile-settings
-pkgver=0.46.0
+pkgver=0.48.0
 pkgrel=1
 pkgdesc='A settings app for mobile specific things'
-arch=(x86_64 aarch64)
+arch=('x86_64' 'aarch64')
 url='https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings'
-license=(GPL3)
-depends=(feedbackd libadwaita lm_sensors phoc phosh)
-makedepends=(git meson wayland-protocols python-packaging glib2-devel)
-source=("${url}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
-	https://gitlab.gnome.org/World/Phosh/gmobile/-/archive/${libgmobile_commit}/gmobile-${libgmobile_commit}.tar.gz)
-sha256sums=('6dae5888449688b3957fb6fa82c3bc388996a950032f6ba4dcf379f177b94a9c'
-            '1aeac55a790525c2028a66562de877a8f99ce391636d8e0e3d059b0899c7a7ec')
+license=(GPL-3.0-or-later)
+depends=(
+        "feedbackd"
+        "libadwaita"
+        "lm_sensors"
+        "phoc"
+        "phosh"
+        "libgmobile"
+)
+makedepends=(
+            "git"
+            "meson"
+            "wayland-protocols"
+            "python-packaging"
+            "glib2-devel"
+)
+_gvc=5f9768a2eac29c1ed56f1fbb449a77a3523683b6
+source=(
+        "${url}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
+        "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control#commit=${_gvc}" #new dependency with no release
+)
+sha256sums=('f6bc8ca17a303189c4902322a4d8e3eb18e8a6991cfac10750550a5ee6341411'
+            '587319b45ff7d989635aed0c3bd9ef834d6e53ae46788cb6ba083d42d7e63855')
 
 prepare() {
-  mv "gmobile-${libgmobile_commit}" "${pkgname}-v${pkgver}/subprojects/gmobile"
+  cp -r libgnome-volume-control "${pkgname}-v${pkgver}/subprojects/gvc"
 }
 
 build() {
