@@ -1,7 +1,7 @@
 pkgbase = pdfmixtool
 	pkgdesc = Application to split, merge, rotate and mix PDF files
-	pkgver = 1.1.1
-	pkgrel = 2
+	pkgver = 1.2.1
+	pkgrel = 1
 	url = https://scarpetta.eu/pdfmixtool/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -12,11 +12,8 @@ pkgbase = pdfmixtool
 	depends = qpdf
 	depends = imagemagick
 	depends = qt6-svg
-	source = https://gitlab.com/scarpetta/pdfmixtool/-/archive/v1.1.1/pdfmixtool-v1.1.1.tar.gz
-	source = ImageMagick-7.1.1.patch
-	source = qpdf-12.0.0.patch
-	sha256sums = 13fe771e8bb724d77a888443b3c6196cb9f81a6de5ef41351a111123e848e267
-	sha256sums = 085bb271ae8b780fdc5d7f77f454a0f6d5b80b7a914a1576d3768f39bbbd9809
-	sha256sums = SKIP
+	depends = poppler-qt6
+	source = https://gitlab.com/scarpetta/pdfmixtool/-/archive/v1.2.1/pdfmixtool-v1.2.1.tar.gz
+	sha256sums = 0ea40d4d850f7dcc254ab02ec27544ad0c8f411a16f1faeb4503e447a4ea034d
 
 pkgname = pdfmixtool
