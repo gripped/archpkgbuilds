@@ -1,11 +1,11 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
-# Maintainer: coderobe <coderobe@archlinux.org>
-# Contibutor: Pierre Neidhardt <ambrevar@gmail.com>
+# Contributor: coderobe <coderobe@archlinux.org>
+# Contributor: Pierre Neidhardt <ambrevar@gmail.com>
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 # Contributor: Byron Clark <byron@theclarkfamily.name>
 
 pkgname=udiskie
-pkgver=2.5.7
+pkgver=2.5.8
 pkgrel=1
 pkgdesc="Removable disk automounter using udisks"
 arch=("any")
@@ -15,7 +15,7 @@ depends=("udisks2" "python" "python-gobject" "python-yaml" "python-docopt" "gtk3
 makedepends=("asciidoc" "python-setuptools")
 optdepends=("libappindicator-gtk3: --appindicator support")
 source=("$pkgname-$pkgver.tar.gz::https://codeload.github.com/coldfix/$pkgname/tar.gz/v$pkgver")
-sha256sums=('9a70fc97b89c03c3c70b6c87f058acd5ef2f5eb5b8158fe52738fd1cc1b61ea7')
+sha256sums=('ade0b67392fe5cfbd3a84c502c1e76bc2edb66e3c7e1d0ccbe2e62421f699674')
 
 build(){
 	cd "$pkgname-$pkgver"
