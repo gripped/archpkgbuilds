@@ -2,8 +2,8 @@
 
 _gemname='googleapis-common-protos-types'
 pkgname="ruby-${_gemname}"
-pkgver=1.16.0
-pkgrel=3
+pkgver=1.20.0
+pkgrel=1
 pkgdesc='Common protocol buffer types used by Google APIs'
 arch=('any')
 url="https://github.com/googleapis/common-protos-ruby"
@@ -17,8 +17,8 @@ makedepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/${_gemname}%2Fv${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('353a34355ca8392f58305f64d3026714da2e5a35f54f9566a88788f14c7563b37051a3c57ba5a8e57bcce2a75cdf2f7d285eafd760206360bbb8a278b10156a0')
-b2sums=('7acbc3c81516552d0d7766bfdb4796bb73353a2af5b7ad2287e8452c67f87832ddc88eb920efc1f8ebe5072b5eb91049924044818dc7a6ccebb22a5f70589dee')
+sha512sums=('331798bbac9f713238b18ad626ce0e40ff5afe3d669d9af2194e56f41b32a408bd443147ff3c0cc7651fc94594daa197a4ea9627b8df78fbc4aa65cf41d51ffb')
+b2sums=('753766fb9265be1605d6eee62bf7cc398bf13ca88c36f8c070f63006b1ef7e26732e659ae2d0f4d389e7830a7b7e93700086209b096977cf413c0615f32b91eb')
 
 prepare() {
   cd "common-protos-ruby-${_gemname}-v${pkgver}/${_gemname}"
