@@ -1,0 +1,88 @@
+From 18d877a4fce76195e46d1d8da94be7ac21cf545c Mon Sep 17 00:00:00 2001
+From: Ben Beasley <code@musicinmybrain.net>
+Date: Wed, 16 Apr 2025 08:17:08 -0400
+Subject: [PATCH] Ensure QDebug is included for all qDebug uses (#1912)
+
+Ensure each file that uses qDebug (not commented out) has a direct
+include of the QDebug header.
+---
+ app/src/mainwindow2.cpp                | 1 +
+ app/src/popupcolorpalettewidget.cpp    | 1 +
+ app/src/timelinecells.cpp              | 1 +
+ core_lib/src/managers/toolmanager.cpp  | 1 +
+ core_lib/src/soundplayer.cpp           | 1 +
+ core_lib/src/structure/filemanager.cpp | 1 +
+ 6 files changed, 6 insertions(+)
+
+diff --git a/app/src/mainwindow2.cpp b/app/src/mainwindow2.cpp
+index 8b906eb3bb..a6d4a34f21 100644
+--- a/app/src/mainwindow2.cpp
++++ b/app/src/mainwindow2.cpp
+@@ -34,6 +34,7 @@ GNU General Public License for more details.
+ #include <QClipboard>
+ #include <QToolBar>
+ #include <QToolButton>
++#include <QDebug>
+ 
+ // core_lib headers
+ #include "pencildef.h"
+diff --git a/app/src/popupcolorpalettewidget.cpp b/app/src/popupcolorpalettewidget.cpp
+index c324d28755..f2cf003f06 100644
+--- a/app/src/popupcolorpalettewidget.cpp
++++ b/app/src/popupcolorpalettewidget.cpp
+@@ -20,6 +20,7 @@ GNU General Public License for more details.
+ #include <QGraphicsDropShadowEffect>
+ #include <QPushButton>
+ #include <QKeyEvent>
++#include <QDebug>
+ #include "colorbox.h"
+ #include "editor.h"
+ #include "scribblearea.h"
+diff --git a/app/src/timelinecells.cpp b/app/src/timelinecells.cpp
+index 720108a42a..3dafc5be53 100644
+--- a/app/src/timelinecells.cpp
++++ b/app/src/timelinecells.cpp
+@@ -23,6 +23,7 @@ GNU General Public License for more details.
+ #include <QPainter>
+ #include <QRegularExpression>
+ #include <QSettings>
++#include <QDebug>
+ 
+ #include "camerapropertiesdialog.h"
+ #include "editor.h"
+diff --git a/core_lib/src/managers/toolmanager.cpp b/core_lib/src/managers/toolmanager.cpp
+index fd67804a33..19e98b1334 100644
+--- a/core_lib/src/managers/toolmanager.cpp
++++ b/core_lib/src/managers/toolmanager.cpp
+@@ -17,6 +17,7 @@ GNU General Public License for more details.
+ #include "toolmanager.h"
+ 
+ #include <cmath>
++#include <QDebug>
+ #include "pentool.h"
+ #include "penciltool.h"
+ #include "brushtool.h"
+diff --git a/core_lib/src/soundplayer.cpp b/core_lib/src/soundplayer.cpp
+index 28495c7454..ad331e374e 100644
+--- a/core_lib/src/soundplayer.cpp
++++ b/core_lib/src/soundplayer.cpp
+@@ -18,6 +18,7 @@ GNU General Public License for more details.
+ #include <QAudioOutput>
+ #include <QMediaPlayer>
+ #include <QFile>
++#include <QDebug>
+ #include "soundclip.h"
+ #include "util.h"
+ 
+diff --git a/core_lib/src/structure/filemanager.cpp b/core_lib/src/structure/filemanager.cpp
+index 6289ce84c1..64eac776c0 100644
+--- a/core_lib/src/structure/filemanager.cpp
++++ b/core_lib/src/structure/filemanager.cpp
+@@ -18,6 +18,7 @@ GNU General Public License for more details.
+ #include "filemanager.h"
+ 
+ #include <ctime>
++#include <QDebug>
+ #include <QDir>
+ #include <QVersionNumber>
+ #include "qminiz.h"
