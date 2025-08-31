@@ -4,8 +4,8 @@
 
 pkgname=haskell-hpack
 _hkgname=hpack
-pkgver=0.35.4
-pkgrel=16
+pkgver=0.35.5
+pkgrel=1
 pkgdesc="A modern format for Haskell packages"
 url="https://github.com/sol/hpack#readme"
 license=("MIT")
@@ -17,7 +17,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-bifunctors' 'haskell-crypton' 'hask
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-hspec' 'haskell-interpolate'
              'haskell-mockery' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-${pkgver}.tar.gz")
-sha512sums=('c9c659e29f8fb0f28e87c16d17154d98fafb0cda25d56f9a6c64ec210fcbcb31e7e632aae23cead7015e42d2ff7c5f44f6090f81fe1c9d8491ac4cc2cb0c2db0')
+sha512sums=('24280a403362518ffc3fc131ad59449f29eded9e0cb5b28cedc49ee3f05bc14de2a3f058f8a85bff41366376ce87dd808d5cc4b2c3293c0b86530c1aba6e5d9e')
 
 build() {
   cd $_hkgname-$pkgver
