@@ -5,20 +5,30 @@
 
 pkgname=gpsbabel
 pkgver=1.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Read, write and manipulate GPS waypoints in a variety of formats"
 arch=(x86_64)
 url="https://www.gpsbabel.org/"
-license=(GPL)
+license=('GPL-2.0-or-later')
 depends=(hicolor-icon-theme libusb shapelib qt6-serialport qt6-5compat)
 makedepends=(cmake libicns qt6-tools)
 source=(https://github.com/gpsbabel/$pkgname/archive/${pkgname}_${pkgver//./_}.tar.gz
         gpsbabel.appdata.xml)
 sha256sums=('a89756fb988a54f5c5f371413845b9aecb66628a594cd83bd529c0f18382c968'
-            '5eb52ab0c4bdde61c747856e849f9bce9ca660e942c15f730a4330a38fd6a39a')
+            '7b4759c49316203fce76650312b4aa8c8d570471ccff1e8fcf258a2aa656c8e2')
 
 prepare() {
-  icns2png -x $pkgname-${pkgname}_${pkgver//./_}/gui/images/appicon.icns
+  cd $pkgname-${pkgname}_${pkgver//./_}
+
+  # Disable version check on startup
+  # Disable usage data reporting
+  # Disable donation dialog on close
+  sed -i gui/babeldata.h \
+    -e 's/startupVersionCheck_{true}/startupVersionCheck_{false}/' \
+    -e 's/reportStatistics_{true}/reportStatistics_{false}/' \
+    -e 's/disableDonateDialog_{false}/disableDonateDialog_{true}/'
+
+  icns2png -x gui/images/appicon.icns
 }
 
 build() {
@@ -31,18 +41,17 @@ build() {
   cmake --build build
 }
 
-package() {
-  DESTDIR="$pkgdir" cmake --install build
+check() {
+  ctest --test-dir build --output-on-failure
+}
 
-# make install is broken
+package() {
   install -Dm755 build/gpsbabel build/gui/GPSBabelFE/gpsbabelfe -t "$pkgdir"/usr/bin
-  install -Dm644 $pkgname-${pkgname}_${pkgver//./_}/gui/*.qm $pkgname-${pkgname}_${pkgver//./_}/gui/coretool/*.qm -t "$pkgdir"/usr/share/gpsbabel/translations
-  install -Dm644 $pkgname-${pkgname}_${pkgver//./_}/gui/gmapbase.html -t "$pkgdir"/usr/share/gpsbabel
   install -Dm644 $pkgname-${pkgname}_${pkgver//./_}/gui/gpsbabel.desktop -t "$pkgdir"/usr/share/applications
   install -Dm644 $pkgname.appdata.xml -t "$pkgdir/usr/share/metainfo"
 
   for res in 16 32 128 256 512; do
-    install -Dm644 appicon_${res}x${res}x32.png \
+    install -Dm644 $pkgname-${pkgname}_${pkgver//./_}/appicon_${res}x${res}x32.png \
       "$pkgdir/usr/share/icons/hicolor/${res}x${res}/apps/$pkgname.png"
   done
 }
