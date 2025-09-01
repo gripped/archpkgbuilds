@@ -1,14 +1,15 @@
 pkgbase = deepin-wayland-protocols
 	pkgdesc = deepin Specific Protocols for Wayland
-	pkgver = 1.6.0.deepin.1.2
-	pkgrel = 2
+	pkgver = 1.10.0.28
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-wayland-protocols
 	arch = any
 	license = LGPL
+	makedepends = git
 	makedepends = extra-cmake-modules
 	makedepends = ninja
 	makedepends = qt5-base
-	source = https://github.com/linuxdeepin/deepin-wayland-protocols/archive/1.6.0-deepin.1.2/deepin-wayland-protocols-1.6.0-deepin.1.2.tar.gz
-	sha256sums = 5a870dedc0f67338a977c52e13b472887958d666d787ebaee261d9aff1def124
+	source = git+https://github.com/linuxdeepin/deepin-wayland-protocols.git#tag=1.10.0.28
+	sha256sums = 38506291a189cab4e6817fb72a4b2c2e8ce837a5274dbd949bf7c82342c8d452
 
 pkgname = deepin-wayland-protocols
