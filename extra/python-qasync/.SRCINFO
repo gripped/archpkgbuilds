@@ -1,23 +1,24 @@
 pkgbase = python-qasync
 	pkgdesc = Python library for using asyncio in Qt-based applications
-	pkgver = 0.27.1
-	pkgrel = 2
+	pkgver = 0.28.0
+	pkgrel = 1
 	url = https://github.com/CabbageDevelopment/qasync
 	arch = any
-	license = BSD
+	license = BSD-2-Clause
 	checkdepends = python-pytest-raises
 	checkdepends = pyside6
 	checkdepends = python-pyqt5
 	checkdepends = python-pyqt6
 	checkdepends = xorg-server-xvfb
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = python-poetry-core
+	makedepends = python-uv-build
 	depends = python
 	optdepends = pyside6
 	optdepends = python-pyqt5
 	optdepends = python-pyqt6
-	source = https://github.com/CabbageDevelopment/qasync/archive/v0.27.1/python-qasync-0.27.1.tar.gz
-	sha512sums = 0165b915a0f8c026b3269ed127a323de4ca40602776afc5109b9c0f57fbc9a1cb43a78d6a729f7d1ca753aae4d9e79ad0b2e5f55209237dfd620c9a7ac0c22cb
+	source = git+https://github.com/CabbageDevelopment/qasync.git#tag=v0.28.0
+	sha512sums = e7c09e53876628a165787b845b1d848d6267e15308a5400922c8bcf66645a4a3319d0e466679f66ac4100d3d283a7f58cc0c8e80c3921e444bf77d7f3d4ccd0c
 
 pkgname = python-qasync
