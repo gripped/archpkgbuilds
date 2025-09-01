@@ -2,17 +2,17 @@
 
 _hkgname=gi-gio
 pkgname=haskell-gi-gio
-pkgver=2.0.35
-pkgrel=61
+pkgver=2.0.36
+pkgrel=1
 pkgdesc="Gio bindings"
 url="https://github.com/haskell-gi/haskell-gi"
-license=("LGPL2.1")
+license=('LGPL-2.1-only')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-gi-glib' 'haskell-gi-gobject' 'haskell-gi' 'haskell-gi-base'
          'haskell-gi-overloading' 'glib2')
 makedepends=('ghc' 'gobject-introspection')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('718bbd07f33fe68e417e214f264b643c7d70db6a52eedb87f9b5acc5c37b641d')
+sha256sums=('e9c1889775ee2fbbcc68b8d890ddb7d1006767d904aaed6757c64adfd3fb8b0f')
 
 build() {
   cd $_hkgname-$pkgver
