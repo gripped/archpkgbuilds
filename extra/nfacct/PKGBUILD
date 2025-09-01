@@ -3,7 +3,7 @@
 
 pkgname=nfacct
 pkgver=1.0.2
-pkgrel=4
+pkgrel=5
 pkgdesc='Command line tool to create/retrieve/delete accounting objects'
 arch=('x86_64')
 url='https://www.netfilter.org/projects/nfacct/'
@@ -13,6 +13,11 @@ validpgpkeys=('C09DB2063F1D7034BA6152ADAB4655A126D292E4') # Netfilter Core Team
 source=("https://www.netfilter.org/projects/$pkgname/files/$pkgname-$pkgver.tar.bz2"{,.sig})
 sha256sums=('ecff2218754be318bce3c3a5d1775bab93bf4168b2c4aac465785de5655fbd69'
             'SKIP')
+
+prepare() {
+  cd $pkgname-$pkgver
+  autoreconf -fiv
+}
 
 build() {
   cd $pkgname-$pkgver
