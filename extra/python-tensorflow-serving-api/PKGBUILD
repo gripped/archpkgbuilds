@@ -3,21 +3,32 @@
 pkgbase=python-tensorflow-serving-api
 pkgname=("${pkgbase}" "${pkgbase}"-gpu)
 _pkgname=tensorflow_serving_api
-pkgver=2.18.0
+pkgver=2.19.1
 pkgrel=1
 pkgdesc="Serving system for machine learning models, designed for production environments"
 arch=(any)
 url="https://www.tensorflow.org/serving/"
-license=('Apache')
+license=('Apache-2.0')
 depends=('python' 'python-grpcio' 'python-tensorflow' 'python-protobuf')
 makedepends=('bazel' 'git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/tensorflow/serving/archive/${pkgver}.tar.gz")
-b2sums=('2717c845f5d078cf74981d03ed1f882218ca9eba122cb5545d44ddbe522933f9241d7659aae88bb035d4ba434160677e4ae36756e5ba9e680370578409428c72')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/tensorflow/serving/archive/${pkgver}.tar.gz"
+        https://github.com/bazelbuild/bazel/releases/download/6.5.0/bazel_nojdk-6.5.0-linux-x86_64
+  )
+b2sums=('15fd42aba47bb49235a23bd1a7b4de00b94e011abce8edfdc42c937bd39d5f628d11737cd15ab0ee85505627a63e3e96c85ec86307a789b69dd76db1a0f2acad'
+        'a1e2bfcb40f82fff24ec7f0c0adfc79b67b1ca035a5badb461040a2ef030b207e099ecef65b40c338c52a42cde362602b46189dffa37256aedb1544e6b009aea')
+
+prepare() {
+  # Since tensorboard is currently imcompatible with Bazel 6, we're going to use
+  # a local Bazel 5 to fix that. Stupid problems call for stupid solutions.
+  install -Dm755 "${srcdir}"/bazel_nojdk-6.5.0-linux-x86_64 bazel/bazel
+  export PATH="${srcdir}/bazel:$PATH"
+  bazel --version
+}
 
 build() {
   cd "${srcdir}/serving-${pkgver}"
 
-  bazel build --enable_bzlmod=no -c opt tensorflow_serving/tools/pip_package:build_pip_package
+  bazel build -c opt tensorflow_serving/tools/pip_package:build_pip_package
   sed -i "s|bazel-genfiles/|bazel-out/k8-opt/bin/|g" tensorflow_serving/tools/pip_package/build_pip_package.sh
 
   mkdir "${srcdir}/dist"
