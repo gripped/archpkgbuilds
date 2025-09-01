@@ -3,17 +3,19 @@
 # Contributor: M A <morealaz at gmail dot com>
 
 pkgname=persepolis
-pkgver=5.1.1
+pkgver=5.2.0
 pkgrel=1
-pkgdesc='Qt front-end for aria2 download manager'
+pkgdesc='Download manager written in Python'
 arch=('any')
 url='https://persepolisdm.github.io/'
 license=('GPL3')
-depends=('ffmpeg' 'libnotify' 'libpulse' 'python-psutil' 'pyside6' 'python-requests'
-         'python-setproctitle' 'qt6-svg' 'sound-theme-freedesktop' 'yt-dlp')
+depends=('hicolor-icon-theme' 'pyside6' 'python-dasbus' 'python-psutil' 'python-pysocks'
+         'python-requests' 'python-setproctitle' 'python-urllib3' 'qt6-svg')
 makedepends=('meson')
+optdepends=('ffmpeg: Download videos from YouTube'
+            'yt-dlp: Download videos from YouTube')
 source=("https://github.com/persepolisdm/persepolis/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('d787b4a45b3a38513f1e80e025c4059918f1390b815944c6a541bd07eeb0ccae')
+sha256sums=('8d002e369955fd77e5353714185ce3edb98463b7117a26583b72f4db4e51b2c8')
 
 build() {
   arch-meson build $pkgname-$pkgver
