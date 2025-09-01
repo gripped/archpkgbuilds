@@ -3,7 +3,7 @@
 
 pkgname=lcdproc
 pkgver=0.5.9
-pkgrel=10
+pkgrel=11
 pkgdesc="Utility to drive one or more LCD (and LCD-like) devices"
 arch=('x86_64')
 url="http://lcdproc.omnipotent.net/"
@@ -32,6 +32,7 @@ sha512sums=('48e11a587570376b9524591f4c23deace9ac1609b83ba9e17f2a4e950d5598f8f88
 prepare() {
     cd "$pkgname-$pkgver"
     patch -p1 -i "$srcdir/lcdproc-0.5.9-fix-fno-common-build.patch"
+    autoreconf -fiv
 }
 
 build() {
