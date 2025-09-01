@@ -3,7 +3,7 @@
 
 pkgname=libirman
 pkgver=0.5.2
-pkgrel=5
+pkgrel=6
 pkgdesc="Irman driver lcd library"
 arch=('x86_64')
 url="http://www.lirc.org"
@@ -12,6 +12,11 @@ backup=('etc/irman.conf')
 depends=('glibc' 'lirc')
 source=("https://downloads.sourceforge.net/libirman/${pkgname}-${pkgver}.tar.gz")
 sha256sums=('43e58d7cd22b3a4c4dc8dcf8542a269ebcb4d8f6ceea0577b9fc882898f09a47')
+
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  autoreconf -fiv
+}
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
