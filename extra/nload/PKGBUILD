@@ -3,7 +3,7 @@
 
 pkgname=nload
 pkgver=0.7.4
-pkgrel=8
+pkgrel=9
 pkgdesc='Monitors network traffic and bandwidth usage'
 url='http://www.roland-riegel.de/nload'
 license=('GPL2')
@@ -16,6 +16,7 @@ prepare() {
   cd $pkgname-$pkgver
   # make gzip reproducible by not embedding timestamps
   sed -i 's/gzip -f/gzip -nf'/ docs/Makefile.am docs/Makefile.in
+  autoreconf -fiv
 }
 
 build() {
