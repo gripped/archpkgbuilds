@@ -5,7 +5,7 @@
 
 pkgname=libclastfm
 pkgver=0.5
-pkgrel=8
+pkgrel=9
 pkgdesc='Unofficial C-API for the Last.fm web service'
 arch=('x86_64')
 url='http://liblastfm.sourceforge.net/'
@@ -13,6 +13,11 @@ license=('GPL3')
 depends=('curl')
 source=("https://downloads.sourceforge.net/liblastfm/$pkgname-$pkgver.tar.gz")
 sha256sums=('c9aa7817b557f8d8ef834755740fc813f9351f3185b5bdf4de249bee3675ee42')
+
+prepare() {
+  cd $pkgname-$pkgver
+  autoreconf -fiv
+}
 
 build() {
   cd $pkgname-$pkgver
