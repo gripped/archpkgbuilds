@@ -3,20 +3,19 @@
 
 _hkgname=doctest
 pkgname=haskell-doctest
-pkgver=0.22.0
-pkgrel=42
+pkgver=0.22.1
+pkgrel=2
 pkgdesc="Test interactive Haskell examples"
 url="https://github.com/sol/doctest"
 license=("MIT")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-base-compat' 'haskell-ghc' 'haskell-syb'
-         'haskell-code-page' 'haskell-ghc-paths')
+depends=('ghc-libs' 'haskell-ghc' 'haskell-syb' 'haskell-code-page' 'haskell-ghc-paths')
 makedepends=('ghc')
 checkdepends=('haskell-hunit' 'haskell-hspec' 'haskell-hspec-core' 'haskell-hspec-discover'
               'haskell-quickcheck' 'haskell-stringbuilder' 'haskell-silently' 'haskell-setenv'
               'haskell-mockery')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('9da37402421243367ca307517c63abe93e93cdd10564c56d510e6a43345b4934a52c3201d0bfb3a2459d7c000d0ff5776a0cbd8e5db67f7e3a87bbac0172cd14')
+sha512sums=('391048f98a48b6c2473cd704f433cbdc27f15cae679784a5b2624ce56915dc70252c69cb6bf09624accfabb4c81c5204f528aff6ac9633529d5eccccedbb3c43')
 
 prepare() {
     # Add -dynamic flag
