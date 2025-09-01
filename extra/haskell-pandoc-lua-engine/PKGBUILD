@@ -4,7 +4,7 @@
 _hkgname=pandoc-lua-engine
 pkgname=haskell-pandoc-lua-engine
 pkgver=0.2.1.2
-pkgrel=240
+pkgrel=243
 pkgdesc="Lua engine to power custom pandoc conversions"
 url="https://pandoc.org"
 license=("GPL")
@@ -22,6 +22,7 @@ sha256sums=('fb7d5a75c78345a373bde00730607759e3aef8fa98800773e64be4608421a51a')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u pandoc
 }
 
 build() {
