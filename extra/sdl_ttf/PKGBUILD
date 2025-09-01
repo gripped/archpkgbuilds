@@ -1,14 +1,15 @@
-# Maintainer: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+# Maintainer: Sven-Hendrik Haaes <svenstaro@archlinux.org>
+# Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 # Contributor: Allan McRae <allan@archlinux.org>
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=sdl_ttf
 pkgver=2.0.11
-pkgrel=7
+pkgrel=8
 pkgdesc="A library that allows you to use TrueType fonts in your SDL applications"
-url="https://www.libsdl.org/projects/SDL_ttf/"
+url="https://github.com/libsdl-org/SDL_ttf"
 arch=(x86_64)
-license=(custom)
+license=('Zlib')
 depends=(sdl freetype2)
 source=(https://www.libsdl.org/projects/SDL_ttf/release/SDL_ttf-$pkgver.tar.gz
         freetype-pkgconfig.patch
@@ -27,7 +28,7 @@ prepare() {
   patch -Np1 -i ../freetype-pkgconfig.patch
 
   touch NEWS README AUTHORS ChangeLog
-  autoreconf -vi
+  autoreconf -fiv
 }
 
 build() {
