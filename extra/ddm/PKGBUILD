@@ -2,7 +2,7 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=ddm
-pkgver=0.1.11
+pkgver=0.2.0
 pkgrel=1
 pkgdesc='New Display Manager for DDE'
 arch=('x86_64')
@@ -23,9 +23,10 @@ makedepends=(git
              extra-cmake-modules
              python-docutils
              qt6-tools
+             treeland-protocols
              ninja)
 source=("git+https://github.com/linuxdeepin/ddm.git#tag=$pkgver")
-sha512sums=('2b883f1c564d8e0a87552349f0995f3606b4bfeeae1246a0c3e294ca5e949c647d75bb4c77b9bc132bc80819b27ee8a57f922cef3e99cf3a7c5e49bf63acf416')
+sha512sums=('174b0a83c01752d082b2e3850f6d3e6c5dbf2b97932976a17fab2c7f7da78f6504f56a586548bce69500da6024b71b9e4d6da615517f7254e2c7476cb9040701')
 
 build() {
   cd ddm
