@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=brush
-pkgver=0.2.21
+pkgver=0.2.23
 pkgrel=1
 pkgdesc="Bash/POSIX-compatible shell implemented in Rust"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgname-shell-v$pkgver.tar.gz")
-sha256sums=('8604f4d5feb28a3466687f491d6bbad9d9e19c258e3c8c8d68209da5266b67cd')
+sha256sums=('e1ed28bcc77fd58a8d3927a0409d6e31adc4991b1d54f567eeb804b37cb0f45c')
 
 prepare() {
   mv "$pkgname-$pkgname-shell-v$pkgver" "$pkgname-$pkgver"
