@@ -1,9 +1,9 @@
-# Maintainer: Gaetan Bisson <bisson@archlinux.org>
+# Contributor: Gaetan Bisson <bisson@archlinux.org>
 # Contributor: Ashish Shukla <wahjava.ml@gmail.com>
 
 pkgname=libotf
 pkgver=0.9.16
-pkgrel=5
+pkgrel=6
 pkgdesc='OpenType Font library'
 url='https://www.nongnu.org/m17n/'
 license=('LGPL')
@@ -17,6 +17,7 @@ sha256sums=('68db0ca3cda2d46a663a92ec26e6eb5adc392ea5191bcda74268f0aefa78066b'
 prepare() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
 	patch -p1 -i ${srcdir}/replace-freetype-config.patch
+	autoreconf -fiv
 }
 
 build() {
