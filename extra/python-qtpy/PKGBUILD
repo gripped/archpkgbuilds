@@ -4,7 +4,7 @@
 _pkgname=qtpy
 pkgname=python-qtpy
 pkgver=2.4.3
-pkgrel=1
+pkgrel=3
 pkgdesc="Provides an uniform layer to support PyQt5 and PySide2 with a single codebase"
 arch=(any)
 url="https://github.com/spyder-ide/qtpy/"
@@ -18,7 +18,6 @@ makedepends=(
 )
 optdepends=('python-pyqt5: Qt5 Python bindings'
             'python-pyqt6: Qt6 Python bindings'
-            'python-pyqt5-webengine: Qt5-WebEngine python bindings'
             'python-pyqt6-webengine: Qt6-WebEngine python bindings'
             'pyside6: PySide Qt6 Python bindings')
 # The test suite does not support both stacks at the same time
@@ -26,13 +25,13 @@ checkdepends=(
     python-pytest
     python-pytest-qt
     python-pyqt5
-    python-pyqt5-webengine
     python-pyqt6
     python-pyqt6-3d
     python-pyqt6-datavisualization
     python-pyqt6-webengine
     pyside6
     qt5-connectivity
+    qt5-location
     qt5-multimedia
     qt5-quick3d
     qt5-remoteobjects
@@ -41,6 +40,7 @@ checkdepends=(
     qt5-speech
     qt5-svg
     qt5-tools
+    qt5-webchannel
     qt5-websockets
     qt5-x11extras
     qt5-xmlpatterns
