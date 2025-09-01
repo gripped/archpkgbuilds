@@ -2,23 +2,22 @@
 
 _hkgname=time-compat
 pkgname=haskell-time-compat
-pkgver=1.9.6.1
-pkgrel=189
+pkgver=1.9.7
+pkgrel=2
 pkgdesc="Compatibility package for time"
 url="https://github.com/phadej/time-compat"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-hashable')
 makedepends=('ghc' 'uusi')
-checkdepends=('haskell-base-compat' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tagged'
+checkdepends=('haskell-hunit' 'haskell-quickcheck' 'haskell-tagged'
               'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('ca0b19aa5e7948fd7d9fbd8ff5e1b0f93a2d8d410d515e7078b40370e7d9fc363c111d53551d57a0320efb0894bcc2210afa8fc04da9f003ded626f53b7e58ea')
+sha512sums=('1fe6600c5219d3fef2b23ec3d5f247b467c08bc38c416511630f483e0c70b15c11ebbd02a989ac9b344d70bcaa9a63315d3443f3531ceae506fa843d3dc428fd')
 
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
-    uusi -u base -u base-compat -u base-orphans -u hashable -u tasty
 }
 
 build() {
