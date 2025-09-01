@@ -4,7 +4,7 @@
 
 pkgname=par2cmdline
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A PAR 2.0 compatible file verification and repair tool'
 url='https://github.com/BlackIkeEagle/par2cmdline'
 license=('GPL2')
@@ -19,6 +19,11 @@ sha512sums=('0037e7ab21e1125645f985ba1096cf2f2b9f282b8e5ea386d8a87cc35485e12f2c0
 validpgpkeys=(
   'DB2277BCD500AA3825610BDDDB323392796CA067'
 )
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  autoreconf -fiv
+}
 
 build() {
   cd "$pkgname-$pkgver"
