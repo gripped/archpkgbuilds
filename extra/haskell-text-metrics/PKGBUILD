@@ -2,20 +2,20 @@
 
 _hkgname=text-metrics
 pkgname=haskell-text-metrics
-pkgver=0.3.2
-pkgrel=141
+pkgver=0.3.3
+pkgrel=1
 pkgdesc="Calculate various string metrics efficiently"
 url="https://github.com/mrkkrp/text-metrics"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-vector')
+depends=('ghc-libs' 'haskell-primitive' 'haskell-vector')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('2e520de8c0676f15a96e166e5b6105c835d6c3041e200595cba29b549d25edb3f1c04fd0b988c786eb92bddcdbdc776a110cb369e84ec7c9c0a8ff9f085d816e')
+sha512sums=('b37f4959f6dab6f524a987bd3c9469345a643f3222600c2a86380b2417dc9e329c702d74e960623082a9fcaf6c081f2f2fb67cf4f85c64ef25ba347963a3dff6')
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u vector $_hkgname.cabal
+    gen-setup
 }
 
 build() {
