@@ -5,7 +5,7 @@
 
 pkgname=libiec61883
 pkgver=1.2.0
-pkgrel=8
+pkgrel=9
 pkgdesc='A higher level API for streaming DV, MPEG-2 and audio over Linux IEEE 1394'
 arch=(x86_64)
 url=https://www.kernel.org/pub/linux/libs/ieee1394/
@@ -13,6 +13,11 @@ license=(LGPL)
 depends=(libraw1394)
 source=(https://www.kernel.org/pub/linux/libs/ieee1394/${pkgname}-${pkgver}.tar.xz)
 b2sums=('c1fdd4d6fbfd96eea9f1c22b20a1e71e4cafbe064091ef6211d097342f8751955f2d8a68cb3e5235d733f7ecd3725144abb329331bfa3497be1911bb8773d4a9')
+
+prepare() {
+  cd libiec61883-${pkgver}
+  autoreconf -fiv
+}
 
 build() {
   cd libiec61883-${pkgver}
