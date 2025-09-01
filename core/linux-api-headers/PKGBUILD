@@ -7,7 +7,7 @@
 
 pkgname=linux-api-headers
 pkgver=6.16
-pkgrel=1
+pkgrel=2
 pkgdesc='Kernel headers sanitized for use in userspace'
 arch=('x86_64')
 url='https://www.gnu.org/software/libc'
@@ -28,7 +28,4 @@ build() {
 package() {
   cd linux-$pkgver
   make INSTALL_HDR_PATH="$pkgdir/usr" headers_install
-
-  # use headers from libdrm
-  rm -r "$pkgdir/usr/include/drm"
 }
