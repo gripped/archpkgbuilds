@@ -2,17 +2,17 @@
 
 _hkgname=os-string
 pkgname=haskell-os-string
-pkgver=2.0.7
-pkgrel=86
+pkgver=2.0.8
+pkgrel=2
 pkgdesc="Library for manipulating Operating system strings."
 url="https://github.com/haskell/os-string"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 checkdepends=('haskell-quickcheck' 'haskell-quickcheck-classes-base')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('339c35fd3a290522f23de4e33528423cfd0b0a8f22946b0b9816a817b926cba0')
+sha256sums=('02794279dd30282e7b0d45a860dda50ee26a92b1461f5da4545f62dab4172686')
 
 build() {
   cd $_hkgname-$pkgver
