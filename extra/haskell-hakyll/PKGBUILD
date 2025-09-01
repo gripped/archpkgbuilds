@@ -5,7 +5,7 @@
 _hkgname=hakyll
 pkgname=haskell-hakyll
 pkgver=4.16.2.0
-pkgrel=141
+pkgrel=144
 pkgdesc="A static website compiler library"
 url="https://jaspervdj.be/hakyll"
 license=("BSD")
@@ -24,7 +24,7 @@ sha512sums=('6b0a689fd244dcf9ef9ffb40bd1db1a16c296c0b4e06f21ff08179025c3b91f759a
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u file-embed
+    uusi -u file-embed -u pandoc
 }
 
 build() {
