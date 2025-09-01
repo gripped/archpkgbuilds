@@ -9,12 +9,12 @@ pkgname=('quassel-core'
          'quassel-monolithic-qt'
          'quassel-common')
 pkgver=0.14.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Next-generation distributed IRC client"
 arch=('x86_64')
 url="https://quassel-irc.org/"
 license=('GPL')
-makedepends=('qt5-base' 'qt5-tools' 'qt5-webengine' 'qca-qt5'
+makedepends=('qt5-base' 'qt5-tools' 'qca-qt5'
              'qt5-multimedia' 'knotifyconfig5' 'sonnet5' 'libldap' 'cmake'
              'extra-cmake-modules' 'python' 'hicolor-icon-theme' 'boost')
 source=(https://quassel-irc.org/pub/$pkgbase-$pkgver.tar.bz2
@@ -33,6 +33,7 @@ _build() (
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=None \
     -DENABLE_SHARED=OFF \
+    -DWITH_WEBENGINE=OFF \
     -DCMAKE_CXX_FLAGS="$CXXFLAGS -Wno-suggest-override" \
     "${@:2}" \
     -Wno-dev
@@ -47,8 +48,7 @@ build() {
   _build core \
     -DWANT_QTCLIENT=OFF \
     -DWANT_MONO=OFF \
-    -DWITH_BUNDLED_ICONS=OFF \
-    -DWITH_WEBENGINE=OFF
+    -DWITH_BUNDLED_ICONS=OFF
 
   _build monolithic \
     -DWANT_CORE=OFF \
@@ -58,7 +58,6 @@ build() {
   _build monolithic-qt \
     -DWANT_CORE=OFF \
     -DWANT_QTCLIENT=OFF \
-    -DWITH_WEBENGINE=OFF \
     -DCMAKE_DISABLE_FIND_PACKAGE_dbusmenu-qt5=ON \
     -DCMAKE_DISABLE_FIND_PACKAGE_Qt5Multimedia=ON \
     -DCMAKE_DISABLE_FIND_PACKAGE_Phonon4Qt5=ON
@@ -71,7 +70,6 @@ build() {
   _build client-qt \
     -DWANT_CORE=OFF \
     -DWANT_MONO=OFF \
-    -DWITH_WEBENGINE=OFF \
     -DCMAKE_DISABLE_FIND_PACKAGE_dbusmenu-qt5=ON \
     -DCMAKE_DISABLE_FIND_PACKAGE_Qt5Multimedia=ON \
     -DCMAKE_DISABLE_FIND_PACKAGE_Phonon4Qt5=ON
@@ -100,7 +98,7 @@ backup=(etc/conf.d/quassel)
 
 package_quassel-client() {
 pkgdesc="Next-generation distributed IRC client - client only, KDE version"
-depends=('quassel-common' 'qt5-base' 'qt5-webengine' 'qt5-multimedia' 'knotifyconfig5')
+depends=('quassel-common' 'qt5-base' 'qt5-multimedia' 'knotifyconfig5')
 optdepends=('perl: for builtin /exec scripts')
 conflicts=('quassel-client-qt')
 
@@ -129,7 +127,7 @@ replaces=('quassel-client-small' 'quassel-remote')
 
 package_quassel-monolithic() {
 pkgdesc="Next-generation distributed IRC client - monolithic, KDE version"
-depends=('quassel-common' 'qt5-base' 'qt5-webengine' 'qt5-multimedia' 'qca-qt5'
+depends=('quassel-common' 'qt5-base' 'qt5-multimedia' 'qca-qt5'
          'knotifyconfig5' 'libldap')
 optdepends=('perl: for builtin /exec scripts'
             'postgresql: PostgreSQL database support')
