@@ -4,7 +4,7 @@
 
 pkgname=ltrace
 pkgver=0.7.3
-pkgrel=5
+pkgrel=6
 pkgdesc="Tracks runtime library calls in dynamically linked programs"
 arch=('x86_64')
 url="https://www.ltrace.org/"
@@ -14,6 +14,11 @@ makedepends=('dejagnu')
 backup=('etc/ltrace.conf')
 source=(https://sources.archlinux.org/other/$pkgname/$pkgname-$pkgver.tar.bz2)
 sha256sums=('0e6f8c077471b544c06def7192d983861ad2f8688dd5504beae62f0c5f5b9503')
+
+prepare() {
+  cd "$srcdir/$pkgname-$pkgver"
+  autoreconf -fiv
+}
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
