@@ -5,7 +5,7 @@
 
 pkgname=xmlstarlet
 pkgver=1.6.1
-pkgrel=5
+pkgrel=6
 pkgdesc="A set of tools to transform, query, validate, and edit XML documents"
 arch=('x86_64')
 url="http://xmlstar.sourceforge.net/"
@@ -21,6 +21,8 @@ prepare() {
 
   # Unbreak build with libxml2 2.14
   sed -i 's/ATTRIBUTE_UNUSED/__attribute__((unused))/g' src/xml_pyx.c
+
+  autoreconf -fiv
 }
 
 build() {
