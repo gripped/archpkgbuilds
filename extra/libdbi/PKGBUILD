@@ -5,7 +5,7 @@
 pkgbase=libdbi
 pkgname=(libdbi libdbi-docs)
 pkgver=0.9.0
-pkgrel=6
+pkgrel=7
 pkgdesc="Database independant abstraction layer for C"
 url="http://libdbi.sourceforge.net/"
 license=('LGPL')
@@ -14,6 +14,11 @@ depends=('glibc')
 options=(!emptydirs)
 source=("https://downloads.sourceforge.net/$pkgbase/$pkgbase-$pkgver.tar.gz")
 sha256sums=('dafb6cdca524c628df832b6dd0bf8fabceb103248edb21762c02d3068fca4503')
+
+prepare() {
+  cd $pkgbase-$pkgver
+  autoreconf -fiv
+}
 
 build() {
   cd $pkgbase-$pkgver
