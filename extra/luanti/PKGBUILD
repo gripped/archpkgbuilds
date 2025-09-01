@@ -3,11 +3,11 @@
 
 pkgname=('luanti' 'luanti-server' 'luanti-common')
 pkgver=5.13.0
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://www.luanti.org/'
 license=(LGPL-2.1-or-later)
-makedepends=('sqlite' 'freetype2' 'leveldb' 'postgresql' 'spatialindex' 'openal' 'libvorbis' 'curl'
+makedepends=('sqlite' 'freetype2' 'leveldb' 'postgresql' 'libspatialindex' 'openal' 'libvorbis' 'curl'
              'hicolor-icon-theme' 'cmake' 'ninja' 'hiredis' 'luajit' 'sdl2')
 makedepends+=('libjpeg-turbo' 'libgl' 'libxi' 'git')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/minetest/minetest/archive/${pkgver}.tar.gz
