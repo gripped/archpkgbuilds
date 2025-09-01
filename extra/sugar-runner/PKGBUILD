@@ -2,7 +2,7 @@
 
 pkgname=sugar-runner
 pkgver=0.110.0
-pkgrel=7
+pkgrel=8
 pkgdesc="Scripts to run Sugar"
 arch=('x86_64')
 url="https://sugarlabs.org/"
@@ -22,6 +22,8 @@ prepare() {
 
   # Fix launch from the application menu
   echo 'Terminal=true' >>data/sugar-runner.desktop
+
+  autoreconf -fiv
 }
 
 build() {
