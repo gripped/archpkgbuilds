@@ -2,8 +2,8 @@
 
 _hkgname=servant-client
 pkgname=haskell-servant-client
-pkgver=0.20.2
-pkgrel=26
+pkgver=0.20.3.0
+pkgrel=1
 pkgdesc="Automatic derivation of querying functions for servant"
 url="http://docs.servant.dev/"
 license=('BSD-3-Clause')
@@ -13,11 +13,11 @@ depends=('ghc-libs' 'haskell-base-compat' 'haskell-http-client' 'haskell-http-me
          'haskell-semigroupoids' 'haskell-servant' 'haskell-servant-client-core'
          'haskell-transformers-base')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-aeson' 'haskell-entropy'
-             'haskell-hspec' 'haskell-hspec-discover' 'haskell-http-api-data'
+             'haskell-generics-sop' 'haskell-hspec' 'haskell-hspec-discover' 'haskell-http-api-data'
              'haskell-markdown-unlit' 'haskell-network' 'haskell-servant-server' 'haskell-sop-core'
              'haskell-wai' 'haskell-warp')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('941bb0ac5e3f1a03b8ecfbaec114080f9ec27b7e526deff9096f0b90482ec244dcfef435412d33bac652f77cb0d9f5b140252cd188cf71a07403948b5f8a6bc2')
+sha512sums=('ddc616ccc3648d08ed1f0cf5f6b5fbfb055c1c41a9219c81ccc96060851f405a0ab874d87d4afeb9be85858a4924a2ad5fafb3691334774c5c28e878498523b8')
 
 build() {
   cd $_hkgname-$pkgver
