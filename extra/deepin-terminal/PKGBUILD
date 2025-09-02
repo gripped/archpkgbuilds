@@ -3,26 +3,20 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-terminal
-pkgver=6.5.3
-pkgrel=2
+pkgver=6.5.4
+pkgrel=1
 pkgdesc='Default terminal emulation application for Deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-terminal"
-license=('GPL3')
-depends=('deepin-qt-dbus-factory' 'dtk6core' 'dtk6gui' 'dtk6widget' 'fontconfig' 'gcc-libs' 'glib2'
-         'glibc' 'hicolor-icon-theme' 'icu' 'qt6-5compat' 'qt6-base' 'libchardet' 'libsecret'
-         'libxcb')
-makedepends=('git' 'cmake' 'lxqt-build-tools-qt5' 'ninja' 'qt6-tools')
+license=('GPL-3.0-or-later')
+depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'fontconfig' 'gcc-libs' 'glib2' 'glibc'
+         'hicolor-icon-theme' 'icu' 'qt6-5compat' 'qt6-base' 'libchardet' 'libsecret' 'libxcb')
+makedepends=('git' 'cmake' 'ninja' 'lxqt-build-tools-qt5' 'qt6-tools')
 #checkdepends=('xorg-server-xvfb')
 optdepends=('zssh: for remote management support')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-terminal.git#tag=$pkgver")
-sha512sums=('66ba8360aadab592e81381336483f0854d4bb6a6ef034ea9d0ef69629a7d5206f3341586eef6442271c1c52d5c4a0d3c71a4b96d3455e5f6b84fca1aeb7a2c08')
-
-prepare() {
-  cd deepin-terminal
-  sed -i 's/QT NAMES Qt6 Qt5/QT NAMES Qt6/' CMakeLists.txt 3rdparty/terminalwidget/CMakeLists.txt
-}
+sha512sums=('da86aac0be851c799a52ae543b97209ca47c1818b5b6441e806edd8a628a5bef90694011c7ecc3f6323d9f672a5207eaca8c560b24acaf9e4f6f40e8b43cadcf')
 
 build(){
   cd deepin-terminal
