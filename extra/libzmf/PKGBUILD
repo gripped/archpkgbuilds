@@ -2,16 +2,24 @@
 
 pkgname=libzmf
 pkgver=0.0.2
-pkgrel=17
+pkgrel=18
 pkgdesc="a library for import of Zoner drawing and bitmap files"
 arch=('x86_64')
 url="https://wiki.documentfoundation.org/DLP/Libraries/libzmf"
-license=('MPL')
-source=(https://dev-www.libreoffice.org/src/${pkgname}/${pkgname}-${pkgver}.tar.xz)
+license=('MPL-2.0')
+source=(https://dev-www.libreoffice.org/src/${pkgname}/${pkgname}-${pkgver}.tar.xz
+        doxygen-1.14.patch)
 depends=('librevenge' 'libpng'
          'zlib' 'icu' 'gcc-libs' 'glibc')
 makedepends=('boost' 'cppunit' 'doxygen')
-sha256sums=('27051a30cb057fdb5d5de65a1f165c7153dc76e27fe62251cbb86639eb2caf22')
+sha256sums=('27051a30cb057fdb5d5de65a1f165c7153dc76e27fe62251cbb86639eb2caf22'
+            'aa70e940c77124ac3bd9e5197b323b409551a95ae5098b3872d869025d0bccf9')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  patch -p1 -i ../doxygen-1.14.patch
+  autoreconf -fiv
+}
 
 build() {
   cd ${pkgname}-${pkgver}
