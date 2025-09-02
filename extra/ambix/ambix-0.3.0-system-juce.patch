@@ -1,0 +1,13 @@
+diff --git i/CMakeLists.txt w/CMakeLists.txt
+index b6eef6e..d616d95 100755
+--- i/CMakeLists.txt
++++ w/CMakeLists.txt
+@@ -31,7 +31,7 @@ ENDIF(UNIX AND NOT APPLE AND NOT ANDROID)
+ ################################################
+ # add JUCE
+ 
+-ADD_SUBDIRECTORY ( JUCE )
++find_package(JUCE COMPONENTS REQUIRED)
+ 
+ #########
+ # preprocessor flags
