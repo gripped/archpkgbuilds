@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-sentinels
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc="Various objects to denote special meanings in python"
 url="https://github.com/vmalloc/sentinels"
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-hatch-vcs')
 checkdepends=('python-pytest')
 source=("git+https://github.com/vmalloc/sentinels.git#tag=$pkgver")
-sha512sums=('7b0892b756fde3aaae1cefcf6a955553afe6045720243121fdf1cda477c056c02b64819d3c85397a2676ec9f4eb1a3bd712afab1389192a6a86dcc505ed4e37f')
+sha512sums=('fa36f3bdc313abc6c7034fca9cfbb105d7fc384d78a53af48c9731ace00e5bff971261e0cce3a59e46a243a66f2b9a0e98a4352b875b3ca5150767f779febc51')
 
 build() {
   cd sentinels
