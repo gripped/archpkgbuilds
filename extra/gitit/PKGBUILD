@@ -2,7 +2,7 @@
 
 pkgname=gitit
 pkgver=0.15.1.2
-pkgrel=12
+pkgrel=15
 pkgdesc="Wiki using happstack, git or darcs, and pandoc."
 url="https://github.com/jgm/gitit"
 license=('GPL-2.0-or-later')
@@ -23,7 +23,7 @@ sha256sums=('fa839a1bb71be7a77da6f9ae82c91e6f53cb14d74be6128785a93e54172deec8')
 
 prepare() {
   cd $pkgname-$pkgver
-  uusi -u pandoc -u zlib
+  uusi -u hoauth2 -u pandoc -u zlib
 }
 
 build() {
