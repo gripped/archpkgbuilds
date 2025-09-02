@@ -1,9 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-redcarpet
-pkgver=3.6.0
-_commit=3e3f0b522fbe9283ba450334b5cec7a439dc0955
-pkgrel=8
+pkgver=3.6.1
+pkgrel=1
 pkgdesc='A fast, safe and extensible Markdown to (X)HTML parser'
 arch=(x86_64)
 url='https://github.com/vmg/redcarpet'
@@ -23,8 +22,8 @@ checkdepends=(
   tidy
 )
 options=(!emptydirs)
-source=(git+https://github.com/vmg/redcarpet.git#commit=$_commit)
-sha256sums=('SKIP')
+source=(git+https://github.com/vmg/redcarpet.git#tag=v$pkgver)
+sha256sums=('cf924803dcc2571e4a31ad684a5a290ef5e29e46fdaf291fe6caeadcacc6c440')
 
 prepare() {
   cd redcarpet
