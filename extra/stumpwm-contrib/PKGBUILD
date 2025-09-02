@@ -1,14 +1,14 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=stumpwm-contrib
-pkgver=r515.g4613a95
-pkgrel=3
+pkgver=r604.g3267258
+pkgrel=1
 pkgdesc='Collection of StumpWM modules'
-arch=('any')
+arch=(any)
 url='https://github.com/stumpwm/stumpwm-contrib'
-license=('GPL2')
-depends=('stumpwm')
-makedepends=('git')
+license=(GPL-2.0-or-later)
+depends=(stumpwm)
+makedepends=(git)
 optdepends=(
   'xorg-xprop: for stumpish, the StumpWM Interactive Shell'
   'rlwrap: command completion and history in stumpish'
@@ -18,9 +18,10 @@ optdepends=(
   'pass: pass integration'
   'pinentry: gnupg agent integration'
 )
-_commit='4613a956add7a17986a3b26c341229466cd13f1d'
+_commit='326725802fcedc2f8f28df91d4b548743da9e7bc'
 source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('SKIP')
+sha512sums=('913d7a620e24ff8876d33d89169a2f3915c563475f778b39a342b6515c2c8f83b2437e080881ecc5235a372d85c214f57d4b464f2c8e95c0f3cb868eef793acc')
+b2sums=('21fdc8c8e441a86d3c56cfe30a758f00bd8860eb5e364ddf347a60ebfe95c304f108293499e9fc2bc11c782d6f761abbae41ebf0a4588879d08c005f477b8574')
 
 pkgver() {
   cd "$pkgname"
