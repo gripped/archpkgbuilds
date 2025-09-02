@@ -1,12 +1,13 @@
 pkgbase = ruby-cucumber-core
 	pkgdesc = Core library for the Cucumber BDD app
-	pkgver = 15.2.0
+	pkgver = 15.2.1
 	pkgrel = 1
 	url = https://github.com/cucumber/cucumber-ruby-core
 	arch = any
 	license = MIT
 	checkdepends = ruby-bundler
 	checkdepends = ruby-simplecov
+	makedepends = git
 	makedepends = ruby-rake
 	makedepends = ruby-rdoc
 	makedepends = ruby-rspec
@@ -16,8 +17,8 @@ pkgbase = ruby-cucumber-core
 	depends = ruby-cucumber-messages
 	depends = ruby-cucumber-tag-expressions
 	options = !emptydirs
-	source = https://github.com/cucumber/cucumber-ruby-core/archive/v15.2.0/ruby-cucumber-core-15.2.0.tar.gz
-	sha512sums = df924521edf16f78dbcfebaa0e01953a09aea3bcfd61777bfaf6a9e86934c06579f39483e53d1b9d38b4c798424dbd70cd666623accbafaf54aa7cd7380c0ffd
-	b2sums = c212981485baa5481bd4d61a8e8557c19c583958e914601e7addfcf575cedb33956b30cd34be1f8ce20ecafeaafa48ddf73504414f9e969f9edca80561487c8b
+	source = git+https://github.com/cucumber/cucumber-ruby-core.git#tag=v15.2.1
+	sha512sums = 749b0ae4cb901ca4e7e94bf6426d45bbbbf158373cd4dc323f1f796fec64b089aaac0f666615b997ac593882209c2317471734db5326051c97befc5b0ccd0f1b
+	b2sums = bfb0f520ac089ef9851c785a8240b9ca2cd6f1f42e0d191bc77d0f2a32b509fcb4e18218b4ec60b8452a0fb0f8e3d45fd4075fbf161723f49db67e5b1a98c402
 
 pkgname = ruby-cucumber-core
