@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=sig
-pkgver=0.1.4
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Interactive grep for streaming"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('d21e85e4d4a1cca02774a9a80dac835c2a88411c5f361396fff7a60dce3640d4a9f6a54165f3c3a8147bdb75d125b0e02cc9a0d797f7f98124e8166338de2865')
+sha512sums=('91a0cc237e02636067000915b18fc4541eec847e6c86f57fa362aa65e179f177a82c8b7df2d70f654cfc6861bd83f55f6f24a6bf8a7a8090fa5afba27ab62b08')
 
 prepare() {
   cd "$pkgname-$pkgver"
