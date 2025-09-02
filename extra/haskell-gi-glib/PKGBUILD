@@ -2,16 +2,16 @@
 
 _hkgname=gi-glib
 pkgname=haskell-gi-glib
-pkgver=2.0.29
-pkgrel=187
+pkgver=2.0.30
+pkgrel=1
 pkgdesc="GLib bindings"
 url="https://github.com/haskell-gi/haskell-gi"
-license=("LGPL2.1")
+license=('LGPL-2.1-only')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-gi' 'haskell-gi-base' 'haskell-gi-overloading' 'glib2')
 makedepends=('ghc' 'gobject-introspection')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('e0fedbe660b74df1a7e177c21764d45ebeb48e983259d28898d2c9103d739d80')
+sha256sums=('77514d7c515a8457c1b68ce32ccf8ec4ae1bf5cff08d6702afe61337f38034d1')
 
 build() {
   cd $_hkgname-$pkgver
