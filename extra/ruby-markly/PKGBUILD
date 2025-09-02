@@ -1,9 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-markly
-pkgver=0.13.0
-_cmark_gfm_commit=766f161ef6d61019acf3a69f5099489e7d14cd49
-pkgrel=3
+pkgver=0.13.1
+pkgrel=1
 pkgdesc='CommonMark parser and renderer. Written in C, wrapped in Ruby.'
 arch=(x86_64)
 url='https://github.com/ioquatix/markly'
@@ -12,6 +11,7 @@ depends=(
   ruby
 )
 makedepends=(
+  git
   ruby-rdoc
 )
 checkdepends=(
@@ -24,16 +24,16 @@ checkdepends=(
   ruby-sus
 )
 options=(!emptydirs)
-source=(https://github.com/ioquatix/markly/archive/v$pkgver/$pkgname-$pkgver.tar.gz
-        https://github.com/github/cmark-gfm/archive/$_cmark_gfm_commit/cmark-gfm-$_cmark_gfm_commit.tar.gz)
-sha256sums=('46ebe03fe49eed65f2b63ddde9e056f0b7fc49cdf56e15e69bb13d5d4c4a787d'
-            'e95a1300cfe4c5b5ad68af6a77855df823b5d813334910a41991af0f70575d66')
+source=(git+https://github.com/ioquatix/markly.git#tag=v$pkgver
+        git+https://github.com/github/cmark-gfm.git)
+sha256sums=('da50ba4e3f1e453bec6166467e7c9ca7f381bbc521aa3129d7921d0c6d327615'
+            'SKIP')
 
 prepare() {
-  cd markly-$pkgver
-
-  rmdir cmark-gfm
-  ln -s ../cmark-gfm-$_cmark_gfm_commit cmark-gfm
+  cd markly
+  git submodule init
+  git submodule set-url cmark-gfm ../cmark-gfm
+  git -c protocol.file.allow=always submodule update
 
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended \
@@ -49,7 +49,7 @@ prepare() {
 
 build() {
   local _gemdir="$(gem env gemdir)"
-  cd markly-$pkgver
+  cd markly
   gem build markly.gemspec
   gem install \
     --local \
@@ -89,11 +89,11 @@ build() {
 
 check() {
   local _gemdir="$(gem env gemdir)"
-  cd markly-$pkgver
+  cd markly
   GEM_HOME="tmp_install/$_gemdir" sus
 }
 
 package() {
-  cd markly-$pkgver
+  cd markly
   cp -a tmp_install/* "$pkgdir"/
 }
