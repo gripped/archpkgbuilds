@@ -3,28 +3,28 @@
 # Contributor: Sebastian Zwierzchowski <seba@angrysoft.ovh>
 
 pkgname=zigbee2mqtt
-pkgver=2.6.0
+pkgver=2.6.1
 pkgrel=1
 pkgdesc='A Zigbee to MQTT bridge'
-arch=('x86_64')
+arch=(x86_64)
 url='https://www.zigbee2mqtt.io'
-license=('GPL-3.0-only')
-depends=('nodejs')
-makedepends=('git' 'typescript' 'pnpm')
-backup=('etc/zigbee2mqtt/configuration.yaml')
+license=(GPL-3.0-only)
+depends=(nodejs)
+makedepends=(git typescript pnpm)
+backup=(etc/zigbee2mqtt/configuration.yaml)
 optdepends=('mosquitto: MQTT broker')
 options=(!emptydirs)
 source=(
   "${pkgname}::git+https://github.com/Koenkk/zigbee2mqtt#tag=${pkgver}"
-  'zigbee2mqtt.service'
-  'zigbee2mqtt.sysusers'
-  'zigbee2mqtt.tmpfiles'
+  systemd.service
+  sysusers.conf
+  tmpfiles.conf
 )
-sha512sums=('873bb6b6ee626f0338d8e0d9aa5d37bdaa776edfc0760ce741b290032ccc368394730fe4dc26025e484754c5c492adaf4c7d5f9edf0fbd5aea65f7ecfe0de570'
+sha512sums=('1f2e131140c6201c6f6f5cf5f09b6720da498e4ac316b00e1fd475fdeff93da809fa22649c76f323abb9c498d3c2ae17c78307aec811bab0db7daf2e20c89443'
             'd573c1be013a05274cca25975bca86d37cfb64836ee449d246547f5a64866914e31826a2d1b61e174b870c3a8e512903a3774f7d3ad048cf9b4d81b99cb07ffc'
             '4618b4e3a0792b386ea816aebdd5ec6a24541fc8f86c9ece60cfee6929260e285f7d57231744d4d756d0f0a216221f95bbf2427680579acb8cfaa97ed25dca5f'
             '0ca8af5bcc870c475f004b4d5a8b747daf80915e54c0c123c0464aaf568f81afdddbdce13828e8d6c631c8d50f05a86be8abb615a0e26b27f004ea92eb9507bf')
-b2sums=('a5cea2d1e78bf2a2dda87edcc46c21d87ade3b4baa214801a4460aa99b5a869ad8c84c350e5b765153104bab019a0f4b802a468195cac134aee3c66271b8eba6'
+b2sums=('94cb3b1840dce574d426dc9bf99dbb34074c78a73efe93828bcfcda96d4e84670098a3e8a0116bac73ea723f46058230c68a898fa801ca09f4060e2270bf5c72'
         '039afafe704b379738b026df2a619fe044f19e1389ff49a2efe79779214676f69f6d9cdcb9964c85296c839d624df5b46a3c9af887942b11152df8584da77572'
         '432f7e8757339d4630840c92b302b35ff04d3db6061c154a2e62281531c57562e84f3bb2d5dd1acb3e449a9a7ebfe0bc33da275db21be102a2a6dd3a1f7a8447'
         '7320d598f4b2ed42391fcfa64981fe76027326bb268962061467a1f6212944f2c0e9f4a626254b600af788d8fe25142bd2eb85836af99ec8a783ae8a79fa512f')
@@ -61,9 +61,9 @@ package() {
 
   install -Dm644 data/configuration.example.yaml "${pkgdir}/etc/${pkgname}/configuration.yaml"
 
-  install -Dm644 "${srcdir}/${pkgname}.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}.service"
-  install -Dm644 "${srcdir}/${pkgname}.sysusers" "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"
-  install -Dm644 "${srcdir}/${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
+  install -Dm644 "${srcdir}/systemd.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}.service"
+  install -Dm644 "${srcdir}/sysusers.conf" "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"
+  install -Dm644 "${srcdir}/tmpfiles.conf" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
 
   # Cleanups x86_64 specific
   if [ "${CARCH}" = "x86_64" ]; then
