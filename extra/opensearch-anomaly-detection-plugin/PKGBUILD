@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-anomaly-detection-plugin
-pkgver=3.1.0.0
+pkgver=3.2.0.0
 pkgrel=1
-_opensearchver=3.1.0
+_opensearchver=3.2.0
 _jdkver=21
 pkgdesc="OpenSearch Anomaly Detection Plugin"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/anomaly-detection/archive/${pkgver}.tar.gz"
 )
-sha256sums=('a51120bcf038379dd6da68170a7c9268db51a6454c4001d2f4b801e5196b2bdf')
+sha256sums=('373d74e9dee391d376f71d0657dd2a234950f2cdf77fca128d5ce1f221434d15')
 
 build() {
   cd "anomaly-detection-${pkgver}"
