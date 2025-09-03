@@ -2,7 +2,7 @@
 # Contributor: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=lapce
-pkgver=0.4.3
+pkgver=0.4.4
 pkgrel=1
 pkgdesc='Lightning-fast and Powerful Code Editor'
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(cargo
 options=(!lto)
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('2751c13e472ada64bc9ee7646200980730e5c2523a119882cd32cf88c7f4cea0')
+sha256sums=('f1acfc01a1d9ac22cde0e2e8105de048fa6940d3f68b23b8b26438028109987a')
 
 prepare() {
 	cd "$_archive"
