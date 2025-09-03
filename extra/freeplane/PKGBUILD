@@ -2,7 +2,7 @@
 # Contributor: scrawler@gmail.com
 
 pkgname=freeplane
-pkgver=1.12.12
+pkgver=1.12.13
 pkgrel=1
 pkgdesc="A Java mindmapping tool"
 arch=('any')
@@ -10,16 +10,16 @@ url="http://freeplane.sourceforge.net"
 license=('GPL-2.0-only')
 _jrever=11
 _jdkver=21
-makedepends=('gradle' "java-environment-openjdk=${_jdkver}" 'gnu-free-fonts' 'fontconfig' 'unzip')
+makedepends=(git 'gradle' "java-environment-openjdk=${_jdkver}" 'gnu-free-fonts' 'fontconfig' 'unzip')
 depends=("java-runtime>=${_jrever}" "java-runtime<=${_jdkver}")
-source=("https://downloads.sourceforge.net/sourceforge/${pkgname}/${pkgname}_src-${pkgver}.tar.gz"
+source=("git+https://github.com/freeplane/freeplane.git#tag=release-${pkgver}"
         "freeplane.desktop" "freeplane.run")
-b2sums=('3fa5688c1fff9a2f767712f55ba79420c4b551a6047eb1dbbf09b68b5ab587beeb016cd2d16b0064e9d20273849b55c28cc20004ff102211addff444f7f9cd8d'
+b2sums=('ff3695b62cfdc1bc06c0889f6b3008497bbf88d414645f0138dcea8e916997fa817af1f43c0af732a9ae78b3fd51a83c0a6a1a6fce6facce0fb451ec9a2bc3ba'
         '87c25331e01823e38668e4b394a51a279c05b24b088f4ffc1482d3783e24018da8f9e51b3ad1a62c5a863f85a6ccb30bbe8999cb861dc1b93d5483019644cfa5'
         '24ca56b7c7894b9bb38600b4d37973769243e1bdb221f33125b60bf4f878a3b630775710fab9dee97fa45a69319455037e294860ba7fbd608529982c6b0b1538')
 
 build() {
-  cd "$pkgname-${pkgver}"
+  cd ${pkgname}
   export JAVA_HOME="/usr/lib/jvm/java-${_jdkver}-openjdk"
   export PATH="/usr/lib/jvm/java-${_jdkver}-openjdk/bin:$PATH"
   /usr/bin/gradle \
@@ -29,7 +29,7 @@ build() {
 }
 
 check() {
-  cd "$pkgname-${pkgver}"
+  cd ${pkgname}
   export JAVA_HOME="/usr/lib/jvm/java-${_jdkver}-openjdk"
   export PATH="/usr/lib/jvm/java-${_jdkver}-openjdk/bin:$PATH"
   /usr/bin/gradle \
@@ -39,15 +39,15 @@ check() {
 }
 
 package() {
-  install -dm755 "$srcdir/$pkgname-${pkgver}/dist"
-  unzip -d "$srcdir/$pkgname-${pkgver}/dist" \
-    "${srcdir}/${pkgname}-${pkgver}/DIST/${pkgname}_bin-${pkgver}.zip"
+  install -dm755 "$srcdir/${pkgname}/dist"
+  unzip -d "$srcdir/${pkgname}/dist" \
+    "${srcdir}/${pkgname}/DIST/${pkgname}_bin-${pkgver}.zip"
 
   install -dm755 "${pkgdir}/usr/share/freeplane/"
-  cd "$srcdir/${pkgname}-${pkgver}/dist/${pkgname}-${pkgver}"
+  cd "$srcdir/${pkgname}/dist/${pkgname}-${pkgver}"
   cp -dr --no-preserve='ownership' core doc plugins resources scripts framework.jar freeplane.l4j.ini \
     freeplane.png freeplane.policy freeplane.sh freeplaneConsole.l4j.ini freeplaneIcons.dll \
-    freeplanelauncher.jar gitinfo.txt init.xargs license.txt props.xargs \
+    freeplanelauncher.jar init.xargs license.txt props.xargs \
     "${pkgdir}/usr/share/freeplane/"
 
   # Install license
