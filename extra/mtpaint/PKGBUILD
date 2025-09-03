@@ -3,29 +3,32 @@
 # Contributor: yosh64 <yosh64@gmail.com>
 
 pkgname=mtpaint
-pkgver=3.50.11
-_commit=f37cf09c02b0ebd81d29c67be9741f54d76a9171 # version: 3.50.11, no git tags are available
+pkgver=3.50.12
+_commit=7cae5d663ed835a365d89a535536c39e18862a83 # version: 3.50.12, no git tags are available
 pkgrel=1
 pkgdesc='Paint program for creating icons and pixel art'
 arch=(x86_64)
 url='https://github.com/wjaguar/mtpaint'
 license=(GPL-3.0-only)
-depends=(gtk3 libiconv libwebp openjpeg2)
+depends=(gtk3 libiconv libpng libwebp openjpeg2)
 makedepends=(git)
 optdepends=('gifsicle: export GIF files from mtPaint')
-source=('https://raw.githubusercontent.com/puppylinux-woof-CE/woof-CE/e904dc79b479b3e62c69c65e744a8715fcfed0fa/woof-code/rootfs-petbuilds/mtpaint/wayland.patch'
+source=(wayland.patch
         "git+$url#commit=$_commit")
-b2sums=('e11a93ba95887abbca866db6687c0a2d410dd657649a17a0c97776977fe6c7bf69dccbf746309d7fdec44a5123c0ee5a47f2c093486b353bfed4c11799d167c0'
-        'c38ee1fe81a8fcf0f1f4581e23c5f0e5c569469a18ff9fd605d59878be2b0e6cab1be1a498917754c2683a113e9b8d47b8bf91e4486b7a1749df3bf6c335939b')
+b2sums=('b4cfaad4f239a9dc124bdf97c6c183b437de51a4ebac42c7f37768aead3a157a36bf33ad2df14dd01cb222f81ee6a66a234f46c58a70a737b8188a76f4f12809'
+        'c463eb8b5fc36739f1e7160e26823f7a537b3930915c3f9b86bc047dbec3656b5249f2e37231d855127f3e8faebc486ac7dac2ff9cbb799c03655e65eced7303')
 
 prepare() {
   cd $pkgname
   patch -p1 -i ../wayland.patch
+  # Fix a function name conflict by renaming exp10 to mt_exp10
+  sed -i 's/static inline double exp10(/static inline double mt_exp10(/;s/y \*= exp10(/y *= mt_exp10(/' src/csel.c
 }
 
 build() {
   cd $pkgname
-  export CFLAGS+="$(pkg-config openjp2 --cflags) -w"
+  export CFLAGS+=" $(pkg-config libopenjp2 --cflags) -D_USE_MATH_DEFINES -Wno-incompatible-pointer-types -Wno-builtin-declaration-mismatch"
+  export LDFLAGS+=" $(pkg-config libopenjp2 --libs) -lm"
   ./configure --mandir=/usr/share/man --prefix=/usr cflags gtk3 jp2v2 jpeg lcms2 man tiff
   make
 }
