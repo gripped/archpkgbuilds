@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-anomaly-detection-plugin'
 _pluginname='anomaly-detection-dashboards-plugin'
-pkgver=3.1.0.0
-_dashboardsver=3.1.0
+pkgver=3.2.0.0
+_dashboardsver=3.2.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Anomaly Detection Plugin'
 url='https://opensearch.org/docs/latest/monitoring-plugins/ad/index/'
@@ -16,8 +16,8 @@ source=(
   "git+https://github.com/opensearch-project/${_pluginname}.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
 )
-sha256sums=('ec8b8e3688d23083d58cc2da05028ac243b8c92aec2fe5f10b57962bc112bf7f'
-            '8756ba3ab17ffcf41a3ea94adda9773c593416ea84d201a33aa66b2db3a5a2c7')
+sha256sums=('48155c1c0843c46770e2f72b2fc4bd223eb3aeeccefd1e487439b8baaf3be3ea'
+            '5d3a484adf4627c978c0d7139c0536accc87f0369b80fb16f7503aa48b23cc43')
 
 prepare() {
   nodeVersion="$(node -v)"
