@@ -5,25 +5,26 @@
 # Contributor: Bumsik Kim <k.bumsik@gmail.com>
 
 pkgname=nushell
-pkgver=0.106.1
+pkgver=0.107.0
 pkgrel=1
 pkgdesc='A new type of shell'
-arch=('x86_64')
+arch=(x86_64)
 url='https://www.nushell.sh'
-license=('MIT')
+license=(MIT)
 depends=(
-  'glibc'
-  'gcc-libs'
-  'libcrypto.so'
-  'libssl.so'
-  'zlib'
+  curl
+  glibc
+  gcc-libs
+  libcrypto.so
+  libssl.so
+  zlib
 )
-makedepends=('cargo' 'git')
-checkdepends=('procps-ng')
+makedepends=(rust git)
+checkdepends=(procps-ng)
 install=nushell.install
 source=("git+https://github.com/nushell/nushell.git#tag=$pkgver")
-sha512sums=('0816b05ccb2f25d73a86fd7b9e5f9293c5707d81734b6dbf5889d5e46abc5e7fc81483404dc7a7447105c1ce785f9ae03311fde71ae552894ef2ac5a4ef68b8b')
-b2sums=('db5a89b4d1798dae3dff564cf9c0769a81fe1e1a543628581336b886dfb05430cbd4c90241d5189d4ef8c2d9796610abd2951731b9120bb98c93a5c5fa9b2fd7')
+sha512sums=('0727d7275ca99ea8bfe29de021a0abfe54662462cce50a307ae7ee7f6fe460a16eeb68e052e77a20d55cee50e52375909e719b2c02f76894188bd5a3ca9b3b35')
+b2sums=('736f623df514449db7cf35a5f6e39ade6b8af53a6b06f1889c377f895b9ce5a95350523fc1a37043bbddd3454f62a4aeb895376a3f05de0f31a166ff414122e0')
 
 prepare() {
   cd "$pkgname"
