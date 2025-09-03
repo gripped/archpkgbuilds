@@ -2,8 +2,8 @@
 
 _gemname='covered'
 pkgname="ruby-${_gemname}"
-pkgver=0.27.0
-pkgrel=4
+pkgver=0.28.0
+pkgrel=1
 pkgdesc='A modern approach to code coverage'
 arch=(any)
 url='https://github.com/socketry/covered'
@@ -14,6 +14,7 @@ depends=(
   ruby-msgpack
 )
 makedepends=(
+  git
   ruby-rdoc
 )
 checkdepends=(
@@ -28,12 +29,12 @@ checkdepends=(
   ruby-xrb
 )
 options=(!emptydirs)
-source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('fc206f83f71e1e2236d1f01f3afe647508dda9928a6372e1a1a7088d02335f2ad50d0ac49647b1bebcc659f8a9625ce0ec2bd1920c96d1ed2e464d654b13be37')
-b2sums=('b0246bec700fca9ed79583f62b9a6e264c142f23cc50c6379476131bc221bc7fdc2638bcadf29aae32917e14c56af2a741bfa967017e01cc931acdfbae1ca4de')
+source=("git+https://github.com/socketry/covered.git#tag=v$pkgver")
+sha512sums=('2f3cbd60799dfbac6766e062ff9f1968ea4694f596e9450bbeb44264a9e05f60e0d6f507435a776d0f25af681d634e12be329cd667b527623bcf806a2e8e9aa8')
+b2sums=('3aef0da8f2f125d8ba36ed188f2f75710f65ef5072864f6485d50ee6759ffd3ab8010df82e1e3c94a1b0a4c0eec2bdb4280abd24384a3c47ca2eacc8277e7d4f')
 
 prepare() {
-  cd "${_gemname}-${pkgver}"
+  cd covered
 
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended \
@@ -48,7 +49,7 @@ prepare() {
 }
 
 build() {
-  cd "${_gemname}-${pkgver}"
+  cd covered
 
   local _gemdir="$(gem env gemdir)"
 
@@ -91,7 +92,7 @@ build() {
 }
 
 check() {
-  cd "${_gemname}-${pkgver}"
+  cd covered
 
   local _gemdir="$(gem env gemdir)"
 
@@ -99,7 +100,7 @@ check() {
 }
 
 package() {
-  cd "${_gemname}-${pkgver}"
+  cd covered
 
   cp --archive --verbose tmp_install/* "${pkgdir}"
 
