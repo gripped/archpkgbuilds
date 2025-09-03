@@ -2,16 +2,16 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=dtkdeclarative
-pkgver=5.7.18
+pkgver=5.7.19
 pkgrel=1
 pkgdesc='Deepin Toolkit, declarative module for DDE look and feel'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtkdeclarative"
-license=('LGPL3')
+license=('LGPL-3.0-or-later')
 depends=('dtkgui' 'dtkcore' 'qt5-declarative' 'qt5-quickcontrols2' 'qt5-base' 'libgl' 'gcc-libs')
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'doxygen' 'gtest' 'gmock')
 source=("git+https://github.com/linuxdeepin/dtkdeclarative.git#tag=$pkgver")
-sha512sums=('e383d38c59ca5d5ca347f64fb3e8686f686f310b3713b9a1913d3b0083277992cbc2c074bd304156e9b5d5df1aefafd9f82b736a94b8e7c5bf1426223d892af3')
+sha512sums=('06ba0750831ac68feb3d84c634d01d91e43e182bf28d5519fe22cd71c3186169808a958b8a4204d1696923d51024c85a7113e23f908d575ddc5212aa1e9b3fde')
 
 build() {
   cd $pkgname
@@ -20,7 +20,6 @@ build() {
     -DMKSPECS_INSTALL_DIR=lib/qt/mkspecs/modules \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DQML_INSTALL_DIR=lib/qt/qml \
-    -DDTK_VERSION=$pkgver \
     -DBUILD_DOCS=ON \
     -DQCH_INSTALL_DESTINATION=share/doc/qt
   ninja
