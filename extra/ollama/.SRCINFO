@@ -1,6 +1,6 @@
 pkgbase = ollama
 	pkgdesc = Create, run and share large language models (LLMs)
-	pkgver = 0.11.4
+	pkgver = 0.11.8
 	pkgrel = 1
 	url = https://github.com/ollama/ollama
 	arch = x86_64
@@ -9,16 +9,19 @@ pkgbase = ollama
 	makedepends = ninja
 	makedepends = git
 	makedepends = go
+	makedepends = rocm-toolchain
 	makedepends = hipblas
 	makedepends = cuda
 	makedepends = clblast
+	depends = gcc-libs
+	depends = glibc
 	options = !lto
-	source = git+https://github.com/ollama/ollama#tag=v0.11.4
+	source = git+https://github.com/ollama/ollama#tag=v0.11.8
 	source = ollama-ld.conf
 	source = ollama.service
 	source = sysusers.conf
 	source = tmpfiles.d
-	b2sums = 9fd9efa5e75060e2889e578df3fae88ad7373d358226938149ea564636bf8d1b5b732bede0054775b31e3d4c443e11244b3dd1af2e7271d358408db2526d619f
+	b2sums = a88b329482e99e0a6d36817daa4fec8a0dd24fea7ff7a848421aad0e18403efd7bb64c7875f87f820e727d6ffd5c0826336479fefb6dbacec74749cbdbfbf0a0
 	b2sums = 121a7854b5a7ffb60226aaf22eed1f56311ab7d0a5630579525211d5c096040edbcfd2608169a4b6d83e8b4e4855dbb22f8ebf3d52de78a34ea3d4631b7eff36
 	b2sums = 031e0809a7f564de87017401c83956d43ac29bd0e988b250585af728b952a27d139b3cad0ab1e43750e2cd3b617287d3b81efc4a70ddd61709127f68bd15eabd
 	b2sums = 68622ac2e20c1d4f9741c57d2567695ec7b5204ab43356d164483cd3bc9da79fad72489bb33c8a17c2e5cb3b142353ed5f466ce857b0f46965426d16fb388632
@@ -28,11 +31,15 @@ pkgname = ollama
 
 pkgname = ollama-rocm
 	pkgdesc = Create, run and share large language models (LLMs) with ROCm
+	depends = gcc-libs
+	depends = glibc
 	depends = ollama
 	depends = hipblas
 
 pkgname = ollama-cuda
 	pkgdesc = Create, run and share large language models (LLMs) with CUDA
+	depends = gcc-libs
+	depends = glibc
 	depends = ollama
 	depends = cuda
 
