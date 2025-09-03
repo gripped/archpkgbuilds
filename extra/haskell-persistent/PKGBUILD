@@ -3,27 +3,22 @@
 
 _hkgname=persistent
 pkgname=haskell-persistent
-pkgver=2.14.5.1
-pkgrel=150
+pkgver=2.14.5.2
+pkgrel=1
 pkgdesc="Type-safe, multi-backend data serialization"
 url="http://www.yesodweb.com/book/persistent"
-license=("MIT")
+license=('MIT')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base64-bytestring'
-         'haskell-blaze-html' 'haskell-conduit' 'haskell-fast-logger' 'haskell-http-api-data'
-         'haskell-lift-type' 'haskell-monad-logger' 'haskell-path-pieces' 'haskell-resource-pool'
-         'haskell-resourcet' 'haskell-scientific' 'haskell-silently' 'haskell-th-lift-instances'
-         'haskell-unordered-containers' 'haskell-unliftio' 'haskell-unliftio-core' 'haskell-vault'
-         'haskell-vector')
-makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-quickcheck' 'haskell-quickcheck-instances'
+depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-attoparsec-aeson'
+         'haskell-base64-bytestring' 'haskell-blaze-html' 'haskell-conduit' 'haskell-fast-logger'
+         'haskell-http-api-data' 'haskell-lift-type' 'haskell-monad-logger' 'haskell-path-pieces'
+         'haskell-resource-pool' 'haskell-resourcet' 'haskell-scientific' 'haskell-silently'
+         'haskell-th-lift-instances' 'haskell-unordered-containers' 'haskell-unliftio'
+         'haskell-unliftio-core' 'haskell-vault' 'haskell-vector')
+makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck' 'haskell-quickcheck-instances'
              'haskell-shakespeare')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('a3969142f77d9fc54a0e73ac54b53a96de0b93fadf67326f6b8d9fdb668fc4acf78eece4502cc557873b011e2191fc1607836a5aa0d5d287e79820c0bf6e90a4')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u aeson $_hkgname.cabal
-}
+sha512sums=('90952956627361658840f9299257fdbed7402f14c05226f5c67510d587ae2defc2ae7cf4bceecc4599f675f629e135e93d483334ff6e3b86e196db31b7bb7027')
 
 build() {
     cd $_hkgname-$pkgver
