@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-job-scheduler-plugin
-pkgver=3.1.0.0
+pkgver=3.2.0.0
 pkgrel=1
-_opensearchver=3.1.0
+_opensearchver=3.2.0
 _jdkver=21
 pkgdesc="OpenSearch Job Scheduler Plugin"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/job-scheduler/archive/${pkgver}.tar.gz"
 )
-sha256sums=('2953d54d6df3fcd2bcbf09e2af3ada5b69f870289f219bc0441f053ec27b42c4')
+sha256sums=('ca09e5c928bfdcac819484094de6b841796aeef76a947011c73d10727fa0533c')
 
 build() {
   cd "job-scheduler-${pkgver}"
