@@ -1,0 +1,37 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
+pkgname=intelli-shell
+pkgver=2.0.1
+pkgrel=1
+pkgdesc="Like IntelliSense, but for shells"
+arch=('x86_64')
+url="https://github.com/lasantosr/intelli-shell"
+license=('Apache-2.0')
+depends=('gcc-libs' 'zlib')
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('64fe29ca0ec939628e10a7faaa889b8747cec08e0df6619fdc7321d414dfdc52f6810043ce06304fbf5ab13a7f68012d3e7afa54f01b390eb23159f5cfdeba55')
+options=('!lto')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --frozen
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --frozen
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:
