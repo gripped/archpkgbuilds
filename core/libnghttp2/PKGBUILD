@@ -2,7 +2,7 @@
 # Contributor: Zhuoyun Wei <wzyboy@wzyboy.org>
 
 pkgname=libnghttp2
-pkgver=1.66.0
+pkgver=1.67.0
 pkgrel=1
 pkgdesc='Framing layer of HTTP/2 is implemented as a reusable C library'
 arch=('x86_64')
@@ -17,7 +17,7 @@ source=("git+https://github.com/nghttp2/nghttp2.git#tag=v${pkgver}?signed"
         'git+https://github.com/ngtcp2/munit.git'
         'git+https://github.com/mruby/mruby.git'
         'git+https://github.com/tatsuhiro-t/neverbleed.git')
-sha512sums=('4fe11b43a3f1ed92c7a5c2d80fa7b23757b9fe91f1dfd35adb28b12a40dc1a15695a653d12bb1dd0cd474300da4e4c9020b9a00e4ed8428cb89d8c6c2a603841'
+sha512sums=('41df5c3b3ad3d02baf626ab70edb4024376dab570f3bb110bb0f753bf0da5b2279750123b1d9007215bc453fd0da0c2c8345a5e3ea7d7ce12a954b21bf111a11'
             'SKIP'
             'SKIP'
             'SKIP')
