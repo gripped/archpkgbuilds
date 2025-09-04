@@ -1,20 +1,20 @@
 pkgbase = deepin-appearance
 	pkgdesc = Application resource management and control services for the dde desktop environment
-	pkgver = 1.1.49
+	pkgver = 1.1.50
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-appearance
 	arch = x86_64
 	groups = deepin
-	license = GPL3
+	license = GPL-3.0
 	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
-	makedepends = qt5-tools
-	depends = qt5-base
-	depends = dtkcore
-	depends = kconfig5
-	depends = kwindowsystem5
-	depends = kglobalaccel5
+	makedepends = qt6-tools
+	depends = qt6-base
+	depends = dtk6core
+	depends = kconfig
+	depends = kwindowsystem
+	depends = kglobalaccel
 	depends = libxcursor
 	depends = libxfixes
 	depends = libx11
@@ -23,14 +23,13 @@ pkgbase = deepin-appearance
 	depends = xcb-util-cursor
 	depends = fontconfig
 	depends = openssl
-	depends = gsettings-qt
 	depends = glib2
-	depends = dtkgui
+	depends = dtk6gui
 	depends = glibc
 	depends = gcc-libs
 	depends = startdde
 	depends = deepin-service-manager
-	source = git+https://github.com/linuxdeepin/dde-appearance.git#tag=1.1.49
-	sha512sums = 3dd76a5749c88149727b4615b24b1fb64a56ceb60f6797d1a30b0aa9dec97bc0a548b0915d828fa30adf161973baaf791f9533d9ac669e28e8740b764c9f116a
+	source = git+https://github.com/linuxdeepin/dde-appearance.git#tag=1.1.50
+	sha512sums = 9de298d9f364bfdb0e4468c2f04bbdf44d3f657c85b2ab2ece32c2b9cd3b6323a45ba7e8fe0577d3927d14aadc5f1a2cfba4f271a3506843014791cc0b70c8fe
 
 pkgname = deepin-appearance

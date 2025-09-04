@@ -1,20 +1,20 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-appearance
-pkgver=1.1.49
+pkgver=1.1.50
 pkgrel=1
 pkgdesc='Application resource management and control services for the dde desktop environment'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-appearance"
-license=('GPL3')
+license=('GPL-3.0')
 # startdde: org.deepin.dde.XSettings1
-depends=('qt5-base' 'dtkcore' 'kconfig5' 'kwindowsystem5' 'kglobalaccel5' 'libxcursor' 'libxfixes'
-         'libx11' 'gtk3' 'libxcb' 'xcb-util-cursor' 'fontconfig' 'openssl' 'gsettings-qt' 'glib2'
-         'dtkgui' 'glibc' 'gcc-libs' 'startdde' 'deepin-service-manager')
-makedepends=('git' 'cmake' 'ninja' 'qt5-tools')
+depends=('qt6-base' 'dtk6core' 'kconfig' 'kwindowsystem' 'kglobalaccel' 'libxcursor' 'libxfixes'
+         'libx11' 'gtk3' 'libxcb' 'xcb-util-cursor' 'fontconfig' 'openssl' 'glib2' 'dtk6gui'
+         'glibc' 'gcc-libs' 'startdde' 'deepin-service-manager')
+makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-appearance.git#tag=$pkgver")
-sha512sums=('3dd76a5749c88149727b4615b24b1fb64a56ceb60f6797d1a30b0aa9dec97bc0a548b0915d828fa30adf161973baaf791f9533d9ac669e28e8740b764c9f116a')
+sha512sums=('9de298d9f364bfdb0e4468c2f04bbdf44d3f657c85b2ab2ece32c2b9cd3b6323a45ba7e8fe0577d3927d14aadc5f1a2cfba4f271a3506843014791cc0b70c8fe')
 
 build() {
   cd dde-appearance
