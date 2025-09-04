@@ -3,7 +3,7 @@
 # Contributor: Sematre <sematre at gmx dot de>
 
 pkgname=typos
-pkgver=1.36.1
+pkgver=1.36.2
 pkgrel=1
 pkgdesc="Source code spell checker"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('MIT OR Apache-2.0')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('080b72e4b5b7a59b509fa162d2d86ad7c07bc4fd596efe830231923dedfcdc39')
+sha256sums=('23229bf78a136bce3c456019d71e25b57858275c8fd947426b8a5b32d639abe3')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
