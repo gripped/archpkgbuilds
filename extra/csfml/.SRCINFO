@@ -1,15 +1,17 @@
 pkgbase = csfml
 	pkgdesc = C bindings for sfml
-	pkgver = 3.0.0.git1
-	pkgrel = 2
+	pkgver = 3.0.0.rc2
+	pkgrel = 1
 	url = http://www.sfml-dev.org/
 	arch = x86_64
 	license = Zlib
 	makedepends = cmake
 	makedepends = doxygen
 	makedepends = ninja
+	depends = glibc
+	depends = gcc-libs
 	depends = sfml
-	source = csfml-3.0.0.git1.tar.gz::https://github.com/SFML/CSFML/archive/b607308b3f1e58222e3ba70322f94dfa1ad0ce13.tar.gz
-	sha512sums = ff7b366f46737d85013fbdb81694aba5e628bfb24880eab347761a11ce4ec26212262718b6adb2f3aea14cc3ea0a145c370c95a8a73256c7c2a826bf08792a83
+	source = csfml-3.0.0.rc2.tar.gz::https://github.com/SFML/CSFML/archive/refs/tags/3.0.0-rc.2.tar.gz
+	sha512sums = c3f17104a4e1b84ef623c06e6006f73efdd93712577e791bb27de5810e04dcbe6a92371550b6f645a7446b62fb7ecb8588c1469c18dd068d9d4acbe50703b256
 
 pkgname = csfml

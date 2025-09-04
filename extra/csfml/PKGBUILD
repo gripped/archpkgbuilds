@@ -1,23 +1,23 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=csfml
-pkgver=3.0.0.git1
-_gitrev=b607308b3f1e58222e3ba70322f94dfa1ad0ce13
-pkgrel=2
+pkgver=3.0.0.rc2
+_gittag=3.0.0-rc.2
+pkgrel=1
 pkgdesc='C bindings for sfml'
 arch=('x86_64')
 url='http://www.sfml-dev.org/'
 license=('Zlib')
-depends=("sfml")
+depends=('glibc' 'gcc-libs' 'sfml')
 makedepends=('cmake' 'doxygen' 'ninja')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/SFML/CSFML/archive/${_gitrev}.tar.gz")
-sha512sums=('ff7b366f46737d85013fbdb81694aba5e628bfb24880eab347761a11ce4ec26212262718b6adb2f3aea14cc3ea0a145c370c95a8a73256c7c2a826bf08792a83')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/SFML/CSFML/archive/refs/tags/${_gittag}.tar.gz")
+sha512sums=('c3f17104a4e1b84ef623c06e6006f73efdd93712577e791bb27de5810e04dcbe6a92371550b6f645a7446b62fb7ecb8588c1469c18dd068d9d4acbe50703b256')
 
 build() {
   cd CSFML-*
 
   cmake \
       -Bbuild \
-      -GNinja \
+      -GNinja 3.0.0-\
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DCSFML_BUILD_DOC=true
   ninja -C build
