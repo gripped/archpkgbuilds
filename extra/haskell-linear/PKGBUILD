@@ -2,8 +2,8 @@
 
 _hkgname=linear
 pkgname=haskell-linear
-pkgver=1.23.1
-pkgrel=26
+pkgver=1.23.2
+pkgrel=1
 pkgdesc="Linear Algebra"
 url="https://github.com/ekmett/linear/"
 license=('BSD-3-Clause')
@@ -13,11 +13,10 @@ depends=('ghc-libs' 'haskell-adjunctions' 'haskell-base-orphans' 'haskell-bytes'
          'haskell-random' 'haskell-reflection' 'haskell-semigroupoids' 'haskell-tagged'
          'haskell-transformers-compat' 'haskell-unordered-containers' 'haskell-vector'
          'haskell-void')
-makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-simple-reflect'
-             'haskell-test-framework' 'haskell-test-framework-hunit'
-             'haskell-test-framework-quickcheck2')
+makedepends=('ghc' 'haskell-quickcheck' 'haskell-simple-reflect' 'haskell-tasty'
+             'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('7dac898b4032cb3e75a3cf2563430cd867244f4cc295ec7387f5304f9c806c79')
+sha256sums=('bbd69d619beb81ce4646bdd36a89a433b8d206c042e5679022a3f28c740c6917')
 
 build() {
   cd $_hkgname-$pkgver
