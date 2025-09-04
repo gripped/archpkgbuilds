@@ -1,22 +1,21 @@
 pkgbase = clazy
 	pkgdesc = Qt oriented code checker based on clang framework
-	pkgver = 1.15
+	pkgver = 1.16
 	pkgrel = 1
 	url = https://www.kdab.com/
 	arch = x86_64
 	license = GPL-2.0-or-later
 	makedepends = cmake
+	makedepends = git
 	makedepends = llvm
 	depends = clang
 	depends = gcc-libs
 	depends = glibc
 	depends = llvm-libs
 	depends = sh
-	source = https://download.kde.org/stable/clazy/1.15/src/clazy-1.15.tar.xz
-	source = https://download.kde.org/stable/clazy/1.15/src/clazy-1.15.tar.xz.sig
+	source = git+https://invent.kde.org/sdk/clazy#tag=v1.16
 	validpgpkeys = 949014B23D24354DFD548E5457416A0ADCEF0EFE
 	validpgpkeys = C6D862468611FE7CE74E67E2FB13736123B9CB3C
-	sha256sums = 43189460b366ea3126242878c36ee8a403e37ec4baef7e61ccfa124b1414e7a9
-	sha256sums = SKIP
+	sha256sums = 20bfaf501e2a1610e4667199055bcbff37aca74288b2c3064a7673ab508605d8
 
 pkgname = clazy
