@@ -1,22 +1,24 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-calculator
-pkgver=6.5.4
-pkgrel=2
+pkgver=6.5.5
+pkgrel=1
 pkgdesc='An easy to use calculator for ordinary users'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-calculator"
-license=('GPL3')
-depends=('dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 'gcc-libs' 'hicolor-icon-theme' 'qt5-base' 'qt5-svg')
-makedepends=('git' 'cmake' 'ninja' 'qt5-tools')
+license=('GPL-3.0-or-later')
+depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'glibc' 'gcc-libs' 'hicolor-icon-theme' 'qt6-base' 'qt6-svg')
+makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-calculator.git#tag=$pkgver")
-sha512sums=('3a89e80f175525234e83c5365dc6d0291248807be97aca2ac653bc89c9dbb03c496e626eff67600416d9789aa8fe2668ad25a3cff4cbfd59b067017c888f60fe')
+sha512sums=('6748327f5469b48699e624f7f56de9746b5dfcc843ddd6d3b1d45906849bfeb5cfec56fe91c53ddd754417da97b398a3cf5a8ae71c5d64709b460539ab3981fb')
 
 prepare() {
   cd deepin-calculator
   # respect our LDFLAGS
-  git cherry-pick -n d7b27df6f4046998742e6342c3fd03fbc8947845
+  sed -i '/CMAKE_EXE_LINKER_FLAGS/d' CMakeLists.txt
+  # lrelease path
+  sed -i 's|lrelease|/usr/lib/qt6/bin/lrelease|g' translate_generation.sh
 }
 
 build() {
