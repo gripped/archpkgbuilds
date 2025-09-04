@@ -3,8 +3,8 @@
 
 pkgname=findomain
 _pkgname=Findomain
-pkgver=9.0.4
-pkgrel=2
+pkgver=10.0.1
+pkgrel=1
 pkgdesc='The fastest and cross-platform subdomain enumerator, do not waste your time'
 url='https://github.com/Findomain/Findomain'
 arch=('x86_64')
@@ -18,16 +18,11 @@ makedepends=('cargo')
 optdepends=('postgresql: for subdomain monitoring')
 source=(
   "https://github.com/${_pkgname}/${_pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz"
-  $pkgname-9.0.4-update-dependencies.patch::https://github.com/Findomain/Findomain/commit/1c246de8300ef6dee7096bad2d2a1a239549c7f0.patch
 )
-b2sums=('3889581eb0c3d22e071375c7b9aee262570a0c3f3bd2e29bdd83534ad29f52d3ba294a9a0913e497192626ca3a388ee7d2737d506c1381e75dcc9db63365694b'
-        '2ff0db5809383246e989ab74c12bb4651a42073d3023aec2240a967dbce730b28327a3b76df769bb1d3471403d7f1b1405fec86785edb4c7d721876f2084e80a')
+b2sums=('0ca6e4307a8a0f1be44757d7fefa4cc664d84de547618518822b0593a6291655cc7609924e2d9993853ba5f23a1560627307a25ed7a1e891e83ad5285662339e')
 options=(!lto)
 
 prepare() {
-  # update dependencies to fix use of traitobject crate: https://github.com/Findomain/Findomain/issues/230
-  patch -Np1 -d $_pkgname-$pkgver -i ../$pkgname-9.0.4-update-dependencies.patch
-
   cd $_pkgname-$pkgver
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
