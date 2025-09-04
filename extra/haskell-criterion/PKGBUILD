@@ -3,8 +3,8 @@
 
 _hkgname=criterion
 pkgname=haskell-criterion
-pkgver=1.6.2.0
-pkgrel=34
+pkgver=1.6.3.0
+pkgrel=1
 pkgdesc="Robust, reliable performance measurement and analysis"
 url="http://www.serpentine.com/criterion"
 license=('BSD-3-Clause')
@@ -18,7 +18,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-base-compat-batteries' 'haskell-bin
 makedepends=('ghc' 'haskell-base-compat' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tasty'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('59e9c1b8da1f0667fc6b3c6e5fbf9b533271e77b6a7432f5069e04c04a7767ee9dee90e8e3f7ea8422750ded825febc2c5fd1ba113d33cf7bf78f24ddd843868')
+sha512sums=('e753562678073c7686958f3649d959fae7946e02958ee9f8b0803aa6fe5fc64c66fda2524fd79777e976836f2c9b465675f3be2eca813e6b14986317543a8b46')
 
 build() {
     cd $_hkgname-$pkgver
