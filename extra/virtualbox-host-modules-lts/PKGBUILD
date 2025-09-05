@@ -2,7 +2,7 @@
 
 pkgname='virtualbox-host-modules-lts'
 pkgver=7.2.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Virtualbox host kernel modules for LTS Kernel'
 arch=('x86_64')
 url='https://virtualbox.org/'
@@ -22,7 +22,7 @@ package(){
   _kernver="$(</usr/src/linux-lts/version)"
 
   install -Dt "$pkgdir/usr/lib/modules/$_kernver/extramodules" -m0644 \
-    vboxhost/${pkgver}_OSE/${_kernver}/${CARCH}/module/*
+    vboxhost/${pkgver}_OSE/${_kernver}/${CARCH}/module/*.ko
 
   # compress each module individually
   find "${pkgdir}" -name '*.ko' -exec zstd --rm -19 {} +
