@@ -2,22 +2,27 @@
 
 _hkgname=options
 pkgname=haskell-options
-pkgver=1.2.1.1
-pkgrel=23
-pkgdesc="A powerful and easy-to-use command-line option parser"
-url="https://john-millikin.com/software/haskell-options/"
+pkgver=1.2.1.2
+pkgrel=1
+pkgdesc="Powerful and easy command-line option parser"
+url="https://github.com/typeclasses/options/"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-monads-tf')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-patience')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('615a3767b74ca0ba2eae993f6e475963df2a0933f1e6c9bbfe35144c4dc6018af276144b2ec1b608b695dc7fca904784ebc63cd58a432f966588846cb36f94ea')
+sha512sums=('82c366adce56a27ab68a4388bc759b90ee4bfe38fd72325af954bef2eb3aee360729d5ed2de2964c8087b3b5a51d321321d9c02024b34b6167f09d7412aa2568')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    gen-setup
+}
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
@@ -26,7 +31,10 @@ build() {
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
 }
 
-# Tests not enabled due to circular dependency on chell
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
+}
 
 package() {
     cd $_hkgname-$pkgver
