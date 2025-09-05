@@ -3,13 +3,15 @@
 
 pkgname=python-docstring-to-markdown
 _name=${pkgname#python-}
-pkgver=0.15
-pkgrel=3
+pkgver=0.17
+pkgrel=1
 pkgdesc='On the fly conversion of Python docstrings to markdown'
 arch=('any')
 url=https://github.com/python-lsp/docstring-to-markdown
 license=('LGPL-2.1-or-later')
-depends=('python')
+depends=('python'
+         'python-importlib-metadata'
+         'python-typing_extensions')
 makedepends=(
   'git'
   'python-build'
@@ -19,7 +21,7 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('2dec8c3a233af1841f647861182ba2051e3cc65a61fd4ef3c70063348445c3ddc6951ce671b7190e1a4cdb6f67a762dd06bb2fa32ace85b34f00a17e42475fe8')
+b2sums=('1aeb125b7fa61a2efba41313c5d8d102079bb6fc76692f31112d1456678e116e57c8ca9fe35a477dad780e0116dbcc318a0e1330d6874a9e782d326f96299982')
 
 build() {
   cd "$_name"
