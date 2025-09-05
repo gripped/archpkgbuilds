@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-numpydoc
-pkgver=1.8.0
-pkgrel=2
+pkgver=1.9.0
+pkgrel=1
 pkgdesc="Numpy's Sphinx extensions"
 url="https://github.com/numpy/numpydoc"
 license=('Apache')
@@ -10,16 +10,8 @@ arch=('any')
 depends=('python-sphinx' 'python-jinja' 'python-tabulate')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-matplotlib' 'python-numpy' 'python-pytest')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/numpy/numpydoc/archive/v$pkgver.tar.gz"
-         https://github.com/numpy/numpydoc/commit/13386609.patch)
-sha512sums=('d7ea64f1140395815e0d95697d1b855ba0a5f63fc99e8cf1fb7d240cd799be1958c2efd034cbec64c8b3b1742076c8b7db5a0ddc54af3ef39fc341ea0e3ec586'
-            '5ee39ce1d0ea92851cf22955c9d1642bd5214490b8ecf18914c801bad87b24dbcec7327b6fd0928cc61b16b7b6e79717d13880878053989bfb8089be7b4f6f02')
-
-prepare() {
-  cd numpydoc-$pkgver
-# Fix tests with sphinx 8.1
-  patch -p1 -i ../13386609.patch
-}
+source=("$pkgname-$pkgver.tar.gz::https://github.com/numpy/numpydoc/archive/v$pkgver.tar.gz")
+sha512sums=('7ae73a5bbce11e674fe8ca16e8ddce7914498f97dc8ebe85c26ae0cf240299596c20a6915e3a547a394e0e3f9ae6e9ac0694a2de7baa34918df98f523a8bfdf0')
 
 build() {
   cd numpydoc-$pkgver
