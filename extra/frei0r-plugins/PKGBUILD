@@ -2,8 +2,8 @@
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=frei0r-plugins
-pkgver=2.3.3
-pkgrel=4
+pkgver=2.4.0
+pkgrel=1
 pkgdesc='Collection of video effect plugins'
 arch=(x86_64)
 url='https://frei0r.dyne.org/'
@@ -26,7 +26,7 @@ optdepends=(
   'opencv: facebl0r and facedetect plugins'
 )
 source=("git+https://github.com/dyne/frei0r#tag=v$pkgver")
-b2sums=(543c512c8ba74098c1a78e827f82284170a555037e1b259af69062497f78881bed152dee4b1f1261096b0b0c23bb42c2e04288526c53a92e262de3526df43d3d)
+b2sums=(0a79a0913ce69814a01e37204233813fcd566bf2df4b3d97da9161c397b66a1e8f52eccbe4d27f34f3a5d1cffd6a22cf4fbacbe28fdc39331c27d9d294d59a5b)
 validpgpkeys=(6113D89CA825C5CEDD02C87273B35DA54ACB7D10) # Denis Roio (Jaromil)
 
 build() {
