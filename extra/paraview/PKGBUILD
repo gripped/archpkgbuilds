@@ -6,19 +6,15 @@
 
 pkgname=paraview
 pkgver=6.0.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Parallel Visualization application using VTK"
 arch=(x86_64)
 url="https://www.paraview.org"
 license=(BSD-3-Clause)
 depends=(
-  adios2
   cgns
   double-conversion
-  expat libexpat.so
-  ffmpeg libavcodec.so libavformat.so libavutil.so libswscale.so
   fmt libfmt.so
-  freetype2 libfreetype.so
   gcc-libs
   gdal
   gl2ps
@@ -26,21 +22,14 @@ depends=(
   hdf5
   jsoncpp libjsoncpp.so
   libglvnd libGLX.so libOpenGL.so
-  libjpeg-turbo
   liblas
-  libogg libogg.so
-  libpng libpng16.so
-  libtheora
-  libtiff libtiff.so
   libx11
   libxcursor
   libxslt # xsltproc executable
-  libxml2 libxml2.so
   lz4 liblz4.so
   netcdf
   onetbb
   openmpi libmpi.so
-  ospray
   paraview-catalyst
   pdal
   proj
@@ -53,10 +42,16 @@ depends=(
   qt6-base
   qt6-svg # for showing icons in the UI
   qt6-tools
-  verdict
-  viskores
-  xz liblzma.so
+  vtk
   zlib libz.so
+  # vtk optdepends
+  adios2
+  ffmpeg
+  freetype2
+  libogg
+  libtheora
+  ospray
+  viskores
 )
 optdepends=(
   python-matplotlib
@@ -75,29 +70,10 @@ makedepends=(
   qt6-svg
   utf8cpp
 )
-# pegtl: https://gitlab.kitware.com/vtk/vtk/-/issues/18151
-# rapidjson: https://gitlab.kitware.com/vtk/vtk/-/issues/18366
-# exprtk, ioss: not packaged
-conflicts=(paraview-opt)
-replaces=(paraview-opt)
 source=(
   $url/files/v${pkgver%.*}/ParaView-v${pkgver/R/-R}.tar.xz
-  paraview-wrapper.sh
-  template.sh
 )
-b2sums=('ca34833d54d644bd7272ce61dfb96aa4706953cbbdb420c3f0082fa96c84f14d727d02bcc0009cb8942e5c28067b758c060a8634e2af4abd2d432e05314d24e8'
-        '852395127b3844799c3a492affb8743829443c5d8626c1c4cf3aca441dfeecad605c0f9de1ab6b6f3e6f85868ab6416a360afbbb16e22490cb632cd31d6057b4'
-        '1852640491bb24d4d7ab70c7bc12952e6a4ea23b08bf9c849453452eea726cfa5ea4244efe98f251411634c87b302bac0a2931e4646bfbef032655e0c39abd40')
-
-prepare() {
-  # Specify python version in wrapper
-  local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
-  sed -i "s|@PYTHON@|${python_version}|" paraview-wrapper.sh
-  # Arch required changes
-  cd ParaView-v${pkgver/R/-R}
-  local fast_float_version=$(pacman -Q fast_float | sed -e 's/.* //; s/-.*//g')
-  sed -i "s|7.0.0|${fast_float_version}|" VTK/ThirdParty/fast_float/CMakeLists.txt
-}
+b2sums=('ca34833d54d644bd7272ce61dfb96aa4706953cbbdb420c3f0082fa96c84f14d727d02bcc0009cb8942e5c28067b758c060a8634e2af4abd2d432e05314d24e8')
 
 build() {
   export CFLAGS+=" -ffat-lto-objects"
@@ -108,11 +84,10 @@ build() {
     -G Ninja
     -W no-dev
     -DCMAKE_BUILD_TYPE=Release
-    -DCMAKE_INSTALL_PREFIX=/opt/paraview
+    -DCMAKE_INSTALL_PREFIX=/usr
     -DCMAKE_INSTALL_LICENSEDIR=share/licenses/paraview
     -DCMAKE_CXX_STANDARD=17
-    -DPARAVIEW_IGNORE_CMAKE_CXX11_CHECKS=ON
-    -DCMAKE_SKIP_INSTALL_RPATH=OFF
+    -DCMAKE_SKIP_INSTALL_RPATH=ON
     -DPARAVIEW_ENABLE_ADIOS2=ON
     -DPARAVIEW_ENABLE_CATALYST=ON
     -DPARAVIEW_ENABLE_FFMPEG=ON
@@ -128,14 +103,7 @@ build() {
     -DPARAVIEW_USE_PYTHON=ON
     -DPARAVIEW_VERSIONED_INSTALL=OFF
     -DPARAVIEW_BUILD_WITH_EXTERNAL=ON
-    -DVTK_SMP_IMPLEMENTATION_TYPE=TBB
-    -DVTKm_ENABLE_MPI=ON
-    -DCATALYST_USE_MPI=ON
-    -DFIDES_USE_EXTERNAL_RAPIDJSON=OFF
-    -DVTK_MODULE_USE_EXTERNAL_VTK_exprtk=OFF
-    -DVTK_MODULE_USE_EXTERNAL_VTK_ioss=OFF
-    -DVTK_MODULE_USE_EXTERNAL_VTK_pegtl=OFF
-    -DVTK_MODULE_USE_EXTERNAL_VTK_token=OFF
+    -DPARAVIEW_USE_EXTERNAL_VTK=ON
   )
   cmake "${cmake_options[@]}"
   cmake --build build
@@ -144,22 +112,7 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  # Install wrappers
-  install -Dm755 paraview-wrapper.sh "${pkgdir}"/usr/bin/paraview-wrapper
-  for binary in paraview "${pkgdir}"/opt/paraview/bin/pv*
-  do
-    install -Dm755 template.sh "${pkgdir}"/usr/bin/${binary##*/}
-    sed -i "s|@BINARY@|${binary##*/}|" "${pkgdir}"/usr/bin/${binary##*/}
-  done
-
-  # Install licenses, shortcuts, icons
-  install -dm755 "${pkgdir}"/usr/share
-  mv "${pkgdir}"/{opt/paraview,usr}/share/applications
-  mv "${pkgdir}"/{opt/paraview,usr}/share/icons
-  mv "${pkgdir}"/{opt/paraview,usr}/share/licenses
-  mv "${pkgdir}"/{opt/paraview,usr}/share/metainfo
-
   # byte-compile python modules since the CMake build does not do it.
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  python -m compileall -o 0 -o 1 -o 2 --hardlink-dupes -s "${pkgdir}" "${pkgdir}"${site_packages/usr/opt/paraview}
+  python -m compileall -o 0 -o 1 -o 2 --hardlink-dupes -s "${pkgdir}" "${pkgdir}"${site_packages}
 }
