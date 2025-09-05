@@ -1,8 +1,8 @@
 # Maintainer: Leonidas Spyropoulos <artafinde@archlinux.org>
 
 pkgname=kafka
-pkgver=4.0.0
-pkgrel=6
+pkgver=4.1.0
+pkgrel=1
 _scalaver=2.13
 pkgdesc="An open-source distributed event streaming platform"
 arch=('any')
@@ -36,13 +36,13 @@ source=(
     $pkgname.tmpfiles
     set-base_dir.patch
 )
-sha512sums=('f45810ea2202173051086c08cc5ac29bc325c8f23ba4b427deace8e106f6928a89048fa9ef15906cf9d9ccf0b51d9a746f32be5ac4a8ab707dce98b0efbe60ed'
+sha512sums=('51797065c03ba2cf3ece905e02941c0e76ad3091450463b5ba728a323794988922b6bd8320bd7a1df356b519555a139e9846ceb57bb318f172798ffa086aebc7'
             'SKIP'
             '715da8728e5245f14e4924b6056b8df911ee7c9f1838651677af8b7b82ed801d90eaf743e153d6784e5b233128cf010990b7c7efc0761c376f700d909e288414'
             '796eb295cddff842d94e5f10d6a2065b1f397873fd1baf3a85b91fa41d3e67364b105ef199f264b7f28d6536a0448d5fa2512339a085bfd72432844820bb59bf'
             'e555db26b8247ddefdb1c81fb1a6f89d7e8fba39ba19b9ce1608e989e957f6c550bd482e4ccbe1f2f288e00d851741c6a9a53c91754696907d72233f56fad8c6'
             '3739ec988aada505a0eccee6ae27a9ca620547b3117a034d9eec7cae5bc2af26f41aa8bd066945946c19c05e8529034b7a1b1f49ea03a6574760bb6c1a64a7ad')
-b2sums=('ea866436d3499452360db24568bd60f7cceb5e6969dd247fc68dd8fe5bf3a5c3f96ddbad52d203df7d152549f5d4521375856581e73932166b312d80fbd655a2'
+b2sums=('c3480d98e5287d9d75ceb686c45edc428f17dbfce6b545b6d61635d5197a920f324e0632cc8cf56fe0674f007e7ce1bece3a3b192f518007f23c4662156fce4e'
         'SKIP'
         '208c343dbd79042916880ef35a38bed8b5a7a3496237cbf7ab04fc43b2008bc2f091b03f3e25bb77035ccacb9e686f9406d3401274fd4903a5b5563614e5b66f'
         'fea3464ddc8e058394153385a7031f71c6a85872062a381a807e9a11eebcf0771da82ae8d5d194fff15ca6c5e0dadf72a94061f8d76789227d2b1d9abb4cc774'
@@ -70,7 +70,8 @@ prepare() {
 
 build() {
     cd "$pkgname-$pkgver-src"
-    /usr/bin/gradle \
+    # TODO: Revert to system gradle https://issues.apache.org/jira/browse/KAFKA-16800
+    ./gradlew \
         -PscalaVersion=$_scalaver \
         compileJava \
         compileScala \
@@ -86,7 +87,8 @@ build() {
 
 check() {
     cd "$pkgname-$pkgver-src"
-    /usr/bin/gradle \
+    # TODO: Revert to system gradle https://issues.apache.org/jira/browse/KAFKA-16800
+    ./gradlew \
         -PscalaVersion=$_scalaver \
         --continue \
         -PkeepAliveMode=session \
