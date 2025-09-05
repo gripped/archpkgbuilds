@@ -4,7 +4,7 @@
 _hkgname=dns
 pkgname=haskell-dns
 pkgver=4.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="DNS library in Haskell"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD-3-Clause')
@@ -32,7 +32,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
