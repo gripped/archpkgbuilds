@@ -2,8 +2,8 @@
 
 _hkgname=base-compat-batteries
 pkgname=haskell-base-compat-batteries
-pkgver=0.13.0
-pkgrel=36
+pkgver=0.13.1
+pkgrel=3
 pkgdesc="base-compat with extra batteries"
 url="https://hackage.haskell.org/package/base-compat-batteries"
 license=('MIT')
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-onetuple' 'haskell-base-compat' 'haskell-foldable1-
 makedepends=('ghc')
 checkdepends=('haskell-hspec' 'haskell-hspec-discover' 'haskell-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('3f509034ea6ef1de86985082dd949abefa6570a2c14338571a263221d1a3f9da17a77918174aecb8d7fb83970da2a362f1d3ac0f3c5a5bca76edbcac368edeef')
+sha512sums=('4b0a7ad748286c0ecd218c23b34228e61de6e2f75ca0d4d40724edf2bbb2b93e49df8e26a15e91836435529c0ccc01232130c1fb9409691380506c6acf93b534')
 
 build() {
     cd $_hkgname-$pkgver
