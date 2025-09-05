@@ -4,7 +4,7 @@
 
 pkgbase=podman
 pkgname=(podman podman-docker)
-pkgver=5.6.0
+pkgver=5.6.1
 pkgrel=1
 pkgdesc='Tool and library for running OCI-based containers in pods'
 arch=(x86_64)
@@ -36,8 +36,8 @@ validpgpkeys=(
   7CE1E6F8C90CB53E7E4D8F2D502E08DB0BBF8EEE  # Ashley Cui <acui@redhat.com>
   9E33DD8704CC03E2DEB84D9A1C1EDD7CC7C3A0DD  # Lokesh Mandvekar <lsm5@redhat.com>
 )
-sha512sums=('abe0a3086d0bb8df96f0631de3176271f61560a749788a173dc154382a4b78e0df4164e2cf42dd1a635b0131c6b796d9b08571ef37349288904ac64bb4e38680')
-b2sums=('0ddf6c9e8b7a96e32981acd98ac6ac5e3fd7ecfb07f36c8fa882c7054b9d3b188fd1e2c9ec5a3fdf5d39adf09f1a7d70acafc7252d92698757c364bfaa83c0d2')
+sha512sums=('70a3f2ac14fb3383a94140853e605dcfb05864aef78457b66a692b0ed89bf45ae6af45854cab5dc5476083c989530c68ad1f740367c0d44b59e9e5ca27b8f8ca')
+b2sums=('ebe8bc89266d77af789d45bf0e60dcb60ce68f4d49733f1543f2290400efbc188ff0b3bb8b1c09f88d66b4c00ce0d39fdd46b6ecf4d7aa4c1e117865bbe967ee')
 
 build() {
   export CGO_CPPFLAGS="${CPPFLAGS}"
