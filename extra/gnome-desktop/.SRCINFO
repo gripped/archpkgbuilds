@@ -1,6 +1,6 @@
 pkgbase = gnome-desktop
 	pkgdesc = Provides API shared by several apps on the GNOME desktop
-	pkgver = 44.3
+	pkgver = 44.4
 	pkgrel = 1
 	epoch = 1
 	url = https://gitlab.gnome.org/GNOME/gnome-desktop
@@ -29,8 +29,8 @@ pkgbase = gnome-desktop
 	depends = libxkbcommon
 	depends = systemd-libs
 	depends = xkeyboard-config
-	source = git+https://gitlab.gnome.org/GNOME/gnome-desktop.git#tag=44.3
-	b2sums = c59704adb27ce2784278de9bba2e9d0b0d84abc9ee15e2211ec8d2f56f78382c8ee1ceeeb3edec290d573a59c10b4c5a66569e6bc3a39a524d656db422958540
+	source = git+https://gitlab.gnome.org/GNOME/gnome-desktop.git#tag=44.4
+	b2sums = 1eff749ce5a00178c2186f01654299314aa2fa6084347f773e6c1778d3316e85cd9d0ddf64c77263ec102ddf19b22881df709bfad41482e14c7e5eb8fecbf3ad
 
 pkgname = gnome-desktop-common
 	pkgdesc = Provides API shared by several apps on the GNOME desktop (common files)
@@ -50,7 +50,7 @@ pkgname = gnome-desktop
 	depends = libxkbcommon
 	depends = systemd-libs
 	depends = xkeyboard-config
-	depends = gnome-desktop-common=1:44.3-1
+	depends = gnome-desktop-common=1:44.4-1
 	depends = gtk3
 	provides = libgnome-desktop-3.so
 
@@ -68,7 +68,7 @@ pkgname = gnome-desktop-4
 	depends = libxkbcommon
 	depends = systemd-libs
 	depends = xkeyboard-config
-	depends = gnome-desktop-common=1:44.3-1
+	depends = gnome-desktop-common=1:44.4-1
 	depends = gtk4
 	provides = libgnome-bg-4.so
 	provides = libgnome-desktop-4.so
