@@ -3,8 +3,8 @@
 
 _hkgname=pandoc-lua-marshal
 pkgname=haskell-pandoc-lua-marshal
-pkgver=0.2.7.1
-pkgrel=41
+pkgver=0.2.8
+pkgrel=1
 pkgdesc="Use pandoc types in Lua"
 url="https://github.com/pandoc/pandoc-lua-marshal"
 license=("MIT")
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-hslua' 'haskell-hslua-list'
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-lua' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('bcfb0a8e6913e90e1552496bf3029f2437d09ab8cbb06e06c85e70d5c586e1f9')
+sha256sums=('6a3dfdba065f21a89bebfb2e548db30ddffc01eb5f704e139d0fc29290ada87c')
 
 prepare() {
   cd $_hkgname-$pkgver
