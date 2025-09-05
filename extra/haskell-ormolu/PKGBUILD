@@ -2,19 +2,19 @@
 
 _hkgname=ormolu
 pkgname=haskell-ormolu
-pkgver=0.5.2.0
-pkgrel=11
+pkgver=0.5.3.0
+pkgrel=1
 pkgdesc="A formatter for Haskell source code"
 url="https://github.com/tweag/ormolu"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-diff' 'haskell-dlist' 'haskell-file-embed'
-         'haskell-ghc-lib-parser' 'haskell-gitrev' 'haskell-megaparsec' 'haskell-memotrie'
-         'haskell-optparse-applicative' 'haskell-syb')
+         'haskell-ghc-lib-parser' 'haskell-megaparsec' 'haskell-memotrie'
+         'haskell-optparse-applicative' 'haskell-syb' 'haskell-th-env')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-megaparsec'
              'haskell-path' 'haskell-path-io' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('8a83b0b6ae8a7ea351ece7d1c7236d1930c03ede3d227682789a717d7883f0e1560795e1f9df320f614b6dd0fe7caf710161a0ad48b8fd4a71b6540013ad1dcd')
+sha512sums=('aabb9a75cb21d1c8d4d66989a01899d1707ab2971c0a3883514bf4f8e1644857eb0969434f468d9df75ed3ab2db29ab23217859b5f273862fe8f3b37a6608d00')
 
 prepare() {
   cd $_hkgname-$pkgver
