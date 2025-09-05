@@ -2,19 +2,19 @@
 # Contributor: alphazo <alphazo@gmail.com>
 
 pkgname=sshuttle
-pkgver=1.3.1
+pkgver=1.3.2
 pkgrel=1
 pkgdesc='Transparent proxy server that forwards all TCP packets over ssh'
 arch=('any')
 url="https://github.com/sshuttle/sshuttle"
-license=('LGPL-2.1')
+license=('LGPL-2.1-or-later')
 depends=('iptables' 'openssh' 'net-tools')
 makedepends=('git' 'python-sphinx' 'python-build' 'python-installer' 'python-hatchling')
 checkdepends=('python-pytest')
 backup=('etc/sshuttle/tunnel.conf' 'etc/sshuttle/prefixes.conf')
 source=("git+https://github.com/sshuttle/sshuttle.git#tag=v$pkgver"
         'sshuttle.service' 'prefixes.conf' 'tunnel.conf')
-sha512sums=('613af6c265f535cde5b4c40f340d479cdb0f79bf797d1fe6e8c927f36e86765efa761a64c37b4edfb35dcf07d00f0291b6603436c8796011794af357922db8c3'
+sha512sums=('f90277c86b153b0a0ec2b584784d8f63abd61810ea5bbce48f17a270d58a66351b7a21df62b05ae08cd337d14d46ef11b7a4bff34bf8660001add5eb731bfc27'
             'c22504798f6220cd6b0946d6975375437c52753a241cd2a6a03d3aeb005ed1d78e6356dde23716e2514ccf6d7f1c6aace43956dbeede1bf028753b9bdcdd8b7d'
             'cc5a5dee7991c7641fa8a4fb356e1977aa9d1cbfed63cb5ebf8732c4de76be841f66d9267472e70578b176f528d8cfb4f75e634d5d915f4c8bcdc0b801db8a13'
             'acd3d0024d4604cc6a96609286c3f27bce2f0b70a068f58a2110dacc235b22ba7cd83c8989f46d0a9391eda7d272040bb3b1b2c547ae3fa0c9f61bef0a187dda')
