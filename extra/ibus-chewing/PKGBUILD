@@ -6,7 +6,7 @@
 # Contributor: Hiroshi Yui <hiroshiyui@gmail.com>
 
 pkgname=ibus-chewing
-_pkgver=2.1.6
+_pkgver=2.1.7
 pkgver=${_pkgver/-rc./rc}
 pkgrel=1
 pkgdesc='Chinese Chewing Engine for IBus Framework'
@@ -18,8 +18,8 @@ depends=('ibus' 'libchewing>=0.9.0' 'gtk4' 'libadwaita')
 makedepends=('cmake' 'minisign' 'glib2-devel')
 checkdepends=('dbus' 'xorg-server-xvfb')
 source=("https://github.com/chewing/ibus-chewing/releases/download/v$_pkgver/$pkgname-$_pkgver-Source.tar.xz"{,.minisig})
-sha512sums=('b8820588309401832ab90a53a8bda2921fc55faa8e99848103b95f4c8f9a7c21a5ee7c506b14a3e3d77317029aae9610b12a63801c3dc844f1345188fbd18272'
-            '3d8bbc246d4fe88d76c39b5d4d8b701288eaa02f944188178f3f37e259a4d7c8606e2a9208f20c49a4143f2f0aa6f0cc37e6065189dadcfa8742b7114ea69ebc')
+sha512sums=('7a654b6a46e0d0cb5b35900a1cce535e52292b345854afbd20e4de5f8778fb7eeabb66b4786251a705c90d8ad69258af87dc9075505a9d901363317d2467b250'
+            '834c15e86ae52c46dd0d2bd4c4382265f782f27fde07c3dcbbbf76689df556259a5aa747e9730da5b5fa73427d015901e73fdf8d640be37699308355cb991aa3')
 # The key is mentioned on https://github.com/chewing/ibus-chewing
 _validminisignkey='RWRzJFnXiLZleAyCIv1talBjyRewelcy9gzYQq9pd3SKSFBPoy57sf5s'
 
@@ -45,8 +45,9 @@ check() {
 
   # glib-compile-schemas is needed for tests
   # https://github.com/chewing/ibus-chewing/blob/v2.0.0/.github/workflows/ci.yml#L33
-  glib-compile-schemas ../src/setup --targetdir "$srcdir/$pkgname-$_pkgver-Source/build/bin"
-  GSETTINGS_SCHEMA_DIR="$srcdir/$_pkgname/build/bin/" xvfb-run --auto-display dbus-run-session make test
+  export GSETTINGS_SCHEMA_DIR="$srcdir/$pkgname-$_pkgver-Source/build/bin"
+  glib-compile-schemas ../src/setup --targetdir "$GSETTINGS_SCHEMA_DIR"
+  xvfb-run --auto-display dbus-run-session make test
 }
 
 package() {
