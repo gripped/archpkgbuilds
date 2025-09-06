@@ -1,31 +1,32 @@
 pkgbase = deepin-editor
 	pkgdesc = Simple editor for Deepin
-	pkgver = 6.5.12
+	pkgver = 6.5.13
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-editor
 	arch = x86_64
 	groups = deepin-extra
-	license = GPL3
+	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = cmake
 	makedepends = gmock
 	makedepends = gtest
 	makedepends = ninja
-	makedepends = qt5-tools
-	depends = deepin-qt5integration
-	depends = dtkcore
-	depends = dtkgui
-	depends = dtkwidget
+	makedepends = qt6-tools
+	depends = dtk6core
+	depends = dtk6gui
+	depends = dtk6widget
+	depends = dtk6declarative
 	depends = deepin-qt-dbus-factory
 	depends = gcc-libs
 	depends = icu
-	depends = qt5-base
-	depends = qt5-svg
-	depends = kcodecs5
-	depends = syntax-highlighting5
+	depends = qt6-5compat
+	depends = qt6-base
+	depends = qt6-svg
+	depends = kcodecs
+	depends = syntax-highlighting
 	depends = libchardet
 	depends = uchardet
-	source = git+https://github.com/linuxdeepin/deepin-editor.git#tag=6.5.12
-	sha512sums = 21a411be4fb4e13d110500d4873b000b6f682fafd9b358bc1128b6fc06d245a596b9985ba7b4afcd8082ce48c3c0e422f99ac7770e3d30277478b67bedd162aa
+	source = git+https://github.com/linuxdeepin/deepin-editor.git#tag=6.5.13
+	sha512sums = cae6ce27929bbd44d04a870b18b05cc0943f7f79535d19321d3f39c86db946c4571ee8f65296ada12a2cc90ad89a4cb713342852658404caf6faba5067c04612
 
 pkgname = deepin-editor
