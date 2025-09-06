@@ -4,7 +4,7 @@
 _name=monaspace
 pkgbase=$_name-font
 pkgname=(otf-$_name otf-$_name-nerdfonts ttf-$_name-frozen ttf-$_name-variable)
-pkgver=1.300
+pkgver=1.301
 pkgrel=1
 pkgdesc='An innovative superfamily of fonts for code, by GitHub'
 arch=(any)
@@ -16,10 +16,10 @@ source=("$url/releases/download/v$pkgver/${_archive/FLAVOR/frozen}.zip"
         "$url/releases/download/v$pkgver/${_archive/FLAVOR/static}.zip"
         "$url/releases/download/v$pkgver/${_archive/FLAVOR/variable}.zip"
         "$_name-$pkgver-LICENSE::$url/raw/refs/tags/v$pkgver/LICENSE")
-sha256sums=('22676c3a486c8fed22bba510a1db69b48afb2bdd1d77edf9e0ec71e37c56e52d'
-            'a02bddd0c73682accf7eab90f242b693bdc3a8af42b7a79c43377bc5daa148ac'
-            'b857609c97dcf8c55e3fc408c6bf3e62b50b53122d6b1cc6813554e39cbebccc'
-            'ad5ae96b716ac4273a574729c49cdcb7814915785c749e3fdc88ba4c063be449'
+sha256sums=('e82c1a0dc52f88f935b3b46ce4b4e50f811517186c86e183e05b1f1d396797d7'
+            '051e9c3665b395a9939545396fba80048eda3ab8a97f3a911fbbf42bd3217d60'
+            'e201697c8ef3cfd4559fbfb4b5f60bf7425113729bca28e33b0a9112db1ca579'
+            '255d7101e6fefc9d4bb7df844c79b7f4e11c61e62387a13c4bd0a5970c3f6674'
             '0e84e5f7dd6f05e74a00f2fb828ca43e489d954f5509ff0fa439ea18c0d35fe9')
 
 package_otf-monaspace() {
