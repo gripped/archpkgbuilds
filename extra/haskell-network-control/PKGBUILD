@@ -2,16 +2,17 @@
 
 _hkgname=network-control
 pkgname=haskell-network-control
-pkgver=0.0.2
-pkgrel=49
+pkgver=0.1.0
+pkgrel=1
 pkgdesc="Library to control network protocols"
 url="https://hackage.haskell.org/package/network-control"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-psqueues' 'haskell-unix-time')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover'
+             'haskell-pretty-simple')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('f7575119628d930d186ad41f2d2dd2d9869f72abb0108f1b2ab0ef22c16e5cec526b7f825f6e565cc46f81ae17611ca234413cd097621ffa966aca9828cc8270')
+sha512sums=('6adf7da61443be77855e160f596c8b4399410e01aaecdaff32593b8112a60972777ff1b025618484771b41dc9f5e2f4f1a531157adc8eb376e7ed59c18ea88ef')
 
 prepare() {
   cd $_hkgname-$pkgver
