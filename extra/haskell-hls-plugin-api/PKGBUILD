@@ -3,7 +3,7 @@
 _hkgname=hls-plugin-api
 pkgname=haskell-hls-plugin-api
 pkgver=2.1.0.0
-pkgrel=41
+pkgrel=42
 pkgdesc="Haskell Language Server API for plugin communication"
 url="https://github.com/haskell/haskell-language-server/hls-plugin-api"
 license=('Apache-2.0')
@@ -22,6 +22,7 @@ sha512sums=('a00a440dabb05b8399100ffa75382aa8385a5e5395c599379f147168ad73902dcf3
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u Diff
 }
 
 build() {
