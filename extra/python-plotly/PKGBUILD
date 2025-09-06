@@ -2,7 +2,7 @@
 # Contributor: Grey Christoforo <first name at last name dot net>
 
 pkgname=python-plotly
-pkgver=6.2.0
+pkgver=6.3.0
 pkgrel=1
 pkgdesc="An open-source, interactive graphing library"
 arch=('any')
@@ -46,7 +46,7 @@ checkdepends=(
 source=(
      "${pkgname}::git+https://github.com/plotly/plotly.py#tag=v$pkgver"
 )
-sha256sums=('9311636049db578970e53ada1518f2efd6d83c2a508f8b3b865350f4de64ad80')
+sha256sums=('f63470fb7060d674ad6072a490e77320028c287f63766aae3100ca6bf80a457c')
 options=(!strip !debug) # strip and debug aren't useful for python files and take forever
 
 prepare() {
