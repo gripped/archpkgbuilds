@@ -3,7 +3,7 @@
 
 pkgname=arch-hs
 pkgver=0.12.0.4
-pkgrel=26
+pkgrel=27
 pkgdesc="Distribute hackage packages to archlinux"
 arch=('x86_64')
 url="https://github.com/berberman/arch-hs"
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'pacman' 'haskell-diff' 'haskell-aeson' 'haskell-algebraic-g
          'haskell-microlens-th' 'haskell-neat-interpolation' 'haskell-optparse-simple'
          'haskell-polysemy' 'haskell-prettyprinter' 'haskell-prettyprinter-ansi-terminal'
          'haskell-servant-client' 'haskell-split' 'haskell-tar-conduit')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
 sha512sums=('f65c14acc53471da738a27a2fdeb0f7ecfcf104c68a0f14f672297a4054bfe32de966195816dfaec54f2603ed316e8f02d06e409eed68b987a911ff3e9642797')
 
@@ -28,6 +28,11 @@ _install_comp(){
   install -D -m644 bash${1} "$pkgdir/usr/share/bash-completion/completions/arch-hs${1}"
   install -D -m644 zsh${1}  "$pkgdir/usr/share/zsh/site-functions/_arch-hs${1}"
   install -D -m644 fish${1} "$pkgdir/usr/share/fish/vendor_completions.d/arch-hs${1}.fish"
+}
+
+prepare() {
+  cd $pkgname-$pkgver
+  uusi -u Diff
 }
 
 build() {
