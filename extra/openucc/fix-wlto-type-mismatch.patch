@@ -1,0 +1,78 @@
+From ed6b3e1a68cf41cc9096f7a8cfe584393d9ef8c8 Mon Sep 17 00:00:00 2001
+From: Nick Sarkauskas <nsarkauskas@nvidia.com>
+Date: Mon, 18 Aug 2025 15:00:08 +0000
+Subject: [PATCH] CL/HIER: Fix Wlto-type-mismatch
+
+---
+ src/components/cl/hier/cl_hier_context.c | 15 ++++++++-------
+ src/components/tl/self/tl_self_context.c | 15 ++++++++-------
+ 2 files changed, 16 insertions(+), 14 deletions(-)
+
+diff --git a/src/components/cl/hier/cl_hier_context.c b/src/components/cl/hier/cl_hier_context.c
+index 6531c85bc8d..03702026401 100644
+--- a/src/components/cl/hier/cl_hier_context.c
++++ b/src/components/cl/hier/cl_hier_context.c
+@@ -92,21 +92,22 @@ ucc_cl_hier_get_context_attr(const ucc_base_context_t *context, /* NOLINT */
+     return UCC_OK;
+ }
+ 
+-ucc_status_t ucc_cl_hier_mem_map(const ucc_base_context_t *context, int type, /* NOLINT */
+-                                 void *address, size_t len, void *memh, /* NOLINT */
+-                                 void *tl_h) /* NOLINT */
++ucc_status_t ucc_cl_hier_mem_map(const ucc_base_context_t *context, ucc_mem_map_mode_t mode,
++                                 ucc_mem_map_memh_t *memh, ucc_mem_map_tl_t *tl_h)
+ {
+     return UCC_ERR_NOT_SUPPORTED;
+ }
+ 
+-ucc_status_t ucc_cl_hier_mem_unmap(const ucc_base_context_t *context, int type, /* NOLINT */
+-                                   void *tl_h) /* NOLINT */
++ucc_status_t ucc_cl_hier_mem_unmap(const ucc_base_context_t *context, ucc_mem_map_mode_t mode,
++                                   ucc_mem_map_tl_t *tl_h)
+ {
+     return UCC_ERR_NOT_SUPPORTED;
+ }
+ 
+-ucc_status_t ucc_cl_hier_memh_pack(const ucc_base_context_t *context, /* NOLINT */
+-                                   int type, void *memh, void **packed_buffer) /* NOLINT */
++ucc_status_t ucc_cl_hier_memh_pack(const ucc_base_context_t *context,
++                                   ucc_mem_map_mode_t mode, ucc_mem_map_tl_t *tl_h,
++                                   void **packed_buffer)
+ {
+     return UCC_ERR_NOT_SUPPORTED;
+ }
++
+diff --git a/src/components/tl/self/tl_self_context.c b/src/components/tl/self/tl_self_context.c
+index a15378e9386..590d2e3f98f 100644
+--- a/src/components/tl/self/tl_self_context.c
++++ b/src/components/tl/self/tl_self_context.c
+@@ -50,21 +50,22 @@ ucc_tl_self_get_context_attr(const ucc_base_context_t *context, /* NOLINT */
+     return UCC_OK;
+ }
+ 
+-ucc_status_t ucc_tl_self_mem_map(const ucc_base_context_t *context, int type, /* NOLINT */
+-                                 void *address, size_t len, void *memh, /* NOLINT */
+-                                 void *tl_h) /* NOLINT */
++ucc_status_t ucc_tl_self_mem_map(const ucc_base_context_t *context, ucc_mem_map_mode_t mode,
++                                 ucc_mem_map_memh_t *memh, ucc_mem_map_tl_t *tl_h)
+ {
+     return UCC_ERR_NOT_SUPPORTED;
+ }
+ 
+-ucc_status_t ucc_tl_self_mem_unmap(const ucc_base_context_t *context, int type, /* NOLINT */
+-                                   void *memh) /* NOLINT */
++ucc_status_t ucc_tl_self_mem_unmap(const ucc_base_context_t *context, ucc_mem_map_mode_t mode,
++                                   ucc_mem_map_tl_t *tl_h)
+ {
+     return UCC_ERR_NOT_SUPPORTED;
+ }
+ 
+-ucc_status_t ucc_tl_self_memh_pack(const ucc_base_context_t *context, /* NOLINT */
+-                                   int type, void *memh, void **pack_buffer) /* NOLINT */
++ucc_status_t ucc_tl_self_memh_pack(const ucc_base_context_t *context,
++                                   ucc_mem_map_mode_t mode, ucc_mem_map_tl_t *tl_h,
++                                   void **pack_buffer)
+ {
+     return UCC_ERR_NOT_SUPPORTED;
+ }
++
