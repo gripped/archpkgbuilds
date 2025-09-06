@@ -2,7 +2,7 @@
 # Contributor: Joost Bremmer <toost dot b at gmail dot com>
 
 pkgname=timew
-pkgver=1.9.0
+pkgver=1.9.1
 pkgrel=1
 pkgdesc="Timewarrior, A command line time tracking application"
 arch=('x86_64')
@@ -13,7 +13,7 @@ optdepends=('task: Taskwarrior integration'
             'python: Holiday refresh script')
 install=$pkgname.install
 source=("https://github.com/GothenburgBitFactory/timewarrior/releases/download/v${pkgver}/timew-${pkgver}.tar.gz")
-sha256sums=('24365dc1537aa7b0b8c33877df9933a5b8b86e86a25858a5126b1eb4f3bc0b08')
+sha256sums=('7ad34f95c0d61d356df55149f9479f8d9aaec417e5f57f2a1cc76ae2f8a3171b')
 
 build() {
     cd "${pkgname}-${pkgver}"
