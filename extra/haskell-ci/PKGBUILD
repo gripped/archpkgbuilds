@@ -3,8 +3,8 @@
 
 _hkgname=haskell-ci
 pkgname=haskell-ci
-pkgver=0.16.3
-pkgrel=39
+pkgver=0.16.6
+pkgrel=1
 pkgdesc="Cabal package script generator for Travis-CI"
 url="https://haskell-ci.rtfd.org/"
 license=('GPL-3.0-or-later')
@@ -17,11 +17,11 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base-compat'
          'haskell-unordered-containers' 'haskell-zinza')
 makedepends=('ghc' 'uusi' 'haskell-diff' 'haskell-ansi-terminal' 'haskell-tasty' 'haskell-tasty-golden')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('0a0579be28cbd439b92fb968f9dd09f6fe87415c0d5690b7db657168ffd7f4748893e80548753d844a5b67301e29a85e990fec7a3080e1bcacf334e33900d030')
+sha512sums=('0618c878e0a7baae3e7f3fbf3b2a00dcec113cd6bdae260694a19d154b66c839d0b942d3be7fa2f2fda36078323d5071c12a7a1fffb4dbdda5c0a92324b6f91e')
 
 prepare(){
   cd $_hkgname-$pkgver
-  uusi -u Diff -u aeson -u base-compat -u Cabal-syntax -u ansi-terminal -u lattices -u optparse-applicative -u ShellCheck -u tasty
+  uusi -u Diff -u aeson -u Cabal-syntax -u ShellCheck -u tasty
 }
 
 build() {
