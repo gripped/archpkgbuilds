@@ -3,7 +3,7 @@
 # Contributor: Jonni Westphalen <jonny.westphalen@googlemail.com>
 
 pkgname=python-pyclibrary
-pkgver=0.2.2
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="C parser and bindings automation for Python"
 arch=(any)
@@ -17,16 +17,18 @@ makedepends=(
   python-build
   python-installer
   python-setuptools
+  python-setuptools-scm
 )
 checkdepends=(
   python-pytest
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-b2sums=('643fc15266af394c155f08dd366196dd68b7a30b6ff240363e7bf37e58f762111447567f67cebe7b54dcdb5bfab48e3f2bfa79ba22a09d90a084052d773671c5')
+b2sums=('1676e1208713c14bb0e53811e4ba070fcac6c45c1ffb41b607734c9b231e82c8d8359d24d0de5114c98b61b11aae45ba2cae86de7e2a040b8e566a45fa6fd0fe')
 
 build() {
   cd pyclibrary-$pkgver
 
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver \
   python -m build --wheel --no-isolation
 }
 
