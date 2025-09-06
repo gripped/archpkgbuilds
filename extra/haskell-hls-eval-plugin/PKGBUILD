@@ -3,7 +3,7 @@
 _hkgname=hls-eval-plugin
 pkgname=haskell-hls-eval-plugin
 pkgver=2.1.0.0
-pkgrel=45
+pkgrel=46
 pkgdesc="Eval plugin for Haskell Language Server"
 url="https://github.com/haskell/haskell-language-server"
 license=('Apache-2.0')
@@ -22,6 +22,7 @@ sha512sums=('2075d8b4059b4ddd53a8370870655f5d7a1477a1f44380109cd104c90ea6456e51a
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u Diff
 }
 
 build() {
