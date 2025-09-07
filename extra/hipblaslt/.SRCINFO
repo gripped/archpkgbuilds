@@ -1,7 +1,7 @@
 pkgbase = hipblaslt
 	pkgdesc = General matrix-matrix operations beyond a traditional BLAS library
 	pkgver = 6.4.3
-	pkgrel = 1
+	pkgrel = 2
 	url = https://rocm.docs.amd.com/projects/hipBLASLt/en/latest/index.html
 	arch = x86_64
 	license = MIT
@@ -23,6 +23,7 @@ pkgbase = hipblaslt
 	depends = hip-runtime-amd
 	depends = hipblas
 	depends = rocblas
+	options = !strip
 	source = hipblaslt-6.4.3.tar.gz::https://github.com/ROCm/hipBLASLt/archive/rocm-6.4.3.tar.gz
 	source = hipblaslt-find-msgpack5.patch
 	source = hipblaslt-clang.patch
