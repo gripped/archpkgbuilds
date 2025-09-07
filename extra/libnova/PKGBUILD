@@ -1,25 +1,30 @@
-# Maintainer: Ronald van Haren <ronald@archlinux.org>
+# Maintainer: George Hu <integral@archlinux.org>
+# Contributor: Ronald van Haren <ronald@archlinux.org>
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=libnova
-pkgver=0.15.0
-pkgrel=4
+pkgver=0.16
+pkgrel=3
 pkgdesc="A general purpose, double precision, celestial mechanics, astrometry and astrodynamics library."
 url="http://libnova.sourceforge.net/"
-license=('GPL2')
+license=('LGPL-2.0-or-later')
 arch=('x86_64')
 depends=('glibc')
-source=(https://downloads.sourceforge.net/sourceforge/libnova/$pkgname-$pkgver.tar.gz)
-sha512sums=('77ab0ccbfe462c03a21e88656cb4d6389994ea1da0ee8da997f19a83d24ad8fd9e505e70e1580b75332e826e5b7859b5f2af4417f65eb811440493ba586f2574')
+makedepends=('git')
+source=("git+https://git.code.sf.net/p/libnova/libnova#tag=v${pkgver}")
+sha512sums=('783fcc8668b5c62fe90ab08c00b6c4ef57386febff3c532bfba9743bb4d1e64aa5dbe5d5bc6b71fb5608adce718585b1fc3eeab593ce833408a622613347e87f')
+
+prepare() {
+	cd "${pkgname}/"
+	autoreconf -fvi
+}
 
 build() {
-	cd ${pkgname}-${pkgver}
-	autoreconf -i
+	cd "${pkgname}/"
 	./configure --prefix=/usr
 	make
 }
 
 package() {
-        cd ${pkgname}-${pkgver}
-	make DESTDIR="${pkgdir}" install
+	DESTDIR="${pkgdir}" make -C "${pkgname}" install
 }
