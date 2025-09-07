@@ -1,8 +1,8 @@
 # Maintainer: Johannes Löthberg <johannes@kyriasis.com>
 
 pkgname=python-txredisapi
-pkgver=1.4.7
-pkgrel=7
+pkgver=1.4.11
+pkgrel=1
 
 pkgdesc='Non-blocking redis client for python'
 url='https://pypi.python.org/pypi/txredisapi/'
@@ -14,7 +14,7 @@ makedepends=('python-setuptools')
 
 source=("https://pypi.org/packages/source/t/txredisapi/txredisapi-$pkgver.tar.gz")
 
-sha256sums=('e6cc43f51e35d608abdca8f8c7d20e148fe1d82679f6e584baea613ebec812bb')
+sha256sums=('3eb1af99aefdefb59eb877b1dd08861efad60915e30ad5bf3d5bf6c5cedcdbc6')
 
 build() {
 	cd "$srcdir"/txredisapi-$pkgver
