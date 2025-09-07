@@ -4,7 +4,7 @@
 
 pkgname=libindi
 pkgver=2.1.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A distributed control protocol designed to operate astronomical instrumentation'
 url='https://www.indilib.org/index.php?title=Main_Page'
 license=(LGPL-2.1-only)
