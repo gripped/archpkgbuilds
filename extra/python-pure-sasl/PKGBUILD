@@ -2,14 +2,14 @@
 
 pkgname=python-pure-sasl
 pkgver=0.6.2
-pkgrel=9
+pkgrel=10
 pkgdesc="Pure Python client SASL implementation"
 url="https://github.com/thobbs/pure-sasl"
 license=('MIT')
 arch=('any')
 depends=('python')
 makedepends=('python-setuptools')
-optdepends=('python-kerberos: for GSSAPI support')
+optdepends=('python-pykerberos: for GSSAPI support')
 checkdepends=('python-pykerberos' 'python-six')
 source=("https://github.com/thobbs/pure-sasl/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         $pkgname-drop-mock.patch::https://github.com/thobbs/pure-sasl/pull/42.patch)
