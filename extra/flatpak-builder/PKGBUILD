@@ -1,13 +1,14 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=flatpak-builder
-pkgver=1.4.4
-pkgrel=2
+pkgver=1.4.5
+pkgrel=1
 pkgdesc="Tool to build flatpaks from source"
 url="https://flatpak.org"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
+  7zip
   appstream
   binutils
   breezy
@@ -22,6 +23,7 @@ depends=(
   glib2
   glibc
   json-glib
+  libarchive
   libelf
   libxml2
   libyaml
@@ -29,7 +31,6 @@ depends=(
   patch
   rpmextract
   tar
-  unzip
 )
 makedepends=(
   docbook-xsl
@@ -44,9 +45,9 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/libglnx.git"
   0001-Use-fusermount3.patch
 )
-b2sums=('04a6e52e225ebebeff17e3c7e712f09a926b341bea6051fb819c9d0bfdaecc0e789d0c7770c7ffd562acec8a22cb29f406c28af248f8d11d16b46a2690126b3b'
+b2sums=('6c81f4d73c5361677f8a6cc5865f2531c85e5a9953fdc8c77b0eed36ab6e211405c46c6604b1ba0473565417cf707f9186c0be9162f5662128694f1d01b93f45'
         'SKIP'
-        '3b21365ce64effa5e67c28ebe96ca6105df5e4f54983737b9493c77814e50431e1670521023e75f02c5f8616410ee865747af392fc21683e5c40670f827d05fe')
+        '898d4d694f6e03acf7db57b6601853403359d77224a97c5e693abd666ecde2e19fdc818996d9cb3553e355e87e01dd928a91f808f0092b6810ab99b491124c02')
 
 prepare() {
   cd $pkgname
