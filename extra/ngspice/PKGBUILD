@@ -5,7 +5,7 @@
 # Contributor: Luis Henrique <lmello.009@gmail.com>
 
 pkgname=ngspice
-pkgver=45
+pkgver=45.2
 _manual_pkgver=45 # manual seems to lag a bit behind
 pkgrel=1
 pkgdesc='Mixed-level/Mixed-signal circuit simulator based on Spice3f5, Ciber1b1, and Xspice'
@@ -25,9 +25,9 @@ source=(
   "$pkgname-$pkgver.tar.gz::https://downloads.sourceforge.net/project/$pkgname/ng-spice-rework/$pkgver/$pkgname-$pkgver.tar.gz"
   "https://sourceforge.net/projects/ngspice/files/ng-spice-rework/$pkgver/ngspice-$_manual_pkgver-manual.pdf"
 )
-sha512sums=('a23f41e84d6662aeb33e025693ebf5d77fc430ef39a9c8221fabb825b9163a48815edc5de7aa22ec7a0222d00ba34da1e827a2ba74e88329df6d0bb192a57d17'
+sha512sums=('4090e9433457c0b49dc1e7561bc630a5c6a340391f26be8142c6bd514ae13b72137589964fe9ae5a01069c9de7d8457bd41b0811a335b2c93a3c6e07044b35b1'
             '425d9320a01d409c7baab83d111f92643cae7df62a109e06d7e4fd366262441f4fdd62532db63fb4d4af4cb98e478b4f9fca5bd6c63fb89507dba685220f34ab')
-b2sums=('3865a0da33c0aa245cf32c7e96157e80736d068a03711d1fb61ce0c869b59fdf0931e91de6640bc4cfd139188fcb9d4893ab0095b54d5fb87b77e5cdf7aff961'
+b2sums=('e47a865f16c6d373ae9940317283890cff0b2d7cda0d77ee26ab3615b18a75b1a2a29133d9a03e14f9034c9ff48694edb6bfd89cd9fbc632c3b713948eae4349'
         'd5163652c6e7e088d3d3a95494a088f394f0c8efd71e80f15ac0f1d3dd238f17b7104be45390de39bf9aa2d41f1677ea7979685471cf9deaafc934c2a531c67a')
 
 build() {
