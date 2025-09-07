@@ -3,7 +3,7 @@
 
 pkgname=espflash
 pkgver=4.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Cargo subcommand for flashing Espressif devices over serial"
 url='https://github.com/esp-rs/espflash'
 arch=('x86_64')
@@ -25,7 +25,11 @@ b2sums=('1667a4304e7a5bf959b0f0ac2df51706b3e5187769c141fe80d45d206c902be6c4ce58d
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://github.com/esp-rs/espflash/issues/938
+  cargo update -p serialport
+
+  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')" # --locked
 }
 
 build() {
