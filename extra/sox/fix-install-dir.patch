@@ -1,0 +1,10 @@
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -207,6 +207,7 @@ install-exec-hook:
+ 		$(RM) libsox.la; $(LN_S) libsox_ng.la libsox.la; \
+ 		$(RM) libsox.so; $(LN_S) libsox_ng.so libsox.so; \
+ 		if test "$(pkgconfigdir)"; then \
++			mkdir -p $(DESTDIR)$(pkgconfigdir); \
+ 			cd $(DESTDIR)$(pkgconfigdir); \
+ 			$(RM) "sox.pc"; $(LN_S) sox_ng.pc sox.pc; \
+ 		fi; \

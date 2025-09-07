@@ -1,95 +1,87 @@
-# Maintainer: 
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
 # Contributor: David Runge <dvzrv@archlinux.org>
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=sox
-# using a git snapshot as 14.4.2 has many unfixed security vulns
-pkgver=14.4.2+r184+gf3094754
-pkgrel=7
-pkgdesc="The Swiss Army knife of sound processing tools"
-arch=('x86_64')
-url="https://sox.sourceforge.net/"
-license=('GPL2' 'LGPL2.1')
+pkgver=14.6.0.4
+pkgrel=2
+pkgdesc='The Swiss Army knife of sound processing tools'
+arch=(x86_64)
+url='https://codeberg.org/sox_ng/sox_ng/'
+license=(GPL-2.0-only)
 depends=(
-  'file'
-  'gcc-libs'
-  'gsm'
-  'libid3tag'
-  'libltdl'
-  'libpng'
-  'zlib'
+  ffmpeg
+  file
+  gcc-libs
+  gsm
+  libao
+  libid3tag
+  libltdl
+  libmad
+  libpng
+  opusfile
+  twolame
+  wavpack
+  zlib
 )
 makedepends=(
-  'alsa-lib'
-  'autoconf-archive'
-  'flac'
-  'git'
-  'lame'
-  'libao'
-  'libmad'
-  'libpulse'
-  'libsndfile'
-  'libvorbis'
-  'opencore-amr'
-  'opusfile'
-  'twolame'
-  'wavpack'
+  alsa-lib
+  autoconf-archive
+  flac
+  git
+  lame
+  libpulse
+  libsndfile
+  libvorbis
+  opencore-amr
 )
-checkdepends=('time')
+checkdepends=(time)
 optdepends=(
   'alsa-lib: alsa plugin'
   'flac: flac plugin'
   'lame: mp3 plugin'
-  'libao: ao plugin'
-  'libmad: mp3 plugin'
   'libpulse: pulse plugin'
   'libsndfile: caf, fap, mat4, mat5, paf, pvf, sd2, sndfile, w64 and xi plugins'
   'libvorbis: vorbis plugin'
   'opencore-amr: amr_nb and amr_wb plugins'
-  'opusfile: opus plugin'
-  'twolame: mp3 plugin'
-  'wavpack: wavpack plugin'
 )
-provides=('libsox.so')
-_commit=f3094754a7c2a7e55c35621d20fa9945736e72df  # master
-source=("sox-code::git+https://git.code.sf.net/p/sox/code#commit=${_commit}"
-        "unfixed-issues.patch"
-        "CVE-2023-32627.patch")
-sha256sums=('affffe2c3901b4859beb41bfc1d663ab959c968a3635a448359d50b1142a3d6a'
-            '1dc118fb304bc98e1e92f31ae90aa6e55ef1518a262d79a17c70b37ac6dcab9d'
-            '0fff925c8d1c743e2e524bcb01c16fc9c9d1781f661806a0ed602050fc3b8d67')
-
-pkgver() {
-  cd sox-code
-  git describe --tags | sed 's/^sox-//;s/[^-]*-g/r&/;s/-/+/g'
-}
+provides=(libsox.so)
+source=(
+  "$pkgname::git+https://codeberg.org/sox_ng/sox_ng.git#tag=sox_ng-${pkgver}"
+  fix-install-dir.patch
+)
+sha512sums=('14294ff022f86bca0c2a852331a391efe285d218547e7607c916a357f88f7fb28dda10b4bdbad848362335a1c5341f3c317c7caf8c6c5b76f405ae13072f265c'
+            '0431f400430ab9ca5685ff5438301489d4b493b342836f00bb9f08e2c28374ac8662ba68a6224a129e722ab33f6e015110caccc1db9a28fb13a729f47d8edc33')
+b2sums=('aaf22e4a2c7fadd2ed87276743109189345fe2e715db1567943634864d77e8bccfc8b1e0926f3be453cb26e4a9fdc4e62fca4477325216b54d5179e8b1cb104a'
+        'fd9042afa3d1cc6add7c4b053ad75784bdf6d163e803fff522b3e2e9b982246b1409573ca24a95cfe1466262199d9b3eac2b7ec328462cc2334368e718446860')
 
 prepare() {
-  cd sox-code
-  # https://www.openwall.com/lists/oss-security/2023/02/03/3
-  patch -Np1 -i ../unfixed-issues.patch
-  # https://sourceforge.net/p/sox/bugs/369/
-  patch -Np1 -i ../CVE-2023-32627.patch
+  cd "$pkgname"
+
+  patch -p1 -i "$srcdir/fix-install-dir.patch"
+
   autoreconf -vfi
 }
 
 build() {
+  cd "$pkgname"
+
   local configure_flags=(
     --prefix=/usr
     --sysconfdir=/etc
     --localstatedir=/var
-    --enable-formats=dyn
+    --enable-replace
     --with-distro="Arch Linux"
+    --with-ffmpeg
   )
 
-  cd sox-code
   ./configure "${configure_flags[@]}"
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make all README
 }
 
 check() (
-  cd sox-code/src
+  cd "$pkgname/src"
 
   export DESTDIR="${PWD}/tmp"
   mkdir -p "${DESTDIR}"
@@ -102,8 +94,12 @@ check() (
 )
 
 package() {
-  cd sox-code
+  cd "$pkgname"
+
   make DESTDIR="${pkgdir}" install
-  install -vDm644 AUTHORS ChangeLog README \
-    -t "${pkgdir}/usr/share/doc/${pkgname}"
+
+  # documentation
+  install -vDm644 \
+    -t "$pkgdir/usr/share/doc/$pkgname" \
+    AUTHORS ChangeLog README
 }
