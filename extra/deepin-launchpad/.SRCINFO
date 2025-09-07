@@ -1,10 +1,10 @@
 pkgbase = deepin-launchpad
 	pkgdesc = The "launcher" or "start menu" component for DDE - next generation
-	pkgver = 0.8.2
+	pkgver = 0.8.3
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-launchpad
 	arch = x86_64
-	license = GPL3
+	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
@@ -14,6 +14,7 @@ pkgbase = deepin-launchpad
 	depends = qt6-base
 	depends = qt6-declarative
 	depends = qt6-svg
+	depends = qt6-wayland
 	depends = dtk6core
 	depends = dtk6gui
 	depends = glib2
@@ -26,7 +27,7 @@ pkgbase = deepin-launchpad
 	provides = deepin-launcher
 	conflicts = deepin-launcher
 	replaces = deepin-launcher
-	source = git+https://github.com/linuxdeepin/dde-launchpad.git#tag=0.8.2
-	sha512sums = 78ab49eafd8bbfd30a31cfc5eddafc9a7fc8a3076e80df6f54f4d84bcd63b73b6dc8e73f68dd125b7ba11661f46316f805bda5120355a8ecdfa8f1fa371a0285
+	source = git+https://github.com/linuxdeepin/dde-launchpad.git#tag=0.8.3
+	sha512sums = 06019de61a7608b833c266765ae3e4d00eb7d3a9cddf12d134d679c2278cf63debf3a9bec1c86302bee8b1346715af68b237205cfb0a4855d8cc71aba1387ab0
 
 pkgname = deepin-launchpad
