@@ -8,7 +8,7 @@ pkgname=(
   lib32-pango
 )
 pkgver=1.56.4
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="A library for layout and rendering of text (32-bit)"
 url="https://www.pango.org/"
@@ -39,6 +39,10 @@ b2sums=('2396a29025fca9e843b4aad11369aa89141f65d55ee92bea633fcac714d881616b4d540
 
 prepare() {
   cd pango
+
+  # Fix a crash
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/pango/-/issues/3
+  git cherry-pick -n c7dcffdc86a2ac4fe8e176aac3a6b71cb79adbe4
 }
 
 build() {
