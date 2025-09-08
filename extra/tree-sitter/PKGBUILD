@@ -6,7 +6,7 @@ pkgname=(
   tree-sitter
   tree-sitter-cli
 )
-pkgver=0.25.8
+pkgver=0.25.9
 pkgrel=1
 arch=(x86_64)
 url=https://github.com/tree-sitter/tree-sitter
@@ -18,7 +18,7 @@ makedepends=(
 )
 options=(!lto) # Needed for CLI build
 source=("git+$url.git#commit=v$pkgver")
-b2sums=('0c2b49c2dfce544916ddf485aa4ef702725e00abf486415b70938876812b6d4ca0a39e3956c41c0b9d1cab405ca78ce8671c223bd05c625b67a068050a51c8ab')
+b2sums=('1d2c3497520f6695bd647cf01b61e19dafdcb6858969a0bbae9b54b6014751440cb7b0f2747acd8252449c6fec78ba9350ad34be6c11bece96e030f6d3857d4e')
 validpgpkeys=(FCC13F47A6900D64239FF13BE67890ADC4227273) # Amaan Qureshi <amaanq12@gmail.com>
 
 prepare() {
