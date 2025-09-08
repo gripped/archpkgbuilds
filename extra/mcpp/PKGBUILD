@@ -4,7 +4,7 @@
 
 pkgname=mcpp
 pkgver=2.7.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Matsui's CPP implementation precisely conformed to standards"
 arch=(x86_64)
 url="http://mcpp.sourceforge.net"
@@ -20,6 +20,8 @@ sha256sums=('d2d74eab7a13ade4b1070b11a5bd6775cc5509d88c1ca525f8c4ee3bae79c601'
 prepare() {
   cd $pkgname-$pkgver
   patch -Np1 -i ../double-namlen.patch
+
+  autoreconf -fiv
 }
 
 build() {
