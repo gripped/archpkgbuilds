@@ -5,11 +5,12 @@
 
 pkgname=libnvidia-container
 pkgver=1.17.8
-pkgrel=1
+pkgrel=2
 _nvmodver=550.54.14  # check the VERSION in libnvidia-container/mk/nvidia-modprobe.mk
 pkgdesc="NVIDIA container runtime library"
 arch=(x86_64)
 url="https://github.com/NVIDIA/libnvidia-container"
+# Upstream license is unclear https://github.com/NVIDIA/libnvidia-container/issues/193
 license=(Apache-2.0 GPL-3.0-or-later LGPL-3.0-or-later GPL-2.0-only)
 depends=(
   glibc
@@ -46,6 +47,9 @@ _common_make_flags=(
 
 prepare() {
   cd $pkgname-$pkgver
+
+  # solves https://gitlab.archlinux.org/archlinux/packaging/packages/nvidia-container-toolkit/-/issues/4
+  sed -i '/SCMP_SYS(chmod)/a\                SCMP_SYS(clock_gettime),' src/nvc_ldcache.c
 
   # nvidia-modprobe patching based on libnvidia-container/mk/nvidia-modprobe.mk
   mkdir -p deps/src/nvidia-modprobe-$_nvmodver
