@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=go-licenses
-pkgver=2.0.0
+pkgver=2.0.1
 pkgrel=1
 pkgdesc="Reports on the licenses used by a Go package and its dependencies"
 url="https://github.com/google/go-licenses"
@@ -16,8 +16,8 @@ makedepends=(
 # we can not use LTO as otherwise we get no reproducible package with full RELRO
 options=(!lto)
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/google/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz)
-sha256sums=('b1dea2846510f7ce464902f7dacf13e896093ac2cbf6a7794bdde9457e5ff977')
-b2sums=('2b292142345d35a523ba1f34df61238471ba5247668c9eddfbb54bfe7e2313e7bed03f4b17bd674360983ac990ed896134f74285b94666122f56a0308b427ccc')
+sha256sums=('04a875604c0cc62217fea3d283c243a2e4298142cdfeafb088b9e486daabded3')
+b2sums=('b726b41d87110bb0f04b4a1c908a01c564d5eabdb3781fe5aeea2627ca1a4e50d2184a54b8ea38033a6895ef357729177120a0601bb8b1192af1387cc2cc863f')
 
 prepare() {
   cd ${pkgname}-${pkgver}
