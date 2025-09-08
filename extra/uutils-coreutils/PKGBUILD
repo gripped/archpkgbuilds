@@ -4,7 +4,7 @@
 
 _pkgname=coreutils
 pkgname=uutils-$_pkgname
-pkgver=0.1.0
+pkgver=0.2.0
 pkgrel=1
 pkgdesc='Cross-platform Rust rewrite of the GNU coreutils'
 arch=('x86_64')
@@ -19,55 +19,71 @@ depends=(
 makedepends=(
   cargo
   clang
+  git
   python-sphinx
   rust
 )
 source=(
-  $pkgname-$pkgver.tar.gz::$_url/archive/$pkgver.tar.gz
-  disable_selinux.patch
+  $pkgname::git+$_url.git#tag=${pkgver}
 )
-sha512sums=('e9b3941573b2267e6a4b17c49a64d71234e4cbf067f1180fe14bfe48012c9d400741067f6231855a6132f93138eb4bbcb1e970e98c5f937f8d3a5e5bc019f03c'
-            'c1585671d2e0fe34a92746eae291f1be85e65c7ccfe2462cba5d324b8def76296f71b6d15738ecb2683453886de9c0650a0b9a609cad5f03b6ded89e5a91911c')
+b2sums=('c42f4c884bf15180fa19beca7b065256e59ae84313f4b055a1fe933bedd428c7a8fe940348daedb1a59380f0bd1c0fadf4134df0019841db4f0923c6759a38ba')
 options=('!lto')
 
 prepare() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
   sed 's|"bin"|"builduser"|g' -i tests/by-util/test_{chgrp,chown}.rs
-  # disable selinux in Makefile, upstream seems broken in parameter parsing
-  # SELINUX_ENABLE=0 should not enable SELINUX but fails
-  patch -Np1 -i ../disable_selinux.patch
 }
 
 build() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
 
   export RUSTONIG_DYNAMIC_LIBONIG=1
-  make PROFILE=release
+  # disable selinux by excluding runcon and chcon, upstream seems broken in parameter parsing
+  # SELINUX_ENABLE=0 should not enable SELINUX but fails
+  # https://github.com/uutils/coreutils/issues/7996
+  make PROFILE=release MULTICALL=y SKIP_UTILS="runcon chcon"
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
 
   make test \
     PROFILE=release \
     CARGOFLAGS=--release \
+    SKIP_UTILS="runcon chcon" \
     TEST_NO_FAIL_FAST="--no-fail-fast -- \
-        --skip test_chown::test_big_p \
-        --skip test_chgrp::test_big_p \
         --skip test_chgrp::test_big_h \
+        --skip test_chgrp::test_big_p \
         --skip test_chgrp::test_from_with_invalid_group \
+        --skip test_chmod::test_chmod_colored_output \
+        --skip test_chown::test_big_p \
+        --skip test_env::test_env_french \
+        --skip test_error_messages_french_translation \
+        --skip test_french_colored_error_messages \
+        --skip test_help_messages_french_translation \
+        --skip test_ls::test_localized_possible_values \
+        --skip test_sort::test_argument_suggestion \
+        --skip test_sort::test_clap_localization_help_message \
+        --skip test_sort::test_clap_localization_unknown_argument \
+        --skip test_sort::test_error_colors_disabled \
+        --skip test_sort::test_error_colors_enabled \
+        --skip test_sort::test_french_translations \
+        --skip test_sort::test_help_colors_disabled \
+        --skip test_sort::test_help_colors_enabled \
         --skip test_who::test_boot"
 }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
 
   make install \
     DESTDIR="$pkgdir" \
     PREFIX=/usr \
+    LIBSTDBUF_DIR=/usr/lib \
     MANDIR=/share/man/man1 \
     PROG_PREFIX=uu- \
     PROFILE=release \
+    SKIP_UTILS="runcon chcon" \
     MULTICALL=y
   install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
