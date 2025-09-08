@@ -1,6 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=python-pynvim
-pkgver=0.5.2
+pkgver=0.6.0
 pkgrel=1
 pkgdesc='Python client for Neovim'
 url='https://github.com/neovim/pynvim'
@@ -11,7 +11,7 @@ provides=('python-neovim')
 makedepends=('python-setuptools' 'python-build' 'python-wheel' 'python-installer')
 replaces=('python-neovim')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/neovim/pynvim/archive/${pkgver}.tar.gz")
-sha256sums=('c86e304d55fc8996296554b959cad483aeaafb47e425ebe3a7d0f96e3222f035')
+sha256sums=('6649d630ce4a94007fe69a8debb010c7b185057f36d61576d2542c90f3c8db99')
 
 prepare() {
   sed -i "s/msgpack-python/msgpack/g" pynvim-${pkgver}/setup.py
