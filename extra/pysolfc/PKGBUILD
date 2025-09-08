@@ -3,7 +3,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=pysolfc
-pkgver=3.4.0
+pkgver=3.4.1
 pkgrel=1
 pkgdesc="PySol (Fan Club edition) is an exciting collection of more than 1000 solitaire games"
 arch=('any')
@@ -29,7 +29,7 @@ optdepends=(
   'python-kivy: Kivy based interface'
 )
 source=("https://downloads.sourceforge.net/$pkgname/PySolFC-$pkgver.tar.xz")
-sha256sums=('677a79c29c228cd70ffc028615f2c05971e29638ca37cfa4c17a31b2ba477a59')
+sha256sums=('3b9bfb91f8f75b7cb9cc836424606975c5a0868c7b50c6917e51367a7c82e6cb')
 
 prepare() {
   cd PySolFC-$pkgver
