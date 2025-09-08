@@ -2,8 +2,8 @@
 # Contributor: Christian Muehlhaeuser <muesli at gmail dot com>
 
 pkgname=duf
-pkgver=0.8.1
-pkgrel=3
+pkgver=0.9.0
+pkgrel=1
 pkgdesc='Disk Usage/Free Utility'
 arch=(x86_64)
 url="https://github.com/muesli/$pkgname"
@@ -13,7 +13,7 @@ makedepends=(git
              go)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('ebc3880540b25186ace220c09af859f867251f4ecaef435525a141d98d71a27a')
+sha256sums=('a81883475ab5591840882892a85185b7cda153e87f4d3978b45dec215761585c')
 
 build() {
 	local commit=$(zcat ${source[1]##*/} | git get-tar-commit-id)
