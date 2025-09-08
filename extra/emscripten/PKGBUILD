@@ -5,12 +5,12 @@
 
 pkgname=emscripten
 # NOTE: You need to run ./get-compatible-versions.sh after changing the pkgver!
-_binaryen_revision=4d9f6f5c240c54fb2d3a0fea5545c8528569f845
-_llvm_project_revision=177f27d22092cb64e871e6cd2f8981d24e823186
+_binaryen_revision=fc1a391b9320602b624cefe5e760eda40cbb05a3
+_llvm_project_revision=1cc84bcc08f723a6ba9d845c3fed1777547f45f9
 # Sadly, upstream currently suggests bundling a binaryen version for the time being:
 # https://github.com/emscripten-core/emscripten/issues/12252
 # I'm obviously unhappy about that but it appears to be the only practical solution for the time being.
-pkgver=4.0.13
+pkgver=4.0.14
 pkgrel=1
 pkgdesc="Compile C and C++ into highly-optimizable JavaScript for the web"
 arch=('x86_64')
@@ -30,9 +30,9 @@ source=("git+https://github.com/kripken/emscripten#tag=$pkgver"
         git+https://github.com/WebAssembly/binaryen.git#commit=$_binaryen_revision
         "emscripten.sh"
         emscripten-config)
-sha512sums=('1349d0e01e9934c679da84db61360e49fbd4bb21a87b1b1fbc89635d8859960d67b6f4c148347d9757bfb05406e9a06611004fd3f5f525c05c9de1d7dc8eea58'
-            '01266b48efcc60cdefb6f163e759e7656f3c8388dd00090c589edcdb2f6b7fabb28c70a6ef3342dc58b6e3ecb0d2f9514a75ce8d89568e776113f2c8c72c708d'
-            '628626281ecc6b7565a1ac703b9cb312875238da6e95ddf1c0028fc7498ca1a922d3ecb10def0935556d287635e49fafaa8caa7674dc723b7998fb1e775a29b6'
+sha512sums=('d0a450422e19427fc06f13cf001d923f1a3c59dce21454a51bbdd04e86e9628b23adf57adf18eca7e42bb3dd47a018029709511faea58192c9b0c98915d11657'
+            'c404079783b368925dfa8d3301a831de85ab61706ea3ec9af4da6987ffa237214fd91b504a92404abff098899aaea21b4a930a6684d63e7edbcbe9ee470a8098'
+            'c08a8b2336f38251f5ed78f66eced0f5539f8cd91a36488069cf3b4086e87fb53cf77edb6126b98b2d5fee800482c27ca36f1f10b3338a3ba9d3a40fd970299f'
             'fbe9b95b8d18e7d0c6ec5fded6f11b72fbe4ddd0391e5704b281ba79c479f3563e82423b790ddf3f0554a23d659193ca898a81fe3db509f16c30c7188b790e4d'
             '8d22f727e64cace0eb33f049a2902b928c29a6448b05098030858590660f31e1dc142dae55a54bbcb4da09650173f571a64789e0a955aefb449ce0081fb438f9')
 
@@ -97,6 +97,10 @@ package() {
 
   # Install emscripten
   cd "$srcdir"/emscripten
+  # After this change: https://github.com/emscripten-core/emscripten/pull/23761
+  # Entrypoints are removed from the repository and supposed to be created by
+  # the following script
+  python tools/maint/create_entry_points.py
   DESTDIR="$pkgdir"/usr/lib/emscripten make install
 
   # Fix permissions messed up by npm
