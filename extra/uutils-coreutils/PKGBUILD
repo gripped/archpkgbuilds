@@ -5,7 +5,7 @@
 _pkgname=coreutils
 pkgname=uutils-$_pkgname
 pkgver=0.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Cross-platform Rust rewrite of the GNU coreutils'
 arch=('x86_64')
 url='https://uutils.github.io/'
@@ -86,6 +86,13 @@ package() {
     SKIP_UTILS="runcon chcon" \
     MULTICALL=y
   install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  # fix missing symlinks
+  cd "$pkgdir"/usr/bin/
+  for i in $(./uu-coreutils --list); do
+      if [[ ! -L "$pkgdir/usr/bin/uu-$i" ]]; then
+        ln -sf uu-coreutils "uu-$i"
+      fi
+  done
 }
 
 # vim: ts=2 sw=2 et:
