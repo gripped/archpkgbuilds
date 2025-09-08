@@ -3,7 +3,7 @@
 
 _pkgname=typer
 pkgname=python-typer
-pkgver=0.17.3
+pkgver=0.17.4
 pkgrel=1
 pkgdesc="Build great CLIs. Easy to code. Based on Python type hints"
 arch=('any')
@@ -12,7 +12,7 @@ license=('MIT')
 depends=('python-click' 'python-typing_extensions' 'python-rich' 'python-shellingham')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-flit-core' 'python-pdm-backend')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/tiangolo/typer/archive/${pkgver}.tar.gz")
-sha512sums=('f99664fa7440c5859f769d1ca713cf6deffed86dbb58b71551d21efc72367b44bf5fd4f77804cac54bc6482c098922fda35b1b79692441acad2c11bbb77364a1')
+sha512sums=('03e2084ff71d8f5680d788b4e72c6fa9f9f2b19c9dac3f2d0ab50b17b65b86d4a84815312eb3ceddeca9a58851a50cc4c56d8bf37397409187a866eff7473d4a')
 
 prepare() {
   cd typer-$pkgver
