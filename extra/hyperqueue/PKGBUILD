@@ -2,7 +2,7 @@
 
 pkgbase=hyperqueue
 pkgname=(hyperqueue python-hyperqueue)
-pkgver=0.23.0
+pkgver=0.24.0
 pkgrel=1
 pkgdesc="Scheduler for sub-node tasks for HPC systems with batch scheduling"
 arch=(x86_64)
@@ -30,7 +30,7 @@ checkdepends=(
   python-ruff
 )
 source=($pkgbase-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('ea3320fe46cc93712d897480fe2b28f69ac27c4109f97a73628b23aac8fc30d5cea842d8b0d0c41e8085fc0a1a3fc9d858964390c55e4298511d1ccd4cea462b')
+b2sums=('437bf54627bbb130508c221d497b0f545173c5344ffd9374fe4501524730f4034ab853df52391f899fee4b07a81f355c002248b161245d2dbe24babfb6ebc886')
 
 prepare() {
   cd $pkgbase-$pkgver
