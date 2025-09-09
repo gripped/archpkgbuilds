@@ -1,7 +1,7 @@
 # Maintainer: Christian Rebischke <Chris.Rebischke[at]archlinux[dot]org>
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=packer
-pkgver=1.14.1
+pkgver=1.14.2
 pkgrel=1
 pkgdesc="tool for creating identical machine images for multiple platforms from a single source configuration"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('LicenseRef-BSL-1.1')
 makedepends=('git' 'go' 'go-tools')
 depends=('glibc')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/hashicorp/packer/archive/v${pkgver}.tar.gz")
-sha512sums=('77c56788b8836778b211704abea1222feef45d379dbad10b08781f17a9773229419c64806f9d1b7caf6d8679436734967d5aa5eb52a36b156054cfa5ef397cf6')
+sha512sums=('4c91df45b6404186988952e0f7e33636f1ccd6c2f0b2185df9f18a4c9f268a5daf4188afdb1d19c4ec066db4d7679827d7d4d964a6c834c1e38eabab4876ea8c')
 
 prepare() {
 	export GOPATH="${srcdir}"
