@@ -4,7 +4,7 @@
 
 pkgname=potrace
 pkgver=1.16
-pkgrel=3
+pkgrel=4
 pkgdesc='Utility for tracing a bitmap (input: PBM,PGM,PPM,BMP; output: EPS,PS,PDF,SVG,DXF,PGM,Gimppath,XFig)'
 url='http://potrace.sourceforge.net/'
 arch=(x86_64)
@@ -12,19 +12,29 @@ license=(GPL-2.0-only)
 depends=(glibc # libc.so libm.so
          zlib libz.so)
 _archive="$pkgname-$pkgver"
-source=("http://potrace.sourceforge.net/download/$pkgver/$_archive.tar.gz")
-sha256sums=('be8248a17dedd6ccbaab2fcc45835bb0502d062e40fbded3bc56028ce5eb7acc')
+source=(
+  "http://potrace.sourceforge.net/download/$pkgver/$_archive.tar.gz"
+  potrace-1.16-lto.patch
+)
+sha256sums=('be8248a17dedd6ccbaab2fcc45835bb0502d062e40fbded3bc56028ce5eb7acc'
+            '88b6325e98015d75b3f12e83c133eb73773a3751c190516348d8a1235e3abe4a')
+
+prepare() {
+  cd "$_archive"
+  patch -Np1 -i ../potrace-1.16-lto.patch  # fixes FTBFS on aarch64 with LTO
+  autoreconf -fiv
+}
 
 build() {
-	cd "$_archive"
-	./configure \
-		--prefix=/usr \
-		--mandir=/usr/share/man \
-		--with-libpotrace
-	make
+  cd "$_archive"
+  ./configure \
+    --prefix=/usr \
+    --mandir=/usr/share/man \
+    --with-libpotrace
+  make
 }
 
 package() {
-	cd "$_archive"
-	make DESTDIR="$pkgdir" install
+  cd "$_archive"
+  make DESTDIR="$pkgdir" install
 }
