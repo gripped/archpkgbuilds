@@ -3,7 +3,7 @@
 # Contributor: speps <speps at aur dot archlinux dot org>
 
 pkgname=lnav
-pkgver=0.12.4
+pkgver=0.13.1
 pkgrel=1
 pkgdesc="A curses-based tool for viewing and analyzing log files"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('custom:BSD')
 depends=('ncurses' 'curl' 'pcre2' 'sqlite3' 'libarchive')
 makedepends=('openssh' 'cargo')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/tstack/lnav/archive/v$pkgver.tar.gz")
-sha256sums=('ee6ea75cbfd736f6ad8b32212883e45a1a64e48085a14757d2cfffa90ebb8e75')
+sha256sums=('abeab8713e245d89de0d91c7cf832c7f8cd9e0d42aa8d4d04b8771f11124a321')
 
 build() {
   cd $pkgname-$pkgver
