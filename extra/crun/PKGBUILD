@@ -2,7 +2,7 @@
 # Contributor: hexchian <i at hexchain dot org>
 
 pkgname=crun
-pkgver=1.23.1
+pkgver=1.24
 pkgrel=1
 pkgdesc="A fast and lightweight fully featured OCI runtime and C library for running containers"
 url="https://github.com/containers/crun"
@@ -13,7 +13,7 @@ depends=('yajl' 'systemd-libs' 'libcap' 'libseccomp' 'criu')
 makedepends=('libtool' 'python' 'go-md2man' 'systemd' 'git')
 source=("git+https://github.com/containers/crun.git#tag=$pkgver?signed")
 validpgpkeys=('AC404C1C0BF735C63FF4D562263D6DF2E163E1EA')
-sha256sums=('616cc7fdff3c6aa0429a9f2ab017a9b234ff8bda401250727879c9b4a9e35a76')
+sha256sums=('9e0cdb3e2b660620ec70c5a31bc934a33cf48fa30ec7c1cd3a241cc9c3a7a854')
 
 build() {
     cd "$pkgname"
