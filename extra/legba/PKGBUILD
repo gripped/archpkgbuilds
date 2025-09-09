@@ -1,8 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=legba
-pkgver=0.11.0
-pkgrel=2
+pkgver=1.1.1
+pkgrel=1
 pkgdesc="A multiprotocol credentials bruteforcer / password sprayer and enumerator"
 url='https://github.com/evilsocket/legba'
 arch=('x86_64')
@@ -13,17 +13,16 @@ license=(
 depends=(
   'gcc-libs'
   'glibc'
-  'libssl.so'
-  'smbclient'
 )
 makedepends=(
   'cargo'
+  'clang'
   'cmake'
 )
 options=('!lto')
-source=(https://github.com/evilsocket/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('c5e0cf14d372792ac99d692894d407911106b97f1307494bfa68e791ef2273c7')
-b2sums=('79d9efae82bfcd0631912bb64fdca8261898854ee54b371ecce5c02ab8c8e4a0a704163dddbfaa67e721429b6d8ed02832fdd384b9fa9a5c7c45a070894bbab1')
+source=(https://github.com/evilsocket/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('a5c7254b19910e2b1816a9e4af3720b772e35d1b0491cb42f90564ca01699d6f')
+b2sums=('71dd498db4e71113a964ab1fa00a7b99c532ac310759f002f6cac69d2c4965569f07071d931f145a0f93fb718018a3ede41371c64df08e419d8ac8dd5f0175c2')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
