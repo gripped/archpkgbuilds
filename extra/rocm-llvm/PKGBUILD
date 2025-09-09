@@ -4,7 +4,7 @@
 pkgbase=rocm-llvm
 pkgname=(rocm-llvm rocm-device-libs comgr)
 pkgver=6.4.3
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url='https://rocm.docs.amd.com/en/latest/reference/rocmcc.html'
 makedepends=('git' 'cmake' 'python' 'ninja' 'rocm-core' 'rocm-cmake' 'perl'
@@ -62,6 +62,7 @@ build() {
         -D LLVM_HOST_TRIPLE=$CHOST
         -D LLVM_ENABLE_PROJECTS='clang;lld;clang-tools-extra'
         -D CLANG_ENABLE_AMDCLANG=ON
+        -D PACKAGE_VENDOR="AMD"
         -D LLVM_ENABLE_RUNTIMES='compiler-rt;libunwind;libcxx;libcxxabi'
         -D LIBCXX_ENABLE_SHARED=OFF
         -D LIBCXX_ENABLE_STATIC=ON
