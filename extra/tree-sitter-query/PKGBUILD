@@ -2,7 +2,7 @@
 # Contributor: ObserverOfTime <chronobserver@disroot.org>
 
 pkgname=tree-sitter-query
-pkgver=0.6.2
+pkgver=0.7.0
 pkgrel=1
 pkgdesc='TS query grammar for tree-sitter'
 arch=(x86_64)
@@ -16,7 +16,7 @@ makedepends=(
 optdepends=('tree-sitter: core library')
 provides=("lib$pkgname.so")
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('7aa9b1e46340348ca256bdac4a31864f8ac0fd0d78888b80229ee143d032dfac1d7293f55f3b48127a4de70823ce680165b2cbe15a93a82fce1efab84f03ae6d')
+b2sums=('7a3251623d2470d0040cabcc63f3913bb881bcce8b1cba96543030bfb1f22ee2501da4d8a4855106b2830c56a535c56a4b9e8d1e2632d70833672ea1f973f857')
 
 prepare() {
   cd $pkgname
