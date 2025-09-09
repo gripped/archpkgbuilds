@@ -2,35 +2,36 @@
 # Contributor: andre.menrath@posteo.de
 
 pkgname=sws
-pkgver=2.14.0.6
+pkgver=2.14.0.7
 pkgrel=1
 pkgdesc='A collection of features that seamlessly integrate into REAPER'
-arch=('x86_64')
+arch=(x86_64)
 url='https://www.sws-extension.org/'
-license=('MIT')
+license=(MIT)
 depends=(
-  'glibc'
-  'gcc-libs'
-  'reaper'
-  'taglib'
+  glibc
+  gcc-libs
+  reaper
+  taglib
 )
 makedepends=(
-  'git'
-  'cmake'
-  'php'
-  'perl'
-  'gtk3'
+  git
+  cmake
+  php
+  perl
+  gtk3
+  ninja
 )
-install='sws.install'
+install=sws.install
 source=(
   "git+https://github.com/reaper-oss/sws.git#tag=v$pkgver"
   'github.com-justinfrankel-wdl::git+https://github.com/justinfrankel/WDL'
   'github.com-justinfrankel-reaper-sdk::git+https://github.com/justinfrankel/reaper-sdk'
 )
-sha512sums=('c488252f3b658f91cd05d77a1e7868d4c86b2aea3c2746ef645f483b7f7047382dda7510a95f6a62564d202bbd3a76c3f282ba6d610af7782f30d8a2c3b30ecb'
+sha512sums=('bbbb655565958f19adb2093e2ddca3c9f73b4021f1d5699d9787befb10894d6c11d0ad1ecef8b32560bef3a29ae4b30db246eb6782ddb57e8ceef1c2ce5df1f1'
             'SKIP'
             'SKIP')
-b2sums=('a849a6a80a09af3d0d602c241ce927b19744b70730e7739b03312c39c2ddb8530144bf229980372c3e7877e525ad4a59b10918dd866ec755ba5c8cea223af6dc'
+b2sums=('18272872585ec7b736f0b42ed7c14a50e2c28c55dd293f921bac351997d0d3c2b61f1f8e27a0ebc09090c081417c3fbce6aaf36e59450a0445aa3a4468104a1c'
         'SKIP'
         'SKIP')
 
@@ -46,11 +47,15 @@ prepare() {
 }
 
 build() {
-  cmake \
-    -B build \
-    -S "$pkgname" \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DUSE_SYSTEM_TAGLIB=YES
+  local cmake_options=(
+    -B build
+    -S "$pkgname"
+    -G Ninja
+    -D CMAKE_BUILD_TYPE=None
+    -D USE_SYSTEM_TAGLIB=ON
+  )
+
+  cmake "${cmake_options[@]}"
 
   cmake --build build
 }
