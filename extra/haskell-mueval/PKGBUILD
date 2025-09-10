@@ -3,20 +3,21 @@
 _hkgname=mueval
 pkgname=haskell-mueval
 pkgver=0.9.4
-pkgrel=52
+pkgrel=53
 pkgdesc="Safely evaluate pure Haskell expressions"
 url="https://github.com/gwern/mueval"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-extensible-exceptions' 'haskell-hint'
          'haskell-show' 'haskell-simple-reflect')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('f37f4ed525e9d45432aad4426225abadfc7de59ae19b41b771744d975ba8cfe4')
 
 prepare() {
   cd $_hkgname-$pkgver
   sed -i 's/ -static//' $_hkgname.cabal
+  uusi -u QuickCheck
 }
 
 build() {
