@@ -4,17 +4,22 @@
 _hkgname=tasty-quickcheck
 pkgname=haskell-tasty-quickcheck
 pkgver=0.10.3
-pkgrel=88
+pkgrel=94
 pkgdesc="QuickCheck support for the Tasty test framework."
 url="https://github.com/UnkindPartition/tasty"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-optparse-applicative' 'haskell-quickcheck' 'haskell-random'
          'haskell-tagged' 'haskell-tasty')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 checkdepends=('haskell-tasty-hunit' 'haskell-pcre-light')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('6b7594df965575432e192d813268fe7b62b72a2f3d48da4b9817e1d025b7193cbd4a14653846c5b5191533448b8f2807863883d878997a5a13199072dffb59ec')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u QuickCheck
+}
 
 build() {
     cd $_hkgname-$pkgver
