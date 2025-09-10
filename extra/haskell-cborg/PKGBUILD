@@ -3,7 +3,7 @@
 _hkgname=cborg
 pkgname=haskell-cborg
 pkgver=0.2.10.0
-pkgrel=47
+pkgrel=48
 pkgdesc="Concise Binary Object Representation (CBOR)"
 url="https://github.com/well-typed/cborg"
 license=('BSD-3-Clause')
@@ -14,6 +14,11 @@ makedepends=('ghc' 'uusi' 'haskell-aeson' 'haskell-base-orphans' 'haskell-base16
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'haskell-vector')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
 sha512sums=('57c375123e36b662d65b9c477a84a8f55bfa8dce0018410ee023080890a107e0b0ba854f89cd64333eeb93d508ab35e5da9f6fb77bd129bb2d0fcc5f27bce0b0')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u QuickCheck
+}
 
 build() {
     cd $_hkgname-$pkgver
