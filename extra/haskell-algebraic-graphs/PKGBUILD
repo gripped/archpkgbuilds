@@ -3,7 +3,7 @@
 _hkgname=algebraic-graphs
 pkgname=haskell-algebraic-graphs
 pkgver=0.7
-pkgrel=206
+pkgrel=207
 pkgdesc="A library for algebraic graph construction and transformation"
 url="https://github.com/snowleopard/alga"
 license=('MIT')
@@ -15,7 +15,7 @@ sha256sums=('51159a0d18690ab51e6709e3c576275402f96f57d901f87d734da6854582e568')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u inspection-testing
+  uusi -u QuickCheck -u inspection-testing
 }
 
 build() {
