@@ -3,7 +3,7 @@
 _hkgname=insert-ordered-containers
 pkgname=haskell-insert-ordered-containers
 pkgver=0.2.5.3
-pkgrel=158
+pkgrel=159
 pkgdesc="Associative containers retating insertion order for traversals."
 url="https://github.com/phadej/insert-ordered-containers"
 license=('BSD')
@@ -17,7 +17,7 @@ sha512sums=('9e903314911f42b797da75623a4423df19ed1af355f5d00026a84a04738e8cf0dbb
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u lens -u tasty
+    uusi -u QuickCheck -u lens -u tasty
 }
 
 build() {
