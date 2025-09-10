@@ -4,15 +4,20 @@
 _hkgname=fgl
 pkgname=haskell-fgl
 pkgver=5.8.3.0
-pkgrel=68
+pkgrel=69
 pkgdesc="Martin Erwig's Functional Graph Library"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck')
+makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('1541596a303e048ade3b4ba97e02b4ae9e504e80e47cd30b77d1562d8eff832b272e706332be2e959eba1e94c343ff91de633f1cc31d6ee21078cf0f0cdca03b')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u QuickCheck
+}
 
 build() {
     cd $_hkgname-$pkgver
