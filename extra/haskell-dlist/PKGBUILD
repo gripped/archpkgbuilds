@@ -6,16 +6,21 @@
 _hkgname=dlist
 pkgname=haskell-dlist
 pkgver=1.0
-pkgrel=335
+pkgrel=337
 pkgdesc="Differences lists"
 url="https://hackage.haskell.org/package/dlist"
 license=('BSD')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 checkdepends=('haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('8985b9e775e8d99c3d8cf59eabfb7ed13c395482186b086831a79afea9b980ee59e386856df82dcc030f430be55cc95fa057e962776fe37a371e8be5ae19abef')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u QuickCheck
+}
 
 build() {
     cd $_hkgname-$pkgver
