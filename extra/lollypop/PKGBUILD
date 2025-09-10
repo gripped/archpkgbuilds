@@ -3,8 +3,8 @@
 # Contributor: Cédric Bellegarde <gnumdk@gmail.com>
 
 pkgname=lollypop
-pkgver=1.4.42
-pkgrel=2
+pkgver=1.4.44
+pkgrel=1
 pkgdesc='Music player for GNOME'
 arch=(any)
 url=https://gitlab.gnome.org/World/lollypop
@@ -44,19 +44,11 @@ optdepends=(
   'kid3-common: Store covers in tags'
   'yt-dlp: YouTube support'
 )
-_commit=3453047d7024ab68f659cd7a108866b0cf534129
+_commit=de7330cde7f230ae757f1a842f11e020be17cb69
 source=(git+https://gitlab.gnome.org/World/lollypop.git#commit=${_commit}
-        git+https://gitlab.gnome.org/gnumdk/lollypop-po
-        lollypop-search-launch.patch
-        lollypop-search-timeout.patch
-        lollypop-missing-icons.patch
-        lollypop-present-window.patch)
-sha256sums=('c9e120a7fbda0b4c89dba80df23ef6f83b198fa62cc90b14cee7bc743effede4'
-            'SKIP'
-            '887e5df8d87389991d2788493ebbbb8485c996eb2cad49360ac57ddc1c7410e9'
-            '6485e98162876824678b9c4ad99baed37c395ac318d915085745902bc21c22dc'
-            '637bea0c4eb779ed00060c3c3dc65838c975f4b5653f0830c1925e75761a9b55'
-            '7e2b71cdd2d54b3f6b467d0e9fd8627415ebd38d042ddfd6725b60c7b1a1647c')
+        git+https://gitlab.gnome.org/gnumdk/lollypop-po)
+sha256sums=('128464b1b8201380187a9848fb1218bfa779efc39388a5161f678b24d831fb43'
+            'SKIP')
 
 prepare() {
   cd lollypop
@@ -67,17 +59,13 @@ prepare() {
 
   # Fixes for the search provider
   # https://gitlab.gnome.org/World/lollypop/-/merge_requests/1451
-  git apply -3 ../lollypop-search-launch.patch
+  git cherry-pick -n 2052dd9a960bb6d9d439e632ac4a7eaeae5e1cd4
   # https://gitlab.gnome.org/World/lollypop/-/merge_requests/1452
-  git apply -3 ../lollypop-search-timeout.patch
-
-  # Replace emblem icons removed from Adwaita
-  # https://gitlab.gnome.org/World/lollypop/-/merge_requests/1453
-  git apply -3 ../lollypop-missing-icons.patch
+  git cherry-pick -n a8d23bd73e89af2c0048c588799e7677a6a0c966
 
   # Always present window on launch
   # https://gitlab.gnome.org/World/lollypop/-/merge_requests/1454
-  git apply -3 ../lollypop-present-window.patch
+  git cherry-pick -n cab670bab2e60d995dbedb2e8fbf6ddc9775e270
 }
 
 pkgver() {
