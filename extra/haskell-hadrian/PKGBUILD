@@ -4,14 +4,14 @@ _hkgname=hadrian
 pkgname=haskell-hadrian
 _ghcver=9.4.8
 pkgver=0.1.0.0+$_ghcver
-pkgrel=181
+pkgrel=182
 pkgdesc="GHC build system"
 url="https://gitlab.haskell.org/ghc/ghc"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-extra' 'haskell-shake'
          'haskell-unordered-containers')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://downloads.haskell.org/~ghc/$_ghcver/ghc-${_ghcver}-src.tar.xz"
         ghc-enable-ghci-for-riscv64.patch::https://gitlab.haskell.org/ghc/ghc/-/commit/dd38aca95ac25adc9888083669b32ff551151259.patch)
 sha256sums=('0bf407eb67fe3e3c24b0f4c8dea8cb63e07f63ca0f76cf2058565143507ab85e'
@@ -21,6 +21,7 @@ prepare() {
   cd ghc-$_ghcver
   # apply patch to enable ghci for riscv64
   patch -p1 < "$srcdir"/ghc-enable-ghci-for-riscv64.patch
+  uusi -u QuickCheck hadrian/hadrian.cabal
 }
 
 build() {
