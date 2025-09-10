@@ -3,15 +3,20 @@
 _hkgname=hgmp
 pkgname=haskell-hgmp
 pkgver=0.1.2.1
-pkgrel=85
+pkgrel=86
 pkgdesc="Haskell interface to GMP"
 url="https://code.mathr.co.uk/hgmp"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-quickcheck')
+makedepends=('ghc' 'uusi' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('c681633d3e47d7eabd1cd43028a0e8f2e279a9c60c7701d0dc060145bd598023')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  uusi -u QuickCheck
+}
 
 build() {
   cd $_hkgname-$pkgver
