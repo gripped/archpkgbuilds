@@ -1,11 +1,14 @@
 pkgbase = mise
 	pkgdesc = The front-end to your dev env
-	pkgver = 2025.8.21
+	pkgver = 2025.9.7
 	pkgrel = 1
 	url = https://github.com/jdx/mise
 	arch = x86_64
 	license = MIT
 	makedepends = cargo
+	depends = bzip2
+	depends = gcc-libs
+	depends = glibc
 	depends = openssl
 	optdepends = bash-completion: bash completion support
 	optdepends = usage: completion support
@@ -13,8 +16,8 @@ pkgbase = mise
 	replaces = rtx
 	options = !emptydirs
 	options = !lto
-	source = https://github.com/jdx/mise/archive/v2025.8.21/mise-2025.8.21.tar.gz
-	sha512sums = 9f5e172cd22413a8db58275c19e79c093465b8c815727cce6623ad83e38f1650eb19d66ab93f163327edb5a106e6d38ced0de9329e559dd9e856cb0a239a1585
-	b2sums = e82e2b0cdd711b443587942710d05262656214e3264783186a3eaec686ef337bf7a5c7919f5e81600d0da15de618713a64d3b29daed8308ae7e2bb61d62b956e
+	source = https://github.com/jdx/mise/archive/v2025.9.7/mise-2025.9.7.tar.gz
+	sha512sums = 660846ca31da419ff8e14f7604831af64667411c0408312b0f3cc5d3e3e4a74e0b58c0156d81397b62c48720625acbccd270d682207ae1eebcd59d68b759b3f5
+	b2sums = b5cf9de931464e271b615297e6d4ac588d6d4223adf91b4df270434cf60dba7e2ce5ff302be3ac7ff89ead94dd6ad9f5730adb45cc5489d32244631f9baa9c4e
 
 pkgname = mise
