@@ -3,7 +3,7 @@
 _hkgname=chimera
 pkgname=haskell-chimera
 pkgver=0.4.1.0
-pkgrel=106
+pkgrel=107
 pkgdesc="Lazy infinite streams with O(1) indexing and applications for memoization"
 url="https://github.com/Bodigrim/chimera#readme"
 license=("BSD")
@@ -18,6 +18,7 @@ sha512sums=('728de43b1b2d1f76e3d0bcdf3c70365d03869a9a70a9ce66555ae83a4fb13aa344c
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u QuickCheck
 }
 
 build() {
