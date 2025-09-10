@@ -3,7 +3,7 @@
 _hkgname=indexed-traversable-instances
 pkgname=haskell-indexed-traversable-instances
 pkgver=0.1.2
-pkgrel=93
+pkgrel=94
 pkgdesc="More instances of FunctorWithIndex, FoldableWithIndex, TraversableWithIndex"
 url="https://github.com/haskellari/indexed-traversable"
 license=("BSD")
@@ -18,6 +18,7 @@ sha256sums=('3c2bb62fba141d6696177070d63b88bc56b194bc60f6b73d2263b0244e2fc7c1')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u QuickCheck
 }
 
 build() {
