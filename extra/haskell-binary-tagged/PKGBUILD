@@ -4,7 +4,7 @@
 _hkgname=binary-tagged
 pkgname=haskell-binary-tagged
 pkgver=0.3.1
-pkgrel=293
+pkgrel=294
 pkgdesc="Tagged binary serialisation."
 url="https://github.com/phadej/binary-tagged#readme"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('b28372c7618088862cb7b5631378348b98c7a9dd1e41bffe3b72a52533468c6ae34
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u base $_hkgname.cabal
+    uusi -u QuickCheck -u base
 }
 
 build() {
