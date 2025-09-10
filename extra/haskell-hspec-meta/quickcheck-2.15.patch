@@ -1,0 +1,36 @@
+From 770a64366a3059cc7a91012a3ffb43ab8d0b29f4 Mon Sep 17 00:00:00 2001
+From: Maximilian Algehed <m.algehed@gmail.com>
+Date: Mon, 22 Apr 2024 16:40:10 +0200
+Subject: [PATCH] Make the build pass with QuickCheck 2.15
+
+---
+ CHANGES.markdown                                       |  3 +++
+ hspec-api/hspec-api.cabal                              |  6 +++---
+ hspec-core/hspec-core.cabal                            |  6 +++---
+ hspec-core/package.yaml                                |  2 +-
+ hspec-core/src/Test/Hspec/Core/QuickCheck/Util.hs      |  5 +++++
+ hspec-core/test/Test/Hspec/Core/QuickCheck/UtilSpec.hs | 10 ++++++++++
+ hspec-core/test/Test/Hspec/Core/RunnerSpec.hs          |  2 +-
+ hspec-discover/hspec-discover.cabal                    |  4 ++--
+ hspec-meta/hspec-meta.cabal                            |  6 +++---
+ hspec.cabal                                            |  6 +++---
+ version.yaml                                           |  2 +-
+ 11 files changed, 35 insertions(+), 17 deletions(-)
+
+diff --git a/hspec-core/src/Test/Hspec/Core/QuickCheck/Util.hs b/hspec-core/src/Test/Hspec/Core/QuickCheck/Util.hs
+index c847c391d..cce4cd822 100644
+--- a/hspec-core/src/Test/Hspec/Core/QuickCheckUtil.hs
++++ b/hspec-core/src/Test/Hspec/Core/QuickCheckUtil.hs
+@@ -131,7 +131,12 @@ showTestCount success discarded = QC.showTestCount state
+     , maxSuccessTests           = undefined
+     , maxDiscardedRatio         = undefined
+     , coverageConfidence        = undefined
++#if MIN_VERSION_QuickCheck(2,15,0)
++    , maxTestSize               = 0
++    , replayStartSize           = undefined
++#else
+     , computeSize               = undefined
++#endif
+     , numTotMaxShrinks          = 0
+     , numSuccessTests           = success
+     , numDiscardedTests         = discarded
