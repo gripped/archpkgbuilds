@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=lazyjj
-pkgver=0.5.0
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="TUI for Jujutsu/jj"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('gcc-libs')
 makedepends=('cargo')
 checkdepends=('jujutsu')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('4f8fd5cdbce4019519515c93f12273ef16452ec06018c4b6e168c0f1eac20587a6052b7567105cefe232387939efeabdd9010d9d2221a8ca0a4bbbb52f246ad4')
+sha512sums=('275dd8726aff76d6b2865350ddb52bea3fa30004ad46920c5b4625031693e239223a0f52d1718663aa48092856c3aeac995951001d2ab812d60d3757b8de2440')
 
 prepare() {
   cd "$pkgname-$pkgver"
