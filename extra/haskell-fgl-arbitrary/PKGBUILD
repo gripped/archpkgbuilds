@@ -3,7 +3,7 @@
 _hkgname=fgl-arbitrary
 pkgname=haskell-fgl-arbitrary
 pkgver=0.2.0.6
-pkgrel=200
+pkgrel=201
 pkgdesc="QuickCheck support for fgl"
 url="https://github.com/haskell/fgl.git"
 license=("BSD")
@@ -15,7 +15,7 @@ sha256sums=('6cf210a2ecbda21059647008cc8d85969308b21d18690f82d5f70d92435bd3d7')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u hspec $_hkgname.cabal
+  uusi -u QuickCheck -u hspec
 }
 
 build() {
