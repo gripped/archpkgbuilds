@@ -4,7 +4,7 @@
 _hkgname=blaze-markup
 pkgname=haskell-blaze-markup
 pkgver=0.8.3.0
-pkgrel=80
+pkgrel=81
 pkgdesc="A blazingly fast markup combinator library for Haskell"
 url="https://jaspervdj.be/blaze"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('a92bebbf879eac7e09cf0fc5a52175867e79e2210853765c9e689a5f8d30b906180
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u tasty
+    uusi -u QuickCheck -u tasty
 }
 
 build() {
