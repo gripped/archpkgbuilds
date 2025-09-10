@@ -3,7 +3,7 @@
 _hkgname=binary-instances
 pkgname=haskell-binary-instances
 pkgver=1.0.4
-pkgrel=122
+pkgrel=123
 pkgdesc="Orphan instances for binary"
 url="https://github.com/phadej/binary-instances"
 license=('BSD')
@@ -19,7 +19,7 @@ sha512sums=('b6fcf34f3b9580cdfda91465483a88e2d7210527bcab0f450b32c022d4f5fcd4b92
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u primitive -u tagged -u tasty
+    uusi -u QuickCheck -u primitive -u tagged -u tasty
 }
 
 build() {
