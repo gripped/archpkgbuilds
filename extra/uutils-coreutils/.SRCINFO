@@ -1,7 +1,7 @@
 pkgbase = uutils-coreutils
 	pkgdesc = Cross-platform Rust rewrite of the GNU coreutils
-	pkgver = 0.2.0
-	pkgrel = 4
+	pkgver = 0.2.2
+	pkgrel = 1
 	url = https://uutils.github.io/
 	arch = x86_64
 	license = MIT
@@ -11,11 +11,14 @@ pkgbase = uutils-coreutils
 	depends = glibc
 	depends = oniguruma
 	options = !lto
-	source = uutils-coreutils::git+https://github.com/uutils/coreutils.git#tag=0.2.0
+	options = !emptydirs
+	source = uutils-coreutils::git+https://github.com/uutils/coreutils.git#tag=0.2.2
 	source = glibc-2.42.patch::https://git.launchpad.net/~juliank/ubuntu/+source/rust-coreutils/plain/debian/patches/glibc-2.42.patch?h=ubuntu/devel&id=a16e77bec0546ee51770a891a24468e8048242e3
 	source = nix-rust0.30.1.tar.gz::https://github.com/nix-rust/nix/archive/refs/tags/v0.30.1.tar.gz
-	b2sums = c42f4c884bf15180fa19beca7b065256e59ae84313f4b055a1fe933bedd428c7a8fe940348daedb1a59380f0bd1c0fadf4134df0019841db4f0923c6759a38ba
+	source = uu_mv-0.2.2-fix-symlink-directory.patch
+	b2sums = 410e60c24ed2bf219211a670b4556a7cc96d28b2bcfc60c7ffb9702bcef147cf2d4ac2f3454c8550d340d9d3ab84569771ac6a51b07fbd419583b935824e71a8
 	b2sums = 4d9a0ff74786c55ba86f0d5a6bdf328020c0bb57fb23dc83cc5788c01ae60529cf89426e5b56366b8ed707c45a31a791023a6cd994e9892be319d19bc4df2637
 	b2sums = dabb6f5fd9674c94ae2538bfdb2af1648aa1578ddb569283ef45a5cbc274d749958a97715615f3f01006b0d69e1bddcf858ac2e1526ed24bcde9dbdccf9c8193
+	b2sums = 5e91f4be09937bcf9d1e31270bffe8f4c95059dfd3ba1c42befc2ac44c493d35f36a9372ccadac1f8eefbafa4e4348d4ed2b72d993c8d2b74fa7196f6655bff2
 
 pkgname = uutils-coreutils
