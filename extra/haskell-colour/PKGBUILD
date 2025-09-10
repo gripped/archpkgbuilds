@@ -4,7 +4,7 @@
 _hkgname=colour
 pkgname=haskell-colour
 pkgver=2.3.6
-pkgrel=342
+pkgrel=344
 pkgdesc="A model for human colour/color perception"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("MIT")
@@ -18,7 +18,7 @@ sha512sums=('82f7d92e46f7235706832be9d3a981bc09f729ef4e7f891dae85bf808f342e498aa
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u random $_hkgname.cabal
+    uusi -u QuickCheck -u random
 }
 
 build() {
