@@ -4,15 +4,20 @@
 _hkgname=data-clist
 pkgname=haskell-data-clist
 pkgver=0.2
-pkgrel=137
+pkgrel=138
 pkgdesc="Simple functional ring type."
 url="https://github.com/sw17ch/data-clist"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-quickcheck')
+makedepends=('ghc' 'uusi' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('d47b7208170b05610c3e37e02e9a807fe20023413c3498148164fdae1b306c1bde30a76a0a99dd2b2d1d0fabbf2ebe487454cf296cdc558bbf56a89c9db52f14')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u QuickCheck
+}
 
 build() {
     cd $_hkgname-$pkgver
