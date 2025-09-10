@@ -3,7 +3,7 @@
 _hkgname=hspec-core
 pkgname=haskell-hspec-core
 pkgver=2.11.0.1
-pkgrel=30
+pkgrel=33
 pkgdesc="A Testing Framework for Haskell"
 url="https://hspec.github.io/"
 license=('MIT')
@@ -13,12 +13,15 @@ depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-call-stack' 'haskell-hspec-
          'haskell-random' 'haskell-tf-random')
 makedepends=('ghc' 'uusi')
 checkdepends=('haskell-base-orphans' 'haskell-hspec-meta' 'haskell-silently' 'haskell-temporary')
-source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('abc6d2fdcfb99961e3f324e8715c4b96511efef368fb8c21b65cf0ec435e584935f56f3f859f1c3e7dff34c24562a52dc833845123248d79bf88163b5b9d2548')
+source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz
+        quickcheck-2.15.patch)
+sha512sums=('abc6d2fdcfb99961e3f324e8715c4b96511efef368fb8c21b65cf0ec435e584935f56f3f859f1c3e7dff34c24562a52dc833845123248d79bf88163b5b9d2548'
+            '9510cb8468aaae727df16aa881ecb3f954a272d81a13bf387c8f64fa9cc3a2f739f77c6ef83ebdbd7231c6d19b5dd24299dfba0909346d247b3759884a1e587a')
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u hspec-expectations $_hkgname.cabal
+    patch -p2 -i ../quickcheck-2.15.patch
+    uusi -u hspec-expectations
 }
 
 build() {

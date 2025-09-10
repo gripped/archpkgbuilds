@@ -1,0 +1,72 @@
+From 770a64366a3059cc7a91012a3ffb43ab8d0b29f4 Mon Sep 17 00:00:00 2001
+From: Maximilian Algehed <m.algehed@gmail.com>
+Date: Mon, 22 Apr 2024 16:40:10 +0200
+Subject: [PATCH] Make the build pass with QuickCheck 2.15
+
+---
+ CHANGES.markdown                                       |  3 +++
+ hspec-api/hspec-api.cabal                              |  6 +++---
+ hspec-core/hspec-core.cabal                            |  6 +++---
+ hspec-core/package.yaml                                |  2 +-
+ hspec-core/src/Test/Hspec/Core/QuickCheck/Util.hs      |  5 +++++
+ hspec-core/test/Test/Hspec/Core/QuickCheck/UtilSpec.hs | 10 ++++++++++
+ hspec-core/test/Test/Hspec/Core/RunnerSpec.hs          |  2 +-
+ hspec-discover/hspec-discover.cabal                    |  4 ++--
+ hspec-meta/hspec-meta.cabal                            |  6 +++---
+ hspec.cabal                                            |  6 +++---
+ version.yaml                                           |  2 +-
+ 11 files changed, 35 insertions(+), 17 deletions(-)
+
+diff --git a/hspec-core/src/Test/Hspec/Core/QuickCheck/Util.hs b/hspec-core/src/Test/Hspec/Core/QuickCheck/Util.hs
+index c847c391d..cce4cd822 100644
+--- a/hspec-core/src/Test/Hspec/Core/QuickCheckUtil.hs
++++ b/hspec-core/src/Test/Hspec/Core/QuickCheckUtil.hs
+@@ -131,7 +131,12 @@ showTestCount success discarded = QC.showTestCount state
+     , maxSuccessTests           = undefined
+     , maxDiscardedRatio         = undefined
+     , coverageConfidence        = undefined
++#if MIN_VERSION_QuickCheck(2,15,0)
++    , maxTestSize               = 0
++    , replayStartSize           = undefined
++#else
+     , computeSize               = undefined
++#endif
+     , numTotMaxShrinks          = 0
+     , numSuccessTests           = success
+     , numDiscardedTests         = discarded
+diff --git a/hspec-core/test/Test/Hspec/Core/QuickCheck/UtilSpec.hs b/hspec-core/test/Test/Hspec/Core/QuickCheck/UtilSpec.hs
+index 831b2e439..1647ebaf2 100644
+--- a/hspec-core/test/Test/Hspec/Core/QuickCheckUtilSpec.hs
++++ b/hspec-core/test/Test/Hspec/Core/QuickCheckUtilSpec.hs
+@@ -1,5 +1,6 @@
+ {-# LANGUAGE NoMonomorphismRestriction #-}
+ {-# LANGUAGE StandaloneDeriving #-}
++{-# LANGUAGE CPP #-}
+ {-# OPTIONS_GHC -fno-warn-orphans #-}
+ {-# OPTIONS_GHC -fno-warn-name-shadowing #-}
+ {-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
+@@ -117,7 +118,11 @@ spec = do
+               , "Passed:"
+               , "23"
+               , ""
++#if MIN_VERSION_QuickCheck(2,15,0)
++              , "+++ OK, passed 2 tests (0% is 5)."
++#else
+               , "+++ OK, passed 2 tests."
++#endif
+               , ""
+               , "Only 0% is 5, but expected 10%"
+               ]
+@@ -146,7 +151,12 @@ spec = do
+             QuickCheckResult 800 "" (QuickCheckFailure failure)
+ 
+         it "includes verbose output" $ do
++-- This off-by-one error was fixed in QuickCheck 2.15
++#if MIN_VERSION_QuickCheck(2,15,0)
++          let info = intercalate "\n\n" (replicate 800 "Passed:")
++#else
+           let info = intercalate "\n\n" (replicate 799 "Passed:")
++#endif
+           parseQuickCheckResult <$> qc (verbose . p) `shouldReturn`
+             QuickCheckResult 800 info (QuickCheckFailure failure)
+ 
