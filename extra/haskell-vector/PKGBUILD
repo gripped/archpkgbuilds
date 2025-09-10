@@ -2,7 +2,7 @@
 
 pkgname=haskell-vector
 pkgver=0.13.2.0
-pkgrel=184
+pkgrel=188
 pkgdesc="Efficient Arrays"
 url="https://hackage.haskell.org/package/vector"
 license=('BSD-3-Clause')
@@ -17,7 +17,7 @@ sha512sums=('d52ad78c8859284bce141254f6a29b0e0175a9db8c15505bc0e35fed1b9027736ad
 prepare() {
   cd vector-$pkgver
   # TODO
-  uusi --nb vector-doctest
+  uusi -u QuickCheck --nb vector-doctest
 }
 
 build() {
