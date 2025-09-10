@@ -3,7 +3,7 @@
 _hkgname=chell-quickcheck
 pkgname=haskell-chell-quickcheck
 pkgver=0.2.5.4
-pkgrel=73
+pkgrel=74
 pkgdesc="QuickCheck support for the Chell testing library"
 url="https://github.com/typeclasses/chell"
 license=('MIT')
@@ -16,6 +16,10 @@ sha512sums=('967f61e1e6d03c2c1d5195e6efdfcb33c6fcded0b3383ca2ac6cb4dedce163634d8
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
+    uusi -u QuickCheck
+    sed -e '/computeSize = computeSize/d' \
+        -e '/State.numDiscardedTests/a \              State.maxTestSize = 0,\n              State.replayStartSize = Nothing,' \
+        -i Test/Chell/QuickCheck.hs
 }
 
 build() {
