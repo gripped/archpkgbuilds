@@ -2,7 +2,7 @@
 # Contributor: Igor Dyatlov <dyatlov.igor@protonmail.com>
 
 pkgname=rnote
-pkgver=0.13.0
+pkgver=0.13.1
 pkgrel=1
 pkgdesc="A simple drawing application to create handwritten notes"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('gtk4' 'glib2' 'libadwaita' 'poppler-glib' 'gstreamer' 'alsa-lib')
 makedepends=('meson' 'cargo' 'cmake' 'clang' 'git')
 #checkdepends=('appstream-glib')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-b2sums=('db1161fcf6f7d09f4c63726a5b196014d2713efe98367275f4258262725413c98ec226950c386dff5b0a8ad28ba21d8e659509c2ee2819bc83f057c5d3282795')
+b2sums=('695ec71c520af6df9f15a25eb857d6ce7bbf82ef0d0de57657b1ecbc53175a8d8750fc5d0d0d05e36bd5425c61e6dcead94f391bc86d50be2c994b32869f6510')
 options=('!lto')
 
 build() {
