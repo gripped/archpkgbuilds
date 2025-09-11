@@ -2,19 +2,18 @@
 
 _hkgname=gi-gtk
 pkgname=haskell-gi-gtk
-pkgver=4.0.9
-pkgrel=87
+pkgver=4.0.10
+pkgrel=1
 pkgdesc="Gtk bindings"
 url="https://github.com/haskell-gi/haskell-gi"
-license=("LGPL2.1")
+license=('LGPL-2.1-only')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-gi-atk' 'haskell-gi-cairo' 'haskell-gi-gdk' 'haskell-gi-gdkpixbuf'
-         'haskell-gi-gio' 'haskell-gi-glib' 'haskell-gi-gobject' 'haskell-gi-graphene'
-         'haskell-gi-gsk' 'haskell-gi-pango' 'haskell-gi' 'haskell-gi-base' 'haskell-gi-overloading'
-         'gtk4')
+depends=('ghc-libs' 'haskell-gi-cairo' 'haskell-gi-gdk' 'haskell-gi-gdkpixbuf' 'haskell-gi-gio'
+         'haskell-gi-glib' 'haskell-gi-gobject' 'haskell-gi-graphene' 'haskell-gi-gsk'
+         'haskell-gi-pango' 'haskell-gi' 'haskell-gi-base' 'haskell-gi-overloading' 'gtk4')
 makedepends=('ghc' 'gobject-introspection')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('2e0640f89d148cef4916985fea6d085bd8ddaa2015089af2d45007526d5c8c5d')
+sha256sums=('87eecdb3c43ab12fe2ace89ad316e9f9e0821a56883eba56368845a3e2b29520')
 
 build() {
   cd $_hkgname-$pkgver
