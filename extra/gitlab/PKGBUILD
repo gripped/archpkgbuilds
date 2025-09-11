@@ -1,6 +1,6 @@
 # Maintainer: Anatol Pomozov <anatol.pomozov@gmail.com>
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
-# Contributor: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Contributor: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Pavol (Lopo) Hluchy <lopo AT losys DOT eu>
 # Contributor: Jonas Heinrich <onny@project-insanity.org>
 # Contributor: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
@@ -9,8 +9,8 @@
 # Contributor: loqs <bugs-archlinux@entropy-collector.net>
 
 pkgname=gitlab
-pkgver=18.1.1
-pkgrel=3
+pkgver=18.3.2
+pkgrel=1
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
 url='https://gitlab.com/gitlab-org/gitlab-foss'
@@ -70,12 +70,12 @@ provides=(gitlab-workhorse) # FS78036
 conflicts=(gitlab-workhorse)
 replaces=(gitlab-workhorse)
 install=gitlab.install
-sha256sums=('4a51ecb31a27a6733bf4532097f330f8d9d7d1e24de84402201b77403f764cd7'
+sha256sums=('777a6bd314076135555b43ef3c1b986e7c72627ee1380990512e3d73fde8a6a4'
             '325e8a2a319bf8c5a2f38206b8e09ca2d011667dfceb184496320864fe78cdae'
             '717a918b3ef3acb5b152ddd13591a97b8b2fb6d50520ffbe97da551c37983c97'
             'c435553b3dacd67300d81149f6c101e3c60946faf486eb2307dc91604111f8ad'
-            '49120ae3adab1f554a995e705eb9fa3ce435006785af53eee3f21568a047873e'
-            'ebe5ad1e72287d793baa4afffce4ca87a6818c9beee9eb7dab95d0bd67b4aae2'
+            '63c0b6c8e01bc34b9c1e15f113a104f4b15278353ba082a3390fa889990c1a6c'
+            'e918678e7132ccddf0e3cf2f5d9cb3871de0f10a1fd92549c4c2dbca5ae9e00a'
             '8cc4d933743906b4213b8ea8d8c5a62535e27e4073f73581a5dad40078dde000'
             '37b6fed60f169441ed1578324a91f65bed96dd086c09e73bdb15a8ccecd5d219'
             '1875d202ccf6133819bf2b7130ca9d887122fdbdc72975466821f5a49858cb4d'
@@ -166,9 +166,12 @@ build() {
 	bundle config --local without 'development test aws kerberos'
 	# Disable make jobserver due to a race in prometheus-client-mmap
 	# Clang because of https://github.com/grpc/grpc/issues/35945
-	env MAKEFLAGS= BUNDLER_CHECKSUM_VERIFICATION_OPT_IN=1 \
-	CC=clang CXX=clang++ \
-	bundle install --jobs=$(nproc) --no-cache
+	env \
+		MAKEFLAGS= \
+		BUNDLER_CHECKSUM_VERIFICATION_OPT_IN=1 \
+		CC=clang \
+		CXX=clang++ \
+		bundle install --jobs=$(nproc) --no-cache
 
 	export CGO_CPPFLAGS="${CPPFLAGS}"
 	export CGO_CFLAGS="${CFLAGS}"

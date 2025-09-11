@@ -16,7 +16,6 @@ Signed-off-by: Caleb Maclennan <caleb@alerque.com>
 ---
  config/database.yml.postgresql     | 79 +-----------------------------
  config/gitlab.yml.example          | 70 +++++++++++++-------------
- config/initializers/1_settings.rb  |  6 +--
  config/puma.example.development.rb | 16 +++---
  config/puma.rb.example             | 16 +++---
  5 files changed, 56 insertions(+), 131 deletions(-)
@@ -388,23 +387,6 @@ index 706cfc5c904..6753021c7a4 100644
  
    ## Git settings
    # CAUTION!
-diff --git a/config/initializers/1_settings.rb b/config/initializers/1_settings.rb
-index b3d90e94dab..550424d8d17 100644
---- a/config/initializers/1_settings.rb
-+++ b/config/initializers/1_settings.rb
-@@ -1081,9 +1081,9 @@
- # Topology Service Client Settings
- Settings.cell['topology_service_client'] ||= Settings.respond_to?(:topology_service) ? Settings.topology_service || {} : {}
- Settings.cell.topology_service_client['address'] ||= 'topology-service.gitlab.example.com:443'
--Settings.cell.topology_service_client['ca_file'] ||= '/home/git/gitlab/config/topology-service-ca.pem'
--Settings.cell.topology_service_client['certificate_file'] ||= '/home/git/gitlab/config/topology-service-cert.pem'
--Settings.cell.topology_service_client['private_key_file'] ||= '/home/git/gitlab/config/topology-service-key.pem'
-+Settings.cell.topology_service_client['ca_file'] ||= '/var/lib/gitlab/config/topology-service-ca.pem'
-+Settings.cell.topology_service_client['certificate_file'] ||= '/var/lib/gitlab/config/topology-service-cert.pem'
-+Settings.cell.topology_service_client['private_key_file'] ||= '/var/lib/gitlab/config/topology-service-key.pem'
- 
- #
- # GitLab KAS
 diff --git a/config/puma.example.development.rb b/config/puma.example.development.rb
 index e7dacc70c2e..5f64b57afea 100644
 --- a/config/puma.example.development.rb
