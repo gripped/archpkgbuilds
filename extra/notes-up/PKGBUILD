@@ -4,18 +4,30 @@
 
 pkgname=notes-up
 pkgver=2.0.6
-pkgrel=2
+pkgrel=3
 pkgdesc='Write beautiful notes fast and easy using Markdown'
 arch=('x86_64')
 url='https://github.com/Philip-Scott/Notes-up'
-license=('GPL')
-depends=('discount' 'granite' 'gtksourceview4' 'gtkspell3' 'webkit2gtk')
+license=('GPL-2.0-or-later')
+depends=('discount' 'granite' 'gtksourceview4' 'gtkspell3' 'webkit2gtk-4.1')
 makedepends=('meson' 'vala')
-source=("https://github.com/Philip-Scott/Notes-up/archive/$pkgver/Notes-up-$pkgver.tar.gz")
-sha256sums=('6e7b6ac4a3a917867a1555db0a6e03e40ccd9955b5d76e980a26fa8e40744f07')
+source=("https://github.com/Philip-Scott/Notes-up/archive/$pkgver/Notes-up-$pkgver.tar.gz"
+        "0001-Support-Markdown-3.patch")
+sha256sums=('6e7b6ac4a3a917867a1555db0a6e03e40ccd9955b5d76e980a26fa8e40744f07'
+            '98f2c88f7db1dfedcd9c1cd3608c71c90eb6e23145ddc0bce3fcb8112b98b01f')
+
+prepare() {
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/notes-up/-/issues/1
+  # https://github.com/Philip-Scott/Notes-up/issues/400
+  # https://github.com/Philip-Scott/Notes-up/pull/404
+  patch -Np1 -i ../0001-Support-Markdown-3.patch -d Notes-up-$pkgver
+
+  # Switch to webkit2gtk-4.1 to stop using end of life libsoup
+  sed -i 's/webkit2gtk-4.0/webkit2gtk-4.1/' Notes-up-$pkgver/meson.build
+}
 
 build() {
-  meson Notes-up-$pkgver build --prefix='/usr'
+  meson setup Notes-up-$pkgver build --prefix='/usr'
   meson compile -C build
 }
 

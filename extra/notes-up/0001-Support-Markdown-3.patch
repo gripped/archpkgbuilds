@@ -1,0 +1,84 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: loqs <loqs@users.noreply.github.com>
+Date: Sun, 7 Sep 2025 13:59:30 +0000
+Subject: [PATCH] Support Markdown 3
+
+Fixes https://github.com/Philip-Scott/Notes-up/issues/400.
+---
+ meson.build             |  5 +++++
+ src/Widgets/Viewer.vala | 12 +++++++++---
+ vapi/libmarkdown.vapi   |  9 ++++++++-
+ 3 files changed, 22 insertions(+), 4 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index e96a615..56cd9cc 100644
+--- a/meson.build
++++ b/meson.build
+@@ -14,6 +14,11 @@ asresources = gnome.compile_resources(
+     c_name: 'as'
+ )
+ 
++dep_libmarkdown = dependency('libmarkdown', version : '>= 3.0.0')
++if dep_libmarkdown.found()
++  add_project_arguments('-D', 'MARKDOWN3', language: 'vala')
++endif
++
+ subdir('src')
+ 
+ executable(
+diff --git a/src/Widgets/Viewer.vala b/src/Widgets/Viewer.vala
+index 736226a..fe15cd5 100644
+--- a/src/Widgets/Viewer.vala
++++ b/src/Widgets/Viewer.vala
+@@ -225,10 +225,16 @@ public class ENotes.Viewer : WebKit.WebView {
+ 
+     private string process (string raw_mk) {
+         string processed_mk;
++        //Extra Footnote + Autolink + ``` code + Extra def lists + keep style + LaTeX
++        int flags = 0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000;
+         process_frontmatter (raw_mk, out processed_mk);
+-                                                        //Extra Footnote + Autolink + ``` code + Extra def lists + keep style + LaTeX
+-        var mkd = new Markdown.Document.from_string (processed_mk.data, 0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000);
+-        mkd.compile (0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000);
++#if MARKDOWN3
++        var mkd = new Markdown.Document.from_string (processed_mk.data, &flags);
++        mkd.compile (&flags);
++#else
++        var mkd = new Markdown.Document.from_string (flags);
++        mkd.compile (flags);
++#endif
+ 
+         string result;
+         mkd.document (out result);
+diff --git a/vapi/libmarkdown.vapi b/vapi/libmarkdown.vapi
+index a6bf7e7..a00e2bd 100644
+--- a/vapi/libmarkdown.vapi
++++ b/vapi/libmarkdown.vapi
+@@ -50,8 +50,11 @@ namespace Markdown
+ 		[CCode (cname = "mkd_in")]
+ 		public Document.from_in (GLib.FileStream file, DocumentFlags flags);
+ 		[CCode (cname = "mkd_string")]
++#if MARKDOWN3
++		public Document.from_string (uint8[] doc, DocumentFlags * flags);
++#else
+ 		public Document.from_string (uint8[] doc, DocumentFlags flags);
+-
++#endif
+ 		[CCode (cname = "gfm_in")]
+ 		public Document.from_gfm_in (GLib.FileStream file, DocumentFlags flags);
+ 		[CCode (cname = "gfm_string")]
+@@ -59,7 +62,11 @@ namespace Markdown
+ 
+ 		public void basename (string @base);
+ 
++#if MARKDOWN3
++		public bool compile (DocumentFlags * flags);
++#else
+ 		public bool compile (DocumentFlags flags);
++#endif
+ 		public void cleanup ();
+ 
+ 		public int dump (GLib.FileStream file, DocumentFlags flags, string title);
+-- 
+2.51.0
+
