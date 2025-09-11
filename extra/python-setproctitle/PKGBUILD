@@ -1,17 +1,17 @@
 # Maintainer: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
 pkgname=python-setproctitle
-pkgver=1.3.6
+pkgver=1.3.7
 pkgrel=1
 pkgdesc="Allows a python process to change its process title"
-license=("BSD")
+license=("BSD-3-Clause")
 url="https://github.com/dvarrazzo/py-setproctitle"
 depends=('python')
 makedepends=(python-setuptools python-wheel python-build python-installer)
 checkdepends=('python-pytest' 'procps-ng')
 arch=('x86_64')
 source=(https://files.pythonhosted.org/packages/source/s/setproctitle/setproctitle-$pkgver.tar.gz)
-sha256sums=('c9f32b96c700bb384f33f7cf07954bb609d35dd82752cef57fb2ee0968409169')
+sha256sums=('bc2bc917691c1537d5b9bca1468437176809c7e11e5694ca79a9ca12345dcb9e')
 
 build() {
     cd "$srcdir"/setproctitle-$pkgver
@@ -27,5 +27,5 @@ check() {
 package_python-setproctitle() {
     cd "$srcdir"/setproctitle-$pkgver
     python -m installer --destdir="$pkgdir" dist/*.whl
-    install -m0644 -D COPYRIGHT "$pkgdir/usr/share/licenses/$pkgname/COPYRIGHT"
+    install -m0644 -D LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
