@@ -2,7 +2,7 @@
 # Contributor: Robert Tari <robert at tari dot in>
 
 pkgname=cmake-extras
-pkgver=1.8
+pkgver=1.9
 pkgrel=1
 pkgdesc="A collection of add-ons for the CMake build tool"
 arch=("any")
@@ -11,7 +11,7 @@ license=('LGPL-3.0-or-later')
 depends=('cmake' 'python' 'bash')
 makedepends=('git' 'ninja')
 source=("git+https://gitlab.com/ubports/development/core/cmake-extras.git#tag=$pkgver")
-sha512sums=('3ca3905d8084d77752c6a46d5a67db4c873adcf88b3733aff5b82d5fef4e866dac484b116e04451c1533481e2e215504c6ca6eb3ec46940f5c793ecbef24153d')
+sha512sums=('ed2ee373e8619fb30771ae1ac3e4ebc17c7d099fc96ff1bc41aaca4f38943d855c1e51bc0ff4155854a32b0709d1e0d45dd7c4cbdc334e57a6cc7df5763986f9')
 
 build() {
   cd cmake-extras
@@ -23,4 +23,3 @@ package() {
   cd cmake-extras
   DESTDIR="$pkgdir" ninja install
 }
-
