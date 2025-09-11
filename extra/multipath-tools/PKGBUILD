@@ -8,7 +8,7 @@
 # Contributor: Matt Heagney <matt@heagney.com>
 
 pkgname=multipath-tools
-pkgver=0.11.1
+pkgver=0.12.0
 pkgrel=1
 pkgdesc='Multipath tools for Linux (including kpartx)'
 arch=('x86_64')
@@ -17,7 +17,7 @@ license=('GPL-2.0-or-later' 'GPL-3.0-or-later' 'LGPL-2.0-or-later' 'LGPL-2.1-or-
 depends=('glibc' 'gcc-libs' 'libaio' 'device-mapper' 'json-c' 'liburcu' 'systemd-libs' 'util-linux-libs')
 makedepends=('git' 'systemd')
 source=("multipath-tools::git+https://github.com/opensvc/multipath-tools#tag=${pkgver}")
-sha256sums=('8d21fe887366b7c300e3d13db5354f82e08ac3f696e91d0138ee5fa7c583b0ae')
+sha256sums=('99f50196248be84af3c34ab5d4720bd80a2259d1ca28f41735715ec9c8bf8a8c')
 
 _make_opts=(
   prefix='/usr/'
