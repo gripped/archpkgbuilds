@@ -1,12 +1,13 @@
 pkgbase = debian-ports-archive-keyring
 	pkgdesc = GnuPG archive keys of the debian-ports archive
-	pkgver = 2024.02.02
+	pkgver = 2025.01.01
 	pkgrel = 1
-	url = https://packages.debian.org/sid/debian-ports-archive-keyring
+	url = https://salsa.debian.org/aurel32/debian-ports-archive-keyring
 	arch = any
-	license = GPL
+	license = GPL-2.0-or-later
+	makedepends = git
 	depends = gnupg
-	source = https://mirrors.kernel.org/debian/pool/main/d/debian-ports-archive-keyring/debian-ports-archive-keyring_2024.02.02.tar.xz
-	sha512sums = b5e75543fd45d58c43ef7e58ef8cf46f6cebf5b0aeb8ad6a13e663f8500fe00c0a6722208b664e8338878e9259325ae94f9bb649241754894de4cac12650b272
+	source = git+https://salsa.debian.org/aurel32/debian-ports-archive-keyring.git#tag=debian/2025.01.01
+	sha512sums = 0182add7ee92039ea05dd7b6b8073ac9315995811ff82dc529745eb0653a216ed4732118822e66e7342db3f7f65a7921268a46958607f07e443a059c4dd1ec80
 
 pkgname = debian-ports-archive-keyring

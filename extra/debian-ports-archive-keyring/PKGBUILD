@@ -1,18 +1,19 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=debian-ports-archive-keyring
-pkgver=2024.02.02
+pkgver=2025.01.01
 pkgrel=1
 pkgdesc="GnuPG archive keys of the debian-ports archive"
 arch=('any')
-url="https://packages.debian.org/sid/debian-ports-archive-keyring"
-license=('GPL')
+url="https://salsa.debian.org/aurel32/debian-ports-archive-keyring"
+license=('GPL-2.0-or-later')
 depends=('gnupg')
-source=("https://mirrors.kernel.org/debian/pool/main/d/debian-ports-archive-keyring/debian-ports-archive-keyring_$pkgver.tar.xz")
-sha512sums=('b5e75543fd45d58c43ef7e58ef8cf46f6cebf5b0aeb8ad6a13e663f8500fe00c0a6722208b664e8338878e9259325ae94f9bb649241754894de4cac12650b272')
+makedepends=('git')
+source=("git+https://salsa.debian.org/aurel32/debian-ports-archive-keyring.git#tag=debian/$pkgver")
+sha512sums=('0182add7ee92039ea05dd7b6b8073ac9315995811ff82dc529745eb0653a216ed4732118822e66e7342db3f7f65a7921268a46958607f07e443a059c4dd1ec80')
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   # Translated from debian/rules
 
   # Build keyrings
@@ -23,13 +24,13 @@ build() {
   # Build fragment files
   mkdir -p build/trusted.gpg.d
   for k in $(ls active-keys); do
-    gpg --no-keyring --import-options import-export --import active-keys/$k > build/trusted.gpg.d/${k%.key}.gpg
+    gpg --armor --no-keyring --import-options import-export --import active-keys/$k > build/trusted.gpg.d/${k%.key}.asc
   done
 }
 
 package() {
-  cd $pkgname-$pkgver
-  install -Dm644 build/trusted.gpg.d/*gpg -t "$pkgdir"/etc/apt/trusted.gpg.d/
+  cd $pkgname
+  install -Dm644 build/trusted.gpg.d/*asc -t "$pkgdir"/etc/apt/trusted.gpg.d/
   install -Dm644 build/keyrings/*gpg -t "$pkgdir"/usr/share/keyrings/
 }
 
