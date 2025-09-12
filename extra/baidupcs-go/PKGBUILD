@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=baidupcs-go
-pkgver=3.9.7
+pkgver=3.9.8
 pkgrel=1
 pkgdesc="Terminal utility for Baidu Network Disk"
 arch=('x86_64')
@@ -12,11 +12,11 @@ depends=('glibc')
 makedepends=('go' 'git')
 conflicts=("baidupcs")
 provides=("baidupcs")
-source=("https://github.com/qjfoidnh/BaiduPCS-Go/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('03df994bab54476ad66f90b032126848b76d5ab8cdec2689de8694d159deb9142db3ebdc2cf046e2a5a989af6b0c984c726fa61d6e613457a2a0e372c20c12ca')
+source=("git+https://github.com/qjfoidnh/BaiduPCS-Go.git#tag=v$pkgver")
+sha512sums=('479b297639bcbff33b8ecf5ae85b22dcdb9aff027c5f4b867d5085cd9330122befe224468894d50ad2dd1361c1a45916a3daefb0a5e7212575423d142ea3f2e2')
 
 build() {
-  cd BaiduPCS-Go-$pkgver
+  cd BaiduPCS-Go
   export GOFLAGS="-buildmode=pie -trimpath"
   export CGO_LDFLAGS="${LDFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
@@ -25,6 +25,6 @@ build() {
 }
 
 package() {
-  cd BaiduPCS-Go-$pkgver
+  cd BaiduPCS-Go
   install -Dm755 baidupcs-go "$pkgdir"/usr/bin/baidupcs
 }
