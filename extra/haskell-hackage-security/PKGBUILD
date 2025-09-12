@@ -3,8 +3,8 @@
 
 _hkgname=hackage-security
 pkgname=haskell-hackage-security
-pkgver=0.6.3.0
-pkgrel=21
+pkgver=0.6.3.1
+pkgrel=1
 pkgdesc="Hackage security library"
 url="https://github.com/well-typed/hackage-security"
 license=('BSD-3-Clause')
@@ -16,7 +16,7 @@ makedepends=('ghc' 'haskell-quickcheck' 'haskell-aeson' 'haskell-tasty' 'haskell
              'haskell-tasty-quickcheck' 'haskell-temporary' 'haskell-unordered-containers'
              'haskell-vector')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('a6a7165366c8eb88be453736a6dda35ce1636d753095f361e3e5e09192c85a5d0ff6025dcb59ac354685cc8ab3d31fa375b5eb139f0fa6357a31b11d9aead4e4')
+sha512sums=('0784e8f50a285361d237b7de35e54d142c1fbdec48ba7c9620b3c14e2f0fb41f3bd007260794b7b7243d539c5c67f3ee7892d60af7709dab570206d6b9497ec4')
 
 build() {
     cd $_hkgname-$pkgver
