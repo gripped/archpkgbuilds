@@ -4,7 +4,7 @@
 _hkgname=hedgehog
 pkgname=haskell-hedgehog
 pkgver=1.4
-pkgrel=110
+pkgrel=113
 pkgdesc="A modern property-based testing system"
 url="https://hedgehog.qa"
 license=('BSD-3-Clause')
@@ -21,7 +21,7 @@ sha512sums=('2c91d0bab1f06996ea68e2823d7e2105da616329ba3bb967b230fe018e113ee40a4
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
-    uusi -u barbies -u primitive
+    uusi -u barbies -u lifted-async -u primitive
 } 
 
 build() {
