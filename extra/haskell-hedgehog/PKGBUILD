@@ -3,8 +3,8 @@
 
 _hkgname=hedgehog
 pkgname=haskell-hedgehog
-pkgver=1.4
-pkgrel=113
+pkgver=1.5
+pkgrel=3
 pkgdesc="A modern property-based testing system"
 url="https://hedgehog.qa"
 license=('BSD-3-Clause')
@@ -16,12 +16,12 @@ depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-async' 'haskell-barbies'
          'haskell-wl-pprint-annotated')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('2c91d0bab1f06996ea68e2823d7e2105da616329ba3bb967b230fe018e113ee40a40996a60641084c8f5390743fc002a36670620cfa7068ff594bdd28e4b1a9a')
+sha512sums=('35205dbdc430c12a74cdfc2277a34452e8b2d0fc8c127e419c4747a80425513bb3bd067872e9c440dbb66edad8a131e9cb2e9481dee2868ef47a432bb2a9854f')
 
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
-    uusi -u barbies -u lifted-async -u primitive
+    uusi -u lifted-async
 } 
 
 build() {
