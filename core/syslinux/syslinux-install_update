@@ -169,12 +169,6 @@ EOF
 # Trys to find the partition that /boot resides on
 # This will either be on /boot or / (root)
 getBoot() {
-    if [[ ! -d "$bios_bootpath" ]]; then
-        echo "Could not find $bios_bootpath"
-        echo "Is boot mounted? Is Syslinux installed?"
-        exit 1
-    fi
-
     syslinux_fs=(ext2 ext3 ext4 btrfs vfat xfs)
 
     # Use DATA from findmnt see rc.sysint for more info
@@ -203,6 +197,16 @@ getBoot() {
         bootpart="$(readlink -f "$rootdev")"
     else
         echo "Could not find filesystem on / (root) or /boot."
+        exit 1
+    fi
+}
+
+
+# Check if $bios_bootpath exists
+check_bios_bootpath() {
+    if [[ ! -d "$bios_bootpath" ]]; then
+        echo "Could not find $bios_bootpath"
+        echo "Is boot mounted? Is Syslinux installed?"
         exit 1
     fi
 }
@@ -433,15 +437,11 @@ if [[ "$CHROOT" ]]; then
     EXTLINUX="$CHROOT$EXTLINUX"
 fi
 
-# Exit if no /boot path exists
-if ( f=("$bios_bootpath"/*); (( ! ${#f[@]} )) ); then
-    echo "Error: $bios_bootpath is empty!"
-    echo "Is /boot mounted?"
-    exit 1
-fi
-
 # Get the boot device if any of these options are passed
-if [[ $INSTALL || $UPDATE || $SET_ACTIVE || $MBR ]]; then
+if [[ $INSTALL ]]; then
+    getBoot
+elif [[ $UPDATE || $SET_ACTIVE || $MBR ]]; then
+    check_bios_bootpath
     getBoot
 fi
 
