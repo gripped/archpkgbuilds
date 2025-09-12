@@ -4,7 +4,7 @@
 _hkgname=system-filepath
 pkgname=haskell-system-filepath
 pkgver=0.4.14.1
-pkgrel=63
+pkgrel=64
 pkgdesc="High-level, byte-based file and directory path manipulations"
 url="https://github.com/fpco/haskell-filesystem"
 license=("MIT")
@@ -34,8 +34,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    # TODO: port tests away from chell-quickcheck, which has been unmaintained for many years.
-    runhaskell Setup test --show-details=direct || echo "Tests failed"
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
