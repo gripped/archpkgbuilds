@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-network-core
-pkgver=2.0.33
+pkgver=2.0.34
 pkgrel=1
 pkgdesc='DDE network library and plugins'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=(dtkcore dtkgui dtkwidget deepin-control-center glibc gcc-libs gsettings
 makedepends=(git cmake deepin-session-shell gtest ninja qt5-tools)
 groups=(deepin)
 source=(git+https://github.com/linuxdeepin/dde-network-core.git#tag=$pkgver)
-sha512sums=('b20a04220daea0310ea51484c6345797e5ac60c19347c4339009ca80a96bbb7fc4d548edd602f223b7edd9b1bcbdf2c1c1b5f13694e4c8eb55ed61664c9c0be7')
+sha512sums=('3e44cfdad625c3c19b1f6c3f1231319f128a3351ce6e0c0a5b8c0465a64b6b9fdeaa92e51e5fc85bed0b95e6f1663a9f6f6a14cff9a79407e43ffe5d4c4647a1')
 
 build() {
   cd dde-network-core
