@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dhall
-pkgver=1.42.2
-pkgrel=76
+pkgver=1.42.3
+pkgrel=1
 pkgdesc='A configuration language guaranteed to terminate'
 url='https://dhall-lang.org'
 license=('BSD-3-Clause')
@@ -12,10 +12,10 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-ansi-termina
          'haskell-cborg' 'haskell-cborg-json' 'haskell-contravariant' 'haskell-cryptohash-sha256'
          'haskell-cryptonite' 'haskell-data-fix' 'haskell-diff' 'haskell-dotgen' 'haskell-either'
          'haskell-half' 'haskell-hashable' 'haskell-http-client' 'haskell-http-client-tls'
-         'haskell-http-types' 'haskell-indexed-traversable' 'haskell-lens-family-core'
-         'haskell-megaparsec' 'haskell-mmorph' 'haskell-network-uri' 'haskell-optparse-applicative'
-         'haskell-parsers' 'haskell-parser-combinators' 'haskell-prettyprinter'
-         'haskell-prettyprinter-ansi-terminal' 'haskell-pretty-simple' 'haskell-profunctors'
+         'haskell-http-types' 'haskell-indexed-traversable' 'haskell-megaparsec'
+         'haskell-microlens' 'haskell-microlens-mtl' 'haskell-mmorph' 'haskell-network-uri'
+         'haskell-optparse-applicative' 'haskell-parsers' 'haskell-parser-combinators'
+         'haskell-prettyprinter' 'haskell-prettyprinter-ansi-terminal' 'haskell-pretty-simple'
          'haskell-repline' 'haskell-serialise' 'haskell-scientific' 'haskell-text-manipulate'
          'haskell-text-short' 'haskell-th-lift-instances' 'haskell-unix-compat'
          'haskell-unordered-containers' 'haskell-vector')
@@ -24,7 +24,7 @@ makedepends=('ghc' 'haskell-doctest' 'haskell-foldl' 'haskell-generic-random' 'h
              'haskell-spoon' 'haskell-tasty' 'haskell-tasty-expected-failure' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck' 'haskell-tasty-silver' 'haskell-temporary' 'haskell-turtle')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('071da05e058c1276d7b3f999230609a3f71f34386e4019452091e07a9078a6d322c213f1d70c423c938598894da4db7bd02d79c04d04d9f89414c0e011709755')
+sha512sums=('95e346711c5a1d582c76c131226665e9ce5f8700495b89b51b0fa02192b7fd27857bcab1f5dc64327449dd307c263ef9e921e1897ac88dd77487953858cc90b5')
 
 build() {
     cd $pkgname-$pkgver
@@ -41,7 +41,7 @@ build() {
 
 check() {
     cd $pkgname-$pkgver
-    runhaskell Setup test --show-details=direct || echo "Tests failed"
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
