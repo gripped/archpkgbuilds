@@ -3,7 +3,7 @@
 _hkgname=clash-prelude
 pkgname=haskell-clash-prelude
 pkgver=1.8.2
-pkgrel=44
+pkgrel=45
 pkgdesc="Clash: a functional hardware description language - Prelude library"
 url="https://github.com/clash-lang/clash-prelude"
 license=('BSD-2-Clause')
@@ -24,6 +24,7 @@ sha512sums=('7a0dc39145ce61afbc0bde93c459a4a59fac495835b90267fb2fb1f60d5d75ba8b0
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
+    uusi -u hedgehog
 }
 
 build() {
