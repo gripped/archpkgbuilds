@@ -3,7 +3,7 @@
 _hkgname=nothunks
 pkgname=haskell-nothunks
 pkgver=0.2.0
-pkgrel=160
+pkgrel=163
 pkgdesc="Examine values for unexpected thunks"
 url="https://github.com/input-output-hk/nothunks"
 license=("MIT")
@@ -17,6 +17,7 @@ sha256sums=('09310685bc3c334d285bd2a28e3d635ff86923c1540706bf007d2f0068ccc9b8')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u hedgehog
 }
 
 build() {
