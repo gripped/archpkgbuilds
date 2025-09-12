@@ -9,7 +9,7 @@ pkgname=(
   lib32-pipewire-jack
   lib32-pipewire-v4l2
 )
-pkgver=1.4.7
+pkgver=1.4.8
 pkgrel=1
 epoch=1
 pkgdesc="Low-latency audio/video router and processor - 32-bit"
@@ -28,7 +28,7 @@ makedepends=(
 source=(
   "git+https://gitlab.freedesktop.org/pipewire/pipewire.git#tag=$pkgver"
 )
-b2sums=('3d708fd818288432c0963761a35dfc4c716ddd5753e5ccc7cf3ad6db3a4e8c3d3b43babbc0de8b8dc3284c9fec8bc3c26adee8461980b89610a2ec70b5e45ba8')
+b2sums=('cf0125e7c4a7abbd760a8e389b61716107f11ef1cdb077eddbca1dc2b327bfe6d4476005e4fcf8b11312120bed0da0f1b9f2a23d568a56df515cbfb34c96e12f')
 
 prepare() {
   cd pipewire
