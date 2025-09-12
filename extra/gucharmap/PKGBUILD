@@ -2,31 +2,40 @@
 # Contributor: Jan De Groot <jgc@archlinux.org>
 
 pkgname=gucharmap
-pkgver=15.1.5
+pkgver=17.0.0
 pkgrel=1
-pkgdesc="Gnome Unicode Charmap"
+pkgdesc="Unicode Character Map"
 url="https://wiki.gnome.org/Apps/Gucharmap"
 arch=(x86_64)
-license=(GPL3)
-depends=(gtk3)
+license=(GPL-3.0-or-later)
+depends=(
+  at-spi2-core
+  cairo
+  dconf
+  glib2
+  glibc
+  gtk3
+  pango
+  pcre2
+)
 makedepends=(
+  "unicode-character-database>=${pkgver%%.*}.0.0"
   git
   glib2-devel
   gobject-introspection
   gtk-doc
   meson
-  unicode-character-database
+  unzip
   vala
   yelp-tools
-  unzip
 )
 provides=(libgucharmap_2_90.so)
 options=(!lto)
 source=("git+https://gitlab.gnome.org/GNOME/gucharmap.git#tag=$pkgver")
-b2sums=('eca34fc506935c480a3cc1cf03c214b38839cb510536852333256b03adc0503e165edc18f409be278f16fbb080ccc8f2a55045bd15f5247b6e766465218bcb08')
+b2sums=('6e4446d63cffff39a3b8bcbecaee304238069c18ccd758c0afa60132a2ec346830754cad45ee62b39efede3862d7cebe897f599de80dc06f354c87464cbd6605')
 
 prepare() {
-  cd $pkgname
+  cd gucharmap
 }
 
 build() {
@@ -35,7 +44,7 @@ build() {
     -D ucd_path=/usr/share/unicode
   )
 
-  arch-meson $pkgname build "${meson_options[@]}"
+  arch-meson gucharmap build "${meson_options[@]}"
   meson compile -C build
 }
 

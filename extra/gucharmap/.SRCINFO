@@ -1,23 +1,30 @@
 pkgbase = gucharmap
-	pkgdesc = Gnome Unicode Charmap
-	pkgver = 15.1.5
+	pkgdesc = Unicode Character Map
+	pkgver = 17.0.0
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Gucharmap
 	arch = x86_64
-	license = GPL3
+	license = GPL-3.0-or-later
+	makedepends = unicode-character-database>=17.0.0
 	makedepends = git
 	makedepends = glib2-devel
 	makedepends = gobject-introspection
 	makedepends = gtk-doc
 	makedepends = meson
-	makedepends = unicode-character-database
+	makedepends = unzip
 	makedepends = vala
 	makedepends = yelp-tools
-	makedepends = unzip
+	depends = at-spi2-core
+	depends = cairo
+	depends = dconf
+	depends = glib2
+	depends = glibc
 	depends = gtk3
+	depends = pango
+	depends = pcre2
 	provides = libgucharmap_2_90.so
 	options = !lto
-	source = git+https://gitlab.gnome.org/GNOME/gucharmap.git#tag=15.1.5
-	b2sums = eca34fc506935c480a3cc1cf03c214b38839cb510536852333256b03adc0503e165edc18f409be278f16fbb080ccc8f2a55045bd15f5247b6e766465218bcb08
+	source = git+https://gitlab.gnome.org/GNOME/gucharmap.git#tag=17.0.0
+	b2sums = 6e4446d63cffff39a3b8bcbecaee304238069c18ccd758c0afa60132a2ec346830754cad45ee62b39efede3862d7cebe897f599de80dc06f354c87464cbd6605
 
 pkgname = gucharmap
