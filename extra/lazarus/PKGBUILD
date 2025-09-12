@@ -6,7 +6,7 @@ pkgbase=lazarus
 pkgname=('lazarus' 'lazarus-gtk3' 'lazarus-qt5' 'lazarus-qt6')
 _lazarus_tag=4_2
 pkgver=4.2
-pkgrel=1
+pkgrel=2
 url='http://www.lazarus.freepascal.org/'
 license=('GPL-2.0-or-later' 'LGPL-2.1-or-later' 'MPL-1.1')
 arch=('x86_64')
@@ -84,7 +84,7 @@ package_lazarus() {
 }
 
 package_lazarus-gtk3() {
-  pkgdesc='Delphi-like IDE for FreePascal GTK3 version'
+  pkgdesc='Delphi-like IDE for FreePascal GTK3 version (alpha quality)'
   depends=('lazarus' 'desktop-file-utils' 'gtk3')
   conflicts=('lazarus-gtk2' 'lazarus-qt5' 'lazarus-qt6')
   replaces=('lazarus-gtk2')
