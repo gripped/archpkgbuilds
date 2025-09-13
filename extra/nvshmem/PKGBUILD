@@ -1,0 +1,52 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+pkgname=nvshmem
+pkgver=3.4.5
+_cudaver=13
+pkgrel=2
+pkgdesc="NVIDIA parallel programming interface based on OpenSHMEM"
+arch=(x86_64)
+url="https://developer.nvidia.com/nvshmem"
+license=(LicenseRef-NVIDIA-NVSHMEM)
+depends=(
+  cuda
+  gcc-libs
+  glibc
+  hwloc
+)
+optdepends=(
+  'libfabric: For OpenFabrics transport plugin'
+  'openmpi: For MPI and OpenSHMEM bootstrap plugins'
+  'openpmix: For PMI bootstrap plugins'
+  'openucx: For UCX transport plugin'
+  'rdma-core: For IBGDA transport plugin'
+)
+options=(!strip staticlibs)
+source=(https://developer.download.nvidia.com/compute/nvshmem/redist/libnvshmem/linux-x86_64/lib${pkgname}-linux-x86_64-${pkgver}_cuda${_cudaver}-archive.tar.xz)
+b2sums=('ff117701106edbdf9209bbb49f93a9bfee4c4f599ded49a1c0955becc225529dcc6ba8eb71d4f02d5ecd079125dea75e7e7329083494610144e188e4e3500b5c')
+
+package() {
+  cd libnvshmem-linux-x86_64-${pkgver}_cuda${_cudaver}-archive
+
+  install -vdm 755 "$pkgdir"/usr/
+  cp -arv bin lib "$pkgdir"/usr/
+  chmod a-x "$pkgdir"/usr/lib/*.a
+
+  # move bin subdirs into "namespaced" directory
+  install -vdm 755 "$pkgdir"/usr/bin/$pkgname/
+  mv -v "$pkgdir"/usr/bin/{examples,perftest} "$pkgdir"/usr/bin/$pkgname/
+
+  # install headers into "namespaced" directory
+  install -vdm 755 "$pkgdir"/usr/include/
+  cp -arv include "$pkgdir"/usr/include/$pkgname
+
+  # fix INCLUDE_DIRS in cmake config file
+  sed -i 's|${PACKAGE_PREFIX_DIR}/include|${PACKAGE_PREFIX_DIR}/include/'"$pkgname"'|' "$pkgdir"/usr/lib/cmake/nvshmem/NVSHMEMConfig.cmake
+
+  # install sources
+  install -vdm 755 "$pkgdir"/usr/share/$pkgname/
+  cp -arv share/src/ "$pkgdir"/usr/share/$pkgname/
+
+  # install license
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
