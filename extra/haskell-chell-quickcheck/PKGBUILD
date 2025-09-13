@@ -3,23 +3,22 @@
 _hkgname=chell-quickcheck
 pkgname=haskell-chell-quickcheck
 pkgver=0.2.5.4
-pkgrel=78
+pkgrel=79
 pkgdesc="QuickCheck support for the Chell testing library"
 url="https://github.com/typeclasses/chell"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-chell' 'haskell-quickcheck' 'haskell-random')
 makedepends=('ghc' 'uusi')
-source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('967f61e1e6d03c2c1d5195e6efdfcb33c6fcded0b3383ca2ac6cb4dedce163634d841b5eba77cebbe7f6952dfbb95bb72e08ec8d1ead64fdb4be7d8780f20c64')
+source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz
+        quickcheck-2.15.patch)
+sha512sums=('967f61e1e6d03c2c1d5195e6efdfcb33c6fcded0b3383ca2ac6cb4dedce163634d841b5eba77cebbe7f6952dfbb95bb72e08ec8d1ead64fdb4be7d8780f20c64'
+            '3434db0bcd3178bf8e1c55ef85c36c2d84480347ce1e16c4264f4ab72ba88915e77f0e3138ace3d54533a8c04bc9d272aeaabc79d836c253be30a63f324c7385')
 
 prepare() {
     cd $_hkgname-$pkgver
+    patch -p2 -i ../quickcheck-2.15.patch
     gen-setup
-    uusi -u QuickCheck
-    sed -e '/computeSize = computeSize/d' \
-        -e '/State.numDiscardedTests/a \              State.maxTestSize = 0,\n              State.replayStartSize = Nothing,' \
-        -i Test/Chell/QuickCheck.hs
 }
 
 build() {
