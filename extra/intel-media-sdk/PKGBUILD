@@ -3,10 +3,10 @@
 pkgbase=intel-media-sdk
 pkgname=('intel-media-sdk' 'libmfx')
 pkgver=23.2.2
-pkgrel=4
+pkgrel=5
 pkgdesc='Legacy API for hardware video acceleration on Intel GPUs (Broadwell to Rocket Lake)'
 arch=('x86_64')
-url='https://software.intel.com/en-us/media-sdk/'
+url='https://github.com/Intel-Media-SDK/MediaSDK/'
 license=('MIT')
 makedepends=(
     'cmake'
