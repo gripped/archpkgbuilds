@@ -2,7 +2,7 @@
 
 pkgname=syd
 _pkgname=sydbox
-pkgver=3.38.2
+pkgver=3.38.4
 pkgrel=1
 pkgdesc="Seccomp and landlock based application sandbox with support for namespaces"
 url="https://lib.rs/crates/syd"
@@ -12,7 +12,7 @@ depends=('bash' 'gcc-libs' 'glibc' 'libseccomp')
 makedepends=('cargo' 'scdoc')
 provides=("${_pkgname}")
 source=("${pkgname}-${pkgver}.tar.gz::https://gitlab.exherbo.org/${_pkgname}/${_pkgname}/-/archive/v${pkgver}/${_pkgname}-v${pkgver}.tar.gz")
-sha256sums=('93c7f3e5d4bae4b7e6dcb873f01f9095eb8bf0cf41619a43838edf15a250dcd8')
+sha256sums=('963e19ae725bf287fe501fb0bdb34ca32b4dd1cb5abc93c55da433e6e68f9674')
 
 prepare() {
 	cd "${_pkgname}-v${pkgver}"
