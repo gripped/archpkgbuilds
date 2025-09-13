@@ -1,26 +1,26 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-polkit-agent-ext-gnomekeyring
-pkgver=5.0.1
-pkgrel=2
+pkgver=5.0.2
+pkgrel=1
 pkgdesc="GNOME keyring extension for dde-polkit-agent"
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dpa-ext-gnomekeyring"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('deepin-polkit-agent' 'deepin-qt5integration' 'libgnome-keyring')
-makedepends=('qt5-tools')
+makedepends=('git' 'qt5-tools')
 groups=('deepin')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dpa-ext-gnomekeyring/archive/$pkgver.tar.gz")
-sha512sums=('bb305cd4168a86af0323fdef4e0c65e102d3a82c6c052ed8d30679f88efd1bfc5265367e36cb9aa296833b2e715f97705863b6246a2154d17d7c7c93704b1106')
+source=("git+https://github.com/linuxdeepin/dpa-ext-gnomekeyring.git#tag=$pkgver")
+sha512sums=('faac2685afb5ecd5bad2c7e3d08a4bbdc8fe51bb5f1ccc6c7b9ad0a85bb3a562f8142171fef2a8b4aab097114fc3fe7bb249b352f19c261d9858679dba1fbf53')
 
 build() {
-  cd dpa-ext-gnomekeyring-$pkgver
+  cd dpa-ext-gnomekeyring
 
   qmake-qt5
   make
 }
 
 package() {
-  cd dpa-ext-gnomekeyring-$pkgver
+  cd dpa-ext-gnomekeyring
   make INSTALL_ROOT="$pkgdir" install
 }
