@@ -8,12 +8,12 @@
 
 pkgname=phpmyadmin
 pkgver=5.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc='PHP web-based tool to administrate MySQL and MariaDB databases over the web'
 arch=('any')
 url='https://www.phpmyadmin.net'
 license=('GPL')
-depends=('mysql-clients' 'php')
+depends=('mysql-clients' 'php-interpreter')
 backup=(etc/webapps/phpmyadmin/config.inc.php)
 source=(https://files.phpmyadmin.net/phpMyAdmin/$pkgver/phpMyAdmin-$pkgver-all-languages.tar.xz)
 sha512sums=('f671969ae477aa094fca7f88b27ddc555b67388dd5f971df7e3ec8b09d01506549f86ef90324b3e290b0015debdebe66f87dd5098771c92ba4dac4106b2aeb3d')
