@@ -1,0 +1,33 @@
+version = 1
+
+[[annotations]]
+path = [
+    "PKGBUILD",
+    "README.md",
+    "keys/**",
+    ".SRCINFO",
+    ".nvchecker.toml",
+    "*.install",
+    "*.sysusers",
+    "*.tmpfiles",
+    "*.logrotate",
+    "*.pam",
+    "*.service",
+    "*.socket",
+    "*.timer",
+    "*.desktop",
+    "*.hook",
+]
+SPDX-FileCopyrightText = "Arch Linux contributors"
+SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "005-i2pd-tests-use-arch-flags.patch",
+    "010-i2pd-config.patch",
+    "020-i2pd-do-not-override-config.patch",
+    "030-i2pd-systemd-service-hardening.patch",
+    "040-i2pd-tunnels-d-readme.patch",
+]
+SPDX-FileCopyrightText = "i2pd contributors"
+SPDX-License-Identifier = "BSD-3-Clause"
