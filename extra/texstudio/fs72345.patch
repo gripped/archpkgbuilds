@@ -1,17 +1,21 @@
---- a/configmanager.cpp
-+++ b/configmanager.cpp
-@@ -631,7 +631,7 @@ ConfigManager::ConfigManager(QObject *pa
- #else
+diff --git a/src/configmanager.cpp b/src/configmanager.cpp
+index 7ef6ffb68..a28d369f8 100644
+--- a/src/configmanager.cpp
++++ b/src/configmanager.cpp
+@@ -645,7 +645,7 @@ ConfigManager::ConfigManager(QObject *parent): QObject (parent),
  	registerOption("Grammar/Language Tool URL", &grammarCheckerConfig->languageToolURL, "http://localhost:8081/", &pseudoDialog->lineEditGrammarLTUrl);
  #endif
+ 	registerOption("Grammar/Language Tool URL Parameters", &grammarCheckerConfig->languageToolURLParams, "", &pseudoDialog->lineEditGrammarLTURLParams);
 -	registerOption("Grammar/Language Tool Path", &grammarCheckerConfig->languageToolPath, "", &pseudoDialog->lineEditGrammarLTPath);
 +	registerOption("Grammar/Language Tool Path", &grammarCheckerConfig->languageToolPath, "/usr/share/languagetool:/usr/share/java/languagetool/*", &pseudoDialog->lineEditGrammarLTPath);
  	registerOption("Grammar/Language Tool Arguments", &grammarCheckerConfig->languageToolArguments, "org.languagetool.server.HTTPServer -p 8081", &pseudoDialog->lineEditGrammarLTArguments);
  	registerOption("Grammar/Language Tool Java Path", &grammarCheckerConfig->languageToolJavaPath, "java", &pseudoDialog->lineEditGrammarLTJava);
  	registerOption("Grammar/Language Tool Autorun", &grammarCheckerConfig->languageToolAutorun, true, &pseudoDialog->checkBoxGrammarLTAutorun);
---- a/grammarcheck.cpp
-+++ b/grammarcheck.cpp
-@@ -639,11 +639,6 @@ void GrammarCheckLanguageToolJSON::tryTo
+diff --git a/src/grammarcheck.cpp b/src/grammarcheck.cpp
+index 0c32e2585..93518e8c2 100644
+--- a/src/grammarcheck.cpp
++++ b/src/grammarcheck.cpp
+@@ -547,11 +547,6 @@ void GrammarCheckLanguageToolJSON::tryToStart()
      startTime = 0;
      if (ltPath == "")
          return;
