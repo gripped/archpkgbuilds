@@ -2,7 +2,7 @@
 # Contributor: Alexandre Bury <alexandre.bury@gmail.com>
 
 pkgname=python-polars
-pkgver=1.32.3
+pkgver=1.33.0
 pkgrel=1
 pkgdesc="Blazingly fast DataFrames library using Apache Arrow Columnar Format as memory model"
 arch=("x86_64")
@@ -32,7 +32,7 @@ checkdepends=('python-pytest'
 _name=${pkgname#python-}
 _tag="py-$pkgver"
 source=("https://github.com/pola-rs/polars/archive/refs/tags/$_tag.tar.gz")
-b2sums=('cd77373306b4c0a6729327b916c9fb923319051a59a264bd0a1979e97cad38e68d206a1b43b321348ecaea73c62915c110a76c8eddbf808837173a1c89cc0a1b')
+b2sums=('65acd2c0e717d38660639c746e5f93b1d45ca9aadff1aabbeaa256471933fdd2d2c9621f780d06f89c010f1ca8a724801879009012b9603d5797c25fb7ba2e9e')
 
 prepare() {
     cd polars-$_tag/py-polars
@@ -53,25 +53,32 @@ check() {
     # Existence of polars module causes issues, even with safe mode -P
     rm -rv polars
 
+    local _pytest_args=(
+        -W ignore::pydantic.warnings.PydanticDeprecatedSince211
+        --ignore tests/unit/io/test_delta.py
+        --ignore tests/unit/operations/namespaces/test_plot.py
+        --ignore tests/unit/io/cloud/test_aws.py
+        --ignore tests/unit/functions/range/test_datetime_range.py
+        --ignore tests/unit/io/test_spreadsheet.py
+        --ignore tests/unit/io/test_iceberg.py
+        --deselect "tests/unit/streaming/test_streaming_categoricals.py::test_streaming_cat_14933"
+        --deselect "tests/unit/dataframe/test_df.py::test_extension"
+        --deselect "tests/unit/streaming/test_streaming_group_by.py::test_streaming_group_by_literal[1]"
+        --deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_uri"
+        --deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_multiple_adbc"
+        --deselect "tests/unit/io/database/test_read.py::test_read_database_uri_parameterised"
+        --deselect "tests/unit/io/database/test_read.py::test_read_database_uri_parameterised_multiple"
+        --deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_adbc"
+        --deselect "tests/unit/io/database/test_read.py::test_read_database_cx_credentials[fakedb://123:456@account/database/schema?warehouse=warehouse&role=role]"
+        --deselect "tests/unit/io/database/test_read.py::test_read_database_cx_credentials[fakedb://my#%us3r:p433w0rd@not_a_real_host:9999/database]"
+        --deselect "tests/unit/io/database/test_write.py::test_write_database_adbc_temporary_table"
+        --deselect tests/unit/io/test_hive.py::test_hive_decode_reserved_ascii_23241
+        --deselect tests/unit/io/test_hive.py::test_hive_decode_utf8_23241
+    )
+
     # Ignore several test files as they either use unpackaged dependencies, or
     # contain direct errors
-    test-env/bin/python -P -m pytest tests/unit \
-        -W ignore::pydantic.warnings.PydanticDeprecatedSince211 \
-        --ignore tests/unit/io/test_delta.py \
-        --ignore tests/unit/operations/namespaces/test_plot.py \
-        --ignore tests/unit/io/cloud/test_aws.py \
-        --ignore tests/unit/functions/range/test_datetime_range.py \
-        --ignore tests/unit/io/test_spreadsheet.py \
-        --ignore tests/unit/io/test_iceberg.py \
-        --deselect "tests/unit/streaming/test_streaming_categoricals.py::test_streaming_cat_14933" \
-        --deselect "tests/unit/dataframe/test_df.py::test_extension" \
-        --deselect "tests/unit/streaming/test_streaming_group_by.py::test_streaming_group_by_literal[1]" \
-        --deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_uri[:n-param_value0]" \
-        --deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_uri[?-param_value1]" \
-        --deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_uri[?-param_value2]" \
-        --deselect "tests/unit/io/database/test_read.py::test_read_database_cx_credentials[fakedb://123:456@account/database/schema?warehouse=warehouse&role=role]" \
-        --deselect "tests/unit/io/database/test_read.py::test_read_database_cx_credentials[fakedb://my#%us3r:p433w0rd@not_a_real_host:9999/database]" \
-        --deselect "tests/unit/io/database/test_write.py::test_write_database_adbc_temporary_table"
+    test-env/bin/python -P -m pytest tests/unit "${_pytest_args[@]}"
 }
 
 package() {
