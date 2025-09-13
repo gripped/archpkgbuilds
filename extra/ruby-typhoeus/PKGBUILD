@@ -1,8 +1,8 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 _name=typhoeus
 pkgname=ruby-typhoeus
-pkgver=1.4.1
-pkgrel=3
+pkgver=1.5.0
+pkgrel=1
 pkgdesc="Runs HTTP requests in parallel while cleanly encapsulating handling logic."
 arch=('any')
 url="https://github.com/typhoeus/typhoeus"
@@ -13,13 +13,16 @@ depends=(
 )
 makedepends=(git)
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha256sums=('7f02a1b7c9cc4ff577fdec984bc067a73e5522841eb399894f3ca07a618183dc')
+sha256sums=('9a59659656ca8ffa3401d9973b5424e81ca1d552cb2bfe0898fd99c85f677afc')
 
 prepare() {
   cd "$pkgname"
 
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended 's|~>|>=|g' "${_name}.gemspec"
+
+  # relax the dependency on ethon, it's too strict
+  sed --in-place --regexp-extended 's|, "< 0.16.0"||' "${_name}.gemspec"
 }
 
 build() {
