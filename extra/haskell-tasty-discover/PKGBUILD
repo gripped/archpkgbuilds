@@ -2,8 +2,8 @@
 
 _hkgname=tasty-discover
 pkgname=haskell-tasty-discover
-pkgver=5.0.1
-pkgrel=65
+pkgver=5.0.2
+pkgrel=1
 pkgdesc="Test discovery for the tasty framework"
 url="https://github.com/haskell-works/tasty-discover"
 license=('MIT')
@@ -13,7 +13,7 @@ makedepends=('ghc' 'haskell-hedgehog' 'haskell-hspec' 'haskell-hspec-core' 'hask
              'haskell-tasty-hedgehog' 'haskell-tasty-hspec' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('8a0829b9bcad4127baf896144e37c92c8752ee537f0ff9bce8557d6b6892ea4d892cb21a6d8fc32eb20eaf7ac84ddffc631d1e566bbb1bb5f869770e161856f7')
+sha512sums=('607727f41d153286972831b28070547cb1d67605763cfdbe6b19829fe402599d052d7a976bc350a7e1536795f61a4cba06288c74599c18e749f2f8f2cbfeaf5f')
 
 build() {
     cd $_hkgname-$pkgver
