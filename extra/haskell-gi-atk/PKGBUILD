@@ -2,17 +2,17 @@
 
 _hkgname=gi-atk
 pkgname=haskell-gi-atk
-pkgver=2.0.27
-pkgrel=217
+pkgver=2.0.28
+pkgrel=1
 pkgdesc="Atk bindings"
 url="https://github.com/haskell-gi/haskell-gi"
-license=("LGPL2_1")
+license=('LGPL-2.1-only')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-gi-glib' 'haskell-gi-gobject' 'haskell-gi' 'haskell-gi-base'
          'haskell-gi-overloading' 'at-spi2-core')
 makedepends=('ghc' 'gobject-introspection')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('f5c474dc4c203d7a8dafe1da9539e5a07e9d3254c41d20db4f149d680903e3b6')
+sha256sums=('cdeda4415bf8ab5f2e5b4c36218ea5e7deba8326d19a72c922eeaca51f647f36')
 
 build() {
   cd $_hkgname-$pkgver
