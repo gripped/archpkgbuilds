@@ -2,8 +2,7 @@
 # Contributor: American_Jesus <american.jesus.pt AT gmail DOT com>
 
 pkgname=nano-syntax-highlighting
-pkgver=2022.11.02.r102.gbb94603
-_commit=bb94603d8652afdda3bbcb3fbb35d3fd4bc7165d    # master 2024-08-03
+pkgver=2025.07.01.r0.g256995b
 pkgrel=1
 pkgdesc="Nano editor syntax highlighting enhancements"
 url="https://github.com/galenguyer/nano-syntax-highlighting"
@@ -11,8 +10,8 @@ license=('GPL-3.0-or-later')
 arch=('any')
 depends=('nano')
 makedepends=('git')
-source=(nano-syntax-highlighting::git+https://github.com/galenguyer/nano-syntax-highlighting.git#commit=$_commit)
-sha256sums=('SKIP')
+source=(nano-syntax-highlighting::git+https://github.com/galenguyer/nano-syntax-highlighting.git#tag=$pkgver)
+b2sums=('26e61a51b0eeb537bfaec2e874da9eb76be007ff1a7de6c3532f4a1ded1495aabf9edfef2fc37d2314cd7d699cd18dbcb91e01d41c87d48b27b51c79409e3ffa')
 
 pkgver() {
   cd "$pkgname"
