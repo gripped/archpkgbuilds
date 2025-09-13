@@ -1,15 +1,18 @@
 pkgbase = xdg-desktop-portal-dde
 	pkgdesc = A backend implementation for xdg-desktop-portal on Deepin desktop environment
-	pkgver = 1.0.6
+	pkgver = 1.0.7
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/xdg-desktop-portal-dde
 	arch = x86_64
 	groups = deepin
-	license = GPL3
+	license = LGPL-3.0-or-later
 	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
 	makedepends = wlr-protocols
+	makedepends = qt6-tools
+	depends = dtk6core
+	depends = dtk6widget
 	depends = qt6-base
 	depends = qt6-wayland
 	depends = wayland
@@ -17,7 +20,7 @@ pkgbase = xdg-desktop-portal-dde
 	depends = gcc-libs
 	depends = xdg-desktop-portal
 	provides = xdg-desktop-portal-impl
-	source = git+https://github.com/linuxdeepin/xdg-desktop-portal-dde.git#tag=1.0.6
-	sha512sums = ff0972842f7d86f66d8a03537179a5198010eb1f5df3d3c573480e4076b148cfad6e7e331372dd68f93812bc4aca07882d2dbf114529ec0f44214745c8c5caea
+	source = git+https://github.com/linuxdeepin/xdg-desktop-portal-dde.git#tag=1.0.7
+	sha512sums = f241b9f76b91c50203946dfd5707517a5a952274e6ba7af698c80a53e8b7610752b70f62c93392e29d1619dbb099394c9654bc720f036008485e53f88346f513
 
 pkgname = xdg-desktop-portal-dde
