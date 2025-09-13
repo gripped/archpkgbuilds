@@ -2,7 +2,7 @@
 # Contributor: Dave Reisner <d@falconindy.com>
 
 pkgname=pkgfile
-pkgver=24
+pkgver=25
 pkgrel=1
 pkgdesc='A tool to search for files in official repository packages'
 arch=('x86_64')
@@ -19,14 +19,22 @@ depends=(
 makedepends=(
     'git'
     'meson')
+checkdepends=(
+    'gtest'
+    'python'
+)
 install=pkgfile.install
 source=("git+https://github.com/falconindy/pkgfile.git#tag=v${pkgver}?signed")
-sha256sums=('0a02f98d7b4fd516065757e4942c7d2490104a044e31306f7f4b259db8ba36b3')
+sha256sums=('3b247c9e0647ddf93682b7b9fedee5822004b9b4b57af37be82351f1cdca3b81')
 validpgpkeys=('487EACC08557AD082088DABA1EB2638FF56C0C53') # Dave Reisner <d@falconindy.com>
 
 build() {
     arch-meson "$pkgname" build
     meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
 }
 
 package() {
