@@ -2,8 +2,8 @@
 
 _name=ethon
 pkgname=ruby-${_name}
-pkgver=0.16.0
-pkgrel=7
+pkgver=0.17.0
+pkgrel=1
 pkgdesc="Libcurl wrapper"
 arch=('any')
 url="https://github.com/typhoeus/ethon"
@@ -20,20 +20,25 @@ checkdepends=(
   'ruby-mustermann'
   'ruby-rack'
   'ruby-rackup'
+  'ruby-benchmark-ips'
+  'ruby-patron'
 )
 options=(!emptydirs)
 noextract=(${_name}-${pkgver}.gem)
 source=(
   ${pkgname}-${pkgver}.tar.gz::https://github.com/typhoeus/$_name/archive/v${pkgver}.tar.gz
-  overrides.patch
 )
-sha256sums=('d1d6f75238ddd09edb42f5bc65788e28c84cd09dedfc3dd519889efc7187780f'
-            '9d17253e918e93c19fe4b6dbb1c92749178ead80435b3333c23c0dd24b4a660f')
+sha256sums=('9b8e17ceed1a7a9ef0a4c7d7cf35c467d9c3609e95ca0463dcda7fd7ad175411')
 
 prepare() {
   cd "${_name}-${pkgver}"
-
-  patch -p1 < "$srcdir/overrides.patch"
+  sed --in-place --regexp-extended \
+    -e 's|`git ls-files -z`|`find . -type f -print0`|' \
+    ethon.gemspec
+  sed --in-place --regexp-extended \
+    -e 's|~>|>=|g' \
+    -e '/curb/d' \
+    Gemfile
 }
 
 build() {
