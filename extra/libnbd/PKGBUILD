@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Thomas Weißschuh <thomas t-8ch de>
 pkgname=libnbd
-pkgver=1.22.3
+pkgver=1.22.4
 pkgrel=1
 pkgdesc="NBD client library in userspace"
 arch=('x86_64')
@@ -17,7 +17,7 @@ optdepends=(
 source=(
   "https://download.libguestfs.org/libnbd/${pkgver%.*}-stable/libnbd-${pkgver}.tar.gz"{,.sig}
 )
-sha256sums=('e3ae0dc6c4eae6de89e0cdefbfedf1db96dff2ffe470f1508c798b8b48d6cfe9'
+sha256sums=('89df86fbeef342a2c78a9a2c2d600b57a01933d727446f64013ecf55a4afe704'
             'SKIP')
 validpgpkeys=('F7774FB1AD074A7E8C8767EA91738F73E1B768A0')  # Richard W.M. Jones <rjones@redhat.com>
 
