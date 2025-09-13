@@ -3,22 +3,23 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=startdde
-pkgver=6.0.19
+pkgver=6.1.0
 pkgrel=1
 pkgdesc="starter of deepin desktop environment"
 arch=('x86_64')
 url="https://github.com/linuxdeepin/startdde"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 # deepin-wloutput-daemon: org.deepin.dde.KWayland1
 depends=('dconf' 'glib2' 'glibc' 'gtk3' 'libgudev' 'libx11' 'libxi'
          'deepin-wloutput-daemon')
 makedepends=('go' 'git')
 groups=('deepin')
-source=("https://github.com/linuxdeepin/startdde/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('a0310b5906505537a532d47a966c1f3268440487ec46557b74d31654691a628ff28eb1cdc3df76999f80b60f3fab467248bfee2d249bec616bc1b485637d1d73')
+source=("git+https://github.com/linuxdeepin/startdde.git#tag=$pkgver")
+sha512sums=('f81d3d4b677186b57fee8417b0b85aaaaee6bffe70d9bb090d02f8eb6a8cea1655bac56d2b927c30de9a04c838cc6efe717bd65570de15b303e7e600f61cf497')
 
 prepare() {
-  cd startdde-$pkgver
+  cd startdde
+  go get github.com/linuxdeepin/go-gir
   sed -i 's/sbin/bin/' Makefile
 }
 
@@ -29,11 +30,11 @@ build() {
   export CGO_LDFLAGS="${LDFLAGS}"
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
 
-  cd startdde-$pkgver
+  cd startdde
   make
 }
 
 package() {
-  cd startdde-$pkgver
+  cd startdde
   make DESTDIR="$pkgdir" install
 }
