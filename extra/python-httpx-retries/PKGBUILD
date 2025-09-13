@@ -1,0 +1,50 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+_name=httpx-retries
+pkgname=python-$_name
+pkgver=0.4.2
+pkgrel=1
+license=(MIT)
+pkgdesc="A retry layer for HTTPX"
+arch=(any)
+url="https://github.com/will-ockmore/httpx-retries"
+depends=(
+  python
+  python-httpx
+)
+makedepends=(
+  python-build
+  python-installer
+  python-wheel
+  python-hatchling
+  python-hatch-fancy-pypi-readme
+)
+checkdepends=(
+  python-pytest
+  python-pytest-asyncio
+)
+source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
+b2sums=('c1600334796797819d952360246ef6a17efc75207fc514f1fff0b6eaaf299707b4d7f384bb0ea6bbd7c3682c5371444b71ecb7ca5e4c8eb20cf31fd042abc511')
+
+build() {
+  cd $_name-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  local pytest_options=(
+    -vv
+    -W ignore::DeprecationWarning
+  )
+
+  cd $_name-$pkgver
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest "${pytest_options[@]}" tests
+}
+
+package() {
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
