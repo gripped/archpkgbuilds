@@ -3,18 +3,20 @@
 
 _hkgname=hashable
 pkgname=haskell-hashable
-pkgver=1.4.4.0
-pkgrel=186
+pkgver=1.4.5.0
+pkgrel=2
 pkgdesc="A class for types that can be converted to a hash value"
 url="https://github.com/haskell-unordered-containers/hashable"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-os-string')
 makedepends=('ghc')
-checkdepends=('haskell-hunit' 'haskell-quickcheck' 'haskell-random' 'haskell-test-framework'
-              'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')
+checkdepends=('haskell-hunit' 'haskell-quickcheck' 'haskell-primitive' 'haskell-random'
+              'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck'
+              'haskell-test-framework' 'haskell-test-framework-hunit'
+              'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('e3ef571c1b8faefe247a7b0ac7125eef1f62a87a378cd38a1184a26d9f40760990fba0a2906e47d9f2107cbe596c7e70006dccc7a40e98973c41fa67bc01d02d')
+sha512sums=('f08e85c6b2bf05a083f4206f96d60f276cb186409f95f6df12750a7fb9fb3547d937ee4fab5076f581364633a8bb0aeb45d599c39a16253ee0f061979f727b0c')
 
 build() {
     cd $_hkgname-$pkgver
@@ -28,7 +30,7 @@ build() {
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
-            -f-examples
+            -f-arch-native
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
