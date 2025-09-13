@@ -1,18 +1,18 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-device-formatter
-pkgver=0.0.1.15
-pkgrel=2
+pkgver=0.0.1.16
+pkgrel=1
 pkgdesc='A simple graphical interface for creating file system in a block device'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-device-formatter"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('deepin-qt5integration' 'dtkcore' 'dtkgui' 'dtkwidget' 'qt5-base' 'qt5-x11extras'
          'libx11' 'udisks2-qt5' 'gcc-libs')
 makedepends=('deepin-gettext-tools' 'qt5-tools')
 groups=('deepin-extra')
 source=("https://github.com/linuxdeepin/dde-device-formatter/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('4512a8480846cb8e10fd5a2bd38a54eb497749ecb9e31e81ba373334000eeef9fe2aa7aa177e19acb05f72351462e314ceefe414869d4f421efceafe7dec7558')
+sha512sums=('86c156908b7e52187baac225fc48a752c55769b25e9329a69b38f5de2411140fe5f5bd79775383ac6a4e04d9bb1157febd3ab769de5b6243a992783590a4555c')
 
 build(){
   cd dde-device-formatter-$pkgver
