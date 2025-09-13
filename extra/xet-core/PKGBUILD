@@ -2,7 +2,7 @@
 
 pkgbase=xet-core
 pkgname=(python-hf-xet)
-pkgver=1.1.9
+pkgver=1.1.10
 pkgrel=1
 pkgdesc="xet client tech, used in Huggingface Hub"
 arch=(x86_64)
@@ -15,7 +15,7 @@ makedepends=(
   openssl
 )
 source=($pkgbase-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('2fecc9b93432b2b14c979b000b263af8e9961c7f286fc4e1ffe64ffa13d45beae67ca015508aebec571ef0bb8ed00ebd47f40f21eb966b671a08d32a9f8104e2')
+b2sums=('2cb475395dead9b35b17df14ca57df513edd9e9294f262e65a9cacf0a3d31a22039dcf011308ccd6572837adcbdd21da0c2bfe120e3a2738e482ce7df48d82e7')
 
 prepare() {
   cd $pkgbase-$pkgver
