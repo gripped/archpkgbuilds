@@ -4,18 +4,35 @@
 # Contributor: Guilherme Calé <gui@cabritacale.eu>
 
 pkgname=fs-uae
-pkgver=3.1.66
-pkgrel=4
+pkgver=3.2.35
+pkgrel=1
 pkgdesc='An Amiga emulator based on UAE/WinUAE with a focus on emulating games'
 arch=('x86_64')
 url='https://fs-uae.net/'
-license=('GPL2')
-depends=('glib2' 'libmpeg2' 'libpng' 'libx11' 'openal' 'sdl2' 'zlib'
-         'hicolor-icon-theme')
-optdepends=('fs-uae-launcher: for the graphical user interface')
-makedepends=('libxi' 'strip-nondeterminism' 'zip')
-source=("https://fs-uae.net/files/FS-UAE/Stable/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('606e1868b500413d69bd33bb469f8fd08d6c08988801f17b7dd022f3fbe23832')
+license=('GPL-2.0-only')
+depends=(
+    'gcc-libs'
+    'glib2'
+    'glibc'
+    'hicolor-icon-theme'
+    'libmpeg2'
+    'libpng'
+    'libx11'
+    'openal'
+    'sdl2'
+    'zlib')
+optdepends=(
+    'fs-uae-launcher: for the graphical user interface')
+makedepends=(
+    'libxi'
+    'strip-nondeterminism'
+    'zip')
+source=("https://github.com/FrodeSolheim/fs-uae/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('eac8f86ad092ff3474011357b63d21df13232f6d7448eec7fc2fc60540711d18')
+
+prepare() {
+    autoreconf -fi "${pkgname}-${pkgver}"
+}
 
 build() {
     cd "${pkgname}-${pkgver}"
