@@ -5,8 +5,10 @@ pkgbase = sha3sum
 	url = https://codeberg.org/maandree/sha3sum
 	arch = x86_64
 	license = custom:ISC
-	depends = libkeccak>=1.2
-	source = https://codeberg.org/maandree/sha3sum/archive/1.2.3.1.tar.gz
-	b2sums = 5e1c9c8a7ea4a04bab3c1d05234b67f7ddad9c3c29931ab576bf59dbea9912c60049f8871fe91305be0c6ade9e68581d24ebb1c91223d0c29066e7c2d6d6b64e
+	makedepends = git
+	depends = libkeccak>=1.4
+	source = git+https://codeberg.org/maandree/sha3sum.git#tag=1.2.3.1?signed
+	validpgpkeys = BC61893EC01FDBDEE061BEF67BE0C42240089FE0
+	b2sums = 82c48b3b5ae39d37a926129f73318b0d0052fe2e4c953befb6b8199442e30f19869156636ae391cd5460b50ed8f1294cf6a9638b85dad2dc2871d33cc05333b2
 
 pkgname = sha3sum
