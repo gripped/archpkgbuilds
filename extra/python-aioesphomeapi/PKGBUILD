@@ -3,7 +3,7 @@
 
 pkgname=python-aioesphomeapi
 _name=${pkgname#python-}
-pkgver=40.1.0
+pkgver=40.2.0
 pkgrel=1
 pkgdesc='Python Client for ESPHome native API'
 arch=(x86_64)
@@ -22,7 +22,7 @@ depends=(
 makedepends=(python-build python-installer python-wheel python-setuptools git cython)
 license=(MIT)
 source=(git+$url.git#tag=v$pkgver)
-b2sums=('b3c69ea6d66fb396d8b1d3e3cec303347f1e57e549ea470349db2d60c7e44ee0abbf1586d961621cdc88cfd0a76e27c437e0c5bd61779192b6760265e3e2566b')
+b2sums=('c66da5429d4c88b04ffa9b304e43ad64b12930b0c7cc6cb4af352d413d8b929137a208dbd010c3ab23649d3c23d103dc39d0e62516470f9864b9de5cddc18860')
 
 prepare() {
   cd $_name
