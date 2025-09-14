@@ -38,15 +38,14 @@ depends=(
 makedepends=(
   cpanminus
   perl-par-packer
-)
-checkdepends=(
-  inetutils
-  lsb-release
   perl-test-deep
-  perl-test-fatal
-  perl-test-mock-guard
   perl-test-mockobject
   perl-test-pod
+)
+checkdepends=(
+  lsb-release
+  perl-test-fatal
+  perl-test-mock-guard
   perl-test-requires
   perl-test-warn
   procps-ng
@@ -54,6 +53,10 @@ checkdepends=(
 )
 source=("https://imapsync.lamiral.info/dist2/${pkgname}-${pkgver}.tgz")
 b2sums=('33ab6ec69ca1cb7f658296dea53056e94cba5bb5194e435e2449661572647432d42893c0c2d12e93e17b27058e416152215e5ca8a39768778307773e3be09cf4')
+
+prepare() {
+  sed -i 's/`hostname`/`uname -n`/' ${pkgname}-${pkgver}/tests.sh
+}
 
 build() {
   make -C ${pkgname}-${pkgver}
