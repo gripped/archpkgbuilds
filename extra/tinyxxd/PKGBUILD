@@ -19,7 +19,7 @@ build() {
 package() {
   cd $pkgname-$pkgver
   DESTDIR="$pkgdir" make install
-  install -Dm644 $pkgname.1 "$pkgdir/usr/share/man/$pkgname/man1/$pkgname.1"
+  install -Dm644 $pkgname.1 "$pkgdir/usr/share/man/man1/$pkgname.1"
   install -Dm644 AUTHORS.md "$pkgdir/usr/share/licenses/$pkgname/AUTHORS.md"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
   ln -s /usr/bin/tinyxxd "$pkgdir/usr/bin/xxd"
