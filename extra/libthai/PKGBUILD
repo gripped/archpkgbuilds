@@ -6,26 +6,41 @@ pkgname=libthai
 pkgver=0.1.29
 pkgrel=3
 pkgdesc='Thai language support library'
-arch=('x86_64')
+arch=(x86_64)
 url='https://linux.thai.net/projects/libthai'
-license=('LGPL')
-depends=('glibc' 'libdatrie')
-makedepends=('doxygen')
-source=("https://linux.thai.net/pub/thailinux/software/libthai/$pkgname-$pkgver.tar.xz")
-sha256sums=('fc80cc7dcb50e11302b417cebd24f2d30a8b987292e77e003267b9100d0f4bcd')
+license=(LGPL-2.1-or-later)
+depends=(
+  glibc
+  libdatrie
+)
+makedepends=(
+  autoconf-archive
+  doxygen
+  git
+)
+source=("git+https://github.com/tlwg/libthai.git#tag=v$pkgver")
+b2sums=(b312913d8c8e1cbf4fec869db8314e8239939759e7f8ca421e0aee814aa952849d8f34ccf77c9f23e9746bf9b73d3c369bba0f9ad622d3b227a40bc4b028cfbf)
+
+prepare() {
+  cd $pkgname
+  autoreconf -fi
+}
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
   make
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make check
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
