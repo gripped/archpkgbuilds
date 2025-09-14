@@ -3,14 +3,14 @@
 
 _name=sqlalchemy-continuum
 pkgname=python-sqlalchemy-continuum
-pkgver=1.4.2
-pkgrel=5
+pkgver=1.5.0
+pkgrel=1
 pkgdesc='Versioning and auditing extension for SQLAlchemy'
 url='https://github.com/kvesteri/sqlalchemy-continuum'
 arch=('any')
 license=('BSD')
 depends=('python' 'python-sqlalchemy' 'python-sqlalchemy-utils')
-makedepends=('python-setuptools' 'python-sphinx')
+makedepends=('python-setuptools' 'python-sphinx' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('sqlite' 'python-pytest' 'python-flexmock' 'python-psycopg2' 'python-mysql-connector'
               'python-flask' 'python-flask-login' 'python-flask-sqlalchemy'
               'python-sqlalchemy-i18n')
@@ -20,8 +20,8 @@ optdepends=('python-flask: flask plugin'
             'python-sqlalchemy-i18n: internationalization')
 options=('!makeflags')
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/${_name//-/_}/${_name//-/_}-${pkgver}.tar.gz)
-sha512sums=('fe6fe3a9c5ada2cffe25c9fcdf84bad48fcdacaf26276d774032ac6929f46fe93e9544d54bd549af47e6a8e6cc6fe09178646f251ffac95933bd0bcb45f0b959')
-b2sums=('41d6fa3584fc4a9d146e24115f8861d80df8ccac368384dda7130af586d5fd4a2b338b03c1135b6c730dffd5ad60aedf546dad5fd9e3656ac15a96c9ea01a918')
+sha512sums=('ce2935d477a280ce70dba9724c3bb0a16ea464d12745931d0466a7ff2a1f9acce9613b5a60818ba235c1f5aa62e6f8e13e9f8b26fceffd5a9219c08138175b52')
+b2sums=('b10a84ce1079a59c46a3f15d2a325cb48fb8aef186b98441fb1d3621af7de061f9d317dbffc8298e25b3aebbe62a664ab54bca438e9ff32ed6ee57b3e2ce8b14')
 
 prepare() {
   cd ${_name/-/_}-${pkgver}
@@ -32,7 +32,7 @@ prepare() {
 
 build() {
   cd ${_name/-/_}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
   make -C docs text man
 }
 
@@ -43,7 +43,7 @@ check() {
 
 package() {
   cd ${_name/-/_}-${pkgver}
-  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
   install -Dm 644 README.rst docs/_build/text/* -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -Dm 644 docs/_build/man/sqlalchemy-continuum.1 -t "${pkgdir}/usr/share/man/man1"
