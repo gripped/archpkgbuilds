@@ -15,10 +15,16 @@ makedepends=(extra-cmake-modules doxygen qt5-tools qt5-doc wayland-protocols pla
 conflicts=("$_name<5.111")
 replaces=("$_name<5.111")
 groups=(kf5)
-source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$_name-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$_name-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/plasma/kwayland/-/commit/0954a179.patch)
 sha256sums=('88b5970c2d6f6d5f46e6ffac66233bf23f2fcf016dea39fffbd9f47b1fc0aed8'
-            'SKIP')
+            'SKIP'
+            'a93b5cd3dd212b7c8de497516446212c55efd143a14566875594be510a2cd5bc')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB) # David Faure <faure@kde.org>
+
+prepare() {
+  patch -d $_name-$pkgver -p1 < 0954a179.patch # Fix build
+}
 
 build() {
   cmake -B build -S $_name-$pkgver \
