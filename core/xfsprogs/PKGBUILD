@@ -2,7 +2,7 @@
 
 pkgname=xfsprogs
 pkgver=6.16.0
-pkgrel=2
+pkgrel=3
 pkgdesc="XFS filesystem utilities"
 arch=('x86_64')
 license=(
@@ -20,7 +20,7 @@ depends=(
 )
 optdepends=(
   'icu: for xfs_scrub'
-  'python: for xfs_scrub_all script'
+  'python-dbus: for xfs_scrub_all script'
   'smtp-forwarder: for xfs_scrub_fail script'
 )
 makedepends=(
