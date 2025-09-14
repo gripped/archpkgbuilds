@@ -30,8 +30,10 @@ pkgbase = ginkgo-hpc
 	depends = yaml-cpp
 	source = ginkgo-1.10.0.tar.gz::https://github.com/ginkgo-project/ginkgo/archive/refs/tags/v1.10.0.tar.gz
 	source = split_cuda_library.patch
+	source = fix-cuda-13.patch
 	b2sums = 863f6a2f465427b2c79ae8816805ddffbab00b8e94471af94f6bc817b50a4487f5b6237f5f1f7cdf7f18adc26d758b1955edbe7301b4268888c87ba8bb9ec44e
 	b2sums = 1d7c35edb141a4d9cf5aa1ca51aec6e923e09c5353d7ef05bdb576fc1b4fceb59204162f66b3c63a550a682c953922ee4ae9b24bf87ba9ba7555465a1b3c53ec
+	b2sums = f6a4f7abc75fd199754a1271c80966f16a5dc77b06a8942a2bc3895c983836014d166a88bb3b439cd828bbc2cfafc7d4e2a5c2a812076468c7aa901b8222ce66
 
 pkgname = ginkgo-hpc
 	optdepends = ginkgo-hpc-docs: for documentation

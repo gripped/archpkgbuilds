@@ -43,14 +43,19 @@ makedepends=(
 source=(
   "$_pkgname-$pkgver.tar.gz::https://github.com/ginkgo-project/ginkgo/archive/refs/tags/v$pkgver.tar.gz"
   split_cuda_library.patch
+  fix-cuda-13.patch
 )
 b2sums=('863f6a2f465427b2c79ae8816805ddffbab00b8e94471af94f6bc817b50a4487f5b6237f5f1f7cdf7f18adc26d758b1955edbe7301b4268888c87ba8bb9ec44e'
-        '1d7c35edb141a4d9cf5aa1ca51aec6e923e09c5353d7ef05bdb576fc1b4fceb59204162f66b3c63a550a682c953922ee4ae9b24bf87ba9ba7555465a1b3c53ec')
+        '1d7c35edb141a4d9cf5aa1ca51aec6e923e09c5353d7ef05bdb576fc1b4fceb59204162f66b3c63a550a682c953922ee4ae9b24bf87ba9ba7555465a1b3c53ec'
+        'f6a4f7abc75fd199754a1271c80966f16a5dc77b06a8942a2bc3895c983836014d166a88bb3b439cd828bbc2cfafc7d4e2a5c2a812076468c7aa901b8222ce66')
 
 prepare() {
   # Ginkgo is too big to build all CUDA archs into a single library, we need to split it
   # https://github.com/ginkgo-project/ginkgo/issues/1734#issuecomment-2517784197
   patch --directory=$_pkgname-$pkgver -Np1 < split_cuda_library.patch
+
+  # Fix CUDA 13 compatibility https://github.com/ginkgo-project/ginkgo/pull/1926
+  patch --directory=$_pkgname-$pkgver -Np1 < fix-cuda-13.patch
 }
 
 build() {
@@ -71,7 +76,7 @@ build() {
   )
   # In general, we want to list all real archs (sm_XX) and the latest virtual arch (compute_XX) for future PTX compatibility.
   # Valid values can be discovered from nvcc --help
-  local cuda_archs="50;52;53;60;61;62;70;72;75;80;86;87;89;90;90a;100;100a;101;101a;120;120a;120-virtual"
+  local cuda_archs="75;80;86;87;88;89;90;100;103;110;120;121;121-virtual"
   # archs gfx1010;gfx1012;gfx1030;gfx1100;gfx1101;gfx1102 are not supported: https://github.com/ginkgo-project/ginkgo/issues/1429
   local amdgpu_archs="gfx906;gfx908;gfx90a;gfx940;gfx941;gfx942"
 
