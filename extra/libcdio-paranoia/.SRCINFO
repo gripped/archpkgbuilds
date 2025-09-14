@@ -5,10 +5,11 @@ pkgbase = libcdio-paranoia
 	url = https://www.gnu.org/software/libcdio/
 	arch = x86_64
 	license = GPL-3.0-or-later
+	makedepends = git
 	depends = glibc
 	depends = libcdio
-	source = https://github.com/rocky/libcdio-paranoia/releases/download/release-10.2+2.0.2/libcdio-paranoia-10.2+2.0.2.tar.gz
+	source = git+https://github.com/rocky/libcdio-paranoia.git#tag=release-10.2+2.0.2
 	validpgpkeys = DAA63BC2582034A02B923D521A8DE5008275EC21
-	sha256sums = b875d45c3f788fce82a5091c7e87869dd4298cd945e7fb873b61b3e613a32e43
+	b2sums = c7badd7b7fa2c65df0b328a9aacc001ff970ea9cc4212ea6b68ffc13f4e301bbed7239f50e52ff453dc78ce1bb0a69ecfd3efb0801c1af8556f926daf822562e
 
 pkgname = libcdio-paranoia
