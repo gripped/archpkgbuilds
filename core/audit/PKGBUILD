@@ -6,6 +6,7 @@
 # Contributor: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 # Contributor: Connor Behan <connor.behan@gmail.com>
 # Contributor: henning mueller <henning@orgizm.net>
+# Contributor: drzee99 <info@drzee.net>
 
 pkgbase=audit
 _name=audit-userspace
@@ -73,7 +74,9 @@ build() {
     --runstatedir=/run
     --sbindir=/usr/bin
     --sysconfdir=/etc
+    --with-aarch64
     --with-apparmor=yes
+    --with-arm
     --with-io_uring=yes
     --with-libcap-ng=yes
     --with-python3=yes
