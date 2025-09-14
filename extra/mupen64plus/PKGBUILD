@@ -1,5 +1,5 @@
 # Maintainer : Daniel Bermond <dbermond@archlinux.org>
-# Contributor: Sven-Hendrik Haase <sh@lutzhaase.com>
+# Contributor: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Thomas Dziedzic < gostrc at gmail >
 # Contributor: Laurent Carlier <lordheavym@gmail.com>
 # Contributor: Allan McRae <allan@archlinux.org>
@@ -50,6 +50,6 @@ build() {
 package() {
     # set LDCONFIG since we are using fakeroot and scripts run root commands by checking the uid
     ./m64p_install.sh DESTDIR="$pkgdir" PREFIX='/usr' LDCONFIG='true'
-    
+
     ln -s "$(find "${pkgdir}/usr/lib" -regex '.*libmupen64plus.so.[0-9]*' -exec basename {} +)" "${pkgdir}/usr/lib/libmupen64plus.so"
 }
