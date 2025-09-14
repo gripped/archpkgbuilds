@@ -21,7 +21,7 @@ makedepends=(
   unbound
 )
 source=(
-  LICENSE
+  upstream-LICENSE
   trusted-key-${pkgver}.notkey
 )
 sha256sums=('dd37e92942d5a4024f1c77df49d61ca77fc6284691814903a741785df61f78cb'
@@ -29,5 +29,5 @@ sha256sums=('dd37e92942d5a4024f1c77df49d61ca77fc6284691814903a741785df61f78cb'
 
 package() {
   install -Dm644 ${_trusted_key} "${pkgdir}"/etc/trusted-key.key
-  install -Dm644 LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+  install -Dm644 upstream-LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
 }
