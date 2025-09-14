@@ -1,0 +1,19 @@
+pkgbase = netperf
+	pkgdesc = Benchmarking tool for many different types of networking
+	pkgver = 2.7.0
+	pkgrel = 6
+	url = https://github.com/HewlettPackard/netperf/
+	install = netperf.install
+	arch = x86_64
+	license = custom
+	depends = glibc
+	depends = libsmbios
+	depends = lksctp-tools
+	source = https://github.com/HewlettPackard/netperf/archive/netperf-2.7.0.tar.gz
+	source = netserver.service
+	source = 001-fix-inlining.patch
+	sha224sums = 6ab49c94d6231d4848bc43c8d56ad4a2611862f800a61009f3b2f2fe
+	sha224sums = c5c48a480d62e82d1e65cc3ef8472864bf12d2cc527d6a9c12dca613
+	sha224sums = 7a30925a46ab5e40ccc2b966a5d7e57a15967b9116c8773cd75030f5
+
+pkgname = netperf
