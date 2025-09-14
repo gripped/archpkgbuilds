@@ -4,8 +4,8 @@
 # Contributor: Alexander Fehr <pizzapunk@gmail.com>
 
 pkgname=pychess
-pkgver=1.0.5
-pkgrel=5
+pkgver=1.0.6
+pkgrel=1
 pkgdesc="Chess client"
 url="https://pychess.github.io"
 arch=('any')
@@ -14,20 +14,13 @@ depends=('gst-plugins-base' 'gtksourceview3' 'python-cairo' 'python-gobject'
          'python-ptyprocess' 'python-psutil' 'python-sqlalchemy' 'python-pexpect'
          'python-websockets')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pychess/pychess/archive/refs/tags/${pkgver}.tar.gz"
-        remove_telnetlib.patch)
-sha256sums=('3dda31117e5a18b0e0357aaafea6d498f64e717ad8beab82adcde00711be5638'
-            '196c875e40aa997d2f49fe138012734ef7337597137b22557ccdbbf93f60f7b1')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pychess/pychess/archive/refs/tags/${pkgver}.tar.gz")
+sha256sums=('265e40b707635efcb979315a7fd5b0728a5a23c7b2b3bd749ce42003d9afc11e')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
 	PYTHONPATH=lib python3 pgn2ecodb.py
 	PYTHONPATH=lib python3 create_theme_preview.py
-
-	# Temporary patch to remove telnetlib import
-	# as it was removed in Python 3.13
-	# See https://github.com/pychess/pychess/pull/2235
-	patch -Np1 < "${srcdir}/remove_telnetlib.patch"
 }
 
 build() {
