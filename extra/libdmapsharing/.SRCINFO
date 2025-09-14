@@ -1,0 +1,20 @@
+pkgbase = libdmapsharing
+	pkgdesc = A library that implements the DMAP family of protocols
+	pkgver = 3.9.13
+	pkgrel = 1
+	url = https://www.flyn.org/projects/libdmapsharing/index.html
+	arch = x86_64
+	license = LGPL2.1
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = gtk-doc
+	makedepends = vala
+	depends = avahi
+	depends = gdk-pixbuf2
+	depends = gst-plugins-base-libs
+	depends = libsoup3
+	provides = libdmapsharing-4.0.so
+	source = git+https://gitlab.gnome.org/GNOME/libdmapsharing.git#commit=9eadd4a2ab454201437612b54e7df760431d8e0b
+	b2sums = SKIP
+
+pkgname = libdmapsharing
