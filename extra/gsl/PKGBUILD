@@ -21,6 +21,7 @@ validpgpkeys=(DD61B7FC02790F978360F399245FB74BAE05B3E9) # Patrick Alken <alken@c
 prepare() {
   cd $pkgname-$pkgver
   sed -e 's|cblas/libgslcblas.la||g' -i Makefile.* # Don't link binaries to libgslcblas
+  autoreconf -fiv
 }
 
 build() {
