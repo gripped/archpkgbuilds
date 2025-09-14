@@ -1,5 +1,6 @@
 [cargo-audit]
-source = "github"
+source = "git"
+git = "https://github.com/rustsec/rustsec"
 github = "rustsec/rustsec"
+include_regex = "cargo-audit/v.+"
 prefix = "cargo-audit/v"
-use_latest_release = true
