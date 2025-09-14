@@ -18,6 +18,15 @@ provides=(libxxhash.so)
 source=(git+https://github.com/Cyan4973/xxHash.git#tag=v${pkgver})
 b2sums=('e8c03ae30da955a0399bbbdee866dcc3f999bd1f780373d28119972a89a6ef3b266097024379c779d4c02ae3ca218728d4843c6085487ec76c5e7e1b393e1ea2')
 
+prepare() {
+  cd xxHash/
+
+  # fix build for non-x86_64 with DISPATCH=1
+  git cherry-pick -n \
+    '50c5ba6a93a7e7f564aac908cd19e5a02943f3e7' \
+    'db36ccbeea58bd6ee7dd55e77130f1655d5ff6db'
+}
+
 build() {
   make PREFIX=/usr DISPATCH=1 -C xxHash
 }
