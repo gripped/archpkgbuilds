@@ -1,0 +1,32 @@
+version = 1
+
+[[annotations]]
+path = [
+    "PKGBUILD",
+    "README.md",
+    "keys/**",
+    ".SRCINFO",
+    ".nvchecker.toml",
+    "*.install",
+    "*.sysusers",
+    "*.tmpfiles",
+    "*.logrotate",
+    "*.pam",
+    "*.service",
+    "*.socket",
+    "*.timer",
+    "*.desktop",
+    "*.hook",
+]
+SPDX-FileCopyrightText = "Arch Linux contributors"
+SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "boost-1.86.patch",
+    "pam.d.schroot.patch",
+    "schroot-cppunit.patch",
+    "schroot-gcc8-assert-fix.patch",
+]
+SPDX-FileCopyrightText = "schroot contributors"
+SPDX-License-Identifier = "GPL-3.0-or-later"
