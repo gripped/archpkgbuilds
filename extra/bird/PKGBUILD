@@ -2,18 +2,24 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=bird
-pkgver=3.1.2
+pkgver=3.1.3
 pkgrel=1
 pkgdesc='RIP, OSPF, BGP, MPLS, BFD, Babel routing daemon'
 arch=('x86_64')
 url='https://bird.network.cz/'
 license=('GPL-2.0-or-later')
-depends=('gcc-libs' 'glibc' 'readline' 'ncurses' 'libssh')
+depends=(
+  'gcc-libs'
+  'glibc'
+  'libssh'
+  'ncurses'
+  'readline'
+)
 replaces=('bird6')
 backup=('etc/bird.conf')
 source=("https://gitlab.nic.cz/labs/bird/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz"
         'bird.service')
-sha256sums=('1cbcdda8e130440ddd3b8b1c428fb919c270680a1250741274a9afa708df2554'
+sha256sums=('346abfb94874fae61cfd5824f9dfdfce76ddb8a47ae4735387ac3d47c4e59a6a'
             '4aa1e8d41229badd276aa3747f613e7df34761892add2258c63bdb5097dfeb2b')
 
 prepare() {
