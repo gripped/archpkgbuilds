@@ -10,10 +10,10 @@ pkgbase = accountsservice
 	checkdepends = python-gobject
 	makedepends = docbook-xsl
 	makedepends = git
+	makedepends = glib2-devel
 	makedepends = gobject-introspection
 	makedepends = gtk-doc
 	makedepends = meson
-	makedepends = python-packaging
 	makedepends = vala
 	makedepends = xmlto
 	depends = gcc-libs
@@ -25,8 +25,10 @@ pkgbase = accountsservice
 	depends = systemd
 	source = git+https://gitlab.freedesktop.org/accountsservice/accountsservice.git#tag=23.13.9
 	source = accounts-daemon-restart.hook
+	source = 0001-tests-Drop-check-format-test.patch
 	b2sums = d0e2166dc7232a9cc9f6b37b69bc8651486a85b5a98f98a9fdd39958142fec480cfc19e300c7fcc4becf9436282bd8b2f0141523347c748ee074a4bfec0029c4
 	b2sums = ac1892d814c9efca38daec5b34efdee6289089df515ceeb0f675794263879506e2b59894eef6a85f52570db3bd8e62cdf15a7d980538195c5af7cba016d6a533
+	b2sums = b3d35224061a7e2c3654610d7c850b05b7c99cd0516f0a2d3ce1c49d7382b3c4ba2eefe80f50916ab1492cb42b666a6dc29f47b8cad73a9abbb8fa501822abd0
 
 pkgname = accountsservice
 	depends = gcc-libs
