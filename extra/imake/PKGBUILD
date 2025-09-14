@@ -17,7 +17,7 @@ source=(https://xorg.freedesktop.org/archive/individual/util/imake-${pkgver}.tar
         https://xorg.freedesktop.org/releases/individual/util/makedepend-1.0.9.tar.xz{,.sig}
         https://xorg.freedesktop.org/releases/individual/util/xorg-cf-files-1.0.8.tar.xz{,.sig}
         linuxconfig.patch
-        LICENSE)
+        license-from-upstream)
 sha512sums=('ea96db27a6da13ea2d64652936e508b5e3d5d712347a2eb248376dc1f262c18720d9934b8ae69b4c0fc65b135c847be42da084fe924e4825ce1d359f4ef7e60f'
             'SKIP'
             '7665923de51256720e7ae73c09f3c8c908c5cda2e204afac60e3c1ef45c7211cee303629ab9e53171df2a37765944a8a85a654bb1b2e90df9f497dff7d9d29a8'
@@ -57,5 +57,5 @@ package() {
       popd
     fi
   done
-  install -D -m644 "${srcdir}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -D -m644 "${srcdir}/license-from-upstream" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
