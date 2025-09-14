@@ -4,7 +4,7 @@
 
 pkgname=pinentry
 pkgver=1.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Collection of simple PIN or passphrase entry dialogs which utilize the Assuan protocol'
 url='https://gnupg.org/related_software/pinentry/'
 arch=('x86_64')
@@ -25,7 +25,7 @@ source=("https://www.gnupg.org/ftp/gcrypt/${pkgname}/${pkgname}-${pkgver}.tar.bz
         'pinentry')
 sha256sums=('8e986ed88561b4da6e9efe0c54fa4ca8923035c99264df0b0464497c5fb94e9e'
             'SKIP'
-            '2f961cccf9aebddf9c0823a96809a10296d7af6516460ae2d93e8ea5a433166d')
+            'fae5557563bc9102cdc87d580f962b5261c506b321e299c926b1282e876f85f9')
 validpgpkeys=(
   'D8692123C4065DEA5E0F3AB5249B39D24F25E3B6' # Werner Koch (dist sig)
   '6DAA6E64A76D2840571B4902528897B826403ADA' # Werner Koch (dist signing 2020)
