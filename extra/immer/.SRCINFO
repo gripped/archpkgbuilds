@@ -4,10 +4,13 @@ pkgbase = immer
 	pkgrel = 1
 	url = https://sinusoid.es/immer
 	arch = any
-	license = Boost
+	license = BSL-1.0
+	checkdepends = boost
+	checkdepends = fmt
 	makedepends = catch2
 	makedepends = cmake
-	source = https://github.com/arximboldi/immer/archive/v0.8.1/immer-0.8.1.tar.gz
-	sha256sums = de8411c84830864604bb685dc8f2e3c0dbdc40b95b2f6726092f7dcc85e75209
+	makedepends = git
+	source = git+https://github.com/arximboldi/immer#tag=v0.8.1
+	sha256sums = 58a8c75270c642e3232d7ae27449ef3d07aa640eeedb53d67e6577493c1b79e7
 
 pkgname = immer
