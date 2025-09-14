@@ -13,18 +13,25 @@ provides=('libvsqlitepp.so')
 source=("https://downloads.sourceforge.net/sqlitepp/${pkgname}-${pkgver}.tar.xz")
 sha256sums=('40b3f8da840a5a40caf3a31faae584797d1b2ca339f6860053b0522165c9bc07')
 
-build() {
-	cd "${srcdir}/${pkgname}-${pkgver}/"
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}/"
 
-	./configure --prefix=/usr
-	make
+  autoreconf -fvi
+}
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}/"
+
+  ./configure \
+    --prefix=/usr
+  make
 }
 
 package() {
-	cd "${srcdir}/${pkgname}-${pkgver}/"
+  cd "${srcdir}/${pkgname}-${pkgver}/"
 
-	make DESTDIR="${pkgdir}" install
+  make DESTDIR="${pkgdir}" install
 
-	install -D -m0644 COPYING "${pkgdir}"/usr/share/licenses/vsqlite++/COPYING
+  install -D -m0644 COPYING "${pkgdir}"/usr/share/licenses/vsqlite++/COPYING
 }
 
