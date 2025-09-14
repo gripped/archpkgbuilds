@@ -1,7 +1,6 @@
 # Maintainer: Eric Bélanger <eric@archlinux.org>
 
 pkgname=psmisc
-_tag='3c53de31d8797fc20e1fbf2b32732f64db0b9f42' # git rev-parse v${_tag_name}
 pkgver=23.7
 pkgrel=1
 pkgdesc='Miscellaneous procfs tools'
@@ -11,8 +10,8 @@ license=('GPL')
 depends=('ncurses')
 makedepends=('git' 'po4a')
 validpgpkeys=('5D2FB320B825D93904D205193938F96BDF50FEA5') # Craig Small <csmall@debian.org>
-source=("git+https://gitlab.com/psmisc/psmisc.git#tag=${_tag}?signed")
-sha256sums=('SKIP')
+source=("git+https://gitlab.com/psmisc/psmisc.git#tag=v${pkgver}?signed")
+sha256sums=('80ae6e626ba83232b7af1c02f3f528834ebdd96325367b701f69125d3e196f2f')
 
 prepare() {
   cd ${pkgname}
