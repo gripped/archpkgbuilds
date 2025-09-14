@@ -1,36 +1,54 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=sequoia-keyring-linter
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc='OpenPGP certificate linter'
-url='https://sequoia-pgp.org/'
-arch=('x86_64')
-license=('GPL2')
-groups=('sequoia')
-depends=('glibc' 'nettle' 'libhogweed.so' 'libnettle.so' 'gcc-libs' 'gmp')
-makedepends=('git' 'cargo' 'llvm' 'clang')
+url='https://gitlab.com/sequoia-pgp/keyring-linter/'
+arch=(x86_64)
+license=(GPL-2.0-only)
+groups=(sequoia)
+depends=(
+  gcc-libs
+  glibc
+  gmp
+  nettle
+)
+makedepends=(
+  cargo
+  clang
+  git
+  llvm
+)
 source=(https://gitlab.com/sequoia-pgp/keyring-linter/-/archive/v${pkgver}/keyring-linter-v${pkgver}.tar.gz)
-sha512sums=('64623a175d84d124e0943f74d06b28d9f0182d14cb1f28bd52511816d86ef280854591115dd8e94abe4d01072b8e2b363015aa8fba5c1dccc086c0dfd284c6fe')
-b2sums=('0f495bfa8772274a0c39d0b8fe000bd08223fea7434ce4edfaed73dbf3c38209cab457c501f14f4e538d09b8f9ad4a1156ea1b7c95c74dec1b63902455862417')
+sha512sums=('d0fcc2acafd58fd8213ba6432ea0fc32fb85f87059b0b1f051b157e1b0856e1806eead7feb484d01ce02832b78c1bfff015c7d264382a00b60880404866c6b11')
+b2sums=('e81c6c5ceebec80447f1923ecc8a0ff082d40b5b3555ef80fffcb3e9e280b7ca2acfb5b4726a5c2fbd1670a406243049b445d6f4bf37a6145c0308ab86150c5a')
 
 prepare() {
   cd keyring-linter-v${pkgver}
   sed 's/debug/release/g' -i -- Makefile
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
   cd keyring-linter-v${pkgver}
-  cargo build --release
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release --features 'crypto-nettle'
   make
 }
 
 check() {
   cd keyring-linter-v${pkgver}
-  cargo test --release
+  cargo test --frozen --features 'crypto-nettle'
 }
 
 package() {
+  depends+=(
+    libhogweed.so
+    libnettle.so
+  )
+
   cd keyring-linter-v${pkgver}
   install -Dm 755 target/release/sq-keyring-linter -t "${pkgdir}/usr/bin"
   install -Dm 644 sq-keyring-linter.1 -t "${pkgdir}/usr/share/man/man1"
