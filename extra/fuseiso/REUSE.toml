@@ -1,0 +1,32 @@
+version = 1
+
+[[annotations]]
+path = [
+    "PKGBUILD",
+    "README.md",
+    "keys/**",
+    ".SRCINFO",
+    ".nvchecker.toml",
+    "*.install",
+    "*.sysusers",
+    "*.tmpfiles",
+    "*.logrotate",
+    "*.pam",
+    "*.service",
+    "*.socket",
+    "*.timer",
+    "*.desktop",
+    "*.hook",
+]
+SPDX-FileCopyrightText = "Arch Linux contributors"
+SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "00-support_large_iso.patch",
+    "01-fix_typo.patch",
+    "02-prevent-buffer-overflow.patch",
+    "03-prevent-integer-overflow.patch",
+]
+SPDX-FileCopyrightText = "fuseiso contributors"
+SPDX-License-Identifier = "TODO-Choose-a-license"
