@@ -473,34 +473,34 @@ package_gcc-m2() {
 }
 
 package_gcc-rust() {
- pkgdesc="Rust frontend for GCC"
- depends=("gcc=$pkgver-$pkgrel" libisl.so)
+  pkgdesc="Rust frontend for GCC"
+  depends=("gcc=$pkgver-$pkgrel" libisl.so)
 
- cd gcc-build
- make -C gcc DESTDIR="$pkgdir" rust.install-{common,man,info}
+  cd gcc-build
+  make -C gcc DESTDIR="$pkgdir" rust.install-{common,man,info}
 
- install -Dm755 gcc/gccrs "$pkgdir"/usr/bin/gccrs
- install -Dm755 gcc/crab1 "$pkgdir"/usr/bin/crab1
+  install -Dm755 gcc/gccrs "$pkgdir"/usr/bin/gccrs
+  install -Dm755 gcc/crab1 "$pkgdir"/usr/bin/crab1
 
   # Install Runtime Library Exception
- install -d "$pkgdir/usr/share/licenses/$pkgname/"
- ln -s /usr/share/licenses/gcc-libs/RUNTIME.LIBRARY.EXCEPTION \
-   "$pkgdir/usr/share/licenses/$pkgname/"
+  install -d "$pkgdir/usr/share/licenses/$pkgname/"
+  ln -s /usr/share/licenses/gcc-libs/RUNTIME.LIBRARY.EXCEPTION \
+    "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
 package_gcc-gcobol() {
- pkgdesc="Cobol frontend for GCC"
- depends=("gcc=$pkgver-$pkgrel" libisl.so)
+  pkgdesc="Cobol frontend for GCC"
+  depends=("gcc=$pkgver-$pkgrel" libisl.so)
 
- cd gcc-build
- make -C gcc DESTDIR="$pkgdir" cobol.install-{common,man,info}
+  cd gcc-build
+  make -C gcc DESTDIR="$pkgdir" cobol.install-{common,man,info}
 
- install -Dm755 gcc/gcobol "$pkgdir"/usr/bin/gcobol
+  install -Dm755 gcc/gcobol "$pkgdir"/usr/bin/gcobol
 
   # Install Runtime Library Exception
- install -d "$pkgdir/usr/share/licenses/$pkgname/"
- ln -s /usr/share/licenses/gcc-libs/RUNTIME.LIBRARY.EXCEPTION \
-   "$pkgdir/usr/share/licenses/$pkgname/"
+  install -d "$pkgdir/usr/share/licenses/$pkgname/"
+  ln -s /usr/share/licenses/gcc-libs/RUNTIME.LIBRARY.EXCEPTION \
+    "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
 package_lto-dump() {
