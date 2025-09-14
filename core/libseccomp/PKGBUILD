@@ -1,5 +1,5 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
-# Maintainer: Tobias Powalowski <tpowa@archlinux.org>
+# Contributor: Tobias Powalowski <tpowa@archlinux.org>
 # Contributor: Daniel Micay <danielmicay@gmail.com>
 # Contributor: Patryk Kowalczyk < patryk at kowalczyk dot ws>
 
@@ -16,27 +16,26 @@ checkdepends=(
 )
 makedepends=(
   cython
+  git
   glibc
   gperf
   python-setuptools
 )
-source=(https://github.com/seccomp/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz{,.asc})
-sha256sums=('04c37d72965dce218a0c94519b056e1775cf786b5260ee2b7992956c4ee38633'
-            'SKIP')
-b2sums=('4095fcd1cedefa6dea60b719af63093e4ee3fd5372deb01e3a7c0ddecb5d032e371807a40f8f7df37107848d052702448512740b4ac8e4b078dc792d374d61a4'
-        'SKIP')
+source=(git+https://github.com/seccomp/libseccomp.git#tag=v${pkgver}?signed)
+sha256sums=('51b6119c2af35ac40eef2421459b308ec4bf9e4b00d68740a4ede56bd323cf7d')
+b2sums=('3cccadb92d2745f9405e4dc06027f1238823dc6cd6bff846c858b49fa5c48591cdde6ed69a989947352ac5066b44c335b2842acca0711b9eb7a338903c023886')
 validpgpkeys=(
   '7100AADFAE6E6E940D2E0AD655E45A5AE8CA7C8A' # Paul Moore <paul@paul-moore.com>
   '47A68FCE37C7D7024FD65E11356CE62C2B524099' # Tom Hromatka <tom.hromatka@oracle.com>
 )
 
 prepare() {
-  cd ${pkgbase}-${pkgver}
+  cd ${pkgbase}
   autoreconf -fiv
 }
 
 build() {
-  cd ${pkgbase}-${pkgver}
+  cd ${pkgbase}
   ./configure --prefix=/usr
   make
   cd src/python
@@ -44,21 +43,21 @@ build() {
 }
 
 check() {
-  cd ${pkgbase}-${pkgver}
+  cd ${pkgbase}
   make check
 }
 
 package_libseccomp() {
   depends=(glibc)
   provides=(libseccomp.so)
-  cd ${pkgbase}-${pkgver}
+  cd ${pkgbase}
   make DESTDIR="${pkgdir}" install
   install -Dm 644 CHANGELOG README.md SECURITY.md -t "${pkgdir}/usr/share/doc/${pkgname}"
 }
 
 package_python-libseccomp() {
   depends=(python glibc)
-  cd ${pkgbase}-${pkgver}/src/python
+  cd ${pkgbase}/src/python
   env VERSION_RELEASE=${pkgver} python setup.py install --root="${pkgdir}" --prefix=/usr -O1 --skip-build
 }
 
