@@ -21,6 +21,7 @@ sha256sums=('SKIP')
 # https://github.com/tats/w3m
 
 build() {
+  CFLAGS+=" -std=gnu17"
   cd ${pkgname}
   ./configure \
     --prefix=/usr \
