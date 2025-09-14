@@ -7,6 +7,7 @@ pkgbase = rawtherapee
 	arch = x86_64
 	license = GPL3
 	makedepends = cmake
+	makedepends = git
 	depends = exiv2
 	depends = desktop-file-utils
 	depends = fftw
@@ -19,8 +20,7 @@ pkgbase = rawtherapee
 	depends = libcanberra
 	depends = libiptcdata
 	depends = libjxl
-	source = https://github.com/Beep6581/RawTherapee/releases/download/5.12/rawtherapee-5.12.tar.xz
-	sha1sums = cff721096609ee5b93d42bb37770880525e05c89
-	sha256sums = d9a6c10537d64a285bc465675fe59aaa94ce3223823dfbecf0ae2c9599082d57
+	source = git+https://github.com/Beep6581/RawTherapee.git#tag=5.12
+	sha256sums = 4b8ee717fe3ccc29c59a95b1e690617203b2696de517332e0ccc2c43e0c3a604
 
 pkgname = rawtherapee
