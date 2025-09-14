@@ -20,14 +20,16 @@ makedepends=('git' 'cmake' 'ninja' 'python' 'gcc-fortran'
              'rocm-core' 'hip-runtime-amd' 'hipblas' 'hipsparse')
 optdepends=('python: for examples and tests'
             'gcc-fortran: Fortran interface')
-source=("${_pkgname}::git+https://github.com/icl-utk-edu/magma.git#tag=v${pkgver}")
-sha256sums=('bd18fbfd1b36dbcfd604b22f2fdfaf0a18c5dcfbe09fe1f1b2f2fe3e365bc304')
+source=(
+  "${_pkgname}::git+https://github.com/icl-utk-edu/magma.git#tag=v${pkgver}"
+  fix-cuda13.patch
+)
+sha256sums=('bd18fbfd1b36dbcfd604b22f2fdfaf0a18c5dcfbe09fe1f1b2f2fe3e365bc304'
+            'b04f2a183fccbeb25550a6e8ab033e41b8f5d5c44938dd250aa8a0ff3bffdda0')
 options=(!lto)
 
 _valid_sm() {
-  # NOTE: magma is too big to build for all supported architectures, so instead we build
-  # only for the "major" architectures (but magma should still work on all architectures)
-  echo "sm_50 sm_60 sm_70 sm_80 sm_90 sm_100 sm_120"
+  echo "sm_75 sm_80 sm_86 sm_87 sm_88 sm_89 sm_90 sm_100 sm_103 sm_110 sm_120 sm_121"
 }
 
 _valid_gfx() {
@@ -37,8 +39,11 @@ _valid_gfx() {
 
 prepare() {
   # NOTE: all patches must be applied before copying the sources for -cuda and -hip and running make generate
-  #cd "${_pkgname}"
-  #patch -Np1 ...
+  cd "${_pkgname}"
+  # Drop CMP0037 to fix cmake 4.0 build error
+  git cherry-pick -n 2fecaf3f0c811344363f713669c1fe30f6879acd
+  # Fix for CUDA 13
+  patch -p1 < ../fix-cuda13.patch
 
   cd "${srcdir}"
 
