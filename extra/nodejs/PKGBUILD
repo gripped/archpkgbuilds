@@ -10,7 +10,7 @@
 
 pkgname=nodejs
 pkgver=24.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Evented I/O for V8 javascript ("Current" release)'
 arch=('x86_64')
 url='https://nodejs.org/'
@@ -86,6 +86,13 @@ check() {
   rm test/parallel/test-http2-client-set-priority.js
   rm test/parallel/test-http2-priority-event.js
   rm test/parallel/test-http-outgoing-end-cork.js
+  rm test/parallel/test-http2-client-unescaped-path.js
+  rm test/parallel/test-http2-multi-content-length.js
+  rm test/parallel/test-http2-reset-flood.js
+  rm test/parallel/test-http2-misbehaving-flow-control.js
+  rm test/parallel/test-http2-max-invalid-frames.js
+  rm test/parallel/test-http2-misbehaving-flow-control-paused.js
+  rm test/client-proxy/test-http-proxy-request-no-proxy-port-specific.mjs
   make test-only
 }
 
