@@ -1,0 +1,24 @@
+pkgbase = deepin-anything
+	pkgdesc = Deepin Anything file search tool
+	pkgver = 5.0.18
+	pkgrel = 1
+	url = https://github.com/linuxdeepin/deepin-anything
+	arch = x86_64
+	license = GPL3
+	makedepends = dtkcore
+	makedepends = udisks2-qt5
+	source = https://github.com/linuxdeepin/deepin-anything/archive/5.0.18/deepin-anything-5.0.18.tar.gz
+	source = deepin-anything-server.sysusers
+	sha512sums = 73cc90f394b53a8d8edc17b258b63789cddd3094008de8403b24cdb0ed94e677cb9eedac297b73e8142204612a4ae5119450ebb08be4ea1c94abf0d375f8b51d
+	sha512sums = 0ff6a6de1fbfb0c33eaac511b989da321a9e43ece92708af88aee34ad1a05e55572713b1290bc2705d70b91dc7bec4fb4abd3dc664a0abe01de27d88bd9e9c85
+
+pkgname = deepin-anything
+	groups = deepin
+	depends = DEEPIN-ANYTHING-MODULE
+	depends = dtkcore
+	depends = udisks2-qt5
+
+pkgname = deepin-anything-dkms
+	depends = dkms
+	provides = DEEPIN-ANYTHING-MODULE
+	conflicts = DEEPIN-ANYTHING-MODULE
