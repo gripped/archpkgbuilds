@@ -21,6 +21,7 @@ sha256sums=('7e8d8ff34f27831aca3bc6f9cc532c2f90d2057c778963b884ff3d1e34dfe1f9'
 prepare() {
   cd "${pkgname}"-${pkgver}
   patch -Np0 -i ../icu68.patch
+  autoreconf -vfi
 }
 
 build() {
