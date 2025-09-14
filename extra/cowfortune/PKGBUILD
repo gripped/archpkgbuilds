@@ -15,6 +15,10 @@ backup=('etc/cowfortune/config'
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/anthraxx/cowfortune/archive/${pkgver}.tar.gz)
 sha512sums=('42ab237ab571bc758e678fc66d1c4eb9694807e5886ee23056ccd738805a31c1de2c07c35466e4cc6c8cf4d7fcdd94289ddf207e5de374ccd60e37161d72469b')
 
+prepare() {
+  sed -r -i 's|(DEFCOWPATH=).*|\1/usr/share/cowsay/cows|' ${pkgname}-${pkgver}/Makefile
+}
+
 build() {
   cd ${pkgname}-${pkgver}
   make
