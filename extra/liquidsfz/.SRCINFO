@@ -1,0 +1,48 @@
+pkgbase = liquidsfz
+	pkgdesc = SFZ Sampler
+	pkgver = 0.3.2
+	pkgrel = 1
+	url = https://github.com/swesterfeld/liquidsfz
+	arch = x86_64
+	license = LGPL2.1
+	checkdepends = lv2lint
+	makedepends = jack
+	makedepends = libsndfile
+	makedepends = lv2
+	makedepends = readline
+	source = https://github.com/swesterfeld/liquidsfz/archive/0.3.2/liquidsfz-0.3.2.tar.gz
+	sha512sums = c2730352e1145ff7d1133df02d72c2a5d83920b5188ede3e7fed3198f7721d2ca8bf5678358d5eff5e8e50de1126e99e59e7a00860e6e24fb4bbe57acdc48283
+	b2sums = 0ff83f68e1dfb65d2cc4e7592d35ff014fa07f6b9f6edbb08c9abdddbe2e35951462716c412488091f72964102959122f89373ffadb1c1f6dbb04ec11f19c488
+
+pkgname = liquidsfz
+	depends = liquidsfz-lv2
+	depends = liquidsfz-standalone
+
+pkgname = libliquidsfz
+	pkgdesc = SFZ Sampler - library
+	depends = gcc-libs
+	depends = glibc
+	provides = libliquidsfz.so
+
+pkgname = liquidsfz-lv2
+	pkgdesc = SFZ Sampler - LV2 plugin
+	groups = lv2-plugins
+	groups = pro-audio
+	depends = gcc-libs
+	depends = glibc
+	depends = libliquidsfz
+	depends = libsndfile
+	depends = libsndfile.so
+	depends = lv2-host
+
+pkgname = liquidsfz-standalone
+	pkgdesc = SFZ Sampler - standalone
+	groups = pro-audio
+	depends = gcc-libs
+	depends = glibc
+	depends = jack
+	depends = libliquidsfz
+	depends = libsndfile
+	depends = libsndfile.so
+	depends = readline
+	depends = libreadline.so
