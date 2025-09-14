@@ -336,6 +336,8 @@ package_edk2-aarch64() {
   # install qemu descriptors in accordance with qemu:
   # https://git.qemu.org/?p=qemu.git;a=tree;f=pc-bios/descriptors
   install -vDm 644 ../*$pkgname.json -t "$pkgdir/usr/share/qemu/firmware/"
+  # add symlink for the lowercase UEFI machine type short-name
+  ln -svT 'aarch64' "$pkgdir/usr/share/$pkgbase/aa64"
   # license
   install -vDm 644 License.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
 
@@ -378,6 +380,10 @@ package_edk2-shell() {
     install -vDm 644 Build/Shell/${_build_type}_${_build_plugin}/$_arch/Shell_$_min.efi "$pkgdir/usr/share/$pkgname/${_arch,,}/Shell.efi"
     install -vDm 644 Build/Shell/${_build_type}_${_build_plugin}/$_arch/Shell_$_full.efi "$pkgdir/usr/share/$pkgname/${_arch,,}/Shell_Full.efi"
   done
+  # add symlink for the lowercase UEFI machine type short-name "aa64"
+  if [[ -d "$pkgdir/usr/share/$pkgname/aarch64" ]]; then
+    ln -svT 'aarch64' "$pkgdir/usr/share/$pkgname/aa64"
+  fi
   # license
   install -vDm 644 License.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
   # docs
