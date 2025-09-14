@@ -8,7 +8,10 @@ pkgrel=1
 pkgdesc="Password and account management tool suite with support for shadow files and PAM"
 arch=(x86_64)
 url="https://github.com/shadow-maint/shadow"
-license=(BSD-3-Clause)
+license=(
+  0BSD
+  BSD-3-Clause
+)
 depends=(
   glibc
 )
@@ -42,6 +45,7 @@ source=(
   shadow.{timer,service}
   shadow.{sysusers,tmpfiles}
   useradd.defaults
+  LICENSE
 )
 sha512sums=('14275673ac2a7eecf13079cb8896eb49293d5bc5504f7900f359e0f21a107848d207aaf5c43d39cf96c0ee9e289929d1e53d2ecfbb39cfcc8175a86d85337eb8'
             '127948d66a3be0874d7118e674afc7a15eb9047ea943f7feca81922376ca9bdf52000ad48dca7cb4c32b8f9bd4558eeff4f0701e4944aedc1b1779c35ef26c47'
@@ -51,7 +55,8 @@ sha512sums=('14275673ac2a7eecf13079cb8896eb49293d5bc5504f7900f359e0f21a107848d20
             '2c8689b52029f6aa27d75b8b05b0b36e2fc322cab40fdfbb50cdbe331f61bc84e8db20f012cf9af3de8c4e7fdb10c2d5a4925ca1ba3b70eb5627772b94da84b3'
             '5afac4a96b599b0b8ed7be751e7160037c3beb191629928c6520bfd3f2adcd1c55c31029c92c2ff8543e6cd9e37e2cd515ba4e1789c6d66f9c93b4e7f209ee7a'
             '97a6a57c07502e02669dc1a91bffc447dba7d98d208b798d80e07de0d2fdf9d23264453978d2d3d1ba6652ca1f2e22cdadc4309c7b311e83fa71b00ad144f877'
-            '706ba6e7fa8298475f2605a28daffef421c9fa8d269cbd5cbcf7f7cb795b40a24d52c20e8d0b73e29e6cd35cd7226b3e9738dc513703e87dde04c1d24087a69c')
+            '706ba6e7fa8298475f2605a28daffef421c9fa8d269cbd5cbcf7f7cb795b40a24d52c20e8d0b73e29e6cd35cd7226b3e9738dc513703e87dde04c1d24087a69c'
+            'a33658d9271e5c537ccd41bf540b463ad2a5eca4a060c80486ff42a736f0aa042d10436e7177c34d792177cb11285243dee1f31c4df54fb0bfaabbc306406930')
 b2sums=('cd75b95771cf630a8fc8492e871ce7f63ae13ffe756506fb2854eed641bb56c5d18c09bc1e69bc86c324f3940894a7ddc2f9c5ea2baeeae5d9df24ab4221ef69'
         'c7c1c6d318e2338285bcaed1fb39edf1231e4753e0e2efd72658018fc8e672a8ac49d7d67fa9d760d3a6e1f4227fa248122d7ba535709eb4614ed7f16c1d7803'
         '589426679cfd58cb6b318641b56bb6902bf0aceffb735dd606da4058af8a9bac24feece4710406cc648aa8cd69ccea22c1ac7ac662b7ee3286e27af2f99461b9'
@@ -60,7 +65,8 @@ b2sums=('cd75b95771cf630a8fc8492e871ce7f63ae13ffe756506fb2854eed641bb56c5d18c09b
         'a69191ab966f146c35e7e911e7e57c29fffd54436ea014aa8ffe0dd46aaf57c635d0a652b35916745c75d82b3fca7234366ea5f810b622e94730b45ec86f122c'
         '511c4ad9f3be530dc17dd68f2a3387d748dcdb84192d35f296b88f82442224477e2a74b1841ec3f107b39a5c41c2d961480e396a48d0578f8fd5f65dbe8d9f04'
         'd727923dc6ed02e90ef31f10b3427df50afbfe416bd03c6de0c341857d1bb33ab6168312bd4ba18d19d0653020fb332cbcfeeb24e668ae3916add9d01b89ccb4'
-        'f743922062494fe342036b3acb8b747429eb33b1a13aa150daa4bb71a84e9c570cfcc8527a5f846e3ea7020e6f23c0b10d78cf2ba8363eea0224e4c34ea10161')
+        'f743922062494fe342036b3acb8b747429eb33b1a13aa150daa4bb71a84e9c570cfcc8527a5f846e3ea7020e6f23c0b10d78cf2ba8363eea0224e4c34ea10161'
+        'a29664104e1ee73ca0aee1d633e9095d92a57c92787f8d8740bdb7211ba3205782ed8677f539bdb8cae3dd75a3694be3132e185fa3fc4b3f401e1f88eb776101')
 validpgpkeys=(
   66D0387DB85D320F8408166DB175CFA98F192AF2  # Serge Hallyn <sergeh@kernel.org>
   A9348594CE31283A826FBDD8D57633D441E25BB5  # Alejandro Colomar <alx@kernel.org>
@@ -128,6 +134,7 @@ package() {
 
   # license
   install -vDm 644 COPYING -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 ../LICENSE "$pkgdir/usr/share/licenses/$pkgname/0BSD.txt"
 
   # custom useradd(8) defaults (not provided by upstream)
   install -vDm 600 ../useradd.defaults "$pkgdir/etc/default/useradd"
