@@ -19,6 +19,7 @@ sha256sums=('989bbea706d2d8d7b86630b1f2b4f63d8ed5167a1cc2b8fafd7f2198ec78d734'
 prepare() {
   cd $pkgname-$pkgver
   patch -p1 -i ../ibus-unikey-gcc6.patch # Fix build with GCC 6 (Gentoo)
+  autoreconf -fvi -I /usr/share/gettext/m4
 }
 
 build() {
