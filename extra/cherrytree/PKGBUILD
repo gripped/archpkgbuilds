@@ -3,7 +3,7 @@
 # Contributor: Morgenstern <charles [at] charlesbwise [dot] com>
 
 pkgname=cherrytree
-pkgver=1.5.0
+pkgver=1.6.1
 pkgrel=1
 pkgdesc="Hierarchical note-taking application"
 arch=('x86_64')
@@ -50,17 +50,17 @@ checkdepends=(
   'xorg-server-xvfb'
 )
 source=("https://github.com/giuspen/cherrytree/releases/download/v${pkgver}/${pkgname}_${pkgver}.tar.xz"{,.asc})
-sha512sums=('7fd73b909fe85038ffe282b9e4ae95da9c4e1489f11b4af7cfba142d2c132b5caea4d5746023eeeab7c10aea9f8b3bad70a8c77a55e31e2e9db0cf32105c9d2f'
+sha512sums=('e3d221d071207232e09b521467824e549d5954ba20d8116d7008799dae57869afea9b9391516c2f25b976b6ce7fb271f19c83e8ba10982a02c46953b18c198b7'
             'SKIP')
 validpgpkeys=('C7BF38CE0BD442C2369AA984049128A20CE0648D') # Giuseppe Penone <giuspen [at] gmail [dot] com>
 
 build() {
   cmake -B build -S "${pkgname}_${pkgver}" \
-  -DINSTALL_GTEST:BOOL='OFF' \
-  -DAUTO_RUN_TESTING:BOOL='OFF' \
-  -DCMAKE_BUILD_TYPE='None' \
-  -DCMAKE_INSTALL_PREFIX='/usr' \
-  -Wno-dev
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev \
+    -DINSTALL_GTEST:BOOL=OFF \
+    -DAUTO_RUN_TESTING:BOOL=OFF
   cmake --build build
 }
 
