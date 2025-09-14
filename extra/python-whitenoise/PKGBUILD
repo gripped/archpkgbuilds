@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-whitenoise
-pkgver=6.9.0
+pkgver=6.10.0
 pkgrel=1
 pkgdesc='Radically simplified static file serving for WSGI applications'
 arch=('any')
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-brotli' 'python-django' 'python-pytest' 'python-requests')
 source=("git+https://github.com/evansd/whitenoise.git#tag=$pkgver")
-sha512sums=('9ccb358291a42a214f11c8e427c01bcf5b7372393201c65db47e09290201daa5a5a0903061bc6413101327f52323e230335d23a82ccf1d72280f6fd2eb488821')
+sha512sums=('57b47cdcd24ef31de881907b85d72edcaec40f729aee8ed25067ab3bee91458de1d72cd4ee621a41d66710dc4e311422ca4ade28226acd8e60c9abbc3ca00a64')
 
 build() {
   cd whitenoise
