@@ -7,16 +7,24 @@ pkgname=wildmidi
 pkgver=0.4.6
 pkgrel=1
 pkgdesc='Simple software MIDI player which has a core softsynth library'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/Mindwerks/wildmidi'
 license=('GPL-3.0-or-later AND LGPL-3.0-or-later')
-depends=('alsa-lib' 'glibc')
-makedepends=('cmake' 'ninja')
-source=("https://github.com/Mindwerks/wildmidi/archive/$pkgname-$pkgver.tar.gz")
-sha256sums=('051b8c51699af594ddd3e4e3b06bad3564e9499c3c6b9e6f880cb2f92bcfa9c8')
+depends=(
+  alsa-lib
+  glibc
+)
+makedepends=(
+  cmake
+  git
+  ninja
+)
+source=("git+https://github.com/Mindwerks/wildmidi.git#tag=$pkgname-$pkgver")
+b2sums=(33100dfb9a7df1ee516083f90d7a2600e1c79117093dba568df540fd602da408cfe8373bea7363efbc893b1db943c681887e44b00f0861c1b29ac037d4b019f7)
 
 build() {
-  cmake -S $pkgname-$pkgname-$pkgver -B build -G Ninja -DCMAKE_INSTALL_PREFIX='/usr'
+  cmake -S $pkgname -B build -G Ninja \
+    -D CMAKE_INSTALL_PREFIX=/usr
   cmake --build build
 }
 

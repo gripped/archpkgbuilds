@@ -6,10 +6,11 @@ pkgbase = wildmidi
 	arch = x86_64
 	license = GPL-3.0-or-later AND LGPL-3.0-or-later
 	makedepends = cmake
+	makedepends = git
 	makedepends = ninja
 	depends = alsa-lib
 	depends = glibc
-	source = https://github.com/Mindwerks/wildmidi/archive/wildmidi-0.4.6.tar.gz
-	sha256sums = 051b8c51699af594ddd3e4e3b06bad3564e9499c3c6b9e6f880cb2f92bcfa9c8
+	source = git+https://github.com/Mindwerks/wildmidi.git#tag=wildmidi-0.4.6
+	b2sums = 33100dfb9a7df1ee516083f90d7a2600e1c79117093dba568df540fd602da408cfe8373bea7363efbc893b1db943c681887e44b00f0861c1b29ac037d4b019f7
 
 pkgname = wildmidi
