@@ -9,11 +9,12 @@ pkgdesc='GNU compression utility'
 arch=('x86_64')
 url='https://www.gnu.org/software/gzip/'
 license=('GPL-3.0-or-later')
-depends=('glibc' 'bash' 'coreutils' 'sed' 'grep')
+depends=('glibc' 'sh' 'coreutils' 'sed')
 makedepends=('git' 'less' 'python' 'wget')
-optdepends=('less: zless support'
-            'util-linux: zmore support'
-            'diffutils: zdiff/zcmp support')
+optdepends=('diffutils: zdiff/zcmp support'
+            'grep: zegrep/zfgrep/zforce/zgrep support'
+            'less: zless support'
+            'util-linux: zmore support')
 validpgpkeys=('155D3FC500C834486D1EEA677FD9FCCB000BEEEE') # Jim Meyering
 source=("git+https://git.savannah.gnu.org/git/gzip.git#tag=v${pkgver}?signed"
         "git+https://git.savannah.gnu.org/git/gnulib.git")
@@ -27,8 +28,7 @@ prepare() {
   git config submodule.gnulib.url "${srcdir}/gnulib"
   git -c protocol.file.allow=always submodule update
 
-  sh bootstrap
-  autoreconf -fiv
+  ./bootstrap
 }
 
 build() {

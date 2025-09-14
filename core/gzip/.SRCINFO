@@ -10,13 +10,13 @@ pkgbase = gzip
 	makedepends = python
 	makedepends = wget
 	depends = glibc
-	depends = bash
+	depends = sh
 	depends = coreutils
 	depends = sed
-	depends = grep
+	optdepends = diffutils: zdiff/zcmp support
+	optdepends = grep: zegrep/zfgrep/zforce/zgrep support
 	optdepends = less: zless support
 	optdepends = util-linux: zmore support
-	optdepends = diffutils: zdiff/zcmp support
 	source = git+https://git.savannah.gnu.org/git/gzip.git#tag=v1.14?signed
 	source = git+https://git.savannah.gnu.org/git/gnulib.git
 	validpgpkeys = 155D3FC500C834486D1EEA677FD9FCCB000BEEEE
