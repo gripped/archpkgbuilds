@@ -23,7 +23,6 @@ license=('LicenseRef-Java')
 makedepends=(
   alsa-lib
   bash
-  ccache
   cpio
   fontconfig
   gcc14
@@ -70,14 +69,26 @@ prepare() {
 
   # Fix build with C++17 (Fedora)
   patch -Np1 -i "${srcdir}"/gcc11.patch
+
+  # Fix build with glibc 2.42 due to uabs() name collision
+  # https://bugs.openjdk.org/browse/JDK-8354941
+  sed -i 's/uabs(/g_uabs(/' \
+    hotspot/src/cpu/aarch64/vm/assembler_aarch64.cpp \
+    hotspot/src/cpu/aarch64/vm/assembler_aarch64.hpp \
+    hotspot/src/cpu/aarch64/vm/macroAssembler_aarch64.cpp \
+    hotspot/src/cpu/aarch64/vm/stubGenerator_aarch64.cpp \
+    hotspot/src/share/vm/opto/mulnode.cpp \
+    hotspot/src/share/vm/utilities/globalDefinitions.hpp
 }
 
 build() {
   cd jdk8u-jdk${_majorver}u${_minorver}-b${_updatever}
 
   unset JAVA_HOME
-  # http://icedtea.classpath.org/bugzilla/show_bug.cgi?id=1346
-  export MAKEFLAGS=${MAKEFLAGS/-j*}
+
+  # remove -j from MAKEFLAGS to prevent build fail
+  local MAKEFLAG_J=$(echo ${MAKEFLAGS} | sed -En 's/.*-j([0-9]+).*/\1/p')
+  export MAKEFLAGS=${MAKEFLAGS/-j${MAKEFLAG_J}/}
 
   # Avoid optimization of HotSpot being lowered from O3 to O2
   # -fno-exceptions for FS#73134
