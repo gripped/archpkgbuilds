@@ -1,0 +1,36 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=drm-info
+pkgver=2.8.0
+pkgrel=1
+pkgdesc='Small utility to dump info about DRM devices'
+url='https://gitlab.freedesktop.org/emersion/drm_info'
+arch=('x86_64')
+license=('MIT')
+depends=(
+  'json-c' 'libjson-c.so'
+  'glibc'
+  'libdrm'
+  'pciutils'
+)
+makedepends=(
+  'meson'
+  'scdoc'
+)
+source=(https://gitlab.freedesktop.org/emersion/drm_info/-/archive/v${pkgver}/drm_info-v${pkgver}.tar.gz)
+sha256sums=('deaea3ae187e5026021e43c498a30d2163f599fc2eea4e98a9686bee0ca40fdf')
+b2sums=('1982a74cdf6a1e2cb6608370f30dabd395f20d07df4e09af12df8ff307802ba48a44b96a5c24a123355a4bd3b6bb3c7bf062892d59e8ccf7c78afc3b61a98fd3')
+
+build() {
+  cd "drm_info-v${pkgver}"
+  arch-meson build
+  ninja -C build
+}
+
+package() {
+  cd "drm_info-v${pkgver}"
+  DESTDIR="${pkgdir}" ninja -C build install
+  install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE
+}
+
+# vim: ts=2 sw=2 et:
