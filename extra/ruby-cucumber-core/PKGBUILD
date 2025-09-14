@@ -3,7 +3,7 @@
 
 pkgname=ruby-cucumber-core
 pkgver=15.2.1
-pkgrel=1
+pkgrel=3
 pkgdesc="Core library for the Cucumber BDD app"
 arch=(any)
 url='https://github.com/cucumber/cucumber-ruby-core'
@@ -33,7 +33,7 @@ b2sums=('bfb0f520ac089ef9851c785a8240b9ca2cd6f1f42e0d191bc77d0f2a32b509fcb4e1821
 prepare() {
   cd cucumber-ruby-core
 
-  sed -i -r -e 's|~>|>=|g' cucumber-core.gemspec
+  sed -i -r -e 's|~>|>=|g' -e "s/, '< [0-9]+'//" cucumber-core.gemspec
   sed -i '/[rR]ubo[cC]op/d' cucumber-core.gemspec Rakefile
 }
 
