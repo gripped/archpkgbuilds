@@ -1,5 +1,5 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
-# Contributor: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Contributor: Sven-Hendrik Haase <svenstaro@archlinux.org>
 
 pkgname=hex
 _pkgname=hx
@@ -17,7 +17,7 @@ sha512sums=('d5d787a34f1602c9ee1543844b59da83f81d70c1da16397b09ea96205e96f29fffd
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
 
-  cargo fetch --locked  
+  cargo fetch --locked
 }
 
 build() {
