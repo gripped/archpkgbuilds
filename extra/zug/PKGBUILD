@@ -7,9 +7,10 @@ pkgdesc='Transducers for C++'
 arch=(any)
 url='https://sinusoid.es/zug/'
 license=(BSL-1.0)
-makedepends=(catch2
+makedepends=(catch2-v2
              cmake
              git)
+checkdepends=(boost)
 source=(git+https://github.com/arximboldi/zug#tag=v$pkgver)
 sha256sums=('8e0347010e7e1a36865e2729f33ece20bae87f8db46ebaf12d16d174d8203392')
 
@@ -22,6 +23,12 @@ build() {
   cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr
   cmake --build build
+}
+
+check() {
+  cmake --build build --target check
+  ctest --test-dir build \
+        --output-on-failure
 }
 
 package() {
