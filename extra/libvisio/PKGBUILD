@@ -16,6 +16,11 @@ makedepends=('boost' 'gperf' 'doxygen' 'cppunit')
 source=(https://dev-www.libreoffice.org/src/$pkgname/$pkgname-$pkgver.tar.xz)
 sha256sums=('b4098ffbf4dcb9e71213fa0acddbd928f27bed30db2d80234813b15d53d0405b')
 
+prepare() {
+  cd $pkgname-$pkgver
+  autoreconf -fiv
+}
+
 build() {
   cd $pkgname-$pkgver
   ./configure --prefix=/usr
