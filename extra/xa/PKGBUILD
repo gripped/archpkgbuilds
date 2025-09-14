@@ -4,11 +4,12 @@
 
 pkgname=xa
 pkgver=2.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Cross-assembler for the 6502 microprocessor'
 arch=(x86_64)
 url='https://www.floodgap.com/retrotech/xa'
 license=(GPL-2.0-only)
+depends=(glibc)
 makedepends=(setconf)
 source=("$url/dists/$pkgname-$pkgver.tar.gz")
 b2sums=('86092d2a215d141f76bb8a31861f20e5124f2ec7125a5649b9b28a86e727d5f201826581c38aea8693d16692d8be13103a917c1152980d6a4764555751af7dac')
