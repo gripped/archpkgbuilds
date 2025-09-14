@@ -7,7 +7,7 @@ epoch=1
 pkgdesc='Google Noto Color Emoji font'
 arch=(any)
 url='https://www.google.com/get/noto/'
-license=(custom:OFL)
+license=(OFL-1.1-no-RFN)
 provides=(emoji-font)
 makedepends=(git)
 source=(git+https://github.com/googlefonts/noto-emoji.git#tag=v$pkgver)
