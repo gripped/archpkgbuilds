@@ -13,6 +13,11 @@ depends=('util-linux')
 source=(http://nilfs.sourceforge.net/download/$pkgname-$pkgver.tar.bz2)
 sha256sums=('8602897ff0d2c49be9bc76311f0b102088e58b6de4f749009403de06ff2c34cd')
 
+prepare() {
+  cd $pkgname-$pkgver
+  autoreconf -fiv
+}
+
 build() {
   cd $pkgname-$pkgver
   sed -i -e 's#root_sbindir=/sbin#root_sbindir=/usr/bin#' configure
