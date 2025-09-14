@@ -1,6 +1,6 @@
 pkgbase = plan9port
 	pkgdesc = Ports of applications from Plan 9
-	pkgver = 20240617
+	pkgver = 20250906
 	pkgrel = 1
 	url = https://9fans.github.io/plan9port/
 	install = plan9.install
@@ -15,11 +15,12 @@ pkgbase = plan9port
 	provides = plan9
 	options = staticlibs
 	options = !zipman
-	source = git+https://github.com/9fans/plan9port#commit=a2567fcac9851e5cc965a236679f568b0e79cff2
+	backup = usr/lib/plan9/ndb/local
+	source = git+https://github.com/9fans/plan9port#commit=bafcdddd31811cb9b13f2a984b291446de04a20b
 	source = acme.png
 	source = acme.sh
 	source = plan9.sh
-	b2sums = 8c3af2841d99d25912c82a2a9815fb71238f6dbde0746563c0c541029c9de7052d34c52eb22f10fc9fdf3a475b4f8f133be3e6cbc6f03d2bede951eb8947eb5f
+	b2sums = 7fce8648e246e06ed2cd7a09d95d4f20a6ea73ee9fb40473d7238c7cd47730036ecb4c59b343507dff54cb9532970a5e481e54dd8fb7ac60a60fd205998810e3
 	b2sums = 983106b7a91afadae0f3aff5ff69338aa80d7eb6f9b65a95a31c963f162f6fb2dea748e5da698e0bd14d4343fe17281f55b9a1966fcba1c497fbd4bd855caf6c
 	b2sums = 6bd5abac872d578523fee4d7287aa9df7faecccefab92377a871596f1526f3a26d3e89098aef3bb3e3773b2de6f5f63be6cb13134b1cbc66be9763403c344598
 	b2sums = 743d3b663f8cad370fe4e6f0fe24efd444172327b9e0bd2ac5fd3c4f9595edd4e513c6ba978719a163e0507121cab622de8453289bde19b37365a2a78df4ccf9
