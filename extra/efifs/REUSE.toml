@@ -1,0 +1,31 @@
+version = 1
+
+[[annotations]]
+path = [
+    "PKGBUILD",
+    "README.md",
+    "keys/**",
+    ".SRCINFO",
+    ".nvchecker.toml",
+    "*.install",
+    "*.sysusers",
+    "*.tmpfiles",
+    "*.logrotate",
+    "*.pam",
+    "*.service",
+    "*.socket",
+    "*.timer",
+    "*.desktop",
+    "*.hook",
+]
+SPDX-FileCopyrightText = "Arch Linux contributors"
+SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "010-efifs-grub-fix-conflicting-parameter-types.patch",
+    "020-efifs-grub-fix-incompatible-pointer-types.patch",
+    "030-efifs-gnu-efi-remove-werror.patch",
+]
+SPDX-FileCopyrightText = "efifs contributors"
+SPDX-License-Identifier = "GPL-3.0-or-later"
