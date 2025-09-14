@@ -7,10 +7,11 @@ pkgver=3.12
 pkgrel=2
 pkgdesc='A string search utility'
 arch=('x86_64')
-license=('GPL3')
+license=('GPL-3.0-or-later')
 url='https://www.gnu.org/software/grep/'
-depends=('glibc' 'pcre2')
+depends=('glibc' 'pcre2' 'sh')
 makedepends=('gperf' 'git' 'python' 'texinfo' 'wget')
+checkdepends=('glibc-locales')
 validpgpkeys=('155D3FC500C834486D1EEA677FD9FCCB000BEEEE') # Jim Meyering
 source=("git+https://git.savannah.gnu.org/git/grep.git#tag=v${pkgver}?signed"
         "git+https://git.savannah.gnu.org/git/gnulib.git")
@@ -27,7 +28,7 @@ prepare() {
   git cherry-pick -n \
     '2e19d07ef1c08c3ce4771bb1bfee1ae6541f1c0d'
 
-  sh bootstrap
+  ./bootstrap
 }
 
 build() {

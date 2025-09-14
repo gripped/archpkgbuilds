@@ -4,7 +4,8 @@ pkgbase = grep
 	pkgrel = 2
 	url = https://www.gnu.org/software/grep/
 	arch = x86_64
-	license = GPL3
+	license = GPL-3.0-or-later
+	checkdepends = glibc-locales
 	makedepends = gperf
 	makedepends = git
 	makedepends = python
@@ -12,6 +13,7 @@ pkgbase = grep
 	makedepends = wget
 	depends = glibc
 	depends = pcre2
+	depends = sh
 	source = git+https://git.savannah.gnu.org/git/grep.git#tag=v3.12?signed
 	source = git+https://git.savannah.gnu.org/git/gnulib.git
 	validpgpkeys = 155D3FC500C834486D1EEA677FD9FCCB000BEEEE
