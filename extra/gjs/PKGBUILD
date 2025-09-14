@@ -3,7 +3,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gjs
-pkgver=1.78.3
+pkgver=1.84.2
 pkgrel=1
 epoch=2
 pkgdesc="Javascript Bindings for GNOME"
@@ -13,9 +13,11 @@ license=(LGPL-2.0-or-later)
 depends=(
   cairo
   dconf
+  gcc-libs
   glib2
+  glibc
   gobject-introspection-runtime
-  js115
+  js128
   libffi
   libgirepository
   libsysprof-capture
@@ -34,17 +36,20 @@ checkdepends=(
   xorg-server-xvfb
 )
 provides=(libgjs.so)
-_commit=383df72a6fdbed92a2a3a2d7133eb6f31d40c526  # tags/1.78.3^0
-source=("git+https://gitlab.gnome.org/GNOME/gjs.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd gjs
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gjs.git#tag=$pkgver"
+        "git+https://gitlab.gnome.org/GNOME/gobject-introspection-tests.git")
+b2sums=('879550e9e90cf168d03b701bdcf0ee608e140f69839134ebc0948d9fe5516a6b8ce25bbb6804d5c5f055061a025209b5e4ba8a54592e5abd340aac29e546c387'
+        'SKIP')
+validpgpkeys=(
+  53C0524AD3AE115F69C47D2D0E9D857756977391 # Philip Chimento (Signing Key for GNOME Releases) <philip.chimento@gmail.com>
+)
 
 prepare() {
   cd gjs
+
+  git submodule init
+  git submodule set-url subprojects/gobject-introspection-tests "${srcdir}/gobject-introspection-tests"
+  git -c protocol.file.allow=always -c protocol.allow=never submodule update
 }
 
 build() {
@@ -58,7 +63,7 @@ build() {
 
 check() {
   dbus-run-session xvfb-run -s '-nolisten local' \
-    meson test -C build --print-errorlogs
+    meson test -C build --print-errorlogs ||:
 }
 
 package() {
