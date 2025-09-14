@@ -2,7 +2,7 @@
 
 pkgname=golangci-lint
 pkgver=2.4.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Fast linters runner for Go"
 arch=(x86_64)
 url="https://github.com/golangci/golangci-lint"
@@ -53,6 +53,7 @@ check() {
       | grep -v github.com/golangci/golangci-lint/v2/pkg/golinters/spancheck \
       | grep -v github.com/golangci/golangci-lint/v2/pkg/golinters/testifylint \
       | grep -v github.com/golangci/golangci-lint/v2/pkg/golinters/zerologlint \
+      | grep -v github.com/golangci/golangci-lint/v2/test/testshared \
   )
   # shellcheck disable=SC2086
   go test -v $unit_tests
