@@ -14,8 +14,8 @@ depends=(python-numpy)
 makedepends=(python-setuptools python-build python-installer python-wheel python-versioneer)
 checkdepends=(python-pytest)
 #source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-source=($pkgname-$pkgver.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz) # https://bugs.archlinux.org/task/77683
-sha256sums=('17296943478bdf9b4f9ff46a98713e80419525acfe96aca09fb28cac31aa18fc')
+source=($pkgname-$pkgver.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz)
+sha256sums=('8fc63a27f6f454dde25fdcdb460466cfee25b12e77ccee6ea14c20e34f02235b')
 
 prepare() {
   cd bottleneck-${pkgver}
