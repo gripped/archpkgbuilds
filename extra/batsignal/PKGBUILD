@@ -4,13 +4,13 @@
 pkgname=batsignal
 pkgver=1.8.0
 pkgrel=2
-pkgdesc="A lightweight battery monitor daemon"
+pkgdesc='A lightweight battery monitor daemon'
 arch=(x86_64)
 url="https://github.com/electrickite/$pkgname"
 license=(ISC)
 depends=(glibc libnotify)
 makedepends=(git)
-source=("git+https://github.com/electrickite/$pkgname#tag=$pkgver")
+source=("git+$url#tag=$pkgver")
 b2sums=('c04719a5f568897b5ef5362abf4ab946d17a1514e0ed4c147b59a55b508b0eb46bc81faadf528762c0db04046ff9b44577e2c984e412ca43ba8103a36cd7e36f')
 
 build() {
