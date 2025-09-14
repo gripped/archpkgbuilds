@@ -1,19 +1,19 @@
 pkgbase = dovecot-fts-elastic
 	pkgdesc = Dovecot FTS plugin for elasticsearch
 	pkgver = 1.1.0
-	pkgrel = 6
+	pkgrel = 8
 	url = https://github.com/filiphanes/fts-elastic
 	install = dovecot-fts-elastic.install
 	arch = x86_64
 	license = MIT
-	depends = dovecot=2.3.21.1
+	makedepends = git
+	depends = dovecot=2.4.1
+	depends = glibc
 	depends = json-c
 	backup = etc/dovecot/conf.d/90-fts.conf
-	source = dovecot-fts-elastic-1.1.0.tar.gz::https://github.com/filiphanes/fts-elastic/archive/1.1.0.tar.gz
+	source = git+https://github.com/filiphanes/fts-elastic.git#tag=1.1.0
 	source = 90-fts.conf
-	source = fts-elastic-fix-header-include-order.patch::https://github.com/filiphanes/fts-elastic/commit/411d711b4a587f3124d0fcfd8c6fd0a6bce92cc5.patch
-	sha256sums = 50aac69510cb504b6c7af7180a1d21fed3aadd47df30e5cd8ad50dfae5c36452
+	sha256sums = 1bddb56eeb067a640d473e0669495977798c1ea7e3d5644ff645b825ead6e783
 	sha256sums = 3442fa7350055c7328bcdf2f666727b9a5d8c942a0bfe93044db344c80ad7e69
-	sha256sums = 62ea24cad3c0a42af9e484b3d08c72ad44cb6f9e836fc2acc9ae1b7954c3274d
 
 pkgname = dovecot-fts-elastic
