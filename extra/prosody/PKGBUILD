@@ -9,7 +9,7 @@
 pkgname=prosody
 epoch=1
 pkgver=13.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Lightweight and extensible Jabber/XMPP server written in Lua"
 arch=('x86_64')
 url="https://prosody.im/"
@@ -39,7 +39,7 @@ sha256sums=('3e61bd396f37ca5245debfd6be49a47a6191332f0faa2d4ee5f00fbb040addb0'
             '0753bd9260f1cfdce6e18e01a61e320b396acfe9fca8ccf3250653bfa6af997e'
             '5a2466b73bd069fb73be97a4e23b24e4c8dd1adb7db871cb8f5ab4094c1f967f'
             '211295ad5fe71742a8ec4a4420da31720e3bb407c6653250f9c6c7574e44f14e'
-            'e9d6abc4c53bd9e7b1d2acc56c7513416751f9436bf382ed52d703d29b13bfaa')
+            'd50dfae041855e3c95551c3b4cff4ba9f8b2f00f5e5f79dd410836d88be33c12')
 
 prepare() {
   cd prosody-$pkgver
@@ -61,7 +61,8 @@ build() {
     --idn-library=idn \
     --cflags="${CPPFLAGS} ${CFLAGS} -fPIC -D_GNU_SOURCE" \
     --ldflags="${LDFLAGS} -shared" \
-    --no-example-certs
+    --no-example-certs \
+    --with-random=getrandom
   make
 }
 
