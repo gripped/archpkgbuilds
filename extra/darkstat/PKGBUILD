@@ -10,8 +10,8 @@ arch=('x86_64')
 depends=('libpcap' 'zlib' 'gcc-libs')
 backup=('etc/conf.d/darkstat.conf')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/emikulic/${pkgname}/archive/refs/tags/${pkgver}.tar.gz"
-	'darkstat-sysusers.conf'
-	'darkstat-tmpfiles.conf'
+	'darkstat.sysusers'
+	'darkstat.tmpfiles'
 	'darkstat.service'
 	'darkstat.conf')
 sha256sums=('0b405a6c011240f577559d84db22684a6349b25067c3a800df12439783c25494'
@@ -40,8 +40,8 @@ package() {
 
   make DESTDIR="${pkgdir}" install
 
-  install -D -m0644 "${srcdir}"/darkstat-sysusers.conf "${pkgdir}"/usr/lib/sysusers.d/darkstat.conf
-  install -D -m0644 "${srcdir}"/darkstat-tmpfiles.conf "${pkgdir}"/usr/lib/tmpfiles.d/darkstat.conf
+  install -D -m0644 "${srcdir}"/darkstat.sysusers "${pkgdir}"/usr/lib/sysusers.d/darkstat.conf
+  install -D -m0644 "${srcdir}"/darkstat.tmpfiles "${pkgdir}"/usr/lib/tmpfiles.d/darkstat.conf
   install -D -m0644 "${srcdir}"/darkstat.service "${pkgdir}"/usr/lib/systemd/system/darkstat.service
   install -D -m0644 "${srcdir}"/darkstat.conf "${pkgdir}"/etc/conf.d/darkstat.conf
 }
