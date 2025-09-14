@@ -47,6 +47,7 @@ build() {
     -S $_name-v$pkgver
     -G Ninja
     -W no-dev
+    -DCMAKE_BUILD_TYPE=None
     -DCMAKE_INSTALL_PREFIX=/usr
     -DCATALYST_USE_MPI=ON
     -DCATALYST_WRAP_PYTHON=ON
