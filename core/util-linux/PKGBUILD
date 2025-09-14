@@ -42,7 +42,7 @@ options=('strip')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
 source=("git+https://github.com/util-linux/util-linux#tag=v${pkgver/rc/-rc}?signed"
         $pkgbase-BSD-2-Clause.txt::https://raw.githubusercontent.com/Cyan4973/xxHash/f035303b8a86c1db9be70cbb638678ef6ef4cb2d/LICENSE
-        pam-{login,common,remote,runuser,su}
+        {login,common,remote,runuser,su}.pam
         'util-linux.sysusers'
         '60-rfkill.rules'
         'rfkill-unblock_.service'
@@ -152,14 +152,14 @@ package_util-linux() {
   chmod 4755 "${pkgdir}"/usr/bin/{newgrp,ch{sh,fn}}
 
   # install PAM files for login-utils
-  install -Dm0644 pam-common "${pkgdir}/etc/pam.d/chfn"
-  install -m0644 pam-common "${pkgdir}/etc/pam.d/chsh"
-  install -m0644 pam-login "${pkgdir}/etc/pam.d/login"
-  install -m0644 pam-remote "${pkgdir}/etc/pam.d/remote"
-  install -m0644 pam-runuser "${pkgdir}/etc/pam.d/runuser"
-  install -m0644 pam-runuser "${pkgdir}/etc/pam.d/runuser-l"
-  install -m0644 pam-su "${pkgdir}/etc/pam.d/su"
-  install -m0644 pam-su "${pkgdir}/etc/pam.d/su-l"
+  install -Dm0644 common.pam "${pkgdir}/etc/pam.d/chfn"
+  install -Dm0644 common.pam "${pkgdir}/etc/pam.d/chsh"
+  install -Dm0644 login.pam "${pkgdir}/etc/pam.d/login"
+  install -Dm0644 remote.pam "${pkgdir}/etc/pam.d/remote"
+  install -Dm0644 runuser.pam "${pkgdir}/etc/pam.d/runuser"
+  install -Dm0644 runuser.pam "${pkgdir}/etc/pam.d/runuser-l"
+  install -Dm0644 su.pam "${pkgdir}/etc/pam.d/su"
+  install -Dm0644 su.pam "${pkgdir}/etc/pam.d/su-l"
 
   # TODO(dreisner): offer this upstream?
   sed -i '/ListenStream/ aRuntimeDirectory=uuidd' "${pkgdir}/usr/lib/systemd/system/uuidd.socket"
