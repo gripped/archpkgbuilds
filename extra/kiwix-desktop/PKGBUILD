@@ -1,18 +1,18 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=kiwix-desktop
-pkgver=2.3.1
-pkgrel=5
+pkgver=2.4.0
+pkgrel=1
 pkgdesc="Offline reader for Web content, especially intended to make Wikipedia available offline"
 url="https://github.com/kiwix/kiwix-desktop"
 arch=("x86_64")
 license=("GPL3")
-depends=("libkiwix>=12.1.1" "qt5-base" "qt5-webengine" "aria2")
+depends=("libkiwix>=14.0.0" "qt5-base" "qt5-webengine" "aria2")
 makedepends=("qt5-tools")
 source=(
 	"${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
 )
-sha256sums=('799d887efd6a855aefe27452b1e3c02da3b443b1ea19c961b7d58dc55e019342')
+sha256sums=('e011d395d60b1f1a6ea6f2474b3c85e8712bb7918ff850da13c0a361cdd4ceb5')
 
 prepare() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
