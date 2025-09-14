@@ -1,0 +1,35 @@
+version = 1
+
+[[annotations]]
+path = [
+    "PKGBUILD",
+    "README.md",
+    "keys/**",
+    ".SRCINFO",
+    ".nvchecker.toml",
+    "*.install",
+    "*.sysusers",
+    "*.tmpfiles",
+    "*.logrotate",
+    "*.pam",
+    "*.service",
+    "*.socket",
+    "*.timer",
+    "*.desktop",
+    "*.hook",
+]
+SPDX-FileCopyrightText = "Arch Linux contributors"
+SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "01-gcrypt.patch",
+    "02-pointer.patch",
+    "10-fix-errno.patch",
+    "20-build-error-fixes.patch",
+    "21-header-path-fix.patch",
+    "30-include-fixes.patch",
+    "fix_afpfs-ng_includes.patch",
+]
+SPDX-FileCopyrightText = "afpfs-ng contributors"
+SPDX-License-Identifier = "GPL-2.0-only"
