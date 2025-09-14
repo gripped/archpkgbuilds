@@ -12,12 +12,18 @@ arch=('any')
 license=('BSD')
 depends=('java-runtime=11' 'bash')
 makedepends=('java-environment=11' 'gradle')
-source=(https://github.com/JesusFreke/${pkgname}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz)
-sha512sums=('33628637b096adeb5bf67f5f03efff7c0e0c988fe2f6ed41614e836a66b270a4ef7e7c544f23c91ff8a416ff06034ba64d23aa2bd49a5af3070191021c0b9258')
-b2sums=('6aa7d3b5a9be07fec3f43d7bef46f78df54ee205df6816c540b3d9b3430baa416c4967d86948eaef11edff760833bd699819f27894a70eadd2d645dd8566b1cd')
+source=(https://github.com/JesusFreke/${pkgname}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz reproducible-jar-output.patch)
+sha512sums=('33628637b096adeb5bf67f5f03efff7c0e0c988fe2f6ed41614e836a66b270a4ef7e7c544f23c91ff8a416ff06034ba64d23aa2bd49a5af3070191021c0b9258'
+            '65a286f818e33aa351989f19358c5f8395628c38765b78977cc15b385933782849c521e06a5a79cdd29f46caf68446e77f6f5e414555ba267a6128edd58f5f0f')
+b2sums=('6aa7d3b5a9be07fec3f43d7bef46f78df54ee205df6816c540b3d9b3430baa416c4967d86948eaef11edff760833bd699819f27894a70eadd2d645dd8566b1cd'
+        'a3f0d659978c97df440d452998db4247bb70e6f2dea20685af7629555abcf568b34312cb0e6df96ef647569d3004f59ad8627294dd1a43354625525956706a58')
 
 prepare() {
   cd ${pkgname}-${pkgver}
+
+  # Strip the timestamps from the jar archive
+  patch -Np1 -i ${srcdir}/reproducible-jar-output.patch
+
   for file in baksmali smali; do
     # prevent from printing path on launch
     sed '/echo ${newProg}/d' -i scripts/${file}
