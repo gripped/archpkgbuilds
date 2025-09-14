@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=hipify-clang
 pkgver=6.4.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Convert CUDA to Portable C++ Code'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/HIPIFY/en/latest'
