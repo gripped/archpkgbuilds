@@ -18,7 +18,7 @@ sha256sums=('fa653339a21ba948fbea8f74c0adf5ea58cf2f264e97699a1b811e24b9325dba'
 prepare() {
   cd ReadStat
   git cherry-pick -n 718d49155e327471ed9bf4a8c157f849f285b46c # Fix use-after-free
-  autoreconf -vi
+  autoreconf -fvi -I /usr/share/gettext/m4
 }
 
 build() {
