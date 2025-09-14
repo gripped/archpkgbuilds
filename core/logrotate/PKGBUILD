@@ -20,6 +20,9 @@ prepare() {
 	cd "$srcdir/${pkgname}-${pkgver}"
 
 	echo '#!/bin/true' > test/test-0110.sh
+
+	# remove the install section from timer, as we enable it by default
+	sed -i '/^\[Install\]$/,$d' examples/logrotate.timer
 }
 
 build() {
