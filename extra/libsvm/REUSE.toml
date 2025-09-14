@@ -1,0 +1,31 @@
+version = 1
+
+[[annotations]]
+path = [
+    "PKGBUILD",
+    "README.md",
+    "keys/**",
+    ".SRCINFO",
+    ".nvchecker.toml",
+    "*.install",
+    "*.sysusers",
+    "*.tmpfiles",
+    "*.logrotate",
+    "*.pam",
+    "*.service",
+    "*.socket",
+    "*.timer",
+    "*.desktop",
+    "*.hook",
+]
+SPDX-FileCopyrightText = "Arch Linux contributors"
+SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "010-libsvm-fix-qt-headers-path.patch",
+    "020-libsvm-use-archlinux-flags.patch",
+    "030-libsvm-fix-tools-path.patch",
+]
+SPDX-FileCopyrightText = "libsvm contributors"
+SPDX-License-Identifier = "BSD-3-Clause"
