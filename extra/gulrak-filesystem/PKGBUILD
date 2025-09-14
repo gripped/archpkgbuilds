@@ -13,24 +13,26 @@ source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
 b2sums=('9734907da65e0f390e461d76c7b1c7e8ffa1a0f7f01e5952d69d9d6b6cc3c85e20f5e4495235f2589635fb665040bf2ee4def4d3bdcb0f3453a00ee8c4e8ac3f')
 
 build() {
-  cmake \
-    -D CMAKE_INSTALL_PREFIX=/usr \
-    -D CMAKE_BUILD_TYPE=None \
-    -W no-dev \
-    -B build \
+  local cmake_options=(
+    -B build
     -S $_name-$pkgver
+    -W no-dev
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_BUILD_TYPE=None
+  )
+  cmake "${cmake_options[@]}"
   cmake --build build --verbose
 }
 
 check() {
-  ctest --test-dir build --output-on-failure --stop-on-failure -j$(nproc)
+  ctest --test-dir build --output-on-failure --parallel $(nproc)
 }
 
 package() {
-  DESTDIR="${pkgdir}" cmake --install build
-  cd "${_name}-${pkgver}"
-  install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  DESTDIR="$pkgdir" cmake --install build
+  cd "$_name-$pkgver"
+  install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
 # vim: ts=2 sw=2 et:
