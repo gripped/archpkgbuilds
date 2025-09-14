@@ -42,6 +42,10 @@ prepare() {
 
   # Prepare the Godot Mono MIME file as well
   cp -f org.godotengine.Godot.xml org.godotengine.Godot-mono.xml
+
+  # Some build systems uses arm64 instead of aarch64. This is one of them.
+  [[ ${CARCH} == aarch64 ]] && export CARCH=arm64
+
 }
 
 build() {
