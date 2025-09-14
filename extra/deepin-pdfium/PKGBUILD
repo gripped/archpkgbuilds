@@ -16,6 +16,7 @@ sha512sums=('c3677b863c0225969c8b7897c88f4642607c79485f0facb29f6cb695597cd956868
 build() {
   cd deepin-pdfium-$pkgver
   qmake-qt5 PREFIX=/usr deepin-pdfium.pro 
+  CXXFLAGS+=' -include cstdint' make
 }
 
 package() {
