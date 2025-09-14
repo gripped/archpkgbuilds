@@ -5,27 +5,32 @@ pkgname=hyphen-hu
 pkgver=20240321
 pkgrel=1
 pkgdesc='Hungarian hyphenation rules'
-arch=('any')
+arch=(any)
 url='https://magyarispell.sourceforge.net/'
 license=('LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-1.1')
-makedepends=('git')
+makedepends=(git)
 optdepends=('hyphen: offers hyphenation library functions')
 _commit=491736b0e775f7d4a0bfd9ed9ce94ec296e3e988
 source=("libreoffice-dictionaries::git+https://git.libreoffice.org/dictionaries#commit=$_commit")
-sha256sums=('4ce7d02ee15c5b01f1d6281f817473db5bd89c41323c8c6b91abc96b08783653')
+b2sums=(7185f4b88e140a5022f3fa5d5ece52effa19ae72d2c6a313ccb664d5800263fcb9758f6340aedb34238c3483a185702993dccb9eba657d244d16ce12f1fc0d14)
+
+pkgver() {
+  cd libreoffice-dictionaries/hu_HU/
+  sed -n "s/.*Patch version: \(.*\).*/\1/p" README_hyph_hu_HU.txt | sed 's/-//g'
+}
 
 package() {
   cd libreoffice-dictionaries/hu_HU/
-  install -Dm644 hyph_hu_HU.dic "$pkgdir/usr/share/hyphen/hyph_hu_HU.dic"
+  install -Dm644 -t "$pkgdir/usr/share/hyphen/" hyph_hu_HU.dic
 
   # the symlinks
   install -dm755 "$pkgdir/usr/share/myspell/dicts"
   pushd "$pkgdir/usr/share/myspell/dicts"
     for file in "$pkgdir"/usr/share/hyphen/*; do
-      ln -sv /usr/share/hyphen/$(basename $file) .
+      ln -sv "/usr/share/hyphen/$(basename "$file")" .
     done
   popd
 
   # docs
-  install -Dm644 README_hyph_hu_HU.txt "$pkgdir/usr/share/doc/$pkgname/README_hyph_hu_HU.txt"
+  install -Dm644 -t "$pkgdir/usr/share/doc/$pkgname/" README_hyph_hu_HU.txt
 }
