@@ -1,12 +1,15 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=qt6-graphs
-_qtver=6.6.0
-pkgver=${_qtver/-/}
+_pkgver=6.9.2
+pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
-license=(GPL3 LGPL3 FDL custom)
+license=(GPL-3.0-only
+         LGPL-3.0-only
+         LicenseRef-Qt-Commercial
+         Qt-GPL-exception-1.0)
 pkgdesc='Qt Graphs for data visualization'
 depends=(gcc-libs
          glibc
@@ -14,12 +17,13 @@ depends=(gcc-libs
          qt6-declarative
          qt6-quick3d)
 makedepends=(cmake
+             git
              ninja
              qt6-shadertools)
 groups=(qt6)
-_pkgfn=${pkgname/6-/}-everywhere-src-$_qtver
-source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz)
-sha256sums=('56e147fc89031b77002a87da2970c1d6ebf3f595268d0cae52f5f71278e15e7f')
+_pkgfn=${pkgname/6-/}
+source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
+sha256sums=('f3aa78ec45df2c42f9a8cee906d20e528897c3edff5b3f81281f28ab9818082b')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \

@@ -1,15 +1,16 @@
 pkgbase = qt6-graphs
 	pkgdesc = Qt Graphs for data visualization
-	pkgver = 6.6.0
+	pkgver = 6.9.2
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
 	groups = qt6
-	license = GPL3
-	license = LGPL3
-	license = FDL
-	license = custom
+	license = GPL-3.0-only
+	license = LGPL-3.0-only
+	license = LicenseRef-Qt-Commercial
+	license = Qt-GPL-exception-1.0
 	makedepends = cmake
+	makedepends = git
 	makedepends = ninja
 	makedepends = qt6-shadertools
 	depends = gcc-libs
@@ -17,7 +18,7 @@ pkgbase = qt6-graphs
 	depends = qt6-base
 	depends = qt6-declarative
 	depends = qt6-quick3d
-	source = https://download.qt.io/official_releases/qt/6.6/6.6.0/submodules/qtgraphs-everywhere-src-6.6.0.tar.xz
-	sha256sums = 56e147fc89031b77002a87da2970c1d6ebf3f595268d0cae52f5f71278e15e7f
+	source = git+https://code.qt.io/qt/qtgraphs#tag=v6.9.2
+	sha256sums = f3aa78ec45df2c42f9a8cee906d20e528897c3edff5b3f81281f28ab9818082b
 
 pkgname = qt6-graphs
