@@ -1,4 +1,4 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
@@ -8,21 +8,24 @@ pkgname=(
   libnautilus-extension
   libnautilus-extension-docs
 )
-pkgver=45.2
+pkgver=48.3
 pkgrel=1
 pkgdesc="Default file manager for GNOME"
-url="https://wiki.gnome.org/Apps/Files"
+url="https://apps.gnome.org/Nautilus/"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-3.0-or-later)
 depends=(
   cairo
   dconf
+  gcc-libs
   gdk-pixbuf2
   glib2
+  glibc
   gnome-autoar
   gnome-desktop-4
-  gstreamer
+  graphene
   gst-plugins-base-libs
+  gstreamer
   gtk4
   gvfs
   hicolor-icon-theme
@@ -31,28 +34,30 @@ depends=(
   libgexiv2
   libportal
   libportal-gtk4
+  libx11
+  localsearch
   pango
-  tracker3
+  tinysparql
+  wayland
+  xdg-user-dirs-gtk
 )
 makedepends=(
-  appstream-glib
+  appstream
   gi-docgen
   git
+  glib2-devel
   gobject-introspection
   meson
-  tracker3-miners
 )
 checkdepends=(python-gobject)
-_commit=5e84f663e7e01314a8e364fba50451e011938b7a  # tags/45.2^0
 source=(
-  "git+https://gitlab.gnome.org/GNOME/nautilus.git#commit=$_commit"
+  "git+https://gitlab.gnome.org/GNOME/nautilus.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('SKIP')
-
-pkgver() {
-  cd nautilus
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+b2sums=('01e845a0e03e0fc6604e6285f68facd79e2de2d0a3a19198b1dc85d4cf3a3eedd58a51d67091f864da80e1309b0e8f02b4a650cd2cd5ba1a3abb76fe8a666f62')
+validpgpkeys=(
+  6B211753AC950672287226800538577822AE4B17 # António Fernandes <antoniof@gnome.org>
+  550660707A6F40376B9B9F8D504A78811E6160CC # Corey Berla <corey@berla.me>
+)
 
 prepare() {
   cd nautilus
@@ -84,10 +89,6 @@ _pick() {
 
 package_nautilus() {
   depends+=(libnautilus-extension.so)
-  optdepends=(
-    'nautilus-sendto: Send files via mail extension'
-    'tracker3-miners: Full text search and metadata-based renaming'
-  )
   groups=(gnome)
 
   meson install -C build --destdir "$pkgdir"
@@ -106,6 +107,7 @@ package_libnautilus-extension() {
   depends=(
     gcc-libs
     glib2
+    glibc
   )
   provides=(libnautilus-extension.so)
 
