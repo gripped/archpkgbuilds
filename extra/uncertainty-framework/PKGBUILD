@@ -7,7 +7,7 @@ pkgrel=8
 pkgdesc="Uncertainty estimation framework for a surface from motion dataset"
 arch=('x86_64')
 url="http://alicevision.github.io/"
-license=('MPL2')
+license=('MPL-2.0')
 depends=('magma' 'ceres-solver')
 makedepends=('boost' 'cmake' 'ninja' 'git' 'gflags' 'cuda' 'eigen')
 source=("${_name}::git+https://github.com/alicevision/${_name}.git#commit=d995765"
@@ -36,7 +36,6 @@ build() {
     -DUNC_MKL_SUPPORT=ON
   ninja -C build
 }
-
 
 package() {
   cd ${_name}
