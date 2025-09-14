@@ -12,6 +12,7 @@ pkgdesc="SSH protocol implementation for remote login, command execution and fil
 arch=(x86_64)
 url='https://www.openssh.com/portable.html'
 license=(
+  0BSD
   BSD-2-Clause
   BSD-3-Clause
   ISC
@@ -53,6 +54,7 @@ source=(
   ssh-agent.service
   ssh-agent.socket
   sshd.pam
+  LICENSE
 )
 sha256sums=('021a2e709a0edf4250b1256bd5a9e500411a90dddabea830ed59cef90eb9d85c'
             'SKIP'
@@ -64,7 +66,8 @@ sha256sums=('021a2e709a0edf4250b1256bd5a9e500411a90dddabea830ed59cef90eb9d85c'
             '048c07e2085147a7626c2d3f82c9523b1bec6890c1173486de44b2b70624d3e3'
             '824bf888ad0cb20ff3c2e13292389eb355ab91c3d9cc2fe0c8c5c60365d4a9c7'
             'a16492e1eb9219d47a9053f0c83cdc323bff3c6f5b573bc6509ec40e40e4d04b'
-            '633e24cbfcb045ba777d3e06d5f85dfaa06d44f4727d38c7fb2187c57498221d')
+            '633e24cbfcb045ba777d3e06d5f85dfaa06d44f4727d38c7fb2187c57498221d'
+            '7056c04df17a4e0f0bac9f787f347c9cd892cee6323d1c89528090afd0b934a3')
 b2sums=('4ce353adf75aade8f4b2a223ad13e2f92cd23d1e60b4ee52bad0eaf036571229438cd9760dfa99c0e10fa09a8ac47b2bfb04eb183fb7b9287ac564ec75316a75'
         'SKIP'
         '1ff8cd4ae22efed2b4260f1e518de919c4b290be4e0b5edbc8e2225ffe63788678d1961e6f863b85974c4697428ee827bcbabad371cfc91cc8b36eae9402eb97'
@@ -75,7 +78,8 @@ b2sums=('4ce353adf75aade8f4b2a223ad13e2f92cd23d1e60b4ee52bad0eaf036571229438cd97
         '8c843c40bf98703fb1eb6280ce1fb4aee7bd3c8632aaaa8598afc02921c4aa9906fde97850e150fd7c67e91a562c7578b17250589be5ad592ac89ccff9da9d99'
         '6a80552260bc016757725602638478345565e1466335da8a70e0b4e49fe2e9d3b863df83764696cd91637c17dd137ed7c26188a1d795af3d024d89c9c229829b'
         'f161cdb54609bd4521d9517c5c9d97a87f7de5c7504bf46d870ee814624817050ca9f68d42a1e661ecc7c3ede1a440b5b159df18f3b16b3c2e90ecfbd0dfd258'
-        '1d24cc029eccf71cee54dda84371cf9aa8d805433e751575ab237df654055dd869024b50facd8b73390717e63100c76bca28b493e0c8be9791c76a2e0d60990a')
+        '1d24cc029eccf71cee54dda84371cf9aa8d805433e751575ab237df654055dd869024b50facd8b73390717e63100c76bca28b493e0c8be9791c76a2e0d60990a'
+        'a29664104e1ee73ca0aee1d633e9095d92a57c92787f8d8740bdb7211ba3205782ed8677f539bdb8cae3dd75a3694be3132e185fa3fc4b3f401e1f88eb776101')
 validpgpkeys=('7168B983815A5EEF59A4ADFD2A3F414E736060BA')  # Damien Miller <djm@mindrot.org>
 
 prepare() {
@@ -170,6 +174,7 @@ package() {
   install -vDm 644 ../99-archlinux.conf -t "$pkgdir/usr/share/factory/etc/ssh/sshd_config.d/"
 
   install -vDm 644 ../$pkgname.tmpfiles "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
+  install -vDm 644 ../LICENSE "$pkgdir/usr/share/licenses/$pkgname/0BSD.txt"
 
   install -Dm755 contrib/findssl.sh -t "$pkgdir"/usr/bin/
   install -Dm755 contrib/ssh-copy-id -t "$pkgdir"/usr/bin/
