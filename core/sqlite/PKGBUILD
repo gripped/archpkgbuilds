@@ -7,7 +7,7 @@ pkgver=3.50.4
 _srcver=$(echo "$pkgver" | awk -F. '{ printf "%d%02d%02d00", $1, $2, $3 }')
 _docver=${_srcver}
 #_docver=3440000
-pkgrel=1
+pkgrel=2
 pkgdesc="A C library that implements an SQL database engine"
 arch=('x86_64')
 license=('LicenseRef-Sqlite')
@@ -42,7 +42,6 @@ build() {
         -DSQLITE_ENABLE_COLUMN_METADATA=1 \
         -DSQLITE_ENABLE_UNLOCK_NOTIFY \
         -DSQLITE_ENABLE_DBSTAT_VTAB=1 \
-        -DSQLITE_ENABLE_FTS3_TOKENIZER=1 \
         -DSQLITE_ENABLE_FTS3_PARENTHESIS \
         -DSQLITE_SECURE_DELETE \
         -DSQLITE_ENABLE_STMTVTAB \
@@ -55,6 +54,7 @@ build() {
   cd sqlite-src-$_srcver
   ./configure --prefix=/usr \
     --disable-static \
+    --enable-fts3 \
     --fts4 \
     --fts5 \
     --rtree \
