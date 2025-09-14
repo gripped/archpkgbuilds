@@ -19,10 +19,16 @@ options=('!makeflags')
 validpgpkeys=('464BC7CD439FEE5E8B4098A0348A778D6885EF8F') # Jose M Calhariz (Técnico) <jose.calhariz@tecnico.ulisboa.pt>
 source=("git+https://salsa.debian.org/debian/at.git?signed#tag=release/${pkgver}"
         '80-atd.hook'
-        'pam.conf')
+        'atd.pam')
 sha256sums=('dc055b0afe2c60483525b7b7ea3ab4fb9fdbc7bb51070cb2705b598b5c69ebb2'
             'a7048d6dbd8aa4d881979716829d16053b5007c2d83eb2167edd5221f9e48a33'
             '663cd2f7c5abf56d1ea3f38dfac8d3e64896f1384ca5e97b7ec6d26fd6afafef')
+
+prepare() {
+  cd "$pkgname"
+
+  autoreconf -fvi
+}
 
 build() {
   cd "$pkgname"
@@ -40,7 +46,7 @@ build() {
 package() {
   make -C "$pkgname" IROOT="$pkgdir" docdir=/usr/share/doc install
 
-  install -D -m0644 pam.conf "$pkgdir"/etc/pam.d/atd
+  install -D -m0644 atd.pam "$pkgdir"/etc/pam.d/atd
   install -D -m0644 80-atd.hook "$pkgdir"/usr/share/libalpm/hooks/80-atd.hook
 }
 
