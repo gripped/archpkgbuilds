@@ -6,26 +6,38 @@ pkgname=libdatrie
 pkgver=0.2.13
 pkgrel=4
 pkgdesc='Double-array trie library'
-arch=('x86_64')
+arch=(x86_64)
 url='https://linux.thai.net/projects/datrie'
-license=('LGPL')
-depends=('glibc')
-makedepends=('doxygen')
-source=("https://linux.thai.net/pub/thailinux/software/libthai/$pkgname-$pkgver.tar.xz")
-sha256sums=('12231bb2be2581a7f0fb9904092d24b0ed2a271a16835071ed97bed65267f4be')
+license=(LGPL-2.1-or-later)
+depends=(glibc)
+makedepends=(
+  autoconf-archive
+  doxygen
+  git
+)
+source=("git+https://github.com/tlwg/libdatrie.git#tag=v$pkgver")
+b2sums=(3f726110c37b379d0fbf7fff5de534e46da75642baa848f72514fc98e4af0a80d8b7f0bc1a5f797eeef6e4505bb839a65b9d44019b3523270a414df4363e7003)
+
+prepare() {
+  cd $pkgname
+  autoreconf -fi
+}
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
   make
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make check
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
