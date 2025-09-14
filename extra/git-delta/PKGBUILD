@@ -10,7 +10,6 @@ pkgrel=4
 pkgdesc='Syntax-highlighting pager for git and diff output'
 arch=(x86_64)
 url='https://dandavison.github.io/delta/'
-_url='https://github.com/dandavison/delta'
 license=(MIT)
 depends=(gcc-libs # libgcc_s.so ld-linux-x86-64.so
          glibc # libc.so libm.so
@@ -20,7 +19,7 @@ depends=(gcc-libs # libgcc_s.so ld-linux-x86-64.so
 makedepends=(cargo
              mdbook)
 checkdepends=(git)
-source=("$_url/archive/$pkgver/$_pkgname-$pkgver.tar.gz")
+source=("https://github.com/dandavison/delta/archive/$pkgver/$_pkgname-$pkgver.tar.gz")
 sha512sums=('c096e22e07945f004f4ef8e805d6dfe45ae53a2e9bcb46736f9764d76fcfa556ce1622157ab66021b8fa36a1e322f80fee217e7f3d9d3489ec4df1f8fc61ca67')
 b2sums=('6a1dc650de50e495b0d1ced9369518a19d2b92270e58d9a1c93edd4b61cc5565bb23f5b6d69a250178e8f2ba13169dda700450539eafcc6f042ef35c03d19ed2')
 
