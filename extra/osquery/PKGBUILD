@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=osquery
-pkgver=5.18.1
+pkgver=5.19.0
 pkgrel=1
 pkgdesc="SQL powered operating system instrumentation, monitoring, and analytics"
 arch=(x86_64)
@@ -83,13 +83,12 @@ source=(
   "$pkgname-0003-Remove-include-of-non-existing-header-xlocale.h.patch::$_url/commit/3f963b910767aff9b8e8ed180ff5ed8ccba7f163.patch"
   "$pkgname-0004-Fix-remaining-compilation-issues.patch::$_url/commit/fb198049d765f228f06f0feaa491e531bf1c0905.patch"
   "$pkgname-0005-Do-not-build-system_controls-tables.patch::$_url/commit/db441c2c031dc61afcba1e903ed9a7f7161e7d64.patch"
-  "$pkgname-0006-Do-not-build-block_devices-tables.patch::$_url/commit/58b78b8dba31952990166087ec920ee58eb61bb0.patch"
   "$pkgname-0007-Do-not-build-utils-requiring-libdpkg.patch::$_url/commit/4aae30a46a4a3744e308ab0a82653dba79ad79ff.patch"
   "$pkgname-0008-Fix-systemd-service-and-systemctl-script.patch::$_url/commit/4904934ca19902146215f44a8f6d710f6060dbf3.patch"
   "$pkgname-0009-Adapt-installation-to-using-system-packages.patch::$_url/commit/0777b63c0c2c2cee13f78ab2b6e3100ee1399dd3.patch"
   "gcc-15.patch"
 )
-sha256sums=('44270a3b277eed57929067a811779c7850c77ffc8e5996cf8fd02bf18f81859d'
+sha256sums=('5f3357754901eb8f57c14881e03ecc9a564a12e8dd0ae676c26ae7beba18179c'
             'SKIP'
             'SKIP'
             '343191e2dc7f58c4671912151e52fbad98ac03a077b3d36f1e8e27783689c548'
@@ -97,7 +96,6 @@ sha256sums=('44270a3b277eed57929067a811779c7850c77ffc8e5996cf8fd02bf18f81859d'
             '657cfa3e170d49ead14a872317a4d0291afa23ecc60d5830418793996c1c713f'
             '1aeedb7b74a72d5398e5867d3cf845e89edb37d4aac051203db0c3f2c35f788a'
             '3d9f70aa55001bec7005d84e75f302f2e84ae93d1c4b679fcff7d96ebb53e7d7'
-            '7d4b0f46a6872de17bf2a2092570cca816c2684c1946632a0c5ec1abcbdf45d4'
             '56ed0eba778aacf96115a4a8ff392e6cd622598595f082db9e7db05229ee6c5f'
             'fb9dee5aa0504d59a24e05a9588888bdf1c0db13c75dad39c6ca9a6adc490696'
             'e50be792bb5e6d0b0cfd32ab5f30043aefc9b40c343bf8124f9bd510709c83aa'
@@ -141,8 +139,6 @@ build() {
 check() {
   cd $pkgname
   local skipped_tests=(
-    osquery_events_tests_linuxtests-test
-    osquery_filesystem_filesystemtests-test
     osquery_remote_transports_remotetransportstlstests-test
     osquery_tables_events_tests_seccompeventstests-test
     osquery_tables_system_linux_tests-test
