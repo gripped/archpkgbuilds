@@ -21,12 +21,12 @@ index ceaa036c6..0cbeae5be 100644
      if (inputParams_.format == "x11grab" || inputParams_.format == "dxgigrab") {
 -        auto ret = inputCtx_->iformat->read_header(inputCtx_);
 -        if (ret == AVERROR_EXTERNAL) {
--            JAMI_ERR("Couldn't read frame: %s\n", libav_utils::getError(ret).c_str());
+-            JAMI_ERR("Unable to read frame: %s\n", libav_utils::getError(ret).c_str());
 -            return Status::ReadError;
 -        }
 +        // auto ret = inputCtx_->iformat->read_header(inputCtx_);
 +        // if (ret == AVERROR_EXTERNAL) {
-+        //     JAMI_ERR("Couldn't read frame: %s\n", libav_utils::getError(ret).c_str());
++        //     JAMI_ERR("Unable to read frame: %s\n", libav_utils::getError(ret).c_str());
 +        //     return Status::ReadError;
 +        // }
          auto codecpar = inputCtx_->streams[0]->codecpar;

@@ -2,8 +2,8 @@
 # Contributor: Baptiste Jonglez <baptiste--aur at jonglez dot org>
 
 pkgname=jami-daemon
-pkgver=20240812
-pkgrel=4
+pkgver=20250912
+pkgrel=1
 pkgdesc="Free and universal communication platform which preserves the users’ privacy and freedoms (daemon component)"
 arch=(x86_64)
 url="https://jami.net"
@@ -15,21 +15,19 @@ depends=(glibc opendht gnutls nettle libgit2 libsecp256k1 libsecp256k1.so ffmpeg
 # portaudio needs a not-yet-upstream patch https://git.jami.net/savoirfairelinux/jami-daemon/-/issues/650
 makedepends=(git cmake perl asio msgpack-c msgpack-cxx restinio systemd meson)
 checkdepends=(cppunit)
-_commit=cbf8f0af6d49d1e95cf7fc85487c9c876d49878c
-_pjprojectver=8fc165b833eea6e3c88d67a541385424b129fd3f
-_dhtnetver=cfe512b0632eea046f683b22e42d01eeb943d751
+_commit=ce82bdbbf38e7f7ac9d675bfc959e4d7f7ac387
+_pjprojectver=37130c943d59f25a71935803ea2d84515074a237
+_dhtnetver=6c5ee3a21556d668d047cdedb5c4b746c3c6bdb2
 source=(git+https://git.jami.net/savoirfairelinux/${pkgname}.git#commit=${_commit}
         https://github.com/savoirfairelinux/pjproject/archive/${_pjprojectver}/pjproject-${_pjprojectver}.tar.gz
-        dhtnet-$_dhtnetver.tar.gz::https://review.jami.net/plugins/gitiles/dhtnet/+archive/$_dhtnetver.tar.gz
-        ffmpeg-7.patch
-        fmt-v11.patch)
+        dhtnet-$_dhtnetver.tar.gz::https://github.com/savoirfairelinux/opendht/archive/$_dhtnetver.tar.gz
+        ffmpeg-7.patch)
 noextract=(pjproject-${_pjprojectver}.tar.gz
            dhtnet-${_dhtnetver}.tar.gz)
-sha512sums=('b2dae76c8d77dc641f60cb9e93ec405c7b654d3419f494bc672771f1161669b55184a73c8d6a5d3365d9a6f7b949a5063369c6d87dfc75e332c1d1efbc75f453'
-            '62eda88458411fb846582c11008f4908f4674cbd5ebf042853c802b2efa52b0c242256178475535e94845117330190d8234a1b698df21aad7ee758f531ec1c10'
+sha512sums=('91d9ff98033f4fd889d1c68fcc1a7b59923627178576a831dde2ddcd5f588c74cab0fec8c3e4c6893e7ceedf66275dd7c50acef28fa8e63602895f689e34ced8'
             'SKIP'
-            '2a895a82e8fad356445ed1a8adf860154e268f89c0812b3bfac8bb37fd45198ed8b076e81b2cc2cdd635d27cb0496a8d88ae982dcdc46fa42d7799b913695731'
-            'f6a720ba4c6a119b638a159b8825af6e1427c55c394f01b7b74b5568bc74b6d3e79068fcde7e57cf8e97dfc926432f227ab65c04d128e7428e991dd73d920a8b')
+            'SKIP'
+            '720c60053779e72273d7abf339008284f5473b4f9a101e21eae352e9663559c7591f8e3481d9b479d113f306da9d0b3ffa53d32091c8d795b3252afd7e39afec')
 
 pkgver() {
   cd ${pkgname}
@@ -44,9 +42,6 @@ prepare() {
   mkdir -p contrib/native
 
   patch -p1 -i ../ffmpeg-7.patch # Fix build with ffmpeg 7
-  patch -p1 -i ../fmt-v11.patch # Fix build with fmt v11
-
-  git cherry-pick -n 58758918d31b440671b78fbb1e8aa80260bf587a
 }
 
 build() {
