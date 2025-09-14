@@ -2,26 +2,23 @@
 
 _pkg=pdfminer
 pkgname=python-${_pkg}
-pkgver=20240706
-pkgrel=2
+pkgver=20250506
+pkgrel=1
 pkgdesc="Python PDF Parser"
 arch=(any)
 url="https://github.com/pdfminer/pdfminer.six"
 license=(MIT)
 depends=(python-charset-normalizer python-cryptography)
-makedepends=(python-build python-installer python-setuptools python-wheel cython)
+makedepends=(python-build python-installer python-setuptools python-setuptools-scm python-wheel cython)
 checkdepends=(python-pytest)
 # Provided tarballs do not include tests
 #source=(${url}/releases/download/${pkgver}/${_pkg}.six-${pkgver}.tar.gz)
 source=(${url}/archive/${pkgver}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('b8b50609fa59c7e949f7efd58af8d250a51d39697d464b5b93bef4a27534ebda')
-
-prepare() {
-  sed -e '/setuptools-git-versioning/d' -e 's|"enabled": True|"enabled": False|' -i ${_pkg}.six-${pkgver}/setup.py
-}
+sha256sums=('beb5e6f649e849d607392200f689830d73b58c542be31d16359a9763608e6c7f')
 
 build() {
   cd ${_pkg}.six-${pkgver}
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver \
   python -m build --wheel --no-isolation
 }
 
