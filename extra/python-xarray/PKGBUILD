@@ -1,8 +1,8 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
-_pkg=xarray
-pkgname=python-${_pkg}
-pkgver=2025.08.0
+pkgname=python-xarray
+pkgver=2025.09.0
 pkgrel=1
 pkgdesc="N-D labeled arrays and datasets in Python"
 arch=(any)
@@ -66,15 +66,15 @@ optdepends=(
   'python-pint: units of measure support'
 )
 source=("https://github.com/pydata/xarray/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('8417bf0cdc6d64bb923feec08eedd5f4f8b777e51f8f1a49516fc50093743cd7')
+sha256sums=('2cc4ba0da200d39363fec22879fbe7612e19d25d53642eda093d7d48c8c165c5')
 
 build() {
-  cd ${_pkg}-${pkgver}
+  cd ${pkgname#python-}-$pkgver
   python -m build --wheel --skip-dependency-check --no-isolation
 }
 
 check() {
-  cd ${_pkg}-${pkgver}
+  cd ${pkgname#python-}-$pkgver
   local pytest_args=(
     --override-ini="addopts="
     -n=auto
@@ -96,7 +96,7 @@ check() {
 }
 
 package() {
-  cd ${_pkg}-${pkgver}
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   # Remove tests
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
