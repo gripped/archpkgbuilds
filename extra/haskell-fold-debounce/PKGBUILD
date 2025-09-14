@@ -2,8 +2,8 @@
 
 _pkgname=fold-debounce
 pkgname=haskell-fold-debounce
-pkgver=0.2.0.14
-pkgrel=17
+pkgver=0.2.0.15
+pkgrel=1
 pkgdesc='Fold multiple events that happen in a given period of time'
 arch=(x86_64)
 url="https://hackage.haskell.org/package/$_pkgname"
@@ -12,7 +12,7 @@ depends=(ghc-libs haskell-stm-delay haskell-data-default)
 checkdepends=(haskell-hspec haskell-hspec-discover)
 makedepends=(ghc uusi)
 source=("https://hackage.haskell.org/packages/archive/$_pkgname/$pkgver/$_pkgname-$pkgver.tar.gz")
-sha512sums=('db974111c8bb331beb1202424fd79ca3438883983b292547dd7ce3b595cc44ba43b43c1ca493572ca8dc0bbec6d80a380744e20650f35d785c64494d2d8ee8f8')
+sha512sums=('b145d3ac54acf643def3b7168bdbadea63636b31b9d9e80904fb263b6ba05c1dc82dc33123641b552fa649d219109fb6ed2a76c88e19231024bc61b2a5d069a2')
 
 prepare() {
   cd $_pkgname-$pkgver
