@@ -15,7 +15,6 @@ b2sums=('df232595477d62480ba8ba994e635f01bc5a5ffd09378da37c01847d899e4938a92c830
 
 build() {
   cd ${pkgname}-${pkgver}
-  export GO111MODULE=on
   export CGO_LDFLAGS="${LDFLAGS}"
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
