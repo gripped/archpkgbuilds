@@ -48,7 +48,7 @@ CONFIG_LIBNL32=y
 CONFIG_RSN_PREAUTH=y
 
 # Support Operating Channel Validation
-#CONFIG_OCV=y
+CONFIG_OCV=y
 
 # Integrated EAP server
 CONFIG_EAP=y
@@ -266,13 +266,13 @@ CONFIG_SAE_PK=y
 # Should we attempt to use the getrandom(2) call that provides more reliable
 # yet secure randomness source than /dev/random on Linux 3.17 and newer.
 # Requires glibc 2.25 to build, falls back to /dev/random if unavailable.
-#CONFIG_GETRANDOM=y
+CONFIG_GETRANDOM=y
 
 # Should we use poll instead of select? Select is used by default.
 #CONFIG_ELOOP_POLL=y
 
 # Should we use epoll instead of select? Select is used by default.
-#CONFIG_ELOOP_EPOLL=y
+CONFIG_ELOOP_EPOLL=y
 
 # Should we use kqueue instead of select? Select is used by default.
 #CONFIG_ELOOP_KQUEUE=y
@@ -388,7 +388,7 @@ CONFIG_ACS=y
 #CONFIG_OWE=y
 
 # Airtime policy support
-#CONFIG_AIRTIME_POLICY=y
+CONFIG_AIRTIME_POLICY=y
 
 # Override default value for the wpa_disable_eapol_key_retries configuration
 # parameter. See that parameter in hostapd.conf for more details.
