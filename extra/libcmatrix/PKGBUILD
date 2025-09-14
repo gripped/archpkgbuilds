@@ -26,9 +26,11 @@ makedepends=(
   meson
 )
 source=("git+https://source.puri.sm/Librem5/libcmatrix.git?signed#tag=v$pkgver")
-b2sums=('d51ae2ef77a727b21ab6a9b9af5093f622a96441dbcce7aef9c9923b73a27f251ec94eddb4e983efb09581d36abea1b483a4842e7f8a30f65468338ab24424a8')
-validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3  # Guido Günther <guido@xcpu.ch>
-              B9386554B7DD266BCB8E29A990F0C9B18A6B4A19) # Evangelos Ribeiro Tzaras <devrtz@fortysixandtwo.eu>
+b2sums=(d51ae2ef77a727b21ab6a9b9af5093f622a96441dbcce7aef9c9923b73a27f251ec94eddb4e983efb09581d36abea1b483a4842e7f8a30f65468338ab24424a8)
+validpgpkeys=(
+  0DB3932762F78E592F6522AFBB5A2C77584122D3 # Guido Günther <guido@xcpu.ch>
+  B9386554B7DD266BCB8E29A990F0C9B18A6B4A19 # Evangelos Ribeiro Tzaras <devrtz@fortysixandtwo.eu>
+)
 
 prepare() {
   cd $pkgname
