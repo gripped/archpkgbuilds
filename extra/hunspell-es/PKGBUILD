@@ -71,7 +71,7 @@ sha256sums=('b08a1a0e3e044697f63a67184f591f7e2c37bbb53bbfbb4780bcbd84929d6e8c'
 
 _package() {
   pkgdesc="Spanish ($2) hunspell dictionary"
-  depends=(hunspell)
+  optdepends=('hunspell: the spell checking libraries and apps')
   provides=('hunspell-dictionary')
   conflicts=(hunspell-es)
 
@@ -100,7 +100,7 @@ _package() {
 
 package_hunspell-es_any() {
   pkgdesc="Spanish (generic) hunspell dictionary"
-  depends=(hunspell)
+  optdepends=('hunspell: the spell checking libraries and apps')
   provides=('hunspell-dictionary')
   conflicts=(hunspell-es)
   replaces=(hunspell-es)
