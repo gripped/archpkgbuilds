@@ -21,6 +21,8 @@ sha256sums=('97ac2998444ad0611ea47103e294682fc39c7518a33af3ef3e44fdb1ed282021'
             '733ccb571721433c3a6262c58b658253ca6553bec79c2bdd0011810bb4f2156b')
 
 _backports=(
+  # bool is a keyword in C23
+  'a4b926dcdce96b0f2cc0dc7744e95747b233500a'
 )
 
 _reverts=(
@@ -42,6 +44,10 @@ prepare() {
     git log --oneline -1 "${_c}"
     git revert -n "${_c}"
   done
+
+  # For historic reasons we install the systemd unit as `rsyncd.*`, instead of
+  # just `rsync.*`. Let's make it conflict as expected with these names.
+  sed -i '/^Conflicts=/s|rsync.service|rsyncd.service|' packaging/systemd/rsync.socket
 }
 
 build() {
