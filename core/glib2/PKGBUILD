@@ -5,15 +5,18 @@
 pkgbase=glib2
 pkgname=(
   glib2
+  glib2-devel
   glib2-docs
 )
-pkgver=2.78.4
+pkgver=2.86.0
 pkgrel=1
 pkgdesc="Low level core library"
 url="https://gitlab.gnome.org/GNOME/glib"
 license=(LGPL-2.1-or-later)
 arch=(x86_64)
 depends=(
+  bash
+  glibc
   libffi
   libsysprof-capture
   pcre2
@@ -22,12 +25,16 @@ depends=(
 )
 makedepends=(
   dbus
+  dconf
   gettext
+  gi-docgen
   git
-  gtk-doc
+  gobject-introspection
   libelf
   meson
   python
+  python-docutils
+  python-packaging
   shared-mime-info
   util-linux
 )
@@ -35,29 +42,26 @@ checkdepends=(
   desktop-file-utils
   glib2
 )
-options=(
-  debug
-  staticlibs
-)
-_commit=00edb7f7453a43cff343f9e99d49f2e421e4345c  # tags/2.78.4^0
 source=(
-  "git+https://gitlab.gnome.org/GNOME/glib.git#commit=$_commit"
+  "git+https://gitlab.gnome.org/GNOME/glib.git?signed#tag=$pkgver"
   "git+https://gitlab.gnome.org/GNOME/gvdb.git"
   0001-glib-compile-schemas-Remove-noisy-deprecation-warnin.patch
+  0002-gdesktopappinfo-Add-more-known-terminals.patch
+  0003-meson.build-Avoid-linking-with-libatomic-when-unneed.patch
   gio-querymodules.hook
   glib-compile-schemas.hook
 )
-b2sums=('SKIP'
+b2sums=('afe82f85c6b93273917ef4b7127dfb58c5e0f1e1946226abb7e0b80abd1ab6f0d8a98b030b0dffac79e48b2f9c9540879044b8a486d8996e59c5210dcd333d0c'
         'SKIP'
-        '94c73ca7070c239494873dd52d6ee09382bbb5b1201f7afd737cfa140b1a2fb0744b2c2831baf3943d1d072550c35888d21ce6f19f89481ff9d1a60d9a0b30e0'
+        '4ddbd31f5f466fce99d82890292ff922555a9ab379d22202aeea5127f58798668f871dea0485cc0f458069276ad512412285ede6c8f3e36bea899358f49e931a'
+        'cc39621757253c9f9e11da4ae40dc16d24f2898a7ee34fbfe5b7709c4f0139c04fab6c1138402c16859b2421c45d55bdde522aa1a1b2c6c3544d87b7c2d10dff'
+        '76033114a10d3df461981502eb386d0d6e645eaf27885f5e6dc75bc8495d770e0e75338f7191ae534825b30b75a84e2e9889f33fcdbd109ae10a85c2d34b1e28'
         '14c9211c0557f6d8d9a914f1b18b7e0e23f79f4abde117cb03ab119b95bf9fa9d7a712aa0a29beb266468aeb352caa3a9e4540503cfc9fe0bbaf764371832a96'
-        'd30d349b4cb4407839d9074ce08f5259b8a5f3ca46769aabc621f17d15effdb89c4bf19bd23603f6df3d59f8d1adaded0f4bacd0333afcab782f2d048c882858')
-
-
-pkgver() {
-  cd glib
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+        'acc2f474139e535f4bdd70ac22a9150f786b3395e679b14d0d3fbb9361d511bb1b5069d95b2a7ac9c0f3d901b03a0c037eb273446ba00764191b30a777bd2bc9')
+validpgpkeys=(
+  53EF3DC3B63E2899271BD26322E8091EEA11BBB7 # Emmanuele Bassi <ebassi@gnome.org>
+  923B7025EE03C1C59F42684CF0942E894B2EAFA0 # Philip Withnall <pwithnall@gnome.org>
+)
 
 prepare() {
   cd glib
@@ -65,19 +69,31 @@ prepare() {
   # Suppress noise from glib-compile-schemas.hook
   git apply -3 ../0001-glib-compile-schemas-Remove-noisy-deprecation-warnin.patch
 
+  # Add ghostty and ptyxis to known terminals list
+  # This is a downstream only patch; GNOME will not add new terminal emulators.
+  # https://gitlab.gnome.org/GNOME/glib/-/issues/338#note_1076172
+  git apply -3 ../0002-gdesktopappinfo-Add-more-known-terminals.patch
+
+  # Drop dep on libatomic
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/qemu/-/issues/6
+  git apply -3 ../0003-meson.build-Avoid-linking-with-libatomic-when-unneed.patch
+
   git submodule init
   git submodule set-url subprojects/gvdb "$srcdir/gvdb"
-  git -c protocol.file.allow=always submodule update
+  git -c protocol.file.allow=always -c protocol.allow=never submodule update
 }
 
 build() {
   local meson_options=(
     --default-library both
+    -D documentation=true
+    -D dtrace=disabled
     -D glib_debug=disabled
-    -D gtk_doc=true
-    -D man=true
+    -D introspection=enabled
+    -D man-pages=enabled
     -D selinux=disabled
     -D sysprof=enabled
+    -D systemtap=disabled
   )
 
   # Produce more debug info: GLib has a lot of useful macros
@@ -96,17 +112,28 @@ check() {
   meson test -C build --no-suite flaky --no-suite slow --print-errorlogs
 }
 
+_pick() {
+  local p="$1" f d; shift
+  for f; do
+    d="$srcdir/$p/${f#$pkgdir/}"
+    mkdir -p "$(dirname "$d")"
+    mv "$f" "$d"
+    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+  done
+}
+
 package_glib2() {
   depends+=(
     libffi.so
     libmount.so
   )
-  provides+=(libg{lib,io,module,object,thread}-2.0.so)
+  provides+=(libg{lib,io,irepository,module,object,thread}-2.0.so)
   optdepends=(
+    'dconf: GSettings storage backend'
+    'glib2-devel: development tools'
     'gvfs: most gio functionality'
-    'libelf: gresource inspection tool'
-    'python: gdbus-codegen, glib-genmarshal, glib-mkenums, gtester-report'
   )
+  options+=(staticlibs)
 
   meson install -C build --destdir "$pkgdir"
 
@@ -118,9 +145,39 @@ package_glib2() {
   python -O -m compileall -d /usr/share/glib-2.0/codegen \
     "$pkgdir/usr/share/glib-2.0/codegen"
 
+  cd "$pkgdir"
+
   # Split docs
-  mkdir -p docs/usr/share
-  mv {"$pkgdir",docs}/usr/share/gtk-doc
+  _pick docs usr/share/doc
+
+  # Split devel
+  _pick devel usr/bin/gdbus-codegen
+  _pick devel usr/bin/glib-{mkenums,genmarshal}
+  _pick devel usr/bin/gresource
+  _pick devel usr/bin/gtester{,-report}
+
+  _pick devel usr/share/gdb/
+  _pick devel usr/share/glib-2.0/gdb/
+  _pick devel usr/share/glib-2.0/codegen/
+
+  _pick devel usr/share/bash-completion/completions/gresource
+
+  _pick devel usr/share/man/man1/gdbus-codegen.1
+  _pick devel usr/share/man/man1/glib-{mkenums,genmarshal}.1
+  _pick devel usr/share/man/man1/gresource.1
+  _pick devel usr/share/man/man1/gtester{,-report}.1
+}
+
+package_glib2-devel() {
+  pkgdesc+=" - development files"
+  depends=(
+    glib2
+    glibc
+    libelf
+    python
+    python-packaging
+  )
+  mv devel/* "$pkgdir"
 }
 
 package_glib2-docs() {
@@ -128,7 +185,7 @@ package_glib2-docs() {
   depends=()
   license+=(LicenseRef-Public-Domain)
 
-  mv -t "$pkgdir" docs/*
+  mv docs/* "$pkgdir"
   install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 glib/docs/reference/COPYING
 }
 
