@@ -6,12 +6,12 @@
 pkgname=ruby-tins
 _pkgname="${pkgname#ruby-}"
 pkgver=1.44.1
-pkgrel=1
+pkgrel=2
 pkgdesc='All the stuff that is not good/big enough for a real library'
 arch=(any)
 url='https://github.com/flori/tins'
 license=(MIT)
-depends=(ruby ruby-bigdecimal ruby-sync)
+depends=(ruby ruby-bigdecimal ruby-sync ruby-mize)
 makedepends=(git ruby-rake)
 options=(!emptydirs)
 source=("$pkgname::git+$url#tag=v$pkgver")
