@@ -25,6 +25,8 @@ prepare() {
   patch -Np1 -i "$srcdir"/openjade-nola.patch
   # Patch from Fedora
   patch -Np1 -i "$srcdir"/openjade-getoptperl.patch
+  # Fix `unable to guess system type` on riscv64
+  cp -v /usr/share/autoconf/build-aux/config.{guess,sub} config
 }
 
 build() {
