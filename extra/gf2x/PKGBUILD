@@ -15,7 +15,7 @@ sha256sums=('becc47f5ca6e549393ea70147f7dc7b52d88af0ed5bfb9f2e3a4c47658bf48e9')
 prepare() {
   cd gf2x
   git cherry-pick -n a2f0fd388c12ca0b9f4525c6cfbc515418dcbaf8 # Fix build
-  autoreconf -vi
+  autoreconf -fiv
 }
 
 build() {
