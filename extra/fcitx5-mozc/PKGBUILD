@@ -8,15 +8,6 @@
 ## Mozc compile option
 _mozc_commit=b091429
 
-## follow the submodule commits in https://github.com/fcitx/mozc/tree/fcitx/src/third_party
-_abseil_cpp_commit=d9e4955c
-_breakpad_commit=216cea7b
-_gtest_commit=b514bdc8
-_gyp_commit=9ecf45e3
-_japanese_usage_dictionary_commit=e5b3425
-_protobuf_commit=b407e8416
-_wil_commit=fc5dbf5
-
 _bcr_commit=3353a6be
 # Following are subject to change if bcr, bazel, and mozc commit changes.
 # The build process does not necessary use all of them, but it is required to allow a no download build process.
@@ -60,29 +51,33 @@ makedepends=('git' 'bazel' 'python')
 replaces=('mozc-fcitx')
 conflicts=('mozc' 'mozc-server' 'mozc-utils-gui' 'mozc-fcitx' 'fcitx-mozc')
 source=(git+https://github.com/fcitx/mozc.git#commit=${_mozc_commit}
-        git+https://chromium.googlesource.com/breakpad/breakpad#commit=${_breakpad_commit}
-        git+https://github.com/google/googletest.git#commit=${_gtest_commit}
-        git+https://chromium.googlesource.com/external/gyp#commit=${_gyp_commit}
-        git+https://github.com/hiroyuki-komatsu/japanese-usage-dictionary.git#commit=${_japanese_usage_dictionary_commit}
-        git+https://github.com/microsoft/wil.git#commit=${_wil_commit}
-        git+https://github.com/google/protobuf.git#commit=${_protobuf_commit}
-        git+https://github.com/abseil/abseil-cpp.git#commit=${_abseil_cpp_commit}
+        git+https://chromium.googlesource.com/breakpad/breakpad
+        git+https://github.com/google/googletest.git
+        git+https://chromium.googlesource.com/external/gyp
+        git+https://github.com/hiroyuki-komatsu/japanese-usage-dictionary.git
+        git+https://github.com/microsoft/wil.git
+        git+https://github.com/google/protobuf.git
+        git+https://github.com/abseil/abseil-cpp.git
         git+https://github.com/bazelbuild/bazel-central-registry#commit=${_bcr_commit}
 )
 
 for _bazel_dep in "${_bazel_deps[@]}"; do
-  source+=("$_bazel_dep")
-  noextract+=("${_bazel_dep##*/}")
+  if [[ ! " ${source[*]} " =~ [[:space:]]${_bazel_dep}[[:space:]] ]]; then
+    source+=("$_bazel_dep")
+  fi
+  if [[ ! " ${noextract[*]} " =~ [[:space:]]${_bazel_dep##*/}[[:space:]] ]]; then
+    noextract+=("${_bazel_dep##*/}")
+  fi
 done
 
 sha512sums=('93dd12ba4cea683e73a88a9d1cf89ea18ded2d868c5c2aac4620d9fe3944d8a13db178a8a1fa235995337a104c6d7e4432cbb123c940ee44a9c01b0ccc98ec4e'
-            'f69046af8c37a2a8a441a258d5b8677016966cb43d8a3bb48badc78123a885d6179ff77d7885fd6c84130136a1b8931a98d35f9fcce3d03ed31a37a72ece0b9d'
-            '44db7d4a09aa7d36f1fb5a89be2234834a58834c76e445f8e9f7bc5685f6a76005b19fc758842c63641e476fa97c10eb968fa13965312fafca25843181fd025b'
-            'c8ce90c2493c05a78221befc4cbbcfcbe7a0bafb7bfa55403b085bf8c3fd069c4690d1ff59ef9e0e8a813bd3673588eb38e02ad81c42a6dd0be5246f27442169'
-            '91b878735e767ddf6f1fe3de61486c1e78936a0f683855e7c34a21c711f405899d3de369d2ff0a1910d65b1afc8c225d8d8b9398cf98d760f3afcfe42644fca2'
-            '504066a457f77b510f492626c919b6fd7b61f77948bdddef0f7e43ae09bb4bf03cea7000fba91ae0123a94d3b39cac6dfac2010126849afe0a183727fe7b0fc1'
-            '50a36cdefdac8670a4eb77cd50a23a2822a915a8b7c7b22d5d0ccfb61597a588524a13c0fe716c5f83b8a40b645bfd587e9594894b55993e91c9c9b7968dc76f'
-            '1ba4a25044b1b6d06b6fc832d078b2c641bb39d8bd311efc04b759c953a2fe5cf07a1f20b7410e116b3f92d025ba5b69f73768ad56e327d4ee742633d5cab144'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
             '1bba423de576ee2cb25976723d6454a24b4a11d570b2836d19837021344693a5e9931802a885c84769bcde6d4d2961dfe2db106689a37376e46ce75db405f3e6'
             '2a021faad807ee3e23548716ffa4785dc2409edbb4be676cc4bc01d47885760de340f0a4afdcbf0aaa835affd6d78f7bc319bbf7d337dbc30e7a559d0088e4bd'
             '0cd72b38335acf00f203446ee4618aad2d4bcb9df7059ea7196261a42b988b4d63a5ce6eac70fda49f0ecc3058e0f75ed277e3d40991d82b55c4556028ed95bc'
@@ -119,7 +114,6 @@ prepare() {
   SHA256_ZIP_CODE_KEN_ALL=$(sha256sum ken_all.zip | cut -d' ' -f1);
   SHA256_ZIP_CODE_JIGYOSYO=$(sha256sum jigyosyo.zip | cut -d' ' -f1);
   cd "$srcdir/mozc"
-  git config --global protocol.file.allow always
   git submodule init
   git config submodule.src/third_party/breakpad.url "$srcdir/breakpad"
   git config submodule.src/third_party/gtest.url "$srcdir/googletest"
@@ -128,7 +122,7 @@ prepare() {
   git config submodule.src/third_party/wil.url "$srcdir/wil"
   git config submodule.src/third_party/protobuf.url "$srcdir/protobuf"
   git config submodule.src/third_party/abseil-cpp.url "$srcdir/abseil-cpp"
-  git submodule update
+  git -c protocol.file.allow=always submodule update
 
   # bazel will always download file without checksum, set checksum so bazel will not download it.
   sed -e "s|SHA256_ZIP_CODE_KEN_ALL = \(.*\)|SHA256_ZIP_CODE_KEN_ALL = \"${SHA256_ZIP_CODE_KEN_ALL}\"|" \
