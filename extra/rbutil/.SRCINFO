@@ -1,0 +1,25 @@
+pkgbase = rbutil
+	pkgdesc = Rockbox Utility
+	pkgver = 1.5.1
+	pkgrel = 1
+	url = https://www.rockbox.org/twiki/bin/view/Main/RockboxUtility
+	arch = x86_64
+	license = GPL
+	makedepends = cmake
+	makedepends = git
+	makedepends = ninja
+	makedepends = qt6-tools
+	depends = gcc-libs
+	depends = glibc
+	depends = libbz2.so
+	depends = libusb-1.0.so
+	depends = qt6-5compat
+	depends = qt6-base
+	depends = qt6-multimedia
+	depends = qt6-svg
+	depends = zlib
+	optdepends = speex: voice files support
+	source = git+https://git.rockbox.org/cgit/rockbox.git#tag=f8d54d0d1e8ae891d9da9cf787aa0dd045cc193b
+	b2sums = SKIP
+
+pkgname = rbutil
