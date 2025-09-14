@@ -13,8 +13,12 @@ depends=(
   glibc
   libpng
 )
-source=("https://ftp.gnu.org/gnu/$pkgname/$pkgname-$pkgver.tar.lz")
-b2sums=(b5acb8fa3b3f02b7a0e5697b3ab4aa4ecc115c9d668192d6a4f533b787092c91449366df3603c73b926be61e5cb6b4e2d5406896ec79f931eb42dce104a424c5)
+source=("https://ftp.gnu.org/gnu/$pkgname/$pkgname-$pkgver.tar.lz"{,.sig})
+b2sums=(
+  b5acb8fa3b3f02b7a0e5697b3ab4aa4ecc115c9d668192d6a4f533b787092c91449366df3603c73b926be61e5cb6b4e2d5406896ec79f931eb42dce104a424c5
+  SKIP
+)
+validpgpkeys=(1D41C14B272A2219A739FA4F8FE99503132D7742) # Antonio Diaz Diaz <antonio@gnu.org>
 
 build() {
   cd $pkgname-$pkgver
