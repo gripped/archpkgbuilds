@@ -99,7 +99,7 @@ build() {
   export LDFLAGS="$LDFLAGS -L/usr/lib/wlroots0.17"
   cd $pkgname
   PYTHONPATH="$PWD" ./scripts/ffibuild -v
-  python -m build --wheel --no-isolation
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --no-isolation
 }
 
 check() {
