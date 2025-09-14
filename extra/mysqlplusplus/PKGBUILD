@@ -1,4 +1,4 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 # Contributor: Markus Härer <markus.haerer@gmx.net>
 
@@ -8,7 +8,7 @@ pkgrel=2
 pkgdesc="A C++ wrapper for MySQLs C API"
 arch=("x86_64")
 url="http://tangentsoft.net/mysql++/"
-license=("LGPL" "custom")
+license=("LGPL-2.1-only")
 depends=("mariadb-libs")
 options=('docs')
 source=("https://tangentsoft.net/mysqlpp/releases/$pkgname-$pkgver.tar.gz"
@@ -31,11 +31,11 @@ package() {
   cd "$srcdir/$pkgname-$pkgver/"
   make DESTDIR="$pkgdir" install
 
-  #install docs
+  # install docs
   mkdir -p "$pkgdir"/usr/share/doc/mysql++
   cp -r doc/html "$pkgdir"/usr/share/doc/mysql++
   cp -r doc/pdf "$pkgdir"/usr/share/doc/mysql++
 
-  #install doc licence
+  # install doc licence
   install -Dm0644 doc/userman/LICENSE.txt "$pkgdir"/usr/share/licenses/mysql++/LICENSE
 }
