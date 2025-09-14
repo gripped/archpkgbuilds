@@ -17,25 +17,26 @@ depends=(
 makedepends=(
   'clang'
   'cmake'
+  'git'
   'gtest'
 )
 checkdepends=('zlib')
 provides=('libsnappy.so')
 source=(
-  "$url/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+  "git+https://github.com/google/snappy.git#tag=${pkgver}"
   "snappy.pc.in"
   "$pkgname-cmake_add_pkgconfig.patch"
   "$pkgname-use_system_gtest.patch"
   "$pkgname-reenable_rtti.patch"
 )
-sha256sums=('90f74bc1fbf78a6c56b3c4a082a05103b3a56bb17bca1a27e052ea11723292dc'
+sha256sums=('6cc4304fc850b9878709c6da48490c8929929aa5befda2966981cea78059ba6d'
             '134f06ca0584a1026538d0fb972fc141c008390ecae1806184b721eca1abbc75'
             '2a204d7d35509ffc290d80c641fcb7e8488c67ca550aa1695493cff12c53156b'
             '50b31b45511e8907f1319305c102f37631b0fbe509f862b612e70073383658e4'
             '6ff6970d2a1961aed375a8e5098bf3b7340ff86fe60aff4483dec3400f273372')
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   cp ../snappy.pc.in .
   patch -Np1 < ../$pkgname-cmake_add_pkgconfig.patch # https://bugs.archlinux.org/task/71246
   patch -Np1 < ../$pkgname-use_system_gtest.patch
@@ -43,8 +44,7 @@ prepare() {
 }
 
 build() {
-  cd $pkgname-$pkgver
-  cmake -S . -B build \
+  cmake -S $pkgname -B build \
     -D CMAKE_BUILD_TYPE=None \
     -D CMAKE_INSTALL_PREFIX=/usr \
     -W no-dev \
@@ -55,12 +55,10 @@ build() {
 }
 
 check() {
-  cd $pkgname-$pkgver
   cmake --build build --target test
 }
 
 package() {
-  cd $pkgname-$pkgver
   DESTDIR="$pkgdir" cmake --install build
-  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" COPYING
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" $pkgname/COPYING
 }
