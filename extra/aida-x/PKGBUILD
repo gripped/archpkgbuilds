@@ -43,6 +43,7 @@ build() {
     -B build
     -D CMAKE_BUILD_TYPE=NONE
     -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -W no-dev
     -S $_name-$pkgver
   )
