@@ -69,6 +69,7 @@ case "${CARCH}" in
   x86_64) _JARCH='x86_64';;
   i686)   _JARCH='x86';;
   riscv64)_JARCH='riscv64';;
+  aarch64)_JARCH='aarch64';;
 esac
 
 _jvmdir=/usr/lib/jvm/java-${_majorver}-openjdk
@@ -102,24 +103,14 @@ _commondeps=(
 build() {
   cd ${_jdkdir}
 
-  NUM_PROC_OPT=''
-  MAKEFLAG_J=$(echo ${MAKEFLAGS} | sed -En 's/.*-j([0-9]+).*/\1/p')
-  if [ -n "${MAKEFLAG_J}" ]; then
-    # http://hg.openjdk.java.net/jdk10/jdk10/file/85e6cb013b98/make/InitSupport.gmk#l105
-    echo "Removing '-j${MAKEFLAG_J}' from MAKEFLAGS to prevent build fail. Passing it directly to ./configure."
-    export MAKEFLAGS=${MAKEFLAGS/-j${MAKEFLAG_J}/}
-    NUM_PROC_OPT="--with-num-cores=${MAKEFLAG_J}"
-  fi
+  # remove -j from MAKEFLAGS to prevent build fail
+  local MAKEFLAG_J=$(echo ${MAKEFLAGS} | sed -En 's/.*-j([0-9]+).*/\1/p')
+  export MAKEFLAGS=${MAKEFLAGS/-j${MAKEFLAG_J}/}
 
   # Avoid optimization of HotSpot to be lowered from O3 to O2
   local _CFLAGS="${CFLAGS//-O2/-O3} ${CPPFLAGS} -fcommon"
   local _CXXFLAGS="${CXXFLAGS//-O2/-O3} ${CPPFLAGS} -fcommon"
   local _LDFLAGS=${LDFLAGS}
-  if [[ ${CARCH} = i686 ]]; then
-    echo "Removing '-fno-plt' from CFLAGS and CXXFLAGS to prevent build fail with this architecture"
-    _CFLAGS=${CFLAGS/-fno-plt/}
-    _CXXFLAGS=${CXXFLAGS/-fno-plt/}
-  fi
 
   # TODO: Should be rechecked for the next releases
   # compiling with -fexceptions leads to:
@@ -164,9 +155,7 @@ build() {
     --with-native-debug-symbols=internal \
     --enable-unlimited-crypto \
     --disable-warnings-as-errors \
-    --with-vendor-name="Arch Linux" \
-    ${NUM_PROC_OPT}
-    #--disable-javac-server
+    --with-vendor-name="Arch Linux"
 
   make images legacy-jre-image docs
 
