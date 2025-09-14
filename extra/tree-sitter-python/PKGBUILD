@@ -2,7 +2,7 @@
 # Contributor: ObserverOfTime <chronobserver@disroot.org>
 
 pkgname=tree-sitter-python
-pkgver=0.23.6
+pkgver=0.25.0
 pkgrel=1
 pkgdesc='Python grammar for tree-sitter'
 arch=(x86_64)
@@ -11,14 +11,23 @@ license=(MIT)
 groups=(tree-sitter-grammars)
 makedepends=(
   git
+  openssh
   tree-sitter-cli
 )
 optdepends=('tree-sitter: core library')
 provides=("lib$pkgname.so")
-source=("git+$url.git#tag=v$pkgver")
-b2sums=('d13e391afb2d946cbd263d979e6e824a2bece8eb8b5de4fa14ed7879537ea4a3013e69b4e64a364cd88a08f41fb7c56f819974f349c942acffe955041ea4d438')
+source=(
+  "git+$url.git#tag=v$pkgver"
+  ssh_allowed_signers
+)
+b2sums=('6377c9a85a31e7d0cf179e0327841a2178acb915481c8180694c97ee545a52d233493cc30d8105d3a20568d84d9bead40358d448dc88562dc573b1b2cf9df9ff'
+        '6bca8254d6dcec4a7b137da4b50ff5be6fb03175586af6f0e40b3cd384a5ecdeeda26565dd47742b29c363e344300d55cb67a4a7570cdd40fafa52a05e258afe')
 
 prepare() {
+  # XXX: move to verify() when devtools supports it
+  # https://gitlab.archlinux.org/archlinux/devtools/-/issues/224
+  git -C $pkgname -c gpg.ssh.allowedSignersFile="$PWD"/ssh_allowed_signers verify-tag v$pkgver
+
   cd $pkgname
   tree-sitter generate src/grammar.json
 }
