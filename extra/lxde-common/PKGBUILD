@@ -16,27 +16,27 @@ backup=(etc/xdg/lxsession/LXDE/desktop.conf
 makedepends=('intltool')
 optdepends=('gnome-themes-standard: default GTK+ theme'
             'lxde-icon-theme: default icon theme')
-source=(https://github.com/lxde/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz
+source=(git+https://github.com/lxde/lxde-common.git#tag=${pkgver}
         dbus-update-environment.patch
         default-config.patch)
-sha256sums=('e55ac4b4406f7538ed5994677c6488c6a0dd9a4b34a0969402aaa4f04b52b26f'
+sha256sums=('0096ee210df9bdeb67867ef57b008dc28014c9581cbba347cfdca2699de2325d'
             '87f1413f5bb371de45451fc7f82f9f80a23c90f5799bed173ec31589824c03bb'
             '6a31a706d0fd1cb168b495806bb4a646c019e3b9c4f6bc13aae9edb8b0372d9d')
 
 prepare() {
-    cd $pkgname-$pkgver
+    cd $pkgname
     patch -Np1 -i ../dbus-update-environment.patch
     patch -Np1 -i ../default-config.patch
-    autoreconf -vif
+    autoreconf -fiv
 }
 
 build() {
-    cd $pkgname-$pkgver
+    cd $pkgname
     ./configure --sysconfdir=/etc --prefix=/usr
     make
 }
 
 package() {
-    cd $pkgname-$pkgver
+    cd $pkgname
     make DESTDIR="$pkgdir" install
 }
