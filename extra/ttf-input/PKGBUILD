@@ -7,13 +7,18 @@ pkgrel=6
 pkgdesc='Fonts for code from DJR & Font Bureau'
 arch=('any')
 url='https://input.djr.com/'
-license=('custom')
+license=('LicenseRef-Input')
 provides=('ttf-font')
 _url="${url}build/?fontSelection=whole&a=0&g=0&i=0&l=0&zero=0&asterisk=0&braces=0&preset=default&line-height=1.2&accept=I+do&email="
 # the content at $_url is dynamically generated every request, use a snapshot
 source=("https://sources.archlinux.org/other/packages/ttf-input/Input_Fonts_${pkgver}.zip"
-        66-input-sans.conf 66-input-serif.conf 66-input-mono.conf
-        46-input-sans.conf 46-input-serif.conf 46-input-mono.conf)
+        66-input-sans.conf
+        66-input-serif.conf
+        66-input-mono.conf
+        46-input-sans.conf
+        46-input-serif.conf
+        46-input-mono.conf
+)
 sha256sums=('bc314ea9026fba5134cd2a7ba93a4ec48607f341d32e4eb3dfae20d141cb91b3'
             '85dc045b719cecce7047273472b83be8a1135e708725f3d191ab3cdd74e757f2'
             '8e74cf0a5739b57f7590ba8fdbc98fe1a630dd28bcf1eedbe14852c023148488'
