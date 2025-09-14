@@ -4,19 +4,19 @@
 # Contributor: Joshua Ashton <joshua at froggi dot es>
 
 pkgname=renderdoc
-pkgver=1.39
+pkgver=1.40
 pkgrel=1
 pkgdesc="OpenGL and Vulkan debugging tool"
 arch=(x86_64)
 url="https://github.com/baldurk/renderdoc"
 license=("MIT")
 makedepends=("cmake" "git" "ninja" "pcre")
-depends=("hicolor-icon-theme" "libgl" "libx11" "libxcb" "mesa" "python" "qt5-base" "qt5-svg" "qt5-x11extras" "xcb-util-keysyms")
+depends=("harfbuzz" "hicolor-icon-theme" "libgl" "libx11" "libxcb" "mesa" "python" "qt5-base" "qt5-svg" "qt5-x11extras" "xcb-util-keysyms")
 options=("!lto")
 source=("${pkgname}::git+https://github.com/baldurk/${pkgname}.git#tag=v${pkgver}?signed"
         "https://github.com/baldurk/swig/archive/${pkgname}-modified-7.zip")
 validpgpkeys=('1B039DB9A4718A2D699DE031AC612C3120C34695')
-b2sums=('e12602138a7b087ff62098436d6a41cdc2b0e507d821580d0d4e3f89ecefba92366063faa0311d547da52f436950904dee18ebdf0de7f8e485152b623cc69247'
+b2sums=('b080cc1a30ebf405e9f6f88a439585df0214a5db4673541eb53dc79e797a5fd37b5636b2710797823e5b0dca767f6f978ad21a30c0b5f9bdcbf9d06da146b350'
         '136b0b48d5bddb2dfe6fffd54220a5b62bb9a725b800f1f7846d03469f0c859d0585a61118f64b2def81ad94ff650bdf82d1db7aeb7608a190792ce8033597dc')
 
 build() {
