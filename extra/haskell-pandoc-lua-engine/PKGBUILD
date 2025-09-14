@@ -3,8 +3,8 @@
 
 _hkgname=pandoc-lua-engine
 pkgname=haskell-pandoc-lua-engine
-pkgver=0.2.1.4
-pkgrel=11
+pkgver=0.2.1.5
+pkgrel=3
 pkgdesc="Lua engine to power custom pandoc conversions"
 url="https://pandoc.org"
 license=('GPL-2.0-or-later')
@@ -17,12 +17,11 @@ depends=('ghc-libs' 'haskell-sha' 'haskell-aeson' 'haskell-citeproc' 'haskell-da
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-golden' 'haskell-tasty-hunit'
              'haskell-tasty-lua')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('9d478f3cac06dc17060bed32b782b767782faf88318faaf0f88e618cbd4348e4')
+sha256sums=('c5b24af299c28ff4af42a4c94a50ae27582bbeff1d482100618ae68410095434')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u pandoc
 }
 
 build() {
