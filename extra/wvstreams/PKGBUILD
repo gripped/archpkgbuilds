@@ -40,6 +40,8 @@ prepare() {
     echo "Applying patch $src..."
     patch -Np1 < "../$src"
   done
+
+  autoreconf -fvi
 }
 
 build() {
