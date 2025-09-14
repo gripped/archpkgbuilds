@@ -9,25 +9,25 @@ arch=('x86_64')
 license=('GPL2')
 url='https://lxde.org/'
 depends=('gtk2' 'gtk3' 'libfm')
-makedepends=('intltool')
-source=(https://github.com/lxde/lxhotkey/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('f32686d298d86ae1e97c9e3d27ba1f01b6a0f17dbbbbd67dfbf82e7c0080c592')
+makedepends=('git' 'intltool')
+source=(git+https://github.com/lxde/lxhotkey.git#tag=${pkgver})
+sha256sums=('0b5a0ed9174c72c1e305bcf770f4d9e64191c336064c3682ff6b8a63ea67ece6')
 
 prepare() {
-  cd $pkgbase-$pkgver
-  ./autogen.sh
+  cd $pkgbase
+  autoreconf -fiv
 }
 
 build() {
   # GTK+ 2 version
-  [ -d gtk2 ] || cp -r $pkgbase-$pkgver gtk2
+  [ -d gtk2 ] || cp -r $pkgbase gtk2
   cd gtk2
   ./configure --sysconfdir=/etc --prefix=/usr --with-gtk=2
   make
 
   cd "$srcdir"
   # GTK+ 3 version
-  [ -d gtk3 ] || cp -r $pkgbase-$pkgver gtk3
+  [ -d gtk3 ] || cp -r $pkgbase gtk3
   cd gtk3
   ./configure --sysconfdir=/etc --prefix=/usr --with-gtk=3
   make
