@@ -1,6 +1,6 @@
-diff -uNr liblzf-3.6.ORIG/bootstrap.sh liblzf-3.6/bootstrap.sh
---- liblzf-3.6.ORIG/bootstrap.sh	1970-01-01 00:00:00.000000000 +0000
-+++ liblzf-3.6/bootstrap.sh	2014-03-13 08:10:49.132000000 +0000
+diff -uNr a/bootstrap.sh b/bootstrap.sh
+--- a/bootstrap.sh	1970-01-01 00:00:00.000000000 +0000
++++ b/bootstrap.sh	2014-03-13 08:10:49.132000000 +0000
 @@ -0,0 +1,10 @@
 +#!/bin/sh
 +set -x
@@ -12,9 +12,9 @@ diff -uNr liblzf-3.6.ORIG/bootstrap.sh liblzf-3.6/bootstrap.sh
 +automake  --add-missing --copy --foreign
 +#automake-1.10  --add-missing --copy
 +autoconf
-diff -uNr liblzf-3.6.ORIG/config.h.in liblzf-3.6/config.h.in
---- liblzf-3.6.ORIG/config.h.in	2014-03-13 08:10:30.234000000 +0000
-+++ liblzf-3.6/config.h.in	2014-03-13 08:10:49.133000000 +0000
+diff -uNr a/config.h.in b/config.h.in
+--- a/config.h.in	2014-03-13 08:10:30.234000000 +0000
++++ b/config.h.in	2014-03-13 08:10:49.133000000 +0000
 @@ -1,16 +1,89 @@
 -/* config.h.in.  Generated automatically from configure.in by autoheader 2.13.  */
 +/* config.h.in.  Generated from configure.ac by autoheader.  */
@@ -115,9 +115,9 @@ diff -uNr liblzf-3.6.ORIG/config.h.in liblzf-3.6/config.h.in
 +#ifndef __cplusplus
 +#undef inline
 +#endif
-diff -uNr liblzf-3.6.ORIG/configure.ac liblzf-3.6/configure.ac
---- liblzf-3.6.ORIG/configure.ac	2014-03-13 08:10:30.233000000 +0000
-+++ liblzf-3.6/configure.ac	2014-03-13 08:10:49.133000000 +0000
+diff -uNr a/configure.ac b/configure.ac
+--- a/configure.ac	2014-03-13 08:10:30.233000000 +0000
++++ b/configure.ac	2014-03-13 08:10:49.133000000 +0000
 @@ -1,9 +1,65 @@
 -AC_INIT
 -AC_CONFIG_SRCDIR([lzfP.h])
@@ -203,9 +203,9 @@ diff -uNr liblzf-3.6.ORIG/configure.ac liblzf-3.6/configure.ac
 -AC_CONFIG_FILES([Makefile])
 -AC_OUTPUT
 +AC_OUTPUT(Makefile liblzf.pc)
-diff -uNr liblzf-3.6.ORIG/liblzf.pc.in liblzf-3.6/liblzf.pc.in
---- liblzf-3.6.ORIG/liblzf.pc.in	1970-01-01 00:00:00.000000000 +0000
-+++ liblzf-3.6/liblzf.pc.in	2014-03-13 08:10:49.134000000 +0000
+diff -uNr a/liblzf.pc.in b/liblzf.pc.in
+--- a/liblzf.pc.in	1970-01-01 00:00:00.000000000 +0000
++++ b/liblzf.pc.in	2014-03-13 08:10:49.134000000 +0000
 @@ -0,0 +1,11 @@
 +prefix=@prefix@
 +exec_prefix=@exec_prefix@
@@ -218,9 +218,9 @@ diff -uNr liblzf-3.6.ORIG/liblzf.pc.in liblzf-3.6/liblzf.pc.in
 +Version: @VERSION@
 +Libs: -L${libdir} -llzf
 +Cflags: -I${includedir}
-diff -uNr liblzf-3.6.ORIG/Makefile.am liblzf-3.6/Makefile.am
---- liblzf-3.6.ORIG/Makefile.am	1970-01-01 00:00:00.000000000 +0000
-+++ liblzf-3.6/Makefile.am	2014-03-13 08:12:06.195000000 +0000
+diff -uNr a/Makefile.am b/Makefile.am
+--- a/Makefile.am	1970-01-01 00:00:00.000000000 +0000
++++ b/Makefile.am	2014-03-13 08:12:06.195000000 +0000
 @@ -0,0 +1,74 @@
 +$(PROGRAMS): $(LDEPS)
 +
@@ -296,9 +296,9 @@ diff -uNr liblzf-3.6.ORIG/Makefile.am liblzf-3.6/Makefile.am
 +pkgconfigdir = $(libdir)/pkgconfig
 +pkgconfig_DATA = liblzf.pc
 +
-diff -uNr liblzf-3.6.ORIG/Makefile.in liblzf-3.6/Makefile.in
---- liblzf-3.6.ORIG/Makefile.in	2014-03-13 08:10:30.233000000 +0000
-+++ liblzf-3.6/Makefile.in	2014-03-13 08:13:08.090000000 +0000
+diff -uNr a/Makefile.in b/Makefile.in
+--- a/Makefile.in	2014-03-13 08:10:30.233000000 +0000
++++ b/Makefile.in	2014-03-13 08:13:08.090000000 +0000
 @@ -41,6 +41,7 @@
  	$(INSTALL) -m 755 lzf $(bindir)
  	$(INSTALL) -d $(includedir)
