@@ -10,34 +10,29 @@ arch=('x86_64')
 url="https://www.wiz.cn"
 license=('GPL3')
 depends=('desktop-file-utils' 'hicolor-icon-theme' 'xdg-utils' 'qt5-websockets' 'qt5-webengine'
-         'qt5-svg') # 'crypto++')
+         'qt5-svg' 'crypto++' 'openssl')
 # shared clucene/quazip triggers segfault
-makedepends=('cmake' 'qt5-tools' 'boost')
-source=("$pkgname-$_commit.tar.gz::https://github.com/WizTeam/WizQTClient/archive/$_commit.tar.gz")
-sha512sums=('35b86abbde7d234b5ebcd66b9912ffddbf272a5ab7ff99ca408eb6a66366ab1c00a0c88241fd702f4f8d968c06a7c53722595eb4085938a5b5c726cfad38a832')
+makedepends=('cmake' 'qt5-tools')
+source=("$pkgname-$_commit.tar.gz::https://github.com/WizTeam/WizQTClient/archive/$_commit.tar.gz"
+         wiznote-2.8.5.patch)
+sha512sums=('35b86abbde7d234b5ebcd66b9912ffddbf272a5ab7ff99ca408eb6a66366ab1c00a0c88241fd702f4f8d968c06a7c53722595eb4085938a5b5c726cfad38a832'
+            '355f020d841e3ec712215d502e4266398f096eec4355f106addab4b8aaad7ad8d99b608a64d31239bfefeedf1f748ee18e591636db113f20cc495a5b6c4dad24')
 
 prepare() {
-  #sed -e 's/add_subdirectory(cryptopp)//' \
-  #    -i WizQTClient-$_commit/lib/CMakeLists.txt
-  #sed -e 's/cryptlib/cryptopp/' \
-  #    -i WizQTClient-$_commit/src/CMakeLists.txt
+  #remove unused bundled libraries
+  rm -r WizQTClient-$_commit/lib/{cryptopp,openssl}/
 
-  sed -i '/#include <QPainter>/a #include <QPainterPath>' WizQTClient-$_commit/src/sync/WizAvatarHost.cpp
-
-  rm -rf build; mkdir build
+  patch -Np1 -i ../wiznote-2.8.5.patch -d WizQTClient-$_commit
 }
 
 build() {
-  cd build
-
-  cmake \
+  cmake -B build -S WizQTClient-$_commit \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    ../WizQTClient-$_commit
-  make
+    -Wno-dev
+  cmake --build build
 }
 
 package() {
-  cd build
-  make DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
 }
