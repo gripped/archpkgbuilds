@@ -28,6 +28,11 @@ build() {
   python -m build --wheel --no-isolation
 }
 
+check() {
+  cd "$pkgname"
+  python -m unittest discover -vs tests
+}
+
 package() {
   cd "$pkgname"
 
