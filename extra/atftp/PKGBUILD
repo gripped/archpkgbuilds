@@ -14,8 +14,8 @@ options=('!lto')
 source=("https://downloads.sf.net/sourceforge/atftp/atftp-${pkgver}.tar.gz"
         'atftpd.service'
         'atftpd.conf'
-        'sysusers.conf'
-        'tmpfiles.conf')
+        'atftp.sysusers'
+        'atftp.tmpfiles')
 sha256sums=('df2aa089c7670f9eab40e5598e5d2cb6a582dc5182926ea50b4d690e4e37f316'
             '74a030f0fb48e97470d59d767039e44d28cbd6c4722621207684220210b8fa65'
             '0b28125099ffdd6869c6fbcb3167e93ccd71a0c6e465b1b62c7dedf9f628dd4e'
@@ -47,8 +47,8 @@ package() {
 
   install -D -m0644 ../atftpd.service "$pkgdir"/usr/lib/systemd/system/atftpd.service
   install -D -m0644 ../atftpd.conf "$pkgdir"/etc/conf.d/atftpd
-  install -D -m0644 ../sysusers.conf "$pkgdir"/usr/lib/sysusers.d/atftp.conf
-  install -D -m0644 ../tmpfiles.conf "$pkgdir"/usr/lib/tmpfiles.d/atftp.conf
+  install -D -m0644 ../atftp.sysusers "$pkgdir"/usr/lib/sysusers.d/atftp.conf
+  install -D -m0644 ../atftp.tmpfiles "$pkgdir"/usr/lib/tmpfiles.d/atftp.conf
 
   # remove in.tftpd link as it conflicts with extra/tftp-hpa
   rm "${pkgdir}/usr/share/man/man8/in.tftpd.8"
