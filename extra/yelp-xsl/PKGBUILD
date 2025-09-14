@@ -18,7 +18,7 @@ makedepends=(
   meson
 )
 source=(
-  "git+$url.git#tag=$pkgver"
+  "git+$url.git#tag=${pkgver/[a-z]/.&}"
 )
 b2sums=('efa5b673926b3f3f5021c652ad62d9562042fbbcf8a82dffc1b9bdfe336382c7c5f25c61673bce427b1a92e7d9c6878c130e0a8199fd7a11b315aec626b6ac16')
 
