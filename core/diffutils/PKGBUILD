@@ -9,7 +9,7 @@ pkgdesc='Utility programs used for creating patch files'
 arch=('x86_64')
 url='https://www.gnu.org/software/diffutils'
 license=('GPL-3.0-or-later')
-depends=('glibc' 'bash')
+depends=('glibc')
 makedepends=('git' 'gperf' 'help2man' 'python' 'wget')
 validpgpkeys=('155D3FC500C834486D1EEA677FD9FCCB000BEEEE') # Jim Meyering
 source=("git+https://git.savannah.gnu.org/git/diffutils.git#tag=v${pkgver}?signed"
@@ -24,11 +24,12 @@ prepare() {
   git config submodule.gnulib.url "${srcdir}/gnulib"
   git -c protocol.file.allow=always submodule update
 
-  sh bootstrap
+  ./bootstrap
 }
 
 build() {
   cd $pkgname
+
   ./configure \
     --prefix=/usr \
     --disable-gcc-warnings
@@ -37,11 +38,13 @@ build() {
 
 check() {
   cd $pkgname
+
   make check
 }
 
 package() {
   cd $pkgname
+
   make DESTDIR="$pkgdir" install
 }
 
