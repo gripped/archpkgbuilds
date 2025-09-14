@@ -31,7 +31,7 @@ prepare() {
   # Default to SOURCE_DATE_EPOCH (if set) as timestamps with gzip when compressing man pages
   # to avoid recording non-deterministic information in gzip metadata across builds.
   # This is required for reproducible builds.
-  # See https://github.com/gramps-project/gramps/pull/2076
+  # See https://github.com/gramps-project/gramps/pull/2078
   patch -Np1 -i "$srcdir/set_SDE_in_gzip.patch"
 }
 
