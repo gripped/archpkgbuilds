@@ -3,7 +3,7 @@
 
 _hkgname=gnutls
 pkgname=haskell-gnutls
-pkgver=0.3
+pkgver=0.3.1
 pkgrel=1
 pkgdesc="Bindings for GNU libgnutls"
 url="https://git.singpolyma.net/haskell-gnutls"
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' "gnutls" "haskell-unexceptionalio-trans")
 makedepends=('ghc' 'c2hs')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('4299a959e741c22ab888ea4b6616339435272a4b0e6dbdfa47c06899edb88604f75187e997cd139d6e11bc9f4b048473a7cfe1c468534ee9a7f24de4d3a37f57')
+sha512sums=('2f848b5c52c9075ecbba3c81cdbc1e19b7b2bc845a7ffa8aca172807fa860044401e7651d399ad9f2bf06dc269c543db1d8eea6c4aa73a7f7cc56fb04577436a')
 
 build() {
     cd $_hkgname-$pkgver
