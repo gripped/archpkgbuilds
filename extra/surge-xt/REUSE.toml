@@ -1,0 +1,31 @@
+version = 1
+
+[[annotations]]
+path = [
+    "PKGBUILD",
+    "README.md",
+    "keys/**",
+    ".SRCINFO",
+    ".nvchecker.toml",
+    "*.install",
+    "*.sysusers",
+    "*.tmpfiles",
+    "*.logrotate",
+    "*.pam",
+    "*.service",
+    "*.socket",
+    "*.timer",
+    "*.desktop",
+    "*.hook",
+]
+SPDX-FileCopyrightText = "Arch Linux contributors"
+SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "devendor-libs.patch",
+    "fix-lv2-ftbfs.patch",
+    "improve-reproducibility.patch",
+]
+SPDX-FileCopyrightText = "surge-xt contributors"
+SPDX-License-Identifier = "GPL-3.0-only"
