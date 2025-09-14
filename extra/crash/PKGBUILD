@@ -2,15 +2,17 @@
 # Contributor: Bernhard Walle <bernhard.walle@gmx.de>
 # Contributor: Michael Eckert <michael.eckert@linuxmail.org>
 # Contributor: Mathieu Pasquet <mathieui@mathieui.net>
+# Contributor: Qu Wenruo <wqu@suse.com>
 
 pkgname=crash
 pkgver=8.0.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Linux kernel crashdump analysis tool'
 url='https://crash-utility.github.io/'
 arch=(x86_64)
 license=(GPL)
-depends=(xz ncurses zlib libelf guile mpfr)
+# Boost is needed for the GDB with extra compresison support
+depends=(xz ncurses zlib libelf guile mpfr boost lzo zstd)
 makedepends=(wget)
 optdepends=('binutils: offline vmcore loading functionality')
 source=(crash-$pkgver.tar.gz::https://github.com/crash-utility/crash/archive/refs/tags/$pkgver.tar.gz)
@@ -19,7 +21,8 @@ sha256sums=('fb918ade7faf9b1f76c7bd371a2aebf639bf10197134d3ba776e13a1867104fb')
 build() {
   cd crash-$pkgver
   CPPFLAGS+=' -O2' # to fix https://github.com/crash-utility/crash/issues/87
-  make
+  # Add lzo and zstd support to match makedumpfile's capacity
+  make lzo zstd
 }
 
 package() {
