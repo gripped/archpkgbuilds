@@ -23,6 +23,7 @@ prepare() {
 		-e '/Requires:/s/pthread//' \
 		-e '/Libs:/s/$/ -lpthread/' \
 		-i OpenIPMIpthread.pc.in
+	autoreconf -fiv
 }
 
 build() {
