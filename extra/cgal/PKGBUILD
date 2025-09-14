@@ -12,13 +12,17 @@ url="https://www.cgal.org"
 license=(GPL-3.0-or-later LGPL-3.0-or-later)
 depends=(boost eigen gmp mpfr)
 makedepends=(cmake)
-source=(https://github.com/CGAL/cgal/releases/download/v${pkgver}/CGAL-${pkgver}.tar.xz)
-# https://github.com/CGAL/cgal/releases/download/v${pkgver}/sha256sum.txt
+source=(https://github.com/CGAL/cgal/releases/download/v$pkgver/CGAL-$pkgver.tar.xz)
 sha256sums=('0acdfbf317c556630dd526f3253780f29b6ec9713ee92903e81b5c93c0f59b7f')
 
 build() {
-  cmake -B build -S CGAL-${pkgver} \
+  local cmake_options=(
+    -B build
+    -S CGAL-$pkgver
+    -W no-dev
     -DCMAKE_INSTALL_PREFIX=/usr
+  )
+  cmake "${cmake_options[@]}"
   cmake --build build
 }
 
