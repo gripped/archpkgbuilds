@@ -3,7 +3,7 @@
 
 pkgname=ccls
 pkgver=0.20241108
-pkgrel=2
+pkgrel=3
 pkgdesc='C/C++/ObjC language server supporting cross references, hierarchies, completion and semantic highlighting'
 arch=('x86_64')
 url='https://github.com/MaskRay/ccls'
@@ -20,13 +20,22 @@ prepare() {
   cd $pkgname-$pkgver
   patch -Np1 < ../llvm-20.patch
 }
+
 build() {
-  cd $pkgname-$pkgver
-  cmake . -GNinja -Bbuild -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_CXX_COMPILER=clang++ -DCLANG_LINK_CLANG_DYLIB=1
+  local cmake_options=(
+    -B build
+    -S "$pkgname-$pkgver"
+    -GNinja
+    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_CXX_COMPILER=clang++
+    -DCLANG_LINK_CLANG_DYLIB=1
+    -DCCLS_VERSION="$pkgver"
+  )
+
+  cmake "${cmake_options[@]}"
   cmake --build build
 }
 
 package() {
-  cd $pkgname-$pkgver/build
-  DESTDIR="$pkgdir" ninja install
+  DESTDIR="$pkgdir" cmake --install build
 }
