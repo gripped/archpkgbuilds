@@ -3,8 +3,8 @@
 # Contributor: damir <damir@archlinux.org>
 
 pkgname=netcdf-fortran
-pkgver=4.6.1
-pkgrel=3
+pkgver=4.6.2
+pkgrel=1
 pkgdesc="NetCDF fortran bindings"
 arch=(x86_64)
 url="https://github.com/Unidata/netcdf-fortran"
@@ -14,14 +14,7 @@ makedepends=(cmake gcc-fortran git doxygen)
 checkdepends=(valgrind)
 options=(!makeflags staticlibs)
 source=(git+${url}#tag=v${pkgver})
-sha256sums=('1bd7f7dbae3cc4e535742fd5a17a41be655df1c4063c0fd00b75cc105a10d814')
-
-prepare() {
-  cd $pkgname
-# netcdf 4.9.3 compatibility
-  git cherry-pick -n 7eff7deca464bcf195f0b37a1f0dba1786d1a19b \
-                     eca8233d3e8c2a3588d6a79a660a8b5d4f1288fc
-}
+sha256sums=('fce90dea1f796f359634c9550515f3c5139be472f4aa016f845607a17c91edab')
 
 build() {
   cmake -B build -S ${pkgname} \
