@@ -15,6 +15,7 @@ sha256sums=('1b1d26ab3138b0ec34062c3f1b8cd808d5c7a85e37fdbb9c6fd6722f52b2122d')
 options=(!emptydirs)
 
 build() {
+  CFLAGS+=' -std=gnu17'
   cd $pkgname
   ./configure \
     --prefix=/usr 
