@@ -1,4 +1,4 @@
-# Maintainer: Sven-Hendrik Haase <sh@lutzhaase.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: TryA <tryagainprod {at} gmail.com>
 
 _pkgbasename=bzip2
@@ -17,7 +17,7 @@ validpgpkeys=('EC3CFE88F6CA0788774F5C1D1AA44BE649DE760A') # Mark Wielaard <mark@
 
 build() {
   cd ${_pkgbasename}-${pkgver}
- 
+
   make -f Makefile-libbz2_so CC="gcc -m32 $CFLAGS $LDFLAGS"
   make libbz2.a CC="gcc -m32 $CFLAGS $LDFLAGS"
 }
