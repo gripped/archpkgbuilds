@@ -12,25 +12,25 @@ url="https://lxde.org/"
 license=('GPL')
 groups=('lxde')
 depends=('gtk2' 'gtk3')
-makedepends=('intltool')
-source=(https://github.com/lxde/lxinput/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('2f15c2a17f970afb152cbd024503da26c1e15135e76e9f516e0ca97e909d6c37')
+makedepends=('git' 'intltool')
+source=(git+https://github.com/lxde/lxinput.git#tag=${pkgver})
+sha256sums=('526fda829d408e476a08133a7cd0737704241c56e645f8988e49cc4ff39ea997')
 
 prepare() {
-  cd $pkgbase-$pkgver
-  autoreconf -vif
+  cd $pkgbase
+  autoreconf -fiv
 }
 
 build() {
   # GTK+ 2 version
-  [ -d gtk2 ] || cp -r $pkgbase-$pkgver gtk2
+  [ -d gtk2 ] || cp -r $pkgbase gtk2
   cd gtk2
   ./configure --prefix=/usr
   make
 
   cd "$srcdir"
   # GTK+ 3 version
-  [ -d gtk3 ] || cp -r $pkgbase-$pkgver gtk3
+  [ -d gtk3 ] || cp -r $pkgbase gtk3
   cd gtk3
   ./configure --prefix=/usr --enable-gtk3
   make

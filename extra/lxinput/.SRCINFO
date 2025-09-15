@@ -6,11 +6,12 @@ pkgbase = lxinput
 	arch = x86_64
 	groups = lxde
 	license = GPL
+	makedepends = git
 	makedepends = intltool
 	depends = gtk2
 	depends = gtk3
-	source = https://github.com/lxde/lxinput/archive/0.3.6/lxinput-0.3.6.tar.gz
-	sha256sums = 2f15c2a17f970afb152cbd024503da26c1e15135e76e9f516e0ca97e909d6c37
+	source = git+https://github.com/lxde/lxinput.git#tag=0.3.6
+	sha256sums = 526fda829d408e476a08133a7cd0737704241c56e645f8988e49cc4ff39ea997
 
 pkgname = lxinput
 	groups = lxde
