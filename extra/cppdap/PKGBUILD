@@ -18,6 +18,7 @@ sha256sums=('84c59af16b1fa109223c64ee44c5df12a9c3d3b4fab90cacd20a2b4efd048554')
 prepare() {
   cd cppdap
   git cherry-pick -n 6a3cc9a8 # Build shared lib
+  git cherry-pick -n c69444e  # Fix for gcc-15
 }
 
 build() {
