@@ -3,8 +3,8 @@
 # Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=marco
-pkgver=1.29.0
-pkgrel=1
+pkgver=1.28.1
+pkgrel=2
 pkgdesc="MATE default window manager"
 url="https://mate-desktop.org"
 arch=('x86_64')
@@ -15,7 +15,7 @@ groups=('mate')
 conflicts=('marco-gtk3')
 replaces=('marco-gtk3')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/marco/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('fe2c317ceaf2b17f2cf5785cadb6b6534cf3330aad9be5e5449b3fdb4d3160be')
+sha256sums=('3fd7f7cf0ad77770397e15478d198a5a4db518bba6565204ec073eac36be2a3b')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
