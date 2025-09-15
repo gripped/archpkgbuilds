@@ -21,7 +21,7 @@ validpgpkeys=('296D6F29A020808E8717A8842DB5BD89A340AEB7') # Dmitry V. Levin <ldv
 
 build() {
   cd $pkgname-$pkgver
-  ./configure --prefix=/usr --with-libunwind
+  ./configure --prefix=/usr --with-libunwind --enable-mpers=check
   make
 }
 
