@@ -1,6 +1,6 @@
 pkgbase = jami-qt
 	pkgdesc = Free and universal communication platform which preserves the users’ privacy and freedoms (Qt client)
-	pkgver = 20241126.0
+	pkgver = 20250912.0
 	pkgrel = 1
 	url = https://jami.net
 	arch = x86_64
@@ -24,21 +24,24 @@ pkgbase = jami-qt
 	depends = qt6-webengine
 	depends = qt6-webchannel
 	depends = qt6-shadertools
+	depends = hunspell
+	depends = tidy
+	depends = md4c
 	conflicts = jami-gnome
 	conflicts = jami-libclient
 	replaces = jami-gnome
 	replaces = jami-libclient
-	source = git+https://git.jami.net/savoirfairelinux/jami-client-qt.git#tag=stable/20241126.0
-	source = git+https://github.com/atraczyk/SortFilterProxyModel#commit=a2a0c72e4db38e1c5478bd3e0f67ff99fae11f00
-	source = git+https://github.com/mity/md4c#commit=ad8d41127b94e2f0633ad14b3787f0bc4613a689
-	source = git+https://github.com/htacg/tidy-html5#commit=d08ddc2860aa95ba8e301343a30837f157977cba
+	source = git+https://git.jami.net/savoirfairelinux/jami-client-qt.git#tag=stable/20250912.0
+	source = jami-qt-SortFilterProxyModel::git+https://github.com/atraczyk/SortFilterProxyModel
+	source = jami-qt-zxing-cpp::git+https://github.com/nu-book/zxing-cpp
 	source = drop-qt-version-check.patch
 	source = qt-6.6.patch
-	sha256sums = ed70a11d54c324ae419a1770311772652e93dc22b857b4530836f0d951e0dbab
-	sha256sums = 47e134be55b75996e1c38deba860a4171fc54b45b01b193d14f9fc5af1db8ee6
-	sha256sums = fd2217ffb1756b017439a032bf6c80bc13f6a0900287a9874870dcd314ca3614
-	sha256sums = d756abef2fe8277cec1fe513e6af85362a173d9e046967494e68f76c2f6bbc60
+	source = fix-link.patch
+	sha256sums = c5b14ea2a62db8e1660e2cbe58d0be6a7b589e01d4ce2945beb79535bf9ab69e
+	sha256sums = SKIP
+	sha256sums = SKIP
 	sha256sums = e64eb0e5abf1be8245aea7eb705659d225b0c711c286166e28541fc66532a220
 	sha256sums = 61d7ca804ed18650274f233cd60a811518859b4c6739ecc246414c35c4b8d906
+	sha256sums = 08d1950475835d9cf0b8cc37bca5946c9182c1e15d32b8b7efc657e3d38117f2
 
 pkgname = jami-qt

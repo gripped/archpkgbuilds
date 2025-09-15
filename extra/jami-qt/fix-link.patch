@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 29bfde9a..ba6b5c45 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -805,7 +805,8 @@ elseif (NOT APPLE)
+     ${LIBNOTIFY_LIBRARIES}
+     ${LIBGDKPIXBUF_LIBRARIES}
+     ${GLIB_LIBRARIES}
+-    ${GIO_LIBRARIES})
++    ${GIO_LIBRARIES}
++    avutil)
+ 
+   install(
+     TARGETS ${PROJECT_NAME}
