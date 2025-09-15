@@ -3,7 +3,7 @@
 # Contributor: Dmitrij D. Czarkoff <czarkoff at gmail dot com>
 
 pkgname=baresip
-pkgver=4.1.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc="portable and modular SIP User-Agent with audio and video support"
 arch=('x86_64')
@@ -40,7 +40,7 @@ optdepends=('libfdk-aac: AAC audio codec'
             'v4l-utils: (v4l2 module)')
 makedepends=(${optdepends[@]/%:*/} python cmake glib2-devel)
 source=("${pkgname}-${pkgver}.tar.gz"::"https://github.com/baresip/baresip/archive/v${pkgver}.tar.gz")
-sha256sums=('ef8663b95caf187edd5062136230be02bd6815090da410b2fe6b7e1341312133')
+sha256sums=('481db747f9946c0304dab584f5b64dd05bfb847a701b2263aa0346d76dab503c')
 
 build() {
   cd ${pkgname}-${pkgver}
