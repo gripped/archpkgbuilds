@@ -3,7 +3,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=cosign
-pkgver=2.6.0
+pkgver=2.5.3
 pkgrel=1
 pkgdesc="Container Signing with support for ephemeral keys and Sigstore signing"
 arch=('x86_64')
@@ -17,8 +17,8 @@ makedepends=(
 checkdepends=('go-tools')
 options=('!lto')
 source=("git+${url}.git#tag=v${pkgver}")
-sha512sums=('2e2fbb22047a05888ab209c5c0d0cafe61670604d743c110645aad26b96454b2c170a205fb76506c825ac5e5b4563ba102b3e723b05f46e5fc91f68ca70fde01')
-b2sums=('701ed0dc46f358957722f90634e017f48925d51d91f890a4404c2ed1a067ea8b8c363157d81f3e63ac4c456668270f808c4fe3e4374a2862656be2cf28938fe4')
+sha512sums=('582e6d87a9f43f273acf3b6dbf2d90b818c3ca21a94f2c3e41a9bc6c32f3d70652933d31017037da80ea7c825d4ab29cff1e290525efdec9a850e68b211bacf5')
+b2sums=('7890f005252ef46f0d17926822c58cb97c8d54e6fbb9be885eca2e3e23c9a062858380d4b45918440a092ac2fb59b85231754ec876b9b573da39b73ea15c14a6')
 
 prepare() {
   cd "${pkgname}"
