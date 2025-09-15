@@ -7,7 +7,7 @@
 pkgbase=ollama
 pkgname=(ollama ollama-rocm ollama-cuda ollama-docs)
 pkgver=0.11.10
-pkgrel=3
+pkgrel=2
 pkgdesc='Create, run and share large language models (LLMs)'
 arch=(x86_64)
 url='https://github.com/ollama/ollama'
@@ -42,8 +42,9 @@ build() {
 
   # Sync GPU targets from CMakePresets.json
   # For CUDA 13
+  #-DCMAKE_CUDA_ARCHITECTURES="75;80;86;87;88;89;90;100;103;110;120;121;121-virtual" \
   cmake -B build -G Ninja \
-    -DCMAKE_CUDA_ARCHITECTURES="75;80;86;87;88;89;90;100;103;110;120;121;121-virtual" \
+    -DCMAKE_CUDA_ARCHITECTURES="50;52;53;60;61;62;70;72;75;80;86;87;89;90;90a" \
     -DAMDGPU_TARGETS="$(rocm-supported-gfx)" \
     -DGPU_TARGETS="$(rocm-supported-gfx)" \
     -DCMAKE_INSTALL_PREFIX=/usr
