@@ -14,6 +14,11 @@ source=(https://sourceforge.net/projects/${pkgname}/files/${pkgname}/${pkgname}-
 sha1sums=('86bc49bfc8766cdcb079d46ca9c874e0d4c1f9d4')
 sha256sums=('a1a39ffcea3ff2a7a7aae0c23877ddf4918b554bf82b0de5d7ce8e7f61ea8e32')
 
+prepare() {
+  cd "$pkgname-$pkgver"
+  autoreconf -vfi
+}
+
 build() {
   cd "${pkgname}"-${pkgver}
   ./configure --prefix=/usr
