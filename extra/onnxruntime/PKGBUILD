@@ -4,56 +4,48 @@
 
 pkgbase=onnxruntime
 pkgname=(
-  "${pkgbase}-cpu"
-  "${pkgbase}-cuda"
-  "${pkgbase}-opt-cuda"
+  "${pkgbase}"
+  "${pkgbase}-opt"
   "${pkgbase}-rocm"
   "${pkgbase}-opt-rocm"
-  "python-${pkgbase}-cpu"
-  "python-${pkgbase}-cuda"
-  "python-${pkgbase}-opt-cuda"
+  "python-${pkgbase}"
+  "python-${pkgbase}-opt"
   "python-${pkgbase}-rocm"
   "python-${pkgbase}-opt-rocm"
 )
 pkgver=1.22.2
 _pkgdesc='Cross-platform, high performance scoring engine for ML models'
-pkgrel=5
+pkgrel=2
 arch=('x86_64')
 url='https://github.com/microsoft/onnxruntime'
 license=('MIT')
-depends=('abseil-cpp' 'boost' 'nsync')
+depends=('abseil-cpp' 'boost' 'nsync' 'onednn' 'intel-oneapi-mkl')
 # https://github.com/microsoft/onnxruntime/blob/main/onnxruntime/python/tools/transformers/requirements.txt
 _pydepends=('python-numpy' 'python-coloredlogs' 'python-psutil'
             'python-py-cpuinfo' 'python-sympy' 'python-scipy' 'python-pillow'
             'python-flatbuffers' 'python-protobuf' 'python-packaging')
-makedepends=('git' 'cmake' 'ninja' 'pybind11' 'nlohmann-json' 'chrono-date' 'cxxopts'
-             'python-setuptools' 'python-installer' 'python-wheel' 'python-build' 'gcc14' 'onednn'
-             'cuda' 'cudnn' 'nccl' 'rocm-toolchain' 'rocm-hip-sdk' 'hipify-clang' 'rocm-smi-lib' 'roctracer')
+makedepends=('git' 'cmake' 'ninja' 'pybind11' 'nlohmann-json' 'chrono-date' 'cxxopts' 'openmpi'
+             'python-setuptools' 'python-installer' 'python-wheel' 'python-build' 'gcc14'
+             'cuda' 'cudnn' 'nccl' 'rocm-hip-sdk' 'hipify-clang' 'rocm-smi-lib' 'roctracer')
 makedepends+=("${_pydepends[@]}")
 #TODO: Add migraphx for ROCm and tensorrt for CUDA.
+optdepends=('openmpi: Distributed memory parallelization')
 source=("git+https://github.com/microsoft/onnxruntime#tag=v${pkgver}"
         "${pkgbase}-install-orttraining-files.patch"
         "${pkgbase}-system-dnnl.patch"
-        "${pkgbase}-system-flatbuffers.patch"
-        fix-gcc-15.patch
-        deps-cutlass-4.2.0.patch
-        fix-thrust-api.patch)
+        "${pkgbase}-system-flatbuffers.patch")
 b2sums=('ea6772d6962ff2d88f6803f3a253f88593249c431e88bf745b3f81e493176ab2ae70d13243e4e932c6c4bf56fe4d12c19ef5c5e7a6a4a2ba013a9a1ee22fa136'
         'af5a5524dd9b5fe0052d2d0da232de7f219d4abffb37a7a321145b428d06fcb2901ab4e76b6754440146c223fc761bcbdfeee230167d33aa4434b82a1ebad5c0'
         '57c79382537f5bd25a891de3a99415a6dd8f490676df213016e897040c88e28fb5f5a5c3a8a98057e3f6630edb3ddcaeae36dcc47d5354abaafafc36e579f731'
-        '207f020f310a7b447b4dc2fac74819f80099f088fdad6e42d67d0f01aa35bb5b9475bd006d9bec318127ae2db3d7ae3df33382fa16339d936c1dfb3832010837'
-        'eda81fc2c2a9e9a241a1147cc470a90f437b559fac6c6c2da3d8d70b5e3492fcc98617aa3dbaec6d9548c7a370b3e825297f4ec98e2c067085dd5ef403340ee2'
-        '33809e4c3e99c22e5f066c8cbaebcb9f9a6165104c86be5dba65148e9bc7af01ace6580c7607eb73767f1c5e1b159805726cfb8f7f67b763033e24c00c31770f'
-        'b0b58e2eb42a38956ef9e86b853d413c2fd002737d37721962dd9e1fc5c39c1ef4594325c6f6081f2b4cdce39a14907dbebc156645fa25ff3f2bbbce6417cd14')
+        '207f020f310a7b447b4dc2fac74819f80099f088fdad6e42d67d0f01aa35bb5b9475bd006d9bec318127ae2db3d7ae3df33382fa16339d936c1dfb3832010837')
 
 _valid_sm() {
   # Check PKGBUILDs of python-pytorch and tensorflow for CUDA architectures built by official packages
-  echo "75-real;80-real;86-real;87-real;88-real;89-real;90-real;100-real;103-real;110-real;120-real;121-real;121-virtual"
+  echo "52-real;53-real;60-real;61-real;62-real;70-real;72-real;75-real;80-real;86-real;87-real;89-real;90-real;90-virtual"
 }
 
 _valid_gfx() {
-  # gfx950 is not supported by rocPRIM
-  echo "$(rocm-supported-gfx -e gfx950)"
+  echo "gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx940;gfx941;gfx942;gfx1010;gfx1012;gfx1030;gfx1100;gfx1101;gfx1102"
 }
 
 prepare() {
@@ -92,31 +84,7 @@ prepare() {
   # Fix build with abseil 20250814; see https://github.com/microsoft/onnxruntime/issues/25815
   sed -i '/^absl::low_level_hash$/d' cmake/external/abseil-cpp.cmake
 
-  # Fix build with GCC 15
-  patch -p1 -i "${srcdir}/fix-gcc-15.patch"
-
-  # Update deprecated CUDA api (#24733)
-  git cherry-pick -n ed7c234b2535eb272462dd41cfa6cfb1ff94781c
-  # Update deprecated CCCL API (#25246)
-  git cherry-pick -n a2bd54bc8c59562428f6b09d3f64f9e735599cd4
-  # Format *.cu and *.cuh with lintrunner (#25189)
-  git checkout 7a6cef6fe3672c5d59f1925e5f7c0a03dcfbc90e -- \
-    onnxruntime/contrib_ops/cuda/moe/ft_moe/moe_kernel.cu \
-    orttraining/orttraining/training_ops/cuda/reduction/all_impl.cu \
-    orttraining/orttraining/training_ops/cuda/tensor/gather_grad_impl.cu
-  # Fix cuda 12.9 windows build (#25317)
-  git cherry-pick -n 7c18d896b033dba80113efb720bd8842f8c23e33
-  # [CUDA] Upgrade cutlass to 3.9.2 (#24794)
-  git cherry-pick -n 8983424d9a8d0a39d065b0e353d6fd3f2b2a638c
-
-  # Bump cutlass to v4.2 which supports CUDA 13 https://github.com/NVIDIA/cutlass/pull/2587
-  patch -p1 -i "${srcdir}/deps-cutlass-4.2.0.patch"
-
-  # Fix thrust and cub API usage
-  patch -p1 -i "${srcdir}/fix-thrust-api.patch"
-
   cd "${srcdir}"
-  cp -r "${pkgbase}" "${pkgbase}-cpu"
   cp -r "${pkgbase}" "${pkgbase}-cuda"
   cp -r "${pkgbase}" "${pkgbase}-opt-cuda"
   cp -r "${pkgbase}" "${pkgbase}-rocm"
@@ -141,6 +109,8 @@ build() {
     -DBUILD_TESTING=OFF
     -Donnxruntime_ENABLE_TRAINING=ON
     -Donnxruntime_ENABLE_LAZY_TENSOR=OFF
+    -Donnxruntime_USE_MPI=ON
+    -Donnxruntime_USE_DNNL=ON
     # Stable release of eigen is too old for onnxruntime.
     -Donnxruntime_USE_PREINSTALLED_EIGEN=OFF
     -DCMAKE_CXX_STANDARD=17)
@@ -157,7 +127,6 @@ build() {
     -DCMAKE_CXX_STANDARD_REQUIRED=ON
     # WARNING: too many threads will eat all your RAM
     -Donnxruntime_NVCC_THREADS=2
-    -Donnxruntime_USE_DNNL=ON
     -Donnxruntime_USE_CUDA=ON
     -Donnxruntime_USE_NCCL=ON
     -Donnxruntime_CUDA_HOME=/opt/cuda
@@ -170,7 +139,6 @@ build() {
   local _cmake_rocm_args=("${_cmake_args[@]}"
     -DCMAKE_HIP_ARCHITECTURES="$(_valid_gfx)"
     -DCMAKE_HIP_FLAGS="-DHIPBLAS_USE_HIP_HALF=1 -DROCM_USE_FLOAT16=1"
-    -Donnxruntime_USE_DNNL=ON
     -Donnxruntime_USE_ROCM=ON
     -Donnxruntime_USE_NCCL=ON
     -Donnxruntime_BUILD_KERNEL_EXPLORER=OFF
@@ -182,18 +150,6 @@ build() {
   export CXX="$NVCC_CCBIN"
   export CC="${NVCC_CCBIN/g++/gcc}"
 
-
-  ##### onnxruntime-cpu
-  echo "Build onnxruntime without GPU support"
-  cd "${srcdir}/${pkgbase}-cpu"
-  cmake "${_cmake_args[@]}"
-  cmake --build build
-
-  # Manually fix https://github.com/microsoft/onnxruntime/issues/24570
-  mkdir onnxruntime/capi
-  python setup.py --help # We have to call it like this once to generate the file we need.
-  cp -r build/onnxruntime/* onnxruntime
-  python -m build --wheel --no-isolation
 
   ##### onnxruntime-cuda
 
@@ -259,38 +215,26 @@ build() {
   python -m build --wheel --no-isolation
 }
 
-package_onnxruntime-cpu() {
-  pkgdesc="$_pkgdesc (CPU only)"
-  provides=("${pkgbase}=${pkgver}")
-  conflicts=("${pkgbase}")
+package_onnxruntime() {
+  pkgdesc="$_pkgdesc"
+  optdepends+=('cuda: nVidia GPU acceleration'
+               'cudnn: nVidia GPU acceleration'
+               'nccl: nVidia GPU acceleration')
 
-  cd "${pkgbase}-cpu"
+  cd "${pkgbase}-cuda"
   DESTDIR="${pkgdir}" cmake --install build
 
   install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
   install -Dm644 ThirdPartyNotices.txt "${pkgdir}/usr/share/licenses/${pkgname}/ThirdPartyNotices.txt"
 }
 
-package_onnxruntime-cuda() {
-  pkgdesc="$_pkgdesc (with CUDA)"
-  depends+=('cuda' 'cudnn' 'nccl' 'onednn')
+package_onnxruntime-opt() {
+  pkgdesc="$_pkgdesc (with AVX2 CPU optimizations)"
+  optdepends+=('cuda: nVidia GPU acceleration'
+               'cudnn: nVidia GPU acceleration'
+               'nccl: nVidia GPU acceleration')
   provides=("${pkgbase}=${pkgver}")
   conflicts=("${pkgbase}")
-  replaces=("${pkgbase}")
-
-  cd "${pkgbase}-opt-cuda"
-  DESTDIR="${pkgdir}" cmake --install build
-
-  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  install -Dm644 ThirdPartyNotices.txt "${pkgdir}/usr/share/licenses/${pkgname}/ThirdPartyNotices.txt"
-}
-
-package_onnxruntime-opt-cuda() {
-  pkgdesc="$_pkgdesc (with CUDA and AVX2 CPU optimizations)"
-  depends+=('cuda' 'cudnn' 'nccl' 'onednn')
-  provides=("${pkgbase}=${pkgver}")
-  conflicts=("${pkgbase}")
-  replaces=("${pkgbase}-opt")
 
   cd "${pkgbase}-opt-cuda"
   DESTDIR="${pkgdir}" cmake --install build
@@ -324,21 +268,12 @@ package_onnxruntime-opt-rocm() {
   install -Dm644 ThirdPartyNotices.txt "${pkgdir}/usr/share/licenses/${pkgname}/ThirdPartyNotices.txt"
 }
 
-package_python-onnxruntime-cpu() {
-  pkgdesc="$_pkgdesc (CPU only)"
-  depends+=("${pkgbase}-cpu" "${_pydepends[@]}")
-
-  cd "${pkgbase}-cpu"
-  python -m installer --destdir="${pkgdir}" dist/*.whl
-  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  install -Dm644 ThirdPartyNotices.txt "${pkgdir}/usr/share/licenses/${pkgname}/ThirdPartyNotices.txt"
-}
-
-package_python-onnxruntime-cuda() {
-  pkgdesc="$_pkgdesc (with CUDA)"
-  depends+=("${pkgbase}-cuda" "${_pydepends[@]}")
-  provides=("python-${pkgbase}=${pkgver}")
-  replaces=("python-${pkgbase}")
+package_python-onnxruntime() {
+  pkgdesc="$_pkgdesc"
+  depends+=("${pkgbase}" "${_pydepends[@]}")
+  optdepends+=('cuda: nVidia GPU acceleration'
+               'cudnn: nVidia GPU acceleration'
+               'nccl: nVidia GPU acceleration')
 
   cd "${pkgbase}-cuda"
   python -m installer --destdir="${pkgdir}" dist/*.whl
@@ -346,11 +281,14 @@ package_python-onnxruntime-cuda() {
   install -Dm644 ThirdPartyNotices.txt "${pkgdir}/usr/share/licenses/${pkgname}/ThirdPartyNotices.txt"
 }
 
-package_python-onnxruntime-opt-cuda() {
-  pkgdesc="$_pkgdesc (with CUDA and AVX2 CPU optimizations)"
-  depends+=("${pkgbase}-opt-cuda" "${_pydepends[@]}")
+package_python-onnxruntime-opt() {
+  pkgdesc="$_pkgdesc (with AVX2 CPU optimizations)"
+  depends+=("${pkgbase}-opt" "${_pydepends[@]}")
   provides=("python-${pkgbase}=${pkgver}")
   conflicts=("python-${pkgbase}")
+  optdepends+=('cuda: nVidia GPU acceleration'
+               'cudnn: nVidia GPU acceleration'
+               'nccl: nVidia GPU acceleration')
 
   cd "${pkgbase}-opt-cuda"
   python -m installer --destdir="${pkgdir}" dist/*.whl
