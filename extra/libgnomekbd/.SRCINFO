@@ -1,0 +1,22 @@
+pkgbase = libgnomekbd
+	pkgdesc = Keyboard management library
+	pkgver = 3.28.1
+	pkgrel = 1
+	epoch = 1
+	url = https://gitlab.gnome.org/GNOME/libgnomekbd
+	arch = x86_64
+	license = LGPL
+	makedepends = gobject-introspection
+	makedepends = git
+	makedepends = meson
+	depends = libxklavier
+	depends = gtk3
+	depends = dconf
+	provides = libgnomekbd.so
+	provides = libgnomekbdui.so
+	source = git+https://gitlab.gnome.org/GNOME/libgnomekbd.git#commit=1ca55e9f3644eb20ccee1042a7fa4158465f4aef
+	source = meson.diff
+	sha256sums = SKIP
+	sha256sums = d41afc90476de55e1281172b538aa764a4697ff487d11660a7b02503c0630430
+
+pkgname = libgnomekbd
