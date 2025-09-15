@@ -2,17 +2,17 @@
 
 _hkgname=gi-pango
 pkgname=haskell-gi-pango
-pkgver=1.0.29
-pkgrel=233
+pkgver=1.0.30
+pkgrel=1
 pkgdesc="Pango bindings"
 url="https://github.com/haskell-gi/haskell-gi"
-license=("LGPL2.1")
+license=('LGPL-2.1-only')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-gi-gio' 'haskell-gi-glib' 'haskell-gi-gobject' 'haskell-gi-harfbuzz'
          'haskell-gi' 'haskell-gi-base' 'haskell-gi-overloading' 'pango')
 makedepends=('ghc' 'gobject-introspection')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('3849012e72286177989fae21be883ffff794f6a9c811179f047d8a9a917ca4ec')
+sha256sums=('37ed9bcbf3429714e7172b654443fcf81c7bbd42a4c8d155542ccc28ad95e3ce')
 
 build() {
   cd $_hkgname-$pkgver
