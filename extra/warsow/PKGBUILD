@@ -1,22 +1,20 @@
-# Maintainer: Sven-Hendrik Haase <sh@lutzhaase.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Slash <demodevil5[at]yahoo[dot]com>
 # Contributor: Babets
 # Contributor: Vain
 # Contributor: Aleksej Komarov <stylemistake@gmail.com>
 
-pkgname='warsow'
+pkgname=warsow
 pkgver=2.1.2
 pkgrel=4
 pkgdesc='Free online multiplayer competitive FPS based on the Qfusion engine'
 url='https://www.warsow.net/'
-license=('GPL')
+license=('GPL-2.0-only' 'CC-BY-NC-4.0')
 arch=('x86_64')
 depends=('sdl2' 'libjpeg-turbo' 'libpng' 'curl' 'libvorbis' 'freetype2'
          'libxinerama' 'libxxf86vm' 'libxrandr' 'libtheora' 'libxi')
 makedepends=('imagemagick' 'gendesk')
 optdepends=('openal: for openal audio support')
-provides=('warsow')
-conflicts=('warsow')
 source=('warsow.png'
         'warsow.launcher'
         'wsw-server.launcher'
