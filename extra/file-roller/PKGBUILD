@@ -23,7 +23,7 @@ depends=(
   pango
 )
 makedepends=(
-  appstream-glib
+  7zip
   arj
   binutils
   bzip3
@@ -35,7 +35,6 @@ makedepends=(
   lhasa
   lrzip
   meson
-  p7zip
   python
   rpmextract
   squashfs-tools
@@ -46,6 +45,7 @@ makedepends=(
   zip
 )
 optdepends=(
+  '7zip: 7z archive support'
   'arj: arj archive support'
   'binutils: ar archive support'
   'bzip3: bzip3 compression support'
@@ -54,7 +54,6 @@ optdepends=(
   'dpkg: deb archive support'
   'lhasa: LHA/LZA archive support'
   'lrzip: lrzip compression support'
-  'p7zip: 7z archive support'
   'rpmextract: rpm archive support'
   'squashfs-tools: squashfs image support'
   'unace: ACE archive support'
