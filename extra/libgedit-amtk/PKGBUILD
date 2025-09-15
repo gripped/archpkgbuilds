@@ -1,16 +1,14 @@
-# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
-# Contributor: Balló György <ballogyor+arch at gmail dot com>
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Fabian Bornschein <fabiscafe@archlinux.org>
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
-
 
 pkgname=libgedit-amtk
 pkgver=5.9.1
 pkgrel=1
-pkgdesc="Actions, Menus and Toolbars Kit for GTK applications'"
-arch=("x86_64")
-url="https://gedit-technology.github.io/"
-license=('LGPL-3.0-or-later')
-groups=()
+pkgdesc='Actions, Menus and Toolbars Kit for GTK applications'
+arch=(x86_64)
+url='https://gitlab.gnome.org/World/gedit/libgedit-amtk'
+license=(LGPL-3.0-or-later)
 depends=(
   glib2
   glibc
@@ -26,12 +24,9 @@ makedepends=(
 replaces=(amtk)
 provides=(libgedit-amtk-5.so)
 conflicts=(amtk)
-source=("git+https://gitlab.gnome.org/World/gedit/libgedit-amtk.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('76f991d178890994fc41711afb75853b6e79025905bb435000ca32341f83beb2184e37c910315ed4ffbee47c869348e883d980b986caa25cebb5c3b1c157cdbb')
-
-prepare() {
-  cd $pkgname
-}
+source=("git+https://gitlab.gnome.org/World/gedit/libgedit-amtk.git?signed#tag=$pkgver")
+b2sums=(76f991d178890994fc41711afb75853b6e79025905bb435000ca32341f83beb2184e37c910315ed4ffbee47c869348e883d980b986caa25cebb5c3b1c157cdbb)
+validpgpkeys=(08C0A6B1A08310A45363B328426F014A261FD87F) # Sébastien Wilmet <swilmet@mailfence.com>
 
 build() {
   arch-meson $pkgname build
