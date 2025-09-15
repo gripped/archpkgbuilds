@@ -3,17 +3,22 @@
 
 _name=StyLua
 pkgname=stylua
-pkgver=2.1.0
+pkgver=2.2.0
 pkgrel=1
 pkgdesc='Deterministic code formatter for Lua'
-arch=('x86_64')
+arch=(x86_64)
 url=https://github.com/JohnnyMorganz/StyLua
-license=('MPL-2.0')
-depends=('gcc-libs' 'glibc')
-makedepends=('git' 'rust')
-replaces=(stylua-bin)
+license=(MPL-2.0)
+depends=(
+  gcc-libs
+  glibc
+)
+makedepends=(
+  git
+  rust
+)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('fa3ce80ed2364b3baad4e4237229dc96da0d54af0909bb8788dad2748fc94e04c3c2efa50bcb8a5b6efdb837392a2fdca086c81a752df0cb335bf42f25d1f581')
+b2sums=('53e7794f8cbd9b87c990f9e551a825ab1afd3ccd5121167b3598c21b098b4c5f0014c9a72883514378e8f6a90a2b2e540b880056066f353f1c169bd144ef6134')
 
 prepare() {
   cd $_name
@@ -32,5 +37,5 @@ check() {
 
 package() {
   cd $_name
-  install -Dm0755 -t "$pkgdir"/usr/bin target/release/$pkgname
+  install -Dt "$pkgdir"/usr/bin target/release/$pkgname
 }
