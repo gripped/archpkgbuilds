@@ -4,8 +4,8 @@
 # Contributor: Philip Goto <philip.goto@gmail.com>
 
 pkgname=phosh
-pkgver=0.48.0
-pkgrel=3
+pkgver=0.49.0
+pkgrel=1
 pkgdesc='A pure Wayland shell prototype for GNOME on mobile devices'
 arch=('x86_64' 'aarch64')
 url='https://gitlab.gnome.org/World/Phosh/phosh'
@@ -59,15 +59,19 @@ source=(
         "git+${url}.git#tag=v${pkgver}"
         "pam_phosh"
         "https://gitlab.gnome.org/World/Phosh/phosh/-/merge_requests/1721.patch"
+        "https://gitlab.gnome.org/World/Phosh/phosh/-/merge_requests/1763.patch"
 )
 validpgpkeys=("0DB3932762F78E592F6522AFBB5A2C77584122D3")
-sha256sums=('639cc2742ee0848fd5cfbfd5d45f131e63108b7984bedd928f99e700c58f9f6e'
+sha256sums=('dc19e208c4030a18dc7f8bec291201d5e93b7faeb945c0ea39022d80572d69ed'
             'b7793f80c533e84ad8adfe8bb46c69f107575e724aa9b53b41f370baa37e4fd5'
-            '69136ff3b0afbea8e83ded266dcc2bd8192fb40f00badb8d2f4d64f7b261b975')
+            '69136ff3b0afbea8e83ded266dcc2bd8192fb40f00badb8d2f4d64f7b261b975'
+            '7bbc0a4defc95577cf251921bc053aa433eb93c24715b33321efdb53b97e09d1')
 
 prepare() {
   cd phosh
   patch -Rp1 -i ../1721.patch #check-deprecated-ui-props test fail with this applied, so revert it
+  # fix the build test error of: "ninja: error: '/home/xyz//phosh/src/src/dbus/org.gnome.Shell.SearchProvider2.xml', needed by 'tests/services/phosh-search-provider-mock-generated.c', missing and no known rule to make it"
+  patch -p1 -i ../1763.patch
   # Run meson once to setup the git submodule for libcall-ui as it should not be packaged
   meson setup -D gtk_doc=false prep
 }
