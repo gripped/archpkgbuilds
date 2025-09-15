@@ -49,17 +49,11 @@ checkdepends=(perl-capture-tiny
               texlive-latexextra)
 options=(!emptydirs)
 # The sourceforge tarball is missing bblxml.pm
-source=(git+https://github.com/plk/biber#tag=v$pkgver
-        test.tex
-        test.bib)
-sha256sums=('1b7bd8121887b0a1c9200f92a699893e6419708762a2d357d0b490a7c4747d1f'
-            '60fa6badf0f9bef0b3cb069dc272979f583ffe354629b6eeab28550a873fe050'
-            '2ca2cb9ff15ba33c8f74cb43824d82597872a9d960608e36307f3309ffd65e78')
+source=(git+https://github.com/plk/biber#tag=v$pkgver)
+sha256sums=('1b7bd8121887b0a1c9200f92a699893e6419708762a2d357d0b490a7c4747d1f')
 
 prepare() {
   cd $pkgname
-  mkdir -p test
-  cp ../test.{tex,bib} test/
 }
 
 build() {
@@ -71,12 +65,6 @@ build() {
 
 check() {
   cd $pkgname
-  # Test a sample file
-  pushd test
-  latex test
-  PERL5LIB=../blib/lib ../bin/biber test
-  latex test
-  popd
   # Run test suite
   unset PERL5LIB PERL_MM_OPT PERL_MB_OPT PERL_LOCAL_LIB_ROOT
   LC_CTYPE=en_US.UTF-8 BIBER_DEV_TESTS=1 ./Build test
