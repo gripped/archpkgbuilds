@@ -7,28 +7,39 @@ pkgname=mod_dnssd
 pkgver=0.6
 pkgrel=9
 pkgdesc='Zeroconf module for Apache'
-arch=('x86_64')
+arch=(x86_64)
 url='https://0pointer.de/lennart/projects/mod_dnssd/'
-license=('Apache')
-depends=('apache' 'apr' 'avahi' 'glibc')
-source=("http://0pointer.de/lennart/projects/$pkgname/$pkgname-$pkgver.tar.gz"
-        'fix_undefined_reference.patch')
-sha256sums=('2cd171d76eba398f03c1d5bcc468a1756f4801cd8ed5bd065086e4374997c5aa'
-            'fc7db6067cb8bb9feb0a3f17f291a1e245fce0a45beac2b7ba5e280020f9b43d')
+license=(Apache-2.0)
+depends=(
+  apache
+  apr
+  avahi
+  glibc
+)
+makedepends=(git)
+source=("git+https://git.0pointer.net/clone/mod_dnssd.git#tag=v$pkgver")
+b2sums=(c8c941091acdb9c514f687bca614209a9650d9a0e5b62d0073e5a8c827249a89efaba5817b81d626c44820db12ab3a2ee0bc4c552c660cefe3309672cd293d54)
 
 prepare() {
-  cd $pkgname-$pkgver
-  # http://git.0pointer.net/mod_dnssd.git/commit/?id=be2fb9f6158f800685de7a1bc01c39b6cf1fa12c
-  patch -Np1 -i ../fix_undefined_reference.patch
+  cd $pkgname
+
+  # Fix build
+  git cherry-pick -n be2fb9f6158f800685de7a1bc01c39b6cf1fa12c
+
+  autoreconf -fi
 }
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr --disable-lynx
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-lynx
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   install -Dm755 src/.libs/mod_dnssd.so "$pkgdir/usr/lib/httpd/modules/mod_dnssd.so"
 }
