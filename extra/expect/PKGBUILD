@@ -27,7 +27,7 @@ prepare() {
   patch -Np1 -i ${srcdir}/expect-5.45.4-covscan-fixes.patch
   patch -Np1 -i ${srcdir}/expect-configure-c99.patch
 
-  autoreconf -i
+  autoreconf -fiv
 }
 
 build() {
