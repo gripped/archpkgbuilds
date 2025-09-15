@@ -2,34 +2,34 @@
 
 _hkgname=hspec
 pkgname=haskell-hspec
-pkgver=2.11.0.1
-pkgrel=60
+pkgver=2.11.1
+pkgrel=5
 pkgdesc="A Testing Framework for Haskell"
 url="https://hspec.github.io/"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-hspec-core' 'haskell-hspec-discover'
          'haskell-hspec-expectations')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('ddf0859dc0ecab1fd4f7a93775b3474795c4a0c03fd90751b99045c60ce017bcabc5f90bbddafd8cb95d9e8c5d76757ec66483482da511c32b827ea2a02932e4')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u hspec-expectations $_hkgname.cabal
-}
+sha512sums=('97247bcf1e6462658a2fa03d64aa3ea04fdca2ad35a58193282879494c5771caa9d7eacbc438d3bcaf1c2455c13dc4b5d949b50e616034d9c301e9d93b0c3054')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
