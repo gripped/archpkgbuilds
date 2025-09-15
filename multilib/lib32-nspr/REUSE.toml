@@ -1,0 +1,30 @@
+version = 1
+
+[[annotations]]
+path = [
+    "PKGBUILD",
+    "README.md",
+    "keys/**",
+    ".SRCINFO",
+    ".nvchecker.toml",
+    "*.install",
+    "*.sysusers",
+    "*.tmpfiles",
+    "*.logrotate",
+    "*.pam",
+    "*.service",
+    "*.socket",
+    "*.timer",
+    "*.desktop",
+    "*.hook",
+]
+SPDX-FileCopyrightText = "Arch Linux contributors"
+SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "0001-linux-prefer-GCC-provided-atomics-to-asssembly-imple.patch",
+    "0002-configure.in-Remove-assembly-files-from-build.patch",
+]
+SPDX-FileCopyrightText = "lib32-nspr contributors"
+SPDX-License-Identifier = "MPL-2.0"
