@@ -2,7 +2,6 @@
 
 _pkgbasename=keyutils
 pkgname=lib32-$_pkgbasename
-_tag='5678a1aae8834b5c16b5ed7dc72ef8836a29e122' # git rev-parse v${pkgver}
 pkgver=1.6.3
 pkgrel=2
 pkgdesc='Linux Key Management Utilities (32-bit)'
@@ -12,8 +11,9 @@ license=('GPL2' 'LGPL2.1')
 depends=('lib32-glibc' 'lib32-krb5' "${_pkgbasename}")
 makedepends=('git' 'gcc-multilib')
 validpgpkeys=('A86E54B0D5E1B4E0AB7C640FFBB7576BA7CB0B6B') # David Howells <dhowells@redhat.com>
-source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git#tag=${_tag}?signed")
-sha512sums=('SKIP')
+source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git#tag=v${pkgver}?signed")
+sha256sums=('fb172bd1100b07e5ea3f4ba899ca369fd25dcd0ccadee88bd162a8e431e78d26')
+sha512sums=('1d7fa66cfa46f29e2a0e9c79b69a206986e437900b99c133e0be23bf8ec8f46a23064791a011f49189cf63c0e40c9453fadca83b261208a0b1c38e0e0680f5e2')
 
 build() {
   cd "${_pkgbasename}"
