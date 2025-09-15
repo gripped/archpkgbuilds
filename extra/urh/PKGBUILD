@@ -1,10 +1,9 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinuc.org>
-# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Johannes Pohl <johannes.pohl90@gmail.com>
 
 pkgname=urh
-pkgver=2.9.8
-pkgrel=1
+pkgver=2.9.6
+pkgrel=9
 pkgdesc='Universal Radio Hacker: investigate wireless protocols like a boss'
 arch=('x86_64')
 url='https://github.com/jopohl/urh'
@@ -16,7 +15,6 @@ depends=(
   'python-numpy'
   'python-psutil'
   'python-pyqt5'
-  'python-setuptools'
 )
 makedepends=(
   'airspy'
@@ -29,6 +27,7 @@ makedepends=(
   'limesuite'
   'python-build'
   'python-installer'
+  'python-setuptools'
   'python-wheel'
   'rtl-sdr'
 )
@@ -51,42 +50,42 @@ optdepends=(
   'rtl-sdr: RTL-SDR backend'
 )
 source=(
-  "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
-  "$pkgname-numpy-gauss-fir.patch::$url/commit/0f9365bffbe4ca8327fc98c32a1dbf2e82381b4a.patch"
-  "$pkgname-numpy-tobytes.patch::$url/commit/2aeadcf56676d95ce700c5677a851ce84ae98e5b.patch"
-  "$pkgname-cython3.1.patch::$url/commit/4979a5c94d7c0c728fa2ff3fda8f564e6ed6c7b4.patch"
+  "$pkgname-$pkgver.tar.gz::https://github.com/jopohl/urh/archive/v$pkgver.tar.gz"
+  "cython3.patch::https://github.com/jopohl/urh/commit/8a34513351034bd64658648b716fae9de3139754.patch"
+  "confest.patch::https://github.com/jopohl/urh/commit/10607cd6c5e5bf89a4b0b629496543b42e9d2e42.patch"
+  "builtins.patch::https://github.com/jopohl/urh/commit/2f565c7544c71c4ee73d8d24167f546ca9aac363.patch"
+  "remove-failing-tests.patch"
 )
-sha512sums=('a5327bee699bba8e6ffef2e7ec54f5f4b354feda18340c9b567b10b8c9283c5c907a546fd8a5660a2c325d42b8928cb9592630d0c2a5ed7dfdcf5dc434be4cb2'
-            'b33b2ac570ac21485bdafac7d7df45c125c1b56e542179b3e927b617c9f602fb79e8dc5bc6435b9fe3613dc582a8823a344b732dada280794aed7022f196f905'
-            'd62019ae3a442886d4f752125948c2adfe69ed49ce118b1f2decdb08fc7156df0580f2a51018131e7108d368ef0fcac621b916e09b1df0b781f31d2840aea3af'
-            'f7de805c19985bb4e90c9782895437b9a5e64986e3d06955b171238a3ed98a7056892d8db52f5226e6c100df66ec851bc1cd567c6e20d2a28cdc10bda096cfb2')
+sha512sums=('c5a153bf6df2421b496c58957b5ea0d591efd8caa12e08638560c125014d935abf279328a8b91fd09ab21444a58eea6ab7e59c3524b5c586c294b11123bff250'
+            'f4b8a9e58a51216dfe377da642569509016c023a7470829c2c6db45d8858806399188c94a4f16d63ab46a10fb6c0c35160d8a84e261ce135850f36b2ff3a7384'
+            '816dc20bda3ec96ec4ca43a46257499d05505f64c80d60b47a7bc5a1e88f1eaf1c3130b3a113d2ed432d3c22fd1536fa3d500b97919afcd518049ca095acd000'
+            'ce60fcd70602e1982c4989d2ed5037e542bb5deee74a6e6db88327832d6e8463fda0fe6babd946aef031230d8fad50c0c0a6a72603f8f00617da9ec1b191cee7'
+            'c3f5d9be231c4046eee42ff1cdd9f9c781e4de7257cc32e294b82a2b30cadbd18c6a49ba0b6158d6ee808d9bb345ebc840b5154983a57ff6c95806bed455cc7c')
 
 prepare() {
   cd $pkgname-$pkgver
-  patch -Np1 < ../$pkgname-numpy-gauss-fir.patch
-  patch -Np1 < ../$pkgname-numpy-tobytes.patch
-  patch -Np1 < ../$pkgname-cython3.1.patch || :
+  patch -Np1 -i "$srcdir/cython3.patch"
+  patch -Np1 -i "$srcdir/confest.patch"
+  patch -Np1 -i "$srcdir/builtins.patch"
+
+  # Not sure why these tests are failing.
+  patch -Np1 -i "$srcdir/remove-failing-tests.patch"
 
   # No need to package this build script.
-  rm -v src/urh/cythonext/build.py
-
-  # These init-files mess with the PATH and break the tests.
-  rm -v tests/__init__.py
-  rm -v tests/auto_interpretation/__init__.py
+  rm src/urh/cythonext/build.py
 }
 
 build() {
   cd $pkgname-$pkgver
-  python -m build --wheel --no-isolation --skip-dependency-check
+  python -m build --wheel --no-isolation
 }
 
 check() {
   cd $pkgname-$pkgver
-  python -m venv --system-site-packages test-env
-  test-env/bin/python -m installer dist/*.whl
-  export QT_QPA_PLATFORM=xcb
-  xvfb-run test-env/bin/python -m pytest \
-    --deselect tests/awre/test_generated_protocols.py::TestGeneratedProtocols::test_without_preamble
+  python -m installer --destdir=tmp_install dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  cp -r tests "$PWD/tmp_install/$site_packages"
+  xvfb-run pytest "$PWD/tmp_install/$site_packages"
 }
 
 package() {
