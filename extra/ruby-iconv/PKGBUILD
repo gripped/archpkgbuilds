@@ -11,34 +11,42 @@ url='https://github.com/ruby/iconv'
 license=('BSD-2-Clause')
 depends=('ruby')
 makedepends=('git')
+checkdepends=(
+  'ruby-bundler'
+  'ruby-rake'
+  'ruby-test-unit'
+)
 options=('!emptydirs')
 source=("$pkgname::git+$url#tag=v$pkgver")
 sha512sums=('be63582e5863c34ce0da3887ea11036037cefb1ee2cf5d0e177dc22ba93120c3d8b397f9758f66906a26832c7e6ada6359ad03f49b1ec75d86ffbbfb8ef11140')
 b2sums=('32d2f7a14b25b13790c82ec4d8be0a26b0d411cf948463996ffabae1621dbcabaa2c04fb287191a56afcc5794924caff4cddfe581eb0d1d45c7c9a39fec937e8')
 
+prepare() {
+  cd "$pkgname"
+
+  # stop the :test task depending on building the shared library
+  sed -i '/task :test => /d' Rakefile
+}
+
 build() {
   cd "$pkgname"
 
-  gem build "$_gemname.gemspec"
-}
-
-package() {
-  cd "$pkgname"
-
   local _gemdir="$(ruby -e'puts Gem.default_dir')"
+
+  gem build "$_gemname.gemspec"
 
   gem install \
     --verbose \
     --ignore-dependencies \
     --no-document \
     --no-user-install \
-    --install-dir "$pkgdir/$_gemdir" \
-    --bindir "$pkgdir/usr/bin" \
+    --install-dir "tmp_install${_gemdir}" \
+    --bindir "tmp_install/usr/bin" \
     "$_gemname-$pkgver.gem" \
     -- --with-cflags="$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CFLAGS"]') -Wno-error=incompatible-pointer-types"
 
   # delete unnecessary files & folders
-  cd "$pkgdir/$_gemdir"
+  cd "tmp_install/$_gemdir"
   rm -vrf cache
   rm -vrf "extensions/$CARCH-linux/$(basename $_gemdir)/$_gemname-$pkgver/"{gem_make.out,mkmf.log}
   cd "gems/$_gemname-$pkgver"
@@ -46,11 +54,25 @@ package() {
   rm -vrf Gemfile Rakefile "$_gemname.gemspec" ext test
 
   # move documentation
-  install -vd "$pkgdir/usr/share/doc/$pkgname"
-  mv -vt "$pkgdir/usr/share/doc/$pkgname" README.md
+  install -vd "$srcdir/$pkgname/tmp_install/usr/share/doc/$pkgname"
+  mv -vt "$srcdir/$pkgname/tmp_install/usr/share/doc/$pkgname" README.md
 
   # move license
-  install -vd "$pkgdir/usr/share/licenses/$pkgname"
-  mv -vt "$pkgdir/usr/share/licenses/$pkgname" BSDL LICENSE.txt
+  install -vd "$srcdir/$pkgname/tmp_install/usr/share/licenses/$pkgname"
+  mv -vt "$srcdir/$pkgname/tmp_install/usr/share/licenses/$pkgname" BSDL LICENSE.txt
+}
+
+check() {
+  cd "$pkgname"
+
+  local _gemdir="$(ruby -e'puts Gem.default_dir')"
+
+  GEM_HOME="tmp_install${_gemdir}" rake test
+}
+
+package() {
+  cd "$pkgname"
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
 }
 # vim: ts=2 sw=2 et:
