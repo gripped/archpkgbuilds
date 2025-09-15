@@ -1,0 +1,83 @@
+commit 96828ffe9834ce57e51d7d8086364c8f49de5935
+Author: Carl Smedstad <carl.smedstad@protonmail.com>
+Date:   Sun Sep 14 14:43:30 2025 +0200
+
+    Monkey-patch ConditionalContainer for prompt-toolkit compatibility
+
+diff --git a/awscli/customizations/wizard/factory.py b/awscli/customizations/wizard/factory.py
+index ec8222f1f..29bb55e99 100644
+--- a/awscli/customizations/wizard/factory.py
++++ b/awscli/customizations/wizard/factory.py
+@@ -19,6 +19,7 @@ from awscli.customizations.wizard.app import (
+     WizardValues,
+ )
+ from awscli.customizations.wizard.ui.layout import WizardLayoutFactory
++from awscli.prompt_toolkit_compat import patch_conditional_container
+ 
+ 
+ def create_default_executor(api_invoker, shared_config):
+@@ -68,6 +69,7 @@ def create_default_wizard_v2_runner(session):
+ 
+ 
+ def create_wizard_app(definition, session, output=None, app_input=None):
++    patch_conditional_container()
+     api_invoker = core.APIInvoker(session=session)
+     shared_config = core.SharedConfigAPI(
+         session=session, config_writer=ConfigFileWriter()
+diff --git a/awscli/prompt_toolkit_compat.py b/awscli/prompt_toolkit_compat.py
+new file mode 100644
+index 000000000..460332277
+--- /dev/null
++++ b/awscli/prompt_toolkit_compat.py
+@@ -0,0 +1,51 @@
++from prompt_toolkit.layout.containers import ConditionalContainer, Container
++from prompt_toolkit.layout.dimension import Dimension
++from prompt_toolkit.layout.mouse_handlers import MouseHandlers
++from prompt_toolkit.layout.screen import Screen, WritePosition
++
++_PATCHED: bool = False
++
++def patch_conditional_container() -> None:
++    """Render-time compat with PTK 3.0.51: hide inactive branch entirely."""
++    global _PATCHED
++    if _PATCHED:
++        return
++
++
++def preferred_width(self, max_available_width: int) -> Dimension:
++    if self.filter():
++        return self.content.preferred_width(max_available_width)
++    else:
++        return Dimension.zero()
++
++def preferred_height(self, width: int, max_available_height: int) -> Dimension:
++    if self.filter():
++        return self.content.preferred_height(width, max_available_height)
++    else:
++        return Dimension.zero()
++
++def write_to_screen(
++    self,
++    screen: Screen,
++    mouse_handlers: MouseHandlers,
++    write_position: WritePosition,
++    parent_style: str,
++    erase_bg: bool,
++    z_index: int | None,
++) -> None:
++    if self.filter():
++        return self.content.write_to_screen(
++            screen, mouse_handlers, write_position, parent_style, erase_bg, z_index
++        )
++
++def get_children(self) -> list[Container]:
++    result = [self.content]
++    return result
++
++
++# Monkey-patch methods.
++ConditionalContainer.preferred_width = preferred_width
++ConditionalContainer.preferred_height = preferred_height
++ConditionalContainer.write_to_screen = write_to_screen
++ConditionalContainer.get_children = get_children
++_PATCHED = True
