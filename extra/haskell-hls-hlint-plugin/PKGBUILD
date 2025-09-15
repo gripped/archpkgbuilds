@@ -2,35 +2,36 @@
 
 _hkgname=hls-hlint-plugin
 pkgname=haskell-hls-hlint-plugin
-pkgver=1.1.1.0
-pkgrel=105
+pkgver=2.1.0.0
+pkgrel=61
 pkgdesc="Hlint integration plugin with Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-hlint-plugin"
-license=("Apache")
+license=('Apache-2.0')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-diff' 'haskell-aeson' 'haskell-apply-refact' 'haskell-data-default'
          'haskell-extra' 'haskell-ghc' 'haskell-ghc-exactprint' 'haskell-ghc-lib-parser-ex'
          'haskell-ghcide' 'haskell-hashable' 'hlint' 'haskell-hls-plugin-api' 'haskell-hslogger'
          'haskell-lens' 'haskell-lsp' 'haskell-refact' 'haskell-regex-tdfa' 'haskell-temporary'
          'haskell-unordered-containers')
-makedepends=('ghc' 'uusi' 'haskell-hls-test-utils' 'haskell-lsp-types')
+makedepends=('ghc' 'uusi' 'haskell-hls-test-utils' 'haskell-lsp-types' 'haskell-row-types')
+checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('575a584c3de1270ebabf141a9e890a4dfedbcd24a35df3cd672d6d17683e47e33a0e191cbb028dd729aec5d96389785ccea317dda59c1166f7b4e41b98771068')
+sha512sums=('6ad94abee0617401ac4222d0a87b85df90bbf592d062c81ad767f9dd50fa69acbe514a776a168661bcbbf7efe274978af16d1449809002c6d69edf29af30b35b')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -r ghc-lib-parser:ghc $_hkgname.cabal
-  sed -i 's/"ghc-lib-parser" //' src/Ide/Plugin/Hlint.hs
-  sed -i '/HLINT_ON_GHC_LIB/d' $_hkgname.cabal
+  uusi -u Diff -r ghc-lib-parser:ghc,ghc-boot
+  sed -e 's/"ghc-lib-parser" //' -e 's/ghc_lib_parser/ghc/' -i src/Ide/Plugin/Hlint.hs
+  # sed -i '/HLINT_ON_GHC_LIB/d' $_hkgname.cabal
 }
 
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
-    --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
+    --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie'
 
@@ -43,8 +44,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  # TODO
-  runhaskell Setup test --show-details=direct || warning "Tests failed"
+  runhaskell Setup test --show-details=direct || echo "Tests failed"
 }
 
 package() {
