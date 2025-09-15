@@ -1,9 +1,9 @@
-pkgbase = intel-oneapi-base-toolkit
+pkgbase = intel-oneapi-basekit
 	pkgdesc = Intel oneAPI Base Toolkit for Linux
-	pkgver = 2025.2.0
+	pkgver = 2025.0.1.46
 	pkgrel = 1
 	url = https://software.intel.com/content/www/us/en/develop/tools/oneapi.html
-	install = intel-oneapi-base-toolkit.install
+	install = intel-oneapi-basekit.install
 	arch = x86_64
 	license = LicenseRef-Intel-EULA-Developer-Tools AND LicenseRef-Intel-Simplified
 	depends = level-zero-loader
@@ -40,11 +40,10 @@ pkgbase = intel-oneapi-base-toolkit
 	provides = intel-oneapi-advisor
 	provides = intel-oneapi-vtune
 	provides = intel-oneapi-fpga-group
-	provides = intel-oneapi-basekit=2025.2.0
-	noextract = intel-oneapi-base-toolkit-2025.2.0.sh
+	noextract = l_BaseKit_p_2025.0.1.46_offline.sh
 	options = !strip
 	options = staticlibs
-	source = intel-oneapi-base-toolkit-2025.2.0.sh::https://registrationcenter-download.intel.com/akdlm/IRC_NAS/bd1d0273-a931-4f7e-ab76-6a2a67d646c7/intel-oneapi-base-toolkit-2025.2.0.592_offline.sh
-	sha256sums = 5cf60b1538edb74dbf8a1c6f0f3886982639dab709bb75763f17a5acefbac530
+	source = https://registrationcenter-download.intel.com/akdlm/IRC_NAS/dfc4a434-838c-4450-a6fe-2fa903b75aa7/intel-oneapi-base-toolkit-2025.0.1.46_offline.sh
+	sha256sums = 094a7872bbdb1c1e1d0e65da553497de819132b298b0ddf624b45003cda82844
 
-pkgname = intel-oneapi-base-toolkit
+pkgname = intel-oneapi-basekit

@@ -1,22 +1,24 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 
-pkgname=intel-oneapi-base-toolkit
-pkgver=2025.2.0
-# Get magic number and magic url from
-# https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html
-_pkgmagic=592
-_urlmagic=bd1d0273-a931-4f7e-ab76-6a2a67d646c7
+pkgname=intel-oneapi-basekit
+_major_ver=2025
+_minor_ver=0
+_patch_ver=1
+_pkgver=$_major_ver.$_minor_ver.$_patch_ver
+# https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&distributions=offline&version=2025.1.0
+pkgver=$_pkgver.46
+_urlver=dfc4a434-838c-4450-a6fe-2fa903b75aa7
 pkgrel=1
 pkgdesc="Intel oneAPI Base Toolkit for Linux"
 arch=('x86_64')
 url='https://software.intel.com/content/www/us/en/develop/tools/oneapi.html'
 license=('LicenseRef-Intel-EULA-Developer-Tools AND LicenseRef-Intel-Simplified')
-source=("${pkgname}-${pkgver}.sh::https://registrationcenter-download.intel.com/akdlm/IRC_NAS/${_urlmagic}/intel-oneapi-base-toolkit-${pkgver}.${_pkgmagic}_offline.sh")
-sha256sums=('5cf60b1538edb74dbf8a1c6f0f3886982639dab709bb75763f17a5acefbac530')
+source=("https://registrationcenter-download.intel.com/akdlm/IRC_NAS/${_urlver}/intel-oneapi-base-toolkit-${pkgver}_offline.sh")
+sha256sums=('094a7872bbdb1c1e1d0e65da553497de819132b298b0ddf624b45003cda82844')
 depends=(level-zero-loader)
 options=(!strip staticlibs)
 install="$pkgname.install"
-noextract=("${pkgname}-${pkgver}.sh")
+noextract=("l_BaseKit_p_${pkgver}_offline.sh")
 optdepends=('libnotify: VTune GUI'
             'glib2: VTune GUI'
             'gtk3: VTune GUI'
@@ -33,19 +35,23 @@ provides=('intel-oneapi-mkl' 'intel-oneapi-dnnl' 'intel-oneapi-tbb' 'intel-oneap
           'intel-oneapi-compiler-dpcpp-cpp-runtime' 'intel-oneapi-compiler-shared' 'intel-oneapi-openmp'
           'intel-oneapi-dpcpp-debugger' 'intel-oneapi-dev-utilities' 'intel-oneapi-dpcpp-cpp'
           'intel-oneapi-vpl' 'intel-oneapi-ipp' 'intel-oneapi-ippcp' 'intel-oneapi-advisor'
-          'intel-oneapi-vtune' 'intel-oneapi-fpga-group' "intel-oneapi-basekit=${pkgver}")
+          'intel-oneapi-vtune' 'intel-oneapi-fpga-group')
 
 build() {
-  sh "${pkgname}-${pkgver}.sh" \
+  cd "${srcdir}"
+
+  sh "intel-oneapi-base-toolkit-${pkgver}_offline.sh" \
     --extract-folder "${srcdir}" --extract-only \
     --remove-extracted-files no --log "${srcdir}"/extract.log
 }
 
 package() {
+  cd "${srcdir}"
+
   # we have to run as a user different from root
   # otherwise the installer wants to write to /opt, /var
   # which is not possible in fakeroot
-  runuser -u $USER -- "${pkgname}-${pkgver}.${_pkgmagic}_offline"/install.sh \
+  runuser -u builduser -- "${srcdir}/intel-oneapi-base-toolkit-${pkgver}_offline"/install.sh \
     --silent --eula accept \
     --components all \
     --install-dir "${pkgdir}"/opt/intel/oneapi \
@@ -59,7 +65,6 @@ package() {
   echo "${_lib_path}/latest/opt/compiler/lib" >> "${_ldso_conf}/${pkgname}.conf"
 
   # Collection of licenses used in OneAPI with pointers for all toolkits
-  local majmin=$(echo "${pkgver}" | cut -d. -f1,2)
-  install -Dm644 "${pkgdir}/opt/intel/oneapi/licensing/latest/licensing/${majmin}/license.htm" \
+  install -Dm644 "${pkgdir}/opt/intel/oneapi/licensing/latest/licensing/${_major_ver}.${_minor_ver}/license.htm" \
                  "${pkgdir}/usr/share/licenses/${pkgname}/license.htm"
 }
