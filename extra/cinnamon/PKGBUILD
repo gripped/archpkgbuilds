@@ -6,7 +6,7 @@
 # Contributor: CReimer
 
 pkgname=cinnamon
-pkgver=6.4.10
+pkgver=6.4.12
 pkgrel=1
 pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
 arch=(x86_64)
@@ -17,7 +17,7 @@ depends=(accountsservice caribou cinnamon-control-center cinnamon-desktop cinnam
          gstreamer gtk3 libgnomekbd libkeybinder3 librsvg muffin
          network-manager-applet nemo pango polkit-gnome python python-cairo python-dbus
          python-gobject python-pam python-pexpect python-pillow python-pyinotify
-         python-pytz python-tinycss2 python-xapp python-requests timezonemap xapps xdg-desktop-portal-xapp)
+         python-pytz python-tinycss2 python-xapp python-requests timezonemap xapp xdg-desktop-portal-xapp)
 optdepends=('blueman: Bluetooth support'
             'cinnamon-translations: i18n'
             'gnome-panel: fallback mode'
@@ -32,10 +32,10 @@ options=('!emptydirs')
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         set_wheel.diff
         default-theme.patch)
-sha512sums=('fd826ea5f2318aebc16d854ed1ee081dfbaf3f100207ca74ac8b0956d5210182fbd63af96d25b6efaffcff586ff61706c5d56968cf109e867401e66fbe4cf4bd'
+sha512sums=('b5078ebef788b7c4f5d91a4a90549b05844ff015034b2ba2272e6c399f98739be81005b0a74f26e52e5ac8ffdd2f31b9e561fa1b26941ce590040da76aab5f91'
             'fd7e117054996ed1c3dfd0f968c2bf98ca4fcee9a100221f8839a232147745ec0140e1f68eeffba58a3c44f66f26e05d433648a7a28858ec669524f7266ba04c'
             'ee7dedd59ea370cf81d75def49060f9a29b22e7b025ca7d5db87a0102d50f138c79aa562b0d36a748c4b1c59a37f600ba1f60ff6caf303cf5b6fc4d110d051b4')
-b2sums=('069852f8e654b9d416d87ca7c8fe175e0c50a790d596c102fdae8231edeaed41fe7b253428533b4e6d73e8d6896e1fe22308b5d18217bdc2880031631313ab89'
+b2sums=('913e86d553668b3b241dad97932a3cdc29143ca1398b2d13de4c81aae9227e2d4b92e5c6e3bf22e8615dae31b9226dabcc0dd998c49e95455f0a3b29146e687d'
         '3becf1f40068fc629109e6e7d464c3c484296afacc9ab6328b2ccbb3c9735bcbfa9550f9f73b430ede178ae668e37c660ce322b5b4d1873526de3d3d41185160'
         '86c3a29acd132ca321f08fd81dd5a45707accdc035b2aeec95bf358b29072ff1eedb77b2566cf48d7253d1d791599f0f44938c4600761d711cb18b59019f1c62')
 
