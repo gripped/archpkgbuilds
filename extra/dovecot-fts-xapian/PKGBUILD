@@ -4,13 +4,13 @@
 # This must be built against the version of dovecot being used,
 # otherwise it will fail to load and thus work.
 # Specify the version of dovecot to be used here:
-_dcpkgver=2.4.1
+_dcpkgver=2.3.21.1
 # Make sure to bump pkgrel if changing this.
 
 pkgname=dovecot-fts-xapian
 _pkgname="${pkgname#dovecot-}"
 _pkgver=1.7.17 # pacman's vercmp does not like alphabet characters without a dot prefix
-pkgver=1.9.3
+pkgver=1.9.1
 pkgrel=1
 pkgdesc="Dovecot FTS plugin based on Xapian"
 arch=('x86_64')
@@ -20,8 +20,8 @@ depends=("dovecot=${_dcpkgver}" 'icu' 'xapian-core')
 makedepends=('git')
 install="$pkgname.install"
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('48145178b9d95717f688d4dd0c61a6695f98aa12f418e44fc9b3815f2062cda3da1f3421da11b3fe3d7d75da68d906309a801070b39fb6723533d11c036b7301')
-b2sums=('73212dcfaf011adaae3f97339f9a496935dee180f417c0506a62c760a080471482b63700dc40eee18310da5cd473fc263a60c073de01e900505ff7ea4bc3cb75')
+sha512sums=('bbd7aa1fa0262a538206229d4481ac784a1753143c2b1f37c7bf4f7a6f353da9bdb738bc932d2f40265e90541b8b5f3be390bfc7230fae9c90cb4a07f9e7cf34')
+b2sums=('a2e5e3e2e73e730531009cf25cd9eca47ce4e5d2cd9074cc356c6c8a7da3d4ee8b04f86f189d288ed76047568909e284981260bf86c740e630f8c35c69f6a1a5')
 
 build() {
   cd "$pkgname"
