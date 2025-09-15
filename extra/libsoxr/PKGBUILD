@@ -27,7 +27,8 @@ build() {
     -DWITH_AVFFT=ON \
     -DWITH_LSR_BINDINGS=ON \
     -DWITH_OPENMP=ON \
-    -DWITH_PFFFT=ON
+    -DWITH_PFFFT=ON \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     cmake --build build
 }
 
