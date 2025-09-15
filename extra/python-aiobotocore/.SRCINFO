@@ -1,6 +1,6 @@
 pkgbase = python-aiobotocore
 	pkgdesc = asyncio support for botocore library using aiohttp
-	pkgver = 2.24.1
+	pkgver = 2.24.2
 	pkgrel = 1
 	url = https://github.com/aio-libs/aiobotocore
 	arch = any
@@ -30,7 +30,9 @@ pkgbase = python-aiobotocore
 	depends = python-jmespath
 	depends = python-multidict
 	depends = python-wrapt
-	source = git+https://github.com/aio-libs/aiobotocore.git#tag=2.24.1
-	sha256sums = ffbfc63650540713f002d69953aa8de52489de7a605c480e82d689304316255d
+	source = git+https://github.com/aio-libs/aiobotocore.git#tag=2.24.2
+	source = python-aiobotocore-botocore-compatibility.patch
+	sha256sums = 205341cc3f63e6e0531fee1aa138a219b81e8223e7497f976f99c2659ea2901d
+	sha256sums = db6acc34b08a9ace6bdf6708665a7f54fc6bd5b21374b854a2e66096f0b86668
 
 pkgname = python-aiobotocore
