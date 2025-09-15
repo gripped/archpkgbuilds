@@ -28,11 +28,27 @@ validpgpkeys=(
   '1CB27DBC98614B2D5841646D08302DB6A2670428' # Tim Rühsen <tim.ruehsen@gmx.de>
 )
 
+_bootstrap=0
+
 prepare() {
   cd ${pkgname}
 
+  # Setting the value of the above custom `$_bootstrap` variable to 1
+  # allows for bootstrap scripts to not require `wget` itself by skipping the po files download
+  # This is required to bootstrap the package or rebuild it in staging due to soname changes (see README.md for more details)
+  # /!\ Building with `$_bootstrap=1` results in a package that does not include po files
+  # so make sure to rebuild it with $_bootstrap=0 when the bootstrapping is done (see `checkpkg` output)
+  if (( _bootstrap )); then
+    # Skip downloading po files in bootstrap scripts
+    # to avoid wget (make-)depending on itself
+    export SKIP_PO="1"
+    # The $SKIP_PO environment variable is only honored by
+    # the gnulib submodule if using its "sh" implementation
+    export GNULIB_TOOL_IMPL="sh"
+  fi
+
   git submodule init
-  git config submodule.libs/gnulib.url "${srcdir}/gnulib"
+  git config submodule.gnulib.url "${srcdir}/gnulib"
   git -c protocol.file.allow=always submodule update
 
   sh bootstrap
