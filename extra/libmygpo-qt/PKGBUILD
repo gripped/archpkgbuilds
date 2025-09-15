@@ -2,16 +2,15 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgbase=libmygpo-qt
-pkgname=(libmygpo-qt5
-         libmygpo-qt6)
+pkgname=(libmygpo-qt6)
 pkgver=1.2.0
 pkgrel=1
 pkgdesc='A C++/Qt client library for gpodder.net'
 arch=('x86_64')
 url="http://wiki.gpodder.org/wiki/Libmygpo-qt"
 license=('LGPL-2.1-or-later')
-depends=('glibc' 'gcc-libs')
-makedepends=('cmake' 'doxygen' 'qt5-base' 'qt6-base' 'git')
+depends=('glibc' 'gcc-libs' 'qt6-base')
+makedepends=('cmake' 'doxygen' 'git')
 source=(git+https://github.com/gpodder/libmygpo-qt#tag=$pkgver)
 sha256sums=('2177cd41d835d2ca923498786807a5bc1e47c50ec7988eabedff90a11701fc71')
 
@@ -21,20 +20,8 @@ build() {
     -DMYGPO_BUILD_TESTS=OFF \
     -DBUILD_WITH_QT6=ON
   cmake --build build
-
-  cmake -B build5 -S libmygpo-qt \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DMYGPO_BUILD_TESTS=OFF \
-    -DBUILD_WITH_QT6=OFF
-  cmake --build build5
-}
-
-package_libmygpo-qt5() {
-  depends+=(qt5-base)
-  DESTDIR="$pkgdir" cmake --install build5
 }
 
 package_libmygpo-qt6() {
-  depends+=(qt6-base)
   DESTDIR="$pkgdir" cmake --install build
 }
