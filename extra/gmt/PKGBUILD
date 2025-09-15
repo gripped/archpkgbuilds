@@ -2,15 +2,15 @@
 
 pkgbase=gmt
 pkgname=(gmt gmt-doc)
-pkgver=6.5.0
-pkgrel=5
+pkgver=6.6.0
+pkgrel=1
 pkgdesc="Generic Mapping Tools for manipulating and plotting geographic and cartesian data"
 arch=(x86_64)
 url="https://www.generic-mapping-tools.org"
 license=(LGPL)
-makedepends=(cmake blas curl ffmpeg fftw gdal geos ghostscript graphicsmagick lapack openmp netcdf pcre2 zlib)
+makedepends=(cmake blas curl ffmpeg fftw gdal geos ghostscript graphicsmagick lapack openmp netcdf pcre2 zlib python-sphinx)
 source=(https://github.com/GenericMappingTools/gmt/releases/download/${pkgver}/${pkgname}-${pkgver}-src.tar.xz)
-sha256sums=('4022adb44033f9c1d5a4d275b69506449e4d486efe2218313f3ff7a6c6c3141e')
+sha256sums=('18ac98b11b8fc924463ce5138385c02e9426780fba9ff63a991e2e8ecdbd1082')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
