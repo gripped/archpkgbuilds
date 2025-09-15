@@ -4,8 +4,8 @@
 # Contributor: richli
 
 pkgname=python-shapely
-pkgver=2.0.6
-pkgrel=2
+pkgver=2.1.1
+pkgrel=1
 pkgdesc="Manipulation and analysis of geometric objects in the Cartesian plane"
 arch=(x86_64)
 url="https://pypi.python.org/pypi/Shapely"
@@ -15,7 +15,7 @@ optdepends=('python-numpy: for shapely.vectorized submodule')
 makedepends=(python-build python-installer python-setuptools python-wheel python-numpy cython)
 checkdepends=(python-pytest)
 source=("https://pypi.io/packages/source/s/shapely/shapely-${pkgver}.tar.gz")
-sha512sums=('f1a9e0a5156dc37ad894eb41fea9a1426e1fcc8cd40b2d3af94dbbe2f65c49f134fc1ad3d4a8b7bdad6a4d04af4c2a24443d37c6ed114c70ef67149ed9067e19')
+sha512sums=('dec996dad131b60a7d87f8481e7e44e069adc9264220b90848a1818b36c356cc272b03b6b652c6c413112c441bdc6fcae1a690e7e830c42c31973e8e11d58298')
 
 build() {
   cd shapely-$pkgver
