@@ -10,11 +10,11 @@ license=('Apache' 'MIT')
 depends=('dbus')
 makedepends=('git' 'rust')
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('SKIP')
+b2sums=('ad477d660217139f3a9e83a38247326ed2dc1f807a9128cb0f83a47e935e96b1d60b35bdfff9af438b25d80e2402c7e4ed1ee4223cb37510d89c9b97f9272c08')
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
