@@ -33,7 +33,7 @@ optdepends=('man-db: View manual pages')
 provides=(libyelp.so)
 groups=(gnome)
 source=(
-  "git+https://gitlab.gnome.org/GNOME/yelp.git#tag=$pkgver"
+  "git+https://gitlab.gnome.org/GNOME/yelp.git#tag=${pkgver/[a-z]/.&}"
 )
 b2sums=('e571f5ab96e2b5ce78c5cdc9c835441e1bc10bcfc81d65c5d7b82209a50094662c4fe07f2eb732c60e15fa4172d7141026d4cecbe47897003ad5989239a02ed1')
 
