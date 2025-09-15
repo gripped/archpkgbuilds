@@ -3,7 +3,7 @@
 # Contributor: Oliver Sherouse <oliver DOT sherouse AT gmail DOT com>
 
 pkgname=python-statsmodels
-pkgver=0.14.4
+pkgver=0.14.5
 pkgrel=1
 pkgdesc="Statistical computations and models for use with SciPy"
 arch=(x86_64)
@@ -17,10 +17,10 @@ optdepends=('jupyter-notebook: needed to run the notebooks'
             'python-matplotlib: plotting functions')
 checkdepends=(python-pytest python-pytest-xdist python-joblib python-matplotlib)
 source=(git+https://github.com/statsmodels/statsmodels#tag=v$pkgver)
-sha256sums=('907f716ba248f0e33d32f5432fc8fe071cfacc1d5fb82f76db5e3e24ddebc968')
+sha256sums=('7b19f05e3ad46c6e576683574be6d3ddb8044fd5f1171692061ef20b318a27db')
 
 prepare() {
-  sed -i '/oldest-supported-numpy/d' statsmodels/pyproject.toml
+  sed -e 's/,<9//' -e '/oldest-supported-numpy/d' -i statsmodels/pyproject.toml
 }
 
 build() {
