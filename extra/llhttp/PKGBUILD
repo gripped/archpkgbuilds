@@ -1,10 +1,10 @@
-# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Maintainer:
 # Contributor: Marcus Ben Spencer <marcus@marcusspencer.xyz>
 # Contributor: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=llhttp
-pkgver=9.3.0
-pkgrel=1
+pkgver=9.2.1
+pkgrel=2
 pkgdesc='Port of http_parser to llparse'
 arch=(x86_64)
 url='https://llhttp.org'
@@ -15,7 +15,7 @@ makedepends=(cmake
              npm
              ts-node)
 source=(git+https://github.com/nodejs/llhttp#tag=v$pkgver)
-sha256sums=('e50bb063f12869f5af99afb991bb3cad5fcebb1e28d82be09b6b9616ac894920')
+sha512sums=('34aaa50e3da9f0cc7a98ebbe05ebabb85fc9f1b634c48827cd1f3266b6e71b7b08e25463c9ae80b0bad6fd04508cf10f5e7b4c7b340df9f9e2a6c6c930ccf0e0')
 
 build() {
   cd $pkgname
@@ -35,5 +35,6 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" $pkgname/LICENSE
+
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" $pkgname/LICENSE-MIT
 }
