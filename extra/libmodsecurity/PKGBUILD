@@ -10,7 +10,7 @@ arch=('x86_64')
 depends=('yajl' 'curl' 'lmdb' 'libxml2' 'pcre2' 'geoip' 'libmaxminddb' 'ssdeep' 'luajit')
 makedepends=('doxygen')
 url="https://github.com/owasp-modsecurity/ModSecurity/tree/v3/master"
-license=('APACHE')
+license=('Apache-2.0')
 source=("https://github.com/owasp-modsecurity/ModSecurity/releases/download/v$pkgver/modsecurity-v$pkgver.tar.gz"{,.sig}
         libxml-includes.patch)
 sha256sums=('f7599057b35e67ab61764265daddf9ab03c35cee1e55527547afb073ce8f04e8'
