@@ -3,14 +3,14 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hledger-web
-pkgver=1.40
-pkgrel=62
+pkgver=1.41
+pkgrel=1
 pkgdesc="Web-based user interface for the hledger accounting system"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
 arch=('x86_64')
-depends=('ghc-libs' 'hledger' 'haskell-hledger-lib' 'haskell-aeson' 'haskell-base64'
-         'haskell-blaze-html' 'haskell-blaze-markup' 'haskell-case-insensitive'
+depends=('ghc-libs' 'hledger' 'haskell-hledger-lib' 'haskell-aeson' 'haskell-base-compat'
+         'haskell-base64' 'haskell-blaze-html' 'haskell-blaze-markup' 'haskell-case-insensitive'
          'haskell-clientsession' 'haskell-cmdargs' 'haskell-conduit' 'haskell-conduit-extra'
          'haskell-data-default' 'haskell-decimal' 'haskell-extra' 'haskell-githash' 'haskell-hjsmin'
          'haskell-hspec' 'haskell-http-conduit' 'haskell-http-client' 'haskell-http-types'
@@ -18,15 +18,10 @@ depends=('ghc-libs' 'hledger' 'haskell-hledger-lib' 'haskell-aeson' 'haskell-bas
          'haskell-unordered-containers' 'haskell-utf8-string' 'haskell-wai' 'haskell-wai-cors'
          'haskell-wai-extra' 'haskell-wai-handler-launch' 'haskell-warp' 'haskell-yesod'
          'haskell-yesod-core' 'haskell-yesod-form' 'haskell-yesod-static' 'haskell-yesod-test')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc')
 replaces=('hledger-api')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('1e711a3d5426b02bc297d27993fede50e8b1fc15c4285e10d77b6dd945011e754fcfdb2ad4216d57c0933145189d8b4c2e95960cf477a7e4b92abc9b24915da7')
-
-prepare() {
-    cd $pkgname-$pkgver
-    uusi -u megaparsec
-}
+sha512sums=('0d07c48927a008743df0728529bffe3a6f08b2f2c9cf89075123e9253f28e7729a80058b956de2ce0da22dc8e9b2a2b54f05cca8032b8c1ba6620446b0bdef6b')
 
 build() {
     cd $pkgname-$pkgver
