@@ -2,6 +2,7 @@
 # Contributor: hexchain <i at hexchain dot org>
 
 pkgname=yaml-language-server
+_commit=b707580afd61837d19fb8f896a9ea4a3c596ad34
 pkgver=1.19.0
 pkgrel=1
 pkgdesc='YAML Language Server'
@@ -15,16 +16,11 @@ makedepends=(
   yarn
 )
 options=(!emptydirs)
-source=(
-  "git+$url.git#tag=$pkgver"
-  0001-vscode-l10n-is-a-runtime-dependency.patch
-)
-b2sums=('027bf73003ffbbf4df2455ba6140290fa54a4d4a40d56d8b74592a88dce7f15aaff611aea183b4b66c861cac972950a41f2f07f35e0f8b51063b1faac4a4b985'
-        '64fb81a1ed75579db34c9251733ac80616c7af69dc29d7a8608f8822e8a9d79909906c485982dd0f5692d9fa00a5be47a4c4154a0be876847d7c0be171fa0c5e')
+source=("git+$url.git#commit=$_commit")
+b2sums=('027bf73003ffbbf4df2455ba6140290fa54a4d4a40d56d8b74592a88dce7f15aaff611aea183b4b66c861cac972950a41f2f07f35e0f8b51063b1faac4a4b985')
 
 prepare() {
   cd $pkgname
-  patch --forward --strip=1 --input=../0001-vscode-l10n-is-a-runtime-dependency.patch
   yarn --frozen-lockfile
 }
 
