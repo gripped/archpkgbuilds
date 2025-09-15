@@ -15,12 +15,7 @@ source=("git+$url.git#tag=v${pkgver}?signed")
 validpgpkeys=(
   'C100346676634E80C940FB9E9C02FF419FECBE16'  # Morten Linderud
 )
-sha256sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-  git describe | sed 's/^v//'
-}
+sha256sums=('8b362ae2e24916889f128e08298b010ea5bca4085e45b64105aeb1d212d20600')
 
 build() {
   make -C "$pkgname"
