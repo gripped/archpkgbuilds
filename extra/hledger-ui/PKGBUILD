@@ -3,8 +3,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hledger-ui
-pkgver=1.40
-pkgrel=58
+pkgver=1.41
+pkgrel=1
 pkgdesc="Curses-style terminal interface for the hledger accounting system"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
@@ -14,14 +14,9 @@ depends=('ghc-libs' 'hledger' 'haskell-hledger-lib' 'haskell-ansi-terminal' 'has
          'haskell-fsnotify' 'haskell-githash' 'haskell-microlens' 'haskell-microlens-platform'
          'haskell-megaparsec' 'haskell-safe' 'haskell-split' 'haskell-text-zipper' 'haskell-vector'
          'haskell-brick' 'haskell-vty' 'haskell-vty-crossplatform')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('295a6c97992f83e482475e32f8beb58858b0de8ed417547b2a5693f38e5b3d3d83f63a015ccbbfbeb944c4a2fba354230a66a748c733ccf1c6fd2b25d3c46fe6')
-
-prepare() {
-    cd $pkgname-$pkgver
-    uusi -u megaparsec
-}
+sha512sums=('b0456932ee7a4e2cdc43741c4cd98c43c9237585b6d9f3c6589865391a6115b69c6a636a59596908b8a67eaf5d38d6da8470afc9c1aabe95b4735a790c9c3b8e')
 
 build() {
     cd $pkgname-$pkgver
