@@ -1,8 +1,8 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=haskell-glib
-pkgver=0.13.11.0
-pkgrel=49
+pkgver=0.13.12.0
+pkgrel=1
 pkgdesc="Binding to the GLIB library for Gtk2Hs."
 url="https://hackage.haskell.org/package/glib"
 license=('LGPL2.1')
@@ -13,7 +13,7 @@ provides=('gtk2hs-glib')
 replaces=('gtk2hs-glib')
 conflicts=('gtk2hs-glib')
 source=(https://hackage.haskell.org/packages/archive/glib/$pkgver/glib-$pkgver.tar.gz)
-sha512sums=('a9056f5c1be0e3a976fc68c40df9f90f41f622e4744d80b8491a8aa24dc9d0fd4f4c4e66c703ba1b07a23839c569ac975912efc17963874140699fc968a733bd')
+sha512sums=('179f8bb8c0cd23ff586552dfb40649beef8731c71697ff9322f0502536d7153a6e34c27f79ca5f0614aa07abde82c391b2a6dcf30a34a66bbe983ebff30eeda1')
 
 build() {
     cd "${srcdir}/glib-${pkgver}"
