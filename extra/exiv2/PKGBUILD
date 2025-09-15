@@ -42,6 +42,12 @@ build() {
   ninja -C build
 }
 
+check() {
+  cd ${pkgname}
+  LD_LIBRARY_PATH="$PWD"/build/lib \
+  ninja -C build test
+}
+
 package() {
   cd ${pkgname}
   # remove samples instal which are only needed for unit tests
