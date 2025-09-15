@@ -18,10 +18,10 @@ source=("git+https://gitlab.xfce.org/panel-plugins/xfce4-whiskermenu-plugin.git#
 sha256sums=('1e870594f5da764ec65ad0df62ce71403f5b0541adcd960fe268b87d8ba4e601')
 
 build() {
-  arch-meson $pkgname build
+  arch-meson "${pkgname}" build
   meson compile -C build
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --destdir "${pkgdir}"
 }
