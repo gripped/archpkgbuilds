@@ -4,7 +4,7 @@
 
 pkgname=(llvm-julia
          llvm-julia-libs)
-_pkgver=16.0.6-4
+_pkgver=16.0.6-5
 pkgver=${_pkgver/-/.}
 pkgrel=1
 arch=(x86_64)
@@ -24,7 +24,7 @@ makedepends=(cmake
              python)
 options=(!lto) # https://github.com/llvm/llvm-project/issues/57740
 source=(llvm-julia::git+https://github.com/JuliaLang/llvm-project#tag=julia-$_pkgver)
-sha256sums=('e8efe08078c7b7a6bece28f74876688726bb5907ddffe9552996ee8d74b82f26')
+sha256sums=('163acd3fca128fae89f7772caa7fbe4f088c0e7179e0f902fcba60e52c569f93')
 
 prepare() {
   cd llvm-julia
