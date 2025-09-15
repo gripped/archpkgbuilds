@@ -1,8 +1,8 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=rofimoji
-pkgver=6.6.0
-pkgrel=2
+pkgver=6.7.0
+pkgrel=1
 pkgdesc='Emoji, unicode and general character picker for rofi and rofi-likes'
 arch=(any)
 url=https://github.com/fdw/rofimoji
@@ -37,7 +37,7 @@ optdepends=(
   'ydotool: for one of the Wayland typers'
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('0310025491fed6b3ca8c1742f8da5583bbb646e1f88b67cfcca680f219e71c5ac109382e9bcc7322d1906fbf77a3364033283b993abe2dd75243e82cc692ae60')
+b2sums=('096065b025700adc83b6dba2fa37f196be4042ee819fc33d01e44db6d80116ce8d1ade5704d9b821b69d37d6e724847f2b5c59c6c9e0cc71182f7e1fcff3c412')
 
 prepare() {
   cd $pkgname
@@ -54,7 +54,7 @@ package() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/$pkgname-$pkgver.dist-info/licenses/LICENSE \
-    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+    "$pkgdir"/usr/share/licenses/$pkgname
 
   cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
