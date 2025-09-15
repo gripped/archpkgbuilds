@@ -2,14 +2,13 @@
 # Contributor: Grzegorz Koperwas <admin@grzegorzkoperwas.site>
 
 pkgname=swww
-pkgver=0.11.0
+pkgver=0.10.3
 pkgrel=1
 pkgdesc="A Solution to your Wayland Wallpaper Woes"
 arch=(x86_64)
 url="https://github.com/LGFae/swww"
 license=(GPL-3.0-only)
 depends=(
-  dav1d
   gcc-libs
   glibc
   lz4
@@ -22,7 +21,7 @@ makedepends=(
 )
 options=(!lto)
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('4853a4b0f846f8656063de6886d11c968cfd0d92ef3e8691c7ad4bd2be2a4436')
+sha256sums=('8a86fe633c54e1d4278644cb728deea5decd0d4b1630506f4925a65ccf8a67e5')
 
 prepare() {
   cd $pkgname-$pkgver
