@@ -1,0 +1,18 @@
+pkgbase = lib32-primus_vk
+	pkgdesc = Nvidia Vulkan offloading for Bumblebee
+	pkgver = 1.6.2
+	pkgrel = 1
+	url = https://github.com/felixdoerre/primus_vk
+	arch = x86_64
+	license = BSD
+	makedepends = git
+	makedepends = vulkan-validation-layers
+	depends = lib32-nvidia-utils
+	depends = bumblebee
+	depends = lib32-vulkan-icd-loader
+	depends = lib32-primus
+	source = git+https://github.com/felixdoerre/primus_vk.git#tag=8935e0256a92339d1e9b6e64942044de1364a510?signed
+	validpgpkeys = 0A9D381479E6D19CE365E301FD4066F7DB7D993F
+	sha512sums = SKIP
+
+pkgname = lib32-primus_vk
