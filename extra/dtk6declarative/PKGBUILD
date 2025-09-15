@@ -2,7 +2,7 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=dtk6declarative
-pkgver=6.0.38
+pkgver=6.0.39
 pkgrel=1
 pkgdesc='Deepin Toolkit, declarative module for DDE look and feel'
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('dtk6core' 'dtk6gui' 'qt6-declarative' 'qt6-base' 'qt6-5compat'
          'qt6-shadertools' 'libgl' 'gcc-libs')
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'qt6-shadertools' 'doxygen' 'gtest' 'gmock' 'vulkan-headers')
 source=("git+https://github.com/linuxdeepin/dtk6declarative.git#tag=$pkgver")
-sha512sums=('1faf47665c747c1bdba35e3b2213833997f101a0f541b06561b67b818b582b1d1d10dd69b8df423bb5f051a9f2de3bf0e51534ee20d2f6a8be9080f73bdb6310')
+sha512sums=('bd0296fabf54cbf7ae9aae2c8a5e21be1bd060e46b1fd666a2318ac368280af30996fe3d5dfaadecf7c2b8289fb5fb1a7f230920956133c7119171039035c2e4')
 
 build() {
   cd $pkgname
