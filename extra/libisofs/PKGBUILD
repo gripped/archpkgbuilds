@@ -17,6 +17,7 @@ validpgpkeys=('44BC9FD0D688EB007C4DD029E9CBDFC0ABC0A854') # Thomas Schmitt <scdb
 
 build() {
   cd "${pkgname}"-${pkgver}
+  autoreconf -fvi
   ./configure --prefix=/usr \
 	--enable-libacl --enable-xattr --disable-static
   make
