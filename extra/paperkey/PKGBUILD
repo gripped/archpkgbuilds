@@ -15,6 +15,11 @@ sha512sums=('a07fc22bf56cd9524ecba61d1bf00102e6e97842e219682771187a2a2327c9daa88
             'SKIP')
 validpgpkeys=('7D92FD313AB6F3734CC59CA1DB698D7199242560') # David M. Shaw <dshaw@jabberwocky.com>
 
+prepare() {
+	cd "$pkgname-$pkgver"
+	autoreconf -fiv
+}
+
 build() {
 	cd "$pkgname-$pkgver"
 	./configure --prefix=/usr
