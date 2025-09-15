@@ -1,0 +1,24 @@
+pkgbase = tftp-hpa
+	pkgdesc = Official tftp server
+	pkgver = 5.2
+	pkgrel = 10
+	url = https://www.kernel.org/pub/software/network/tftp/tftp-hpa/
+	install = tftpd.install
+	arch = x86_64
+	license = BSD-4-Clause-UC
+	depends = readline>=6.0.00
+	backup = etc/conf.d/tftpd
+	source = https://www.kernel.org/pub/software/network/tftp/tftp-hpa/tftp-hpa-5.2.tar.gz
+	source = license-from-upstream
+	source = tftpd.conf
+	source = tftpd.service
+	source = tftpd.socket
+	source = tftp-hpa-0.49-fortify-strcpy-crash.patch
+	sha256sums = acc04dde662491e3092565ecf9bde504c47dbb1bb0408366009b138fe7754cab
+	sha256sums = 628639fd20f1716bfd71a8bc4bf983fd16eb004cc1ec5a4abf99e6618cfcb870
+	sha256sums = f4bbc89a460da40f0914ebf55edce0306090e11073ea31f6ffc11d62b527ece4
+	sha256sums = da79f8d3791daa91624677d4b3ace91b63965c87c6791e3ce0155637609c6cb1
+	sha256sums = 22af7da2cb61a119cfcba65f740ff0a35157204218dcbdbf13e14dbf74043ff2
+	sha256sums = 4862bc4bf61b8abbcfc22c4bc6714a5cf8d52e9db1b1d7f7b4c5059ef89ced2f
+
+pkgname = tftp-hpa
