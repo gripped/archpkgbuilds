@@ -42,7 +42,7 @@ build() {
     --enable-fts4 \
     --enable-fts5 \
     --enable-rtree \
-    --enable-json1
+    --enable-json
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
   make testfixture
