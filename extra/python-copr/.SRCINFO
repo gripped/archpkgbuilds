@@ -1,11 +1,12 @@
 pkgbase = python-copr
 	pkgdesc = Python interface for Copr
-	pkgver = 2.1
-	pkgrel = 1
+	pkgver = 2.2
+	pkgrel = 2
 	url = https://github.com/fedora-copr/copr
 	arch = any
 	license = GPL-2.0-or-later
 	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -16,7 +17,7 @@ pkgbase = python-copr
 	depends = python-requests
 	depends = python-requests-gssapi
 	depends = python-requests-toolbelt
-	source = https://github.com/fedora-copr/copr/archive/python-copr-2.1-1.tar.gz
-	sha512sums = 62917d1ebff07fd7bb2efffa19f2d570836a5873ac0827c698ad9a09f18bb014100162df2c885163e90d7cb84cf1c7f0ab33b7557bba96510929e35f0b3d1743
+	source = git+https://github.com/fedora-copr/copr.git#tag=copr-cli-2.2-1
+	sha512sums = 8778a4ddf16d187c4d8f8a66482ff5bf991af190b50ef00d6b35a5961308092b2f963bfd2554805fa5ac6d2c1b0aeea20fa15a481c9a12f05fcdc5483d3bb367
 
 pkgname = python-copr
