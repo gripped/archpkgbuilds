@@ -8,7 +8,7 @@
 pkgbase=root
 pkgname=(root root-cuda)
 pkgver=6.36.04
-pkgrel=3
+pkgrel=1
 pkgdesc='C++ data analysis framework and interpreter from CERN'
 arch=(x86_64)
 url='https://root.cern'
@@ -55,6 +55,7 @@ depends=(
   zstd
 )
 makedepends=(
+  ccache
   cern-vdt
   cfitsio
   chromium
@@ -132,7 +133,7 @@ b2sums=('883c766a49513bfe437953fc50983bb5c94a0e20fe7904990a73d62a9a8b0e60cb4c351
         '5da6218a171ee0fbd7b03518dde22787bb0e478a18dcf227eea4e65598c0a0bb299747c6503ad3026804e1a4dbcf4d2b674b83e6ed6e482dd3d14ceb4646dee8'
         'b5defce795dbfeee75dab0cc4c20ac84fe55cb11e9acdd5e75831b6db98e6190621867a65427ab44d93b6fe30398db6fd191defb029a6dcd0af087c1e5115451'
         '5e4c589fd9e226fcf7ff9ab880687c10ff0f7b7c03fdf12fc477622d6ec291e2dc62e7f5ce7b68856bccf37b64b2f4331f46788548d39fdca57fd832d1f3b437'
-        'ef29766c708426631b50b4d63f036cd4dd0155201a6a7c3d8efe719eb749f41a48b45369ec76688ee3109c4ce118b041a8725a9ec88313e0aa43169f786e1b9d'
+        'f1be9451b95dd139e481d7bcaaf18b87825c751e21de406b8b44b5a6fe4c8214eebbcd7cca3055a02e884d0565af90e853cc47685ff8893acfbb16714e8896d5'
         '47a7b4491f1455ddb02c3793c7fbaf05184dba9a5fc9d7378608727e69c778dd5832c49f11f4d2c8204dcffc86fc4786b5616fb381c4e3e629d78db9c86913c5'
         'fbf7a90d87d8cb0b8346861894dfb2fb62827b5080b27fdc1080057c3d52cfeb392557a459d9764e5768a0c4bece9f9bd03ed6f5c738b84ccbe80a71e9950120'
         '3501c944e8cab13fe9f5c8ab75a7cdb4b59bc5b00df4bf45ad246ab8cd6cb1ebde19369bc688458c97ff5f5acd4e86fc19b4c8f57ab4cb422d0a5eacac081138')
@@ -166,7 +167,7 @@ build() {
 
   # In general, we want to list all real archs (sm_XX) and the latest virtual arch (compute_XX) for future PTX compatibility.
   # Valid values can be discovered from nvcc --help
-  local cuda_archs="75;80;86;87;88;89;90;100;103;110;120;121;121-virtual"
+  local cuda_archs="50;52;53;60;61;62;70;72;75;80;86;87;89;90;90a;100;100a;101;101a;120;120a;120-virtual"
 
   local cuda_cmake_options=(
     -Dcuda=ON
