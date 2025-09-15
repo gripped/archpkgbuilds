@@ -5,22 +5,30 @@ pkgname=hunspell-hu
 pkgver=1.8.1
 pkgrel=1
 pkgdesc='Hungarian hunspell dictionary'
-arch=('any')
+arch=(any)
 url='https://magyarispell.sourceforge.net/'
 license=('LGPL-3.0-or-later OR MPL-2.0')
-makedepends=('git' 'qt6-webengine')
+makedepends=(
+  git
+  qt6-webengine
+)
 optdepends=('hunspell: the spell checking libraries and apps')
-provides=('hunspell-dictionary')
+provides=(hunspell-dictionary)
 _commit=c5b2a36bde02841590b8ccc490ca88bfdb69f153
 source=("libreoffice-dictionaries::git+https://git.libreoffice.org/dictionaries#commit=$_commit")
-sha256sums=('3205f30c06d03403c50d5ed6adc9f98c1156ebcf2294bd8e2bf23909fa055964')
+b2sums=(ba7663edd9a77df9cd3462f3f86089311f0d85b7b53d8928f8e4c539b4ef1fe6a710b7464e772909c0c3d3dac7099848071d64a044af1e3ca2c2adfffbf8d626)
+
+pkgver() {
+  cd libreoffice-dictionaries/hu_HU/
+  sed -n "s/.*Hungarian Hunspell dictionaries version \(.*\) with morphological data.*/\1/p" README_hu_HU.txt
+}
 
 package() {
   cd libreoffice-dictionaries/hu_HU/
-  install -dm755 "$pkgdir"/usr/share/{hunspell,qt{,6}/qtwebengine_dictionaries}
-  install -m644 -t "$pkgdir/usr/share/hunspell" hu_HU.dic hu_HU.aff
+  install -Dm644 -t "$pkgdir/usr/share/hunspell/" hu_HU.{aff,dic}
 
   # Install webengine dictionary; the IGNORE command is not supported by bdic
+  install -dm755 "$pkgdir"/usr/share/qt{,6}/qtwebengine_dictionaries
   sed -i '/^IGNORE/d' hu_HU.aff
   /usr/lib/qt6/qwebengine_convert_dict hu_HU.dic "$pkgdir/usr/share/qt6/qtwebengine_dictionaries/hu_HU.bdic"
   ln -rs "$pkgdir"/usr/share/qt6/qtwebengine_dictionaries/hu_HU.bdic "$pkgdir"/usr/share/qt/qtwebengine_dictionaries/
@@ -29,10 +37,10 @@ package() {
   install -dm755 "$pkgdir/usr/share/myspell/dicts"
   pushd "$pkgdir/usr/share/myspell/dicts"
     for file in "$pkgdir"/usr/share/hunspell/*; do
-      ln -sv /usr/share/hunspell/$(basename $file) .
+      ln -sv "/usr/share/hunspell/$(basename "$file")" .
     done
   popd
 
   # docs
-  install -Dm644 README_hu_HU.txt "$pkgdir/usr/share/doc/$pkgname/README_hu_HU.txt"
+  install -Dm644 -t "$pkgdir/usr/share/doc/$pkgname/" README_hu_HU.txt
 }
