@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-net-http-persistent
-pkgver=4.0.5
+pkgver=4.0.6
 pkgrel=1
 pkgdesc='Thread-safe persistent connections with Net::HTTP'
 arch=(any)
@@ -12,7 +12,7 @@ makedepends=(git)
 checkdepends=(ruby-rake ruby-minitest)
 options=(!emptydirs)
 source=(git+https://github.com/drbrain/net-http-persistent.git#tag=v$pkgver)
-sha256sums=('667287514cf657e9689d01273e15117a84858f18bdbda31652cbe1936b53c50b')
+sha256sums=('5408680f48ab9c5780104e3b20c68fb7dfec44c76e76cdea1307b85e72e85881')
 
 prepare() {
   cd net-http-persistent
