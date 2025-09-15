@@ -3,7 +3,7 @@
 _hkgname=cabal-plan
 pkgname=cabal-plan
 pkgver=0.7.3.0
-pkgrel=97
+pkgrel=98
 pkgdesc="Library and utility for processing cabal's plan.json file"
 url="https://github.com/hvr/cabal-plan"
 license=("GPL")
@@ -18,7 +18,7 @@ sha256sums=('ccdc54854b111727d99b77ed6333d9f60c7f5ee0240251b2e4788e005b715e66')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u ansi-terminal -u optparse-applicative
+  uusi -u ansi-terminal -u base-compat -u optparse-applicative
 }
 
 build() {
