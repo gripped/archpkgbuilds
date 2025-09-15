@@ -3,8 +3,8 @@
 
 _hkgname=http2
 pkgname=haskell-http2
-pkgver=4.2.1
-pkgrel=28
+pkgver=4.2.2
+pkgrel=1
 pkgdesc="HTTP/2 library"
 url="https://github.com/kazu-yamamoto/http2"
 license=('BSD-3-Clause')
@@ -17,7 +17,7 @@ makedepends=('ghc' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-base16-bytest
              'haskell-network-run' 'haskell-random' 'haskell-typed-process'
              'haskell-unordered-containers' 'haskell-vector')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('59f33234fc09220070db84a71b9c75220921f34cd505353c38db7325f25a067e60b1287467e8aef2f69662b53d53f1a78ac8eceaff04dca565ff641c4c25abfe')
+sha512sums=('1bc66321c318559c2fea534f2a7053330595e17002af9c95dfdde679a44f89510d93ec6697751563a70619f27a9d9f20108844fe285327963d2ca0acb39925eb')
 
 prepare() {
     cd $_hkgname-$pkgver
