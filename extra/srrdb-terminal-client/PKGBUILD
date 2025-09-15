@@ -29,7 +29,7 @@ build() {
 		-buildmode=pie \
 		-mod=readonly \
 		-modcacherw \
-		-ldflags "-linkmode external -extldflags \"${LDFLAGS}\" -X main.VERSION=\"${pkgver}\" -X main.BUILD_DATE=\"$(date -d@"${SOURCE_DATE_EPOCH}" +"%Y-%m-%d_%H:%M:%S")\"" \
+		-ldflags "-linkmode external -extldflags \"${LDFLAGS}\" -X main.VERSION=\"${pkgver}\" -X main.BUILD_DATE=\"$(date -u +'%Y-%m-%d_%H:%M:%S' --date=@${SOURCE_DATE_EPOCH})\"" \
 		-o build .
 }
 
