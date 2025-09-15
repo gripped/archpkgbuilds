@@ -3,7 +3,7 @@
 
 _hkgname=base-compat
 pkgname=haskell-base-compat
-pkgver=0.13.1
+pkgver=0.14.0
 pkgrel=1
 pkgdesc="A compatibility layer for base"
 url="https://hackage.haskell.org/package/${_hkgname}"
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('038903478c3c5c71f3d203253964dd48219b20ad96f87f87fd45686ab88f20a7177bc90650c49da009343ebf1301d2a78c2b93821438d7921a5333a71bc6df8f')
+sha512sums=('1d8dff2bbd9ad3669d03a75cea6f4ec3e497bbd4fc3f69ec9d726fa9d6d41414e02cdfae95fcb8d3102631ae66a6f7578faedbcf6915a03a73073af21a73975e')
 
 build() {
     cd $_hkgname-$pkgver
