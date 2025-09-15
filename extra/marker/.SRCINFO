@@ -1,0 +1,25 @@
+pkgbase = marker
+	pkgdesc = Simple yet robust Markdown editor made with GTK
+	pkgver = 2023.05.02
+	pkgrel = 1
+	url = https://fabiocolacio.github.io/Marker/
+	arch = x86_64
+	license = GPL3
+	makedepends = git
+	makedepends = meson
+	makedepends = itstool
+	depends = gtksourceview3
+	depends = gtkspell3
+	depends = webkit2gtk-4.1
+	optdepends = mathjax2: alternative backend for rendering formulas
+	optdepends = pandoc: export to RTF, ODT, DOCX
+	source = git+https://github.com/fabiocolacio/Marker.git#commit=454275255327cdd436e6f4669381c6dcb25fffc7
+	source = git+https://github.com/Mandarancio/scidown.git
+	source = git+https://github.com/Mandarancio/charter.git
+	source = git+https://github.com/codeplea/tinyexpr.git
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+
+pkgname = marker
