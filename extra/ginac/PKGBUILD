@@ -4,16 +4,27 @@
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
 pkgname=ginac
-pkgver=1.8.8
+pkgver=1.8.9
 pkgrel=1
 pkgdesc="C++ library for symbolic calculations"
-arch=('x86_64')
+arch=(x86_64)
 url='https://www.ginac.de/'
-license=('GPL')
-depends=('cln')
-makedepends=('fig2dev' 'doxygen' 'texlive-bin' 'python')
+license=(GPL-2.0-or-later)
+depends=(
+  bash
+  cln
+  gcc-libs
+  glibc
+  readline
+)
+makedepends=(
+  doxygen
+  fig2dev
+  python
+  texlive-bin
+)
 source=(https://www.ginac.de/$pkgname-$pkgver.tar.bz2)
-sha256sums=('330f57d0ed79dbd8f9c46ca4b408439b8b30e2ea061e3672d904c5dab94ecad6')
+sha256sums=('6cfd46cf4e373690e12d16b772d7aed0f5c433da8c7ecd2477f2e736483bb439')
 
 build() {
   cd "${srcdir}"/$pkgname-$pkgver

@@ -1,16 +1,20 @@
 pkgbase = ginac
 	pkgdesc = C++ library for symbolic calculations
-	pkgver = 1.8.8
+	pkgver = 1.8.9
 	pkgrel = 1
 	url = https://www.ginac.de/
 	arch = x86_64
-	license = GPL
-	makedepends = fig2dev
+	license = GPL-2.0-or-later
 	makedepends = doxygen
-	makedepends = texlive-bin
+	makedepends = fig2dev
 	makedepends = python
+	makedepends = texlive-bin
+	depends = bash
 	depends = cln
-	source = https://www.ginac.de/ginac-1.8.8.tar.bz2
-	sha256sums = 330f57d0ed79dbd8f9c46ca4b408439b8b30e2ea061e3672d904c5dab94ecad6
+	depends = gcc-libs
+	depends = glibc
+	depends = readline
+	source = https://www.ginac.de/ginac-1.8.9.tar.bz2
+	sha256sums = 6cfd46cf4e373690e12d16b772d7aed0f5c433da8c7ecd2477f2e736483bb439
 
 pkgname = ginac
