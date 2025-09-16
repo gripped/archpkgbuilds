@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-magnumclient
-pkgver=4.8.1
+pkgver=4.9.0
 pkgrel=1
 pkgdesc="Client library for Magnum API"
 arch=('any')
@@ -10,14 +10,14 @@ url="https://docs.openstack.org/python-magnumclient/latest/"
 license=('Apache-2.0')
 depends=('python' 'python-pbr' 'python-keystoneauth1' 'python-stevedore' 'python-requests'
          'python-oslo-i18n' 'python-oslo-log' 'python-oslo-serialization' 'python-oslo-utils'
-         'python-os-client-config' 'python-osc-lib' 'python-prettytable' 'python-cryptography'
+         'python-openstacksdk' 'python-osc-lib' 'python-prettytable' 'python-cryptography'
          'python-decorator')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-openstackclient' 'python-oslotest' 'python-osprofiler' 'python-stestr'
               'python-testscenarios' 'python-testtools')
 source=("git+https://github.com/openstack/python-magnumclient.git#tag=$pkgver")
-sha512sums=('19f01f2771170db95d5a9012fcbfdcfdd5493a33127c8f2b60ab52a28d6d2dc62276b1d14771e87b0f3b78e655922d61412fb092113e7bbd4882c5c3a05078f9')
-b2sums=('a8cd2c5be1648ef858527aa3cf0691689fb3dbf0033a89d4a31aceb37515b42beebf06bc94ae197daec5f0ce706fd4ab96495e8b6a0b775745c49fed5c943622')
+sha512sums=('c317132946ba8eeb5107d6e8026264db4c5d1c776e32eb76ab5f4547e67d41cbe3885b124a8b7764f6e6c84c1d515aff7fa5f685ca05228bdc6b1a2383639bb0')
+b2sums=('9e2a83fc3fc066eecdb5e76a0fa6e1a077c425f8f41b5590765f50eced9dcd428e6eadeb49c16e59446b998cbcda339df07307af4bc76facedc52cacef5e9e46')
 
 build() {
   cd python-magnumclient
@@ -26,8 +26,6 @@ build() {
 
 check() {
   local stestr_run_options=(
-    # breaks with Python 3.12
-    -E 'magnumclient.tests.test_httpclient.HttpClientTest.test_get_connection'
   )
 
   cd python-magnumclient
