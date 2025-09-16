@@ -3,25 +3,34 @@
 # Contributor: Kevin MacMartin <prurigro at gmail dot com>
 
 pkgname=shattered-pixel-dungeon
-pkgver=3.2.3
+pkgver=3.2.4
 pkgrel=1
 pkgdesc='A roguelike dungeon crawler with randomized levels and enemies, and hundreds of items'
-arch=('any')
+arch=(any)
 url='https://shatteredpixel.com/shatteredpd/'
-license=('GPL-3.0-only')
-depends=('bash' 'xorg-xrandr' 'java-runtime>=17' 'hicolor-icon-theme')
-makedepends=('git' 'jdk17-openjdk' 'gradle')
+license=(GPL-3.0-only)
+depends=(
+  bash
+  xorg-xrandr
+  'java-runtime>=17'
+  hicolor-icon-theme
+)
+makedepends=(
+  git
+  jdk17-openjdk
+  gradle
+)
 source=(
   "$pkgname::git+https://github.com/00-Evan/shattered-pixel-dungeon#tag=v$pkgver"
-  "$pkgname.desktop"
-  'wrapper.sh'
-  'gradle-repro.patch'
+  shattered-pixel-dungeon.desktop
+  wrapper.sh
+  gradle-repro.patch
 )
-sha512sums=('9bb645fd50fa184caad5289f86946bb497b3fb85e0adbb67108b65b86bd07657f171bfca3f982da52389c514e2a56ec95c53db4832f773a68a438d8665589ef7'
+sha512sums=('dbb6bbb84e43fa34b56ff0241f5a06dbe475fb39ad5135f992ecbf1ebaa706e6249cff6bd5e3b57d59f8d2163e598d80ee150c4f8760ca5848daa45d565c55d4'
             'b443e3a84398253178d3158cb211e14ee3b305c95855655ac101837c2f94e7d8a2c6a565f858e859f73cbd305a1dfddb1ceb00dd5e235894d8ac65fa5bafc82f'
             '12c190bf45da969944fafe1776a29f2cb79013c659b6f156fb3f7a03fb871e4fa78d0f676d603afdd6e25c0be3f2c755bacd613066992ad7bd5fb7dd342c64de'
             'a37f90fdb05bd23fff6e2d9f4ed29999e3b271ead638d3e8ccc12e700951988f118b63e7ae45de4eaa2c38bf526b09aee90179d17202e1bc791723040c40041f')
-b2sums=('5312b24b64f32e55c86b2e68e9cecdc68ae018183e0e0c0008bf0b2cbe005ab9fdebd43187d3151e057d9f19718094efe4f8674ea76faf6116b266bfadbede31'
+b2sums=('f9d5da2f317956996facf2a8a2a4da83f8d292f5addee4484b6701e2631dfe7d7faed73ce8d395df56c870bbba7c6fcec4baf2462c81012339050eced64e7016'
         '94e110340bddcdf64d74922e9ddf4c0f37e72466ea61edcde61f903680f57b10d81ff804b95f2467e4364a577f7c845d66137fedfc700d11638defe6a3359a93'
         'c0b0d7d7319159716f1e49620c3c9a0bea9dea149cb1b88da0294a343341075557fe86bd45965a23aa34054ee6c454dd9a0b73273e6cafaf75de3d3fa3ef0ab1'
         '194480092028d1ab10b7bdb036233ba11984bd994346f9f6b925b7516da80f7214f8dff86e27054a5f9b792d1192732938d88f2121fd5207ad0a93aa5d571e0a')
