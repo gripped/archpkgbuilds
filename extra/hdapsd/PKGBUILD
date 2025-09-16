@@ -3,15 +3,15 @@
 # Contributor: Xiao-Long Chen <chenxiaolong@cxl.epac.to>
 
 pkgname=hdapsd
-pkgver=20141203
-pkgrel=5
+pkgver=20250908
+pkgrel=1
 pkgdesc='HDAPS userspace hard drive protection daemon'
 arch=('x86_64')
 url='https://github.com/evgeni/hdapsd'
 license=('GPL')
 depends=('glibc' 'bash')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/evgeni/${pkgname}/archive/${pkgver}.tar.gz")
-sha256sums=('677a24be253dbdb3ca1075945e20f7d59738716e9ad684dd9323a6da45c40047')
+sha256sums=('a4035d90cb2fc84d1550434b192746612b1e2c5747d6776c37d8de4b2dccc27b')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
