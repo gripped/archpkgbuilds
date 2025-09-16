@@ -1,0 +1,72 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=udev-hid-bpf
+pkgver=2.1.0.20240704
+_pkgver="$(sed 's/\(.*\)\./\1-/' <<< "${pkgver}")"
+pkgrel=2
+pkgdesc='An automatic HID-BPF loader based on udev events written in rust'
+url='https://gitlab.freedesktop.org/libevdev/udev-hid-bpf'
+arch=('x86_64')
+license=('GPL-2.0-or-later')
+depends=(
+  'gcc-libs'
+  'glibc'
+  'libbpf'
+  'libelf'
+  'systemd-libs' 'libudev.so'
+  'zlib' 'libz.so'
+)
+makedepends=(
+  'bpf'
+  'cargo'
+  'clang'
+  'cmake'
+  'meson'
+)
+checkdepends=(
+  'python-pytest'
+)
+options=('!lto')
+source=(https://gitlab.freedesktop.org/libevdev/${pkgname}/-/archive/${_pkgver}/${pkgname}-${_pkgver}.tar.gz
+        Cargo.lock)
+sha256sums=('0115e0db5a4d9127deb1a365508f34eb468c6df6ae9d09fdb5ad5cdecf4924e4'
+            '74ec3ba1af64ef0c6e277df102e6dacb0ca500e8dc8656d00c85eaa9570d4ad9')
+b2sums=('7e991b067fc0832a8f95be208cfd6a82f21375893a0be7052d2d36cdb553442e03a8afa59f054b51660117ef13dedcf2f0b0daaac6790734e478b8251787a63d'
+        '3b6649befb03a540eb8b0a341afdb256ba1ffc2365d63b91da385ea3368d10443378c405e8dec7644b92657711206b99e218c9e17f1aeaf2d3f9dd73802668bf')
+
+prepare() {
+  cd "${pkgname}-${_pkgver}"
+  cp ../Cargo.lock .
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+updlockfiles() {
+  cd "${pkgname}-${_pkgver}"
+  rm -f Cargo.lock
+  cargo update
+  cp Cargo.lock "${outdir}/"
+}
+
+build() {
+  cd "${pkgname}-${_pkgver}"
+  # Files in ./test/ fail to build with gnu23
+  export CFLAGS+=" -std=gnu11"
+  arch-meson build
+  ninja -C build
+}
+
+check() {
+  cd "${pkgname}-${_pkgver}"
+  # Files in ./test/ fail to build with gnu23
+  export CFLAGS+=" -std=gnu11"
+  meson test -C build
+}
+
+package() {
+  cd "${pkgname}-${_pkgver}"
+  # Files in ./test/ fail to build with gnu23
+  export CFLAGS+=" -std=gnu11"
+  DESTDIR="${pkgdir}" ninja -C build install
+}
+
+# vim: ts=2 sw=2 et:
