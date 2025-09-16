@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-cloudflare
-pkgver=2.12.5
-pkgrel=4
+pkgver=2.13.1
+pkgrel=1
 pkgdesc='Python wrapper for the Cloudflare v4 API'
 arch=('any')
 license=('MIT')
@@ -14,6 +14,7 @@ depends=(
   'python-yaml'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-installer'
   'python-setuptools'
@@ -22,24 +23,24 @@ makedepends=(
 checkdepends=(
   'python-pytest'
 )
-source=("https://github.com/cloudflare/python-cloudflare/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('11be90eec9df4d761ccbd8fd169462b830f7e7d2705b7cb57a6b58d0b28f5b13a3983e5c6be3e32f1447e22d8f83d29d11660835f2d912a4d8ec24b8072ebb01')
+source=("git+https://github.com/cloudflare/python-cloudflare.git#tag=$pkgver")
+sha512sums=('5c6b2b68d5a290fd1111715d9e1c5a96eb431e18b853bc5813782d051e5f07b4f292984a6a7540c0ce189a4891e21d5d49470eb4f1768daf7a76b58af8b923b7')
 
 build() {
-  cd python-cloudflare-$pkgver
+  cd python-cloudflare
   python -m build --wheel --no-isolation
 }
 
 check() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
-  cd python-cloudflare-$pkgver
+  cd python-cloudflare
   python -m installer --destdir=test_dir dist/*.whl
   PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH" pytest tests/test_cloudflare.py
 }
 
 package() {
-  cd python-cloudflare-$pkgver
+  cd python-cloudflare
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 

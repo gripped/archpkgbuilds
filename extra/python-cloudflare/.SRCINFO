@@ -1,11 +1,12 @@
 pkgbase = python-cloudflare
 	pkgdesc = Python wrapper for the Cloudflare v4 API
-	pkgver = 2.12.5
-	pkgrel = 4
+	pkgver = 2.13.1
+	pkgrel = 1
 	url = https://github.com/cloudflare/python-cloudflare
 	arch = any
 	license = MIT
 	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -14,7 +15,7 @@ pkgbase = python-cloudflare
 	depends = python-jsonlines
 	depends = python-requests
 	depends = python-yaml
-	source = https://github.com/cloudflare/python-cloudflare/archive/2.12.5/python-cloudflare-2.12.5.tar.gz
-	sha512sums = 11be90eec9df4d761ccbd8fd169462b830f7e7d2705b7cb57a6b58d0b28f5b13a3983e5c6be3e32f1447e22d8f83d29d11660835f2d912a4d8ec24b8072ebb01
+	source = git+https://github.com/cloudflare/python-cloudflare.git#tag=2.13.1
+	sha512sums = 5c6b2b68d5a290fd1111715d9e1c5a96eb431e18b853bc5813782d051e5f07b4f292984a6a7540c0ce189a4891e21d5d49470eb4f1768daf7a76b58af8b923b7
 
 pkgname = python-cloudflare
