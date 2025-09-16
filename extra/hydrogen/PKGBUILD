@@ -5,7 +5,7 @@
 
 pkgname=hydrogen
 pkgver=1.2.6
-pkgrel=1
+pkgrel=2
 pkgdesc="An advanced drum machine"
 arch=(x86_64)
 url="http://www.hydrogen-music.org/"
@@ -15,9 +15,8 @@ depends=(
   gcc-libs
   glibc
   hicolor-icon-theme
-  qt5-base
-  qt5-svg
-  qt5-xmlpatterns
+  qt6-base
+  qt6-svg
 )
 makedepends=(
   alsa-lib
@@ -32,7 +31,7 @@ makedepends=(
   portaudio
   portmidi
   python
-  qt5-tools
+  qt6-tools
 )
 checkdepends=(cppunit)
 optdepends=('new-session-manager: for session management')
@@ -53,6 +52,7 @@ build() {
     -D WANT_PORTAUDIO=ON
     -D WANT_PORTMIDI=ON
     -D WANT_PULSEAUDIO=ON
+    -D WANT_QT6=ON
     -S $pkgname-$pkgver
     -W no-dev
   )
