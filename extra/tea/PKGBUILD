@@ -2,19 +2,18 @@
 # Contributor: John K. Luebs <jkl at johnluebs dot tld>
 
 pkgname=tea
-pkgver=0.10.1
+pkgver=0.11.0
 pkgrel=1
 pkgdesc='A command line tool to interact with Gitea servers'
-arch=('x86_64')
+arch=(x86_64)
 url='https://gitea.com/gitea/tea'
-license=('MIT')
-depends=('glibc')
-makedepends=('git' 'go')
-replaces=('gitea-tea')
-options=('!lto')
+license=(MIT)
+depends=(glibc)
+makedepends=(git go)
+replaces=(gitea-tea)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('8b32be890e1a9fe022459ed52e61f328e0ab1955e4f4566142e75ec452fd4f49904e8a2fbcf825048b70c7a3081479ba1b37ef6925211efd5258c31bd01b9b84')
-b2sums=('8b50335c5fc35a3f6ae23085e07ce83b146cc8c23a56ab8178ccf783ffd47179a453adea1041fbc9854c6d74249038376c4df69640bc3c846fe1019302a032e1')
+sha512sums=('2f34729decbc34dfc67adf427ed8c94bc60c3ac45041d7638cf30785ed924c07a2aac89cda6babf660243eef82aa5dae5eced07c2107ad9c3745b2ebc3479c54')
+b2sums=('4ea7cec14d78b25d89b1e5e64402f0b56549847adabd50b350f8b2dfcf43892b9b46f7919881f6a188cbea957daac907fc77f702f063e85a7926d6ed293431b3')
 
 prepare() {
   cd "$pkgname"
