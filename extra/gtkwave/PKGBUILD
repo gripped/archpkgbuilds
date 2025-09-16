@@ -4,7 +4,7 @@
 # Contributor: Jared Casper <jaredcasper@gmail.com>
 
 pkgname=gtkwave
-pkgver=3.3.124
+pkgver=3.3.125
 pkgrel=1
 pkgdesc="A wave viewer which reads LXT, LXT2, VZT, GHW and VCD/EVCD files"
 arch=('x86_64')
@@ -12,8 +12,8 @@ url="http://${pkgname}.sourceforge.net"
 license=('GPL-2.0-or-later AND MIT')
 depends=('bzip2' 'xz' 'gtk3' 'dconf')
 makedepends=('gperf')
-source=("https://downloads.sourceforge.net/project/${pkgname}/gtkwave-gtk3-${pkgver}/gtkwave-gtk3-${pkgver}.tar.gz")
-sha256sums=('4b1590e05e3e3ae26e34fa80aff369254397379b2f970cfa99150b8b97e535cf')
+source=("${url}/${pkgname}-gtk3-${pkgver}.tar.gz")
+sha256sums=('32eb1df4dfd56e0dde17e8a08de60f20138af017a8a8ad64522f69627562c437')
 
 build() {
 	cd "gtkwave-gtk3-${pkgver}/"
