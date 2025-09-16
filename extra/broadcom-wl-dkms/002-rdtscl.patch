@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Arch Linux contributors
+# SPDX-License-Identifier: 0BSD
+
 Since Linux 4.3, rdtscl() is no longer available and native_read_tsc()
 is renamed to rdtsc(). Move the macro contents in-line and call the
 new function. References:
