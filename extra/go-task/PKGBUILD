@@ -1,25 +1,24 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=go-task
-pkgver=3.44.1
+pkgver=3.45.3
 pkgrel=1
 pkgdesc='A task runner written in Go'
-arch=('x86_64')
+arch=(x86_64)
 url='https://taskfile.dev'
 license=('MIT')
 depends=('glibc')
 makedepends=('git' 'go')
-options=('!lto')
 install=go-task.install
 source=(
   "$pkgname::git+https://github.com/go-task/task#tag=v$pkgver"
-  'rename-completions.patch'
-  'fix-version.patch'
+  rename-completions.patch
+  fix-version.patch
 )
-sha512sums=('773582b99b5c2bbefacc62284bf3a842fb68ea746d70dffadc6791153e2e093b66b70cfa08356504c1e1fcca0df846bc0b7480c50b3125e2d3e74414893fcba1'
+sha512sums=('3b94470f37f298a34f52194b55f71229acd297d8ce3be2affba071e4a0f042859d856741812a31b22b68b5bc694c189fc4028de22f7d7b54118e5dc9da5f35ea'
             '1b31bd63e3ce982c9a1714eafbc2c6ac1adc6b50b5187b11dddbfc8c5dbb53bdb0fff2a0200d03f71af61ee3b34f7a6af34585e056b0ae9ad889607c54cb0369'
             '5ca079e3d2875d1efe8bba390ae8960445f42b53f309b50cff8a8c13dc3d5ca06065a0bd9ea4504817bbdccc36f7ff39f937817f4feb28fd1d3006dbf382636a')
-b2sums=('fe805ff8bb6710f9d8774d8c1c57513e35527df9f4a24007802bd61d0ad0a56580c5a3bb230c7a049643a60760d8d6e1421cc3da9878eb806b89b5b51d14cf7b'
+b2sums=('47a51e482d8d8ae6077e6da1b41531fb64e3699ac62b352fc43993afd13fa9c341383cbde78e99cb7276eff4f1c684ca4f38159c496569b3c5750049431c3967'
         '5b515faeaaae296e102ee0309fb6e4cf99a2d1c3d23e2a333da019973b9204a357f288be6ab74a88fc7b85d802983bc8b877a25ed7b578fb2deef379f272d309'
         '99f5fd755334a9c5b0a0375d4cdda6e640444d7550d1c105d41f4b94da9f25f74331465b90bc2f79ab0daa5e3d95d9d27d62cce86646f5c22b6c95947c919a0c')
 
