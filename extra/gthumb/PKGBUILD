@@ -3,7 +3,7 @@
 # Contributor: Tobias Kieslich <tobias@justdreams.de>
 
 pkgname=gthumb
-pkgver=3.12.7
+pkgver=3.12.8
 pkgrel=1
 pkgdesc="Image browser and viewer for the GNOME Desktop"
 url="https://wiki.gnome.org/Apps/Gthumb"
@@ -14,6 +14,7 @@ depends=(
   clutter
   clutter-gtk
   dconf
+  exiv2
   gcc-libs
   gdk-pixbuf2
   glib2
@@ -41,7 +42,6 @@ makedepends=(
   appstream
   brasero
   docbook-xsl
-  exiv2
   git
   glib2-devel
   libchamplain
@@ -51,14 +51,13 @@ makedepends=(
 )
 optdepends=(
   'brasero: burn discs'
-  'exiv2: metadata support'
   'libchamplain: map viewer'
   'libraw: read RAW files'
 )
 source=(
   "git+https://gitlab.gnome.org/GNOME/gthumb.git#tag=$pkgver"
 )
-b2sums=('e53ff96c3d9249fa33e649544b24938f71a1b391be63e5967839f443d5bd4657cafe0f9ebcf02a08f65d49555b0d49d620e035fbf807b574bfa9f1380d18c4cb')
+b2sums=('e0d719ca7b16246b8a4da1741f3503058b23f10fb91d8f3c18f46b81843b85b117fb461c349dbe47791596f89ecf114627afb151b96c5058518a41934cd35d7e')
 
 prepare() {
   cd gthumb

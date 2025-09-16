@@ -1,6 +1,6 @@
 pkgbase = gthumb
 	pkgdesc = Image browser and viewer for the GNOME Desktop
-	pkgver = 3.12.7
+	pkgver = 3.12.8
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Gthumb
 	arch = x86_64
@@ -8,7 +8,6 @@ pkgbase = gthumb
 	makedepends = appstream
 	makedepends = brasero
 	makedepends = docbook-xsl
-	makedepends = exiv2
 	makedepends = git
 	makedepends = glib2-devel
 	makedepends = libchamplain
@@ -19,6 +18,7 @@ pkgbase = gthumb
 	depends = clutter
 	depends = clutter-gtk
 	depends = dconf
+	depends = exiv2
 	depends = gcc-libs
 	depends = gdk-pixbuf2
 	depends = glib2
@@ -42,10 +42,9 @@ pkgbase = gthumb
 	depends = pango
 	depends = zlib
 	optdepends = brasero: burn discs
-	optdepends = exiv2: metadata support
 	optdepends = libchamplain: map viewer
 	optdepends = libraw: read RAW files
-	source = git+https://gitlab.gnome.org/GNOME/gthumb.git#tag=3.12.7
-	b2sums = e53ff96c3d9249fa33e649544b24938f71a1b391be63e5967839f443d5bd4657cafe0f9ebcf02a08f65d49555b0d49d620e035fbf807b574bfa9f1380d18c4cb
+	source = git+https://gitlab.gnome.org/GNOME/gthumb.git#tag=3.12.8
+	b2sums = e0d719ca7b16246b8a4da1741f3503058b23f10fb91d8f3c18f46b81843b85b117fb461c349dbe47791596f89ecf114627afb151b96c5058518a41934cd35d7e
 
 pkgname = gthumb
