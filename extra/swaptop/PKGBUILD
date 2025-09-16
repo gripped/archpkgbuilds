@@ -1,0 +1,45 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=swaptop
+pkgver=1.0.2
+pkgrel=1
+pkgdesc='Swap usage monitor'
+url='https://github.com/luis-ota/swaptop'
+arch=('x86_64')
+license=('MIT')
+depends=(
+  'gcc-libs'
+  'glibc'
+)
+makedepends=(
+  'cargo'
+)
+source=(https://github.com/luis-ota/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('4be52fcfef488afd19ed32d85e79d793a3d7ee07ef09d9e4a8707993fa3dfcfc')
+b2sums=('60436c447a4555d3457cc5bfdfde202f2343644d0b086f640ea83cec788060d584bfdc69828d9e14d0fcdae743acb276185fa41d96fa388878a8782b8c350d6b')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  cargo build --frozen --release
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+  cargo test --frozen
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+
+  install -Dm 755 -t "${pkgdir}/usr/bin" \
+    target/release/swaptop
+
+  install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:
