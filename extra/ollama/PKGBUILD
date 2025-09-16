@@ -6,8 +6,8 @@
 
 pkgbase=ollama
 pkgname=(ollama ollama-rocm ollama-cuda ollama-docs)
-pkgver=0.11.10
-pkgrel=2
+pkgver=0.11.11
+pkgrel=1
 pkgdesc='Create, run and share large language models (LLMs)'
 arch=(x86_64)
 url='https://github.com/ollama/ollama'
@@ -20,7 +20,7 @@ source=(git+https://github.com/ollama/ollama#tag=v$pkgver
         ollama.service
         sysusers.conf
         tmpfiles.d)
-b2sums=('ddf7c238568564d56cd3418716d67f978fac89fd7ac8763e18c6272d982d446c7ee33cd170de6f8da8b4f548aae3d45f226598872abce7c4492fccd9cd7374fa'
+b2sums=('f46ae05e94426ba2212fe97ab2a05b78a39f7a66934f483925ef8b320c525767110c4fb4d118a855e17582ebef4f3f0ca3f3874b97cabd617bfaaf0095ce344c'
         '121a7854b5a7ffb60226aaf22eed1f56311ab7d0a5630579525211d5c096040edbcfd2608169a4b6d83e8b4e4855dbb22f8ebf3d52de78a34ea3d4631b7eff36'
         '031e0809a7f564de87017401c83956d43ac29bd0e988b250585af728b952a27d139b3cad0ab1e43750e2cd3b617287d3b81efc4a70ddd61709127f68bd15eabd'
         '68622ac2e20c1d4f9741c57d2567695ec7b5204ab43356d164483cd3bc9da79fad72489bb33c8a17c2e5cb3b142353ed5f466ce857b0f46965426d16fb388632'
@@ -40,14 +40,22 @@ build() {
   # lots of system dependencies into the target path.
   sed -i 's/PRE_INCLUDE_REGEXES.*/PRE_INCLUDE_REGEXES = ""/' CMakeLists.txt
 
-  # Sync GPU targets from CMakePresets.json
-  # For CUDA 13
-  #-DCMAKE_CUDA_ARCHITECTURES="75;80;86;87;88;89;90;100;103;110;120;121;121-virtual" \
-  cmake -B build -G Ninja \
-    -DCMAKE_CUDA_ARCHITECTURES="50;52;53;60;61;62;70;72;75;80;86;87;89;90;90a" \
-    -DAMDGPU_TARGETS="$(rocm-supported-gfx)" \
-    -DGPU_TARGETS="$(rocm-supported-gfx)" \
-    -DCMAKE_INSTALL_PREFIX=/usr
+  local cmake_options=(
+    -B build
+    -G Ninja
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D AMDGPU_TARGETS="$(rocm-supported-gfx)"
+    -D GPU_TARGETS="$(rocm-supported-gfx)"
+    # Sync GPU targets from CMakePresets.json
+    # For CUDA 12
+    -D CMAKE_CUDA_ARCHITECTURES="50;52;53;60;61;62;70;72;75;80;86;87;89;90;90a"
+    # for CUDA 13
+    # -D CMAKE_CUDA_ARCHITECTURES="75;80;86;87;88;89;90;100;103;110;120;121;121-virtual"
+  )
+
+  cmake "${cmake_options[@]}"
   cmake --build build
   go build .
 }
