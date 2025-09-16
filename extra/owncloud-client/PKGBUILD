@@ -2,8 +2,8 @@
 # Contributor: Kuba Serafinowski <zizzfizzix(at)gmail(dot)com>
 
 pkgname=owncloud-client
-pkgver=5.3.2.15463
-pkgrel=2
+pkgver=6.0.0.17092
+pkgrel=1
 pkgdesc='ownCloud client based on mirall'
 arch=(x86_64)
 url='http://owncloud.org/'
@@ -13,6 +13,7 @@ depends=(gcc-libs
          kdsingleapplication
          libre-graph-api
          qt6-base
+         qt6-declarative
          qt6-svg
          qtkeychain-qt6
          sqlite
@@ -25,9 +26,8 @@ optdepends=('nemo-python: integration with Nemo'
             'python-caja: integration with Caja'
             'python-nautilus: integration with Nautilus')
 backup=('etc/ownCloud/sync-exclude.lst')
-source=(https://download.owncloud.com/desktop/ownCloud/stable/$pkgver/source/ownCloud-$pkgver.tar.xz{,.asc})
-sha256sums=('97a727e91e91ebd2e92a22dbbdef57126ef182442f301ea59449368e3c33d939'
-            'SKIP')
+source=(https://download.owncloud.com/desktop/ownCloud/stable/$pkgver/source/ownCloud-$pkgver.tar.xz) #{,.asc}
+sha256sums=('b9cadc3deb94d4da6d4781724edc36efc1c1d0a9f3f62a819af800954b79362d')
 validpgpkeys=(F05F7DD7953A07DF36579DAA498C45EBE94E7B37) # ownCloud Client Team (Signing Key) <info@owncloud.com>
 
 build() {
