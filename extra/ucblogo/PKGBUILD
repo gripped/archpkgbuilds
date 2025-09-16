@@ -3,11 +3,11 @@
 
 pkgname=ucblogo
 pkgver=6.2.5
-pkgrel=2
+pkgrel=4
 pkgdesc='Interpreter for the Logo programming language'
 url='https://www.cs.berkeley.edu/~bh/logo.html'
 arch=(x86_64)
-license=(GPL)
+license=(GPL-3.0-or-later)
 makedepends=(git texinfo texlive-bin texlive-basic)
 depends=(libice libsm libx11 ncurses wxwidgets-gtk3)
 source=("$pkgname::git+https://github.com/jrincayc/ucblogo-code#tag=version_$pkgver"
@@ -24,15 +24,10 @@ prepare() {
 build() {
   cd $pkgname
   CXXFLAGS+=" -Wno-template-body" \
-  ./configure \
-    --enable-docs \
-    --prefix=/usr
+  ./configure --enable-docs --prefix=/usr
   make
 }
 
 package() {
-  make -C $pkgname \
-    DESTDIR="$pkgdir" \
-    INFODIR="$pkgdir/usr/share/info" \
-    install
+  make -C $pkgname DESTDIR="$pkgdir" INFODIR="$pkgdir/usr/share/info" install
 }
