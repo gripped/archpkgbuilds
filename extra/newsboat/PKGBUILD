@@ -5,7 +5,7 @@
 
 pkgname=newsboat
 pkgver=2.40
-pkgrel=1
+pkgrel=2
 pkgdesc="RSS/Atom feed reader for text terminals"
 arch=('x86_64')
 url="https://newsboat.org/"
@@ -32,6 +32,8 @@ prepare() {
 }
 
 build() {
+  export CXXFLAGS+=" -fpermissive"
+
   cd $pkgname
 
   make prefix=/usr
