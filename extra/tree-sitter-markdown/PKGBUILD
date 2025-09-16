@@ -2,7 +2,7 @@
 # Contributor: ObserverOfTime <chronobserver@disroot.org>
 
 pkgname=tree-sitter-markdown
-pkgver=0.5.0
+pkgver=0.5.1
 pkgrel=1
 pkgdesc='Markdown grammar for tree-sitter'
 arch=(x86_64)
@@ -20,8 +20,7 @@ provides=(
   "lib$pkgname-inline.so"
 )
 source=("git+$url.git#commit=v$pkgver")
-b2sums=('3e64a5e8478d10c069c97f549f3a5b62573c081bfef39ce699187bf286c16dca1964e2b5f2d6d7c83faf0df45b7f0930c8324a9822fd5e59c81bb69bacb3659d')
-#validpgpkeys=(C3FC4EB6371B04CC6DDB9EA88A2DEA1DBAEBCA9E) # ObserverOfTime <chronobserver@disroot.org>
+b2sums=('e72cefd58567a1e76356cceaa2f670286dd1f8eab8df79a58ab885d8dc813b61dde55413b1d1bc6bdfb33e1b98e32014d4e33dd7b47d6c5f494950195a4ddb23')
 
 prepare() {
   cd $pkgname/tree-sitter-markdown
