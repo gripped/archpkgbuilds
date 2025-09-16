@@ -2,23 +2,23 @@
 # Contributor: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-xlsxwriter
-pkgver=3.2.8
+pkgver=3.2.9
 pkgrel=1
 pkgdesc='A Python module for creating Excel XLSX files'
-arch=('any')
+arch=(any)
 url='https://github.com/jmcnamara/XlsxWriter'
-license=('BSD-2-Clause')
-depends=('python')
+license=(BSD-2-Clause)
+depends=(python)
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-wheel'
-  'python-setuptools'
+  git
+  python-build
+  python-installer
+  python-wheel
+  python-setuptools
 )
 source=("$pkgname::git+$url#tag=RELEASE_$pkgver")
-sha512sums=('b02acb5acc288a6f6f8e3d935c767e2bf2e50f515a7d655c1c593a2e0af0b0a0317a9a8d632eb97efe8273293e0e3f16910523b6cbff12e9d7284f566d7eb3ac')
-b2sums=('f8fcd2bdef5d4c8a381b20c8c3a14a832503b076db43e2c04a6a00ab7d0a2d0ae27d5a8a4c9054fd79eaa2403f14ce3c24de653b26c040e660e9b5ff0ce59afa')
+sha512sums=('49b6d8d7e6ade7048850461e258aefbf3fea432e9565fd16b9300cf334b85923d9c3c035b1aaee2364691a9127b0107edccd0ae66eb79c5dacf67731cc4f494b')
+b2sums=('46ee66885ee34ca26eaa7d0e7af047877bde659ffcc59c36f5e2edc74e6195a8536443db5d61813c26cf531c07b811d20d50ead2a8811423652b252d6955b66a')
 
 build() {
   cd "$pkgname"
