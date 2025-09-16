@@ -2,8 +2,8 @@
 
 _hkgname=mod
 pkgname=haskell-mod
-pkgver=0.2.0.1
-pkgrel=167
+pkgver=0.2.1.0
+pkgrel=1
 pkgdesc="Fast type-safe modular arithmetic"
 url="https://github.com/Bodigrim/mod"
 license=("MIT")
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-primitive' 'haskell-semirings' 'haskell-vector')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck-classes' 'haskell-quickcheck-classes-base' 'haskell-tasty'
              'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('2a63f8e4e88545093cd57df02911906554e77704df3ee5c7a12044e48630e872')
+sha256sums=('d84b3c8f5ab9e7051e763a45057dd8835ab85861e114ebe5105cd80d3f8bf3b9')
 
 prepare() {
   cd $_hkgname-$pkgver
