@@ -4,7 +4,7 @@
 
 _name=datasets
 pkgname=python-$_name
-pkgver=4.0.0
+pkgver=4.1.0
 pkgrel=1
 pkgdesc="Ready-to-use datasets for ML models with fast, easy-to-use and efficient data manipulation tools"
 arch=(any)
@@ -17,6 +17,7 @@ depends=(
   python-dill
   python-filelock
   python-fsspec
+  python-h5py
   python-huggingface-hub
   python-multiprocess
   python-numpy
@@ -42,21 +43,21 @@ checkdepends=(
   python-pytest-datadir
   python-pytest-xdist
   python-pytorch
-  python-soundfile
   python-soxr
   python-sqlalchemy
+  python-torchcodec
   python-zstandard
 )
 optdepends=(
   'python-librosa: Audio datasets'
-  'python-soundfile: Audio datasets'
   'python-soxr: Audio datasets'
+  'python-torchcodec: Audio datasets'
   'python-pillow: Vision datasets'
   'python-tensorflow: TensorFlow support'
   'python-pytorch: PyTorch support'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-b2sums=('0dcf01851179c656df42a7abc7d987db58b673b31d404dfddc84c2de919f2f9b404eb028557bd8874c15ae5293e0ce78073209dd2beacd3bcb2d4ee54b68fecc')
+b2sums=('2c032899c1cdecc77ccef765dde71ba5a7ffb9a57b4276d420fda0ae23d28757aff6c822fdc7006dbd3ffb2d0bcff85d7b78403ea136d4ae6b1c0f42ed908d3c')
 
 build() {
   cd $_name-$pkgver
