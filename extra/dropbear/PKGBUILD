@@ -9,12 +9,13 @@
 pkgbase=dropbear
 pkgname=(dropbear dropbear-scp)
 pkgver=2025.88
-pkgrel=1
+pkgrel=2
 pkgdesc='Lightweight SSH server'
 arch=(x86_64)
 url='https://github.com/mkj/dropbear'
 license=(MIT)
 options=(emptydirs)
+depends=(glibc)
 makedepends=(git)
 validpgpkeys=('F7347EF2EE2E07A267628CA944931494F29C6773')
 source=("git+$url#tag=DROPBEAR_$pkgver"
@@ -30,13 +31,15 @@ prepare() {
 
 build() {
   cd $pkgname
+
   autoreconf
   ./configure --bindir=/usr/bin --prefix=/usr --sbindir=/usr/bin
   make PROGRAMS='dbclient dropbear dropbearconvert dropbearkey scp' SCPPROGRESS=1
 }
 
 package_dropbear() {
-  depends=(libxcrypt zlib)
+  depends+=(libxcrypt zlib)
+
   install -d "$pkgdir/etc/$pkgname"
   make -C $pkgbase install DESTDIR="$pkgdir"
   install -Dm644 $pkgname.service "$pkgdir/usr/lib/systemd/system/$pkgname.service"
@@ -47,6 +50,7 @@ package_dropbear-scp() {
   pkgdesc='Lightweight application for copying files over SSH'
   provides=(scp)
   conflicts=(openssh)
+
   make -C $pkgbase install PROGRAMS=scp DESTDIR="$pkgdir"
   install -Dm644 $pkgbase/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
   rmdir "$pkgdir/usr/share/man/"{man1,}
