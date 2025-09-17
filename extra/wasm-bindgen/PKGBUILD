@@ -3,7 +3,7 @@
 # Contributor: Grey Christoforo <first name at last name dot net>
 
 pkgname=wasm-bindgen
-pkgver=0.2.101
+pkgver=0.2.102
 pkgrel=1
 pkgdesc="Interoperating JS and Rust code"
 arch=('x86_64')
@@ -14,8 +14,8 @@ depends=('rust-wasm' 'nodejs' 'openssl')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
         "Cargo.lock")
-sha256sums=('a4d947a7b07bb5aa926aedeb42d0d0cf8eceb3969b5bea39e601dd072e10e3a9'
-            'e182f0be5471eb03e5d4e6dc815c44e05c5b3cd39aa980386340f18f07d1d999')
+sha256sums=('f747d93fb36e3ca76a1111ecc3c875f7a75e71b1db7a28f22f5f95c0d924a94d'
+            'b427b12b0544dadcba2ebdcee5f7bcf640382a1cb544f7553a3a02d8d7978582')
 options=('!lto')
 
 prepare() {
