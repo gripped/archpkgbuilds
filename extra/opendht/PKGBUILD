@@ -4,13 +4,13 @@
 pkgname=opendht
 epoch=1
 pkgver=3.5.1
-pkgrel=2
+pkgrel=3
 pkgdesc="C++17 Distributed Hash Table (DHT) implementation"
 arch=(x86_64)
 url="https://github.com/savoirfairelinux/opendht"
 license=(GPL3)
 depends=(glibc gnutls nettle readline argon2 jsoncpp libjsoncpp.so fmt openssl llhttp)
-makedepends=(git cmake msgpack-cxx restinio asio cython python-setuptools)
+makedepends=(git cmake msgpack-cxx restinio asio cython python-setuptools gcc14)
 checkdepends=(cppunit)
 optdepends=('python: to use the Python bindings'
             'msgpack-cxx: linking against opendht')
@@ -34,7 +34,8 @@ build() {
     -DOPENDHT_HTTP=ON \
     -DOPENDHT_PROXY_SERVER=ON \
     -DOPENDHT_PROXY_CLIENT=ON \
-    -DOPENDHT_PUSH_NOTIFICATIONS=ON
+    -DOPENDHT_PUSH_NOTIFICATIONS=ON \
+    -DCMAKE_CXX_COMPILER=g++-14 # Segfaults with GCC 15 https://github.com/savoirfairelinux/opendht/issues/752
   make -C build
 }
 
