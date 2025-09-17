@@ -2,7 +2,7 @@
 
 pkgname=antimicrox
 pkgver=3.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Graphical program used to map keyboard buttons & mouse controls to a gamepad'
 arch=('x86_64')
 url='https://github.com/AntiMicroX/antimicrox'
@@ -14,7 +14,7 @@ depends=(
   'libxtst'
   'libxi'
   'libx11'
-  'qt5-base'
+  'qt6-base'
   'sdl2'
 )
 makedepends=(
@@ -22,7 +22,7 @@ makedepends=(
   'cmake'
   'extra-cmake-modules'
   'itstool'
-  'qt5-tools'
+  'qt6-tools'
 )
 source=("$pkgname::git+$url#tag=$pkgver")
 sha512sums=('cd078eaeb3be188112c62cca0afd79167bda9875b9e4d01b9d655ec8be13857fc353a5135cf21d325cc5718d882ae81315683e0a9ad6e1843fdb93689f882206')
@@ -33,7 +33,8 @@ build() {
     -B build \
     -S "$pkgname" \
     -D CMAKE_BUILD_TYPE=None \
-    -D ANTIMICROX_PKG_VERSION="$pkgver"
+    -D ANTIMICROX_PKG_VERSION="$pkgver" \
+    -D USE_QT6_BY_DEFAULT=ON
 
   cmake --build build
 }
