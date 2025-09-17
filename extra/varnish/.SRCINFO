@@ -1,22 +1,23 @@
 pkgbase = varnish
 	pkgdesc = High-performance HTTP accelerator
-	pkgver = 7.7.3
+	pkgver = 8.0.0
 	pkgrel = 1
 	url = https://www.varnish-cache.org/
 	install = varnish.install
 	arch = x86_64
-	license = BSD
+	license = BSD-2-Clause
 	makedepends = python-docutils
 	makedepends = python-sphinx
 	makedepends = git
 	depends = gcc
+	depends = gcc-libs
 	depends = libnsl
 	depends = pcre2
 	optdepends = python: needed for vmod development
 	backup = etc/varnish/default.vcl
-	source = https://varnish-cache.org/_downloads/varnish-7.7.3.tgz
+	source = https://varnish-cache.org/_downloads/varnish-8.0.0.tgz
 	source = git+https://github.com/varnishcache/pkg-varnish-cache.git#commit=7d90347
-	sha512sums = 2de3f19d24e42ec092076226b629dc36d4d3c9961454502e7f9a8ff1d440cf54104198e2b5302361f093fa221f04f836bb8dda441921d1721b1d05c90c0f1661
+	sha512sums = c381928e23deaacb863dcf389a494f30a56d22a4e88fe0c5dc7d4a93828f3dc0595c7ae41837f3549795828aca1a30e08f4456d4a752a6d12c19b61943dd99e9
 	sha512sums = 9265b46a3ccff071acffdbfd26d1f4f1022137017ac3d17e36b1d3c5294a97ac603d60635d5bbc4c23c5e4148f12e582fed897d8bea16bcc4a09df5834c0aaf0
 
 pkgname = varnish
