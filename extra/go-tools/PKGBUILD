@@ -3,8 +3,8 @@
 
 pkgname=go-tools
 epoch=4
-pkgver=0.36.0
-pkgrel=2
+pkgver=0.37.0
+pkgrel=1
 pkgdesc='Developer tools for the Go programming language'
 arch=(x86_64)
 url='https://golang.org/'
@@ -12,10 +12,10 @@ license=(BSD-3-Clause)
 depends=(glibc)
 makedepends=(git go)
 source=(go-tools::git+https://go.googlesource.com/tools#tag=v$pkgver)
-sha256sums=('25b2f46af406ef5284243337302cbd301bcacd473b2f905b0caec02f5751e1b3')
+sha256sums=('86009d8b12d85aee570c394948961c9b0444f3f4c86b547d80ee54dd37289f4a')
 
 _tools=(benchcmp callgraph compilebench digraph eg fiximports
-        go-contrib-init godex godoc goimports gomvpkg gotype 
+        go-contrib-init godex goimports gomvpkg gotype 
         goyacc html2article present ssadump stringer toolstash)
 
 prepare() {
