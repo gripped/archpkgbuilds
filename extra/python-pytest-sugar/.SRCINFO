@@ -1,10 +1,11 @@
 pkgbase = python-pytest-sugar
 	pkgdesc = A plugin for py.test that changes the default look and feel of py.test
-	pkgver = 1.0.0
-	pkgrel = 5
+	pkgver = 1.1.0
+	pkgrel = 1
 	url = https://github.com/Teemu/pytest-sugar
 	arch = any
 	license = BSD-3-Clause
+	makedepends = git
 	makedepends = python-setuptools
 	makedepends = python-build
 	makedepends = python-installer
@@ -12,8 +13,7 @@ pkgbase = python-pytest-sugar
 	depends = python
 	depends = python-pytest
 	depends = python-termcolor
-	depends = python-packaging
-	source = python-pytest-sugar-1.0.0.tar.gz::https://github.com/Teemu/pytest-sugar/archive/refs/tags/v1.0.0.tar.gz
-	sha512sums = 5c19411e103d86675788f64f10406f5261c63003874e359d455c0c980605320dc8a26d8343d512f1cf8d895d801d985e2c8a4b7ed509637750a6cdb076355471
+	source = git+https://github.com/Teemu/pytest-sugar.git#tag=v1.1.0
+	sha512sums = f502e5a7a82227fa96d001131b4d9869c63aed0cd4dd8a236c22ffebce421339f3d7f571a93bf0c87c3636ab86a83a0df247152ebbc96d2627a826e15d4e7f48
 
 pkgname = python-pytest-sugar
