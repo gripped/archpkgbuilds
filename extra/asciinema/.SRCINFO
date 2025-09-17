@@ -1,14 +1,16 @@
 pkgbase = asciinema
 	pkgdesc = Record and share terminal sessions
-	pkgver = 3.0.0rc.5
-	pkgrel = 1
+	pkgver = 3.0.0
+	pkgrel = 2
 	url = https://asciinema.org
-	arch = any
+	arch = x86_64
 	license = GPL-3.0-only
 	makedepends = cargo
 	makedepends = git
+	depends = glibc
+	depends = gcc-libs
 	options = !lto
-	source = git+https://github.com/asciinema/asciinema#tag=v3.0.0-rc.5
-	b2sums = 786b22babb42e28d60606c7ab28598b9219328704415ecf8729726115bfc0aebdaa5a68029a10def3425d336700e88091d9261afcd4b71f36c6ce5b78d13398b
+	source = git+https://github.com/asciinema/asciinema#tag=v3.0.0
+	b2sums = 28c917c2046782056db63773f2ed7bec93ad12b470449b6c791ab23a457957d09ab1e3cf539875a5db2a9ea176d263f154a57942414791a765817080a0b45e24
 
 pkgname = asciinema
