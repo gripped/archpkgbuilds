@@ -24,7 +24,7 @@ pkgname=(
   pulse-native-provider
 )
 pkgver=1.4.8
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Low-latency audio/video router and processor"
 url="https://pipewire.org"
@@ -81,6 +81,14 @@ b2sums=('cf0125e7c4a7abbd760a8e389b61716107f11ef1cdb077eddbca1dc2b327bfe6d447600
 
 prepare() {
   cd pipewire
+
+  # Fix xruns
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/pipewire/-/issues/21
+  git cherry-pick -n 3e574b314a7d73801fe3aac012cf6671bb1f5575 \
+                     24ab601201223e05950bb8133be5d77526de1997
+
+  # Fix libcamera
+  git cherry-pick -n 8f35e18d18b18b8db959793fe73fc594e5da8cd5
 }
 
 build() {
