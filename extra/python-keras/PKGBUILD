@@ -5,7 +5,7 @@ pkgname=("python-${_pkgname}")
 pkgdesc='Deep Learning for humans'
 url='https://keras.io/'
 license=('Apache-2.0')
-pkgver=3.11.2
+pkgver=3.11.3
 pkgrel=1
 arch=('any')
 source=("https://files.pythonhosted.org/packages/source/${_pkgname::1}/${_pkgname//-/_}/${_pkgname//-/_}-$pkgver.tar.gz")
@@ -20,7 +20,7 @@ optdepends=('python-pytorch'
 conflicts=('python-keras-applications' 'python-keras-preprocessing')
 provides=('python-keras-applications' 'python-keras-preprocessing')
 replaces=('python-keras-applications' 'python-keras-preprocessing')
-b2sums=('11b44badd9009db40dec780329607ee0361d14f8281e9a748d1f5bcca9e46f7694b86223523e9fe369c307c6be383cce468642c025709a007e9d51090bb7ec7c')
+b2sums=('c9c971c6f0bc1fbd13bf2598f38947525e5a8a4c0f069333b8137e8716852e5f9130483033aa9fc4e2e87560fb4890d8599227b2c5bc5d438e435ab265c5ff15')
 
 build() {
   cd $_pkgname-$pkgver
