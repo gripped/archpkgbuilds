@@ -6,14 +6,14 @@
 _name=junicode
 pkgbase=$_name-font
 pkgname=(otf-$_name ttf-$_name ttf-$_name-variable)
-pkgver=2.218
+pkgver=2.219
 pkgrel=1
 pkgdesc='Font for medievalists'
 arch=(any)
 url="https://github.com/psb1558/${pkgbase^}"
 license=(OFL-1.1-no-RFN)
 source=("$url/releases/download/v$pkgver/${_name^}_$pkgver.zip")
-sha256sums=('64b5a8a654bb0c75110d7363eaddbcfbbb0bfb2b1e0261b6c75ed8fd406c8b30')
+sha256sums=('e2c5ac06e61f8b0a3ee67d65d481071e9d7fedd001c302ae7f6494be51ec174a')
 
 package_otf-junicode() {
     provides=("$pkgbase")
