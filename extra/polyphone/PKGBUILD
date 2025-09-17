@@ -2,7 +2,7 @@
 
 pkgname=polyphone
 pkgver=2.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A soundfont editor for quickly designing musical instruments"
 arch=(x86_64)
 url="https://polyphone-soundfonts.com/en/"
@@ -15,8 +15,8 @@ depends=(
   glibc
   hicolor-icon-theme
   openssl
-  qt5-base
-  qt5-svg
+  qt6-base
+  qt6-svg
   zlib
 )
 makedepends=(
@@ -26,7 +26,7 @@ makedepends=(
   libsndfile
   rtaudio
   rtmidi
-  qt5-tools
+  qt6-tools
   stk
 )
 source=(
@@ -37,7 +37,7 @@ b2sums=('7a962e25040caf3902257a4167565ac79302da9b69d60ca998e88bd8fee24b20e4ab5eb
 
 build() {
   cd $pkgname-$pkgver/sources
-  qmake-qt5 $pkgname.pro PREFIX=/usr
+  qmake6 $pkgname.pro PREFIX=/usr
   make
 }
 
