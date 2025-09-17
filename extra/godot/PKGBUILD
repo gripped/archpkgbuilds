@@ -8,8 +8,8 @@
 
 pkgbase=godot
 pkgname=(godot godot-mono)
-pkgver=4.4.1
-pkgrel=6
+pkgver=4.5
+pkgrel=1
 pkgdesc='Advanced cross-platform 2D and 3D game engine'
 url='https://godotengine.org/'
 license=(MIT)
@@ -20,7 +20,7 @@ depends=(brotli ca-certificates embree freetype2 graphite libglvnd libspeechd li
 optdepends=('pipewire-alsa: for audio support'
             'pulse-native-provider: for audio support')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/godotengine/godot/archive/$pkgver-stable.tar.gz")
-b2sums=('9ceacb4e7a2448377b7d29d81e36e198a9ca055673a46abf4d65be1d16c91ec7ed3d8841af272c0d348d5ee7a3104344a669d6793f9beb5c69ea008626c81511')
+b2sums=('fa8aa954974701f5070c06dd0801dadec903159d75ac6a21ec7c85d533dad2c1f42ff21fe40de33fa430c82ba79abeb0d69767eede0112bc4ac02d6e1441b81d')
 
 prepare() {
   cd $pkgname-$pkgver-stable
@@ -42,10 +42,6 @@ prepare() {
 
   # Prepare the Godot Mono MIME file as well
   cp -f org.godotengine.Godot.xml org.godotengine.Godot-mono.xml
-
-  # Some build systems uses arm64 instead of aarch64. This is one of them.
-  [[ ${CARCH} == aarch64 ]] && export CARCH=arm64
-
 }
 
 build() {
