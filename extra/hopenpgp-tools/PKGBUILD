@@ -2,8 +2,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hopenpgp-tools
-pkgver=0.23.10
-pkgrel=9
+pkgver=0.23.11
+pkgrel=1
 pkgdesc="hOpenPGP-based command-line tools"
 url="https://salsa.debian.org/clint/hopenpgp-tools"
 license=("AGPL3")
@@ -18,7 +18,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-base16-bytestring' 'haskell-binary-
          'haskell-unordered-containers' 'haskell-vector' 'haskell-yaml')
 makedepends=('alex' 'happy' 'ghc')
 source=(https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('6545a366d4df912af4c9ace106ac1bf469d2537912a8ecf8159f27b3667ba8c4363e345c1c59c13183caa5482f081a1c492ea57d902dfdc4085f86eee95b5023')
+sha512sums=('ea4292818b8422680425f21d0f1955e4e01960b6eb7c53a51b41fa8853a59c503fff3e48888700288641dca187adb3f2eaf6af93b8d6fc4c3a2b69cd7ac463f3')
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"
