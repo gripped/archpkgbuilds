@@ -2,7 +2,7 @@
 
 pkgname=ukui-control-center
 pkgver=3.0.4
-pkgrel=15
+pkgrel=16
 pkgdesc="Utilities to configure the UKUI desktop"
 arch=('x86_64')
 license=('GPL')
@@ -11,7 +11,7 @@ groups=('ukui')
 depends=('bluez-qt5' 'ddcutil' 'kconfig5' 'kconfigwidgets5' 'ki18n5' 'libkscreen5'
          'kwidgetsaddons5' 'libpwquality' 'lsb-release' 'peony' 'qt5-quickcontrols' 'ukui-interface'
          'ukui-panel' 'ukui-media' 'ukui-menus' 'ukui-power-manager' 'ukui-screensaver'
-         'ukui-settings-daemon' 'upower' 'libcanberra' 'kxmlgui5')
+         'ukui-settings-daemon' 'upower' 'libcanberra')
 makedepends=('boost' 'qt5-tools')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ukui/ukui-control-center/archive/v$pkgver.tar.gz"
         6.patch
@@ -34,6 +34,8 @@ prepare() {
 
   sed -i 's|systemd_service.path = /lib/systemd/system|systemd_service.path = /usr/lib/systemd/system|' group-manager-server/group-manager-server.pro
   sed -i 's|gio-unix-2.0|glib-2.0|' plugins/account/userinfo/giodbus.cpp
+  sed -i 's|KXmlGui|KConfigGui|' plugins/devices/shortcut/shortcut.pro
+  sed -i 's|KActionCollection|KStandardShortcut|' plugins/devices/shortcut/*.h
 
   # Fix build with libkscreen 5.27
   sed -e 's|c++11||' -i plugins/system/display/display.pro -i plugins/system/touchscreen/touchscreen.pro
