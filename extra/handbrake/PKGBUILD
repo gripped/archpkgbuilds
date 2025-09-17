@@ -5,7 +5,7 @@
 
 pkgname=('handbrake' 'handbrake-cli')
 pkgver=1.10.2
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="https://handbrake.fr/"
 license=('GPL-2.0-only')
@@ -15,7 +15,7 @@ _commondeps=('libxml2' 'libass' 'libvorbis' 'opus' 'speex' 'libtheora' 'lame'
 _guideps=('gst-plugins-base' 'gtk4' 'librsvg')
 # git included as a build dependency for bundled x265 to work
 # https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=275546#c0
-makedepends=('python' 'nasm' 'wget' 'cmake' 'meson' 'git'
+makedepends=('python' 'nasm' 'wget' 'cmake' 'meson' 'git' 'clang'
              "${_commondeps[@]}" "${_guideps[@]}")
 options=('!lto') # https://bugs.archlinux.org/task/72600
 source=("git+https://github.com/HandBrake/HandBrake.git?signed#tag=${pkgver}")
@@ -29,7 +29,9 @@ build() {
 
   ./configure \
     --prefix=/usr \
-    --enable-qsv
+    --enable-qsv \
+    --enable-vce \
+    --enable-nvdec
   make -C build
 }
 
