@@ -4,7 +4,7 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=pavucontrol
-pkgver=6.1
+pkgver=6.2
 pkgrel=1
 epoch=1
 pkgdesc="PulseAudio Volume Control"
@@ -30,7 +30,7 @@ makedepends=(
 )
 checkdepends=(tidy)
 source=("git+https://gitlab.freedesktop.org/pulseaudio/pavucontrol.git?signed#tag=v$pkgver")
-b2sums=('74910adb80e25787b8b22a857dfe6f9ea748376485a8559b0748c1a81e3bae146a33c2a66409aaa8fd33bad2799b1c1fb4507348c2e9411ce3939987c6277f74')
+b2sums=('bcedd14881a304580dd7998d62a89d4e1f7f8fcb9d8c6d3cf773df3716d04b68976665b491606f3cad39d742b8f636e0aa0950931f3045c470151b0c603d0491')
 validpgpkeys=(
   52DFA7B8BAC74687C8A88EF48165E3D1987E2132 # Arun Raghavan <arun@asymptotic.io>
 )
