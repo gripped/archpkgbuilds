@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hyprgraphics
-pkgver=0.1.5
-pkgrel=2
+pkgver=0.1.6
+pkgrel=1
 pkgdesc='hyprland graphics resources and utilities'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -16,12 +16,13 @@ depends=(cairo # libcairo.so
          libjxl libjxl.so libjxl_threads.so
          libpng # libpng.so
          libwebp libwebp.so
+         pango libpangocairo-1.0.so
          pixman)
 makedepends=(cmake)
 provides=("lib$pkgname.so")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('03bdd5a6e456c31cc17f973656326220f94e58a5f4ab33b2450ccb5d6a697a4c')
+sha256sums=('42a2085fa3c79641b7d2485e229ae25202b4e29631c3d83020e6edc182313e13')
 
 build() {
 	cd "$_archive"
