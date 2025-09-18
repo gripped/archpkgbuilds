@@ -5,9 +5,9 @@
 
 pkgname=connman
 pkgver=1.45
-pkgrel=1
+pkgrel=2
 pkgdesc="Intel's modular network connection manager"
-url="https://01.org/connman"
+url="https://git.kernel.org/pub/scm/network/connman/connman.git/"
 arch=('x86_64')
 license=('GPL-2.0-only')
 depends=(
