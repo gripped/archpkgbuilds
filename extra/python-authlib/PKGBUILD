@@ -2,7 +2,7 @@
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=python-authlib
-pkgver=1.6.3
+pkgver=1.6.4
 pkgrel=1
 pkgdesc='The ultimate Python library in building OAuth and OpenID Connect servers & clients'
 arch=(any)
@@ -31,10 +31,11 @@ checkdepends=(
   python-starlette
   python-cachelib
   python-pycryptodomex
+  python-python-multipart
 )
 source=("$pkgname::git+$url#tag=v$pkgver" )
-sha512sums=('4a8d7ff2dedf9902ece35643a3dc57c43bb3c48301f9be7e8ef7b40df97eade4916b4416427d40074b641d260eb74b8086cc4eb5df08e9bf41055006169bcb5a')
-b2sums=('e087646f656a8ea4331505a759bc680d4638f7944c0f19e0e6330c1f882d2fe8b85b1d4fe70b432ef87d72f514ebbfc6431a7e1bfa9e705f5419d1d8538703e0')
+sha512sums=('cfe8b0a43eac6d2e4f6657d80e4e18f9a7f4a489dad11a62f43bd564be6d4865368060472eb0b4d96c73e6de4762b4de8c09069681475f09a1a74fe08f85eef1')
+b2sums=('0ffc0f2594ca2a5c9fe3b9a1dce7f10bafcc4147a3a0eaa10b9b1c40ef4098b1185a1aaf28563df9b2f2a4ba5be900eef147aab168786fa38d63a90b698f47b2')
 
 build() {
   cd "$pkgname"
