@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-app-services
-pkgver=1.0.36
+pkgver=1.0.37
 pkgrel=1
 pkgdesc='Service collection of DDE applications, including dconfig-center'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=(qt6-base dtk6core dtk6widget)
 makedepends=(git cmake ninja doxygen gtest qt6-tools)
 groups=(deepin)
 source=(git+https://github.com/linuxdeepin/dde-app-services.git#tag=$pkgver)
-sha512sums=('a295e3dcf174a0639b3b4b86aba12c866a726c4d8d19b5924ff33d2241981827b498a3ebf48105535511552e579e70b37c11a33bd6340dc88a8bcdb12f7d884c')
+sha512sums=('e5bf985d57f2f7ac6f9e977458e8ba63c6ee2f215c24ea3b90eebee0abfd3ea707284588ad568eece1910c107c80e810a5522008dd8fb58c474314810964fb94')
 
 build() {
   cd dde-app-services
