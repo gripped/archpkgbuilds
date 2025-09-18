@@ -4,7 +4,7 @@
 
 _name=datasets
 pkgname=python-$_name
-pkgver=4.1.0
+pkgver=4.1.1
 pkgrel=1
 pkgdesc="Ready-to-use datasets for ML models with fast, easy-to-use and efficient data manipulation tools"
 arch=(any)
@@ -57,7 +57,7 @@ optdepends=(
   'python-pytorch: PyTorch support'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-b2sums=('2c032899c1cdecc77ccef765dde71ba5a7ffb9a57b4276d420fda0ae23d28757aff6c822fdc7006dbd3ffb2d0bcff85d7b78403ea136d4ae6b1c0f42ed908d3c')
+b2sums=('6f40a4523f305761cad40a00557f09e4846ed0c8f2063e109e0b81f534aef493fed0ba31a4d32adf171df50287bbe2009b9baa2d68785c74f213004f1ebb875a')
 
 build() {
   cd $_name-$pkgver
