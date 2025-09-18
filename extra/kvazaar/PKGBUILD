@@ -1,18 +1,24 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=kvazaar
-pkgver=2.3.1
+pkgver=2.3.2
 pkgrel=1
 pkgdesc='An open-source HEVC encoder'
 arch=('x86_64')
 url='https://github.com/ultravideo/kvazaar/'
 license=('BSD-3-Clause')
-depends=('crypto++')
-makedepends=('git')
-checkdepends=('ffmpeg' 'hm')
+depends=(
+    'crypto++'
+    'gcc-libs'
+    'glibc')
+makedepends=(
+    'git')
+checkdepends=(
+    'ffmpeg'
+    'hm')
 source=("git+https://github.com/ultravideo/kvazaar.git#tag=v${pkgver}"
         'git+https://github.com/ultravideo/greatest.git')
-sha256sums=('0de1aff6b72e58dffc70515ba91db46667454e651c231d5d53cba4b31b35c206'
+sha256sums=('0337ed82eabac599e98df4a7040d2b1a16d4fff805b697b46bc75632c5aaa437'
             'SKIP')
 
 prepare() {
