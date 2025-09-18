@@ -2,8 +2,8 @@
 
 _hkgname=attoparsec-iso8601
 pkgname=haskell-attoparsec-iso8601
-pkgver=1.1.0.1
-pkgrel=31
+pkgver=1.1.1.0
+pkgrel=1
 pkgdesc="Parsing of ISO 8601 dates, originally from aeson"
 url="https://github.com/haskell/aeson"
 license=('BSD-3-Clause')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-integer-conversion' 'haskell-time-compat')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('5dba79b29ea66fdc5bc0ac64d5bc3aa6e3f83de0f35257a97f1b66e587bcf9a13f6571703c32ba71bd176613b669af718be069b20c200db05afa1c3c7ed6d74e')
+sha512sums=('119de2c14a5ac4a21041e513410561dbbc82a62279854fb4a5f2d5631e75e6cd148fbba0ab3ccf202cc162ab9142c8a44e85a9a07d027b7c38a5638b964c52f0')
 
 prepare() {
     cd $_hkgname-$pkgver
