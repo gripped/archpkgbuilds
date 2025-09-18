@@ -1,8 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-gherkin
-_pkgname=${pkgname#python-}
-pkgver=34.0.0
+pkgver=35.0.0
 pkgrel=1
 pkgdesc="A parser and compiler for the Gherkin language"
 arch=('any')
@@ -20,20 +19,22 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('d846a7916974a4a390ee1cd32b2b52a571b32731be1fa780197064b2333c62b3')
+sha256sums=('a63ba0f8cd13a3017fb69f908dd80eea94e3523ca3016439b061cbd104e817f2')
 
 build() {
-  cd "$_pkgname-$pkgver/python"
+  cd "${pkgname#python-}-$pkgver/python"
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_pkgname-$pkgver/python"
-  pytest
+  cd "${pkgname#python-}-$pkgver/python"
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest
 }
 
 package() {
-  cd "$_pkgname-$pkgver/python"
+  cd "${pkgname#python-}-$pkgver/python"
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
