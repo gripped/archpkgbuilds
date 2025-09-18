@@ -5,7 +5,7 @@ _pkgbasename=systemd
 # Upstream versioning is incompatible with pacman's version comparisons, one
 # way or another. We use proper version for pacman here (no dash for rc
 # release!), and change in source array below.
-pkgver=257.9
+pkgver=258
 pkgrel=1
 pkgdesc='system and service manager (32-bit)'
 arch=('x86_64')
@@ -26,7 +26,7 @@ validpgpkeys=('63CDA1E5D3FC22B998D20DD6327F26951A015CC4'  # Lennart Poettering <
 # For pacman's version comparisons $pkgver is missing the dash that would be
 # in an upstream rc version so add it back when fetching the tag from github.
 source=("git+https://github.com/systemd/systemd#tag=v${pkgver/rc/-rc}?signed")
-sha512sums=('27daa6035ef853ec802f8423c9d8d90810c2b0f71af2ec7d21d468905eacc109497e2186d15834856c006fea71cf9b96278d26a20e48bb212b7c049eac9fdd08')
+sha512sums=('4703b54464ae42acb9e8b2a123f9e76cbe94b03c416292a95b9a8eb282eb2908e0499294b8c7f9bbb7946147e9379db7b277d1c277a08ee00f92f8d0eff33330')
 
 _backports=(
 )
@@ -57,15 +57,12 @@ build() {
 
   local _timeservers=({0..3}.arch.pool.ntp.org)
   local _nameservers=(
-    # We use these public name services, ordered by their privacy policy (hopefully):
-    #  * Cloudflare (https://1.1.1.1/)
-    #  * Quad9 (https://www.quad9.net/)
-    #  * Google (https://developers.google.com/speed/public-dns/)
-    '1.1.1.1#cloudflare-dns.com'
+    # see systemd package for details
     '9.9.9.9#dns.quad9.net'
-    '8.8.8.8#dns.google'
-    '2606:4700:4700::1111#cloudflare-dns.com'
     '2620:fe::9#dns.quad9.net'
+    '1.1.1.1#cloudflare-dns.com'
+    '2606:4700:4700::1111#cloudflare-dns.com'
+    '8.8.8.8#dns.google'
     '2001:4860:4860::8888#dns.google'
   )
  
