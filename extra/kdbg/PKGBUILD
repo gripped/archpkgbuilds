@@ -6,29 +6,35 @@
 
 pkgname=kdbg
 pkgver=3.2.0
-pkgrel=1
+pkgrel=3
 pkgdesc='A graphical debugger interface'
 arch=(x86_64)
 url='http://www.kdbg.org'
-license=(GPL)
+license=(GPL-2.0-or-later)
 depends=(gcc-libs
          gdb
          glibc
-         kconfig5
-         kconfigwidgets5
-         kcoreaddons5
-         ki18n5
-         kiconthemes5
-         kwidgetsaddons5
-         kwindowsystem5
-         kxmlgui5
-         qt5-base)
-makedepends=(extra-cmake-modules)
-source=(https://downloads.sourceforge.net/project/kdbg/Source%20Code/$pkgver/kdbg-$pkgver.tar.gz)
-sha256sums=('1a858b2960ff9d65c14e24db0cbc5e340ac33323c8fe04b3003ab23a0c6b3471')
+         kconfig
+         kconfigwidgets
+         kcoreaddons
+         ki18n
+         kiconthemes
+         kwidgetsaddons
+         kwindowsystem
+         kxmlgui
+         qt6-base)
+makedepends=(extra-cmake-modules
+             git)
+source=(git+https://github.com/j6t/kdbg#tag=kdbg-$pkgver)
+sha256sums=('940f55bec8053dd70514dbf6a2ad371726c302737e52ed7e9b15d95abad5432f')
+
+prepare() {
+  sed -e '/Core5Compat/d' -i $pkgname/CMakeLists.txt -i $pkgname/kdbg/CMakeLists.txt
+}
 
 build() {
-  cmake -B build -S $pkgname-$pkgver
+  cmake -B build -S $pkgname \
+    -DBUILD_FOR_KDE_VERSION=6
   cmake --build build
 }
 
