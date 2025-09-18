@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-novaclient
-pkgver=18.10.0
+pkgver=18.11.0
 pkgrel=1
 pkgdesc="Client library for OpenStack Compute API"
 arch=('any')
@@ -14,7 +14,7 @@ depends=('python' 'python-pbr' 'python-babel' 'python-prettytable' 'python-keyst
 makedepends=('git' 'python-setuptools')
 checkdepends=('python-oslotest' 'python-osprofiler' 'python-requests-mock' 'python-ddt' 'python-stestr' 'python-testscenarios')
 source=("git+https://github.com/openstack/python-novaclient.git#tag=$pkgver")
-sha512sums=('c9b01fdad60f940fbd7cf97d57fef6344d74476cdfb6c017f3a35872c7e5fab74461fc75afc1f0b585d9c4ce24fd8857f008fee6c49859946d02b2203c3adf7f')
+sha512sums=('eec28c33fa13b5cf6c8a0571e4c2f47a474770e8b2b3b277f715bf3db20e5eea3355e18553695c169ce2cd2b658bee94297c234fb91018f48f4674c3cf39149b')
 
 build() {
   cd python-novaclient
