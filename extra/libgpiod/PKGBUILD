@@ -2,19 +2,27 @@
 # Contributor: Greg Erwin <first name last name 256 at gmail dot com>
 
 pkgname=libgpiod
-pkgver=2.1.2
-pkgrel=2
+pkgver=2.2.2
+pkgrel=1
 pkgdesc="C library and tools for interacting with the linux GPIO character device"
 url="https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git"
 arch=('x86_64')
-license=('LGPL2.1')
+license=('LGPL-2.1-or-later AND GPL-2.0-or-later')
 depends=('python')
-makedepends=('git' 'autoconf-archive' 'doxygen' 'help2man' 'python-setuptools')
-source=("git+$url#tag=v$pkgver")
-sha256sums=('90988849d6b6358894460b30b63893501ab968018662f7b2706c209d0ef672b6')
+makedepends=('git' 'autoconf-archive' 'doxygen' 'help2man' 'python-build' 'python-setuptools' 'python-pip')
+source=(
+  "git+$url#tag=v$pkgver"
+  "libgpiod.patch"
+)
+sha256sums=(
+  '6ddfb8e643d030c5cf52307b02d754150afa8216d5dcf0e0f29451ba1942d916'
+  '4d82aa1a46c4c604bb857589a15968924389166b105a1777bcc2a4204dc0468b'
+)
 
 build() {
   cd $pkgname
+  patch -Np1 -i ../libgpiod.patch
+
   ./autogen.sh \
     --prefix=/usr \
     --enable-tools=yes \

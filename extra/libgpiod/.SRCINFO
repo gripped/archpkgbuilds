@@ -1,17 +1,21 @@
 pkgbase = libgpiod
 	pkgdesc = C library and tools for interacting with the linux GPIO character device
-	pkgver = 2.1.2
-	pkgrel = 2
+	pkgver = 2.2.2
+	pkgrel = 1
 	url = https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git
 	arch = x86_64
-	license = LGPL2.1
+	license = LGPL-2.1-or-later AND GPL-2.0-or-later
 	makedepends = git
 	makedepends = autoconf-archive
 	makedepends = doxygen
 	makedepends = help2man
+	makedepends = python-build
 	makedepends = python-setuptools
+	makedepends = python-pip
 	depends = python
-	source = git+https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git#tag=v2.1.2
-	sha256sums = 90988849d6b6358894460b30b63893501ab968018662f7b2706c209d0ef672b6
+	source = git+https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git#tag=v2.2.2
+	source = libgpiod.patch
+	sha256sums = 6ddfb8e643d030c5cf52307b02d754150afa8216d5dcf0e0f29451ba1942d916
+	sha256sums = 4d82aa1a46c4c604bb857589a15968924389166b105a1777bcc2a4204dc0468b
 
 pkgname = libgpiod
