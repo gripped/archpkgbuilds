@@ -1,11 +1,11 @@
 pkgbase = deepin-session
 	pkgdesc = New deepin session, based on systemd and existing projects
-	pkgver = 1.2.14
-	pkgrel = 2
+	pkgver = 2.0.0
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-session
 	arch = x86_64
 	groups = deepin
-	license = GPL3
+	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
@@ -14,9 +14,8 @@ pkgbase = deepin-session
 	depends = glib2
 	depends = libx11
 	depends = libsecret
-	depends = qt5-base
-	depends = gsettings-qt
-	depends = dtkcore
+	depends = qt6-base
+	depends = dtk6core
 	depends = libxcursor
 	depends = libxfixes
 	depends = systemd-libs
@@ -27,9 +26,7 @@ pkgbase = deepin-session
 	depends = deepin-qt5integration
 	depends = deepin-qt6platform-plugins
 	depends = deepin-qt6integration
-	source = git+https://github.com/linuxdeepin/dde-session.git#tag=1.2.14
-	source = servicename.patch
-	sha512sums = 85c3be2dda660ed291cac91d057b5c920436f2ccd8fd194ab1b285888c3956263dc57bc0c6019e8c16a6b2ccbfb56647e0c894388115cb0aca12fcf1358e7910
-	sha512sums = 1f638203915b142e6a68c7e709ceda15cb2892e5f9fc6ea81d69fcfb1934092f48aa5a1cbbcf7e776e1f17a47af4468b499135fdd873c18c88bbad60e33445c8
+	source = git+https://github.com/linuxdeepin/dde-session.git#tag=2.0.0
+	sha512sums = 8e4dc44675718a91c459ba3656e383fda8c134c2ba9b49ffa2c9006f6b0a1a4efac1a3fb3659b9d75595d0132006d7c6f9b71481098a988731c57261e42e39e6
 
 pkgname = deepin-session
