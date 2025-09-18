@@ -2,16 +2,16 @@
 
 _hkgname=gi-cairo
 pkgname=haskell-gi-cairo
-pkgver=1.0.29
-pkgrel=210
+pkgver=1.0.30
+pkgrel=1
 pkgdesc="Cairo bindings"
 url="https://github.com/haskell-gi/haskell-gi"
-license=("LGPL2.1")
+license=('LGPL-2.1-only')
 arch=('x86_64')
 depends=('ghc-libs' 'cairo' 'haskell-gi' 'haskell-gi-base' 'haskell-gi-overloading')
 makedepends=('ghc' 'gobject-introspection')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('239d4259c54cd706dacaafbc3014ce693075a039e7996f93394c66d6b8850bca6724fb2ab5580919f2aa3305486760ffcad2f444272ae31aa7470fdeeb2058e3')
+sha512sums=('6d2cc3d1c6f022fa2c6a4570db00141a8651c1a8586ecc1f19bb75e67088f6d7ea153f04e77508651c0aff28897aed90a5c0346e402b0686d0dba36446d2fc20')
 
 build() {
   cd $_hkgname-$pkgver    
@@ -27,6 +27,11 @@ build() {
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
   sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+  cd $_hkgname-$pkgver
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
