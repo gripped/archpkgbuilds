@@ -1,41 +1,45 @@
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=soapyuhd
 _pkgname=SoapyUHD
 pkgver=0.4.1
-_gitver=soapy-uhd-$pkgver
-pkgrel=12
+_pkgver=soapy-uhd-$pkgver
+pkgrel=14
 pkgdesc='Soapy SDR plugin for UHD supported SDR devices'
 arch=('x86_64')
 url='https://github.com/pothosware/SoapyUHD'
 license=('GPL-3.0-or-later')
-depends=('libuhd' 'soapysdr')
-makedepends=('cmake' 'boost')
+depends=(
+  'gcc-libs'
+  'glibc'
+  'libuhd'
+  'soapysdr'
+)
+makedepends=(
+  'cmake'
+  'boost'
+)
 source=(
-  "$pkgname-$pkgver.tar.gz::$url/archive/$_gitver.tar.gz"
+  "$url/archive/$_pkgver/$pkgname-$_pkgver.tar.gz"
   "$pkgname-uhd-4.8-compatibility.patch::$url/commit/6eeee4fd3217166199068bbe05c555c2bccb2a7b.patch"
 )
 sha512sums=('7a78ac386d92e4b36b36710f5943623ec8742cb770df69ac0c9bbd26827567277cb3309e3ad6eb0148b1b76083f16fdd188619700d38dcc5eab362b6db65340f'
             '6de4de6b4c0735a41a3426c7e78b6e850e5cb99860699e259ba83ec24877bbe7b55f87022b4ff721ff149119584c323809d680f86603ac7299d6c29c9e3fd67a')
 
 prepare() {
-  cd $_pkgname-$_gitver
-  patch -Np1 -i ../$pkgname-uhd-4.8-compatibility.patch
+  patch -Np1 -d $_pkgname-$_pkgver < $pkgname-uhd-4.8-compatibility.patch
 }
 
 build() {
-  mkdir -p $_pkgname-$_gitver/build
-  cd $_pkgname-$_gitver/build
-
-  cmake .. \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release
-
-  make
+  export CMAKE_POLICY_VERSION_MINIMUM=3.5
+  cmake -B build -S $_pkgname-$_pkgver \
+    -D CMAKE_BUILD_TYPE=None \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -W no-dev
+  cmake --build build
 }
 
 package() {
-  cd $_pkgname-$_gitver/build
-
-  make DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
 }
