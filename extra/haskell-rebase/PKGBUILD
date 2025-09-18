@@ -3,8 +3,8 @@
 
 _hkgname=rebase
 pkgname=haskell-rebase
-pkgver=1.20.1
-pkgrel=14
+pkgver=1.20.1.1
+pkgrel=1
 pkgdesc='A more progressive alternative to the "base" package'
 url="https://github.com/nikita-volkov/rebase"
 license=("MIT")
@@ -16,7 +16,7 @@ depends=('ghc-libs' 'haskell-bifunctors' 'haskell-contravariant' 'haskell-comona
          'haskell-vector-instances' 'haskell-void')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('ddad1732e26d37e15d85958cfacea7faffc9fefc3f805077e70502519622492e12fe98f8b90a496760590743c39753d824a38f631737fc623f810a1bd91d0c19')
+sha512sums=('86c22c9f0e93514717d8f202f7bcc2f0f45cf99216283a8d9286f412e42ea4c030bf178e3fafc8f12c2446526c56b775ce4c476f866a5914b6ac592b7a09ee73')
 
 prepare() {
     cd $_hkgname-$pkgver
