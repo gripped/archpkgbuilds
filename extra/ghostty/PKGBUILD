@@ -3,7 +3,7 @@
 
 pkgbase=ghostty
 pkgname=(ghostty ghostty-shell-integration ghostty-terminfo)
-pkgver=1.1.3
+pkgver=1.2.0
 pkgrel=1
 pkgdesc='Fast, native, feature-rich terminal emulator pushing modern features'
 arch=(x86_64 aarch64 i686)
@@ -16,30 +16,26 @@ depends=(bzip2
          glibc # libc.so libm.so
          glib2 libglib-2.0.so libgio-2.0.so libgobject-2.0.so
          gtk4 libgtk-4.so
+         gtk4-layer-shell
          libx11 # libX11.so
          harfbuzz libharfbuzz.so
          libadwaita libadwaita-1.so
          libpng
          oniguruma # libonig.so
          pixman
+         wayland libwayland-client.so
          zlib)
-makedepends=(pandoc-cli
+makedepends=(blueprint-compiler
+             pandoc-cli
              zig)
 _archive="$pkgname-$pkgver"
-source=("$url/archive/v$pkgver/$_archive.tar.gz"
-        0001-Use-epoll.patch)
-sha256sums=('66c596ed7679d9f7b3ff84fcc019b3a3754ca97a7b7857e5b26d67c80e6e2b95'
-            'c2de4d291fa600c0a6173c6ed0a5c9312e09df89b9ffec64f271420345aa534c')
+source=("$url/archive/v$pkgver/$_archive.tar.gz")
+sha256sums=('02c3891e6e98d4666dd6d09338d01cb226d79c76ef904d5596fe5d9e92cfaac4')
 
 prepare() {
 	cd "$_archive"
 
-	# Use epoll instead of io_uring
-	# https://gitlab.archlinux.org/archlinux/packaging/packages/ghostty/-/issues/2
-	patch -Np1 -i ../0001-Use-epoll.patch
-
-	export ZIG_GLOBAL_CACHE_DIR="$srcdir/zig-global-cache/"
-	zig build --fetch
+	ZIG_GLOBAL_CACHE_DIR="$srcdir/zig-global-cache/" ./nix/build-support/fetch-zig-cache.sh
 }
 
 build() {
