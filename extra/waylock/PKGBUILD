@@ -2,8 +2,8 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 
 pkgname=waylock
-pkgver=1.4.0
-pkgrel=2
+pkgver=1.5.0
+pkgrel=1
 pkgdesc="A simple screenlocker for wayland compositors"
 arch=(x86_64)
 url="https://codeberg.org/ifreund/waylock"
@@ -22,7 +22,7 @@ makedepends=(
 )
 _zig_deps=(
   # https://codeberg.org/ifreund/waylock/src/tag/v${pkgver}/build.zig.zon
-  zig-wayland-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.3.0.tar.gz
+  zig-wayland-v0.4.0.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.4.0.tar.gz
   zig-xkbcommon-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.3.0.tar.gz
 )
 source=(
@@ -31,11 +31,11 @@ source=(
   "${_zig_deps[@]}"
 )
 noextract=("${_zig_deps[@]}")
-sha512sums=('e8894a446338f579018fd411f115272aae455172820afeaaf3c187622bc55e0fd485f865fc789198e5b1090a08024b9dc5432b0c361f5819a4fc62daef7fa683'
-            '436c7104c41bb3c26bedc3491d887293fa0a40c11a14bc0973a1fa873c5161a05c9681a857f6cf89c9b34106e2b9e92b4f67eebabaf16836cb99a459ad11d20e'
+sha512sums=('b0c6ab9c0b5d200629f84e9b29ae0962e8980d0f850b4dea4e63698388aac0e5aab8dcf284049c1f41af50adac4015024b5082dce5cfaf0c32e8cbeba9b41147'
+            '8536456d2f2886c7aa844e227272e8e4595ba3197575cba46b5f757b045976cf1c65a131532a191f2a8a82ca3d58642900d57fe7358518a237f29e84cb85e0f2'
             'fe0dc46a8556f19c2ce1badbeee7576065cb56495b94b6d468ee6ed8667f9fef5377e26864b0c8e81c3a2718cfcaf8a4f5e13aab23a615f3a58ec639372fb758')
-b2sums=('40bbb8624e1d19a7b9797b5f1459f7ad2c81a1be3c417d4d11fd45c6e60e87b776e72e9a29081e577c67d58fd227534d56f3fde680ebcdefadbefd8ea0637290'
-        '8dda2bae62c65068825068dbe91e701ad4a71685d2209bb703d0e8b71b75f1546690b83fc66e9b81de59e26c9e5a9d8d5cfa3f2098cd16a3f13ada7f38fb94ce'
+b2sums=('b9aa88fac8fb9d8c06bc3d5e5e556752c0e1c5cbbc160ae5f7b76af22770eeaac17694752aed8de5a8c179d28cf83cfe767f22fc0237d5d057503b2c84a43d13'
+        '1c33b878c3efdf20eef58ddd6f8a6cab99a24e7481f9a3b8f31b19b58d13372d8dea84dfb26b4097123ca25b1d38939e9b987d70eb3a23fe0fecf9f21fe6f8a2'
         '6870fc2465e2b1ef4faa6330183a1dade4a4bcf36130113444e5221ff9c764db488304f2f25a603f2511c2562d55bf1011a5f8fe41a068e7e5b707e1d06c0792')
 validpgpkeys=('5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11') # Isaac Freund <mail@isaacfreund.com>
 
