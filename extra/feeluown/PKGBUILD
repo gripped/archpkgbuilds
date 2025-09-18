@@ -2,7 +2,7 @@
 # Contributor: Bruce Zhang <zttt183525594@gmail.com>
 
 pkgname=feeluown
-pkgver=4.1.15
+pkgver=4.1.16
 pkgrel=1
 pkgdesc="FeelUOwn Music Player"
 arch=('any')
@@ -25,16 +25,14 @@ provides=('feeluown-local')
 replaces=('feeluown-local')
 groups=('feeluown-full')
 source=("git+https://github.com/feeluown/FeelUOwn.git#tag=v$pkgver"
-        "feeluown.desktop"
+        "FeelUOwn.desktop"
 	"pytest-skip-benchmark-cov-plugin.patch")
-sha512sums=('4d9be5929f116c08dc78e5caf77546e8323385cc16f036f534d7751b72c0039454b8ace2d78b4beef9b4ea82724c5991a4842b6460d76b64503f78178e3ff618'
+sha512sums=('c705c4d50028c5549cc8c90b9e313bd3bda9175e7f5019327dff69e8b7ea363130668dc2dae75bb326457a03af7c934c16bfbf5b80a3a5391c78b95e89337b8c'
             '48882f7469c22e5db332663bc1aa8b398b0a10a0c929d4d7e3d7b8b91205d7d3070c5fa295cb9a14f8c352bff57978bfaad167343e0ddc51c92417eda07c8087'
             '97e1d3133c921b1071ad1f6966b5175755cde22660bc76d2f107ddea9d3cde6b105636ed39838d4e81bef168b40ade130c09e8f9752bf1ac77d67cff2a42bae1')
 
 prepare() {
   cd FeelUOwn
-  # qasync 0.28+ compatibility
-  git cherry-pick -n 0100e01a6c2c1ab71138b39ddb08ae526a61a5b6
   patch -Np1 -i ../pytest-skip-benchmark-cov-plugin.patch
   # TODO: figure out how to use virtual audio output
   sed -i 's/cannot_play_audio = is_travis_env/cannot_play_audio = os.environ.get("CANNOT_PLAY_AUDIO") == "1"/' tests/helpers.py
@@ -54,5 +52,5 @@ package() {
   cd FeelUOwn
   python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
   install -Dm644 feeluown/gui/assets/icons/feeluown.png -t "$pkgdir"/usr/share/icons/hicolor/512x512/apps/
-  install -Dm644 "$srcdir"/feeluown.desktop -t "$pkgdir"/usr/share/applications/
+  install -Dm644 "$srcdir"/FeelUOwn.desktop -t "$pkgdir"/usr/share/applications/
 }
