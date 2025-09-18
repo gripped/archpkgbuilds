@@ -2,8 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-jiter
-_pkgname=${pkgname#python-}
-pkgver=0.10.0
+pkgver=0.11.0
 pkgrel=1
 pkgdesc="Fast iterable JSON parser"
 arch=(x86_64)
@@ -25,23 +24,23 @@ checkdepends=(
   python-pytest
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('9933fbc28f3e9fb34b532f067f15c9ff8d16b724117896f746dcb75004bd0091')
+sha256sums=('5eca503150d27de5d83946420f0bc35ed22b56740ad1c522b41b759137d9fe4d')
 
 build() {
-  cd "$_pkgname-$pkgver/crates/jiter-python"
+  cd "${pkgname#python-}-$pkgver/crates/jiter-python"
   export RUSTUP_TOOLCHAIN=stable
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_pkgname-$pkgver/crates/jiter-python"
-  python -m installer --destdir=tmp_install dist/*.whl
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  PYTHONPATH="$PWD/tmp_install/$site_packages" pytest
+  cd "${pkgname#python-}-$pkgver/crates/jiter-python"
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest
 }
 
 package() {
-  cd "$_pkgname-$pkgver"
+  cd "${pkgname#python-}-$pkgver"
   python -m installer --destdir="$pkgdir" crates/jiter-python/dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
