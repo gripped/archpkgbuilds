@@ -2,22 +2,23 @@
 
 _hkgname=hoauth2
 pkgname=haskell-hoauth2
-pkgver=2.12.0
-pkgrel=10
+pkgver=2.13.0
+pkgrel=1
 pkgdesc="Haskell OAuth2 authentication client"
 url="https://github.com/freizl/hoauth2"
 license=('MIT')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-aeson' 'haskell-base64' 'haskell-cryptonite' 'haskell-data-default'
+depends=('ghc-libs' 'haskell-aeson' 'haskell-base64' 'haskell-crypton' 'haskell-data-default'
          'haskell-http-conduit' 'haskell-http-types' 'haskell-memory' 'haskell-microlens'
          'haskell-uri-bytestring' 'haskell-uri-bytestring-aeson')
 makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('02d56257bba77b55188be4c5eddf875498f804149c4f4df210f77ec7ed4a6883')
+sha256sums=('716781e96e13ae71bac3d7aa7c78eda28186196258dc22735769f36cc9ad3928')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u crypton
 }
 
 build() {
