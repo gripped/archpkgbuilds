@@ -3,10 +3,10 @@
 
 pkgname=mongo-c-driver
 pkgver=1.30.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A client library written in C for MongoDB"
 arch=(x86_64)
-url="https://www.mongodb.org/display/DOCS/C+Language+Center"
+url="https://github.com/mongodb/mongo-c-driver"
 license=(Apache-2.0)
 depends=(
   glibc
@@ -30,7 +30,7 @@ replaces=(
   libbson
   libmongoc
 )
-source=("https://github.com/mongodb/mongo-c-driver/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
 sha256sums=('acb16b3a287a440cb79e2bedbad829feb00e4cf2279123cce5c602480765b7ed')
 
 build() {
