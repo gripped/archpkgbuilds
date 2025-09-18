@@ -1,39 +1,72 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=hamlib
-pkgver=4.6.3
-pkgrel=2
+pkgver=4.6.5
+pkgrel=1
 pkgdesc='Ham radio equipment control libraries'
 arch=('x86_64')
 url='https://hamlib.github.io'
-license=('GPL' 'LGPL')
-depends=('perl' 'python' 'lua' 'tcl' 'libxml2' 'libusb-compat' 'libtool' 'libuhd' 'libindi')
-makedepends=('swig')
-#source=("https://github.com/Hamlib/Hamlib/releases/download/$pkgver/$pkgname-$pkgver.tar.gz"{,.asc})
-source=(https://github.com/Hamlib/Hamlib/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('a96d08745d4677a4c9717746e74379fff197413a0b663f2f3cc64053888c3ed4994ad62a809476ec533a070993976ccf1e78ce5b86c6481e14602e6aee4ef5c0')
+license=(
+  'GPL-2.0-or-later'
+  'LGPL-2.0-or-later'
+)
+depends=(
+  'gcc-libs'
+  'glibc'
+  'libindi'
+  'libusb'
+  'readline'
+)
+makedepends=(
+  'lua'
+  'python'
+  'swig'
+  'tcl'
+)
+optdepends=(
+  'lua: Lua bindings'
+  'perl: Perl bindings'
+  'python: Python bindings'
+  'tcl: Tcl bindings'
+)
+provides=(
+  'libhamlib++.so'
+  'libhamlib.so'
+)
+source=("https://github.com/Hamlib/Hamlib/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('02e626866fa1dba63cc83923938d6632d54bdb10fea1970110fa59f0dbf06c1490142de30b66f4a00fa98cee49eda271b3bbdc114c8a753977655544dccfdb66')
 validpgpkeys=('82D64F6B0E67CD41F689BBA6FB2C5130D55A8819') # Nate Bargmann <n0nb@n0nb.us>
+
+prepare() {
+  cd Hamlib-$pkgver
+  sed -i 's/Hamlib-pl.mk install_site/Hamlib-pl.mk install/g' bindings/Makefile.am
+  autoreconf -fiv
+}
 
 build() {
   cd Hamlib-$pkgver
-
-  ./bootstrap
-  CFLAGS+=" -Wno-implicit-function-declaration" \
   ./configure \
-  	--prefix=/usr \
-  	--sbindir=/usr/bin \
-  	--with-perl-binding \
-  	--with-python-binding \
-  	--with-tcl-binding \
-  	--with-lua-binding \
-  	--with-xml-support \
-  	--disable-uhd  # https://github.com/Hamlib/Hamlib/issues/355
-
+    --prefix=/usr \
+    --sbindir=/usr/bin \
+    --with-perl-binding \
+    --with-python-binding \
+    --with-tcl-binding \
+    --with-lua-binding \
+    --with-xml-support \
+    --with-indi \
+    --with-readline \
+    --disable-static
   make
+}
+
+check() {
+  cd Hamlib-$pkgver
+  make check
 }
 
 package() {
   cd Hamlib-$pkgver
-
-  make DESTDIR="$pkgdir" install
+  make DESTDIR="$pkgdir" INSTALLDIRS=vendor install
+  rm -rv "$pkgdir"/usr/lib/perl5/*/core_perl
 }
