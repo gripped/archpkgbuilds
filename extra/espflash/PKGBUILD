@@ -2,8 +2,8 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=espflash
-pkgver=4.0.1
-pkgrel=3
+pkgver=4.1.0
+pkgrel=1
 pkgdesc="Cargo subcommand for flashing Espressif devices over serial"
 url='https://github.com/esp-rs/espflash'
 arch=('x86_64')
@@ -20,16 +20,13 @@ conflicts=('cargo-espflash')
 replaces=('cargo-espflash')
 options=(!lto)
 source=(https://github.com/esp-rs/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('f4eb66af5ca11a396b238878d339ca38d9ddcb7c619b47ed5fc91b7f7b4e54ac')
-b2sums=('1667a4304e7a5bf959b0f0ac2df51706b3e5187769c141fe80d45d206c902be6c4ce58da980956cd438bbd800fec516b79af58ef6bbebef38d220e46bcf8f094')
+sha256sums=('e17e14bae62c8cb4fe3b2b1e5bb5b07b1d988cbab97fb2fed0377ca85a4b5998')
+b2sums=('f7e7cc60579767a14be405ba99e14bc7abf5e7adf7c784591043260a7ef9394e833a3c652190243c8ff7a050798361273438604656862bef93258170d7721736')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  # https://github.com/esp-rs/espflash/issues/938
-  cargo update -p serialport
-
-  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')" # --locked
+  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')" --locked
 }
 
 build() {
@@ -50,11 +47,11 @@ package() {
 
   # install completions
   install -d "${pkgdir}/usr/share/bash-completion/completions" \
-             "${pkgdir}/usr/share/zsh/site-functions" \
-             "${pkgdir}/usr/share/fish/vendor_completions.d"
-  "${pkgdir}/usr/bin/${pkgname}" completions bash > "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
-  "${pkgdir}/usr/bin/${pkgname}" completions zsh > "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
-  "${pkgdir}/usr/bin/${pkgname}" completions fish > "${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}.fish"
+    "${pkgdir}/usr/share/zsh/site-functions" \
+    "${pkgdir}/usr/share/fish/vendor_completions.d"
+  "${pkgdir}/usr/bin/${pkgname}" completions bash >"${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
+  "${pkgdir}/usr/bin/${pkgname}" completions zsh >"${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
+  "${pkgdir}/usr/bin/${pkgname}" completions fish >"${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}.fish"
 
   # licenses
   install -Dm 644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE-*
