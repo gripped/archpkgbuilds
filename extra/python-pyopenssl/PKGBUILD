@@ -4,7 +4,7 @@
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=python-pyopenssl
-pkgver=25.2.0
+pkgver=25.3.0
 pkgrel=1
 pkgdesc='Python wrapper around the OpenSSL library'
 arch=('any')
@@ -20,8 +20,8 @@ makedepends=(
 )
 checkdepends=('python-pytest' 'python-pretend' 'python-pytest-rerunfailures')
 source=("$pkgname::git+https://github.com/pyca/pyopenssl#tag=$pkgver")
-sha512sums=('8ecef67a22108f4e76331b00206b94aa83a523ae69549244fddc7a7c9fcedb1ac41a9f403ab8ea9abbbc4277abe5d1efeafb1c400d49cfbe255a7b250032368e')
-b2sums=('36b697855673d83083b4bd9e687ad89dae7498168591e1f2e759c3f2e199200503eeee69988820f3a49c49e8a215bacced38948de50f3c1209f03de08b062801')
+sha512sums=('519e2ac290688b488c78359a90e938138fb0d5cf1c82442470d46e83e8605eb2be5a065f96cb46c847f76e172fbce0adfd9e0247dc73b6e18fefea5425193699')
+b2sums=('b3ad0d96b739cb48b2811d9baea297cb0f2c5e2693bdccca17c7d8c7b6651b94c7bd16edf0e1e6520c6ed89712a7d190c91d3b860bd28230413a6d6c9e20d0bf')
 
 build() {
   cd "$pkgname"
