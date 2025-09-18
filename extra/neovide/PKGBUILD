@@ -2,7 +2,7 @@
 # Contributor: peeweep <peeweep at 0x0 dot ee>
 
 pkgname=neovide
-pkgver=0.15.0
+pkgver=0.15.1
 pkgrel=1
 pkgdesc='No Nonsense Neovim Client in Rust'
 arch=(x86_64)
@@ -35,7 +35,7 @@ optdepends=('vulkan-intel: vulkan support for intel'
 options=(!lto)
 _archive=("$pkgname-$pkgver")
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('89900673314f4dba66a1716197aca3b51f01365d9f8351563c3dc5604b3e48ab')
+sha256sums=('9042678f2fa33a86662755b3d37f7b264ebbf28b9a5f021ca89c137faeeda37d')
 
 prepare() {
 	cd "$_archive"
@@ -51,7 +51,8 @@ build() {
 	export CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
 	CFLAGS+=' -ffat-lto-objects'
 	export SKIA_USE_SYSTEM_LIBRARIES=true
-	export FORCE_SKIA_BUILD=true
+	# TODO: re-enable Skia bindings when upstream red-black-tree issue resolved
+	# export FORCE_SKIA_BUILD=true
 	export SKIA_GN_COMMAND=gn
 	export SKIA_NINJA_COMMAND=ninja
 	cargo build --frozen --release --features embed-fonts
