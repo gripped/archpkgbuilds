@@ -2,8 +2,8 @@
 # Contributor: Andrea Feletto <andrea@andreafeletto.com>
 
 pkgname=river
-pkgver=0.3.11
-pkgrel=2
+pkgver=0.3.12
+pkgrel=1
 pkgdesc='A dynamic tiling wayland compositor'
 arch=('x86_64')
 url='https://codeberg.org/river/river'
@@ -27,15 +27,15 @@ provides=('wayland-compositor')
 source=(git+https://codeberg.org/river/river.git#tag=v${pkgver}?signed)
 # PACKAGING.md -> build.zig.zon
 source+=(zig-pixman-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-pixman/archive/v0.3.0.tar.gz
-         zig-wayland-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.3.0.tar.gz
-         zig-wlroots-v0.19.2.tar.gz::https://codeberg.org/ifreund/zig-wlroots/archive/v0.19.2.tar.gz
+         zig-wayland-v0.4.0.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.4.0.tar.gz
+         zig-wlroots-v0.19.3.tar.gz::https://codeberg.org/ifreund/zig-wlroots/archive/v0.19.3.tar.gz
          zig-xkbcommon-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.3.0.tar.gz)
 noextract=("${source[@]:1}")
 validpgpkeys=('5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11') # Isaac Freund <mail@isaacfreund.com>
-sha256sums=('9deb8eb09e3856606b8d2dfb340928f5a5588dcd3c7e15e5ef59e44d8fc2b85f'
+sha256sums=('84bf6b5db5a31237d2e3e9390f58e38c8e85fad7805ea6e3c952b9afb46a2395'
             'cd7fe3415d4d58685a94fdedd308e9994a37f012828940cfb603461de7f2c6ad'
-            'c54f08ac44d214e28a410320c15c9128bc0669e93851268a5e0e3d4bda074934'
-            '9ead9dfaad55f2d06196ae2f77df25228a06f0139e084b427a8045acd03907b7'
+            '907fdd18c7ede1ab1f249c618ba5dce3b8a72c26e50090b4ae7010033a419ba9'
+            'bffcfa2af6b90d07cb187ceb3d70aeffb0ed11b3d3f9737ea004e722bc031d6b'
             '1e185423e6b23ed9729614e66751ab7522db4487df4e0dcc7a2b06375aacda23')
 
 prepare() {
