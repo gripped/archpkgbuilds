@@ -2,16 +2,16 @@
 
 _hkgname=network-run
 pkgname=haskell-network-run
-pkgver=0.3.0
-pkgrel=89
+pkgver=0.3.1
+pkgrel=1
 pkgdesc="Simple network runner library"
 url="https://github.com/kazu-yamamoto/network-run"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-network' 'haskell-time-manager')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('5c8492f747b7274b5be50094ba912a0a84dc5d738ce7a4953540eb32ac81b5a1')
+sha256sums=('097b60954a28c572bffc0877f209f5078058e5a939328eab1281c7cf288e272e')
 
 build() {
   cd $_hkgname-$pkgver
