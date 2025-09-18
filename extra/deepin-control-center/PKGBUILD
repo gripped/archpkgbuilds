@@ -3,18 +3,18 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-control-center
-pkgver=6.0.65
+pkgver=6.0.66
 pkgrel=1
 pkgdesc='Control panel of Deepin Desktop Environment'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-control-center"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 # startdde: org.deepin.dde.Display1
-depends=('dtkcore' 'dtkgui' 'dtkwidget' 'qt5-base' 'deepin-account-faces' 'deepin-api'
-         'libpwquality' 'deepin-daemon' 'startdde' 'deepin-qt5integration' 'deepin-pw-check'
-         'deepin-network-core' 'qt5-multimedia' 'polkit-qt5' 'deepin-desktop-theme' 'icu')
-makedepends=('git' 'cmake' 'deepin-tray-loader' 'gmock' 'gtest' 'ninja' 'qt5-tools'
-             'deepin-gettext-tools' 'doxygen' 'libsystemd')
+depends=('dtk6core' 'dtk6declarative' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-declarative' 'qt6-svg'
+         'deepin-account-faces' 'deepin-api' 'libpwquality' 'deepin-daemon' 'startdde'
+         'deepin-pw-check' 'deepin-network-core' 'deepin-desktop-theme' 'icu')
+makedepends=('git' 'cmake' 'deepin-tray-loader' 'gmock' 'gtest' 'ninja' 'qt6-tools'
+             'deepin-gettext-tools' 'doxygen' 'libsystemd' 'extra-cmake-modules')
 optdepends=('redshift: automatic color temperature support')
 # Not packaged: network-manager-l2tp
 conflicts=('dde-control-center' 'dde-dock-applets')
@@ -22,7 +22,7 @@ replaces=('dde-control-center' 'dde-dock-applets')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-control-center.git#tag=$pkgver"
         $pkgname-systeminfo-deepin-icon.patch)
-sha512sums=('6669d53801edaff3a5534352d344656860bcff367d2d684ab76a593364026d5b82833c537e083edf1eb734a3364e29a4372470456368e8ca68187a84e5004a24'
+sha512sums=('d0a88ec8783fc2d10647835fb3b391d2e02de91f52c9c0a1867fdfbc370472ee359f4b4cb03bc1aa1d76a5a4cdea52af8a4e28f3825a1d6ab3f8ae13b57e85ea'
             '74fd63391e923ca37f4559f30da967ba7f33d4426b60d58d1ece8cd9a154578e8184b1a376a8d7ff3ef81ffce530915f79d0845a2612ae4e06522b96855ab3dd')
 
 prepare() {
@@ -39,6 +39,7 @@ build() {
     -DDISABLE_UPDATE=YES \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DBUILD_DCC_OLD=OFF \
     ../dde-control-center
   ninja
 }
