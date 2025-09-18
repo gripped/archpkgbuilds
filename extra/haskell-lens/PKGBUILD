@@ -3,8 +3,8 @@
 
 _hkgname=lens
 pkgname=haskell-lens
-pkgver=5.3.1
-pkgrel=29
+pkgver=5.3.2
+pkgrel=1
 pkgdesc="Lenses, Folds and Traversals"
 url="https://github.com/ekmett/lens/"
 license=('BSD-2-Clause')
@@ -20,7 +20,7 @@ makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-simple-reflect'
              'haskell-test-framework' 'haskell-test-framework-hunit'
              'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('86720cdd252ae628d7cead6235f970baa24c3e68f725b6132f28f1ecc7280463a9b616dce5b50c4df73f57c6ab68e9d8a84b339da198e3789d41dd637f859c2f')
+sha512sums=('8fadd5b0ebc6e3b9f8833b55719fe86640e3e2b36631eddccd731cacb74a707c09c2699f0414552317cad71ba8f18f78eaa8dd1fcda5cb26c9ab71f965cf7b48')
 
 build() {
     cd $_hkgname-$pkgver
