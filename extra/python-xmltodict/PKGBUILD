@@ -4,7 +4,7 @@
 # Contributor: PiC0 <guill.p.linux@gmail.com>
 
 pkgname=python-xmltodict
-pkgver=1.0.0
+pkgver=1.0.2
 pkgrel=1
 pkgdesc='Python module that makes working with XML feel like you are working with JSON'
 arch=(any)
@@ -18,10 +18,10 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-checkdepends=(python-nose)
+checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('e855b9c6d966aabc6ede2246828657d87d063a6cd11bf429f3a4864f8d299aa8e1b39d5b635848476c4e14997d0f03863ee0954c9581dac7d3cee94c59a4c901')
-b2sums=('5cc5e81ebccf174bbdf8157447b997c58e416a779ec6e279d8efdb734a4949ef0a4c67c06a72a62b3757b54db18237f002dec5120c0d105512fc0e5af187b088')
+sha512sums=('107942e55a57f60913b62f918b4e11b9afb14a7a7a38f0b8ebacf2bf8fae4d8621b8f7a4a99073f6e9b627d0db8b1532fdd52f1dede15a49629e01cb75214e6b')
+b2sums=('254ebb2ccd13c85bcc9a4d6b75f7662d6356155e33fc137c46c9bf95a67afee8a43aa9c7a3a416a1ce3b0a940998e23d424cebfdd4da98daf20cfba51e6c72de')
 
 build() {
   cd "$pkgname"
@@ -32,7 +32,7 @@ build() {
 check() {
   cd "$pkgname"
 
-  nosetests
+  pytest -v
 }
 
 package() {
