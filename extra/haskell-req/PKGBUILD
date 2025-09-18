@@ -2,8 +2,8 @@
 
 _hkgname=req
 pkgname=haskell-req
-pkgver=3.13.3
-pkgrel=37
+pkgver=3.13.4
+pkgrel=1
 pkgdesc="HTTP client library"
 url="https://github.com/mrkkrp/req"
 license=('BSD-3-Clause')
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-authenticate-oauth' 'haskell-blaze-
          'haskell-transformers-base' 'haskell-unliftio-core')
 makedepends=('git' 'ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-core')
 source=("git+https://github.com/mrkkrp/req#tag=$pkgver")
-sha512sums=('2f480e8614165ec37fc2b34bf9c9e3cc475ca466df8b1f19fff848d6732f95753d0b1f8e63f6c21be6f5f9312381fe34fc977a0ee0218ca3825e14707fe0f6bd')
+sha512sums=('6e9ea22db92f2dde8fe8257854de50d7e2b22a02deeb0ccee69754c72a36739f486a3c0f096377212956ee6abbe35ccc2bc6eb9604bf8958f554d23de16d37f5')
 
 prepare() {
   cd $_hkgname
