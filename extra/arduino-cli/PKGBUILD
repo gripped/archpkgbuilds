@@ -1,32 +1,58 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=arduino-cli
-pkgver=1.2.2
-pkgrel=1
+pkgver=1.3.1
+pkgrel=2
 arch=('x86_64')
 pkgdesc='Arduino command line interface'
 url='https://github.com/arduino/arduino-cli'
-license=('GPL3')
+license=('GPL-3.0-only')
 groups=('arduino')
 depends=('glibc')
-makedepends=('go' 'git')
+makedepends=(
+  'git'
+  'go'
+)
 source=("git+$url.git#tag=v$pkgver")
-sha512sums=('a7a58ac7f7376f22ed056ec2674c9ac5859f433cb24aa7706337ecbf45a05724a5dd04c2a3c9d35d66a69f6a17455fd298e1506395e4c2e9e313b798a45d5717')
+sha512sums=('4842a209e0d329f9455e9f10158a6931dfe67ca69f76162ea6983be30398c2476d84f67169a8aa7bf54c195dd6d9cb885ff0a36b96443e4b92f022dd5932c996')
+
+prepare() {
+  cd $pkgname
+  GOFLAGS="-mod=readonly" go mod vendor -v
+}
 
 build(){
   cd $pkgname
-
-  export CGO_CPPFLAGS="$CPPFLAGS"
-  export CGO_CFLAGS="$CFLAGS"
-  export CGO_CXXFLAGS="$CXXFLAGS"
   export CGO_LDFLAGS="$LDFLAGS"
-  export GOFLAGS='-buildmode=pie -trimpath -mod=readonly -modcacherw'
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw -buildvcs=false"
+  export GOPATH="$srcdir"
 
-  go build \
-        -ldflags "-linkmode=external -X github.com/arduino/arduino-cli/version.versionString=$pkgver-arch -X github.com/arduino/arduino-cli/version.commit=$(git rev-parse HEAD)" \
-        -v .
+  local ld_flags=" \
+    -X github.com/arduino/arduino-cli/internal/version.versionString=$pkgver \
+    -X github.com/arduino/arduino-cli/internal/version.commit=$(git rev-parse HEAD) \
+    -compressdwarf=false \
+    -linkmode=external \
+  "
+  go build -v -ldflags "$ld_flags" -o build/
+}
+
+check() {
+  cd $pkgname
+  local unit_tests=$(
+    go list ./... \
+      | grep -v github.com/arduino/arduino-cli/internal/arduino/monitor \
+      | grep -v github.com/arduino/arduino-cli/internal/integrationtest \
+      | grep -v github.com/arduino/arduino-cli/internal/version \
+  )
+  # shellcheck disable=SC2086
+  go test -v $unit_tests
 }
 
 package() {
-  install -Dm 755 $pkgname/$pkgname "$pkgdir"/usr/bin/$pkgname
+  cd $pkgname
+  install -vDm755 -t "$pkgdir/usr/bin" build/$pkgname
 }
