@@ -4,8 +4,8 @@
 
 _hkgname=hledger-lib
 pkgname=haskell-hledger-lib
-pkgver=1.41
-pkgrel=5
+pkgver=1.42
+pkgrel=1
 pkgdesc="A library providing the core functionality of hledger"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
@@ -13,15 +13,15 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-ansi-terminal'
          'haskell-base-compat' 'haskell-blaze-html' 'haskell-blaze-markup' 'haskell-call-stack'
          'haskell-cassava' 'haskell-cassava-megaparsec' 'haskell-cmdargs' 'haskell-colour'
-         'haskell-data-default' 'haskell-decimal' 'haskell-doclayout' 'haskell-extra'
-         'haskell-file-embed' 'haskell-glob' 'haskell-hashtables' 'haskell-megaparsec'
-         'haskell-microlens' 'haskell-microlens-th' 'haskell-lucid' 'haskell-parser-combinators'
-         'haskell-pretty-simple' 'haskell-regex-tdfa' 'haskell-safe' 'haskell-tabular'
-         'haskell-tasty' 'haskell-tasty-hunit' 'haskell-terminal-size' 'haskell-timeit'
-         'haskell-uglymemo' 'haskell-unordered-containers' 'haskell-utf8-string')
+         'haskell-data-default' 'haskell-decimal' 'haskell-doclayout' 'haskell-encoding'
+         'haskell-extra' 'haskell-file-embed' 'haskell-glob' 'haskell-hashtables'
+         'haskell-megaparsec' 'haskell-microlens' 'haskell-microlens-th' 'haskell-lucid'
+         'haskell-parser-combinators' 'haskell-pretty-simple' 'haskell-regex-tdfa' 'haskell-safe'
+         'haskell-tabular' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-terminal-size'
+         'haskell-timeit' 'haskell-uglymemo' 'haskell-unordered-containers' 'haskell-utf8-string')
 makedepends=('ghc' 'haskell-doctest')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('c6090ebdad52b4e143bcf9281582523bfb10ca6204cbc97873f96b54ce0f3bc443dd3ddead8b6f6fb64efea9de1ba69e42095ada9932bc6931e0dd79afece620')
+sha512sums=('01aeef750cdd1af0d2c2d4f18839da48df7e9487adf1eabe393cb3cf8a296dd48a8916d7476b2a1855590525e5724dd4738a187512ce81db5af8ae5b842616b2')
 
 build() {
     cd $_hkgname-$pkgver
