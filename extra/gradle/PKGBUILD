@@ -5,7 +5,7 @@
 
 pkgbase=gradle
 pkgname=('gradle' 'gradle-doc' 'gradle-src')
-pkgver=9.0.0
+pkgver=9.1.0
 pkgrel=1
 pkgdesc='Powerful build system for the JVM'
 url='https://gradle.org/'
@@ -31,11 +31,11 @@ makedepends=(
 source=(https://services.gradle.org/distributions/${pkgbase}-${pkgver}-src.zip
         https://services.gradle.org/distributions/${pkgbase}-${pkgver}-all.zip
         ${pkgbase}.sh)
-sha256sums=('db0f7458ef9932002765e62a81d6a22e063d026b415f632914aa7395a6afc0c0'
-            'f759b8dd5204e2e3fa4ca3e73f452f087153cf81bac9561eeb854229cc2c5365'
+sha256sums=('938fc54835f7a59f4f6b18624d0e453cce5b54139cd9ed83a816d553ae1eb1f1'
+            'b84e04fa845fecba48551f425957641074fcc00a88a84d2aae5808743b35fc85'
             '4728dbdbe9fe416b82977cb7e456457e3ff0b88129291ee28e0d874ce8cc4891')
-sha512sums=('e73aa6a5a96b368113d124f10c490e54720f239b17c11ec9b7c72d5c5bc3f8918a95120a0aa3539834eb0b84aec450e36fb9d1b7ad1a1285680ee493164f6ec6'
-            'f859b5c2a8b223c904220a7c616584c696b8623294dc8ebbd1c030050c1050bd1517a02df2de9e272f9414eaa6d5979b0fc74c009c7b059597010a11383e00f8'
+sha512sums=('a153bc26e96438395a9e3440673b3bc89232d58d7a2bfc64f2730742f14552e575fbb027b96ad367575852ec24d0440dc9b0afd2bd1202bda69d04acfd5de6d5'
+            '65abab7397b32efc0337c210df4f0566b725ef55468a735bada026a7730220a8080c331ff996d594da6f393f8ebdd20a5673c123333bc74cf718931b71837720'
             '9054a13f13a0d04bffefb2e5c1bcabfcd7b11e4d83d9180f65e0a09eeb8fea407d8c4e1e1e9b79191ba99e4eb372dbbb3189dd30833170c64cdb4484ca559441')
 
 prepare() {
