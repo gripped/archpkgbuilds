@@ -5,7 +5,7 @@
 
 pkgname=apache
 pkgver=2.4.65
-pkgrel=3
+pkgrel=4
 pkgdesc='A high performance Unix-based HTTP server'
 arch=('x86_64')
 url='https://www.apache.org/dist/httpd'
@@ -18,6 +18,7 @@ backup=(
     etc/httpd/conf/extra/proxy-html.conf
     etc/httpd/conf/{mime.types,magic}
     etc/logrotate.d/httpd
+    etc/systemd/system/httpd.service.d/hardening.conf
 )
 provides=('mod_proxy_uwsgi')
 conflicts=('mod_proxy_uwsgi')
@@ -41,13 +42,15 @@ source=(
     apache.tmpfiles
     httpd.logrotate
     httpd.service
+    hardening.conf
     arch.layout
 )
 sha256sums=('58b8be97d9940ec17f7656c0c6b9f41b618aac468b894b534148e3296c53b8b3'
             'SKIP'
             '63da1a420f4714a3e7af2672d28384419cc7eedbe7bf35baebd02938fabc15bf'
             '0bbbfae23a917b2fce0bf8f900f60319b50769224a96314e9301a75ccd078e16'
-            '7f9dda5736caa975065da5787db99e56784d08ce8c2d9dafaea0777fa062bc66'
+            '4322db9833d5c84444b774eff51293aa40b8ad9b88cf061bd8a1f0a181710d85'
+            '7994b4160a233956da1d805c371b337d0e7d9b8b47275020942664f0f8f0e164'
             'dda05c6e76f12624e418ca18a36f2e90ec1c5b1cc52fed7142fce6076ec413f3')
 # following keys are coming from https://downloads.apache.org/httpd/KEYS
 validpgpkeys=('A93D62ECC3C8EA12DB220EC934EA76E6791485A8' # Jim Jagielski
@@ -127,6 +130,7 @@ package() {
   install -D -m644 "${srcdir}/httpd.logrotate" "${pkgdir}/etc/logrotate.d/httpd"
   install -D -m644 "${srcdir}/apache.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/apache.conf"
   install -D -m644 "${srcdir}/httpd.service" "${pkgdir}/usr/lib/systemd/system/httpd.service"
+  install -D -m644 "${srcdir}/hardening.conf" "${pkgdir}/etc/systemd/system/httpd.service.d/hardening.conf"
   install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 
   # symlinks for /etc/httpd
