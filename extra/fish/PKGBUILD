@@ -6,7 +6,7 @@
 # Contributor: Jan Fader <jan.fader@web.de>
 
 pkgname=fish
-pkgver=4.0.6
+pkgver=4.0.8
 pkgrel=1
 pkgdesc='Smart and user friendly shell intended mostly for interactive use'
 url='https://fishshell.com/'
@@ -29,8 +29,8 @@ install=fish.install
 backup=(etc/fish/config.fish)
 source=("${pkgname}::git+https://github.com/fish-shell/fish-shell#tag=${pkgver}")
 #validpgpkeys=(003837986104878835FA516D7A67D962D88A709A) # David Adam <zanchey@gmail.com>
-sha512sums=('5c7acdea223717ac5fd2f761d38d060f8b757bd8204cd3adac1ddc8d419721eee990811f47d67a20c2d5fcbbce20c4153793f8c08aa5a50839796d6e21c436a9')
-b2sums=('e9f845b3ed7abdefdd53e54814e113a9a28f568f81a647c7a1bf367fb14b75c4c4859422a40b8f09fc30810374f4d133906108bb9db9d6d3c5c678db95b32d67')
+sha512sums=('8e3c93b9702dc87600ddf2224f624b4f28de840b7968736a5ee524e775a596634d9588668974b4c972d2e1f0860ef79d81fc6889934b94db4524261d30a43e1f')
+b2sums=('4be446f5b51d9017a3e74ff99f1a311b47e4e38e9538fcc0f3f8ce76dc04ab7a652e9778f2ab7d5a7ec07dfbd1b7ead275c80610f53d87889b8b328cfffe6bf4')
 
 build() {
   cd ${pkgname}
