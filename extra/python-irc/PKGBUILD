@@ -5,8 +5,8 @@
 # Contributor: Stefano Esposito <ragnarok@email.it>
 
 pkgname=python-irc
-pkgver=20.3.1
-pkgrel=5
+pkgver=20.5.0
+pkgrel=1
 pkgdesc="IRC (Internet Relay Chat) protocol client library for Python"
 arch=('any')
 url="https://pypi.python.org/pypi/irc"
@@ -24,7 +24,7 @@ depends=(
 makedepends=('python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 checkdepends=(python-pytest python-pytest-enabler python-pygments)
 source=("https://files.pythonhosted.org/packages/source/i/irc/irc-$pkgver.tar.gz")
-sha256sums=('806b83af894d8b121ed1e14866a90640128588de6cc0495c4ecb2c5ec272280b')
+sha256sums=('8ddbfd19f71204ceceba7b7c72724b15b3fa87bab5e81e45a75bef736a1a3c76')
 
 build() {
   cd "irc-$pkgver"
