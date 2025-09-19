@@ -12,14 +12,14 @@ pkgname=(
  aspnet-targeting-pack-8.0
  dotnet-source-built-artifacts-8.0
 )
-pkgver=8.0.19.sdk119
+pkgver=8.0.20.sdk120
 pkgrel=1
 arch=(x86_64)
 url=https://dotnet.microsoft.com
 license=(MIT)
 makedepends=(
   bash
-  clang18
+  clang
   cmake
   dotnet-sdk-8.0
   dotnet-source-built-artifacts-8.0
@@ -30,7 +30,7 @@ makedepends=(
   libunwind
   libxml2
   lldb
-  llvm18
+  llvm
   lttng-ust2.12
   nodejs
   openssl
@@ -43,9 +43,9 @@ options=(
   !lto
   staticlibs
 )
-_tag=8495bde0fe309967f88de93e358d6b6166ed47f8
+_tag=6825a8d5c72c1893049c2c5ffa491b65cbcea7e0
 source=(git+https://github.com/dotnet/dotnet.git#tag=${_tag})
-b2sums=('532c320f1aec695c1d6658bd8decccd88815aebac704aafaa9da50fb8d813a3d22d5fde03688892dcf1fcba12f20405965ad8d5b27582b602653b9212f9bbb52')
+b2sums=('a6b4b5a41120428b432693560f9c6dbc560a9e06b70619b0fdda6fc6f9456b3b7611eb12cb9015dfd9f5d93d3b86b08ab42a98dcc9011a9c8ce47e3490863ecf')
 
 prepare() {
   cd dotnet
