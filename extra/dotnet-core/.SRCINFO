@@ -1,11 +1,11 @@
 pkgbase = dotnet-core
-	pkgver = 9.0.8.sdk109
+	pkgver = 9.0.9.sdk110
 	pkgrel = 1
 	url = https://dotnet.microsoft.com
 	arch = x86_64
 	license = MIT
 	makedepends = bash
-	makedepends = clang18
+	makedepends = clang
 	makedepends = cmake
 	makedepends = dotnet-sdk
 	makedepends = dotnet-source-built-artifacts
@@ -16,7 +16,7 @@ pkgbase = dotnet-core
 	makedepends = libunwind
 	makedepends = libxml2
 	makedepends = lldb
-	makedepends = llvm18
+	makedepends = llvm
 	makedepends = lttng-ust2.12
 	makedepends = nodejs
 	makedepends = openssl
@@ -25,8 +25,8 @@ pkgbase = dotnet-core
 	optdepends = bash-completion: Bash completion support
 	options = !lto
 	options = staticlibs
-	source = git+https://github.com/dotnet/dotnet.git#tag=a1e39f97e51f1d381385d2dc6c94b368ea333784
-	b2sums = 16ebabf416ced262f360d2a00496c4b0cfc5fde265cd0ecf4948a62082b998838cb70c9f8a59d75d6f66c782abc86f2bf80549e0b34f729b098d4cf86906ba7b
+	source = git+https://github.com/dotnet/dotnet.git#tag=999243871ad8799c178193bb2d384dfbcfd94ce6
+	b2sums = 0e6f3593e6c6ff32be64e89d1483a7fc629b19f76d1eca573f8322956ee865969406ccdf4571f8189446aa3b1064c786813375d522341a1cb39bb9b1be220237
 
 pkgname = dotnet-host
 	pkgdesc = A generic driver for the .NET Core Command Line Interface
