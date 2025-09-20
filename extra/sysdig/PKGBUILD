@@ -2,92 +2,52 @@
 # Contribuitor: Alfredo Palhares <masterkorp@masterkorp.net>
 # Contribuitor: Christian Babeux <christian.babeux@0x80.ca>
 
-pkgbase=sysdig
-pkgname=(sysdig sysdig-dkms)
-pkgver=0.39.0
-pkgrel=10
-
-# from src/sysdig-*/cmake/modules/falcosecurity-libs.cmake
-_falcover=0.18.1
+pkgname=sysdig
+pkgver=0.40.1
+pkgrel=1
 
 pkgdesc="Open source system-level exploration and troubleshooting tool"
 arch=('x86_64')
 url="https://www.sysdig.com/"
 license=('Apache-2.0')
-makedepends=('cmake' 'pandoc' 'gtest' 'jsoncpp' 'libjsoncpp.so' 'luajit' 'curl' 'libcurl.so'
-             'jq' 'libb64' 'intel-tbb' 'yaml-cpp' 're2' 'uthash' 'bpf' 'libbpf' 'clang'
-             'grpc' 'libgrpc++.so' 'nlohmann-json')
+depends=('luajit' 'yaml-cpp' 'nlohmann-json' 'falcosecurity-libs' 'ncurses' 'scap-dkms')
+makedepends=('cmake' 'pandoc' 'gtest' 'clang' 'git' 'ninja')
 options=('!lto')
-source=("https://github.com/draios/sysdig/archive/$pkgver/$pkgbase-$pkgver.tar.gz"
-        "falcosecurity-libs-$_falcover.tar.gz::https://github.com/falcosecurity/libs/archive/$_falcover.tar.gz"
+source=("git+https://github.com/draios/sysdig.git#tag=$pkgver"
         "bashcomp-location.patch"
         "falcosecurity-libs-nodownload.patch")
-sha256sums=('5b20d95d7bc2a2f482a3359bb2df4dbba7fc4cbf8547dc84256edcc4978f2fd3'
-            '1812e8236c4cb51d3fe5dd066d71be99f25da7ed22d8feeeebeed09bdc26325f'
+sha256sums=('4bfc7db6ad98fecef3ebd28c1068cfbb99d74eadcc0e78d991b661dfb144a5ea'
             '3b659326176c314eee9115adac39a249dc4b9530511b344ea6a2b23236bb8386'
             '3392204c265ef46c2a1378fc2acbb74b2b440585de4c9127a007f97ce10f0cfa')
 
 prepare() {
-  cd "$srcdir/libs-$_falcover"
-  echo 'target_link_libraries(sinsp INTERFACE zstd)' >> userspace/libsinsp/CMakeLists.txt
-
-  cd "$srcdir/$pkgbase-$pkgver"
+  cd "$srcdir/sysdig"
+  mkdir -p build
   patch -p1 -i "$srcdir"/bashcomp-location.patch
   patch -p1 -i "$srcdir"/falcosecurity-libs-nodownload.patch
-
-  # Fix build with abseil-cpp 2023
-  sed -e 's|-std=c++0x||' -i CMakeLists.txt -i ../libs-${_falcover}/cmake/modules/CompilerFlags.cmake
 }
 
 build() {
-  cd "$srcdir"/$pkgbase-$pkgver
-  rm -rf build
-  mkdir build
-  cd build
-
+  cd "$srcdir"/$pkgbase/build
   cmake .. \
-        -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_CXX_FLAGS="${CXXFLAGS} ${CPPFLAGS} -Wno-deprecated-declarations" \
-        -DCMAKE_C_FLAGS="${CFLAGS} ${CPPFLAGS} -Wno-deprecated-declarations" \
-        -DCMAKE_CXX_STANDARD=17 \
-        -DCMAKE_CXX_EXTENSIONS=OFF \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DSYSDIG_VERSION=$pkgver \
-        -DDRIVER_VERSION=$_falcover \
-        -DUSE_BUNDLED_DEPS=OFF \
-        -DUSE_BUNDLED_TBB=OFF \
-        -DUSE_BUNDLED_B64=OFF \
-        -DUSE_BUNDLED_JSONCPP=OFF \
-        -DUSE_BUNDLED_RE2=OFF \
-        -DUSE_BUNDLED_VALIJSON=ON \
-        -DBUILD_DRIVER=OFF \
-        -DBUILD_LIBSINSP_EXAMPLES=OFF \
-        -DBUILD_LIBSCAP_EXAMPLES=OFF
-  make
+    -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_CXX_FLAGS="${CXXFLAGS} ${CPPFLAGS} -Wno-deprecated-declarations -I/usr/include/falcosecurity/driver/ -I/usr/include/falcosecurity/libsinsp/ -I/usr/include/falcosecurity/libscap/" \
+    -DCMAKE_C_FLAGS="${CFLAGS} ${CPPFLAGS} -Wno-deprecated-declarations" \
+    -DCMAKE_CXX_STANDARD=17 \
+    -DCMAKE_CXX_EXTENSIONS=OFF \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DSYSDIG_VERSION=$pkgver \
+    -DUSE_BUNDLED_FALCOSECURITY_LIBS=OFF \
+    -DUSE_BUNDLED_DEPS=OFF \
+    -GNinja
+  cmake --build .
 }
 
-package_sysdig() {
-  optdepends=('sysdig-dkms: kernel module for live inspection')
-  depends=('jsoncpp' 'libjsoncpp.so' 'luajit' 'curl' 'libcurl.so' 'jq' 'libb64' 'intel-tbb' 'grpc' 'libgrpc++.so'
-           'uthash' 'yaml-cpp' 'zstd' 'libbpf' 'nlohmann-json')
-
-  cd "$srcdir"/$pkgbase-$pkgver/build
-  make install DESTDIR="$pkgdir"
-  rm -rf "$pkgdir"/usr/{include,lib,src} "$pkgdir"/sysdig
+package() {
+  cd "$srcdir"/$pkgbase/build
+  DESTDIR="$pkgdir" cmake --install .
 
   install -dm755 "$pkgdir"/usr/share/licenses/$pkgname
-  install -m644 "$srcdir"/$pkgbase-$pkgver/{NOTICES,COPYING} "$pkgdir"/usr/share/licenses/$pkgname
-}
-
-package_sysdig-dkms() {
-  pkgdesc="DKMS kernel module for sysdig"
-  depends=('sysdig' 'dkms')
-
-  cd "$srcdir"/$pkgbase-$pkgver/build
-  make install DESTDIR="$pkgdir"
-  rm -rf "$pkgdir"/usr/{bin,include,lib,share} "$pkgdir"/sysdig
-
-  install -dm755 "$pkgdir"/usr/share/licenses/$pkgname
-  install -m644 "$srcdir"/$pkgbase-$pkgver/{NOTICES,COPYING} "$pkgdir"/usr/share/licenses/$pkgname
+  install -m644 "$srcdir"/$pkgname/{NOTICES,COPYING} "$pkgdir"/usr/share/licenses/$pkgname
 }
