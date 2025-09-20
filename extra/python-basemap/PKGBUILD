@@ -5,27 +5,27 @@
 
 pkgbase=python-basemap
 pkgname=('python-basemap' 'python-basemap-common')
-pkgver=1.4.1
-pkgrel=6
+pkgver=2.0.0
+pkgrel=1
 arch=('x86_64')
 url="https://matplotlib.org/basemap/"
 license=('MIT')
 makedepends=('cython' 'python-setuptools' 'python-matplotlib' 'geos' 'shapelib'
              'python-numpy' 'python-pyproj' 'python-pip')
 source=($pkgname-$pkgver.tar.gz::https://github.com/matplotlib/basemap/archive/v${pkgver}.tar.gz)
-sha256sums=('730b1e2ff5eb31c73680bd8ebabc6b11adfc587cfa6832c528a8a82822e5a490')
+sha256sums=('192ee1c63291d7d1af98fab798c45239ea27e6ca31041afa8c42c8b697e44596')
 
 prepare() {
-  pushd "${srcdir}"/basemap-${pkgver}/packages/basemap
+  pushd "${srcdir}"/basemap-${pkgver}/
   sed -i "s/lib64/lib/g" setup.py
   popd
 }
 
 build() {
-  cd "${srcdir}"/basemap-${pkgver}/packages/basemap
+  cd "${srcdir}"/basemap-${pkgver}/
   python setup.py config
   python setup.py build
-  cd "${srcdir}"/basemap-${pkgver}/packages/basemap_data
+  cd "${srcdir}"/basemap-${pkgver}/data/basemap_data
   python setup.py config
   python setup.py build
 }
@@ -36,17 +36,17 @@ package_python-basemap() {
   optdepends=('python-owslib: needed for the BaseMap.wmsimage function'
               'python-pillow: needed for Basemap warpimage, bluemarble, shadedrelief and etop methods')
 
-  cd "${srcdir}"/basemap-${pkgver}/packages/basemap
+  cd "${srcdir}"/basemap-${pkgver}/
 
   python setup.py install -O1 --skip-build --root="${pkgdir}" --prefix=/usr
-  install -Dm644 ../../LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+  install -Dm644 LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
 }
 
 package_python-basemap-common() {
   pkgdesc="Data files for python-basemap"
   license=('GPL2')
 
-  cd "${srcdir}"/basemap-${pkgver}/packages/basemap_data
+  cd "${srcdir}"/basemap-${pkgver}/data/basemap_data
 
   python setup.py install -O1 --skip-build --root="${pkgdir}" --prefix=/usr
   install -Dm644 ../../LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
