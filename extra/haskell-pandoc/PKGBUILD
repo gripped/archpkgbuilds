@@ -4,8 +4,8 @@
 
 _hkgname=pandoc
 pkgname=haskell-pandoc
-pkgver=3.2.1
-pkgrel=7
+pkgver=3.3
+pkgrel=1
 pkgdesc='Conversion between markup formats'
 url='https://pandoc.org'
 license=('GPL-2.0-or-later')
@@ -37,7 +37,7 @@ optdepends=('pandoc-crossref: for numbering figures, equations, tables and cross
 makedepends=('ghc' 'uusi' 'haskell-diff' 'haskell-tasty' 'haskell-tasty-golden'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('f787f74eb6ba48ba7c1dc4a6f9fe39895bc1ef0c18785863005c7a0e725cfa6d405b64303f2a2f80001683124fab8fb08cd0f5ec829ba9d5eb0ab9a672557ee1')
+sha512sums=('15c6ec93e89d4290e84681452d353b1b42f849e4b1a710fe7aeddef2a008030c3bb569cc9c4b64f4c63ce82f258c27e3dcc149e44adca0aaa38c1a135e40e6e2')
 
 prepare() {
     cd $_hkgname-$pkgver
