@@ -4,7 +4,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-hypothesis
-pkgver=6.138.16
+pkgver=6.139.2
 pkgrel=1
 pkgdesc="Advanced Quickcheck style testing library for Python"
 arch=(any)
@@ -58,8 +58,8 @@ optdepends=(
   'python-watchdog: for tracking file system events'
 )
 source=("$pkgname::git+$_url#tag=hypothesis-python-$pkgver")
-sha512sums=('ced2b36b30e319bf0098111202dffe6ffb4a697c119b801651ecf7750e57f9d9ee17ef2b6fd38aa507cff888a5d2b7bc566ed4e6362dc3c2635002a755b9f9bc')
-b2sums=('03ff4f08bdbd49db67e2f04686deea9c23434ad38bc2b8ab0fd9887133ec10436268a6c52524a23bcd8a9dec29e58e194f160b1c3f59a2e69f102bb6db715d50')
+sha512sums=('3b287fc7c693350c02faf5073e063390f7542658b41282528274f71337bf712c135826d1c22c870fba9095e8655973de347a1f2b412b8f6c83b5c29bd697557d')
+b2sums=('eede5c2af2eadc8b2c0302d385669473656fe82fbac12a18e3224b318a0b45ade25db5b5d2d06f9a70187a84e0b5af04f0bd2659552b2aef6553ed2ae6213e69')
 
 prepare() {
   cd $pkgname/hypothesis-python
@@ -82,6 +82,7 @@ check() {
     -n auto
     # Depends on python-hypothesis-crosshair which is not packaged,
     # for some reason --deselect does not work, so ignoring whole file
+    --ignore=tests/crosshair/test_conformance.py
     --ignore=tests/crosshair/test_crosshair.py
     # Fails with AssertionError for some reason
     --ignore=tests/nocover/test_scrutineer.py
