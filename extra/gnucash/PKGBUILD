@@ -4,8 +4,8 @@
 # Contributor: Mark Schneider <queueRAM@gmail.com>
 
 pkgname=gnucash
-pkgver=5.11
-pkgrel=4
+pkgver=5.12
+pkgrel=1
 pkgdesc='Personal and small-business financial-accounting application'
 arch=(x86_64)
 url='https://gnucash.org/'
@@ -19,14 +19,8 @@ optdepends=('gnucash-docs: documentation'
 options=(!emptydirs)
 source=(
   https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2
-  boost-1.88.patch
 )
-sha256sums=('6ba42313aaaa99b5f07ff6e4dbc58b33fbf5f4be6e911376701d65c26fd4debe'
-            '448f4a15715dd74cc085ae9fd63e17ec5bb6fc450292d6be64e5c31da1d01cd7')
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < boost-1.88.patch
-}
+sha256sums=('b35b4756be12bcfdbed54468f30443fa53f238520a9cead5bde2e6c4773fbf39')
 
 build() {
   cd $pkgname-$pkgver
