@@ -3,7 +3,7 @@
 # Contributor: Michele Schäuble <mschaeuble@swissonline.ch>
 
 pkgname=josm
-pkgver=19342
+pkgver=19439
 pkgrel=1
 pkgdesc="An editor for OpenStreetMap written in Java"
 arch=('any')
@@ -15,13 +15,11 @@ changelog=$pkgname.changelog
 backup=('etc/conf.d/josm')
 source=(https://josm.openstreetmap.de/download/$pkgname-snapshot-$pkgver.jar
         $pkgname.conf.d
-        $pkgname::svn+https://josm.openstreetmap.de/svn/trunk#revision=$pkgver
-        remove_javafx.patch)
+        $pkgname::svn+https://josm.openstreetmap.de/svn/trunk#revision=$pkgver)
 noextract=($pkgname-snapshot-$pkgver.jar)
-sha512sums=('f7547abc3372b86596888cdb3cd9604385f7552530a0a47c4eee2d1a53c576a611b6ca8b3cc20eac44b4ebc720fdf53117ec34414fb5c186264f4585574d1356'
+sha512sums=('5f083bc2ad11f8d6bf0f381394525e4d551a02bb9ed826476ede4e53926068aa8c56a839cc7927a052b8b3a14ba24de0f99698aa37f0bc1fc54c8246807301a7'
             'd69e681a679378915f980ebafe204c548e0d76778962e4aa33afe8f83a1e6fe4438c7729a92634e02b195349a52a388f8933959c6b81c01ecc602d061ff7c8df'
-            'SKIP'
-            '18e675fe998d01181c606eb414a72e55a4ded6ac3e4d89058ed654690e5b8821654ccaae2a6987003601ec918e62e91584e89b3b8a429ab0dfd92ab19fd9c4b4')
+            'SKIP')
 
 package() {
   cd "${srcdir}"
@@ -48,9 +46,6 @@ package() {
 
   # Load our custom josm config at /etc/conf.d/josm (will append this to line 4 of the start script)
   sed -i '4 a[ -f /etc/conf.d/josm ] && . /etc/conf.d/josm' "${pkgdir}/usr/bin/josm"
-
-  # Remove JavaFX modules references not provided anymore by modern JVMs
-  patch -N -p1 --no-backup-if-mismatch "${pkgdir}/usr/bin/josm" "${srcdir}/remove_javafx.patch"
 
   # Add arch env vars to top of josm script
   # We do this to have a sane default in case the config file gets deleted.
