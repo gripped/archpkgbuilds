@@ -4,7 +4,7 @@
 _hkgname=pandoc-server
 pkgname=haskell-pandoc-server
 pkgver=0.1.0.6
-pkgrel=54
+pkgrel=55
 pkgdesc="Pandoc document conversion as an HTTP servant-server"
 url="https://pandoc.org"
 license=("GPL")
@@ -19,6 +19,7 @@ sha256sums=('436f132b64b7608c98de722df3819aef88f2ce83a81a2bd7a00ece96820e37a2')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u pandoc
 }
 
 build() {
