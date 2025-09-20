@@ -1,12 +1,13 @@
 pkgbase = python-mitmproxy-rs
 	pkgdesc = Python bindings for mitmproxy's Rust code
-	pkgver = 0.12.3
+	pkgver = 0.12.7
 	pkgrel = 1
 	url = https://github.com/mitmproxy/mitmproxy_rs
 	arch = x86_64
 	license = MIT
+	makedepends = git
 	makedepends = bpf-linker
-	makedepends = cargo
+	makedepends = rustup
 	makedepends = maturin
 	makedepends = python-installer
 	makedepends = rust-src
@@ -14,8 +15,8 @@ pkgbase = python-mitmproxy-rs
 	depends = glibc
 	depends = python
 	options = !lto
-	source = https://github.com/mitmproxy/mitmproxy_rs/archive/v0.12.3/python-mitmproxy-rs-0.12.3.tar.gz
-	sha256sums = d5a5e3ad8f0f37f274057231b9b809e085e8d2aba6ce35fbd83fa41f7310414f
-	b2sums = f2dcc2c6b7c2fe722e3dd29abca355bde03efc4d632a69a0ce5e04b22021db1dad48dc0bd2f268d95796480b66e7dd4f1990a3d38a54d974e3e5da9f7705176c
+	source = python-mitmproxy-rs::git+https://github.com/mitmproxy/mitmproxy_rs#tag=v0.12.7
+	sha512sums = 19ac6d648235218e328e762c9f7ddbf1a6b18fc099dd427cea9f3c9e3c30fb35fd06fe895b1af9fc83f5a7bc34a7af30e5bffce4904af2127171d7b589fa9d3b
+	b2sums = 2eb423332f30b40755c0485d9332f540c9ec3ddb9dfb9532526097b24f9cc9e55cfa0d3ca57cbee17ef61452482ae7216e6dab5d67bc85627d7c2aad74d00021
 
 pkgname = python-mitmproxy-rs
