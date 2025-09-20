@@ -3,33 +3,34 @@
 # Contributor: Kringel
 
 pkgname=eigen
-pkgver=3.4.0
-pkgrel=2
+pkgver=5.0.0
+pkgrel=1
 pkgdesc='Lightweight C++ template library for vector and matrix math, a.k.a. linear algebra'
-arch=(any)
+arch=(x86_64)
 url='https://eigen.tuxfamily.org'
-license=(MPL-2.0 Apache-2.0 BSD-3-Clause Minpack 'LGPL-2.1-only OR LGPL-2.1-or-later')
-makedepends=(cmake freeglut gcc-fortran fftw suitesparse boost)
-source=(https://gitlab.com/libeigen/eigen/-/archive/$pkgver/$pkgname-$pkgver.tar.gz
-        $pkgname-vectorized-reduction-half.patch)
-sha256sums=('8586084f71f9bde545ee7fa6d00288b264a2b7ac3607b974e54d13e7162c1c72'
-            'SKIP')
-
-prepare() {
-  cd $pkgname-$pkgver
-  # Eigen installs all files in source dir, including the backup files of patch.
-  # With the first flag we disable the use of backup files.
-  patch --no-backup-if-mismatch -Np1 -i ../$pkgname-vectorized-reduction-half.patch
-}
+license=(MPL-2.0 Apache-2.0
+         BSD-3-Clause Minpack
+         'LGPL-2.1-only OR LGPL-2.1-or-later')
+depends=(gcc-libs
+         glibc)
+makedepends=(cmake
+             fftw
+             freeglut
+             gcc-fortran
+             git
+             suitesparse)
+source=(git+https://gitlab.com/libeigen/eigen#tag=$pkgver)
+sha256sums=('7dbe12e281c9525b6418a78d482080929b491730debd3c38da0566575f77e495')
 
 build() {
-  cmake -B build -S $pkgname-$pkgver \
+  cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
 }
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
   # install custom licenses
-  install -Dm644 $pkgname-$pkgver/COPYING.* -t "$pkgdir/usr/share/licenses/$pkgname"
+  install -Dm644 $pkgname/COPYING.* -t "$pkgdir/usr/share/licenses/$pkgname"
 }
