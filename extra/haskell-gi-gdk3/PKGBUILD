@@ -2,18 +2,18 @@
 
 _hkgname=gi-gdk
 pkgname=haskell-gi-gdk3
-pkgver=3.0.28
-pkgrel=80
+pkgver=3.0.29
+pkgrel=1
 pkgdesc="Gdk bindings (GTK3)"
 url="https://github.com/haskell-gi/haskell-gi"
-license=("LGPL2.1")
+license=('LGPL-2.1-only')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-gi-cairo' 'haskell-gi-gdkpixbuf' 'haskell-gi-gio' 'haskell-gi-glib'
          'haskell-gi-gobject' 'haskell-gi-pango' 'haskell-gi' 'haskell-gi-base'
          'haskell-gi-overloading' 'gtk3')
 makedepends=('ghc' 'gobject-introspection')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('24048c3be68a810d1929d02970e2a028252a8980e31e67a9ccbe1ed9785e3433')
+sha256sums=('53a59bd9dd69b981499de6fb62630e5d80eff547ccc1fe1acb8e77fb03b07d09')
 
 build() {
   cd $_hkgname-$pkgver
