@@ -8,7 +8,7 @@ pkgbase=lib32-libxml2
 pkgname=(
   lib32-libxml2
 )
-pkgver=2.14.6
+pkgver=2.15.0
 pkgrel=1
 pkgdesc="XML C parser and toolkit (32-bit)"
 url="https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home"
@@ -17,7 +17,6 @@ license=(MIT)
 depends=(
   lib32-glibc
   lib32-icu
-  lib32-xz
   lib32-zlib
   libxml2
 )
@@ -25,13 +24,12 @@ makedepends=(
   git
   lib32-readline
   meson
-  python
 )
 source=(
   "git+https://gitlab.gnome.org/GNOME/libxml2.git#tag=v$pkgver"
   https://www.w3.org/XML/Test/xmlts20130923.tar.gz
 )
-b2sums=('977d9df5c784eaeb062ddf437eb112a4641ba3bde219d6a288965a04bee158560019c6e9987c1dcd8c6c6a664ea717325525294fff4352cfefdb876894fe1d40'
+b2sums=('d5df5b57bc626b72eb8bcf8d2145c237373e4490cdea2b3a79d2a95d57b00c30613244e1d6206df416d3e5ba9ae044e7a923e689826e681a26c5d8a618e09b8a'
         '63a47bc69278ef510cd0b3779aed729e1b309e30efa0015d28ed051cc03f9dfddb447ab57b07b3393e8f47393d15473b0e199c34cb1f5f746b15ddfaa55670be')
 
 prepare() {
@@ -44,6 +42,7 @@ prepare() {
 build() {
   local meson_options=(
     --cross-file lib32
+    -D docs=disabled
     -D icu=enabled
     -D legacy=enabled
     -D python=disabled
@@ -62,7 +61,7 @@ package_lib32-libxml2() {
 
   meson install -C build --destdir "$pkgdir"
 
-  rm -r "$pkgdir"/usr/{bin,include,share}
+  rm -r "$pkgdir"/usr/{bin,include}
 
   install -Dm644 libxml2/Copyright -t "$pkgdir/usr/share/licenses/$pkgname"
 }
