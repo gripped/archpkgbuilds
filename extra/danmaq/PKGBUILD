@@ -2,19 +2,18 @@
 
 pkgname=danmaq
 pkgdesc="A small client side Qt program to play danmaku on any screen"
-pkgver=0.2.3.2
-pkgrel=2
+pkgver=0.3.0
+pkgrel=1
 arch=("x86_64")
-license=('GPL')
+license=('GPL-3.0-or-later')
 url="https://github.com/tuna/danmaQ"
-depends=('qt5-x11extras')
-makedepends=('cmake' 'qt5-tools')
+depends=('qt6-base' 'qt6-webengine')
+makedepends=('cmake' 'qt6-tools')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/tuna/danmaQ/archive/v$pkgver.tar.gz")
-sha512sums=('69f88d26d12c65afba034c17b78993c81278334dc5ff9b0493ab6e316e50cf54cbaaae93e43725e1d04a12a67d238924884449ea52178560b2c53e58a2dd1fe7')
+sha512sums=('4ca80db5c4e837048263ce7dd4b7b7a4000e593b59e8a8bd2def6f9e3d50e82883ea002bd184aaa32b167c7a9e7a077f800701bca332dc675f6ee2d6860febe4')
 
 prepare() {
   mkdir -p build
-  sed -i '/include <X11.extensions.shape.h>/a #undef None' danmaQ-$pkgver/src/DMCanvas.cpp
 }
 
 build() {
