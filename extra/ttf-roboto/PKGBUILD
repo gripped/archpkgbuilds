@@ -3,7 +3,7 @@
 # Contributor: Daniel Greve <greve.daniel.l@gmail.com>
 
 pkgname=ttf-roboto
-pkgver=3.011
+pkgver=3.012
 pkgrel=1
 pkgdesc="Google's signature family of fonts"
 url='https://github.com/googlefonts/roboto-3-classic'
@@ -14,7 +14,7 @@ source=(
   "$url/releases/download/v$pkgver/Roboto_v$pkgver.zip"
   "$pkgname-$pkgver-OFL.txt::https://raw.githubusercontent.com/googlefonts/roboto-3-classic/v$pkgver/OFL.txt"
 )
-sha256sums=('989fee31706df293f1099a385b392bd2e4a152c993ee5fb3ba72adc7484e750e'
+sha256sums=('fda623da606ee230c84dab1c79e534341557510663c81b56ba57a320d36cbc2d'
             '061402327a96aadb0bfb694a960ed289ecd38d383e396243831ab81feb109c41')
 
 package() {
