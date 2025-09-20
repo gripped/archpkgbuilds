@@ -53,7 +53,7 @@ pkgname=(
   gst-plugin-uriplaylistbin
   gst-plugin-webrtchttp
 )
-pkgver=0.14.1
+pkgver=0.14.2
 pkgrel=1
 pkgdesc="Multimedia graph framework"
 url="https://gstreamer.freedesktop.org/"
@@ -89,7 +89,7 @@ options=(!lto)
 source=(
   "git+https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs.git?signed#tag=$pkgver"
 )
-b2sums=('74b3d5449bb56c0672e4f647df5a4612dae39d66b04583503cbc722d4149935fc1b1d52caaf752a53f89a9e2bfcfb24acfbdb2b94f182df9a272b0ba487103d5')
+b2sums=('6a11d128b8022a84300eaf02a05031bc326799f9716dad36267922722d7cd31c58b78bf7fc61fe7b863f9474cfee626b4a158f95395c86fc204c8224f9ad41b7')
 validpgpkeys=(
   7F4BC7CC3CA06F97336BBFEB0668CC1486C2D7B5 # Sebastian Dröge <sebastian@centricular.com>
 )
@@ -140,7 +140,6 @@ package_gst-webrtc-signalling-server() {
   depends=(
     gcc-libs
     glibc
-    openssl
   )
 
   cd $pkgbase
@@ -208,10 +207,7 @@ package_gst-plugin-dav1d() {
 
 package_gst-plugin-elevenlabs() {
   pkgdesc+=" - elevenlabs plugin"
-  depends+=(
-    gst-plugins-base-libs
-    openssl
-  )
+  depends+=(gst-plugins-base-libs)
 
   mv plugin-elevenlabs/* "$pkgdir"
 }
@@ -378,7 +374,6 @@ package_gst-plugin-regex() {
 package_gst-plugin-reqwest() {
   pkgdesc+=" - reqwest plugin"
   license=("MIT OR Apache-2.0")
-  depends+=(openssl)
 
   mv plugin-reqwest/* "$pkgdir"
 
@@ -478,7 +473,6 @@ package_gst-plugin-rsrtsp() {
 
 package_gst-plugin-rstracers() {
   pkgdesc+=" - rstracers plugin"
-  depends+=(openssl)
 
   mv plugin-rstracers/* "$pkgdir"
 }
@@ -510,7 +504,6 @@ package_gst-plugin-rswebrtc() {
     gst-plugins-bad-libs
     gst-plugins-base
     gst-plugins-base-libs
-    openssl
   )
 
   mv plugin-rswebrtc/* "$pkgdir"
@@ -540,10 +533,7 @@ package_gst-plugin-sodium() {
 
 package_gst-plugin-speechmatics() {
   pkgdesc+=" - speechmatics plugin"
-  depends+=(
-    gst-plugins-base-libs
-    openssl
-  )
+  depends+=(gst-plugins-base-libs)
 
   mv plugin-speechmatics/* "$pkgdir"
 }
@@ -599,7 +589,6 @@ package_gst-plugin-webrtchttp() {
     gst-plugins-bad
     gst-plugins-bad-libs
     gst-plugins-base-libs
-    openssl
   )
 
   mv plugin-webrtchttp/* "$pkgdir"
