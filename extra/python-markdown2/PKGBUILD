@@ -2,23 +2,23 @@
 # Contributor: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=python-markdown2
-pkgver=2.5.0
-pkgrel=2
+pkgver=2.5.4
+pkgrel=1
 pkgdesc='A fast and complete implementation of Markdown in Python'
-arch=('any')
+arch=(any)
 url='https://github.com/trentm/python-markdown2'
-license=('MIT')
-depends=('python' 'python-pygments')
+license=(MIT)
+depends=(python python-pygments)
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('d98752e25fbce637b3bc1deab5141d80afee13894a043ebcef7948bd6a47b70f97fc814accef25a6e334616a44311a8dcf8149f5b778a74c1f7243e36b1b2841')
-b2sums=('ce91aa2c96b8fe679cdf9917acd7eb35cf8d4ecbaa237888135faba475544dede19504c967cef5f6261dfc035bb5614adc7a44b7171f484bb081a3cc32139937')
+sha512sums=('97b274da0ab64f42a9d07c79791b774c82a83b6da0e4e85b55c94ad674dd5926cf313eae92e85939bbd936c5c5c2a225513e25c73262faef7d95e13b2c08a50d')
+b2sums=('206d8beb5ebd81cb503df219f7519d828f3f408ab24907f8c3d1e25c99a7ac6338d0136449022121e8c979c6bbd73734c6dbe81b6f3309377d53de0d077bf140')
 
 build() {
   cd "$pkgname"
