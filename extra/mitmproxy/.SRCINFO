@@ -1,6 +1,6 @@
 pkgbase = mitmproxy
 	pkgdesc = SSL-capable man-in-the-middle HTTP proxy
-	pkgver = 12.1.1
+	pkgver = 12.1.2
 	pkgrel = 1
 	url = https://mitmproxy.org
 	arch = any
@@ -9,6 +9,7 @@ pkgbase = mitmproxy
 	checkdepends = python-parver
 	checkdepends = python-pytest-asyncio
 	checkdepends = python-pytest-timeout
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -44,8 +45,8 @@ pkgbase = mitmproxy
 	provides = pathod
 	conflicts = pathod
 	replaces = pathod
-	source = https://github.com/mitmproxy/mitmproxy/archive/v12.1.1/mitmproxy-12.1.1.tar.gz
-	sha256sums = b0870eb946b5918f4aa881006c24bba5fa5351db1f3b6226002cbd443f1eb6c2
-	b2sums = 00d3d1f4e0e071d91a014e8b68ad69a373dc5efed5b0e4c5a8cc664110c1d21ac441dcf5635072b035f4573b292a2d933b6760e2323e466186a21bbe54217a7d
+	source = mitmproxy::git+https://github.com/mitmproxy/mitmproxy#tag=v12.1.2
+	sha512sums = e08028ae6755e7a52aa08de17a2416b8cd0ca6546d1f1561257e8907c7590495ded12b96a3ac1fd823b950160c6684145f60d077a7aea503eb8704704ec2a9e9
+	b2sums = 2ba5810a140ab049acf9b2d54feb4d1e64070ef5f03d461acd82a518871065f8684eba863a2a6ab4fca6401cfa85d244e846e9bb5a38011a1e0614828b064459
 
 pkgname = mitmproxy

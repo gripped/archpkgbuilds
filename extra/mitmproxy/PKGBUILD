@@ -5,79 +5,83 @@
 # Contributor: Dobroslaw Kijowski
 
 pkgname=mitmproxy
-pkgver=12.1.1
+pkgver=12.1.2
 pkgrel=1
 pkgdesc='SSL-capable man-in-the-middle HTTP proxy'
-arch=('any')
+arch=(any)
 url='https://mitmproxy.org'
-license=('MIT')
+license=(MIT)
 depends=(
-  'python'
-  'python-aioquic'
-  'python-argon2-cffi'
-  'python-asgiref'
-  'python-brotli'
-  'python-certifi'
-  'python-cryptography'
-  'python-flask'
-  'python-h11'
-  'python-h2'
-  'python-hyperframe'
-  'python-kaitaistruct'
-  'python-ldap3'
-  'python-mitmproxy-rs'
-  'python-msgpack'
-  'python-passlib'
-  'python-publicsuffix2'
-  'python-pyopenssl'
-  'python-pyparsing'
-  'python-pyperclip'
-  'python-requests'
-  'python-ruamel-yaml'
-  'python-sortedcontainers'
-  'python-tornado'
-  'python-typing_extensions'
-  'python-urwid'
-  'python-wsproto'
-  'python-zstandard'
+  python
+  python-aioquic
+  python-argon2-cffi
+  python-asgiref
+  python-brotli
+  python-certifi
+  python-cryptography
+  python-flask
+  python-h11
+  python-h2
+  python-hyperframe
+  python-kaitaistruct
+  python-ldap3
+  python-mitmproxy-rs
+  python-msgpack
+  python-passlib
+  python-publicsuffix2
+  python-pyopenssl
+  python-pyparsing
+  python-pyperclip
+  python-requests
+  python-ruamel-yaml
+  python-sortedcontainers
+  python-tornado
+  python-typing_extensions
+  python-urwid
+  python-wsproto
+  python-zstandard
 )
 makedepends=(
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
 )
 checkdepends=(
-  'python-hypothesis'
-  'python-parver'
-  'python-pytest-asyncio'
-  'python-pytest-timeout'
+  python-hypothesis
+  python-parver
+  python-pytest-asyncio
+  python-pytest-timeout
 )
-provides=('pathod')
-conflicts=('pathod')
-replaces=('pathod')
-source=("https://github.com/mitmproxy/mitmproxy/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('b0870eb946b5918f4aa881006c24bba5fa5351db1f3b6226002cbd443f1eb6c2')
-b2sums=('00d3d1f4e0e071d91a014e8b68ad69a373dc5efed5b0e4c5a8cc664110c1d21ac441dcf5635072b035f4573b292a2d933b6760e2323e466186a21bbe54217a7d')
+provides=(pathod)
+conflicts=(pathod)
+replaces=(pathod)
+source=("$pkgname::git+https://github.com/mitmproxy/mitmproxy#tag=v$pkgver")
+sha512sums=('e08028ae6755e7a52aa08de17a2416b8cd0ca6546d1f1561257e8907c7590495ded12b96a3ac1fd823b950160c6684145f60d077a7aea503eb8704704ec2a9e9')
+b2sums=('2ba5810a140ab049acf9b2d54feb4d1e64070ef5f03d461acd82a518871065f8684eba863a2a6ab4fca6401cfa85d244e846e9bb5a38011a1e0614828b064459')
 
 build() {
-  cd $pkgname-$pkgver
+  cd "$pkgname"
+
   python -m build --wheel --no-isolation
 }
 
 check() {
-  local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  cd "$pkgname"
 
-  cd $pkgname-$pkgver
   python -m installer --destdir=test_dir dist/*.whl
-
+  local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   PATH="test_dir/usr/bin:$PATH" PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH" pytest -vv
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd "$pkgname"
+
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
 
 # vim:set ts=2 sw=2 et:
