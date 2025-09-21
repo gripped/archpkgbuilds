@@ -4,7 +4,7 @@
 
 pkgname=python-black
 pkgver=25.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Uncompromising Python code formatter'
 arch=(any)
 url='https://github.com/psf/black'
@@ -16,6 +16,7 @@ depends=(
   python-packaging
   python-pathspec
   python-platformdirs
+  python-pytokens
 )
 makedepends=(
   git
@@ -31,7 +32,6 @@ checkdepends=(
   python-parameterized
   python-pytest
   python-tokenize-rt
-  python-pytokens
 )
 optdepends=(
   'ipython: for Jupyter notebook support'
