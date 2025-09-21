@@ -1,18 +1,21 @@
 pkgbase = grafana-zabbix
 	pkgdesc = Zabbix plugin for Grafana dashboard
-	pkgver = 5.2.1
+	pkgver = 6.0.0
 	pkgrel = 1
 	url = https://github.com/grafana/grafana-zabbix
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = yarn
+	makedepends = npm
 	makedepends = libfaketime
 	makedepends = go
 	makedepends = git
 	makedepends = nodejs-lts-iron
 	makedepends = mage
 	depends = grafana
-	source = grafana-zabbix-5.2.1.tar.gz::https://github.com/grafana/grafana-zabbix/archive/v5.2.1.tar.gz
-	sha256sums = 14c15798c46a2e78505d5368b715d797b1522a248bd6008b6e18a5a6a3b544dd
+	source = grafana-zabbix-6.0.0.tar.gz::https://github.com/grafana/grafana-zabbix/archive/v6.0.0.tar.gz
+	source = update_flag_for_yarnV2.patch
+	sha256sums = c6317d7cfcbabed76f67bb5c15d4e43e9b75e4b0a3c9786963492ce89b12941c
+	sha256sums = 42fa6bfeb808ef6bedcb5202cd1c069e6db04c79e6541eb9498e4da4a7ab85d4
 
 pkgname = grafana-zabbix

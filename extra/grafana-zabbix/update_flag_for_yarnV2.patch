@@ -1,0 +1,35 @@
+diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+index 26888b2..115cf04 100644
+--- a/CONTRIBUTING.md
++++ b/CONTRIBUTING.md
+@@ -4,7 +4,7 @@
+ 
+ ```sh
+ # install frontend deps
+-yarn install --pure-lockfile
++yarn install --immutable
+ # build frontend
+ yarn build
+ #build backend for current platform
+diff --git a/Makefile b/Makefile
+index 7675374..1a2a284 100644
+--- a/Makefile
++++ b/Makefile
+@@ -3,7 +3,7 @@ all: install build test lint
+ # Install dependencies
+ install:
+ 	# Frontend
+-	yarn install --pure-lockfile
++	yarn install --immutable
+ 	# Backend
+ 	go install -v ./pkg/
+ 	go install golang.org/x/lint/golint@latest
+@@ -21,7 +21,7 @@ build-debug:
+ 	mage -v build:debug
+ 
+ run-frontend:
+-	yarn install --pure-lockfile
++	yarn install --immutable
+ 	yarn dev
+ 
+ run-backend:

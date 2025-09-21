@@ -2,16 +2,18 @@
 # Contributor: Florian Pritz <bluewind@xinu.at>
 
 pkgname=grafana-zabbix
-pkgver=5.2.1
+pkgver=6.0.0
 pkgrel=1
 pkgdesc="Zabbix plugin for Grafana dashboard"
 arch=('x86_64')
 url="https://github.com/grafana/grafana-zabbix"
 license=('Apache-2.0')
 depends=('grafana')
-makedepends=('yarn' 'libfaketime' 'go' 'git' 'nodejs-lts-iron' 'mage')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('14c15798c46a2e78505d5368b715d797b1522a248bd6008b6e18a5a6a3b544dd')
+makedepends=('yarn' 'npm' 'libfaketime' 'go' 'git' 'nodejs-lts-iron' 'mage')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
+        'update_flag_for_yarnV2.patch')
+sha256sums=('c6317d7cfcbabed76f67bb5c15d4e43e9b75e4b0a3c9786963492ce89b12941c'
+            '42fa6bfeb808ef6bedcb5202cd1c069e6db04c79e6541eb9498e4da4a7ab85d4')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
@@ -19,6 +21,8 @@ prepare() {
 	sed -i 's#jest --watch --onlyChanged#jest#' package.json
 	# Remove lint related dependency (we don't care about linting tests at our level)
 	sed -i '/GO111MODULE=off go get -u golang.org\/x\/lint\/golint/d' Makefile
+	# Replace `--pure-lockfile` with `--immutable` for Yarn V2 compatibility
+	patch -Np1 -i "${srcdir}/update_flag_for_yarnV2.patch"
 }
 
 build() {
