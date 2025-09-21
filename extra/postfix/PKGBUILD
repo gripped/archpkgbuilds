@@ -10,7 +10,7 @@ pkgname=(
   postfix-{cdb,ldap,lmdb,mongodb,mysql,pcre,pgsql,sqlite}
 )
 pkgver=3.10.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Fast, easy to administer, secure mail server"
 arch=(x86_64)
 url="https://www.postfix.org/"
@@ -76,6 +76,13 @@ prepare() {
 }
 
 build() {
+  # set a fixed seed for the internal random order for Postfix hash tables
+  # this is to avoid non-deterministric order for parameters in `main.cf` with `postconf`,
+  # otherwise it triggers repetitive pacnew and may prevent reproducible builds
+  # see https://marc.info/?l=postfix-users&m=175829178027668&w=2
+  # and https://gitlab.archlinux.org/archlinux/packaging/packages/postfix/-/issues/13
+  export NORANDOMIZE=""
+
   local ccargs=(
     '-fPIC' '-fcommon'
     '-DUSE_SASL_AUTH'
