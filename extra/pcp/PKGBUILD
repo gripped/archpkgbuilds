@@ -5,8 +5,8 @@ pkgbase=pcp
 pkgname=(pcp pcp-gui pcp-pmda-activemq pcp-pmda-bcc pcp-pmda-bind2 pcp-pmda-bpftrace pcp-pmda-libvirt
          pcp-pmda-mysql pcp-pmda-nginx pcp-pmda-nutcracker pcp-pmda-openmetrics
          pcp-pmda-podman pcp-pmda-postgresql pcp-pmda-snmp pcp-pmda-json)
-pkgver=6.3.8
-pkgrel=4
+pkgver=7.0.1
+pkgrel=1
 arch=('x86_64')
 url="https://pcp.io"
 license=(GPL-2.0-or-later LGPL-2.1-or-later CC-BY-3.0)
@@ -35,12 +35,12 @@ source=("https://github.com/performancecopilot/pcp/archive/$pkgver/$pkgname-$pkg
         "check-lto.patch"
         "setuptools.patch"
         "remove-six.patch")
-sha256sums=('4908d2a4cb6c2815c2d9afd6507fabd0d3cb5005d0f31d67867381ddcae5c5be'
+sha256sums=('8d1a4d6d0d73b0d9f28f6b9a1e70226b9eaa28c561c379909950f87e90667e9a'
             '85fe78e3c481d89017a0ab6e7925308b6649d0356a7ebaa017240901e039fb9d'
             '0166ffea180527de5a48a8e8f145cc80860b93e8f44bc5f96836c3d1cb4b01a2'
-            '228bb9c24ad8001b1806526d3cb65758dd184af7735038a93ab4465909d9fda9'
+            'd0de05ebb577c5ee67ebd583ea8a0febcfad6a74b33afd9aa5b8a7a38a8096bf'
             'b76db42b08c1cc5e2a61cc0b3371aee2508667ac544eeba40dfcc2b895f9587d'
-            '97b96278efca1131f557ced347b7d0d04cbec996e7d32d05e0c13752a38d0e78')
+            'e60859efcf3d1ab136f0707335ddcc112a4bbe57d715f5ec639f4d80fe0c59bc')
 
 prepare() {
   cd "$pkgbase-$pkgver"
