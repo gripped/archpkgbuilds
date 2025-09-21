@@ -5,7 +5,7 @@
 
 pkgname=python-pillow
 pkgver=11.3.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Python Imaging Library (PIL) fork'
 arch=(x86_64)
 url='https://pillow.readthedocs.io'
@@ -50,6 +50,16 @@ source=(
 )
 sha512sums=('7902498f2e4c8b0aea62c4d7ce325f1df979f0ac7965523bc7b736d4522c2fdab734f98b28fa375271e0e037d3b45d5f6c50da2d565a1ffeab7afe4ff62ec571')
 b2sums=('a88042479023eb6b09af9f4f8b93009d2b967ae18e4d31b7f1d5b0a9791e52819b52a6b69b95ab653196d6a258c5987ba0c91fdccd7a72df3aac602a2262b6af')
+
+prepare() {
+  cd "$pkgname"
+
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/python-pillow/-/issues/3
+  # Added has_feature_version
+  git cherry-pick -n 54f4a346ef89e33eec0f889569a6d280eca70656
+  # Updated tests for FreeType 2.14.1
+  git cherry-pick -n 92e671d7970b8f96c50424c0c47efd0a1c95bc51
+}
 
 build() {
   cd "$pkgname"
