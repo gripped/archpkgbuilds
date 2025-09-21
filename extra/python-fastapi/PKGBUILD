@@ -4,7 +4,7 @@
 
 _name=fastapi
 pkgname=python-$_name
-pkgver=0.116.1
+pkgver=0.116.2
 pkgrel=1
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=(any)
@@ -69,20 +69,15 @@ optdepends=(
   'python-ujson: for faster JSON parsing and UJSONResponse'
   'uvicorn: for Uvicorn as ASGI server'
 )
-source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz
-        0001-Allow-httpx-0.28.x-relax-pins.patch)
-sha512sums=('9d15b6c19536c0385b1c7422b9997c2f09109d022c23e83eaff89d2cd9493e9184253b067a9b0ee9ad49a01febedd21348bce1da8b3cfab22ec41190536888cc'
-            '2f0ef2997233f5524ef342261f9f3c8da394dd1b0664a45d7b777391387328636d7b527a4cd98db2182c4e10c57caf13e1a66e60404d2b796e5ec5d93efcdd8e')
-b2sums=('c52089fb35d8df45c658fadc355d992cb808635a0f99e42a8bf8b006def3b96739de360022504ae97b962fc76786bd9f15ca4a01261a02d1f77cb7093b036694'
-        'f929b6de37bdf34549b55ad1c8bc36a04de1fa44fe231b7e4dc9beb24c06d74ee0dc115d5e1b29339be41ecbdb2601e1ce050aafb1c41ba5f6f0c5f542b8e859')
+source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
+sha512sums=('8565e6dab6b3802584cd83e968e38680c74ab89f7d6cfd271f748247641e64087b8d43fbd9c031b0da1b64330957a1522c75ed58a7801513c8cfe9d979365c21')
+b2sums=('6906b95badbf6b31e0b25fd325ef6ba3e3e426d0dc3a07c16fea6fe476fd4c1db623a4d6d3e937500271813c633fac42c6195159eb5d2e84c80b490ea6e65f05')
 
 prepare() {
   cd $_name-$pkgver
   # do not pin starlette dependency
   sed -i 's|starlette.*"|starlette"|' pyproject.toml
   sed -i '/"error"/d' pyproject.toml
-
-  patch -Np1 -i ../0001-Allow-httpx-0.28.x-relax-pins.patch
 }
 
 build() {
