@@ -9,7 +9,7 @@ pkgver=25.05.3.1
 # Hyphens (-) are prohibited however they are used by the package author
 # therefore it is necessary to invoke ${pkgver} like ${pkgver//./-}
 # this will substitute any full stops (.) with hyphens
-pkgrel=1
+pkgrel=2
 pkgdesc="Simple Linux Utility for Resource Management"
 arch=('x86_64')
 url="https://www.schedmd.com"
@@ -30,7 +30,6 @@ makedepends=(
   freeipmi
   gtk2
   hdf5
-  http-parser
   json-c
   level-zero-headers
   level-zero-loader
@@ -51,7 +50,6 @@ optdepends=(
   "rdma-core: support for the acct_gather_infiniband/ofed InfiniBand accounting plugin"
   "rrdtool: support for the ext_sensors/rrd plugin"
   "gtk2: enables the sview command, a simple graphical frontend"
-  "http-parser: for slurmrestd"
   "json-c: JSON serializer support"
   "libyaml: YAML serializer support"
 )
