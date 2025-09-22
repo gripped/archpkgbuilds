@@ -3,7 +3,7 @@
 pkgbase=hip-runtime
 pkgname=(hip-runtime-amd hip-runtime-nvidia)
 pkgver=6.4.3
-pkgrel=2
+pkgrel=3
 _pkgdesc="Heterogeneous Interface for Portability"
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/HIP/en/latest/'
