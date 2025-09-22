@@ -5,7 +5,7 @@ pkgname=(
   papers
   papers-lib-docs
 )
-pkgver=48.5
+pkgver=49.0
 pkgrel=1
 pkgdesc='Document viewer for PDF and other document formats aimed at the GNOME desktop'
 arch=(x86_64)
@@ -34,6 +34,7 @@ depends=(
 )
 makedepends=(
   appstream
+  blueprint-compiler
   gi-docgen
   git
   glib2-devel
@@ -44,7 +45,7 @@ makedepends=(
   rust
 )
 source=("git+https://gitlab.gnome.org/GNOME/papers.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('2f2c6146aac10258304fb540cde94f0b0591654e4a6f51f28526e00d86a5d5bd592414c07f33a7c77cbd5c32c4c7f724041f2178690a6348172a0376a9a49b97')
+b2sums=('0683e94ee375af334c64fa5ab5201ad358f7e53f60e4146e2bf7998adee00683537b0908dff2576c5c2aa30232112d627ca60a1e7c403d68c46f4d983dfa76e4')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
@@ -69,6 +70,8 @@ check() {
 }
 
 package_papers() {
+  groups=(gnome)
+
   meson install -C build --destdir "$pkgdir" --no-rebuild
 
   mkdir -p doc/usr/share
