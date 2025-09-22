@@ -9,6 +9,7 @@ pkgname=(
 )
 pkgver=48.1
 pkgrel=1
+epoch=1
 pkgdesc="Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)"
 url="https://apps.gnome.org/Evince"
 arch=(x86_64)
@@ -94,7 +95,6 @@ _pick() {
 package_evince() {
   provides=(libev{document,view}3.so)
   optdepends=('texlive-bin: DVI support')
-  groups=(gnome)
 
   meson install -C build --destdir "$pkgdir"
 
