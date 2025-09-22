@@ -3,7 +3,7 @@
 # Contributor: pressh <pressh@gmail.com>
 
 pkgname=alacarte
-pkgver=3.56.0
+pkgver=3.58.0
 pkgrel=1
 epoch=1
 pkgdesc="Menu editor for gnome"
@@ -26,7 +26,7 @@ makedepends=(
   libxslt
 )
 source=("git+https://gitlab.gnome.org/GNOME/alacarte.git?signed#tag=$pkgver")
-b2sums=('cdd719b68aadb7f656567dd86a4c10770b1b9f6e4243fc1a5711e0305328cccceaec1105ffff77b676a5fab45e989da832b07c1a2bfeccf22c18f7bbcdcc431a')
+b2sums=('66f1549df46b0a88c551df6927a19c4f57388df56b3d7bb7f05659d3993c3e74bd55b3b66576d9c6629d24c33c93871eb7bc71e299147174ed4da2ea2c8ab734')
 validpgpkeys=(
   7B44FD78E49334EC10B3B288A3D013EC303E1894 # Alberts Muktupāvels <alberts.muktupavels@gmail.com>
 )
