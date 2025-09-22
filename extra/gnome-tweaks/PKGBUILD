@@ -3,8 +3,8 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-tweaks
-pkgver=46.1
-pkgrel=2
+pkgver=49.0
+pkgrel=1
 pkgdesc="Graphical interface for advanced GNOME 3 settings (Tweak Tool)"
 url="https://wiki.gnome.org/Apps/Tweaks"
 arch=(any)
@@ -31,9 +31,10 @@ groups=(gnome-extra)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-tweaks.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('09e3b9a9fd95dddd46c3aa8149cd0d36642eaf251aa5c2aa70007bf8096d89a67c0d6be0f2e1a2cff8d96ef74ac068fd24df2bbcb7490c9f3d6ca6b55553ceb9')
+b2sums=('ba025e970902e577d1303fc1df7c5f772472921f0584163c4c50193cf4d2ce62a79fe45228245eb4e009a327d13ab08abcb1a0c59d13c819069618bf1921b873')
 validpgpkeys=(
   A3C5EBBF43FBA5F829F1A2548D66762250C07E85 # Evan Welsh <contact@evanwelsh.com>
+  3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
 )
 
 prepare() {
