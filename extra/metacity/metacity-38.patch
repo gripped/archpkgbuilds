@@ -1,4 +1,4 @@
-From 682d9d189e93efdd2022f5b5f1722c438d6614e9 Mon Sep 17 00:00:00 2001
+From 878f8d9cdf17d94936d292da8d0d8e6990c84cec Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Tue, 31 Dec 2024 16:56:09 +0100
 Subject: [PATCH] ui: Add fallback window icon
@@ -15,7 +15,7 @@ This makes it consistent with libwnck.
  create mode 100644 src/ui/meta.gresource.xml
 
 diff --git a/data/ui/Makefile.am b/data/ui/Makefile.am
-index 25e1cd9ee..ca70a822c 100644
+index 3a4a72cbd..4a6ec1322 100644
 --- a/data/ui/Makefile.am
 +++ b/data/ui/Makefile.am
 @@ -1,6 +1,7 @@
@@ -23,9 +23,9 @@ index 25e1cd9ee..ca70a822c 100644
  
  EXTRA_DIST = \
 +	default_icon.png \
+ 	delete-dialog.ui \
+ 	session-dialog.ui \
  	theme-viewer-window.ui \
- 	$(NULL)
- 
 diff --git a/data/ui/default_icon.png b/data/ui/default_icon.png
 new file mode 100644
 index 0000000000000000000000000000000000000000..ce66be1561fa88dcf8705e345824dd900b6b94a3
@@ -43,10 +43,10 @@ literal 0
 HcmV?d00001
 
 diff --git a/src/Makefile.am b/src/Makefile.am
-index 37da0f521..6e24eb9ec 100644
+index 506d52e52..8543afaca 100644
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
-@@ -215,14 +215,25 @@ core/meta-enum-types.h: core/meta-enum-types.h.in $(ENUM_TYPES) Makefile.am
+@@ -216,14 +216,25 @@ core/meta-enum-types.h: core/meta-enum-types.h.in $(ENUM_TYPES) Makefile.am
  	$(AM_V_GEN) $(GLIB_MKENUMS) --template $(srcdir)/core/meta-enum-types.h.in $(ENUM_TYPES) > \
  		meta-enum-types.h.tmp && mv meta-enum-types.h.tmp core/meta-enum-types.h
  
