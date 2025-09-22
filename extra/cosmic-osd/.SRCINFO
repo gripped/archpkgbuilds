@@ -1,21 +1,25 @@
 pkgbase = cosmic-osd
 	pkgdesc = COSMIC On-Screen Display
-	pkgver = 1.0.0.alpha.7
+	pkgver = 1.0.0.beta.1
 	pkgrel = 1
 	url = https://github.com/pop-os/cosmic-osd
 	arch = x86_64
 	groups = cosmic
 	license = GPL-3.0-only
 	makedepends = cargo
+	makedepends = clang
 	makedepends = git
 	makedepends = lld
 	depends = gcc-libs
 	depends = glibc
+	depends = libinput
+	depends = libpipewire
 	depends = libpulse
 	depends = libxkbcommon
+	depends = sound-theme-freedesktop
 	depends = systemd-libs
 	depends = wayland
-	source = git+https://github.com/pop-os/cosmic-osd.git#tag=54c9672fa28c083953b2eae33c38fa4c6ebf3881
-	b2sums = 85a43ec9c570a00fb3888c7b133344bf8c639bd50ae4049f30f87ea5845ff53e5a45084d2532b039976d62b3439616bbbf77b4351d887ad05ddd0b7ba78268ad
+	source = git+https://github.com/pop-os/cosmic-osd.git#tag=c88988f7af0cf6524fdc80131446562226a3494e
+	b2sums = 9cc8adde9ec5bb3c62722f65ffacf8dd4d423dc6a901e6e179ea987ad8939429863d154545a2f1be32e605070f1271d46bb10dae8e69c91d87c093c4af54d3bf
 
 pkgname = cosmic-osd
