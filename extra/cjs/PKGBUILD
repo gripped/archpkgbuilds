@@ -3,41 +3,44 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=cjs
-pkgver=6.4.0
+pkgver=128.0
 pkgrel=1
 pkgdesc="Javascript Bindings for Cinnamon"
 arch=('x86_64')
 url="https://github.com/linuxmint/${pkgname}"
-license=('GPL')
-depends=('gtk3' 'gobject-introspection-runtime' 'js115')
-makedepends=('meson' 'samurai' 'gobject-introspection')
-checkdepends=('xorg-server-xvfb')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha512sums=('525f19f7a5fba642b9d98ca29406d6663ca029d0f92d177bb10ffb68f03843085b86dfc623ef49ceada01dacb64e03742f16e9d7e2fb86a3cc67c25b6de4a616')
-b2sums=('7cedfa8c9c3b53b417cbe6cebc335cb9ca056c6d98cb6c0abc03db5da678f275ff73b867b4c85289797c4701fe1f4dc10aa257eaa55b97824d9e4bebe61eadeb')
+license=('LGPL-2.0-or-later')
+depends=('gobject-introspection-runtime' 'js128' 'readline' 'gcc-libs'
+         'libffi' 'cairo' 'glib2' 'libgirepository' 'libx11' 'glibc')
+makedepends=('dbus' 'meson' 'gobject-introspection')
+checkdepends=('xorg-server-xvfb' 'gtk3')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+        fixes-from-master.patch)
+sha512sums=('e7ad28a085788f05bc40dd8a86799c068e54e25d7ed349a610a8935c9de3bc556b72e4b7b2c158f84a4a62a4b10789a3b812ca9e3ae2b3e1b1db471e91ddee97'
+            'ef85371a0e065c70978a0755d2202b4e0bb83997db1d6bf7caaedff797fdbb9d9372422388e9a6ac9ab07b6064224ec43ce8477fdb71ebd477e6b9c1f27dab19')
+b2sums=('d4b516a8d02fcb297f23f277d8ac12f7cf3c8bf0eec41d22e01ea4ffd3995aedc1b20a173d44c3fc6827e4cb3366c277347fcd11e6362a66d682c47919f84fec'
+        'f4c9abdd21f013f27d400b030e71b69213048cbb91705f92a81d99c326d857009ff4294b187bed687400809e8b123a676235cc1675ad7eb087ec7fe5af8b08cd')
+
+prepare() {
+    cd ${pkgname}-${pkgver}
+
+    # Fixes from master up to 1f39576bafe6bc05bce960e590dc743dd7990e39
+    # Required with glib 2.86.0
+    patch -Np1 -i ../fixes-from-master.patch
+}
 
 build() {
-    mkdir -p ${pkgname}-${pkgver}/builddir
-    cd ${pkgname}-${pkgver}/builddir
-
-    meson --prefix=/usr \
-          --libexecdir=/usr/lib \
-          --buildtype=plain \
-          -Dinstalled_tests=false \
-          ..
-
-    samu
+    arch-meson ${pkgname}-${pkgver} build -D installed_tests=false
+    meson compile -C build
 }
 
 check() {
-    cd ${pkgname}-${pkgver}/builddir
-
-    # Needs a display
-    xvfb-run meson test --print-errorlogs
+    dbus-run-session xvfb-run -s '-nolisten local' \
+        meson test -C build --print-errorlogs
 }
 
 package() {
-    cd ${pkgname}-${pkgver}/builddir
+    meson install -C build --destdir "${pkgdir}"
 
-    DESTDIR="${pkgdir}" samu install
+    # cjs doesn't properly disable installs from gobject-introspection-tests
+    rm -r "${pkgdir}/usr/lib/installed-tests"
 }
