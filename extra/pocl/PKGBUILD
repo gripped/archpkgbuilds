@@ -5,17 +5,25 @@
 
 pkgname=pocl
 pkgver=7.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Portable OpenCL is an open-source implementation of OpenCL which can be easily adapted for new targets"
 arch=('x86_64')
 url="http://portablecl.org/"
 license=('MIT')
-source=("git+https://github.com/pocl/pocl#tag=v$pkgver")
+source=("git+https://github.com/pocl/pocl#tag=v$pkgver"
+        fix-cuda-13.patch)
 depends=('clang' 'hwloc' 'opencl-icd-loader')
 makedepends=('llvm' 'cmake' 'opencl-headers' 'ocl-icd' 'ninja' 'python' 'git' 'nvidia-utils' 'cuda' 'cudnn')
 optdepends=('cuda: CUDA driver'
             'cudnn: CUDA driver')
-sha512sums=('afbb59125990b02339da6f16f0a8989c8ae62ffea7c66a3cd7dafe36212dc33b96967ed682b520dda72f1fc8b4d346dab24a789dc629c0c5a3ebffc156110015')
+sha512sums=('afbb59125990b02339da6f16f0a8989c8ae62ffea7c66a3cd7dafe36212dc33b96967ed682b520dda72f1fc8b4d346dab24a789dc629c0c5a3ebffc156110015'
+            '200c1bc1b9c8fdb0e970cc09752fdc303a98ac9be0921fafce9288f823212cc81beb7678959693d1b9fca58019c23bbc80f92147cf21facdc190f12ecb9b9c4c')
+
+prepare() {
+  cd "$pkgname"
+  # Fix build with CUDA 13 https://github.com/pocl/pocl/issues/1999
+  patch -p1 < ../fix-cuda-13.patch
+}
 
 build() {
   cd "$pkgname"
