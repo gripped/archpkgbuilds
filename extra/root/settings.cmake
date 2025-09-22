@@ -40,7 +40,7 @@ set (builtin_vc OFF CACHE BOOL "" FORCE)
 set (builtin_xxhash OFF CACHE BOOL "" FORCE)
 set (builtin_xrootd OFF CACHE BOOL "" FORCE)
 set (builtin_zlib OFF CACHE BOOL "" FORCE)
-set (ccache ON CACHE BOOL "" FORCE)
+set (ccache OFF CACHE BOOL "" FORCE)
 set (clad ON CACHE BOOL "" FORCE)
 set (cocoa OFF CACHE BOOL "" FORCE)  # MacOS only
 set (cuda OFF CACHE BOOL "" FORCE)
