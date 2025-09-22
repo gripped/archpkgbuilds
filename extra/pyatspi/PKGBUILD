@@ -3,41 +3,45 @@
 
 pkgbase=pyatspi
 pkgname=(python-atspi)
-pkgver=2.46.1
-pkgrel=3
+pkgver=2.58.0
+pkgrel=1
 pkgdesc="Python bindings for D-Bus AT-SPI"
 url="https://gitlab.gnome.org/GNOME/pyatspi2"
 arch=(any)
 license=(LGPL-2.0-only)
 depends=(
   at-spi2-core
+  glib2
+  python
   python-gobject
 )
-makedepends=(git)
-source=("git+https://gitlab.gnome.org/GNOME/pyatspi2.git#tag=PYATSPI_${pkgver//./_}")
-b2sums=('be2d581223a2994def5e0e650166245258da157e5b6708b97f2ac4896f12070dc2af77562d14bc07849c3cc0c9ae92427914cc7c72b7331686798c4108ed791a')
+makedepends=(
+  git
+  meson
+  python-dbus
+)
+source=("git+$url.git#tag=$pkgver")
+b2sums=('8eea640ae1fdc8a06a652def26e05842cf0e927e0334d40d75e98c72fda11476663230feb20bec55d1e34d291b3ba6214a62a62da415ab1f37cad5c28bb5a997')
 
 prepare() {
   cd pyatspi2
-  NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
-  local configure_options=(
-    --prefix=/usr
-    --sysconfdir=/etc
-    --localstatedir=/var
-    --with-python=/usr/bin/python
+  local meson_options=(
+    -D enable_tests=true
   )
 
-  cd pyatspi2
-  ./configure "${configure_options[@]}"
-  make
+  arch-meson pyatspi2 build "${meson_options[@]}"
+  meson compile -C build
+}
+
+check() {
+  dbus-run-session meson test -C build --print-errorlogs
 }
 
 package_python-atspi() {
-  cd pyatspi2
-  make DESTDIR="$pkgdir" install
+  meson install -C build --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
