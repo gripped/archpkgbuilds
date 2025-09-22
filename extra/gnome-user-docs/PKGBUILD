@@ -1,9 +1,9 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-user-docs
-pkgver=48.2
+pkgver=49.0
 pkgrel=1
 pkgdesc="User documentation for GNOME"
 url="https://gitlab.gnome.org/GNOME/gnome-user-docs"
@@ -16,7 +16,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+$url.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('423e288edd9bbb3c048ba065233e2cd15a1db71dd368cdeb19add9132258eabd798c87c3b449beec387b064ecb234dbaca20f002084f9bc10eb860fef9e0df6d')
+b2sums=('4835202592892d3fde194a2c346c8c90663c9b1caf27c095de3acdb57e6fa1ffa34c8a5c8a980050ca25bcf88ce46a53fe34d4e40247de17848fe38b6e3af067')
 
 prepare() {
   cd $pkgname
