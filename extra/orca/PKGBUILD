@@ -4,7 +4,7 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=orca
-pkgver=48.6
+pkgver=49.1
 pkgrel=1
 pkgdesc="Screen reader for individuals who are blind or visually impaired"
 url="https://orca.gnome.org/"
@@ -27,12 +27,17 @@ depends=(
   python
   python-cairo
   python-dbus
+  python-dasbus
   python-gobject
   python-psutil
   python-setproctitle
   speech-dispatcher
   xorg-xkbcomp
   xorg-xmodmap
+)
+checkdepends=(
+  python-pytest
+  python-pytest-mock
 )
 makedepends=(
   git
@@ -42,7 +47,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/orca.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('6a139a7ad0d192c75fb80d78d4addc08653a0883a916f1defd373b852fff1947be24d61b8d047be8c9c53365b4ce940e43acd721979d61b3d160cf98bd1ac733')
+b2sums=('34d39e3ae741d4c715762fcab31b6ba9b62b5380c1a5122b9c637ecf79603c42ce5b09944eb95ef5942161e4ade0e32e9f1df58ec54b809293cb709a798e8a3e')
 validpgpkeys=(
   DBDB67681333AA61BBCB97140A042BFD3DA3816C # Joanmarie Diggs <jdiggs@igalia.com>, older
   85D0D0B3FB02946101A46295E7A697B5609D4701 # Joanmarie Diggs <jdiggs@igalia.com>, newer
