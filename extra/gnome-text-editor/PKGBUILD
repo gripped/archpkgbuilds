@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-text-editor
-pkgver=48.3
+pkgver=49.0
 pkgrel=1
 pkgdesc="A simple text editor for the GNOME desktop"
 url="https://apps.gnome.org/TextEditor/"
@@ -31,18 +31,10 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-text-editor.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('5fd25bea226ffd4a482073c828eb2b5ea0fc91d207905d91db36332d23348f7ebcfb41941b1e9ff7e5c422f51c6abf33bf3c9904e1cfbad1cbcfd5488920b9c4')
+b2sums=('dae452df076fa14c436d18a16c9c276d04ee3737f46b86c48f1de8d15c6d5a7d8e92630f865530e6bfe7f1c9f68970bf2825b65ba90490ea2b7238e819ceb9d9')
 
 prepare() {
   cd $pkgname
-
-  # Activate the application if no window present
-  # https://gitlab.gnome.org/GNOME/gnome-text-editor/-/merge_requests/219
-  git cherry-pick -n 926ff29b2eac70639e909e4fc8146f2d8a997e75
-  # https://gitlab.gnome.org/GNOME/gnome-text-editor/-/merge_requests/221
-  git cherry-pick -n 6baf599d0cf4d9daf395c5db326679151f711688
-  # https://gitlab.gnome.org/GNOME/gnome-text-editor/-/merge_requests/223
-  git cherry-pick -n 8175fc9b74d4ac0e1bbb51203b9f63d14c1bfcc6
 }
 
 build() {
