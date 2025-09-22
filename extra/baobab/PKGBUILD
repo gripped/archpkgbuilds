@@ -3,8 +3,8 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=baobab
-pkgver=48.0
-pkgrel=4
+pkgver=49.0
+pkgrel=1
 pkgdesc="A graphical directory tree analyzer"
 url="https://apps.gnome.org/Baobab"
 arch=(x86_64)
@@ -37,7 +37,7 @@ source=(
   baobab-locations-remove.patch
   baobab-fix-popup-menu.patch
 )
-b2sums=('cf8b24c1e603e5f5916fb1a8b7ca5ac6b0a8f5e06d83a2f297b0e94adef1ff0f7b19c57ce45442e29cc061814f8deadd41a7438e2ed61b312dde96a82dfcd541'
+b2sums=('8caabc6da63add9ecf85858bdaeee90082647a1e15ca06ad6ad9ef992c1a914af5d4045e84c4a96efe7bcdc29ebce7fbf1e87962a589f3d9000f29e2707e694f'
         'fe58077ebaf5e48d0a4c58aa8b30c4b6499e3b3734b99c52f74a4b52e89767dbad25cd9cdf2561e792c973532535bc30dbdea98d8ab9ec96f05540f0a98bcab5'
         '7b24b0c3f9db668f9557fcd14a73f0c168488af83543662a7bd979bf6731166ab7ff2e3ff6f94c1a605f7105d95b51a9d6b68f821c449c30e4d4247e89014df3'
         '09c00f707442f1ffcb6187583fa120fd10b9964c86fe698b1f63ab0ffbe7f7dbd4e2934718decd18f1b6f44daf5caa2abd16311a2b408143725076901cce5f06')
