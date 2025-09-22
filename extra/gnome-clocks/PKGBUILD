@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-clocks
-pkgver=48.0
+pkgver=49.0
 pkgrel=1
 pkgdesc="Clocks applications for GNOME"
 url="https://apps.gnome.org/Clocks"
@@ -30,7 +30,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-clocks.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('cc216a8c81f136b7a45cce95e04a46b072041abd5c3bb1b3dbc116f16823a5065d409cc50a25203ba334f874a717030ac890bb2b15763b05bcbc689f994c215e')
+b2sums=('50f7488d5a16a26710f59e79664e05e3eab7a68e98fb1c2212f223453ecc5f9d7ea55afb34e25a95025b1cd66b2ec9cc97b632852bc9e030ba2ecbc4c6c09b2c')
 validpgpkeys=(
   3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
 )
