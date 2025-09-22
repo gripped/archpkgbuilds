@@ -1,12 +1,13 @@
 pkgbase = cosmic-applets
 	pkgdesc = Applets for COSMIC Panel
-	pkgver = 1.0.0.alpha.7
+	pkgver = 1.0.0.beta.1
 	pkgrel = 1
 	url = https://github.com/pop-os/cosmic-applets
 	arch = x86_64
 	groups = cosmic
 	license = GPL-3.0-only
 	makedepends = cargo
+	makedepends = clang
 	makedepends = git
 	makedepends = just
 	makedepends = lld
@@ -15,10 +16,12 @@ pkgbase = cosmic-applets
 	depends = gcc-libs
 	depends = glibc
 	depends = libinput
+	depends = libpipewire
 	depends = libpulse
 	depends = libxkbcommon
 	depends = systemd-libs
-	source = git+https://github.com/pop-os/cosmic-applets.git#tag=f26992e41a7a68aafdd74db4b3c78560282f4e05
-	b2sums = 4286f7370c39274ed4afac209f9c4a4f28c0b672a6c068aa7cc196f111b4ccb655f7728436040a99726423b80aa3b41cac7c71bc94833c64ecde944d9c7f7a95
+	depends = util-linux
+	source = git+https://github.com/pop-os/cosmic-applets.git#tag=2dba07fcae15ff93ea08afac111655325c1a3eca
+	b2sums = 2e2d05167f0e1bb87baa02fbabec4a65df6e9f787d7cf3615827945cf41bdad788ccaf2625a6d867d4e8b1371f5ba86fab4f5c1ad7ba2a2bb8bcc4e8a2898408
 
 pkgname = cosmic-applets

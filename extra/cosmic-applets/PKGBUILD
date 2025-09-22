@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-applets
-pkgver=1.0.0.alpha.7
+pkgver=1.0.0.beta.1
 pkgrel=1
 pkgdesc='Applets for COSMIC Panel'
 arch=(x86_64)
@@ -17,19 +17,22 @@ depends=(
   gcc-libs
   glibc
   libinput
+  libpipewire
   libpulse
   libxkbcommon
   systemd-libs
+  util-linux
 )
 makedepends=(
   cargo
+  clang
   git
   just
   lld
 )
-_tag=f26992e41a7a68aafdd74db4b3c78560282f4e05
+_tag=2dba07fcae15ff93ea08afac111655325c1a3eca
 source=(git+https://github.com/pop-os/cosmic-applets.git#tag=${_tag})
-b2sums=('4286f7370c39274ed4afac209f9c4a4f28c0b672a6c068aa7cc196f111b4ccb655f7728436040a99726423b80aa3b41cac7c71bc94833c64ecde944d9c7f7a95')
+b2sums=('2e2d05167f0e1bb87baa02fbabec4a65df6e9f787d7cf3615827945cf41bdad788ccaf2625a6d867d4e8b1371f5ba86fab4f5c1ad7ba2a2bb8bcc4e8a2898408')
 
 prepare() {
   cd cosmic-applets
