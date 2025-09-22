@@ -7,8 +7,8 @@
 # Contributor: Gaetan Bisson <bisson@archlinux.org>
 
 pkgname=ncdu
-pkgver=2.8.2
-pkgrel=3
+pkgver=2.9.1
+pkgrel=1
 pkgdesc='Disk usage analyzer with an ncurses interface'
 url='https://dev.yorhel.nl/ncdu'
 license=('MIT')
@@ -20,9 +20,9 @@ depends=(
 makedepends=('zig')
 arch=('x86_64')
 source=("https://dev.yorhel.nl/download/${pkgname}-${pkgver}.tar.gz"{,.asc})
-sha256sums=('022fa765d35a79797acdc80c831707df43c9a3ba60d1ae3e6ea4cc1b7a2c013d'
+sha256sums=('bfd1094e1400ee89cfd59200eab940f025ccdc0c238067105c984a3c4857bf7e'
             'SKIP')
-b2sums=('cc14e058c1951179abe762f5275a26577bb85607f86488ac3eabdba33b45d7c0ded9b59446b7573d40bdf11a66d94a246386401049c4455cf5d1cbe4802724e5'
+b2sums=('2a93b00c4147ade5b54e031ae7821a819bd3fcc2582699a2bf689272e3ac9c6059c5f2c48ab4d9245c19e49dbac1dd17d18c78e560888bd1082d9f4735e1c2dc'
         'SKIP')
 validpgpkeys=('74460D32B80810EBA9AFA2E962394C698C2739FA') # Yoran Heling <projects@yorhel.nl>
 
