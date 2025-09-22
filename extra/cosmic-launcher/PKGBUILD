@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-launcher
-pkgver=1.0.0.alpha.7
+pkgver=1.0.0.beta.1
 pkgrel=1
 pkgdesc='Layer Shell frontend for Pop Launcher'
 arch=(x86_64)
@@ -20,17 +20,19 @@ depends=(
 )
 makedepends=(
   cargo
+  clang
   git
+  intltool
   just
   lld
 )
-_tag=77ca2085554f1d8641f58d7954fd57be232e5006
+_tag=ee52edd2d1bb38ed265bc2bb2675aa1a982f3811
 source=(
   git+https://github.com/pop-os/cosmic-launcher.git#tag=${_tag}
   cosmic-launcher-lto.patch
 )
-b2sums=('27e653e1e546acc17785f64dda74c328fcaf04bb9d0371a9d3eb4143d3f745adafb4fa913126d1291697e6c8b4f74f6e28292cbeac1cb6dd107fbaa7877c6d7a'
-        '49035b03c601f05c322a0bfd3d837b09e34aaa3416a903fc1791e0eb75a07d1f53ded52c0bbcbd6c4c47d38fa32cb2ce89f3358e66d03cd4b9e3ce1b9d162894')
+b2sums=('e4dbb6ddcecb1a027f57d0139d97ed8538ef8db3b62460937b22ed1f1d347aa21de79f63b1935acc8ae3beb0b46adef70da8cdad5f154a7efa82164492c33420'
+        'eb4bf64cbec00b5e6c2d3a332b38ec37dca374c0da16882c421fdea296a0c2a5c741ccd357b4d8cc1af6e82e1c06e5363121b6c03344e6af47025535a127fb8b')
 
 prepare() {
   cd cosmic-launcher
