@@ -1,9 +1,13 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
-pkgname=template-glib
-pkgver=3.36.3
-pkgrel=1
-pkgdesc="A templating library for GLib"
+pkgbase=template-glib
+pkgname=(
+  template-glib
+  template-glib-docs
+)
+pkgver=3.38.0
+pkgrel=2
+pkgdesc="Templating library for GLib"
 url="https://gitlab.gnome.org/GNOME/template-glib"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
@@ -11,26 +15,28 @@ depends=(
   gcc-libs
   glib2
   glibc
-  libgirepository
 )
 makedepends=(
+  gi-docgen
   git
   glib2-devel
   gobject-introspection
-  gtk-doc
   meson
   vala
 )
-provides=(libtemplate_glib-1.0.so)
 source=("git+https://gitlab.gnome.org/GNOME/template-glib.git#tag=$pkgver")
-b2sums=('bd32bd950c3e7ce64165e860b3519ccf78ab1d7d41a58a995a2f995a18a3ffc20f40b23ee27af4e2c45f19a6eed9aa38c33e1318c78d1bfc87c1f731ab7b0f02')
+b2sums=('16621a53ba2d07631e371007d897e38f9f0d726d25c039dcbd6a94cc5b7671aec8a2e0ffb0c3109c4af11aab23defb8301cd5fc9498ad6317e2281ebef658cfe')
 
 prepare() {
   cd $pkgname
 }
 
 build() {
-  arch-meson $pkgname build -D gtk_doc=true
+  local meson_options=(
+    -D docs=true
+  )
+
+  arch-meson $pkgname build "${meson_options[@]}"
   meson compile -C build
 }
 
@@ -38,8 +44,20 @@ check() {
   meson test -C build --print-errorlogs
 }
 
-package() {
+package_template-glib() {
+  provides=(libtemplate_glib-1.0.so)
+
   meson install -C build --destdir "$pkgdir"
+
+  mkdir -p doc/usr/share
+  mv {"$pkgdir",doc}/usr/share/doc
+}
+
+package_template-glib-docs() {
+  pkgdesc+=" (documentation)"
+  depends=()
+
+  mv doc/* "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
