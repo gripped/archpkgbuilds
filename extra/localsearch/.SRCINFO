@@ -1,7 +1,7 @@
 pkgbase = localsearch
 	pkgdesc = Filesystem indexer and metadata extractor
-	pkgver = 3.9.0
-	pkgrel = 3
+	pkgver = 3.10.0
+	pkgrel = 1
 	url = https://gnome.pages.gitlab.gnome.org/localsearch/
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -12,6 +12,7 @@ pkgbase = localsearch
 	makedepends = gobject-introspection
 	makedepends = meson
 	makedepends = python
+	makedepends = python-dbusmock
 	makedepends = python-gobject
 	depends = dconf
 	depends = exempi
@@ -36,13 +37,14 @@ pkgbase = localsearch
 	depends = libpng
 	depends = libseccomp
 	depends = libtiff
+	depends = libwebp
 	depends = libxml2
 	depends = poppler-glib
 	depends = tinysparql
 	depends = totem-plparser
 	depends = upower
-	source = git+https://gitlab.gnome.org/GNOME/localsearch.git#tag=3.9.0
-	b2sums = 17ede26f72d60ab46f48b1bf2e944c8ab812be5a084ce9f21f0c25ff8ec32ea551f33f449473fedc12b1be5a14b214c82cb1405b3ae9eede36e6e662397d09af
+	source = git+https://gitlab.gnome.org/GNOME/localsearch.git#tag=3.10.0
+	b2sums = 2a41545bedc9afd25f47d812b53b975744b78fe24a2bd6827b4fee1009c0307b0bf35762317bd9d9b3f9fea3b552622aeb62d5d454a7a2bbf5efe8d71020488a
 
 pkgname = localsearch
 	depends = dconf
@@ -68,13 +70,14 @@ pkgname = localsearch
 	depends = libpng
 	depends = libseccomp
 	depends = libtiff
+	depends = libwebp
 	depends = libxml2
 	depends = poppler-glib
 	depends = tinysparql
 	depends = totem-plparser
 	depends = upower
 	depends = libtinysparql-3.0.so
-	provides = tracker3-miners=3.9.0
+	provides = tracker3-miners=3.10.0
 	conflicts = tracker3-miners<=3.7.3-2
 	replaces = tracker3-miners<=3.7.3-2
 
