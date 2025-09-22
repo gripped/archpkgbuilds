@@ -5,7 +5,7 @@
 
 pkgname=gimp
 pkgver=3.0.4
-pkgrel=4
+pkgrel=5
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
 arch=('x86_64')
