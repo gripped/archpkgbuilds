@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=loupe
-pkgver=48.1
+pkgver=49.0
 pkgrel=1
 pkgdesc="A simple image viewer for GNOME"
 url="https://apps.gnome.org/Loupe/"
@@ -33,16 +33,16 @@ makedepends=(
   rust
 )
 source=("git+https://gitlab.gnome.org/GNOME/loupe.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('9f421c3c49c49ed3bbe750ffca5aacb44a869ca6316625061fbfd0d4f6da6a693a808cdbbc525c86dcda6a7126b0e9c5a6328cbf95247ef157c6ed786d2d894c')
+b2sums=('b36b5696cdc88ea1fac46d191dd087bfd5fa48830278e841bee5475156c06f9c201361b24cc353f3b44641b884272218a506a776878e9ecf6658d082f1c3889b')
 validpgpkeys=(
   4587A0EE1EE5478AAB82C0A93BA28A5559F08EBD # Sophie Herold <sophieherold@gnome.org>
 )
 
+# Use debug
+export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
+
 # Use LTO
 export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
-
-# Use debug
-export CARGO_PROFILE_RELEASE_DEBUG=2
 
 prepare() {
   cd $pkgname
@@ -64,3 +64,5 @@ check() {
 package() {
   meson install -C build --destdir "$pkgdir" --no-rebuild
 }
+
+# vim:set sw=2 sts=-1 et:
