@@ -1,0 +1,32 @@
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
+
+pkgname=python-pyhibp
+pkgver=4.1.0
+pkgrel=1
+pkgdesc="Python interface to Troy Hunt's 'Have I Been Pwned?' public API"
+url="https://gitlab.com/kitsunix/pyHIBP/pyHIBP"
+license=('AGPL-3.0-only')
+arch=('any')
+depends=(
+  python
+  python-requests
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+)
+source=("git+https://gitlab.com/kitsunix/pyHIBP/pyHIBP.git#tag=v$pkgver")
+b2sums=('3f1e488ac6af12fc6ee23e1d37bf4e864ed67b2850d6e57755ee5a42996122fe20167bf989f546a31ac3559ab12076b6799a7b6f30fad3562220eae1754ad892')
+
+build() {
+  cd pyHIBP
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd pyHIBP
+  install -D -m644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  python -m installer --destdir="${pkgdir}" dist/pyhibp-${pkgver}-py3-none-any.whl
+}
