@@ -1,6 +1,6 @@
 pkgbase = cosmic-comp
 	pkgdesc = Compositor for the COSMIC desktop environment
-	pkgver = 1.0.0.alpha.7
+	pkgver = 1.0.0.beta.1
 	pkgrel = 1
 	url = https://github.com/pop-os/cosmic-comp
 	arch = x86_64
@@ -21,7 +21,9 @@ pkgbase = cosmic-comp
 	depends = pixman
 	depends = systemd-libs
 	depends = wayland
-	source = git+https://github.com/pop-os/cosmic-comp.git#tag=96e9bf3b81718e2a9ac28b2c24bd1149400b286a
-	b2sums = af165bae4e0032a46408c882ded44e293505c7a32b88db2e8105e5eeca203e09b686cbd8bd4d2f288166cf00ded750d3d4d7828aaa199e22a39bfcbf4384d3aa
+	source = git+https://github.com/pop-os/cosmic-comp.git#tag=b19f66702fcdc9c4a7ab066e8dbca4e94bb5063e
+	source = update_to_libdisplay-info_3.patch
+	b2sums = 57bdb31cb5ea9a9ef5878692eae1d4599dd2d765a2ef81fa8807a9d6c314a6b6032551112e69113380d25ed80f3baf67fa7d6fd94811d28ada205bc16f1a9a3e
+	b2sums = 6ee7439da3cfe9a30ca8bfdb37ed3ed0be8a56eee763fabc7b58e90518f6459ada3559061558765764901a1108854cbffb6bb8303ffb2472513766816a092a5d
 
 pkgname = cosmic-comp
