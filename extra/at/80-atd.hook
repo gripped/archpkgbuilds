@@ -6,4 +6,4 @@ Target = glibc
 [Action]
 Description = Restarting atd for libc upgrade...
 When = PostTransaction
-Exec = /usr/bin/systemctl try-restart atd.service
+Exec = /usr/share/libalpm/scripts/systemd-hook restart atd.service
