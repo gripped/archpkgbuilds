@@ -2,8 +2,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=xdg-desktop-portal-gnome
-pkgver=48.0
-pkgrel=2
+pkgver=49.0
+pkgrel=1
 pkgdesc="Backend implementation for xdg-desktop-portal for the GNOME desktop environment"
 url="https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome"
 arch=(x86_64)
@@ -40,7 +40,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome.git?signed#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/libgxdp.git#commit=e68375c7aced97705953b8e3b30af9f17991153b"
 )
-b2sums=('3c8252c34968b2dc2ee4b92186f6606927a1fd614814e5f642f767086b25966148a8f3437c365ca81b0748d7651b4fe5cf32a927a8658aecda50924f049fb388'
+b2sums=('62b628dec8dcef38af914144a5da48d62887eadf0ddf6702200827717f1098aae3fdf692333f4a7f37ad53d5c9e58a0683ab14c9b416cc0da451e43209eb0d4f'
         '09bd02a627afffa49c11e4baec961878060d7710e852628c0e0d009d5bdc37eaa3cd1d5bbeea316f197197b9d88436ecf157ebaef41e01b66ad102e1f1c69fb2')
 validpgpkeys=(
   8307C0A224BABDA1BABD0EB9A6EEEC9E0136164A # Jonas Ådahl <jadahl@gmail.com>
