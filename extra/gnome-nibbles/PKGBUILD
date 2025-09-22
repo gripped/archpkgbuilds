@@ -2,14 +2,13 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-nibbles
-pkgver=4.2.2
+pkgver=4.4.1
 pkgrel=1
 pkgdesc="Guide a worm around a maze"
 url="https://wiki.gnome.org/Apps/Nibbles"
 arch=(x86_64)
 license=(GPL-3.0-or-later)
 depends=(
-  cairo
   dconf
   glib2
   glibc
@@ -18,7 +17,6 @@ depends=(
   hicolor-icon-theme
   libadwaita
   libgee
-  libgnome-games-support-2
   pango
 )
 makedepends=(
@@ -33,7 +31,7 @@ groups=(gnome-extra)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-nibbles.git?signed#tag=$pkgver"
 )
-b2sums=('a821087b87a25e76873433a0b0ca858aaa061a9937b8a65b7eba9edec42780d887efa19a5a5ef6871e926afff5af76bd5f8b2f7506505efc211dd05cca60ed93')
+b2sums=('0f46f2b2c66fae468ba8523d13a7c6c3a277c7f98526dc0282ea13bd003fb6c0ca5331d6b9bccb57dcb24fc5eec89f32a7653ee9db278d8ef0d254aea9b4994a')
 validpgpkeys=(
   31F449AE968CBE194119A3AD1F1DC770CE79E68B # Ben Corby <bcorby@new-ms.com> (old)
   9CE6D700965C6A1D6F7B4A1C18B04BB8340E3EC5 # Ben Corby <bcorby@new-ms.com>
@@ -44,11 +42,6 @@ prepare() {
 }
 
 build() {
-  # Unbreak vala checks in meson.build
-  # Without this, the build fails to link against libadwaita
-  export VALAFLAGS="$VALAFLAGS --Xcc=-Wno-error=incompatible-pointer-types"
-  CFLAGS+=" -Wno-error=incompatible-pointer-types"
-
   # Suppress a lot of unimportant warnings
   CFLAGS+=" -Wno-unused"
 
