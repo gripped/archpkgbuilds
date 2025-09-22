@@ -2,8 +2,8 @@
 # Contributor: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=rygel
-pkgver=0.44.2
-pkgrel=3
+pkgver=45.0
+pkgrel=1
 epoch=1
 pkgdesc="UPnP AV MediaServer and MediaRenderer"
 url="https://gitlab.gnome.org/GNOME/rygel"
@@ -17,7 +17,7 @@ depends=(
   gst-editing-services
   gst-plugins-base-libs
   gstreamer
-  gtk3
+  gtk4
   gupnp
   gupnp-av
   gupnp-dlna
@@ -49,8 +49,10 @@ optdepends=(
 provides=(librygel-{core,db,renderer,renderer-gst,ruih,server}-2.8.so)
 backup=(etc/rygel.conf)
 groups=(gnome)
-source=("git+$url.git?signed#tag=rygel-$pkgver")
-b2sums=('f85721d7a672fa40bb19541447fa978fb92591315480204790da2701e0045fb1fa1f88301c396e251534a3872387469b09b90b4245da6df308d9164b2b57d3f4')
+source=(
+  "git+$url.git?signed#tag=${pkgver/[a-z]/.&}"
+)
+b2sums=('56555768254872bcdaf9d68ac9c9e63757391ceb91c56492ff34cbe5b1ce2872f39a4709c27c5f68212f7d3e89be7d6a450236c73fefea3a9f74ea179cd7b77b')
 validpgpkeys=(
   AC9CD4E32D7C7F6357BA8ADD10F6E970175D29E1 # Jens Georg <mail@jensge.org>
 )
