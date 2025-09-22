@@ -5,7 +5,7 @@
 
 pkgname=cdemu-daemon
 pkgver=3.2.7
-pkgrel=1
+pkgrel=2
 pkgdesc="CD/DVD-ROM device emulator daemon"
 url="https://cdemu.sourceforge.io/"
 arch=(x86_64)
@@ -58,7 +58,7 @@ package() {
   echo vhba | install -Dm644 /dev/stdin "$pkgdir/usr/lib/modules-load.d/cdemu.conf"
   echo 'g cdemu - -' | install -Dm644 /dev/stdin "$pkgdir/usr/lib/sysusers.d/cdemu.conf"
   install -Dm644 /dev/stdin "$pkgdir/usr/lib/udev/rules.d/60-cdemu.rules" <<END
-ACTION=="add", KERNEL=="vhba_ctl", MODE="0660", OWNER="root", GROUP="cdemu", TAG+="uaccess"
+ACTION!="remove", KERNEL=="vhba_ctl", MODE="0660", OWNER="root", GROUP="cdemu", TAG+="uaccess"
 END
 }
 
