@@ -2,27 +2,28 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=quadrapassel
-pkgver=40.2
-pkgrel=5
+pkgver=49.0.1
+pkgrel=1
 pkgdesc="Fit falling blocks together (Tetris-like game for GNOME)"
 url="https://wiki.gnome.org/Apps/Quadrapassel"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
   cairo
-  clutter
-  clutter-gtk
   dconf
   glib2
   glibc
   gsound
-  gtk3
+  gtk4
   hicolor-icon-theme
+  libadwaita
+  libgee
   libmanette
   librsvg
   pango
 )
 makedepends=(
+  blueprint-compiler
   git
   gobject-introspection
   meson
@@ -32,37 +33,15 @@ makedepends=(
 groups=(gnome-extra)
 source=(
   "git+https://gitlab.gnome.org/GNOME/quadrapassel.git?signed#tag=${pkgver/[a-z]/.&}"
-  0001-Fix-default-icon-name.patch
-  0002-Use-GApplication-to-parse-command-line-options.patch
-  0003-Don-t-create-window-in-startup-phase.patch
-  0004-Add-D-Bus-service-file.patch
 )
-b2sums=('9a3e80d1cc1e973e068a547e86fa6b572554dfb5274e8d932305b7d797f8175db35a3dbf45fcba11545e6b17002e8d18ddad44eabc3cc41196bbc68313303b28'
-        '5b6acdbcd753915b206f2edd5c056adb58d26c7192c7211813c8e78004772aa159cc387890425b150e5513b85fd09d927edbcd2b9872f7f5054b6c5bf49684a2'
-        'bcc3c6502145dce1dd1925c13c0c98fa8e44b0225b5d07ee16c4ee150a333e85620019bcc80af33e4fe6d7d963f20e3965ef8e52e2e4f57b55af845f1083a2dd'
-        'dc64a8b0245250f75f3b181e2c99e368e836846e5d5f19961a74bdc04ec1d02523d78f6eaa7b3aa72610f7f29e82406f6d115d1115ace52fd57ce068bd116e28'
-        '81c15daad228d43d21ebe3660b3632df3887e776788307bfca794a39489ab275275b0ac58baf3996ae8cb0f47ff69853fe3a6ffed971c08dfc9bdb025c4bf2bf')
+b2sums=('2090fd5c869cd1d4f953c70283f30adfe54913883ded419f6150aa60fb8ceb0196782c03426f03b8c2364b4c84ab34779a641f1216e9f0717d3faac8187396c6')
 validpgpkeys=(
   161DEEB19F942B2CE00B67ADC1C19D5530553963 # John Ward <john@johnward.net>
+  1DB827B47C4E2494A1D733586458908EC334A207 # Will Warner <willwwarner@proton.me>
 )
 
 prepare() {
   cd $pkgname
-
-  # Fix segmentation fault when press any key just after application started
-  git cherry-pick -n 8704e0fbcd994df45f2492c58f6ac261bfeb382f
-
-  # https://gitlab.gnome.org/GNOME/quadrapassel/-/merge_requests/41
-  git apply -3 ../0001-Fix-default-icon-name.patch
-
-  # https://gitlab.gnome.org/GNOME/quadrapassel/-/merge_requests/42
-  git apply -3 ../0002-Use-GApplication-to-parse-command-line-options.patch
-
-  # https://gitlab.gnome.org/GNOME/quadrapassel/-/merge_requests/43
-  git apply -3 ../0003-Don-t-create-window-in-startup-phase.patch
-
-  # https://gitlab.gnome.org/GNOME/quadrapassel/-/merge_requests/44
-  git apply -3 ../0004-Add-D-Bus-service-file.patch
 }
 
 build() {
