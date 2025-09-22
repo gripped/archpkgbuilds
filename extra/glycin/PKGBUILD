@@ -1,12 +1,16 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
-pkgname=glycin
-pkgver=1.2.3
-pkgrel=1
+pkgbase=glycin
+pkgname=(
+  glycin
+  glycin-gtk4
+)
+pkgver=2.0.0
+pkgrel=3
 pkgdesc="Sandboxed and extendable image decoding"
 arch=(x86_64)
-url="https://gitlab.gnome.org/sophie-h/glycin"
+url="https://gitlab.gnome.org/GNOME/glycin"
 license=('MPL-2.0 OR LGPL-2.1-or-later')
 depends=(
   bubblewrap
@@ -15,7 +19,6 @@ depends=(
   gcc-libs
   glib2
   glibc
-  gtk4
   lcms2
   libjxl
   librsvg
@@ -24,14 +27,12 @@ depends=(
 makedepends=(
   clang
   git
+  gtk4
   gobject-introspection
   libheif
   meson
   rust
   vala
-)
-optdepends=(
-  'libheif: heif/heic file support'
 )
 checkdepends=(
   dav1d
@@ -39,15 +40,11 @@ checkdepends=(
   rav1e
   svt-av1
 )
-provides=(
-  libglycin-1.so
-  libglycin-gtk4-1.so
-)
 source=(
-  "git+https://gitlab.gnome.org/sophie-h/glycin.git#tag=${pkgver/[a-z]/.&}"
+  "git+$url.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/sophie-h/test-images.git"
 )
-b2sums=('431b24ef3104d6d1b6b04a9ea975ef5b4dd568765e8c24a493ea8fb171c01751f4376a1480b836491586c7fdc135b63fa455004c223754be3b6630a0db52cdf5'
+b2sums=('31820d0b77ddc0f9151d033a82cb0b2def318915674983ca8e98f95676ed7c43072594989567fad14fbb2f2b0a9bb4fb2e9077acd62aabd7a49fccd7b9da6163'
         'SKIP')
 
 # Use debug
@@ -57,7 +54,12 @@ export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
 export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 prepare() {
-  cd $pkgname
+  cd glycin
+
+  # Cherry-pick sandboxing fixes to try to fix glycin in our build containers
+  git cherry-pick -n 28005a815e8e6f8869006e5481fd8d77006ec8d1 \
+                     294025c2b01903344513018c00166a35f2e1b3ce \
+                     f202809ba2f5e95696ab03b6c0b16c0875f784a6
 
   git submodule init
   git submodule set-url tests/test-images "$srcdir/test-images"
@@ -70,19 +72,60 @@ prepare() {
 
 build() {
   local meson_options=(
-    -D test_skip_install=false
+    -D test_skip_ext=avif,heic
+    -D test_skip_install=true
   )
 
-  arch-meson $pkgname build "${meson_options[@]}"
+  arch-meson glycin build "${meson_options[@]}"
   meson compile -C build
 }
 
 check() {
-  RUST_BACKTRACE=full meson test -v -C build --print-errorlogs --no-rebuild
+  meson test -C build --print-errorlogs
 }
 
-package() {
+_pick() {
+  local p="$1" f d; shift
+  for f; do
+    d="$srcdir/$p/${f#$pkgdir/}"
+    mkdir -p "$(dirname "$d")"
+    mv "$f" "$d"
+    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+  done
+}
+
+package_glycin() {
+  optdepends=(
+    'libheif: Load .avif, .heic and .heif'
+  )
+  provides=(libglycin-2.so)
+
   meson install -C build --destdir "$pkgdir" --no-rebuild
+
+  cd "$pkgdir"
+  _pick gtk4 usr/include/glycin-gtk4-*
+  _pick gtk4 usr/lib/girepository-1.0/GlyGtk4-*
+  _pick gtk4 usr/lib/libglycin-gtk4-*
+  _pick gtk4 usr/lib/pkgconfig/glycin-gtk4-*
+  _pick gtk4 usr/share/gir-1.0/GlyGtk4-*
+  _pick gtk4 usr/share/vala/vapi/glycin-gtk4-*
+}
+
+package_glycin-gtk4() {
+  pkgdesc+=" - GTK4 integration"
+  depends=(
+    fontconfig
+    gcc-libs
+    glib2
+    glibc
+    glycin
+    gtk4
+    lcms2
+    libseccomp
+  )
+  provides=(libglycin-gtk4-2.so)
+
+  mv gtk4/* "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
