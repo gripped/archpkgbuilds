@@ -8,8 +8,8 @@ pkgname=(
   gobject-introspection-runtime
   libgirepository
 )
-pkgver=1.84.0
-pkgrel=2
+pkgver=1.86.0
+pkgrel=1
 pkgdesc="Introspection system for GObject-based libraries"
 url="https://wiki.gnome.org/Projects/GObjectIntrospection"
 arch=(x86_64)
@@ -17,7 +17,7 @@ license=(
   GPL-2.0-or-later
   LGPL-2.0-or-later
 )
-_glibver=2.84.2
+_glibver=2.86.0
 makedepends=(
   "glib2=$_glibver"
   cairo
@@ -38,8 +38,8 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/glib.git?signed#tag=$_glibver"
   "git+https://gitlab.gnome.org/GNOME/gobject-introspection-tests.git"
 )
-b2sums=('235ee787140878e597aaf4119d45949386bf9e17ef681acab5fda37db588dbb09cdc7840c8110d1bdba26ad1d19455e042b5fb24671272ced8bdf51b3306e904'
-        '84eec21c184a02de708e18f62af347e4d01e9b1e147923bf1ffd8795b347a3d7aad709bfb9a773e9d48e7544a56a8fd7f5db710925e337823fde742cc6513cdd'
+b2sums=('46007e1c426ebfde0d94b84398a1d99e0fc516f1b5a78590d0d1ddec76b90d19a9c6f4f9959a6d243cbb3601390763bbdd7d05d1d1c3d4fb9746f453b40ea849'
+        'afe82f85c6b93273917ef4b7127dfb58c5e0f1e1946226abb7e0b80abd1ab6f0d8a98b030b0dffac79e48b2f9c9540879044b8a486d8996e59c5210dcd333d0c'
         'SKIP')
 validpgpkeys=(
   923B7025EE03C1C59F42684CF0942E894B2EAFA0  # Philip Withnall <philip@tecnocode.co.uk>
