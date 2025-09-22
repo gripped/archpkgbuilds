@@ -8,7 +8,7 @@ pkgbase=gmic
 pkgname=(gmic
          gimp-plugin-gmic)
 pkgver=3.6.1
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url='https://gmic.eu/'
 license=(CECILL-C)
