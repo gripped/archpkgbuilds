@@ -1,4 +1,4 @@
-From fdbb4ef40ae215b64bf3c7be879a6a590678defc Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Wed, 23 Apr 2025 09:15:13 +0200
 Subject: [PATCH] Fix crash when invalid journal opened
@@ -10,10 +10,10 @@ It needs to be checked before processing it further.
  2 files changed, 36 insertions(+), 11 deletions(-)
 
 diff --git a/src/gl-application.c b/src/gl-application.c
-index cef5320..20bf85e 100644
+index 59b5f26b9815..f142e46861f3 100644
 --- a/src/gl-application.c
 +++ b/src/gl-application.c
-@@ -261,7 +261,11 @@ gl_application_activate (GApplication *application)
+@@ -273,7 +273,11 @@ gl_application_activate (GApplication *application)
  
      priv = gl_application_get_instance_private (GL_APPLICATION (application));
      priv->journal = gl_journal_new (NULL);
@@ -26,7 +26,7 @@ index cef5320..20bf85e 100644
  }
  
  static const GOptionEntry options[] =
-@@ -308,7 +312,11 @@ gl_application_open (GApplication *application,
+@@ -320,7 +324,11 @@ gl_application_open (GApplication *application,
      g_ptr_array_add (array, NULL);
  
      priv->journal = gl_journal_new (array);
@@ -40,7 +40,7 @@ index cef5320..20bf85e 100644
  
  static void
 diff --git a/src/gl-journal.c b/src/gl-journal.c
-index df1152f..e6192fe 100644
+index df1152f091d8..e6192fe145bf 100644
 --- a/src/gl-journal.c
 +++ b/src/gl-journal.c
 @@ -379,19 +379,25 @@ gl_journal_finalize (GObject *object)
@@ -106,6 +106,3 @@ index df1152f..e6192fe 100644
  }
  
  static void
--- 
-GitLab
-

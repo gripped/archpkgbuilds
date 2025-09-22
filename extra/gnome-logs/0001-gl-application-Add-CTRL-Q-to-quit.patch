@@ -1,4 +1,4 @@
-From 4a0bd586f076468329188d249f5d7b4c4738009f Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Automeris naranja
  <104251-automerisnaranja@users.noreply.gitlab.gnome.org>
 Date: Thu, 15 Aug 2024 23:14:39 -0300
@@ -11,7 +11,7 @@ Closes https://gitlab.gnome.org/GNOME/gnome-logs/-/issues/76
  2 files changed, 19 insertions(+), 1 deletion(-)
 
 diff --git a/data/help-overlay.ui b/data/help-overlay.ui
-index f480973..ffc6fc2 100644
+index f4809732ac1a..ffc6fc296495 100644
 --- a/data/help-overlay.ui
 +++ b/data/help-overlay.ui
 @@ -30,6 +30,12 @@
@@ -28,7 +28,7 @@ index f480973..ffc6fc2 100644
                  </child>
                  <child>
 diff --git a/src/gl-application.c b/src/gl-application.c
-index cef5320..98a967e 100644
+index 05a39ac03ae7..59b5f26b9815 100644
 --- a/src/gl-application.c
 +++ b/src/gl-application.c
 @@ -143,6 +143,14 @@ on_about (GSimpleAction *action,
@@ -46,7 +46,7 @@ index cef5320..98a967e 100644
  static void
  on_sort_order_changed (GSettings *settings,
                         const gchar *key,
-@@ -206,7 +214,8 @@ on_monospace_font_name_changed (GSettings *settings,
+@@ -206,49 +214,53 @@ on_monospace_font_name_changed (GSettings *settings,
  static GActionEntry actions[] = {
      { "new-window", on_new_window },
      { "help", on_help },
@@ -56,7 +56,26 @@ index cef5320..98a967e 100644
  };
  
  static void
-@@ -233,6 +242,7 @@ launch_window (GApplication *application)
+ gl_application_startup (GApplication *application)
+ {
+     g_action_map_add_action_entries (G_ACTION_MAP (application), actions,
+                                      G_N_ELEMENTS (actions), application);
+ 
+     /* Calls gtk_init() with no arguments. */
+     G_APPLICATION_CLASS (gl_application_parent_class)->startup (application);
+ 
+     /* gtk_init() calls setlocale(), so gettext must be called after that. */
+     g_set_application_name (_(PACKAGE_NAME));
+     gtk_window_set_default_icon_name ("org.gnome.Logs");
+ }
+ 
+ static void
+ launch_window (GApplication *application)
+ {
+     GtkWidget *window;
+     GlApplicationPrivate *priv;
+     const gchar * const close_accel[] = { "<Primary>w", NULL };
+     const gchar * const search_accel[] = { "<Primary>f", NULL };
      const gchar * const export_accel[] = { "<Primary>e", NULL };
      const gchar * const help_accel[] = { "F1", NULL };
      const gchar * const new_window_accel[] = { "<Primary>n", NULL };
@@ -64,7 +83,16 @@ index cef5320..98a967e 100644
  
      priv = gl_application_get_instance_private (GL_APPLICATION (application));
  
-@@ -249,6 +259,8 @@ launch_window (GApplication *application)
+     window = gl_window_new (GTK_APPLICATION (application));
+     gl_window_load_journal (GL_WINDOW (window), priv->journal);
+     gtk_window_present (GTK_WINDOW (window));
+     gtk_application_set_accels_for_action (GTK_APPLICATION (application),
+                                            "win.close", close_accel);
+     gtk_application_set_accels_for_action (GTK_APPLICATION (application),
+                                            "win.search", search_accel);
+     gtk_application_set_accels_for_action (GTK_APPLICATION (application),
+                                            "win.export", export_accel);
+     gtk_application_set_accels_for_action (GTK_APPLICATION (application),
                                             "app.help", help_accel);
      gtk_application_set_accels_for_action (GTK_APPLICATION (application),
                                             "app.new-window", new_window_accel);
@@ -73,6 +101,3 @@ index cef5320..98a967e 100644
  
      on_monospace_font_name_changed (priv->desktop, DESKTOP_MONOSPACE_FONT_NAME,
                                      priv);
--- 
-GitLab
-

@@ -1,22 +1,25 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-logs
-pkgver=45.0
-pkgrel=3
+pkgver=49.0
+pkgrel=1
 pkgdesc="A log viewer for the systemd journal"
 url="https://apps.gnome.org/Logs"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-3.0-only)
 depends=(
   dconf
+  gcc-libs
   glib2
+  glibc
   gsettings-desktop-schemas
   gtk4
   hicolor-icon-theme
   libadwaita
   pango
   systemd
+  systemd-libs
 )
 makedepends=(
   appstream
@@ -26,41 +29,37 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-logs.git#tag=$pkgname-$pkgver"
-        gnome-logs-window-icon.patch
-        gnome-logs-quit.patch
-        gnome-logs-info-bar.patch
-        gnome-logs-invalid-open.patch
-        gnome-logs-new-window.patch)
-b2sums=('e6aae0af3137c6c96014b00da25fe27b32d90b0b227fb36c376e583f17ce1e9faebc1baeaa51e7ce62c79620f9c16b1831c9c20be55f09d9de9b700a802c9f35'
-        '81bb65eda96215d04d5798341c1eca0cdb8ff262c1cf3e2c2f5abae25f8a000bda59015f5314aefce93ac3c47bb58e997b692de5acc1880b9dfbbb919c1165e9'
-        '809655260a1fca0bb6870c8fd5c05b06b89f518d038bfb2143ee9ee68eb3cb21d5ecb7288e6ba48b3de59b80219c4515f60558afb53cea0660ba3d5f8e02caa1'
-        '552bf39c8609dcfc9cdc18f113181d315eaecedf14413f696888d9e0e5848e760d299f3f7ea8c91899c302b7368871f2734bad1823bcceca980799bcc082a2e5'
-        'b6f56246b865a6c72a55b7db4a78fb584b3d1b71a67a33c79eb87ebabdd52be0a5bd408cb83d6456227af2b92121a22f6ee971d4c2fe48653f11e04334da84a8'
-        'd681c1345becf8d4a34d0c29619ffde8c8de02e33ebdd48241fad6015f5930b5e0750bd4b9154b396bddad2e36ac881eae74614144425ce5e34f67c5f5f779e5')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-logs.git#tag=${pkgver/[a-z]/.&}"
+  0001-gl-application-Add-CTRL-Q-to-quit.patch
+  0002-gl-window-Fix-GtkInfoBar-being-blank.patch
+  0003-Fix-crash-when-invalid-journal-opened.patch
+  0004-Add-new-window-command-line-option.patch
+)
+b2sums=('b234d768ddc1c6e051ff9a0ec8702860ee937f95fd0a04e12616076988af8c0263c602cfc5cdee16948c38202ad04b57adec363bd58de6f1eeecd0d60a869700'
+        'de9c538a53c0dd7fda5f38bc38360a8564df8b10a65201e08718e03b3795b90db8d8162bbfe1255929eba2728d679375d92e46f0e7e4bc430720a1c2567d771c'
+        '88925a3383b6ad2a564b5aa6d2450e0f3976c07f7e1011ab7f72f50aae9b8d3195985e57a08ed8e4d148d9fbb0ff9357e4a27e88739630291eda6d56299ed831'
+        '45ec10e5f31d25f27b4ad28422432ef7c7e7a0a2697bbbc9c09a5f12b3a703cff9255080c5d5d42fbeda1b2927216fecf9393fc6d27cb3873238e9653c6a0bd3'
+        '2cfb6e1b842098bd616992d175317127e8f6744ec23c7a85a4471b561a31e465be2b4c40ce35716bc9ef075953ecdd3ad911fb898ad3739707af0ce3bb902d93')
 
 prepare() {
   cd $pkgname
 
-  # Fix icon name
-  # https://gitlab.gnome.org/GNOME/gnome-logs/-/merge_requests/66
-  git apply -3 ../gnome-logs-window-icon.patch
-
   # Add CTRL+Q to quit
   # https://gitlab.gnome.org/GNOME/gnome-logs/-/merge_requests/71
-  git apply -3 ../gnome-logs-quit.patch
+  git apply -3 ../0001-gl-application-Add-CTRL-Q-to-quit.patch
 
   # Fix GtkInfoBar being blank
   # https://gitlab.gnome.org/GNOME/gnome-logs/-/merge_requests/73
-  git apply -3 ../gnome-logs-info-bar.patch
+  git apply -3 ../0002-gl-window-Fix-GtkInfoBar-being-blank.patch
 
   # Fix crash when invalid journal opened
   # https://gitlab.gnome.org/GNOME/gnome-logs/-/merge_requests/77
-  git apply -3 ../gnome-logs-invalid-open.patch
+  git apply -3 ../0003-Fix-crash-when-invalid-journal-opened.patch
 
   # Add "new-window" command-line option
   # https://gitlab.gnome.org/GNOME/gnome-logs/-/merge_requests/78
-  git apply -3 ../gnome-logs-new-window.patch
+  git apply -3 ../0004-Add-new-window-command-line-option.patch
 }
 
 build() {
