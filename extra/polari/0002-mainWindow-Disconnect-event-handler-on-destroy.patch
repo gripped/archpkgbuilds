@@ -1,4 +1,4 @@
-From 9b441b6af15c7dbdd48470f58d46449b0e79b221 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Wed, 13 Nov 2024 13:39:36 +0100
 Subject: [PATCH] mainWindow: Disconnect event handler on destroy
@@ -12,10 +12,10 @@ Closes: https://gitlab.gnome.org/GNOME/polari/-/issues/233
  1 file changed, 12 insertions(+), 9 deletions(-)
 
 diff --git a/src/mainWindow.js b/src/mainWindow.js
-index c3d79bb0..3c43943e 100644
+index c3d79bb04595..3c43943ec9e7 100644
 --- a/src/mainWindow.js
 +++ b/src/mainWindow.js
-@@ -71,8 +71,8 @@ class MainWindow extends Adw.ApplicationWindow {
+@@ -71,41 +71,42 @@ class MainWindow extends Adw.ApplicationWindow {
  
          this._userListPopover.set_parent(this._showUserListButton);
  
@@ -26,7 +26,25 @@ index c3d79bb0..3c43943e 100644
              this.add_css_class('test-instance');
          if (GLib.get_application_name().toLowerCase().includes('snapshot'))
              this.add_css_class('snapshot');
-@@ -98,14 +98,15 @@ class MainWindow extends Adw.ApplicationWindow {
+ 
+         this._roomStack.connect('notify::view-height',
+             () => this.notify('view-height'));
+ 
+         this._accountsMonitor = AccountsMonitor.getDefault();
+         this._accountsChangedId = this._accountsMonitor.connect(
+             'accounts-changed', this._onAccountsChanged.bind(this));
+         this._onAccountsChanged(this._accountsMonitor);
+ 
+         this._accountReachableId = this._accountsMonitor.connect(
+             'account-reachable-changed', this._onAccountsReachableChanged.bind(this));
+         this._onAccountsReachableChanged();
+ 
+         this._roomManager = RoomManager.getDefault();
+         this._roomsLoadedId = this._roomManager.connect('rooms-loaded',
+             this._onRoomsLoaded.bind(this));
+         this._roomRemovedId = this._roomManager.connect('room-removed',
+             this._onRoomRemoved.bind(this));
+         this._onRoomsLoaded();
  
          this._updateUserListLabel();
  
@@ -58,6 +76,3 @@ index c3d79bb0..3c43943e 100644
      }
  
      _onAccountsChanged() {
--- 
-GitLab
-
