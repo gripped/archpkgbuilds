@@ -1,4 +1,4 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgbase=libpeas-2
@@ -6,7 +6,7 @@ pkgname=(
   libpeas-2
   libpeas-2-docs
 )
-pkgver=2.0.7
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="GObject Plugin System"
 url="https://wiki.gnome.org/Projects/Libpeas"
@@ -24,7 +24,7 @@ makedepends=(
   glade
   glib2-devel
   gobject-introspection
-  js128
+  js140
   lua51
   lua51-lgi
   luajit
@@ -36,7 +36,7 @@ makedepends=(
 )
 checkdepends=(xorg-server-xvfb)
 source=("git+https://gitlab.gnome.org/GNOME/libpeas.git#tag=$pkgver")
-b2sums=('b028848f24888551e70ab0517294b1008232040d6f27f71d1896be5bd2fed05b67c1ab4b263607025af0a86a96ce6c6ce29e6e3db2d9b4dba43dac285dd6a86e')
+b2sums=('7c2fc9055498b72233d46d61d102ff03e42ab1207d291ee8be2589cbff85c11b6fc2c85920d1fdf49a1c5f793b6d4ae83747dd2182378e40e3ae5ac6658738ec')
 
 prepare() {
   cd libpeas
