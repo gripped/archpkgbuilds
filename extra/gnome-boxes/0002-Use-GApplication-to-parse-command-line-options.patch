@@ -1,4 +1,4 @@
-From ab09bd830cb64e2a7ae4b3848454733727c3e069 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Wed, 23 Apr 2025 20:09:28 +0200
 Subject: [PATCH] Use GApplication to parse command line options
@@ -6,21 +6,22 @@ Subject: [PATCH] Use GApplication to parse command line options
 It already supports adding and parsing option entries, so it's not
 necessary to parse them manually.
 ---
- src/app.vala  | 70 ++++++++++++++++++---------------------------------
+ src/app.vala  | 72 ++++++++++++++++++---------------------------------
  src/main.vala |  1 +
- 2 files changed, 25 insertions(+), 46 deletions(-)
+ 2 files changed, 26 insertions(+), 47 deletions(-)
 
 diff --git a/src/app.vala b/src/app.vala
-index ce8e295ca..602353dcf 100644
+index 7369691282e0..6657e863fc8b 100644
 --- a/src/app.vala
 +++ b/src/app.vala
-@@ -55,11 +55,28 @@ private class Boxes.App: Gtk.Application {
+@@ -55,11 +55,29 @@ private class Boxes.App: Gtk.Application {
  
      private uint inhibit_cookie = 0;
  
 +    static bool opt_fullscreen;
 +    static string opt_open_uuid;
 +    static string[] opt_uris;
++    [CCode (array_length=false, array_null_terminated=true)]
 +    static string[] opt_search;
 +    const OptionEntry[] options = {
 +        { "version", 0, 0, OptionArg.NONE, null, N_("Display version number"), null },
@@ -43,7 +44,7 @@ index ce8e295ca..602353dcf 100644
          app = this;
          async_launcher = AsyncLauncher.get_default ();
          windows = new List<Boxes.AppWindow> ();
-@@ -166,56 +183,17 @@ public override void activate () {
+@@ -166,69 +184,29 @@ public override void activate () {
          window.show_welcome_tutorial ();
      }
  
@@ -51,6 +52,7 @@ index ce8e295ca..602353dcf 100644
 -    static bool opt_help;
 -    static string opt_open_uuid;
 -    static string[] opt_uris;
+-    [CCode (array_length=false, array_null_terminated=true)]
 -    static string[] opt_search;
 -    const OptionEntry[] options = {
 -        { "version", 0, 0, OptionArg.NONE, null, N_("Display version number"), null },
@@ -70,15 +72,15 @@ index ce8e295ca..602353dcf 100644
 -        opt_open_uuid = null;
 -        opt_uris = null;
 -        opt_search = null;
--
++        var options = cmdline.get_options_dict ();
+ 
 -        var parameter_string = _("— A simple application to access virtual machines");
 -        var opt_context = new OptionContext (parameter_string);
 -        opt_context.add_main_entries (options, null);
 -        opt_context.add_group (Spice.get_option_group ());
 -        opt_context.add_group (Gtk.get_option_group (true));
 -        opt_context.set_help_enabled (false);
-+        var options = cmdline.get_options_dict ();
- 
+-
 -        try {
 -            string[] args1 = cmdline.get_arguments();
 -            unowned string[] args2 = args1;
@@ -106,7 +108,11 @@ index ce8e295ca..602353dcf 100644
              return 1;
          }
  
-@@ -227,7 +205,7 @@ public override int command_line (GLib.ApplicationCommandLine cmdline) {
+         activate ();
+ 
+         var app = this;
+         if (opt_open_uuid != null) {
+             var uuid = opt_open_uuid;
              call_when_ready (() => {
                      app.open_uuid (uuid);
              });
@@ -116,7 +122,7 @@ index ce8e295ca..602353dcf 100644
  
              call_when_ready (() => {
 diff --git a/src/main.vala b/src/main.vala
-index 2c1788905..d79a51de7 100644
+index 2c17889057b8..d79a51de74b2 100644
 --- a/src/main.vala
 +++ b/src/main.vala
 @@ -66,6 +66,7 @@ private async void run_checks () {
@@ -127,6 +133,3 @@ index 2c1788905..d79a51de7 100644
      Intl.bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
      Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
      Intl.textdomain (GETTEXT_PACKAGE);
--- 
-GitLab
-

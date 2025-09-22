@@ -1,4 +1,4 @@
-From 0a97d32df3a3253f326d79c229006a6422872905 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: sid <sidtosh4@gmail.com>
 Date: Thu, 28 Dec 2023 09:58:49 +0000
 Subject: [PATCH] Use fallback dirs when user special dirs don't exist
@@ -17,7 +17,7 @@ Fixes https://gitlab.gnome.org/GNOME/gnome-boxes/-/issues/798
  4 files changed, 61 insertions(+), 3 deletions(-)
 
 diff --git a/src/actions-popover.vala b/src/actions-popover.vala
-index 9f2ea8dee..80d8b8648 100644
+index 9f2ea8dee963..80d8b86488a1 100644
 --- a/src/actions-popover.vala
 +++ b/src/actions-popover.vala
 @@ -107,7 +107,7 @@ private void open_in_new_win_activated () {
@@ -30,11 +30,11 @@ index 9f2ea8dee..80d8b8648 100644
          var dir = GLib.File.new_for_path (path);
  
 diff --git a/src/downloader.vala b/src/downloader.vala
-index 8e606c907..a984a74da 100644
+index 335bf00a8146..65a6d837b93f 100644
 --- a/src/downloader.vala
 +++ b/src/downloader.vala
-@@ -217,7 +217,7 @@ public static async string fetch_media (string           uri,
-         return_val_if_fail (basename != null && basename != "" && basename != "/", null);
+@@ -216,7 +216,7 @@ public static async string fetch_media (string           uri,
+             throw (new GLib.IOError.INVALID_FILENAME ("File name is either null, empty or '/'."));
  
          var downloader = Downloader.get_default ();
 -        var cache = Path.build_filename (GLib.Environment.get_user_special_dir (GLib.UserDirectory.DOWNLOAD),
@@ -43,7 +43,7 @@ index 8e606c907..a984a74da 100644
  
          progress.progress = 0;
 diff --git a/src/preferences/shared-folders-widget.vala b/src/preferences/shared-folders-widget.vala
-index 106e5b699..b1b386d6c 100644
+index 106e5b699a5e..b1b386d6c51c 100644
 --- a/src/preferences/shared-folders-widget.vala
 +++ b/src/preferences/shared-folders-widget.vala
 @@ -90,7 +90,7 @@ private class Boxes.SharedFolderPopover: Gtk.Popover {
@@ -56,7 +56,7 @@ index 106e5b699..b1b386d6c 100644
      }
  
 diff --git a/src/util.vala b/src/util.vala
-index 00ff156ca..b491aa374 100644
+index 00ff156cace4..b491aa374f93 100644
 --- a/src/util.vala
 +++ b/src/util.vala
 @@ -433,4 +433,62 @@ public static string canonicalize_for_search (string str) {
@@ -122,6 +122,3 @@ index 00ff156ca..b491aa374 100644
 +        return dir;
 +    }
  }
--- 
-GitLab
-

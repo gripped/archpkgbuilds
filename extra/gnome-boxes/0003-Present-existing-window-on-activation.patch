@@ -1,4 +1,4 @@
-From ac5f0d705c9dbd3190712996d21c4fb78d19e243 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Wed, 23 Apr 2025 20:35:09 +0200
 Subject: [PATCH] Present existing window on activation
@@ -11,10 +11,10 @@ Also, check if main window is exist before dismiss the toast on quit.
  1 file changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/src/app.vala b/src/app.vala
-index ce8e295ca..077366413 100644
+index 6657e863fc8b..4c58b495701e 100644
 --- a/src/app.vala
 +++ b/src/app.vala
-@@ -155,8 +155,10 @@ public void call_when_ready (owned CallReadyFunc func) {
+@@ -173,8 +173,10 @@ public void call_when_ready (owned CallReadyFunc func) {
      public override void activate () {
          base.activate ();
  
@@ -26,7 +26,7 @@ index ce8e295ca..077366413 100644
  
          var window = add_new_window ();
          window.set_state (UIState.COLLECTION);
-@@ -296,7 +298,8 @@ public override void shutdown () {
+@@ -275,7 +277,8 @@ public override void shutdown () {
              this.hold ();
          }
  
@@ -36,6 +36,3 @@ index ce8e295ca..077366413 100644
  
          async_launcher.await_all ();
          suspend_machines ();
--- 
-GitLab
-

@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 24 Jul 2025 11:43:58 +0200
+Subject: [PATCH] spice-display: Set zoom level based on scale factor
+
+Without scaling the display, the guest resolution become too large when
+the guest agent is connected, making the screen unreadable.
+---
+ src/spice-display.vala | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/src/spice-display.vala b/src/spice-display.vala
+index 865666f3ddce..723d30915542 100644
+--- a/src/spice-display.vala
++++ b/src/spice-display.vala
+@@ -168,6 +168,16 @@ public override Gtk.Widget get_display (int n) {
+             config.save_properties (this, display_saved_properties);
+             display.scaling = true;
+ 
++            var gdk_window = machine.window.get_window();
++            int scale_factor = gdk_window.get_scale_factor();
++            display.zoom_level = 100 * scale_factor;
++
++            machine.window.configure_event.connect((event) => {
++                scale_factor = gdk_window.get_scale_factor();
++                display.zoom_level = 100 * scale_factor;
++                return false;
++            });
++
+             displays.replace (n, display);
+         }
+ 

@@ -5,8 +5,8 @@
 # Contributor: Stefano Facchini <stefano.facchini@gmail.com>
 
 pkgname=gnome-boxes
-pkgver=48.0
-pkgrel=5
+pkgver=49.0
+pkgrel=1
 pkgdesc='Simple GNOME application to access virtual systems'
 arch=(x86_64)
 url='https://apps.gnome.org/Boxes/'
@@ -49,17 +49,19 @@ source=(
   # GNOME Boxes tags use SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/gnome-boxes.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/felipeborges/libovf-glib.git"
-  gnome-boxes-fallback-dirs.patch
-  gnome-boxes-parse-options.patch
-  gnome-boxes-activate-window.patch
-  gnome-boxes-scale-factor.patch
+  0001-Use-fallback-dirs-when-user-special-dirs-don-t-exist.patch
+  0002-Use-GApplication-to-parse-command-line-options.patch
+  0003-Present-existing-window-on-activation.patch
+  0004-Revert-spice-display-Only-downscale-displays.patch
+  0005-spice-display-Set-zoom-level-based-on-scale-factor.patch
 )
-b2sums=('38dca4d850d3d7d54d05c46e281a5fad7da6d89b24d63be05ea467b81644e5a140600a7e019841eb6978bbb76707ca340ac6b99e24f41395851114e45e4fea03'
+b2sums=('6cc984f8f37372069ba86f420e7b6098202a0a3d80f6c3955fe43b162943748e59e65bc922c88dd857aedc2af5312083abd24678bea153bce91fac36499e11c8'
         'SKIP'
-        'db647db5c9e3a1d1f0ad1e8821f37539879b1aab88ef1b9d08eaf1e680d3ef48fc89d52de9f0a2c99d87f3d6fb394cb77c2af6f71e7dd978516e61e3edde0884'
-        'e26ced09f96c2da765c8765f8543983ade3b652c2c5555739a1783189c0bdadbb53ad7a19f7aa16ffe412e064982d93e41920d615ae0b36f3b5c00517becb542'
-        '11af28770a58d529d4c2f983aa1e6352ccc096d2da8dc17b713865bb8e1ab67568d2297af74edcb7a2bb38c736dd4c2e198d30f1a79d8360b2f3e2cdd2b878dd'
-        '2becde66d172707a5bf101114ad1574aed05b0b7c0fcedf0e515fa79b01490839691908702ef72a263e8d15743bb3e9336f813929d57edb7d25a76e9e3369b72')
+        'd120296bd6a0507435662009f1c0e46cd1ec166298707c40d83a81e5aa0dbe7d4e6c2d24cf74480218466c926b38399cc404612c09b1c9798d7adb933f2ef82c'
+        'f9931ac4f4e3e871b86c6ae0c202ac4abbdc8b3227e16eaf43a8f3cd28d92c7149f53c932c3f51167afe62fccbf43b7e261e45a22a68e1cc0577ba83b4115410'
+        'bf914b770835513535177ed146cd5274fd8c4b38ae34afc26299b2578aac9822e7f0309bb160e92a58dc9b89a17bb724661141203b4f4560df6c78ec9cf93dc7'
+        '1ae2e4e1826d9f7fd6da2bb4a2066a33b9bc90a128bdfb69ab2ab3027917802049e212ecd5be886ccc497adce149bc127d5d2d2097db6ef6ec71d8cc83b7c58b'
+        '753c8cc5cd08922f7cc57b573ac0f4a19b0b3b0b63208b1425a7ed1c7f59ce625dae28fc419c532253220de4a1fd1f1f31017f66131aa39e0e20cfcd68136c6d')
 
 prepare() {
   cd $pkgname
@@ -70,19 +72,20 @@ prepare() {
 
   # Use fallback dirs when user special dirs don't exist
   # https://gitlab.gnome.org/GNOME/gnome-boxes/-/merge_requests/634
-  git apply -3 ../gnome-boxes-fallback-dirs.patch
+  git apply -3 ../0001-Use-fallback-dirs-when-user-special-dirs-don-t-exist.patch
 
   # Use GApplication to parse command line options
   # https://gitlab.gnome.org/GNOME/gnome-boxes/-/merge_requests/677
-  git apply -3 ../gnome-boxes-parse-options.patch
+  git apply -3 ../0002-Use-GApplication-to-parse-command-line-options.patch
 
   # Present existing window on activation
   # https://gitlab.gnome.org/GNOME/gnome-boxes/-/merge_requests/678
-  git apply -3 ../gnome-boxes-activate-window.patch
+  git apply -3 ../0003-Present-existing-window-on-activation.patch
 
   # Set zoom level based on scale factor
   # https://gitlab.gnome.org/GNOME/gnome-boxes/-/merge_requests/684
-  git apply -3 ../gnome-boxes-scale-factor.patch
+  git apply -3 ../0004-Revert-spice-display-Only-downscale-displays.patch
+  git apply -3 ../0005-spice-display-Set-zoom-level-based-on-scale-factor.patch
 }
 
 build() {

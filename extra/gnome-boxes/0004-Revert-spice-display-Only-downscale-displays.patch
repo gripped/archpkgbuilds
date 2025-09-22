@@ -1,0 +1,37 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 24 Jul 2025 10:59:38 +0200
+Subject: [PATCH] Revert "spice-display: Only downscale displays"
+
+Disabling upscale causing very small screen size on HiDPI displays, which
+is unreadable.
+
+This reverts commit 5d4f78a81ed668157ee6244543e883fbbc02a8c1.
+---
+ src/spice-display.vala | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/src/spice-display.vala b/src/spice-display.vala
+index 166f428255c2..865666f3ddce 100644
+--- a/src/spice-display.vala
++++ b/src/spice-display.vala
+@@ -86,11 +86,6 @@ private string get_box_name () {
+ 
+                 agent_connected_id = main_channel.notify["agent-connected"].connect (() => {
+                     is_guest_agent_connected = main_channel.agent_connected;
+-
+-                    if (is_guest_agent_connected) {
+-                        var display = get_display (0) as Spice.Display;
+-                        display.only_downscale = false;
+-                    }
+                 });
+             }
+     }
+@@ -172,7 +167,6 @@ public override Gtk.Widget get_display (int n) {
+             });
+             config.save_properties (this, display_saved_properties);
+             display.scaling = true;
+-            display.only_downscale = true;
+ 
+             displays.replace (n, display);
+         }
