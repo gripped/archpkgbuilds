@@ -6,8 +6,8 @@ pkgname=(
   gtkmm-4.0
   gtkmm-4.0-docs
 )
-pkgver=4.18.0
-pkgrel=2
+pkgver=4.20.0
+pkgrel=1
 pkgdesc="C++ bindings for GTK 4"
 url="https://www.gtkmm.org/"
 arch=(x86_64)
@@ -38,7 +38,7 @@ makedepends=(
 checkdepends=(xorg-server-xvfb)
 options=(!emptydirs)
 source=("git+https://gitlab.gnome.org/GNOME/gtkmm.git#tag=$pkgver")
-b2sums=('fc40eb820f611fdb094e369a73c09bba1b9b702c3eef6ebad678f4e3afd853d0e5e0ddb245a6dc5f0bdfa72070b15e7cd01dab62ccc5d280a5ce3e6a4db35318')
+b2sums=('d88d3aab26af90aebf2285d4f5f0a8f1fae8c28785595fcc9fb1f0cdcb483a34b5f13210bbb074ab81cf30c9cc23ff179ffde16ab0316895191b221e444bbf95')
 
 prepare() {
   cd gtkmm
