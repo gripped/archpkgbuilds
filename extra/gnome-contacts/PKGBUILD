@@ -3,7 +3,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-contacts
-pkgver=48.0
+pkgver=49.0
 pkgrel=1
 pkgdesc="Contacts Manager for GNOME"
 url="https://apps.gnome.org/Contacts"
@@ -35,6 +35,7 @@ depends=(
 )
 makedepends=(
   appstream
+  blueprint-compiler
   git
   gobject-introspection
   meson
@@ -44,9 +45,10 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-contacts.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('44a3b2c98a61e2adf6f8ae4c9f612bf5f082c14647c534b20f53684c507542c5f0e2a89017f59c3df66ec564c2c9064bae197121b00ba0814e5a6215bf7903d3')
+b2sums=('ed78ef124a0b7a55d834b978e525870f5c2f493883e5fd806fb2a29d1064cb83eec2f5b36e2609065d621b56e7037735ed3b8be05c4727f2dfded1ef723b974e')
 validpgpkeys=(
   A7C626E13F9AD776776BD9CA1D8A57CF2E8D36A3 # Niels De Graef (nielsdg) <nielsdegraef@gmail.com>
+  4D0BE12F0E4776D8AACE9696E66C775AEBFE6C7D # Jeremy Bícha <jbicha@ubuntu.com>
 )
 
 prepare() {

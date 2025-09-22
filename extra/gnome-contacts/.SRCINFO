@@ -1,12 +1,13 @@
 pkgbase = gnome-contacts
 	pkgdesc = Contacts Manager for GNOME
-	pkgver = 48.0
+	pkgver = 49.0
 	pkgrel = 1
 	url = https://apps.gnome.org/Contacts
 	arch = x86_64
 	groups = gnome
 	license = GPL-2.0-or-later
 	makedepends = appstream
+	makedepends = blueprint-compiler
 	makedepends = git
 	makedepends = gobject-introspection
 	makedepends = meson
@@ -33,8 +34,9 @@ pkgbase = gnome-contacts
 	depends = libportal-gtk4
 	depends = pango
 	depends = qrencode
-	source = git+https://gitlab.gnome.org/GNOME/gnome-contacts.git?signed#tag=48.0
+	source = git+https://gitlab.gnome.org/GNOME/gnome-contacts.git?signed#tag=49.0
 	validpgpkeys = A7C626E13F9AD776776BD9CA1D8A57CF2E8D36A3
-	b2sums = 44a3b2c98a61e2adf6f8ae4c9f612bf5f082c14647c534b20f53684c507542c5f0e2a89017f59c3df66ec564c2c9064bae197121b00ba0814e5a6215bf7903d3
+	validpgpkeys = 4D0BE12F0E4776D8AACE9696E66C775AEBFE6C7D
+	b2sums = ed78ef124a0b7a55d834b978e525870f5c2f493883e5fd806fb2a29d1064cb83eec2f5b36e2609065d621b56e7037735ed3b8be05c4727f2dfded1ef723b974e
 
 pkgname = gnome-contacts
