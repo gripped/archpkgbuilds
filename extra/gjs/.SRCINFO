@@ -1,6 +1,6 @@
 pkgbase = gjs
 	pkgdesc = Javascript Bindings for GNOME
-	pkgver = 1.84.2
+	pkgver = 1.86.0
 	pkgrel = 1
 	epoch = 2
 	url = https://wiki.gnome.org/Projects/Gjs
@@ -19,17 +19,16 @@ pkgbase = gjs
 	depends = glib2
 	depends = glibc
 	depends = gobject-introspection-runtime
-	depends = js128
+	depends = js140
 	depends = libffi
-	depends = libgirepository
 	depends = libsysprof-capture
 	depends = libx11
 	depends = readline
 	provides = libgjs.so
-	source = git+https://gitlab.gnome.org/GNOME/gjs.git#tag=1.84.2
+	source = git+https://gitlab.gnome.org/GNOME/gjs.git#tag=1.86.0
 	source = git+https://gitlab.gnome.org/GNOME/gobject-introspection-tests.git
 	validpgpkeys = 53C0524AD3AE115F69C47D2D0E9D857756977391
-	b2sums = 879550e9e90cf168d03b701bdcf0ee608e140f69839134ebc0948d9fe5516a6b8ce25bbb6804d5c5f055061a025209b5e4ba8a54592e5abd340aac29e546c387
+	b2sums = c4875a14a5c0c2edf70f469af90a938baf87740b8a1d542cc2d3640e802efa420d7ecff2a807ca80b7bd4e65da0e393f7a9b708b653f906e77460671ebe3e8b4
 	b2sums = SKIP
 
 pkgname = gjs
@@ -39,9 +38,8 @@ pkgname = gjs
 	depends = glib2
 	depends = glibc
 	depends = gobject-introspection-runtime
-	depends = js128
+	depends = js140
 	depends = libffi
-	depends = libgirepository
 	depends = libsysprof-capture
 	depends = libx11
 	depends = readline
