@@ -1,9 +1,9 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=dconf-editor
-pkgver=45.0.1
-pkgrel=3
+pkgver=49.0
+pkgrel=1
 pkgdesc="GSettings editor for GNOME"
 url="https://apps.gnome.org/DconfEditor/"
 arch=(x86_64)
@@ -22,17 +22,19 @@ makedepends=(
   vala
 )
 groups=(gnome-extra)
-source=("git+https://gitlab.gnome.org/GNOME/dconf-editor.git#tag=${pkgver/[a-z]/.&}"
-        dconf-editor-prgname.patch)
-b2sums=('cd74f1f5736469c2799b6688fdd4669374354cbceaa25717aa4c4dd98f4c2ab631ff94a82ac2fdac41535372ae85c5fc70498594e44f5ece3830f0faf1e0a888'
-        'a6fef3b6723d0dc2d6295acf7882b1d06fc9d7f2e56e69b9cd41fdaf8b898bfd92ceaca977e972c71026a31afc1e64c8fe3975d0a59fb12b2f30bde61b049239')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/dconf-editor.git#tag=${pkgver/[a-z]/.&}"
+  0001-main-Set-prgname-to-application-id.patch
+)
+b2sums=('d504e593070c593e4ad545170a220712020e2b9c21e5ea2a1b77c8a78fd79a20498ea17129ad7f5909e182b5747e9ede126517a4e8f72b87b602d671eb96e13d'
+        '8f909fee39da9e0e38ec4611cce6a3a94949a87e96b08f8ff6e04b78b87cb0f31ff680b793f98a7d59932a18e49b64d171c79dd6101e57e6e9254a243acefe1a')
 
 prepare() {
   cd $pkgname
 
   # Set prgname to application ID
   # https://gitlab.gnome.org/GNOME/dconf-editor/-/merge_requests/38
-  git apply -3 ../dconf-editor-prgname.patch
+  git apply -3 ../0001-main-Set-prgname-to-application-id.patch
 }
 
 build() {

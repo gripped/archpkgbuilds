@@ -1,4 +1,4 @@
-From b4eb6af578e6e1b93fde221d35c74cfe95546a63 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Maximiliano Sandoval <msandova@gnome.org>
 Date: Wed, 6 Mar 2024 18:31:15 +0100
 Subject: [PATCH] main: Set prgname to application id
@@ -13,10 +13,10 @@ It also sets wmclass correctly to the APPLICATION_ID rather than gnome-boxes.
  1 file changed, 1 insertion(+)
 
 diff --git a/editor/dconf-editor.vala b/editor/dconf-editor.vala
-index 98b2d4f0..17338b82 100644
+index d9dd475397fc..a899e5f13b0c 100644
 --- a/editor/dconf-editor.vala
 +++ b/editor/dconf-editor.vala
-@@ -333,6 +333,7 @@ private class ConfigurationEditor : Gtk.Application, BaseApplication
+@@ -345,6 +345,7 @@ private class ConfigurationEditor : Gtk.Application, BaseApplication
          Hdy.init ();
  
          Environment.set_application_name (PROGRAM_NAME);
@@ -24,6 +24,3 @@ index 98b2d4f0..17338b82 100644
          Gtk.Window.set_default_icon_name ("ca.desrt.dconf-editor");
  
          Hdy.StyleManager.get_default ().set_color_scheme (PREFER_LIGHT);
--- 
-GitLab
-
