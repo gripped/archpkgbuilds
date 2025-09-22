@@ -1,28 +1,22 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor : bartus <arch-user-repoᘓbartus.33mail.com>
 pkgname=popsift
-pkgver=1.0.0.git3
-_commit=3552da528f173242c3de347540b10cc7e0f19b77
-pkgrel=6
+pkgver=1.0.0.git4
+_commit=e34fdc66c3055315c16879f2062a88d1db9fe501
+pkgrel=1
 pkgdesc="Realtime GPU implementation of SIFT"
 arch=('x86_64')
 url="https://github.com/alicevision/popsift"
-license=('MPL2')
+license=('MPL-2.0')
 depends=('boost-libs')
 makedepends=('boost' 'cmake' 'ninja' 'git' 'cuda')
 options=('staticlibs' '!lto')
-source=("git+https://github.com/alicevision/popsift.git#commit=$_commit"
-         cuda-12.6.patch)
-sha256sums=('7b6edb86e6f17c250e21296f02780f6f0d5c37cec58d8f580b78e2e0e59bffb6'
-            '60eb76bc157a18acb9822581a1aef48547425afb48192d14721a0e615685ea7d')
-
-prepare() {
-  patch -d popsift -p1 < cuda-12.6.patch
-}
+source=("git+https://github.com/alicevision/popsift.git#commit=$_commit")
+sha256sums=('e76fea8c4b263e6a2f7b9cacb3d77d83df7bb84f4dca955a0241b8b0ec503146')
 
 build() {
   cd popsift
-  cuda_archs="52;53;60;61;62;70;72;75;80;86;87;89;90"
+  local cuda_archs="75;80;86;87;88;89;90;100;103;110;120;121;121-virtual"
 
   cmake \
     -Bbuild_static \
@@ -30,8 +24,7 @@ build() {
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_SHARED_LIBS=OFF \
-    -DCUDA_USE_STATIC_CUDA_RUNTIME=ON \
-    -DPopSift_CUDA_CC_LIST="$cuda_archs"
+    -DCMAKE_CUDA_ARCHITECTURES="$cuda_archs"
   ninja -C build_static
 
   cmake \
@@ -40,7 +33,7 @@ build() {
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_SHARED_LIBS=ON \
-    -DPopSift_CUDA_CC_LIST="$cuda_archs"
+    -DCMAKE_CUDA_ARCHITECTURES="$cuda_archs"
   ninja -C build_shared
 }
 
