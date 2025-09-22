@@ -1,0 +1,55 @@
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
+# Contributor: Alexander F. Rødseth <xyproto@archlinux.org>
+# Contributor: Ionut Biru <ibiru@archlinux.org>
+
+pkgname=gexiv2
+pkgver=0.16.0
+pkgrel=1
+pkgdesc='GObject-based wrapper around the Exiv2 library'
+url='https://gitlab.gnome.org/GNOME/gexiv2'
+arch=(x86_64)
+license=(GPL-2.0-or-later)
+depends=(
+  exiv2
+  gcc-libs
+  glib2
+  glibc
+)
+makedepends=(
+  gi-docgen
+  git
+  glib2-devel
+  gobject-introspection
+  meson
+  vala
+)
+source=("git+$url.git?signed#tag=$pkgver")
+b2sums=('d6e772840797ab54c2e0e19d66c19367c4afaef7cfa02d454fda00a03addf2a620b75c13a30eb2112e239c64a104726f4e91be49c4bfb2f7670c4f80aa817544')
+validpgpkeys=(AC9CD4E32D7C7F6357BA8ADD10F6E970175D29E1) # Jens Georg <mail@jensge.org>
+
+build() {
+  local meson_options=(
+    -D gtk_doc=true
+    -D tests=true
+    # Keep python binding disabled for now, it conflicts with 'libexiv2'
+    ## https://gitlab.gnome.org/GNOME/gexiv2/-/issues/88
+    -D python3=false
+  )
+
+  arch-meson $pkgname build "${meson_options[@]}"
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  depends+=(
+    libg{lib,object,io}-2.0.so
+    libexiv2.so
+  )
+  provides+=(libgexiv2-0.16.so)
+
+  meson install -C build --destdir "$pkgdir"
+}

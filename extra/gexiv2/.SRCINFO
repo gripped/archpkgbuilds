@@ -1,0 +1,31 @@
+pkgbase = gexiv2
+	pkgdesc = GObject-based wrapper around the Exiv2 library
+	pkgver = 0.16.0
+	pkgrel = 1
+	url = https://gitlab.gnome.org/GNOME/gexiv2
+	arch = x86_64
+	license = GPL-2.0-or-later
+	makedepends = gi-docgen
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = gobject-introspection
+	makedepends = meson
+	makedepends = vala
+	depends = exiv2
+	depends = gcc-libs
+	depends = glib2
+	depends = glibc
+	source = git+https://gitlab.gnome.org/GNOME/gexiv2.git?signed#tag=0.16.0
+	validpgpkeys = AC9CD4E32D7C7F6357BA8ADD10F6E970175D29E1
+	b2sums = d6e772840797ab54c2e0e19d66c19367c4afaef7cfa02d454fda00a03addf2a620b75c13a30eb2112e239c64a104726f4e91be49c4bfb2f7670c4f80aa817544
+
+pkgname = gexiv2
+	depends = exiv2
+	depends = gcc-libs
+	depends = glib2
+	depends = glibc
+	depends = libglib-2.0.so
+	depends = libgobject-2.0.so
+	depends = libgio-2.0.so
+	depends = libexiv2.so
+	provides = libgexiv2-0.16.so
