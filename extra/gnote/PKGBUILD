@@ -4,10 +4,10 @@
 # Contributor: uastasi <uastasi@archlinux.us>
 
 pkgname=gnote
-pkgver=48.1
+pkgver=49rc
 pkgrel=1
 pkgdesc="A note taking application"
-url="https://wiki.gnome.org/Apps/Gnote"
+url="https://gitlab.gnome.org/GNOME/gnote/-/blob/49.rc/wiki/main.md"
 arch=(x86_64)
 license=(GPL-3.0-or-later)
 depends=(
@@ -35,16 +35,7 @@ makedepends=(
   yelp-tools
 )
 source=("git+https://gitlab.gnome.org/GNOME/gnote.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('80c08f51fa8cd92fc9f3013f7ae920c3805dfede0b302dc29a7f8f04c7d8e098eed77075c5ca962613c26cc34fccccf16a0119eef352237dcc77ff56a5d5192e')
-
-prepare() {
-  cd gnote
-
-  # Add "new-window" command-line option
-  # https://gitlab.gnome.org/GNOME/gnote/-/merge_requests/37
-  git cherry-pick -n 37f1c993236ba07128b1a34a6e419f6e6d5ef551
-  git cherry-pick -n a5c7ce44cc56ea5a12153a0cd51dfddf22472413
-}
+b2sums=('21d344c2e197f14b598041903bf0957cb08c1880cf51e6fac8e43f0eaba4bc4aadfe40762ece360e754c4bd12a2a5b817b41d7baa369421eb9e428a4a4f8c7d2')
 
 build() {
   arch-meson gnote build
