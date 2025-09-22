@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-mines
-pkgver=48.1
+pkgver=49.0.1
 pkgrel=1
 pkgdesc="Clear hidden mines from a minefield"
 url="https://wiki.gnome.org/Apps/Mines"
@@ -15,20 +15,20 @@ depends=(
   gtk4
   hicolor-icon-theme
   libadwaita
-  libgnome-games-support-2
+  libgee
   librsvg
 )
 makedepends=(
   appstream
   git
-  libgee
   meson
   vala
   yelp-tools
 )
 groups=(gnome-extra)
+options=(!emptydirs)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-mines.git#tag=$pkgver")
-b2sums=('58a08aca3e0bc88ead587763f2fe7d0f4e534b95510b3255b6ca1cc3a372d623694dfb104c589c93a4c5ba4e09e01fb83d03a91b2045ef3f6e86eabaefdf55e6')
+b2sums=('a81a20d625f79f882b558559593471c3c8844d63992e0a1ad59bbdb2acaf3b85ace3d9f40c0d9914817a831d2cf4b6f6eddd3db3b18d4aee55458a606327b214')
 
 prepare() {
   cd $pkgname

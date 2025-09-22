@@ -1,6 +1,6 @@
 pkgbase = gnome-mines
 	pkgdesc = Clear hidden mines from a minefield
-	pkgver = 48.1
+	pkgver = 49.0.1
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Mines
 	arch = x86_64
@@ -8,7 +8,6 @@ pkgbase = gnome-mines
 	license = GPL-3.0-or-later
 	makedepends = appstream
 	makedepends = git
-	makedepends = libgee
 	makedepends = meson
 	makedepends = vala
 	makedepends = yelp-tools
@@ -18,9 +17,10 @@ pkgbase = gnome-mines
 	depends = gtk4
 	depends = hicolor-icon-theme
 	depends = libadwaita
-	depends = libgnome-games-support-2
+	depends = libgee
 	depends = librsvg
-	source = git+https://gitlab.gnome.org/GNOME/gnome-mines.git#tag=48.1
-	b2sums = 58a08aca3e0bc88ead587763f2fe7d0f4e534b95510b3255b6ca1cc3a372d623694dfb104c589c93a4c5ba4e09e01fb83d03a91b2045ef3f6e86eabaefdf55e6
+	options = !emptydirs
+	source = git+https://gitlab.gnome.org/GNOME/gnome-mines.git#tag=49.0.1
+	b2sums = a81a20d625f79f882b558559593471c3c8844d63992e0a1ad59bbdb2acaf3b85ace3d9f40c0d9914817a831d2cf4b6f6eddd3db3b18d4aee55458a606327b214
 
 pkgname = gnome-mines
