@@ -2,8 +2,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-weather
-pkgver=48.0
-pkgrel=2
+pkgver=49.0
+pkgrel=1
 pkgdesc="Access current weather conditions and forecasts"
 url="https://apps.gnome.org/Weather"
 arch=(any)
@@ -22,31 +22,40 @@ makedepends=(
   git
   gobject-introspection
   meson
+  typescript
 )
 groups=(gnome)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-weather.git#tag=${pkgver/[a-z]/.&}"
-        gnome-weather-automatic-location.patch
-        gnome-weather-search-provider.patch
-        gnome-weather-activate.patch)
-b2sums=('75d89eb1e4c95548301c6ca679b8f53283742b3bec5a11821838eb2725c40f2233c8acace03cc5fa88b8d904b416de3e0a0f07038bafae1ba31c160bc9dcb3ea'
-        '3fa2330783470a2e6f9f4eef31bad416da48696be67e60e9c2a221363b6aa08d933eb32d1288515fb361b3826c95e0c7bd17648da17bac936a9e591fc8020022'
-        '9533dd74b60b15225fe3bc29b6f6ad1fd7278a02458b31c58b2e6bd22ff6ac57100eded89ac89b540f04f8861f0b7ba2b6cb7d4f07724fc689e83b7ab6f03108'
-        '4b86c651e3a06aa7ca292b2e7ccfa1acee64e9e9dc53069272625ac489dad917ff3fbddf401c74a79e5e81a38896bef2c6f39872217c2713c26dbeca0e6bf001')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-weather.git#tag=${pkgver/[a-z]/.&}"
+  "git+https://gitlab.gnome.org/BrainBlasted/gi-typescript-definitions.git"
+  0001-Allow-to-configure-automatic-location-setting.patch
+  0002-Various-fixes-for-the-search-provider.patch
+  0003-Raise-existing-window-instead-of-opening-new-one-on-.patch
+)
+b2sums=('15830e1b1750167cc2d73760ef30777cc5165201230e916bebfe644a547c17fba5cd2fc04d88ffcacf908ffce1d256d9bd4acbf79590902f89edb2b6d84e6f7d'
+        'SKIP'
+        '14ead85f7b34e71c7cb057f2892644661200325037e1e21cc202c1d962c1e4ba592469f4631a63d7e5db27d3bf7bd5761d62fbfc4618486c7f2ba33218d98961'
+        '7781cedc70dc1badfe3b12143f4483b86fef41271e7a8625bf6008c35815c02c70ceef74ee6f8277abaf70492b9713f8450fd34e629e8fe265d3af266e6f77d7'
+        '1c607b5c65fb8dc935054a93986b37cd299a1e1c877a816404c43a7b4410f809ebc2bc276e38525e0e42fc7aadcc3aa0229da9ef5f0b97c66f379741d5f0d804')
 
 prepare() {
   cd $pkgname
 
   # Allow to configure automatic location setting
-  # https://gitlab.gnome.org/GNOME/gnome-weather/-/merge_requests/158
-  git apply -3 ../gnome-weather-automatic-location.patch
+  # https://gitlab.gnome.org/GNOME/gnome-weather/-/merge_requests/192
+  git apply -3 ../0001-Allow-to-configure-automatic-location-setting.patch
 
   # Various fixes for the search provider
-  # https://gitlab.gnome.org/GNOME/gnome-weather/-/merge_requests/189
-  git apply -3 ../gnome-weather-search-provider.patch
+  # https://gitlab.gnome.org/GNOME/gnome-weather/-/merge_requests/193
+  git apply -3 ../0002-Various-fixes-for-the-search-provider.patch
 
   # Raise existing window instead of opening new one on activation
-  # https://gitlab.gnome.org/GNOME/gnome-weather/-/merge_requests/190
-  git apply -3 ../gnome-weather-activate.patch
+  # https://gitlab.gnome.org/GNOME/gnome-weather/-/merge_requests/194
+  git apply -3 ../0003-Raise-existing-window-instead-of-opening-new-one-on-.patch
+
+  git submodule init
+  git submodule set-url gi-types "$srcdir/gi-typescript-definitions"
+  git -c protocol.file.allow=always -c protocol.allow=never submodule update
 }
 
 build() {

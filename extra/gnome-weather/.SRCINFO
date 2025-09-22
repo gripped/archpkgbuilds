@@ -1,7 +1,7 @@
 pkgbase = gnome-weather
 	pkgdesc = Access current weather conditions and forecasts
-	pkgver = 48.0
-	pkgrel = 2
+	pkgver = 49.0
+	pkgrel = 1
 	url = https://apps.gnome.org/Weather
 	arch = any
 	groups = gnome
@@ -10,6 +10,7 @@ pkgbase = gnome-weather
 	makedepends = git
 	makedepends = gobject-introspection
 	makedepends = meson
+	makedepends = typescript
 	depends = dconf
 	depends = geoclue
 	depends = gjs
@@ -17,13 +18,15 @@ pkgbase = gnome-weather
 	depends = hicolor-icon-theme
 	depends = libadwaita
 	depends = libgweather-4
-	source = git+https://gitlab.gnome.org/GNOME/gnome-weather.git#tag=48.0
+	source = git+https://gitlab.gnome.org/GNOME/gnome-weather.git#tag=49.0
+	source = git+https://gitlab.gnome.org/BrainBlasted/gi-typescript-definitions.git
 	source = gnome-weather-automatic-location.patch
 	source = gnome-weather-search-provider.patch
 	source = gnome-weather-activate.patch
-	b2sums = 75d89eb1e4c95548301c6ca679b8f53283742b3bec5a11821838eb2725c40f2233c8acace03cc5fa88b8d904b416de3e0a0f07038bafae1ba31c160bc9dcb3ea
-	b2sums = 3fa2330783470a2e6f9f4eef31bad416da48696be67e60e9c2a221363b6aa08d933eb32d1288515fb361b3826c95e0c7bd17648da17bac936a9e591fc8020022
-	b2sums = 9533dd74b60b15225fe3bc29b6f6ad1fd7278a02458b31c58b2e6bd22ff6ac57100eded89ac89b540f04f8861f0b7ba2b6cb7d4f07724fc689e83b7ab6f03108
-	b2sums = 4b86c651e3a06aa7ca292b2e7ccfa1acee64e9e9dc53069272625ac489dad917ff3fbddf401c74a79e5e81a38896bef2c6f39872217c2713c26dbeca0e6bf001
+	b2sums = 15830e1b1750167cc2d73760ef30777cc5165201230e916bebfe644a547c17fba5cd2fc04d88ffcacf908ffce1d256d9bd4acbf79590902f89edb2b6d84e6f7d
+	b2sums = SKIP
+	b2sums = 2b2c11f468ed0ae3fb3fcc4eef011d023bce75a0f95c4a021e0971b0c01a4c87c3662ae2ca090bef84ba7e1a048356bb509a92e7a20c98c61221607c36a8af7d
+	b2sums = 90d42c8aeff409a7f04fe7b5bc1613cd99bd309c70d8f84b3f1e14b8def86475784a63a2128d155fe89d5a8381c328913aeddff2c51214f5eb0fb7a59bda4d3f
+	b2sums = a23bb58ee00fe786b29f5a2178d5a0c33adac3e44932ae42522cef50adb3d3dc7dbea6d65134577d173d0557b0753fc65a2bef1174e3aed9a3ece3d220385f1f
 
 pkgname = gnome-weather
