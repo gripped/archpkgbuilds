@@ -2,8 +2,8 @@
 
 pkgname=nvshmem
 pkgver=3.4.5
-_cudaver=12
-pkgrel=1
+_cudaver=13
+pkgrel=2
 pkgdesc="NVIDIA parallel programming interface based on OpenSHMEM"
 arch=(x86_64)
 url="https://developer.nvidia.com/nvshmem"
@@ -23,7 +23,7 @@ optdepends=(
 )
 options=(!strip staticlibs)
 source=(https://developer.download.nvidia.com/compute/nvshmem/redist/libnvshmem/linux-x86_64/lib${pkgname}-linux-x86_64-${pkgver}_cuda${_cudaver}-archive.tar.xz)
-b2sums=('0f1cb8da365cd421f4de650317b7e2e6c92182e65ab3bed81e1307a9a3daade196b6ff851406ab63a7f794bde28b2120ae0c5b9c2e36cc040ebc4bcfae7326e1')
+b2sums=('ff117701106edbdf9209bbb49f93a9bfee4c4f599ded49a1c0955becc225529dcc6ba8eb71d4f02d5ecd079125dea75e7e7329083494610144e188e4e3500b5c')
 
 package() {
   cd libnvshmem-linux-x86_64-${pkgver}_cuda${_cudaver}-archive
