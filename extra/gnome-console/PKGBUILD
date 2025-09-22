@@ -3,7 +3,7 @@
 # Contributor: Igor Dyatlov <dyatlov.igor@gmail.com>
 
 pkgname=gnome-console
-pkgver=48.0.1
+pkgver=49.0
 pkgrel=1
 pkgdesc="A simple user-friendly terminal emulator for the GNOME desktop"
 url="https://apps.gnome.org/Console/"
@@ -27,9 +27,13 @@ makedepends=(
   glib2-devel
   meson
 )
+checkdepends=(
+  dbus
+  mutter
+)
 groups=(gnome)
 source=("$pkgname::git+https://gitlab.gnome.org/GNOME/console.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('0a6feb9f8423da33d5bc50df8dbc55cb446f008d951fb24fc995b6369ee109ec0e80054cc41bada01b7ded3bdec21d0a3e4f6046c1c6be913c11a77070e3237c')
+b2sums=('8bd98c73ee08f91b094e23e8ff590cb52d6990b12b2eb03f56301302e36e32e75acb77188f1fd49a3e151c7a4b5d435d46fd32f1b64fdebe4830e368240b8076')
 
 prepare() {
   cd $pkgname
@@ -44,9 +48,19 @@ build() {
   meson compile -C build
 }
 
-check() {
-  meson test -C build --print-errorlogs
-}
+check() (
+  export XDG_RUNTIME_DIR="$PWD/runtime-dir"
+  mkdir -p -m 700 "$XDG_RUNTIME_DIR"
+
+  dbus-run-session -- \
+  mutter \
+    --headless \
+    --wayland \
+    --no-x11 \
+    --virtual-monitor 1024x768 \
+    -- \
+      meson test -C build --print-errorlogs
+)
 
 package() {
   meson install -C build --destdir "$pkgdir"
