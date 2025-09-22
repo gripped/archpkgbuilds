@@ -9,7 +9,7 @@
 
 pkgname=blender
 pkgver=4.5.3
-pkgrel=2
+pkgrel=4
 epoch=17
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
@@ -130,6 +130,9 @@ prepare() {
   git remote add network-origin https://projects.blender.org/blender/blender
   git lfs fetch network-origin
   git lfs checkout
+
+  # Fix build with CUDA 13
+  sed -i 's|sm_50|sm_75|' build_files/build_environment/cmake/osl.cmake intern/cycles/kernel/CMakeLists.txt
 }
 
 _get_pyver() {
@@ -144,6 +147,10 @@ build() {
   # Fix numpy discovery
   sed -i "s|core/include|_core/include|g" blender/CMakeLists.txt
 
+  # In general, we want to list all real archs (sm_XX) and the latest virtual arch (compute_XX) for future PTX compatibility.
+  # Valid values can be discovered from nvcc --help
+  local cuda_archs="sm_75;sm_80;sm_86;sm_87;sm_88;sm_89;sm_90;sm_100;sm_103;sm_110;sm_120;sm_121;compute_121"
+
   local cmake_options=(
     -B build
     -C "$pkgname/build_files/cmake/config/blender_release.cmake"
@@ -151,8 +158,10 @@ build() {
     -D CMAKE_INSTALL_PREFIX=/usr
     -D WITH_LINKER_MOLD=ON
     -D CUDA_HOST_COMPILER="$NVCC_CCBIN"
+    -D CYCLES_CUDA_BINARIES_ARCH="$cuda_archs"
     -D HIP_ROOT_DIR=/opt/rocm
     -D HIPRT_INCLUDE_DIR=/opt/rocm/include
+    -D HIPRT_COMPILER_PARALLEL_JOBS=8
     -D OCLOC_INSTALL_DIR=/usr
     -D OPTIX_ROOT_DIR="$srcdir"
     -D PYTHON_VERSION="$(_get_pyver)"
