@@ -3,7 +3,7 @@
 _name=UncertaintyTE
 pkgname=uncertainty-framework
 pkgver=1.2.0
-pkgrel=8
+pkgrel=9
 pkgdesc="Uncertainty estimation framework for a surface from motion dataset"
 arch=('x86_64')
 url="http://alicevision.github.io/"
@@ -25,6 +25,9 @@ pkgver() {
 }
 
 build() {
+  # Fix build with CUDA 13 (CCCL headers path changed)
+  CXXFLAGS+=" -I /opt/cuda/targets/x86_64-linux/include/cccl/"
+
   cd ${_name}
   cmake \
     -Bbuild \
