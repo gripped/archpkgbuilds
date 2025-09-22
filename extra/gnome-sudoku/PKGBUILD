@@ -2,10 +2,10 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-sudoku
-pkgver=48.1
-pkgrel=2
+pkgver=49.0
+pkgrel=1
 pkgdesc="Test your logic skills in this number grid puzzle"
-url="https://wiki.gnome.org/Apps/Sudoku"
+url="https://gitlab.gnome.org/GNOME/gnome-sudoku/-/wikis/home"
 arch=(x86_64)
 license=(GPL-3.0-or-later)
 depends=(
@@ -14,7 +14,6 @@ depends=(
   gcc-libs
   glib2
   glibc
-  graphene
   gtk4
   hicolor-icon-theme
   json-glib
@@ -31,17 +30,13 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome-extra)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-sudoku.git#tag=${pkgver/[a-z]/.&}"
-        0001-Don-t-create-window-in-startup-phase.patch)
-b2sums=('2380f250c38ffd5198f81b30eee21a0a4bf24f6d78c8f5660d6bbd7d1f59673b1c7140234b1ff9d597804311c6cf63c1e67369cad70ca77942aff365eba00bfb'
-        '2758ae3437a0207184d353600af657d6b1da049412135c2032867e01dc7e616adeddeea32fab9b3667a1cd49fd7c6690539b78ad0e8eca52efea16c9f11ec64d')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-sudoku.git#tag=${pkgver/[a-z]/.&}"
+)
+b2sums=('f548a93fe69223823983e7980b863f9db04caa4b23a8714b0d3c6b932b87f86e10390cbef2ae25706aadfe0a6d296ab4dfd61e49941e8d837ea928ab17870cac')
 
 prepare() {
   cd $pkgname
-
-  # Fix hang when running as GApplication service
-  # https://gitlab.gnome.org/GNOME/gnome-sudoku/-/merge_requests/104
-  git apply -3 ../0001-Don-t-create-window-in-startup-phase.patch
 }
 
 build() {
