@@ -2,8 +2,8 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=gnome-connections
-pkgver=48.0
-pkgrel=6
+pkgver=49.0
+pkgrel=1
 pkgdesc='Remote desktop client for the GNOME desktop environment'
 arch=(x86_64)
 url='https://apps.gnome.org/Connections/'
@@ -22,6 +22,7 @@ depends=(
   libhandy
   libsecret
   libxml2
+  spice-gtk
 )
 makedepends=(
   appstream
@@ -35,17 +36,11 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-connections.git?signed#tag=${pkgver/[a-z]/.&}"
   git+https://gitlab.gnome.org/GNOME/gtk-frdp.git
-  gnome-connections-prgname.patch
-  gnome-connections-shortcuts-window.patch
-  gnome-connections-activate.patch
-  gnome-connections-option-parse.patch
+  0001-Use-GApplication-to-parse-command-line-options.patch
 )
-b2sums=('c8da8891be51b2dd63bc528da5043f50695add5d478429704041a348ceb75f2022b3b3858b734740440bf1aaf27a8b1890b6a3812d650e2d2af9908ad1bfd7ea'
+b2sums=('8c9ed2e842e247f8a9de3cac7acf7234fb9dedfb9f65c6c5d011766eefae88b1dbc8e0213e242b7fa4c689dd88b6f2d16e6ed3e9cdb94509b64b743eb18e9fb6'
         'SKIP'
-        '9996a8fb1ba45c128c6c6e922fb4e41a47fe4a073e4ea59ca5e3421b718c3cb38226ec977bb29ddec3ea9f55481e24b97c33caf43740cdfad95b737705794961'
-        'd01c7214c97739c9a0b61cdea338a25e988f3a094606c68b3e4828f95fc53f0442f11d4c350b20a1791ac0ae2578a877f68537cbde4692d115743f8ffb5a7592'
-        'ce9657c52de9a6278c40b98a28c1b1f8d26d6afd919cd804fcba8933885885b30ee1dbab7980c717613e4de9b4e6988c391840918d81cd831f75899eb8452c7b'
-        'c199df85ea9295929a9bce993e15943b8af93a40ddae033a0b1686593869bd63333970cd3025b24ef1f4d0ae88e08a757dced6d3886f4cfc4e5dc20d3843e95f')
+        '5c4026d67d6f5771b7ace9d2c5b4a73d5f4980dcf8ca1b50f9266fe3c110f53d6d08a32373611eae81f2b3fbfd56a91a47445bccb4700e757ddd852d61f2e8e7')
 validpgpkeys=(F55CDAB508C3ACBCB1C8B930C910F152653B1688) # Marek Kasik <mkasik@redhat.com>
 
 prepare() {
@@ -53,23 +48,11 @@ prepare() {
 
   git submodule init
   git submodule set-url subprojects/gtk-frdp "$srcdir/gtk-frdp"
-  git -c protocol.file.allow=always submodule update
-
-  # Set prgname and icon for the window
-  # https://gitlab.gnome.org/GNOME/gnome-connections/-/merge_requests/157
-  git apply -3 ../gnome-connections-prgname.patch
-
-  # Add shortcuts window
-  # https://gitlab.gnome.org/GNOME/gnome-connections/-/merge_requests/165
-  git apply -3 ../gnome-connections-shortcuts-window.patch
-
-  # Present main window on activation
-  # https://gitlab.gnome.org/GNOME/gnome-connections/-/merge_requests/167
-  git apply -3 ../gnome-connections-activate.patch
+  git -c protocol.file.allow=always -c protocol.allow=never submodule update
 
   # Use GApplication to parse command line options
   # https://gitlab.gnome.org/GNOME/gnome-connections/-/merge_requests/168
-  git apply -3 ../gnome-connections-option-parse.patch
+  git apply -3 ../0001-Use-GApplication-to-parse-command-line-options.patch
 }
 
 build() {
@@ -84,3 +67,5 @@ check() {
 package() {
   meson install -C build --destdir "$pkgdir"
 }
+
+# vim:set sw=2 sts=-1 et:
