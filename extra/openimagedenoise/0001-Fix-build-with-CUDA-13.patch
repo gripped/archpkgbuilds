@@ -1,0 +1,62 @@
+From ed2d40e16602803a4d7f2337fb6cbba2c7dd1127 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jakub=20Klinkovsk=C3=BD?=
+ <1289205+lahwaacz@users.noreply.github.com>
+Date: Fri, 19 Sep 2025 20:34:45 +0200
+Subject: [PATCH] Fix build with CUDA 13
+
+---
+ devices/cuda/CMakeLists.txt | 13 +++----------
+ 1 file changed, 3 insertions(+), 10 deletions(-)
+
+diff --git a/devices/cuda/CMakeLists.txt b/devices/cuda/CMakeLists.txt
+index 710f107..270affa 100644
+--- a/devices/cuda/CMakeLists.txt
++++ b/devices/cuda/CMakeLists.txt
+@@ -41,7 +41,6 @@ set(OIDN_CUDA_SOURCES
+   cuda_external_buffer.cpp
+   cuda_module.cpp
+   cutlass_conv.h
+-  cutlass_conv_sm70.cu
+   cutlass_conv_sm75.cu
+   cutlass_conv_sm80.cu
+ )
+@@ -56,7 +55,7 @@ function(oidn_set_cuda_sm_flags output_var)
+   set(${output_var} "${${output_var}}" PARENT_SCOPE)
+ endfunction()
+ 
+-oidn_set_cuda_sm_flags(OIDN_CUDA_SM_FLAGS 70 75 80 90 100 120)
++oidn_set_cuda_sm_flags(OIDN_CUDA_SM_FLAGS 75 80 90 100 110 120)
+ set_source_files_properties(
+   cuda_conv.cu
+   cuda_device.cu
+@@ -64,19 +63,13 @@ set_source_files_properties(
+   PROPERTIES COMPILE_FLAGS ${OIDN_CUDA_SM_FLAGS}
+ )
+ 
+-oidn_set_cuda_sm_flags(OIDN_CUDA_SM70_FLAGS 70)
+-set_source_files_properties(
+-  cutlass_conv_sm70.cu
+-  PROPERTIES COMPILE_FLAGS ${OIDN_CUDA_SM70_FLAGS}
+-)
+-
+ oidn_set_cuda_sm_flags(OIDN_CUDA_SM75_FLAGS 75)
+ set_source_files_properties(
+   cutlass_conv_sm75.cu
+   PROPERTIES COMPILE_FLAGS ${OIDN_CUDA_SM75_FLAGS}
+ )
+ 
+-oidn_set_cuda_sm_flags(OIDN_CUDA_SM80_FLAGS 80 90 100 120)
++oidn_set_cuda_sm_flags(OIDN_CUDA_SM80_FLAGS 80 90 100 110 120)
+ set_source_files_properties(
+   cutlass_conv_sm80.cu
+   PROPERTIES COMPILE_FLAGS ${OIDN_CUDA_SM80_FLAGS}
+@@ -129,4 +122,4 @@ target_compile_options(OpenImageDenoise_device_cuda PRIVATE $<$<COMPILE_LANGUAGE
+ 
+ target_link_libraries(OpenImageDenoise_device_cuda PRIVATE OpenImageDenoise_core)
+ oidn_strip_symbols(OpenImageDenoise_device_cuda)
+-oidn_install_module(OpenImageDenoise_device_cuda)
+\ No newline at end of file
++oidn_install_module(OpenImageDenoise_device_cuda)
+-- 
+2.51.0
+
