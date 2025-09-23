@@ -4,8 +4,8 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=uptimed
-pkgver=0.4.6
-pkgrel=4
+pkgver=0.4.7
+pkgrel=1
 pkgdesc="A system uptime record daemon"
 arch=(x86_64)
 #url="http://podgorny.cz/uptimed/"
@@ -16,7 +16,7 @@ makedepends=('systemd')
 backup=(etc/uptimed.conf)
 install=$pkgname.install
 source=("$pkgname-$pkgver.tar.gz::https://github.com/rpodgorny/uptimed/archive/v$pkgver.tar.gz")
-sha512sums=('035caba32182a807312b587b3cb3b6322027b7c8f3e69a3f0b52ea4f44ecfc40505fe58b6a1b56a87a967f1f8b1fbc075414a04b60717577e32972feadb9bc2d')
+sha512sums=('857357d3f21770ea04710eae7775dad562b1112c3d17e3d771d67d80fc11d1e5aeb8a869a70cdb76c103e0fd6384273c4498a3d5cbd33035b3b72dcce65ea211')
 
 build() {
   cd "$srcdir"/$pkgname-$pkgver
