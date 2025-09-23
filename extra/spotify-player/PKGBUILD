@@ -2,7 +2,7 @@
 # Contributor: Thang Pham <phamducthang1234 at gmail dot com>
 
 pkgname=spotify-player
-pkgver=0.21.0
+pkgver=0.21.1
 pkgrel=1
 pkgdesc="A command driven spotify player"
 arch=('x86_64')
@@ -11,16 +11,12 @@ license=('MIT')
 depends=('openssl' 'dbus' 'libpulse' 'libsixel')
 optdepends=('libnotify: Notification support' 'fzf: Fuzzy search support')
 makedepends=('cargo')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/aome510/spotify-player/archive/v${pkgver}.tar.gz"
-        "0001-Fix-Move-fuzzy_search_items-to-utils-to-fix-build-is.patch")
-sha512sums=('dbadaea914de0434fc268b9d379b9a9aaf6a8f0754f574027fe82054826b27661a8ca133440dc900c9399dc644056f3f8a312c7c4fb5e3825c088b85264e2262'
-            '0fc1ce35ee0524efe238804b06591eeca056194e35cbfab19c00bb69dbf0d357fc7c72b6d2535f9ffb5bc948d58d2fece4ba787ae77e21a23109f152767c1e5c')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/aome510/spotify-player/archive/v${pkgver}.tar.gz")
+sha512sums=('1b1e7209f60076836286006600fc0dd9621d49d47588f544accddf221b307bd7387a52d8f33ed36c59ced24c3b03635f3acf261aa43bdb0d66e02e4b5300db89')
 options=('!lto')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  # Fix: Move fuzzy_search_items to utils to fix build issue with fzf feature (#823)
-  patch -Np1 -i ../0001-Fix-Move-fuzzy_search_items-to-utils-to-fix-build-is.patch
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
