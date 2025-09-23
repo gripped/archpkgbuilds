@@ -2,27 +2,27 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-lark-parser
-pkgver=1.2.2
-pkgrel=3
+pkgver=1.3.0
+pkgrel=1
 pkgdesc='A modern parsing library'
-arch=('any')
+arch=(any)
 url='https://github.com/lark-parser/lark'
-license=('MIT')
+license=(MIT)
 depends=(
-  'python'
-  'python-typing_extensions'
+  python
+  python-typing_extensions
 )
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
 )
 checkdepends=(
-  'python-tzlocal'
-  'python-atomicwrites'
-  'python-regex'
+  python-tzlocal
+  python-atomicwrites
+  python-regex
 )
 optdepends=(
   'python-atomicwrites: for atomic_cache'
@@ -30,14 +30,14 @@ optdepends=(
   'python-regex: for regex support'
   # 'python-js2py: for nearley support', # unmaintained and incompatible with Python 3.13
 )
-provides=('python-lark')
+provides=(python-lark)
 source=(
   "$pkgname::git+$url#tag=$pkgver"
   'github.com-Hardmath123-nearley::git+https://github.com/Hardmath123/nearley'
 )
-sha512sums=('f20915d7c94a774f04679949d8a302cceda0408fec1aa02c68aaed2bb4855fd1de0a2b05b48b6ceed842aa64663eb42e3ea570ae5ff05836af3fd3cc36b274e7'
+sha512sums=('0d4f6a45bf61bfc7a124551d3ef77f4388b5a4ba66d56a37baca0c31e5b927ef7f54b938830451bf369803385845a55b682c970ec993068f8ff825204b31e08e'
             'SKIP')
-b2sums=('372b3b9cc27a5ab2ff493c7bc7cd32e9c01c52c32b2106ce1920351671cce36a247e2d4485876e9589d83fa5e2de3514b876a7f21336d2ca265141c274f1b25d'
+b2sums=('bcf6cfb0aaeb794bf738b27641ff0960312a45712508f18bc1db035fc6b3920a7a50b09397393a404bcc136fdaf1b8df3a430f367a124bc12cf387100d4143e8'
         'SKIP')
 
 prepare() {
@@ -66,9 +66,6 @@ package() {
 
   python -m installer --destdir="$pkgdir" dist/*.whl
 
-  # symlink license file
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -d "$pkgdir/usr/share/licenses/$pkgname"
-  ln -s "$site_packages/lark-$pkgver.dist-info/LICENSE" \
-    "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
