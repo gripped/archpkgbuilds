@@ -5,11 +5,11 @@
 pkgbase=devhelp
 pkgname=(devhelp devhelp-docs)
 pkgver=43.0
-pkgrel=3
+pkgrel=4
 pkgdesc="API documentation browser for GNOME"
-url="https://apps.gnome.org/Devhelp/"
+url="https://gitlab.gnome.org/GNOME/devhelp"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-3.0-or-later)
 depends=(webkit2gtk-4.1)
 makedepends=(git appstream-glib gobject-introspection meson yelp-tools
              gi-docgen glib2-devel)
@@ -50,8 +50,6 @@ check() {
 }
 
 package_devhelp() {
-  groups=(gnome-extra)
-
   meson install -C build --destdir "$pkgdir"
 
   # Split -docs
