@@ -7,7 +7,7 @@ pkgname=(
   glycin-gtk4
 )
 pkgver=2.0.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Sandboxed and extendable image decoding"
 arch=(x86_64)
 url="https://gitlab.gnome.org/GNOME/glycin"
@@ -43,9 +43,11 @@ checkdepends=(
 source=(
   "git+$url.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/sophie-h/test-images.git"
+  0001-glycin-sandbox-Close-all-unused-FDs-in-fork.patch
 )
 b2sums=('31820d0b77ddc0f9151d033a82cb0b2def318915674983ca8e98f95676ed7c43072594989567fad14fbb2f2b0a9bb4fb2e9077acd62aabd7a49fccd7b9da6163'
-        'SKIP')
+        'SKIP'
+        'ee23f172ab5af259788f16d15f1667f76f47ec5f2bd9450576b5d178aec5fee79836280f24a8318734b034d1d154a3b505c8ff4195c4a6af2ea5b47e4b37181a')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
@@ -56,10 +58,16 @@ export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 prepare() {
   cd glycin
 
-  # Cherry-pick sandboxing fixes to try to fix glycin in our build containers
+  # Sandboxing fixes to fix glycin in our build containers
   git cherry-pick -n 28005a815e8e6f8869006e5481fd8d77006ec8d1 \
                      294025c2b01903344513018c00166a35f2e1b3ce \
                      f202809ba2f5e95696ab03b6c0b16c0875f784a6
+
+  # Fix avif/heic colors
+  git cherry-pick -n 837721e873ac170deeae23e1186a5ad94450053d
+
+  # Sandboxing fix to try to stop Firefox crashes
+  git apply -3 ../0001-glycin-sandbox-Close-all-unused-FDs-in-fork.patch
 
   git submodule init
   git submodule set-url tests/test-images "$srcdir/test-images"
@@ -72,8 +80,6 @@ prepare() {
 
 build() {
   local meson_options=(
-    -D test_skip_ext=avif,heic
-    -D test_skip_install=true
   )
 
   arch-meson glycin build "${meson_options[@]}"
