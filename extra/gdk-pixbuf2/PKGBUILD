@@ -7,7 +7,7 @@ pkgname=(
   gdk-pixbuf2-docs
 )
 pkgver=2.44.1
-pkgrel=3
+pkgrel=4
 pkgdesc="An image loading library"
 url="https://wiki.gnome.org/Projects/GdkPixbuf"
 arch=(x86_64)
@@ -15,9 +15,7 @@ license=(LGPL-2.0-or-later)
 depends=(
   glib2
   glibc
-  libjpeg-turbo
-  libpng
-  libtiff
+  glycin
   shared-mime-info
 )
 makedepends=(
@@ -44,17 +42,17 @@ build() {
     -D android=disabled
     -D builtin_loaders=all
     -D documentation=true
-    -D gif=enabled
-    -D glycin=disabled
+    -D gif=disabled
+    -D glycin=enabled
     -D gtk_doc=true
     -D installed_tests=false
     -D introspection=enabled
-    -D jpeg=enabled
+    -D jpeg=disabled
     -D man=true
-    -D others=enabled
-    -D png=enabled
+    -D others=disabled
+    -D png=disabled
     -D thumbnailer=disabled
-    -D tiff=enabled
+    -D tiff=disabled
   )
 
   arch-meson gdk-pixbuf build "${meson_options[@]}"
@@ -68,11 +66,8 @@ check() {
 package_gdk-pixbuf2() {
   optdepends=(
     "libheif: Load .avif, .heic and .heif"
-    "libjxl: Load .jxl"
     "libopenraw: Load .arw, .cr2, .crw, .dng, .erf, .mrw, .nef, .orf, .pef and .raf"
-    "librsvg: Load .svg, .svgz and .svg.gz"
     "libwmf: Load .apm and .wmf"
-    "webp-pixbuf-loader: Load .webp"
   )
   provides=(libgdk_pixbuf-2.0.so)
   install=gdk-pixbuf2.install
