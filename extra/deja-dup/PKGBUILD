@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=deja-dup
-pkgver=48.4
+pkgver=49.0
 pkgrel=1
 pkgdesc='Simple backup tool, GTK frontend for duplicity'
 arch=(x86_64)
@@ -9,8 +9,10 @@ url='https://apps.gnome.org/DejaDup/'
 license=(GPL-3.0-or-later)
 groups=(gnome-circle)
 depends=(
+  bash
   dconf
   duplicity
+  fuse3
   glib2
   glibc
   gtk4
@@ -18,30 +20,28 @@ depends=(
   hicolor-icon-theme
   json-glib
   libadwaita
-  libgpg-error
   libsecret
   libsoup3
   pango
+  restic
 )
 makedepends=(
   appstream
+  blueprint-compiler
   git
   itstool
   meson
   vala
 )
 checkdepends=(xdg-user-dirs)
-optdepends=(
-  'rclone: Backup into Google Drive or Microsoft OneDrive'
-  'restic: Alternative backend, experimental'
-)
+optdepends=('rclone: Backup into Google Drive or Microsoft OneDrive')
 source=("git+https://gitlab.gnome.org/World/$pkgname.git#tag=$pkgver")
-b2sums=(4d487bcd507e422b54f09acf76fb2042e683741b00b0c11cc58904ff94b320e613e22558d6ae7f4059f849b3396d4f1accc83b61edf360b8fa573f42868d3c59)
+b2sums=(ec1bbd27d4b4ad54c9d457bbff24000aba7504e5ceefd4839a46f7255079739a038377e4a9667bbe694a3852e975965be079e884451efb4c817aa6bc78d4fbeb)
 validpgpkeys=(A3A5C2FC56AE7341D308D8571B50ECA373F3F233) # Michael Terry <mike@mterry.name>
 
 build() {
   arch-meson $pkgname build \
-    -D enable_restic=true
+    -D packagekit=disabled
   meson compile -C build
 }
 

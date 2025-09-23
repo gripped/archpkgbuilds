@@ -1,6 +1,6 @@
 pkgbase = deja-dup
 	pkgdesc = Simple backup tool, GTK frontend for duplicity
-	pkgver = 48.4
+	pkgver = 49.0
 	pkgrel = 1
 	url = https://apps.gnome.org/DejaDup/
 	arch = x86_64
@@ -8,12 +8,15 @@ pkgbase = deja-dup
 	license = GPL-3.0-or-later
 	checkdepends = xdg-user-dirs
 	makedepends = appstream
+	makedepends = blueprint-compiler
 	makedepends = git
 	makedepends = itstool
 	makedepends = meson
 	makedepends = vala
+	depends = bash
 	depends = dconf
 	depends = duplicity
+	depends = fuse3
 	depends = glib2
 	depends = glibc
 	depends = gtk4
@@ -21,14 +24,13 @@ pkgbase = deja-dup
 	depends = hicolor-icon-theme
 	depends = json-glib
 	depends = libadwaita
-	depends = libgpg-error
 	depends = libsecret
 	depends = libsoup3
 	depends = pango
+	depends = restic
 	optdepends = rclone: Backup into Google Drive or Microsoft OneDrive
-	optdepends = restic: Alternative backend, experimental
-	source = git+https://gitlab.gnome.org/World/deja-dup.git#tag=48.4
+	source = git+https://gitlab.gnome.org/World/deja-dup.git#tag=49.0
 	validpgpkeys = A3A5C2FC56AE7341D308D8571B50ECA373F3F233
-	b2sums = 4d487bcd507e422b54f09acf76fb2042e683741b00b0c11cc58904ff94b320e613e22558d6ae7f4059f849b3396d4f1accc83b61edf360b8fa573f42868d3c59
+	b2sums = ec1bbd27d4b4ad54c9d457bbff24000aba7504e5ceefd4839a46f7255079739a038377e4a9667bbe694a3852e975965be079e884451efb4c817aa6bc78d4fbeb
 
 pkgname = deja-dup
