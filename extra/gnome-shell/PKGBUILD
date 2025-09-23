@@ -9,7 +9,7 @@ pkgname=(
   gnome-shell-docs
 )
 pkgver=49.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Next generation desktop shell"
 url="https://gitlab.gnome.org/GNOME/gnome-shell"
@@ -35,6 +35,7 @@ depends=(
   gsettings-desktop-schemas
   gtk4
   hicolor-icon-theme
+  ibus
   json-glib
   libadwaita
   libcanberra-pulse
@@ -88,6 +89,12 @@ b2sums=('fdc8acc857f136a654839d550bc57d3f349284d4c8e9e4a83ed7f63cf1ca95c18f3d0e5
 prepare() {
   # Inject gvc
   ln -s libgnome-volume-control gvc
+
+  cd $pkgbase
+
+  # Touchscreen fix
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/gnome-shell/-/issues/12
+  git cherry-pick -n e54aa588c1604b63e2f051e20c1ecb3e601beb5c
 }
 
 build() {
