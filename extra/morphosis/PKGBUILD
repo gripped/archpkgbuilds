@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=morphosis
-pkgver=48.2
+pkgver=49.0
 pkgrel=1
 pkgdesc='Document conversion app using Pandoc'
 arch=(any)
@@ -25,7 +25,7 @@ makedepends=(
   meson
 )
 source=("git+https://gitlab.gnome.org/World/morphosis.git#tag=$pkgver")
-b2sums=(76847341fd85c47aac8585f714f7005c3a7fb659c172bf58edb3ea016fb2eca1c6caaca9582d3cfad48f318c6cc7129466eba99c425c4613ef13f8349147bb99)
+b2sums=(c9f8dbeb487a23999d4a45c13eb296612a837e2489956d8daba1fb2cf112802ab100765e1a9b2b2a8d922a8e763b5bde0f4e3fa82bd4ea2031bb05195c999b5a)
 
 prepare() {
   cd $pkgname
@@ -42,7 +42,4 @@ check() {
 
 package() {
   meson install -C build --destdir "$pkgdir"
-
-  python -m compileall -d /usr/share "$pkgdir/usr/share"
-  python -O -m compileall -d /usr/share "$pkgdir/usr/share"
 }
