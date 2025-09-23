@@ -3,7 +3,7 @@
 
 pkgname=gnome-panel
 pkgver=3.56.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Panel of GNOME Flashback'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/GnomePanel'
@@ -63,6 +63,9 @@ validpgpkeys=(7B44FD78E49334EC10B3B288A3D013EC303E1894) # Alberts Muktupāvels <
 
 prepare() {
   cd $pkgname
+
+  # Add systemd service
+  git cherry-pick -n 94e6cc67ca295ce713d681695fc6431ca15b017e
 
   # https://gitlab.gnome.org/GNOME/gnome-panel/-/merge_requests/60
   git apply -3 ../gnome-panel-60.patch
