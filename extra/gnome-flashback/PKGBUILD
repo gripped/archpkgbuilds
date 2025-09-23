@@ -2,7 +2,7 @@
 
 pkgname=gnome-flashback
 pkgver=3.56.0
-pkgrel=1
+pkgrel=2
 pkgdesc='GNOME Flashback session'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/GnomeFlashback'
@@ -58,6 +58,7 @@ optdepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/$pkgname.git?signed#tag=$pkgver"
   git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
+  gnome-flashback-69.patch
   gnome-flashback.pam
   gnome-flashback.theme
   gnome-flashback-portals.conf
@@ -65,6 +66,7 @@ source=(
 b2sums=(
   b4c1eb2cf7637fd98efb43d48411e8034616a7d9277bd5958659d0fffc8244e2ab04e91ed24ae9fa6f5febee9296e05c219f62754214ca3751753e04e55d87aa
   SKIP
+  16980e5d792458a75a3cf47b39ec67542669561c35f8e0978e97dbab07536cd2e75947a4784ab736ed5ca23082289b8c6a2778a5238850434a01e163d947b9b5
   214a01d01d3bee526bf3d856758f56fc51e77dacc8feaefee27221924abacdb3828d4269e5fa6773abec728a563478588d705996da6afbd0693d456631f01eb5
   f6d9e6933c79605c2f0fb30b5a9b69be4ffccfce2304d539019034b429117339e1136f1254ee987c763a5162b6944b350bd3eea36ee3dcb048c21a46747e4709
   ab0f388ee846b7a60655bc2d0a2103d58c6b468c5919fc652fd489282ca8700b89f0afd8a116c830b7b5793396b067a8b30c6fe4998140b17f467948ee979d63
@@ -77,6 +79,13 @@ prepare() {
   git submodule init
   git submodule set-url gvc/gvc "$srcdir/libgnome-volume-control"
   git -c protocol.file.allow=always submodule update
+
+  # Apply compatibility fixes for GNOME 49
+  git cherry-pick -n 3.56.0..33e48cec20c3e269db98db65ab13a231a258b832
+
+  # Try to launch Console first
+  # https://gitlab.gnome.org/GNOME/gnome-flashback/-/merge_requests/69
+  git apply -3 ../gnome-flashback-69.patch
 
   # Use the desktop background for the lock screen
   sed -i 's/org.gnome.desktop.screensaver/org.gnome.desktop.background/' gnome-flashback/libscreensaver/gf-manager.c

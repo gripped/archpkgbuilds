@@ -1,0 +1,37 @@
+From bf1e4abf27ec7144556b900551f9dfea95697b3b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 23 Jul 2025 21:28:45 +0200
+Subject: [PATCH] desktop: Try to launch Console first
+
+Terminal has been replaced by Console as default terminal emulator for
+GNOME 42 and newer.
+---
+ gnome-flashback/libdesktop/gf-icon-view.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/gnome-flashback/libdesktop/gf-icon-view.c b/gnome-flashback/libdesktop/gf-icon-view.c
+index e117f6ba..5355fc45 100644
+--- a/gnome-flashback/libdesktop/gf-icon-view.c
++++ b/gnome-flashback/libdesktop/gf-icon-view.c
+@@ -1053,10 +1053,17 @@ open_terminal_cb (GtkMenuItem *item,
+   GError *error;
+ 
+   error = NULL;
+-  if (!gf_launch_desktop_file ("org.gnome.Terminal.desktop", &error))
++  if (!gf_launch_desktop_file ("org.gnome.Console.desktop", &error))
+     {
+       g_warning ("%s", error->message);
+       g_error_free (error);
++
++      error = NULL;
++      if (!gf_launch_desktop_file ("org.gnome.Terminal.desktop", &error))
++        {
++          g_warning ("%s", error->message);
++          g_error_free (error);
++        }
+     }
+ }
+ 
+-- 
+GitLab
+
