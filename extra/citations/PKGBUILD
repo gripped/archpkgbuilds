@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=citations
-pkgver=0.8.0
-pkgrel=6
+pkgver=0.9.0
+pkgrel=1
 pkgdesc='Manage your bibliographies using the BibTeX format'
 arch=(x86_64)
 url='https://apps.gnome.org/Citations/'
@@ -27,41 +27,14 @@ makedepends=(
   meson
   rust
 )
-source=(
-  "git+https://gitlab.gnome.org/World/citations.git#tag=$pkgver"
-  citations-new-window.patch
-  citations-dbus-activatable.patch
-)
-b2sums=(
-  b199b9d882881ea2a13884b3842f2a5147875e35381190a4f110c8f2854fca31ec4232ee91b7d620dd3c74a1d8375d62c4e266a352c1299adc0d102dea314674
-  c0c05cda03e0fbd31cd3775fc09a062eb896b375366ad0879ce22e330f462cb8d7803cb812a83e7233f89788d49414b8cd50110485eba825b9f3f14dfbe1570a
-  4df19a5fda39dfadbaa0eaa56e5d3ef94293353e27dcd2310cfac2b0000b631bdd1535d9c5278294aaf9e907dbecb3c10510775ba411fdc5b816ac2b69bd83fa
-)
+source=("git+https://gitlab.gnome.org/World/citations.git#tag=$pkgver")
+b2sums=(2bafc52297bde73782fa67e2d5f037f568dfd6ff63bad3539f5b7faa0b8df2662a8d94bd0f753fb3735939b4e498d3f2b6134541fe1194b31734a264334d201d)
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-
-  # https://gitlab.gnome.org/World/citations/-/merge_requests/95
-  git cherry-pick -n 72da3b63293fc97634219b407747d3044dba933b
-
-  # https://gitlab.gnome.org/World/citations/-/merge_requests/94
-  git cherry-pick -n 0cdb618d3114d6527e4cb86ac119b0fca672c952
-
-  # https://gitlab.gnome.org/World/citations/-/merge_requests/96
-  git cherry-pick -n 4b02a7aa5a610ddf2cfbb0cb15ba4d8a5a2b12f8
-  git cherry-pick -n e1e55aa8200c2d7dd90e943e33dfb200333a6269
-
-  # https://gitlab.gnome.org/World/citations/-/merge_requests/101
-  git cherry-pick -n 39296d157a433ce88f7ee38251ce458041531964
-
-  # https://gitlab.gnome.org/World/citations/-/merge_requests/97
-  git apply -3 ../citations-new-window.patch
-
-  # https://gitlab.gnome.org/World/citations/-/merge_requests/99
-  git apply -3 ../citations-dbus-activatable.patch
 }
 
 build() {
