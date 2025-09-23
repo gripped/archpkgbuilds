@@ -3,9 +3,9 @@
 
 pkgname=totem
 pkgver=43.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Movie player for the GNOME desktop based on GStreamer"
-url="https://apps.gnome.org/Totem/"
+url="https://gitlab.gnome.org/GNOME/totem"
 arch=(x86_64)
 license=('GPL-2.0-or-later WITH GStreamer-exception-2008')
 depends=(
@@ -58,7 +58,6 @@ optdepends=(
 provides=(libtotem.so)
 conflicts=(totem-plugin)
 replaces=(totem-plugin)
-groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/totem.git?signed#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/libgd.git"
