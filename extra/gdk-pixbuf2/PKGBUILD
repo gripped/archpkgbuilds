@@ -6,8 +6,8 @@ pkgname=(
   gdk-pixbuf2
   gdk-pixbuf2-docs
 )
-pkgver=2.44.1
-pkgrel=4
+pkgver=2.44.2
+pkgrel=1
 pkgdesc="An image loading library"
 url="https://wiki.gnome.org/Projects/GdkPixbuf"
 arch=(x86_64)
@@ -30,7 +30,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gdk-pixbuf.git#tag=$pkgver"
   gdk-pixbuf-query-loaders.hook
 )
-b2sums=('98969c10badec15a70c9d56780785c93ed64626bc9e7a7f9a8fd9bfe7a5fbb754cf7dec351244f6322c9b1b4ec72ea2b40d6beb1e1cfcd904dea90cac3b89983'
+b2sums=('e57d41ade667bfbc8ee550704f2287b59e8c03b1fbedbb04d7c05e7e615b4f1d455feea89ab1df41088eff502be0907cfb3a85d21afacb88c5590faa277b78ce'
         '5a00d34888e207d70d02369015d029f4c0450fc5a02b4b257de8e5df04380dc550723f351433859224c96c3c6390896f2166673af65e8a09eb57024f5a34301b')
 
 prepare() {
@@ -49,7 +49,7 @@ build() {
     -D introspection=enabled
     -D jpeg=disabled
     -D man=true
-    -D others=disabled
+    -D others=enabled
     -D png=disabled
     -D thumbnailer=disabled
     -D tiff=disabled
