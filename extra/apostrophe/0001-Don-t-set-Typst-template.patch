@@ -1,0 +1,52 @@
+From 18560569c668173c6255bfb68491282028a43ecc Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 23 Sep 2025 03:04:44 +0200
+Subject: [PATCH] Don't set Typst template
+
+The template cannot be outside of the project root, but setting the working
+directory to the read-only root directory causes that pandoc cannot create
+temporary files during export.
+---
+ apostrophe/export_dialog.py | 5 +----
+ apostrophe/main_window.py   | 2 --
+ 2 files changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/apostrophe/export_dialog.py b/apostrophe/export_dialog.py
+index f3ab16b..dc66810 100644
+--- a/apostrophe/export_dialog.py
++++ b/apostrophe/export_dialog.py
+@@ -84,8 +84,7 @@ class ExportDialog:
+             "to": "pdf",
+             "mimetype": "application/pdf",
+             "args": ["--pdf-engine=typst",
+-                     "--variable=papersize:a4",
+-                     "-V", "template=%s" % helpers.get_media_path('/pandoc_templates/typst.typ')]
++                     "--variable=papersize:a4"]
+         },
+         "html":
+         {
+@@ -346,8 +345,6 @@ class AdvancedExportDialog(Adw.Dialog):
+ 
+         if self.formats_list.get_selected_row().item.ext == "pdf":
+             args.append(f"--pdf-engine={self.formats_list.get_selected_row().item.engine}")
+-            if self.formats_list.get_selected_row().item.engine == "typst":
+-                args.extend(['-V', 'template=%s' % helpers.get_media_path('/pandoc_templates/typst.typ')])
+ 
+         if self.sw_standalone.get_active():
+             args.append("--standalone")
+diff --git a/apostrophe/main_window.py b/apostrophe/main_window.py
+index 7d73aac..6d43bcf 100644
+--- a/apostrophe/main_window.py
++++ b/apostrophe/main_window.py
+@@ -88,8 +88,6 @@ class MainWindow(Adw.ApplicationWindow):
+         super().__init__(application=Gio.Application.get_default(),
+                          title="Apostrophe")
+ 
+-        os.chdir("/")
+-
+         # Preferences
+         self.settings = Settings.new()
+ 
+-- 
+2.51.0
+
