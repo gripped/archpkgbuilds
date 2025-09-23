@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=decoder
-pkgver=0.7.1
-pkgrel=3
+pkgver=0.8.0
+pkgrel=1
 pkgdesc='QR code scanner and generator'
 arch=(x86_64)
 url='https://apps.gnome.org/Decoder/'
@@ -33,16 +33,13 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://gitlab.gnome.org/World/decoder.git#tag=$pkgver")
-b2sums=(0c8e6c8330dc72bbab61cb6409d2583837ffc350fb0033c555451061df8b1e45ac78ded0a517d93b481f7a20235852cf7b4c527037647d755822285d22e91a6d)
+b2sums=(2e21d76bf63df1c78df6960353b7be5d8300a18a079ef67296832034e9e26f7b149ba1d7f183beede372e959ff5a5d1e91a08e0232e3267887cb54d7a36c007c)
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-
-  # https://gitlab.gnome.org/World/decoder/-/merge_requests/149
-  git cherry-pick -n da3d95b1aa64a37dea0764f991eb1cf05cad8568
 }
 
 build() {
