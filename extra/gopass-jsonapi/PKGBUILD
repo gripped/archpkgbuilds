@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=gopass-jsonapi
-pkgver=1.15.17
+pkgver=1.15.18
 pkgrel=1
 pkgdesc="jsonapi for gopass used for bridging to browsers"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('glibc')
 makedepends=('go')
 options=('!lto')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/gopasspw/gopass-jsonapi/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('bc2b9d72f410f354185958001d28c5caaccec6600e2c26e862709adc846bb69e14ff8aa8b224b6bbae0d4ff1efe8b016fafa9c2eef85ea21f59f083fd75c4309')
+sha512sums=('937a87602017fbe0316855dd6ad1a647dc204444171967ac0ef0928500c5e443634a26c67b3d6c1ccccd5da2dbb153eeb2b06fbf35e33b0482c3b8a8c16b1cd7')
 
 prepare(){
   cd ${pkgname}-${pkgver}
