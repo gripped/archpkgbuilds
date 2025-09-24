@@ -2,7 +2,7 @@
 
 pkgname=fractal
 pkgver=12.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Matrix group messaging app"
 arch=(x86_64)
 url="https://gitlab.gnome.org/World/fractal"
@@ -14,7 +14,7 @@ depends=(
   gdk-pixbuf2
   glib2
   glibc
-  glycin  # dlopen'ed
+  glycin1  # dlopen'ed
   graphene
   gst-plugins-bad-libs
   gst-plugins-base-libs
