@@ -20,7 +20,7 @@
 pkgbase=kodi
 pkgname=('kodi' 'kodi-gles' 'kodi-eventclients' 'kodi-tools-texturepacker' 'kodi-dev')
 pkgver=21.2
-pkgrel=13
+pkgrel=14
 arch=('x86_64')
 url="https://kodi.tv"
 license=('GPL-2.0-or-later')
@@ -83,6 +83,7 @@ source=(
   "$pkgbase-libudfread-$_libudfread_version.tar.gz::https://mirrors.kodi.tv/build-deps/sources/libudfread-$_libudfread_version.tar.gz"
   "kodi-21.1-fix-pipewire-1.4-compilation.patch::https://github.com/xbmc/xbmc/commit/269053ebbfd3cc4a3156a511f54ab7f08a09a730.patch"
   "kodi-21.2-fix-pipewire-log-spam.patch::https://github.com/xbmc/xbmc/commit/821901f30469c56f3fff0604c7a8796b77d11fc1.patch"
+  "kodi-21.2-curl-8.16.0.patch::https://github.com/xbmc/xbmc/pull/27269.patch"
   "fix-libnfs-6-compatibility.patch"
 )
 noextract=(
@@ -106,6 +107,7 @@ sha512sums=('d49d74240b9c0aded3437dd81bc3324c03bea36834bca3920d5d26b4780275e3fea
             '3069feb5db40288beb5b112b285186162a704f0fdd3cf67a17fd4eeea015f2cfcfbb455b7aa7c3d79d00fd095a3fd11cffc7b121dce94d99c3b06a509a8977d2'
             '4ac551a74407161531e946b45cb6734fa8aa953d2593ec5c9f2207766eaf7e01302a87aaecb60b6febb46cba1ca917fc3c150cd9ceaa26182ec05871ccd7a8ae'
             'ec3f3a511c5545db654a8c1eef79c01195e0fffa9760ad7a31d12ba4c09608c244755f9ad05a831289929740bac58fb0e19c264775cc1a85f914eafdda64d074'
+            '691c1391bd56c1b6ab4b9987ef6c8e8781ffcb276f6f589ee48f8436064c98d814ccc73fa4248f667129567bfb6cdc6479875e064e0e045396848028c39b9c97'
             '8b690003b3b3947dac0fb5684dcea157de8c4817930ab12d037da5de94a5c657ad8ecc305590175832ce339edc65a98b3cf7c1500f878a7d72e7b45b71b05321')
 
 prepare() {
@@ -121,6 +123,7 @@ prepare() {
   patch -p1 -i "$srcdir/fix-libnfs-6-compatibility.patch"
   patch -p1 -i "$srcdir/kodi-21.1-fix-pipewire-1.4-compilation.patch"
   patch -p1 -i "$srcdir/kodi-21.2-fix-pipewire-log-spam.patch"
+  patch -p1 -i "$srcdir/kodi-21.2-curl-8.16.0.patch"
 }
 
 build() {
