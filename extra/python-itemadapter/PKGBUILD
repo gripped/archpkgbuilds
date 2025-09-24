@@ -1,34 +1,30 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-itemadapter
-pkgver=0.12.1
+pkgver=0.12.2
 pkgrel=1
 pkgdesc="Common interface for data container classes"
 url="https://github.com/scrapy/itemadapter"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('any')
 depends=('python')
-makedepends=('python-build' 'python-installer' 'python-hatchling' 'python-wheel')
+makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-wheel')
 checkdepends=('python-attrs' 'python-pydantic' 'python-pytest' 'scrapy')
-source=("https://github.com/scrapy/itemadapter/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('477bdf001cbdf830675f4f70004970999bd42acac3ca690931e54f22f93b5ae44de8d3fd3d770f5b1e5cd29367b5197b9b4cb95de0305ba8bddd83eb182ac21a')
-
-prepare() {
-  cd itemadapter-$pkgver
-}
+source=("git+https://github.com/scrapy/itemadapter.git#tag=v$pkgver")
+sha512sums=('a5b31961001491888586d371bf6694783039526fad0bf5aedc99accba4f94092256e89f7db44e26ea5da87a433cfa5e31fc7bcac4f7ecc546e4904537325afa5')
 
 build() {
-  cd itemadapter-$pkgver
+  cd itemadapter
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd itemadapter-$pkgver
+  cd itemadapter
   pytest
 }
 
 package() {
-  cd itemadapter-$pkgver
+  cd itemadapter
   python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/

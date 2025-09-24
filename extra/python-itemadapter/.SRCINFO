@@ -1,20 +1,21 @@
 pkgbase = python-itemadapter
 	pkgdesc = Common interface for data container classes
-	pkgver = 0.12.1
+	pkgver = 0.12.2
 	pkgrel = 1
 	url = https://github.com/scrapy/itemadapter
 	arch = any
-	license = BSD
+	license = BSD-3-Clause
 	checkdepends = python-attrs
 	checkdepends = python-pydantic
 	checkdepends = python-pytest
 	checkdepends = scrapy
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-hatchling
 	makedepends = python-wheel
 	depends = python
-	source = https://github.com/scrapy/itemadapter/archive/v0.12.1/python-itemadapter-0.12.1.tar.gz
-	sha512sums = 477bdf001cbdf830675f4f70004970999bd42acac3ca690931e54f22f93b5ae44de8d3fd3d770f5b1e5cd29367b5197b9b4cb95de0305ba8bddd83eb182ac21a
+	source = git+https://github.com/scrapy/itemadapter.git#tag=v0.12.2
+	sha512sums = a5b31961001491888586d371bf6694783039526fad0bf5aedc99accba4f94092256e89f7db44e26ea5da87a433cfa5e31fc7bcac4f7ecc546e4904537325afa5
 
 pkgname = python-itemadapter
