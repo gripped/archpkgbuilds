@@ -3,10 +3,11 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 # Contributor: Alexey D. <lq07829icatm at rambler.ru>
 pkgbase=plasma-workspace
-pkgname=(plasma-workspace plasma-x11-session)
+pkgname=(plasma-workspace
+         plasma-x11-session)
 pkgver=6.4.5
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Plasma Workspace'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -119,14 +120,21 @@ makedepends=(baloo
              plasma-wayland-protocols
              qcoro)
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/plasma/plasma-workspace/-/commit/30273fb2.patch)
 sha256sums=('19999ebf3574f539145ba7074019b88d51f2ca952d121394daf6af2e632910fb'
-            'SKIP')
+            'SKIP'
+            '7d7e2b2fba62c60e6f3ce32f6b2b21524733235f41bf78ea82484183fc2856a4')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
 
+prepare() {
+# Fix doc build with libxml2 2.15
+  find -name index.docbook | xargs sed -e 's|index.html "|index.html"|g' -i
+  patch -d $pkgname-$pkgver -p1 < 30273fb2.patch # Fix crashes with Qt 6.9.2
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
