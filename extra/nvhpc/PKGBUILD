@@ -2,12 +2,10 @@
 
 pkgbase=nvhpc
 pkgname=(nvhpc nvhpc-comm-libs nvhpc-compilers)
-_cuda_ver=12.9
-_hpcx_ver=2.22.1
-_nccl_ver=2.26.5
-_openmpi_ver=4.1.5
+_cuda_ver=13.0
+_hpcx_ver=2.24
 _rel_year=2025
-pkgver=25.7
+pkgver=25.9
 pkgrel=1
 pkgdesc="NVIDIA HPC SDK"
 arch=(x86_64)
@@ -17,7 +15,6 @@ makedepends=(
   cuda
   cuda-tools
   gcc-fortran
-  gcc14
 )
 options=(!strip !debug staticlibs)
 install=nvhpc.install
@@ -30,8 +27,8 @@ source=(
   nvhpc-compilers.conf.in
   nvhpc-compilers.sh.in
 )
-b2sums=('c754a8208b73b5f6bfe8dbe93b4debe17ef7dbe4b2b97ded2426cc81c8b9033a0416f5dc4c35660f864439e006b6522cc5ebe102d36041348b221ef9a1c444b3'
-        'fdda124fd7323093d8bcef144936bb9b0a6bde2147733a3c3f348e54d13c0a85336e2a2e5b01ff6cb219009637821b66ae91d0fbc161b378384e9a237c3b646e'
+b2sums=('689b598209fafdaa58b19abaa416aaab2d1529f066d4b1c596cf1b967c85e55a6c504f977fe44ec684831753e016b4460d412e85ba8b6ea94c8997f37b43ad35'
+        '9bccfab004da18693f4fac4e73ec69319d0ee4a1c95cabd332411c5cb1e4a49dd5eb7c5496e0a1ebf0d32e35eb4407d9f26951357137d43ee1fa62d89b0fcb26'
         '83dbff1adbb72c10300038e816445abbad7d826ffd28c7e61ec3069e2ceb8858e6e180416c268731ea0b7a98bbba26ccd177f0b40d9d131763a7dfa68286e95f'
         '40546862e00688b8d1e1428260a79b9e6eda38be461db3cab1b30b62abdc1875a332b7d3557b7eb94bfddc79849b95c9e7bd43ad93a20f93548331ec1bb5111c'
         '4bd2ac804d6d344823078435e30b3a75989db0c752d021de326d972f3efb95d7f3ea02728ae0a4f7f1875ddec7b934ddd0574105c7afe37c1d5372120863a2ca'
@@ -98,7 +95,7 @@ build() {
   mv "$prepdir"/opt/nvidia/hpc_sdk/modulefiles "$prepdir"/usr/share/
 
   # Rewrite localrc to use gcc-14 as default compiler
-  "$prepdir"/opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/compilers/bin/makelocalrc -x -gcc gcc-14
+  #"$prepdir"/opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/compilers/bin/makelocalrc -x -gcc gcc-14
 
   # Fix permissions of static library files from 755 to 644
   find "$prepdir" \( -path '*/lib/*.a' -o -path '*/lib64/*.a' \) -type f -executable -exec chmod 644 {} \;
@@ -121,8 +118,8 @@ build() {
   # Replace components provided by cuda and cuda-tools with symlinks
   _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/cuda/$_cuda_ver /opt/cuda
   _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/math_libs/$_cuda_ver /opt/cuda
-  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/profilers/Nsight_Compute /opt/cuda/nsight_compute
-  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/profilers/Nsight_Systems /opt/cuda/nsight_systems
+  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/profilers/$_cuda_ver/Nsight_Compute /opt/cuda/nsight_compute
+  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/profilers/$_cuda_ver/Nsight_Systems /opt/cuda/nsight_systems
 
   # Remove the REDIST directory which is not useful (AFAICT)
   # (it contains only a subtree of symlinks under the comm_libs/, cuda/ and math_libs/ subtrees,
@@ -165,15 +162,13 @@ package_nvhpc-comm-libs() {
   local comm_libs_dir=/opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/comm_libs/$_cuda_ver/
   install -vdm 755 "$pkgdir"/usr/share/licenses/$pkgname/
   ln -vs --no-target-directory "$comm_libs_dir"/hpcx/hpcx-$_hpcx_ver/sharp/share/doc/sharp/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE_hpcx
-  ln -vs --no-target-directory "$comm_libs_dir"/nccl-$_nccl_ver/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE_nccl
+  ln -vs --no-target-directory "$comm_libs_dir"/nccl/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE_nccl
   ln -vs --no-target-directory "$comm_libs_dir"/nvshmem/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE_nvshmem
-  ln -vs --no-target-directory "$comm_libs_dir"/openmpi${_openmpi_ver%%.*}/openmpi-$_openmpi_ver/share/doc/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE_openmpi
 }
 
 package_nvhpc-compilers() {
   pkgdesc+=" - compilers"
   depends=(
-    gcc14
     gcc-fortran
     gcc-libs
     glibc
