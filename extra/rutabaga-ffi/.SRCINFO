@@ -1,10 +1,10 @@
 pkgbase = rutabaga-ffi
-	pkgdesc = VGI cross-platform abstraction for GPU and display virtualization.
-	pkgver = 0.1.6
-	pkgrel = 2
-	url = https://crosvm.dev/book/appendix/rutabaga_gfx.html
+	pkgdesc = Cross-platform, open-source, Rust-based GPU paravirtualization
+	pkgver = 0.1.71
+	pkgrel = 1
+	url = https://github.com/magma-gpu/rutabaga_gfx
 	arch = x86_64
-	license = LicenseRef-chromiumos
+	license = BSD-3-Clause
 	makedepends = rust
 	makedepends = meson
 	makedepends = git
@@ -12,7 +12,7 @@ pkgbase = rutabaga-ffi
 	depends = gcc-libs
 	depends = virglrenderer
 	depends = gfxstream
-	source = git+https://chromium.googlesource.com/crosvm/crosvm#tag=v0.1.6-rutabaga-release
-	sha256sums = 285af77bfa34df753c8b88fd1139351e3efe0360a5531d8e26d0be9b7821f402
+	source = rutabaga-ffi-0.1.71.tar.gz::https://github.com/magma-gpu/rutabaga_gfx/archive/refs/tags/v0.1.71.tar.gz
+	sha256sums = 123e5e00417b8600a643b55145fe8a1bcdf3091df0249b5245a7777e85b65696
 
 pkgname = rutabaga-ffi
