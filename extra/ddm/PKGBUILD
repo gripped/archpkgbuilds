@@ -2,12 +2,12 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=ddm
-pkgver=0.2.0
+pkgver=0.2.1
 pkgrel=1
 pkgdesc='New Display Manager for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/ddm"
-license=('LGPL3')
+license=('GPL-2.0-or-later')
 depends=(bash
          gcc-libs
          glibc
@@ -26,7 +26,7 @@ makedepends=(git
              treeland-protocols
              ninja)
 source=("git+https://github.com/linuxdeepin/ddm.git#tag=$pkgver")
-sha512sums=('174b0a83c01752d082b2e3850f6d3e6c5dbf2b97932976a17fab2c7f7da78f6504f56a586548bce69500da6024b71b9e4d6da615517f7254e2c7476cb9040701')
+sha512sums=('dd2ffd1993640a0b8de1652142c2c3e11f54f940072ea404b08c5a603481ac39e663aed53637fcfc52b5661b9a8a7126fd00cbebbb279d338250d0cbfef6d5f8')
 
 build() {
   cd ddm
