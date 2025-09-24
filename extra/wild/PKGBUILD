@@ -1,8 +1,9 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=wild
-pkgver=0.5.0
-pkgrel=2
+pkgver=0.6.0
+pkgrel=1
 pkgdesc="A very fast linker for Linux written in Rust"
 url='https://github.com/davidlattimore/wild'
 arch=('x86_64')
@@ -21,13 +22,13 @@ checkdepends=(
 )
 options=(!lto)
 source=(
-    https://github.com/davidlattimore/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
-    test-config.toml
+  https://github.com/davidlattimore/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
+  test-config.toml
 )
-sha256sums=('fccbb88a7a0064fd031e92a50f675260492ec3f3cd116138b0ab7df6aeab5b04'
-            '7ee2471b5796efd6e254b3647b8589137026efabed760c2ac40e444185bfdbda')
-b2sums=('6f87ec4434d1eaf1ae3eb406482b251a41bea298cbfaecfa8a4b3ea333e2671fb7946f476cbb8b5a493816701eba3120fcbf5184ab3873dfa09f767614626aac'
-        '6e9714a0d836a9598d648a8b214bd87be8098eabfc0a92b4c9db06d87c8d44e1c3f4cdc7ab5e9b8fa3425fc7d6e3113b67f3f4572bd956415c47fa3d403f5f09')
+sha256sums=('6365eea9d63f85f8289233f1727f46d0f4905162f203ffb5f64a01b139d5bf71'
+  'f6d85c23f76bd8881c7e5d0e3de385aa130472bcef2f5d372d61e78774fa0248')
+b2sums=('02d33e93d594429a6999fcc9ac4ba9b8e6107d4a160260d83f0f5da288f7b2583581a142363471ece474de143c8966382bda716720fac5a8fe5d3df078148c34'
+  'feea6dac7af3ff51d160dde9850da85013c63296ac16d1fa00e2a273bd18a9d9038ba2324209c0c064087e1e57acd83094332d9e71c5d195705c0021a001b63f')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
@@ -42,7 +43,7 @@ build() {
 
 check() {
   cd ${pkgname}-${pkgver}
-  cargo test --frozen
+  cargo test --frozen -- --test-threads 1
 }
 
 package() {
