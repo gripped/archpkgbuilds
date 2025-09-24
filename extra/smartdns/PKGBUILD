@@ -2,7 +2,7 @@
 # Contributor: zlowly <zlowly@gmail.com>
 
 pkgname=smartdns
-pkgver=46.1
+pkgver=47
 pkgrel=1
 pkgdesc="A local DNS server to obtain the fastest website IP for the best Internet experience"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('gcc-libs' 'openssl')
 makedepends=('git' 'systemd')  # systemd.pc
 checkdepends=('gtest' 'bind')
 source=("git+https://github.com/pymumu/smartdns.git#tag=Release$pkgver")
-sha512sums=('08fbd0583e03ba40f5f1b72e22b86cb6da5bc7b438f05d66603c503cdf7db5038520e0b357497bdb8d7ce010be7ab75456773d4258bde2f01d5aa23f0700b201')
+sha512sums=('2dc8593a5c83c78b23e87e569f8bc12cef7612b985d3ac4b142ee8d8947e06ff031597ce4fc9596734db6cc835535b935339f3ff8d75cfdc1bef82201212bd68')
 
 prepare() {
   # Unfortunately upstream does not provide a way to reuse .o files
