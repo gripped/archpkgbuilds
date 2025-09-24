@@ -6,7 +6,7 @@
 # Contributor: CReimer
 
 pkgname=cinnamon
-pkgver=6.4.12
+pkgver=6.4.13
 pkgrel=1
 pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
 arch=(x86_64)
@@ -32,10 +32,10 @@ options=('!emptydirs')
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         set_wheel.diff
         default-theme.patch)
-sha512sums=('b5078ebef788b7c4f5d91a4a90549b05844ff015034b2ba2272e6c399f98739be81005b0a74f26e52e5ac8ffdd2f31b9e561fa1b26941ce590040da76aab5f91'
+sha512sums=('2c9196a166cb6e8d8e7442eafa7fda716deb1e613b8e94a55dc61d2b8cf98b81940489fca28482863d3f82058805adfa2d606335041bcc45ba3d444ef1bff5a9'
             'fd7e117054996ed1c3dfd0f968c2bf98ca4fcee9a100221f8839a232147745ec0140e1f68eeffba58a3c44f66f26e05d433648a7a28858ec669524f7266ba04c'
             'ee7dedd59ea370cf81d75def49060f9a29b22e7b025ca7d5db87a0102d50f138c79aa562b0d36a748c4b1c59a37f600ba1f60ff6caf303cf5b6fc4d110d051b4')
-b2sums=('913e86d553668b3b241dad97932a3cdc29143ca1398b2d13de4c81aae9227e2d4b92e5c6e3bf22e8615dae31b9226dabcc0dd998c49e95455f0a3b29146e687d'
+b2sums=('3b78781bab4f6a25464d228e2a333779af67363ec83a8570ff186a7206a958f846db29253b87ee13cde22e6c08802ee436a48ee8048e20aa3a77a9c13b54f3e6'
         '3becf1f40068fc629109e6e7d464c3c484296afacc9ab6328b2ccbb3c9735bcbfa9550f9f73b430ede178ae668e37c660ce322b5b4d1873526de3d3d41185160'
         '86c3a29acd132ca321f08fd81dd5a45707accdc035b2aeec95bf358b29072ff1eedb77b2566cf48d7253d1d791599f0f44938c4600761d711cb18b59019f1c62')
 
