@@ -1,0 +1,57 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=voa
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="CLI for interacting with the File Hierarchy for the Verification of OS Artifacts (VOA)"
+arch=(x86_64)
+url="https://voa.archlinux.page"
+_url="https://gitlab.archlinux.org/archlinux/alpm/voa"
+license=('Apache-2.0 OR MIT')
+depends=(
+  gcc-libs
+  glibc
+)
+makedepends=(
+  git
+  just
+  rust
+  rust-script
+)
+checkdepends=(
+  cargo-nextest
+)
+source=($pkgname::git+${_url}.git?signed#tag=$pkgname/$pkgver)
+sha512sums=('42a9d81c2850d6d90422ed5e2d3aa4966873fe948421e6a0f92775be2f1860f09d8f137f7b96e33046b1e72f2b9e241b3829616a2cb1f015efa4537f5fad9a18')
+b2sums=('2d9a7aa8907fbeeda95210ba421b939cf65f09216a598c88d9cfe8a8a6aa86f2d811ebd1a9200fd8c08394a6543be78315b5bbfe04bb10c4ae94f915535720bd')
+validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
+
+prepare() {
+  cd $pkgname
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $pkgname
+  cargo build --frozen --release
+
+  just generate shell_completions voa
+  just generate manpages voa
+}
+
+check() {
+  cd $pkgname
+  XDG_RUNTIME_DIR="/run/user/$(uid)/" cargo nextest run --package voa
+}
+
+package() {
+  cd $pkgname
+  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
+
+  install -vDm 644 output/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
+  install -vDm 644 output/shell_completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
+  install -vDm 644 output/shell_completions/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+  install -vDm 644 output/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+
+  install -vDm 644 LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
