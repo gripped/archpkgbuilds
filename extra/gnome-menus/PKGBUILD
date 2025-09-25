@@ -3,7 +3,7 @@
 
 pkgname=gnome-menus
 pkgver=3.36.0
-pkgrel=3
+pkgrel=4
 pkgdesc="GNOME menu specifications"
 url="https://gitlab.gnome.org/GNOME/gnome-menus"
 arch=(x86_64)
@@ -23,6 +23,11 @@ pkgver() {
 
 prepare() {
   cd $pkgname
+
+  # Fix introspection data for GLib 2.86
+  # https://gitlab.gnome.org/GNOME/gnome-menus/-/merge_requests/16
+  git cherry-pick -n fe1eca74e1b6d75941d56088ea2aeca97b639926
+
   NOCONFIGURE=1 ./autogen.sh
 }
 
