@@ -3,19 +3,19 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-icon-theme
-pkgver=2025.8.28
+pkgver=2025.9.11
 pkgrel=1
 pkgdesc="Deepin Icons"
 arch=('any')
 url="https://github.com/linuxdeepin/deepin-icon-theme"
-license=('GPL3')
-depends=('papirus-icon-theme')
+license=('GPL-3.0-or-later')
+optdepends=('papirus-icon-theme: fallback icon theme')
 makedepends=('git')
 replaces=('deepin-cursor-theme')
 conflicts=('deepin-cursor-theme')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/deepin-icon-theme.git#tag=$pkgver")
-sha512sums=('c348a50282bf71a97635be13cd8f86dbdeca05941892f9f3370c8e675f2a0e3a78260122a204735ab977065a12734fb2b73079f3aaf54f245653c91a14cdd9ba')
+sha512sums=('bb186f543ec696961339a90541e2ccecbe8a6deacbfd227df823ce6689d3412c87468483903873b3c8d1c3963afca5062c47046c832b604e542fca9aa8a20acf')
 
 build() {
   cd $pkgname
