@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=swaptop
-pkgver=1.0.2
+pkgver=1.0.3
 pkgrel=1
 pkgdesc='Swap usage monitor'
 url='https://github.com/luis-ota/swaptop'
@@ -15,8 +15,8 @@ makedepends=(
   'cargo'
 )
 source=(https://github.com/luis-ota/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('4be52fcfef488afd19ed32d85e79d793a3d7ee07ef09d9e4a8707993fa3dfcfc')
-b2sums=('60436c447a4555d3457cc5bfdfde202f2343644d0b086f640ea83cec788060d584bfdc69828d9e14d0fcdae743acb276185fa41d96fa388878a8782b8c350d6b')
+sha256sums=('a082bd10f1a40800952874b76ffbb1905d0991756c504b503aa54eb93500e5f5')
+b2sums=('9e1f7f514cf3d39349d54ce3ef0a205cf78f3a16840771e50d6098284eb3c90a2dc649a4bac21237095293fe051886955050ff7ac731f73771ae356e23b20141')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
