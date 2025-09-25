@@ -3,39 +3,35 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-kwin
-pkgver=5.27.2.214
+pkgver=6.0.2
 pkgrel=1
 pkgdesc='DDE window manager forked from KWin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-kwin"
 license=('GPL3')
-depends=(qt5-declarative qt5-x11extras kauth5 kconfig5 kconfigwidgets5 kcoreaddons5 kdbusaddons5 kdeclarative5
-         kglobalaccel5 ki18n5 kidletime5 kitemviews5 knotifications5 kcrash5 kpackage5 plasma-framework5 libepoxy
-         kwidgetsaddons5 kwindowsystem5 kcmutils5 knewstuff5 kservice5 kwayland5 ktextwidgets5 kxmlgui5
-         breeze xcb-util-cursor xorg-xwayland libpipewire libkscreen5 kdecoration5 kscreenlocker5 qt5-wayland
-         lcms2 libqaccessibilityclient-qt5 qt5-quickcontrols python freetype2 gsettings-qt libcap
-         systemd-libs kauth5 bash kactivities5 libxkbcommon libxss libxi libinput xcb-util-wm wayland
-         perl libxcb xcb-util-keysyms libx11 libxtst libdrm gcc-libs mesa qt5-base deepin-qt5platform-plugins)
-makedepends=(git extra-cmake-modules kdoctools5 ninja qt5-tools wayland-protocols
+depends=(qt6-base qt6-declarative qt6-shadertools qt6-wayland kauth kconfig kconfigwidgets
+         kcoreaddons kdbusaddons kdeclarative kglobalacceld ki18n kidletime kitemviews knotifications
+         kcrash kpackage libepoxy kwidgetsaddons kwindowsystem kcmutils knewstuff krunner kservice
+         kwayland ktextwidgets kxmlgui xcb-util-cursor xorg-xwayland libpipewire libkscreen
+         kscreenlocker lcms2 libqaccessibilityclient-qt6 python freetype2 gsettings-qt6 libcap
+         systemd-libs kauth5 bash libxkbcommon libxss libxi libinput xcb-util-wm wayland perl libxcb
+         xcb-util-keysyms libx11 libxtst libdrm gcc-libs mesa deepin-qt6platform-plugins)
+makedepends=(git extra-cmake-modules ninja qt6-tools clang wayland-protocols
              deepin-wayland-protocols)
-source=("git+https://github.com/linuxdeepin/deepin-kwin.git#tag=$pkgver"
-        fix-x11-header.patch)
-sha512sums=('ac843b8eeb0efeeadcd9c3d14dea194c64e418a1142b79ae1e3214d21298bfe147319538e7c23b1f1c8a9f93a59f1a7095371e257e8ea24d940a69a311777261'
-            'f54bbf17500a1ae8a9b3ff78c602f455e1f1d7be9b004c89b7b1f5f805887f543769d41a4a38db811218422c9d4745c06ee66e863abb526ea2ea9f8f9c6bf439')
+conflicts=('kwin')
+source=("git+https://github.com/linuxdeepin/deepin-kwin.git#tag=$pkgver")
+sha512sums=('09d0d2d39bc1c52d88bd3256fe937bd1920f79aa91650f4ce8dbef925234c739eac7ac447df4618110a719d453b702abe3402adebba8b0f25c7bfa19303b0fbc')
 
 prepare() {
   cd deepin-kwin
-  patch -Np1 -i ../fix-x11-header.patch
+  sed -i 's/QGenericUnixServices/QDesktopUnixServices/;s/qgenericunixservices_p/qdesktopunixservices_p/' src/plugins/qpa/integration.{h,cpp}
   sed -i 's|/usr/share/backgrounds/default_background.jpg|/usr/share/backgrounds/deepin/desktop.jpg|' src/effects/multitaskview/multitaskview.cpp
-  sed -i 's|org.kde.screensaver.xml|org.kde.screensaver5.xml|' src/CMakeLists.txt
 }
 
 build() {
   cd deepin-kwin
   cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=lib \
-    -DKScreenLocker_ROOT=/usr/lib/cmake/plasma5 \
-    -DKDecoration2_ROOT=/usr/lib/cmake/plasma5 \
-    -DKWIN_BUILD_RUNNERS=OFF
+          -DBUILD_ON_V25=ON -DBUILD_TESTING=OFF
   ninja
 }
 
