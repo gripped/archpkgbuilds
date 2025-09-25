@@ -3,8 +3,8 @@
 
 pkgbase=gimagereader
 pkgname=(gimagereader-gtk gimagereader-qt gimagereader-common)
-pkgver=3.4.2
-pkgrel=5
+pkgver=3.4.3
+pkgrel=1
 url='https://github.com/manisandro/gImageReader'
 pkgdesc='Gtk/Qt front-end to tesseract-ocr'
 arch=('x86_64')
@@ -12,18 +12,8 @@ license=('GPL3')
 depends=('djvulibre' 'gtksourceviewmm' 'gtkspellmm' 'libtesseract.so' 'libxml++' 'libzip' 'podofo' 'poppler-glib'
          'poppler-qt6' 'qt6-imageformats' 'qtspell' 'quazip-qt6' 'sane' 'tesseract')
 makedepends=('cmake' 'intltool' 'ninja' 'python-gobject')
-source=("$url/releases/download/v$pkgver/$pkgbase-$pkgver.tar.xz"
-        'gimagereader-enchant-provider.patch')
-sha256sums=('184cafe57d86ffc4115ce76e29a47f0d627655de46b7890dffbb82267091a264'
-            '2825615cac6b1d112663fa57c849a812db4d859efdb2c430da52bfe889f82c4e')
-
-prepare() {
-  cd $pkgbase-$pkgver
-
-  # Fix build
-  # https://github.com/manisandro/gImageReader/issues/673
-  patch -Np1 -i ../gimagereader-enchant-provider.patch
-}
+source=("$url/releases/download/v$pkgver/$pkgbase-$pkgver.tar.xz")
+sha256sums=('4604b53e8d952c68ce4198d7b8d864327ef6afaf597e7909f6b31f0eb9b4c425')
 
 build() {
   cmake -S $pkgbase-$pkgver -B build-gtk -G Ninja \
