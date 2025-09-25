@@ -4,27 +4,21 @@
 # Contributor: Mitch Bigelow <ipha00 at gmail dot com>
 
 pkgname=ncnn
-pkgver=20241226
-pkgrel=11
+pkgver=20250916
+pkgrel=2
 pkgdesc='High-performance neural network inference framework optimized for the mobile platform'
 url='https://github.com/Tencent/ncnn'
 arch=('x86_64')
-license=('BSD')
-depends=('vulkan-icd-loader')
-makedepends=('git' 'cmake' 'glslang' 'ninja' 'protobuf' 'vulkan-headers')
+license=('BSD-3-Clause')
+depends=('vulkan-icd-loader' 'glslang')
+makedepends=('git' 'cmake' 'ninja' 'protobuf' 'vulkan-headers')
 optdepends=('protobuf: for onnx2ncnn')
 source=("git+https://github.com/Tencent/ncnn.git#tag=$pkgver")
-b2sums=('d3c17545dd7e667788ac5aca788b2046b0df928ef0a1bf506d38d1264de3b3ae9005334439f8e0946af22790d808aa478344d37eb8ee6dae54741fe0c867cd6d')
-
-prepare() {
-    cd $pkgname
-    git cherry-pick -n bd1f39ed82b88e3a894b52fdfcbeeb64742a13d4
-}
+b2sums=('083a74d4c840d0c581b30adc0025eff909bd99369db6085cf0e0bed9bd20bfa472e2d6951772d36492d6dd3ca7c1e91300ce5ee03cf5216ed48f590c4dc3fc01')
 
 build() {
     cmake -B build -S $pkgname \
         -GNinja \
-	-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
         -DCMAKE_BUILD_TYPE='None' \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DNCNN_SHARED_LIB=ON \
