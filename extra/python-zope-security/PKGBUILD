@@ -3,8 +3,8 @@
 
 pkgname=python-zope-security
 _pkgname=zope.security
-pkgver=7.3
-pkgrel=2
+pkgver=8.0
+pkgrel=1
 pkgdesc="Zope Security Framework"
 arch=('x86_64')
 url="https://github.com/zopefoundation/zope.security"
@@ -20,6 +20,7 @@ depends=(
   'python-zope-schema'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-installer'
   'python-setuptools'
@@ -32,28 +33,28 @@ checkdepends=(
   'python-zope-testrunner'
 )
 optdepends=('python-zope-configuration: for ZCML support')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('9e1c2b045a4309b47e5b32a8b183407c4441c87f95ce522dc511b8e5297b5718bd7112797fe94057534ac1b126530bac42a13de510739d793f29fd26064ebe57')
+source=("git+https://github.com/zopefoundation/zope.security.git#tag=$pkgver")
+sha512sums=('3f3bfe6f62e026513a39aaf0299790518363bc9169360f61b26649feda551831573f7696fc1fdca990c005b5cfdfbae4b59aa1d7c48b8c8e5cdba3b2123d743c')
 
 prepare() {
-  cd $_pkgname-$pkgver
-  sed -i 's/setuptools<74/setuptools/' pyproject.toml
+  cd $_pkgname
+  sed -i 's/setuptools == 78.1.1/setuptools/' pyproject.toml
 }
 
 build() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
   local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
   PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$python_version" \
     zope-testrunner --test-path=src
 }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
