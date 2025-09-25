@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=npm
-pkgver=11.6.0
+pkgver=11.6.1
 pkgrel=1
 pkgdesc='JavaScript package manager'
 arch=(any)
@@ -21,7 +21,7 @@ makedepends=(
 options=(!zipman)
 optdepends=("git: for dependencies using Git URL's")
 source=("npm-cli::git+https://github.com/npm/cli.git#tag=v$pkgver")
-b2sums=('ed44b648bea6379b8c2e9f2b1b5d2899e5add3aad8181788f7b8c2e947c84133dc7b45536832c17e1bb930fd320335ae9181c5c383b8f8f3ebbe8252600171cd')
+b2sums=('cbb1428397938b6a5188280169a60109801b7c6cf9b8fe66f15f2b45180b57bbc785840792ba09e46488fe9711a01f1ea3e4301f4399c90d9175794b2de27414')
 
 build() {
   cd npm-cli
@@ -43,7 +43,7 @@ package() {
   install -d "$pkgdir"/{usr/{bin,share/{bash-completion/completions,licenses/$pkgname}},$mod_dir}
   ln -s $mod_dir/bin/$pkgname-cli.js "$pkgdir"/usr/bin/$pkgname
   ln -s $mod_dir/bin/npx-cli.js "$pkgdir"/usr/bin/npx
-  ln -s $mod_dir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  ln -s $mod_dir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname
 
   cd npm-cli
   mapfile -t mod_files < <(node . pack --ignore-scripts --dry-run --json | jq -r .[].files.[].path)
