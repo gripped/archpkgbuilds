@@ -4,7 +4,7 @@
 
 _name=FreeRDP
 pkgname=freerdp
-pkgver=3.17.1
+pkgver=3.17.2
 _libver=${pkgver/.*/}
 pkgrel=1
 epoch=2
@@ -66,8 +66,8 @@ provides=(
 source=(
   https://github.com/$pkgname/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz
 )
-sha512sums=('51073599ec029481c24da97d042273b06892252f85becb1c86986966642dde5d9579fe0e22adcafa5a118685ccfa629c588dfed1556540ef85a8cbb335ee7a37')
-b2sums=('2dc483708fe4c47093968bff92c72cf062665930c2c06e213ad0e9fc4f54ec9955b0291c9124da7b7bab2f1387e695ccb47051a954eeb7c96d0520cc23317ea4')
+sha512sums=('644a22f011fd31f2d91e73e26f0b4cfc1e9f8cf862440b08a9a81a5a94e921aeeb1dde2be24d6a9395e355d0ccbe89fd369b0cf7bb45582c2eb6f741036da775')
+b2sums=('985bc9aeae7488e205cf04361d36ac40e030ce80577183eac2dcf99c6a4c3a69f0dbfe2944bb29e037ce755df9d89313b7720ebf657316e6ab6b5531aae43a36')
 
 build() {
   # gcc14 buildfix
@@ -76,6 +76,7 @@ build() {
 
   local cmake_options=(
     -B build
+    -D CHANNEL_RDPECAM_CLIENT=ON
     -D CHANNEL_URBDRC_CLIENT=ON
     -D CMAKE_INSTALL_PREFIX=/usr
     -D CMAKE_INSTALL_LIBDIR=lib
