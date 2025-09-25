@@ -2,7 +2,7 @@
 # Contributor: Allonsy < linuxbash8 [at@at] gmail [dot.dot] com >
 
 pkgname=git-town
-pkgver=21.1.0
+pkgver=22.0.0
 pkgrel=1
 pkgdesc='Generic, high-level Git workflow support'
 url="https://github.com/$pkgname/$pkgname"
@@ -12,7 +12,16 @@ depends=(git)
 makedepends=(go)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('95f74818f3c69aac3a1db03309abd3a40f95822cead5942c81137d830b60e288')
+sha256sums=('4ba0282fdcc0a4e67240eebc620b6304cd94f551a0f846f0becb8284c81165b9')
+
+prepare() {
+	cd "$_archive"
+	# upstream dependency republished
+	sed -i -e 's#h1:VxqhWbZIXFl3/ufdpzcwlaPZRPoaOj8r+KtyeRG3C0g=#h1:92AGsQmNTRMzuzHEYfCdjQeUzTrgE1vfO5/7fEVoXdY=#' go.sum
+	export GOWORK=off
+	go mod tidy
+	go mod vendor
+}
 
 build() {
 	cd "$_archive"
