@@ -1,7 +1,7 @@
 pkgbase = apostrophe
 	pkgdesc = Distraction free Markdown editor
 	pkgver = 3.3
-	pkgrel = 2
+	pkgrel = 3
 	url = https://apps.gnome.org/Apostrophe/
 	arch = any
 	groups = gnome-circle
@@ -23,14 +23,15 @@ pkgbase = apostrophe
 	depends = python-gobject
 	depends = python-pypandoc
 	depends = python-regex
+	depends = python-weasyprint
 	depends = webkitgtk-6.0
 	optdepends = texlive-bin: Export to LaTeX
-	optdepends = texlive-formatsextra: Export to PDF
+	optdepends = texlive-formatsextra: Export to PDF using XeTeX
 	optdepends = texlive-latex: Inline math preview
-	optdepends = texlive-xetex: Export to PDF
+	optdepends = texlive-xetex: Export to PDF using XeTeX
 	source = git+https://gitlab.gnome.org/World/apostrophe.git#tag=v3.3
-	source = 0001-Don-t-use-Typst-engine.patch
+	source = apostrophe-weasyprint.patch
 	b2sums = 1d82d39bc6f9b5c656a069a4687e23697a6c12fed744760d25164c6a6d46f9ba789c97433f2a03e87463b8a34b52aa8ffb419f03f8ab8f6205a10c0a10d9b4f2
-	b2sums = 089036a3988ec8b8824051b2d707500d1557ea875a6e09b627a690f9672bc0cb43f0a6c3a81d9de643e163be874459cdcbbe810e6c49626a7e52ff8730554a9c
+	b2sums = 3dd7601fa9cf45cc0a4088ccdb64c95cf775e8cf236a851ff159320d312cd5c64996fb26ae54ece8f268e71cf28a7454200bc019ffc870853dadb84e5deb65b1
 
 pkgname = apostrophe
