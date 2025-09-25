@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-kwin
-pkgver=6.0.2
+pkgver=6.0.3
 pkgrel=1
 pkgdesc='DDE window manager forked from KWin'
 arch=('x86_64')
@@ -18,9 +18,9 @@ depends=(qt6-base qt6-declarative qt6-shadertools qt6-wayland kauth kconfig kcon
          xcb-util-keysyms libx11 libxtst libdrm gcc-libs mesa deepin-qt6platform-plugins)
 makedepends=(git extra-cmake-modules ninja qt6-tools clang wayland-protocols
              deepin-wayland-protocols)
-conflicts=('kwin')
+conflicts=('kwin' 'kwin-x11')
 source=("git+https://github.com/linuxdeepin/deepin-kwin.git#tag=$pkgver")
-sha512sums=('09d0d2d39bc1c52d88bd3256fe937bd1920f79aa91650f4ce8dbef925234c739eac7ac447df4618110a719d453b702abe3402adebba8b0f25c7bfa19303b0fbc')
+sha512sums=('75fef6d2805b959f83d5ccd3583ee5fbcc2af13cc9acf825465ac735903f91e11043f2418ca23654636404585885125e59dcf27a9bc6905c19b2a77df48dc0d6')
 
 prepare() {
   cd deepin-kwin
