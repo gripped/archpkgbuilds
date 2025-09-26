@@ -1,15 +1,15 @@
 pkgbase = kafka
 	pkgdesc = An open-source distributed event streaming platform
 	pkgver = 4.1.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://kafka.apache.org/
 	install = kafka.install
 	arch = any
 	license = Apache-2.0
 	makedepends = gradle
-	makedepends = java-environment=17
+	makedepends = java-environment=21
 	depends = bash
-	depends = java-runtime=17
+	depends = java-runtime>=11
 	backup = usr/share/kafka/config/broker.properties
 	backup = usr/share/kafka/config/connect-console-sink.properties
 	backup = usr/share/kafka/config/connect-console-source.properties

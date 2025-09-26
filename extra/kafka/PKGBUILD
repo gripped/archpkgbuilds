@@ -2,14 +2,16 @@
 
 pkgname=kafka
 pkgver=4.1.0
-pkgrel=1
+pkgrel=2
 _scalaver=2.13
 pkgdesc="An open-source distributed event streaming platform"
 arch=('any')
 url="https://kafka.apache.org/"
 license=('Apache-2.0')
-depends=(bash 'java-runtime=17')
-makedepends=(gradle 'java-environment=17')
+_jrever=11
+_jdkver=21
+depends=(bash "java-runtime>=${_jrever}")
+makedepends=(gradle "java-environment=${_jdkver}")
 backup=(
   'usr/share/kafka/config/broker.properties'
   'usr/share/kafka/config/connect-console-sink.properties'
@@ -70,6 +72,8 @@ prepare() {
 
 build() {
     cd "$pkgname-$pkgver-src"
+    export JAVA_HOME="/usr/lib/jvm/java-${_jdkver}-openjdk"
+    export PATH="/usr/lib/jvm/java-${_jdkver}-openjdk/bin:$PATH"
     # TODO: Revert to system gradle https://issues.apache.org/jira/browse/KAFKA-16800
     ./gradlew \
         -PscalaVersion=$_scalaver \
@@ -87,6 +91,8 @@ build() {
 
 check() {
     cd "$pkgname-$pkgver-src"
+    export JAVA_HOME="/usr/lib/jvm/java-${_jdkver}-openjdk"
+    export PATH="/usr/lib/jvm/java-${_jdkver}-openjdk/bin:$PATH"
     # TODO: Revert to system gradle https://issues.apache.org/jira/browse/KAFKA-16800
     ./gradlew \
         -PscalaVersion=$_scalaver \
