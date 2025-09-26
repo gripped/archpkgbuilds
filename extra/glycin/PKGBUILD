@@ -7,7 +7,7 @@ pkgname=(
   glycin-gtk4
 )
 pkgver=2.0.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Sandboxed and extendable image decoding"
 arch=(x86_64)
 url="https://gitlab.gnome.org/GNOME/glycin"
@@ -43,11 +43,9 @@ checkdepends=(
 source=(
   "git+$url.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/sophie-h/test-images.git"
-  0001-glycin-sandbox-Close-all-unused-FDs-in-fork.patch
 )
 b2sums=('31820d0b77ddc0f9151d033a82cb0b2def318915674983ca8e98f95676ed7c43072594989567fad14fbb2f2b0a9bb4fb2e9077acd62aabd7a49fccd7b9da6163'
-        'SKIP'
-        'ee23f172ab5af259788f16d15f1667f76f47ec5f2bd9450576b5d178aec5fee79836280f24a8318734b034d1d154a3b505c8ff4195c4a6af2ea5b47e4b37181a')
+        'SKIP')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
@@ -63,11 +61,20 @@ prepare() {
                      294025c2b01903344513018c00166a35f2e1b3ce \
                      f202809ba2f5e95696ab03b6c0b16c0875f784a6
 
-  # Fix avif/heic colors
+  # Fix avif/heic colors and fix tests
   git cherry-pick -n 837721e873ac170deeae23e1186a5ad94450053d
 
-  # Sandboxing fix to try to stop Firefox crashes
-  git apply -3 ../0001-glycin-sandbox-Close-all-unused-FDs-in-fork.patch
+  # Terminate loaders after timeout
+  git cherry-pick -n 756dd54cf411baa6e9af24af403666411defc528
+
+  # Sandboxing fix to stop Firefox crashes
+  # https://bugzilla.mozilla.org/show_bug.cgi?id=1986254
+  git cherry-pick -n 8af36048dbdda27a05b87b2fc896c05161d21f64
+
+  # Sandboxing fix for symlinks
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/glycin/-/issues/2
+  git cherry-pick -n fa0a8820048662ede47c2828b70f4ed08df2fa78 \
+                     93916e1bdec985181cf31918c2320a25750de2ab
 
   git submodule init
   git submodule set-url tests/test-images "$srcdir/test-images"
