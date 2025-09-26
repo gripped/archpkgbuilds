@@ -5,7 +5,7 @@
 pkgname=python-pygraphviz
 _name=${pkgname#python-}
 pkgver=1.14
-pkgrel=2
+pkgrel=3
 pkgdesc='Python interface to Graphviz'
 arch=(x86_64)
 url=https://pygraphviz.github.io
