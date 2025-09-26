@@ -1,7 +1,7 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 
 pkgname=syft
-pkgver=1.26.1
+pkgver=1.33.0
 pkgrel=1
 pkgdesc="CLI tool and library for generating a Software Bill of Materials from container images and filesystems"
 arch=('x86_64')
@@ -9,8 +9,8 @@ url="https://github.com/anchore/syft"
 license=('Apache')
 makedepends=('go' 'git')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/anchore/${pkgname}/archive/v${pkgver}.tar.gz")
-sha512sums=('48efbaca3f7a00f4c8b8838c1a1e81851bb9259d9200e05a2aa8c072a5ced26708349c058444e5709857185edce79973994e67015df44336b1cb3e8f0bda3a58')
-b2sums=('e249bdb86251acd36ad934224b9de805312e872492bd20786c6978c2172fb3c47d1c8b211cac78354c60dbc1c9bde3c571de3a5cddf5bf251c0d0aa1a7365c90')
+sha512sums=('f7a55e1ca6c022ba4ba6bcfac886df2e9dc4e2f51ea5e5d87e821a000f2f6d4e743a4d0632834a4c67c28ce543fc18463c2243deb186ad6c02af9caf22af4485')
+b2sums=('b2f93d1714ffb42e573067adbb497c947bd2f600c32a7d77dee0646a5a6eede588721a7a3949f91dbc47cbe906915eb7f40f3da56252c5de5c043f61922c1f6a')
 
 build(){
   cd "${pkgname}-${pkgver}"
