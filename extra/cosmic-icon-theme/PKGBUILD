@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-icon-theme
-pkgver=1.0.0.beta.1
+pkgver=1.0.0.beta.1.1
 pkgrel=1
 pkgdesc='Cosmic icon theme'
 arch=(any)
@@ -19,10 +19,10 @@ _tag=70b07582e24ec2114672256b9657ca80670bca8a
 source=(git+https://github.com/pop-os/cosmic-icons.git#tag=${_tag})
 b2sums=('b747398386fabf0fe7a11008a157503a7127555a73342902eee280530ce0b80f99fbd2c6cb9f0af9267104d42f31fe03400adb9f7954b3eca75c673765b404a6')
 
-pkgver() {
-  cd cosmic-icons
-  git describe --tags | sed 's/^epoch-//; s/-/./g'
-}
+#pkgver() {
+#  cd cosmic-icons
+#  git describe --tags | sed 's/^epoch-//; s/-/./g'
+#}
 
 package() {
   cd cosmic-icons
