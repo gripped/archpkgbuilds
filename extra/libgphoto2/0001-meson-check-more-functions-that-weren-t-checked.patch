@@ -1,0 +1,82 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Hubert=20Figui=C3=A8re?= <hub@figuiere.net>
+Date: Thu, 25 Sep 2025 18:52:39 -0400
+Subject: [PATCH] meson: check more functions that weren't checked.
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+These are checked in autoconf and appear in the source
+code.
+
+This should help with https://github.com/gphoto/libgphoto2/issues/1138
+
+Signed-off-by: Hubert Figuière <hub@figuiere.net>
+---
+ meson.build | 38 ++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 36 insertions(+), 2 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index e0b17c4c39e5..ab32709da0f0 100644
+--- a/meson.build
++++ b/meson.build
+@@ -83,6 +83,34 @@ if cc.has_function('strncpy', prefix: '#include <string.h>')
+   add_project_arguments('-DHAVE_STRNCPY=1', language: 'c')
+ endif
+ 
++if cc.has_function('snprintf', prefix: '#include <stdio.h>')
++  add_project_arguments('-DHAVE_SNPRINTF=1', language: 'c')
++endif
++
++if cc.has_function('statvfs', prefix: '#include <sys/statvfs.h>')
++  add_project_arguments('-DHAVE_STATVFS=1', language: 'c')
++endif
++
++if cc.has_function('localtime_r', prefix: '#include <time.h>')
++  add_project_arguments('-DHAVE_LOCALTIME_R=1', language: 'c')
++endif
++
++if cc.has_function('lstat', prefix: '#include <sys/stat.h>')
++  add_project_arguments('-DHAVE_LSTAT=1', language: 'c')
++endif
++
++if cc.has_function('inet_aton', prefix: '#include <sys/socket.h>\n#include <netinet/in.h>\n#include <arpa/inet.h>')
++  add_project_arguments('-DHAVE_INET_ATON=1', language: 'c')
++endif
++
++if cc.has_function('setenv', prefix: '#include <stdlib.h>')
++  add_project_arguments('-DHAVE_SETENV=1', language: 'c')
++endif
++
++if cc.has_member('struct tm', 'tm_gmtoff', prefix : '#include <time.h>')
++  add_project_arguments('-DHAVE_RM_GMTOFF=1', language: 'c')
++endif
++
+ if (libcurl_dep.found())
+   add_project_arguments('-DHAVE_LIBCURL=1', language: 'c')
+ endif
+@@ -135,10 +163,16 @@ int main(int argc, char **argv)
+   endif
+ endif
+ 
++# The iconv detection from autoconf does more than checking
++# the header.
++if cc.has_header('iconv.h')
++  add_project_arguments('-DHAVE_ICONV=1', language: 'c')
++endif
++
+ headers = [
+   'sys/param.h', 'sys/mman.h', 'sys/select.h', 'locale.h', 'memory.h',
+   'getopt.h', 'unistd.h', 'mcheck.h', 'limits.h', 'sys/time.h', 'langinfo.h',
+-  'stdio.h', 'stdlib.h', 'string.h',
++  'stdio.h', 'stdlib.h', 'string.h', 'sys/statvfs.h',
+ ]
+ 
+ foreach header : headers
+@@ -209,4 +243,4 @@ subdir('doc')
+ subdir('po')
+ subdir('tests')
+ subdir('examples')
+-subdir('packaging/generic')
+\ No newline at end of file
++subdir('packaging/generic')
