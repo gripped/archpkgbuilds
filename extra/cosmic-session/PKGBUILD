@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-session
-pkgver=1.0.0.beta.1
+pkgver=1.0.0.beta.1.1
 pkgrel=1
 pkgdesc='Session manager for the COSMIC desktop environment'
 arch=(x86_64)
@@ -70,10 +70,10 @@ prepare() {
   sed -i 's/libexec/lib/g' Justfile src/main.rs
 }
 
-pkgver() {
-  cd cosmic-session
-  git describe --tags | sed 's/^epoch-//; s/-/./g'
-}
+#pkgver() {
+#  cd cosmic-session
+#  git describe --tags | sed 's/^epoch-//; s/-/./g'
+#}
 
 build() {
   cd cosmic-session
