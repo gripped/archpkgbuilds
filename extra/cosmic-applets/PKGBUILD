@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-applets
-pkgver=1.0.0.beta.1
+pkgver=1.0.0.beta.1.1
 pkgrel=1
 pkgdesc='Applets for COSMIC Panel'
 arch=(x86_64)
@@ -40,10 +40,10 @@ prepare() {
   sed 's/lto = "fat"/lto = "thin"/' -i Cargo.toml
 }
 
-pkgver() {
-  cd cosmic-applets
-  git describe --tags | sed 's/^epoch-//; s/-/./g'
-}
+#pkgver() {
+#  cd cosmic-applets
+#  git describe --tags | sed 's/^epoch-//; s/-/./g'
+#}
 
 build() {
   cd cosmic-applets
