@@ -2,17 +2,17 @@
 
 _hkgname=nothunks
 pkgname=haskell-nothunks
-pkgver=0.2.0
-pkgrel=200
+pkgver=0.2.1.0
+pkgrel=4
 pkgdesc="Examine values for unexpected thunks"
 url="https://github.com/input-output-hk/nothunks"
 license=("MIT")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-vector')
+depends=('ghc-libs' 'haskell-vector' 'haskell-wherefrom-compat')
 makedepends=('ghc' 'uusi')
 checkdepends=('haskell-hedgehog' 'haskell-random' 'haskell-tasty' 'haskell-tasty-hedgehog')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('09310685bc3c334d285bd2a28e3d635ff86923c1540706bf007d2f0068ccc9b8')
+sha256sums=('285a3914c1b60282a68a09cc3986da944b1f237e5ec80489bfeb782223af5015')
 
 prepare() {
   cd $_hkgname-$pkgver
