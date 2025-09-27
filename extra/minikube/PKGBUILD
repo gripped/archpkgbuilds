@@ -2,7 +2,7 @@
 # Contributor: Ivan Shapovalov <intelfx@intelfx.name>
 
 pkgname=minikube
-pkgver=1.36.0
+pkgver=1.37.0
 pkgrel=1
 pkgdesc="A tool that makes it easy to run Kubernetes locally"
 url="https://github.com/kubernetes/minikube"
@@ -15,7 +15,7 @@ optdepends=(
 makedepends=('git' 'go')
 depends=('glibc')
 source=("git+https://github.com/kubernetes/minikube.git#tag=v${pkgver}")
-sha512sums=('70be1fdc12904e8ea04dd837a77f642ee82269c98d5eff58175d0962b06a1f4a6d828c8d4b9ccccb72f39d69c093db965d217a1828bbfdf6cee326e99dcf8d97')
+sha512sums=('08e33b4af3b8273c4a9f60822ce4013bcea8ef7e59c912b9a2d30cb17b214ce334da91b511dbe0098ebaa117b46b3f143ebb9a6855146581c34f644c960b2f0b')
 options=('!lto')
 
 prepare() {
