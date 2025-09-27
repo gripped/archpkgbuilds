@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=perl-proc-processtable
-pkgver=0.636
-pkgrel=4
+pkgver=0.637
+pkgrel=1
 pkgdesc="Provides a consistent interface to process table information."
 arch=('x86_64')
 url="https://search.cpan.org/dist/Proc-ProcessTable/"
@@ -11,7 +11,7 @@ depends=('perl')
 provides=('perl-proc-killall' 'perl-proc-killfam' 'perl-proc-processtable-process')
 options=(!emptydirs)
 source=("https://search.cpan.org/CPAN/authors/id/J/JW/JWB/Proc-ProcessTable-$pkgver.tar.gz")
-sha512sums=('9678c9bd4bf70c4188265824fbc79e2f951f9e3722733172838fe20748b6938babd5a4db44bb1b6c8c59b7718ade634b3f25a462a82291dc2edaa620baa436cd')
+sha512sums=('1e69f995ab65e3b95b7029f46ee74d7b0da06d483c7d0b217c0d153310278a14fbe0a89ec219b4f86ee9aeda7c32f7fa4f8378c1d2b9dd12a47a26b5b59ba68f')
 
 build() {
   cd "$srcdir/Proc-ProcessTable-$pkgver"
