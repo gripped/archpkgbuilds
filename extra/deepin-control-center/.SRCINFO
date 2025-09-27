@@ -1,6 +1,6 @@
 pkgbase = deepin-control-center
 	pkgdesc = Control panel of Deepin Desktop Environment
-	pkgver = 6.0.66
+	pkgver = 6.0.75
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-control-center
 	arch = x86_64
@@ -17,13 +17,16 @@ pkgbase = deepin-control-center
 	makedepends = doxygen
 	makedepends = libsystemd
 	makedepends = extra-cmake-modules
+	makedepends = treeland-protocols
 	depends = dtk6core
 	depends = dtk6declarative
 	depends = dtk6gui
 	depends = dtk6widget
 	depends = qt6-base
 	depends = qt6-declarative
+	depends = qt6-multimedia
 	depends = qt6-svg
+	depends = qt6-wayland
 	depends = deepin-account-faces
 	depends = deepin-api
 	depends = libpwquality
@@ -38,9 +41,7 @@ pkgbase = deepin-control-center
 	conflicts = dde-dock-applets
 	replaces = dde-control-center
 	replaces = dde-dock-applets
-	source = git+https://github.com/linuxdeepin/dde-control-center.git#tag=6.0.66
-	source = deepin-control-center-systeminfo-deepin-icon.patch
-	sha512sums = d0a88ec8783fc2d10647835fb3b391d2e02de91f52c9c0a1867fdfbc370472ee359f4b4cb03bc1aa1d76a5a4cdea52af8a4e28f3825a1d6ab3f8ae13b57e85ea
-	sha512sums = 74fd63391e923ca37f4559f30da967ba7f33d4426b60d58d1ece8cd9a154578e8184b1a376a8d7ff3ef81ffce530915f79d0845a2612ae4e06522b96855ab3dd
+	source = git+https://github.com/linuxdeepin/dde-control-center.git#tag=6.0.75
+	sha512sums = a332828238af4899a1e27f23e2d654007b6afb76584e2eccc05a5867ed1ad611b399d04dd1076518265613a3d3bde63186de4210553b9705cb58513d2fe8d5b7
 
 pkgname = deepin-control-center
