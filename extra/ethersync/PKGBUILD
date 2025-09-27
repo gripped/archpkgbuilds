@@ -1,7 +1,8 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=ethersync
-pkgver=0.7.0
+pkgver=0.8.0
 pkgrel=1
 pkgdesc="Peer-to-peer, editor-agnostic collaborative editing of local text files"
 arch=('x86_64')
@@ -11,16 +12,21 @@ makedepends=(rust)
 depends=(zlib glibc gcc-libs)
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz"::https://github.com/ethersync/ethersync/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('a5888599286b2ef16f1c812a2e0d1de5b60611d094ce7487bb88fcb0cfe9dcc1d7c67fd166560a2d16b7517fc368bd7090f3a5c72b48a2419167f7f7ab25cf15')
+sha512sums=('e022e367eb319d0afaf9f1867050249ed8c74f2a77765a56034b4b698913efce4407a51e0bd618ca285c0449669d63aa4bd7c5b3190997c5d355000f2b8bbb87')
+
+prepare() {
+    cd "$pkgname-$pkgver/daemon"
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
 
 build() {
     cd "$pkgname-$pkgver/daemon"
-    cargo build --locked --release
+    cargo build --frozen --release
 }
 
 check() {
     cd "$pkgname-$pkgver/daemon"
-    cargo test --locked
+    cargo test --frozen
 }
 
 package() {
