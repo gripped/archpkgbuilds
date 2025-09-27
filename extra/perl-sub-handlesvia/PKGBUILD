@@ -1,7 +1,7 @@
 pkgname=perl-sub-handlesvia
 _cpanname=Sub-HandlesVia
-pkgver=0.050002
-pkgrel=2
+pkgver=0.050003
+pkgrel=1
 pkgdesc='Perl extension for easily overriding subroutines'
 url='https://metacpan.org/release/Sub-HandlesVia'
 arch=('any')
@@ -10,7 +10,7 @@ depends=('perl' 'perl-moo' 'perl-mouse' 'perl-exporter-tiny' 'perl-type-tiny' 'p
 checkdepends=('perl-test-requires' 'perl-test-fatal')
 options=('!emptydirs')
 source=(https://search.cpan.org/CPAN/authors/id/T/TO/TOBYINK/${_cpanname}-${pkgver}.tar.gz)
-sha512sums=('0b1f01b7354e5c51c2467b805eac1da0533ac41409d12904ded7400a2b01e899c2a6f92ba6d1b520d7fcb0e22dba426a4dd8a40d31e1ac01ad30413d5bad8cea')
+sha512sums=('bd188cfbd02a2322fd96bfcf38b92d62ad476f468b0f0ecb969bfb91f94367450887c2ae40dddb2d820bc7c41cb817f92039c7a4660a3e90a1372e19b4afa8b5')
 
 build() {
   cd ${_cpanname}-${pkgver}
