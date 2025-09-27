@@ -4,7 +4,7 @@
 _hkgname=hledger-iadd
 pkgname=hledger-iadd
 pkgver=1.3.21
-pkgrel=68
+pkgrel=71
 pkgdesc="A terminal UI as drop-in replacement for hledger add"
 url="https://github.com/hpdeifel/hledger-iadd#readme"
 license=('BSD-3-Clause')
@@ -20,7 +20,7 @@ sha512sums=('26bf43b3c0cfbf9ddbaf1828247a5345efbb8d8d05773adaecec30d54f2122bdc00
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u hledger-lib -u megaparsec
+  uusi -u brick -u hledger-lib -u megaparsec
 }
 
 build() {
