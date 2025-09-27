@@ -4,8 +4,8 @@
 
 _hkgname=hakyll
 pkgname=haskell-hakyll
-pkgver=4.16.2.2
-pkgrel=16
+pkgver=4.16.3.0
+pkgrel=1
 pkgdesc="A static website compiler library"
 url="https://jaspervdj.be/hakyll"
 license=('BSD-3-Clause')
@@ -17,15 +17,10 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-blaze-html' 'haskell-blaze-markup'
          'haskell-resourcet' 'haskell-scientific' 'haskell-tagsoup' 'haskell-time-locale-compat'
          'haskell-unordered-containers' 'haskell-vector' 'haskell-wai' 'haskell-wai-app-static'
          'haskell-warp' 'haskell-yaml')
-makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-golden'
+makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-golden'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('dd0c03cea49ef65aaf045bb6cf0128dce2ee4c091dd94652e935fd4a679a1b2e5049729dfa1da941f5c342db32c3a403e9bd807015773f66041e841d79a563f8')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u pandoc
-}
+sha512sums=('963e0e5848c9bfff5ead2ebce79e3ff3a878eecedc3788d2233581d1034af46444d0db91aec94a7ec9b8b6e49acfa43c20eca178d110d7922fa0aa4f3e61e770')
 
 build() {
     cd $_hkgname-$pkgver
