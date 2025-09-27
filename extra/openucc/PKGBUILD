@@ -2,8 +2,8 @@
 
 _name=ucc
 pkgname=openucc
-pkgver=1.5.0
-pkgrel=3
+pkgver=1.5.1
+pkgrel=1
 pkgdesc="Unified Collective Communication Library"
 arch=(x86_64)
 url="https://github.com/openucx/ucc"
@@ -34,19 +34,13 @@ provides=(
 )
 source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
-  fix-wlto-type-mismatch.patch
 )
-b2sums=('8e7c51d36564a85d1773426a7d90421121e28f8d379c632c50e85edd7ad99c510636d6c9e7410eb5a1d003a59258dec32e645fa77e0b976f671ef0ed009e6dd4'
-        '42815c43a99d8b7ac60ee14849c273f4872b2e755a289d996614469b9478c6f131597ddd4b2e4984174de49af1f070e4bdbbcc6c57a0900251c30801d56f23c0')
+b2sums=('395c24d36ee60a27696d8c0356371b85caa401018466932089fa7d11686170d556b931fde990638a9ddf97ff56606ea8fea0ca98de72cffd12d529ddd787d0cd')
 
 prepare() {
   cd $_name-$pkgver
   # fix building with gcc 15 (yes ucx bundles its old version of gtest...)
   sed -i '1i\#include <cstdint>' test/gtest/common/gtest-all.cc
-
-  # CL/HIER: Fix Wlto-type-mismatch
-  # https://github.com/openucx/ucc/pull/1179
-  patch -p1 -i ../fix-wlto-type-mismatch.patch
 }
 
 build() {
