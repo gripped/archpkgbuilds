@@ -5,7 +5,7 @@
 
 pkgname=xdg-desktop-portal-wlr
 pkgver=0.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc='xdg-desktop-portal backend for wlroots'
 url="https://github.com/emersion/xdg-desktop-portal-wlr"
 arch=('x86_64')
@@ -13,12 +13,14 @@ license=('MIT')
 provides=('xdg-desktop-portal-impl')
 depends=(
     'glibc'
+    'grim'
     'libdrm'
     'libinih'
     'libpipewire'
     'mesa'
     'pipewire'
     'pipewire-session-manager'
+    'slurp'
     'systemd-libs'
     'wayland'
     'xdg-desktop-portal'
@@ -27,11 +29,6 @@ makedepends=(
     'meson'
     'scdoc'
     'wayland-protocols'
-)
-optdepends=(
-    'bemenu: to choose which output to screencast using bemenu'
-    'slurp: to choose which output to screencast using slurp'
-    'wofi: to choose which output to screencast using wofi'
 )
 source=("${pkgname}-${pkgver}::${url}/archive/v${pkgver}.tar.gz"
         wlr-portals.conf)
