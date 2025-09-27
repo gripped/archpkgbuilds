@@ -2,8 +2,8 @@
 # Contributor: Martchus <martchus@gmx.net>
 
 pkgname=qt6ct
-pkgver=0.10
-pkgrel=5
+pkgver=0.11
+pkgrel=1
 pkgdesc='Qt 6 Configuration Utility'
 arch=(x86_64)
 url='https://www.opencode.net/trialuser/qt6ct'
@@ -16,7 +16,7 @@ makedepends=(cmake
              git
              qt6-tools)
 source=(git+https://www.opencode.net/trialuser/qt6ct#tag=$pkgver)
-sha256sums=('f84b4bdfc9f9dde188b73b2070a9fa81a154d414b72285cc4b945b1e89108fc0')
+sha256sums=('76bfc26838b8ec7dd049da54bd812d8c526986024845a30d1e546e43555e52bf')
 
 build() {
   cmake -B build -S $pkgname \
