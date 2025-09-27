@@ -5,7 +5,7 @@ pkgname=heimdall
 _pkgname=Heimdall
 pkgver=1.4.2
 _pkgver=v$pkgver
-pkgrel=8
+pkgrel=9
 pkgdesc="Tool suite used to flash firmware (ROMs) onto Samsung Galaxy S devices"
 arch=(x86_64)
 url="https://glassechidna.com.au/heimdall/"
@@ -38,6 +38,7 @@ build() {
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -S $_pkgname-$_pkgver
     -W no-dev
   )
