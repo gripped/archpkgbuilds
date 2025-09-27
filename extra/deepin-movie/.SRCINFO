@@ -1,12 +1,13 @@
 pkgbase = deepin-movie
 	pkgdesc = Movie player based on mpv
-	pkgver = 5.10.34
+	pkgver = 5.10.35
 	pkgrel = 1
 	epoch = 1
 	url = https://github.com/linuxdeepin/deepin-movie-reborn
 	arch = x86_64
 	groups = deepin-extra
-	license = GPL3
+	license = GPL-3.0-or-later
+	makedepends = git
 	makedepends = cmake
 	makedepends = gtest
 	makedepends = ninja
@@ -30,11 +31,7 @@ pkgbase = deepin-movie
 	depends = qtdbusextended
 	depends = qtmpris
 	depends = deepin-daemon
-	source = https://github.com/linuxdeepin/deepin-movie-reborn/archive/5.10.34/deepin-movie-5.10.34.tar.gz
-	source = deepin-movie-dtkgui.patch::https://github.com/linuxdeepin/deepin-movie-reborn/commit/adbcf2f754f74947f32546f40d488001d34f3051.patch
-	source = deepin-movie-pie-ldflags.patch::https://github.com/linuxdeepin/deepin-movie-reborn/pull/352.patch
-	sha512sums = 080cf178d78484ce2fed76a99871c0ced8be94f4748ad2bb84606ca50c8d0e90b1296dc6d03689149cd39fb6628e3d2c0ec6da5786a82f31e4256fc06ded0c30
-	sha512sums = 30fb17d6ba01fb2fc554a54d3106a943f5026b09153b07ad19d448bd1ead0132a829f4cf01fc074c0cd76a5b81a986c5829c71c6c7e75af6e9fdad02e8d05eb1
-	sha512sums = c6b02928c312dcd186df95f2b7dc62709c8248dfe05e296f2648af2bb60a3287064555ca71108e6868707b4e8e1399fc1556c61401c8872202a577b8c6cfd690
+	source = git+https://github.com/linuxdeepin/deepin-movie-reborn.git#tag=5.10.35
+	sha512sums = e96eb350190be4644b010b920aebb1b8b2c3031127862e3b54ebcefdd01f202f3d0a24920c10e542f65d7856f57ccfbe3b7af7599530c78d7419820c832ca3cc
 
 pkgname = deepin-movie
