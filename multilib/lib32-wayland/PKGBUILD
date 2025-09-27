@@ -4,7 +4,7 @@
 # Contributor: Joel Teichroeb <joel@teichroeb.net>
 
 pkgname=lib32-wayland
-pkgver=1.23.1
+pkgver=1.24.0
 pkgrel=1
 pkgdesc='A computer display server protocol'
 arch=(x86_64)
@@ -23,7 +23,7 @@ validpgpkeys=('C7223EBE4EF66513B892598911A30156E0E67611'  # Bryce Harrington
               'C0066D7DB8E9AC6844D728715E54498E697F11D7'  # Derek Foreman
               '34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48') # Simon Ser <contact@emersion.fr>
 source=("https://gitlab.freedesktop.org/wayland/wayland/-/releases/$pkgver/downloads/wayland-$pkgver.tar.xz"{,.sig})
-b2sums=('74784b537a6e28610466ff1549286cea9ff8b9ca914afa26a07f177bbe0be56b80de037d5eb5d07a38bf02a9041c32e62c896facd5417c1435571640ad8f87b2'
+b2sums=('7ac6ac1f33cb2cae60e4058478655eeabd4f8f8e0fe07f6b9b386967ed4b31bdaac571dc2b812f3189534e3e53797822ca39f829207e45c24b494f039f82a836'
         'SKIP')
 
 build() {
