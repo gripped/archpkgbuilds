@@ -7,28 +7,56 @@
 
 pkgname=auto-multiple-choice
 pkgver=1.7.0
-pkgrel=2
-pkgdesc="AMC is a piece of software that can help you creating and managing multiple choice questionnaires (MCQ), with automated marking. Answers sheets are formatted with LaTeX."
-arch=('x86_64')
+pkgrel=4
+pkgdesc="Create and manage multiple choice questionnaires (MCQ), with automated marking."
+arch=(x86_64)
 url='https://www.auto-multiple-choice.net/'
-license=('GPL2')
-depends=('perl' 'perl-gtk3' 'perl-glib-object-introspection' 'perl-locale-gettext'
-         'perl-xml-writer' 'perl-xml-simple' 'perl-dbd-sqlite' 'perl-file-mimeinfo'
-         'perl-text-csv' 'perl-dbi' 'perl-archive-zip' 'perl-clone' 'perl-locale-codes' 'perl-hash-merge'
-         'ttf-linux-libertine'
-         'texlive-latex'
-         'opencv' 'poppler' 'poppler-glib')
-optdepends=('perl-email-sender: allow email sending (1 of 3)'
-            'perl-module-pluggable: allow email sending (2 of 3)'
-            'perl-email-mime: allow email sending (3 of 3)')
-makedepends=('netpbm' 'xorgproto' 'libxslt')
+license=(GPL-2.0-or-later)
+depends=(
+    cairo
+    gcc-libs
+    glib2
+    glibc
+    perl
+    perl-archive-zip
+    perl-clone
+    perl-dbd-sqlite
+    perl-dbi
+    perl-file-mimeinfo
+    perl-gtk3
+    perl-glib-object-introspection
+    perl-hash-merge
+    perl-locale-codes
+    perl-locale-gettext
+    perl-xml-simple
+    perl-xml-writer
+    perl-text-csv
+    opencv
+    pango
+    poppler
+    poppler-glib
+    texlive-latex
+    ttf-linux-libertine
+)
+optdepends=(
+    'netpbm: manual data capture'
+    'perl-email-sender: allow email sending (1 of 4)'
+    'perl-module-pluggable: allow email sending (2 of 4)'
+    'perl-email-mime: allow email sending (3 of 4)'
+    'perl-email-address: allow email sending (4 of 4)'
+)
+makedepends=(
+    libxslt
+    netpbm
+    xorgproto
+)
 source=("https://download.auto-multiple-choice.net/auto-multiple-choice_${pkgver}_dist.tar.gz"{,.sig})
 sha256sums=('dfb916aa076f668a6f35253a2c0fc5998db07d2273deb45295a405d8749b7660'
             'SKIP')
 validpgpkeys=('1F0FAB7CC69ACAD8374DB119D3F94059A398971E') # Alexis Bienvenüe <palnch@passoire.fr>
 
 prepare() {
-  cd "$srcdir"/$pkgbase-$pkgver
+  cd $pkgbase-$pkgver
   # PERLDIR hack to conform to https://wiki.archlinux.org/index.php/Perl_package_guidelines#Package_file_placement
   # We can't edit Makefile.conf because it triggers a rebuild of precompiled doc targets.
   # So just overwrite PERLDIR after Makefile.Conf is included in the main Makefile.
@@ -36,13 +64,13 @@ prepare() {
 }
 
 build() {
-  cd "$srcdir"/$pkgbase-$pkgver
+  cd $pkgbase-$pkgver
   make all_precomp \
     GCC_OPENCV="$(pkg-config --cflags opencv4)" \
     GCC_OPENCV_LIBS="$(pkg-config --libs opencv4)"
 }
 
 package() {
-  cd "$srcdir"/$pkgbase-$pkgver
-  make DESTDIR="$pkgdir/" install
+  cd $pkgbase-$pkgver
+  make DESTDIR="$pkgdir" install
 }
