@@ -3,8 +3,8 @@
 
 _hkgname=skylighting-core
 pkgname=haskell-skylighting-core
-pkgver=0.14.2
-pkgrel=29
+pkgver=0.14.3
+pkgrel=1
 pkgdesc="Syntax highlighting library"
 url="https://github.com/jgm/skylighting"
 license=('BSD-3-Clause')
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base64-bytestr
 makedepends=('ghc' 'haskell-diff' 'haskell-pretty-show' 'haskell-quickcheck' 'haskell-tasty'
              'haskell-tasty-golden' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('88ad263713c6610e5eef8c4553b94179b6704719a9cf23980828d718b26a6d73b2cda65591cdbf680c68b609350d9dca63fa4713646eaa8b6160b68d1d6da8ca')
+sha512sums=('c847268dd25692bffb0f0e9daf78af9b18e8005a8ce595663e72581258fe7bb273382cc5e41063a0f91cf3ae47ac54ed996a94c327554e03ca8158c6acfbccfc')
 
 build() {
     cd $_hkgname-$pkgver
