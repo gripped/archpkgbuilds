@@ -2,8 +2,8 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=homebank
-pkgver=5.9.2
-pkgrel=2
+pkgver=5.9.4
+pkgrel=1
 pkgdesc="Free, easy, personal accounting for everyone"
 arch=('x86_64')
 url="https://www.gethomebank.org/"
@@ -12,8 +12,8 @@ depends=('desktop-file-utils' 'gtk3' 'hicolor-icon-theme' 'libofx'
          'librsvg' 'perl-xml-parser' 'shared-mime-info' 'libsoup3')
 makedepends=('intltool')
 changelog=$pkgname.changelog
-source=(https://www.gethomebank.org/public/sources/${pkgname}-${pkgver}fix.tar.gz)
-sha256sums=('5b03ce76c93576da1cd10353287a318f12aa11c1cd3f11e86911f4b2a3266cac')
+source=(https://www.gethomebank.org/public/sources/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('8c442384a142f0f9f85295f6a599ecf6c20fc8a1797f177e71a3d93cfa909fbf')
 
 build() {
   cd "${srcdir}"/$pkgname-$pkgver
