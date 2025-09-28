@@ -4,7 +4,7 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=ibus-table
-pkgver=1.17.6
+pkgver=1.17.7
 pkgrel=1
 pkgdesc='IM Engine framework for table-based input methods, such as ZhengMa, WuBi, ErBi, CangJie and so on'
 arch=('any')
@@ -13,7 +13,7 @@ license=('LGPL-2.1-or-later')
 makedepends=('git' 'docbook2x' 'docbook-sgml' 'docbook-utils')
 depends=('python-pyenchant' 'ibus' 'aspell-en')
 source=("git+https://github.com/kaio/ibus-table.git#tag=$pkgver")
-sha512sums=('a1bd53b9749c9a1a152143e8e85713039f983a768e2687bb778dcb865ff5c61b4514d67ee18ee777c73e23b66d5eb58b11cf8ad3686efc8db9aa0d94414902dd')
+sha512sums=('7fa8d6552bdbece0ebd4649c2241860d2b66ed08dfc7f7d846f1b028e30e3b60bcec26e67e3690de222a8de4591bfb3f7780db35110e4591d11752029e7b0820')
 
 build() {
   cd $pkgname
