@@ -1,7 +1,8 @@
 # Maintainer: christian rebischke <chris.rebischke@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=gopass-summon-provider
-pkgver=1.15.16
+pkgver=1.15.18
 pkgrel=1
 pkgdesc="summon provider for gopass"
 arch=('x86_64')
@@ -10,27 +11,33 @@ license=('MIT')
 depends=('glibc')
 makedepends=('go')
 options=('!lto')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/gopasspw/gopass-summon-provider/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('b26832289250f071edcce0a0df540dfe5d529fbef256d762afa08c53f8d58b572f8677d905d66a1826d6ed2daf1d9916d7d0b573c4966c6b0d5230875804456d')
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('b2ae622b6dae028935b79e4b78b5439fbdeafeb64b7348e35be2c5323df7d6ddb5eef918017ba85fb228d4ac7f8874d78ae575f582c86aa21ab61777ef0c1f30')
 
-prepare(){
-  cd ${pkgname}-${pkgver}
-  sed -i 's|-gcflags="-trimpath=$(GOPATH)" -asmflags="-trimpath=$(GOPATH)"||' Makefile
-  sed -i 's/install-completion//g' Makefile
+prepare() {
+  cd $pkgname-$pkgver
+  GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
-build(){
-  cd ${pkgname}-${pkgver}
-  export CGO_CPPFLAGS="${CPPFLAGS}"
-  export CGO_CFLAGS="${CFLAGS}"
-  export CGO_CXXFLAGS="${CXXFLAGS}"
-  export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
-  make
+build() {
+  cd $pkgname-$pkgver
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export CGO_LDFLAGS="$LDFLAGS"
+  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw -buildvcs=false"
+  export GOPATH="$srcdir"
+
+  local ld_flags="
+    -compressdwarf=false
+    -linkmode=external
+    -X main.version=$pkgver
+  "
+  go build -v -ldflags="$ld_flags" -o $pkgname
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  make DESTDIR="${pkgdir}" PREFIX="/usr" install
-  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cd $pkgname-$pkgver
+  install -vDm755 -t "$pkgdir/usr/bin" $pkgname
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
