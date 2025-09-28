@@ -2,18 +2,19 @@
 
 _hkgname=hspec-meta
 pkgname=haskell-hspec-meta
-pkgver=2.10.5
-pkgrel=484
+pkgver=2.11.2
+pkgrel=6
 pkgdesc="A version of Hspec which is used to test Hspec itself"
 url="http://hspec.github.io/"
 license=('MIT')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-call-stack' 'haskell-clock' 'haskell-ghc'
-         'haskell-quickcheck' 'haskell-quickcheck-io' 'haskell-random' 'haskell-setenv')
+depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-call-stack' 'haskell-lexer'
+         'haskell-hspec-expectations' 'haskell-hunit' 'haskell-quickcheck' 'haskell-quickcheck-io'
+         'haskell-random' 'haskell-tf-random')
 makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz
         quickcheck-2.15.patch)
-sha512sums=('2c9b9a0a91f8596de423d8409a734642520a317659d93888685a6049971b9fb29806904da48ec6d73f269baa8c39d34da1881d107795212a3c0564eb702797b5'
+sha512sums=('d3b71a9d5ff840b7c128aa640f46088693e03f39445cfc24a789ed2ed553eb0bf5bb1fe19eeaefe84855f294fafa503142aef0523e57dd0c23f1256d33646a2b'
             '4a249be70c3057545fb733e3e552508b4795685d3c1251732b1d5299135bea8b624863df13116d7b9faf257054e00df19e7105a00f438ff37fa783c84a8d619d')
 
 prepare() {
