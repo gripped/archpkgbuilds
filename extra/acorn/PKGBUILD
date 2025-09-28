@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=acorn
-pkgver=8.13.0
+pkgver=8.14.0
 epoch=1
 pkgrel=1
 pkgdesc='A tiny, fast JavaScript parser, written completely in JavaScript.'
@@ -12,7 +12,7 @@ depends=('nodejs')
 makedepends=('npm')
 source=(https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz)
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('f334a2c39e0ec6b7729b9d0d959f6c52eb323b567565c86044b59168ae9cf3a5c91429720a014a7ad768c018396cac72a7fbbe0830491b8329a749b71cb665f7')
+sha512sums=('725ebaf670894d906c2fdece178914426e60e610b6ba2864d0dc58dd610d002d1361d20b5640321f29809ed8311a497b2beb7471722b1f9b22cb94b85e417270')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
