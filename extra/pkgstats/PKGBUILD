@@ -1,7 +1,7 @@
 # Maintainer: Pierre Schmitz <pierre@archlinux.de>
 
 pkgname=pkgstats
-pkgver=3.4.1
+pkgver=3.4.2
 pkgrel=1
 pkgdesc='Submit a list of installed packages to the Arch Linux project'
 url='https://pkgstats.archlinux.de/'
@@ -10,7 +10,7 @@ license=('GPL-3.0-or-later')
 depends=('glibc' 'systemd' 'ca-certificates')
 makedepends=('git' 'go' 'just' 'gcc')
 source=("${pkgname}::git+https://github.com/archlinux-de/pkgstats-cli.git?signed#tag=${pkgver}")
-sha256sums=('b248a734353f4e6202cd03a00f196d15f9176bc6fb4375e3ff69f6c93eab7d40')
+sha256sums=('75c805c91922c3cafcfa8441d64671c02b5713352403cf368f1f98c77f39173d')
 validpgpkeys=('3E80CA1A8B89F69CBA57D98A76A5EF9054449A5C')
 
 prepare() {
