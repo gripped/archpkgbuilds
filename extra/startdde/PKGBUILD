@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=startdde
-pkgver=6.1.2
+pkgver=6.1.3
 pkgrel=1
 pkgdesc="starter of deepin desktop environment"
 arch=('x86_64')
@@ -15,7 +15,7 @@ depends=('dconf' 'glib2' 'glibc' 'gtk3' 'libgudev' 'libx11' 'libxi'
 makedepends=('go' 'git')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/startdde.git#tag=$pkgver")
-sha512sums=('ee102559e20eb567915d81867c9137d506020dc61359127d629909bfb6dd0c3190fff3025059c82e5af2fdb42429f27d7161b05b14b4fbd6379130bd5335503f')
+sha512sums=('c571f7e9c86c52c5319d026b59900f1992270617038870b475ce7399e80f854c070fb1144d9f17e658d71f8d2f8ce569889b701a469971d9bd8026a6b377d033')
 
 prepare() {
   cd startdde
