@@ -2,18 +2,16 @@
 # Maintainer: Kessia 'even' Pinheiro <kessiapinheiro at gmail.com>
 
 pkgname=sniffit
-pkgver=0.6
+pkgver=0.7
 pkgrel=1
 pkgdesc="Very good packet sniffer for unix with ncurses interactive mode"
 arch=('x86_64')
-url="https://packages.ubuntu.com/source/sniffit"
-#seems the website are out, ubuntu have all sources
-#url=http://reptile.rug.ac.be/~coder/sniffit/sniffit.html"
+url="https://github.com/resurrecting-open-source-projects/sniffit"
 license=('BSD')
 depends=('ncurses' 'libpcap')
 makedepends=('libtool')
-source=("http://archive.ubuntu.com/ubuntu/pool/universe/s/${pkgname}/${pkgname}_${pkgver}.orig.tar.gz")
-sha512sums=('1566d2832cb06ca8f2f5bf6a7a202404cca4f13fc40d7ca23122047974b13e2b2903834a7920406783fae3c1b092a44c0f747c85472f3874ff04d58bc59338f7')
+source=("https://github.com/resurrecting-open-source-projects/sniffit/archive/refs/tags/sniffit-$pkgver.tar.gz")
+sha512sums=('1b7532f7bbba1e535b5a8548bd2e344ce53559cca6df1f7aa9b4424416e4614fa9a64333670d9e59b8da2e47884bcec4f916ce07834c24602e3f2663dbee453f')
 
 build() {
   cd "${srcdir}/sniffit-sniffit-${pkgver}"
