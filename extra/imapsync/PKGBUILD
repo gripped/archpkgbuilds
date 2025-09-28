@@ -1,7 +1,7 @@
 # Maintainer: Frederik Schwan <freswa at archlinux dot org>
 
 pkgname=imapsync
-pkgver=2.290
+pkgver=2.314
 pkgrel=1
 pkgdesc='IMAP synchronisation, sync, copy or migration tool'
 arch=('any')
@@ -13,10 +13,12 @@ depends=(
   perl-data-uniqid
   perl-date-manip
   perl-digest-sha1
+  perl-email-address
   perl-encode-imaputf7
   perl-file-copy-recursive
   perl-file-tail
   perl-html-parser
+  perl-http-daemon-ssl
   perl-io-socket-inet6
   perl-io-socket-ssl
   perl-io-tee
@@ -25,6 +27,7 @@ depends=(
   perl-mail-imapclient
   perl-module-runtime
   perl-module-scandeps
+  perl-net-dns
   perl-net-server
   perl-ntlm
   perl-package-stash
@@ -52,7 +55,7 @@ checkdepends=(
   time
 )
 source=("https://imapsync.lamiral.info/dist2/${pkgname}-${pkgver}.tgz")
-b2sums=('33ab6ec69ca1cb7f658296dea53056e94cba5bb5194e435e2449661572647432d42893c0c2d12e93e17b27058e416152215e5ca8a39768778307773e3be09cf4')
+b2sums=('d2fde66acd7d868021c52ae4b700020ee0686c1ecfa7166fc04060d018f225410afdd49749e8fdff9fda7be3d793deda7cc332ec31533e068373a3c2aba45d18')
 
 prepare() {
   sed -i 's/`hostname`/`uname -n`/' ${pkgname}-${pkgver}/tests.sh
