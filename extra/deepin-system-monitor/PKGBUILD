@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-system-monitor
-pkgver=6.0.24
+pkgver=6.5.0
 pkgrel=1
 pkgdesc='A more user-friendly system monitor'
 arch=('x86_64')
@@ -17,10 +17,11 @@ makedepends=('git' 'cmake' 'deepin-gettext-tools' 'gtest' 'ninja' 'qt5-tools' 'd
 groups=('deepin')
 install=deepin-system-monitor.install
 source=("git+https://github.com/linuxdeepin/deepin-system-monitor.git#tag=$pkgver")
-sha512sums=('04e7f3140f8b7be4534ad45905a155c27ed886169831f041a09c17b868aa764d4a3212c085389eaa35affca4e38689df35875063d0414733bf812c86f9f3a120')
+sha512sums=('30b7ea01228710eaec0f80819c46b82c759e71f3f113d54e073076e39642f46d9be7fbfd7581dbe05887c58e276866dcb4c159db7dabd039f257ba017fc178de')
 
 prepare() {
   cd deepin-system-monitor
+  sed -i '/lscpu.h/d' deepin-system-monitor-main/3rdparty/dmidecode/dmioem.c
   sed -e 's|CMAKE_CXX_STANDARD 11|CMAKE_CXX_STANDARD 17|' -i */CMakeLists.txt # Fix build with ICU 75
 }
 
