@@ -3,7 +3,7 @@
 # Contributor: Fredy García <frealgagu at gmail dot com>
 
 pkgname=just
-pkgver=1.42.4
+pkgver=1.43.0
 pkgrel=1
 pkgdesc="A handy way to save and run project-specific commands"
 arch=("x86_64")
@@ -12,7 +12,7 @@ license=("custom:CC0")
 depends=("gcc-libs")
 makedepends=("cargo")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/casey/${pkgname}/archive/${pkgver}.tar.gz")
-sha256sums=('bd604ff72ecd8d8def79d39997499433e22fbffa03260e3a2c5fe5f84cc37f52')
+sha256sums=('03904d6380344dbe10e25f04cd1677b441b439940257d3cc9d8c5f09d91e3065')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
@@ -25,10 +25,6 @@ build() {
   cargo build --frozen --release
   local just="cargo run --frozen --release --"
   $just --man > "man/${pkgname}.1"
-  $just --completions bash > "completions/${pkgname}"
-  $just --completions elvish > "completions/${pkgname}.elv"
-  $just --completions fish > "completions/${pkgname}.fish"
-  $just --completions zsh > "completions/_${pkgname}"
 }
 
 check() {
@@ -41,8 +37,8 @@ package() {
   install -Dm755 -t "${pkgdir}/usr/bin/" "target/release/${pkgname}"
   install -Dm644 -t "${pkgdir}/usr/share/man/man1/" "man/${pkgname}.1"
   install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}/" "LICENSE"
-  install -Dm644 -t "${pkgdir}/usr/share/bash-completion/completions/" "completions/${pkgname}"
-  install -Dm644 -t "${pkgdir}/usr/share/elvish/lib/" "completions/${pkgname}.elv"
+  install -Dm644 "completions/${pkgname}.bash" "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
+  install -Dm644 "completions/${pkgname}.elvish" "${pkgdir}/usr/share/elvish/lib/${pkgname}.elv"
   install -Dm644 -t "${pkgdir}/usr/share/fish/vendor_completions.d/" "completions/${pkgname}.fish"
-  install -Dm644 -t "${pkgdir}/usr/share/zsh/site-functions/" "completions/_${pkgname}"
+  install -Dm644 "completions/${pkgname}.zsh" "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
 }
