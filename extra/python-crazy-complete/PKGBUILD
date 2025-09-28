@@ -1,8 +1,8 @@
 # Maintainer: Brett Cornwall <ainola@archlinux.org>
 
 pkgname=python-crazy-complete
-pkgver=0.3.2
-pkgrel=3
+pkgver=0.3.5
+pkgrel=1
 pkgdesc="Generate shell auto completion files"
 arch=('any')
 url="https://github.com/crazy-complete/crazy-complete"
@@ -17,7 +17,7 @@ makedepends=(
     'python-setuptools'
 )
 source=("https://github.com/crazy-complete/crazy-complete/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('678e410e877e359ee5640e66cfcc5edcfc9e78721bf247c16f0d0f5e296ae10399438b2d79ef85a5f3e314260491cf4ea502b03b4a8fd418d33814a246f94b89')
+sha512sums=('ae6b6945675851f1e05c2caa220294c1b716c51c4ce90ab37daff97c04b2dc64a556f4a2c003e9b5327f343f3e94264fcdaa05789ca25f61faaaefcb77479aac')
 
 build() {
     cd "crazy-complete-$pkgver"
