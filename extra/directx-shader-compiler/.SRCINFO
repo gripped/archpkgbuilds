@@ -1,28 +1,25 @@
 pkgbase = directx-shader-compiler
-	pkgdesc = A compiler for HLSL to DXIL (DirectX Intermediate Language).
+	pkgdesc = Compiler for HLSL to DXIL (DirectX Intermediate Language)
 	pkgver = 1.8.2505.1
 	pkgrel = 1
 	url = https://github.com/microsoft/DirectXShaderCompiler
 	arch = x86_64
-	license = custom
-	makedepends = git
+	license = BSD-3-Clause
+	makedepends = clang
 	makedepends = cmake
+	makedepends = git
+	makedepends = libxml2
 	makedepends = ninja
 	makedepends = python
-	depends = ncurses
-	source = directx-shader-compiler::git+https://github.com/microsoft/DirectXShaderCompiler.git#tag=v1.8.2505.1
-	source = directx-shader-compiler-DirectX-Headers::git+https://github.com/microsoft/DirectX-Headers.git
-	source = directx-shader-compiler-SPIRV-Headers::git+https://github.com/KhronosGroup/SPIRV-Headers
-	source = directx-shader-compiler-SPIRV-Tools::git+https://github.com/KhronosGroup/SPIRV-Tools
-	source = directx-shader-compiler-effcee::git+https://github.com/google/effcee
-	source = directx-shader-compiler-googletest::git+https://github.com/google/googletest
-	source = directx-shader-compiler-re2::git+https://github.com/google/re2
-	sha256sums = 9fdf66b3a43d4fd3702b9ca4f7b73e77b27c7ef902a3bfa390cf1e53fc16e703
-	sha256sums = SKIP
-	sha256sums = SKIP
-	sha256sums = SKIP
-	sha256sums = SKIP
-	sha256sums = SKIP
-	sha256sums = SKIP
+	depends = gcc-libs
+	depends = glibc
+	source = directx-shader-compiler::git+https://github.com/microsoft/DirectXShaderCompiler#tag=v1.8.2505.1
+	source = directx-headers::git+https://github.com/microsoft/DirectX-Headers
+	source = git+https://github.com/KhronosGroup/SPIRV-Headers
+	source = git+https://github.com/KhronosGroup/SPIRV-Tools
+	b2sums = 3335d42eee2baa254a377c8e4273bd623374ddef12befb675f22018801c906fd70ebcf60cd289cefa33a6b4edba85c13f90a4f881f28306682e2661330da1c68
+	b2sums = SKIP
+	b2sums = SKIP
+	b2sums = SKIP
 
 pkgname = directx-shader-compiler
