@@ -1,13 +1,14 @@
 pkgbase = ibus-table-chinese
 	pkgdesc = Some table-based input method of tables engines for IBus
-	pkgver = 1.8.12
-	pkgrel = 3
+	pkgver = 1.8.13
+	pkgrel = 1
 	url = https://github.com/mike-fabian/ibus-table-chinese
 	arch = any
 	license = GPL3
+	makedepends = git
 	makedepends = cmake
 	depends = ibus-table
-	source = ibus-table-chinese-1.8.12.tar.gz::https://github.com/mike-fabian/ibus-table-chinese/archive/1.8.12.tar.gz
-	sha512sums = 418a93709e6e7cd56cb0251fedcce8c3640ccce54d822ff5051491c8b5b1ee7d547cea018019b91c1a091aa5243c347c4c9fdb66992b8dabf12ceb6719300a85
+	source = git+https://github.com/mike-fabian/ibus-table-chinese.git#tag=1.8.13
+	sha512sums = 704c9925a0f92fff26cb5b8d598e5abbc97181e2461fb0da9c0a02d52ef44c9db38600273b31e9880856ffabc37754c67f4f853b05bb126727fdbba81a689db2
 
 pkgname = ibus-table-chinese

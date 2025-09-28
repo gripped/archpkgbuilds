@@ -3,24 +3,24 @@
 # Contributor: Hiroshi Yui <hiroshiyui@gmail.com>
 
 pkgname=ibus-table-chinese
-pkgver=1.8.12
-pkgrel=3
+pkgver=1.8.13
+pkgrel=1
 pkgdesc="Some table-based input method of tables engines for IBus"
 arch=('any')
 url="https://github.com/mike-fabian/ibus-table-chinese"
 license=('GPL3')
 depends=('ibus-table')
-makedepends=('cmake')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/mike-fabian/ibus-table-chinese/archive/$pkgver.tar.gz")
-sha512sums=('418a93709e6e7cd56cb0251fedcce8c3640ccce54d822ff5051491c8b5b1ee7d547cea018019b91c1a091aa5243c347c4c9fdb66992b8dabf12ceb6719300a85')
+makedepends=('git' 'cmake')
+source=("git+https://github.com/mike-fabian/ibus-table-chinese.git#tag=$pkgver")
+sha512sums=('704c9925a0f92fff26cb5b8d598e5abbc97181e2461fb0da9c0a02d52ef44c9db38600273b31e9880856ffabc37754c67f4f853b05bb126727fdbba81a689db2')
 
 build() {
-  cd $pkgname-$pkgver
-  cmake . -DDATA_DIR=/usr/share -DPRJ_DOC_DIR=/usr/share/doc/$pkgname -DCMAKE_INSTALL_PREFIX=/usr
+  cd $pkgname
+  cmake . -DDATA_DIR=/usr/share -DPRJ_DOC_DIR=/usr/share/doc/$pkgname -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
