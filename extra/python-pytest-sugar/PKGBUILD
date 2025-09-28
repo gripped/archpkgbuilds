@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-sugar
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc='A plugin for py.test that changes the default look and feel of py.test'
 arch=('any')
@@ -10,7 +10,7 @@ url='https://github.com/Teemu/pytest-sugar'
 depends=('python' 'python-pytest' 'python-termcolor')
 makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 source=("git+https://github.com/Teemu/pytest-sugar.git#tag=v$pkgver")
-sha512sums=('f502e5a7a82227fa96d001131b4d9869c63aed0cd4dd8a236c22ffebce421339f3d7f571a93bf0c87c3636ab86a83a0df247152ebbc96d2627a826e15d4e7f48')
+sha512sums=('01ebc6c61bcfd4191f81dab4c22f3a353d63e11308e82932e5075fbd510871693d794ceec15d94d56eb3b91299a43a11e33cff4b0902984d7d6d8a703d356d18')
 
 build() {
   cd pytest-sugar
