@@ -8,7 +8,7 @@ pkgname=(
   gtk3-docs
 )
 pkgver=3.24.50
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="GObject-based multi-platform GUI toolkit"
 url="https://www.gtk.org/"
@@ -65,16 +65,24 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gtk.git#tag=$pkgver"
   gtk-query-immodules-3.0.hook
   0001-Allow-disabling-legacy-Tracker-search.patch
+  0002-gdk-Use-read_pixels-instead-of-get_pixels.patch
 )
 b2sums=('93ee986e75b2b94b50f1485a183d6ab558306bf17ab15a500ea485c40123257873a6a99fc5e20f864da6c561f0f6f4c7a15f42694bd691db03aeddd5dd6587d2'
         '8e6a3906126749c6d853f582e3802254cdbba099c6af7190ad576eff6ea5425404a72b1b36950a87e3afdac82295cfe246003172c3e0341a73bd931a36f3b407'
-        'f63a30a5823c564861145128a91b6d6ca4f13fd40cf09d1b8897bccaf8664af085b3cbe20ba7da6289439a820440a7af17b6281efea1f84a8c4decd62df00a54')
+        'f63a30a5823c564861145128a91b6d6ca4f13fd40cf09d1b8897bccaf8664af085b3cbe20ba7da6289439a820440a7af17b6281efea1f84a8c4decd62df00a54'
+        '15b5e791417e9bbd794bde79a5d17fea17c89f3b8e906afa058717dde3a534fd0a849a94de4bf78845daaa2d347e04cece9705886fc02ce8132570eec2d43970')
 
 prepare() {
   cd gtk
 
   # Don't try to use the old Tracker
   git apply -3 ../0001-Allow-disabling-legacy-Tracker-search.patch
+
+  # Xviewer crashes
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/gdk-pixbuf2/-/issues/6
+  # https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/issues/277
+  # https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/8995
+  git apply -3 ../0002-gdk-Use-read_pixels-instead-of-get_pixels.patch
 }
 
 build() {
