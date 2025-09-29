@@ -4,7 +4,7 @@
 
 pkgname=trivy
 pkgver=0.66.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Simple and Comprehensive Vulnerability Scanner for Containers, Suitable for CI'
 arch=('x86_64')
 url='https://github.com/aquasecurity/trivy'
@@ -35,7 +35,7 @@ build() {
   export CGO_LDFLAGS="${LDFLAGS}"
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
 
-  GO_LDFLAGS="-linkmode=external -s -w -X=github.com/aquasecurity/trivy/pkg/version/app.ver=${pkgver}"
+  GO_LDFLAGS="-linkmode=external -s -w -X=github.com/aquasecurity/trivy/pkg/version/app.ver=${pkgver} -buildid=''"
 
   go build -ldflags "${GO_LDFLAGS}" .
 }
