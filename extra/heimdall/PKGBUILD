@@ -1,14 +1,15 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
+# Contributor: Tim Schumacher <timschumi@gmx.de>
 
 pkgname=heimdall
 _pkgname=Heimdall
-pkgver=1.4.2
+pkgver=2.2.2
 _pkgver=v$pkgver
-pkgrel=9
-pkgdesc="Tool suite used to flash firmware (ROMs) onto Samsung Galaxy S devices"
+pkgrel=1
+pkgdesc="Tool suite used to flash firmware (ROMs) onto Samsung Galaxy S devices (grimler fork)"
 arch=(x86_64)
-url="https://glassechidna.com.au/heimdall/"
+url="https://git.sr.ht/~grimler/Heimdall"
 license=(MIT)
 depends=(
   gcc-libs
@@ -18,18 +19,17 @@ depends=(
 )
 makedepends=(
   cmake
-  qt5-base
+  qt6-base
 )
 optdepends=(
-  "android-udev: Udev rules to connect Android devices to your linux box"
-  "qt5-base: GUI support for heimdall-frontend"
+  "qt6-base: GUI support for heimdall-frontend"
 )
 source=(
-  $pkgname-$pkgver.tar.gz::https://gitlab.com/BenjaminDobell/Heimdall/-/archive/v$pkgver/$_pkgname-$_pkgver.tar.gz
+  $pkgname-$pkgver.tar.gz::https://git.sr.ht/~grimler/Heimdall/archive/$_pkgver.tar.gz
   $pkgname.desktop
 )
 sha256sums=(
-  "9f14beaca4a0ee6459b972c30eec1baccbd057726caafe4cbba6c30e0d5e7d56"
+  "7d01dd8bf9c2f93ea016ae8b059110c50cea49e78670e8a1333ebd5899cdaaa3"
   "439cea1a8976b9b589ffe4030a084243bcc5e937dcb9c571cdb94d3ff08b4fb4"
 )
 
@@ -38,7 +38,6 @@ build() {
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
-    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -S $_pkgname-$_pkgver
     -W no-dev
   )
