@@ -1,6 +1,6 @@
 pkgbase = endless-sky
 	pkgdesc = A sandbox-style space exploration and combat game
-	pkgver = 0.10.14
+	pkgver = 0.10.15
 	pkgrel = 1
 	url = https://endless-sky.github.io/
 	arch = x86_64
@@ -28,14 +28,16 @@ pkgbase = endless-sky
 	depends = util-linux-libs
 	depends = libglvnd
 	depends = minizip
+	depends = libavif
+	depends = flac
 	optdepends = endless-sky-high-dpi: high resolution graphics assets
-	source = endless-sky::git+https://github.com/endless-sky/endless-sky#tag=v0.10.14
+	source = endless-sky::git+https://github.com/endless-sky/endless-sky#tag=v0.10.15
 	source = fix-binary-install.patch
 	source = no-compress-manfile.patch
-	sha512sums = 5c487020c4529ea59f934b16a40d43fd8419074ad75cb43e94fc58277c9bd60cff02319ead970dbfaf6517b3652c04337eadd35fc8d12fc43c300d1cc2b3167c
+	sha512sums = 41a2dd1c1f8a5a9eeaff6004935c86fe426b3bafee0f050cba69f527e3702d82e9796319bdcab05bac6262a97a947b036d528a3a3401935631d8326052612477
 	sha512sums = 454a48ade614f30469a5d45271fb96b7e9d34cba40a5771e4b170213435cbce2c8aee07aad60ddb0e9b8e8f0c4963469b98a92ce6f1173be8100484ce4fc9252
 	sha512sums = 3012ffaa0e5f9754518d4620b0bf09de8b205f9e6147625aded8ea5eb58728e135abfa29d9d4660bd6ce11cf8e6366ddebb374b7762a0bc6fb67531b3b2a8414
-	b2sums = 31177c7163f8ed2d8b691ccf96311f40c3e3049d9fe75a6dda05881aa56c8d9c0ea7792c8db4f5fdab33bc41e130a4208525f4548f7e0828f45f70618c9df906
+	b2sums = 32dc41d1522247b10d1b7f694d4e86043fc115b61aafe7b9dd137c62d18677556e1d34f1d1004b99e4a2f1ed1220746b4c306091463c066580af186e3c1d7004
 	b2sums = 551192e7c8b3d90609e1556f91bbb0a5930cd136082051ba0c054b0acb0d77fc3c6aaffc60ab65755345083f5ed5f76013f0cb4abaf720c4cf8da2d213618c7a
 	b2sums = a4b4aececeea00fcf4a18b8bc4e56ba2049f9d8fc7ff4d533daf7e4d2c05f74c7b05eef4bf89046c57aa90532afd74d3f8228b402e1dec66edd8e7df604a6072
 
