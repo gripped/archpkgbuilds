@@ -1,0 +1,52 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Contributor: Dominic Meiser [git at msrd0 dot de]
+
+pkgname="probe-rs"
+pkgver=0.29.1
+pkgrel=2
+pkgdesc='A collection of on chip debugging tools to communicate with microchips.'
+url='https://probe.rs'
+license=('Apache-2.0' 'MIT')
+arch=('x86_64')
+depends=('gcc-libs' 'systemd-libs')
+makedepends=('cargo' 'cargo-auditable' 'cmake')
+optdepends=('rtthost: Real-time transfer client')
+conflicts=('cargo-embed' 'cargo-flash')
+
+source=("$pkgname-$pkgver.tar.gz::https://github.com/probe-rs/probe-rs/archive/v$pkgver.tar.gz"
+  "69-probe-rs.rules")
+sha512sums=('7c5453fb2c212ebf851cff32c53e5ed1dc9ed148e8585ccceb7ac7c5caca91d8b971ab4cb027deab749fff44133efc350ebb324f534dd6ad5936f242d9bc0281'
+            'bb16b7e2c1d1522bae4b457c3547337531d4ebc9f2db1f1e319c4d7ad4308da6888afa746516cb2a41349cca6114b7cf1927825936ab879b066b362197b15095')
+options=('!lto')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+
+  cargo auditable build \
+    --frozen \
+    --release
+}
+
+# TODO: Figure out how to run tests
+# check() {
+#   cd "$pkgname-$pkgver"
+#
+#   cargo test --frozen
+# }
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm755 "target/release/cargo-embed" -t "$pkgdir/usr/bin"
+  install -Dm755 "target/release/cargo-flash" -t "$pkgdir/usr/bin"
+  install -Dm755 "target/release/probe-rs" -t "$pkgdir/usr/bin"
+  install -Dm644 "$srcdir/69-probe-rs.rules" -t "$pkgdir//usr/lib/udev/rules.d/"
+  install -Dm644 LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim:set ts=2 sw=2 et:
