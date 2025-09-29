@@ -4,7 +4,7 @@
 # Contributor: uastasi <uastasi@archlinux.us>
 
 pkgname=gnote
-pkgver=49rc
+pkgver=49.0
 pkgrel=1
 pkgdesc="A note taking application"
 url="https://gitlab.gnome.org/GNOME/gnote/-/blob/49.rc/wiki/main.md"
@@ -35,7 +35,7 @@ makedepends=(
   yelp-tools
 )
 source=("git+https://gitlab.gnome.org/GNOME/gnote.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('21d344c2e197f14b598041903bf0957cb08c1880cf51e6fac8e43f0eaba4bc4aadfe40762ece360e754c4bd12a2a5b817b41d7baa369421eb9e428a4a4f8c7d2')
+b2sums=('5ae4505dedc771b175cf5d4320be35eca0950e86f21cc94d183fa3dc3565fb4dce2f90cd8f9b5a9e177d50ae8defb63f5b98214dd4d77675703f9ab5a5ddf67e')
 
 build() {
   arch-meson gnote build
