@@ -1,8 +1,8 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 
 pkgname=(lua-luaossl lua51-luaossl lua52-luaossl lua53-luaossl)
-pkgver=20220711
-pkgrel=3
+pkgver=20250929
+pkgrel=1
 pkgdesc='Most comprehensive OpenSSL module in the Lua universe'
 arch=('x86_64')
 url='http://25thandclement.com/~william/projects/luaossl.html'
@@ -10,16 +10,16 @@ license=('MIT')
 makedepends=('luarocks' 'lua' 'lua51' 'lua52' 'lua53')
 depends=('openssl')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/wahern/luaossl/archive/rel-$pkgver.tar.gz"
-      "https://github.com/wahern/luaossl/releases/download/rel-20220711/luaossl-$pkgver-0.rockspec")
-sha256sums=('f16c4cd2c880f270c1c73daa0a4bfdd11ae3155b92a2086863731e06d241300b'
-            '1ec15fc11183ca911af98c50472ac1e9693f8148e7065656a5f1a0f2dd9ec82c')
+      "https://github.com/wahern/luaossl/releases/download/rel-$pkgver/luaossl-$pkgver-0.rockspec")
+sha256sums=('2f695aea5f0bc0b9b32d3de56fffc5d41630f30bdd7e15bd68ce1f4bd3e8f61e'
+            'b4a726aa81341b877ca305f45f6386a7056f05019b02418a1e8c33d4f610a886')
 
 build() {
   cd "luaossl-rel-$pkgver"
   for v in 5.1 5.2 5.3 5.4; do
     mkdir -p "$v/"
     luarocks make --pack-binary-rock --lua-version="$v" --deps-mode=none \
-      CFLAGS="$CPPFLAGS $CFLAGS -fPIC" \
+      CFLAGS="-std=c17 $CPPFLAGS $CFLAGS -fPIC" \
       LIBFLAG="$LDFLAGS -shared" \
       ../luaossl-"$pkgver"-0.rockspec
     mv luaossl-"$pkgver"-0.*.rock "$v/"
