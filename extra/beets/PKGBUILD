@@ -3,7 +3,7 @@
 
 pkgname=beets
 pkgver=2.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Flexible music library manager and tagger'
 arch=(any)
 url=https://beets.io/
@@ -70,26 +70,29 @@ optdepends=(
   'python-requests-oauthlib: Beatport plugin'
   'python-xdg: Thumbnails plugin'
 )
-_tag=d487d675b9115672c484eab8a6729b1f0fd24b68
 source=(
-  git+https://github.com/beetbox/beets.git#tag=${_tag}
+  "$pkgname::git+https://github.com/beetbox/beets.git#tag=v$pkgver"
   beet
   fix-failing-tests.patch
 )
-b2sums=('9235806eccdf216dba0ed2e82c0ac07069c86bf5de27ac834e7287be64e8370d122558d0cdcb03ea0e5497d18a5dab388eec06b07dcd5c778e1541677c1cb0ae'
+sha512sums=('bac1c33e115578c55352ea6c4fe2c0f22df089a77ad5841536a6994893b50e7a41777f41fca3391c2a74607629777cb664731c1b0fa39415647b839b32f7923f'
+            '8f51ebcc253b0cf698adffae4d2d1a0ff29dcd2d503d0c5d284e9c5cd5981b0ffd190fce154b112ac3cbb419fc0813f2ccbd7e67e3abbdce043c0f6a967274ad'
+            '64e97a1063660a429ab66876bbc082bc23a880b1c8e00109570be9c9315fb61f1a6e7f442a6a97f80f09ac762a75b7f57cca468cc18f97c4ba98cf063ce91d89')
+b2sums=('94d2297215c04289ae373a90fafdbf1d080058ca70f8e1dbd162e7be637e35d13671b0a85dcf429bc0fde753c763d904509d40f802e3cfcb2a1a9c14c930c2b0'
         '1b36ba07d85f0fbcae0a3d8253ce2e5d7ecf8a17c6f0bb946579663de546d53cd4fe5da84ee8d880d7f95f48e66ef6010232a995d86d0c52b52218cd991a7782'
-        'ea86bebe533d9db32f6d8b1e77528774a741728f8c7589e15cc1fc581f15ea5137b7e88c549168e70c33e86131a0f3dfae76c023270bc300a96fbd5b0d820d70')
+        'da0ff333d20d4225cccbe9d1934b6e5bc09aeca8555c2be670652377f0dae028cebffa4b103df67defc9653a0aeec3556e3dd4c6f235a15fac0ffab44281e81c')
 
 prepare() {
-  cd beets
-  git describe --tags | sed 's/^v//'
+  cd "$pkgname"
+
   patch -p1 -i "$srcdir/fix-failing-tests.patch"
 }
 
 build() {
   cd beets
-  make -C docs man
+
   python -m build --wheel --no-isolation
+
 }
 
 check() {
@@ -111,8 +114,6 @@ package() {
   python -m installer --destdir="$pkgdir" beets/dist/*.whl
   install -Dm 644 beet -t "${pkgdir}"/usr/share/bash-completion/completions/
   install -Dm 644 beets/extra/_beet -t "${pkgdir}"/usr/share/zsh/site-functions/
-  install -Dm 644 beets/docs/_build/man/beet.1 -t "${pkgdir}"/usr/share/man/man1/
-  install -Dm 644 beets/docs/_build/man/beetsconfig.5 -t "${pkgdir}"/usr/share/man/man5/
   install -Dm 644 beets/LICENSE -t "${pkgdir}"/usr/share/licenses/beets/
 }
 
