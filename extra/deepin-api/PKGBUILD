@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-api
-pkgver=6.0.23
+pkgver=6.0.24
 pkgrel=1
 pkgdesc='Dbus interfaces for miscellaneous desktop services'
 arch=('x86_64')
@@ -21,11 +21,8 @@ depends=('alsa-utils' 'bc' 'fontconfig' 'glib2' 'gdk-pixbuf-xlib' 'gtk3' 'libcan
          'deepin-application-manager')
 makedepends=('git' 'deepin-gettext-tools' 'go')
 groups=('deepin')
-install=deepin-api.install
-source=("git+https://github.com/linuxdeepin/dde-api#tag=$pkgver"
-        deepin-api.sysusers)
-sha512sums=('2854de1e10159f6c8471e753ebf5c82562007c54743e4d1de3f7b75f07adad855c8a7c2a8b544bcd9af86951c97eaa1cf48e9582d5b085d6400b0a443dafaed7'
-            'e894eb3928af9e244fa78010fdf16c8abb6ce18df114cf05327d02b18774d6ba5b023e4dfa0d07042f4e44a5c6e2ddb55b07f3e0db466a0e6169b52465fdefd6')
+source=("git+https://github.com/linuxdeepin/dde-api#tag=$pkgver")
+sha512sums=('765afda49373170fdc8a8b71970ce61724d80552754a5df1f44a6ac65102124b06d6860fecaa7ffb1b0a832a8a7fe29512840b7ca085f796f553652b477691e1')
 
 prepare() {
   cd dde-api
@@ -46,6 +43,4 @@ build(){
 package() {
   cd dde-api
   make DESTDIR="$pkgdir" SYSTEMD_LIB_DIR=/usr/lib install
-
-  install -Dm644 ../deepin-api.sysusers "$pkgdir"/usr/lib/sysusers.d/deepin-api.conf
 }
