@@ -5,11 +5,12 @@
 
 pkgname=pymol
 _project=pymol-open-source
-pkgver=3.0.0
-pkgrel=10
+pkgver=3.1.0
+pkgrel=1
 pkgdesc='Molecular visualization system on an Open Source foundation'
 arch=(x86_64)
 url=https://pymol.org
+_url="https://github.com/schrodinger/$_project"
 license=(custom)
 depends=(freetype2
          gcc-libs
@@ -21,44 +22,43 @@ depends=(freetype2
          python
          python-numpy
          tcsh)
-makedepends=(desktop-file-utils
+makedepends=(cmake
+             desktop-file-utils
              gendesk
              mmtf-cpp
              msgpack-c
              python-{build,installer,wheel}
              python-setuptools)
 _archive="$_project-$pkgver"
-source=("https://github.com/schrodinger/pymol-open-source/archive/v$pkgver/$_archive.tar.gz"
-        "$pkgname.png::https://c.fsdn.com/allura/p/pymol/icon")
-sha256sums=('45e800a02680cec62dff7a0f92283f4be7978c13a02934a43ac6bb01f67622cf'
-            '0ea81faaf336becc669a193777d0dca55475d303d1236b57df25cf67ff7c2bcd')
-changelog=ChangeLog
+source=("$_url/archive/v$pkgver/$_archive.tar.gz"
+        "$pkgname.svg::$_url/raw/refs/tags/v$pkgver/data/pymol/icons/icon2.svg")
+sha256sums=('54306d65060bd58ed8b3dab1a8af521aeb4fd417871f15f463ff05ccb4e121fe'
+            'a4406d7143159b8199882f3cffdb960354924bf40818a81ea3013f9b718b18a8')
 
 prepare() {
 	cd "$_archive"
-	# suppress non-zero exit code that breaks makepkg
-	sed -i -e '/sys.exit/ s,2,0,' setup.py
-	# setup script PEP 517 compatiblitiy is broken
-	local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-	sed -i -E '/def (finalize_options|make_launch_script)/a \        self.install_libbase="'$site_packages'"' setup.py
+	# unpin over-aggressive dependency pinning (upstream claims numpy 2+ is a performance regression)
+	sed -i -e '/numpy/s/>.*"/"/g' pyproject.toml
+	# both PEP517 instructions and legacy shims try to create the same binary
+	sed -i -e '/pymol:launch/d' pyproject.toml
 }
 
 build() {
 	# create desktop file
 	gendesk -f -n \
 			--pkgname "$pkgname" \
-			--name="PyMOL Molecular Graphics System" \
+			--name "PyMOL Molecular Graphics System" \
 			--pkgdesc "$pkgdesc" \
-			--exec="$pkgname %F" \
-			--mimetypes="chemical/x-pdb;chemical/pdby;chemical/x-mol2;chemical/x-mdl-molfile;chemical/x-mdl-sdfile;chemical/x-xyz;chemical/x-macromodel-input;chemical/x-vmd" \
-			--categories="Science;Chemistry"
+			--exec "$pkgname %F" \
+			--mimetypes "chemical/x-pdb;chemical/pdby;chemical/x-mol2;chemical/x-mdl-molfile;chemical/x-mdl-sdfile;chemical/x-xyz;chemical/x-macromodel-input;chemical/x-vmd" \
+			--categories "Science"
 	cd "$_archive"
 	python -m build -wn
 }
 
 package() {
 	install -Dm0644 -t "$pkgdir/usr/share/applications/" "$pkgname.desktop"
-	install -Dm0644 -t "$pkgdir/usr/share/pixmaps/" "$pkgname.png"
+	install -Dm0644 -t "$pkgdir/usr/share/pixmaps/" "$pkgname.svg"
 	cd "$_archive"
 	python -m installer -d "$pkgdir" dist/*.whl
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
