@@ -2,8 +2,8 @@
 # Contributor: mutantmonkey <aur@mutantmonkey.in>
 
 pkgname=spice-vdagent
-pkgver=0.22.1
-pkgrel=5
+pkgver=0.23.0
+pkgrel=1
 pkgdesc='Spice agent for Linux guests'
 arch=(x86_64)
 url='https://www.spice-space.org/'
@@ -28,14 +28,14 @@ makedepends=(
 checkdepends=(procps-ng)
 backup=(etc/conf.d/spice-vdagentd)
 source=("git+https://gitlab.freedesktop.org/spice/linux/vd_agent.git?signed#tag=$pkgname-$pkgver")
-b2sums=(82f0ed08f898d8fdefc43433c56a0dd6436f84cb9071e15c8f3179176708bf52fbd648a003a977706475c1ae9137443c820743824d47a89407d86b7a34605b8a)
-validpgpkeys=(206D3B352F566F3B0E6572E997D9123DE37A484F) # Victor Toso de Carvalho <me@victortoso.com>
+b2sums=(63a98f6d07afe920a024e4e2990452ef28271c9b95fc79f2af4cc5ddc49e10b8b9d9b051d78c72ccdef265096530576d122fc5d4da99bfc0a063a6281302bbea)
+validpgpkeys=(
+  206D3B352F566F3B0E6572E997D9123DE37A484F # Victor Toso de Carvalho <me@victortoso.com>
+  87A9BD933F87C606D276F62DDAE8E10975969CE5 # Marc-André Lureau <marcandre.lureau@redhat.com>
+)
 
 prepare() {
   cd vd_agent
-
-  # Apply fixes from upstream
-  git cherry-pick -n spice-vdagent-0.22.1..8b0f9cf1e207eb1160d8b453a77b662e783ea9d7
 
   # Skip broken test
   sed -i '/check_PROGRAMS += tests\/test-session-info/d' Makefile.am
