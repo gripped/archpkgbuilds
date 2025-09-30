@@ -6,7 +6,7 @@ pkgbase=lib32-gdk-pixbuf2
 pkgname=(
   lib32-gdk-pixbuf2
 )
-pkgver=2.44.2
+pkgver=2.44.3
 pkgrel=1
 pkgdesc="An image loading library (32-bit)"
 url="https://wiki.gnome.org/Projects/GdkPixbuf"
@@ -30,7 +30,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gdk-pixbuf.git#tag=$pkgver"
   gdk-pixbuf-query-loaders-32.hook
 )
-b2sums=('e57d41ade667bfbc8ee550704f2287b59e8c03b1fbedbb04d7c05e7e615b4f1d455feea89ab1df41088eff502be0907cfb3a85d21afacb88c5590faa277b78ce'
+b2sums=('2e56c33e61b6e2f2fafaa1f7997878b1de992e86b922e0da94f16b5112d72d95a88644b1f9d215f911fbb2a18e07bd67850af75b2afb0a61d5d575460fcb0945'
         '0b432bdeb31acdd66c8a861551cabf4f83efd3c441614dbb64b7ac11fdbb97c76412b5706bb18ff1ed890de0a4c51bf02bb531eb4693e6d68021b5372cb5897a')
 
 prepare() {
