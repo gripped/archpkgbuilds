@@ -1,11 +1,12 @@
 pkgbase = python-pipx
 	pkgdesc = Install and Run Python Applications in Isolated Environments
-	pkgver = 1.7.1
-	pkgrel = 2
+	pkgver = 1.8.0
+	pkgrel = 1
 	url = https://github.com/pypa/pipx
 	arch = any
 	license = MIT
 	license = BSD
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-hatchling
@@ -16,7 +17,7 @@ pkgbase = python-pipx
 	depends = python-argcomplete
 	depends = python-packaging
 	depends = python-platformdirs
-	source = python-pipx-1.7.1.tar.gz::https://github.com/pypa/pipx/archive/1.7.1.tar.gz
-	sha512sums = 6375d413974477f488eb8c8d95594f39cf7c54e4c09639c95cb82ed58467266c0124259b1a1fc07596ac0fbffc9fd2ff2fffe58083d78e67ca9f056f2353852f
+	source = git+https://github.com/pypa/pipx.git#tag=1.8.0
+	sha512sums = e3d42b2e486318ac56205aa2770c0a636866d2d4a6f195a6a510777b18ae8f3152f626c3dd7377247d08375603a33342a4b4e220a53108fa80aa15bd7c02dea3
 
 pkgname = python-pipx
