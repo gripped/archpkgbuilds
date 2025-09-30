@@ -2,17 +2,17 @@
 
 _hkgname=casa-types
 pkgname=haskell-casa-types
-pkgver=0.0.2
-pkgrel=604
+pkgver=0.0.3
+pkgrel=1
 pkgdesc="Content Addressable Storage Archive types"
-url="https://github.com/fpco/casa"
-license=('MIT')
+url="https://github.com/commercialhaskell/casa"
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base16-bytestring'
          'haskell-hashable' 'haskell-path-pieces' 'haskell-persistent')
 makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('a54bb7f15310878e0a4c0524749ba8c8de8537a60892d278941cacefb80ad9d31e9ba16dd236c196b6639758f281f9ae66911d04c39b0ec6e2b75db5127ad5bf')
+sha512sums=('4aab5db507a4f9ad12e0b7ce34e6e384dd1a6d7878fb2a72c42bd072f7e44d321e560294777e32686a6d076ebcc08d1c709437ac6654b1491bbd8ab6aab533e8')
 
 prepare() {
     cd $_hkgname-$pkgver
