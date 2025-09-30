@@ -2,21 +2,20 @@
 
 _hkgname=topograph
 pkgname=haskell-topograph
-pkgver=1.0.0.2
-pkgrel=138
+pkgver=1.0.1
+pkgrel=1
 pkgdesc="Directed acyclic graphs"
 url="https://github.com/phadej/topograph"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-base-compat' 'haskell-base-orphans' 'haskell-vector')
+depends=('ghc-libs' 'haskell-base-orphans' 'haskell-vector')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('d19e45680a8b6938e91f641096ddb6c879473f025af3688f532f90619ce2d721')
+sha256sums=('95aeb0960f2b7441ebb7dd7fbde7fdff60b2f19dc323cccae9148899dce3de0a')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u base-orphans -u base-compat
 }
 
 build() {
@@ -33,6 +32,11 @@ build() {
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
   sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+  cd $_hkgname-$pkgver
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
