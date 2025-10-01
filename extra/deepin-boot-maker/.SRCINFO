@@ -1,21 +1,25 @@
 pkgbase = deepin-boot-maker
 	pkgdesc = Tool to create a bootable usb stick quick and easy
-	pkgver = 5.10.0
+	pkgver = 6.0.0
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-boot-maker
 	arch = x86_64
 	groups = deepin-extra
 	license = GPL3
 	makedepends = git
-	makedepends = qt5-tools
+	makedepends = qt6-tools
 	makedepends = python
 	makedepends = gtest
-	depends = deepin-qt5integration
+	depends = dtk6core
+	depends = dtk6gui
+	depends = dtk6widget
+	depends = qt6-base
+	depends = qt6-svg
 	depends = p7zip
 	depends = mtools
-	depends = polkit-qt5
+	depends = polkit-qt6
 	depends = syslinux
-	source = git+https://github.com/linuxdeepin/deepin-boot-maker.git#tag=5.10.0
-	sha512sums = 705482bbb3febc0601287c8a2107c36992e608f3253939cc067bbfbda5e29dba66cb1fe781fb134a5753f2dd15950fd4f6511d922722d3b8b2ba44e332fd63da
+	source = git+https://github.com/linuxdeepin/deepin-boot-maker.git#tag=6.0.0
+	sha512sums = 69775c4cbc4c0f9ce2e338c569059f4c95471359b3d87b1ab7428841b0e740e90fc970fa5327ab443a78cdfb05554de1115e3df488edb4c19395fa28d829f4a0
 
 pkgname = deepin-boot-maker
