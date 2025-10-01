@@ -4,7 +4,7 @@
 _hkgname=hasql
 pkgname=haskell-hasql
 pkgver=1.5.0.5
-pkgrel=93
+pkgrel=94
 pkgdesc="An efficient PostgreSQL driver and a flexible mapping API"
 url="https://github.com/nikita-volkov/hasql"
 license=('MIT')
@@ -22,6 +22,7 @@ sha512sums=('7dc0e5d70e7bfc9f68d00856697142579020040e857810291b35e3f0a00aa835b4c
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
+    uusi -u tasty-quickcheck
 
     # Do not use default postgres port
     sed -i 's/5432/9824/' tasty/Main/*.hs threads-test/*.hs profiling/*.hs
