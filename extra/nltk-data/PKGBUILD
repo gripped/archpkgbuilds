@@ -11,8 +11,8 @@
 #
 
 pkgname=nltk-data
-pkgver=3.9.1
-pkgrel=3
+pkgver=3.9.2
+pkgrel=1
 pkgdesc='Corpora, grammars and other linguistic data for NLTK'
 arch=(any)
 url='https://www.nltk.org/data.html'
@@ -45,6 +45,7 @@ https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/conll
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/crubadan.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/dependency_treebank.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/dolch.zip
+https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/english_wordnet.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/europarl_raw.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/extended_omw.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/floresta.zip
@@ -68,6 +69,7 @@ https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/chunkers/maxe
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/chunkers/maxent_ne_chunker_tab.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/taggers/maxent_treebank_pos_tagger.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/taggers/maxent_treebank_pos_tagger_tab.zip
+https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/mock_corpus.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/models/moses_sample.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/movie_reviews.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/mte_teip5.zip
@@ -138,7 +140,9 @@ https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/wordn
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/wordnet_ic.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/words.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/ycoe.zip
-license-from-upstream
+https://raw.githubusercontent.com/nltk/nltk_data/refs/heads/gh-pages/LICENSE
+https://raw.githubusercontent.com/nltk/nltk_data/refs/heads/gh-pages/LICENSE-OVERVIEW.md
+https://raw.githubusercontent.com/nltk/nltk_data/refs/heads/gh-pages/DATASET-LICENSES.md
 )
 b2sums=('ba28be6f7d5fcd1840af11bae1e669233a151f9d6a5ae1a958ab5b5b8bf33eaac03a5172f87bd0dd481b1cd069fa107d0fadd6f5cf037eee4350652a58e21bcc'
         '54cff649a36e0eefd74b217ee5c4fa1be464edebb5b4bbf004960487fe172e6e623b5fb9b104da34e109eac3dbed02397119b7998ed8db8b32dfd62ab436f4bd'
@@ -166,6 +170,7 @@ b2sums=('ba28be6f7d5fcd1840af11bae1e669233a151f9d6a5ae1a958ab5b5b8bf33eaac03a517
         '2f5103c9801b965ce5d893b690dedc5f8524b1266e32a01251834c80cf291963657b3c1366ef6ed21f9f89c9ab4a696de72a752ce53b651d596ade99edaace2e'
         'a60a95f9bcbb72b4ee19a91c380eb620261687f23bd867ae4cf2d7937b60b8dacafb52c09d7bcbcb9fbbbda4e57954ee55a900d70e69e7e290e53c668dd0775f'
         'a79b5d5de2ab03be43e5fdb1b34c70a458af6efce0e35f42f3c4d748c84cd950c98981f969fea2b0507ee405438f84b50e526aa94a93f99de7567ccb5c462215'
+        '83b3ccd6f8b08b4310b067775bbd80c135b5fb1161483f27572f30a8ab9b16f19d00def11f437b4d937a89d9f200e20780f4b2ce9e5590406e6ba018b116ae1b'
         '295e274880ae34c9618a70cabc1b1075e35c442158aabe437972caebbf36d09c4f5f5b66d8ae7ac953f4312f9dac8f5e0c6d3346a444afe98ac700fb3e622539'
         '11dafcc49c3608e5178b2cf82a943a95afd900f80308bf40d56b29a4518029832fe52241df728f6c38114e60b9c03617337717d987221918a11810b77b1b33ea'
         '092886cb15c6215b4fe979ce62a1a137de97c4749c372426211d36117d367697d19ebe6a9337f702ee9dfc133318b1e7de51393c5a41afc31a960e10ebe7c498'
@@ -189,6 +194,7 @@ b2sums=('ba28be6f7d5fcd1840af11bae1e669233a151f9d6a5ae1a958ab5b5b8bf33eaac03a517
         '544d8c13a3fd74ee19c3427eda0c5a3bc20e3f5dce606e1fe7ad1826e7310cac425dcf8223e31b8051af2d8c0cb40cbfd8efb956aff6ff5813aba5195c426d51'
         'ca58a0ca3e280d4acf77fc15102ab52d5fbbf2d83a6dfb91228eb7ca3585f8b1e567847c037221b3cf1650d086c1de2fcef3098a3859603f58a2cf24a6b77719'
         '0f41accb06e9371be3e4b196c8716d5dc8714c16e8a69d0afdfb94befd3e3241fa602345c24faf5af6748ad3867d8a8a5ba0f9c39af7243717549c0c37fee608'
+        '2f30b7d3c396ac29872897a4668858cfd9ac7cebd603ea2cc3e800db33e51e73f7b0fdb8730ccb261840a0caefd4f695e2624020d9262c863eef380cd81730b3'
         '29d4a055788f7fd87b2969a1396eb655dec29ff206e705c31bbfbecd88ab18e4dbfd7409f5c21cd5a53e3461c183628fe689634ccdbb8f24cdeef56bba230730'
         'fcdc45d77db5c89ec96ee327487e3ee17b89110c8b83f188bac868f476425e732a734e667ae3fab84cd0a2e7fdd49baf33304ffb443d17a3ebf3505a54c8e9d4'
         '32de06f0cc6111a4ccc1cbc99070e17018eafa45ebde6f99f8027beaacffbde1db7db9d6d2ad1044f431c52297d1809ed76a3b78543506c620bbddce88c8ea41'
@@ -259,19 +265,23 @@ b2sums=('ba28be6f7d5fcd1840af11bae1e669233a151f9d6a5ae1a958ab5b5b8bf33eaac03a517
         'c2dc2a646015b23699a72f636b588ec5718c70e6941d9d56863257e1e0396c8cf59ac1dc6ed74e5d7f0c2ee9129d63221a03967bf66a3d335e99160f295ed44d'
         'eaaaaab6c26e206e9b6ce45daf779e3cc6706a06132afeabf013026d0009caee2d678f3c4ea9125b9654f7143bef29ec7a5706b79e5650ea556c6821b7754e6f'
         '574835aa011a06a06363e26facd6a6f583a1dc1cac2de39adff59d8ab48eefac030b43d935a2f79af855259f2a9a571193dae2811589483af97406ff05c76c9e'
-        '3a58c8246f732dc130f9cd359726047b79a5ca3ed0210016f0255e24617ba2071d2d6911c113ee4563474c2e95d4bcf7df7ddeea9be1dce3866dde9e895a3c97')
+        'a29664104e1ee73ca0aee1d633e9095d92a57c92787f8d8740bdb7211ba3205782ed8677f539bdb8cae3dd75a3694be3132e185fa3fc4b3f401e1f88eb776101'
+        'b35e43b4081f6f557ad5a796a6cd615c6ab667fcbc43f372ee8695c3c5310e690f655a54a632690274b09b7bb3a5eafd5770698d83c0ef8ccb08fca3028ed70c'
+        'acbfb021685e5b681319a5e9c1ab6bba4e28502f7d65dccbb1ce8aff89a930deb4a3def5e84c328e6753810bab50dcb2663be67d2ef5540c62e049a6ac751b72')
 
 package() {
   install -d "$pkgdir/usr/share/nltk_data"
   find * -type d -exec cp -r "{}" "$pkgdir/usr/share/nltk_data" \;
   for surl in "${source[@]}"; do
     dirname="$(dirname $surl | cut -d/ -f8)"
-    [ "$surl" = "license-from-upstream" ] && continue || true
+    [[ "$surl" == *.zip ]] && true || continue
     zipdirname=$(basename -s .zip "$surl")
     install -d "$pkgdir/usr/share/nltk_data/$dirname"
     mv "$pkgdir/usr/share/nltk_data/$zipdirname" "$pkgdir/usr/share/nltk_data/$dirname/$zipdirname"
   done
   find "$pkgdir/usr/share/nltk_data/" -type f -exec chmod 0644 {} \;
   find "$pkgdir/usr/share/nltk_data/" -type d -exec chmod 0755 {} \;
-  install -Dm644 license-from-upstream "$pkgdir/usr/share/licenses/nltk-data/LICENSE"
+  for lFile in LICENSE LICENSE-OVERVIEW.md DATASET-LICENSES.md; do
+    install -Dm644 "$lFile" "$pkgdir/usr/share/licenses/nltk-data/$lFile"
+  done
 }
