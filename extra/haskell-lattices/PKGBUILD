@@ -3,7 +3,7 @@
 _hkgname=lattices
 pkgname=haskell-lattices
 pkgver=2.2.1
-pkgrel=80
+pkgrel=81
 pkgdesc="Fine-grained library for constructing and manipulating lattices"
 url="https://github.com/phadej/lattices/"
 license=('BSD-3-Clause')
@@ -11,9 +11,14 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-hashable' 'haskell-integer-logarithms'
         'haskell-semigroupoids' 'haskell-tagged' 'haskell-universe-base'
         'haskell-universe-reverse-instances' 'haskell-unordered-containers')
-makedepends=('ghc' 'haskell-quickcheck-instances' 'haskell-tasty' 'haskell-tasty-quickcheck')
+makedepends=('ghc' 'uusi' 'haskell-quickcheck-instances' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('27063f2343b1547033cd59f61b27f797041ed0c25c921f253ce82dc6fffa7666')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  uusi -u tasty-quickcheck
+}
 
 build() {
   cd $_hkgname-$pkgver    
