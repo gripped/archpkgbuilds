@@ -3,7 +3,7 @@
 _hkgname=integer-conversion
 pkgname=haskell-integer-conversion
 pkgver=0.1.1
-pkgrel=43
+pkgrel=44
 pkgdesc="Conversion from strings to Integer"
 url="https://github.com/phadej/integer-conversion"
 license=('BSD-3-Clause')
@@ -16,6 +16,7 @@ sha256sums=('c18164a048073310f6353ebc64c9037b52a4b8299963ce05e027bcf60e22155a')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u tasty-quickcheck
 }
 
 build() {
