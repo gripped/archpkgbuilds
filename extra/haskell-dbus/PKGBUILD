@@ -4,7 +4,7 @@
 _hkgname=dbus
 pkgname=haskell-dbus
 pkgver=1.3.3
-pkgrel=52
+pkgrel=53
 pkgdesc="A client library for the D-Bus IPC system"
 url="https://john-millikin.com/software/haskell-dbus/"
 license=('Apache-2.0')
@@ -20,7 +20,7 @@ sha512sums=('70b0514d5c5a59d17ef0f51c4d2f6be91e72517666d21d902d1411efc256e009f97
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u lens
+    uusi -u lens -u tasty-quickcheck
 }
 
 build() {
