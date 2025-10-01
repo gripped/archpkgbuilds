@@ -3,7 +3,7 @@
 _hkgname=ghc-source-gen
 pkgname=haskell-ghc-source-gen
 pkgver=0.4.6.0
-pkgrel=59
+pkgrel=60
 pkgdesc="Constructs Haskell syntax trees for the GHC API."
 url="https://github.com/google/ghc-source-gen#readme"
 license=('BSD-3-Clause')
@@ -16,7 +16,7 @@ sha256sums=('948e1c058739097ef5bb213da4fa13759ae4a15e58d969934fe2557994762f03')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u QuickCheck
+  uusi -u QuickCheck -u tasty-quickcheck
 }
 
 build() {
