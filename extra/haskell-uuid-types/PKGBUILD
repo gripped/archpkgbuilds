@@ -4,7 +4,7 @@
 _hkgname=uuid-types
 pkgname=haskell-uuid-types
 pkgver=1.0.6
-pkgrel=186
+pkgrel=190
 pkgdesc="Type definitions for Universally Unique Identifiers"
 url="https://github.com/aslatter/uuid"
 license=('BSD-3-Clause')
@@ -18,7 +18,7 @@ sha512sums=('9d5cd688cee15f8210aeaceb8884144bbd679e9556ca43e4c61a9ce4115809dbc30
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u QuickCheck
+    uusi -u QuickCheck -u tasty-quickcheck
 }
 
 build() {
