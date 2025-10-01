@@ -3,7 +3,7 @@
 _hkgname=serialise
 pkgname=haskell-serialise
 pkgver=0.2.6.1
-pkgrel=156
+pkgrel=157
 pkgdesc="A binary serialisation library for Haskell values"
 url="https://github.com/well-typed/cborg"
 license=('BSD')
@@ -20,7 +20,7 @@ sha512sums=('ffe43d96f0427fe1f1da47a01df7c7f86157b61180adf420bd698ee9ed3186cc545
 prepare() {
     cd $_hkgname-$pkgver
     patch -p2 -i ../$pkgname-quickcheck-instances-0.3.32.patch
-    uusi -u QuickCheck
+    uusi -u QuickCheck -u tasty-quickcheck
 }
 
 build() {
