@@ -1,6 +1,6 @@
 pkgbase = python-pytest-randomly
 	pkgdesc = Pytest plugin to randomly order tests and control random.seed
-	pkgver = 3.16.0
+	pkgver = 4.0.0
 	pkgrel = 1
 	url = https://github.com/pytest-dev/pytest-randomly
 	arch = any
@@ -9,12 +9,13 @@ pkgbase = python-pytest-randomly
 	checkdepends = python-faker
 	checkdepends = python-numpy
 	checkdepends = python-pytest-xdist
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
 	depends = python-pytest
-	source = python-pytest-randomly-3.16.0.tar.gz::https://github.com/pytest-dev/pytest-randomly/archive/3.16.0.tar.gz
-	sha512sums = 310605c6acaa4a9e1aa6689594d047c7edb1ef8597091d6eac884ca5920c2e29eb02cafdaaf5202d2c0b1c5ac7ad13988230597267336a0347be0bd60a8b67f0
+	source = git+https://github.com/pytest-dev/pytest-randomly.git#tag=4.0.0
+	sha512sums = 31b4228b31a6ce989c08a0bfb4d1014f3fda1626b523e155109c26f7504c437413b0b2e907bbd9383656d80397221ed89b6da0fc336ef781b18c3bb160ebc8ed
 
 pkgname = python-pytest-randomly

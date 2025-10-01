@@ -1,25 +1,25 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-randomly
-pkgver=3.16.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='Pytest plugin to randomly order tests and control random.seed'
 arch=('any')
 license=('MIT')
 url='https://github.com/pytest-dev/pytest-randomly'
 depends=('python-pytest')
-makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-factory-boy' 'python-faker' 'python-numpy' 'python-pytest-xdist')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/pytest-dev/pytest-randomly/archive/$pkgver.tar.gz")
-sha512sums=('310605c6acaa4a9e1aa6689594d047c7edb1ef8597091d6eac884ca5920c2e29eb02cafdaaf5202d2c0b1c5ac7ad13988230597267336a0347be0bd60a8b67f0')
+source=("git+https://github.com/pytest-dev/pytest-randomly.git#tag=$pkgver")
+sha512sums=('31b4228b31a6ce989c08a0bfb4d1014f3fda1626b523e155109c26f7504c437413b0b2e907bbd9383656d80397221ed89b6da0fc336ef781b18c3bb160ebc8ed')
 
 build() {
-  cd pytest-randomly-$pkgver
+  cd pytest-randomly
   python -m build -nw
 }
 
 check() {
-  cd pytest-randomly-$pkgver
+  cd pytest-randomly
   python -m installer -d tmp_install dist/*.whl
   # tests/test_pytest_randomly.py::test_model_bakery requires python-model-bakery which is not packaged
   # tests/test_pytest_randomly.py::test_entrypoint_injection: TODO
@@ -30,7 +30,7 @@ check() {
 }
 
 package() {
-  cd pytest-randomly-$pkgver
+  cd pytest-randomly
   python -m installer -d "$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
