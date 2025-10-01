@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dtk6gui
-pkgver=6.0.42
+pkgver=6.0.43
 pkgrel=1
 epoch=1
 pkgdesc='Deepin Toolkit, gui module for DDE look and feel'
@@ -11,17 +11,8 @@ license=('LGPL-3.0-or-later')
 # libqtxdg: doesn't compile yet
 depends=('glibc' 'dtk6core' 'librsvg' 'qt6-base' 'qt6-wayland' 'glib2' 'libx11' 'gcc-libs')
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'gtest' 'doxygen' 'treeland-protocols')
-source=("git+https://github.com/linuxdeepin/dtk6gui.git#tag=$pkgver"
-         qt-6.9.patch
-         pwd-include.patch)
-sha512sums=('471572c117c60537988c10d97d867c9d63e1ba46e284ac6153af417c94de9da46cf0b5a47d38b137186eb3193cd9d71131ef969042a6fa6bd46479d3250c5679'
-            'f5a778971f2387d2ba9abc7f6a7a0f887adcc7b605eb9d73daea40d4d98a68122db1cdea068625f48f4c28ccb91752ba64a9c3c7943a07a9b058901c8ceb2b47'
-            '4c4118e7f5657a9fcee40c30bc47b4d943f4fc7ad1a967bca5709bd75c3f1231f24a7f36f8f77caed630fd6ee46a104d4abbb0419d5d26ecc4ab474357988fd1')
-
-prepare() {
-  patch -d $pkgname -p1 < qt-6.9.patch
-  patch -d $pkgname -p1 < pwd-include.patch
-}
+source=("git+https://github.com/linuxdeepin/dtk6gui.git#tag=$pkgver")
+sha512sums=('84ff1b003216454c5a1b23a41f8c263a4f3bbdfb03b90822f0cbc27eec36be1d2d748866abca5e042dcc97ad8a635bed0dc0bca9a5c321fc69b5e968f55f93e6')
 
 build() {
   cd dtk6gui
