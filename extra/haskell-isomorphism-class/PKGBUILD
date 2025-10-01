@@ -3,7 +3,7 @@
 _hkgname=isomorphism-class
 pkgname=haskell-isomorphism-class
 pkgver=0.1.1
-pkgrel=74
+pkgrel=75
 pkgdesc="Isomorphism typeclass solving the conversion problem"
 url="https://github.com/nikita-volkov/isomorphism-class"
 license=("MIT")
@@ -21,6 +21,7 @@ prepare() {
   cd $_hkgname-$pkgver
   patch -p1 -i ../$pkgname-quickcheck-instances-0.3.32.patch
   gen-setup
+  uusi -u tasty-quickcheck
 }
 
 build() {
