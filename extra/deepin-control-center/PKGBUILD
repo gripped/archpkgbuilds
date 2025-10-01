@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-control-center
-pkgver=6.0.76.2
+pkgver=6.0.77
 pkgrel=1
 pkgdesc='Control panel of Deepin Desktop Environment'
 arch=('x86_64')
@@ -13,7 +13,7 @@ license=('GPL-3.0-or-later')
 depends=('dtk6core' 'dtk6declarative' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-declarative'
          'qt6-multimedia' 'qt6-svg' 'qt6-wayland' 'deepin-account-faces' 'deepin-api' 'libpwquality'
          'deepin-daemon' 'startdde' 'deepin-pw-check' 'deepin-network-core' 'deepin-desktop-theme'
-         'icu')
+         'icu' 'polkit-qt6')
 makedepends=('git' 'cmake' 'deepin-tray-loader' 'gmock' 'gtest' 'ninja' 'qt6-tools'
              'deepin-gettext-tools' 'doxygen' 'libsystemd' 'extra-cmake-modules'
              'treeland-protocols')
@@ -23,12 +23,16 @@ conflicts=('dde-control-center' 'dde-dock-applets')
 replaces=('dde-control-center' 'dde-dock-applets')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-control-center.git#tag=$pkgver")
-sha512sums=('4bbfc46efca3e27c4f48dea0cb3d8c13d4c8392c75fc3c0e225b5bf4e3065832ee67a2c13ec576672876d2c3f5ae4965b7c5338cf784284b2f90bf3751750978')
+sha512sums=('31e75c230eacea5b1a9d77e52519558ed69e6708d8742b061f5e5c32eda7a85b496fc1e1c8e4c79dfb7d7c95b9432d9c3eb395c1c9eb6140ac695b31a705183d')
 
 prepare() {
   mkdir -p build
+
+  cd dde-control-center
   # They broke the flag
-  sed -i 's/BUILD_DCC_OLD ON/BUILD_DCC_OLD OFF/' dde-control-center/CMakeLists.txt
+  sed -i 's/BUILD_DCC_OLD ON/BUILD_DCC_OLD OFF/' CMakeLists.txt
+  # Well, how did they compile like this?
+  sed -i '/dde-control-center/d' src/plugin-accounts/CMakeLists.txt src/plugin-update/CMakeLists.txt
 }
 
 build() {
