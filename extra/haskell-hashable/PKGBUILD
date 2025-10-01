@@ -4,17 +4,22 @@
 _hkgname=hashable
 pkgname=haskell-hashable
 pkgver=1.4.6.0
-pkgrel=16
+pkgrel=18
 pkgdesc="A class for types that can be converted to a hash value"
 url="https://github.com/haskell-unordered-containers/hashable"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-os-string')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 checkdepends=('haskell-hunit' 'haskell-quickcheck' 'haskell-primitive' 'haskell-random'
               'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('8713ef599d30c151aacd30a8b8a3fa5e7bc9121061a96299e461ab27803053ee766abc4ba02a30fccefd972b5fb73738bcf224b6b388a9760e9937a826dae2e8')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u tasty-quickcheck
+}
 
 build() {
     cd $_hkgname-$pkgver
