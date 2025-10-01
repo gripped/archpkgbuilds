@@ -3,7 +3,7 @@
 
 pkgname=haskell-zlib
 pkgver=0.7.0.0
-pkgrel=56
+pkgrel=57
 pkgdesc="Compression and decompression in the gzip and zlib formats"
 url="https://hackage.haskell.org/package/zlib"
 license=('BSD-3-Clause')
@@ -16,6 +16,7 @@ sha512sums=('1271ae35457a0a30c254bb7c4c043bd51c65cb31a0610cbe3114fc237aa6c9058e5
 prepare() {
     cd zlib-$pkgver
     gen-setup
+    uusi -u tasty-quickcheck
 }
 
 build() {
