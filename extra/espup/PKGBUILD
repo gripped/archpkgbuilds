@@ -1,33 +1,31 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=espup
-pkgver=0.15.1
-pkgrel=2
+pkgver=0.16.0
+pkgrel=1
 pkgdesc="Tool for installing and maintaining ESP Rust ecosystem"
 url='https://github.com/esp-rs/espup'
 arch=('x86_64')
 license=('MIT' 'Apache-2.0')
 depends=(
-  'curl'
   'gcc-libs'
   'git'
   'glibc'
   'ldproxy'
-  'libbz2.so'
-  'liblzma.so'
-  'libssl.so'
+  'openssl' 'libssl.so'
   'pkg-config'
   'python'
   'python-pip'
   'udev'
+  'xz' 'liblzma.so'
 )
 makedepends=('cargo')
 options=(!lto)
 source=(
   https://github.com/esp-rs/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
 )
-sha256sums=('a015939e757520d6f5ed028abdf54f9d74a33b138493258079d45b10714ff28f')
-b2sums=('d9bee11c13265ba8e161a0941c95c8b96b17a88c300e4806cadfcc3586e6af7d48154de9c0005327684ffa4817a74e1d9f2ab43fb7e47769695dc030a0046b6b')
+sha256sums=('9e1e9c1effa860e41dc12a1cb1a2a5974c0849bc8cf330a3f7c5eb892d845e5e')
+b2sums=('e5a104ceacbaf1e590b46a39793cae5dba3f3c82bc8fd3969fc3ec441a850173686e21335fbf26d5e2ac0ed2846c6aaf77c085b97ebf88524c4cdbf308ba1555')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
