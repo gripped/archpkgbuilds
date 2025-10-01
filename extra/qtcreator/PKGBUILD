@@ -9,7 +9,7 @@
 pkgbase=qtcreator
 pkgname=(qtcreator
          qtcreator-devel)
-pkgver=17.0.1
+pkgver=17.0.2
 pkgrel=1
 pkgdesc='Lightweight, cross-platform integrated development environment'
 arch=(x86_64)
@@ -55,7 +55,7 @@ optdepends=('qt6-doc: integrated Qt documentation'
 source=(git+https://code.qt.io/qt-creator/qt-creator#tag=v$pkgver
         git+https://code.qt.io/qt-creator/perfparser
         git+https://code.qt.io/playground/qlitehtml)
-sha256sums=('b52fd7010f0fe3b5be68eba06ff063a4740da4b8ba4720f181349a0661e3dbcf'
+sha256sums=('73f6be01df5d91f0d95f9b03b4b71a65dd95251fa728cc6df1d1aeb84ed303e0'
             'SKIP'
             'SKIP')
 options=(docs)
