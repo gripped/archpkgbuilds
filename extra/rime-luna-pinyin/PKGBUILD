@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=rime-luna-pinyin
-pkgver=0.0.0.20241127
-_commit=0418e912d023c2325598b53b8cdfbefb049d6130
+pkgver=0.0.0.20250122
+_commit=a9f71dad6c9ac2348462b0f98a21d7ab5e42c684
 pkgrel=1
 pkgdesc="Luna pinyin for rime"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('LGPL')
 depends=('rime-stroke')
 makedepends=('git' 'librime' 'rime-prelude' 'rime-essay')
 source=("git+https://github.com/rime/rime-luna-pinyin.git#commit=$_commit")
-sha512sums=('7a1c71243fc6433bda6851fc987a02e1d97adc26074d69b86a54d3e502f75e8db5fbf7f698d8d70fbf4332be444abbcbf14852559b9b967ffb1b62ccd808d6c0')
+sha512sums=('0670d6649b30c5ea57555247801457b4edbcafee897eb702dce98594fb59ee62325562822d52d8ad1e761acf7b1a69446c8768872dbd3fbeb60370858cc0b39f')
 
 prepare() {
   cd $pkgname
