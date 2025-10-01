@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=rime-stroke
-pkgver=0.0.0.20250118
-_commit=7c9874c6b2e0b94947653e9a7de6f99623ff27e4
+pkgver=0.0.0.20250920
+_commit=a4dc0423c578bf5e15bea66103e082ee187a8737
 pkgrel=1
 pkgdesc="Stroke input for rime"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('LGPL')
 depends=('rime-luna-pinyin')
 makedepends=('git' 'librime' 'rime-prelude' 'rime-essay')
 source=("git+https://github.com/rime/rime-stroke.git#commit=$_commit")
-sha512sums=('bd1a987e1a07e4b8e9287c3c61c3faa717b944ebe7fbfb13b1f5b46463b3d784bbac51ed93f5238be7bc2d73d1061d856d57c576aff0aff1cb2a8437ca571be0')
+sha512sums=('8ef2ebe9bbe84dca6ecd9d32f5fdfb41d15941defa8b70f0778a6bd224a1d37039455f94409b3e5493998c70b6761642fe190523381aaab49229eb77de1309ae')
 
 prepare() {
   cd $pkgname
