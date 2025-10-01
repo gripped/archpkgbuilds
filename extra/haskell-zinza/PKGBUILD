@@ -3,7 +3,7 @@
 _hkgname=zinza
 pkgname=haskell-zinza
 pkgver=0.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Typed templates with jinja like syntax"
 url="https://github.com/phadej/zinza"
 license=('GPL-2.0-or-later')
@@ -17,6 +17,7 @@ sha256sums=('88a12275e2a65b33378de8f48e67dcf1363cec3934dde9c7e51b3c19b71793cc')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u tasty-quickcheck
 }
 
 build() {
