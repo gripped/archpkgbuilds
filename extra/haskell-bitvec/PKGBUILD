@@ -3,7 +3,7 @@
 _hkgname=bitvec
 pkgname=haskell-bitvec
 pkgver=1.1.5.0
-pkgrel=25
+pkgrel=26
 pkgdesc="Space-efficient bit vectors"
 url="https://github.com/Bodigrim/bitvec"
 license=('BSD-3-Clause')
@@ -17,7 +17,7 @@ sha256sums=('83d27cee5be1d5342ddbf39999d0c8ea54cb433d0891eea5471fbfaa29f8dec5')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u primitive -u tasty
+  uusi -u primitive -u tasty -u tasty-quickcheck
 }
 
 build() {
