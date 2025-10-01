@@ -3,7 +3,7 @@
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=cfitsio
-pkgver=4.6.2
+pkgver=4.6.3
 pkgrel=1
 epoch=1
 pkgdesc='A library of C and Fortran subroutines for reading and writing data files in FITS (Flexible Image Transport System) data format'
@@ -16,7 +16,7 @@ depends=(curl
 makedepends=(cmake
              git)
 source=(git+https://github.com/HEASARC/cfitsio#tag=cfitsio-$pkgver)
-sha256sums=('61ed3ff171d61d805f45080b7fb313c48b0b8304ee40f5cbb89ab67daa84dd1c')
+sha256sums=('5464c0e2b7250eed64fea975b2408211269aef702a0689e0bcd816b7cc769c4e')
 
 build() {
   cmake -B build -S $pkgname \
