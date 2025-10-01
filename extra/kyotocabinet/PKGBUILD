@@ -3,15 +3,15 @@
 # Contributor: Joaquim Pedro (osmano807) <osmano807@gmail.com>
 
 pkgname=kyotocabinet
-pkgver=1.2.79
-pkgrel=2
+pkgver=1.2.80
+pkgrel=1
 pkgdesc="a modern implementation of DBM in C++"
 arch=('x86_64')
 url="https://dbmx.net/kyotocabinet"
-license=('LGPL3')
+license=('GPL-3.0-or-later')
 depends=('zlib' 'gcc-libs')
 source=("https://dbmx.net/${pkgname}/pkg/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('9243192c81d3aa37cc8c80eb3bdf235192a0919b134cededa2b4178be515d148916e7405e094cbcdd7dbf13bf38a569bf21863afac7cc05d6418cca5853a2ff4')
+sha512sums=('9fe0a92c9a76db5ce06ef4d5a551c05930f2a9c065ab695b030fdaf45692bfe88d91f1b75791f50d0772c699567744cd74f3ef407172874d4bba467989d54328')
 
 build() {
   cd $pkgname-$pkgver
