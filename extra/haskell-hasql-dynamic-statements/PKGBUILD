@@ -3,7 +3,7 @@
 _hkgname=hasql-dynamic-statements
 pkgname=haskell-hasql-dynamic-statements
 pkgver=0.3.1.1
-pkgrel=259
+pkgrel=260
 pkgdesc="Toolkit for constructing Hasql statements dynamically"
 url="https://github.com/nikita-volkov/hasql-dynamic-statements"
 license=("MIT")
@@ -17,6 +17,7 @@ sha256sums=('8665819ea9e52672bf9c99284995029d838d809e1a2c0befcb2f696da8a187ad')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u tasty-quickcheck
   sed -i 's/5432/9824/' test/Main.hs
 }
 
