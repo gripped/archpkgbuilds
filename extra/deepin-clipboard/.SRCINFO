@@ -1,11 +1,12 @@
 pkgbase = deepin-clipboard
 	pkgdesc = DDE clipboard manager component
-	pkgver = 6.0.8
-	pkgrel = 6
+	pkgver = 6.0.9
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-clipboard
 	arch = x86_64
 	groups = deepin-extra
 	license = GPL3
+	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
 	makedepends = gtest
@@ -15,7 +16,7 @@ pkgbase = deepin-clipboard
 	depends = gio-qt
 	depends = dtkcore
 	depends = dwayland
-	source = deepin-clipboard-6.0.8.tar.gz::https://github.com/linuxdeepin/dde-clipboard/archive/6.0.8.tar.gz
-	sha512sums = cb317c76b09142bd06deaa3fa8dacbea42da69c3f2efaf89133b964e77c12ad478cbdba4c852da3de6e30776cb2885d14e8d14d020180ca0b61a9eb9127b1fe8
+	source = git+https://github.com/linuxdeepin/dde-clipboard.git#tag=6.0.9
+	sha512sums = 0e6bae486906870fe2acc92ee9d312f59d2f6dbf12499259c2fa9f603060d771711f6115f9f4718756fb863414f95e0c26fc61a161065efcc713df7ae1205eaf
 
 pkgname = deepin-clipboard
