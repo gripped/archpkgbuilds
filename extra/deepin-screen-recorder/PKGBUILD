@@ -3,15 +3,15 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-screen-recorder
-pkgver=5.12.20
+pkgver=6.0.6
 pkgrel=1
 pkgdesc='Deepin Screen Recorder'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-screen-recorder"
 license=('GPL-3.0-or-later')
-depends=('deepin-qt5integration' 'deepin-qt-dbus-factory' 'dtkcore' 'dtkgui' 'dtkwidget'
+depends=('deepin-qt5integration' 'deepin-qt-dbus-factory' 'deepin-tray-loader' 'dtkcore' 'dtkgui' 'dtkwidget'
          'qt5-base' 'qt5-x11extras' 'qt5-multimedia' 'deepin-turbo' 'ffmpeg4.4' 'libxtst' 'opencv'
-         'dconf' 'libxext' 'libx11' 'libxfixes' 'portaudio' 'deepin-image-editor' 'gcc-libs')
+         'dconf' 'libprocps' 'libxext' 'libx11' 'libxfixes' 'portaudio' 'deepin-image-editor' 'gcc-libs')
 makedepends=('git' 'deepin-tray-loader' 'qt5-tools')
 optdepends=('deepin-shortcut-viewer: for shortcut display')
 provides=('deepin-screenshot')
@@ -19,19 +19,19 @@ conflicts=('deepin-screenshot')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-screen-recorder.git#tag=$pkgver"
          libv4l-1.30.patch)
-sha512sums=('fa2d602ee14bf02fbd4e259bdcb93e94d9af5d23d55a8fe99a3ff5a8b750901affafa8d958405d77c0d6194a295c8a00a14135cca61bd95cf5f30da859344046'
+sha512sums=('97d84805351c29a7b7a525e904cb001bfeef7629f0a6926ee5f491eef7b8239923567989aeeb71557e8cab11ccd583fab9095c9e89d7656ad3b136dbdd6e962f'
             'b8527bbf18b78b530507ed7725218db88f3ae4ed6abb700f6430903421e188456d7f0695f680461376d403c9227bc0234578d909f29399a4072a13a042d524cb')
 
 prepare() {
   cd deepin-screen-recorder
+  # Revert opencv -> opencv-mobile change, because opencv-mobile is not available in Arch
+  sed -i 's|opencv_mobile|opencv4|;s|-lopencv_small|-lopencv_core -lopencv_imgproc|' src/src.pro
+
   # https://github.com/linuxdeepin/developer-center/issues/3035
   sed -i "s|/etc/os-version|/etc/uos-version|" src/src.pro
 
   # OpenCV 4 compatibility
   sed -i '/#include<opencv2/i #include <opencv2/imgproc/types_c.h>' src/utils/pixmergethread.h
-
-  # OpenCV missing in pkg-config targets
-  sed -i 's/dframeworkdbus/dframeworkdbus opencv4/' src/src.pro
 
   patch -p1 -i ../libv4l-1.30.patch
 }

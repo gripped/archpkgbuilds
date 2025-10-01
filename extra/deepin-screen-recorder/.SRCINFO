@@ -1,6 +1,6 @@
 pkgbase = deepin-screen-recorder
 	pkgdesc = Deepin Screen Recorder
-	pkgver = 5.12.20
+	pkgver = 6.0.6
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-screen-recorder
 	arch = x86_64
@@ -11,6 +11,7 @@ pkgbase = deepin-screen-recorder
 	makedepends = qt5-tools
 	depends = deepin-qt5integration
 	depends = deepin-qt-dbus-factory
+	depends = deepin-tray-loader
 	depends = dtkcore
 	depends = dtkgui
 	depends = dtkwidget
@@ -22,6 +23,7 @@ pkgbase = deepin-screen-recorder
 	depends = libxtst
 	depends = opencv
 	depends = dconf
+	depends = libprocps
 	depends = libxext
 	depends = libx11
 	depends = libxfixes
@@ -31,9 +33,9 @@ pkgbase = deepin-screen-recorder
 	optdepends = deepin-shortcut-viewer: for shortcut display
 	provides = deepin-screenshot
 	conflicts = deepin-screenshot
-	source = git+https://github.com/linuxdeepin/deepin-screen-recorder.git#tag=5.12.20
+	source = git+https://github.com/linuxdeepin/deepin-screen-recorder.git#tag=6.0.6
 	source = libv4l-1.30.patch
-	sha512sums = fa2d602ee14bf02fbd4e259bdcb93e94d9af5d23d55a8fe99a3ff5a8b750901affafa8d958405d77c0d6194a295c8a00a14135cca61bd95cf5f30da859344046
+	sha512sums = 97d84805351c29a7b7a525e904cb001bfeef7629f0a6926ee5f491eef7b8239923567989aeeb71557e8cab11ccd583fab9095c9e89d7656ad3b136dbdd6e962f
 	sha512sums = b8527bbf18b78b530507ed7725218db88f3ae4ed6abb700f6430903421e188456d7f0695f680461376d403c9227bc0234578d909f29399a4072a13a042d524cb
 
 pkgname = deepin-screen-recorder
