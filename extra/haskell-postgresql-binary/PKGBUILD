@@ -4,7 +4,7 @@
 _hkgname=postgresql-binary
 pkgname=haskell-postgresql-binary
 pkgver=0.12.5
-pkgrel=247
+pkgrel=248
 pkgdesc="Encoders and decoders for the PostgreSQL's binary format"
 url="https://github.com/nikita-volkov/postgresql-binary"
 license=("MIT")
@@ -21,6 +21,7 @@ sha512sums=('471bd8c9fb97ef891fde094f616f246d6228f8eccc1c17a711e84604b1ea1f157f3
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
+    uusi -u tasty-quickcheck
     # Do not use default postgres port
     sed -i 's/5432/9824/' tasty/Main/DB.hs
 }
