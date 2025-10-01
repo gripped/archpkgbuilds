@@ -4,15 +4,20 @@
 _hkgname=bzlib
 pkgname=haskell-bzlib
 pkgver=0.5.2.0
-pkgrel=59
+pkgrel=60
 pkgdesc="Compression and decompression in the bzip2 format"
 url="https://github.com/haskell/bzlib"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'bzip2')
-makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
+makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('511c7345776592be828a74913c9e61d239498119e0d98aa991c8e84a8386852f87dfd7a1619a51dadc043e4cdaba86bdc2523b9ba1145df3a1648c2fb76672f8')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u tasty-quickcheck
+}
 
 build() {
     cd $_hkgname-$pkgver
