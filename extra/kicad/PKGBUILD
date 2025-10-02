@@ -7,33 +7,50 @@
 # Contributor: Alexander Lutsai <s.lyra@ya.ru>
 
 pkgname=kicad
-pkgver=9.0.4
-pkgrel=4
+pkgver=9.0.5
+pkgrel=1
 pkgdesc='Electronic schematic and printed circuit board (PCB) design tools'
-arch=('x86_64')
+arch=(x86_64)
 url='http://kicad.org/'
-license=('GPL-3.0-or-later')
+license=(GPL-3.0-or-later)
 depends=(
-  'curl'
-  'glew'
-  'glm'
-  'ngspice'
-  'opencascade'
-  'python'
-  'python-wxpython'
-  'wxwidgets-gtk3'
-  'unixodbc'
-  'libgit2'
-  'nng'
-  'protobuf'
+  fontconfig
+  zstd
+  abseil-cpp
+  freetype2
+  hicolor-icon-theme
+  libsecret
+  glibc
+  glib2
+  gtk3
+  wayland
+  glu
+  cairo
+  harfbuzz
+  gcc-libs
+  libglvnd
+  wxwidgets-common
+  zlib
+  curl
+  glew
+  glm
+  ngspice
+  opencascade
+  python
+  python-wxpython
+  wxwidgets-gtk3
+  unixodbc
+  libgit2
+  nng
+  protobuf
 )
 makedepends=(
-  'git'
-  'cmake'
-  'ninja'
-  'mesa'
-  'boost'
-  'swig'
+  git
+  cmake
+  ninja
+  mesa
+  boost
+  swig
 )
 optdepends=(
   'kicad-library: for footprints, symbols and templates'
@@ -41,11 +58,11 @@ optdepends=(
 )
 source=(
   "$pkgname::git+https://gitlab.com/kicad/code/kicad.git#tag=$pkgver"
-  'fix-version-string.patch'
+  fix-version-string.patch
 )
-sha512sums=('5f194ab70c8899e912b20ad0563bfeb1102e5456db1dbef069afe7e2386b7de8edd8f87096df40965347e1466ab833f35de322b7e3ef3c3156b11e745717cffc'
+sha512sums=('b455b4a57e410213281fe88180d4ac96631f05e6cf2266134ade4c2fb91a51316085bc64f6ef532a2f97a9da3b06c3f0b136933561ed43970138eddf5246a74f'
             '17100967610c85ce2e8a860dcf703a87dc0c20f52d3f056cdb5d16323160e8594698bd51e095aea63c00a75ce8b121be681e93cec1bab72a8d1d4eb8065a91f5')
-b2sums=('6b429cf8711a4501cd326a6320b81e892fbc884d5a754cbdfcab02286a6c4d1b4acf180aa1f23ed8b7f10b05eefc47a61c2d1119f3b36f36f035bc1518565c08'
+b2sums=('58e0a43e028f8049e87f558dc94c883cf26bee7bdc7f228549f169bac584cf0e844942f987ca3906a1d16c419d10f1afc4e7ceb5b2fcdc62f89b6a0acff3fb33'
         '7e09300161b2a1d7af56580a195e3b132d7b6ad82f1c9c381e02a25cd2fabd7ed0cd33b99b87ca14f9f77dad26eee1e5ea962b6eca49bacb40567ecfc24c21ff')
 
 
