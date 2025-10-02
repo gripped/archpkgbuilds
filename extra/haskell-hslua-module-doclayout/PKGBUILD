@@ -3,7 +3,7 @@
 _hkgname=hslua-module-doclayout
 pkgname=haskell-hslua-module-doclayout
 pkgver=1.1.1.2
-pkgrel=4
+pkgrel=5
 pkgdesc="Lua module wrapping Text.DocLayout."
 url="https://github.com/hslua/hslua-module-doclayout"
 license=("MIT")
@@ -16,6 +16,7 @@ sha256sums=('0f1703619a68ea3e433b1ab348ca82520f3369d5d8a22d71e50dab0ac435faad')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u doclayout
 }
 
 build() {
