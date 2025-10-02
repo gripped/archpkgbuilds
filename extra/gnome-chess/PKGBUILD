@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-chess
-pkgver=49.0
+pkgver=49.2
 pkgrel=1
 pkgdesc="Play the classic two-player boardgame of chess"
 url="https://wiki.gnome.org/Apps/Chess"
@@ -28,9 +28,11 @@ makedepends=(
 )
 optdepends=('gnuchess: Play against computer')
 groups=(gnome-extra)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-chess.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('9768ace572f982c1ed2a574ae17de0fa1c9c13c76bb50165ad89d1237a3413693c58e44fa50701133c2d4b375b11d1fb87a4f8c434b94a13518e7d87da8b59e3')
-validpgpkeys=(EF033B6B1044EEE7F743A1737F71B64279363298) # Michael Catanzaro <mcatanzaro@innerfocus.xyz>
+source=("git+https://gitlab.gnome.org/GNOME/gnome-chess.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('622ee878bc18669734808ce2f5de1d32128bca8680a1e264eb7b7b64d036779af8081fd173a2e915d0e5f63722e08fb36cbd76394df347b7c3aac6538d9c78fb')
+validpgpkeys=(
+  EF033B6B1044EEE7F743A1737F71B64279363298 # Michael Catanzaro <mcatanzaro@innerfocus.xyz>
+)
 
 prepare() {
   cd $pkgname
