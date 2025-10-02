@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hyprlock
-pkgver=0.9.1
+pkgver=0.9.2
 pkgrel=1
 pkgdesc='hyprland’s GPU-accelerated screen locking utility'
 arch=(x86_64 aarch64)
@@ -28,7 +28,7 @@ makedepends=(cmake)
 backup=("etc/pam.d/$pkgname")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('03f26ceba049546767a903a5e5bcd78fa4d261a5d116febd45633b88b9f16a97')
+sha256sums=('d4a8ef9115232b3545dd517e96f1251f91022765eb272b5e7057c20e3e7e8837')
 
 build() {
 	cd "$_archive"
