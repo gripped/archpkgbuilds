@@ -1,6 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=dummyhttp
-pkgver=1.1.1
+pkgver=1.1.2
 pkgrel=1
 pkgdesc="Super simple HTTP server that replies a fixed body with a fixed response code"
 arch=('x86_64')
@@ -10,7 +10,7 @@ depends=('gcc-libs')
 makedepends=('rust')
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/svenstaro/dummyhttp/archive/v${pkgver}.tar.gz")
-sha512sums=('845da1359d40548aacd8a16bcb2b94121f9fd39e489b6d34e7ab0ea0aa263f419d3610fd3a8c341ae582fead3b07187975526949519dfb623296a0f7e94c948b')
+sha512sums=('4a5e28905568eb60590f3e5b0d3c74bf61d8ca0d37ab8752d222d94551967f7801ba31a3ab10359325f1cadab39224dc0ea956616bcb6b89fc33c98c17e35acd')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
