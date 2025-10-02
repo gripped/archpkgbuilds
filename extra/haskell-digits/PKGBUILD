@@ -2,20 +2,20 @@
 
 _hkgname=digits
 pkgname=haskell-digits
-pkgver=0.3.1
-pkgrel=112
+pkgver=0.3.2
+pkgrel=1
 pkgdesc="Converts integers to lists of digits and back."
-url="https://bitbucket.org/sffubs/digits"
-license=("BSD")
+url="https://github.com/sffubs/digits"
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-quickcheck')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('a8499c9745dcf8a4e6c48594f555e6c6276e8d91c457dcc562a370ccadcd6a2c')
+sha256sums=('e5fd2d9f6a0ac8b3aec3365c33009f71554644229cc19dee9b0ca8c734007167')
 
 prepare() {
   cd $_hkgname-$pkgver
-  sed -i 's/ {runTests = tests}//' Setup.lhs
+  gen-setup
 }
 
 build() {
