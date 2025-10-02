@@ -3,17 +3,17 @@
 
 _hkgname=doclayout
 pkgname=haskell-doclayout
-pkgver=0.4.0.1
-pkgrel=125
+pkgver=0.5
+pkgrel=1
 pkgdesc="A prettyprinting library for laying out text documents"
 url="https://github.com/jgm/doclayout"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-emojis' 'haskell-safe')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-golden' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('7af503194e513b4586442e850959a247cada1a375964e458cdf8f1df7ecb35f0c350eba3bf55c904107c89f7cc584ea957f218930f41229df62a9528ace4aab2')
+sha512sums=('173a7c32a6bb227b52b07fc1f6c2161d837c7e3978f343ce94ad87ca94776833b116ee6eb1a011883d57158b29377aa217a3581a64b63c842d8c6e3b20a022f7')
 
 build() {
     cd $_hkgname-$pkgver
