@@ -5,7 +5,7 @@
 pkgname=gnome-shell-extension-dash-to-panel
 _pkgname=dash-to-panel
 pkgver=70
-pkgrel=2
+pkgrel=3
 pkgdesc='Extension for GNOME Shell to combine the dash and main panel'
 arch=(any)
 url='https://github.com/home-sweet-gnome/dash-to-panel'
@@ -29,7 +29,7 @@ prepare() {
   cd $_pkgname
 
   # Apply fixes from upstream
-  git cherry-pick -m 1 -n v70..47e0be962aa25080675347713a200231f687ed82
+  git cherry-pick -m 1 -n v70..e6670cf2c9d3ac196f2ca66b660485d6db55eb63
 
   # https://github.com/home-sweet-gnome/dash-to-panel/pull/1948
   git apply -3 ../gnome-shell-extension-dash-to-panel-system-install-paths.patch
