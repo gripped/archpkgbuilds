@@ -3,22 +3,23 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hledger
-pkgver=1.42.2
-pkgrel=7
+pkgver=1.43.1
+pkgrel=1
 pkgdesc="Command-line interface for the hledger accounting system"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-cmdargs'
          'haskell-data-default' 'haskell-decimal' 'haskell-diff' 'haskell-extra' 'haskell-githash'
-         'haskell-hashable' 'haskell-hledger-lib' 'haskell-lucid' 'haskell-math-functions'
-         'haskell-megaparsec' 'haskell-microlens' 'haskell-modern-uri' 'haskell-regex-tdfa'
-         'haskell-safe' 'haskell-shakespeare' 'haskell-split' 'haskell-tabular' 'haskell-tasty'
-         'haskell-temporary' 'haskell-text-ansi' 'haskell-timeit' 'haskell-unordered-containers'
-         'haskell-utf8-string' 'haskell-utility-ht' 'haskell-wizards')
+         'haskell-hashable' 'haskell-hledger-lib' 'haskell-http-client' 'haskell-http-types'
+         'haskell-lucid' 'haskell-math-functions' 'haskell-megaparsec' 'haskell-microlens'
+         'haskell-modern-uri' 'haskell-regex-tdfa' 'haskell-req' 'haskell-safe'
+         'haskell-shakespeare' 'haskell-split' 'haskell-tabular' 'haskell-tasty' 'haskell-temporary'
+         'haskell-text-ansi' 'haskell-timeit' 'haskell-unordered-containers' 'haskell-utf8-string'
+         'haskell-utility-ht' 'haskell-wizards')
 makedepends=('ghc' 'haskell-extra' 'haskell-timeit')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('87c444ec032aacd244af4f7bc099004ec039cd082f4952ef3eed105095157228de41d04f2a77efc62f671341c191e032b23884a7f2dc62b1692a6086507d999c')
+sha512sums=('544b0ccbea8b717ffca1907ed0067c9271128404c579ce163cb5a17c9722364e5d28cacfed2a3baf45f6805d635b3e3f30d3a13be0d301d4e3b8ceafc74fc3d9')
 
 build() {
     cd $pkgname-$pkgver
