@@ -1,15 +1,17 @@
-# Maintainer: Integral <integral@archlinux.org>
+# Maintainer: George Hu <integral@archlinux.org>
 # Contributor: dalto <dalto at fastmail.com>
 
 pkgname=btrfs-assistant
 pkgver=2.2
-pkgrel=2
+pkgrel=3
 pkgdesc="An application for managing BTRFS subvolumes and Snapper snapshots"
 arch=('x86_64')
 url="https://gitlab.com/${pkgname}/${pkgname}"
 license=('GPL-3.0-or-later')
-depends=('qt6-base' 'qt6-svg' 'ttf-font' 'polkit' 'util-linux' 'btrfs-progs' 'diffutils')
-optdepends=('snapper' 'btrfsmaintenance' 'qt6-wayland')
+depends=('qt6-base' 'qt6-svg' 'polkit' 'util-linux' 'btrfs-progs' 'diffutils')
+optdepends=('snapper: Snapper support'
+            'btrfsmaintenance: Btrfs maintenance support'
+            'qt6-wayland: Wayland support')
 makedepends=('cmake' 'qt6-tools')
 backup=("etc/${pkgname}.conf")
 source=("${url}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
