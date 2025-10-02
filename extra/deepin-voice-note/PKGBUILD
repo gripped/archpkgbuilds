@@ -1,24 +1,23 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-voice-note
-pkgver=6.5.4
+pkgver=6.5.5
 pkgrel=1
 pkgdesc='A lightweight memo tool to make text notes and voice recordings'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-voice-note"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 replaces=('deepin-voice-recorder')
 depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-multimedia' 'qt6-declarative'
          'qt6-webchannel' 'qt6-webengine' 'gstreamer' 'glib2' 'gcc-libs' 'deepin-movie')
 makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja' 'qt6-tools' 'vlc')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-voice-note.git#tag=$pkgver")
-sha512sums=('1366b51d8da44353e99f882a1dcd25d9b256c374c7b5ce96962375b42caa8c1f6d8d03152cee8529611f17c7fe2c7f66528a2f6ca1c0d46b793ca5c9512ce4e1')
+sha512sums=('3469655546c2a8633c0f54ca0659d398b204248d032757457fa7b8101ff428e0771915edf471b75f6d89db565ea81b610cc002f70b5c2ad041d0a13e36edcaab')
 
 prepare() {
   cd deepin-voice-note
   sed -i '/#include <QDBusError>/a#include <QJsonDocument>' src/common/vnotea2tmanager.cpp
-  sed -i '/#include "qtplayer.h"/a#include <QDebug>' src/common/qtplayer.cpp
 }
 
 build() {
