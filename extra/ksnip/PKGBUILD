@@ -3,24 +3,33 @@
 
 pkgname=ksnip
 pkgver=1.10.1
-pkgrel=4
+pkgrel=5
 pkgdesc='Qt-based screenshot tool that provides many annotation features'
 arch=('x86_64')
 url='https://github.com/ksnip/ksnip'
-license=('GPL2')
-depends=('hicolor-icon-theme' 'kimageannotator-qt5' 'qt5-x11extras')
-makedepends=('cmake' 'extra-cmake-modules' 'ninja' 'qt5-tools')
-source=("https://github.com/ksnip/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
-         https://github.com/ksnip/ksnip/commit/76f4b381.patch)
-sha256sums=('41fa6a54b0a88095ccdf7f8f3a96617e91fb15dcedae2aadaf2ee24677e9a88c'
-            '08497204605fec9d4804bbe8d33b0686de64d4eb6afcb57d17ec6604db4e7982')
+license=(GPL-3.0-or-later)
+depends=(gcc-libs
+         glibc
+         kimageannotator
+         libx11
+         libxcb
+         qt6-base)
+makedepends=(extra-cmake-modules
+             git
+             qt6-tools)
+source=(git+https://github.com/ksnip/ksnip#tag=v$pkgver)
+sha256sums=('ef434afdef93f93690dea1f1bc2522b443b490fd87c5f3211110908174638bef')
 
 prepare() {
-  patch -d $pkgname-$pkgver -p1 < 76f4b381.patch # Fix build with kimageannotator 0.7.1
+  cd $pkgname
+  git cherry-pick -n 76f4b381 # Fix build with kimageannotator 0.7.1
+  git cherry-pick -n 82499f6a8b3483f17fd74cc0e1293d82db276100 # Port to Qt 6  
 }
 
 build() {
-  cmake -S $pkgname-$pkgver -B build -G Ninja -DCMAKE_INSTALL_PREFIX='/usr'
+  cmake -B build -S $pkgname \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_WITH_QT6=ON
   cmake --build build
 }
 

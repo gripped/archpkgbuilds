@@ -1,20 +1,20 @@
 pkgbase = ksnip
 	pkgdesc = Qt-based screenshot tool that provides many annotation features
 	pkgver = 1.10.1
-	pkgrel = 4
+	pkgrel = 5
 	url = https://github.com/ksnip/ksnip
 	arch = x86_64
-	license = GPL2
-	makedepends = cmake
+	license = GPL-3.0-or-later
 	makedepends = extra-cmake-modules
-	makedepends = ninja
-	makedepends = qt5-tools
-	depends = hicolor-icon-theme
-	depends = kimageannotator-qt5
-	depends = qt5-x11extras
-	source = https://github.com/ksnip/ksnip/archive/v1.10.1/ksnip-1.10.1.tar.gz
-	source = https://github.com/ksnip/ksnip/commit/76f4b381.patch
-	sha256sums = 41fa6a54b0a88095ccdf7f8f3a96617e91fb15dcedae2aadaf2ee24677e9a88c
-	sha256sums = 08497204605fec9d4804bbe8d33b0686de64d4eb6afcb57d17ec6604db4e7982
+	makedepends = git
+	makedepends = qt6-tools
+	depends = gcc-libs
+	depends = glibc
+	depends = kimageannotator
+	depends = libx11
+	depends = libxcb
+	depends = qt6-base
+	source = git+https://github.com/ksnip/ksnip#tag=v1.10.1
+	sha256sums = ef434afdef93f93690dea1f1bc2522b443b490fd87c5f3211110908174638bef
 
 pkgname = ksnip
