@@ -2,8 +2,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-panel
-pkgver=3.56.0
-pkgrel=2
+pkgver=3.58.1
+pkgrel=1
 pkgdesc='Panel of GNOME Flashback'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/GnomePanel'
@@ -52,7 +52,7 @@ source=(
   gnome-panel-80.patch
 )
 b2sums=(
-  cae7ea813e1220e9c9445f2a755d6d69fb96b6f32db4fd50c18c1001a4bda32436ba6c2d207f16031aa733cc824a4b5e48bec829067c7e2c3361628dbfc8df07
+  92ba8de3f8e114bde52782112056a0f1d558b09c8b791fdb63a1fb3060eecabb855b2551c8227332aeb3ac1986f0718736f4014e789453a13eeaded055e00d8f
   064b7a94ae38c4c8011b494c0a95cb97c0121945df650790085b07868a52b3e4043579c2229c26f4b9a75d2b0f41eb36d22dca4432f408a4ec92c589daf78d3a
   3a4e857b8c32a717f4c47f3c1f598c32e10e552d5092a7f45304cc0f6a15a6093ec66e237f42ed7815a0ff108224aba9eda37c7d5038a76a21fac385b84a9657
   63d2a15e149cd8745483de3511bb9ebfa085608505ffee9cfd5144316e3f0b2a9406e42c20e4943d30e96441d9bca95a28eb3674c4c9ecc7aac472968f9d7a12
@@ -63,9 +63,6 @@ validpgpkeys=(7B44FD78E49334EC10B3B288A3D013EC303E1894) # Alberts Muktupāvels <
 
 prepare() {
   cd $pkgname
-
-  # Add systemd service
-  git cherry-pick -n 94e6cc67ca295ce713d681695fc6431ca15b017e
 
   # https://gitlab.gnome.org/GNOME/gnome-panel/-/merge_requests/60
   git apply -3 ../gnome-panel-60.patch
