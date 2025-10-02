@@ -1,0 +1,12 @@
+diff -ru rw-0.9.orig/simplerw.c rw-0.9/simplerw.c
+--- rw-0.9.orig/simplerw.c	2025-09-20 10:18:24.521575587 +0200
++++ rw-0.9/simplerw.c	2025-09-20 10:20:07.399882281 +0200
+@@ -121,7 +121,7 @@
+ 	}
+ 
+ 	// Check for undirectedness
+-	if(igraph_is_directed(&igraph) || igraph_is_simple(&igraph, &isimple) || !isimple)
++	if(igraph_is_directed(&igraph) || igraph_is_simple(&igraph, &isimple, IGRAPH_DIRECTED) || !isimple)
+ 	{
+ 		printf("Input is not a simple, undirected graph from file %s.\n", filename);
+ 		igraph_destroy(&igraph);

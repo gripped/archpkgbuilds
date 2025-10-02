@@ -6,7 +6,7 @@ diff -ru rw-0.9.orig/simplerw.c rw-0.9/simplerw.c
  		return(-1);
  	}
 -	igraph_get_adjacency(&igraph, &imatrix, IGRAPH_GET_ADJACENCY_BOTH, 0);
-+	igraph_get_adjacency(&igraph, &imatrix, IGRAPH_GET_ADJACENCY_BOTH, 0, 0);
++	igraph_get_adjacency(&igraph, &imatrix, IGRAPH_GET_ADJACENCY_BOTH, 0, IGRAPH_LOOPS_ONCE);
  	igraph_destroy(&igraph);
  	if(igraph_matrix_nrow(&imatrix) > MAX_VERTICES)
  	{
