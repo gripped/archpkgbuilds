@@ -4,24 +4,31 @@
 
 _hkgname=hledger-lib
 pkgname=haskell-hledger-lib
-pkgver=1.42.2
-pkgrel=6
+pkgver=1.43.1
+pkgrel=1
 pkgdesc="A library providing the core functionality of hledger"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-ansi-terminal'
-         'haskell-base-compat' 'haskell-blaze-html' 'haskell-blaze-markup' 'haskell-call-stack'
-         'haskell-cassava' 'haskell-cassava-megaparsec' 'haskell-cmdargs' 'haskell-colour'
-         'haskell-data-default' 'haskell-decimal' 'haskell-doclayout' 'haskell-encoding'
-         'haskell-extra' 'haskell-file-embed' 'haskell-glob' 'haskell-hashtables'
-         'haskell-megaparsec' 'haskell-microlens' 'haskell-microlens-th' 'haskell-lucid'
-         'haskell-parser-combinators' 'haskell-pretty-simple' 'haskell-regex-tdfa' 'haskell-safe'
-         'haskell-tabular' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-terminal-size'
-         'haskell-timeit' 'haskell-uglymemo' 'haskell-unordered-containers' 'haskell-utf8-string')
+         'haskell-blaze-html' 'haskell-blaze-markup' 'haskell-call-stack' 'haskell-cassava'
+         'haskell-cassava-megaparsec' 'haskell-cmdargs' 'haskell-colour' 'haskell-data-default'
+         'haskell-decimal' 'haskell-doclayout' 'haskell-encoding' 'haskell-extra'
+         'haskell-file-embed' 'haskell-glob' 'haskell-hashtables' 'haskell-megaparsec'
+         'haskell-microlens' 'haskell-microlens-th' 'haskell-lucid' 'haskell-parser-combinators'
+         'haskell-pretty-simple' 'haskell-regex-tdfa' 'haskell-safe' 'haskell-tabular'
+         'haskell-tasty' 'haskell-tasty-hunit' 'haskell-terminal-size' 'haskell-timeit'
+         'haskell-uglymemo' 'haskell-unordered-containers' 'haskell-utf8-string')
 makedepends=('ghc' 'haskell-doctest')
-source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('2dba07509f562e67d94a9a42e04075a3fc63837e1507fbcb8e81a70038cd0f670b31e95b4e6ef12a9cc7d041d3619317d6d25330e71f2a7a6c796a16fa8adcf2')
+source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz"
+        $pkgname-ghc-9.4.patch::https://github.com/simonmichael/hledger/commit/00fae3ac3bf782d5b4d4f98dc0d131b5c3ccb579.patch)
+sha512sums=('8ac8ccee0eba75251b74b069374511cc396f9232db93475b08432717d22d88bfab2e5f6e11197cb9e3e3f43e2e5f6523b6b83895b5d8a5b1b28334b0723d4532'
+            '4a51722b1b3b2a74013b8f50c624f85cafc7c0d1bd0e7433e44a7206ae816b50cc5cb00e1be53dfabbe8956895ae5aabf4b2e56849b4fa9cde18ef6887153167')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    patch -p2 -i ../$pkgname-ghc-9.4.patch
+}
 
 build() {
     cd $_hkgname-$pkgver
