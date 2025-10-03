@@ -2,11 +2,10 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: wangjiezhe <wangjiezhe AT yandex DOT com>
 
-_name=cheroot
 pkgname=python-cheroot
 pkgdesc="Highly-optimized, pure-python HTTP server"
-pkgver=10.0.1
-pkgrel=5
+pkgver=11.0.0
+pkgrel=1
 arch=(any)
 url="https://github.com/cherrypy/cheroot"
 license=(BSD-3-Clause)
@@ -23,14 +22,12 @@ makedepends=(
   python-wheel
 )
 checkdepends=(
-  # TODO: package python-pypytools
   python-chardet
   python-colorama
   python-jaraco.context
   python-portend
   python-pyopenssl
   python-pytest
-  python-pytest-forked
   python-pytest-mock
   python-pytest-rerunfailures
   python-pytest-sugar
@@ -42,37 +39,26 @@ checkdepends=(
   python-watchdog
 )
 optdepends=('python-pyopenssl: for SSL and certificate handling within cheroot')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('de771a64176ff07d8c70c8ec7de071cad10829bd71a3477c0d936dffa0cbd5c1cd2076eb25fb57331865e170180c3e9ff7d759bda2ed3ba718426dc68fddb34a')
-b2sums=('7e9da269b7df67a68dd814d76eb0ef75266a7839cbbcbe2f36cc1ff1e4141c79d1eb88e528149fcea827867841d565c740a1ca3e712da5d6e05b56bb90c9c185')
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('8d63c88177b12badf613b9cbfecada9c5eeff38857046fb24dae31efca88e811fd103df8929739028dcf16d492f651bb976a9db81c9dce94d21d362efa63cfe3')
+b2sums=('8ff226f7bdd74f90de1dbf66649b48a7b1f094c49df7e611251ff23a7040d22b77f6ef281e702f0137992f30931f19aa798fc31ccb6444a1566d55821c757ae2')
 
 build() {
-  cd $_name-$pkgver
+  cd ${pkgname#python-}-$pkgver
   export SETUPTOOLS_SCM_PRETEND_VERSION="$pkgver"
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_name-$pkgver
-  local pytest_options=(
-    -vv
-    --override-ini="addopts="
-    -W=ignore::DeprecationWarning
-    # Requires python-pypytools
-    --ignore cheroot/test/test_server.py
-    # Issues with python-pyopenssl (being too new?!)
-    --deselect cheroot/test/test_conn.py::test_broken_connection_during_http_communication_fallback
-    --deselect cheroot/test/test_conn.py::test_kb_int_from_http_handler
-    --deselect cheroot/test/test_conn.py::test_remains_alive_post_unhandled_exception
-    --deselect cheroot/test/test_conn.py::test_unhandled_exception_in_request_handler
-    --deselect cheroot/test/test_ssl.py::test_https_over_http_error
-     -p no:unraisableexception
-  )
-  pytest "${pytest_options[@]}"
+  cd ${pkgname#python-}-$pkgver
+  pytest --override-ini="addopts=" -n auto \
+    --ignore=cheroot/test/test_server.py \
+    -W=ignore::DeprecationWarning \
+    -W=ignore::pytest.PytestUnhandledThreadExceptionWarning
 }
 
 package() {
-  cd $_name-$pkgver
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.md
 }
