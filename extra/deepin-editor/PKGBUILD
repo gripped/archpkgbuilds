@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-editor
-pkgver=6.5.19
+pkgver=6.5.20
 pkgrel=1
 pkgdesc='Simple editor for Deepin'
 arch=('x86_64')
@@ -13,12 +13,10 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'dtk6declarative' 'gcc-libs'
 makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-editor.git#tag=$pkgver")
-sha512sums=('9117ae524703a4d6995a7a16b9546736b5a00afc276d04b4751328df97f996c0b4cbcb6873ac5f236c8fba8af4c281489825a54b53e76cd127453fbf8075b51e')
+sha512sums=('364b258b76e8de83ef167563dffa8975e16496ef0224282d685ac67692039dbf113e7c0ee3c591120d25a1997b4e3a682f23db5620094e7ac13bd9b0b6191fec')
 
 prepare() {
   cd deepin-editor
-  # unbreak lrelease location
-  git cherry-pick -n e6e417f33ac5e9fc64c0e343a975218277631348
   sed -e 's|CMAKE_CXX_STANDARD 11|CMAKE_CXX_STANDARD 17|' -i CMakeLists.txt # Fix build with ICU 75
 }
 
