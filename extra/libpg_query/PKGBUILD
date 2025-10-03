@@ -4,25 +4,25 @@
 pkgname=libpg_query
 # All versions are tagged by the major Postgres version,
 # plus an individual semver for this library itself.
-pkgver=16.5.1.0
-pkgrel=2
+pkgver=17.6.1.0
+pkgrel=1
 pkgdesc='C library for accessing the PostgreSQL parser outside of the server environment'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/pganalyze/libpg_query'
-license=('BSD-3-Clause')
-depends=('glibc' 'protobuf-c' 'xxhash')
-makedepends=('git')
+license=(BSD-3-Clause)
+depends=(glibc protobuf-c xxhash)
+makedepends=(git)
 source=(
   "$pkgname::git+$url#tag=${pkgver/./-}"
   'dont-override-opt-level.patch'
   'verbose-build.patch'
   'unbundle-vendor-deps.patch'
 )
-sha512sums=('5c61ec360b96cd1f12745fae9b06ce0d64e8bef43e15f7256ba840069ff512a7f4a148407e6d5dafa887acb3a94f4eb05423e2fcc6cf9b395536f15b40c7c509'
+sha512sums=('90493535c7d17bada320c22beee359356aa90ff38e1e6dd86dbf679c0487891d261c5ec25fb2a62560768ff0801b909a999c9946df14139a96e2e39d269f1294'
             '9f31d77b3ec21b7d8d36235380cf69fbea19df3a4aef72645e9f7df73468dbd153d92374b2c5c5314c7c29495350f4773254dd4b5bf1f677269ad001852118ea'
             '76851807c734f17a98d06fd327dc4b88b551687c54a122b9f5504663c04cfca2c433256f4be679660decf0aef5f6ffc76856514e913502ec0e64f2af2cfa70e0'
             '1a3c92b7ebb377aa980144a1b6ff5124ab04441df4a10ea59a978af0180985d44cd3a3c9f8d546a4340d6079c3aabd0b03f3a281c5e6c232384f3e402c0c780c')
-b2sums=('6f7328a40dfd9967a15b35d859e60064954defc306fd6d4e6ac850a269ab48cc31b329f191733ce4c0db2ee0ecb3718ce0c7e4e98aa32f2e82bf2378018758af'
+b2sums=('9fda2cab10a081081eadfbd4475b896cadfe171307bfe2a8d6c6ecf20edf994ab0fd3221b36b3073dff6a7464133d434c71976784b5e03654465beec6783b231'
         '697200002752c8ba2878371dc4e6b143d85dbb749e76e4b6f00760458af6b811292ef3262c5ffeccb7c29d8499112251b5c3d8d96a6bd5bed3c6906b5c3d7187'
         '01473989ec9ab0e497d1c75f46ce9a9193586ea04f0aa92b7e7e211ce276b1b15a148a7bd7d4c0b2aca1860e19ae4281bcd5d77e0d5b6458364ab5861a0198ab'
         '448c89cb12fd2c382e3dc74be87897eeee8b027f405acc264b5fa081632af2375b39d5e8a696059d92208ee2164d0dfbdfb56506afc892b6fab31aebaa861b18')
