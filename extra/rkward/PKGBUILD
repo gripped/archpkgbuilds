@@ -2,7 +2,7 @@
 # Contributor : Vassilis Palassopoulos <palasso [at] gmail [dot] com>
 
 pkgname=rkward
-pkgver=0.8.1
+pkgver=0.8.2
 pkgrel=1
 pkgdesc='An easy to use and easily extensible IDE/GUI for R'
 url='https://rkward.kde.org/'
@@ -32,9 +32,13 @@ depends=(breeze-icons
 makedepends=(extra-cmake-modules
              kdoctools)
 source=(https://download.kde.org/stable/rkward/$pkgver/$pkgname-$pkgver.tar.gz{,.sig})
-sha256sums=('44630c63d84f4ca7c040ab3c2dfcc938dfe8ad380900698b4c3803669b93b977'
+sha256sums=('be8abdfcd7a17aa5196f63e0136fdbc693e93d9f2f0ec66f2bdacacfc22b9ca8'
             'SKIP')
 validpgpkeys=(6F2DC0C0830CEA3890FF22CF391591DF1858CBB6) # Thomas Friedrichsmeier <thomas.friedrichsmeier@kdemail.net>
+
+prepare() {
+  find -name index.docbook | xargs sed -e 's|" preview_custom"|"preview_custom"|' -i # Fix build with libxml2 2.15
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
