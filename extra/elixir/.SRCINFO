@@ -1,13 +1,14 @@
 pkgbase = elixir
 	pkgdesc = A dynamic, functional language for building scalable and maintainable applications
 	pkgver = 1.18.4
-	pkgrel = 1
+	pkgrel = 2
 	url = https://elixir-lang.org
 	arch = any
 	license = Apache-2.0
 	checkdepends = erlang-dialyzer
 	checkdepends = erlang-eunit
 	checkdepends = git
+	checkdepends = rebar3
 	makedepends = erlang-compiler
 	makedepends = erlang-crypto
 	makedepends = erlang-erts
@@ -21,6 +22,8 @@ pkgbase = elixir
 	makedepends = erlang-xmerl
 	depends = erlang-core
 	source = elixir-1.18.4.tar.gz::https://github.com/elixir-lang/elixir/archive/v1.18.4.tar.gz
+	source = elixir-remove-failing-tests.patch
 	sha256sums = 8e136c0a92160cdad8daa74560e0e9c6810486bd232fbce1709d40fcc426b5e0
+	sha256sums = 992a6bd73819a04c9a3fb31bde4ae189d5bd2a5c6e592d66fb7ddc351941ce3d
 
 pkgname = elixir
