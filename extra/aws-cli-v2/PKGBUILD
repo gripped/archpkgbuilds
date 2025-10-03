@@ -4,7 +4,7 @@
 # Contributor: David Birks <david@birks.dev>
 
 pkgname=aws-cli-v2
-pkgver=2.30.1
+pkgver=2.31.3
 pkgrel=1
 pkgdesc='Universal Command Line Interface for Amazon Web Services (version 2)'
 arch=('any')
@@ -43,7 +43,7 @@ source=(
   "https://github.com/boto/botocore/commit/f0ff061aebd9ef15a66f87b675789275e373da43.patch"
   "$pkgname-python-prompt-toolkit-3.0.52-compat.patch"
 )
-sha256sums=('d7aa33f7771e947124c0899504e0793855a86b345bb31c7b6ab5477f88bafea8'
+sha256sums=('8d54a283f0421c25cdd54bfcad3b9937e09fb2195ef89f09304686b263a25a6e'
             '8c1b98482b1ba6f072cd5bc0c81efdb2a64dcc484a8394c24959078841ac5b18'
             '2e9149840a8b37083957345a697399ada16dce274990133156f9c6254b62ff2d')
 
@@ -82,6 +82,10 @@ check() {
     --deselect=tests/unit/botocore/test_awsrequest.py::TestAWSHTTPConnection::test_handles_expect_100_with_different_reason_phrase
     --deselect=tests/unit/botocore/test_awsrequest.py::TestAWSHTTPConnection::test_expect_100_continue_no_response_from_server
     --deselect=tests/unit/botocore/test_awsrequest.py::TestAWSHTTPConnection::test_state_reset_on_connection_close
+
+    # Fails with:
+    # FileNotFoundError: [Errno 2] No such file or directory: 'temp_creds.csv'
+    --deselect=tests/unit/customizations/configure/test_importer.py::TestConfigureImportCommand::test_csv_content_from_file_succeeds
 
     # Calls AWS services and requires credentials.
     --deselect=tests/integration/botocore/test_apigateway.py
