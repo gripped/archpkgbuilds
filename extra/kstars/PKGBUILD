@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kstars
-pkgver=3.7.8
-pkgrel=2
+pkgver=3.7.9
+pkgrel=1
 epoch=1
 pkgdesc='Desktop Planetarium'
 url='https://kstars.kde.org/'
@@ -19,7 +19,6 @@ depends=(breeze-icons
          kconfig
          kconfigwidgets
          kcoreaddons
-         kcrash
          ki18n
          kio
          knewstuff
@@ -47,7 +46,7 @@ makedepends=(eigen
              kdoctools)
 optdepends=('xplanet: XPlanet support')
 source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('55b3aef29ec1aba50906bd393d565e8a7e0b5b3a5d2e8e3cdfc1b58d718d2c0c'
+sha256sums=('4bc1d0fcd02c415414da80135f47a899a4a0962b40f43ffc8c65f433e3d92c35'
             'SKIP')
 validpgpkeys=(259D9FCEE9175351965633696D9CE2AEE028C4F3) # Jasem Mutlaq <mutlaqja@ikarustech.com>
 
@@ -59,7 +58,7 @@ prepare() {
 build() {
   cmake -B build -S $pkgname-$pkgver \
     -DBUILD_TESTING=OFF \
-    -DBUILD_QT5=OFF \
+    -DBUILD_WITH_QT6=ON \
     -DCMAKE_C_FLAGS="$CFLAGS -ffat-lto-objects" \
     -DCMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects"
   cmake --build build
