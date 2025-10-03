@@ -7,7 +7,7 @@ pkgname=(
   libgweather-4-docs
 )
 pkgver=4.4.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Location and timezone database and weather-lookup library"
 url="https://wiki.gnome.org/Projects/LibGWeather"
 arch=(x86_64)
@@ -34,7 +34,7 @@ makedepends=(
 checkdepends=(python-pylint)
 source=(
   "git+https://gitlab.gnome.org/GNOME/libgweather.git?signed#tag=$pkgver"
-  disable-metar-test.diff
+  disable-metar-test.patch
 )
 b2sums=('d09243e98733f471bf7591a4f137262ccaf65f1cb6b4bd856bd09bf87406b056f7708807ed791fd9b9166b78bc995c434122d76ba41cee7cdd67266fbc1e913f'
         '3d920f17e3f82bd33791b1e9662242f90a13e3cb3832fea5b900046b0ad90f97c5cf8174a6e5905b134585f280706ab67d3b65c108ed99c8285e3f05293b2b73')
@@ -45,8 +45,13 @@ validpgpkeys=(
 prepare() {
   cd libgweather
 
+  # Update METAR endpoints
+  # https://gitlab.gnome.org/GNOME/libgweather/-/merge_requests/370
+  git cherry-pick -n ecafbc5e3aeb087c67018c3625ba11ac3079ee6b
+  git cherry-pick -n 9cf1000379ee198ae257604c1324bee1d431055c
+
   # Disable metar test, depends on unstable online service
-  git apply -3 ../disable-metar-test.diff
+  git apply -3 ../disable-metar-test.patch
 }
 
 build() {
