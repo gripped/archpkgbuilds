@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gtk-doc
-pkgver=1.35.0
+pkgver=1.35.1
 pkgrel=1
 pkgdesc="Documentation tool for public library API"
 url="https://gitlab.gnome.org/GNOME/gtk-doc"
@@ -38,7 +38,7 @@ source=(
   "git+$url.git#tag=$pkgver"
   0001-Fix-tests.patch
 )
-b2sums=('4a6aac0c0977750517d8b7ccde155cdf8854da6682d734707c9c1e3819652dc31783a93d7d8322d530ca2aeedbc7fbbc8337e30a2f17b26b8cf1330a6b61d8ef'
+b2sums=('dabeb601628acfc3b9a5d0f46ce3f2f1275a2e30b70be7f5ff69c19b5009a703f5efe631a27b9b951ce30f12b3459d8c42482c851d1b6452d6f59cf143203319'
         '0c099517bb57130cf2b0f941ad52fc0414a7c96e0c887b7efee6539e17b065c0bd6cf8f56eadd2407fba17d0d1b5bb9182c4f033b7f3cab9aa7a9cfb32702927')
 
 prepare() {
