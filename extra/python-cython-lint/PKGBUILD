@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-cython-lint
-pkgver=0.16.7
+pkgver=0.17.0
 pkgrel=1
 pkgdesc='A tool to lint Cython files'
 arch=(any)
@@ -23,8 +23,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('30cd69e1123da3be532337d2d95d905cc1603272212b62811904aaa0d992c052a911d2c1694f933e7052989924b1a18df824edf24dad8a2b45acf2b9ba66f6dd')
-b2sums=('66b8c0e27100a2cff00015d36c4c8e5ef225e283c1853607426423e236aca98955ea5063cdbb5d7a059e70b23444081a495f49ab0ece9a9bc2b283da5d0b87d6')
+sha512sums=('b6782dd797f00d34d23501cdd96bbde15f1815d9094df15ad3fc7f1ce5a2e9776fd9b8dfc6f9fef9c31f9e2deb87e75884e0e98e4910a389227dfba7fc3dca4e')
+b2sums=('d455f55b589d8161a63ec0a3438d849f03f40e4e28ec9062b849e77d991dbaa89c30f2e892b03aa939d93273473f8a0734acd9cd6a58bccadc7cc424020ca355')
 
 build() {
   cd "$pkgname"
