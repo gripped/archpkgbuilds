@@ -1,6 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=rofi-calc
-pkgver=2.4.0
+pkgver=2.4.1
 pkgrel=1
 pkgdesc="Do calculations in rofi"
 arch=('x86_64')
@@ -10,7 +10,7 @@ depends=(rofi libqalculate)
 makedepends=(meson)
 install=$pkgname.install
 source=($pkgname-$pkgver.tar.gz::https://github.com/svenstaro/rofi-calc/archive/v${pkgver}.tar.gz)
-sha512sums=('02c60915e3b0ff18b54959e3baccf769dda6460cc3e9d955602e606660199a7b058a1b102fdf8b3a010a589f5f0de66dc6f4f49328be03fbee2d3b46482292a7')
+sha512sums=('ea1c843f143b6804ec526093201159243d20c6b365525297c68a4a27717971802936458cf96181475445c0d03aeb46b53661200ed3348f2108c6e3fe8c3f6678')
 
 build() {
   arch-meson rofi-calc-$pkgver build
