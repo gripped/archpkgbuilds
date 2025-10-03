@@ -7,10 +7,10 @@ pkgname=(
   glycin-gtk4
 )
 pkgver=2.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Sandboxed and extendable image decoding"
 arch=(x86_64)
-url="https://gitlab.gnome.org/GNOME/glycin"
+url="https://gnome.pages.gitlab.gnome.org/glycin/"
 license=('MPL-2.0 OR LGPL-2.1-or-later')
 depends=(
   bubblewrap
@@ -41,7 +41,7 @@ checkdepends=(
   svt-av1
 )
 source=(
-  "git+$url.git#tag=${pkgver/[a-z]/.&}"
+  "git+https://gitlab.gnome.org/GNOME/glycin.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/sophie-h/test-images.git"
 )
 b2sums=('d044ce4475894525f2cd86a703a61b7ec551599f6c61bc4291d9e66c31bdd163255d0eafd11c60a331a16982f6e679035e38e24b9cd3c77b77da7055cd247985'
@@ -55,6 +55,13 @@ export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 prepare() {
   cd glycin
+
+  # Avoid crash on resume from suspend
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/glycin/-/issues/4
+  git cherry-pick -n f2baca96c10aeeda386fe51da11013643996e46a
+
+  # Fix disabling image transformations
+  git cherry-pick -n f9007be4defc14cd15d5443e5c35d1f607ba1170
 
   git submodule init
   git submodule set-url tests/test-images "$srcdir/test-images"
