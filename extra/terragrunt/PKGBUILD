@@ -1,43 +1,65 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Benjamin Denhartog <ben@sudoforge.com>
 # Contributor: Andreas 'Segaja' Schleifer <archlinux at segaja dot de>
 
 pkgname=terragrunt
-pkgver=0.80.4
+pkgver=0.88.1
 pkgrel=1
 pkgdesc='Thin wrapper for Terraform and OpenTofu for working with multiple modules'
-url='https://github.com/gruntwork-io/terragrunt'
 arch=(x86_64)
-makedepends=(
-  git
-  go
-)
+url='https://github.com/gruntwork-io/terragrunt'
+license=(MIT)
 depends=(
   glibc
   terragrunt-iac-provider
 )
-license=(MIT)
-source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('b8de3422bb86da3fb6d2170aa4a35e1679aef228985fe5b683120866fa4fb591')
-b2sums=('db5140e9bcb6f543a59ddbd826ebbf8beadd1841d9d902b3a917f5dddac7c7768959ff65e012217ce9431a0fa0dec743b95f8667817c3c51de4cc76e31f232fa')
+makedepends=(
+  git
+  go
+)
 options=('!lto')
+source=("git+$url.git#tag=v$pkgver")
+sha512sums=('57001c7fc8bbafa790a43578d4472d48a1bcdf2d66804df2276ff1a8167764afd163952cd99d07edc3d8ba4930b6c9095f88e03f15e5a9a9d864d19b7b9d6302')
+b2sums=('0b83b777bd5ef0d9e8fa27878749a9f86105ba182beaeac79cebbfb9825d94d97f4fc642f78d7e3018545415769865fa1832faae422bd0e835ebfaefe39b6743')
+
+prepare() {
+  cd $pkgname
+  GOFLAGS="-mod=readonly" go mod vendor -v
+}
 
 build() {
-  cd ${pkgname}-${pkgver}
-  export CGO_CFLAGS="${CFLAGS}"
-  export CGO_CXXFLAGS="${CXXFLAGS}"
-  export CGO_CPPFLAGS="${CPPFLAGS}"
-  export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -ldflags=-linkmode=external -trimpath -mod=readonly -modcacherw"
-  go build -v \
-    -ldflags "-linkmode=external -extldflags '${LDFLAGS}' -X github.com/gruntwork-io/go-commons/version.Version=${pkgver}" \
-    .
+  cd $pkgname
+  export CGO_LDFLAGS="$LDFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw -buildvcs=false"
+  export GOPATH="$srcdir"
+
+  local ld_flags=" \
+    -X github.com/gruntwork-io/go-commons/version.Version=$pkgver \
+    -compressdwarf=false \
+    -linkmode=external \
+  "
+  go build -v -ldflags "$ld_flags" -o build/
+}
+
+check() {
+  cd $pkgname
+  # Deselect integration tests & tests requiring network access
+  local unit_tests=$(
+    go list ./... \
+      | grep -v github.com/gruntwork-io/terragrunt/cli/commands/run \
+      | grep -v github.com/gruntwork-io/terragrunt/internal/cas \
+      | grep -v github.com/gruntwork-io/terragrunt/test \
+  )
+  # shellcheck disable=SC2086
+  go test -v $unit_tests
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  install -Dm 755 ${pkgname} -t "${pkgdir}/usr/bin"
-  install -Dm 644 LICENSE.txt -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  cd $pkgname
+  install -vDm755 -t "$pkgdir/usr/bin" build/$pkgname
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
 }
-
-# vim:set ts=2 sw=2 et:
