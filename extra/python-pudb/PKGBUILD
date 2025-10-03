@@ -3,8 +3,8 @@
 # Contributor: Kwpolska <kwpolska@kwpolska.tk>
 
 pkgname=python-pudb
-pkgver=2025.1
-pkgrel=3
+pkgver=2025.1.1
+pkgrel=1
 pkgdesc="A full-screen, console-based Python debugger"
 url="https://pypi.python.org/pypi/pudb"
 arch=('any')
@@ -14,6 +14,7 @@ depends=(
   'python-jedi'
   'python-packaging'
   'python-pygments'
+  'python-typing_extensions'
   'python-urwid'
   'python-urwid_readline'
 )
@@ -32,7 +33,7 @@ source=(
   "https://github.com/inducer/pudb/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
   "$pkgname-exclude-tests.patch"
 )
-sha512sums=('222c48aa1b1e8ffc39f2560b54b83b3729e239d94ee439c1b61b6140ae073a4aa94dc1640bbc11b0b7cc7f21f4bda7e041bdfb3338bd087b16958a7bb631b82f'
+sha512sums=('4f620fb03bf40db26225e7f6490a53ada716739814222d60dc68a7f691f0b959aea28ef8e934d66e775e1704b13faa373834a8922ed35c9b308afd238c6dc5cb'
             '25d34a9c5b00e5cc59c0a692a7ca494f1d046a2aa2ace801a47eca743de7e066c0ed95b05653429333121fbd005de2dc63711161f7915de24ec0de12aaf03dcf')
 
 prepare() {
