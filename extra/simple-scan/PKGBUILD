@@ -5,7 +5,7 @@
 # Contributor: Joeny Ang <ang(dot)joeny(at)gmail(dot)com>
 
 pkgname=simple-scan
-pkgver=49.0
+pkgver=49.0.1
 pkgrel=1
 pkgdesc="Simple scanning utility"
 url="https://apps.gnome.org/SimpleScan/"
@@ -37,7 +37,7 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/simple-scan.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('3bb82d99fd15b4a6e0a88eeeeee6970aed56c8518cf3ff80030460ef778b7e7e8e8b202ebb3a518f090e8e07624eec096d9b9fb0ebbc067cd04b31031a5da6c8')
+b2sums=('c60ed207e8ea2083944549bc2f9465bccc1d3add10314b30d29d02d93abd4116aca9432bcd1805bff9085972488db5726dbb8ff8cbe5e19a128e271cbb7fe194')
 validpgpkeys=(
   4D0BE12F0E4776D8AACE9696E66C775AEBFE6C7D # Jeremy Bicha <jeremy.bicha@canonical.com>
 )
