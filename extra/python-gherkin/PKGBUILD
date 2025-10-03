@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-gherkin
-pkgver=35.0.0
+pkgver=35.1.0
 pkgrel=1
 pkgdesc="A parser and compiler for the Gherkin language"
 arch=('any')
@@ -19,7 +19,7 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('a63ba0f8cd13a3017fb69f908dd80eea94e3523ca3016439b061cbd104e817f2')
+sha256sums=('934f9b5d7862a60ba83779b90e419b8894bc8df34d59bc168a2a8b8d6d87ab60')
 
 build() {
   cd "${pkgname#python-}-$pkgver/python"
