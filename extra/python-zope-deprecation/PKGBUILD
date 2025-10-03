@@ -1,30 +1,37 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-zope-deprecation
-pkgver=5.1
-pkgrel=1
+pkgver=6.0
+pkgrel=2
 pkgdesc="Zope Deprecation Infrastructure"
 arch=('any')
 url="https://github.com/zopefoundation/zope.deprecation"
-license=('ZPL')
-depends=('python-setuptools')
-checkdepends=('python-nose')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/zopefoundation/zope.deprecation/archive/$pkgver.tar.gz")
-sha512sums=('0fe87e1dcda778d61fdf0b17af10efc9a31070c30f86fa66638964959271a7a59337fe7ca8f81e4678031990de585aa060883351d67a34362f27afa4c8899313')
+license=('ZPL-2.1')
+depends=('python')
+makedepends=(
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=('python-zope-testrunner')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+sha512sums=('8f332c4ecb42d78a0965d7fc9984d03efffc7add1309aec9c4db59dd39da84b255f35aa39aebe159b9ae612e54e1cbe8c5c515099b59d38c980940b4971627c8')
 
 build() {
-  cd "$srcdir"/zope.deprecation-$pkgver
-  python setup.py build
+  cd zope.deprecation-$pkgver
+  python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
-  cd "$srcdir"/zope.deprecation-$pkgver
-  nosetests3
+  cd zope.deprecation-$pkgver
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m zope.testrunner -vc --test-path src/
 }
 
 package() {
   cd zope.deprecation-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
-
-# vim:set ts=2 sw=2 et:
