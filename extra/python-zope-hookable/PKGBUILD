@@ -3,8 +3,8 @@
 
 pkgname=python-zope-hookable
 _pkgname=zope.hookable
-pkgver=7.0
-pkgrel=2
+pkgver=8.0
+pkgrel=1
 pkgdesc="Represents the core of the Zope hookable Architecture"
 arch=('x86_64')
 url="https://github.com/zopefoundation/zope.hookable"
@@ -21,7 +21,7 @@ makedepends=(
 )
 checkdepends=('python-zope-testrunner')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('05c16b2ed0bf9708f3038d07c279efe07472f320a6d33db4cd2f518fced2f2da3ff27412222c446e224e2baf135178ccaacdea2679dce5317e7bc1fb0fbaa572')
+sha512sums=('c8ccc0c095515968a98011d25b7c25cb1aab646ffc2736b18ecba5458da5233bb8d9681eff19dd3bca18bd23662e9a4eb52ba26c12dfac03eb9754d0bde88fe2')
 
 build() {
   cd $_pkgname-$pkgver
@@ -30,15 +30,12 @@ build() {
 
 check() {
   cd $_pkgname-$pkgver
-  python -m installer --destdir=tmp_install dist/*.whl
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  export PYTHONPATH="$PWD/tmp_install/$site_packages"
-  zope-testrunner --test-path=src -vc
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m zope.testrunner -vc --test-path src/
 }
 
 package() {
   cd $_pkgname-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
-
-# vim:set ts=2 sw=2 et:
