@@ -5,7 +5,7 @@
 
 pkgname=python-zope-interface
 _pkgname=zope.interface
-pkgver=7.2
+pkgver=8.0.1
 pkgrel=1
 pkgdesc='Zope Interfaces for Python 3.x'
 arch=('x86_64')
@@ -26,7 +26,7 @@ checkdepends=(
   'python-zope-testing'
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('4fed40f4eeae27cdd1daf864e66cf1211b899ab3a5ee76f6a03f90fc281fb995520450858e7e59c4fa20b5bb8618edfbc2a973abce3def3178497d14b7652bb0')
+sha512sums=('c50872c8173760195a6bca9010f0a0300f0b8bcbb7274eebc5c4006a22b05fba1fb2633e536b995b211420d08b18f28709e316d57acf9277818f301f76a3310a')
 
 build() {
   cd $_pkgname-$pkgver
@@ -35,10 +35,9 @@ build() {
 
 check() {
   cd $_pkgname-$pkgver
-  python -m installer --destdir=tmp_install dist/*.whl
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  export PYTHONPATH="$PWD/tmp_install/$site_packages"
-  zope-testrunner --test-path=src -vc
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m zope.testrunner -vc --test-path src/
 }
 
 package() {
