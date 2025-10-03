@@ -3,8 +3,8 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=python-moto
-pkgver=5.1.12
-pkgrel=2
+pkgver=5.1.13
+pkgrel=1
 pkgdesc='Moto is a library to mock out the boto library.'
 arch=(any)
 url='https://github.com/spulec/moto'
@@ -73,7 +73,7 @@ optdepends=(
   'python-jsonschema: for quicksight'
 )
 source=("git+https://github.com/getmoto/moto#tag=$pkgver")
-sha256sums=('cfa3e48d2501508b4f4fa32f144e5efa0233d2dae5265a5dcec5d2bf8c8b587a')
+sha256sums=('fc6c2db0d5a683cf68625b20a5e7fa617868e8711b8db5c85208c829ee461339')
 
 prepare() {
   cd ${pkgname#python-}
