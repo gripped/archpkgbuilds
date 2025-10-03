@@ -3,20 +3,20 @@
 # Contributor: Tinxy <arch at tinx dot eu>
 
 pkgname=hedgewars
-pkgver=1.0.2
-pkgrel=236
+pkgver=1.0.3
+pkgrel=2
 pkgdesc="Turn-based strategy artillery game similiar to Worms"
 arch=('x86_64')
 url="https://hedgewars.org"
 license=('GPL' 'custom')
-depends=('qt5-base' 'sdl2' 'sdl2_mixer' 'sdl2_image' 'sdl2_net' 'sdl2_ttf' 'lua51' 'ffmpeg4.4'
+depends=('qt5-base' 'sdl2' 'sdl2_mixer' 'sdl2_image' 'sdl2_net' 'sdl2_ttf' 'lua51' 'ffmpeg'
          'physfs' 'ghc-libs' 'haskell-entropy' 'haskell-sha' 'haskell-random' 'haskell-regex-tdfa'
          'haskell-sandi' 'haskell-hslogger' 'haskell-network' 'haskell-network-bsd'
          'haskell-utf8-string' 'haskell-vector')
 makedepends=('fpc' 'cmake' 'qt5-tools' 'ghc' 'haskell-zlib' 'haskell-base-prelude' 'imagemagick'
              'mesa')
 source=("https://www.hedgewars.org/download/releases/hedgewars-src-$pkgver.tar.bz2")
-sha512sums=('dc79cc48eee305d8dd2b64fcbfe598d48f8aec918d9065a6af4aef9be4e4940ad858836fc6bda46e02128b80dbba8c443a4f8a702a16b0ac969f8d0a0e080502')
+sha512sums=('b170a6fa29b51c0fed94f7dd34325f0eea8b48ea256b13b5289df9a28745f36fd2479038e79f09cd60158e002b8805cd0a3ff3ac9d359897bd3113ef7db004e8')
 
 prepare() {
   cd hedgewars-src-$pkgver
@@ -29,7 +29,6 @@ prepare() {
 
 build() {
   cd hedgewars-src-$pkgver
-  export PKG_CONFIG_PATH='/usr/lib/ffmpeg4.4/pkgconfig'
   cmake \
     -Bbuild \
     -DCMAKE_BUILD_TYPE="Release" \
