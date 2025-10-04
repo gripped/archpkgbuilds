@@ -1,10 +1,10 @@
 pkgbase = deepin-kwin
 	pkgdesc = DDE window manager forked from KWin
-	pkgver = 6.0.7
+	pkgver = 6.0.8
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-kwin
 	arch = x86_64
-	license = GPL3
+	license = GPL-2.0-or-later
 	makedepends = git
 	makedepends = extra-cmake-modules
 	makedepends = ninja
@@ -70,7 +70,9 @@ pkgbase = deepin-kwin
 	depends = deepin-qt6platform-plugins
 	conflicts = kwin
 	conflicts = kwin-x11
-	source = git+https://github.com/linuxdeepin/deepin-kwin.git#tag=6.0.7
-	sha512sums = 1c995f70ccd7bc7bbc5e16c795caee579b95e648d40d2077e932c7d2606e64ad3951878ba7de5b8ef919f5e116b8b64b123dd232810ca369abb77e829ad5c7c6
+	source = git+https://github.com/linuxdeepin/deepin-kwin.git#tag=6.0.8
+	source = qt-6.10.patch
+	sha512sums = 295451187c76e690af0bf3ae87ad1a03cc323efbf9971ba76c9fbaf9ec5590a0bbcdeed4331f106462c5c44519a8a44ed3272ed3bf63fecb1e6042275b557f4d
+	sha512sums = c92c1ecab8dbb68602be06bc743156c22a5d992d6b47491471fe19f0d2d334416e0679547b3b1ff0494f76e9603cb675a4a5459fa3f121f9307234aa26cf3f51
 
 pkgname = deepin-kwin

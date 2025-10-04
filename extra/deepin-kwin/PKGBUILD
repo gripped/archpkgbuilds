@@ -3,12 +3,12 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-kwin
-pkgver=6.0.7
+pkgver=6.0.8
 pkgrel=1
 pkgdesc='DDE window manager forked from KWin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-kwin"
-license=('GPL3')
+license=('GPL-2.0-or-later')
 depends=(qt6-base qt6-declarative qt6-shadertools qt6-wayland kauth kconfig kconfigwidgets
          kcoreaddons kdbusaddons kdeclarative kglobalacceld ki18n kidletime kitemviews knotifications
          kcrash kpackage libepoxy kwidgetsaddons kwindowsystem kcmutils knewstuff krunner kservice
@@ -19,13 +19,18 @@ depends=(qt6-base qt6-declarative qt6-shadertools qt6-wayland kauth kconfig kcon
 makedepends=(git extra-cmake-modules ninja qt6-tools clang wayland-protocols
              deepin-wayland-protocols)
 conflicts=('kwin' 'kwin-x11')
-source=("git+https://github.com/linuxdeepin/deepin-kwin.git#tag=$pkgver")
-sha512sums=('1c995f70ccd7bc7bbc5e16c795caee579b95e648d40d2077e932c7d2606e64ad3951878ba7de5b8ef919f5e116b8b64b123dd232810ca369abb77e829ad5c7c6')
+source=("git+https://github.com/linuxdeepin/deepin-kwin.git#tag=$pkgver"
+         qt-6.10.patch)
+sha512sums=('295451187c76e690af0bf3ae87ad1a03cc323efbf9971ba76c9fbaf9ec5590a0bbcdeed4331f106462c5c44519a8a44ed3272ed3bf63fecb1e6042275b557f4d'
+            'c92c1ecab8dbb68602be06bc743156c22a5d992d6b47491471fe19f0d2d334416e0679547b3b1ff0494f76e9603cb675a4a5459fa3f121f9307234aa26cf3f51')
 
 prepare() {
   cd deepin-kwin
-  sed -i 's/QGenericUnixServices/QDesktopUnixServices/;s/qgenericunixservices_p/qdesktopunixservices_p/' src/plugins/qpa/integration.{h,cpp}
+  # Fix build with Qt 6.9
+  git cherry-pick -n 664808264f5a49c306834565d0e0c631a8feda27
   sed -i 's|/usr/share/backgrounds/default_background.jpg|/usr/share/backgrounds/deepin/desktop.jpg|' src/effects/multitaskview/multitaskview.cpp
+
+  patch -p1 -i ../qt-6.10.patch
 }
 
 build() {
