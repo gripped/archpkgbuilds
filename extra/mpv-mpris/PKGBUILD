@@ -2,7 +2,7 @@
 
 pkgname=mpv-mpris
 pkgver=1.1
-pkgrel=3
+pkgrel=4
 pkgdesc='MPRIS plugin for mpv'
 arch=('x86_64')
 url='https://github.com/hoyon/mpv-mpris'
