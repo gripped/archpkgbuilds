@@ -3,7 +3,7 @@
 
 pkgname=pqiv
 pkgver=2.13.2
-pkgrel=4
+pkgrel=5
 pkgdesc='Powerful image viewer with minimal UI'
 arch=(x86_64)
 url="https://github.com/phillipberndt/$pkgname"
@@ -31,8 +31,15 @@ optdepends=('ffmpeg: rudimentary video support'
             'libwebp: WebP support'
             'poppler-glib: rudimentary PDF support')
 _archive="$pkgname-$pkgver"
-source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('154cbbe0a62be12cee23b0a46a86b2305d8128fd19924308ad5e9d22fa5ad4f7')
+source=("$url/archive/$pkgver/$_archive.tar.gz"
+        https://github.com/phillipberndt/pqiv/commit/a36571549a32d2ec41d6f523d443de74e0fb1276.patch)
+sha256sums=('154cbbe0a62be12cee23b0a46a86b2305d8128fd19924308ad5e9d22fa5ad4f7'
+            '1e2e4d2ad03639b5b58552a055ce45f2f227de51db36b3eefb8c115e337e22aa')
+
+prepare() {
+	cd "$_archive"
+	patch -Np1 -i ../a36571549a32d2ec41d6f523d443de74e0fb1276.patch
+}
 
 build() {
 	cd "$_archive"
