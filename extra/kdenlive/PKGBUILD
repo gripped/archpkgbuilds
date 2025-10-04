@@ -6,7 +6,7 @@
 
 pkgname=kdenlive
 pkgver=25.08.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A non-linear video editor for Linux using the MLT video framework'
 arch=(x86_64)
 url='https://apps.kde.org/kdenlive/'
@@ -71,6 +71,10 @@ sha256sums=('4ca96d280db39510ff42c007d9089fafcd141cc61bdddb1902ab2683a34157fb'
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
+
+prepare() {
+  find -name index.docbook | xargs sed -e 's|url=" http|url="http|g' -e 's|Misc "|Misc"|g' -i # Fix build with libxml2 2.15
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
