@@ -4,7 +4,7 @@
 # Contributor: Hong Xu
 
 pkgname=editorconfig-core-c
-pkgver=0.12.9
+pkgver=0.12.10
 pkgrel=1
 pkgdesc='EditorConfig core code written in C (for use by plugins supporting EditorConfig parsing)'
 arch=(x86_64)
@@ -16,7 +16,11 @@ makedepends=(cmake
              doxygen
              git)
 source=(git+https://github.com/editorconfig/$pkgname#tag=v$pkgver)
-sha256sums=('d18aa56df9b9839b47e310d5dcf5b118fe2ae4e4b79ce09c17793fd8f452a1c5')
+sha256sums=('ecbf28494e61fbf9e4cb70bf4af4ee38a5e4a3d1fb7e81e5a3b6d777cae3a9ac')
+
+prepare() {
+  sed -e 's|-Werror||' -i $pkgname/src/CMakeLists.txt
+}
 
 build() {
   cmake -B build -S $pkgname \
