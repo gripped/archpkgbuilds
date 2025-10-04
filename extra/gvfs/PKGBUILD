@@ -17,7 +17,7 @@ pkgname=(
   gvfs-wsdd
 )
 pkgver=1.58.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Virtual filesystem implementation for GIO"
 url="https://gitlab.gnome.org/GNOME/gvfs"
 arch=(x86_64)
