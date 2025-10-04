@@ -4,7 +4,7 @@
 
 pkgname=calcmysky
 pkgver=0.3.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Simulator of light scattering by planetary atmospheres"
 arch=(x86_64)
 url="https://github.com/10110111/CalcMySky"
@@ -24,14 +24,19 @@ build() {
     -D QT_VERSION=6
   )
   cmake "${cmake_options[@]}"
-  cmake --build build --target all
+  cmake --build build
 }
 
 check() {
-  cmake --build build --target test
+  local ctest_flags=(
+    --test-dir build
+    --output-on-failure
+    --parallel $(nproc)
+  )
+  ctest "${ctest_flags[@]}"
 }
 
 package() {
-  DESTDIR="$pkgdir" cmake --build build --target install
-  install -vDm 644 CalcMySky/COPYING -t "$pkgdir/usr/share/licenses/$pkgname"
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm 644 CalcMySky/COPYING -t "$pkgdir"/usr/share/licenses/$pkgname
 }
