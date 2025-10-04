@@ -3,13 +3,14 @@
 
 pkgname=archlinux-contrib
 _pkgname=contrib
-pkgver=20250219
+pkgver=20251003
 pkgrel=1
 pkgdesc="Collection of contrib scripts used in Arch Linux"
 url="https://github.com/archlinux/contrib"
 arch=('any')
 license=('GPL-2.0-or-later')
 depends=('python' 'bash' 'pyalpm')
+makedepends=('git')
 optdepends=('python-requests: for security tracker'
             'jq: for rebuild-todo'
             'devtools: for rebuild-todo'
@@ -19,17 +20,16 @@ optdepends=('python-requests: for security tracker'
             'ripgrep: for pkggrep'
             'parallel: for pkggrep & greposcope'
             'rebuilderd-tools: for greposcope')
-source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz"
-        "${_pkgname}-${pkgver}.tar.gz.asc::${url}/releases/download/${pkgver}/${_pkgname}-${pkgver}.tar.gz.asc")
+source=(git+https://github.com/archlinux/contrib.git#tag=${pkgver}?signed)
 validpgpkeys=('C100346676634E80C940FB9E9C02FF419FECBE16'  # Morten Linderud
               '86CFFCA918CF3AF47147588051E8B148A9999C34'  # Evangelos Foutras
               'F00B96D15228013FFC9C9D0393B11DAA4C197E3D'  # Christian Heusel
+              '6F779ADE247A6B8A0F72CC13C047D4F328B52585'  # Christian Heusel
               'E499C79F53C96A54E572FEE1C06086337C50773E'  # Jelle van der Waa
               '262A58EC6C51F7EA395B2E2DFDC3040B92ACA748') # Robin Candau
-sha256sums=('fbcaa234d1e8fd4377203924b21b94786084d1a89d2cfe3549f9fb4b7c5ae9d2'
-            'SKIP')
+sha256sums=('9397932f4cc16e85cdbd6057979d0fb1420e36afc8ef72df331c19f9566f3e0a')
 
 package() {
-	cd "${_pkgname}-${pkgver}"
+	cd "${_pkgname}"
 	make PREFIX=/usr DESTDIR="${pkgdir}" install
 }
