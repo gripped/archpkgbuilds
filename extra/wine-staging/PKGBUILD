@@ -6,7 +6,7 @@
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 
 pkgname=wine-staging
-pkgver=10.15
+pkgver=10.16
 pkgrel=1
 
 _pkgbasever=${pkgver/rc/-rc}
@@ -16,11 +16,13 @@ _winever=$_pkgbasever
 source=("git+https://gitlab.winehq.org/wine/wine.git?signed#tag=wine-$_pkgbasever"
         "git+https://gitlab.winehq.org/wine/wine-staging.git#tag=v$_pkgbasever"
         30-win32-aliases.conf
-        wine-binfmt.conf)
-sha512sums=('741b9777535e668b466d56e2cfc4f26d9f4ca6a684abbe59da2b8df02db5d870d8355bd1658417ebaf4b4b0b7d30261d2b5415c51f45f4182c669071a76c0f7d'
-            'bf85d4efd0f222b15a698b3dbd2d33907cece2996a52e31f2845dd2d6ba8063207326538c488ce0a4b529fb2d1803c37eb23a77e29ab75f9e56b90b51a191b24'
+        wine-binfmt.conf
+        ntsync.conf)
+sha512sums=('4976e467d85ebeafdfc844e7f56833cccd35a9f435c13acc9053844dee95ad85043b30a12ffc8436c422201107c816e9b086d97fe1bd203b800e14129e2575ab'
+            'f9f69f740a6b75a6f55b17a2c75f8d3f16e4869f3119f88b65ee60714f29db2ca4bbeb9c0a9eee0ae415defcdef3bff9b256a8f509a5ae894eb2f47b122fe696'
             '6e54ece7ec7022b3c9d94ad64bdf1017338da16c618966e8baf398e6f18f80f7b0576edf1d1da47ed77b96d577e4cbb2bb0156b0b11c183a0accf22654b0a2bb'
-            'bdde7ae015d8a98ba55e84b86dc05aca1d4f8de85be7e4bd6187054bfe4ac83b5a20538945b63fb073caab78022141e9545685e4e3698c97ff173cf30859e285')
+            'bdde7ae015d8a98ba55e84b86dc05aca1d4f8de85be7e4bd6187054bfe4ac83b5a20538945b63fb073caab78022141e9545685e4e3698c97ff173cf30859e285'
+            'ac2bd634838ffe6b90f2637e229013f0993fc1013271dbeefd216dc262a8bb79e4a5ce15a75cbfcb0c3b521d32f4ebe1ed25a6b066b99cc327b60bd6d7212e6f')
 validpgpkeys=(5AC1A08B03BD7A313E0A955AF5E6E9EEB9461DD7
               DA23579A74D4AD9AF9D3F945CEFAC8EAAF17519D)
 
@@ -37,7 +39,9 @@ depends=(
   gcc-libs
   gettext
   libpcap
+  libunwind
   libxcursor
+  libxkbcommon
   libxi
   libxrandr
   wayland
@@ -45,7 +49,6 @@ depends=(
 makedepends=(
   alsa-lib
   ffmpeg
-  giflib
   git
   gnutls
   gst-plugins-base-libs
@@ -66,7 +69,9 @@ makedepends=(
   samba
   sane
   sdl2
+  unixodbc
   v4l-utils
+  vulkan-headers
   vulkan-icd-loader
 )
 optdepends=(
@@ -75,9 +80,12 @@ optdepends=(
   cups
   dosbox
   ffmpeg
-  giflib
   gnutls
+  gst-plugins-bad
+  gst-plugins-base
   gst-plugins-base-libs
+  gst-plugins-good
+  gst-plugins-ugly
   gtk3
   libgphoto2
   libpulse
@@ -89,12 +97,12 @@ optdepends=(
   samba
   sane
   sdl2
+  unixodbc
   v4l-utils
   vulkan-icd-loader
   wine-gecko
   wine-mono
 )
-
 provides=("wine=$pkgver")
 conflicts=('wine')
 install=wine.install
@@ -111,14 +119,15 @@ prepare() {
 
 build() {
   # Apply flags for cross-compilation
-  export CROSSCFLAGS="-O2 -pipe"
-  export CROSSCXXFLAGS="-O2 -pipe"
+  export CROSSCFLAGS="-O2 -pipe -g"
+  export CROSSCXXFLAGS="-O2 -pipe -g"
   export CROSSLDFLAGS="-Wl,-O1"
 
   cd "$srcdir/$pkgname-64-build"
   ../wine/configure \
     --prefix=/usr \
     --libdir=/usr/lib \
+    --disable-tests \
     --enable-archs=x86_64,i386
 
   make
@@ -135,6 +144,9 @@ package() {
   install -m644 "$srcdir/30-win32-aliases.conf" "$pkgdir/usr/share/fontconfig/conf.avail"
   ln -s ../conf.avail/30-win32-aliases.conf "$pkgdir/usr/share/fontconfig/conf.default/30-win32-aliases.conf"
   install -Dm 644 "$srcdir/wine-binfmt.conf" "$pkgdir/usr/lib/binfmt.d/wine.conf"
+
+  # Load ntsync module
+  install -Dm644 "$srcdir/ntsync.conf" "$pkgdir/usr/lib/modules-load.d/10-ntsync.conf"
 
   i686-w64-mingw32-strip --strip-unneeded "$pkgdir"/usr/lib/wine/i386-windows/*.dll
   x86_64-w64-mingw32-strip --strip-unneeded "$pkgdir"/usr/lib/wine/x86_64-windows/*.dll
