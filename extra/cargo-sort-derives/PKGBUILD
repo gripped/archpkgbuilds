@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=cargo-sort-derives
-pkgver=0.10.0
+pkgver=0.10.1
 pkgrel=1
 pkgdesc="Cargo subcommand to sort derive attributes"
 arch=(x86_64)
@@ -14,8 +14,8 @@ depends=(
 )
 makedepends=(rust)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('f67be32df6b0edded691ebbd0f979774ce6fc4e48029e3c0abb5f36f558ca9d7d3ab4fa11da208aa550288926b8e416e9ebc76b35f4d3c193b7fdf4111e041bd')
-b2sums=('976d0d285f0295f7047c4d2bcdc47b5aade79b003811d289d3f66e06516f37a262d61ec19a9509b4fa06f1051403219f022cb34842aacb1a4f25ab50ac3f8908')
+sha512sums=('d8c00ac2e0c4410229d4872df029e7d1e18c16ce38fb5c8e0ea9dcd407ace081a3f4c5928ea52b5bc4c3ff376456a6c8a12ce0326e689115ada98f5b7af1576f')
+b2sums=('b3053e03d531d4c9961c30e4338374f0d3a9302c58f3448f99437b9b9addc91ead423a0e2782d377d0b4111017994f7c31fa0d73b9c870559c50125cc72b590b')
 
 prepare() {
   cd $pkgname-$pkgver
