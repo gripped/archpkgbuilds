@@ -1,0 +1,12 @@
+diff -rup nageru-2.3.0.orig/nageru/ffmpeg_capture.cpp nageru-2.3.0/nageru/ffmpeg_capture.cpp
+--- nageru-2.3.0.orig/nageru/ffmpeg_capture.cpp	2025-09-28 08:43:34.534383065 -0400
++++ nageru-2.3.0/nageru/ffmpeg_capture.cpp	2025-09-28 08:44:04.772041299 -0400
+@@ -482,7 +482,7 @@ AVPixelFormat get_hw_format(AVCodecConte
+ 			if (config->pix_fmt == *fmt_ptr) {
+ 				fprintf(stderr, "Initialized '%s' hardware decoding for codec '%s'.\n",
+ 					av_hwdevice_get_type_name(type), ctx->codec->name);
+-				if (ctx->profile == FF_PROFILE_H264_BASELINE) {
++				if (ctx->profile == AV_PROFILE_H264_BASELINE) {
+ 					fprintf(stderr, "WARNING: Stream claims to be H.264 Baseline, which is generally poorly supported in hardware decoders.\n");
+ 					fprintf(stderr, "         Consider encoding it as Constrained Baseline, Main or High instead.\n");
+ 					fprintf(stderr, "         Decoding might fail and fall back to software.\n");
