@@ -7,7 +7,7 @@ pkgname=(qt6-multimedia
          qt6-multimedia-gstreamer)
 _pkgver=6.9.2
 pkgver=${_pkgver/-/}
-pkgrel=3
+pkgrel=4
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
