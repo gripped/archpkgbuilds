@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=audaspace
 pkgver=1.5.0
-pkgrel=4
+pkgrel=5
 pkgdesc="A high level and feature rich audio library written in C++ with language bindings"
 arch=(x86_64)
 url="https://audaspace.github.io/"
@@ -34,6 +34,11 @@ source=("https://github.com/neXyon/audaspace/archive/v$pkgver/$pkgname-v$pkgver.
 sha512sums=('9c463c2ddfc2de10537590d678bcdee09e15f3f3ca386aebe8eb0a9f7bd9249b7a8cab51aabc9fd8fc640842bb78ae1ad229521144c3796894f0205217b23479')
 b2sums=('7fae3f864675af38d3ec6402be2f6d08d9458ca0d4d27151b51a4fb556cde089a5892f5a66cd193b99b620826ee3ac5af33a10e7925971036cf893fd06f64349')
 
+prepare() {
+  # Fix build with ffmpeg 8
+  sed -i 's#AV_INPUT_BUFFER_MIN_SIZE#16384#' "$pkgbase-$pkgver"/plugins/ffmpeg/FFMPEGReader.cpp
+}
+
 build() {
   local cmake_options=(
     -B build
@@ -42,6 +47,7 @@ build() {
     -D DEFAULT_PLUGIN_PATH=/usr/lib/$pkgname/plugins
     -D WITH_JACK=ON
     -D WITH_PYTHON=ON
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -S $pkgname-$pkgver
     -W no-dev
   )
