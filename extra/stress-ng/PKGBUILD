@@ -3,7 +3,7 @@
 # Contributor: Thomas Wucher <arch (at) thomaswucher (dot) de>
 
 pkgname=stress-ng
-pkgver=0.19.04
+pkgver=0.19.05
 pkgrel=1
 pkgdesc="Software to stress test a computer system in various selectable ways"
 url="https://github.com/ColinIanKing/stress-ng"
@@ -17,7 +17,7 @@ optdepends=('intel-ipsec-mb: support for IPsec tests'
 	    'linux-hardened-headers: include some headers from the HARDENED kernel')
 makedepends=('attr' 'eigen' 'keyutils' 'libaio' 'libcap' 'libgcrypt' 'libglvnd' 'libmd')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/V${pkgver}.tar.gz")
-b2sums=('75e7112570f2696c59026707d103e4663d119ba7fbed67261f331a94b0676f46cbe5a25f58f78a9a0207059345d09cfb7416650adb21ea467a5aba0ccc376fc0')
+b2sums=('d7dc5731824de6b23bdc1b470fc1c38393086da9c75fb8b5bc62c16cc0d0e18db63f6f1ed174d4cae1cbc562b67365291b917d64de20ef367518ed99a316d06c')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
