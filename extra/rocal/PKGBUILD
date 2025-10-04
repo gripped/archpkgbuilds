@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=rocal
-pkgver=6.4.3
-pkgrel=3
+pkgver=6.4.4
+pkgrel=1
 pkgdesc='A high-performance jpeg decode library for AMD’s GPUs'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocAL/en/latest/'
@@ -33,11 +33,11 @@ makedepends=(
 )
 _git='https://github.com/ROCm/rocAL'
 _rapidjson='https://github.com/Tencent/rapidjson'
-# rocAL uses some unreleased features of radipjson
+# rocAL uses some unreleased features of rapidjson
 _commit=24b5e7a8b27f42fa16b96fc70aade9106cf7102f
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz"
         "$pkgname-rapidjson-$_commit.tar.gz::$_rapidjson/archive/$_commit.tar.gz")
-sha256sums=('b25798a37372e671fa8e73a6c0ca651ccec8231ef71441b24614f0aa157811ff'
+sha256sums=('7c31942b3d11feea19d85de8614214f9c3fc07e8a70c5299c2d279531c641a98'
             '2d2601a82d2d3b7e143a3c8d43ef616671391034bc46891a9816b79cf2d3e7a8')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 _rapidjsondir="$(basename "$_rapidjson")-$(basename "${source[1]}" ".tar.gz")"
