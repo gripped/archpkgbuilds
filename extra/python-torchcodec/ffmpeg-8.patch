@@ -1,0 +1,26 @@
+diff --git a/src/torchcodec/_core/CMakeLists.txt b/src/torchcodec/_core/CMakeLists.txt
+index 03f68f6..e6debd9 100644
+--- a/src/torchcodec/_core/CMakeLists.txt
++++ b/src/torchcodec/_core/CMakeLists.txt
+@@ -274,6 +274,8 @@ else()
+         set(ffmpeg_major_version "6")
+     elseif (${libavcodec_major_version} STREQUAL "61")
+         set(ffmpeg_major_version "7")
++    elseif (${libavcodec_major_version} STREQUAL "62")
++        set(ffmpeg_major_version "8")
+     else()
+         message(
+             FATAL_ERROR
+diff --git a/src/torchcodec/_core/ops.py b/src/torchcodec/_core/ops.py
+index 807ed26..148054b 100644
+--- a/src/torchcodec/_core/ops.py
++++ b/src/torchcodec/_core/ops.py
+@@ -41,7 +41,7 @@ def load_torchcodec_shared_libraries():
+     #      libraries do not meet those conditions.
+ 
+     exceptions = []
+-    for ffmpeg_major_version in (7, 6, 5, 4):
++    for ffmpeg_major_version in (8, 7, 6, 5, 4):
+         pybind_ops_module_name = _get_pybind_ops_module_name(ffmpeg_major_version)
+         decoder_library_name = f"libtorchcodec_core{ffmpeg_major_version}"
+         custom_ops_library_name = f"libtorchcodec_custom_ops{ffmpeg_major_version}"

@@ -3,7 +3,7 @@
 _name=torchcodec
 pkgname=python-$_name
 pkgver=0.7.0
-pkgrel=1
+pkgrel=2
 license=(BSD-3-Clause)
 pkgdesc="PyTorch media decoding and encoding"
 arch=(x86_64)
@@ -29,8 +29,16 @@ checkdepends=(
   python-pillow
   python-pytest
 )
-source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('7ca08a2e1bd4078cc85c9000dfed2c9afc0d0e72a1b217c49f448eb4c40b2501c84ef4f77381f85e4e5eeb24e24970982339fd970310d55de0123042644afa7e')
+source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz ffmpeg-8.patch)
+b2sums=('7ca08a2e1bd4078cc85c9000dfed2c9afc0d0e72a1b217c49f448eb4c40b2501c84ef4f77381f85e4e5eeb24e24970982339fd970310d55de0123042644afa7e'
+        'e3883bfee4072dda93294bcff493723c0284eabe9a00ba94ac71dd493cc07ed9c3826b016e4ec369cb131aac24253e14d89420a7822e3115eb5ec519b3cc1bef')
+
+prepare() {
+  cd $_name-$pkgver
+
+  # Build fix for ffmpeg 8
+  patch -Np1 -i ../ffmpeg-8.patch
+}
 
 build() {
   cd $_name-$pkgver
@@ -55,7 +63,23 @@ check() {
   cd $_name-$pkgver
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest "${pytest_options[@]}" test
+
+  # Some tests are disabled due to being incompatible with ffmpeg 8; upstream
+  # claims these are safe to disable
+  # (https://github.com/meta-pytorch/torchcodec/issues/839#issuecomment-3360026219).
+  #
+  # TODO: Enable all tests once ffmpeg 8 compatibility has been fixed upstream.
+  test-env/bin/python -m pytest "${pytest_options[@]}" test \
+    --deselect='test/test_decoders.py::TestAudioDecoder::test_metadata[asset1]' \
+    --deselect='test/test_decoders.py::TestVideoDecoder::test_10bit_videos_cpu[asset0]' \
+    --deselect='test/test_decoders.py::TestVideoDecoder::test_10bit_videos_cpu[asset1]' \
+    --deselect='test/test_metadata.py::test_get_metadata_audio_file[get_container_metadata_from_header]' \
+    --deselect='test/test_metadata.py::test_get_metadata_audio_file[metadata_getter1]' \
+    --deselect='test/test_metadata.py::test_repr' \
+    --deselect='test/test_ops.py::TestVideoDecoderOps::test_color_conversion_library[filtergraph]' \
+    --deselect='test/test_ops.py::TestVideoDecoderOps::test_color_conversion_library_with_dimension_order' \
+    --deselect='test/test_ops.py::TestVideoDecoderOps::test_color_conversion_library_with_generated_videos' \
+    --deselect='test/test_ops.py::TestVideoDecoderOps::test_color_conversion_library_with_scaling'
 }
 
 package() {
