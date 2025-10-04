@@ -4,7 +4,7 @@
 
 pkgname=gifski
 pkgver=1.34.0
-pkgrel=1
+pkgrel=2
 pkgdesc='GIF encoder based on libimagequant (pngquant). Squeezes maximum possible quality from the awful GIF format.'
 arch=('x86_64')
 url='https://gif.ski'
@@ -12,15 +12,17 @@ license=('AGPL-3.0-or-later')
 depends=('ffmpeg')
 makedepends=('cargo' 'clang')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ImageOptim/$pkgname/archive/$pkgver.tar.gz"
-  ffmpeg-7.patch)
+        ffmpeg-8.patch)
 sha512sums=('f741a348efa05a7f050640d3fb859d871de68ba36c050afdc0dcf8322fb38d3ee6bcaf05406049e13f344ae41901555f1a6e9b5e8f910f787c07affae843a4a0'
-            '32089b3eb196f43cc4257ae5061ccce28bc0bc53a974efd88b5ea1f6cda9e3888522a1025081412c4997de36e30bd2e91a31df3c60b6d6a7c10d3821d94a7710')
+            'c7bf3ec6122c1718ba1ca0e21a0dbb47294f2ad85d1d293fe8ddb35eb7330b6caf108959791b04ac3c395b185f049817f8cbe70f0215f47ce635543f9651b290')
 
 prepare() {
   cd $pkgname-$pkgver
-  cargo update
-  patch -p1 -i ../ffmpeg-7.patch # Fix build with ffmpeg 7
 
+  # Fix build with ffmpeg 8
+  patch -p1 -i ../ffmpeg-8.patch
+
+  cargo update
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
