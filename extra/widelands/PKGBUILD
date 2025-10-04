@@ -5,7 +5,7 @@
 pkgname=widelands
 pkgver=1.2.1
 epoch=1
-pkgrel=2
+pkgrel=3
 pkgdesc="A realtime strategy game with emphasis on economy and transport"
 arch=('x86_64')
 url="https://widelands.org/"
@@ -13,8 +13,28 @@ license=('GPL')
 depends=('sdl2_mixer' 'sdl2_image' 'sdl2_ttf' 'lua' 'glew' 'python' 'dbus' 'minizip')
 makedepends=('cmake' 'mesa' 'ninja' 'git' 'asio')
 replaces=('widelands-data')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/widelands/widelands/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('9a7449096dab8ff07ac12354f4fb659fcbe419381d289e869c134c5b804c8817f9fbffb854283ab0b5bca541e9649f7f0e7658fd2765bc2a8a8f705dc24f01d8')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/widelands/widelands/archive/refs/tags/v${pkgver}.tar.gz"
+        https://github.com/widelands/widelands/commit/c0b44ccc04df35a9a23ca9be3e05f5d3a5428f6f.patch
+        https://github.com/widelands/widelands/commit/a66872f35abe45a2eba6c112dd978bd9e2c08d7b.patch
+        https://github.com/widelands/widelands/commit/a20d8d240e68c5ae704bbb754472130ae72ebfa9.patch
+        https://github.com/widelands/widelands/commit/937a1695cf0494bba559b489497ca99afdf95983.patch)
+sha512sums=('9a7449096dab8ff07ac12354f4fb659fcbe419381d289e869c134c5b804c8817f9fbffb854283ab0b5bca541e9649f7f0e7658fd2765bc2a8a8f705dc24f01d8'
+            'f6d3ea4cf0d8e15feb17443f6643a62ee905a42d21c629d26e4fea728080179a7f8749c79740a4212cca69b9ef27e50a7470292c39a25347d8f457c1bc54208a'
+            'ff9d3fd3001198d7f31ccfec79d749b7a1f76cbeb8bc050a92a9974c03122f84e8fff26760fbe0fe1d7188f63e2240ecf4b31821d86be5bbec461a220ef89071'
+            'e405fecb9609f9a7e232b60ed79a3415cc6b4f8bd27fb00421673dd39dbfd9fd1ddea10aca56e7950f3a71bc7589731a0bf4c01b043a7f9d7bb66f2823b7b7ab'
+            '0ab6a3121a379ae1f47a574693d90f1d3dc24363b4f5992921f23bac2c396cbba06847ea4a4e515171e98e9e26c491c9271f4425050012f11586d3c646dc9126')
+
+prepare() {
+  cd $pkgname-$pkgver
+
+  # Backport of https://github.com/widelands/widelands/pull/6665 (fixes build with asio 1.34)
+  patch -p1 -i ../c0b44ccc04df35a9a23ca9be3e05f5d3a5428f6f.patch
+  # Backport of https://github.com/widelands/widelands/pull/6522 (fixes build with GCC 15)
+  patch -p1 -i ../a66872f35abe45a2eba6c112dd978bd9e2c08d7b.patch
+  patch -p1 -i ../a20d8d240e68c5ae704bbb754472130ae72ebfa9.patch
+  # Backport of https://github.com/widelands/widelands/pull/6698 (fixes build with GCC 15)
+  patch -p1 -i ../937a1695cf0494bba559b489497ca99afdf95983.patch
+}
 
 build() {
   cd $pkgname-$pkgver
