@@ -1,0 +1,24 @@
+From 3f85dd0c801058c5917e004d0d846b0f05bae680 Mon Sep 17 00:00:00 2001
+From: Lukas Fleischer <lfleischer@lfos.de>
+Date: Thu, 25 Sep 2025 14:32:52 -0400
+Subject: [PATCH] Fix compatibility with ffmpeg 8
+
+---
+ game/ffmpeg.cc | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/game/ffmpeg.cc b/game/ffmpeg.cc
+index 3701fcf9..18b2f197 100644
+--- a/game/ffmpeg.cc
++++ b/game/ffmpeg.cc
+@@ -445,7 +445,6 @@ void FFmpeg::avformat_close_input(AVFormatContext *fctx) {
+ }
+ void FFmpeg::avcodec_free_context(AVCodecContext *avctx) {
+ 	if (avctx == nullptr) return;
+-	avcodec_close(avctx);
+ 	::avcodec_free_context(&avctx);
+ }
+ 
+-- 
+2.51.0
+
