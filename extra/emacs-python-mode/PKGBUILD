@@ -2,16 +2,16 @@
 # Contributor: Stefano Esposito <ragnarok@email.it>
 
 pkgname=emacs-python-mode
-pkgver=6.3.0
+pkgver=6.3.1
 pkgrel=1
 pkgdesc="Python mode for Emacs"
-url="https://launchpad.net/python-mode"
+url="https://gitlab.com/python-mode-devs/python-mode"
 license=("GPL")
 arch=('any')
 depends=('emacs')
 install=emacs-python-mode.install
-source=("https://stable.melpa.org/packages/python-mode-$pkgver.tar")
-sha256sums=('7f9594f3147c3314d87cf9b15ef24d41ac574fde3f8a4c06644d55a7363f3325')
+source=("https://gitlab.com/python-mode-devs/python-mode/-/archive/$pkgver/python-mode-$pkgver.tar.gz")
+sha256sums=('02c899f2f6b8d57b29855420d569d3f4726843a2706f7f66df9fbcd4e9b303e9')
 
 package() {
   cd "$srcdir"/python-mode-$pkgver
