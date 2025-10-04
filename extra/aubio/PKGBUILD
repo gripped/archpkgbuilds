@@ -5,7 +5,7 @@
 pkgbase=aubio
 pkgname=(aubio python-aubio)
 pkgver=0.4.9
-pkgrel=21
+pkgrel=23
 pkgdesc="A tool for extracting annotations from audio signals"
 arch=(x86_64)
 url="https://aubio.org/"
@@ -62,6 +62,8 @@ prepare() {
   patch -p1 -d $pkgbase-$pkgver -i ../0b947f96.patch
   patch -p1 -d $pkgbase-$pkgver -i ../53bc55cd.patch
   patch -p1 -d $pkgbase-$pkgver -i ../ffmpeg7.patch
+  # Fix build with ffmpeg 8
+  sed -i 's#AV_INPUT_BUFFER_MIN_SIZE#16384#' "$pkgbase-$pkgver"/src/io/source_avcodec.c
   # Fix test with numpy 2.0
   patch -p1 -d $pkgbase-$pkgver -i ../numpy-2.0.patch
   cd $pkgbase-$pkgver
