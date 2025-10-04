@@ -2,7 +2,7 @@
 # Maintainer: Frederik Schwan <freswa at archlinux dot org>
 
 pkgname=fwupd-efi
-pkgver=1.7
+pkgver=1.8
 pkgrel=1
 pkgdesc='EFI Application used by uefi-capsule plugin in fwupd'
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=(
   'python-pefile'
 )
 source=(git+${url}.git#tag=${pkgver}?signed)
-sha256sums=('72ea065678d333e1db8e63e563b6151571b12de721b14896294ac25107c93514')
+sha256sums=('57d0a5e54179150fb923fcf86fd2c84fa7fb52fcdafbac1c9881954650afb0dd')
 validpgpkeys=('163EB50119225DB3DF8F49EA17ACBA8DFA970E17'  # Richard Hughes <richard@hughsie.com>
               '0B0B6E494E9D5EFB39180D9A2D192CA624770276') # Mario Limonciello <superm1@gmail.com>
 
