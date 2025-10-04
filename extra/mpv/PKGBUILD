@@ -6,7 +6,7 @@
 pkgname=mpv
 epoch=1
 pkgver=0.40.0
-pkgrel=6
+pkgrel=7
 pkgdesc='a free, open source, and cross-platform media player'
 arch=('x86_64')
 license=('GPL-2.0-or-later AND LGPL-2.1-or-later')
@@ -36,6 +36,9 @@ prepare() {
   # See https://github.com/mpv-player/mpv/issues/16139
   # and https://github.com/mpv-player/mpv/commit/d20ded876d27497d3fe6a9494add8106b507a45c
   patch -Np1 -i "${srcdir}/fix_wayland_clipboard_high_cpu_usage.patch"
+
+  # Fix build with ffmpeg 8
+  git cherry-pick -n 26b29fba02a2782f68e2906f837d21201fc6f1b9
 }
 
 build() {
