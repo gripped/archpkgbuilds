@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-launchpad
-pkgver=2.0.6
+pkgver=2.0.7
 pkgrel=1
 pkgdesc='The "launcher" or "start menu" component for DDE - next generation'
 arch=('x86_64')
@@ -14,8 +14,15 @@ makedepends=('git' 'cmake' 'ninja' 'gtest' 'qt6-tools' 'clang')
 provides=('deepin-launcher')
 conflicts=('deepin-launcher')
 replaces=('deepin-launcher')
-source=("git+https://github.com/linuxdeepin/dde-launchpad.git#tag=$pkgver")
-sha512sums=('59c2c793d7dfa1689c579cf8f178314bb19a6c676a0a8f10334a04868f2d6f0ab1c474ce1e4bc35a5ef37f679c5ec5c6a49699b90d507e0cf4461e2d1e348de4')
+source=("git+https://github.com/linuxdeepin/dde-launchpad.git#tag=$pkgver"
+         qt-6.10.patch)
+sha512sums=('e1d40e4e06467e51b05c85ebdb395b89586860607ac8f7e11d9a4d42956e9badbe643a8c4d1f889704e327964e51220f885b6eb4a1faff57e18fd4910018b2cc'
+            'faee74fc12718a37f443eb8ea7aa161b49780326e62fa000aba6c94270f6ef474b2fd9164fa002437fc1101389c1a19236feda72f1c481435986386d1fb1c19a')
+
+prepare() {
+  cd dde-launchpad
+  patch -p1 -i ../qt-6.10.patch
+}
 
 build() {
   cd dde-launchpad

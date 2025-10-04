@@ -1,0 +1,28 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 358f5e6..a9bac46 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -27,6 +27,9 @@ find_package(${QT_NS} REQUIRED COMPONENTS Core Gui Concurrent Qml Svg Quick Quic
+ find_package(${DTK_NS} REQUIRED COMPONENTS Core Gui)
+ find_package(${ASQT_NS} 1.0 REQUIRED)
+ find_package(ECM NO_MODULE)
++if(Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
++  find_package(Qt6 COMPONENTS GuiPrivate REQUIRED)
++endif()
+ 
+ set_package_properties(${ASQT_NS} PROPERTIES
+     DESCRIPTION "Library that lists Appstream resources"
+diff --git a/src/treelandintegration/CMakeLists.txt b/src/treelandintegration/CMakeLists.txt
+index ee6f85a..011be40 100644
+--- a/src/treelandintegration/CMakeLists.txt
++++ b/src/treelandintegration/CMakeLists.txt
+@@ -3,6 +3,9 @@
+ # SPDX-License-Identifier: CC0-1.0
+ 
+ find_package(Qt6 REQUIRED GLOBAL COMPONENTS WaylandClient)
++if(Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
++  find_package(Qt6 COMPONENTS WaylandClientPrivate REQUIRED)
++endif()
+ 
+ set(CMAKE_INCLUDE_CURRENT_DIR ON)
+ 
