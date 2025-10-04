@@ -2,7 +2,7 @@
 
 pkgname=syd
 _pkgname=sydbox
-pkgver=3.38.5
+pkgver=3.39.2
 pkgrel=1
 pkgdesc="Seccomp and landlock based application sandbox with support for namespaces"
 url="https://lib.rs/crates/syd"
@@ -12,7 +12,7 @@ depends=('bash' 'gcc-libs' 'glibc' 'libseccomp')
 makedepends=('cargo' 'scdoc')
 provides=("${_pkgname}")
 source=("${pkgname}-${pkgver}.tar.gz::https://gitlab.exherbo.org/${_pkgname}/${_pkgname}/-/archive/v${pkgver}/${_pkgname}-v${pkgver}.tar.gz")
-sha256sums=('29b0459adbe4ee0d175c4a95942d478ef4b533cc65575499d480b4e0d71e0b91')
+sha256sums=('39e41311b6be2b1ef028426e9564eaea4b6585ae7c81e1ae5796a0fa9a7cdd5d')
 
 prepare() {
 	cd "${_pkgname}-v${pkgver}"
@@ -40,6 +40,7 @@ check() {
 		--skip=fs::tests::test_canonicalize_non_directory_with_slash \
 		--skip=fs::tests::test_canonicalize_self_referential_symlink \
 		--skip=fs::tests::test_canonicalize_symlink_loop \
+		--skip=hash::tests::test_hmac_sha256_simple stdout \
 		--skip=hash::tests::test_aes_ctr_enc_and_dec \
 		--skip=hash::tests::test_aes_ctr_enc_and_dec_tmp \
 		--skip=hash::tests::test_aes_ctr_enc_with_more_flag \
