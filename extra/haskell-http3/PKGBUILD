@@ -2,8 +2,8 @@
 
 _hkgname=http3
 pkgname=haskell-http3
-pkgver=0.0.7
-pkgrel=21
+pkgver=0.0.9
+pkgrel=1
 pkgdesc="HTTP/3 library"
 url="https://github.com/kazu-yamamoto/http3"
 license=('BSD-3-Clause')
@@ -15,7 +15,7 @@ makedepends=('ghc' 'haskell-quickcheck' 'haskell-attoparsec' 'haskell-base16-byt
              'haskell-conduit' 'haskell-conduit-extra' 'haskell-crypton' 'haskell-hspec'
              'haskell-hspec-discover' 'haskell-iproute' 'haskell-tls')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('77b36be10b5bd6ca3334bef2ed5bd09729917e1bbf7f5344c34bfbbd4b636008')
+sha256sums=('6d0e8948aad7710488e6f9b1aa41e0f1a391139e585a8b5126b0d362e5dcce78')
 
 build() {
   cd $_hkgname-$pkgver
