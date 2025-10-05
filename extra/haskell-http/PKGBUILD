@@ -4,7 +4,7 @@
 _hkgname=HTTP
 pkgname=haskell-http
 pkgver=4000.4.1
-pkgrel=379
+pkgrel=380
 pkgdesc="A library for client-side HTTP"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
@@ -19,7 +19,7 @@ sha512sums=('c1edc529032013391263bcc0f8abd9534fc53a617b5033dfdc478318465cd988732
 
 prepare(){
   cd $_hkgname-$pkgver
-  uusi -u base
+  uusi -u base -u warp
 }
 
 build() {
