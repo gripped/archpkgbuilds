@@ -2,21 +2,20 @@
 
 _hkgname=rere
 pkgname=haskell-rere
-pkgver=0.2.0.1
-pkgrel=162
+pkgver=0.2.0.2
+pkgrel=1
 pkgdesc="Regular-expressions extended with fixpoints for context-free powers"
-url="https://github.com/phadej/rere.git"
-license=("BSD")
+url="https://github.com/ulysses4ever/rere"
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-fin' 'haskell-vec')
-makedepends=('ghc' 'uusi' 'haskell-quickcheck-instances' 'haskell-tasty' 'haskell-tasty-quickcheck')
+makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('890e21a9833a25eee0ad784502361d8ee6f3572398e2d0b67cc3439b2354ecd043eac8b0296d3c3459474415559125f78e2c29b0aa2965e579f0cf11489960c7')
+sha512sums=('2a300be088a0cadd0913de7f40392c36c84a460972dcd071adfac92a23a1d0ccd1e561ed7bb0b18cd96fd5f5d3d17114dfbc9745178b641b1efe8589bc975e3e')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u QuickCheck -u tasty-quickcheck
 }
 
 build() {
