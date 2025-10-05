@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-lazy-fixtures
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 pkgdesc="Use fixtures in @pytest.mark.parametrize"
 arch=(any)
@@ -10,7 +10,7 @@ license=(MIT)
 depends=(python python-pytest)
 makedepends=(git python-build python-installer python-hatchling)
 source=(git+https://github.com/dev-petrov/pytest-lazy-fixtures.git#tag=$pkgver)
-sha256sums=('d7f2f07bb6c7f3b1bde066a8c600cdc0084e41a381c2c284cab05094febdbf46')
+sha256sums=('f703820accf338367861530b005ddf9ab1292e48bcbe16f87470db2e42a3c3d8')
 
 build() {
   cd pytest-lazy-fixtures
@@ -19,7 +19,9 @@ build() {
 
 check() {
   cd pytest-lazy-fixtures
-  PYTHONPATH="$PWD" pytest -p pytest_lazy_fixtures.plugin
+  # pytest-deadfixtures is not packaged
+  PYTHONPATH="$PWD" pytest -p pytest_lazy_fixtures.plugin \
+    --ignore tests/test_deadfixtures_support.py
 }
 
 package() {
