@@ -2,10 +2,9 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=imagemagick
-pkgver=7.1.2.3
-pkgrel=2
-_relname=ImageMagick-${pkgver%%.*}
-_tarname=ImageMagick-${pkgver%.*}-${pkgver##*.}
+pkgver=7.1.2.4
+_pkgver=${pkgver%.*}-${pkgver##*.}
+pkgrel=1
 pkgdesc='An image viewing/manipulation program'
 url='https://www.imagemagick.org/'
 arch=(x86_64)
@@ -50,6 +49,7 @@ provides=(libmagick)
 makedepends=(chrpath
              djvulibre
              ghostscript
+             git
              glu
              jbigkit
              libheif
@@ -68,13 +68,12 @@ makedepends=(chrpath
 checkdepends=(gsfonts
               ttf-dejavu)
 replaces=(imagemagick-doc)
-source=(https://imagemagick.org/archive/$_tarname.tar.xz{,.asc})
-sha256sums=('2943d26f9ac4875aacf16c8f717f4d32ac985fe6a0c0a8e48c24c5cbb3161050'
-            'SKIP')
-validpgpkeys=(D8272EF51DA223E4D05B466989AB63D48277377A)  # Lexie Parsimoniae
+source=(git+https://github.com/ImageMagick/ImageMagick#tag=$_pkgver)
+sha256sums=('7b14d6013830f0ca29b320f39a1e135929d5e0f1babaae9ed87d4751f7e8b146')
+validpgpkeys=(C305FEBD4C4081119CB3C12CE640E67B2C7F96AA)  # Dirk Lemstra <dirk@lemstra.org>
 
 build() {
-  cd $_tarname
+  cd ImageMagick
   ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
@@ -112,17 +111,17 @@ build() {
 }
 
 check() (
-  cd $_tarname
+  cd ImageMagick
   ulimit -n 4096
   make check
 )
 
 package() {
-  cd $_tarname
+  cd ImageMagick
   make DESTDIR="$pkgdir" install
 
   find "$pkgdir/usr/lib/perl5" -name '*.so' -exec chrpath -d {} +
-  rm "$pkgdir"/etc/$_relname/type-{apple,urw-base35,windows}.xml
+  rm "$pkgdir"/etc/ImageMagick-*/type-{apple,urw-base35,windows}.xml
   rm "$pkgdir"/usr/lib/*.la
 
   install -Dm644 LICENSE NOTICE -t "$pkgdir"/usr/share/licenses/$pkgname
