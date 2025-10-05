@@ -1,11 +1,11 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=mighttpd2
-pkgver=4.0.3
-pkgrel=380
+pkgver=4.0.4
+pkgrel=1
 pkgdesc="High performance web server on WAI/warp"
 url="https://kazu-yamamoto.github.io/mighttpd2/"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-async' 'haskell-auto-update' 'haskell-base16-bytestring'
          'haskell-byteorder' 'haskell-case-insensitive' 'haskell-conduit' 'haskell-conduit-extra'
@@ -17,13 +17,7 @@ depends=('ghc-libs' 'haskell-async' 'haskell-auto-update' 'haskell-base16-bytest
          'haskell-wai-logger' 'haskell-warp' 'haskell-warp-quic' 'haskell-warp-tls')
 makedepends=('ghc' 'uusi' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('1a43390e921ab1b1b473d5bf65b2dcf27d0a8466e3243c2dab5d0c3de32bf9e1')
-
-prepare() {
-  cd $pkgname-$pkgver
-  # https://github.com/kazu-yamamoto/mighttpd2/pull/25
-  sed -i -e 's|"127.0.0.1","::1"|"0.0.0.0","::"|' test/ConfigSpec.hs
-}
+sha256sums=('a21ac95098c6dca6902dbf6131614dd6296f819a96c82dee875ec48a0c2cefe2')
 
 build() {
   cd $pkgname-$pkgver
