@@ -5,7 +5,8 @@
 
 pkgname=thermald
 _pkgname=thermal_daemon
-pkgver=2.15.10
+epoch=1
+pkgver=2.5.10
 pkgrel=1
 pkgdesc='The Linux Thermal Daemon program from 01.org'
 arch=('x86_64')
