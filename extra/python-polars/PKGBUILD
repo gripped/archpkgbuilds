@@ -1,20 +1,26 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 # Contributor: Alexandre Bury <alexandre.bury@gmail.com>
 
-pkgname=python-polars
-pkgver=1.33.1
-pkgrel=1
+pkgbase=python-polars
+# TODO: make this easier for other architectures
+pkgname=($pkgbase $pkgbase-runtime-64)
+pkgver=1.34.0
+pkgrel=2
 pkgdesc="Blazingly fast DataFrames library using Apache Arrow Columnar Format as memory model"
 arch=("x86_64")
 url="https://www.pola.rs/"
 license=('MIT')
-depends=('python' 'python-numpy')
 options=('!lto')
-optdepends=('python-pandas: for interoperability with pandas frames'
-            'python-pyarrow: for interoperability with arrow types'
-            'python-pytz: to enable conversion to python datetimes with timezones'
-            'python-fsspec: to transparently open files locally or remotely')
-makedepends=('maturin' 'rustup' 'python-installer')
+makedepends=(
+    # For building the native extensions
+    'maturin'
+    'rustup'
+    'python-installer'
+    # For building the python package
+    'python-build'
+    'python-wheel'
+    'python-setuptools'
+)
 checkdepends=('python-pytest'
               'python-pytest-xdist'
               'python-matplotlib'
@@ -32,7 +38,7 @@ checkdepends=('python-pytest'
 _name=${pkgname#python-}
 _tag="py-$pkgver"
 source=("https://github.com/pola-rs/polars/archive/refs/tags/$_tag.tar.gz")
-b2sums=('56d8e7440b9ebd29d92a7a0a2e24da7fa9c6121abb245bd228ff2dd38b5bdbd3b6f40cf62a7581a215e5d54ff32614a6f15e415c09594ee53f2c0c26c8113bcf')
+b2sums=('42c8f1e891bf1bb253b0f0b2b6536efa39bdd7feed69932b5287c393d1e56759dba50edb7a5339b257e76670ae619970fb6b3dfcc233a3f73b75744a0b08564c')
 
 prepare() {
     cd polars-$_tag/py-polars
@@ -41,7 +47,8 @@ prepare() {
 
 build() {
     cd polars-$_tag/py-polars
-    maturin build -o dist --release --locked --strip --compatibility linux
+    python -m build --wheel --no-isolation
+    maturin build -o dist --release --locked --strip --compatibility linux --manifest-path runtime/Cargo.toml
 }
 
 check() {
@@ -49,7 +56,7 @@ check() {
 
     # Package needs to be installed to run the tests, use a venv
     python -m venv --system-site-packages test-env
-    test-env/bin/python -m installer dist/*.whl
+    find dist -name '*.whl' -print0 | xargs -n1 --null test-env/bin/python -m installer
     # Existence of polars module causes issues, even with safe mode -P
     rm -rv polars
 
@@ -81,8 +88,26 @@ check() {
     test-env/bin/python -P -m pytest tests/unit "${_pytest_args[@]}"
 }
 
-package() {
+package_python-polars() {
+    # note: changing the arch for the main package causes pkgctl to not detect the release correctly.
+    # arch=('any')
+    depends=('python' 'python-numpy' 'python-polars-runtime-64')
+    optdepends=('python-pandas: for interoperability with pandas frames'
+                'python-pyarrow: for interoperability with arrow types'
+                'python-pytz: to enable conversion to python datetimes with timezones'
+                'python-fsspec: to transparently open files locally or remotely')
+
     cd polars-$_tag/py-polars
-    python -m installer -d "$pkgdir" ./dist/*.whl
+    python -m installer -d "$pkgdir" ./dist/polars-*.whl
+    install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+}
+
+package_python-polars-runtime-64() {
+    arch=("x86_64")
+    depends=('python')
+    pkgdesc="$pkgdesc, native runtime libraries"
+    
+    cd polars-$_tag/py-polars
+    python -m installer -d "$pkgdir" ./dist/polars_runtime*.whl
     install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }
