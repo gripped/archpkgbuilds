@@ -1,13 +1,15 @@
 pkgbase = run-parts
 	pkgdesc = run scripts or programs in a directory
-	pkgver = 5.23.1
+	pkgver = 5.23.2
 	pkgrel = 1
-	url = https://packages.qa.debian.org/d/debianutils.html
+	url = https://salsa.debian.org/debian/debianutils
 	arch = x86_64
-	license = GPL
+	license = GPL-2.0-or-later
+	makedepends = git
 	makedepends = po4a
 	depends = glibc
-	source = http://deb.debian.org/debian/pool/main/d/debianutils/debianutils_5.23.1.tar.xz
-	sha256sums = 206c669cbf431da30904d4f9e69d049cb711714f5c137b66bf0b1f66d58710bc
+	source = git+https://salsa.debian.org/debian/debianutils.git#tag=debian/5.23.2?signed
+	validpgpkeys = B3131A451DBFDF7CA05B4197054BBB9F7D806442
+	sha256sums = 24eeb1c6632149c02a9a4ee096aaa10dedaa955010b0809c3b1eab51a4dd4889
 
 pkgname = run-parts
