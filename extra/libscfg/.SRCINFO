@@ -1,16 +1,15 @@
 pkgbase = libscfg
 	pkgdesc = A C library for scfg
-	pkgver = 0.1.1
-	pkgrel = 4
+	pkgver = 0.2.0
+	pkgrel = 1
 	url = https://codeberg.org/emersion/libscfg
 	arch = x86_64
 	license = MIT
 	makedepends = meson
+	makedepends = git
 	provides = libscfg.so
-	source = https://codeberg.org/emersion/libscfg/releases/download/v0.1.1/libscfg-0.1.1.tar.gz
-	source = https://codeberg.org/emersion/libscfg/releases/download/v0.1.1/libscfg-0.1.1.tar.gz.sig
+	source = git+https://codeberg.org/emersion/libscfg.git#tag=v0.2.0
 	validpgpkeys = 34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48
-	sha256sums = 8276cbca1de5350f534325e38d08ca71bcbb8041a1fa5174521f4ea17eba1039
-	sha256sums = SKIP
+	sha256sums = 1f76a80aa8cef7aaf04e6987e082513ac08607944a093791971829ae75822dfc
 
 pkgname = libscfg
