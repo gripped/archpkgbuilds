@@ -2,7 +2,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=imagemagick
-pkgver=7.1.2.4
+pkgver=7.1.2.5
 _pkgver=${pkgver%.*}-${pkgver##*.}
 pkgrel=1
 pkgdesc='An image viewing/manipulation program'
@@ -44,7 +44,7 @@ optdepends=('ghostscript: PS/PDF support'
             'djvulibre: DJVU support'
             'pango: Text rendering')
 options+=(!emptydirs libtool)
-backup=(etc/$_relname/{colors,delegates,log,mime,policy,quantization-table,thresholds,type,type-{dejavu,ghostscript}}.xml)
+backup=(etc/ImageMagick-7/{colors,delegates,log,mime,policy,quantization-table,thresholds,type,type-{dejavu,ghostscript}}.xml)
 provides=(libmagick)
 makedepends=(chrpath
              djvulibre
@@ -69,7 +69,7 @@ checkdepends=(gsfonts
               ttf-dejavu)
 replaces=(imagemagick-doc)
 source=(git+https://github.com/ImageMagick/ImageMagick#tag=$_pkgver)
-sha256sums=('7b14d6013830f0ca29b320f39a1e135929d5e0f1babaae9ed87d4751f7e8b146')
+sha256sums=('5dcfddd4770b9c9d463324655e78bdec02c370ef00d9ca28863418f03f3561db')
 validpgpkeys=(C305FEBD4C4081119CB3C12CE640E67B2C7F96AA)  # Dirk Lemstra <dirk@lemstra.org>
 
 build() {
