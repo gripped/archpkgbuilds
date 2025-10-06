@@ -1,0 +1,21 @@
+diff --git a/src/wayland/CMakeLists.txt b/src/wayland/CMakeLists.txt
+index 6e406ec..a99e73d 100644
+--- a/src/wayland/CMakeLists.txt
++++ b/src/wayland/CMakeLists.txt
+@@ -1,6 +1,9 @@
+ find_package(PkgConfig REQUIRED)
+ pkg_get_variable(WlrProtocols_PKGDATADIR wlr-protocols pkgdatadir)
+ find_package(Qt6 COMPONENTS REQUIRED Core DBus WaylandClient WaylandScannerTools)
++if(Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
++  find_package(Qt6 COMPONENTS GuiPrivate WaylandClientPrivate REQUIRED)
++endif()
+ find_package(TreelandProtocols REQUIRED)
+ 
+ 
+@@ -38,4 +41,4 @@ PUBLIC
+     Qt6::WaylandClientPrivate
+ )
+ 
+-install(TARGETS xdg-desktop-portal-dde-wayland DESTINATION ${CMAKE_INSTALL_LIBDIR})
+\ No newline at end of file
++install(TARGETS xdg-desktop-portal-dde-wayland DESTINATION ${CMAKE_INSTALL_LIBDIR})
