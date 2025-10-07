@@ -3,7 +3,7 @@
 
 pkgname=jami-daemon
 pkgver=20250912
-pkgrel=5
+pkgrel=6
 pkgdesc="Free and universal communication platform which preserves the users’ privacy and freedoms (daemon component)"
 arch=(x86_64)
 url="https://jami.net"
@@ -22,14 +22,16 @@ source=(git+https://git.jami.net/savoirfairelinux/${pkgname}.git#commit=${_commi
         https://github.com/savoirfairelinux/pjproject/archive/${_pjprojectver}/pjproject-${_pjprojectver}.tar.gz
         dhtnet-$_dhtnetver.tar.gz::https://review.jami.net/plugins/gitiles/dhtnet/+archive/$_dhtnetver.tar.gz
         ffmpeg-7.patch
-        ffmpeg-8.patch)
+        ffmpeg-8.patch
+        fmt-12.patch)
 noextract=(pjproject-${_pjprojectver}.tar.gz
            dhtnet-${_dhtnetver}.tar.gz)
 sha512sums=('91d9ff98033f4fd889d1c68fcc1a7b59923627178576a831dde2ddcd5f588c74cab0fec8c3e4c6893e7ceedf66275dd7c50acef28fa8e63602895f689e34ced8'
             '2e9bf2bb6a87fde551723f6d1ba8c9f5f5545d5a11e78e2d2d8302c784c721b4b452cfe0b548000eb5913a1d9692839936e8ebc09ea156f5c2e6a6273d461642'
             'SKIP'
             '720c60053779e72273d7abf339008284f5473b4f9a101e21eae352e9663559c7591f8e3481d9b479d113f306da9d0b3ffa53d32091c8d795b3252afd7e39afec'
-            '933e223f4bcaacaaf052de906daa10ed85020677a20158df96b78b9648edf27c601d932434315d16563dadc61338a7124e5cc8e2495281ed1f83b1f30234b496')
+            '933e223f4bcaacaaf052de906daa10ed85020677a20158df96b78b9648edf27c601d932434315d16563dadc61338a7124e5cc8e2495281ed1f83b1f30234b496'
+            'b645545120608e70f70ee664d43de03fa07ebc5b2af9a6515a40220aabfe057d4f69034b15781a21c5e8ff6f2fbb353b7dea69d840cb299f9dbf58eeaf082a40')
 
 pkgver() {
   cd ${pkgname}
@@ -42,6 +44,17 @@ prepare() {
   cp ../pjproject-${_pjprojectver}.tar.gz contrib/tarballs/
   cp ../dhtnet-$_dhtnetver.tar.gz contrib/tarballs/
   mkdir -p contrib/native
+
+# Fix build with fmt 12
+  cd contrib/tarballs
+  mkdir -p dhtnet
+  tar -xzf dhtnet-$_dhtnetver.tar.gz -C dhtnet
+  cd dhtnet
+  patch -p1 -i "$srcdir"/fmt-12.patch
+  tar -czf ../dhtnet-$_dhtnetver.tar.gz *
+  cd ..
+  rm -fr dhtnet
+  cd ../..
 
   patch -p1 -i ../ffmpeg-7.patch # Fix build with ffmpeg 7+
   patch -p1 -i ../ffmpeg-8.patch # Fix build with ffmpeg 8
