@@ -5,11 +5,12 @@
 # Contributor: orbisvicis <orbisvicis@gmail.com>
 
 pkgname=mapnik
-pkgver=4.1.2
-pkgrel=1
+pkgver=4.1.3
+pkgrel=2
 pkgdesc="Open source toolkit for developing mapping applications"
 arch=('x86_64')
 url="https://mapnik.org/"
+_url="https://github.com/mapnik/mapnik"
 license=('LGPL-2.1-only')
 depends=(
   'boost-libs'
@@ -20,6 +21,7 @@ depends=(
   'glibc'
   'harfbuzz'
   'icu'
+  'libavif'
   'libjpeg-turbo'
   'libpng'
   'libtiff'
@@ -27,29 +29,69 @@ depends=(
   'libxml2'
   'postgresql-libs'
   'proj'
+  'qt6-base'
   'sqlite'
   'zlib'
 )
 makedepends=(
   'boost'
-  'scons'
+  'cmake'
+  'git'
 )
-source=("https://github.com/$pkgname/$pkgname/releases/download/v$pkgver/$pkgname-v$pkgver.tar.bz2")
-sha256sums=('d952f4c4c6b1204058edcd83fd43450c834a6730b3189df89251d1f39dd15eb2')
+source=(
+  "git+$_url.git#tag=v$pkgver"
+  "mapnik-test-data::git+https://github.com/mapnik/test-data.git"
+  "mapnik-test-data-visual::git+https://github.com/mapnik/test-data-visual.git"
+  "mapbox-variant::git+https://github.com/mapbox/variant.git"
+  "mapbox-geometry::git+https://github.com/mapbox/geometry.hpp.git"
+  "mapbox-protozero::git+https://github.com/mapbox/protozero.git"
+  "mapbox-polylabel::git+https://github.com/mapbox/polylabel.git"
+  "git+https://github.com/mapnik/mapnik-vector-tile.git"
+)
+sha256sums=('5557f3c8c18928f9d9a39076839a7112e38f40f6442dc460fb2a6d58057c9654'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP')
+
+prepare() {
+  cd $pkgname
+  git submodule init
+  git config submodule.test/data.url ../mapnik-test-data
+  git config submodule.test/data-visual.url ../mapnik-test-data-visual
+  git config submodule.deps/mapbox/variant.url ../mapbox-variant
+  git config submodule.deps/mapbox/geometry.url ../mapbox-geometry
+  git config submodule.deps/mapbox/protozero.url ../mapbox-protozero
+  git config submodule.deps/mapbox/polylabel.url ../mapbox-polylabel
+  git config submodule.deps/mapbox/mapnik-vector-tile.url ../mapnik-vector-tile
+  git -c protocol.file.allow=always submodule update \
+    test/data \
+    test/data-visual \
+    deps/mapbox/variant \
+    deps/mapbox/geometry \
+    deps/mapbox/protozero \
+    deps/mapbox/polylabel \
+    deps/mapbox/mapnik-vector-tile
+}
 
 build() {
-  cd $pkgname-v$pkgver
-  scons configure  FAST=True \
-    PREFIX="/usr" \
-    INPUT_PLUGINS=all \
-    XMLPARSER=libxml2 \
-    DESTDIR="$pkgdir" \
-    CUSTOM_CXXFLAGS="$CXXFLAGS -ffat-lto-objects" \
-    CUSTOM_LDFLAGS="$LDFLAGS"
-  scons "$(expr "$MAKEFLAGS" : '.*\(\-j[0-9]\+\)')"
+  cd $pkgname
+  cmake -S . -B build \
+    -D CMAKE_BUILD_TYPE=None \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -W no-dev
+  cmake --build build
+}
+
+check() {
+  cd $pkgname
+  ctest --test-dir build --output-on-failure
 }
 
 package(){
-  cd $pkgname-v$pkgver
-  scons install
+  cd $pkgname
+  DESTDIR="$pkgdir" cmake --install build
 }
