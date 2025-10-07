@@ -2,7 +2,7 @@
 
 pkgname=alpm-pkginfo
 _upstream=alpm
-pkgver=0.3.0
+pkgver=0.3.1
 pkgrel=1
 pkgdesc="A CLI for writing and parsing of ALPM PKGINFO files"
 arch=(x86_64)
@@ -20,6 +20,7 @@ depends=(
 makedepends=(
   git
   just
+  lowdown
   rust
   rust-script
 )
@@ -27,8 +28,8 @@ optdepends=(
   'alpm-docs: for additional specifications'
 )
 source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
-sha512sums=('f77883ba80d427db4671a8e28e801b0ed6313a143bc1f98a5caccc92c91afbe8ebf87eeab0164c5e11be28d9f7c494dedc2903e0004b088ee77636273e9604df')
-b2sums=('a4b32b6af889e692c9c9a01ffd8a7f5be71bb0f9e41c44a262e7c5514fd9567c851538f8fb963a9cf442dfffa2299d7e83b68db26493df6ff0e746598d750ddb')
+sha512sums=('2de692092ebc377972aba8d93678e8de1107b6ecb919132885a5e556a7ef73ef8f20ac87612c6d94049cbfd85dda25203ccefdf9c5c8a1044ede77c104cb162e')
+b2sums=('40f65505efdb66ef86a8cd09887765579c91b9e73a1300eb30c3d0353da7843da10d88195461df7b8962a94bd98c1a2dba2570e1434e79b6a9cdf997e59dc3c3')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
