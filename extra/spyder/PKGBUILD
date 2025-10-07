@@ -5,8 +5,8 @@
 # Contributor: TDY <tdy@gmx.com>
 
 pkgname=spyder
-pkgver=6.0.8
-pkgrel=1
+pkgver=6.1.0
+pkgrel=3
 pkgdesc="The Scientific Python Development Environment"
 arch=(any)
 url="https://www.spyder-ide.org/"
@@ -55,8 +55,8 @@ depends=(
   python-pylint
   python-pylint-venv
   python-pyls-spyder
-  python-pyqt5
-  python-pyqt5-webengine
+  python-pyqt6
+  python-pyqt6-webengine
   python-pyuca
   python-pyxdg
   python-pyzmq
@@ -80,7 +80,7 @@ depends=(
   python-watchdog
   python-whatthepatch
   python-yarl
-  qt5-svg
+  qt6-svg
   yapf
 )
 makedepends=(
@@ -116,13 +116,7 @@ optdepends=(
   'python-sympy: symbolic mathematics in the IPython Console'
 )
 source=("git+https://github.com/spyder-ide/spyder#tag=v$pkgver")
-sha256sums=('2161d96d17ecee9b8bf30d37da5f36d56e6b955044d0bfcc808977f054231ac4')
-
-prepare() {
-  cd $pkgname
-  # Adapt to IPython lexers being split out to a separate package
-  git cherry-pick -n 60fa8e61a5b694d4f90d9da70d1c9b3a971664b8
-}
+sha256sums=('fb3647d99b6c4ab2da6b2ace0ff47adfceee1fd3b1a4d7a45da4f68894e171d3')
 
 build() {
   cd $pkgname
@@ -135,40 +129,53 @@ check() {
     # pytestqt.exceptions.TimeoutError
     --deselect='spyder/plugins/completion/providers/languageserver/tests/test_client.py'
     --deselect='spyder/plugins/completion/tests/test_plugin.py'
-    --deselect='spyder/plugins/editor/widgets/codeeditor/'
+    --deselect='spyder/plugins/editor/widgets/codeeditor'
     --deselect='spyder/plugins/editor/widgets/editorstack'
     --deselect='spyder/plugins/editor/widgets/tests/test_editorsplitter.py'
     --deselect='spyder/plugins/editor/widgets/tests/test_formatting.py'
-    --deselect='spyder/plugins/ipythonconsole/tests/test_ipythonconsole.py'
-    --deselect='spyder/app/tests/test_mainwindow.py'
+    --deselect='spyder/utils/tests/test_programs.py::test_run_python_script_in_terminal'
+    --deselect='spyder/utils/tests/test_programs.py::test_run_python_script_in_terminal_blank_wdir'
+    --deselect='spyder/utils/tests/test_programs.py::test_run_python_script_in_terminal_with_wdir_empty'
 
-    # Requires keyring access
-    --deselect='spyder/config/tests/test_manager.py::test_secure_options'
-    --deselect='spyder/plugins/ipythonconsole/widgets/tests/test_kernelconnect.py::test_connection_dialog_remembers_input_with_password'
-    --deselect='spyder/plugins/ipythonconsole/widgets/tests/test_kernelconnect.py::test_connection_dialog_remembers_input_with_ssh_passphrase'
-    --deselect='spyder/widgets/github/tests/test_github_backend.py::test_store_user_credentials'
+    # AssertionError
+    --deselect='spyder/app/tests/test_find_plugins.py::test_find_external_plugins'
+    --deselect='spyder/utils/tests/test_programs.py::test_is_valid_interpreter'
+    --deselect='spyder/plugins/variableexplorer/widgets/objectexplorer/tests/test_objectexplorer.py::test_objectexplorer_types[params0]'
+    --deselect='spyder/plugins/variableexplorer/widgets/objectexplorer/tests/test_objectexplorer.py::test_objectexplorer_collection_types[params5]'
 
-    # Python error: Segmentation fault
-    --deselect='spyder/plugins/plots/tests/test_plugin.py'
+    # AttributeError: 'NoneType' object has no attribute 'isFinished'
+    --deselect='spyder/plugins/updatemanager/tests/test_update_manager.py::test_updates'
 
-    # assert 102 < 100
-    --deselect='spyder/plugins/plots/widgets/tests/test_plots_widgets.py::test_zoom_figure_viewer[image/svg+xml]'
+    # TypeError: FixtureDef.__init__() got an unexpected keyword argument 'fixturemanager'
+    --deselect='spyder/plugins/ipythonconsole/widgets/tests/test_kernelconnect.py'
+
+    # Kills pytest for some reason
+    --deselect='spyder/plugins/ipythonconsole/tests/test_ipythonconsole.py::test_run_script'
+
+    # KeyError: 'Conda: spytest-ž'
+    --deselect='spyder/plugins/ipythonconsole/tests/test_ipythonconsole.py::test_kernel_kill[True]'
 
     # Failed: DID NOT RAISE <class 'spyder.utils.vcs.ActionToolNotFound'>
     --deselect='spyder/utils/tests/test_vcs.py::test_vcs_tool'
 
-    # Fails - not sure why
-    --deselect='spyder/plugins/updatemanager/tests/test_update_manager.py::test_updates'
-    --deselect='spyder/plugins/editor/extensions/tests/test_closequotes.py::test_close_quotes'
+    # Doesn't clean up QThread, causing segfault when tests finish:
+    # QThread: Destroyed while thread is still running
+    --deselect='spyder/plugins/ipythonconsole/tests/test_ipythonconsole.py'
 
-    # AssertionError
-    --deselect='spyder/plugins/variableexplorer/widgets/objectexplorer/tests/test_objectexplorer.py::test_objectexplorer_types'
-    --deselect='spyder/plugins/variableexplorer/widgets/objectexplorer/tests/test_objectexplorer.py::test_objectexplorer_collection_types'
+    # Qt6: Freezes
+    --deselect='spyder/plugins/explorer/widgets/tests/test_explorer.py::test_delete_file'
 
-    # Requires pytest-docker
-    --ignore='spyder/plugins/remoteclient/tests'
+    # Qt6: Doesn't clean up QThread, causing segfault when tests finish:
+    # QThread: Destroyed while thread is still running
+    --deselect='spyder/plugins/pythonpath/widgets/tests/test_pathmanager.py'
+    --deselect='spyder/plugins/application/tests/test_container.py'
+    --deselect='spyder/plugins/application/tests/test_plugin.py'
+    --deselect='spyder/utils/tests/test_environ.py'
+    --deselect='spyder/widgets/tests/test_dependencies.py'
   )
-  PYTEST_QT_API="pyqt5" xvfb-run pytest "${pytest_args[@]}"
+  export PYTEST_QT_API="pyqt6"
+  export CI=true
+  xvfb-run pytest "${pytest_args[@]}" -vv
 }
 
 package() {
