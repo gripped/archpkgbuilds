@@ -2,7 +2,7 @@
 
 pkgname=aquamarine
 pkgver=0.9.5
-pkgrel=3
+pkgrel=4
 pkgdesc='a very light linux rendering backend library'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
