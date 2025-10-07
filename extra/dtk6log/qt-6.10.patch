@@ -1,0 +1,28 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6313bca..15b58ba 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -34,6 +34,10 @@ SET (MKSPECS_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/qt${QT_VERSION_MAJOR}/mkspecs/
+ FIND_PACKAGE(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
+ FIND_PACKAGE(spdlog REQUIRED)
+ 
++IF (Qt${QT_VERSION_MAJOR}_VERSION VERSION_GREATER_EQUAL 6.10)
++    FIND_PACKAGE(Qt${QT_VERSION_MAJOR} COMPONENTS CorePrivate REQUIRED)
++ENDIF()
++
+ IF(BUILD_WITH_SYSTEMD)
+   FIND_PACKAGE(PkgConfig REQUIRED)
+   PKG_CHECK_MODULES(Systemd REQUIRED IMPORTED_TARGET libsystemd)
+diff --git a/src/dloghelper.cpp b/src/dloghelper.cpp
+index d8e585f..6695cf5 100644
+--- a/src/dloghelper.cpp
++++ b/src/dloghelper.cpp
+@@ -17,7 +17,7 @@ class DLogHelperPrivate : public QObjectPrivate
+ {
+ public:
+     // Functions.
+-    explicit DLogHelperPrivate(int version = QObjectPrivateVersion)
++    explicit DLogHelperPrivate(decltype(QObjectPrivateVersion) version = QObjectPrivateVersion)
+         : QObjectPrivate(version)
+     {
+     }
