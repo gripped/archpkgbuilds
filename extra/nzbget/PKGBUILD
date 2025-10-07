@@ -4,7 +4,7 @@
 
 pkgname=nzbget
 pkgver=25.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Efficient usenet downloader"
 arch=('x86_64')
 url="https://nzbget.com"
@@ -61,4 +61,5 @@ package() {
   cd $pkgname-$pkgver
   DESTDIR="$pkgdir" cmake --install build
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
+  install -vDm644 -t "$pkgdir/usr/lib/systemd/system" linux/pkg/$pkgname.service
 }
