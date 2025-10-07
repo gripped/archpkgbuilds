@@ -4,7 +4,7 @@
 
 pkgname=cherrytree
 pkgver=1.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Hierarchical note-taking application"
 arch=('x86_64')
 url="https://www.giuspen.com/cherrytree/"
@@ -46,13 +46,20 @@ checkdepends=(
   'libvoikko'
   'nuspell'
   'texlive-bin'
-  'texlive-core'
+  'texlive-basic'
   'xorg-server-xvfb'
 )
-source=("https://github.com/giuspen/cherrytree/releases/download/v${pkgver}/${pkgname}_${pkgver}.tar.xz"{,.asc})
+source=("https://github.com/giuspen/cherrytree/releases/download/v${pkgver}/${pkgname}_${pkgver}.tar.xz"{,.asc}
+         glycin-2.patch)
 sha512sums=('cc7b380529c14a180473b028e866e1990c9ee008e3ff412206a2c3964a5c071c67c61face3f391ca45413753365e504f59c86ca16dcd34cb45246163bda8e50f'
-            'SKIP')
+            'SKIP'
+            'ae7d75f08b5f192f25dceb2f7e9402882f7a05fb5a776e653f7e1092432d23896475ca5449e16f8b169e262475406a0cbbc802725a4e2972b9e310a5d611afb3')
 validpgpkeys=('C7BF38CE0BD442C2369AA984049128A20CE0648D') # Giuseppe Penone <giuspen [at] gmail [dot] com>
+
+prepare() {
+  cd ${pkgname}_${pkgver}
+  patch -p1 -i ../glycin-2.patch # Adapt tests to glycin 2 decoders output
+}
 
 build() {
   cmake -B build -S "${pkgname}_${pkgver}" \
