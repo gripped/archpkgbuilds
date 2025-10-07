@@ -2,7 +2,7 @@
 
 pkgname=python-pyzstd
 _pyname=${pkgname#python-}
-pkgver=0.17.0
+pkgver=0.18.0
 pkgrel=1
 pkgdesc='Python bindings to Zstandard (zstd) compression library'
 arch=(x86_64)
@@ -14,7 +14,7 @@ makedepends=(python-{build,installer,wheel}
              python-setuptools)
 _archive="$_pyname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
-sha256sums=('d84271f8baa66c419204c1dd115a4dec8b266f8a2921da21b81764fa208c1db6')
+sha256sums=('81b6851ab1ca2e5f2c709e896a1362e3065a64f271f43db77fb7d5e4a78e9861')
 
 prepare() {
 	cd "$_archive"
