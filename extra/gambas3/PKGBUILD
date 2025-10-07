@@ -19,7 +19,7 @@ pkgname=('gambas3-gb-args'
          'gambas3-gb-openal' 'gambas3-gb-opengl-glu' 'gambas3-gb-opengl-glsl' 'gambas3-gb-opengl-sge' 'gambas3-gb-opengl' 'gambas3-gb-option'
          'gambas3-gb-pcre' 'gambas3-gb-poppler'
          'gambas3-gb-qt5-opengl' 'gambas3-gb-qt5'
-         'gambas3-gb-qt6-opengl' 'gambas3-gb-qt6'
+         'gambas3-gb-qt6-opengl' 'gambas3-gb-qt6-webview' 'gambas3-gb-qt6'
          'gambas3-gb-openssl'
          'gambas3-gb-report'
          'gambas3-gb-scanner' 'gambas3-gb-sdl2-audio' 'gambas3-gb-sdl2' 'gambas3-gb-settings' 'gambas3-gb-signal'
@@ -30,7 +30,7 @@ pkgname=('gambas3-gb-args'
          'gambas3-gb-web-feed' 'gambas3-gb-web-form' 'gambas3-gb-web-gui' 'gambas3-gb-web'
          'gambas3-runtime' 'gambas3-dev-tools' 'gambas3-ide' 'gambas3-script')
 pkgver=3.20.4
-pkgrel=7
+pkgrel=8
 pkgdesc="A free development environment based on a Basic interpreter."
 arch=('x86_64')
 url="http://gambas.sourceforge.net/"
@@ -677,6 +677,14 @@ package_gambas3-gb-qt6-opengl() {
   _install fakeinstall/usr/share/gambas3/info/gb.qt6.opengl.*
 }
 
+package_gambas3-gb-qt6-webview() {
+  depends=('gambas3-gb-qt6' 'qt6-webengine')
+  pkgdesc="Qt6 web browser component"
+
+  _install fakeinstall/usr/lib/gambas3/gb.qt6.webview.*
+  _install fakeinstall/usr/share/gambas3/info/gb.qt6.webview.*
+}
+
 package_gambas3-gb-qt6() {
   depends=('gambas3-gb-image' 'qt6-base' 'qt5-svg' 'qt6-webengine' 'qt6-wayland')
   pkgdesc="Qt6 toolkit component"
@@ -871,7 +879,7 @@ package_gambas3-dev-tools() {
 package_gambas3-ide() {
   depends=('gambas3-dev-tools' 'gambas3-gb-clipper' 'gambas3-gb-db2-form' 'gambas3-gb-desktop' 'gambas3-gb-desktop-x11'
            'gambas3-gb-hash' 'gambas3-gb-highlight' 'gambas3-gb-form-dialog' 'gambas3-gb-form-editor' 'gambas3-gb-form-stock'
-           'gambas3-gb-markdown' 'gambas3-gb-settings' 'gambas3-gb-form-mdi' 'gambas3-gb-image-effect' 'gambas3-gb-qt5'
+           'gambas3-gb-markdown' 'gambas3-gb-settings' 'gambas3-gb-form-mdi' 'gambas3-gb-image-effect' 'gambas3-gb-qt6' 'gambas3-gb-qt6-webview'
            'gambas3-gb-net-curl' 'gambas3-gb-form-terminal' 'gambas3-gb-form-htmlview' 'gambas3-gb-signal'
            'gambas3-gb-term' 'gambas3-gb-pcre' 'gambas3-gb-util' 'gambas3-gb-util-web')
   pkgdesc="Integrated Development Environment"

@@ -1,7 +1,7 @@
 pkgbase = gambas3
 	pkgdesc = A free development environment based on a Basic interpreter.
 	pkgver = 3.20.4
-	pkgrel = 7
+	pkgrel = 8
 	url = http://gambas.sourceforge.net/
 	arch = x86_64
 	groups = gambas3
@@ -403,6 +403,11 @@ pkgname = gambas3-gb-qt6-opengl
 	depends = gambas3-gb-qt6
 	depends = gambas3-gb-opengl
 
+pkgname = gambas3-gb-qt6-webview
+	pkgdesc = Qt6 web browser component
+	depends = gambas3-gb-qt6
+	depends = qt6-webengine
+
 pkgname = gambas3-gb-qt6
 	pkgdesc = Qt6 toolkit component
 	depends = gambas3-gb-image
@@ -540,7 +545,8 @@ pkgname = gambas3-ide
 	depends = gambas3-gb-settings
 	depends = gambas3-gb-form-mdi
 	depends = gambas3-gb-image-effect
-	depends = gambas3-gb-qt5
+	depends = gambas3-gb-qt6
+	depends = gambas3-gb-qt6-webview
 	depends = gambas3-gb-net-curl
 	depends = gambas3-gb-form-terminal
 	depends = gambas3-gb-form-htmlview
