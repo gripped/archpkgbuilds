@@ -7,7 +7,7 @@ pkgname=(
   fmt
   fmt-docs
 )
-pkgver=11.2.0
+pkgver=12.0.0
 pkgrel=1
 pkgdesc='Open-source formatting library for C++'
 arch=(x86_64)
@@ -25,9 +25,9 @@ makedepends=(
   python-pymdown-extensions
   python-regex
 )
-_tag=40626af88bd7df9a5fb80be7b25ac85b122d6c21
+_tag=e424e3f2e607da02742f73db84873b8084fc714c
 source=("git+https://github.com/fmtlib/fmt.git#tag=$_tag")
-b2sums=('6b2124216e51d5efab77e2c835e86f3803c544a90bb6ba01eaa2ddbe6824842f2c3be1b92a5bdee9e5a19e5f437b40316f2a25f47f2fb2ee6dd8ec663d98cc6a')
+b2sums=('3cc82aae85fc4283e28360b13d3a11eb0b1e8bbe59f4db9ad63fc9806c73d028298ca1b6ab0033a31a311054d7111d299db52a99203cb4d97be56bee7aad232f')
 
 pkgver() {
   cd fmt
@@ -55,14 +55,14 @@ package_fmt() {
   )
   provides=(libfmt.so)
 
-  DESTDIR="$pkgdir" cmake --install build --component fmt-core
+  DESTDIR="$pkgdir" cmake --install build --component fmt_core
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" fmt/LICENSE
 }
 
 package_fmt-docs() {
   pkgdesc+=' (documentation)'
 
-  DESTDIR="$pkgdir" cmake --install build --component fmt-doc
+  DESTDIR="$pkgdir" cmake --install build --component fmt_doc
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" fmt/LICENSE
 }
 
