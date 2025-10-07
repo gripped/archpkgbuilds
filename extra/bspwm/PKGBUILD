@@ -3,7 +3,7 @@
 
 pkgname=bspwm
 pkgver=0.9.11
-pkgrel=1
+pkgrel=2
 pkgdesc='Tiling window manager based on binary space partitioning'
 arch=(x86_64)
 url='https://github.com/baskerville/bspwm'
@@ -12,8 +12,9 @@ makedepends=(git)
 depends=(glibc libxcb sh xcb-util xcb-util-keysyms xcb-util-wm)
 optdepends=('sxhkd: to define keyboard and pointer bindings'
             'xdo: for the example panel')
-source=("git+$url#tag=$pkgver")
-b2sums=('ed4f3b02f01736cb10084094dfe9ddbb2ce2d6f309d0b0434665cd7422a57351ae7fc1b93784c2d90ad7ffbd4ad68c8abf52c72b529b2820c83549ce60f5c4f8')
+#source=("git+$url#tag=$pkgver")
+source=("git+$url#commit=76d0f10dac6f6e3a1321a816e15a3263e20a42dc") # version 0.9.11 + one commit that fixes a bug
+b2sums=('158e2ff8af596807adbd1ad738482690f0e044ad7defdf0c6a0a277d8bf9353907531ff65f3e7c303519f993f8835609cff804041c8f714c3b7fb880d091ea75')
 
 build() {
   CFLAGS+=' -fcommon' # https://wiki.gentoo.org/wiki/Gcc_10_porting_notes/fno_common
