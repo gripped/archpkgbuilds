@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-socketio
-pkgver=5.13.0
+pkgver=5.14.1
 pkgrel=1
 pkgdesc='Python implementation of the Socket.IO realtime server'
 url='https://github.com/miguelgrinberg/python-socketio'
@@ -37,9 +37,9 @@ source=(
   "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
   "$pkgname-fix-type-error-freezing-tests.patch"
 )
-sha512sums=('4835d27048c04c0524a08174482a32a3fc7b26b9dc35092ce69c2162102ba53362effa15a9e4319d9fee62d1c8d7d14b4ed828d0d9cfc313429cf1b9107fd6d7'
+sha512sums=('bea48a4d7e47323dba385a760cc12978abac27c1f1fc2d9f39d2e19870fbb3172a2135bb639af91b68c40a4fd189208a699cb8765eadedea84b0e454c4233477'
             'dbf2846cfc0193baefdc5a26c58f3378b13a0b18c2a87f0403841a97ed06d795c68c7fd6128429c7bb3edb6e53389a06dbf915028479933c849fcd7ffb8e6729')
-b2sums=('5eea6c07adf3a65bc5a332a367311654de0fde3ff98459716983ab7df36b1018ea0878251c75cd9d3eddfdcd2ba800b8b0e7b65a3c067e3d5afa9d9a2e9de976'
+b2sums=('bb0aecf67434578dc028404563958ffd8c07f5520cfc80676997e120646d16e024ce8cd93732626be8a2f455e12ccd29fcdabf1f39d1f072d3b7da62e23ff055'
         '0dbcfe86665a986b422268fd9ffd03c72ba63cf97571078453d085a13b9793ee8552d99c81ed0cf77ea02b71e14252f607dfe7c819bb7b71a77fd258c242c156')
 
 prepare() {
@@ -57,7 +57,11 @@ check() {
   cd $pkgname-$pkgver
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest
+  # Ignored tests depend both python-redis & python-valkey, the latter which is
+  # not packaged.
+  test-env/bin/python -m pytest \
+    --ignore=tests/async/test_redis_manager.py \
+    --ignore=tests/common/test_redis_manager.py
 }
 
 package() {
