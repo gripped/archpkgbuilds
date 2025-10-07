@@ -1,0 +1,26 @@
+pkgbase = alpm-soname
+	pkgdesc = A CLI for looking up soname data in an ALPM context
+	pkgver = 0.1.0
+	pkgrel = 1
+	url = https://alpm.archlinux.page/alpm-soname/index.html
+	arch = x86_64
+	groups = alpm
+	license = Apache-2.0 OR MIT
+	license = CC-BY-SA-4.0
+	checkdepends = meson
+	makedepends = git
+	makedepends = just
+	makedepends = lowdown
+	makedepends = rust
+	makedepends = rust-script
+	depends = alpm-pkgbuild-bridge
+	depends = gcc-libs
+	depends = glibc
+	depends = xz
+	optdepends = alpm-docs: for additional specifications
+	source = alpm::git+https://gitlab.archlinux.org/archlinux/alpm/alpm.git?signed#tag=alpm-soname/0.1.0
+	validpgpkeys = 991F6E3F0765CF6295888586139B09DA5BF0D338
+	sha512sums = a158334b2cbf265529dbcc0f8dbff41e8b8db96bd9272f5a2ba2d7a8891e90932e624f99cf92a3bb3ccb4b0a0c6342cddeab5bee3df4961dbca79f0f645e2ef6
+	b2sums = 35370186b0a5ac08c3f1f9361974367bd0d22cc89990564048c26865506a56c73b11bdd21da9341d94edc4d818025a24726bebcb5ad4e34838afe602adcde349
+
+pkgname = alpm-soname
