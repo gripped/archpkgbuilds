@@ -4,8 +4,8 @@
 # Contributor: Daniel Isenmann <daniel@archlinux.org>
 
 pkgname=gimp
-pkgver=3.0.4
-pkgrel=5
+pkgver=3.0.6
+pkgrel=1
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
 arch=('x86_64')
@@ -91,7 +91,7 @@ source=(
   git+https://gitlab.gnome.org/GNOME/gimp.git#tag=GIMP_${pkgver//./_}
   git+https://gitlab.gnome.org/GNOME/gimp-data.git
 )
-sha256sums=('f4c2c753d4966dceea2136848af2fddd6b2b2fcfc5e36613175b17accbdadce7'
+sha256sums=('207318f002baa3703197d24bc45267c00564505b0307cd312a2279424ca4d7e2'
             'SKIP')
 
 prepare() {
@@ -106,8 +106,6 @@ prepare() {
 
 build() {
   local meson_options=(
-    --buildtype=plain
-    --prefix=/usr
     --sysconfdir=/etc
     --libexecdir=/usr/bin \
     -Dopenmp=enabled
