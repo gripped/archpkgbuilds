@@ -4,7 +4,7 @@
 
 pkgname=ananicy-cpp
 pkgver=1.1.1
-pkgrel=7
+pkgrel=8
 pkgdesc="Ananicy Cpp is a full rewrite of Ananicy in C++, featuring lower CPU and RAM usage."
 arch=(x86_64)
 url="https://gitlab.com/ananicy-cpp/ananicy-cpp"
@@ -28,9 +28,15 @@ makedepends=(
   ninja
   nlohmann-json
 )
-source=("git+https://gitlab.com/ananicy-cpp/ananicy-cpp.git#tag=v${pkgver}")
-sha512sums=('e7aed4f39d50ac2ea300b08192d1f0000e91c6985111418c24551252243ca883551afe290c8cb9fc4fce213d1ed6b1e919f93600abeaa8176b448b4f28bf3c3d')
+source=("git+https://gitlab.com/ananicy-cpp/ananicy-cpp.git#tag=v${pkgver}"
+        "https://gitlab.com/ananicy-cpp/ananicy-cpp/-/commit/99e64815bacaf3baa28ad89d022e33ebede94fa9.patch")
+sha512sums=('e7aed4f39d50ac2ea300b08192d1f0000e91c6985111418c24551252243ca883551afe290c8cb9fc4fce213d1ed6b1e919f93600abeaa8176b448b4f28bf3c3d'
+            'b04c6890dafb5d878fa0b0b1ea4611ddcc7c4d37ac327829255f50e8ed92940bb9aa3d22c9969bdcf2f49af74fc09317ae86558db0703d6aa2059b6194cba42e')
 
+prepare() {
+  cd "${srcdir}/${pkgname}"
+  patch -Np1 < ../99e64815bacaf3baa28ad89d022e33ebede94fa9.patch
+}
 build() {
   cd "${srcdir}/${pkgname}"
 
