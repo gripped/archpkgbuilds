@@ -3,7 +3,7 @@
 # Contributor: Samuel Laurén <samuel.lauren@iki.fi>
 
 pkgname=python-gssapi
-pkgver=1.10.0
+pkgver=1.10.1
 pkgrel=1
 pkgdesc='Provides both low-level and high level wrappers around the GSSAPI C libraries'
 url='https://github.com/pythongssapi/python-gssapi'
@@ -26,27 +26,27 @@ checkdepends=(
   'python-k5test'
   'python-parameterized'
 )
-source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('6d4e400c675d441c9f5f203e7883a31ecc6bdc004743eb8fb437f55e6fb93be55c197dc2af6b85b515cb8458e6ba5f7af090659a8df7e336e9256a2dc8fa0a56')
-b2sums=('c5c1e6b0972e0ea92ee6a98a7f1ea5833da125117c5c4ebba7c3123623679fe391d03e54bfdda559db2bab2e551a4644eddf108d142791f6097030341ce5b165')
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('607cc3119a214803e290162960a1202935b1706a050ab15472f4ab33a08382bc962d63e8fa880eefca05992bade94e6d774b257c90c857c65944da2de41b9370')
+b2sums=('3e0cf9ff4ff2b3fdfa0d041e33158f4def3b646a0164f73231cce1b13a50150673b5de6f84732317fd58d690a912d6a90852ae9dadd3c0c0c4963060b2f3745e')
 
 build() {
-  cd "${pkgname}-${pkgver}"
-  python -m build --wheel --no-isolation
+  cd $pkgname-$pkgver
+  python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
-  cd "${pkgname}-${pkgver}"
-  python -m installer --destdir=tmp_install dist/*.whl
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  python -m unittest discover -vs "${PWD}/tmp_install/${site_packages}"
+  cd $pkgname-$pkgver
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  python -m unittest discover -v \
+    -t test-env/lib/python*/site-packages \
+    -s test-env/lib/python*/site-packages
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
-  python -m installer --destdir="${pkgdir}" dist/*.whl
-  install -vDm 644 -t "${pkgdir}/usr/share/doc/${pkgname}" README.txt
-  install -vDm 644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE.txt
+  cd $pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 -t "$pkgdir/usr/share/doc/$pkgname" README.txt
+  install -vDm 644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
 }
-
-# vim: ts=2 sw=2 et:
