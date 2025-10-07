@@ -3,7 +3,7 @@
 pkgname=vcpkg
 pkgver=2025.09.03
 _pkgver="${pkgver//./-}"
-pkgrel=1
+pkgrel=2
 pkgdesc='C++ library manager'
 arch=('x86_64')
 url='https://vcpkg.io'
@@ -22,11 +22,19 @@ install='vcpkg.install'
 source=(
   "$pkgname::git+https://github.com/microsoft/vcpkg-tool#tag=$_pkgver"
   'vcpkg.sh'
+   fmt-12.patch
 )
 sha512sums=('c39b3235c01dd29dee44b7cac48f673f71068bb4a839f40876e5cfc8b7e31b8d7f56284d3d537aa477ea2411599b193d1b7998b8ff9cd05f3d742833090e1c47'
-            'a71f4de5044197871b01d66db0453c8df228d690b259972fd4cf242806f3eac65d80e3c794ce511ce03b69f95d6c40ab20989e6fd9907efc962337d5dfbdf4f6')
+            'a71f4de5044197871b01d66db0453c8df228d690b259972fd4cf242806f3eac65d80e3c794ce511ce03b69f95d6c40ab20989e6fd9907efc962337d5dfbdf4f6'
+            '1289135e72df8e630793e6bab9b258d4c56f2efe2d936cbfef2ca4f6eaf6baa88698f898dd61cbe1c7dd1d9d00d206989eb51611eba3912acc3f0dcd183acfd5')
 b2sums=('505529e5451f8c270fdce6b5cd22d9a961c8dcc8218659fec867000980b95f873811f560094f265ee80b09aa36c9998553e2a9bf1c7ccb47919514a147cc6de7'
-        'c67bb718f04146ae72ba5d7a290d08079e965cc330db11c98b94de355cd4a6ff489dbd4c363c940f4a96a1fd7ff8a754ff0efb62156e81bcccfd80376b4d0e39')
+        'c67bb718f04146ae72ba5d7a290d08079e965cc330db11c98b94de355cd4a6ff489dbd4c363c940f4a96a1fd7ff8a754ff0efb62156e81bcccfd80376b4d0e39'
+        '873aafdf187482b4f0095a115f007cec661fdbdea8881689f929a9dc164136286d00349ed42b8c0e5b87fa115bf00333d3dfa0de59f38fb52cde11cf1ead189d')
+
+prepare() {
+  cd $pkgname
+  patch -p1 -i ../fmt-12.patch
+}
 
 build() {
   cmake \
