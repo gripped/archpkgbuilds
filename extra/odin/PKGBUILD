@@ -5,7 +5,7 @@
 # Contributor: Payn <ivanttt54@gmail.com>
 
 pkgname=odin
-pkgver=dev_2025_09 # using monthly tags until a release is tagged
+pkgver=dev_2025_10 # using monthly tags until a release is tagged
 pkgrel=1
 pkgdesc='Data-oriented programming language'
 arch=(x86_64)
@@ -15,7 +15,7 @@ depends=(clang llvm-libs python)
 makedepends=(git llvm stb)
 options=(staticlibs)
 source=("git+https://github.com/odin-lang/Odin#tag=${pkgver//_/-}")
-b2sums=('4bab6a3e1f3a1f9a034051e7749a6aa08a08dbc288eaf518870fd21008b8633fdc80b7bf269fc4be930cab18854b71a7069c50f93a2b443312198af592daf478')
+b2sums=('a8aeb880f82f263cef231ff549b863cc137b3004e48241fd45b89898dfc9c3acf4bf24d462b41060d0d38c9e3bd7208e6fe65208d343f4038899b8c0d035ef5b')
 
 build() {
   cd Odin
