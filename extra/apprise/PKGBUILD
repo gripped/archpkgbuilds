@@ -1,9 +1,10 @@
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: Daniel M. Capella <polyzen@archlinux.org>
 # Contributor: AlphaJack <alphajack at tuta dot io>
 # Contributor: Pieter Goetschalckx <3.14.e.ter <at> gmail <dot> com>
 
 pkgname=apprise
-pkgver=1.9.4
+pkgver=1.9.5
 pkgrel=1
 pkgdesc='Push Notifications that work with just about every platform'
 arch=(any)
@@ -35,7 +36,7 @@ optdepends=(
   'python-paho-mqtt: for MQTT support'
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('c70dfed69972e3166dd98fee4bff76c668945899508f30a8db15e4d369725e5293f30a765f4a889cf439ccb6c77b73b90ec484208f9d0cbe179ead515766aba6')
+b2sums=('b05668c41fbd02e49b2e08ac9f026769fdbce68090e377a171a8ed106cadf247dd5e6c8bc3f26588c2b44b51ed690a7390ff3abb0eb9e536a7a1888d9578c5b9')
 
 build(){
   cd $pkgname
