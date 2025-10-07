@@ -3,7 +3,7 @@
 
 pkgname=python-zope-testrunner
 _pkgname=zope.testrunner
-pkgver=8.0
+pkgver=8.1
 pkgrel=1
 pkgdesc="Zope testrunner script"
 arch=('any')
@@ -24,7 +24,7 @@ makedepends=(
 # package.
 checkdepends=('python-zope-testing')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('9409d1020707d384475b4e9e36b927c107ec4bb72a3edc3459688d9f2ee1f5a65069aa87eb8bc161bb39c5494a0d8c67b3037200aa697c8c674a7aad5053330e')
+sha512sums=('9b313d4d196d3f7423690e1ac2cfd843557c810afd947bfd8de9307755f4735677bb4423d6bfebee075b2c53d582c6a3ff3bcc969055bfe16dfd399dcc411c36')
 
 prepare() {
   cd $_pkgname-$pkgver
