@@ -4,7 +4,7 @@ _name=ADLplug
 pkgbase=adlplug
 pkgname=(adlplug{,-{lv2,standalone,vst}} opnplug{,-{lv2,standalone,vst}})
 pkgver=1.0.2
-pkgrel=12
+pkgrel=13
 pkgdesc="FM synthesizer plugins, based on OPL3 and OPN2 sound chip emulations"
 arch=(x86_64)
 url="https://github.com/jpcima/ADLplug"
@@ -51,6 +51,7 @@ prepare() {
 }
 
 build() {
+  export CMAKE_POLICY_VERSION_MINIMUM=3.5
   local cmake_options_adlplug=(
     -B build-adlplug
     -D CMAKE_INSTALL_PREFIX=/usr
