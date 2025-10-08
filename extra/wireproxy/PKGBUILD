@@ -3,10 +3,10 @@
 
 pkgname=wireproxy
 pkgver=1.0.10
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 license=(ISC)
-url="https://github.com/pufferffish/wireproxy"
+url="https://github.com/whyvl/wireproxy"
 pkgdesc="Wireguard client that exposes itself as a socks5 proxy"
 depends=('glibc')
 makedepends=('go')
@@ -20,10 +20,10 @@ source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz
 sha256sums=('3e08e79e3c1b66b7e129426dc6e84b93a1fb3827edde96d85bbf863a5a66c8ff'
             '24a30e40d3fb5d79b81b2028b17533abf1e27cb9684035ba19c639f6c45907d2'
             'ab9a59d0f200371aee18abc93653cf8f9504063d14ae08e289b90f711e559735'
-            'fb0270fa081cc85138558a1ab9dd7e54e2f312a52abc1b5906f0c1f04f248781'
-            'b72ca8f8716d2eea9eb782ffa11942e6a44b2e8e9ec7b60e96565b8f29731276'
-            '9c136bca0f65070f450ce942be7cd48254a385ed2a286f792d22ab74bb9a29a2'
-            'fae5f0e1669d05d10b13a00031132c9bde8cc9b3e22fc91154edd5c01d750ef3')
+            '570b9777af70938f0f0ceec7feb46698966e7f96b96506af2a564ffca870214b'
+            '2e8e57908b54d1a91f0838488a78eb5304ffe0aaecd10f1131ad9e7f44794622'
+            '7ab95b432cc3a4ea5be7d60e925c87eee132445320f2178d99d4e74e62bf4a85'
+            '24c5cbf76615b1be5b21370e5abc34182d1d477158b2b10306f2f0395e5dc07b')
 
 build() {
   cd "${pkgname}-${pkgver}"
