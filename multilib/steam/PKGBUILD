@@ -5,7 +5,7 @@
 # Contributor: K900 <k0009000@gmail.com>
 
 pkgname=steam
-pkgver=1.0.0.84
+pkgver=1.0.0.85
 pkgrel=1
 pkgdesc="Valve's digital software delivery system"
 url='https://steampowered.com/'
@@ -67,11 +67,11 @@ optdepends=(
 # the beta directory is a superset of stable and also contains the stable releases
 source=(https://repo.steampowered.com/${pkgname}/archive/stable/${pkgname}_${pkgver}{.tar.gz,.dsc}
         steam.sh)
-sha512sums=('efbe8851c7b43674865902e683e4de1e89e064c03235aa8b3030a19d7fe32b84cf942f509c6bd8ff0741a2e57d59d228effa2b655c8c240764589a6be3d97df2'
-            'c5226de584b71201740ceb6a8f7f76245ff7dbf5e63113ca32a08c207bbf60cc1de0822e9dba74d6175048e179ec0bb0efaa5a32eab8ca4cb76c2ae95e593443'
+sha512sums=('81d404fcbd516fa1d984a991be3530855c0ded826ea8aca68c8cb5492e95d3d430cd7c556a9997a7c0780055a810239322181b1785e78f8d8fabe01c39fee2f7'
+            'e3722d006485249fc91113feee0df018d341dc8d7327199a9161022c84b04ca5faa2be36268d50ae0bc29b6fd6063fe2b69a29a354adb32dd6b75d78dc7f9702'
             '5e75c019e9fe8c67d686c4e3343dac1180a69a4bdb7d39b333415c63201eef9b98da5619dbf6fd8daa6884e65bc7f8afc9e52778682425e5a75987d527eae6f0')
-b2sums=('96f309ef48a40b70baa60c29877383a86af29b5eae2df4df1960c60ff643a6dfbc797c3e6d1f2075ee971dedecd3b04a1660468ef3cc874a5e2224f81aeafdc3'
-        'b0a8a967e7d4065e95e3b1ab7ab2cfac88e9985c72b32bc0cfa5d16e9712f85c8e2f453c045858a94cfa4f69454092929bc4ecfb318ad8319d0703caf8067930'
+b2sums=('6cc699e7b740693529845ef76d39570a977716735da46e21b681629aebf3e5ee80b09a3b47b1c84debb066ca43456f1c78509de7ddfe8e35df21903cceebde4f'
+        '833edc4b6b8aa32861fb6caccdc4f7441a0462600315b68eae0bbbebf7c94cc64a8be61ce2e30842ea2f354ac0630898b7829d0d9eafd97eb7b621a72befb897'
         'c6bac99336b7c30fec7cdbaf9e949555c687dd9dff50bcae136134d6314f4b841f5fc66ddb2caac1b003690b926fd4afbdc11da143b4674db4b75f27709fdd23')
 validpgpkeys=('BA1816EF8E75005FCF5E27A1F24AEA9FB05498B7') # linux@steampowered.com
 
