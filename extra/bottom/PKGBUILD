@@ -3,7 +3,7 @@
 # Contributor: Clement Tsang (xoronth) <cjhtsang@uwaterloo.ca>
 
 pkgname=bottom
-pkgver=0.11.1
+pkgver=0.11.2
 pkgrel=1
 pkgdesc='A graphical process/system monitor'
 arch=(x86_64)
@@ -12,8 +12,8 @@ license=(MIT)
 depends=(gcc-libs)
 makedepends=(git rust)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('5a72b989a56bb846bfabe2191f10a1e7611dcb2bf726cebbc6f3c66fa86d1f26ea8c4552ad1b06cd44a4ce408d3bc21b36e15f0db1bb73787651030d3be8abf7')
-b2sums=('2daec84e918ecdd331399c50315caf74edc797d65b39a16279cf4fb0303cb3323a5bb33195472be1b5f35b2597388d0017b8a90d48f3a2c60769267912cee200')
+sha512sums=('aba4216b1661eee8bc409301f46779162497b96060847353ed344b27ae0086943416b37917046fa7e5aa8b3c389a8ee6683c9fcb859108ded3b05fe2693d0018')
+b2sums=('d79bc71306f9da6d5f60d48e78df09680b444721f12911fb5f4db0463b6857be06cad365d325542b9e5ca5c5a48dcbfea3780b27797f4eaccb70284094956173')
 
 prepare() {
   cd "$pkgname"
