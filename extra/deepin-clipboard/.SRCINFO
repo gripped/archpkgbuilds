@@ -1,22 +1,27 @@
 pkgbase = deepin-clipboard
 	pkgdesc = DDE clipboard manager component
-	pkgver = 6.0.13
+	pkgver = 6.1.0
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-clipboard
 	arch = x86_64
 	groups = deepin-extra
-	license = GPL3
+	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
 	makedepends = gtest
-	makedepends = qt5-tools
+	makedepends = qt6-tools
 	makedepends = extra-cmake-modules
-	depends = deepin-qt5integration
+	depends = dtk6core
+	depends = dtk6gui
+	depends = dtk6widget
 	depends = gio-qt
-	depends = dtkcore
-	depends = dwayland
-	source = git+https://github.com/linuxdeepin/dde-clipboard.git#tag=6.0.13
-	sha512sums = 7e8673e9d4182fda3156debf5aeacfb81e322f4d1d93cfed8d2e93895a942838f2786989dc7f35f73c3ba404f21692e159c6f7b1462b62f2a879e7287b1dd0eb
+	depends = qt6-base
+	depends = qt6-declarative
+	depends = qt6-wayland
+	depends = deepin-shell
+	depends = deepin-tray-loader
+	source = git+https://github.com/linuxdeepin/dde-clipboard.git#tag=6.1.0
+	sha512sums = e98ccbba5ec03b1f23b0abb05173a3acdd4299ca2e224cffff2b5a68875ee1875fd7cb55837906df223764bda533e442bd36d8eb3323519707387072a185650d
 
 pkgname = deepin-clipboard
