@@ -1,6 +1,6 @@
 pkgbase = river
 	pkgdesc = A dynamic tiling wayland compositor
-	pkgver = 0.3.12
+	pkgver = 0.3.13
 	pkgrel = 1
 	url = https://codeberg.org/river/river
 	arch = x86_64
@@ -21,17 +21,18 @@ pkgbase = river
 	depends = xorg-xwayland
 	optdepends = polkit: access seat through systemd-logind
 	provides = wayland-compositor
+	provides = river-classic
 	noextract = zig-pixman-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-pixman/archive/v0.3.0.tar.gz
 	noextract = zig-wayland-v0.4.0.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.4.0.tar.gz
 	noextract = zig-wlroots-v0.19.3.tar.gz::https://codeberg.org/ifreund/zig-wlroots/archive/v0.19.3.tar.gz
 	noextract = zig-xkbcommon-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.3.0.tar.gz
-	source = git+https://codeberg.org/river/river.git#tag=v0.3.12?signed
+	source = git+https://codeberg.org/river/river-classic.git#tag=v0.3.13?signed
 	source = zig-pixman-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-pixman/archive/v0.3.0.tar.gz
 	source = zig-wayland-v0.4.0.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.4.0.tar.gz
 	source = zig-wlroots-v0.19.3.tar.gz::https://codeberg.org/ifreund/zig-wlroots/archive/v0.19.3.tar.gz
 	source = zig-xkbcommon-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.3.0.tar.gz
 	validpgpkeys = 5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11
-	sha256sums = 84bf6b5db5a31237d2e3e9390f58e38c8e85fad7805ea6e3c952b9afb46a2395
+	sha256sums = 8d6ed0fe002254c195750ed459e7e278bf99d5a73846bbf162433ee2471b88b4
 	sha256sums = cd7fe3415d4d58685a94fdedd308e9994a37f012828940cfb603461de7f2c6ad
 	sha256sums = 907fdd18c7ede1ab1f249c618ba5dce3b8a72c26e50090b4ae7010033a419ba9
 	sha256sums = bffcfa2af6b90d07cb187ceb3d70aeffb0ed11b3d3f9737ea004e722bc031d6b
