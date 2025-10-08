@@ -1,14 +1,16 @@
 pkgbase = gio-qt
 	pkgdesc = Gio wrapper for Qt applications
-	pkgver = 0.0.12
-	pkgrel = 2
+	pkgver = 0.0.13
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/gio-qt
 	arch = x86_64
 	license = LGPL3
+	makedepends = git
 	makedepends = cmake
+	makedepends = qt6-tools
 	depends = glibmm
-	depends = qt5-base
-	source = https://github.com/linuxdeepin/gio-qt/archive/0.0.12/gio-qt-0.0.12.tar.gz
-	sha512sums = 6d372df0f7592ea33c7a4ef2fa743cd398277cb6ca3c1176347ad63a8aa7e866084d9f3e4da9c41a95f5d396509a7a85e251667767c0796257e3bedde9094876
+	depends = qt6-base
+	source = git+https://github.com/linuxdeepin/gio-qt.git#tag=0.0.13
+	sha512sums = 43610a48ab86fda1d49b71f6a545f251abb45a7fedde66eab813922f760a0653ee564720f8013efa2c03179771ed5854980feeea8aa1666a51f5bd2431ee0052
 
 pkgname = gio-qt

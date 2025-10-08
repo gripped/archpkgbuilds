@@ -1,24 +1,29 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=gio-qt
-pkgver=0.0.12
-pkgrel=2
+pkgver=0.0.13
+pkgrel=1
 pkgdesc='Gio wrapper for Qt applications'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/gio-qt"
 license=('LGPL3')
-depends=('glibmm' 'qt5-base')
-makedepends=('cmake')
-source=("https://github.com/linuxdeepin/gio-qt/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('6d372df0f7592ea33c7a4ef2fa743cd398277cb6ca3c1176347ad63a8aa7e866084d9f3e4da9c41a95f5d396509a7a85e251667767c0796257e3bedde9094876')
+depends=('glibmm' 'qt6-base')
+makedepends=('git' 'cmake' 'qt6-tools')
+source=("git+https://github.com/linuxdeepin/gio-qt.git#tag=$pkgver")
+sha512sums=('43610a48ab86fda1d49b71f6a545f251abb45a7fedde66eab813922f760a0653ee564720f8013efa2c03179771ed5854980feeea8aa1666a51f5bd2431ee0052')
+
+prepare() {
+  cd gio-qt
+  sed -i '/include(qt5.cmake)/d' gio-qt/CMakeLists.txt qgio-tools/CMakeLists.txt
+}
 
 build() {
-  cd gio-qt-$pkgver
+  cd gio-qt
   cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_DOCS=OFF .
   make
 }
 
 package() {
-  cd gio-qt-$pkgver
+  cd gio-qt
   make DESTDIR="$pkgdir" install
 }
