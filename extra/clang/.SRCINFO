@@ -1,7 +1,7 @@
 pkgbase = clang
 	pkgdesc = C language family frontend for LLVM
 	pkgver = 20.1.8
-	pkgrel = 1
+	pkgrel = 2
 	url = https://clang.llvm.org/
 	arch = x86_64
 	license = Apache-2.0 WITH LLVM-exception
@@ -33,6 +33,7 @@ pkgbase = clang
 	source = https://github.com/llvm/llvm-project/releases/download/llvmorg-20.1.8/third-party-20.1.8.src.tar.xz
 	source = https://github.com/llvm/llvm-project/releases/download/llvmorg-20.1.8/third-party-20.1.8.src.tar.xz.sig
 	source = 0001-Revert-clang-driver-When-fveclib-ArmPL-flag-is-in-us.patch
+	source = 0002-Reapply-CUDA-HIP-Add-a-__device__-version-of-std-__g.patch
 	source = enable-fstack-protector-strong-by-default.patch
 	validpgpkeys = 474E22316ABF4785A88C6E8EA2C794A986419D8A
 	validpgpkeys = D574BD5D1D0E98895E3BF90044F2485E45D59042
@@ -47,6 +48,7 @@ pkgbase = clang
 	sha256sums = 9a4e452a8163732d417db067a89190fcda823cb3aa33199e834ac7c028923f4b
 	sha256sums = SKIP
 	sha256sums = e88768730a7a46e7952758ec80f831997e30e7dbab53077decae3f71f4fc315e
+	sha256sums = e7a5f5ce24ed43895219d397b0c85d7b9289d604dfd742717ce10da640d8f3c2
 	sha256sums = ef319e65f927718e1d3b1a23c480d686b1d292e2a0bf27229540964f9734117a
 
 pkgname = clang

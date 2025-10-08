@@ -3,7 +3,7 @@
 
 pkgname=clang
 pkgver=20.1.8
-pkgrel=1
+pkgrel=2
 pkgdesc="C language family frontend for LLVM"
 arch=('x86_64')
 url="https://clang.llvm.org/"
@@ -23,6 +23,7 @@ source=($_source_base/clang-$pkgver.src.tar.xz{,.sig}
         $_source_base/cmake-$pkgver.src.tar.xz{,.sig}
         $_source_base/third-party-$pkgver.src.tar.xz{,.sig}
         0001-Revert-clang-driver-When-fveclib-ArmPL-flag-is-in-us.patch
+        0002-Reapply-CUDA-HIP-Add-a-__device__-version-of-std-__g.patch
         enable-fstack-protector-strong-by-default.patch)
 sha256sums=('b7a1b7b0af7b9c7596af6bd46e36d11321926eaa66a7a7dc957ab0a1375ee4b0'
             'SKIP'
@@ -35,6 +36,7 @@ sha256sums=('b7a1b7b0af7b9c7596af6bd46e36d11321926eaa66a7a7dc957ab0a1375ee4b0'
             '9a4e452a8163732d417db067a89190fcda823cb3aa33199e834ac7c028923f4b'
             'SKIP'
             'e88768730a7a46e7952758ec80f831997e30e7dbab53077decae3f71f4fc315e'
+            'e7a5f5ce24ed43895219d397b0c85d7b9289d604dfd742717ce10da640d8f3c2'
             'ef319e65f927718e1d3b1a23c480d686b1d292e2a0bf27229540964f9734117a')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
               'D574BD5D1D0E98895E3BF90044F2485E45D59042') # Tobias Hieta <tobias@hieta.se>
@@ -67,6 +69,8 @@ prepare() {
 
   # Revert always linking against libamath when -fveclib=ArmPL
   patch -Np2 -i ../0001-Revert-clang-driver-When-fveclib-ArmPL-flag-is-in-us.patch
+  # [CUDA][HIP] Add a __device__ version of std::__glibcxx_assert_fail()
+  patch -Np2 -i ../0002-Reapply-CUDA-HIP-Add-a-__device__-version-of-std-__g.patch
 
   # Fix hardcoded test path
   sed -i 's/clang-tools-extra/tools\/extra/g' tools/extra/test/clang-doc/enum.cpp
