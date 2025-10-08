@@ -2,8 +2,8 @@
 # Contributor: Giorgio Gilestro <giorgio@gilest.ro>
 
 pkgname=nautilus-python
-pkgver=4.0.1
-pkgrel=4
+pkgver=4.1.0
+pkgrel=1
 pkgdesc='Python bindings for the Nautilus Extension API'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/NautilusPython'
@@ -26,7 +26,7 @@ conflicts=(python-nautilus)
 provides=("python-nautilus=$pkgver")
 replaces=(python-nautilus)
 source=("git+https://gitlab.gnome.org/GNOME/nautilus-python.git#tag=$pkgver")
-b2sums=(c8e562d5dcb82a86648a8c725b8e0c874a32970e74e00d2c24f5e5dc917e6b451a7aa17b4fbb7a875d226921a3a5e34b247e31052d3fcdda1c9e4259d905c96d)
+b2sums=('ff31c4a31c262bffd9f3304d19e877eece6639cfba18e4ae2495e26a9706106620aabf4c97db84a6f2524c2840f0d6848ef64dee0136ee8f562096d489d870f3')
 
 build() {
   arch-meson $pkgname build
