@@ -3,18 +3,18 @@
 
 _hkgname=shakespeare
 pkgname=haskell-shakespeare
-pkgver=2.1.4
-pkgrel=43
+pkgver=2.1.7
+pkgrel=1
 pkgdesc="A toolkit for making compile-time interpolated templates"
 url="https://www.yesodweb.com/book/shakespearean-templates"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-blaze-html' 'haskell-blaze-markup' 'haskell-file-embed'
          'haskell-scientific' 'haskell-th-lift' 'haskell-unordered-containers' 'haskell-vector')
-makedepends=('ghc' 'haskell-hspec' 'haskell-hunit')
+makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover' 'haskell-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz"
         $pkgname-$pkgver-en.msg::https://raw.githubusercontent.com/yesodweb/shakespeare/refs/tags/v2.1.3/other-messages/en.msg)
-sha512sums=('d4994cf4477a45170cda3b18c4d523e4fa3189f33a36a25b63488dcdb4e62629d38db4be56fff0714ff545806e9cee74bf2b70c2d39d5b70fb7c1bad58a2fd24'
+sha512sums=('e043f41c75319c625d1453f14f019a42b97e5e416e61388e53375d5defb514d314a981d8b4addd5edc0beae9b83dc80d172ce93faac80867849e60494f66addd'
             'd5ff4a61c254743d350448a166b6371e27c414c05e805ebe9be3dac8d2cbc5e922d6844c0297ec5a278bf9b3c868dc7ee8aba4ce09cee6e0a2953f61ead8d998')
 
 prepare() {
