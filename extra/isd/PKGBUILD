@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=isd
-pkgver=0.6.0
+pkgver=0.6.1
 pkgrel=1
 pkgdesc='An interactive systemd TUI'
 arch=('any')
@@ -28,8 +28,8 @@ makedepends=(
   python-wheel
 )
 source=("$pkgname::git+https://github.com/isd-project/isd#tag=v$pkgver")
-sha512sums=('64cc57e6ac6c103cf9527ad55c3cf2346f5e90cc87db0e028cff41ef7a9e742d8ace57bdb2852a831e5b81fe2fd01ced73ba2364faf8b6a7faacf08236553cef')
-b2sums=('4b348e4017b34840e0d25ece9274ebe480c3059849c354d652b178385648a54f1108e987a4edeb1a8aafec487653c3dda99a49f79fdee5f0ee937fe786b22c44')
+sha512sums=('cbb1d783a1883814b7b32b3271e39e0ff055ad038002ed35e54c56a05b86c627c095447876ef775f1e3a385c0719d824e19ad547285fd98866b2a7b3e50b06b6')
+b2sums=('4b414d5d8ef49481c24492301b21940348ccd3b6001c5b501a36ccd0adacc0719691482432df9350005aafc78a1b7f5684c7aa1127bf7dc4eb0f8a50dde7bbd0')
 
 build() {
   cd "$pkgname"
