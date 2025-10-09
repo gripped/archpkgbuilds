@@ -3,22 +3,32 @@
 pkgname=python-gwebsockets
 _pkgname=gwebsockets
 pkgver=0.7
-pkgrel=8
-pkgdesc="GLib based websocket server written in python"
-arch=('any')
-url="https://github.com/sugarlabs/gwebsockets"
-license=('Apache')
-depends=('python-gobject')
-makedepends=('python-setuptools')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/sugarlabs/$_pkgname/archive/v$pkgver.tar.gz")
-sha256sums=('116e7e9e2e316011b88c2410e5a9b86c93db1e133ff76534d225302810873d68')
+pkgrel=9
+pkgdesc='GLib based websocket server written in Python'
+arch=(any)
+url='https://github.com/sugarlabs/gwebsockets'
+license=(Apache-2.0)
+depends=(
+  glib2
+  python
+  python-gobject
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+source=("git+https://github.com/sugarlabs/$_pkgname.git#tag=v$pkgver")
+b2sums=(e9536085a57545be72b1fac01be68eca26f7e50573415ed328e1015f30f56a9b8624bec852caa85d0d461f542889699875d6f9daf726392dada05ab66d4b24ff)
 
 build() {
-  cd $_pkgname-$pkgver
-  python setup.py build
+  cd $_pkgname
+  python -m build --wheel --no-isolation
 }
 
 package() {
-  cd $_pkgname-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  cd $_pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
