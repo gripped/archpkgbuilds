@@ -5,14 +5,14 @@
 
 pkgname=gimp
 pkgver=3.0.6
-pkgrel=1
+pkgrel=2
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
 arch=('x86_64')
 license=('GPL-3.0-or-later')
 depends=(
   # Core deps
-  'appstream-glib'
+  'appstream'
   'babl'
   'cairo'
   'fontconfig'
@@ -63,7 +63,6 @@ depends=(
 )
 makedepends=(
   'alsa-lib'
-  'appstream'
   'cfitsio'
   'ghostscript'
   'gi-docgen'
