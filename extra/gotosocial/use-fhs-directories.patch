@@ -1,24 +1,15 @@
 --- a/example/config.yaml
 +++ b/example/config.yaml
-@@ -97,7 +97,7 @@ trusted-proxies:
- # String. Database type.
- # Options: ["postgres","sqlite"]
- # Default: "postgres"
--db-type: "postgres"
-+db-type: "sqlite"
- 
- # String. Database address or parameters.
- #
-@@ -112,7 +112,7 @@ db-type: "postgres"
+@@ -172,7 +172,7 @@ db-type: "sqlite"
  #
  # Examples: ["localhost","my.db.host","127.0.0.1","192.111.39.110",":memory:", "sqlite.db"]
  # Default: ""
--db-address: ""
+-db-address: "sqlite.db"
 +db-address: "/var/lib/gotosocial/sqlite.db"
  
- # Int. Port for database connection.
+ # Int. Port for postgres database connection; ignored for sqlite.
  # Examples: [5432, 1234, 6969]
-@@ -158,12 +158,12 @@ db-tls-ca-cert: ""
+@@ -297,12 +297,12 @@ cache:
  # String. Directory from which gotosocial will attempt to load html templates (.tmpl files).
  # Examples: ["/some/absolute/path/", "./relative/path/", "../../some/weird/path/"]
  # Default: "./web/template/"
@@ -33,7 +24,7 @@
  
  ###########################
  ##### INSTANCE CONFIG #####
-@@ -261,7 +261,7 @@ storage-backend: "local"
+@@ -745,7 +745,7 @@ storage-backend: "local"
  # Only required when running with the local storage backend.
  # Examples: ["/home/gotosocial/storage", "/opt/gotosocial/datastorage"]
  # Default: "/gotosocial/storage"
@@ -42,7 +33,7 @@
  
  # String. API endpoint of the S3 compatible service.
  # Only required when running with the s3 storage backend.
-@@ -357,7 +357,7 @@ letsencrypt-port: 80
+@@ -908,7 +908,7 @@ letsencrypt-port: 80
  # In any case, make sure GoToSocial has permissions to write to / read from this directory.
  # Examples: ["/home/gotosocial/storage/certs", "/acmecerts"]
  # Default: "/gotosocial/storage/certs"
@@ -53,8 +44,8 @@
  # Most likely, this will be the email address of the instance administrator.
 --- a/example/gotosocial.service
 +++ b/example/gotosocial.service
-@@ -14,8 +14,8 @@ Type=exec
- Restart=on-failure
+@@ -28,8 +28,8 @@ Restart=on-failure
+ #Environment="OTEL_METRICS_PRODUCERS=prometheus"
  
  # change if your path to the GoToSocial binary is different
 -ExecStart=/gotosocial/gotosocial --config-path config.yaml server start
@@ -62,5 +53,5 @@
 +ExecStart=/usr/bin/gotosocial --config-path /etc/gotosocial/config.yaml server start
 +WorkingDirectory=/var/lib/gotosocial
  
- StandardOutput=append:/var/log/gotosocial/gotosocial.log
- StandardError=inherit
+ # Sandboxing options to harden security
+ # Details for these options: https://www.freedesktop.org/software/systemd/man/systemd.exec.html
