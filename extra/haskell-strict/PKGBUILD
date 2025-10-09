@@ -3,8 +3,8 @@
 
 _hkgname=strict
 pkgname=haskell-strict
-pkgver=0.5
-pkgrel=268
+pkgver=0.5.1
+pkgrel=3
 pkgdesc="Strict data types and String IO"
 url="https://github.com/haskell-strict/strict"
 license=('BSD-3-Clause')
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-assoc' 'haskell-hashable' 'haskell-these')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('dba8bb370aaea6107d9ea5ff8bd69a84212eaf0f6440189906bf6d3581282b88ae56142958ab041d9ecd06efee7c51dde9d6bafa89b95e666bf1d48d1249c3ed')
+sha512sums=('059e94e8d21ef66b852515ee80daebc32e9de28af786f8ec65badb584ff67d59d603a699980ac84d46ef5fe3ceb048d6e968881ed9d82b5cb0efdb8833a64cc1')
 
 build() {
     cd $_hkgname-$pkgver
