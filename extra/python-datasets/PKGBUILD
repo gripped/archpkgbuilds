@@ -4,7 +4,7 @@
 
 _name=datasets
 pkgname=python-$_name
-pkgver=4.1.1
+pkgver=4.2.0
 pkgrel=1
 pkgdesc="Ready-to-use datasets for ML models with fast, easy-to-use and efficient data manipulation tools"
 arch=(any)
@@ -18,6 +18,7 @@ depends=(
   python-filelock
   python-fsspec
   python-h5py
+  python-httpx
   python-huggingface-hub
   python-multiprocess
   python-numpy
@@ -57,7 +58,7 @@ optdepends=(
   'python-pytorch: PyTorch support'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-b2sums=('6f40a4523f305761cad40a00557f09e4846ed0c8f2063e109e0b81f534aef493fed0ba31a4d32adf171df50287bbe2009b9baa2d68785c74f213004f1ebb875a')
+b2sums=('3b40fe2468ae0311669290f0eeae68f6630a2a4203a97f13ab16bbaebdb37566e4206d73a953944b0f769039ad11182ba99f4775d48e753b91fd209bc00795be')
 
 build() {
   cd $_name-$pkgver
@@ -105,6 +106,10 @@ check() {
     # Hanging tests
     --deselect tests/test_upstream_hub.py::TestPushToHub::test_push_dataset_dict_to_hub_num_proc
     --deselect tests/test_upstream_hub.py::TestPushToHub::test_push_dataset_dict_to_hub_iterable_num_proc
+    # RuntimeError: Failed to set output pixel formats: Invalid argument
+    # (this is a ffmpeg 8.0 issue)
+    --deselect tests/features/test_video.py::test_dataset_with_video_feature
+    --deselect tests/features/test_video.py::test_load_dataset_with_video_feature
   )
 
   cd $_name-$pkgver
