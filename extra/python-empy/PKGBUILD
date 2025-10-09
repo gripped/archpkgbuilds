@@ -2,24 +2,29 @@
 
 _pkgname=empy
 pkgname=python-empy
-pkgver=4.1
-pkgrel=3
-pkgdesc="Powerful and robust templating system for Python"
-arch=('any')
-url="http://www.alcyone.com/software/empy/"
-license=('LGPL')
-depends=('python')
-makedepends=('python-setuptools')
-#source=("http://www.alcyone.com/software/empy/$_pkgname-$pkgver.tar.gz")
-source=(https://pypi.python.org/packages/source/e/empy/empy-$pkgver.tar.gz)
-sha256sums=('9d712e97c1395859be13d2b45788c9186cd97f1c04dac510399130f328643367')
+pkgver=4.2
+pkgrel=1
+pkgdesc='Powerful and robust templating system for Python'
+arch=(any)
+url='http://www.alcyone.com/software/empy/'
+license=(BSD-3-Clause)
+depends=(python)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+source=("http://www.alcyone.com/software/empy/$_pkgname-$pkgver.tar.gz")
+b2sums=(6460ae0f249d17a8467b6ac51268fec40c4cc6a1606fb36dc56650556598f0c57fd4a815132dcf265c5e51a20f987580b8b337dedff245eb24424072105597ac)
 
 build() {
   cd $_pkgname-$pkgver
-  python3 setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
-  cd $_pkgname-$pkgver 
-  python3 setup.py install --root="$pkgdir" --optimize=1
+  cd $_pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE.md
 }
