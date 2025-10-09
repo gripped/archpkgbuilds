@@ -2,8 +2,7 @@
 # Contributor: hexchain <i at hexchain dot org>
 
 pkgname=yaml-language-server
-_commit=b707580afd61837d19fb8f896a9ea4a3c596ad34
-pkgver=1.19.0
+pkgver=1.19.2
 pkgrel=1
 pkgdesc='YAML Language Server'
 url=https://github.com/redhat-developer/yaml-language-server
@@ -12,26 +11,25 @@ arch=(any)
 depends=(nodejs)
 makedepends=(
   git
-  jq
-  yarn
+  npm
 )
 options=(!emptydirs)
-source=("git+$url.git#commit=$_commit")
-b2sums=('027bf73003ffbbf4df2455ba6140290fa54a4d4a40d56d8b74592a88dce7f15aaff611aea183b4b66c861cac972950a41f2f07f35e0f8b51063b1faac4a4b985')
+source=("git+$url.git#tag=$pkgver")
+b2sums=('aae78e495fc9945125dc2a14d9bef8b3a2a2f44647eba6b1453c1798455f1591112f9e95c97fbe32e722e63444afe85a49b3f5fe42d4ccb06097a9e47eeed887')
 
 prepare() {
   cd $pkgname
-  yarn --frozen-lockfile
+  npm ci
 }
 
 build() {
   cd $pkgname
-  yarn compile
+  npm run compile
 }
 
 check() {
   cd $pkgname
-  yarn test
+  npm test
 }
 
 package() {
@@ -41,15 +39,9 @@ package() {
   ln -s $mod_dir/bin/$pkgname "$pkgdir"/usr/bin/$pkgname
 
   cd $pkgname
+  npm prune --omit=dev
 
-  # Emulate `npm prune --omit=dev`
-  cp package.json{,.bak}
-  read -ra devDependencies < <(jq -r '.devDependencies | keys | join(" ")' package.json)
-  yarn remove --frozen-lockfile "${devDependencies[@]}"
-  mv package.json{.bak,}
-
-  cp -r bin node_modules out package.json "$pkgdir"/$mod_dir
-  cp -r l10n "$pkgdir"/$mod_dir/out/server
+  cp -r bin l10n node_modules out package.json "$pkgdir"/$mod_dir
   install -Dm644 -t "$pkgdir"/usr/share/doc/$pkgname {CHANGELOG,README}.md
   install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
 }
