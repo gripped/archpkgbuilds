@@ -3,7 +3,7 @@
 
 pkgname=python-sphinx-autodoc-typehints
 _pyname=${pkgname/python-/}
-pkgver=3.2.0
+pkgver=3.4.0
 pkgrel=1
 pkgdesc='Type hints support for the Sphinx autodoc extension'
 arch=(any)
@@ -26,7 +26,7 @@ checkdepends=(
   python-typing_extensions
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('10bbbe9d784002c2e1ae485e902a37e5edb16eaa58b77223173a9ff9950d0ca9eba23957eee7200d1d3864088d39e550786cb7e0be0d779096a54328993a679d')
+b2sums=('626253ad212e7576eec21e6fa2862c8f5623e88c486f0ef9d9a71a949f6d6a845444521a509eb0f729990000a592fedcd2a0c3d149d3fd403f3b3fa274cde3b7')
 
 build() {
   cd "$_pyname"
@@ -42,7 +42,7 @@ package() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir/usr/share/licenses/$pkgname"
   ln -s "$site_packages/${_pyname//-/_}-$pkgver.dist-info/licenses/LICENSE" \
-    "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    "$pkgdir/usr/share/licenses/$pkgname"
 
   cd "$_pyname"
   python -m installer --destdir="$pkgdir" dist/*.whl
