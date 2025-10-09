@@ -2,27 +2,38 @@
 
 pkgname=sugar-datastore
 pkgver=0.121
-pkgrel=2
-pkgdesc="Sugar datastore service"
-arch=('x86_64')
-url="https://sugarlabs.org/"
-license=('GPL')
-depends=('dbus-python' 'python-gobject' 'python-xapian')
-source=(https://download.sugarlabs.org/sources/sucrose/glucose/$pkgname/$pkgname-$pkgver.tar.xz)
-sha256sums=('6c38b10cf0e294a9c5d9d00d291aa9be9b8e85e3045dc6f71a54ab3792880bb4')
+pkgrel=3
+pkgdesc='Sugar datastore service'
+arch=(x86_64)
+url='https://github.com/sugarlabs/sugar-datastore'
+license=(GPL-2.0-or-later)
+depends=(
+  glib2
+  glibc
+  python
+  python-dbus
+  python-gobject
+  python-xapian
+)
+makedepends=(git)
+source=("git+https://github.com/sugarlabs/$pkgname.git#tag=v$pkgver")
+b2sums=(d740a4e0c3a1b9e0149e64cbbe60c78e5dde4ac492bd717a16cad09cf8d387e739955799b68b44f56fd0624e2fe5af18901a802103fb0e87aec1da8fb9e2676f)
 
 prepare() {
-  cd $pkgname-$pkgver
-  autoreconf -vif
+  cd $pkgname
+  autoreconf -fi
 }
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
