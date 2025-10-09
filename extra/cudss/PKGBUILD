@@ -3,7 +3,7 @@
 pkgname=cudss
 pkgver=0.7.0.20
 _cudaver=13
-pkgrel=1
+pkgrel=2
 pkgdesc="A high-performance CUDA library for Direct Sparse Solvers"
 arch=(x86_64)
 url="https://docs.nvidia.com/cuda/cudss/"
@@ -17,7 +17,7 @@ optdepends=(
   'nccl: for the NCCL multi-GPU communication layer'
   'openmpi: for the OpenMPI multi-GPU communication layer'
 )
-options=(!strip staticlibs)
+options=(!strip)
 source=(https://developer.download.nvidia.com/compute/$pkgname/redist/lib$pkgname/linux-x86_64/lib$pkgname-linux-x86_64-${pkgver}_cuda$_cudaver-archive.tar.xz)
 b2sums=('c377f769ffbf4336d4606772297566503f810864fae33eb230b501a3c4b5e2129281feaf9e2d7ba60f4a60ed1ae4d864655fefe8b975561a6589b92b3b57723d')
 
@@ -26,6 +26,9 @@ package() {
 
   install -vdm 755 "$pkgdir"/usr/
   cp -r lib include "$pkgdir"/usr/
+
+  # remove static libs
+  rm "$pkgdir"/usr/lib/*.a
 
   install -vdm 755 "$pkgdir"/usr/share/doc/$pkgname/
   cp -r examples src "$pkgdir"/usr/share/doc/$pkgname/
