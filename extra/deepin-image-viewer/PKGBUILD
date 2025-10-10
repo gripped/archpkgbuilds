@@ -1,12 +1,12 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-image-viewer
-pkgver=5.9.19
+pkgver=5.9.20
 pkgrel=1
 pkgdesc='An image viewing tool with fashion interface and smooth performance'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-image-viewer"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('deepin-qt5integration' 'qt5-base' 'dtkcore' 'dtkgui' 'dtkwidget' 'deepin-image-editor'
          'gcc-libs' 'libraw' 'dtkdeclarative')
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools')
@@ -14,12 +14,11 @@ optdepends=('deepin-manual: for help manual'
             'deepin-shortcut-viewer: for shortcut display')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/deepin-image-viewer.git#tag=$pkgver")
-sha512sums=('913a0a723d09fd248ac306625c9ae14ddb1a3cfc2c1906a41276512a84e15f4c1dd6a90aff7e515b3965c81ff380ef6ff5092016382c692fdccbd76dd7ea81e7')
+sha512sums=('fba0c3a98a18903fd45b0b2aeded8fef97a4c0f6039fda7a0aa2fa9a7e37738ed3bd9b229dc0cf062826fd8f2f49a61dae17464d3fa4e51a49611ccc89712ff4')
 
 prepare() {
   cd deepin-image-viewer
   sed -i -e 's|qt5/plugins|qt/plugins|' -e 's|${Qt5Core_DIR}|/usr/lib/cmake/Qt5Core|' qimage-plugins/libraw/CMakeLists.txt
-  git cherry-pick -n b0a7efaf1afb752bd2cbe96250db1e97e4f4da6f
 }
 
 build() {
