@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=codebook-lsp
-pkgver=0.3.11
+pkgver=0.3.13
 pkgrel=1
 pkgdesc='Code-aware spell checker with language server implementation'
 arch=(x86_64)
@@ -14,7 +14,7 @@ makedepends=(
 )
 options=(!lto)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('ae1e589454b986085db5682cd18acc3672ec8913f9eda9ffb4ccd3538b1c48e962ae22b1dac5cbf685d6d98a8cfbe6ca914617dcab8dc875d0063e5f3af7976e')
+b2sums=('cd8b7305dfef8143a88851b36682d05610e815ac4a0e4a5f54b93bdd66e904d130285c410cdfe65ee0fa69b1041dc9ce08bb1fb1b43ac9667615dbca4db5e0fd')
 
 prepare() {
   cd codebook
