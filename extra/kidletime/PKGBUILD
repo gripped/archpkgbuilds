@@ -4,7 +4,7 @@
 
 pkgname=kidletime
 pkgver=6.18.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Monitoring user activity'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -17,13 +17,11 @@ makedepends=(doxygen
              libxss
              plasma-wayland-protocols
              qt6-tools
-             qt6-wayland
              wayland-protocols)
 optdepends=('libx11: XCB plugin'
             'libxcb: XCB plugin'
             'libxext: XCB plugin'
             'libxss: XCB plugin'
-            'qt6-wayland: Wayland plugin'
             'wayland: Wayland plugin')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
