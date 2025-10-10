@@ -3,7 +3,7 @@
 # Contributor: JP-Ellis <josh@jpellis.me>
 
 pkgname=miopen-hip
-pkgver=6.4.3
+pkgver=6.4.4
 pkgrel=1
 # pin frugally-deep version as workaround workaround for https://github.com/ROCm/MIOpen/issues/3588
 _fdeep_ver=0.15.31
@@ -19,14 +19,16 @@ provides=('miopen')
 conflicts=('miopen')
 _git='https://github.com/ROCm/MIOpen'
 _mlir='https://github.com/ROCm/rocMLIR'
+# TODO Update when going to ROCm 7
+_mlir_ver=6.4.3
 source=(
   "${pkgname}::git+https://github.com/ROCm/MIOpen#tag=rocm-$pkgver"
   "${pkgname}-MIFin::git+https://github.com/ROCm/MIFin.git"
-  "${pkgname}-rocmlir::git+https://github.com/ROCm/rocMLIR#tag=rocm-$pkgver"
+  "${pkgname}-rocmlir::git+https://github.com/ROCm/rocMLIR#tag=rocm-$_mlir_ver"
   "${pkgname}-half::git+https://github.com/ROCm/half#tag=rocm-$pkgver"
   "${pkgname}-frugally-deep::git+https://github.com/Dobiasd/frugally-deep#tag=v$_fdeep_ver"
 )
-sha256sums=('ccb9d303537b7572196e60c6077965771716f7c2edac0644e5bf4f778bb7763f'
+sha256sums=('f856dd058345742ca7a560987bc6d609ee3b26c92f11634b67e936da946e90a3'
             'SKIP'
             '91451c3352320d088adaf2c4721ec0d7942248adfd22ad4a981a2f143fbee4fd'
             '16e5a6405dd766339a9409665cd1ccdaceed3c0cb7fe12835fa17bd3914aa6cd'
