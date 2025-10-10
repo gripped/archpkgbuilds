@@ -2,8 +2,8 @@
 
 _hkgname=hspec
 pkgname=haskell-hspec
-pkgver=2.11.3
-pkgrel=42
+pkgver=2.11.4
+pkgrel=4
 pkgdesc="A Testing Framework for Haskell"
 url="https://hspec.github.io/"
 license=('MIT')
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-quickcheck' 'haskell-hspec-core' 'haskell-hspec-dis
          'haskell-hspec-expectations')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('4c62e61ddcb15cc564431cacd15a59b8d17a875e70d3b77b320ac6ab1dc7bfd1f24cc2057ca5953fddc4ad5bd6fdf1ebcd69f9ec6ca626809e4ef734e802bad0')
+sha512sums=('e13e10a0df7eb0fa70d96efe64c4cd0f604cb58d19acf6f810960ed641a45212aedb4655825813b1f1385d5ac9e1ea8b178095bc3ddbc505b8c5a82b1fb4286c')
 
 build() {
     cd $_hkgname-$pkgver
