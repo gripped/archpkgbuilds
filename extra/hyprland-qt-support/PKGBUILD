@@ -3,7 +3,7 @@
 
 pkgname=hyprland-qt-support
 pkgver=0.1.0
-pkgrel=8
+pkgrel=9
 pkgdesc='QML style provider for Hypr* QT apps'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -13,7 +13,7 @@ depends=(gcc-libs # libgcc_s.so libstdc++.so
          hyprlang libhyprlang.so
          qt6-base # libQt6Core.so libQt6Gui.so libQt6Widgets.so
          qt6-declarative # libQt6Qml.so libQt6QuickControls2.so
-         qt6-wayland)
+         )
 makedepends=(cmake)
 provides=(libhyprland-quick-style-impl.so
           libhyprland-quick-style.so
