@@ -1,0 +1,28 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0661ddf5..092a61ae 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -47,6 +47,10 @@ OPTION(WITH_QT6 "Enable Qt 6" ON)
+ if (WITH_QT6)
+     set(QT_DEFAULT_MAJOR_VERSION 6)
+     find_package(Qt6Widgets 6.1.0 REQUIRED)
++    if(Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
++        find_package(Qt6GuiPrivate REQUIRED)
++    endif()
++
+     set(copyq_qt Qt6)
+     add_definitions( -DQT_DEPRECATED_WARNINGS_SINCE=0x051500 )
+ else()
+diff --git a/src/common/server.cpp b/src/common/server.cpp
+index b86ba0bc..168bb5c3 100644
+--- a/src/common/server.cpp
++++ b/src/common/server.cpp
+@@ -39,7 +39,7 @@ QString lockFilePath()
+ 
+ struct Server::PrivateData {
+     QLocalServer server;
+-    QLockFile lockFile = lockFilePath();
++    QLockFile lockFile = QLockFile(lockFilePath());
+     int socketCount = 0;
+     QEventLoop *loop = nullptr;
+ };

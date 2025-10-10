@@ -5,15 +5,21 @@
 
 pkgname=copyq
 pkgver=12.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Clipboard manager with searchable and editable history"
 url="https://github.com/hluk/${pkgname}"
-depends=('hicolor-icon-theme' 'qt6-svg' 'qt6-wayland' 'knotifications' 'kstatusnotifieritem')
+depends=('hicolor-icon-theme' 'qt6-svg' 'knotifications' 'kstatusnotifieritem')
 makedepends=('extra-cmake-modules' 'qt6-tools')
 license=('GPL3')
 arch=('x86_64')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('452cd2acbe9d70e0b93bef413620dfece363f0595b19788d71035c8455d6097f')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
+         qt-6.10.patch)
+sha256sums=('452cd2acbe9d70e0b93bef413620dfece363f0595b19788d71035c8455d6097f'
+            '617e529836cff72bdc5bd927ffd9c45cd84b6291c67e19b56936f321f1ee03b8')
+
+prepare() {
+    patch -d CopyQ-$pkgver -p1 < qt-6.10.patch # Fix build with Qt 6.10
+}
 
 build() {
     cmake -B build -S CopyQ-$pkgver \
