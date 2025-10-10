@@ -1,0 +1,28 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a596f6d6d..15f3146cd 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -68,6 +68,9 @@ IF(QT_MAJOR_VERSION STREQUAL "5")
+     FIND_PACKAGE(Qt5 REQUIRED COMPONENTS Core Script)
+ ELSE()
+     FIND_PACKAGE(Qt6 REQUIRED COMPONENTS Core5Compat)
++    IF (Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
++        FIND_PACKAGE(Qt6 COMPONENTS SqlPrivate REQUIRED)
++    ENDIF()
+ ENDIf()
+ 
+ IF(SKG_WEBENGINE)
+diff --git a/skgsqlcipher/CMakeLists.txt b/skgsqlcipher/CMakeLists.txt
+index 8a0a8d00b..b387134da 100644
+--- a/skgsqlcipher/CMakeLists.txt
++++ b/skgsqlcipher/CMakeLists.txt
+@@ -19,6 +19,9 @@ ELSE()
+     TARGET_INCLUDE_DIRECTORIES(libskgsqlcipher PRIVATE ${Qt6Sql_PRIVATE_INCLUDE_DIRS} ${SQLCIPHER_INCLUDE_DIRS})
+ ENDIF()
+ TARGET_LINK_LIBRARIES(libskgsqlcipher Qt${QT_MAJOR_VERSION}::Sql ${SQLCIPHER_LIBRARIES})
++IF (Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
++    TARGET_LINK_LIBRARIES(libskgsqlcipher Qt6::SqlPrivate)
++ENDIF()
+ 
+ GENERATE_EXPORT_HEADER(libskgsqlcipher BASE_NAME skgsqlcipher)
+ 

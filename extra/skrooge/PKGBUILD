@@ -6,7 +6,7 @@
 
 pkgname=skrooge
 pkgver=25.4.0
-pkgrel=3
+pkgrel=4
 pkgdesc="A personal finances manager for KDE"
 arch=('x86_64')
 url="https://skrooge.org/"
@@ -21,11 +21,18 @@ depends=('qt6-base' 'qt6-webengine' 'libofx'
 makedepends=('cmake' 'kdoctools' 'extra-cmake-modules' 'qt6-tools' 'kstatusnotifieritem' 'krunner' 'plasma-activities')
 options=('!emptydirs')
 changelog=$pkgname.changelog
-source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig}
+        qt-6.10.patch)
 validpgpkeys=('103DC6D087B3A4A2ED975D7EF0C8CED3382A5C4D'  #Stephane MANKOWSKI (Perso) <stephane@mankowski.fr>
               'F1955ED9D1C2D10D80B31B3B14EE37CD15C53BDD') 
 sha256sums=('1cdba2fd28c237d2d6c54c470da7b9f67e6a3c8c185875f5b854a5567c0194bf'
-            'SKIP')
+            'SKIP'
+            'e79f6d4b1c478633b16b1fe4719b46967d4d205340a5c5449d7b465c2c859b12')
+
+prepare() {
+  find -name index.docbook | xargs sed -e 's|" operations"|"operations"|' -i # Fix build with libxml2 2.15
+  patch -d $pkgname-$pkgver -p1 < qt-6.10.patch
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
