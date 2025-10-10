@@ -3,7 +3,7 @@
 
 pkgname=deepin-shell
 pkgver=2.0.11
-pkgrel=1
+pkgrel=2
 pkgdesc='New DDE shell'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-shell"
@@ -16,8 +16,10 @@ makedepends=('git' 'extra-cmake-modules' 'cmake' 'ninja' 'qt6-tools' 'wayland-pr
 groups=('deepin')
 replaces=('deepin-dock')
 conflicts=('deepin-dock')
-source=("git+https://github.com/linuxdeepin/dde-shell.git#tag=$pkgver")
-sha512sums=('d1964c5ff2da6062e75e8820d02ee4ae91ffaeb0b956296358a3bc78af1921ee7d3ca4c18022be57bc2d43e8f875f10823ea77155a71e89c7b6ce0c667ca6b37')
+source=("git+https://github.com/linuxdeepin/dde-shell.git#tag=$pkgver"
+         qt-6.10.patch)
+sha512sums=('d1964c5ff2da6062e75e8820d02ee4ae91ffaeb0b956296358a3bc78af1921ee7d3ca4c18022be57bc2d43e8f875f10823ea77155a71e89c7b6ce0c667ca6b37'
+            '7ffbec30312fdf8b1c4a8c96698d7e69ab0b2240940c0a870aa5aba7a1eba4e4bbc6d8b662dc69ab069f7085c6155a6ded13d7616c2625285db48177dd5a7e3e')
 
 prepare() {
   cd dde-shell
@@ -28,6 +30,8 @@ prepare() {
   # qt 6.9 fix
   git cherry-pick -n 936d62a2c20398b9ca6ae28f9101dd288c8b1678
   git cherry-pick -n 2413161f679891921541f4d6da0ad8bc5a3e49d5
+  # qt 6.10 fix
+  patch -p1 -i ../qt-6.10.patch
 }
 
 build() {
