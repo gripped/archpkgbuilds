@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-tools
-_pkgver=6.9.2
+_pkgver=6.10.0
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -32,7 +32,7 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
         git+https://code.qt.io/playground/qlitehtml)
-sha256sums=('dbbbcd067eb34c733187e7df4c2b2fec922555e13646c41616e3b2b9ab9a7a6b'
+sha256sums=('b800f879b6dec5099e266bf7366bc736dc67e67e6727daf5a98725980b9aab06'
             'SKIP')
 
 prepare() {
@@ -40,8 +40,6 @@ prepare() {
   git submodule init
   git submodule set-url src/assistant/qlitehtml "$srcdir"/qlitehtml
   git -c protocol.file.allow=always submodule update
-
-  git cherry-pick -n 9cbd235f7e9dd5baea2f55a6fe1c29a7abd7255b # Add desktop and metainfo files for GUI tools
 }
 
 build() {
