@@ -5,11 +5,14 @@ pkgbase=pyside6
 pkgname=(pyside6
          pyside6-tools
          shiboken6)
-pkgver=6.9.3
+pkgver=6.10.0
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
-license=(LGPL)
+license=(GPL-3.0-only
+         LGPL-3.0-only
+         LicenseRef-Qt-Commercial
+         Qt-GPL-exception-1.0)
 makedepends=(clang
              cmake
              git
@@ -41,20 +44,17 @@ makedepends=(clang
              qt6-webengine
              qt6-websockets)
 source=(git+https://code.qt.io/pyside/pyside-setup#tag=v$pkgver
-        fix-build.patch)
-sha256sums=('472ee2fa315d4e1f71ecc29a23bfcfc0dbea43b91a5efcfdd3738d4575225184'
-            '77b83cb164ea87d826259864f6a81fb33199510e1948d6daaf5c8d5ab55735a7')
+        fix-header-install-dir.patch)
+sha256sums=('e662a37c7f3f416d896501df07ad99103df5758a07c19f0c5493f96c199046d7'
+            '3bc87409ea3dc41847f1d5d7612fd97931b67f1b40510b465543a8ef5c9764ff')
 
 prepare() {
   cd pyside-setup
-  patch -p1 < ../fix-build.patch
-# Install missing doc snippets
-  git cherry-pick -n 12aba6c4dfafe191a4640e3ab755a1c7e2ddfc44
-  git cherry-pick -n cacc9c5803a6dec820dd46211a836453183c8dab
+  git revert -n 05e328476f2d6ef8a0f3f44aca1e5b1cdb7499fc # Revert broken cmake files
+  patch -p1 -i ../fix-header-install-dir.patch # Revert broken header install dir
 }
 
 build() {
-  CLANG_INSTALL_DIR="/usr" \
   cmake -B build -S pyside-setup -G Ninja \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=None \
