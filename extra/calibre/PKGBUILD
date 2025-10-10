@@ -9,7 +9,7 @@
 
 pkgname=calibre
 pkgver=8.7.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Ebook management application'
 arch=(x86_64)
 url=https://calibre-ebook.com
@@ -85,9 +85,11 @@ conflicts=(calibre-common
 replaces=("${conflicts[@]}")
 _archive="$pkgname-$pkgver"
 source=("https://download.calibre-ebook.com/$pkgver/$_archive.tar.xz"
-        "$url/signatures/$_archive.tar.xz.sig")
+        "$url/signatures/$_archive.tar.xz.sig"
+         qt-6.10.patch)
 sha256sums=('2cfe587e3773d8607fe8bbefbcd77b5cfb816124cac89e491353deb8f2fa9324'
-            'SKIP')
+            'SKIP'
+            '5b1b0b0d60400727136e929b941bac0b32125c9636600c2f9ec1a1d7fd74db64')
 validpgpkeys=('3CE1780F78DD88DF45194FD706BC317B515ACE7C') # Kovid Goyal (New longer key) <kovid@kovidgoyal.net>
 
 prepare(){
@@ -100,6 +102,8 @@ prepare(){
 		-i  src/calibre/linux.py
 	# Remove unneeded files
 	rm -f resources/$pkgname-portable.*
+
+        patch -p1 -i ../qt-6.10.patch
 }
 
 build() {
