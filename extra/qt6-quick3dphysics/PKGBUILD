@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-quick3dphysics
-_pkgver=6.9.2
+_pkgver=6.10.0
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -24,7 +24,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('e6c8b15192852e9a817d0b48977dd32154097097ab2b56d011fe71c1230905b9')
+sha256sums=('0f57a1c483fc6b4911b7c1b47d5e870d8a22613281a328d2b7b0d3ecdd16f518')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
