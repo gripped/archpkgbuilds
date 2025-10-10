@@ -2,8 +2,8 @@
 
 pkgname=python-svglib
 _name="${pkgname#python-}"
-pkgver=1.5.1
-pkgrel=4
+pkgver=1.6.0
+pkgrel=1
 pkgdesc="Read SVG files and convert them to other formats"
 arch=(any)
 url="https://github.com/deeplook/svglib"
@@ -17,17 +17,16 @@ depends=(
 )
 makedepends=(
   python-build
+  python-hatchling
   python-installer
-  python-setuptools
-  python-wheel
 )
 checkdepends=(
   python-pillow
   python-pytest
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('5cd93db39078c7598a51e08afee08b689c4c95e5ac6340d1a51f85b6459fa4635b8edf45add3b39d0a079f0177a99b3d4786e40fb6276aa5ba80c9b5513e6d4c')
-b2sums=('e147df6c5326f0ed27ffa56a158442b7727946cd9f51577df36b05b04ffa7ee6b8112736eab92e214ef26b7d055506844820b323e5342e04efbd615a7b8f982f')
+sha512sums=('089e867e04256282d2e7b2877fb49b9713f39449dd1df3d38eba25ae4f12e8ac6884da0826c7ca658425482a42940b9ee88112d7a7ac9b6e9d7aa2ef519fbb14')
+b2sums=('ca71c83bc803dd582849d5a0db07345fced468873d09818e08ac77f0baaa4168f0fbeaa6a6e39288e716ce9de5e6a761ecb96a205cf29194d6026e5e0be0c77d')
 
 build() {
   cd $_name-$pkgver
@@ -42,7 +41,7 @@ check() {
   )
 
   cd $_name-$pkgver
-  export PYTHONPATH="build:$PYTHONPATH"
+  export PYTHONPATH="src:$PYTHONPATH"
   pytest "${pytest_options[@]}"
 }
 
