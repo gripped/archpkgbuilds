@@ -3,7 +3,7 @@
 
 pkgbase=python-cuda
 pkgname=(python-cuda python-cuda-core python-cuda-bindings python-cuda-pathfinder)
-pkgver=13.0.1
+pkgver=13.0.2
 pkgrel=1
 pkgdesc="Python interface for CUDA provided by NVIDIA"
 arch=(x86_64)
@@ -29,16 +29,11 @@ checkdepends=(
 options=(!emptydirs)
 source=(
   $pkgbase::git+https://github.com/NVIDIA/cuda-python#tag=v$pkgver
-  fix-cudart.patch
 )
-b2sums=('34aed910c8d8178cbef60130aa156ef8490303962e58e83385a4745fde92de0d7a58c8403246a1e0e98a4b8a21f66024569701cc98fc51aeeefb0a9f51312336'
-        'db50fcdae97ddda91c400c6ad41d1d7e25ac406f8b57ccef8db9ed97ed83a1104ea4942a0f853b0b8fd02c8dbf6d5672b8181eb616515063604b345702792db7')
+b2sums=('d340cc2f32f1972c251783ada972d3d7953303caad5fc0b830e2f0d2bf766cfebb8401b8f38b562483983ea0d4934b30c70cc9e0e1cf6ede958466a2b3ac8cbc')
 
 prepare() {
   cd $pkgbase
-  # fix linking to cudart https://github.com/NVIDIA/cuda-python/issues/608
-  patch -p1 -i ../fix-cudart.patch
-
   # release cython constraints
   sed -i 's|"cython>=3.0,<3.1.0"|"cython>=3.0"|' cuda_bindings/pyproject.toml
 }
@@ -49,16 +44,21 @@ build() {
   # enable parallel build
   export CUDA_PYTHON_PARALLEL_LEVEL=$(nproc)
 
+  pushd cuda_pathfinder
+  python -m build --wheel --no-isolation
+  popd
+
   pushd cuda_bindings
   python -m build --wheel --no-isolation
   popd
 
-  pushd cuda_core
-  python -m build --wheel --no-isolation
-  popd
+  # cuda-bindings must be installed before cuda-core can be built, let's use venv for that
+  python -m venv --system-site-packages build-env
+  build-env/bin/python -m installer cuda_pathfinder/dist/*.whl
+  build-env/bin/python -m installer cuda_bindings/dist/*.whl
 
-  pushd cuda_pathfinder
-  python -m build --wheel --no-isolation
+  pushd cuda_core
+  ../build-env/bin/python -m build --wheel --no-isolation
   popd
 
   pushd cuda_python
