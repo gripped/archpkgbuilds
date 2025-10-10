@@ -5,8 +5,8 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgname=kdenlive
-pkgver=25.08.1
-pkgrel=2
+pkgver=25.08.2
+pkgrel=1
 pkgdesc='A non-linear video editor for Linux using the MLT video framework'
 arch=(x86_64)
 url='https://apps.kde.org/kdenlive/'
@@ -66,15 +66,11 @@ optdepends=('bigsh0t: VR360 effects'
 groups=(kde-applications
         kde-multimedia)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('4ca96d280db39510ff42c007d9089fafcd141cc61bdddb1902ab2683a34157fb'
+sha256sums=('464529bae5c5fbe7473dbd0308fa8c3588f68f27b5c99644ad18329da557b8d9'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
-
-prepare() {
-  find -name index.docbook | xargs sed -e 's|url=" http|url="http|g' -e 's|Misc "|Misc"|g' -i # Fix build with libxml2 2.15
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
