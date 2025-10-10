@@ -7,7 +7,7 @@
 
 pkgname=kmymoney
 pkgver=5.2.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Personal finance manager for KDE which operates similarly to MS-Money or Quicken"
 arch=('x86_64')
 url="https://kmymoney.org/"
@@ -21,14 +21,21 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'doxygen' 'qgpgme')
 optdepends=('perl: for financequote.pl')
 changelog=$pkgname.changelog
 source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig}
-        identitymanagement.patch)
+        identitymanagement.patch
+        libxml2-2.15.patch
+        qt-6.10.patch)
 validpgpkeys=('D69A745A55331F44F404D8258D4DE062AA2EB01C')
 sha256sums=('feadf40b6d4c90d77e32716a858dd23769081863104d8cea62910b1ec3e4336b'
             'SKIP'
-            'a92ed7427764bbff9e043b45a38280a1e752ef70413605d34957acb3caaa9761')
+            'a92ed7427764bbff9e043b45a38280a1e752ef70413605d34957acb3caaa9761'
+            'b7a95cabb61d6341d5d07911df0f996daaf18b3868f47bfee5d9155b1f3d97b3'
+            'dea34bbb247890217ce70a3a6bd062335e37271b01b31b2ae3568f76f2f9ce5e')
 
 prepare() {
   patch -d $pkgname-$pkgver -p1 < identitymanagement.patch
+  find -name *.docbook | xargs sed -e 's|linkend=" details|linkend="details|g' -e 's|tool- aqb-modules|tool-aqb-modules|g' -i
+  patch -d $pkgname-$pkgver -p1 < libxml2-2.15.patch
+  patch -d $pkgname-$pkgver -p1 < qt-6.10.patch
 }
 
 build() {
