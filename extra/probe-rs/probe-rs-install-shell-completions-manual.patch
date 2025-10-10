@@ -1,0 +1,80 @@
+From 57cce4bdecc26f5bdc1028f27784cf104b0f85fa Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Noah=20H=C3=BCsser?= <noah@huesser.dev>
+Date: Mon, 6 Oct 2025 16:46:27 +0100
+Subject: [PATCH] Add a --manual flag to the autocomplete install command
+ (#3579)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-authored-by: Noah Hüsser <noahs@huesser.dev>
+---
+ changelog/added-autocomplete-manual-flag.md   |  6 ++++++
+ .../src/bin/probe-rs/cmd/complete.rs          | 20 +++++++++++++++----
+ 2 files changed, 22 insertions(+), 4 deletions(-)
+ create mode 100644 changelog/added-autocomplete-manual-flag.md
+
+diff --git a/changelog/added-autocomplete-manual-flag.md b/changelog/added-autocomplete-manual-flag.md
+new file mode 100644
+index 0000000000..7c9f6b6ada
+--- /dev/null
++++ b/changelog/added-autocomplete-manual-flag.md
+@@ -0,0 +1,6 @@
++Add a --manual flag to the autocomplete install command
++
++This flag prints the autocomplete script to stdout instead of installing it.
++
++This feature is useful for distro maintainers or other special packaging requirements
++which install autocomplete scripts with their own mechanism.
+diff --git a/probe-rs-tools/src/bin/probe-rs/cmd/complete.rs b/probe-rs-tools/src/bin/probe-rs/cmd/complete.rs
+index 9348e2b1a1..1b8495b3db 100644
+--- a/probe-rs-tools/src/bin/probe-rs/cmd/complete.rs
++++ b/probe-rs-tools/src/bin/probe-rs/cmd/complete.rs
+@@ -32,8 +32,8 @@ impl Cmd {
+             .ok_or_else(|| anyhow!("The current shell could not be determined. Please specify a shell with the --shell argument."))?;
+ 
+         match &self.kind {
+-            CompleteKind::Install => {
+-                self.install(shell)?;
++            CompleteKind::Install { manual } => {
++                self.install(shell, *manual)?;
+             }
+             CompleteKind::ProbeList { input } => {
+                 self.probe_list(lister, input)?;
+@@ -50,7 +50,7 @@ impl Cmd {
+     ///
+     /// If the shell cannot be determined or the auto-install is not implemented yet,
+     /// the function prints the script with instructions for the user.
+-    pub fn install(&self, shell: Shell) -> Result<()> {
++    pub fn install(&self, shell: Shell, manual: bool) -> Result<()> {
+         let mut command = <Cli as CommandFactory>::command();
+         let path: PathBuf = std::env::args_os().next().unwrap().into();
+         let name = path.file_name().unwrap().to_str().unwrap();
+@@ -62,6 +62,11 @@ impl Cmd {
+ 
+         let file_name = shell.file_name(BIN_NAME);
+ 
++        if manual {
++            println!("{script}");
++            return Ok(());
++        }
++
+         match shell {
+             Shell::Zsh => {
+                 Zsh.install(&file_name, &script)?;
+@@ -99,7 +104,14 @@ impl Cmd {
+ #[clap(verbatim_doc_comment)]
+ pub enum CompleteKind {
+     /// Installs the autocomplete script for the correct shell.
+-    Install,
++    Install {
++        /// Just print the script to stdout if this flag is active.
++        ///
++        /// This is useful for packaging probe-rs for installers that have their
++        /// own autocomplete packaging mechanisms.
++        #[clap(short, long)]
++        manual: bool,
++    },
+     /// Lists the probes that are currently plugged in in a way that the shell understands.
+     ProbeList {
+         /// The already entered user input that will be used to filter the list.
