@@ -2,8 +2,8 @@
 
 _hkgname=ghc-trace-events
 pkgname=haskell-ghc-trace-events
-pkgver=0.1.2.9
-pkgrel=2
+pkgver=0.1.2.10
+pkgrel=1
 pkgdesc="Faster traceEvent and traceMarker, and binary object logging for eventlog"
 url="https://github.com/maoe/ghc-trace-events"
 license=("BSD")
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('6e88b5ad2886957e5e20598d3a631d1e6e9769b697e9afae38158ab3c6c4111929d11a7cc6a5e51b70caef8501503c2a02203af4188d4c08683a03541c63540c')
+sha512sums=('2b81436c5ea5be99c60752196bc7c88f8a88cfc477b43c3023ef557f3280220cee20ae7eaba98a9ede72dc9d74613c89e1e7047d2a6e7c3f5950d9cf529c5a75')
 
 build() {
   cd $_hkgname-$pkgver
