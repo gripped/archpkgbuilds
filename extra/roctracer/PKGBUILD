@@ -1,7 +1,8 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 pkgname=roctracer
-pkgver=6.4.3
+pkgver=6.4.4
 pkgrel=1
 pkgdesc='ROCm tracer library for performance tracing'
 arch=('x86_64')
@@ -11,7 +12,7 @@ depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'hsa-rocr' 'comgr')
 makedepends=('cmake' 'python-cppheaderparser' 'python-ply')
 _git='https://github.com/ROCm/roctracer'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('a4378652b3b7141ca3b2743eedada03757383bff88932db8e28d0afd5869b882')
+sha256sums=('d4fd93658180d916adae55bc36deb8b8d1585083e3e830181419e4035733baa2')
 options=('!lto')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
