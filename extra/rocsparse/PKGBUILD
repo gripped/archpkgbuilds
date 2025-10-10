@@ -1,8 +1,10 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
+
 pkgname=rocsparse
-pkgver=6.4.3
-pkgrel=3
+pkgver=6.4.4
+pkgrel=2
 pkgdesc='BLAS for sparse computation on top of ROCm'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocSPARSE/en/latest/index.html'
@@ -11,7 +13,7 @@ depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'rocprim' 'rocblas')
 makedepends=('cmake' 'rocm-cmake' 'rocm-toolchain' 'gcc-fortran')
 _git='https://github.com/ROCmSoftwarePlatform/rocSPARSE'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('fca59e70da33a046be36ea2fe83ba18ea8f0a5c9efd255e0427802ba3a134d0a')
+sha256sums=('e7dd340df0eb0d969c49b8244d22982cf70c2d51a5bdbbf4df90f88be76ad1fc')
 # Disable default build flags and use release mode as otherwise the linker step
 # fails. The symbol offset size reaches the 32 bit integer limits.
 options=(!lto !buildflags !strip)
@@ -25,7 +27,7 @@ build() {
     -S "$_dirname"
     -B build
     -D CMAKE_BUILD_TYPE=Release
-    -D CMAKE_CXX_COMPILER=/opt/rocm/bin/hipcc
+    -D CMAKE_CXX_COMPILER=amdclang++
     -D CMAKE_CXX_FLAGS="${CXXFLAGS} -fcf-protection=none"
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D GPU_TARGETS="$(rocm-supported-gfx -e gfx950)"
