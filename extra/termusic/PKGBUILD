@@ -2,19 +2,19 @@
 # https://github.com/orhun/pkgbuilds
 
 pkgname=termusic
-pkgver=0.11.0
-pkgrel=3
+pkgver=0.12.0
+pkgrel=1
 pkgdesc="Music Player TUI written in Rust"
 arch=('x86_64')
 url="https://github.com/tramhao/termusic"
 license=('MIT' 'GPL3')
-depends=('gstreamer' 'gst-plugins-base' 'gst-plugins-good' 'gst-plugins-bad' 'gst-plugins-ugly' 'gst-libav' 'dbus' 'ueberzug' 'protobuf' 'libsixel' 'libmpv.so')
+depends=('gstreamer' 'gst-plugins-base' 'gst-plugins-good' 'gst-plugins-bad' 'gst-plugins-ugly' 'gst-libav' 'dbus' 'ueberzug' 'libsixel' 'libmpv.so')
 optdepends=('yt-dlp: download mp3'
   'ffmpeg: download mp3'
   'emoji-font: for displaying emojis')
-makedepends=('cargo' 'clang')
+makedepends=('cargo' 'clang' 'protobuf')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('f6729ebb535837cf97d70b4fcc91739fd18eb4730cfd73267d7f3f9164e7b8c65cd8e721123d8b70e07073dacd16ef3e275d1d97b9cf9c7e061e513ca01b26a3')
+sha512sums=('bb76a5db39bb1eeedf0ed834f41bdc97d2e49baadd6dc938f275edac95d73674a316747c498b11e970336f2b47eba5439a6c23f03557dec334b081fa25e117e9')
 options=('!lto')
 
 prepare() {
