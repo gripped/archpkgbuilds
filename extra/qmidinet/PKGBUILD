@@ -2,7 +2,7 @@
 
 pkgname=qmidinet
 pkgver=1.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A MIDI Network Gateway via UDP/IP Multicast"
 arch=(x86_64)
 url="https://qmidinet.sourceforge.io"
@@ -20,9 +20,6 @@ makedepends=(
   cmake
   jack
   qt6-tools
-)
-optdepends=(
-  'qt6-wayland: for native wayland support'
 )
 source=(https://downloads.sourceforge.net/project/$pkgname/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz)
 sha512sums=('9b72ea9b88e5b3da63ca63b72098996a3b04e7426231008927d90627a838efe02d155c778362a385cbb4dbc227e1d3a86adc52e001603002b8b0a2a7ca8def01')
