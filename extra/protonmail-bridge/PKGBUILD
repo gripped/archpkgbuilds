@@ -12,7 +12,7 @@ pkgname=(
   protonmail-bridge
 )
 pkgver=3.21.2
-pkgrel=4
+pkgrel=5
 pkgdesc="Integrate ProtonMail paid account with any program that supports IMAP and SMTP"
 arch=(x86_64)
 url="https://github.com/ProtonMail/proton-bridge"
@@ -66,6 +66,9 @@ prepare() {
   # Avoid downloading Go dependencies in build() & check() by vendoring them
   # here.
   GOFLAGS="-mod=readonly" go mod vendor -v
+
+  # Fix build with Qt 6.10
+  sed -e 's|FILENAME_VARIABLE|OUTPUT_SCRIPT|' -i internal/frontend/bridge-gui/bridge-gui/CMakeLists.txt
 }
 
 build() {
@@ -178,9 +181,6 @@ package_protonmail-bridge() {
     qt6-declarative
     qt6-svg
     sentry-native
-  )
-  optdepends=(
-    'qt6-wayland: Wayland support'
   )
 
   cd "$_archive"
