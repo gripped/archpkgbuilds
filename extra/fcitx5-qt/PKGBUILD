@@ -3,13 +3,13 @@
 
 pkgname=fcitx5-qt
 pkgver=5.1.10
-pkgrel=3
+pkgrel=4
 pkgdesc="Fcitx5 Qt Library (Qt5 & Qt6 integrations)"
 arch=('x86_64')
 url="https://github.com/fcitx/fcitx5-qt"
 license=('GPL')
 groups=('fcitx5-im')
-depends=('glibc' 'gcc-libs' 'libxcb' 'libxkbcommon' 'fcitx5' 'qt6-base' 'qt6-wayland' 'wayland')
+depends=('glibc' 'gcc-libs' 'libxcb' 'libxkbcommon' 'fcitx5' 'qt6-base' 'wayland')
 makedepends=('git' 'extra-cmake-modules' 'qt5-base' 'ninja')
 source=("git+https://github.com/fcitx/fcitx5-qt.git#tag=$pkgver?signed"
          qt-6.10.patch)
@@ -26,7 +26,6 @@ build() {
   cd $pkgname
   cmake . -GNinja \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
     -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib
   ninja
 }
