@@ -7,7 +7,7 @@
 # Contributor: Sparadox <etienne.lafarge at gmail.com>
 
 pkgname=cloud-init
-pkgver=25.2
+pkgver=25.3
 pkgrel=1
 pkgdesc="Cloud instance initialization"
 arch=(any)
@@ -33,11 +33,9 @@ depends=(
   systemd
 )
 makedepends=(
+  bash-completion
+  meson
   netplan
-  python-build
-  python-installer
-  python-setuptools
-  python-wheel
 )
 checkdepends=(
   procps-ng
@@ -60,12 +58,12 @@ backup=(
 source=(
   $_url/archive/$pkgver/$pkgname-$pkgver.tar.gz
 )
-sha512sums=('7876976588484c0dc387b793ff26dcc078ebf7ec4003ad3a0d1de7b5f71e80702f5bb6e444579fdb30abd80097a61ad5679c0776718701a6592d69b59afbe302')
-b2sums=('5c4a0596453c62d2d0fcbb1d672e501f600a3140c040ce0584e079b597729a87cd3c763a740ae8eb0c35590f1ac3e9606c24eba5713f237edcfa3536a3028d44')
+sha512sums=('f881cac48fcb421fc07a435cd7a1acdf0b0c13aebf997af3100ecaca276e595a7ddaf778cff817c385a6b0103a36e326a5eeb8e281e8ef270ba2a4508d91168d')
+b2sums=('c49494ce91200f54a194554c19067f6533587fe3caebaf54e71d99548dcb956545ae709a775e09fad33a84702043b4e311626103c42b7d72190d1304bc45bdb3')
 
 build() {
-  cd $pkgname-$pkgver
-  python -m build --wheel --no-isolation -C--distro=arch -C--prefix=/usr
+  arch-meson $pkgname-$pkgver build
+  meson compile -C build
 }
 
 check() {
@@ -85,37 +83,5 @@ check() {
 }
 
 package() {
-  local template_file unit_file
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-
-  cd $pkgname-$pkgver
-  python -m installer --destdir="$pkgdir" dist/*.whl
-  # NOTE: due to limitations with PEP517, files are installed to site-packages,
-  # not to the correct global locations (e.g. /etc and /usr), so we remove them
-  # and install them manually below.
-  rm -frv "$pkgdir/$site_packages/"{usr,etc}
-
-  # configuration and hooks
-  install -vDm 644 config/cloud.cfg.d/* -t "$pkgdir/etc/cloud/cloud.cfg.d/"
-  ./tools/render-template --variant arch ./config/cloud.cfg.tmpl "$pkgdir/etc/cloud/cloud.cfg"
-  install -vDm 644 templates/*.tmpl -t "$pkgdir/etc/cloud/templates/"
-  install -vDm 755 tools/{ds-identify,hook-hotplug,uncloud-init,write-ssh-key-fingerprints} -t "$pkgdir/usr/lib/$pkgname/"
-  # documentation, man pages and shell completion
-  install -vDm 644 doc/*.txt -t "$pkgdir/usr/share/doc/$pkgname/"
-  install -vDm 644 doc/examples/*.txt -t "$pkgdir/usr/share/doc/$pkgname/examples/"
-  install -vDm 644 doc/examples/seed/* -t "$pkgdir/usr/share/doc/$pkgname/examples/seed/"
-  install -vDm 644 doc/man/*.1 -t "$pkgdir/usr/share/man/man1/"
-  install -vDm 655 bash_completion/$pkgname -t "$pkgdir/usr/share/bash-completion/completions/"
-  # udev rules
-  install -vDm 644 udev/*.rules -t "$pkgdir/usr/lib/udev/rules.d/"
-  # systemd integration
-  install -vdm 755 "$pkgdir/usr/lib/systemd/system"{,-generators}
-  for template_file in ./systemd/*.service.tmpl; do
-    unit_file="$(basename "${template_file%%.tmpl}")"
-    ./tools/render-template --variant arch $template_file "$pkgdir/usr/lib/systemd/system/$unit_file"
-  done
-  install -vDm 644 systemd/*.{service,socket,target} "$pkgdir/usr/lib/systemd/system/"
-  ./tools/render-template --variant arch ./systemd/cloud-init-generator.tmpl "$pkgdir/usr/lib/systemd/system-generators/cloud-init-generator"
-  chmod 755 "$pkgdir/usr/lib/systemd/system-generators/cloud-init-generator"
-  install -vDm 644 systemd/disable-sshd-keygen-if-cloud-init-active.conf -t "$pkgdir/usr/lib/systemd/system/sshd-keygen@.service.d/"
+  meson install -C build --destdir "$pkgdir"
 }
