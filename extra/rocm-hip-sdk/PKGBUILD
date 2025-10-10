@@ -1,4 +1,5 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgbase=rocm-hip-sdk
 pkgname=(rocm-hip-sdk
@@ -8,7 +9,7 @@ pkgname=(rocm-hip-sdk
          rocm-language-runtime
          rocm-ml-sdk
          rocm-ml-libraries)
-pkgver=6.4.3
+pkgver=6.4.4
 pkgrel=1
 arch=('any')
 license=('LicenseRef-None')
