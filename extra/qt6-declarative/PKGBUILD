@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-declarative
-_pkgver=6.9.2
+_pkgver=6.10.0
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -28,7 +28,7 @@ optdepends=('qt6-svg: for QtQuickVectorImage and svgtoqml')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('d40bfaf42049dbf448c494ff1cdb306e1ccb54215d3a2aa20ad4658337fb7e8e')
+sha256sums=('03795bb958cd321a7b8450ad4fdd0ccecad7669afe657539f7d5a8b59eaa1a96')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
