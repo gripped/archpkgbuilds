@@ -6,28 +6,31 @@
 
 pkgname=qcad
 pkgver=3.32.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A 2D CAD package based upon Qt'
 arch=('x86_64')
 url="https://www.qcad.org"
 license=('GPL-3.0-or-later')
 options=('!staticlibs')
-depends=('qt6-svg' 'gcc-libs' 'qt6-tools' 'qt6-shadertools' 'qt6-wayland' 'qt6-5compat')
+depends=('qt6-svg' 'gcc-libs' 'qt6-tools' 'qt6-shadertools' 'qt6-declarative' 'qt6-5compat')
 makedepends=('glu' 'cmake' 'ninja' 'vulkan-headers')
 source=(
     "$pkgname-$pkgver.tar.gz::https://github.com/qcad/qcad/archive/refs/tags/v$pkgver.tar.gz"
     "qtjsapi-$pkgver.tar.gz::https://github.com/qcad/qtjsapi/archive/refs/tags/v$pkgver.tar.gz"
     "qcadjsapi-$pkgver.tar.gz::https://github.com/qcad/qcadjsapi/archive/refs/tags/v$pkgver.tar.gz"
+     qtjsapi-qt-6.10.patch
 )
-sha512sums=('1e097d14a297db53c27565aa3d719e30ec38231ce99494ac8f01401685c090a63edf068e003426cb3344f2adafca87d53065ddb40738f9b7ddb27a13f91f8dc9'
+sha512sums=('e169938935f77b84a281e446b2c483f9654d81b3c9bb1843d45f16eb3af23218c9c4f4c022f62e2395910bac802ad82e227df7d920fb4ce4d9a7972aabed777d'
             'ced8ca8538fa5fe45a1ca00f6b4477a9f291403d7eda01bbeb8b24ec162d1b79ab6cec7a07729672a8191d6ff939c96780b9fc9fc11f6b0d0a612be09005c3db'
-            '1615251e1d33005b1c9bfe6bef73d1f7cd0adf2e3f0244f356f5d747e71331388c8a39e060253d3f372691556c46445dfde2f5d7ccb5cb83708b9170fd0e6a42')
+            '1615251e1d33005b1c9bfe6bef73d1f7cd0adf2e3f0244f356f5d747e71331388c8a39e060253d3f372691556c46445dfde2f5d7ccb5cb83708b9170fd0e6a42'
+            '7ea8f83dcd5bf5446ed282144668796c72ca6cdf9d3b6195fc7ad6fcc4eb5b67f9c39195037f1812b537a974264bda090f4aaf1fc46a1a5e0ee0a6c198ae4d08')
 
 prepare() {
   ln -s qcad-$pkgver qcad
   ln -s qtjsapi-$pkgver qtjsapi
   ln -s qcadjsapi-$pkgver qcadjsapi
 
+  patch -d qtjsapi-$pkgver -p1 < qtjsapi-qt-6.10.patch # Fix build with Qt 6.10
 }
 
 build() {
