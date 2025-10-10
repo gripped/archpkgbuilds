@@ -1,11 +1,12 @@
 pkgbase = rocalution
 	pkgdesc = Next generation library for iterative sparse solvers for ROCm platform
-	pkgver = 6.4.3
+	pkgver = 6.4.4
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/rocALUTION/en/latest/index.html
 	arch = x86_64
 	license = MIT
 	makedepends = rocm-cmake
+	makedepends = rocm-toolchain
 	makedepends = openmp
 	makedepends = openmpi
 	depends = rocm-core
@@ -20,7 +21,7 @@ pkgbase = rocalution
 	optdepends = openmp: Multithreaded CPU applications
 	optdepends = openmpi: Distributed CPU and multi GPU applications
 	options = !lto
-	source = rocalution-6.4.3.tar.gz::https://github.com/ROCm/rocALUTION/archive/rocm-6.4.3.tar.gz
-	sha256sums = e74efb3ed6925c5552e5c488f40ac9610e00f100433d9bda92ccb6985878f46f
+	source = rocalution-6.4.4.tar.gz::https://github.com/ROCm/rocALUTION/archive/rocm-6.4.4.tar.gz
+	sha256sums = 46b58fea86d576bfa158f48a58c53b5216727fe39cf7278543116ff535ed8297
 
 pkgname = rocalution

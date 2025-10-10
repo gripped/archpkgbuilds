@@ -1,7 +1,9 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
+
 pkgname=rocalution
-pkgver=6.4.3
+pkgver=6.4.4
 pkgrel=1
 pkgdesc='Next generation library for iterative sparse solvers for ROCm platform'
 arch=('x86_64')
@@ -9,12 +11,12 @@ url='https://rocm.docs.amd.com/projects/rocALUTION/en/latest/index.html'
 license=('MIT')
 depends=('rocm-core' 'hip-runtime-amd' 'glibc' 'gcc-libs'
          'rocsparse' 'rocblas' 'rocsolver' 'rocprim' 'rocrand')
-makedepends=('rocm-cmake' 'openmp' 'openmpi')
+makedepends=('rocm-cmake' 'rocm-toolchain' 'openmp' 'openmpi')
 optdepends=('openmp: Multithreaded CPU applications'
             'openmpi: Distributed CPU and multi GPU applications')
 _git='https://github.com/ROCm/rocALUTION'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('e74efb3ed6925c5552e5c488f40ac9610e00f100433d9bda92ccb6985878f46f')
+sha256sums=('46b58fea86d576bfa158f48a58c53b5216727fe39cf7278543116ff535ed8297')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
@@ -39,6 +41,7 @@ build() {
     -D SUPPORT_OMP=ON
     -D SUPPORT_MPI=ON
     -D BUILD_SHARED_LIBS=ON
+    -D GPU_TARGETS=$(rocm-supported-gfx -e gfx950)
   )
   cmake "${cmake_args[@]}"
   cmake --build build
