@@ -2,10 +2,10 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-webengine
-_pkgver=6.9.2
+_pkgver=6.10.0
 pkgver=${_pkgver/-/}
-pkgrel=3
-_chromium=94c3d2b54efc455a13017730afeb4c0cc9777124
+pkgrel=1
+_chromium=
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -27,6 +27,7 @@ depends=(alsa-lib
          lcms2
          libdrm
          libevent
+         libglvnd
          libjpeg-turbo
          libpng
          libtiff
@@ -55,6 +56,7 @@ depends=(alsa-lib
          qt6-webchannel
          re2
          snappy
+         systemd-libs
          ttf-font
          zlib)
        # pciutils
@@ -79,7 +81,7 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
         git+https://code.qt.io/qt/qtwebengine-chromium)
-sha256sums=('81ce308ea2295797d0e9a65c72cb774b63f28dc87e2dd45631c8979d2143a192'
+sha256sums=('bf7483c49ea6f7695d31fade149c7049644131a8df21209ed3f691a62357f67d'
             'SKIP')
 
 prepare() {
@@ -88,12 +90,7 @@ prepare() {
   git submodule set-url src/3rdparty "$srcdir"/qtwebengine-chromium
   git -c protocol.file.allow=always submodule update
 
-  # Fix rendering glitches (see https://bugreports.qt.io/browse/QTBUG-138641
-  # and https://bugreports.qt.io/browse/QTBUG-139091).
-  git cherry-pick -n 9dd5105673f30fa6e8dc9bb3ee5cf4f51cec6ed2
-
-  # Revert commit that breaks GPU rendering https://bugreports.qt.io/browse/QTBUG-139424
-  git revert -n ddcd30454aa6338d898c9d20c8feb48f36632e16
+  git cherry-pick -n ac20cd91b59dcaa40a8106354cb4253c541e7643 # Fix GPU rendering with mesa 25.2
 
   # Bump chromium to head of stable branch
   cd src/3rdparty
