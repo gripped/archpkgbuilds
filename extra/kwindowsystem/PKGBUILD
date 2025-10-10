@@ -4,7 +4,7 @@
 
 pkgname=kwindowsystem
 pkgver=6.18.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Access to the windowing system'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -15,7 +15,6 @@ depends=(gcc-libs
          libxcb
          libxfixes
          qt6-base
-         qt6-wayland
          wayland
          xcb-util-keysyms)
 makedepends=(doxygen
