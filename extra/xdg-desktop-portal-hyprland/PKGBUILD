@@ -3,7 +3,7 @@
 pkgname=xdg-desktop-portal-hyprland
 pkgver=1.3.10
 _protocolver=4d29e48433270a2af06b8bc711ca1fe5109746cd
-pkgrel=5
+pkgrel=6
 pkgdesc='xdg-desktop-portal backend for hyprland'
 url="https://github.com/hyprwm/$pkgname"
 arch=(x86_64)
@@ -17,7 +17,6 @@ depends=(gcc-libs
          libinih
          pipewire
          qt6-base
-         qt6-wayland
          sdbus-cpp libsdbus-c++.so
          util-linux-libs libuuid.so
          xdg-desktop-portal)
