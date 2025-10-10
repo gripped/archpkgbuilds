@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-system-monitor
-pkgver=49.0
+pkgver=49.1
 pkgrel=1
 pkgdesc="View current processes and monitor system state"
 url="https://apps.gnome.org/SystemMonitor"
@@ -40,7 +40,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-system-monitor.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('a97fc7ef126c6822aeed70d6e698e8e079137c9b92cf8998fb5c98d1544e4a3a98578d7092494b7f452c802840f886d22220a7aed51e118921ac45bc8bc4ff1a')
+b2sums=('0efee57b6fb25b2e88ec5cdcf373a898516d94d2c39e84ac2c3c198b604a07510ae3a2e9eb90488732f64b1b05f2aa9981a11b884be91e9361542dad8fef07b0')
 
 prepare() {
   cd $pkgname
