@@ -3,7 +3,7 @@
 
 pkgname=hyprland-qtutils
 pkgver=0.1.5
-pkgrel=3
+pkgrel=4
 pkgdesc='Qt/QML utility apps for Hyprland'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -14,11 +14,18 @@ depends=(gcc-libs # libgcc_s.so libstdc++.so
          hyprland-qt-support
          qt6-base # libQt6Core.so libQt6Gui.so libQt6Widgets.so
          qt6-declarative # libQt6Qml.so libQt6QuickControls2.so
-         qt6-wayland)
+         )
 makedepends=(cmake)
 _archive="$pkgname-$pkgver"
-source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('c02e47c9f720c20a5adca1baebbcfee0db5d3d36ce9595779563a2e5d27bafca')
+source=("$url/archive/v$pkgver/$_archive.tar.gz"
+         https://github.com/hyprwm/hyprland-qtutils/commit/5ffdfc13ed03df1dae5084468d935f0a3f2c9a4c.patch)
+sha256sums=('c02e47c9f720c20a5adca1baebbcfee0db5d3d36ce9595779563a2e5d27bafca'
+            '8546391a1e6fa4655008dfd84253a54e58cc3d89f2e4395bbd1f83ab7576422e')
+
+prepare() {
+	cd $_archive
+ 	patch -p1 -i ../5ffdfc13ed03df1dae5084468d935f0a3f2c9a4c.patch # Fix build with Qt 6.10
+}
 
 build() {
 	cd "$_archive"
