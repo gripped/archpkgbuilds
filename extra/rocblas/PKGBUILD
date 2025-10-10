@@ -1,43 +1,45 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <christian@heusel.eu>
 # Contributor: Markus Näther <naether.markus@gmail.com>
 # Contributor: Lubosz Sarnecki <lubosz@gmail.com>
 pkgname=rocblas
-pkgver=6.4.3
-pkgrel=3
+pkgver=6.4.4
+pkgrel=1
 pkgdesc='Next generation BLAS implementation for ROCm platform'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocBLAS/en/latest/index.html'
 license=('MIT')
 depends=(
-  'rocm-core'
-  'hip-runtime-amd'
-  'roctracer'
-  'glibc'
-  'gcc-libs'
-  'openmp'
   'cblas'
+  'gcc-libs'
+  'glibc'
+  'hip-runtime-amd'
+  'openmp'
+  'rocm-core'
+  'roctracer'
 )
 makedepends=(
-  'git'
   'cmake'
-  'rocm-cmake'
-  'python'
-  'python-virtualenv'
-  'python-pyaml'
-  'python-wheel'
-  'python-tensile'
-  'python-msgpack'
-  'python-joblib'
-  'perl-file-which'
-  'msgpack-cxx'
   'gcc-fortran'
+  'git'
+  'msgpack-cxx'
+  'perl-file-which'
+  'python'
+  'python-joblib'
+  'python-msgpack'
+  'python-pyaml'
+  'python-tensile'
+  'python-virtualenv'
+  'python-wheel'
+  'rocm-cmake'
+  'rocm-toolchain'
 )
 _rocblas='https://github.com/ROCm/rocBLAS'
 _tensile='https://github.com/ROCm/Tensile'
 source=("$pkgname-$pkgver.tar.gz::$_rocblas/archive/refs/tags/rocm-$pkgver.tar.gz"
         "$pkgname-tensile-$pkgver.tar.gz::$_tensile/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('754dcc88b30468a2293d2406d7fe40f78dc92dd77c193758f937532217ecdad3'
-            '0190bfc7050c6ea73fb20ce4d35a056644e129f792f3b016b079ee6cc237a598')
+sha256sums=('bc374b57579fa8458132f73d9a152517af63b9f411a2176b72829f4a1d6021c1'
+            '48ee6a9b33631625c7613e1fb8872290cb7c70977506c4f8b7ed102f293fdf38')
 options=(!strip)
 _dirname="$(basename "$_rocblas")-$(basename "${source[0]}" ".tar.gz")"
 _tensile_dir="$(basename "$_tensile")-$(basename "${source[1]}" ".tar.gz")"
@@ -71,6 +73,7 @@ build() {
     -D BUILD_WITH_PIP=OFF
     # hipblaslt doesn't support all relevant targets
     -D BUILD_WITH_HIPBLASLT=OFF
+    # -D GPU_TARGETS=$(rocm-supported-gfx)
   )
   cmake "${cmake_args[@]}"
   cmake --build build
