@@ -4,12 +4,12 @@ pkgbase=systray-x
 _pkgbase=SysTray-X
 pkgname=('systray-x-common' 'systray-x-kde')
 pkgver=0.9.11
-pkgrel=3
+pkgrel=4
 pkgdesc="A system tray extension for Thunderbird"
 url="https://github.com/Ximi1970/systray-x"
 arch=('x86_64')
 license=('MPL-2.0')
-depends=('qt6-base' 'qt6-wayland' 'thunderbird')
+depends=('qt6-base' 'thunderbird')
 makedepends=('git' 'zip' 'unzip' 'libx11' 'kstatusnotifieritem' 'strip-nondeterminism')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
         'Makefile.patch'
