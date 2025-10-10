@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5a6ee65..62c5799 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -36,6 +36,9 @@ endif ()
+ find_package(PkgConfig REQUIRED)
+ find_package(Dtk6 COMPONENTS Widget Core Tools REQUIRED)
+ find_package(Qt6 COMPONENTS Core Gui Widgets DBus WaylandClient Test Concurrent LinguistTools REQUIRED)
++if(Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
++  find_package(Qt6 COMPONENTS GuiPrivate WaylandClientPrivate REQUIRED)
++endif()
+ find_package(DDEShell REQUIRED)
+ find_package(DdeTrayLoader REQUIRED)
+ 

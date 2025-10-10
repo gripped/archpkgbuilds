@@ -1,7 +1,7 @@
 pkgbase = deepin-clipboard
 	pkgdesc = DDE clipboard manager component
 	pkgver = 6.1.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/linuxdeepin/dde-clipboard
 	arch = x86_64
 	groups = deepin-extra
@@ -18,10 +18,11 @@ pkgbase = deepin-clipboard
 	depends = gio-qt
 	depends = qt6-base
 	depends = qt6-declarative
-	depends = qt6-wayland
 	depends = deepin-shell
 	depends = deepin-tray-loader
 	source = git+https://github.com/linuxdeepin/dde-clipboard.git#tag=6.1.0
+	source = qt-6.10.patch
 	sha512sums = e98ccbba5ec03b1f23b0abb05173a3acdd4299ca2e224cffff2b5a68875ee1875fd7cb55837906df223764bda533e442bd36d8eb3323519707387072a185650d
+	sha512sums = b73b3632f34d901b25a5355a027e10913c1e3344951988778c9117e816eb541d5ebe1adaf6ba4f88b7fcff494a7b2cefcb3e4c2aed928e72832e1b2ac50f4652
 
 pkgname = deepin-clipboard
