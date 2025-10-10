@@ -3,7 +3,7 @@
 
 pkgname=treeland
 pkgver=0.7.3
-pkgrel=1
+pkgrel=2
 pkgdesc='New wayland compositer for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/treeland"
@@ -15,12 +15,15 @@ makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'wayland-protocols' 'wlr-protocol
              'treeland-protocols' 'vulkan-headers')
 replaces=('waylib' 'qwlroots')
 conflicts=('waylib' 'qwlroots')
-source=("git+https://github.com/linuxdeepin/treeland.git#tag=$pkgver")
-sha256sums=('add1dcd2588275fbf85d292fe2dd416ef31789ee21aa61b2cf548962770a509e')
+source=("git+https://github.com/linuxdeepin/treeland.git#tag=$pkgver"
+         qt-6.10.patch)
+sha256sums=('add1dcd2588275fbf85d292fe2dd416ef31789ee21aa61b2cf548962770a509e'
+            '9563ff0e432de3160965627cfae4537d448112aa355e310c40a01149ce76dedd')
 
 prepare() {
     cd treeland
     sed -i '/Q_MOC_INCLUDE(<QDBusObjectPath>)/aQ_MOC_INCLUDE("treelandconfig.hpp")' src/seat/helper.h
+    patch -p1 -i ../qt-6.10.patch
 }
 
 build() {

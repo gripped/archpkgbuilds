@@ -1,0 +1,69 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 7113ffa..263095c 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -17,6 +17,9 @@ endif()
+ find_package(QT NAMES Qt6 COMPONENTS Core REQUIRED)
+ find_package(Qt6 CONFIG REQUIRED ShaderTools Concurrent)
+ find_package(Qt6 COMPONENTS Quick QuickControls2 REQUIRED)
++if (Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
++    find_package(Qt6 COMPONENTS QuickPrivate REQUIRED)
++endif()
+ pkg_search_module(PIXMAN REQUIRED IMPORTED_TARGET pixman-1)
+ pkg_search_module(WAYLAND REQUIRED IMPORTED_TARGET wayland-server)
+ pkg_search_module(LIBINPUT REQUIRED IMPORTED_TARGET libinput)
+diff --git a/src/treeland-shortcut/CMakeLists.txt b/src/treeland-shortcut/CMakeLists.txt
+index 2ad7338..b569596 100644
+--- a/src/treeland-shortcut/CMakeLists.txt
++++ b/src/treeland-shortcut/CMakeLists.txt
+@@ -1,4 +1,7 @@
+ find_package(Qt6 REQUIRED COMPONENTS WaylandClient Widgets DBus)
++if (Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
++    find_package(Qt6 COMPONENTS WaylandClientPrivate REQUIRED)
++endif()
+ find_package(TreelandProtocols REQUIRED)
+ find_package(PkgConfig REQUIRED)
+ pkg_search_module(WAYLAND_CLIENT REQUIRED IMPORTED_TARGET wayland-client)
+diff --git a/waylib/examples/tinywl/CMakeLists.txt b/waylib/examples/tinywl/CMakeLists.txt
+index 307fb45..767e62a 100644
+--- a/waylib/examples/tinywl/CMakeLists.txt
++++ b/waylib/examples/tinywl/CMakeLists.txt
+@@ -1,4 +1,7 @@
+ find_package(Qt6 COMPONENTS Quick QuickControls2 REQUIRED)
++if (Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
++    find_package(Qt6 COMPONENTS QuickPrivate REQUIRED)
++endif()
+ qt_standard_project_setup(REQUIRES 6.4)
+ 
+ if(QT_KNOWN_POLICY_QTP0001) # this policy was introduced in Qt 6.5
+diff --git a/waylib/src/server/CMakeLists.txt b/waylib/src/server/CMakeLists.txt
+index 8ac09a6..67cc9ca 100644
+--- a/waylib/src/server/CMakeLists.txt
++++ b/waylib/src/server/CMakeLists.txt
+@@ -11,6 +11,10 @@ set(WAYLIB_INCLUDE_INSTALL_DIR
+ 
+ set(QT_COMPONENTS Core Gui Quick)
+ find_package(Qt6 COMPONENTS ${QT_COMPONENTS} REQUIRED)
++if (Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
++    set(QT_COMPONENTS ${QT_COMPONENTS} QuickPrivate)
++    find_package(Qt6 COMPONENTS QuickPrivate REQUIRED)
++endif()
+ 
+ qt_standard_project_setup(REQUIRES 6.6)
+ 
+diff --git a/waylib/src/server/platformplugin/qwlrootsintegration.cpp b/waylib/src/server/platformplugin/qwlrootsintegration.cpp
+index 70d499c..f14a16c 100644
+--- a/waylib/src/server/platformplugin/qwlrootsintegration.cpp
++++ b/waylib/src/server/platformplugin/qwlrootsintegration.cpp
+@@ -39,7 +39,11 @@
+ #include <qpa/qplatformsurface.h>
+ #include <qpa/qwindowsysteminterface.h>
+ #include <qpa/qplatformoffscreensurface.h>
++#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
++#include <private/qgenericunixtheme_p.h>
++#else
+ #include <private/qgenericunixthemes_p.h>
++#endif
+ 
+ #ifndef QT_NO_OPENGL
+ #include <qpa/qplatformopenglcontext.h>
