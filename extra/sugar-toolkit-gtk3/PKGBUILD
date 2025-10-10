@@ -2,37 +2,78 @@
 
 pkgname=sugar-toolkit-gtk3
 pkgver=0.121
-pkgrel=2
-pkgdesc="Sugar GTK library"
-arch=('x86_64')
-url="https://sugarlabs.org/"
-license=('LGPL')
-depends=('alsa-lib' 'gtk3' 'libsm' 'python-cairo' 'python-dateutil' 'python-decorator'
-         'python-six' 'sugar-artwork' 'sugar-datastore' 'telepathy-mission-control' 'unzip')
-makedepends=('intltool' 'gobject-introspection')
+pkgrel=3
+pkgdesc='Sugar GTK library'
+arch=(x86_64)
+url='https://github.com/sugarlabs/sugar-toolkit-gtk3'
+license=(LGPL-2.1-or-later)
+depends=(
+  alsa-lib
+  at-spi2-core
+  bash
+  gdk-pixbuf2
+  glib2
+  glibc
+  gst-python
+  gstreamer
+  gtk3
+  libice
+  librsvg
+  libsm
+  libx11
+  libxfixes
+  libxi
+  pango
+  python
+  python-cairo
+  python-dateutil
+  python-dbus
+  python-decorator
+  python-gobject
+  python-six
+  sugar-artwork
+  sugar-datastore
+  telepathy-glib
+  unzip
+)
+makedepends=(
+  git
+  glib2-devel
+  gobject-introspection
+  intltool
+)
 optdepends=('webkit2gtk-4.1: run sugar-activity-web')
-source=(https://download.sugarlabs.org/sources/sucrose/glucose/$pkgname/$pkgname-$pkgver.tar.xz)
-sha256sums=('2b508b28d75fe30967de0650dcc67aaacfa579e707b043a2e43785c315039c57')
+source=("git+https://github.com/sugarlabs/$pkgname.git#tag=v$pkgver")
+b2sums=(e8145d2718ae701f9b3bb00d95a19b865e287d8b1976bdbd35bbd4b0eea5fea59ca8e2f7bcf4f8a851b5791cb122751aaca59b7a0689619905927ed2949d0c91)
 
 prepare() {
-  cd $pkgname-$pkgver
-  autoreconf -vif
+  cd $pkgname
+
+  # https://github.com/sugarlabs/sugar/issues/1004
+  sed -i 's/ssh-dss /ssh-rsa /' src/sugar3/profile.py
+
+  # https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/490
+  sed -i 's/usage: %prog/%(prog)s/' src/sugar3/activity/activityinstance.py
+
+  autoreconf -fi
 }
 
 build() {
-  cd $pkgname-$pkgver
-  # Disable hardened build until fixed upstream
-  # https://bugs.sugarlabs.org/ticket/4886
+  cd $pkgname
+
+  # Hardened build is not supported
   export CFLAGS=${CFLAGS/ -fno-plt}
   export LDFLAGS=${LDFLAGS/-Wl,-z,now}
 
-  ./configure --prefix=/usr
-  sed -i 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
   make -j1
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
   rm "$pkgdir/usr/bin/sugar-activity"
 }
