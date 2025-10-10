@@ -3,32 +3,24 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-system-monitor
-pkgver=6.5.4
+pkgver=6.5.5
 pkgrel=1
 pkgdesc='A more user-friendly system monitor'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-system-monitor"
 license=('GPL-3.0-or-later')
-# startdde: org.deepin.dde.Display1
-depends=('dtkcore' 'dtkgui' 'dtkwidget' 'dwayland' 'qt5-base' 'qt5-svg' 'gsettings-qt'
-         'icu' 'dconf' 'libxcb' 'xcb-util-wm' 'gcc-libs' 'libnl' 'libcap' 'libpcap' 'startdde'
-         'polkit-qt5')
-makedepends=('git' 'cmake' 'deepin-gettext-tools' 'gtest' 'ninja' 'qt5-tools' 'deepin-tray-loader')
+depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-svg' 'icu' 'dconf' 'libxcb' 'xcb-util-wm'
+         'gcc-libs' 'libnl' 'libcap' 'libpcap' 'polkit-qt6')
+makedepends=('git' 'cmake' 'deepin-gettext-tools' 'gtest' 'ninja' 'qt6-tools' 'deepin-tray-loader')
 groups=('deepin')
 install=deepin-system-monitor.install
 source=("git+https://github.com/linuxdeepin/deepin-system-monitor.git#tag=$pkgver")
-sha512sums=('e428ccd76eb962aeefd29c3a29c27f8d29f2519259bd71bdc0981bf162a9783d4cbe37e762ac1ee64261b1f96959f5c14664cc07c4b108a9819ec910316a8928')
-
-prepare() {
-  cd deepin-system-monitor
-  sed -i '/lscpu.h/d' deepin-system-monitor-main/3rdparty/dmidecode/dmioem.c
-  sed -e 's|CMAKE_CXX_STANDARD 11|CMAKE_CXX_STANDARD 17|' -i */CMakeLists.txt # Fix build with ICU 75
-}
+sha512sums=('5bf092ac15951e104c149471313d3f531e5dbd2230d20c9dcc18346cef9a2e189a7570051bd06fb48510619b3b0c8688672f9d339b62950daa8f664f103bca24')
 
 build() {
   cd deepin-system-monitor
   cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-    -DCMAKE_C_FLAGS="$CXXFLAGS -Wno-error=implicit-function-declaration -Wno-error=int-conversion" # Fix build with GCC 14
+    -DCMAKE_C_FLAGS="$CXXFLAGS -Wno-error=incompatible-pointer-types"
   ninja
 }
 
