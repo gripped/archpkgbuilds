@@ -5,7 +5,7 @@
 
 pkgname=nheko
 pkgver=0.12.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Desktop client for the Matrix protocol"
 arch=('x86_64')
 url="https://nheko.im/nheko-reborn/nheko"
@@ -29,6 +29,7 @@ validpgpkeys=('D58B462425A6A37125C6FEDB9206AE1B231E05BB') # Nicolas Werner @deep
 
 _backports=(
   '2769642d3c7bd3c0d830b2f18ef6b3bf6a710bf4' # https://github.com/Nheko-Reborn/nheko/issues/1944
+  'af2ca72030deb14a920a888e807dc732d93e3714' # Fix build with Qt 6.10
 )
 
 _reverts=(
