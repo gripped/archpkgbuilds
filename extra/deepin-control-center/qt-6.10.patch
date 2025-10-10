@@ -1,0 +1,55 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1f428ea4f..d56fea890 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -165,6 +165,9 @@ add_definitions(-DVARDIRECTORY="${LOCALSTATE_READ_DIR}")
+ find_package(PkgConfig REQUIRED)
+ find_package(${DTK_NS} REQUIRED COMPONENTS Core Gui  )
+ find_package(${QT_NS} COMPONENTS Core Quick Gui Network DBus Concurrent Test LinguistTools Multimedia REQUIRED)
++if(${QT_NS}_VERSION VERSION_GREATER_EQUAL 6.10)
++  find_package(${QT_NS} COMPONENTS GuiPrivate REQUIRED)
++endif()
+ find_package(GTest REQUIRED)
+ find_package(Threads REQUIRED)
+ 
+diff --git a/src/dde-control-center/CMakeLists.txt b/src/dde-control-center/CMakeLists.txt
+index 80dcb865a..20d33abbb 100644
+--- a/src/dde-control-center/CMakeLists.txt
++++ b/src/dde-control-center/CMakeLists.txt
+@@ -12,6 +12,10 @@ add_library(${DCCFrame_Name} SHARED
+ )
+ 
+ find_package(${QT_NS} COMPONENTS QmlModels REQUIRED)
++if(${QT_NS}_VERSION VERSION_GREATER_EQUAL 6.10)
++  find_package(${QT_NS} COMPONENTS QmlModelsPrivate REQUIRED)
++endif()
++
+ set(DCCFrame_Libraries
+     ${DTK_NS}::Gui
+     ${QT_NS}::Gui
+diff --git a/src/plugin-display/CMakeLists.txt b/src/plugin-display/CMakeLists.txt
+index 49eb7a71c..61c2b9e23 100644
+--- a/src/plugin-display/CMakeLists.txt
++++ b/src/plugin-display/CMakeLists.txt
+@@ -52,6 +52,7 @@ target_link_libraries(libwayqt6
+     PUBLIC
+     ${QT_NS}::Core
+     ${QT_NS}::Gui
++    ${QT_NS}::GuiPrivate
+     PkgConfig::WaylandClient
+ )
+ ###########################################
+diff --git a/src/plugin-personalization/CMakeLists.txt b/src/plugin-personalization/CMakeLists.txt
+index 46848dd82..bdc0dcaf0 100644
+--- a/src/plugin-personalization/CMakeLists.txt
++++ b/src/plugin-personalization/CMakeLists.txt
+@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.18)
+ set(LIB_NAME personalization)
+ 
+ find_package(Qt6 REQUIRED COMPONENTS WaylandClient)
++if(Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
++  find_package(Qt6 COMPONENTS WaylandClientPrivate REQUIRED)
++endif()
+ 
+ set(Enable_TreelandSupport ON CACHE BOOL "Enable Treeland Support")
+ 
