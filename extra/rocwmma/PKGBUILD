@@ -1,17 +1,28 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=rocwmma
-pkgver=6.4.3
-pkgrel=2
+pkgver=6.4.4
+pkgrel=1
 pkgdesc='Library for accelerating mixed precision matrix multiplication'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocWMMA/en/latest/'
 license=('MIT')
-depends=('rocm-core' 'hip-runtime-amd' 'rocblas' 'openmp')
-makedepends=('rocm-cmake' 'doxygen' 'rocm-toolchain')
+depends=(
+    'hip-runtime-amd'
+    'openmp'
+    'rocblas'
+    'rocm-core'
+)
+makedepends=(
+    'doxygen'
+    'rocm-cmake'
+    'rocm-llvm'
+    'rocm-toolchain'
+)
 _git='https://github.com/ROCmSoftwarePlatform/rocWMMA'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('34797c458603688748a046b611e14693221843de96740ed3ba5c606d41ab0cdf')
+sha256sums=('205b732aa2ab9ece8240a6eba5f99cb977db397a893e3dcb98c5b4384c8cc064')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
 options=(!lto)
 
@@ -21,13 +32,14 @@ build() {
         -B build
         -S "$_dirname"
         -D CMAKE_POLICY_VERSION_MINIMUM=3.5
-        -D CMAKE_BUILD_TYPE=Release
+        -D CMAKE_BUILD_TYPE=None
         -D CMAKE_CXX_COMPILER=amdclang++
         -D CMAKE_INSTALL_PREFIX=/opt/rocm
         -D ROCWMMA_BUILD_TESTS=OFF
         -D ROCWMMA_BUILD_SAMPLES=OFF
         -D ROCM_SYMLINK_LIBS=OFF
         -D HIP_PLATFORM=amd
+        -D CMAKE_CXX_FLAGS="${CXXFLAGS} -fcf-protection=none"
         -D GPU_TARGETS=$(rocm-supported-gfx)
     )
     cmake "${cmake_args[@]}"
