@@ -1,16 +1,16 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 
 pkgname=composable-kernel
-pkgver=6.4.3
+pkgver=6.4.4
 pkgrel=1
 pkgdesc="High Performance Composable Kernel for AMD GPUs"
 arch=('x86_64')
 url="https://github.com/ROCm/composable_kernel"
 license=('MIT')
 depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd')
-makedepends=('git' 'cmake' 'ninja' 'rocm-cmake' 'rocm-llvm' 'openmp')
+makedepends=('git' 'cmake' 'ninja' 'rocm-cmake' 'rocm-toolchain' 'rocm-llvm' 'openmp')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('70d9a2da51d7967e95329884dbd0154753b3ffaecd7272501c59e951bb5160cc')
+sha256sums=('b431232492d3381924221af11ce6ed3afb43a790f34d0e1fe454111b0e597cc8')
 # Build without default flags as they cause the final linking step to fail
 # https://github.com/ROCmSoftwarePlatform/composable_kernel/issues/736
 options=(!lto !buildflags)
@@ -27,11 +27,12 @@ build() {
     -G Ninja
     -B build
     -S "$_dirname"
-    -D CMAKE_CXX_COMPILER=/opt/rocm/bin/hipcc
+    -D CMAKE_CXX_COMPILER=amdclang++
     -D CMAKE_BUILD_TYPE=Release
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
-    # Copied from rocBLAS's config
-    -D CMAKE_HIP_ARCHITECTURES="gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx940;gfx941;gfx942;gfx1010;gfx1012;gfx1030;gfx1100;gfx1101;gfx1102;gfx1151"
+    # CK doesn't support all targets
+    # -D GPU_ARCHS="$(rocm-supported-gfx)"
+    -D GPU_ARCHS="gfx908;gfx90a;gfx942;gfx1030;gfx1100;gfx1101;gfx1102;gfx1200;gfx1201"
     -D BUILD_DEV=OFF
     -D INSTANCES_ONLY=ON
   )
