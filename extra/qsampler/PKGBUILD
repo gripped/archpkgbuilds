@@ -5,7 +5,7 @@
 
 pkgname=qsampler
 pkgver=1.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A LinuxSampler Qt GUI Interface"
 arch=(x86_64)
 url="https://qsampler.sourceforge.io/"
@@ -24,9 +24,6 @@ makedepends=(
   libgig
   liblscp
   qt6-tools
-)
-optdepends=(
-  'qt6-wayland: for native wayland support'
 )
 source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
 sha512sums=('4c5a053b1208a4c53535dbe81de8f4c9497074d3ed1b2485e916e737fe5719e8ac93508c1827fa973dd9953edf7fba5a75f1de9c27b6174cee99251ab506a150')
