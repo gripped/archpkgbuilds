@@ -4,7 +4,7 @@ _name=cupy
 pkgbase=python-cupy
 pkgname=(python-cupy python-cupy-rocm)
 pkgver=13.6.0
-pkgrel=4
+pkgrel=5
 # release tarballs do not contain third-party code, check github for each release
 _cccl_commit=3a388b7b01512d48474b98389a3e776c8d8f817a
 _dlpack_commit=cd0d5e4ff888b388aef4f9b6bd5d9aa5737a020e
@@ -43,6 +43,7 @@ makedepends=(
   rocsparse
   rocthrust
   roctracer
+  rocm-toolchain
 )
 optdepends=(
   'python-scipy: for copying sparse matrices from GPU to CPU'
@@ -87,7 +88,7 @@ build() {
   CUDA_PATH= \
   CUPY_INSTALL_USE_HIP=1 \
   ROCM_HOME=/opt/rocm \
-  HCC_AMDGPU_TARGET=gfx900,gfx906:xnack-,gfx908:xnack-,gfx90a,gfx940,gfx941,gfx942,gfx1010,gfx1012,gfx1030,gfx1100,gfx1101,gfx1102,gfx1151,gfx1200,gfx1201 \
+  HCC_AMDGPU_TARGET=$(rocm-supported-gfx -e gfx950 -d ,) \
   python -m build --wheel --no-isolation
 }
 

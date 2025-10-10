@@ -1,7 +1,7 @@
 pkgbase = python-cupy
 	pkgdesc = NumPy/SciPy-compatible array library for GPU-accelerated computing with Python
 	pkgver = 13.6.0
-	pkgrel = 4
+	pkgrel = 5
 	url = https://github.com/cupy/cupy
 	arch = x86_64
 	license = MIT
@@ -29,6 +29,7 @@ pkgbase = python-cupy
 	makedepends = rocsparse
 	makedepends = rocthrust
 	makedepends = roctracer
+	makedepends = rocm-toolchain
 	optdepends = python-scipy: for copying sparse matrices from GPU to CPU
 	optdepends = python-optuna: for using using Automatic Kernel Parameters Optimizations (cupyx.optimizing)
 	source = python-cupy-13.6.0.tar.gz::https://github.com/cupy/cupy/archive/refs/tags/v13.6.0.tar.gz
