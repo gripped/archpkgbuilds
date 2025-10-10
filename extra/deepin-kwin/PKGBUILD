@@ -4,7 +4,7 @@
 
 pkgname=deepin-kwin
 pkgver=6.0.8
-pkgrel=1
+pkgrel=2
 pkgdesc='DDE window manager forked from KWin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-kwin"
@@ -22,7 +22,7 @@ conflicts=('kwin' 'kwin-x11')
 source=("git+https://github.com/linuxdeepin/deepin-kwin.git#tag=$pkgver"
          qt-6.10.patch)
 sha512sums=('295451187c76e690af0bf3ae87ad1a03cc323efbf9971ba76c9fbaf9ec5590a0bbcdeed4331f106462c5c44519a8a44ed3272ed3bf63fecb1e6042275b557f4d'
-            'c92c1ecab8dbb68602be06bc743156c22a5d992d6b47491471fe19f0d2d334416e0679547b3b1ff0494f76e9603cb675a4a5459fa3f121f9307234aa26cf3f51')
+            'e2d18def480dc62cdd7d0a0e2d6b313501701616a01983ad2f7fe092ad044b1882e9cd39f7bb47564743e6b2b63fee2585369b319e41021db2f3aa0e1f7466c8')
 
 prepare() {
   cd deepin-kwin
