@@ -10,7 +10,7 @@ pkgbase=qtcreator
 pkgname=(qtcreator
          qtcreator-devel)
 pkgver=17.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Lightweight, cross-platform integrated development environment'
 arch=(x86_64)
 url='https://www.qt.io'
@@ -68,6 +68,8 @@ prepare() {
 
 # Fix doc build with system litehtml
   rm src/libs/qlitehtml/src/3rdparty/qt_attribution.json
+# Fix build with Qt 6.10
+  git cherry-pick -n 5a4c700ccefc76c7c531c834734e6fefa14b5364
 }
 
 build() {
