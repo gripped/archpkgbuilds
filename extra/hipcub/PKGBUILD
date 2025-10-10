@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 pkgname=hipcub
-pkgver=6.4.3
+pkgver=6.4.4
 pkgrel=1
 pkgdesc='Header-only library on top of rocPRIM or CUB'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('rocm-core' 'rocprim' 'hip-runtime-amd')
 makedepends=('cmake' 'rocm-cmake' 'rocm-toolchain')
 _git='https://github.com/ROCm/hipCUB'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('1246f2d23665e4c4ec58a923d96b35cbfa4079adeda8bac47ba8fad3f85437bf')
+sha256sums=('f68baad99f5fd99b561ebd69999fec3276e23e8fbc9d46e737821bdd980d9c7f')
 _dirname="$(basename $_git)-$(basename "${source[0]}" ".tar.gz")"
 
 build() {
@@ -27,7 +27,7 @@ build() {
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D CMAKE_TOOLCHAIN_FILE="$srcdir/$_dirname"/toolchain-linux.cmake
-    -D AMDGPU_TARGETS=$(rocm-supported-gfx)
+    -D GPU_TARGETS=$(rocm-supported-gfx)
   )
   cmake "${cmake_args[@]}"
   cmake --build build
