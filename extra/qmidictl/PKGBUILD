@@ -2,7 +2,7 @@
 
 pkgname=qmidictl
 pkgver=1.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="MIDI remote control application sending MIDI data over network using UDP/IP multicast"
 arch=(x86_64)
 url="https://qmidictl.sourceforge.io/"
@@ -18,9 +18,6 @@ depends=(
 makedepends=(
   cmake
   qt6-tools
-)
-optdepends=(
-  'qt6-wayland: for native wayland support'
 )
 source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
 sha512sums=('f17f6b9552ea0446ac9b6d7118a64051166381bf574fd00ad045e0dbe2fa130bf4f045d0ce789df372de4ba8843916d784e17d2e5491eca0dea67160fbbfdd18')
