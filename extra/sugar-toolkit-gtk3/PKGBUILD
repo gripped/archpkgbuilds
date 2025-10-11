@@ -2,7 +2,7 @@
 
 pkgname=sugar-toolkit-gtk3
 pkgver=0.121
-pkgrel=3
+pkgrel=4
 pkgdesc='Sugar GTK library'
 arch=(x86_64)
 url='https://github.com/sugarlabs/sugar-toolkit-gtk3'
@@ -54,6 +54,9 @@ prepare() {
 
   # https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/490
   sed -i 's/usage: %prog/%(prog)s/' src/sugar3/activity/activityinstance.py
+
+  # https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/491
+  sed -i 's/cp.readfp/cp.read_file/' src/sugar3/{bundle/contentbundle.py,graphics/icon.py}
 
   autoreconf -fi
 }
