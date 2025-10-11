@@ -2,7 +2,7 @@
 
 pkgname=sugar
 pkgver=0.121
-pkgrel=4
+pkgrel=5
 pkgdesc='Sugar GTK shell'
 arch=(any)
 url='https://github.com/sugarlabs/sugar'
@@ -16,7 +16,7 @@ depends=(
   gst-python
   gstreamer
   gtk3
-  gtksourceview3
+  gtksourceview4
   gvfs
   libgudev
   libnm
@@ -73,6 +73,10 @@ prepare() {
   # Don't raise error when country name not found
   # https://github.com/sugarlabs/sugar/pull/1006
   sed -i 's/return self\._data\[country_code\]/return self._data.get(country_code, country_code)/' extensions/cpsection/modemconfiguration/model.py
+
+  # Port to GtkSource 4
+  # https://github.com/sugarlabs/sugar/pull/1007
+  sed -i "s/'GtkSource', '3.0'/'GtkSource', '4'/" src/jarabe/view/viewsource.py
 
   # Use correct D-Bus config location
   sed -i '/^nmservicedir =/ s/sysconfdir/datadir/' data/Makefile.am
