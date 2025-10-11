@@ -2,7 +2,7 @@
 
 pkgname=sugar-runner
 pkgver=0.121
-pkgrel=1
+pkgrel=2
 pkgdesc='Scripts to run Sugar'
 arch=(x86_64)
 url='https://github.com/sugarlabs/sugar-runner'
@@ -30,6 +30,9 @@ b2sums=(b8d713266a6207fadf015bbf69f62b71dc9a873628a1769655e2bd9069c237f4fa5a4c74
 
 prepare() {
   cd $pkgname
+
+  # https://github.com/sugarlabs/sugar-runner/pull/9
+  sed -i 's/"wb") as f:/"w") as f:/' scripts/sugar-runner.in
 
   # Fix launch from the application menu
   echo 'Terminal=true' >>data/sugar-runner.desktop
