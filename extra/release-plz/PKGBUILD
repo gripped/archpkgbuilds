@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=release-plz
-pkgver=0.3.147
+pkgver=0.3.148
 pkgrel=1
 pkgdesc="Release Rust packages without using the command line"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('gcc-libs' 'curl' 'libgit2' 'openssl')
 makedepends=('cargo' 'git')
 optdepends=('cargo-semver-checks: check for API breaking changes')
 source=("$pkgname-$pkgver::git+$url.git#tag=$pkgname-v$pkgver")
-sha512sums=('ad7526970f51c982cb9870464584cc8496840cf87a5124c75ee5f66f9776fb59edc9e48d29ea6b0aacc0d49d3934c427b912b0781fa5fa458d21f6616f79bf85')
+sha512sums=('0bbaf86a9e2c47719b2dd79c79f00ca3bd53af6adfb2c27d0112f41776989b5fdd5321258b639d7b7f7a2b3b92c531b04320904d3d8a24e1c80ce0bbbba29b44')
 options=('!lto')
 
 prepare() {
