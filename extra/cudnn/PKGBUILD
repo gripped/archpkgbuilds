@@ -5,7 +5,7 @@
 # Contributor: Yunhui Fu <yhfdev@gmail.com>
 
 pkgname=cudnn
-pkgver=9.12.0.46
+pkgver=9.14.0.64
 _cudaver=13
 pkgrel=1
 pkgdesc="NVIDIA CUDA Deep Neural Network library"
@@ -18,7 +18,7 @@ depends=(
   gcc-libs
   zlib libz.so
 )
-options=(!strip staticlibs)
+options=(!strip)
 # To figure out these URLs, check out the Dockerfiles at
 # https://gitlab.com/nvidia/container-images/cuda/-/tree/master/dist for the appropriate cuda version
 # or make an NVIDIA Developer account.
@@ -26,13 +26,16 @@ options=(!strip staticlibs)
 # or https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/
 # or https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/
 source=("https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-${pkgver}_cuda${_cudaver}-archive.tar.xz")
-b2sums=('b8b8ba3e414153a83c9e677b6e80158fa48df912016dc2c12e97c7b2b4b0b6e0f0235d9780b8a2922cea41041afb740abe8632bf53c5723b492de29ddc462581')
+b2sums=('4ce4b712762bb6df2dda3a7b20935e66eabb5f2e0434d2e9e6083e968bcbce769210b688931ba70d68c6e688f97f466d45853eafad61b9202a1351ea7f19ca94')
 
 package() {
   cd cudnn-linux-x86_64-${pkgver}_cuda${_cudaver}-archive
 
   mkdir "$pkgdir"/usr
   cp -rv lib include "$pkgdir"/usr
+
+  # remove static libs
+  rm "$pkgdir"/usr/lib/*.a
 
   install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
