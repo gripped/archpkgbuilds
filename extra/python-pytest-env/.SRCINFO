@@ -1,17 +1,19 @@
 pkgbase = python-pytest-env
 	pkgdesc = pytest plugin to set environment variables in pytest.ini or pyproject.toml file
-	pkgver = 1.1.5
+	pkgver = 1.2.0
 	pkgrel = 1
 	url = https://github.com/pytest-dev/pytest-env
 	arch = any
 	license = MIT
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-hatchling
 	makedepends = python-hatch-vcs
 	depends = python
 	depends = python-pytest
-	source = python-pytest-env-1.1.5.tar.gz::https://github.com/pytest-dev/pytest-env/archive/1.1.5/python-pytest-env-1.1.5.tar.gz
-	sha256sums = bf7edb1c3b4ca221248d44cc11fb79370ede39a1bc6b7bfc571c54fddff4f4c9
+	source = python-pytest-env::git+https://github.com/pytest-dev/pytest-env#tag=1.2.0
+	sha512sums = e6520925171cca0da8f6b2c31d902ca32f8e207915d575d2352f9f62780115e62bbc9eb88ea9416723684f51c3a7881a613f729967ebd4cce13b594b4291c213
+	b2sums = 739f0195e5c89a63cbcfcff3915afcabadc14ce8c5189dc98d9b7639be7f948de3fa485696579336f1ae6cc1c91bc4862982afda49dd9bdb50a93850a4cf6920
 
 pkgname = python-pytest-env

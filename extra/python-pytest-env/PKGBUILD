@@ -2,36 +2,46 @@
 # Contributor: Rafael Fontenelle <rafaelff@gnome.org>
 
 pkgname=python-pytest-env
-# https://github.com/pytest-dev/pytest-env/releases
-pkgver=1.1.5
+pkgver=1.2.0
 pkgrel=1
 pkgdesc='pytest plugin to set environment variables in pytest.ini or pyproject.toml file'
 arch=(any)
 url='https://github.com/pytest-dev/pytest-env'
 license=(MIT)
 depends=(python python-pytest)
-makedepends=(python-build python-installer python-hatchling python-hatch-vcs)
-source=($pkgname-$pkgver.tar.gz::https://github.com/pytest-dev/pytest-env/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('bf7edb1c3b4ca221248d44cc11fb79370ede39a1bc6b7bfc571c54fddff4f4c9')
-
-export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-hatchling
+  python-hatch-vcs
+)
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('e6520925171cca0da8f6b2c31d902ca32f8e207915d575d2352f9f62780115e62bbc9eb88ea9416723684f51c3a7881a613f729967ebd4cce13b594b4291c213')
+b2sums=('739f0195e5c89a63cbcfcff3915afcabadc14ce8c5189dc98d9b7639be7f948de3fa485696579336f1ae6cc1c91bc4862982afda49dd9bdb50a93850a4cf6920')
 
 build() {
-  cd pytest-env-$pkgver
-  python -m build --wheel --no-isolation
+  cd "$pkgname"
+
+  SETUPTOOLS_SCM_PRETEND_VERSION="$pkgver" python -m build --wheel --no-isolation
 }
 
 check() {
-  cd pytest-env-$pkgver
-  # Install to a temporary root as the test suite requires the entry point for
-  # its pytest plugin
-  pyver=$(python -c "import sys; print('{}.{}'.format(*sys.version_info[:2]))")
-  python -m installer --destdir="$PWD/tmp_install" dist/*.whl
-  PYTHONPATH="$PWD/tmp_install/usr/lib/python$pyver/site-packages" pytest tests
+  cd "$pkgname"
+
+  # temporary install
+  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$(pwd)/tmp/$site_packages"
+
+  pytest -v
 }
 
 package() {
-  cd pytest-env-$pkgver
+  cd "$pkgname"
+
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
