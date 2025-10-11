@@ -4,7 +4,7 @@
 
 pkgname=qjackctl
 pkgver=1.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A Qt front-end for the JACK low-latency audio server"
 arch=(x86_64)
 url="https://qjackctl.sourceforge.io"
@@ -27,7 +27,6 @@ makedepends=(
 )
 optdepends=(
   'jack2-dbus: for JACK dbus support'
-  'qt6-wayland: for native wayland support'
 )
 source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
 sha512sums=('e621545360f20b559f3beee4b773452294e4b298f0c3c6751c3bf559deef522eac2c1571bc9e9749740571eb96cc0d1b0a427e3abc7edf66d1c1c5f185072458')
