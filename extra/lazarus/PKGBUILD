@@ -3,26 +3,20 @@
 # Contributor: Jens Adam <jra@byte.cx>
 
 pkgbase=lazarus
-pkgname=('lazarus' 'lazarus-gtk3' 'lazarus-qt5' 'lazarus-qt6')
+pkgname=('lazarus' 'lazarus-qt5' 'lazarus-qt6')
 _lazarus_tag=4_2
 pkgver=4.2
-pkgrel=2
+pkgrel=4
 url='http://www.lazarus.freepascal.org/'
 license=('GPL-2.0-or-later' 'LGPL-2.1-or-later' 'MPL-1.1')
 arch=('x86_64')
-makedepends=('fpc' 'fpc-src' 'gtk3' 'qt5pas' 'qt6pas' 'rsync')
+makedepends=('fpc' 'fpc-src' 'qt5pas' 'qt6pas' 'rsync')
 options=(!makeflags libtool staticlibs !strip)
 source=("https://gitlab.com/freepascal.org/lazarus/lazarus/-/archive/lazarus_${_lazarus_tag}/lazarus-lazarus_${_lazarus_tag}.tar.bz2")
 sha512sums=('f17113a0ebff4f4228c5b9ad9a724f4e3c891a23b9b606a0a0a0ada934b07f61797c3f3b62f8ed1658ed11455a38cd159c55d02694006fb72c34d64102026966')
 
 build() {
   cd "lazarus-lazarus_${_lazarus_tag}"
-
-  # build GTK3 IDE
-  make FPC=/usr/bin/fpc OPT='-gl -gw -Crtoi' LCL_PLATFORM=gtk3 clean bigide
-  # move GTK binaries
-  mv lazarus lazarus-gtk3
-  mv startlazarus startlazarus-gtk3
 
   # build Qt5 IDE
   make FPC=/usr/bin/fpc OPT='-gl -gw -Crtoi' LCL_PLATFORM=qt5 bigide
@@ -42,7 +36,6 @@ package_lazarus() {
   depends=('fpc' 'fpc-src' 'gdb')
   optdepends=(
     'perl: to run some scripts in the tools directory'
-    'gtk3: to compile GTK3 apps'
     'qt5pas: to compile Qt5 apps'
     'qt6pas: to compile Qt6 apps'
   )
@@ -83,28 +76,6 @@ package_lazarus() {
   install -D -m644 COPYING.modifiedLGPL.txt "$pkgdir"/usr/share/licenses/$pkgname/COPYING.modifiedLGPL
 }
 
-package_lazarus-gtk3() {
-  pkgdesc='Delphi-like IDE for FreePascal GTK3 version (alpha quality)'
-  depends=('lazarus' 'desktop-file-utils' 'gtk3')
-  conflicts=('lazarus-gtk2' 'lazarus-qt5' 'lazarus-qt6')
-  replaces=('lazarus-gtk2')
-
-  cd "lazarus-lazarus_${_lazarus_tag}"
-
-  # install GTK binaries
-  install -Dm755 lazarus-gtk3 "$pkgdir"/usr/lib/lazarus/lazarus
-  install -Dm755 startlazarus-gtk3 "$pkgdir"/usr/lib/lazarus/startlazarus
-  install -dm755 "$pkgdir"/usr/bin
-  ln -s /usr/lib/lazarus/lazarus "$pkgdir"/usr/bin/lazarus
-  ln -s /usr/lib/lazarus/startlazarus "$pkgdir"/usr/bin/startlazarus
-
-  install -Dm644 install/lazarus.desktop "$pkgdir"/usr/share/applications/lazarus.desktop
-  install -Dm644 images/ide_icon48x48.png "$pkgdir"/usr/share/pixmaps/lazarus.png
-
-  # license files: /usr/lib/lazarus/COPYING*
-  install -D -m644 COPYING.modifiedLGPL.txt "$pkgdir"/usr/share/licenses/$pkgname/COPYING.modifiedLGPL
-}
-
 package_lazarus-qt5() {
   pkgdesc='Delphi-like IDE for FreePascal Qt5 version'
   depends=('lazarus' 'qt5pas')
@@ -134,6 +105,7 @@ package_lazarus-qt6() {
   pkgdesc='Delphi-like IDE for FreePascal Qt6 version'
   depends=('lazarus' 'qt6pas')
   conflicts=('lazarus-gtk2' 'lazarus-gtk3' 'lazarus-qt5')
+  replaces=('lazarus-gtk3')
 
   cd "lazarus-lazarus_${_lazarus_tag}"
 
