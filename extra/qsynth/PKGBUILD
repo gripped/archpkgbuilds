@@ -4,7 +4,7 @@
 
 pkgname=qsynth
 pkgver=1.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Qt GUI for FluidSynth"
 arch=(x86_64)
 url="https://qsynth.sourceforge.io/"
@@ -22,9 +22,6 @@ makedepends=(
   fluidsynth
   pipewire
   qt6-tools
-)
-optdepends=(
-  'qt6-wayland: for native wayland support'
 )
 source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
 sha512sums=('2f9c53caeb2cdab7b05612f4425ee95886200ba229b3cb4fd37a95081d4557954ba4dfb18859e5cefb55512c962283838ef2ffb325bac33bcc1fc01faf2c9b30')
