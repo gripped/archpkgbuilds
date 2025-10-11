@@ -3,8 +3,8 @@
 
 _gemname='rubocop-performance'
 pkgname="ruby-${_gemname}"
-pkgver=1.24.0
-pkgrel=1
+pkgver=1.26.0
+pkgrel=2
 pkgdesc='An extension of RuboCop focused on code performance checks'
 arch=('any')
 url='https://docs.rubocop.org/rubocop-performance/'
@@ -29,8 +29,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("https://github.com/rubocop/${_gemname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('58c251f1d11a057bc397e08835dee3ffe80ac177d073738c7f4d9d8a256a7f2457aa24bcc9cca3ba1021a06b090c097f2ce9abcaf762396c1bed9757a73a1f09')
-b2sums=('8e2db617f52ee7b1986a030a7ad290195d520cf90c2b0ce2c41c31aa4ece54e0fe59df6467efd98c7b3103d1ab1eb8f3512a7e4bb06afd45d85deda23144da59')
+sha512sums=('a7795b68c106c0aa7992c3a7bf379fd0bc3336b76a2c54767a4f61c1a5228a9853403b01f5d8ac64156731e6a632d040b88b24821718278c1213edff25e5ee29')
+b2sums=('3851aa6874dda88e374cf98fcc2d1a4f0f9cdc86190599dcf22addd1c57bb8a3a853531071833a1e3f7270547d7bacebc7ab17a614f2e41113736b4b0111a3f7')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
