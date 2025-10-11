@@ -1,14 +1,24 @@
 pkgbase = sugar-activity-clock
 	pkgdesc = Clock for Sugar
 	pkgver = 22.1
-	pkgrel = 3
-	url = https://wiki.sugarlabs.org/go/Activities/Clock
+	pkgrel = 4
+	url = https://github.com/sugarlabs/clock-activity
 	arch = any
 	groups = sugar-fructose
-	license = GPL
-	depends = espeak-ng-espeak
+	license = GPL-3.0-or-later
+	makedepends = git
+	depends = glib2
+	depends = gst-python
+	depends = gstreamer
+	depends = gtk3
+	depends = librsvg
+	depends = pango
+	depends = python
+	depends = python-cairo
+	depends = python-dbus
+	depends = python-gobject
 	depends = sugar-toolkit-gtk3
-	source = https://download.sugarlabs.org/sources/honey/Clock/Clock-22.1.tar.bz2
-	sha256sums = 33d3a2d525afe1ad7874474feb43436410c7720f2385bfae2f72a70c6151907d
+	source = git+https://github.com/sugarlabs/clock-activity.git#tag=v22.1
+	b2sums = f602497933adbdea777696b9e7ebcec3762f7a913ed17815e8163207e10bddac0acf18ff321f42c87e2db234447de47e0b28fcf9da6ba1e3f4620db4e6b44de8
 
 pkgname = sugar-activity-clock
