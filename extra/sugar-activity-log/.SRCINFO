@@ -1,13 +1,19 @@
 pkgbase = sugar-activity-log
 	pkgdesc = Sugar activity to view system log files
 	pkgver = 42
-	pkgrel = 4
-	url = https://wiki.sugarlabs.org/go/Activities/Log
+	pkgrel = 5
+	url = https://github.com/sugarlabs/log-activity
 	arch = any
 	groups = sugar-fructose
-	license = GPL
+	license = GPL-2.0-or-later
+	makedepends = git
+	depends = glib2
+	depends = gtk3
+	depends = pango
+	depends = python
+	depends = python-gobject
 	depends = sugar-toolkit-gtk3
-	source = https://download.sugarlabs.org/sources/sucrose/fructose/Log/Log-42.tar.bz2
-	sha256sums = f71075cf9d2f615c72a073416ca32026cc91671cdc4541444a7750ab52ed3c78
+	source = git+https://github.com/sugarlabs/log-activity.git#tag=v42
+	b2sums = d8ef1d6c0010b00d96c4f0110edce05ad98c2d077173a44bf342984c384adf0524038e1032261b202d4085427bea38b352caa640f4432da031f7b01a40c1860c
 
 pkgname = sugar-activity-log
