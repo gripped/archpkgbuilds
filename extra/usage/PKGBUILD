@@ -1,7 +1,7 @@
 # Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
 pkgname='usage'
-pkgver=2.2.2
+pkgver=2.3.2
 pkgrel=1
 pkgdesc='A specification for CLIs'
 arch=('x86_64')
@@ -14,8 +14,8 @@ options=(
   '!emptydirs'
 )
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('e7dd8fa3b25241145c72c77b38fa620bafe365c535e47da22cb26e132b2600f1ec8fead0104efdb1594f47e955ee7fcbbd1039dda5d141ad74459341978702ac')
-b2sums=('78e941f82927d01bbffc329822d71e27e0aa8340430aba2410dd58390c928e0f214f1a3d84f676209e41ec5356ed328ffb4366a62610bd2a4e47cc8fde99c381')
+sha512sums=('5947d09403929e707c5f1e5806cd8e61775af85d6c1e488b5b0f4a57ab982c2f2c1cf57e2d78fee832f2d75709ff78e3fc02aa97258766460d78548f6c6cd852')
+b2sums=('3e8471a38ac8b85150be2e1555a8b764b9f50df0c6eeada527e4b71ac1882a9b0bafd33894948a604b1aaf7467afb59c493f7451b73d6c36afa2c4a117b45238')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
