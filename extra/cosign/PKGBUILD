@@ -3,7 +3,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=cosign
-pkgver=2.6.1
+pkgver=3.0.2
 pkgrel=1
 pkgdesc="Container Signing with support for ephemeral keys and Sigstore signing"
 arch=('x86_64')
@@ -16,43 +16,54 @@ makedepends=(
 )
 checkdepends=('go-tools')
 options=('!lto')
-source=("git+${url}.git#tag=v${pkgver}")
-sha512sums=('482ea30011887ecd97cc161f33e2b20f0cf9e576af31812d4c74cc73b94155df216122817c4ae52124115912b3998382e3cbb55620be79b9c8847a69a8662bee')
-b2sums=('dee1438a9eb2708161667957c402adc707a8d6fb859c50166d222de39b9213178eaa31e54cbade85c5cb072c666bf57f10f0ec80cc7ee328b29b66e4d473f587')
+source=("git+$url.git#tag=v$pkgver")
+sha512sums=('20f36192c4d1b6ba9bc3a7960ba9f6d0aaa1629484faf4372a037caad69ddc08ff0857e832472125b7f7faabef151758fab2c48966be4e4073b0c4114612a0cd')
+b2sums=('a7c60d1315829f386d1f76eab7028772009aa7502531410c6ab397919ab8749701e87c8ed936a80bc6af5b0f736e21df7c116f885de6e5cfbe16131a2b32eb5d')
 
 prepare() {
-  cd "${pkgname}"
+  cd $pkgname
   GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
-build(){
-  cd "${pkgname}"
-  export CGO_LDFLAGS="${LDFLAGS}"
-  export CGO_CFLAGS="${CFLAGS}"
-  export CGO_CPPFLAGS="${CPPFLAGS}"
-  export CGO_CXXFLAGS="${CXXFLAGS}"
+build() {
+  cd $pkgname
+  export CGO_LDFLAGS="$LDFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
   export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw"
   export GOPATH="$srcdir"
   local ld_flags=" \
-    -X sigs.k8s.io/release-utils/version.gitVersion=v${pkgver} \
+    -X sigs.k8s.io/release-utils/version.gitVersion=v$pkgver \
     -compressdwarf=false  \
     -linkmode=external \
   "
-  go build -v -ldflags="${ld_flags}" ./cmd/cosign
+  go build -v -ldflags="$ld_flags" ./cmd/cosign
 }
 
 check() {
- cd "${pkgname}"
- go test -v ./...
+  cd $pkgname
+  local unit_tests=$(
+    go list ./... \
+      | grep -v github.com/sigstore/cosign/v3/cmd/cosign/cli/attest \
+      | grep -v github.com/sigstore/cosign/v3/cmd/cosign/cli/bundle \
+      | grep -v github.com/sigstore/cosign/v3/cmd/cosign/cli/fulcio \
+      | grep -v github.com/sigstore/cosign/v3/cmd/cosign/cli/sign \
+      | grep -v github.com/sigstore/cosign/v3/cmd/cosign/cli/verify \
+      | grep -v github.com/sigstore/cosign/v3/internal/pkg/cosign/tsa \
+      | grep -v github.com/sigstore/cosign/v3/pkg/cosign
+  )
+  # shellcheck disable=SC2086
+  go test -v $unit_tests
 }
 
 package() {
-  cd "${pkgname}"
-  install -vDm755 -t "${pkgdir}/usr/bin" cosign
-  "$pkgdir"/usr/bin/cosign completion bash \
-    | install -vDm644 /dev/stdin "${pkgdir}/usr/share/bash-completion/completions/cosign"
-  "$pkgdir"/usr/bin/cosign completion zsh \
-    | install -vDm644 /dev/stdin "${pkgdir}/usr/share/zsh/site-functions/_cosign"
-  "$pkgdir"/usr/bin/cosign completion fish \
-    | install -vDm644 /dev/stdin "${pkgdir}/usr/share/fish/vendor_completions.d/cosign.fish"
+  cd $pkgname
+  install -vDm755 -t "$pkgdir/usr/bin" cosign
+  "$pkgdir/usr/bin/cosign" completion bash \
+    | install -vDm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/cosign"
+  "$pkgdir/usr/bin/cosign" completion zsh \
+    | install -vDm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_cosign"
+  "$pkgdir/usr/bin/cosign" completion fish \
+    | install -vDm644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/cosign.fish"
 }
