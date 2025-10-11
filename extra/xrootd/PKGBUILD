@@ -4,7 +4,7 @@
 # Contributor: Alex Pearce < alex at alexpearce dot me >
 
 pkgname=xrootd
-pkgver=5.8.4
+pkgver=5.9.0
 pkgrel=1
 pkgdesc="Software framework for fast, low latency, scalable and fault tolerant data access."
 arch=(x86_64)
@@ -44,7 +44,7 @@ checkdepends=(
   procps-ng  # some tests use ps
 )
 source=("$pkgname::git+https://github.com/$pkgname/$pkgname.git#tag=v$pkgver")
-b2sums=('4271feeef9a0276eabe708a4ac4fa06442042a00d0d45918a5de4a53bc8ff5083a5c9222fd8b18c52a3214af87a4d7952ad91de5471a20646d1ae0d6de438100')
+b2sums=('a4be53ed72bb2933b9eadbdf6defe744ee4038ef2bd4b9c859b7778b60176317bc4d1815eb574d32e32972e781a0aa6e2ee95b883ab1621e41587c19db7203d1')
 
 build() {
   local cmake_options=(
