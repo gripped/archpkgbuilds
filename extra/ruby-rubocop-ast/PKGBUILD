@@ -3,7 +3,7 @@
 
 _gemname='rubocop-ast'
 pkgname="ruby-${_gemname}"
-pkgver=1.39.0
+pkgver=1.47.1
 pkgrel=1
 pkgdesc="RuboCop's AST extensions and NodePattern functionality"
 arch=('any')
@@ -24,8 +24,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('e4321c230f72ddbbdd7a637214ff32adecfdc9ef753434d077c5c7ba403a74c2a766cacdcc86f95e500980e71ddb7c2dbc25ba06dc6abfd3328b73fb3bb0d22b')
-b2sums=('d057eaf0fe4a133e366596058ff876c6145f5f3cece142f77dd1b14b3dd0cbc8f3fe49dcbac877ebd1a0a71c6066cb86017fb0f69152976b2b1f5ac59bb8a578')
+sha512sums=('04227d1a23e5775664977927cb8cf63283e362f667a117263dc960e0dc7cb9ac0f151d54b774b3ac3cf20657e7e73e4e5f149ca04472ad77b8b400d7a39204e7')
+b2sums=('1bf5700a40af14b990becb620f9b3ebf4bc33d63dc8704bc44628dcdfed08098067fbea5ee8eda08f038a41927f2b625fc0ba0e0f389445bff9f3d5f6b79dc5d')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
