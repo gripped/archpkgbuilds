@@ -2,31 +2,42 @@
 # Maintainer: Aaron Ali <t0nedef@causal.ca>
 
 pkgname=klayout
-pkgver=0.29.9
+pkgver=0.30.4
 pkgrel=3
 pkgdesc="High Performance Layout Viewer And Editor. Support of GDS and OASIS files."
 arch=('x86_64')
 url="https://www.klayout.de"
-license=('GPL')
-depends=('libgit2' 'qt5-base' 'qt5-tools' 'qt5-multimedia' 'qt5-xmlpatterns' 'qt5-svg' 'python'
-         'ruby')
-source=(http://www.klayout.org/downloads/source/klayout-$pkgver.tar.bz2
-        klayoutEditor.desktop klayoutViewer.desktop)
-sha512sums=('82678c61ee4f1cdb341758f5bd1abd6996b41136d9d39afce26ed81766063cfdd3578b48553f521fcccd9acbe790e979b797d86aaaa56e2e46c21f0f1a2a1331'
+license=('GPL-3.0-or-later')
+depends=('libgit2' 'qt6-base' 'qt6-tools' 'qt6-multimedia' 'qt6-svg' 'qt6-5compat' 'python' 'ruby')
+source=("${url}/downloads/source/${pkgname}-${pkgver}.tar.bz2"
+        "klayoutEditor.desktop" "klayoutViewer.desktop")
+sha512sums=('81f7339b1fe150e8d0a19dc3df8666682ffe1a40ce054f02d541be3add1ec0c85d414ef371a129c2de85ad44bd77f37644ecadbf35ed2013116f084831ab8914'
             'bc6c7621e5cda754509a86664fb3e7ecd15f577dec712f4b0c52c9a7455ba692043a67145f5bf143d8fdc502b84e4212303906d62107537eefb4bebe57b2ffe1'
             '37a3bbb06ab155c1c22e3990cf160383570e8ea945dbf4964bc94b6fd4e6321627d31071a29d3dbeafc9e2fc406b6905761e299bfccdfe0a35663f2021624f4f')
 
 build() {
   cd klayout-$pkgver
-  ./build.sh
+  ./build.sh \
+    -rpath "/usr/lib/klayout" \
+    -qmake qmake6
 }
 
 package() {
   install -D -m 644 klayoutEditor.desktop "$pkgdir"/usr/share/applications/klayoutEditor.desktop
   install -D -m 644 klayoutViewer.desktop "$pkgdir"/usr/share/applications/klayoutViewer.desktop
   cd klayout-$pkgver
-  install -D -m 644 etc/logo.png "$pkgdir"/usr/share/icons/hicolor/32x32/apps/klayout.png
+  install -D -m 644 etc/logo.png "$pkgdir"/usr/share/icons/hicolor/256x256/apps/klayout.png
   install -D -m 755 bin-release/{klayout,strm*} -t "$pkgdir"/usr/bin/
-  cp -ar bin-release "$pkgdir"/usr/lib/
-  rm "$pkgdir"/usr/lib/{klayout,strm*}
+  install -d "$pkgdir"/usr/lib/"$pkgname"/
+  cp -a bin-release/* "$pkgdir"/usr/lib/"$pkgname"/
+
+  # Remove ELF executables and Python modules in /usr/lib/klayout
+  rm -r "$pkgdir"/usr/lib/"$pkgname"/{klayout,strm*,pymod}
+
+  local site="$(python -c 'import site; print(site.getsitepackages()[0])')"
+  install -d "$pkgdir/$site"
+
+  # pya is included for compatibility reasons, but will be deprecated in the future
+  # See upstream: https://github.com/KLayout/klayout/issues/2072
+  cp -a bin-release/pymod/{klayout,pya} "$pkgdir/$site/"
 }
