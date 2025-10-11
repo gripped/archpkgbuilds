@@ -3,7 +3,7 @@
 pkgname=cudss
 pkgver=0.7.0.20
 _cudaver=13
-pkgrel=2
+pkgrel=3
 pkgdesc="A high-performance CUDA library for Direct Sparse Solvers"
 arch=(x86_64)
 url="https://docs.nvidia.com/cuda/cudss/"
@@ -29,6 +29,7 @@ package() {
 
   # remove static libs
   rm "$pkgdir"/usr/lib/*.a
+  rm "$pkgdir"/usr/lib/cmake/cudss/cudss-static-targets*.cmake
 
   install -vdm 755 "$pkgdir"/usr/share/doc/$pkgname/
   cp -r examples src "$pkgdir"/usr/share/doc/$pkgname/
