@@ -1,11 +1,12 @@
 pkgbase = python-pytest-run-parallel
 	pkgdesc = A simple pytest plugin to run tests concurrently
 	pkgver = 0.7.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/Quansight-Labs/pytest-run-parallel
 	arch = any
 	license = MIT
-	checkdepends = python-tox
+	checkdepends = python-hypothesis
+	checkdepends = python-pytest-order
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
@@ -14,6 +15,7 @@ pkgbase = python-pytest-run-parallel
 	makedepends = python-wheel
 	depends = python
 	depends = python-pytest
+	optdepends = python-psutil: for identifying the number of available cores
 	source = git+https://github.com/Quansight-Labs/pytest-run-parallel.git#tag=v0.7.0
 	sha512sums = 6ea933410d9b8cb288ff2d96d09c35cd6e37473ba54acf4eb49d89b5d2d8d7725c05365afe68b2b98e63a7bdb4f1b699602961163ffd30392711a4bb5d512989
 	b2sums = 7ab0d214df5f052fb676946fe609ffca9eb89c7d5d85c18eae7eaa1e05903f1f7bbaf0174f983db9b6be0c9b2bfaebc9feb3d35ef8ccaede6b24bb8e8954447c

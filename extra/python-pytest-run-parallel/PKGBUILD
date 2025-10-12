@@ -3,7 +3,7 @@
 _name=pytest-run-parallel
 pkgname=python-pytest-run-parallel
 pkgver=0.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple pytest plugin to run tests concurrently"
 arch=(any)
 url="https://github.com/Quansight-Labs/pytest-run-parallel"
@@ -20,8 +20,12 @@ makedepends=(
     python-setuptools-scm
     python-wheel
 )
+optdepends=(
+    'python-psutil: for identifying the number of available cores'
+)
 checkdepends=(
-    python-tox
+    python-hypothesis
+    python-pytest-order
 )
 source=("git+https://github.com/Quansight-Labs/pytest-run-parallel.git#tag=v${pkgver}")
 sha512sums=('6ea933410d9b8cb288ff2d96d09c35cd6e37473ba54acf4eb49d89b5d2d8d7725c05365afe68b2b98e63a7bdb4f1b699602961163ffd30392711a4bb5d512989')
@@ -32,14 +36,10 @@ build() {
     python -m build --wheel --no-isolation
 }
 
-# check() {
-#     local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-#
-#     cd $_name
-#     python -m installer --destdir="tmp_install" dist/*.whl
-#     export PYTHONPATH="$PWD/tmp_install/$_site_packages/:$PYTHONPATH:$PWD/tests"
-#     tox run --skip-pkg-install
-# }
+check() {
+    cd $_name
+    PYTHONPATH="$PWD/src:$PYTHONPATH" pytest -vv
+}
 
 package() {
     cd $_name
