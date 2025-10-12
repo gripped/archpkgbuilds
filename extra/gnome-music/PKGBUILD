@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-music
-pkgver=49.0.2
+pkgver=49.1
 pkgrel=1
 epoch=1
 pkgdesc="Music player and management application"
@@ -24,7 +24,6 @@ depends=(
   gtk4
   hicolor-icon-theme
   libadwaita
-  libgirepository
   libmediaart
   libsoup3
   localsearch
@@ -49,7 +48,7 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-music.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('a67d2161201190e1e74d34ad22dd21c86f7edc100b27aa618385e0fad9c009bab4f1972742bef41d254d5f5f69a3af0a2e3e8092b98d12e45e8a9ba97829b46a')
+b2sums=('d3e7a6d5dc4b8b0549bacbb9ecb63df64d1f8c077c3190756a071e2229420dc671646013bf90e4d4c3a26978f9d2a5861e26ef3fc384c6e77029b1c5684c239d')
 
 prepare() {
   cd $pkgname
