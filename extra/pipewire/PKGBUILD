@@ -23,8 +23,8 @@ pkgname=(
   pipewire-session-manager
   pulse-native-provider
 )
-pkgver=1.4.8
-pkgrel=2
+pkgver=1.4.9
+pkgrel=1
 epoch=1
 pkgdesc="Low-latency audio/video router and processor"
 url="https://pipewire.org"
@@ -77,18 +77,10 @@ checkdepends=(
 source=(
   "git+https://gitlab.freedesktop.org/pipewire/pipewire.git#tag=$pkgver"
 )
-b2sums=('cf0125e7c4a7abbd760a8e389b61716107f11ef1cdb077eddbca1dc2b327bfe6d4476005e4fcf8b11312120bed0da0f1b9f2a23d568a56df515cbfb34c96e12f')
+b2sums=('44e7ed98e7a4c383e96c5c7a58265e568a1191edb87a9ff472a671d235a7872ea320fbefa1fce31a787d18465e26955b2122af7a77566f7bc5e17a9665239f8f')
 
 prepare() {
   cd pipewire
-
-  # Fix xruns
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/pipewire/-/issues/21
-  git cherry-pick -n 3e574b314a7d73801fe3aac012cf6671bb1f5575 \
-                     24ab601201223e05950bb8133be5d77526de1997
-
-  # Fix libcamera
-  git cherry-pick -n 8f35e18d18b18b8db959793fe73fc594e5da8cd5
 }
 
 build() {
