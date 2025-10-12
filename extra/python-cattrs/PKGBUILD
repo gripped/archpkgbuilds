@@ -1,13 +1,14 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-cattrs
 _pipname=${pkgname#python-}
-pkgver=25.2.0
+pkgver=25.3.0
 pkgrel=1
 pkgdesc='Complex custom class converters for attrs'
 arch=(any)
 url='https://catt.rs'
-# url='https://github.com/python-attrs/cattrs'
+_url='https://github.com/python-attrs/cattrs'
 license=(MIT)
 depends=(python
          python-attrs
@@ -15,32 +16,37 @@ depends=(python
 makedepends=(python-{build,installer,wheel}
              python-hatch-vcs
              python-hatchling)
-# checkdepends=(python-hypothesis
-#               python-pytest)
+checkdepends=(python-hypothesis
+              python-pytest
+              python-pytest-benchmark
+              python-yaml)
+optdepends=('python-yaml: YAML converter')
 _archive="$_pipname-$pkgver"
-source=("https://files.pythonhosted.org/packages/source/${_pipname::1}/$_pipname/$_archive.tar.gz")
-# source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('f46c918e955db0177be6aa559068390f71988e877c603ae2e56c71827165cc06')
-
-prepare() {
-	cd "$_archive"
-	# Upstream test suite uses addopts to run benchmarks, drop them
-	sed -i -e '/^addopts/d' pyproject.toml
-}
+source=("$_url/archive/v$pkgver/$_archive.tar.gz")
+sha256sums=('cc1e508bde0436a8992a4d787263d483308498f48f2c6a0f2a6e92f08853595d')
 
 build() {
-	cd "$_archive"
-	python -m build -wn
+  cd "$_archive"
+  export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
+  python -m build --wheel --no-isolation
 }
 
-# check() {
-#         cd "$_archive"
-#         export PYTHONPATH=src
-#         pytest
-# }
+check() {
+  cd "$_archive"
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  # Deselected tests depend on currently unpackaged python-immutables,
+  # python-bson, python-msgspec.
+  test-env/bin/python -m pytest --override-ini="addopts=" \
+    --ignore=tests/preconf/test_msgspec_cpython.py \
+    --ignore=tests/preconf/test_pyyaml.py \
+    --ignore=tests/test_cols.py \
+    --ignore=tests/test_preconf.py \
+    --ignore=tests/test_unstructure_collections.py
+}
 
 package() {
-	cd "$_archive"
-	python -m installer -d "$pkgdir" dist/*.whl
-	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+  cd "$_archive"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }
