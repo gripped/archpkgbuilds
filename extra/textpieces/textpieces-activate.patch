@@ -1,4 +1,4 @@
-From e5749da080a777a815bebf01864d69802837560d Mon Sep 17 00:00:00 2001
+From 845924cfb55e1bc1ffdfe01c52ed5811e3004961 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Wed, 2 Apr 2025 12:15:34 +0200
 Subject: [PATCH] feat: add "new-window" command-line option
@@ -8,21 +8,21 @@ launched: when the "new-window" command-line option is requested, a new
 window will be opened, otherwise raise the existing window.
 ---
  ...gitlab.liferooter.TextPieces.desktop.in.in |  2 +-
- src/application.rs                            | 45 ++++++++++++++++---
- 2 files changed, 41 insertions(+), 6 deletions(-)
+ src/application.rs                            | 48 +++++++++++++++++--
+ 2 files changed, 44 insertions(+), 6 deletions(-)
 
 diff --git a/data/io.gitlab.liferooter.TextPieces.desktop.in.in b/data/io.gitlab.liferooter.TextPieces.desktop.in.in
-index fa4299d..a4e065d 100644
+index 17a43dc..a3e802c 100644
 --- a/data/io.gitlab.liferooter.TextPieces.desktop.in.in
 +++ b/data/io.gitlab.liferooter.TextPieces.desktop.in.in
-@@ -22,4 +22,4 @@ MimeType=text/plain;
+@@ -23,4 +23,4 @@ MimeType=text/plain;
  
  [Desktop Action new-window]
  Name=New Window
 -Exec=textpieces
 +Exec=textpieces --new-window
 diff --git a/src/application.rs b/src/application.rs
-index e24037a..1e4bf02 100644
+index 11825a3..7e06e8d 100644
 --- a/src/application.rs
 +++ b/src/application.rs
 @@ -4,8 +4,9 @@
@@ -36,7 +36,7 @@ index e24037a..1e4bf02 100644
  
  use std::{
      iter::{self, repeat},
-@@ -100,9 +101,39 @@ mod imp {
+@@ -98,9 +99,42 @@ mod imp {
          type ParentType = adw::Application;
      }
  
@@ -57,7 +57,10 @@ index e24037a..1e4bf02 100644
 +    }
  
      impl ApplicationImpl for Application {
-+        fn handle_local_options(&self, options: &glib::VariantDict) -> glib::ExitCode {
++        fn handle_local_options(
++            &self,
++            options: &glib::VariantDict,
++        ) -> std::ops::ControlFlow<glib::ExitCode> {
 +            let app = self.obj();
 +
 +            if options.contains("new-window") {
@@ -67,7 +70,7 @@ index e24037a..1e4bf02 100644
 +
 +                if app.is_remote() {
 +                    app.activate_action("new-window", None);
-+                    return glib::ExitCode::SUCCESS;
++                    return std::ops::ControlFlow::Break(glib::ExitCode::SUCCESS);
 +                }
 +            }
 +
@@ -77,7 +80,7 @@ index e24037a..1e4bf02 100644
          /// Activation method.
          ///
          /// Called every time when
-@@ -110,9 +141,13 @@ mod imp {
+@@ -108,9 +142,13 @@ mod imp {
          fn activate(&self) {
              self.parent_activate();
  
