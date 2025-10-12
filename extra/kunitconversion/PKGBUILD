@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kunitconversion
-pkgver=6.18.0
-pkgrel=2
+pkgver=6.19.0
+pkgrel=1
 pkgdesc='Support for unit conversion'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -22,7 +22,7 @@ makedepends=(doxygen
 optdepends=('pyside6: Python bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('23a4a5d994666f9db2a5a3c251038f2ef1d978411950925702fb79060ced31c8'
+sha256sums=('d4f0e39e27596c6550f3fc72fb67b0d4966acfd7d702a011a0fca420b6f9b393'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D  # Jonathan Esk-Riddell <jr@jriddell.org>
