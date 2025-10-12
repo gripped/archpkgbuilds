@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=threadweaver
-pkgver=6.18.0
+pkgver=6.19.0
 pkgrel=1
 pkgdesc='High-level multithreading framework'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('a6e7f4c90b9b9304ef67a0fffadd77655757c65f7bee00c35b38aefc869e3278'
+sha256sums=('d8d4d0b6e62b067a8ce4fed7aefeed02ed43a43f97f085db3baedf9210070da1'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
