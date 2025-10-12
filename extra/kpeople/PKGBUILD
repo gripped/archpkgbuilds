@@ -2,7 +2,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kpeople
-pkgver=6.18.0
+pkgver=6.19.0
 pkgrel=1
 pkgdesc='A library that provides access to all contacts and the people who hold them'
 arch=(x86_64)
@@ -23,7 +23,7 @@ makedepends=(doxygen
 optdepends=('qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('09ba29efeb612eef4e54814f1f91e2d07c8942e6cf2c23176d9f306d68544d2b'
+sha256sums=('540fc643997c4a1c4d07e6c3c5bb2bc5e11f5ad6102e0957f943422aa922f731'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
