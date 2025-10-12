@@ -2,7 +2,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=('loki' 'loki-canary' 'promtail' 'logcli')
-pkgver=3.5.5
+pkgver=3.5.6
 pkgrel=1
 pkgdesc='like Prometheus, but for logs'
 url='https://github.com/grafana/loki'
@@ -14,7 +14,7 @@ options=('!lto')
 source=($pkgname-$pkgver.tar.gz::https://github.com/grafana/loki/archive/v$pkgver.tar.gz
         promtail.sysusers promtail.service promtail.tmpfiles
         loki.sysusers loki.service loki.tmpfiles)
-sha512sums=('27b5a8e650ffbac41548aab1986b031f8d9f04b673758c9b0f1c0b738fe1bd556bca706599fb4bea203eb83d59daa6f630c8978dfaff33c014fdad2bc86d5f74'
+sha512sums=('ecb7baf48607182dd2463435ee5951e03d8e53417b934c6ef9f12a1cbd4ea461ad90a2e037876bf22c45ba7970d77df1a6c7e18fd51ac3debdd83212a213e9c6'
             'a986c129971cdc0ab95278ff3c5fd5ffaab29d51e03350ffe34d9c784c2a447b296a47f048a2817b4fadaa505c39d85ac4e160d064078badb6d777cf578a324a'
             '18011b135c7817f2542f7a93b607ee46e5d61625921c7dc6e46e1b29e31c67147653b215d8677fde21cdce3b577c479cebd2d85f47e4b8cbe4c30f8be5f910cd'
             '598042c40673a7914c5a1eeccfb78f832379a61f4360212c5d86f667343cf2fc78e98d9025f9717ea64f3e16e0a28f08cd7709706d811656722019f6167dd788'
