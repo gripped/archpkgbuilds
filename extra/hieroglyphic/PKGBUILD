@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=hieroglyphic
-pkgver=2.1.0
-pkgrel=3
+pkgver=2.2.0
+pkgrel=1
 pkgdesc='Search through over 1000 different LaTeX symbols by sketching'
 arch=(x86_64)
 url='https://apps.gnome.org/Hieroglyphic/'
@@ -26,16 +26,13 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://github.com/FineFindus/Hieroglyphic.git#tag=v$pkgver")
-b2sums=(d30a3b29c65531a9a0480de484418df28225000e38db300c924c581142974a596aaa693993ab3fad0ad3577e8596c62ef3319e170c2862bd680f8dc9eae652db)
+b2sums=(9308afa07166fe033eb3eae7d16d3493adb63cf6e559d79a7ad1795542e427271b3fb48d82080345158f3827e38108125faaef74347c26c3cb8cb15311f28af0)
 
 prepare() {
   cd Hieroglyphic
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-
-  # https://github.com/FineFindus/Hieroglyphic/pull/41
-  git cherry-pick -n 2127fb95f24c8eb874f992c8b0cf4ae0dc5f55a4
 }
 
 build() {
