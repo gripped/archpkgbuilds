@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-characters
-pkgver=49.0
+pkgver=49.1
 pkgrel=1
 pkgdesc="A character map application"
 url="https://apps.gnome.org/Characters/"
@@ -31,7 +31,7 @@ makedepends=(
 checkdepends=(weston)
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-characters.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('7ffa0db593db329c382f05389fa59ac4b0cfd7964fa1703be49e7a4d245d60aeffe592311cc16dccffa8995ce677a66624448d553bfbc72d1cefa7aee05bdc21')
+b2sums=('5e3ca9748d7edfcfb50a73f9b68724af4dc63264db2a1a5a7e370129f325eb55a00d359b843ae423cd92722d3b76d950d0b68828b94900ca90b1043c2b1caef7')
 
 prepare() {
   cd $pkgname
