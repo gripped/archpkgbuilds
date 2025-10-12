@@ -1,29 +1,85 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 # Contributor: Bruce Zhang
 
-pkgname=vkd3d
+pkgbase=vkd3d
+pkgname=(
+  vkd3d
+  vkd3d-docs
+)
 pkgver=1.17
-pkgrel=1
-pkgdesc='Direct3D 12 to Vulkan translation library By WineHQ'
-arch=('x86_64')
-url='https://wiki.winehq.org/Vkd3d'
-license=('LGPL')
-depends=('spirv-tools' 'vulkan-icd-loader' 'perl-json')
-makedepends=('spirv-headers' 'vulkan-headers' 'xcb-util-keysyms' 'xorgproto')
-source=("https://dl.winehq.org/vkd3d/source/vkd3d-$pkgver.tar.xz")
-sha512sums=('580b8bf0985a92ee40e25b777ad5439ef98bb6da952f51bc76de060e9117b50062807bc65f9252039eb6e18dd6162a7c92c5e2e29afc0dbf2494052fcc9364ea')
+pkgrel=2
+pkgdesc="Direct3D 12 to Vulkan translation library By WineHQ"
+url="https://wiki.winehq.org/Vkd3d"
+arch=(x86_64)
+license=(LGPL-2.1-or-later)
+depends=(
+  glibc
+  ncurses
+  spirv-tools
+)
+makedepends=(
+  doxygen
+  git
+  graphviz
+  mesa
+  perl
+  perl-json
+  spirv-headers
+  vulkan-headers
+  vulkan-icd-loader
+  wine
+  xcb-util-keysyms
+  xorgproto
+)
+source=(
+  "git+https://gitlab.winehq.org/wine/vkd3d.git#tag=vkd3d-$pkgver"
+)
+b2sums=('7048523f3b0e0f29c9fcafeab433482bdaf89f364c96bc94f561160ef49ff0e5c6dd4e09cb5106cd926ce533078c4184788990c457b67687a416d98c978f913d')
+validpgpkeys=(
+  # Can't find the key
+  # 277EB71D1BEBFC86E0E14983C380B588AA8A1D1C # Henri Verbeet <hverbeet@locutus.nl>
+)
 
 prepare() {
-  cd vkd3d-$pkgver
-  ./configure --prefix=/usr --with-spirv-tools
+  cd vkd3d
+  ./autogen.sh
 }
 
 build() {
-  cd vkd3d-$pkgver
+  local configure_options=(
+    --prefix=/usr
+    --disable-doxygen-pdf
+    --enable-doxygen-doc
+    --enable-doxygen-dot
+    --enable-doxygen-html
+    --enable-tests
+    --with-spirv-tools
+  )
+
+  cd vkd3d
+  ./configure "${configure_options[@]}"
   make
 }
 
-package() {
-  cd vkd3d-$pkgver
+check() {
+  cd vkd3d
+  make check
+}
+
+package_vkd3d() {
+  provides=(libvkd3d{,-shader,-utils}.so)
+
+  cd vkd3d
   make DESTDIR="$pkgdir" install
 }
+
+package_vkd3d-docs() {
+  pkgdesc+=" - API documentation"
+  depends=()
+
+  cd vkd3d
+  mkdir -p "$pkgdir/usr/share/doc"
+  cp -aT doc/html "$pkgdir/usr/share/doc/$pkgbase"
+}
+
+# vim:set sw=2 sts=-1 et:
