@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kded
-pkgver=6.18.0
+pkgver=6.19.0
 pkgrel=1
 pkgdesc='Extensible deamon for providing system level services'
 arch=(x86_64)
@@ -21,7 +21,7 @@ makedepends=(extra-cmake-modules
              kdoctools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('c90e3ee6bf991f320ac428b2c126afbfe1130a74eee6724058105883072e5882'
+sha256sums=('9c5a04227bf63f36c878b7e6925476c8c805acbdb543b8a6c14c35de46a0bc02'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
