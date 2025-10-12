@@ -5,7 +5,7 @@
 # Contributor: Alim Gokkaya <alimgokkaya at gmail dot com>
 
 pkgname=librdkafka
-pkgver=2.11.1
+pkgver=2.12.0
 pkgrel=1
 pkgdesc='The Apache Kafka C/C++ library'
 arch=(x86_64)
@@ -34,7 +34,7 @@ makedepends=(
 )
 provides=(librdkafka.so)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('a2c87186b081e2705bb7d5338d5a01bc88d43273619b372ccb7bb0d264d0ca9f')
+sha256sums=('1355d81091d13643aed140ba0fe62437c02d9434b44e90975aaefab84c2bf237')
 
 build() {
   cd $pkgname-$pkgver
