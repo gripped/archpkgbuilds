@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kidletime
-pkgver=6.18.0
-pkgrel=2
+pkgver=6.19.0
+pkgrel=1
 pkgdesc='Monitoring user activity'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -25,7 +25,7 @@ optdepends=('libx11: XCB plugin'
             'wayland: Wayland plugin')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('44afc88543b23c519eb5f55e7c5120ccd6d4eb2eaaa5bee24e3fb5e4a695dab7'
+sha256sums=('df82c386fef8dc98ea5976ffef1da11539c1914d21b773ce62f4533b5ad16f65'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
