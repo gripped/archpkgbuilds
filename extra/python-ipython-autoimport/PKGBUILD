@@ -2,17 +2,21 @@
 
 _pkgname=ipython-autoimport
 pkgname=python-$_pkgname
-pkgver=0.5
-pkgrel=2
+pkgver=0.5.1
+pkgrel=1
 pkgdesc='Automagically import missing modules in IPython'
 arch=('any')
 url='https://github.com/anntzer/ipython-autoimport'
 license=('MIT')
-depends=('python' 'ipython')
+depends=(
+  'python'
+  'python-pygments'  # pulled in via ipython
+  'ipython'
+)
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm' 'python-wheel')
-checkdepends=('python-pytest' 'python-jinja' 'python-tox')
+checkdepends=('python-pytest' 'python-jinja')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('246059c150124a937df2a843df68889505a19a6cccc4ba66ddb75756d140acf26d3c78949ba90dd3b99164fa0977fb923d76b7821600b62b7f80b43faf4b6951')
+sha512sums=('2237eb09baf4b80c0b025919034277b95bfb826973d142452b1d48530168eda09bff4e99a8da5825f8b96839f1fcbf287e4d4264b9cc88ee1305efb72e8762f6')
 
 build() {
   cd $_pkgname-$pkgver
@@ -23,7 +27,7 @@ build() {
 check() {
   cd $_pkgname-$pkgver
 
-  PYTHONPATH=src python -m pytest
+  PYTHONPATH=src pytest -vv
 }
 
 package() {
