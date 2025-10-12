@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kwindowsystem
-pkgver=6.18.0
-pkgrel=2
+pkgver=6.19.0
+pkgrel=1
 pkgdesc='Access to the windowing system'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -26,7 +26,7 @@ makedepends=(doxygen
 optdepends=('qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('a0a046039a11baebacd96d836e5765b981426f60d2cea9ff9a99ba8dbe56178e'
+sha256sums=('7ef870cc6c37fc98e4655c267cda069b28259640524d1088d4434350827e59da'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
