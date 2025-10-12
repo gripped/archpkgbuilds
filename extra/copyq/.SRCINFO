@@ -1,19 +1,20 @@
 pkgbase = copyq
 	pkgdesc = Clipboard manager with searchable and editable history
 	pkgver = 12.0.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/hluk/copyq
 	arch = x86_64
-	license = GPL3
+	license = GPL-3.0-or-later
 	makedepends = extra-cmake-modules
 	makedepends = qt6-tools
 	depends = hicolor-icon-theme
 	depends = qt6-svg
 	depends = knotifications
 	depends = kstatusnotifieritem
+	depends = libxtst
 	source = copyq-12.0.1.tar.gz::https://github.com/hluk/copyq/archive/v12.0.1.tar.gz
-	source = qt-6.10.patch
+	source = https://github.com/hluk/CopyQ/pull/3243.patch
 	sha256sums = 452cd2acbe9d70e0b93bef413620dfece363f0595b19788d71035c8455d6097f
-	sha256sums = 617e529836cff72bdc5bd927ffd9c45cd84b6291c67e19b56936f321f1ee03b8
+	sha256sums = 5a1b9faecdd14cd30ddf8122a610ff6ae2f39586234343b1b4e3f7952850672d
 
 pkgname = copyq
