@@ -3,7 +3,7 @@
 
 pkgname=telepathy-salut
 pkgver=0.8.1
-pkgrel=12
+pkgrel=13
 pkgdesc='Link-local XMPP connection manager for Telepathy'
 arch=(x86_64)
 url='https://telepathy.freedesktop.org/'
@@ -66,6 +66,7 @@ build() {
     --sysconfdir=/etc \
     --localstatedir=/var \
     --libexecdir=/usr/lib/telepathy \
+    --enable-olpc \
     --disable-avahi-tests
   make
 }
