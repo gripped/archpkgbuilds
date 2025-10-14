@@ -2,7 +2,7 @@
 # Contributor: Luis Aleman Vazquez <luisv@tuta.io>
 
 pkgname=cliphist
-pkgver=0.6.1
+pkgver=0.7.0
 pkgrel=1
 epoch=1
 pkgdesc='wayland clipboard manager'
@@ -15,7 +15,7 @@ makedepends=(go)
 optdepends=('xdg-utils: image and mime inferance')
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('db0f25ba3e9173dcb257d66cb1293e277a8bdfed11cc8d6b38b7473b0947781d')
+sha256sums=('8d7dc7b4495e5812b5613274c250ba5d3900933d78888ce7921c01247f191cc8')
 
 build() {
 	cd "$_archive"
