@@ -1,0 +1,44 @@
+# Maintainer:
+
+pkgname=qwindowkit
+pkgver=1.4.0
+pkgrel=1
+pkgdesc='Cross-platform frameless window framework for Qt'
+arch=(x86_64)
+url='https://github.com/stdware/qwindowkit'
+license=(Apache-2.0)
+depends=(gcc-libs
+         glibc
+         qt6-base
+         qt6-declarative)
+makedepends=(cmake
+             git)
+source=(git+https://github.com/stdware/qwindowkit#tag=$pkgver
+        git+https://github.com/stdware/qmsetup
+        git+https://github.com/SineStriker/syscmdline)
+sha256sums=('2cb8afc019f8b89ad378d3326a94932b68d3b18a8bbc2708fa264a471c24ba10'
+            'SKIP'
+            'SKIP')
+
+prepare() {
+  cd $pkgname
+  git submodule init
+  git submodule set-url qmsetup "$srcdir"/qmsetup
+  git -c protocol.file.allow=always submodule update
+
+  cd qmsetup
+  git submodule init
+  git submodule set-url src/syscmdline "$srcdir"/syscmdline
+  git -c protocol.file.allow=always submodule update
+}
+
+build() {
+  cmake -B build -S $pkgname \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DQWINDOWKIT_BUILD_QUICK=ON
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
