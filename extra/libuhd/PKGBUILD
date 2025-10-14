@@ -9,7 +9,7 @@ pkgname=(
   libuhd-utils
   python-uhd
 )
-pkgver=4.9.0.0
+pkgver=4.9.0.1
 pkgrel=1
 pkgdesc="Universal Software Radio Peripheral (USRP) userspace driver"
 arch=(x86_64)
@@ -29,7 +29,7 @@ makedepends=(
 )
 checkdepends=(python-requests)
 source=("git+$url.git#tag=v$pkgver")
-sha256sums=('7234c1326dc07ecdeb1e32400e28d7519241b4809138e57b86e730995223cf6d')
+sha256sums=('74830b4ceffc05173cf21073bf25a8e32458a91bf083f634d349ad1593d86bf8')
 
 build() {
   export CMAKE_POLICY_VERSION_MINIMUM=3.5
