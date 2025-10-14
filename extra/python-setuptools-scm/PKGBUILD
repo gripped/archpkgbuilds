@@ -4,8 +4,8 @@
 
 _name=setuptools_scm
 pkgname=python-setuptools-scm
-pkgver=9.2.0
-pkgrel=2
+pkgver=9.2.1
+pkgrel=1
 pkgdesc='Handles managing your python package versions in scm metadata'
 arch=(any)
 url=https://github.com/pypa/setuptools_scm
@@ -36,8 +36,8 @@ optdepends=(
   'python-rich: use rich as console log handler'
 )
 source=("git+$url.git#tag=v$pkgver")
-sha512sums=('1620b4153b46220216cf680a40694b5e8978d2b7b03b91949d312ac88fe4f2b2f6147f9295e568f7d9cc072519c8ee86cd5c2744c1648470585abaede4b74c93')
-b2sums=('55a8a6e926c2cf817b859fd89a62795a1ae7c36a452c9abdbd951d55b6333d0df86cfef2ccda4fd1d9e375860fe6777e145151808d9800a8bb706f684e260dbb')
+sha512sums=('9d6aa839fde52835b5d1b5512f6a0aef8f477ff4b4fbb3089a5f86ce454d380b3aa5af650f057292af4c4cf90fd79c337ff006eef7684275307b80658e492879')
+b2sums=('fbceb4ccbdbef84c02015a6eb7070e6a360402523783a36168308a2c1417fcd88cab4b26f40fd71c410407f78be82ec8e2fff5025264a340cc511ae25f2ee874')
 
 build() {
   cd $_name
