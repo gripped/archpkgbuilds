@@ -4,7 +4,7 @@
 
 pkgbase=msmtp
 pkgname=('msmtp' 'msmtp-mta')
-pkgver=1.8.31
+pkgver=1.8.32
 pkgrel=1
 pkgdesc="A mini SMTP client"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=('git' 'libsecret' 'gsasl' 'texlive-plaingeneric')
 optdepends=('libnotify: for msmtpq notifications'
             'netcat: for included msmtpq script')
 source=("git+https://github.com/marlam/msmtp.git?signed#tag=${pkgname}-${pkgver}")
-sha512sums=('cddd63143ee9188e0bf00293cd15538511739e94ce1520eb6f696398239312fe6684fd6c98c85cb800b2a0fc9438c11539194c565641025decd748f29a21f92a')
+sha512sums=('06cc1fbe8da5bb0b7caa0878cea7fa0da9d7fd2f90417863e3c945a4c48790784ec0aaa3eeea78bd647979db57ad23f2609945cbe6193ff85792ed386383f4b1')
 validpgpkeys=('2F61B4828BBA779AECB3F32703A2A4AB1E32FD34')  # Martin Lambers
 
 prepare() {
