@@ -5,7 +5,7 @@
 
 _pkgname=DisplayCAL
 pkgname=displaycal
-pkgver=3.9.16
+pkgver=3.9.17
 pkgrel=1
 pkgdesc="Open Source Display Calibration and Characterization powered by Argyll CMS (Formerly known as dispcalGUI)"
 arch=(x86_64)
@@ -19,7 +19,7 @@ makedepends=(libxrandr libxxf86vm python-build python-installer
 optdepends=('gnome-color-manager: profile installation for GNOME'
             'colord-kde: profile installation for KDE Plasma')
 source=(${url}/releases/download/${pkgver}/${_pkgname}-${pkgver}.tar.gz)
-sha256sums=('7e68a36e4c43e8066482acc57a3efa03fd4544d7955757f2d8ea854e562d4314')
+sha256sums=('715f31d47c7e29052138eceac3ff3d420a19f7ef36be1c06ae11b5dcaa44f55c')
 
 build() {
   cd ${pkgname}-${pkgver}
