@@ -1,8 +1,8 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=gnome-firmware
-pkgver=47.0
-pkgrel=2
+pkgver=49.0
+pkgrel=1
 pkgdesc="Manage firmware on devices supported by fwupd"
 arch=(x86_64)
 url="https://gitlab.gnome.org/World/gnome-firmware"
@@ -10,7 +10,7 @@ license=(GPL2)
 depends=(gtk4 glib2 fwupd libadwaita libxmlb systemd)
 makedepends=(meson help2man git)
 source=(git+https://gitlab.gnome.org/World/gnome-firmware.git?signed#tag=$pkgver)
-b2sums=('d3871c8feab43851d889edc88e373e1b011bfe5ee8b12229abe2d64aa9e5b0daf8abd989a75e638383ebd9529d0bc3770e3f98262b50f0e8f4d2202bc22e2c52')
+b2sums=('db4cd49b238950b9f1c9d38df9859cde6e38733f73788a9c7f0d2ebc14bfff10359e90661ddae655a20d9a9427ecd6c11d9e1c29f0373e5ae0742ef044ec70c0')
 validpgpkeys=(163EB50119225DB3DF8F49EA17ACBA8DFA970E17) # Richard Hughes <richard@hughsie.com>
 
 prepare() {
