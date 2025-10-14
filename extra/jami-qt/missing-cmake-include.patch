@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 29bfde9a..eb817a6c 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -24,6 +24,7 @@ endif()
+ 
+ set(CMAKE_SCRIPTS_DIR ${PROJECT_SOURCE_DIR}/extras/build/cmake)
+ include(${CMAKE_SCRIPTS_DIR}/extra_tools.cmake)
++include(FindPkgConfig)
+ 
+ option(WITH_DAEMON_SUBMODULE "Build with daemon submodule" ON)
+ option(JAMICORE_AS_SUBDIR "Build Jami-core as a subdir dependency" ON)
