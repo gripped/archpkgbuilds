@@ -3,7 +3,7 @@
 
 pkgname=python-aiostream
 _name=${pkgname#python-}
-pkgver=0.7.0
+pkgver=0.7.1
 pkgrel=1
 pkgdesc='Generator-based operators for asynchronous iteration'
 arch=(any)
@@ -22,7 +22,7 @@ checkdepends=(
   python-pytest-asyncio
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('fc6667709934bbfe62c84ce7649b1bfefc5d605dc0dc10424ad84ed92cc3c52296c9b60a54345d4c37aceb9ca053087891991c6c289b838ecdc2699b2513a387')
+b2sums=('519b4b70a9876d033be6a6f9050f081875f4c0259a8706d9ba7d5cec5c10ffd0dc9840011b71292240dd019ec34e883fd3268aec2724587d63fe9d9026d92371')
 
 build() {
   cd "$_name"
