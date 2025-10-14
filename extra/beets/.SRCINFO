@@ -1,7 +1,7 @@
 pkgbase = beets
 	pkgdesc = Flexible music library manager and tagger
-	pkgver = 2.4.0
-	pkgrel = 2
+	pkgver = 2.5.0
+	pkgrel = 1
 	url = https://beets.io/
 	arch = any
 	license = MIT
@@ -26,6 +26,7 @@ pkgbase = beets
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-poetry-core
+	makedepends = python-poetry-dynamic-versioning
 	makedepends = python-sphinx
 	makedepends = python-wheel
 	depends = python
@@ -59,14 +60,17 @@ pkgbase = beets
 	optdepends = python-requests: Chromaprint/Acoustid, BPD, FetchArt, Lyrics plugins
 	optdepends = python-requests-oauthlib: Beatport plugin
 	optdepends = python-xdg: Thumbnails plugin
-	source = beets::git+https://github.com/beetbox/beets.git#tag=v2.4.0
+	source = beets::git+https://github.com/beetbox/beets.git#tag=v2.5.0
 	source = beet
 	source = fix-failing-tests.patch
-	sha512sums = bac1c33e115578c55352ea6c4fe2c0f22df089a77ad5841536a6994893b50e7a41777f41fca3391c2a74607629777cb664731c1b0fa39415647b839b32f7923f
+	source = no-dev-versioning.patch
+	sha512sums = c9a28459d3c9944fb1cf8ef53d4a6d4dc8b60b43a24a28e302917488da8efcbf8bcd6f98e754dc7bafca3fef306ee69e3cc9fe67d2ee83a1b03f443ac5789f0c
 	sha512sums = 8f51ebcc253b0cf698adffae4d2d1a0ff29dcd2d503d0c5d284e9c5cd5981b0ffd190fce154b112ac3cbb419fc0813f2ccbd7e67e3abbdce043c0f6a967274ad
 	sha512sums = 64e97a1063660a429ab66876bbc082bc23a880b1c8e00109570be9c9315fb61f1a6e7f442a6a97f80f09ac762a75b7f57cca468cc18f97c4ba98cf063ce91d89
-	b2sums = 94d2297215c04289ae373a90fafdbf1d080058ca70f8e1dbd162e7be637e35d13671b0a85dcf429bc0fde753c763d904509d40f802e3cfcb2a1a9c14c930c2b0
+	sha512sums = 68592177b77264f682485cf44d2a28d50ac3e7d436b642827028f311bd8dd069f5bad558ecc432d0d666d08aa02df5ebbbaddec4c8426bbf4a751e61414c3683
+	b2sums = 757a3431014de761229a5592ad0f15109b8d69f7362bd9236ce8f6fd0f7331fc935746c6331b8f0f4dce09d1581313c450355de360241a38ca691030f172ce01
 	b2sums = 1b36ba07d85f0fbcae0a3d8253ce2e5d7ecf8a17c6f0bb946579663de546d53cd4fe5da84ee8d880d7f95f48e66ef6010232a995d86d0c52b52218cd991a7782
 	b2sums = da0ff333d20d4225cccbe9d1934b6e5bc09aeca8555c2be670652377f0dae028cebffa4b103df67defc9653a0aeec3556e3dd4c6f235a15fac0ffab44281e81c
+	b2sums = e76cf8f275007418c34468d3c8c2d5002b952e1287515cfb650f2e5b8db6a0cbbec7fd048611328d9c2a16831d26cb6973e493cfb940f309b2e849695b77fde5
 
 pkgname = beets
