@@ -4,7 +4,7 @@
 # Contributor: Aaron Schaefer <aaron@elasticdog.com>
 
 pkgname=pv
-pkgver=1.9.34
+pkgver=1.9.42
 pkgrel=1
 pkgdesc='A terminal-based tool for monitoring the progress of data through a pipeline'
 arch=(x86_64)
@@ -17,9 +17,10 @@ _archive="$pkgname-$pkgver"
 source=("${url%/*}/sources/$_archive.tar.gz"
         "$_archive.tar.gz.sig::${url%/*}/sources/$_archive.tar.gz.txt")
 # source=("$_url/releases/download/v$pkgver/$_archive.tar.gz")
-sha256sums=('c0626bed6cbef5006b53d3281e8e3ae4b2838729462b21eccf28140eefef6bb1'
+sha256sums=('fbd7d1b04efee62c8241255a3fe1c5f5236f1a6e1ed85f02730b0c6448810175'
             'SKIP')
-validpgpkeys=(2189D5C29F041F2277AFD50AC1596BA33FC56F51  # andrew.wood@ivarch.com
+validpgpkeys=(D8FF44A79CC8A61EF694FA7EB883E01314DA8E84  # https://ivarch.com/public-key.txt
+              2189D5C29F041F2277AFD50AC1596BA33FC56F51  # andrew.wood@ivarch.com
               4267B4F90F2678A112169BD61D1EF7581B45E9A0) # https://codeberg.org/a-j-wood.gpg
 
 build() {
