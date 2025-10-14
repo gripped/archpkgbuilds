@@ -2,7 +2,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=ruby-cucumber-ci-environment
-pkgver=10.0.1
+pkgver=11.0.0
 pkgrel=1
 pkgdesc='Detect CI Environment from environment variables'
 arch=(any)
@@ -18,12 +18,18 @@ makedepends=(
 )
 options=(!emptydirs)
 source=(https://github.com/cucumber/ci-environment/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('518cd579d63eb780e632f393d10f0af3d3dd489d1d1a6b04abb2db02b93d6eb2')
+sha256sums=('7ec1c884704f53ab70c77ab47f606d30464fa29fce2e862779bc3dc5768b3a87')
+
+prepare() {
+  cd ci-environment-$pkgver/ruby
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended 's|~>|>=|g' "cucumber-ci-environment.gemspec"
+}
 
 build() {
   local _gemdir="$(gem env gemdir)"
   cd ci-environment-$pkgver/ruby
-  rake lib/cucumber/ci_environment/CiEnvironments.json
+  rake ci_environments
   gem build cucumber-ci-environment.gemspec
   gem install \
     --local \
