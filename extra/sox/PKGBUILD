@@ -3,13 +3,14 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=sox
-pkgver=14.6.0.4
-pkgrel=2
+pkgver=14.6.1
+pkgrel=1
 pkgdesc='The Swiss Army knife of sound processing tools'
 arch=(x86_64)
 url='https://codeberg.org/sox_ng/sox_ng/'
 license=(GPL-2.0-only)
 depends=(
+  glibc
   ffmpeg
   file
   gcc-libs
@@ -28,37 +29,36 @@ makedepends=(
   alsa-lib
   autoconf-archive
   flac
+  fftw
   git
   lame
   libpulse
   libsndfile
   libvorbis
+  libogg
   opencore-amr
+  speexdsp
 )
 checkdepends=(time)
 optdepends=(
   'alsa-lib: alsa plugin'
   'flac: flac plugin'
+  'fftw: fftw support'
   'lame: mp3 plugin'
   'libpulse: pulse plugin'
   'libsndfile: caf, fap, mat4, mat5, paf, pvf, sd2, sndfile, w64 and xi plugins'
   'libvorbis: vorbis plugin'
+  'libogg: ogg plugin'
   'opencore-amr: amr_nb and amr_wb plugins'
+  'speexdsp: speexdsp plugin/effect'
 )
-provides=(libsox.so)
-source=(
-  "$pkgname::git+https://codeberg.org/sox_ng/sox_ng.git#tag=sox_ng-${pkgver}"
-  fix-install-dir.patch
-)
-sha512sums=('14294ff022f86bca0c2a852331a391efe285d218547e7607c916a357f88f7fb28dda10b4bdbad848362335a1c5341f3c317c7caf8c6c5b76f405ae13072f265c'
-            '0431f400430ab9ca5685ff5438301489d4b493b342836f00bb9f08e2c28374ac8662ba68a6224a129e722ab33f6e015110caccc1db9a28fb13a729f47d8edc33')
-b2sums=('aaf22e4a2c7fadd2ed87276743109189345fe2e715db1567943634864d77e8bccfc8b1e0926f3be453cb26e4a9fdc4e62fca4477325216b54d5179e8b1cb104a'
-        'fd9042afa3d1cc6add7c4b053ad75784bdf6d163e803fff522b3e2e9b982246b1409573ca24a95cfe1466262199d9b3eac2b7ec328462cc2334368e718446860')
+provides=(libsox.so libsox_ng.so)
+source=("$pkgname::git+https://codeberg.org/sox_ng/sox_ng.git#tag=sox_ng-${pkgver}")
+sha512sums=('2cf1b7f7befbd843104b2e75379a8c3d89761e55bf8980e5b57f00ce90701bbb494b2dc07fcc97b9c0783d27705c7264bbe20f1951d12a95a894b46eab661c90')
+b2sums=('4e15a373595bf4c9351483509074c32993cfb16f65333afc2f6bb28b064ad7a03407ae2ccad7e8454183f58cb4754d28035c879dba4c2ad33cf6f184f4e4d9c5')
 
 prepare() {
   cd "$pkgname"
-
-  patch -p1 -i "$srcdir/fix-install-dir.patch"
 
   autoreconf -vfi
 }
