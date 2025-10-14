@@ -2,7 +2,7 @@
 
 pkgname=python-kubernetes-validate
 _name="${pkgname#python-}"
-pkgver=1.33.1
+pkgver=1.34.0
 pkgrel=1
 license=(Apache-2.0)
 pkgdesc="Validate Kubernetes resource definitions against the declared Kubernetes schemas"
@@ -27,7 +27,7 @@ checkdepends=(
   python-pytest
 )
 source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-b2sums=('31017d019da366c7ac70d99f2dbd751ede5e884fa767fd7977cf9266e139978eecdf39d4a433a6567e52f542931a2a5573190071258e6ec5fa9dcc27d59d6817')
+b2sums=('45033e42f0716fd2fca9cdf58986c05dfc80aacb6bfabf698d2ef4044db8e63a196610029572970e9c9241d2a2a120a95883287322a166eee1d30fda15bda6b7')
 
 build() {
   cd $_name-$pkgver
