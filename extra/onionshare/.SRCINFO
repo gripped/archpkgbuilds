@@ -1,7 +1,7 @@
 pkgbase = onionshare
 	pkgdesc = Share a file over Tor Hidden Services anonymously and securely
 	pkgver = 2.6.3
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/onionshare/onionshare
 	arch = any
 	license = GPL-3.0-or-later
@@ -36,8 +36,11 @@ pkgbase = onionshare
 	depends = python-werkzeug
 	depends = tor
 	optdepends = python-nautilus: enable Nautilus right-click extension
-	source = onionshare-2.6.3.tar.gz::https://github.com/onionshare/onionshare/archive/refs/tags/v2.6.3.tar.gz
+	source = https://github.com/onionshare/onionshare/archive/v2.6.3/onionshare-2.6.3.tar.gz
+	source = onionshare-loosen-cffi-version-bounds.patch
 	sha512sums = 0ea925230617c303c47fd5558066f8dec58f5d2f920738a7351c83fa2655e7d9fd1433ee0c552d1e8affea6f18cb3d489696d640847129b4082f00fa7481f220
+	sha512sums = 6d4dbaa0ee7073ffae09fec95b7258f40886c87c4a7f85206111727f4cbc73cf6cb2b2c04ba5b5dcca88f8f72aadabe12368f5319fe929db761c6096c9ab614b
 	b2sums = 9a6f75f1cf05de3bce9f7847f7cf4146550e45c102ae9f8b193f55825924fe2665925e33709a6137b6da743c4187204607cabdf5f8d559ab5ab044e01b2e22af
+	b2sums = 7fae57ae4d2afdcae287515770925ff040977be254ab8d5646b3b3b4cd89e5d645a655bfae507455beb3bca15c4a5d1ad6610d548b23a19f897d7c48cac97ede
 
 pkgname = onionshare

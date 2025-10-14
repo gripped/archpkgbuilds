@@ -4,7 +4,7 @@
 
 pkgname=onionshare
 pkgver=2.6.3
-pkgrel=2
+pkgrel=3
 pkgdesc='Share a file over Tor Hidden Services anonymously and securely'
 url='https://github.com/onionshare/onionshare'
 arch=('any')
@@ -48,12 +48,18 @@ optdepends=(
 checkdepends=(
   'python-pytest'
 )
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/onionshare/onionshare/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('0ea925230617c303c47fd5558066f8dec58f5d2f920738a7351c83fa2655e7d9fd1433ee0c552d1e8affea6f18cb3d489696d640847129b4082f00fa7481f220')
-b2sums=('9a6f75f1cf05de3bce9f7847f7cf4146550e45c102ae9f8b193f55825924fe2665925e33709a6137b6da743c4187204607cabdf5f8d559ab5ab044e01b2e22af')
+source=(
+  "${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+  "${pkgname}-loosen-cffi-version-bounds.patch"
+)
+sha512sums=('0ea925230617c303c47fd5558066f8dec58f5d2f920738a7351c83fa2655e7d9fd1433ee0c552d1e8affea6f18cb3d489696d640847129b4082f00fa7481f220'
+            '6d4dbaa0ee7073ffae09fec95b7258f40886c87c4a7f85206111727f4cbc73cf6cb2b2c04ba5b5dcca88f8f72aadabe12368f5319fe929db761c6096c9ab614b')
+b2sums=('9a6f75f1cf05de3bce9f7847f7cf4146550e45c102ae9f8b193f55825924fe2665925e33709a6137b6da743c4187204607cabdf5f8d559ab5ab044e01b2e22af'
+        '7fae57ae4d2afdcae287515770925ff040977be254ab8d5646b3b3b4cd89e5d645a655bfae507455beb3bca15c4a5d1ad6610d548b23a19f897d7c48cac97ede')
 
 prepare() {
   sed -i '/^onionshare-cli = /d' ${pkgname}-${pkgver}/desktop/pyproject.toml
+  patch -Np1 -d ${pkgname}-${pkgver} < ${pkgname}-loosen-cffi-version-bounds.patch
 }
 
 build() {
