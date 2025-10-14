@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=tangram
-pkgver=3.3
-pkgrel=3
+pkgver=3.4
+pkgrel=1
 pkgdesc='Browser for your pinned tabs'
 arch=(any)
 url='https://apps.gnome.org/Tangram/'
@@ -29,12 +29,10 @@ makedepends=(
 source=(
   "git+https://github.com/sonnyp/Tangram.git#tag=v$pkgver"
   git+https://github.com/sonnyp/troll.git
-  tangram-gettext.patch
 )
 b2sums=(
-  b991837ce3aee766d56e4fa0a2d3eac58effb87184749118c5fa16d5bfb034f91519f8262bac4071893c10f0fdd1ae3988f0a1e9a0d7c53d61b1f70125babeaa
+  7f9dfc7b10cad67b0af4280e72b796a7e5293213a4486d92aa473fd92f0386f05d8245ac8a6f066c009a518d410e377cf23f3dfb9f55630cb57ac72e3353fa9e
   SKIP
-  b2d514ce42895a44f2d7ce8cbfdb231009c40de8a11ed9653b77f86ed34e9ccc861e46f39549e7f1117585ab6f9aa6219be0ba82a3a7c3e84c7b6f31b74b9bbd
 )
 
 prepare() {
@@ -43,9 +41,6 @@ prepare() {
   git submodule init
   git submodule set-url troll "$srcdir/troll"
   git -c protocol.file.allow=always submodule update
-
-  # https://github.com/sonnyp/Tangram/pull/318
-  git apply -3 ../tangram-gettext.patch
 }
 
 build() {
