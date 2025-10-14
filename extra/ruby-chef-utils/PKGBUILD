@@ -2,7 +2,7 @@
 
 pkgname=ruby-chef-utils
 _pkgname="${pkgname#ruby-}"
-pkgver=19.1.83
+pkgver=19.1.89
 pkgrel=1
 pkgdesc='Basic utility functions for Core Chef Infra development'
 arch=('any')
@@ -12,8 +12,8 @@ depends=('ruby' 'ruby-concurrent')
 makedepends=('git' 'ruby-rdoc' 'ruby-rake' 'ruby-bundler')
 options=('!emptydirs')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('0591a345e8400c7df30554b21eb72469a9713ed78c364cc2ccad89a786cd54e1034fe73e71d2d0c08678a4910bc413699f97682e0d79c2c7a52d3001196eda6b')
-b2sums=('dfca4b1d50ba405d7cd93e4cfda3e70c753edec25f0814766df3c7da3631acfc4dc96a98d6b047d4d595eb7451ab6e23160284adb1e70acd7a6e5d008e8fd649')
+sha512sums=('82f35f32633c284a9fd0eda62f9a6f2a3cdc98d7b11359fff3b681fbdd5a03640164a45234bafae2f65bda61b801078b635082057ac40c0e0f9c1811c2b8b063')
+b2sums=('b756c328f7137ca7e90f95903b20d51c0e00b74d012db0e49d8a80169c8577ce70a99a353128a3dcf6f2e0ccd5713edbf015eede986d20c614058216a3b02429')
 
 build() {
   cd "$pkgname/$_pkgname"
