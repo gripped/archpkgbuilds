@@ -7,8 +7,7 @@ Subject: [PATCH] Arch Linux paths
  crates/config/src/sections/http.rs      | 2 +-
  crates/config/src/sections/policy.rs    | 2 +-
  crates/config/src/sections/templates.rs | 6 +++---
- docs/reference/configuration.md         | 4 ++--
- 4 files changed, 7 insertions(+), 7 deletions(-)
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/crates/config/src/sections/http.rs b/crates/config/src/sections/http.rs
 index c75d47fd34be..3506119a3690 100644
@@ -89,25 +88,3 @@ index 5656de44bfab..8acc2376d775 100644
  }
  
  #[cfg(feature = "dist")]
-diff --git a/docs/reference/configuration.md b/docs/reference/configuration.md
-index 79b2b29ee5b4..0baf8de9aa2c 100644
---- a/docs/reference/configuration.md
-+++ b/docs/reference/configuration.md
-@@ -155,7 +155,7 @@ templates:
-   assets_manifest: /to/manifest.json
- 
-   # From where to load the translation files
--  # Default in Docker distribution: `/usr/local/share/mas-cli/translations/`
-+  # Default in Docker distribution: `/usr/share/mas-cli/translations/`
-   # Default in pre-built binaries: `./share/translations/`
-   # Default in locally-built binaries: `./translations/`
-   translations_path: /to/translations
-@@ -381,7 +381,7 @@ Policy settings
- ```yaml
- policy:
-   # Path to the WASM module
--  # Default in Docker distribution: `/usr/local/share/mas-cli/policy.wasm`
-+  # Default in Docker distribution: `/usr/share/mas-cli/policy.wasm`
-   # Default in pre-built binaries: `./share/policy.wasm`
-   # Default in locally-built binaries: `./policies/policy.wasm`
-   wasm_module: ./policies/policy.wasm
