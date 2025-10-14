@@ -2,7 +2,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=ruby-cucumber
-pkgver=10.0.0
+pkgver=10.1.1
 pkgrel=1
 pkgdesc="Behaviour Driven Development with elegance and joy"
 arch=(any)
@@ -39,8 +39,8 @@ options=(!emptydirs)
 source=(
   "https://github.com/cucumber/cucumber-ruby/archive/v$pkgver/cucumber-cucumber-ruby-$pkgver.tar.gz"
 )
-sha512sums=('5c7dff086ef421c5c4e0f747f0faa20c4f41715277f25c8ff0b53d66f4fd37787683f2cc256894767e5e0c42451d8e903c412d94ec9cc1a7dc237571ec5ba6bb')
-b2sums=('a9916c4f7c393e5ad574ad0154264848e3cc925ee1b99b8698cfd78c81e670c2a9f8c8b9338e09f89f14e1dd8a27d91b216df441211a3e6b456c5e106f7eedf9')
+sha512sums=('469f96852e214df10da37d6deee99079880c96e33cbaa6dda5df79f01107d0e486f55baee344bc3fa339762ed4ebc07136eb8c30825ebeacdbcaab16a0a56f52')
+b2sums=('21b309cfc8a1b84d04f0cceee493a7fe4f367c394b3a52d4ad0210c723afcd7494522265ef962bc5c12622e29a09a52158507cdb06939c243ea961a9eda06257')
 
 prepare() {
   cd cucumber-ruby-$pkgver
