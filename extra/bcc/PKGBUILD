@@ -1,90 +1,174 @@
 # Maintainer: Anatol Pomozov <anatol.pomozov@gmail.com>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Gordian Edenhofer <gordian.edenhofer@gmail.com>
 # Contributor: Troy Engel <troyengel+arch@gmail.com>
 
 pkgbase=bcc
-pkgname=('bcc' 'bcc-tools' 'python-bcc')
-pkgver=0.33.0
-pkgrel=3
+pkgname=(
+  'bcc'
+  'bcc-libbpf-tools'
+  'bcc-examples'
+  'python-bcc'
+)
+pkgver=0.35.0
+pkgrel=5
 pkgdesc='BPF Compiler Collection'
 arch=('x86_64')
 url='https://github.com/iovisor/bcc'
 license=('Apache-2.0')
-makedepends=('cmake' 'clang' 'llvm' 'flex' 'bison' 'libbpf' 'python' 'python-setuptools')
-# checkdepends=('netperf' 'iperf')
-source=("bcc-$pkgver.tar.gz"::"https://github.com/iovisor/bcc/releases/download/v$pkgver/bcc-src-with-submodule.tar.gz")
-sha512sums=('cf387d58fba47e907309c64c818598d394080207d22219336d30e29e620cb644a9fd03f1a58ca0eb0775c5fd1bfeb4b4207514435ee6c1a8ed2178df90cf89a9')
+makedepends=(
+  'bison'
+  'cargo'
+  'clang'
+  'cmake'
+  'flex'
+  'git'
+  'libbpf'
+  'llvm'
+  'python'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+source=(
+  "git+$url.git#tag=v$pkgver"
+  "git+https://github.com/libbpf/bpftool.git"
+  "git+https://github.com/libbpf/blazesym.git"
+  "git+https://github.com/libbpf/libbpf.git"
+  "$pkgbase-define-cmake-components.patch"
+  "$pkgbase-blazesym-fix-compilation-error.patch"
+  "$pkgbase-libbpf-tools-respect-external-CFLAGS.patch"
+)
+sha512sums=('a412160dcd4026110cabc9d3149d796b6dbb1b4dc069d5516f4e61911a77cd0dc195f8536b3fbb3b82dd551636acdae8296676d395f0ca492d77fa4d11b3ba1d'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'd5143245ab8c6c214507b050669042b9a0547d7d91fa74f55ede1a2d1e9ec17b75e5e1a024614fac94f1211b3f052c5dc026876a29da7da7b8dddc2e9ba9eae8'
+            'e09dbc2117e0fe7035fb331ea460c2277054801819ab7746178c927672ca6d4f2455da585a17ed858c47bbb0bd9239f7c895214fef312b0666f1da6ae52f6f5c'
+            '20a1a3add9d1fa264e2306d365c6e340891043b19e16158e5bff7dfd1eaaa71b2dc2e88fe6ef6d357c6b5276110c3256a424c0db26aa006256c931342c334f64')
 
-_pick() {
-  local p="$1" f d; shift
-  for f; do
-    d="$srcdir/$p/${f#$pkgdir/}"
-    mkdir -p "$(dirname "$d")"
-    mv "$f" "$d"
-    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
-  done
+prepare() {
+  cd "$pkgbase"
+  git submodule init
+  git config submodule.libbpf-tools/bpftool.url ../bpftool
+  git config submodule.libbpf-tools/blazesym.url ../blazesym
+  git config submodule.src/cc/libbpf.url ../libbpf
+  git -c protocol.file.allow=always submodule update \
+    libbpf-tools/bpftool \
+    libbpf-tools/blazesym \
+    src/cc/libbpf
+
+  (
+    cd libbpf-tools/bpftool
+    git submodule init
+    git config submodule.libbpf.url ../../../libbpf
+    git -c protocol.file.allow=always submodule update libbpf
+  )
+
+  # Patches required to build libbpf-tools
+  patch -Np1 -d libbpf-tools/blazesym < ../$pkgbase-blazesym-fix-compilation-error.patch
+  patch -Np1 < ../$pkgbase-libbpf-tools-respect-external-CFLAGS.patch
+
+  # Fix a build failure with clang21
+  # https://github.com/iovisor/bcc/pull/5369
+  git cherry-pick -n 8c5c96ad3beeed2fa827017f451a952306826974
+
+  # Don't build Python bindings with CMake
+  sed -i '/add_subdirectory(python)/d' src/CMakeLists.txt
+  sed "s/@REVISION@/$pkgver/" src/python/setup.py.in \
+    > src/python/setup.py
+  sed "s/@REVISION@/$pkgver/" src/python/bcc/version.py.in \
+    > src/python/bcc/version.py
+
+  patch -Np1 < ../$pkgbase-define-cmake-components.patch
 }
 
 build() {
-  local cmake_options=(
-    -B build
-    -D CMAKE_BUILD_TYPE=None
-    -D CMAKE_INSTALL_PREFIX=/usr
-    -D CMAKE_INSTALL_LIBDIR=/usr/lib
-    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
-    -D CMAKE_USE_LIBBPF_PACKAGE=ON
-    -D ENABLE_LLVM_SHARED=1  # https://bugs.archlinux.org/task/71163
-    -D ENABLE_TESTS=OFF
-    -D REVISION=$pkgver
+  # Nearly all tests invoke sudo
+  cmake -S $pkgbase -B build \
+    -D CMAKE_BUILD_TYPE=None \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -W no-dev \
+    -D CMAKE_USE_LIBBPF_PACKAGE=ON \
+    -D ENABLE_LLVM_SHARED=ON \
+    -D ENABLE_TESTS=OFF \
     -D RUN_LUA_TESTS=OFF
-    -S $pkgbase
-    -W no-dev
-  )
+  cmake --build build
 
-  export CFLAGS+=" -ffat-lto-objects"
-  export CXXFLAGS+=" -ffat-lto-objects"
+  python -m build --wheel --no-isolation $pkgbase/src/python
 
-  cmake "${cmake_options[@]}"
-  cmake --build build --verbose
+  export EXTRA_LDFLAGS=$LDFLAGS
+  unset LDFLAGS
+  make -C $pkgbase/libbpf-tools
 }
 
 package_bcc() {
-  pkgdesc='BPF Compiler Collection - C library and examples'
-  depends=('clang' 'gcc-libs' 'glibc' 'libbpf' 'libbpf.so' 'libelf' 'llvm-libs' 'python' 'xz' 'zlib')
-  optdepends=('linux-headers: build modules against the Arch kernel'
+  pkgdesc+=' (C library)'
+  depends=(
+    'clang'
+    'gcc-libs'
+    'glibc'
+    'libbpf' 'libbpf.so'
+    'libelf'
+    'llvm-libs'
+    'xz'
+  )
+  optdepends=(
+    'linux-headers: build modules against the Arch kernel'
     'linux-lts-headers: build modules against the LTS kernel'
     'linux-zen-headers: build modules against the ZEN kernel'
     'linux-hardened-headers: build modules against the HARDENED kernel'
-    'bcc-tools: Python utilites using the BCC library'
-    'python-bcc: Python 3 bindings for BCC'
-    'luajit: Lua bindings for BCC')
-  provides=('bcc' 'libbcc')
+    'luajit: Lua bindings for BCC'
+  )
+  provides=(
+    'libbcc.so'
+    'libbcc_bpf.so'
+  )
 
-  DESTDIR="$pkgdir" cmake --install build
-
-  cd "$pkgdir"
-  _pick bcc-tools usr/share/bcc/{tools,man}
-  _pick python-bcc usr/lib/python*
+  DESTDIR="$pkgdir" cmake --install build --component core
+  DESTDIR="$pkgdir" cmake --install build --component libbcc
+  DESTDIR="$pkgdir" cmake --install build --component introspection
 }
 
-package_bcc-tools() {
-  pkgdesc='BPF Compiler Collection - Tools'
-  depends=('bash' 'bcc' 'libedit' 'ethtool' 'python' 'python-bcc' 'python-dnslib')
+package_bcc-libbpf-tools() {
+  pkgdesc+=' (Tools)'
+  provides=('bcc-tools')
+  conflicts=('bcc-tools')
+  replaces=('bcc-tools')
+  depends=(
+    'gcc-libs'
+    'glibc'
+    'libelf'
+    'zlib'
+  )
 
-  mv -v $pkgname/* "$pkgdir/"
+  make -C $pkgbase/libbpf-tools install \
+    DESTDIR="$pkgdir" \
+    prefix=/usr \
+    USE_BLAZESYM=1
+}
+
+package_bcc-examples() {
+  pkgdesc+=' (Examples)'
+  depends=(
+    'python'
+    'python-bcc'
+  )
+
+  DESTDIR="$pkgdir" cmake --install build --component examples
 }
 
 package_python-bcc() {
-  pkgdesc='BPF Compiler Collection - Python 3 bindings'
-  depends=('bcc' 'python')
+  pkgdesc+=' (Python bindings)'
+  depends=(
+    'bcc'
+    'python'
+  )
   optdepends=(
     'python-netaddr: Network address representation and manipulation'
     'python-pyroute2: Netlink and Linux network configuration'
   )
 
-  mv -v $pkgname/* "$pkgdir/"
-
-  # compile Python bytecode as cmake does not do that (properly) for us
-  python -m compileall -d /usr/lib "$pkgdir/usr/lib"
-  python -O -m compileall -d /usr/lib "$pkgdir/usr/lib"
+  python -m installer --destdir="$pkgdir" $pkgbase/src/python/dist/*.whl
 }
