@@ -2,7 +2,7 @@
 # Contributor: Marc Tiehuis <marctiehuis@gmail.com>
 
 pkgname=zig
-pkgver=0.15.1
+pkgver=0.15.2
 pkgrel=1
 pkgdesc='a general-purpose programming language and toolchain for maintaining robust, optimal, and reusable software'
 arch=('x86_64')
@@ -15,7 +15,7 @@ checkdepends=('lib32-glibc')
 source=("https://ziglang.org/download/$pkgver/zig-$pkgver.tar.xz"
         "skip-localhost-test.patch"
         "skip-futex2-test.patch")
-sha256sums=('816c0303ab313f59766ce2097658c9fff7fafd1504f61f80f9507cd11652865f'
+sha256sums=('d9b30c7aa983fcff5eed2084d54ae83eaafe7ff3a84d8fb754d854165a6e521c'
             'eeb5f0f72035c52bf558ffc77a171a3ddf93eac7d663ef0c82826007763717a8'
             'eb30e0eb00e6ced4c99383f0658a0351f42882e303300ed1828d162d27171cd0')
 
@@ -40,7 +40,7 @@ build() {
         ZIG_SHARED_LLVM=ON
         ZIG_USE_LLVM_CONFIG=ON
 
-        ZIG_TARGET_TRIPLE=native-linux.6.1-gnu.2.38
+        ZIG_TARGET_TRIPLE=native-linux.6.6-gnu.2.40
         ZIG_TARGET_MCPU=baseline
     )
     cmake -B build "${cmake_vars[@]/#/-D}" .
