@@ -3,7 +3,7 @@
 
 pkgname=qxlsx
 pkgver=1.5.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Excel file reader/writer library using Qt'
 arch=(x86_64)
 url='https://github.com/QtExcel/QXlsx'
@@ -17,6 +17,11 @@ conflicts=(qxlsx-qt6)
 replaces=(qxlsx-qt6)
 source=(git+https://github.com/QtExcel/QXlsx#tag=v$pkgver)
 sha256sums=('5edc0f44c112946213db51954dacb0a1e60c3a11299001156a6703d7d61a5232')
+
+prepare() {
+  cd QXlsx
+  git cherry-pick -n 90d762625750c6b2c73f6cd96b633e9158aed72e # Fix build with Qt 6.10
+}
 
 build() {
   cmake -B build -S QXlsx/QXlsx \
