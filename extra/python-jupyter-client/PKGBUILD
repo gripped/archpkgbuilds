@@ -4,7 +4,7 @@
 _pyname=jupyter_client
 pkgname=python-${_pyname/_/-}
 pkgver=8.6.3
-pkgrel=3
+pkgrel=4
 pkgdesc='Jupyter protocol implementation and client libraries'
 arch=(any)
 url='https://pypi.python.org/pypi/jupyter_client'
@@ -13,7 +13,6 @@ depends=(ipython
          python
          python-dateutil
          python-importlib-metadata
-         python-ipykernel
          python-jupyter-core
          python-pexpect
          python-pyzmq
@@ -26,6 +25,7 @@ makedepends=(git
 checkdepends=(iproute2
               net-tools
               openssh
+              python-ipykernel
               python-pytest-jupyter
               python-pytest-timeout)
 conflicts=(python-jupyter_client)
