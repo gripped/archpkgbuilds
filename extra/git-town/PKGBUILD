@@ -2,7 +2,7 @@
 # Contributor: Allonsy < linuxbash8 [at@at] gmail [dot.dot] com >
 
 pkgname=git-town
-pkgver=22.0.0
+pkgver=22.1.0
 pkgrel=1
 pkgdesc='Generic, high-level Git workflow support'
 url="https://github.com/$pkgname/$pkgname"
@@ -12,7 +12,7 @@ depends=(git)
 makedepends=(go)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('4ba0282fdcc0a4e67240eebc620b6304cd94f551a0f846f0becb8284c81165b9')
+sha256sums=('b44b8f1f5a8c794e8796e308f593c580b414d739c3f5ab0f957d7047ced2604c')
 
 prepare() {
 	cd "$_archive"
