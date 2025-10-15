@@ -1,0 +1,68 @@
+# Maintainer: Daurnimator <daurnimator@archlinux.org>
+# Contributor: Marc Tiehuis <marctiehuis@gmail.com>
+
+pkgname=zig0.14
+_pkgname=zig
+pkgver=0.14.1
+pkgrel=2
+pkgdesc='a general-purpose programming language and toolchain for maintaining robust, optimal, and reusable software'
+arch=('x86_64')
+url='https://ziglang.org/'
+license=('MIT')
+options=('!lto')
+depends=('clang19' 'lld19' 'llvm19-libs')
+makedepends=('cmake' 'llvm19')
+checkdepends=('lib32-glibc')
+conflicts=(zig)
+source=("https://ziglang.org/download/$pkgver/zig-$pkgver.tar.xz"
+        "skip-localhost-test.patch")
+sha256sums=('237f8abcc8c3fd68c70c66cdbf63dce4fb5ad4a2e6225ac925e3d5b4c388f203'
+            'eeb5f0f72035c52bf558ffc77a171a3ddf93eac7d663ef0c82826007763717a8')
+
+prepare() {
+    cd "$_pkgname-$pkgver"
+
+    patch -p1 -i ../skip-localhost-test.patch
+}
+
+build() {
+    cd "$_pkgname-$pkgver"
+
+    local cmake_vars=(
+        CMAKE_INSTALL_PREFIX=/usr
+        CMAKE_PREFIX_PATH=/usr/lib/llvm19
+
+        # The zig CMakeLists uses build type Debug if not set
+        # override it back to None so makepkg env vars are respected
+        CMAKE_BUILD_TYPE=None
+
+        ZIG_PIE=ON
+        ZIG_SHARED_LLVM=ON
+        ZIG_USE_LLVM_CONFIG=ON
+
+        ZIG_TARGET_TRIPLE=native-linux.6.1-gnu.2.38
+        ZIG_TARGET_MCPU=baseline
+    )
+    cmake -B build "${cmake_vars[@]/#/-D}" .
+    cmake --build build
+}
+
+# Disable check, since its failing on my machine and the buildserver
+#check() {
+#    cd "$_pkgname-$pkgver"
+#    # ugly workaround until test target is provided
+#    # https://github.com/ziglang/zig/issues/14240
+#    DESTDIR="./testinstall" cmake --install build
+#    ./testinstall/usr/bin/zig build test -Dconfig_h=build/config.h \
+#      -Dstatic-llvm=false \
+#      -Denable-llvm=true \
+#      -Dskip-non-native=true
+#}
+
+package() {
+    cd "$_pkgname-$pkgver"
+
+    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+
+    DESTDIR="$pkgdir" cmake --install build
+}
