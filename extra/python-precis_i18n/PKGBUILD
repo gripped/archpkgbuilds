@@ -3,8 +3,8 @@
 
 _pkgname=precis_i18n
 pkgname=python-precis_i18n
-pkgver=1.1.1
-pkgrel=2
+pkgver=1.1.2
+pkgrel=1
 pkgdesc='PRECIS framework (RFC 8264, RFC 8265, RFC 8266)'
 url='https://github.com/byllyfish/precis_i18n'
 arch=('any')
@@ -13,8 +13,8 @@ depends=('python')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('d7245c89c8faa34723b00fb643ca4bd33cb83fb326228af0a4eba951134b0c47513268f54acb01d3a06baeb755d65b6a41a355a792ee34dc0a2379e43826aadf')
-b2sums=('3f7d5b7d70160f2cd1ad356b95ff6837023961bd98ad57860fe537783b4bf1a4efe57478c38549844e67970cdcf06bb405e308083a72ff7e34a70b5ea10623d1')
+sha512sums=('7b5b12f1dad22dd90731c47a8b3fe36ed273d56fb454173284e776dc3ac19ac19be6936b9b7f70df1b1de3b7de2fa5ce8cd08f2f120440c1850ea2c5885163d2')
+b2sums=('a3b313118faebf89ead8b38fe7923b6f91b032925b99f384f252e35b9b70953222c200005de4c37c712d17860210ee518081ad92dfec3cadf518e585920ad9a0')
 
 build() {
   cd ${_pkgname}-${pkgver}
