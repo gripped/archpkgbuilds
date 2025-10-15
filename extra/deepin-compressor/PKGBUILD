@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-compressor
-pkgver=6.5.1
+pkgver=6.5.2
 pkgrel=1
 pkgdesc='A fast and lightweight application for creating and extracting archives'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'glibc' 'gcc-libs' 'qt6-base' 'qt6-5c
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-compressor.git#tag=$pkgver")
-sha512sums=('44210e94e2759f56f41f9e3240910657563a4628cee09ef28c6a4b0792b76eda644f3a3bb96afe02032bed264d6907a21c17fa192d73a9c8a6c0b5267bffdc66')
+sha512sums=('d573899eddfceac01ce91094cb30216e6a25840c1615561fa176de56f5b5e3b29642541e91be85d6826f6ea56ab08eadfa054fa8feb5cf1cd3073bb96df84da9')
 
 build() {
   cd deepin-compressor
