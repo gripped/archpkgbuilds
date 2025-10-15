@@ -4,7 +4,7 @@
 
 pkgname=inkscape
 pkgver=1.4.2
-pkgrel=8
+pkgrel=9
 pkgdesc='Professional vector graphics editor'
 url='https://inkscape.org/'
 license=('GPL' 'LGPL')
@@ -97,7 +97,8 @@ source=("git+https://gitlab.com/inkscape/inkscape.git#tag=INKSCAPE_${pkgver//./_
         'inkscape-extras-inkscape-import-clipart::git+https://gitlab.com/inkscape/extras/inkscape-import-clipart.git'
         'inkscape-extras-extension-xaml::git+https://gitlab.com/inkscape/extras/extension-xaml.git'
         'inkscape-extras-extension-afdesign::git+https://gitlab.com/inkscape/extras/extension-afdesign.git'
-        'inkscape-extras-extension-curve::git+https://gitlab.com/inkscape/extras/extension-curve.git')
+        'inkscape-extras-extension-curve::git+https://gitlab.com/inkscape/extras/extension-curve.git'
+        'fix-build-with-poppler-25.10.0.patch')
 sha256sums=('05d245daf42766edfbae0acc2c2f9ff9ae2228d352bf3817b7893fbf9c4ea55c'
             'SKIP'
             'SKIP'
@@ -107,7 +108,8 @@ sha256sums=('05d245daf42766edfbae0acc2c2f9ff9ae2228d352bf3817b7893fbf9c4ea55c'
             'SKIP'
             'SKIP'
             'SKIP'
-            'SKIP')
+            'SKIP'
+            '7660a158f203932b39c940087886803190d465ce35b2cfec4d3b9c72f3e7aeac')
 
 _backports=(
   # Fix build with poppler 25.06.0
@@ -155,6 +157,10 @@ prepare() {
     git log --oneline "${_l}" "${_c}"
     git revert --mainline 1 --no-commit "${_c}"
   done
+
+  # Fix build with poppler 25.10.0
+  # See https://gitlab.com/pbs3141/inkscape/-/commit/8a3831d2c12b9f5a20d20b1aeff793bc651b7309
+  patch -Np1 -i "${srcdir}/fix-build-with-poppler-25.10.0.patch"
 }
 
 build() {
