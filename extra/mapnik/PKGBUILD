@@ -6,7 +6,7 @@
 
 pkgname=mapnik
 pkgver=4.1.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Open source toolkit for developing mapping applications"
 arch=('x86_64')
 url="https://mapnik.org/"
@@ -27,8 +27,10 @@ depends=(
   'libtiff'
   'libwebp'
   'libxml2'
+  'openssl'
   'postgresql-libs'
   'proj'
+  'protozero'
   'qt6-base'
   'sqlite'
   'zlib'
@@ -44,12 +46,10 @@ source=(
   "mapnik-test-data-visual::git+https://github.com/mapnik/test-data-visual.git"
   "mapbox-variant::git+https://github.com/mapbox/variant.git"
   "mapbox-geometry::git+https://github.com/mapbox/geometry.hpp.git"
-  "mapbox-protozero::git+https://github.com/mapbox/protozero.git"
   "mapbox-polylabel::git+https://github.com/mapbox/polylabel.git"
   "git+https://github.com/mapnik/mapnik-vector-tile.git"
 )
 sha256sums=('5557f3c8c18928f9d9a39076839a7112e38f40f6442dc460fb2a6d58057c9654'
-            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -64,7 +64,6 @@ prepare() {
   git config submodule.test/data-visual.url ../mapnik-test-data-visual
   git config submodule.deps/mapbox/variant.url ../mapbox-variant
   git config submodule.deps/mapbox/geometry.url ../mapbox-geometry
-  git config submodule.deps/mapbox/protozero.url ../mapbox-protozero
   git config submodule.deps/mapbox/polylabel.url ../mapbox-polylabel
   git config submodule.deps/mapbox/mapnik-vector-tile.url ../mapnik-vector-tile
   git -c protocol.file.allow=always submodule update \
@@ -72,7 +71,6 @@ prepare() {
     test/data-visual \
     deps/mapbox/variant \
     deps/mapbox/geometry \
-    deps/mapbox/protozero \
     deps/mapbox/polylabel \
     deps/mapbox/mapnik-vector-tile
 }
@@ -82,7 +80,8 @@ build() {
   cmake -S . -B build \
     -D CMAKE_BUILD_TYPE=None \
     -D CMAKE_INSTALL_PREFIX=/usr \
-    -W no-dev
+    -W no-dev \
+    -D USE_EXTERNAL_MAPBOX_PROTOZERO=ON
   cmake --build build
 }
 
