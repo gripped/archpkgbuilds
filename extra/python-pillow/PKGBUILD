@@ -4,8 +4,8 @@
 # Contributor: minder
 
 pkgname=python-pillow
-pkgver=11.3.0
-pkgrel=4
+pkgver=12.0.0
+pkgrel=1
 pkgdesc='Python Imaging Library (PIL) fork'
 arch=(x86_64)
 url='https://pillow.readthedocs.io'
@@ -27,6 +27,7 @@ depends=(
 )
 makedepends=(
   git
+  pybind11
   python-build
   python-installer
   python-wheel
@@ -48,8 +49,8 @@ optdepends=(
 source=(
   "$pkgname::git+https://github.com/python-pillow/Pillow#tag=$pkgver"
 )
-sha512sums=('7902498f2e4c8b0aea62c4d7ce325f1df979f0ac7965523bc7b736d4522c2fdab734f98b28fa375271e0e037d3b45d5f6c50da2d565a1ffeab7afe4ff62ec571')
-b2sums=('a88042479023eb6b09af9f4f8b93009d2b967ae18e4d31b7f1d5b0a9791e52819b52a6b69b95ab653196d6a258c5987ba0c91fdccd7a72df3aac602a2262b6af')
+sha512sums=('07a8a60878926e866552b59d2623839ff1546bb9c99859492484d9a4900150704976b4096c4c9da004aac232eb03993d1aba9ae24b7504d44647da8a6a870f54')
+b2sums=('9c9f116a48ddbc9b01a956ae44da23a4c3adf4a7060d39cb586a344fbcbecb9ac92a36c67eff7169d9bd4a8cb0dc6870f0cadd10b3bc5a66cf24c27dbfe236db')
 
 prepare() {
   cd "$pkgname"
