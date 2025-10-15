@@ -4,7 +4,7 @@
 # Contributor: Sebastien Binet <binet@lblbox>
 
 pkgname=python-numexpr
-pkgver=2.13.1
+pkgver=2.14.1
 pkgrel=1
 pkgdesc="Fast numerical array expression evaluator for Python, NumPy, PyTables, pandas"
 url="https://github.com/pydata/numexpr"
@@ -24,7 +24,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('11ed30449f53647d02ae18fef8521ddcf28dc914650bd9289eecb6c687200b78')
+sha256sums=('7cb4c2d5d686f366e1121c287f48c3964ae3ec2ecc559d64a12bb315beebbf9a')
 
 build() {
   cd ${pkgname#python-}-$pkgver
