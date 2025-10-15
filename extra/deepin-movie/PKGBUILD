@@ -2,7 +2,7 @@
 
 pkgname=deepin-movie
 epoch=1
-pkgver=5.10.43
+pkgver=5.10.44
 pkgrel=1
 pkgdesc='Movie player based on mpv'
 arch=('x86_64')
@@ -14,14 +14,14 @@ depends=('dtkcore' 'dtkgui' 'dtkwidget' 'qt5-base' 'qt5-svg' 'ffmpegthumbnailer'
 makedepends=('git' 'cmake' 'gtest' 'ninja' 'qt5-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-movie-reborn.git#tag=$pkgver")
-sha512sums=('dc2ff9df88d12deee18092ec7d24cb875979617bc925cf605b013cf6b1af15b6c237803ac4d72eec4ae90d91cbd90fe3bc90f81c7f17effd4d95fb43133c3b35')
+sha512sums=('302ec8f2deff8da9785eafa3be6e8c500a69e413e3984ef109fd34432a563d73ce3fecf2fe8b622cff37a8b73d5df0ae98c6b98f055feb4aaa3731007401d1f8')
 
 prepare() {
   cd deepin-movie-reborn
   # new dtkgui
   git cherry-pick -n adbcf2f754f74947f32546f40d488001d34f3051
   # fix ldflag
-  git cherry-pick -n b16acf2321be8411b4d0426a6856c74a0b2b260a
+  git cherry-pick -n db5d5e36d18ec4b6ce52e83c7a1567d3944cb1d1
   # ffmpeg 7
   git cherry-pick -n 649fc5ebc0b80d8b7b530ae640a2e42280d1cdd6
   sed -i '/include <QDBusReply>/a#include <QTimer>' src/widgets/toolbutton.h
