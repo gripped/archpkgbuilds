@@ -4,8 +4,8 @@
 # Contributor: Kien Dang <mail at kien dot ai>
 
 pkgname=libnvidia-container
-pkgver=1.17.8
-pkgrel=2
+pkgver=1.17.9
+pkgrel=1
 _nvmodver=550.54.14  # check the VERSION in libnvidia-container/mk/nvidia-modprobe.mk
 pkgdesc="NVIDIA container runtime library"
 arch=(x86_64)
@@ -32,7 +32,7 @@ source=(
   "$pkgname-nvidia-modprobe-$_nvmodver.tar.gz::https://github.com/NVIDIA/nvidia-modprobe/archive/$_nvmodver.tar.gz"
   fix-makefile.patch
 )
-b2sums=('4e741ced6fe47ecc9c15359be337db740e94bccb06aa30a210ec143fd86a66ba9eb99a93604a16c7e2d74894ad0fd17ec4a6553af5d282c4613066cc0a26e770'
+b2sums=('3f38202c0d0c96ea9ab92475336b0dbfb48ed0346b17e06b39a826a895bc2f76441f853d025e6f439b659ac856c5fee07d4da1b0ab670b1b0730859c19492ace'
         '7b334877d98d0c75d5750192dea868436938852443ced14e74e59076ed4d8be9e361cdefbe48295d87bb91ac4565152ec3f3233479b3da19bb8baf8e7ef53cd6'
         '4938bdd72116a8f9f77e5a13a209e51332611ceb84d7e5e4155658023b6cd17c1a5e96a00c6809417092568c3558f9466c0a39c623cf31ba66351aafd724b5e5')
 
@@ -47,9 +47,6 @@ _common_make_flags=(
 
 prepare() {
   cd $pkgname-$pkgver
-
-  # solves https://gitlab.archlinux.org/archlinux/packaging/packages/nvidia-container-toolkit/-/issues/4
-  sed -i '/SCMP_SYS(chmod)/a\                SCMP_SYS(clock_gettime),' src/nvc_ldcache.c
 
   # nvidia-modprobe patching based on libnvidia-container/mk/nvidia-modprobe.mk
   mkdir -p deps/src/nvidia-modprobe-$_nvmodver
