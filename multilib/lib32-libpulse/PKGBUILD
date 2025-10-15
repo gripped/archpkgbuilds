@@ -4,7 +4,7 @@ pkgbase=lib32-libpulse
 pkgname=(
   lib32-libpulse
 )
-pkgver=17.0+r43+g3e2bb8a1e
+pkgver=17.0+r88+geee0e8f22
 pkgrel=1
 pkgdesc="A featureful, general-purpose sound server (32-bit client libraries)"
 url="https://www.freedesktop.org/wiki/Software/PulseAudio/"
@@ -31,9 +31,11 @@ optdepends=('lib32-alsa-plugins: ALSA support')
 provides=("lib32-pulseaudio=$pkgver")
 conflicts=(lib32-pulseaudio)
 replaces=(lib32-pulseaudio)
-_commit=3e2bb8a1ece02ae4e2c217273c9c0929cb9f5cae  # master
-source=("git+https://gitlab.freedesktop.org/pulseaudio/pulseaudio.git#commit=$_commit")
-b2sums=('1eea3f798a56ea7d51ebc49de20160b8ef2eeae00e4a139786dab02b7a2f0fb459a744a8960d1a6573d7f5591f54a391d943096260edc6dfc5b0f04773b9b311')
+_commit=eee0e8f22fdcb2fd4fbfa4311df7e5070239d435  # master
+source=(
+  "git+https://gitlab.freedesktop.org/pulseaudio/pulseaudio.git#commit=$_commit"
+)
+b2sums=('17981ec59730676b45fc1a0b36ee7d19fe099428e13a71ea904c4b3691a274d47846d71238bd29f8090e478ce59ef48b0b1ee2b1ab02ac67aa7b12a94b5c035d')
 
 pkgver() {
   cd pulseaudio
@@ -89,4 +91,4 @@ package_lib32-libpulse() {
   rm -r "$pkgdir/etc" "$pkgdir"/usr/{bin,include,share}
 }
 
-# vim:set sw=2 et:
+# vim:set sw=2 sts=-1 et:
