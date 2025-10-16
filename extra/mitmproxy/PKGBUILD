@@ -5,7 +5,7 @@
 # Contributor: Dobroslaw Kijowski
 
 pkgname=mitmproxy
-pkgver=12.1.2
+pkgver=12.2.0
 pkgrel=1
 pkgdesc='SSL-capable man-in-the-middle HTTP proxy'
 arch=(any)
@@ -40,6 +40,7 @@ depends=(
   python-urwid
   python-wsproto
   python-zstandard
+  python-bcrypt
 )
 makedepends=(
   git
@@ -58,8 +59,8 @@ provides=(pathod)
 conflicts=(pathod)
 replaces=(pathod)
 source=("$pkgname::git+https://github.com/mitmproxy/mitmproxy#tag=v$pkgver")
-sha512sums=('e08028ae6755e7a52aa08de17a2416b8cd0ca6546d1f1561257e8907c7590495ded12b96a3ac1fd823b950160c6684145f60d077a7aea503eb8704704ec2a9e9')
-b2sums=('2ba5810a140ab049acf9b2d54feb4d1e64070ef5f03d461acd82a518871065f8684eba863a2a6ab4fca6401cfa85d244e846e9bb5a38011a1e0614828b064459')
+sha512sums=('5465a27e46bc83adc9d9e04d83d116947d501157366acee9a340332efd97cb6af068803bdf9eba6ec6f7557b16ed5c2bccf3345a3aef337ac81335bd028c90d7')
+b2sums=('99e3a92ac89423900eb205a6fa73194146e1fba4c5be16612951cd5a30c8d7fe117a0e14d953885ffec67861cd97b5ed2760f7d9ec5a131d2376dc82b3e4a8ae')
 
 build() {
   cd "$pkgname"
