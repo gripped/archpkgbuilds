@@ -5,7 +5,7 @@
 # Contributor: Bumsik Kim <k.bumsik@gmail.com>
 
 pkgname=nushell
-pkgver=0.107.0
+pkgver=0.108.0
 pkgrel=1
 pkgdesc='A new type of shell'
 arch=(x86_64)
@@ -23,8 +23,8 @@ makedepends=(rust git)
 checkdepends=(procps-ng)
 install=nushell.install
 source=("git+https://github.com/nushell/nushell.git#tag=$pkgver")
-sha512sums=('0727d7275ca99ea8bfe29de021a0abfe54662462cce50a307ae7ee7f6fe460a16eeb68e052e77a20d55cee50e52375909e719b2c02f76894188bd5a3ca9b3b35')
-b2sums=('736f623df514449db7cf35a5f6e39ade6b8af53a6b06f1889c377f895b9ce5a95350523fc1a37043bbddd3454f62a4aeb895376a3f05de0f31a166ff414122e0')
+sha512sums=('e0ba4294808e78d59be488335d038ad82e7b848f519f53acfb1a88ef673484ae53345e065c5c1a798e62145fdbe47d16da0dbbaa9bc092493638bd9f3fbb5ef6')
+b2sums=('8dd093bea682be1dafcc11f97bcb1e30e4018c29974333eb52e897e7c86a6af566d58bbda674673d7004ec2f79288a90d86331c7b1a8b8ae0859aadd248788b1')
 
 prepare() {
   cd "$pkgname"
