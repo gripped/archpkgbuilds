@@ -1,31 +1,46 @@
 pkgbase = ghidra
 	pkgdesc = Software reverse engineering framework
-	pkgver = 11.0.3
+	pkgver = 11.4.2
 	pkgrel = 1
 	url = https://ghidra-sre.org/
 	arch = x86_64
 	license = Apache-2.0
+	makedepends = java-environment=21
 	makedepends = git
 	makedepends = gradle
-	makedepends = unzip
-	makedepends = java-environment=17
-	depends = java-environment>=17
+	makedepends = grep
+	makedepends = python-build
+	makedepends = python-flit-core
+	makedepends = python-installer
+	makedepends = python-pip
+	makedepends = python-setuptools
+	depends = java-environment>=21
 	depends = bash
+	depends = python
 	optdepends = pam: GhidraServer support
 	noextract = AXMLPrinter2.jar
-	noextract = yajsw-beta-13.09.zip
+	noextract = yajsw-stable-13.12.zip
+	noextract = psutil-5.9.8.tar.gz
 	options = !strip
-	source = https://github.com/NationalSecurityAgency/ghidra/archive/Ghidra_11.0.3_build.tar.gz
-	source = git+https://github.com/NationalSecurityAgency/ghidra-data#tag=Ghidra_11.0.3
-	source = https://github.com/pxb1988/dex2jar/releases/download/v2.1/dex2jar-2.1.zip
+	source = https://github.com/NationalSecurityAgency/ghidra/archive/Ghidra_11.4.2_build.tar.gz
+	source = git+https://github.com/NationalSecurityAgency/ghidra-data#tag=Ghidra_11.4.2
 	source = https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/android4me/AXMLPrinter2.jar
-	source = https://sourceforge.net/projects/yajsw/files/yajsw/yajsw-stable-13.09/yajsw-stable-13.09.zip
-	source = https://github.com/NationalSecurityAgency/ghidra-data/raw/Ghidra_11.0.3/lib/java-sarif-2.1-modified.jar
-	sha512sums = 4805c0508c2781f3b05697aa7930b044241d749341b2ba5087d50ff0839d08052c8d526f9898215fa35666721cbdbd0f63400966587d32e2b0d1a91c5b97c213
-	sha512sums = cf8a52af6d8c932ef00e73be5d58f9d5cd3cfa79928ddf1c37ced5ad9f8b49452e447be4928d469ee25a6cdfc1a36efb07bf74d0483450ed4d5474864a0751aa
-	sha512sums = 44b4a51043ef608158e16f70d9a448ae0a37896da19bd9837e1124e197b7b41a7c37f074386b0cc03edd4f385066bf5ef04c553f6dec0b0cc2a11ecbf299b16f
+	source = https://sourceforge.net/projects/yajsw/files/yajsw/yajsw-stable-13.12/yajsw-stable-13.12.zip
+	source = https://files.pythonhosted.org/packages/source/p/protobuf/protobuf-3.20.3.tar.gz
+	source = https://files.pythonhosted.org/packages/source/p/psutil/psutil-5.9.8.tar.gz
+	source = https://files.pythonhosted.org/packages/source/s/setuptools/setuptools-68.0.0.tar.gz
+	source = https://files.pythonhosted.org/packages/source/w/wheel/wheel-0.37.1.tar.gz
+	source = https://files.pythonhosted.org/packages/source/j/jpype1/jpype1-1.5.2.tar.gz
+	source = https://files.pythonhosted.org/packages/source/p/packaging/packaging-23.2.tar.gz
+	sha512sums = c7a5fb9eae00418f2efcd03c43640e061750ee3324fc247299531670ebb54474719536c1e8789e1e4758ff3f193a6725f3743b3d52ab97cfdde9c7b9e9310062
+	sha512sums = b2dfe009e30bb89f84cbc5693c696e523882af1682a14f001570d89d475e72b399ab540a6cb8b027ed1f2358dc47a3bb5c7270237f03bf6f25b761b5dc9b1865
 	sha512sums = c1168ec913f1fbb0675915d4fd865ec9a8e8573f6c8aedcb6e68166f61f11aeaececc7548d54d78134843c0102c57d6350973f6d3027d0ffdae52a5c57a7f601
-	sha512sums = d8682b57ce7577374a17113e1ace77393397e405e6450e3f7637ed1f0f42bc7170b378f775a4ba3c458b202ef35f95b35317cce45659b8a3b25aaa59e8393aa4
-	sha512sums = 04d1f895f87a8f0a653ee5c2b18ed0b6d158f1b7de4e16de2e50ed5a3087b1e83ca01f6c4c8c53d1788942e29d2f41528c910f224c41e27098cb5c2838a8ddf3
+	sha512sums = ce942efe3e4f45280913122dab121b583ce20d9a86369de8148daf100fa2f4695f59acd79087519c5ce6ac65803ffa068607430760b556abb31e60558c0085e9
+	sha512sums = ae3ca199e7aa0b98634dd89b00fd5e8b04e9b8a840b76406730f14743ef71afdc4e84ade2730dae7958bf82e7b8bb884280394a81c7f9607edb1455df3fee4f6
+	sha512sums = 6ddeed937119a930bb7b9556ff329f054e9429b8457c9a15d99cb105271297117abba587a974d02760bb8b6b244734973a676bdff6b533a53ce587858e48f337
+	sha512sums = da6d535a0db6eaf477c8c2148efbc2100fd88a14f3adad44d20e22bf52bee3f00fe86547ea650fe653519bd6ff5f9ef033a55bb3a05fed041e88e78cdfb81d7e
+	sha512sums = c977a740c17abd1fa4b4c2382a33f3ff887baa4231c36990d988cb8531496074e39744786ef6ac0da9c9af4977bce5b2da145377a3ac15eea918f8125bff66ec
+	sha512sums = b02c294ee2ef7a206fcd80827f790bcad73bf857ab8a473a795752431eacfda85dc53ec5451545b24d9d5c80c71fa10355ba232916c2c1d52534ec54c7d0bb3b
+	sha512sums = 8ab5e9bc4feef2fac1c9044dc8a6f2d41aaf9fe2dae671de8b98c0b1a19dca2169588b87d85a8c990d808b1e76faee65984ce970eaa3282b75e107ca82cc2863
 
 pkgname = ghidra
