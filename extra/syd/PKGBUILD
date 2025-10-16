@@ -2,26 +2,28 @@
 
 pkgname=syd
 _pkgname=sydbox
-pkgver=3.40.0
+pkgver=3.40.1
 pkgrel=1
 pkgdesc="Seccomp and landlock based application sandbox with support for namespaces"
 url="https://lib.rs/crates/syd"
 arch=('x86_64')
 license=('GPL-3.0-only')
 depends=('bash' 'gcc-libs' 'glibc' 'libseccomp')
-makedepends=('cargo' 'scdoc')
+makedepends=('cargo' 'git' 'scdoc')
 provides=("${_pkgname}")
-source=("${pkgname}-${pkgver}.tar.gz::https://gitlab.exherbo.org/${_pkgname}/${_pkgname}/-/archive/v${pkgver}/${_pkgname}-v${pkgver}.tar.gz")
-sha256sums=('f68c94814c49249437228edeb9eb54a541ca22bbee79425063841d3aeb04e423')
+source=("git+https://gitlab.exherbo.org/sydbox/sydbox.git#tag=v${pkgver}?signed")
+sha256sums=('05c90e5005cdd0a4d6172101b050072f1f94cb7ffe8252882cc955b44d3d5836')
+validpgpkeys=('5DF763560390A149AC6C14C7D076A377FB27DE70')
+options=('!lto')
 
 prepare() {
-	cd "${_pkgname}-v${pkgver}"
+	cd "${_pkgname}"
 	export RUSTUP_TOOLCHAIN=stable
 	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
-	cd "${_pkgname}-v${pkgver}"
+	cd "${_pkgname}"
 	export RUSTUP_TOOLCHAIN=stable
 	export CARGO_TARGET_DIR=target
 	cargo build --frozen --release
@@ -30,7 +32,7 @@ build() {
 }
 
 check() {
-	cd "${_pkgname}-v${pkgver}"
+	cd "${_pkgname}"
 	export RUSTUP_TOOLCHAIN=stable
 	# "syd_test" and "fs" tests fail with sandbox
 	# "hash" tests seems flaky (they fail on the build server for some reason)
@@ -50,7 +52,7 @@ check() {
 }
 
 package() {
-	cd "${_pkgname}-v${pkgver}"
+	cd "${_pkgname}"
 	install -Dm 755 "target/release/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
 
 	install -Dm 755 src/esyd.sh "${pkgdir}/usr/lib/${pkgname}/esyd.sh"
