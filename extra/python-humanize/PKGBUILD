@@ -3,7 +3,7 @@
 
 _pkgname=humanize
 pkgname=python-$_pkgname
-pkgver=4.13.0
+pkgver=4.14.0
 pkgrel=1
 pkgdesc='Common humanization utilities for Python'
 arch=(any)
@@ -18,7 +18,7 @@ checkdepends=(python-coverage
               python-pytest)
 _archive="$_pkgname-$pkgver"
 source=("https://pypi.python.org/packages/source/${_pkgname::1}/$_pkgname/$_archive.tar.gz")
-sha256sums=('78f79e68f76f0b04d711c4e55d32bebef5be387148862cb1ef83d2b58e7935a0')
+sha256sums=('2fa092705ea640d605c435b1ca82b2866a1b601cdf96f076d70b79a855eba90d')
 
 prepare() {
 	cd "$_archive"
