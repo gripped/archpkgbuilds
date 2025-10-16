@@ -5,7 +5,7 @@
 # Contributor: Dan McGee <dan@archlinux.org>
 
 pkgname=qgit
-pkgver=2.12
+pkgver=2.13
 pkgrel=1
 pkgdesc='A GIT GUI viewer built on Qt/C++'
 url="https://github.com/tibirna/$pkgname"
@@ -19,7 +19,7 @@ depends=(git
          qt6-svg)
 optdepends=(source-highlight)
 source=("git+$url.git#tag=$pkgname-$pkgver")
-sha256sums=('f3e4c19ffb96290637796c2f3ef00a11388a33915bb38933d3afae277eee9831')
+sha256sums=('e3e8099d6ed61d22811004a2526ee388947d6b9700f6e339f9cc07f921479925')
 
 prepare() {
 	cd "$pkgname"
