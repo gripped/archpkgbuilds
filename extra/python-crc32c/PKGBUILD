@@ -2,7 +2,7 @@
 
 _name=crc32c
 pkgname=python-crc32c
-pkgver=2.7.1.post0
+pkgver=2.8
 pkgrel=1
 pkgdesc="A python package implementing the crc32c algorithm in hardware and software"
 arch=(x86_64)
@@ -23,8 +23,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('22fe3324c6e5acccfe00f849ddb32c5ed77addd3a0759ded49a52a35888b810b73c419e1719b88856317b4d92b0b15c54650900cafe914c42a0db841c4600ae8')
-b2sums=('aa772f260e041fb10757954c6542b5b550031b21ef5174daf3b238c9220c827ac6ab62e10f27efa2fd1c4be07e5b0ca05548343be9810ea544e89c15e22b9030')
+sha512sums=('f20734b2372e9c584c0755991606345cba256b6d3cf4926dca58ad0f0b107da55cdbeaaab26250d771f15dfad31392483078a7e133ae283ee5510c0d79bd489b')
+b2sums=('6a434a622bfa967dd26df82d934dc2074daf4c8e4affa94f74336c83657f4582da3edab66ed2f4081c853545eba8748f4c808c64ae0da25699f4570cb6dfa8fa')
 
 build() {
   cd $_name-$pkgver
