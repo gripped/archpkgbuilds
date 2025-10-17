@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=soundscope
-pkgver=1.4.0
+pkgver=1.4.1
 pkgrel=1
 pkgdesc="A TUI app for analyzing audio data such as frequencies and loudness"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('gcc-libs' 'alsa-lib')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('a8911b4fdaaf6156950836b89585b5dcdc07a9e11e044ed07066ddcbb238fd582106b501316697197a8984f7b2a2a636ccfe4fa22662aec837164c9d42abcadb')
+sha512sums=('176601c13948eb736fc02743bff6393eb2bcbd301bd0c92d849d61125a507e65958d73c57a95d346249301dd13c0f523c78ddbe15f9f5f163a54ef8580459089')
 
 prepare() {
   cd "$pkgname-$pkgver"
