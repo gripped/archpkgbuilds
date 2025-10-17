@@ -5,7 +5,7 @@
 _name=pydantic
 pkgname=python-$_name
 # WARNING: upstream pins pydantic-core down to the patch-level and using other versions breaks tests! only update in lock-step with python-pydantic-core!
-pkgver=2.12.0
+pkgver=2.12.2
 pkgrel=1
 pkgdesc='Data parsing and validation using Python type hints'
 arch=(any)
@@ -53,8 +53,8 @@ optdepends=(
   'python-hypothesis: for hypothesis plugin when using legacy v1'
 )
 source=($url/archive/v$pkgver/$_name-v$pkgver.tar.gz)
-sha512sums=('3923822f73c6fee8678583aba0d8dcdf7b2435a21b01e54825533d5c1f1c47a43dd5e093f453299795b2345a346ca700d94bedf3f3ace7edb54ece496d97db10')
-b2sums=('4803b2e8725cf72208abe2aed0d8da8015b685021c952611dfd0420da8aad0acf2448400eb2fb1278b914370b0d1d9e9eae27bf9f020ba3bf29c7cd2ca29aabd')
+sha512sums=('e761c2cf1b07e058cc80dfcaf2801c39fd5e245b4c899c4341b835836bcd64af0b0c5a7c02868d85eb21be2dd2e690638a37c326dad008b19f60c96043912709')
+b2sums=('fe92775b5350df168522d7be07fb51c7452bb378c41aff167d9515c7cb461542f86f866b929dfcb505ca1f443f08cb59691bd2920ce21a8306ab155ab3e20b97')
 
 build() {
   cd $_name-$pkgver
