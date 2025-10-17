@@ -3,7 +3,7 @@
 
 pkgname=libavif
 pkgver=1.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Library for encoding and decoding .avif files"
 arch=(x86_64)
 url="https://github.com/AOMediaCodec/libavif"
@@ -19,7 +19,6 @@ depends=(aom
          rav1e
          svt-av1)
 makedepends=(cmake
-             gdk-pixbuf2
              git
              nasm
              pandoc-cli)
@@ -36,7 +35,7 @@ build() {
     -DAVIF_CODEC_RAV1E=SYSTEM \
     -DAVIF_CODEC_SVT=SYSTEM \
     -DAVIF_LIBSHARPYUV=SYSTEM \
-    -DAVIF_BUILD_GDK_PIXBUF=ON
+    -DAVIF_BUILD_GDK_PIXBUF=OFF
   make -C build
 }
 
