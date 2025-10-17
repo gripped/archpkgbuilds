@@ -3,18 +3,17 @@
 
 pkgname=tldr
 pkgver=3.4.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Command line client for tldr, a collection of simplified man pages."
 arch=('any')
 url="https://github.com/tldr-pages/tldr-python-client"
 license=('MIT')
-depends=('python-shtab' 'python-colorama' 'python-termcolor')
+depends=('python' 'python-shtab' 'python-colorama' 'python-termcolor')
 makedepends=(
     'python-build'
     'python-installer'
-    'python-hatch'  # Set in pyproject.toml build
+    'python-hatchling'
     'python-sphinx-argparse'
-    'python-wheel'
 )
 checkdepends=('python-pytest')
 source=("https://github.com/tldr-pages/tldr-python-client/archive/$pkgver/$pkgname-$pkgver.tar.gz")
