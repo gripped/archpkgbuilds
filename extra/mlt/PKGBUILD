@@ -8,7 +8,7 @@
 
 pkgname=mlt
 pkgver=7.32.0
-pkgrel=4
+pkgrel=5
 pkgdesc='An open source multimedia framework'
 arch=(x86_64)
 url='https://www.mltframework.org'
@@ -78,7 +78,7 @@ source=(git+https://github.com/mltframework/mlt#tag=v$pkgver
         ffmpeg-8.patch)
 sha256sums=('279dba94bd4a36607ea7facbad797a6dfd36277d99835a1e361d34d96d092eb4'
             'SKIP'
-            'b8590235646a9fa3cb2cbe70ee31d50ca67d67ac94d74ce71c39ba0c3de46749')
+            '1f4530d1ce2a4036d4c1eee84a609ea8a90879a375351c65f531c0b22e702397')
 
 prepare() {
   cd $pkgname
