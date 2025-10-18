@@ -5,8 +5,8 @@
 
 pkgname=ruby-tins
 _pkgname="${pkgname#ruby-}"
-pkgver=1.44.1
-pkgrel=2
+pkgver=1.45.1
+pkgrel=1
 pkgdesc='All the stuff that is not good/big enough for a real library'
 arch=(any)
 url='https://github.com/flori/tins'
@@ -15,8 +15,8 @@ depends=(ruby ruby-bigdecimal ruby-sync ruby-mize)
 makedepends=(git ruby-rake)
 options=(!emptydirs)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('71fe830f439e30d352b2a2483ffb8131e0e4d13cb8677a48f909087dd94252584150449003e5db6d6b3a85560b8849ad237ed808717ab88a23d56b858e35e13b')
-b2sums=('2b3003d4eb04931925b95cda3d07a09e80f26ba6e87062b89871738c6e5f9dfbbcf6879255fdc21e6719bf3c1484f5f95574067fdc1e29a874a6c99d86b0a964')
+sha512sums=('65449ca3489d95ca9b6e9cb2a804fd6f3d336adb5916e5ca0aa1124faa909c2abe73af44b63674b4ce427621d5825acc4b1448ee19d9a1317cea6e2589847cdd')
+b2sums=('b5ec0c3f4c1fd6a6e099eda2d19f9ce975cc8c579e2ab486b0316c028eedd5c3a09c88711438d88eb79cdc1fc0b2a69f305b52b724169f5db4bef9df1568e092')
 
 build() {
   cd "$pkgname"
