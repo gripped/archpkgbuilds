@@ -4,8 +4,8 @@
 # Contributor: Giulio Bai <giulio@hewle.com>
 
 pkgname=accerciser
-pkgver=3.46.2
-pkgrel=4
+pkgver=3.48.0
+pkgrel=1
 pkgdesc="Interactive Python accessibility explorer for the GNOME desktop"
 url="https://wiki.gnome.org/Apps/Accerciser"
 arch=(any)
@@ -37,23 +37,10 @@ makedepends=(
   yelp-tools
 )
 source=("git+https://gitlab.gnome.org/GNOME/accerciser.git#tag=$pkgver")
-b2sums=('87cbc2086e9cb37f786d79abd7d95f80b5f8e27c2ccae93a2e58ab950fdcf41e9f936f9269825717cf78302dc1facab0a952017aa9c4067ef9c0e18456b0411d')
+b2sums=('9c1ce897e9a5d3eac9f3cb59b9de9476b36bc99fd44a7079fb94297c5ece91dee24810cf5785f10d6455c7d6580b117357cdcd602c655737b5421eb8b8902ef5')
 
 prepare() {
   cd $pkgname
-
-  # Fix compatibility with ipython 9
-  git cherry-pick -n ea5b2dfedcbf79ba1492f7cd0bd3c0a53ebec733
-  git cherry-pick -n 55462e60b520746e4265c9165164cbb467ec3162
-  git cherry-pick -n eebe0199de8120c3383730a398a544d5d2839f7c
-
-  # Pass command-line arguments to the application
-  # https://gitlab.gnome.org/GNOME/accerciser/-/merge_requests/93
-  git cherry-pick -n 261dbba5fdff391bac8f929c56ee6a8b27e99a08
-
-  # Set application ID
-  # https://gitlab.gnome.org/GNOME/accerciser/-/merge_requests/94
-  git cherry-pick -n f34d59f814ed600a1a50ad9b188e6895e2915073
 }
 
 build() {
