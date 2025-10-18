@@ -1,0 +1,35 @@
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+
+pkgname=hyprwire
+pkgver=0.1.0
+pkgrel=2
+pkgdesc='A fast and consistent wire protocol for IPC'
+arch=(x86_64)
+url="https://github.com/hyprwm/$pkgname"
+license=(BSD-3-Clause)
+depends=(gcc-libs # libgcc_s.so libstdc++.so
+         glibc # libc.so libm.so
+         hyprutils libhyprutils.so
+         libffi libffi.so
+         pugixml) # libpugixml.so
+makedepends=(cmake)
+provides=(libhyprwire.so)
+_archive="$pkgname-$pkgver"
+source=("$url/archive/v$pkgver/$_archive.tar.gz")
+sha256sums=('ff312e0927aa6aae4ef9b3994784dd0baf951418b568369caa937b41f25bff27')
+
+build() {
+	cd "$_archive"
+	local cmake_options=(
+		-D CMAKE_BUILD_TYPE=None
+		-D CMAKE_INSTALL_PREFIX=/usr
+	)
+	cmake -B build -W no-dev ${cmake_options[@]}
+	cmake --build build
+}
+
+package() {
+	cd "$_archive"
+	DESTDIR="$pkgdir" cmake --install build
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+}
