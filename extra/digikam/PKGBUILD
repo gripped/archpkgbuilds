@@ -5,7 +5,7 @@
 
 pkgname=digikam
 pkgver=8.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc='An advanced digital photo management application'
 arch=(x86_64)
 license=(GPL-2.0-or-later)
@@ -76,6 +76,10 @@ sha256sums=('db3a1b6e3c73f903e3dff8003f52455dd2ecd198cb66534fee4abbd0bdeb6b9a'
             'SKIP')
 validpgpkeys=(D1CF2444A7858C5F2FB095B74A77747BC2386E50) # digiKam.org (digiKam project) <digikamdeveloper@gmail.com>
 
+prepare() {
+  rm $pkgname-$pkgver/core/cmake/modules/FindEigen3.cmake # Fix build with Eigen 5
+}
+
 build() {
   cmake -B build -S $pkgname-$pkgver \
     -DBUILD_TESTING=OFF \
@@ -84,7 +88,8 @@ build() {
     -DENABLE_MEDIAPLAYER=ON \
     -DENABLE_AKONADICONTACTSUPPORT=ON \
     -DENABLE_MYSQLSUPPORT=ON \
-    -DENABLE_APPSTYLES=ON
+    -DENABLE_APPSTYLES=ON \
+    -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3
   cmake --build build
 }
 
