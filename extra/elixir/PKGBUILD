@@ -4,8 +4,8 @@
 # Contributor: Gilbert Kennen <gilbert firewatcher org>
 
 pkgname=elixir
-pkgver=1.18.4
-pkgrel=2
+pkgver=1.19.0
+pkgrel=1
 pkgdesc="A dynamic, functional language for building scalable and maintainable applications"
 url="https://elixir-lang.org"
 license=('Apache-2.0')
@@ -34,16 +34,8 @@ checkdepends=(
 )
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/elixir-lang/elixir/archive/v${pkgver}.tar.gz"
-  "${pkgname}-remove-failing-tests.patch"
 )
-sha256sums=('8e136c0a92160cdad8daa74560e0e9c6810486bd232fbce1709d40fcc426b5e0'
-            '992a6bd73819a04c9a3fb31bde4ae189d5bd2a5c6e592d66fb7ddc351941ce3d')
-
-prepare() {
-  cd "${pkgname}-${pkgver}"
-  patch -Np1 < ../${pkgname}-remove-failing-tests.patch
-}
-
+sha256sums=('99a684045b49f9c5005a1aa8278e1bac8c3769e0a5a13c05ef80b69113029234')
 build() {
   cd "${pkgname}-${pkgver}"
   export REBAR3=/usr/bin/rebar3
