@@ -2,8 +2,8 @@
 # Contributor: Lennard Hofmann
 
 pkgname=wf-recorder
-pkgver=0.5.0
-pkgrel=4
+pkgver=0.6.0
+pkgrel=1
 pkgdesc="Screen recorder for wlroots-based compositors such as sway"
 arch=("x86_64")
 url="https://github.com/ammen99/wf-recorder"
@@ -28,20 +28,8 @@ optdepends=(
 )
 source=(
 	"$pkgname-$pkgver.tar.gz::https://github.com/ammen99/wf-recorder/archive/v$pkgver.tar.gz"
-	"https://patch-diff.githubusercontent.com/raw/ammen99/wf-recorder/pull/279.patch"
-	"ffmpeg-8-hotfix.patch"
 )
-sha256sums=('b9168bfdf41995bce2cfed5487e3ca8f2e75a5661b92cebea086a3468d20d87c'
-            '48a09fd3b6012f0dae8901aeeff38865e324701037c07543e9a888b34eb0d9f1'
-            '666885683138bbc327c9b664029db3587962df56ed25560cec9c6fd623fc1bf6')
-
-prepare() {
-	cd "$pkgname-$pkgver"
-	# The frame_rate variable has been made private.
-	# https://github.com/ammen99/wf-recorder/pull/279
-	patch -p1 < ../279.patch
-	patch -p1 < ../ffmpeg-8-hotfix.patch
-}
+sha256sums=('52d2c952506d63708f9a8f1aacd4d6ca176287caf3507c8ff2882fa0390cb391')
 
 build() {
 	meson "$pkgname-$pkgver" build \
