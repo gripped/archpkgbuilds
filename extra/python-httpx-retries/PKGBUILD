@@ -2,7 +2,7 @@
 
 _name=httpx-retries
 pkgname=python-$_name
-pkgver=0.4.3
+pkgver=0.4.5
 pkgrel=1
 license=(MIT)
 pkgdesc="A retry layer for HTTPX"
@@ -24,7 +24,7 @@ checkdepends=(
   python-pytest-asyncio
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-b2sums=('170f16779b18d9b55eaa44694cb3b0ba2c7dbfeed6adb1e8ef694f8d7ca318c6290c31c4f44097c9e58ae6acce80584c25c5b5eb9f4f6a61b84d9c347a2aa4a9')
+b2sums=('977c6194a3f26552e0b6f7c0a7f83a858f041c879124fa41717fed51ca2d8a3c1c8442aac840c122481ba1d77118a370d04657155119a2ea0f98354f3cc6ffd2')
 
 build() {
   cd $_name-$pkgver
