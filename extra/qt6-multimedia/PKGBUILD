@@ -7,7 +7,7 @@ pkgname=(qt6-multimedia
          qt6-multimedia-gstreamer)
 _pkgver=6.10.0
 pkgver=${_pkgver/-/}
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -18,6 +18,7 @@ pkgdesc='Classes for audio, video, radio and camera functionality'
 depends=(gcc-libs
          glibc
          libpulse
+         pipewire
          qt6-base)
 makedepends=(cmake
              ffmpeg
