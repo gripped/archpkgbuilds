@@ -7,7 +7,7 @@ pkgname=(
   python-gobject
   python-gobject-docs
 )
-pkgver=3.54.3
+pkgver=3.54.5
 pkgrel=1
 pkgdesc="Python bindings for GLib/GObject/GIO/GTK"
 url="https://pygobject.gnome.org/"
@@ -42,7 +42,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gobject-introspection-tests.git#commit=ddd662bb9cdc29f047b239789fb7e56e68fa66bb"
   "git+https://github.com/python/pythoncapi-compat#commit=632d1aa0c4be6c67498d6b97630ddd7d7eb0f90a"
 )
-b2sums=('b6698aad818e461ecd1c5d640fc2d2fe268ee3222d74a3ca502d3a0035f5e7d2a3fd42348cbd735b83a2978edc47966ad683bb216b39cdf57f6a91f198c86a04'
+b2sums=('5f9a819f4077f271f35d2aba25fc05eb096a59bfa2e93b5a9d4cda2d7afdb0a0f8befdeaedab16bfb99c2604ef49f056349671bbb1e372fc060aaf6e64ea2bf6'
         '9cda3c56ea795e6ec575041215134f0b1fcd21305de240a4820f5ae12744be9ae6e8f4942b686139a6a7056b1f893fe4555d9fb3f9ef23351c592a2da0455f6e'
         'd06b53e843b343f4e4a642f4c894e8f8e4aec55e1939427265c8538a7d504642570e8efdc1d86bb719da63f05a9e2174ad0828d4d49d6f8db51875df93b1ab1b')
 validpgpkeys=(
