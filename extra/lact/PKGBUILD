@@ -3,7 +3,7 @@
 
 pkgname=('lact' 'lact-libadwaita')
 pkgbase=lact
-pkgver=0.8.1
+pkgver=0.8.2
 pkgrel=1
 pkgdesc="Linux GPU Configuration Tool"
 arch=('x86_64')
@@ -28,11 +28,10 @@ checkdepends=(
 )
 install="$pkgbase.install"
 source=("git+https://github.com/ilya-zlobintsev/LACT.git#tag=v$pkgver")
-sha256sums=('7c80791faf7ef53daaceccf548b51fca47fea97489b1d3368472873fe1823bdc')
-b2sums=('c9b6c7c5ef0fc99b2d1d42fb8c1f4afdbc24e222663581f6f705dcf38731c7a59482ca005d9c7d6dc8c19df9daea9f078e6c757faa1fb19fdcc195229e0b21f5')
+sha256sums=('56f7206a4e47b4a15382150fff547eca1cc01ad32e1905d01cc086fb6342dc99')
+b2sums=('2769586ff6db4f491a89d22abb69e5a99f14e783f8dde6dd5d1dbbf996dec5741dd25127e868d26cea711f136dfbd4348b80780366578cfd5661dbc8a74683ab')
 
 _backports=(
-  'c9a59e48a36d590d7522c22bd15a8f9208bef0ee' #                                             chore: vendor pci.ids file for test purposes
 )
 
 _reverts=(
@@ -59,6 +58,7 @@ prepare() {
 
 build() {
   cd "LACT"
+  CFLAGS+=' -ffat-lto-objects'
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
 
@@ -72,8 +72,9 @@ build() {
 
 check() {
   cd "LACT"
+  CFLAGS+=' -ffat-lto-objects'
   export RUSTUP_TOOLCHAIN=stable
-  cargo test --frozen --verbose --
+  cargo test --frozen --all --all-features --verbose
 }
 
 package_lact() {
