@@ -2,7 +2,7 @@
 
 pkgname=webhook
 pkgver=2.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A lightweight incoming webhook server to run shell commands"
 arch=('x86_64')
 url="https://github.com/adnanh/webhook"
@@ -35,7 +35,7 @@ build() {
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
 
   cd "$srcdir"/webhook-$pkgver
-  go build -o build/webhook
+  go build -ldflags="-s -w -buildid=''" -o build/webhook
 }
 
 package() {
