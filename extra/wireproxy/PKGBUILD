@@ -3,7 +3,7 @@
 
 pkgname=wireproxy
 pkgver=1.0.10
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 license=(ISC)
 url="https://github.com/whyvl/wireproxy"
@@ -38,7 +38,7 @@ build() {
     -trimpath \
     -mod=readonly \
     -modcacherw \
-    -ldflags "-linkmode=external \
+    -ldflags "-linkmode=external -s -w -buildid='' \
       -X main.version=${pkgver}" \
     -o "${pkgname}" \
     "./cmd/${pkgname}"
