@@ -8,7 +8,7 @@
 
 pkgname=julia
 epoch=2
-pkgver=1.12.0
+pkgver=1.12.1
 pkgrel=1
 arch=(x86_64)
 pkgdesc='High-level, high-performance, dynamic programming language'
@@ -39,7 +39,7 @@ source=(https://github.com/JuliaLang/julia/releases/download/v$pkgver/$pkgname-$
         c12e8515.patch
         julia-hardcoded-libs.patch)
 backup=(etc/julia/startup.jl)
-sha256sums=('2dba42b3f143564f96c60948d1100db0902aa3cb98ebf89c156b4091f05d9b89'
+sha256sums=('891d16bb91c8a94d5a6355a82c17fa3c2458eb89160d428443a0b2a1b841ea52'
             'SKIP'
             '2cc294b63e601d50341979fb936826bdba59de2165a5929eae927e152652f367'
             '120c3b77a1aecfdb045ac64902164210ea8dd139d2fb8e8b098155b344a8e1fb')
@@ -100,8 +100,7 @@ _make() {
   [[ ${CARCH} == 'aarch64' ]] && make_options+=(MARCH=armv8.2-a JULIA_CPU_TARGET="generic;armv8.2-a,crypto,fullfp16,lse,rdm")
   [[ ${CARCH} == 'x86_64' ]] &&  make_options+=(MARCH=x86-64 JULIA_CPU_TARGET="generic;sandybridge,-xsaveopt,clone_all;haswell,-rdrnd,base(1)")
 
-  export CMAKE_POLICY_VERSION_MINIMUM=3.5 # Fix build with cmake 4
-  LD_LIBRARY_PATH="/usr/lib/mbedtls2" make "${make_options[@]}" "$@"
+  make "${make_options[@]}" "$@"
 }
 
 build() {
@@ -131,7 +130,8 @@ check() {
     --skip SuiteSparse_jll \
     --skip PCRE2_jll \
     --skip LibGit2_jll \
-    --skip Zlib_jll
+    --skip Zlib_jll \
+    --skip precompile # https://github.com/JuliaLang/julia/issues/59887
   find ../stdlib \( -name \*.cov -o -name \*.mem \) -delete
   rm -fr ../stdlib/Artifacts/test/artifacts
 }
