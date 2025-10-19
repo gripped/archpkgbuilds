@@ -2,15 +2,15 @@
 # Contributor: foobat <scratcher@foxmail.com>
 
 pkgname=fcitx5-breeze
-pkgver=3.0.0
+pkgver=3.1.0
 pkgrel=1
 pkgdesc="Fcitx5 theme to match KDE's Breeze style."
 arch=('any')
 url="https://gitlab.com/scratch-er/fcitx5-breeze"
-license=('GPL')
+license=('GPL-3.0-or-later')
 makedepends=('git' 'python' 'inkscape')
 source=("git+https://gitlab.com/scratch-er/fcitx5-breeze.git#tag=v$pkgver")
-sha512sums=('5217e1b6e3fa3ea75ae3b0c555fed28bbd65ff212dcf9d80fdd5778ef09c9b663386199269f36c91c7cf3a20141ce1fc83180f6a191a73558c695090521046e4')
+sha512sums=('7bf0256762cfc70ad5bfd6722e5ced79f4ba64faebdbf1ddfb03a0e924567974ba786d5342b0a9f48383192fdff889d1508ec39e0d49fed2cff6c2cee58ea528')
 
 build() {
   cd $pkgname
