@@ -2,7 +2,7 @@
 
 pkgname=roboden
 pkgver=0.26 # build 26
-pkgrel=3
+pkgrel=4
 pkgdesc='An indirect control real-time strategy game about robot colonies'
 arch=(x86_64)
 url='https://github.com/quasilyte/roboden-game'
@@ -23,10 +23,10 @@ build() {
   export CGO_CFLAGS="$CFLAGS"
   export CGO_CXXFLAGS="$CXXFLAGS"
   export CGO_LDFLAGS="$LDFLAGS"
-  export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
+  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
 
   cd $pkgname/src
-  go build -o ../bin/roboden ./cmd/game
+  go build -ldflags="-linkmode=external -s -w -buildid=''" -o ../bin/roboden ./cmd/game
 }
 
 package() {
