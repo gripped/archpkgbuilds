@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-calculator
-pkgver=6.5.21
+pkgver=6.5.22
 pkgrel=1
 pkgdesc='An easy to use calculator for ordinary users'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'glibc' 'gcc-libs' 'hicolor-icon-them
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'clang' 'qt6-declarative')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-calculator.git#tag=$pkgver")
-sha512sums=('788f68175a6a8d3386a9d495c4233f5d7ad545b4845f46463fa140651cd58a3a5623fa37c8a94e67ad69928765f1f112ef27f3b7f9281f441ba12acfb0dc9257')
+sha512sums=('a38d88a55563258b6eccc12469ac1d4f1b28130ab49f0d2d510b7d3e15008577386c3e3c1492b937e43a9d6f5e6cc9c13e41cf83108f81c8936aa2fab65072e5')
 
 prepare() {
   cd deepin-calculator
