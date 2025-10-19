@@ -9,8 +9,8 @@ pkgname=(
   libgphoto2
   libgphoto2-docs
 )
-pkgver=2.5.32
-pkgrel=4
+pkgver=2.5.33
+pkgrel=1
 pkgdesc="Digital camera access library"
 url="http://www.gphoto.org/"
 arch=(x86_64)
@@ -34,30 +34,14 @@ makedepends=(
 )
 source=(
   "git+https://github.com/gphoto/libgphoto2#tag=v$pkgver"
-  0001-meson-check-more-functions-that-weren-t-checked.patch
 )
-b2sums=('de9380961e1731b7510d5555b0f8ec4a691461aa269bcde98e457cf06867f3cd841244f9f5a267b8998e9ab983ac398a49241d7fbc1c6dd7795b87c899926b04'
-        '560929852da8449f48eb9b42db3d98e7b126da32718223de694b93775a2351a8bfacfa9a3b9885bf6c211734efb30d6fd0733ce773e477f830498894144f764e')
+b2sums=('6d23cadc6e8b43cbad14453cdb30a3a3bae9b91a967faca12e82c221d4775cd4c8bbc8629217c11c4453f1761f2c9e9f9dc3c6b762e9a97afcfec3aa6b7f7dd7')
 validpgpkeys=(
   7C4AFD61D8AAE7570796A5172209D6902F969C95 # Marcus Meissner <marcus@jet.franken.de>
 )
 
 prepare() {
   cd $pkgbase
-
-  # Crash fix
-  # https://github.com/gphoto/libgphoto2/issues/1136
-  git cherry-pick -n 19b9d65289938caba06ef2848ca3917aa5e832b3
-
-  # Meson fixes
-  # https://github.com/gphoto/libgphoto2/pull/1134
-  git cherry-pick -n 53a0d5e8ed57ac2582c54a5fc0c425455e9eafc1 \
-                     fd294cdf2d905472519e937b3383cd6928230322
-  # https://github.com/gphoto/libgphoto2/pull/1139
-  git cherry-pick -n 2eaa91be3c24835667e99cc5214ecf8429b5aecf
-  # https://github.com/gphoto/libgphoto2/pull/1163
-  git apply -3 ../0001-meson-check-more-functions-that-weren-t-checked.patch
-  sed -i 's/2\.5\.32\.1/2.5.32/' meson.build
 }
 
 build() {
