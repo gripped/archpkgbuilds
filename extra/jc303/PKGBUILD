@@ -2,61 +2,78 @@
 
 pkgbase=jc303
 pkgname=(
-  'jc303-common'
-  'jc303-lv2'
-  'jc303-vst3'
-  'jc303-clap'
+  jc303-common
+  jc303-lv2
+  jc303-vst3
+  jc303-clap
 )
-pkgver=0.10.1
+pkgver=0.12.2
 pkgrel=1
 pkgdesc='TB-303 clone'
-arch=('x86_64')
+arch=(x86_64)
 url='https://midilab.co/jc303/'
-license=('GPL-3.0-only' 'MIT')
-groups=('pro-audio')
+license=(GPL-3.0-only MIT)
+groups=(pro-audio)
 _common_depends=(
-  'glibc'
-  'gcc-libs'
-  'freetype2'
+  glibc
+  gcc-libs
+  freetype2
 )
 makedepends=(
   "${_common_depends[@]}"
-  'git'
-  'cmake'
-  'libx11'
-  'libxrandr'
-  'libxinerama'
-  'libxcursor'
-  'alsa-lib'
-  'gtk3'
+  git
+  cmake
+  libx11
+  libxrandr
+  libxinerama
+  libxcursor
+  alsa-lib
+  gtk3
+  xsimd
 )
-options=('!lto')
-_jucecommit='69795dc8e589a9eb5df251b6dd994859bf7b3fab'
-_clapcommit='0a3e7a6494788ea525e95e12a8b6a51640dcdc3e'
+options=(!lto)
+_jucecommit=7.0.5
+_clapcommit=a3227c52fa082d2df33f4377ed1e050dd8a52595
+_chowdspcommit=ffc70ba399f9afaeefb996eb14e55a1d487270b8
+_rtneuralcommit=04cb333bc4b174760958a77c7ce076eae38fe8e4
+_mathapproxcommit=0c68d4d17242d707ba07fa7f1901692b7ed72d58
+_variantcommit=3fce49cfca50ba3b05026d41ffc4911a8e653378
 source=(
   "$pkgbase::git+https://github.com/midilab/jc303#tag=v$pkgver"
-  "github.com-juce-framework-JUCE::git+https://github.com/juce-framework/JUCE#commit=$_jucecommit"
+  "github.com-juce-framework-JUCE::git+https://github.com/juce-framework/JUCE#tag=$_jucecommit"
   "github.com-free-audio-clap-juce-extensions::git+https://github.com/free-audio/clap-juce-extensions#commit=$_clapcommit"
+  "github.com-Chowdhury-DSP-chowdsp_utils::git+https://github.com/Chowdhury-DSP/chowdsp_utils#commit=$_chowdspcommit"
+  "github.com-jatinchowdhury18-RTNeural::git+https://github.com/jatinchowdhury18/RTNeural#commit=$_rtneuralcommit"
+  "github.com-Chowdhury-DSP-math_approx::git+https://github.com/Chowdhury-DSP/math_approx#commit=$_mathapproxcommit"
+  "github.com-eyalamirmusic-Variant::git+https://github.com/eyalamirmusic/Variant#commit=$_variantcommit"
   # clap-juce-extensions
   'github.com-free-audio-clap::git+https://github.com/free-audio/clap'
   'github.com-free-audio-clap-helpers::git+https://github.com/free-audio/clap-helpers'
-  'disable-vst2.patch'
-  'juce-clap.patch'
+  disable-vst2.patch
+  juce-clap.patch
 )
-sha512sums=('6b146ca76c331087e239e67b625938f8b5a192132220f76ea361a4837df3d9bd7c4cefa1435324cca3a918a6cd68f42779446e0526a7c8fa269243f3e74a5bd7'
+sha512sums=('1707ab79fdb99dcc70054d09daecef3405a279f01398c295d9762a3c8ef0730798b2a2d680ccff13f3f21df0bf8bd0b278c6187892a896976f4b6617759d99b7'
             '909b0f62e0afd7ebdeed8f14e89b1f50ad08af3f49ed55d80c02b2f8b9ffb4ce10007594cd5f336875ff3f1f053b485ed288e020e244d323fdc0a02ab82e9c0f'
-            'c44f050246743f87125bd5ed37243a2f062c98b8d2b37626f4741039aff994016755681b594918ef8bf7839bace282688b7424c722a0d6ec8f25e414260bb446'
+            '8494351f84a8c883b1294f8bde2bd2c3febf8f8f852c652985361d4c282b3f799ecfd40a400c1718fcb8c043af40df81ba545f17714983c792f9821a9869ae18'
+            '36e7340e939290cfddff35f4d3a6d474b35dabb8ee55a803cdcbfc31e310d2310b7218f446a7a34266f4db90d33b67b09050687d52616f9d14cb9c63a2219015'
+            '061731a0af604b8c0be4a703a88d026fac5b69e53d1a4bbe4c50fa38aa74baaa403150f8f09dde28a0cdef2bde62ca6b42213b8e16a2d29d1c49dd294b9936c8'
+            '819bdeb6e9f444118726cc25585543a5a76346ec886632011c5b73648943fa5d54ea5464a221376e7a657de8b59870d2de60f2310b4e2e90b8db084377e45b95'
+            '27a2f96dc0afd0c9da2af85787997538da71e0093a66496fba4578ebb01abbefb982e62bc3cebd749b368f206c4b78df93dfd5994aff971122c85ff044aedd5b'
             'SKIP'
             'SKIP'
             '0c2b8f0abffdfc764a452ee111248331675fcca2bd00ea858116297ec9a75f042b156960278811d0268af8ddd4b71bc73a4d7deb0cf972eb08591d0995bca36c'
-            '0e7137aa4a6358a84bbbf8c595e4a0bd070f2db34d759e38f940370331267531e4afbb55425abf5874e10a10a30d386f06b50c6cb485e30e25075301377f14fb')
-b2sums=('9fa1a5efdc22d5a53091037eddc25f7df9e02f044cfac78220556b2ad90b754e86b7dd9061c85f92a3338899d813cdfd39f0ce34fb07619c22c5d2e5f783fb52'
+            '8cabf4cd9ce380c5817b660fc1ce6b303694eacdb1feee06635b2058cbea1bbbb683a4a8d7359f5304e23a5d50a387dc9029aaa98c0ddbd3237371e12d448938')
+b2sums=('66c426ed1a506cc8165846a5d559494fc7132eef4138d3c66bb4982dee0b196069541e1ff52f84d7cf23e37b5257fedbf2d6db64fad6e77f2f31fbbd3b6b611a'
         '8925b04084b0023358372dbddb545449dbe1435d570752d723f8db0f46cfbd4b42fe3c5b7193ea74b9f28084518f00945c3b7ff2226107734b0e988a81b59d74'
-        '39b7747fbd4baa4a7b5336e9ca9db8ac9d2d05e9f51cf1d882637688e3d187bb342ca2277d8012f84bca245cfaa50f7003bd64f902502ec721c1466a73dab2c6'
+        '6fb68ce300aea4a4af5553f0b4472180df31ec6c1744becf2b34fa848cd1bbd59244fdf7bd24f71ca349620e5c5f55271d00959544d6d588d0f4a3051a89d5fe'
+        'b929450f6af0452cd5cad290fac7c44b843cd7cc68077894c07047304c79baf934b3fbe18b1cc096878d332d57aa7b5a17acadf01971d2a8341809ae770d29bd'
+        'e05d8cda3f8513511fbc5445d01134d51f6749edb2b1a84e876abbf43c88abfa53ce959ef19431c65d480ba71720965f2b557d6725d862fa90b0b65739fafbb1'
+        'cb3f42cddd022d23a87d50a8d0ed9af160ef3f35c59bebaf4cb45abaecc0c7902cc9dcf19a381bc6db7890a3ae46dcfb0aa42f2fa96c6b4f73108f8f289dd03c'
+        '716c1e438b9e00897df55a093679486acf24d50e27cea1dd07f5b09f02e8097e15c7dda15eb94fd547a077308ac556378e439ccbf7eb6fa8c619f8581ae77645'
         'SKIP'
         'SKIP'
         '6c9b459503ec9e3bc79cae11ff7ea1ea425ece1e4b684ca219c760e96d20236479fa54cff4a502646e65e0bbefbeed2c765a96932379fdc15efd2d1a355e4dae'
-        'b16bf3181928a44ad4fef69a4e544576b2dbba37139f3f0c040ae693c2f69be347e7ad97b2eedf9d03de74db88aab3633008524bd8e479ecbb009772a291e618')
+        '7db097230c7d818b324e586158b633679e584cbe030e0d4767e1dbc72fb7a923f630e86f45845f92649ff5a63f6ca39f1175a11b321aaabf38180a70d28d4d01')
 
 prepare() {
   cd "$pkgbase"
@@ -77,12 +94,18 @@ prepare() {
 }
 
 build() {
-  cmake \
-    -B build \
-    -S "$pkgbase" \
-    -D FETCHCONTENT_FULLY_DISCONNECTED=ON \
-    -D FETCHCONTENT_SOURCE_DIR_JUCE="$srcdir/github.com-juce-framework-JUCE" \
+  local cmake_options=(
+    -B build
+    -S "$pkgbase"
+    -D FETCHCONTENT_FULLY_DISCONNECTED=ON
+    -D FETCHCONTENT_SOURCE_DIR_JUCE="$srcdir/github.com-juce-framework-JUCE"
     -D FETCHCONTENT_SOURCE_DIR_JUCE_CLAP="$srcdir/github.com-free-audio-clap-juce-extensions"
+    -D FETCHCONTENT_SOURCE_DIR_CHOWDSP_UTILS="$srcdir/github.com-Chowdhury-DSP-chowdsp_utils"
+    -D FETCHCONTENT_SOURCE_DIR_RTNEURAL="$srcdir/github.com-jatinchowdhury18-RTNeural"
+    -D FETCHCONTENT_SOURCE_DIR_MATH_APPROX="$srcdir/github.com-Chowdhury-DSP-math_approx"
+    -D FETCHCONTENT_SOURCE_DIR_EA_VARIANT="$srcdir/github.com-eyalamirmusic-Variant"
+  )
+  cmake "${cmake_options[@]}"
 
   cmake --build build
 }
@@ -97,43 +120,43 @@ package_jc303-common() {
   cp -vr img "$pkgdir/usr/share/doc/$pkgbase"
 
   # license
-  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgbase" src/dsp/LICENSE
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgbase" src/dsp/open303/LICENSE
 }
 
 package_jc303-lv2() {
   pkgdesc+=' - LV2 plugin'
-  groups+=('lv2-plugins')
+  groups+=(lv2-plugins)
   depends=(
     "${_common_depends[@]}"
     "jc303-common=$pkgver"
-    'lv2-host'
+    lv2-host
   )
 
   install -vd "$pkgdir/usr/lib/lv2"
-  cp -vr build/JC303_artefacts/LV2/* "$pkgdir/usr/lib/lv2"
+  cp -vr build/JC303_artefacts/Release/LV2/* "$pkgdir/usr/lib/lv2"
 }
 
 package_jc303-vst3() {
   pkgdesc+=' - VST3 plugin'
-  groups+=('vst3-plugins')
+  groups+=(vst3-plugins)
   depends=(
     "${_common_depends[@]}"
     "jc303-common=$pkgver"
-    'vst3-host'
+    vst3-host
   )
 
   install -vd "$pkgdir/usr/lib/vst3"
-  cp -vr build/JC303_artefacts/VST3/* "$pkgdir/usr/lib/vst3"
+  cp -vr build/JC303_artefacts/Release/VST3/* "$pkgdir/usr/lib/vst3"
 }
 
 package_jc303-clap() {
   pkgdesc+=' - CLAP plugin'
-  groups+=('clap-plugins')
+  groups+=(clap-plugins)
   depends=(
     "${_common_depends[@]}"
     "jc303-common=$pkgver"
-    'clap-host'
+    clap-host
   )
 
-  install -vDm755 -t "$pkgdir/usr/lib/clap" build/JC303_artefacts/CLAP/JC303.clap
+  install -vDm755 -t "$pkgdir/usr/lib/clap" build/JC303_artefacts/Release/CLAP/JC303.clap
 }
