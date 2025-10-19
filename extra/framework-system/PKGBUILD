@@ -2,7 +2,7 @@
 
 pkgname=framework-system
 pkgver=0.4.5
-pkgrel=2
+pkgrel=3
 pkgdesc='Tools to interact with the Framework Computer systems'
 url='https://github.com/FrameworkComputer/framework-system'
 arch=(x86_64)
@@ -39,6 +39,8 @@ package() {
   cd $pkgname
   install -Dm 755 target/release/framework_tool -t "${pkgdir}/usr/bin"
   install -Dm 644 -t "${pkgdir}/usr/share/licenses/${pkgname}/" 'LICENSE.md'
+  install -Dm 644 -t "${pkgdir}/usr/share/bash-completion/completions/" completions/bash/framework_tool
+  install -Dm 644 -t "${pkgdir}/usr/share/zsh/site-functions/" completions/zsh/_framework_tool
 }
 
 # vim: ts=2 sw=2 et:
