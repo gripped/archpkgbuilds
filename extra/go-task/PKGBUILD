@@ -2,7 +2,7 @@
 
 pkgname=go-task
 pkgver=3.45.4
-pkgrel=1
+pkgrel=2
 pkgdesc='A task runner written in Go'
 arch=(x86_64)
 url='https://taskfile.dev'
@@ -51,6 +51,7 @@ build() {
     -modcacherw \
     -ldflags "-compressdwarf=false \
     -linkmode external \
+    -s -w -buildid='' \
     -extldflags '${LDFLAGS}' \
     -X github.com/go-task/task/v3/internal/version.version=${pkgver} \
     -X github.com/go-task/task/v3/internal/version.commit=$(git rev-parse --short HEAD)" \
