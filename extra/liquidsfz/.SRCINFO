@@ -1,18 +1,21 @@
 pkgbase = liquidsfz
 	pkgdesc = SFZ Sampler
 	pkgver = 0.3.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/swesterfeld/liquidsfz
 	arch = x86_64
-	license = LGPL2.1
+	license = MPL-2.0
 	checkdepends = lv2lint
 	makedepends = jack
 	makedepends = libsndfile
 	makedepends = lv2
 	makedepends = readline
 	source = https://github.com/swesterfeld/liquidsfz/archive/0.3.2/liquidsfz-0.3.2.tar.gz
+	source = liquidsfz-0.3.2-add-missing-include.patch::https://github.com/swesterfeld/liquidsfz/commit/00819383c867bdbf4fae7a36fd793c63362c73d5.patch
 	sha512sums = c2730352e1145ff7d1133df02d72c2a5d83920b5188ede3e7fed3198f7721d2ca8bf5678358d5eff5e8e50de1126e99e59e7a00860e6e24fb4bbe57acdc48283
+	sha512sums = 0cda8944c5b5580b43299025a7f0acc87621fcd4ddd7e7b7c22ff7b03353c3c624740a0ca90b9e72e4314573c24dc3ac7a2b3ad9dfa04b92ac428eb66ec41498
 	b2sums = 0ff83f68e1dfb65d2cc4e7592d35ff014fa07f6b9f6edbb08c9abdddbe2e35951462716c412488091f72964102959122f89373ffadb1c1f6dbb04ec11f19c488
+	b2sums = ae402988bad1cb8379c2b1fc52040cdbe5fc1af782aa0e14b47bbc0490f5ea91dd77810c9c8fa4e18db74ac41c3d369732725979e6892e0278885ff2089f02c8
 
 pkgname = liquidsfz
 	depends = liquidsfz-lv2
