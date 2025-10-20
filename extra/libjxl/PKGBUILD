@@ -3,17 +3,17 @@
 pkgbase=libjxl
 pkgname=('libjxl' 'libjxl-doc')
 pkgver=0.11.1
-pkgrel=4
+pkgrel=5
 pkgdesc='JPEG XL image format reference implementation'
 arch=('x86_64')
 url='https://jpeg.org/jpegxl/'
 license=('BSD-3-Clause')
 makedepends=(
+    'add-determinism'
     'asciidoc'
     'brotli'
     'cmake'
     'doxygen'
-    'gdk-pixbuf2'
     'giflib'
     'git'
     'gperftools'
@@ -66,14 +66,13 @@ build() {
         -DCMAKE_BUILD_TYPE:STRING='None' \
         -DCMAKE_INSTALL_PREFIX:PATH='/usr' \
         -DCMAKE_POLICY_VERSION_MINIMUM:STRING='3.5.0' \
-        -DJPEGXL_BUNDLE_LIBPNG:BOOL='NO' \
+        -DJPEGXL_BUNDLE_LIBPNG:BOOL='false' \
         -DJPEGXL_ENABLE_AVX512:BOOL='true' \
         -DJPEGXL_ENABLE_BENCHMARK:BOOL='false' \
         -DJPEGXL_ENABLE_EXAMPLES:BOOL='false' \
         -DJPEGXL_ENABLE_FUZZERS:BOOL='false' \
         -DJPEGXL_ENABLE_OPENEXR:BOOL='false' \
-        -DJPEGXL_ENABLE_PLUGIN_GIMP210:BOOL='false' \
-        -DJPEGXL_ENABLE_PLUGINS:BOOL='true' \
+        -DJPEGXL_ENABLE_PLUGINS:BOOL='false' \
         -DJPEGXL_ENABLE_VIEWERS:BOOL='false' \
         -DJPEGXL_FORCE_SYSTEM_BROTLI:BOOL='true' \
         -DJPEGXL_FORCE_SYSTEM_GTEST:BOOL='true' \
@@ -99,7 +98,6 @@ package_libjxl() {
         'libjpeg-turbo'
         'libpng')
     optdepends=(
-        'gdk-pixbuf2: for gdk-pixbuf loader'
         'java-runtime: for JNI bindings')
     provides=(
         'libjxl.so'
@@ -109,6 +107,10 @@ package_libjxl() {
     DESTDIR="$pkgdir" cmake --install build
     install -D -m644 libjxl/{LICENSE,PATENTS} -t "${pkgdir}/usr/share/licenses/${pkgname}"
     mv "${pkgdir}/usr/share/java"/{org.jpeg.jpegxl,jpegxl}.jar
+    
+    # Clamp timestamps to SOURCE_DATE_EPOCH and strip other metadata, to make
+    # the package reproducible.
+    add-det "${pkgdir}/usr/share/java"/jpegxl.jar
 }
 
 package_libjxl-doc() {
