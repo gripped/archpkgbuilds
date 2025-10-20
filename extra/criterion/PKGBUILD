@@ -4,8 +4,8 @@
 
 pkgname=criterion
 _pkgname=Criterion
-pkgver=2.4.2
-pkgrel=7
+pkgver=2.4.3
+pkgrel=1
 pkgdesc="A cross-platform C and C++ unit testing framework for the 21st century"
 arch=(x86_64)
 url="https://github.com/Snaipe/Criterion"
@@ -24,7 +24,7 @@ makedepends=(
 checkdepends=(python-cram)
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('83e1a39c8c519fbef0d64057dc61c8100b3a5741595788c9f094bba2eeeef0df')
+sha256sums=('6d924ee5eeaaaed7762ab968f560b9ff543fc3473aa949bf53ac56a2a1a9416c')
 
 prepare() {
   cd $_pkgname-$pkgver
@@ -43,7 +43,6 @@ prepare() {
 
 build() {
   cd $_pkgname-$pkgver
-  export CMAKE_POLICY_VERSION_MINIMUM=3.5
   arch-meson build
   meson compile -C build
 }
