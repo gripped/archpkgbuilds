@@ -5,7 +5,7 @@
 
 pkgname=pulseview
 pkgver=0.4.2
-pkgrel=16
+pkgrel=17
 pkgdesc='A Qt based logic analyzer GUI for sigrok'
 arch=('x86_64')
 url='https://sigrok.org/wiki/Main_Page'
@@ -29,8 +29,12 @@ makedepends=(
 )
 #source=("git+git://sigrok.org/pulseview#tag=pulseview-$pkgver")
 # git repo is offline, use mirror
-source=(git+https://github.com/sigrokproject/pulseview#tag=pulseview-$pkgver)
-sha512sums=('c74329f4ae5486b70f757664f305b699bf9dc14a3d71e241f5c15ad12f6d95499443ad70f3a5155262324622a64b1fca7d34caaa49ca5b4366bee9b1dfed6b21')
+source=(
+  "git+https://github.com/sigrokproject/pulseview#tag=pulseview-$pkgver"
+  "$pkgname-boost-1.89.0-compatibility.patch"
+)
+sha512sums=('c74329f4ae5486b70f757664f305b699bf9dc14a3d71e241f5c15ad12f6d95499443ad70f3a5155262324622a64b1fca7d34caaa49ca5b4366bee9b1dfed6b21'
+            '3515f819f81d69e8a4fa123126cca44e61376a48585a57af6ebf5ac8f2d627c0207580fc6aa981b206bc1fb73bd68ea097be591592db1639d94d715934517e1c')
 
 prepare() {
   cd $pkgname
@@ -39,11 +43,13 @@ prepare() {
   git cherry-pick -n ae726b70a7ada9a4be5808e00f0c951318479684
   # Fix broken build due to C++ template behind C linkage
   git cherry-pick -n ed643f0b4ac587204a5243451cda181ee1405d62
+
+  patch -Np1 < ../$pkgname-boost-1.89.0-compatibility.patch
 }
 
 build() {
   local cmake_options=(
-    -S $pkgname \
+    -S "$pkgname" \
     -B build \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=None \
