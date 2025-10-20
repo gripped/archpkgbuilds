@@ -2,8 +2,8 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=bat
-pkgver=0.25.0
-pkgrel=4
+pkgver=0.26.0
+pkgrel=1
 pkgdesc='Cat clone with syntax highlighting and git integration'
 arch=(x86_64)
 url='https://github.com/sharkdp/bat'
@@ -11,7 +11,7 @@ license=('Apache-2.0 OR MIT')
 depends=(gcc-libs glibc libgit2 oniguruma zlib)
 makedepends=(cargo-edit clang cmake git rust)
 source=("git+$url#tag=v$pkgver")
-b2sums=('900a83b54404578e7466ea8d1f614a61c7c7086f10c98562fbc195a5a522fa3a8b41e20b2f3a731a3c6d1c17f64f0b82190c5e131466ab43768bc26ae544e1a3')
+b2sums=('950a37efb986ddec37c815b94d4bac89d4140d6efcbf44f470ad9d7ea54eac4e68f7b48cfd3b65735dccd641e9a1ff2ce93759aac13c8b066880990c4ff348e8')
 
 prepare() {
   # for libgit2-1.9 rebuild, remove when upstream releases
