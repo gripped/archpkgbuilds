@@ -8,7 +8,7 @@
 
 pkgname=ncdu
 pkgver=2.9.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Disk usage analyzer with an ncurses interface'
 url='https://dev.yorhel.nl/ncdu'
 license=('MIT')
@@ -35,7 +35,8 @@ build() {
     --prefix /usr \
     --search-prefix /usr \
     --release=safe \
-    -Dtarget=native-linux.6.1-gnu.2.38 \
+    --build-id=sha1 \
+    -Dtarget=native-linux.6.6-gnu.2.40 \
     -Dcpu=baseline \
     -Dpie=true
 }
@@ -49,7 +50,8 @@ check() {
     --prefix /usr \
     --search-prefix /usr \
     --release=safe \
-    -Dtarget=native-linux.6.1-gnu.2.38 \
+    --build-id=sha1 \
+    -Dtarget=native-linux.6.6-gnu.2.40 \
     -Dcpu=baseline \
     -Dpie=true
 }
