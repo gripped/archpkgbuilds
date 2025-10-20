@@ -1,0 +1,12 @@
+diff -ru collada-dom-2.5.0.orig/CMakeLists.txt collada-dom-2.5.0/CMakeLists.txt
+--- collada-dom-2.5.0.orig/CMakeLists.txt	2025-10-17 18:49:07.592296926 +0200
++++ collada-dom-2.5.0/CMakeLists.txt	2025-10-17 18:49:23.892940385 +0200
+@@ -159,7 +159,7 @@
+ if( NOT $ENV{BOOST_LIBRARYDIR} STREQUAL "" )
+   set(Boost_LIBRARY_DIRS $ENV{BOOST_LIBRARYDIR})
+ endif()
+-find_package(Boost COMPONENTS filesystem system REQUIRED)
++find_package(Boost COMPONENTS filesystem REQUIRED)
+ 
+ message(STATUS "found boost version: ${Boost_VERSION}")
+ 
