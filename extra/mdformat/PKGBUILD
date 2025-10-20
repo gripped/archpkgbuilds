@@ -2,7 +2,7 @@
 # Contributor: Carlos Aznarán <caznaranl@uni.pe>
 
 pkgname=mdformat
-pkgver=0.7.22
+pkgver=1.0.0
 pkgrel=1
 pkgdesc='CommonMark compliant Markdown formatter'
 arch=(any)
@@ -18,7 +18,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('1aae1bfd5cffe6246be9e26a24e6419c3ed88d27647143540b0f0c312829a0b6e1450cb5c0d2df577d7bb9ab5c686a9a126485cd11747c470cb4888eac722d3c')
+b2sums=('bc8e6aef35b3727bd2836ee557dfc0c6d2feae2f59090d3c8a42da8c79030fded50961a943b92253cdb9ec5914909d26ea31fb58cf2aefe6e1d465be7a789a2a')
 
 build() {
   cd $pkgname
@@ -33,8 +33,8 @@ check() {
 package() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s "$site_packages"/$pkgname-$pkgver.dist-info/LICENSE \
-    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  ln -s "$site_packages"/$pkgname-$pkgver.dist-info/licenses/LICENSE \
+    "$pkgdir"/usr/share/licenses/$pkgname
 
   cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
