@@ -4,7 +4,7 @@
 
 pkgname=zls
 pkgver=0.15.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A language server for Zig"
 arch=('x86_64')
 url="https://github.com/zigtools/zls"
@@ -37,7 +37,8 @@ build() {
     --system ../zig-global-cache/p \
     --prefix /usr \
     --release=safe \
-    -Dtarget=native-linux.6.1-gnu.2.38 \
+    --build-id=sha1 \
+    -Dtarget=native-linux.6.6-gnu.2.40 \
     -Dcpu=baseline \
     -Dpie=true
 }
