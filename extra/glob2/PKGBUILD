@@ -5,11 +5,11 @@
 
 pkgname=glob2
 pkgver=0.9.4.4
-pkgrel=52
+pkgrel=53
 pkgdesc='An innovative Real-Time Strategy game which reduces micro-management by automatically assigning tasks to units'
 arch=('x86_64')
 url='https://www.globulation2.org/'
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('boost-libs' 'sdl_net' 'sdl_image' 'sdl_ttf' 'libvorbis' 'speex' 'glu'
          'fribidi' 'xdg-utils' 'libgl' 'hicolor-icon-theme')
 makedepends=('scons' 'boost' 'mesa' 'patch')
@@ -44,7 +44,7 @@ prepare() {
 build() {
   cd "$pkgname-$pkgver"
 
-  scons LINKFLAGS="-lboost_system"
+  scons
 }
 
 package () {
