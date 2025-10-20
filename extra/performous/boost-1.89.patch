@@ -1,0 +1,24 @@
+diff -ru performous-1.3.1.orig/game/CMakeLists.txt performous-1.3.1/game/CMakeLists.txt
+--- performous-1.3.1.orig/game/CMakeLists.txt	2025-10-17 20:21:14.652522744 +0200
++++ performous-1.3.1/game/CMakeLists.txt	2025-10-17 20:22:12.057301224 +0200
+@@ -89,7 +89,7 @@
+ add_executable(performous ${SUBSYSTEM_WIN32} ${SOURCES} ${SDL2_SOURCES})
+ # Libraries
+ 
+-find_package(Boost 1.55 REQUIRED COMPONENTS program_options iostreams system locale)
++find_package(Boost 1.55 REQUIRED COMPONENTS program_options iostreams locale)
+ target_include_directories(performous SYSTEM PRIVATE ${Boost_INCLUDE_DIRS})
+ target_link_libraries(performous PRIVATE ${Boost_LIBRARIES})
+ 
+diff -ru performous-1.3.1.orig/testing/CMakeLists.txt performous-1.3.1/testing/CMakeLists.txt
+--- performous-1.3.1.orig/testing/CMakeLists.txt	2025-10-17 20:21:14.664665349 +0200
++++ performous-1.3.1/testing/CMakeLists.txt	2025-10-17 20:24:11.055219057 +0200
+@@ -40,7 +40,7 @@
+ 
+ 	add_executable(performous_test ${SOURCES})
+ 
+-	find_package(Boost 1.55 REQUIRED COMPONENTS program_options iostreams system locale)
++	find_package(Boost 1.55 REQUIRED COMPONENTS program_options iostreams locale)
+ 	target_link_libraries(performous_test PRIVATE ${Boost_LIBRARIES})
+ 
+ 	find_package(fmt REQUIRED CONFIG)
