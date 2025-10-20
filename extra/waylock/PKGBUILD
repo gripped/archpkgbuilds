@@ -3,7 +3,7 @@
 
 pkgname=waylock
 pkgver=1.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple screenlocker for wayland compositors"
 arch=(x86_64)
 url="https://codeberg.org/ifreund/waylock"
@@ -54,7 +54,8 @@ build() {
   local zig_options=(
     -Dcpu=baseline
     -Dpie
-    -Dtarget=native-linux.6.1-gnu
+    -Dtarget=native-linux.6.6-gnu.2.40 \
+    --build-id=sha1 \
     --prefix /usr
     --search-prefix /usr
     --system ../zig-cache/p
