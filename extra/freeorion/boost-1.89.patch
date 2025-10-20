@@ -1,0 +1,25 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5130a9bb3..6ae59670f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -283,7 +283,6 @@ find_package(Boost ${MINIMUM_BOOST_VERSION}
+         log
+         log_setup
+         serialization
+-        system
+         thread
+     REQUIRED)
+ 
+diff --git a/GG/CMakeLists.txt b/GG/CMakeLists.txt
+index 6c3b282d5..f386f207c 100644
+--- a/GG/CMakeLists.txt
++++ b/GG/CMakeLists.txt
+@@ -66,7 +66,7 @@ endif()
+ 
+ set(MINIMUM_BOOST_VERSION 1.69.0)
+ 
+-find_package(Boost ${MINIMUM_BOOST_VERSION} COMPONENTS filesystem regex system REQUIRED)
++find_package(Boost ${MINIMUM_BOOST_VERSION} COMPONENTS filesystem regex REQUIRED)
+ 
+ find_package(OpenGL REQUIRED)
+ find_package(GLEW REQUIRED)
