@@ -5,7 +5,7 @@
 _name=Solaar
 pkgname=solaar
 pkgver=1.1.14
-pkgrel=2
+pkgrel=3
 pkgdesc="Linux device manager for a wide range of Logitech devices"
 url="https://pwr-solaar.github.io/Solaar/"
 _url="https://github.com/pwr-Solaar/Solaar"
@@ -43,6 +43,7 @@ validpgpkeys=('2FF2ACA9D97FF7B42CF8494A1E32E75672D6A196') # Peter F. Patel-Schne
 
 prepare() {
   cd $_name
+  git cherry-pick -n 924684b610f831ceeb659bbc9a8321e38954870e  # https://github.com/pwr-Solaar/Solaar/pull/2931
   tools/po-compile.sh
 }
 
