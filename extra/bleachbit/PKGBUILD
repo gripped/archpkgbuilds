@@ -7,7 +7,7 @@
 # Contributor: Nuno Araujo <nuno.araujo at russo79.com>
 
 pkgname=bleachbit
-pkgver=5.0.1
+pkgver=5.0.2
 pkgrel=1
 pkgdesc='Deletes unneeded files to free disk space and maintain privacy'
 arch=(any)
@@ -20,7 +20,7 @@ depends=(gtk3
 makedepends=(git)
 source=(git+https://github.com/bleachbit/bleachbit.git#tag=v${pkgver}?signed)
 validpgpkeys=(A9E582E4054A159315EDC943D6D447B02B4D4C9D) # Andrew Ziem <ahz001@gmail.com>
-sha256sums=('94c61ca5fbfe509c273e1ff964a1cc8c7725a94216b8de9c6462d59f09269a18')
+sha256sums=('f70ceab41a6b1b45fdf254836ed7b9041a7a20be66fcfed6d46bec064e059e10')
 
 package() {
   cd $pkgname
