@@ -1,0 +1,13 @@
+diff -ru srsRAN_4G-release_23_11.orig/CMakeLists.txt srsRAN_4G-release_23_11/CMakeLists.txt
+--- srsRAN_4G-release_23_11.orig/CMakeLists.txt	2025-10-15 22:33:18.063041568 +0200
++++ srsRAN_4G-release_23_11/CMakeLists.txt	2025-10-15 22:33:43.909785441 +0200
+@@ -272,9 +272,6 @@
+ set(BOOST_REQUIRED_COMPONENTS
+   program_options
+ )
+-if(UHD_FOUND) # Ubuntu 18.04 requires component 'system' to link UHD
+-  list(APPEND BOOST_REQUIRED_COMPONENTS "system")
+-endif(UHD_FOUND)
+ if(UNIX AND EXISTS "/usr/lib64")
+   list(APPEND BOOST_LIBRARYDIR "/usr/lib64") #fedora 64-bit fix
+ endif(UNIX AND EXISTS "/usr/lib64")

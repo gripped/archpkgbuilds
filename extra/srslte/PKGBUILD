@@ -5,7 +5,7 @@ pkgname=($pkgbase $pkgbase-avx2)
 _pkgname=srsRAN_4G
 pkgver=23.11
 _pkgver=release_${pkgver//./_}
-pkgrel=10
+pkgrel=11
 pkgdesc='Open source SDR LTE software suite from Software Radio Systems (SRS)'
 arch=('x86_64')
 url='https://www.srslte.com'
@@ -15,8 +15,10 @@ depends=('fftw' 'mbedtls' 'boost-libs' 'lksctp-tools' 'libconfig'
 makedepends=('cmake' 'boost')
 provides=('srsue' 'srsenb' 'srsepc')
 conflicts=('srsue' 'srsenb' 'srsepc')
-source=("$_pkgname-$pkgver.tar.gz::https://github.com/srsran/srsRAN/archive/$_pkgver.tar.gz")
-sha512sums=('7ae5ee93c52505d608b6634aacc31dfd44ce40bfdcffe2a3b8f0e0bbfa28b66b400bca9a48c61d208c510655465f2bdf2eb2884b2a88ed7d022ed40d856e3725')
+source=("$_pkgname-$pkgver.tar.gz::https://github.com/srsran/srsRAN/archive/$_pkgver.tar.gz"
+         boost-1.89.patch)
+sha512sums=('7ae5ee93c52505d608b6634aacc31dfd44ce40bfdcffe2a3b8f0e0bbfa28b66b400bca9a48c61d208c510655465f2bdf2eb2884b2a88ed7d022ed40d856e3725'
+            '7f1a27593f5269b10c4764416bcf5724a68c530c704cf7df07d74bff8ac61a615429f37923222ea09e4305164ebf3aa3b2641f27fd275b013a166e9a4fde2c9d')
 options=(!lto)
 
 prepare() {
@@ -28,6 +30,8 @@ prepare() {
 
   # Disable failing test
   sed -i '/add_test(ue_rf_failure/d' srsue/src/CMakeLists.txt
+
+  patch -p1 -i ../boost-1.89.patch
 
   mkdir build
   cp -r "$srcdir"/$_pkgname-$_pkgver "$srcdir"/$_pkgname-avx2-$_pkgver
