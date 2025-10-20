@@ -1,7 +1,7 @@
 pkgbase = gnuradio-osmosdr
 	pkgdesc = Source block for Funcube Dongle, RTL-SDR, USRP, OsmoSDR, BladeRF, HackRF and AirSpy devices
 	pkgver = 0.2.6
-	pkgrel = 12
+	pkgrel = 13
 	url = https://osmocom.org/projects/gr-osmosdr
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -29,6 +29,8 @@ pkgbase = gnuradio-osmosdr
 	provides = libgnuradio-osmosdr.so
 	replaces = gr-osmosdr
 	source = git+https://gitea.osmocom.org/sdr/gr-osmosdr.git#tag=v0.2.6
+	source = gnuradio-osmosdr-boost-1.89.0-compatibility.patch
 	sha256sums = 4df6d9dc55431be207b393d1c88eb47637551fbddb63a1062fe072e97dc5ea83
+	sha256sums = 234fb9178f54ab47b3bd58682866cf243eb751c974b41062f710db16ec5e7c62
 
 pkgname = gnuradio-osmosdr
