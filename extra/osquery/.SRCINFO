@@ -1,7 +1,7 @@
 pkgbase = osquery
 	pkgdesc = SQL powered operating system instrumentation, monitoring, and analytics
 	pkgver = 5.19.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://osquery.io
 	arch = x86_64
 	license = Apache-2.0 OR GPL-2.0-only
@@ -73,7 +73,8 @@ pkgbase = osquery
 	source = osquery-0007-Do-not-build-utils-requiring-libdpkg.patch::https://github.com/osquery/osquery/commit/4aae30a46a4a3744e308ab0a82653dba79ad79ff.patch
 	source = osquery-0008-Fix-systemd-service-and-systemctl-script.patch::https://github.com/osquery/osquery/commit/4904934ca19902146215f44a8f6d710f6060dbf3.patch
 	source = osquery-0009-Adapt-installation-to-using-system-packages.patch::https://github.com/osquery/osquery/commit/0777b63c0c2c2cee13f78ab2b6e3100ee1399dd3.patch
-	source = gcc-15.patch
+	source = osquery-gcc-15.patch
+	source = osquery-boost-1.89.0-compatibility.patch
 	sha256sums = 5f3357754901eb8f57c14881e03ecc9a564a12e8dd0ae676c26ae7beba18179c
 	sha256sums = SKIP
 	sha256sums = SKIP
@@ -86,5 +87,6 @@ pkgbase = osquery
 	sha256sums = fb9dee5aa0504d59a24e05a9588888bdf1c0db13c75dad39c6ca9a6adc490696
 	sha256sums = e50be792bb5e6d0b0cfd32ab5f30043aefc9b40c343bf8124f9bd510709c83aa
 	sha256sums = 21e0bf884039ba7f0c16cefca5ca7d39b5daeee49518c5c0d4a374b15a27e1ae
+	sha256sums = d12c724315ff4ba492f4e2765c9d17389930d93d7140d053b5c8251b905b39ca
 
 pkgname = osquery

@@ -1,0 +1,15 @@
+diff --git i/CMakeLists.txt w/CMakeLists.txt
+index dbe0d52f0..5c9756ee2 100644
+--- i/CMakeLists.txt
++++ w/CMakeLists.txt
+@@ -194,8 +194,8 @@ function(importLibraries)
+     )
+     add_system_cmake_dependency(
+       NAME Boost
+-      COMPONENTS filesystem system chrono thread context
+-      LINK_LIBRARIES Boost::chrono Boost::context Boost::filesystem Boost::system Boost::thread
++      COMPONENTS filesystem chrono thread context
++      LINK_LIBRARIES Boost::chrono Boost::context Boost::filesystem Boost::thread
+     )
+     add_system_cmake_dependency(
+       NAME glog
