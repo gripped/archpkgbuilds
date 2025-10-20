@@ -1,0 +1,11 @@
+diff -ru poedit-3.7.orig/configure.ac poedit-3.7/configure.ac
+--- poedit-3.7.orig/configure.ac	2025-10-16 21:42:53.230319321 +0200
++++ poedit-3.7/configure.ac	2025-10-16 21:43:48.997473034 +0200
+@@ -57,7 +57,6 @@
+ 
+ 
+ AX_BOOST_BASE([1.60], [], [AC_MSG_ERROR([Boost libraries are required])])
+-AX_BOOST_SYSTEM
+ AX_BOOST_THREAD
+ CXXFLAGS="$CXXFLAGS $BOOST_CPPFLAGS"
+ 
