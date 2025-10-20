@@ -1,0 +1,12 @@
+diff -ru prjtrellis-1.4.orig/libtrellis/CMakeLists.txt prjtrellis-1.4/libtrellis/CMakeLists.txt
+--- prjtrellis-1.4.orig/libtrellis/CMakeLists.txt	2025-10-17 20:57:26.468138413 +0200
++++ prjtrellis-1.4/libtrellis/CMakeLists.txt	2025-10-17 20:58:15.737925912 +0200
+@@ -46,7 +46,7 @@
+     endif()
+ endif()
+ 
+-set(boost_libs filesystem program_options system)
++set(boost_libs filesystem program_options)
+ if (Threads_FOUND)
+     list(APPEND boost_libs thread)
+ else()
