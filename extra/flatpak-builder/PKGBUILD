@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=flatpak-builder
-pkgver=1.4.6
+pkgver=1.4.7
 pkgrel=1
 pkgdesc="Tool to build flatpaks from source"
 url="https://flatpak.org"
@@ -45,9 +45,9 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/libglnx.git"
   0001-Use-fusermount3.patch
 )
-b2sums=('9bc9646528475a4e30f3f798c19cf7d6fdc4252c46b877f65bf3e1f46c7e1c3d4a41f230bf78b86057b348fe7409c4a8a30b9147465e0afd1c779a2862f9e253'
+b2sums=('089fa8a2e05f400f13c458cbda5f511622be1ef73938c68d49775059eda0bba588b59fe16fcb62e10802a81b083cdd1be7263eb162db263b2b308a5762e131f4'
         'SKIP'
-        '4dc7094a7f921f89ad1615d94f1d3e9aa9edbb1df4cdb2f152c2a2ef34e74564587d8d1f53ea9cf02702010e80e64413f99f9725a93d158f5f560da9796f7378')
+        '43edf343ef4ab7a57562923549dc06020c57c197b96ecb521a8cea3bf00afe61ef04d0bb226b74d0bf082db486783c6c556e521707f648098cb422c4a0c8884c')
 
 prepare() {
   cd $pkgname
