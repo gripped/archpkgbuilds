@@ -5,7 +5,7 @@
 _upstream=deltachat-core-rust
 _name=core
 pkgname=deltachat-rpc-server
-pkgver=2.20.0
+pkgver=2.22.0
 pkgrel=1
 pkgdesc="A JSON-RPC 2.0 interface to DeltaChat over standard I/O"
 arch=(x86_64)
@@ -22,8 +22,8 @@ makedepends=(
 # NOTE: the ring dependency can not be built with LTO
 options=(!lto)
 source=("$_url/archive/v$pkgver/$_upstream-$pkgver.tar.gz")
-sha512sums=('105113e97d8b379aa13d7be7a9d330b6adb84aa199d8cbdb734e21778225e9a591922e565f4fa88888e40cc981848192cdb06a3ed5527c3ae3e758ef6614ffe9')
-b2sums=('b11b5be7c6f73ddd152bb7ca691dcf18500feb4ee70f38214a676298623e1bd130d3d87e21a253bbb51806534c68cd79c6ebd165bc7d91b27f0d3929f06cd6c8')
+sha512sums=('9ebc2acf175097b99a9f01c844d8cfb3813109a4892327350e80b945c7c875626dbcc935bf287c7536a3b3dedb146e6017dfdfcafaa1c953cb56acc45e9105bc')
+b2sums=('659edc6a077099c6b5e2de0fedf36049479ce44282692f483a58d16277de015c492a42fa8d4ca44dc9cc514d2f8046f3e133bb9dc10f5b9d002422184367e4fd')
 
 prepare() {
   export RUSTUP_TOOLCHAIN=stable
