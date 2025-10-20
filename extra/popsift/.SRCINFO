@@ -1,7 +1,7 @@
 pkgbase = popsift
 	pkgdesc = Realtime GPU implementation of SIFT
 	pkgver = 1.0.0.git4
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/alicevision/popsift
 	arch = x86_64
 	license = MPL-2.0
@@ -14,6 +14,8 @@ pkgbase = popsift
 	options = staticlibs
 	options = !lto
 	source = git+https://github.com/alicevision/popsift.git#commit=e34fdc66c3055315c16879f2062a88d1db9fe501
+	source = boost-1.89.patch
 	sha256sums = e76fea8c4b263e6a2f7b9cacb3d77d83df7bb84f4dca955a0241b8b0ec503146
+	sha256sums = 606ba3d19d1472090c15ad0766ef5f66dabaf40b8ff4f1da20a0b8bd0d56b991
 
 pkgname = popsift

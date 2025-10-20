@@ -3,7 +3,7 @@
 pkgname=popsift
 pkgver=1.0.0.git4
 _commit=e34fdc66c3055315c16879f2062a88d1db9fe501
-pkgrel=1
+pkgrel=2
 pkgdesc="Realtime GPU implementation of SIFT"
 arch=('x86_64')
 url="https://github.com/alicevision/popsift"
@@ -11,8 +11,15 @@ license=('MPL-2.0')
 depends=('boost-libs')
 makedepends=('boost' 'cmake' 'ninja' 'git' 'cuda')
 options=('staticlibs' '!lto')
-source=("git+https://github.com/alicevision/popsift.git#commit=$_commit")
-sha256sums=('e76fea8c4b263e6a2f7b9cacb3d77d83df7bb84f4dca955a0241b8b0ec503146')
+source=("git+https://github.com/alicevision/popsift.git#commit=$_commit"
+         boost-1.89.patch)
+sha256sums=('e76fea8c4b263e6a2f7b9cacb3d77d83df7bb84f4dca955a0241b8b0ec503146'
+            '606ba3d19d1472090c15ad0766ef5f66dabaf40b8ff4f1da20a0b8bd0d56b991')
+
+prepare() {
+  cd popsift
+  patch -p1 -i ../boost-1.89.patch
+}
 
 build() {
   cd popsift
