@@ -2,7 +2,7 @@
 
 pkgname=forgejo-runner
 pkgver=11.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Continuous integration for Forgejo'
 arch=(x86_64)
 url='https://code.forgejo.org/forgejo/runner'
@@ -53,6 +53,7 @@ build() {
     -modcacherw \
     -ldflags "-compressdwarf=false \
     -linkmode external \
+    -s -w -buildid='' \
     -extldflags '${LDFLAGS}' \
     -X code.forgejo.org/forgejo/runner/v11/internal/pkg/ver.version=v$pkgver" \
     -o build/forgejo-runner \
