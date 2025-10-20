@@ -3,7 +3,7 @@
 
 pkgname=river
 pkgver=0.3.13
-pkgrel=1
+pkgrel=2
 pkgdesc='A dynamic tiling wayland compositor'
 arch=('x86_64')
 url='https://codeberg.org/river/river'
@@ -54,7 +54,8 @@ build() {
     --search-prefix /usr \
     --global-cache-dir ../zig-global-cache \
     --system ../zig-global-cache/p \
-    -Dtarget=native-linux.6.1-gnu.2.38 \
+    --build-id=sha1 \
+    -Dtarget=native-linux.6.6-gnu.2.40 \
     -Dcpu=baseline \
     -Dpie \
     -Doptimize=ReleaseSafe \
@@ -69,7 +70,8 @@ check() {
     --search-prefix /usr \
     --global-cache-dir ../zig-global-cache \
     --system ../zig-global-cache/p \
-    -Dtarget=native-linux.6.1-gnu.2.38 \
+    --build-id=sha1 \
+    -Dtarget=native-linux.6.6-gnu.2.40 \
     -Dcpu=baseline \
     -Dpie \
     -Doptimize=ReleaseSafe \
