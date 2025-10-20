@@ -5,7 +5,7 @@
 pkgname=qt6-declarative
 _pkgver=6.10.0
 pkgver=${_pkgver/-/}
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -29,6 +29,11 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
 sha256sums=('03795bb958cd321a7b8450ad4fdd0ccecad7669afe657539f7d5a8b59eaa1a96')
+
+prepare() {
+  cd $_pkgfn
+  git cherry-pick -n 0de0b0ffdb44d73c605e20f00934dfb44bdf7ad9 # Fix QML compiler crash
+}
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
