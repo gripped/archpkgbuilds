@@ -8,31 +8,38 @@
 # Contributor: Julien Nicoulaud <julien.nicoulaud@gmail.com>
 # Contributor: The one with the braid <info@braid.business>
 # Contributor: Juan Cuevas <juanandrescuevas14@gmail.com>
+# Contributor: Jacob Bang <julemand101@archlinux.dk>
 
 pkgname=dart
-pkgver=3.8.1
+pkgver=3.9.4
 pkgrel=1
 pkgdesc='The dart programming language SDK'
 arch=('x86_64')
 url='https://dart.dev/'
 depends=('glibc')
-license=('BSD')
+license=('BSD-3-Clause')
 makedepends=(
   'dart'
   'git'
   'gn'
   'ninja'
   'python'
-  'python-httplib2'
 )
+# Pinned commit for depot_tools since it does not have release tags. See discussion here for further details:
+# https://gitlab.archlinux.org/archlinux/packaging/packages/dart/-/merge_requests/14#note_335643
+#
+# Should be updated with latest commit on origin/main when new version of Dart are released.
+_depotver='12b3e1f95e1377c0fe9cc3c84bc64193b234346b'
 source=(
   "git+https://github.com/dart-lang/sdk.git#tag=$pkgver"
-  "git+https://chromium.googlesource.com/chromium/tools/depot_tools.git"
+  "git+https://chromium.googlesource.com/chromium/tools/depot_tools.git#commit=$_depotver"
   "DEPS.patch"
+  "0001-vm-Fix-gcc-build.patch"
 )
-sha256sums=('d3a30ad8d9073c66d86d43dd43e7394ad748327bf666d2cf1e923b9ef97d8d14'
-            'SKIP'
-            'db6576a70c6719e26795b9824546058b79fefa64158c1002d36546d826084403')
+sha256sums=('0b972e61b81d218b7dd85dd1be5a01713b91df412d2839e6f388927f7e72d8c3'
+            '7de37e557d18f51ed87de52bd25b0b051ebcf2c6237468410d16939006ed2c66'
+            'd68184503fa10ad95ad56b113225c178402e3f41dedbc8e89bb30373b609d76d'
+            'b5c8ce3fa5d0d837b5c39b662ad7f070b27ab97941049fd43bcf63c14e40e880')
 
 prepare() {
 cat >.gclient <<EOF
@@ -52,13 +59,14 @@ EOF
 
   cd sdk
 
-  patch -Np 1 --input=$srcdir/DEPS.patch
+  patch -Np 1 --input="$srcdir/DEPS.patch"
+  patch -Np 1 --input="$srcdir/0001-vm-Fix-gcc-build.patch"
 
-  python ../depot_tools/gclient.py sync -D \
+  gclient sync -D \
       --nohooks \
       --no-history \
       --shallow \
-      -r ${srcdir}/sdk@${_commit}
+      -r "${srcdir}/sdk@${_commit}"
 
   dart tools/generate_package_config.dart
   python tools/generate_sdk_version_file.py
