@@ -3,7 +3,7 @@
 # Contributor: Johannes Heinz <heinzeljo@web.de>
 pkgname=astroid
 pkgver=0.17
-pkgrel=4
+pkgrel=5
 pkgdesc="A graphical threads-with-tags style, lightweight and fast, e-mail client for Notmuch"
 arch=('x86_64')
 url="https://github.com/astroidmail/astroid"
@@ -30,8 +30,15 @@ checkdepends=('notmuch-runtime'
 optdepends=('cmark: for markdown to html composition'
             'emacs: can be used as editor'
             'gvim: default editor')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/astroidmail/astroid/archive/v${pkgver}.tar.gz")
-sha256sums=('dd419d4e11d1efa95979472e17cca5066799a5c64a595d5cea2b9e8d9f60f9c8')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/astroidmail/astroid/archive/v${pkgver}.tar.gz"
+         boost-1.89.patch)
+sha256sums=('dd419d4e11d1efa95979472e17cca5066799a5c64a595d5cea2b9e8d9f60f9c8'
+            '6fd25423d82eaa9cd1ed6d8c9f6e8ee2f18da062de0ac909a46f793432bd1b8e')
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -p1 -i ../boost-1.89.patch
+}
 
 build() {
   cd "${pkgname}-${pkgver}"
