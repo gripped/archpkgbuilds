@@ -2,7 +2,7 @@
 
 pkgname=libsndfile
 pkgver=1.2.2
-pkgrel=3
+pkgrel=4
 pkgdesc="A C library for reading and writing files containing sampled audio data"
 arch=(x86_64)
 url="https://libsndfile.github.io/libsndfile/"
@@ -46,6 +46,7 @@ build() {
     -D BUILD_SHARED_LIBS=ON
     -D CMAKE_INSTALL_PREFIX=/usr
     -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -D ENABLE_EXTERNAL_LIBS=ON
     -D ENABLE_MPEG=ON
     -S $pkgname-$pkgver
@@ -55,6 +56,7 @@ build() {
     -B build-test
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -S $pkgname-$pkgver
     -W no-dev
   )
