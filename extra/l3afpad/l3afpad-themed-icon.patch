@@ -1,0 +1,48 @@
+From 9b7e3032ad9f13d4ecacde4f11f1f028a3f42cd6 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 20 Oct 2025 02:30:28 +0200
+Subject: [PATCH] Use themed icon for the window
+
+The default icon is already set by `gtk_window_set_default_icon_name()`,
+setting the window icon from the `pixmaps` directory is unnecessary.
+---
+ data/Makefile.am | 3 ---
+ src/Makefile.am  | 2 --
+ src/window.c     | 1 -
+ 3 files changed, 6 deletions(-)
+
+diff --git a/data/Makefile.am b/data/Makefile.am
+index 9baad91..db5b2d8 100644
+--- a/data/Makefile.am
++++ b/data/Makefile.am
+@@ -4,6 +4,3 @@ desktopdir       = $(datadir)/applications
+ desktop_in_files = l3afpad.desktop.in
+ desktop_DATA     = $(desktop_in_files:.desktop.in=.desktop)
+ @INTLTOOL_DESKTOP_RULE@
+-
+-pixmapsdir       = $(datadir)/pixmaps
+-pixmaps_DATA     = l3afpad.png l3afpad.xpm
+diff --git a/src/Makefile.am b/src/Makefile.am
+index cb1a0d7..6ec85fb 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -1,7 +1,5 @@
+ bin_PROGRAMS = l3afpad
+ 
+-AM_CPPFLAGS = -DICONDIR=\"$(datadir)/pixmaps\"
+-
+ l3afpad_SOURCES = \
+ 	l3afpad.h main.c \
+ 	window.h window.c \
+diff --git a/src/window.c b/src/window.c
+index e84ed5c..b6768ff 100644
+--- a/src/window.c
++++ b/src/window.c
+@@ -34,7 +34,6 @@ MainWin *create_main_window(void)
+ 	mw->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+ 	gtk_widget_set_name(mw->window, PACKAGE_NAME);
+ 
+-	gtk_window_set_icon_from_file(GTK_WINDOW(mw->window), ICONDIR"/l3afpad.png", NULL);
+ 	gtk_window_set_default_icon_name(PACKAGE);
+ 
+ 	g_signal_connect(G_OBJECT(mw->window), "delete-event",

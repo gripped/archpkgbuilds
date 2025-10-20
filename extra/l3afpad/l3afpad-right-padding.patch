@@ -1,0 +1,23 @@
+From c3c027664e734c05169e7397d70122d016d8579a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 20 Oct 2025 15:18:27 +0200
+Subject: [PATCH] Add margin below the overlay scrollbar
+
+This fixes the problem that the overlay scrollbar covers the text view.
+Especially useful with right-to-left layouts.
+---
+ src/window.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/window.c b/src/window.c
+index e84ed5c..bbe7ba9 100644
+--- a/src/window.c
++++ b/src/window.c
+@@ -58,6 +58,7 @@ MainWin *create_main_window(void)
+ 	gtk_box_pack_start(GTK_BOX(vbox), sw, TRUE, TRUE, 0);
+ 
+ 	mw->view = create_text_view();
++	gtk_widget_set_margin_end(mw->view, 12);
+ 	gtk_container_add(GTK_CONTAINER(sw), mw->view);
+ 	mw->buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(mw->view));
+ 

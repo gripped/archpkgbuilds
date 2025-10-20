@@ -1,0 +1,27 @@
+From 836ea286e1180d653b752d25a19b4838cdb18fb4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 13 Dec 2022 00:39:35 +0100
+Subject: [PATCH] Always redraw line numbers
+
+It didn't work reliably, sometimes missed redraws when needed.
+
+Fixes #21.
+---
+ src/linenum.c | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/src/linenum.c b/src/linenum.c
+index e78dcd8..e7b32e5 100644
+--- a/src/linenum.c
++++ b/src/linenum.c
+@@ -162,10 +162,6 @@ line_numbers_expose (GtkWidget *widget, cairo_t *event)
+ 
+ 	cairo_rectangle_list_destroy(clips);
+ 
+-	/* skip drawing if not in the line number area. */
+-	if (i >= gtk_text_view_get_border_window_size(text_view, GTK_TEXT_WINDOW_LEFT))
+-		return FALSE;
+-
+ 	gtk_text_view_window_to_buffer_coords (text_view,
+ 	                                       GTK_TEXT_WINDOW_LEFT,
+ 	                                       0,
