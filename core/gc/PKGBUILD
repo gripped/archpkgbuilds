@@ -2,8 +2,8 @@
 # Contributor: dorphell <dorphell@gmx.net>
 
 pkgname=gc
-pkgver=8.2.8
-pkgrel=2
+pkgver=8.2.10
+pkgrel=1
 pkgdesc="A garbage collector for C and C++"
 arch=('x86_64')
 url="https://www.hboehm.info/gc/"
@@ -21,7 +21,7 @@ source=(
   git+https://github.com/ivmai/bdwgc.git#tag=v${pkgver}
   https://www.hboehm.info/gc/license.txt
 )
-sha512sums=('f7bb0debcfeba4ccfb1ec5fd7abdf8615915988718abff9e4498f740e31ce14355d5f2c688ab0b555fbd1e9c8c9901c6e7e61c378cbe8d715869a366201ce2b8'
+sha512sums=('f174b630dd205fa9cc3c9a965a14da661131c17ed87c52f2bc1479f26e5cf12d80ebfa98876611f9e4a288d2fb9eec64ccc4596cdb778aee6fe5dfb4ac26470b'
             '73b381858db41cb757be67fa00778cb177fa147c892ae1e83d7d31b489c576ffe6c7339b688c41550c896aef1b8af5bfa3e58d1bb9902cc9640a8b837498a9b2')
 
 prepare() {
