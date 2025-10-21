@@ -4,7 +4,7 @@
 
 pkgname=sbt
 epoch=1
-pkgver=1.11.6
+pkgver=1.11.7
 pkgrel=1
 pkgdesc='The interactive build tool'
 arch=('any')
@@ -12,21 +12,22 @@ url='https://www.scala-sbt.org/'
 license=('Apache-2.0')
 _jdkver=8
 depends=('java-runtime-headless' 'sh')
-makedepends=('sbt' 'git' "jdk${_jdkver}-openjdk")
+makedepends=('git' "jdk${_jdkver}-openjdk")
 optdepends=('rsync: offline installation support')
 install=sbt.install
 options=(!debug)
 source=(git+https://github.com/sbt/sbt.git#tag=v${pkgver})
 validpgpkeys=('2EE0EA64E40A89B84B2DF73499E82A75642AC823') # sbt build tool
-sha256sums=('9b212c30dc987ef1a4aca59ff77133dda816a3c6c64949388ca08936dbbec6d2')
-b2sums=('7891168381739a880215eef7312f4dd1997bf65c0e6723f45cecc5c76762dea0d2ec22370b565cdea51d244e318992e9aa5b42ac38c67dd75aa34a80104b6a1b')
+sha256sums=('1a1d85653864e9957051f4b3f22f3c89809e77533fcfc705ef62818ef41a37e4')
+b2sums=('6971e113cfd855f4b481f8247f2f55db489b4c4ed48c3c06534a4f07cd9a19170e9189efc1ac4d7878ed2c33ec95d463dd3c91c9ca0be697b979ae8d61f2c8f8')
 backup=(etc/${pkgname}/sbtopts)
 
 build() {
   cd "${pkgname}/launcher-package"
   export JAVA_HOME="/usr/lib/jvm/java-$_jdkver-openjdk"
   export PATH="/usr/lib/jvm/java-$_jdkver-openjdk/bin:$PATH"
-  sbt \
+  # https://github.com/sbt/sbt/issues/8333
+  ../sbt \
     -Dsbt.build.version=${pkgver} \
     -Dsbt.build.offline=false \
     clean \
@@ -39,7 +40,7 @@ check() {
   cd "${pkgname}"
   export JAVA_HOME="/usr/lib/jvm/java-$_jdkver-openjdk"
   export PATH="/usr/lib/jvm/java-$_jdkver-openjdk/bin:$PATH"
-  sbt test
+  ./sbt test
 }
 
 package() {
