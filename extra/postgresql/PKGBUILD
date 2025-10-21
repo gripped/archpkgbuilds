@@ -9,7 +9,7 @@ pkgname=(
 )
 pkgver=17.6
 _majorver=${pkgver%.*}
-pkgrel=1
+pkgrel=2
 pkgdesc='Sophisticated object-relational DBMS'
 url='https://www.postgresql.org/'
 arch=('x86_64')
@@ -50,6 +50,7 @@ source=(
   0001-Set-DEFAULT_PGSOCKET_DIR-to-run-postgresql.patch
   0002-Force-RPATH-to-be-used-for-the-PL-Perl-plugin.patch
   0003-doc-Remove-stray-trailing-whitespace-in-xref-linkend.patch
+  0004-jit-fix-build-with-LLVM-21.patch
   postgresql-check-db-dir.in
   postgresql.logrotate
   postgresql.pam
@@ -61,6 +62,7 @@ md5sums=('e72b7e5dc22d44d56b113ed1f74e4084'
          'a5b05db6d869c74a2fc0d8f752618b1d'
          'b74d848f5527740dce663ae72f39c5ae'
          'c26bfbec0b715eccfc67d9a42ef80669'
+         '0d34dd948e5b031d9ae4312a1eb10bd6'
          '10123caec61006cbe316de8ab7a497bc'
          'd28e443f9f65a5712c52018b84e27137'
          '96f82c38f3f540b53f3e5144900acf17'
@@ -71,6 +73,7 @@ sha256sums=('e0630a3600aea27511715563259ec2111cd5f4353a4b040e0be827f94cd7a8b0'
             '2c09429dca9caf540be647fdac9540eeccb68935994bb54cfd3f2108464916c7'
             '0fb4915c06b9767933b27adc329e7319485e043fb9f17b1697b969779a00cf14'
             '4a9bb5c8c02b410646269276345073d478fe285996b1b1564cae5f59ad02a174'
+            'ee6a8220d846c3064ca93dbdc656a0ffbcfad8736333fae17b40e5e65d4ed558'
             '94af93b53bf7772e6664c239523ef952ffc905a0de3c2c4b2dfc2fe8f3a2efed'
             '6abb842764bbed74ea4a269d24f1e73d1c0b1d8ecd6e2e6fb5fb10590298605e'
             '57dfd072fd7ef0018c6b0a798367aac1abb5979060ff3f9df22d1048bb71c0d5'
@@ -81,6 +84,7 @@ b2sums=('9287eab85e17a65333d970bf7d4d254e25295615b4787072ff2a6c705cb66b7775dbe3a
         'c924fd8f58a85d0ed073af7f9778467db6d106b8b66e011048c5148a6b7d02afe4d02451970bd08d351a7356abe7b9a8ea17e3bf1cce32f17977196215d49b5b'
         'd98280e004adcb1ad85053d9bd202a2b4798df6e7a72b21cb263da6b282f42b5463ce77dcc4f0b1b39d3f55303d0f6869b23f2338ffcd98720b0550204adf85a'
         '7a296d7639c72964651973d0d38bc32c8f9c96c65ed8d8e98e520de04cf26c98c361b9567875fca6fc27191eb59709499800076e7bf1354ae6e51c444e7669eb'
+        '392403ece1c5886d6e0d7062091dc71ec1cb085d1da2e0d4b91638c875c5d84ce2b2e4faca05ee336f57a9482e81aeccf882c9ced8dd56091095f5f612d86e03'
         '682bfab1189221d82f6cce9bcb8c40c6d37ecacbcaf0568bbaa2706503b1f102e5476d0d110dcc6240ab62c5e7c2c20a5d9af8edd4038d212327f8866b1cf15a'
         '2209b7550acad7955102ec6922754b4046b2a2ad2a7e1cfb2cc4053c0705abac7aa7d7968eab617f50894797d06345f51c9a669926bd2a77dcf688206a2027e0'
         '3eab84d332d96678fe6e435ee243c8f1a82b838f601d61d3604d11e918aed7a62202edca5e476c4b9031ed284570e6fcd6c659cfdbd9624aa0019d3233755f81'
@@ -95,6 +99,7 @@ prepare() {
   patch -Np1 < ../0001-Set-DEFAULT_PGSOCKET_DIR-to-run-postgresql.patch
   patch -Np1 < ../0002-Force-RPATH-to-be-used-for-the-PL-Perl-plugin.patch
   patch -Np1 < ../0003-doc-Remove-stray-trailing-whitespace-in-xref-linkend.patch
+  patch -Np1 < ../0004-jit-fix-build-with-LLVM-21.patch
 }
 
 build() {
