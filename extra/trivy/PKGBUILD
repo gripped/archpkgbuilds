@@ -3,8 +3,8 @@
 # Contributor: Hao Long <imlonghao@archlinuxcn.org>
 
 pkgname=trivy
-pkgver=0.66.0
-pkgrel=2
+pkgver=0.67.2
+pkgrel=1
 pkgdesc='A Simple and Comprehensive Vulnerability Scanner for Containers, Suitable for CI'
 arch=('x86_64')
 url='https://github.com/aquasecurity/trivy'
@@ -15,7 +15,7 @@ makedepends=('go' 'btrfs-progs')
 provides=('trivy')
 conflicts=('trivy')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-b2sums=('420a6ceb65cd60344093938cdeda55a210aeb291485be3f3111c4373b88613e15b067c67ce8376970650f297fa4454330bd8dddde6707eb72cc75869d51f1b69')
+b2sums=('9c78cab7928546be947d076bdd8769ad5e5d07bccb734891d8e3f67a708d959aa8d9449779c5b055adb4cd8d8167eb41cdccd251614182941a276ad1f5a18973')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -34,6 +34,7 @@ build() {
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+  export GOEXPERIMENT="jsonv2"
 
   GO_LDFLAGS="-linkmode=external -s -w -X=github.com/aquasecurity/trivy/pkg/version/app.ver=${pkgver} -buildid=''"
 
@@ -45,6 +46,10 @@ package() {
 
   install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
   install -Dm755 "cmd/trivy/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+
+  # Report templates
+  mkdir -p "${pkgdir}/usr/share/${pkgname}/templates"
+  install -m644 contrib/*.tpl "${pkgdir}/usr/share/${pkgname}/templates/"
 
   "$pkgdir/usr/bin/${pkgname}" completion bash | install -Dm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/${pkgname}"
   "$pkgdir/usr/bin/${pkgname}" completion zsh | install -Dm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_${pkgname}"
