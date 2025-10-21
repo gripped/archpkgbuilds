@@ -7,7 +7,7 @@
 
 pkgname=openscad
 pkgver=2021.01
-pkgrel=17
+pkgrel=18
 pkgdesc='The programmers solid 3D CAD modeller'
 arch=('x86_64')
 url='https://openscad.org'
@@ -59,10 +59,12 @@ source=(
   "$pkgname::git+https://github.com/openscad/openscad#tag=openscad-$pkgver"
   "github.com-openscad-MCAD::git+https://github.com/openscad/MCAD"
   "boost-1.86.patch"
+  "boost-1.89.patch"
 )
 b2sums=('077aeeeb7b43c69337793dd7543c179234c6f08ff6ef6c67b36bdeaa0be44fb5acb86574447d0a6b9c3f266fcf844d5cc355e76c84383975643da9e8c84c750d'
         'SKIP'
-        '767d9a9d666d3c8a28ff0a8d8355124cf3518388672d27cb4511ec6f990f8fafe55ad16e4f7c1c2491aebc489421b711f3d8eca6ff74f370ad82abb6f205cc84')
+        '767d9a9d666d3c8a28ff0a8d8355124cf3518388672d27cb4511ec6f990f8fafe55ad16e4f7c1c2491aebc489421b711f3d8eca6ff74f370ad82abb6f205cc84'
+        '528283a029500185273b4000d8a6d53296afa971e6a220c09cd744f9cf100693dd8001999bf8b5688e4073f121dfeb122456d9784e4e9df606cd929c01894e86')
 
 prepare() {
   cd "$pkgname"
@@ -90,6 +92,7 @@ prepare() {
 
   # boost 1.86 compatibility
   patch -Np1 -i "$srcdir/boost-1.86.patch"
+  patch -Np1 -i ../boost-1.89.patch
 
   # Upstream can't be built using newer C++ std libs
   echo 'CONFIG += c++17' >> defaults.pri
