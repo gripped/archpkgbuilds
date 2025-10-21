@@ -4,7 +4,7 @@
 pkgname=0ad
 pkgver=a27.1
 _pkgver=0.27.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Cross-platform, 3D and historically-based real-time strategy game"
 arch=('x86_64')
 url="http://play0ad.com/"
@@ -14,9 +14,16 @@ depends=('0ad-data' 'binutils' 'boost-libs' 'curl' 'enet' 'libogg' 'libpng' 'lib
          'gloox' 'miniupnpc' 'libminiupnpc.so' 'icu' 'nspr' 'libsodium' 'which')
 makedepends=('boost' 'cmake' 'mesa' 'zip' 'libsm' 'rust' 'git' 'python' 'llvm')
 options=('!lto') # breaks spidermonkey linking (https://bugs.gentoo.org/746947)
-source=("https://releases.wildfiregames.com/$pkgname-$_pkgver-unix-build.tar.xz")
+source=("https://releases.wildfiregames.com/$pkgname-$_pkgver-unix-build.tar.xz"
+         boost-1.89.patch)
 validpgpkeys=('A035C8C19219BA821ECEA86B64E628F8D684696D')  # Pablo Galindo Salgado <pablogsal@gmail.com>
-sha512sums=('7ddc355afed44511f3c62bb4119e308f921fc9624980a3171853d923042777eeb248a1ce326d3768f23596d75e8346025321d7d72d6fa3b1106a5818ca62b40d')
+sha512sums=('7ddc355afed44511f3c62bb4119e308f921fc9624980a3171853d923042777eeb248a1ce326d3768f23596d75e8346025321d7d72d6fa3b1106a5818ca62b40d'
+            'fa3741c82c2ea037f47c1466c29b5b5af2eb921f2f4033f4f7db8999c712b68402471a4015b39dfbac2d3fd82c30afac89b3aef01bf01c7f01b2097187206f87')
+
+prepare() {
+  cd "$pkgname-$_pkgver"
+  patch -p1 -i ../boost-1.89.patch
+}
 
 build() {
   cd "$pkgname-$_pkgver"
