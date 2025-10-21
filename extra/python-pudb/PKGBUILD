@@ -3,10 +3,10 @@
 # Contributor: Kwpolska <kwpolska@kwpolska.tk>
 
 pkgname=python-pudb
-pkgver=2025.1.1
+pkgver=2025.1.2
 pkgrel=1
 pkgdesc="A full-screen, console-based Python debugger"
-url="https://pypi.python.org/pypi/pudb"
+url="https://github.com/inducer/pudb"
 arch=('any')
 license=('MIT')
 depends=(
@@ -30,15 +30,15 @@ checkdepends=(
   'python-pytest-mock'
 )
 source=(
-  "https://github.com/inducer/pudb/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+  "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
   "$pkgname-exclude-tests.patch"
 )
-sha512sums=('4f620fb03bf40db26225e7f6490a53ada716739814222d60dc68a7f691f0b959aea28ef8e934d66e775e1704b13faa373834a8922ed35c9b308afd238c6dc5cb'
+sha512sums=('cda03c221e6842620ba393f06efd2d9fb3a0c626287c3dad71b11b038525484ffeab498ec592e77d9402e63c460928550480f8ced910a59b95c2070828c5230b'
             '25d34a9c5b00e5cc59c0a692a7ca494f1d046a2aa2ace801a47eca743de7e066c0ed95b05653429333121fbd005de2dc63711161f7915de24ec0de12aaf03dcf')
 
 prepare() {
   cd ${pkgname#python-}-$pkgver
-  patch -p1 < ../$pkgname-exclude-tests.patch
+  patch -Np1 < ../$pkgname-exclude-tests.patch
 }
 
 build() {
