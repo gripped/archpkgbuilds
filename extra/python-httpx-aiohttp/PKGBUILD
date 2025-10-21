@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-httpx-aiohttp
-pkgver=0.1.8
+pkgver=0.1.9
 pkgrel=1
 pkgdesc='aiohttp-powered httpx client'
 arch=(any)
@@ -32,7 +32,7 @@ checkdepends=(
   uvicorn
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('d6ff34a14839668eaa82d280cac0bc1444674c39c174e92cc866610ad976585b16e41105f37a630df3569d13901872eedd3606644ca25991dbadd7fc481098c1')
+b2sums=('49ef6ea4b1332f41944ec6f224059bbb3604a6c0391d6daf8cf28b424b8bfd49571422487b43bdeb0f9f69057d03d02426d958b5f6be5260dfbdf464873a5036')
 
 prepare() {
   cd "$srcdir/${pkgname#python-}"
