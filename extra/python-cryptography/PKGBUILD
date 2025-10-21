@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-cryptography
-pkgver=46.0.2
+pkgver=46.0.3
 pkgrel=1
 pkgdesc="A package designed to expose cryptographic recipes and primitives to Python developers"
 arch=('x86_64')
@@ -33,7 +33,7 @@ checkdepends=(
   'python-pytest'
 )
 source=("git+https://github.com/pyca/cryptography.git#tag=$pkgver")
-sha512sums=('41ac55172c4a80811c8a2756c3b3c6692512badb317f4e35f55be826bbf77109f4b454633bca672f5c6639d00cac6a78a8315d4003a3007e0e7588cea97ec721')
+sha512sums=('9a209885c5b3fcaf5581655f05d091d42f5d71a3bbb7e1328b0cf8d18c10f863f3257c75c40fab1385aa0b9f317ffb46e72cc70f740b9750780a20c6a8b612b7')
 
 prepare() {
   cd cryptography
@@ -47,7 +47,7 @@ build() {
   echo "$RUSTFLAGS"
   # https://github.com/pyca/cryptography/issues/9023
   CC=clang RUSTFLAGS+=" -Clinker-plugin-lto -Clinker=clang -Clink-arg=-fuse-ld=lld" \
-    python -m build --wheel --no-isolation --skip-dependency-check
+    python -m build --wheel --no-isolation
 }
 
 check() {
