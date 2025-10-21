@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index 0b81181c1..3a58acb75 100644
+--- a/Makefile
++++ b/Makefile
+@@ -363,7 +363,7 @@ ifeq ($(BOOST_PYTHON_LIB),)
+ $(error BOOST_PYTHON_LIB could not be detected. Please define manually)
+ endif
+ 
+-LIBS += $(BOOST_PYTHON_LIB) -lboost_system -lboost_filesystem
++LIBS += $(BOOST_PYTHON_LIB) -lboost_filesystem
+ PY_WRAPPER_FILE = kernel/python_wrappers
+ OBJS += $(PY_WRAPPER_FILE).o
+ PY_GEN_SCRIPT= py_wrap_generator
