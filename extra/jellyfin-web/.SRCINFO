@@ -1,6 +1,6 @@
 pkgbase = jellyfin-web
 	pkgdesc = Web client for Jellyfin
-	pkgver = 10.10.7
+	pkgver = 10.11.0
 	pkgrel = 1
 	url = https://jellyfin.org
 	arch = any
@@ -8,8 +8,11 @@ pkgbase = jellyfin-web
 	makedepends = git
 	makedepends = nodejs
 	makedepends = npm
-	source = jellyfin-web::git+https://github.com/jellyfin/jellyfin-web#tag=v10.10.7
-	sha512sums = 823f3193428b0f134a677157c4ec6b31af49b3878aed69671494fe63a71dc67b6cd413f841c3f1f0fcdbeefbd30edf62ac0f7afaafd411ea159c43097b2aee2a
-	b2sums = 4211e0f3dc9d9fa26afc6bb9d0d40d6bf6ca70c3addf7313fe2bdf34477e473a4dc001ae5a4e9b681fcf498c9e32b2eeae93e7f9b7408d722821c88788c4c76d
+	source = jellyfin-web::git+https://github.com/jellyfin/jellyfin-web#tag=v10.11.0
+	source = remove-npm-version-constraint.patch
+	sha512sums = 418e76b5ca1578e4daf1f215223a6aa2892b68b95312b67002b0b2c2f1aea7fc8827bbb8b56a063099e219bc77803075fb4cad62922043a2eb3b54a1d378f711
+	sha512sums = 63b57be505e31bb91469db84b96d6bb2d363324c4a4cde7a1e5f476a5aa6a6fb4d962871a307317ea81dce7cbac6864982a39aeb470dc632492d332a9e8dbd11
+	b2sums = 6a0914e14d6048b979a175a7a7ddb1b55cb5dc32e846b5c617a101f9226ce5630bb87e774a8fa7faf5cc53c757149cee4d8533f8841227aaec5910f5dbb05df1
+	b2sums = f7c3d837a0d33b9d6ef4a52d43111258795dd411627d5fad050d06247ea29d08625fb13bf1953063ba46e56f85d097b1edea316510c7b0a564f90f1d66d1a3cc
 
 pkgname = jellyfin-web
