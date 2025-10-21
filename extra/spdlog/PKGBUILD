@@ -3,8 +3,8 @@
 # Contributor: Michael Yang
 
 pkgname=spdlog
-pkgver=1.15.3
-pkgrel=3
+pkgver=1.16.0
+pkgrel=1
 pkgdesc='Very fast, header-only/compiled, C++ logging library'
 arch=('x86_64')
 url='https://github.com/gabime/spdlog'
@@ -21,18 +21,13 @@ makedepends=(
 provides=('libspdlog.so')
 source=(
   "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
-  "$url/commit/b77a2cab5b1e6710ec55e6a4484f43278fc0036b.patch"
   "spdlog_fmt_external.patch"
 )
-sha256sums=('15a04e69c222eb6c01094b5c7ff8a249b36bb22788d72519646fb85feb267e67'
-            '30cabfd9162e47dec40f24328d6bc85dc67ed4b4e2e07c300f66aeffd03f3f57'
+sha256sums=('8741753e488a78dd0d0024c980e1fb5b5c85888447e309d9cb9d949bdb52aa3e'
             'a0eb34b7c6920f0db2587460071f53372663c191cdfe34bf5ea2704c309c745f')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  # Catch2 3.9+ compatibility, see:
-  # https://github.com/gabime/spdlog/pull/3451
-  patch -p1 < ../b77a2cab5b1e6710ec55e6a4484f43278fc0036b.patch
   patch -p1 < ../spdlog_fmt_external.patch
 }
 
