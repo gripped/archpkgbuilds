@@ -1,7 +1,7 @@
 # Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 
 pkgname=openmp
-pkgver=20.1.8
+pkgver=21.1.3
 pkgrel=1
 pkgdesc="LLVM OpenMP Runtime Library"
 arch=('x86_64')
@@ -15,12 +15,14 @@ options=('!lto') # https://bugzilla.redhat.com/show_bug.cgi?id=1988155
 _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkgver
 source=($_source_base/openmp-$pkgver.src.tar.xz{,.sig}
         $_source_base/cmake-$pkgver.src.tar.xz{,.sig})
-sha256sums=('b21c04ee9cbe56e200c5d83823765a443ee6389bbc3f64154c96e94016e6cee9'
+sha256sums=('a3f6af3d9e80ec6217e92675d4253db85f006d788943b8ccacf18bde23d2b816'
             'SKIP'
-            '3319203cfd1172bbac50f06fa68e318af84dcb5d65353310c0586354069d6634'
+            '4db6f028b6fe360f0aeae6e921b2bd2613400364985450a6d3e6749b74bf733a'
             'SKIP')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
-              'D574BD5D1D0E98895E3BF90044F2485E45D59042') # Tobias Hieta <tobias@hieta.se>
+              'D574BD5D1D0E98895E3BF90044F2485E45D59042'  # Tobias Hieta <tobias@hieta.se>
+              'FFB3368980F3E6BB5737145A316C56D064CACBA5'  # Douglas Yung <douglas.yung@sony.com>
+)
 
 prepare() {
   mv cmake{-$pkgver.src,}
