@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dtklog
-pkgver=0.0.5
-pkgrel=2
+pkgver=0.0.6
+pkgrel=1
 pkgdesc='Simple, convinient and thread safe logger for Qt-based C++ apps'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtklog"
@@ -10,7 +10,7 @@ license=('LGPL-2.1-or-later')
 depends=('glibc' 'libsystemd' 'qt5-base' 'spdlog' 'fmt' 'gcc-libs')
 makedepends=('git' 'cmake' 'ninja')
 source=("git+https://github.com/linuxdeepin/dtklog.git#tag=$pkgver")
-sha512sums=('165cc8ae0b137b38cfd484cfec4bb0f6bc511871305baa8c5acacc0d8c53f5a74a878c0e43b79798f5f5acae1b429a99bca19d589a6530e36699e1108966f6a6')
+sha512sums=('73604a45ceff5e1ce1a6898ca689a6a6fd75ed0805c0657a446bd2c4dda9e152e714d37dbb999ec38b9f3afd761682440bdd4d8aa0636a12de5aa78c32ac9fc2')
 
 build() {
   cd dtklog
