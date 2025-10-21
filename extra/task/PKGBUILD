@@ -7,8 +7,8 @@
 # Contributor: coolkehon <coolkehon@gmail.com>
 
 pkgname=task
-pkgver=3.4.1
-_commit=1f6e7de569cea7bced2a334ad9982a42e6ba614e
+pkgver=3.4.2
+_commit=48fb891c30fd7c572db3a4cff46e3435c75a1b6c
 pkgrel=1
 pkgdesc="Taskwarrior, a command-line todo list manager"
 arch=('x86_64')
@@ -21,7 +21,7 @@ source=(
   "$pkgname::git+https://github.com/GothenburgBitFactory/taskwarrior.git#commit=$_commit"
   "$pkgname-libshared::git+https://github.com/GothenburgBitFactory/libshared.git"
 )
-sha256sums=('d01ad1eaa073e63d3a8877e8e7b6a84552fb8ade463d5d7d36f46828fd9ab014'
+sha256sums=('0cd9765bc9c12a81c0d33a44f97afecf3977653d7a73ac70524b9472a1b48705'
             'SKIP')
 options=('!lto')
 
