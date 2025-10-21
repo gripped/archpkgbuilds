@@ -1,26 +1,29 @@
-# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Maintainer: George Hu <integral@archlinux.org>
+# Contributor: Balló György <ballogyor+arch at gmail dot com>
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 # Contributor: archtux <antonio.arias99999 at gmail.com>
 
 pkgname=converseen
-pkgver=0.15.0.3
+pkgver=0.15.1.0
 pkgrel=1
-pkgdesc='Batch image converter and resizer'
+pkgdesc="Batch image converter and resizer"
 arch=('x86_64')
-url='https://converseen.fasterland.net/'
-license=('GPL3')
+url="https://${pkgname}.fasterland.net"
+license=('GPL-3.0-or-later')
 depends=('hicolor-icon-theme' 'imagemagick' 'qt6-base')
 makedepends=('cmake' 'qt6-tools')
-source=("https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2")
-sha256sums=('e875699b16fe4306c157581e63cd1ff7ba1fc7ae000a0afd21885ed7dc53bc64')
+source=("https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.bz2")
+sha256sums=('bfc72a49587edd53dd9a954c88823eb5883af19509e3e09eb65467bef940a170')
 
 build() {
-  cmake -B build -S $pkgname-$pkgver \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DUSE_QT6=ON
-  cmake --build build
+	cmake -B build \
+		-S "${pkgname}-${pkgver}" \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D USE_QT6=ON
+
+	cmake --build build
 }
 
 package() {
-  DESTDIR="$pkgdir" cmake --install build
+	DESTDIR="${pkgdir}" cmake --install build
 }
