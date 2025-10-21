@@ -2,7 +2,7 @@
 # Contributor: Mantas Mikulėnas <grawity@gmail.com>
 
 pkgname=python-requests-gssapi
-pkgver=1.3.0
+pkgver=1.4.0
 pkgrel=1
 pkgdesc="GSSAPI (HTTP Negotiate) authentication for Python-Requests"
 arch=(any)
@@ -21,7 +21,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('6f82e7c50c914691a635fe0e29df1d53db693296393af978c622ed1d5a280cae')
+sha256sums=('e4d3f5ad36d309239e2e7659e55f208981b97ee6da2433f69749fd71bcb16a16')
 
 build() {
   cd "${pkgname#python-}-$pkgver"
