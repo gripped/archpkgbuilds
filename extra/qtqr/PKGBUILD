@@ -3,12 +3,12 @@
 pkgname=qtqr
 pkgver=2.1
 _pkgver=2.1-0~47~ubuntu24.04.1
-pkgrel=8
+pkgrel=9
 pkgdesc='Qt GUI that makes easy creating and decoding QR codes'
 arch=('any')
 url='https://launchpad.net/qr-tools'
 license=('GPL3')
-depends=('python-pillow' 'python-pyqt5' 'qrencode' 'zbar')
+depends=('python-pillow' 'python-pyqt5' 'qrencode' 'qt5-multimedia' 'zbar')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("https://launchpad.net/qr-tools/2.0/2.1/+download/qtqr_${_pkgver}.tar.gz"
         'qtqr.desktop'
