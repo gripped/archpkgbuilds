@@ -1,11 +1,12 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgbase=rocm-llvm
 pkgname=(rocm-llvm rocm-device-libs comgr)
 epoch=2
 pkgver=6.4.4
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://rocm.docs.amd.com/en/latest/reference/rocmcc.html'
 makedepends=('git' 'cmake' 'python' 'ninja' 'rocm-core' 'rocm-cmake' 'perl'
