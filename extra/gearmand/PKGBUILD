@@ -5,7 +5,7 @@
 
 pkgname=gearmand
 pkgver=1.1.22
-pkgrel=1
+pkgrel=2
 pkgdesc="Distributed job queue server."
 arch=('x86_64')
 depends=('libevent' 'boost-libs' 'mariadb-libs' 'postgresql-libs' 'sqlite' 'hiredis')
@@ -27,7 +27,6 @@ sha256sums=('c5d18f6a13625ebdd7e514596aed39e31203358eee688dfedcedd989a2f02d7a'
 
 build() {
   cd "$srcdir"/$pkgname-$pkgver
-  export LDFLAGS="$LDFLAGS -lboost_system"
   ./configure \
     --prefix=/usr \
     --sbindir=/usr/bin \
