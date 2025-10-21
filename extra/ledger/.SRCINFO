@@ -1,7 +1,7 @@
 pkgbase = ledger
 	pkgdesc = Double-entry accounting system with a command-line reporting interface
 	pkgver = 3.3.2
-	pkgrel = 9
+	pkgrel = 10
 	url = https://ledger-cli.org
 	arch = i686
 	arch = x86_64
@@ -16,7 +16,9 @@ pkgbase = ledger
 	optdepends = python: python library
 	source = ledger-3.3.2.tar.gz::https://github.com/ledger/ledger/archive/v3.3.2.tar.gz
 	source = boost-1.86.patch
+	source = boost-1.89.patch::https://github.com/ledger/ledger/commit/8d858deba503689567459200aa0539c2eb3cf397.patch
 	sha256sums = 555296ee1e870ff04e2356676977dcf55ebab5ad79126667bc56464cb1142035
 	sha256sums = 410c2bc68f874386e129d0fa58758013953b134d8e4a11d653443ce08da2ca1e
+	sha256sums = 524d118f530aaaa12e32e652f8d9a1c10a72f3b30998cb19d1172256cd128cb9
 
 pkgname = ledger
