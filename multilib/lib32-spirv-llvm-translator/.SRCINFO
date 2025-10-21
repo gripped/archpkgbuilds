@@ -1,21 +1,25 @@
 pkgbase = lib32-spirv-llvm-translator
-	pkgdesc = Tool and a library for bi-directional translation between SPIR-V and LLVM IR (32-bit)
-	pkgver = 20.1.5
-	pkgrel = 1
-	url = https://github.com/KhronosGroup/SPIRV-LLVM-Translator
+	pkgdesc = LLVM <-> SPIR-V converter for compilers targeting SPIR-V (32-bit)
+	pkgver = 21.1.1
+	pkgrel = 3
+	url = https://www.khronos.org/spirv/
 	arch = x86_64
-	license = LicenseRef-custom
-	makedepends = git
+	license = NCSA
+	checkdepends = clang
+	checkdepends = python
 	makedepends = cmake
-	makedepends = llvm
+	makedepends = git
 	makedepends = lib32-llvm
-	makedepends = lib32-spirv-tools
+	makedepends = ninja
 	makedepends = spirv-headers
 	depends = lib32-gcc-libs
 	depends = lib32-glibc
 	depends = lib32-llvm-libs
+	depends = lib32-spirv-tools
 	depends = spirv-llvm-translator
-	source = git+https://github.com/KhronosGroup/SPIRV-LLVM-Translator.git#tag=v20.1.5
-	sha256sums = 735001cb8622fc0dfcc4e2005299d185ebc4bb1970a98189a43da262c6c1dfe3
+	source = git+https://github.com/KhronosGroup/SPIRV-LLVM-Translator#tag=v21.1.1
+	source = 0001-fixes-a-new-validation-failure-in-a-UniformId-test-3.patch
+	b2sums = b68cbb40de22d7a2f6263e3514bad57ba41194081bf189f697fc412edffec6ddadb6faf18c0187914f7c52e93e1e09c673998c9f64405d37822fa9c6a74410b4
+	b2sums = 72582c18a18eaee813a262777ae638c36333e516d2b50493dae1e106abe8e7db851419c9fe358a0b80600aa24bd2a87acf0a77d9297836976322ba6109777657
 
 pkgname = lib32-spirv-llvm-translator
