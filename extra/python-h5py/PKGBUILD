@@ -6,7 +6,7 @@
 # Contributor: Sebastien Binet <binet@lblbox>
 
 pkgname=python-h5py
-pkgver=3.15.0
+pkgver=3.15.1
 pkgrel=1
 pkgdesc="General-purpose Python bindings for the HDF5 library"
 arch=(x86_64)
@@ -37,7 +37,7 @@ source=(
   "https://github.com/h5py/h5py/archive/$pkgver/${pkgname#python-}-$pkgver.tar.gz"
   remove-version-check.patch
 )
-sha256sums=('beb62edf226b8821d3e06f4d35f57055c9ac2aca11961574d505a8d6b7919192'
+sha256sums=('55a03d8fc1db535b243cccda3e6237844da25a17a2df3bc0ea9db6fbbbd7bf2b'
             '621f108e5e95dc250047501447d0dc633fbf3f8bf19e4c4b4c4d5a286864664c')
 
 prepare() {
