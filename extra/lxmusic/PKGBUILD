@@ -4,28 +4,53 @@
 
 pkgname=lxmusic
 pkgver=0.4.8
-pkgrel=1
+pkgrel=2
 pkgdesc='Lightweight music player (XMMS2 client)'
-arch=('x86_64')
+arch=(x86_64)
 url='https://lxde.org/'
-license=('GPL2')
-groups=('lxde')
-depends=('gtk3' 'libnotify' 'xmms2')
-makedepends=('git' 'intltool')
-replaces=('lxmusic-gtk3')
-source=(git+https://github.com/lxde/lxmusic.git#tag=${pkgver}
-        'lxmusic.appdata.xml')
-sha256sums=('7a8d8cf3a9bf7e26b774f1106c1bab297fef052bd23c44208e5a40c561f4df9e'
-            '0093885fe76bda60a1b319970bd8d148903a3adb674690d3d9cf9262e053b05b')
+license=(GPL-2.0-or-later)
+groups=(lxde)
+depends=(
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  libnotify
+  xmms2
+)
+makedepends=(
+  git
+  intltool
+)
+replaces=(lxmusic-gtk3)
+source=(
+  "git+https://github.com/lxde/lxmusic.git#tag=$pkgver"
+  lxmusic.appdata.xml
+  lxmusic-transient-dialog.patch
+)
+b2sums=(
+  4ef3555677a61a09677eb3ef3c11fd59d60ad078afb044cdf902b3baecc680c51ed9a1edb651de6e453efacb3d84d354c05a0c2b6cbedac7430beee847d3d7df
+  20b37ccf69a2d6d427ab9d075132356dd77ed065be0d8f8c2e4a82ec10c5bd4d56bb7b746e976446ce87f39c79526eeb14a2d86d26f65d9927b9c61cdbaf00e4
+  3d8e1eba55e6542fe1ce4df2861c0bd911a21e76ca4a8143b1124859d559fb4daa85c5ca99632c3beaa89accdc169f9c05a74950b7208e137241230ca91c2172
+)
 
 prepare() {
   cd $pkgname
-  autoreconf -fiv
+
+  # https://github.com/lxde/lxmusic/pull/5
+  git apply -3 ../lxmusic-transient-dialog.patch
+
+  autoreconf -fi
 }
 
 build() {
   cd $pkgname
-  ./configure --prefix=/usr --enable-gtk3
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --enable-gtk3
   make
 }
 
