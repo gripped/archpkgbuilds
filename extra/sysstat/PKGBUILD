@@ -1,47 +1,50 @@
-# Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
+# Maintainer: Anatol Pomozov <anatol.pomozov@gmail.com>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 # Contributor: Martin Devera <devik@cdi.cz>
 
 pkgname=sysstat
-pkgver=12.7.7
+pkgver=12.7.8
 pkgrel=1
 pkgdesc="a collection of performance monitoring tools (iostat,isag,mpstat,pidstat,sadf,sar)"
 arch=('x86_64')
 url="https://sysstat.github.io/"
-license=('GPL')
-depends=('lm_sensors')
+license=('GPL-2.0-only')
+depends=(
+  'glibc'
+  'lm_sensors'
+)
 makedepends=('systemd')
-optdepends=('tk: to use isag'
-	    'gnuplot: to use isag')
-options=('zipman')
-backup=('etc/conf.d/sysstat'
-	'etc/conf.d/sysstat.ioconf')
-source=("https://github.com/sysstat/sysstat/archive/refs/tags/v${pkgver}.tar.gz"
-	'lib64-fix.patch')
-sha512sums=('38e6bdc05244ccd3e875d47b792e6e22930bb2cd8966918e10db09278a610234930115b2856a84333152c59aa4b4c791d8eec681cf14f006257d06bd008568f2'
-            '6caae9962a636e5152b0462d0dce835d8f658848723bee2d7ac903a0f170a491882c819457c882bcee41159960fa243fb843a2389c9a4ceeea061a5520e01103')
+optdepends=(
+  'tk: to use isag'
+  'gnuplot: to use isag'
+)
+backup=(
+  'etc/conf.d/sysstat'
+  'etc/conf.d/sysstat.ioconf'
+)
+source=("https://github.com/sysstat/sysstat/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('ca4b239bf66a50ef647f456611647051874706973cf16fd90adb0f3d324fdd59d3aea9c887f93fec8975097590cc1d9961cd68dc8752f4fdfb047c6426caa9d2')
 
 prepare() {
-  cd "${srcdir}"/"${pkgname}"-"${pkgver}"
-  patch -p1 < "${srcdir}/lib64-fix.patch"
-  autoreconf
+  cd $pkgname-$pkgver
+  autoreconf -fiv
 }
 
 build() {
-  cd "${srcdir}"/"${pkgname}"-"${pkgver}"
-  conf_dir=/etc/conf.d ./configure --prefix=/usr \
-	--mandir=/usr/share/man \
-	--enable-install-cron \
-	--enable-copy-only \
-  --disable-compress-manpg
-  # patch makefile for FULL RELRO builds
-  sed -e 's|CFLAGS = |CFLAGS += \$(CPPFLAGS) |' -e 's|LFLAGS = |LFLAGS = $(LDFLAGS) |' -i Makefile
+  cd $pkgname-$pkgver
+  ./configure --prefix=/usr \
+    conf_dir=/etc/conf.d \
+    sa_lib_dir=/usr/lib/sa \
+    --mandir=/usr/share/man \
+    --enable-install-cron \
+    --enable-copy-only \
+    --disable-compress-manpg
   make
 }
 
 package() {
-  cd "${srcdir}"/"${pkgname}"-"${pkgver}"
-  mkdir -p "${pkgdir}"/usr/lib/systemd/system
-  make DESTDIR="${pkgdir}" install
-  chown -R root:root "${pkgdir}"
-  rm -rf "${pkgdir}"/etc/rc*
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
 }
