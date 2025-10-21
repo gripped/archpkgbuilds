@@ -1,7 +1,7 @@
 pkgbase = guitarix
 	pkgdesc = A simple mono guitar amplifier and FX for JACK using Faust
 	pkgver = 0.47.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://guitarix.org
 	arch = x86_64
 	groups = lv2-plugins
@@ -51,8 +51,11 @@ pkgbase = guitarix
 	conflicts = guitarix2
 	replaces = guitarix2
 	source = guitarix-0.47.0.tar.xz::https://github.com/brummer10/guitarix/releases/download/V0.47.0/guitarix2-0.47.0.tar.xz
+	source = boost-1.89.patch
 	sha512sums = 6726bfc5e3b71b195e7117ba56f56164a119c6e34934d50131c186c6c4fd0400c97d51acae22f645fc9dff91f16312a55d38c68e3609c0f21d3c3e6db8a09524
+	sha512sums = 6e904282e15bd8d3b4412f62932308ecec042dd76f23e8dbd540fc3496840cab6503e8fd3879cee0a945cf9fd3a863767352eee0bdc01d6593098fa1b8c2ba15
 	b2sums = 03da29819fb5da4e981d25c229310da9741325475fae694a7745c16a18fc2b21d0e11ddc1aadcc6c1364d61f37d89dbf31f48da69aa823b3e192719cbb3d0736
+	b2sums = 74954386f6aee9c7ee2d730db4163025c8e22464170f52d31868d1763a8fcc36127a2e2823dc504b10aed1340b1db032d39ba7e9744aa80296fa8b767c62d4e8
 
 pkgname = guitarix
 	depends = atkmm
