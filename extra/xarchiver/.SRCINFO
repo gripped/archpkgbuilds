@@ -1,15 +1,18 @@
 pkgbase = xarchiver
-	pkgdesc = GTK+ frontend to various command line archivers
-	pkgver = 0.5.4.25
+	pkgdesc = GTK frontend to various command line archivers
+	pkgver = 0.5.4.26
 	pkgrel = 1
 	url = https://github.com/ib/xarchiver
 	arch = x86_64
-	license = GPL
+	license = GPL-2.0-or-later
 	makedepends = docbook-xsl
+	makedepends = git
 	makedepends = intltool
-	makedepends = xmlto
-	depends = gtk2
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
 	depends = gtk3
+	depends = hicolor-icon-theme
 	optdepends = arj: ARJ support
 	optdepends = binutils: deb support
 	optdepends = bzip2: bzip2 support
@@ -29,15 +32,9 @@ pkgbase = xarchiver
 	optdepends = xz: xz support
 	optdepends = zip: ZIP support
 	optdepends = zstd: zstd support
-	source = https://github.com/ib/xarchiver/archive/0.5.4.25/xarchiver-0.5.4.25.tar.gz
+	source = git+https://github.com/ib/xarchiver.git#tag=0.5.4.26
 	source = xarchiver.appdata.xml
-	sha256sums = dfd70c9081790399c32d9d716a55060e5136ff0ad1a94a84988a55fd6f771ceb
-	sha256sums = 55f41aa0e5569b446933a34ac0585443fa5bd92f03f47e1fd53daf19905cc97e
+	b2sums = f0aeb6d086c09e56ca87d121300f5c35f2391ace4add66cede5be6d39dfc921ea786a4de9f127efaa10ab8cf37305ae1f309a4e56deaf20ac6ecc2b643544f81
+	b2sums = 56293e379fe0663e3c76836d6c87710fcd6cec9f44de539a48b75e253b100ea46d29dc734e215f44e2955171e1ea0de7076e6129c96d4660ba46ebaff4ab2a8a
 
 pkgname = xarchiver
-	depends = gtk3
-
-pkgname = xarchiver-gtk2
-	pkgdesc = GTK+ frontend to various command line archivers (GTK+ 2 version)
-	depends = gtk2
-	conflicts = xarchiver

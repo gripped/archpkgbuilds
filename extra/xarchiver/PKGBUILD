@@ -2,71 +2,73 @@
 # Contributor: Alexander Fehr <pizzapunk gmail com>
 # Contributor: Andrew Simmons <andrew.simmons@gmail.com>
 
-pkgbase=xarchiver
-pkgname=(xarchiver xarchiver-gtk2)
-pkgver=0.5.4.25
+pkgname=xarchiver
+pkgver=0.5.4.26
 pkgrel=1
-pkgdesc="GTK+ frontend to various command line archivers"
+pkgdesc='GTK frontend to various command line archivers'
 arch=(x86_64)
-url="https://github.com/ib/xarchiver"
-license=(GPL)
-depends=(gtk2 gtk3)
-makedepends=(docbook-xsl intltool xmlto)
-optdepends=('arj: ARJ support'
-            'binutils: deb support'
-            'bzip2: bzip2 support'
-            'cpio: RPM support'
-            'gzip: gzip support'
-            'lha: LHA support'
-            'lrzip: lrzip support'
-            'lz4: LZ4 support'
-            'lzip: lzip support'
-            'lzop: LZOP support'
-            'p7zip: 7z support'
-            'tar: tar support'
-            'unarj: ARJ support'
-            'unrar: RAR support'
-            'unzip: ZIP support'
-            'xdg-utils: recognize more file types to open'
-            'xz: xz support'
-            'zip: ZIP support'
-            'zstd: zstd support')
-source=(https://github.com/ib/xarchiver/archive/$pkgver/$pkgbase-$pkgver.tar.gz
-        xarchiver.appdata.xml)
-sha256sums=('dfd70c9081790399c32d9d716a55060e5136ff0ad1a94a84988a55fd6f771ceb'
-            '55f41aa0e5569b446933a34ac0585443fa5bd92f03f47e1fd53daf19905cc97e')
+url='https://github.com/ib/xarchiver'
+license=(GPL-2.0-or-later)
+depends=(
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+)
+makedepends=(
+  docbook-xsl
+  git
+  intltool
+)
+optdepends=(
+  'arj: ARJ support'
+  'binutils: deb support'
+  'bzip2: bzip2 support'
+  'cpio: RPM support'
+  'gzip: gzip support'
+  'lha: LHA support'
+  'lrzip: lrzip support'
+  'lz4: LZ4 support'
+  'lzip: lzip support'
+  'lzop: LZOP support'
+  'p7zip: 7z support'
+  'tar: tar support'
+  'unarj: ARJ support'
+  'unrar: RAR support'
+  'unzip: ZIP support'
+  'xdg-utils: recognize more file types to open'
+  'xz: xz support'
+  'zip: ZIP support'
+  'zstd: zstd support'
+)
+source=(
+  "git+https://github.com/ib/xarchiver.git#tag=$pkgver"
+  xarchiver.appdata.xml
+)
+b2sums=(
+  f0aeb6d086c09e56ca87d121300f5c35f2391ace4add66cede5be6d39dfc921ea786a4de9f127efaa10ab8cf37305ae1f309a4e56deaf20ac6ecc2b643544f81
+  56293e379fe0663e3c76836d6c87710fcd6cec9f44de539a48b75e253b100ea46d29dc734e215f44e2955171e1ea0de7076e6129c96d4660ba46ebaff4ab2a8a
+)
+
+prepare() {
+  cd $pkgname
+  touch AUTHORS NEWS
+  autoreconf -fi
+}
 
 build() {
-  # GTK+ 3 version
-  [ -d gtk3 ] || cp -r $pkgbase-$pkgver gtk3
-  cd gtk3
-  ./configure --prefix=/usr --libexecdir=/usr/lib/xfce4
-  make
-
-  cd "$srcdir"
-  # GTK+ 2 version
-  [ -d gtk2 ] || cp -r $pkgbase-$pkgver gtk2
-  cd gtk2
-  ./configure --prefix=/usr --libexecdir=/usr/lib/xfce4 --enable-gtk2
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --libexecdir=/usr/lib/xfce4
   make
 }
 
-package_xarchiver() {
-  depends=(gtk3)
-
-  cd gtk3
+package() {
+  cd $pkgname
   make DESTDIR="$pkgdir" install
   install -Dm644 ../$pkgname.appdata.xml "$pkgdir/usr/share/metainfo/$pkgname.appdata.xml"
-}
-
-package_xarchiver-gtk2() {
-  pkgdesc+=' (GTK+ 2 version)'
-  depends=(gtk2)
-  conflicts=(xarchiver)
-
-  cd gtk2
-  make DESTDIR="$pkgdir" install
-
-  # Ignore package by AppStream to avoid duplicated IDs
-  echo 'X-AppStream-Ignore=true' >> "$pkgdir/usr/share/applications/xarchiver.desktop"
 }
