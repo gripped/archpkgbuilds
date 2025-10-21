@@ -3,14 +3,14 @@
 
 pkgname=zig
 pkgver=0.15.2
-pkgrel=1
+pkgrel=2
 pkgdesc='a general-purpose programming language and toolchain for maintaining robust, optimal, and reusable software'
 arch=('x86_64')
 url='https://ziglang.org/'
 license=('MIT')
 options=('!lto')
-depends=('clang' 'lld' 'llvm-libs')
-makedepends=('cmake' 'llvm')
+depends=('clang20' 'lld20' 'llvm20-libs')
+makedepends=('cmake' 'llvm20')
 checkdepends=('lib32-glibc')
 source=("https://ziglang.org/download/$pkgver/zig-$pkgver.tar.xz"
         "skip-localhost-test.patch"
