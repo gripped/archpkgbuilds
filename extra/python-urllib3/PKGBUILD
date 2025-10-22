@@ -4,10 +4,9 @@
 # Contributor: Chris Brannon <cmbrannon79@gmail.com>
 # Contributor: BorgHunter <borghunter at gmail dot com>
 
-_name=urllib3
 pkgname=python-urllib3
 pkgver=2.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="HTTP library with thread-safe connection pooling and file post support"
 arch=("any")
 url="https://github.com/urllib3/urllib3"
@@ -54,13 +53,13 @@ sha512sums=('492ebb3e0481ee5433f45bef184ddb01714dedcbe2eb61665c781f3dcd0d9a22620
             '62d6787d88a2e716f0ac04fc49f6cdc586e473a660ee754ff66961922ae78bcc75d1f78b091e78557dd60f006e8e480114738c7b4ff71beac804e4fc9603240b')
 
 build() {
-  cd $_name-$pkgver
+  cd ${pkgname#python-}-$pkgver
   export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
-  python -m build --wheel --no-isolation
+  python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
-  cd $_name-$pkgver
+  cd ${pkgname#python-}-$pkgver
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
 
@@ -85,7 +84,7 @@ check() {
 }
 
 package() {
-  cd $_name-$pkgver
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
 }
