@@ -3,7 +3,7 @@
 
 pkgname=gc
 pkgver=8.2.10
-pkgrel=1
+pkgrel=2
 pkgdesc="A garbage collector for C and C++"
 arch=('x86_64')
 url="https://www.hboehm.info/gc/"
@@ -26,6 +26,9 @@ sha512sums=('f174b630dd205fa9cc3c9a965a14da661131c17ed87c52f2bc1479f26e5cf12d80e
 
 prepare() {
   cd bdwgc
+
+  git revert -n 2cd0f5e56
+  git revert -n 74fc05d12
 
   ./autogen.sh
 }
