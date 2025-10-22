@@ -2,7 +2,7 @@
 
 pkgname=cpputest
 pkgver=4.0
-pkgrel=5
+pkgrel=6
 pkgdesc="Unit testing and mocking framework for C/C++"
 arch=(x86_64)
 url="https://github.com/cpputest/cpputest"
@@ -21,6 +21,7 @@ build() {
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -D LONGLONG=ON
     -D C++11=ON
     -S $pkgname-$pkgver
