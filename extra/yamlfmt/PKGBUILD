@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=yamlfmt
-pkgver=0.18.0
+pkgver=0.19.0
 pkgrel=1
 pkgdesc='An extensible command line tool or library to format yaml files.'
 arch=('x86_64')
@@ -11,8 +11,8 @@ license=('Apache-2.0')
 depends=('glibc')
 makedepends=('go')
 options=('!lto')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha512sums=('be9282053b1e6f41abb4c22f12c41c9f13de691b932fa9c602364161dccacd6722e0d4a6202edf25b982275cf009667903488c40dd13b73632613cdc583c1174')
+source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('1e5579a61ebfedd5135906e5326112cf1d4042379b6f08e463935a46c437c07e0390c294e9ffe26b5fbd1bd77079019ae5b17080969df64d5ee0aadb2fc75097')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -35,13 +35,13 @@ build() {
   go build -v -ldflags="$ld_flags" -o yamlfmt ./cmd/yamlfmt
 }
 
-# check() {
-#   cd ${pkgname}-${pkgver}
-#   go test -v ./...
-# }
+check() {
+  cd ${pkgname}-${pkgver}
+  go test -v ./...
+}
 
 package() {
   cd ${pkgname}-${pkgver}
-  install -Dm755 yamlfmt "${pkgdir}/usr/bin/yamlfmt"
-  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -vDm755 -t "${pkgdir}/usr/bin" yamlfmt
+  install -vDm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE
 }
