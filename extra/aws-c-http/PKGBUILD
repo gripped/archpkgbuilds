@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-http
-pkgver=0.10.4
+pkgver=0.10.5
 pkgrel=1
 pkgdesc='C99 implementation of the HTTP/1.1 and HTTP/2 specifications'
 arch=(x86_64)
@@ -17,7 +17,7 @@ depends=(
 )
 makedepends=(cmake)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('dfeeeaa2e84ccda4c8cb0c29f412298df80a57a27003e716f2d3df9794956fc1')
+sha256sums=('02e8e67f5f03fa6458f8921232dc7a9076792d2822ad86f19c3f984fc1a073a8')
 
 build() {
   cd $pkgname-$pkgver
