@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-trio
-pkgver=0.30.0
+pkgver=0.31.0
 pkgrel=1
 pkgdesc='A friendly Python library for async concurrency and I/O'
 arch=(any)
@@ -32,11 +32,12 @@ checkdepends=(
   python-pytest
   python-ruff
   python-trustme
+  python-yaml
 )
 provides=(python-multio-provider)
-_tag=c49507856005763d9391c7044a7e0a7a5bd1548f
+_tag=94b7244505212061e21507c84725ef28be2705dd
 source=(git+https://github.com/python-trio/trio.git#tag=${_tag})
-b2sums=('c45953261bbe5d4257cb313df80716f15888e73c9ca04d04f5993a5ab8b5e524e3274ab02a09decd059e7f2336af7557a5a81f5749c07701fd4482f530dd808e')
+b2sums=('1bde7bdf18c6285544532d4298ccdbe60c447d7651e4767086f717b740441c01edac25cc1c31f2f4236c74dd04bd6b75a9db4277e528978b404c186733ed5a00')
 
 prepare() {
   sed '/"error",/d' -i trio/pyproject.toml # don't treat test warnings as errors
