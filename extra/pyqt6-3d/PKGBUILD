@@ -2,7 +2,7 @@
 
 pkgbase=pyqt6-3d
 pkgname=(python-pyqt6-3d)
-pkgver=6.9.0
+pkgver=6.10.0
 pkgrel=1
 pkgdesc='Python bindings for Qt3D'
 arch=(x86_64)
@@ -18,7 +18,7 @@ depends=(gcc-libs
 makedepends=(pyqt-builder
              sip)
 source=(https://pypi.python.org/packages/source/P/PyQt6-3D/pyqt6_3d-$pkgver.tar.gz)
-sha256sums=('af4b497e34f30e8dba53da2f2683e82994bc6d6f512fb7a91c3150aa31b6d49a')
+sha256sums=('93d89fe30d98804b0983e9b52079d15ae82b1f0a279a5f90f2ff48ed3e6489ed')
 
 build() {
   cd pyqt6_3d-$pkgver
