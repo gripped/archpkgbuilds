@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-draw
-pkgver=6.5.12
+pkgver=6.5.13
 pkgrel=1
 pkgdesc="A lightweight drawing tool for Linux Deepin"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-svg' 'gcc-libs' 'deep
 makedepends=('git' 'cmake' 'qt6-tools' 'clang' 'qt6-declarative')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-draw.git#tag=$pkgver")
-sha512sums=('d7089cf179b3ae1fcaa75961f03ac3947eadeb39578b3c4493aa1675343872d5c24ce44054e89696b12661def2269862d35bd10d85a59d0d2b0c192fdc2b8ade')
+sha512sums=('fe714e2205c9deda31940e618e6190b1d478fecf48b26a1dc5efd7f5e4199e91dda76fad7e02306dce2c113f704ba44a45fd1f4c81f50c23b883b34b293836a3')
 
 prepare() {
   cd deepin-draw
