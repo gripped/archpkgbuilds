@@ -1,9 +1,8 @@
-# Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-py-partiql-parser
-_pkgname=py-partiql-parser
-# https://github.com/getmoto/py-partiql-parser/blob/main/CHANGELOG.md
-pkgver=0.6.1
+pkgver=0.6.3
 pkgrel=1
 pkgdesc='Python Parser for PartiQL'
 arch=(any)
@@ -12,26 +11,28 @@ url='https://github.com/getmoto/py-partiql-parser'
 # See: https://github.com/getmoto/py-partiql-parser/pull/12
 license=('MIT AND Apache-2.0')
 depends=(python)
-makedepends=(git python-build python-installer python-hatchling)
+makedepends=(
+  git
+  python-build
+  python-hatchling
+  python-installer
+)
 checkdepends=(python-pytest)
-source=("git+https://github.com/getmoto/py-partiql-parser#tag=$pkgver")
-sha256sums=('17f63eb2ce7ebcd91567e5a1daaf4c54859a8bf31bd964826e7715345d5e21d2')
+source=("git+$url#tag=$pkgver")
+sha256sums=('724c16fd615917869332d2964bb0db238ffa4fdadb6485384fd0b79481a99781')
 
 build() {
-  cd $_pkgname
-
+  cd ${pkgname#python-}
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_pkgname
-
-  pytest tests
+  cd ${pkgname#python-}
+  pytest
 }
 
 package() {
-  cd $_pkgname
-
+  cd ${pkgname#python-}
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
