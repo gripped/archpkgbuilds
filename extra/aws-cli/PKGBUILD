@@ -5,7 +5,7 @@
 # Contributor: Alper KANAT <alperkanat@raptiye.org>
 
 pkgname=aws-cli
-pkgver=1.42.50
+pkgver=1.42.55
 pkgrel=1
 pkgdesc='Universal Command Line Interface for Amazon Web Services'
 arch=('any')
@@ -35,7 +35,7 @@ checkdepends=(
   'python-pytest-xdist'
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('187a15e9db83e566f947eacfaf40ef8de22fd827c938b20aa842feec451b9a69')
+sha256sums=('66daff5f0d2ab915a3d85bf94c3c76a1fa4383012a287c93195d615f89a1f3cc')
 
 build() {
   cd $pkgname-$pkgver
