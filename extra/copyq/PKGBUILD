@@ -4,22 +4,22 @@
 # Contributor: Karol "Kenji Takahashi" Woźniak <kenji.sx>
 
 pkgname=copyq
-pkgver=12.0.1
-pkgrel=3
+pkgver=13.0.0
+pkgrel=1
 pkgdesc="Clipboard manager with searchable and editable history"
 url="https://github.com/hluk/${pkgname}"
-depends=('hicolor-icon-theme' 'qt6-svg' 'knotifications' 'kstatusnotifieritem' 'libxtst')
-makedepends=('extra-cmake-modules' 'qt6-tools')
+depends=('hicolor-icon-theme' 'qt6-svg' 'knotifications' 'kstatusnotifieritem' 'kguiaddons' 'libxtst')
+makedepends=('extra-cmake-modules' 'qt6-tools' 'vulkan-headers')
 license=('GPL-3.0-or-later')
 arch=('x86_64')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
-    'https://github.com/hluk/CopyQ/pull/3243.patch')
-sha256sums=('452cd2acbe9d70e0b93bef413620dfece363f0595b19788d71035c8455d6097f'
-            '5a1b9faecdd14cd30ddf8122a610ff6ae2f39586234343b1b4e3f7952850672d')
+    "https://github.com/hluk/CopyQ/pull/3268.patch")
+sha256sums=('c7e0c9aa95b5653dee547f168d58cf5aae4f66ad5f94856a61741ebe9527ad72'
+            'efac74b7dabc5b69d72d679bb23ed679feef945576c3ec6a4a46d4d3846e4beb')
 
 prepare() {
     cd CopyQ-$pkgver
-    patch -p1 -i "$srcdir/3243.patch"
+    patch -p1 -i "$srcdir/3268.patch"
 }
 
 build() {
