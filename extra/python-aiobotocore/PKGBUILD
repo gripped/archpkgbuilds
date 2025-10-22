@@ -2,7 +2,7 @@
 # Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-aiobotocore
-pkgver=2.24.2
+pkgver=2.25.0
 pkgrel=1
 pkgdesc='asyncio support for botocore library using aiohttp'
 arch=(any)
@@ -26,6 +26,7 @@ makedepends=(
   python-wheel
 )
 checkdepends=(
+  python-anyio
   python-dill
   python-docker
   python-docutils
@@ -35,23 +36,11 @@ checkdepends=(
   python-openapi-spec-validator
   python-pip
   python-pytest
-  python-pytest-asyncio
   python-time-machine
   python-yaml
 )
-source=(
-  "git+$url.git#tag=$pkgver"
-  "$pkgname-botocore-compatibility.patch"
-)
-sha256sums=('205341cc3f63e6e0531fee1aa138a219b81e8223e7497f976f99c2659ea2901d'
-            'db6acc34b08a9ace6bdf6708665a7f54fc6bd5b21374b854a2e66096f0b86668')
-
-prepare() {
-  cd ${pkgname#python-}
-  # Fix incompatibility with botocore after:
-  # https://github.com/boto/botocore/pull/3547
-  patch -Np1 < ../$pkgname-botocore-compatibility.patch
-}
+source=("git+$url.git#tag=$pkgver")
+sha256sums=('7a1948bc5f179db7d4405aed9ae6fb981e19b6425507261ddc654579601a5677')
 
 build() {
   cd ${pkgname#python-}
