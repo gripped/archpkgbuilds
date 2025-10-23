@@ -1,8 +1,8 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=superlu_dist
-pkgver=9.1.0
-pkgrel=3
+pkgver=9.2.0
+pkgrel=1
 pkgdesc='Distributed memory, MPI based SuperLU'
 arch=(x86_64)
 url='https://github.com/xiaoyeli/superlu_dist'
@@ -31,7 +31,7 @@ optdepends=(
   'python-scipy: for Python interface'
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-b2sums=('ffa4afe42725a1ae52803b799918ad6787807d743886c1de3a2e59103a15b2243067b42495f7ca2c064f8400d55db4906a3259e7079ae6da287e15bd82a2f581')
+b2sums=('0fe0b0e5fbc445ef0b11e1978df36c01278fab1024c310e8ae632ab212adaedeca769789b6bc379357c675d109a5af57f6ad467de1f4e599a8caffb96fc162f9')
 
 prepare() {
   cd "$srcdir"/$pkgname-$pkgver
@@ -43,9 +43,9 @@ prepare() {
   # Fix finding the libsuperlu_dist_python.so library
   sed -i "s|os.getenv('SUPERLU_PYTHON_LIB_PATH')|os.getenv('SUPERLU_PYTHON_LIB_PATH', '/usr/lib')|" PYTHON/pdbridge.py
 
-  # Fix importing pdbridge in the pddrive.py example (but keep the original for testing)
-  cp PYTHON/pddrive.py PYTHON/test_pddrive.py
-  sed -i 's|import pdbridge|import superlu_dist.pdbridge as pdbridge|' PYTHON/pddrive.py
+  # Fix importing pdbridge in example scripts
+  sed -i 's|import pdbridge|import superlu_dist.pdbridge as pdbridge|' PYTHON/*.py
+  sed -i 's|from pdbridge import|from superlu_dist.pdbridge import|' PYTHON/*.py
 }
 
 build() {
@@ -75,8 +75,9 @@ check(){
   OMP_NUM_THREADS=4 \
   ctest --test-dir build --output-on-failure
 
+  PYTHONPATH=$pkgname-$pkgver/PYTHON \
   SUPERLU_PYTHON_LIB_PATH=build/PYTHON \
-  python $pkgname-$pkgver/PYTHON/test_pddrive.py
+  python -c "import pdbridge; pdbridge.load_library(0)"
 }
 
 package() {
@@ -85,15 +86,17 @@ package() {
   install -vDm 644 $pkgname-$pkgver/DOC/ug.pdf -t "$pkgdir"/usr/share/doc/$pkgname/
   install -vDm 644 $pkgname-$pkgver/License.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 
-  # remove useless files
-  rm -rv "$pkgdir"/usr/include/$pkgname/FORTRAN
-
-  # install Python example
-  install -vdm 755 "$pkgdir"/usr/share/doc/$pkgname/examples/
-  mv -v "$pkgdir"/usr/lib/PYTHON/pddrive.py "$pkgdir"/usr/share/doc/$pkgname/examples/
+  # remove useless files https://github.com/xiaoyeli/superlu_dist/issues/198
+  rm -rv "$pkgdir"/usr/include/$pkgname/CMakeFiles
 
   # install Python utility functions
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -vdm 755 "$pkgdir$site_packages"
-  mv -v "$pkgdir"/usr/lib/PYTHON/ "$pkgdir$site_packages"/$pkgname/
+  install -vdm 755 "$pkgdir$site_packages"/$pkgname/
+  mv -v "$pkgdir"/usr/lib/PYTHON/pdbridge.py "$pkgdir$site_packages"/$pkgname/
+
+  # install Python examples in proper location
+  install -vdm 755 "$pkgdir"/usr/share/doc/$pkgname/examples/
+  mv -v "$pkgdir"/usr/lib/PYTHON/*.py "$pkgdir"/usr/share/doc/$pkgname/examples/
+
+  rm -frv "$pkgdir"/usr/lib/PYTHON/
 }
