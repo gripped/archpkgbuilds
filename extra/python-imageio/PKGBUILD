@@ -2,8 +2,8 @@
 
 _name=imageio
 pkgname=python-$_name
-pkgver=2.37.0
-pkgrel=3
+pkgver=2.37.1
+pkgrel=1
 # test_images repo has no releases, the commit may need to be updated on pkgver bumps
 _test_images_commit=f676c96b1af7e04bb1eed1e4551e058eb2f14acd
 pkgdesc="Python library for reading and writing image data"
@@ -22,8 +22,6 @@ makedepends=(
   python-setuptools
 )
 checkdepends=(
-  freeimage
-  python-fsspec
   python-pytest
 )
 optdepends=(
@@ -42,7 +40,7 @@ source=(
   $pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz
   $pkgname-test-images::git+https://github.com/imageio/test_images.git#commit=$_test_images_commit
 )
-b2sums=('6d66b9896cceca2279cec10968f1f71e0a9b387f0a3c43dcdf69a02cb037e3df2ea4e07c13d4f89dc5e61177d7a57fbed30c1cc8423977a1518c8b056ed8e87c'
+b2sums=('262e11128f9a4619da11bb3df97c1dddfcb61cbc5b562532e64456ab96abe70ecc2cbb341cabbb3e38fe077e845c6134b62636245253dfff1ec7cb82572a18f5'
         'b48440fbd50d12e0138a6c19676b57029b48905cd6e24ea310ce0ad309275eec6bbf8c58604d5854989d795aa9d4a4c420f586d56f9b313ffdef6dcfb5482aa6')
 
 build() {
@@ -76,6 +74,9 @@ check() {
     # deselect tests for a legacy plugin which require the python-imageio-ffmpeg package
     --deselect tests/test_format.py::test_missing_format
     --deselect tests/test_format.py::test_preferring_arbitrary
+    # deselect tests for a legacy plugin which require freeimage
+    --deselect tests/test_core.py::test_findlib2
+    --ignore tests/test_freeimage.py
     # ValueError: operands could not be broadcast together with shapes (256,256,4) (256,256)
     --deselect tests/test_pillow.py::test_boolean_reading
     # TypeError: numpy boolean subtract, the `-` operator, is not supported, use the bitwise_xor, the `^` operator, or the logical_xor function instead.
