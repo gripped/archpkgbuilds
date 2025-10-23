@@ -2,7 +2,7 @@
 
 pkgname=superlu_dist
 pkgver=9.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Distributed memory, MPI based SuperLU'
 arch=(x86_64)
 url='https://github.com/xiaoyeli/superlu_dist'
@@ -31,7 +31,7 @@ optdepends=(
   'python-scipy: for Python interface'
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-b2sums=('0fe0b0e5fbc445ef0b11e1978df36c01278fab1024c310e8ae632ab212adaedeca769789b6bc379357c675d109a5af57f6ad467de1f4e599a8caffb96fc162f9')
+b2sums=('40712c9a8dfa9813684639368c7aab45950f7c700dbed26648cea6bd017a7721e561d933ff00f8cb634aa35036eeac1dfef9d0f214c8e8bb4a43a11c2aed10d1')
 
 prepare() {
   cd "$srcdir"/$pkgname-$pkgver
@@ -85,9 +85,6 @@ package() {
   install -vDm 644 $pkgname-$pkgver/README.md -t "$pkgdir"/usr/share/doc/$pkgname/
   install -vDm 644 $pkgname-$pkgver/DOC/ug.pdf -t "$pkgdir"/usr/share/doc/$pkgname/
   install -vDm 644 $pkgname-$pkgver/License.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
-
-  # remove useless files https://github.com/xiaoyeli/superlu_dist/issues/198
-  rm -rv "$pkgdir"/usr/include/$pkgname/CMakeFiles
 
   # install Python utility functions
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
