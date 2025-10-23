@@ -3,7 +3,7 @@
 
 pkgname=nextcloud-app-tasks
 _name=tasks
-pkgver=0.16.1
+pkgver=0.17.0
 pkgrel=1
 pkgdesc="Enhanced task app for NextCloud"
 arch=(any)
@@ -14,8 +14,9 @@ checkdepends=(yq)
 groups=(nextcloud-apps)
 options=(!strip)
 source=($_name-$pkgver.tar.gz::https://github.com/nextcloud/$_name/releases/download/v$pkgver/$_name.tar.gz)
-sha512sums=('25623d6884c71a2adad039bc9fdb411fa9ee13c9bd4da6bde0b2a5477a41394fbd04bda46e82db53fbaf852934f241cef642093e6c4689d25307ad4244f38846')
-b2sums=('16cad88ca07a76e193fe3460ae9953e278039210e768b773aaa00d8bfcd0539d47375e178ab6a09aa78ada9ce995a410e17b50d93ff94280fc9b870c8afb73fb')
+#source=($_name-$pkgver.tar.gz::https://github.com/nextcloud/$_name/releases/download/v${pkgver/alpha/-alpha}/$_name.tar.gz)
+sha512sums=('1a79125ba7514ab87f01bc63b68f33b2d0975219083b2ce7945dfd04febf22b0e02c541ecde3f4168367396293e3a315afb4c40e4b4c795a24747178d5df71ad')
+b2sums=('f28a57d48ffdbd4847ceda4e811fe0d460c9c76cfa3adf5e5e5b7e91ea5a00deaefc388677101176bae60d1fcbe3723dd9b64bd2698b645ace36fdf863d88c1e')
 
 # BEGIN boilerplate nextcloud app version clamping, see also other packages in group
 # 1. Call respective function helpers in check() and package() *after* cd'ing to the source directory
