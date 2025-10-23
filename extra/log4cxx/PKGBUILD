@@ -1,7 +1,7 @@
 # Maintainer: Sergej Pupykin <arch+pub@sergej.pp.ru>
 
 pkgname=log4cxx
-pkgver=1.2.0
+pkgver=1.5.0
 pkgrel=1
 pkgdesc="A C++ port of Log4j"
 url="http://logging.apache.org/log4cxx"
@@ -11,7 +11,7 @@ arch=('x86_64')
 makedepends=('cmake' 'patch' 'zip' 'gzip' 'sed')
 conflicts=('log4cxx-svn')
 source=("http://archive.apache.org/dist/logging/$pkgname/$pkgver/apache-$pkgname-$pkgver.tar.gz")
-sha512sums=('377234407c5f1128fbff6e5d2fcda3f53aae275962cd9207257674fa016095f4bc4ac0c318c1ba2a75f3252402cce0776c1211ffa917a60f8a89a12f01d45efb')
+sha512sums=('60cedb41511cca6646682d0041a4dfac1d9e50f29fac7c7d31ef2f6c5c200dba84c010c79aed8a5f453795408a8905669d1a6b2002af6728d5734808369af075')
 
 build() {
   cd "$srcdir/apache-$pkgname-$pkgver"
