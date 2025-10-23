@@ -3,8 +3,8 @@
 
 pkgname=python-cmarkgfm
 _pyname=${pkgname#python-}
-pkgver=2024.11.20
-pkgrel=2
+pkgver=2025.10.22
+pkgrel=1
 pkgdesc="Minimal bindings to GitHub's fork of cmark"
 url="https://github.com/theacodes/cmarkgfm"
 license=('MIT')
@@ -15,7 +15,7 @@ checkdepends=('python-pytest')
 # Upstream did not tag the version on GitHub to match PyPi, see https://github.com/theacodes/cmarkgfm/issues/51
 # source=("https://github.com/theacodes/cmarkgfm/archive/$pkgver/$pkgname-$pkgver.tar.gz")
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_pyname-$pkgver.tar.gz")
-sha512sums=('354228210dfaccfdedd2d2af112706bb44efc9235d74ec7a00b6e0507789563d4d406681ddfd272a4d3448f117136360d684fb97d064e318d90c7ce31a5da4ba')
+sha512sums=('87e97656861e63f5cc5e5b74b487cbf0daa7e4b3da00e260acdac21a70df6bf18227311b2bd99519003c6868e93bd4078ecfb18c10a5f6ba80f2a1fc72605473')
 
 prepare() {
   cd cmarkgfm-$pkgver
