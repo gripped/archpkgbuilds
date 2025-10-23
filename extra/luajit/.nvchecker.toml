@@ -1,0 +1,5 @@
+[luajit]
+source = "cmd"
+cmd = "curl -s https://api.github.com/repos/LuaJIT/LuaJIT/commits/v2.1 | jq -r '.commit.committer.date | fromdate'"
+from_pattern = "^(.*)$"
+to_pattern = "2.1.\\1"
