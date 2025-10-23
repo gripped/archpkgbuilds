@@ -1,0 +1,17 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index a279a06..741b1bd 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -143,12 +143,6 @@ if(THREADS)
+   endif()
+ endif()
+
+-# Detect and remove GCC _FORTIFY_SOURCE
+-if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
+-  message(WARNING "GCC _FORTIFY_SOURCE is known to cause problem with Scotch and is disabled by default")
+-  set(CMAKE_C_FLAGS "-U_FORTIFY_SOURCE ${CMAKE_C_FLAGS}")
+-endif()
+-
+ # Decompression libs
+ if(USE_ZLIB)
+   find_package(ZLIB)
