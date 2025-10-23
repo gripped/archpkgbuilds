@@ -2,8 +2,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=loupe
-pkgver=49.0
-pkgrel=2
+pkgver=49.1
+pkgrel=1
 pkgdesc="A simple image viewer for GNOME"
 url="https://apps.gnome.org/Loupe/"
 arch=(x86_64)
@@ -34,10 +34,8 @@ makedepends=(
 )
 source=(
   "git+https://gitlab.gnome.org/GNOME/loupe.git?signed#tag=${pkgver/[a-z]/.&}"
-  0001-Upgrade-glycin-to-93916e1bdec985181cf31918c2320a2575.patch
 )
-b2sums=('b36b5696cdc88ea1fac46d191dd087bfd5fa48830278e841bee5475156c06f9c201361b24cc353f3b44641b884272218a506a776878e9ecf6658d082f1c3889b'
-        '25cee0b4e676367624d49af66e3c587bb08373618f4af655988ac3e367d79d66546eb5c489c45f1950b09a8906cfbd0bfc0cf103f67c28847e43bea541e65228')
+b2sums=('2590d857cefe70f46a76273268cd938767ee501acde6d556d6ac69a4b6e18d0e83a30bda42e31895dde433202db1bed66b688cc1e4398b6bf054c24955b0d35f')
 validpgpkeys=(
   4587A0EE1EE5478AAB82C0A93BA28A5559F08EBD # Sophie Herold <sophieherold@gnome.org>
 )
@@ -50,9 +48,6 @@ export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 prepare() {
   cd $pkgname
-
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/glycin/-/issues/2
-  git apply -3 ../0001-Upgrade-glycin-to-93916e1bdec985181cf31918c2320a2575.patch
 
   # Match CARGO_HOME in src/meson.build
   CARGO_HOME="$srcdir/build/cargo-home" \
