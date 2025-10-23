@@ -5,16 +5,26 @@
 # Contributor: Kainoa Kanter <kainoa@t1c.dev>
 
 pkgbase=ollama
-pkgname=(ollama ollama-rocm ollama-cuda ollama-docs)
+pkgname=(ollama ollama-rocm ollama-cuda ollama-vulkan ollama-docs)
 pkgver=0.12.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Create, run and share large language models (LLMs)'
 arch=(x86_64)
 url='https://github.com/ollama/ollama'
 license=(MIT)
 options=('!lto')
 depends=(gcc-libs glibc)
-makedepends=(cmake ninja git go rocm-toolchain hipblas cuda clblast)
+makedepends=(cmake
+             ninja
+             git
+             go
+             rocm-toolchain
+             hipblas
+             cuda
+             clblast
+             vulkan-headers
+             vulkan-icd-loader
+             shaderc)
 source=(git+https://github.com/ollama/ollama#tag=v$pkgver
         ollama-ld.conf
         ollama.service
@@ -92,6 +102,13 @@ package_ollama-cuda() {
   depends+=(ollama cuda)
 
   DESTDIR="$pkgdir" cmake --install ollama/build --component CUDA
+}
+
+package_ollama-vulkan() {
+  pkgdesc='Create, run and share large language models (LLMs) with Vulkan'
+  depends=(ollama vulkan-icd-loader)
+
+  DESTDIR="$pkgdir" cmake --install ollama/build --component Vulkan
 }
 
 package_ollama-docs() {

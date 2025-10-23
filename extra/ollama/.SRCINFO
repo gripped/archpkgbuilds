@@ -1,7 +1,7 @@
 pkgbase = ollama
 	pkgdesc = Create, run and share large language models (LLMs)
 	pkgver = 0.12.6
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/ollama/ollama
 	arch = x86_64
 	license = MIT
@@ -13,6 +13,9 @@ pkgbase = ollama
 	makedepends = hipblas
 	makedepends = cuda
 	makedepends = clblast
+	makedepends = vulkan-headers
+	makedepends = vulkan-icd-loader
+	makedepends = shaderc
 	depends = gcc-libs
 	depends = glibc
 	options = !lto
@@ -42,6 +45,11 @@ pkgname = ollama-cuda
 	depends = glibc
 	depends = ollama
 	depends = cuda
+
+pkgname = ollama-vulkan
+	pkgdesc = Create, run and share large language models (LLMs) with Vulkan
+	depends = ollama
+	depends = vulkan-icd-loader
 
 pkgname = ollama-docs
 	pkgdesc = Documentation for Ollama
