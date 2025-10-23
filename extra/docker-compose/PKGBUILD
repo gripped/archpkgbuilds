@@ -6,7 +6,7 @@
 # Contributor: Josh VanderLinden <arch@cloudlery.com>
 
 pkgname=docker-compose
-pkgver=2.40.1
+pkgver=2.40.2
 pkgrel=1
 pkgdesc="Fast, isolated development environments using Docker"
 arch=('x86_64')
@@ -14,8 +14,15 @@ url="https://www.docker.com/"
 license=("Apache-2.0")
 makedepends=('go')
 checkdepends=('docker')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/docker/compose/archive/v$pkgver.tar.gz")
-b2sums=('416744d34937d9cc71fc3e84a04fd66b0166aaca601acb2c94b9f0c9e8f8f67a68469527e6fb7490f0f9adfda387fd8d1ac44a36b5b2febb609d7eb20f9a0619')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/docker/compose/archive/v$pkgver.tar.gz"
+        https://github.com/docker/compose/commit/6a90742ef29c392b6626b0ff3f50c6f28f944321.patch)
+b2sums=('af20677a45461ad97f800322df5c002eebc0a81ee1077ee6ad2518b7455804a91536c099dbb5a27a8d6fc98e1d23381917987978dfb3ce4372c2b5efc709486f'
+        '6f99d165455eb8f50932697e18804372468b099ff8685b73326a8b2edbb5315acfef49a06d2e6626cd57cefac612c9f2fa688c50122e8ee1921ad690b037698e')
+
+prepare() {
+  cd "compose-$pkgver"
+  patch -Np1 -i ../6a90742ef29c392b6626b0ff3f50c6f28f944321.patch
+}
 
 build() {
   cd "compose-$pkgver"
