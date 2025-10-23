@@ -3,9 +3,8 @@
 
 _pyname=igraph
 pkgname=python-$_pyname
-pkgver=1.0dev20250919
+pkgver=1.0.0
 pkgrel=1
-_commit=f6e6bce784e478e4b105bf085a157f726a6ef5b5
 url='https://igraph.org/python/'
 license=(GPL-2.0-or-later)
 arch=(x86_64)
@@ -20,8 +19,8 @@ makedepends=(git
              python-installer
              python-setuptools
              python-wheel)
-source=(git+https://github.com/igraph/python-igraph#commit=$_commit)
-sha256sums=('8095b8c285859fdb2a3123ce66d7b3ca5b2441b6f4eeacd0fb0e0ba0a44e648a')
+source=(git+https://github.com/igraph/python-igraph#tag=$pkgver)
+sha256sums=('f80f95a5925db7cd09ce1470e01f06a91928850f827f8706f8674383faf7dd90')
 
 build() {
   cd $pkgname
