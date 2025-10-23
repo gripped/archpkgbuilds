@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=libngtcp2
-pkgver=1.16.0
+pkgver=1.17.0
 pkgrel=1
 pkgdesc='Implementation of IETF QUIC protocol'
 url='https://github.com/ngtcp2/ngtcp2'
@@ -21,8 +21,8 @@ provides=(
   'libngtcp2_crypto_ossl.so'
 )
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ngtcp2/ngtcp2/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('1f16fbd1c46cc8b8b76106ef890777dec73ef57c1cd567bf6d208f5a2c12ed5e')
-b2sums=('1ce56060694ae6f576b0db3fb742188d6431b8425c27a52071283bd663d4b60a0f0264ffab5b727661c05d2f5682a807235c5ec582f05ef53dacc98671f47cde')
+sha256sums=('6bc477ff47eb62c9be2edd84c58662b180a66c9e9ee546308c65565a6146216f')
+b2sums=('df10ab1410bdabf1fe1b4f6a4d886e4a03d612fb0de3d854777da92b9e2553d96c194b39f4faa45b69f5c538717415df42b1c331755f05fec069cb6b2b8f6c01')
 
 prepare() {
   cd ngtcp2-${pkgver}
