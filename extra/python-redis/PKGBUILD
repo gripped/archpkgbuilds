@@ -3,8 +3,9 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 # Contributor: Karol 'Kenji Takahashi' Woźniak <kenji.sx>
 # Contributor: Pierre Gueth <pierre.gueth@gmail.com>
+
 pkgname=python-redis
-pkgver=6.4.0
+pkgver=7.0.0
 pkgrel=1
 pkgdesc='The Python interface to the Redis key-value store'
 arch=('any')
@@ -38,7 +39,7 @@ optdepends=(
   'python-requests: OCSP certificate validation'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-b2sums=('80aed79a0a883995e39a2d4ca4bf9e459a6fae9c5bfc4e823bd887de37e31fcb9dc015aaa44c034a3e26e614c44a2303a2f65c0be2d9536cd258bd25c8f3a35f')
+b2sums=('7a8ff1941f2f0d1a5811fe6a3b54fdeb4e7c282a9bf93c89e257eab9c7adcb58c6473857f08c5283d9253109e4ee8dd093646a49470ae8123a538566b6e2b9db')
 
 prepare() {
   cd "$pkgname"
@@ -150,9 +151,15 @@ check() {
     --deselect=tests/test_cluster.py::TestClusterMonitor::test_command_with_quoted_key
     --deselect=tests/test_cluster.py::TestClusterMonitor::test_command_with_escaped_data
 
-    # Required redis-py-entraid
+    # Requires redis-py-entraid
     --ignore=tests/test_asyncio/test_credentials.py
     --ignore=tests/test_credentials.py
+
+    # Requires pybreaker
+    --ignore=tests/test_asyncio/test_multidb
+    --ignore=tests/test_asyncio/test_scenario
+    --ignore=tests/test_multidb
+    --ignore=tests/test_scenario
 
     # New test failures in 6.0.0, not sure why
     --deselect=tests/test_asyncio/test_commands.py::TestRedisCommands::test_client_setinfo
