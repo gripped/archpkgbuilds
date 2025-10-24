@@ -3,7 +3,7 @@
 
 pkgname=fcitx5-qt
 pkgver=5.1.10
-pkgrel=4
+pkgrel=5
 pkgdesc="Fcitx5 Qt Library (Qt5 & Qt6 integrations)"
 arch=('x86_64')
 url="https://github.com/fcitx/fcitx5-qt"
@@ -20,6 +20,7 @@ validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt
 prepare() {
   cd $pkgname
   patch -p1 -i ../qt-6.10.patch
+  git cherry-pick -n 649e8111c58612004ee4e3d61ef4d427e8ca29a7 # Fix crash in featherpad
 }
 
 build() {
