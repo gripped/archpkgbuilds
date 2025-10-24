@@ -1,7 +1,7 @@
 pkgbase = librsvg
 	pkgdesc = SVG rendering library
-	pkgver = 2.61.1
-	pkgrel = 1
+	pkgver = 2.61.2
+	pkgrel = 2
 	epoch = 2
 	url = https://wiki.gnome.org/Projects/LibRsvg
 	arch = x86_64
@@ -26,8 +26,10 @@ pkgbase = librsvg
 	depends = harfbuzz
 	depends = libxml2
 	depends = pango
-	source = git+https://gitlab.gnome.org/GNOME/librsvg.git#tag=2.61.1
-	b2sums = 279bf73beaaa8ace21631db1d1df303527c5f9cdc5c4e5811ffd15602e513c7e37164e444390653af96ba7257ba30904081261f9f90b983292c8b0b1cdfd509b
+	source = git+https://gitlab.gnome.org/GNOME/librsvg.git#tag=2.61.2
+	source = 0001-xml-Treat-user-stop-errors-as-successful-parses.patch
+	b2sums = bb7f38bb6518d193dfabab07759ca2d6f56edd6cc49b68329e401ce907d64ae49bfc9a46c8927686e315c7ae1ef4c5babec0d1bfef59b172c3f5ce8f7c8b7f12
+	b2sums = a831c396d70dd0de6eae18428453d8ba84c819a2d3b7f07ba4a11a574f3d952436e1e9f8c22c9dd677dcaf766545415834b6dae4efb22d7c4797c8c0de52c7fa
 
 pkgname = librsvg
 	provides = librsvg-2.so
