@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=plasma-desktop
-pkgver=6.4.5
+pkgver=6.5.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=4
+pkgrel=1
 pkgdesc='KDE Plasma Desktop'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -70,6 +70,7 @@ depends=(attica
          sdl2
          solid
          sonnet
+         systemd-libs
          systemsettings
          wayland
          xcb-util-keysyms
@@ -96,7 +97,7 @@ makedepends=(extra-cmake-modules
              xorg-server-devel)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('7552e4c7c7ccbf5b7756726bb9aaabd344630977aaf13f5f305b4477caa17bb7'
+sha256sums=('c27dc2c12795483a77a21bcc70029b9834474ed423dcdb93dc0e8857d4dede42'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
