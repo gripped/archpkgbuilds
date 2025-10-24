@@ -3,7 +3,7 @@
 
 pkgname=python-matplotlib-inline
 _name=${pkgname#python-}
-pkgver=0.2.0
+pkgver=0.2.1
 pkgrel=1
 pkgdesc='Inline Matplotlib backend for Jupyter'
 arch=(any)
@@ -25,7 +25,7 @@ checkdepends=(
 )
 optdepends=(python-matplotlib)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('3d99c463896dcf5342bf34c36d6747c36f015dd5ea768c4291ddba760c5a291829b86020ec4a9154c9e0e56dab2c71a167663525da307d9c0587a4c81018980f')
+b2sums=('d6dbf0e51f86a468823f1e282b27ecde6c2442105869ae55abe4b374716e63275bcd998cc12f2062ce9bef140a413e08a19176d37e136e88b5a3d6e3f0ac9c27')
 
 build() {
   cd "$_name"
@@ -34,7 +34,9 @@ build() {
 
 check() {
   cd "$_name"
-  pytest -v
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest -v
 }
 
 package() {
