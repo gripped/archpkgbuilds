@@ -3,8 +3,8 @@
 pkgbase=avogadrolibs
 pkgname=(avogadrolibs
          avogadrolibs-qt)
-pkgver=1.101.0
-pkgrel=1
+pkgver=1.102.0
+pkgrel=2
 pkgdesc='Libraries that provide 3D rendering, visualization, analysis and data processing useful in computational chemistry, molecular modeling, bioinformatics, materials science, and related areas'
 arch=(x86_64)
 url='https://two.avogadro.cc/'
@@ -18,6 +18,7 @@ makedepends=(boost
              hdf5
              genxrdpattern
              glew
+             jkqtplotter
              libmsym
              mmtf-cpp
              nlohmann-json
@@ -32,7 +33,7 @@ makedepends=(boost
              verdict
              vtk)
 source=(git+https://github.com/OpenChemistry/avogadrolibs#tag=$pkgver)
-sha256sums=('2d8d482f16575a41a41998aaa67192bf8c608e90faa34f7c6b0957fde3afce8d')
+sha256sums=('aed4f7c8105bebcb76015c4f8f163cb70cca08d8c6e5245e382780f67776861c')
 
 prepare() {
   mkdir crystals fragments molecules # Dummy dirs to trick cmake, actually provided by avogadro-{crystals,fragments,molecules}
@@ -43,15 +44,13 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_C_FLAGS="$CFLAGS -ffat-lto-objects" \
     -DCMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects" \
-    -DENABLE_TRANSLATIONS=ON \
     -DUSE_HDF5=ON \
-    -DUSE_VTK=ON \
     -DUSE_PYTHON=ON \
+    -DUSE_VTK=ON \
     -DUSE_SYSTEM_GENXRDPATTERN=ON \
     -DUSE_EXTERNAL_NLOHMANN=ON \
     -DUSE_EXTERNAL_PUGIXML=ON \
-    -DQT_VERSION=6 \
-    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+    -DQT_VERSION=6
   cmake --build build
 }
 
