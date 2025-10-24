@@ -4,7 +4,7 @@
 
 pkgname=meson
 pkgver=1.9.1
-pkgrel=1
+pkgrel=2
 pkgdesc="High productivity build system"
 url="https://mesonbuild.com/"
 arch=(any)
@@ -42,7 +42,7 @@ checkdepends=(
   graphviz
   gtest
   gtk-doc
-  gtk-sharp-2
+  gtk-sharp-3
   gtk3
   gtkmm3
   hdf5
@@ -104,6 +104,10 @@ validpgpkeys=(
 
 prepare() {
   cd meson
+
+  # Switch C# test to use gtk-sharp-3
+  # https://github.com/mesonbuild/meson/pull/15167
+  sed -i 's/glib-sharp-2/glib-sharp-3/' 'test cases/csharp/4 external dep/meson.build'
 
   # Pass tests
   patch -Np1 -i ../0001-Skip-broken-tests.patch
