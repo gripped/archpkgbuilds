@@ -7,8 +7,8 @@
 
 pkgname=poedit
 epoch=1
-pkgver=3.7
-pkgrel=2
+pkgver=3.8
+pkgrel=1
 pkgdesc="Cross-platform gettext catalogs (.po files) editor"
 arch=('x86_64')
 url="https://www.poedit.net/"
@@ -26,16 +26,13 @@ depends=(
 )
 makedepends=('boost')
 source=(https://github.com/vslavik/poedit/releases/download/v$pkgver-oss/poedit-${pkgver}.tar.gz
-        wxwidgets-3.3.patch
-        boost-1.89.patch)
-sha256sums=('1bb2388f03618991effde4e8d0e8c35db363af6ca58f6d8ebab21daa76731d71'
-            'ffc24ca06fc993b33ee277baa261e7e958486398f524366f51c6d670b2100aeb'
-            'ff3609e78cda128be854f4a432321d69d0d10d5f5a5a48dd10fd9342607f6157')
+        wxwidgets-3.3.patch)
+sha256sums=('69dea397b12a74e143b10f80412830dff39b4e1afd9397c3597070b5dff0d71f'
+            'ffc24ca06fc993b33ee277baa261e7e958486398f524366f51c6d670b2100aeb')
 
 prepare() {
   cd $pkgname-$pkgver
   patch -p1 < ../wxwidgets-3.3.patch
-  patch -p1 < ../boost-1.89.patch
   autoreconf -fiv
 }
 
