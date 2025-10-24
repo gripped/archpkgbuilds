@@ -4,18 +4,15 @@
 
 pkgname=appmenu-gtk-module
 pkgver=25.04
-pkgrel=1
-pkgdesc="Application Menu GTK+ Module"
+pkgrel=2
+pkgdesc="Application Menu GTK Module"
 depends=(gcc-libs
          gdk-pixbuf2
          glib2
-         glibc)
+         glibc
+         gtk3)
 makedepends=(git
-             gtk2
-             gtk3
              meson)
-optdepends=('gtk2: GTK2 module'
-            'gtk3: GTK3 module')
 url="https://gitlab.com/vala-panel-project/vala-panel-appmenu/"
 arch=(x86_64)
 license=(LGPL-3.0-only)
@@ -26,7 +23,8 @@ sha256sums=('843b24f98f02feb8cbfdda26630018ae95f8ac4959de9deb88cf1a13506f845f'
 
 build() {
   meson build vala-panel-appmenu/subprojects/$pkgname \
-    --prefix=/usr
+    --prefix=/usr \
+    -D gtk=3
   ninja -C build
 }
 
