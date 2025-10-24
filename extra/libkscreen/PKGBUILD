@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=libkscreen
-pkgver=6.4.5
+pkgver=6.5.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=2
+pkgrel=1
 pkgdesc='KDE screen management software'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -15,14 +15,12 @@ depends=(gcc-libs
          libxcb
          qt6-base
          wayland)
-makedepends=(doxygen
-             extra-cmake-modules
+makedepends=(extra-cmake-modules
              plasma-wayland-protocols
-             qt6-doc
              qt6-tools)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('68d26e27656b450f15a78f44784c50a22034e57c14f96a402019d52bc5b3e2b4'
+sha256sums=('9c42577faa9bbaa481978284709afddc310f52acc97b6613ba3c6cee9161cc2c'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
@@ -32,8 +30,7 @@ validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell
 build() {
   cmake -B build  -S $pkgname-$pkgver \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
