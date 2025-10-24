@@ -4,26 +4,23 @@
 # Contributor: somini <dev at somini dot xyz>
 
 pkgname=miniflux
-pkgver=2.2.13
+pkgver=2.2.14
 pkgrel=1
 pkgdesc='Minimalist and opinionated feed reader'
-arch=('x86_64')
+arch=(x86_64)
 url='https://miniflux.app'
-license=('Apache-2.0')
-depends=('glibc')
-optdepends=(
-  'postgresql: for local PostgreSQL instance'
-)
-makedepends=('git' 'go')
-backup=('etc/miniflux.conf')
-options=('!lto')
+license=(Apache-2.0)
+depends=(glibc)
+makedepends=(git go)
+optdepends=('postgresql: for local PostgreSQL instance')
+backup=(etc/miniflux.conf)
 source=(
   "$pkgname::git+https://github.com/miniflux/v2.git#tag=$pkgver"
-  'sysusers.conf'
+  sysusers.conf
 )
-sha512sums=('62db8a9f65e2037f145131b8481d30defee36b81330f13ac58de7951f46c5a4a668ba070fa7441690c8b4565e30dcdfa637947b0cf14290d7ec793bf0343264a'
+sha512sums=('4d410d1387c2167689f8d223dcf5e56a347018c128ab9f1d7846cbd8e74657c4332491c6a2a476a0ed77daca9221761a32696a7f19dd783d2167f1ed74bd8dfc'
             '4a51cccf15f37da66c56e4721171ab858b894f4f74f3210fb275b437fc7fa99cce21a8a98703462e07163ce3f9ea35d8e2a9f8b5ad147cb819092a037c42c17e')
-b2sums=('27feaa8ef503bcdb0c36576b4dab69a16f42aa7607ff2b0e57062f18e725f8c34ba9480c890ab899c2cc6c02db496dc23cf9d36edd1423ff961a3a3f71323305'
+b2sums=('a109862b32eb23660346875ab41c18b2896a30df4c01fc7cfb1ee7977224ac7e76c056f49bf78e4d6a50bd38b606e69e2c1a6ab9b3506027bad53df8e4c0c6fd'
         '6c1bbc5bebb319d921c9f511a156c4e578811319423e99cead87f2044e6269abf38654733376b83f8dbb7432c816f795918935bae741529d7395f249027b2932')
 
 prepare() {
