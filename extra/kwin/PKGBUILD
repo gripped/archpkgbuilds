@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kwin
-pkgver=6.4.5
+pkgver=6.5.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=4
+pkgrel=1
 pkgdesc='An easy to use, but flexible, Wayland compositor'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -32,6 +32,7 @@ depends=(aurorae
          kirigami
          kitemmodels
          knewstuff
+         knighttime
          knotifications
          kpackage
          kquickcharts
@@ -65,7 +66,6 @@ depends=(aurorae
          qt6-tools
          systemd-libs
          wayland
-         xcb-util-cursor
          xcb-util-keysyms
          xcb-util-wm)
 makedepends=(extra-cmake-modules
@@ -79,18 +79,13 @@ optdepends=('maliit-keyboard: virtual keyboard')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
 install=$pkgname.install
-sha256sums=('decf1cb79127c285c7eda768e7ff4f97c72f314735c82685758f0b956ac151f7'
+sha256sums=('e0eaa67980266fe27fe32d15c9f18f8206776919f81d4e1a889d34c5f65cf982'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1'  # Nicolas Fella <nicolas.fella@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
-
-prepare() {
-# Fix doc build with libxml2 2.15
-  find -name index.docbook | xargs sed -e 's|url=" http|url="http|g' -i
-}
 
 build() {
   cmake -B build  -S $pkgname-$pkgver \
