@@ -6,7 +6,7 @@
 # Contributor: Douglas Soares de Andrade <dsa@aur.archlinux.org>
 
 pkgname=ipython
-pkgver=9.5.0
+pkgver=9.6.0
 pkgrel=1
 pkgdesc='Enhanced Interactive Python shell'
 arch=(any)
@@ -55,11 +55,11 @@ source=(
   "git+https://github.com/ipython/ipython.git#tag=$pkgver?signed"
   'IPython-icon.png::https://www.packal.org/sites/default/files/public/styles/icon_large/public/workflow-files/nkeimipynbworkflow/icon/icon.png'
 )
-b2sums=('883fed602c5a9cee020cf6f1e10bdf3ac6451e688ccf132c5ba2f8f05c2559d937eb63a661ef3d8ef454c62d440f5f2eb920c0618f51e1fa5e08ebadb360ce93'
+b2sums=('2531c4d84a292a37d990672ecd9674963d54a33f5fa6969f743947587a6ce573d73fe47b9c0c137354ca9d0358868db52d4f9e54289fc460e6c2b896a412d218'
         'd445e2bc7a037db8715ea103611720e965987e155c32e445b0ef783e519fca8a0301b16c5763fd9a5d8d169c3b0d7b4db6c0bd0f9772842258b135dcb1d6d5a2')
 validpgpkeys=(
   99B17F64FD5C94692E9EF8064968B2CC0208DCC8 # Matthias Bussonnier <bussonniermatthias@gmail.com>
-  AB847D919065B1F4FF01AF30238E6384AF95AE6F # Michał Krassowski
+  4D9D285A538F7C2E16D13ACE57982D11F0EA2247 # Michał Krassowski
 )
 
 build() {
@@ -69,7 +69,9 @@ build() {
 
 check() {
   cd $pkgname
-  PYTHONPATH="$PWD/$pkgname:$PYTHONPATH" pytest
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest -v
 }
 
 package() {
