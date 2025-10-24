@@ -3,7 +3,7 @@
 
 pkgname=python-dulwich
 _name=${pkgname#python-}
-pkgver=0.24.6
+pkgver=0.24.7
 pkgrel=1
 pkgdesc='Pure-Python implementation of the Git file formats and protocols'
 arch=(x86_64)
@@ -36,7 +36,7 @@ optdepends=(
   'python-rich: for colorized diff support'
 )
 source=("git+https://github.com/jelmer/dulwich.git#tag=dulwich-$pkgver")
-b2sums=('ae1612f1dee76d1fb3bb2a1131e6c850066c98b8b409176e4f5f487526a48b14b411e75deb407ba5b1a3767ac1b7cccd2f531c03f9d5af704f3f85494b6f1338')
+b2sums=('4797f019f98f2b81d8b804f143b30a5e7bdd34fd596d23d528ad76475a28e97864b86b8e264767dfb4599c1053a7810d92f6f63e2db9a13b9c09264253f7c637')
 validpgpkeys=(DC837EE14A7E37347E87061700806F2BD729A457) # Jelmer Vernooĳ <jelmer@jelmer.uk>
 
 build() {
