@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-tblib
-pkgver=3.1.0
+pkgver=3.2.0
 pkgrel=1
 pkgdesc='Python traceback fiddling library'
 arch=('any')
@@ -17,8 +17,8 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('766d117cf64fc19ce426cb2ef83153b2112093e5fb8393810203b9885b50e62380cecc534c3be2ad8bd9861a76f3c879927b965ef60c2c66b4fa7626eb6edca8')
-b2sums=('7f08264e1d12132e853592617a8c56dcc4cf058e201126ce873223f6cd7e7e5f8e69efecc6b240fec965bb0fa83dcaadf1b6edfa1dd05f24cf3ba5f2a3098607')
+sha512sums=('b9dbd7aad8eab0ad7170ee4b97f048b2ce7413bf83dd13ffe4e0c20900ad879514150c61e85ab4be8a9da36b3302d149b01bd9b37e7f016113041462d1aa3491')
+b2sums=('affd50e047c37b23687653574f75d3223509db0aaacf7ed76cfe9f2cbda19ca9651bd625291a60c29501b4c0858a960966dcdafbd619a9ba793636bd82a9dbe7')
 
 build() {
   cd $pkgname-$pkgver
