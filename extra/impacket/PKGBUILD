@@ -4,8 +4,8 @@
 # Contributor: Paolo Giangrandi <peoro.noob@gmail.com>
 
 pkgname=impacket
-pkgver=0.12.0
-pkgrel=2
+pkgver=0.13.0
+pkgrel=1
 pkgdesc='Collection of classes for working with network protocols'
 url='https://github.com/CoreSecurity/impacket'
 arch=(any)
@@ -20,15 +20,14 @@ depends=(
   python-pcapy
   python-pyasn1
   python-pyasn1-modules
-  python-pycryptodome
   python-pycryptodomex
   python-pyopenssl
-  python-setuptools  # https://github.com/fortra/impacket/issues/885#issuecomment-1197218746
   python-six
 )
 makedepends=(
   python-build
   python-installer
+  python-setuptools
   python-wheel
 )
 checkdepends=(
@@ -36,7 +35,7 @@ checkdepends=(
   python-pytest
 )
 source=("${url}/archive/impacket_${pkgver//./_}.tar.gz")
-sha512sums=('3d30209f6ef73dd002fb5619af3366cc403c9a3d8ce7bc47b88f33facb1bc752266c148c8c7389fbd5720a10adf60f0d90334c33687a49a7d9a8051987648e63')
+sha512sums=('733e1403d7307739a08174918badbe0094204303f5d90ffa930789b1acd23397365230e0932c669c1a58f3853ca40c4c5d5386ec9418b2996336ca7e73084568')
 
 build() {
   cd ${pkgname}-${pkgname}_${pkgver//./_}
@@ -45,10 +44,7 @@ build() {
 
 check() {
   cd ${pkgname}-${pkgname}_${pkgver//./_}
-  # Deselected tests are not compatible with Python 3.13, see:
-  # https://github.com/fortra/impacket/issues/1824
-  pytest -m "not remote" \
-    --deselect tests/SMB_RPC/test_smbserver.py
+  pytest -m "not remote"
 }
 
 package() {
@@ -58,5 +54,3 @@ package() {
   local PYTHONVERSION="$(python -c 'import sys; print("{}.{}".format(sys.version_info.major, sys.version_info.minor))')"
   ln -s "/usr/lib/python${PYTHONVERSION}/site-packages/impacket/examples" "${pkgdir}/usr/share/doc/${pkgname}/examples"
 }
-
-# vim: ts=2 sw=2 et:
