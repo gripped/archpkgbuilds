@@ -1,8 +1,9 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=jkqtplotter
-pkgver=4.0.3
-pkgrel=2
+pkgver=5.0.0git20251013
+pkgrel=1
+_commit=d243218119b1632987df26baea0d4bc6ccdee533
 pkgdesc='A Qt Plotting Library'
 arch=(x86_64)
 url='http://jkriege2.github.io/JKQtPlotter/'
@@ -13,26 +14,18 @@ depends=(gcc-libs
          qt6-svg)
 makedepends=(cmake
              git)
-source=(git+https://github.com/jkriege2/JKQtPlotter#tag=v$pkgver)
-sha256sums=('54610ba96a453ed0b4b9ce247c62954355779ff14d0716af47e563ef0897c6c2')
-
-prepare() {
-# Fix cmake config install dir
-  sed -e 's|lib/cmake|lib/cmake/${libsh_name}|g' -i JKQtPlotter/lib/*/CMakeLists.txt
-}
+source=(git+https://github.com/jkriege2/JKQtPlotter#commit=$_commit)
+sha256sums=('f5fdc43c64ad5ddb9be9c7b9a33098848d8103d15b3633c0242090579f82d5bb')
 
 build() {
   cmake -B build -S JKQtPlotter \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DJKQtPlotter_BUILD_EXAMPLES=OFF \
-    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DJKQtPlotter_BUILD_EXAMPLES=OFF
   cmake --build build
 }
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
   install -Dm644 JKQtPlotter/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
-
-# Fix doc install dir
-  mv "$pkgdir"/usr/{,share/}doc
 }
