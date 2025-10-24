@@ -2,9 +2,8 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=python-aiomysql
-_pkgname=${pkgname#python-}
-pkgver=0.2.0
-pkgrel=3
+pkgver=0.3.2
+pkgrel=1
 pkgdesc="Library for accessing a MySQL database from the asyncio"
 arch=(any)
 url="https://github.com/aio-libs/aiomysql"
@@ -28,28 +27,23 @@ makedepends=(
 #   python-uvloop
 # )
 optdepends=('python-sqlalchemy: SQLAlchemy support')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('5581db0b209972fec4a0fe861af5081c42bfeca2d4350948bc13fd1ccaf301be')
-
-_archive=$_pkgname-$pkgver
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('f9c218491e7356ffb2d9f2f1c19c86147f20f88cac5b86962e84e40e2a6d5260')
 
 build() {
-  cd "$_archive"
-
+  cd ${pkgname#python-}-$pkgver
   export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
   python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 # Tests require a running MySQL instance.
 # check() {
-#   cd "$_archive"
-#
+#   cd ${pkgname#python-}-$pkgver
 #   pytest
 # }
 
 package() {
-  cd "$_archive"
-
-  python -m installer -d "$pkgdir" dist/*.whl
-  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+  cd ${pkgname#python-}-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
