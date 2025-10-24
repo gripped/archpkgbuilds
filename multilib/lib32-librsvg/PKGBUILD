@@ -7,7 +7,7 @@ pkgbase=lib32-librsvg
 pkgname=(
   lib32-librsvg
 )
-pkgver=2.61.1
+pkgver=2.61.2
 pkgrel=1
 epoch=2
 pkgdesc="SVG rendering library (32-bit)"
@@ -39,8 +39,10 @@ checkdepends=(ttf-dejavu)
 source=(
   # librsvg tags use SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/librsvg.git#tag=$pkgver"
+  0001-xml-Treat-user-stop-errors-as-successful-parses.patch
 )
-b2sums=('279bf73beaaa8ace21631db1d1df303527c5f9cdc5c4e5811ffd15602e513c7e37164e444390653af96ba7257ba30904081261f9f90b983292c8b0b1cdfd509b')
+b2sums=('bb7f38bb6518d193dfabab07759ca2d6f56edd6cc49b68329e401ce907d64ae49bfc9a46c8927686e315c7ae1ef4c5babec0d1bfef59b172c3f5ce8f7c8b7f12'
+        'a831c396d70dd0de6eae18428453d8ba84c819a2d3b7f07ba4a11a574f3d952436e1e9f8c22c9dd677dcaf766545415834b6dae4efb22d7c4797c8c0de52c7fa')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
@@ -50,6 +52,11 @@ export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 prepare() {
   cd librsvg
+
+  # Fix tests
+  # https://gitlab.gnome.org/GNOME/librsvg/-/issues/1201
+  git apply -3 ../0001-xml-Treat-user-stop-errors-as-successful-parses.patch
+
   cargo fetch --locked --target i686-unknown-linux-gnu
 }
 
@@ -59,6 +66,7 @@ build() {
     -D avif=disabled
     -D docs=disabled
     -D introspection=disabled
+    -D pixbuf-loader=enabled
     -D triplet=i686-unknown-linux-gnu
     -D vala=disabled
   )
