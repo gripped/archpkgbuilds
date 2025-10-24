@@ -3,7 +3,7 @@
 
 pkgbase=ghostty
 pkgname=(ghostty ghostty-shell-integration ghostty-terminfo)
-pkgver=1.2.2
+pkgver=1.2.3
 pkgrel=1
 pkgdesc='Fast, native, feature-rich terminal emulator pushing modern features'
 arch=(x86_64 aarch64 i686)
@@ -30,7 +30,7 @@ makedepends=(blueprint-compiler
              zig0.14)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('1f76d0425dbaf696c44b16715ec8c38890175bd97ca1b46a7d058fb3f7a960e9')
+sha256sums=('e17d39482fc70fba3d72f5f25c12e9d9a72b87dd45a61a854d9928e98b69edd8')
 
 prepare() {
 	cd "$_archive"
