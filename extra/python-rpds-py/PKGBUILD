@@ -1,26 +1,26 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-rpds-py
-pkgver=0.27.1
+pkgver=0.28.0
 pkgrel=1
 pkgdesc='Python bindings to the Rust rpds crate for persistent data structures'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/crate-py/rpds'
-license=('MIT')
+license=(MIT)
 depends=(
-  'glibc'
-  'gcc-libs'
-  'python'
+  glibc
+  gcc-libs
+  python
 )
 makedepends=(
-  'git'
-  'python-build'
-  'python-maturin'
-  'python-installer'
+  git
+  python-build
+  python-maturin
+  python-installer
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('e968ada064526a0fc79952a42a2d56da912120b025eb0931464aaba5ec4677c861c3cee3b5329e3e99d681af6ee7ed976f1e3a3dbe553c39a2f63fc341c577e9')
-b2sums=('3047abffd1372ede8497534d990ea8ad104de1cfc6ab7e691b4130b8bf61d6ee83af74d5849718aab2c929687ad16c4b4487dc362aaf2b8c6d8ada3bf346d298')
+sha512sums=('4bb186928937d657bae25eaa8fb6fc23d685d4bf1cc1a134ac4139dd8e0546fb52ba486d2935fe9cad088b39a14f4891c32a4ef83e94dd280d176ad313edad53')
+b2sums=('6f2954a52552d68de6da8de27f81f039461a86e9e38de74a410bff2d00cfcb24bd217e884ce1a037695bba503726c6d27ca594700fc69d86283ee1c78909f41b')
 
 prepare() {
   cd "$pkgname"
