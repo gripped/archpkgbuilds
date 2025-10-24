@@ -3,7 +3,7 @@
 # Contributor: Andrew Gallant <jamslam@gmail.com>
 
 pkgname=ripgrep
-pkgver=15.0.0
+pkgver=15.1.0
 pkgrel=1
 pkgdesc="A search tool that combines the usability of ag with the raw speed of grep"
 arch=('x86_64')
@@ -16,7 +16,7 @@ depends=(
 )
 makedepends=('rust')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('7c05fc205b540cc2f40686c0619adf362002e898e2cf4bc4a90fb694c91681d0b16cc7755fdf7d2221cda1b27f959818897ad85803a7676b87e43aba4374e376')
+sha512sums=('3e54683ceaaa79e6e1b52f7e1b92aefaf0b8f721daf2ab6433e1f45931878904ca20379cfb9b13770bf79d06a21ce896d471e80f557c6614417b836aabb6b803')
 
 build() {
   cd "$pkgname-$pkgver"
