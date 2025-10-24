@@ -2,7 +2,7 @@
 # Contributor: Agorgianitis Loukas <agorglouk@gmail.com>
 
 pkgname=tailwindcss-language-server
-pkgver=0.14.28
+pkgver=0.14.29
 pkgrel=1
 pkgdesc='Tailwind CSS Language Server'
 arch=(any)
@@ -14,10 +14,12 @@ makedepends=(
   pnpm
 )
 source=("git+https://github.com/tailwindlabs/tailwindcss-intellisense.git#tag=v$pkgver")
-b2sums=('6520db06dc481b3a64e8c99f1a00e772d8d5f07073e35be4e3f186fd89eada36cb2417e6bb63d7ec5a5dc1aebc8cfaf7e03d407ec12ea90d059d3dfdb0ec22d3')
+b2sums=('e77f787f5f2eaaca9d8ffcb0a35c52ae06552278b1b1cf9b17eb6ffae9e4d066ecf2a74ce45ceb1b1911a26ea7c31379a241c8ebdb82c25cf9670a32f9ae8573')
 
 prepare() {
   cd tailwindcss-intellisense
+  # fix lockfile
+  git cherry-pick --no-commit 6f19018d336ae1b72e124569dd3ee4f328df2fb6
   pnpm install --frozen-lockfile
 }
 
