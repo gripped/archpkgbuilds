@@ -6,13 +6,13 @@
 pkgbase=java-atk-wrapper
 pkgname=(java-atk-wrapper-common java-atk-wrapper-openjdk)
 pkgver=0.40.0
-pkgrel=2
-_jvmvers=(8 11 17 19)
+pkgrel=3
+_jvmvers=(8 11 17 21 25)
 pkgdesc='ATK wrapper for screen reader access to Java Swing applications'
 url='https://gitlab.gnome.org/GNOME/java-atk-wrapper/'
 arch=('x86_64')
 license=('LGPL')
-makedepends=('gobject-introspection' 'gnome-common' 'gtk2' 'gtk3' 'xorg-xprop' 'at-spi2-atk')
+makedepends=('gobject-introspection' 'gnome-common' 'gtk3' 'xorg-xprop' 'at-spi2-atk')
 options=(!emptydirs)
 source=(https://gitlab.gnome.org/GNOME/java-atk-wrapper/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.bz2)
 sha256sums=('4c64dda3f0b37dcb3230d10e78bea44af44aefd2ee3702a898e2176a6604ebea')
