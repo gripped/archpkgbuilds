@@ -1,14 +1,16 @@
 pkgbase = python-ipykernel
 	pkgdesc = The ipython kernel for Jupyter
-	pkgver = 6.30.1
-	pkgrel = 1
+	pkgver = 7.0.1
+	pkgrel = 2
 	url = https://pypi.org/project/ipykernel/
 	arch = any
 	license = BSD-3-Clause
+	checkdepends = python-debugpy
 	checkdepends = python-flaky
 	checkdepends = python-ipyparallel
 	checkdepends = python-matplotlib
 	checkdepends = python-pytest-asyncio
+	checkdepends = python-pytest-cov
 	checkdepends = python-pytest-timeout
 	makedepends = git
 	makedepends = python-build
@@ -26,7 +28,7 @@ pkgbase = python-ipykernel
 	depends = python-tornado
 	depends = python-traitlets
 	optdepends = python-debugpy: debugger support
-	source = git+https://github.com/ipython/ipykernel#tag=v6.30.1
-	sha256sums = 7e649edc5cc1ba9acee4bfd3b1334f3fa9232e465c1c75a89e017e20b62c5833
+	source = git+https://github.com/ipython/ipykernel#tag=v7.0.1
+	sha256sums = 46b8da396ff56bacc8d217c4b6b6d7077fb6a606535ca142a0519dae0a63cd55
 
 pkgname = python-ipykernel
