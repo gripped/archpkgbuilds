@@ -3,16 +3,21 @@
 _hkgname=one-liner
 pkgname=haskell-one-liner
 pkgver=2.1
-pkgrel=253
+pkgrel=256
 pkgdesc="Constraint-based generics"
 url="https://github.com/sjoerdvisscher/one-liner"
 license=('BSD')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-bifunctors' 'haskell-contravariant' 'haskell-linear-base'
          'haskell-profunctors' 'haskell-tagged')
-makedepends=('ghc' 'haskell-hunit')
+makedepends=('ghc' 'uusi' 'haskell-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
 sha512sums=('e90a587686b7e6a41afd97d0f00af14e38de43812af8973cc54457364ecf67459357a947c603f5f50c7ea7fc3afc329f9611890d0c7fcb1fb578e965409af5cc')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u transformers
+}
 
 build() {
     cd $_hkgname-$pkgver
