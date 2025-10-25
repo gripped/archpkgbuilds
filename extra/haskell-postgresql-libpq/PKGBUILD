@@ -4,7 +4,7 @@
 _hkgname=postgresql-libpq
 pkgname=haskell-postgresql-libpq
 pkgver=0.9.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Low-level binding to libpq"
 url="https://github.com/phadej/postgresql-libpq"
 license=('BSD-3-Clause')
@@ -16,7 +16,7 @@ sha512sums=('5481454d9f06b6fce2c1ffd97af76b44f1039ee40f0c89103d78f0356f4f314fbb6
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u base
+    uusi -u base -u unix
 }
 
 build() {
