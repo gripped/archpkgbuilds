@@ -2,7 +2,7 @@
 
 pkgname=eq10q
 pkgver=2.2
-pkgrel=7
+pkgrel=8
 pkgdesc="Audio plugin bundle over the LV2 standard for Linux"
 arch=(x86_64)
 url="http://eq10q.sourceforge.net/"
@@ -14,19 +14,12 @@ groups=(
   pro-audio
 )
 depends=(
-  gcc-libs
   glibc
-  gtkmm
 )
 makedepends=(
-  atkmm
-  cairomm
   cmake
   fftw
-  glibmm
   lv2
-  libsigc++
-  pangomm
 )
 source=(
   https://sourceforge.net/projects/$pkgname/files/$pkgname-$pkgver.tar.gz
@@ -53,6 +46,8 @@ prepare() {
   # fix install location:
   # https://sourceforge.net/p/eq10q/bugs/20/
   patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-2.2-cmakelists.patch
+  # disable GTK2 GUI
+  sed -i '/add_subdirectory(gui)/d' $pkgname-$pkgver/CMakeLists.txt
 }
 
 build() {
@@ -75,12 +70,7 @@ check() {
 
 package() {
   depends+=(
-    atkmm libatkmm-1.6.so
-    cairomm libcairomm-1.0.so
     fftw libfftw3.so
-    glibmm libglibmm-2.4.so
-    libsigc++ libsigc-2.0.so
-    pangomm libpangomm-1.4.so
   )
 
   DESTDIR="$pkgdir" cmake --install build
