@@ -4,12 +4,13 @@
 
 pkgname=xboard
 pkgver=4.9.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Graphical user interfaces for chess"
 arch=('x86_64')
 url="https://www.gnu.org/software/xboard/"
 license=('GPL3')
-depends=('texinfo' 'xdg-utils' 'gtk2' 'cairo' 'librsvg')
+depends=('cairo' 'librsvg' 'libxaw' 'xorg-fonts-misc')
+makedepends=('texinfo' 'xdg-utils')
 optdepends=('gnuchess: chess engine'
 	    'perl')
 validpgpkeys=('47D20669A1ED486C0257C0362A0C7CF1F51BC536')
@@ -20,16 +21,17 @@ sha256sums=('2b2e53e8428ad9b6e8dc8a55b3a5183381911a4dae2c0072fa96296bbb1970d6'
 prepare() {
   cd "${pkgname}-${pkgver}"
   sed -i 's/fairymax/gnuchess/g' {xaw,gtk}/xboard.h xboard.conf
+  autoreconf -fi
 }
 
 build() {
   cd "${pkgname}-${pkgver}"
-  CFLAGS+=' -fcommon' # https://wiki.gentoo.org/wiki/Gcc_10_porting_notes/fno_common
+  CFLAGS+=' -Wno-incompatible-pointer-types -fcommon' # https://wiki.gentoo.org/wiki/Gcc_10_porting_notes/fno_common
   ./configure \
     --prefix=/usr \
     --mandir=/usr/share/man \
     --sysconfdir=/etc \
-    --with-gtk \
+    --without-gtk \
     --enable-zippy
   make
 }
