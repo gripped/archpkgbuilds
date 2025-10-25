@@ -3,7 +3,7 @@
 
 pkgname=jalv
 pkgver=1.6.8
-pkgrel=3
+pkgrel=4
 pkgdesc="A simple but fully featured LV2 host for Jack"
 arch=(x86_64)
 url="https://drobilla.net/software/jalv.html"
@@ -14,7 +14,6 @@ depends=(
   glibc
 )
 makedepends=(
-  gtk2
   gtk3
   jack
   lilv
@@ -28,7 +27,6 @@ makedepends=(
 )
 optdepends=(
   'qt5-base: for jalv.qt5'
-  'gtk2: for jalv.gtk'
   'gtk3: for jalv.gtk3'
 )
 provides=(lv2-host)
@@ -40,7 +38,7 @@ b2sums=('d2264163821273bf40795d4dbfc1905c6ab334449461e311a18a6f667abafb92ed12afa
 validpgpkeys=('907D226E7E13FA337F014A083672782A9BF368F3') # David Robillard <d@drobilla.net>
 
 build() {
-  arch-meson $pkgname-$pkgver build -D portaudio=disabled
+  arch-meson $pkgname-$pkgver build -D portaudio=disabled -D gtk2=disabled
   meson compile -C build
 }
 
