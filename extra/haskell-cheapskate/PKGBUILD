@@ -4,7 +4,7 @@
 _hkgname=cheapskate
 pkgname=haskell-cheapskate
 pkgver=0.1.1.2
-pkgrel=846
+pkgrel=849
 pkgdesc="Experimental markdown processor."
 url="https://github.com/jgm/cheapskate"
 license=("BSD")
@@ -23,7 +23,8 @@ prepare() {
         -e 's/T.pack "html"/fromText(T.pack "html")/' \
         -e 's/T.pack "version"/fromText(T.pack "version")/' \
         -i bin/cheapskate-dingus.hs
-    uusi -u text
+    sed -i '29iimport Control.Monad (guard, replicateM, unless)' Cheapskate/Parse.hs
+    uusi -u mtl -u text
 }
 
 build() {
