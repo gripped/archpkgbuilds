@@ -2,8 +2,8 @@
 
 _hkgname=cabal-install-parsers
 pkgname=haskell-cabal-install-parsers
-pkgver=0.6
-pkgrel=124
+pkgver=0.6.1.1
+pkgrel=3
 pkgdesc="Utilities to work with cabal-install files"
 url="https://haskell-ci.rtfd.org/"
 license=("GPL" "BSD")
@@ -14,12 +14,11 @@ makedepends=('ghc' 'uusi' 'haskell-ansi-terminal' 'haskell-tasty' 'haskell-tasty
              'haskell-tasty-hunit' 'haskell-tree-diff')
 checkdepends=('cabal-install')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('02541b55ffb933cb28c78f204bb66493ff2f87dce271f9c9c7122531ae4de4642c3a42e81ff80a6ab2ce0b503b649d9f97c659dfe3ddd78b42c4fb4b0f548c28')
+sha512sums=('a1c48ad793020b0b6c0642f78ca180c3edebf1f801d44c428d33ea80f88e6af0000910a167c9593a3dec2db84cc0c492d195c1baeff464e0e8839d4ff31212d5')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u aeson -u ansi-terminal -u tasty -u tree-diff
 }
 
 build() {
@@ -41,6 +40,8 @@ build() {
 check() {
   cd $_hkgname-$pkgver
   cabal update  # Generate cabal config for tests
+  # See https://github.com/haskell-CI/haskell-ci/issues/655
+  export CABAL_CONFIG="/build/.config/cabal/config"
   runhaskell Setup test --show-details=direct
 }
 
