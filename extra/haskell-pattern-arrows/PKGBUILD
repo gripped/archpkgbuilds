@@ -4,7 +4,7 @@
 _hkgname=pattern-arrows
 pkgname=haskell-pattern-arrows
 pkgver=0.0.2
-pkgrel=27
+pkgrel=28
 pkgdesc="Arrows for Pretty Printing"
 url="https://blog.functorial.com/posts/2013-10-27-Pretty-Printing-Arrows.html"
 license=("MIT")
@@ -13,6 +13,11 @@ depends=('ghc-libs')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('085d4c2e023a4762af885ec9043ca5b16fae3de4b9ecca879d8a4415d027febeef6b10d705ef0bfbdae1db7346c29269bd60c14a4ca06197d2747748ed3e0070')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    sed -i "21iimport Control.Monad.Fix" src/Control/PatternArrows.hs
+}
 
 build() {
     cd $_hkgname-$pkgver
