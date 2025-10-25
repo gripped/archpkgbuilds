@@ -2,8 +2,8 @@
 
 _gemname='sorbet-runtime'
 pkgname="ruby-${_gemname}"
-pkgver=0.6.12638
-_version_hash='20251010151314-aeb4f053b'
+pkgver=0.6.12665
+_version_hash='20251024182317-3828d34d1'
 pkgrel=1
 pkgdesc="Sorbet's runtime type checking component"
 arch=('any')
@@ -28,9 +28,9 @@ source=(
   "${url}/archive/${pkgver}.${_version_hash}/${pkgname}-${pkgver}.${_version_hash}.tar.gz"
   "${pkgname}_fix_tests.patch"
 )
-sha512sums=('dfa58c73abb53eef3d93a71f7d7dab44d4246719be3514708133d4bf9d6f3f06ded3a2806bbd85625b3285d9f7d172817eb823948009624759a6ad24b4ab4727'
+sha512sums=('fb0ac6e6c2cee433d86dd7b5c4a756cc917c7736f6db051c84a5f4ef2b75011e32bc0a8e20914665aeb1a13da442351a557547a3d18230e6ce1bacefc971671d'
             'a39f61f680da5c2d2dc83aec4e5358686eaa3834f76eaa68c85e0f7d7d32ad9bf97953395ab805ca5669e7d98c144469b68e19a9028e5ff90f4c917dd059538b')
-b2sums=('66f9c5e40e4ea1236291187da731bfc1728dc9c6b8dc43ffbba53de16f80ede185fa5532aea2a5db795f8a67e0c074ee32aa039ecc88b0e86d1a155a5adcfaad'
+b2sums=('87308184f33bb710e4c0fd4643dec7f505bc2dcefd1109e375c72a3b0910934206299f46e8b4dae3f38503c9747ab62d79c64cd299097af6727f96ae16557dfc'
         'a9c2e83f4e04509db40b21f827208eb0ec03ebaae7f3971ddd2dcd0253fe00baf74b905a7a81079d23ac6f939a2e092bba3d5db7c415b1f70283ad1b65de715b')
 
 prepare() {
