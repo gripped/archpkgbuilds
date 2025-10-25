@@ -1,7 +1,7 @@
 pkgbase = uutils-coreutils
 	pkgdesc = Cross-platform Rust rewrite of the GNU coreutils
 	pkgver = 0.3.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://uutils.github.io/
 	arch = x86_64
 	license = MIT
@@ -10,7 +10,6 @@ pkgbase = uutils-coreutils
 	depends = gcc-libs
 	depends = glibc
 	depends = oniguruma
-	options = !emptydirs
 	source = uutils-coreutils::git+https://github.com/uutils/coreutils.git#tag=0.3.0
 	source = glibc-2.42.patch::https://git.launchpad.net/~juliank/ubuntu/+source/rust-coreutils/plain/debian/patches/glibc-2.42.patch?h=ubuntu/devel&id=a16e77bec0546ee51770a891a24468e8048242e3
 	source = nix-rust0.30.1.tar.gz::https://github.com/nix-rust/nix/archive/refs/tags/v0.30.1.tar.gz
