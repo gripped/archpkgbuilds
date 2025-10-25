@@ -6,7 +6,7 @@
 
 pkgname=alsa-tools
 pkgver=1.2.14
-pkgrel=2
+pkgrel=3
 pkgdesc="Advanced tools for certain sound cards"
 arch=(x86_64)
 url="https://alsa-project.org/"
@@ -19,13 +19,11 @@ depends=(
 makedepends=(
   alsa-lib
   fltk
-  gtk2
   gtk3
 )
 optdepends=(
   'fltk: hdspconf, hdspmixer'
-  'gtk2: envy24control, echomixer, rmeddigicontrol'
-  'gtk3: hdajackretask'
+  'gtk3: envy24control, hdajackretask, hwmixvolume'
   'python-pyalsa: hwmixvolume'
   'python-gobject: hwmixvolume'
 )
@@ -39,7 +37,7 @@ validpgpkeys=('F04DF50737AC1A884C4B3D718380596DA6E59C91') # ALSA Release Team (P
 
 _tools=(
   as10k1
-  echomixer
+  # echomixer  # disabled, because depends on gtk2
   envy24control
   hda-verb
   hdajackretask
@@ -52,7 +50,7 @@ _tools=(
   mixartloader
   pcxhrloader
   # qlo10k1  # disabled, because build is broken
-  rmedigicontrol
+  # rmedigicontrol  # disabled, because depends on gtk2
   sb16_csp
   seq/sbiload
   sscape_ctl
