@@ -3,7 +3,7 @@
 
 pkgname=python-sphinx-autoapi
 _name=${pkgname#python-}
-pkgver=3.6.0
+pkgver=3.6.1
 pkgrel=1
 pkgdesc='Sphinx API documentation generator'
 arch=(any)
@@ -28,7 +28,7 @@ checkdepends=(
   python-pytest
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('224ef0d8ed13a4493ecc29a62eee067d36dda43c2699c0d3912947ebba83115d631f97091116fc53b9e441a076b53f9405cc5767afd3c811c56b8f3e52a2bf86')
+b2sums=('66a94765c04f5a5bf4ee66fd5a1b00af9eb0b9231b34e4fd736bd7cbc6bdea99f9a5b29911a38ec2bfd749dd1723f5d4ef6f58f969798b24e57c6bcbeabf13a2')
 
 build() {
   cd "$_name"
@@ -43,8 +43,8 @@ check() {
 package() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s "$site_packages"/"${_name//-/_}"-$pkgver.dist-info/LICENSE.rst \
-    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.rst
+  ln -s "$site_packages"/"${_name//-/_}"-$pkgver.dist-info/licenses/LICENSE.rst \
+    "$pkgdir"/usr/share/licenses/$pkgname
 
   cd "$_name"
   python -m installer --destdir="$pkgdir" dist/*.whl
