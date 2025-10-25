@@ -3,7 +3,7 @@
 _hkgname=hgmp
 pkgname=haskell-hgmp
 pkgver=0.1.2.1
-pkgrel=113
+pkgrel=116
 pkgdesc="Haskell interface to GMP"
 url="https://code.mathr.co.uk/hgmp"
 license=("BSD")
@@ -15,7 +15,7 @@ sha256sums=('c681633d3e47d7eabd1cd43028a0e8f2e279a9c60c7701d0dc060145bd598023')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u QuickCheck
+  uusi -u QuickCheck -u base -u ghc-prim
 }
 
 build() {
