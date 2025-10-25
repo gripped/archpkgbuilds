@@ -3,7 +3,7 @@
 _hkgname=gi-cairo-connector
 pkgname=haskell-gi-cairo-connector
 pkgver=0.1.1
-pkgrel=300
+pkgrel=303
 pkgdesc="GI friendly Binding to the Cairo library."
 url="https://github.com/cohomology/gi-cairo-render"
 license=("LGPL2.1")
@@ -16,6 +16,7 @@ sha256sums=('6cd806caa868a2be2f240c28eef691a3290fbbd5f519cbbde7ced3067a506c4a')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u mtl
 }
 
 build() {
