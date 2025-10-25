@@ -1,0 +1,81 @@
+From c45c02c37f92913f8eb3968e399e391d5cf61cb8 Mon Sep 17 00:00:00 2001
+From: Jaro Reinders <jaro.reinders@gmail.com>
+Date: Sun, 18 Jun 2023 16:44:01 +0200
+Subject: [PATCH] Add support for summoning GHC 9.2.8 9.4.5 9.6.2
+
+---
+
+ summoner-cli/src/Summoner/GhcVer.hs           | 16 ++++++++
+ summoner-cli/test/Test/Show.hs                |  7 +++
+ 2 files changed, 19 insertions(+), 0 deletions(-)
+
+
+diff --git a/summoner-cli/src/Summoner/GhcVer.hs b/summoner-cli/src/Summoner/GhcVer.hs
+index f1a2d47..c56172b 100644
+--- a/summoner-cli/src/Summoner/GhcVer.hs
++++ b/summoner-cli/src/Summoner/GhcVer.hs
+@@ -36,6 +36,9 @@ data GhcVer
+     | Ghc844
+     | Ghc865
+     | Ghc883
++    | Ghc928
++    | Ghc945
++    | Ghc962
+     deriving stock (Eq, Ord, Show, Enum, Bounded)
+ 
+ -- | Converts 'GhcVer' into dot-separated string.
+@@ -47,6 +50,9 @@ showGhcVer = \case
+     Ghc844  -> "8.4.4"
+     Ghc865  -> "8.6.5"
+     Ghc883  -> "8.8.3"
++    Ghc928  -> "9.2.8"
++    Ghc945  -> "9.4.5"
++    Ghc962  -> "9.6.2"
+ 
+ {- | These are old GHC versions that are not working with default GHC versions
+ when using Stack.
+@@ -66,6 +75,9 @@ latestLts = \case
+     Ghc844  -> "lts-12.26"
+     Ghc865  -> "lts-14.27"
+     Ghc883  -> "lts-15.5"
++    Ghc928  -> "lts-20.26"
++    Ghc945  -> "lts-21.6"
++    Ghc962  -> "nightly-2023-08-09"
+ 
+ -- | Represents PVP versioning (4 numbers).
+ data Pvp = Pvp
+@@ -88,6 +97,9 @@ baseVerPvp = \case
+     Ghc844  -> Pvp 4 11 1 0
+     Ghc865  -> Pvp 4 12 0 0
+     Ghc883  -> Pvp 4 13 0 0
++    Ghc928  -> Pvp 4 16 4 0
++    Ghc945  -> Pvp 4 17 0 0
++    Ghc962  -> Pvp 4 18 0 0
+ 
+ -- | Returns corresponding @base@ version of the given GHC version.
+ baseVer :: GhcVer -> Text
+diff --git a/summoner-cli/test/Test/Show.hs b/summoner-cli/test/Test/Show.hs
+index 5ed6716..72a15f0 100644
+--- a/summoner-cli/test/Test/Show.hs
++++ b/summoner-cli/test/Test/Show.hs
+@@ -20,4 +20,7 @@ goldenGhcTable =
+   , "GHC-8.4.4     base-4.11.1.0   lts-12.26"
+   , "GHC-8.6.5     base-4.12.0.0   lts-14.27"
+   , "GHC-8.8.3     base-4.13.0.0   lts-15.5"
++  , "GHC-9.2.8     base-4.16.4.0   lts-20.26"
++  , "GHC-9.4.5     base-4.17.0.0   lts-21.6"
++  , "GHC-9.6.2     base-4.18.0.0   nightly-2023-08-09"
+   ]
+diff --git a/summoner-cli/src/Summoner/CLI.hs b/summoner-cli/src/Summoner/CLI.hs
+index 1bf1ae0a..a7506b66 100644
+--- a/summoner-cli/src/Summoner/CLI.hs
++++ b/summoner-cli/src/Summoner/CLI.hs
+@@ -423,7 +423,7 @@ targetsP d = do
+     cExe       <- execP      d
+     cTest      <- testP      d
+     cBench     <- benchmarkP d
+-    pure mempty
++    pure (mempty :: PartialConfig)
+         { cGitHub    = cGitHub
+         , cGhActions = cGhActions
+         , cTravis    = cTravis
