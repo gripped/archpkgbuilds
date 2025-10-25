@@ -3,7 +3,7 @@
 _hkgname=unexceptionalio-trans
 pkgname=haskell-unexceptionalio-trans
 pkgver=0.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A wrapper around UnexceptionalIO using monad transformers"
 url="https://github.com/singpolyma/unexceptionalio-trans"
 license=("ISC")
@@ -16,13 +16,13 @@ sha256sums=('0d1a9ae712f278b9b880cb451a422c222e5abe315d2924225a5c98d069d8f004')
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie' 
 
-  runhaskell Setup build
+  runhaskell Setup build $MAKEFLAGS
   runhaskell Setup register --gen-script
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
@@ -31,7 +31,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  runhaskell Setup test
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
