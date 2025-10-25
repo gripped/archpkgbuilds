@@ -3,7 +3,7 @@
 _hkgname=authenticate-oauth
 pkgname=haskell-authenticate-oauth
 pkgver=1.7
-pkgrel=364
+pkgrel=367
 pkgdesc="Library to authenticate with OAuth for Haskell web applications."
 url="https://github.com/yesodweb/authenticate"
 license=('BSD')
@@ -11,9 +11,14 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-http-client' 'haskell-crypto-pubkey-types' 'haskell-rsa'
          'haskell-data-default' 'haskell-base64-bytestring' 'haskell-sha' 'haskell-random'
          'haskell-http-types' 'haskell-blaze-builder' 'haskell-transformers-compat')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
 sha512sums=('c216d05051971715a834f2831278833fb685d91b7c0c8c1cf9732a3b39795a2dcf596bf7e5670df25ee3713c64496599043a7ec0092c538c759f2965f1230e57')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u transformers
+}
 
 build() {
     cd $_hkgname-$pkgver
