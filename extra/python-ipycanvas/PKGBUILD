@@ -3,7 +3,7 @@
 _pyname=ipycanvas
 pkgname=python-$_pyname
 pkgver=0.14.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Interactive widgets library exposing the browser's Canvas API"
 url='https://ipycanvas.readthedocs.io/en/latest/'
 arch=(any)
@@ -15,13 +15,13 @@ depends=(ipython
          python-numpy
          python-pillow
          python-traitlets)
-makedepends=(git
+makedepends=(corepack
+             git
              jupyterlab
              python-build
              python-hatch-jupyter-builder
              python-hatchling
-             python-installer
-             yarn)
+             python-installer)
 sha256sums=('cb10f5e29d6f20437df549f71f00b5ccdae58eb6e7c955a40f86082b79ff763b')
 
 prepare() {
@@ -30,7 +30,7 @@ prepare() {
   mkdir bin
   corepack enable --install-directory bin yarn
   yes | bin/yarn set version stable
-  yes | bin/yarn install
+  bin/yarn install
 }
   	
 build() {
