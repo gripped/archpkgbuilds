@@ -3,7 +3,7 @@
 
 pkgname=idris
 pkgver=1.3.4
-pkgrel=459
+pkgrel=463
 pkgdesc="Functional Programming Language with Dependent Types"
 url="https://www.idris-lang.org/"
 license=("BSD")
@@ -18,14 +18,17 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-annotated-wl-pprint' 'haskell-ansi-
          'haskell-vector-binary-instances' 'haskell-zip-archive')
 makedepends=('ghc' 'uusi' 'haskell-tagged' 'haskell-tasty' 'haskell-tasty-golden' 'haskell-tasty-rerun'
              'nodejs')
-source=("https://github.com/idris-lang/Idris-dev/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('5c081c34cf09c130b213626e5cc4f85ae82fef3f7ac1c76636e497a472b31a638c829e29dfe81b9a240a068736fd27db0de592be9d1b48956b809908a913ad64')
+source=("https://github.com/idris-lang/Idris-dev/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+        "idris-mtl2.3.patch::https://github.com/idris-lang/Idris-dev/commit/71f4da9bf1aa4b3ca57d9c0b63c736b303e04780.patch")
+sha512sums=('5c081c34cf09c130b213626e5cc4f85ae82fef3f7ac1c76636e497a472b31a638c829e29dfe81b9a240a068736fd27db0de592be9d1b48956b809908a913ad64'
+            'c5e91c5372cb92ca8aefa31b84173df05cc44d90932ee948331e826458407fbb9fb94a7dc6c55db40ed6a694a0330bd8d0924b99f9d1ccd44a7b3ad33e7049eb')
 
 prepare() {
     cd Idris-dev-$pkgver
     sed -i '1ioverride IDRIS := env LD_PRELOAD=$(shell ls ../../dist/build/libHSidris-*-ghc*.so) $(IDRIS)' \
         libs/*/Makefile
-    uusi -u Cabal -u aeson -u ansi-terminal -u ansi-wl-pprint -u bytestring -u fsnotify -u network -u libffi -u optparse-applicative -u text -u vector
+    patch -p1 < ../idris-mtl2.3.patch
+    uusi -u Cabal -u aeson -u ansi-terminal -u ansi-wl-pprint -u bytestring -u fsnotify -u network -u libffi -u optparse-applicative -u text -u transformers -u unix -u vector
 }
 
 build() {
