@@ -3,7 +3,7 @@
 _hkgname=hiedb
 pkgname=haskell-hiedb
 pkgver=0.4.3.0
-pkgrel=128
+pkgrel=131
 pkgdesc="Generates a references DB from .hie files"
 url="https://github.com/wz1000/HieDb"
 license=("BSD")
@@ -22,7 +22,7 @@ prepare() {
   # algebraic-graphs 0.7
   sed -i 's/dfs vs m/dfs m vs/' src/HieDb/Query.hs
 
-  uusi -u algebraic-graphs $_hkgname.cabal
+  uusi -u algebraic-graphs -u base
 }
 
 build() {
