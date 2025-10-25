@@ -3,7 +3,7 @@
 _hkgname=config-value
 pkgname=haskell-config-value
 pkgver=0.8.3
-pkgrel=3
+pkgrel=4
 pkgdesc="Simple, layout-based value language similar to YAML or JSON"
 url="https://github.com/glguy/config-value"
 license=("MIT")
@@ -15,7 +15,7 @@ sha256sums=('7cb8d046be5adc09b19dae6b0ad1010b0292f069034c83d28954f1905ee76c5e')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u alex -u happy
+  uusi -u alex -u base -u happy
 }
 
 build() {
