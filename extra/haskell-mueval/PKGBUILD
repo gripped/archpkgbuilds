@@ -3,7 +3,7 @@
 _hkgname=mueval
 pkgname=haskell-mueval
 pkgver=0.9.4
-pkgrel=80
+pkgrel=83
 pkgdesc="Safely evaluate pure Haskell expressions"
 url="https://github.com/gwern/mueval"
 license=("BSD")
@@ -17,7 +17,7 @@ sha256sums=('f37f4ed525e9d45432aad4426225abadfc7de59ae19b41b771744d975ba8cfe4')
 prepare() {
   cd $_hkgname-$pkgver
   sed -i 's/ -static//' $_hkgname.cabal
-  uusi -u QuickCheck
+  uusi -u Cabal -u QuickCheck -u mtl -u unix
 }
 
 build() {
