@@ -2,8 +2,8 @@
 
 _gemname='puma'
 pkgname="ruby-$_gemname"
-pkgver=7.0.4
-pkgrel=2
+pkgver=7.1.0
+pkgrel=1
 pkgdesc='A Ruby/Rack web server built for concurrency'
 arch=('x86_64')
 url='https://puma.io/'
@@ -29,8 +29,8 @@ checkdepends=(
   ruby-rake-compiler
 )
 source=("https://github.com/puma/puma/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('f9abc89368169b8be0ba8d53b6e8758159a083e70fa54377fccbdac3bcbc4f7218922870271345662e8994d41d18454ba51fa288c0b074733ff52936ebd08e39')
-b2sums=('9c72589adcccb3294c1d201e0299530904d72a7713ec268ee7ef65ece07635cc7c03145c0bf87344f15cdaacd0b42fb2f6990d5a33dc1d57501ebd176408c1d4')
+sha512sums=('f00140080664e9f44181b289fb98059d1da70d6f6e555d8506a8e971954187635e36444d5aec14b9a849fec53b4e41d72961ca5550e69043dab2f211494455a5')
+b2sums=('be800a0b7ae2850ddbaac3408331956278a13150e20383270f874b404992fe6c80c430658f96fcb29f741c09a966d716f2e80e5fa757943b0bb7f1b4069f5686')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
