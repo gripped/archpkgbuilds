@@ -3,7 +3,7 @@
 _hkgname=generically
 pkgname=haskell-generically
 pkgver=0.1.1
-pkgrel=84
+pkgrel=87
 pkgdesc="Generically newtype to use with DerivingVia"
 url="https://github.com/haskell-compat/generically.git"
 license=("BSD")
@@ -16,6 +16,7 @@ sha256sums=('04c5a436bec4b041f71a733f56a1bd7f435f63dde8d3eb5c1f48d55b4dbc43cf')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u base
 }
 
 build() {
