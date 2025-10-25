@@ -2,8 +2,8 @@
 
 _hkgname=ghc-syntax-highlighter
 pkgname=haskell-ghc-syntax-highlighter
-pkgver=0.0.9.0
-pkgrel=79
+pkgver=0.0.10.0
+pkgrel=3
 pkgdesc="Syntax highlighter for Haskell using the lexer of GHC"
 url="https://github.com/mrkkrp/ghc-syntax-highlighter"
 license=("BSD")
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-ghc-lib-parser')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('0a39768b619634fc165989ca26ae716c53942dd32d433b117437a6e700005635')
+sha256sums=('e2785c6250ff5e2876f9afe638fea362a79c910029625f5599c234acb297bd90')
 
 build() {
   cd $_hkgname-$pkgver
