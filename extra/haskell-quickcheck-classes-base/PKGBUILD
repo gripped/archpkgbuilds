@@ -3,7 +3,7 @@
 _hkgname=quickcheck-classes-base
 pkgname=haskell-quickcheck-classes-base
 pkgver=0.6.2.0
-pkgrel=556
+pkgrel=565
 pkgdesc="QuickCheck common typeclasses from 'base'"
 url="https://github.com/andrewthad/quickcheck-classes"
 license=('MIT')
@@ -16,6 +16,7 @@ sha512sums=('730255f74582081e65fa8c6b36ab8a2c26991a8e7d8140361151614e7a9619f178e
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
+    uusi -u transformers
 }
 
 build() {
