@@ -4,7 +4,7 @@
 _hkgname=pipes
 pkgname=haskell-pipes
 pkgver=4.3.16
-pkgrel=215
+pkgrel=218
 pkgdesc="Compositional pipelines"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('6776a2d64ad164bd2d7dcbac7e935342b1507a87d8651ec2b22349192fc49cdd12e
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u mmorph $_hkgname.cabal
+    uusi -u mmorph -u mtl -u transformers $_hkgname.cabal
 }
 
 build() {
