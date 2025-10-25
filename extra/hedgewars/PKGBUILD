@@ -4,19 +4,21 @@
 
 pkgname=hedgewars
 pkgver=1.0.3
-pkgrel=8
+pkgrel=11
 pkgdesc="Turn-based strategy artillery game similiar to Worms"
 arch=('x86_64')
 url="https://hedgewars.org"
-license=('GPL' 'custom')
+license=('GPL-2.0-only')
 depends=('qt5-base' 'sdl2' 'sdl2_mixer' 'sdl2_image' 'sdl2_net' 'sdl2_ttf' 'lua51' 'ffmpeg'
          'physfs' 'ghc-libs' 'haskell-entropy' 'haskell-sha' 'haskell-random' 'haskell-regex-tdfa'
          'haskell-sandi' 'haskell-hslogger' 'haskell-network' 'haskell-network-bsd'
          'haskell-utf8-string' 'haskell-vector')
 makedepends=('fpc' 'cmake' 'qt5-tools' 'ghc' 'haskell-zlib' 'haskell-base-prelude' 'imagemagick'
              'mesa')
-source=("https://www.hedgewars.org/download/releases/hedgewars-src-$pkgver.tar.bz2")
-sha512sums=('b170a6fa29b51c0fed94f7dd34325f0eea8b48ea256b13b5289df9a28745f36fd2479038e79f09cd60158e002b8805cd0a3ff3ac9d359897bd3113ef7db004e8')
+source=("https://www.hedgewars.org/download/releases/hedgewars-src-$pkgver.tar.bz2"
+        "mtl-2.3.patch")
+sha512sums=('b170a6fa29b51c0fed94f7dd34325f0eea8b48ea256b13b5289df9a28745f36fd2479038e79f09cd60158e002b8805cd0a3ff3ac9d359897bd3113ef7db004e8'
+            'd2a67864c75756a4829346f71ea45f5f292131113f77af3b30bafeb7d91487c3bf465b957887e4142c81d9a4ace4230ea40beceea69aafbaa9aeaa2543254c50')
 
 prepare() {
   cd hedgewars-src-$pkgver
@@ -24,6 +26,7 @@ prepare() {
       -e 's/CMP0026//' \
       -i CMakeLists.txt
   sed -i '/physlayer_fullpath/d' misc/libphyslayer/CMakeLists.txt
+  patch -Np1 -i ../mtl-2.3.patch
   sed -i 's|set(ghc_flags|set(ghc_flags -dynamic|' gameServer/CMakeLists.txt
 }
 
