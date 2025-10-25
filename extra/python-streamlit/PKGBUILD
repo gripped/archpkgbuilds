@@ -3,7 +3,7 @@
 _name=streamlit
 pkgname=python-$_name
 pkgver=1.50.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A faster way to build and share data apps"
 arch=(any)
 url="https://streamlit.io"
@@ -29,6 +29,7 @@ depends=(
   python-watchdog
 )
 makedepends=(
+  corepack
   git
   nodejs
   python-build
