@@ -4,16 +4,21 @@
 _hkgname=Glob
 pkgname=haskell-glob
 pkgver=0.10.2
-pkgrel=186
+pkgrel=189
 pkgdesc="Globbing library"
 url="https://iki.fi/matti.niemenmaa/glob/"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-dlist' 'haskell-transformers-compat')
-makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
+makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
              'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('cd3c3fb00fad3b3e8d9ae2856a76d0d1688885ecec0b083eed87a4c1cf46111df747e66ff3e8bab2ffaf2a5f776a791442c7e0eefcf58f9d1e15e341b4c35a12')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u transformers
+}
 
 build() {
     cd $_hkgname-$pkgver
