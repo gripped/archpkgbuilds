@@ -1,6 +1,6 @@
 pkgbase = ghc
 	pkgdesc = The Glasgow Haskell Compiler
-	pkgver = 9.4.8
+	pkgver = 9.6.6
 	pkgrel = 1
 	url = https://www.haskell.org/ghc/
 	arch = x86_64
@@ -21,11 +21,13 @@ pkgbase = ghc
 	makedepends = time
 	makedepends = numactl
 	makedepends = python-sphinx_rtd_theme
-	source = https://downloads.haskell.org/~ghc/9.4.8/ghc-9.4.8-src.tar.xz
+	source = https://downloads.haskell.org/~ghc/9.6.6/ghc-9.6.6-src.tar.xz
+	source = ghc-libs-gcc-15.patch::https://gitlab.haskell.org/ghc/ghc/-/commit/f983a00ffc97b779eb52b10e69e254ec107f8311.patch
 	source = ghc-rebuild-doc-index.hook
 	source = ghc-register.hook
 	source = ghc-unregister.hook
-	sha512sums = e5cfb30adc73dc0054f5db2921e5f255c8a980e005798882a2e9daa8df2409ddbe1ec6403e1f6862efc9e4700db4b68d5cae36999d77c7d3fd2fe0ab51cb9923
+	sha512sums = 532bbf5ab44fd4a42abc7904d86ada4803ecbc3cbb499d907520610466b6c2a0c95e07167e8a10c12f3871f3d1d9e54221469ee7a75c3fae1c49b1b281b857ef
+	sha512sums = 577f8772652a371e51c185c2d1456584b5ca716df18bc99fa6a8db348c3e0ccd47510792bca5903750d0e40dbbc6cd9b75cffa1fac1434ab2f2d80784b86cb4a
 	sha512sums = d69e5222d1169c4224a2b69a13e57fdd574cb1b5932b15f4bc6c7d269a9658dd87acb1be81f52fbcf3cb64f96978b9943d10cee2c21bff0565aaa93a5d35fcae
 	sha512sums = 5f659651d8e562a4dcaae0f821d272d6e9c648b645b1d6ab1af61e4dd690dc5a4b9c6846753b7f935963f001bb1ae1f40cd77731b71ef5a8dbc079a360aa3f8f
 	sha512sums = 3bdbd05c4a2c4fce4adf6802ff99b1088bdfad63da9ebfc470af9e271c3dd796f86fba1cf319d8f4078054d85c6d9e6a01f79994559f24cc77ee1a25724af2e6
@@ -37,41 +39,41 @@ pkgname = ghc-libs
 	depends = libffi
 	depends = numactl
 	depends = perl
-	provides = haskell-array=0.5.4.0
-	provides = haskell-base=4.17.2.1
+	provides = haskell-array=0.5.6.0
+	provides = haskell-base=4.18.2.1
 	provides = haskell-binary=0.8.9.1
 	provides = haskell-bytestring=0.11.5.3
-	provides = haskell-cabal=3.8.1.0
-	provides = haskell-cabal-syntax=3.8.1.0
+	provides = haskell-cabal=3.10.3.0
+	provides = haskell-cabal-syntax=3.10.3.0
 	provides = haskell-containers=0.6.7
-	provides = haskell-deepseq=1.4.8.0
-	provides = haskell-directory=1.3.7.1
-	provides = haskell-exceptions=0.10.5
-	provides = haskell-filepath=1.4.2.2
+	provides = haskell-deepseq=1.4.8.1
+	provides = haskell-directory=1.3.8.5
+	provides = haskell-exceptions=0.10.7
+	provides = haskell-filepath=1.4.300.1
 	provides = haskell-ghc-bignum=1.3
-	provides = haskell-ghc-boot=9.4.8
-	provides = haskell-ghc-boot-th=9.4.8
+	provides = haskell-ghc-boot=9.6.6
+	provides = haskell-ghc-boot-th=9.6.6
 	provides = haskell-ghc-compact=0.1.0.0
-	provides = haskell-ghc-heap=9.4.8
-	provides = haskell-ghc-prim=0.9.1
-	provides = haskell-haskeline=0.8.2
-	provides = haskell-hpc=0.6.1.0
+	provides = haskell-ghc-heap=9.6.6
+	provides = haskell-ghc-prim=0.10.0
+	provides = haskell-haskeline=0.8.2.1
+	provides = haskell-hpc=0.6.2.0
 	provides = haskell-integer-gmp=1.1
-	provides = haskell-libiserv=9.4.8
-	provides = haskell-mtl=2.2.2
+	provides = haskell-libiserv=9.6.6
+	provides = haskell-mtl=2.3.1
 	provides = haskell-parsec=3.1.16.1
 	provides = haskell-pretty=1.1.3.6
-	provides = haskell-process=1.6.18.0
+	provides = haskell-process=1.6.19.0
 	provides = haskell-stm=2.5.1.0
-	provides = haskell-template-haskell=2.19.0.0
-	provides = haskell-terminfo=0.4.1.5
+	provides = haskell-template-haskell=2.20.0.0
+	provides = haskell-terminfo=0.4.1.6
 	provides = haskell-text=2.0.2
 	provides = haskell-time=1.12.2
-	provides = haskell-transformers=0.5.6.2
-	provides = haskell-unix=2.7.3
+	provides = haskell-transformers=0.6.1.0
+	provides = haskell-unix=2.8.4.0
 	provides = haskell-xhtml=3000.2.2.1
-	provides = haskell-ghc-pkg=9.4.8
-	provides = haskell-ghci=9.4.8
+	provides = haskell-ghc-pkg=9.6.6
+	provides = haskell-ghci=9.6.6
 	conflicts = haskell-ghci
 	replaces = haskell-array
 	replaces = haskell-base
@@ -89,7 +91,6 @@ pkgname = ghc-libs
 	replaces = haskell-ghc-boot-th
 	replaces = haskell-ghc-compact
 	replaces = haskell-ghc-heap
-	replaces = haskell-ghci
 	replaces = haskell-ghc-prim
 	replaces = haskell-haskeline
 	replaces = haskell-hpc
@@ -113,11 +114,11 @@ pkgname = ghc
 	pkgdesc = The Glasgow Haskell Compiler
 	depends = gcc
 	depends = ghc-libs
-	provides = haskell-haddock=2.27.0
+	provides = haskell-haddock=2.29.2
 	provides = haskell-hp2ps=0.1
 	provides = haskell-hpc-bin=0.68
-	provides = haskell-hsc2hs=0.68.8
-	provides = haskell-ghc=9.4.8
+	provides = haskell-hsc2hs=0.68.9
+	provides = haskell-ghc=9.6.6
 	replaces = haskell-haddock
 	replaces = haskell-hp2ps
 	replaces = haskell-hpc-bin
