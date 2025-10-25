@@ -3,7 +3,7 @@
 _hkgname=filtrable
 pkgname=haskell-filtrable
 pkgver=0.1.6.0
-pkgrel=279
+pkgrel=282
 pkgdesc="Class of filtrable containers"
 url="https://github.com/strake/filtrable.hs"
 license=('BSD')
@@ -15,7 +15,7 @@ sha512sums=('e3f24967f78d352ed581054a3f8c43c328a21836e023908ecce4b3e84733ed32450
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u tasty $_hkgname.cabal
+    uusi -u tasty -u transformers
     gen-setup
 }
 
