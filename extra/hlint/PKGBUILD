@@ -2,8 +2,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hlint
-pkgver=3.5
-pkgrel=111
+pkgver=3.6
+pkgrel=3
 pkgdesc="Source code suggestions"
 url="http://community.haskell.org/~ndm/hlint/"
 license=("BSD")
@@ -15,14 +15,9 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-cmdargs' 'h
          'haskell-utf8-string' 'haskell-vector' 'haskell-yaml')
 conflicts=('haskell-hlint')
 replaces=('haskell-hlint')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('a66503787ac78383d6e5566be3f32c19ab51408ebc2bcc0499d101be67fd0699e6ac9c90efaa142ecdb0216bc2a74d2a120e5ba5861c3d22087b0f5931090bd5')
-
-prepare() {
-    cd "${srcdir}/${pkgname}-${pkgver}"
-    uusi -u ghc-lib-parser-ex
-}
+sha512sums=('3c1ee2969fc96aac87c8a69b11497696dd6450024d2254860a8e3181f988254794a65ecabed9d97fc2bcdc61bbd6abdf6809fe535c4121fad17ad1dc1dfe8d9e')
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"
