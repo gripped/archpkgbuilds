@@ -4,7 +4,7 @@
 
 pkgname=cobalt
 pkgver=0.20.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Static site generator written in Rust'
 url='https://cobalt-org.github.io/'
 arch=(x86_64)
@@ -12,8 +12,6 @@ license=(MIT)
 depends=(
   gcc-libs # libgcc_s.so ld-linux-x86-64.so
   glibc # libm.so libc.so
-  libsass # libsass.so
-  openssl
 )
 makedepends=(
   cargo
@@ -29,13 +27,11 @@ prepare() {
 
 build() {
   cd ${pkgname}.rs-${pkgver}
-  export OPENSSL_NO_VENDOR=true
   cargo build --frozen --release
 }
 
 check() {
   cd ${pkgname}.rs-${pkgver}
-  export OPENSSL_NO_VENDOR=true
   cargo test --frozen
 }
 
