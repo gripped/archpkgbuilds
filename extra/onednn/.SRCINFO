@@ -1,6 +1,6 @@
 pkgbase = onednn
 	pkgdesc = oneAPI Deep Neural Network Library (oneDNN)
-	pkgver = 3.7.2
+	pkgver = 3.9.2
 	pkgrel = 1
 	url = https://github.com/oneapi-src/oneDNN
 	arch = x86_64
@@ -8,11 +8,12 @@ pkgbase = onednn
 	makedepends = cmake
 	makedepends = ninja
 	depends = gcc-libs
+	depends = glibc
 	provides = intel-dnnl
 	provides = mkl-dnn
 	replaces = intel-dnnl
 	replaces = mkl-dnn
-	source = onednn-3.7.2.tar.gz::https://github.com/oneapi-src/oneDNN/archive/v3.7.2.tar.gz
-	sha256sums = 21068e8cd2bf4077916bf31452eab5ac9998e620e1b22630a88f79c334857a5c
+	source = onednn-3.9.2.tar.gz::https://github.com/oneapi-src/oneDNN/archive/v3.9.2.tar.gz
+	sha256sums = 2a4495e7070a8fcb4366b5a82ff1ca098d8526a6f127ae864aa1ca4bebeae125
 
 pkgname = onednn
