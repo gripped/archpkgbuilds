@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=cabal-fmt
-pkgver=0.1.6
-pkgrel=86
+pkgver=0.1.7
+pkgrel=3
 pkgdesc="Format .cabal files"
 url="https://github.com/phadej/cabal-fmt.git"
 license=(GPL-3.0-or-later AND BSD-3-Clause)
@@ -11,12 +11,11 @@ depends=('ghc-libs' 'haskell-optparse-applicative')
 makedepends=('ghc' 'uusi' 'haskell-integer-logarithms' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-golden'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('d9e5ecb29bdacecb5a22c4e6b31ac03c56508478a99eb2e8e2b1509910636d6d')
+sha256sums=('636bc1ec4c8ad7f4d127155f4f8db53c728067b13f9881e5b967a4f9acf541c8')
 
 prepare() {
   cd $pkgname-$pkgver
   gen-setup
-  uusi -u optparse-applicative
 }
 
 build() {
