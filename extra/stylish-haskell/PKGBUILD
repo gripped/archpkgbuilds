@@ -2,8 +2,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=stylish-haskell
-pkgver=0.14.4.0
-pkgrel=111
+pkgver=0.14.5.0
+pkgrel=3
 pkgdesc="Haskell code prettifier"
 url="https://github.com/haskell/stylish-haskell"
 license=("BSD")
@@ -11,15 +11,10 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-file-embed' 'haskell-ghc' 'haskell-ghc-lib-parser-ex'
          'haskell-optparse-applicative' 'haskell-regex-tdfa' 'haskell-strict' 'haskell-syb'
          'haskell-hsyaml' 'haskell-hsyaml-aeson')
-makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-random' 'haskell-test-framework'
+makedepends=('ghc' 'haskell-hunit' 'haskell-random' 'haskell-test-framework'
              'haskell-test-framework-hunit')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('942d8e801f85ce28e4d4bfe467ab0577d0d7b4f3bedd411c29afb692ed0c170db209a403ea087f692c005cdf6dc3b16cc9c71f95bedb342ea2d3e5ca8c712a9f')
-
-prepare() {
-    cd $pkgname-$pkgver
-    uusi -u optparse-applicative -u strict
-}
+sha512sums=('cca1c8bddfae17299b877be5fbf8237536f762003d5504fa798a818870cb3066f7defad34fc1a160fd4504b63979a15d51f023a9dea87e1cb7d5d86f714e3872')
 
 build() {
     cd $pkgname-$pkgver
