@@ -4,16 +4,21 @@
 _hkgname=distributive
 pkgname=haskell-distributive
 pkgver=0.6.2.1
-pkgrel=402
+pkgrel=410
 pkgdesc="Distributive functors -- Dual to Traversable"
 url="https://github.com/ekmett/distributive/"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-tagged')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 checkdepends=('haskell-generic-deriving' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('387c7b6e0b2f917fd68d52ffbc79b9db21e488629309bfaf0dc77450bfd37c0f7f8a29458532616b5395552f84f3727b462cb2876e5aca79101e2c752b26e0a7')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u transformers
+}
 
 build() {
     cd $_hkgname-$pkgver
