@@ -2,16 +2,16 @@
 
 _hkgname=filepath-bytestring
 pkgname=haskell-filepath-bytestring
-pkgver=1.4.2.1.13
-pkgrel=100
+pkgver=1.5.2.0.2
+pkgrel=1
 pkgdesc="Library for manipulating RawFilePaths in a cross platform way"
 url="https://hackage.haskell.org/package/filepath-bytestring"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('51e4fa875b82d7f2b395154cdfe7175286202290811570e9b452946e0f1f3939dee6c1a1987e0e32dd31d9c3e7edec12e7b8f20917ab798e4653ca7157b23172')
+sha512sums=('8151c1d3ea40ff87d52b143b58d1d6bf814a85317b7440a20720a9a1c311a3d642c736b616e44abba80f5fb81beb6b7609747dd963fb5ec5ecbb4617425805b4')
 
 prepare() {
     cd $_hkgname-$pkgver
