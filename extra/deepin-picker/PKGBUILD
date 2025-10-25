@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-picker
-pkgver=6.0.10
+pkgver=6.0.11
 pkgrel=1
 pkgdesc='Color picker tool for deepin'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('dtk6gui' 'dtk6widget' 'qt6-base' 'gcc-libs')
 makedepends=('git' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-picker.git#tag=$pkgver")
-sha512sums=('7fe5500ba2d0453107f83b7225650f57c76b9ea0800366e5ab82f22ffe6bd8b71521c6ae1a421cac67674f09cc778b421728747913b44bb49f32c0faacff6edd')
+sha512sums=('faf5e242d3452cbf225378261d263594e35c358b0b0ce637cad3aa25a06908d9ac2ee0c927a6a61339753a8c496e17eda3d2de6d40729cda744e872f160365ba')
 
 build() {
   cd deepin-picker
