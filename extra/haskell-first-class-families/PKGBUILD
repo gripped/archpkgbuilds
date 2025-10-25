@@ -2,21 +2,16 @@
 
 _hkgname=first-class-families
 pkgname=haskell-first-class-families
-pkgver=0.8.1.0
-pkgrel=2
+pkgver=0.8.2.0
+pkgrel=1
 pkgdesc="First class type families"
 url="https://github.com/Lysxia/first-class-families"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('ec328eaf025b69f0aeb6fd37f3fac726d8537502313881fe9c9b8d934ade306ac00eb0ed6c2a93ef8a06625d1b48a5933392117b2669f7987a81e960daf0d5df')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u base $_hkgname.cabal
-}
+sha512sums=('e1a6bb3aa33dd32b51e2ef0d5b917d29d4f9b1f81c904d6eccff75dd7d9ca37842c5383856fb1834e1faff201c9db2f9e71772e157b2cbe4d370027195c2623c')
 
 build() {
     cd $_hkgname-$pkgver
