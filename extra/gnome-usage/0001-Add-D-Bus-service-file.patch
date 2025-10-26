@@ -1,4 +1,4 @@
-From 149e9e6f5284344f0fd39a73ca5b08ecaf7cd17f Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Wed, 23 Apr 2025 11:08:48 +0200
 Subject: [PATCH] Add D-Bus service file
@@ -13,7 +13,7 @@ launchers to activate it via D-Bus.
  create mode 100644 data/org.gnome.Usage.service.in
 
 diff --git a/data/meson.build b/data/meson.build
-index 1c7841d9..7799c01d 100644
+index 1c7841d92add..7799c01d44d5 100644
 --- a/data/meson.build
 +++ b/data/meson.build
 @@ -62,6 +62,17 @@ resources = gnome.compile_resources(
@@ -35,7 +35,7 @@ index 1c7841d9..7799c01d 100644
    'icons/hicolor/scalable/apps/@0@.svg'.format(application_id),
    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'apps'),
 diff --git a/data/org.gnome.Usage.desktop.in.in b/data/org.gnome.Usage.desktop.in.in
-index 8079db7c..5cbbc720 100644
+index 8079db7ccc55..5cbbc7202382 100644
 --- a/data/org.gnome.Usage.desktop.in.in
 +++ b/data/org.gnome.Usage.desktop.in.in
 @@ -7,6 +7,7 @@ Exec=gnome-usage
@@ -48,13 +48,10 @@ index 8079db7c..5cbbc720 100644
  Keywords=Monitor;System;Process;CPU;Memory;Network;History;Usage;Performance;Task;Manager;
 diff --git a/data/org.gnome.Usage.service.in b/data/org.gnome.Usage.service.in
 new file mode 100644
-index 00000000..eb44b41d
+index 000000000000..eb44b41db184
 --- /dev/null
 +++ b/data/org.gnome.Usage.service.in
 @@ -0,0 +1,3 @@
 +[D-BUS Service]
 +Name=@app-id@
 +Exec=@bindir@/gnome-usage --gapplication-service
--- 
-GitLab
-

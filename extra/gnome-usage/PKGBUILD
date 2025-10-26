@@ -2,8 +2,8 @@
 # Contributor: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=gnome-usage
-pkgver=46.1
-pkgrel=3
+pkgver=48.0
+pkgrel=1
 pkgdesc="View information about use of system resources"
 url="https://wiki.gnome.org/Apps/Usage"
 arch=(x86_64)
@@ -16,11 +16,13 @@ depends=(
   graphene
   gtk4
   hicolor-icon-theme
+  json-glib
   libadwaita
   libgee
   libgtop
+  libnm
   pango
-  tracker3
+  tinysparql
 )
 makedepends=(
   accountsservice
@@ -33,27 +35,19 @@ optdepends=(
   'accountsservice: show user tags for processes'
   'gamemode: show processes requesting game mode'
 )
-source=("git+https://gitlab.gnome.org/GNOME/gnome-usage.git#tag=${pkgver/[a-z]/.&}"
-        gnome-usage-activate.patch
-        gnome-usage-dbus-activatable.patch)
-b2sums=('f8a29276b6abad862deda88bfa0a8ea33b1a864bb186b5fc6df527952cf2bd1012224767c61a2e3fe6a48822bed3b85a5093ff59f6bb2e9cdf6b0837676287eb'
-        '3db05a00213acef5592c1aa79b8585acfb5dc9f07892ed76f57196288b9df138a7d5a712730ba22fda07679624a7b68d9fb0c34cf85b191c655c506faa2ecebc'
-        'a523c7cf4ec5ffb96d2d1006d1eeffb750eaf0f68d30d04fefda213de91ab0ccce72aaea477d15e4290b5063b910d0d33e8cf18209e6c88d956777b88ae683e1')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-usage.git#tag=${pkgver/[a-z]/.&}"
+  0001-Add-D-Bus-service-file.patch
+)
+b2sums=('e52ebf855515a26a171cac84dfcc0a9fc2fe8850c820b7d403d606eb1e98c85794d70f1f76931b2f9d2fa0f1c377841972795c9d2e3c2972861b8324b4d73cdb'
+        '34066b9a090b5466bfbb215a726e566a3268e7036075e712db580c2cb6e5d83ec1eaee5f5f71737ac383939d1183aff05ab284e75ddb15f59e3c577bb16ee155')
 
 prepare() {
   cd $pkgname
 
-  # Skip XDG folder if missing
-  # https://gitlab.gnome.org/GNOME/gnome-usage/-/merge_requests/158
-  git cherry-pick -n 79be9db03b452fe85a97e4f23591a6a305996394
-
-  # Present existing window on activation
-  # https://gitlab.gnome.org/GNOME/gnome-usage/-/merge_requests/166
-  git apply -3 ../gnome-usage-activate.patch
-
   # Add D-Bus service file
   # https://gitlab.gnome.org/GNOME/gnome-usage/-/merge_requests/167
-  git apply -3 ../gnome-usage-dbus-activatable.patch
+  git apply -3 ../0001-Add-D-Bus-service-file.patch
 }
 
 build() {
