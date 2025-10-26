@@ -1,0 +1,23 @@
+From f98e0fc550b46f977cafa098c9b0e65563a7175f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 26 Oct 2025 11:02:22 +0100
+Subject: [PATCH] Use insensitive color for line numbers
+
+Without this, the color of the line numbers is the same as the color of the text and difficult to distinguish.
+---
+ src/linenum.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/linenum.c b/src/linenum.c
+index e78dcd8..f29ffe1 100644
+--- a/src/linenum.c
++++ b/src/linenum.c
+@@ -114,7 +114,7 @@ line_numbers_foreground_attr_new(GtkWidget *widget)
+ 	GdkRGBA          rgb;
+ 
+ 	context = gtk_widget_get_style_context(widget);
+-	gtk_style_context_get_color(context, GTK_STATE_FLAG_NORMAL, &rgb);
++	gtk_style_context_get_color(context, GTK_STATE_FLAG_INSENSITIVE, &rgb);
+ 
+ 	return pango_attr_foreground_new((guint16)(rgb.red   * 65535),
+ 									 (guint16)(rgb.green * 65535),
