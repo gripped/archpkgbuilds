@@ -2,26 +2,18 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-qt
-pkgver=5.1.10
-pkgrel=5
+pkgver=5.1.11
+pkgrel=1
 pkgdesc="Fcitx5 Qt Library (Qt5 & Qt6 integrations)"
 arch=('x86_64')
 url="https://github.com/fcitx/fcitx5-qt"
-license=('GPL')
+license=('LGPL-2.1-or-later AND BSD-3-Clause')
 groups=('fcitx5-im')
 depends=('glibc' 'gcc-libs' 'libxcb' 'libxkbcommon' 'fcitx5' 'qt6-base' 'wayland')
 makedepends=('git' 'extra-cmake-modules' 'qt5-base' 'ninja')
-source=("git+https://github.com/fcitx/fcitx5-qt.git#tag=$pkgver?signed"
-         qt-6.10.patch)
-sha512sums=('2e4e50f4820e33d2c9849b498991ec492cb571a673a1c276634d86b9145ee0e3058c5d2849615c6ace0a0b68fc25c242eed7e57a27a9d36b1ee0f83263c04bf3'
-            '4793626852e53c599eab694f7e859b54eb7804f2f8515505b5ef7c543510eeb80f14baf256ef66a27898568303218503de583f734d9a8408d67df3d7235e6999')
+source=("git+https://github.com/fcitx/fcitx5-qt.git#tag=$pkgver?signed")
+sha512sums=('439a90305c0c101722ecb7f26968eb2ad1578ff5d81875151f8a8040a51200f1c24dd89d98386523eacc35f096bfb7557f28b7394cb7016607d08aabc403a702')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
-
-prepare() {
-  cd $pkgname
-  patch -p1 -i ../qt-6.10.patch
-  git cherry-pick -n 649e8111c58612004ee4e3d61ef4d427e8ca29a7 # Fix crash in featherpad
-}
 
 build() {
   cd $pkgname
