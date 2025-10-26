@@ -2,7 +2,7 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-chinese-addons
-pkgver=5.1.9
+pkgver=5.1.10
 _py_stroke_ver=20250329
 _py_table_ver=20121124
 pkgrel=1
@@ -17,7 +17,7 @@ optdepends=('fcitx5-lua: Lua and imeapi support from pinyin')
 source=("git+https://github.com/fcitx/fcitx5-chinese-addons.git#tag=$pkgver?signed"
         "https://download.fcitx-im.org/data/py_stroke-$_py_stroke_ver.tar.gz"
         "https://download.fcitx-im.org/data/py_table-$_py_table_ver.tar.gz")
-sha512sums=('a54e9c215a2bab49d673044a2a903280961c8a88c5089d1edfdcc1c2e0f8150abd89aa471778f8b64dcdbc25f122d958f603e89d28b824202daa4967caff4d65'
+sha512sums=('c37486ccaceb399b0128dfde067a327b164127f4e948c29612ee8292085c608bf9fb468d44cee9caf485c567466b02f9d55b3f5cbf9f5edd330e26018837aef9'
             '0b69b008e00a246dd8ff56d6c1e2a3402a2f26e957623e2927b919ac8a90e99861c3f525e3ccf166ba27ac2e44cdbd68fb0dac234f7e4e8e26d7e23ab6ff9144'
             '0fa72ce6820a316e9729bc0d7a08af5ca3468134de9ff1bf0c559a398846a7bcf7313a3609d943e6bab637d930cf45ad9acfe25a8d3df078a774b071a7296486')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
@@ -26,6 +26,9 @@ noextract=("py_stroke-$_py_stroke_ver.tar.gz"
 
 prepare() {
   cd $pkgname
+  # fix tests: https://github.com/fcitx/fcitx5-chinese-addons/pull/238
+  git cherry-pick -n 666f8d04548af7e47958de63fe7aa9da3f0e76c1
+
   mv ../py_stroke-$_py_stroke_ver.tar.gz modules/pinyinhelper/
   mv ../py_table-$_py_table_ver.tar.gz modules/pinyinhelper/
   # grep to make sure the version is correct
