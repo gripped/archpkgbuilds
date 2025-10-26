@@ -3,7 +3,7 @@
 
 pkgname=typst
 pkgver=0.14.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='A markup-based typesetting system for the sciences'
 arch=(x86_64)
@@ -31,7 +31,8 @@ build() {
 	local hash=$(gunzip < "$_archive.tar.gz" | git get-tar-commit-id)
 	cd "$_archive"
 	CFLAGS+=' -ffat-lto-objects'
-	export TYPST_VERSION="$pkgver (${hash::8})"
+	export TYPST_VERSION="$pkgver"
+	export TYPST_COMMIT_SHA="${hash::8}"
 	export GEN_ARTIFACTS=artifacts/
 	export OPENSSL_NO_VENDOR=true
 	cargo build -p typst-cli --frozen --release
