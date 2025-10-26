@@ -1,0 +1,58 @@
+# Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
+
+_name='gp-libs'
+pkgname="python-${_name}"
+pkgver=0.0.14
+pkgrel=1
+pkgdesc='Incubator for pytest and sphinx helpers for git-pull python projects'
+arch=('any')
+url='https://gp-libs.git-pull.com/'
+license=('MIT')
+depends=(
+  python
+  python-docutils
+  python-myst-parser
+)
+makedepends=(
+  python-build
+  python-hatchling
+  python-installer
+  python-sphinx
+)
+checkdepends=(
+  python-pytest
+  python-pytest-mock
+  python-pytest-rerunfailures
+)
+source=("https://github.com/git-pull/gp-libs/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('840ff04a226c2f1dce2ab2931f3c5116cf42c824edbdec19993a1c4863264251d7b7949d9ae494e162e59da9ec89d360708b384e08f393afb6898f9c22bdd20c')
+b2sums=('c9186d085df67b2316ff43c6df6c98b542611c96c41c66c414521d6bee24a20818ab9876d010cf494ac3d6d7854e7d6e680c6476fae8fd6232bbbd41a99f4da2')
+
+build() {
+  cd  "${_name}-${pkgver}"
+
+  python -m build --wheel --skip-dependency-check --no-isolation
+}
+
+check() {
+  cd  "${_name}-${pkgver}"
+
+  local _site_packages="$(python -c "import site; print(site.getsitepackages()[0])")"
+
+  python -m installer --destdir=test_dir dist/*.whl
+
+  export PYTHONPATH="test_dir${_site_packages}:${PYTHONPATH}"
+
+  pytest -vv tests
+}
+
+package() {
+  cd  "${_name}-${pkgver}"
+
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+
+  install --verbose -D --mode=0644 LICENSE --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md CHANGES --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
+}
+
+# vim: tabstop=2 shiftwidth=2 expandtab:
