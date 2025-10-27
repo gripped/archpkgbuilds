@@ -2,7 +2,7 @@
 
 pkgname=rdkit
 pkgver=2025.09.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Open-source toolkit for cheminformatics"
 arch=(x86_64)
 url="https://github.com/rdkit/rdkit"
@@ -13,6 +13,7 @@ depends=(
   freetype2
   gcc-libs
   glibc
+  inchi
   python
   python-numpy
   python-pillow
@@ -28,6 +29,12 @@ makedepends=(
 source=($pkgname-$pkgver.tar.gz::$url/archive/Release_${pkgver//./_}.tar.gz)
 b2sums=('c7ac861d8e1c6c675853490a983b9dc86020ae4a66a9caec38335510758ba6757fd6111a81166403315111ad5270b109fb269df7e2c9899ac577ed2486f0cc58')
 
+prepare() {
+  # Fix finding Eigen3 https://github.com/rdkit/rdkit/issues/8896
+  rm $pkgname-Release_${pkgver//./_}/Code/cmake/Modules/FindEigen3.cmake
+  sed -i 's|if(NOT EIGEN3_FOUND)|if(NOT TARGET Eigen3::Eigen)|' $pkgname-Release_${pkgver//./_}/CMakeLists.txt
+}
+
 build() {
   local cmake_options=(
     -B build
@@ -37,6 +44,7 @@ build() {
     -DCMAKE_BUILD_TYPE=None
     -DCMAKE_INSTALL_PREFIX=/usr
     -DRDK_BUILD_CAIRO_SUPPORT=ON
+    -DRDK_BUILD_INCHI_SUPPORT=ON
     -DRDK_INSTALL_INTREE=OFF
     -DRDK_INSTALL_STATIC_LIBS=OFF
     # TODO: the test suite has too many failures, even due to bad input files
