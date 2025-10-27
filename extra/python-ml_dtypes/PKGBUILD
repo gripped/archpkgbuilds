@@ -1,0 +1,56 @@
+# Maintainer: Torsten Keßler <tpkessler@archlinux.org>
+
+pkgname=python-ml_dtypes
+pkgver=0.5.3
+pkgrel=1
+pkgdesc="stand-alone implementation of several NumPy dtype extensions used in machine learning"
+arch=('x86_64')
+url=https://github.com/jax-ml/ml_dtypes
+license=('Apache-2.0 AND MPL-2.0')
+depends=(
+  python
+  python-numpy
+  glibc
+  gcc-libs
+)
+makedepends=(
+  git
+  eigen
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+source=(
+  "${pkgname}::git+https://github.com/jax-ml/ml_dtypes#tag=v$pkgver"
+  "${pkgname}-eigen::git+https://gitlab.com/libeigen/eigen.git"
+)
+sha256sums=('490512f1a05a60c7b2166898c2a66ee9be5768795723f9dde4267327b5876b1f'
+            'SKIP')
+
+prepare() {
+  cd $pkgname
+  git submodule init
+
+  git config submodule."eigen".url "${srcdir}/${pkgname}"-eigen
+  git config submodule."third_party/eigen".url "${srcdir}/${pkgname}"-eigen
+
+  git -c protocol.file.allow=always submodule update --init --recursive
+
+  # Build against most recent setuptools
+  sed -i "/setuptools~=/d" pyproject.toml
+}
+
+build() {
+  cd $pkgname
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname
+  install -Dm644 LICENSE.eigen "$pkgdir"/usr/share/licenses/$pkgname
+}
+
+# vim:set ts=2 sw=2 et:
