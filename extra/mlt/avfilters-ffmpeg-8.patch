@@ -1,0 +1,155 @@
+From 708caef19bee18d08965e78752a62d6ae7a470fa Mon Sep 17 00:00:00 2001
+From: Dan Dennedy <dan@dennedy.org>
+Date: Sat, 25 Oct 2025 17:27:33 -0700
+Subject: [PATCH] Fix #1165 some avfilters broken in FFmpeg 8
+
+Refactor to `mlt_color_trc_from_colorspace()` and use it to default
+`AVFrame.color_primaries` and `AVFrame.color_trc` in avfilter.
+---
+ src/modules/avformat/common.c            | 23 +++++++++++++++++++
+ src/modules/avformat/common.h            |  1 +
+ src/modules/avformat/consumer_avformat.c | 28 ++++--------------------
+ src/modules/avformat/filter_avfilter.c   |  7 +++++-
+ src/modules/avformat/link_avfilter.c     |  7 +++++-
+ 5 files changed, 40 insertions(+), 26 deletions(-)
+
+diff --git a/src/modules/avformat/common.c b/src/modules/avformat/common.c
+index a3e1c0b6..1112c669 100644
+--- a/src/modules/avformat/common.c
++++ b/src/modules/avformat/common.c
+@@ -610,11 +610,34 @@ mlt_color_primaries mlt_color_primaries_from_colorspace(mlt_colorspace colorspac
+     return mlt_color_pri_none;
+ }
+ 
++
+ int mlt_to_av_color_range(int full_range)
+ {
+     return full_range ? AVCOL_RANGE_JPEG : AVCOL_RANGE_MPEG;
+ }
+ 
++mlt_color_trc mlt_color_trc_from_colorspace(mlt_colorspace colorspace)
++{
++    switch (colorspace) {
++    case mlt_colorspace_bt709:
++        return mlt_color_trc_bt709;
++    case mlt_colorspace_bt470bg:
++        return mlt_color_trc_gamma28;
++    case mlt_colorspace_smpte240m:
++        return mlt_color_trc_smpte240m;
++    case mlt_colorspace_rgb: // sRGB
++        return mlt_color_trc_iec61966_2_1;
++    case mlt_colorspace_bt601:
++    case mlt_colorspace_smpte170m:
++        return mlt_color_trc_smpte170m;
++    case mlt_colorspace_bt2020_ncl:
++        return mlt_color_trc_bt2020_10;
++    default:
++        break;
++    }
++    return mlt_color_trc_none;
++}
++
+ void mlt_image_to_avframe(mlt_image image, mlt_frame mltframe, AVFrame *avframe)
+ {
+     mlt_properties frame_properties = MLT_FRAME_PROPERTIES(mltframe);
+diff --git a/src/modules/avformat/common.h b/src/modules/avformat/common.h
+index db5cb608..0cda9c7c 100644
+--- a/src/modules/avformat/common.h
++++ b/src/modules/avformat/common.h
+@@ -51,6 +51,7 @@ mlt_colorspace av_to_mlt_colorspace(int colorspace, int width, int height);
+ int mlt_to_av_color_primaries(mlt_color_primaries primaries);
+ mlt_color_primaries av_to_mlt_color_primaries(int primaries);
+ mlt_color_primaries mlt_color_primaries_from_colorspace(mlt_colorspace colorspace, int height);
++mlt_color_trc mlt_color_trc_from_colorspace(mlt_colorspace colorspace);
+ int mlt_to_av_color_range(int full_range);
+ void mlt_image_to_avframe(mlt_image image, mlt_frame mltframe, AVFrame *avframe);
+ void avframe_to_mlt_image(AVFrame *avframe, mlt_image image);
+diff --git a/src/modules/avformat/consumer_avformat.c b/src/modules/avformat/consumer_avformat.c
+index cdec52aa..544ad5c5 100644
+--- a/src/modules/avformat/consumer_avformat.c
++++ b/src/modules/avformat/consumer_avformat.c
+@@ -370,30 +370,9 @@ static void color_trc_from_colorspace(mlt_properties properties)
+ {
+     // Default color transfer characteristic from MLT colorspace.
+     const char *colorspace_str = mlt_properties_get(properties, "colorspace");
+-    mlt_colorspace colorspace = mlt_image_colorspace_id(colorspace_str);
+-    switch (colorspace) {
+-    case mlt_colorspace_bt709:
+-        mlt_properties_set_int(properties, "color_trc", mlt_color_trc_bt709);
+-        break;
+-    case mlt_colorspace_bt470bg:
+-        mlt_properties_set_int(properties, "color_trc", mlt_color_trc_gamma28);
+-        break;
+-    case mlt_colorspace_smpte240m:
+-        mlt_properties_set_int(properties, "color_trc", mlt_color_trc_smpte240m);
+-        break;
+-    case mlt_colorspace_rgb: // sRGB
+-        mlt_properties_set_int(properties, "color_trc", mlt_color_trc_iec61966_2_1);
+-        break;
+-    case mlt_colorspace_bt601:
+-    case mlt_colorspace_smpte170m:
+-        mlt_properties_set_int(properties, "color_trc", mlt_color_trc_smpte170m);
+-        break;
+-    case mlt_colorspace_bt2020_ncl:
+-        mlt_properties_set_int(properties, "color_trc", mlt_color_trc_bt2020_10);
+-        break;
+-    default:
+-        break;
+-    }
++    const mlt_colorspace colorspace = mlt_image_colorspace_id(colorspace_str);
++    const mlt_color_trc trc = mlt_color_trc_from_colorspace(colorspace);
++    mlt_properties_set_int(properties, "color_trc", trc);
+ }
+ 
+ static void color_primaries_from_colorspace(mlt_properties properties)
+@@ -956,6 +935,7 @@ static AVStream *add_video_stream(mlt_consumer consumer,
+         // Temporarily convert the mlt colorspace to av colorspace before applying the properties
+         const char *colorspace_str = mlt_properties_get(properties, "colorspace");
+         mlt_colorspace colorspace = mlt_image_colorspace_id(colorspace_str);
++        colorspace = mlt_colorspace_rgb;
+         mlt_properties_clear(properties, "colorspace");
+         int av_colorspace = mlt_to_av_colorspace(colorspace,
+                                                  mlt_properties_get_int(properties, "height"));
+diff --git a/src/modules/avformat/filter_avfilter.c b/src/modules/avformat/filter_avfilter.c
+index 9f56d96f..fcf8a43a 100644
+--- a/src/modules/avformat/filter_avfilter.c
++++ b/src/modules/avformat/filter_avfilter.c
+@@ -862,9 +862,14 @@ static int filter_get_image(mlt_frame frame,
+ #endif
+         const char *primaries_str = mlt_properties_get(frame_properties, "color_primaries");
+         mlt_color_primaries primaries = mlt_image_color_pri_id(primaries_str);
++        if (primaries == mlt_color_pri_none)
++            primaries = mlt_color_primaries_from_colorspace(colorspace, *height);
+         pdata->avinframe->color_primaries = mlt_to_av_color_primaries(primaries);
+         const char *color_trc_str = mlt_properties_get(frame_properties, "color_trc");
+-        pdata->avinframe->color_trc = mlt_to_av_color_trc(mlt_image_color_trc_id(color_trc_str));
++        mlt_color_trc trc = mlt_image_color_trc_id(color_trc_str);
++        if (trc == mlt_color_trc_none)
++            trc = mlt_color_trc_from_colorspace(colorspace);
++        pdata->avinframe->color_trc = mlt_to_av_color_trc(trc);
+         pdata->avinframe->color_range = mlt_to_av_color_range(full_range);
+ 
+         if (is_rgb(*format)) {
+diff --git a/src/modules/avformat/link_avfilter.c b/src/modules/avformat/link_avfilter.c
+index f642fa49..46750325 100644
+--- a/src/modules/avformat/link_avfilter.c
++++ b/src/modules/avformat/link_avfilter.c
+@@ -966,9 +966,14 @@ static int link_get_image(mlt_frame frame,
+ #endif
+         const char *primaries_str = mlt_properties_get(frame_properties, "color_primaries");
+         mlt_color_primaries primaries = mlt_image_color_pri_id(primaries_str);
++        if (primaries == mlt_color_pri_none)
++            primaries = mlt_color_primaries_from_colorspace(colorspace, *height);
+         pdata->avinframe->color_primaries = mlt_to_av_color_primaries(primaries);
+         const char *color_trc_str = mlt_properties_get(frame_properties, "color_trc");
+-        pdata->avinframe->color_trc = mlt_to_av_color_trc(mlt_image_color_trc_id(color_trc_str));
++        mlt_color_trc trc = mlt_image_color_trc_id(color_trc_str);
++        pdata->avinframe->color_trc = mlt_to_av_color_trc(trc);
++        if (trc == mlt_color_trc_none)
++            trc = mlt_color_trc_from_colorspace(colorspace);
+         pdata->avinframe->color_range = mlt_to_av_color_range(full_range);
+         const char *colorspace_str = mlt_properties_get(frame_properties, "colorspace");
+         mlt_colorspace colorspace = mlt_image_colorspace_id(colorspace_str);
+-- 
+2.51.0
+
