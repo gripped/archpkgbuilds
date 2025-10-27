@@ -2,7 +2,7 @@
 # Contributor: Pan Lanlan <abbypan@gmail.com>
 
 pkgname=leancrypto
-pkgver=1.5.1
+pkgver=1.6.0
 pkgrel=1
 pkgdesc="Lean cryptographic library usable for bare-metal environments"
 arch=('x86_64')
@@ -13,7 +13,7 @@ url="https://leancrypto.org"
 depends=('glibc')
 makedepends=('meson')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/smuellerDD/leancrypto/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('9c14639ea047554598a99d6a8cf2598b3cd89be0608df8cc06d80dd66087e2da')
+sha256sums=('b5057cfb990108c4a9f21832f1f35f3d98115012d1628e00650558e6b49e8285')
 
 build() {
   arch-meson $pkgname-$pkgver build
