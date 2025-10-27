@@ -107,7 +107,7 @@ index 7f40999..fdc2525 100644
  	map_size = 8 * mod_keymap->max_keypermod;
  
 diff --git a/src/main.c b/src/main.c
-index 2029fba..6c48402 100644
+index 2029fba..294a74b 100644
 --- a/src/main.c
 +++ b/src/main.c
 @@ -398,7 +398,17 @@ gchar *update_clipboard(GtkClipboard *clip,gchar *intext,  gint mode)
@@ -179,53 +179,25 @@ index 2029fba..6c48402 100644
    /* Popup the menu... */
    gtk_widget_show_all(menu);
 -  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, NULL, NULL, 1, gtk_get_current_event_time());
-+  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, gtk_status_icon_position_menu, status_icon, 1, gtk_get_current_event_time());
++  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, status_icon ? gtk_status_icon_position_menu : NULL, status_icon, 1, gtk_get_current_event_time());
    /* Return false so the g_timeout_add() function is called only once */
    return FALSE;
  }
-@@ -1864,27 +1874,6 @@ void destroy_history_menu(GtkMenuShell *menu, gpointer u)
- 	gtk_widget_destroy((GtkWidget *)menu);
- }
- 
--/***************************************************************************/
--/** 
--****************************************************************************/
--void set_menu_xy(GtkMenu *menu, gint *x, gint *y, gboolean *push, gpointer user_data)
--{
--  GdkDisplay *dis;
--  if (NULL != (dis=gdk_display_get_default())) {
--    gdk_display_get_pointer(dis, NULL,x,y,NULL);
--    if( NULL == user_data)
--    	*y=1; // history
--    else
--      *y-=120; //icon menu
--    *x-=50;
--    if(*x<=0)
--    	*x=1;
--		if(*y<=0)
--			*y=1;
--  }
--
--}
--
- /***************************************************************************/
- /**  Called when status icon is left-clicked or action key hit.
- \n\b Arguments:
-@@ -2122,7 +2111,7 @@ next_loop:
+@@ -2122,7 +2132,7 @@ next_loop:
  	g_signal_connect(menu,"selection-done",(GCallback)destroy_history_menu,(gpointer)&h);
    /* Popup the menu... */
    gtk_widget_show_all(menu);
 -  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, get_pref_int32("history_pos")?postition_history:set_menu_xy, NULL, 1, gtk_get_current_event_time());
-+  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, get_pref_int32("history_pos")?postition_history:gtk_status_icon_position_menu, status_icon, 1, gtk_get_current_event_time());
++  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, get_pref_int32("history_pos")?postition_history:status_icon ? gtk_status_icon_position_menu : set_menu_xy, status_icon, 1, gtk_get_current_event_time());
  	/**set last entry at first -fixes bug 2974614 */
  	if(get_pref_int32("reverse_history") && NULL != h.clip_item)
  		gtk_menu_shell_select_item((GtkMenuShell*)menu,h.clip_item);
-@@ -2206,14 +2195,15 @@ GtkWidget *create_parcellite_menu(guint button, guint activate_time)
+@@ -2206,14 +2216,15 @@ GtkWidget *create_parcellite_menu(guint button, guint activate_time)
    gtk_menu_shell_append((GtkMenuShell*)menu, menu_item);
    /* Popup the menu... */
    gtk_widget_show_all(menu);
 -  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, set_menu_xy, (gpointer)1, button, activate_time);
-+  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, gtk_status_icon_position_menu, status_icon, button, activate_time);
++  gtk_menu_popup((GtkMenu*)menu, NULL, NULL, status_icon ? gtk_status_icon_position_menu : set_menu_xy, status_icon, button, activate_time);
    return menu;
  }
  
@@ -238,7 +210,7 @@ index 2029fba..6c48402 100644
  }
  
  
-@@ -2229,13 +2219,13 @@ static void status_icon_clicked(GtkStatusIcon *status_icon, gpointer user_data)
+@@ -2229,13 +2240,13 @@ static void status_icon_clicked(GtkStatusIcon *status_icon, gpointer user_data)
  		g_fprintf(stderr,"Got Ctrl-click\n");
      if (actions_lock == FALSE)
      {
@@ -254,7 +226,7 @@ index 2029fba..6c48402 100644
    }
  }
  /***************************************************************************/
-@@ -2248,7 +2238,7 @@ void setup_icon( void )
+@@ -2248,7 +2259,7 @@ void setup_icon( void )
  	if(0 == have_appindicator){/* no Indicator */
  		if(NULL == status_icon){
  			status_icon = gtk_status_icon_new_from_icon_name(get_pref_string("icon_name")); 
@@ -263,7 +235,30 @@ index 2029fba..6c48402 100644
  			g_signal_connect((GObject*)status_icon, "activate", (GCallback)status_icon_clicked, NULL);
  			g_signal_connect((GObject*)status_icon, "popup-menu", (GCallback)show_parcellite_menu, NULL);	
  		}	else {
-@@ -2519,7 +2509,7 @@ int main(int argc, char *argv[])
+@@ -2304,6 +2315,13 @@ void actions_hotkey(char *keystring, gpointer user_data)
+   g_timeout_add(POPUP_DELAY, show_actions_menu, NULL);
+ }
+ 
++gboolean
++timeout_show_menu_cb(gpointer user_data)
++{
++  create_parcellite_menu(0, gtk_get_current_event_time());
++  return FALSE;
++}
++
+ /* Called when actions global hotkey is pressed */
+ void menu_hotkey(char *keystring, gpointer user_data)
+ {
+@@ -2313,7 +2331,7 @@ void menu_hotkey(char *keystring, gpointer user_data)
+ 	/** GtkWidget * w=create_parcellite_menu(0, gtk_get_current_event_time());
+ 	app_indicator_set_menu (indicator, GTK_MENU (w));*/
+ #else
+-  show_parcellite_menu(status_icon, 0, 0, NULL);
++  g_timeout_add(POPUP_DELAY, timeout_show_menu_cb, NULL);
+ #endif
+ }
+ 
+@@ -2519,7 +2537,7 @@ int main(int argc, char *argv[])
  	}	
    
    /* Init Parcellite */
@@ -272,6 +267,19 @@ index 2029fba..6c48402 100644
    /*g_printf("Start main loop\n"); */
    /* Run GTK+ loop */
    gtk_main();
+diff --git a/src/main.h b/src/main.h
+index d6d435f..24f570e 100644
+--- a/src/main.h
++++ b/src/main.h
+@@ -24,7 +24,7 @@ G_BEGIN_DECLS
+ extern GMutex hist_lock;
+ 
+ #define ACTIONS_TAB    2
+-#define POPUP_DELAY    100
++#define POPUP_DELAY    200
+ #define CHECK_INTERVAL 500
+ #define CHECK_APPINDICATOR_INTERVAL 30000 /**check for existence of indicator-appmenu  */
+ #define ID_PRIMARY   0
 diff --git a/src/preferences.c b/src/preferences.c
 index dc7e046..50d1871 100644
 --- a/src/preferences.c
