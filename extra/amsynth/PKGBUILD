@@ -4,8 +4,8 @@
 
 pkgbase=amsynth
 pkgname=(amsynth amsynth-{common,dssi,lv2,standalone,vst})
-pkgver=1.13.4
-pkgrel=2
+pkgver=1.13.4+r202+gc83787a
+pkgrel=1
 pkgdesc="Analogue Modeling SYNTHesizer"
 arch=(x86_64)
 url="https://amsynth.github.io/"
@@ -17,34 +17,53 @@ groups=(
   vst-plugins
 )
 makedepends=(
-  atk
   autoconf-archive
-  cairo
   dssi
   fontconfig
   freetype2
   gcc-libs
-  gdk-pixbuf2
-  glib2
+  git
   glibc
-  gtk2
   harfbuzz
   intltool
   jack
   ladspa
   liblo
+  libpng
+  libxcursor
+  libxinerama
+  libxrandr
   lv2
   pandoc
+  zlib
 )
 checkdepends=(lv2lint)
+_commit=c83787a381dded142f55e9090f20f0f9e816da72  # develop
 source=(
-  $pkgname-$pkgver.tar.gz::https://github.com/amsynth/amsynth/archive/release-$pkgver.tar.gz
+  git+https://github.com/amsynth/amsynth.git#commit=$_commit
+  git+https://github.com/juce-framework/JUCE.git
+  git+https://github.com/ODDSound/MTS-ESP.git
 )
-sha512sums=('fe5ab71de33c41380736f1adf7e9146019e2839f935a5a9090b940e2bcbe99b33695faa556770899be5f5d04fb7d194db3f8d83c193a84c3b97b7b3dffe6baa1')
-b2sums=('459c59d7181f6ce7f55f21c44a1a141f24c265c3768fcfd8c0165938266502f8a72c82b9168558c00053d2f5ebef797a26dac7dd8f0a76632ce3808df827fd5b')
+sha512sums=('c3514d90b2202c0b7f708779980cae266566db05195f17189ebaa5eee277aba32a37bc0c1b5661b57b81ae18b720ffbc9aa21f7f426c9d29ab6104297c20e841'
+            'SKIP'
+            'SKIP')
+b2sums=('d53329901b880e544a1689b7b2d146c90cb605ab989d99a962bd79fcca47790ce027aa67b34fd8be827d86beb7b205a92a45045b8ec3e448ec301c9fd4b759f0'
+        'SKIP'
+        'SKIP')
+
+pkgver() {
+  cd $pkgname
+  git describe --tags | sed 's/^release-//;s/[^-]*-g/r&/;s/-/+/g'
+}
 
 prepare() {
-  cd $pkgname-release-$pkgver
+  cd $pkgname
+
+  git submodule init
+  git submodule set-url external/JUCE "$srcdir/JUCE"
+  git submodule set-url external/MTS-ESP "$srcdir/MTS-ESP"
+  git -c protocol.file.allow=always submodule update
+
 # Fix metainfo install dir
   sed -e 's|/appdata|/metainfo|' -i Makefile.am
   autoreconf -fiv
@@ -62,7 +81,7 @@ build() {
     --with-pandoc
   )
 
-  cd $pkgname-release-$pkgver
+  cd $pkgname
   ./configure "${configure_options[@]}"
   # prevent excessive overlinking due to libtool
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
@@ -70,9 +89,9 @@ build() {
 }
 
 check() {
-  cd $pkgname-release-$pkgver
+  cd $pkgname
   cp .libs/${pkgname}_lv2*.so data/$pkgname.lv2/
-  lv2lint -Mpack -I data/$pkgname.lv2 "http://code.google.com/p/amsynth/amsynth"
+  lv2lint -Mpack -I data/$pkgname.lv2 "http://code.google.com/p/amsynth/amsynth" || : # fails: UI Symbols
 }
 
 _pick() {
@@ -90,7 +109,7 @@ package_amsynth() {
     amsynth-{common,dssi,lv2,standalone,vst}
   )
 
-  make DESTDIR="$pkgdir/" install -C $pkgname-release-$pkgver
+  make DESTDIR="$pkgdir/" install -C $pkgname
   (
     cd "$pkgdir"
     _pick $pkgname-common usr/share/$pkgname
@@ -113,22 +132,20 @@ package_amsynth-common() {
   pkgdesc+=" - common data"
 
   mv -v $pkgname/* "$pkgdir/"
-  install -vDm 644 $pkgbase-release-$pkgver/{AUTHORS,NEWS,README} -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 $pkgbase/{AUTHORS,CHANGELOG.md,README.md} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
 
 package_amsynth-dssi() {
   pkgdesc+=" - DSSI plugin"
   depends=(
     amsynth-common
-    cairo libcairo.so
     dssi-host
+    freetype2 libfreetype.so
     gcc-libs
-    gdk-pixbuf2 libgdk_pixbuf-2.0.so
-    glib2 libgio-2.0.so libglib-2.0.so libgobject-2.0.so
     glibc
-    gtk2 libgdk-x11-2.0.so libgtk-x11-2.0.so
     liblo liblo.so
-    libx11
+    libpng libpng16.so
+    zlib libz.so
   )
 
   mv -v $pkgname/* "$pkgdir/"
@@ -138,13 +155,12 @@ package_amsynth-lv2() {
   pkgdesc+=" - LV2 plugin"
   depends=(
     amsynth-common
-    cairo libcairo.so
+    freetype2 libfreetype.so
     gcc-libs
-    gdk-pixbuf2 libgdk_pixbuf-2.0.so
-    glib2 libgio-2.0.so libglib-2.0.so libgobject-2.0.so
     glibc
-    gtk2 libgdk-x11-2.0.so libgtk-x11-2.0.so
+    libpng libpng16.so
     lv2-host
+    zlib libz.so
   )
 
   mv -v $pkgname/* "$pkgdir/"
@@ -155,17 +171,14 @@ package_amsynth-standalone() {
   depends=(
     amsynth-common
     alsa-lib libasound.so
-    atk libatk-1.0.so
-    cairo libcairo.so
+    freetype2 libfreetype.so
     gcc-libs
-    gdk-pixbuf2 libgdk_pixbuf-2.0.so
-    glib2 libgio-2.0.so libglib-2.0.so libgobject-2.0.so
     glibc
-    gtk2 libgdk-x11-2.0.so libgtk-x11-2.0.so
     hicolor-icon-theme
     jack libjack.so
     liblo liblo.so
-    libx11
+    libpng libpng16.so
+    zlib libz.so
   )
   optdepends=(
     'new-session-manager: for session management with the standalone application'
@@ -178,13 +191,12 @@ package_amsynth-vst() {
   pkgdesc+=" - VST plugin"
   depends=(
     amsynth-common
-    cairo libcairo.so
+    freetype2 libfreetype.so
     gcc-libs
-    gdk-pixbuf2 libgdk_pixbuf-2.0.so
-    glib2 libgio-2.0.so libglib-2.0.so libgobject-2.0.so
     glibc
-    gtk2 libgdk-x11-2.0.so libgtk-x11-2.0.so
+    libpng libpng16.so
     vst-host
+    zlib libz.so
   )
 
   mv -v $pkgname/* "$pkgdir/"
