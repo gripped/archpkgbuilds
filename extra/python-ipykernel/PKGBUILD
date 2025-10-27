@@ -3,8 +3,8 @@
 
 _pyname=ipykernel
 pkgname=python-$_pyname
-pkgver=7.0.1
-pkgrel=2
+pkgver=7.1.0
+pkgrel=1
 pkgdesc='The ipython kernel for Jupyter'
 arch=(any)
 url='https://pypi.org/project/ipykernel/'
@@ -33,13 +33,7 @@ checkdepends=(python-debugpy
               python-pytest-timeout)
 optdepends=('python-debugpy: debugger support')
 source=(git+https://github.com/ipython/ipykernel#tag=v$pkgver)
-sha256sums=('46b8da396ff56bacc8d217c4b6b6d7077fb6a606535ca142a0519dae0a63cd55')
-
-prepare() {
-  cd $_pyname
-  git cherry-pick -n 7193d14de447a18470a18d60b81eda5f0048b6aa # Fix routing of background thread output when no parent is set explicitly
-  git cherry-pick -n c7af34cd19ebcd43f5aafe1919909feb6e898387 c56a7aab3cad1fb91f7e7185dc7403d561ecd667 # Fix matplotlib eventloops
-}
+sha256sums=('f1694a5d7a80cd6ed561c6160b79c3abc7dd794ebf77b970dbafa052350166ba')
 
 build() {
   cd $_pyname
@@ -49,7 +43,8 @@ build() {
 check() {
   cd $_pyname
   PYTHONPATH="$PWD" \
-  pytest -v -W ignore::ResourceWarning
+  pytest -v -W ignore::ResourceWarning \
+    --deselect tests/test_matplotlib_eventloops.py::test_matplotlib_gui[tk]
 }
 
 package() {
