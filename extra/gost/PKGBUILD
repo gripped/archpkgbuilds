@@ -1,16 +1,16 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=gost
-pkgver=2.12.0
+pkgver=3.2.5
 pkgrel=1
 pkgdesc="GO Simple Tunnel"
 arch=('x86_64')
-url="https://github.com/ginuerzh/gost"
+url="https://github.com/go-gost/gost"
 license=('MIT')
 depends=('glibc')
 makedepends=('go' 'git')
-source=("git+https://github.com/ginuerzh/gost.git#tag=v$pkgver")
-sha512sums=('5046d21e3d755f37e2dd6eb48f801f2bf7d1c964586653649a795ea391c42891a53b7296861cdc39a062b90597582936a00b07933208cade037acf55fe3bbcc5')
+source=("git+https://github.com/go-gost/gost.git#tag=v$pkgver")
+sha512sums=('0e3826e4ef7431b87b8cf8333e474e6d3d4466c4da7b53f2dbe64f1bba2dbf156649b60910c485afbcd6e975630c1abaf0c32a10a701a1048fe8824e42947446')
 
 build() {
   export CGO_CPPFLAGS="${CPPFLAGS}"
