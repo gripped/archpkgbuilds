@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Isaque Galdino <igaldino@gmail.com>
+Date: Sun, 16 May 2021 21:46:34 -0300
+Subject: [PATCH] meson: remove uuid dependency
+
+As pointed out by user @jasperla in issue #176, Notes doesn't use libuuid.
+
+It uses glib uuid function g_uuid_string_random() instead.
+---
+ meson.build | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index 41e01e26670f..6f535ca5602c 100644
+--- a/meson.build
++++ b/meson.build
+@@ -125,7 +125,6 @@ bijiben_deps = [
+   dependency('libhandy-1', version: '>= 1.0.0'),
+   dependency('libxml-2.0'),
+   dependency('libcurl'),
+-  dependency('uuid'),
+   dependency('webkit2gtk-4.1', version: '>= 2.26'),
+   cc.find_library('m')
+ ]

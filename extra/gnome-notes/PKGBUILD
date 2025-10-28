@@ -1,8 +1,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-notes
-pkgver=40.1
-pkgrel=10
+pkgver=40.2
+pkgrel=1
 pkgdesc="Write out notes, every detail matters"
 url="https://wiki.gnome.org/Apps/Notes"
 arch=(x86_64)
@@ -36,48 +36,18 @@ makedepends=(
 provides=("bijiben=$pkgver")
 conflicts=(bijiben)
 replaces=(bijiben)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-notes.git#tag=BIJIBEN_${pkgver//./_}")
-b2sums=('794f39b637b48a8a64a0fdb98fbd1d346f0a22dc2c752dfbba97f3ffe1c3c6b5d44cd3bbe64fdcc4877065140d6e7b3d3f3961ca872df05c4df22b617729a83d')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-notes.git#tag=BIJIBEN_${pkgver//./_}"
+  0001-meson-remove-uuid-dependency.patch
+)
+b2sums=('37c728dd00494fc2742fb2c64bf6b48e676374c2ce907691b81cb33f2b3a9170fa4ff33323a506494ffc66d43f72aa8f73ff67acc89f57fc889b51e0bcd41dbe'
+        'ac166fb29f5fa8744766be7c93d04413b36084f8363129e378a5535ac98f56777ffb51c85e7e21aa52c43b5427ad7c7a86b85fa7349cee994affde6718e18afa')
 
 prepare() {
   cd $pkgname
 
-  # Fix build with Meson 0.61
-  git cherry-pick -n 994af76ce5144062d55d141129bf6bf5fab002ee
-
   # Remove libuuid dep
-  git cherry-pick -n cbadb5e8b7d3e5e6672e8acab82276c174999a12
-
-  # Soup 3
-  git cherry-pick -n 8471369c54f9aa777857e2a42d82ab502c071520
-
-  # Fix crash in shell search provider
-  # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/193
-  git cherry-pick -n 438678f007f129b6ed636a577917223a503a484b
-
-  # Pass open uri to the primary application instance
-  # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/194
-  git cherry-pick -n 747ff6119895c2e9bc6560414d8b8091e2d03ee1
-
-  # Fix activate
-  # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/195
-  git cherry-pick -n caf9f66cc08c9ce13cfec19a88d2e4b8bf907c1f
-
-  # Set prgname to application ID
-  # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/197
-  git cherry-pick -n 563749884dee27290ca60a4e117dbc2a5e6c3f0e
-
-  # Fix creating new note from remote instance
-  # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/198
-  git cherry-pick -n a5cdcba89847991424f67c161ab7fc9fb1788628
-
-  # Don't try to switch to main view if detached
-  # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/199
-  git cherry-pick -n 185d73c3251977b745f96e414c8d27eeff29caab
-
-  # Don't build result when invalid ID specified
-  # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/196
-  git cherry-pick -n 71717af97837d771667997e9297312cf73825e97
+  git apply -3 ../0001-meson-remove-uuid-dependency.patch
 }
 
 build() {
