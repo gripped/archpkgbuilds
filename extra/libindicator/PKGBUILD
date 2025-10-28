@@ -5,73 +5,49 @@
 # Contributor: Maxime Gauduin <alucryd at archlinux dot org>
 # Contributor: Balló György <ballogyor+arch at gmail dot com>
 
-pkgbase=libindicator
-pkgname=("${pkgbase}-gtk"{2,3})
+pkgname=libindicator
 pkgver=12.10.1
-pkgrel=10
+pkgrel=11
 pkgdesc='Set of symbols and convenience functions for Ayatana indicators'
 url='https://launchpad.net/libindicator'
 arch=('x86_64')
-license=('GPL3')
-makedepends=('gtk2' 'gtk3' 'python')
-source=(https://launchpad.net/${pkgbase}/${pkgver%.*}/${pkgver}/+download/${pkgbase}-${pkgver}.tar.gz{,.asc})
+license=('GPL-3.0-only')
+depends=('gtk3')
+makedepends=('glib2-devel' 'python')
+conflicts=("${pkgname}-gtk3")
+provides=("${pkgname}-gtk3=$pkgver")
+replaces=("${pkgname}-gtk3")
+source=(https://launchpad.net/${pkgname}/${pkgver%.*}/${pkgver}/+download/${pkgname}-${pkgver}.tar.gz{,.asc}
+        fix-build.patch)
 sha512sums=('d6d77d0309b15cf6b52539323920ab0c1594cb1c1cef8a8d67cd0f76f8ceeeac28eb6db6227563df1932e6f1fadcffac68d82982182b745257dfaf91f1c945af'
-            'SKIP')
+            'SKIP'
+            'bfb6942ce9d113c0dbe00fb3faed610c5b61f2cb1f30735418b3bea17b2ae7b8f672770e6aa93d7d4b2a2dbe2b26be41f0acb85503a7aea0c72c1da3c2bc1662')
 validpgpkeys=('6FC05581A37D71FCECE165DB5BE41E162CD6358E')  # Charles Kerr <charles.kerr@canonical.com>
 
 prepare() {
-  (cd ${pkgbase}-${pkgver}
-    sed -i 's/-Werror//' {libindicator,tools}/Makefile.am
-    autoreconf -fi
-  )
-  cp -ra ${pkgbase}-${pkgver}{,-gtk2}
+  cd ${pkgname}-${pkgver}
+  sed -i 's/-Werror//' {libindicator,tools}/Makefile.am
+  patch -p1 -i ../fix-build.patch
+  autoreconf -fi
 }
 
 build() {
-  msg2 "Building gtk3..."
-  (cd ${pkgbase}-${pkgver}
-    ./configure \
-      --prefix=/usr \
-      --localstatedir=/var \
-      --libexecdir=/usr/lib/libindicator \
-      --sysconfdir=/etc \
-      --with-gtk=3 \
-      --disable-static \
-      --disable-tests
-    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-    make
-  )
-
-  msg2 "Building gtk2..."
-  (cd ${pkgbase}-${pkgver}-gtk2
-    ./configure \
-      --prefix=/usr \
-      --localstatedir=/var \
-      --libexecdir=/usr/lib/libindicator \
-      --sysconfdir=/etc \
-      --with-gtk=2 \
-      --disable-static \
-      --disable-tests
-    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-    make
-  )
+  cd ${pkgname}-${pkgver}
+  ./configure \
+    --prefix=/usr \
+    --localstatedir=/var \
+    --libexecdir=/usr/lib/libindicator \
+    --sysconfdir=/etc \
+    --with-gtk=3 \
+    --disable-static \
+    --disable-tests
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  make
 }
 
-package_libindicator-gtk2() {
-  pkgdesc+=" (GTK+ 2 library)"
-  depends=('gtk2')
-
-  cd ${pkgbase}-${pkgver}-gtk2
-  make DESTDIR="${pkgdir}" install
-  rm -rf "${pkgdir}"/usr/share
-}
-
-package_libindicator-gtk3() {
-  pkgdesc+=" (GTK+ 3 library)"
-  depends=('gtk3')
-
-  cd ${pkgbase}-${pkgver}
-  make DESTDIR="${pkgdir}" install
+package() {
+  cd ${pkgname}-${pkgver}
+  make -j1 DESTDIR="${pkgdir}" install
   rm -rf "${pkgdir}"/usr/share
 }
 
