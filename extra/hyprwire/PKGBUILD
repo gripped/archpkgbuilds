@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hyprwire
-pkgver=0.1.0
-pkgrel=2
+pkgver=0.1.1
+pkgrel=1
 pkgdesc='A fast and consistent wire protocol for IPC'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
@@ -16,7 +16,7 @@ makedepends=(cmake)
 provides=(libhyprwire.so)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('ff312e0927aa6aae4ef9b3994784dd0baf951418b568369caa937b41f25bff27')
+sha256sums=('db522dd32756a956833b92ea2f50fb9863392ba43daca42a8008228c6dfc8343')
 
 build() {
 	cd "$_archive"
