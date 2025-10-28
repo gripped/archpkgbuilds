@@ -8,7 +8,7 @@ pkgname=(
   python-openrazer
 )
 pkgbase=openrazer
-pkgver=3.10.3
+pkgver=3.11.0
 pkgrel=1
 pkgdesc='Community-led effort to support Razer peripherals on Linux'
 arch=(any)
@@ -19,7 +19,7 @@ makedepends=(
   python-setuptools
 )
 source=("git+https://github.com/$pkgbase/$pkgbase.git#tag=v$pkgver")
-b2sums=('bfa186b3ad4536532b94b127ed960c303dec26f55dfc90232ec86b92c7bfb2518ecf4d3fac8e51775989bcb8311af07a8b9033e56362d699bc27a7e57fb7fc92')
+b2sums=('1de999028896195de90a95cbf8c2a5f3d265a02942d3a2a035b46a2e580d72d22df45a8cb360121819fe39a6fa5206a2b0901cc7766888a947fb668377bd36b4')
 
 package_openrazer-daemon() {
   pkgdesc='Userspace daemon that abstracts access to the kernel driver. Provides a DBus service for applications to use'
