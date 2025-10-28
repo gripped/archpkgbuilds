@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-lark-parser
-pkgver=1.3.0
+pkgver=1.3.1
 pkgrel=1
 pkgdesc='A modern parsing library'
 arch=(any)
@@ -17,6 +17,7 @@ makedepends=(
   python-build
   python-installer
   python-setuptools
+  python-setuptools-scm
   python-wheel
 )
 checkdepends=(
@@ -35,9 +36,9 @@ source=(
   "$pkgname::git+$url#tag=$pkgver"
   'github.com-Hardmath123-nearley::git+https://github.com/Hardmath123/nearley'
 )
-sha512sums=('0d4f6a45bf61bfc7a124551d3ef77f4388b5a4ba66d56a37baca0c31e5b927ef7f54b938830451bf369803385845a55b682c970ec993068f8ff825204b31e08e'
+sha512sums=('2e59f61567478da199c5619941f8bf7b422ff5e8e615712b56613374cacdb610775f344c5016ad55b92fdbea57f9290bd63deb32aabc0f2428c422d4246b35e7'
             'SKIP')
-b2sums=('bcf6cfb0aaeb794bf738b27641ff0960312a45712508f18bc1db035fc6b3920a7a50b09397393a404bcc136fdaf1b8df3a430f367a124bc12cf387100d4143e8'
+b2sums=('f11154ec6456580ef6947d8e5a1cd95591c610360c549f8f535a85d79a25e4bde6ae346fa8ef0ce9e42990a80e95317221ac5ffa9a00392e5133aca6782e7181'
         'SKIP')
 
 prepare() {
@@ -52,7 +53,7 @@ prepare() {
 build() {
   cd "$pkgname"
 
-  python -m build --wheel --no-isolation
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --no-isolation
 }
 
 check() {
