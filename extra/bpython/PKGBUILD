@@ -4,7 +4,7 @@
 # Contributor: Anton Bazhenov <anton.bazhenov at gmail>
 
 pkgname=bpython
-pkgver=0.25
+pkgver=0.26
 pkgrel=1
 pkgdesc='Fancy ncurses interface to the Python interpreter'
 arch=('any')
@@ -36,7 +36,7 @@ optdepends=(
 source=(
     "https://files.pythonhosted.org/packages/source/b/bpython/bpython-$pkgver.tar.gz"
 )
-sha256sums=('c246fc909ef6dcc26e9d8cb4615b0e6b1613f3543d12269b19ffd0782166c65b')
+sha256sums=('f79083e1e3723be9b49c9994ad1dd3a19ccb4d0d4f9a6f5b3a73bef8bc327433')
 
 build() {
   cd bpython-$pkgver
