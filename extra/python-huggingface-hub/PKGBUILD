@@ -3,7 +3,7 @@
 
 _name=huggingface_hub
 pkgname=python-huggingface-hub
-pkgver=0.36.0
+pkgver=1.0.1
 pkgrel=1
 epoch=1
 pkgdesc='All the open source things related to the Hugging Face Hub'
@@ -13,15 +13,16 @@ license=(Apache-2.0)
 groups=(huggingface)
 depends=(
   python
-  python-aiohttp
   python-filelock
   python-fsspec
   python-hf-xet
+  python-httpx
   python-numpy
   python-packaging
   python-pydantic
-  python-requests
   python-tqdm
+  python-typer
+  python-typing_extensions
   python-yaml
 )
 makedepends=(
@@ -35,7 +36,6 @@ checkdepends=(
   git-lfs
   python-authlib
   python-fastapi
-  python-httpx
   python-itsdangerous
   python-jedi
   python-jinja
@@ -48,21 +48,21 @@ checkdepends=(
   python-pytest-xdist
 )
 optdepends=(
-  python-authlib
-  python-gradio
+  'python-authlib: for OAuth'
+  'python-fastapi: for OAuth'
+  'python-itsdangerous: for OAuth'
+  'python-gradio: for the webhooks server'
   python-graphviz
-  python-hf-transfer
-  python-httpx
-  python-inquirerpy
   python-jinja
+  python-mcp
   python-pillow
   python-pydot
   python-pytorch
   python-safetensors
-  python-tensorflow
+  python-fastai
 )
 source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('8fd198ae6d8a778dec756c2a30220f29f60a19b0845210e970ee0689d81b7ab6b349f7136c99db6216c4219224cc8be3f801c070159269ef2a1e28086cf41200')
+sha512sums=('2a359cada9993f4074de039660e3d2d9bdd4bcfe45c46f6a46ac8473d68653721bd35b0869768b11b0b9ef65d7a1d3359cd2b1130789bcc80b17b7e0909f048d')
 
 build() {
   cd $_name-$pkgver
@@ -76,8 +76,6 @@ check() {
     -W ignore::DeprecationWarning
     # distribute tests across multiple CPUs
     -n auto
-    # ignore test which requires python-inquirerpy which is not packaged
-    --ignore tests/test_command_delete_cache.py
     # skip tests that connect to the real HuggingFace Hub
     # https://github.com/huggingface/huggingface_hub/issues/2820
     --deselect tests/test_cache_no_symlinks.py
@@ -89,8 +87,6 @@ check() {
     --deselect tests/test_repository.py
     --deselect tests/test_snapshot_download.py
     --deselect tests/test_utils_cache.py
-    # skip hanging test https://github.com/huggingface/huggingface_hub/issues/1973
-    --deselect tests/test_repository.py::TestRepositoryShared::test_clone_from_missing_repo
     # skip tests that require gradio but are not marked as such
     --deselect tests/test_webhooks_server.py::test_deserialize_payload_example_with_comment
     --deselect tests/test_webhooks_server.py::test_deserialize_payload_example_without_comment
