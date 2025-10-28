@@ -1,16 +1,18 @@
 pkgbase = python-confuse
 	pkgdesc = Painless YAML config files for Python
-	pkgver = 2.0.1
-	pkgrel = 4
+	pkgver = 2.1.0
+	pkgrel = 1
 	url = https://github.com/beetbox/confuse
 	arch = any
 	license = MIT
 	makedepends = git
 	makedepends = python-build
-	makedepends = python-flit-core
+	makedepends = python-poetry-core
 	makedepends = python-installer
+	depends = python
 	depends = python-yaml
-	source = git+https://github.com/beetbox/confuse.git#tag=eb041a8012b18f20d333b0da9aa4bc7f5a79f044
-	sha256sums = SKIP
+	source = python-confuse::git+https://github.com/beetbox/confuse#tag=v2.1.0
+	sha512sums = b00725143832118830a58abdce59c845d4de47cbbc6d07f3f08e7a193568123fb1b194c1084ae7b8abf1278113611566cadefc3c2f8077fe358a419c93d309e0
+	b2sums = ebf3c86cc259f70aed99cd13c457161e9cbd73fe33d15eef75592bce8aee6fd3d331ac42fa2ffb9675a59d8e965ac94058fe786a6df3534344a1998ceb500b10
 
 pkgname = python-confuse
