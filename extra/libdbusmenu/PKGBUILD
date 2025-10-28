@@ -6,49 +6,39 @@
 # Contributor: Branchini Massimo <max.bra.gtalk at gmail dot com
 
 pkgbase=libdbusmenu
-pkgname=("${pkgbase}-glib" "${pkgbase}-gtk"{2,3})
+pkgname=("${pkgbase}-glib" "${pkgbase}-gtk3")
 _bzrtag=16.04.0
 _bzrrev=498
 pkgver=${_bzrtag}.r${_bzrrev}
-pkgrel=2
+pkgrel=3
 pkgdesc='Library for passing menus over DBus'
 url='https://launchpad.net/libdbusmenu'
 arch=('x86_64')
-license=('GPL3' 'LGPL2.1' 'LGPL3')
-makedepends=('breezy' 'gnome-common' 'gobject-introspection' 'gtk2' 'gtk3' 'intltool' 'vala')
+license=('LGPL-2.1-only OR LGPL-3.0-only')
+makedepends=('breezy' 'gnome-common' 'glib2-devel' 'gobject-introspection' 'gtk3' 'intltool' 'vala')
 options=('!emptydirs')
 source=($pkgbase::bzr+https://code.launchpad.net/~dbusmenu-team/libdbusmenu/trunk.16.10#revision=$_bzrrev)
-sha512sums=('SKIP')
+sha512sums=('416e027702b1868e79266a763fc61395abecf3a0aa606243f56a385f4e2c619a744531e2c26bafb55c26b0123061078416e903f39046e8b0a7c5473c2bc5cac2')
 validpgpkeys=('45B1103FB93ACBD90296DBCAE83D089481836EBF')  # Marco Trevisan (at 3v1n0.net) <marco.trevisan@3v1n0.net>
 
 prepare() {
-  (cd ${pkgbase}
-    NOCONFIGURE=1 ./autogen.sh
-  )
-  cp -ra ${pkgbase}{,-gtk2}
+  cd ${pkgbase}
+  NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
-  msg2 "Building gtk3..."
-  (cd ${pkgbase}
-    ./configure --prefix=/usr \
-      --sysconfdir=/etc \
-      --localstatedir=/var \
-      --with-gtk=3 \
-      --enable-gtk-doc
-    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-    make
-  )
+  export HAVE_VALGRIND_TRUE='#'
+  export HAVE_VALGRIND_FALSE=''
 
-  msg2 "Building gtk2..."
-  (cd ${pkgbase}-gtk2
-    ./configure --prefix=/usr \
-      --sysconfdir=/etc \
-      --localstatedir=/var \
-      --with-gtk=2
-    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-    make
-  )
+  cd ${pkgbase}
+  ./configure --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-{dumper,static,tests} \
+    --with-gtk=3 \
+    --enable-gtk-doc
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  make
 }
 
 package_libdbusmenu-glib() {
@@ -57,16 +47,6 @@ package_libdbusmenu-glib() {
   cd ${pkgbase}
   make -j1 -C libdbusmenu-glib DESTDIR="${pkgdir}" install
   make -j1 -C docs/libdbusmenu-glib DESTDIR="${pkgdir}" install
-}
-
-package_libdbusmenu-gtk2() {
-  pkgdesc+=" (GTK+ 2 library)"
-  depends=("${pkgbase}-glib" 'gtk2')
-
-  cd ${pkgbase}-gtk2
-  make -j1 -C libdbusmenu-glib DESTDIR="${pkgdir}" install
-  make -j1 -C libdbusmenu-gtk DESTDIR="${pkgdir}" install
-  make -j1 -C libdbusmenu-glib DESTDIR="${pkgdir}" uninstall
 }
 
 package_libdbusmenu-gtk3() {
