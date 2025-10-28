@@ -3,13 +3,14 @@
 
 pkgname=sundials
 pkgver=7.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Suite of nonlinear differential/algebraic equation solvers'
 arch=(x86_64)
 url='https://computing.llnl.gov/projects/sundials'
 license=(BSD-3-Clause)
 depends=(gcc-libs
          glibc
+         lapack
          openmpi
          suitesparse)
 makedepends=(cmake
@@ -31,6 +32,7 @@ build() {
     -DENABLE_KLU=ON \
     -DKLU_LIBRARY_DIR=/usr/lib \
     -DKLU_INCLUDE_DIR=/usr/include/suitesparse \
+    -DENABLE_LAPACK=ON \
     -DEXAMPLES_INSTALL_PATH=/usr/share/sundials/examples
   cmake --build build
 }

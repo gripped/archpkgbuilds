@@ -1,7 +1,7 @@
 pkgbase = sundials
 	pkgdesc = Suite of nonlinear differential/algebraic equation solvers
 	pkgver = 7.5.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://computing.llnl.gov/projects/sundials
 	arch = x86_64
 	license = BSD-3-Clause
@@ -11,6 +11,7 @@ pkgbase = sundials
 	makedepends = python
 	depends = gcc-libs
 	depends = glibc
+	depends = lapack
 	depends = openmpi
 	depends = suitesparse
 	optdepends = python-matplotlib: for some examples
