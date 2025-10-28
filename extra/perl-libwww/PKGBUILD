@@ -2,7 +2,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=perl-libwww
-pkgver=6.80
+pkgver=6.81
 pkgrel=1
 pkgdesc='The World-Wide Web library for Perl'
 arch=(any)
@@ -32,8 +32,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(https://cpan.metacpan.org/authors/id/O/OA/OALDERS/libwww-perl-$pkgver.tar.gz)
-sha512sums=('fdc8f8fada7e0dded5fed4ea94ac9e21b45a8199a5ff0e08c921cccf00ffd5bc9b02d259d5b5b7105eae529ee585b801abb846ac3c74cf74af0bfd7953487ba5')
-b2sums=('9e615655e1bff94d5cc436f9293258ad9ea855b1670b588dc788f2ae6c6c9a0965402a83c60afc8323f37e1f917b21c9443392d955fb4feba8c89563e5455b25')
+sha512sums=('7b3527ca7266cfb31a37bed58bb8258ddccf54af4cf8071605de868539954cd5997aa5edf8ef66d5f386aeb00bb9d5756ffcd1836957e0a9f1ec6f650108f3c6')
+b2sums=('556bcc785ce925fc9d4a90585b791b8315916a6df4e7788f3dfbf1d42cc872cc88e1017a01ba5de805cc52a22b1e47a1d0c1ee6cff75f0be4c273677f64583ea')
 
 build() {
   cd "libwww-perl-$pkgver"
