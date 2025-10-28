@@ -5,32 +5,34 @@
 # Contributor: Pierre Gueth <pierre.gueth@gmail.com>
 
 pkgname=python-redis
-pkgver=7.0.0
+pkgver=7.0.1
 pkgrel=1
 pkgdesc='The Python interface to the Redis key-value store'
-arch=('any')
+arch=(any)
 url='https://github.com/redis/redis-py'
-license=('MIT')
+license=(MIT)
 depends=(
-  'python'
+  python
 )
 makedepends=(
-  'git'
-  'python-build'
-  'python-hatchling'
-  'python-installer'
-  'python-wheel'
+  git
+  python-build
+  python-hatchling
+  python-installer
+  python-wheel
 )
 checkdepends=(
-  'python-coverage'
-  'python-cryptography'
-  'python-hiredis'
-  'python-numpy'
-  'python-pyopenssl'
-  'python-pytest'
-  'python-pytest-asyncio'
-  'python-requests'
-  'valkey'
+  python-coverage
+  python-cryptography
+  python-hiredis
+  python-numpy
+  python-pyopenssl
+  python-pytest
+  python-pytest-asyncio
+  python-requests
+  python-pybreaker
+  python-typing_extensions
+  valkey
 )
 optdepends=(
   'python-cryptography: OCSP certificate validation'
@@ -39,7 +41,8 @@ optdepends=(
   'python-requests: OCSP certificate validation'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-b2sums=('7a8ff1941f2f0d1a5811fe6a3b54fdeb4e7c282a9bf93c89e257eab9c7adcb58c6473857f08c5283d9253109e4ee8dd093646a49470ae8123a538566b6e2b9db')
+sha512sums=('b9e8a0e02a60b6f7a067f1ff068211f6e90bbff19792bd5277187df85fb267d92c4afea53f270ed08fbd4240ad8ee9841fb498550a659f8fc5af4d9a84ae55f5')
+b2sums=('d853679a6bd3887422c64cc821ff39228286a934af386203ae3a61f83814cf9603a36724f22a198332a43ba14794492baee93c70d8134458f329d0f33f199f73')
 
 prepare() {
   cd "$pkgname"
@@ -49,6 +52,7 @@ prepare() {
   # Replace dependency on python-mock
   sed -i 's/from mock.mock/from unittest.mock/g' \
     tests/test_asyncio/test_credentials.py \
+    tests/test_asyncio/test_multidb/test_healthcheck.py \
     tests/test_credentials.py
 }
 
