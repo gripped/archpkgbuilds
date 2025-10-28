@@ -3,7 +3,7 @@
 # Contributor: Max Mehl <aur at mehl dot mx>
 
 pkgname=reuse
-pkgver=6.1.2
+pkgver=6.2.0
 pkgrel=1
 pkgdesc='Helper tool for providing and confirming copyright and licensing information'
 arch=(any)
@@ -42,8 +42,8 @@ optdepends=(
   'mercurial: mercurial repository support'
 )
 source=("$pkgname::git+https://github.com/fsfe/reuse-tool#tag=v$pkgver")
-sha512sums=('129353cfd5cb82150cd6548adfaf51713362f56b42028e2b04e99fa933d4c1e4c357d83c5af8526854efaa606d90e04487628be35a2c4091cf57c30b2e070f98')
-b2sums=('38cb7668a38558688f06775b0818217339e42189963f166af81b4d9b711d3440fd6c42b2818a9d48ab8c58aebc950913833ba5495caed4017bbd001812a05184')
+sha512sums=('ac46904579ab918ab97ee9b89229b298ef81dc76c88a175e1ef097a24b1a25c4470b2adbfd8aa83e0bef154fee84eef6cccbe417d0be7c5a7d457d3992c7766e')
+b2sums=('2129ae04524ad1f376e27446ab98877dcf5475aa40ed42a4f60444ac760251816a98eded345c8cfc2cd7e33fc2b1f99c5c20216c1bc1a143b5000250a7cf8e3f')
 
 prepare() {
   cd "$pkgname"
