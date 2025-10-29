@@ -1,6 +1,6 @@
 pkgname=sniproxy
 pkgver=0.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="TLS SNI proxy"
 arch=(i686 x86_64)
 url="https://github.com/dlundquist/sniproxy"
@@ -10,24 +10,19 @@ backup=('etc/sniproxy.conf')
 source=($pkgname-$pkgver.tar.gz::https://github.com/dlundquist/sniproxy/archive/$pkgver.tar.gz
 	sniproxy.service
 	sniproxy.conf
-	sniproxy.tmpfiles
-	$pkgname-0.6.1-pcre2.patch)
+	sniproxy.tmpfiles)
 sha256sums=('bbe579886c1af60e850b8b5bef850f10b317e6ebe366cb0b5476b1230f2870e4'
             '652e7f9e605fd24bb0c45c2227b8ed32d7c4b219066da0b0dc6fc0b87500d908'
             'b199717c01176c7d38e6508b049d2aa12a440a2d1a28039b03fd0b060b00058c'
-            'a0ded4090c83f50457e5521773d87a33821781055eb5dee503cf69388ff5b207'
-            'bfaa9d0405978add19838dceb20cc24dbe1c48f9bb82c11755ded6f0bbc180c9')
-
-prepare() {
-	cd "$srcdir/$pkgname-$pkgver"
-	# libpcre2 support
-#	patch -p1 <../$pkgname-0.6.1-pcre2.patch
-}
+            'a0ded4090c83f50457e5521773d87a33821781055eb5dee503cf69388ff5b207')
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
 	./autogen.sh
-	./configure --prefix=/usr --sbindir=/usr/bin
+	./configure \
+		--prefix=/usr \
+		--sbindir=/usr/bin \
+		--enable-dns
 	make
 }
 
