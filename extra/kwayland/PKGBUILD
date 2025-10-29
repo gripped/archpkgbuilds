@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kwayland
-pkgver=6.5.0
+pkgver=6.5.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Qt-style Client and Server library wrapper for the Wayland libraries'
@@ -22,7 +22,7 @@ makedepends=(doxygen
              wayland-protocols)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('60b7ec95636d9ec4d16d80bc21611c2c3d525514ad0a23f033a206a53c4b27c1'
+sha256sums=('5622ee2517ec80e9dc60203e04b5adbabd0ceaddfcd282c44b8542644b808767'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
