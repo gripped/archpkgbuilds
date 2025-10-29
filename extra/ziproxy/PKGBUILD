@@ -3,7 +3,7 @@
 
 pkgname=ziproxy
 pkgver=3.3.2
-pkgrel=7
+pkgrel=8
 pkgdesc="forwarding, non-caching, compressing HTTP proxy server"
 arch=('x86_64')
 url="http://ziproxy.sourceforge.net/"
@@ -27,7 +27,7 @@ source=(https://downloads.sourceforge.net/project/ziproxy/ziproxy/ziproxy-$pkgve
   ziproxy.tmpfiles)
 sha256sums=('76a1fc62c76dfa1a8d0784193aba20a96e214dd615b7927b497ceee5059699f1'
             '6087c75dc9a9d493365bb599bf4dcb72fab95da54ea9b75418616cf0cd9be5e3'
-            'a2aa82f37b0436e99cda917d994a728d0e8b08ffc9c3f87dd3b6e509a0b36a14'
+            '1d6f31690dd50ee148a1baa9695c66abf48e6c76ef26b469acf64ea877d2d40c'
             '03bb3a7f5e1c1126c2c59b650f767b54ab011b0a8165efd5db85cbc52080cc0a')
 
 prepare() {
@@ -37,7 +37,10 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
-  ./configure ./configure --prefix=/usr --with-jasper
+  ./configure \
+    --prefix=/usr \
+    --with-jasper \
+    CFLAGS='-Wno-incompatible-pointer-types -std=gnu17'
   make
 }
 
