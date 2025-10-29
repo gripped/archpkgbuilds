@@ -5,7 +5,7 @@
 pkgbase=breeze
 pkgname=(breeze
          breeze5)
-pkgver=6.5.0
+pkgver=6.5.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 arch=(x86_64)
@@ -40,7 +40,7 @@ optdepends=('breeze-gtk: Breeze widget style for GTK applications'
             'breeze5: Breeze widget style for Qt5 applications')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('49af5bc271227028df70b22149fe6fcfb15b6d4b8e6f3eb329decde3ae4df369'
+sha256sums=('89b9976c2ae37677b36c9c88686ee95ec50ea4f6ed9b577c47b5a7122c6a52f3'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
