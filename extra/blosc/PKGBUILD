@@ -3,33 +3,43 @@
 
 pkgname=blosc
 pkgver=1.21.6
-pkgrel=1
+pkgrel=2
 pkgdesc='A blocking, shuffling and loss-less compression library'
-arch=('x86_64')
+arch=(x86_64)
 url='https://www.blosc.org'
-license=('BSD-3-Clause')
+license=(BSD-3-Clause)
 depends=(
-  'glibc'
-  'lz4'
-  'snappy'
-  'zlib'
-  'zstd'
+  glibc
+  lz4
+  snappy
+  zlib
+  zstd
 )
-makedepends=('cmake')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/Blosc/c-blosc/archive/v${pkgver}.tar.gz")
-sha512sums=('f32ac9ca7dd473f32201cdf4b7bb61a89e8bc3e3d16e027d2c6dc1aa838cb47c42dfed6942c9108532b3920ed22a8c662e7451890177c9bbe6ec5b8ab65362b3')
-b2sums=('87d3368a5070bb9be84b648c6727248630b97fbeda1cfcecf3da41256370436b719f943c63b84c196a2653e19c699a5f8c6aeffc0da4fffeda9fa7afeb81b853')
+makedepends=(git cmake)
+source=("$pkgname::git+https://github.com/Blosc/c-blosc#tag=v$pkgver")
+sha512sums=('ea5e14ed1ece973e8cb31544cc016ae01b4f59ae7b6e6425c8703f98bda68eff8fc6382fb6e2cb4ec406db22a9229de8148df9a9aca8570f218c431866f709cc')
+b2sums=('e9027864a8a2f67cda8d7f71f22cfd4c99ace91b57ca02c1de274e36c546cad7e9dcb387323ca2924c3daf006f60f1f8a918f1e8c4b5a1cc3b0e248bfd895d0d')
+
+prepare() {
+  cd "$pkgname"
+
+  # update minimal cmake version
+  git cherry-pick --no-commit 051b9d2cb9437e375dead8574f66d80ebce47bee
+}
 
 build() {
-  cmake \
-    -B build \
-    -S "c-blosc-$pkgver" \
-    -D CMAKE_INSTALL_PREFIX="/usr" \
-    -D BUILD_STATIC="OFF" \
-    -D DEACTIVATE_SNAPPY="OFF" \
-    -D PREFER_EXTERNAL_LZ4="ON" \
-    -D PREFER_EXTERNAL_ZLIB="ON" \
-    -D PREFER_EXTERNAL_ZSTD="ON"
+  local cmake_options=(
+    -B build
+    -S "$pkgname"
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D BUILD_STATIC=OFF
+    -D DEACTIVATE_SNAPPY=OFF
+    -D PREFER_EXTERNAL_LZ4=ON
+    -D PREFER_EXTERNAL_ZLIB=ON
+    -D PREFER_EXTERNAL_ZSTD=ON
+  )
+
+  cmake "${cmake_options[@]}"
 
   cmake --build build
 }
@@ -43,7 +53,6 @@ check() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -vDm644 \
-    "c-blosc-$pkgver/LICENSE.txt" \
-    "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$pkgname/LICENSE.txt"
 }
