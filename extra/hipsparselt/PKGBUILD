@@ -1,0 +1,110 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
+# Contributor: Felix Richter <judge@felixrichter.tech>
+
+pkgname=hipsparselt
+pkgver=6.4.4
+pkgrel=1
+pkgdesc='SPARSE marshalling library with AMD GPU backend'
+arch=('x86_64')
+url='https://rocm.docs.amd.com/projects/hipSPARSELt/en/latest/'
+license=('MIT')
+depends=(
+  'rocm-core'
+  'hip-runtime-amd'
+  'hipsparse'
+  'rocminfo'
+  'rocm-smi-lib'
+  'glibc'
+  'gcc-libs'
+  'msgpack-cxx'
+)
+makedepends=(
+  'git'
+  'cmake'
+  'gcc-fortran'
+  'rocm-cmake'
+  'rocm-toolchain'
+  'python'
+  'python-setuptools'
+  'python-joblib'
+  'python-pyyaml'
+  'python-msgpack'
+)
+_git='https://github.com/ROCm/hipSPARSELt'
+_tensilelite='https://github.com/ROCm/hipBLASLt'
+# https://github.com/ROCm/hipSPARSELt/blob/rocm-6.4.4/tensilelite_tag.txt
+_commit='510dcac724743ff35ec8c60270bc08505eddcfd7'
+source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz"
+        "$pkgname-tensilelite-$pkgver.tar.gz::$_tensilelite/archive/$_commit/hipBLASLt-$_commit.tar.gz")
+sha256sums=('b72d630dc4b09f58ff7196990985e4404c51d9283aceb3363464a4146068e59a'
+            '3b4f6519e6a6a0b20a3e2c4509236497c03c8db860f0bdf2734a78b150fd8039')
+_dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
+
+prepare() {
+  cd hipBLASLt-$_commit
+  # Fixes from https://src.fedoraproject.org/rpms/hipsparselt/blob/rawhide/f/hipsparselt.spec
+  # Remove venv
+  sed -i -e 's@. ${venv}/bin/activate@@' tensilelite/Tensile/Ops/gen_assembly.sh
+  sed -i -e 's@deactivate@@' tensilelite/Tensile/Ops/gen_assembly.sh
+  # Use PATH to find where TensileGetPath and other tensile bins are
+  sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g' tensilelite/Tensile/cmake/TensileConfig.cmake
+  # Do not use virtualenv_install
+  sed -i -e 's@virtualenv_install@#virtualenv_install@' CMakeLists.txt
+  # Fixes from https://src.fedoraproject.org/rpms/hipsparselt/blob/rawhide/f/hipsparselt.spec
+  sed -i -e 's@. ${venv}/bin/activate@@' tensilelite/Tensile/Ops/gen_assembly.sh
+  sed -i -e 's@deactivate@@' tensilelite/Tensile/Ops/gen_assembly.sh
+  sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g' tensilelite/Tensile/cmake/TensileConfig.cmake
+  sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' CMakeLists.txt
+  # Add more names to msgpack include
+  sed -i -e 's@find_package(msgpack REQUIRED)@find_package(msgpack REQUIRED NAMES msgpackc msgpack-cxx msgpack-c)@' tensilelite/Tensile/Source/lib/CMakeLists.txt
+
+  cd ../$_dirname
+  # Prevent the virtualenv install from cmake
+  sed -i -e 's@virtualenv_install@#virtualenv_install@' CMakeLists.txt
+}
+
+build() {
+  cd hipBLASLt-$_commit/tensilelite
+  local tensile_path=$PWD
+  python setup.py install --root "$tensile_path"
+
+  cd ../..
+
+  # -fcf-protection is not supported by HIP, see
+  # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
+  CXXFLAGS+=" -fcf-protection=none"
+  local sitedir="$(python -c 'import site; print(site.getsitepackages()[0])')"
+  export PATH="$tensile_path/bin":$PATH
+  export PYTHONPATH="$tensile_path/$sitedir":$PYTHONPATH
+  export Tensile_DIR="$tensile_path/$sitedir/Tensile"
+  local cmake_args=(
+    -Wno-dev
+    -S "$_dirname"
+    -B build
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_C_COMPILER=amdclang
+    -D CMAKE_CXX_COMPILER=amdclang++
+    -D BUILD_CLIENTS_TESTS=OFF
+    -D BUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF
+    -D BUILD_VERBOSE=ON
+    -D CMAKE_Fortran_COMPILER=gfortran
+    -D CMAKE_VERBOSE_MAKEFILE=ON
+    -D HIP_PLATFORM=amd
+    -D BUILD_WITH_TENSILE=ON
+    -D msgpack_DIR=/usr/lib/cmake/msgpack-c
+    -D Tensile_ROOT="$tensile_path/Tensile"
+    -D Tensile_COMPILER=amdclang++
+    -D Tensile_LIBRARY_FORMAT=msgpack
+    -D VIRTUALENV_BIN_DIR=/usr/bin
+    -D GPU_TARGETS=$(rocm-supported-gfx)
+  )
+  cmake "${cmake_args[@]}"
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  install -Dm644 "$_dirname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
