@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=breeze-gtk
-pkgver=6.5.0
+pkgver=6.5.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Breeze widget theme for GTK 2 and 3'
@@ -15,7 +15,7 @@ makedepends=(breeze
              sassc)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('ba5f057b08e382d9e0790ab51d7aa1cc5017c952ebc46765400815527dc81470'
+sha256sums=('1b1de893eb92e1c9c0ff1dd6169d55c3c062a49bd2cbab2936c16fe8fa060096'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
