@@ -1,0 +1,17 @@
+diff --git a/CMake/config.cmake b/CMake/config.cmake
+index a66423055..c2fbcd240 100644
+--- a/CMake/config.cmake
++++ b/CMake/config.cmake
+@@ -214,10 +214,10 @@ if(NOT TTK_ENABLE_ZFP)
+   find_package(ZFP QUIET)
+ endif()
+
+-find_package(Eigen3 3.3 QUIET NO_MODULE)
++find_package(Eigen3 QUIET NO_MODULE)
+ if(EIGEN3_FOUND)
+   option(TTK_ENABLE_EIGEN "Enable Eigen3 support" ON)
+-  message(STATUS "Found Eigen ${Eigen3_VERSION} (${EIGEN3_INCLUDE_DIR})")
++  message(STATUS "Found Eigen ${Eigen3_VERSION} (${Eigen3_INCLUDE_DIR})")
+
+   find_package(Spectra 1.0.0 QUIET)
+   if(Spectra_FOUND)
