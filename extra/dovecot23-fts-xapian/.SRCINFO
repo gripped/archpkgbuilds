@@ -1,0 +1,18 @@
+pkgbase = dovecot23-fts-xapian
+	pkgdesc = Dovecot FTS plugin based on Xapian
+	pkgver = 1.9.3
+	pkgrel = 1
+	url = https://github.com/grosjo/fts-xapian
+	install = dovecot23-fts-xapian.install
+	arch = x86_64
+	license = LGPL-2.1-or-later
+	makedepends = git
+	depends = dovecot23=2.3.21.1
+	depends = icu
+	depends = xapian-core
+	conflicts = dovecot>=2.4
+	source = dovecot23-fts-xapian::git+https://github.com/grosjo/fts-xapian#tag=1.9.3
+	sha512sums = 48145178b9d95717f688d4dd0c61a6695f98aa12f418e44fc9b3815f2062cda3da1f3421da11b3fe3d7d75da68d906309a801070b39fb6723533d11c036b7301
+	b2sums = 73212dcfaf011adaae3f97339f9a496935dee180f417c0506a62c760a080471482b63700dc40eee18310da5cd473fc263a60c073de01e900505ff7ea4bc3cb75
+
+pkgname = dovecot23-fts-xapian
