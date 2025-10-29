@@ -1,22 +1,21 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=identity
-pkgver=25.03
-pkgrel=3
+pkgver=25.10.1
+pkgrel=1
 pkgdesc='Compare multiple versions of an image or video'
 arch=(x86_64)
 url='https://apps.gnome.org/Identity/'
 license=(GPL-3.0-or-later)
 groups=(gnome-circle)
 depends=(
-  bubblewrap
   dav1d
   dconf
-  fontconfig
   gcc-libs
   glib2
   glibc
-  glycin1
+  glycin
+  glycin-gtk4
   graphene
   gst-plugins-base
   gst-plugins-base-libs
@@ -24,9 +23,7 @@ depends=(
   gstreamer
   gtk4
   hicolor-icon-theme
-  lcms2
   libadwaita
-  libseccomp
   libwebp
 )
 makedepends=(
@@ -43,7 +40,7 @@ optdepends=(
 )
 options=(!lto)
 source=("git+https://gitlab.gnome.org/YaLTeR/identity.git#tag=v$pkgver")
-b2sums=(8c6c009696eb284756d073d4ca2aaabef5c972bcc90d85fcec1325ceb099a8fa749f17a293672de9b31606b4ee177332a292a46f7ffd8f4b36699aea95931ed3)
+b2sums=(c7b234f047e86e28d9508dd35afc32f2d89a03e50e61998cd95d7f22c938dd50492ef46d93076ced5d2120c443b4a5dd9ba364b2324d060a3aebbea99dd7e922)
 
 prepare() {
   cd $pkgname
