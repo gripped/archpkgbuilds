@@ -2,8 +2,8 @@
 # Maintainer : Justin "juster" Davis <jrcd83@gmail.com>
 
 pkgname=perl-html-form
-pkgver=6.12
-pkgrel=2
+pkgver=6.13
+pkgrel=1
 pkgdesc="Class that represents an HTML form element"
 arch=(any)
 license=(PerlArtistic GPL)
@@ -13,7 +13,7 @@ makedepends=('perl-test-warnings')
 conflicts=('perl-libwww<6')
 url=https://search.cpan.org/dist/HTML-Form
 source=("https://cpan.metacpan.org/authors/id/O/OA/OALDERS/HTML-Form-$pkgver.tar.gz")
-sha256sums=('2ced87d0878afa007d22c41927f0e8da63844608f20881f645f364dc32cdce6f')
+sha256sums=('ae5ad0f6fe70b1a382789d5e83a9b669cc541ee9d459e1bfa89b43ae0c014cdd')
 
 build() {
   cd "${srcdir}/HTML-Form-${pkgver}"
