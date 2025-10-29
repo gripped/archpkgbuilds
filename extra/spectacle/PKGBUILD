@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=spectacle
-pkgver=6.5.0
+pkgver=6.5.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 epoch=1
@@ -47,7 +47,7 @@ makedepends=(extra-cmake-modules
              plasma-wayland-protocols)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('e14657c6f1f2538a3796f915bfd2b8215f467cb36a42bc2dad886ca9ebf0dcf1'
+sha256sums=('a46d2e67fba3b129c251271bc6c2463323801ca5566a3c85455307d1f3fbf0ba'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
