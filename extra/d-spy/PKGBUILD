@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=d-spy
-pkgver=49.1
+pkgver=49.2
 pkgrel=1
 pkgdesc="D-Bus debugger for GNOME"
 url="https://apps.gnome.org/Dspy/"
@@ -27,7 +27,7 @@ makedepends=(
 )
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/d-spy.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('dc4d57e41612aa7cc428e1f4196c2e641d4545ce401a8b1f35a8229c74dc91d6f287ef100f3a0a3aebea962eee8bfe8181c3756fa775543a583951b46d12ecca')
+b2sums=('8273cb74448672b6aeb611d7f47271e8dad884d8152e74f933d90d4f7bdcf82f7173bd1555dce91c5fcf4fa6aed3b6788ba7f576466e9343414cee5105d5008a')
 
 build() {
   arch-meson d-spy build
