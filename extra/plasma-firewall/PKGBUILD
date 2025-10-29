@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma-firewall
-pkgver=6.5.0
+pkgver=6.5.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Control Panel for your system firewall'
@@ -26,7 +26,7 @@ optdepends=('firewalld: firewalld backend'
             'ufw: ufw backend')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('edf65e5c0e237c5932899331631dd72ba2d9b69e9c97ff74e8ffc0504b90f5cb'
+sha256sums=('eb57bdc63a326167c9a21c5f33ccb25eb07ed4a77438353eef3a5f082f842a86'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
