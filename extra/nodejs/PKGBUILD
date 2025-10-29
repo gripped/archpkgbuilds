@@ -9,7 +9,7 @@
 # Contributor: TIanyi Cui <tianyicui@gmail.com>
 
 pkgname=nodejs
-pkgver=25.0.0
+pkgver=25.1.0
 pkgrel=1
 pkgdesc='Evented I/O for V8 javascript ("Current" release)'
 arch=('x86_64')
@@ -39,7 +39,7 @@ makedepends=(
 optdepends=('npm: nodejs package manager')
 options=('!lto')
 source=("git+https://github.com/nodejs/node.git#tag=v$pkgver?signed")
-sha512sums=('1cc74927dec9958c579b64a414de64167ac5375af3e1c9fc956199bd10fa3ad373bc6d1d1b264fc69811989e9eaad4a9b3539e4ee340fc882cd8d701b99b752d')
+sha512sums=('18eb545b1c4833becd767b3f8575b8d881a9e4e276880f1cf01f97731f625d7b0e4080c0a7f851395f995796439b6ead789c23dc3e3f4f1bf3f7e1839a88cbbc')
 validpgpkeys=(
   '8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600' # Michaël Zasso (Targos) <targos@protonmail.com>
   '890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4' # RafaelGSS <rafael.nunu@hotmail.com>
@@ -60,8 +60,8 @@ build() {
 
   ./configure \
     --prefix=/usr \
-    --without-npm \
     --with-intl=system-icu \
+    --without-npm \
     --shared-brotli \
     --shared-cares \
     --shared-libuv \
@@ -99,7 +99,7 @@ package() {
   _set_flags
   cd node
   make DESTDIR="$pkgdir" install
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/nodejs/
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 # vim:set ts=2 sw=2 et:
