@@ -2,7 +2,7 @@
 
 pkgname=komikku
 pkgver=1.90.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Manga and comics reader for GNOME'
 arch=(any)
 url='https://apps.gnome.org/Komikku/'
@@ -51,6 +51,13 @@ makedepends=(
 )
 source=("git+https://codeberg.org/valos/Komikku.git#tag=v$pkgver")
 b2sums=(d642d4c52cc53749f848f3d64da8502ee493dfb8209871f3937f365094addca63dea1cac6b453ae2fa889514d423104d6c411dafb8ac22c2e1e6d61ef3a0ce56)
+
+prepare() {
+  cd Komikku
+
+  # https://codeberg.org/valos/Komikku/pulls/851
+  git cherry-pick -n c603eee70291355e7916b5153a24fa67b01af3bb
+}
 
 build() {
   arch-meson Komikku build
