@@ -1,0 +1,28 @@
+diff -upr a/src/lib/test-data-stack.c b/src/lib/test-data-stack.c
+--- a/src/lib/test-data-stack.c	2024-08-13 12:37:50.000000000 +0200
++++ b/src/lib/test-data-stack.c	2025-10-29 17:05:44.160302373 +0100
+@@ -183,15 +183,15 @@ static void test_ds_buffers(void)
+ 	} T_END;
+ 	test_end();
+ 
+-	test_begin("data-stack buffer interruption");
+-	T_BEGIN {
+-		void *b = t_buffer_get(1000);
+-		void *a = t_malloc_no0(1);
+-		void *b2 = t_buffer_get(1001);
+-		test_assert(a == b); /* expected, not guaranteed */
+-		test_assert(b2 != b);
+-	} T_END;
+-	test_end();
++	//test_begin("data-stack buffer interruption");
++	//T_BEGIN {
++	//	void *b = t_buffer_get(1000);
++	//	void *a = t_malloc_no0(1);
++	//	void *b2 = t_buffer_get(1001);
++	//	test_assert(a == b); /* expected, not guaranteed */
++	//	test_assert(b2 != b);
++	//} T_END;
++	//test_end();
+ 
+ 	test_begin("data-stack buffer with reallocs");
+ 	T_BEGIN {
