@@ -8,7 +8,7 @@
 
 _name=scipy
 pkgname=python-scipy
-pkgver=1.16.2
+pkgver=1.16.3
 pkgrel=1
 pkgdesc='Open-source software for mathematics, science, and engineering'
 arch=(x86_64)
@@ -41,7 +41,7 @@ source=(git+https://github.com/scipy/scipy#tag=v$pkgver
         git+https://github.com/cobyqa/cobyqa
         git+https://github.com/scipy/pocketfft
         git+https://github.com/scipy/unuran)
-sha256sums=('65e8d6d8f643c14a5a0752f35c2badefa9d3666d93893e0a79e80491f4b947bc'
+sha256sums=('92cdcf2036b5aaa0db65e7dd253d8ba576edda84fd94e4ccd0f3bbdbd20efaac'
             'SKIP'
             'SKIP'
             'SKIP'
