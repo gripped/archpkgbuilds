@@ -1,5 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 # Contributor: Stephen Zhang <zsrkmyn at gmail dot com>
 
 _pkgname=pytorch
@@ -8,7 +9,7 @@ pkgname=("${pkgbase}" "${pkgbase}-opt" "${pkgbase}-cuda" "${pkgbase}-opt-cuda" "
 # When updating pytorch, also check the compatibility table for torchvision
 # https://github.com/pytorch/vision?tab=readme-ov-file#installation
 pkgver=2.9.0
-pkgrel=2
+pkgrel=3
 _pkgdesc='Tensors and Dynamic neural networks in Python with strong GPU acceleration'
 pkgdesc="${_pkgdesc}"
 arch=('x86_64')
@@ -65,6 +66,9 @@ makedepends=(
   roctracer
   shaderc
   vulkan-headers
+)
+optdepends=(
+  'python-onnxscript: for the ONNX exporter'
 )
 source=("${_pkgname}::git+https://github.com/pytorch/pytorch.git#tag=v$pkgver"
         # generated using parse-submodules
@@ -264,6 +268,7 @@ _prepare() {
   export PYTORCH_BUILD_NUMBER=1
 
   # Check tools/setup_helpers/cmake.py, setup.py and CMakeLists.txt for a list of flags that can be set via env vars.
+  export BUILD_TEST=OFF  # do not build tests
   export ATEN_NO_TEST=ON  # do not build ATen tests
   export USE_MKLDNN=ON
   export BUILD_CUSTOM_PROTOBUF=OFF
@@ -273,6 +278,7 @@ _prepare() {
   export USE_OBSERVERS=ON
   export USE_MAGMA=ON
   # export USE_SYSTEM_LIBS=ON  # experimental, not all libs present in repos
+  # USE_SYSTEM_ONNX=ON does not work and onnx itself should be removed from pytorch: https://github.com/pytorch/pytorch/issues/166546#issuecomment-3463370459
   export USE_NCCL=ON
   export USE_SYSTEM_NCCL=ON
   export USE_SYSTEM_PYBIND11=ON
