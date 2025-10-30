@@ -9,8 +9,8 @@
 pkgbase=qtcreator
 pkgname=(qtcreator
          qtcreator-devel)
-pkgver=17.0.2
-pkgrel=3
+pkgver=18.0.0
+pkgrel=1
 pkgdesc='Lightweight, cross-platform integrated development environment'
 arch=(x86_64)
 url='https://www.qt.io'
@@ -20,11 +20,11 @@ depends=(clang
          gcc-libs
          glib2
          glibc
+         libarchive
          libelf
          litehtml
          llvm-libs
          python
-         qt6-5compat
          qt6-base
          qt6-charts
          qt6-declarative
@@ -40,6 +40,7 @@ depends=(clang
 # syntax-highlighting
 makedepends=(cmake
              git
+             go
              llvm)
 optdepends=('qt6-doc: integrated Qt documentation'
             'qt6-examples: welcome page examples'
@@ -55,7 +56,7 @@ optdepends=('qt6-doc: integrated Qt documentation'
 source=(git+https://code.qt.io/qt-creator/qt-creator#tag=v$pkgver
         git+https://code.qt.io/qt-creator/perfparser
         git+https://code.qt.io/playground/qlitehtml)
-sha256sums=('73f6be01df5d91f0d95f9b03b4b71a65dd95251fa728cc6df1d1aeb84ed303e0'
+sha256sums=('2978ae9f2927c9f8b43feecb83a04b71d0ef069c5f00057c091f2072a64e28c5'
             'SKIP'
             'SKIP')
 options=(docs)
@@ -79,7 +80,8 @@ build() {
     -DWITH_DOCS=ON \
     -DBUILD_DEVELOPER_DOCS=ON \
     -DQTC_CLANG_BUILDMODE_MATCH=ON \
-    -DCLANGTOOLING_LINK_CLANG_DYLIB=ON
+    -DCLANGTOOLING_LINK_CLANG_DYLIB=ON \
+    -DQLITEHTML_USE_SYSTEM_LITEHTML=ON
   cmake --build build
   cmake --build build --target docs
 }
