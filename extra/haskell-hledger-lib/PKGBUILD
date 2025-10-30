@@ -4,8 +4,8 @@
 
 _hkgname=hledger-lib
 pkgname=haskell-hledger-lib
-pkgver=1.43.2
-pkgrel=2
+pkgver=1.50.2
+pkgrel=1
 pkgdesc="A library providing the core functionality of hledger"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
@@ -16,19 +16,12 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-ansi-termina
          'haskell-decimal' 'haskell-doclayout' 'haskell-encoding' 'haskell-extra'
          'haskell-file-embed' 'haskell-glob' 'haskell-hashtables' 'haskell-megaparsec'
          'haskell-microlens' 'haskell-microlens-th' 'haskell-lucid' 'haskell-parser-combinators'
-         'haskell-pretty-simple' 'haskell-regex-tdfa' 'haskell-safe' 'haskell-tabular'
+         'haskell-pretty-simple' 'haskell-regex-tdfa' 'haskell-these' 'haskell-safe' 'haskell-tabular'
          'haskell-tasty' 'haskell-tasty-hunit' 'haskell-terminal-size' 'haskell-timeit'
          'haskell-uglymemo' 'haskell-unordered-containers' 'haskell-utf8-string')
 makedepends=('ghc' 'haskell-doctest')
-source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz"
-        $pkgname-ghc-9.4.patch::https://github.com/simonmichael/hledger/commit/00fae3ac3bf782d5b4d4f98dc0d131b5c3ccb579.patch)
-sha512sums=('7fd405bf604e0c69a83990a00eff33cbd79dc3e358ad976d5e35e608c594fcf7b4f3160b87253a6687fd10082b3e0f13d0be9ee6754531223812d3c2f4d0877d'
-            '4a51722b1b3b2a74013b8f50c624f85cafc7c0d1bd0e7433e44a7206ae816b50cc5cb00e1be53dfabbe8956895ae5aabf4b2e56849b4fa9cde18ef6887153167')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    patch -p2 -i ../$pkgname-ghc-9.4.patch
-}
+source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
+sha512sums=('af07917acc8b866bc5ca4a1b73bda75b8a0c0a7550f45dc30328c3af4877d8921815b88de4c840932c076995a141dfb544b948777bee573c256260219fae62bb')
 
 build() {
     cd $_hkgname-$pkgver
