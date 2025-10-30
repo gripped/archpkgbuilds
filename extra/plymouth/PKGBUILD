@@ -6,15 +6,15 @@
 
 pkgname=plymouth
 pkgver=24.004.60
-pkgrel=11
+pkgrel=12
 pkgdesc='Graphical boot splash screen'
 arch=(x86_64)
 url='https://www.freedesktop.org/wiki/Software/Plymouth/'
 license=(GPL-2.0-or-later)
 depends=(
+  adwaita-fonts
   bash
   cairo
-  cantarell-fonts
   filesystem
   fontconfig
   freetype2
@@ -60,13 +60,16 @@ prepare() {
   cd $pkgname
 
   # Various fixes from upstream
-  git cherry-pick -n -m 1 24.004.60..287ae4de4547c944cd1dad696aa999b1699540bd
+  git cherry-pick -n -m 1 24.004.60..e88c403bda64d301b0434045513551c1ccdee983
 
   # Use mkinitcpio to update initrd
   sed -i 's/^dracut -f$/mkinitcpio -P/' scripts/plymouth-update-initrd
 
   # Change default theme
   sed -i 's/^Theme=spinner$/Theme=bgrt/' src/plymouthd.defaults
+
+  # Switch from Cantarell to Adwaita Sans
+  sed -i 's/Cantarell/Adwaita Sans/' scripts/keymap-render.py themes/*/*.plymouth.desktop
 }
 
 build() {
