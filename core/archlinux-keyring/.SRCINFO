@@ -1,9 +1,8 @@
 pkgbase = archlinux-keyring
 	pkgdesc = Arch Linux PGP keyring
 	pkgver = 20251027
-	pkgrel = 1
+	pkgrel = 3
 	url = https://gitlab.archlinux.org/archlinux/archlinux-keyring/
-	install = archlinux-keyring.install
 	arch = any
 	license = GPL-3.0-or-later
 	checkdepends = python-coverage
@@ -13,7 +12,7 @@ pkgbase = archlinux-keyring
 	makedepends = sequoia-sq
 	makedepends = pkgconf
 	makedepends = systemd
-	depends = pacman
+	makedepends = voa
 	source = archlinux-keyring::git+https://gitlab.archlinux.org/archlinux/archlinux-keyring.git#tag=20251027?signed
 	validpgpkeys = 02FD1C7A934E614545849F19A6234074498E9CEE
 	validpgpkeys = C7E7849466FE2358343588377258734B41C31549
@@ -25,3 +24,8 @@ pkgbase = archlinux-keyring
 	sha256sums = 8a22e862bf3e211afa1a2a089a7f889c501b9b04e37ee42e437012e71b10fdd1
 
 pkgname = archlinux-keyring
+	install = archlinux-keyring.install
+	depends = pacman
+
+pkgname = voa-verifiers-arch
+	pkgdesc = Arch Linux verifiers for the Hierarchy for the Verification of OS Artifacts (VOA)
