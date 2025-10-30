@@ -6,7 +6,7 @@
 # Contributor: Guilherme G. Piccoli <gpiccoli@igalia.com>
 
 pkgname=makedumpfile
-pkgver=1.7.6
+pkgver=1.7.8
 pkgrel=1
 pkgdesc="A tool to generate smaller dumpfiles from kdump memory dumps"
 license=('GPL-2.0-only')
@@ -15,22 +15,13 @@ makedepends=('git')
 arch=('x86_64')
 url="https://github.com/makedumpfile/makedumpfile"
 source=("git+$url.git?signed#tag=${pkgver}")
-sha256sums=('60d685da698d2499eaecf6e2a83a75cfdbdceacc73bdb003d59e1c026d9f37b5')
+sha256sums=('bebb8a8d4db53d8218a26b5a395d1423a34e57db89bcf94768a2edffa7d6c0c6')
 validpgpkeys=(
   'F4BA97F873AB047F217F8D16B0E0CE20E95D17F5' # Kazuhito Hagio <k-hagio-ab@nec.com>
   '60C5A596A37CDE6C357C5C623136D252B5E85FA9' # Kazuhito Hagio <k-hagio@ab.jp.nec.com>
+  'F4D1A09161401A7E773BA02A0A56B268DCE35849' # YAMAZAKI Masamitsu <yamazaki-msmt@nec.com>
 )
 
-prepare(){
-  cd "${pkgname}"
-
-  # Fix wrong exclusion of Slab pages on Linux 6.10-rc1 and later
-  # Required for kernel 6.10
-  git cherry-pick -n bad2a7c4fa75d37a41578441468584963028bdda
-
-  # Fix failure of hugetlb pages exclusion on Linux 6.9 and later
-  git cherry-pick -n 985e575253f1c2de8d6876cfe685c68a24ee06e1
-}
 build() {
   cd "${pkgname}"
   make -O \
