@@ -3,8 +3,8 @@
 
 _hkgname=hledger-iadd
 pkgname=hledger-iadd
-pkgver=1.3.21
-pkgrel=92
+pkgver=1.3.22
+pkgrel=1
 pkgdesc="A terminal UI as drop-in replacement for hledger add"
 url="https://github.com/hpdeifel/hledger-iadd#readme"
 license=('BSD-3-Clause')
@@ -16,7 +16,7 @@ depends=('ghc-libs' 'haskell-brick' 'haskell-free' 'haskell-hledger-lib' 'haskel
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-hspec'
              'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('26bf43b3c0cfbf9ddbaf1828247a5345efbb8d8d05773adaecec30d54f2122bdc005b745614da7bb58822a7cbb9da1305b70bac890d087dc69038b95eb4bf1d6')
+sha512sums=('ee271382edb98a687166240f473158e62ce7a1607288f8429b71f9bec0946b9e034993494e48cf5227ea5774cfb8c5ea52de6ca3be00c60e6a4222de61cdcdc4')
 
 prepare() {
   cd $_hkgname-$pkgver
