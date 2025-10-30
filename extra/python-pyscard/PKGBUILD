@@ -3,7 +3,7 @@
 
 pkgname=python-pyscard
 _pyname=pyscard
-pkgver=2.3.0
+pkgver=2.3.1
 pkgrel=1
 pkgdesc='Framework for building smart card aware applications in Python'
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=('swig' 'python-setuptools')
 validpgpkeys=('535E3696356979F4932CB7443F4A8A8FE07F1CF9'  # Ludovic Rousseau <rousseau@debian.org>
               'F5E11B9FFE911146F41D953D78A1B4DFE8F9C57E') # Ludovic Rousseau <ludovic.rousseau@free.fr>
 source=("https://downloads.sourceforge.net/project/pyscard/pyscard/pyscard%20${pkgver}/pyscard-${pkgver}.tar.gz"{,.asc})
-sha256sums=('621928e217e3b1d3c791086bf0c9f307fc4ae004a9b1a430536acc1a6eb50003'
+sha256sums=('a24356f57a0a950740b6e54f51f819edd5296ee8892a6625b0da04724e9e6c13'
             'SKIP')
 
 package() {
