@@ -1,12 +1,12 @@
 # Maintainer: Levente Polyak <anthraxx@archlinux.org>
 # Maintainer: Bruno Pagani <archange@archlinux.org>
-# Maintainer: T.J. Townsend <blakkheim@archlinux.org>
+# Contributor: T.J. Townsend <blakkheim@archlinux.org>
 # Contributor: Maarten de Vries <maarten@de-vri.es>
 # Contributor: Reventlov <contact@volcanis.me>
 # Contributor: kpcyrd <git@rxv.cc>
 
 pkgname=libressl
-pkgver=4.2.0
+pkgver=4.2.1
 pkgrel=1
 pkgdesc="Free version of the TLS/crypto stack forked from OpenSSL"
 arch=(x86_64)
@@ -16,7 +16,7 @@ depends=(glibc)
 optdepends=(ca-certificates)
 backup=(etc/libressl/openssl.cnf)
 source=(https://cdn.openbsd.org/pub/OpenBSD/LibreSSL/libressl-${pkgver}.tar.gz{,.asc})
-sha256sums=('0f7dba44d7cb8df8d53f2cfbf1955254bc128e0089595f1aba2facfaee8408b2'
+sha256sums=('6d5c2f58583588ea791f4c8645004071d00dfa554a5bf788a006ca1eb5abd70b'
             'SKIP')
 validpgpkeys=(A1EB079B8D3EB92B4EBD3139663AF51BD5E4D8D5) # Brent Cook <bcook@openbsd.org>
 
