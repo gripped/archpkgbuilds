@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=cosmic-initial-setup
-pkgver=1.0.0.beta.1.1
+pkgver=1.0.0.beta.2
 pkgrel=1
 pkgdesc="COSMIC Initial Setup"
 arch=(x86_64)
@@ -23,9 +23,9 @@ makedepends=(
   just
 )
 install="$pkgname.install"
-_tag=7d5c21cf1bd725a4264f53c990e5cc1b9da20985
+_tag=0080330b6dacafccebc3aac74f3fccaf20f87f67
 source=("git+https://github.com/pop-os/cosmic-initial-setup.git#tag=${_tag}")
-sha256sums=('eee10e0e06215250027c01ed52431c22f53a19b675e2036004518c88867f5a1b')
+sha256sums=('c44d68ddef3aff7138f299a301708c0ec03008bb018c08c91f1c31fde3cdea96')
 
 pkgver() {
   cd "${pkgname}"
@@ -46,7 +46,7 @@ prepare() {
 build() {
   cd "${pkgname}"
   export RUSTUP_TOOLCHAIN=stable
-  just build-release --frozen
+  just
 }
 
 package() {
