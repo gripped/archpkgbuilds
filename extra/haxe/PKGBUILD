@@ -8,7 +8,7 @@
 
 pkgname=haxe
 pkgver=4.3.7
-pkgrel=2
+pkgrel=3
 # The haxelib git submodule commit hash can be found here:
 # https://github.com/HaxeFoundation/haxe/tree/4.3.7/extra
 _haxelib_commit=4000137b822989eacb1e1c370470ee1c9ecdf4b8
@@ -20,7 +20,7 @@ arch=(x86_64)
 url='https://haxe.org/'
 license=(GPL-2.0-or-later MIT)
 depends=(mbedtls2 neko)
-makedepends=(camlp5 git neko ocaml opam perl-ipc-system-simple perl-string-shellquote zlib)
+makedepends=(camlp5 git neko ocaml opam ocaml-ptmap perl-ipc-system-simple perl-string-shellquote zlib)
 optdepends=(java-environment mono php python)
 source=(mbedtls2.patch
         "haxelib_src::git+https://github.com/HaxeFoundation/haxelib#commit=$_haxelib_commit"
@@ -45,8 +45,8 @@ prepare() {
   opam init -a --disable-sandboxing --compiler=ocaml-system
   eval $(opam env)
 
-  # Install required OCaml packages
-  opam install -y extlib luv ocamlfind ptmap sedlex sha xml-light
+  # TODO: Package required OCaml packages in [extra]
+  opam install -y extlib luv ocamlfind sedlex sha xml-light
 
   # Create the script that will be placed in /etc/profile.d
   echo 'export HAXE_STD_PATH=/usr/share/haxe/std' > haxe.sh
