@@ -3,8 +3,8 @@
 
 pkgname=python-zope-security
 _pkgname=zope.security
-pkgver=8.1
-pkgrel=2
+pkgver=8.2
+pkgrel=1
 pkgdesc="Zope Security Framework"
 arch=('x86_64')
 url="https://github.com/zopefoundation/zope.security"
@@ -33,11 +33,11 @@ checkdepends=(
 )
 optdepends=('python-zope-configuration: for ZCML support')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('4cccaf50c44a7c1345e3372c8b9f770e51e4920f12a06a9fc8243b887d53e65247329ce1cb8f0eed0d386e86f4bc7f6b9d5a2087c17247a4476d685766be6879')
+sha512sums=('9d84e7b13f2a6f3fb2a8210091dd986f4a70d83521ad6af89ba056fe3c742986149f16ad6c3e47e6db3640c229cf35306494f329f957ddf7bd78501536276248')
 
 build() {
   cd $_pkgname-$pkgver
-  python -m build --wheel --no-isolation --skip-dependency-check
+  python -m build --wheel --no-isolation
 }
 
 check() {
