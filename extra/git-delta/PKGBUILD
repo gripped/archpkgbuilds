@@ -6,7 +6,7 @@
 pkgname=git-delta
 _pkgname=delta
 pkgver=0.18.2
-pkgrel=4
+pkgrel=6
 pkgdesc='Syntax-highlighting pager for git and diff output'
 arch=(x86_64)
 url='https://dandavison.github.io/delta/'
@@ -59,18 +59,21 @@ package() {
   cd "$_pkgname-$pkgver"
 
   # binary
-  install -vDm755 -t "$pkgdir/usr/bin" target/release/delta
+  local _bin=target/release/delta
+  install -vDm755 -t "$pkgdir/usr/bin/" $_bin
 
   # license
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 
-  # shell auto-completions
-  install -vDm644 etc/completion/completion.bash \
+  # shell completions
+  install -vDm644 <($_bin --generate-completion=bash) \
     "$pkgdir/usr/share/bash-completion/completions/$_pkgname"
-  install -vDm644 etc/completion/completion.zsh \
-    "$pkgdir/usr/share/zsh/site-functions/_$_pkgname"
-  install -vDm644 etc/completion/completion.fish \
+  install -vDm644 <($_bin --generate-completion=elvish) \
+    "$pkgdir/usr/share/elvish/lib/$_pkgname.elv"
+  install -vDm644 <($_bin --generate-completion=fish) \
     "$pkgdir/usr/share/fish/vendor_completions.d/$_pkgname.fish"
+  install -vDm644 <($_bin --generate-completion=zsh) \
+    "$pkgdir/usr/share/zsh/site-functions/_$_pkgname"
 
   # documentation
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
