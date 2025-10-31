@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a04a0135d..a17d6620b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -36,7 +36,7 @@ if(WITH_TESTS)
+ endif()
+ 
+ find_package(Qt${QT_VERSION_MAJOR}
+-    COMPONENTS Concurrent Core Gui Network Widgets Xml ${QT_TEST_COMPONENT}
++    COMPONENTS Concurrent Core CorePrivate Gui Network Widgets Xml ${QT_TEST_COMPONENT}
+     REQUIRED
+     )
+ 
