@@ -1,7 +1,7 @@
 pkgbase = timescaledb
 	pkgdesc = An open-source time-series database optimized for fast ingest and complex queries
-	pkgver = 2.22.1
-	pkgrel = 1
+	pkgver = 2.23.0
+	pkgrel = 2
 	url = https://www.timescale.com/
 	install = timescaledb.install
 	arch = x86_64
@@ -10,15 +10,16 @@ pkgbase = timescaledb
 	makedepends = gcc
 	makedepends = cmake
 	makedepends = git
+	depends = glibc
 	depends = openssl
-	depends = postgresql-libs<18
-	depends = postgresql-libs>=17
-	depends = postgresql<18
-	depends = postgresql>=17
+	depends = postgresql-libs<19
+	depends = postgresql-libs>=18
+	depends = postgresql<19
+	depends = postgresql>=18
 	optdepends = timescaledb-tune: tune postgresql.conf for better performance
 	optdepends = timescaledb-old-upgrade: upgrade from previous major version of PostgreSQL
-	source = timescaledb::git+https://github.com/timescale/timescaledb#commit=687331da33dce1be390d277cbaa0eef62e6ede9d
-	sha512sums = b7ce88f6780e2ee5d719d97809bde166ebf810c65bd53490d8fd4b8fda66741d17c14cf8ffd703ad870a3ac1b1178df402e1011f7db7206332c59eb15201ba2e
-	b2sums = 4992f9550600222fe0e0c2e8c7bd90c53cb8dfcbb6bc053294138a38afa66cfe308a25e6706f13eaba06722521009b89e2ddfcafaf013c748cbc0e875da4a37f
+	source = timescaledb::git+https://github.com/timescale/timescaledb#commit=ba5dcfd1c69f3529d0cc9de3028e1a12a36042ba
+	sha512sums = 34595c725a95a8d0ae136da4a147f3b0f3d5d359ed9d47b9d47b4e5c045ec8ad5d40f2616b7eb3a1a3dfd77289386b7873afd18c39b0004b4b08a483a0f91242
+	b2sums = 6004e7ecc7bd5ab65379e1d9a53126c549a116b03615ad23d5a69c6181a5013d436aa5cd347eccd44b9c03ad21fcaaf8053846034b586c655dac53c55482545e
 
 pkgname = timescaledb
