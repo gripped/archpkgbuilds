@@ -3,7 +3,7 @@
 # Contributor: Karol Babioch <karol@babioch.de>
 
 pkgname=python-pysnmp
-pkgver=7.1.21
+pkgver=7.1.22
 pkgrel=1
 pkgdesc='Open source and free implementation of v1/v2c/v3 SNMP engine'
 arch=('any')
@@ -26,7 +26,7 @@ checkdepends=(
   'python-pytest-asyncio'
 )
 source=("https://github.com/lextudio/pysnmp/archive/v$pkgver/${pkgname#python-}-v$pkgver.tar.gz")
-sha512sums=('65e609690d08b2db8ab497fa4a974e4bc90630891ff80b28351e74d17f1da654a0aa309226658731ad315cce192c6e9e36d9bcbbf87270c9c48dc187df36b03a')
+sha512sums=('f77690c2f269e76c8a2f556e86207af9ccb1ecf608f1748e2fad1e01b0795b133019957e6956027a394cd7c36f45e105eb89ef3a71750266f6839bcdfc49cb95')
 
 build() {
   cd ${pkgname#python-}-$pkgver
