@@ -5,8 +5,8 @@
 # Contributor: parchd <parchd@archlinux.info>
 
 pkgname=opensmtpd
-pkgver=7.7.0p0
-pkgrel=4
+pkgver=7.8.0p0
+pkgrel=1
 pkgdesc="Free implementation of the server-side SMTP protocol"
 arch=(x86_64)
 url="https://www.opensmtpd.org"
@@ -19,12 +19,10 @@ conflicts=(smtp-server smtp-forwarder)
 backup=(etc/smtpd/smtpd.conf etc/smtpd/aliases)
 options=(emptydirs)
 source=("git+https://github.com/OpenSMTPD/OpenSMTPD.git#tag=${pkgver}"
-        CVE-2025-62875.patch
         opensmtpd.sysusers
         smtpd.service
         smtpd.socket)
-sha256sums=('fcde39c6fae690e8abc8e2dfc908dae4b7c0d3b64a7bd846f892c08d9a067e9c'
-            '8b797798c23cbd34788391d110c61a7b5d9101cdf49187b3699dd30e180b1a86'
+sha256sums=('10131c5cc2dfce51d520e6847cb43d08e0043d87fafeb74b3531ca617ab4aced'
             '955e25043dbbc266a496db10c5d5f25f70d5342bba0550915932c04068a4ca01'
             'abf5baeb2a87c60d668ad18ea41cc08cab7a4f76339dd6df05de15cdaadaf922'
             '32d46de5562d01de445d04c93bcc9f94bf103539b676e449c32e3603a3866cf8')
@@ -33,7 +31,6 @@ install="${pkgname}.install"
 prepare() {
   cd OpenSMTPD
   sed -ri 's,/etc/mail,/etc/smtpd,g' usr.sbin/smtpd/smtpd.conf
-  patch -Np1 -i ../CVE-2025-62875.patch
   autoreconf -vfi
 }
 
