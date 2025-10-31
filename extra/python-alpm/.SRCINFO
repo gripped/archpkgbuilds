@@ -1,0 +1,26 @@
+pkgbase = python-alpm
+	pkgdesc = Python bindings for the Rust-based ALPM project
+	pkgver = 0.2.1
+	pkgrel = 1
+	url = https://alpm.archlinux.page/python-alpm/
+	arch = x86_64
+	groups = alpm
+	license = Apache-2.0 OR MIT
+	license = CC-BY-SA-4.0
+	checkdepends = alpm-pkgbuild-bridge
+	checkdepends = python-pytest
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-maturin
+	makedepends = python-installer
+	depends = gcc-libs
+	depends = glibc
+	depends = python
+	optdepends = alpm-docs: for additional specifications
+	optdepends = alpm-pkgbuild-bridge: for creating SRCINFO data from PKGBUILD files
+	source = alpm::git+https://gitlab.archlinux.org/archlinux/alpm/alpm.git?signed#tag=python-alpm/0.2.1
+	validpgpkeys = 991F6E3F0765CF6295888586139B09DA5BF0D338
+	sha512sums = 74b2539f76f363509b99e23c3eadbd36c3b830382707bfc36a3ecd3d5b7544a780fb0b5f4f8bd2b71e7af8e82e737d329a68a32e3a413dea54816bf2cba21d6c
+	b2sums = 9dd88568bd81045eb681a1290d521cae111442b3a906a933c39b768b5e57683a6056d5e9b3c231cdd5069a70bae371ca5cb251aac9b2bc2785ce3e2928769879
+
+pkgname = python-alpm
