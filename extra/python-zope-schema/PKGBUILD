@@ -3,7 +3,7 @@
 
 pkgname=python-zope-schema
 _pkgname=zope.schema
-pkgver=8.0
+pkgver=8.1
 pkgrel=1
 pkgdesc="zope.interface extension for defining data schemas"
 arch=('any')
@@ -26,7 +26,7 @@ checkdepends=(
   'python-zope-testrunner'
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('bf4bf5bae9c570eaa1dee7c55acac21e23a89a945b1b6d1865ed2566ebfe9d0e98b77e1bee5654bea969eca6c9dbf011ebaa9d8da375974b5b2d321b893a0737')
+sha512sums=('5f479938797bfb8d157873006c889f24d08c597cb8c4a90140a03739c9e63251b7519f058ed6aab473d0b41181d001302dcd4a6b82972c57a517ada8e7b69156')
 
 build() {
   cd $_pkgname-$pkgver
