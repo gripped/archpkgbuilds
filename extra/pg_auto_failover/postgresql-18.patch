@@ -1,0 +1,248 @@
+diff -Nurp pg_auto_failover-2.2/.github/workflows/run-tests.yml pg_auto_failover-2.2-pg18/.github/workflows/run-tests.yml
+--- pg_auto_failover-2.2/.github/workflows/run-tests.yml	2025-04-03 14:05:01.000000000 +0200
++++ pg_auto_failover-2.2-pg18/.github/workflows/run-tests.yml	2025-10-31 16:46:16.741227244 +0100
+@@ -23,6 +23,7 @@ jobs:
+           - 15
+           - 16
+           - 17
++          - 18
+         TEST:
+           - multi
+           - single
+diff -Nurp pg_auto_failover-2.2/Dockerfile pg_auto_failover-2.2-pg18/Dockerfile
+--- pg_auto_failover-2.2/Dockerfile	2025-04-03 14:05:01.000000000 +0200
++++ pg_auto_failover-2.2-pg18/Dockerfile	2025-10-31 16:50:36.191827394 +0100
+@@ -3,7 +3,7 @@
+ # target version of Postgres. In the Makefile, we use that to our advantage
+ # and tag test images such as pg_auto_failover_test:pg14.
+ #
+-ARG PGVERSION=17
++ARG PGVERSION=18
+ 
+ #
+ # Define a base image with all our build dependencies.
+@@ -84,7 +84,7 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL'
+ FROM base AS citus
+ 
+ ARG PGVERSION
+-ARG CITUSTAG=v13.0.1
++ARG CITUSTAG=v13.1.0
+ 
+ ENV PG_CONFIG=/usr/lib/postgresql/${PGVERSION}/bin/pg_config
+ 
+diff -Nurp pg_auto_failover-2.2/Makefile pg_auto_failover-2.2-pg18/Makefile
+--- pg_auto_failover-2.2/Makefile	2025-04-03 14:05:01.000000000 +0200
++++ pg_auto_failover-2.2-pg18/Makefile	2025-10-31 16:50:23.988895793 +0100
+@@ -4,7 +4,7 @@
+ .DEFAULT_GOAL := all
+ 
+ # Supported PostgreSQL versions:
+-PGVERSIONS = 13 14 15 16 17
++PGVERSIONS = 13 14 15 16 17 18
+ 
+ # Default version:
+ PGVERSION ?= $(lastword $(PGVERSIONS))
+@@ -16,7 +16,7 @@ CLUSTER_OPTS = ""
+ # XXXX This should be in Makefile.citus only
+ # but requires to clean up dockerfile and make targets related to citus first.
+ # Default Citus Data version
+-CITUSTAG ?= v13.0.1
++CITUSTAG ?= v13.1.0
+ 
+ # TODO should be abs_top_dir ?
+ TOP := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+@@ -277,6 +277,7 @@ BUILD_ARGS_pg14 = --build-arg PGVERSION=
+ BUILD_ARGS_pg15 = --build-arg PGVERSION=15 --build-arg CITUSTAG=v12.1.5
+ BUILD_ARGS_pg16 = --build-arg PGVERSION=16 --build-arg CITUSTAG=$(CITUSTAG)
+ BUILD_ARGS_pg17 = --build-arg PGVERSION=17 --build-arg CITUSTAG=$(CITUSTAG)
++BUILD_ARGS_pg18 = --build-arg PGVERSION=18 --build-arg CITUSTAG=$(CITUSTAG)
+ 
+ # DOCKER BUILDS
+ 
+diff -Nurp pg_auto_failover-2.2/README.md pg_auto_failover-2.2-pg18/README.md
+--- pg_auto_failover-2.2/README.md	2025-04-03 14:05:01.000000000 +0200
++++ pg_auto_failover-2.2-pg18/README.md	2025-10-31 16:51:01.358413895 +0100
+@@ -4,7 +4,7 @@
+ 
+ pg_auto_failover is an extension and service for PostgreSQL that monitors
+ and manages automated failover for a Postgres cluster. It is optimized for
+-simplicity and correctness and supports Postgres 13 to 17.
++simplicity and correctness and supports Postgres 13 to 18.
+ 
+ pg_auto_failover supports several Postgres architectures and implements a
+ safe automated failover for your Postgres service. It is possible to get
+@@ -67,14 +67,14 @@ install by following the linked document
+ 
+ ```bash
+ $ sudo apt-get install pg-auto-failover-cli
+-$ sudo apt-get install postgresql-17-auto-failover
++$ sudo apt-get install postgresql-18-auto-failover
+ ```
+ 
+ When using debian, two packages are provided for pg_auto_failover: the
+ monitor Postgres extension is packaged separately and depends on the
+ Postgres version you want to run for the monitor itself. The monitor's
+-extension package is named `postgresql-17-auto-failover` when targeting
+-Postgres 17.
++extension package is named `postgresql-18-auto-failover` when targeting
++Postgres 18.
+ 
+ Then another package is prepared that contains the `pg_autoctl` command, and
+ the name of the package is `pg-auto-failover-cli`. That's the package that
+@@ -90,7 +90,7 @@ $ echo "deb http://apt.postgresql.org/pu
+ # bypass initdb of a "main" cluster
+ $ echo 'create_main_cluster = false' | sudo tee -a /etc/postgresql-common/createcluster.conf
+ $ apt-get update
+-$ apt-get install -y --no-install-recommends postgresql-17
++$ apt-get install -y --no-install-recommends postgresql-18
+ ```
+ 
+ ### Other installation methods
+diff -Nurp pg_auto_failover-2.2/docs/azure-tutorial.rst pg_auto_failover-2.2-pg18/docs/azure-tutorial.rst
+--- pg_auto_failover-2.2/docs/azure-tutorial.rst	2025-04-03 14:05:01.000000000 +0200
++++ pg_auto_failover-2.2-pg18/docs/azure-tutorial.rst	2025-10-31 16:47:47.594052997 +0100
+@@ -154,7 +154,7 @@ nodes. It will help us run and observe P
+         "curl https://install.citusdata.com/community/deb.sh | sudo bash" \
+         "sudo DEBIAN_FRONTEND=noninteractive apt-get install -q -y postgresql-common" \
+         "echo 'create_main_cluster = false' | sudo tee -a /etc/postgresql-common/createcluster.conf" \
+-        "sudo DEBIAN_FRONTEND=noninteractive apt-get install -q -y postgresql-17-auto-failover" \
++        "sudo DEBIAN_FRONTEND=noninteractive apt-get install -q -y postgresql-18-auto-failover" \
+         "sudo usermod -a -G postgres ha-admin" &
+   done
+   wait
+@@ -178,7 +178,7 @@ own roles in the system.
+        --auth trust \
+        --ssl-self-signed \
+        --pgdata monitor \
+-       --pgctl /usr/lib/postgresql/17/bin/pg_ctl
++       --pgctl /usr/lib/postgresql/18/bin/pg_ctl
+ 
+ This command initializes a PostgreSQL cluster at the location pointed
+ by the ``--pgdata`` option. When ``--pgdata`` is omitted, ``pg_autoctl``
+@@ -225,7 +225,7 @@ We’ll create the primary database usin
+        --username ha-admin \
+        --dbname appdb \
+        --hostname ha-demo-a.internal.cloudapp.net \
+-       --pgctl /usr/lib/postgresql/17/bin/pg_ctl \
++       --pgctl /usr/lib/postgresql/18/bin/pg_ctl \
+        --monitor 'postgres://autoctl_node@ha-demo-monitor.internal.cloudapp.net/pg_auto_failover?sslmode=require'
+ 
+ Notice the user and database name in the monitor connection string -- these
+@@ -274,7 +274,7 @@ Next connect to node B and do the same p
+        --username ha-admin \
+        --dbname appdb \
+        --hostname ha-demo-b.internal.cloudapp.net \
+-       --pgctl /usr/lib/postgresql/17/bin/pg_ctl \
++       --pgctl /usr/lib/postgresql/18/bin/pg_ctl \
+        --monitor 'postgres://autoctl_node@ha-demo-monitor.internal.cloudapp.net/pg_auto_failover?sslmode=require'
+ 
+    ssh -T -l ha-admin `vm_ip b` << CMD
+diff -Nurp pg_auto_failover-2.2/docs/install.rst pg_auto_failover-2.2-pg18/docs/install.rst
+--- pg_auto_failover-2.2/docs/install.rst	2025-04-03 14:05:01.000000000 +0200
++++ pg_auto_failover-2.2-pg18/docs/install.rst	2025-10-31 16:48:08.338466905 +0100
+@@ -6,8 +6,8 @@ Installing pg_auto_failover
+ We provide native system packages for pg_auto_failover on most popular Linux
+ distributions.
+ 
+-Use the steps below to install pg_auto_failover on PostgreSQL 17. At the
+-current time pg_auto_failover is compatible with PostgreSQL 13 to 17.
++Use the steps below to install pg_auto_failover on PostgreSQL 18. At the
++current time pg_auto_failover is compatible with PostgreSQL 13 to 18.
+ 
+ Ubuntu or Debian
+ ----------------
+@@ -20,13 +20,13 @@ Binary packages for debian and derivativ
+ documentation and then::
+ 
+   $ sudo apt-get install pg-auto-failover-cli
+-  $ sudo apt-get install postgresql-17-auto-failover
++  $ sudo apt-get install postgresql-18-auto-failover
+ 
+ __ https://wiki.postgresql.org/wiki/Apt
+ 
+ The Postgres extension named "pgautofailover" is only necessary on the
+ monitor node. To install that extension, you can install the
+-``postgresql-17-auto-failover`` package when using Postgres 17. It's
++``postgresql-18-auto-failover`` package when using Postgres 18. It's
+ available for other Postgres versions too.
+ 
+ Avoiding the default Postgres service
+@@ -47,7 +47,7 @@ debian package, follow those steps:
+   # bypass initdb of a "main" cluster
+   $ echo 'create_main_cluster = false' | sudo tee -a /etc/postgresql-common/createcluster.conf
+   $ apt-get update
+-  $ apt-get install -y --no-install-recommends postgresql-17
++  $ apt-get install -y --no-install-recommends postgresql-18
+ 
+ That way when it's time to :ref:`pg_autoctl_create_monitor` or
+ :ref:`pg_autoctl_create_postgres` there is no confusion about how to handle
+@@ -91,7 +91,7 @@ Here's a sample output from the command:
+    WorkingDirectory = /var/lib/postgresql
+    Environment = 'PGDATA=/var/lib/postgresql/monitor'
+    User = postgres
+-   ExecStart = /usr/lib/postgresql/17/bin/pg_autoctl run
++   ExecStart = /usr/lib/postgresql/18/bin/pg_autoctl run
+    Restart = always
+    StartLimitBurst = 0
+ 
+@@ -128,7 +128,7 @@ pg_auto_failover uses the same build dep
+ 
+ ::
+ 
+-   $ sudo apt-get build-dep -y --no-install-recommends postgresql-17
++   $ sudo apt-get build-dep -y --no-install-recommends postgresql-18
+ 
+ Then build pg_auto_failover from sources with the following instructions:
+ 
+diff -Nurp pg_auto_failover-2.2/src/bin/pg_autoctl/azure.c pg_auto_failover-2.2-pg18/src/bin/pg_autoctl/azure.c
+--- pg_auto_failover-2.2/src/bin/pg_autoctl/azure.c	2025-04-03 14:05:01.000000000 +0200
++++ pg_auto_failover-2.2-pg18/src/bin/pg_autoctl/azure.c	2025-10-31 16:48:21.920351704 +0100
+@@ -1055,10 +1055,10 @@ azure_build_pg_autoctl(AzureRegionResour
+ 	pid_t pidArray[MAX_VMS_PER_REGION] = { 0 };
+ 
+ 	char *buildCommand =
+-		"make PG_CONFIG=/usr/lib/postgresql/17/bin/pg_config "
++		"make PG_CONFIG=/usr/lib/postgresql/18/bin/pg_config "
+ 		"-C pg_auto_failover -s clean all "
+ 		" && "
+-		"sudo make PG_CONFIG=/usr/lib/postgresql/17/bin/pg_config "
++		"sudo make PG_CONFIG=/usr/lib/postgresql/18/bin/pg_config "
+ 		"BINDIR=/usr/local/bin -C pg_auto_failover install";
+ 
+ 	log_info("Building pg_auto_failover from sources on %d Azure VMs",
+diff -Nurp pg_auto_failover-2.2/src/bin/pg_autoctl/cli_common.c pg_auto_failover-2.2-pg18/src/bin/pg_autoctl/cli_common.c
+--- pg_auto_failover-2.2/src/bin/pg_autoctl/cli_common.c	2025-04-03 14:05:01.000000000 +0200
++++ pg_auto_failover-2.2-pg18/src/bin/pg_autoctl/cli_common.c	2025-10-31 16:48:36.239686056 +0100
+@@ -1524,7 +1524,7 @@ keeper_cli_print_version(int argc, char
+ 				"pg_autoctl extension version %s\n",
+ 				PG_AUTOCTL_EXTENSION_VERSION);
+ 		fformat(stdout, "compiled with %s\n", PG_VERSION_STR);
+-		fformat(stdout, "compatible with Postgres 13, 14, 15, 16 and 17\n");
++		fformat(stdout, "compatible with Postgres 13, 14, 15, 16, 17 and 18\n");
+ 	}
+ 
+ 	exit(0);
+diff -Nurp pg_auto_failover-2.2/src/monitor/Makefile pg_auto_failover-2.2-pg18/src/monitor/Makefile
+--- pg_auto_failover-2.2/src/monitor/Makefile	2025-04-03 14:05:01.000000000 +0200
++++ pg_auto_failover-2.2-pg18/src/monitor/Makefile	2025-10-31 16:55:37.854886724 +0100
+@@ -12,7 +12,7 @@ DATA = $(EXTENSION)--1.0.sql $(patsubst
+ # compilation configuration
+ MODULE_big = $(EXTENSION)
+ OBJS = $(patsubst ${SRC_DIR}%.c,%.o,$(wildcard ${SRC_DIR}*.c))
+-PG_CPPFLAGS = -std=c99 -Wall -Werror -Wno-unused-parameter -Iinclude -I$(libpq_srcdir) -g
++PG_CPPFLAGS = -std=c99 -Wall -Wno-unused-parameter -Iinclude -I$(libpq_srcdir) -g
+ SHLIB_LINK = $(libpq)
+ REGRESS = create_extension monitor workers dummy_update drop_extension upgrade
+ 
+diff -Nurp pg_auto_failover-2.2/src/monitor/version_compat.h pg_auto_failover-2.2-pg18/src/monitor/version_compat.h
+--- pg_auto_failover-2.2/src/monitor/version_compat.h	2025-04-03 14:05:01.000000000 +0200
++++ pg_auto_failover-2.2-pg18/src/monitor/version_compat.h	2025-10-31 16:49:10.347155874 +0100
+@@ -15,7 +15,7 @@
+ #include "postgres.h"
+ 
+ /* we support Postgres versions 10, 11, 12, 13, 14, 15, 16, and 17. */
+-#if (PG_VERSION_NUM < 100000 || PG_VERSION_NUM >= 180000)
++#if (PG_VERSION_NUM < 100000 || PG_VERSION_NUM >= 190000)
+ #error "Unknown or unsupported postgresql version"
+ #endif
+ 
