@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=regect
-pkgver=0.2.6
+pkgver=0.2.7
 pkgrel=1
 pkgdesc="A CLI tool to quickly test regular expressions"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT' 'Apache-2.0')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('202144ba06143900634a1cf90d945b853b0c51e40b64c256c677937c18b04c27')
+sha256sums=('6266ada52dfd9d7ba0c57db5f8ac55c0eb3ca0b4a9e6bb173500ff7f77ba7353')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -31,7 +31,7 @@ package() {
   cd "$pkgname-$pkgver"
   install -Dm 755 "target/release/$pkgname" "$pkgdir/usr/bin/$pkgname"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
-  # install -Dm 644 LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname"
+  install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
 }
 
 # vim: ts=2 sw=2 et:
