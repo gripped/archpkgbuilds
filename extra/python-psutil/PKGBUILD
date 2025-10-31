@@ -3,7 +3,7 @@
 # Contributor: Sébastien Luttringer
 
 pkgname=python-psutil
-pkgver=7.1.1
+pkgver=7.1.2
 pkgrel=1
 arch=('x86_64')
 pkgdesc='A cross-platform process and system utilities module for Python'
@@ -24,17 +24,8 @@ checkdepends=(
   'procps-ng'
   'python-pytest'
 )
-source=(
-  "$pkgname-$pkgver.tar.gz::$url/archive/release-$pkgver.tar.gz"
-  "$pkgname-dont-package-tests.patch"
-)
-sha512sums=('b4be1d865733ae2b99e4f74098507a1862aaf48ba670db85a3f83c29ba36e6750d85f32fa136965a3c487f6cafbcbd8e7b1aef0e152900ba518450e95bfd2ab1'
-            'bc902748c8de706a2196f8a19801314f11035c17c8ad406330ba54f821c3ba9144c49d9b7e305d56500576993162c6d148f7db9cf0c61d4fd23b4d85adb3d461')
-
-prepare() {
-  cd psutil-release-$pkgver
-  patch -Np1 -i ../$pkgname-dont-package-tests.patch
-}
+source=("$url/archive/release-$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('5aac35506ca6a2794d5c27eed6717dfc1efe87fe4cad031a0249fa9a2dd27c14aef0a3568ff15dd4d077989c6afe34191f9ec466492a7d7ef9e3e7a92c374fcf')
 
 build() {
   cd psutil-release-$pkgver
