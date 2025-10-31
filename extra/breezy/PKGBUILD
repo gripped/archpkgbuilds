@@ -3,7 +3,7 @@
 # Contributor: Adam Fontenot <adam.m.fontenot@gmail.com>
 
 pkgname=breezy
-pkgver=3.3.13
+pkgver=3.3.15
 pkgrel=1
 pkgdesc='A decentralized revision control system with support for Bazaar and Git file formats'
 arch=(x86_64)
@@ -47,8 +47,17 @@ optdepends=(
 provides=(bzr)
 conflicts=(bzr)
 replaces=(bzr)
-source=("git+https://github.com/breezy-team/breezy.git#tag=brz-$pkgver")
-sha256sums=('0de875800656de8034a40fda568c5ff21a7821d663c977e3e7667b41049d8555')
+source=(
+  "git+https://github.com/breezy-team/breezy.git#tag=brz-$pkgver"
+  "breezy-dulwich-0.22.0-compatibility.patch"
+)
+sha256sums=('c7d7f4bcf8ed219fabdfb999970183c93c9f48701e47515b6b9e38f7dee72676'
+            'd5f2ef12afc8694f0fc439d0ac96127512050039dfe2a72efb4d45c40aed1f34')
+
+prepare() {
+  cd $pkgname
+  patch -Np1 < ../$pkgname-dulwich-0.22.0-compatibility.patch
+}
 
 build() {
   cd $pkgname
@@ -57,10 +66,6 @@ build() {
 
 check() {
   cd $pkgname
-  python -m installer --destdir=tmp_install dist/*.whl
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  export PYTHONPATH="$PWD/tmp_install/$site_packages"
-
   local excluded_tests=(
     # This test is flaky and fails with the following error when run in parallel:
     # ssl.SSLError: [SYS] unknown error (_ssl.c:2570)
@@ -80,8 +85,11 @@ check() {
     --exclude="breezy.tests.test_gpg.TestVerify.test_verify_untrusted_but_accepted"
     --exclude="breezy.tests.test_gpg.TestVerify.test_verify_valid_but_untrusted"
   )
-
-  "$PWD/tmp_install/usr/bin/brz" selftest \
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  export PATH=$PWD/test-env/bin:$PATH
+  local python_version=$(python -c 'import sys; v = sys.version_info; print(f"{v.major}.{v.min}")')
+  PYTHONPATH=$PWD/test-env/lib/python$python_version/site-packages brz selftest \
     --parallel=fork \
     --verbose \
     "${excluded_tests[@]}" \
@@ -90,6 +98,6 @@ check() {
 
 package() {
   cd $pkgname
-  python -m installer --destdir="$pkgdir" dist/*.whl
+  /usr/bin/python -m installer --destdir="$pkgdir" dist/*.whl
   ln -vs /usr/bin/brz "$pkgdir/usr/bin/bzr" # backwards compatibility
 }

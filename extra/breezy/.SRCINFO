@@ -1,6 +1,6 @@
 pkgbase = breezy
 	pkgdesc = A decentralized revision control system with support for Bazaar and Git file formats
-	pkgver = 3.3.13
+	pkgver = 3.3.15
 	pkgrel = 1
 	url = https://www.breezy-vcs.org/
 	arch = x86_64
@@ -35,7 +35,9 @@ pkgbase = breezy
 	provides = bzr
 	conflicts = bzr
 	replaces = bzr
-	source = git+https://github.com/breezy-team/breezy.git#tag=brz-3.3.13
-	sha256sums = 0de875800656de8034a40fda568c5ff21a7821d663c977e3e7667b41049d8555
+	source = git+https://github.com/breezy-team/breezy.git#tag=brz-3.3.15
+	source = breezy-dulwich-0.22.0-compatibility.patch
+	sha256sums = c7d7f4bcf8ed219fabdfb999970183c93c9f48701e47515b6b9e38f7dee72676
+	sha256sums = d5f2ef12afc8694f0fc439d0ac96127512050039dfe2a72efb4d45c40aed1f34
 
 pkgname = breezy
