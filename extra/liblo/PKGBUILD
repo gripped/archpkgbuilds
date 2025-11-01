@@ -3,7 +3,7 @@
 
 pkgbase=liblo
 pkgname=(liblo liblo-docs)
-pkgver=0.33
+pkgver=0.34
 pkgrel=1
 epoch=1
 pkgdesc="A lightweight OSC (Open Sound Control) implementation"
@@ -12,8 +12,8 @@ url="http://liblo.sourceforge.net/"
 license=(LGPL-2.1-or-later)
 makedepends=(doxygen)
 source=(https://github.com/radarsat1/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('5661c737dd2d4b87d47fb3cb87deb08a0e7b9dbb144b459d12a4f1be70f1b1911d250cfa7e158be64d62ff24a670f1e6ab17028e57a73a1ec07a92c0a380826a')
-b2sums=('b9feec4d52f0387fe14aa587326da69c6f4cfbf953fb652afe1eddb802958a0e75016228aa67dddaa916a36ad38bf5e4144122a0bea8712b53361fc42574b734')
+sha512sums=('3757675f908f6bb7be3414c2708c4958fd1dd92f55d22f394902b51a27230524ff9dd6500f85229a53d1383b71e3bc09c74c011c1b6b988ebd777283c58b7227')
+b2sums=('46916aefd303f90677535af116092fbbece768d6653e47a70519c364e38a5350d3729752fbccf4dfe0c11f211e4267884c59592c050f90ae2da84d575a52b3eb')
 
 prepare() {
   cd $pkgname-$pkgver
