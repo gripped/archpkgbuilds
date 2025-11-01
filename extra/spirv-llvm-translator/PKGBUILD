@@ -3,8 +3,8 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=spirv-llvm-translator
-pkgver=21.1.1
-pkgrel=3
+pkgver=21.1.2
+pkgrel=1
 pkgdesc="LLVM <-> SPIR-V converter for compilers targeting SPIR-V"
 url="https://www.khronos.org/spirv/"
 arch=(x86_64)
@@ -30,7 +30,7 @@ source=(
   git+https://github.com/KhronosGroup/SPIRV-LLVM-Translator#tag=v$pkgver
   0001-fixes-a-new-validation-failure-in-a-UniformId-test-3.patch
 )
-b2sums=('b68cbb40de22d7a2f6263e3514bad57ba41194081bf189f697fc412edffec6ddadb6faf18c0187914f7c52e93e1e09c673998c9f64405d37822fa9c6a74410b4'
+b2sums=('92688870a40251be3f06815d19d2b39fe9fc83e0ee71ee0db378e540e3da7af68951eeb76012b87b1f2923f9b7fc231275e653470762bde69087589184dd4b19'
         '72582c18a18eaee813a262777ae638c36333e516d2b50493dae1e106abe8e7db851419c9fe358a0b80600aa24bd2a87acf0a77d9297836976322ba6109777657')
 
 prepare() {
