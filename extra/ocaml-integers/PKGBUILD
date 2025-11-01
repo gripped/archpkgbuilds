@@ -2,7 +2,7 @@
 
 pkgname=ocaml-integers
 pkgver=0.7.0
-pkgrel=9
+pkgrel=10
 pkgdesc='Various signed and unsigned integer types for OCaml'
 arch=('x86_64')
 url=https://github.com/ocamllabs/ocaml-integers
