@@ -1,18 +1,16 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=pdoc
-pkgver=15.0.4
+pkgver=16.0.0
 pkgrel=1
 pkgdesc="API Documentation for Python Projects"
 arch=(any)
 url="https://github.com/mitmproxy/pdoc/"
-license=(
-  MIT-0
-  MIT  # upstream vendors some older version of python-markdown2: https://github.com/mitmproxy/pdoc/issues/815
-)
+license=(MIT-0)
 depends=(
   python
   python-jinja
+  python-markdown2
   python-markupsafe
   python-pygments
 )
@@ -24,14 +22,15 @@ makedepends=(
 )
 checkdepends=(
   python-hypothesis
+  python-pdoc-pyo3-sample-library
+  python-pydantic
   python-pytest
   python-pytest-timeout
-  # python-pdoc-pyo3-sample-library  # waiting on upstream to tag releases: https://github.com/mitmproxy/pdoc-pyo3-sample-library/issues/1
 )
 provides=(python-pdoc)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('9aefb1c24be475f2bfb791d09fae566bea24d4d1541db8b45f2960aefe0f57dddc89042bfaea82186888419b9d67df6b1d4ad1e8b1757b82834d2042b3418869')
-b2sums=('89bf6c6fc510d362d0742da02349320c09c0b6d64f9e11078f6f5449a7407f98be14dcb3b5e476bf34a47acfe94d347e1b21cb45b00311c123a5289ce71aec56')
+sha512sums=('6fb5a5e98f30555bfa6091e845baba445ef95da7e39dfadb41fbb0a5e1c659bf0272321af6bd796065517bb05218cec44d0bd1718784f57dcc2c33e2d93bdcf0')
+b2sums=('5ec3703311471b4c10f0cc226a84d06f45ee66f0c3ff62b234d43bf48c60a1f4f4fd25fd232332a03f46a3b16695822b7d8e5c4df4093934ed7a143f71333052')
 
 build() {
   cd $pkgname-$pkgver
@@ -40,13 +39,8 @@ build() {
 
 check() {
   local pytest_options=(
-    # deselect PyO3 tests until upstream tags releases for pdoc-pyo3-sample-library: https://github.com/mitmproxy/pdoc-pyo3-sample-library/issues/1
-    --deselect 'test/test_snapshot.py::test_snapshots[repr-pyo3_sample_library]'
-    --deselect 'test/test_snapshot.py::test_snapshots[repr-enums]'
-    --deselect 'test/test_snapshot.py::test_snapshots[html-pyo3_sample_library]'
+    # https://github.com/mitmproxy/pdoc/issues/851
     --deselect 'test/test_snapshot.py::test_snapshots[html-demopackage_dir]'
-    --deselect 'test/test_extract.py::test_walk_spec'
-    --deselect 'test/test_extract.py::test_parse_spec'
     -vv
   )
 
@@ -58,6 +52,5 @@ package() {
   cd $pkgname-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
-  install -vDm 644 $pkgname/markdown2/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE.markdown2"
   install -vDm 644 {CHANGELOG,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
 }
