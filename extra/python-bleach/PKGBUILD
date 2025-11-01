@@ -1,8 +1,8 @@
 # Maintainer: Johannes Löthberg <johannes@kyriasis.com>
 
 pkgname=python-bleach
-pkgver=6.2.0
-pkgrel=2
+pkgver=6.3.0
+pkgrel=1
 
 pkgdesc="An easy whitelist-based HTML-sanitizing tool"
 url="https://pypi.org/project/bleach/"
@@ -17,7 +17,7 @@ optdepends=('python-tinycss2: for CSS sanitisation')
 
 source=(https://pypi.org/packages/source/b/bleach/bleach-$pkgver.tar.gz)
 
-sha256sums=('123e894118b8a599fd80d3ec1a6d4cc7ce4e5882b1317a7e1ba69b56e95f991f')
+sha256sums=('6f3b91b1c0a02bb9a78b5a454c92506aa0fdf197e1d5e114d2e00c6f64306d22')
 
 prepare() {
 	cd "$srcdir"/bleach-$pkgver
