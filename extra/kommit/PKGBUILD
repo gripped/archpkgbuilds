@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kommit
-pkgver=1.8.0
+pkgver=1.8.1
 pkgrel=1
 pkgdesc='Git gui client'
 arch=(x86_64)
@@ -15,6 +15,7 @@ depends=(gcc-libs
          kcrash
          kdbusaddons
          ki18n
+         kiconthemes
          kio
          kparts
          kwidgetsaddons
@@ -31,7 +32,7 @@ makedepends=(extra-cmake-modules
              kdoctools
              ktexteditor)
 source=(git+https://invent.kde.org/sdk/kommit#tag=v$pkgver)
-sha256sums=('29848d9e9006473c0f4393b20ffe43abbf5d465b742591ecb77252f70f37c12b')
+sha256sums=('3280d24a3d2519f914cdfdaf2b61ff25b735fd2805254b15be42822547ff58cd')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D') # Jonathan Esk-Riddell <jr@jriddell.org>
 
 build() {
