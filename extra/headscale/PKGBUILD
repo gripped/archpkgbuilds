@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Matt Harrison <matt@harrison.us.com>
 pkgname=headscale
-pkgver=0.26.1
+pkgver=0.27.0
 pkgrel=1
 pkgdesc="An open source, self-hosted implementation of the Tailscale coordination server."
 arch=('x86_64')
@@ -16,7 +16,7 @@ backup=("etc/${pkgname}/config.yaml"
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/juanfont/headscale/archive/refs/tags/v${pkgver}.tar.gz"
     	'headscale.sysusers'
     	'headscale.tmpfiles')
-sha256sums=('8a19bfaaa1533ab69b63e9cef4658758aad79dadd43088c6cc7313ab88df7de5'
+sha256sums=('581fa3f150f6cb89025161a314a41bef25e4f2b88161b4625713c1e9a301895e'
             'bf1c06c16e8c92f1fc46cf7e3ea297e9a36833e372606185a9b1d4ce5c877564'
             '8a22d7193ceeac0be32725cf8108f963be3a21855e6099de964f810094d0adc7')
 
@@ -45,5 +45,5 @@ package() {
 
 	install -D -m644 "LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 
-	install -D -m644 "docs/packaging/headscale.systemd.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}.service"
+	install -D -m644 "packaging/systemd/headscale.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}.service"
 }
