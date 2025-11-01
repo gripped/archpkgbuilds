@@ -3,24 +3,26 @@
 
 pkgname=budgie-desktop
 pkgver=10.9.3
-pkgrel=1
+pkgrel=3
 pkgdesc='A familiar, modern desktop environment'
 arch=('x86_64')
 url='https://github.com/BuddiesOfBudgie/budgie-desktop'
-license=('GPL-2.0-only AND LGPL-2.1-only')
+license=('GPL-2.0-or-later AND LGPL-2.1-or-later')
 groups=('budgie')
 depends=(
     'accountsservice'
     'budgie-control-center'
     'budgie-screensaver'
     'budgie-session'
-    'gnome-themes-standard'
+    'gnome-themes-extra'
     'ibus'
     'libgee'
     'libpeas'
     'libwnck3'
     'libxfce4windowing'
     'magpie-wm'
+    'materia-gtk-theme'
+    'papirus-icon-theme'
     'xdg-desktop-portal-gtk'
     'zenity'
 )
@@ -40,11 +42,53 @@ optdepends=(
     'switcheroo-control: Open apps with the secondary GPU'
 )
 source=("https://github.com/BuddiesOfBudgie/$pkgname/releases/download/v$pkgver/$pkgname-v$pkgver.tar.xz"{,.asc}
+        'budgie-desktop-icon-theme-check.patch::https://github.com/BuddiesOfBudgie/budgie-desktop/commit/e4974996.patch'
+        'budgie-desktop-gtk-theme-check.patch::https://github.com/BuddiesOfBudgie/budgie-desktop/commit/673231e6.patch'
+        'budgie-desktop-fix-builtin-theme.patch'
+        'budgie-desktop-fix-highcontrast-theme.patch'
+        'budgie-desktop-set-focused-color.patch'
         "30_org.archlinux.budgie-desktop.gschema.override")
 validpgpkeys=('0E0D97562A4EC8BD8E329DCDAA7A2325E04B609B') # Joshua Strobl <me at joshuastrobl dot com>
 b2sums=('e29f4a152b20c4c81222bc0ffce71476c8a3670721982ec9bc8f4aff507c17b0906bc09880347e70e1e10dee1530f6e516277c00471e4ff1882bb95e49427c9f'
         'SKIP'
-        '8b2e5dce5b93af93b1843f5f81b7496653aca5d536e3b77ae143749e8395a8158b044406f75c923f7c78416348ed4880521a6a5e67668352b8616124ceb08ce3')
+        'acae40d27df313555a536d7c83c7de9818d85297173e431877fa00f28a5782695d25be2d4cca836c73edab00495494529526c772e17f73b1f480019fd6b91b66'
+        'be95d95333ee43132fa7719f9977534ad80bbc11eb63c8f737cad2ffead8e63780742958c6bc17b731ab24af3b09f4bf0e39df47a4e751bb8c23df58dd59bb7d'
+        'c698a9ef769f05da32ea7198e8c0440750ec51d4af2a5f89ba330da26919cc81f4433e4e1bf39c251ad2b672dc90aa42238b81009fc209239b1012340c754daa'
+        '005c6542a56f611691b683c57ae2965c6b8a037d11a3ac075f86deb6c096d917208fb613d4f0f8c2bb4d5390c0e7da4f2623adcb0d11bd78fc7effae63d180de'
+        '194a9b2a2d019f704a1cf22aee2e6b136405617ae0ea16a10f5b4aa54553b8a9a8638724a62dcf026bb59da3dbd6111fe6d18dc82275224ad2f1fc6602bfcede'
+        '3ff3664b2dc075a068e008a63d4558fe05d1d8a2b2e647d2b491169455b05d18e4970d46a9ffc83a500b4cb00d2048dbf0aea8ffdf8ea2f9262e7a554d25073d')
+
+prepare() {
+    cd "$pkgname-$pkgver"
+
+    # Hide icon themes that marked as 'Hidden'
+    # https://github.com/BuddiesOfBudgie/budgie-desktop/pull/760
+    patch -Np1 -i ../budgie-desktop-icon-theme-check.patch
+
+    # Check if GTK theme file is exists
+    # https://github.com/BuddiesOfBudgie/budgie-desktop/pull/755
+    patch -Np1 -i ../budgie-desktop-gtk-theme-check.patch
+
+    # Theme fixes
+    # https://github.com/BuddiesOfBudgie/budgie-desktop/pull/757
+    patch -Np1 -i ../budgie-desktop-fix-builtin-theme.patch
+    # https://github.com/BuddiesOfBudgie/budgie-desktop/pull/758
+    patch -Np1 -i ../budgie-desktop-fix-highcontrast-theme.patch
+    # https://github.com/BuddiesOfBudgie/budgie-desktop/pull/759
+    patch -Np1 -i ../budgie-desktop-set-focused-color.patch
+
+    # Show screenshot tool only in Budgie session
+    # https://github.com/BuddiesOfBudgie/budgie-desktop/pull/761
+    echo 'OnlyShowIn=Budgie' >> src/daemon/org.buddiesofbudgie.BudgieScreenshot.desktop.in
+
+    # Don't save settings on start to avoid overriding defaults for other sessions
+    sed -i '/apply_dark_theme_pref();/d
+            /this.on_wm_settings_changed("button-style");/d' src/daemon/settings.vala
+    sed -i '/combobox_.*.active_id = ui_settings.get_string(".*");/d' src/panel/settings/settings_style.vala
+
+    # Don't hide any valid themes from the list
+    sed -i '/for (int index = 0; index < gtk_theme_blacklist\.length; index++)/,+6 d' src/panel/settings/themes.vala
+}
 
 build() {
     arch-meson "$pkgname-$pkgver" build
