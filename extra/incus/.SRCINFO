@@ -1,7 +1,7 @@
 pkgbase = incus
 	pkgdesc = Powerful system container and virtual machine manager
 	pkgver = 6.18.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://linuxcontainers.org/incus/
 	arch = x86_64
 	license = Apache-2.0
@@ -27,6 +27,7 @@ pkgbase = incus
 	depends = qemu-hw-usb-redirect
 	depends = qemu-hw-display-virtio-vga
 	depends = qemu-hw-display-virtio-gpu
+	depends = qemu-audio-spice
 	optdepends = lvm2: lvm2 support
 	optdepends = thin-provisioning-tools: thin provisioning support
 	optdepends = btrfs-progs: btrfs storage driver support

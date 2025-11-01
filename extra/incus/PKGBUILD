@@ -9,7 +9,7 @@ pkgbase=incus
 pkgname=(incus incus-tools)
 pkgver=6.18.0
 _pkgver="${pkgver/.0/}"
-pkgrel=1
+pkgrel=2
 pkgdesc="Powerful system container and virtual machine manager"
 arch=('x86_64')
 url="https://linuxcontainers.org/incus/"
@@ -19,6 +19,7 @@ depends=('lxc' 'lxcfs' 'squashfs-tools' 'dnsmasq' 'cowsql' 'libuv' 'ebtables' 'r
           # VM Support
           'qemu-base' 'qemu-chardev-spice' 'qemu-hw-usb-redirect'
           'qemu-hw-display-virtio-vga' 'qemu-hw-display-virtio-gpu'
+          'qemu-audio-spice'
 )
 makedepends=('go' 'git' 'tcl' 'apparmor' 'libseccomp' 'systemd')
 optdepends=(
