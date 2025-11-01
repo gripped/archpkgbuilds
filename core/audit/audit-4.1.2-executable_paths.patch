@@ -1,77 +1,90 @@
 diff --git i/audisp/plugins/af_unix/af_unix.conf w/audisp/plugins/af_unix/af_unix.conf
-index 081dcb67..df995a65 100644
+index f07a5fc1..26ad3148 100644
 --- i/audisp/plugins/af_unix/af_unix.conf
 +++ w/audisp/plugins/af_unix/af_unix.conf
 @@ -6,7 +6,7 @@
+ # the output format, and optionally the queue depth.
  
  active = no
- direction = out
 -path = /sbin/audisp-af_unix
 +path = /usr/bin/audisp-af_unix
  type = always
--args = 0640 /var/run/audispd_events
-+args = 0640 /run/audispd_events
- format = string
-diff --git i/audisp/plugins/ids/audisp-ids.conf w/audisp/plugins/ids/audisp-ids.conf
-index ce5521c4..2d509025 100644
---- i/audisp/plugins/ids/audisp-ids.conf
-+++ w/audisp/plugins/ids/audisp-ids.conf
-@@ -3,7 +3,7 @@
+ args = 0640 /run/audit/audispd_events string
+ # To change the queue depth from the default of 512, append the value:
+diff --git i/audisp/plugins/filter/filter.conf w/audisp/plugins/filter/filter.conf
+index deb84df1..5070418e 100644
+--- i/audisp/plugins/filter/filter.conf
++++ w/audisp/plugins/filter/filter.conf
+@@ -10,7 +10,7 @@
+ # See audisp-filter(8)
  
  active = no
- direction = out
+-path = /sbin/audisp-filter
++path = /usr/bin/audisp-filter
+ type = always
+-args = allowlist /etc/audit/audisp-filter.conf /sbin/audisp-syslog LOG_USER LOG_INFO interpret
++args = allowlist /etc/audit/audisp-filter.conf /usr/bin/audisp-syslog LOG_USER LOG_INFO interpret
+ format = string
+diff --git i/audisp/plugins/ids/audisp-ids.conf w/audisp/plugins/ids/audisp-ids.conf
+index 1e2046c4..0e890b95 100644
+--- i/audisp/plugins/ids/audisp-ids.conf
++++ w/audisp/plugins/ids/audisp-ids.conf
+@@ -2,7 +2,7 @@
+ # audisp-ids plugin.
+ 
+ active = no
 -path = /usr/sbin/audisp-ids
 +path = /usr/bin/audisp-ids
  type = always 
  args = 1
  format = string
 diff --git i/audisp/plugins/remote/au-remote.conf w/audisp/plugins/remote/au-remote.conf
-index d75e6b64..73814875 100644
+index d9a6db8b..e10097f3 100644
 --- i/audisp/plugins/remote/au-remote.conf
 +++ w/audisp/plugins/remote/au-remote.conf
-@@ -5,7 +5,7 @@
+@@ -4,7 +4,7 @@
+ # a remote machine (Central Logger).
  
  active = no
- direction = out
 -path = /sbin/audisp-remote
 +path = /usr/bin/audisp-remote
  type = always
  #args =
  format = string
 diff --git i/audisp/plugins/statsd/au-statsd.conf w/audisp/plugins/statsd/au-statsd.conf
-index a1fd4be3..3aa2174d 100644
+index 84316e07..b9d16ad7 100644
 --- i/audisp/plugins/statsd/au-statsd.conf
 +++ w/audisp/plugins/statsd/au-statsd.conf
-@@ -3,7 +3,7 @@
+@@ -2,7 +2,7 @@
+ # It picks out metrics and writes them to statsd.
  
  active = no
- direction = out
 -path = /sbin/audisp-statsd
 +path = /usr/bin/audisp-statsd
  type = always 
  # args =
  format = string
 diff --git i/audisp/plugins/syslog/syslog.conf w/audisp/plugins/syslog/syslog.conf
-index e8aebdfe..ab12489b 100644
+index ad29c5bf..0d3e00ac 100644
 --- i/audisp/plugins/syslog/syslog.conf
 +++ w/audisp/plugins/syslog/syslog.conf
-@@ -8,7 +8,7 @@
+@@ -7,7 +7,7 @@
+ # LOG_AUTHPRIV, LOG_DAEMON, LOG_SYSLOG, and LOG_USER.
  
  active = no
- direction = out
 -path = /sbin/audisp-syslog
 +path = /usr/bin/audisp-syslog
  type = always 
  args = LOG_INFO
  format = string
 diff --git i/audisp/plugins/zos-remote/audispd-zos-remote.conf w/audisp/plugins/zos-remote/audispd-zos-remote.conf
-index f1c0bbda..c53cd83d 100644
+index 555d9e8a..680aaa8b 100644
 --- i/audisp/plugins/zos-remote/audispd-zos-remote.conf
 +++ w/audisp/plugins/zos-remote/audispd-zos-remote.conf
-@@ -8,7 +8,7 @@
+@@ -7,7 +7,7 @@
+ # See audispd-zos-remote(8) 
  
  active = no
- direction = out
 -path = /sbin/audispd-zos-remote
 +path = /usr/bin/audispd-zos-remote
  type = always 
