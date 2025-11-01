@@ -6,18 +6,18 @@
 
 _pkgbase=regex
 pkgname=python-regex
-pkgver=2025.9.18
+pkgver=2025.10.23
 pkgrel=1
 pkgdesc="Alternative python regular expression module."
 arch=('x86_64')
 url="https://github.com/mrabarnett/mrab-regex"
-license=('Python' 'Apache')
+license=('Apache-2.0')
 depends=('python')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 options=(!emptydirs)
 source=("https://files.pythonhosted.org/packages/source/r/${_pkgbase}/${_pkgbase}-${pkgver}.tar.gz")
-sha256sums=('c5ba23274c61c6fef447ba6a39333297d0c247f53059dba0bca415cac511edc4')
-b2sums=('0239c15afed04de12985576709abcdf294b248d084a9b9126fd3bc734ddb51df83a35578602675af04df82819b9dcf65228b918c4d39fc762106f62b470b96ad')
+sha256sums=('8cbaf8ceb88f96ae2356d01b9adf5e6306fa42fa6f7eab6b97794e37c959ac26')
+b2sums=('56441db882934d0472f8ccec3c4f50ce6b45db66ee49d5275f4b90ec2d4d4c552e68fb53b965b45bb37d4e4ce864f8cb4b0341228e92959b90a71adbf7a18ef1')
 
 build() {
   cd "regex-${pkgver}"
@@ -30,7 +30,7 @@ check() {
 
   local _pyver=cpython-$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
   cd "$PWD/build/lib.linux-$CARCH-$_pyver"
-  python -m unittest regex/test_regex.py
+  python -m unittest regex/tests/test_regex.py
 }
 
 package() {
