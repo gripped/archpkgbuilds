@@ -3,7 +3,7 @@
 
 pkgname=budgie-desktop-view
 pkgver=1.3
-pkgrel=3
+pkgrel=4
 pkgdesc='Desktop icons implementation for the Budgie Desktop'
 arch=('x86_64')
 url='https://github.com/BuddiesOfBudgie/budgie-desktop-view'
@@ -12,18 +12,28 @@ groups=('budgie')
 depends=('gtk3')
 makedepends=('intltool' 'meson' 'vala')
 source=("https://github.com/BuddiesOfBudgie/budgie-desktop-view/releases/download/v$pkgver/$pkgname-v$pkgver.tar.xz"{,.asc}
-        'budgie-desktop-view-fix-build.patch::https://github.com/BuddiesOfBudgie/budgie-desktop-view/commit/05a9822a.patch')
+        'budgie-desktop-view-fix-build.patch::https://github.com/BuddiesOfBudgie/budgie-desktop-view/commit/05a9822a.patch'
+        'budgie-desktop-view-mate-support.patch::https://github.com/BuddiesOfBudgie/budgie-desktop-view/commit/14a62f08.patch'
+        'budgie-desktop-view-kgx-support.patch::https://github.com/BuddiesOfBudgie/budgie-desktop-view/commit/c2a95e0f.patch')
 validpgpkeys=('96B4A0291094A86A2B7E3367DD672FE9A2BE5892'
               '0E0D97562A4EC8BD8E329DCDAA7A2325E04B609B') # Joshua Strobl (Personal)
 b2sums=('b3d4b4bfb96b82b4cf6d957e4718600d6ce8bd09bb86e6df76b353e60bd265f18628a2f37fc38395d62319d2e9c75e2cce7e22e6ba731deb6741c83a163a444b'
         'SKIP'
-        '8fd7114539f67b8eaaa63f4b6c1d8ce9844ae4948845153703245f5f6d6cc37dfc8f52c52413d8c45459ef4bd7917110d70d2971b25112736e379c3a5b661c24')
+        '8fd7114539f67b8eaaa63f4b6c1d8ce9844ae4948845153703245f5f6d6cc37dfc8f52c52413d8c45459ef4bd7917110d70d2971b25112736e379c3a5b661c24'
+        '7114776e2b66c031438afc68e295e136ddb38f9fcbfeef6c56cc8bff9c1a6ce61f97e7c8bc0f37eb16ccaeb9231a1cd37409dd5d5de332c58a7669a007d9ee2c'
+        '20f0c11932cb0402b4322356542a59c508f28dffa3834cf65445e26eb32d71bbb2c790518f7027f211acf99a5c2e927fc73aa5fe683c31aa950f33be85c9d789')
 
 prepare() {
-  cd $pkgname-$pkgver
+    cd $pkgname-$pkgver
 
-  # Fix build
-  patch -Np1 -i ../budgie-desktop-view-fix-build.patch
+    # Fix build
+    patch -Np1 -i ../budgie-desktop-view-fix-build.patch
+
+    # Add MATE Terminal and GNOME Console to supported terminals
+    # https://github.com/BuddiesOfBudgie/budgie-desktop-view/pull/2
+    patch -Np1 -i ../budgie-desktop-view-mate-support.patch
+    # https://github.com/BuddiesOfBudgie/budgie-desktop-view/pull/35
+    patch -Np1 -i ../budgie-desktop-view-kgx-support.patch
 }
 
 build() {
