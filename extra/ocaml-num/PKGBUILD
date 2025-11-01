@@ -2,30 +2,31 @@
 # Contributor: Baptiste Jonglez <archlinux at bitsofnetworks dot org>
 
 pkgname=ocaml-num
-pkgver=1.5
-pkgrel=4
+pkgver=1.6
+pkgrel=1
 pkgdesc="Library for arbitrary-precision integer and rational arithmetic that used to be part of the OCaml core distribution"
 arch=('x86_64')
 url="https://github.com/ocaml/num"
 license=('LGPL2.1')
 depends=('ocaml')
-makedepends=('ocaml-findlib')
+makedepends=('dune')
 options=('!strip' '!makeflags' '!debug')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ocaml/num/archive/v${pkgver}.tar.gz")
-sha512sums=('110dd01140c1c96f5f067aa824bb63f74a26411dcaa65aaf04cb6c44b116ca02aaab9505f431c66964388ce4a31d86da5928b4c0e5557800e834de80bed46495')
+sha512sums=('5cb32dfa9a9f0ad375bfd89079e9b1422979f3c089f61ef2300ad9cc64fb1fc25ed1f86b0267eb017f12ae41a574a959df5bfa39ab22c2be2f1ac84c3c671bdf')
 
 build() {
   cd "${srcdir}/num-${pkgver}"
-  make
+  dune build
 }
 
 package() {
   cd "${srcdir}/num-${pkgver}"
 
-  local _destdir="${pkgdir}$(ocamlfind printconf destdir)"
-  install -d "${_destdir}/stublibs"
+  install -dm755 "${pkgdir}$(ocamlfind printconf destdir)"
+  dune install --prefix "${pkgdir}/usr" \
+    --libdir "${pkgdir}$(ocamlfind printconf destdir)"
 
-  make OCAMLFIND_DESTDIR="${_destdir}" findlib-install
+  install -Dm644 "LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md"
 }
 
 # vim:set ts=2 sw=2 et:
