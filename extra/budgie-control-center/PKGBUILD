@@ -2,7 +2,7 @@
 
 pkgname=budgie-control-center
 pkgver=1.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Budgie's main interface to configure various aspects of the system"
 arch=(x86_64)
 url="https://github.com/BuddiesOfBudgie/budgie-control-center"
@@ -16,14 +16,23 @@ optdepends=("system-config-printer: Printer settings"
             "rygel: Media sharing"
             "openssh: Remote login"
             "power-profiles-daemon: Power profiles support")
-source=("https://github.com/BuddiesOfBudgie/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz"{,.asc})
+source=("https://github.com/BuddiesOfBudgie/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
+        'budgie-control-center-dark-mode.patch::https://github.com/BuddiesOfBudgie/budgie-control-center/commit/859fad15.patch')
 b2sums=('1e2e80013f91d22b86782123395e0621b80e225a34a2a3a316bc66c7148dccf76cb7d918e3fd17be74a8a44ae54bd938d54136069c30eedda13e9de2af39f885'
-        'SKIP')
+        'SKIP'
+        'de69fc47a01da306745fff00096e43beffcbbb69fd8acbccf5b92f43940a7f3fec38e7124e15801e88e161985c289faae05db01438fb0bed7e13513fa9e9516e')
 validpgpkeys=("1E1FB0017C998A8AE2C498A6C2EAA8A26ADC59EE" # David Mohammed <fossfreedom at ubuntu dot com>
               "0E0D97562A4EC8BD8E329DCDAA7A2325E04B609B") # Joshua Strobl <me at joshuastrobl dot com>
 
+prepare() {
+    cd "$pkgname-$pkgver"
+
+    # Support dark mode
+    # https://github.com/BuddiesOfBudgie/budgie-control-center/pull/98
+    patch -Np1 -i ../budgie-control-center-dark-mode.patch
+}
+
 build() {
-    CFLAGS+=" -Wno-incompatible-pointer-types" \
     arch-meson "$pkgname-$pkgver" build -Ddocumentation=true
     meson compile -C build
 }
