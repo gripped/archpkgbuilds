@@ -3,14 +3,14 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=2.18.5
-_llvmmaj=15
-_llvmver="${_llvmmaj}.0.7"
-_vciver=0.23.1
+pkgver=2.20.3
+_llvmmaj=16
+_llvmver="${_llvmmaj}.0.6"
+_vciver=0.23.4
 _spirv_tools_commit=28a883ba4c67f58a9540fb0651c647bb02883622
-_spirv_headers_commit=04b76709bf40a7ce8df3382060ef3620f19de566
-_spirv_llvm_commit=a077a090060f953ba7dd024208980ca837233d87
-_opencl_clang_commit=7eef46576eca117685ae431735c2725ddb889260
+_spirv_headers_commit=9e3836d7d6023843a72ecd3fbf3f09b1b6747a9e
+_spirv_llvm_commit=543e3048f1d02d37f0771260dbea82abc2f78db9
+_opencl_clang_commit=28d3ab37a1ff218790f6ad861d30ef09a8cbf9a8
 pkgrel=1
 epoch=1
 pkgdesc='Intel Graphics Compiler for OpenCL'
@@ -40,13 +40,13 @@ source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${p
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}"
         '010-intel-graphics-compiler-disable-werror.patch')
-sha256sums=('11ead7f13f85d27412b6864c5db9bb86cf8d38e4d04a76e468a2cd4416e8df3b'
-            'b05cabc364c71450738b999906df5ffae683c3501760a3edaa71f113b3cbc1a0'
-            '02c161ac55930f4e68b00e37448b987a00a62fccbad09f791070eee54149c589'
+sha256sums=('385e12bdd1070a67d754c4e8ef960590bd62d249d7ae91f53cc9142339b49632'
+            '616c08e4a383c0dd5f1e662adef931f9a899518468612cb654c97457ed1e61c7'
+            '3bbac9d55833ee3931edcd546e2664f60b09aa8487d34537d44ef2fdb1c7ee54'
             'e028a800c43945d94fc100aa25427d360a21c00b1154fb239ec2fce0c06ea85d'
-            '157890d75d99e923eb97ab8e00499d13ef21cc34f9814b6ae5f6f9c7f2ec2e56'
-            '20b358895a331ebaf921d5dfce5042a03f2f262b9b64b33a421710abd2255a93'
-            '5e0b72ca37446fdf0fa54f1bb4cea6d3a53c19bdf373fa054b6a8ce640519024'
+            '0036130f6a55c8a96c47958f46a2df073c88710804a1e87aa12f2a242f8cd822'
+            'a0c262b6af0560173aef8ab9b935174cd8b45417ab9d6a72673361a1831da94a'
+            'b47ada280614670a467f80e9f8c67542050983f238f2f4b3fa17682855faf9bf'
             '505a6f3e4cd4a47bb23b6567c965127a2399a04e1246d0d7b1dfddf1b9c6c1e2')
 
 prepare() {
@@ -84,6 +84,7 @@ build() {
         -DCMAKE_INSTALL_LIBDIR=lib \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_POLICY_VERSION_MINIMUM=3.5.0 \
+        -DCMAKE_SKIP_RPATH=YES \
         -DIGC_OPTION__CLANG_MODE=Source \
         -DIGC_OPTION__LINK_KHRONOS_SPIRV_TRANSLATOR=ON \
         -DIGC_OPTION__LLD_MODE=Source \
@@ -104,7 +105,7 @@ package() {
     rm "${pkgdir}/usr/bin/lld"
     
     # additional files for opencl-clang
-    install -D -m644 opencl-clang/common_clang.h -t "${pkgdir}/usr/include/cclang"
+    install -D -m644 opencl-clang/opencl_clang.h -t "${pkgdir}/usr/include/cclang"
     install -D -m644 opencl-clang/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-opencl-clang"
     ln -s "libopencl-clang.so.${_llvmmaj}" "${pkgdir}/usr/lib/libopencl-clang.so"
 }
