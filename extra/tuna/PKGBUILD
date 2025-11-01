@@ -3,8 +3,8 @@
 # Contributor: Ninez <triplesquarednine@gmail.com>
 
 pkgname=tuna
-pkgver=0.19
-pkgrel=5
+pkgver=0.20
+pkgrel=1
 epoch=1
 pkgdesc="Thread and IRQ affinity setting GUI and cmd line tool"
 arch=(any)
@@ -31,8 +31,8 @@ optdepends=(
 )
 backup=(etc/$pkgname.conf)
 source=(https://git.kernel.org/pub/scm/utils/$pkgname/$pkgname.git/snapshot/$pkgname-$pkgver.tar.gz)
-sha512sums=('b0c79ed10a72b4eebcc26217adf17fe9b66a06d308bfa9d294971892fb79353700e4eed9de84388bcb05275c141dfab4e6709d4faa4dd0079ea41adc342ec2aa')
-b2sums=('64f23c0dbea9f73d4808371b083bbcddd91f22670a07820d7cf716335c8674d51c9230afb342b2f1788e036a753dac9a016d45edb05596f4b71d33913759d926')
+sha512sums=('0ff5fe03d0c74f6de9f5a45393249dec0261bb387af9d1ed25fcc4cca0c1c05ff94718806f169ae12833aeab7249117f7713ec66fa561437c8df0305409f0739')
+b2sums=('b3f4b40ce412d8f07b806d0d7a9e21b83a473c6711bf3bedae24989c7715f86ae856deae25cf441870768dc13369fc41d474b81b82c63020c748e8623ba2ccb2')
 
 build() {
   cd $pkgname-$pkgver
