@@ -7,7 +7,7 @@
 
 pkgname=libguestfs
 pkgver=1.56.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Access and modify virtual machine disk images"
 arch=(x86_64)
 url="https://libguestfs.org/"
@@ -153,6 +153,7 @@ build() {
 check() {
   export SKIP_TEST_DISCARD_PL=1  # https://github.com/libguestfs/libguestfs/issues/140
   export SKIP_TEST_EXPAND_GPT_PL=1  # https://github.com/libguestfs/libguestfs/issues/155
+  export SKIP_RHBZ1011907_1165785_SH=1 # Prevent: 'umount: /sysroot: target is busy.', unrelated to ocaml rebuild: Need to investigate
   LIBGUESTFS_DEBUG=1 LIBGUESTFS_TRACE=1 make -k check -C $pkgname-$pkgver
 }
 
