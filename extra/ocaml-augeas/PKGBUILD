@@ -3,7 +3,7 @@
 
 pkgname=ocaml-augeas
 pkgver=0.6
-pkgrel=7
+pkgrel=8
 pkgdesc="OCaml bindings for Augeas"
 arch=(x86_64)
 url="https://people.redhat.com/~rjones/augeas/"
