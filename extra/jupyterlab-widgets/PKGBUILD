@@ -2,7 +2,7 @@
 
 _pipname=jupyterlab_widgets
 pkgname=${_pipname/_/-}
-pkgver=3.0.15
+pkgver=3.0.16
 pkgrel=1
 pkgdesc='JupyterLab extension to use ipywidgets'
 arch=(any)
@@ -17,7 +17,7 @@ makedepends=(python-build
              python-installer)
 source=(https://pypi.io/packages/source/${_pipname:0:1}/$_pipname/$_pipname-$pkgver.tar.gz)
 replaces=(jupyter-widgetsnbextension)
-sha256sums=('2920888a0c2922351a9202817957a68c07d99673504d6cd37345299e971bb08b')
+sha256sums=('423da05071d55cf27a9e602216d35a3a65a3e41cdf9c5d3b643b814ce38c19e0')
 
 build() {
   cd $_pipname-$pkgver
