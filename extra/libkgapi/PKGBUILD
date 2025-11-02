@@ -3,7 +3,7 @@
 
 pkgname=libkgapi
 pkgver=25.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A KDE-based library for accessing various Google services via their public API'
 url='https://www.kde.org/'
 arch=(x86_64)
@@ -14,9 +14,7 @@ depends=(gcc-libs
          kcontacts
          kwallet
          qt6-base)
-makedepends=(doxygen
-             extra-cmake-modules
-             qt6-doc
+makedepends=(extra-cmake-modules
              qt6-tools)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('850ac672805510fcbb68a8384a212c38c3ffec238e58879bc55b7491e2e901a7'
@@ -28,8 +26,7 @@ options=(!lto) # https://bugs.kde.org/show_bug.cgi?id=411425
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
