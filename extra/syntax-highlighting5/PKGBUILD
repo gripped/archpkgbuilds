@@ -4,14 +4,14 @@
 _name=syntax-highlighting
 pkgname=${_name}5
 pkgver=5.116.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Syntax highlighting engine for structured text and code'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(GPL2)
 depends=(qt5-base
          syntax-highlighting) # For syntax files
-makedepends=(extra-cmake-modules qt5-declarative qt5-xmlpatterns qt5-tools qt5-doc doxygen)
+makedepends=(extra-cmake-modules qt5-declarative qt5-tools qt5-xmlpatterns)
 optdepends=('qt5-declarative: QML bindings')
 conflicts=("$_name<5.111")
 replaces=("$_name<5.111")
@@ -24,8 +24,7 @@ validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB) # David Faure <faure@kde
 build() {
   cmake -B build -S $_name-$pkgver \
     -DBUILD_TESTING=OFF \
-    -DQRC_SYNTAX=OFF \
-    -DBUILD_QCH=ON
+    -DQRC_SYNTAX=OFF
   cmake --build build
 }
 
