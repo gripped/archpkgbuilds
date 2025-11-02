@@ -6,7 +6,7 @@
 
 pkgname=kdenlive
 pkgver=25.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A non-linear video editor for Linux using the MLT video framework'
 arch=(x86_64)
 url='https://apps.kde.org/kdenlive/'
@@ -47,11 +47,9 @@ depends=(ffmpeg
          qt6-networkauth
          qt6-svg
          solid)
-makedepends=(doxygen
-             extra-cmake-modules
+makedepends=(extra-cmake-modules
              imath
-             kdoctools
-             qt6-tools)
+             kdoctools)
 optdepends=('bigsh0t: VR360 effects'
             'dvgrab: for firewire capture'
             'kimageformats: support for dds, xcf, exr, psd, and more image formats'
@@ -75,7 +73,6 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 build() {
   cmake -B build -S $pkgname-$pkgver \
     -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON \
     -DFETCH_OTIO=OFF
   cmake --build build
 }
