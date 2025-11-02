@@ -2,8 +2,8 @@
 # Contributor: Ali Molaei <ali dot molaei at protonmail dot com>
 
 pkgname=python-proton-keyring-linux
-pkgver=0.2.0
-pkgrel=5
+pkgver=0.2.1
+pkgrel=1
 pkgdesc="The proton-keyring-linux component."
 arch=(any)
 url="https://github.com/ProtonVPN/python-proton-keyring-linux"
@@ -24,7 +24,7 @@ optdepends=(
   'kwallet: KDE keyring support'
 )
 source=("git+https://github.com/ProtonVPN/${pkgname}.git#tag=v${pkgver}")
-sha256sums=('c434c0af00802da82289a8ae71d50c78d6e19be51157461c84e288158534adaa')
+sha256sums=('4f436f2b6442dbb40ef006d449c2fabfc9ad29a3c53c06ce69de23b4951fa206')
 
 build() {
   cd "$pkgname"
