@@ -3,27 +3,29 @@
 pkgbase=ktikz
 pkgname=(ktikz qtikz)
 pkgver=0.13.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Small application helping you to create TikZ diagrams (from the LaTeX pgf package)"
 arch=(x86_64)
 url="https://github.com/fhackenberger/ktikz"
 license=(GPL)
 depends=(poppler-qt5)
 makedepends=(cmake extra-cmake-modules qt5-base qt5-tools
-             kdoctools5 kxmlgui5 ktexteditor5 kparts5 kiconthemes5
+             kxmlgui5 ktexteditor5 kparts5 kiconthemes5
              poppler poppler-qt5)
 source=(${url}/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz)
 sha256sums=('1b7f5b7a8daacea68b5a93c1e5a946c9ba9f776b8708f11ca047e591a446f300')
 
 prepare() {
     mkdir buildqt
+    sed -e 's/DocTools//' -e '/(doc)/d' -e '/uninstall/d' -i $pkgbase-$pkgver/CMakeLists.txt
 }
 
 build() {
     # Build ktikz
     cmake -B build -S ${pkgbase}-${pkgver} \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=None
+        -DCMAKE_BUILD_TYPE=None \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     make -C build
     # Build qtikz
     cd buildqt
