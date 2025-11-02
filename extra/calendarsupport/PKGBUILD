@@ -2,7 +2,7 @@
 
 pkgname=calendarsupport
 pkgver=25.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Calendar support library'
 arch=(x86_64)
 url='https://kontact.kde.org'
@@ -25,10 +25,7 @@ depends=(akonadi-calendar
          kwidgetsaddons
          libakonadi
          qt6-base)
-makedepends=(doxygen
-             extra-cmake-modules
-             qt6-doc
-             qt6-tools)
+makedepends=(extra-cmake-modules)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('2f3c3da6ff600c571c962e18cab7d2a6c780d79e282b94dec6d70a6f084d6d46'
             'SKIP')
@@ -38,8 +35,7 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
