@@ -1,7 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-trio
-pkgver=0.31.0
+pkgver=0.32.0
 pkgrel=1
 pkgdesc='A friendly Python library for async concurrency and I/O'
 arch=(any)
@@ -35,32 +36,32 @@ checkdepends=(
   python-yaml
 )
 provides=(python-multio-provider)
-_tag=94b7244505212061e21507c84725ef28be2705dd
-source=(git+https://github.com/python-trio/trio.git#tag=${_tag})
-b2sums=('1bde7bdf18c6285544532d4298ccdbe60c447d7651e4767086f717b740441c01edac25cc1c31f2f4236c74dd04bd6b75a9db4277e528978b404c186733ed5a00')
-
-prepare() {
-  sed '/"error",/d' -i trio/pyproject.toml # don't treat test warnings as errors
-}
+_tag=c0b394a55594dc39f353bae87e745083acff172e
+source=("git+$url.git#tag=$_tag")
+b2sums=('bf96530cab56cc3e1d742be332669f0cc79bcf0b59a63ceef09ea7237df80d1039710c68a7e41c38a53a46c66369c3779be07954bb090b6a00caebe6989bf7b3')
 
 pkgver() {
-  cd trio
+  cd ${pkgname#python-}
   git describe --tags | sed 's/^v//'
 }
 
 build() {
-  cd trio
+  cd ${pkgname#python-}
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd trio
-  PYTHONPATH=$PWD/src pytest -vv
+  cd ${pkgname#python-}
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest -W=ignore::DeprecationWarning \
+    --deselect=src/trio/_tests/tools/test_gen_exports.py::test_run_ruff
 }
 
 package() {
-  python -m installer --destdir="${pkgdir}" trio/dist/*.whl
-  install -Dm 644 trio/LICENSE -t "${pkgdir}"/usr/share/licenses/python-trio/
+  cd ${pkgname#python-}
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/python-trio" LICENSE
 }
 
 # vim: ts=2 sw=2 et:
