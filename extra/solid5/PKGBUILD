@@ -5,13 +5,13 @@
 _name=solid
 pkgname=${_name}5
 pkgver=5.116.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Hardware integration and detection'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL)
 depends=(qt5-base media-player-info upower udisks2)
-makedepends=(extra-cmake-modules qt5-tools qt5-doc doxygen qt5-declarative)
+makedepends=(extra-cmake-modules qt5-declarative qt5-tools)
 optdepends=('qt5-declarative: QML bindings')
 conflicts=("$_name<5.111")
 replaces=("$_name<5.111")
@@ -24,7 +24,6 @@ validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB) # David Faure <faure@kde
 build() {
   cmake -B build -S $_name-$pkgver \
     -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON \
     -DWITH_NEW_POWER_ASYNC_API=ON \
     -DWITH_NEW_POWER_ASYNC_FREEDESKTOP=ON \
     -DWITH_NEW_SOLID_JOB=ON # https://bugs.archlinux.org/task/64093
