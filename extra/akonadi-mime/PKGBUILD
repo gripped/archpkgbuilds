@@ -2,7 +2,7 @@
 
 pkgname=akonadi-mime
 pkgver=25.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Libraries and daemons to implement basic email handling'
 arch=(x86_64)
 url='https://kontact.kde.org'
@@ -18,11 +18,7 @@ depends=(gcc-libs
          kxmlgui
          libakonadi
          qt6-base)
-makedepends=(doxygen
-             extra-cmake-modules
-             kdoctools5
-             qt6-doc
-             qt6-tools)
+makedepends=(extra-cmake-modules)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('00075131b46bc1afcbeaa3fce8852f76bed6f05315798e86118e0fcae0c4de4b'
             'SKIP')
@@ -32,8 +28,7 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
