@@ -4,8 +4,8 @@
 
 pkgname=ruby-pdf-reader
 _pkgname=${pkgname#ruby-}
-pkgver=2.14.1
-pkgrel=3
+pkgver=2.15.0
+pkgrel=1
 pkgdesc="Ruby library that implements a PDF parser conforming as much as possible to the PDF specification from Adobe"
 arch=(any)
 url="https://github.com/yob/pdf-reader"
@@ -22,12 +22,13 @@ makedepends=(rubygems)
 checkdepends=(ruby-rspec)
 options=(!emptydirs)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('bfbe16ae331328b2900c74bdfb89855ced7ea331a753ef80127db76f095a666e')
+sha256sums=('14d5b689dbc9c8b662d29f62dd10feb0157b35da03ffe39d9f0e85dc613e8ce1')
 
 prepare() {
   cd "$_pkgname-$pkgver"
   sed -i -E 's|~>|>=|g' "$_pkgname.gemspec"
   sed -i '/bundler/Id' spec/spec_helper.rb
+  sed -i 's|, "rbi/pdf-reader.rbi"||' "$_pkgname.gemspec"
 }
 
 build() {
