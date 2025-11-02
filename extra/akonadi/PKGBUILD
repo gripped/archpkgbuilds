@@ -6,7 +6,7 @@
 pkgbase=akonadi
 pkgname=(akonadi libakonadi)
 pkgver=25.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='PIM layer, which provides an asynchronous API to access all kind of PIM data'
 arch=(x86_64)
 url='https://kontact.kde.org'
@@ -18,16 +18,14 @@ depends=(gcc-libs
          ki18n
          libaccounts-qt
          qt6-base)
-makedepends=(doxygen
-             extra-cmake-modules
+makedepends=(extra-cmake-modules
              postgresql
-             qt6-doc
-             qt6-tools
              kaccounts-integration
              kconfigwidgets
              kiconthemes
              kitemmodels
-             kxmlgui)
+             kxmlgui
+             qt6-tools)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('41cfeadfe87b028d720068c045eb9e6cb21dfa9edb247a5488d9b3fc6131c30e'
             'SKIP')
@@ -37,8 +35,7 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
