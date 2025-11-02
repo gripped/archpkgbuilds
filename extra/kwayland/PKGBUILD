@@ -5,7 +5,7 @@
 pkgname=kwayland
 pkgver=6.5.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Qt-style Client and Server library wrapper for the Wayland libraries'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -14,11 +14,8 @@ depends=(gcc-libs
          glibc
          qt6-base
          wayland)
-makedepends=(doxygen
-             extra-cmake-modules
+makedepends=(extra-cmake-modules
              plasma-wayland-protocols
-             qt6-doc
-             qt6-tools
              wayland-protocols)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
@@ -32,8 +29,7 @@ validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell
 build() {
   cmake -B build  -S $pkgname-$pkgver \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
