@@ -5,13 +5,13 @@
 _name=kded
 pkgname=${_name}5
 pkgver=5.116.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Extensible deamon for providing system level services'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL)
 depends=(kservice5 kcrash5)
-makedepends=(extra-cmake-modules kdoctools5)
+makedepends=(extra-cmake-modules)
 conflicts=("$_name<5.111")
 replaces=("$_name<5.111")
 groups=(kf5)
