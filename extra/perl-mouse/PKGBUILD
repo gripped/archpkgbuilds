@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=perl-mouse
-pkgver=2.5.11
-pkgrel=2
+pkgver=2.6.0
+pkgrel=1
 pkgdesc="Moose minus the antlers"
 arch=('x86_64')
 url="https://search.cpan.org/dist/Mouse"
@@ -13,8 +13,8 @@ makedepends=('perl-test-exception' 'perl-test-fatal' 'perl-module-build'
              'perl-test-leaktrace' 'perl-test-output' 'perl-test-deep'
              'perl-io-string')
 checkdepends=('perl-path-class')
-source=(https://search.cpan.org/CPAN/authors/id/S/SK/SKAJI/Mouse-v$pkgver.tar.gz)
-sha512sums=('3c4c09b637711f438bbed7a1de0e074110a5e47573c78e52a545b180733bd892a9d90ec39d538c67a100348638aad1a3a0a7647bdb15e9d88a700aaa2d3ad93d')
+source=(https://search.cpan.org/CPAN/authors/id/S/SY/SYOHEX/Mouse-v$pkgver.tar.gz)
+sha512sums=('aa3e1d915dceaee3ea2d33227fe26db92214bffefd341da9c69007e8cacdceac0c24e39eb258b67edb325416715eb06e39895b615a4154b57af6224cf414f8fa')
 
 build() {
   cd Mouse-v$pkgver
