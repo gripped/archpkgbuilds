@@ -6,7 +6,7 @@
 
 pkgname=azcopy
 _pkgname=azure-storage-azcopy
-pkgver=10.30.1
+pkgver=10.31.0
 pkgrel=1
 pkgdesc="A command-line utility designed for copying data to/from Microsoft Azure"
 arch=('x86_64')
@@ -16,7 +16,7 @@ depends=('glibc')
 makedepends=('go')
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('89d8b432d1d40e7bf85000c2a43c497d4cc27efcf223988e372b129473595441')
+sha256sums=('21ca550d42bb06807d985a5ac003c0b479d55cf15506e948c78a419b421eb5c4')
 
 prepare() {
   cd $_pkgname-$pkgver
