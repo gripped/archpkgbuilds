@@ -2,7 +2,7 @@
 
 pkgname=kdsoap-ws-discovery-client
 pkgver=0.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='WS-Discovery client library based on KDSoap'
 license=(CC0-1.0
          GPL-3.0-or-later)
@@ -14,7 +14,6 @@ depends=(gcc-libs
          qt6-base)
 makedepends=(doxygen
              extra-cmake-modules
-             qt6-doc
              qt6-tools)
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('2cd247c013e75f410659bac372aff93d22d71c5a54c059e137b9444af8b3427a'
@@ -23,7 +22,6 @@ validpgpkeys=(E0A3EB202F8E57528E13E72FD7574483BB57B18D) # Jonathan Esk-Riddell <
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_QCH=ON \
     -DQT_MAJOR_VERSION=6
   cmake --build build
 }
