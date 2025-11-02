@@ -1,0 +1,661 @@
+diff --unified --recursive --text --new-file asciidoctor-pdf-2.3.23.orig/spec/admonition_spec.rb asciidoctor-pdf-2.3.23/spec/admonition_spec.rb
+--- asciidoctor-pdf-2.3.23.orig/spec/admonition_spec.rb	2025-11-02 09:17:49.401632566 +0100
++++ asciidoctor-pdf-2.3.23/spec/admonition_spec.rb	2025-11-02 09:33:50.218476725 +0100
+@@ -414,75 +414,6 @@
+   end
+ 
+   context 'Icon' do
+-    it 'should show font-based icon in place of label when icons=font' do
+-      pdf = to_pdf <<~'EOS', analyze: true
+-      :icons: font
+-
+-      TIP: Look for the warp zone under the bridge.
+-      EOS
+-
+-      lines = pdf.lines
+-      (expect lines).to have_size 1
+-      (expect lines[0]).to eql %(\uf0eb Look for the warp zone under the bridge.)
+-      text = pdf.text
+-      (expect text).to have_size 2
+-      label_text = text[0]
+-      (expect label_text[:string]).to eql ?\uf0eb
+-      (expect label_text[:font_name]).to eql 'FontAwesome5Free-Regular'
+-      # NOTE: font size is reduced to fit within available space
+-      (expect label_text[:font_size]).to be < 24
+-      content_text = text[1]
+-      (expect content_text[:string]).to eql 'Look for the warp zone under the bridge.'
+-    end
+-
+-    it 'should not reduce font size of icon if specified size fits within available space' do
+-      pdf = to_pdf <<~'EOS', pdf_theme: { admonition_icon_important: { size: 50 } }, analyze: true
+-      :icons: font
+-
+-      [IMPORTANT]
+-      ====
+-      Always do this.
+-
+-      And when you do that, always do this too!
+-      ====
+-      EOS
+-
+-      label_text = pdf.find_unique_text ?\uf06a
+-      (expect label_text[:font_size]).to eql 50
+-    end
+-
+-    it 'should allow the theme to specify a minimum width for the font-based icon label' do
+-      pdf_theme = {
+-        admonition_label_min_width: '75',
+-        admonition_label_text_align: 'right',
+-      }
+-
+-      pdf = to_pdf <<~'EOS', pdf_theme: pdf_theme, analyze: true
+-      :icons: font
+-
+-      NOTE: Remember the milk.
+-
+-      TIP: Look for the warp zone under the bridge.
+-
+-      CAUTION: Slippery when wet.
+-
+-      WARNING: Beware of dog!
+-
+-      IMPORTANT: Sign off before stepping away from the computer.
+-      EOS
+-
+-      label_texts = pdf.text.select {|it| it[:font_name].start_with? 'FontAwesome' }
+-      (expect label_texts[0][:x]).to be > 100
+-      label_right_reference = nil
+-      label_texts.each do |it|
+-        label_right_reference ||= it[:x] + it[:width]
+-        (expect it[:x] + it[:width]).to be_within(1.5).of(label_right_reference)
+-      end
+-
+-      content_texts = pdf.find_text font_name: 'NotoSerif'
+-      (expect content_texts.map {|it| it[:x] }.uniq).to eql [content_texts[0][:x]]
+-    end
+-
+     it 'should allow theme to control vertical alignment of icon' do
+       pdf = to_pdf <<~'EOS', pdf_theme: { admonition_label_vertical_align: 'top' }, analyze: true
+       :icons: font
+@@ -501,32 +432,6 @@
+       (expect icon_text[:y]).to be > content_text[:y]
+     end
+ 
+-    it 'should assume icon name with no icon set prefix is a legacy FontAwesome icon name' do
+-      pdf = to_pdf <<~'EOS', pdf_theme: { admonition_icon_tip: { name: 'smile-wink' } }, analyze: true
+-      :icons: font
+-
+-      TIP: Time to upgrade your icon set.
+-      EOS
+-
+-      icon_text = pdf.text[0]
+-      (expect icon_text[:font_name]).to eql 'FontAwesome5Free-Solid'
+-      (expect icon_text[:string]).to eql ?\uf4da
+-    end
+-
+-    it 'should be able to use fa- prefix to reference icon in legacy FontAwesome set' do
+-      (expect do
+-        pdf = to_pdf <<~'EOS', pdf_theme: { admonition_icon_tip: { name: 'fa-smile-wink' } }, analyze: true
+-        :icons: font
+-
+-        TIP: Time to upgrade your icon set.
+-        EOS
+-
+-        icon_text = pdf.text[0]
+-        (expect icon_text[:font_name]).to eql 'FontAwesome5Free-Solid'
+-        (expect icon_text[:string]).to eql ?\uf4da
+-      end).to log_message severity: :INFO, message: 'tip admonition in theme uses icon from deprecated fa icon set; use fas, far, or fab instead', using_log_level: :INFO
+-    end
+-
+     it 'should allow icon to come from Foundation icon set' do
+       pdf = to_pdf <<~'EOS', pdf_theme: { admonition_icon_warning: { name: 'fi-alert' } }, analyze: true
+       :icons: font
+@@ -539,48 +444,6 @@
+       (expect icon_text[:string]).to eql ?\uf101
+     end
+ 
+-    it 'should fall back to note icon if icon name cannot be resolved' do
+-      pdf = to_pdf <<~'EOS', pdf_theme: { admonition_icon_warning: { name: nil } }, analyze: true
+-      :icons: font
+-
+-      WARNING: If the icon name is nil, the default note icon will be used.
+-      EOS
+-
+-      icon_text = pdf.text[0]
+-      (expect icon_text[:font_name]).to eql 'FontAwesome5Free-Solid'
+-      (expect icon_text[:string]).to eql ?\uf05a
+-    end
+-
+-    it 'should set color of icon to value of stroke_color key specified in theme' do
+-      pdf = to_pdf <<~'EOS', pdf_theme: { admonition_icon_note: { stroke_color: '00ff00' } }, analyze: true
+-      :icons: font
+-
+-      NOTE: This icon is green.
+-      EOS
+-
+-      icon_text = (pdf.find_text ?\uf05a)[0]
+-      (expect icon_text[:font_color]).to eql '00FF00'
+-    end
+-
+-    it 'should use icon glyph specified in theme' do
+-      pdf = to_pdf <<~'EOS', pdf_theme: { admonition_icon_tip: { name: 'far-money-bill-alt' } }, analyze: true
+-      :icons: font
+-
+-      TIP: Look for the warp zone under the bridge.
+-      EOS
+-
+-      lines = pdf.lines
+-      (expect lines).to have_size 1
+-      (expect lines[0]).to eql %(\uf3d1 Look for the warp zone under the bridge.)
+-      text = pdf.text
+-      (expect text).to have_size 2
+-      label_text = text[0]
+-      (expect label_text[:string]).to eql ?\uf3d1
+-      (expect label_text[:font_name]).to eql 'FontAwesome5Free-Regular'
+-      content_text = text[1]
+-      (expect content_text[:string]).to eql 'Look for the warp zone under the bridge.'
+-    end
+-
+     it 'should use SVG icon specified by icon attribute when icons attribute is set', visual: true do
+       to_file = to_pdf_file <<~'EOS', 'admonition-custom-svg-icon.pdf', attribute_overrides: { 'docdir' => fixtures_dir }
+       :icons: font
+@@ -695,40 +558,6 @@
+       end).to log_message severity: :WARN, message: %(admonition icon image for WARNING not found or not readable: #{fixture_file 'warning.svg'})
+     end
+ 
+-    it 'should warn and fall back to admonition label if SVG icon specified by icon attribute cannot be embedded' do
+-      (expect do
+-        pdf = to_pdf <<~'EOS', attribute_overrides: { 'iconsdir' => fixtures_dir }, analyze: true
+-        :icons: font
+-        :icontype: svg
+-
+-        [TIP,icon=broken]
+-        ====
+-        Use the icon attribute to customize the image for an admonition block.
+-        ====
+-        EOS
+-        label_text = pdf.find_unique_text 'TIP'
+-        (expect label_text).not_to be_nil
+-        (expect label_text[:font_name]).to include 'Bold'
+-      end).to log_message severity: :WARN, message: %(~could not embed admonition icon image: #{fixture_file 'broken.svg'}; Missing end tag for 'rect')
+-    end
+-
+-    it 'should resize fallback admonition label to fit in available space if icon fails to embed' do
+-      (expect do
+-        pdf = to_pdf <<~'EOS', attribute_overrides: { 'iconsdir' => fixtures_dir }, analyze: true
+-        :icons: font
+-        :icontype: svg
+-
+-        [WARNING,icon=broken]
+-        ====
+-        Use the icon attribute to customize the image for an admonition block.
+-        ====
+-        EOS
+-        label_text = pdf.find_unique_text 'WARNING'
+-        (expect label_text).not_to be_nil
+-        (expect label_text[:font_size]).to be < 10.5
+-      end).to log_message severity: :WARN, message: %(~could not embed admonition icon image: #{fixture_file 'broken.svg'}; Missing end tag for 'rect')
+-    end
+-
+     # NOTE: this test also verifies the text transform is applied as requested by theme
+     it 'should warn and fall back to admonition label if raster icon cannot be found' do
+       (expect do
+@@ -1018,71 +847,6 @@
+         (expect pdf.pages[0].text).to include 'NOTE'
+       end).to log_message severity: :WARN, message: '~admonition icon image for NOTE not found or not readable'
+     end
+-
+-    it 'should allow theme to specify icon for custom admonition type' do
+-      require 'asciidoctor/extensions'
+-
+-      extensions = proc do
+-        block :QUESTION do
+-          on_context :example
+-          process do |parent, reader, attrs|
+-            attrs['name'] = 'question'
+-            attrs['caption'] = 'Question'
+-            create_block parent, :admonition, reader.lines, attrs, content_model: :compound
+-          end
+-        end
+-      end
+-
+-      pdf_theme = {
+-        admonition_icon_question: { name: 'question-circle' },
+-      }
+-
+-      pdf = to_pdf <<~'EOS', pdf_theme: pdf_theme, extensions: extensions, analyze: true
+-      :icons: font
+-
+-      [QUESTION]
+-      ====
+-      Are you following along?
+-
+-      Just checking ;)
+-      ====
+-      EOS
+-
+-      icon_text = pdf.find_unique_text ?\uf059
+-      (expect icon_text).not_to be_nil
+-      (expect icon_text[:font_name]).to eql 'FontAwesome5Free-Solid'
+-      (expect icon_text[:font_size]).to be 24
+-      (expect pdf.find_unique_text 'Are you following along?').not_to be_nil
+-      (expect pdf.find_unique_text 'Just checking ;)').not_to be_nil
+-    end
+-
+-    it 'should use note icon for custom admonition type if theme does not specify icon name' do
+-      require 'asciidoctor/extensions'
+-
+-      extensions = proc do
+-        block :FACT do
+-          on_context :example
+-          process do |parent, reader, attrs|
+-            attrs['name'] = 'fact'
+-            attrs['caption'] = 'Fact'
+-            create_block parent, :admonition, reader.lines, attrs, content_model: :compound
+-          end
+-        end
+-      end
+-
+-      pdf = to_pdf <<~'EOS', extensions: extensions, analyze: true
+-      :icons: font
+-
+-      [FACT]
+-      ====
+-      Like all planetary bodies, the Earth is spherical.
+-      ====
+-      EOS
+-
+-      (expect pdf.lines).to eql [%(\uf05a Like all planetary bodies, the Earth is spherical.)]
+-      icon_text = pdf.find_unique_text ?\uf05a
+-      (expect icon_text[:font_color]).to eql '333333'
+-    end
+   end
+ 
+   context 'Background & Lines' do
+diff --unified --recursive --text --new-file asciidoctor-pdf-2.3.23.orig/spec/audio_spec.rb asciidoctor-pdf-2.3.23/spec/audio_spec.rb
+--- asciidoctor-pdf-2.3.23.orig/spec/audio_spec.rb	2025-11-02 09:17:49.401843637 +0100
++++ asciidoctor-pdf-2.3.23/spec/audio_spec.rb	2025-11-02 09:25:49.711685309 +0100
+@@ -35,16 +35,6 @@
+     (expect lines).to eql [%(\u25ba\u00a0a-podcast-with-an-excessively-long-and-descriptive-name-as-they-sometimes-are-that-causes-the-), 'text-to-wrap.mp3 (audio)']
+   end
+ 
+-  it 'should use font-based icon for play symbol if font icons are enabled' do
+-    pdf = to_pdf <<~'EOS', attribute_overrides: { 'icons' => 'font' }, analyze: true
+-    audio::podcast.mp3[]
+-    EOS
+-
+-    icon_text = (pdf.find_text ?\uf04b)[0]
+-    (expect icon_text).not_to be_nil
+-    (expect icon_text[:font_name]).to eql 'FontAwesome5Free-Solid'
+-  end
+-
+   it 'should show caption for audio if title is specified' do
+     pdf = to_pdf <<~'EOS', attributes: { 'imagesdir' => '' }, analyze: true
+     :icons: font
+diff --unified --recursive --text --new-file asciidoctor-pdf-2.3.23.orig/spec/cover_page_spec.rb asciidoctor-pdf-2.3.23/spec/cover_page_spec.rb
+--- asciidoctor-pdf-2.3.23.orig/spec/cover_page_spec.rb	2025-11-02 09:17:49.402073815 +0100
++++ asciidoctor-pdf-2.3.23/spec/cover_page_spec.rb	2025-11-02 09:25:37.371212410 +0100
+@@ -65,19 +65,6 @@
+     end).to log_message severity: :WARN, message: %(front cover image not found or readable: #{fixture_file 'no-such-file.jpg'})
+   end
+ 
+-  it 'should not add cover page if image cannot be embedded' do
+-    (expect do
+-      pdf = to_pdf <<~'EOS', analyze: true
+-      :front-cover-image: image:broken.svg[]
+-
+-      content page
+-      EOS
+-
+-      (expect pdf.pages).to have_size 1
+-      (expect pdf.lines pdf.find_text page_number: 1).to eql ['content page']
+-    end).to log_message severity: :WARN, message: %(~could not embed front cover image: #{fixture_file 'broken.svg'}; Missing end tag for 'rect')
+-  end
+-
+   it 'should not add cover page if value is ~' do
+     pdf = to_pdf <<~'EOS', analyze: true
+     = Document Title
+diff --unified --recursive --text --new-file asciidoctor-pdf-2.3.23.orig/spec/font_spec.rb asciidoctor-pdf-2.3.23/spec/font_spec.rb
+--- asciidoctor-pdf-2.3.23.orig/spec/font_spec.rb	2025-11-02 09:17:49.409158528 +0100
++++ asciidoctor-pdf-2.3.23/spec/font_spec.rb	2025-11-02 09:24:26.626285118 +0100
+@@ -182,17 +182,6 @@
+     end
+   end
+ 
+-  context 'OTF' do
+-    it 'should allow theme to specify an OTF font', unless: (Gem::Version.new RUBY_VERSION) < (Gem::Version.new '2.7.0'), visual: true, &(proc do
+-      to_file = to_pdf_file <<~'EOS', 'font-otf.pdf', enable_footer: true, attribute_overrides: { 'pdf-theme' => (fixture_file 'otf-theme.yml'), 'pdf-fontsdir' => fixtures_dir }
+-      == OTF
+-
+-      You're looking at an OTF font!
+-      EOS
+-      (expect to_file).to visually_match 'font-otf.pdf'
+-    end)
+-  end
+-
+   context 'custom' do
+     it 'should resolve fonts in specified fonts dir' do
+       pdf = to_pdf 'content', attribute_overrides: { 'pdf-theme' => (fixture_file 'bundled-fonts-theme.yml'), 'pdf-fontsdir' => Asciidoctor::PDF::ThemeLoader::FontsDir }
+diff --unified --recursive --text --new-file asciidoctor-pdf-2.3.23.orig/spec/footnote_spec.rb asciidoctor-pdf-2.3.23/spec/footnote_spec.rb
+--- asciidoctor-pdf-2.3.23.orig/spec/footnote_spec.rb	2025-11-02 09:17:49.409217956 +0100
++++ asciidoctor-pdf-2.3.23/spec/footnote_spec.rb	2025-11-02 09:23:34.392711047 +0100
+@@ -80,40 +80,6 @@
+     (expect chapter_b_lines).not_to include '[1] More about that thing.'
+   end
+ 
+-  it 'should not warn when adding label accessor to footnote' do
+-    old_verbose, $VERBOSE = $VERBOSE, 1
+-    warnings = []
+-    Warning.singleton_class.define_method :warn do |str|
+-      warnings << str
+-    end
+-
+-    input = <<~'EOS'
+-    = Document Title
+-    :doctype: book
+-    :notitle:
+-    :nofooter:
+-
+-    == Chapter A
+-
+-    About this thing.footnote:fn1[More about that thing.] And so on.
+-
+-    == Chapter B
+-
+-    Yada yada yada.footnote:fn1[]
+-    EOS
+-
+-    doc = Asciidoctor.convert input, backend: 'pdf', safe: :safe, to_file: (pdf_io = StringIO.new), standalone: true
+-    pdf_io.truncate 0
+-    doc.converter.write doc.convert, pdf_io
+-    pdf = TextInspector.analyze pdf_io
+-    lines = pdf.lines pdf.find_text page_number: 2
+-    (expect lines.join ?\n).to include '[1 - Chapter A]'
+-    (expect warnings).to be_empty
+-  ensure
+-    $VERBOSE = old_verbose
+-    Warning.singleton_class.send :remove_method, :warn
+-  end
+-
+   it 'should place footnotes at the end of document when doctype is not book' do
+     pdf = to_pdf <<~'EOS', attributes_overrides: { 'notitle' => '' }, analyze: true
+     == Section A
+diff --unified --recursive --text --new-file asciidoctor-pdf-2.3.23.orig/spec/icon_spec.rb asciidoctor-pdf-2.3.23/spec/icon_spec.rb
+--- asciidoctor-pdf-2.3.23.orig/spec/icon_spec.rb	2025-11-02 09:17:49.409501642 +0100
++++ asciidoctor-pdf-2.3.23/spec/icon_spec.rb	2025-11-02 09:23:14.186153990 +0100
+@@ -45,52 +45,6 @@
+     end).to log_message
+   end
+ 
+-  it 'should use icon name from specified icon set' do
+-    pdf = to_pdf <<~'EOS', analyze: true
+-    :icons: font
+-    :icon-set: fas
+-
+-    A icon:wrench[] ought to fix it.
+-    EOS
+-    wink_text = pdf.find_text ?\uf0ad
+-    (expect wink_text).to have_size 1
+-    (expect wink_text[0][:font_name]).to eql 'FontAwesome5Free-Solid'
+-  end
+-
+-  it 'should support icon set as suffix on icon name' do
+-    pdf = to_pdf <<~'EOS', analyze: true
+-    :icons: font
+-
+-    A icon:wrench@fas[] ought to fix it.
+-    EOS
+-    wink_text = pdf.find_text ?\uf0ad
+-    (expect wink_text).to have_size 1
+-    (expect wink_text[0][:font_name]).to eql 'FontAwesome5Free-Solid'
+-  end
+-
+-  it 'should support icon set as prefix on icon name' do
+-    pdf = to_pdf <<~'EOS', analyze: true
+-    :icons: font
+-
+-    A icon:fas-wrench[] ought to fix it.
+-    EOS
+-    wink_text = pdf.find_text ?\uf0ad
+-    (expect wink_text).to have_size 1
+-    (expect wink_text[0][:font_name]).to eql 'FontAwesome5Free-Solid'
+-  end
+-
+-  it 'should support icon set as prefix on icon name even if icon set is configured globally' do
+-    pdf = to_pdf <<~'EOS', analyze: true
+-    :icons: font
+-    :icon-set: fab
+-
+-    A icon:fas-wrench[] ought to fix it.
+-    EOS
+-    wink_text = pdf.find_text ?\uf0ad
+-    (expect wink_text).to have_size 1
+-    (expect wink_text[0][:font_name]).to eql 'FontAwesome5Free-Solid'
+-  end
+-
+   it 'should not support icon set as prefix on icon name if explicit icon set is specified' do
+     (expect do
+       pdf = to_pdf <<~'EOS', analyze: true
+@@ -153,16 +107,6 @@
+     (expect first_icon_gap).to eql second_icon_gap
+   end
+ 
+-  it 'should align fw icon in center of 1em space', visual: true do
+-    to_file = to_pdf_file <<~'EOS', 'icon-fw.pdf'
+-    :icons: font
+-    :icon-set: fas
+-
+-    *|* icon:arrows-alt-h[fw] *|* icon:arrows-alt-v[fw] *|*
+-    EOS
+-    (expect to_file).to visually_match 'icon-fw.pdf'
+-  end
+-
+   it 'should use icon name as alt text and warn if icon name not found in icon set' do
+     [
+       ['icon:no-such-icon[set=fas]', 'no such icon'],
+@@ -182,55 +126,6 @@
+     end
+   end
+ 
+-  it 'should remap legacy icon name if icon set is not specified and report remapping' do
+-    (expect do
+-      pdf = to_pdf <<~'EOS', analyze: true
+-      :icons: font
+-
+-      Click the icon:hdd-o[] icon to see your files.
+-      EOS
+-      hdd_text = pdf.find_text ?\uf0a0
+-      (expect hdd_text).to have_size 1
+-      (expect hdd_text[0][:font_name]).to eql 'FontAwesome5Free-Regular'
+-    end).to log_message severity: :INFO, message: 'hdd-o icon found in deprecated fa icon set; using hdd from far icon set instead', using_log_level: :INFO
+-  end
+-
+-  it 'should resolve non-legacy icon name if icon set is not specified and report icon set in which it was found' do
+-    (expect do
+-      pdf = to_pdf <<~'EOS', analyze: true
+-      :icons: font
+-
+-      Time to upgrade your icon set icon:smile-wink[]
+-      EOS
+-      wink_text = pdf.find_text ?\uf4da
+-      (expect wink_text).to have_size 1
+-      (expect wink_text[0][:font_name]).to eql 'FontAwesome5Free-Regular'
+-    end).to log_message severity: :INFO, message: 'smile-wink icon not found in deprecated fa icon set; using match found in far icon set instead', using_log_level: :INFO
+-  end
+-
+-  it 'should apply link to icon if link attribute is set and font-based icons are enabled' do
+-    input = <<~'EOS'
+-    :icons: font
+-
+-    gem icon:download[link=https://rubygems.org/downloads/asciidoctor-pdf-1.5.4.gem, window=_blank]
+-    EOS
+-
+-    pdf = to_pdf input
+-    annotations = get_annotations pdf, 1
+-    (expect annotations).to have_size 1
+-    link_annotation = annotations[0]
+-    (expect link_annotation[:Subtype]).to be :Link
+-    (expect link_annotation[:A][:URI]).to eql 'https://rubygems.org/downloads/asciidoctor-pdf-1.5.4.gem'
+-
+-    pdf = to_pdf input, analyze: true
+-    link_text = (pdf.find_text ?\uf019)[0]
+-    (expect link_text).not_to be_nil
+-    (expect link_text[:font_name]).to eql 'FontAwesome5Free-Solid'
+-    (expect link_text[:font_color]).to eql '428BCA'
+-    link_text[:font_size] -= 1.5 # box appox is a little off
+-    (expect link_annotation).to annotate link_text
+-  end
+-
+   it 'should apply link to alt text if link attribute is set and font-based icons are not enabled' do
+     input = <<~'EOS'
+     gem icon:download[link=https://rubygems.org/downloads/asciidoctor-pdf-1.5.4.gem, window=_blank]
+@@ -249,35 +144,4 @@
+     (expect link_text[:font_color]).to eql '428BCA'
+     (expect link_annotation).to annotate link_text
+   end
+-
+-  it 'should apply styles from role to icon' do
+-    pdf = to_pdf <<~'EOS', pdf_theme: { role_red_font_color: 'FF0000' }, analyze: true
+-    :icons: font
+-
+-    icon:heart[role=red]
+-    EOS
+-
+-    heart_text = pdf.text[0]
+-    (expect heart_text[:string]).to eql ?\uf004
+-    (expect heart_text[:font_name]).to eql 'FontAwesome5Free-Regular'
+-    (expect heart_text[:font_color]).to eql 'FF0000'
+-  end
+-
+-  it 'should parse icon inside kbd macro' do
+-    pdf = to_pdf <<~'EOS', analyze: true
+-    :experimental:
+-    :icons: font
+-    :icon-set: fas
+-
+-    Press kbd:[Alt,icon:arrow-up[\]] to move the line up.
+-    EOS
+-
+-    keyseq_text = pdf.text.find_all {|candidate| ['Alt', %(\u202f+\u202f), ?\uf062].include? candidate[:string] }
+-    (expect keyseq_text.size).to be 3
+-    (expect keyseq_text[0][:string]).to eql 'Alt'
+-    (expect keyseq_text[0][:font_name]).to eql 'mplus1mn-regular'
+-    (expect keyseq_text[1][:string]).to eql %(\u202f+\u202f)
+-    (expect keyseq_text[2][:string]).to eql ?\uf062
+-    (expect keyseq_text[2][:font_name]).to eql 'FontAwesome5Free-Solid'
+-  end
+ end
+diff --unified --recursive --text --new-file asciidoctor-pdf-2.3.23.orig/spec/image_spec.rb asciidoctor-pdf-2.3.23/spec/image_spec.rb
+--- asciidoctor-pdf-2.3.23.orig/spec/image_spec.rb	2025-11-02 09:17:49.409682933 +0100
++++ asciidoctor-pdf-2.3.23/spec/image_spec.rb	2025-11-02 09:19:41.541912185 +0100
+@@ -1079,15 +1079,6 @@
+       (expect rect[:height]).to eql 200.0
+     end
+ 
+-    it 'should fail to embed broken SVG with warning' do
+-      { '::' => '[Broken SVG] | broken.svg', ':' => '[Broken SVG]' }.each do |macro_delim, alt_text|
+-        (expect do
+-          pdf = to_pdf %(image#{macro_delim}broken.svg[Broken SVG]), analyze: true
+-          (expect pdf.lines).to eql [alt_text]
+-        end).to log_message severity: :WARN, message: %(~could not embed image: #{fixture_file 'broken.svg'}; Missing end tag for 'rect')
+-      end
+-    end
+-
+     it 'should pass SVG warnings in main document to logger' do
+       { '::' => [48.24, 605.89], ':' => [48.24, 605.14] }.each do |macro_delim, point|
+         [true, false].each do |in_block|
+@@ -1105,11 +1096,6 @@
+       end
+     end
+ 
+-    it 'should render linear gradient in SVG', visual: true do
+-      to_file = to_pdf_file 'image::gradient.svg[pdfwidth=100%]', 'image-svg-with-gradient.pdf'
+-      (expect to_file).to visually_match 'image-svg-with-gradient.pdf'
+-    end
+-
+     it 'should set graphic state for running content when image occupies whole page' do
+       pdf_theme = {
+         footer_recto_right_content: %(image:#{fixture_file 'svg-with-text.svg'}[]),
+diff --unified --recursive --text --new-file asciidoctor-pdf-2.3.23.orig/spec/list_spec.rb asciidoctor-pdf-2.3.23/spec/list_spec.rb
+--- asciidoctor-pdf-2.3.23.orig/spec/list_spec.rb	2025-11-02 09:17:49.409924124 +0100
++++ asciidoctor-pdf-2.3.23/spec/list_spec.rb	2025-11-02 09:19:24.006186333 +0100
+@@ -288,24 +288,6 @@
+       (expect marker_text[:width]).to eql 5.25
+     end
+ 
+-    it 'should allow FontAwesome icon to be used as list marker' do
+-      %w(fa far).each do |font_family|
+-        pdf_theme = {
+-          ulist_marker_disc_font_family: font_family,
+-          ulist_marker_disc_content: ?\uf192,
+-        }
+-
+-        pdf = to_pdf <<~'EOS', pdf_theme: pdf_theme, analyze: true
+-        * bullseye!
+-        EOS
+-
+-        (expect pdf.lines).to eql [%(\uf192 bullseye!)]
+-        marker_text = pdf.find_unique_text ?\uf192
+-        (expect marker_text).not_to be_nil
+-        (expect marker_text[:font_name]).to eql 'FontAwesome5Free-Regular'
+-      end
+-    end
+-
+     it 'should not insert extra blank line if list item text is forced to break' do
+       pdf = to_pdf <<~EOS, analyze: true
+       * #{'a' * 100}
+@@ -523,30 +505,6 @@
+ 
+       (expect to_file).to visually_match 'list-checked-glyph-fallback.pdf'
+     end
+-
+-    it 'should allow theme to use FontAwesome icon for checkbox characters' do
+-      %w(fa fas).each do |font_family|
+-        pdf_theme = {
+-          ulist_marker_unchecked_font_family: font_family,
+-          ulist_marker_unchecked_content: ?\uf096,
+-          ulist_marker_checked_font_family: font_family,
+-          ulist_marker_checked_content: ?\uf046,
+-        }
+-
+-        pdf = to_pdf <<~'EOS', pdf_theme: pdf_theme, analyze: true
+-        * [ ] todo
+-        * [x] done
+-        EOS
+-
+-        (expect pdf.lines).to eql [%(\uf096 todo), %(\uf046 done)]
+-        unchecked_marker_text = pdf.find_unique_text ?\uf096
+-        (expect unchecked_marker_text).not_to be_nil
+-        (expect unchecked_marker_text[:font_name]).to eql 'FontAwesome5Free-Solid'
+-        checked_marker_text = pdf.find_unique_text ?\uf046
+-        (expect checked_marker_text).not_to be_nil
+-        (expect checked_marker_text[:font_name]).to eql 'FontAwesome5Free-Solid'
+-      end
+-    end
+   end
+ 
+   context 'Ordered' do
+diff --unified --recursive --text --new-file asciidoctor-pdf-2.3.23.orig/spec/running_content_spec.rb asciidoctor-pdf-2.3.23/spec/running_content_spec.rb
+--- asciidoctor-pdf-2.3.23.orig/spec/running_content_spec.rb	2025-11-02 09:17:49.428084614 +0100
++++ asciidoctor-pdf-2.3.23/spec/running_content_spec.rb	2025-11-02 09:18:51.395651838 +0100
+@@ -3047,20 +3047,6 @@
+       end
+     end
+ 
+-    it 'should warn and show alt text if image cannot be embedded' do
+-      pdf_theme = {
+-        footer_font_color: '0000FF',
+-        footer_columns: '=100%',
+-        footer_recto_center_content: %(image:#{fixture_file 'broken.svg'}[no worky]),
+-      }
+-
+-      (expect do
+-        pdf = to_pdf 'body', analyze: true, pdf_theme: pdf_theme, enable_footer: true
+-        footer_text = pdf.find_unique_text font_color: '0000FF'
+-        (expect footer_text[:string]).to eql '[no worky]'
+-      end).to log_message severity: :WARN, message: %(~could not embed image in running content: #{fixture_file 'broken.svg'}; Missing end tag for 'rect')
+-    end
+-
+     it 'should resolve attribute references in target of inline image' do
+       expected_image_data = File.binread example_file 'sample-logo.jpg'
+       %w(docdir docimagesdir).each do |name|
