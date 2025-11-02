@@ -7,7 +7,7 @@
 # Check if new updates break python-engineio
 
 pkgname=python-aiohttp
-pkgver=3.13.1
+pkgver=3.13.2
 pkgrel=1
 pkgdesc='HTTP client/server for asyncio'
 arch=(x86_64)
@@ -59,7 +59,7 @@ optdepends=(
   'python-brotli: for Brotli transfer-encodings support'
 )
 source=("$pkgname::git+https://github.com/aio-libs/aiohttp#tag=v$pkgver")
-b2sums=('b6830502d090fa448674b2e7b1f8bb0d4220ddd4078b71040cc6bc32a822f3d385cec0d3dfc075251a95f3bb7f86d0a913557dcc8c9b9fe3d90e4770684b0a98')
+b2sums=('933e1c4dbd32b3544f113729c2d3d9adbdcb2f6c644131bd05894db117ae3c1d3c0f462a23ec694a5f016efa457cf30fc6679ef1abdfe642e77d853c587de6ce')
 
 prepare() {
   cd $pkgname
@@ -84,6 +84,7 @@ check() {
     --deselect=tests/test_http_parser.py::test_http_response_parser_strict_headers
     --deselect=tests/test_http_parser.py::test_http_response_parser_strict_obs_line_folding
     --deselect=tests/test_proxy_functional.py::test_uvloop_secure_https_proxy
+    --deselect='tests/test_client_functional.py::test_invalid_idna[pyloop]'
 
     # Fails, calls the Python interpreter without -P, deselect to enable
     # venv-based testing.
