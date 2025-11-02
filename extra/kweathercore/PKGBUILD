@@ -2,7 +2,7 @@
 
 pkgname=kweathercore
 pkgver=25.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Library to facilitate retrieval of weather information including forecasts and alerts'
 arch=(x86_64)
 license=(GPL-2.0-or-later)
@@ -13,10 +13,8 @@ depends=(gcc-libs
          ki18n
          qt6-base
          qt6-positioning)
-makedepends=(doxygen
-             extra-cmake-modules
-             qt6-declarative
-             qt6-tools)
+makedepends=(extra-cmake-modules
+             qt6-declarative)
 optdepends=('qt6-declarative: QML bindings')
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('0d1491d8011ae93d6292ee9b8e27b961389533b2befdc548219f5f42d1ec0d15'
@@ -27,8 +25,7 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
