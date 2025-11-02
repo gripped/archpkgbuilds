@@ -5,13 +5,13 @@
 _name=kguiaddons
 pkgname=${_name}5
 pkgver=5.116.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Addons to QtGui'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL)
 depends=(qt5-x11extras qt5-wayland)
-makedepends=(extra-cmake-modules doxygen qt5-tools qt5-doc plasma-wayland-protocols)
+makedepends=(extra-cmake-modules plasma-wayland-protocols)
 groups=(kf5)
 conflicts=("$_name<5.111")
 replaces=("$_name<5.111")
@@ -23,7 +23,6 @@ validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB) # David Faure <faure@kde
 build() {
   cmake -B build -S $_name-$pkgver \
     -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON \
     -DBUILD_GEO_SCHEME_HANDLER=OFF
   cmake --build build
 }
