@@ -2,7 +2,7 @@
 
 pkgname=kmailtransport
 pkgver=25.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Mail Transport Service'
 arch=(x86_64)
 url='https://kontact.kde.org'
@@ -20,10 +20,7 @@ depends=(gcc-libs
          libkgapi
          qt6-base
          qtkeychain-qt6)
-makedepends=(doxygen
-             extra-cmake-modules
-             qt6-doc
-             qt6-tools)
+makedepends=(extra-cmake-modules)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('f6f9d8aff2654c6aa31358059689b9b10846cfe05e53445fcb958b2b0fe5b794'
             'SKIP')
@@ -33,8 +30,7 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
