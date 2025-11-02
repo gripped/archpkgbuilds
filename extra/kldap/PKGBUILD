@@ -2,7 +2,7 @@
 
 pkgname=kldap
 pkgver=25.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='LDAP access API for KDE'
 arch=(x86_64)
 url='https://kontact.kde.org'
@@ -18,11 +18,8 @@ depends=(gcc-libs
          libsasl
          qt6-base
          qtkeychain-qt6)
-makedepends=(doxygen
-             extra-cmake-modules
-             kdoctools
-             qt6-doc
-             qt6-tools)
+makedepends=(extra-cmake-modules
+             kdoctools)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('92067b9cd063c3fd97f6706178781951b9a62861bf31604afbf3fd04c4b7e549'
             'SKIP')
@@ -32,8 +29,7 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
