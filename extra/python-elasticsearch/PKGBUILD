@@ -3,7 +3,7 @@
 
 pkgname=python-elasticsearch
 _pkgname=elasticsearch-py
-pkgver=9.1.1
+pkgver=9.2.0
 pkgrel=1
 arch=(any)
 pkgdesc="Official Python client for Elasticsearch"
@@ -29,11 +29,13 @@ checkdepends=(
   python-orjson
   python-pandas
   python-pyarrow
+  python-pydantic
   python-pytest
   python-pytest-asyncio
   python-requests
   # Not available in Arch repos (yet)
   # python-simsimd
+  python-trio
   python-yaml
 )
 optdepends=(
@@ -45,7 +47,7 @@ optdepends=(
   # 'python-simsimd: support for Maximal Marginal Relevance (MMR) for search results'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('3fd74bc1eea002ff73a850a01a732632a430e0d5040c467714cfa9ac1c867104')
+sha256sums=('e2e6a5d609e1b07c739dab907c4d10eb0eae8ca4476333217232045cb9550f08')
 
 build() {
   cd $_pkgname-$pkgver
