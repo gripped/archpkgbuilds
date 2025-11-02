@@ -4,7 +4,7 @@
 
 pkgname=umbrello
 pkgver=25.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='UML modeller'
 arch=(x86_64)
 url='https://apps.kde.org/umbrello/'
@@ -29,9 +29,7 @@ depends=(gcc-libs
          libxslt
          qt5-base
          qt5-svg)
-makedepends=(doxygen
-             extra-cmake-modules
-             kdoctools5)
+makedepends=(extra-cmake-modules)
 groups=(kde-applications
         kde-sdk)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
@@ -40,6 +38,10 @@ sha256sums=('ec141b83348514a5f14596ed57d2ade49f737b4edafd8e86f02bf5154e794c7e'
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
+
+prepare() {
+  sed -e '/DocTools/d' -e '/(doc)/d' -e '/kdoctools/d' -i $pkgname-$pkgver/CMakeLists.txt
+}
 
 build() { 
   cmake -B build -S $pkgname-$pkgver \
