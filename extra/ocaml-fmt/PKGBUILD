@@ -2,8 +2,8 @@
 
 _pkgname=fmt
 pkgname=ocaml-${_pkgname}
-pkgver=0.10.0
-pkgrel=2
+pkgver=0.11.0
+pkgrel=1
 pkgdesc="OCaml Format pretty-printer combinators"
 arch=('x86_64')
 url="https://erratique.ch/software/fmt"
@@ -12,7 +12,7 @@ depends=('ocaml' 'ocaml-cmdliner')
 makedepends=('ocaml-findlib' 'ocamlbuild' 'ocaml-topkg' 'opam')
 options=('!strip')
 source=("https://erratique.ch/software/${_pkgname}/releases/${_pkgname}-${pkgver}.tbz")
-sha256sums=('78381e73e156d85f392f37e4285aac998777316599b012173219574f7c5d2997')
+sha256sums=('857cfd47a54b52429cd9b3e2665e44173cd1bd3b435bece7172f984ad5376a1b')
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
