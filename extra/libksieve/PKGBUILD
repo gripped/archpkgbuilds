@@ -2,7 +2,7 @@
 
 pkgname=libksieve
 pkgver=25.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE PIM library for managing sieves'
 arch=(x86_64)
 url='https://kontact.kde.org'
@@ -27,12 +27,9 @@ depends=(gcc-libs
          qt6-webengine
          sonnet
          syntax-highlighting)
-makedepends=(doxygen
-             extra-cmake-modules
+makedepends=(extra-cmake-modules
              kdoctools
-             kmailtransport
-             qt6-doc
-             qt6-tools)
+             kmailtransport)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('9f0ee6de58c67b8158873e97e86994a238cb62b91e5b91d02b4041e966ce2478'
             'SKIP')
@@ -42,8 +39,7 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
