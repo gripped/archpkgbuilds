@@ -4,8 +4,8 @@
 
 pkgname=ruby-afm
 _pkgname=${pkgname#ruby-}
-pkgver=0.2.2
-pkgrel=6
+pkgver=1.0.0
+pkgrel=1
 pkgdesc="A simple library to read Adobe Font Metrics (afm) files"
 arch=('any')
 url='http://github.com/halfbyte/afm'
@@ -20,7 +20,7 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('706379849a70cb8406b32e40508cfa0b8c4b60fe7893f00f81fd9876e843e37c')
+sha256sums=('cd7092f9e8795e2e212e9266ec730173377610ac83cb1c461a81d20cde5acba2')
 
 prepare() {
   cd "$_pkgname-$pkgver"
