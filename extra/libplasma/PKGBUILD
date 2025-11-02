@@ -5,7 +5,7 @@
 pkgname=libplasma
 pkgver=6.5.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Plasma library and runtime components'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -34,12 +34,9 @@ depends=(gcc-libs
          qt6-base
          qt6-declarative
          wayland)
-makedepends=(doxygen
-             extra-cmake-modules
+makedepends=(extra-cmake-modules
              kdoctools
-             plasma-wayland-protocols
-             qt6-doc
-             qt6-tools)
+             plasma-wayland-protocols)
 conflicts=(plasma-framework)
 replaces=(plasma-framework)
 groups=(plasma)
@@ -53,8 +50,7 @@ validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell
 
 build() {
   cmake -B build  -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
