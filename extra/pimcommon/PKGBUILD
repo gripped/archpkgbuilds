@@ -2,7 +2,7 @@
 
 pkgname=pimcommon
 pkgver=25.08.2
-pkgrel=3
+pkgrel=4
 pkgdesc='Common libraries for KDE PIM'
 arch=(x86_64)
 url='https://kontact.kde.org'
@@ -33,9 +33,7 @@ depends=(akonadi-contacts
          plasma-activities
          purpose
          qt6-base)
-makedepends=(doxygen
-             extra-cmake-modules
-             qt6-doc
+makedepends=(extra-cmake-modules
              qt6-tools)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('de341499406f317dafe9fa3e5eeb600bbd0ec69f34e28e8e0bb8ffdabe8e950b'
@@ -46,8 +44,7 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
