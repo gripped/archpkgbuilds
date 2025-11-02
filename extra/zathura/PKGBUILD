@@ -5,7 +5,7 @@
 # Contributor: ML <neldoreth>
 
 pkgname=zathura
-pkgver=0.5.13
+pkgver=0.5.14
 pkgrel=1
 pkgdesc="Minimalistic document viewer"
 url="https://pwmt.org/projects/zathura/"
@@ -13,14 +13,14 @@ arch=('x86_64')
 license=('Zlib')
 depends=('girara' 'sqlite' 'desktop-file-utils' 'file' 'libsynctex' 'libseccomp')
 makedepends=('appstream' 'python-sphinx' 'texlive-bin' 'meson' 'ninja' 'appstream-glib' 'check')
-checkdepends=('xorg-server-xvfb')
+checkdepends=('xorg-server-xvfb' 'weston')
 optdepends=('zathura-djvu: DjVu support'
             'zathura-pdf-poppler: PDF support using Poppler'
             'zathura-pdf-mupdf: PDF support using MuPDF'
             'zathura-ps: PostScript support'
             'zathura-cb: Comic book support')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pwmt/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
-sha512sums=('a6d833430de7e9c5767a86aff2188a2ce9e00ebd6fcfc41b2b35b7d203a011b14fddb7026bb258c6ff772eea2516bd6dd06e2390ed4770f4ae1f8b5cf65d30b1')
+sha512sums=('1bf77b3e2a24644bbad3bff8a2d603fc3bf5a8803e217c38c0d30ffa2731ff083de7f5cfe0b4ce93923a66b91351118f267a22fea922238bb044634d7c6bc091')
 
 build() {
         cd "${pkgname}-${pkgver}"
