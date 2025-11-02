@@ -3,7 +3,7 @@
 
 _pkg=Type-Tiny
 pkgname=perl-${_pkg,,}
-pkgver=2.008003
+pkgver=2.008004
 pkgrel=1
 pkgdesc="Tiny, yet Moo(se)-compatible type constraint"
 arch=(any)
@@ -12,7 +12,7 @@ license=(PerlArtistic GPL)
 options=(!emptydirs)
 depends=(perl perl-exporter-tiny)
 source=(https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/${_pkg}-${pkgver}.tar.gz)
-sha512sums=('dcb67373d0fa6d44c6df68207ca5ab67abfe32fb733196468316dea3b806965bfc745a82cba5b31c3033a005eb6e7f6c5c5892f9397b6d970f9e170314430ab9')
+sha512sums=('0c2ee517a7a66d230e19306e5805aeee3e3898c568d5e9fb64263626c84e9da8ae741ff2cc46919bb46ba8c34c0d712c99f83b1f99ead4cece95f11b8a56c236')
 
 build() {
     cd ${_pkg}-${pkgver}
