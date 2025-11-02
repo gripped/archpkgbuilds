@@ -5,13 +5,13 @@
 _name=kactivities
 pkgname=${_name}5
 pkgver=5.116.0
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 pkgdesc='Core components for KDE Activities'
 url='https://community.kde.org/Frameworks'
 license=(LGPL)
 depends=(kcoreaddons5 kconfig5)
-makedepends=(extra-cmake-modules boost doxygen qt5-tools qt5-doc qt5-declarative kwindowsystem5)
+makedepends=(extra-cmake-modules boost qt5-declarative kwindowsystem5)
 optdepends=('qt5-declarative: QML bindings')
 conflicts=("$_name<5.111")
 replaces=("$_name<5.111")
@@ -23,8 +23,7 @@ validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB) # David Faure <faure@kde
 
 build() {
   cmake -B build -S $_name-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
