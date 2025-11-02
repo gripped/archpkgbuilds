@@ -2,7 +2,7 @@
 # Maintainer: Tim Hatch <tim@timhatch.com>
 
 pkgname=python-termcolor
-pkgver=3.1.0
+pkgver=3.2.0
 pkgrel=1
 pkgdesc="ANSI Color formatting for output in terminal"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python')
 makedepends=('python-build' 'python-installer' 'python-hatch-vcs')
 checkdepends=('python-pytest' 'python-coverage')
 source=(https://pypi.python.org/packages/source/t/termcolor/termcolor-$pkgver.tar.gz)
-sha256sums=('6a6dd7fbee581909eeec6a756cff1d7f7c376063b14e4a298dc4980309e55970')
+sha256sums=('610e6456feec42c4bcd28934a8c87a06c3fa28b01561d46aa09a9881b8622c58')
 
 build() {
   cd termcolor-$pkgver
