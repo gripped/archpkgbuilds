@@ -4,7 +4,7 @@
 pkgname=ruby-maxitest
 _pkgname=${pkgname#ruby-}
 pkgver=6.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Minitest + all the features you always wanted'
 arch=(any)
 url='https://github.com/grosser/maxitest'
@@ -26,7 +26,6 @@ checkdepends=(
 options=(!emptydirs)
 source=("git+$url.git#tag=v$pkgver")
 sha512sums=('ae0e246489a3c536f2adc81fdd1a9214a7dbee37dea191f8a21f41354e568f57440c46520560333f7ab5d9020642d8d1181a451c887ec56cae97a4e3a60fced2')
-b2sums=('7dda419b89774dacc0d2c31d76bad3e9382fee26867c040cf4e21a0237e8088147d6c9c0ae5fb0288fcfb0074944ca8eb854b79260fb2149f61fd44684245e46')
 
 prepare() {
   cd "$_pkgname"
@@ -34,6 +33,10 @@ prepare() {
 
   # Remove dependency on bump and debug
   sed -r -e '/bump|debug/d' -i Gemfile
+
+  # Remove ruby-minitest version constraints
+  sed -i 's/s.add_runtime_dependency "minitest".*/s.add_runtime_dependency "minitest"/' \
+    maxitest.gemspec
 }
 
 build() {
