@@ -5,13 +5,13 @@
 _name=kauth
 pkgname=${_name}5
 pkgver=5.116.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Abstraction to system policy and authentication features'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL)
 depends=(kcoreaddons5 polkit-qt5)
-makedepends=(extra-cmake-modules qt5-tools qt5-doc doxygen)
+makedepends=(extra-cmake-modules qt5-tools)
 conflicts=("$_name<5.111")
 replaces=("$_name<5.111")
 groups=(kf5)
@@ -23,8 +23,7 @@ validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB) # David Faure <faure@kde
 build() {
   cmake -B build -S $_name-$pkgver \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
