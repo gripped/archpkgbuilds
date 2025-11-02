@@ -2,7 +2,7 @@
 
 pkgname=kpublictransport
 pkgver=25.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Library to assist with accessing public transport timetables and other data'
 arch=(x86_64)
 url='https://www.kde.org'
@@ -14,11 +14,9 @@ depends=(gcc-libs
          qt6-base
          qt6-declarative
          zlib)
-makedepends=(doxygen
-             extra-cmake-modules
+makedepends=(extra-cmake-modules
              kirigami-addons
-             protobuf
-             qt6-tools)
+             protobuf)
 optdepends=('kirigami-addons: QML bindings')
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('b2dec9e45fd631c8d6df81c08d4b9f4706ee3d4781165431a04a4b4c0c8c2ed3'
@@ -29,8 +27,7 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
