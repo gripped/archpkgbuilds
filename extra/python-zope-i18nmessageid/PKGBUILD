@@ -3,7 +3,7 @@
 
 pkgname=python-zope-i18nmessageid
 _pkgname=zope.i18nmessageid
-pkgver=8.0
+pkgver=8.1
 pkgrel=1
 pkgdesc="Message Identifiers for internationalization"
 arch=('x86_64')
@@ -21,7 +21,7 @@ makedepends=(
 )
 checkdepends=('python-zope-testrunner')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/zopefoundation/zope.i18nmessageid/archive/$pkgver.tar.gz")
-sha512sums=('28b008364a35986549c6d2251f60593f09caf11d56f42dfffebeb1de491ec5756214d0af641c3cc9b8baf2b9c474fceb27e76ce753679091ee90d353ede29746')
+sha512sums=('e337cd048056a1f393d40ac56f8e9ee35eea37ef426b6c7327fe0acbdd5b2e22ce6bd67e5225dc147c16d45ce33dd081de531c3c00458b25757ea7ffcf038218')
 
 build() {
   cd $_pkgname-$pkgver
