@@ -4,8 +4,8 @@
 # Contributor: Cory Farmer <rbgkofi@ameritech.net>
 
 pkgname=gramps
-pkgver=6.0.1
-pkgrel=3
+pkgver=6.0.5
+pkgrel=1
 epoch=2
 pkgdesc="Genealogy program, which helps you track your family tree"
 arch=('any')
@@ -23,7 +23,7 @@ optdepends=('osm-gps-map: show maps in the geography view'
             'geocode-glib: associate a geographical position to a place name')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/gramps-project/$pkgname/archive/v$pkgver.tar.gz"
         set_SDE_in_gzip.patch)
-sha256sums=('894d854da32ff51a72dd812e8430dcbaa11757928a018c76120cfbb16686e877'
+sha256sums=('1295fe352669cdf419d762445db1d26ba5492da30c0a78fef278856eda9cc680'
             'cbeefd3af162b7168a4eb4f118091e3abddb887a2757843c6eaa2dc3f52d2a5a')
 
 prepare() {
@@ -32,7 +32,7 @@ prepare() {
   # to avoid recording non-deterministic information in gzip metadata across builds.
   # This is required for reproducible builds.
   # See https://github.com/gramps-project/gramps/pull/2078
-  patch -Np1 -i "$srcdir/set_SDE_in_gzip.patch"
+#  patch -Np1 -i "$srcdir/set_SDE_in_gzip.patch"
 }
 
 build() {
