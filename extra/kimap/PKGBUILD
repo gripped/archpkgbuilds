@@ -2,7 +2,7 @@
 
 pkgname=kimap
 pkgver=25.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Job-based API for interacting with IMAP servers'
 arch=(x86_64)
 url='https://kontact.kde.org'
@@ -15,10 +15,7 @@ depends=(gcc-libs
          kmime
          libsasl
          qt6-base)
-makedepends=(doxygen
-             extra-cmake-modules
-             qt6-doc
-             qt6-tools)
+makedepends=(extra-cmake-modules)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('ffd4ae77417037f3657672aa2ca1415d0af557ae29c1a77a8496e616a630e867'
             'SKIP')
@@ -28,8 +25,7 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
