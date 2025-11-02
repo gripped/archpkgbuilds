@@ -4,7 +4,7 @@
 
 pkgname=rocs
 pkgver=25.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Graph Theory IDE'
 url='https://apps.kde.org/rocs/'
 arch=(x86_64)
@@ -31,8 +31,7 @@ depends=(gcc-libs
          qt5-script
          qt5-xmlpatterns)
 makedepends=(boost
-             extra-cmake-modules
-             kdoctools5)
+             extra-cmake-modules)
 groups=(kde-applications
         kde-education)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
