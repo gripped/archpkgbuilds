@@ -1,15 +1,15 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 pkgname=kiwix-tools
-pkgver=3.5.0
-pkgrel=3
+pkgver=3.8.0
+pkgrel=1
 pkgdesc="kiwix command line tools"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 arch=('armv7h' 'i686' 'x86_64')
-depends=('libkiwix')
+depends=('libkiwix>=14.1.0' 'docopt')
 makedepends=('meson')
 url='https://github.com/kiwix/kiwix-tools'
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('b15e69dd0ae690cb7a000ad815e5037db5276d92310e0b44832b960a51bfaeac')
+sha256sums=('1c7495b30b58826629d1bad647084ed84f0d03687fe45c5ee6ab2129c8307190')
 
 build() {
 	cd "${pkgname}-${pkgver}"
