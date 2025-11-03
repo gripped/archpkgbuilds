@@ -1,38 +1,53 @@
-# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Maintainer: George Hu <integral@archlinux.org>
+# Contributor: Maxime Gauduin <alucryd@archlinux.org>
 # Contributor: Tofe <chris.chapuis@gmail.com>
 # Contributor: erm67 <erm67@yahoo.it>
 
 pkgname=cairo-dock
-pkgver=3.5.2
+pkgver=3.6.0
 pkgrel=2
-pkgdesc='Light eye-candy fully themable animated dock'
+pkgdesc="Light eye-candy fully themable animated dock"
 arch=('x86_64')
-url='https://glx-dock.org/'
-license=('GPL')
-depends=('curl' 'dbus-glib' 'glu' 'gtk3')
-makedepends=('cmake')
+url="https://github.com/Cairo-Dock/${pkgname}-core"
+license=('GPL-3.0-or-later')
+depends=(
+	'gtk3'
+	'gdk-pixbuf2'
+	'glib2'
+	'cairo'
+	'pango'
+	'librsvg'
+	'dbus'
+	'dbus-glib'
+	'libxml2'
+	'libxrender'
+	'glu'
+	'curl'
+	'libx11'
+	'libxtst'
+	'libxcomposite'
+	'libxrandr'
+	'libxinerama'
+	'wayland'
+	'json-c'
+	'gtk-layer-shell'
+)
+makedepends=('cmake' 'extra-cmake-modules' 'wayland-protocols')
 optdepends=('cairo-dock-plug-ins: Plugins for Cairo-Dock')
-source=("cairo-dock-${pkgver}.tar.gz::https://github.com/Cairo-Dock/cairo-dock-core/archive/${pkgver}.tar.gz")
-sha256sums=('9a08efe15e257f18e33161b17c4bbab7c6889854a9fab96a69d6568f0e91475f')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('8b7c5d08dbd61d4f18c463a0eba4b8a0ff5c2830225c56b7cffe9e84d01af2e3')
 
 build() {
-  cd cairo-dock-core-${pkgver}
+	cmake -B build \
+		-S "${pkgname}-core-${pkgver}" \
+		-D CMAKE_BUILD_TYPE=None \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D enable-desktop-manager=True \
+		-D enable-systemd-service=True
 
-  if [[ -d build ]]; then
-    rm -rf build
-  fi
-  mkdir build && cd build
-
-  cmake .. \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-  make
+	cmake --build build
 }
 
 package() {
-  cd cairo-dock-core-${pkgver}/build
-
-  make DESTDIR="${pkgdir}" install
+	DESTDIR="${pkgdir}" cmake --install build
 }
-
-# vim: ts=2 sw=2 et:
