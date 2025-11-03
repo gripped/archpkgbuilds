@@ -5,24 +5,24 @@
 # Contributor: Jonas Nyrén <jonas.nyren*mindkiller.com>
 
 pkgname=libsidplayfp
-pkgver=2.15.1
+pkgver=2.15.2
 pkgrel=1
 pkgdesc='Library to play Commodore 64 music'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/libsidplayfp/libsidplayfp'
-license=('GPL-2.0-only')
-depends=('glibc' 'gcc-libs' 'libgcrypt')
-makedepends=('git' 'vice' 'xa')
+license=(GPL-2.0-only)
+depends=(glibc gcc-libs libgcrypt)
+makedepends=(git vice xa)
 optdepends=('vice: better SID support')
 source=(
   "$pkgname::git+$url#tag=v$pkgver"
   'github.com-libsidplayfp-exsid-driver::git+https://github.com/libsidplayfp/exsid-driver'
   'github.com-libsidplayfp-resid::git+https://github.com/libsidplayfp/resid'
 )
-sha512sums=('cf6ef67301a009ee854b740350ea11d11f6b9648fdf0bd929e6299a749c2e3bbf4b274231d97e3d73395e71964e24a4e63f68c84f862d4af0fbd05ac6e40317f'
+sha512sums=('2b218aff35e13f684d3cb7437d17e6203c8a337aa4c99c8eca6697bcd7752e7b74288ca1e86dacef34431b36b5396f5b33d58d7d95b334a68c3521058f8f5805'
             'SKIP'
             'SKIP')
-b2sums=('6b1c525606fbaab97df054afb4058f09ce71e5ce973b9fab17f2ac71b88dfcf4c3aaa40b8de25a28aff58ffa3e1e3b5a64d7bbf33b601758927f44e98b38c762'
+b2sums=('6fbb7d973b5898bd1238c61dc2bc98e8e3d9a3839fdb8788c04f7e20af5667141efdc5ab8bbe5de37e499302fbfb0f7c96b884163a67e1952cfafeb54e48853d'
         'SKIP'
         'SKIP')
 
