@@ -4,7 +4,7 @@
 
 pkgname=mate-panel
 pkgver=1.28.7
-pkgrel=1
+pkgrel=2
 pkgdesc="The MATE Panel"
 url="https://mate-desktop.org"
 arch=('x86_64')
