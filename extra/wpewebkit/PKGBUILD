@@ -6,7 +6,7 @@ pkgname=(
   wpewebkit-docs
 )
 pkgver=2.50.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Embeddable web content engine"
 url="https://wpewebkit.org"
 arch=(x86_64)
@@ -126,6 +126,7 @@ build() {
     -D ENABLE_DOCUMENTATION=ON
     -D ENABLE_MINIBROWSER=ON
     -D ENABLE_SPEECH_SYNTHESIS=OFF
+    -D ENABLE_WPE_PLATFORM=ON
     -D PORT=WPE
     -D USE_FLITE=OFF
     -D USE_LIBBACKTRACE=OFF
