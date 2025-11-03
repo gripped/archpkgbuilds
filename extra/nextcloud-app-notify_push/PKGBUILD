@@ -2,7 +2,7 @@
 # Contributor: Carlos Galindo < arch -at - cgj.es >
 
 pkgname=nextcloud-app-notify_push
-pkgver=1.2.0
+pkgver=1.2.1
 pkgrel=1
 pkgdesc='Update notifications for nextcloud clients'
 arch=(x86_64)
@@ -18,7 +18,7 @@ groups=(nextcloud-apps)
 _archive="${pkgname##*-}-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz"
         "$pkgname.service")
-sha256sums=('7fd40aeb5d3608791081e8decf3061cf0300989c5fb308b9b3ebae5fbf5cb04c'
+sha256sums=('0c00a1e9436426fd06560672c6d3cdb872d37104a36f3dcbfe143ca9d5a5bd3c'
             'b22b470f9e02d2bbe0c266431948daaadd7e7f007c27a989bdfcb063ee58fac6')
 
 # BEGIN boilerplate nextcloud app version clamping, see also other packages in group
