@@ -7,7 +7,7 @@
 # Contributor: Chaiwat Suttipongsakul <cwt at bashell dot com>
 
 pkgname=python-markdown
-pkgver=3.9.0
+pkgver=3.10.0
 pkgrel=1
 pkgdesc="Python implementation of John Gruber's Markdown"
 arch=(any)
@@ -27,8 +27,8 @@ optdepends=(
 )
 checkdepends=(python-yaml python-pygments)
 source=("$pkgname::git+https://github.com/Python-Markdown/markdown#tag=$pkgver")
-sha512sums=('6f2f87ec42f053e7920f7de383b533f87aac00f12891838804eebd74acaea2b2989eec591ddf114a6d3996d5e235436912968f3cb47f4f2aac1605e3fd019f7a')
-b2sums=('7e240e464bd42999180cd3d56b45d09e6cb4c218486960c36f76d4c30630443953c5646bb42c488170ac2687fd99629e5280161128021403832936b5113ab906')
+sha512sums=('6deddd2681c3b924586f402b3f5cb1ee58efa05fd5cb23c1f41a723f08044339aeaf9e21da8b5a372c4836a8ddfb6e78e98752f13c9bd937b2b92209c92f19c8')
+b2sums=('578a071500c6aa7ddd4933fda90a1125c0b0f9d8600804a2794c2c11629e5983c5032529c5c5f443983e03c1057f9bc08cbd0034ff8a35a9129ca6938bf95372')
 
 build() {
   cd "$pkgname"
