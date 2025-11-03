@@ -1,53 +1,70 @@
-# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Maintainer: George Hu <integral@archlinux.org>
+# Contributor: Maxime Gauduin <alucryd@archlinux.org>
 # Contributor: Tofe <chris.chapuis@gmail.com>
 # Contributor: zhuqin <zhuqin83@gmail.com>
 # Contributor: tri1976 <trile7@gmail.com>
 # Contributor: snoopy33 <snoopy33@no-log.org>
 
 pkgname=cairo-dock-plug-ins
-pkgver=3.5.2
-pkgrel=2
-pkgdesc='Plugins for Cairo-Dock'
+pkgver=3.6.0
+pkgrel=1
+pkgdesc="Plugins for Cairo-Dock"
 arch=('x86_64')
-url='https://glx-dock.org'
-license=('GPL')
-depends=('cairo-dock')
-makedepends=('alsa-lib' 'cmake' 'fftw' 'gnome-menus'
-             'gvfs' 'libetpan' 'libexif' 'libical' 'libpulse'
-             'libxklavier' 'lm_sensors' 'python' 'ruby' 'upower'
-             'vala' 'vte3' 'zeitgeist' 'python-setuptools')
-optdepends=('alsa-lib: Sound Control, Sound Effects applets'
-            'fftw: Impulse applet'
-            'gnome-menus: Applications Menu applet'
-            'gvfs: GVFS integration'
-            'libetpan: Mail applet'
-            'libexif: Slider applet'
-            'libical: Clock applet'
-            'libpulse: Impulse applet'
-            'libxklavier: Keyboard Indicator applet'
-            'lm_sensors: System Monitor applet'
-            'python: Python 3 API'
-            'ruby: Ruby API'
-            'upower: Power Manager applet'
-            'vte3: Terminal applet'
-            'wireless_tools: Wifi applet'
-            'zeitgeist: Recent Events applet')
+url="https://github.com/Cairo-Dock/${pkgname}"
+license=('GPL-3.0-or-later')
+depends=(
+	'cairo-dock'
+	'python'
+	'python-dbus'
+	'python-gobject'
+	'ruby'
+	'cairo'
+	'pango'
+	'librsvg'
+	'dbus-glib'
+	'libxml2'
+	'glib2'
+	'gtk3'
+	'gdk-pixbuf2'
+	'alsa-lib'
+	'libetpan'
+	'gnome-menus'
+	'gvfs'
+	'libxklavier'
+	'libxrandr'
+	'libx11'
+	'libxxf86vm'
+	'upower'
+	'zeitgeist'
+	'libexif'
+	'vte3'
+	'lm_sensors'
+	'curl'
+	'wget'
+	'libdbusmenu-glib'
+	'libdbusmenu-gtk3'
+	'libayatana-indicator'
+	'ayatana-ido'
+	'libical'
+	'libpulse'
+	'fftw'
+	'json-c'
+)
+makedepends=('cmake' 'vala')
 replaces=('cairo-dock-plugins')
-source=("cairo-dock-plug-ins-${pkgver}.tar.gz::https://github.com/Cairo-Dock/cairo-dock-plug-ins/archive/${pkgver}.tar.gz")
-sha256sums=('811fb91f1b37f072801616e5489fea1e5817d914c762dd3bde350c16b1d43571')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('3332b3672dd38da2d894b036853b8f71d04832f7b120cf3733fc59a3ca453083')
 
 build() {
-  CXXFLAGS="${CXXFLAGS} -Wno-incompatible-pointer-types"
-  CFLAGS="${CFLAGS} -Wno-incompatible-pointer-types"
-  cmake -B build -S cairo-dock-plug-ins-${pkgver} \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DWITH_VALA_SRC=yes \
-    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-  cmake --build build
+	cmake -B build \
+		-S "${pkgname}-${pkgver}" \
+		-D CMAKE_BUILD_TYPE=None \
+		-D CMAKE_PREFIX_PATH=/usr \
+		-D WITH_VALA_SRC=yes
+
+	cmake --build build
 }
 
 package() {
-  DESTDIR="${pkgdir}" cmake --install build
+	DESTDIR="${pkgdir}" cmake --install build
 }
-
-# vim: ts=2 sw=2 et:
