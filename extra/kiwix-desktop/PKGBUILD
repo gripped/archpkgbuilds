@@ -1,28 +1,30 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=kiwix-desktop
-pkgver=2.3.1
-pkgrel=5
+pkgver=2.4.1
+pkgrel=2
 pkgdesc="Offline reader for Web content, especially intended to make Wikipedia available offline"
 url="https://github.com/kiwix/kiwix-desktop"
 arch=("x86_64")
-license=("GPL3")
-depends=("libkiwix>=12.1.1" "qt5-base" "qt5-webengine" "aria2")
-makedepends=("qt5-tools")
+license=("GPL-3.0-or-later")
+depends=("libkiwix>=14.1.0" "qt6-base" "qt6-webengine" "aria2")
+makedepends=("qt6-tools")
 source=(
 	"${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
 )
-sha256sums=('799d887efd6a855aefe27452b1e3c02da3b443b1ea19c961b7d58dc55e019342')
+sha256sums=('9413171619880c41dea8157b4a046b838b557203d92b4649cc274629649a75ee')
 
 prepare() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
+	# kiwix-desktop 2.4.1 ignores return value of ‘virtual bool QFile::open(QIODeviceBase::OpenMode)’
+	sed -i "/QMAKE_CXXFLAGS += -Werror/d" kiwix-desktop.pro
 }
 
 build() {
 	cd "${pkgname}-${pkgver}"
 	export CFLAGS+=" ${CPPFLAGS}"
 	export CXXFLAGS+=" ${CPPFLAGS}"
-	qmake PREFIX="/usr"
+	/usr/lib/qt6/bin/qmake PREFIX="/usr"
 	make
 }
 
