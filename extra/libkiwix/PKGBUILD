@@ -1,25 +1,19 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
+
 pkgname=libkiwix
-pkgver=12.1.1
-pkgrel=4
+pkgver=14.1.0
+pkgrel=1
 pkgdesc="Library providing the Kiwix software core"
 license=('GPL-3.0-or-later')
 arch=('x86_64')
 provides=('kiwix-lib')
 conflicts=('kiwix-lib')
 replaces=('kiwix-lib')
-depends=('libzim>=9.0.0' 'pugixml' 'xapian-core' 'aria2' 'libmicrohttpd' 'python' 'curl')
+depends=('libzim>=9.4.0' 'pugixml' 'xapian-core' 'aria2' 'libmicrohttpd' 'python' 'curl')
 makedepends=('meson' 'gtest' 'mustache')
 url='https://github.com/kiwix/libkiwix'
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-	# https://github.com/openzim/libzim/pull/936
-	"0001-Fix-build-with-ICU-76.patch")
-sha256sums=('8db344952d91c7b6d1b0fb4893f50bb6fa78c0e88506a5b507c7e179611d6cb1'
-            'f1a303dfca42480052f428ca2f747e3a24deb6523b77c31204069e121a36df7c')
-
-prepare() {
-	patch -Np1 -d "${pkgname}-${pkgver}" -i ../0001-Fix-build-with-ICU-76.patch
-}
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('046cf46f31931da13d05ee47a721512698f67348eacd0013c47e1b51548c3cf4')
 
 build() {
 	cd "${pkgname}-${pkgver}"

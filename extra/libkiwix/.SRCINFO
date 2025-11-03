@@ -1,14 +1,14 @@
 pkgbase = libkiwix
 	pkgdesc = Library providing the Kiwix software core
-	pkgver = 12.1.1
-	pkgrel = 4
+	pkgver = 14.1.0
+	pkgrel = 1
 	url = https://github.com/kiwix/libkiwix
 	arch = x86_64
 	license = GPL-3.0-or-later
 	makedepends = meson
 	makedepends = gtest
 	makedepends = mustache
-	depends = libzim>=9.0.0
+	depends = libzim>=9.4.0
 	depends = pugixml
 	depends = xapian-core
 	depends = aria2
@@ -18,9 +18,7 @@ pkgbase = libkiwix
 	provides = kiwix-lib
 	conflicts = kiwix-lib
 	replaces = kiwix-lib
-	source = libkiwix-12.1.1.tar.gz::https://github.com/kiwix/libkiwix/archive/12.1.1.tar.gz
-	source = 0001-Fix-build-with-ICU-76.patch
-	sha256sums = 8db344952d91c7b6d1b0fb4893f50bb6fa78c0e88506a5b507c7e179611d6cb1
-	sha256sums = f1a303dfca42480052f428ca2f747e3a24deb6523b77c31204069e121a36df7c
+	source = libkiwix-14.1.0.tar.gz::https://github.com/kiwix/libkiwix/archive/14.1.0.tar.gz
+	sha256sums = 046cf46f31931da13d05ee47a721512698f67348eacd0013c47e1b51548c3cf4
 
 pkgname = libkiwix
