@@ -2,7 +2,7 @@
 
 pkgname=tbtools
 pkgver=0.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Collection of tools for Linux Thunderbolt/USB4 development, debugging and validation'
 arch=('x86_64')
 url='https://github.com/intel/tbtools'
@@ -36,4 +36,8 @@ package() {
   cargo install --locked --root "${pkgdir}"/usr --path "${srcdir}"/${pkgname}
   rm "${pkgdir}"/usr/{.crates.toml,.crates2.json}
   install -Dm644 "${pkgname}"/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}
+
+  # Additional helper scripts
+  install -dm755 "${pkgdir}"/usr/share/tbtools/
+  cp -ar "${pkgname}"/scripts "${pkgdir}"/usr/share/tbtools/
 }
