@@ -5,12 +5,12 @@
 _name=kio
 pkgname=${_name}5
 pkgver=5.116.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Resource and network access abstraction'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL)
-depends=(solid5 kjobwidgets5 kbookmarks5 libxslt kwallet5 ktextwidgets5 kded5)
+depends=(solid5 kjobwidgets5 kbookmarks5 kwallet5 ktextwidgets5 kded5 knotifications5)
 makedepends=(extra-cmake-modules qt5-tools)
 optdepends=('kio5-extras: extra protocols support (sftp, fish and more)'
             'switcheroo-control: hybrid GPU support')
