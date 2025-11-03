@@ -2,8 +2,8 @@
 # Contributor: Ali Molaei <ali dot molaei at protonmail dot com>
 
 pkgname=python-proton-core
-pkgver=0.4.0
-pkgrel=4
+pkgver=0.7.0
+pkgrel=1
 pkgdesc="The proton-core component contains core logic used by the other Proton components."
 arch=(any)
 url="https://github.com/ProtonVPN/python-proton-core"
@@ -21,7 +21,7 @@ makedepends=(
   python-setuptools
 )
 source=("git+https://github.com/ProtonVPN/${pkgname}.git#tag=v${pkgver}")
-sha256sums=('556836df79533ee2e6393b3538751c86a7464641a1dc0da29a46c44f64214af4')
+sha256sums=('146cb8829d98f55334d862c9af5f2ef9ada9c9edd5368d5107d0a4003c014a23')
 
 build() {
 	cd "$pkgname"
