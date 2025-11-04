@@ -3,7 +3,7 @@
 
 pkgname=jellyfin-server
 _pkgname="${pkgname%-server}"
-pkgver=10.11.1
+pkgver=10.11.2
 pkgrel=1
 pkgdesc='Jellyfin server backend'
 arch=(x86_64)
@@ -20,18 +20,18 @@ depends=(
   jemalloc
 )
 makedepends=(
-  'git'
-  'dotnet-sdk-9.0'
+  git
+  dotnet-sdk-9.0
 )
 optdepends=(
   'jellyfin-web: to run web-app on the same machine'
   'noto-fonts: for text titles in library folders'
 )
 backup=(
-  "etc/$_pkgname/logging.json"
-  "etc/$_pkgname/$_pkgname.env"
+  etc/jellyfin/logging.json
+  etc/jellyfin/jellyfin.env
 )
-options=('!debug')
+options=(!debug)
 source=(
   "$pkgname::git+$_url#tag=v$pkgver"
   "jellyfin-packaging::git+${_url}-packaging"
@@ -40,13 +40,13 @@ source=(
   fix-envfile-path.patch
   use-system-jemalloc.patch
 )
-sha512sums=('0400bc8ee8ddb86156fa7893d1622c8c0a113466873a6f76c6c2459f36721804280bddf2bdf5eb90387e29be40da3d170c9e1b7dfa238f58a4e3bb28f114fae4'
+sha512sums=('5819635609b3b7628aad7202feb3fbae687092d38d357965c23db909151db78ccdbcba1d2140cb9b2693e3fb45c6132c989d75fbb6a40a6b5b3427eed146f19b'
             'SKIP'
             '3d2699174fe8719536e4f3ad98bac609a959815e38491f166257d248c195f007745634fa1907557d55c814bb06235130e9cea2d226770956004650d7d9b2b564'
             '3e12ec3d3fcb15975d5f86bc3ce3363ae89b0e9e0b2580c29fc8a612c0220a74a067138b15c48ae27bb3c5777eca33055f10651949678a1ee7bd094293f6abb6'
             '26d4a2c081c5a2563863fb21a427e6b5ff0f551549b7ba77075054e81fbda064991e3443ec3f11f42ffdcc8adef0e20363f00d248d7967d327656280db919672'
             '5e1903a424efc444fb1dfa2d6a0c1488bd0eb1213b7c872b39c0e240150366c4ce379b9d39bb43dc2dc8eed25f8f9402c8ba545ba7a66fa93ee6acda0315ca94')
-b2sums=('52a119c811fa2f654454ee8a561b8067ef8e1c30cf00dc3461df7fb6149de9c5fce68767c8d61098969caf02be6359348497fe8436dd6f8494bfc2efff3d8fcd'
+b2sums=('291965fd9c6be0b28b1e89b931302f822182d6cc0467d9aec719ba94149464e4431fa9020b55c03bb5deb169f75e780ad815a054582439de5cb88379317c6180'
         'SKIP'
         '5aa5e041513db1cd58e4b0dd91b712931be956d0c4e240c92f5183260a55ad48b6d34612b9a22bf49eb9c80418b2437b01f2cfef200f035a3475a0737d6871ea'
         'bc8001cf28ebf76a125e7ab0d9d5a8fcf35e0def5b907dc5fe90e16cdbb3fdf8b7f098779ced9a44e7a3918ee605058b379d445a224178456a32a6a99cd084b4'
