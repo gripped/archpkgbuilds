@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=bluetui
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=1
 pkgdesc="TUI for managing bluetooth devices"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('GPL3')
 depends=('gcc-libs' 'dbus' 'bluez')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('f6e5083fcada347253773f6454df88b9a9b2dc4b263c9aae8fe44926296527694944db54050adedd81e6f1f82094fe29e726d238fb7dccffacc83a8dff8c94d2')
+sha512sums=('7d0c0be33280bafab15e4826d7555cac477a80cef04be8df1528c30ad70777608f135da53bbaf4f1a80f125bede39eeb30c073ea551b5b8dd7379d06cfc80de5')
 
 prepare() {
   cd "$pkgname-$pkgver"
