@@ -7,8 +7,8 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgname=mlt
-pkgver=7.32.0
-pkgrel=6
+pkgver=7.34.0
+pkgrel=1
 pkgdesc='An open source multimedia framework'
 arch=(x86_64)
 url='https://www.mltframework.org'
@@ -74,21 +74,15 @@ makedepends=(cmake
              swig
              vid.stab)
 source=(git+https://github.com/mltframework/mlt#tag=v$pkgver
-        git+https://gitlab.com/mattbas/glaxnimate.git
-        ffmpeg-8.patch
-        avfilters-ffmpeg-8.patch)
-sha256sums=('279dba94bd4a36607ea7facbad797a6dfd36277d99835a1e361d34d96d092eb4'
-            'SKIP'
-            '1f4530d1ce2a4036d4c1eee84a609ea8a90879a375351c65f531c0b22e702397'
-            '0161bf7e42ba1756153b30865468377654807fe62eeecacda75989db21afd46f')
+        git+https://gitlab.com/mattbas/glaxnimate.git)
+sha256sums=('8176ae504c9358886daef08cc8b6843340b80f3b79ee111f74cbbde568c01ed5'
+            'SKIP')
 
 prepare() {
   cd $pkgname
   git submodule init
   git submodule set-url src/modules/glaxnimate/glaxnimate "$srcdir"/glaxnimate
   git -c protocol.file.allow=always submodule update
-
-  patch -p1 -i ../ffmpeg-8.patch # FFmpeg 8 support
 }
 
 build() {
