@@ -7,8 +7,8 @@ pkgname=(
   librsvg
   librsvg-docs
 )
-pkgver=2.61.2
-pkgrel=2
+pkgver=2.61.3
+pkgrel=1
 epoch=2
 pkgdesc="SVG rendering library"
 url="https://wiki.gnome.org/Projects/LibRsvg"
@@ -41,10 +41,8 @@ checkdepends=(ttf-dejavu)
 source=(
   # librsvg tags use SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/librsvg.git#tag=$pkgver"
-  0001-xml-Treat-user-stop-errors-as-successful-parses.patch
 )
-b2sums=('bb7f38bb6518d193dfabab07759ca2d6f56edd6cc49b68329e401ce907d64ae49bfc9a46c8927686e315c7ae1ef4c5babec0d1bfef59b172c3f5ce8f7c8b7f12'
-        'a831c396d70dd0de6eae18428453d8ba84c819a2d3b7f07ba4a11a574f3d952436e1e9f8c22c9dd677dcaf766545415834b6dae4efb22d7c4797c8c0de52c7fa')
+b2sums=('1595786064565bb00c14ff6a3d6555b0cef5eedb12f4c5dde47aa69d66caaeb3f5cd257c1004d7bb5830456545cfde02998104fb80317749bb7ca7cb886404b4')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
@@ -54,10 +52,6 @@ export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 prepare() {
   cd librsvg
-
-  # Fix tests
-  # https://gitlab.gnome.org/GNOME/librsvg/-/issues/1201
-  git apply -3 ../0001-xml-Treat-user-stop-errors-as-successful-parses.patch
 
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
