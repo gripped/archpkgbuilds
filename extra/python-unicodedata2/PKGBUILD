@@ -5,7 +5,7 @@
 
 pkgname=python-unicodedata2
 _pyname=${pkgname#python-}
-pkgver=16.0.0
+pkgver=17.0.0
 pkgrel=1
 pkgdesc="unicodedata backport/updates to Python 3"
 arch=('x86_64')
@@ -19,7 +19,7 @@ checkdepends=(python-pytest
               python-pytest-randomly)
 _archive="$_pyname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('34aeb8a21bd6fdf4060b3458a17488eddeec8964662a8090f5b9ae708e7d6a7d')
+sha256sums=('f647eeb841e639c7dad02417209b6f9555d8650e561134b8e6412c7ecc934f8e')
 
 build() {
 	cd "$_archive"
