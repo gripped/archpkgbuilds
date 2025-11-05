@@ -4,7 +4,7 @@
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=unison
-pkgver=2.53.7
+pkgver=2.53.8
 pkgrel=1
 pkgdesc='File-synchronization tool'
 url="https://github.com/bcpierce00/$pkgname/"
@@ -16,7 +16,7 @@ makedepends=(lablgtk3
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz"
         "$pkgname.desktop")
-sha512sums=('11bd1d2792fb84fa2b29426516d7b91a2295febcb84052118d492a29d9ddaa23265b66cc88113019ec6782f3edcf596f7a37c8637e673b2928188248b9d63d60'
+sha512sums=('3e4ea9dc23645ff472c3d7bae79cad042a8ec0bbd57c8e28c49d1ad08cb2f177b09c60fec4853b11390d5825be74adb19334fcd7d2167963a05f67729890408a'
             '3e6e7b793deb60dab64c6e585e3b2ceee01ced0f8b73d1373ac1cd8aaaadb5c7415f2295b8a044a57fc15356dfe76bab002e1e633495e5f8e436871c83c48990')
 options=('!makeflags')
 
