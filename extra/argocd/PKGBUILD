@@ -1,7 +1,7 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 
 pkgname=argocd
-pkgver=3.1.9
+pkgver=3.2.0
 # find matching argo-ui commit via ui/yarn.lock
 # commit id also needs to be updated in argo-ui.patch
 _argoui_commit=5cf36101733ce43eed57242a12389f2a7e40bd2b
@@ -17,7 +17,7 @@ replaces=('argocd-cli')
 source=("argo-cd-${pkgver}.tar.gz::https://github.com/argoproj/argo-cd/archive/v${pkgver}.tar.gz"
         "argo-ui-${_argoui_commit}.tar.gz::https://github.com/argoproj/argo-ui/archive/${_argoui_commit}.tar.gz"
         "argo-ui.patch")
-sha512sums=('99b22b5dbffdb93fe963008811b59f5fad1b69aab2a83f287dc313c38894ffdb0ba2d4078e71b107682045d99985f9ec0d8f3aef1be864859530509f75528106'
+sha512sums=('11fc59b5e2e0d72213fcd923cc1545dda4d45952a89ada68d77afb4e6b4fe9485a056b3146636fe9b9bc75ecc1fed8bfcdf4277197ce1fe4ae08fa7d996caf88'
             '81fa3cca8c20d57330867a3d7ba0fb579a23fb898be53a8947d6466f3aa909579c75b0c70dd0beb21993e2f7ccc05c62248b20a4334111066801ff094742e20d'
             '4bf8c4b4d7b9b828968cfa501b2ab50747d0aaf9d3909538b25ede0c85d778aa4e8fe06fa12f8b94316fe1161aab531a6b26a2dab249c5cad97737172336a259')
 
