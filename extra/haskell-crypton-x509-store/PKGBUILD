@@ -2,8 +2,8 @@
 
 _hkgname=crypton-x509-store
 pkgname=haskell-crypton-x509-store
-pkgver=1.6.11
-pkgrel=40
+pkgver=1.6.12
+pkgrel=1
 pkgdesc="X.509 collection accessing and storing methods"
 url="https://github.com/kazu-yamamoto/crypton-certificate"
 license=('BSD-3-Clause')
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-asn1-encoding' 'haskell-asn1-types' 'haskell-crypto
          'haskell-crypton-x509' 'haskell-pem')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('03a991cc1241873435761b379eed94a4e899e0c4804df1719ea5b281903b781f')
+sha256sums=('d7a0af5bdf1f1812fa21d1ebd91c2c02458ae82781ab19da052b65ba88e83c91')
 
 build() {
   cd $_hkgname-$pkgver
