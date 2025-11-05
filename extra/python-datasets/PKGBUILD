@@ -4,7 +4,7 @@
 
 _name=datasets
 pkgname=python-$_name
-pkgver=4.3.0
+pkgver=4.4.0
 pkgrel=1
 pkgdesc="Ready-to-use datasets for ML models with fast, easy-to-use and efficient data manipulation tools"
 arch=(any)
@@ -42,6 +42,7 @@ checkdepends=(
   python-librosa
   python-pytest
   python-pytest-datadir
+  python-pytest-rerunfailures
   python-pytest-xdist
   python-pytorch
   python-soxr
@@ -58,7 +59,7 @@ optdepends=(
   'python-pytorch: PyTorch support'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-b2sums=('d183d8fa8ad8b5bae0eb923837d4d06a7a78386a3d5ed1fd8c79fee28f2a51dd4543df32f75d2b58a7d7d3b512c8c91725afd42bc999517cd8249dc797faf484')
+b2sums=('5361591bf25ff3b5a0b92f59288bfa46c656050452e322ab65153f914c955cf482a0d3694d8100bbe8de98d62fa8ddd52877c76e6393e6505d2ec0139d2ee981')
 
 build() {
   cd $_name-$pkgver
@@ -71,21 +72,12 @@ check() {
     -W ignore::DeprecationWarning
     # distribute tests across multiple CPUs
     -n auto
+    # re-run failed tests
+    --reruns 2
     # python-pyspark is not packaged, causes error when collecting tests
     --ignore tests/packaged_modules/test_spark.py
     # ModuleNotFoundError: No module named 'aifc'
     --deselect tests/packaged_modules/test_audiofolder.py::test_data_files_with_metadata_and_archives
-    # AssertionError failures
-    --deselect tests/test_arrow_dataset.py::BaseDatasetTest::test_filter_caching_on_disk
-    --deselect tests/test_arrow_dataset.py::BaseDatasetTest::test_map_caching_on_disk
-    --deselect tests/test_arrow_dataset.py::BaseDatasetTest::test_map_caching_partial_remap_on_disk
-    --deselect tests/test_arrow_dataset.py::BaseDatasetTest::test_map_caching_reuses_cache_with_different_num_proc_on_disk
-    --deselect tests/test_file_utils.py::TestxPath::test_xpath_glob
-    --deselect tests/test_file_utils.py::TestxPath::test_xpath_rglob
-    --deselect tests/test_fingerprint.py::RecurseHashTest
-    # NameError: name 'log' is not defined
-    --deselect tests/test_fingerprint.py::HashingTest
-    --deselect tests/test_iterable_dataset.py::test_iterable_dataset_from_file
     # subprocess.CalledProcessError
     --deselect tests/test_fingerprint.py::test_move_script_doesnt_change_hash
     # ImportError: Install s3fs to access S3
@@ -93,23 +85,10 @@ check() {
     # TypeError: Passing coroutines is forbidden, use tasks explicitly.
     --deselect tests/test_distributed.py::test_torch_distributed_run
     --deselect tests/test_distributed.py::test_torch_distributed_run_streaming_with_num_workers
-    # FileNotFoundError: Couldn't find a dataset script at
-    # /build/python-datasets/src/datasets-3.5.0/patrickvonplaten/librispeech_asr_dummy/librispeech_asr_dummy.py
-    # or any data file in the same directory. Couldn't find
-    # 'patrickvonplaten/librispeech_asr_dummy' on the Hugging Face Hub either
-    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature_loaded_from_cache
-    # often fails due to 429 Client Error: Too Many Requests
-    --deselect tests/test_inspect.py::test_get_dataset_split_names
-    --deselect tests/test_inspect.py::test_get_dataset_info
-    # FileNotFoundError
-    --deselect tests/test_load.py::test_load_dataset_private_zipped_images[True]
-    # Hanging tests
-    --deselect tests/test_upstream_hub.py::TestPushToHub::test_push_dataset_dict_to_hub_num_proc
-    --deselect tests/test_upstream_hub.py::TestPushToHub::test_push_dataset_dict_to_hub_iterable_num_proc
-    # RuntimeError: Failed to set output pixel formats: Invalid argument
-    # (this is a ffmpeg 8.0 issue)
-    --deselect tests/features/test_video.py::test_dataset_with_video_feature
-    --deselect tests/features/test_video.py::test_load_dataset_with_video_feature
+    # skip test modules that cause many failures due to rate-limiting (429 Too Many Requests)
+    --deselect tests/test_inspect.py
+    --deselect tests/test_load.py
+    --deselect tests/test_upstream_hub.py
   )
 
   cd $_name-$pkgver
