@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=typescript-language-server
-pkgver=5.1.0
+pkgver=5.1.1
 pkgrel=1
 pkgdesc='Language Server Protocol (LSP) implementation for TypeScript using tsserver'
 url=https://github.com/typescript-language-server/typescript-language-server
@@ -21,7 +21,7 @@ checkdepends=(
   npm
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('9fa453dad83027e409144a2c750097a7d0accaac2f0215108185f2f8950373164087392c89f30796fd0c23695af984a0ba8acb81a58d34d7fe53224f1d7b5c06')
+b2sums=('6f24e9129c402c7b6db721285001c3b037b05ac85e4b9792e7cce8da88efb6bb168256892be90745644785a2585b49fb9d40dc0a3e258c286012479b6d04218a')
 
 prepare() {
   cd $pkgname
