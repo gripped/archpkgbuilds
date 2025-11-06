@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-osd
-pkgver=1.0.0.beta.4
+pkgver=1.0.0.beta.5
 pkgrel=1
 pkgdesc='COSMIC On-Screen Display'
 arch=(x86_64)
@@ -27,22 +27,16 @@ makedepends=(
   git
   lld
 )
-_tag=91930fcdb51847abde03bfa8941d9d83b82280b7
 source=(
-  git+https://github.com/pop-os/cosmic-osd.git#tag=${_tag}
+  git+https://github.com/pop-os/cosmic-osd.git#tag=epoch-${pkgver/.beta./-beta.}
 )
-b2sums=('e644e977b957c06f27b6dd26a12d235cb0cbe17aa5dde24e791c12b639f3a2c9368bda4d2e437f9ec46cb14fdcb4a115f646d5a2894591c9becaafe19ebd8b2c')
+b2sums=('538f2f5b11c211ed3251db4779a3c45dc30a02b70b22dfa619262f1f5d63d5211e997987444017afee5f5f82f96c5ba69831fd03f77e75da34fdf8df1de516b4')
 
 prepare() {
   cd cosmic-osd
   cargo fetch --locked
   sed 's|libexec|lib/polkit-1|g' -i Makefile src/subscriptions/polkit_agent_helper.rs
 }
-
-#pkgver() {
-#  cd cosmic-osd
-#  git describe --tags | sed 's/^epoch-//; s/-/./g'
-#}
 
 build() {
   cd cosmic-osd
