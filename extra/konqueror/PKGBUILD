@@ -2,8 +2,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=konqueror
-pkgver=25.08.2
-pkgrel=2
+pkgver=25.08.3
+pkgrel=1
 pkgdesc='KDE File Manager & Web Browser'
 arch=(x86_64)
 url='https://apps.kde.org/konqueror/'
@@ -47,7 +47,7 @@ optdepends=('kdesu: shell command plugin')
 groups=(kde-applications
         kde-network)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('336f7115d40f21ebcb4ff0def53eb8dbc651544a5b37d384ec5e714ae15fa8a0'
+sha256sums=('3cf255797c8987692eabefe94b86e26e94aeac907f65930848e07f61044c4264'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
