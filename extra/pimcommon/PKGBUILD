@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=pimcommon
-pkgver=25.08.2
-pkgrel=4
+pkgver=25.08.3
+pkgrel=1
 pkgdesc='Common libraries for KDE PIM'
 arch=(x86_64)
 url='https://kontact.kde.org'
@@ -36,7 +36,7 @@ depends=(akonadi-contacts
 makedepends=(extra-cmake-modules
              qt6-tools)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('de341499406f317dafe9fa3e5eeb600bbd0ec69f34e28e8e0bb8ffdabe8e950b'
+sha256sums=('fe8206b68b78b555ceed83cf2e68e5348406c59ac15bc433928b65bf9e877b88'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
