@@ -6,7 +6,7 @@
 
 pkgname=plymouth
 pkgver=24.004.60
-pkgrel=12
+pkgrel=14
 pkgdesc='Graphical boot splash screen'
 arch=(x86_64)
 url='https://www.freedesktop.org/wiki/Software/Plymouth/'
@@ -46,14 +46,14 @@ source=(
   plymouth.initcpio_hook
   plymouth.initcpio_install
   plymouth-shutdown.initcpio_install
-  mkinitcpio-generate-shutdown-ramfs-plymouth.conf
+  50-plymouth.conf
 )
 b2sums=(
   a3d55f4f7be81bdf2ddd5c2b74a3fdb4e368c31fc41e12ab100ce2a7986cb418151b3df0d0316011710dd0e1ae99631166eecf80bc1dd5cc9054a4685266afed
   afb2449b542aa3e971eab6b953c907347fdf4e499b4140a5e6736a7c99557c0d8d2fed28dbee56d84c8c619335c59bd382457d85e51145884ad0616e9095f232
   e9efbfd924a07005e883c4cd21d25c520288daf8bf611ee20a245b8b8f925bc90188dfcbb9e13da883479c5214562795717bb4404dd7ef1444eb04ab69dad4a9
   063448411de837ed38ece935719f07fd17b18830680c9fa95b7bd39a097778186c40373590504c9b44144125986304311f528c73592c29d19043b8395e6f99c2
-  7bb910b7402ad4372f1918be763421308534044c46d42e77af0aadcb7cbe13a99633805b36fa841f8ea1006ddb204ecea3031b96b05ec4e8d16150b2c7864629
+  5ab47942d222c311b495d056f24bdd9d08438162fef1ca6e51982fc00018acbf0c31e4c61164b40950fe2511e17ba2a4635894d145d83a9b349e5a8a83f8c026
 )
 
 prepare() {
@@ -68,8 +68,9 @@ prepare() {
   # Change default theme
   sed -i 's/^Theme=spinner$/Theme=bgrt/' src/plymouthd.defaults
 
-  # Switch from Cantarell to Adwaita Sans
-  sed -i 's/Cantarell/Adwaita Sans/' scripts/keymap-render.py themes/*/*.plymouth.desktop
+  # Switch from Cantarell to Adwaita Sans; set monospace font to Adwaita Mono
+  sed -i 's/Cantarell/Adwaita Sans/
+          /TitleFont=Adwaita/a MonospaceFont=Adwaita Mono 12' scripts/keymap-render.py themes/*/*.plymouth.desktop
 }
 
 build() {
@@ -91,7 +92,7 @@ package() {
 
   # Install mkinitcpio shutdown hook and systemd drop-in snippet
   install -Dm644 plymouth-shutdown.initcpio_install "$pkgdir/usr/lib/initcpio/install/$pkgname-shutdown"
-  install -Dm644 mkinitcpio-generate-shutdown-ramfs-plymouth.conf "$pkgdir/usr/lib/systemd/system/mkinitcpio-generate-shutdown-ramfs.service.d/plymouth.conf"
+  install -Dm644 50-plymouth.conf "$pkgdir/usr/lib/tmpfiles.d/50-plymouth.conf"
   
   # Install logo for the spinner theme
   install -Dm644 archlinux-logo-text-dark.png "$pkgdir/usr/share/$pkgname/themes/spinner/watermark.png"
