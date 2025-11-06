@@ -2,7 +2,7 @@
 # Maintainer: Campbell Jones <serebit at archlinux dot org>
 # Contributor: VCalV
 pkgname=mergiraf
-pkgver=0.15.0
+pkgver=0.16.1
 pkgrel=1
 pkgdesc="A syntax-aware git merge driver for a growing collection of programming languages and file formats"
 arch=('x86_64')
@@ -13,7 +13,7 @@ checkdepends=('git')
 depends=('glibc' 'gcc-libs')
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::https://codeberg.org/mergiraf/mergiraf/archive/v$pkgver.tar.gz")
-sha512sums=('c66c8ac214d0719af206534e023bf2b0750a3c47bc7f3d40e946ba1353580151e20ee783ec960a0eacd3b3695caa2fa30409e4753a07e49cbd7d0c285aedf7a2')
+sha512sums=('704d2d2c630605634540fba0930de76e8800040d9bcaaf55d40ec55929094d0307c52c59a103ef8599d533cd781c69dcb5f993067bbe9375fad49dc781845e35')
 
 prepare() {
     cd "$pkgname"
