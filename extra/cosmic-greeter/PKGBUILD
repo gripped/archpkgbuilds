@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-greeter
-pkgver=1.0.0.beta.4
+pkgver=1.0.0.beta.5
 pkgrel=1
 pkgdesc='COSMIC greeter for greetd'
 arch=(x86_64)
@@ -27,13 +27,12 @@ makedepends=(
   just
   lld
 )
-_tag=7bab53c5b45c10292e8f8f4dfedfaa09235a029f
 source=(
-  git+https://github.com/pop-os/cosmic-greeter.git#tag=${_tag}
+  git+https://github.com/pop-os/cosmic-greeter.git#tag=epoch-${pkgver/.beta./-beta.}
   cosmic-greeter-display-manager.patch
   cosmic-greeter-lto.patch
 )
-b2sums=('82915ac5de06dcf459ff9a71303af5ebe254e4a9e8ae918a5b90b0eeab3c5d8ca6f253623754e6ae2df17eda5ba38c2bd18f1d1ab6b72614984df78ee1347e52'
+b2sums=('30017cc0d56295e7733ef0408b6509613c62887170156446d887a87b3a3abd7008f8657ec326588f400b9484c9157d8f7eacdee3b4d4882ffb78e1978e26d0f7'
         '8b5c32a991e31cf102b1b07e06d37e979f19106b82e8cab7dc8df81789ab6b24587605aa3387254057732a268368c4074f92461f6f5125bc1cba4e62e18cef27'
         '89ca262c95713e773662fb81e379bc2b63d2c93072b909f8f1eaaafee5289359fd729a476eb66568f893986a53e9c689dccfc4aeeeef62cb736cff466c463f7d')
 
@@ -48,11 +47,6 @@ prepare() {
   cargo fetch --locked
   patch -Np1 -i ../cosmic-greeter-display-manager.patch
   patch -Np1 -i ../cosmic-greeter-lto.patch
-}
-
-pkgver() {
-  cd cosmic-greeter
-  git describe --tags | sed 's/^epoch-//; s/-/./g'
 }
 
 build() {
