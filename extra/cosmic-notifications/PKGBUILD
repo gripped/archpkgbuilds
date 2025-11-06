@@ -4,7 +4,7 @@
 # Contributor: soloturn <soloturn@gmail.com>
 
 pkgname=cosmic-notifications
-pkgver=1.0.0.beta.4
+pkgver=1.0.0.beta.5
 pkgrel=1
 pkgdesc='Layer Shell notifications daemon which integrates with COSMIC'
 arch=(x86_64)
@@ -24,21 +24,15 @@ makedepends=(
   just
   lld
 )
-_tag=32c94572eb9d65b27afac37e791c31213cb5dc55
 source=(
-  git+https://github.com/pop-os/cosmic-notifications.git#tag=${_tag}
+  git+https://github.com/pop-os/cosmic-notifications.git#tag=epoch-${pkgver/.beta./-beta.}
 )
-b2sums=('eaee2f491dfc9ed922a5a3a6187344a38e318af0e26e50b1084b2b5d99c975dbbc1f620f952f50fe637f3689d01275b95f6dc59c05c445e8c9ef5ecbd9d169fb')
+b2sums=('7d963202e101c846ae0a27e5379cbf084b06a9e168bc131e0fc08e1a89e40fd124ac1198065849d88e45a837db45db23993edd966fbd61ac0cfe6caabe58ab8c')
 
 prepare() {
   cd cosmic-notifications
   cargo fetch --locked
 }
-
-#pkgver() {
-#  cd cosmic-notifications
-#  git describe --tags | sed 's/^epoch-//; s/-/./g'
-#}
 
 build() {
   cd cosmic-notifications
