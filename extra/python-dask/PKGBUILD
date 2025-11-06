@@ -3,7 +3,7 @@
 
 _name=dask
 pkgname=python-$_name
-pkgver=2025.10.0
+pkgver=2025.11.0
 pkgrel=1
 pkgdesc="Parallel computing with task scheduling"
 arch=(any)
@@ -24,7 +24,7 @@ makedepends=(
   python-build
   python-installer
   python-setuptools
-  python-versioneer
+  python-setuptools-scm
   python-wheel
 )
 optdepends=(
@@ -87,15 +87,11 @@ checkdepends=(
 source=(
   https://github.com/dask/dask/archive/$pkgver/$pkgname-$pkgver.tar.gz
 )
-b2sums=('3f0440d38ef18bf46b8a698f6968e0d2bf7d45cd0beb701faa74e5ee2f4a0b2d4051de944bdc64512f1c23fe8430caba8d441698f19e44f63a6cc6008ecb616e')
-
-prepare() {
-  cd $_name-$pkgver
-  sed -e 's|versioneer\[toml\].*\"|versioneer[toml]\"|g' -i pyproject.toml
-}
+b2sums=('9be993419bda0ec1d24c5e68d9694002730ef5d0042e6b3a75917a502c540af68498d7867b6374a1f10992819f5d680aadd81fcd8ae7a42935f4697bf5e2ee2f')
 
 build() {
   cd $_name-$pkgver
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver \
   python -m build --wheel --no-isolation
 }
 
