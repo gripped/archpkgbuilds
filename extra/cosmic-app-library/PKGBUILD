@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-app-library
-pkgver=1.0.0.beta.4
+pkgver=1.0.0.beta.5
 pkgrel=1
 pkgdesc='Cosmic App Library'
 arch=(x86_64)
@@ -23,18 +23,12 @@ makedepends=(
   just
   lld
 )
-_tag=ed61dad874a3f42e3d8f44550b38611a2015c819
-source=(git+https://github.com/pop-os/cosmic-applibrary.git#tag=${_tag})
-b2sums=('7bf168de4c22f682005acdbbd4bb6398187a51f187a10c3dbbec5b312a8c655e833cc5e02600aa9492a645869e22dba0981c2ae2d6861279e7735e1cd44ddb33')
+source=(git+https://github.com/pop-os/cosmic-applibrary.git#tag=epoch-${pkgver/.beta./-beta.})
+b2sums=('408c9505da81f4483cc59e45e286c5cabc98c2120a7e9215311a3b8a6398054af90995739101dfb3d090fe79c2d3d0a2387e489642a8d4ebffc5c7a463474d03')
 
 prepare() {
   cd cosmic-applibrary
   cargo fetch --locked
-}
-
-pkgver() {
-  cd cosmic-applibrary
-  git describe --tags | sed 's/^epoch-//; s/-/./g'
 }
 
 build() {
