@@ -1,0 +1,82 @@
+# Maintainer: Giovanni Harting <anonfunc@archlinux.org>
+# Contributor: Christopher Cooper <christopher@cg505.com>
+
+pkgname=openai-codex
+pkgver=0.55.0
+pkgrel=3
+pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
+arch=(x86_64)
+url='https://github.com/openai/codex'
+license=(Apache-2.0)
+depends=(
+  openssl
+  gcc-libs
+  glibc
+)
+makedepends=(cargo)
+checkdepends=(cargo-nextest git)
+optdepends=(
+  'git: allow for repository actions'
+  'ripgrep: accelerated large-repo search'
+)
+options=('!lto')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/rust-v$pkgver.tar.gz")
+b2sums=('e83e51f01b49bd35bd3f26b5660c2b9c2d497665de0f51eebe8b0a977e6596b75126743cc4c3c4eca88e023eb9643b6b58dbea83ed738aa2e1b95cb7bf0b7788')
+
+prepare() {
+  cd codex-rust-v$pkgver/codex-rs
+
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd codex-rust-v$pkgver/codex-rs
+
+  # Only build needed packages to save on build time.
+  # Skip dev dependencies like *_test_support.
+  # cargo build --release --frozen -p codex-cli -p codex-exec -p codex-linux-sandbox
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release --bin codex --bin codex-responses-api-proxy
+}
+
+check() {
+  cd codex-rust-v$pkgver/codex-rs
+
+  export RUSTUP_TOOLCHAIN=stable
+  cargo nextest run --all-features --no-fail-fast -- \
+    --skip 'suite::user_agent::get_user_agent_returns_current_codex_user_agent' \
+    --skip 'suite::send_message::test_send_message_raw_notifications_opt_in' \
+    --skip 'suite::approvals::approval_matrix_covers_all_modes' \
+    --skip 'suite::compact_resume_fork::compact_resume_and_fork_preserve_model_history_view' \
+    --skip 'suite::unified_exec::unified_exec_streams_after_lagged_output' \
+    --skip 'suite::sandbox::python_multiprocessing_lock_works_under_sandbox' \
+    --skip 'suite::codex_tool::test_codex_tool_passes_base_instructions' \
+    --skip 'suite::codex_tool::test_patch_approval_triggers_elicitation' \
+    --skip 'suite::codex_tool::test_shell_command_approval_triggers_elicitation' \
+    --skip 'suite::compact_resume_fork::compact_resume_after_second_compaction_preserves_history' \
+    --skip 'chatwidget::tests::view_image_tool_call_adds_history_cell' \
+    --skip 'diff_render::tests::ui_snapshot_apply_update_block_relativizes_path' \
+    --skip 'status::tests::status_snapshot_includes_monthly_limit' \
+    --skip 'status::tests::status_snapshot_shows_missing_limits_message' \
+    --skip 'status::tests::status_snapshot_truncates_in_narrow_terminal' \
+    --skip 'status::tests::status_snapshot_shows_empty_limits_message' \
+    --skip 'status::tests::status_snapshot_shows_stale_limits_message' \
+    --skip 'status::tests::status_snapshot_includes_reasoning_details' \
+    --skip 'suite::compact::manual_compact_twice_preserves_latest_user_messages' \
+    --skip 'tests::composer_input_renders_typed_characters' \
+    --skip 'suite::view_image::user_turn_with_local_image_attaches_image' \
+    --skip 'suite::view_image::view_image_tool_attaches_local_image' \
+    --skip 'suite::user_notification::summarize_context_three_requests_and_instructions'
+}
+
+package() {
+  cd codex-rust-v$pkgver/codex-rs
+
+  install -Dm755 -t "$pkgdir"/usr/bin \
+    target/release/codex \
+    target/release/codex-responses-api-proxy
+}
+
+# vim:set ts=2 sw=2 et:
