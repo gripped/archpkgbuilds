@@ -3,7 +3,7 @@
 # Contributor: Kyuzial <kyuzial@protonmail.com>
 
 pkgname=cosmic-terminal
-pkgver=1.0.0.beta.4
+pkgver=1.0.0.beta.5
 pkgrel=1
 pkgdesc='Cosmic Terminal Emulator'
 arch=(x86_64)
@@ -23,23 +23,17 @@ makedepends=(
   just
   lld
 )
-_tag=c13ec4b41b557ec00c3f71e450cedca0c96603a3
 source=(
-  git+https://github.com/pop-os/cosmic-term.git#tag=${_tag}
+  git+https://github.com/pop-os/cosmic-term.git#tag=epoch-${pkgver/.beta./-beta.}
   cosmic-terminal-lto.patch
 )
-b2sums=('1898cd947240504b649f1c8a0d0dea523e1d26c3e5462d077773c064b93a546a307b02440249ad24a127c7555ccde0d3bdf057d74768d8605e4544246cb46873'
+b2sums=('22604ea410a8566e1b089a8c171fc9244d1f95dd55717d41ef9351e41ab9b28aaca670609ec6205d837b586a1bb194ebf9eadfa53a92a4c45ff0331c76bae69a'
         '4e28ab726f474f064a99dbb4dc75faa7ddfe00d7f5e238f57ba80ac75e44a2f6ed00ae2f3499fac94d40ec4dd773fc9eeb93c4543f8e63699ba437ba45f8783b')
 
 prepare() {
   cd cosmic-term
   patch -Np1 -i ../cosmic-terminal-lto.patch
   cargo fetch --locked
-}
-
-pkgver() {
-  cd cosmic-term
-  git describe --tags | sed 's/^epoch-//; s/-/./g'
 }
 
 build() {
