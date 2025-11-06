@@ -3,7 +3,7 @@
 # Contributor: Kenneth Endfinger <kaendfinger@gmail.com>
 
 pkgname=buildkit
-pkgver=0.25.1
+pkgver=0.25.2
 pkgrel=1
 pkgdesc='A toolkit for converting source code to build artifacts in a repeatable manner'
 arch=(x86_64)
@@ -11,10 +11,9 @@ url='https://github.com/moby/buildkit'
 license=(Apache-2.0)
 depends=(runc containerd)
 makedepends=(git go)
-options=(!lto)
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('af9916723913c81c3a8418abdbb2e9fdf2c970dcce07e6aaea4614f5997965d6d949a9d2da45980236ab64363f0d119be8f649021d42c3af6d625c5996c5cba8')
-b2sums=('c1a59074a32356d187cc56a05b7b39b9a79afa6b4f51f974b5c080bcd506f78374e75f81d725a0d36f1a429f0a1af5af8d881f2824ce5204b672f4f788504986')
+sha512sums=('d28f978e6489b520ac78dd05e42c25d2a333561ba4365711d8e380e854e436e9328d7ca45427952fb2993f92673afe69de9fac298791e72b377e897e37bd0951')
+b2sums=('2c1679e122b2685a51f34943688f05d09b72d474e6457d35d69acd471554b96caa52c0e425e300b1a5561688c83eafe388fd6a0c0f69bcf9d6e43ad3640306b7')
 
 prepare() {
   cd "$pkgname"
