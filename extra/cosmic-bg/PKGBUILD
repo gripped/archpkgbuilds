@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-bg
-pkgver=1.0.0.beta.4
+pkgver=1.0.0.beta.5
 pkgrel=1
 pkgdesc='COSMIC session service which applies backgrounds to displays'
 arch=(x86_64)
@@ -25,12 +25,11 @@ makedepends=(
   lld
   nasm
 )
-_tag=40254a7101b52b482f06d35a4d2eba8245814b2c
 source=(
-  git+https://github.com/pop-os/cosmic-bg.git#tag=${_tag}
+  git+https://github.com/pop-os/cosmic-bg.git#tag=epoch-${pkgver/.beta./-beta.}
   cosmic-bg-lto.patch
 )
-b2sums=('45e3625b5616569af79d1943fac9c70ffee97a1630d37ca0b66011848271e450afcc4ad3cf95bebe01ae7834d23ea48bb7397ad69251a85a6910cb8617aeed1e'
+b2sums=('52f232bef4b4ef94077c243043213030df7187ad395451b6cee1067af46ac3bc6f8f53c0e3faf4a4569c11603df721cd18ebd81a64aa3d8bf566b66aeacd9d76'
         '425c8b386f69d6b4b7883235f822089bb8b596043b1ef5616ff13768ab7afa5a0db55b0cff9c64f264abc60dd6c11f137069c0c8273135b8203054db3ff87c83')
 
 prepare() {
@@ -38,11 +37,6 @@ prepare() {
   patch -Np1 -i ../cosmic-bg-lto.patch
   cargo fetch --locked
 }
-
-#pkgver() {
-#  cd cosmic-bg
-#  git describe --tags | sed 's/^epoch-//; s/-/./g'
-#}
 
 build() {
   cd cosmic-bg
