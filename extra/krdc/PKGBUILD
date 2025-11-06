@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=krdc
-pkgver=25.08.2
-pkgrel=3
+pkgver=25.08.3
+pkgrel=1
 pkgdesc='Remote Desktop Client'
 url='https://apps.kde.org/krdc/'
 arch=(x86_64)
@@ -41,7 +41,7 @@ optdepends=('libvncserver: VNC support'
 groups=(kde-applications
         kde-network)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('e32d650e933257566e0c1b84ae0cfced6dd6a4dff33a04795a4e375bf8705e7a'
+sha256sums=('aa317b8a21c0362b6ddd69f122ca17f444edfeeba2f422b75ce51c666950906a'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
