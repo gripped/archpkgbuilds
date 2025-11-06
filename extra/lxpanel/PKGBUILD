@@ -5,7 +5,7 @@
 
 pkgname=lxpanel
 pkgver=0.11.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Lightweight X11 desktop panel for LXDE'
 arch=(x86_64)
 url='https://github.com/lxde/lxpanel'
@@ -37,11 +37,21 @@ makedepends=(
 optdepends=('wireless_tools: netstat plugin')
 conflicts=(lxpanel-gtk3)
 replaces=(lxpanel-gtk3)
-source=("git+https://github.com/lxde/lxpanel.git#tag=$pkgver")
-b2sums=(9ae8710140db2e41091d22f42585c14186213a359cc0f48dc06dcf779d9cfa8ac57694d75efbd3ba080c4d276306bb6e278f0bad1bfd43f97c2cf9f7101ad6ad)
+source=(
+  "git+https://github.com/lxde/lxpanel.git#tag=$pkgver"
+  lxpanel-fix-variable.patch
+)
+b2sums=(
+  9ae8710140db2e41091d22f42585c14186213a359cc0f48dc06dcf779d9cfa8ac57694d75efbd3ba080c4d276306bb6e278f0bad1bfd43f97c2cf9f7101ad6ad
+  834dbcfbe443202869479ec22f610e5e9e273d024b920347a6fe9ec2cbe3ad8034c6fce24038c037e594b370cd01b32f679a36c25781ea01002b87fb9be13a51
+)
 
 prepare() {
   cd $pkgname
+
+  # https://github.com/lxde/lxpanel/pull/115
+  git apply -3 ../lxpanel-fix-variable.patch
+
   autoreconf -fi
 }
 
