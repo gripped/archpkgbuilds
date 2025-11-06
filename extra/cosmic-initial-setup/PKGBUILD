@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=cosmic-initial-setup
-pkgver=1.0.0.beta.2
+pkgver=1.0.0.beta.5
 pkgrel=1
 pkgdesc="COSMIC Initial Setup"
 arch=(x86_64)
@@ -23,14 +23,8 @@ makedepends=(
   just
 )
 install="$pkgname.install"
-_tag=0080330b6dacafccebc3aac74f3fccaf20f87f67
-source=("git+https://github.com/pop-os/cosmic-initial-setup.git#tag=${_tag}")
-sha256sums=('c44d68ddef3aff7138f299a301708c0ec03008bb018c08c91f1c31fde3cdea96')
-
-pkgver() {
-  cd "${pkgname}"
-  git describe --tags | sed 's/^epoch-//; s/-/./g'
-}
+source=(git+https://github.com/pop-os/cosmic-initial-setup.git#tag=epoch-${pkgver/.beta./-beta.})
+sha256sums=('cf19a04753b9446f2369a5abd56d6199e01fd4f8b412872f1f89fe3f50bd68e5')
 
 prepare() {
   cd "${pkgname}"
