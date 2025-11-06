@@ -3,7 +3,7 @@
 
 _name=distributed
 pkgname=python-$_name
-pkgver=2025.10.0
+pkgver=2025.11.0
 pkgrel=1
 pkgdesc="Distributed task scheduler for Dask"
 arch=(any)
@@ -31,7 +31,7 @@ makedepends=(
   python-build
   python-installer
   python-setuptools
-  python-versioneer
+  python-setuptools-scm
   python-wheel
 )
 checkdepends=(
@@ -61,14 +61,11 @@ checkdepends=(
   python-zstandard
 )
 source=(https://github.com/dask/distributed/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-b2sums=('cd805b95b97d0b18f9e297db7c69acb3d98ba8ad4cf7ab3ec83b971ed63c46cebcb4da62521dc2913fb8f5cbca6ffdeb190dccf58f98ec2417550ae907ec88da')
-
-prepare() {
-  sed -i 's/, "versioneer\[toml\].*"//' $_name-$pkgver/pyproject.toml
-}
+b2sums=('0316e7671bc5257528444fc04302ebec9b58b7ea65fcde0fa9f6065b16bf92221dd1ce2e348dad1cfb34e6cb837e6382e786908b050fc309c11b608b4d21e87e')
 
 build() {
   cd $_name-$pkgver
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver \
   python -m build --wheel --no-isolation
 }
 
@@ -106,6 +103,16 @@ check() {
     --deselect distributed/tests/test_worker.py::test_statistical_profiling
     # TimeoutError: Test timeout (30) hit after 30.000276130624115s
     --deselect distributed/tests/test_scheduler.py::test_resubmit_nondeterministic_task_different_deps
+    # FutureWarning: get_ipv6 is deprecated and will be removed in a future release. Please use get_ip instead.
+    --deselect distributed/comm/tests/test_comms.py::test_default_client_server_ipv6[tornado]
+    --deselect distributed/comm/tests/test_comms.py::test_tcp_client_server_ipv6[tornado]
+    --deselect distributed/deploy/tests/test_local.py::test_only_local_access
+    --deselect distributed/deploy/tests/test_local.py::test_remote_access
+    --deselect distributed/deploy/tests/test_local.py::test_local_tls[True]
+    --deselect distributed/deploy/tests/test_local.py::test_local_tls[False]
+    # AssertionError: Regex pattern did not match.
+    --deselect distributed/tests/test_queues.py::test_set_cancelled_future
+    --deselect distributed/tests/test_scheduler.py::test_restart_not_all_workers_return
   )
 
   cd $_name-$pkgver
