@@ -5,7 +5,7 @@
 # Contributor: demostanis worlds <demostanis@protonmail.com>
 
 pkgname=archinstall
-pkgver=3.0.12
+pkgver=3.0.13
 pkgrel=1
 pkgdesc="Just another guided/automated Arch Linux installer with a twist"
 arch=(any)
@@ -28,6 +28,7 @@ depends=(
   python-cryptography
   python-pydantic
   python-pyparted
+  python-textual
   systemd
   util-linux
   xfsprogs
@@ -54,9 +55,9 @@ source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
   $pkgname-$pkgver.tar.gz.sig::$url/releases/download/$pkgver/$pkgname-$pkgver.tar.gz.sig
 )
-sha512sums=('5f4483a1ab95202ff3c0e76fa32db1fcfa9e45c79328ac034842ac35d1f82d5611307995510994615cc93de2004a052c26ea331287240be3f16dfefe9f231f9e'
+sha512sums=('581a0267f076ba148e3b56db73806416b990211b6defd0a1bf006b8ffb0b2d1037d5faf2a369a64b05b6751150bb755671af967b8884ae227dc775d3ca0daa17'
             'SKIP')
-b2sums=('0a8292406bec2432716f551449605219a4f3fc763326f35c94827b1eb94e533e48f38399e8dfc05452ebfe325a1644452c49b9b35d0aa449128276a2d2d68c45'
+b2sums=('6ffac0f6bac30645068777f342f862c50467d8d109f5033bd58985f4f42bd59a17438fbc90cb377ff6a4a2b183fb672fdbeaae8bed7e20b8ac0fa004815eff8f'
         'SKIP')
 validpgpkeys=('8AA2213C8464C82D879C8127D4B58E897A929F2E') # torxed@archlinux.org
 
