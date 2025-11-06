@@ -4,7 +4,7 @@
 # Contributor: soloturn <soloturn@gmail.com>
 
 pkgname=cosmic-text-editor
-pkgver=1.0.0.beta.4
+pkgver=1.0.0.beta.5
 pkgrel=1
 pkgdesc='Text editor for the COSMIC desktop'
 arch=(x86_64)
@@ -25,12 +25,11 @@ makedepends=(
   just
   mold
 )
-_tag=73446cdafc99d45a5b7c1eb8ba179e4201c22900
 source=(
-  git+https://github.com/pop-os/cosmic-edit.git#tag=${_tag}
+  git+https://github.com/pop-os/cosmic-edit.git#tag=epoch-${pkgver/.beta./-beta.}
   cosmic-text-editor-lto.patch
 )
-b2sums=('163e070e16670cf67c2c8333d532160db789bf88de8f16097fd9b5925e36cb1cbbc92c76c7395d4235ba6750c6b9037e4693ebb19f410c4a2f0b2fbb84b89fb0'
+b2sums=('e44a80829c10e612c6989519b43e7a07af5bdebce5da113d3710d1a337ecf8f011d550f67f0197e0a1b7ce054b16805f395f544ec97cb722877910a85b8ff85b'
         'd0ac6a0caa849a4445812f574787c5f99e42e73dbc53dcbf0c0a212cc97382dcd3cdbce58f6203fb2d920fc45d4a0a4b5d086308bcb5e2a92b86f1bebf1dd6da')
 
 prepare() {
@@ -42,11 +41,6 @@ prepare() {
   git remote add network-origin https://github.com/pop-os/cosmic-edit
   git lfs fetch network-origin
   git lfs checkout
-}
-
-pkgver() {
-  cd cosmic-edit
-  git describe --tags | sed 's/^epoch-//; s/-/./g'
 }
 
 build() {
