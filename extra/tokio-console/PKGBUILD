@@ -1,8 +1,8 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=tokio-console
-pkgver=0.1.13
-pkgrel=3
+pkgver=0.1.14
+pkgrel=1
 pkgdesc='A debugger for async rust!'
 url='https://github.com/tokio-rs/console'
 license=("MIT")
@@ -11,7 +11,7 @@ makedepends=('cargo' 'git')
 checkdepends=('protobuf')
 depends=('glibc' 'gcc-libs')
 source=("$pkgname::git+${url}.git#tag=tokio-console-v${pkgver}")
-sha256sums=('35f0c6fb405f39d79ae85af3d080f23816c7ad6fc7eb36b30938a1ac100f9e29')
+sha256sums=('05e2067e1b1cdfac8d32a3904ba6952c5dad74e0874905d0efa14048c208b101')
 
 prepare() {
     cd $pkgname
