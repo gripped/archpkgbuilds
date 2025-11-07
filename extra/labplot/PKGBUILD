@@ -2,7 +2,7 @@
 
 pkgname=labplot
 pkgver=2.12.1
-pkgrel=4
+pkgrel=5
 arch=(x86_64)
 pkgdesc='KDE Application for interactive graphing and analysis of scientific data'
 url='https://labplot.kde.org/'
@@ -59,14 +59,17 @@ makedepends=(boost
              knewstuff)
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz
         https://invent.kde.org/education/labplot/-/commit/ee17e765.patch
-        https://invent.kde.org/education/labplot/-/commit/c2db2ec2.patch)
+        https://invent.kde.org/education/labplot/-/commit/c2db2ec2.patch
+        eigen-5.patch)
 sha256sums=('e28155bfddf40e5b6f7c4791313556d1e48138044f216f210d515b9f6d6c106a'
             '547aa708ad7667c5c0392837cfd41cae7f8d98ae804e00b010a8cbcba0be7b41'
-            '09082b162b3bbfcafa5fa5db51ddde4ba667749cb0d790524f4330f1140e7797')
+            '09082b162b3bbfcafa5fa5db51ddde4ba667749cb0d790524f4330f1140e7797'
+            'd7812bd271822833ae8772ca214be25735562efe7f7813ce0bb67b3123b0db45')
 
 prepare() {
   patch -d $pkgname-$pkgver -p1 < ee17e765.patch # liborcus 0.21 support
   patch -d $pkgname-$pkgver -p1 < c2db2ec2.patch # fix build with Qt 6.10
+  patch -d $pkgname-$pkgver -p1 < eigen-5.patch # Fix build with eigen 5
 }
 
 build() {
