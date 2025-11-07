@@ -4,7 +4,7 @@
 
 pkgname=keepassxc
 pkgver=2.7.10
-pkgrel=4
+pkgrel=5
 pkgdesc="Cross-platform community-driven port of Keepass password manager"
 url="https://keepassxc.org/"
 arch=(x86_64)
@@ -32,13 +32,15 @@ prepare() {
 	# Work around some test failures with the TestEntryModel test
 	# See https://gitlab.alpinelinux.org/alpine/aports/-/blob/df401d633cb8812c52c2a33f699b9bdaadff27a1/community/keepassxc/tests.patch
 	patch -Np1 -i "${srcdir}/TestEntryModel.patch"
+
+	# Fix build with botan 3.10 https://github.com/keepassxreboot/keepassxc/pull/12634
+	git cherry-pick -n 139c0beb46d5a44244681202b7a936c4a1dbb133
 }
 
 build() {
 	cmake -S "${pkgname}" -B build \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DKEEPASSXC_BUILD_TYPE=Release \
 		-DWITH_XC_ALL=ON \
 		-DWITH_GUI_TESTS=ON \
