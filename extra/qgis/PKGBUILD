@@ -10,8 +10,8 @@
 # Contributor: Eric Forgeot < http://esclinux.tk >
 
 pkgname=qgis
-pkgver=3.44.3
-pkgrel=3
+pkgver=3.44.4
+pkgrel=1
 pkgdesc='Geographic Information System (GIS) that supports vector, raster & database formats'
 arch=(x86_64)
 url='https://qgis.org/'
@@ -28,7 +28,7 @@ depends=(
   gsl
   hdf5
   hicolor-icon-theme
-  libspatialindex
+# libspatialindex
   libspatialite
   libxml2
   libzip
@@ -78,7 +78,7 @@ optdepends=(
   'gpsbabel: GPS Tools plugin'
 )
 source=("https://qgis.org/downloads/$pkgname-$pkgver.tar.bz2")
-sha256sums=(fb8f1407a0cf2ac776e16bfbc7576217fe1760d1e0789446187c5df8e381b69d)
+sha256sums=('e54d407c5fe921f31ec69104f8d4abbed310b277379e0a5e20af21d46565da0d')
 
 build() {
   cmake -S $pkgname-$pkgver -B build -G Ninja \
@@ -98,7 +98,8 @@ build() {
     -DWITH_PDAL=TRUE \
     -DHAS_KDE_QT5_PDF_TRANSFORM_FIX=TRUE \
     -DHAS_KDE_QT5_SMALL_CAPS_FIX=TRUE \
-    -DHAS_KDE_QT5_FONT_STRETCH_FIX=TRUE
+    -DHAS_KDE_QT5_FONT_STRETCH_FIX=TRUE \
+    -DWITH_INTERNAL_SPATIALINDEX=TRUE # https://github.com/libspatialindex/libspatialindex/issues/276
     # https://github.com/qgis/QGIS/issues/48374
     #-DWITH_INTERNAL_LAZPERF=FALSE \
     # https://github.com/qgis/QGIS/issues/35440
