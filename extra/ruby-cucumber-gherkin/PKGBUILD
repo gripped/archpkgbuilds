@@ -2,7 +2,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=ruby-cucumber-gherkin
-pkgver=36.0.0
+pkgver=36.1.0
 pkgrel=1
 pkgdesc="Gherkin for Ruby"
 arch=(any)
@@ -23,8 +23,8 @@ options=(!emptydirs)
 source=(
   "https://github.com/cucumber/gherkin/archive/v$pkgver/cucumber-gherkin-$pkgver.tar.gz"
 )
-sha512sums=('f96bcc8beb06b529b6614c96f11a251a0938776b9d616d16ac9bb08a72366eebca0def3ea50be8f4bad52d91a26517500a856073fadf47b675f9a00b62e55a6b')
-b2sums=('27cd1a0b792f4382da88d01fd4bc11956bdbefc8898947dfc9199555f4a35e0d73a06f034c1c74218530dc7b3883e6409eaa6f42936c22b177726be9a8cb3ba5')
+sha512sums=('298002497b35e289813b62bff88ac40d5a4d4e0469aa3f96d9e799519d77241fb7bf0d0f9464d3c7431b48face38dd8cc04dd15d477fd2d569dd450f912af56f')
+b2sums=('6311d6bb57e801ef176198607e2f4301005ca2e82605a98fbd4550feb4816471b2427679a7b908f5d8aad83c8d251d3fdbe1f39a98c4cef668460001f815b448')
 
 prepare() {
   cd gherkin-$pkgver
