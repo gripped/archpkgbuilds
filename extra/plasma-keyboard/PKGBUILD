@@ -1,0 +1,38 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+pkgname=plasma-keyboard
+pkgver=0.1.0
+pkgrel=1
+arch=(x86_64)
+pkgdesc='Virtual Keyboard for Qt based desktops'
+url='https://kde.org/plasma-desktop/'
+license=(GPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kcmutils
+         kconfig
+         kcoreaddons
+         ki18n
+         kirigami
+         kirigami-addons
+         kitemmodels
+         libxkbcommon
+         qt6-base
+         qt6-declarative
+         qt6-virtualkeyboard
+         wayland)
+makedepends=(extra-cmake-modules
+             wayland-protocols)
+source=(https://download.kde.org/unstable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('55ed656036ff5130484b1b6d09b5a0ba87791c330346662f89bf53e505f07093'
+            'SKIP')
+validpgpkeys=(23919AE71103C02137422E3C5E023F97C5BB4C13) # Devin Lin <espidev@gmail.com>
+
+build() {
+  cmake -B build -S $pkgname-v$pkgver
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
