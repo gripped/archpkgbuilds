@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=opentimelineio
-pkgver=0.17.0
-pkgrel=3
+pkgver=0.18.0
+pkgrel=1
 pkgdesc='Open Source API and interchange format for editorial timeline information'
 url='http://opentimeline.io/'
 license=(Apache-2.0)
@@ -21,7 +21,7 @@ makedepends=(cmake
              python-wheel)
 source=(git+https://github.com/PixarAnimationStudios/OpenTimelineIO#tag=v$pkgver
         opentimelineio-rapidjson::git+https://github.com/Tencent/rapidjson)
-sha256sums=('f1ea4e60c1ab3ac5efeec77423629addee4e89ed382d0a41573e063eb26cbc21'
+sha256sums=('33862694a6d5c82844033dfc9e7d9d889a40d8c32c70006311e02c545ba24dfc'
             'SKIP')
 
 prepare() {
