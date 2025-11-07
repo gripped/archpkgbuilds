@@ -2,7 +2,7 @@
 
 pkgname=quickshell
 pkgver=0.2.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Flexible toolkit for making desktop shells with QtQuick'
 arch=(x86_64 aarch64)
 url="https://git.outfoxxed.me/$pkgname/$pkgname"
@@ -29,10 +29,8 @@ makedepends=(cli11
              spirv-tools
              wayland-protocols)
 _archive="$pkgname-$pkgver"
-source=("$_archive.tar.gz::$url/archive/v$pkgver.tar.gz"
-        "$pkgname.hook")
-sha256sums=('a7e0a1029ff69d0f3b5788e042463735bacafd5fc369b1382143ffbd9d497964'
-            '953b4a61936f7e36cb2b3610e0400c3563bc95622b961f9041fbb35241099748')
+source=("$_archive.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('a7e0a1029ff69d0f3b5788e042463735bacafd5fc369b1382143ffbd9d497964')
 
 build() {
 	cd "$pkgname"
@@ -49,7 +47,6 @@ build() {
 }
 
 package() {
-        install -Dm0644 -t "$pkgdir/usr/share/libalpm/hooks/" "$pkgname.hook"
 	cd "$pkgname"
 	DESTDIR="$pkgdir" cmake --install build
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
