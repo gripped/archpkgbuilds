@@ -8,7 +8,7 @@
 pkgbase=thunderbird
 pkgname=(thunderbird)
 pkgver=144.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Standalone mail and news reader from mozilla.org'
 url='https://www.thunderbird.net/'
 arch=(x86_64)
@@ -117,6 +117,9 @@ build() {
   fi
   export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none
   export MOZBUILD_STATE_PATH="${srcdir}/mozbuild"
+
+  # Set remoting name to fix the missing wayland icon
+  export MOZ_APP_REMOTINGNAME=org.mozilla.Thunderbird
 
   # malloc_usable_size is used in various parts of the codebase
   CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
