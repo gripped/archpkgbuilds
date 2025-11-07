@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=solr
-pkgver=9.9.0
+pkgver=9.10.0
 pkgrel=1
 pkgdesc="Open source enterprise search platform built on Apache Lucene"
 arch=(any)
@@ -29,22 +29,22 @@ source=(
   skip-checks-for-git-repo.patch
   allow-using-system-gradle.patch
 )
-sha512sums=('c510492f8a2a210024b034d546ef49f9784d7a66fd6609fb98b5cae3d6485cd232902a3c8c799d089e7dd7d085b0b6d9b544b3fe5e3cd32907fcdc873b9a46a7'
+sha512sums=('bf17030e24bfc98979ae63a5a684e0c9c65e0780d6ac5de71c9e092344f2dfaed36baa417d722823289bcb679aff3ccd0c2cb46b8211b0f32cebf5da8d36d83a'
             'SKIP'
             'd9a5dcc7a30bf449abf9028bc4aa88e196c953d82b884661ec3191d4a06ec50b106c01ecdcd225e3526ab4f4ce5634d6dcd4a03f1e128fdd4c26febb1b742532'
             '4a92e55709bcaffeab9456b2c3a7e76b38ab91f0bcf8a714f7da0691c46dfb28ef39741827ab90a1e7a26d716acfdc050af5cd4d043137bff51c07e114819fc2'
             '97252d1ba1e4e211a6b5a038981cbc9d6663a0d7a980b23484f838eebb2f8194571a3f34ea6b92ed0efd4b7f862e020b5e3e8478ad1de1c6832e232d0b20ff6d'
             'cda14703a9144e0add93d6f7a32691a80e2cadbb738c0c752122e6e27bbf1441a48a1a2ee146f10dd4f0ba4e5f5e38a46b45c1e01ff8c79bd477f3030a7c265d'
-            '8daad1f07686984d59c459317936a73dfc35599b4e50f0c2bab769b42950117aae56e775f028c5241c877c771241d9fc5666cc57500a4e94576bfd30be421fe9'
+            'cdf46ddc62f3f8c7b258a806cf1b2765b156077becb77a97dbe3dae8ee05942d5fcf34e40ff25da5c4022fe3fb47bf378f51e58fd18005f5b0f525099ae22353'
             '1ad7eb67116fc58e7ad38926a696e76f9bc10447101e95ddfb0da914cb7a9916aeab47ad498fec3ff18285827f21d8855c1854778ce09c8e70dc9ce1576b57d1'
             '5e45fcd63be50484dbdd7b909f187d4d90a89639b80571bd93c432599b2064498344d4168dd06dfc45368ce043a873ae6be804d3ff1a3c42746b045c215cab92')
-b2sums=('9fa583da0190c3d7bd37d63cb8927371a827ccf54722fbe77a26d95bb0e7104cdb6a854c0cf4af60a2076da4572064918ac4a928119b4da22dd470d1cb7ef49c'
+b2sums=('e05384475f3412b6b91d94087eb334d74bb716820cfb9171c70ab05c6b8cab1532a92934662c13ccbdb7777ce6ab48a1d625c5ce011911ac3364099d3ecfba5e'
         'SKIP'
         'f970329fad0358cb19af9b9337047612d5949af8aea2dc7acd6c8424ba494644940d22f46b98a9cf1362ea2e5d966b863907de35e7c0edc2e48f7b0ed00473b7'
         'bd7624d92430c461063faa63dc00f5b546f86937c01161d3f2027406a37e8e3b7bcd7b3ca4b268e2ccd6c96c3f49addcfea4a86844145822ed70eaecdd3fd4bc'
         '37ab5d9af1da1178fcc58ce39654fdecb842b24d4e2264a2eec95c10223e7d003f27a6b2957a267a17ce0fa72258d96642d5b909963576a5a7d13e4e05c47a51'
         '60b0b2124ff8e4e2faa9323a0156fa02ea606c5779f7b80e42a05de78fa7e67546e33a444c5b1b4d61aaf2dcd067430022091449da386c310b8a99ce75eb1d3c'
-        '21c65f14aa76a8110fed7d7b684c22342c72510376f68c2cde5ebf4ea996f38e287a29429ac7ebd93b68dbbffe030149b31d06a1dbc4b80c2182c14c53684c0a'
+        '8120846e77a55611c07ba27ce526820b0a71ddc749caf18e9e936eef6e033cc9836dcf449aebe04090b36afb603ef1d15ac08d60d965c5af46c21fc8aadc0134'
         '3e7d4e76994752bd62aa6e519bbfecc9db2ad81d3f086ea1920f5bc78bb93c68aab6ca01225860e46e59666af450f3a826fe91edf7a820396be342d431002b94'
         'ef52cfc76c484b78bacfee8a6e6321d80d3a03bdf11f81ab15e8328dd680cc87010e34a3f59423325707f60c87fe03fb2e77a082140e364d61ebaf5582101f59')
 # list of trusted signing keys: https://downloads.apache.org/solr/KEYS
@@ -147,7 +147,7 @@ package() {
   # logs directory
   install -vdm 750 "$pkgdir/var/log/$pkgname/"
   # docs
-  install -vDm 644 dist/{CHANGES,NOTICE}.txt -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 dist/NOTICE.txt -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 ../$pkgname.service -t "$pkgdir/usr/lib/systemd/system/"
   install -vDm 644 ../$pkgname.sysusers "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
