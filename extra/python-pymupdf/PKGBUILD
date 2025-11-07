@@ -3,7 +3,7 @@
 
 _name=PyMuPDF
 pkgname=python-pymupdf
-pkgver=1.26.5
+pkgver=1.26.6
 pkgrel=1
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(x86_64)
@@ -40,18 +40,23 @@ optdepends=(
 source=(
   $_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
   remove-clang-and-swig-dependencies.patch
+  remove-pip-call-in-tests.patch
 )
-sha512sums=('10a41aa1e578dc928c7c2e34e14f2ff45dd9f9799dc507c242ab44f6a8e9fe506737b0fb13ca0071d5471625133adac1c2aa61cc95e49af34c7e1f548f7cca65'
-            'e92face12865334f6730438c5d6973583f6fee18714a3e4d3e76ac6717fa1aad3416e400858c8dda319717facbf37b2b22793781342afeff6eb6183d97d9de63')
-b2sums=('65afbb2b11800dca9cbefd79d215eafecf6da4839bc3efbc1888af59fda76e6c1d8721613be34617747b97b4132f288c03ee1eb88cbcc3a4375746296cddf689'
-        '3aa763d6b203a04eafdfaa0b89d89411af8b9d7b9631f4ad46c6f88a8310b683e8ff20f6c8cd03c2ab42dc3fcc6f21bf937ee0db9037ac54aa2442291e2fe332')
+sha512sums=('279d2ccbf2b6343531a78b6076ddd8a35af1a06430058795c98a3a16eee20c22fdafc5f47dab88804cc79b4152ad9d1b376d7eaa404739b7c2de1b753177ed0d'
+            '8362c20cad0df07f14493b1456ca8ffa880a363c95c336a5ba102a7089c93e409e9abc9707653e9073500964b4cb17354d92206748f8fedb4e3815164a90fb7a'
+            '8ddd524e124d579091f98b75ab02ed87a7dc431c1d85cf9b8da645a4935d3f7c1361d6796618cb1da05be95be05a694ab9b039a42c92012434cda6283158a0e7')
+b2sums=('23ae754efe0acd8a51c6af74722669891ab7826592dd62ac2f92df3fa95787c3207afb0639d79156e9d62dd2df64f5a66aee7a805b9751e706e1df751fb96636'
+        '8bc15767ceeb691d3b4d43bebaf69978e4e24e654537f2cbe6de852b98db523f1b30f45545c3bfa48b915b05af1fb85925350c50e57fdbe5409c6725036d375c'
+        '411b25296ed19f033270fe62afe12fe635c6c11e7d5d078188c76bef193e28ec2b461450d1366c80e2edad919baf730342ca84f02d9adbfbe7f3bce912884d88')
 
 prepare() {
   # remove bundled mupdf sources
   rm -frv $pkgname/*.tgz
-  # we package clang and swig and don't need python-clang or python-swig
   cd $_name-$pkgver
+  # we package clang and swig and don't need python-clang or python-swig
   patch -Np1 < $srcdir/remove-clang-and-swig-dependencies.patch
+  # patch out hardcoded pip call to install test dependencies
+  patch -Np1 < $srcdir/remove-pip-call-in-tests.patch
 }
 
 build() {
