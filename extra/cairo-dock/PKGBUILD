@@ -4,8 +4,8 @@
 # Contributor: erm67 <erm67@yahoo.it>
 
 pkgname=cairo-dock
-pkgver=3.6.0
-pkgrel=2
+pkgver=3.6.1
+pkgrel=1
 pkgdesc="Light eye-candy fully themable animated dock"
 arch=('x86_64')
 url="https://github.com/Cairo-Dock/${pkgname}-core"
@@ -35,7 +35,7 @@ depends=(
 makedepends=('cmake' 'extra-cmake-modules' 'wayland-protocols')
 optdepends=('cairo-dock-plug-ins: Plugins for Cairo-Dock')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('8b7c5d08dbd61d4f18c463a0eba4b8a0ff5c2830225c56b7cffe9e84d01af2e3')
+sha256sums=('4132ad2b6127acf5c0bc0066d7e8d52c3bd0a053ee44bdffb00f75c69c324ca2')
 
 build() {
 	cmake -B build \
