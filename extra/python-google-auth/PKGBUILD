@@ -3,7 +3,7 @@
 
 _name=google-auth-library-python
 pkgname=python-google-auth
-pkgver=2.42.1
+pkgver=2.43.0
 pkgrel=1
 pkgdesc="Google Authentication Library"
 url="https://github.com/GoogleCloudPlatform/google-auth-library-python"
@@ -53,7 +53,7 @@ source=(
   "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
   "python-pyopenssl-compatibility.patch"
 )
-sha512sums=('041e9b975a5f87555ac8ebb1756f4517a5009964417d70170e53968f2228a7f78a57906033b52a6d4e7d70a6313afda58835f7c761d0d8112cec4b15ac376e6f'
+sha512sums=('da0aff1c3b6f112802aebfa18ffa5f801d51fac096ceca47c2215050a9b19c4dcbc44d9a40b882bab225cbffcd02787e4ecf363630e06daf5e3aacea429f76e1'
             '4e23dfaeec6933b1fb6736b6402f1f3cce0fedc0967e527879bc1b3e6215d94c986c28ab9d6b9b4ba975f39316eb0159bb74144aca1f27345b0a9174857fcfff')
 
 prepare() {
