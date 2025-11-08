@@ -5,7 +5,7 @@
 
 pkgname=lib32-freeglut
 pkgver=3.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Free OpenGL Utility Toolkit (32-bit)"
 url="https://freeglut.sourceforge.net/"
 arch=(x86_64)
@@ -13,6 +13,7 @@ license=(X11)
 depends=(
   freeglut
   lib32-glibc
+  lib32-glu # Required by headers
   lib32-libgl
   lib32-libx11
   lib32-libxi
@@ -22,7 +23,6 @@ depends=(
 makedepends=(
   cmake
   git
-  lib32-glu
   lib32-mesa
   ninja
 )
