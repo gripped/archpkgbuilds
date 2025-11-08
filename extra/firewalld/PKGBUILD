@@ -5,7 +5,7 @@
 
 pkgbase=firewalld
 pkgname=('firewalld' 'firewalld-test')
-pkgver=2.3.1
+pkgver=2.4.0
 pkgrel=1
 url="https://firewalld.org"
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=('docbook-xsl' 'git' 'intltool' 'podman')
 source=("git+https://github.com/firewalld/firewalld.git#tag=v${pkgver}"
         'firewalld-sysconfigdir.patch'
         'fix_gettext_macros_path.patch')
-sha256sums=('33d598c45be508e2f085b9dbe5d82820fe8d6b856a7ed7d7111e76e9f1cde3c9'
+sha256sums=('8107cf1bbaf2b4679a24132e19f8099c4836882e1ba76e20872129b1cf878a62'
             '3b2e00f67680c2e620804eb28620d7370b4096851bcb5f6fec22460a21941ad9'
             '49f793aeaf2e87c834c734b37dc926c9579cc2ec0782e5fe297ee286df6c7ef6')
 
