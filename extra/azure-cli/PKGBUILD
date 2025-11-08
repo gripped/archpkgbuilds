@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux
 
 pkgname=azure-cli
-pkgver=2.78.0
+pkgver=2.79.0
 pkgrel=1
 pkgdesc="Command-line tools for Microsoft Azure"
 arch=('any')
@@ -23,8 +23,8 @@ options=(
 )
 source=("git+https://github.com/Azure/azure-cli.git#tag=azure-cli-${pkgver}"
         "az")
-sha256sums=('5b89c2b0d305df7c862520cd16f4a2225851b09a9d60ef55700e2d46c81a2a08'
-            '990f70efec828c1e1f3f57748fc6e40f9705f2223dc96683e8e29d118daac116')
+sha512sums=('5512b82a0e0fcc5c9fe08a42051b73b9c77bb638338aad8b9b70eb001b361c660f0178e239d64da5ebfede7ef25b6264c065ca41d27e0ea3c196720565619f36'
+            '94a9d3daeced17fccae9cb94638a82db0515e4c7fd6b8bbe68f9b428dc84c19a6c956a809c160083e040180914665a3980c257e9f210c431c8d46d574bf113ba')
 
 package() {
   cd $pkgname
