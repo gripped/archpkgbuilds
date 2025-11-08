@@ -3,7 +3,7 @@
 # Contributor: Adam Fontenot <adam.m.fontenot@gmail.com>
 
 pkgname=breezy
-pkgver=3.3.15
+pkgver=3.3.17
 pkgrel=1
 pkgdesc='A decentralized revision control system with support for Bazaar and Git file formats'
 arch=(x86_64)
@@ -47,17 +47,8 @@ optdepends=(
 provides=(bzr)
 conflicts=(bzr)
 replaces=(bzr)
-source=(
-  "git+https://github.com/breezy-team/breezy.git#tag=brz-$pkgver"
-  "breezy-dulwich-0.22.0-compatibility.patch"
-)
-sha256sums=('c7d7f4bcf8ed219fabdfb999970183c93c9f48701e47515b6b9e38f7dee72676'
-            'd5f2ef12afc8694f0fc439d0ac96127512050039dfe2a72efb4d45c40aed1f34')
-
-prepare() {
-  cd $pkgname
-  patch -Np1 < ../$pkgname-dulwich-0.22.0-compatibility.patch
-}
+source=("git+https://github.com/breezy-team/breezy.git#tag=brz-$pkgver")
+sha256sums=('759232da5d96594cff1b8cb9c91da8a17ac82550d80f9555344be17e63d1d3e7')
 
 build() {
   cd $pkgname
