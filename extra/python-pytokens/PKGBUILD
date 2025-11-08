@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-pytokens
-pkgver=0.2.0
+pkgver=0.3.0
 pkgrel=1
 pkgdesc='A fast, spec compliant Python 3.12+ tokenizer'
 arch=(any)
@@ -20,9 +20,9 @@ source=(
   "$pkgname::git+$url#tag=$pkgver"
   no-coverage-testing.patch
 )
-sha512sums=('4994a41778e189521ecaf70c9e835044fe02f143c4fc787ec130fd02ba29591ac8052c97bacd162f014fdf1c0e5b23f999ea948667a655f19a44b9c45b1c3f9e'
+sha512sums=('28e0003d07c76b7010b1bc6704929fa184e47393f5803bdc945d1ab9d9c612b4bce1336665bb714d7ccaca0cb7a9a87d2815d7c3f73ec7b35f877d1af31733c8'
             '6709c47b15b64739b2b3d9cda874bd657d9a0a587b8d26f1328c4b5bf1ad69fec8a8f856bd87e001fa6a15a4a80a728fb1695271b5da38d90fe28275c645557e')
-b2sums=('a59f4b365edb2f70d91758ef6e1b8138f6f3fcf29f4b2bd0952d0a76968003d089f965a5a31bda343b4eed0a0455570e40c04b9f4376f9e62df2bf1ce23543e7'
+b2sums=('8cb96784eeeec2e2f0fc8d314af690053e2e69e23c8a3cc8bd28abf0eff0b7b92eb09f5536c3bd1d3e80e06cc3bee630451c7829314bee1097d1ee288d856607'
         '3f9764488acbc4bf120ffdc62a29fe8ddf5935374be8e3b0beeb1524fa8979fd6ddfda428c852140447af79135333fd6dba3ed0cf8d264f494862fcf9f2fba27')
 
 prepare() {
