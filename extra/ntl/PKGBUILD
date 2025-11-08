@@ -2,8 +2,8 @@
 # Contributor: Brad Conte <brad AT bradconte.com>
 
 pkgname=ntl
-pkgver=11.5.1
-pkgrel=2
+pkgver=11.6.0
+pkgrel=1
 pkgdesc='A Library for doing Number Theory'
 arch=(x86_64)
 url='https://www.shoup.net/ntl/'
@@ -13,7 +13,7 @@ depends=(gcc-libs
          glibc
          gmp)
 source=(https://www.shoup.net/$pkgname/$pkgname-$pkgver.tar.gz)
-sha256sums=('210d06c31306cbc6eaf6814453c56c776d9d8e8df36d74eb306f6a523d1c6a8a')
+sha256sums=('bc0ef9aceb075a6a0673ac8d8f47d5f8458c72fe806e4468fbd5d3daff056182')
 
 prepare() {
   cd $pkgname-$pkgver/src
