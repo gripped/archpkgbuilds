@@ -4,7 +4,7 @@
 
 pkgname=python-zope-event
 _pkgname=zope.event
-pkgver=6.0
+pkgver=6.1
 pkgrel=1
 pkgdesc="Provides a simple event system"
 arch=(any)
@@ -19,7 +19,7 @@ makedepends=(
 )
 checkdepends=('python-zope-testrunner')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('53e1590da4f0e141ba2615db8889841ee7f28e238a8e9902d66ee59bb32bdde5f89b679a05da1b0d83002156f119d11143f995799ed7cd515ac782c1a27ba6fd')
+sha512sums=('abb824463ef4794b7729473c57c0ce7717473fa4db5b057dbd72b3473bdd55ea118ed4b9208ca191e0f530deeb15816a636d5fb170ad5b488d79b67d46e485e5')
 
 build() {
   cd $_pkgname-$pkgver
