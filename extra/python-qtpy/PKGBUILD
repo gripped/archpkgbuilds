@@ -4,8 +4,8 @@
 _pkgname=qtpy
 pkgname=python-qtpy
 pkgver=2.4.3
-pkgrel=3
-pkgdesc="Provides an uniform layer to support PyQt5 and PySide2 with a single codebase"
+pkgrel=4
+pkgdesc="Provides an uniform layer to support PyQt and PySide with a single codebase"
 arch=(any)
 url="https://github.com/spyder-ide/qtpy/"
 license=(MIT)
@@ -30,18 +30,13 @@ checkdepends=(
     python-pyqt6-datavisualization
     python-pyqt6-webengine
     pyside6
-    qt5-connectivity
     qt5-location
     qt5-multimedia
-    qt5-quick3d
-    qt5-remoteobjects
     qt5-sensors
     qt5-serialport
     qt5-speech
     qt5-svg
     qt5-tools
-    qt5-webchannel
-    qt5-websockets
     qt5-x11extras
     qt5-xmlpatterns
     qt6-multimedia
@@ -63,7 +58,9 @@ build() {
 check() {
   cd ${_pkgname}-${pkgver}
   sed -i 's|--cov-report=term-missing --cov-report=xml||' pytest.ini
-  PYTHONPATH="${PWD}"/build/lib xvfb-run --auto-servernum pytest qtpy
+  PYTHONPATH="${PWD}"/build/lib xvfb-run --auto-servernum pytest qtpy \
+    --deselect qtpy/tests/test_qtwebchannel.py \
+    --deselect qtpy/tests/test_qtwebsockets.py
 }
 
 package() {
