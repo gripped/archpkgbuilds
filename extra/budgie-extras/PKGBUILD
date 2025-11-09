@@ -3,7 +3,7 @@
 
 pkgname=budgie-extras
 pkgver=1.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Additional Budgie Desktop components from the Ubuntu Budgie team'
 arch=(x86_64)
 license=(GPL-3.0-or-later)
@@ -26,7 +26,7 @@ depends=(
   libkeybinder3
   libnm
   libnotify
-  libpeas
+  libpeas-2
   libsoup3
   libwnck3
   libxfce4windowing
@@ -64,14 +64,14 @@ source=(
   git+https://github.com/UbuntuBudgie/QuickChar.git
   git+https://github.com/UbuntuBudgie/budgie-network-applet.git
   git+https://github.com/UbuntuBudgie/budgie-trash-applet.git
+  budgie-extras-libpeas2.patch::https://github.com/UbuntuBudgie/budgie-extras/commit/933233e8.patch
 )
-b2sums=(
-  5cc028c33043addf1ce9dccbc180639b0bedc3b99e93525a2f3d38031ac85415332d0fa32e8626ee2dda2eaf39948d6a4a2cc8f34816f3bc80973e7a9afeee2f
-  SKIP
-  SKIP
-  SKIP
-  SKIP
-)
+b2sums=('5cc028c33043addf1ce9dccbc180639b0bedc3b99e93525a2f3d38031ac85415332d0fa32e8626ee2dda2eaf39948d6a4a2cc8f34816f3bc80973e7a9afeee2f'
+        'SKIP'
+        'SKIP'
+        'SKIP'
+        'SKIP'
+        '521b52337a38f04ee0ed7e26b01cbcdec623a0193e4c83fba19248d72ed34f75fe3f1c4cfe1b7b03b7990c59a146452be4a2afce3a1ce43e5ceea4c50537ee7c')
 
 prepare() {
   cd "$pkgname"
@@ -82,6 +82,11 @@ prepare() {
   git config submodule.budgie-network-manager/budgie-network-applet.url ../budgie-network-applet
   git config submodule.budgie-trash/trash.url ../budgie-trash-applet
   git -c protocol.file.allow=always submodule update
+
+  # Port to libpeas-2
+  # https://github.com/UbuntuBudgie/budgie-extras/pull/490
+  patch -Np1 -i ../budgie-extras-libpeas2.patch
+  find . -name meson.build -exec sed -i -e 's/budgie-1.0/budgie-2.0/' -e 's/libpeas-1.0/libpeas-2/' -e '/libpeas-gtk-1.0/d' {} +
 }
 
 build() {
