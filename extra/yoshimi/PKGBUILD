@@ -3,7 +3,7 @@
 
 pkgbase=yoshimi
 pkgname=(yoshimi{,-{data,docs,lv2,standalone}})
-pkgver=2.3.5.1
+pkgver=2.3.5.2
 pkgrel=1
 pkgdesc="A sophisticated soft-synth originally forked from ZynAddSubFX"
 arch=(x86_64)
@@ -31,8 +31,8 @@ checkdepends=(
 # https://github.com/Yoshimi/yoshimi/issues/164
 options=(!lto)
 source=($pkgname-$pkgver.tar.gz::$_url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('c61c420224960e4a897a9e9aaf1d4e905ce4fedb424a295db2fb72cc1e7845f3a9e8b917599f7765bdb1df84214d69a62bd6cf1940d814d6051b9933a02d7ada')
-b2sums=('097c2d8f525ed73c64159ed2614fea122ea2ee8a4d1eaad2b2096757b4458017f6ef6a7294f55dc33dc289a9c3d88441dd6b399ca417088a2e10329c59b8f966')
+sha512sums=('039a96901941380cc465abc36868adc883b69f8a9893cd99e0ae89a57b5fd0403ad19a89f0f40778dec80df8d39be105095a7ba8fa4c8607c4a47b48c32e215f')
+b2sums=('d390b54bec0f0ee3c8da6c64b3eba35fe3de3af6f00d7a9d80046dd75747ee9513be1519c37dc47f3ee35eaf1a86536008ac3d37b9e692e03acafdcf2f4f96d2')
 
 _pick() {
   local p="$1" f d; shift
