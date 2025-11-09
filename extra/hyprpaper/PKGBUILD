@@ -3,7 +3,7 @@
 
 pkgname=hyprpaper
 pkgver=0.7.6
-pkgrel=1
+pkgrel=2
 pkgdesc='a blazing fast wayland wallpaper utility with IPC controls'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
