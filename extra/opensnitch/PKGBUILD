@@ -3,7 +3,7 @@
 
 pkgname=opensnitch
 pkgver=1.7.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A GNU/Linux application firewall'
 arch=(x86_64)
 url=https://github.com/evilsocket/opensnitch
@@ -45,6 +45,7 @@ optdepends=(
 )
 replaces=(opensnitch-ebpf-module) # from the AUR
 backup=(
+  etc/logrotate.d/opensnitch
   etc/opensnitchd/default-config.json
   etc/opensnitchd/system-fw.json
 )
