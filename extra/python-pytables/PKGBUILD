@@ -6,7 +6,7 @@
 pkgname=python-pytables
 _pkgname=PyTables
 pkgver=3.10.2
-pkgrel=3
+pkgrel=4
 pkgdesc="A Python package to manage extremely large amounts of data"
 arch=(x86_64)
 url="https://www.pytables.org"
@@ -47,6 +47,9 @@ prepare() {
   git config submodule.c-blosc.url "$srcdir/c-blosc"
   git config submodule.hdf5-blosc.url "$srcdir/hdf5-blosc"
   git -c protocol.file.allow=always submodule update
+
+  # Fix python-numexpr 2.13+ compatibility
+  git cherry-pick -n 41270019ce1ffd97ce8f23b21d635e00e12b0ccb
 }
 
 build() {
