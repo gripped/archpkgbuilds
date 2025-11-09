@@ -3,38 +3,37 @@
 
 pkgname=prometheus-ipmi-exporter
 pkgver=1.10.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Prometheus exporter for IPMI metrics'
 arch=(x86_64)
 url='https://github.com/prometheus-community/ipmi_exporter'
-license=('MIT')
-depends=('glibc' 'freeipmi')
-makedepends=('git' 'go')
+license=(MIT)
+depends=(glibc freeipmi)
+makedepends=(git go)
 backup=(
-  'etc/prometheus/ipmi-exporter.yml'
-  'etc/prometheus/ipmi-exporter.env'
+  etc/prometheus/ipmi-exporter.yml
+  etc/prometheus/ipmi-exporter.env
 )
-options=('!lto')
 source=(
   "$pkgname::git+$url.git#tag=v$pkgver"
-  'systemd.service'
-  'sysusers.conf'
-  'sudoers.conf'
-  'config.yml'
-  'config.env'
+  systemd.service
+  sysusers.conf
+  sudoers.conf
+  config.yml
+  config.env
 )
 sha512sums=('b7713c329d4488e1d615e8a941132d6d8ded6be595ea3bad11a1bea26538ba5bf8ec3ed17c90f6a61552be93e6dafedaa7134c5e3063c024b4b0da20dce79463'
-            '420dbe6629a904979988ef9d28a7c09de14e88828375397af92e49469962dc9593ee236b503a2cb0f0b140e49bbc79076e7c3ea1f6e8bc2cc58d4ab1194c785f'
+            '54895d91ce73be3861c577ee088dc3fe9d6f7b29b666f25b77e6dd51028fc9f80fd6a8de3206e02723e8912b90ed4268fec445a0193b7e8eff6bedea63299272'
             'bf654d4dad35349c23f4ef91f53b585f899c44f4806b7d9c8de62945711ebf8c751918c3cda0fff106c39b2873a11d2520b829977e4b632070d60e584aed56fd'
             '7be2811049c75f572956ceeba3fc68a5ae52643a09e0275c33e1d8d12acf47e61595db1738cee98dd0437a71927ed254ad99ba5d1fc09a5178bcb18473f43b4a'
             'a26a7d379d8577e0f9237218b7d63df25643ae37c9f1a504b4a4ac5421e01cd9ac1a72435bacf16cce25e08a2394367e0d629ac1e877c1831f3c570ffbfafcff'
-            '0ce0a1f01a9f7b03df172a1f61bb0903bc4e1fdfd6422c8d39f6b33672906073e4da234277a1fdc8f552d30cb772998b321fe9814c63c2cebadf64493667791f')
+            '3dc382511dadf808e7a9d412bc4efb31e1c7952646f6d3bf5b16efe603d7136000770a804c55498969839abc26dee51d3ad4dbc22864e61547c2f2b5d7f321b6')
 b2sums=('19ea1be82f92e6d4bc1ac8473221bdfbd300250f4bb8c439a3c8ee1dbee7dfff5054d95ad5da1a9167c2f32e5b2069ecbd88d3431352f6857352e9f9932742b6'
-        '50295e5e9b56a3fbe2d2093f15c3582637cfea1665a9a100da010b1fb435ad3a79babd9c73746c48f86ac4e36af526f7a9da83d272e0fbcd3b779db7d42fb052'
+        'abe2c13c1cc3b23267ff8a17cf2f4ba1b793684a44b7f586112c9dc4ddd474dd0a6858eb147aa4d20af8ad6544f4e202d36f814094c31dcf5e49f1b0b220c158'
         '5a207a39efa97117e28f356793d1001957309d2912c3be2c6ebe242789a7ce4cd45114526ee7b796704bf3209a35961bc83cc1b29ecf1b2635ebf1c0414c3ec1'
         '7289646126dbdd22c9183fa9831d11b5492116daa0bd175ab2b20180cebdfb601edc086e9d7e689ca496f8992926f807d1c45b06d1ead6b85d8ce15c710caaba'
         'b4390aa6796cfbd2a4595e1aa5ffd250c997def77887cfb48e4e7bba9e044acb51533b5e9c2375aa274eeff27aba31c5df81abdce13228173b9c6da66db4e622'
-        '042b25709b320603f3440fd0592bc159b75c26991d4e608540ac78b3cb74b501750e592b938898218872310b16b7ab0d66a888a02f105ff5c1110be0f27101d6')
+        'f041282cf2dcceecadcb4db6b52b626e60a95511438c24ebfcea5de493c61e4cd4d8d7ec3098db7e0d04469cb13bb4b60be46f8c889599f81b741628e44d9a4b')
 
 prepare() {
   cd "$pkgname"

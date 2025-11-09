@@ -1,20 +1,33 @@
 [Unit]
 Description=Prometheus exporter for IPMI metrics
 Documentation=https://github.com/prometheus-community/ipmi_exporter
-After=network.target network-online.target basic.target
-Wants=network-online.target
+After=network.target network-online.target nss-lookup.target basic.target
+Wants=network-online.target nss-lookup.target
 StartLimitIntervalSec=30
 StartLimitBurst=3
 
 [Service]
-EnvironmentFile=-/etc/prometheus/ipmi-exporter.env
-ExecStart=/usr/bin/prometheus-ipmi-exporter --config.file=/etc/prometheus/ipmi-exporter.yml $OPTIONS
-User=prometheus-ipmi-exporter
-Group=prometheus-ipmi-exporter
-Type=simple
 Restart=on-failure
 RestartSec=30
-PrivateTmp=yes
+EnvironmentFile=-/etc/prometheus/ipmi-exporter.env
+ExecStart=/usr/bin/prometheus-ipmi-exporter --config.file=/etc/prometheus/ipmi-exporter.yml $IPMI_EXPORTER_ARGS
+User=prometheus-ipmi-exporter
+Group=prometheus-ipmi-exporter
+ExecReload=/bin/kill -HUP $MAINPID
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=full
+ProtectHostname=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+LockPersonality=true
+RestrictRealtime=yes
+RestrictNamespaces=yes
+MemoryDenyWriteExecute=yes
+PrivateDevices=yes
+PrivateTmp=true
+CapabilityBoundingSet=
 
 [Install]
 WantedBy=multi-user.target
