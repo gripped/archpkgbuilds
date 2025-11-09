@@ -4,7 +4,7 @@
 
 pkgname=cython
 pkgver=3.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='C-Extensions for Python'
 arch=(x86_64)
 url='https://cython.org'
@@ -24,6 +24,11 @@ checkdepends=(gdb
               python-tests)
 source=(git+https://github.com/cython/cython#tag=$pkgver)
 sha256sums=('10359d7da42ca1448efc8d7efa6d95e12b18c054d62aca1eccce12a57ddb6049')
+
+prepare() {
+  cd cython
+  git revert -n d4c9c1f825313406497cbf4c75cd9c063bcdc21c # https://github.com/cython/cython/issues/7304
+}
 
 build() {
   cd cython
