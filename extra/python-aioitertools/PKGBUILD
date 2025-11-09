@@ -1,31 +1,35 @@
-# Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-aioitertools
-_pkgname=aioitertools
-# https://github.com/omnilib/aioitertools/blob/main/CHANGELOG.md
-pkgver=0.12.0
-pkgrel=2
+pkgver=0.13.0
+pkgrel=1
 pkgdesc='Implementation of itertools, builtins, and more for AsyncIO and mixed-type iterables'
 arch=(any)
 url='https://github.com/omnilib/aioitertools'
 license=(MIT)
 depends=(python)
-makedepends=(python-flit-core python-build python-installer git)
+makedepends=(
+  git
+  python-build
+  python-flit-core
+  python-installer
+)
 source=("git+$url#tag=v$pkgver")
-sha256sums=('0dd8849c3eca0558b95cf7e63294114587406a64f15e7904538f2514f742f38d')
+sha256sums=('ea8628e25fa75b4d87046a2b7ca247d99ba5bf73fa5d721c07d7f5845cf0bf53')
 
 build() {
-  cd $_pkgname
+  cd ${pkgname#python-}
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_pkgname
+  cd ${pkgname#python-}
   python -m unittest -v aioitertools.tests
 }
 
 package() {
-  cd $_pkgname
+  cd ${pkgname#python-}
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
