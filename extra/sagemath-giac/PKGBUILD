@@ -2,7 +2,7 @@
 
 pkgname=sagemath-giac
 pkgver=0.1.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Support for using Giac within SageMath'
 arch=(x86_64)
 url='https://github.com/sagemath/sagemath-giac'
@@ -18,8 +18,15 @@ makedepends=(cython
              python-build
              python-installer)
 checkdepends=(python-pytest)
-source=(git+https://github.com/sagemath/sagemath-giac#tag=$pkgver)
-sha256sums=('cbd61577b139a602da7be66259aa183324faf8fd6b1c0441684351756b50e719')
+source=(git+https://github.com/sagemath/sagemath-giac#tag=$pkgver
+        cython-3.2.patch)
+sha256sums=('cbd61577b139a602da7be66259aa183324faf8fd6b1c0441684351756b50e719'
+            '7169a2992b4d59c927f985bd8c6dffd7fda3c289ef7c71f239c630c04987308c')
+
+prepare() {
+  cd $pkgname
+  patch -p1 -i ../cython-3.2.patch # https://github.com/sagemath/sagemath-giac/issues/5
+}
 
 build() {
   cd $pkgname
