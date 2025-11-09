@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-io
-pkgver=0.23.2
+pkgver=0.23.3
 pkgrel=1
 pkgdesc='AWS SDK module to handle all IO and TLS work for application protocols'
 arch=(x86_64)
@@ -16,7 +16,7 @@ depends=(
 )
 makedepends=(cmake)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('3a335b812411c30bcc64072f148ddf6cd632d8261799cd04e54051b44506feb9')
+sha256sums=('cdcb31b694fc28ba96237ee33a742679daf2dcabfd41464f8a68fbd913907085')
 
 build() {
   cd $pkgname-$pkgver
