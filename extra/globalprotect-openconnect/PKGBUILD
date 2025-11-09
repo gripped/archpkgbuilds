@@ -2,26 +2,30 @@
 # Contributor: Keinv Yue <yuezk001@gmail.com>
 
 pkgname=globalprotect-openconnect
-pkgver=1.4.9
-pkgrel=2
+pkgver=2.4.6
+pkgrel=1
 pkgdesc="A GlobalProtect VPN GUI client based on Openconnect and built with Qt5, supports SAML auth mode"
 arch=(x86_64)
 url="https://github.com/yuezk/GlobalProtect-openconnect"
 license=(GPL3)
-depends=(openconnect qt5-base qt5-webengine qt5-websockets qtkeychain-qt5)
-makedepends=(git cmake)
+depends=(openconnect webkit2gtk-4.1)
+makedepends=(git cargo)
 provides=(gpclient gpservice)
-backup=(etc/gpservice/gp.conf)
 source=(git+https://github.com/yuezk/GlobalProtect-openconnect#tag=v$pkgver) # github does not allow to download sources with submodules, thus use git directly
-sha256sums=('SKIP')
+sha256sums=('142dec12675b96e4a807694553d65ce2f859670d036ba3938e29b05811c1f5cf')
+options=(!lto)
+
+prepare() {
+  cd GlobalProtect-openconnect
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
 
 build() {
   cd GlobalProtect-openconnect
-  cmake -B build -DCMAKE_BUILD_TYPE=Release
-  cmake --build build
+  cargo build --release --frozen
 }
 
 package() {
   cd GlobalProtect-openconnect
-  make DESTDIR="$pkgdir/" install -C build
+  DESTDIR="$pkgdir" make install
 }
