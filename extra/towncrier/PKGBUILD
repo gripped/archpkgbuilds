@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=towncrier
-pkgver=24.8.0
+pkgver=25.8.0
 pkgrel=1
 pkgdesc="Utility to produce useful, summarised news files for your project"
 arch=('any')
@@ -20,9 +20,10 @@ makedepends=(
 )
 checkdepends=(
   'python-twisted'
+  'mercurial'
 )
 source=("git+https://github.com/twisted/towncrier.git#tag=$pkgver")
-sha512sums=('abb35985b5e5bdfd1a038aa4ede1e9027ef47589f7d309913ff9614e31bca29136215ae827051b64367824e8a869fbee94ca133f25929e4cb777a8dd88e1bbaa')
+sha512sums=('2d06a4253ab2ad12a944f221ff340bc28c2daff04e9f9b740ad2447cdcae063522083160ebf5c9e0da4675d4545f124511741ef60b2a020a0aefc9788f1c9519')
 
 build() {
   cd towncrier
