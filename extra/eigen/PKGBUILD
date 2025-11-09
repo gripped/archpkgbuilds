@@ -3,8 +3,8 @@
 # Contributor: Kringel
 
 pkgname=eigen
-pkgver=5.0.0
-pkgrel=3
+pkgver=5.0.1
+pkgrel=1
 pkgdesc='Lightweight C++ template library for vector and matrix math, a.k.a. linear algebra'
 arch=(x86_64)
 url='https://eigen.tuxfamily.org'
@@ -20,7 +20,7 @@ makedepends=(cmake
              git
              suitesparse)
 source=(git+https://gitlab.com/libeigen/eigen#tag=$pkgver)
-sha256sums=('11808f4e26d9b2aef890c8354f6de43320008776a173c1ddbd05622e70dbbf1f')
+sha256sums=('5f1252d70f39d43243b1346f3cdeb944178d6d28cd18c44ed3614625d371e6f0')
 
 build() {
   cmake -B build -S $pkgname \
