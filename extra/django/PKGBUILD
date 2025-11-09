@@ -4,8 +4,8 @@
 
 pkgbase=django
 pkgname=('python-django')
-pkgver=5.1.13
-pkgrel=1
+pkgver=5.1.14
+pkgrel=2
 pkgdesc="A high-level Python Web framework that encourages rapid development and clean design"
 arch=('any')
 license=('BSD')
@@ -17,7 +17,7 @@ depends=('python' 'python-pytz' 'python-sqlparse' 'python-asgiref')
 optdepends=('python-psycopg2: for PostgreSQL backend'
             'python-argon2-cffi: for Argon2 password hashing support')
 source=("Django-$pkgver.tar.gz::https://www.djangoproject.com/download/$pkgver/tarball/")
-sha512sums=('f07f4b07440c1a2ab29f8bf105ffba2cd1b5f3aea2e2a8cf15f46ec78575c0a5b8075f35865375c7f61733372c3912db3e884de9be7366e70ad2133538a1ccf7')
+sha512sums=('29e2d4746df664a129a940ba9ba35d5b5e5f7104477e3055b02628f66c761def7d601b0f917c7e16988795c36c749d7c093e53da8ad90983a9d7f478adb41781')
 
 prepare() {
   cd "django-$pkgver"
@@ -34,7 +34,6 @@ package_python-django() {
   cd "django-$pkgver"
   python -m installer --destdir="$pkgdir" dist/*.whl
 
-  ln -s django-admin.py "$pkgdir"/usr/bin/django-admin3.py
   ln -s django-admin "$pkgdir"/usr/bin/django-admin3
   install -Dm644 extras/django_bash_completion \
     "$pkgdir"/usr/share/bash-completion/completions/django-admin.py
