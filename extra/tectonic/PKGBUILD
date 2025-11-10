@@ -7,7 +7,7 @@
 
 pkgname=tectonic
 pkgver=0.15.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Modernized, complete, self-contained TeX/LaTeX engine, powered by XeTeX and TeXLive'
 arch=('x86_64')
 url='https://tectonic-typesetting.github.io/'
@@ -16,13 +16,16 @@ depends=('fontconfig' 'harfbuzz-icu' 'openssl')
 makedepends=('cargo' 'pkg-config')
 options=(!lto)
 source=("https://github.com/tectonic-typesetting/tectonic/archive/refs/tags/tectonic@${pkgver}.tar.gz"
-         https://github.com/tectonic-typesetting/tectonic/commit/6b49ca8d.patch)
+         https://github.com/tectonic-typesetting/tectonic/commit/6b49ca8d.patch
+         tectonic-0.15.0-fix-the-implicit-autoref-error.patch)
 b2sums=('4049b7a18b79c89c222039ded8d25fbf6249408362d2adc09f0d51c6ba2f1c634581c6451efc27d9138115ab71c14511d56179868d00f13edae206c5b1ba78d4'
-        '4a091a2f5895c3eb2b2988900b708de42226efd98e86c54826e772b435eeae667a6c4c5e01f7cc1246184ce513ea73f89fd6b9aed45834ae7a32686773239974')
+        '4a091a2f5895c3eb2b2988900b708de42226efd98e86c54826e772b435eeae667a6c4c5e01f7cc1246184ce513ea73f89fd6b9aed45834ae7a32686773239974'
+        'f09939b5c6071242c680db2016deb73e02443c688495f2db240833dec82db254b764f82f5feb6e90bedf9a4598b528237b68350b03c0bcd8bcdeb44d8cd96880')
 
 prepare() {
   cd ${pkgname}-${pkgname}-${pkgver}
   patch -p1 -i ../6b49ca8d.patch # Fix build with rust 1.80
+  patch -p1 -i ../tectonic-0.15.0-fix-the-implicit-autoref-error.patch
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
   sed -e 's|c++14|c++17|g' -i crates/*/build.rs # Fix build with ICU 75
 }
