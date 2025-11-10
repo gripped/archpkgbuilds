@@ -3,8 +3,8 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=dtk6core
-pkgver=6.0.43
-pkgrel=2
+pkgver=6.0.44
+pkgrel=1
 pkgdesc='DTK core modules'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtk6core"
@@ -12,16 +12,8 @@ license=('LGPL-3.0-or-later')
 depends=('deepin-desktop-base' 'dtkcommon' 'dtk6log' 'gcc-libs' 'glibc' 'icu' 'lshw' 'qt6-base'
          'uchardet')
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'gtest' 'doxygen')
-source=("git+https://github.com/linuxdeepin/dtk6core.git#tag=$pkgver"
-         qt-6.10.patch)
-sha512sums=('3c4fcc67fb7233a0a5a794573eae30f5ccae208ef72d7d6745142dcc9bd393fc6d7052dd2a887c0d095bc37a0d88804b90ebecc37e5315bf61d433866ebcbad1'
-            '554ad9666b04f49ea9a55aea04c5d0687e0c27f9a8a4b95a29d9335c647eba899a507f2bb7a1e3296710ce028b9dbc4fd5078296ae3154b54c00cfdb6d02de14')
-
-prepare() {
-  cd dtk6core
-  sed -i 's|/etc/os-version|/etc/uos-version|' src/dsysinfo.cpp
-  patch -p1 -i ../qt-6.10.patch
-}
+source=("git+https://github.com/linuxdeepin/dtk6core.git#tag=$pkgver")
+sha512sums=('4450b9f80665b437a8f618f7e0469166423c6b48fa994b967049655dc614666b980f001be302f90f98dc3350ddc6451c83064bf686efedbd9aca6636061bc7f4')
 
 build() {
   cd dtk6core
