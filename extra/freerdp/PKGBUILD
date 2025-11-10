@@ -5,7 +5,7 @@
 pkgname=freerdp
 pkgver=3.17.2
 _libver=${pkgver/.*/}
-pkgrel=4
+pkgrel=5
 epoch=2
 pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)"
 arch=(x86_64)
