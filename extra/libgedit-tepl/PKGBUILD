@@ -3,7 +3,7 @@
 
 pkgname=libgedit-tepl
 pkgver=6.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Library that eases the development of GtkSourceView-based text editors and IDEs'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/gedit/libgedit-tepl'
