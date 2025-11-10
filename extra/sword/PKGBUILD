@@ -12,7 +12,7 @@ pkgbase=sword
 pkgname=(sword python-sword)
 _mainver=1.9
 pkgver=1.9.0
-pkgrel=16
+pkgrel=17
 pkgdesc="Library for Bible study programs"
 arch=('x86_64')
 url="https://www.crosswire.org/sword/"
@@ -33,6 +33,7 @@ build() {
       -DSWORD_BUILD_TESTS="Yes" \
       -DSWORD_PYTHON_3=TRUE \
       -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
       -Wno-dev
   cmake --build build
 }
