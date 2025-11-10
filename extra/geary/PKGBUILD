@@ -5,7 +5,7 @@
 
 pkgname=geary
 pkgver=46.0
-pkgrel=6
+pkgrel=7
 epoch=1
 pkgdesc='A lightweight email client for the GNOME desktop'
 arch=(x86_64)
