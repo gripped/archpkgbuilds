@@ -3,7 +3,7 @@
 
 pkgname=foliate
 pkgver=3.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A simple and modern GTK eBook reader'
 arch=(any)
 url="https://johnfactotum.github.io/$pkgname/"
@@ -18,10 +18,9 @@ makedepends=(gettext
              meson
              ninja)
 optdepends=(#'dictd: Offline dictionary support'
-            'espeak-ng: Text-to-speech support; also voice package needed'
-            'festival: Text-to-speech support; also voice package needed'
             'gspell: Spell-checking support'
             'hyphen: Auto-hyphenation support'
+            'speech-dispatcher: Text-to-speech support (in turn requires a voice package and an audio driver)'
             'tracker3')
 _archive="com.github.johnfactotum.${pkgname^}-$pkgver"
 source=("$_url/releases/download/$pkgver/$_archive.tar.xz")
