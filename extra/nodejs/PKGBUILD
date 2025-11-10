@@ -10,7 +10,7 @@
 
 pkgname=nodejs
 pkgver=25.1.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Evented I/O for V8 javascript ("Current" release)'
 arch=('x86_64')
 url='https://nodejs.org/'
@@ -54,6 +54,12 @@ _set_flags() {
   CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
 }
 
+prepare() {
+  cd node
+  # Update ICU test data
+  git cherry-pick --no-commit 5afe4cd716cbf7699f6abc99338f44db3b1424d5
+}
+
 build() {
   _set_flags
   cd node
@@ -92,6 +98,10 @@ check() {
   rm test/parallel/test-http2-priority-event.js
   rm test/parallel/test-http2-reset-flood.js
   rm test/parallel/test-tls-ocsp-callback.js
+
+  # https://github.com/nodejs/node/pull/60523
+  rm test/parallel/test-datetime-change-notify.js
+
   make test-only
 }
 
