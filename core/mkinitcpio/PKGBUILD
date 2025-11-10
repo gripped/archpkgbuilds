@@ -5,7 +5,7 @@
 
 pkgname=mkinitcpio
 pkgver=40
-pkgrel=1
+pkgrel=2
 pkgdesc="Modular initramfs image creation utility"
 arch=('any')
 url='https://gitlab.archlinux.org/archlinux/mkinitcpio/mkinitcpio'
@@ -25,13 +25,22 @@ conflicts=(
 )
 provides=('initramfs')
 backup=('etc/mkinitcpio.conf')
-source=("https://sources.archlinux.org/other/$pkgname/$pkgname-$pkgver.tar.xz"{,.sig})
+source=("https://sources.archlinux.org/other/$pkgname/$pkgname-$pkgver.tar.xz"{,.sig}
+        '0001-trigger.patch')
 sha512sums=('f74a1cee5ea24b8f57d84952e92048548b6cba2138c19d9a05e76051f4765994cd5b1e41363d90b3a9718e0844268cc4046cd02dcecb32e38948ba90ecceb17f'
-            'SKIP')
+            'SKIP'
+            'b21e3961294e80bedd89a7e332ab11fc3b83eebfaf58d8f658e30f7d9caf2f84f4934224173c70f111932de8538fa327f5f6bfe9576b11bcbaf84d2d5ad8e85d')
 b2sums=('c683e795e0d058567d86905e0fe14086a675e0156d11f965cc335da9361ce1809659906b0d263c2bb368f4049fc94715cfb8981414d57cfd3f877816a75ac14d'
-        'SKIP')
+        'SKIP'
+        '3b8e08d56e209ad11827d65595ab245bb680e72fb81139ba946e7610d16214c2a9022f1a1794e6797ef07fb0a43c5239167729225daf89396a8920f39f75e34b')
 validpgpkeys=('ECCAC84C1BA08A6CC8E63FBBF22FB1D78A77AEAB'    # Giancarlo Razzolini
               'C100346676634E80C940FB9E9C02FF419FECBE16')   # Morten Linderud
+
+prepare() {
+  cd $pkgname-$pkgver
+
+  patch -Np1 < ../0001-trigger.patch
+}
 
 build(){
   cd $pkgname-$pkgver
