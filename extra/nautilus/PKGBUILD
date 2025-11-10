@@ -9,7 +9,7 @@ pkgname=(
   libnautilus-extension-docs
 )
 pkgver=49.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Default file manager for GNOME"
 url="https://apps.gnome.org/Nautilus/"
 arch=(x86_64)
