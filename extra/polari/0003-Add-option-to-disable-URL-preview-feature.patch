@@ -8,7 +8,7 @@ It has security and privacy concerns.
 Closes: https://gitlab.gnome.org/GNOME/polari/-/issues/133
 ---
  data/org.gnome.Polari.gschema.xml | 5 +++++
- data/resources/main-window.ui     | 4 ++++
+ data/ui/main-window.ui            | 4 ++++
  src/application.js                | 2 ++
  src/chatView.js                   | 3 ++-
  4 files changed, 13 insertions(+), 1 deletion(-)
@@ -29,10 +29,10 @@ index bfc3de08ab26..a97603976f40 100644
    </schema>
  
    <schema id="org.gnome.Polari.Account">
-diff --git a/data/resources/main-window.ui b/data/resources/main-window.ui
-index 208724accb73..b7d4e8db6f57 100644
---- a/data/resources/main-window.ui
-+++ b/data/resources/main-window.ui
+diff --git a/data/ui/main-window.ui b/data/ui/main-window.ui
+index 0756a5e24f7d..021a71e3c0ef 100644
+--- a/data/ui/main-window.ui
++++ b/data/ui/main-window.ui
 @@ -21,6 +21,10 @@ SPDX-License-Identifier: GPL-2.0-or-later
          <attribute name="action">app.run-in-background</attribute>
          <attribute name="label" translatable="yes">Run in Background</attribute>
@@ -45,10 +45,10 @@ index 208724accb73..b7d4e8db6f57 100644
      <section>
        <item>
 diff --git a/src/application.js b/src/application.js
-index 50ca77b766ca..6e4001cfe55f 100644
+index 6a297646e39f..9a06fbd1081b 100644
 --- a/src/application.js
 +++ b/src/application.js
-@@ -362,6 +362,8 @@ class Application extends Adw.Application {
+@@ -361,6 +361,8 @@ class Application extends Adw.Application {
          this._settings = new Gio.Settings({schema_id: 'org.gnome.Polari'});
          let action = this._settings.create_action('run-in-background');
          this.add_action(action);
@@ -58,10 +58,10 @@ index 50ca77b766ca..6e4001cfe55f 100644
          action = this.lookup_action('user-list');
          action.connect('notify::enabled', () => {
 diff --git a/src/chatView.js b/src/chatView.js
-index 6b5e27d72cf5..80a554dcc80d 100644
+index fcb373687327..de13a80e2e44 100644
 --- a/src/chatView.js
 +++ b/src/chatView.js
-@@ -1365,7 +1365,8 @@ class ChatView extends Gtk.ScrolledWindow {
+@@ -1305,7 +1305,8 @@ class ChatView extends Gtk.ScrolledWindow {
              this._insertWithTags(iter,
                  url.name, tags.concat(this._lookupTag('url'), tag));
  

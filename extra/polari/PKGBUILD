@@ -1,8 +1,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=polari
-pkgver=46.0
-pkgrel=5
+pkgver=49.0
+pkgrel=1
 pkgdesc="An IRC Client for GNOME"
 url="https://apps.gnome.org/Polari/"
 arch=(x86_64)
@@ -41,21 +41,13 @@ source=(
   0002-mainWindow-Disconnect-event-handler-on-destroy.patch
   0003-Add-option-to-disable-URL-preview-feature.patch
 )
-b2sums=('4e8ebd9ab847cd67b0427e69e41fa1a102f00799309767efdb3b1e109a2737155224bf1558808f610639200e817dd64cef6d657cfcefbca183c8e779d36dad16'
-        '9d25b66c9bdfd3f2463b27a2b402e0f529ca269b0e384ca2f79aa01c47326a330ca46c95b24b05bb7c66cf73c5396af63ec958abdb03b147d786f8635aec74c7'
-        '7823af94b463184cde4ae1dbd50d71fa640a6be10bdea3c4a34ae9d6d2e988226a30538c121566f9b42d8044bc3e556032fd121b6ff1611aedcfbc90fef5d745'
-        'aa8c85064184acde7b37bf1b8e3d79b61173c39a1c114fcf7272504fc912f35c0cd15298e08f8f0a9b75507c73e8369483a7d7062e9f2e6772c310f47f286929')
+b2sums=('d210c0e21096bc12924a0f0b34f5ba0f04ce77eeeaad90575b1af52205fa5462b8a8bd43ff9dce02b4ac6edf5a7c703c8ad819955644dff72754bfb1a4efb447'
+        'bc1e8802e74c0fb1c2436998440a885cf3b717b3000af81be73f330a734b925ed48a9f9cb7afd1a3024bfe00862e8ec90b43e5a0f3ab1539ae3548f46554a474'
+        'f97c86ca46a443a57f8a03849e8d45e8d6fc56403bac26f6cdc74bf55407ecd3ea9177d8763e9e15c0c3cca93c75355f84abbfaee9ab8fc7f23291cca5276191'
+        '1c317c21f9742b4d48110637871f8fc8b1e8adb92f283446bb945ac0da28fd71d7f14a79d763cafc68c7444f86b169ba1e7f4979405ccee99bc9cb2bb836fc89')
 
 prepare() {
   cd polari
-
-  # Fix running with gjs 1.86.0
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/polari/-/issues/1
-  git cherry-pick -n d7946c7fe39f112cd3f751bb95b170446022980d
-
-  # joinDialog: Fix closing the dialog
-  # https://gitlab.gnome.org/GNOME/polari/-/merge_requests/319
-  git cherry-pick -n 56544fe9c036c8a0e6f4990054730627c32bb561
 
   # joinDialog: Fix detecting pointer devices
   # https://gitlab.gnome.org/GNOME/polari/-/merge_requests/320

@@ -8,16 +8,16 @@ reopened, causing a crash.
 
 Closes: https://gitlab.gnome.org/GNOME/polari/-/issues/233
 ---
- src/mainWindow.js | 21 ++++++++++++---------
- 1 file changed, 12 insertions(+), 9 deletions(-)
+ src/mainWindow.js | 23 +++++++++++++----------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
 
 diff --git a/src/mainWindow.js b/src/mainWindow.js
-index c3d79bb04595..3c43943ec9e7 100644
+index dfb2ea07dd16..7d813a881106 100644
 --- a/src/mainWindow.js
 +++ b/src/mainWindow.js
-@@ -71,41 +71,42 @@ class MainWindow extends Adw.ApplicationWindow {
- 
-         this._userListPopover.set_parent(this._showUserListButton);
+@@ -96,49 +96,50 @@ class MainWindow extends Adw.ApplicationWindow {
+             }
+         });
  
 -        const app = this.application;
 -        if (app.isTestInstance)
@@ -26,6 +26,15 @@ index c3d79bb04595..3c43943ec9e7 100644
              this.add_css_class('test-instance');
          if (GLib.get_application_name().toLowerCase().includes('snapshot'))
              this.add_css_class('snapshot');
+ 
+         const actions = [{
+             name: 'search',
+             handler: () => this._searchButton.activate(),
+         }];
+         actions.forEach(a => {
+-            app.lookup_action(a.name).connect('activate', a.handler);
++            this._app.lookup_action(a.name).connect('activate', a.handler);
+         });
  
          this._roomStack.connect('notify::view-height',
              () => this.notify('view-height'));
@@ -67,7 +76,7 @@ index c3d79bb04595..3c43943ec9e7 100644
          this._userListPopover.connect('notify::visible', () => {
              if (!this._userListPopover.visible)
                  this._userListAction.change_state(GLib.Variant.new('b', false));
-@@ -176,6 +177,8 @@ class MainWindow extends Adw.ApplicationWindow {
+@@ -207,6 +208,8 @@ class MainWindow extends Adw.ApplicationWindow {
  
          this._roomManager.disconnect(this._roomsLoadedId);
          this._roomManager.disconnect(this._roomRemovedId);

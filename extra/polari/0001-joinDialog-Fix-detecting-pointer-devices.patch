@@ -11,7 +11,7 @@ Closes: https://gitlab.gnome.org/GNOME/polari/-/issues/209
  1 file changed, 10 insertions(+), 3 deletions(-)
 
 diff --git a/src/serverRoomManager.js b/src/serverRoomManager.js
-index 4c7c9ee11497..123c1cca36a5 100644
+index 88753648388d..3122a09500d9 100644
 --- a/src/serverRoomManager.js
 +++ b/src/serverRoomManager.js
 @@ -3,7 +3,6 @@
@@ -27,7 +27,7 @@ index 4c7c9ee11497..123c1cca36a5 100644
          });
  
 +        let pointerDeviceEvent = false;
-+        let clickController = new Gtk.GestureClick();
++        const clickController = new Gtk.GestureClick();
 +        clickController.connect('pressed', (_controller, _nPress, _x, _y) => {
 +            pointerDeviceEvent = true;
 +        });
@@ -40,7 +40,7 @@ index 4c7c9ee11497..123c1cca36a5 100644
  
          this._toggleRenderer.connect('toggled', (cell, pathStr) => {
              // For pointer devices, ::row-activated is emitted as well
--            let dev = Gtk.get_current_event_device();
+-            const dev = Gtk.get_current_event_device();
 -            if (dev && dev.input_source === Gdk.InputSource.KEYBOARD)
 +            if (!pointerDeviceEvent)
                  this._toggleChecked(Gtk.TreePath.new_from_string(pathStr));
