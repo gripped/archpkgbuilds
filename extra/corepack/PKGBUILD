@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=corepack
-pkgver=0.34.2
+pkgver=0.34.3
 pkgrel=1
 pkgdesc='Zero-runtime-dependency Node.js script'
 arch=(any)
@@ -14,14 +14,14 @@ makedepends=(
   python
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('36fa27b4a5203257bd96971035a44208aab1554e27f3b5046b512f57273cf219d51b2993b543e979710b02f011e518deec32ed1706a58645676811d97ad6624c')
+b2sums=('b2edeeab4dc3a52be26151c7c25ca083ec9617fc4cb3997d525b52bfdf3104e079e034a47857598bd4e364e40db1b677139f9846f45aab5df36f630cf7f0267a')
 
 prepare() {
   cd $pkgname
   mkdir bin
   corepack enable --install-directory bin yarn
   yes | bin/yarn set version stable
-  bin/yarn install --immutable
+  yes | bin/yarn install --immutable
 }
 
 build() {
