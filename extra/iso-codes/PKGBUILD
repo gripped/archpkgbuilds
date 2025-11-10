@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=iso-codes
-pkgver=4.18.0
+pkgver=4.19.0
 pkgrel=1
 pkgdesc='Lists of the country, language, and currency names'
 url='https://salsa.debian.org/iso-codes-team/iso-codes'
@@ -11,7 +11,7 @@ license=(LGPL-2.1-only)
 makedepends=(git
              python)
 source=(git+https://salsa.debian.org/iso-codes-team/iso-codes#tag=v$pkgver)
-sha256sums=('a1eac28ded71fc21be103856af028611e237c8a9a9021eb17ab1be7c8b4ec933')
+sha256sums=('0e9e11574ed12838403cd41384057a2d31d829e621517c19cacfc4e951bc56bf')
 
 build() {
   cd $pkgname
