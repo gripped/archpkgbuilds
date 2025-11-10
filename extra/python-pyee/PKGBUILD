@@ -3,8 +3,8 @@
 
 pkgname=python-pyee
 _name=${pkgname#python-}
-pkgver=11.1.0
-pkgrel=2
+pkgver=13.0.0
+pkgrel=1
 pkgdesc="Port of node.js's EventEmitter to python"
 arch=(any)
 url=https://github.com/jfhbrook/pyee
@@ -26,23 +26,23 @@ optdepends=(
   python-trio
   python-twisted
 )
-source=("git+$url.git#tag=v$pkgver")
-b2sums=('b7e6cbfef3bc201174bb636a6c80b41f7fd31653e2b384ec22a49411525766ec7e60aafef5699a47705a8331a6b7b901c2007b2c24e621588d298e026876aa22')
+source=(git+https://github.com/jfhbrook/pyee#tag=v$pkgver)
+sha256sums=('d44abfc1549ae13fb1c8b4325aae98aebff07bdc87475232162dc81e22f5700f')
 
 build() {
-  cd "$_name"
+  cd $_name
   python -m build --wheel --skip-dependency-check --no-isolation
 }
 
 check() {
-  cd "$_name"
+  cd $_name
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m pytest
 }
 
 package() {
-  cd "$_name"
+  cd $_name
   python -m installer --destdir="$pkgdir" dist/*.whl
 
   # Symlink license file
