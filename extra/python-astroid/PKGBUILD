@@ -6,7 +6,7 @@
 
 _pyname=astroid
 pkgname=python-$_pyname
-pkgver=4.0.1
+pkgver=4.0.2
 pkgrel=1
 pkgdesc='A common base representation of python source code'
 arch=(any)
@@ -27,7 +27,7 @@ replaces=(python-logilab-astng)
 conflicts=(python-logilab-astng)
 _archive="$_pyname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('d013ca4869b4affb8e763a44abf1bbbcaa9d2476cb3de43e121e7d6520d400b8')
+sha256sums=('e6e00757ba15393b51143e9c72d6d71ad047eb1f9a822061991dbe5e598d1c71')
 
 build() {
 	cd "$_archive"
@@ -36,8 +36,7 @@ build() {
 
 check() {
 	cd "$_archive"
-	# Test failure due to pkg_resources deprecation
-	pytest --deselect tests/test_manager.py::AstroidManagerTest::test_identify_old_namespace_package_protocol
+	pytest
 }
 
 package() {
