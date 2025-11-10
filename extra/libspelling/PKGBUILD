@@ -7,7 +7,7 @@ pkgname=(
   libspelling-docs
 )
 pkgver=0.4.9
-pkgrel=1
+pkgrel=2
 pkgdesc="Spellcheck library for GTK 4"
 url="https://gitlab.gnome.org/GNOME/libspelling"
 arch=(x86_64)
