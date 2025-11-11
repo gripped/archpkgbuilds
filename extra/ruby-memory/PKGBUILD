@@ -2,7 +2,7 @@
 
 _gemname='memory'
 pkgname="ruby-${_gemname}"
-pkgver=0.7.1
+pkgver=0.11.1
 pkgrel=1
 pkgdesc='Memory profiling routines for Ruby 2.3+'
 arch=('any')
@@ -27,8 +27,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('4913693df662a2615f0ed98822af8acc8de1328220fb16325637adeb4c8b5636d430357f73fecd21f9d5a6a463b2f633bfaa4dc4681a6b56ffae59536713701d')
-b2sums=('2eebbeddc410fba0f28b0e3ea3c35919dd77ae275aa94e8c2fd8f9485083d5605bbf963d8b614f4c744d7e877b6ef3864fc9927cfaa5a3cb7cd1811db2ce56b3')
+sha512sums=('acc9fb3cb1dad4038c2d2fceb6f5073aed44d5689d466c661a73cc48d3eafd18fcc95028fe57c4c62a03d57d1b5df950d5ee0fe2b6e762dd243a7b9446b53437')
+b2sums=('1f8028c80f2c2fddbcad77327462ee27ac0c17bf7f1acbea89ad6bc8351fe1668d2bcd62fa93609ac26763abcc8420a4673e0a191c37833b0d2092d91e00695d')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
