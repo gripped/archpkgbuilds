@@ -1,0 +1,10 @@
+--- a/Makefile
++++ b/Makefile
+@@ -49,6 +49,7 @@ JS80P_CXXFLAGS = \
+ 	-D JS80P_INSTRUCTION_SET=$(INSTRUCTION_SET) \
+ 	-Wall \
+ 	-Werror \
++	-Wno-error=deprecated-declarations \
+ 	-ffast-math \
+ 	-O3 \
+ 	-std=c++17
