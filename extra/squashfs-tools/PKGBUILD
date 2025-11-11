@@ -5,7 +5,7 @@
 # Contributor: ciccio.a
 
 pkgname=squashfs-tools
-pkgver=4.7.3
+pkgver=4.7.4
 pkgrel=1
 pkgdesc='Tools for squashfs, a highly compressed read-only filesystem for Linux'
 arch=(x86_64)
@@ -22,8 +22,8 @@ depends=(
 )
 makedepends=(help2man)
 source=($url/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('8b334b765d0426acdc3df4d3afc0c197368f81f01a6dd79acf9f894155b60d972bccd198d7652000cf81479084ba45ff2a82611949cc4aa1a71e43317b836ca2')
-b2sums=('f514187dee5141f10ae626880dc6d9101b46e480eaa94602307d6e5132fc7dc46d3db24ab041d6f200cdb1f46d325bf89868b708af0891bdb92e6c7ff44d5f92')
+sha512sums=('16943b331723c301d7e65c14e5946d3fa27f974ba509a412ab6182a48d83a935d445feb80a27d89a5b5ba5cf86e55835f12d28c2b2b57f5623e1151cb2966376')
+b2sums=('2488f2d953c53bbf25d18242b4cb315ebe67f336bb07003d52622f701c9ee8409330fe16a5782737777cbbd62228181973005e66c4e56f28900769dad94df51e')
 
 build() {
   local make_options=(
