@@ -3,8 +3,8 @@
 # Contributor: James Zhu <jameszhu@berkeley.edu>
 
 pkgname=python-black
-pkgver=25.9.0
-pkgrel=2
+pkgver=25.11.0
+pkgrel=1
 pkgdesc='Uncompromising Python code formatter'
 arch=(any)
 url='https://github.com/psf/black'
@@ -40,8 +40,8 @@ optdepends=(
   'python-colorama: for colored diffs'
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('03c516aeb1adc110927b0d2489e14e6f8e8fcbb912166f25fbab5cbd21d9f0ee2fdcb39be91ef35f5ed55049bcd4faa473248b6d0fbc63de54424f49fb9262e1')
-b2sums=('fa8908b5b826ed9784573f70dffad5e944f2fb115bbb10f8b4c11474e846901cfa02ba8d2c0fdc78b629f133aa78d1633cf12ba6cd0e36049fbc65545c26db46')
+sha512sums=('62495ee47ce609081c816eff7a903fea9a2912e8caa6d5e41a21acae06c770954ec7dc6edfa442cd16b6d1de4c5c37f0fb559dda89bf873036d41d1625a27584')
+b2sums=('8ea5b0f68e8dcd0adc9a5aafee7630779294aa0ba2262d030509e128ebd67a88e316fa20fe9cd8baa946be5ba2a5edf8fadf419c3d01bb29534700fa2ced0e93')
 
 build() {
   cd "$pkgname"
