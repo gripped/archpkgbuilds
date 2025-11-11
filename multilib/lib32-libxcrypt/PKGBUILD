@@ -2,7 +2,7 @@
 
 pkgbase=lib32-libxcrypt
 pkgname=(lib32-libxcrypt lib32-libxcrypt-compat)
-pkgver=4.5.1
+pkgver=4.5.2
 pkgrel=1
 pkgdesc='Modern library for one-way hashing of passwords (32-bit)'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('lib32-glibc' 'libxcrypt')
 makedepends=('gcc-multilib')
 validpgpkeys=('678CE3FEE430311596DB8C16F52E98007594C21D') # Björn 'besser82' Esser
 source=("${url}/releases/download/v${pkgver}/libxcrypt-${pkgver}.tar.xz"{,.asc})
-sha256sums=('e9b46a62397c15372935f6a75dc3929c62161f2620be7b7f57f03d69102c1a86'
+sha256sums=('71513a31c01a428bccd5367a32fd95f115d6dac50fb5b60c779d5c7942aec071'
             'SKIP')
 
 build() {
