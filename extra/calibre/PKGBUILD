@@ -9,7 +9,7 @@
 
 pkgname=calibre
 pkgver=8.7.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Ebook management application'
 arch=(x86_64)
 url=https://calibre-ebook.com
@@ -112,6 +112,7 @@ build() {
 	python setup.py build
 	python setup.py iso639
 	python setup.py iso3166
+        # the liberation fonts directory is deleted later, but this step is necessary to prevent the setup from downloading them
 	python setup.py liberation_fonts --system-liberation_fonts --path-to-liberation_fonts /usr/share/fonts/liberation
 #	MathJax 4 not supported
 #	python setup.py mathjax --system-mathjax --path-to-mathjax /usr/share/mathjax
@@ -138,6 +139,8 @@ package() {
 	cp -a man-pages/ "$pkgdir/usr/share/man"
 	# not needed at runtime
 	rm -r "$pkgdir/usr/share/calibre/rapydscript/"
+	# actual font files provided by system package
+	rm -r "$pkgdir/usr/share/calibre/fonts/liberation/"
 	# Compiling bytecode FS#33392
 	# This is kind of ugly but removes traces of the build root.
 	while read -rd '' _file; do
