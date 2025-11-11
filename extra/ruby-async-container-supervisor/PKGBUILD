@@ -2,7 +2,7 @@
 
 _gemname='async-container-supervisor'
 pkgname="ruby-${_gemname}"
-pkgver=0.6.0
+pkgver=0.9.1
 pkgrel=1
 pkgdesc='A supervisor for managing multiple container processes'
 arch=('any')
@@ -10,11 +10,11 @@ url="https://github.com/socketry/${_gemname}"
 license=('MIT')
 depends=(
   ruby
-  ruby-async-container
   ruby-async-service
   ruby-io-endpoint
-  ruby-io-stream
+  ruby-memory
   ruby-memory-leak
+  ruby-process-metrics
 )
 makedepends=(
   ruby-rdoc
@@ -26,13 +26,15 @@ checkdepends=(
   ruby-bundler
   ruby-covered
   ruby-decode
+  ruby-falcon
   ruby-sus
   ruby-sus-fixtures-async
+  ruby-sus-fixtures-console
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('a0ce4b01da92d1391d89140bdc55cf6b4012114822a582c9e389cea6648b7c6c947c35d078ae00b5a5e7defd67cf2e33affadf754d98fce764f51a8e8f337e3c')
-b2sums=('140809c1f52d56eecb4d53acd69819a22a4793e7986aef1ce2f59f2465d04efa9de0d6ff7dbf14fd40f0c353af2e702301c06b6fd142ae0533d4c732b20589f0')
+sha512sums=('bf71d091cd4197b7630b0d67ea7c0a56af3e6f06136bfb658d18e63a7211dbde05f93adbe9e908ef8609976fa743404da666caf14186119c081bc35036b80b7c')
+b2sums=('9eb22d5e9036fc4b6cf694a3d86a868e838a610c5d6c077630dd420747177501fcbb486ded78712cf5d7be580116fa45cb0ba007b1a11ebd79101555fd14cef4')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
