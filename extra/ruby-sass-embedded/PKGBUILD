@@ -1,7 +1,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 _name="sass-embedded"
 pkgname="ruby-$_name"
-pkgver=1.93.2
+pkgver=1.93.3
 pkgrel=1
 pkgdesc="Embedded Sass Host for Ruby"
 arch=("any")
@@ -12,7 +12,7 @@ makedepends=("ruby-rake" "ruby-rdoc" "protobuf")
 checkdepends=("ruby-bundler" "ruby-rspec")
 source=("$pkgname-$pkgver::https://github.com/sass-contrib/sass-embedded-host-ruby/archive/refs/tags/v$pkgver.tar.gz"
         "no-rubocop-build.patch")
-sha256sums=('7710814e1e830efc5de4a30a5a0f09bfaba1a56d858c3b9d4023ff9989df899a'
+sha256sums=('4d5d517a74d477a6a40d557a7273dd16273eade21b28205acb7be244cb4f2a9a'
             '400bf05b863d1e29245c48a211b524b12ec72e0f11ee65cca2e5a5fc052ea042')
 
 prepare() {
@@ -40,7 +40,7 @@ build() {
   local _gemdir="$(gem env gemdir)"
 
   # generate ./ext/sass/embedded_sass_pb.rb
-  protoc --ruby_out=ext/sass/ --proto_path=/usr/share/dart-sass/ /usr/share/dart-sass/embedded_sass.proto
+  protoc --ruby_out=lib/sass/ --proto_path=/usr/share/dart-sass/ /usr/share/dart-sass/embedded_sass.proto
 
   gem build "${_name}.gemspec"
 
