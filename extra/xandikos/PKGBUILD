@@ -2,7 +2,7 @@
 
 pkgname=xandikos
 pkgver=0.2.12
-pkgrel=4
+pkgrel=5
 pkgdesc='Lightweight yet complete CardDAV/CalDAV server that backs onto a Git repository'
 arch=(any)
 url=https://www.xandikos.org
@@ -31,13 +31,19 @@ optdepends=(
 )
 source=(
   "git+https://github.com/jelmer/$pkgname.git#tag=v$pkgver"
-  "$pkgname.sysusers.conf"
-  "$pkgname.tmpfiles.conf"
+  sysusers.conf
+  tmpfiles.conf
 )
 b2sums=('86e97e011dc3807f31a269f0e669c49895afdabe60435d1e59de016659fdddaf1f350bf4e42b577ab2f04e30b42a04a80d9ee1a8572b4b680203ce9d97884dc2'
         '66e31fa7cb6e363df4411eed424ee1ffba1151d504eb957d0fa079d9d19ac34e7b0de76dd781dc6a3802140410428403e77c9cf0ea34e3961e305c154996d8b9'
         'be8df371a3cdd55e2efd4549251b44cbb5699762f14aa3dcb0e85cdbb3710d75fae8e38b615057f6da37fe744019aabc2c366136ca577a152cd03d380db189c2')
 #validpgpkeys=('DC837EE14A7E37347E87061700806F2BD729A457') # Jelmer Vernooĳ <jelmer@jelmer.uk>
+
+prepare() {
+  cd $pkgname
+  # Disable autogc for now, since it might cause requests to time out
+  git cherry-pick --no-commit 5df66f0fe653788707235d64965cc48535f96dce
+}
 
 build() {
   cd $pkgname
@@ -50,10 +56,8 @@ check() {
 }
 
 package() {
-  install -Dm644 $pkgname.sysusers.conf \
-    "$pkgdir"/usr/lib/sysusers.d/$pkgname.conf
-  install -Dm644 $pkgname.tmpfiles.conf \
-    "$pkgdir"/usr/lib/tmpfiles.d/$pkgname.conf
+  install -Dm644 sysusers.conf "$pkgdir"/usr/lib/sysusers.d/$pkgname.conf
+  install -Dm644 tmpfiles.conf "$pkgdir"/usr/lib/tmpfiles.d/$pkgname.conf
 
   cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
