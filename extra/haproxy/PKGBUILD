@@ -3,7 +3,7 @@
 
 pkgname=haproxy
 pkgver=3.2.8
-pkgrel=1
+pkgrel=2
 
 # Each release serie has its own repository. This is handled automatically in
 # PKGBUILD, but nvchecker configuration needs to be updated on bump!
@@ -54,18 +54,18 @@ build() {
     USE_OPENSSL=1 \
     USE_PCRE2=1 USE_PCRE2_JIT=1 \
     USE_PROMEX=1 \
-    USE_SYSTEMD=1 \
+    USE_QUIC=1 \
     USE_ZLIB=1
 
-    make \
-      SBINDIR=/usr/bin \
-      OPTIMIZE= \
-      CFLAGS="$CFLAGS" \
-      LDFLAGS="$LDFLAGS" \
-      admin/{halog/halog,iprange/ip{,6}range}
-    make \
-      SBINDIR=/usr/bin \
-      -C admin/systemd/
+  make \
+    SBINDIR=/usr/bin \
+    OPTIMIZE= \
+    CFLAGS="$CFLAGS" \
+    LDFLAGS="$LDFLAGS" \
+    admin/{halog/halog,iprange/ip{,6}range}
+  make \
+    SBINDIR=/usr/bin \
+    -C admin/systemd/
 }
 
 package() {
