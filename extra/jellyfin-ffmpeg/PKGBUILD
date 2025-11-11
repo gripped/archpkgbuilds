@@ -3,62 +3,62 @@
 
 pkgname=jellyfin-ffmpeg
 epoch=1
-pkgver=7.1.2p3
+pkgver=7.1.2p4
 pkgrel=1
 pkgdesc='Jellyfin fork of ffmpeg'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/jellyfin/jellyfin-ffmpeg'
-license=('GPL-3.0-only')
+license=(GPL-3.0-only)
 depends=(
-  'glibc'
-  'alsa-lib'
-  'bzip2'
-  'fontconfig'
-  'fribidi'
-  'gmp'
-  'gnutls'
-  'lame'
-  'libass.so'
-  'libbluray.so'
-  'libchromaprint.so'
-  'libdav1d.so'
-  'libdrm'
-  'libfreetype.so'
-  'libopenmpt.so'
-  'libplacebo.so'
-  'libtheora'
-  'libva.so'
-  'libva-drm.so'
-  'libvdpau'
-  'libvorbisenc.so'
-  'libvorbis.so'
-  'libvpx.so'
-  'libwebp'
-  'libx11'
-  'libx264.so'
-  'libx265.so'
-  'libxext'
-  'libxml2'
-  'libzimg.so'
-  'ocl-icd'
-  'onevpl'
-  'opus'
-  'shaderc'
-  'srt'
-  'svt-av1'
-  'vulkan-icd-loader'
-  'xz'
-  'zlib'
-  'zvbi'
+  glibc
+  alsa-lib
+  bzip2
+  fontconfig
+  fribidi
+  gmp
+  gnutls
+  lame
+  libass.so
+  libbluray.so
+  libchromaprint.so
+  libdav1d.so
+  libdrm
+  libfreetype.so
+  libopenmpt.so
+  libplacebo.so
+  libtheora
+  libva.so
+  libva-drm.so
+  libvdpau
+  libvorbisenc.so
+  libvorbis.so
+  libvpx.so
+  libwebp
+  libx11
+  libx264.so
+  libx265.so
+  libxext
+  libxml2
+  libzimg.so
+  ocl-icd
+  onevpl
+  opus
+  shaderc
+  srt
+  svt-av1
+  vulkan-icd-loader
+  xz
+  zlib
+  zvbi
 )
 makedepends=(
-  'git'
-  'nasm'
-  'clang'
-  'ffnvcodec-headers'
-  'amf-headers'
-  'opencl-headers'
-  'vulkan-headers'
+  git
+  nasm
+  clang
+  ffnvcodec-headers
+  amf-headers
+  opencl-headers
+  vulkan-headers
 )
 optdepends=(
   'intel-media-driver: for Intel VAAPI support (Broadwell and newer)'
@@ -72,10 +72,10 @@ optdepends=(
   'vulkan-radeon: for AMD RADV Vulkan support'
   'vulkan-intel: for Intel ANV Vulkan support'
 )
-options=('!lto')
+options=(!lto)
 source=("$pkgname::git+$url#tag=v${pkgver/p/-}")
-sha512sums=('311b9ea33f27f7474d51afa0b2898082f7e6480416492dd5804fd81cc13a7f170da1f4d0cac274672cf1621668a07313a20e93a28a29a5b36dbf0284dc9b1c59')
-b2sums=('fdabf7956b4670deec6ae845a9f9670705c2f15410b20e169dcbbc89d57b9c77e670db1465f779181e2231e7ab04540e448b039925838801cea2d2d2fb982846')
+sha512sums=('0166813caabd1ee0fcaa666181cde3eae360892b5391faecdc87e4d84a5811348a1d1d8e16c64703430754f4e2eca69481d5d553fb27046c27ab9c67d06d9ca7')
+b2sums=('f536d85e6a9983cda1a0f5c2e4591ffafb538115b737fdf0e75b94e2ec76749bee832f6e62fbe2333a5546adacf230589b2c16c2597e292564daf720dc279352')
 
 prepare() {
   cd "$pkgname"
