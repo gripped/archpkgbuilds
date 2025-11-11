@@ -1,0 +1,93 @@
+From b9d9716f08645cacf97c1acacbff4da493034182 Mon Sep 17 00:00:00 2001
+From: "Daniel M. Capella" <polyzen@archlinux.org>
+Date: Mon, 10 Nov 2025 16:43:47 -0500
+Subject: [PATCH] Use openrazer group
+
+`uaccess` is insufficient:
+https://github.com/openrazer/openrazer/issues/2418
+---
+ daemon/openrazer_daemon/daemon.py | 18 +++++++++---------
+ install_files/udev/99-razer.rules |  2 +-
+ install_files/udev/razer_mount    |  2 +-
+ 3 files changed, 11 insertions(+), 11 deletions(-)
+
+diff --git a/daemon/openrazer_daemon/daemon.py b/daemon/openrazer_daemon/daemon.py
+index bb8f5bfb..4282a3f7 100644
+--- a/daemon/openrazer_daemon/daemon.py
++++ b/daemon/openrazer_daemon/daemon.py
+@@ -93,10 +93,10 @@ class RazerDaemon(DBusService):
+         # map of vid+pid to counter for serial numbers for unknown devices
+         self._unknown_serial_counter: dict[tuple[int, int], int] = {}
+ 
+-        # Check for plugdev group
+-        if not self._check_plugdev_group():
+-            self.logger.critical("User is not a member of the plugdev group")
+-            self.logger.critical("Please run the command 'sudo gpasswd -a $USER plugdev' and then reboot!")
++        # Check for openrazer group
++        if not self._check_openrazer_group():
++            self.logger.critical("User is not a member of the openrazer group")
++            self.logger.critical("Please run the command 'sudo gpasswd -a $USER openrazer' and then reboot!")
+             sys.exit(1)
+ 
+         # Setup DBus to use gobject main loop
+@@ -185,9 +185,9 @@ class RazerDaemon(DBusService):
+ 
+         return logger
+ 
+-    def _check_plugdev_group(self):
++    def _check_openrazer_group(self):
+         """
+-        Check if the user is a member of the plugdev group. For the root
++        Check if the user is a member of the openrazer group. For the root
+         user, this always returns True
+ 
+         :rtype: bool
+@@ -196,7 +196,7 @@ class RazerDaemon(DBusService):
+             return True
+ 
+         try:
+-            return grp.getgrnam('plugdev').gr_gid in os.getgroups()
++            return grp.getgrnam('openrazer').gr_gid in os.getgroups()
+         except KeyError:
+             pass
+ 
+@@ -488,8 +488,8 @@ class RazerDaemon(DBusService):
+                     file_group_id = os.stat(test_file).st_gid
+                     file_group_name = grp.getgrgid(file_group_id)[0]
+ 
+-                    if os.getgid() != file_group_id and file_group_name != 'plugdev':
+-                        self.logger.critical("Could not access {0}/device_type, file is not owned by plugdev".format(sys_path))
++                    if os.getgid() != file_group_id and file_group_name != 'openrazer':
++                        self.logger.critical("Could not access {0}/device_type, file is not owned by openrazer".format(sys_path))
+                         break
+ 
+                     razer_device = device_class(device_path=sys_path, device_number=device_number, config=self._config,
+diff --git a/install_files/udev/99-razer.rules b/install_files/udev/99-razer.rules
+index 8c2f7cad..7f6b9623 100644
+--- a/install_files/udev/99-razer.rules
++++ b/install_files/udev/99-razer.rules
+@@ -28,7 +28,7 @@ ATTRS{idProduct}=="0068|007e|0215|0517|0518|0c00|0c01|0c02|0c04|0c05|0c06|0c08|0
+ ENV{ID_RAZER_CHROMA}!="1", GOTO="razer_end"
+ 
+ # Set permissions if this is an input node
+-SUBSYSTEM=="usb|input|hid", GROUP:="plugdev"
++SUBSYSTEM=="usb|input|hid", GROUP:="openrazer"
+ 
+ # We're done unless it's the hid node
+ SUBSYSTEM!="hid|usb", GOTO="razer_end"
+diff --git a/install_files/udev/razer_mount b/install_files/udev/razer_mount
+index 3fc0fef1..ed730758 100755
+--- a/install_files/udev/razer_mount
++++ b/install_files/udev/razer_mount
+@@ -56,7 +56,7 @@ done
+ 
+ if [ -d /sys/bus/hid/drivers/"$DRIVER"/"$DEVICE_ID" ] ; then
+ 	mesg "Changing group /sys/bus/hid/drivers/$DRIVER/$DEVICE_ID/"
+-	chgrp -R plugdev /sys/bus/hid/drivers/"$DRIVER"/"$DEVICE_ID"/
++	chgrp -R openrazer /sys/bus/hid/drivers/"$DRIVER"/"$DEVICE_ID"/
+ 	mesg "Changed group /sys/bus/hid/drivers/$DRIVER/$DEVICE_ID/"
+ fi
+ 
+-- 
+2.51.2
+
