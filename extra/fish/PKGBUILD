@@ -6,15 +6,15 @@
 # Contributor: Jan Fader <jan.fader@web.de>
 
 pkgname=fish
-pkgver=4.1.2
+pkgver=4.2.0
 pkgrel=1
 pkgdesc='Smart and user friendly shell intended mostly for interactive use'
 url='https://fishshell.com/'
-arch=('x86_64')
+arch=(x86_64)
 license=('GPL-2.0-only AND BSD-3-Clause AND ISC AND MIT AND PSF-2.0')
-depends=('glibc' 'gcc-libs' 'ncurses' 'pcre2')
-makedepends=('cmake' 'git' 'jq' 'rust' 'python-sphinx')
-checkdepends=('expect' 'procps-ng')
+depends=(glibc gcc-libs ncurses pcre2)
+makedepends=(cmake git jq rust python-sphinx)
+checkdepends=(expect procps-ng)
 optdepends=(
   'python: man page completion parser / web config tool'
   'pkgfile: command-not-found hook'
@@ -29,8 +29,8 @@ install=fish.install
 backup=(etc/fish/config.fish)
 source=("${pkgname}::git+https://github.com/fish-shell/fish-shell#tag=${pkgver}")
 #validpgpkeys=(003837986104878835FA516D7A67D962D88A709A) # David Adam <zanchey@gmail.com>
-sha512sums=('88c80ab493fb0244a45f3f2bfe1a3351fbcdff004ac3ef268d584be6c9fa9e78f54ccd30f6e609ac6254e1afd2752f9e059d03925ffdd0ceda5115055b731d8e')
-b2sums=('88389da810288e8740228f76640fc311d73b91c9fd7d1453e4fa2e42d3350ee9098d82fafede96897ff438a50b4fd163cb04f08ddfd821ecc4f7b41df11af765')
+sha512sums=('e0b8f82cca459677b84f4d61d415e662e603ce4ddb7e8ca34544def2ab504edf8e09500bd16553071d8def0c4f861fbacc44fdd53f5f33caaaa53e8751b4689d')
+b2sums=('523a4a750074730c2a56179df69a03cdc1e52c50f371c25548371f7e73ed442a82054270d69ee7739165a1f906bc5f8aec37d882d11e81febaa5bc81ea3d2a3d')
 
 build() {
   cd ${pkgname}
