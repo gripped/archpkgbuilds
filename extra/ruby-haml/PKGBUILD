@@ -5,8 +5,8 @@
 
 _gemname='haml'
 pkgname="ruby-${_gemname}"
-pkgver=6.3.0
-pkgrel=4
+pkgver=7.0.2
+pkgrel=1
 pkgdesc='HTML Abstraction Markup Language - A Markup Haiku'
 arch=('x86_64')
 url='https://haml.info'
@@ -22,8 +22,8 @@ makedepends=(
 )
 options=('!emptydirs')
 source=("https://github.com/haml/${_gemname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('64ee2eb7fad2e0b77307dd18a268b53a7f21b78b99a8bf80831cda9f8b6d8be983e7a23ba62942d251e7baf2c9732e38c18b842052690e5bbeb27961ca139c73')
-b2sums=('0672d39857fa0dac466bc29468a76e71d583da6637ce8534eb4d84aa4388bdc0f42d747d74cc5389bd24faf428076c13cf1897edc93317b2da7b770830d53b37')
+sha512sums=('2a4982e6bfc92e7769f55ea5409ba3714eb345d90185327fe5916ed99de8f37a78edceb29b8c7b135216cbd74515889eb87d693a075717e9c8738bee104476f1')
+b2sums=('8d5517d36ed8472fe4af7289bf6c976a755a04941c2176714134234c90264ec79d687e2a7f0b9fc79f43ed4da7421f053b9b272edb4b751b21b0c7c50d65870e')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
