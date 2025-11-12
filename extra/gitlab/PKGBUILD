@@ -10,7 +10,7 @@
 
 pkgname=gitlab
 pkgver=18.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
 url='https://gitlab.com/gitlab-org/gitlab-foss'
@@ -165,12 +165,9 @@ build() {
 	bundle config --local deployment true
 	bundle config --local without 'development test aws kerberos'
 	# Disable make jobserver due to a race in prometheus-client-mmap
-	# Clang because of https://github.com/grpc/grpc/issues/35945
 	env \
 		MAKEFLAGS= \
 		BUNDLER_CHECKSUM_VERIFICATION_OPT_IN=1 \
-		CC=clang \
-		CXX=clang++ \
 		bundle install --jobs=$(nproc) --no-cache
 
 	export CGO_CPPFLAGS="${CPPFLAGS}"
