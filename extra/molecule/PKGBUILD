@@ -2,7 +2,7 @@
 # Contributor: David Runge <dvzrv@archlinux.org>
 
 pkgname=molecule
-pkgver=25.9.0
+pkgver=25.11.0
 pkgrel=1
 pkgdesc="Aids in the development and testing of Ansible roles"
 url="https://github.com/ansible-community/molecule"
@@ -19,8 +19,8 @@ optdepends=('ansible: for the ansible verifier'
             'python-pywinrm: for Windows support'
             'python-pytest-testinfra: for the testinfra verifier')
 source=("git+${url}.git#tag=v${pkgver}")
-sha512sums=('b89fb5f2c2578d27795ab89004e2b9e1dbc42022b553c6a36e34a548d6d39186dbba26232627ce59fede464c64593b3733b0109eb0a91d3303617bb61c8bf7dd')
-b2sums=('58d1dcdda7918e5d2a9f47b2eec9cfe8d1b90073f2f2890166734d98450687814edce5bc4e71667dc8deaa21eac7c41d9398f81bcdbccfdf8f97f1f61007f80e')
+sha512sums=('498044a3aaacbfccb3a9ebb720db867fdee2fa23b59c47ba6b25042d1440853d7f8dfe12307ec9f8de8d90acc9dcb93ef661891b5b1c047d3c616ff3730cac6f')
+b2sums=('cda2a8b2babeb06f261c28cdad8801699d83675f2c002d67e86f9606e1ca11e2a4385097c69aebc6d7539250e585d7fd8fb0b6219f7a86d7a87647cc4b4b63d9')
 
 build() {
 	cd "${pkgname}"
