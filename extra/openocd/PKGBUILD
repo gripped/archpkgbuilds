@@ -9,38 +9,31 @@
 pkgname=openocd
 epoch=1
 pkgver=0.12.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Debugging, in-system programming and boundary-scan testing for embedded target devices'
 arch=(x86_64)
 url='https://openocd.org'
 license=(GPL-2.0-or-later)
 depends=(
-  glibc
-  libftdi-compat
-  libusb
-  hidapi
   capstone
+  glibc
+  hidapi
   jimtcl
+  libftdi-compat
+  libjaylink
+  libusb
 )
 makedepends=(
   git
-  libjaylink
-  libudev.so
 )
 source=(
   "$pkgname::git+https://github.com/openocd-org/openocd#tag=v$pkgver"
-  'github.com-msteveb-jimtcl::git+https://github.com/msteveb/jimtcl.git'
-  'gitlab.zapb.de-libjaylink-libjaylink::git+https://gitlab.zapb.de/libjaylink/libjaylink.git'
-  'git.savannah.nongnu.org-git-git2cl::git+https://git.savannah.nongnu.org/git/git2cl.git'
+  no-duplicate-udev-rules.patch
 )
 sha512sums=('77585a809c9eaf055b5b096c75f6d6e14461c0b4cbf0d2285dd3e878b7e31299bbbd5535f402da57599f4afe614e232a6a561ad98e467bfcca33dddfedf9b2b7'
-            'SKIP'
-            'SKIP'
-            'SKIP')
+            '63e5126fa1a104a84e5f72419bccb6ba6508cbb8399bd935e73052d9e83970968d39ec38d0cbfd8d5bdddb9267aefbf5102be3f0ade91fdf988b995f15ea4048')
 b2sums=('c9f00dc50a3b20eca4f10c8dd1e1a4c28963afe5942e7f8d8fa7c43f0baf037241f1d7886557536df1a741065e046b81cdfbcb8701665df0651d7952de40547b'
-        'SKIP'
-        'SKIP'
-        'SKIP')
+        '54d52924d1a638cd98c16c2c4109e71af514b9c1c56a6e8116e3554686f6b5e22dbac40a0bf630ec73798cf62366a68111762847fac75284766a420be9aed1f4')
 
 prepare() {
   cd "$pkgname"
@@ -48,23 +41,22 @@ prepare() {
   # modify udev rules
   sed -i 's|GROUP="plugdev", ||g' contrib/60-openocd.rules
 
+  # ensure udev rules are not duplicated
+  patch -p1 -i "$srcdir/no-duplicate-udev-rules.patch"
+
   # revert workarounds for jimtcl expr syntax changes
   git cherry-pick --no-commit 95603fae18f81eebdafc5b318e70f9e2cdefab9e
 
   # add missing includes (stdio.h)
   git cherry-pick --no-commit 73390332d203f02aa5b9798a7550191d55650d97
 
-  # setup submodules
-  git submodule init
-  git config submodule.jimtcl.url "$srcdir/github.com-msteveb-jimtcl"
-  git config submodule.src/jtag/drivers/libjaylink.url "$srcdir/gitlab.zapb.de-libjaylink-libjaylink"
-  git config submodule.tools/git2cl.url "$srcdir/git.savannah.nongnu.org-git-git2cl"
-  git -c protocol.file.allow=always submodule update
+  # run autotools configuration
+  # all submodules are unnecessary, so skip setup
+  ./bootstrap nosubmodule
 }
 
 build() {
   cd "$pkgname"
-
 
   local _features=(
     aice
@@ -101,11 +93,11 @@ build() {
     xlnx_pcie_xvc
   )
 
-  ./bootstrap
   ./configure \
     --prefix=/usr \
     --disable-werror \
     --disable-internal-jimtcl \
+    --disable-internal-libjaylink \
     ${_features[@]/#/--enable-}
 
   make
