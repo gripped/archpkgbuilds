@@ -5,7 +5,7 @@
 
 pkgname=xfce4-settings
 pkgver=4.20.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Xfce's Configuration System"
 arch=('x86_64')
 url="https://docs.xfce.org/xfce/xfce4-settings/start"
@@ -29,6 +29,10 @@ prepare() {
 
   # Enable Adwaita theme, elementary icon theme and font hinting by default
   patch -Np1 -i "$srcdir/default-xsettings-xml.patch"
+
+  # Add option to disable XSettings and GTK settings helpers to avoid overwriting default GNOME settings
+  sed -i 's/s_data->xsettings_helper = /if (g_getenv ("XFSETTINGSD_NO_XSETTINGS") == NULL) &/
+          s/s_data->gtk_settings_helper = /if (g_getenv ("XFSETTINGSD_NO_GTK_SETTINGS") == NULL) &/' xfsettingsd/main.c
 
   git submodule init
   git config submodule.mate-submodules.url "$srcdir/protocols/wlr-protocols"
