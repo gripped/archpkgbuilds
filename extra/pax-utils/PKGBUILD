@@ -5,7 +5,7 @@
 # Contributor: Maxwel <msg.maxwel@gmail.com>
 
 pkgname=pax-utils
-pkgver=1.3.8
+pkgver=1.3.9
 pkgrel=1
 pkgdesc='ELF utils that can check files for security relevant properties'
 url='https://wiki.gentoo.org/wiki/Hardened/PaX_Utilities'
@@ -14,7 +14,7 @@ license=('GPL2')
 depends=('bash' 'libcap' 'libcap.so' 'libseccomp' 'python' 'python-pyelftools')
 makedepends=('docbook-xml' 'docbook-xsl' 'git' 'linux-headers' 'meson' 'xmlto')
 source=(git+https://anongit.gentoo.org/git/proj/pax-utils.git?signed#tag=v$pkgver)
-sha512sums=('49fcacaa60e9b430606ac7635cf730202b0c3f21116b8dfa611aaf96073e48135f64da91cea246383e41cbd9bb6869d1fee3c243d643729bfbd0afa269034e01')
+sha512sums=('ec0183075b84a41471ed9ef73f28f561926d6c2b9bd93c5a9707ef6b5569ecb2b19186dba5b895f367c2a58ef77cb90db1adb17f67b457bc7b1778f3a9a559b1')
 validpgpkeys=('5EF3A41171BB77E6110ED2D01F3D03348DB1A3E2')
 
 prepare() {
