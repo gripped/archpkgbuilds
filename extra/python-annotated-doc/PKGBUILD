@@ -2,17 +2,17 @@
 
 pkgname=python-annotated-doc
 _pkgname=${pkgname#python-}
-pkgver=0.0.3
+pkgver=0.0.4
 pkgrel=1
 pkgdesc="Document parameters, class attributes, return types, and variables inline, with Annotated"
 arch=('any')
 url="https://github.com/fastapi/annotated-doc"
 license=('MIT')
 depends=('python')
-makedepends=('python-build' 'python-installer' 'python-wheel' 'python-uv-build')
+makedepends=('python-build' 'python-installer' 'python-wheel' 'python-pdm-backend')
 checkdepends=('python-pytest' 'python-typing_extensions')
 source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('854f845e4ebfd2de8c3b6f681dc706b740b4c739380b09de3920148617ccaa82')
+sha256sums=('f23767d1df005c26f25a1fc203d89b5d46b75a120227c97dd1094d1e16733336')
 
 build() {
 	cd "${_pkgname}-${pkgver}"
