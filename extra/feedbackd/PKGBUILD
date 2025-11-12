@@ -6,7 +6,7 @@
 # Contributor: Sam Whited <sam@samwhited.com>
 
 pkgname=feedbackd
-pkgver=0.8.4
+pkgver=0.8.6
 pkgrel=1
 pkgdesc='A daemon to provide haptic feedback on events'
 arch=(x86_64)
@@ -20,17 +20,18 @@ depends=(
         "gsettings-desktop-schemas"
         "libgmobile"
 )
-checkdepends=("umockdev")
 makedepends=(
-            "gobject-introspection"
-            "meson"
-            "vala"
-            "git"
-            "python-docutils"
-            "glib2-devel"
+        "gobject-introspection"
+        "meson"
+        "vala"
+        "git"
+        "python-docutils"
+        "glib2-devel"
+        "umockdev"
 )
+
 source=("git+${url}.git#tag=v${pkgver}")
-sha256sums=('4672ce47396dac81b8271e4354b2a44e0b6bedb8dacf53ebf5effdcdbf7e9055')
+sha256sums=('bbdf0645248595ca05e47015d5b3bf4c6d49b88db3d4b9ce8a5768316653c5c8')
 
 pkgver() {
   cd "${pkgname}"
