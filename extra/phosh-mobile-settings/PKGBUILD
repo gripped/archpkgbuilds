@@ -3,7 +3,7 @@
 # Contributor: Thomas Booker <tw.booker@outlook.com>
 
 pkgname=phosh-mobile-settings
-pkgver=0.48.0
+pkgver=0.50.1
 pkgrel=1
 pkgdesc='A settings app for mobile specific things'
 arch=('x86_64' 'aarch64')
@@ -12,10 +12,12 @@ license=(GPL-3.0-or-later)
 depends=(
         "feedbackd"
         "libadwaita"
+        "libyaml"
         "lm_sensors"
         "phoc"
         "phosh"
         "libgmobile"
+        "cellbroadcastd"
 )
 makedepends=(
             "git"
@@ -29,7 +31,7 @@ source=(
         "${url}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
         "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control#commit=${_gvc}" #new dependency with no release
 )
-sha256sums=('f6bc8ca17a303189c4902322a4d8e3eb18e8a6991cfac10750550a5ee6341411'
+sha256sums=('bda9c7aaa498747703cb93b80795cb637d7998b7237a9117940fffd7ce44b89d'
             '587319b45ff7d989635aed0c3bd9ef834d6e53ae46788cb6ba083d42d7e63855')
 
 prepare() {
