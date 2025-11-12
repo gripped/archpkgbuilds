@@ -1,7 +1,7 @@
 # Maintainer: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
 pkgname=cockpit-files
-pkgver=31.1
+pkgver=32
 pkgrel=1
 pkgdesc='A Featureful File Browser for Cockpit'
 arch=('any')
@@ -9,7 +9,7 @@ url='https://github.com/cockpit-project/cockpit-files'
 license=(LGPL-2.1-or-later)
 depends=(cockpit)
 source=("https://github.com/cockpit-project/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz")
-sha256sums=('79afd208ded619f4ee1f1c0d8a5c48b4f4f116fa3c59170d1b84b128c3ed6e5f')
+sha256sums=('ecafcd5abfedd15ab2548ef85fe457775ba337cb3bd4ee07a9ed48239e22c9de')
 
 package() {
   cd $pkgname
