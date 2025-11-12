@@ -5,7 +5,7 @@
 # Contributor: JisuWoniu <jswn@jswn9945.xyz>
 
 pkgname=bacon
-pkgver=3.19.0
+pkgver=3.20.1
 pkgrel=1
 pkgdesc='A background rust code checker'
 arch=('x86_64')
@@ -22,8 +22,8 @@ optdepends=('bash-completion: enable bash completions'
             'python-pytest: for use with Python via pytest')
 options=('!lto')
 source=("$pkgname::git+https://github.com/Canop/bacon#tag=v$pkgver")
-sha512sums=('042583ba7ea8112f7bddfc1c4867118654146246e4503026612c8e87dc49a432b0e3596c3941f58a0f086e2b2cd0d184fc5714df0652f3ca7e4f3363705ddf66')
-b2sums=('56e31ab647ea41e4683eb32ba842719aed351424dcc1f33a5d3bfc84031b52d55dfa52bb73442ec26436795400f44741eff8ac2a1cbfc26a250176b1f79d4256')
+sha512sums=('237a6aa5f4f2f00604cf225518e58984417577d430de507fc1a9dcb9aeb3e2b781d6ceb527af22bd0332425df32fb1a6c4f032d20dcd4d4e66c688bb20498cbd')
+b2sums=('5e79e9778ad91e26ada585b0d2fd27ef268f09e8720e6cfaf3c71d21df1e380804047b385e024f29cdf7ef656173eae011ad9de987429c71216b0bde9fbd6a94')
 
 prepare() {
   cd "$pkgname"
