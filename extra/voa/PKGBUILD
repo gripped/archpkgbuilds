@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=voa
-pkgver=0.3.0
+pkgver=0.4.0
 pkgrel=1
 pkgdesc="CLI for interacting with the File Hierarchy for the Verification of OS Artifacts (VOA)"
 arch=(x86_64)
@@ -21,19 +21,27 @@ makedepends=(
 checkdepends=(
   cargo-nextest
 )
-source=($pkgname::git+${_url}.git?signed#tag=$pkgname/$pkgver)
-sha512sums=('5824656b7882e256bc7da0eef1b525df574351448145caa3c0391b56bfb4390ec44a5f4a39dce40f46e83ecfceee60c5bac391f9059fcfb17eeedc8a0f00faff')
-b2sums=('fdb1feebd7ed88a1db61461096c439a9a2681ac85df65f7e9f34f239bb94a6c0a45c5ce2ff0424532fc53b6bb41752f588185cf465650618e004f732b7304510')
+source=(
+  $pkgname::git+${_url}.git?signed#tag=$pkgname/$pkgver
+  voa-0.4.0-rust-script.patch
+)
+sha512sums=('d8729308a717e136df4137a84b9b1e5bcbe648fc3717ea1628ae49878cc48aac07637df8c4184b776147a9ab0ad1877c546aeae8fcc844dc874226ae0fe57c1e'
+            '7c49b0513dc3b585f1de6456095b75c5ebbfaf6bc7e6ba556c91253885e07334bc971b83c237556b119630266b6c96d8ae434939fbf5eb79dc012e1c7a915404')
+b2sums=('bb383089d3465d6b1b088eb872186667a83ae45253714c3dc84d29dce1c21a14ddfce3769088f7973aa9d3b705fc33aa83b5c1368fdedb3a8c956f2ca7eb16a6'
+        '0de81de5c8d7427b6ee73a94e96b65743e9133370a602f884081502f72eec47cb4a8c1e3916dd662756657b5cccda571eab7606a3ec1e41e1bbff7b9089c7974')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
+  # Fix an issue with the rust-script used for generating manpages/shell completions.
+  patch -Np1 -d $pkgname -i ../voa-0.4.0-rust-script.patch
+
   cd $pkgname
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
   cd $pkgname
-  cargo build --frozen --release
+  cargo build --features cli --frozen --release --package voa
 
   just generate shell_completions voa
   just generate manpages voa
