@@ -1,0 +1,70 @@
+From fd65db1f1ac9253df0ed34b0fc65cbf0359bb0ab Mon Sep 17 00:00:00 2001
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Date: Mon, 10 Feb 2025 11:17:51 +0100
+Subject: [PATCH] docs: sphinx/kernel_abi: adjust coding style
+
+Make pylint and flake8 happier with this module's coding style
+
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Signed-off-by: Jonathan Corbet <corbet@lwn.net>
+Link: https://lore.kernel.org/r/02a9ec0fab61e4c94b9c2ff555bc0e9d93f59100.1739182025.git.mchehab+huawei@kernel.org
+---
+ Documentation/sphinx/kernel_abi.py | 22 ++++++++++------------
+ 1 file changed, 10 insertions(+), 12 deletions(-)
+
+diff --git a/Documentation/sphinx/kernel_abi.py b/Documentation/sphinx/kernel_abi.py
+index 5911bd0d7..35fc5d9ce 100644
+--- a/Documentation/sphinx/kernel_abi.py
++++ b/Documentation/sphinx/kernel_abi.py
+@@ -32,29 +32,27 @@ u"""
+ 
+ """
+ 
+-import codecs
+ import os
++import re
+ import subprocess
+ import sys
+-import re
+ import kernellog
+ 
+-from docutils import nodes, statemachine
++from docutils import nodes
+ from docutils.statemachine import ViewList
+ from docutils.parsers.rst import directives, Directive
+-from docutils.utils.error_reporting import ErrorString
+ from sphinx.util.docutils import switch_source_input
+ 
+-__version__  = '1.0'
++__version__  = "1.0"
+ 
+ def setup(app):
+ 
+     app.add_directive("kernel-abi", KernelCmd)
+-    return dict(
+-        version = __version__
+-        , parallel_read_safe = True
+-        , parallel_write_safe = True
+-    )
++    return {
++        "version": __version__,
++        "parallel_read_safe": True,
++        "parallel_write_safe": True
++    }
+ 
+ class KernelCmd(Directive):
+ 
+@@ -98,8 +96,8 @@ class KernelCmd(Directive):
+ 
+         if "debug" in self.options:
+             code_block = "\n\n.. code-block:: rst\n    :linenos:\n"
+-            for l in lines.split("\n"):
+-                code_block += "\n    " + l
++            for line in lines.split("\n"):
++                code_block += "\n    " + line
+             lines = code_block + "\n\n"
+ 
+         line_regex = re.compile(r"^\.\. LINENO (\S+)\#([0-9]+)$")
+-- 
+2.51.2
+
