@@ -1,10 +1,9 @@
 pkgbase = callaudiod
 	pkgdesc = Call audio routing daemon (deprecated)
 	pkgver = 0.1.99
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gitlab.com/mobian1/callaudiod
 	arch = x86_64
-	arch = aarch64
 	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = glib2-devel
@@ -14,9 +13,10 @@ pkgbase = callaudiod
 	depends = gcc-libs
 	depends = glib2
 	depends = glibc
-	depends = glibc
 	depends = libpulse
 	source = git+https://gitlab.com/mobian1/callaudiod.git#tag=0.1.99
+	source = callaudiod-logout-crash.patch
 	b2sums = 8f123d321bb6ffbe1e5d60f768306212fcd8c43b8a3de3eeaffb7edc0d2376a76a6213b54c047f3acd35fdbee449b02ee780e0bc127f25f42946ab3b234607cc
+	b2sums = 3e0ba612cd05fe331ff7062c0df91b758974dd639f3e740c12b88da62cac55f53bbe09a4f66a33604a4c8732e2c71e4c3090f0947a29a6e96695da7ffbed7f3c
 
 pkgname = callaudiod
