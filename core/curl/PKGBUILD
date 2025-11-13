@@ -7,7 +7,7 @@
 pkgbase=curl
 pkgname=(curl libcurl-compat libcurl-gnutls)
 pkgver=8.17.0
-pkgrel=1
+pkgrel=2
 pkgdesc='command line tool and library for transferring data with URLs'
 arch=('x86_64')
 url='https://curl.se/'
@@ -29,6 +29,14 @@ source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
 sha512sums=('b2d6ab7e3bbfd7436524d78f82d1cf99151e43bc356a41f08005dff2cd0c15516af870c945db7f26c4495f5b2a013df116ffb9060dc52aa2e9acca085abc7044')
 
 _backports=(
+  # curl: fix progress meter in parallel mode
+  'f12a81de4f34bf0f8055d264a432f0f3befe7921'
+
+  # vtls: fix CURLOPT_CAPATH use
+  'f55974c139d88582a9c503c9a35840f3b9fae458'
+
+  # wcurl: import v2025.11.09
+  '79d3e1d7d44dda65fdc303a53a44109583135b12'
 )
 
 _reverts=(
