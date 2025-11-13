@@ -2,26 +2,24 @@
 # Contributor: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=libgmobile
-pkgver=0.4.0
+pkgver=0.5.0
 pkgrel=1
 pkgdesc='Functions useful in mobile related, glib based projects'
-arch=('x86_64' 'aarch64')
+arch=('x86_64')
 url='https://gitlab.gnome.org/World/Phosh/gmobile'
-license=(GPL-3.0-only)
+license=('LGPL-2.1-or-later AND GPL-3.0-or-later')
 depends=(
         "json-glib"
         "glib2"
-        "vala"
 )
 makedepends=(
             "meson"
             "git"
-            "libgirepository"
-            "json-glib"
             "gobject-introspection"
             "vala"
 )
 source=("git+${url}.git#tag=v${pkgver}")
+sha256sums=('109dad0d5650b9cdfa4523f8e32079583489a644b1ffa0fe35af9646b76703e9')
 
 build() {
   arch-meson gmobile build
@@ -31,4 +29,3 @@ build() {
 package() {
   DESTDIR="${pkgdir}" meson install -C build
 }
-sha256sums=('2978db123c81804002843a10cf65e44081b90486e13eb5a7702c780cf0934ec2')
