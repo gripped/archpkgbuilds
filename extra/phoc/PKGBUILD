@@ -3,11 +3,11 @@
 
 pkgname=phoc
 pkgver=0.50.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Display compositor designed for phones'
-arch=('x86_64' 'aarch64')
+arch=('x86_64')
 url='https://gitlab.gnome.org/World/Phosh/phoc'
-license=(GPL-3.0-only)
+license=(GPL-3.0-or-later)
 depends=(
         "gnome-desktop"
         "wlroots0.19"
@@ -16,32 +16,24 @@ depends=(
         "libinput"
         "libxcb"
         "libxkbcommon"
-        "json-glib"
         "glib2"
         "dconf"
         "cairo"
         "wayland"
         "libgmobile"
+        "mutter"
+        "xorg-xwayland"
 )
 checkdepends=(
               "xorg-server-xvfb"
-              "xorg-xauth"
-              "mutter"
-              "pixman"
 )
 makedepends=(
-            "cmake"
             "meson"
             "git"
             "wayland-protocols"
-            "python-jinja"
-            "python-pygments"
-            "python-typogrify"
-            "libgirepository"
-            "libgmobile"
             "glib2-devel"
+            "python-docutils"
 )
-optdepends=('xorg-wayland: run X clients under phoc')
 _gvdb="4758f6fb7f889e074e13df3f914328f3eecb1fd3"
 source=(
       "${url}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
@@ -56,7 +48,7 @@ prepare() {
 }
 
 build() {
-  arch-meson "${pkgname}-v${pkgver}" build -Dembed-wlroots=disabled
+  arch-meson "${pkgname}-v${pkgver}" build -Dembed-wlroots=disabled -Dman=true
   meson compile -C build
 }
 
