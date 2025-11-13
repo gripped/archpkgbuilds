@@ -4,7 +4,7 @@
 
 pkgname=calf
 pkgver=0.90.8
-pkgrel=5
+pkgrel=6
 pkgdesc='LV2 plug-in suite'
 arch=(x86_64)
 url='http://calf-studio-gear.org' # http only
@@ -31,4 +31,7 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
   install -Dm644 $pkgname/{AUTHORS,ChangeLog,README.md} -t "$pkgdir/usr/share/doc/$pkgname"
+
+  # Remove the .desktop file since the GUI was disabled
+  rm -r "$pkgdir"/usr/share/applications/
 }
