@@ -4,13 +4,14 @@
 
 pkgname=squeekboard
 pkgver=1.43.1
-pkgrel=1
+pkgrel=2
 pkgdesc='An on-screen-keyboard input method for Wayland'
-arch=(x86_64 aarch64)
+arch=(x86_64)
 url='https://gitlab.gnome.org/World/Phosh/squeekboard'
-license=(GPL3)
-depends=(feedbackd gnome-desktop python)
-makedepends=(pkg-config meson libbsd intltool rust gtk-doc wayland-protocols python-packaging glib2-devel)
+license=(GPL-3.0-or-later)
+depends=(feedbackd gnome-desktop)
+makedepends=(meson libbsd rust wayland-protocols glib2-devel python-gobject)
+optdepends=('python-gobject: squeekboard-entry command')
 source=("https://gitlab.gnome.org/World/Phosh/squeekboard/-/archive/v${pkgver}/squeekboard-v${pkgver}.tar.gz")
 sha256sums=('64c73636f6d8a6ffe9f1094c4084b184db3f60ac4e02bf8bff860060308c61ab')
 
