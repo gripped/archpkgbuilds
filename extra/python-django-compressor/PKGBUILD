@@ -2,8 +2,8 @@
 
 pkgname=python-django-compressor
 _name="${pkgname#python-}"
-pkgver=4.5.1
-pkgrel=3
+pkgver=4.6
+pkgrel=1
 pkgdesc="Compresses linked and inline javascript or CSS into a single cached file"
 arch=(any)
 url="https://github.com/django-compressor/django-compressor"
@@ -44,14 +44,8 @@ optdepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
 )
-sha512sums=('c91cb157c1aa879d7b7f0cf8efe575add78c6e7f1edd14e4c7cc434478e9da26d34d35df3227b789ba05b1a46173ae65f67e6e0beb09d3b9fb97b53b82684845')
-b2sums=('d8757a8277e0b7b51f687715145723833285ad530617e48d1ca0908164aa75affce49bcb9e659d1253acb556363b0273564161ede51620553e25c99e3853c828')
-
-prepare() {
-  cd $_name-$pkgver
-  # we don't support version pinning: https://github.com/django-compressor/django-compressor/issues/1195
-  sed -e 's/rcssmin ==/rcssmin >=/;s/rjsmin ==/rjsmin >=/' -i setup.py
-}
+sha512sums=('326e2a6c2b28e1a93b9897ea19ae959034cef488d40d23eebd8d956f350e8f7c908649ea03c7fc4786bd8af27f825b81774d6a038db347335c7d2e94ead5c1b7')
+b2sums=('e414899110df922d1dde66ebfe16c3e70dcba23fe78054282e82fa277d76465af0ccbc1c0a692e5d1c542a9d6fed31c2ac216d3b0b9ebd608333a1998eba3a3f')
 
 build() {
   cd $_name-$pkgver
@@ -59,14 +53,8 @@ build() {
 }
 
 check() {
-  local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-
   cd $_name-$pkgver
-  # install to temporary location, as importlib is used
-  python -m installer --destdir=test_dir dist/*.whl
-  export PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH"
-  cd test_dir/$_site_packages
-  django-admin test --settings=compressor.test_settings compressor
+  PYTHONPATH="$PWD" django-admin test --settings=compressor.test_settings compressor
 }
 
 package() {
