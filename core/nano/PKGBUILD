@@ -2,7 +2,7 @@
 # Contributor: Judd <judd@archlinux.org>
 
 pkgname=nano
-pkgver=8.6
+pkgver=8.7
 pkgrel=1
 pkgdesc="Pico editor clone with enhancements"
 arch=('x86_64')
@@ -11,7 +11,7 @@ url="https://www.nano-editor.org"
 depends=('ncurses' 'file' 'glibc')
 backup=('etc/nanorc')
 source=(https://www.nano-editor.org/dist/v8/${pkgname}-${pkgver}.tar.xz{,.asc})
-sha256sums=('f7abfbf0eed5f573ab51bd77a458f32d82f9859c55e9689f819d96fe1437a619'
+sha256sums=('afd287aa672c48b8e1a93fdb6c6588453d527510d966822b687f2835f0d986e9'
             'SKIP')
 #validpgpkeys=('8DA6FE7BFA7A418AB3CB2354BCB356DF91009FA7') # "Chris Allegretta <chrisa@asty.org>"
 #validpgpkeys=('A7F6A64A67DA09EF92782DD79DF4862AF1175C5B') # "Benno Schulenberg <bensberg@justemail.net>"
