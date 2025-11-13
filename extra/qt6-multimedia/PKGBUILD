@@ -7,7 +7,7 @@ pkgname=(qt6-multimedia
          qt6-multimedia-gstreamer)
 _pkgver=6.10.0
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -36,6 +36,11 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
 sha256sums=('a48376d0219435d27a0bbe22d3e8451b12f89bed2c88a404282f9293fa85cd2a')
+
+prepare() {
+  cd $_pkgfn
+  git cherry-pick -n 71fc186fb3638d98a7067eb4053655e27573a0da 3b4c357cb218d7edb835e07f9a78ecc82da78c46 # Fix sound when using pulseaudio
+}
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
