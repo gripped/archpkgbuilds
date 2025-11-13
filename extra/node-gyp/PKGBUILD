@@ -3,7 +3,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=node-gyp
-pkgver=12.0.0
+pkgver=12.1.0
 pkgrel=1
 pkgdesc='Node.js native addon build tool'
 arch=('any')
@@ -17,7 +17,7 @@ optdepends=('gcc: to build C++ modules'
             'python: to build C++ modules')
 options=('!emptydirs')
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('ddc2c92dee58566ebc66d0f6d1be71fe0f999812b4b7842e181c0ecc0ea77bfbbfc51bc13701584d7dce77f3a4d2959dc8ecfad78394e10f2322e87af459bc93')
+b2sums=('9b85e613547008d1f3d6f003ac87a96be8e80bc44c5afdc4e42879dbb513a62e2a9c512f1c5065b2935f520e17c9f58205adf50c0160c737ae047556e181777c')
 
 prepare() {
   cd $pkgname
