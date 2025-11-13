@@ -5,7 +5,7 @@ pkgname=python-authheaders
 pkgver=0.16.3
 # last updated as per https://www.psddmarc.org/registry.html
 _version=2023.09.02
-pkgrel=2
+pkgrel=3
 pkgdesc="Library for the generation of email authentication headers"
 arch=(any)
 url="https://github.com/ValiMail/authentication-headers"
@@ -31,20 +31,17 @@ makedepends=(
 checkdepends=(python-pytest)
 source=(
   $url/releases/download/$pkgver/$_name-$pkgver.tar.gz{,.asc}
-  psddmarc-$_version.csv::https://www.psddmarc.org/psddmarc-participants.csv
 )
 sha512sums=('94741ec6127aa20b128958ba5b386b63d00f27ae68fe6b5ede3a0308bd6a75a9b940fb40b6066b65fefb07e40e85cb412bd59fde6c76f60099d6bf6872ae9a68'
-            'SKIP'
-            'cf1cc1de56aa41b88b5030b3589613dc9ae245d32ed3eca2434686ecf06be1ebb6a3682d98e4e10b8587dba507b3d24025606ad3b85920ca6f3855e579dc9367')
+            'SKIP')
 b2sums=('26e9f9d188da2483132d5a86b1b4c93181b1524c3950a521d52eff279ebad42b2672a756317cf76b4f8667b65fabd99d77fa97c34124aecdf87829b8505a1c8a'
-        'SKIP'
-        'df8b6d4a1e6a9233964cefdeb54d14397764a31f83e3edc6383ed38bc4ad332f9ea4464dbed03151fc29fa4e31a1c7df086091ff26cefa9a3d7f57d368abab9c')
+        'SKIP')
 validpgpkeys=('E7729BFFBE85400FEEEE23B178D7DEFB9AD59AF1') # Donald Scott Kitterman <scott@kitterman.com>
 
 prepare() {
   cd $_name-$pkgver
-  # embed psddmarc.csv: https://github.com/ValiMail/authentication-headers/issues/4
-  cp -v -- ../psddmarc-$_version.csv $_name/psddmarc.csv
+  # add empty file, because upstream is gone: https://github.com/ValiMail/authentication-headers/issues/35
+  touch $_name/psddmarc.csv
   printf 'location = "/usr/share/publicsuffix/public_suffix_list.dat"\n' > $_name/findpsl.py
 }
 
