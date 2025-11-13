@@ -1,7 +1,7 @@
 pkgbase = mariadb-lts
 	pkgdesc = Fast SQL database server, derived from MySQL (LTS)
-	pkgver = 11.8.3
-	pkgrel = 2
+	pkgver = 11.8.4
+	pkgrel = 1
 	url = https://mariadb.org/
 	arch = x86_64
 	license = GPL-2.0-only
@@ -24,7 +24,7 @@ pkgbase = mariadb-lts
 	makedepends = zlib
 	makedepends = zstd
 	makedepends = xz
-	source = mariadb::git+https://github.com/MariaDB/server.git#tag=mariadb-11.8.3?signed
+	source = mariadb::git+https://github.com/MariaDB/server.git#tag=mariadb-11.8.4?signed
 	source = git+https://github.com/MariaDB/mariadb-connector-c.git
 	source = git+https://github.com/facebook/rocksdb.git
 	source = git+https://github.com/codership/wsrep-lib.git
@@ -33,14 +33,14 @@ pkgbase = mariadb-lts
 	source = git+https://github.com/mariadb-corporation/mariadb-columnstore-engine.git
 	source = 0001-arch-specific.patch
 	validpgpkeys = 177F4010FE56CA3336300305F1656F24C74CD1D8
-	sha256sums = c27a5d127bb262021f9d134fd0e304c7cf426074c732f99084850fd54951c4ca
+	sha256sums = ff6a0a30aefdfd1cef5ac3c7c7a713e1c02d74620f1536b3ef71c629bab59b88
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
-	sha256sums = f4f547b0898549c6a010c82fbcfd10d3dba63939543e5cfa9a1ba5b11787779b
+	sha256sums = a61d638613deb7e54a45bf6bb8f8d07f3c52dead57017a30bce2b8413f6c4e4f
 
 pkgname = mariadb-lts-libs
 	pkgdesc = MariaDB libraries (LTS)
@@ -58,7 +58,7 @@ pkgname = mariadb-lts-libs
 	depends = zstd
 	depends = libzstd.so
 	optdepends = krb5: for gssapi authentication
-	provides = mariadb-libs=11.8.3
+	provides = mariadb-libs=11.8.4
 	provides = libmariadbclient
 	provides = mariadb-connector-c
 	provides = libmariadb.so
@@ -70,19 +70,19 @@ pkgname = mariadb-lts-libs
 
 pkgname = mariadb-lts-clients
 	pkgdesc = MariaDB client tools (LTS)
-	depends = mariadb-lts-libs=11.8.3
+	depends = mariadb-lts-libs=11.8.4
 	depends = jemalloc
 	depends = ncurses
 	depends = libncursesw.so
-	provides = mariadb-clients=11.8.3
-	provides = mysql-clients=11.8.3
+	provides = mariadb-clients=11.8.4
+	provides = mysql-clients=11.8.4
 	conflicts = mariadb-clients
 	conflicts = mysql-clients
 
 pkgname = mariadb-lts
 	pkgdesc = Fast SQL database server, derived from MySQL (LTS)
 	install = mariadb.install
-	depends = mariadb-lts-clients=11.8.3
+	depends = mariadb-lts-clients=11.8.4
 	depends = bzip2
 	depends = libbz2.so
 	depends = coreutils
@@ -101,9 +101,9 @@ pkgname = mariadb-lts
 	optdepends = perl-dbd-mariadb: for mariadb-hotcopy, mariadb-convert-table-format and mariadb-setpermission
 	optdepends = python-mysqlclient: for myrocks_hotbackup
 	optdepends = xz: lzma provider
-	provides = mariadb-server=11.8.3
-	provides = mariadb=11.8.3
-	provides = mysql=11.8.3
+	provides = mariadb-server=11.8.4
+	provides = mariadb=11.8.4
+	provides = mysql=11.8.4
 	conflicts = mariadb
 	conflicts = mysql
 	options = emptydirs
