@@ -4,7 +4,7 @@
 
 pkgname=squeekboard
 pkgver=1.43.1
-pkgrel=2
+pkgrel=3
 pkgdesc='An on-screen-keyboard input method for Wayland'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/Phosh/squeekboard'
@@ -12,8 +12,18 @@ license=(GPL-3.0-or-later)
 depends=(feedbackd gnome-desktop)
 makedepends=(meson libbsd rust wayland-protocols glib2-devel python-gobject)
 optdepends=('python-gobject: squeekboard-entry command')
-source=("https://gitlab.gnome.org/World/Phosh/squeekboard/-/archive/v${pkgver}/squeekboard-v${pkgver}.tar.gz")
-sha256sums=('64c73636f6d8a6ffe9f1094c4084b184db3f60ac4e02bf8bff860060308c61ab')
+source=("https://gitlab.gnome.org/World/Phosh/squeekboard/-/archive/v${pkgver}/squeekboard-v${pkgver}.tar.gz"
+        "squeekboard-systemd-unit.patch::https://gitlab.gnome.org/World/Phosh/squeekboard/-/commit/65a2e657.patch")
+sha256sums=('64c73636f6d8a6ffe9f1094c4084b184db3f60ac4e02bf8bff860060308c61ab'
+            'd6492a189f7779b9a091b75e6facbee3a46041d1a8237ce97c1c3c00f99e135f')
+
+prepare() {
+  cd "squeekboard-v${pkgver}"
+
+  # Add systemd unit file for compatibility with GNOME 49
+  # https://gitlab.gnome.org/World/Phosh/squeekboard/-/merge_requests/712
+  patch -Np1 -i ../squeekboard-systemd-unit.patch
+}
 
 build() {
   arch-meson "squeekboard-v${pkgver}" build
@@ -21,9 +31,9 @@ build() {
 }
 
 check() {
-  meson test -C build --print-errorlogs
+  meson test -C build --print-errorlogs --no-rebuild
 }
 
 package() {
-  DESTDIR="$pkgdir" ninja -C build install
+  DESTDIR="$pkgdir" meson install -C build --no-rebuild
 }
