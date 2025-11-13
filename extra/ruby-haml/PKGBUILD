@@ -6,7 +6,7 @@
 _gemname='haml'
 pkgname="ruby-${_gemname}"
 pkgver=7.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc='HTML Abstraction Markup Language - A Markup Haiku'
 arch=('x86_64')
 url='https://haml.info'
@@ -18,25 +18,23 @@ depends=(
   ruby-tilt
 )
 makedepends=(
+  git
   ruby-rdoc
 )
 options=('!emptydirs')
-source=("https://github.com/haml/${_gemname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('2a4982e6bfc92e7769f55ea5409ba3714eb345d90185327fe5916ed99de8f37a78edceb29b8c7b135216cbd74515889eb87d693a075717e9c8738bee104476f1')
-b2sums=('8d5517d36ed8472fe4af7289bf6c976a755a04941c2176714134234c90264ec79d687e2a7f0b9fc79f43ed4da7421f053b9b272edb4b751b21b0c7c50d65870e')
+source=("git+https://github.com/haml/${_gemname}.git#tag=v${pkgver}")
+sha512sums=('1024cd68a1f44c8381124a2e5bc716907fb3c257665f71e1fa186d3c7d5542e688ab842332a83f4fe6047a2d20eaad02191dd3a27938552956330443fd37c31b')
+b2sums=('42d0a8fec9cf73c4ce8bc7059e4460eaea64dac8b5fcfb551f0a01085b715c30b2228d75dcc04583dbbc0c114257e3974855f08959263801ec5518dfe5727a55')
 
 prepare() {
-  cd "${_gemname}-${pkgver}"
+  cd "${_gemname}"
 
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended 's|~>|>=|g' "${_gemname}.gemspec"
-
-  # we don't build from a git checkout
-  sed --in-place --regexp-extended 's|git ls-files -z|find -print0|' "${_gemname}.gemspec"
 }
 
 build() {
-  cd "${_gemname}-${pkgver}"
+  cd "${_gemname}"
 
   local _gemdir="$(gem env gemdir)"
 
@@ -80,7 +78,7 @@ build() {
 
 # needs rails
 #check() {
-#  cd "${_gemname}-${pkgver}"
+#  cd "${_gemname}"
 #
 #  local _gemdir="$(gem env gemdir)"
 #
@@ -88,7 +86,7 @@ build() {
 #}
 
 package() {
-  cd "${_gemname}-${pkgver}"
+  cd "${_gemname}"
 
   cp --archive --verbose tmp_install/* "${pkgdir}"
 
