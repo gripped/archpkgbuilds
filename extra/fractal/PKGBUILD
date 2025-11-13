@@ -1,8 +1,8 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=fractal
-pkgver=12.1
-pkgrel=2
+pkgver=13
+pkgrel=1
 pkgdesc="Matrix group messaging app"
 arch=(x86_64)
 url="https://gitlab.gnome.org/World/fractal"
@@ -14,7 +14,7 @@ depends=(
   gdk-pixbuf2
   glib2
   glibc
-  glycin1  # dlopen'ed
+  glycin  # dlopen'ed
   graphene
   gst-plugins-bad-libs
   gst-plugins-base-libs
@@ -34,6 +34,7 @@ depends=(
   sqlite
 )
 makedepends=(
+  blueprint-compiler
   clang
   cmake
   dart-sass
@@ -45,8 +46,8 @@ makedepends=(
 source=(
   $url/-/archive/$pkgver/$pkgname-$pkgver.tar.gz
 )
-sha512sums=('93739acdeabbf4ec6c3d9abd2fb4ee2ec7f01faf69aa58c73c89ed7fd801cdd308b623a7e9bde1106df77c95cbb8c9b6461bfd5fdc7ef4bc4e2fdad48490ac49')
-b2sums=('62180f229af221221a32aa1ac866b0ae8e66d43e0de1dd1993702a2cda607ccb3a5590fade4c235e21afee5b9725534b15e23796b4742e557aa5163b74e183b8')
+sha512sums=('c89bf10767a84f303a4280ba5856c7e0319f21ee6b3eb64bf808d5dd1a9372cdac01a70a11253f2856b28fd3cd67c746a3e8e79b51272e976ef7b3a335bd790f')
+b2sums=('6d3128996cadf47b89d95e47194aa9c028aed6ea6a53f92d2631feeda6f8547cf45dd9d5e92da5326d48e217a091b4d305c52aceefc1c7c5ef61632ae2f286d8')
 
 prepare() {
   # NOTE: usptream uses a custom CARGO_HOME from within meson
