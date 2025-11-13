@@ -2,7 +2,7 @@
 
 _name=django-crispy-forms
 pkgname=python-django-crispy-forms
-pkgver=2.4
+pkgver=2.5
 pkgrel=1
 pkgdesc="The best way to have DRY Django forms"
 arch=(any)
@@ -31,8 +31,8 @@ optdepends=(
   'python-crispy-bootstrap5: for a bootstrap 5 theme pack'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('a87ef27b6cd2f6a3c76116a474837720249099a5674080d89c0e8a77ce2ce69d2c5ecd1b4b418b7116cdaa212c564a7bc1ca3377e0189d7620655c1e43858517')
-b2sums=('00c1344c7b972d8332f94a338540da22668292cfb8941969d3c1fc1eb28856c245e7380449c15d969be7af04254c8ebeb26bc513a16e120965da7a8a60315562')
+sha512sums=('ec1d6cd0de828aceb00a5f9a1f09ceac69e4ad67a16c8e4cdd7f8e5a6f0e5be6f954bb22ed6741bb259b69be04d76e0bf1dfc16ea0a4b454eec674dfc93f05b5')
+b2sums=('233c9cde2cbda2e902de07cb6e6c2ea580860501875f2993e00afba66e4e08381b7fa787a127fea1d7212cab9a0d6faff1d6ccdfdbfb23777788e1fbb49c5926')
 
 build() {
   cd $_name-$pkgver
