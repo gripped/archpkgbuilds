@@ -2,7 +2,7 @@
 
 _name=django-appconf
 pkgname=python-django-appconf
-pkgver=1.1.0
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="An app to handle configuration defaults of packaged Django apps gracefully"
 arch=(any)
@@ -20,8 +20,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('fc532ba692358d1d0d090ac2c60b01fe6b6e5d1836c2731c5132e07dcd41767730c69b6478da616fdd0b59be249addee475897829d76e93f2e6d389fbcf7e979')
-b2sums=('1f7efe40362813a56f435a640ab81a7a4f548fc19eb8699c29a67e7c8d90e04158d0eca901fd8087e91d89d5d85c126eecb398ed610b2ed0ac1843a0aeb8ce06')
+sha512sums=('e4385dad1ef870ebe124c5e1b192d942bf23bfb53b849929124f169439cda0cf9709d31d1c6fddf7149a3f572ee13f57af1206d290eb66f4c0af1a86494b9ec9')
+b2sums=('fd23f9ce9cd3dc3b312ba0186d15afc6738ae4de804c3c5093ffc0c6412c386515bf87587aa014e7a9d9f99ea8cf488cff663c5e3093a8eaafd02316fe28942a')
 
 build() {
   cd $_name-$pkgver
