@@ -2,8 +2,8 @@
 
 pkgname=python-zopfli
 _name="${pkgname/thon/}"
-pkgver=0.2.3.post1
-pkgrel=2
+pkgver=0.4.0
+pkgrel=1
 pkgdesc="Python bindings to zopfli"
 arch=(x86_64)
 url="https://github.com/fonttools/py-zopfli"
@@ -22,8 +22,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('dfea6d501bc2204e606f98485c1512838685d9b92dcc93d2f53114a8afa682728f10205b3bea16bd12ecf8f2f95893fd3f0372f49ba1855b016909b5799dfe04')
-b2sums=('b39e392e3b0edfed97fcbf90bc81c119c1080cb01a6a3abb5d56fa7e4167197f2a5bbcaed89a044c65112ddb9bda6497f2a168b284095cbb787921705c618e75')
+sha512sums=('7684116203abde52293ef174ebb61b1326f3030ee1044f8a71f2ac4f0659e305274678987609e5e03eab2ac9860f39f319e7f188b36bd27bd92dce7affdcd4cd')
+b2sums=('2e26ddf74723d4ab05343ba0e5c4074c1286f17d42c46ca36c8917089d26c1f6e28c0f2eb5c2fa2c9af2ec1cbe12980360285acf16dde6e1dcb91e7917e3d6eb')
 
 build() {
   cd $_name-$pkgver
