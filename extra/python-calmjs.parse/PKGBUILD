@@ -2,7 +2,7 @@
 
 _name=calmjs.parse
 pkgname=python-calmjs.parse
-pkgver=1.3.3
+pkgver=1.3.4
 pkgrel=1
 pkgdesc="Various parsers for ECMA standards"
 arch=(any)
@@ -11,17 +11,17 @@ license=(MIT)
 depends=(
   python
   python-ply
+  python-setuptools
 )
 makedepends=(
   python-build
   python-installer
-  python-setuptools
   python-wheel
 )
 checkdepends=(python-pytest)
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('3259d108fd3e28549a7fc5070ed3cc429ea9dd0412e576e98922c16387a0e50e15c27c3651e3f6275878fc0a271523dd7431afe34fd383c497438621f1bfd206')
-b2sums=('92434a7dd59a910b88b838b857a60de38cacbda61ecbd4f574e6951de2272f497e9c8c7f0ff3b01cfa59187036b75085b231293497126899fa466658ff3dcbd6')
+sha512sums=('de97ca594f5ecb71ec981251d8944f02dd08e3e0a0b01a7c75f14569415f01ecbfac885c7fa83930477cf2cac9445eebb088aa45ccac875da1dacd357275169e')
+b2sums=('56a8e15ae398475e86e73b0b2adf57470a925028c7ad528d2c20bdd778734c5a18656ef16b977f331e2ecc7765d9e422ec3322bd9d1652b56caec25bcc66e72d')
 
 prepare() {
   cd $_name-$pkgver
