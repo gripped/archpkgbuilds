@@ -2,7 +2,7 @@
 
 pkgname=rpgp
 _name="${pkgname}ie"
-pkgver=0.7.2
+pkgver=0.7.4
 pkgrel=1
 pkgdesc="An experimental OpenPGP CLI tool"
 arch=(x86_64)
@@ -14,8 +14,8 @@ depends=(
 )
 makedepends=(rust)
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('e10a8e9472b7d2f48f7bbc60893fa11d20b1044b41707154369a3a991d678af7c25649d5f522bcf2176095a89dc7cdcc1d9acf7637b694e920316fece1c0d718')
-b2sums=('640dc96423195e20d61a808039e7a3eea8a8b713c90ab6586394fedae0802ebbffcf6f32ac34d08e18a1d605882779a30dd77110fbb55268eb753bd8e4437cfb')
+sha512sums=('08bca65555882c9e2918a41908ec44dbf39dc60bfda72a78285b474e66d0bf3837ce05039a615a9b2ab4646cd3b7250820db167658ea3e3b418510de2aff1071')
+b2sums=('c0b8c35254300f8dd51a1c084981c2c5025e412c669812257bdc6ba31bf3d5a3750a2950054e9c4ff7dd4bf7df950ee565b4327065875bcb0a2256a24dacae27')
 
 prepare() {
   cd $_name
@@ -26,7 +26,7 @@ build() {
   export CARGO_TARGET_DIR=target
 
   cd $_name
-  cargo build --frozen --release --features=cli
+  cargo build --frozen --release --features=cli,draft-pqc
 }
 
 check() {
