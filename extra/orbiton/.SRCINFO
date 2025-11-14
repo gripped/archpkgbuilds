@@ -1,7 +1,7 @@
 pkgbase = orbiton
 	pkgdesc = Configuration-free text editor and IDE
-	pkgver = 2.70.0
-	pkgrel = 3
+	pkgver = 2.70.4
+	pkgrel = 1
 	url = https://roboticoverlords.org/orbiton/
 	arch = x86_64
 	license = BSD-3-Clause
@@ -10,8 +10,8 @@ pkgbase = orbiton
 	makedepends = vte3
 	depends = glibc
 	options = !lto
-	source = git+https://github.com/xyproto/orbiton#tag=v2.70.0
-	b2sums = 588ad4c336ceff1abbcfc37faf1772bd3ccf5c76f6969248479a9a38d9c7d343c1bdc0dfa815698ec6180a45dc81d0b881b5144e618c388797fb83140fb16156
+	source = git+https://github.com/xyproto/orbiton#tag=v2.70.4
+	b2sums = f9f042526286601ba9e75b25f0f84622e4e8135f25d913332672b3c236453314bc51407557bc80f126502f02d51e2f6b1d8e362f411e50f641fa3c9671f3cc87
 
 pkgname = orbiton
 	optdepends = abcmidi: for writing music in the ABC notation
@@ -26,6 +26,7 @@ pkgname = orbiton
 	optdepends = gdb: for debugging C
 	optdepends = gcc-d: for compiling D
 	optdepends = ghc: for compiling Haskell
+	optdepends = gopls: for tab completing Go
 	optdepends = haskell-brittany: for formatting Haskell
 	optdepends = jad: for decompiling .class files on the fly
 	optdepends = java-environment: for compiling Java
