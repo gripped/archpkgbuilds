@@ -5,7 +5,7 @@
 _upstream=deltachat-core-rust
 _name=core
 pkgname=deltachat-rpc-server
-pkgver=2.22.0
+pkgver=2.25.0
 pkgrel=1
 pkgdesc="A JSON-RPC 2.0 interface to DeltaChat over standard I/O"
 arch=(x86_64)
@@ -19,14 +19,11 @@ depends=(
 makedepends=(
   rust
 )
-# NOTE: the ring dependency can not be built with LTO
-options=(!lto)
 source=("$_url/archive/v$pkgver/$_upstream-$pkgver.tar.gz")
-sha512sums=('9ebc2acf175097b99a9f01c844d8cfb3813109a4892327350e80b945c7c875626dbcc935bf287c7536a3b3dedb146e6017dfdfcafaa1c953cb56acc45e9105bc')
-b2sums=('659edc6a077099c6b5e2de0fedf36049479ce44282692f483a58d16277de015c492a42fa8d4ca44dc9cc514d2f8046f3e133bb9dc10f5b9d002422184367e4fd')
+sha512sums=('308f12f5ef30b4004aeca861c482801c84813dae517adab34c91e065560e0198f01a4abb323b139f6fefbde34d4b62da602bd6e6892ff920051e254df98138a9')
+b2sums=('7f1dda40478127d8c85678382d4750102af4f1ed3aaae9d8c78c382368028d2945b47f08de7dab5f3a583b9a4103fcdffc382e016542d90bfe5d33d2714dce53')
 
 prepare() {
-  export RUSTUP_TOOLCHAIN=stable
   cd $_name-$pkgver
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 
@@ -34,16 +31,12 @@ prepare() {
 
 build() {
   cd $_name-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
-  cargo build --frozen --release --all-features --package $pkgname
+  CFLAGS+=" -ffat-lto-objects" cargo build --frozen --release --package $pkgname
 }
 
 check() {
   cd $_name-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
-  cargo test --frozen --all-features --package $pkgname
+  CFLAGS+=" -ffat-lto-objects" cargo test --frozen --package $pkgname
 }
 
 package() {
