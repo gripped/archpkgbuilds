@@ -1,8 +1,8 @@
 # Maintainer: Leonidas Spyropoulos <artafinde@archlinux.org>
 
 pkgname=kafka
-pkgver=4.1.0
-pkgrel=2
+pkgver=4.1.1
+pkgrel=1
 _scalaver=2.13
 pkgdesc="An open-source distributed event streaming platform"
 arch=('any')
@@ -38,13 +38,13 @@ source=(
     $pkgname.tmpfiles
     set-base_dir.patch
 )
-sha512sums=('51797065c03ba2cf3ece905e02941c0e76ad3091450463b5ba728a323794988922b6bd8320bd7a1df356b519555a139e9846ceb57bb318f172798ffa086aebc7'
+sha512sums=('3a7a584bfb91c9c01bab8d22b7ece075e737c498b040d093f8dec272d94d4b6b98f0aee083ccd7a34637c6d8d428b2ed051af2bc5a5be2e53d931fef0f7428aa'
             'SKIP'
             '715da8728e5245f14e4924b6056b8df911ee7c9f1838651677af8b7b82ed801d90eaf743e153d6784e5b233128cf010990b7c7efc0761c376f700d909e288414'
             '796eb295cddff842d94e5f10d6a2065b1f397873fd1baf3a85b91fa41d3e67364b105ef199f264b7f28d6536a0448d5fa2512339a085bfd72432844820bb59bf'
             'e555db26b8247ddefdb1c81fb1a6f89d7e8fba39ba19b9ce1608e989e957f6c550bd482e4ccbe1f2f288e00d851741c6a9a53c91754696907d72233f56fad8c6'
             '3739ec988aada505a0eccee6ae27a9ca620547b3117a034d9eec7cae5bc2af26f41aa8bd066945946c19c05e8529034b7a1b1f49ea03a6574760bb6c1a64a7ad')
-b2sums=('c3480d98e5287d9d75ceb686c45edc428f17dbfce6b545b6d61635d5197a920f324e0632cc8cf56fe0674f007e7ce1bece3a3b192f518007f23c4662156fce4e'
+b2sums=('37afb3570faad38861f9fda25f795399b8645ef65412be3c07cf92e362b17beb65454c93a1a52ca3526deeda8973b5c6f250913af38dd2a369643021a588dfb5'
         'SKIP'
         '208c343dbd79042916880ef35a38bed8b5a7a3496237cbf7ab04fc43b2008bc2f091b03f3e25bb77035ccacb9e686f9406d3401274fd4903a5b5563614e5b66f'
         'fea3464ddc8e058394153385a7031f71c6a85872062a381a807e9a11eebcf0771da82ae8d5d194fff15ca6c5e0dadf72a94061f8d76789227d2b1d9abb4cc774'
@@ -63,6 +63,7 @@ validpgpkeys=(
     'CF9500821E9557AEB04E026C05EEA67F87749E61' # Josep Prat (Apache) <jlprat@apache.org>
     '7EEAA203132DC48CF650C9248AF5CC6A1653902F' # Colin Patrick McCabe (CODE SIGNING KEY) <cmccabe@apache.org>
     '880BD93BF75EDE553B6A9918B4CC1061B61737F9' # David Jacot (CODE SIGNING KEY) <dajac@apache.org>
+    'C3568F5D91E53F9D7FBA7FEF1E8A9F4B368638A9' # Lianet Magrans (CODE SIGNING KEY) <lianetm@apache.org>
 )
 
 prepare() {
