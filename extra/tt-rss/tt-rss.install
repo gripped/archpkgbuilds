@@ -4,7 +4,7 @@ post_upgrade() {
   if [ "$(vercmp $2 2:r12246.8b07dc845-2)" -le 0 ]; then
       cat << EOF
 ===> Upstream dropped support for MySQL. See
-===> https://community.tt-rss.org/t/support-for-mysql-is-no-more/6897
+===> https://web.archive.org/web/20251004101616/https://community.tt-rss.org/t/support-for-mysql-is-no-more/6897
 ===> for more details and tips for migration to PostgreSQL.
 EOF
   fi
@@ -18,7 +18,7 @@ EOF
 ===> See https://wiki.archlinux.org/index.php/TT-RSS for more information.
 ===> ********************************************************************
 ===> TT-RSS has restructured its config files, please consult
-===>   https://tt-rss.org/wiki/GlobalConfig
+===>   https://tt-rss.org/docs/Global-Config.html
 ===> on the config file migration plan.
 EOF
   fi
@@ -27,7 +27,7 @@ EOF
       cat << EOF
 ===> Upstream changed the location for cached feed icons. Existing ones
 ===> will be moved to the new location after all feeds are updated in
-===> the next batch update. See https://community.tt-rss.org/t/5698 for
+===> the next batch update. See https://web.archive.org/web/20251004102641/https://community.tt-rss.org/t/favicons-cache-implementation-overhaul/5698 for
 ===> more details.
 EOF
   fi
@@ -35,7 +35,7 @@ EOF
   if [ "$(vercmp $2 2:r11408.fa9c614ff)" -le 0 ]; then
       cat << EOF
 ===> Upstream split af_readability out as a standalone plugin. Please
-===> follow https://community.tt-rss.org/t/5739 for how to add it back
+===> follow https://web.archive.org/web/20251004102828/https://community.tt-rss.org/t/splitting-af-readability-into-a-separate-repo/5739 for how to add it back
 ===> if you need it.
 EOF
   fi
