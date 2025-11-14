@@ -3,7 +3,7 @@
 
 pkgname=libgmobile
 pkgver=0.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Functions useful in mobile related, glib based projects'
 arch=('x86_64')
 url='https://gitlab.gnome.org/World/Phosh/gmobile'
@@ -14,15 +14,17 @@ depends=(
 )
 makedepends=(
             "meson"
+            "gi-docgen"
             "git"
             "gobject-introspection"
+            "python-docutils"
             "vala"
 )
 source=("git+${url}.git#tag=v${pkgver}")
 sha256sums=('109dad0d5650b9cdfa4523f8e32079583489a644b1ffa0fe35af9646b76703e9')
 
 build() {
-  arch-meson gmobile build
+  arch-meson gmobile build -Dgtk_doc=true -Dman=true
   meson compile -C build
 }
 
