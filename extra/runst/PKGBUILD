@@ -1,8 +1,8 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=runst
-pkgver=0.1.7
-pkgrel=2
+pkgver=0.2.0
+pkgrel=1
 pkgdesc="A dead simple notification daemon"
 arch=('x86_64')
 url="https://github.com/orhun/runst"
@@ -10,7 +10,8 @@ license=('MIT' 'Apache-2.0')
 depends=('dbus' 'pango')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('68ea1e8f48d5b8e76d246c5e3ed20e1a9580adaabb1853280de6b54b3b12a548ab647ccb57371bab9b23d2976d3d8c41fe3164d530db4b5380bd394b62dc3a4f')
+sha512sums=('ff76101d4e23c8d7dce56442a2400c26d4e40a36ad02db71ade13acca13b17d3aa3413b50177fe7ba3b6bf95345d58a21b8613fad8a561953093927414326a3f')
+options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
