@@ -4,24 +4,24 @@
 # Contributor: Aaron Schaefer <aaron@elasticdog.com>
 
 pkgname=duplicity
-pkgver=3.0.6
+pkgver=3.0.6.1
 pkgrel=1
 pkgdesc='A utility for encrypted, bandwidth-efficient backups using the rsync algorithm'
-arch=('x86_64')
+arch=(x86_64)
 url='https://duplicity.gitlab.io/'
-license=('GPL-2.0-only')
+license=(GPL-2.0-only)
 depends=(
-  'gnupg'
-  'librsync'
-  'python-fasteners'
+  gnupg
+  librsync
+  python-fasteners
 )
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-setuptools-scm'
-  'python-wheel'
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-setuptools-scm
+  python-wheel
 )
 optdepends=(
   'lftp: backend for ftp, ftps, fish'
@@ -41,15 +41,15 @@ optdepends=(
 )
 source=(
   "$pkgname::git+https://gitlab.com/duplicity/duplicity#tag=rel.$pkgver"
-  'fix-documentation-directory.patch'
-  'no-pip.patch'
+  fix-documentation-directory.patch
+  no-pip.patch
 )
-sha512sums=('2d2c536ae62cd20ef74b9c48851a4d65d3c3060211a5bf6f7475cc29be4c49fb62d40e07a0abd45eec6ed334f881abf47c980c5ae29dce1d19934c3b70baa1fa'
+sha512sums=('cf7286581dbc6d847e42edd822db7ab3deeea913eddc3772733bdf66ced4bb20f6f1c8448c461bbd5aafe935c764f5c692cd3686f05522fd7d6c97db5877969a'
             'fac5f64001f91f65f4b7d8edd5b3dd667ffaf73ceb06102a93f7c4c4bcf898695d62d143ebaf5173fe2a1a797109ecde9cfc8b3779ad1d234d3abb0f1334644e'
-            '1a127c64004d7d9ae2178b0ee4b18ae9c2a8724fb45e926fbcb111e880d7f70d158f8eb00e205c7a01f89e0f8ce4d5029f24ffeee629e6920078560e55ce3885')
-b2sums=('5bbc6c447c3907d9126f17f5c3675386ee486d505e3cfcd6c276de3a2d53c2c45c072c8fe016af3fc33f1c75928f83c852c69b7bfd37e66b73d15ce37362c9ad'
+            'c7b94e6c9a5d9ffe57c69ff2db90a278936c6187c0342762c0589616ee35745495bce14bc4b8da903f1ef1baf329a71f6839e826f25a813cfa8eb91a87fecafc')
+b2sums=('47881d4c0cdba856af01034abf5a1fe84901e6676f7928ac62e89e4c5948903328ba9114a0c0af61dda13dfba08a4e613d54a78c7d211b1cd6831474597040db'
         '04dad8ce369f4fb78e2b3239e30d63410d8e8c33b5e05717b5b62ba54c624c2e931220b950bad507deab60a07086c434949f0766bc3ae2eb771d62e1919cbecd'
-        '1c1792a750846f31dd9389ef42a108a2fcc9dee7fdb05b6e534296f91f0e84d8f6b3a67ab2fad9ebfda152ffaeb4f977e3afe561243805e476ff8abdd984a29f')
+        'cc40b852f4546b945fdc7687d900a49187597f8eaf5a843e0ac1556039f9e9daba83443297aca47eb8dce95b54d0e052b07cec31cc0e9982324ce892af3f0c20')
 
 prepare() {
   cd "$pkgname"
