@@ -8,13 +8,13 @@
 # Contributor: Matthias Mailänder <matthias@mailaender.name>
 
 pkgname=mattermost-desktop
-pkgver=5.13.2
+pkgver=6.0.0
 pkgrel=1
 pkgdesc='Mattermost Desktop application'
 arch=(x86_64)
 url="https://github.com/${pkgname/-//}"
 license=(Apache-2.0)
-_electron=electron37
+_electron=electron38
 depends=($_electron
          libxcrypt-compat)
 makedepends=(git
@@ -28,7 +28,7 @@ _archive="${pkgname#*-}-$pkgver"
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "$pkgname.sh"
         "$pkgname.desktop")
-sha256sums=('c2af9ccda762c0b617b40e6167c2daead3bb5acc3d514fd313b453763a477af6'
+sha256sums=('ead18425e121dde38dd29139da1509791373994dafee1cd56f164a4bc37c5f84'
             '1c2bf48b6397d04a5a536c5c9f4960db53249c838c380f03f808c612b00ba4c6'
             '27c798af15d6aefbd41da5aacb9f9b15438349c649e9c05658387981760fd3b7')
 
