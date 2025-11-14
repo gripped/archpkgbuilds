@@ -1,7 +1,7 @@
 pkgbase = phosh
 	pkgdesc = A pure Wayland shell prototype for GNOME on mobile devices
 	pkgver = 0.50.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://gitlab.gnome.org/World/Phosh/phosh
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -37,10 +37,14 @@ pkgbase = phosh
 	optdepends = iio-sensor-proxy: accelerometer and other sensors
 	optdepends = xdg-desktop-portal-wlr: for screenshot and screencast support
 	source = git+https://gitlab.gnome.org/World/Phosh/phosh.git#tag=v0.50.1
+	source = git+https://gitlab.gnome.org/World/Phosh/libcall-ui.git#tag=v0.1.5
+	source = git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git#commit=5f9768a2eac29c1ed56f1fbb449a77a3523683b6
 	source = pam_phosh
 	source = phosh-1721.patch::https://gitlab.gnome.org/World/Phosh/phosh/-/merge_requests/1721.patch
 	validpgpkeys = 0DB3932762F78E592F6522AFBB5A2C77584122D3
 	sha256sums = 888d5679d5136197f78e602c1b6c60b161edfba720a379a2db32bc3726e60701
+	sha256sums = 8aa033a10f450dd8068fb99aeba1bfd544f78bda8f9eb338da705f9f472398c3
+	sha256sums = 587319b45ff7d989635aed0c3bd9ef834d6e53ae46788cb6ba083d42d7e63855
 	sha256sums = b7793f80c533e84ad8adfe8bb46c69f107575e724aa9b53b41f370baa37e4fd5
 	sha256sums = 69136ff3b0afbea8e83ded266dcc2bd8192fb40f00badb8d2f4d64f7b261b975
 
