@@ -8,9 +8,10 @@ _next_pg_version=$(( _current_pg_version + 1 ))
 # limit to last 5 releases
 declare -gA _commits=(
   [2.23.0]=ba5dcfd1c69f3529d0cc9de3028e1a12a36042ba
+  [2.23.1]=9cec3ac3211e340097ae3605b62cfd73130bb6b7
 )
-pkgver=2.23.0
-pkgrel=2
+pkgver=2.23.1
+pkgrel=1
 pkgdesc='An open-source time-series database optimized for fast ingest and complex queries'
 arch=('x86_64')
 url='https://www.timescale.com/'
@@ -30,8 +31,8 @@ optdepends=(
 )
 install=timescaledb.install
 source=("$pkgname::git+https://github.com/timescale/timescaledb#commit=${_commits[$pkgver]}")
-sha512sums=('34595c725a95a8d0ae136da4a147f3b0f3d5d359ed9d47b9d47b4e5c045ec8ad5d40f2616b7eb3a1a3dfd77289386b7873afd18c39b0004b4b08a483a0f91242')
-b2sums=('6004e7ecc7bd5ab65379e1d9a53126c549a116b03615ad23d5a69c6181a5013d436aa5cd347eccd44b9c03ad21fcaaf8053846034b586c655dac53c55482545e')
+sha512sums=('4c79e9eacc6035656118c648d8503d979fb820904f14e056f400c7316a36de9ea5e44e3a7be3258a396e5962d54a52e5c8a22196cb2a4cf2c51edfffeeb1bfef')
+b2sums=('65e21cb7b19dc7bf19561da414e1865c91032c23f318a2d0b3ddd32393b9af8f2308d445653dd496c5393802eb1d66790c5644f898577714e57f31aff30bd7db')
 
 prepare() {
   mkdir -p build
@@ -80,13 +81,6 @@ package() {
     cd "$srcdir/build/$version"
     if [[ $version == $pkgver ]]; then
       make DESTDIR="$pkgdir/" install
-    elif (( $(vercmp $version 2.23.0) >= 0 )); then
-      install -vDm755 -t "$pkgdir/usr/lib/postgresql" \
-        "src/$pkgname-$version.so" \
-        "tsl/src/$pkgname-tsl-$version.so" \
-        "tsl/src/continuous_aggs/$pkgname-invalidations-$version.so"
-      install -Dm644 -t "$pkgdir/usr/share/postgresql/extension" \
-        "sql/timescaledb--$version.sql"
     else
       install -vDm755 -t "$pkgdir/usr/lib/postgresql" \
         "src/$pkgname-$version.so" \
