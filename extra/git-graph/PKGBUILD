@@ -1,20 +1,20 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=git-graph
-pkgver=0.6.0
-pkgrel=2
+pkgver=0.7.0
+pkgrel=1
 pkgdesc='show clear git graphs arranged following different branching model'
 arch=(x86_64)
 url="https://github.com/mlange-42/$pkgname"
 license=(MIT)
 depends=(gcc-libs # libgcc_s.so
          glibc # libc.so
-         libgit2
-         zlib)
+         libgit2 libgit2.so
+         zlib libz.so)
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
-source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('7620d1e6704a418ccdaee4a9d863a4426e3e92aa7f302de8d849d10ee126b612')
+source=("$url/archive/v$pkgver/$_archive.tar.gz")
+sha256sums=('105980d19b93324e27ee714abde35cb05b29e21d3c42cd972afe4d4500af05ee')
 
 prepare() {
 	cd "$_archive"
@@ -23,8 +23,6 @@ prepare() {
 
 build() {
 	cd "$_archive"
-	depends+=(libgit2.so
-	          libz.so)
 	CFLAGS+=' -ffat-lto-objects'
 	export LIBGIT2_NO_VENDOR=1
 	cargo build --frozen --release
