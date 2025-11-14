@@ -6,7 +6,7 @@
 # Contributor: Douglas Thrift <douglas@douglasthrift.net>
 
 pkgname=rlwrap
-pkgver=0.47.1
+pkgver=0.48
 pkgrel=1
 pkgdesc='Adds readline-style editing and history to programs'
 arch=(x86_64)
@@ -23,8 +23,8 @@ depends=(
 )
 makedepends=(git)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('f2d7b9b9b52b503390859508f9511d1e03b5ce313d2695bc238e23bd72570d0d0ab09701623fee8ad2effee0d40a1e16ba5d05bb0a7cf03347bb1d065f8bcf6e')
-b2sums=('c08511b7e33de33ee154ec606faec56da549fd3856d9704b83fe8ce6e292177ae0b4290e428ee98775573cec85b5cab7bb0f6bfb8c70835fd7ab5d868e4ef99e')
+sha512sums=('b5761ad4bff124ece68c41560c1cabb9e2c66588b2037f7d204614bd9bef34a3317f6c0a992e4b3093539cacc4d5091b1dbdec9ed63a99788c1225a95870d35e')
+b2sums=('8f27bb182a9f17ab64bbdb0e36d265618916f90073843c007098b133276936dff6442839087078dd244274fd19ce0e7c18ad8d15bb0bc5e710998795db5e2ec4')
 
 prepare() {
   cd "$pkgname"
