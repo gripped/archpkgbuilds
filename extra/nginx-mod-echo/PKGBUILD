@@ -1,8 +1,8 @@
 # Maintainer: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
 pkgname=nginx-mod-echo
-pkgver=0.63
-pkgrel=8
+pkgver=0.64
+pkgrel=1
 
 _modname="${pkgname#nginx-mod-}"
 
@@ -13,7 +13,7 @@ url="https://github.com/openresty/echo-nginx-module"
 license=('BSD-2-Clause')
 
 source=(https://github.com/openresty/$_modname-nginx-module/archive/v$pkgver/$_modname-$pkgver.tar.gz)
-sha256sums=('8af374d29592ef95baee53c91959c7b04927f11304c318a94f0ee140760515a4')
+sha256sums=('6f43f56d7e7e8526716bbda06b300f0119912eede47b3a48bb948252a1fb38c8')
 backup=('etc/nginx/modules.d/20-echo.conf')
 
 prepare() {
