@@ -6,13 +6,17 @@ pkgbase=flatbuffers
 pkgname=(flatbuffers python-flatbuffers)
 # https://github.com/google/flatbuffers/blob/master/CHANGELOG.md
 pkgver=25.9.23
-pkgrel=1
+pkgrel=2
 pkgdesc='An efficient cross platform serialization library for C++, with support for Java, C# and Go'
 arch=(x86_64)
 url='https://google.github.io/flatbuffers/'
 license=(Apache)
 depends=(gcc-libs)
-makedepends=(cmake python-setuptools python-numpy)
+makedepends=(cmake
+             python-build
+             python-installer
+             python-numpy
+             python-setuptools)
 source=(https://github.com/google/$pkgbase/archive/v$pkgver/$pkgbase-$pkgver.tar.gz)
 sha256sums=('9102253214dea6ae10c2ac966ea1ed2155d22202390b532d1dea64935c518ada')
 
@@ -33,7 +37,7 @@ build() {
 
 # Python bindings
   cd $pkgbase-$pkgver/python
-  VERSION=$pkgver python setup.py build
+  VERSION=$pkgver python -m build --wheel --no-isolation
 }
 
 check() {
@@ -56,5 +60,5 @@ package_python-flatbuffers() {
   )
 
   cd $pkgbase-$pkgver/python
-  VERSION=$pkgver python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  VERSION=$pkgver python -m installer --destdir="$pkgdir" dist/*.whl
 }
