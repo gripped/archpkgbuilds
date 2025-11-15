@@ -8,7 +8,7 @@ pkgname=(
   lib32-at-spi2-core
 )
 pkgver=2.58.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Protocol definitions and daemon for D-Bus at-spi (32-bit)"
 url="https://gitlab.gnome.org/GNOME/at-spi2-core"
 arch=(x86_64)
@@ -30,7 +30,6 @@ makedepends=(
   lib32-libxml2
   lib32-systemd
   meson
-  systemd
 )
 checkdepends=(
   at-spi2-core
@@ -50,6 +49,7 @@ build() {
     --cross-file lib32
     -D default_bus=dbus-broker
     -D docs=false
+    -D gtk2_atk_adaptor=false
     -D introspection=disabled
   )
 
