@@ -8,7 +8,7 @@ pkgname=(
   at-spi2-core-docs
 )
 pkgver=2.58.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Protocol definitions and daemon for D-Bus at-spi"
 url="https://gitlab.gnome.org/GNOME/at-spi2-core"
 arch=(x86_64)
@@ -35,7 +35,6 @@ makedepends=(
   libxml2
   meson
   python-sphinx
-  systemd
 )
 checkdepends=(
   at-spi2-core
@@ -54,6 +53,7 @@ build() {
   local meson_options=(
     -D default_bus=dbus-broker
     -D docs=true
+    -D gtk2_atk_adaptor=false
   )
 
   arch-meson at-spi2-core build "${meson_options[@]}"
