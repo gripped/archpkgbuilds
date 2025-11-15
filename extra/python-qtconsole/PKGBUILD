@@ -1,48 +1,54 @@
-# Maintainer: Kyle Keen <keenerd@gmail.com>
 # Maintainer: Bruno Pagani <archange@archlinux.org>
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Kyle Keen <keenerd@gmail.com>
 
 _pkgname=qtconsole
 pkgname=python-qtconsole
 pkgver=5.7.0
-pkgrel=1
-pkgdesc="Qt-based console for Jupyter with support for rich media output"
+pkgrel=3
+pkgdesc='Qt-based console for Jupyter with support for rich media output'
 arch=(any)
-url="https://qtconsole.readthedocs.io/"
-license=(BSD)
-depends=(
-    python-ipykernel
-    python-jupyter-core
-    python-jupyter-client
-    python-traitlets
-    python-pygments
-    python-pyqt6
-    python-pyzmq
-    python-qtpy
-    qt6-svg
-)
-makedepends=(python-setuptools)
-checkdepends=(python-pytest python-pytest-qt python-flaky xorg-server-xvfb python-pytest-asyncio)
-source=(https://github.com/jupyter/${_pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('3d6c90dfd2ee5e1c981f4efa60691c716c08a687ef9c12b01802e1b4192709f2')
+url='https://qtconsole.readthedocs.io/'
+license=(BSD-3-Clause)
+depends=(python-ipykernel
+         python-jupyter-core
+         python-jupyter-client
+         python-traitlets
+         python-pygments
+         python-pyqt6
+         python-pyzmq
+         python-qtpy
+         qt6-svg)
+makedepends=(git
+             python-build
+             python-installer
+             python-setuptools)
+checkdepends=(python-flaky
+              python-pytest
+              python-pytest-asyncio
+              python-pytest-qt
+              xorg-server-xvfb)
+source=(git+https://github.com/jupyter/$_pkgname#tag=$pkgver)
+sha256sums=('2f046ee25ef5d6444a6c83d3be5fc18f619272a730d58bc4b1911520916ce576')
 
 build() {
-  cd ${_pkgname}-${pkgver}
-  python setup.py build
+  cd $_pkgname
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd ${_pkgname}-${pkgver}
+  cd $_pkgname
   xvfb-run -s '-nolisten local' pytest -x -vv --color=yes qtconsole
 }
 
 package() {
-  cd ${_pkgname}-${pkgver}
-  python setup.py install --prefix=/usr --root="${pkgdir}" --optimize=1 --skip-build
+  cd $_pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
-  install -Dm644 LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
 
   cd examples
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   sed -i "s|^Icon=.*$|Icon=${site_packages}/qtconsole/resources/icon/JupyterConsole.svg|" jupyter-qtconsole.desktop
-  install -Dm644 jupyter-qtconsole.desktop -t "${pkgdir}"/usr/share/applications/
+  install -Dm644 jupyter-qtconsole.desktop -t "$pkgdir"/usr/share/applications/
 }
