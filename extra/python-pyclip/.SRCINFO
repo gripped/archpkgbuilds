@@ -1,10 +1,15 @@
 pkgbase = python-pyclip
 	pkgdesc = Cross-platform clipboard utilities supporting both binary and text data
 	pkgver = 0.7.0
-	pkgrel = 7
+	pkgrel = 8
 	url = https://pypi.org/project/pyclip/
 	arch = any
 	license = Apache-2.0
+	checkdepends = xorg-server-xvfb
+	checkdepends = xclip
+	checkdepends = python-pytest
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
 	depends = python
 	optdepends = xclip: Support for X11
