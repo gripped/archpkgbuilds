@@ -2,8 +2,8 @@
 # Contributor: Sébastien "Seblu" Luttringer
 
 pkgname=python-msgpack
-pkgver=1.0.5
-pkgrel=3
+pkgver=1.1.2
+pkgrel=1
 pkgdesc='MessagePack serializer implementation for Python'
 
 url='https://github.com/msgpack/msgpack-python'
@@ -17,7 +17,7 @@ checkdepends=('python-pytest')
 
 source=(msgpack-python-$pkgver.tar.gz::https://github.com/msgpack/msgpack-python/archive/v$pkgver.tar.gz)
 
-sha512sums=('0d0b479044cda16519cf85d45acb8900b6e6585bf95816396fc96d6d1eb260036fb9c75bf8f88d99e212937a40d314a200d2b847d1da8a9ebc5694ab52e22896')
+sha512sums=('bd5bc3498875fd17fcfaeb1a79c49e61313976341950c385cacbe3c6cf85bf1acfc9ccf06046ddeb1848f52929f1d71aac6b67bac41479c1333e42bd1d461542')
 
 prepare() {
   sed -i 's/~=/>=/' msgpack-python-$pkgver/pyproject.toml
@@ -25,6 +25,7 @@ prepare() {
 
 build() {
   cd msgpack-python-$pkgver
+  make cython
   python -m build --wheel --no-isolation
 }
 
