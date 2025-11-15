@@ -5,7 +5,7 @@
 
 pkgname=ruby-mixlib-shellout
 _pkgname="${pkgname#ruby-}"
-pkgver=3.4.8
+pkgver=3.4.9
 pkgrel=1
 pkgdesc='Run external commands on Unix'
 arch=(any)
@@ -15,8 +15,8 @@ depends=(ruby ruby-chef-utils)
 makedepends=(git ruby-rake ruby-rdoc)
 options=(!emptydirs)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('8150671d63594b278f68e0f8816ad74eb63e9ae7127427f94c63f391d99c30555dab665b34b2d38730f4eb6cbab2fa7868f6327eb140b43c032aec23359a7e21')
-b2sums=('9c24ba587538451cd8b4bf0df3abb7260ca7ac6be6adb959542a72f1e950948be8ce5b623bda4acc20ca89ef99a855b5dae371a7d3c3414a3ae9389def86e7f3')
+sha512sums=('c4a452a8fcbd18a305623dccc95330ef6a389bff2ecf55291dc7eef72d93d6df14e1eb4e8a2d7f2cf1a7a15308c83c83f8c6cfb54448ffa625ff21d74be5367d')
+b2sums=('e9ead8d9cf20d87091d98dfdae0c49414e541a8ba9acb16b85506a9353b7124e7fa1a66ee0c4a4cf2c88cdd763d6b107a71e8a4d748f641f021f284160a4f0b8')
 
 build() {
   cd "$pkgname"
