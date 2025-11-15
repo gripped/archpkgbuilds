@@ -4,6 +4,7 @@ After=network.target synapse.service
 
 [Service]
 CapabilityBoundingSet=
+ExecReload=/usr/bin/kill -HUP $MAINPID
 ExecStart=/usr/bin/node /usr/lib/node_modules/matrix-appservice-irc/app.js -c /etc/matrix-appservice-irc/config.yaml -f /etc/matrix-appservice-irc/registration.yaml
 Group=matrix-appservice-irc
 LockPersonality=yes
