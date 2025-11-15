@@ -3,8 +3,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=git-annex
-pkgver=10.20251029
-pkgrel=3
+pkgver=10.20251114
+pkgrel=1
 pkgdesc="Manage files with git, without checking their contents into git"
 url="https://git-annex.branchable.com/"
 license=("AGPL-3.0-only")
@@ -33,7 +33,7 @@ depends=('git' 'lsof' 'rsync' 'ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal'
          'haskell-yesod-core' 'haskell-yesod-form' 'haskell-yesod-static')
 makedepends=('chrpath' 'ghc' 'uusi')
 source=("git+https://git.joeyh.name/git/git-annex.git#tag=$pkgver")
-sha256sums=('9867d10a7c22310ccf6bf8c7932c57f37ef3260e289d5da7255384cc87ab66ba')
+sha256sums=('1029f900b5a2c8b38ff17b6fa87fc1bf343ba3d256bd363d16e9ecb839c6a222')
 
 prepare() {
   cd git-annex
