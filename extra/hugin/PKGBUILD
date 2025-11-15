@@ -6,8 +6,8 @@
 # Contributor: Dominik Ryba <domryba@post.pl>
 
 pkgname=hugin
-pkgver=2024.0.1
-pkgrel=10
+pkgver=2025.0.0
+pkgrel=1
 pkgdesc="Panorama photo stitcher"
 arch=(x86_64)
 url="http://hugin.sourceforge.net/"
@@ -45,22 +45,15 @@ optdepends=('darktable: RAW import using darktable'
             'rawtherapee: RAW import using rawtherapee')
 _archive="$pkgname-$pkgver"
 source=("https://downloads.sourceforge.net/$pkgname/$_archive.tar.bz2"
-        ignore_gzip_timestamps.patch
-        boost-1.89.patch)
-sha256sums=('13ec0cdeeb4eb63149c833768d3e374e7cf5a6a8d8d02d50885ce496f05ba7e4'
-            'e6a41ce195c55f0c895a359203c84c47e885dbbd98c9b077c9a5e092be3bafb4'
-            '19b9d2340dd7a899fda3422e4a5ea4efdfaffdce016ea649ddf98481f142cd5b')
+        ignore_gzip_timestamps.patch)
+sha256sums=('0de27a5d5432e36d4e5d38ac25d7bcafc7b7dd542aab031640a61ed66767076c'
+            'e6a41ce195c55f0c895a359203c84c47e885dbbd98c9b077c9a5e092be3bafb4')
 
 prepare() {
-# Fix build with boost 1.85
-  sed -e 's|copy_option::overwrite_if_exists|copy_options::overwrite_existing|' -i $_archive/src/hugin_base/hugin_utils/filesystem.h
-
 # Ignore timestamps recording in gzip metadata
 # This is required for reproducible builds
   cd "$_archive"
   patch -Np1 -i "$srcdir/ignore_gzip_timestamps.patch"
-
-  patch -p1 -i ../boost-1.89.patch
 }
 
 build() {
