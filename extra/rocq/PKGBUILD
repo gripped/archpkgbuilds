@@ -13,11 +13,11 @@ pkgname=(
   rocqide
 )
 pkgver=9.1.0
-pkgrel=2
+pkgrel=4
 pkgdesc="Interactive theorem prover, or proof assistant"
 arch=('x86_64')
 url="https://rocq-prover.org/"
-license=('LGPL-2.1-or-later')
+license=('LGPL-2.1-only')
 makedepends=(
   'cairo'
   'dune'
@@ -48,6 +48,11 @@ b2sums=('3dc0cc1584f3c042324ec85eb4b5afd236a9f8391b059d6fc163dea846496bade7e7d28
 
 build() {
   cd $pkgbase-$pkgver
+  ./configure \
+    -prefix /usr \
+    -mandir /usr/share/man \
+    -docdir /usr/share/doc \
+    -libdir /usr/lib/ocaml/coq
   make dunestrap
   dune build -p rocq-runtime,coq-core,rocq-core,coqide-server,rocqide
 }
@@ -68,7 +73,8 @@ package_rocq() {
     --prefix=/usr \
     --destdir="$pkgdir" \
     --mandir=/usr/share/man \
-    --docdir=/usr/share/doc
+    --docdir=/usr/share/doc \
+    --libdir=/usr/lib/ocaml
 }
 
 package_rocqide() {
@@ -95,7 +101,8 @@ package_rocqide() {
     --prefix=/usr \
     --destdir="$pkgdir" \
     --mandir=/usr/share/man \
-    --docdir=/usr/share/doc
+    --docdir=/usr/share/doc \
+    --libdir=/usr/lib/ocaml
 
   install -vDm644 -t "$pkgdir/usr/share/applications" ../"$pkgname.desktop"
   install -vDm644 ide/rocqide/coq.png "$pkgdir/usr/share/pixmaps/$pkgname.png"
