@@ -2,7 +2,7 @@
 
 pkgbase=decasify
 pkgname=("$pkgbase" "lua-$pkgbase" "lua53-$pkgbase" "lua52-$pkgbase" "lua51-$pkgbase" "neovim-$pkgbase" "python-$pkgbase" "sile-$pkgbase")
-pkgver=0.10.2
+pkgver=0.11.1
 _rockrel=1
 pkgrel=1
 pkgdesc='cast strings to title-case according to locale specific style guides including Turkish'
@@ -12,17 +12,17 @@ license=(LGPL-3.0-only)
 depends=(gcc-libs
          glibc)
 makedepends=(cargo
+             jq
              lua{,-luarocks-build-rust-mlua}
              lua51{,-luarocks-build-rust-mlua}
              lua52{,-luarocks-build-rust-mlua}
              lua53{,-luarocks-build-rust-mlua}
              luarocks
              python-{build,installer,wheel}
-             python-maturin
-             jq)
+             python-maturin)
 _archive="$pkgbase-$pkgver"
 source=("$url/releases/download/v$pkgver/$_archive.tar.zst"{,.asc})
-sha256sums=('8a9d3f8d4a1eb4824b8021b5d616ad6a69d45f481e6bd25b175386d71ab04229'
+sha256sums=('f2b6bb59af7f7cab3d50063e1622dcf490f344b378e5c02de91cba3f7ff32fa5'
             'SKIP')
 validpgpkeys=('9F377DDB6D3153A48EB3EB1E63CC496475267693') # Caleb Maclennan <caleb@alerque.com> (@alerque)
 
