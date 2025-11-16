@@ -8,7 +8,7 @@
 
 pkgname=onetbb
 pkgver=2022.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='oneAPI Threading Building Blocks - a high level abstract threading library'
 arch=('x86_64')
 url='https://uxlfoundation.github.io/oneTBB/'
@@ -55,8 +55,4 @@ check() {
 
 package() {
     DESTDIR="$pkgdir" cmake --install build
-    rm -r "${pkgdir}/usr/lib"/python*
-    
-    cd "oneTBB-${pkgver}/python"
-    TBBROOT="${pkgdir}/usr" python setup.py install --root="$pkgdir"
 }
