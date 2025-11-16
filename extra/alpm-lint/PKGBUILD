@@ -2,7 +2,7 @@
 
 pkgname=alpm-lint
 _upstream=alpm
-pkgver=0.1.1
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Linting of ALPM packaging related files and projects"
 arch=(x86_64)
@@ -29,8 +29,8 @@ optdepends=(
   'alpm-docs: for additional specifications'
 )
 source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
-sha512sums=('14be2104c7ffe3377954b76a9449ec03dfb60280f0b0a490b7e3e1f477a8aaa8b44782b6f37e28e01bc3788e47ad6568003b1601c88a4ec33fccc07b70950731')
-b2sums=('d4a6af876840b42ae22016f2d234e359ebbc8775a2097fe7e2c8c4bff5f7dc1be77518747879907858e65efa55558f97e4082ce9556b575ca59179ce0ceb2674')
+sha512sums=('1bec1f77956cae42fa1b501bcbc16626404f9b001ce78cf95345909f654ef2185ae9b1ab9c4ceb732a3a1efe9c3490cb9bb0119587b7e9463285433b2fe40b04')
+b2sums=('53d056e74d5e492f657e163c51a2ca6a1eb01a1aa382b918ee6fefb157c2142c5f3ea0645c8398e706952a79c3e1b85e3c372f67a9d9ddb24be576252e788db7')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
