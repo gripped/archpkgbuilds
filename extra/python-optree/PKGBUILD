@@ -2,7 +2,7 @@
 
 _name=optree
 pkgname=python-"${_name}"
-pkgver=0.17.0
+pkgver=0.18.0
 pkgrel=1
 pkgdesc="Optimized PyTree Utilities"
 arch=(any)
@@ -11,14 +11,14 @@ license=(Apache-2.0)
 depends=(python python-typing_extensions)
 makedepends=(python-setuptools python-build python-installer python-wheel cmake gcc pybind11 python-cmake-build-extension)
 source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('796ba67f636711af91cf11840e60b5b388aaa2fa517e8c5c34b40597a72b66185e3f34cee4996eed176d7bd8496108adce08446ada5981a0525fc9c294b8cd33')
-b2sums=('b5f0d8a32c8338e54730bdb3769932c0a62c4242789110886011caab1d40e247aa30764eafd898a2408d849496eba442d89645a3e210bb4ac7c99dd2a8924a99')
+sha512sums=('8bcfc8541ea5d886dfb6cde7153e2e570934fbd9944546ac28ab653f1137d179bc44272a486b8e33ba9a800115a683b506d54e3670ede233c6b0855741b10819')
+b2sums=('24efa7f6c377c7c1cdb98ed73d08b0b33e9497026a0aa233b8a301475138ea292a4d7ed7a0799215fe280d1aa66f912f4321938f48324b64e94969fbe56ad5c5')
 
 prepare() {
 	cd "$_name-$pkgver"
 	# Remove cmake version check, which is broken due to our current version string
 	# "4.3.0-dirty" not being accepted. Our cmake version is compatible.
-	sed -i '148,152d' setup.py
+	sed -i '168,169d' setup.py
 }
 
 build() {
