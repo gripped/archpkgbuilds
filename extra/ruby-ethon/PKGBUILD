@@ -3,13 +3,13 @@
 _name=ethon
 pkgname=ruby-${_name}
 pkgver=0.17.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Libcurl wrapper"
 arch=('any')
 url="https://github.com/typhoeus/ethon"
 license=('MIT')
 depends=('ruby' 'ruby-ffi' 'curl')
-makedepends=('ruby-rdoc')
+makedepends=('git' 'ruby-rdoc')
 checkdepends=(
   'ruby-rspec'
   'ruby-bundler'
@@ -26,15 +26,12 @@ checkdepends=(
 options=(!emptydirs)
 noextract=(${_name}-${pkgver}.gem)
 source=(
-  ${pkgname}-${pkgver}.tar.gz::https://github.com/typhoeus/$_name/archive/v${pkgver}.tar.gz
+  ${pkgname}::git+$url.git#tag=v$pkgver
 )
-sha256sums=('9b8e17ceed1a7a9ef0a4c7d7cf35c467d9c3609e95ca0463dcda7fd7ad175411')
+sha256sums=('813abc77d288bb85f939bdac7312761439ff36c521e3db0a93fbe35954e3862d')
 
 prepare() {
-  cd "${_name}-${pkgver}"
-  sed --in-place --regexp-extended \
-    -e 's|`git ls-files -z`|`find . -type f -print0`|' \
-    ethon.gemspec
+  cd "${pkgname}"
   sed --in-place --regexp-extended \
     -e 's|~>|>=|g' \
     -e '/curb/d' \
@@ -42,7 +39,7 @@ prepare() {
 }
 
 build() {
-  cd "${_name}-${pkgver}"
+  cd "${pkgname}"
 
   local _gemdir="$(gem env gemdir)"
 
@@ -85,7 +82,7 @@ build() {
 }
 
 check() {
-  cd "${_name}-${pkgver}"
+  cd "${pkgname}"
 
   local _gemdir="$(gem env gemdir)"
 
@@ -93,7 +90,7 @@ check() {
 }
 
 package() {
-  cd "${_name}-${pkgver}"
+  cd "${pkgname}"
 
   cp --archive --verbose tmp_install/* "${pkgdir}"
 

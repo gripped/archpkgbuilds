@@ -1,7 +1,7 @@
 pkgbase = ruby-ethon
 	pkgdesc = Libcurl wrapper
 	pkgver = 0.17.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/typhoeus/ethon
 	arch = any
 	license = MIT
@@ -16,13 +16,14 @@ pkgbase = ruby-ethon
 	checkdepends = ruby-rackup
 	checkdepends = ruby-benchmark-ips
 	checkdepends = ruby-patron
+	makedepends = git
 	makedepends = ruby-rdoc
 	depends = ruby
 	depends = ruby-ffi
 	depends = curl
 	noextract = ethon-0.17.0.gem
 	options = !emptydirs
-	source = ruby-ethon-0.17.0.tar.gz::https://github.com/typhoeus/ethon/archive/v0.17.0.tar.gz
-	sha256sums = 9b8e17ceed1a7a9ef0a4c7d7cf35c467d9c3609e95ca0463dcda7fd7ad175411
+	source = ruby-ethon::git+https://github.com/typhoeus/ethon.git#tag=v0.17.0
+	sha256sums = 813abc77d288bb85f939bdac7312761439ff36c521e3db0a93fbe35954e3862d
 
 pkgname = ruby-ethon
