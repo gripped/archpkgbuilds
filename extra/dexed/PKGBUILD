@@ -1,26 +1,26 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgbase=dexed
-pkgname=('dexed' 'dexed-docs' 'dexed-clap' 'dexed-vst3' 'dexed-standalone')
-pkgver=0.9.8
+pkgname=(dexed dexed-docs dexed-clap dexed-vst3 dexed-standalone)
+pkgver=0.9.9
 pkgrel=1
 pkgdesc='A software synth closely modelled on the Yamaha DX7'
-arch=('x86_64')
+arch=(x86_64)
 url='https://asb2m10.github.io/dexed'
-license=('GPL-3.0-only')
-groups=('pro-audio')
+license=(GPL-3.0-only)
+groups=(pro-audio)
 makedepends=(
-  'alsa-lib'
-  'cmake'
-  'curl'
-  'freetype2'
-  'gendesk'
-  'git'
-  'jack'
-  'libx11'
-  'libxrandr'
-  'libxinerama'
-  'libxcursor'
+  alsa-lib
+  cmake
+  curl
+  freetype2
+  gendesk
+  git
+  jack
+  libx11
+  libxrandr
+  libxinerama
+  libxcursor
 )
 source=(
   "$pkgbase::git+https://github.com/asb2m10/dexed#tag=v$pkgver"
@@ -42,7 +42,7 @@ source=(
   'github.com-steinbergmedia-vst3_tutorials::git+https://github.com/steinbergmedia/vst3_tutorials'
   'github.com-steinbergmedia-vstgui::git+https://github.com/steinbergmedia/vstgui'
 )
-sha512sums=('ccdebfd89ffe79a1325b65a5e51cfd17cc0b1f6c5538d80fbd1ba87cc1a35aa915fef2d8a5025d034fdbd606a38ca09b3af0347ef040b1029c1accbdf29f451a'
+sha512sums=('3a9c60d0f7e9e6ff806a6d2e59690efc01fb4a4592600ae135752b2c7e11d312163659382c964a5c1061562d988e981ae347d5cfddd5a6271bf85a3ffb5e2a30'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -58,7 +58,7 @@ sha512sums=('ccdebfd89ffe79a1325b65a5e51cfd17cc0b1f6c5538d80fbd1ba87cc1a35aa915f
             'SKIP'
             'SKIP'
             'SKIP')
-b2sums=('2303f54c056cdc588518251af83074aa74695b882917df7f6f2663c64999f35806e6990f12c78a895bfb47840f527701420eba492126f6ab2332ee19f894b068'
+b2sums=('a6eec1bb880ae37ffb62498110682fddb7c9f4e5f16caed09c96d04f4a6b54c168169f9da54b031878dc33d4212ffecca5948d3749bde2a0e919e816fdd54390'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -124,10 +124,17 @@ prepare() {
 }
 
 build() {
-  cmake \
-    -S "$pkgbase" \
-    -B build \
-    -DCMAKE_INSTALL_PREFIX='/usr'
+  local cmake_options=(
+    -B build
+    -S "$pkgbase"
+    -W no-dev
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_BUILD_TYPE=Release
+    -D BUILD_ID="$pkgver"
+    -D JUCE_COPY_PLUGIN_AFTER_BUILD=FALSE
+  )
+
+  cmake "${cmake_options[@]}"
 
   cmake --build build
 }
@@ -147,33 +154,33 @@ package_dexed-docs() {
 
 package_dexed-clap() {
   pkgdesc+=' - CLAP plugin'
-  groups+=('clap-plugins')
+  groups+=(clap-plugins)
   depends=(
-    'glibc'
-    'gcc-libs'
-    'alsa-lib'
-    'freetype2'
-    'clap-host'
+    glibc
+    gcc-libs
+    alsa-lib
+    freetype2
+    clap-host
   )
   optdepends=("$pkgbase-docs: documentation")
 
-  cd build/Source/Dexed_artefacts
+  cd build/Source/Dexed_artefacts/Release
   install -vDm755 -t "$pkgdir/usr/lib/clap" CLAP/Dexed.clap
 }
 
 package_dexed-vst3() {
   pkgdesc+=' - VST3 plugin'
-  groups+=('vst3-plugins')
+  groups+=(vst3-plugins)
   depends=(
-    'glibc'
-    'gcc-libs'
-    'alsa-lib'
-    'freetype2'
-    'vst3-host'
+    glibc
+    gcc-libs
+    alsa-lib
+    freetype2
+    vst3-host
   )
   optdepends=("$pkgbase-docs: documentation")
 
-  cd build/Source/Dexed_artefacts
+  cd build/Source/Dexed_artefacts/Release
 
   install -vd "$pkgdir/usr/lib/vst3"
   cp -vr VST3/Dexed.vst3 "$pkgdir/usr/lib/vst3"
@@ -182,21 +189,21 @@ package_dexed-vst3() {
 package_dexed-standalone() {
   pkgdesc+=' - standalone'
   depends=(
-    'glibc'
-    'gcc-libs'
-    'alsa-lib'
-    'freetype2'
-    'hicolor-icon-theme'
-    'jack'
+    glibc
+    gcc-libs
+    alsa-lib
+    freetype2
+    hicolor-icon-theme
+    jack
   )
   optdepends=("$pkgbase-docs: documentation")
 
   # desktop icon/file
   pushd "$pkgbase"
-  install -vDm644 Resources/ui/dexedIcon.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/dexed.png"
+  install -vDm644 assets/ui/dexedIcon.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/dexed.png"
   install -vDm644 com.digitalsuburban.Dexed.desktop -t "$pkgdir/usr/share/applications"
   popd
 
-  cd build/Source/Dexed_artefacts
+  cd build/Source/Dexed_artefacts/Release
   install -vDm755 -t "$pkgdir/usr/bin" Standalone/Dexed
 }
