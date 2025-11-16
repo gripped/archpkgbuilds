@@ -1,7 +1,7 @@
 pkgbase = itk
 	pkgdesc = An open-source toolkit for multidimensional image analysis
 	pkgver = 5.4.4
-	pkgrel = 2
+	pkgrel = 3
 	url = https://www.itk.org
 	arch = x86_64
 	license = Apache-2.0
@@ -26,7 +26,9 @@ pkgbase = itk
 	makedepends = libtiff
 	makedepends = zlib
 	source = ITK-5.4.4.tar.gz::https://github.com/InsightSoftwareConsortium/ITK/archive/refs/tags/v5.4.4.tar.gz
+	source = itk-support-eigen-5.patch::https://github.com/InsightSoftwareConsortium/ITK/commit/ada8399edb0259ba9272c957ab4033978bdfdded.patch
 	b2sums = 7c14332b3efece2fd91853a38bb6ca88994cfb4802e0c6d8ef964b4b5207d9242502dc00b5e3e267546f0c923b62afa4f5be0a5c512c5518de80f08af601e7a7
+	b2sums = 93840783fc0296727f26dda860e27594fd6dd2a495b575fbb9c6fa23ed678c97d57e8cf58f2bc4536e9f6a2af818569e397e839889c7fca5dc5e044ba3cb0a0d
 
 pkgname = itk
 	depends = dcmtk
