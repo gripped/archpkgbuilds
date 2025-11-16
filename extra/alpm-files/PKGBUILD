@@ -1,0 +1,62 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=alpm-files
+_upstream=alpm
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Command line interface for the handling of the alpm-files format"
+arch=(x86_64)
+url="https://alpm.archlinux.page/alpm-files/"
+_url="https://gitlab.archlinux.org/archlinux/alpm/alpm.git"
+license=(
+  'Apache-2.0 OR MIT'
+  CC-BY-SA-4.0
+)
+groups=(alpm)
+depends=(
+  gcc-libs
+  glibc
+)
+makedepends=(
+  git
+  just
+  lowdown
+  rust
+  rust-script
+)
+optdepends=(
+  'alpm-docs: for additional specifications'
+)
+source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
+sha512sums=('0e5d5c14caae7e87d79e58fc4ba05914932f994a0472d020ddc904535eac779cdec68d0115ccb2901f5275b9dcc7a866cc6380c6a792b3d144a124d18ce7988b')
+b2sums=('9b38064b29c6026d82f4c949e21e8c481eca441d80c2a9b97e6284c2aa4ece1c3482e1345dce00fe5117b1707eb0add1781982ab4dd7af15d959fc8947f37614')
+validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
+
+prepare() {
+  cd $_upstream
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $_upstream
+  cargo build --frozen --release --features cli --package $pkgname
+  just generate shell_completions $pkgname
+  just generate manpages $pkgname
+  just generate specifications $pkgname
+}
+
+check() {
+  cd $_upstream
+  cargo test --frozen --package $pkgname
+}
+
+package() {
+  cd $_upstream
+  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 output/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
+  install -vDm 644 output/manpages/*.5 -t "$pkgdir/usr/share/man/man5/"
+  install -vDm 644 output/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completions/completions/$pkgname"
+  install -vDm 644 output/shell_completions/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+  install -vDm 644 output/shell_completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
+  install -vDm 644 LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
