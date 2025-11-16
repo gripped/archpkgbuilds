@@ -2,7 +2,7 @@
 
 pkgname=alpm-buildinfo
 _upstream=alpm
-pkgver=0.4.0
+pkgver=0.5.0
 pkgrel=1
 pkgdesc="A CLI for writing and parsing of ALPM BUILDINFO files"
 arch=(x86_64)
@@ -28,8 +28,8 @@ optdepends=(
   'alpm-docs: for additional specifications'
 )
 source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
-sha512sums=('fa05a253c917d33bc22c63dc1e5c2d42e2b2e64b694c45a81ec371f7b88dd49f1071d4f7c7c274ead9098a829840a6135031474e079f979c092e642b36e9cd7b')
-b2sums=('c8649d7c1b99bcf9e8d2309519d649e7754c1f237de3ca7d86a7e7c189ca1f5988ac67c32092908c5d828d341bf511b4a446e1ad94c983705a8dc2e541dd00fc')
+sha512sums=('e6cc68eb8330ef77b425c96114fb1f42404695297b6c89e9dc0916da3f2c3cb7044eb717c7ddb403754975777d0fe4e03a7bda6fc1276edb6ac255a41eedd147')
+b2sums=('8f3bd0e7516df0fe955fb153b1e65c16fd024e55bd9f999bf9aec25bab122bb0370cf7e9917d4bd361e81b5814a65f2bf727c9f82dfe555522209a187d326cd2')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
