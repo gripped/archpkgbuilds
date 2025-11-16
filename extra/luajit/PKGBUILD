@@ -10,10 +10,10 @@
 #   $ curl -s https://api.github.com/repos/LuaJIT/LuaJIT/commits/v2.1 | jq -r .sha
 # The patch version is the timestamp of the above git commit; obtain via:
 #   $ curl -s https://api.github.com/repos/LuaJIT/LuaJIT/commits/v2.1 | jq -r '.commit.committer.date | fromdate'
-_commit=eba91fceb67a0a0163a9222869bf254c988c48c4
+_commit=5c8cee3dffdb3bc6239ecdf48ce9afeb0fb68250
 
 pkgname=luajit
-pkgver=2.1.1762795099
+pkgver=2.1.1763148144
 pkgrel=1
 pkgdesc='Just-in-time compiler and drop-in replacement for Lua 5.1'
 arch=('x86_64')
@@ -21,8 +21,8 @@ url='https://luajit.org/'
 license=('MIT')
 depends=('gcc-libs')
 source=("LuaJIT-${_commit}.tar.gz::https://github.com/LuaJIT/LuaJIT/archive/${_commit}.tar.gz")
-sha256sums=('979a7692c173bea8c29b71b69b87e47acf9c892a077c93294364e570e12c6023')
-b2sums=('13485cbc7ec3798c1407028be27db254b823f93096980615f6dc202f0c3c3b5f8e2e415c8f77be44edfa932dbc49d62137861761b3cff2cca8ff0465f093f03d')
+sha256sums=('e7adf4077efc5d878dbcc5a8a54b2e3ec95235c4d807eed610d0c516d52db92b')
+b2sums=('9c8d86e90506d284978a609f59249b05c2937680278db9e3c9dbd0cfe442a5fd27c934272603090a681b2ff0b36030d0c277e552b47b4565039c568b19abeece')
 
 build() {
   cd "LuaJIT-${_commit}"
