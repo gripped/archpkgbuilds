@@ -1,10 +1,11 @@
-# Maintainer: Florian Pritz <bluewind@xinu.at>
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+# Contributor: Florian Pritz <bluewind@xinu.at>
 # Contributor: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
 pkgname=python-mysqlclient
 _libname=${pkgname/python-/}
 pkgver=2.2.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Fork of MySQL-python with support for Python 3"
 arch=('x86_64')
 url="https://github.com/PyMySQL/mysqlclient-python"
@@ -23,7 +24,6 @@ build() {
 package() {
     cd "$srcdir"/$_libname-$pkgver
     python -m installer --destdir="$pkgdir" dist/*.whl
-    python setup.py install -O1 --skip-build --root="$pkgdir"
 }
 
 sha256sums=('24ae22b59416d5fcce7e99c9d37548350b4565baac82f95e149cac6ce4163845')
