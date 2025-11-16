@@ -1,33 +1,32 @@
-# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+# Maintainer : Daniel Bermond <dbermond@archlinux.org>
+# Contributor: Filipe Laíns (FFY00) <lains@archlinux.org>
 # Contributor: Alisa Dammer <alisa,dammer@gmail.com>
 # Contributor: Jaroslav Janukevic (janukevic <at> gmail <dot> com)
 # Contributor: Rick Rein <jeebusroxors@gmail.com>
 # Contributor: samuellittley <supersam.littley@gmail.com>
 
 pkgname=xprintidle
-pkgver=0.2.5
-pkgrel=2
-pkgdesc='Print X idle time'
+pkgver=0.3.0
+pkgrel=1
+pkgdesc='Print the X server user idle time'
 arch=('x86_64')
-license=('GPL2')
-depends=('libxss')
-makedepends=('meson')
-url='https://github.com/g0hl1n/xprintidle'
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('758fbb1e0e0f9eaf6ae22cc3fbacaf3eb854130af3688bd95c88c690284cf47256a56d1468ffffaa81c3432cd579aca138a47c8a04be1e7be52e8f2ef328fd7a')
+url='https://github.com/g0hl1n/xprintidle/'
+license=('GPL-2.0-only')
+depends=(
+    'glibc'
+    'libx11'
+    'libxext'
+    'libxss')
+makedepends=(
+    'meson')
+source=("https://github.com/g0hl1n/xprintidle/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('6bddd464c396530e1de4c1725c3c2935135cf9a5079e5805ae139f00f0c0316b')
 
 build() {
-  mkdir $pkgname-$pkgver/build
-  cd $pkgname-$pkgver/build
-
-  arch-meson ..
-
-  ninja
+    arch-meson build "${pkgname}-${pkgver}"
+    meson compile -C build
 }
 
 package() {
-  cd $pkgname-$pkgver/build
-
-  DESTDIR="$pkgdir" ninja install
+    meson install -C build --destdir "$pkgdir"
 }
-
