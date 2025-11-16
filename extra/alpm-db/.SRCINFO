@@ -1,0 +1,23 @@
+pkgbase = alpm-db
+	pkgdesc = Command line interface for the handling of the alpm-db-desc format
+	pkgver = 0.1.0
+	pkgrel = 1
+	url = https://alpm.archlinux.page/alpm-db/
+	arch = x86_64
+	groups = alpm
+	license = Apache-2.0 OR MIT
+	license = CC-BY-SA-4.0
+	makedepends = git
+	makedepends = just
+	makedepends = lowdown
+	makedepends = rust
+	makedepends = rust-script
+	depends = gcc-libs
+	depends = glibc
+	optdepends = alpm-docs: for additional specifications
+	source = alpm::git+https://gitlab.archlinux.org/archlinux/alpm/alpm.git?signed#tag=alpm-db/0.1.0
+	validpgpkeys = 991F6E3F0765CF6295888586139B09DA5BF0D338
+	sha512sums = 979d68ed5904c17172d9d4758e9950dc46c9bc85a827b0e64a4a318db0b062d5e89e2fc40662442699a37361ce62a1c704d57dcf14465c1e25286334b9897788
+	b2sums = 0243811d51330206a06cfba00062a750713960bf2118f422f5e3306f3c4fab326052b72766c8542d66e24e5056b52cfa8ed9fcb6a2ba500da54b8d54e69b44af
+
+pkgname = alpm-db-desc

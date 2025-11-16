@@ -1,0 +1,64 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgbase=alpm-db
+pkgname=alpm-db-desc
+_upstream=alpm
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Command line interface for the handling of the alpm-db-desc format"
+arch=(x86_64)
+url="https://alpm.archlinux.page/alpm-db/"
+_url="https://gitlab.archlinux.org/archlinux/alpm/alpm.git"
+license=(
+  'Apache-2.0 OR MIT'
+  CC-BY-SA-4.0
+)
+groups=(alpm)
+depends=(
+  gcc-libs
+  glibc
+)
+makedepends=(
+  git
+  just
+  lowdown
+  rust
+  rust-script
+)
+optdepends=(
+  'alpm-docs: for additional specifications'
+)
+source=($_upstream::git+$_url?signed#tag=$pkgbase/$pkgver)
+sha512sums=('979d68ed5904c17172d9d4758e9950dc46c9bc85a827b0e64a4a318db0b062d5e89e2fc40662442699a37361ce62a1c704d57dcf14465c1e25286334b9897788')
+b2sums=('0243811d51330206a06cfba00062a750713960bf2118f422f5e3306f3c4fab326052b72766c8542d66e24e5056b52cfa8ed9fcb6a2ba500da54b8d54e69b44af')
+validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
+
+prepare() {
+  cd $_upstream
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $_upstream
+  cargo build --frozen --release --features cli --package $pkgbase
+  just generate shell_completions $pkgbase
+  just generate manpages $pkgbase
+  just generate specifications $pkgbase
+}
+
+check() {
+  cd $_upstream
+  cargo test --frozen --package $pkgbase
+}
+
+package() {
+  cd $_upstream
+  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 output/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
+  install -vDm 644 output/manpages/*.5 -t "$pkgdir/usr/share/man/man5/"
+  install -vDm 644 output/manpages/*.7 -t "$pkgdir/usr/share/man/man7/"
+  install -vDm 644 output/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completions/completions/$pkgname"
+  install -vDm 644 output/shell_completions/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+  install -vDm 644 output/shell_completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
+  install -vDm 644 LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
