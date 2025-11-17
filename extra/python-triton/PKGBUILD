@@ -1,7 +1,9 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
+
 _pkgname=triton
 pkgname=python-${_pkgname}
-pkgver=3.4.0
+pkgver=3.5.0
 pkgrel=1
 pkgdesc="Language and compiler for writing highly efficient custom Deep-Learning primitives"
 url="https://triton-lang.org/main/index.html"
@@ -23,15 +25,15 @@ makedepends=(
 	python-installer
 )
 _git="https://github.com/triton-lang/triton"
-_llvm="https://github.com/llvm/llvm-project"
-# https://github.com/triton-lang/triton/blob/v3.4.0/cmake/llvm-hash.txt
-_commit=8957e64a20fc7f4277565c6cfe3e555c119783ce
+_llvm="https://github.com/triton-lang/llvm-project"
+# https://github.com/triton-lang/triton/blob/v3.5.0/cmake/llvm-hash.txt
+_commit=7d5de3033187c8a3bb4d2e322f5462cdaf49808f
 source=(
 	"${pkgname}-${pkgver}.tar.gz::${_git}/archive/refs/tags/v${pkgver}.tar.gz"
 	"${pkgname}-llvm-${pkgver}::git+${_llvm}#commit=${_commit}"
 	)
-sha256sums=('a96e87a911794c907fab30e0c7a3f96ef4e9e8fdc8812cd8bbc6f0457619072f'
-            'c9871b1dd59b20f9b30b3501b367095da26c23879e403d280355aa37d6172b10')
+sha256sums=('426cefe3752fcce2d3ea31af4252f3fa8358b112fe1e3e112434411935644259'
+            '77b77b6eafa9ebc175922705ebb054067a42849ecc84f64f8a42d9d595a7683b')
 
 prepare() {
 	cd "${_pkgname}-${pkgver}"
