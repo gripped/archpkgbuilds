@@ -2,7 +2,7 @@
 
 pkgname=uwsm
 pkgver=0.24.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A standalone Wayland session manager'
 url="https://github.com/Vladimir-csp/$pkgname"
 arch=(any)
@@ -32,6 +32,7 @@ build() {
 		uuctl=enabled
 		fumon=enabled
 		uwsm-app=enabled
+		wait-tray=enabled
 	)
 	arch-meson "$_archive" build ${meson_opts[@]/#/-D }
 	meson compile -C build
