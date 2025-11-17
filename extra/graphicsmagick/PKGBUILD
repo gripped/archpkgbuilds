@@ -5,8 +5,8 @@
 # Contributor: Anton Leontiev <bunder@t-25.ru>
 
 pkgname=graphicsmagick
-pkgver=1.3.45
-pkgrel=5
+pkgver=1.3.46
+pkgrel=1
 pkgdesc='Image processing system'
 url='http://www.graphicsmagick.org/'
 arch=(x86_64)
@@ -33,13 +33,13 @@ optdepends=('jasper: jp2 module'
             'ghostscript: pdf, ps modules'
             'libheif: heic module'
             'libjxl: jpeg-xl module')
-provides=(Magick.so
-          libGraphicsMagickWand.so
+provides=(libGraphicsMagickWand.so
           libGraphicsMagick.so
+          libGraphicsMagick++.so
           libGraphicsMagick++-Q16.so)
 _archive="GraphicsMagick-$pkgver"
 source=("https://downloads.sourceforge.net/project/$pkgname/$pkgname/$pkgver/$_archive.tar.xz")
-sha256sums=('dcea5167414f7c805557de2d7a47a9b3147bcbf617b91f5f0f4afe5e6543026b')
+sha256sums=('c7c706a505e9c6c3764156bb94a0c9644d79131785df15a89c9f8721d1abd061')
 
 options=('!emptydirs' 'libtool')
 
