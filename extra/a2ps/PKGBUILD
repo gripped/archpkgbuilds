@@ -3,11 +3,11 @@
 
 pkgname=a2ps
 pkgver=4.15.7
-pkgrel=1
+pkgrel=2
 pkgdesc='An Any to PostScript filter'
 arch=(x86_64)
 url="https://www.gnu.org/software/$pkgname"
-license=(GPL3)
+license=(GPL-3.0-or-later)
 depends=(imagemagick
          perl
          psutils)
