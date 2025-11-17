@@ -1,5 +1,7 @@
 [etc-update]
-source = "git"
-git = "https://github.com/gentoo/portage.git"
+source = "github"
+github = "gentoo/portage"
 prefix = "portage-"
 include_regex = "^portage-.*"
+path = "bin/etc-update"
+use_latest_tag = true
