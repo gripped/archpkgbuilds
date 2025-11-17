@@ -3,8 +3,8 @@
 # Contributor: Anibal Pacheco <apacheco.uy@gmail.com>
 
 pkgname=scrapy
-pkgver=2.13.3
-pkgrel=2
+pkgver=2.13.4
+pkgrel=1
 pkgdesc="A fast high-level scraping and web crawling framework."
 arch=('any')
 license=('BSD')
@@ -64,8 +64,8 @@ optdepends=(
 source=(
   "$pkgname-$pkgver.tar.gz::https://github.com/scrapy/scrapy/archive/$pkgver.tar.gz"
 )
-sha512sums=('3f174e022f1567117a8f7d6d079b27f26663556bb0b425a4dcf23bcb629eeb2a08f611428cba91d7139cb05a3224927d6cd7a121e1945e40cf2a300ffb5bedf2')
-b2sums=('083e57259c7d2dd59729ae178b578aedfe486c9c8eb526b776661317158a91427a66436cf93cb010c0c6bfb8c85c696c22c70e356732b144c9d904bbb944b772')
+sha512sums=('28c337371ab19b3b32ad4f622ecd80601e7b2e4c502a4cd003da7bc5cf8e626d53a21703076c7227a1c5e6133b0cac35b26caaddd947751fcabfa0ddce4bafb3')
+b2sums=('eb25a4afc99fd65665111d7cd13cdb88d92712430c12904415d9502c1b30bce5332f4db22d3b2fe5b610b35073d06634ce9f7768c8b9381c52261ef5073f3c30')
 
 build() {
   cd $pkgname-$pkgver
