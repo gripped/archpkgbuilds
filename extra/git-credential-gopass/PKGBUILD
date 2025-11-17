@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=git-credential-gopass
-pkgver=1.15.18
+pkgver=1.16.0
 pkgrel=1
 pkgdesc="git-credentials helper for gopass"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('glibc')
 makedepends=('go')
 options=('!lto')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('370f23e1e6ded3f058169d26d4b997eef9df622c70602650fec7fb7044d78db962ab191c9a3398320e75820370ec873b90eb41fc084938dc7ab59a63db5d56b4')
+sha512sums=('fa65f9290c5c0504a28a4bf3ee124deb359b5c8dfae50dce6f46d4dc80775d9bd249c3ede3582716a53425b9269632271614ff7338cbbaff03727240301cd61c')
 
 prepare() {
   cd $pkgname-$pkgver
