@@ -4,7 +4,7 @@
 
 pkgname=fkill
 _npmname=fkill-cli
-pkgver=8.0.0
+pkgver=9.0.0
 pkgrel=1
 pkgdesc="Fabulously kill processes. Cross-platform."
 arch=('any')
@@ -14,7 +14,7 @@ depends=('nodejs')
 makedepends=('npm' 'jq')
 source=("https://registry.npmjs.org/$_npmname/-/$_npmname-$pkgver.tgz")
 noextract=("$_npmname-$pkgver.tgz")
-sha256sums=('47be11adbcb1524213aea291a829640c13f93381324fc00bbe059805166da40c')
+sha256sums=('e92e858097abefc2c1438fb0aceeae86a4f7059034c28fb483efaa762ba45cb2')
 
 package() {
   npm install \
