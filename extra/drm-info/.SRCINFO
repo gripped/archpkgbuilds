@@ -1,19 +1,21 @@
 pkgbase = drm-info
 	pkgdesc = Small utility to dump info about DRM devices
-	pkgver = 2.8.0
+	pkgver = 2.9.0
 	pkgrel = 1
 	url = https://gitlab.freedesktop.org/emersion/drm_info
 	arch = x86_64
 	license = MIT
 	makedepends = meson
 	makedepends = scdoc
+	depends = glibc
 	depends = json-c
 	depends = libjson-c.so
-	depends = glibc
+	depends = libdisplay-info
+	depends = libdisplay-info.so
 	depends = libdrm
 	depends = pciutils
-	source = https://gitlab.freedesktop.org/emersion/drm_info/-/archive/v2.8.0/drm_info-v2.8.0.tar.gz
-	sha256sums = deaea3ae187e5026021e43c498a30d2163f599fc2eea4e98a9686bee0ca40fdf
-	b2sums = 1982a74cdf6a1e2cb6608370f30dabd395f20d07df4e09af12df8ff307802ba48a44b96a5c24a123355a4bd3b6bb3c7bf062892d59e8ccf7c78afc3b61a98fd3
+	source = https://gitlab.freedesktop.org/emersion/drm_info/-/archive/v2.9.0/drm_info-v2.9.0.tar.gz
+	sha256sums = b1000e95eb4f57cfe7819c5b8afd880ac07dde25d9c3839ec52e0aeadeb83234
+	b2sums = c5045a56ed9fc3935e24e47b31b3e3c4d9c36ba71f26536236a30d2a13207be34665b3edf616f895e4444d3aa4f7a05585d7c59f247113dc1f53a00ed7b10a77
 
 pkgname = drm-info
