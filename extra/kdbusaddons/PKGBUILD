@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kdbusaddons
-pkgver=6.19.0
+pkgver=6.20.0
 pkgrel=1
 pkgdesc='Addons to QtDBus'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('05f4aea54ce8bf9e62ebd48791e9aceba5cbc5aaf195a32ce2497fac2b64aa0d'
+sha256sums=('5db2f6b7235238070224ee8a5225f41ffdb3249d558a81a7c06a8e54d67729f7'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
