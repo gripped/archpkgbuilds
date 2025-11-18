@@ -2,7 +2,7 @@
 
 pkgname=rsop-oct
 _name=${pkgname/-*}
-pkgver=0.1.4
+pkgver=0.1.5
 pkgrel=1
 pkgdesc="Stateless OpenPGP (SOP) CLI tool for OpenPGP card devices based on rPGP and rpgpie"
 arch=(x86_64)
@@ -24,8 +24,8 @@ makedepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/$pkgname/v$pkgver.tar.gz
 )
-sha512sums=('50e8a5694dc92fb98c522ef464f18e176e20e9a0a9766c5a2dd2da159dcbb575ab2b20a6bcbcf919229b64a0b894ee291702c931a1a5fafbc4c431ad728b8f63')
-b2sums=('d37cbc51597e7f8ecb5d2f7fb44d3f5412860083541a59be9be6328180ac67f45cd57317e3ba0bf0f6425fdfdc4824e5069f8071e3b5537917a7b9902a09b75c')
+sha512sums=('3e1bff8610c011e775f63c729a80ea69cb30a92c727e38fbb440454aa9c18c5f779d7ac225b39f0718459a617acf149ae66a78bc6d6bfd37b66c9dd46283bcd3')
+b2sums=('5a316c4c6cb0da783d6d4552e8c3ee0912b0f2a8ec4d3110d38a3ca9a404196e2490ad364fc96d8a1b9d228eef3edc3e10baf7365644585f91f5531415510cd9')
 
 prepare() {
   cd $_name
