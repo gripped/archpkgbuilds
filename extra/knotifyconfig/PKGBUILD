@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=knotifyconfig
-pkgver=6.19.0
+pkgver=6.20.0
 pkgrel=1
 pkgdesc='Configuration system for KNotify'
 arch=(x86_64)
@@ -21,7 +21,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('cd1933ba68630139cd1bf456f085b33e0c354fd0f1f0e4c46822b09eb5c5c31f'
+sha256sums=('a02196e50f48dad0908656e3245d58bf03b0d39102fa92b056bee7d50b91afa7'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
