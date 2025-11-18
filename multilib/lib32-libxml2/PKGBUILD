@@ -9,7 +9,7 @@ pkgname=(
   lib32-libxml2
 )
 pkgver=2.15.1
-pkgrel=2
+pkgrel=4
 pkgdesc="XML C parser and toolkit (32-bit)"
 url="https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home"
 arch=(x86_64)
@@ -57,6 +57,7 @@ check() {
 }
 
 package_lib32-libxml2() {
+  depends+=(libicuuc.so)
   provides=(libxml2.so)
 
   meson install -C build --destdir "$pkgdir"
