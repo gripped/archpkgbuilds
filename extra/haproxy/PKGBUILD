@@ -2,8 +2,8 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 
 pkgname=haproxy
-pkgver=3.2.8
-pkgrel=2
+pkgver=3.2.9
+pkgrel=1
 
 # Each release serie has its own repository. This is handled automatically in
 # PKGBUILD, but nvchecker configuration needs to be updated on bump!
@@ -28,7 +28,7 @@ source=("git+https://git.haproxy.org/git/haproxy-${pkgver%.*}.git#tag=v${pkgver}
         'haproxy.sysusers'
         '0001-Use-CFLAGS-and-LDFLAGS-when-building-admin.patch')
 
-sha256sums=('7ed984557fbf4189b6d539de5833967ab1e816fd210b473d5e60894d5965d049'
+sha256sums=('ea0261c007ef29c31b4b21323f2e646751eaf657f53db6b384d833cf1fc6c199'
             'f6babef513b99a3fa0e50f2b144c73c980f1b78b119874ffa2580af1e651e7a9'
             'c6e716ea59272a8e871af53703726dd2a75b56c82dacf097d4bf08ac5e841a0d'
             'a1e3a1c2923465081383eb431bae55ff9841d89909469311cdba4b394ec4a998')
