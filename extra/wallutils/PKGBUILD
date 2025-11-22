@@ -1,8 +1,8 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
 
 pkgname=wallutils
-pkgver=5.14.2
-pkgrel=3
+pkgver=5.14.3
+pkgrel=1
 pkgdesc='Utilities for handling resolutions, wallpapers and timed wallpapers'
 arch=(x86_64)
 url='https://github.com/xyproto/wallutils'
@@ -16,17 +16,15 @@ optdepends=('feh: for setting the wallpaper for some window managers that runs u
             'procps-ng: for the Labwc window manager'
             'swaybg: for the Sway and Labwc window managers')
 source=("git+$url#tag=v$pkgver")
-b2sums=('09eaaa510134090c2a6b9b8ec06910cb4abe442007162de573941249fd58c55bce0d46552fd5b37319ccf081b747d5fc75a435fee0cf412a54b5c3d84055b7aa')
+b2sums=('bcb75831d3f2b9caa75fb916d5eb88df61c4b7e38efc984dc4bd26247b50e2e157f0359f05e6d02de7c5d035ec9ecf41fd6db9a399b08cb154c217636e8e6668')
 
 build() {
-  export CGO_CFLAGS="$CFLAGS -fcf-protection=full"
-  export CGO_LDFLAGS="$LDFLAGS -fcf-protection=full -Wl,-z,shstk"
-  export LDFLAGS="$(echo $LDFLAGS | sed 's/ -Wl//g;s/,--sort-common//')"
+  export CGO_CFLAGS="$CFLAGS"
   make -C $pkgname
 }
 
 package() {
-  DESTDIR="$pkgdir" LDFLAGS="$LDFLAGS" make -C $pkgname install install-man
+  DESTDIR="$pkgdir" make -C $pkgname install install-man
   find "$pkgdir/usr/bin/" -executable -type f -not -name heic-install -exec \
     upx --best --lzma --no-progress --no-time -q {} >/dev/null \;
   install -Dm644 $pkgname/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
