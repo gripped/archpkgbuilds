@@ -2,8 +2,8 @@
 # Contributor: Matěj Týč <matej.tyc@gmail.com>
 
 pkgname=argbash
-pkgver=2.10.0
-pkgrel=4
+pkgver=2.11.0
+pkgrel=1
 pkgdesc="Bash argument parsing code generator"
 arch=(any)
 url="https://argbash.dev"
@@ -12,7 +12,7 @@ depends=('autoconf')
 makedepends=('make' 'python-docutils')
 checkdepends=('shellcheck')
 source=($pkgname-$pkgver.tar.gz::https://github.com/matejak/$pkgname/archive/$pkgver.tar.gz)
-sha256sums=('ea527028313a5189803f4d2db3245425a82445fdb833f53352072e119c172313')
+sha256sums=('a749518116624e0ff1f71c9eadfd28e8580c3be6534446fbcd421ab6a67d453e')
 
 check() {
   cd $pkgname-$pkgver/resources
