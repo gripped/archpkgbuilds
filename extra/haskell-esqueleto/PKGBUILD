@@ -3,8 +3,8 @@
 
 _hkgname=esqueleto
 pkgname=haskell-esqueleto
-pkgver=3.5.10.2
-pkgrel=3
+pkgver=3.5.10.3
+pkgrel=2
 pkgdesc="Type-safe EDSL for SQL queries on persistent backends."
 url="https://github.com/bitemyapp/esqueleto"
 license=('BSD-3-Clause')
@@ -17,7 +17,7 @@ makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-core' 'haskell-mysql' 'haskell
              'haskell-postgresql-simple')
 checkdepends=('mariadb' 'pifpaf' 'postgresql')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('bea28b4be4d272ac3c2083f7897de1edd2f64da57696f1b9efbcfad428e09757120b86bf9220af8d51513ec3146c695addb1048ab76de9cda42e00f74055333b')
+sha512sums=('12a42725aea81d401f3ceb1855f245ab8f26669a2d3490fb25f0da7920f60ac6a157c11125ab7e2c34ce75f6bee03978620714430a1722b5429c1aab795c5f0d')
 
 prepare() {
     cd $_hkgname-$pkgver
