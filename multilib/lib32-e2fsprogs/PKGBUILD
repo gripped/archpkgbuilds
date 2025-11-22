@@ -4,28 +4,27 @@
 
 pkgname=lib32-e2fsprogs
 pkgver=1.47.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Ext2/3/4 filesystem libraries (32-bit)'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'MIT')
 url='http://e2fsprogs.sourceforge.net'
 depends=('lib32-glibc' 'e2fsprogs')
-makedepends=('bc' 'lib32-util-linux' 'gcc-multilib')
+makedepends=('git' 'bc' 'lib32-util-linux' 'gcc-multilib')
 provides=('libcom_err.so'
           'libe2p.so'
           'libext2fs.so'
           'libss.so')
 validpgpkeys=('3AB057B7E78D945C8C5591FBD36F769BC11804F0') # Theodore Ts'o <tytso@mit.edu>
-source=("https://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v${pkgver}/e2fsprogs-${pkgver}.tar."{xz,sign})
-sha256sums=('857e6ef800feaa2bb4578fbc810214be5d3c88b072ea53c5384733a965737329'
-            'SKIP')
+source=("git+https://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git#tag=v${pkgver}?signed")
+sha256sums=('e5fd85934587ac75bc3c36b30d960ec3747da2543a60df737dad46eeb6b42e70')
 
 build() {
   export CC='gcc -m32'
   export CXX='g++ -m32'
   export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
 
-  cd "${srcdir}/e2fsprogs-${pkgver}"
+  cd "${srcdir}/e2fsprogs"
 
   ./configure \
     --prefix='/usr' \
@@ -37,7 +36,7 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/e2fsprogs-${pkgver}"
+  cd "${srcdir}/e2fsprogs"
 
   make DESTDIR="${pkgdir}" install-libs
 
