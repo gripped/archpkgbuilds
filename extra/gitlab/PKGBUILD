@@ -9,7 +9,7 @@
 # Contributor: loqs <bugs-archlinux@entropy-collector.net>
 
 pkgname=gitlab
-pkgver=18.5.2
+pkgver=18.6.0
 pkgrel=1
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
@@ -27,6 +27,7 @@ depends=(git
          re2 libre2.so
          ruby
          ruby-bundler
+         ruby-erb
          valkey
          yajl libyajl.so)
 makedepends=(cargo
@@ -51,11 +52,7 @@ backup=("etc/webapps/$pkgname/database.yml"
         "etc/logrotate.d/$pkgname")
 options=(!buildflags !debug !lto)
 source=("git+$url.git#tag=v$pkgver"
-        "git+https://github.com/ueno/ruby-gpgme.git#tag=v2.0.24"
-        "gpgme-2.0.patch"
-        "$pkgname-Gems-ruby-gpgme-2.0.patch"
         "$pkgname-configs.patch"
-        "$pkgname-Gems.patch"
         "$pkgname-environment"
         "$pkgname-puma.service"
         "$pkgname-sidekiq.service"
@@ -70,12 +67,8 @@ provides=(gitlab-workhorse) # FS78036
 conflicts=(gitlab-workhorse)
 replaces=(gitlab-workhorse)
 install=gitlab.install
-sha256sums=('1280345363ee318a1f1d764c6e3b4685664fd94a5d3a6ed06c8088e15ea3f6a3'
-            '325e8a2a319bf8c5a2f38206b8e09ca2d011667dfceb184496320864fe78cdae'
-            '717a918b3ef3acb5b152ddd13591a97b8b2fb6d50520ffbe97da551c37983c97'
-            'c435553b3dacd67300d81149f6c101e3c60946faf486eb2307dc91604111f8ad'
+sha256sums=('46768887e09c612027e74e72437bec98f7b5425245827ee7db92a5106f9583e2'
             '63c0b6c8e01bc34b9c1e15f113a104f4b15278353ba082a3390fa889990c1a6c'
-            'e918678e7132ccddf0e3cf2f5d9cb3871de0f10a1fd92549c4c2dbca5ae9e00a'
             '8cc4d933743906b4213b8ea8d8c5a62535e27e4073f73581a5dad40078dde000'
             '37b6fed60f169441ed1578324a91f65bed96dd086c09e73bdb15a8ccecd5d219'
             '1875d202ccf6133819bf2b7130ca9d887122fdbdc72975466821f5a49858cb4d'
@@ -92,31 +85,13 @@ _etcdir=/etc/webapps/gitlab
 _datadir=/var/lib/gitlab # directory with gitlab data and it also $HOME for 'gitlab' user
 _logdir=/var/log/gitlab
 
-_add_Gems_to_bundle() {
-	bundle add erb irb rdoc
-	bundle exec bundler-checksum init
-	if git diff Gemfile Gemfile.checksum Gemfile.lock | grep -Fq 'BUNDLED WITH'; then
-		git diff Gemfile Gemfile.checksum Gemfile.lock | head -n-6 > $pkgname-Gems.patch
-	else
-		git diff Gemfile Gemfile.checksum Gemfile.lock > $pkgname-Gems.patch
-	fi
-}
-
 prepare() {
-	# Patch bundled gpgme gem -- Drop API removed in gpgme 2.0
-	git -C ruby-gpgme config --local user.email "you@example.com"
-	git -C ruby-gpgme config --local user.name "Your Name"
-	git -C ruby-gpgme apply ../gpgme-2.0.patch
-	git -C ruby-gpgme commit -am 'gpgme-2.0'
-
 	cd gitlab-foss
 
 	# GitLab tries to read its revision information from a file.
 	git rev-parse --short HEAD > REVISION
 
 	patch -p1 -i ../$pkgname-configs.patch
-	patch -p1 -i ../$pkgname-Gems.patch
-	patch -p1 -i ../$pkgname-Gems-ruby-gpgme-2.0.patch
 
 	# '/home/git' path in the config files indicates a default path that need to be adjusted
 	! grep -FqR '/home/git' config
