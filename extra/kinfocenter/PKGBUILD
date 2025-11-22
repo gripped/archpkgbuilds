@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kinfocenter
-pkgver=6.5.2
+pkgver=6.5.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='A utility that provides information about a computer system'
@@ -49,7 +49,7 @@ optdepends=('fwupd: firmware security module'
             'plasma-disks: SMART devices health monitor')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('ffe09a169c76c79ce551ef2b4eee97a6e1d8726d0b1a2fc247f78da188604649'
+sha256sums=('c2b464ed580a0823d8d171fb2d1a533a6aa2da1b88b4142d360453c152834304'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
