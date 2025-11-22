@@ -2,7 +2,7 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=netavark
-pkgver=1.16.1
+pkgver=1.17.0
 pkgrel=1
 pkgdesc="Container network stack"
 arch=(x86_64)
@@ -21,8 +21,8 @@ makedepends=(
 )
 provides=(container-network-stack=2)
 source=(git+$url#tag=v$pkgver)
-sha512sums=('fc2cdbdbd9686bfa9d2a3bd846852331b76ad26db179ef00ed22cfe5a3687fed411e808b4ffb7207c806ecfb09bf93d5ec36193dbe06db53f9f7d3d6a6243525')
-b2sums=('ddd60fe18b878c82bcb129b73913fe048c034b2698ced60e90e0a1b191e960d5c155090aa2a89c0643d41e4a61064c325cea45e7a35c4f2b0f12bdd6bd9602d8')
+sha512sums=('7a19a3bb8a952a07c7bb98907a86d60a93e00e637289186fc3291f8157fb7ac82eefacccb6021ff078140c928c4eafb8a17f3bd18253bd42b853179def2b3ab8')
+b2sums=('98285968af880cb9b959ba5160a116710f57e5a350eab481a2317c4baa19b400f33b373a5f94f5d425257220b3328424e3013a66816f8f34322580249fd835fd')
 
 prepare() {
   cd $pkgname
