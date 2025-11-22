@@ -4,7 +4,7 @@
 # Contributor: Florian Klink <flokli@flokli.de>
 
 pkgname=spotifyd
-pkgver=0.4.1
+pkgver=0.4.2
 pkgrel=1
 pkgdesc='Lightweight spotify streaming daemon with spotify connect support'
 arch=('x86_64')
@@ -23,7 +23,7 @@ makedepends=(
 )
 options=(!lto)
 source=("https://github.com/Spotifyd/spotifyd/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-b2sums=('3657e0cc266a3c49d012d4dfbc678c44168ff572935f2088d99bbef6b1363bba10d0089c32c9d8ed9aaafa2843d4b7fb3b74ffe5004413cd667e4aeb0a2169c7')
+b2sums=('bf61c133252cddc79ef492836a99da8ab099527f0dc508f8ea29d6057f4dd4ac5603bd4e38e69f748bb3ac7bb14e03341377cfd4889f0d8c3667e85562518303')
 
 prepare() {
   cd spotifyd-${pkgver}
