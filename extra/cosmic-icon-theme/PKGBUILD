@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-icon-theme
-pkgver=1.0.0.beta.6
+pkgver=1.0.0.beta.7
 pkgrel=1
 pkgdesc='Cosmic icon theme'
 arch=(any)
