@@ -3,7 +3,7 @@
 
 pkgbase=sdbus-cpp
 pkgname=($pkgbase $pkgbase-doc)
-pkgver=2.2.0
+pkgver=2.2.1
 pkgrel=1
 pkgdesc='a high-level C++ D-Bus library designed to provide expressive, easy-to-use API'
 url="https://github.com/Kistler-Group/$pkgbase"
@@ -16,7 +16,7 @@ makedepends=(cmake
              systemd)
 _archive="$pkgbase-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('a8e22be7c4b69fb988ae506297a35720a35680dfe5b671acaf08e5c0e9be529a')
+sha256sums=('da69a0104beb6e51415a59f1571a47beb1eacc65cc6027b250eb1cf13ff4f802')
 
 build() {
 	cmake -B build -S "$_archive" \
