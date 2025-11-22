@@ -2,7 +2,7 @@
 # Co-Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=lxqt-notificationd
-pkgver=2.2.0
+pkgver=2.3.0
 pkgrel=1
 pkgdesc="LXQt notification daemon and library."
 arch=("x86_64")
@@ -16,7 +16,7 @@ provides=("notification-daemon")
 source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
 )
-sha512sums=('b6da6bbab563b3cb1a174713b2a8a6c08f719a21b4e1e45796b8c16d8ac7a2fd5cccde64a7a986ed1b3f4b4058b50b3bb57da3bdde3fe8cee7b3d9324a634e2f'
+sha512sums=('bda9f9dbbc5ce13a12d411554fe8f084358d5ae6879949da90c3e5b8029b59af2aefe0adf262c977dcd2dd0e1e2e6862e4754db0f9d301f208b1cc7e49560d98'
             'SKIP')
 validpgpkeys=(
 	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
