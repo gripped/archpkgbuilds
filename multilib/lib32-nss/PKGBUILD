@@ -7,10 +7,10 @@ pkgbase=lib32-nss
 pkgname=(
   lib32-nss
 )
-pkgver=3.117
+pkgver=3.118.1
 pkgrel=1
 pkgdesc="Network Security Services (32-bit)"
-url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
+url="https://firefox-source-docs.mozilla.org/security/nss/index.html"
 arch=(x86_64)
 license=(MPL-2.0)
 depends=(
@@ -31,7 +31,7 @@ source=(
   "hg+https://hg.mozilla.org/projects/nss#tag=NSS_${pkgver//./_}_RTM"
   0001-Hack-mpi_x86.s-to-work-with-fno-plt.patch
 )
-b2sums=('dbcb22585bca4e028cca49710059f75c36c07d0f6e2ebab3ff11536f067ec82f507613225848dd5aea7e4d65427876bd5d356be200c7986b5a53070537b48cde'
+b2sums=('43d7c748a6b694027f18c99bb5301618a0317d7ad80a56366d5551f9c8f4fa20d7f585d30a39005260746cca8427d269f367040e7d980a5f0ec9e2c0a7f4531c'
         '6d7bfcfc2b7681ca24b220b8f07d55e305342ee4e3475a221f71d21c83b5a5e998ef9e2779ca1c76d9075a80de0f42a7f97565ab568dc47530ee2accc9eec966')
 
 prepare() {
