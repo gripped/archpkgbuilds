@@ -7,7 +7,7 @@ pkgname=($pkgbase{,-sbcl,-ecl,-fas})
 pkgver=5.48.1
 _sbclver=2.5.10
 _eclver=24.5.10
-pkgrel=7
+pkgrel=8
 pkgdesc='A sophisticated computer algebra system'
 arch=(x86_64)
 license=(GPL-2.0-only)
@@ -36,6 +36,7 @@ prepare() {
   patch -d $pkgname -p1 < 0001-ECL-Fix-autoconf-options-on-whitespace.patch # Handle whitespace in LDFLAGS correctly
   cd $pkgbase
   git cherry-pick -n fc85adb9a192bbd88269a695efd1df4136b94dc6 # Fix integration regression
+  git cherry-pick -n 0c11d969bc6cb7b75d4103eab13d5ce72edcdc1b # Fix another 5.48 regression
   rm -fr .git # prevent a dirty version number
   autoreconf -fiv
 }
