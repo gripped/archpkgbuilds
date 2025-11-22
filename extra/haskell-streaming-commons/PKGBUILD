@@ -3,8 +3,8 @@
 
 _hkgname=streaming-commons
 pkgname=haskell-streaming-commons
-pkgver=0.2.3.0
-pkgrel=83
+pkgver=0.2.3.1
+pkgrel=1
 pkgdesc="Common lower-level functions needed by various streaming data libraries"
 url="https://github.com/fpco/streaming-commons"
 license=("MIT")
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-async' 'haskell-network' 'haskell-random' 'haskell-zlib')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('de7906a97f1c86b9db64f1418e67142e2816d8b75cfacf4eaf19c48223830ec94f6519106ea5c187602c43c7eca8d542f799be5233d7ff58f754a773a83b4405')
+sha512sums=('30bfde61d86fdd9d28cd256ab89c0a870bdff4de795f06ac588c8f84c4675849d26d25848f57ec54c5f3dced10965b4a15feb519e3363d9d9708f9e5bab26102')
 
 build() {
     cd $_hkgname-$pkgver
