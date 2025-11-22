@@ -1,25 +1,43 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Sanpi <sanpi+aur@homecomputing.fr>
 # Contributor: Martin Brodbeck <martin@brodbeck-online.de>
 
 pkgname=qmapshack
-pkgver=1.18.0
-pkgrel=2
+pkgver=1.18.2
+pkgrel=1
 pkgdesc='Consumer grade GIS software'
 arch=('x86_64')
-url='https://github.com/Maproom/qmapshack/wiki'
-license=('GPL3')
-depends=('alglib' 'gdal' 'proj' 'qt6-webengine' 'qt6-tools' 'qt6-declarative' 'qt6-5compat' 'quazip-qt6' 'routino>=3.1')
-makedepends=('cmake' 'clang')
-source=($pkgname-$pkgver.tar.gz::https://github.com/Maproom/qmapshack/archive/refs/tags/V_$pkgver.tar.gz)
-sha256sums=('e094123f7a0e68c466cbf39473402a6a06343c7fa1e54450eb8fdcc9c95625ca')
+url='https://github.com/Maproom/qmapshack'
+license=('GPL-3.0-only')
+depends=(
+  'alglib'
+  'gcc-libs'
+  'gdal'
+  'glibc'
+  'hicolor-icon-theme'
+  'libjpeg-turbo'
+  'proj'
+  'qt6-5compat'
+  'qt6-base'
+  'qt6-declarative'
+  'qt6-tools'
+  'qt6-webengine'
+  'quazip-qt6'
+  'routino'
+)
+makedepends=(
+  'clang'
+  'cmake'
+)
+source=("$url/archive/V_$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('932f3a0e872b7ae6d46edda8424a2eb60df582f8232dc7ce0f9ae14a72304454cb4468c9197e5c65b9c8c8ff1b81ce7f40e319acb35dbcf104a817ef46b979ac')
 
 build() {
   cmake -B build -S $pkgname-V_$pkgver \
-      -DCMAKE_BUILD_TYPE=None \
-      -DCMAKE_INSTALL_PREFIX=/usr \
-      -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-      -Wno-dev
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev
   cmake --build build
 }
 
