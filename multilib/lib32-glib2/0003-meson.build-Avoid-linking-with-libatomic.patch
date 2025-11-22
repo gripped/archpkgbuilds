@@ -14,10 +14,10 @@ See: https://gitlab.gnome.org/GNOME/glib/-/merge_requests/4774
  1 file changed, 1 deletion(-)
 
 diff --git a/meson.build b/meson.build
-index 29b9ccb4999d..46db2accaf63 100644
+index 9aa931903927..f990b2fe253a 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -2296,7 +2296,6 @@ libatomic_test_code = '''
+@@ -2300,7 +2300,6 @@ libatomic_test_code = '''
    }'''
  atomic_dep = []
  if cc.links(libatomic_test_code, args : '-latomic', name : 'check for -latomic')
