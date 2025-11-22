@@ -1,8 +1,8 @@
 # Maintainer: Frederik Schwan <freswa at archlinux dot org>
 
 pkgname=wasi-libc
-pkgver=0+465+d181bdd4
-_commit=d181bdd429f0067c92d817909b01e4970ad7d70a # tags/wasi-sdk-28
+pkgver=0+503+ac020b86
+_commit=ac020b86fd44bafe60aa4fa12f407d16e3731329 # tags/wasi-sdk-29
 pkgrel=1
 epoch=1
 pkgdesc='WASI libc implementation for WebAssembly'
@@ -16,7 +16,7 @@ makedepends=(
 )
 options=('staticlibs')
 source=("git+https://github.com/WebAssembly/wasi-libc.git#commit=${_commit}")
-b2sums=('ced09f912dc6dcaddceae27c8b48cdb03f5628a6d4a8b065b137e5012df61a87cc34e2180c450de8992bd96f4a51c421e8b41b6aea1e74458024e4942e027a41')
+b2sums=('5c4f370377368c9139fed92c57735dbfac56804c778c9c043785b3f0dc36ec5992d15ddb96cfe7e6e9b67f1b0e16d641cae924f4eab818768c62d1d958aafd0e')
 
 pkgver() {
   cd ${pkgname}
