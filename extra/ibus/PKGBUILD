@@ -3,7 +3,7 @@
 
 pkgbase=ibus
 pkgname=(ibus libibus)
-pkgver=1.5.32
+pkgver=1.5.33
 pkgrel=1
 pkgdesc="Intelligent input bus for Linux/Unix"
 arch=('x86_64')
@@ -44,7 +44,7 @@ makedepends=(
 )
 options=('!emptydirs')
 source=("https://github.com/$pkgname/$pkgname/releases/download/$pkgver/${pkgname}-${pkgver}.tar.gz")
-b2sums=('6f69a92993e378c25473e51cdffd66b9180b163c2206a8256bb7c181fc2e54535d0254c62ac8fd8dd162f7d35aa32d7ae5982f7c786310b1327ba1f3ccd932e6')
+b2sums=('9ccd0c5bf1b98309acd1af02e29f05eb46120b1918584b5c9c7dd908ef13172f07ae1465e615a941e82dec1144c492208a4e0f79e9b02eadb79028177a2a7227')
 
 build() {
     cd ${pkgname}-${pkgver}
