@@ -2,7 +2,7 @@
 # Contributor: Roman Kyrylych <roman@archlinux.org>
 
 pkgname=gnome-user-share
-pkgver=48.1
+pkgver=48.2
 pkgrel=1
 pkgdesc="Easy to use user-level file sharing for GNOME"
 url="https://gitlab.gnome.org/GNOME/gnome-user-share"
@@ -27,7 +27,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-user-share.git#tag=${pkgver/[a-z]/.&}"
   0001-build-Use-cargo-release-for-all-buildtypes-except-de.patch
 )
-b2sums=('7d9e11cb2afce7711ecda308672a79626e61bd1573ef361b1b7cf709c83b917fb31f3d9dc5bd1922d5f490d0a95746cf22b4ecf05970ed1e3b7eff120f936c58'
+b2sums=('2c9bb8ed201f31ffb0832c90ce0ee690f391a2b63856142dc73b6c4ffd004e6441c17f02964c72598523defe0849bb035ca52de9e28cf6f01b4728fbea747a39'
         '936f92722d7d189b36c47dad2f0c70c0771923b7c0e9c141006f94a26fe9f41bc7faed529ca2df869bfbad0f8379847bd2d96b2bcbaf2c2c4bd8681ef5aef9e6')
 
 # Use LTO
