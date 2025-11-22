@@ -3,8 +3,8 @@
 
 pkgbase=itk
 pkgname=(itk python-itk)
-pkgver=5.4.4
-pkgrel=3
+pkgver=5.4.5
+pkgrel=1
 pkgdesc="An open-source toolkit for multidimensional image analysis"
 arch=(x86_64)
 url="https://www.itk.org"
@@ -35,10 +35,8 @@ makedepends=(
 )
 source=(
   ${pkgbase^^}-$pkgver.tar.gz::https://github.com/InsightSoftwareConsortium/ITK/archive/refs/tags/v$pkgver.tar.gz
-  $pkgbase-support-eigen-5.patch::https://github.com/InsightSoftwareConsortium/ITK/commit/ada8399edb0259ba9272c957ab4033978bdfdded.patch
 )
-b2sums=('7c14332b3efece2fd91853a38bb6ca88994cfb4802e0c6d8ef964b4b5207d9242502dc00b5e3e267546f0c923b62afa4f5be0a5c512c5518de80f08af601e7a7'
-        '93840783fc0296727f26dda860e27594fd6dd2a495b575fbb9c6fa23ed678c97d57e8cf58f2bc4536e9f6a2af818569e397e839889c7fca5dc5e044ba3cb0a0d')
+b2sums=('fa6da28651463793588bf22de94d9a53c54bdcfc3568dff8386f6e64e0cd9b9d7e86586de0c0127c1fb56c068ac9618377cd55898013979b96aa2b70e6020dc7')
 
 _pick() {
   local p="$1" f d; shift
@@ -48,13 +46,6 @@ _pick() {
     mv "$f" "$d"
     rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
   done
-}
-
-prepare() {
-  cd ${pkgbase^^}-$pkgver
-  # Support building with system Eigen3 >= 5
-  # https://github.com/InsightSoftwareConsortium/ITK/pull/5590
-  patch -p1 < ../$pkgbase-support-eigen-5.patch
 }
 
 build() {
@@ -103,9 +94,7 @@ build() {
     -DITK_WRAP_float=ON
     -DITK_WRAP_rgb_unsigned_char=ON
     -DITK_WRAP_rgb_unsigned_short=ON
-    -DITK_WRAP_rgb_unsigned_short=ON
     -DITK_WRAP_rgba_unsigned_char=ON
-    -DITK_WRAP_rgba_unsigned_short=ON
     -DITK_WRAP_rgba_unsigned_short=ON
     -DITK_WRAP_signed_char=ON
     -DITK_WRAP_signed_long_long=ON
