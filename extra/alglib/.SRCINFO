@@ -1,12 +1,14 @@
 pkgbase = alglib
 	pkgdesc = A cross-platform numerical analysis and data processing library - Free Version
-	pkgver = 4.03.0
+	pkgver = 4.06.0
 	pkgrel = 1
-	url = http://www.alglib.net
+	url = http://wwws.alglib.net
 	arch = x86_64
-	license = GPL2
+	license = GPL-2.0-or-later
 	makedepends = cmake
-	source = http://www.alglib.net/translator/re/alglib-4.03.0.cpp.gpl.tgz
-	sha256sums = 93bfd4f53ab6343f3ea9df2d1d93fd1aad68909177b4c35e8f7584ffa3640582
+	depends = gcc-libs
+	depends = glibc
+	source = https://www.alglib.net/translator/re/alglib-4.06.0.cpp.gpl.tgz
+	sha512sums = d48f38b1a3484e70e4b3f8d7569a3068177bdda2e35e4f5c8af77c61756e160419a4225f44b2447276606676a92106e34034765eaa6bc6550371b2e06ffee7ed
 
 pkgname = alglib

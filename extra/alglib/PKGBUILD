@@ -1,27 +1,29 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Aetf <aetf at unlimitedcodeworks dot xyz>
 # Contributor: Lex Black <autumn-wind at web dot de>
 # Contributor: Peng Zhang <pczhang@gmail.com>
 
 pkgname=alglib
-pkgver=4.03.0
+pkgver=4.06.0
 pkgrel=1
 pkgdesc="A cross-platform numerical analysis and data processing library - Free Version"
 arch=('x86_64')
-url="http://www.alglib.net"
-license=('GPL2')
+url="http://wwws.alglib.net"
+license=('GPL-2.0-or-later')
+depends=(
+  'gcc-libs'
+  'glibc'
+)
 makedepends=('cmake')
-source=(http://www.alglib.net/translator/re/alglib-${pkgver}.cpp.gpl.tgz)
-sha256sums=('93bfd4f53ab6343f3ea9df2d1d93fd1aad68909177b4c35e8f7584ffa3640582')
+source=("https://www.alglib.net/translator/re/alglib-${pkgver}.cpp.gpl.tgz")
+sha512sums=('d48f38b1a3484e70e4b3f8d7569a3068177bdda2e35e4f5c8af77c61756e160419a4225f44b2447276606676a92106e34034765eaa6bc6550371b2e06ffee7ed')
 
 prepare() {
-    cd "${srcdir}"/alglib-cpp
-
-# generate a simple cmake file to build the library since the release
-# doesn't provide any build system
-
-    cat > CMakeLists.txt <<END
-cmake_minimum_required(VERSION 3.0)
+  # Generate a simple cmake file to build the library since the release
+  # doesn't provide any build system.
+  cat > alglib-cpp/CMakeLists.txt << END
+cmake_minimum_required(VERSION 4.0)
 project(alglib VERSION ${pkgver})
 
 file(GLOB SRCS src/*.cpp)
@@ -48,19 +50,16 @@ install(TARGETS alglib alglib_static
 )
 install(FILES manual.cpp.html DESTINATION "\${CMAKE_INSTALL_DOCDIR}")
 END
-
-    mkdir -p build
 }
 
 build() {
-    cd "${srcdir}"/alglib-cpp/build
-
-    cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib ..
-    make VERBOSE=1
+  cmake -S alglib-cpp -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev
+  cmake --build build
 }
 
 package() {
-    cd "${srcdir}"/alglib-cpp/build
-
-    make DESTDIR="${pkgdir}" install
+  DESTDIR=$pkgdir cmake --install build
 }
