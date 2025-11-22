@@ -7,8 +7,8 @@ pkgname=(
   php-redis
   php-legacy-redis
 )
-pkgver=6.2.0
-pkgrel=3
+pkgver=6.3.0
+pkgrel=1
 pkgdesc="An API for communicating with the Redis key-value store"
 arch=(x86_64)
 url="https://github.com/phpredis/phpredis/"
@@ -26,8 +26,8 @@ checkdepends=(
 )
 optdepends=('valkey: use a local redis instance')
 source=($pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('11e0799aaa125b61bcb45dd105990bd0a41ba10bc6e129eaf59a9bc6862eab1f823a263a8dd2a69c6eca9e53d3bcf70df7f8e77d8e68fc84c7adae26a8d94882')
-b2sums=('399e635a5af417ad559d5821cadaa04fc3996f1202d4a1b4af403878cd0638603fd561499da3fae21cd2e836106732756ed84f90be0c8abcb68e63ef669f76a9')
+sha512sums=('44050095de7815547ca6f0ae263ea3a71eb7d1db9164cbc1df496ac25698546ae8fd3b9bd98863039b8ea5116f36f2d0fb3063370ab427b15472628939d8c7c5')
+b2sums=('c35bb8b5d487c9350e4e988de48ba25dfdaf094d66fd390fc09959635cc78ae70860a3e3d617acea24f33e1f72886d39465df362eea72b0f322e058926333c41')
 
 prepare() {
   mv -v $_upstream-$pkgver $pkgbase-$pkgver
