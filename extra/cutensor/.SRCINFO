@@ -1,6 +1,6 @@
 pkgbase = cutensor
 	pkgdesc = High-performance CUDA library for tensor primitives
-	pkgver = 2.3.1.0
+	pkgver = 2.4.0.2
 	pkgrel = 2
 	url = https://docs.nvidia.com/cuda/cutensor/latest/index.html
 	arch = x86_64
@@ -8,8 +8,10 @@ pkgbase = cutensor
 	depends = cuda>=13
 	depends = gcc-libs
 	depends = glibc
+	optdepends = nccl: for the multi-process extension (cuTENSORMp)
+	optdepends = openmpi: for the multi-process extension (cuTENSORMp)
 	options = !strip
-	source = https://developer.download.nvidia.com/compute/cutensor/redist/libcutensor/linux-x86_64/libcutensor-linux-x86_64-2.3.1.0_cuda13-archive.tar.xz
-	b2sums = d7cccca4e005f9465269de9ca6ff9a892d815dfb74410ab6e75fef9b4f57aca30b214ea4d4a8b949541a24cdd2179328874f28157a4d51e2a1bed64db82d8a7a
+	source = https://developer.download.nvidia.com/compute/cutensor/redist/libcutensor/linux-x86_64/libcutensor-linux-x86_64-2.4.0.2_cuda13-archive.tar.xz
+	b2sums = c2912a465fd28fc8ee1315cd7ac131dfffd39bfca0bbdb2a2470c245c1732a292bd0b958b0c15b815da79a8243f03d263083ecde109d5f1e765a561d21fe0221
 
 pkgname = cutensor
