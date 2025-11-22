@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-calculator
-pkgver=49.1.1
+pkgver=49.2
 pkgrel=1
 pkgdesc="GNOME Scientific calculator"
 url="https://apps.gnome.org/Calculator"
@@ -37,7 +37,7 @@ provides=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-calculator.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('b042c5e076a9a0680b30131060422823e2d2c5d14bc5d7ad67ae446517011df8436011f8952a9260473da665f87cb667fb4e9a15bd634c823acd55d4b27b408c')
+b2sums=('2b4e54bda4d07c991ddbad1e0742f1e17af614677d6a0b6e1cde67380626a7049d48274030b63c663abd89232da9b01dddc42f4e8e075966e6320b97c5618df3')
 
 build() {
   arch-meson $pkgname build
