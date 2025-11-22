@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-bg
-pkgver=1.0.0.beta.6
+pkgver=1.0.0.beta.7
 pkgrel=1
 pkgdesc='COSMIC session service which applies backgrounds to displays'
 arch=(x86_64)
