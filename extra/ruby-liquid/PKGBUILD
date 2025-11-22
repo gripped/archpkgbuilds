@@ -3,7 +3,7 @@
 
 _name=liquid
 pkgname=ruby-$_name
-pkgver=5.10.0
+pkgver=5.11.0
 pkgrel=1
 pkgdesc='Liquid markup language. Safe, customer facing template language for flexible web apps'
 url='https://shopify.github.io/liquid/'
@@ -27,7 +27,7 @@ depends=(
 )
 options=('!emptydirs')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/Shopify/${_name}/archive/v${pkgver}.tar.gz)
-sha512sums=('f1889e48b82df1b89de4a8dac8f32565f5754c0edb950f165c97c8709f5525acf969071d98ed43da9fd0cfaeded7890eb1e6bb1769d4ae324143194537cdfb00')
+sha512sums=('5e2505ae09db3e91c331723b2bbd666fda67edf04c6be96732d9cc9269431a18d3542364383175acf98b007b8a6f42e20d7b27d15ecb79176f090cc78c8ee7a0')
 
 prepare() {
   cd "${_name}-${pkgver}"
