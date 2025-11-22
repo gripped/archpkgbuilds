@@ -2,8 +2,8 @@
 
 _name=altair
 pkgname=python-$_name
-pkgver=5.5.0
-pkgrel=2
+pkgver=6.0.0
+pkgrel=1
 pkgdesc="Declarative statistical visualization library for Python"
 arch=(any)
 url="https://altair-viz.github.io/"
@@ -25,11 +25,13 @@ makedepends=(
 checkdepends=(
   ipython
   python-anywidget
+  python-mistune
   python-numpy
   python-pandas
   python-polars
   python-pytest
   python-pytest-xdist
+  python-vl-convert
 )
 optdepends=(
   'python-anywidget: for using JupyterChart widget'
@@ -40,7 +42,7 @@ optdepends=(
   'python-vl-convert: PNG and SVG export via Vega-Lite specifications'
 )
 source=($_name-$pkgver.tar.gz::https://github.com/vega/altair/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('104fc70ad3d4af93bf0ed52c24468342ff9acee87091b3c23de68f84c29ea9f3b44fae641bd90b368add05f22b6cf3e0811308729276c31742677977c3de2d96')
+b2sums=('5c1fc3364e3901d8cc5fe442510d41fbeb5f161e0e595605ccc22b2d3e0cac6599e1d7f13530ebecda0e1e4edbf246242596ff13ebb94d6a4c20a10bed3a7708')
 
 build() {
   cd $_name-$pkgver
@@ -52,16 +54,8 @@ check() {
     -vv
     -W ignore::DeprecationWarning
     -m "not slow"
-    # skip test that requires duckdb
-    --ignore tests/vegalite/v5/test_api.py
-    # skip tests that require vega_datasets
-    --deselect tests/test_examples.py
-    --deselect tests/vegalite/v5/test_params.py
-    --ignore tests/test_jupyter_chart.py
-    --ignore tests/test_transformed_data.py
-    --ignore tests/utils/test_schemapi.py
-    # skip test that requires vl_convert
-    --ignore tests/test_toplevel.py
+    # skip dataset tests (remote fetching from vega-datasets)
+    --deselect tests/test_datasets.py
   )
 
   cd $_name-$pkgver
