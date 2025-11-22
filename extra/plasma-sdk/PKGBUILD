@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma-sdk
-pkgver=6.5.2
+pkgver=6.5.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Applications useful for Plasma development'
@@ -39,7 +39,7 @@ makedepends=(extra-cmake-modules
              kdoctools)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('1205a8e7b9c1c50ecb2a30562c453a3207bd7bfae686e7ebcf20ab9193af223d'
+sha256sums=('0e8b0b63799bb78555bbcd88e3f804511deeb56278588545460e8c7942de0fdf'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
