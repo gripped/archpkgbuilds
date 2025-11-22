@@ -2,7 +2,7 @@
 # Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-joserfc
-pkgver=1.4.1
+pkgver=1.4.2
 pkgrel=1
 pkgdesc='Implementations of JOSE RFCs in Python'
 arch=(any)
@@ -27,7 +27,7 @@ optdepends=(
 # HACK: commit=$pkgver works during fetching sources as upstream repo uses
 # non-annotated tags, and we want to PGP verify commits, not tags
 source=("git+$url?signed#commit=$pkgver")
-sha256sums=('488b169fc423e2b2ad4f9e67157d72baff9dd5f4196d55752bb791ec568c388e')
+sha256sums=('867c466ce62cbd636feed09d81fb61c0e8df7d363014ce7a058eb4e0ac49e780')
 validpgpkeys=(
   '72F8E895A70CEBDF4F2ADFE07E55E3E0118B2B4C' # Hsiaoming (UJET) <lepture@ujet.co>
 )
