@@ -2,7 +2,7 @@
 # Contributor: huyz
 
 pkgname=gemini-cli
-pkgver=0.15.3
+pkgver=0.16.0
 pkgrel=1
 epoch=1
 pkgdesc="Open-source AI agent that brings the power of Gemini directly into your terminal"
@@ -17,7 +17,7 @@ depends=(
 makedepends=(npm)
 source=("https://registry.npmjs.org/@google/$pkgname/-/$pkgname-$pkgver.tgz")
 noextract=("$pkgname-$pkgver.tgz")
-sha512sums=('2f173fd969098837e90c29b7464230e1862414f52ff1321a65a4d7a72e0de77e87a2b2987e748973aeb18503b5393f2bcc4f0f5b210ef78047de732e9dd6a761')
+sha512sums=('aa4a3706cf156b634901c6c0e476f4cdf832f28b8d690f58c16ab5c33f1e92a6cf75bb05d2dd2bddff24a24bef790cd3f7af1e3f18cb3b9fd6a765b5514240c1')
 
 package() {
   npm install --global --omit=dev \
