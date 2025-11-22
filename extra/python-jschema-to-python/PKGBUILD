@@ -1,32 +1,41 @@
-# Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-jschema-to-python
 pkgver=1.2.3
-pkgrel=7
+pkgrel=8
 pkgdesc='Generate source code for a set of Python classes from a JSON schema'
 arch=(any)
 url='https://github.com/microsoft/jschema-to-python'
 license=(MIT)
-depends=(python-attrs python-jsonpickle python-pbr)
+depends=(
+  python
+  python-attrs
+  python-jsonpickle
+  python-pbr
+)
+makedepends=(
+  python-build
+  python-installer
+  python-wheel
+)
 checkdepends=(python-pytest)
-makedepends=(python-setuptools)
-source=(https://github.com/microsoft/jschema-to-python/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('bd21ab2f541fdae809bdfd40d1f718e6bd4ee43c92eea0c99956df20a8d877d6')
-
-export PBR_VERSION=$pkgver
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('e61f38470c7c18fd5fbc4b6fc97b891416de8c04d31dccb2a79b88aae892a29aa42d91b89153ac3806a518f7cad6df6fc544362c64ba83f67683c811ee68fefc')
 
 build() {
-  cd jschema-to-python-$pkgver
-  python setup.py build
+  cd ${pkgname#python-}-$pkgver
+  export PBR_VERSION=$pkgver
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd jschema-to-python-$pkgver
+  cd ${pkgname#python-}-$pkgver
   pytest
 }
 
 package() {
-  cd jschema-to-python-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+  cd ${pkgname#python-}-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
