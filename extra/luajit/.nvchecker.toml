@@ -1,5 +1,5 @@
 [luajit]
 source = "cmd"
-cmd = "curl -s https://api.github.com/repos/LuaJIT/LuaJIT/commits/v2.1 | jq -r '.commit.committer.date | fromdate'"
+cmd = "curl -s https://api.github.com/repos/LuaJIT/LuaJIT/commits/v2.1 | jq -r '[(.commit.committer.date | fromdate), (.sha[0:7])] | join(\"+\")'"
 from_pattern = "^(.*)$"
 to_pattern = "2.1.\\1"
