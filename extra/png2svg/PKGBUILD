@@ -2,7 +2,7 @@
 
 pkgname=png2svg
 pkgver=1.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Convert small PNG images to SVG Tiny 1.2'
 arch=(x86_64)
 url='https://github.com/xyproto/png2svg'
@@ -12,8 +12,14 @@ source=("git+$url#tag=v$pkgver")
 b2sums=('21a7657e1c603abef4cf8b218a9614ca273d76b6a8c0cb07f617d1842d73b1403a7ea4b763a65e440b8e58db83996b90f41ec5f336ea78206b65fcf730dba4fc')
 
 build() {
+  if [[ $CARCH == x86_64 ]]; then
+    export CGO_ENABLED=0
+  else
+    export CGO_CFLAGS="${CFLAGS}" CGO_CPPFLAGS="${CPPFLAGS}" CGO_CXXFLAGS="${CXXFLAGS}" CGO_LDFLAGS="${LDFLAGS}"
+  fi
+
   cd $pkgname/cmd/$pkgname
-  CGO_ENABLED=0 go build -v -mod=vendor -trimpath -buildmode=pie -ldflags="-s -w -extldflags '$LDFLAGS'"
+  go build -v -mod=vendor -trimpath -buildmode=pie -ldflags="-s -w -extldflags '$LDFLAGS'"
 }
 
 package() {
