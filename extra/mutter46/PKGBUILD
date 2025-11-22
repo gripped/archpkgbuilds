@@ -5,8 +5,8 @@
 # Contributor: Michael Kanis <mkanis_at_gmx_dot_de>
 
 pkgname=mutter46
-pkgver=46.7
-pkgrel=2
+pkgver=46.9
+pkgrel=1
 pkgdesc="Window manager and compositor for Elementary"
 url="https://gitlab.gnome.org/GNOME/mutter"
 arch=(x86_64)
@@ -83,7 +83,7 @@ source=(
   # Mutter tags use SSH signatures which makepkg doesn't understand
   "git+$url.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('1663b4635a3eb26599d5dad9b2e0ea707af21ef1b3c0326c504f24a37222da463a5d11b505a2bde6c0543e01aeb7f1c6dd244bfaa725d82f774049f2ef348950')
+b2sums=('bdc41fc95ce004de05adf5b9136a91ed77b96bed42f6b7eb06ae0d899e8c3430f6902c8700010ea20012146526ae3b296506e98a77c23a0d73e651319db863be')
 
 prepare() {
   cd mutter
