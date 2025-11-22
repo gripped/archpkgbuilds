@@ -3,7 +3,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=baobab
-pkgver=49.0
+pkgver=49.1
 pkgrel=1
 pkgdesc="A graphical directory tree analyzer"
 url="https://apps.gnome.org/Baobab"
@@ -33,14 +33,10 @@ makedepends=(
 groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/baobab.git?signed#tag=${pkgver/[a-z]/.&}"
-  baobab-initialize-results.patch
-  baobab-locations-remove.patch
-  baobab-fix-popup-menu.patch
+  0001-Scanner-Initialize-root-results-as-empty.patch
 )
-b2sums=('8caabc6da63add9ecf85858bdaeee90082647a1e15ca06ad6ad9ef992c1a914af5d4045e84c4a96efe7bcdc29ebce7fbf1e87962a589f3d9000f29e2707e694f'
-        'fe58077ebaf5e48d0a4c58aa8b30c4b6499e3b3734b99c52f74a4b52e89767dbad25cd9cdf2561e792c973532535bc30dbdea98d8ab9ec96f05540f0a98bcab5'
-        '7b24b0c3f9db668f9557fcd14a73f0c168488af83543662a7bd979bf6731166ab7ff2e3ff6f94c1a605f7105d95b51a9d6b68f821c449c30e4d4247e89014df3'
-        '09c00f707442f1ffcb6187583fa120fd10b9964c86fe698b1f63ab0ffbe7f7dbd4e2934718decd18f1b6f44daf5caa2abd16311a2b408143725076901cce5f06')
+b2sums=('e9c981f8ac715e6b4d6849a4a07f32cb87a6947bcfbb0c9d2c209a6e728fb7ab286bf96a707d9e61433bf8434d13dd8b5f7426cbf3325a3ece4def865adaf35f'
+        '0235be7b06f3b0d706813c46891927222017dc18e7e6694671e6606f9767865573c99c9239ec8aa33e2238a31f059fa0d8c4433b497a05ae204737c23ba46337')
 validpgpkeys=(3475CBA8D3483594C889B470D64A8D747F6FE706) # Maximiliano Sandoval <msandova@gnome.org>
 
 prepare() {
@@ -48,15 +44,7 @@ prepare() {
 
   # Initialize root results as empty
   # https://gitlab.gnome.org/GNOME/baobab/-/merge_requests/96
-  git apply -3 ../baobab-initialize-results.patch
-
-  # Don't try to iterate over a list after a removal
-  # https://gitlab.gnome.org/GNOME/baobab/-/merge_requests/100
-  git apply -3 ../baobab-locations-remove.patch
-
-  # Fix popup menus potentially acting on wrong items in both the column view and charts
-  # https://gitlab.gnome.org/GNOME/baobab/-/merge_requests/103
-  git apply -3 ../baobab-fix-popup-menu.patch
+  git apply -3 ../0001-Scanner-Initialize-root-results-as-empty.patch
 }
 
 build() {
