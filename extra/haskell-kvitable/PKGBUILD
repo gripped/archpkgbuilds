@@ -2,8 +2,8 @@
 
 _hkgname=kvitable
 pkgname=haskell-kvitable
-pkgver=1.1.0.1
-pkgrel=88
+pkgver=1.1.1.0
+pkgrel=1
 pkgdesc="Key/Value Indexed Table container and formatting library"
 url="https://github.com/kquick/kvitable"
 license=("ISC")
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-lucid' 'haskell-microlens' 'haskell-named-text' 'haskell-sayable')
 makedepends=('ghc' 'haskell-html-parse' 'haskell-tasty' 'haskell-tasty-hunit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('80bd0643dd2867060bd23993e3c638ca8759be91024016fa494069361dd162fd')
+sha256sums=('e974829a185f05f4dc1798aa985a0ae7433595316f08767b6159b0b22714b30e')
 
 build() {
   cd $_hkgname-$pkgver
