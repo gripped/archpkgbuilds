@@ -7,13 +7,12 @@
 
 pkgname=hugin
 pkgver=2025.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Panorama photo stitcher"
 arch=(x86_64)
 url="http://hugin.sourceforge.net/"
 license=(GPL-2.0-only)
-depends=(boost-libs
-         enblend-enfuse
+depends=(enblend-enfuse
          exiv2
          fftw
          glew
@@ -21,9 +20,7 @@ depends=(boost-libs
          lapack
          lcms2
          lensfun
-         libjpeg-turbo libjpeg.so
          libpano13
-         libpng
          libtiff
          libxi
          libxmu
@@ -32,8 +29,7 @@ depends=(boost-libs
          sqlite
          vigra
          wxwidgets-gtk3)
-makedepends=(boost
-             cmake
+makedepends=(cmake
              dos2unix
              mesa
              python-setuptools
