@@ -1,8 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-pymdown-extensions
-_pkgname=${pkgname#python-}
-pkgver=10.16.1
+pkgver=10.17.1
 pkgrel=1
 pkgdesc="Extensions for Python Markdown"
 arch=(any)
@@ -26,21 +25,21 @@ checkdepends=(
 optdepends=('python-pygments: for code highlighting')
 provides=(pymdown-extensions)
 replaces=(pymdown-extensions)
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('0b910d6e3bc023404e52aa91cb0e38db28962f2e818f9a176baa327368643eab')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('b28e4f3110b3adcc56aeac6d41f616d56d21e88dfb1569fbb94f58f80c8463ee')
 
 build() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   pytest
 }
 
 package() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.md
 }
