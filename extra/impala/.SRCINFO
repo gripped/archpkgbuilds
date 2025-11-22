@@ -1,12 +1,14 @@
 pkgbase = impala
 	pkgdesc = TUI for managing wifi
 	pkgver = 0.5.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/pythops/impala
 	arch = x86_64
 	license = GPL-3.0-only
 	makedepends = cargo
 	depends = gcc-libs
+	depends = glibc
+	depends = iwd
 	source = impala-0.5.0.tar.gz::https://github.com/pythops/impala/archive/v0.5.0.tar.gz
 	sha512sums = f094ab711a92a36ca8c28fa8650eb4ffa0960493a3eb9876f85e7fc79920775b3059a93adee508e64629db114fa2ea195bf0f95bdfedb997ae1ac078039bcc14
 
