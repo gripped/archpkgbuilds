@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=sscg
-pkgver=4.0.0
+pkgver=4.0.1
 pkgrel=1
 pkgdesc="Simple Signed Certificate Generator"
 url="https://github.com/sgallagher/sscg"
@@ -12,7 +12,7 @@ makedepends=(git help2man meson)
 source=(git+https://github.com/sgallagher/sscg.git?signed#tag=${pkgname}-${pkgver})
 # https://github.com/sgallagher.gpg
 validpgpkeys=('850A9DD1DBF2ACCC6FC4949145DB85A568286D11')
-sha512sums=('8d2cace0890a43750eab75b4d48a440f48e5b894d919c1767aec228662616e1463195c4a6c50ed94af4ad25ed28ff9bb3aa9ed6770297d95864e24774b71c419')
+sha512sums=('a40fb1ef0a8ae768dcd5990e3b70679fb62eee4ea4817aa0d0dcf1202f09b2c510d8c43a4b77fd5b8e07e9e1d9d8bed35a755f35db58db82c21c133d7f102f3b')
 
 build() {
   cd $pkgname
