@@ -2,7 +2,7 @@
 # Maintainer: Dan McGee <dan@archlinux.org>
 
 pkgname=libarchive
-pkgver=3.8.2
+pkgver=3.8.3
 pkgrel=1
 pkgdesc='Multi-format archive and compression library'
 arch=('x86_64')
@@ -19,10 +19,10 @@ depends=('acl' 'libacl.so'
          'zstd' 'libzstd.so')
 makedepends=('git')
 provides=('libarchive.so')
-validpgpkeys=('A5A45B12AD92D964B89EEE2DEC560C81CEC2276E'  # Martin Matuska <mm@FreeBSD.org>
-              'DB2C7CF1B4C265FAEF56E3FC5848A18B8F14184B') # Martin Matuska <martin@matuska.org>
+validpgpkeys=('DB2C7CF1B4C265FAEF56E3FC5848A18B8F14184B'  # Martin Matuska <martin@matuska.org>
+              '659C84C0E23EA1FA97E0B58CC040B508D63D2B36') # Martin Matuska <mm@FreeBSD.org>
 source=("git+https://github.com/${pkgname}/${pkgname}.git?signed#tag=v${pkgver}")
-sha256sums=('39bc2068fcde8eb5b95e286072c4ccbb127857a82fb2fcd05f0d29089ea73dcc')
+sha256sums=('71b66df2d975004d7b6ba76cb174298cc866beb5d39c1d63c1bb1bad3dcb8bc5')
 
 _backports=(
 )
