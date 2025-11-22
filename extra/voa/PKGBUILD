@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=voa
-pkgver=0.4.1
+pkgver=0.5.0
 pkgrel=1
 pkgdesc="CLI for interacting with the File Hierarchy for the Verification of OS Artifacts (VOA)"
 arch=(x86_64)
@@ -24,8 +24,8 @@ checkdepends=(
 source=(
   $pkgname::git+${_url}.git?signed#tag=$pkgname/$pkgver
 )
-sha512sums=('0d6644b4b15e6a3f513f5738dad241091267cd942e4b238c01565885ec7d6cbf377891335bdecae6ad728679a28e3f9b0f47f8f6286516b2dae13542b53bf54c')
-b2sums=('2525fd7ccea3ba2ad4f688066f4b25b0130c83d0d7cfd354908b266bdb8b0746d52c57088c646f6e2fb6f955945d5eb46d45768de79d4f5074312a1109fea8e1')
+sha512sums=('0042f5bcba0bb5c0dc8b046d78e6d28c0f91339cce2406de382e6aeb599877d45e68e84bd409f9deec80709dc35cf5fad5541f46f73103213a1dbed66bd671d0')
+b2sums=('c4a5a97e6dc659ce7ce63256bf773a35896f0ab5a47e1c6e0ece9c49074fa3507d92e9fb947aed5cdbc7b17d64d00a1a9cca700d77bb5e0d5e2a5ac45d846467')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
