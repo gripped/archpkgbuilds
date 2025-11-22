@@ -1,8 +1,8 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=viskores
-pkgver=1.0.0
-pkgrel=2
+pkgver=1.1.0
+pkgrel=1
 pkgdesc="A visualization library for many-threaded devices"
 arch=(x86_64)
 url="https://github.com/Viskores/viskores"
@@ -19,16 +19,8 @@ makedepends=(
 )
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
-  fix-cstdint-header.patch
 )
-b2sums=('dae93e7ff63fcc79eca16df7281c7ffb9ef9e4e66c78d33303c5e1c73c7c6f9a41904ef8f4a3143699c33a68e38cb4b5efd1dc47674e24616238bf38458f6085'
-        '0857b6efc636c663a853241b92a3e9c6b3089387bb7bf137f6e8f107d0c968a99e4bc5f7f60d43716d5e7bfeef151de41e4c169f02cd35ae01a07995d2943bf6')
-
-prepare() {
-  cd $pkgname-$pkgver
-  # https://github.com/Viskores/viskores/pull/129
-  patch -p1 -i ../fix-cstdint-header.patch
-}
+b2sums=('016e697a693cfa909864307dbff34f06a095b40f3454e3aba883d2384752ead4493aa1bc51108e7130ec47b5ba4dab3825eef8b7e599206ca54152364d74815b')
 
 build() {
   local cmake_options=(
