@@ -2,7 +2,7 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=lxqt-panel
-pkgver=2.2.2
+pkgver=2.3.0
 pkgrel=1
 pkgdesc="The LXQt desktop panel"
 arch=("x86_64")
@@ -10,7 +10,7 @@ groups=("lxqt")
 url="https://github.com/lxqt/$pkgname"
 license=("LGPL2.1")
 depends=(
-	"libdbusmenu-lxqt" "lxqt-menu-data" "libxtst"
+	"libdbusmenu-lxqt" "lxqt-menu-data" "lxqt-themes" "libxtst"
 	"lxqt-globalkeys" "solid" "libxcb" "libQt6Xdg.so" "layer-shell-qt"
 )
 optdepends=(
@@ -27,7 +27,7 @@ makedepends=(
 source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
 )
-sha256sums=('5d150e7a4e8818715b8f4eec7f4bb26c98f740cd56f972199b35fc7c81da1969'
+sha256sums=('556c8300a04affb68b14273ddd237c57f21f5493db089165fc7f4e3768f5ab7d'
             'SKIP')
 validpgpkeys=(
 	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
