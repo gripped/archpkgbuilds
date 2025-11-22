@@ -5,8 +5,9 @@
 
 pkgname=ruby-treetop
 _pkgname=${pkgname#ruby-}
-pkgver=1.6.14
-pkgrel=5
+pkgver=1.6.18
+_pkgver=367d37e0d0b4b7a9a6ad14c54758745ced1b28ad
+pkgrel=1
 pkgdesc="A Ruby-based parsing DSL based on parsing expression grammars"
 arch=(any)
 url="https://github.com/cjheath/treetop"
@@ -25,17 +26,12 @@ checkdepends=(
   ruby-rspec
 )
 options=(!emptydirs)
-source=("git+$url.git#tag=v$pkgver"
-        'reproducible_builds.patch')
-sha256sums=('413d8666d1f7c521b059201a33d221e19a93e47508a319b9379c795488a9ff22'
-            '97d22e08f3cf4e69e0b7d8916777ab16345548e5d32c9ec00090492b69c72111')
+source=("git+$url.git#tag=$_pkgver")
+sha256sums=('07bcb80b16b5aa233cce1c7adf74d80983f4b6684d2881aa1e2e50585cd4f595')
 
 prepare() {
   cd "$_pkgname"
   sed -i -E 's|~>|>=|g' "$_pkgname.gemspec"
-
-  # https://github.com/cjheath/treetop/commit/8f12fdd3f0b482b863bd14bc907a5d803f805b1e
-  patch -Np1 -i "$srcdir/reproducible_builds.patch"
 }
 
 build() {
