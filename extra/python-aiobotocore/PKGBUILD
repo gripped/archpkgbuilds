@@ -2,7 +2,7 @@
 # Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-aiobotocore
-pkgver=2.25.1
+pkgver=2.25.2
 pkgrel=1
 pkgdesc='asyncio support for botocore library using aiohttp'
 arch=(any)
@@ -40,7 +40,7 @@ checkdepends=(
   python-yaml
 )
 source=("git+$url.git#tag=$pkgver")
-sha256sums=('a4d87d8eeeb159c7198f00e453d55f35475a325410ec83ca7ef0cfb5c6a4e760')
+sha256sums=('80dd4f7c7cfbbe02d6dbd136c8fdd9f1c18beacdd916ee5e3e4d5b7f85a68c3c')
 
 build() {
   cd ${pkgname#python-}
