@@ -2,7 +2,7 @@
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
 
 pkgname=compiler-rt
-pkgver=21.1.5
+pkgver=21.1.6
 pkgrel=1
 pkgdesc="Compiler runtime libraries for clang"
 arch=('x86_64')
@@ -15,11 +15,15 @@ makedepends_x86_64=('lib32-gcc-libs')
 options=('staticlibs')
 _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkgver
 source=($_source_base/compiler-rt-$pkgver.src.tar.xz{,.sig}
-        $_source_base/cmake-$pkgver.src.tar.xz{,.sig})
-sha256sums=('967c2afba250b325ba4482b12a819ef8cbee178eed45d7b5e14f0368b05adedf'
+        $_source_base/cmake-$pkgver.src.tar.xz{,.sig}
+        $_source_base/third-party-$pkgver.src.tar.xz{,.sig})
+sha256sums=('bdd904f3aac9f4c4424f3440aff498cc04d66f243e37156b6d167ffb7b599f89'
             'SKIP'
-            '48013d5714a96419bf993a2e5e4c5827377e8cf9c565070731fb2305d50d9511'
+            'e364f135fa14c343d70cac96f577f44e8e20bf026682f647f8c3c5687a0bebd1'
+            'SKIP'
+            '8d09dc219cdb3da7dafd2161836aacdd6e02c1a113498ab5f37688599406dc8a'
             'SKIP')
+
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
               'D574BD5D1D0E98895E3BF90044F2485E45D59042'  # Tobias Hieta <tobias@hieta.se>
               'FFB3368980F3E6BB5737145A316C56D064CACBA5'  # Douglas Yung <douglas.yung@sony.com>
@@ -28,6 +32,7 @@ validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstell
 
 prepare() {
   mv cmake{-$pkgver.src,}
+  mv third-party{-$pkgver.src,}
   cd compiler-rt-$pkgver.src
   mkdir build
 }
