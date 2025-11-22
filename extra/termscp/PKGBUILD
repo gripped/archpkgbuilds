@@ -3,7 +3,7 @@
 # Contributor: Luis Martinez <luis dot martinez at tuta dot io>
 
 pkgname=termscp
-pkgver=0.18.0
+pkgver=0.19.0
 pkgrel=1
 pkgdesc="A feature rich terminal UI file transfer and explorer"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('MIT')
 depends=('gcc-libs' 'zlib' 'openssl' 'dbus' 'smbclient')
 makedepends=('cargo' 'git')
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('fe68e4fa66f5fe9ad018401fd67aed3834056480d8b3af6634b78e91db3d6ca9c37ac08380440fa676a3f7c46b26ed107a305435e57b5e44942cfda187a1c25c')
+sha512sums=('16da20a8e252a18c6be54058b02e518f6e47a46e9353675b1fece1aeae877518ea2ffdcede4ed031fdd6f398170a55d1eb15cccffda73f04218eb77ec030b35a')
 options=('!lto')
 
 prepare() {
