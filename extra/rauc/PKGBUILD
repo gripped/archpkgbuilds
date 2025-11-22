@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=rauc
-pkgver=1.14
+pkgver=1.15
 pkgrel=1
 pkgdesc="Safe and secure software updates for embedded Linux"
 arch=(x86_64)
@@ -22,6 +22,8 @@ makedepends=(
   json-glib
   meson
   python
+  python-sphinx
+  python-sphinx_rtd_theme
   systemd
   util-linux
 )
@@ -41,16 +43,16 @@ source=(
   https://github.com/rauc/rauc/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz{,.asc}
   $pkgname.tmpfiles
 )
-sha512sums=('910c1379817d2f5980919c8ca4074a999732624e5a4eaf82aadeda1efa4671ce80ec86150f231d76a2137587f00f52e7a74e4da3a61ab2ab95b4dab2a5e79939'
+sha512sums=('1d6db354ca582d1ae576db88158da97a3018c89176aa8270fb2707e0b6af8664f6d1269747306286419dc0cea1c438e0602950d19086592e643177fe14fc94a4'
             'SKIP'
             '35173525a8529c4d5a227186db353107193bf8cdd3e8ab0cd94c418b34187be50fe379bcabf623bfddbf1916e8e7e965800a269e823f7ee9c26f44ac1f689c94')
-b2sums=('3698dea9c065806b18c00049aefd4b03a6407c929e381745291627b2d23101f48fe2d3842ba29e76929468f5290ad57aa82de0d59ffdbe5ae2e2b3e6cedb81a3'
+b2sums=('3c241229a85c60e96974117fc0bde29c313b8f1809b5fe0ae807b585e5c774d0eadec75f9a4bae5de0ca47cc1bdadb62791d7e8a1a48bb3c348f62aa0f39cb43'
         'SKIP'
         'e970b292f89cf4663b4ea318965444dc9bb47ef5f937143f180a372c5906f534e7c2f234dfa824b70434011069ea7758e4d6c8afd73dd5c4d92337da7e281eca')
 validpgpkeys=("977843FD5C3EBF76BAD4008EA58CC53DBF05E090")  # Jan Lübbe <jlu@pengutronix.de>
 
 build() {
-  arch-meson $pkgname-$pkgver build
+  arch-meson -D manpages=true $pkgname-$pkgver build
   meson compile -C build
 
 }
