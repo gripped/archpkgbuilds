@@ -1,7 +1,7 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
 
 pkgname=aspell-pt
-_pkgverPT=20220621
+_pkgverPT=20251001
 _pkgverBR=20131030-12
 pkgver=$_pkgverPT
 pkgrel=2
@@ -18,8 +18,8 @@ source=(https://ftp.gnu.org/gnu/aspell/dict/pt_BR/aspell6-pt_BR-$_pkgverBR-0.tar
 validpgpkeys=('78DEC3DB0AEA763951322BBF71C636695B147849') #Aspell Dictionary Upload <dict-upload@aspell.net>
 sha256sums=('eb0d99db0b5d5c442133a88bddfe96dd252c0c3df3da36e9326c241dc4bc14f7'
             'SKIP'
-            '2494e978890fefc198ece36e0f581451047f43bc53709580350c3b96fb60d303'
-            'eb2da5b268f89f8e6ad0d8630f9070a0c62daed4002d52cdf50b3e2d3ac3f605')
+            'f6179aa151ad92c2b377822416610bdacd0cf5435dbea103349398dea571229a'
+            '9cbf6f12d005ee1ec8899af7ae7bc291567a9acbfca2761402c5c0552664267d')
 
 build() {
   cd aspell6-pt_BR-$_pkgverBR-0
