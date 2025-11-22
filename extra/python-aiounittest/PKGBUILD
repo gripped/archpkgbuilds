@@ -2,20 +2,20 @@
 
 pkgname=python-aiounittest
 pkgver=1.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Test asyncio code more easily"
 url="https://github.com/kwarunek/aiounittest"
 license=('MIT')
 arch=('any')
 depends=('python-wrapt')
-makedepends=('git' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools')
 checkdepends=('python-pytest')
 source=("git+https://github.com/kwarunek/aiounittest.git#tag=$pkgver")
 sha512sums=('ae8c3c2ff504f095e5b90dd898a60c6d8bfc844e7fa6f81c56bad1d183b55e723861844bbd820ff57ae6b69b1e336c70e67b5a4d4e2249fc8f3d7dea5ca55c8b')
 
 build() {
   cd aiounittest
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -25,6 +25,6 @@ check() {
 
 package() {
   cd aiounittest
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
