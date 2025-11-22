@@ -2,24 +2,24 @@
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
 
 pkgname=('llvm' 'llvm-libs')
-pkgver=21.1.5
+pkgver=21.1.6
 pkgrel=1
 arch=('x86_64')
 url="https://llvm.org/"
 license=('Apache-2.0 WITH LLVM-exception')
 makedepends=('cmake' 'ninja' 'zlib' 'zstd' 'curl' 'libffi' 'libedit' 'libxml2'
              'python-setuptools' 'python-psutil' 'python-sphinx'
-             'python-myst-parser')
+             'python-myst-parser' 'python-build' 'python-installer' 'python-wheel')
 options=('staticlibs' '!lto') # tools/llvm-shlib/typeids.test fails with LTO
 _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkgver
 source=($_source_base/llvm-$pkgver.src.tar.xz{,.sig}
         $_source_base/cmake-$pkgver.src.tar.xz{,.sig}
         $_source_base/third-party-$pkgver.src.tar.xz{,.sig})
-sha256sums=('c9d6ca5073255192850471a276b3a00a6555c6dd09df6cb3eab77801f0a1cae0'
+sha256sums=('908bce97be0275943414b45af2e2b20e8f6d5d9266fdc120bd59f096ebc547ad'
             'SKIP'
-            '48013d5714a96419bf993a2e5e4c5827377e8cf9c565070731fb2305d50d9511'
+            'e364f135fa14c343d70cac96f577f44e8e20bf026682f647f8c3c5687a0bebd1'
             'SKIP'
-            '4ccc00ec2e7bd0cc121eaa34fa25a0480bfb8a5722faf1694720e0be99b753e6'
+            '8d09dc219cdb3da7dafd2161836aacdd6e02c1a113498ab5f37688599406dc8a'
             'SKIP')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
               'D574BD5D1D0E98895E3BF90044F2485E45D59042'  # Tobias Hieta <tobias@hieta.se>
@@ -109,6 +109,11 @@ build() {
 
   cmake .. "${cmake_args[@]}"
   ninja
+
+  # Include lit for running lit-based tests in other projects
+  pushd ../utils/lit
+  python -m build --wheel --no-isolation
+  popd
 }
 
 check() {
@@ -126,7 +131,7 @@ package_llvm() {
 
   # Include lit for running lit-based tests in other projects
   pushd ../utils/lit
-  python3 setup.py install --root="$pkgdir" -O1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   popd
 
   # The runtime libraries go into llvm-libs
