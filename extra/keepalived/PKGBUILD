@@ -3,20 +3,25 @@
 
 pkgname=keepalived
 pkgver=2.3.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Failover and monitoring daemon for LVS clusters'
 arch=('x86_64')
 url='https://www.keepalived.org/'
-license=('GPL2')
+license=('GPL-2.0-or-later')
 backup=('etc/keepalived/keepalived.conf'
         'etc/sysconfig/keepalived')
-makedepends=('ipset')
-depends=('glibc' 'libnl' 'openssl' 'file' 'iptables' 'systemd-libs')
+depends=('glibc' 'kmod' 'libmnl' 'libnftnl' 'libnl' 'openssl' 'file' 'iptables' 'systemd-libs')
 optdepends=('ipset: ipset support')
-makedepends=('libnfnetlink' 'ipset' 'systemd')
+makedepends=('git' 'ipset')
 options=('!emptydirs')
-source=("https://www.keepalived.org/software/$pkgname-$pkgver.tar.gz")
-sha256sums=('6afd95ddb7d3e0d3b8b8e5b3a489144131b61a01b06d29e883d0c44acc8a36bf')
+source=("git+https://github.com/acassen/keepalived.git#tag=v${pkgver}")
+sha256sums=('60d7893465a698c7bc791b1bd6a5c818e6602c3381d04525102f6c941c4e24c8')
+
+prepare() {
+  cd "${pkgname}"
+
+  autoreconf -fi
+}
 
 build() {
   # trick broken ./configure systemctl test
@@ -24,7 +29,7 @@ build() {
   chmod +x systemctl
   PATH=$PWD:$PATH
 
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgname}"
 
   ./configure \
     --prefix=/usr \
@@ -37,7 +42,7 @@ build() {
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgname}"
 
   make DESTDIR="${pkgdir}" install
 

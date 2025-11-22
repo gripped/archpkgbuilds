@@ -1,14 +1,16 @@
 pkgbase = keepalived
 	pkgdesc = Failover and monitoring daemon for LVS clusters
 	pkgver = 2.3.4
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.keepalived.org/
 	arch = x86_64
-	license = GPL2
-	makedepends = libnfnetlink
+	license = GPL-2.0-or-later
+	makedepends = git
 	makedepends = ipset
-	makedepends = systemd
 	depends = glibc
+	depends = kmod
+	depends = libmnl
+	depends = libnftnl
 	depends = libnl
 	depends = openssl
 	depends = file
@@ -18,7 +20,7 @@ pkgbase = keepalived
 	options = !emptydirs
 	backup = etc/keepalived/keepalived.conf
 	backup = etc/sysconfig/keepalived
-	source = https://www.keepalived.org/software/keepalived-2.3.4.tar.gz
-	sha256sums = 6afd95ddb7d3e0d3b8b8e5b3a489144131b61a01b06d29e883d0c44acc8a36bf
+	source = git+https://github.com/acassen/keepalived.git#tag=v2.3.4
+	sha256sums = 60d7893465a698c7bc791b1bd6a5c818e6602c3381d04525102f6c941c4e24c8
 
 pkgname = keepalived
