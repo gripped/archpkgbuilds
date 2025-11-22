@@ -3,7 +3,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=iana-etc
-pkgver=20251030
+pkgver=20251114
 _ports=service-names-port-numbers-${pkgver}
 _protocols=protocol-numbers-20250712
 pkgrel=1
@@ -15,7 +15,7 @@ backup=('etc/'{protocols,services})
 source=("https://sources.archlinux.org/other/packages/iana-etc/${_ports}.xml"
         "https://sources.archlinux.org/other/packages/iana-etc/${_protocols}.xml"
         'license-from-upstream')
-sha256sums=('1535362d163c22de236ec030845935b85b1e51166da6d33713c5e5c60969ba27'
+sha256sums=('255fed295d16e76d5b74cc57c52fee442895f4665d3610dc720b5c523efe1d3a'
             'ae8e9a2d0e18c3a34640d71ccfdae68c8f2e38704c80affd30c86f59d15d7b31'
             'dd37e92942d5a4024f1c77df49d61ca77fc6284691814903a741785df61f78cb')
 
