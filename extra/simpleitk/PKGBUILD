@@ -11,7 +11,7 @@ pkgname=(
   ruby-simpleitk
   tcl-simpleitk
 )
-pkgver=2.5.2
+pkgver=2.5.3
 pkgrel=1
 pkgdesc="A simplified layer built on top of ITK"
 arch=(x86_64)
@@ -40,7 +40,7 @@ makedepends=(
   tk
 )
 source=($pkgbase::git+$url.git#tag=v$pkgver)
-b2sums=('1e06f8483456662e936da9b055b1e25a12528fc8a82df5069afee11bc7061355d8e29e8e96e489a8c078dfa1aa8c82550035b46b719c0a59f2c23647bfc5c60b')
+b2sums=('b6f538d842a89de58490cfd62d88b3099788866ac513784aa67cec3f132c4a1501369c5a89d940f075761ee2072f46def5fa65c5684739226faac1bb06867ea6')
 
 build() {
   local cmake_options=(
@@ -59,6 +59,8 @@ build() {
     -DWRAP_JAVA=ON
     -DWRAP_LUA=ON
     -DWRAP_PYTHON=ON
+    # Swig does not work with Python's limited API
+    -DSimpleITK_PYTHON_USE_LIMITED_API=OFF
     -DWRAP_R=ON
     -DWRAP_RUBY=ON
     -DWRAP_TCL=ON
