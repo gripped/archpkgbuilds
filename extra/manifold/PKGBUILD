@@ -1,6 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=(manifold python-manifold3d)
-pkgver=3.2.0
+pkgver=3.3.2
 pkgrel=1
 pkgdesc="Geometry library for topological robustness"
 arch=('x86_64')
@@ -8,7 +8,7 @@ license=('Apache-2.0')
 url="https://github.com/elalish/manifold"
 makedepends=('cmake' 'ninja' 'git' 'nanobind' 'pybind11' 'onetbb')
 source=("https://github.com/elalish/manifold/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('0bca30f38ebf88a9954a90e521905d5ed36fe66b220fe4ca1cada66c2835f604')
+sha256sums=('efdae7cd75aabab20fa2673603a9ac263d5b48912559664dde37f5d9e85eced8')
 
 build() {
   local cmake_options=(
