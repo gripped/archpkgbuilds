@@ -5,7 +5,7 @@
 pkgname=freerdp
 pkgver=3.17.2
 _libver=${pkgver/.*/}
-pkgrel=5
+pkgrel=6
 epoch=2
 pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)"
 arch=(x86_64)
@@ -28,8 +28,8 @@ depends=(
   libxrandr
   libxrender
   libxtst
-  sdl2
-  sdl2_ttf
+  sdl3
+  sdl3_ttf
   wayland
 )
 makedepends=(
@@ -101,7 +101,8 @@ build() {
     -D WITH_BINARY_VERSIONING=ON  # prevent file conflicts with freerdp2
     -D WITH_CHANNELS=ON
     -D WITH_CLIENT_CHANNELS=ON
-    -D WITH_CLIENT_SDL3=OFF
+    -D WITH_CLIENT_SDL3=ON
+    -D WITH_CLIENT_SDL2=OFF
     -D WITH_CUPS=ON
     -D WITH_DSP_FFMPEG=ON
     -D WITH_FFMPEG=ON
