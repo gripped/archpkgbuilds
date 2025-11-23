@@ -1,7 +1,7 @@
 pkgbase = wasmer
 	pkgdesc = Universal Binaries Powered by WebAssembly
 	pkgver = 6.1.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/wasmerio/wasmer
 	arch = x86_64
 	license = MIT
@@ -12,6 +12,8 @@ pkgbase = wasmer
 	depends = ncurses
 	depends = libffi
 	depends = libxkbcommon
+	depends = llvm18
+	depends = glibc
 	options = staticlibs
 	options = !lto
 	source = wasmer-6.1.0.tar.gz::https://github.com/wasmerio/wasmer/archive/refs/tags/v6.1.0.tar.gz

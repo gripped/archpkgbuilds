@@ -3,12 +3,12 @@
 
 pkgname=wasmer
 pkgver=6.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Universal Binaries Powered by WebAssembly"
 arch=('x86_64')
 url="https://github.com/wasmerio/wasmer"
 license=('MIT')
-depends=('gcc-libs' 'zlib' 'ncurses' 'libffi' 'libxkbcommon')
+depends=('gcc-libs' 'zlib' 'ncurses' 'libffi' 'libxkbcommon' 'llvm18' 'glibc')
 makedepends=('rustup' 'cmake')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/wasmerio/wasmer/archive/refs/tags/v${pkgver}.tar.gz"
         reproducible-builds.patch)
@@ -23,9 +23,7 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  # Activate LLVM once
-  # https://github.com/TheDan64/inkwell/issues/406 lands.
-  make ENABLE_CRANELIFT=1 ENABLE_LLVM=0 WASMER_INSTALL_PREFIX=/usr
+  make ENABLE_CRANELIFT=1 ENABLE_LLVM=1 WASMER_INSTALL_PREFIX=/usr
 }
 
 check() {
