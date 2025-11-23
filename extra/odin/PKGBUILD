@@ -3,11 +3,12 @@
 # Contributor: Jesus Alvarez <jeezusjr@gmail.com>
 # Contributor: Kaizhao Zhang <zhangkaizhao@gmail.com>
 # Contributor: Payn <ivanttt54@gmail.com>
+# Contributor: Johannes Müller <mail@jotrorox.com>
 
 pkgname=odin
 # using monthly tags until a release is tagged
-pkgver=dev_2025_10
-pkgrel=3
+pkgver=dev_2025_11
+pkgrel=1
 pkgdesc='Data-oriented programming language'
 arch=(x86_64)
 url='https://odin-lang.org/'
@@ -16,14 +17,7 @@ depends=(clang llvm-libs python)
 makedepends=(git llvm stb)
 options=(staticlibs)
 source=("git+https://github.com/odin-lang/Odin#tag=${pkgver//_/-}")
-b2sums=('a8aeb880f82f263cef231ff549b863cc137b3004e48241fd45b89898dfc9c3acf4bf24d462b41060d0d38c9e3bd7208e6fe65208d343f4038899b8c0d035ef5b')
-
-prepare() {
-  cd Odin
-  # LLVM 21 support, see:
-  # https://github.com/odin-lang/Odin/pull/5808
-  git cherry-pick -n e7ecb16a1e0fa98e2ad413100de9cf4ffe9820e8
-}
+b2sums=('b810f934911ff63440b442cfb4698d7a675bb4e68afa4ef8a64ec3045b671ee697a4715f52f015a7a1467e5f0023f8c74cd601dc1a8b80a2bea9b8e832e14983')
 
 build() {
   cd Odin
