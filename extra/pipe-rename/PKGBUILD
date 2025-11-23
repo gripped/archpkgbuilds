@@ -3,7 +3,7 @@
 
 pkgname=pipe-rename
 pkgver=1.6.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Rename your files using your favorite text editor'
 arch=(x86_64)
 url='https://github.com/marcusbuffett/pipe-rename'
@@ -11,9 +11,9 @@ license=(MIT)
 depends=(gcc-libs glibc)
 makedepends=(git rust)
 options=(!lto)
-source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('e1aef55bfcdbcf373b97a13a28e3dffd8043259d056848c4f6cc7acc7f5f3f52ecfbd30fb4ae367b78c7d52d853a47e0b73c130987806aa5bb87acbf961107bd')
-b2sums=('1630b02b1eeb934aeab2c5943cd8ec35214e29ba2f849aa31ac95bcef77a12d2990b4b64a5c0931a4ceb0ba927fe310f54480e3ce3adb805e69aa8bd13f9b7af')
+source=("$pkgname::git+$url.git#tag=$pkgver")
+sha512sums=('bfdf0428bfc6dcd3128acb24007f9ead452a4113f7811c39c91459e4644e0060498b2dbc8db8d60102b780b67eb55dcc45cc1ac577908d35f4aa068a3b790e64')
+b2sums=('28377d41f593bfb6c3caa3eab5ce9d758d7432a72f865f128db1b3e9028aef37b67f58e9b60cb350731daf16e0ada227368a3be45fa8c3f98326214e0592d709')
 
 prepare() {
   cd "$pkgname"
