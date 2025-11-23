@@ -2,8 +2,8 @@ cudaroot=/opt/cuda
 libdir=${cudaroot}/targets/x86_64-linux/lib
 includedir=${cudaroot}/targets/x86_64-linux/include
 
-Name: nvgraph
-Description: NVIDIA Accelerated Graph Analytics
-Version: 11.0
-Libs: -L${libdir} -lnvgraph
+Name: nvfatbin
+Description: NVIDIA fatbin Library
+Version: latest
+Libs: -L${libdir} -lnvfatbin
 Cflags: -I${includedir}

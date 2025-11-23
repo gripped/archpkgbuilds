@@ -1,9 +1,9 @@
 cudaroot=/opt/cuda
-libdir=${cudaroot}/targets/x86_64-linux/lib
+libdir=${cudaroot}/targets/x86_64-linux/lib/stubs
 includedir=${cudaroot}/targets/x86_64-linux/include
 
 Name: nvidia-ml
 Description: NVML
-Version: 11.0
-Libs: -L${libdir}/stubs -lnvidia-ml
+Version: latest
+Libs: -L${libdir} -lnvidia-ml
 Cflags: -I${includedir}
