@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=cosmic-player
-pkgver=1.0.0.beta.6
+pkgver=1.0.0.beta.7
 pkgrel=1
 pkgdesc="WIP COSMIC media player"
 arch=(x86_64)
@@ -27,7 +27,7 @@ makedepends=(
   lld
 )
 source=(git+https://github.com/pop-os/cosmic-player.git#tag=epoch-${pkgver/.beta./-beta.})
-sha256sums=('72fe2d9c63ba1c94fe02b8b76d20f4a9197ee385f485c3155913d62e244ed7f5')
+sha256sums=('59ad2ab7ba1ab26225671fe3bd0af2cfeb2a3fdca16df58257825117e511139d')
 
 prepare() {
   cd "$pkgname"
