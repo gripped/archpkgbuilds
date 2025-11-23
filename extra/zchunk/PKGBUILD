@@ -3,7 +3,7 @@
 # Contributor: Nikita Puzyryov <PuzyryovN@gmail.com>
 
 pkgname=zchunk
-pkgver=1.5.2
+pkgver=1.5.3
 pkgrel=1
 pkgdesc="A file format designed for highly efficient deltas while maintaining good compression"
 url="https://github.com/zchunk/zchunk"
@@ -13,7 +13,7 @@ depends=('glibc' 'libcurl.so' 'openssl' 'zstd')
 makedepends=('meson')
 provides=('libzck.so')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('b7346d950fec2e0c72761f2a9148b0ece84574c49076585abf4bebd369cd4c60')
+sha256sums=('832381dafe192109742c141ab90a6bc0a9d7e9926a4bafbdf98f596680da2a95')
 
 build() {
 	cd "${pkgname}-${pkgver}" 
