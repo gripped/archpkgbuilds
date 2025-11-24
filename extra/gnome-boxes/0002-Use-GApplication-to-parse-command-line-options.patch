@@ -11,7 +11,7 @@ necessary to parse them manually.
  2 files changed, 26 insertions(+), 47 deletions(-)
 
 diff --git a/src/app.vala b/src/app.vala
-index 7369691282e0..6657e863fc8b 100644
+index 7688ce507321..6a0ef8515dc6 100644
 --- a/src/app.vala
 +++ b/src/app.vala
 @@ -55,11 +55,29 @@ private class Boxes.App: Gtk.Application {
@@ -27,8 +27,8 @@ index 7369691282e0..6657e863fc8b 100644
 +        { "version", 0, 0, OptionArg.NONE, null, N_("Display version number"), null },
 +        { "full-screen", 'f', 0, OptionArg.NONE, null, N_("Open in full screen"), null },
 +        { "checks", 0, 0, OptionArg.NONE, null, N_("Check virtualization capabilities"), null },
-+        { "open-uuid", 0, 0, OptionArg.STRING, null, N_("Open box with UUID"), null },
-+        { "search", 0, 0, OptionArg.STRING_ARRAY, null, N_("Search term"), null },
++        { "open-uuid", 0, 0, OptionArg.STRING, null, N_("Open box with UUID"), N_("UUID") },
++        { "search", 0, 0, OptionArg.STRING_ARRAY, null, N_("Search term"), N_("TEXT") },
 +        { null }
 +    };
 +
@@ -59,8 +59,8 @@ index 7369691282e0..6657e863fc8b 100644
 -        { "help", 'h', 0, OptionArg.NONE, ref opt_help, N_("Show help"), null },
 -        { "full-screen", 'f', 0, OptionArg.NONE, ref opt_fullscreen, N_("Open in full screen"), null },
 -        { "checks", 0, 0, OptionArg.NONE, null, N_("Check virtualization capabilities"), null },
--        { "open-uuid", 0, 0, OptionArg.STRING, ref opt_open_uuid, N_("Open box with UUID"), null },
--        { "search", 0, 0, OptionArg.STRING_ARRAY, ref opt_search, N_("Search term"), null },
+-        { "open-uuid", 0, 0, OptionArg.STRING, ref opt_open_uuid, N_("Open box with UUID"), N_("UUID") },
+-        { "search", 0, 0, OptionArg.STRING_ARRAY, ref opt_search, N_("Search term"), N_("TEXT") },
 -        // A 'broker' is a virtual-machine manager (local or remote). Currently only libvirt is supported.
 -        { "", 0, 0, OptionArg.STRING_ARRAY, ref opt_uris, N_("URL to display, broker or installer media"), null },
 -        { null }
