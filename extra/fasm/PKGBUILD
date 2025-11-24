@@ -6,16 +6,16 @@
 # Contributor: Luke McCarthy <luke@iogopro.co.uk>
 
 pkgname=fasm
-pkgver=1.73.32
+pkgver=1.73.33
 pkgrel=1
 pkgdesc='Fast and efficient self-assembling x86 assembler for DOS, Windows and Linux operating systems'
 url='https://flatassembler.net/'
 arch=('x86_64')
-license=('custom')
+license=('LicenseRef-BSD-2-Clause-fasm')
 depends_x86_64=('lib32-glibc' 'lib32-gcc-libs')
 source=(https://flatassembler.net/${pkgname}-${pkgver}.tgz)
-sha512sums=('862d3bd0009147e3b401fee1c034718eda0c24cd6bb0014cd3da3501071571b56ada2d479a4dd5a7c6a94482bf78ab16678f12e994da3ec0a1dea889b3f34f58')
-b2sums=('d230eb0bd3b51244c771570a3d0af32c6b934ed9b03623366e62a0d86a67eadb4672633d3fd2ac9cb8b7a2805b7a361a7b192013699e7f210378f615fa3dbf74')
+sha512sums=('33eab58a8f030f49c60eae906224aea24e9423220241eda7f3206a7e3f6a0c3ecc55643ca4d008e9935941b93c84edfe16a519449a3e2a5e58b5c346d930d0e9')
+b2sums=('d3a5c343b74f473c6fc1e164e6d4abebae202345e85c967ecfcfa3c7747b76be7e6f00fec012acb1f4d84d2712f0e2e6c74659c030cab0a384731385464ed89d')
 options=(!strip)
 
 build() {
