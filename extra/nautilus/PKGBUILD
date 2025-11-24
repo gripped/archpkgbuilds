@@ -8,8 +8,8 @@ pkgname=(
   libnautilus-extension
   libnautilus-extension-docs
 )
-pkgver=49.1
-pkgrel=3
+pkgver=49.2
+pkgrel=1
 pkgdesc="Default file manager for GNOME"
 url="https://apps.gnome.org/Nautilus/"
 arch=(x86_64)
@@ -57,7 +57,7 @@ checkdepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/nautilus.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('16f2b67f8041553db2f179a4a5eea1d38503f1388dabedda36037706bfe7faf3aa9aadcd792a5a2652a5d44f56626c17bb8000e307e5fbcc31ca33531a0a3b93')
+b2sums=('22147928d601778408d0fc98ac093eaf520bc7c61d0d3cda3f8db1b35b029a8cccd29bc3a93eb14887f9dd6e9c7351eb04ae74d93902b5e6a92f071ccf80fc6d')
 validpgpkeys=(
   6B211753AC950672287226800538577822AE4B17 # António Fernandes <antoniof@gnome.org>
   550660707A6F40376B9B9F8D504A78811E6160CC # Corey Berla <corey@berla.me>
@@ -65,12 +65,6 @@ validpgpkeys=(
 
 prepare() {
   cd nautilus
-
-  # Fix ignoring Templates dir set to home dir
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/glib2/-/issues/13
-  # https://gitlab.gnome.org/GNOME/nautilus/-/issues/4014
-  # https://gitlab.gnome.org/GNOME/nautilus/-/merge_requests/1861
-  git cherry-pick -n 272a2d4f304f62466ce3fe56bb60270fa9c815a7
 }
 
 build() {
