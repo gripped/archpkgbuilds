@@ -2,7 +2,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=lib32-clang
-pkgver=21.1.5
+pkgver=21.1.6
 pkgrel=1
 pkgdesc="C language family frontend for LLVM (32-bit)"
 arch=('x86_64')
@@ -18,13 +18,13 @@ source=($_source_base/clang-$pkgver.src.tar.xz{,.sig}
         $_source_base/third-party-$pkgver.src.tar.xz{,.sig}
         0001-Revert-clang-driver-When-fveclib-ArmPL-flag-is-in-us.patch
         enable-fstack-protector-strong-by-default.patch)
-sha256sums=('eee4de3b3f01ea6dd6b0936ac8be319eef0a65d0022def258c70110e3743807c'
+sha256sums=('348ace5d715c4caa6fb89b4c6fe07c21650e10b2fac37d8b0db75c0b11be9011'
             'SKIP'
-            'c9d6ca5073255192850471a276b3a00a6555c6dd09df6cb3eab77801f0a1cae0'
+            '908bce97be0275943414b45af2e2b20e8f6d5d9266fdc120bd59f096ebc547ad'
             'SKIP'
-            '48013d5714a96419bf993a2e5e4c5827377e8cf9c565070731fb2305d50d9511'
+            'e364f135fa14c343d70cac96f577f44e8e20bf026682f647f8c3c5687a0bebd1'
             'SKIP'
-            '4ccc00ec2e7bd0cc121eaa34fa25a0480bfb8a5722faf1694720e0be99b753e6'
+            '8d09dc219cdb3da7dafd2161836aacdd6e02c1a113498ab5f37688599406dc8a'
             'SKIP'
             '6f3cc7a4847e03d16ed90341bb71fec98427763ff2351f5344b2ca2ce62a604c'
             '65c2b77693b9380c4e9c08977bed163932fbd72eaaa4dc666bb7310d426f6887')
