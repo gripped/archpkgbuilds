@@ -1,0 +1,70 @@
+# Maintainer: Christian Heusel <gromit@archlinux.org>
+
+pkgname=systing
+pkgver=r463.ebfc784
+pkgrel=1
+pkgdesc="A libbpf based tracer to help figure out what an application is doing"
+arch=(x86_64)
+url="https://github.com/josefbacik/systing"
+depends=(
+  bpf
+  libbpf
+  libbpf
+  gcc-libs
+  glibc
+  fmt
+  libcap
+  re2
+)
+makedepends=(
+  clang
+  git
+  rust
+  linux
+)
+license=(MIT)
+_commit="ebfc78490e4dfe18e973e623872424686a1561be"
+source=(
+  "${pkgname}::git+https://github.com/josefbacik/systing.git#commit=$_commit"
+  "${pkgname}-strobelight-libs::git+https://github.com/facebookincubator/strobelight-libs.git"
+)
+sha512sums=('95336e45b70ba0a9726fc06723eb1ebfb5abc5fbf83480b22e4aa743e7c8cbcf8ca7d202396c16970f19e4051cde78cebfb603d38a8ffb56afb2737973bdc539'
+            'SKIP')
+b2sums=('a2d8ba43c3718856e74ea64858df827c5c69291966491e0729aad6933bda792b75dad131d7d4f55f9b03c11c0c706bae11636954eb79b5eb418b4a7da3975651'
+        'SKIP')
+
+# needed to workaround linking error with BPF lib
+options=(!lto)
+
+pkgver() {
+  cd "$pkgname"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+}
+
+prepare() {
+  cd $pkgname
+
+  git submodule init
+  git config submodule."strobelight-libs".url "${srcdir}/${pkgname}"-strobelight-libs
+  git -c protocol.file.allow=always submodule update --init
+
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $pkgname
+
+  cargo build
+}
+
+check() {
+  cd $pkgname
+
+  cargo test -p $pkgname --frozen
+}
+
+package() {
+  cd $pkgname
+  install -vDm 0755 "target/debug/$pkgname" -t "$pkgdir/usr/bin/"
+  install -vDm 0644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
