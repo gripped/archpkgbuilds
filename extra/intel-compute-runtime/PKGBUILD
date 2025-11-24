@@ -4,74 +4,77 @@
 
 pkgname=intel-compute-runtime
 pkgver=25.40.35563.4
-pkgrel=1
-pkgdesc="Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver"
-arch=(x86_64)
+pkgrel=4
+pkgdesc='Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver'
+arch=('x86_64')
 url='https://github.com/intel/compute-runtime/'
-license=(MIT)
+license=('MIT')
 depends=(
-  gcc-libs
-  glibc
-  intel-gmmlib
-  intel-graphics-compiler)
+    'gcc-libs'
+    'glibc'
+    'intel-gmmlib'
+    'intel-graphics-compiler')
 makedepends=(
-  cmake
-  igsc
-  level-zero-headers
-  libva)
-optdepends=('libva: for cl_intel_va_api_media_sharing'
-            'libdrm: for cl_intel_va_api_media_sharing')
-provides=(opencl-driver level-zero-driver)
-# https://github.com/intel/compute-runtime/issues/528
-options=(!lto)
-source=(https://github.com/intel/compute-runtime/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
-        010-intel-compute-runtime-disable-werror.patch)
+    'cmake'
+    'igsc'
+    'level-zero-headers'
+    'libva')
+optdepends=(
+    'igsc: for discrete GPU firmware enumeration through Level Zero'
+    'libdrm: for cl_intel_va_api_media_sharing OpenCL extension'
+    'libva: for cl_intel_va_api_media_sharing OpenCL extension')
+provides=(
+    'level-zero-driver'
+    'opencl-driver')
+source=("https://github.com/intel/compute-runtime/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+        '010-intel-compute-runtime-disable-werror.patch'
+        '020-intel-compute-runtime-lto-warning-fix-part001.patch'::'https://github.com/intel/compute-runtime/commit/133421a5e9c8f26120413a8b770125c86e5e68d2.patch'
+        '030-intel-compute-runtime-lto-warning-fix-part002.patch'::'https://github.com/intel/compute-runtime/commit/7660b29bbbdcf05df14a1a4fe71ebea180a851cd.patch')
 sha256sums=('fda80f91e246c7d54452b37bd85dfd41e5a5174040a8efd37f87d3d92ce53dbf'
-            'f4250e78397c492c0cf36f45d179e4351473392a69051adab5838bf64d77a43b')
+            'f4250e78397c492c0cf36f45d179e4351473392a69051adab5838bf64d77a43b'
+            'e06ff6281a1a3173cf60e8e3ea10a2f3c45141cb639a361b6ca8917079ac39d9'
+            '8b343e12469750a8096614366e77b7986c1485a77b1e4961af3931e1b25a0ca6')
 
 prepare() {
-  patch -d compute-runtime-${pkgver} -Np1 -i "${srcdir}/010-intel-compute-runtime-disable-werror.patch"
+    patch -d "compute-runtime-${pkgver}" -Np1 -i "${srcdir}/010-intel-compute-runtime-disable-werror.patch"
+    patch -d "compute-runtime-${pkgver}" -Np1 -i "${srcdir}/020-intel-compute-runtime-lto-warning-fix-part001.patch"
+    patch -d "compute-runtime-${pkgver}" -Np1 -i "${srcdir}/030-intel-compute-runtime-lto-warning-fix-part002.patch"
 }
 
 build() {
-  # ${${pkgver#*.}%.*} not supported by bash?
-  # Fix runtime error in blender
-  CXXFLAGS+=' -DSANITIZER_BUILD=1'
-  CFLAGS+=' -DSANITIZER_BUILD=1'
-
-  # fix warning: "_FORTIFY_SOURCE" redefined
-  # note: upstream forces _FORTIFY_SOURCE=2
-  export CFLAGS="${CFLAGS/-Wp,-D_FORTIFY_SOURCE=?/}"
-  export CXXFLAGS="${CXXFLAGS/-Wp,-D_FORTIFY_SOURCE=?/}"
-
-  # opencl-headers supported by upstream is already in the source tree
-  # https://github.com/intel/compute-runtime/blob/25.09.32961.5/third_party/opencl_headers/.version#L2
-  local _opencl_headers_dir="${srcdir}/compute-runtime-${pkgver}/third_party/opencl_headers"
-  export CXXFLAGS+=" -isystem${_opencl_headers_dir}"
-
-  # tests currently disabled because of https://github.com/intel/compute-runtime/issues/599
-  cmake -B build -S compute-runtime-${pkgver} \
-    -G 'Unix Makefiles' \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DNEO_BUILD_UNVERSIONED_OCLOC=ON \
-    -DNEO_DISABLE_LD_GOLD:BOOL=ON \
-    -DNEO_OCL_VERSION_MAJOR=${pkgver%%.*} \
-    -DNEO_OCL_VERSION_MINOR=$(echo ${pkgver} | cut -d . -f2) \
-    -DNEO_VERSION_BUILD=$(echo ${pkgver} | cut -d . -f3) \
-    -DSUPPORT_DG1=ON \
-    -DSUPPORT_DG2=ON \
-    -DKHRONOS_GL_HEADERS_DIR=/usr/include \
-    -DKHRONOS_HEADERS_DIR="${_opencl_headers_dir}" \
-    -DSKIP_UNIT_TESTS=1 \
-    -Wno-dev
-  cmake --build build
+    # fix runtime error in blender
+    CFLAGS+=' -DSANITIZER_BUILD=1'
+    CXXFLAGS+=' -DSANITIZER_BUILD=1'
+    
+    # fix warning: "_FORTIFY_SOURCE" redefined
+    # note: upstream forces _FORTIFY_SOURCE=2
+    export CFLAGS="${CFLAGS/-Wp,-D_FORTIFY_SOURCE=?/}"
+    export CXXFLAGS="${CXXFLAGS/-Wp,-D_FORTIFY_SOURCE=?/}"
+    
+    # opencl-headers supported by upstream is already in the source tree
+    # https://github.com/intel/compute-runtime/blob/25.40.35563.4/third_party/opencl_headers/.version#L2
+    local _opencl_headers_dir="${srcdir}/compute-runtime-${pkgver}/third_party/opencl_headers"
+    export CXXFLAGS+=" -isystem${_opencl_headers_dir}"
+    
+    cmake -B build -S compute-runtime-${pkgver} \
+        -G 'Unix Makefiles' \
+        -DCMAKE_BUILD_TYPE='Release' \
+        -DCMAKE_INSTALL_PREFIX='/usr' \
+        -DCMAKE_INSTALL_LIBDIR='lib' \
+        -DNEO_BUILD_UNVERSIONED_OCLOC='ON' \
+        -DNEO_DISABLE_LD_GOLD:BOOL='ON' \
+        -DNEO_OCL_VERSION_MAJOR="${pkgver%%.*}" \
+        -DNEO_OCL_VERSION_MINOR="$(printf "$pkgver" | cut -d . -f2)" \
+        -DNEO_VERSION_BUILD="$(printf "$pkgver" | cut -d . -f3)" \
+        -DKHRONOS_GL_HEADERS_DIR='/usr/include' \
+        -DKHRONOS_HEADERS_DIR="$_opencl_headers_dir" \
+        -Wno-dev
+    cmake --build build
 }
 
 package() {
-  DESTDIR="${pkgdir}" cmake --install build
-  install -Dm644 compute-runtime-${pkgver}/LICENSE.md -t "${pkgdir}"/usr/share/licenses/${pkgname}
-
-  ln -s $(find "${pkgdir}"/usr/lib -regex '.*libze_intel_gpu.so.[0-9]*' -exec basename {} \;) "${pkgdir}"/usr/lib/libze_intel_gpu.so
+    DESTDIR="$pkgdir" cmake --install build
+    install -D -m644 "compute-runtime-${pkgver}/LICENSE.md" -t "${pkgdir}/usr/share/licenses/${pkgname}"
+    
+    ln -s "$(find "${pkgdir}/usr/lib" -regex '.*libze_intel_gpu.so.[0-9]*' -exec basename {} \;)" "${pkgdir}/usr/lib/libze_intel_gpu.so"
 }
