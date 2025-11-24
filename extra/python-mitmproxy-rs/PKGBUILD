@@ -2,7 +2,7 @@
 
 pkgname=python-mitmproxy-rs
 _pyname=mitmproxy_rs
-pkgver=0.12.7
+pkgver=0.12.8
 pkgrel=1
 pkgdesc="Python bindings for mitmproxy's Rust code"
 arch=(x86_64)
@@ -23,8 +23,8 @@ makedepends=(
 )
 options=(!lto)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('19ac6d648235218e328e762c9f7ddbf1a6b18fc099dd427cea9f3c9e3c30fb35fd06fe895b1af9fc83f5a7bc34a7af30e5bffce4904af2127171d7b589fa9d3b')
-b2sums=('2eb423332f30b40755c0485d9332f540c9ec3ddb9dfb9532526097b24f9cc9e55cfa0d3ca57cbee17ef61452482ae7216e6dab5d67bc85627d7c2aad74d00021')
+sha512sums=('0a028e66b0dfc911b0b8b31094f051e025f80736193eeb2f9b8c3eeca83455401db4b6ba75a5e8b7fa4d451e2d748f1b9998ea380491a10e889f28a9cdd908db')
+b2sums=('1b10cde792351cdd30474852a69ecb7707a9db4a4c3fca72f4906549804cf4f2fa88406dd3f86b90b2672da18c5aa89f5e507a566e5837a25b1c44c9e5157356')
 
 build() {
   cd "$pkgname"
