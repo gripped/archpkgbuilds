@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=typescript-language-server
-pkgver=5.1.1
+pkgver=5.1.3
 pkgrel=1
 pkgdesc='Language Server Protocol (LSP) implementation for TypeScript using tsserver'
 url=https://github.com/typescript-language-server/typescript-language-server
@@ -21,7 +21,7 @@ checkdepends=(
   npm
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('6f24e9129c402c7b6db721285001c3b037b05ac85e4b9792e7cce8da88efb6bb168256892be90745644785a2585b49fb9d40dc0a3e258c286012479b6d04218a')
+b2sums=('22e48e3320dc53492a8eb4f47aeb618a35d534e00b49aa50f542d876d6f5c151ba54c84f967847fe12bc42783418f49420cb2e92c8d448fcbf47b88910f1af53')
 
 prepare() {
   cd $pkgname
@@ -38,7 +38,7 @@ check() {
   mkdir bin
   corepack enable --install-directory bin yarn
   yes | bin/yarn set version stable
-  bin/yarn install --immutable
+  yes | bin/yarn install --immutable
   cd ../..
   yarn test:commit
 }
