@@ -1,7 +1,7 @@
 pkgbase = incus
 	pkgdesc = Powerful system container and virtual machine manager
 	pkgver = 6.18.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://linuxcontainers.org/incus/
 	arch = x86_64
 	license = Apache-2.0
@@ -45,6 +45,7 @@ pkgbase = incus
 	source = incus-user.socket
 	source = incus-user.service
 	source = incus.sysusers
+	source = incus-issue-2623.patch::https://github.com/stgraber/incus/commit/1fbe4bffb9748cc3b07aaf5db310d463c1e827d0.patch
 	validpgpkeys = 602F567663E593BCBD14F338C638974D64792D67
 	sha256sums = c9bac9a357493b3d330818c059c657468351ba3495ef89ce53ad18ce81cf3044
 	sha256sums = SKIP
@@ -53,6 +54,7 @@ pkgbase = incus
 	sha256sums = 50288528ea910d186157a2515c5200b3b073f645922fb581d1913f236f14667d
 	sha256sums = 1c934cac1aa61be2ede5830ea76dbb9ba199498f6eb920ce1016bbb54dd088bf
 	sha256sums = 90beead5dbde947936a58df8773519c49d92a2028881ae0ec81ee5402510e39a
+	sha256sums = 044c20d2a303661b9c2d3dd0c0693e75c5eb8849e77150898b01e20b02f890d7
 
 pkgname = incus
 

@@ -9,7 +9,7 @@ pkgbase=incus
 pkgname=(incus incus-tools)
 pkgver=6.18.0
 _pkgver="${pkgver/.0/}"
-pkgrel=2
+pkgrel=3
 pkgdesc="Powerful system container and virtual machine manager"
 arch=('x86_64')
 url="https://linuxcontainers.org/incus/"
@@ -40,6 +40,7 @@ source=("https://github.com/lxc/incus/releases/download/v$pkgver/incus-$_pkgver.
         "incus-user.socket"
         "incus-user.service"
         "incus.sysusers"
+        "incus-issue-2623.patch::https://github.com/stgraber/incus/commit/1fbe4bffb9748cc3b07aaf5db310d463c1e827d0.patch"
         )
 validpgpkeys=('602F567663E593BCBD14F338C638974D64792D67'  # Stéphane Graber <stgraber@stgraber.org>
              )
@@ -49,10 +50,14 @@ sha256sums=('c9bac9a357493b3d330818c059c657468351ba3495ef89ce53ad18ce81cf3044'
             '9826ed3127dbe8e12962d524fe0af004ffddcd2c5c0f37751361600387b9ef9b'
             '50288528ea910d186157a2515c5200b3b073f645922fb581d1913f236f14667d'
             '1c934cac1aa61be2ede5830ea76dbb9ba199498f6eb920ce1016bbb54dd088bf'
-            '90beead5dbde947936a58df8773519c49d92a2028881ae0ec81ee5402510e39a')
+            '90beead5dbde947936a58df8773519c49d92a2028881ae0ec81ee5402510e39a'
+            '044c20d2a303661b9c2d3dd0c0693e75c5eb8849e77150898b01e20b02f890d7')
 
 prepare() {
   cd "$pkgbase-${_pkgver}"
+
+  # https://github.com/lxc/incus/issues/2623
+  patch -p1 -i "$srcdir/incus-issue-2623.patch"
 
   mkdir bin
   go mod verify
