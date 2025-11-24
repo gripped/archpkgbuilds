@@ -7,7 +7,7 @@ pkgname=(
   gnome-control-center
   gnome-keybindings
 )
-pkgver=49.1
+pkgver=49.2
 pkgrel=1
 pkgdesc="GNOME's main interface to configure various aspects of the desktop"
 url="https://apps.gnome.org/Settings/"
@@ -87,11 +87,11 @@ source=(
   # GNOME Control Center tags use SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/gnome-control-center.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git"
-  "git+https://gitlab.gnome.org/GNOME/libgxdp.git#commit=e68375c7aced97705953b8e3b30af9f17991153b"
+  "git+https://gitlab.gnome.org/GNOME/libgxdp.git#commit=b292f7f9b6ed019e98800386f233819be6481fc4"
 )
-b2sums=('318def9b1371ebdd57ab4c96bb1a736c4ed71aecd76787b95b314a6b0efbd19f8679081f1c18b8aaedd129c480c5fd1af97bd77826a5b8cec53cc8da26d37fc1'
+b2sums=('00aaf1564cdb20db77c8d9b2189821b75de77a3c92fab7b598e076a4e9001c8a1c829fe5188b9d6f8d5671a95a68e7581cc5df19bb48eacb1a89cc4dafe2a357'
         'SKIP'
-        '09bd02a627afffa49c11e4baec961878060d7710e852628c0e0d009d5bdc37eaa3cd1d5bbeea316f197197b9d88436ecf157ebaef41e01b66ad102e1f1c69fb2')
+        'c6a66afaf3ab5d17e0ea2df8394cc506c179ad1532e8d7ec14c7d326af65edf275f880a56de966c7d028e0dabbdefe7dfc3cf64b2e00cc4abf87148295be7eda')
 validpgpkeys=(
   9B60FE7947F0A3C58136817F2C2A218742E016BE # Felipe Borges (GNOME) <felipeborges@gnome.org>
 )
