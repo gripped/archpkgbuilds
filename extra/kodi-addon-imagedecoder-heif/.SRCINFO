@@ -1,7 +1,7 @@
 pkgbase = kodi-addon-imagedecoder-heif
 	pkgdesc = Kodi heif/heic imagedecoder addon
-	pkgver = 20.1.0
-	pkgrel = 19
+	pkgver = 21.0.3
+	pkgrel = 1
 	url = https://github.com/xbmc/imagedecoder.heif
 	arch = x86_64
 	groups = kodi-addons
@@ -12,10 +12,10 @@ pkgbase = kodi-addon-imagedecoder-heif
 	makedepends = libheif
 	makedepends = tinyxml2
 	options = !lto
-	source = kodi-addon-imagedecoder-heif-20.1.0.tar.gz::https://github.com/xbmc/imagedecoder.heif/archive/refs/tags/20.1.0-Nexus.tar.gz
-	source = https://github.com/xbmc/imagedecoder.heif/commit/47dcb3843e02abb69c52d6f0021bd2816b8317a5.patch
-	sha512sums = 9e481b52aeb1373164a4f60059730620b812ef944dd56c500a603b4dd0cb2974cb72eb0968277c678287dd8b946f83ee37b8c54bc84172f1451b0c04ca6984f3
-	sha512sums = 5ebbeece8f24c0df3fdbbd3b2b4556ca61b3361c92d7577c7fd19b61af6a40f34cdc4459d4aa226160ddced71080bdfdff42e15a750913ce5271631b1c2d04be
+	source = kodi-addon-imagedecoder-heif-21.0.3.tar.gz::https://github.com/xbmc/imagedecoder.heif/archive/refs/tags/21.0.3-Omega.tar.gz
+	source = 0001-Fix-memroy-leak-in-HEIF-image-decoder.patch::https://patch-diff.githubusercontent.com/raw/xbmc/imagedecoder.heif/pull/85.patch
+	sha512sums = 342ee83dedb0e1f48f7a302227405bbfee0f57b3a249af1154afe646c682a73d433a7d72262c4d7276a63b9dcbf9ee1d4bf656328ba2cd8ff2b84ece778c79c9
+	sha512sums = 61fa10ba190a9ee9fca75228371736813724dda28bbad15f36bddb93d84cfa88afeec2b02bc218c124a8fd092f223489b2e8f8698ba11e04499c5fd13a105dfa
 
 pkgname = kodi-addon-imagedecoder-heif
 	depends = kodi

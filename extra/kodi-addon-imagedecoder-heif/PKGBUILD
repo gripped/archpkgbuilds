@@ -1,9 +1,9 @@
 # Maintainer: BlackIkeEagle <ike DOT devolder AT gmail DOT com>
 
 pkgname=kodi-addon-imagedecoder-heif
-pkgver=20.1.0
-_codename=Nexus  # No Omega tagged version yet
-pkgrel=19
+pkgver=21.0.3
+_codename=Omega
+pkgrel=1
 pkgdesc="Kodi heif/heic imagedecoder addon"
 arch=('x86_64')
 url="https://github.com/xbmc/imagedecoder.heif"
@@ -12,14 +12,14 @@ groups=('kodi-addons' 'kodi-addons-imagedecoder')
 makedepends=('cmake' 'kodi-dev' 'libheif' 'tinyxml2')
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/xbmc/imagedecoder.heif/archive/refs/tags/$pkgver-$_codename.tar.gz"
-        'https://github.com/xbmc/imagedecoder.heif/commit/47dcb3843e02abb69c52d6f0021bd2816b8317a5.patch'
+        "0001-Fix-memroy-leak-in-HEIF-image-decoder.patch::https://patch-diff.githubusercontent.com/raw/xbmc/imagedecoder.heif/pull/85.patch"
 )
-sha512sums=('9e481b52aeb1373164a4f60059730620b812ef944dd56c500a603b4dd0cb2974cb72eb0968277c678287dd8b946f83ee37b8c54bc84172f1451b0c04ca6984f3'
-            '5ebbeece8f24c0df3fdbbd3b2b4556ca61b3361c92d7577c7fd19b61af6a40f34cdc4459d4aa226160ddced71080bdfdff42e15a750913ce5271631b1c2d04be')
+sha512sums=('342ee83dedb0e1f48f7a302227405bbfee0f57b3a249af1154afe646c682a73d433a7d72262c4d7276a63b9dcbf9ee1d4bf656328ba2cd8ff2b84ece778c79c9'
+            '61fa10ba190a9ee9fca75228371736813724dda28bbad15f36bddb93d84cfa88afeec2b02bc218c124a8fd092f223489b2e8f8698ba11e04499c5fd13a105dfa')
 
 prepare() {
     cd "imagedecoder.heif-$pkgver-$_codename"
-    patch -p1 -i "$srcdir/47dcb3843e02abb69c52d6f0021bd2816b8317a5.patch"
+    patch -p1 -i "$srcdir/0001-Fix-memroy-leak-in-HEIF-image-decoder.patch"
 }
 
 build() {
