@@ -2,9 +2,10 @@
 # Contributor: Markus Näther <naetherm@cs.uni-freiburg.de>
 # Contributor: fermyon <antifermion@protonmail.com>
 # Contributor: Ranieri Althoff <ranisalt+aur at gmail.com>
+# Contributor: Greg Land <landjgregory at gmail dot com>
 
 pkgname=rocm-cmake
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='CMake modules for common build tasks needed for the ROCm software stack'
 arch=('any')
@@ -12,12 +13,8 @@ url='https://github.com/ROCm/rocm-cmake'
 license=('MIT')
 depends=('rocm-core' 'cmake')
 checkdepends=('git' 'rocm-llvm')
-source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz"
-        "${pkgname}-old-policy-cmp0079.patch"
-        "cmake-deprecation.patch")
-sha256sums=('ca3ba6dc8346c735ecbdba586429fcf28b73019a22de86fb068db1aad462843d'
-            '7c8d8351a8e85a0d122421d02ad967c75d4dd8442192662c1a1a68bacdfad67d'
-            'dc95d690751af7c65c875c50f5d0cea594e50e618e24b33bafc77cced29fec1e')
+source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
+sha256sums=('d17a109b3ade999926f5b25ce25082b378399654e3b2234cad5f83cdd00a2f32')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
 
 prepare() {
@@ -32,14 +29,6 @@ prepare() {
     # https://github.com/ROCm/rocm-cmake/issues/269
     rm test/pass/{analyze-gh.cmake,analyze.cmake}
     rm test/fail/rename-compatibility.cmake
-    # Fix deprecation erros with pre-3.10 CMake,
-    # https://github.com/ROCm/rocm-cmake/issues/238
-    patch -Np1 -i "$srcdir/cmake-deprecation.patch"
-    find -name "CMakeLists.txt" -exec sed -i 's/(VERSION 3.[[:digit:]])/(VERSION 3.10)/' {} +
-
-    cd share/rocmcmakebuildtools
-    # With cmake 3.28.1+ setting cmp0079 to old results in a deprecation error
-    patch -Np3 -i "$srcdir/$pkgname-old-policy-cmp0079.patch"
 }
 
 build() {
