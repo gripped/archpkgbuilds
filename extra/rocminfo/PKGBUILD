@@ -1,21 +1,22 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: Markus Näther <naetherm@cs.uni-freiburg.de>
 # Contributor: Jakub Okoński <jakub@okonski.org>
 # Contributor: Ranieri Althoff <ranisalt+aur at gmail.com>
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rocminfo
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='ROCm Application for Reporting System Info '
 arch=('x86_64')
-url='https://github.com/ROCm/rocminfo'
+url='https://github.com/ROCm/rocm-systems'
 license=('NCSA')
 depends=('rocm-core' 'glibc' 'gcc-libs' 'pciutils' 'python' 'hsa-rocr')
 makedepends=('cmake' 'rocm-cmake')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('efaec98cd258eb43100e2450d03477f223f5438053d50c0cedb5d9a65afe270e')
-_dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
+source=("rocm-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
+sha256sums=('a700912d102b35c9336b7352d09d56b9d19e4957daf53779983c3d00ce744c9d')
+_dirname="rocm-systems-rocm-$pkgver/projects/$pkgname"
 
 build() {
   # ROCRTST_BLD_TYPE=Release fixes a build error regarding _FORTIFY_SOURCE=2
