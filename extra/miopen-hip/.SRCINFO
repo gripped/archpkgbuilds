@@ -1,45 +1,45 @@
 pkgbase = miopen-hip
 	pkgdesc = AMD's Machine Intelligence Library (HIP backend)
-	pkgver = 6.4.4
+	pkgver = 7.1.0
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/MIOpen/en/latest/index.html
 	arch = x86_64
 	license = MIT
-	makedepends = cmake
-	makedepends = git
-	makedepends = git-lfs
-	makedepends = ninja
-	makedepends = rocm-cmake
 	makedepends = boost
-	makedepends = lbzip2
-	makedepends = nlohmann-json
+	makedepends = cmake
 	makedepends = eigen
 	makedepends = functional-plus
-	depends = rocm-core
-	depends = glibc
-	depends = gcc-libs
-	depends = hipblaslt
-	depends = hipblas
-	depends = rocblas
-	depends = rocrand
-	depends = hip-runtime-amd
-	depends = comgr
+	makedepends = git
+	makedepends = git-lfs
+	makedepends = lbzip2
+	makedepends = ninja
+	makedepends = nlohmann-json
+	makedepends = rocm-cmake
 	depends = bzip2
+	depends = comgr
 	depends = composable-kernel
+	depends = gcc-libs
+	depends = glibc
+	depends = hip-runtime-amd
+	depends = hipblas
+	depends = hipblaslt
+	depends = rocblas
+	depends = rocm-core
+	depends = rocrand
 	depends = roctracer
 	depends = sqlite
 	provides = miopen
 	conflicts = miopen
 	options = !lto
-	source = miopen-hip::git+https://github.com/ROCm/MIOpen#tag=rocm-6.4.4
+	source = rocm-libraries::git+https://github.com/ROCm/rocm-libraries.git#tag=rocm-7.1.0
 	source = miopen-hip-MIFin::git+https://github.com/ROCm/MIFin.git
-	source = miopen-hip-rocmlir::git+https://github.com/ROCm/rocMLIR#tag=rocm-6.4.3
-	source = miopen-hip-half::git+https://github.com/ROCm/half#tag=rocm-6.4.4
+	source = miopen-hip-rocmlir::git+https://github.com/ROCm/rocMLIR#tag=rocm-7.1
+	source = miopen-hip-half::git+https://github.com/ROCm/half#tag=rocm-7.1.0
 	source = miopen-hip-frugally-deep::git+https://github.com/Dobiasd/frugally-deep#tag=v0.15.31
-	sha256sums = f856dd058345742ca7a560987bc6d609ee3b26c92f11634b67e936da946e90a3
+	sha256sums = aaadb942b979b814dc436de772afab3120382aa0e4662e3c58d9a2ddfbfe790c
 	sha256sums = SKIP
-	sha256sums = 91451c3352320d088adaf2c4721ec0d7942248adfd22ad4a981a2f143fbee4fd
-	sha256sums = 16e5a6405dd766339a9409665cd1ccdaceed3c0cb7fe12835fa17bd3914aa6cd
+	sha256sums = 52051d393202b5a72824d788fd245fd81bd12e3a88f95969d65031912127f927
+	sha256sums = f21d7a04cae40af1d843ad9ca81416bb469f0540607f68b2e35b642362c89b42
 	sha256sums = d1e1d55945eded7219c50f59f55967327118d6792df5a283c01131b18a3f061f
 
 pkgname = miopen-hip

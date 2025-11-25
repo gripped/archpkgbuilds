@@ -1,9 +1,10 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: acxz <akashpatel at yahoo dot com>
 # Contributor: JP-Ellis <josh@jpellis.me>
 
 pkgname=miopen-hip
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 # pin frugally-deep version as workaround workaround for https://github.com/ROCm/MIOpen/issues/3588
 _fdeep_ver=0.15.31
@@ -11,32 +12,55 @@ pkgdesc="AMD's Machine Intelligence Library (HIP backend)"
 arch=('x86_64')
 url="https://rocm.docs.amd.com/projects/MIOpen/en/latest/index.html"
 license=('MIT')
-depends=('rocm-core' 'glibc' 'gcc-libs' 'hipblaslt' 'hipblas' 'rocblas' 'rocrand'
-         'hip-runtime-amd' 'comgr' 'bzip2' 'composable-kernel' 'roctracer' 'sqlite')
-makedepends=('cmake' 'git' 'git-lfs' 'ninja' 'rocm-cmake' 'boost' 'lbzip2'
-             'nlohmann-json' 'eigen' 'functional-plus')
+depends=(
+  'bzip2'
+  'comgr'
+  'composable-kernel'
+  'gcc-libs'
+  'glibc'
+  'hip-runtime-amd'
+  'hipblas'
+  'hipblaslt'
+  'rocblas'
+  'rocm-core'
+  'rocrand'
+  'roctracer'
+  'sqlite'
+)
+makedepends=(
+  'boost'
+  'cmake'
+  'eigen'
+  'functional-plus'
+  'git'
+  'git-lfs'
+  'lbzip2'
+  'ninja'
+  'nlohmann-json'
+  'rocm-cmake'
+)
 provides=('miopen')
 conflicts=('miopen')
-_git='https://github.com/ROCm/MIOpen'
 _mlir='https://github.com/ROCm/rocMLIR'
-# TODO Update when going to ROCm 7
-_mlir_ver=6.4.3
+_mlir_ver=7.1
+_git='https://github.com/ROCm/rocm-libraries'
 source=(
-  "${pkgname}::git+https://github.com/ROCm/MIOpen#tag=rocm-$pkgver"
+  "rocm-libraries::git+$_git.git#tag=rocm-$pkgver"
   "${pkgname}-MIFin::git+https://github.com/ROCm/MIFin.git"
   "${pkgname}-rocmlir::git+https://github.com/ROCm/rocMLIR#tag=rocm-$_mlir_ver"
   "${pkgname}-half::git+https://github.com/ROCm/half#tag=rocm-$pkgver"
   "${pkgname}-frugally-deep::git+https://github.com/Dobiasd/frugally-deep#tag=v$_fdeep_ver"
 )
-sha256sums=('f856dd058345742ca7a560987bc6d609ee3b26c92f11634b67e936da946e90a3'
+sha256sums=('aaadb942b979b814dc436de772afab3120382aa0e4662e3c58d9a2ddfbfe790c'
             'SKIP'
-            '91451c3352320d088adaf2c4721ec0d7942248adfd22ad4a981a2f143fbee4fd'
-            '16e5a6405dd766339a9409665cd1ccdaceed3c0cb7fe12835fa17bd3914aa6cd'
+            '52051d393202b5a72824d788fd245fd81bd12e3a88f95969d65031912127f927'
+            'f21d7a04cae40af1d843ad9ca81416bb469f0540607f68b2e35b642362c89b42'
             'd1e1d55945eded7219c50f59f55967327118d6792df5a283c01131b18a3f061f')
 options=(!lto)
+_dirname="rocm-libraries/projects/miopen"
 
 prepare() {
-  cd "$pkgname"
+  cd "$_dirname"
   git submodule init
 
   git config submodule."fin".url "${srcdir}/${pkgname}"-MIFin
@@ -50,10 +74,10 @@ prepare() {
 build() {
   local fdeep_args=(
     -S $pkgname-frugally-deep
-		-B build-frugally-deep
-		-Wno-dev
-		-DCMAKE_BUILD_TYPE=None
-		-DCMAKE_INSTALL_PREFIX=/usr
+        -B build-frugally-deep
+        -Wno-dev
+        -DCMAKE_BUILD_TYPE=None
+        -DCMAKE_INSTALL_PREFIX=/usr
     -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   )
   cmake "${fdeep_args[@]}"
@@ -100,7 +124,7 @@ build() {
     -Wno-dev
     -G Ninja
     -B build
-    -S "$pkgname"
+    -S "$_dirname"
     -D CMAKE_CXX_FLAGS="${CXXFLAGS} -fcf-protection=none -DNDEBUG"
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D CMAKE_BUILD_TYPE=None
@@ -118,5 +142,5 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -Dm644 "$pkgname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$_dirname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
