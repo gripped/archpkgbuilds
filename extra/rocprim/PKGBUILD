@@ -1,18 +1,20 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <christian@heusel.eu>
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
+
 pkgname=rocprim
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='Header-only library providing HIP parallel primitives'
 arch=('any')
 url='https://rocm.docs.amd.com/projects/rocPRIM/en/latest/index.html'
-_git='https://github.com/ROCm/rocPRIM'
+_git='https://github.com/ROCm/rocm-libraries'
 license=('MIT')
 depends=('rocm-core' 'hip-runtime-amd')
 makedepends=('cmake' 'rocm-cmake' 'rocm-toolchain')
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('2cf1008d98bafd7202edb56d3ad4eb1475ce086c08453102e85040eca0d1a1ec')
-_dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
+source=("rocm-libraries-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/archive/refs/tags/rocm-$pkgver.tar.gz")
+sha256sums=('d9e138a15e8195a7e9b5e15240e50c557b830d50a2bafa27db14dad3884dbfd8')
+_dirname="rocm-libraries-rocm-$pkgver/projects/$pkgname"
 
 build() {
   # -fcf-protection is not supported by HIP, see
@@ -36,5 +38,5 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -Dm644 "$_dirname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$_dirname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
