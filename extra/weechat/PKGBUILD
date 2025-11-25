@@ -1,11 +1,12 @@
 # Maintainer: Christian Rebischke <Chris.Rebischke@archlinux.org>
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 # Contributor: lucke <lucke at o2 dot pl>
 
 pkgname=weechat
-pkgver=4.7.1
+pkgver=4.7.2
 pkgrel=1
 pkgdesc="Fast, light and extensible IRC client (curses UI)"
 arch=('x86_64')
@@ -32,9 +33,9 @@ optdepends=('enchant: spellchecker support'
             'ruby: support for ruby scripts'
             'tcl: support for tcl scripts')
 source=("https://www.weechat.org/files/src/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha512sums=('39a98772c260abb831f70df3881942bcb65713c2f344acfd600c5d3828018e463793b1e1bac557a7726de43cec4161ba46a6927c9e615996a6353311c99c551f'
+sha512sums=('a56fe6c7eb05eadfde94780d5d636706e82726eb5bd80e76540025298c711f23d0193bd73bb324eb5255dbcdafbd91fc82e501ab782f5c13a795a9cbfb382435'
             'SKIP')
-b2sums=('c43c4aee960d8829c436f62c6ab2731a2166b46db5ec3603d86307d2e9758cc716191dcb746f5a74c7f6c385c4e59f5d6d2a539467a93f0a520488b1cdd6ef67'
+b2sums=('e4d546ad30f369467ee7e36028de1d5617f1d54ea44f89e0d49bc2748ffce0921790b7c6b90a524a3e7a2ef5a51b822e1d682016ca5a18e275502ed287fd739d'
         'SKIP')
 validpgpkeys=('A9AB5AB778FA5C3522FD0378F82F4B16DEC408F8') # WeeChat (signing key) <webmaster@weechat.org>
 
@@ -43,16 +44,20 @@ validpgpkeys=('A9AB5AB778FA5C3522FD0378F82F4B16DEC408F8') # WeeChat (signing key
 CFLAGS+=" ${CPPFLAGS}"
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
-        -DCMAKE_BUILD_TYPE=None \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DENABLE_MAN=ON \
-        -DENABLE_DOC=ON \
-        -DENABLE_DOC_INCOMPLETE=ON \
-        -DENABLE_ENCHANT=ON \
-        -DENABLE_JAVASCRIPT=OFF \
-        -DENABLE_PHP=OFF \
-        -Wno-dev
+  local cmake_options=(
+    -B build
+    -S $pkgname-$pkgver
+    -DCMAKE_BUILD_TYPE=None
+    -DCMAKE_INSTALL_PREFIX=/usr
+    -DENABLE_MAN=ON
+    -DENABLE_DOC=ON
+    -DENABLE_DOC_INCOMPLETE=ON
+    -DENABLE_ENCHANT=ON
+    -DENABLE_JAVASCRIPT=OFF
+    -DENABLE_PHP=OFF
+    -Wno-dev
+  )
+  cmake "${cmake_options[@]}"
   cmake --build build
 }
 
