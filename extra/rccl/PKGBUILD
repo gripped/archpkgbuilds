@@ -1,9 +1,10 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contriubtor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rccl
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 pkgdesc="ROCm Communication Collectives Library"
 arch=('x86_64')
@@ -16,7 +17,7 @@ source=(
   "${pkgname}-json::git+https://github.com/nlohmann/json.git"
   "${pkgname}-mscclpp::git+https://github.com/microsoft/mscclpp.git"
 )
-sha256sums=('64093e8a42bd9b74c42ddb6d465a3b971bc62fd2e44639b8759bdf1309b644c8'
+sha256sums=('59468d4651b84d3529e1536bce7df7cb892654abebebc4af9982e47ad3cbe641'
             'SKIP'
             'SKIP')
 options=(!lto)
