@@ -6,7 +6,7 @@
 # Contributor: Qu Wenruo <wqu@suse.com>
 
 pkgname=crash
-pkgver=9.0.0
+pkgver=9.0.1
 pkgrel=1
 pkgdesc='Linux kernel crashdump analysis tool'
 url='https://crash-utility.github.io/'
@@ -29,7 +29,7 @@ depends=(
 makedepends=(wget)
 optdepends=('binutils: offline vmcore loading functionality')
 source=("https://github.com/crash-utility/crash/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('86ccd8f78145b414e40e006bafe678f020360c174f2b771111754576f1427877')
+sha256sums=('73dcdc633ec75ea2fc5329a1c3760407cceb9171428f4d0b885874f943a16797')
 
 build() {
   cd $pkgname-$pkgver
