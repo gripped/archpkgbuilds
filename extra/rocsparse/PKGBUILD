@@ -3,21 +3,21 @@
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 
 pkgname=rocsparse
-pkgver=6.4.4
-pkgrel=2
+pkgver=7.1.0
+pkgrel=1
 pkgdesc='BLAS for sparse computation on top of ROCm'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocSPARSE/en/latest/index.html'
 license=('MIT')
 depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'rocprim' 'rocblas')
 makedepends=('cmake' 'rocm-cmake' 'rocm-toolchain' 'gcc-fortran')
-_git='https://github.com/ROCmSoftwarePlatform/rocSPARSE'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('e7dd340df0eb0d969c49b8244d22982cf70c2d51a5bdbbf4df90f88be76ad1fc')
+_git='https://github.com/ROCm/rocm-libraries'
+source=("rocm-libraries-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/archive/refs/tags/rocm-$pkgver.tar.gz")
+sha256sums=('d9e138a15e8195a7e9b5e15240e50c557b830d50a2bafa27db14dad3884dbfd8')
 # Disable default build flags and use release mode as otherwise the linker step
 # fails. The symbol offset size reaches the 32 bit integer limits.
 options=(!lto !buildflags !strip)
-_dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
+_dirname="rocm-libraries-rocm-$pkgver/projects/$pkgname"
 
 build() {
   # -fcf-protection is not supported by HIP, see
