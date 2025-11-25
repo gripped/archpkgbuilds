@@ -1,4 +1,5 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 # Contributor: Olaf Leidinger <oleid@mescharet.de>
 # Contributor: Bruno Filipe <bmilreu@gmail.com>
@@ -7,34 +8,28 @@
 # Contributor: Alexandru M Stan <alex@hypertriangle.com>
 
 pkgname=hsa-rocr
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='HSA Runtime API and runtime for ROCm'
 arch=('x86_64')
-url='https://github.com/ROCm/ROCR-Runtime'
+url='https://github.com/ROCm/rocm-systems'
 license=('NCSA')
 depends=('rocm-core' 'glibc' 'gcc-libs' 'numactl' 'pciutils' 'libelf' 'libdrm'
          'rocm-device-libs' 'rocprofiler-register')
 provides=("hsakmt-roct=$pkgver")
 replaces=('hsakmt-roct')
 makedepends=('cmake' 'rocm-llvm' 'xxd')
-source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz"
-        hsa-rocr-6.4-fix-missing-include.patch)
-sha256sums=('bbc71e7f932ed218eca51a6ce9e437bb6c3118534d5be69bb957441bc3092a49'
-            '6b7c62245fd9021ade8046e6a769e48c8c1868131dbac19531befc5f2a4c25b5')
-_dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
+source=("rocm-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
+sha256sums=('a700912d102b35c9336b7352d09d56b9d19e4957daf53779983c3d00ce744c9d')
+_dirname="$(basename "$url")-rocm-$pkgver"/projects/rocr-runtime/
 options=(!lto)
-
-prepare() {
-    patch -d "${_dirname}" -Np1 < "${srcdir}/hsa-rocr-6.4-fix-missing-include.patch"
-}
 
 build() {
   # Silence warnings on optional libraries with -DNDEBUG,
   # https://github.com/RadeonOpenCompute/ROCR-Runtime/issues/89#issuecomment-613788944
   local cmake_args=(
     -Wno-dev
-    -S "$_dirname/"
+    -S "$_dirname"
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
