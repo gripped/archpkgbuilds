@@ -1,7 +1,8 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=amdsmi
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='AMD System Management Interface library'
 arch=('x86_64')
@@ -11,14 +12,14 @@ depends=('rocm-core' 'glibc' 'gcc-libs' 'libdrm' 'python' 'python-yaml')
 makedepends=('cmake' 'python-wheel' 'python-setuptools')
 _git='https://github.com/ROCm/amdsmi'
 _esmi='https://github.com/amd/esmi_ib_library'
-_esmi_ver=4.1.2
+_esmi_ver=4.2
 source=(
   "$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
   "$pkgname-esmi-$pkgver.tar.gz::$_esmi/archive/refs/tags/esmi_pkg_ver-$_esmi_ver.tar.gz"
   "gcc15-missing-include.patch"
 )
-sha256sums=('fb1bd85c51359ad1aedc24b9f4fece181b7eea739d25b1be8e5b4a357c4c35cf'
-            'd95f12c1500c60dc01b500d8928864a276757bd3bbb4a6daa84fb8c028e2978b'
+sha256sums=('17ccddf8988a5674edb360b9f3b41bf3d94c6f4ba36cf8d84739c6ccdfc87c50'
+            'de19d222d09e2171f47f8bbd6608e5648bd547c82543379bb8fb5ed2e379e141'
             'af704f2d65613e81719fa109488001ab5b2e5e7a529c18c84e695c002c055bce')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
