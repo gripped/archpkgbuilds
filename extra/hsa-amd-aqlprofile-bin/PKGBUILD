@@ -1,15 +1,17 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: acxz <akashpatel at yahoo dot com>
 # Contributor: Fabian Bornschein <fabiscafe-cat-mailbox-dog-org>
 
 _pkgbase=hsa-amd-aqlprofile
 pkgname=${_pkgbase}-bin
-_pkgver_major=6
-_pkgver_minor=4
-_pkgver_patch=4
+_pkgver_major=7
+_pkgver_minor=1
+_pkgver_patch=0
 _pkgver_str="${_pkgver_major}$(printf '%02d' $_pkgver_minor $_pkgver_patch)"
-_pkgver_magic=129
+_pkgver_magic=20
 _pkgver_ubunturel=24.04
+_pkgver_mm="$_pkgver_major.$_pkgver_minor"
 pkgver=$_pkgver_major.$_pkgver_minor.$_pkgver_patch
 pkgrel=1
 pkgdesc='AQLPROFILE library for AMD HSA runtime API extension support'
@@ -19,8 +21,8 @@ license=('LicenseRef-EULA')
 depends=('glibc' 'gcc-libs' 'hsa-rocr')
 provides=('hsa-amd-aqlprofile')
 conflicts=('hsa-amd-aqlprofile')
-source=("${_pkgbase}-${pkgver}.deb::https://repo.radeon.com/rocm/apt/${pkgver}/pool/main/${_pkgbase:0:1}/${_pkgbase}/${_pkgbase}_1.0.0.${_pkgver_str}-${_pkgver_magic}~${_pkgver_ubunturel}_amd64.deb")
-sha256sums=('c762e65c94e27547e77828a64650e81387423256049cca2d926dc1d5fe85059d')
+source=("${_pkgbase}-${pkgver}.deb::https://repo.radeon.com/rocm/apt/${_pkgver_mm}/pool/main/${_pkgbase:0:1}/${_pkgbase}/${_pkgbase}_1.0.0.${_pkgver_str}-${_pkgver_magic}~${_pkgver_ubunturel}_amd64.deb")
+sha256sums=('c2d9ec8b786995c3464b89aadc19c2b8ac3594d811514309b4baef03f0631e56')
 
 prepare() {
   tar -vxf data.tar.gz
@@ -30,6 +32,4 @@ package() {
   mv "$srcdir"/opt "$pkgdir"/opt
   rename -- "-$pkgver" '' "$pkgdir/opt/rocm-$pkgver"
   find "$pkgdir" -type d -exec chmod 755 '{}' '+'
-  install -Dm644 "$pkgdir/opt/rocm/share/doc/hsa-amd-aqlprofile/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-  install -Dm644 "$pkgdir/opt/rocm/share/doc/hsa-amd-aqlprofile/EULA" "$pkgdir/usr/share/licenses/$pkgname/EULA"
 }
