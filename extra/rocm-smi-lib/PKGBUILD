@@ -1,8 +1,9 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rocm-smi-lib
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='ROCm System Management Interface Library'
 arch=('x86_64')
@@ -10,11 +11,11 @@ url='https://rocm.docs.amd.com/projects/rocm_smi_lib/en/latest'
 license=('NCSA')
 depends=('rocm-core' 'glibc' 'gcc-libs' 'hsa-rocr' 'python')
 makedepends=('cmake')
-_git='https://github.com/ROCm/rocm_smi_lib'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('31a633fff58c8e949f06e4a7920ef2d8482d3743657714ac26a75a91def60cae')
+_git='https://github.com/ROCm/rocm-systems'
+source=("rocm-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
+sha256sums=('a700912d102b35c9336b7352d09d56b9d19e4957daf53779983c3d00ce744c9d')
 options=(!lto)
-_dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
+_dirname="rocm-systems-rocm-$pkgver/projects/rocm-smi-lib"
 
 build() {
   local cmake_args=(
@@ -30,5 +31,5 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-  install -Dm644 "$srcdir/$_dirname/License.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$srcdir/$_dirname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
