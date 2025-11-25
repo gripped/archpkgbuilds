@@ -1,6 +1,6 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=rocm-toolchain
-pkgver=0.3.0
+pkgver=0.4.0
 pkgrel=1
 pkgdesc="Scripts for ROCm packaging"
 arch=('any')
@@ -9,7 +9,7 @@ license=('GPL-3.0-or-later')
 depends=('bash')
 makedepends=('git')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha256sums=('811ab092ea921c8d49fa90d3cf5268cd84cc2acf32ed18db035710f5765206b7')
+sha256sums=('47fb4a2aaec74527ae03531cd61d90c46e183158b39515b53d2036b8f9a31215')
 
 package() {
 	cd $pkgname
