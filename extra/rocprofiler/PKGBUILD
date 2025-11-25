@@ -1,29 +1,47 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <christian@heusel.eu>
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
+
 pkgname=rocprofiler
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 pkgdesc="ROC profiler library. Profiling with perf-counters and derived metrics."
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocprofiler/en/latest/index.html'
 license=('MIT')
-depends=('rocm-core' 'hip-runtime-amd' 'python' 'python-lxml' 'hsa-amd-aqlprofile')
-makedepends=('cmake' 'git' 'rocm-llvm' 'hsa-rocr' 'rocm-dbgapi' 'gtest' 'rocm-smi-lib'
-             'python-cppheaderparser' 'python-yaml' 'python-barectf')
-_git='https://github.com/ROCm/rocprofiler'
-_roctracer='https://github.com/ROCm/roctracer'
-source=("$pkgname::git+$_git#tag=rocm-$pkgver"
-        "$pkgname-roctracer::git+$_roctracer#tag=rocm-$pkgver"
-        "${pkgname}-perfetto::git+https://github.com/google/perfetto")
-sha256sums=('82f522d2565bc3579fa2f3a76a26052a30964dd00e704fa27fdd774c4badafa2'
-            'f1716e33df2a29197ebd19cbef62377171f92030ef16a44e62b850ef3cc0663e'
+depends=(
+  'hip-runtime-amd'
+  'hsa-amd-aqlprofile'
+  'python'
+  'python-lxml'
+  'rocm-core'
+)
+makedepends=(
+  'cmake'
+  'git'
+  'gtest'
+  'hsa-rocr'
+  'python-barectf'
+  'python-cppheaderparser'
+  'python-pandas'
+  'python-yaml'
+  'rocm-dbgapi'
+  'rocm-llvm'
+  'rocm-smi-lib'
+  'rocm-toolchain'
+)
+_git='https://github.com/ROCm/rocm-system'
+_dir_name='rocm-system/projects/rocprofiler'
+source=("rocm-system::git+$_git#tag=rocm-$pkgver"
+        "rocm-system-perfetto::git+https://github.com/google/perfetto")
+sha256sums=('72a492b9332d1eca7b48f631d6278dd6cb2318e06ead74a13d12a99fe4d199d7'
             'SKIP')
 options=(!lto)
 
 prepare() {
-  cd "${pkgname}"
+  cd "${_dir_name}"
   git submodule init
-  git config submodule."perfetto".url "${srcdir}/${pkgname}"-perfetto
+  git config submodule."perfetto".url "${srcdir}/rocm-system-perfetto"
   git -c protocol.file.allow=always submodule update --init --recursive
 }
 
@@ -31,12 +49,13 @@ build() {
   local cmake_args=(
     -Wno-dev
     -B build
-    -S "$pkgname"
+    -S "$_dir_name"
     -D CMAKE_BUILD_TYPE=Release
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D ROCPROFILER_BUILD_TESTS=OFF
-    -D GPU_TARGETS="gfx803 gfx900 gfx906 gfx908 gfx90a gfx940 gfx941 gfx942 gfx1030 gfx1100 gfx1101 gfx1102"
-    -D PROF_API_HEADER_PATH="$srcdir/$pkgname-roctracer/inc/ext"
+    -D GPU_TARGETS="gfx803 gfx900 gfx906 gfx908 gfx90a gfx940 gfx941 gfx942 gfx1030 gfx1100 gfx1101 gfx1102 gfx1200 gfx1201"
+    # -D GPU_TARGETS="$(rocm-supported-gfx -d ' ')"
+    -D PROF_API_HEADER_PATH="$srcdir/rocm-system/projects/roctracer/inc/ext"
   )
   HIP_CLANG_PATH=/opt/rocm/llvm/bin \
   cmake "${cmake_args[@]}"
@@ -46,5 +65,5 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -Dm644 "$pkgname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$_dir_name/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
