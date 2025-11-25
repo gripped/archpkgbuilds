@@ -1,36 +1,68 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Maintainer: Christian Heusel <gromit@archlinux.org>
+# Contributor: Bob McElrath <bob.mcelrath@gmail.com>
+# Contributor: Lubosz Sarnecki <lubosz@gmail.com>
 
 pkgname=hipblaslt
-pkgver=6.4.4
-pkgrel=1
+pkgver=7.1.0
+pkgrel=2
 pkgdesc='General matrix-matrix operations beyond a traditional BLAS library'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/hipBLASLt/en/latest/index.html'
 license=('MIT')
-depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'hipblas' 'rocblas')
-makedepends=('rocm-cmake'  'rocm-toolchain' 'python' 'cmake' 'git' 'ninja'
-             'msgpack-cxx' 'python-msgpack' 'python-setuptools' 'python-joblib'
-             'python-pyaml' 'hipblas-common')
-_git='https://github.com/ROCm/hipBLASLt'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
-        "$pkgname-find-msgpack5.patch"
-        "$pkgname-clang.patch")
-sha256sums=('6d8816708564e788b5e071cf79bb9ce2caffbeb30143c10c5ba6cec58a7f6efa'
-            '8e6d134a1d45de814099dfe591296de5e1d47f9906ccf9c51d7f2228e992c5f4'
-            '46a816b7d0555f30362467713e2356af83865e7ff2d727484690606bf89b9f14')
-_dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
+depends=(
+  'gcc-libs'
+  'glibc'
+  'hip-runtime-amd'
+  'hipblas'
+  'msgpack-cxx'
+  'rocblas'
+  'rocm-core'
+  'rocm-smi-lib'
+  'yaml-cpp'
+)
+makedepends=(
+  'cmake'
+  'gcc-fortran'
+  'git'
+  'gtest'
+  'hipblas-common'
+  'lapack'
+  'ninja'
+  'python'
+  'python-joblib'
+  'python-msgpack'
+  'python-orjson'
+  'python-packaging'
+  'python-pyaml'
+  'python-pyyaml'
+  'python-setuptools'
+  'python-simplejson'
+  'python-ujson'
+  'rocm-cmake'
+  'rocm-toolchain'
+  'spdlog'
+)
+_git='https://github.com/ROCm/rocm-libraries'
+source=("rocm-libraries::git+$_git.git#tag=rocm-$pkgver"
+        "hipblaslt-Don-t-fetch-deps-for-rocroller.patch"
+        "rocroller-Always-fetch-libdivide-if-it-s-not-install.patch")
+sha256sums=('aaadb942b979b814dc436de772afab3120382aa0e4662e3c58d9a2ddfbfe790c'
+            '81c0f9ac1872e34555c2f9d64eecec75c42fd8813c4acf54cd665b03e59cb752'
+            'b845a96fee02651f2cad2417fc9e8522ab143849b2049b0010d17401e6000e52')
+_dirname="rocm-libraries/projects/$pkgname"
 
 options=(!strip)
 
 prepare() {
-  cd "$_dirname"
-  patch -Np1 -i "$srcdir/$pkgname-find-msgpack5.patch"
-  patch -Np1 -i "$srcdir/$pkgname-clang.patch"
+  cd rocm-libraries
+  patch -Np1 -i "$srcdir/hipblaslt-Don-t-fetch-deps-for-rocroller.patch"
+  patch -Np1 -i "$srcdir/rocroller-Always-fetch-libdivide-if-it-s-not-install.patch"
 }
 
 build() {
   export PATH="/opt/rocm/bin:$PATH"
+
   local cmake_args=(
     -Wno-dev
     -G Ninja
@@ -40,8 +72,8 @@ build() {
     -D CMAKE_C_COMPILER=amdclang
     -D CMAKE_CXX_COMPILER=amdclang++
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
-    -D Tensile_CODE_OBJECT_VERSION=default
-    # -D AMDGPU_TARGETS="$(rocm-supported-gfx -e gfx906,gfx950,gfx1010,gfx1012,gfx1031,gfx1035,gfx1152,gfx1153)"
+    -D HIPBLASLT_ENABLE_CLIENT=OFF
+    # -D GPU_TARGETS="$(rocm-supported-gfx -e gfx906,gfx950,gfx1010,gfx1012,gfx1031,gfx1035,gfx1152,gfx1153)"
   )
   # -fcf-protection is not supported by HIP, see
   # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
