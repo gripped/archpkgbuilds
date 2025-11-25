@@ -9,7 +9,7 @@ pkgname=(rocm-hip-sdk
          rocm-language-runtime
          rocm-ml-sdk
          rocm-ml-libraries)
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 arch=('any')
 license=('LicenseRef-None')
