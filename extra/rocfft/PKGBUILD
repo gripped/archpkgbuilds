@@ -1,8 +1,10 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: Jakub Okoński <jakub@okonski.org>
 # Contributor: Markus Näther <naetherm@cs.uni-freiburg.de>
+
 pkgname=rocfft
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='Next generation FFT implementation for ROCm'
 arch=('x86_64')
@@ -11,10 +13,10 @@ license=('MIT')
 depends=('rocm-core' 'hip-runtime-amd' 'glibc' 'gcc-libs')
 makedepends=('cmake' 'rocm-cmake' 'rocm-toolchain')
 _git='https://github.com/ROCmSoftwarePlatform/rocFFT'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('a2f1cb94e74735e592e20b1b0333729b6f59619ecb3afa6c41b1744a764e9690')
+source=("rocm-libraries-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/archive/refs/tags/rocm-$pkgver.tar.gz")
+sha256sums=('d9e138a15e8195a7e9b5e15240e50c557b830d50a2bafa27db14dad3884dbfd8')
 options=(!lto)
-_dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
+_dirname="rocm-libraries-rocm-$pkgver/projects/$pkgname"
 
 build() {
   # -fcf-protection is not supported by HIP, see
