@@ -1,54 +1,55 @@
 # Maintainer: Torsten Keßler <t dot kessler at posteo dot de>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=hipfort
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='Fortran interfaces for ROCm libraries'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/hipfort/en/latest/'
 license=('MIT')
 depends=(
-    'rocm-core'        
-    'hip-runtime-amd'
     'gcc-fortran'
+    'git'
+    'hip-runtime-amd'
+    'rocm-core'
 )
 makedepends=(
     'cmake'
-    'rocm-cmake'
-    'rocblas'
-    'rocsparse'
-    'rocfft'
-    'rocrand'
-    'rocsolver'
     'hipblas'
-    'hipsparse'
     'hipfft'
     'hiprand'
     'hipsolver'
+    'hipsparse'
+    'rocblas'
+    'rocfft'
+    'rocm-cmake'
+    'rocrand'
+    'rocsolver'
+    'rocsparse'
 )
 optdepends=(
-    'rocfft: Fortran bindings'
-    'rocrand: Fortran bindings'
-    'rocsolver: Fortran bindings'
     'hipblas: Fortran bindings'
-    'hipsparse: Fortran bindings'
     'hipfft: Fortran bindings'
     'hiprand: Fortran bindings'
     'hipsolver: Fortran bindings'
+    'hipsparse: Fortran bindings'
+    'rocfft: Fortran bindings'
+    'rocrand: Fortran bindings'
+    'rocsolver: Fortran bindings'
 )
-_git='https://github.com/ROCmSoftwarePlatform/hipfort'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('4e2a74abbf99cad0a1abe38f53ce26ede19fe179d2b675d13c3ebfb6becf4b0d')
+_git='https://github.com/ROCm/hipfort'
+source=("hipfort::git+$_git.git#tag=rocm-$pkgver")
+sha256sums=('16667272f42af4da310b2cbc82dcf2a93be1401dd7bba6479b578ecf02b9950c')
 options=(!strip)
-_dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
 
 build() {
     local cmake_args=(
         -Wno-dev
         -B build
-        -S "$_dirname"
+        -S $pkgname
         -D CMAKE_POLICY_VERSION_MINIMUM=3.5
-        -D CMAKE_BUILD_TYPE=None
+        -D CMAKE_BUILD_TYPE=RELEASE
         -D CMAKE_INSTALL_PREFIX=/opt/rocm
     )
     cmake "${cmake_args[@]}"
@@ -58,5 +59,5 @@ build() {
 package() {
     DESTDIR="$pkgdir" cmake --install build
 
-    install -Dm644 "$_dirname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 "$pkgname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
