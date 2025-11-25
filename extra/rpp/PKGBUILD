@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=rpp
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 pkgdesc="AMD ROCm Performance Primitives"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('rocm-core' 'hip-runtime-amd' 'opencv' 'openmp' 'gcc-libs' 'glibc')
 makedepends=('cmake' 'rocm-cmake' 'half')
 _git='https://github.com/ROCm/rpp'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('a206e150b0d419047bc2d273ee50bd1022f90f4a5cfeb3dfd1aae0a7d80dfe0a')
+sha256sums=('65d815f4957b27c1f994d4d905a107536fe90ffa4c229c015c241687f11fe2c0')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 build() {
