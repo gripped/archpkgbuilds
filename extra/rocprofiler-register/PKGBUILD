@@ -1,16 +1,17 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 pkgname=rocprofiler-register
-pkgver=6.4.4
-pkgrel=2
+pkgver=7.1.0
+pkgrel=1
 pkgdesc='Helper library for the ROCprofiler (v2) library'
 arch=('x86_64')
-url='https://github.com/ROCm/rocprofiler-register'
+url='https://github.com/ROCm/rocm-systems'
 license=('MIT')
 depends=('rocm-core' 'glibc' 'gcc-libs' 'fmt' 'google-glog')
 makedepends=('cmake' 'rocm-cmake')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('63e14e7b03c517c594dbc1ce0ee5c632b29449820d54a26de844e6126f074db1')
-_dirname="$(basename "$url")-$(basename "${source[0]}" ".tar.gz")"
+source=("rocm-$pkgver.tar.gz::$url/archive/refs/tags/rocm-$pkgver.tar.gz")
+sha256sums=('a700912d102b35c9336b7352d09d56b9d19e4957daf53779983c3d00ce744c9d')
+_dirname="rocm-systems-rocm-$pkgver/projects/$pkgname"
 
 prepare() {
   # Remove cpack packaging
@@ -37,5 +38,5 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -Dm644 "$srcdir/$_dirname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$srcdir/$_dirname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
