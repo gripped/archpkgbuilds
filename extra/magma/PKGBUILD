@@ -4,12 +4,13 @@
 # Contributor: bartus <arch-user-repoᘓbartus.33mail.com>
 # Contributor: pingplug <pingplug@foxmail.com>
 # Contributor: cornholio <vigo.the.unholy.carpathian@gmail.com>
+# Contributor: Lubosz Sarnecki <lubosz@gmail.com>
 
 _pkgname=magma
 pkgbase=$_pkgname
 pkgname=(magma-cuda magma-hip)
 pkgver=2.9.0
-pkgrel=3
+pkgrel=4
 _pkgdesc="Matrix Algebra on GPU and Multicore Architectures"
 arch=('x86_64')
 url="https://icl.utk.edu/magma/"
@@ -22,11 +23,12 @@ optdepends=('python: for examples and tests'
             'gcc-fortran: Fortran interface')
 source=(
   "${_pkgname}::git+https://github.com/icl-utk-edu/magma.git#tag=v${pkgver}"
-  fix-cuda13.patch
+  ROCm-use-HIPBLAS_V2-types-and-APIs-ROCm-7-ready.patch
 )
 sha256sums=('bd18fbfd1b36dbcfd604b22f2fdfaf0a18c5dcfbe09fe1f1b2f2fe3e365bc304'
-            'b04f2a183fccbeb25550a6e8ab033e41b8f5d5c44938dd250aa8a0ff3bffdda0')
-options=(!lto)
+            '1dd10785f143adfd73cfd5c5fae44553ea52c10bd9a8fcd20f97819529a0ead1')
+# -g makes rocm-llvm crash for magma
+options=(!lto !debug)
 
 _valid_sm() {
   echo "sm_75 sm_80 sm_86 sm_87 sm_88 sm_89 sm_90 sm_100 sm_103 sm_110 sm_120 sm_121"
@@ -34,7 +36,7 @@ _valid_sm() {
 
 _valid_gfx() {
   #List of GPU targets from rocBLAS
-  echo "gfx900 gfx906:xnack- gfx908:xnack- gfx90a:xnack+ gfx90a:xnack- gfx940 gfx941 gfx942 gfx1010 gfx1012 gfx1030 gfx1100 gfx1101 gfx1102"
+  echo "gfx900 gfx906:xnack- gfx908:xnack- gfx90a:xnack+ gfx90a:xnack- gfx940 gfx941 gfx942 gfx1010 gfx1012 gfx1030 gfx1100 gfx1101 gfx1102 gfx1200 gfx1201"
 }
 
 prepare() {
@@ -43,7 +45,9 @@ prepare() {
   # Drop CMP0037 to fix cmake 4.0 build error
   git cherry-pick -n 2fecaf3f0c811344363f713669c1fe30f6879acd
   # Fix for CUDA 13
-  patch -p1 < ../fix-cuda13.patch
+  git cherry-pick -n 235aefb
+  # Backported fix for ROCm 7.1
+  patch -p1 < ../ROCm-use-HIPBLAS_V2-types-and-APIs-ROCm-7-ready.patch
 
   cd "${srcdir}"
 
