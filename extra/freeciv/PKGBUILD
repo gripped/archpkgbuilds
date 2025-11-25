@@ -4,7 +4,7 @@
 
 pkgname=freeciv
 pkgver=3.2.1
-pkgrel=3
+pkgrel=4
 pkgdesc="A multiuser clone of the famous Microprose game of Civilization"
 arch=('x86_64')
 url="http://www.freeciv.org/"
@@ -13,15 +13,16 @@ depends=(
   'bzip2'
   'cairo'
   'curl'
+  'gcc-libs'
   'gdk-pixbuf2'
   'glib2'
   'glibc'
-  'gtk3'
+  'gtk4'
   'hicolor-icon-theme'
   'icu'
-  'libtool'
   'lua'
   'pango'
+  'qt6-base'
   'readline'
   'sdl2'
   'sdl2_mixer'
@@ -30,36 +31,24 @@ depends=(
   'zlib'
   'zstd'
 )
-makedepends=('python')
+makedepends=(
+  'meson'
+  'python'
+)
 backup=('etc/freeciv/database.lua')
 source=("https://downloads.sourceforge.net/sourceforge/$pkgname/$pkgname-$pkgver.tar.xz")
 sha512sums=('8667d756b67b0e1a63ad3015f6e33e0dacbda5bbbf85dae92238c88f4d660536623f4950d4461ab35a01764c767add138bc1c4f794a842cd47be9d62d1f2199b')
 
-prepare() {
-  cd $pkgname-$pkgver
-  ./autogen.sh
-}
-
 build() {
-  cd $pkgname-$pkgver
-  ./configure \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --enable-shared \
-    --enable-sys-lua \
-    --enable-fcmp=gtk3 \
-    --enable-fcdb=sqlite3 \
-    --enable-sdl-mixer=sdl2 \
-    --enable-aimodules
-  make
+  arch-meson $pkgname-$pkgver build \
+    -Dsyslua=true
+  meson compile -C build
 }
 
 check() {
-  cd $pkgname-$pkgver
-  make check
+  meson test -C build
 }
 
 package() {
-  cd $pkgname-$pkgver
-  make DESTDIR="$pkgdir" install
+  meson install -C build --destdir="$pkgdir"
 }
