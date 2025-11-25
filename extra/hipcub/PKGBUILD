@@ -1,18 +1,20 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
+
 pkgname=hipcub
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='Header-only library on top of rocPRIM or CUB'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/hipCUB/en/latest/index.html'
 license=('NCSA')
 depends=('rocm-core' 'rocprim' 'hip-runtime-amd')
-makedepends=('cmake' 'rocm-cmake' 'rocm-toolchain')
-_git='https://github.com/ROCm/hipCUB'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('f68baad99f5fd99b561ebd69999fec3276e23e8fbc9d46e737821bdd980d9c7f')
-_dirname="$(basename $_git)-$(basename "${source[0]}" ".tar.gz")"
+makedepends=('git' 'cmake' 'rocm-cmake' 'rocm-toolchain' 'rocm-llvm')
+_git='https://github.com/ROCm/rocm-libraries'
+source=("rocm-libraries::git+$_git.git#tag=rocm-$pkgver")
+sha256sums=('aaadb942b979b814dc436de772afab3120382aa0e4662e3c58d9a2ddfbfe790c')
+_dirname="rocm-libraries/projects/$pkgname"
 
 build() {
   # -fcf-protection is not supported by HIP, see
