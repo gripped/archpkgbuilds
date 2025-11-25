@@ -1,8 +1,9 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
+
 pkgname=roctracer
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='ROCm tracer library for performance tracing'
 arch=('x86_64')
@@ -10,11 +11,10 @@ url='https://rocm.docs.amd.com/projects/roctracer/en/latest'
 license=('MIT')
 depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'hsa-rocr' 'comgr')
 makedepends=('cmake' 'python-cppheaderparser' 'python-ply')
-_git='https://github.com/ROCm/roctracer'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('d4fd93658180d916adae55bc36deb8b8d1585083e3e830181419e4035733baa2')
+source=("rocm-$pkgver.tar.gz::https://github.com/ROCm/rocm-systems/archive/refs/tags/rocm-$pkgver.tar.gz")
+sha256sums=('a700912d102b35c9336b7352d09d56b9d19e4957daf53779983c3d00ce744c9d')
 options=('!lto')
-_dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
+_dirname="rocm-systems-rocm-$pkgver/projects/$pkgname"
 
 build() {
   local cmake_args=(
@@ -32,5 +32,5 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -Dm644 "$_dirname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$_dirname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
