@@ -2,9 +2,10 @@
 # Maintainer: Christian Heusel <christian@heusel.eu>
 # Contributor: Markus Näther <naether.markus@gmail.com>
 # Contributor: Lubosz Sarnecki <lubosz@gmail.com>
+
 pkgname=rocblas
-pkgver=6.4.4
-pkgrel=1
+pkgver=7.1.0
+pkgrel=2
 pkgdesc='Next generation BLAS implementation for ROCm platform'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocBLAS/en/latest/index.html'
@@ -33,16 +34,19 @@ makedepends=(
   'python-wheel'
   'rocm-cmake'
   'rocm-toolchain'
+  'rocm-smi-lib'
+  'gtest'
 )
-_rocblas='https://github.com/ROCm/rocBLAS'
-_tensile='https://github.com/ROCm/Tensile'
-source=("$pkgname-$pkgver.tar.gz::$_rocblas/archive/refs/tags/rocm-$pkgver.tar.gz"
-        "$pkgname-tensile-$pkgver.tar.gz::$_tensile/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('bc374b57579fa8458132f73d9a152517af63b9f411a2176b72829f4a1d6021c1'
-            '48ee6a9b33631625c7613e1fb8872290cb7c70977506c4f8b7ed102f293fdf38')
+optdepends=(
+  'python-yaml: for rocblas-bench and rocblas-gemm-tune'
+  'gtest: for rocblas-bench and rocblas-gemm-tune'
+  'rocm-smi-lib: for rocblas-bench and rocblas-gemm-tune'
+)
+source=("rocm-libraries-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/archive/refs/tags/rocm-$pkgver.tar.gz")
+sha256sums=('d9e138a15e8195a7e9b5e15240e50c557b830d50a2bafa27db14dad3884dbfd8')
 options=(!strip)
-_dirname="$(basename "$_rocblas")-$(basename "${source[0]}" ".tar.gz")"
-_tensile_dir="$(basename "$_tensile")-$(basename "${source[1]}" ".tar.gz")"
+_dirname="rocm-libraries-rocm-$pkgver/projects/$pkgname"
+_tensile_dir="rocm-libraries-rocm-$pkgver/shared/tensile"
 
 build() {
   # Compile source code for supported GPU archs in parallel
@@ -64,6 +68,8 @@ build() {
     -D CMAKE_PREFIX_PATH=/opt/rocm/llvm/lib/cmake/llvm
     -D amd_comgr_DIR=/opt/rocm/lib/cmake/amd_comgr
     -D BUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF
+    # Enable rocblas-bench and rocblas-gemm-tune
+    -D BUILD_CLIENTS_BENCHMARKS=ON
     -D HIP_PLATFORM=amd
     -D BLAS_LIBRARY=cblas
     -D BUILD_WITH_TENSILE=ON
