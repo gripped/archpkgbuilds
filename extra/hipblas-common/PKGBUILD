@@ -1,19 +1,24 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
-# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=hipblas-common
-pkgver=6.4.4
-pkgrel=1
+pkgver=7.1.0
+pkgrel=2
 pkgdesc='Common files shared by hipBLAS and hipBLASLt'
 arch=('any')
 url='https://rocm.docs.amd.com/projects/hipBLAS/en/latest/index.html'
 license=('MIT')
 depends=('rocm-core')
-makedepends=('rocm-cmake' 'cmake' 'hip-runtime-amd')
-_git='https://github.com/ROCm/hipBLAS-common'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('7d12a69ee0ba582a48770118f375ff29c2fd97b2f9ced55f5301b7581c34ee9e')
-_dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
+makedepends=(
+  'cmake'
+  'git'
+  'hip-runtime-amd'
+  'rocm-cmake'
+)
+_git='https://github.com/ROCm/rocm-libraries'
+source=("rocm-libraries::git+$_git.git#tag=rocm-$pkgver")
+sha256sums=('aaadb942b979b814dc436de772afab3120382aa0e4662e3c58d9a2ddfbfe790c')
+_dirname="rocm-libraries/projects/$pkgname"
 
 build() {
   # -fcf-protection is not supported by HIP, see
