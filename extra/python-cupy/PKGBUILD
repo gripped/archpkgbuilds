@@ -1,10 +1,11 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+# Contributor: Lubosz Sarnecki <lubosz@gmail.com>
 
 _name=cupy
 pkgbase=python-cupy
-pkgname=(python-cupy python-cupy-rocm)
+pkgname=(python-cupy python-cupy-rocm python-cupy-rocm-gfx9)
 pkgver=13.6.0
-pkgrel=5
+pkgrel=8
 # release tarballs do not contain third-party code, check github for each release
 _cccl_commit=3a388b7b01512d48474b98389a3e776c8d8f817a
 _dlpack_commit=cd0d5e4ff888b388aef4f9b6bd5d9aa5737a020e
@@ -26,7 +27,8 @@ makedepends=(
   # CUDA build
   cuda
   # NOTE: cudnn 9 causes compilation errors and will be dropped https://github.com/cupy/cupy/issues/8215
-  # TODO: package cusparselt and cutensor
+  # TODO: package cusparselt
+  cutensor
   nccl
   # ROCm build
   hip-runtime-amd
@@ -54,11 +56,17 @@ source=(
   git+https://github.com/NVIDIA/cccl.git#commit=$_cccl_commit
   git+https://github.com/dmlc/dlpack.git#commit=$_dlpack_commit
   git+https://github.com/NVIDIA/jitify.git#commit=$_jitify_commit
+  $pkgbase-cbd87ae9c48cc8c0dbeff091e5eb9e04d22b68bf.patch::https://github.com/cupy/cupy/commit/cbd87ae9c48cc8c0dbeff091e5eb9e04d22b68bf.patch
 )
 b2sums=('be2eb7cc3cdb80f0ff953be8faeae48641c16526f6f73995c9c8caeccdbf26bc8fdc98b813c2ca2e0c7a12ab93197fd836e1e37df1105e104d69fecc7e9b9b13'
         '398fea632811425ea79cff315eeb7fcbe9370e706445477784e05cc2e2517ab7106606d52603175a1ac83b0026daa5a09a07cebe2efd8edae50e48b1b82efbeb'
         'ee9287869ad46f81bd6ec67a0f17cd3a28c7a4921177e1d3bc5bf3469223d0518ab71b8bfab3ecc9dca0030f55fbac607c20e33d0b2951b042b0423893c1d46d'
-        'a03479f41e38b1f35c39a14ea8d13ecaec3d57f8f1c12fd37a9d53af8406ba328628493a76882c37cad82d2da441a34142407caf610d480122a072b73bbb1c61')
+        'a03479f41e38b1f35c39a14ea8d13ecaec3d57f8f1c12fd37a9d53af8406ba328628493a76882c37cad82d2da441a34142407caf610d480122a072b73bbb1c61'
+        'd6f40dda41d2125597cfc3d6a311565c709f7d8d02bde5b671026b25070ea087bd5652ffac96af1bcd95f745fd799a0d8aa732739d4189ae9e51bb2ad488da41')
+
+# Building with over 16 arches fails in linking. Split them to a separate package
+rocm_split_suffix="gfx9"
+rocm_split_targets="gfx900,gfx906:xnack-,gfx908:xnack-,gfx90a:xnack+,gfx90a:xnack-,gfx942,gfx950"
 
 prepare() {
   cd $_name-$pkgver
@@ -67,32 +75,53 @@ prepare() {
   ln -sT ../../dlpack third_party/dlpack
   ln -sT ../../jitify third_party/jitify
 
+  # release version constraints for Cython
+  sed -i 's|Cython>=[0-9.]\+,<[0-9.]\+|Cython|' pyproject.toml
+
+  # Backport ROCm 7.0 support from main branch
+  # https://github.com/cupy/cupy/commit/cbd87ae9c48cc8c0dbeff091e5eb9e04d22b68bf
+  patch -p1 < "$srcdir/$pkgbase-cbd87ae9c48cc8c0dbeff091e5eb9e04d22b68bf.patch"
+
   # copy the source tree for the ROCm build
   # (most artifacts end up in the build/ directory but .cpp files get generated
   # along the other sources)
   cd "$srcdir"
   cp -ar $_name-$pkgver $_name-$pkgver-rocm
+  cp -ar $_name-$pkgver $_name-$pkgver-rocm-$rocm_split_suffix
 }
 
 build() {
+  # CUDA build
   export CUPY_NUM_BUILD_JOBS="$(nproc)"
   export CUPY_NUM_NVCC_THREADS="$(nproc)"
 
-  # CUDA build
   cd "$srcdir"/$_name-$pkgver
   LDFLAGS="$LDFLAGS -L/opt/cuda/targets/x86_64-linux/lib/stubs" \
   python -m build --wheel --no-isolation
 
   # ROCm build
+  export HIPCC_COMPILE_FLAGS_APPEND="-parallel-jobs=$(nproc)"
+  export HIPCC_LINK_FLAGS_APPEND="-parallel-jobs=$(nproc)"
+  export CUDA_PATH=""
+  export CUPY_INSTALL_USE_HIP=1
+  export ROCM_HOME=/opt/rocm
+
+  export HCC_AMDGPU_TARGET=$(rocm-supported-gfx -e "${rocm_split_targets}" -d ,)
+  echo "Building for ROCm targets: ${HCC_AMDGPU_TARGET}"
+
   cd "$srcdir"/$_name-$pkgver-rocm
-  CUDA_PATH= \
-  CUPY_INSTALL_USE_HIP=1 \
-  ROCM_HOME=/opt/rocm \
-  HCC_AMDGPU_TARGET=$(rocm-supported-gfx -e gfx950 -d ,) \
+  python -m build --wheel --no-isolation
+
+  # build only gfx9
+  export HCC_AMDGPU_TARGET="${rocm_split_targets}"
+  echo "Building for ROCm targets: ${HCC_AMDGPU_TARGET}"
+
+  cd "$srcdir"/$_name-$pkgver-rocm-$rocm_split_suffix
   python -m build --wheel --no-isolation
 }
 
 package_python-cupy() {
+  pkgdesc+=" (CUDA version)"
   depends=(
     cuda
     gcc-libs
@@ -102,6 +131,7 @@ package_python-cupy() {
     python-numpy
   )
   optdepends+=(
+    'cutensor: for acceleratedd tensor operations'
     'nccl: for collective multi-GPU computations'
   )
 
@@ -111,6 +141,7 @@ package_python-cupy() {
 }
 
 package_python-cupy-rocm() {
+  pkgdesc+=" (ROCm gfx10, gfx11 and gfx12 targets)"
   depends=(
     gcc-libs
     glibc
@@ -131,6 +162,32 @@ package_python-cupy-rocm() {
   provides=(python-cupy)
 
   cd $_name-$pkgver-rocm
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+package_python-cupy-rocm-gfx9() {
+  pkgdesc+=" (ROCm gfx9 targets)"
+  depends=(
+    gcc-libs
+    glibc
+    hip-runtime-amd
+    hipblas
+    hipfft
+    hiprand
+    hipsparse
+    rccl
+    rocblas
+    rocsolver
+    roctracer
+    python
+    python-fastrlock
+    python-numpy
+  )
+  conflicts=(python-cupy)
+  provides=(python-cupy)
+
+  cd $_name-$pkgver-rocm-$rocm_split_suffix
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
