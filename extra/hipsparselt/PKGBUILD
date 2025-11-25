@@ -3,7 +3,7 @@
 # Contributor: Felix Richter <judge@felixrichter.tech>
 
 pkgname=hipsparselt
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='SPARSE marshalling library with AMD GPU backend'
 arch=('x86_64')
@@ -31,29 +31,25 @@ makedepends=(
   'python-pyyaml'
   'python-msgpack'
 )
-_git='https://github.com/ROCm/hipSPARSELt'
+_git='https://github.com/ROCm/rocm-libraries'
 _tensilelite='https://github.com/ROCm/hipBLASLt'
-# https://github.com/ROCm/hipSPARSELt/blob/rocm-6.4.4/tensilelite_tag.txt
-_commit='510dcac724743ff35ec8c60270bc08505eddcfd7'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz"
+# https://github.com/ROCm/rocm-libraries/blob/rocm-7.1.0/projects/hipsparselt/tensilelite_tag.txt
+_commit='25c46a44a79d748394622b0b0c7b7acf7574619a'
+source=("rocm-libraries::git+$_git.git#tag=rocm-$pkgver"
         "$pkgname-tensilelite-$pkgver.tar.gz::$_tensilelite/archive/$_commit/hipBLASLt-$_commit.tar.gz")
-sha256sums=('b72d630dc4b09f58ff7196990985e4404c51d9283aceb3363464a4146068e59a'
-            '3b4f6519e6a6a0b20a3e2c4509236497c03c8db860f0bdf2734a78b150fd8039')
-_dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
+sha256sums=('aaadb942b979b814dc436de772afab3120382aa0e4662e3c58d9a2ddfbfe790c'
+            'e2b3c6b584e12853474315393789d0a4f2a813a2eb003560adbde735ce4140bd')
+_dirname="rocm-libraries/projects/$pkgname"
 
 prepare() {
   cd hipBLASLt-$_commit
   # Fixes from https://src.fedoraproject.org/rpms/hipsparselt/blob/rawhide/f/hipsparselt.spec
   # Remove venv
-  sed -i -e 's@. ${venv}/bin/activate@@' tensilelite/Tensile/Ops/gen_assembly.sh
-  sed -i -e 's@deactivate@@' tensilelite/Tensile/Ops/gen_assembly.sh
   # Use PATH to find where TensileGetPath and other tensile bins are
   sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g' tensilelite/Tensile/cmake/TensileConfig.cmake
   # Do not use virtualenv_install
   sed -i -e 's@virtualenv_install@#virtualenv_install@' CMakeLists.txt
   # Fixes from https://src.fedoraproject.org/rpms/hipsparselt/blob/rawhide/f/hipsparselt.spec
-  sed -i -e 's@. ${venv}/bin/activate@@' tensilelite/Tensile/Ops/gen_assembly.sh
-  sed -i -e 's@deactivate@@' tensilelite/Tensile/Ops/gen_assembly.sh
   sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g' tensilelite/Tensile/cmake/TensileConfig.cmake
   sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' CMakeLists.txt
   # Add more names to msgpack include
@@ -97,7 +93,9 @@ build() {
     -D Tensile_COMPILER=amdclang++
     -D Tensile_LIBRARY_FORMAT=msgpack
     -D VIRTUALENV_BIN_DIR=/usr/bin
-    -D GPU_TARGETS=$(rocm-supported-gfx)
+    # tensililte keeps an explicit allowlist of allowed values for GPU_TARGET
+    # https://github.com/ROCm/rocm-libraries/blob/rocm-7.1.0/projects/hipblaslt/cmake/tensilelite_supported_architectures.cmake#L14-L33
+    -D GPU_TARGET="gfx908;gfx90a;gfx942;gfx950;gfx1100;gfx1101;gfx1103;gfx1150;gfx1151;gfx1200;gfx1201;gfx908:xnack+;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-"
   )
   cmake "${cmake_args[@]}"
   cmake --build build
