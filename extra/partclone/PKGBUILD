@@ -5,23 +5,24 @@
 # Contributor: Ivan Sichmann Freitas
 
 pkgname=partclone
-pkgver=0.3.39
+pkgver=0.3.40
 pkgrel=1
 pkgdesc="Utilities to save and restore used blocks on a partition"
 arch=('x86_64')
 url="https://partclone.org"
 license=('GPL-2.0-or-later')
 depends=('e2fsprogs' 'glibc' 'ncurses' 'nilfs-utils' 'ntfs-3g' 'openssl' 'util-linux-libs' 'xxhash')
-source=($pkgname-$pkgver.tar.gz::https://github.com/Thomas-Tsai/partclone/archive/$pkgver.tar.gz)
-sha256sums=('1094554e4eb0d781b01da498b0ee1a93189c82981bdd6c1aa8c100ecf162fa78')
+makedepends=('git')
+source=("git+https://github.com/Thomas-Tsai/partclone#tag=${pkgver}")
+sha256sums=('32386d6f6541b71035a371888978ced4ff952b51da33cd28038b4fd4fb5214a1')
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd "$pkgname"
   autoreconf -fi
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd "$pkgname"
   ./configure \
     bashcompletiondir='/usr/share/bash-completion/completions' \
     --prefix=/usr \
@@ -41,7 +42,7 @@ build() {
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd "$pkgname"
   make PREFIX=/usr DESTDIR="$pkgdir" install
 
   # Allow bash completions to dynamically load completions for each commands.
