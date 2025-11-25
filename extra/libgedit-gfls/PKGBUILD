@@ -2,7 +2,7 @@
 # Contributor: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=libgedit-gfls
-pkgver=0.3.0
+pkgver=0.3.1
 pkgrel=1
 epoch=1
 pkgdesc='File loading and saving library'
@@ -22,8 +22,8 @@ makedepends=(
   meson
 )
 provides=(libgedit-gfls-1.so)
-source=("git+https://gitlab.gnome.org/World/gedit/libgedit-gfls.git?signed#tag=$pkgver")
-b2sums=(ff3b9e5da6caed42caace11879d66bf9eaf55dfb0bb35436c692c5fef4dad82b76b5b4e2f923da242a2728d48f572481d547578fe46fee0edd0cb73fc2c15020)
+source=("git+https://gitlab.gnome.org/World/gedit/libgedit-gfls.git#tag=$pkgver")
+b2sums=('d4213915b751432abff0cd3a64b214e0bce5e4dcd1c2de72b8011058f84380a3d065d427d9637cbc708fd5c2f88452c9369dc2ba345899976de2653d897e0c53')
 validpgpkeys=(08C0A6B1A08310A45363B328426F014A261FD87F) # Sébastien Wilmet <swilmet@mailfence.com>
 
 build() {
