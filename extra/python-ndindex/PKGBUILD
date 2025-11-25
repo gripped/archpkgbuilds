@@ -2,7 +2,7 @@
 
 pkgname=python-ndindex
 _pkgname=${pkgname#python-}
-pkgver=1.10.0
+pkgver=1.10.1
 pkgrel=1
 pkgdesc="Library for manipulating indices of ndarrays"
 arch=(x86_64)
@@ -27,7 +27,7 @@ checkdepends=(
   python-sympy
 )
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Quansight-Labs/ndindex/archive/$pkgver/$pkgver.tar.gz")
-sha256sums=('5b13e6acbe4e9b3faf71693f988aeb62e15d39d1808033072f8fbb7674f66f93')
+sha256sums=('eb879209b866ef68e8d51c31e02156666e3d706a93697775f5217b4b9690d375')
 
 build() {
   cd "$_pkgname-$pkgver"
