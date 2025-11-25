@@ -1,47 +1,46 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=bat
 pkgver=0.26.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Cat clone with syntax highlighting and git integration'
 arch=(x86_64)
 url='https://github.com/sharkdp/bat'
 license=('Apache-2.0 OR MIT')
 depends=(gcc-libs glibc libgit2 oniguruma zlib)
 makedepends=(cargo-edit clang cmake git rust)
-source=("git+$url#tag=v$pkgver")
+source=("git+$url.git#tag=v$pkgver")
 b2sums=('950a37efb986ddec37c815b94d4bac89d4140d6efcbf44f470ad9d7ea54eac4e68f7b48cfd3b65735dccd641e9a1ff2ce93759aac13c8b066880990c4ff348e8')
 
 prepare() {
-  # for libgit2-1.9 rebuild, remove when upstream releases
-  # https://github.com/sharkdp/bat/pull/3169
-  cargo upgrade -p git2@0.20.0 --manifest-path $pkgname/Cargo.toml
-  cargo fetch --locked --manifest-path $pkgname/Cargo.toml
+  cd "$pkgname"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
+  cd "$pkgname"
   CFLAGS+=' -ffat-lto-objects -w'
   export LIBGIT2_NO_VENDOR=1
-  cargo build --locked --manifest-path $pkgname/Cargo.toml --release
+  cargo build --frozen --release
 }
 
 check() {
+  cd "$pkgname"
   export LIBGIT2_NO_VENDOR=1
-  cargo test --locked --manifest-path $pkgname/Cargo.toml
+  cargo test --locked --release
 }
 
 package() {
+  cd "$pkgname"
   depends+=(libgit2.so)
-  install -Dm755 $pkgname/target/release/$pkgname "$pkgdir/usr/bin/$pkgname"
+  install -Dm755 "target/release/$pkgname" "$pkgdir/usr/bin/$pkgname"
 
   # Package licenses
-  install -Dm644 $pkgname/LICENSE-APACHE \
-    "$pkgdir/usr/share/licenses/$pkgname/LICENSE-APACHE"
-  install -Dm644 $pkgname/LICENSE-MIT \
-    "$pkgdir/usr/share/licenses/$pkgname/LICENSE-MIT"
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE-APACHE LICENSE-MIT
 
-  cd $pkgname/target/release/build
+  cd target/release/build
 
   # Find and package the man page (because cargo --out-dir is too new)
   find . -name bat.1 -type f -exec install -Dm644 {} \
