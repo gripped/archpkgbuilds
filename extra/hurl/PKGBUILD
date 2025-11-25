@@ -1,17 +1,17 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=hurl
-pkgver=7.0.0
+pkgver=7.1.0
 pkgrel=1
 pkgdesc="Run and test HTTP requests with plain text"
 url='https://github.com/Orange-OpenSource/hurl'
 arch=('x86_64')
 license=('Apache-2.0')
 depends=(
-  'curl'
+  'curl' 'libcurl.so'
   'gcc-libs'
   'glibc'
-  'libxml2'
+  'libxml2' 'libxml2.so'
 )
 makedepends=(
   'cargo'
@@ -19,8 +19,8 @@ makedepends=(
 )
 options=('!lto')
 source=("https://github.com/Orange-OpenSource/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('3f505848aabd9eec78360928b0fcbfea237a049b5c8d25b8d9e0aeb3f9d8dfed')
-b2sums=('12e6b39e3f9b69e6b129b69b6d9a90feeada0d99fa9e6078de39a4994c30929ba901ad4bc908b2785a7433544695e2357853ae96a2c45d5bdb973528ae61a5dd')
+sha256sums=('1bbe1e9f2736209bc1c0ce3082d3debac08b1aec7c6203e0b6698669c8abc3f2')
+b2sums=('5a2a4b4156341bfb301ca265bb92cd12902deb253e711e4fa809ce1a5aa097d34163120fe1248842d40dafdb5bd4675675ed507177f77926da645783de83b2e5')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -46,11 +46,6 @@ check() {
 }
 
 package() {
-  depends+=(
-    'libcurl.so'
-    'libxml2.so'
-  )
-
   cd ${pkgname}-${pkgver}
   install -Dm 755 -t "${pkgdir}/usr/bin" \
     target/release/hurl \
