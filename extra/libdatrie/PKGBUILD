@@ -3,20 +3,19 @@
 # Contributor: Chaiwat Suttipongsakul <cwt114@gmail.com>
 
 pkgname=libdatrie
-pkgver=0.2.13
-pkgrel=4
+pkgver=0.2.14
+pkgrel=1
 pkgdesc='Double-array trie library'
 arch=(x86_64)
 url='https://linux.thai.net/projects/datrie'
 license=(LGPL-2.1-or-later)
 depends=(glibc)
 makedepends=(
-  autoconf-archive
   doxygen
   git
 )
 source=("git+https://github.com/tlwg/libdatrie.git#tag=v$pkgver")
-b2sums=(3f726110c37b379d0fbf7fff5de534e46da75642baa848f72514fc98e4af0a80d8b7f0bc1a5f797eeef6e4505bb839a65b9d44019b3523270a414df4363e7003)
+b2sums=(5f3490116639086eeeccc05151e4cc75d55764c22ee2465f14ba53fba59a4d8727ee8ad4bf19bba19ee6dbfca82d72a8e60395a6e42ceea7547cfef985d9ac70)
 
 prepare() {
   cd $pkgname
