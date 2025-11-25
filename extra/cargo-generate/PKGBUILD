@@ -1,9 +1,10 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Philipp A. <flying-sheep@web.de>
 
 pkgname=cargo-generate
 pkgver=0.23.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Use pre-existing git repositories as templates"
 arch=('x86_64')
 url="https://github.com/cargo-generate/cargo-generate"
@@ -15,10 +16,7 @@ sha256sums=('7f6dceb0ede61122684d4852092331c7179a5ea236247688e5074be68c1d9e4d')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  # Backport crate bump so we can build against libgit2-1.9
-  # c.f. https://github.com/cargo-generate/cargo-generate/commit/be2237177ee7ae996e2991189b07a5d211cd0d01
-  cargo upgrade -p git2@0.20.0
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
