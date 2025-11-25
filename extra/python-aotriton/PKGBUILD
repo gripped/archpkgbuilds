@@ -1,58 +1,89 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
+# Contributor: Lubosz Sarnecki <lubosz@gmail.com>
+
 _pkgname=aotriton
 pkgname=python-${_pkgname}
-pkgver=0.10b
+pkgver=0.11.1b
 pkgrel=1
 pkgdesc="Ahead of Time Triton Math Library"
 url="https://github.com/ROCm/aotriton"
 license=(MIT)
 arch=(x86_64)
 depends=(
-	rocm-core
-	glibc
 	gcc-libs
+	glibc
+	hip-runtime-amd
+	hipsparselt
 	python
 	python-triton
-	hip-runtime-amd
+	rocm-core
 )
 makedepends=(
-	rocm-toolchain
 	cmake
+	git
 	ninja
 	pybind11
-	python-msgpack
 	python-filelock
 	python-iniconfig
-	python-packaging
-	python-pluggy
+	python-msgpack
 	python-numpy
+	python-packaging
+	python-pandas
+	python-pluggy
 	python-setuptools
 	python-wheel
-	python-pandas
+	python-yaml
+	rocm-toolchain
+	rocm-toolchain
 )
 source=(
-	"${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz"
-	disable-venv.patch
-	)
-sha256sums=('d0099104e665e24555e3c0f21c43e09be11f7f1ee850622f4204c7b1f2a75308'
-            '524c12055b11a7572d79813649e6c9d12d183b2b63295f71d1a4e1f783eb5386')
+	"git+https://github.com/ROCm/aotriton#tag=$pkgver"
+	"aotriton-aiter::git+https://github.com/ROCm/aiter.git"
+	"aotriton-incbin::git+https://github.com/graphitemaster/incbin.git"
+	python-aotriton-use-system-pybind11.patch
+	python-aotriton-don-t-create-a-virtualenv-and-build-triton.patch
+	python-aotriton-v3src-Use-system-python-executable-instead-of-venv.patch
+)
+sha256sums=('11dab271c65301bec86555ba7dae9acd3cdca19fe3193b2ad95055ce6a5ab9e4'
+            'SKIP'
+            'SKIP'
+            '2ce5f6112a9a83dd7110a2ef9eecee520ac5872cfe767c53d6ebdebbe0dd06a1'
+            '020cbdde96b05a413a9e39881dd481c43d074c15d2d44e5264e06a76d645b55f'
+            '79f4bba8e3ca1032003d37064176cd6ebb141fa4ef5e795ab4010278953236b6')
+
 
 prepare() {
-	cd ${_pkgname}-${pkgver}
-	patch -p1 -i ../disable-venv.patch
+	cd ${_pkgname}
+
+	# Skip triton and pybind11 submodules, we use the system packages.
+	git submodule init
+	git config submodule."third_party/aiter".url "${srcdir}/aotriton-aiter"
+	git -c protocol.file.allow=always submodule update --init "third_party/aiter"
+
+	git config submodule."third_party/incbin".url "${srcdir}/aotriton-incbin"
+	git -c protocol.file.allow=always submodule update --init "third_party/incbin"
+
+	patch -p1 -i ../python-aotriton-use-system-pybind11.patch
+	patch -p1 -i ../python-aotriton-don-t-create-a-virtualenv-and-build-triton.patch
+	patch -p1 -i ../python-aotriton-v3src-Use-system-python-executable-instead-of-venv.patch
 }
 
 build() {
+	# define NDEBUG to silence developer logging (as seen in miopen-hip)
 	local cmake_args=(
 		-G Ninja
 		-Wno-dev
-		-S "${_pkgname}-${pkgver}"
+		-S "${_pkgname}"
 		-B build
+		-D CMAKE_CXX_FLAGS="${CXXFLAGS} -DNDEBUG"
 		-D CMAKE_BUILD_TYPE=None
 		-D CMAKE_INSTALL_PREFIX=/usr
 		-D AOTRITON_GPU_BUILD_TIMEOUT=0
+		# Don't depend on torch, torch depends on us
+		-D AOTRITON_USE_TORCH=OFF
 		# List taken from release notes
-		-D AOTRITON_TARGET_ARCH="gfx950;gfx1201;gfx1101;gfx1151;gfx1150;gfx1200"
+		-D AOTRITON_TARGET_ARCH="gfx950;gfx1100;gfx1101;gfx1102;gfx1150;gfx1151;gfx1200;gfx1201"
 	)
 	cmake "${cmake_args[@]}"
 	cmake --build build

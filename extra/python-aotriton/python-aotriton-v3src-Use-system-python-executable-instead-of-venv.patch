@@ -1,0 +1,25 @@
+From f25802c727856fdda5001e52d595cbe19c0aaa84 Mon Sep 17 00:00:00 2001
+From: Lubosz Sarnecki <lubosz@gmail.com>
+Date: Tue, 18 Nov 2025 20:44:38 +0100
+Subject: [PATCH 3/3] v3src: Use system python executable instead of venv.
+
+---
+ v3src/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/v3src/CMakeLists.txt b/v3src/CMakeLists.txt
+index 11cf511..6ad28e3 100644
+--- a/v3src/CMakeLists.txt
++++ b/v3src/CMakeLists.txt
+@@ -134,7 +134,7 @@ if(NOT AOTRITON_NOIMAGE_MODE)
+       TRITON_CACHE_DIR=${CMAKE_BINARY_DIR}/triton-cache.${ALTNAME}
+       TRITON_F32_DEFAULT="ieee"
+       TRITON_STORE_BINARY_ONLY=1
+-      "${COMPILER_PYTHON}"
++      python
+       "${AOTRITON_COMPILER}"
+       "${SRC}"
+       "--kernel_name" "${KNAME}"
+-- 
+2.51.2
+
