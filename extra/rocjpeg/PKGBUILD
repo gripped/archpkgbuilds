@@ -1,18 +1,20 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <christian@heusel.eu>
+
 pkgname=rocjpeg
-pkgver=6.4.4
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='A high-performance jpeg decode library for AMD’s GPUs'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocJPEG/en/latest/'
 license=('MIT')
 depends=(
-  'rocm-core'
-  'hip-runtime-amd'
-  'mesa'
-  'libva'
-  'glibc'
   'gcc-libs'
+  'glibc'
+  'hip-runtime-amd'
+  'libva'
+  'mesa'
+  'rocm-core'
 )
 makedepends=(
   'cmake'
@@ -20,7 +22,7 @@ makedepends=(
 )
 _git='https://github.com/ROCm/rocJPEG'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('0f4a29ccf35e7430cfb6c42d82f9070d0d44ccb3261e91ee1dbd8b0768933db3')
+sha256sums=('26ea59dd772c57ae5476a6ba3799bf86981694fbba9b87af882ed76c1b89c639')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 prepare() {
