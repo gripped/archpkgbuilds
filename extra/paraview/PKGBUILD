@@ -6,7 +6,7 @@
 
 pkgname=paraview
 pkgver=6.0.1
-pkgrel=5
+pkgrel=6
 pkgdesc="Parallel Visualization application using VTK"
 arch=(x86_64)
 url="https://www.paraview.org"
@@ -87,7 +87,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr
     -DCMAKE_INSTALL_LICENSEDIR=share/licenses/paraview
     -DCMAKE_CXX_STANDARD=17
-    -DCMAKE_SKIP_INSTALL_RPATH=ON
+    # RPATH is needed for loading plugins
+    -DCMAKE_SKIP_INSTALL_RPATH=OFF
     -DPARAVIEW_ENABLE_ADIOS2=ON
     -DPARAVIEW_ENABLE_CATALYST=ON
     -DPARAVIEW_ENABLE_FFMPEG=ON
