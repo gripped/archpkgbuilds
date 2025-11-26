@@ -5,7 +5,7 @@
 
 pkgbase=mattermost
 pkgname=($pkgbase mmctl)
-pkgver=11.1.0
+pkgver=11.1.1
 pkgrel=1
 pkgdesc="Open source Slack-alternative in Golang and React"
 arch=(x86_64)
@@ -25,13 +25,23 @@ source=(https://github.com/$pkgname/$pkgname-server/archive/v$pkgver/$_archive.t
         $pkgname.service
         $pkgname.sysusers
         $pkgname.tmpfiles)
-sha256sums=('2407a0d4e982a492abc6b63b6d062358b17da2108505aaa1b4b5f99e39afc56a'
+sha256sums=('70a4ebc55ec6f54d12e293ca8fa38a796ce7cc80a9459da9cb28a38d7f76763a'
             '9e73dc5e9ab9a95049352bd504fb4e0d6becbd5c715026d8c1df4f515d258b68'
             'f7bd36f6d7874f1345d205c6dcb79af1804362fc977a658db88951a172d1dfa0'
             '8dfeee28655b91dc75aca2317846284013ac3d5a837d360eba9641e9fbcf3aa2')
 
+_srcenv() {
+    cd "$_archive/server"
+    export BUILD_ENTERPRISE=false
+    export CGO_CPPFLAGS="$CPPFLAGS"
+    export CGO_CFLAGS="$CFLAGS"
+    export CGO_CXXFLAGS="$CXXFLAGS"
+    export CGO_LDFLAGS="$LDFLAGS"
+    export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+}
+
 prepare() {
-    cd $_archive/server
+    _srcenv
 
     # This will fail to download some private dependencies for enterprise-version-only features
     go mod vendor -e
@@ -47,6 +57,9 @@ prepare() {
 
     # Remove platform specific prec/ompiled plugin downloads
     sed '/# Download prepackaged plugins/,+8d' -i build/release.mk
+
+    # Multiply arbitrary limits on the FOSS distribution by 1000
+    sed -i -E '/maxUsers(Hard)?Limit.*0$/s/$/_000/' channels/app/limits.go
 
     cd ../webapp
 
@@ -66,18 +79,11 @@ prepare() {
 
     # Pre-fetch nodejs dependencies
     make node_modules
-
-    # Touch up module fetch by doing it again, since 10.7 it isn't getting all the react stuff right out of the gate
-    npm --cache "$srcdir/npm-cache" --no-audit --no-fund install
 }
 
 build() {
-    cd $_archive/server
-    export CGO_CPPFLAGS="$CPPFLAGS"
-    export CGO_CFLAGS="$CFLAGS"
-    export CGO_CXXFLAGS="$CXXFLAGS"
-    export CGO_LDFLAGS="$LDFLAGS"
-    export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+    _srcenv
+
     local _config=github.com/mattermost/mattermost/server/public/model
     # https://github.com/mattermost/mattermost/issues/24582
     make setup-go-work
