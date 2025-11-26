@@ -4,13 +4,13 @@
 
 pkgname=imv
 pkgver=5.0.0
-pkgrel=1
+pkgrel=3
 pkgdesc='Image viewer for Wayland and X11'
 url='https://sr.ht/~exec64/imv/'
 arch=(x86_64)
 license=(MIT)
-depends=(glu libheif libinih libjxl libnsbmp librsvg libxkbcommon libxkbcommon-x11 pango qoi wayland-protocols)
-makedepends=(asciidoc cmake cmocka meson)
+depends=(glu libheif libinih libjxl libnsbmp libnsgif librsvg libxkbcommon libxkbcommon-x11 pango qoi)
+makedepends=(asciidoc cmake cmocka meson wayland-protocols)
 conflicts=(renameutils)
 source=("$pkgname-$pkgver.tar.gz::https://git.sr.ht/~exec64/$pkgname/archive/v$pkgver.tar.gz")
 b2sums=('bc65c1c0006a22dc09d01d914aa1eb32bdf6e54344053a94c9f1c56955d8f5056b57bacc180375aaa426db097335548692264b7f9fd47e9854196ec9e2e0deec')
@@ -21,7 +21,7 @@ prepare() {
 
 build() {
   export CFLAGS+=' -w'
-  arch-meson build $pkgname-v$pkgver -D libnsgif=disabled
+  arch-meson build $pkgname-v$pkgver
   ninja -C build
 }
 
