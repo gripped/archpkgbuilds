@@ -2,7 +2,7 @@
 # Contributor: Fabio 'Lolix' Loli <fabio.loli@disroot.org> -> https://github.com/FabioLolix
 
 pkgname=libnpupnp
-pkgver=6.2.1
+pkgver=6.2.2
 pkgrel=1
 pkgdesc="C++ base UPnP library, derived from Portable UPnP, a.k.a libupnp"
 url="https://www.lesbonscomptes.com//upmpdcli/libupnpp-refdoc/libupnpp-ctl.html"
@@ -12,7 +12,7 @@ depends=(glibc gcc-libs curl expat libmicrohttpd)
 makedepends=('meson')
 provides=(libnpupnp.so)
 source=("https://www.lesbonscomptes.com/upmpdcli/downloads/libnpupnp-${pkgver}.tar.gz")
-sha256sums=('1cc1222512d480826d2923cc7b98b7361183a2add8c6b646a7fa32c2f34b32b3')
+sha256sums=('621d50411788025afd0807b59f0702644d598182745a3787b6f8e659a5be6b38')
 
 build(){
   arch-meson $pkgname-$pkgver build
