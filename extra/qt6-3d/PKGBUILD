@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-3d
-_pkgver=6.10.0
+_pkgver=6.10.1
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -32,7 +32,7 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
         assimp-6.patch)
-sha256sums=('7e783a3f7c1e88f4005559c44179e33494fc649766255b87b329a4818a33dbde'
+sha256sums=('4ced4eca95ae0e6b8474402818ffa239236fa5ff047e3e2a1307f274cad98c78'
             '244589b0a353da757d61ce6b86d4fcf2fc8c11e9c0d9c5b109180cec9273055a')
 
 prepare() {
