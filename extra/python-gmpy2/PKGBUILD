@@ -3,8 +3,8 @@
 # Contributor: Alexander Slesarev <slesarew at gmail dot com>
 
 pkgname=python-gmpy2
-pkgver=2.2.1
-pkgrel=2
+pkgver=2.2.2
+pkgrel=1
 pkgdesc='Provides C-coded Python modules for fast multiple-precision arithmetic'
 arch=(x86_64)
 url='https://github.com/aleaxit/gmpy'
@@ -23,7 +23,7 @@ makedepends=(git
 checkdepends=(python-hypothesis
               python-pytest)
 source=(git+https://github.com/aleaxit/gmpy#tag=v$pkgver)
-sha256sums=('d4f452315dcaefc24349061f058582ff3bf61d787c2ed0e1f2ae9157bbeb9068')
+sha256sums=('75869c26cad60e9f53d0e1605e4f1108552d065e778f837e028257f73344cbca')
 
 build() {
   cd gmpy
