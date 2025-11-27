@@ -1,7 +1,7 @@
 pkgbase = vkd3d
 	pkgdesc = Direct3D 12 to Vulkan translation library By WineHQ
-	pkgver = 1.17
-	pkgrel = 2
+	pkgver = 1.18
+	pkgrel = 1
 	url = https://wiki.winehq.org/Vkd3d
 	arch = x86_64
 	license = LGPL-2.1-or-later
@@ -20,8 +20,9 @@ pkgbase = vkd3d
 	depends = glibc
 	depends = ncurses
 	depends = spirv-tools
-	source = git+https://gitlab.winehq.org/wine/vkd3d.git#tag=vkd3d-1.17
-	b2sums = 7048523f3b0e0f29c9fcafeab433482bdaf89f364c96bc94f561160ef49ff0e5c6dd4e09cb5106cd926ce533078c4184788990c457b67687a416d98c978f913d
+	source = git+https://gitlab.winehq.org/wine/vkd3d.git?signed#tag=vkd3d-1.18
+	validpgpkeys = 277EB71D1BEBFC86E0E14983C380B588AA8A1D1C
+	b2sums = ae114a0d5e990c6f7d77117d46c058f4e96585a0862185f11aaf940a9d5e1540855bb5854d70f36353b8d07ad19ce5bb7fd23d20b4733eecc5785b910c18af25
 
 pkgname = vkd3d
 	provides = libvkd3d.so
