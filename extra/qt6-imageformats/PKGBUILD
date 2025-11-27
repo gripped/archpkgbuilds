@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-imageformats
-_pkgver=6.10.0
+_pkgver=6.10.1
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -26,7 +26,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('f85df169c2ee5ecf199ea7cd838411cd44905d47ef76858793c5ab1076471ed9')
+sha256sums=('6eec4e2fdce462f4c775708d7a3c1c4964cfda90369714af614cb41ad89ec8a0')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
