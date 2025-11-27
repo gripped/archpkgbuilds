@@ -3,11 +3,11 @@
 # Contributor: nullgemm <nullgemm@mailbox.org>
 
 pkgname=ly
-pkgver=1.1.2
-pkgrel=1
+pkgver=1.2.0
+pkgrel=2
 pkgdesc="TUI display manager"
 arch=(x86_64)
-url="https://codeberg.org/AnErrupTion/ly"
+url="https://codeberg.org/fairyglade/ly"
 license=('WTFPL')
 depends=(pam glibc libxcb)
 makedepends=(git zig)
@@ -17,17 +17,56 @@ backup=(
     etc/$pkgname/{config.ini,setup.sh}
     etc/pam.d/ly
 )
-source=("git+$url.git#tag=v${pkgver}")
-b2sums=('20464d125d8528f82676839ed21ea2d9b8f688732a19755b245d08e6d1269f15e89ebd26bc895462d66e4a6562cee11ce604ec0fee70e13246619df69f5dffc7')
+_zig_deps=(
+    # From build.zig.zon:
+    clap-0.11.0.tar.gz::https://github.com/Hejsil/zig-clap/archive/refs/tags/0.11.0.tar.gz
+    zigini-0.3.2.tar.gz::https://github.com/AnErrupTion/zigini/archive/96ca1d9f1a7ec741f07ceb104dae2b3a7bdfd48a.tar.gz
+    ini-0.1.0.tar.gz::https://github.com/AnErrupTion/ini/archive/ac6e656157b2ac6c98392283a139b47c44a85d54.tar.gz
+    termbox2-290ac6b8225aacfd16851224682b851b65fcb918.tar.gz::https://github.com/AnErrupTion/termbox2/archive/290ac6b8225aacfd16851224682b851b65fcb918.tar.gz
+)
+source=("git+$url.git#tag=v${pkgver}"
+        "${_zig_deps[@]}")
+noextract=("${_zig_deps[@]}")
+b2sums=('3ebde0a9fa57fe3c13a83b8bb0884bdc237d629d51d88c5ecbc9fcf7dc32ad31a66882f2cbed40790f02ab8e425beb8cd5809b34993a7d341c2f1d64b81a37df'
+        '584cdd4e38d44c504f9a0af8d489900122b1b99e0b31b0608abf64ccb835167c002d067cdda12ffb5902636901425cc8e9e18947e98461a8abf5339759f13a7c'
+        'c3141601089bd9c8e8d48be357fbe557369d9df1922dc6ee7f718042835fc03937945a9f8574f30ddd549558d76368ec6ad2eb2754805b6cc8edfa7085a36e04'
+        '41c768f4f1843ad929cf83061d91a225b19837cafe445a0926803cc145fa565c8895420f5a4b21d6d128f54ef02b6e5c43f642f91d5ab726d9cdc38d105273d9'
+        '4a601ea259b8b858b1bdf1e6bc852b927dd8afb4779cef7af9d9f149f7ecc9f0a32e558599cb8ad686deb037ec67c62d09a10573cbe716ab1f5aea45b1a31c59')
+
+prepare() {
+    for dep in "${_zig_deps[@]}"; do
+        zig fetch --global-cache-dir ./zig-global-cache "${dep%%::*}"
+    done
+}
 
 build() {
     cd "$pkgname"
-    zig build -Ddest_directory="$pkgdir" -Dname="ly-dm" -Dcpu=baseline -Doptimize=ReleaseSafe
+    zig build \
+      --search-prefix /usr \
+      -Ddest_directory="$pkgdir" \
+      -Dname="ly-dm" \
+      --global-cache-dir ../zig-global-cache \
+      --system ../zig-global-cache/p \
+      --build-id=sha1 \
+      -Dtarget=native-linux.6.6-gnu.2.40 \
+      -Dcpu=baseline \
+      -Doptimize=ReleaseSafe
 }
 
 package() {
     cd "$pkgname"
-    zig build -Ddest_directory="$pkgdir" -Dname="ly-dm" -Dcpu=baseline -Doptimize=ReleaseSafe installexe
+
+    zig build \
+      --search-prefix /usr \
+      -Ddest_directory="$pkgdir" \
+      -Dname="ly-dm" \
+      --global-cache-dir ../zig-global-cache \
+      --system ../zig-global-cache/p \
+      --build-id=sha1 \
+      -Dtarget=native-linux.6.6-gnu.2.40 \
+      -Dcpu=baseline \
+      -Doptimize=ReleaseSafe \
+      installexe
 
     install -Dm644 license.md "$pkgdir/usr/share/licenses/$pkgname/WTFPL"
 }
