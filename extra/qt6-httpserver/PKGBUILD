@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-httpserver
-_pkgver=6.10.0
+_pkgver=6.10.1
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('873c349a7a83a086b502c07be28cf110615f81b00f7e8ba8a99e3de1c8357a02')
+sha256sums=('713bad7f7a11386023133813550841941182c9add5deccd2d6e48301180764b1')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
