@@ -1,0 +1,6 @@
+[cockatrice]
+source = "git"
+git = "https://github.com/Cockatrice/Cockatrice.git"
+include_regex = ".*(Release).*"
+from_pattern = '(\d*)-(\d*)-(\d*)-Release-(\d*).(\d*).(d*)'
+to_pattern = '\4.\5.\6'
