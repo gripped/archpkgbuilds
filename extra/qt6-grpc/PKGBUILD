@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-grpc
-_pkgver=6.10.0
+_pkgver=6.10.1
 pkgver=${_pkgver/-/}
 pkgrel=2
 arch=(x86_64)
@@ -26,7 +26,7 @@ optdepends=('qt6-declarative: QML bindings')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('c67578ce5468b36e1491d8a557b6e157469601d4a0c52a132d425222ac2aebfb')
+sha256sums=('233eecbeeb23d9e30c2b2f56fc1d05582ef0cc16cf297156034394df21e6889b')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
