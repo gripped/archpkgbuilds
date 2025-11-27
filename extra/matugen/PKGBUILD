@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=matugen
-pkgver=3.0.0
-pkgrel=2
+pkgver=3.1.0
+pkgrel=1
 pkgdesc='A material you color generation tool'
 arch=(x86_64)
 url="https://github.com/InioX/$pkgname"
@@ -12,11 +12,11 @@ depends=(gcc-libs
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('6756fa0e5014871924e1e99df37ceda72a1589f5299753765e8cd012a8c86886')
+sha256sums=('f00b7bd284ef6184a0c94d54cb745230c6e58f26012491eaf7f7bcea0f3a489b')
 
 prepare() {
 	cd "$_archive"
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 _srcenv() {
