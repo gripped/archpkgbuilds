@@ -1,9 +1,9 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 # Contributor: HurricanePootis <hurricanepootis@protonmail.com>
 pkgname=hiprt
-pkgver=2.5.a21e075
+pkgver=3.0.3.a1525e7
 _libver=02005
-pkgrel=4
+pkgrel=1
 pkgdesc="Ray Tracing Library for HIP"
 arch=('x86_64')
 url="https://gpuopen.com/hiprt/"
@@ -11,19 +11,14 @@ license=('MIT')
 depends=('rocm-core' 'hip-runtime-amd' 'glibc' 'gcc-libs')
 makedepends=('git' 'python' 'cmake')
 source=("$pkgname-$pkgver::git+https://github.com/GPUOpen-LibrariesAndSDKs/HIPRT#tag=$pkgver")
-sha256sums=('4b5641ca6fcc90cb453d4857305530cee66bf77795720d7b33c4ea35c0513799')
-
-prepare() {
-	cd "$pkgname-$pkgver"
-	chmod 755 contrib/easy-encryption/bin/linux/ee64
-}
+sha256sums=('0c0806694f2dbd21e114fa99b82036e069b844a679be8b014dd9f37d58ec490e')
 
 build() {
 	local cmake_args=(
 		-Wno-dev
 		-S "$pkgname-$pkgver"
 		-B build
-		-D CMAKE_BUILD_TYPE=None
+		-D CMAKE_BUILD_TYPE=Release
 		-D HIP_PATH=/opt/rocm
 		-D BAKE_KERNEL=OFF
 		-D BAKE_COMPILED_KERNEL=OFF
