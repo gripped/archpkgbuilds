@@ -1,6 +1,6 @@
 pkgbase = docker
 	pkgdesc = Pack, ship and run any application as a lightweight container
-	pkgver = 28.5.2
+	pkgver = 29.0.4
 	pkgrel = 1
 	epoch = 1
 	url = https://www.docker.com/
@@ -21,18 +21,19 @@ pkgbase = docker
 	depends = systemd-libs
 	depends = libseccomp
 	depends = libtool
+	depends = nftables
 	depends = runc
 	depends = containerd
 	optdepends = btrfs-progs: btrfs backend support
 	optdepends = pigz: parallel gzip compressor support
 	optdepends = docker-buildx: extended build capabilities
 	options = !lto
-	source = git+https://github.com/docker/cli.git#tag=v28.5.2
-	source = git+https://github.com/moby/moby.git#tag=v28.5.2
+	source = git+https://github.com/docker/cli.git#tag=v29.0.4
+	source = git+https://github.com/moby/moby.git#tag=docker-v29.0.4
 	source = git+https://github.com/krallin/tini.git#commit=de40ad007797e0dcd8b7126f27bb87401d224240
 	source = docker.sysusers
-	sha256sums = 0f85e047209c6016df9101cc27ce16cdddc2bb2ba880749b51ce2331c1c51812
-	sha256sums = 326220f772416c47d5eee61c550db87583a04385bdb04438c8e342116e8cbe04
+	sha256sums = 59808078877ca3d06ed495e9bd2378f6953be9a474fbabdb2ecbbd30fd19e784
+	sha256sums = 2d7a29d4992db1427fcf4e5efd4d5a8ba31f01f478cc96db28b19611e88db624
 	sha256sums = 28a6641d508f60d47315efb3c85d97360188750a45bd6d3c8737d3f1a2b44121
 	sha256sums = 541826011a9836d05a2f42293d5f1beadf2ca8d89fb604487d61a013505678eb
 
