@@ -1,0 +1,8 @@
+[nmon]
+source = "htmlparser"
+url = "https://sourceforge.net/projects/nmon/files/"
+xpath = "//*[@id=\"files_list\"]/tbody/tr/th/a/span"
+include_regex = "^lmon(\\d+[a-z]*)\\.c$"
+from_pattern = "^lmon(\\d+[a-z]*)\\.c$"
+to_pattern = "\\1"
+
