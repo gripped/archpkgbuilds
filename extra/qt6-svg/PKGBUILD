@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-svg
-_pkgver=6.10.0
+_pkgver=6.10.1
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -23,12 +23,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('05eb07b900fe8d245c3e7bd447edd2fd5926b886a2cafce17ab5bdd02c414398')
-
-prepare() {
-  cd $_pkgfn
-  git cherry-pick -n a742042cb7273fbe786eb5af7a4052214b29a136 # Fix gradient color
-}
+sha256sums=('b3a779b09f3a5ad14fee120873d07d64f0c9991406c40a46e902d6a07850b158')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
