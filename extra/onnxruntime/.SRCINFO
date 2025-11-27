@@ -1,12 +1,13 @@
 pkgbase = onnxruntime
-	pkgver = 1.22.2
-	pkgrel = 12
+	pkgver = 1.23.2
+	pkgrel = 2
 	url = https://github.com/microsoft/onnxruntime
 	arch = x86_64
 	license = MIT
 	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
+	makedepends = boost
 	makedepends = pybind11
 	makedepends = nlohmann-json
 	makedepends = chrono-date
@@ -24,6 +25,7 @@ pkgbase = onnxruntime
 	makedepends = hipify-clang
 	makedepends = rocm-smi-lib
 	makedepends = roctracer
+	makedepends = migraphx
 	makedepends = python-numpy
 	makedepends = python-coloredlogs
 	makedepends = python-psutil
@@ -35,16 +37,15 @@ pkgbase = onnxruntime
 	makedepends = python-protobuf
 	makedepends = python-packaging
 	depends = abseil-cpp
-	depends = boost
-	depends = nsync
-	source = git+https://github.com/microsoft/onnxruntime#tag=v1.22.2
+	depends = boost-libs
+	source = git+https://github.com/microsoft/onnxruntime#tag=v1.23.2
 	source = onnxruntime-install-orttraining-files.patch
 	source = onnxruntime-system-dnnl.patch
 	source = onnxruntime-system-flatbuffers.patch
 	source = fix-gcc-15.patch
 	source = deps-cutlass-4.2.0.patch
 	source = fix-thrust-api.patch
-	b2sums = ea6772d6962ff2d88f6803f3a253f88593249c431e88bf745b3f81e493176ab2ae70d13243e4e932c6c4bf56fe4d12c19ef5c5e7a6a4a2ba013a9a1ee22fa136
+	b2sums = ba28fe6c0ee88f151c0df386c42155b5a70bf0593691c8584b7f8314de148f10b22d509a7b201a684233b7a3a01e5f07752121e40678fb8021e99270f769b6dd
 	b2sums = af5a5524dd9b5fe0052d2d0da232de7f219d4abffb37a7a321145b428d06fcb2901ab4e76b6754440146c223fc761bcbdfeee230167d33aa4434b82a1ebad5c0
 	b2sums = 57c79382537f5bd25a891de3a99415a6dd8f490676df213016e897040c88e28fb5f5a5c3a8a98057e3f6630edb3ddcaeae36dcc47d5354abaafafc36e579f731
 	b2sums = 207f020f310a7b447b4dc2fac74819f80099f088fdad6e42d67d0f01aa35bb5b9475bd006d9bec318127ae2db3d7ae3df33382fa16339d936c1dfb3832010837
@@ -54,62 +55,59 @@ pkgbase = onnxruntime
 
 pkgname = onnxruntime-cpu
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (CPU only)
-	provides = onnxruntime=1.22.2
+	provides = onnxruntime=1.23.2
 	conflicts = onnxruntime
 
 pkgname = onnxruntime-cuda
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (with CUDA)
 	depends = abseil-cpp
-	depends = boost
-	depends = nsync
+	depends = boost-libs
 	depends = cuda
 	depends = cudnn
 	depends = nccl
 	depends = onednn
-	provides = onnxruntime=1.22.2
+	provides = onnxruntime=1.23.2
 	conflicts = onnxruntime
 	replaces = onnxruntime
 
 pkgname = onnxruntime-opt-cuda
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (with CUDA and AVX2 CPU optimizations)
 	depends = abseil-cpp
-	depends = boost
-	depends = nsync
+	depends = boost-libs
 	depends = cuda
 	depends = cudnn
 	depends = nccl
 	depends = onednn
-	provides = onnxruntime=1.22.2
+	provides = onnxruntime=1.23.2
 	conflicts = onnxruntime
 	replaces = onnxruntime-opt
 
 pkgname = onnxruntime-rocm
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (with ROCm)
 	depends = abseil-cpp
-	depends = boost
-	depends = nsync
+	depends = boost-libs
 	depends = rocm-hip-sdk
 	depends = roctracer
 	depends = rccl
-	provides = onnxruntime=1.22.2
+	depends = migraphx
+	provides = onnxruntime=1.23.2
 	conflicts = onnxruntime
 
 pkgname = onnxruntime-opt-rocm
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (with ROCm and AVX2 CPU optimizations)
 	depends = abseil-cpp
-	depends = boost
-	depends = nsync
+	depends = boost-libs
 	depends = rocm-hip-sdk
 	depends = roctracer
 	depends = rccl
-	provides = onnxruntime=1.22.2
+	depends = migraphx
+	provides = onnxruntime=1.23.2
 	conflicts = onnxruntime
 
 pkgname = python-onnxruntime-cpu
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (CPU only)
 	depends = abseil-cpp
-	depends = boost
-	depends = nsync
+	depends = boost-libs
 	depends = onnxruntime-cpu
 	depends = python-numpy
 	depends = python-coloredlogs
@@ -121,14 +119,13 @@ pkgname = python-onnxruntime-cpu
 	depends = python-flatbuffers
 	depends = python-protobuf
 	depends = python-packaging
-	provides = python-onnxruntime=1.22.2
+	provides = python-onnxruntime=1.23.2
 	conflicts = python-onnxruntime
 
 pkgname = python-onnxruntime-cuda
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (with CUDA)
 	depends = abseil-cpp
-	depends = boost
-	depends = nsync
+	depends = boost-libs
 	depends = onnxruntime-cuda
 	depends = python-numpy
 	depends = python-coloredlogs
@@ -140,15 +137,14 @@ pkgname = python-onnxruntime-cuda
 	depends = python-flatbuffers
 	depends = python-protobuf
 	depends = python-packaging
-	provides = python-onnxruntime=1.22.2
+	provides = python-onnxruntime=1.23.2
 	conflicts = python-onnxruntime
 	replaces = python-onnxruntime
 
 pkgname = python-onnxruntime-opt-cuda
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (with CUDA and AVX2 CPU optimizations)
 	depends = abseil-cpp
-	depends = boost
-	depends = nsync
+	depends = boost-libs
 	depends = onnxruntime-opt-cuda
 	depends = python-numpy
 	depends = python-coloredlogs
@@ -160,15 +156,14 @@ pkgname = python-onnxruntime-opt-cuda
 	depends = python-flatbuffers
 	depends = python-protobuf
 	depends = python-packaging
-	provides = python-onnxruntime=1.22.2
+	provides = python-onnxruntime=1.23.2
 	conflicts = python-onnxruntime
 	replaces = python-onnxruntime-opt
 
 pkgname = python-onnxruntime-rocm
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (with ROCm)
 	depends = abseil-cpp
-	depends = boost
-	depends = nsync
+	depends = boost-libs
 	depends = onnxruntime-rocm
 	depends = python-numpy
 	depends = python-coloredlogs
@@ -180,14 +175,13 @@ pkgname = python-onnxruntime-rocm
 	depends = python-flatbuffers
 	depends = python-protobuf
 	depends = python-packaging
-	provides = python-onnxruntime=1.22.2
+	provides = python-onnxruntime=1.23.2
 	conflicts = python-onnxruntime
 
 pkgname = python-onnxruntime-opt-rocm
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (with ROCm and AVX2 CPU optimizations)
 	depends = abseil-cpp
-	depends = boost
-	depends = nsync
+	depends = boost-libs
 	depends = onnxruntime-opt-rocm
 	depends = python-numpy
 	depends = python-coloredlogs
@@ -199,5 +193,5 @@ pkgname = python-onnxruntime-opt-rocm
 	depends = python-flatbuffers
 	depends = python-protobuf
 	depends = python-packaging
-	provides = python-onnxruntime=1.22.2
+	provides = python-onnxruntime=1.23.2
 	conflicts = python-onnxruntime

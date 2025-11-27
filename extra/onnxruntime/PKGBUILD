@@ -15,22 +15,22 @@ pkgname=(
   "python-${pkgbase}-rocm"
   "python-${pkgbase}-opt-rocm"
 )
-pkgver=1.22.2
+pkgver=1.23.2
 _pkgdesc='Cross-platform, high performance scoring engine for ML models'
-pkgrel=12
+pkgrel=2
 arch=('x86_64')
 url='https://github.com/microsoft/onnxruntime'
 license=('MIT')
-depends=('abseil-cpp' 'boost' 'nsync')
+depends=('abseil-cpp' 'boost-libs')
 # https://github.com/microsoft/onnxruntime/blob/main/onnxruntime/python/tools/transformers/requirements.txt
 _pydepends=('python-numpy' 'python-coloredlogs' 'python-psutil'
             'python-py-cpuinfo' 'python-sympy' 'python-scipy' 'python-pillow'
             'python-flatbuffers' 'python-protobuf' 'python-packaging')
-makedepends=('git' 'cmake' 'ninja' 'pybind11' 'nlohmann-json' 'chrono-date' 'cxxopts'
+makedepends=('git' 'cmake' 'ninja' 'boost' 'pybind11' 'nlohmann-json' 'chrono-date' 'cxxopts'
              'python-setuptools' 'python-installer' 'python-wheel' 'python-build' 'onednn'
-             'cuda' 'cudnn' 'nccl' 'rocm-toolchain' 'rocm-hip-sdk' 'hipify-clang' 'rocm-smi-lib' 'roctracer')
+             'cuda' 'cudnn' 'nccl' 'rocm-toolchain' 'rocm-hip-sdk' 'hipify-clang' 'rocm-smi-lib' 'roctracer' 'migraphx')
 makedepends+=("${_pydepends[@]}")
-#TODO: Add migraphx for ROCm and tensorrt for CUDA.
+#TODO: Add tensorrt for CUDA.
 source=("git+https://github.com/microsoft/onnxruntime#tag=v${pkgver}"
         "${pkgbase}-install-orttraining-files.patch"
         "${pkgbase}-system-dnnl.patch"
@@ -38,7 +38,7 @@ source=("git+https://github.com/microsoft/onnxruntime#tag=v${pkgver}"
         fix-gcc-15.patch
         deps-cutlass-4.2.0.patch
         fix-thrust-api.patch)
-b2sums=('ea6772d6962ff2d88f6803f3a253f88593249c431e88bf745b3f81e493176ab2ae70d13243e4e932c6c4bf56fe4d12c19ef5c5e7a6a4a2ba013a9a1ee22fa136'
+b2sums=('ba28fe6c0ee88f151c0df386c42155b5a70bf0593691c8584b7f8314de148f10b22d509a7b201a684233b7a3a01e5f07752121e40678fb8021e99270f769b6dd'
         'af5a5524dd9b5fe0052d2d0da232de7f219d4abffb37a7a321145b428d06fcb2901ab4e76b6754440146c223fc761bcbdfeee230167d33aa4434b82a1ebad5c0'
         '57c79382537f5bd25a891de3a99415a6dd8f490676df213016e897040c88e28fb5f5a5c3a8a98057e3f6630edb3ddcaeae36dcc47d5354abaafafc36e579f731'
         '207f020f310a7b447b4dc2fac74819f80099f088fdad6e42d67d0f01aa35bb5b9475bd006d9bec318127ae2db3d7ae3df33382fa16339d936c1dfb3832010837'
@@ -80,12 +80,6 @@ prepare() {
   sed 's|${DEP_SHA1_cxxopts}|&\n\ \ \ \ \FIND_PACKAGE_ARGS NAMES cxxopts|g' \
     -i cmake/external/onnxruntime_external_deps.cmake
 
-  # Find system nsync
-  # NOTE check line number after every release
-  sed -e 's|NAMES nsync|&_cpp|g' \
-      -e '368aadd_library(nsync::nsync_cpp ALIAS nsync_cpp)' \
-      -i cmake/external/onnxruntime_external_deps.cmake
-
   patch -Np1 -i "${srcdir}/${pkgbase}-install-orttraining-files.patch"
   patch -Np1 -i "${srcdir}/${pkgbase}-system-flatbuffers.patch"
 
@@ -94,18 +88,11 @@ prepare() {
 
   # Fix build with GCC 15
   patch -p1 -i "${srcdir}/fix-gcc-15.patch"
+  # https://github.com/microsoft/onnxruntime/pull/25658
+  git cherry-pick -n d6e712c5b7b6260a61e54d1fe40107cf5366ee77
 
-  # Update deprecated CUDA api (#24733)
-  git cherry-pick -n ed7c234b2535eb272462dd41cfa6cfb1ff94781c
   # Update deprecated CCCL API (#25246)
   git cherry-pick -n a2bd54bc8c59562428f6b09d3f64f9e735599cd4
-  # Format *.cu and *.cuh with lintrunner (#25189)
-  git checkout 7a6cef6fe3672c5d59f1925e5f7c0a03dcfbc90e -- \
-    onnxruntime/contrib_ops/cuda/moe/ft_moe/moe_kernel.cu \
-    orttraining/orttraining/training_ops/cuda/reduction/all_impl.cu \
-    orttraining/orttraining/training_ops/cuda/tensor/gather_grad_impl.cu
-  # Fix cuda 12.9 windows build (#25317)
-  git cherry-pick -n 7c18d896b033dba80113efb720bd8842f8c23e33
   # [CUDA] Upgrade cutlass to 3.9.2 (#24794)
   git cherry-pick -n 8983424d9a8d0a39d065b0e353d6fd3f2b2a638c
 
@@ -171,7 +158,7 @@ build() {
     -DCMAKE_HIP_ARCHITECTURES="$(_valid_gfx)"
     -DCMAKE_HIP_FLAGS="-DHIPBLAS_USE_HIP_HALF=1 -DROCM_USE_FLOAT16=1"
     -Donnxruntime_USE_DNNL=ON
-    -Donnxruntime_USE_ROCM=ON
+    -Donnxruntime_USE_MIGRAPHX=ON
     -Donnxruntime_USE_NCCL=ON
     -Donnxruntime_BUILD_KERNEL_EXPLORER=OFF
     -Donnxruntime_USE_COMPOSABLE_KERNEL=OFF
@@ -301,7 +288,7 @@ package_onnxruntime-opt-cuda() {
 
 package_onnxruntime-rocm() {
   pkgdesc="$_pkgdesc (with ROCm)"
-  depends+=('rocm-hip-sdk' 'roctracer' 'rccl')
+  depends+=('rocm-hip-sdk' 'roctracer' 'rccl' 'migraphx')
   provides=("${pkgbase}=${pkgver}")
   conflicts=("${pkgbase}")
 
@@ -313,7 +300,7 @@ package_onnxruntime-rocm() {
 
 package_onnxruntime-opt-rocm() {
   pkgdesc="$_pkgdesc (with ROCm and AVX2 CPU optimizations)"
-  depends+=('rocm-hip-sdk' 'roctracer' 'rccl')
+  depends+=('rocm-hip-sdk' 'roctracer' 'rccl' 'migraphx')
   provides=("${pkgbase}=${pkgver}")
   conflicts=("${pkgbase}")
 
