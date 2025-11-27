@@ -6,7 +6,7 @@
 
 pkgname=paraview
 pkgver=6.0.1
-pkgrel=6
+pkgrel=7
 pkgdesc="Parallel Visualization application using VTK"
 arch=(x86_64)
 url="https://www.paraview.org"
@@ -72,8 +72,15 @@ makedepends=(
 )
 source=(
   $url/files/v${pkgver%.*}/ParaView-v${pkgver/R/-R}.tar.xz
+  qt-6.10.1.patch
 )
-b2sums=('e19a8b56f619fb47630152439af3ac7f3be1138b938db443f579e87a9c403bdd8b38798fa591c3607232252ebca49b62762935bb03f0ac416399d9502a24820d')
+b2sums=('e19a8b56f619fb47630152439af3ac7f3be1138b938db443f579e87a9c403bdd8b38798fa591c3607232252ebca49b62762935bb03f0ac416399d9502a24820d'
+        '17b4e616a5fec682ddf7c45e02195a913b231f2bd24debb0b1a32f0ca09b73c2bb9eecfadc548016f8bc88319f8f8324afda259501e5e04243f197de346e8656')
+
+prepare() {
+  cd ParaView-v${pkgver/R/-R}
+  patch -p1 -i ../qt-6.10.1.patch # Fix build with Qt 6.10.1
+}
 
 build() {
   export CFLAGS+=" -ffat-lto-objects"
