@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-quick3d
-_pkgver=6.10.0
+_pkgver=6.10.1
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -31,7 +31,7 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
         assimp-6.patch)
-sha256sums=('86b647b0b728558888a92427de506f473aef63c379818662eb3395cd6ca7cddf'
+sha256sums=('37f97c71bf013395bd8d1429cd135d8fee371a586a8d385445641197efef3a5c'
             '573f00cdad90d77786fba80066d61d5ee97fc56a8b11d0896949acd16bda8e91')
 
 prepare() {
