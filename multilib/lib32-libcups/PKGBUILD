@@ -2,18 +2,18 @@
 
 _pkgbasename=libcups
 pkgname=lib32-$_pkgbasename
-pkgver=2.4.11
+pkgver=2.4.15
 pkgrel=1
 pkgdesc="The CUPS Printing System - client libraries (32-bit)"
 arch=('x86_64')
-license=('Apache' 'custom')
+license=('Apache-2.0 WITH LLVM-exception AND BSD-3-Clause AND Zlib AND BSD-2-Clause')
 url="https://www.cups.org/"
 depends=(lib32-krb5 lib32-libtiff lib32-libpng lib32-gnutls $_pkgbasename)
 source=(https://github.com/OpenPrinting/cups/releases/download/v${pkgver}/cups-${pkgver}-source.tar.gz{,.sig}
         cups-freebind.patch
         guid.patch
 )
-sha256sums=('9a88fe1da3a29a917c3fc67ce6eb3178399d68e1a548c6d86c70d9b13651fd71'
+sha256sums=('eff0bbd48ff1abcbb8e46e28e85aefaffa391a1d9c4d8dc92ab3822a13008d7f'
             'SKIP'
             '3385047b9ac8a7b13aeb8f0ca55d15f793ce7283516db0155fe28a67923c592d'
             '0bf6a75ba1b051771f155d9a5d36b307a6d40c6857d645b250fe93f3fb713474')
@@ -29,6 +29,9 @@ build() {
 
   aclocal -I config-scripts
   autoconf -I config-scripts
+
+  # The build system uses only DSOFLAGS but not LDFLAGS to build some libraries.
+  export DSOFLAGS=${LDFLAGS}
 
   ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
      --disable-ldap --enable-raw-printing --disable-gssapi --disable-dbus \
