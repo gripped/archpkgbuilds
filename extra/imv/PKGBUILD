@@ -4,7 +4,7 @@
 
 pkgname=imv
 pkgver=5.0.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Image viewer for Wayland and X11'
 url='https://sr.ht/~exec64/imv/'
 arch=(x86_64)
@@ -12,11 +12,14 @@ license=(MIT)
 depends=(glu libheif libinih libjxl libnsbmp libnsgif librsvg libxkbcommon libxkbcommon-x11 pango qoi)
 makedepends=(asciidoc cmake cmocka meson wayland-protocols)
 conflicts=(renameutils)
-source=("$pkgname-$pkgver.tar.gz::https://git.sr.ht/~exec64/$pkgname/archive/v$pkgver.tar.gz")
-b2sums=('bc65c1c0006a22dc09d01d914aa1eb32bdf6e54344053a94c9f1c56955d8f5056b57bacc180375aaa426db097335548692264b7f9fd47e9854196ec9e2e0deec')
+source=("$pkgname-$pkgver.tar.gz::https://git.sr.ht/~exec64/$pkgname/archive/v$pkgver.tar.gz"
+        https://git.sr.ht/~exec64/$pkgname/commit/2dc80ccc64b6e1a315c6c2a06c26fc0138db3a13.patch)
+b2sums=('bc65c1c0006a22dc09d01d914aa1eb32bdf6e54344053a94c9f1c56955d8f5056b57bacc180375aaa426db097335548692264b7f9fd47e9854196ec9e2e0deec'
+        'ea9e1c77f85266df9060e8d3ff5cf72a673a0e688cdac122e2719ea46f00670ee7fa76ba86ba198b3ad3de2f011d5534aee7b4661f39cf871320112331edb29f')
 
 prepare() {
   sed -i 's/icu-io/icu-uc/g' $pkgname-v$pkgver/meson.build
+  patch -d"$pkgname-v$pkgver" -Np1 -i ../2dc80ccc64b6e1a315c6c2a06c26fc0138db3a13.patch
 }
 
 build() {
