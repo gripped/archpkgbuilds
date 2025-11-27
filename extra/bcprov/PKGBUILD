@@ -4,7 +4,7 @@
 
 pkgname=bcprov
 _pkgname=bc-java
-pkgver=1.82
+pkgver=1.83
 pkgrel=1
 pkgdesc='Bouncy Castle Crypto APIs for Java'
 arch=(any)
@@ -17,7 +17,7 @@ makedepends=(ant
 _tag=${pkgver//./v}; _tag=r${_tag/v/rv}
 _archive="$_pkgname-$_tag"
 source=("$_url/archive/$_tag/$_archive.tar.gz")
-sha512sums=('754815ae3d1bf2c4b4789db832e1c8ebf752f06349e43c13d9472ba4ff91160d1075ad229a8f24e12fbc2f55cb2efa3765e50e533d95b742e07718fcb1c92123')
+sha512sums=('f9d99538c38a65ef6cb3db0eda3a293b91e370d27210e71ef17e63ecd91fd3c5b01d09385c18fc237e686775649306b9a2fe1d8250a0a304fb0d6079f74e4926')
 
 build() {
 	cd "$_archive"
