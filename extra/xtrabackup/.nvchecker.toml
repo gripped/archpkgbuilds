@@ -1,0 +1,8 @@
+[xtrabackup]
+source = "htmlparser"
+url = "https://www.percona.com/products-api.php"
+post_data = "version=Percona-XtraBackup-8.4"
+xpath = "//option"
+prefix = "Percona-XtraBackup-"
+from_pattern = "-"
+to_pattern = "_"
