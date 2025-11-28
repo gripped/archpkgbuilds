@@ -3,26 +3,20 @@
 # Contributor: Piotr Beling <qwak@w8.pl>
 
 pkgname=awstats
-pkgver=7.9
-pkgrel=2
+pkgver=8.0
+pkgrel=1
 pkgdesc="tool that generates web, streaming, ftp and mail server statistics, graphically"
 arch=('any')
-license=('GPL')
+license=('GPL-3.0-only')
 url="http://awstats.sourceforge.net/"
 depends=('perl')
+optdepends=('perl-net-xwhois: hostinfo plugin')
 backup=('etc/awstats/awstats.model.conf'
 	'etc/httpd/conf/extra/httpd-awstats.conf')
-#source=("http://www.awstats.org/files/${pkgname}-${pkgver}.tar.gz"
 source=("https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz"
-#        "awstats-7.8_fix-CVE-2020-35176.patch::https://github.com/eldy/AWStats/commit/0d4d4c05f8e73be8f71dd361dc55cbd52858b823.patch"
-        "cron.awstats")
-sha256sums=('615178ed313d34315f15a522db1a5d12ca9c395e3785bb06280abff95d9a0546'
+        "awstats.cron")
+sha256sums=('3ef76ff96c5398477dd8a11134e266e538a487067f6906a3ac8a38bfd11c11e0'
             '18e2a1568da87540e8331982fc10f63f7c2ad8ba8fc593f3219469c6ecdef5d2')
-
-prepare() {
-  cd "$pkgname-$pkgver"
-#  patch -Np1 --no-backup-if-mismatch -i "$srcdir/awstats-7.8_fix-CVE-2020-35176.patch"
-}
 
 package() {
   _SYSCONFDIR="etc"
@@ -41,7 +35,7 @@ package() {
   # Arch Linux specific path:
   install -Dm644 tools/httpd_conf "$pkgdir"/${_SYSCONFDIR}/httpd/conf/extra/httpd-awstats.conf
   install -Dm644 wwwroot/cgi-bin/awstats.model.conf "$pkgdir"/${_SYSCONFDIR}/awstats/awstats.model.conf
-  install -Dm644 "$srcdir"/cron.awstats "$pkgdir"/${_DOCDIR}/cron.hourly
+  install -Dm644 "$srcdir"/awstats.cron "$pkgdir"/${_DOCDIR}/cron.hourly
 
   install -m 755 tools/logresolvemerge.pl "$pkgdir"/${_INSTDIR}/tools/logresolvemerge.pl
   install -m 755 tools/maillogconvert.pl "$pkgdir"/${_INSTDIR}/tools/maillogconvert.pl
