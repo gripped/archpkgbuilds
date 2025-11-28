@@ -3,14 +3,14 @@
 # Maintainer: Charles Mauch <cmauch@gmail.com>
 
 pkgname=perl-user-identity
-pkgver=1.03
+pkgver=3.00
 pkgrel=1
 pkgdesc="Perl/CPAN Module User::Identity : Define a person"
 arch=("any")
 url="https://search.cpan.org/~markov/User-Identity/"
 license=("GPL" "PerlArtistic")
 source=("https://www.cpan.org/authors/id/M/MA/MARKOV/User-Identity-$pkgver.tar.gz")
-sha256sums=('153f2ad0873ad14afe6569e842e441986e6ac160a95644412fe78cefa12a65d4')
+sha256sums=('105f8e2b44ea9ca3ddd373a5aeea945045ce8f7743b4e798b41011c2250e97af')
 
 build() {
   cd "$srcdir"/User-Identity-$pkgver
