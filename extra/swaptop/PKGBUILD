@@ -1,7 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=swaptop
-pkgver=1.0.3
+pkgver=1.0.4
 pkgrel=1
 pkgdesc='Swap usage monitor'
 url='https://github.com/luis-ota/swaptop'
@@ -15,8 +16,8 @@ makedepends=(
   'cargo'
 )
 source=(https://github.com/luis-ota/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('a082bd10f1a40800952874b76ffbb1905d0991756c504b503aa54eb93500e5f5')
-b2sums=('9e1f7f514cf3d39349d54ce3ef0a205cf78f3a16840771e50d6098284eb3c90a2dc649a4bac21237095293fe051886955050ff7ac731f73771ae356e23b20141')
+sha256sums=('1af6bb43be0407e1b497a4f7c868b39dd771a758fadffd29ccf1af9867f60b2f')
+b2sums=('692c93b5b5f0035ed9dc46e7f7dca36c0a6ce83d973734c6fbfd04834dde97217d17da27fb0e76c10821e83d4109448a828c3cbb90d02acb3f29e26c46b607b7')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
