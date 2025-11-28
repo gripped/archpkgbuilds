@@ -2,8 +2,8 @@
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=libfm-qt
-pkgver=2.3.0
-pkgrel=2
+pkgver=2.3.1
+pkgrel=1
 pkgdesc="Core library of PCManFM-Qt (Qt binding for libfm)"
 arch=("x86_64")
 url="https://github.com/lxqt/$pkgname"
@@ -19,7 +19,7 @@ source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
 )
-sha512sums=('939c911583611a19d180647725a23df65e1fa9cdef8e6f451902576765abc2eae075a648730770a4f2e9c9d81a95f21fea8d8a8e66a725f194fd43265e58e2c1'
+sha512sums=('755130bdd466967ab974ebde2814f1f4df645950bf9e2a223b33c769ba08ac43b2c6e5ef7b1a748310a10dd16c5e583db5f94764a1c8d311274f1454ad225fa7'
             'SKIP')
 validpgpkeys=(
 	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
