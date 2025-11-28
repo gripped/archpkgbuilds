@@ -2,7 +2,7 @@
 
 pkgname=python-inflate64
 _pyname=${pkgname#python-}
-pkgver=1.0.3
+pkgver=1.0.4
 pkgrel=1
 pkgdesc='decompression of deflate64, enhanced deflate and compression algorithm'
 arch=(x86_64)
@@ -14,7 +14,7 @@ makedepends=(python-{build,installer,wheel}
 checkdepends=(python-pytest)
 _archive="$_pyname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
-sha256sums=('a89edd416c36eda0c3a5d32f31ff1555db2c5a3884aa8df95e8679f8203e12ee')
+sha256sums=('b398c686960c029777afc0ed281a86f66adb956cfc3fbf6667cc6453f7b407ce')
 
 build(){
 	cd "$_archive"
