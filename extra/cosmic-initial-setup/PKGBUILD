@@ -3,11 +3,12 @@
 
 pkgname=cosmic-initial-setup
 pkgver=1.0.0.beta.7
-pkgrel=1
+pkgrel=2
 pkgdesc="COSMIC Initial Setup"
 arch=(x86_64)
 url="https://github.com/pop-os/cosmic-initial-setup"
 license=(GPL-3.0-only)
+groups=(cosmic)
 depends=(
   cosmic-icon-theme
   libinput
@@ -22,7 +23,6 @@ makedepends=(
   git-lfs
   just
 )
-install="$pkgname.install"
 source=(git+https://github.com/pop-os/cosmic-initial-setup.git#tag=epoch-${pkgver/.beta./-beta.})
 sha256sums=('3e3aec18360652883384ca69e434bc066cd87047ba4d673593305e79cfc9cf22')
 
