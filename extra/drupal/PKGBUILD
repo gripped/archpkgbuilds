@@ -2,7 +2,7 @@
 # Contributor: Corrado Primier <cp663137@stud.polimi.it>
 
 pkgname=drupal
-pkgver=11.1.7
+pkgver=11.2.8
 pkgrel=1
 pkgdesc="A PHP-based content management platform"
 arch=('any')
@@ -13,7 +13,7 @@ install='drupal.install'
 backup=('etc/webapps/drupal/.htaccess')
 options=(!strip)
 source=(https://ftp.drupal.org/files/projects/$pkgname-$pkgver.tar.gz)
-sha256sums=('f3acbd2ba33e8767de6ec5520c3307ba9d06cf1968aa82dc10f840769f728f71')
+sha256sums=('8420cfb1441d16edb97d921af1b82f1f75af70e896636a58a11a353590bab525')
 
 package() {
   depends=('php' 'php-gd')
