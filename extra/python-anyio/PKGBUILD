@@ -2,13 +2,13 @@
 
 pkgname=python-anyio
 # https://github.com/agronholm/anyio/blob/master/docs/versionhistory.rst
-pkgver=4.11.0
+pkgver=4.12.0
 pkgrel=1
 pkgdesc='High level compatibility layer for multiple asynchronous event loop implementations'
 arch=(any)
 url='https://github.com/agronholm/anyio'
 license=(MIT)
-depends=(python python-idna python-sniffio)
+depends=(python python-idna)
 makedepends=(git python-build python-installer python-setuptools python-setuptools-scm python-wheel
              python-uvloop python-trio)
 checkdepends=(python-pytest python-trustme python-hypothesis python-pytest-mock python-psutil
@@ -20,12 +20,13 @@ optdepends=(
   'python-pytest: pytest plugin'
 )
 source=("git+https://github.com/agronholm/anyio.git#tag=$pkgver")
-sha256sums=('04b055c49ed37aa952a7a40501ccc073850d6926f602a1073cb37b22c0a4d2df')
+sha256sums=('d72605fbda08c81ea55dcb0a9f432aa43376094cc5ce7b1f329f18efae13a7c8')
 
 export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 
 prepare() {
   cd anyio
+
   # Remove "error" from pytest filterwarnings
   sed -i '/"error"/d' pyproject.toml
 }
