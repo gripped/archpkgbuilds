@@ -7,8 +7,8 @@
 
 pkgbase=root
 pkgname=(root root-cuda)
-pkgver=6.36.04
-pkgrel=6
+pkgver=6.38.00
+pkgrel=1
 pkgdesc='C++ data analysis framework and interpreter from CERN'
 arch=(x86_64)
 url='https://root.cern'
@@ -48,7 +48,6 @@ depends=(
   python-numpy
   tbb
   tex-gyre-fonts
-  unixodbc
   xxhash
   xz
   zlib
@@ -64,7 +63,6 @@ makedepends=(
   gcc-fortran
   git
   go
-  libmariadbclient
   libxml2
   ninja
   nlohmann-json
@@ -72,7 +70,6 @@ makedepends=(
   ocaml-ctypes
   openmpi
   openssl
-  postgresql-libs
   pythia8
   python-pygments
   qt6-webengine
@@ -88,11 +85,9 @@ optdepends=(
   'chromium: Support for WebGUI'
   'gcc-fortran: Enable the Fortran components of ROOT'
   'jupyter-metakernel: for Jupyter kernel'
-  'libmariadbclient: MySQL support'
   'libxml2: XML parser interface'
   'openmpi: Support for Message Passing Interface (MPI)'
   'openssl: OpenSSL support'
-  'postgresql-libs: PostgreSQL support'
   'pythia8>=8.2.40-1: Pythia8 EG support'
   'python-pygments: syntax highlighting in interactive console'
   'qt6-webengine: Support for WebGUI'
@@ -128,11 +123,11 @@ source=(
   nbman-for-arch.patch
   thisroot.fail
 )
-b2sums=('883c766a49513bfe437953fc50983bb5c94a0e20fe7904990a73d62a9a8b0e60cb4c351876292e304ed3ce01cf31fc0054d2205c52b6b6bc7e69c52f80ca0d86'
+b2sums=('a89413e1601023c1d1a36c20eb9093fa318198526b932828c14e487828397c4445cbc00a30c38c988f01058390e777363318ea5c374ac6f47ff3553d1a08f33d'
         '5da6218a171ee0fbd7b03518dde22787bb0e478a18dcf227eea4e65598c0a0bb299747c6503ad3026804e1a4dbcf4d2b674b83e6ed6e482dd3d14ceb4646dee8'
         'b5defce795dbfeee75dab0cc4c20ac84fe55cb11e9acdd5e75831b6db98e6190621867a65427ab44d93b6fe30398db6fd191defb029a6dcd0af087c1e5115451'
         '5e4c589fd9e226fcf7ff9ab880687c10ff0f7b7c03fdf12fc477622d6ec291e2dc62e7f5ce7b68856bccf37b64b2f4331f46788548d39fdca57fd832d1f3b437'
-        'ef29766c708426631b50b4d63f036cd4dd0155201a6a7c3d8efe719eb749f41a48b45369ec76688ee3109c4ce118b041a8725a9ec88313e0aa43169f786e1b9d'
+        '6eacf425d2a75e7bcabbf9d1b3bcf4c7d06093774ef1adee9131c582caac68d433fdfafc2772032d02a996849d7b81e369bdbf1298992d0b37630108b90a193c'
         '47a7b4491f1455ddb02c3793c7fbaf05184dba9a5fc9d7378608727e69c778dd5832c49f11f4d2c8204dcffc86fc4786b5616fb381c4e3e629d78db9c86913c5'
         'fbf7a90d87d8cb0b8346861894dfb2fb62827b5080b27fdc1080057c3d52cfeb392557a459d9764e5768a0c4bece9f9bd03ed6f5c738b84ccbe80a71e9950120'
         '3501c944e8cab13fe9f5c8ab75a7cdb4b59bc5b00df4bf45ad246ab8cd6cb1ebde19369bc688458c97ff5f5acd4e86fc19b4c8f57ab4cb422d0a5eacac081138')
