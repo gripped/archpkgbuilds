@@ -1,6 +1,6 @@
 pkgbase = mimir
 	pkgdesc = A scalable long-term storage for Prometheus
-	pkgver = 3.0.0
+	pkgver = 3.0.1
 	pkgrel = 1
 	url = https://grafana.com/oss/mimir/
 	arch = x86_64
@@ -9,17 +9,17 @@ pkgbase = mimir
 	makedepends = go
 	depends = glibc
 	backup = etc/mimir.yaml
-	source = mimir::git+https://github.com/grafana/mimir.git#tag=mimir-3.0.0
+	source = mimir::git+https://github.com/grafana/mimir.git#tag=mimir-3.0.1
 	source = systemd.service
 	source = sysusers.conf
 	source = tmpfiles.conf
 	source = config.yaml
-	sha512sums = 9afdd50b9679b9f057b9ae9ae430f2a5070ea101feb85cdc3d30789e2ae995cfebbd0332ce25c9b65f825e8667896aa52583ebb680504625bcc942377c7f1cf0
+	sha512sums = d7213299a937e37a9d7d77ddfdb707ad0c788244438d57e4579f9b536ab2e9074eb9432ef87dd365774c8c9668d87e332526fa063deb18059015199616951bc1
 	sha512sums = fd6694cab7a9b6a6321e2b9b8e354748f9f01192abfd8503cd0dbb8fa795496cf09273ded41aed9c74d0b3ead3d950829c20042149e5efd6a2dfbc81f2b31e51
 	sha512sums = ab9f134794683a8c8fcfd22e3c5269bcf7f9f9f192c08055340132c0df32c37f7e15454c0f7ec3b66be0ebc15cdca456983e6a366da808bdfebd6adf980a2ee9
 	sha512sums = db9cd21527bbd2555ef76b635aee46be043b547c96dabdb298cc00036984d419d810206f7cf2dbc0acda3a4c5b0f071f1b353c3da80b56ee414a60ded77988a9
 	sha512sums = 35d3b252273f43eb992c51dc8222d8220526e53da816e6f8a07580de7a50d756b056559f262bcd803c8f19920bc839ebb7abb1430f342e97605dbacbe8dc6a94
-	b2sums = 8aa42d92bd186131bbc9f8d365fdfc1e6c8a241368fe5cd85c63bf00a6802552febed6150afc494c7d64a54016b4dd82c45e075bfd0c0b064f29e336b1d7294a
+	b2sums = a8ddfab471ca29ff5471456fc5b5eae0c1db9ad5577cb11cbea4c8bd922cf48c258d84303ddcb930a72eb4cec4e931a1564b61ec477ee9fdc0faef4ee4903a90
 	b2sums = b1220c02c9cebbfbc65869a01dac92438ab87df557c67c27489f005b695303591c729a2c172a5e5254bd03276ac4c3d146498b18b6984595db9dc0ebc2a5e814
 	b2sums = d883a71514089e153b1e0911f69c514f70f18f33b00776466dd762e906ac8de170890efaf00124419052b087f780f81206bc94559342022950e9abeb1e6f8f5d
 	b2sums = edc4e9e301e889dfa47528e411459a970f97feb9ca07a3fcc33b60c16adb988109543bc746689e82ac688caca0c60b75abe7d0cc80662d22de665712ff650bb8
