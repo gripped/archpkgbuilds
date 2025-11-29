@@ -1,6 +1,5 @@
 [scip]
-source = 'github'
-github = 'scipopt/scip'
-use_latest_release = true
-from_pattern = 'v(\d)(\d)(\d)'
-to_pattern = '\1.\2.\3'
+source = 'git'
+git = 'https://github.com/scipopt/scip'
+prefix = 'v'
+exclude_regex = 'v\d\d\d.*'
