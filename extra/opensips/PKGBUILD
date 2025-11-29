@@ -1,7 +1,7 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=opensips
-pkgver=3.6.0
+pkgver=3.6.2
 pkgrel=1
 pkgdesc="An Open Source SIP Server able to act as a SIP proxy, registrar, location server, redirect server ..."
 url="https://www.opensips.org"
@@ -24,7 +24,7 @@ license=('GPL')
 options=('!emptydirs' '!makeflags')
 source=(https://opensips.org/pub/opensips/${pkgver}/opensips-${pkgver}.tar.gz
 	opensips.service)
-sha256sums=('9841d6ff36c25ce0445dd49b6129e7020944e56d4fb0e5368bc5f734403a0c31'
+sha256sums=('5f85ff2fbdf500e3d739c6fffd29483742f086042503d89202986fa73eee4653'
             'c2fec4be085b108db10834fa9832e98d696c2de6408f85f96cf89c13bf6be819')
 
 _modules="db_http db_mysql db_postgres db_unixodbc h350 httpd ldap presence presence_xml proto_tls tls_mgm tls_openssl tm rr"
