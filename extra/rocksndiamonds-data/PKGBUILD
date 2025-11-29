@@ -2,15 +2,15 @@
 # contributor: Jacek Poplawski <jacekpoplawski@gmail.com>
 
 pkgname=rocksndiamonds-data
-pkgver=4.4.0.4
+pkgver=4.4.0.6
 pkgrel=1
 arch=(any)
 pkgdesc='rockndiamonds game data and levels'
 url="https://www.artsoft.org/rocksndiamonds/"
-license=('GPL')
+license=('GPL-2.0-only')
 options=('!strip')
 source=(https://www.artsoft.org/RELEASES/linux/rocksndiamonds/rocksndiamonds-$pkgver-linux.tar.gz)
-sha256sums=('fef9b8e3d1e0d3901f3c7449c78da607a8d0e3cf8ca8ea7d1be9859c9703f64e')
+sha256sums=('6c8b780f3f7544e87f3f09710dfc5ec9d1de8eca600bbae6f2fec3ce1f14865d')
 
 package() {
   cd "$srcdir"/rocksndiamonds-$pkgver
