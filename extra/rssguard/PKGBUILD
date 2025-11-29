@@ -7,7 +7,7 @@
 pkgbase=rssguard
 pkgname=(rssguard{,-lite})
 pkgver=4.8.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple (yet powerful) Qt feed reader'
 arch=(x86_64)
 url='https://github.com/martinrotter/rssguard'
@@ -27,8 +27,15 @@ makedepends=(cmake
              qt6-webengine)
 optdepends=('clang: Support for beautification of message filter scripts'
             'mariadb-libs: Support for MariaDB-based data storage')
-source=(git+https://github.com/martinrotter/rssguard#tag=$pkgver)
-sha256sums=('5ade476e36a2e00191ec54d913dd6ab865406f0e62eba994b4fb1e4fcb37b783')
+source=(git+https://github.com/martinrotter/rssguard#tag=$pkgver
+        fix-adblock.patch)
+sha256sums=('5ade476e36a2e00191ec54d913dd6ab865406f0e62eba994b4fb1e4fcb37b783'
+            'ba1a676527d45a1deaa062f06f2819a94b4bca6a07c88e20eef47e093bf3d1b8')
+
+prepare() {
+# https://github.com/martinrotter/rssguard/discussions/1871
+  patch -d $pkgname -p1 < fix-adblock.patch
+}
 
 build() {
   cmake -B build -S $pkgname \
