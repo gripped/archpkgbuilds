@@ -1,0 +1,34 @@
+pkgbase = xdg-desktop-portal-phosh
+	pkgdesc = Backend implementation for xdg-desktop-portal that is using GTK/GNOME/Phosh
+	pkgver = 0.51.0
+	pkgrel = 1
+	url = https://gitlab.gnome.org/World/Phosh/xdg-desktop-portal-phosh
+	arch = x86_64
+	license = GPL-3.0-or-later
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = meson
+	makedepends = python-docutils
+	makedepends = rust
+	depends = cairo
+	depends = dconf
+	depends = fontconfig
+	depends = gcc-libs
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
+	depends = gnome-desktop-4
+	depends = graphene
+	depends = gtk4
+	depends = libadwaita
+	depends = libx11
+	depends = pango
+	depends = xdg-desktop-portal
+	provides = xdg-desktop-portal-impl
+	source = git+https://gitlab.gnome.org/World/Phosh/xdg-desktop-portal-phosh.git?signed#tag=v0.51.0
+	source = git+https://gitlab.gnome.org/guidog/pfs.git
+	validpgpkeys = 0DB3932762F78E592F6522AFBB5A2C77584122D3
+	b2sums = a27e040664cd7d62bfd445859d8094e5fb43dc3903e0bf71614b092788ff276d9c3c63f7c4140cdd1fdb3aa3ad09948a966ca24fe24f3f065ca521e77d3e71ca
+	b2sums = SKIP
+
+pkgname = xdg-desktop-portal-phosh
