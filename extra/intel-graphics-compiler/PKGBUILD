@@ -3,14 +3,14 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=2.20.3
+pkgver=2.22.2
 _llvmmaj=16
 _llvmver="${_llvmmaj}.0.6"
 _vciver=0.23.4
 _spirv_tools_commit=28a883ba4c67f58a9540fb0651c647bb02883622
 _spirv_headers_commit=9e3836d7d6023843a72ecd3fbf3f09b1b6747a9e
-_spirv_llvm_commit=543e3048f1d02d37f0771260dbea82abc2f78db9
-_opencl_clang_commit=28d3ab37a1ff218790f6ad861d30ef09a8cbf9a8
+_spirv_llvm_commit=0983ca98c8bea6a68f1731cd9aec0560914b93b1
+_opencl_clang_commit=43611737fe738e227da35d65e787f4e10a88c9c9
 pkgrel=1
 epoch=1
 pkgdesc='Intel Graphics Compiler for OpenCL'
@@ -40,14 +40,14 @@ source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${p
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}"
         '010-intel-graphics-compiler-disable-werror.patch')
-sha256sums=('385e12bdd1070a67d754c4e8ef960590bd62d249d7ae91f53cc9142339b49632'
+sha256sums=('f1ee874945374fd463a94b59716c10ceb295c2e24f1c4d18444fc4a1f23e87a3'
             '616c08e4a383c0dd5f1e662adef931f9a899518468612cb654c97457ed1e61c7'
-            '3bbac9d55833ee3931edcd546e2664f60b09aa8487d34537d44ef2fdb1c7ee54'
+            'd59a1f6fd88394365770401437f31721adc5d0025a6a297defeddbdd11732853'
             'e028a800c43945d94fc100aa25427d360a21c00b1154fb239ec2fce0c06ea85d'
             '0036130f6a55c8a96c47958f46a2df073c88710804a1e87aa12f2a242f8cd822'
-            'a0c262b6af0560173aef8ab9b935174cd8b45417ab9d6a72673361a1831da94a'
+            '353c46ec4a4354ad1f55c958b294f2ba10cd4ee329b101bf31d30b5351b65011'
             'b47ada280614670a467f80e9f8c67542050983f238f2f4b3fa17682855faf9bf'
-            '505a6f3e4cd4a47bb23b6567c965127a2399a04e1246d0d7b1dfddf1b9c6c1e2')
+            'fead474a0cde0cd5b66619780dd3f7b902b3d1ab2296ee27ca8f0cadc4eb67f7')
 
 prepare() {
     # rename to prevent SPIRV-LLVM-Translator from being included
@@ -66,7 +66,7 @@ prepare() {
 }
 
 build() {
-    # Prevent IGC to load LLVM 15+ symbols
+    # Prevent IGC to load LLVM 17+ symbols
     CFLAGS+=' -fno-semantic-interposition'
     CXXFLAGS+=' -fno-semantic-interposition'
     LDFLAGS+=' -Wl,-Bsymbolic'
