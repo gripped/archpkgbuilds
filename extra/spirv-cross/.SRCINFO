@@ -1,0 +1,22 @@
+pkgbase = spirv-cross
+	pkgdesc = Tool and library for parsing and converting SPIR-V to other shader languages
+	pkgver = 1.4.328.1
+	pkgrel = 1
+	url = https://github.com/KhronosGroup/SPIRV-Cross/
+	arch = x86_64
+	license = Apache-2.0
+	makedepends = cmake
+	makedepends = git
+	makedepends = python
+	depends = gcc-libs
+	depends = glibc
+	source = git+https://github.com/KhronosGroup/SPIRV-Cross.git#tag=vulkan-sdk-1.4.328.1
+	source = git+https://github.com/KhronosGroup/glslang.git#commit=8a85691a0740d390761a1008b4696f57facd02c4
+	source = git+https://github.com/KhronosGroup/SPIRV-Tools.git#commit=40eb301f320e1d85ce3bc12798022149eae3eee3
+	source = git+https://github.com/KhronosGroup/SPIRV-Headers.git#commit=04b76709bf40a7ce8df3382060ef3620f19de566
+	sha256sums = a96ced240c9e99e2ed48b35af95761d68b2610d0a6d6ebdd8b915904f3d9771d
+	sha256sums = 3baa14f82b7b7a21d6910d5ff3f906cfe716a81877e8296a88bbcd0d1be4896e
+	sha256sums = a3658f1e9046eba5c55ccbd3e83a6d256129e6a56f1d25aa92e4a25443656011
+	sha256sums = 157890d75d99e923eb97ab8e00499d13ef21cc34f9814b6ae5f6f9c7f2ec2e56
+
+pkgname = spirv-cross
