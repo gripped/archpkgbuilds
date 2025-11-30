@@ -3,8 +3,8 @@
 _pkg=pnetcdf
 _mpi=openmpi
 pkgname=${_pkg}-${_mpi}
-pkgver=1.12.3
-pkgrel=5
+pkgver=1.14.1
+pkgrel=1
 pkgdesc="Parallel I/O Library for NetCDF File Access (${_mpi} version)"
 arch=(x86_64)
 url="https://parallel-netcdf.github.io/"
@@ -16,7 +16,7 @@ conflicts=(parallel-netcdf parallel-netcdf-openmpi)
 replaces=(parallel-netcdf parallel-netcdf-openmpi)
 options=(staticlibs)
 source=("${url}/Release/${_pkg}-${pkgver}.tar.gz")
-sha256sums=('439e359d09bb93d0e58a6e3f928f39c2eae965b6c97f64e67cd42220d6034f77')
+sha256sums=('6f0f7221006c211fce9ddd2c008796b8c69dd717b2ad1be0b4027fc328fd3220')
 
 prepare() {
   cd ${_pkg}-${pkgver}
