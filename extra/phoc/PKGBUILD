@@ -2,53 +2,60 @@
 # Contributor: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=phoc
-pkgver=0.50.0
-pkgrel=2
+pkgver=0.51.0
+pkgrel=1
 pkgdesc='Display compositor designed for phones'
-arch=('x86_64')
+arch=(x86_64)
 url='https://gitlab.gnome.org/World/Phosh/phoc'
 license=(GPL-3.0-or-later)
 depends=(
-        "gnome-desktop"
-        "wlroots0.19"
-        "gsettings-desktop-schemas"
-        "pixman"
-        "libinput"
-        "libxcb"
-        "libxkbcommon"
-        "glib2"
-        "dconf"
-        "cairo"
-        "wayland"
-        "libgmobile"
-        "mutter"
-        "xorg-xwayland"
-)
-checkdepends=(
-              "xorg-server-xvfb"
+  cairo
+  dconf
+  gcc-libs
+  glib2
+  glibc
+  gnome-desktop
+  gsettings-desktop-schemas
+  hicolor-icon-theme
+  libgmobile
+  libinput
+  libxcb
+  libxkbcommon
+  mutter
+  pango
+  pixman
+  systemd-libs
+  wayland
+  wlroots0.19
+  xorg-xwayland
 )
 makedepends=(
-            "meson"
-            "git"
-            "wayland-protocols"
-            "glib2-devel"
-            "python-docutils"
+  git
+  glib2-devel
+  meson
+  python-docutils
+  wayland-protocols
 )
-_gvdb="4758f6fb7f889e074e13df3f914328f3eecb1fd3"
+checkdepends=(xorg-server-xvfb)
 source=(
-      "${url}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
-      "git+https://gitlab.gnome.org/GNOME/gvdb.git#commit=${_gvdb}" #new dependency with no release
+  "git+https://gitlab.gnome.org/World/Phosh/phoc.git?signed#tag=v$pkgver"
+  git+https://gitlab.gnome.org/GNOME/gvdb.git
 )
-sha256sums=('024aceb0c3d87d924a11387b5428e5578dc5dc8ab5c3e427a5858118e7841e20'
-            'ebe771e60943547279fbf29acb6aea6346fc20df6388252f71bf2bf679d3a7a8')
+b2sums=(
+  806dc3f686eac4538ea8a3900684464c66d28834ada2106bcdec4e6749a16c3bb0f85ebfbaaa3dabfcb382d081faf1134a959c718dcaff6913db8c80e92eb851
+  SKIP
+)
+validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
 
 prepare() {
-  cp -r gvdb "${pkgname}-v${pkgver}/subprojects"
-  cd "${pkgname}-v${pkgver}"
+  ln -s "$srcdir/gvdb" "$pkgname/subprojects/gvdb"
+  meson subprojects checkout --sourcedir $pkgname
 }
 
 build() {
-  arch-meson "${pkgname}-v${pkgver}" build -Dembed-wlroots=disabled -Dman=true
+  arch-meson $pkgname build \
+    -D embed-wlroots=disabled \
+    -D man=true
   meson compile -C build
 }
 
@@ -57,5 +64,5 @@ check() {
 }
 
 package() {
-  DESTDIR="${pkgdir}" meson install -C build
+  meson install -C build --destdir "$pkgdir"
 }
