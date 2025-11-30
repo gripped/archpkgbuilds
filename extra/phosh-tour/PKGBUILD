@@ -1,0 +1,50 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=phosh-tour
+pkgver=0.50.0
+pkgrel=1
+pkgdesc='Simple tour through Phosh'
+arch=(x86_64)
+url='https://gitlab.gnome.org/World/Phosh/phosh-tour'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  gcc-libs
+  glib2
+  glibc
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libgmobile
+)
+makedepends=(
+  git
+  glib2-devel
+  meson
+)
+source=("git+https://gitlab.gnome.org/World/Phosh/phosh-tour.git?signed#tag=v$pkgver")
+b2sums=(4c34b6fb677dc3585ae9926b4392bd30a6a48c2ff2499e8b7523438430ffa714d62a281a02f45d1ebdf2edec8e6a97e371a8a135fdb69b7bc717bb1714fb5d87)
+validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
+
+prepare() {
+  cd $pkgname
+}
+
+build() {
+  arch-meson $pkgname build \
+    -D vendor="Arch Linux"
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+
+  # Enable first login user service
+  install -dm755 "$pkgdir/usr/lib/systemd/user/mobi.phosh.Shell.target.wants"
+  ln -s ../mobi.phosh.PhoshTour-first-login.service \
+    "$pkgdir/usr/lib/systemd/user/mobi.phosh.Shell.target.wants/mobi.phosh.PhoshTour-first-login.service"
+}
