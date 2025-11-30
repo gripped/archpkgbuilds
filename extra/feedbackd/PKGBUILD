@@ -6,44 +6,45 @@
 # Contributor: Sam Whited <sam@samwhited.com>
 
 pkgname=feedbackd
-pkgver=0.8.6
+pkgver=0.8.7
 pkgrel=1
 pkgdesc='A daemon to provide haptic feedback on events'
 arch=(x86_64)
 url='https://gitlab.freedesktop.org/agx/feedbackd'
 license=(GPL-3.0-or-later)
 depends=(
-        "dconf"
-        "gsound"
-        "json-glib"
-        "libgudev"
-        "gsettings-desktop-schemas"
-        "libgmobile"
+  dconf
+  gcc-libs
+  glib2
+  glibc
+  gsettings-desktop-schemas
+  gsound
+  json-glib
+  libgmobile
+  libgudev
 )
 makedepends=(
-        "gobject-introspection"
-        "meson"
-        "vala"
-        "git"
-        "python-docutils"
-        "glib2-devel"
-        "umockdev"
+  gi-docgen
+  git
+  glib2-devel
+  gobject-introspection
+  meson
+  python-docutils
+  umockdev
+  vala
 )
-
-source=("git+${url}.git#tag=v${pkgver}")
-sha256sums=('bbdf0645248595ca05e47015d5b3bf4c6d49b88db3d4b9ce8a5768316653c5c8')
-
-pkgver() {
-  cd "${pkgname}"
-  git describe --tags | sed 's/^v//'
-}
+source=("git+https://gitlab.freedesktop.org/agx/feedbackd.git?signed#tag=v$pkgver")
+b2sums=(06d7f05b83932a2b2ee4c9c7393bfa508687bd4a443b565b2208ecf7843ebea5c65e701b18acd1f597652b8ff66b741193aae8a4087b3a3b40dcf1c7908c28c1)
+validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
 
 prepare() {
-  cd "${pkgname}"
+  cd $pkgname
 }
 
 build() {
-  arch-meson "${pkgname}" build -Dgtk_doc=false -Dman=true -Dtests=true -Ddaemon=true
+  arch-meson $pkgname build \
+    -D gtk_doc=true \
+    -D man=true
   meson compile -C build
 }
 
@@ -52,5 +53,5 @@ check() {
 }
 
 package() {
-  DESTDIR="${pkgdir}" meson install -C build
+  meson install -C build --destdir "$pkgdir"
 }
