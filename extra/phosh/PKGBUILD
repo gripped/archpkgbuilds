@@ -4,93 +4,102 @@
 # Contributor: Philip Goto <philip.goto@gmail.com>
 
 pkgname=phosh
-pkgver=0.50.1
-pkgrel=3
-pkgdesc='A pure Wayland shell prototype for GNOME on mobile devices'
-arch=('x86_64')
+pkgver=0.51.0
+pkgrel=1
+pkgdesc='A Wayland shell for GNOME on mobile devices'
+arch=(x86_64)
 url='https://gitlab.gnome.org/World/Phosh/phosh'
 license=(GPL-3.0-or-later)
 depends=(
-        "gtk3"
-        "libhandy"
-        "gnome-desktop"
-        "gnome-session"
-        "upower"
-        "libpulse"
-        "gcr"
-        "libnm"
-        "phoc"
-        "gnome-shell"
-        "callaudiod"
-        "evince"
-        "fribidi"
-        "wayland"
-        "evolution-data-server"
-        "libsecret"
-        "polkit"
-        "libadwaita"
-        "libical"
-        "squeekboard"
-        "libgmobile"
-        "gnome-bluetooth-3.0"
-        "feedbackd"
+  appstream
+  bash
+  cairo
+  callaudiod
+  dconf
+  evince
+  evolution-data-server
+  feedbackd
+  fribidi
+  gcc-libs
+  gcr
+  gdk-pixbuf2
+  glib2
+  glibc
+  gnome-bluetooth-3.0
+  gnome-desktop
+  gnome-session
+  gnome-shell
+  gsettings-desktop-schemas
+  gtk3
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libgmobile
+  libgudev
+  libhandy
+  libical
+  libmm-glib
+  libnm
+  libpulse
+  libsecret
+  libsoup3
+  pam
+  pango
+  phoc
+  phosh-osk-provider
+  polkit
+  systemd-libs
+  upower
+  wayland
+  xdg-desktop-portal-gtk
+  xdg-desktop-portal-phosh
+  xdg-desktop-portal-wlr
 )
 makedepends=(
-            "meson"
-            "git"
-            "wayland-protocols"
-            "python-docutils"
-            "glib2-devel"
+  git
+  glib2-devel
+  meson
+  python-docutils
+  wayland-protocols
 )
 checkdepends=(
-              "xorg-server-xvfb"
+  xmlstarlet
+  xorg-server-xvfb
 )
-optdepends=(
-            'iio-sensor-proxy: accelerometer and other sensors'
-            'xdg-desktop-portal-wlr: for screenshot and screencast support'
-)
-_libcall_ui=0.1.5
-_gvc=5f9768a2eac29c1ed56f1fbb449a77a3523683b6
+optdepends=('iio-sensor-proxy: accelerometer and other sensors')
 source=(
-        "git+${url}.git#tag=v${pkgver}"
-        "git+https://gitlab.gnome.org/World/Phosh/libcall-ui.git#tag=v${_libcall_ui}"
-        "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git#commit=${_gvc}"
-        "pam_phosh"
-        "phosh-1721.patch::https://gitlab.gnome.org/World/Phosh/phosh/-/merge_requests/1721.patch"
+  "git+https://gitlab.gnome.org/World/Phosh/phosh.git?signed#tag=v$pkgver"
+  git+https://gitlab.gnome.org/World/Phosh/libcall-ui.git
+  git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
+  phosh.pam
 )
-validpgpkeys=("0DB3932762F78E592F6522AFBB5A2C77584122D3")
-sha256sums=('888d5679d5136197f78e602c1b6c60b161edfba720a379a2db32bc3726e60701'
-            '8aa033a10f450dd8068fb99aeba1bfd544f78bda8f9eb338da705f9f472398c3'
-            '587319b45ff7d989635aed0c3bd9ef834d6e53ae46788cb6ba083d42d7e63855'
-            'b7793f80c533e84ad8adfe8bb46c69f107575e724aa9b53b41f370baa37e4fd5'
-            '69136ff3b0afbea8e83ded266dcc2bd8192fb40f00badb8d2f4d64f7b261b975')
+b2sums=(
+  76d05f99d3f4051ccf5f3ec9bd44ef12b218f5306bfba682451250186e7c0caf1fde71117866a9e3c5d021949bd14aa36917ca6df6eb6c5ed4768f8929c0a50e
+  SKIP
+  SKIP
+  d89e16605e2e8e29834f9537bd09ef3f76f1cf6420cdd99346a760cab8c7217f86898be66c24b206b464239fc8b5277150abd19bae81af72187a435bd8c2f869
+)
+validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
 
 prepare() {
-  cp -r libcall-ui "${pkgname}/subprojects"
-  cp -r libgnome-volume-control "${pkgname}/subprojects/gvc"
-
-  cd phosh
-  patch -Rp1 -i ../phosh-1721.patch #check-deprecated-ui-props test fail with this applied, so revert it
+  ln -s "$srcdir/libcall-ui" "$pkgname/subprojects/libcall-ui"
+  ln -s "$srcdir/libgnome-volume-control" "$pkgname/subprojects/gvc"
+  meson subprojects checkout --sourcedir $pkgname
 }
 
 build() {
-  arch-meson --libexecdir=/usr/lib/phosh  \
-    -D tests=true -D phoc_tests=disabled \
-    -D man=true -D gtk_doc=false \
-    -D lockscreen-plugins=true phosh build 
+  arch-meson $pkgname build \
+    --libexecdir=/usr/lib/phosh \
+    -D phoc_tests=disabled \
+    -D man=true
   meson compile -C build
 }
 
-# Test phosh:tools / check-deprecated-ui-props fails, so disable test for now until I can get it fixed.
 check() {
-    xvfb-run meson test --no-suite screenshots -C build
+  xvfb-run meson test -C build --print-errorlogs
 }
 
 package() {
-  DESTDIR="${pkgdir}" meson install -C build
-  # make squeekboard the default keyboard 
-  mkdir -p "$pkgdir"/usr/share/applications
-  ln -s sm.puri.Squeekboard.desktop "$pkgdir"/usr/share/applications/sm.puri.OSK0.desktop
-
-  install -Dm644 "$srcdir"/pam_phosh "$pkgdir"/etc/pam.d/phosh
+  meson install -C build --destdir "$pkgdir"
+  install -Dm644 "$srcdir"/phosh.pam "$pkgdir"/etc/pam.d/phosh
 }
