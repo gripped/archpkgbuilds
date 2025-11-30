@@ -3,14 +3,11 @@
 pkgname=kscreenlocker
 pkgver=6.5.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Library and components for secure lock screen architecture'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL-2.0-or-later)
-backup=(etc/pam.d/kde
-        etc/pam.d/kde-fingerprint
-        etc/pam.d/kde-smartcard)
 depends=(gcc-libs
          glibc
          kconfig
@@ -67,7 +64,7 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -Dm644 "$srcdir"/kde.pam "$pkgdir"/etc/pam.d/kde
-  install -Dm644 "$srcdir"/kde-fingerprint.pam "$pkgdir"/etc/pam.d/kde-fingerprint
-  install -Dm644 "$srcdir"/kde-smartcard.pam "$pkgdir"/etc/pam.d/kde-smartcard
+  install -Dm644 "$srcdir"/kde.pam "$pkgdir"/usr/lib/pam.d/kde
+  install -Dm644 "$srcdir"/kde-fingerprint.pam "$pkgdir"/usr/lib/pam.d/kde-fingerprint
+  install -Dm644 "$srcdir"/kde-smartcard.pam "$pkgdir"/usr/lib/pam.d/kde-smartcard
 }
