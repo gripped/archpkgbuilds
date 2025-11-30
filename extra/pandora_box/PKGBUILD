@@ -1,0 +1,35 @@
+# Maintainer: Robin Candau <antiz@archlinux.org>
+
+pkgname=pandora_box
+_pkgname=pandora
+pkgver=0.16.1
+pkgrel=1
+pkgdesc="Syd's log inspector & profile writer"
+url="https://gitlab.exherbo.org/sydbox/sydbox/-/tree/main/pandora"
+arch=('x86_64')
+license=('GPL-3.0-only')
+depends=('gcc-libs' 'glibc')
+makedepends=('cargo' 'git')
+provides=("${_pkgname}")
+source=("git+https://gitlab.exherbo.org/sydbox/sydbox.git#tag=${_pkgname}-${pkgver}?signed")
+sha256sums=('38e1cff3f4420dbdf4bca7cc0008ebe2111f7bfa8f2611322ed74610f71c68a8')
+validpgpkeys=('5DF763560390A149AC6C14C7D076A377FB27DE70')
+
+prepare() {
+	cd "sydbox/${_pkgname}"
+	export RUSTUP_TOOLCHAIN=stable
+	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+	cd "sydbox/${_pkgname}"
+	export RUSTUP_TOOLCHAIN=stable
+	export CARGO_TARGET_DIR=target
+	cargo build --frozen --release --all-features
+}
+
+package() {
+	cd "sydbox/${_pkgname}"
+	install -Dm 755 "target/release/${_pkgname}" "${pkgdir}/usr/bin/${_pkgname}"
+	install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+}
