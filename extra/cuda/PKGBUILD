@@ -2,13 +2,13 @@
 # Maintainer: Konstantin Gizdov <arch@kge.pw>
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
-pkgname=(cuda cuda-tools)
+pkgname=(cuda)
 pkgbase=cuda
 pkgver=13.0.2
 # Before upgrading, make sure that we ship at least this version of
 # nvidia-utils as otherwise we'll get stuff such as #7.
 _driverver=580.95.05
-pkgrel=2
+pkgrel=3
 pkgdesc="NVIDIA's GPU programming toolkit"
 arch=(x86_64)
 url="https://developer.nvidia.com/cuda-zone"
@@ -50,12 +50,10 @@ source=(https://developer.download.nvidia.com/compute/cuda/${pkgver}/local_insta
         nvjitlink.pc
         nvjpeg.pc
         nvrtc.pc
-        nsight-compute.desktop
-        nsight-systems.desktop
         fix-glibc242.patch
 )
 sha512sums=('74a39fcb304c619b2f72399620656bf128c3fdc25d120ec3a5bda0d6e141e992b6ac919c287a584563135ffdf057084db38a740add9cb302bcf17f8b47ac4cc2'
-            '0a8eb5f01cf3bf5cce22b7bcffec825ad926ee46ecfd9b266749045736cb8e3decb0158f14e6bee0e07ead8a88495d29a778de2e71c7b255b67500a049b2d52b'
+            '93a52c9d1272aafc04ba07a74a41c1c3b3722107048cc1b40409406b4c9ba76cda8a8dc83c30d4a77996ef398732d5fb9615a4d47e3225d4a7ba6af82915b926'
             '3ef1d31adef59aaac464441aa1b8d92e706323492347e8ffec4ba1419576d3889791c8c13e8903dd79ceefc164cf473aef650105d1927cdb6676c936b66b2e45'
             '4fe5f183afde83c642f54c1f3c25042f09cce398d35efb151ef25ba932c2da7d1c15654d0c72ebb20dd02fd48c62d827d305f7afd40d3b2988509e0b27fd57af'
             '79c6929e1f3651efadea999ba3336e1ac8a6f4de76f1392d189f356de907551fe76cabc6dad006e2a45314545c7ece109c91e59586d00fa9e227dcbedef7a143'
@@ -84,8 +82,6 @@ sha512sums=('74a39fcb304c619b2f72399620656bf128c3fdc25d120ec3a5bda0d6e141e992b6a
             '4b087df6dd9139c133041bfe8572085621ab8a03ec442354bcde0a3aba9de0a52cc20385112f8f578ea32c5c046abcb0b8d093266047a0b7300c220ca1f6cd9c'
             '249eb2c25c876e1c67ea1e3f050b2a694dd68f51fc2b0ae34facb91bcf91b925e00551b7f10badba6ea14db02ed3bfaa7eeb3d98d9ce2f5e13f123575bd6b47e'
             '1ddc7ffb24f3a1d404a5e97dfbe0ffe232a4204a467dcfcc0ed48a4bd4be871995546b33de48fa0cecd138247a131f97d9f66070e8e75b5e0e0136e7beaff63e'
-            '78109166c44bd9d84399f97805b2d7b3dc2dffd5730f2f7c5dde1c07c4e90e3a5af14ff2b46f4b90b8b8390f72ca509526e38042ecfb57f50bb69ccb1f34db15'
-            '1f3edd63bc8d252f2818204657da9bcf9c78ec009d4b4e2addbad83e619c1ebaad9c28c0e592974d29e1ce1c29588ff9100a0970febe789cdea7316d16884cce'
             'c7c7dbb0e21cb2342ede4bf730fe1191d59879e03151707c5519f4cafb64f1f7fdc3211f9d451ca789ab362de67cd43c2d4e1e2a714c8537a601b36cb63cb5b2')
 
 prepare() {
@@ -94,7 +90,6 @@ prepare() {
 
 build() {
   local _prepdir="${srcdir}"/prep
-  local _prepdir_tools="${srcdir}"/prep_tools
 
   cd "${srcdir}"/builds/
 
@@ -104,27 +99,22 @@ build() {
   rm -r integration  # contains only unnecessary/non-functional scripts
   rm version.json
 
-  # Move component directories for the cuda-tools package
-  mkdir -p "${_prepdir_tools}"/opt/cuda/
-  local tools_components=(
-    cuda_nsight/{bin,nsightee_plugins}
-    cuda_sanitizer_api/compute-sanitizer
-    nsight_compute
-    nsight_systems
-  )
-  for component in "${tools_components[@]}"; do
-    # workaround for mv not merging the destination directory
-    cp -alr "$component" "${_prepdir_tools}"/opt/cuda/
-    rm -r "$component"
-  done
-  # These directories should be now empty, remove them to ensure we did not miss anything above
-  rmdir cuda_nsight cuda_sanitizer_api
+  # Packaging cuda_nsight (Nsight Eclipse Edition Plugin) is not worth it
+  rm -r cuda_nsight
 
-  # Add symlink for compute-sanitizer binary to appear in PATH
-  ln -s ../compute-sanitizer/compute-sanitizer "${_prepdir_tools}"/opt/cuda/bin/compute-sanitizer
+  # nsight-compute and nsight-systems are separate packages
+  rm -r nsight_compute nsight_systems
 
-  # Move remaining components for the cuda package
+  # Move compute-sanitizer component
   mkdir -p "${_prepdir}"/opt/cuda/
+  mv cuda_sanitizer_api/compute-sanitizer "${_prepdir}"/opt/cuda/
+  # The directory should be now empty
+  rmdir cuda_sanitizer_api
+  # Add symlink for compute-sanitizer binary to appear in PATH
+  mkdir -p "${_prepdir}"/opt/cuda/bin/
+  ln -s ../compute-sanitizer/compute-sanitizer "${_prepdir}"/opt/cuda/bin/compute-sanitizer
+
+  # Move remaining components
   mv EULA.txt "${_prepdir}"/opt/cuda/
   for lib in *; do
     # workaround for mv not merging the destination directory
@@ -163,11 +153,13 @@ build() {
 }
 
 package_cuda() {
-  replaces=('cuda-toolkit' 'cuda-sdk' 'cuda-static')
+  replaces=('cuda-toolkit' 'cuda-sdk' 'cuda-static' 'cuda-tools')
   provides=('cuda-toolkit' 'cuda-sdk' 'libcudart.so' 'libcublas.so' 'libcusolver.so' 'libcusparse.so')
   optdepends=('gdb: for cuda-gdb'
               'glu: required for some profiling tools in CUPTI'
               'nvidia-utils: for NVIDIA drivers (not needed in CDI containers)'
+              'nsight-compute: for profiling CUDA applications'
+              'nsight-systems: for system-wide profiling'
               'rdma-core: for GPUDirect Storage (libcufile_rdma.so)')
 
   local _prepdir="${srcdir}/prep"
@@ -185,20 +177,3 @@ package_cuda() {
   ln -s /opt/cuda/EULA.txt "${pkgdir}"/usr/share/licenses/${pkgname}/EULA.txt
   ln -s /opt/cuda/README "${pkgdir}"/usr/share/licenses/${pkgname}/README
 }
-
-package_cuda-tools() {
-  pkgdesc+=" (extra tools: nsight, compute-sanitizer)"
-  depends=('cuda' 'nss')
-
-  local _prepdir_tools="${srcdir}"/prep_tools
-  mv "${_prepdir_tools}"/* "${pkgdir}"
-
-  # Install desktop entries
-  install -vDm 644 -t "${pkgdir}"/usr/share/applications/ "${srcdir}"/*.desktop
-
-  # Licenses
-  mkdir -p "${pkgdir}"/usr/share/licenses/
-  ln -s /usr/share/licenses/cuda "${pkgdir}"/usr/share/licenses/${pkgname}
-}
-
-# vim:set ts=2 sw=2 et:

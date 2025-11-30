@@ -1,7 +1,5 @@
 export CUDA_PATH=/opt/cuda
 append_path '/opt/cuda/bin'
-append_path '/opt/cuda/nsight_compute'
-append_path '/opt/cuda/nsight_systems/bin'
 export PATH
 
 
