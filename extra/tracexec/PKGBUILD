@@ -2,16 +2,16 @@
 # Contributor: kxxt <rsworktech at outlook dot com>
 
 pkgname=tracexec
-pkgver=0.15.0
+pkgver=0.15.1
 pkgrel=1
 pkgdesc="A small utility for tracing execve{,at} and pre-exec behavior"
 arch=('x86_64')
 url="https://github.com/kxxt/tracexec"
 license=('GPL-2.0-or-later')
-depends=('gcc-libs')
-makedepends=('cargo' 'cargo-about' 'git')
+depends=('gcc-libs' 'libseccomp' 'libbpf')
+makedepends=('cargo' 'cargo-about' 'git' 'clang')
 source=("$pkgname-$pkgver::git+https://github.com/kxxt/tracexec.git#tag=v$pkgver")
-b2sums=('bdc0f43f6ab25e8425b39dde3e8f7f718282a0776b5e1b98cc8ca8489c2e69128774511b65cbff5f47cbc579069884f52d577ed6ed815c56e3c4cadf5d91560a')
+b2sums=('844445e4f2ed5045e37ad2c5d7f27deff2574ee46672719712ea585e1764eb3086dd7df569b7859ded626bede2f9221f9b6a682c586d3d98f9ce32f95b962531')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -22,7 +22,7 @@ prepare() {
 build() {
   cd "$pkgname-$pkgver"
   # --bins: needed for test
-  cargo build --bins --frozen --release --no-default-features
+  cargo build --bins --frozen --release --no-default-features -F ebpf
   cargo about generate -o THIRD_PARTY_LICENSES.HTML about.hbs
   local compgen="target/release/$pkgname generate-completions"
   $compgen bash >"completions/$pkgbase"
@@ -33,7 +33,7 @@ build() {
 
 check() {
   cd "$pkgname-$pkgver"
-  RUST_TEST_THREADS=1 cargo test --frozen --release --no-default-features
+  RUST_TEST_THREADS=1 cargo test --frozen --release --no-default-features -F ebpf
 }
 
 package() {
