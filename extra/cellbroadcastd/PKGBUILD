@@ -1,42 +1,51 @@
 # Maintainer: Dan Johansen <strit@archlinux.org>
 
 pkgname=cellbroadcastd
-pkgver=0.0.2
+pkgver=0.0.3
 pkgrel=1
 pkgdesc='A Cell broadcast dameon'
-arch=('x86_64' 'aarch64')
+arch=(x86_64)
 url='https://gitlab.freedesktop.org/devrtz/cellbroadcastd'
 license=(GPL-3.0-or-later)
 depends=(
-        "mobile-broadband-provider-info"
-        "libmm-glib"
-        "libgmobile"
-        "dconf"
+  dconf
+  gcc-libs
+  glib2
+  glibc
+  libgmobile
+  libmm-glib
+  mobile-broadband-provider-info
 )
 makedepends=(
-            "git"
-            "meson"
-            "glib2-devel"
-            "gobject-introspection"
+  git
+  glib2-devel
+  gobject-introspection
+  meson
+  vala
 )
-
-_gvdb=4758f6fb7f889e074e13df3f914328f3eecb1fd3
 source=(
-        "${url}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
-        "git+https://gitlab.gnome.org/GNOME/gvdb.git#commit=${_gvdb}"
+  "git+https://gitlab.freedesktop.org/devrtz/cellbroadcastd.git#tag=v$pkgver"
+  git+https://gitlab.gnome.org/GNOME/gvdb.git
 )
-sha256sums=('beba7d5081262e0b69db9bea1dfeabaa9bc8d296e14956b32ca1882973bec720'
-            'ebe771e60943547279fbf29acb6aea6346fc20df6388252f71bf2bf679d3a7a8')
+b2sums=(
+  56651fb96131283c01392b4edcaf6755fbce0ff913b0e34cd36d6aa8ce3bd072fe757ecc7a16256b324da993386a153c62fed785bbb3d10cc27ec1dd43bc5f1c
+  SKIP
+)
 
 prepare() {
-  cp -r gvdb "${pkgname}-v${pkgver}/subprojects/gvdb"
+  ln -s "$srcdir/gvdb" "$pkgname/subprojects/gvdb"
+  meson subprojects checkout --sourcedir $pkgname
 }
 
 build() {
-  arch-meson "${pkgname}-v${pkgver}" build
+  arch-meson $pkgname build
   meson compile -C build
 }
 
+check() {
+  meson test -C build --print-errorlogs
+}
+
 package() {
-  DESTDIR="${pkgdir}" meson install -C build
+  meson install -C build --destdir "$pkgdir"
 }

@@ -1,22 +1,25 @@
 pkgbase = cellbroadcastd
 	pkgdesc = A Cell broadcast dameon
-	pkgver = 0.0.2
+	pkgver = 0.0.3
 	pkgrel = 1
 	url = https://gitlab.freedesktop.org/devrtz/cellbroadcastd
 	arch = x86_64
-	arch = aarch64
 	license = GPL-3.0-or-later
 	makedepends = git
-	makedepends = meson
 	makedepends = glib2-devel
 	makedepends = gobject-introspection
-	depends = mobile-broadband-provider-info
-	depends = libmm-glib
-	depends = libgmobile
+	makedepends = meson
+	makedepends = vala
 	depends = dconf
-	source = https://gitlab.freedesktop.org/devrtz/cellbroadcastd/-/archive/v0.0.2/cellbroadcastd-v0.0.2.tar.gz
-	source = git+https://gitlab.gnome.org/GNOME/gvdb.git#commit=4758f6fb7f889e074e13df3f914328f3eecb1fd3
-	sha256sums = beba7d5081262e0b69db9bea1dfeabaa9bc8d296e14956b32ca1882973bec720
-	sha256sums = ebe771e60943547279fbf29acb6aea6346fc20df6388252f71bf2bf679d3a7a8
+	depends = gcc-libs
+	depends = glib2
+	depends = glibc
+	depends = libgmobile
+	depends = libmm-glib
+	depends = mobile-broadband-provider-info
+	source = git+https://gitlab.freedesktop.org/devrtz/cellbroadcastd.git#tag=v0.0.3
+	source = git+https://gitlab.gnome.org/GNOME/gvdb.git
+	b2sums = 56651fb96131283c01392b4edcaf6755fbce0ff913b0e34cd36d6aa8ce3bd072fe757ecc7a16256b324da993386a153c62fed785bbb3d10cc27ec1dd43bc5f1c
+	b2sums = SKIP
 
 pkgname = cellbroadcastd
