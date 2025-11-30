@@ -2,8 +2,8 @@
 
 _hkgname=hslua-module-doclayout
 pkgname=haskell-hslua-module-doclayout
-pkgver=1.1.1.2
-pkgrel=13
+pkgver=1.2.0
+pkgrel=1
 pkgdesc="Lua module wrapping Text.DocLayout."
 url="https://github.com/hslua/hslua-module-doclayout"
 license=("MIT")
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-doclayout' 'haskell-hslua')
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-lua')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('0f1703619a68ea3e433b1ab348ca82520f3369d5d8a22d71e50dab0ac435faad')
+sha256sums=('32e4a820d7d137750753012aa599ee07846b462ae87fb5f54317d1f0dbb47ff4')
 
 prepare() {
   cd $_hkgname-$pkgver
