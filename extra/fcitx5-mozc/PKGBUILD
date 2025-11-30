@@ -6,9 +6,9 @@
 # Contributor: Masato TOYOSHIMA <phoepsilonix at phoepsilonix dot love>
 
 ## Mozc compile option
-_mozc_commit=29e2b95
+_mozc_commit=7cd777dbb
 
-_bcr_commit=cef0246d6
+_bcr_commit=041f0926e
 # Following are subject to change if bcr, bazel, and mozc commit changes.
 # The build process does not necessary use all of them, but it is required to allow a no download build process.
 # https://github.com/fcitx/flatpak-fcitx5/blob/master/mozc-deps.yaml has a constantly maintain list of these files
@@ -41,7 +41,7 @@ _bazel_deps=(
 _pkgbase=mozc
 pkgname=fcitx5-mozc
 pkgdesc="Fcitx5 Module of A Japanese Input Method for Chromium OS, Windows, Mac and Linux (the Open Source Edition of Google Japanese Input)"
-pkgver=2.32.5981.102.g29e2b95
+pkgver=2.32.5994.102.g7cd777dbb
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/google/mozc"
@@ -70,7 +70,7 @@ for _bazel_dep in "${_bazel_deps[@]}"; do
   fi
 done
 
-sha512sums=('29f6ea3cc8b6a43e5305a89a198e349995fe04e04ca8b8973c2546bba1e01d9b79ca6f363576c02273b075411fca5cc2baf8d09e974a66945dfad2239cd2b8d7'
+sha512sums=('10b225f8ee4b7f8d686190e1f36518304e3673dbc95631954862733d27eb7ee6b0f517e11314a9c1d95b4dcd8c6ab410644a5c50d29027141cfde714baac60aa'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -78,7 +78,7 @@ sha512sums=('29f6ea3cc8b6a43e5305a89a198e349995fe04e04ca8b8973c2546bba1e01d9b79c
             'SKIP'
             'SKIP'
             'SKIP'
-            'c342224c0acc48243160b0643c4c1987c14a3bd12701795defe56ef1ba324976f9290ed109839056e834e77ba8650e28f485beea2b08a6be586b8dc6f751d49f'
+            '221ff5bb186f0854c74429a5e5c915734ecb594b9c09906474e36a87f641181e355a7663c00ac300bcd049a6d395d6ce311e5aaed6adbabebadc0a964bffa72a'
             '4ee1a217203933382e728d354a149253a517150eee7580a0abecc69584b2eb200d91933ef424487e3a3fe0e8ab5e77b0288485cac982171b3585314a4417e7d4'
             'c4aa3a09324abcbc1a2d9aa6a6278645d74af63cad76666224e53c50620450fb686c067db0f799afe84fefe575e0b2bea13b1b952f55e7e075562194b8e5ac43'
             '9cca730483639e6b711c1e48d8d916839d5c618eda0b07ccb965184e79326ac6fcecc1446c61efcb4f7bb76b557e291cd2666b90e280dc8a4a76e1f9c09f1bb2'
