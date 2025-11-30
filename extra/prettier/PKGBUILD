@@ -3,8 +3,8 @@
 # Contributor: Maxim Baz <archlinux at maximbaz dot com>
 
 pkgname=prettier
-pkgver=3.6.2
-pkgrel=2
+pkgver=3.7.3
+pkgrel=1
 pkgdesc='An opinionated code formatter'
 arch=(any)
 url=https://prettier.io
@@ -19,7 +19,7 @@ makedepends=(
 )
 checkdepends=(npm)
 source=("git+https://github.com/$pkgname/$pkgname.git#tag=$pkgver")
-b2sums=('8d0fc07bde30db39589b982b8a8f055cfa535b88ab355fb92e79b9b4c93086ef4ac13091e172819adccafae088904e7c73f00c46b90b5de36f69be4369578aa1')
+b2sums=('380f15a40f632ca04237fcd9cee8fda5e4a06931125d79363d4b2b36233e146b6efa42328ce6c7d4ef71f48bfca316fc7abfcf8b2e439863adfaad89c26ba70d')
 
 prepare() {
   cd $pkgname
