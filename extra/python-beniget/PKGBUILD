@@ -2,8 +2,8 @@
 # Contributor: Ashwin Vishnu <ashwinvis+arch at pr0t0nm4il dot com>
 
 pkgname=python-beniget
-pkgver=0.4.2.post1
-pkgrel=2
+pkgver=0.5.0
+pkgrel=1
 pkgdesc='A static analyzer for Python code'
 arch=(any)
 url='https://github.com/serge-sans-paille/beniget'
@@ -16,7 +16,7 @@ makedepends=(git
              python-setuptools
              python-wheel)
 source=(git+https://github.com/serge-sans-paille/beniget#tag=$pkgver)
-sha256sums=('24d0257195e269d5ebf9d3dfcb0bb7dc336232712d09e3715dfc0bea1098392e')
+sha256sums=('b83e50dba3214e7cc1bf24cf104be9ebf5f1bbd3b56f4c2d0b519c511307b834')
 
 build() {
   cd beniget
