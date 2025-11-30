@@ -3,46 +3,63 @@
 # Contributor: Thomas Booker <tw.booker@outlook.com>
 
 pkgname=phosh-mobile-settings
-pkgver=0.50.1
+pkgver=0.51.0
 pkgrel=1
 pkgdesc='A settings app for mobile specific things'
-arch=('x86_64' 'aarch64')
+arch=(x86_64)
 url='https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings'
 license=(GPL-3.0-or-later)
 depends=(
-        "feedbackd"
-        "libadwaita"
-        "libyaml"
-        "lm_sensors"
-        "phoc"
-        "phosh"
-        "libgmobile"
-        "cellbroadcastd"
+  cellbroadcastd
+  dconf
+  feedbackd
+  gcc-libs
+  glib2
+  glibc
+  gnome-desktop-4
+  gsound
+  gtk4
+  hicolor-icon-theme
+  json-glib
+  libadwaita
+  libgmobile
+  libportal
+  libportal-gtk4
+  libpulse
+  libyaml
+  lm_sensors
+  pango
+  phoc
+  phosh
+  wayland
 )
 makedepends=(
-            "git"
-            "meson"
-            "wayland-protocols"
-            "python-packaging"
-            "glib2-devel"
+  git
+  glib2-devel
+  meson
+  python-packaging
+  wayland-protocols
 )
-_gvc=5f9768a2eac29c1ed56f1fbb449a77a3523683b6
 source=(
-        "${url}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
-        "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control#commit=${_gvc}" #new dependency with no release
+  "git+https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings.git?signed#tag=v$pkgver"
+  git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
 )
-sha256sums=('bda9c7aaa498747703cb93b80795cb637d7998b7237a9117940fffd7ce44b89d'
-            '587319b45ff7d989635aed0c3bd9ef834d6e53ae46788cb6ba083d42d7e63855')
+b2sums=(
+  ec63ce4b5942a459b68d4d69589c807d99761802a78769ada5da7f52cf550f94737535cbee14cdf83b8b0886b61ba08600af487b7bc0d37a4d046c1c47dc1a26
+  SKIP
+)
+validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
 
 prepare() {
-  cp -r libgnome-volume-control "${pkgname}-v${pkgver}/subprojects/gvc"
+  ln -s "$srcdir/libgnome-volume-control" "$pkgname/subprojects/gvc"
+  meson subprojects checkout --sourcedir $pkgname
 }
 
 build() {
-  arch-meson "${pkgname}-v${pkgver}" build
+  arch-meson $pkgname build
   meson compile -C build
 }
 
 package() {
-  DESTDIR="${pkgdir}" meson install -C build
+  meson install -C build --destdir "$pkgdir"
 }
