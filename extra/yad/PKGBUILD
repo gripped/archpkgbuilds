@@ -5,25 +5,21 @@
 # Contributor: Ernia <monghitri@aruba.it>
 
 pkgname=yad
-pkgver=14.1
-pkgrel=2
+pkgver=14.2
+pkgrel=1
 pkgdesc='A fork of zenity - display graphical dialogs from shell scripts or command line'
 url='https://github.com/v1cont/yad'
 arch=('x86_64')
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('gtk3' 'webkit2gtk-4.1' 'gtksourceview3' 'gspell')
-makedepends=('autoconf' 'automake' 'intltool')
+makedepends=('autoconf' 'automake')
 source=("https://github.com/v1cont/yad/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('dde047a915cd8d3892c32b6ba031876f5cda673e01882c99613f043867c88133')
+sha256sums=('5cab399af8d9a10b76d477f848180d00addba38f4f1272a05b153a393bba3038')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
-  # use webkit2gtk-4.1
-  sed -i 's|webkit2gtk-4.0|webkit2gtk-4.1|' configure.ac
-
   autoreconf -ivf
-  intltoolize
 }
 
 build() {
