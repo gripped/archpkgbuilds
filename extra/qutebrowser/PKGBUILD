@@ -4,7 +4,7 @@
 # Contributor: Florian Bruhin (The Compiler) <archlinux.org@the-compiler.org>
 
 pkgname=qutebrowser
-pkgver=3.6.2
+pkgver=3.6.3
 pkgrel=1
 pkgdesc="A keyboard-driven, vim-like browser based on Python and Qt"
 arch=("any")
@@ -19,7 +19,7 @@ options=(!emptydirs)
 source=("https://github.com/qutebrowser/qutebrowser/releases/download/v$pkgver/qutebrowser-$pkgver.tar.gz"
         "https://github.com/qutebrowser/qutebrowser/releases/download/v$pkgver/qutebrowser-$pkgver.tar.gz.asc")
 validpgpkeys=("27F3BB4FC217EECB858578AEEF7EE4D039690B7B")
-sha256sums=('19f4a4565b92c1c080bcb3e55b8f502e6c966e54eb9d6f5082a9ded10cbc2493'
+sha256sums=('6dbe2889e61ebd63003ae40b319e1e81f306e924e8316c6795ae4884021c2faf'
             'SKIP')
 
 build() {
