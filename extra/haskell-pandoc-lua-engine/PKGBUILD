@@ -3,13 +3,13 @@
 
 _hkgname=pandoc-lua-engine
 pkgname=haskell-pandoc-lua-engine
-pkgver=0.3.2
-pkgrel=20
+pkgver=0.3.3
+pkgrel=1
 pkgdesc="Lua engine to power custom pandoc conversions"
 url="https://pandoc.org"
 license=('GPL-2.0-or-later')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-sha' 'haskell-aeson' 'haskell-citeproc' 'haskell-data-default'
+depends=('ghc-libs' 'haskell-aeson' 'haskell-citeproc' 'haskell-crypton' 'haskell-data-default'
          'haskell-doclayout' 'haskell-doctemplates' 'haskell-hslua' 'haskell-hslua-module-doclayout'
          'haskell-hslua-module-path' 'haskell-hslua-module-system' 'haskell-hslua-module-text'
          'haskell-hslua-module-version' 'haskell-hslua-module-zip' 'haskell-hslua-repl'
@@ -17,7 +17,7 @@ depends=('ghc-libs' 'haskell-sha' 'haskell-aeson' 'haskell-citeproc' 'haskell-da
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-golden' 'haskell-tasty-hunit'
              'haskell-tasty-lua')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('0cf1981dc8934feb72fdbd15c634cd3b1e7e5602ab7d55936028ef3eea180552')
+sha256sums=('1c168b90e9cb993713aa7d8b2153ade1a2bba283bdba0c07da6d592c5e6ded4b')
 
 prepare() {
   cd $_hkgname-$pkgver
@@ -42,8 +42,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  # https://github.com/jgm/pandoc/pull/8898
-  runhaskell Setup test --show-details=direct || echo "Tests failed"
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
