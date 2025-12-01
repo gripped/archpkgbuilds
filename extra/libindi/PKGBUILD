@@ -3,7 +3,7 @@
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=libindi
-pkgver=2.1.6
+pkgver=2.1.7
 pkgrel=1
 pkgdesc='A distributed control protocol designed to operate astronomical instrumentation'
 url='https://www.indilib.org/index.php?title=Main_Page'
@@ -24,18 +24,19 @@ depends=(cblas
          libusb
          libxisf
          rtl-sdr
+         systemd-libs
          zlib)
 makedepends=(cmake
              git
-             qt5-base)
-optdepends=('qt5-base: Qt client library')
+             qt6-base)
+optdepends=('qt6-base: Qt client library')
 source=(git+https://github.com/indilib/indi#tag=v$pkgver)
-sha256sums=('6f5e14e78e4a0c7c4cd471e9ef531e801ea269252bb1cabb24218c0b8cb0b309')
+sha256sums=('da08fa4c9999b97aa78e0571fd8177d43583bb4e4623b74f77699f8c62068cf8')
 
 build() {
   cmake -B build -S indi \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DINDI_BUILD_QT5_CLIENT=ON \
+    -DINDI_BUILD_QT_CLIENT=ON \
     -DUDEVRULES_INSTALL_DIR=/usr/lib/udev/rules.d \
     -DCMAKE_C_FLAGS="$CFLAGS -ffat-lto-objects" \
     -DCMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects -Wp,-U_GLIBCXX_ASSERTIONS"

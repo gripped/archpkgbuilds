@@ -1,13 +1,13 @@
 pkgbase = libindi
 	pkgdesc = A distributed control protocol designed to operate astronomical instrumentation
-	pkgver = 2.1.6
+	pkgver = 2.1.7
 	pkgrel = 1
 	url = https://www.indilib.org/index.php?title=Main_Page
 	arch = x86_64
 	license = LGPL-2.1-only
 	makedepends = cmake
 	makedepends = git
-	makedepends = qt5-base
+	makedepends = qt6-base
 	depends = cblas
 	depends = cfitsio
 	depends = curl
@@ -23,9 +23,10 @@ pkgbase = libindi
 	depends = libusb
 	depends = libxisf
 	depends = rtl-sdr
+	depends = systemd-libs
 	depends = zlib
-	optdepends = qt5-base: Qt client library
-	source = git+https://github.com/indilib/indi#tag=v2.1.6
-	sha256sums = 6f5e14e78e4a0c7c4cd471e9ef531e801ea269252bb1cabb24218c0b8cb0b309
+	optdepends = qt6-base: Qt client library
+	source = git+https://github.com/indilib/indi#tag=v2.1.7
+	sha256sums = da08fa4c9999b97aa78e0571fd8177d43583bb4e4623b74f77699f8c62068cf8
 
 pkgname = libindi
