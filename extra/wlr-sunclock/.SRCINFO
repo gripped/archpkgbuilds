@@ -1,7 +1,7 @@
 pkgbase = wlr-sunclock
 	pkgdesc = Displays a sunclock desktop widget using the layer shell protocol
 	pkgver = 1.2.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/sentriz/wlr-sunclock
 	arch = x86_64
 	license = LGPL-3.0-only
@@ -10,6 +10,8 @@ pkgbase = wlr-sunclock
 	depends = gtk4
 	depends = gtk4-layer-shell
 	depends = gobject-introspection
+	depends = librsvg
+	depends = wayland
 	source = git+https://github.com/sentriz/wlr-sunclock.git#tag=v1.2.0
 	sha256sums = 31e5d51a9d14b07495dff24ba9f45de6d4c91df256e93c50b18b5a42a7099d1f
 
