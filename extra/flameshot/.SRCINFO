@@ -1,7 +1,7 @@
 pkgbase = flameshot
 	pkgdesc = Powerful yet simple to use screenshot software
 	pkgver = 13.3.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/flameshot-org/flameshot
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -16,6 +16,8 @@ pkgbase = flameshot
 	optdepends = xdg-desktop-portal: for wayland support, you will need the implementation for your wayland desktop environment
 	optdepends = qt6-imageformats: for additional export image formats (e.g. tiff, webp, and more)
 	source = https://github.com/flameshot-org/flameshot/archive/refs/tags/v13.3.0/flameshot-13.3.0.tar.gz
+	source = fix_copy_failure_on_GNOME.patch
 	sha256sums = bd1666313c875400e9588b47eb3fd2f4d0828460b3705a215b97746ea654c1b4
+	sha256sums = efaf5f164883b3b9b68398f066d65750b6f8a3e5e8203c00ae25aa753ad22bb3
 
 pkgname = flameshot

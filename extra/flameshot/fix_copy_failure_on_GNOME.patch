@@ -1,0 +1,217 @@
+From 535032b17336fd3b6cb2f2322907a038926b9988 Mon Sep 17 00:00:00 2001
+From: no7076 <157371518+no7076@users.noreply.github.com>
+Date: Fri, 28 Nov 2025 17:43:41 +0100
+Subject: [PATCH] Fix copy failure on GNOME via GUI (#4363)
+
+* Fix copy failure on GNOME
+My suspicion is that GNOME and specifically Mutter requires specific trusted context for the QtClipboard (from 'kf.guiaddons: Could not init WaylandClipboard, falling back to QtClipboard.') clipboard operation. This means that a visible window must provide the clipboard data. Since the daemon has no visible window, this is a workaround that makes the 'flameshot gui' window handle the copying with a slight delay using QTimer to ensure that GNOME has requested the clipboard data and saved it.
+
+This seems like a better solution #4355 as no helper windows are needed, since we already have the 'flameshot gui' window and can use it. I've limited it to GNOME only as I cannot easily test in other environments.
+
+Fixes #4116, #4298
+
+* Keep capture window alive until GNOME fetches clipboard data
+
+* Move the GNOME clipboard workaround in screenshotsaver.cpp
+
+* Log GNOME clipboard timeout and restore success notification
+
+* Apply linter fixes
+---
+ src/utils/screenshotsaver.cpp         | 77 +++++++++++++++++++++++++++
+ src/utils/screenshotsaver.h           |  3 ++
+ src/widgets/capture/capturewidget.cpp | 36 +++++++++++++
+ src/widgets/capture/capturewidget.h   |  3 ++
+ 4 files changed, 119 insertions(+)
+
+diff --git a/src/utils/screenshotsaver.cpp b/src/utils/screenshotsaver.cpp
+index b67dad9563..8a0bb90fa4 100644
+--- a/src/utils/screenshotsaver.cpp
++++ b/src/utils/screenshotsaver.cpp
+@@ -25,9 +25,12 @@
+ #include <QBuffer>
+ #include <QClipboard>
+ #include <QFileDialog>
++#include <QGuiApplication>
+ #include <QMessageBox>
+ #include <QMimeData>
++#include <QPointer>
+ #include <QStandardPaths>
++#include <QTimer>
+ #include <qimagewriter.h>
+ #include <qmimedatabase.h>
+ #if defined(Q_OS_MACOS)
+@@ -217,6 +220,80 @@ void saveToClipboard(const QPixmap& capture)
+     }
+ }
+ 
++class ClipboardWatcherMimeData : public QMimeData
++{
++public:
++    ClipboardWatcherMimeData(const QImage& img, QWidget* owner)
++      : m_image(img)
++      , m_owner(owner)
++    {}
++
++protected:
++    QStringList formats() const override
++    {
++        return { QStringLiteral("image/png"),
++                 QStringLiteral("application/x-qt-image") };
++    }
++
++    QVariant retrieveData(const QString& mimeType,
++                          QMetaType type) const override
++    {
++        if (mimeType == QLatin1String("application/x-qt-image")) {
++            notifyOwner();
++            return QVariant::fromValue(m_image);
++        }
++        if (mimeType == QLatin1String("image/png")) {
++            QByteArray ba;
++            QBuffer buffer(&ba);
++            buffer.open(QIODevice::WriteOnly);
++            m_image.save(&buffer, "PNG");
++            notifyOwner();
++            return ba;
++        }
++        auto result = QMimeData::retrieveData(mimeType, type);
++        if (result.isValid())
++            notifyOwner();
++        return result;
++    }
++
++private:
++    void notifyOwner() const
++    {
++        if (m_notified || m_owner.isNull())
++            return;
++        m_notified = true;
++        AbstractLogger::info() << QObject::tr("Capture saved to clipboard.");
++        QPointer<QWidget> guard = m_owner;
++        QTimer::singleShot(0, [guard]() {
++            if (guard)
++                guard->close();
++        });
++    }
++
++    QImage m_image;
++    mutable bool m_notified{ false };
++    QPointer<QWidget> m_owner;
++};
++
++bool saveToClipboardGnomeWorkaround(const QPixmap& pixmap, QWidget* keepAlive)
++{
++    auto* mimeData = new ClipboardWatcherMimeData(pixmap.toImage(), keepAlive);
++    QClipboard* clipboard = QGuiApplication::clipboard();
++    clipboard->setMimeData(mimeData);
++
++    keepAlive->hide();
++
++    // Safety net: force close after 500ms if compositor never fetches
++    QTimer::singleShot(500, keepAlive, [keepAlive]() {
++        qWarning() << "GNOME workaround timed out, compositor did not request "
++                      "clipboard data within 500ms. Force closing.";
++        if (keepAlive)
++            keepAlive->close();
++    });
++
++    return true;
++}
++
+ bool saveToFilesystemGUI(const QPixmap& capture)
+ {
+     bool okay = false;
+diff --git a/src/utils/screenshotsaver.h b/src/utils/screenshotsaver.h
+index 9face3468b..7315145362 100644
+--- a/src/utils/screenshotsaver.h
++++ b/src/utils/screenshotsaver.h
+@@ -4,6 +4,7 @@
+ #pragma once
+ 
+ #include <QString>
++#include <QWidget>
+ 
+ class QPixmap;
+ 
+@@ -13,4 +14,6 @@ bool saveToFilesystem(const QPixmap& capture,
+ QString ShowSaveFileDialog(const QString& title, const QString& directory);
+ void saveToClipboardMime(const QPixmap& capture, const QString& imageType);
+ void saveToClipboard(const QPixmap& capture);
++// GNOME Wayland: keeps the widget alive until clipboard data is fetched
++bool saveToClipboardGnomeWorkaround(const QPixmap& pixmap, QWidget* keepAlive);
+ bool saveToFilesystemGUI(const QPixmap& capture);
+diff --git a/src/widgets/capture/capturewidget.cpp b/src/widgets/capture/capturewidget.cpp
+index fd8667869a..a2bbfd0bf2 100644
+--- a/src/widgets/capture/capturewidget.cpp
++++ b/src/widgets/capture/capturewidget.cpp
+@@ -75,6 +75,7 @@ CaptureWidget::CaptureWidget(const CaptureRequest& req,
+   , m_xywhDisplay(false)
+   , m_existingObjectIsChanged(false)
+   , m_startMove(false)
++  , m_clipboardWorkaroundDone(false)
+ 
+ {
+     m_undoStack.setUndoLimit(ConfigHandler().undoLimit());
+@@ -604,6 +605,41 @@ void CaptureWidget::uncheckActiveTool()
+     updateCursor();
+ }
+ 
++void CaptureWidget::closeEvent(QCloseEvent* event)
++{
++#if !(defined(Q_OS_MACOS) || defined(Q_OS_WIN))
++    /* GNOME copy problem workaround, copy
++       operation seems to work only when there
++       is a visible window to retrieve the
++       data from. On GNOME, the GUI should
++       handle the copy operation, not the
++       daemon.
++    */
++    const bool copyRequested =
++      (m_context.request.tasks() & CaptureRequest::COPY);
++
++    if (m_captureDone && copyRequested) {
++        DesktopInfo desktopInfo;
++        const bool needGnomeWorkaround =
++          desktopInfo.waylandDetected() &&
++          desktopInfo.windowManager() == DesktopInfo::GNOME;
++
++        if (needGnomeWorkaround && !m_clipboardWorkaroundDone) {
++            event->ignore();
++            m_clipboardWorkaroundDone = true;
++            m_context.request.removeTask(CaptureRequest::COPY);
++            AbstractLogger::info()
++              << "GNOME Wayland detected; keeping capture window alive until "
++                 "clipboard data is fetched.";
++            saveToClipboardGnomeWorkaround(pixmap(), this);
++            return;
++        }
++    }
++#endif
++
++    QWidget::closeEvent(event);
++}
++
+ void CaptureWidget::paintEvent(QPaintEvent* paintEvent)
+ {
+     Q_UNUSED(paintEvent)
+diff --git a/src/widgets/capture/capturewidget.h b/src/widgets/capture/capturewidget.h
+index a0230fc9bc..61039f43a5 100644
+--- a/src/widgets/capture/capturewidget.h
++++ b/src/widgets/capture/capturewidget.h
+@@ -110,6 +110,7 @@ private slots:
+     void resizeEvent(QResizeEvent* resizeEvent) override;
+     void moveEvent(QMoveEvent* moveEvent) override;
+     void changeEvent(QEvent* changeEvent) override;
++    void closeEvent(QCloseEvent* event) override;
+ 
+ private:
+     void pushObjectsStateToUndoStack();
+@@ -229,4 +230,6 @@ private slots:
+     // Grid
+     bool m_displayGrid{ false };
+     int m_gridSize{ 10 };
++
++    bool m_clipboardWorkaroundDone{ false };
+ };
+

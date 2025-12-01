@@ -5,7 +5,7 @@
 
 pkgname=flameshot
 pkgver=13.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Powerful yet simple to use screenshot software"
 url="https://github.com/flameshot-org/flameshot"
 arch=('x86_64')
@@ -16,8 +16,17 @@ optdepends=('gnome-shell-extension-appindicator: for system tray icon if you are
             'grim: for wlroots wayland support'
             'xdg-desktop-portal: for wayland support, you will need the implementation for your wayland desktop environment'
             'qt6-imageformats: for additional export image formats (e.g. tiff, webp, and more)')
-source=("${url}/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('bd1666313c875400e9588b47eb3fd2f4d0828460b3705a215b97746ea654c1b4')
+source=("${url}/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+        'fix_copy_failure_on_GNOME.patch')
+sha256sums=('bd1666313c875400e9588b47eb3fd2f4d0828460b3705a215b97746ea654c1b4'
+            'efaf5f164883b3b9b68398f066d65750b6f8a3e5e8203c00ae25aa753ad22bb3')
+
+prepare() {
+	cd "${pkgname}-${pkgver}"
+	# Fix copy failure on GNOME via GUI
+	# See https://github.com/flameshot-org/flameshot/commit/535032b17336fd3b6cb2f2322907a038926b9988
+	patch -Np1 -i "${srcdir}/fix_copy_failure_on_GNOME.patch"
+}
 
 build() {
 	cmake -B build -S "${pkgname}-${pkgver}" \
