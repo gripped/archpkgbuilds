@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=mkdocstrings
-pkgver=0.30.1
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="Automatic documentation from sources, for MkDocs"
 arch=(any)
@@ -30,7 +30,7 @@ checkdepends=(
   python-pytest
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('d3c0991cbc2c38f490eeb8ae37a9b02a352b21667ff2419aa2d8b93090875245')
+sha256sums=('9e4fd1201cbc3c37379bec2e85420de14f14cfc90567bc8e304ee54c6e6f7866')
 
 build() {
   cd $pkgname-$pkgver
