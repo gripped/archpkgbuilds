@@ -4,8 +4,8 @@
 # Contributor: Mohammad AlSaleh <CE.Mohammad.AlSaleh at gmail dot com>
 
 pkgname=lua-language-server
-pkgver=3.15.0
-pkgrel=2
+pkgver=3.16.0
+pkgrel=1
 pkgdesc='Lua Language Server coded by Lua'
 arch=(x86_64)
 url=https://luals.github.io
@@ -13,6 +13,7 @@ license=(MIT)
 depends=(
   bash
   gcc-libs
+  libunwind
 )
 makedepends=(
   git
@@ -44,7 +45,7 @@ source=(
   git+https://github.com/LuaCATS/luv.git
   wrapper
 )
-b2sums=('9a92d70fcc406c8be5401b952d65eebf9905b893d2478b76e7a7b2908bee21c4314b93ecb70d622d4d7325ba14e919d9c8acedca3e2c1663c7eb82dabde74b44'
+b2sums=('c97604d31039b374c8b6cec1ae4c6ad18788d1e10a49380ce2c031b957838e1c69961f31cca71099d7b88cf8f9c33d399b2d8ee70e1a9fddadf66d60f43ff527'
         'SKIP'
         'SKIP'
         'SKIP'
