@@ -4,7 +4,7 @@
 
 pkgname=cosmic-osd
 pkgver=1.0.0.beta.8
-pkgrel=1
+pkgrel=2
 pkgdesc='COSMIC On-Screen Display'
 arch=(x86_64)
 url=https://github.com/pop-os/cosmic-osd
@@ -41,8 +41,7 @@ prepare() {
 build() {
   cd cosmic-osd
   RUSTFLAGS+=" -C link-arg=-fuse-ld=lld" \
-  POLKIT_AGENT_HELPER_1="/usr/lib/polkit-1/polkit-agent-helper-1" \
-  just build-release --frozen
+  just polkit-agent-helper-1="/usr/lib/polkit-1/polkit-agent-helper-1" build-release
 }
 
 package() {
