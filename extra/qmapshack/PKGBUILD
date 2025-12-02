@@ -4,7 +4,7 @@
 # Contributor: Martin Brodbeck <martin@brodbeck-online.de>
 
 pkgname=qmapshack
-pkgver=1.18.2
+pkgver=1.19.0
 pkgrel=1
 pkgdesc='Consumer grade GIS software'
 arch=('x86_64')
@@ -31,7 +31,7 @@ makedepends=(
   'cmake'
 )
 source=("$url/archive/V_$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('932f3a0e872b7ae6d46edda8424a2eb60df582f8232dc7ce0f9ae14a72304454cb4468c9197e5c65b9c8c8ff1b81ce7f40e319acb35dbcf104a817ef46b979ac')
+sha512sums=('2686bad86dafb582e1dfb20a40972bd7986906de47f8620f0646cb4ca672523c7fd27658810b73245c3c41a613da9f4f7fe41a5abb42554f3838f04b6b54ad74')
 
 build() {
   cmake -B build -S $pkgname-V_$pkgver \
