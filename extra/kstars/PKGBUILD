@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kstars
-pkgver=3.7.9
+pkgver=3.8.0
 pkgrel=1
 epoch=1
 pkgdesc='Desktop Planetarium'
@@ -28,7 +28,6 @@ depends=(breeze-icons
          kwidgetsaddons
          kxmlgui
          libindi
-         libnova
          libraw
          libxisf
          opencv
@@ -46,7 +45,7 @@ makedepends=(eigen
              kdoctools)
 optdepends=('xplanet: XPlanet support')
 source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('4bc1d0fcd02c415414da80135f47a899a4a0962b40f43ffc8c65f433e3d92c35'
+sha256sums=('9e907499a6087406601c1559a90f6551ef557ef4642371355929c6ed12188dee'
             'SKIP')
 validpgpkeys=(259D9FCEE9175351965633696D9CE2AEE028C4F3) # Jasem Mutlaq <mutlaqja@ikarustech.com>
 
