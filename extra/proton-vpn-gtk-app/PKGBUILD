@@ -3,19 +3,23 @@
 
 pkgname=proton-vpn-gtk-app
 pkgver=4.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="ProtonVPN GTK app, Maintained by Community"
 arch=(any)
 url="https://github.com/ProtonVPN/proton-vpn-gtk-app"
 license=(GPL-3.0-or-later)
 depends=(
   dbus-python
+  glib2
+  pango
   gtk3
   libnotify
+  python
   python-cairo
   python-distro
   python-gobject
   python-packaging
+  proton-vpn-daemon
   python-proton-core
   python-proton-keyring-linux
   python-proton-vpn-api-core
