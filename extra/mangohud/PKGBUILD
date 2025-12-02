@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 _pkgname=MangoHud
 pkgname=mangohud
-pkgver=0.8.1
+pkgver=0.8.2
 pkgrel=1
 pkgdesc="A Vulkan overlay layer for monitoring FPS, temperatures, CPU/GPU load and more."
 arch=('x86_64')
@@ -17,7 +17,7 @@ optdepends=('gamescope: Use MangoApp as an overlay within gamescope'
 replaces=("$pkgname-common" "$pkgname-common-wayland" "$pkgname-common-x11" "mangoapp" "$pkgname-x11" "$pkgname-wayland")
 conflicts=("$pkgname-common" "$pkgname-common-wayland" "$pkgname-common-x11" "mangoapp" "$pkgname-x11" "$pkgname-wayland")
 source=("$pkgname-$pkgver.tar.xz::https://github.com/flightlessmango/MangoHud/releases/download/v$pkgver/$_pkgname-v$pkgver-Source.tar.xz")
-b2sums=('d817531618d51638adef441c013c02ad0f9b6d5b45d97693e26ce518b3a16c0a096f87add32137b422645993bb0280047f24bec2d998ad4733383008f4f5426b')
+b2sums=('c6db1fa344638da38969d5bb2fdd1d9c2aa8fced88229efda2e2a3f39a504810fea9ecddefee8364b44666485ab10e05d3f7cf3f5a6450fade28a270653d7918')
 
 prepare() {
     cd "$_pkgname-v$pkgver"
