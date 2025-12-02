@@ -1,12 +1,15 @@
 pkgbase = python-proton-vpn-network-manager
 	pkgdesc = The proton-vpn-network-manager component provides the necessary functionality for other components to interact with NetworkManager.
 	pkgver = 0.13.4
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/ProtonVPN/python-proton-vpn-network-manager
 	arch = any
 	license = GPL-3.0-or-later
 	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = networkmanager-openvpn
 	depends = libnm
 	depends = python
