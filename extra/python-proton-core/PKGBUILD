@@ -3,7 +3,7 @@
 
 pkgname=python-proton-core
 pkgver=0.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="The proton-core component contains core logic used by the other Proton components."
 arch=(any)
 url="https://github.com/ProtonVPN/python-proton-core"
@@ -18,17 +18,20 @@ depends=(
 )
 makedepends=(
   git
+  python-build
+  python-installer
   python-setuptools
+  python-wheel
 )
 source=("git+https://github.com/ProtonVPN/${pkgname}.git#tag=v${pkgver}")
 sha256sums=('146cb8829d98f55334d862c9af5f2ef9ada9c9edd5368d5107d0a4003c014a23')
 
 build() {
-	cd "$pkgname"
-    python setup.py build
+  cd "$pkgname"
+  python -m build --wheel --no-isolation
 }
 
 package() {
-	cd "$pkgname"
-	python setup.py install --root="$pkgdir" --optimize=1
+  cd "$pkgname"
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
