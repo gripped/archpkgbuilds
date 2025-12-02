@@ -2,7 +2,7 @@
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=checkbashisms
-pkgver=2.25.27
+pkgver=2.25.28
 pkgrel=1
 pkgdesc='Debian script that checks for bashisms'
 arch=(any)
@@ -11,8 +11,8 @@ license=(GPL-2.0-or-later)
 depends=(perl)
 makedepends=(git)
 source=("$pkgname::git+https://salsa.debian.org/debian/devscripts#tag=v$pkgver")
-sha512sums=('e9b40f2d50820ffc6da15d248cad48d56b5940f63209d1fcdb396bb28c9b20120a00c9b1f5403191faa8d798ecf22298acef19d4eaa15108b90050ddcf40e030')
-b2sums=('e978634c35f93fa004e26ab112677955c995f27aa28a023a4d1dfaba1f2ec6875f2ee122d52ce56080c429bad738640995078d520ca400b7125010746f5f7e34')
+sha512sums=('71762fc9bf7841cce52e90b921650c1e828d39d68da424bdc000f501412538e54b857323c7c5a29e49ad4cd5d0fa09061d0908fb9ca379ccc5f5bf5811433afa')
+b2sums=('bfc427168ee90822bb408644fd1bfd1c913ded328d2260bde45e2e608eeb076288002345009a32742c55c3394be17608aaa39b0c1abe3df0e3c56129d5ed898b')
 
 prepare() {
   cd "$pkgname/scripts"
