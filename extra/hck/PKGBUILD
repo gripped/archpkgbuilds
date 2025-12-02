@@ -2,24 +2,24 @@
 # Contributor: aulonsal <aulonsal at gmail dot com>
 
 pkgname=hck
-pkgver=0.11.4
+pkgver=0.11.5
 pkgrel=1
 pkgdesc='A drop in replacement for cut that can use a regex delimiter instead of a fixed string'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/sstadick/hck'
-license=('Unlicense' 'MIT')
-depends=('glibc' 'gcc-libs')
-makedepends=('git' 'rust' 'cmake')
-options=('!lto')
+license=(Unlicense MIT)
+depends=(glibc gcc-libs)
+makedepends=(git rust cmake)
+options=(!lto)
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('954b8635efd4b76e235629403201ccfe5bfb572914416f9831c5862293af6f9f44683ff2affb48db051a315c0d20ec55ed29d629ae765057111f21d9bbb5b108')
-b2sums=('b389487a7ecedc599fdc79d391221cccc4ed7a14ef9b13b260c6c3605890b16b29b5253506a5c71722b437ea0caf4715bf074c747576841fcc663cdd8cd93dfd')
+sha512sums=('054dc67c9cc7665278e11ba0ae74aa9401c20b308e08e47ebabfbca85444bcfad56543ab966f4573c07418cd59c998e4e53582b053a26e50c870693036d7ba83')
+b2sums=('c299f62f5367e5449d0686d9a51a758cbe45dd6d495750056e198ed2788058836e7ba8b6039a8b605edae70e3456ef10e181abea82049ca331806100503d67cb')
 
 prepare() {
   cd "$pkgname"
 
   # download dependencies
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target $(rustc --print host-tuple)
 }
 
 build() {
