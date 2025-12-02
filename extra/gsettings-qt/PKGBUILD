@@ -4,7 +4,7 @@
 
 pkgbase=gsettings-qt
 pkgname=('gsettings-qt5' 'gsettings-qt6')
-pkgver=1.0.0
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="Library to access GSettings from Qt"
 arch=('x86_64')
@@ -12,7 +12,7 @@ url="https://gitlab.com/ubports/development/core/gsettings-qt"
 license=('LGPL-3.0-only')
 makedepends=('git' 'cmake' 'ninja' 'cmake-extras' 'qt5-declarative' 'qt6-declarative')
 source=("git+https://gitlab.com/ubports/development/core/gsettings-qt.git#tag=v$pkgver")
-sha256sums=('0bda32a632d301c1728c863aa3d0e2511a90a755022462b9c887a2e9671148e6')
+sha256sums=('3b229b9f41e94c9554c266aac85e0c701cd180870157fde89ab02e5f6ab1a88a')
 
 prepare() {
   cp -a gsettings-qt{,5}
