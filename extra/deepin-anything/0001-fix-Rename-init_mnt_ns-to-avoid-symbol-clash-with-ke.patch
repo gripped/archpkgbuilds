@@ -1,0 +1,87 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <jan.steffens@gmail.com>
+Date: Tue, 2 Dec 2025 00:37:45 +0100
+Subject: [PATCH] fix: Rename init_mnt_ns to avoid symbol clash with kernel
+ 6.18
+
+Linux 6.18 already has a symbol named `init_mnt_ns`. Rename ours to
+prevent a clash and compile error.
+---
+ src/kernelmod/vfs_fsnotify.c   | 6 +++---
+ src/kernelmod/vfs_kretprobes.c | 6 +++---
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/src/kernelmod/vfs_fsnotify.c b/src/kernelmod/vfs_fsnotify.c
+index 4c2114028a58..4325c2cecc4b 100644
+--- a/src/kernelmod/vfs_fsnotify.c
++++ b/src/kernelmod/vfs_fsnotify.c
+@@ -39,21 +39,21 @@ static struct mnt_namespace *target_mnt_ns;
+ #endif
+ 
+ 
+-static inline int init_mnt_ns(void)
++static inline int init_target_mnt_ns(void)
+ {
+     /*
+      * workaround the addr is 0xFFF...FF(value: -1) for this case by unkown reason: upgrade kernel
+      * image to 5.10 and update this dkms module at the same time.
+      * this nsproxy's addr fill 'F' while load this module at first time and then tainted. Add value
+      * checking to workaround this issue.
+      */
+     if ((struct nsproxy*)-1 == current->nsproxy) {
+         mpr_err("current->nsproxy value is -1, return\n");
+         return -EINVAL;
+     }
+ 
+     if (0 == current->nsproxy || 0 == current->nsproxy->mnt_ns) {
+-        mpr_err("init_mnt_ns fail\n");
++        mpr_err("init_target_mnt_ns fail\n");
+         return -EINVAL;
+     }
+ 
+@@ -271,7 +271,7 @@ int init_vfs_fsnotify(void *vfs_changed_func)
+ {
+     int ret;
+ 
+-    ret = init_mnt_ns();
++    ret = init_target_mnt_ns();
+     if (ret)
+         return ret;
+ 
+diff --git a/src/kernelmod/vfs_kretprobes.c b/src/kernelmod/vfs_kretprobes.c
+index e48110a71ffe..efe9a00edc52 100644
+--- a/src/kernelmod/vfs_kretprobes.c
++++ b/src/kernelmod/vfs_kretprobes.c
+@@ -38,21 +38,21 @@ static atomic_t event_sync_cookie = ATOMIC_INIT(0);
+ 
+ static struct mnt_namespace *target_mnt_ns;
+ 
+-static inline int init_mnt_ns(void)
++static inline int init_target_mnt_ns(void)
+ {
+     /*
+      * workaround the addr is 0xFFF...FF(value: -1) for this case by unkown reason: upgrade kernel
+      * image to 5.10 and update this dkms module at the same time.
+      * this nsproxy's addr fill 'F' while load this module at first time and then tainted. Add value
+      * checking to workaround this issue.
+      */
+     if ((struct nsproxy*)-1 == current->nsproxy) {
+         mpr_err("current->nsproxy value is -1, return\n");
+         return -EINVAL;
+     }
+ 
+     if (0 == current->nsproxy || 0 == current->nsproxy->mnt_ns) {
+-        mpr_err("init_mnt_ns fail\n");
++        mpr_err("init_target_mnt_ns fail\n");
+         return -EINVAL;
+     }
+ 
+@@ -510,7 +510,7 @@ int init_vfs_kretprobes(void *vfs_changed_func)
+ {
+     int ret;
+ 
+-    ret = init_mnt_ns();
++    ret = init_target_mnt_ns();
+     if (ret)
+         return ret;
+ 

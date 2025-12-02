@@ -4,14 +4,23 @@ pkgbase=deepin-anything
 pkgname=(deepin-anything deepin-anything-dkms)
 pkgver=6.2.10
 _extramodules=extramodules-ARCH
-pkgrel=1
+pkgrel=2
 pkgdesc="Deepin Anything file search tool"
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-anything"
 license=('GPL-3.0-or-later')
 makedepends=('cmake' 'udisks2-qt5' 'glib2' 'libnl' 'pcre2' 'polkit-qt5')
-source=("https://github.com/linuxdeepin/deepin-anything/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('c8b70107f19c6f21b80532c4dd998a86fe9a82985c609247af07e45be2515a66ccc0d9f2ebd26ae9df3d3d20f5ac53fd080956e5cd3b086edb05583edca53408')
+source=(
+  "https://github.com/linuxdeepin/deepin-anything/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+  0001-fix-Rename-init_mnt_ns-to-avoid-symbol-clash-with-ke.patch
+)
+sha512sums=('c8b70107f19c6f21b80532c4dd998a86fe9a82985c609247af07e45be2515a66ccc0d9f2ebd26ae9df3d3d20f5ac53fd080956e5cd3b086edb05583edca53408'
+            '4d41abba018d90f186a6c5f5af24dd4f1f43858c5ce977eba98c20f6c86df86382ed26c13fc04d8b93350a202ceb58946cc316eb8364fd6d6c0f4241eee0c3cd')
+
+prepare() {
+  # Fix build with kernel 6.18
+  patch -d "$pkgbase-$pkgver" -Np1 < 0001-fix-Rename-init_mnt_ns-to-avoid-symbol-clash-with-ke.patch
+}
 
 _pick() {
   local p="$1" f d; shift
