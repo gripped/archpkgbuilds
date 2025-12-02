@@ -2,8 +2,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-pydyf
-pkgver=0.11.0
-pkgrel=2
+pkgver=0.12.0
+pkgrel=1
 pkgdesc='A low-level PDF generator'
 arch=('any')
 url='https://www.courtbouillon.org/pydyf'
@@ -21,7 +21,7 @@ checkdepends=(
   'ghostscript'
 )
 source=("$pkgname::git+https://github.com/CourtBouillon/pydyf.git#tag=v$pkgver")
-sha256sums=('69a4c66d1c354d82c5925eeed8e8fe3dc52f721e5c21e93e34dbbc36ed95c48c')
+sha256sums=('6c63fcad7bac94ea554eeb9e069f728674e6d0b32916ca433781fb749ec36077')
 
 build() {
   cd "$pkgname"
