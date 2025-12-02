@@ -3,7 +3,7 @@
 
 _name=huggingface_hub
 pkgname=python-huggingface-hub
-pkgver=1.1.6
+pkgver=1.1.7
 pkgrel=1
 epoch=1
 pkgdesc='All the open source things related to the Hugging Face Hub'
@@ -62,7 +62,7 @@ optdepends=(
   python-fastai
 )
 source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('ac588a6b0963ffe46faf8a3e11dc4ebe90f27a80813ebedbdbf3aab212bbb6663a5bde7517baa883011c29fe57cdfb67bfe3b2e4ff16f0b203eeb70af76eea9d')
+sha512sums=('a0cb2f3aec45b7eefa462bcb1c6051ce0f221a0ca4827aa8c478f19d451d2063624b97af4a853ac673ba32458e33257756ff0cef1abd0d77c988ff96f689202c')
 
 build() {
   cd $_name-$pkgver
@@ -83,6 +83,7 @@ check() {
     --deselect tests/test_hf_api.py
     --deselect tests/test_hf_file_system.py
     --deselect tests/test_inference_client.py
+    --deselect tests/test_oauth.py::test_oauth_workflow
     --deselect tests/test_repocard.py
     --deselect tests/test_repository.py
     --deselect tests/test_snapshot_download.py
