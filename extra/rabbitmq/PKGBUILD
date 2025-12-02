@@ -14,7 +14,7 @@ pkgname=(
   rabbitmqadmin
 )
 pkgver=4.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Highly reliable and performant enterprise messaging implementation of AMQP written in Erlang/OTP'
 url='https://rabbitmq.com'
 arch=('any')
