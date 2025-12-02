@@ -6,7 +6,7 @@
 
 pkgname=ruby-pkg-config
 _pkgname="${pkgname#ruby-}"
-pkgver=1.6.4
+pkgver=1.6.5
 pkgrel=1
 pkgdesc='Implementation of pkg-config in Ruby'
 arch=(any)
@@ -21,8 +21,8 @@ provides=(ruby-pkgconfig)
 replaces=(ruby-pkgconfig)
 conflicts=(ruby-pkgconfig)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('70deac5185a008bc7f60dfe4fbbc3bc37d2f19ec6bf4d8a19bf61492af51e441c9d087fbac6ca73ddfa14f81e05a3f9b763add80f1e9faae8b417ff7d0c1d915')
-b2sums=('9e7508016782f65f28309a83d7a8fca718ce7d2ccfafab961a72e3801499693c1dfc6fb9bda7b128ded5903b17671a8fb1bd96de70dbab2f85c3b8ecd921b6f8')
+sha512sums=('e06456aafbc20978005a80682aef728c278c479d4d1310270ac154c5d3d99daca5c12d1cf4543e7f2e40cad4b9af1b329241ff59fcbc7cc4bd3a41e525183fa2')
+b2sums=('2ad142c1f3d451a4e9d6debf87a0c5866d888d838f97422c261fb9a33863c25142b4d41d49e083f08363d1dd4075e5997c92091ac7cd16d50b250c6aa8cb69d4')
 
 build() {
   cd "$pkgname"
