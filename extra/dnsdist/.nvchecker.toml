@@ -1,0 +1,6 @@
+[dnsdist]
+source = "git"
+git = "https://github.com/PowerDNS/pdns.git"
+include_regex = "dnsdist-(.+)"
+exclude_regex = ".*(pre|alpha|beta|rc|RC).*"
+prefix = "dnsdist-"
