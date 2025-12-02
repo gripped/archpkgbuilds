@@ -5,7 +5,7 @@
 # Contributor: hexchain <i@hexchain.org>
 
 pkgname=mypy
-pkgver=1.18.2
+pkgver=1.19.0
 pkgrel=1
 pkgdesc='Optional static typing for Python (PEP484)'
 arch=('any')
@@ -13,6 +13,7 @@ url="http://www.mypy-lang.org/"
 license=('MIT')
 depends=(
   'python'
+  'python-librt'
   'python-mypy_extensions'
   'python-orjson'
   'python-pathspec'
@@ -41,7 +42,7 @@ source=(
   "$pkgname-$pkgver.tar.gz::https://github.com/python/mypy/archive/v$pkgver.tar.gz"
   "$pkgname-exclude-tests.patch"
 )
-sha256sums=('4f0b58727dc296b92cfa3c404d31d52597de8bab0530c697f01f0d4397d6120c'
+sha256sums=('afe9fcb2618256a7b0d778b9509e94f6c86309b639f9a8e3492a482db7706d34'
             '4f270a2ab4e20366ae2ebc912c2589edd070f488a224d2a6b3209c731c3a28f9')
 
 prepare() {
