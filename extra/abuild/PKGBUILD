@@ -4,15 +4,15 @@
 
 pkgname=abuild
 pkgver=3.15.0
-pkgrel=1
+pkgrel=3
 pkgdesc="Alpine build tools"
 url="https://gitlab.alpinelinux.org/alpine/abuild"
 arch=('x86_64')
 license=('GPL-2.0-or-later')
-depends=('alpine-keyring' 'busybox' 'glibc' 'pax-utils' 'openssl' 'apk-tools' 'attr' 'tar' 'pkgconf' 'lzip' 'curl' 'bubblewrap' 'gettext' 'git' 'fakeroot')
+depends=('alpine-keyring' 'busybox' 'glibc' 'pax-utils' 'openssl' 'apk-tools'
+         'attr' 'tar' 'pkgconf' 'lzip' 'curl' 'bubblewrap' 'gettext' 'git' 'fakeroot')
 makedepends=('zlib' 'scdoc')
-optdepends=('atools: additional scripts to maintain Alpine packages'
-            'perl: for cpan resolver'
+optdepends=('perl: for cpan resolver'
             'perl-libwww: for cpan resolver'
             'perl-json: for cpan resolver'
             'perl-module-build-tiny: for cpan resolver'
@@ -33,6 +33,13 @@ sha512sums=('b0d33e117a96692173b99145f7c14b5826639e3d5627219871b054a3fca6d39790d
 prepare() {
 	cd "${pkgname}-${pkgver}"
 	patch -Np1 -i "${srcdir}/allow_running_abuild_rootbld.patch"
+
+	find -type f | while read file; do
+		sed -E -i "${file}" \
+			-e '1s|#!/usr/bin/env ash$|#!/bin/busybox ash|' \
+			-e '1s|#!/bin/ash$|#!/bin/busybox ash|' \
+			-e '1s|#!/bin/ash\s+(.*)$|#!/bin/busybox ash\nset \1|'
+	done
 }
 
 build() {
@@ -44,13 +51,7 @@ package() {
 	cd "${pkgname}-${pkgver}"
 	make install VERSION="${pkgver}" DESTDIR="${pkgdir}"
 
-	for bin in "${pkgdir}"/usr/bin/*; do
-		sed -E -i "${bin}" \
-			-e '1s|#!/bin/ash$|#!/bin/busybox ash|' \
-			-e '1s|#!/bin/ash\s+(.*)$|#!/bin/busybox ash\nset \1|'
-	done
-
 	install -Dm 644 "${pkgname}.conf" "${pkgdir}/etc/${pkgname}.conf"
-	install -Dm 644 "../${pkgname}.sysusers" "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"
-	install -Dm 644 "../${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
+	install -Dm 644 "${srcdir}/${pkgname}.sysusers" "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"
+	install -Dm 644 "${srcdir}/${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
 }
