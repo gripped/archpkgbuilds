@@ -5,7 +5,7 @@
 # Contributor: Dmitrij D. Czarkoff <czarkoff at gmail dot com>
 
 pkgname=libre
-pkgver=4.2.0
+pkgver=4.3.0
 pkgrel=1
 pkgdesc="Portable library for real-time communications"
 arch=('x86_64')
@@ -17,7 +17,7 @@ replaces=('re' 'librem')
 conflicts=('re' 'librem')
 provides=(libre.so)
 source=("${pkgname}-${pkgver}.tar.gz"::"https://github.com/baresip/re/archive/v${pkgver}.tar.gz")
-sha256sums=('db60a89641c39092269c77fdb6340bb8f6292c3a2f807a1446a694fd16cdd81d')
+sha256sums=('555d3b6dfaeb4809b5fdc5081686ebde8486ea6e479f2cb99256a5bcfdb18b24')
 
 build() {
   cd re-${pkgver}
