@@ -2,7 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=apk-tools
-pkgver=2.14.10
+pkgver=3.0.0
 pkgrel=1
 pkgdesc="Alpine Package Keeper - package manager for alpine"
 url="https://gitlab.alpinelinux.org/alpine/apk-tools"
@@ -14,32 +14,31 @@ depends=(
   'zlib'
 )
 makedepends=(
+  'meson'
   'lua53'
   'lua53-zlib'
   'scdoc'
 )
+checkdepends=(
+  'cmocka'
+)
 source=("https://gitlab.alpinelinux.org/alpine/${pkgname}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
-sha256sums=('5d888d95cf41e68288bd4342938e05767ff76c83f1d25830088fc6d4ccc42793')
-b2sums=('77fc3c601a857f559dfe11a8a5d5145a5370af570dcc2a0dcb9dd30be4e78bdd5d6cec5490249a80c6eb2dac6b3590bb3a3becbc483bda5efae3d5762cf695e3')
-
-prepare() {
-  cd "${pkgname}-v${pkgver}"
-  sed -i -e 's:-Werror::' Make.rules
-}
+sha256sums=('1b1ced0a1a6ffd9323c21d58521bfa2151424ee9daded4cde209007efe9e5794')
+b2sums=('e417ed8156b429be2b4c15ed7cb8ff3fcb8eef6b3e1d0a9bf5932c301112de7ef5599be38293cd908b9ce4bc47a50955eef8e48bae6d4b4de3ba87722a0ea24e')
 
 build() {
-  cd "${pkgname}-v${pkgver}"
-  make SBINDIR=/usr/bin LIBDIR=/usr/lib
+  arch-meson "${pkgname}-v${pkgver}" build \
+    --sbindir=/usr/bin \
+    --libdir=/usr/lib
+  meson compile -C build
 }
 
 check() {
-  cd "${pkgname}-v${pkgver}"
-  make test
+  meson test -C build --print-errorlogs
 }
 
 package() {
-  cd "${pkgname}-v${pkgver}"
-  make install DESTDIR="${pkgdir}" SBINDIR=/usr/bin LIBDIR=/usr/lib
+  meson install -C build --destdir "${pkgdir}"
 }
 
 # vim: ts=2 sw=2 et:
