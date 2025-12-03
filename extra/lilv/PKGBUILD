@@ -1,4 +1,5 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: Ray Rashif <schiv@archlinux.org>
 # Contributor: speps <speps at aur dot archlinux dot org>
 
@@ -7,11 +8,11 @@ pkgname=(
   lilv{,-docs}
   python-lilv
 )
-pkgver=0.24.26
+pkgver=0.26.2
 pkgrel=1
 pkgdesc="A C library interface to the LV2 plug-in standard"
 arch=(x86_64)
-url="https://drobilla.net/software/lilv.html"
+url="https://gitlab.com/lv2/lilv"
 license=(
   '0BSD OR ISC'
   ISC
@@ -31,9 +32,9 @@ makedepends=(
   swig
 )
 source=(https://download.drobilla.net/$pkgname-$pkgver.tar.xz{,.sig})
-sha512sums=('3d360d63391554f62d1dd44b9ba0fc28e4ccde9640da1e28ef3f127c23c9f03974b66c5bbb83f022f18810284a0e25060127d580ca2fad6213fe88920618c2ae'
+sha512sums=('623ca8cbde013691b22f49f4e279bd5f5e2fda0391206a1570a9b8cde568c8fa792787d7c41bddb7957fb32780b52c263fb63f6ac28527fa8123267bdda286da'
             'SKIP')
-b2sums=('23b7a029fd40099420e9e8de222b2534b124a93f899c03c5ada27673fc47431c95866d7d4bc5f34b80110b5142e6564e95390fd56d686ac9958ad8bf71ca6033'
+b2sums=('c92575d5d2cf89c533169706e3be76f9ece261d7b92122a53817f8ca3b543d8c12925699c45ad084ea947a44d3bce58ea84e2ed4b5ff41b57147f04733991ae3'
         'SKIP')
 validpgpkeys=('907D226E7E13FA337F014A083672782A9BF368F3') # David Robillard <d@drobilla.net>
 
