@@ -2,7 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=sentry-native
-pkgver=0.12.1
+pkgver=0.12.2
 pkgrel=1
 pkgdesc="Sentry SDK for C, C++ and native applications"
 arch=(x86_64)
@@ -35,7 +35,7 @@ source=(
   "$pkgname-mini_chromium::git+https://github.com/getsentry/mini_chromium.git"
   "$pkgname-zlib::git+https://chromium.googlesource.com/chromium/src/third_party/zlib.git"
 )
-sha256sums=('b4ce2b23c91e50775ccaa556e7cea3e253eb7e4360d455973cb105e5518719eb'
+sha256sums=('783e2a248f6e92f6b5f5cecd1ee73279fe93281768212ed3630ea7f17b6059da'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -74,6 +74,7 @@ check() {
   # Ignore Windows tests & deselect test requiring .NET 8.0.
   pytest \
     --deselect tests/test_dotnet_signals.py::test_dotnet_signals_inproc \
+    --deselect tests/test_dotnet_signals.py::test_aot_signals_inproc \
     --ignore external/crashpad/snapshot/win \
     --ignore external/crashpad/test/win
 }
