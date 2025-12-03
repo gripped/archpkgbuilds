@@ -3,12 +3,12 @@
 pkgname=syd
 _pkgname=sydbox
 pkgver=3.45.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Seccomp and landlock based application sandbox with support for namespaces"
 url="https://gitlab.exherbo.org/sydbox/sydbox"
 arch=('x86_64')
 license=('GPL-3.0-only')
-depends=('bash' 'gcc-libs' 'glibc' 'libseccomp')
+depends=('bash' 'gcc-libs' 'glibc' 'libseccomp' 'gperftools')
 makedepends=('cargo' 'git' 'scdoc')
 optdepends=("syd-tui: Syd's Terminal User Interface"
             "pandora_box: Syd's log inspector & profile writer")
@@ -28,7 +28,7 @@ build() {
 	cd "${_pkgname}"
 	export RUSTUP_TOOLCHAIN=stable
 	export CARGO_TARGET_DIR=target
-	cargo build --frozen --release
+	cargo build --frozen --release --all-features
 
 	find man -type f -name "*.scd" -exec sh -c 'scdoc < "${1}" > "${1%.scd}"' _ {} \;
 }
@@ -39,7 +39,7 @@ check() {
 	# "syd_test" and "fs" tests fail with sandbox
 	# "hash" tests seems flaky (they fail on the build server for some reason)
 	# "proc / executables paths [...]" fails if `/usr/lib/libgcc_s.so.1` is not executable (which is shipped by `gcc_libs`)
-	cargo test --frozen -- \
+	cargo test --frozen --all-features -- \
 		--skip=syd_test \
 		--skip=fs::tests::test_canonicalize_non_directory_with_slash \
 		--skip=fs::tests::test_canonicalize_self_referential_symlink \
@@ -55,7 +55,7 @@ check() {
 
 package() {
 	cd "${_pkgname}"
-	install -Dm 755 "target/release/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+	find target/release/ -maxdepth 1 -type f -name "${pkgname}*" ! -name "*.d" -exec install -Dm 755 -t "${pkgdir}/usr/bin/" {} +
 
 	install -Dm 755 src/esyd.sh "${pkgdir}/usr/lib/${pkgname}/esyd.sh"
 
