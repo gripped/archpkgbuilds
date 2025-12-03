@@ -3,7 +3,7 @@
 
 _pyname=cylp
 pkgname=python-$_pyname
-pkgver=0.93.1
+pkgver=0.94.0
 pkgrel=1
 pkgdesc='A Python interface to CLP, CBC, and CGL to solve LPs and MIPs'
 arch=(x86_64)
@@ -26,15 +26,8 @@ makedepends=(cython
              python-setuptools
              python-wheel)
 checkdepends=(python-pytest)
-source=(git+https://github.com/coin-or/CyLP#tag=v$pkgver
-        cython-3.1.patch)
-sha256sums=('bca88302f52f7416a3d40c03df479c702f52eab5ab94fe48cf3b03f4508f3a66'
-            '309b903517d9cc2b31b3684269c023b06a6ecbc39b95915634030fb1893f46e7')
-
-prepare() {
-  cd CyLP
-  patch -p1 -i ../cython-3.1.patch
-}
+source=(git+https://github.com/coin-or/CyLP#tag=v$pkgver)
+sha256sums=('52035e08dce40919da8342a679fb5813eddb78ddb219203bdd217cc6496514fe')
 
 build() {
   cd CyLP
