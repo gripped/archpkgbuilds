@@ -1,0 +1,31 @@
+# Maintainer: Robin Candau <antiz@archlinux.org>
+
+pkgname=atools-go
+pkgver=0.5.0
+pkgrel=1
+pkgdesc="APKBUILD linter that parses APKBUILD files to provide fast and accurate checks"
+url="https://gitlab.alpinelinux.org/alpine/infra/atools-go"
+arch=('x86_64')
+license=('MIT')
+depends=('glibc')
+makedepends=('redo-python' 'go')
+conflicts=('atools')
+source=("${url}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
+sha512sums=('b2f939e950b054982ded3bd6a9c85f152122caaccdf8931826a7249cff638259fbab3b7950495a0b43d6f93450381e2eb63dd84094d5590d83be7d9dfb206e30')
+
+build() {
+	cd "${pkgname}-v${pkgver}"
+	./configure --prefix /usr
+	redo
+}
+
+check() {
+	cd "${pkgname}-v${pkgver}"
+	redo test
+}
+
+package() {
+	cd "${pkgname}-v${pkgver}"
+	DESTDIR="${pkgdir}" redo install
+	install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
