@@ -5,7 +5,7 @@
 # Contributor: Maxwel <msg.maxwel@gmail.com>
 
 pkgname=pax-utils
-pkgver=1.3.9
+pkgver=1.3.10
 pkgrel=1
 pkgdesc='ELF utils that can check files for security relevant properties'
 url='https://wiki.gentoo.org/wiki/Hardened/PaX_Utilities'
@@ -14,8 +14,13 @@ license=('GPL2')
 depends=('bash' 'libcap' 'libcap.so' 'libseccomp' 'python' 'python-pyelftools')
 makedepends=('docbook-xml' 'docbook-xsl' 'git' 'linux-headers' 'meson' 'xmlto')
 source=(git+https://anongit.gentoo.org/git/proj/pax-utils.git?signed#tag=v$pkgver)
-sha512sums=('ec0183075b84a41471ed9ef73f28f561926d6c2b9bd93c5a9707ef6b5569ecb2b19186dba5b895f367c2a58ef77cb90db1adb17f67b457bc7b1778f3a9a559b1')
-validpgpkeys=('5EF3A41171BB77E6110ED2D01F3D03348DB1A3E2')
+sha512sums=('d5285539c7d2659fdc6774916e6a70cd9b0ecc78183aa28fe83b5e8715ff690ec577a12490d1faa370f413679150596b7584e86da0d3b24399f297628f8848bc')
+# Tags are signed inconsistently by different people.
+# One developer suggests it will only be people on this list:
+# https://wiki.gentoo.org/wiki/Project:Toolchain
+validpgpkeys=('5EF3A41171BB77E6110ED2D01F3D03348DB1A3E2' # Sam James
+              '226DE4AA4B9704A49DEF6B9B1A333AEFBD714C02' # Mike Gilbert
+)
 
 prepare() {
   cd $pkgname
