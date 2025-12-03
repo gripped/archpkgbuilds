@@ -3,7 +3,7 @@
 
 pkgname=python-proton-keyring-linux
 pkgver=0.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="The proton-keyring-linux component."
 arch=(any)
 url="https://github.com/ProtonVPN/python-proton-keyring-linux"
@@ -16,7 +16,10 @@ depends=(
 )
 makedepends=(
   git
+  python-build
+  python-installer
   python-setuptools
+  python-wheel
 )
 optdepends=(
   'gnome-keyring: Gnome keyring support'
@@ -28,10 +31,10 @@ sha256sums=('4f436f2b6442dbb40ef006d449c2fabfc9ad29a3c53c06ce69de23b4951fa206')
 
 build() {
   cd "$pkgname"
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd "$pkgname"
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
