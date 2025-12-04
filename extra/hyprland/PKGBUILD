@@ -4,8 +4,8 @@
 # Contributor: Gabriel Fox <inbox@gabrielfox.dev>
 
 pkgname=hyprland
-pkgver=0.52.1
-pkgrel=7
+pkgver=0.52.2
+pkgrel=1
 pkgdesc='a highly customizable dynamic tiling Wayland compositor'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/${pkgname^}"
@@ -68,7 +68,7 @@ optdepends=('cmake: to build and install plugins using hyprpm'
 provides=(wayland-compositor)
 _archive="${pkgname^}-$pkgver"
 source=("$_archive.tar.gz::$url/releases/download/v$pkgver/source-v$pkgver.tar.gz")
-sha256sums=('c43dac6064abdc51b62065cbae8130887ece0b5834a61d6d99fdb2624111ff25')
+sha256sums=('57b4db99896cad8388482b945b119b206fd7ea94638793b550210be08274d7dd')
 
 prepare() {
 	ln -sf hyprland-source "$_archive"
