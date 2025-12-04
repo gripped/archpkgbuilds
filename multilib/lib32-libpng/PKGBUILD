@@ -6,7 +6,7 @@
 
 _pkgbasename=libpng
 pkgname=lib32-$_pkgbasename
-pkgver=1.6.51
+pkgver=1.6.52
 _libversion=16
 pkgrel=1
 pkgdesc='A collection of routines used to create PNG format graphics files (32-bit)'
@@ -16,8 +16,8 @@ license=('libpng-2.0')
 depends=('lib32-zlib' $_pkgbasename)
 makedepends=('git')
 provides=('libpng16.so')
-source=("git+https://github.com/pnggroup/libpng.git?signed#tag=v${pkgver}")
-sha256sums=('0b3026798a564f3a0af4ed4e1fef6ecc5f36664527eee2f96376b72a52aa75c0')
+source=("git+https://github.com/pnggroup/libpng.git?signed#tag=v${pkgver}?signed")
+sha256sums=('d4512f8ddfdd749cf5eddf1eff5432a71a0c7450d8e992f94c547fe0c8ecd9f1')
 validpgpkeys=('F57A55036A4D45837074FD92C9E384533403C2F8'  # Cosmin Truta <ctruta@gmail.com>
               '1FED507E3236B4A6E53E922BB292C64843FF5BCF') # Cosmin Truta <ctruta@gmail.com>
 
