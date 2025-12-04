@@ -1,6 +1,6 @@
 pkgbase = python-gitlabber
 	pkgdesc = Clones or pulls entire groups tree from GitLab
-	pkgver = 1.2.8
+	pkgver = 2.1.0
 	pkgrel = 1
 	url = https://github.com/ezbz/gitlabber
 	arch = any
@@ -13,9 +13,12 @@ pkgbase = python-gitlabber
 	depends = python-gitlab
 	depends = python-globre
 	depends = python-pyyaml
-	depends = python-tqdm
-	depends = python-docopt
-	source = python-gitlabber::git+https://github.com/ezbz/gitlabber#commit=1ee3667638e65374e9ae6404019a37d0de2f08a2
-	sha256sums = 7d877b57f1ab2ee014e06378bc95ef7332e91fd585086d5a135d1f3f3ad1217c
+	depends = python-rich
+	depends = python-typer
+	depends = python-pydantic
+	depends = python-pydantic-settings
+	optdepends = python-keyring: Store GitLab tokens securely using your OS keyring
+	source = python-gitlabber::git+https://github.com/ezbz/gitlabber#tag=v2.1.0
+	sha256sums = 7c996119c734bf554c376a4bb2c5dbb4de7b941b3cbd93fef7418e415463cffd
 
 pkgname = python-gitlabber

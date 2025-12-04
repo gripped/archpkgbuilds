@@ -1,8 +1,7 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=python-gitlabber
-pkgver=1.2.8
-_commit=1ee3667638e65374e9ae6404019a37d0de2f08a2
+pkgver=2.1.0
 pkgrel=1
 pkgdesc='Clones or pulls entire groups tree from GitLab'
 arch=('any')
@@ -16,8 +15,13 @@ depends=(
   'python-gitlab'
   'python-globre'
   'python-pyyaml'
-  'python-tqdm'
-  'python-docopt'
+  'python-rich'
+  'python-typer'
+  'python-pydantic'
+  'python-pydantic-settings'
+)
+optdepends=(
+  'python-keyring: Store GitLab tokens securely using your OS keyring'
 )
 makedepends=(
   'git'
@@ -25,8 +29,8 @@ makedepends=(
 checkdepends=(
   'python-pytest-integration'
 )
-source=("$pkgname::git+${url}#commit=$_commit")
-sha256sums=('7d877b57f1ab2ee014e06378bc95ef7332e91fd585086d5a135d1f3f3ad1217c')
+source=("$pkgname::git+${url}#tag=v${pkgver}")
+sha256sums=('7c996119c734bf554c376a4bb2c5dbb4de7b941b3cbd93fef7418e415463cffd')
 
 pkgver() {
   cd "$pkgname"
