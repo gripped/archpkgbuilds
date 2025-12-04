@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hyprtoolkit
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=1
 pkgdesc='A modern C++ Wayland-native GUI toolkit'
 arch=(x86_64)
@@ -27,7 +27,7 @@ makedepends=(cmake)
 provides=(libhyprtoolkit.so)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('3e51f7d1bd76a947af5e505ecf78808f69c2bc96ef3930c6ac3f3e343bd467af')
+sha256sums=('4728566eaafcfb5cf14022642b5ae0e8dd8a38cba902e4b37857f6e5d86a5b19')
 
 build() {
 	cd "$_archive"
