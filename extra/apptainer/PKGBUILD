@@ -2,56 +2,56 @@
 # Contributor: Maciej Sieczka <msieczka at sieczka dot org>
 
 pkgname=apptainer
-pkgver=1.4.4
+pkgver=1.4.5
 pkgrel=1
 pkgdesc='Application containers for secure high performance computing'
-arch=('x86_64')
+arch=(x86_64)
 url='https://apptainer.org/'
-license=('BSD-3-Clause' 'BSD-3-Clause-LBNL')
-backup=(
-  'etc/apptainer/apptainer.conf'
-  'etc/apptainer/capability.json'
-  'etc/apptainer/cgroups/cgroups.toml'
-  'etc/apptainer/dmtcp-conf.yaml'
-  'etc/apptainer/ecl.toml'
-  'etc/apptainer/global-pgp-public'
-  'etc/apptainer/network/00_bridge.conflist'
-  'etc/apptainer/network/10_ptp.conflist'
-  'etc/apptainer/network/20_ipvlan.conflist'
-  'etc/apptainer/network/30_macvlan.conflist'
-  'etc/apptainer/network/40_fakeroot.conflist'
-  'etc/apptainer/nvliblist.conf'
-  'etc/apptainer/remote.yaml'
-  'etc/apptainer/rocmliblist.conf'
-  'etc/apptainer/seccomp-profiles/default.json'
-)
+license=(BSD-3-Clause BSD-3-Clause-LBNL)
 depends=(
-  'glibc'
-  'fakeroot'
-  'fuse2fs'
-  'fuse-overlayfs'
-  'shadow'
-  'squashfs-tools'
-  'squashfuse'
-  'libseccomp'
-  'e2fsprogs'
+  glibc
+  fakeroot
+  fuse2fs
+  fuse-overlayfs
+  shadow
+  squashfs-tools
+  squashfuse
+  libseccomp
+  e2fsprogs
 )
 makedepends=(
-  'git'
-  'go'
-  'cryptsetup'
+  git
+  go
+  cryptsetup
 )
-conflicts=('singularity')
-options=('!lto' '!debug')
+conflicts=(singularity)
+backup=(
+  etc/apptainer/apptainer.conf
+  etc/apptainer/capability.json
+  etc/apptainer/cgroups/cgroups.toml
+  etc/apptainer/dmtcp-conf.yaml
+  etc/apptainer/ecl.toml
+  etc/apptainer/global-pgp-public
+  etc/apptainer/network/00_bridge.conflist
+  etc/apptainer/network/10_ptp.conflist
+  etc/apptainer/network/20_ipvlan.conflist
+  etc/apptainer/network/30_macvlan.conflist
+  etc/apptainer/network/40_fakeroot.conflist
+  etc/apptainer/nvliblist.conf
+  etc/apptainer/remote.yaml
+  etc/apptainer/rocmliblist.conf
+  etc/apptainer/seccomp-profiles/default.json
+)
+options=(!lto !debug)
 source=(
   "$pkgname::git+https://github.com/apptainer/apptainer.git#tag=v$pkgver"
-  'tmpfiles.conf'
-  'ftbfs-redefined-fortify_source.patch'
+  tmpfiles.conf
+  ftbfs-redefined-fortify_source.patch
 )
-sha512sums=('14c3f4c0616658d5f5937b8a2e3d3a5b841944d88f20cf144e1998a8de8765aaf372182dd07eb8eb02c55a7d605bf4c7a39faf57a3c551b7de31136c3b9df926'
+sha512sums=('78891854da66fd5be79cfbdc6608bee881aca5b06bf81564da468919b3f8f554b640a86213b6129b9a53c39cc5497c1baeec1716439b1d26f2cc9aa49f483639'
             '5f10f162e7e48d2ca821529906a4ef692fc32cec8f61d8f03ea60361e1a204eacbeca8b6214bea0accd019c765d9c4c15300ca01c83ab3cbbdc44e82c7e4908d'
             '320bb41a26ce350886543f161ec47317390c49e6aae726a0e8bb0e2d38c8620f32d1be22d79f9ee1d34b4ccc1ed5629ddf10411e08f16e440ca0f34d76726e99')
-b2sums=('d2eaf212499a27f471316c499df8e7ab534fd76ba051fd14027c6ed8dd4b6a9e15cdce7b7b3e0082e2224af038d9be3cbfc39ffcb64222535614a7699964eb80'
+b2sums=('a639efe542488ca8f89fe289421241c9b73fe3d99b497f6b8132e20c303f6d7fd7c9b3c108566a7c6979ac6cc8f4b3c7189d64517b37da548094d8b05f155b4b'
         'dc9bfeb268d297b8785348c83f89a68ff760de278c8f101831a930ca0b42d2052d0498d7dd8c66f48b9fef2eb3c901de082939e85b22d0a99f7db4e22744bced'
         'd8a93e88823a386327ba9269de8280abb534bd86b32ebeb2aab67c9c2831dff90241ae06035152223c8b50af9579befcfaddddbd2bd21dcc7fc05ea383e61d47')
 
