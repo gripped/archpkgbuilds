@@ -4,7 +4,7 @@
 # Contributor: Julie Shapiro <jshapiro at nvidia dot com>
 
 pkgname=nvidia-container-toolkit
-pkgver=1.18.0
+pkgver=1.18.1
 pkgrel=1
 pkgdesc="NVIDIA container toolkit"
 arch=(x86_64)
@@ -16,21 +16,15 @@ backup=('etc/nvidia-container-runtime/config.toml')
 # we cannot use LTO as otherwise we do not get reproducible package with full RELRO
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
-        $pkgname-$pkgver-fix-generate-tests.patch::https://patch-diff.githubusercontent.com/raw/NVIDIA/nvidia-container-toolkit/pull/1416.patch
         nvidia-ctk-cdi
         nvidia-ctk-cdi.hook)
-b2sums=('0ac6d294b80ea6cffd6d9fc4794e0b4048da425de7d115de645afb3a585e4862e42e2bf092f2333312ea2e117db1b0d488d51aab986d96c52e008dcc423e6b02'
-        'eab7b9c4b0cee1123165ebe5b028748ef88606d17d8b5708f63ff1f8632768995e231b1912c6082074070c32a415a3a7690fb6c29d9acb6de97f73e37c1818c7'
+b2sums=('5aaa01c6c6981e53a1860e810890af525b04e2ba7a97a179eaec8ad3b5bdb21e530ee491b2b5dade4c769085f917280cc3fb814dbe1e8b13a611b894b21fda4d'
         '196ba959e25b7bc9a6087b192a09196c6c46e4a2a0a6dbf1de158c06dc852b822235fb6193f10311c89d06bc722035fd807cab3afa560bf49e6181a9e14b6bd6'
         'c0a4febd599e56252f8fa60e23ce23349cfe2867960007c0149f6fa32525a9784cf6b802416cedec175cd100deff0d819a21b66249a4bea55887a258fd983271')
 
 prepare() {
   cd "$pkgname-$pkgver"
   mkdir -p build
-
-  # Fix generate tests when cdi hook exists in path
-  # https://github.com/NVIDIA/nvidia-container-toolkit/pull/1416
-  patch -p1 < ../$pkgname-$pkgver-fix-generate-tests.patch
 }
 
 build() {
