@@ -3,7 +3,7 @@
 pkgname=prometheus-fastly-exporter
 _pkgname=fastly-exporter
 pkgver=10.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A Prometheus exporter for the Fastly Real-time Analytics API"
 url="https://github.com/fastly/fastly-exporter"
 arch=('x86_64')
@@ -44,6 +44,6 @@ package() {
 	cd "${_pkgname}"
 	install -Dm 755 "build/${_pkgname}" "${pkgdir}/usr/bin/${pkgname}"
 	install -Dm 644 "${srcdir}/${pkgname}.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}.service"
-	install -Dm 644 "${srcdir}/${pkgname}.conf" "${pkgdir}/etc/conf.d/${pkgname}.conf"
+	install -Dm 644 "${srcdir}/${pkgname}.conf" "${pkgdir}/etc/conf.d/${pkgname}"
 	install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
 }
