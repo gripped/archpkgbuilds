@@ -5,8 +5,8 @@
 # Contributor: Juergen Hoetzel <juergen@archlinux.org>
 
 pkgname=swi-prolog
-pkgver=9.2.9
-pkgrel=3
+pkgver=10.0.0
+pkgrel=1
 pkgdesc='Prolog environment'
 arch=(x86_64)
 url='https://www.swi-prolog.org'
@@ -22,15 +22,8 @@ optdepends=('java-runtime: for using Prolog from Java'
             'libxpm: for using the pl2xpce library'
             'python: for using Prolog from Python'
             'unixodbc: for using the odbc4pl library')
-source=("$pkgname-$pkgver.tar.gz::$url/download/stable/src/swipl-$pkgver.tar.gz"
-        bdb_5.3.patch)
-b2sums=('6d058f0ce366e8220a77a9a0e6df3e732a891b0c214ca01c08fd58df356e5c3868ecd9b9ce69b8357d2ed65b2b7195c3e1a14c1f1553d6a35f06e0b1dc38fdaf'
-        '37e14768ec59f9aee4363c5ffd63be8c50c04eecf269e52e8aadd5cadbc99f6286aa676b1145b1391490ab49072039d896eed588e934ba769d09c6bdb2d2222d')
-
-prepare() {
-  cd swipl-$pkgver
-  patch -Np1 -i ../bdb_5.3.patch
-}
+source=("$pkgname-$pkgver.tar.gz::$url/download/stable/src/swipl-$pkgver.tar.gz")
+b2sums=('b8c05f517d5f5963ef7fd2f1a1103f03226a803b3f641db5e224032b0e03e53ef8aeaf8defd1a243a2e3ec0a2121658d224cf0be10f44f3c2783f845ad2ce3a0')
 
 build() {
   cmake \
