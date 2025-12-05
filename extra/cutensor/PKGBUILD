@@ -1,9 +1,9 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=cutensor
-pkgver=2.4.0.2
+pkgver=2.4.1.4
 _cudaver=13
-pkgrel=2
+pkgrel=1
 pkgdesc="High-performance CUDA library for tensor primitives"
 arch=(x86_64)
 url="https://docs.nvidia.com/cuda/cutensor/latest/index.html"
@@ -15,11 +15,10 @@ depends=(
 )
 optdepends=(
   'nccl: for the multi-process extension (cuTENSORMp)'
-  'openmpi: for the multi-process extension (cuTENSORMp)'
 )
 options=(!strip)
 source=(https://developer.download.nvidia.com/compute/$pkgname/redist/lib$pkgname/linux-x86_64/lib$pkgname-linux-x86_64-${pkgver}_cuda$_cudaver-archive.tar.xz)
-b2sums=('c2912a465fd28fc8ee1315cd7ac131dfffd39bfca0bbdb2a2470c245c1732a292bd0b958b0c15b815da79a8243f03d263083ecde109d5f1e765a561d21fe0221')
+b2sums=('fafbebb43299aa7d8441e6f81a87e3eebbf1e7f146f465a3b12c9107d6f3fc1e3cd22ab861eb4b4266a62d5976ab57dc7dc54fc7eb20e2ea1975e9573f491d1a')
 
 package() {
   cd lib$pkgname-linux-x86_64-${pkgver}_cuda${_cudaver}-archive
