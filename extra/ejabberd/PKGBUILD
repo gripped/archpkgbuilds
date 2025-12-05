@@ -3,8 +3,8 @@
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 
 pkgname=ejabberd
-pkgver=25.08
-pkgrel=5
+pkgver=25.10
+pkgrel=1
 pkgdesc="Jabber server written in Erlang"
 arch=('x86_64')
 url="https://www.ejabberd.im/"
@@ -54,7 +54,7 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/processone/ejabberd/archive
 	"eredis2::git+https://github.com/wooga/eredis/"
 	"$pkgname.logrotate"
 	"$pkgname.sysusers")
-sha256sums=('edc95cff239d74bfb16e437f7cf84f0e86144e5fe764d7ee7dc248b2d59778f1'
+sha256sums=('f676b71e7dbf143291728bc0247673afb256e75917da89520795c01df1154598'
             'a8e1be2d9daf8dd2dfedc11736a9677f3ed5c520c0f2ddf183689d2182b9151a'
             'SKIP'
             'SKIP'
