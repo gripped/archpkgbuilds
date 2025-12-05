@@ -2,12 +2,12 @@
 
 pkgname=ctwm
 pkgver=4.1.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Claude's Tab Window Manager, a lightweight window manager for X"
 arch=(x86_64)
 url='https://ctwm.org/'
 license=('custom:MIT' 'custom:X')
-depends=(libjpeg-turbo libxmu libxpm xorg-xrandr)
+depends=(libjpeg-turbo libxmu libxpm xorg-fonts-misc xorg-xrandr)
 makedepends=(cmake ctags doxygen gendesk graphviz)
 source=("$url/dist/$pkgname-$pkgver.tar.xz")
 b2sums=('54baba4c51b7bebefc72d5438d9051a8474b3401de847cbda895ecca6954438cde60193b9a039ee9010d349700ae04824d5df87b03d6d6d9eb809cb5b3378767')
