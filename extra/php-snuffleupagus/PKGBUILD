@@ -4,7 +4,7 @@
 pkgname=php-snuffleupagus
 _pkgname=snuffleupagus
 pkgver=0.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Security module for PHP"
 url='https://snuffleupagus.readthedocs.io/'
 arch=('x86_64')
@@ -14,16 +14,24 @@ depends=(
   'pcre2' 'libpcre2-8.so'
   'php'
 )
+makedepends=('re2c')
 backup=('etc/php/conf.d/snuffleupagus.ini'
         'etc/php/conf.d/snuffleupagus.rules')
-source=(https://github.com/jvoisin/${_pkgname}/archive/v${pkgver}/${_pkgname}-${pkgver}.tar.gz)
-sha256sums=('48e8f5c453290a077d29e43d7de7229cb697d8bf98e61ae2e129d45ce3a49ebf')
-b2sums=('8851d7703925139bf60473106a0e50138712cb4ad92f5f94bce7fca707b3b84d2ffc84d40401309848dc9687c38b005bc0eb0f5379c8c64c8a8eeb994c632a31')
+source=(https://github.com/jvoisin/${_pkgname}/archive/v${pkgver}/${_pkgname}-${pkgver}.tar.gz 'php-8.5.patch')
+sha256sums=('48e8f5c453290a077d29e43d7de7229cb697d8bf98e61ae2e129d45ce3a49ebf'
+            'a9d45752f8ea39c9e9c3a0569ed06989dbed79885de4436617ab63801baeec34')
+b2sums=('8851d7703925139bf60473106a0e50138712cb4ad92f5f94bce7fca707b3b84d2ffc84d40401309848dc9687c38b005bc0eb0f5379c8c64c8a8eeb994c632a31'
+        '4b3575e690428a22339015a29478730d9be85b10f8988e301dac877ee0cca822c9787026b22e47d5dc44f455ba6c0c2e01df7b0e1d7b81a5d8b57c1d56f1dfe6')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}/src
+  patch -p1 -d "$srcdir/${_pkgname}-${pkgver}" -i "$startdir/php-8.5.patch"
+  phpize
+  ./configure --prefix=/usr --enable-"${_pkgname}"
+}
 
 build() {
   cd ${_pkgname}-${pkgver}/src
-  phpize
-  ./configure --prefix=/usr --enable-"${_pkgname}"
   make
 }
 
