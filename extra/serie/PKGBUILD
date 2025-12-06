@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=serie
-pkgver=0.5.4
+pkgver=0.5.5
 pkgrel=1
 pkgdesc="A rich git commit graph in your terminal"
 url="https://github.com/lusingander/serie"
@@ -12,11 +12,11 @@ makedepends=(cargo 'git')
 arch=(x86_64)
 license=(MIT)
 source=("git+$url#tag=v$pkgver")
-sha512sums=('c7921418a8595daf00dd9ef3fd88da0c37a651a3a487f02e7139ab74720a83294403e7ba36c3542514d7f9f705be7c8f24ab523d8a205dfc251d1c0595685184')
+sha512sums=('97a466c6ed66cf70917b39ec0d91306e84f8654905cbcd937f6247e997362ac4843e202beea699b0cb517d62c82d80747490d8ec0b69dcc864651ddcd27848c3')
 
 prepare() {
   cd "$pkgname"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
