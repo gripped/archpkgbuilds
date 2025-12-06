@@ -1,26 +1,27 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=pantheon-shortcut-overlay
-pkgver=8.0.1
+pkgver=8.1.0
 pkgrel=1
 pkgdesc='A native, OS-wide shortcut overlay'
 arch=(x86_64)
 url=https://github.com/elementary/shortcut-overlay
-license=(GPL3)
+license=(GPL-3.0-only)
 groups=(pantheon)
 depends=(
   glib2
   libgee
   libgranite-7.so
+  pantheon-wayland
 )
 makedepends=(
   git
   meson
   vala
 )
-_tag=53b974e0ec38b76f425e0a75e274b5e57458a9c6
+_tag=f831f994c36295fb236cf87c722cf733f43d32eb
 source=(pantheon-shortcut-overlay::git+https://github.com/elementary/shortcut-overlay.git#tag=${_tag})
-b2sums=('3454d51370ef58a2a692215e04df6868173d105fa863b5b145d4e13fe0b4749d2a660c86ba1491a5d1e15d2585b0ba0f1e419c9614dcdbb7934cbd82f24251b4')
+b2sums=('66d8d2ab9ebf77906191e18d7f857c3771e6134437bba4874edef22025b45da54eea84b7c0824d9f03e981a80ec724f3372c39437e8fbbd5b0a842a07a91de3f')
 
 prepare() {
   cd pantheon-shortcut-overlay
