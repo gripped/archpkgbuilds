@@ -3,8 +3,8 @@
 
 _gemname=iconv
 pkgname=ruby-$_gemname
-pkgver=1.1.0
-pkgrel=4
+pkgver=1.1.1
+pkgrel=1
 pkgdesc='Wrapper library for iconv'
 arch=('x86_64')
 url='https://github.com/ruby/iconv'
@@ -18,8 +18,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('be63582e5863c34ce0da3887ea11036037cefb1ee2cf5d0e177dc22ba93120c3d8b397f9758f66906a26832c7e6ada6359ad03f49b1ec75d86ffbbfb8ef11140')
-b2sums=('32d2f7a14b25b13790c82ec4d8be0a26b0d411cf948463996ffabae1621dbcabaa2c04fb287191a56afcc5794924caff4cddfe581eb0d1d45c7c9a39fec937e8')
+sha512sums=('49c14ec58f51918b115863efc72708488cf9c1bde39c74425e02fd0b2474f97eb5d5e8537583d389e6f26a2a17406bd26f08b52f18b1c8486b71bdd2b90d733c')
+b2sums=('40042f5099d78b4494e232582e9b6411eca9a42884c58f7a695e6a6a586061c70fbfeb0628d7486b257e31c15669329862ad3add520fd3945a733237eb222719')
 
 prepare() {
   cd "$pkgname"
@@ -59,7 +59,7 @@ build() {
 
   # move license
   install -vd "$srcdir/$pkgname/tmp_install/usr/share/licenses/$pkgname"
-  mv -vt "$srcdir/$pkgname/tmp_install/usr/share/licenses/$pkgname" BSDL LICENSE.txt
+  mv -vt "$srcdir/$pkgname/tmp_install/usr/share/licenses/$pkgname" BSDL COPYING
 }
 
 check() {
