@@ -2,7 +2,7 @@
 
 pkgname=hyprland-guiutils
 pkgver=0.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Hyprland GUI utilities'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
