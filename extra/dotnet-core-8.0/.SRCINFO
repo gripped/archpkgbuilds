@@ -1,11 +1,11 @@
 pkgbase = dotnet-core-8.0
-	pkgver = 8.0.20.sdk120
+	pkgver = 8.0.22.sdk122
 	pkgrel = 1
 	url = https://dotnet.microsoft.com
 	arch = x86_64
 	license = MIT
 	makedepends = bash
-	makedepends = clang
+	makedepends = clang20
 	makedepends = cmake
 	makedepends = dotnet-sdk-8.0
 	makedepends = dotnet-source-built-artifacts-8.0
@@ -16,7 +16,7 @@ pkgbase = dotnet-core-8.0
 	makedepends = libunwind
 	makedepends = libxml2
 	makedepends = lldb
-	makedepends = llvm
+	makedepends = llvm20
 	makedepends = lttng-ust2.12
 	makedepends = nodejs
 	makedepends = openssl
@@ -26,8 +26,8 @@ pkgbase = dotnet-core-8.0
 	options = !buildflags
 	options = !lto
 	options = staticlibs
-	source = git+https://github.com/dotnet/dotnet.git#tag=6825a8d5c72c1893049c2c5ffa491b65cbcea7e0
-	b2sums = a6b4b5a41120428b432693560f9c6dbc560a9e06b70619b0fdda6fc6f9456b3b7611eb12cb9015dfd9f5d93d3b86b08ab42a98dcc9011a9c8ce47e3490863ecf
+	source = git+https://github.com/dotnet/dotnet.git#tag=e0cc6f889abcb72068cda168d9398cf3e037b5e7
+	b2sums = 3b6e60a84a41979714143014325e3cdef34bcdac42c2e37cfa7af42af768972fddf037d98d0000e9159260e5efc9a79b54d4ff04e24bbaa0b61738a4f6d6ca38
 
 pkgname = dotnet-runtime-8.0
 	pkgdesc = The .NET Core runtime

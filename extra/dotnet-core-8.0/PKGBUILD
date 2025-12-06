@@ -12,14 +12,14 @@ pkgname=(
  aspnet-targeting-pack-8.0
  dotnet-source-built-artifacts-8.0
 )
-pkgver=8.0.20.sdk120
+pkgver=8.0.22.sdk122
 pkgrel=1
 arch=(x86_64)
 url=https://dotnet.microsoft.com
 license=(MIT)
 makedepends=(
   bash
-  clang
+  clang20
   cmake
   dotnet-sdk-8.0
   dotnet-source-built-artifacts-8.0
@@ -30,7 +30,7 @@ makedepends=(
   libunwind
   libxml2
   lldb
-  llvm
+  llvm20
   lttng-ust2.12
   nodejs
   openssl
@@ -43,9 +43,9 @@ options=(
   !lto
   staticlibs
 )
-_tag=6825a8d5c72c1893049c2c5ffa491b65cbcea7e0
+_tag=e0cc6f889abcb72068cda168d9398cf3e037b5e7
 source=(git+https://github.com/dotnet/dotnet.git#tag=${_tag})
-b2sums=('a6b4b5a41120428b432693560f9c6dbc560a9e06b70619b0fdda6fc6f9456b3b7611eb12cb9015dfd9f5d93d3b86b08ab42a98dcc9011a9c8ce47e3490863ecf')
+b2sums=('3b6e60a84a41979714143014325e3cdef34bcdac42c2e37cfa7af42af768972fddf037d98d0000e9159260e5efc9a79b54d4ff04e24bbaa0b61738a4f6d6ca38')
 
 prepare() {
   cd dotnet
@@ -92,7 +92,9 @@ build() {
   export VERBOSE=1
   export OPENSSL_ENABLE_SHA1_SIGNATURES=1
 
-  export PATH="/usr/lib/llvm18/bin:$PATH"
+  # .NET crashes when compiled with clang 21.1 on Fedora 43 #119706
+  # https://github.com/dotnet/runtime/issues/119706
+  export PATH="/usr/lib/llvm20/bin:$PATH"
 
   # this uses malloc_usable_size, which is incompatible with fortification level 3
   CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
