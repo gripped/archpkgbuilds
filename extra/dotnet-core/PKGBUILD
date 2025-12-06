@@ -9,22 +9,21 @@ pkgname=(
  dotnet-runtime
  aspnet-runtime
  dotnet-sdk
- netstandard-targeting-pack
  dotnet-targeting-pack
  aspnet-targeting-pack
  dotnet-source-built-artifacts
 )
-pkgver=9.0.9.sdk110
+pkgver=10.0.0.sdk100
 pkgrel=1
 arch=(x86_64)
 url=https://dotnet.microsoft.com
 license=(MIT)
 makedepends=(
   bash
-  clang
+  clang20
   cmake
   dotnet-sdk
-  dotnet-source-built-artifacts
+  # dotnet-source-built-artifacts
   git
   icu
   krb5
@@ -32,7 +31,7 @@ makedepends=(
   libunwind
   libxml2
   lldb
-  llvm
+  llvm20
   lttng-ust2.12
   nodejs
   openssl
@@ -44,9 +43,9 @@ options=(
   !lto
   staticlibs
 )
-_tag=999243871ad8799c178193bb2d384dfbcfd94ce6
+_tag=b0f34d51fccc69fd334253924abd8d6853fad7aa
 source=(git+https://github.com/dotnet/dotnet.git#tag=${_tag})
-b2sums=('0e6f3593e6c6ff32be64e89d1483a7fc629b19f76d1eca573f8322956ee865969406ccdf4571f8189446aa3b1064c786813375d522341a1cb39bb9b1be220237')
+b2sums=('0742a7412aaf03a6217cbbed5324c3dbb981fc8bea3f164b15808c43e8eee1b5b7cf15af8fad99ae72a9f5ad8286531a01785c8f440fb9d334841cc0e8450256')
 
 prepare() {
   cd dotnet
@@ -60,7 +59,6 @@ prepare() {
   if [[ $_bootstrapver == $_previousver ]]; then
     cp -r /usr/share/dotnet .dotnet
     ln -sf /usr/share/dotnet/source-built-artifacts/Private.SourceBuilt.Artifacts.*.tar.gz prereqs/packages/archive/
-#    ln -sf /usr/share/dotnet/source-built-artifacts/Private.SourceBuilt.Prebuilts.*.tar.gz prereqs/packages/archive/
   fi
   ./prep-source-build.sh
 }
@@ -68,12 +66,12 @@ prepare() {
 pkgver() {
   cd dotnet
 
-  if [[ $(git describe --tags) != v9.0.* ]]; then
+  if [[ $(git describe --tags) != v10.0.* ]]; then
     msg "Invalid SDK version"
     exit 1
   fi
 
-  local _standardver=$(xmllint --xpath "//*[local-name()='NETStandardLibraryRefPackageVersion']/text()" src/sdk/eng/Versions.props)
+  local _standardver=$(xmllint --xpath "//*[local-name()='NETStandardLibraryRefPackageVersion']/text()" src/sdk/eng/Version.Details.props)
 
   if [[ $_standardver != 2.1.0 ]]; then
     msg "Invalid Standard version"
@@ -93,7 +91,7 @@ build() {
   export VERBOSE=1
   export OPENSSL_ENABLE_SHA1_SIGNATURES=1
 
-  export PATH="/usr/lib/llvm18/bin:$PATH"
+  export PATH="/usr/lib/llvm20/bin:$PATH"
 
   # this uses malloc_usable_size, which is incompatible with fortification level 3
   CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
@@ -108,7 +106,8 @@ build() {
   unset CXXFLAGS
   unset LDFLAGS
 
-  ./build.sh --clean-while-building --online --source-build
+  # rtm branding strips out the "prerelease" tag from the version (see https://github.com/dotnet/dotnet/blob/b0f34d51fccc69fd334253924abd8d6853fad7aa/build.sh#L18)
+  ./build.sh --clean-while-building --online --source-build --branding rtm
 }
 
 package_dotnet-host() {
@@ -167,7 +166,6 @@ package_dotnet-sdk() {
     dotnet-targeting-pack
     glibc
     gcc-libs
-    netstandard-targeting-pack
   )
   optdepends=('aspnet-targeting-pack: Build ASP.NET Core applications')
   provides=(dotnet-sdk-${pkgver%.*.sdk*})
@@ -178,19 +176,8 @@ package_dotnet-sdk() {
   ln -s dotnet-host "${pkgdir}"/usr/share/licenses/dotnet-sdk
 }
 
-package_netstandard-targeting-pack() {
-  pkgdesc='The .NET Standard targeting pack'
-  provides=(netstandard-targeting-pack-2.1)
-  conflicts=(netstandard-targeting-pack-2.1)
-
-  install -dm 755 "${pkgdir}"/usr/share/{dotnet,licenses}
-  bsdtar -xf dotnet/artifacts/assets/Release/dotnet-sdk-${pkgver%.*.sdk*}.${pkgver#*sdk}-arch-*.tar.gz -C "${pkgdir}"/usr/share/dotnet/ --no-same-owner packs/NETStandard.Library.Ref
-  ln -s dotnet-host "${pkgdir}"/usr/share/licenses/netstandard-targeting-pack
-}
-
 package_dotnet-targeting-pack() {
   pkgdesc='The .NET Core targeting pack'
-  depends=(netstandard-targeting-pack)
   provides=(dotnet-targeting-pack-${pkgver%.*.sdk*})
   conflicts=(dotnet-targeting-pack-${pkgver%.*.sdk*})
 
