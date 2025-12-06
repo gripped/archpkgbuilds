@@ -5,37 +5,37 @@
 # Contributor: BorgHunter <borghunter at gmail dot com>
 
 pkgname=python-urllib3
-pkgver=2.5.0
-pkgrel=2
-pkgdesc="HTTP library with thread-safe connection pooling and file post support"
-arch=("any")
-url="https://github.com/urllib3/urllib3"
-license=("MIT")
-depends=('python')
+pkgver=2.6.0
+pkgrel=1
+pkgdesc='HTTP library with thread-safe connection pooling and file post support'
+arch=(any)
+url='https://github.com/urllib3/urllib3'
+license=(MIT)
+depends=(python)
 makedepends=(
-  'python-build'
-  'python-hatch-vcs'
-  'python-hatchling'
-  'python-installer'
-  'python-wheel'
+  python-build
+  python-hatch-vcs
+  python-hatchling
+  python-installer
+  python-wheel
 )
 checkdepends=(
-  'python-cffi'
-  'python-cryptography'
-  'python-h2'
-  'python-httpx'
-  'python-idna'
-  'python-pyopenssl'
-  'python-pysocks'
-  'python-pytest'
-  'python-pytest-socket'
-  'python-pytest-timeout'
-  'python-quart'
-  'python-quart-trio'
-  'python-trio'
-  'python-trustme'
+  python-cffi
+  python-cryptography
+  python-h2
+  python-httpx
+  python-idna
+  python-pyopenssl
+  python-pysocks
+  python-pytest
+  python-pytest-socket
+  python-pytest-timeout
+  python-quart
+  python-quart-trio
+  python-trio
+  python-trustme
   # Required for building fork of hypercorn
-  'python-poetry-core'
+  python-poetry-core
 )
 optdepends=(
   'python-brotli: Brotli support'
@@ -49,8 +49,10 @@ source=(
   "$url/archive/$pkgver/$pkgname-$pkgver.tar.gz"
   "https://github.com/urllib3/hypercorn/archive/$_urllib3_hypercorn_commit/hypercorn-$_urllib3_hypercorn_commit.tar.gz"
 )
-sha512sums=('492ebb3e0481ee5433f45bef184ddb01714dedcbe2eb61665c781f3dcd0d9a226204052d64215c02e8972155560bc146395022723f79c076cb59abe1c0ef51ff'
+sha512sums=('83164518af31b6ca1a9dc81564622caf65613a7c28a2c4193fd14984b974d7d2120bdbe25d932061b285b39bcaf17f5839ba66d137a4608d7d2ee9df6e90a394'
             '62d6787d88a2e716f0ac04fc49f6cdc586e473a660ee754ff66961922ae78bcc75d1f78b091e78557dd60f006e8e480114738c7b4ff71beac804e4fc9603240b')
+b2sums=('06bd29c4b9564b6e959f1d0fd88e13527d67e9b0a7a4c4e090844ebfb4506cfa69367dff21d7e0124079a132cb712393ca186672b252bdfa5beaf347fbfed45d'
+        'fcb5f49653401e6e4079e1c770d3cd407602d4d6764437b735bd4ec04191dec59cdc930822fa2aff726ee25cddd0f71fd457dedf31026bff1da121d93af8b768')
 
 build() {
   cd ${pkgname#python-}-$pkgver
