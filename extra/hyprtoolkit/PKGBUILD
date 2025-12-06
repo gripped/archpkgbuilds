@@ -2,7 +2,7 @@
 
 pkgname=hyprtoolkit
 pkgver=0.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A modern C++ Wayland-native GUI toolkit'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
