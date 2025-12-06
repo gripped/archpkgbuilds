@@ -1,8 +1,8 @@
 # Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 
 pkgname=('php-memcached' 'php-legacy-memcached')
-pkgver=3.3.0
-pkgrel=3
+pkgver=3.4.0
+pkgrel=1
 pkgdesc="PHP extension for interfacing with memcached via libmemcached library"
 arch=('x86_64')
 url="https://github.com/php-memcached-dev/php-memcached"
@@ -10,7 +10,7 @@ license=('PHP')
 depends=('libmemcached' 'zstd')
 makedepends=('php' 'php-legacy' 'git' 'php-igbinary' 'php-legacy-igbinary')
 source=("git+https://github.com/php-memcached-dev/php-memcached.git#tag=v$pkgver")
-sha256sums=('1a85bf72ca4a2dbe74e031ac5abd5ca2ad483d921f5feabf4991f9cb972f339d')
+sha256sums=('c31f09a009c9ab69710c1292bdb6ecf6dafc6bae28c1c90304ec191d59f17cc7')
 
 prepare() {
   cp -a $pkgbase{,-php-legacy}
