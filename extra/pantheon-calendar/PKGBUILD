@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=pantheon-calendar
-pkgver=8.0.0
+pkgver=8.0.1
 pkgrel=1
 pkgdesc='The Pantheon Calendar'
 arch=(x86_64)
@@ -37,9 +37,9 @@ makedepends=(
   meson
   vala
 )
-_tag=a8741655fef3ab18e57c2873e40fa6a9168447a8
+_tag=e7e03d69c4388c28685d4ea03a736b9fe701dfcd
 source=(pantheon-calendar::git+https://github.com/elementary/calendar.git#tag=${_tag})
-sha256sums=('c03ee2d9dca8dd288bf8d4a2030b307f1c1e7b7942df9477f641573764935353')
+sha256sums=('fdaaa06bf25d2e77fbfce2510311d44bc6b6ebc9a382379cfdc0ca3f4a362c76')
 
 pkgver() {
   cd pantheon-calendar
