@@ -8,7 +8,7 @@ pkgname=(
   php-legacy-redis
 )
 pkgver=6.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An API for communicating with the Redis key-value store"
 arch=(x86_64)
 url="https://github.com/phpredis/phpredis/"
