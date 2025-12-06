@@ -3,7 +3,7 @@
 # Contributor: Andrew Anderson <aanderso@tcd.ie>
 # Contributor: Jonathon Fernyhough <jonathon_at manjaro_dotorg>
 pkgname=onednn
-pkgver=3.10.1
+pkgver=3.10.2
 pkgrel=1
 pkgdesc="oneAPI Deep Neural Network Library (oneDNN)"
 arch=(x86_64)
@@ -14,7 +14,7 @@ license=('Apache-2.0')
 depends=('gcc-libs' 'glibc')
 makedepends=('cmake' 'ninja')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/oneapi-src/oneDNN/archive/v${pkgver}.tar.gz")
-sha256sums=('d89998bfae2f33c209e216e3d3a8d280ed6eb65a57971dfb4dcfa56beac9571b')
+sha256sums=('58a7399c86789bf3756117072ed946d764ba59dd1480f0e42efd4f9b6b7b9a64')
 
 build() {
   cd "oneDNN-$pkgver"
