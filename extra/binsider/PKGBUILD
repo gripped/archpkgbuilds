@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=binsider
-pkgver=0.2.1
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="A TUI for analyzing binaries like a boss"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT' 'Apache-2.0')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('f7b122be78b46ec480849c4bb4c4e36dd1cdbeec562cd6bb9a43826b06a80d482cfa424ff74c206fb230efe0c5b97b10244ddac7f312ae97370b76e014c6b8c1')
+sha512sums=('d37939435ad30ad5fdae1d61ac17c686a89a68186936c4c625d5c4785636faf966118ceff53ca31c58318beeab8b278afa3771fd9afca8ff0d44f451cb8db70a')
 
 prepare() {
   cd "$pkgname-$pkgver"
