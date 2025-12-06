@@ -3,38 +3,38 @@
 # Contributor: Alex Gentilucci <alexander.gentilucci@gmail.com>
 
 pkgname=ft2-clone
-pkgver=2.00
+pkgver=2.01
 pkgrel=1
 pkgdesc='Portable Fasttracker II clone'
-arch=('x86_64')
+arch=(x86_64)
 url='https://16-bits.org/ft2.php'
 license=(
-  'BSD-3-Clause'
-  'MIT'
-  'CC-BY-NC-SA-4.0'
+  BSD-3-Clause
+  MIT
+  CC-BY-NC-SA-4.0
 )
 depends=(
-  'glibc'
-  'gcc-libs'
-  'alsa-lib'
-  'sdl2'
-  'flac'
-  'hicolor-icon-theme'
+  glibc
+  gcc-libs
+  alsa-lib
+  sdl2
+  flac
+  hicolor-icon-theme
 )
 makedepends=(
-  'git'
-  'libicns'
-  'cmake'
-  'gendesk'
+  git
+  libicns
+  cmake
+  gendesk
 )
 source=(
   "$pkgname::git+https://github.com/8bitbubsy/ft2-clone#tag=v$pkgver"
-  'templatify-build-date.patch'
+  templatify-build-date.patch
 )
-sha512sums=('446ccc42eef2a7070e228bd0adbccd28563272029633ca72a74f802fd0986f3e39ced919043372d55a1c932ef3e6018d2026a33aa6811085760df91bea7e091e'
-            'bcba6393258fa64291c39a65f2e429b9e074b70e4227d48b61361adb08259eaed342cf2d64cbbde98ebb96659eb3fff2c4de3ca2cbf62001dcd73862964a5af7')
-b2sums=('336b8acf7307ffa14b1ba8655537fb7fff63744b5285dfdc95dc9df598047cfaeaa2048eb92b446a718a3b0483d0b691a4f99feeb5d8f8e9fcc1f1714efd031f'
-        '40f1941a46ceda56ddae5df5460d7742b809290f71f510b2f6df8eb2d7391c7298522885884ce4a047c39c3df581e4fc0240025bfdc8c0b6518da35712ce1bb4')
+sha512sums=('cd7e0fc4defa04bcadfa841acf0c32b7f023db7ce859c80ef445e69c225b416882e87e7b4e6059f124bf88dcbc416d7eddf204732da946843b22c979e7a75c7c'
+            '1c1dfe84342cd8de6a1718272cfc62f912f6ccebaf63e0681183f749da8d4670dc757823a13a244ad987a1d4ec416b2902db8bceb48bda1e1c1d741953c04606')
+b2sums=('7caf706c9b2fe2b5e06a0c411648ec06a4b01b188326d75eceae3e843c8bb73f8f2bcece413f511cee89131d8168158b10b80cd6eef53d9161633e65780ed699'
+        '91a421a4ebac110393b90b2ea62776277783bc5a49a7c9ce9d3631c93795b4d617e961917e8deb1d4779d5b9dec734094df90ca5fb7064726ce7af6690520344')
 
 prepare() {
   cd "$pkgname"
