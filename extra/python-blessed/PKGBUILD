@@ -2,8 +2,8 @@
 # Contributor: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>
 
 pkgname=python-blessed
-pkgver=1.21.0
-pkgrel=2
+pkgver=1.25
+pkgrel=1
 pkgdesc='A thin, practical wrapper around terminal styling, screen positioning, and keyboard input'
 arch=(any)
 url=https://github.com/jquast/blessed
@@ -14,16 +14,19 @@ depends=(
 )
 makedepends=(
   git
-  python-setuptools
+  python-build
+  python-flit-core
+  python-installer
+  python-wheel
 )
 checkdepends=(
   python-pytest
   python-pytest-rerunfailures
   python-pytest-xdist
 )
-_tag=e4554e12a5f33d7fd2236b1e2be976842c110e7c
+_tag=864a8f7d6de752d7fede2c030758d245f1bb8e21
 source=(git+https://github.com/jquast/blessed.git#tag=${_tag})
-b2sums=('02f61a32ba0a75346a7ad47856be614ce9f61396a0d743402fe7751fe4925b9f31c35e3fc4126a3a2621866892de19003ddbd3f8a9d12d5f7640a708ad5f0af1')
+b2sums=('abd1bc99026547ce266e03554f685f07fa446964f92dbab99fc7a42321baed3ce96a7b1db3ce34369d861c0e96ae20939b57641fae43facb5a4faaa1a6e95c56')
 
 pkgver() {
   cd blessed
@@ -32,7 +35,7 @@ pkgver() {
 
 build() {
   cd blessed
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -41,9 +44,8 @@ check() {
 }
 
 package() {
-  cd blessed
-  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
-  install -Dm 644 LICENSE -t "${pkgdir}"/usr/share/licenses/python-blessed/
+  python -m installer --destdir="${pkgdir}" blessed/dist/*.whl
+  install -Dm 644 blessed/LICENSE -t "${pkgdir}"/usr/share/licenses/python-blessed/
 }
 
 # vim: ts=2 sw=2 et:
