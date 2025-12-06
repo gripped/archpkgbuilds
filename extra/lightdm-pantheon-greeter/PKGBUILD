@@ -2,7 +2,7 @@
 # Contributor: sh4nks <sh4nks7@gmail.com
 
 pkgname=lightdm-pantheon-greeter
-pkgver=8.0.1
+pkgver=8.1.1
 pkgrel=1
 pkgdesc='Pantheon greeter for LightDM'
 arch=(x86_64)
@@ -14,6 +14,7 @@ depends=(
   cairo
   gdk-pixbuf2
   glibc
+  gnome-desktop
   libgdk-3.so
   libgee
   libgio-2.0.so
@@ -34,9 +35,9 @@ makedepends=(
   vala
 )
 install=lightdm-pantheon-greeter.install
-_tag=dbe29d6f1bf88a459b5c2889ec56251e762bca5c
+_tag=c3a8756631daceb2c3183bc3a4a24ca009ff5dc3
 source=(lightdm-pantheon-greeter::git+https://github.com/elementary/greeter.git#tag=${_tag})
-b2sums=('2dc4a65ce607d6f82d57cfb7cafe5553d9e05cdef0911020179eec7e57958244f4f35e050e6161601e690ee4d257ce5cd0be5518c854c618aebabf9e0b6b74b5')
+b2sums=('39be7632a0f18987eea4679b7d96225920b6100748fc2810eb13fc124a6de81cec5cb22b60f134fa574f6a926f13b0537d42251c7c0af6517fee406de76297a3')
 
 pkgver() {
   cd lightdm-pantheon-greeter
