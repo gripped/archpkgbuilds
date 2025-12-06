@@ -4,7 +4,7 @@
 
 pkgname=hyprsunset
 pkgver=0.3.3
-pkgrel=3
+pkgrel=4
 pkgdesc='An application to enable a blue-light filter on Hyprland'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
