@@ -3,8 +3,8 @@
 _name=igbinary
 pkgbase=php-igbinary
 pkgname=(php-igbinary php-legacy-igbinary)
-pkgver=3.2.16
-pkgrel=2
+pkgver=3.2.17RC1
+pkgrel=1
 pkgdesc="A drop in replacement for the standard php serializer"
 arch=(x86_64)
 url="https://github.com/igbinary/igbinary"
@@ -12,8 +12,8 @@ license=(BSD-3-Clause)
 depends=(glibc)
 makedepends=(php-legacy php)
 source=($pkgname-$pkgver.tar.gz::https://github.com/$_name/$_name/archive/$pkgver.tar.gz)
-sha512sums=('d4599ee18e2202a56e955b37153e1e7d4d303aadc26f1f152cb64029e03f79760162a422793e319861b95a801a2fb18261216c080c2d400dd94d34e951e53cca')
-b2sums=('5a4d654f8672c199d7e5cf662975d127de66835298fe286f806ad721d4bc1652eb542353402bb56822ca4c33ab26e3d9ca9ed91f2ad42d817b1ab996234ad726')
+sha512sums=('d26b58abb5624deeb29824d1ab9544e8cdd209f05fa361c33f1dad0c559ba6b96cf415908b9430a93aec220052f6ae84f5fa9414497ff685837f5823320a7d99')
+b2sums=('7186601e747b4b48c8d969ff16c5a0eb462f616842a43a49d16d74992ca4d6d30a0008d8d3c9e500f218dfda536a032c18fd29dff65cecb300c60b4c80179ef0')
 
 prepare() {
   mv -v $_name-$pkgver $pkgbase-$pkgver
