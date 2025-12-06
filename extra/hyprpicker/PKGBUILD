@@ -3,7 +3,7 @@
 
 pkgname=hyprpicker
 pkgver=0.4.5
-pkgrel=7
+pkgrel=8
 pkgdesc="A wlroots-compatible Wayland color picker that does not suck"
 arch=(x86_64)
 url="https://github.com/hyprwm/hyprpicker"
