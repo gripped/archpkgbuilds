@@ -1,12 +1,12 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-flycast
-pkgver=6758
+pkgver=6943
 pkgrel=1
 pkgdesc='Sega Dreamcast core'
 arch=(x86_64)
 url=https://github.com/flyinghead/flycast
-license=(GPL2)
+license=(GPL-2.0-only)
 groups=(libretro)
 depends=(
   libgl
@@ -19,7 +19,7 @@ makedepends=(
   mesa
   ninja
 )
-_commit=33833cfd1ed2d94d907223442fdb8cdafd8d5d80
+_commit=230d971d4d09747c8c107f740d85a63f9f15b646
 source=(
   git+https://github.com/flyinghead/flycast.git#commit=${_commit}
   flycast-asio::git+https://github.com/flyinghead/asio.git
@@ -27,8 +27,10 @@ source=(
   flycast-libchdr::git+https://github.com/flyinghead/libchdr.git
   git+https://github.com/KhronosGroup/Vulkan-Headers.git
   git+https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git
+  git+https://github.com/herumi/xbyak.git
 )
-b2sums=('ea61804cdd7ee87579b2c74bf9c4930e8933f0d14811fa3880998f186de5ce375031b8b67f0588755de1eb20c30eeef48476d6b9106500fbe72468cad2926e76'
+b2sums=('8c60ff351b16fde2ae57ac08f521896eca8f4e454546ac12edab7183db5388f60f6b467846fbbd005e914d140094f69dffbd24303b6ba5deaa09b8ff6254dff8'
+        'SKIP'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -37,7 +39,7 @@ b2sums=('ea61804cdd7ee87579b2c74bf9c4930e8933f0d14811fa3880998f186de5ce375031b8b
 
 prepare() {
   cd flycast
-  for submodule in core/deps/{glslang,Vulkan-Headers,VulkanMemoryAllocator}; do
+  for submodule in core/deps/{glslang,Vulkan-Headers,VulkanMemoryAllocator,xbyak}; do
     git submodule init ${submodule}
     git submodule set-url ${submodule} "${srcdir}/${submodule##*/}"
     git -c protocol.file.allow=always submodule update ${submodule}
