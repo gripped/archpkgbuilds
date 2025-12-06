@@ -3,12 +3,12 @@
 # Contributor: Duck Hunt <vaporeon@tfwno.gf>
 
 pkgname=libretro-ppsspp
-pkgver=43679
+pkgver=44520
 pkgrel=1
 pkgdesc='Sony PlayStation Portable core'
 arch=(x86_64)
 url=https://github.com/hrydgard/ppsspp
-license=(GPL2)
+license=(GPL-2.0-only)
 groups=(libretro)
 depends=(
   gcc-libs
@@ -31,7 +31,7 @@ makedepends=(
   ninja
   python
 )
-_commit=c24e8f84e6181937c3961fc494f4f8ea3e737d44
+_commit=cf306e9cec919011339fb123d009cb470f628df4
 source=(
   libretro-ppsspp::git+https://github.com/hrydgard/ppsspp.git#commit=${_commit}
   git+https://github.com/Kingcom/armips.git
@@ -49,7 +49,7 @@ source=(
   git+https://github.com/KhronosGroup/SPIRV-Cross.git
   libretro-ppsspp-assets-path.patch
 )
-b2sums=('9c13d78f52e869708de95a737e6db20da6b252ce8faf575986f22b580dcea5db2f01ee27cd37a7c569312c0b380a43cc635a6d834d0948924231b07519cee159'
+b2sums=('3712a93150e0f6e49fb51b1c26b54a5db031385247671d2c21cec8dae2b194bea896753b1799a3c483d7d5de26fab1ffc57ee56477f91773f90de69f0a5accfe'
         'SKIP'
         'SKIP'
         'SKIP'
