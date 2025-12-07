@@ -4,7 +4,7 @@
 
 pkgname=eksctl
 pkgver=0.214.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Command line tool for creating clusters on Amazon EKS'
 url='https://github.com/weaveworks/eksctl'
 arch=('x86_64')
@@ -36,7 +36,7 @@ package() {
   # completions
   "${pkgdir}/usr/bin/${pkgname}" completion bash | install -Dm 644 /dev/stdin "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
   "${pkgdir}/usr/bin/${pkgname}" completion zsh | install -Dm 644 /dev/stdin "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
-  "${pkgdir}/usr/bin/${pkgname}" completion fish | install -Dm 644 /dev/stdin "${pkgdir}/usr/share/fish/completions/${pkgname}.fish"
+  "${pkgdir}/usr/bin/${pkgname}" completion fish | install -Dm 644 /dev/stdin "${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}.fish"
 }
 
 # vim: ts=2 sw=2 et:
