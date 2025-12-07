@@ -1,8 +1,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-librt
-pkgver=0.6.3
-pkgrel=3
+pkgver=0.7.3
+pkgrel=1
 pkgdesc='Mypyc runtime library'
 arch=('x86_64')
 url="https://github.com/mypyc/librt"
@@ -16,13 +16,13 @@ makedepends=(
 )
 checkdepends=('python-mypy_extensions')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('c5131e28948705e753817f402088c28b9a56ed38c9743456747f050a700eae10f6ee425a5546d0f3b97068544742394c12d7375a403fa9ad82204b55f92f7d5d')
+sha512sums=('33c7eb2011a3683de0fd352f0e9ca60776f7a268de6452560d403ebe38579e9c8125621c0e4c72716d98d1d0dd4993c914f4116f3a1102351fa8de85e02ccdcd')
 
 prepare() {
   cd ${pkgname#python-}-$pkgver
   # Necessary for building, see:
   # .github/workflows/buildwheels.yml
-  cp lib-rt/* .
+  cp -vr lib-rt/* .
 }
 
 build() {
