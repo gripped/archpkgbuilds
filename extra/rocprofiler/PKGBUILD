@@ -3,7 +3,7 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rocprofiler
-pkgver=7.1.0
+pkgver=7.1.1
 pkgrel=1
 pkgdesc="ROC profiler library. Profiling with perf-counters and derived metrics."
 arch=('x86_64')
@@ -29,12 +29,13 @@ makedepends=(
   'rocm-llvm'
   'rocm-smi-lib'
   'rocm-toolchain'
+  'roctracer'
 )
-_git='https://github.com/ROCm/rocm-system'
-_dir_name='rocm-system/projects/rocprofiler'
-source=("rocm-system::git+$_git#tag=rocm-$pkgver"
-        "rocm-system-perfetto::git+https://github.com/google/perfetto")
-sha256sums=('72a492b9332d1eca7b48f631d6278dd6cb2318e06ead74a13d12a99fe4d199d7'
+_git='https://github.com/ROCm/rocm-systems'
+_dir_name='rocm-systems/projects/rocprofiler'
+source=("rocm-systems::git+$_git#tag=rocm-$pkgver"
+        "rocm-systems-perfetto::git+https://github.com/google/perfetto")
+sha256sums=('45103a278e43a8363bed0fc74515030819f72ae26aab801d1e106be9b2715903'
             'SKIP')
 options=(!lto)
 
