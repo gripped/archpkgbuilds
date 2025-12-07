@@ -4,7 +4,7 @@
 
 pkgname=pulumi
 pkgver=3.199.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Modern Infrastructure as Code'
 arch=('x86_64')
 url="https://github.com/$pkgname/$pkgname"
@@ -81,7 +81,7 @@ package() {
   # Generate Fish completion
   install -D -m 644 \
     <("${pkgdir}/usr/bin/${pkgname}" gen-completion fish) \
-    "${pkgdir}/usr/share/fish/completions/${pkgname}.fish"
+    "${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}.fish"
 }
 
 # vim:set ts=2 sw=2 et:
