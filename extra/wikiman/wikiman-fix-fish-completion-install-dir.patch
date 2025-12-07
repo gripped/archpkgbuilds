@@ -1,0 +1,36 @@
+diff --unified --recursive --text --new-file wikiman-2.14.1.orig/Makefile wikiman-2.14.1/Makefile
+--- wikiman-2.14.1.orig/Makefile	2025-12-06 22:47:27.849670984 +0100
++++ wikiman-2.14.1/Makefile	2025-12-06 22:48:18.786254857 +0100
+@@ -45,12 +45,12 @@
+ completions: core
+ 	test		! -f	${BUILDDIR}/.local
+ 	mkdir		-p 	${BUILDDIR}/etc/bash_completion.d \
+-				${BUILDDIR}/usr/share/fish/completions \
++				${BUILDDIR}/usr/share/fish/vendor_completions.d \
+ 				${BUILDDIR}/usr/share/zsh/site-functions
+ 	install 	-Dm644 	${WORKDIR}/completions/completions.bash	\
+ 				${BUILDDIR}/etc/bash_completion.d/${NAME}-completion.bash
+ 	install 	-Dm644 	${WORKDIR}/completions/completions.fish \
+-				${BUILDDIR}/usr/share/fish/completions/${NAME}.fish
++				${BUILDDIR}/usr/share/fish/vendor_completions.d/${NAME}.fish
+ 	install 	-Dm644 	${WORKDIR}/completions/completions.zsh \
+ 				${BUILDDIR}/usr/share/zsh/site-functions/_${NAME}
+ 
+@@ -93,7 +93,7 @@
+ 				$(prefix)/usr/bin/${NAME} \
+ 				$(prefix)/usr/share/man/man1/${NAME}.1.gz \
+ 				$(prefix)/etc/bash_completion.d/${NAME}-completion.bash \
+-				$(prefix)/usr/share/fish/completions/${NAME}.fish \
++				$(prefix)/usr/share/fish/vendor_completions.d/${NAME}.fish \
+ 				$(prefix)/usr/share/zsh/site-functions/_${NAME}
+ 	rm		-rf	$(prefix)/usr/share/${NAME} \
+ 				$(prefix)/usr/share/licenses/${NAME} \
+@@ -103,7 +103,7 @@
+ 				$(prefix)/usr/local/bin/${NAME} \
+ 				$(prefix)/usr/local/share/man/man1/${NAME}.1.gz \
+ 				$(prefix)/etc/bash_completion.d/${NAME}-completion.bash \
+-				$(prefix)/usr/share/fish/completions/${NAME}.fish \
++				$(prefix)/usr/share/fish/vendor_completions.d/${NAME}.fish \
+ 				$(prefix)/usr/share/zsh/site-functions/_${NAME}
+ 	rm		-rf 	$(prefix)/usr/local/share/${NAME} \
+ 				$(prefix)/usr/local/share/licenses/${NAME} \
