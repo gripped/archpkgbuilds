@@ -2,8 +2,8 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=hipblas-common
-pkgver=7.1.0
-pkgrel=2
+pkgver=7.1.1
+pkgrel=1
 pkgdesc='Common files shared by hipBLAS and hipBLASLt'
 arch=('any')
 url='https://rocm.docs.amd.com/projects/hipBLAS/en/latest/index.html'
@@ -17,7 +17,7 @@ makedepends=(
 )
 _git='https://github.com/ROCm/rocm-libraries'
 source=("rocm-libraries::git+$_git.git#tag=rocm-$pkgver")
-sha256sums=('aaadb942b979b814dc436de772afab3120382aa0e4662e3c58d9a2ddfbfe790c')
+sha256sums=('028cb964aeba74a9b3f4ce29dddf9bc35c30aff60d4617e60b0078a154af2a04')
 _dirname="rocm-libraries/projects/$pkgname"
 
 build() {
