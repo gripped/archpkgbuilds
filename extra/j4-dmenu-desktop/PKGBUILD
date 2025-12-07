@@ -6,7 +6,7 @@
 
 pkgname=j4-dmenu-desktop
 pkgver=3.2
-pkgrel=4
+pkgrel=5
 pkgdesc="Find .desktop files and offer you a menu to start an application using dmenu"
 arch=('x86_64')
 url="https://github.com/enkore/j4-dmenu-desktop"
@@ -55,15 +55,12 @@ package() {
     install -Dm0644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
     install -Dm0644 CHANGELOG -t "$pkgdir/usr/share/doc/$pkgname/"
 
-    install -dm0755 "$pkgdir/usr/share/bash-completion/completions" \
-                    "$pkgdir/usr/share/zsh/site-functions" \
-                    "$pkgdir/usr/share/fish/completions"
     install -Dm0644 etc/completions/j4-dmenu-desktop -t \
         "$pkgdir/usr/share/bash-completion/completions"
     install -Dm0644 etc/completions/_j4-dmenu-desktop -t \
         "$pkgdir/usr/share/zsh/site-functions"
     install -Dm0644 etc/completions/j4-dmenu-desktop.fish -t \
-        "$pkgdir/usr/share/fish/completions"
+        "$pkgdir/usr/share/fish/vendor_completions.d"
 
 
     install -dm0755 "$pkgdir/usr/share/man/man1"
