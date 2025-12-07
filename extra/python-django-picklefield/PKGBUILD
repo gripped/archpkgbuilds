@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-django-picklefield
-pkgver=3.3.0
+pkgver=3.4.0
 pkgrel=1
 pkgdesc='A pickled object field for Django'
 arch=(any)
@@ -12,9 +12,9 @@ makedepends=(
   git
   python-setuptools
 )
-_tag=4cf20241463097fc11778108b9f13f8e779492bb
+_tag=b8b24bead3ff2a62449e094b56a539232e124b87
 source=(git+https://github.com/gintas/django-picklefield.git#tag=${_tag})
-sha256sums=('b6b978c5e7efac6fa8fcd1b04cc271254efcfacd029f05c21133ed89e5854536')
+sha256sums=('de1871b5b5070675cfd6a95094031f6b4ca4f86f6be6f2dcd1e86426ff587b43')
 
 pkgver() {
   cd django-picklefield
