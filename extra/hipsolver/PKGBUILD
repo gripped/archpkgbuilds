@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=hipsolver
-pkgver=7.1.0
+pkgver=7.1.1
 pkgrel=1
 pkgdesc='rocSOLVER marshalling library.'
 arch=('x86_64')
@@ -26,7 +26,7 @@ makedepends=(
 )
 _git='https://github.com/ROCm/rocm-libraries'
 source=("rocm-libraries::git+$_git.git#tag=rocm-$pkgver")
-sha256sums=('aaadb942b979b814dc436de772afab3120382aa0e4662e3c58d9a2ddfbfe790c')
+sha256sums=('028cb964aeba74a9b3f4ce29dddf9bc35c30aff60d4617e60b0078a154af2a04')
 options=(!lto)
 _dirname="rocm-libraries/projects/$pkgname"
 
