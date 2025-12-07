@@ -2,8 +2,8 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgname=vapoursynth-plugin-deblock
-pkgver=6.1
-pkgrel=3
+pkgver=7.1
+pkgrel=1
 pkgdesc='Deblock plugin for VapourSynth'
 arch=(x86_64)
 url=https://github.com/HomeOfVapourSynthEvolution/VapourSynth-Deblock
@@ -17,9 +17,9 @@ makedepends=(
   git
   meson
 )
-_tag=5ec9c9ba349fd1d34d7ceb5300a3837c99d214e7
+_tag=7688426eaaaa87fba4a9ab3c62e50eebad4f4e5c
 source=(git+https://github.com/HomeOfVapourSynthEvolution/VapourSynth-Deblock.git#tag=${_tag})
-b2sums=(SKIP)
+b2sums=('6333fd58504b07101a37ed6867d4f09aec70275c2191a7241dce7ff34255c7223e0d4eaf292934e7dbca53da6e097581b70f1027c44deb974947070f61bd650b')
 
 pkgver() {
   cd VapourSynth-Deblock
