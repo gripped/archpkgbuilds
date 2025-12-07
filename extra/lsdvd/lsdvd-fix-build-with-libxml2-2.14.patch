@@ -1,0 +1,92 @@
+From c3cd98688b6f114bc8414a99e0796131b7dd6a43 Mon Sep 17 00:00:00 2001
+From: Carl Smedstad <carsme@archlinux.org>
+Date: Mon, 1 Dec 2025 21:41:39 +0100
+Subject: [PATCH] Fix build with libxml2 2.14+
+
+The handler->input() function pointer was deprecated and changed to a
+union in libxml2 2.14. Use the modern xmlBuffer-based API with
+xmlCharEncInFunc() instead of directly accessing the handler struct.
+
+Disclaimer: Authored with assistance from Claude Code.
+---
+ oxml.c | 52 ++++++++++++++++++++++++++--------------------------
+ 1 file changed, 26 insertions(+), 26 deletions(-)
+
+diff --git a/oxml.c b/oxml.c
+index cc59ee5..ea2cc0a 100644
+--- a/oxml.c
++++ b/oxml.c
+@@ -21,9 +21,9 @@ static xmlChar *
+ ConvertInput(const char *in, const char *encoding)
+ {
+ 	xmlChar *out;
+-	int size;
+-	int out_size;
+ 	xmlCharEncodingHandlerPtr handler;
++	xmlBufferPtr inbuf, outbuf;
++	int ret;
+ 
+ 	if (in == 0)
+ 		return 0;
+@@ -36,34 +36,34 @@ ConvertInput(const char *in, const char *encoding)
+ 		return 0;
+ 	}
+ 
+-	size = (int) strlen(in) + 1;
+-	out_size = size * 4 - 1; // Assume max 4 bytes for each character in UTF-8
+-	out = (unsigned char *) xmlMalloc((size_t) out_size);
++	inbuf = xmlBufferCreate();
++	if (inbuf)
++		xmlBufferAdd(inbuf, (const xmlChar *)in, strlen(in));
++	outbuf = xmlBufferCreate();
+ 
+-	if (out != 0) {
+-		int ret;
+-		int temp;
+-		temp = size - 1;
+-		ret = handler->input(out, &out_size, (const xmlChar *) in, &temp);
+-		if ((ret < 0) || (temp - size + 1)) {
+-			if (ret < 0) {
+-				printf("ConvertInput: conversion wasn't successful.\n");
+-			} else {
+-				printf
+-				  ("ConvertInput: conversion wasn't successful. converted: %i octets.\n",
+-				   temp);
+-			}
+-
+-			xmlFree(out);
+-			out = NULL;
+-		} else {
+-			out = (unsigned char *) xmlRealloc(out, out_size + 1);
+-			out[out_size] = 0;  /*null terminating out */
+-		}
+-	} else {
++	if (inbuf == NULL || outbuf == NULL) {
+ 		printf("ConvertInput: no mem\n");
++		if (inbuf) xmlBufferFree(inbuf);
++		if (outbuf) xmlBufferFree(outbuf);
++		xmlCharEncCloseFunc(handler);
++		return 0;
+ 	}
+ 
++	ret = xmlCharEncInFunc(handler, outbuf, inbuf);
++	if (ret < 0) {
++		printf("ConvertInput: conversion wasn't successful.\n");
++		xmlBufferFree(inbuf);
++		xmlBufferFree(outbuf);
++		xmlCharEncCloseFunc(handler);
++		return 0;
++	}
++
++	out = xmlStrdup(xmlBufferContent(outbuf));
++
++	xmlBufferFree(inbuf);
++	xmlBufferFree(outbuf);
++	xmlCharEncCloseFunc(handler);
++
+ 	return out;
+ }
+ 
+-- 
+2.52.0
+
