@@ -1,7 +1,7 @@
 pkgbase = hipblaslt
 	pkgdesc = General matrix-matrix operations beyond a traditional BLAS library
-	pkgver = 7.1.0
-	pkgrel = 2
+	pkgver = 7.1.1
+	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/hipBLASLt/en/latest/index.html
 	arch = x86_64
 	license = MIT
@@ -35,10 +35,10 @@ pkgbase = hipblaslt
 	depends = rocm-smi-lib
 	depends = yaml-cpp
 	options = !strip
-	source = rocm-libraries::git+https://github.com/ROCm/rocm-libraries.git#tag=rocm-7.1.0
+	source = rocm-libraries::git+https://github.com/ROCm/rocm-libraries.git#tag=rocm-7.1.1
 	source = hipblaslt-Don-t-fetch-deps-for-rocroller.patch
 	source = rocroller-Always-fetch-libdivide-if-it-s-not-install.patch
-	sha256sums = aaadb942b979b814dc436de772afab3120382aa0e4662e3c58d9a2ddfbfe790c
+	sha256sums = 028cb964aeba74a9b3f4ce29dddf9bc35c30aff60d4617e60b0078a154af2a04
 	sha256sums = 81c0f9ac1872e34555c2f9d64eecec75c42fd8813c4acf54cd665b03e59cb752
 	sha256sums = b845a96fee02651f2cad2417fc9e8522ab143849b2049b0010d17401e6000e52
 
