@@ -3,7 +3,7 @@
 # Contributor: kevku <kevku@gmx.com>
 
 pkgname=kodi-addon-inputstream-adaptive
-pkgver=21.5.17
+pkgver=21.5.18
 _codename=Omega
 pkgrel=1
 pkgdesc="InputStream client for adaptive streams for Kodi 18+"
@@ -18,17 +18,14 @@ _bento4_version="1.6.0-641-3"
 
 source=("$pkgname-$pkgver.tar.gz::https://github.com/peak3d/inputstream.adaptive/archive/$pkgver-$_codename.tar.gz"
         "$pkgname-bento4-$_bento4_version.tar.gz::https://github.com/xbmc/Bento4/archive/refs/tags/$_bento4_version-$_codename.tar.gz"
-        "0001-gcc-15-build-fixes.patch"
     )
 noextract=("$pkgname-bento4-$_bento4_version.tar.gz")
-sha512sums=('d9d77b4ed14ebf0461f0dd7d3bfbfab3f9fa7e12d246e196a179379053bb496c473faae43239ce1cb72cf8dda52376d19e11c8977b112af8dba8f8afb84e9df6'
-            '401a4a394a6822f1d83cdb2fd61e5b353c5c7e610b095557ec5aad1639fc94b631676d7f335260285d74f8662ddb60863b65ff54711fcf3462458965bf9cc021'
-            'c6c35f698de8e57429e134467d56d11e64e697a522513ae0437f3a99251336c87e9ab0d11a950bae687b1433c7300adc3ba6f3857d9b78849017986a273b44e2')
+sha512sums=('f17297d0917d0342e6117c0ce53bf43d384c8ec398e0a97bd576e91cbe9a253eaf8dbcce321ea16bf542f6fa69cf98370a433be3c4269f25405baab650672f05'
+            '401a4a394a6822f1d83cdb2fd61e5b353c5c7e610b095557ec5aad1639fc94b631676d7f335260285d74f8662ddb60863b65ff54711fcf3462458965bf9cc021')
 
-prepare() {
-    cd "inputstream.adaptive-$pkgver-$_codename"
-    patch -p1 -i "$srcdir/0001-gcc-15-build-fixes.patch"
-}
+#prepare() {
+    #cd "inputstream.adaptive-$pkgver-$_codename"
+#}
 
 build() {
     cd "inputstream.adaptive-$pkgver-$_codename"
