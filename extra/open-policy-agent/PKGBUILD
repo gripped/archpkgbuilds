@@ -5,7 +5,7 @@
 
 pkgname=open-policy-agent
 pkgver=1.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Command-line utility and REPL for Open Policy Agent'
 arch=(x86_64)
 url=https://github.com/open-policy-agent/opa
@@ -41,7 +41,7 @@ package() {
   install -Dm 755 opa/opa -t "${pkgdir}"/usr/bin/
   install -Dm 644 opa/completion/opa -t "${pkgdir}"/usr/share/bash-completion/completions/
   install -Dm 644 opa/completion/_opa -t "${pkgdir}"/usr/share/zsh/site-functions/
-  install -Dm 644 opa/completion/opa.fish -t "${pkgdir}"/usr/share/fish/completions/
+  install -Dm 644 opa/completion/opa.fish -t "${pkgdir}"/usr/share/fish/vendor_completions.d/
 }
 
 # vim: ts=2 sw=2 et:
