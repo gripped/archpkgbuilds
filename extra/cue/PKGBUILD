@@ -3,7 +3,7 @@
 # Contributor: Daniel Martí <mvdan@mvdan.cc>
 
 pkgname=cue
-pkgver=0.14.2
+pkgver=0.15.1
 pkgrel=1
 pkgdesc="Validate and define text-based and dynamic configuration"
 arch=('x86_64')
@@ -13,7 +13,7 @@ makedepends=('go')
 checkdepends=('git')
 depends=('glibc')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/cue-lang/cue/archive/v${pkgver}.tar.gz")
-sha512sums=('ca38221952b5434c4404e72a09430aca61d6a0f5cc906ad6172907556422c4f76a06053b71962127bb63d49a64feda52d500cc772f13981309897b556f587608')
+sha512sums=('1859f0098ec6754d164e4b0473d70627ab03018a6a99d1b6707b5b2267f2efafc63c6e857da99cd8cba5aa66e1e81f64c89a6a7df8b5a4bc4a3eb46ac28a3e10')
 
 prepare(){
   cd "${pkgname}-${pkgver}"
