@@ -3,7 +3,7 @@
 # Contributor: Felix Richter <judge@felixrichter.tech>
 
 pkgname=hipsparselt
-pkgver=7.1.0
+pkgver=7.1.1
 pkgrel=1
 pkgdesc='SPARSE marshalling library with AMD GPU backend'
 arch=('x86_64')
@@ -37,7 +37,7 @@ _tensilelite='https://github.com/ROCm/hipBLASLt'
 _commit='25c46a44a79d748394622b0b0c7b7acf7574619a'
 source=("rocm-libraries::git+$_git.git#tag=rocm-$pkgver"
         "$pkgname-tensilelite-$pkgver.tar.gz::$_tensilelite/archive/$_commit/hipBLASLt-$_commit.tar.gz")
-sha256sums=('aaadb942b979b814dc436de772afab3120382aa0e4662e3c58d9a2ddfbfe790c'
+sha256sums=('028cb964aeba74a9b3f4ce29dddf9bc35c30aff60d4617e60b0078a154af2a04'
             'e2b3c6b584e12853474315393789d0a4f2a813a2eb003560adbde735ce4140bd')
 _dirname="rocm-libraries/projects/$pkgname"
 
