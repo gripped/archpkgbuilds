@@ -2,8 +2,8 @@
 # Contributor: Thomas Schneider <maxmusterm@gmail.com>
 
 pkgname=svt-vp9
-pkgver=0.3.0
-pkgrel=3
+pkgver=0.3.1
+pkgrel=1
 pkgdesc='Scalable Video Technology VP9 encoder'
 arch=(x86_64)
 url=https://github.com/OpenVisualCloud/SVT-VP9
@@ -15,9 +15,9 @@ makedepends=(
   nasm
   ninja
 )
-_tag=e1bbb77ed315f417002071e93789b366d9ff997e
+_tag=290fb8c3662ed76a8887b587a9b8201878ba71ed
 source=(git+https://github.com/OpenVisualCloud/SVT-VP9.git#tag=${_tag})
-sha256sums=(SKIP)
+sha256sums=('c51933db9b17f5368c9afb3d9862eb7eb3ca9e62057f0aaf6bee5d913742d595')
 
 pkgver() {
   cd SVT-VP9
