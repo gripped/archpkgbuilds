@@ -5,7 +5,7 @@
 # Contributor: Greg Land <landjgregory at gmail dot com>
 
 pkgname=rocm-cmake
-pkgver=7.1.0
+pkgver=7.1.1
 pkgrel=1
 pkgdesc='CMake modules for common build tasks needed for the ROCm software stack'
 arch=('any')
@@ -14,7 +14,7 @@ license=('MIT')
 depends=('rocm-core' 'cmake')
 checkdepends=('git' 'rocm-llvm')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('d17a109b3ade999926f5b25ce25082b378399654e3b2234cad5f83cdd00a2f32')
+sha256sums=('4ef6bbe518a3d4670272203c83f98b2a7135ad570a13498f871efda2320b698e')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
 
 prepare() {
