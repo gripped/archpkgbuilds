@@ -2,8 +2,8 @@
 # Contributor: larchunix <larchunix@gmail.com>
 
 pkgname=drpm
-pkgver=0.5.2
-pkgrel=2
+pkgver=0.5.3
+pkgrel=1
 pkgdesc="A small library for fetching information from deltarpm packages"
 url="https://github.com/rpm-software-management/drpm"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('bzip2' 'glibc' 'openssl' 'rpm-tools' 'xz' 'zlib' 'zstd')
 makedepends=('cmake' 'doxygen')
 checkdepends=('cmocka')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('33767a4029f707ac974cbbc6cdf02d12a8574a9647eb1b7c2424195e1784f054')
+sha256sums=('33b6337a07af2874835321d802c62cca0e6bd8ae18c4534ce1fe68f7bcf762bc')
 
 build() {
 	cd "${pkgname}-${pkgver}"
