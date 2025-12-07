@@ -4,7 +4,7 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rccl
-pkgver=7.1.0
+pkgver=7.1.1
 pkgrel=1
 pkgdesc="ROCm Communication Collectives Library"
 arch=('x86_64')
@@ -17,7 +17,7 @@ source=(
   "${pkgname}-json::git+https://github.com/nlohmann/json.git"
   "${pkgname}-mscclpp::git+https://github.com/microsoft/mscclpp.git"
 )
-sha256sums=('59468d4651b84d3529e1536bce7df7cb892654abebebc4af9982e47ad3cbe641'
+sha256sums=('7da1096165934e4c678f3c48b07b573f07784699a0eac156d181a88648a3801c'
             'SKIP'
             'SKIP')
 options=(!lto)
