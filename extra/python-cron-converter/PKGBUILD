@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=python-cron-converter
-_name=${pkgname#python-}
-pkgver=1.2.2
+pkgver=1.3.0
 pkgrel=1
 pkgdesc="Cron string converter for Python"
 arch=(any)
@@ -13,28 +13,34 @@ depends=(
   python-dateutil
 )
 makedepends=(
+  git
   python-build
   python-installer
   python-setuptools
   python-wheel
 )
-source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('1ba2eddb8e580ddcbb0daae3b41b68030aa5b0342484115f92f8f21c4a0194b63572ec8a4c5bf71c9c8527381055ef44e17c913fa91f10089264e0e6b0b19a39')
-b2sums=('44914de7a48ecf822e7df0c0e305f00b3b871b592641fb38b9d67825503659514aa20f03ce18c91d258d79ba2f9b498db4743b502f14418089f9ea5912d84014')
+source=("$pkgname::git+$url.git#tag=v$pkgver")
+sha512sums=('1d81c035acd8d1613ce580ff8bf700fbf555eb0607f0d70fcbe16d54142bd049165c87fa4141ab678480220e5f662efd8a38f6982d7dc7e3ee7f1f5a56c569f0')
+b2sums=('667e72beec213e4b694eb98bc769137e698c3f49a9cd2d2410cd20fbd7e0c5697ccbb8ee121aca582ca1ff6fe05d4064a5a45a9ab9d7a533c3567c2166161623')
+
+prepare() {
+  cd $pkgname
+  git cherry-pick -n 78a4113d6dd27e69dfe76fe9d2cd718a4c44ffd1
+}
 
 build() {
-  cd $_name-$pkgver
+  cd $pkgname
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_name-$pkgver
+  cd $pkgname
   python -m unittest discover -v tests/unit
   python -m unittest discover -v tests/integration
 }
 
 package() {
-  cd $_name-$pkgver
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
