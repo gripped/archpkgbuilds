@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: Greg Land <landjgregory at gmail dot com>
 pkgname=rocm-core
-pkgver=7.1.0
+pkgver=7.1.1
 pkgrel=1
 pkgdesc='AMD ROCm core package (version files)'
 license=('MIT')
@@ -16,7 +16,7 @@ makedepends=('cmake')
 source=("rocm-$pkgver.tar.gz::https://github.com/ROCm/rocm-systems/archive/refs/tags/rocm-$pkgver.tar.gz"
         'rocm-ld.conf'
         'rocm-profile.sh')
-b2sums=('51df17b0724bb588a97cc7cd0fad51fb3e2173ecd53783bdec0f7e7134ab1a772431bcc41d467ba3b1085be6f6ef33e83af948a3c5879f0db243c67bc04e0d1e'
+b2sums=('e59e0ca652635fa3ec9914572a1ced876c54989911e32a3062481885924994dd8121b4d522f54aa17d2d88e61a7977ef66af0bd0e9ae1140a9d94396b85a9a9c'
         'd045c357d8e7e8a4840ab137404f12cd08419444ffc478046c13ed3bd13a5d33358c1443bf76ee571a7a062454e2bdda1a5507a70edbd001bce004f18775e4b2'
         '4372bcbe97d7c95d4918ad4beacc4fe9bfc8bfb8cafcf08d9ebbcba7df3e3bf535ff51f90c2d0f653858b0ae03b108ac3cb32b61b4ecac3abb609acc06be3ee3')
 url='https://rocm.docs.amd.com/en/latest/'
