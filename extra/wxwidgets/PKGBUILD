@@ -7,7 +7,7 @@ pkgname=(wxwidgets-common
 #          wxwidgets-gtk4
          wxwidgets-qt5)
 pkgver=3.2.9
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://wxwidgets.org'
 license=(custom:wxWindows)
@@ -22,8 +22,16 @@ makedepends=(cmake
              qt5-base
              sdl2
              webkit2gtk-4.1)
-source=(git+https://github.com/wxWidgets/wxWidgets#tag=v$pkgver)
-sha256sums=('8b212269cab9901c218c3bc6c83b869ca0246bc0b7672a2fad4320b7d18d5bc7')
+source=(git+https://github.com/wxWidgets/wxWidgets#tag=v$pkgver
+        fix-html-symbols.patch)
+sha256sums=('8b212269cab9901c218c3bc6c83b869ca0246bc0b7672a2fad4320b7d18d5bc7'
+            'f0189c0acd0514d0b59ecc7c0518c4993275e9a9336df1e97ef6cf8bd4c7e4bd')
+
+prepare() {
+# Fix missing symbols in html library https://github.com/wxWidgets/wxWidgets/issues/26019
+# Partial revert of https://github.com/wxWidgets/wxWidgets/commit/2db5b45971748d7830e486147d9e5597de103666
+  patch -d wxWidgets -p1 < fix-html-symbols.patch
+}
 
 build() {
   cmake -B build-base -S wxWidgets \

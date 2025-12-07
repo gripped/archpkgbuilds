@@ -1,6 +1,6 @@
 pkgbase = wxwidgets
 	pkgver = 3.2.9
-	pkgrel = 1
+	pkgrel = 2
 	url = https://wxwidgets.org
 	arch = x86_64
 	license = custom:wxWindows
@@ -15,7 +15,9 @@ pkgbase = wxwidgets
 	makedepends = sdl2
 	makedepends = webkit2gtk-4.1
 	source = git+https://github.com/wxWidgets/wxWidgets#tag=v3.2.9
+	source = fix-html-symbols.patch
 	sha256sums = 8b212269cab9901c218c3bc6c83b869ca0246bc0b7672a2fad4320b7d18d5bc7
+	sha256sums = f0189c0acd0514d0b59ecc7c0518c4993275e9a9336df1e97ef6cf8bd4c7e4bd
 
 pkgname = wxwidgets-common
 	pkgdesc = Common libraries and headers for wxwidgets
