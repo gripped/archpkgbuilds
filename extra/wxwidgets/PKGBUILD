@@ -6,8 +6,8 @@ pkgname=(wxwidgets-common
          wxwidgets-gtk3
 #          wxwidgets-gtk4
          wxwidgets-qt5)
-pkgver=3.2.8.1
-pkgrel=2
+pkgver=3.2.9
+pkgrel=1
 arch=(x86_64)
 url='https://wxwidgets.org'
 license=(custom:wxWindows)
@@ -23,7 +23,7 @@ makedepends=(cmake
              sdl2
              webkit2gtk-4.1)
 source=(git+https://github.com/wxWidgets/wxWidgets#tag=v$pkgver)
-sha256sums=('11bfcbbbb10515d9fd31f52477166bc37725e704dc7f3baf6cad30b92e1defe8')
+sha256sums=('8b212269cab9901c218c3bc6c83b869ca0246bc0b7672a2fad4320b7d18d5bc7')
 
 build() {
   cmake -B build-base -S wxWidgets \
@@ -207,8 +207,8 @@ package_wxwidgets-qt5() {
   rm -r "$pkgdir"/usr/{include,lib/libwx_base*,bin/wxrc*,share}
   mv "$pkgdir"/usr/bin/wx-config{,-qt} # Conflicts with wx-gtk3
 # Rename cmake files for coinstallability
-  mv "$pkgdir"/usr/lib/cmake/wxWidgets{,Qt}
-  for _f in "$pkgdir"/usr/lib/cmake/wxWidgetsQt/*; do
+  mv "$pkgdir"/usr/lib/cmake/wxWidgets{,Qt}-3.2
+  for _f in "$pkgdir"/usr/lib/cmake/wxWidgetsQt-3.2/*; do
     mv $_f $(dirname $_f)/$(basename $_f | sed -e 's/wxWidgets/wxWidgetsQt/')
   done
 
