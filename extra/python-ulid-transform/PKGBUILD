@@ -2,7 +2,7 @@
 # Contributor: Lukasz Pozarlik <lpozarlik@gmail.com>
 
 pkgname=python-ulid-transform
-pkgver=1.4.0
+pkgver=1.5.2
 pkgrel=1
 pkgdesc='Create and transform ULIDs'
 arch=(x86_64)
@@ -22,9 +22,9 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-_tag=33e4ec44e45dcc0d390c39aebabadf6a03fba201
+_tag=ca43250ac30d5ce9fe1ad9de4e27c3263dd3a8d0
 source=(git+https://github.com/bdraco/ulid-transform.git#tag=${_tag})
-b2sums=('6645fbaef684f8f35c3bd8b394f85f024ed57096ea3cc44d8092f855be1059480474cde2f1877c291403b2ae829cc0a1541d03851c71e358199ebda322bab772')
+b2sums=('6d22e8880563fe0240d3a50dfcb0729b7f434f3fe11eb4b308e1bad719f49368f4b4cbb01334a2c2951626f886d8ab2a6419ff5fe33e496323b99c107588f6a9')
 
 pkgver() {
   cd ulid-transform
