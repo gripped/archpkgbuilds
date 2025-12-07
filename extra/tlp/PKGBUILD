@@ -4,13 +4,14 @@
 pkgbase=tlp
 pkgname=(
   tlp
+  tlp-pd
   tlp-rdw
 )
 pkgver=1.9.0
-pkgrel=1
+pkgrel=2
 arch=(any)
 url=https://linrunner.de/en/tlp/tlp.html
-license=(GPL2)
+license=(GPL-2.0-only)
 makedepends=(git)
 _tag=50fd73cff7b346a0d9ffd644185e359332f453c2
 source=(git+https://github.com/linrunner/TLP.git#tag=${_tag})
@@ -25,13 +26,13 @@ pkgver() {
 package_tlp() {
   pkgdesc='Linux Advanced Power Management'
   depends=(
+    bash
     hdparm
     iw
     pciutils
     perl
     rfkill
     usbutils
-    util-linux
   )
   optdepends=(
     'bash-completion: Bash completion'
@@ -39,11 +40,7 @@ package_tlp() {
     'smartmontools: Display S.M.A.R.T. data in tlp-stat'
     'tp_smapi: Older ThinkPad battery functions (before Sandy Bridge)'
   )
-  conflicts=(
-    laptop-mode-tools
-    pm-utils
-    power-profiles-daemon
-  )
+  conflicts=(tuned)
   backup=(etc/tlp.conf)
 
   export TLP_NO_INIT=1
@@ -57,9 +54,29 @@ package_tlp() {
   make DESTDIR="${pkgdir}" -C TLP install-tlp install-man-tlp
 }
 
+package_tlp-pd() {
+  pkgdesc='Linux Advanced Power Management - Power Profiles Daemon'
+  depends=(
+    glib2
+    python
+    python-dbus
+    python-gobject
+    python-shtab
+    tlp
+  )
+  provides=(power-profiles-daemon)
+  conflicts=(
+    power-profiles-daemon
+    tuned-ppd
+  )
+
+  make DESTDIR="${pkgdir}" -C TLP install-pd install-man-pd
+}
+
 package_tlp-rdw() {
   pkgdesc='Linux Advanced Power Management - Radio Device Wizard'
   depends=(
+    bash
     networkmanager
     tlp
   )
