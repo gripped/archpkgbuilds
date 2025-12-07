@@ -6,7 +6,7 @@
 
 pkgname=mkosi
 pkgver=25.3
-pkgrel=4
+pkgrel=5
 pkgdesc="Build Legacy-Free OS Images"
 arch=(any)
 url="https://github.com/systemd/mkosi"
@@ -98,6 +98,6 @@ package() {
 
 
   python -m mkosi completion bash | install -vDm 644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/mkosi"
-  python -m mkosi completion fish | install -vDm 644 /dev/stdin "$pkgdir/usr/share/fish/completions/mkosi.fish"
+  python -m mkosi completion fish | install -vDm 644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/mkosi.fish"
   python -m mkosi completion zsh  | install -vDm 644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_mkosi"
 }
