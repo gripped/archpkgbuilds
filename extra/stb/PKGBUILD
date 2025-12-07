@@ -3,16 +3,16 @@
 
 
 pkgname=stb
-pkgver=r2210.f58f558
+pkgver=r2216.f1c79c0
 pkgrel=1
 pkgdesc='Single-file public domain (or MIT licensed) libraries for C/C++'
 arch=(any)
 url=https://github.com/nothings/stb
 license=(MIT)
 makedepends=(git)
-_commit=f58f558c120e9b32c217290b80bad1a0729fbb2c
+_commit=f1c79c02822848a9bed4315b12c8c8f3761e1296
 source=(git+https://github.com/nothings/stb.git#commit=${_commit})
-b2sums=('59ddcabd5f1ecbad2b0838fe92f78a6ba9a95e04cda5a0c86c28464780c07ce873e008ea6dfe46493528d70bf321db14f94fe5e2bba49330099f6b909206b2b0')
+b2sums=('92d4c1abc694aa3883847a556dc1dad86db3f7d66d092c32c37a568c75896527fd180ce2b976e1692805fa0053d7ff412dc971b97acfec10afef61be8afe2081')
 
 pkgver() {
   cd stb
