@@ -8,7 +8,7 @@ pkgname=(
   critest
 )
 pkgver=1.34.0
-pkgrel=1
+pkgrel=2
 pkgdesc="CLI and validation tools for Kubelet Container Runtime Interface (CRI)"
 arch=(x86_64)
 url="https://github.com/kubernetes-sigs/cri-tools"
@@ -51,7 +51,7 @@ package_crictl() {
   # shell completion
   install -vDm 644 completions/$pkgname -t "$pkgdir/usr/share/bash-completion/completions/"
   install -vDm 644 completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
-  install -vDm 644 completions/$pkgname.fish -t "$pkgdir/usr/share/fish/completions/"
+  install -vDm 644 completions/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
   # docs
   install -vDm 644 $pkgbase-$pkgver/docs/$pkgname.md -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 -t "$pkgdir/usr/share/doc/$pkgname/examples/" \
