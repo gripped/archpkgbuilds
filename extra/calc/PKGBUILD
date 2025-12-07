@@ -3,7 +3,7 @@
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=calc
-pkgver=2.15.1.1
+pkgver=2.16.0.0
 pkgrel=1
 pkgdesc="Arbitrary precision console calculator"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('readline')
 makedepends=('chrpath'
              'man')
 source=("http://www.isthe.com/chongo/src/calc/calc-$pkgver.tar.bz2")
-b2sums=('92f4e6ab379f9ccad15ad626617e38899dc40a621bdcf64e0736eda8a4aae95432f58ba24dfd00b6e8e829ae843db45f0cbe12e6265e460d671ef8ed51a50f08')
+b2sums=('a6c12437fdd8a25a10174bd873eaa79c1577ce4babfd3e6909f66fbe64496ea9386fabbcdbe8748ad729912f180ea18d1ef970d11e9c42f7819b58de172df366')
 
 prepare() {
   cd "$srcdir/calc-$pkgver"
