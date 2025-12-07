@@ -3,7 +3,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=rekor
-pkgver=1.4.2
+pkgver=1.4.3
 pkgrel=1
 pkgdesc="Signature Transparency Log -- Sigstore client and server tools"
 arch=('x86_64')
@@ -16,8 +16,8 @@ makedepends=(
 )
 checkdepends=('openssh')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/sigstore/rekor/archive/v${pkgver}.tar.gz")
-sha256sums=('c3e8eaa5ee8b61467da9c69d083dda767ba563d54e237ba3f40970494ee9be87')
-b2sums=('a76dbc1b6bf04790862773f4edf04a5d9ab47f50dce0e6f3667477e1ca1afab4d24c3588405fbb3634ae6fd53fc0fdc1e0e39d2343c52cb11bb07eb32db44a71')
+sha256sums=('bc459b43c3da644c827ae15e3675bbf3ed7cb1135f07eff0d98fc8cd6495f2e3')
+b2sums=('eb9ade027a8a3072150d72f6682f7eb8fdd8b52ec997df0590680398b73eca2a016243e71db11d77d3af7b1de8d340971824666796707e4ec826a3988e9f2cc2')
 options=('!lto')
 
 build() {
