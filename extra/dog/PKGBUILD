@@ -4,7 +4,7 @@
 
 pkgname=dog
 pkgver=0.1.0
-pkgrel=6
+pkgrel=7
 pkgdesc='Command-line DNS client like dig'
 url='https://github.com/ogham/dog'
 arch=('x86_64')
@@ -40,7 +40,7 @@ package() {
   install -Dm 755 target/release/${pkgname} -t "${pkgdir}/usr/bin"
 
   install -Dm 644 completions/${pkgname}.bash "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
-  install -Dm 644 completions/${pkgname}.fish -t "${pkgdir}/usr/share/fish/completions"
+  install -Dm 644 completions/${pkgname}.fish -t "${pkgdir}/usr/share/fish/vendor_completions.d"
   install -Dm 644 completions/${pkgname}.zsh "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
 
   install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
