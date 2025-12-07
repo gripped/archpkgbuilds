@@ -3,7 +3,7 @@
 
 pkgname=talosctl
 pkgver=1.11.5
-pkgrel=1
+pkgrel=2
 pkgdesc='CLI for Talos - A modern OS for Kubernetes'
 arch=(x86_64)
 url='https://github.com/siderolabs/talos'
@@ -70,6 +70,6 @@ package() {
 
   # shell completions
   install -vDm644 bash.completion "$pkgdir/usr/share/bash-completion/completions/talosctl"
-  install -vDm644 fish.completion "$pkgdir/usr/share/fish/completions/talosctl.fish"
+  install -vDm644 fish.completion "$pkgdir/usr/share/fish/vendor_completions.d/talosctl.fish"
   install -vDm644 zsh.completion "$pkgdir/usr/share/zsh/site-functions/_talosctl"
 }
