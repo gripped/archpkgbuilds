@@ -2,7 +2,7 @@
 
 pkgbase=spire
 pkgname=("spire-agent" "spire-server")
-pkgver=1.12.2
+pkgver=1.13.3
 pkgrel=1
 pkgdesc="SPIFFE Runtime Environment"
 url='https://github.com/spiffe/spire'
@@ -11,8 +11,8 @@ license=("Apache")
 makedepends=("go")
 depends=("glibc")
 source=("${pkgbase}-${pkgver}.tar.gz::https://github.com/spiffe/spire/archive/v${pkgver}.tar.gz")
-sha512sums=('27d64075fd122593a76324a766080b4e0e9cfe95323caef12a3a927d502e13a996959c62929935f1727309ddc63537d472efd4eb25bb1a8dac2c818a7b179c4a')
-b2sums=('fecd6e7a276add9534f5b3bda75b15a798a5a8e15a1ed2adfd0b54b3e5fbd1747a81b7a685c04e64929f540740e2e93fc3ed4355d44dd486af41509ef1185d1c')
+sha512sums=('80d1cae29c1cc499361dc77aca2533c4b4f8932e0e157ba70fd8747df0cce8e9a3a383c0da201e51f14cb9e8a61a06d137a4dd36f0395a712e404a30b21b10b2')
+b2sums=('ee155e001ff94eae5c2ecc5b4f5f4aa9321df37a84ba4a102d9a420e01e1eb96cea00c9e3ea4d6db87b59ae6b2a32f6d9a4298d910a07f4c6d88c5c628baecc6')
 
 build() {
   cd "${pkgbase}-${pkgver}"
