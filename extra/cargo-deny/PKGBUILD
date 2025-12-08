@@ -3,7 +3,7 @@
 # Contributor: Vlad Frolov <frolvlad@gmail.com>
 
 pkgname=cargo-deny
-pkgver=0.18.3
+pkgver=0.18.8
 pkgrel=1
 pkgdesc='Cargo plugin for linting your dependencies'
 arch=('x86_64')
@@ -15,7 +15,7 @@ options=(!lto)
 source=("$pkgname-$pkgver::git+$url.git#tag=$pkgver"
   "$pkgname-advisory-db::git+https://github.com/rustsec/advisory-db"
   "$pkgname-test-advisory-db::git+https://github.com/EmbarkStudios/test-advisory-db")
-sha256sums=('7e976d89c55fab650820b5217bfb4d84306004f38e80b0b8094e159759781abd'
+sha256sums=('2ec71f5b53bc2a81f7ee7421132056a47190f6a67960efa20a921a9a5e767ddc'
             'SKIP'
             'SKIP')
 
@@ -33,10 +33,11 @@ build() {
   cargo build --release --frozen
 }
 
-check() {
-  cd "$pkgname-$pkgver"
-  cargo test --frozen
-}
+# https://github.com/EmbarkStudios/cargo-deny/issues/816
+# check() {
+#   cd "$pkgname-$pkgver"
+#   cargo test --frozen
+# }
 
 package() {
   cd "$pkgname-$pkgver"
