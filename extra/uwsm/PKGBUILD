@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=uwsm
-pkgver=0.24.3
-pkgrel=2
+pkgver=0.25.0
+pkgrel=1
 pkgdesc='A standalone Wayland session manager'
 url="https://github.com/Vladimir-csp/$pkgname"
 arch=(any)
@@ -25,7 +25,7 @@ makedepends=(meson
              scdoc)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('17f3c76dc53ce8ca03d5ec31a5b4063927539da2c3ed8ea1928c7caf034b54f2')
+sha256sums=('2e2587d1196d0c60763c084b43a7d97c57990ef4c3749b3198e7a0d63ae50e0a')
 
 build() {
 	local meson_opts=(
