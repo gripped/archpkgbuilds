@@ -2,7 +2,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=ruby-cucumber-html-formatter
-pkgver=22.1.0
+pkgver=22.2.0
 pkgrel=1
 pkgdesc="HTML formatter for Cucumber"
 arch=(any)
@@ -22,8 +22,8 @@ options=(!emptydirs)
 source=(
   "https://github.com/cucumber/html-formatter/archive/v$pkgver/cucumber-html-formatter-$pkgver.tar.gz"
 )
-sha512sums=('d11b1b5969de9b86ab2de905de76ea4edf41015f9a189d4d7d1dbd5370e521ba173c889eaebf02e0a2b02732d016500bb858e37dc676e97fa04d7b59ebe85dfd')
-b2sums=('f94458b77e3e6bddad3fcf6167ee3dd35a694cbf908e913c2ee4788eef87bc89ec4d7bbc4d77efc46df37c0a3bed1cbc69772ba1268aa9daf6fabe7dfded74e2')
+sha512sums=('28df4c23336edbf0af64a4f2a1b171b99d6b6a9281b9d1e77edb0cca1d480d1d2b4c68e756e92dd21765c56641f8eb5550f76cf63e4e3d5d4ee52d0f70443737')
+b2sums=('ffaf31320e58541306aa8eb8b1c9e0643ca5bd724a554f8732537db071071ce197ac01b7b36248db2c9528d092b55cb3510edfb0f424b344958f0185dce4ad65')
 
 prepare() {
   cd html-formatter-$pkgver
