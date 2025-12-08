@@ -1,8 +1,8 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=libkiwix
-pkgver=14.1.0
-pkgrel=2
+pkgver=14.1.1
+pkgrel=1
 pkgdesc="Library providing the Kiwix software core"
 license=('GPL-3.0-or-later')
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('libzim>=9.4.0' 'pugixml' 'xapian-core' 'aria2' 'libmicrohttpd' 'python
 makedepends=('meson' 'gtest' 'mustache')
 url='https://github.com/kiwix/libkiwix'
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('046cf46f31931da13d05ee47a721512698f67348eacd0013c47e1b51548c3cf4')
+sha256sums=('6bfee304cf291bc744a70c50d136527c459242909901df7f4cf5137691b886e0')
 
 build() {
 	cd "${pkgname}-${pkgver}"
