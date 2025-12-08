@@ -8,10 +8,10 @@ pkgname=(
   tlp-rdw
 )
 pkgver=1.9.0
-pkgrel=2
+pkgrel=3
 arch=(any)
 url=https://linrunner.de/en/tlp/tlp.html
-license=(GPL-2.0-only)
+license=(GPL-2.0-or-later)
 makedepends=(git)
 _tag=50fd73cff7b346a0d9ffd644185e359332f453c2
 source=(git+https://github.com/linrunner/TLP.git#tag=${_tag})
@@ -45,9 +45,6 @@ package_tlp() {
 
   export TLP_NO_INIT=1
   export TLP_SBIN=/usr/bin
-  export TLP_SDSL=/usr/lib/systemd/system-sleep
-  export TLP_SYSD=/usr/lib/systemd/system
-  export TLP_ULIB=/usr/lib/udev
   export TLP_WITH_ELOGIND=0
   export TLP_WITH_SYSTEMD=1
 
