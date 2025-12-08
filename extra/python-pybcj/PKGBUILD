@@ -3,20 +3,22 @@
 
 pkgname=python-pybcj
 _pyname=${pkgname#python-}
-pkgver=1.0.6
+pkgver=1.0.7
 pkgrel=1
 pkgdesc='BCJ (Branch-Call-Jump) filter for python'
 arch=(x86_64)
-url="https://codeberg.org/miurahr/$_pyname"
-license=(LGPL)
+url="https://github.com/miurahr/$_pyname"
+license=(LGPL-2.1-only)
 depends=(python)
 makedepends=(python-{build,installer,wheel}
              python-setuptools-scm)
 checkdepends=(python-pytest
               python-hypothesis)
 _archive="$_pyname-$pkgver"
-source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
-sha256sums=('70bbe2dc185993351955bfe8f61395038f96f5de92bb3a436acb01505781f8f2')
+# PyPi package >= 1.0.7 does not include tests
+# source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
+source=("$url/archive/v$pkgver/$_archive.tar.gz")
+sha256sums=('8c2beae3ff02c2af30ab051f08a0f9f56ce3da8d40f3443e42e3ef9c0317aa7d')
 
 build() {
 	cd "$_archive"
