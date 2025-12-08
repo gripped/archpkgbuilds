@@ -1,17 +1,19 @@
 pkgbase = python-pyzstd
 	pkgdesc = Python bindings to Zstandard (zstd) compression library
-	pkgver = 0.18.0
+	pkgver = 0.19.0
 	pkgrel = 1
 	url = https://pypi.org/project/pyzstd
 	arch = x86_64
 	license = BSD-3-Clause
+	checkdepends = python-pytest
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
-	makedepends = python-setuptools
+	makedepends = python-hatch-vcs
+	makedepends = python-hatchling
 	depends = python
-	depends = zstd
-	source = https://files.pythonhosted.org/packages/source/p/pyzstd/pyzstd-0.18.0.tar.gz
-	sha256sums = 81b6851ab1ca2e5f2c709e896a1362e3065a64f271f43db77fb7d5e4a78e9861
+	depends = python-backports-zstd
+	source = https://files.pythonhosted.org/packages/source/p/pyzstd/pyzstd-0.19.0.tar.gz
+	sha256sums = 44e7b9be7b445aac742003ddee52ca31385d52dffb8c60adf633fad8e795f10d
 
 pkgname = python-pyzstd
