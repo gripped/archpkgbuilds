@@ -3,7 +3,7 @@
 # Contributor: jiribb <jiribb@gmail.com>
 
 pkgname=ldns
-pkgver=1.8.4
+pkgver=1.9.0
 pkgrel=1
 pkgdesc='Fast DNS library supporting recent RFCs'
 url='https://www.nlnetlabs.nl/projects/ldns/'
@@ -12,28 +12,35 @@ arch=('x86_64')
 depends=('openssl' 'dnssec-anchors')
 provides=('drill' 'libldns.so')
 optdepends=('libpcap: ldns-dpa tool')
-makedepends=('libpcap')
-source=("https://www.nlnetlabs.nl/downloads/${pkgname}/${pkgname}-${pkgver}.tar.gz"{,.asc})
-sha256sums=('838b907594baaff1cd767e95466a7745998ae64bc74be038dccc62e2de2e4247'
-            'SKIP')
+makedepends=('git' 'libpcap')
 validpgpkeys=('DC34EE5DB2417BCC151E5100E5F8F8212F77A498') # Willem Toorop
+source=("git+https://github.com/NLnetLabs/ldns#tag=${pkgver}?signed")
+sha256sums=('c2d7ff1a4a21a37f2e1ac38f3bb88c06907c1639ac524cbb6d82eedfe8caf420')
+
+prepare() {
+  cd "${pkgname}"
+
+  autoreconf -fi
+  libtoolize -c --install
+}
 
 build() {
-	cd $pkgname-$pkgver
-	./configure \
-		--prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--disable-rpath \
-		--with-drill \
-		--with-examples \
-		--with-trust-anchor=/etc/trusted-key.key \
+  cd "${pkgname}"
 
-	make
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-rpath \
+    --with-drill \
+    --with-examples \
+    --with-trust-anchor=/etc/trusted-key.key
+  make
 }
 
 package() {
-	cd $pkgname-$pkgver
-	make DESTDIR="${pkgdir}" install
-	install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cd "${pkgname}"
+
+  make DESTDIR="${pkgdir}" install
+  install -D -m0644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
