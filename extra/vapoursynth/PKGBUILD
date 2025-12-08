@@ -3,7 +3,7 @@
 # Contributor: jackoneill <cantabile.desu@gmail.com>
 
 pkgname=vapoursynth
-pkgver=72
+pkgver=73
 pkgrel=1
 pkgdesc='A video processing framework with the future in mind'
 arch=(x86_64)
@@ -21,17 +21,17 @@ makedepends=(
   git
   python-sphinx
 )
-_tag=e46204429041e95a881b61eedddd46c08f9a307c
+_tag=76762f6a07d5169c21903972f67827fc108020ba
 source=(
   git+https://github.com/vapoursynth/vapoursynth.git#tag=${_tag}
   vapoursynth.xml
 )
-b2sums=('e572b1ec864014be832e0ff66276ee167f2d4fc42894abbaa40be8d58629b2fec54b7a39f60bf789f2255ec57767680c78af42972182d3aca09edb707c3bedb7'
+b2sums=('4fb5b185c5b8192fbe7df974837409afb4b8748db4d439689852e79a195561d5ab4714bee879dee2a3be21e52c8c3455418ac327f307d069794a6a0b6b05399e'
         'feae23a22f8589177f30c36bdf21bab93d55a786194d3e0e958537016630d075b82178f60ac840f30ae316a8f87d3fb01f371211f62d1fee9850ee5063561747')
 
 pkgver() {
   cd vapoursynth
-  git describe --tags
+  git describe --tags | sed 's/^R//'
 }
 
 prepare() {
