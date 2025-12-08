@@ -2,7 +2,7 @@
 
 pkgname=paccat
 pkgver=1.4.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Print pacman package files'
 url='https://github.com/morganamilo/paccat'
 source=(
@@ -26,7 +26,7 @@ export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 prepare() {
   cd "$pkgname"
-  git apply -3 ../0001-Update-deps-for-pacman-7.1.patch
+#  git apply -3 ../0001-Update-deps-for-pacman-7.1.patch
   export RUSTUP_TOOLCHAIN=stable
   cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
