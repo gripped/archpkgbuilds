@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=pixi
-pkgver=0.59.0
+pkgver=0.60.0
 pkgrel=1
 pkgdesc="A package management and workflow tool"
 arch=('x86_64')
@@ -10,14 +10,15 @@ url="https://github.com/prefix-dev/pixi"
 license=('BSD-3-Clause')
 depends=('gcc-libs' 'openssl' 'bzip2')
 makedepends=('cargo')
+checkdepends=('git')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('91d68454cd9cfcd2a7297ad9c4a22f5ed1a3cb1ec2d6f9d5ab19b76ebf7b6a5324595925f7fa2a18ef71831cecaccde3737f3fef2c9acea1415924db046d273e')
+sha512sums=('5c0d7495f435f7a1f145c18b99e7f76a17b7c184eced80f9eda1070223ca4060af897540c4a7527b8eeecf822df583af9ba987d384da6f823ce90a8944068ddd')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-  mkdir -p completions/
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  mkdir -p completions
 }
 
 build() {
