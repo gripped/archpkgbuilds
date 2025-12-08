@@ -2,7 +2,7 @@
 
 pkgname=proton-vpn-daemon
 pkgver=0.13.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Daemons for Proton VPN Linux client (split tunneling service)"
 arch=('any')
 url="https://github.com/ProtonVPN/proton-vpn-daemon"
@@ -24,6 +24,7 @@ makedepends=(
   python-setuptools
   python-wheel
 )
+install=proton-vpn-daemon.install
 
 source=(
   "$pkgname::git+https://github.com/ProtonVPN/${pkgname}.git#tag=v${pkgver}"
