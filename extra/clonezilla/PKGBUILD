@@ -3,10 +3,10 @@
 # Contributor: M0Rf30
 
 pkgname=clonezilla
-pkgver=5.13.5
+pkgver=5.13.10
 pkgrel=1
 pkgdesc="ncurses partition and disk imaging/cloning program"
-arch=('x86_64' 'aarch64')
+arch=('x86_64')
 url="https://clonezilla.org"
 license=('GPL-2.0-only')
 depends=(
@@ -41,7 +41,7 @@ source=(
         "git+https://github.com/stevenshiau/clonezilla.git#tag=v${pkgver}"
         usrbin.patch
 )
-sha256sums=('135fa9058928e13c9ac69833771d4ed9a4571f62af828aaf606963b127bf2de5'
+sha256sums=('fced1eae7cd9eef116ac7ab888e9207014f8867ad4de76dfd35ba149539786f9'
             '9340f18b27a1b3b41c4935c5831f6503e4cadf333f03433769906da40a6e38e6')
 
 prepare() {
