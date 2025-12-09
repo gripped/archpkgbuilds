@@ -3,8 +3,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hledger
-pkgver=1.51
-pkgrel=1
+pkgver=1.51.1
+pkgrel=2
 pkgdesc="Command-line interface for the hledger accounting system"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
@@ -19,7 +19,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-cmdargs'
          'haskell-utility-ht' 'haskell-wizards')
 makedepends=('ghc' 'haskell-extra' 'haskell-timeit')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('4575a63de4a9fd9d7e97cb7fb8688f28df8094829867ee0022c14e89cf93575bf2d3cb5f594f2e29e57cc183c7636e3bdf8009924294628089ab5b0ed3920b9d')
+sha512sums=('947c1189847d85424f9b93882c88cc06e53c84361a1aa292737ceea8e6a60954f18b437632dfcd1e20fe6ae84a455b18acd1f201f5e4cca10c108411a38424b4')
 
 build() {
     cd $pkgname-$pkgver
