@@ -1,0 +1,9 @@
+[mythes-de]
+source = "regex"
+# regex = "Deutscher Thesaurus für LibreOffice/OpenOffice, (\\d+-\\d+-\\d+)"
+# regex = "Deutscher Thesaurus für LibreOffice/OpenOffice, 2025-12-07 23:30, 13.91MB"
+regex = "(\\d+-\\d+-\\d+)"
+from_pattern = '(\d+)-(\d+)-(\d+)'
+to_pattern = '\1\2\3'
+# include_regex = 'export/Deutscher-Thesaurus.oxt'
+url = "https://www.openthesaurus.de/about/download"

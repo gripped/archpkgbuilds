@@ -1,7 +1,7 @@
 # Maintainer: AndyRTR <andyrtr@archlinux.org>
 
 pkgname=mythes-de
-_date=20240703
+_date=20251208
 pkgver=${_date}
 pkgrel=1
 pkgdesc="German thesaurus"
@@ -10,14 +10,14 @@ url="https://www.openthesaurus.de/"
 license=('LGPL-2.1-or-later OR CC-BY-SA-4.0')
 optdepends=('libmythes: offers thesaurus library functions')
 source=(# this one changes every day - use it only to get the checksums 
-        # and build it once offload with that source -then switch 
+        # and build it once offload with that source -then scp it and switch
         # to the AL source and build again
         #Deutscher-Thesaurus-${_date}.oxt::http://www.openthesaurus.de/export/Deutscher-Thesaurus.oxt
         https://sources.archlinux.org/other/$pkgname/Deutscher-Thesaurus-${_date}.oxt
         # alternative source with most times older snapshot
         #http://extensions.libreoffice.org/extension-center/german-de-de-frami-dictionaries/releases/2011.06.03/dict-de_de-frami_2011-06-03.oxt
 )
-sha256sums=('b2b1cd8d44552b830b6943f079f7a55b2db2e46472bc661ed0e60d72227a3cad')
+sha256sums=('e5ae0b8d18a7b18949bee94ba5c95afd2b8061beb10be979f408ce44768a284c')
 
 # source PKGBUILD && mksource
 mksource() {
