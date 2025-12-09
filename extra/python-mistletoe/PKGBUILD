@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-mistletoe
-pkgver=1.5.0
+pkgver=1.5.1
 pkgrel=1
 pkgdesc='A fast, extensible Markdown parser in pure Python'
 arch=(any)
@@ -20,8 +20,8 @@ checkdepends=(
   python-pygments
 )
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('44438b9ea2f96ed550a4866301b27d4442c85a3ba79dec1c48c380a2de1b0b8398baf766fefdea8d2ff45ec975f51866e3dfa8207ef7c490b6ae573c1ffbc07f')
-b2sums=('a9d8c2debe70efab13ba66c49fa7b8129557f1bad88431119c70bdf7dc7da191fd0d092e9c66fef53cd931f3e0c90b60479d616f50863716ebc7640375b23ef6')
+sha512sums=('6f65559fb1d0d59cbf9ac82baaebe2cdfd99a33ca1e637743c04611489a904c6c7563674c68657574d45a048bdd27a56872a98055dfe0eee431845d322f0b293')
+b2sums=('cd962c89367facde2d7f742c427864168b2688aa027c30111c42fe57a0add649c0cbeecd29fd1f1e05129bfe4795723dbd9352315cfaf5667d5d3d15248945c2')
 
 build() {
   cd "$pkgname"
