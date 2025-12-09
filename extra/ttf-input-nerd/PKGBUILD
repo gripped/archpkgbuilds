@@ -5,7 +5,7 @@
 pkgname=ttf-input-nerd
 pkgver=3.4.0
 _ttf_input_pkgver=20220502
-pkgrel=1
+pkgrel=2
 pkgdesc='Patched font Input containing nerd font symbols'
 arch=('any')
 url='https://input.djr.com/'
