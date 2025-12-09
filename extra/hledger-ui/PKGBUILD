@@ -3,8 +3,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hledger-ui
-pkgver=1.51
-pkgrel=1
+pkgver=1.51.1
+pkgrel=2
 pkgdesc="Curses-style terminal interface for the hledger accounting system"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
@@ -16,7 +16,7 @@ depends=('ghc-libs' 'hledger' 'haskell-hledger-lib' 'haskell-ansi-terminal' 'has
          'haskell-brick' 'haskell-vty' 'haskell-vty-crossplatform')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('4c978447e175d7fe6330af850573fdfb83a4fc6c8fd873e0cd6b50f66ba6fbeb705fa2753ed4d7b2be45a70f6d282f0502154babf466d2a4b1724b251680cda7')
+sha512sums=('1f3f41e7e08a8f0c7946f499eef397e1f953df0999c601fb20112d18b416bc83b14c5adf719166aec7afdfe4ff1b800591137ff8c1be60d7451f321c3d598ae9')
 
 build() {
     cd $pkgname-$pkgver
