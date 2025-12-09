@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=ksystemstats
-pkgver=6.5.3
+pkgver=6.5.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='A plugin based system monitoring daemon'
@@ -27,7 +27,7 @@ optdepends=('libnl: network usage monitor'
 groups=(plasma)
 install=ksystemstats.install
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('19b37e012648d27fe86fa300d2cd2ce65c21672d3ba2145ca6555baf0e2aa913'
+sha256sums=('a53038232221b773c695312c6cd3f11a903be1aa186fd4c274ddded8c1ac31fb'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
