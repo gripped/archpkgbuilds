@@ -2,7 +2,7 @@
 
 pkgname=rpgp
 _name="${pkgname}ie"
-pkgver=0.8.0
+pkgver=0.8.1
 pkgrel=1
 pkgdesc="An experimental OpenPGP CLI tool"
 arch=(x86_64)
@@ -14,8 +14,8 @@ depends=(
 )
 makedepends=(rust)
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('648ddf3e11bcd76c5823f62a85e75e63d84934ce264cb449f8f35121f06e9ffb5f388622adfd992debd0e64ba7aa73917a41ecbf87837c6472d4f3276778a8b3')
-b2sums=('7c4116b93dc8561af3c2e1865b3b073d5b44ed46e553f6316d36a0c8183214cab03f5a5b280c7888ba64e010c797a27c4faa042f9494e8cfd39166fc10d6c02d')
+sha512sums=('3ac425ada3e153d8dfa82e992bf2924e898e0fd6e9f7d6bb7c21f6e500963a523a1be768347ebd53f37e8176e2126726f5449ebfbbbdb0821f844ddc3975ac01')
+b2sums=('40f7c53303caf42aa9c1e8e7de2f5fb0813513caec001cb513bc5a044b5c86839fda211f1170a7e2aa78e848e84895e29076796c287bc473ed74b97e7a9b669f')
 
 prepare() {
   cd $_name
