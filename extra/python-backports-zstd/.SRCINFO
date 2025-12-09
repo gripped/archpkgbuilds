@@ -1,7 +1,7 @@
 pkgbase = python-backports-zstd
 	pkgdesc = Backport of compression.zstd
 	pkgver = 1.2.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/rogdham/backports.zstd
 	arch = x86_64
 	arch = armv7h
@@ -13,6 +13,8 @@ pkgbase = python-backports-zstd
 	makedepends = python-wheel
 	makedepends = python-setuptools
 	depends = python
+	depends = zstd
+	depends = libzstd.so
 	source = https://files.pythonhosted.org/packages/source/b/backports_zstd/backports_zstd-1.2.0.tar.gz
 	sha256sums = 6c3fc19342db750b52fde793e4440a93575761b1493bb4a1d3b26033d2bd3452
 
