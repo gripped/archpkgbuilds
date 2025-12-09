@@ -8,7 +8,7 @@
 
 pkgname=kicad
 pkgver=9.0.6
-pkgrel=3
+pkgrel=5
 pkgdesc='Electronic schematic and printed circuit board (PCB) design tools'
 arch=(x86_64)
 url='http://kicad.org/'
@@ -59,17 +59,25 @@ optdepends=(
 source=(
   "$pkgname::git+https://gitlab.com/kicad/code/kicad.git#tag=$pkgver"
   fix-version-string.patch
+  'fix-python-swig-4.4.patch::https://gitlab.com/kicad/code/kicad/-/commit/014a4d040cbb8e24ea50b8d8cc8d73bd86eb40da.patch'
+  'fix-wx-msgdlg-include.patch::https://gitlab.com/kicad/code/kicad/-/commit/fdb333ca8b2b237223722f53633efe8432ef4ae0.patch'
 )
 sha512sums=('01fa523fbb867968eff059ab96ab1ed19d5f1d746da52d23b2ced21bbec6086e1bfd30ae60f0451512e725a2f4a7d08ac26d1780cdbe00332ed74b5b25454162'
-            '17100967610c85ce2e8a860dcf703a87dc0c20f52d3f056cdb5d16323160e8594698bd51e095aea63c00a75ce8b121be681e93cec1bab72a8d1d4eb8065a91f5')
+            '17100967610c85ce2e8a860dcf703a87dc0c20f52d3f056cdb5d16323160e8594698bd51e095aea63c00a75ce8b121be681e93cec1bab72a8d1d4eb8065a91f5'
+            '1074381d0b02dd29aa22caf30692a379f2215c0fc76b28dba3fe448e92a6b254089a7562cbe8b0356444c180118cfd86956279006522aeab707153411ef2f4ab'
+            'cd6ddff70dbf691fad53af9aef2d299bb29a6a8cff21df8d10aab670c696e1a76f92c9dabd0fe921cff470c3173760d00475e38c81f586efd3a02e54dc1dd8e7')
 b2sums=('229abf0f5a97b298216727801db795e3b76a17a1b2eb0bc67a710ad288f28d4d5aae7b7526d65b189f5a41cd92bb9d3026c4a737680ce9b51c72301cbcadb27f'
-        '7e09300161b2a1d7af56580a195e3b132d7b6ad82f1c9c381e02a25cd2fabd7ed0cd33b99b87ca14f9f77dad26eee1e5ea962b6eca49bacb40567ecfc24c21ff')
+        '7e09300161b2a1d7af56580a195e3b132d7b6ad82f1c9c381e02a25cd2fabd7ed0cd33b99b87ca14f9f77dad26eee1e5ea962b6eca49bacb40567ecfc24c21ff'
+        'c509f000638156a55a6e7f6924f6dc56e4cc09aeea1bbabfb9f525a13e5ae1ce89eee079b48ab787d960ef8124e6e46274cbba989a4191a228fde37fa7315640'
+        'a17083f17e225b28418431c5cc427f96c7a1f8d9c72fffd286036f5bb12679866a7c0b120b999d9bea981a61692d5b558935c5f843536f5f28ee0e4d31511bce')
 
 
 prepare() {
   cd "$pkgname"
 
   patch -p1 -i "$srcdir/fix-version-string.patch"
+  patch -p1 -i "$srcdir/fix-python-swig-4.4.patch"
+  patch -p1 -i "$srcdir/fix-wx-msgdlg-include.patch"
 }
 
 build() {
