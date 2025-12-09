@@ -3,7 +3,7 @@
 pkgbase="foomatic-db"
 pkgname=('foomatic-db' 'foomatic-db-ppds' 'foomatic-db-nonfree' 'foomatic-db-nonfree-ppds')
 arch=('any')
-pkgver=20240504
+pkgver=20251122
 pkgrel=1
 epoch=3
 
@@ -23,7 +23,8 @@ sha256sums=('SKIP'
 pkgver() {
   # use latest automated tag date = latest commit
   cd "$pkgname"
-  git log --tags --simplify-by-decoration --pretty="format:%ci %d" | head -n 1 | cut -c 1-10 | sed 's/-//g'
+  # git log --tags --simplify-by-decoration --pretty="format:%ci %d" | head -n 1 | cut -c 1-10 | sed 's/-//g'
+  git log --simplify-by-decoration --pretty="format:%ci %d"  | head -n 1 | cut -c 1-10 | sed 's/-//g'
 }
 
 prepare(){
