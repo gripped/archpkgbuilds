@@ -1,11 +1,12 @@
 pkgbase = deepin-camera
 	pkgdesc = Tool to view camera, take photo and video
-	pkgver = 1.4.16.20230919
-	pkgrel = 2
+	pkgver = 6.0.3
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-camera
 	arch = x86_64
 	groups = deepin-extra
 	license = GPL3
+	makedepends = git
 	makedepends = cmake
 	makedepends = deepin-gettext-tools
 	makedepends = ninja
@@ -30,7 +31,9 @@ pkgbase = deepin-camera
 	optdepends = deepin-image-viewer: view camera photos
 	optdepends = deepin-movie: view camera records
 	optdepends = deepin-file-manager: open with other applications
-	source = https://github.com/linuxdeepin/deepin-camera/archive/e62a495aa3b734eda586e4e9baf0cbcdb99fdae9/deepin-camera-e62a495aa3b734eda586e4e9baf0cbcdb99fdae9.tar.gz
-	sha512sums = 2e3ccaabc3150314ac566d601676a5bbdb50207764f70256f28f60e317b9dd80176951e388695ff004b937b60da39ea14aba4a941ded0b5ef3967e9bbab7f492
+	source = git+https://github.com/linuxdeepin/deepin-camera.git#tag=6.0.3
+	source = v4l2_and_ffmpeg_fixes.patch
+	sha512sums = c9fbd99303dbe57c1423a021810afc1a54bb73be031251b57ec2967cc7d499dcab5fd02b870cf42d5de760f6d3dc7483efbc8d1b3a030d190c809eb113759a84
+	sha512sums = 53103c4b9230f4b0a386c5f7203c35b5c5491a4f837834addea1a8f556e69eb952f1fddab12f32369bd0ef271c25b1f26bb4b3f3d1862485adea901bb71322ae
 
 pkgname = deepin-camera

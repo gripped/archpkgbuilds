@@ -1,9 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-camera
-pkgver=1.4.16.20230919
-_commit=e62a495aa3b734eda586e4e9baf0cbcdb99fdae9
-pkgrel=2
+pkgver=6.0.3
+pkgrel=1
 pkgdesc='Tool to view camera, take photo and video'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-camera"
@@ -11,24 +10,36 @@ license=('GPL3')
 depends=('dtkcore' 'dtkgui' 'dtkwidget' 'qt5-base' 'qt5-svg' 'glib2' 'glibc' 'gcc-libs'
          'deepin-image-editor' 'ffmpeg' 'ffmpegthumbnailer' 'libpciaccess' 'portaudio'
          'pulse-native-provider' 'qt5-multimedia' 'dwayland' 'hicolor-icon-theme')
-makedepends=('cmake' 'deepin-gettext-tools' 'ninja' 'qt5-tools')
+makedepends=('git' 'cmake' 'deepin-gettext-tools' 'ninja' 'qt5-tools')
 optdepends=('deepin-image-viewer: view camera photos'
             'deepin-movie: view camera records'
             'deepin-file-manager: open with other applications')
 groups=('deepin-extra')
-source=("https://github.com/linuxdeepin/deepin-camera/archive/$_commit/$pkgname-$_commit.tar.gz")
-sha512sums=('2e3ccaabc3150314ac566d601676a5bbdb50207764f70256f28f60e317b9dd80176951e388695ff004b937b60da39ea14aba4a941ded0b5ef3967e9bbab7f492')
+source=("git+https://github.com/linuxdeepin/deepin-camera.git#tag=$pkgver"
+        v4l2_and_ffmpeg_fixes.patch)
+sha512sums=('c9fbd99303dbe57c1423a021810afc1a54bb73be031251b57ec2967cc7d499dcab5fd02b870cf42d5de760f6d3dc7483efbc8d1b3a030d190c809eb113759a84'
+            '53103c4b9230f4b0a386c5f7203c35b5c5491a4f837834addea1a8f556e69eb952f1fddab12f32369bd0ef271c25b1f26bb4b3f3d1862485adea901bb71322ae')
+
+prepare() {
+  cd deepin-camera
+  # adjusted patches from:
+  # https://sourceforge.net/p/guvcview/git-master/ci/38e237873ece7a7e5456229cb5dc8c54051ab1ab/
+  # https://sourceforge.net/p/guvcview/git-master/ci/70e7deaf84883b3e7469e319a4d07c6a6f474a52/
+  # https://sourceforge.net/p/guvcview/git-master/ci/28453246e8307e1e2b0409e9c1ae66a80b03ae9f/
+  patch -p1 -i ../v4l2_and_ffmpeg_fixes.patch
+}
 
 build() {
-  cd deepin-camera-$_commit
+  cd deepin-camera
   cmake -GNinja . \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DVERSION=$pkgver
+    -DVERSION=$pkgver \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   ninja
 }
 
 package() {
-  cd deepin-camera-$_commit
+  cd deepin-camera
   DESTDIR="$pkgdir" ninja install
 }
