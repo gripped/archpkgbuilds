@@ -1,6 +1,6 @@
 --- a/slime.el
 +++ b/slime.el
-@@ -179,7 +179,7 @@ This applies to the *inferior-lisp* buffer and the network connections."
+@@ -178,7 +178,7 @@ This applies to the *inferior-lisp* buffer and the network connections."
    :prefix "slime-"
    :group 'slime)
  
@@ -9,6 +9,8 @@
    "The name of the Lisp file that loads the Swank server.
  This name is interpreted relative to the directory containing
  slime.el, but could also be set to an absolute filename."
+diff --git a/swank-loader.lisp b/swank-loader.lisp
+index c46137ef..580f25bf 100644
 --- a/swank-loader.lisp
 +++ b/swank-loader.lisp
 @@ -16,6 +16,7 @@
@@ -19,7 +21,7 @@
  
  (cl:defpackage :swank-loader
    (:use :cl)
-@@ -145,14 +146,10 @@ operating system, and hardware architecture."
+@@ -146,14 +147,10 @@ operating system, and hardware architecture."
  (defun slime-version-string ()
    "Return a string identifying the SLIME version.
  Return nil if nothing appropriate is available."
