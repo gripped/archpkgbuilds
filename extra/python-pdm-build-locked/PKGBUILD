@@ -2,7 +2,7 @@
 
 pkgname=python-pdm-build-locked
 _name=${pkgname#python-}
-pkgver=0.3.5
+pkgver=0.3.7
 pkgrel=1
 pkgdesc="A pdm plugin to publish locked dependencies as optional-dependencies"
 arch=(any)
@@ -28,8 +28,8 @@ optdepends=(
   'python-pdm-backend: for python-pdm-backend hook'
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('c4a790ee27b3202a7cbb1c80b598d99548bc715512bcae226561385bcfac6c62bfd3c6fcf1efe3d426acf4f69969ae0fb2ac80447c7adf879b73d777384be013')
-b2sums=('29ad90039cbfb3fecc95c81f4ac78903848a0665de14df25fd34c00b36a038da364cdd34bbbb08711e3dd1917ae12c207dc27fff17f844b03ac1180168abc5a3')
+sha512sums=('b71b7a77fcffcefb75489749f718d7b2d215b6b8463759f0c5c226dfb924dc756e06ffcf2ccf49a0b8dfd8ad50db8deac8bb5592d1297aa7e4b2c0ee17876697')
+b2sums=('877a2f2652d111ee38ae5f2d13734c0262a292b052c84aa57024ef13a0109de5f52b4f55d55290b3f3e819f8bc4545e3a645449c1dc2a683b5392d0002eaeac1')
 
 build() {
   cd $_name-$pkgver
