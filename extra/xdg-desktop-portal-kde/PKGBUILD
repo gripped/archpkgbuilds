@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=xdg-desktop-portal-kde
-pkgver=6.5.3
+pkgver=6.5.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='A backend implementation for xdg-desktop-portal using Qt/KF5'
@@ -40,7 +40,7 @@ makedepends=(extra-cmake-modules
 provides=(xdg-desktop-portal-impl)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('1edbe2a45fcbc6201b9bd33c5d35f40900d3c4041bf5b22f684cb3b6d87de192'
+sha256sums=('00b3f20db237900eb015a10095fb85d324da8080d20abafddf5cb044eb12516b'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
