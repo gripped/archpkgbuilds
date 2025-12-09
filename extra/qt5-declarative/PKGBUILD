@@ -3,9 +3,9 @@
 
 pkgname=qt5-declarative
 _basever=5.15.18
-pkgver=5.15.18+kde+r22
+pkgver=5.15.18+kde+r23
 pkgrel=1
-_commit=1189557a50f11e7bc5716467a149cd09987a9f88
+_commit=f78bc0b2c6884fd730bf34a931870d67936cf01d
 arch=('x86_64')
 url='https://www.qt.io'
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
@@ -16,7 +16,7 @@ groups=('qt5')
 conflicts=('qtchooser')
 _pkgfqn=${pkgname/5-/}
 source=(kde-$_pkgfqn::git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit)
-sha256sums=('a4e4887e122406a957246650c5c76e3ea921bc041ef8e76bb5843a5e936c7cf8')
+sha256sums=('3bbd582de55008c5c30f8029ba961dba944c8a757feaa4ac4e2ea3fc8620832a')
 
 pkgver() {
   cd kde-$_pkgfqn
