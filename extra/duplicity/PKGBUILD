@@ -5,7 +5,7 @@
 
 pkgname=duplicity
 pkgver=3.0.6.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A utility for encrypted, bandwidth-efficient backups using the rsync algorithm'
 arch=(x86_64)
 url='https://duplicity.gitlab.io/'
@@ -14,6 +14,7 @@ depends=(
   gnupg
   librsync
   python-fasteners
+  python-pexpect
 )
 makedepends=(
   git
@@ -32,7 +33,6 @@ optdepends=(
   'python-gobject: GIO backend'
   'gvfs: GIO backend'
   'python-paramiko: SSH paramiko backend'
-  'python-pexpect: SSH pexpect backend'
   'python-pydrive2: Google Drive backend'
   'python-mediafire: Mediafire backend'
   'python-requests-oauthlib: OneDrive backend'
