@@ -2,7 +2,7 @@
 
 _name=torchcodec
 pkgname=python-$_name
-pkgver=0.9.0
+pkgver=0.9.1
 pkgrel=1
 license=(BSD-3-Clause)
 pkgdesc="PyTorch media decoding and encoding"
@@ -31,7 +31,7 @@ checkdepends=(
   python-torchvision
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('c498dce5754fa64f71aff911d6961defe0734490ca37d4cec053b81827a9ae4f9e4eabd6bacc576186cd1659b35fbfcdfe8aac7c54eeac5390ab6405cd331125')
+b2sums=('fbb070962969ffec1f25ee13a68f46b85f43be0c9ac476ccc7a13987ae20b86563f0bd5d9fd827c413705d8652794f3c538e7e734fef25829135aef65b631bb8')
 
 build() {
   cd $_name-$pkgver
