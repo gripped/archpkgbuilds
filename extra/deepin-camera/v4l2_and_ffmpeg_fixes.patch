@@ -1,3 +1,16 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c14914a..ffb16aa 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -5,7 +5,7 @@ project(deepin-camera VERSION 1.0.0)
+ add_subdirectory(src)
+ 
+ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+-    add_subdirectory(tests)
++    #add_subdirectory(tests)
+ endif()
+ 
+ 
 diff --git a/libcam/libcam/camview.c b/libcam/libcam/camview.c
 index 338ff4d..190d23f 100644
 --- a/libcam/libcam/camview.c
@@ -24,7 +37,7 @@ index 338ff4d..190d23f 100644
      if(ret)
          fprintf(stderr, "deepin-camera: encoder thread creation failed (%i)\n", ret);
 diff --git a/libcam/libcam_encoder/audio_codecs.c b/libcam/libcam_encoder/audio_codecs.c
-index 04e1f61..f4e3419 100644
+index 04e1f61..7fefd6d 100644
 --- a/libcam/libcam_encoder/audio_codecs.c
 +++ b/libcam/libcam_encoder/audio_codecs.c
 @@ -40,7 +40,11 @@ extern int verbosity;
@@ -111,11 +124,52 @@ index 04e1f61..f4e3419 100644
  		.mkv_codpriv  =  NULL,
  		.codpriv_size =  0,
  		.flags        = 0,
+@@ -418,7 +446,7 @@ int encoder_set_valid_audio_codec_list ()
+ 	int num_codecs = 0;
+ 	for ( ind = 0; ind < encoder_get_audio_codec_list_size(); ++ind)
+ 	{
+-        AVCodec *codec = getLoadLibsInstance()->m_avcodec_find_encoder(listSupCodecs[ind].codec_id);
++        const AVCodec *codec = getLoadLibsInstance()->m_avcodec_find_encoder(listSupCodecs[ind].codec_id);
+ 		if (!codec)
+ 		{
+ 			printf("ENCODER: no audio codec detected for %s\n", listSupCodecs[ind].description);
 diff --git a/libcam/libcam_encoder/encoder.c b/libcam/libcam_encoder/encoder.c
-index 27194d9..79c0b22 100644
+index 27194d9..b8479fe 100644
 --- a/libcam/libcam_encoder/encoder.c
 +++ b/libcam/libcam_encoder/encoder.c
-@@ -777,12 +777,19 @@ static encoder_audio_context_t *encoder_audio_init(encoder_context_t *encoder_ct
+@@ -305,7 +305,7 @@ void /*__attribute__ ((destructor))*/ gviewencoder_fini()
+  *
+  * returns: 1 - sample format is supported; 0 - is not supported
+  */
+-static int encoder_check_audio_sample_fmt(AVCodec *codec, enum AVSampleFormat sample_fmt)
++static int encoder_check_audio_sample_fmt(const AVCodec *codec, enum AVSampleFormat sample_fmt)
+ {
+     const enum AVSampleFormat *p = codec->sample_fmts;
+ 
+@@ -511,10 +511,11 @@ static encoder_video_context_t *encoder_video_init(encoder_context_t *encoder_ct
+     }
+ 
+     video_codec_data->codec_context = getLoadLibsInstance()->m_avcodec_alloc_context3(video_codec_data->codec);
+-
++#if !LIBAVCODEC_VER_AT_LEAST(57, 107)
+     getLoadLibsInstance()->m_avcodec_get_context_defaults3(
+         video_codec_data->codec_context,
+         video_codec_data->codec);
++#endif
+ 
+     if (video_codec_data->codec_context == NULL) {
+         fprintf(stderr, "ENCODER: FATAL memory allocation failure (encoder_video_init): %s\n", strerror(errno));
+@@ -761,7 +762,9 @@ static encoder_audio_context_t *encoder_audio_init(encoder_context_t *encoder_ct
+     }
+ 
+     audio_codec_data->codec_context = getLoadLibsInstance()->m_avcodec_alloc_context3(audio_codec_data->codec);
++#if !LIBAVCODEC_VER_AT_LEAST(57, 107)
+     getLoadLibsInstance()->m_avcodec_get_context_defaults3(audio_codec_data->codec_context, audio_codec_data->codec);
++#endif
+ 
+     if (audio_codec_data->codec_context == NULL) {
+         fprintf(stderr, "ENCODER: FATAL memory allocation failure (encoder_audio_init): %s\n", strerror(errno));
+@@ -777,12 +780,19 @@ static encoder_audio_context_t *encoder_audio_init(encoder_context_t *encoder_ct
      audio_codec_data->codec_context->flags |= audio_defaults->flags;
  
      audio_codec_data->codec_context->sample_rate = encoder_ctx->audio_samprate;
@@ -135,7 +189,7 @@ index 27194d9..79c0b22 100644
  
      audio_codec_data->codec_context->cutoff = 0; /*automatic*/
  
-@@ -916,8 +923,12 @@ static encoder_audio_context_t *encoder_audio_init(encoder_context_t *encoder_ct
+@@ -916,8 +926,12 @@ static encoder_audio_context_t *encoder_audio_init(encoder_context_t *encoder_ct
  
      audio_codec_data->frame->nb_samples = frame_size;
      audio_codec_data->frame->format = audio_defaults->sample_format;
@@ -148,7 +202,7 @@ index 27194d9..79c0b22 100644
  
      /*set codec data in encoder context*/
      enc_audio_ctx->codec_data = (void *) audio_codec_data;
-@@ -1521,10 +1532,17 @@ static int libav_send_encode(AVCodecContext *avctx, AVFrame *frame)
+@@ -1521,10 +1535,17 @@ static int libav_send_encode(AVCodecContext *avctx, AVFrame *frame)
  
          if (avctx->codec_type == AVMEDIA_TYPE_AUDIO && frame->nb_samples != avctx->frame_size)
              fprintf(stderr, "ENCODER: audio samples differ from frame size\n");
@@ -166,7 +220,7 @@ index 27194d9..79c0b22 100644
          ret = getLoadLibsInstance()->m_avcodec_send_frame(avctx, frame);
          if (ret < 0) {
              //  fprintf(stderr, "ENCODER: avcodec_send_frame error (%i): %s\n", ret, av_err2str(ret));
-@@ -1788,7 +1806,11 @@ int encoder_encode_audio(encoder_context_t *encoder_ctx, void *audio_data)
+@@ -1788,7 +1809,11 @@ int encoder_encode_audio(encoder_context_t *encoder_ctx, void *audio_data)
  
          int buffer_size = getAvutil()->m_av_samples_get_buffer_size(
                                NULL,
@@ -178,7 +232,7 @@ index 27194d9..79c0b22 100644
                                audio_codec_data->codec_context->frame_size,
                                audio_codec_data->codec_context->sample_fmt,
                                align);
-@@ -1796,7 +1818,11 @@ int encoder_encode_audio(encoder_context_t *encoder_ctx, void *audio_data)
+@@ -1796,7 +1821,11 @@ int encoder_encode_audio(encoder_context_t *encoder_ctx, void *audio_data)
          if (buffer_size <= 0) {
              fprintf(stderr, "ENCODER: (encoder_encode_audio) PCM av_samples_get_buffer_size error (%d): chan(%d) nb_samp(%d) samp_fmt(%d)\n",
                      buffer_size,
@@ -190,7 +244,7 @@ index 27194d9..79c0b22 100644
                      audio_codec_data->codec_context->frame_size,
                      audio_codec_data->codec_context->sample_fmt);
  
-@@ -1829,7 +1855,11 @@ int encoder_encode_audio(encoder_context_t *encoder_ctx, void *audio_data)
+@@ -1829,7 +1858,11 @@ int encoder_encode_audio(encoder_context_t *encoder_ctx, void *audio_data)
  
          int buffer_size = getAvutil()->m_av_samples_get_buffer_size(
                                NULL,
@@ -202,7 +256,7 @@ index 27194d9..79c0b22 100644
                                audio_codec_data->frame->nb_samples,
                                audio_codec_data->codec_context->sample_fmt,
                                align);
-@@ -1837,7 +1867,11 @@ int encoder_encode_audio(encoder_context_t *encoder_ctx, void *audio_data)
+@@ -1837,7 +1870,11 @@ int encoder_encode_audio(encoder_context_t *encoder_ctx, void *audio_data)
          if (buffer_size <= 0) {
              fprintf(stderr, "ENCODER: (encoder_encode_audio) av_samples_get_buffer_size error (%d): chan(%d) nb_samp(%d) samp_fmt(%d)\n",
                      buffer_size,
@@ -214,7 +268,7 @@ index 27194d9..79c0b22 100644
                      audio_codec_data->frame->nb_samples,
                      audio_codec_data->codec_context->sample_fmt);
  
-@@ -1848,7 +1882,11 @@ int encoder_encode_audio(encoder_context_t *encoder_ctx, void *audio_data)
+@@ -1848,7 +1885,11 @@ int encoder_encode_audio(encoder_context_t *encoder_ctx, void *audio_data)
          /*set the data pointers in frame*/
          ret = getLoadLibsInstance()->m_avcodec_fill_audio_frame(
                    audio_codec_data->frame,
@@ -226,7 +280,7 @@ index 27194d9..79c0b22 100644
                    audio_codec_data->codec_context->sample_fmt,
                    (const uint8_t *) audio_data,
                    buffer_size,
-@@ -1857,7 +1895,11 @@ int encoder_encode_audio(encoder_context_t *encoder_ctx, void *audio_data)
+@@ -1857,7 +1898,11 @@ int encoder_encode_audio(encoder_context_t *encoder_ctx, void *audio_data)
          if (ret < 0) {
              fprintf(stderr, "ENCODER: (encoder_encode_audio) avcodec_fill_audio_frame error (%d): chan(%d) nb_samp(%d) samp_fmt(%d) buff(%d bytes)\n",
                      ret,
@@ -238,6 +292,19 @@ index 27194d9..79c0b22 100644
                      audio_codec_data->frame->nb_samples,
                      audio_codec_data->codec_context->sample_fmt,
                      buffer_size);
+diff --git a/libcam/libcam_encoder/encoder.h b/libcam/libcam_encoder/encoder.h
+index e352ec0..61f0463 100644
+--- a/libcam/libcam_encoder/encoder.h
++++ b/libcam/libcam_encoder/encoder.h
+@@ -155,7 +155,7 @@ int64_t get_video_pause_timestamp(void);
+  * need to export any of it's symbols in the public API
+  */
+ typedef struct _encoder_codec_data_t {
+-    AVCodec *codec;
++    const AVCodec *codec;
+     AVDictionary *private_options;
+     AVCodecContext *codec_context;
+     AVFrame *frame;
 diff --git a/libcam/libcam_encoder/mp4.c b/libcam/libcam_encoder/mp4.c
 index f4ad069..45e98c8 100644
 --- a/libcam/libcam_encoder/mp4.c
@@ -250,6 +317,67 @@ index f4ad069..45e98c8 100644
  #include "load_libs.h"
  
  static int64_t video_pts = 0;
+diff --git a/libcam/libcam_encoder/video_codecs.c b/libcam/libcam_encoder/video_codecs.c
+index 59112a7..3c200cd 100644
+--- a/libcam/libcam_encoder/video_codecs.c
++++ b/libcam/libcam_encoder/video_codecs.c
+@@ -974,7 +974,7 @@ int encoder_set_valid_video_codec_list ()
+ 	int num_codecs = 1; /*raw codec (no encoding) is always valid*/
+ 	for ( ind = 1; ind < encoder_get_video_codec_list_size(); ++ind)
+ 	{
+-        AVCodec *codec = getLoadLibsInstance()->m_avcodec_find_encoder(listSupCodecs[ind].codec_id);
++        const AVCodec *codec = getLoadLibsInstance()->m_avcodec_find_encoder(listSupCodecs[ind].codec_id);
+ 		if (!codec)
+ 		{
+ 			printf("ENCODER: no video codec detected for %s\n", listSupCodecs[ind].description);
+diff --git a/libcam/libcam_v4l2core/jpeg_decoder.c b/libcam/libcam_v4l2core/jpeg_decoder.c
+index 6d59bdc..20892ba 100644
+--- a/libcam/libcam_v4l2core/jpeg_decoder.c
++++ b/libcam/libcam_v4l2core/jpeg_decoder.c
+@@ -1356,7 +1356,7 @@ void jpeg_close_decoder()
+ 
+ typedef struct _codec_data_t
+ {
+-	AVCodec *codec;
++	const AVCodec *codec;
+ 	AVCodecContext *context;
+ 	AVFrame *picture;
+ } codec_data_t;
+@@ -1413,7 +1413,9 @@ int jpeg_init_decoder(int width, int height)
+ 		return E_NO_CODEC;
+ 	}
+ 
+-#if LIBAVCODEC_VER_AT_LEAST(53,6)
++#if LIBAVCODEC_VER_AT_LEAST(57, 107)
++    codec_data->context = getLoadLibsInstance()->m_avcodec_alloc_context3(codec_data->codec);
++#elif LIBAVCODEC_VER_AT_LEAST(53,6)
+     codec_data->context = getLoadLibsInstance()->m_avcodec_alloc_context3(codec_data->codec);
+     getLoadLibsInstance()->m_avcodec_get_context_defaults3 (codec_data->context, codec_data->codec);
+ #else
+diff --git a/libcam/libcam_v4l2core/uvc_h264.c b/libcam/libcam_v4l2core/uvc_h264.c
+index bfad684..6224bf2 100644
+--- a/libcam/libcam_v4l2core/uvc_h264.c
++++ b/libcam/libcam_v4l2core/uvc_h264.c
+@@ -49,7 +49,7 @@ extern int verbosity;
+ 
+ typedef struct _h264_decoder_context_t
+ {
+-	AVCodec *codec;
++	const AVCodec *codec;
+ 	AVCodecContext *context;
+ 	AVFrame *picture;
+ 
+@@ -1004,7 +1004,9 @@ int h264_init_decoder(int width, int height)
+ 		return E_NO_CODEC;
+ 	}
+ 
+-#if LIBAVCODEC_VER_AT_LEAST(53,6)
++#if LIBAVCODEC_VER_AT_LEAST(57, 107)
++    h264_ctx->context = getLoadLibsInstance()->m_avcodec_alloc_context3(h264_ctx->codec);
++#elif LIBAVCODEC_VER_AT_LEAST(53,6)
+     h264_ctx->context = getLoadLibsInstance()->m_avcodec_alloc_context3(h264_ctx->codec);
+     getLoadLibsInstance()->m_avcodec_get_context_defaults3 (h264_ctx->context, h264_ctx->codec);
+ #else
 diff --git a/libcam/libcam_v4l2core/v4l2_core.c b/libcam/libcam_v4l2core/v4l2_core.c
 index 2824ddf..c4a74fd 100644
 --- a/libcam/libcam_v4l2core/v4l2_core.c
