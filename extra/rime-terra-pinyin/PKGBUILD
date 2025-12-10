@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=rime-terra-pinyin
-pkgver=0.0.0.20251009
-_commit=11878613ea12c2199b3aa71e320491f468e1fc7d
+pkgver=0.0.0.20251206
+_commit=fa30016a9db2cf7d546ce33968c311525f0d90a0
 pkgrel=1
 pkgdesc="Terra pinyin for rime"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('LGPL')
 depends=('rime-stroke')
 makedepends=('git' 'librime' 'rime-prelude' 'rime-essay')
 source=("git+https://github.com/rime/rime-terra-pinyin.git#commit=$_commit")
-sha512sums=('36caf1125ca36efc4be1c6112348ec567d14a1c6831232467042f0efb38bc4e971de0ea8fb8ee91a3ca12708074ef20615f262c051196555ff601dbc727b3023')
+sha512sums=('235e8f0c2967eca9086de73e9b1658c31257b189d5a64846d5e299a7ee1268146b02c864bb8a70dcefad6c85eb1a1120f9942bbf999a295bc246f9af01cfb19f')
 
 prepare() {
   cd $pkgname
