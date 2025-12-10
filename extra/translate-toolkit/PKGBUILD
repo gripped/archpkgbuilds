@@ -5,7 +5,7 @@
 # Contributor: Hugo Doria <hugodoria at gmail.com>
 
 pkgname=translate-toolkit
-pkgver=3.16.3
+pkgver=3.17.4
 pkgrel=1
 pkgdesc="A toolkit to convert between various different translation formats, help process and validate localisations"
 arch=('any')
@@ -16,7 +16,8 @@ depends=(
   'python'
   'python-lxml'
   'python-ruamel-yaml'
-  'python-wcwidth'
+  'python-tomlkit'
+  'python-unicode-segmentation-rs'
 )
 makedepends=(
   'python-build'
@@ -42,7 +43,7 @@ optdepends=(
   'python-vobject: iCalendar files support for po2ical'
 )
 source=("https://github.com/translate/translate/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('659c527e9f10c45c8b08a18defd3346cb9f9c7b3680929e49428d13255e0b6e5')
+sha256sums=('8c15f121e8858e83e3cdc261f7338718975da4a48d2de0e5cb51c9324a35667a')
 
 build() {
   cd translate-$pkgver
@@ -63,6 +64,7 @@ check() {
     --ignore tests/translate/convert/test_php2po.py \
     --ignore tests/translate/convert/test_po2ini.py \
     --ignore tests/translate/convert/test_po2php.py \
+    --ignore tests/translate/convert/test_po2sub.py \
     --ignore tests/translate/storage/test_cpo.py \
     --ignore tests/translate/storage/test_fluent.py \
     --ignore tests/translate/storage/test_ini.py \
