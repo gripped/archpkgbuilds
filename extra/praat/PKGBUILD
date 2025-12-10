@@ -7,28 +7,27 @@
 # https://tracker.debian.org/pkg/praat
 
 pkgname=praat
-pkgver=6.4.47
-pkgrel=2
+pkgver=6.4.48
+pkgrel=1
 pkgdesc='A speech analysis tool used for doing phonetics by computer'
 arch=(x86_64 i686 aarch64)
 url=https://www.fon.hum.uva.nl/praat/
+_url="https://github.com/$pkgname/$pkgname"
 license=(GPL-2.0-or-later)
 depends=(alsa-lib
          gtk3
          jack
          libpulse
-         ttf-charis-sil
+         ttf-charis
          ttf-doulos-sil)
 optdepends=(ttf-sil-fonts)
-replaces=("$pkgname-bin") # recently deleted AUR bin variant
-_url="https://github.com/$pkgname/$pkgname"
 _archive="$pkgname.github.io-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz"
         "$pkgname.1"
         "$pkgname.desktop"
         "$pkgname.svg"
         "$pkgname.xpm")
-sha256sums=('307600b779062dc5710fa7ddefaffc058b29027c2df3d4dccc83c5276b822427'
+sha256sums=('5198800e61fb9f5ca72cbc032dcaa9e6c53b3d5bf56568d27f8117073e4e817c'
             '21ee03cae45be634c57c167c2dfbdfd9d9b7feadb98e0124413d9426c199e81c'
             '94720aedc8e9c9e9d53b3230d79ccaae551b5bc5e6986528664311d55f3cce5a'
             'db6c7568f6e13b4ce7c37bd9fcf289832867f79ba7d7fc48c4f13f0045ad98f1'
