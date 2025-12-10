@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-control-center
-pkgver=6.1.7
+pkgver=6.1.9
 pkgrel=1
 pkgdesc='Control panel of Deepin Desktop Environment'
 arch=('x86_64')
@@ -24,13 +24,18 @@ replaces=('dde-control-center' 'dde-dock-applets')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-control-center.git#tag=$pkgver"
          qt-6.10.patch)
-sha512sums=('04431b68fcdb43799fd75aa47a8e43f6404a582d4b8c18be7c0c25b9f2e47c117b2cebbcda7dcb505be8607616f76bd40a77f3812782447463eed3ab6e2538b1'
+sha512sums=('764c6bfe6ef041b090c4cebdcb8b7ce850996e6b657bac4f1e1ad749acd5cbfd88f18e443b6d5217370ce79913a88a3b91555c4f3c66563257d37d07a4d59194'
             'ebe03d1701775e7f7e15fcd8b028216a8354a8ab0dad186c97a22039d5e8bda236b57215310da722586e8d53ad2dc688d56e3200fa266a94b9b66b5d40f12126')
 
 prepare() {
   mkdir -p build
 
   cd dde-control-center
+
+  # authentication plugin needs dareader
+  sed -i '/plugin-authentication/d' CMakeLists.txt
+  # privacy plugin won't work
+  sed -i '/plugin-privacy/d' CMakeLists.txt
   # They broke the flag
   sed -i 's/BUILD_DCC_OLD ON/BUILD_DCC_OLD OFF/' CMakeLists.txt
   # Well, how did they compile like this?
