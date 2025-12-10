@@ -4,12 +4,11 @@
 
 pkgname=deepin-session-shell
 pkgver=6.0.26
-pkgrel=1
+pkgrel=2
 pkgdesc='Deepin desktop-environment - session-shell module'
 arch=('x86_64')
-url="https://github.com/linuxdeepin/dde-session-shell"
-license=('GPL3')
-# qt5-tools: for qdbus executable
+url="https://github.com/linuxdeepin/dde-session-shell-snipe"
+license=('GPL-3.0-or-later')
 # startdde: org.deepin.dde.Display1
 # deepin-session: org.deepin.dde.Session1
 depends=('deepin-daemon' 'deepin-network-core' 'deepin-qt5integration' 'deepin-wallpapers'
@@ -21,23 +20,23 @@ makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja')
 conflicts=('deepin-session-ui<5')
 provides=('lightdm-deepin-greeter')
 groups=('deepin')
-source=("git+https://github.com/linuxdeepin/dde-session-shell.git#tag=$pkgver")
+source=("git+https://github.com/linuxdeepin/dde-session-shell-snipe.git#tag=$pkgver")
 sha512sums=('32919b13ed8a56e2f954988e38c1d8455e6ff9ee813c70b3d672d9b105425d853cfc2cf73c9acb62d763285137e2eca45f4da59e8420b365ad9b4fe8c263ada7')
 
 prepare() {
-  cd dde-session-shell
+  cd dde-session-shell-snipe
   # We don't have common-auth on Arch
   sed -i 's/common-auth/system-login/' files/pam.d/dde-lock
 }
 
 build() {
-  cd dde-session-shell
+  cd dde-session-shell-snipe
   cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc
   ninja
 }
 
 package() {
-  cd dde-session-shell
+  cd dde-session-shell-snipe
   DESTDIR="$pkgdir" ninja install
 
   chmod +x "$pkgdir"/usr/bin/deepin-greeter
