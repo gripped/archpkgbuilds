@@ -7,8 +7,8 @@ pkgname=(
   libgsf
   libgsf-docs
 )
-pkgver=1.14.53
-pkgrel=2
+pkgver=1.14.54
+pkgrel=1
 pkgdesc="Extensible I/O abstraction library for dealing with structured file formats"
 url="https://gitlab.gnome.org/GNOME/libgsf"
 arch=(x86_64)
@@ -32,7 +32,7 @@ checkdepends=(
   unzip
 )
 source=("git+$url.git#tag=LIBGSF_${pkgver//./_}")
-b2sums=('57ed38c95814176748f83e22b62e7df1a857cfee3b49465337f121821e5df75602b75e5876dbd08c44bf679ee0c0515c49a63de97492e1df06e3e59e6f3c8b17')
+b2sums=('6e7f4d21e43b2d49cccecc8fac8f978c5a641b46daf1bd8d2c2049d52b8e004021ae49ac3124fec0b4a86a73e4501fb6b5ed0911773d3e88c1731035572ef0cc')
 
 prepare() {
   cd libgsf
