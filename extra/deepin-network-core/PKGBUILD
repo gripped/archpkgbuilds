@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-network-core
-pkgver=2.0.35
+pkgver=2.0.36
 pkgrel=1
 pkgdesc='DDE network library and plugins'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=(deepin-control-center glibc gcc-libs dtk6core qt6-base qt6-declarative 
 makedepends=(git cmake deepin-session-shell gtest ninja qt6-tools)
 groups=(deepin)
 source=(git+https://github.com/linuxdeepin/dde-network-core.git#tag=$pkgver)
-sha512sums=('d2ffa6716239a5309be1cc15d1c4349052566591aaa22b41ac25d07b36941b25db295e533422c8bf020bd6e50b864bebb06dd102abb2987f65182dcc46abb96c')
+sha512sums=('fc61a5a6d951cd909e0d423c39d249193398347e9cf9507979cd81f4d8604101d70c5a8dd889f022c2b675625e71fd102ffe86e139f434b4ea696a81a8529bea')
 
 prepare() {
   cd dde-network-core
@@ -19,6 +19,8 @@ prepare() {
   git cherry-pick -n 36db3cdb78af14bde08c4a797a890b8e276794c6
   # disable tests
   git cherry-pick -n e1841f0bf240402ad49c1c595c39cc51a1b9197c
+  # dss_example & dss-network-plugin needs qt6 version of dde-session-shell
+  sed -i '/dss-network-plugin/d;/dss_example/d' CMakeLists.txt
 }
 
 build() {
