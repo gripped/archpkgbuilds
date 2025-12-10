@@ -1,7 +1,7 @@
 pkgbase = deepin-qt5platform-plugins
 	pkgdesc = Qt platform plugins for DDE
-	pkgver = 5.7.24
-	pkgrel = 2
+	pkgver = 5.7.26
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/qt5platform-plugins
 	arch = x86_64
 	groups = deepin
@@ -24,7 +24,9 @@ pkgbase = deepin-qt5platform-plugins
 	depends = xcb-util-wm
 	depends = glibc
 	depends = gcc-libs
-	source = git+https://github.com/linuxdeepin/qt5platform-plugins.git#tag=5.7.24
-	sha512sums = 1c59b6e0babf46b4180048023e65af5ccfe8a8ec9649e00484b6b4bc9d8b8937a7c357f3656464e931e52ed2687db7bb9d32b7033decab0c2316a93f5ead7c25
+	depends = libsm
+	depends = libice
+	source = git+https://github.com/linuxdeepin/qt5platform-plugins.git#tag=5.7.26
+	sha512sums = 7bbdc50519124840f933b09d322201adf799f12a1695b9f9e339bd0bca29d2466979ce7bbfe017d37f188a64d2c0daf8bf488500b45507c49ee7d4eef6e3dff3
 
 pkgname = deepin-qt5platform-plugins
