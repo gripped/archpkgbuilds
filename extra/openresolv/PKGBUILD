@@ -2,7 +2,7 @@
 # Contributor: Ignacio Galmarino <igalmarino@gmail.com>
 
 pkgname=openresolv
-pkgver=3.17.0
+pkgver=3.17.1
 pkgrel=1
 pkgdesc="resolv.conf management framework (resolvconf)"
 url="https://roy.marples.name/projects/openresolv"
@@ -17,7 +17,7 @@ makedepends=(
 )
 backup=(etc/resolvconf.conf)
 source=("git+https://github.com/NetworkConfiguration/openresolv?signed#tag=v$pkgver")
-b2sums=('8091944c9883030ad10d5d9f5da8c33b8a55060b0ecb25d90805e7f9ca81acf9f766c21a8b4c5fc4a7148083b7f2a1dd907a78e53efb409d2078f173499fb46e')
+b2sums=('4cce83195f6ef48185ab4c155596cea871001be20e6d607583705c0ebbe149c253cdc4aee8b7fbf37cbedf5aa4b6d9cc2b09318e5ddc75361b076363b43bd019')
 validpgpkeys=(
   A785ED2755955D9E93EA59F6597F97EA9AD45549 # Roy Marples <roy@marples.name>
 )
