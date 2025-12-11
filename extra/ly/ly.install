@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# arg 1: the new package version
+# arg 2: the old package version
+post_upgrade() {
+  if (( "$(vercmp "$2" 1.2.0)" <= 0 )); then
+    echo '==> ly has switched its service from "ly.service" to a service template "ly@.service"'
+    echo '==> If you had ly enabled as DisplayManager you need to reenable it:'
+    echo '==>   sudo systemctl enable --now ly@tty1.service'
+  fi
+  :
+}
+

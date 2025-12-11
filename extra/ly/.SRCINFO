@@ -1,8 +1,9 @@
 pkgbase = ly
 	pkgdesc = TUI display manager
-	pkgver = 1.2.0
+	pkgver = 1.3.0
 	pkgrel = 2
 	url = https://codeberg.org/fairyglade/ly
+	install = ly.install
 	arch = x86_64
 	license = WTFPL
 	makedepends = git
@@ -13,21 +14,21 @@ pkgbase = ly
 	optdepends = xorg-xauth: for X server sessions
 	optdepends = libxcb: for X server sessions
 	noextract = clap-0.11.0.tar.gz::https://github.com/Hejsil/zig-clap/archive/refs/tags/0.11.0.tar.gz
-	noextract = zigini-0.3.2.tar.gz::https://github.com/AnErrupTion/zigini/archive/96ca1d9f1a7ec741f07ceb104dae2b3a7bdfd48a.tar.gz
-	noextract = ini-0.1.0.tar.gz::https://github.com/AnErrupTion/ini/archive/ac6e656157b2ac6c98392283a139b47c44a85d54.tar.gz
+	noextract = ini-0.1.0.tar.gz::https://github.com/AnErrupTion/ini/archive/918f16d0dcf893d0c1cdffe204faa08bb3584e04.tar.gz
+	noextract = zigini-0.3.3.tar.gz::https://github.com/AnErrupTion/zigini/archive/9281f47702b57779e831d7618e158abb8eb4d4a2.tar.gz
 	noextract = termbox2-290ac6b8225aacfd16851224682b851b65fcb918.tar.gz::https://github.com/AnErrupTion/termbox2/archive/290ac6b8225aacfd16851224682b851b65fcb918.tar.gz
 	backup = etc/ly/config.ini
 	backup = etc/ly/setup.sh
 	backup = etc/pam.d/ly
-	source = git+https://codeberg.org/fairyglade/ly.git#tag=v1.2.0
+	source = git+https://codeberg.org/fairyglade/ly.git#tag=v1.3.0
 	source = clap-0.11.0.tar.gz::https://github.com/Hejsil/zig-clap/archive/refs/tags/0.11.0.tar.gz
-	source = zigini-0.3.2.tar.gz::https://github.com/AnErrupTion/zigini/archive/96ca1d9f1a7ec741f07ceb104dae2b3a7bdfd48a.tar.gz
-	source = ini-0.1.0.tar.gz::https://github.com/AnErrupTion/ini/archive/ac6e656157b2ac6c98392283a139b47c44a85d54.tar.gz
+	source = ini-0.1.0.tar.gz::https://github.com/AnErrupTion/ini/archive/918f16d0dcf893d0c1cdffe204faa08bb3584e04.tar.gz
+	source = zigini-0.3.3.tar.gz::https://github.com/AnErrupTion/zigini/archive/9281f47702b57779e831d7618e158abb8eb4d4a2.tar.gz
 	source = termbox2-290ac6b8225aacfd16851224682b851b65fcb918.tar.gz::https://github.com/AnErrupTion/termbox2/archive/290ac6b8225aacfd16851224682b851b65fcb918.tar.gz
-	b2sums = 3ebde0a9fa57fe3c13a83b8bb0884bdc237d629d51d88c5ecbc9fcf7dc32ad31a66882f2cbed40790f02ab8e425beb8cd5809b34993a7d341c2f1d64b81a37df
+	b2sums = 102f0065a135f2757a5aa58d92de41af8eea2c92875a52061279bed18459dffee272f7db89fa09cb2066473c4210d4747ec0961928301f45fb145ed5292a04b1
 	b2sums = 584cdd4e38d44c504f9a0af8d489900122b1b99e0b31b0608abf64ccb835167c002d067cdda12ffb5902636901425cc8e9e18947e98461a8abf5339759f13a7c
-	b2sums = c3141601089bd9c8e8d48be357fbe557369d9df1922dc6ee7f718042835fc03937945a9f8574f30ddd549558d76368ec6ad2eb2754805b6cc8edfa7085a36e04
-	b2sums = 41c768f4f1843ad929cf83061d91a225b19837cafe445a0926803cc145fa565c8895420f5a4b21d6d128f54ef02b6e5c43f642f91d5ab726d9cdc38d105273d9
+	b2sums = 6d3e2f21247b3eeae1842d8d9d3b1ff0d663849da2237b1ba618e45961a61e1550d49015a0172e4726e177b96fd6a18dd0e83a7a0b37da7e5d92aff98b433486
+	b2sums = 0aa283c5ab270bfb80f84c602058eab8b81ba6d1c5094d09c94332fe07f0c275330a4a19f05f69b63e935ce5d1b954cc67c78bdf354af301f6e948074fb4ec2d
 	b2sums = 4a601ea259b8b858b1bdf1e6bc852b927dd8afb4779cef7af9d9f149f7ecc9f0a32e558599cb8ad686deb037ec67c62d09a10573cbe716ab1f5aea45b1a31c59
 
 pkgname = ly
