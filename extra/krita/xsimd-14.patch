@@ -1,0 +1,27 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bd8f9158a9..36f823a94f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1090,7 +1090,7 @@ endif()
+ ## write a version range in the find_package call. Instead we
+ ## should try all the supported versions manually
+ ##
+-foreach(xsimd_version 8.1.0 9 10 11 12 13)
++foreach(xsimd_version 8.1.0 9 10 11 12 13 14)
+     if(NOT xsimd_FOUND)
+         find_package(xsimd ${xsimd_version})
+     endif()
+diff --git a/libs/multiarch/xsimd_extensions/config/xsimd_arch.hpp b/libs/multiarch/xsimd_extensions/config/xsimd_arch.hpp
+index 840874936d..791e8ad32a 100644
+--- a/libs/multiarch/xsimd_extensions/config/xsimd_arch.hpp
++++ b/libs/multiarch/xsimd_extensions/config/xsimd_arch.hpp
+@@ -41,6 +41,9 @@
+ 
+ namespace xsimd
+ {
++# if XSIMD_VERSION_MAJOR >= 14
++using generic = common;
++# endif
+ #if !defined(HAVE_XSIMD) || defined(XSIMD_IMPL) && (XSIMD_IMPL & IMPL_MASK) == Scalar
+ using current_arch = generic;
+ #elif !defined(XSIMD_IMPL)

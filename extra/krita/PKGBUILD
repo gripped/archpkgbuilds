@@ -1,9 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux,org>
 
 pkgname=krita
-_pkgver=5.2.13
-pkgver=${_pkgver/-/}
-pkgrel=3
+pkgver=5.2.14
+pkgrel=1
 pkgdesc='Edit and paint images'
 arch=(x86_64)
 url='https://krita.org'
@@ -69,27 +68,24 @@ optdepends=('kimageformats5: PSD support'
             'libmypaint: support for MyPaint brushes'
             'poppler-qt5: PDF filter'
             'python-pyqt5: for the Python plugins')
-source=(https://download.kde.org/stable/krita/$_pkgver/$pkgname-$_pkgver.tar.gz{,.sig}
+source=(https://download.kde.org/stable/krita/$pkgver/$pkgname-$pkgver.tar.gz{,.sig}
         sip-6.8.patch
-        eigen-5.patch
-        https://invent.kde.org/graphics/krita/-/commit/64487521.patch)
-sha256sums=('cb909430c99e2bf10684f1c13d76876691ee62572d9aaa54d7058931f9615531'
+        xsimd-14.patch)
+sha256sums=('556900726c2ff14e60f7bac1e8e9150100f2cd92669ca5dc74ac5851efac2887'
             'SKIP'
             'bb3b503993030bb98a99c6a0376c65ee74d0c32c1e8932110698682eed1e3d3c'
-            '2c021e18347d6f895dd9a14d7cebc76b9e5349cb5554743a78650b26a12a0833'
-            'fef36702776ba599f66a75539d5e61ce6fbc3a2d26f66df9aea237361721cf55')
+            'd52a6d31e98c1de730c3a5ead5239a786d1b6f3a1aec731f449e9f429a5b8a94')
 validpgpkeys=('05D00A8B73A686789E0A156858B9596C722EA3BD'  # Boudewijn Rempt <foundation@krita.org>
               'E9FB29E74ADEACC5E3035B8AB69EB4CF7468332F'  # Dmitry Kazakov (main key) <dimula73@gmail.com>
               '064182440C674D9F8D0F6F8B4DA79EDA231C852B') # Stichting Krita Foundation <foundation@krita.org>
 
 prepare() {
-  patch -d $pkgname-$_pkgver -p1 < sip-6.8.patch
-  patch -d $pkgname-$_pkgver -p1 < eigen-5.patch
-  patch -d $pkgname-$_pkgver -p1 < 64487521.patch # Fix build with boost 1.89
+  patch -d $pkgname-$pkgver -p1 < sip-6.8.patch
+  patch -d $pkgname-$pkgver -p1 < xsimd-14.patch
 }
 
 build() {
-  cmake -B build -S $pkgname-$_pkgver \
+  cmake -B build -S $pkgname-$pkgver \
     -DBUILD_KRITA_QT_DESIGNER_PLUGINS=ON \
     -DBUILD_TESTING=OFF
   cmake --build build
