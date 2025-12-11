@@ -5,7 +5,7 @@
 # Contributor: JisuWoniu <jswn@jswn9945.xyz>
 
 pkgname=bacon
-pkgver=3.20.1
+pkgver=3.20.3
 pkgrel=1
 pkgdesc='A background rust code checker'
 arch=('x86_64')
@@ -22,14 +22,14 @@ optdepends=('bash-completion: enable bash completions'
             'python-pytest: for use with Python via pytest')
 options=('!lto')
 source=("$pkgname::git+https://github.com/Canop/bacon#tag=v$pkgver")
-sha512sums=('237a6aa5f4f2f00604cf225518e58984417577d430de507fc1a9dcb9aeb3e2b781d6ceb527af22bd0332425df32fb1a6c4f032d20dcd4d4e66c688bb20498cbd')
-b2sums=('5e79e9778ad91e26ada585b0d2fd27ef268f09e8720e6cfaf3c71d21df1e380804047b385e024f29cdf7ef656173eae011ad9de987429c71216b0bde9fbd6a94')
+sha512sums=('e42925b930d6a566f0b1d374b45ea79a8180056fcb2bfeb92f4f6765bcdf773bb1768c90c4181aa73841c8262fe15304f4571e6c37a23d4bcf442d85e596b8a4')
+b2sums=('2b3303d7a29de58efa716efd4d59411e7af247e408c4e84ca2fe80a3f572a8aac8ac23f278ef3aee60e9d18cc8824259af70f1b8aeb52397c0d1c1dff6286ae1')
 
 prepare() {
   cd "$pkgname"
 
   # download dependencies
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
