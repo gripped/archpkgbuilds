@@ -2,7 +2,7 @@
 # Contributor: anex <assassin.anex[@]gmail.com
 
 pkgname=signon-kwallet-extension
-pkgver=25.08.3
+pkgver=25.12.0
 pkgrel=1
 pkgdesc='KWallet integration for signon framework'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(extra-cmake-modules)
 groups=(kde-applications
         kde-network)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('47e79edfdb97d9240e22ed9fa624ebac3cd219e4a2ee770c6869b869b53b9aff'
+sha256sums=('30c1875417866b6ee3cfcb2087da1d69fc9b0316ef980572870cb7c2d17ab71e'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
@@ -25,8 +25,7 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DQT_MAJOR_VERSION=6
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
