@@ -5,7 +5,7 @@
 pkgname=kwin
 pkgver=6.5.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=2
+pkgrel=3
 pkgdesc='An easy to use, but flexible, Wayland compositor'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -78,11 +78,11 @@ makedepends=(extra-cmake-modules
 optdepends=('plasma-keyboard: virtual keyboard')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/plasma/kwin/-/commit/0dd26bc3.patch)
+        https://invent.kde.org/plasma/kwin/-/commit/ef450432.patch)
 install=$pkgname.install
 sha256sums=('258443f72180cf5a8141b440bb51a714a2e67e30867736290793ce50d7bb1d70'
             'SKIP'
-            'af8d010914dd16df9e4e9b1596a5afd23b8802472bb2904ac07756bfb6ed1364')
+            '4e35db494b436d2d4dc35eb467a90d93db2279561be3fc2c3f4a74a64ffa6081')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
@@ -90,7 +90,7 @@ validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
 
 prepare() {
-  patch -d $pkgname-$pkgver -Rp1 < 0dd26bc3.patch # Revert commit that causes freezes
+  patch -d $pkgname-$pkgver -p1 < ef450432.patch # Fix freezes
 }
 
 build() {
