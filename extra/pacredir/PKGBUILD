@@ -2,7 +2,7 @@
 
 pkgbase=pacredir
 pkgname=(pacredir pacredir-avahi)
-pkgver=0.7.6
+pkgver=0.7.7
 pkgrel=1
 pkgdesc='redirect pacman requests, assisted by mDNS service discovery'
 arch=('x86_64')
@@ -20,7 +20,7 @@ makedepends=('coreutils'
              'systemd')
 validpgpkeys=('BD84DE71F493DF6814B0167254EDC91609BC9183') # Christian Hesse <mail@eworm.de>
 source=("git+https://github.com/eworm-de/pacredir.git#tag=${pkgver}?signed")
-sha256sums=('271f308a909feadd7465ef3db66e9d8f519414db788b9a2788c1b93be31124cb')
+sha256sums=('01edbba5081715b22742976ac10f36709d9291874fff1dc062d10addebd53dd7')
 
 build() {
   cd ${pkgbase}/
@@ -40,7 +40,7 @@ package_pacredir() {
   backup=('etc/pacman.d/pacredir'
           'etc/pacredir.conf'
           'etc/pacserve.conf'
-          'etc/systemd/resolved.conf.d//01-pacredir-MulticastDNS-yes.conf')
+          'etc/systemd/resolved.conf.d/01-pacredir-MulticastDNS-yes.conf')
 
   cd ${pkgbase}/
 
