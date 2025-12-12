@@ -3,9 +3,9 @@
 # Contributor: Stijn Segers <francesco dot borromini at gmail dot com>
 
 pkgname=freerdp
-pkgver=3.17.2
+pkgver=3.19.0
 _libver=${pkgver/.*/}
-pkgrel=6
+pkgrel=1
 epoch=2
 pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)"
 arch=(x86_64)
@@ -15,6 +15,7 @@ depends=(
   fuse3
   gcc-libs
   glibc
+  jansson
   libcups
   libx11
   libxcursor
@@ -38,7 +39,6 @@ makedepends=(
   ffmpeg
   git
   icu
-  json-c
   krb5
   libjpeg-turbo
   libp11
@@ -64,13 +64,10 @@ provides=(
   libwinpr$_libver.so
 )
 source=(
-  "git+https://github.com/$pkgname/$pkgname?signed#tag=$pkgver"
+  "git+https://github.com/$pkgname/$pkgname#tag=$pkgver"
 )
-sha512sums=('598bb7bb424ebd85c46780019a7264dc979a02f3189d314ffab967c9478e7f04c64c60aeeb1a6938e2796950b97d8a547236109f2539a411d0f828b719ee9436')
-b2sums=('5e83fda70de09191a8bf4300019793fe3b299cc06c8d0baca8393f847e95840dca5bb024c02bde8c2cec21c023703c6fd48dfce671936c1dcad86b061c00b42b')
-validpgpkeys=(
-  7703B333420E0AEF995EB4B3A49454A3FC909FD5 # akallabeth <akallabeth@posteo.net>
-)
+sha512sums=('4dfc5fdf679fff6f94bc0ba73366f80654f5021176ee081288429a881c2b2e55b4bb0a6386770778df0a8aaf1a9b7250c838beff85938866ed6cc4963e77c836')
+b2sums=('6cfe97cb960c713955952a0f9c79573d0ee7ea6cfcca9581668a8ff81dc1c6de4a38a56ef4de32015dadb3dd63c0e3c0b9cc55d22b8926b53106f07ebb1d6962')
 
 prepare() {
   # Fix building downstream packages
@@ -138,7 +135,6 @@ package() {
     alsa-lib libasound.so
     ffmpeg libavcodec.so libavutil.so libswresample.so libswscale.so
     icu libicuuc.so
-    json-c libjson-c.so
     krb5 libk5crypto.so libkrb5.so
     libjpeg-turbo libjpeg.so
     libpng libpng16.so
