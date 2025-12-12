@@ -3,7 +3,7 @@
 # Contributor: Mikkel Oscar Lyderik <mikkeloscar at gmail dot com>
 
 pkgname=scaleway-cli
-pkgver=2.39.0
+pkgver=2.48.0
 pkgrel=1
 pkgdesc='Command line interface for Scaleway Cloud'
 arch=('x86_64')
@@ -13,11 +13,9 @@ depends=('glibc')
 options=(!debug)
 makedepends=('go' 'git')
 source=("git+https://github.com/scaleway/scaleway-cli.git#tag=v$pkgver"
-        '0001-Disable-version-check-and-error-reporting.patch'
-        '0002-Remove-tests-for-version-check.patch')
-sha256sums=('a714d9f39a21fcc106c0bfb47e3bdbc2826035834929528932d03f10bcf21520'
-            '6bbf4ef56bafe74ea53d3116436cd872eea81d6fc07e6a8b955b52405f959502'
-            '4d355f6b45bb7af1d05d790866717d79811172f80d68e5d341d881c0f55938b3')
+        '0001-Disable-version-check-and-error-reporting.patch')
+sha256sums=('d0dd72d77435056459217aeac66e9ab9a96bc53c45caadc0349b809ede23fd4e'
+            '6bbf4ef56bafe74ea53d3116436cd872eea81d6fc07e6a8b955b52405f959502')
 
 prepare() {
   cd $pkgname
@@ -31,7 +29,7 @@ prepare() {
     patch -Np1 < "../$src"
   done
   # remove online check tests
-  rm -vf internal/core/build_info_test.go
+  rm -vf core/build_info_test.go
   :
 }
 
