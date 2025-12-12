@@ -8,7 +8,7 @@
 # Contributor: Matthias Mailänder <matthias@mailaender.name>
 
 pkgname=mattermost-desktop
-pkgver=6.0.1
+pkgver=6.0.2
 pkgrel=1
 pkgdesc='Mattermost Desktop application'
 arch=(x86_64)
@@ -28,7 +28,7 @@ _archive="${pkgname#*-}-$pkgver"
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "$pkgname.sh"
         "$pkgname.desktop")
-sha256sums=('c2f9a3da540fa6b727b52ff1c969850c5fded00b6ae0895cdff1ba4ed34e0fd9'
+sha256sums=('3feeb6d866a53d35088ceec93e766a3d1c7440b386c2f7fbee71a2a32ff0be2a'
             '1c2bf48b6397d04a5a536c5c9f4960db53249c838c380f03f808c612b00ba4c6'
             '27c798af15d6aefbd41da5aacb9f9b15438349c649e9c05658387981760fd3b7')
 
@@ -38,9 +38,11 @@ prepare() {
 	cd "$_archive"
 	sed -i -e "s/git rev-parse --short HEAD/echo $pkgver/" webpack.config.base.js
 	sed -e "s/@ELECTRON@/$_electron/" "../$pkgname.sh" > "$pkgname.sh"
+	# Make sure we are using the same major version of Electron as upstream
+	local _origElectron="electron$(jq -r '.devDependencies.electron | split(".")[0]' package.json)"
+	test "$_electron" == "$_origElectron" || exit 1
+	# Substitute our exact distro packaged version of Electron
 	local _electronVersion="$(< "/usr/lib/$_electron/version")"
-	jq '	.linux["target"] = [ "dir" ]' electron-builder.json |
-		sponge electron-builder.json
 	jq '	.devDependencies["electron"] = $electronVersion |
 		del(.devDependencies["electron-rebuild"]) |
 		.config.target = $electronVersion |
@@ -49,6 +51,9 @@ prepare() {
 			--arg electronVersion "$_electronVersion" \
 			package.json |
 		sponge package.json
+	# Change the build type so it doesn't try to bundle Electron
+	jq '	.linux["target"] = [ "dir" ]' electron-builder.json |
+		sponge electron-builder.json
 	sed -i 's/ && cross-env CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-g++ electron-builder --linux tar.gz --arm64 --publish=never//g' package.json
 	npm $_npmargs install
 }
