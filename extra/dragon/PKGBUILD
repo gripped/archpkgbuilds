@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=dragon
-pkgver=25.08.3
+pkgver=25.12.0
 pkgrel=1
 pkgdesc='A multimedia player where the focus is on simplicity, instead of features'
 arch=(x86_64)
@@ -27,21 +27,12 @@ depends=(ffmpeg
 makedepends=(extra-cmake-modules)
 groups=(kde-applications
         kde-multimedia)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/multimedia/dragon/-/commit/1ffaa540.patch
-        https://invent.kde.org/multimedia/dragon/-/commit/110a39d6.patch)
-sha256sums=('9e1d2fe93018166418cbfc82fc2f9384d1c5c99bc1b500c69072c8fe2cf9d038'
-            'SKIP'
-            'f7423616074e817f1004427d4c4dcc1383df17b83e1045a0d6f48cccaef0a176'
-            '4c34ec361918454ecd62ae563d35c61fea014a1b1df455dcad056af271324bc0')
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('cef32684cc197f0c561b2b18ddf53bb3a9acf0a8c9ce2298dc884931ef46ee99'
+            'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < 1ffaa540.patch # Fix open file dialog
-  patch -d $pkgname-$pkgver -p1 < 110a39d6.patch # Fix missing window icon
-}
 
 build() { 
   cmake -B build -S $pkgname-$pkgver \
