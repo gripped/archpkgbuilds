@@ -2,23 +2,34 @@
 
 pkgname=pacquery
 pkgver=0.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A CLI tool to get JSON output of pacman packages from the system's syncdb"
 url='https://github.com/jelly/pacquery'
 arch=('x86_64')
 license=('MIT')
-depends=('glibc' 'libalpm.so')
+depends=('glibc' 'gcc-libs' 'libalpm.so')
 makedepends=('cargo' 'git')
 groups=('archlinux-tools')
-source=(git+https://github.com/jelly/pacquery.git#tag=v$pkgver?signed)
-sha512sums=('efa4063def0b1c1556c3bdd2572a604f7df802f3dae9fb76fbc1f87ee9851bb001e25c5dae4ed84be3cafb059cdc55d217af30bc3341eb6aef159c3d46d7a005')
+source=(
+  "git+https://github.com/jelly/pacquery.git#tag=v$pkgver?signed"
+  '0001-Add-compatibility-with-libalpm-16.patch'
+)
+sha512sums=('efa4063def0b1c1556c3bdd2572a604f7df802f3dae9fb76fbc1f87ee9851bb001e25c5dae4ed84be3cafb059cdc55d217af30bc3341eb6aef159c3d46d7a005'
+            'cb1cd34c57bf8b435b0f80da09164a334e6808ddbc9a3cfa95bf0f584f5b2d976baa83a7a89f9ba2e593234091bcfdccb44ad10732fe2d94b4b1272ebcef2446')
 validpgpkeys=("E499C79F53C96A54E572FEE1C06086337C50773E")
+
+# Use debug
+export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
+
+# Use LTO
+export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 prepare() {
   cd ${pkgname}
+  git apply -3 ../0001-Add-compatibility-with-libalpm-16.patch
   mkdir -p completions
   mkdir -p man
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
