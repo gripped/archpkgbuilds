@@ -6,8 +6,8 @@
 # Contributor: Dominik Ryba <domryba@post.pl>
 
 pkgname=hugin
-pkgver=2025.0.0
-pkgrel=2
+pkgver=2025.0.1
+pkgrel=1
 pkgdesc="Panorama photo stitcher"
 arch=(x86_64)
 url="http://hugin.sourceforge.net/"
@@ -42,7 +42,7 @@ optdepends=('darktable: RAW import using darktable'
 _archive="$pkgname-$pkgver"
 source=("https://downloads.sourceforge.net/$pkgname/$_archive.tar.bz2"
         ignore_gzip_timestamps.patch)
-sha256sums=('0de27a5d5432e36d4e5d38ac25d7bcafc7b7dd542aab031640a61ed66767076c'
+sha256sums=('7cf8eb33a6a8848cc7f816faf4bc88389228883d5513136dccb5cb243912ab79'
             'e6a41ce195c55f0c895a359203c84c47e885dbbd98c9b077c9a5e092be3bafb4')
 
 prepare() {
