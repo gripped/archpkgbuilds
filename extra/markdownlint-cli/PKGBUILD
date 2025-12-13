@@ -2,20 +2,29 @@
 # Contributor: Achilleas Pipinellis <axilleas at archlinux dot gr>
 
 pkgname=markdownlint-cli
-pkgver=0.46.0
+pkgver=0.47.0
 pkgrel=1
 pkgdesc="Command-line interface for MarkdownLint"
 arch=(any)
 url="https://github.com/igorshubovych/markdownlint-cli"
 license=(MIT)
 depends=(nodejs)
-makedepends=(npm)
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('b8a2521c59bb18037f5433ae19f14cce71c770d7bce50521182700fcbf43b4d6')
+makedepends=(
+  jq
+  npm
+)
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('56419e816c9abbcc6926540e85c94abe6ff4c6b494b65a973b46f47ab6028dc40162eea5146497a8143c1dd950ff0f60d5f10a3737be301dba6b3fc3a9663ac8')
 
 prepare() {
   cd $pkgname-$pkgver
-  npm clean-install
+  npm clean-install --ignore-scripts
+}
+
+build() {
+  cd $pkgname-$pkgver
+  npm pkg set bundledDependencies="$(jq '.dependencies | keys' package.json)" --json
+  npm pack
 }
 
 check() {
@@ -25,15 +34,8 @@ check() {
 
 package() {
   cd $pkgname-$pkgver
-  npm install \
-    --global \
-    --install-links \
-    --prefix "$pkgdir/usr"
-
-  # npm gives ownership of ALL FILES to build user
-  # https://bugs.archlinux.org/task/63396
-  chown -R root:root "$pkgdir"
-
+  npm install --global --prefix "$pkgdir/usr" --offline $pkgname-$pkgver.tgz \
+    --install-links
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
