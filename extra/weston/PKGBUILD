@@ -3,7 +3,7 @@
 
 pkgname=weston
 pkgver=14.0.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Reference implementation of a Wayland compositor'
 arch=('x86_64')
 url='https://wayland.freedesktop.org/'
@@ -13,11 +13,11 @@ depends=('fontconfig' 'glibc' 'wayland' 'libxkbcommon' 'libinput' 'libunwind' 'p
          'mesa' 'libegl' 'libevdev' 'libgles' 'glib2' 'pango' 'lcms2' 'mtdev' 'libx11'
          'libxcb' 'dbus' 'libva' 'libxcursor' 'colord' 'seatd'
          'gstreamer' 'gst-plugins-base-libs')
-makedepends=('wayland-protocols' 'meson' 'ninja' 'freerdp2' 'neatvnc' 'libpipewire'
+makedepends=('wayland-protocols' 'meson' 'ninja' 'freerdp' 'neatvnc' 'libpipewire'
              'xorg-xwayland' 'xcb-util-cursor' 'libdisplay-info')
 optdepends=('xorg-xwayland: support x11 backend'
             'libpipewire: support pipewire backend'
-            'freerdp2: support rdp backend'
+            'freerdp: support rdp backend'
             'neatvnc: support vnc backend'
             'libdisplay-info: support drm backend')
 options=(!lto)
