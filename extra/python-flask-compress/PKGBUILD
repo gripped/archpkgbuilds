@@ -3,7 +3,7 @@
 # Contributor: Cedric Girard <girard.cedric@gmail.com>
 
 pkgname=python-flask-compress
-pkgver=1.18
+pkgver=1.23
 pkgrel=1
 pkgdesc='Compress responses in your Flask app'
 url='https://github.com/colour-science/flask-compress'
@@ -11,9 +11,9 @@ arch=('any')
 license=('MIT')
 depends=(
   'python'
+  'python-backports-zstd'
   'python-brotli'
   'python-flask'
-  'python-pyzstd'
 )
 makedepends=(
   'python-build'
@@ -27,8 +27,7 @@ checkdepends=(
   'python-pytest'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('b37ff382043da7cdfb64cbf3b0c2de8652e5dce2245a3283d0bb0b9368dd2002')
-sha512sums=('290426bf94c24963d7022191f35486fbe43dcc5550585b75e624019141ae0e5944fb9928315ede3ae1843c0beeef917f982c53f75e73f40046a24df0bcf691a8')
+sha512sums=('54754e6676706e67ffc4fecbb714300b9da47ebe41b461be87800143bc3b35c2ce0d44f719370264296c55d358e1dbb5b58c2c5f5a43cb988793006b82a81df6')
 
 build() {
   cd ${pkgname#python-}-$pkgver
