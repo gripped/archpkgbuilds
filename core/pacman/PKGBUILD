@@ -2,11 +2,11 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=pacman
-pkgver=7.0.0.r7.g1f38429
-pkgrel=0
+pkgver=7.1.0.r7.gb9f7d4a
+pkgrel=1
 # use annotated tag and patch level commit from release branch (can be empty for no patches)
-_git_tag=7.0.0
-_git_patch_level_commit=1f38429b1c5f30edce30c731aa352e6363cc788e
+_git_tag=7.1.0
+_git_patch_level_commit=b9f7d4a5b0bea75953f5892621a2caecc5672de5
 pkgdesc="A library-based package manager with dependency support"
 arch=('x86_64')
 url="https://www.archlinux.org/pacman/"
@@ -25,6 +25,7 @@ depends=(
   openssl libcrypto.so
   pacman-mirrorlist
   systemd
+  libmakepkg-dropins
 )
 makedepends=(
   asciidoc
@@ -43,20 +44,25 @@ optdepends=(
 provides=('libalpm.so')
 backup=(etc/pacman.conf
         etc/makepkg.conf
+        etc/makepkg.conf.d/fortran.conf
         etc/makepkg.conf.d/rust.conf)
 validpgpkeys=('6645B0A8C7005E78DB1D7864F99FFE0FEAE999BD'  # Allan McRae <allan@archlinux.org>
               'B8151B117037781095514CA7BBDFFC92306B1121') # Andrew Gregory (pacman) <andrew@archlinux.org>
 source=("git+https://gitlab.archlinux.org/pacman/pacman.git#tag=v${_git_tag}?signed"
-        revertme-makepkg-remove-libdepends-and-libprovides.patch::https://gitlab.archlinux.org/pacman/pacman/-/commit/354a300cd26bb1c7e6551473596be5ecced921de.patch
+        "revertme-makepkg-remove-libdepends-and-libprovides.patch::https://gitlab.archlinux.org/pacman/pacman/-/commit/354a300cd26bb1c7e6551473596be5ecced921de.patch"
+        "patch-reproducible-builds.patch::https://gitlab.archlinux.org/pacman/pacman/-/commit/f4bdb77470528019aaba4d8b8f947e918c6db17d.patch"
         pacman.conf
         makepkg.conf
         alpm.sysusers
+        fortran.conf
         rust.conf)
-sha256sums=('06d082c3ce6f0811ca728515aa82d69d372800bd3ada99f5c445ef9429b6e3a6'
+sha256sums=('74cfd4b6d2b10c742f5a4a7cdaeffb01405ab897b11b80681a9063245113a308'
             'b3bce9d662e189e8e49013b818f255d08494a57e13fc264625f852f087d3def2'
-            'bc80e9d0439caddd29b99a69b5060b5589cad2398c23abc5b2b8b990fae6ad8c'
-            'd99c1f9608362fff9ab3a2ca0a3096a317927b42a6725bc86599da6849c9c67c'
+            'de428b496a825772ef49ec5555a386a4b23ffa10b9dfd9907f0671d5c1dc2178'
+            'd6f6ca86104df026462ab634efa1ecc850bccfa748ed5a6a88283e7659ec90c5'
+            '20497c90cbb678a9ca1a71eca66cf2a1d0c991c3e695f7b7d10fb68fc0ac4f12'
             'c8760d7ebb6c9817d508c691c67084be251cd9c8811ee1ccf92c1278bad74c1c'
+            '933b0b878fa611bf24b92f655040a3bcb4a1b67841d929013802abbb09b2ccf4'
             '6fe03e6ea3f69d99d59a48847a8ae97c2160fca847c7aedf7b89d05e4aa9386d')
 
 pkgver() {
@@ -125,6 +131,7 @@ package() {
   install -m644 "$srcdir/pacman.conf" "$pkgdir/etc"
   install -m644 "$srcdir/makepkg.conf" "$pkgdir/etc"
   install -D -m644 "$srcdir/alpm.sysusers" "${pkgdir}"/usr/lib/sysusers.d/alpm.conf
+  install -m644 "$srcdir/fortran.conf" "$pkgdir/etc/makepkg.conf.d"
   install -m644 "$srcdir/rust.conf" "$pkgdir/etc/makepkg.conf.d"
 
   local wantsdir="$pkgdir/usr/lib/systemd/system/sockets.target.wants"
