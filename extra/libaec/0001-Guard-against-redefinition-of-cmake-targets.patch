@@ -1,0 +1,41 @@
+From 2c6619c1313826df864065427055ed14c83d1998 Mon Sep 17 00:00:00 2001
+From: Antonio Rojas <arojas@archlinux.org>
+Date: Sat, 13 Dec 2025 10:31:30 +0100
+Subject: [PATCH] Guard against redefinition of cmake targets
+
+If a find_package(libaec) call is invoked twice, the second one will fail with
+
+CMake Error at /usr/lib/cmake/libaec/libaec-config.cmake:52 (add_library):
+  add_library cannot create ALIAS target "libaec::aec" because another target
+  with the same name already exists.
+
+This breaks gdal build against hdf5 2.0, where libaec is included twice: once directly and once via hdf5.
+---
+ packaging/libaec-config.cmake | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/packaging/libaec-config.cmake b/packaging/libaec-config.cmake
+index 6ef9350..0afc3dd 100644
+--- a/packaging/libaec-config.cmake
++++ b/packaging/libaec-config.cmake
+@@ -39,7 +39,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/libaec-targets.cmake)
+ 
+ # Alias static or shared targets depending on libaec_USE_STATIC_LIBS
+ if(libaec_USE_STATIC_LIBS)
+-  if(TARGET libaec::aec-static AND TARGET libaec::sz-static)
++  if(TARGET libaec::aec-static AND TARGET libaec::sz-static AND NOT TARGET libaec::aec AND NOT TARGET libaec::sz)
+     add_library(libaec::aec ALIAS libaec::aec-static)
+     add_library(libaec::sz ALIAS libaec::sz-static)
+   else()
+@@ -48,7 +48,7 @@ if(libaec_USE_STATIC_LIBS)
+     set(${CMAKE_FIND_PACKAGE_NAME}_FOUND FALSE)
+   endif()
+ else()
+-  if(TARGET libaec::aec-shared AND TARGET libaec::sz-shared)
++  if(TARGET libaec::aec-shared AND TARGET libaec::sz-shared AND NOT TARGET libaec::aec AND NOT TARGET libaec::sz)
+     add_library(libaec::aec ALIAS libaec::aec-shared)
+     add_library(libaec::sz ALIAS libaec::sz-shared)
+   else()
+-- 
+2.52.0
+
