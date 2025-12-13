@@ -3,7 +3,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=glslang
-pkgver=1.4.328.1
+pkgver=1.4.335.0
 pkgrel=1
 epoch=1
 pkgdesc="OpenGL and OpenGL ES shader front end and validator"
@@ -14,7 +14,7 @@ depends=('gcc-libs' 'spirv-tools')
 makedepends=('cmake' 'ninja' 'spirv-headers' 'python' 'git')
 options=('staticlibs')
 source=("git+${url}.git#tag=vulkan-sdk-${pkgver}")
-sha256sums=('eeb068d75f3b7d835675cd218e145ec93d39be11672c925f01d7a76bb15fec38')
+sha256sums=('262eaf3026bcc5f75b608cc1bb593a0b4f199fdf5006cfe3335e18d0407906f4')
 
 build() {
   cd "${pkgname}"
