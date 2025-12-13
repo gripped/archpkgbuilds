@@ -5,7 +5,7 @@
 _upstream=deltachat-core-rust
 _name=core
 pkgname=deltachat-rpc-server
-pkgver=2.25.0
+pkgver=2.33.0
 pkgrel=1
 pkgdesc="A JSON-RPC 2.0 interface to DeltaChat over standard I/O"
 arch=(x86_64)
@@ -20,12 +20,12 @@ makedepends=(
   rust
 )
 source=("$_url/archive/v$pkgver/$_upstream-$pkgver.tar.gz")
-sha512sums=('308f12f5ef30b4004aeca861c482801c84813dae517adab34c91e065560e0198f01a4abb323b139f6fefbde34d4b62da602bd6e6892ff920051e254df98138a9')
-b2sums=('7f1dda40478127d8c85678382d4750102af4f1ed3aaae9d8c78c382368028d2945b47f08de7dab5f3a583b9a4103fcdffc382e016542d90bfe5d33d2714dce53')
+sha512sums=('348569acd3b5ff262cb8f5800398c24c922d3f52e7c855a28abf917e7179511cf9a8f8a3327e82681760b147017a0a704c34bc6839624a7ddc59c7da85cf27bc')
+b2sums=('d05c30b30b8630226257f0b93d597078a81322fce8afedb03d7a172cd6eb28edf4abe68872b0475fa9638ad5188a2125513b28a53199eb2e96e916960f98453e')
 
 prepare() {
   cd $_name-$pkgver
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 
 }
 
