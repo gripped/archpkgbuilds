@@ -4,10 +4,10 @@
 pkgbase=wxwidgets
 pkgname=(wxwidgets-common
          wxwidgets-gtk3
-#          wxwidgets-gtk4
+#        wxwidgets-gtk4
          wxwidgets-qt5)
 pkgver=3.2.9
-pkgrel=3
+pkgrel=4
 arch=(x86_64)
 url='https://wxwidgets.org'
 license=(custom:wxWindows)
@@ -15,22 +15,15 @@ makedepends=(cmake
              git
              glu
              gst-plugins-base
-#              gtk4
+#            gtk4
              libmspack
              libnotify
              nanosvg
              qt5-base
              sdl2
              webkit2gtk-4.1)
-source=(git+https://github.com/wxWidgets/wxWidgets#tag=v$pkgver-rc1)
-sha256sums=('8b212269cab9901c218c3bc6c83b869ca0246bc0b7672a2fad4320b7d18d5bc7')
-
-prepare() {
-# Fix missing symbols in html library https://github.com/wxWidgets/wxWidgets/issues/26019
-  git -C wxWidgets cherry-pick -n 4ec643da68e84652f4cb65505fafe487cabbdd14
-# Fix GLCanvas https://github.com/wxWidgets/wxWidgets/issues/26020
-  git -C wxWidgets cherry-pick -n 22174939d55e00660776d9e8350dd545a6b70320
-} 
+source=(git+https://github.com/wxWidgets/wxWidgets#tag=v$pkgver)
+sha256sums=('33b95449a50e5e62eb4da55bf2ff6547f1d139cd4db40940c0803be70b41a6d2')
 
 build() {
   cmake -B build-base -S wxWidgets \
