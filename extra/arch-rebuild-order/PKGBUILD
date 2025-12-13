@@ -2,21 +2,32 @@
 
 pkgname=arch-rebuild-order
 pkgver=0.4.4
-pkgrel=1
+pkgrel=2
 pkgdesc='CLI tool to determine the rebuild order of provided package(s)'
 url='https://gitlab.archlinux.org/archlinux/arch-rebuild-order'
 arch=('x86_64')
 license=('MIT')
-depends=('glibc' 'libalpm.so')
+depends=('glibc' 'gcc-libs' 'libalpm.so')
 makedepends=('cargo' 'mandown' 'git')
 groups=('archlinux-tools')
-source=(git+https://gitlab.archlinux.org/archlinux/arch-rebuild-order.git#tag=v$pkgver?signed)
-sha512sums=('58bd2ad703c3a68b65bc9f6626a4f432c9be8166fb78fbc23d4ee07a4f10b83ecaa9be7445afe2f4869f3022d67987fefad863fd82a96eb0f81844c8ebcfe309')
+source=(
+  "git+https://gitlab.archlinux.org/archlinux/arch-rebuild-order.git?signed#tag=v$pkgver"
+  '0001-Add-compatibility-with-libalpm-16.patch'
+)
+sha512sums=('58bd2ad703c3a68b65bc9f6626a4f432c9be8166fb78fbc23d4ee07a4f10b83ecaa9be7445afe2f4869f3022d67987fefad863fd82a96eb0f81844c8ebcfe309'
+            '54d229e380793bf02690189da7d77fa5bc64f6dd3a7bbe966695f8a382f3f147f9158537f6c7a232c661e2c2260db05558a8049ca5fc9aa98fecb8fa38c2117c')
 validpgpkeys=("E499C79F53C96A54E572FEE1C06086337C50773E")
+
+# Use debug
+export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
+
+# Use LTO
+export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 prepare() {
   cd ${pkgname}
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  git apply -3 ../0001-Add-compatibility-with-libalpm-16.patch
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
