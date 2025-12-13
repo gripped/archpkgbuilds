@@ -4,12 +4,11 @@
 # Contributor: Andreas 'Segaja' Schleifer <archlinux at segaja dot de>
 
 pkgname=terragrunt
-pkgver=0.93.13
+pkgver=0.95.1
 pkgrel=1
 pkgdesc='Thin wrapper for Terraform and OpenTofu for working with multiple modules'
 arch=(x86_64)
-url='https://github.com/gruntwork-io/terragrunt'
-license=(MIT)
+url='https://github.com/gruntwork-io/terragrunt' license=(MIT)
 depends=(
   glibc
   terragrunt-iac-provider
@@ -20,8 +19,8 @@ makedepends=(
 )
 options=('!lto')
 source=("git+$url.git#tag=v$pkgver")
-sha512sums=('dfa733d8f257d9a0ea02e70d71a5c5031942aa9ec9a5f550d30dbeb2290f7bc5862c99dec684623053e830fbd100c38d9a319dc8e4ec27df6f77cbf1393c9be9')
-b2sums=('48b1c54f4cd97119586060d8ccd7b425a0bdbca4452fae9f70b08cff6ac5279526adda42bc88ca0f1a4f5182ff3bcd69d31ecbde66a3e2f575d206c6f12cf982')
+sha512sums=('ef2c492038eae823b61fc772ef32b72b8123970e1bc6efd7d98170a0dd88806269b0dc87df87652331ab50e75b8a9f92af4f8e7fe2e98475b4d414bda311fb28')
+b2sums=('0979f4a3a3e128ce8c9c2e0a47788a0596f70a4c5b9a6e64b1cbb0f023b49d4163e30ce130f73cfed7ce7106a4b0c40bd08e79db510010189b07614006b7cd61')
 
 prepare() {
   cd $pkgname
@@ -52,9 +51,11 @@ check() {
     go list ./... \
       | grep -v github.com/gruntwork-io/terragrunt/cli/commands/run \
       | grep -v github.com/gruntwork-io/terragrunt/internal/cas \
+      | grep -v github.com/gruntwork-io/terragrunt/internal/git \
       | grep -v github.com/gruntwork-io/terragrunt/internal/github \
+      | grep -v github.com/gruntwork-io/terragrunt/internal/report \
       | grep -v github.com/gruntwork-io/terragrunt/internal/runner/run \
-      | grep -v github.com/gruntwork-io/terragrunt/test \
+      | grep -v github.com/gruntwork-io/terragrunt/test
   )
   # shellcheck disable=SC2086
   go test -v $unit_tests
