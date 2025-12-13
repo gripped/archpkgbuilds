@@ -2,13 +2,13 @@
 
 pkgname=deepin-application-manager
 pkgver=1.2.39
-pkgrel=1
+pkgrel=4
 pkgdesc='App manager of Deepin Desktop Environment'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-application-manager"
 license=('GPL3')
-# startdde: org.deepin.dde.XSettings1
-depends=('dtk6core' 'qt6-base' 'glibc' 'gcc-libs' 'systemd-libs' 'startdde')
+# deepin-services: org.deepin.dde.XSettings1
+depends=('dtk6core' 'qt6-base' 'glibc' 'gcc-libs' 'systemd-libs' 'deepin-daemon')
 makedepends=('git' 'cmake' 'ninja' 'gtest')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-application-manager.git#tag=$pkgver")
