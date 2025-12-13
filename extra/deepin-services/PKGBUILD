@@ -1,0 +1,33 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=deepin-services
+pkgver=1.0.16
+pkgrel=2
+pkgdesc='Manage DBus service on Deepin'
+arch=('x86_64')
+url="https://github.com/linuxdeepin/dde-services"
+license=('LGPL-3.0-or-later')
+depends=(glibc gcc-libs systemd-libs qt6-base dtk6core dtk6gui glib2 libpcap libnet libx11 libxcb
+         deepin-service-manager)
+makedepends=(git cmake ninja)
+groups=(deepin)
+source=(git+https://github.com/linuxdeepin/dde-services.git#tag=$pkgver)
+sha512sums=('ee2ff5ff3f16def63b6e4a5f94f0b0d007c4e0cbfc08bd0539d30c6977795566339a2391d9d7b354b89dec20588fd01e1131fea330d9af1367972458235dca46')
+
+prepare() {
+  cd dde-services
+  # fix dbus name: https://github.com/linuxdeepin/dde-services/pull/45
+  git cherry-pick -n 10fd21d7b88290766da7bbeeec947b12a4e084b5
+}
+
+build() {
+  cd dde-services
+  cmake -GNinja . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc
+  ninja
+}
+
+package() {
+  cd dde-services
+  DESTDIR="$pkgdir" ninja install
+  rm "$pkgdir"/usr/share/dsg/configs/org.deepin.dde.daemon/org.deepin.XSettings.json
+}

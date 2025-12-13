@@ -1,0 +1,27 @@
+pkgbase = deepin-services
+	pkgdesc = Manage DBus service on Deepin
+	pkgver = 1.0.16
+	pkgrel = 2
+	url = https://github.com/linuxdeepin/dde-services
+	arch = x86_64
+	groups = deepin
+	license = LGPL-3.0-or-later
+	makedepends = git
+	makedepends = cmake
+	makedepends = ninja
+	depends = glibc
+	depends = gcc-libs
+	depends = systemd-libs
+	depends = qt6-base
+	depends = dtk6core
+	depends = dtk6gui
+	depends = glib2
+	depends = libpcap
+	depends = libnet
+	depends = libx11
+	depends = libxcb
+	depends = deepin-service-manager
+	source = git+https://github.com/linuxdeepin/dde-services.git#tag=1.0.16
+	sha512sums = ee2ff5ff3f16def63b6e4a5f94f0b0d007c4e0cbfc08bd0539d30c6977795566339a2391d9d7b354b89dec20588fd01e1131fea330d9af1367972458235dca46
+
+pkgname = deepin-services
