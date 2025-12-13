@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kpublictransport
-pkgver=25.08.3
+pkgver=25.12.0
 pkgrel=1
 pkgdesc='Library to assist with accessing public transport timetables and other data'
 arch=(x86_64)
@@ -13,13 +13,15 @@ depends=(gcc-libs
          networkmanager-qt
          qt6-base
          qt6-declarative
+         qt6-location
          zlib)
 makedepends=(extra-cmake-modules
              kirigami-addons
              protobuf)
-optdepends=('kirigami-addons: QML bindings')
+optdepends=('kirigami-addons: QML bindings'
+            'qt6-positioning: QML bindings')
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('ed887df23d04a1ebd171b59c99dfaec26d62254e9a7ac4f8a7084ba301586c17'
+sha256sums=('5dbbbfa2313950a0d4e0cb87c8c91a243de64e3786438ebe9240545057e05a35'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
