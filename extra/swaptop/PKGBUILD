@@ -2,7 +2,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=swaptop
-pkgver=1.0.4
+pkgver=1.0.5
 pkgrel=1
 pkgdesc='Swap usage monitor'
 url='https://github.com/luis-ota/swaptop'
@@ -16,12 +16,12 @@ makedepends=(
   'cargo'
 )
 source=(https://github.com/luis-ota/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('1af6bb43be0407e1b497a4f7c868b39dd771a758fadffd29ccf1af9867f60b2f')
-b2sums=('692c93b5b5f0035ed9dc46e7f7dca36c0a6ce83d973734c6fbfd04834dde97217d17da27fb0e76c10821e83d4109448a828c3cbb90d02acb3f29e26c46b607b7')
+sha256sums=('20bcd3b83e7fe29100771d4adc932cec9c8c14e1361be7c7608d70ba515af80f')
+b2sums=('0142cf673745c5f2993a326d77ecd74d28d70e58ec761d5358636536bb95ef0650b2e2dd23b8149de01354a690d4453905f3878a2a20fe11272a4fbf5409e0ec')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
