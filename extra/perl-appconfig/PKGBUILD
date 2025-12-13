@@ -4,7 +4,7 @@
 
 pkgname=perl-appconfig
 pkgver=1.71
-pkgrel=14
+pkgrel=15
 pkgdesc="Perl/CPAN AppConfig module - Read configuration files and parse command line arguments"
 arch=('any')
 license=('PerlArtistic' 'GPL')
