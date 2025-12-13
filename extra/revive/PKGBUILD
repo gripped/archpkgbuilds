@@ -1,35 +1,54 @@
 # Contributor: Dimitris Kiziridis <ragouel at outlook dot com>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=revive
-pkgver=1.6.0
-pkgrel=1
+pkgver=1.13.0
+pkgrel=2
 pkgdesc="faster, stricter, configurable, extensible, and beautiful drop-in replacement for golint"
 arch=('x86_64')
 url='https://revive.run'
 license=('MIT')
 depends=('glibc')
-makedepends=('go')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mgechev/revive/archive/v${pkgver}.tar.gz")
-sha256sums=('eb732f7efffd8413b512cd89b68036541641ff47c44e75a1532ca17af0db39e3')
+makedepends=(
+  'git'
+  'go'
+)
+options=('!lto')
+source=("git+https://github.com/mgechev/revive.git#tag=v$pkgver")
+sha512sums=('3cd0524ac41b3f070df23a1e5c5d431eb56aae41ff271d1598cb01830097587615bb4c00f00de74dd6c0c55c6e55669ec73427ab9b756b5a2d9fb5ec0d7fbdb0')
+
+prepare() {
+  cd $pkgname
+  GOFLAGS="-mod=readonly" go mod vendor -v
+}
 
 build() {
-  cd revive-${pkgver}
-  export CGO_LDFLAGS="${LDFLAGS}"
-  export CGO_CFLAGS="${CFLAGS}"
-  export CGO_CPPFLAGS="${CPPFLAGS}"
-  export CGO_CXXFLAGS="${CXXFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -modcacherw"
-  go build
+  cd $pkgname
+  export CGO_LDFLAGS="$LDFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw -buildvcs=false"
+  export GOPATH="$srcdir"
+
+  local ld_flags=" \
+    -compressdwarf=false \
+    -linkmode=external \
+    -X github.com/mgechev/revive/cli.commit=$(git rev-parse --short HEAD) \
+    -X github.com/mgechev/revive/cli.date=NOTSET \
+    -X github.com/mgechev/revive/cli.version=$pkgver \
+  "
+  go build -v -ldflags "$ld_flags"
 }
 
 check() {
-  cd revive-${pkgver}/test
-  go test || true
+  cd $pkgname
+  go test -v ./...
 }
 
 package() {
-  cd revive-${pkgver}
-  install -Dm755 revive "${pkgdir}/usr/bin/revive"
-  install -Dm644 defaults.toml "${pkgdir}/etc/revive/revive.toml"
-  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cd $pkgname
+  install -vDm755 -t "$pkgdir/usr/bin" revive
+  install -vDm644 defaults.toml "$pkgdir/etc/revive/revive.toml"
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
