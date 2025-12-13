@@ -2,7 +2,7 @@
 
 pkgname=arch-repro-status
 pkgver=1.4.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Check the reproducibility status of your Arch Linux packages"
 arch=('x86_64')
 url="https://gitlab.archlinux.org/archlinux/arch-repro-status"
@@ -13,31 +13,45 @@ depends=(
   'libalpm.so'
   'libssl.so'
 )
-makedepends=('cargo')
+makedepends=(
+  'cargo'
+  'git'
+)
 groups=('archlinux-tools')
-source=("$pkgname-$pkgver.tar.gz::$url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
-sha512sums=('257cb28543b6cc4a3c374c1f4e1c03c5070a0fbd2f4d0ab4be80c7ae51da55de48c6c53b50ef58999e4a79cbe235d120084edf4e45f2297e663f418222c0b00f')
+source=(
+  "git+$url.git#tag=v$pkgver"
+  '0001-fix-deps-update-alpm-for-pacman-7.1.patch'
+)
+sha512sums=('c44e9ec2017827ebfdd1dc9f544600b2ed9a365c4136d2c69190e98b807842ec5a2963a8575af2ad98ce24e7eb3503440560cbc453f0bedd344ab76e559a4f39'
+            'bb711b046b21f8bdc9ae4531500791ce24f9e4a230087de9e716ae2b8f39bd5fc99cd62a9c92f547a0c880db003f02b6038a7b248fac82246aeda1a73248ba18')
 options=('!lto')
 
+# Use debug
+export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
+
+# Use LTO
+export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
 prepare() {
-  cd "$pkgname-v$pkgver"
+  cd "$pkgname"
+  git apply -3 ../0001-fix-deps-update-alpm-for-pacman-7.1.patch
   mkdir completions/
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
-  cd "$pkgname-v$pkgver"
+  cd "$pkgname"
   cargo build --frozen --release
   OUT_DIR=completions/ ./target/release/$pkgname-completions
 }
 
 check() {
-  cd "$pkgname-v$pkgver"
+  cd "$pkgname"
   cargo test --frozen
 }
 
 package() {
-  cd "$pkgname-v$pkgver"
+  cd "$pkgname"
   install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"

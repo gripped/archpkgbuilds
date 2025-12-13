@@ -1,0 +1,51 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Thu, 4 Dec 2025 18:52:41 +0100
+Subject: [PATCH] fix(deps): update alpm for pacman 7.1
+
+---
+ Cargo.lock | 10 ++++------
+ Cargo.toml |  2 +-
+ 2 files changed, 5 insertions(+), 7 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 83fe8e11e4ca..8ecd0383a14e 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -28,19 +28,17 @@ dependencies = [
+ 
+ [[package]]
+ name = "alpm"
+-version = "4.0.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "48249eb4ae0c526ba6557ff00a8a9e9eeb838989f465f82a8473163d703d0f4b"
++version = "4.0.3"
++source = "git+https://github.com/archlinux/alpm.rs?rev=54b8bdcdce2b04d12a180f1fd4b304cc8cf4cc1a#54b8bdcdce2b04d12a180f1fd4b304cc8cf4cc1a"
+ dependencies = [
+  "alpm-sys",
+  "bitflags",
+ ]
+ 
+ [[package]]
+ name = "alpm-sys"
+-version = "4.0.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "26eaa14b889aba03b30f8ed47b917bb618cbc3f5318f98edcbaf9cf64a984138"
++version = "4.0.3"
++source = "git+https://github.com/archlinux/alpm.rs?rev=54b8bdcdce2b04d12a180f1fd4b304cc8cf4cc1a#54b8bdcdce2b04d12a180f1fd4b304cc8cf4cc1a"
+ dependencies = [
+  "pkg-config",
+ ]
+diff --git a/Cargo.toml b/Cargo.toml
+index e7cbea26f636..96c1249dbf9b 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -36,7 +36,7 @@ ctrlc = { version = "3.4.6", features = ["termination"] }
+ console = "0.15.11"
+ dirs-next = "2.0.0"
+ bytesize = "2.0.1"
+-alpm = "4.0.2"
++alpm = { git = "https://github.com/archlinux/alpm.rs", rev = "54b8bdcdce2b04d12a180f1fd4b304cc8cf4cc1a", features = ["git"] }
+ chrono = "0.4.41"
+ clap_complete = "4.5.48"
+ vecrem = "0.1"
