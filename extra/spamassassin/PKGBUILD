@@ -1,95 +1,100 @@
-# Maintainer: Florian Pritz <bluewind@xinu.at>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: Florian Pritz <bluewind@xinu.at>
 # Contributor: Dale Blount <dale@archlinux.org>
 # Contributor: Manolis Tzanidakis
+
 pkgname=spamassassin
-pkgver=4.0.1
-pkgrel=5
-pkgdesc="A mail filter to identify spam."
-arch=('x86_64')
-license=('APACHE')
-url="https://spamassassin.apache.org"
-depends=('openssl' 'zlib' 're2c' 'perl-net-dns' 'perl-io-socket-ssl'
-         'perl-libwww' 'perl-mail-spf' 'perl-http-message' 'perl-net-http'
-         'perl-io-socket-inet6' 'perl-mail-dkim')
-makedepends=('razor' 'perl-dbi')
-checkdepends=('perl-text-diff')
+pkgver=4.0.2
+pkgrel=1
+pkgdesc='A mail filter to identify spam'
+arch=(x86_64)
+license=(Apache-2.0)
+url='https://spamassassin.apache.org'
+depends=(openssl
+         perl-http-message
+         perl-io-socket-inet6
+         perl-io-socket-ssl
+         perl-libwww
+         perl-mail-dkim
+         perl-mail-spf
+         perl-net-dns
+         perl-net-http
+         re2c
+         zlib)
+makedepends=(perl-dbi
+             razor)
+checkdepends=(perl-text-diff)
 optdepends=('razor: to identify collaborately-flagged spam'
             'make: to use sa-compile'
             'gcc: to use sa-compile')
-backup=('etc/mail/spamassassin/local.cf'
-        'etc/mail/spamassassin/init.pre'
-        'etc/mail/spamassassin/v310.pre'
-        'etc/mail/spamassassin/v312.pre'
-        'etc/mail/spamassassin/v320.pre'
-        'etc/mail/spamassassin/v330.pre'
-        'etc/mail/spamassassin/v340.pre'
-        'etc/mail/spamassassin/v341.pre'
-        'etc/mail/spamassassin/v342.pre'
-        'etc/mail/spamassassin/v343.pre'
-        'etc/mail/spamassassin/v400.pre'
-        'etc/mail/spamassassin/v401.pre')
-install="${pkgname}.install"
-source=("https://ftp.fau.de/apache/${pkgname}/source/Mail-SpamAssassin-${pkgver}.tar.gz"
-        "https://www.apache.org/dist/${pkgname}/source/Mail-SpamAssassin-${pkgver}.tar.gz.asc"
-        fix-tests.patch
-        'spamassassin.tmpfiles.d'
-        'spamassassin.service')
+backup=(etc/mail/spamassassin/local.cf
+        etc/mail/spamassassin/init.pre
+        etc/mail/spamassassin/v310.pre
+        etc/mail/spamassassin/v312.pre
+        etc/mail/spamassassin/v320.pre
+        etc/mail/spamassassin/v330.pre
+        etc/mail/spamassassin/v340.pre
+        etc/mail/spamassassin/v341.pre
+        etc/mail/spamassassin/v342.pre
+        etc/mail/spamassassin/v343.pre
+        etc/mail/spamassassin/v400.pre
+        etc/mail/spamassassin/v401.pre
+        etc/mail/spamassassin/v402.pre)
+install="$pkgname.install"
+_archive="Mail-SpamAssassin-$pkgver"
+source=("https://ftp.fau.de/apache/$pkgname/source/$_archive.tar.gz"
+        "https://www.apache.org/dist/$pkgname/source/$_archive.tar.gz.asc"
+        spamassassin.tmpfiles.d
+        spamassassin.service)
 validpgpkeys=(D8099BC79E17D7E49BC21E31FDE52F40F7D39814)
-sha512sums=('7ac2d789d8744dfe37f647013871e293de50cfcd792029956eb6cea8e51343aad135398bd91867c3c21a68e5fb6330bd6b38a04b794a24449a59287b46d4ac70'
+sha256sums=('c521be978cef3d49b1e139477ca60a0bd498345fc98274796e44161fae49a17f'
             'SKIP'
-            '215dd552493f4363fbd314f9b2c5ae11ffcebb6e7c61d3882b90f38fa2cac9f4fe0008903eb1e013bab4fbdf5693335303a9f757a1d527eae6b538ccf56ecb6c'
-            '994ebb2b6c127521676f35879017112a33da53ad99431837d06973a9abfc4aa0434ea2c9b19073ff2cc877ebe3a5a7fe8525bc93222fd05956069ce73e5ae389'
-            '5ad6aa8d992375b0989413d36ff0485f792ac9211a47e6a2a7fa5c0b9eb353aa6efe6f55da3ff4480bdef24beb4fa456c64c5a5ce72e8ad6c93c171c969fd6ee')
+            'a4abb06b42d29e76ab90b1b40a7e761fae320586b6be8a491f648cd1def77d6b'
+            'ce195f6c678f28242eee80ded0de85285b7a992af82b80f88a756eb4473706cc')
 
 prepare() {
-  cd "${srcdir}/Mail-SpamAssassin-${pkgver}"
-
-  sed -i t/sa_compile.t \
-	  -e 's#^my $temp_binpath = $Config{sitebinexp};#my $temp_binpath = "/bin/site_perl/";#'
-
-  patch -p2 -i ../fix-tests.patch # https://bz.apache.org/SpamAssassin/show_bug.cgi?id=8253
+	cd "$_archive"
+	sed -i t/sa_compile.t \
+		-e 's#^my $temp_binpath = $Config{sitebinexp};#my $temp_binpath = "/bin/site_perl/";#'
 }
 
 build() {
-  cd "${srcdir}/Mail-SpamAssassin-${pkgver}"
-
-  # install module in vendor directories.
-  export PERL_USE_UNSAFE_INC=1
-  PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor \
-      CONTACT_ADDRESS=root@localhost ENABLE_SSL=yes PERL_TAINT=no
-  make
+	cd "$_archive"
+	# install module in vendor directories.
+	export PERL_USE_UNSAFE_INC=1
+	export PERL_MM_USE_DEFAULT=1
+	perl Makefile.PL \
+		INSTALLDIRS=vendor \
+		CONTACT_ADDRESS=root@localhost \
+		ENABLE_SSL=yes \
+		PERL_TAINT=no
+	make
 }
 
 check() {
-  cd "${srcdir}/Mail-SpamAssassin-${pkgver}"
-
-  # parallel tests cause lots of failures; disable for now
-  #export HARNESS_OPTIONS="j$(echo $MAKEFLAGS | sed 's/.*-j\([0-9][0-9]*\).*/\1/')"
-
-  make test
+	cd "$_archive"
+	# parallel tests cause lots of failures; disable for now
+	#export HARNESS_OPTIONS="j$(echo $MAKEFLAGS | sed 's/.*-j\([0-9][0-9]*\).*/\1/')"
+	make test
 }
 
 package() {
-  cd "${srcdir}/Mail-SpamAssassin-${pkgver}"
-  make DESTDIR="${pkgdir}" install
-
-  install -D -m644 "${srcdir}/spamassassin.service" "${pkgdir}/usr/lib/systemd/system/spamassassin.service"
-  install -d -o 182 -g 182 -m 755 "$pkgdir/var/lib/spamassassin"
-
-  echo 'u spamd 182 - /var/lib/spamassassin' |
-	  install -Dm644 /dev/stdin "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
-
-  install -Dm644 "$srcdir/spamassassin.tmpfiles.d" "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
-
-  backup_incomplete=0
-  for file in "$pkgdir/etc/mail/spamassassin/"*.pre; do
-	  clean_file="${file#"$pkgdir/"}"
-	  if ! in_array "$clean_file" "${backup[@]}"; then
-		  echo "ERROR: backup array is missing an entry for '$clean_file'" >&2
-		  backup_incomplete=1
-	  fi
-  done
-  if ((backup_incomplete)); then
-	  exit 1
-  fi
+	cd "$_archive"
+	make DESTDIR="$pkgdir" install
+	install -D -m644 -t "$pkgdir/usr/lib/systemd/system/" ../spamassassin.service
+	install -d -o 182 -g 182 -m 755 "$pkgdir/var/lib/spamassassin"
+	echo 'u spamd 182 - /var/lib/spamassassin' |
+		install -Dm644 /dev/stdin "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
+	install -Dm644 ../spamassassin.tmpfiles.d "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
+	backup_incomplete=0
+	for file in "$pkgdir/etc/mail/spamassassin/"*.pre; do
+		clean_file="${file#"$pkgdir/"}"
+		if ! in_array "$clean_file" "${backup[@]}"; then
+			echo "ERROR: backup array is missing an entry for '$clean_file'" >&2
+			backup_incomplete=1
+		fi
+	done
+	if ((backup_incomplete)); then
+		exit 1
+	fi
 }
