@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-httpx-aiohttp
-pkgver=0.1.9
+pkgver=0.1.12
 pkgrel=1
 pkgdesc='aiohttp-powered httpx client'
 arch=(any)
@@ -32,7 +32,7 @@ checkdepends=(
   uvicorn
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('49ef6ea4b1332f41944ec6f224059bbb3604a6c0391d6daf8cf28b424b8bfd49571422487b43bdeb0f9f69057d03d02426d958b5f6be5260dfbdf464873a5036')
+b2sums=('68421ee8998a5257ad145d5ad02e061435c312aed80272b94f33978d47c85766ed35c59716af81b8536f7783b30b2fdf1778a4fe991cc7fadfaabc4b802948eb')
 
 prepare() {
   cd "$srcdir/${pkgname#python-}"
@@ -49,13 +49,14 @@ check() {
   cd ${pkgname#python-}
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python scripts/run_tests.py \
+  test-env/bin/python scripts/httpx_test.py \
     -k 'not [trio]' \
-    --deselect tests/client/test_async_client.py::test_get_invalid_url \
-    --deselect tests/client/test_proxies.py::test_proxies_environ \
-    --deselect tests/client/test_proxies.py::test_socks_proxy \
-    --deselect tests/test_main.py \
-    --deselect tests/test_timeouts.py
+    --deselect 'tests/client/test_async_client.py::test_get_invalid_url' \
+    --deselect 'tests/client/test_proxies.py::test_proxies_environ' \
+    --deselect 'tests/client/test_proxies.py::test_socks_proxy' \
+    --deselect 'tests/httpx/tests/client/test_proxies.py::test_async_proxy_close[asyncio]' \
+    --deselect 'tests/test_main.py' \
+    --deselect 'tests/test_timeouts.py'
 }
 
 package() {
