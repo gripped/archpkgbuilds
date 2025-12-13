@@ -5,7 +5,7 @@
 # Contributor: Martin Devera <devik@cdi.cz>
 
 pkgname=sysstat
-pkgver=12.7.8
+pkgver=12.7.9
 pkgrel=1
 pkgdesc="a collection of performance monitoring tools (iostat,isag,mpstat,pidstat,sadf,sar)"
 arch=('x86_64')
@@ -25,7 +25,7 @@ backup=(
   'etc/conf.d/sysstat.ioconf'
 )
 source=("https://github.com/sysstat/sysstat/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('ca4b239bf66a50ef647f456611647051874706973cf16fd90adb0f3d324fdd59d3aea9c887f93fec8975097590cc1d9961cd68dc8752f4fdfb047c6426caa9d2')
+sha512sums=('aa72a1d48c885c4f1feff08d8a922d07cfd1d8b2e42f9b94bb8369674300c61b2ac2fc0962050bc7479f0852d44361ce250a84cb03f29d089d2d343647062555')
 
 prepare() {
   cd $pkgname-$pkgver
