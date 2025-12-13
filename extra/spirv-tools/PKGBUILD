@@ -4,7 +4,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=spirv-tools
-pkgver=1.4.328.1
+pkgver=1.4.335.0
 pkgrel=1
 epoch=1
 pkgdesc="API and commands for processing SPIR-V modules"
@@ -25,7 +25,7 @@ makedepends=(
 )
 groups=(vulkan-devel)
 source=("git+https://github.com/KhronosGroup/SPIRV-Tools#tag=vulkan-sdk-$pkgver")
-b2sums=('af7a6cc07a03ef235977ffe42bb752ee44b81cc2229a3726ae10e9c86a3c5725d88240e3e3a3a40b26cfd96485eb44999642eccd1f4393bcc442779defa7666f')
+b2sums=('0539ccb4c7219146332dcb8a5f797e302ac18da660831896a650e5d4585afd6127693dc0ea3292ebb9044d05e77b15e60091f9387f81aa1f5cfed6400660a098')
 
 build() {
   local cmake_options=(
