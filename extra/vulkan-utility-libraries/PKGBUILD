@@ -1,9 +1,10 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Maintainer: Laurent Carlier <lordheavym@gmail.com>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: Bartosz Taudul <wolf@nereid.pl>
 
 pkgname=vulkan-utility-libraries
-pkgver=1.4.328.1
+pkgver=1.4.335.0
 pkgrel=1
 pkgdesc="Vulkan Utility Libraries"
 url="https://www.vulkan.org/"
@@ -26,7 +27,7 @@ options=(
 )
 groups=(vulkan-devel)
 source=("git+https://github.com/KhronosGroup/Vulkan-Utility-Libraries#tag=vulkan-sdk-$pkgver")
-b2sums=('eba5eb04191e37de542a97a393ad5ad95dc6a39ebbfb50e31d1f7aa55d589114dfd47c5987b11fefa5398a56026087d23e80ca3cc7fc79f600d2fc2d77a9dd7c')
+b2sums=('cd5e9f3c014637b205e53cc2b91a189549b6b5418dfa0c4c7d1504ec910586c81b9f2fafebead846428288067714f8d3ec2984bfa104130bdc210a8617900d4e')
 
 build() {
   local cmake_options=(
