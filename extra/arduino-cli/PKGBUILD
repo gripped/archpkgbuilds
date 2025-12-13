@@ -2,8 +2,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=arduino-cli
-pkgver=1.3.1
-pkgrel=2
+pkgver=1.4.0
+pkgrel=1
 arch=('x86_64')
 pkgdesc='Arduino command line interface'
 url='https://github.com/arduino/arduino-cli'
@@ -15,7 +15,7 @@ makedepends=(
   'go'
 )
 source=("git+$url.git#tag=v$pkgver")
-sha512sums=('4842a209e0d329f9455e9f10158a6931dfe67ca69f76162ea6983be30398c2476d84f67169a8aa7bf54c195dd6d9cb885ff0a36b96443e4b92f022dd5932c996')
+sha512sums=('178faf6ca4f5fbce7a3503884560f54b20405c4783fc91b0dd763173616b308627e12ac57581c6c3982644472a11f1a37f8e3120e56dd80f855581e760a8ac7b')
 
 prepare() {
   cd $pkgname
