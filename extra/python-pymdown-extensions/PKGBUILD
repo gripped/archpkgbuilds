@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-pymdown-extensions
-pkgver=10.17.2
+pkgver=10.19
 pkgrel=1
 pkgdesc="Extensions for Python Markdown"
 arch=(any)
@@ -26,7 +26,7 @@ optdepends=('python-pygments: for code highlighting')
 provides=(pymdown-extensions)
 replaces=(pymdown-extensions)
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('5294296e41293be7cca0dc7b92dfc64703a12bb5e6b1a12eef6155a2786c796b')
+sha256sums=('e8051f309565e5d7abd09c5f5a1cd015eb8abcffe0538faa8ed8a957ba3ba508')
 
 build() {
   cd ${pkgname#python-}-$pkgver
