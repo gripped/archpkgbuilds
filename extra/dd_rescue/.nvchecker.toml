@@ -1,0 +1,16 @@
+# This is ugly but more reliable - upstream's tags are messy and nvchecker is
+# difficult to get happy with sorting.
+[dd_rescue]
+source = "regex"
+url = "https://www.garloff.de/kurt/linux/ddrescue/"
+regex = "Latest version is (.*) .*"
+
+# Attempts at making this work are welcome!
+#[dd_rescue]
+#source = "git"
+#git = "https://git.code.sf.net/p/ddrescue/code"
+#include_regex = "DD_RESCUE_.*"
+#exclude_regex = ".*_(FINAL|PRE|PRE2|PRE3|ALMOST)"
+#prefix = "DD_RESCUE_"
+#from_pattern = "_"
+#to_pattern = "."
