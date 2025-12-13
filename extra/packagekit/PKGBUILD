@@ -3,8 +3,8 @@
 
 pkgbase='packagekit'
 pkgname=('packagekit' 'libpackagekit-glib')
-pkgver=1.3.2
-pkgrel=2
+pkgver=1.3.3
+pkgrel=1
 pkgdesc='A system designed to make installation and updates of packages easier'
 arch=('x86_64')
 url='https://www.freedesktop.org/software/PackageKit/'
@@ -24,13 +24,7 @@ validpgpkeys=('163EB50119225DB3DF8F49EA17ACBA8DFA970E17'  # Richard Hughes <rich
               'EC60AABDF42AAE8FB062640480858FA38F62AF74'  # Kalev Lember <klember@redhat.com>
               'D33A3F0CA16B0ACC51A60738494C8A5FBF4DECEB') # Matthias Klumpp <matthias@tenstral.net>
 source=("git+https://github.com/PackageKit/PackageKit.git#tag=v${pkgver}?signed")
-sha256sums=('3a4674c2eb55b0bc9760bfbefdf0e6f6340cae72f4b20cd592d1396dc3086cde')
-
-prepare() {
-	cd PackageKit
-	# Backport pkcon get-update-detail segfault https://github.com/PackageKit/PackageKit/pull/907
-	git cherry-pick -n ca55974b867e3d52facd3a8ae485157bcfbcfc2b
-}
+sha256sums=('3de2ebe480678b453a8f79fce6e9b8217f74afa9b46dc194c2681ad1302f7435')
 
 build() {
         local _meson_options=(
