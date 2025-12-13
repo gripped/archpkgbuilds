@@ -1,9 +1,10 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Maintainer: Laurent Carlier <lordheavym@gmail.com>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgbase=vulkan-docs
 pkgname=(vulkan-html-docs)
-pkgver=1.4.328
+pkgver=1.4.335
 pkgrel=1
 epoch=1
 pkgdesc="Vulkan and Vulkan SC API Documentation"
@@ -32,7 +33,7 @@ makedepends=(
 )
 groups=(vulkan-devel)
 source=("git+https://github.com/KhronosGroup/Vulkan-Docs#tag=v$pkgver")
-b2sums=('73955b21e8a75abd583e4f84376250b19d5f44dfa376e55149d98819f995a4755ab9ce395ae31eecf8dca021001b1cbbd8ff992da4c92894a2ef15d1cf470ed5')
+b2sums=('83322610761bd19815052dd37528c0157ff399292055b354759b20c609e99b9cf32d17ae055567f5554f52973b9c12881d0178d82d2ce9d52caeb254a32d7cb3')
 
 prepare() {
   local gems=(
