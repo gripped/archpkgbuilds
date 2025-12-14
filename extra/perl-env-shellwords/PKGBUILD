@@ -2,7 +2,7 @@
 
 pkgname=perl-env-shellwords
 pkgver=0.02
-pkgrel=10
+pkgrel=11
 pkgdesc="Environment variables for arguments as array"
 arch=('any')
 license=('PerlArtistic')
