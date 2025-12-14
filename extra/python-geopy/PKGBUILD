@@ -3,7 +3,7 @@
 _name=geopy
 pkgname=python-geopy
 pkgver=2.4.1
-pkgrel=4
+pkgrel=5
 pkgdesc="Geocoding library for Python"
 arch=(any)
 url="https://github.com/geopy/geopy"
