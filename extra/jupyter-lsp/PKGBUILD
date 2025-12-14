@@ -3,7 +3,7 @@
 
 pkgname=jupyter-lsp
 pkgver=2.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Multi-Language Server WebSocket proxy for Jupyter Notebook/Lab server."
 arch=(any)
 url="https://github.com/jupyter-lsp/jupyterlab-lsp"
@@ -67,12 +67,6 @@ check(){
     "test_session.py::test_start_known[vscode-css-languageserver-bin]"
     "test_session.py::test_start_known[vscode-html-languageserver-bin]"
     "test_session.py::test_start_known[vscode-json-languageserver-bin]"
-    # FIXME: these should not fail
-    "test_listener.py::test_listeners[jedi-language-server]"
-    "test_listener.py::test_listeners[typescript-language-server]"
-    "test_listener.py::test_listeners[yaml-language-server]"
-    "test_listener.py::test_listeners[pylsp]" # - assert 2 == 1
-    "test_listener.py::test_listeners[texlab]" # - assert 2 ...
   )
   PYTHONPATH="$PWD/build/lib" pytest $(printf -- "--deselect jupyter_lsp/tests/%s " "${deselected_tests[@]}")
 }
