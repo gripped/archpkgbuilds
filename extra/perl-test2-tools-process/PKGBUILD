@@ -2,7 +2,7 @@
 
 pkgname=perl-test2-tools-process
 pkgver=0.07
-pkgrel=6
+pkgrel=7
 pkgdesc="Unit tests for code that calls exit, exec, system or qx()"
 arch=('any')
 license=('PerlArtistic')
