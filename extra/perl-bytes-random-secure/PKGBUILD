@@ -2,7 +2,7 @@
 
 pkgname=perl-bytes-random-secure
 pkgver=0.29
-pkgrel=14
+pkgrel=15
 pkgdesc='Perl extension to generate cryptographically-secure random bytes.'
 arch=(any)
 license=(PerlArtistic GPL)
