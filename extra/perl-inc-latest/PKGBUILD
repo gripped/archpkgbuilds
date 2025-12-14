@@ -2,7 +2,7 @@
 
 pkgname=perl-inc-latest
 pkgver=0.500
-pkgrel=14
+pkgrel=15
 pkgdesc="Build, test, and install Perl modules"
 arch=('any')
 url="https://github.com/dagolden/inc-latest"
