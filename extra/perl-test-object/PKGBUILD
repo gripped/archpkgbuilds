@@ -2,7 +2,7 @@
 
 pkgname=perl-test-object
 pkgver=0.08
-pkgrel=9
+pkgrel=10
 pkgdesc="Thoroughly testing objects via registered handlers"
 arch=('any')
 license=('PerlArtistic')
