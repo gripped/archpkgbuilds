@@ -3,7 +3,7 @@
 _perlmod=pod2pdf
 pkgname=perl-$_perlmod
 pkgver=0.42
-pkgrel=2
+pkgrel=3
 pkgdesc="Converts Pod to PDF format"
 arch=('any')
 url="https://metacpan.org/release/pod2pdf"
