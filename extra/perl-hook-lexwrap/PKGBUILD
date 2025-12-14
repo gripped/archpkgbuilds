@@ -2,7 +2,7 @@
 
 pkgname=perl-hook-lexwrap
 pkgver=0.26
-pkgrel=9
+pkgrel=10
 pkgdesc="Lexically-scoped resource management"
 arch=('any')
 license=('PerlArtistic')
