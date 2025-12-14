@@ -5,7 +5,7 @@
 pkgname='perl-number-compare'
 _dist="Number-Compare"
 pkgver=0.03
-pkgrel=16
+pkgrel=17
 pkgdesc="numeric comparisons for human file sizes"
 arch=('any')
 license=('PerlArtistic' 'GPL')
