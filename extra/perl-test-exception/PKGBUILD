@@ -3,7 +3,7 @@
 
 pkgname=perl-test-exception
 pkgver=0.43
-pkgrel=12
+pkgrel=13
 pkgdesc="Perl/CPAN Module Test::Exception : Functions for testing exceptionbased code"
 arch=("any")
 url="https://search.cpan.org/dist/Test-Exception/"
@@ -11,6 +11,7 @@ license=("GPL" "PerlArtistic")
 depends=("perl-sub-uplevel")
 source=("https://search.cpan.org/CPAN/authors/id/E/EX/EXODIST/Test-Exception-$pkgver.tar.gz")
 sha256sums=('156b13f07764f766d8b45a43728f2439af81a3512625438deab783b7883eb533')
+options=(!emptydirs)
 
 build() {
   cd "$srcdir"/Test-Exception-$pkgver
