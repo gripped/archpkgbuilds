@@ -4,7 +4,7 @@
 pkgname=perl-algorithm-diff
 epoch=1
 pkgver=1.201
-pkgrel=7
+pkgrel=8
 pkgdesc="Perl/CPAN Module Algorithm::Diff : Diff also Longest Common Subsequence"
 arch=("any")
 url="https://search.cpan.org/dist/Algorithm-Diff"
@@ -12,6 +12,7 @@ license=("GPL" "PerlArtistic")
 depends=(perl)
 source=("https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Algorithm-Diff-$pkgver.tar.gz")
 sha256sums=('0022da5982645d9ef0207f3eb9ef63e70e9713ed2340ed7b3850779b0d842a7d')
+options=(!emptydirs)
 
 build() {
   cd "$srcdir"/Algorithm-Diff-$pkgver
