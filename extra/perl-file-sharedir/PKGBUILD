@@ -4,7 +4,7 @@
 pkgname=perl-file-sharedir
 _dist=File-ShareDir
 pkgver=1.118
-pkgrel=7
+pkgrel=8
 pkgdesc="Locate per-dist and per-module shared files"
 url="https://metacpan.org/dist/$_dist"
 arch=(any)
