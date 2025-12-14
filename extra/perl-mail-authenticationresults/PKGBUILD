@@ -4,7 +4,7 @@
 pkgname=perl-mail-authenticationresults
 _pkgname=Mail-AuthenticationResults
 pkgver=2.20250709
-pkgrel=2
+pkgrel=3
 pkgdesc='Object Oriented Authentication-Results Headers'
 arch=(any)
 url='https://metacpan.org/release/Mail-AuthenticationResults'
