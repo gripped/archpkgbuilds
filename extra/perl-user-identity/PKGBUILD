@@ -4,13 +4,14 @@
 
 pkgname=perl-user-identity
 pkgver=4.00
-pkgrel=1
+pkgrel=2
 pkgdesc="Perl/CPAN Module User::Identity : Define a person"
 arch=("any")
 url="https://search.cpan.org/~markov/User-Identity/"
 license=("GPL" "PerlArtistic")
 source=("https://www.cpan.org/authors/id/M/MA/MARKOV/User-Identity-$pkgver.tar.gz")
 sha256sums=('46ec55c4b2c158fb9e3bd5c63aaa10695fee8508ef4ec958774dd8eaccab3847')
+options=(!emptydirs)
 
 build() {
   cd "$srcdir"/User-Identity-$pkgver
