@@ -3,7 +3,7 @@
 
 pkgname=perl-module-pluggable
 pkgver=6.3
-pkgrel=2
+pkgrel=3
 pkgdesc='automatically give your module the ability to have plugins'
 arch=('any')
 license=('PerlArtistic' 'GPL')
