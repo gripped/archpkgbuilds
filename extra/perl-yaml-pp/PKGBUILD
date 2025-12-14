@@ -1,7 +1,7 @@
 # Maintainer: Ash Berlin-Taylor <ash_archlinux@firemirror.com>
 pkgname='perl-yaml-pp'
 pkgver=0.39.0
-pkgrel=2
+pkgrel=3
 _distdir="YAML-PP-v$pkgver"
 pkgdesc="Simple configuration automation"
 arch=('any')
