@@ -4,7 +4,7 @@
 
 pkgname=perl-test-file
 pkgver=1.995
-pkgrel=2
+pkgrel=3
 pkgdesc="A collection of test utilities for file attributes."
 arch=('any')
 url='https://github.com/briandfoy/test-file'
