@@ -2,7 +2,7 @@
 
 pkgname=perl-ppix-utilities
 pkgver=1.001000
-pkgrel=9
+pkgrel=10
 pkgdesc="Extensions to L<PPI|PPI>"
 arch=('any')
 license=('PerlArtistic')
