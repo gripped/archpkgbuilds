@@ -1,7 +1,52 @@
-diff --git i/tests/test_async_recorder.py w/tests/test_async_recorder.py
-index 96a2fb9..d53a54c 100644
---- i/tests/test_async_recorder.py
-+++ w/tests/test_async_recorder.py
+diff --git a/tests/test_async_local_storage.py b/tests/test_async_local_storage.py
+index d54e6cc..5724a36 100644
+--- a/tests/test_async_local_storage.py
++++ b/tests/test_async_local_storage.py
+@@ -5,8 +5,9 @@ import sys
+ from aws_xray_sdk.core.async_context import TaskLocalStorage
+ 
+ 
+-def test_localstorage_isolation(event_loop):
+-    local_storage = TaskLocalStorage(loop=event_loop)
++def test_localstorage_isolation():
++    loop = asyncio.get_event_loop()
++    local_storage = TaskLocalStorage(loop=loop)
+ 
+     async def _test():
+         """
+@@ -23,7 +24,7 @@ def test_localstorage_isolation(event_loop):
+             if sys.version_info >= (3, 8):
+                 await asyncio.sleep(0.0)
+             else:
+-                await asyncio.sleep(0.0, loop=event_loop)
++                await asyncio.sleep(0.0, loop=loop)
+ 
+             current_random_int = local_storage.randint
+             assert random_int == current_random_int
+@@ -34,14 +35,14 @@ def test_localstorage_isolation(event_loop):
+ 
+     # Run loads of concurrent tasks
+     if sys.version_info >= (3, 8):
+-        results = event_loop.run_until_complete(
+-            asyncio.wait([event_loop.create_task(_test()) for _ in range(0, 100)])
++        results = loop.run_until_complete(
++            asyncio.wait([loop.create_task(_test()) for _ in range(0, 100)])
+         )
+     else:
+-        results = event_loop.run_until_complete(
++        results = loop.run_until_complete(
+             asyncio.wait(
+-                [event_loop.create_task(_test()) for _ in range(0, 100)],
+-                loop=event_loop,
++                [loop.create_task(_test()) for _ in range(0, 100)],
++                loop=loop,
+             )
+         )
+     results = [item.result() for item in results[0]]
+diff --git a/tests/test_async_recorder.py b/tests/test_async_recorder.py
+index 96a2fb9..2e72e6f 100644
+--- a/tests/test_async_recorder.py
++++ b/tests/test_async_recorder.py
 @@ -4,6 +4,7 @@ from .util import get_new_stubbed_recorder
  from aws_xray_sdk.version import VERSION
  from aws_xray_sdk.core.async_context import AsyncContext
@@ -10,27 +55,45 @@ index 96a2fb9..d53a54c 100644
  
  
  xray_recorder = get_new_stubbed_recorder()
-@@ -19,6 +20,7 @@ async def async_method():
+@@ -19,9 +20,11 @@ async def async_method():
      await async_method2()
  
  
+-async def test_capture(event_loop):
 +@pytest.mark.asyncio
- async def test_capture(event_loop):
++async def test_capture():
++    loop = asyncio.get_running_loop()
      xray_recorder.configure(
-         service='test', sampling=False, context=AsyncContext(loop=event_loop)
-@@ -46,6 +48,7 @@ async def test_capture(event_loop):
+-        service='test', sampling=False, context=AsyncContext(loop=event_loop)
++        service='test', sampling=False, context=AsyncContext(loop=loop)
+     )
+ 
+     segment = xray_recorder.begin_segment('name')
+@@ -46,9 +49,11 @@ async def test_capture(event_loop):
      assert platform.python_implementation() == service.get('runtime')
      assert platform.python_version() == service.get('runtime_version')
  
+-async def test_concurrent_calls(event_loop):
 +@pytest.mark.asyncio
- async def test_concurrent_calls(event_loop):
++async def test_concurrent_calls():
++    loop = asyncio.get_running_loop()
      xray_recorder.configure(
-         service='test', sampling=False, context=AsyncContext(loop=event_loop)
-@@ -71,6 +74,7 @@ async def test_concurrent_calls(event_loop):
+-        service='test', sampling=False, context=AsyncContext(loop=event_loop)
++        service='test', sampling=False, context=AsyncContext(loop=loop)
+     )
+     async with xray_recorder.in_segment_async('segment') as segment:
+         global counter
+@@ -71,9 +76,11 @@ async def test_concurrent_calls(event_loop):
              assert subseg_parent_id == segment.id
  
  
+-async def test_async_context_managers(event_loop):
 +@pytest.mark.asyncio
- async def test_async_context_managers(event_loop):
++async def test_async_context_managers():
++    loop = asyncio.get_running_loop()
      xray_recorder.configure(
-         service='test', sampling=False, context=AsyncContext(loop=event_loop)
+-        service='test', sampling=False, context=AsyncContext(loop=event_loop)
++        service='test', sampling=False, context=AsyncContext(loop=loop)
+     )
+ 
+     async with xray_recorder.in_segment_async('segment') as segment:
