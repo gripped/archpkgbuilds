@@ -2,7 +2,7 @@
 
 pkgname=perl-test-needs
 pkgver=0.002010
-pkgrel=5
+pkgrel=6
 pkgdesc="Skip tests when modules not available"
 arch=('any')
 license=('PerlArtistic')
