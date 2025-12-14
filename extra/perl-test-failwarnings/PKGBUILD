@@ -2,7 +2,7 @@
 
 pkgname=perl-test-failwarnings
 pkgver=0.008
-pkgrel=10
+pkgrel=11
 pkgdesc='Add test failures if warnings are caught'
 arch=(any)
 license=(PerlArtistic GPL)
