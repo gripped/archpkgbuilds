@@ -3,11 +3,11 @@
 
 pkgname=pppusage
 pkgver=0.2.5
-pkgrel=17
+pkgrel=18
 pkgdesc="Utility to monitor pppd connections"
 arch=(any)
 url="https://www.jhweiss.de/software/pppusage.html"
-license=("GPL")
+license=("BSD-3-Clause")
 depends=(perl ppp cron)
 makedepends=()
 backup=(etc/pppusagerc)
@@ -16,6 +16,7 @@ source=(https://arch.p5n.pp.ru/~sergej/dl/2012/pppusage-$pkgver.tar.gz
         build-fix.patch)
 sha256sums=('24d0390671ba000ddae2cc56b62064fcc55d5868693c46b116244de6c01233b8'
             '71918a98d4ff834437eed110ea81215ddf04d18bdce2939c2170148ba29f086e')
+options=(!emptydirs)
 
 build() {
   cd "$srcdir"/pppusage-$pkgver

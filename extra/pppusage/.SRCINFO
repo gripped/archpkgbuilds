@@ -1,13 +1,14 @@
 pkgbase = pppusage
 	pkgdesc = Utility to monitor pppd connections
 	pkgver = 0.2.5
-	pkgrel = 17
+	pkgrel = 18
 	url = https://www.jhweiss.de/software/pppusage.html
 	arch = any
-	license = GPL
+	license = BSD-3-Clause
 	depends = perl
 	depends = ppp
 	depends = cron
+	options = !emptydirs
 	backup = etc/pppusagerc
 	source = https://arch.p5n.pp.ru/~sergej/dl/2012/pppusage-0.2.5.tar.gz
 	source = build-fix.patch
