@@ -3,7 +3,7 @@
 
 pkgname=perl-term-progressbar
 pkgver=2.23
-pkgrel=5
+pkgrel=6
 pkgdesc="Perl/CPAN Module Term::ProgressBar : Progress bar in just ASCII  using Term"
 arch=("any")
 url="https://search.cpan.org/dist/Term-ProgressBar"
@@ -11,6 +11,7 @@ license=("GPL" "PerlArtistic")
 depends=("perl-class-methodmaker" "perl-term-readkey")
 source=("https://search.cpan.org/CPAN/authors/id/M/MA/MANWAR/Term-ProgressBar-$pkgver.tar.gz")
 sha256sums=('defc03fb9f4ac1c9df1359d312bff3c0865ddefbf3aba64cd42a69a86215d49d')
+options=(!emptydirs)
 
 build() {
   cd "$srcdir"/Term-ProgressBar-$pkgver
