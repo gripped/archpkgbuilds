@@ -2,7 +2,7 @@
 
 pkgname=hypercorn
 pkgver=0.17.3
-pkgrel=5
+pkgrel=6
 pkgdesc='An ASGI Server based on Hyper libraries and inspired by Gunicorn'
 url=https://github.com/pgjones/hypercorn
 arch=(any)
