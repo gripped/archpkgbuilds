@@ -2,8 +2,8 @@
 
 pkgname=syd
 _pkgname=sydbox
-pkgver=3.45.2
-pkgrel=3
+pkgver=3.46.0
+pkgrel=1
 pkgdesc="Seccomp and landlock based application sandbox with support for namespaces"
 url="https://gitlab.exherbo.org/sydbox/sydbox"
 arch=('x86_64')
@@ -14,20 +14,16 @@ optdepends=("syd-tui: Syd's Terminal User Interface"
             "pandora_box: Syd's log inspector & profile writer")
 provides=("${_pkgname}")
 source=("git+${url}.git#tag=v${pkgver}?signed")
-sha256sums=('29068cded72616b6e3fd01555ac14e7019cdeef06a18e94839b4fb4e08023692')
+sha256sums=('7bfd521348374d0c629405f945beb5b27361da74fd573628e9428bc232c57bba')
 validpgpkeys=('5DF763560390A149AC6C14C7D076A377FB27DE70')
-options=('!lto')
 
 prepare() {
 	cd "${_pkgname}"
-	export RUSTUP_TOOLCHAIN=stable
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
 	cd "${_pkgname}"
-	export RUSTUP_TOOLCHAIN=stable
-	export CARGO_TARGET_DIR=target
 	cargo build --frozen --release --all-features
 
 	find man -type f -name "*.scd" -exec sh -c 'scdoc < "${1}" > "${1%.scd}"' _ {} \;
@@ -35,7 +31,6 @@ build() {
 
 check() {
 	cd "${_pkgname}"
-	export RUSTUP_TOOLCHAIN=stable
 	# "syd_test" and "fs" tests fail with sandbox
 	# "hash" tests seems flaky (they fail on the build server for some reason)
 	# "proc / executables paths [...]" fails if `/usr/lib/libgcc_s.so.1` is not executable (which is shipped by `gcc_libs`)
