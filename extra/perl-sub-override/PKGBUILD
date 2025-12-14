@@ -3,7 +3,7 @@
 pkgname=perl-sub-override
 _cpanname=Sub-Override
 pkgver=0.12
-pkgrel=2
+pkgrel=3
 pkgdesc='Perl extension for easily overriding subroutines'
 url='https://metacpan.org/dist/Sub-Override'
 arch=(any)
