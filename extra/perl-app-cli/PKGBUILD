@@ -3,7 +3,7 @@
 
 pkgname=perl-app-cli
 pkgver=0.52
-pkgrel=7
+pkgrel=8
 pkgdesc="Perl/CPAN Module App::CLI"
 arch=("any")
 url="https://search.cpan.org/dist/App-CLI"
@@ -11,6 +11,7 @@ license=("GPL" "PerlArtistic")
 depends=("perl")
 source=("https://cpan.metacpan.org/authors/id/P/PT/PTC/App-CLI-$pkgver.tar.gz")
 sha256sums=('52bd43f555913cc2ffd6405f9951d2aabd46af63d701d9b5e346a6332709f0ce')
+options=(!emptydirs)
 
 build() {
   cd "$srcdir"/App-CLI-$pkgver
