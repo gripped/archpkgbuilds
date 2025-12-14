@@ -3,7 +3,7 @@
 
 pkgname=perl-term-read-password
 pkgver=0.11
-pkgrel=16
+pkgrel=17
 pkgdesc="lets you ask the user for a password without echoing"
 arch=('any')
 license=('GPL' 'PerlArtistic')
@@ -11,6 +11,7 @@ depends=('perl')
 url="https://search.cpan.org/dist/Term-ReadPassword"
 source=(https://cpan.org/modules/by-module/Term/Term-ReadPassword-$pkgver.tar.gz)
 sha256sums=('e1a866345b35f9ffef7d0037e13d6d4cb280310089f98c20713880bc70fb4323')
+options=(!emptydirs)
 
 build() {
   cd "$srcdir"/Term-ReadPassword-$pkgver
