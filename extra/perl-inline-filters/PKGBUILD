@@ -2,7 +2,7 @@
 
 pkgname=perl-inline-filters
 pkgver=0.20
-pkgrel=9
+pkgrel=10
 pkgdesc="Common source code filters for Inline Modules"
 arch=('any')
 license=('PerlArtistic')
