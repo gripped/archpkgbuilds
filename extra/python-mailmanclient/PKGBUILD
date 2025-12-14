@@ -3,7 +3,7 @@
 _name=mailmanclient
 pkgname=python-mailmanclient
 pkgver=3.3.5
-pkgrel=8
+pkgrel=9
 pkgdesc="Official Python bindings for the GNU Mailman 3 REST API"
 arch=(any)
 url="https://gitlab.com/mailman/mailmanclient"
