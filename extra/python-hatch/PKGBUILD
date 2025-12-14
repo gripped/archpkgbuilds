@@ -4,7 +4,7 @@
 # Contributor: Phillip A. (flying-sheep)
 
 pkgname=python-hatch
-pkgver=1.15.1
+pkgver=1.16.2
 pkgrel=1
 pkgdesc="A modern project, package, and virtual env manager"
 arch=('any')
@@ -12,6 +12,7 @@ url="https://github.com/pypa/hatch"
 license=('MIT')
 depends=(
   'python'
+  'python-backports-zstd'
   'python-click'
   'python-hatchling'
   'python-httpx'
@@ -27,7 +28,6 @@ depends=(
   'python-userpath'
   'python-uv'
   'python-virtualenv'
-  'python-zstandard'
 )
 makedepends=(
   'python-build'
@@ -38,13 +38,14 @@ makedepends=(
 checkdepends=(
   'git'
   'libxcrypt-compat'
+  'python-flit-core'
   'python-pyfakefs'
   'python-pytest'
   'python-pytest-mock'
   'rust'
 )
 source=("$url/archive/hatch-v$pkgver.tar.gz")
-sha256sums=('a32e3dff30f0ca4d510de38a248bcc6125dbd2dac7e8b6435e14a29d6dd3e018')
+sha512sums=('3dacba2258650cd3ae73e09a0163e8663ca2094ae866b3fb242260da00a79fb429f985b17980f7a8abb457d95a0003d8c84b8d62d19ac40531a8683eee78816c')
 
 build() {
   cd hatch-hatch-v$pkgver
