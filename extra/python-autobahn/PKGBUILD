@@ -4,19 +4,19 @@
 
 pkgname=python-autobahn
 # https://github.com/crossbario/autobahn-python/blob/master/docs/changelog.rst
-pkgver=24.4.2
-pkgrel=3
+pkgver=25.10.2
+pkgrel=1
 pkgdesc='Real-time framework for Web, Mobile & Internet of Things'
 arch=(x86_64)
 url='https://github.com/crossbario/autobahn-python/'
 license=(MIT)
-depends=(glibc python python-cffi python-twisted python-txaio python-wsaccel
+depends=(glibc python python-base58 python-cffi python-twisted python-txaio python-wsaccel
          python-cryptography python-hyperlink python-zope-interface)
 makedepends=(git python-build python-installer python-setuptools python-wheel
              python-argon2_cffi python-cbor2 python-flatbuffers
              python-msgpack python-passlib python-pynacl python-pytrie
              python-ubjson
-             python-u-msgpack python-ujson python-qrcode python-pyopenssl
+             python-u-msgpack python-ujson python-qrcode python-pyopenssl python-ecdsa
              python-snappy python-click python-txtorcon)
 checkdepends=(python-pytest python-pytest-asyncio)
 optdepends=(
@@ -32,13 +32,14 @@ optdepends=(
   'python-pytrie: WAMP-cryptobox support'
   'python-qrcode: support QR codes in WAMP'
   'python-pyopenssl: SSL/TLS support'
-  'python-snappy: snappy compression suppport for WebSocket messages'
+  'python-ecdsa: ECDSA signatures'
+  'python-snappy: snappy compression support for WebSocket messages'
   'python-click: for text highlights'
   'python-txtorcon: connections to Tor Onion services'
 )
 
 source=("git+https://github.com/crossbario/autobahn-python.git#tag=v$pkgver")
-sha256sums=('2850e7a45ce0c466a460b09433e23d3a6bba5914fa3596428ca7233ef6815204')
+sha256sums=('68e263cf4c8210dafd0368485ea6831620fea9dba2ae62a417638cdd12fa9e9a')
 
 prepare() {
   cd "$srcdir/autobahn-python"
@@ -47,11 +48,6 @@ prepare() {
   # replaced with -march=nehalem so that the SSE 4.1 implementation is built
   # [1] https://gitlab.archlinux.org/archlinux/rfcs/-/blob/master/rfcs/0002-march.rst
   sed -i "s#, '-march=native'##" autobahn/nvx/_utf8validator.py
-
-  # Backport a commit [1] to fix compatibility with pytest-asyncio 0.24.0, which is stricter about pytest marks [2]
-  # [1] https://github.com/crossbario/autobahn-python/pull/1647
-  # [2] https://github.com/pytest-dev/pytest-asyncio/pull/886
-  git cherry-pick -n 7bc85b34e200640ab98a41cfddb38267f39bc92e
 }
 
 build() {

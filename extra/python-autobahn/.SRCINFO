@@ -1,7 +1,7 @@
 pkgbase = python-autobahn
 	pkgdesc = Real-time framework for Web, Mobile & Internet of Things
-	pkgver = 24.4.2
-	pkgrel = 3
+	pkgver = 25.10.2
+	pkgrel = 1
 	url = https://github.com/crossbario/autobahn-python/
 	arch = x86_64
 	license = MIT
@@ -24,11 +24,13 @@ pkgbase = python-autobahn
 	makedepends = python-ujson
 	makedepends = python-qrcode
 	makedepends = python-pyopenssl
+	makedepends = python-ecdsa
 	makedepends = python-snappy
 	makedepends = python-click
 	makedepends = python-txtorcon
 	depends = glibc
 	depends = python
+	depends = python-base58
 	depends = python-cffi
 	depends = python-twisted
 	depends = python-txaio
@@ -48,10 +50,11 @@ pkgbase = python-autobahn
 	optdepends = python-pytrie: WAMP-cryptobox support
 	optdepends = python-qrcode: support QR codes in WAMP
 	optdepends = python-pyopenssl: SSL/TLS support
-	optdepends = python-snappy: snappy compression suppport for WebSocket messages
+	optdepends = python-ecdsa: ECDSA signatures
+	optdepends = python-snappy: snappy compression support for WebSocket messages
 	optdepends = python-click: for text highlights
 	optdepends = python-txtorcon: connections to Tor Onion services
-	source = git+https://github.com/crossbario/autobahn-python.git#tag=v24.4.2
-	sha256sums = 2850e7a45ce0c466a460b09433e23d3a6bba5914fa3596428ca7233ef6815204
+	source = git+https://github.com/crossbario/autobahn-python.git#tag=v25.10.2
+	sha256sums = 68e263cf4c8210dafd0368485ea6831620fea9dba2ae62a417638cdd12fa9e9a
 
 pkgname = python-autobahn
