@@ -4,7 +4,7 @@
 
 pkgname=perl-par-dist
 pkgver=0.53
-pkgrel=3
+pkgrel=4
 pkgdesc="Perl bindings to create and manipulate PAR distributions"
 arch=('any')
 url="https://search.cpan.org/dist/PAR-Dist/"
