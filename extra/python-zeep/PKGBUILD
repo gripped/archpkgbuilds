@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-zeep
-pkgver=4.3.1
-pkgrel=1
+pkgver=4.3.2
+pkgrel=2
 pkgdesc="A fast and modern Python SOAP client"
 arch=('any')
 license=('MIT')
@@ -14,7 +14,7 @@ checkdepends=('python-pytest' 'python-freezegun' 'python-pretend'
               'python-requests-mock' 'python-pytest-httpx' 'python-pytest-asyncio' 'python-aiohttp'
               'python-aioresponses' 'python-xmlsec')
 source=("https://github.com/mvantellingen/python-zeep/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('2d2724230418966f4a3d3ed1009293f30b8d2e63cb864c0d35e3d10adff48d7779a68790d277b78f3f73fa1f788d94a0a471fa59cf21288ca0de02e06b13381c')
+sha512sums=('371e3905f849fa9544b749ad2d6f84fcbb1fa1aabed8e6c17d2c17555de4fd0b70ab7c750aa14a01134492e7bfc954207f1c4646f7dcf3a9fa8d574da2909e60')
 
 prepare() {
   cd python-zeep-$pkgver
