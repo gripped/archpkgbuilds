@@ -2,7 +2,7 @@
 
 pkgname='perl-class-method-modifiers'
 pkgver=2.15
-pkgrel=5
+pkgrel=6
 pkgdesc="provides Moose-like method modifiers"
 arch=('any')
 license=('PerlArtistic' 'GPL')
