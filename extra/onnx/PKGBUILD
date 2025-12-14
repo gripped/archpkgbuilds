@@ -4,7 +4,7 @@
 pkgbase=onnx
 pkgname=(onnx python-onnx)
 pkgver=1.19.1
-pkgrel=3
+pkgrel=4
 epoch=1
 pkgdesc='Open standard for machine learning interoperability'
 arch=('x86_64')
@@ -18,6 +18,7 @@ makedepends=(
   python
   python-build
   python-installer
+  python-ml-dtypes
   python-numpy
   python-protobuf
   python-setuptools
@@ -73,6 +74,7 @@ depends=(
   gcc-libs
   protobuf
   python-protobuf
+  python-ml-dtypes
   python-numpy
 )
   cd $pkgbase
