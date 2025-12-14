@@ -2,7 +2,7 @@
 
 pkgname=perl-pod-parser
 pkgver=1.67
-pkgrel=3
+pkgrel=4
 pkgdesc="Modules for parsing/translating POD format documents"
 arch=('any')
 license=('PerlArtistic')
