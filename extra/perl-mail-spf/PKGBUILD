@@ -4,7 +4,7 @@
 
 pkgname=perl-mail-spf
 pkgver=3.20250505
-pkgrel=2
+pkgrel=3
 pkgdesc="Perl module that provides SPF support"
 arch=('any')
 license=('custom')
