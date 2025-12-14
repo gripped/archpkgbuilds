@@ -3,7 +3,7 @@
 
 pkgname=python-pytest-subprocess
 pkgver=1.5.3
-pkgrel=2
+pkgrel=3
 pkgdesc='Pytest plugin to fake subprocess'
 arch=('any')
 url='https://github.com/aklajnert/pytest-subprocess'
@@ -28,6 +28,12 @@ checkdepends=(
 )
 source=("git+$url.git#tag=$pkgver")
 sha256sums=('20369ba261a1075824ef57cc5a80e9f2be55cfc2836ce1a45648a085b003aba7')
+
+prepare() {
+  cd "${pkgname#python-}"
+  git cherry-pick -n 153a413fe2d4668cab43384d905294844fecf3ff
+
+}
 
 build() {
   cd "${pkgname#python-}"
