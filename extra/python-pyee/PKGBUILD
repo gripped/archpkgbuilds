@@ -4,7 +4,7 @@
 pkgname=python-pyee
 _name=${pkgname#python-}
 pkgver=13.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Port of node.js's EventEmitter to python"
 arch=(any)
 url=https://github.com/jfhbrook/pyee
@@ -15,6 +15,7 @@ makedepends=(
   python-build
   python-installer
   python-setuptools
+  python-setuptools-scm
   python-wheel
 )
 checkdepends=(
@@ -29,9 +30,14 @@ optdepends=(
 source=(git+https://github.com/jfhbrook/pyee#tag=v$pkgver)
 sha256sums=('d44abfc1549ae13fb1c8b4325aae98aebff07bdc87475232162dc81e22f5700f')
 
+prepare() {
+  # Fix check with python-pytest-asyncio 1.2.0
+  git -C $_name cherry-pick -n 022d42550282e6c10e821f52b45ad5ff9eeb59be
+}
+
 build() {
   cd $_name
-  python -m build --wheel --skip-dependency-check --no-isolation
+  python -m build --wheel --no-isolation
 }
 
 check() {
