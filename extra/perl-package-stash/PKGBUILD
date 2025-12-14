@@ -4,7 +4,7 @@
 
 pkgname=perl-package-stash
 pkgver=0.40
-pkgrel=6
+pkgrel=7
 pkgdesc="Routines for manipulating stashes"
 arch=('any')
 url="https://search.cpan.org/dist/Package-Stash"
