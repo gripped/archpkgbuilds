@@ -4,7 +4,7 @@
 
 pkgname=perl-html-tagset
 pkgver=3.24
-pkgrel=3
+pkgrel=4
 pkgdesc="Data tables useful in parsing HTML"
 arch=('any')
 license=('PerlArtistic')
