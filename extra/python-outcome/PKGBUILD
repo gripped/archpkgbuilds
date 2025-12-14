@@ -2,7 +2,7 @@
 
 pkgname=python-outcome
 pkgver=1.3.0.post0
-pkgrel=5
+pkgrel=6
 pkgdesc='Capture the outcome of Python function calls'
 arch=(any)
 url=https://github.com/python-trio/outcome
