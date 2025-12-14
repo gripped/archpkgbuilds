@@ -2,7 +2,7 @@
 
 pkgname=eartag
 pkgver=1.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple audio file tag editor'
 arch=(any)
 url='https://apps.gnome.org/EarTag/'
@@ -39,6 +39,11 @@ checkdepends=(
 )
 source=("git+https://gitlab.gnome.org/World/eartag.git#tag=$pkgver")
 b2sums=(4bb90a6318b5da577d68a1e5c40faaa1f447fcbb664440c3376f8dfbb126fc3cc8f8db76d136f47e0fe2ddcd569de51c6b1c92a723f57db197d0120fe0643101)
+
+prepare() {
+  # fix python-pytest-asyncio error: '"function"' is not a valid asyncio_default_fixture_loop_scope. Valid scopes are: function, class, module, package, session.
+  sed -i 's|asyncio_default_fixture_loop_scope = "function"|asyncio_default_fixture_loop_scope = function|' $pkgname/pytest.ini
+}
 
 build() {
   arch-meson $pkgname build
