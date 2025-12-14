@@ -3,7 +3,7 @@
 
 pkgname=perl-io-digest
 pkgver=0.11
-pkgrel=12
+pkgrel=13
 pkgdesc="Perl/CPAN Module IO::Digest"
 arch=("any")
 url="https://search.cpan.org/~clkao/IO-Digest/"
@@ -11,6 +11,7 @@ license=("GPL" "PerlArtistic")
 depends=('perl' 'perlio-via-dynamic')
 source=("https://www.cpan.org/authors/id/C/CL/CLKAO/IO-Digest-$pkgver.tar.gz")
 sha256sums=('8ffcf85a7f6213e5e94140adcc2b179ed02498eadc84309457e904dec93f7f92')
+options=(!emptydirs)
 
 build() {
   cd "$srcdir"/IO-Digest-$pkgver
