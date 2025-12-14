@@ -1,20 +1,20 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=chess-tui
-pkgver=2.0.0
+pkgver=2.1.0
 pkgrel=1
 pkgdesc="Play chess in your terminal"
 arch=('x86_64')
 url="https://github.com/thomas-mauran/chess-tui"
 license=('MIT')
-depends=('gcc-libs')
+depends=('gcc-libs' 'alsa-lib')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('2f6abc4aa48229df8f184af910620b84f495ad2653db59c24c37995c7b5d26a64794670ed933f5851ee917e2bfd3198d0e034903e17e48befeffce388ac5d7d3')
+sha512sums=('ee0929c0555f2ec49fa999aff48044262a2c520393673b41c26d042ac3bb2b4cf8eee2e1462f6ab561f19eddb2f2ef9b766f489ff8617877a19a994b3bb9e642')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
