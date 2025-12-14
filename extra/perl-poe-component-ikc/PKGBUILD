@@ -3,7 +3,7 @@
 
 pkgname=perl-poe-component-ikc
 pkgver=0.2402
-pkgrel=12
+pkgrel=13
 pkgdesc="Perl/CPAN Module POE::Component::IKC"
 arch=("any")
 url="https://search.cpan.org/dist/POE-Component-IKC/"
@@ -12,6 +12,7 @@ makedepends=("perl-poe")
 depends=("perl-poe")
 source=("https://www.cpan.org/authors/id/G/GW/GWYN/POE-Component-IKC-$pkgver.tar.gz")
 sha256sums=('87b8696dce1cfa05a6054b8b7a65e733ae88f2ce52bb981743a250b579d0eab6')
+options=(!emptydirs)
 
 build() {
   cd "$srcdir"/POE-Component-IKC-$pkgver
