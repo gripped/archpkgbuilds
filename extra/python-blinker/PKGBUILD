@@ -4,7 +4,7 @@
 
 pkgname=python-blinker
 pkgver=1.9.0
-pkgrel=1
+pkgrel=3
 pkgdesc="Fast, simple object-to-object and broadcast signaling"
 arch=('any')
 url="https://blinker.readthedocs.io"
