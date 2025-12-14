@@ -3,7 +3,7 @@
 
 pkgname=perl-super
 pkgver=1.20190531
-pkgrel=9
+pkgrel=10
 pkgdesc="Control superclass method dispatch"
 arch=('any')
 license=('PerlArtistic' 'GPL')
