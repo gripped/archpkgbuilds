@@ -4,7 +4,7 @@
 pkgname=python-respx
 _pkgname=${pkgname#python-}
 pkgver=0.22.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Mock HTTPX with awesome request patterns and response side effects"
 arch=(any)
 url="https://github.com/lundberg/respx"
