@@ -3,9 +3,9 @@
 
 _name=cupy
 pkgbase=python-cupy
-pkgname=(python-cupy python-cupy-rocm python-cupy-rocm-gfx9)
+pkgname=(python-cupy python-cupy-rocm-gfx9 python-cupy-rocm-gfx10 python-cupy-rocm-gfx11 python-cupy-rocm-gfx12)
 pkgver=13.6.0
-pkgrel=8
+pkgrel=9
 # release tarballs do not contain third-party code, check github for each release
 _cccl_commit=3a388b7b01512d48474b98389a3e776c8d8f817a
 _dlpack_commit=cd0d5e4ff888b388aef4f9b6bd5d9aa5737a020e
@@ -64,9 +64,27 @@ b2sums=('be2eb7cc3cdb80f0ff953be8faeae48641c16526f6f73995c9c8caeccdbf26bc8fdc98b
         'a03479f41e38b1f35c39a14ea8d13ecaec3d57f8f1c12fd37a9d53af8406ba328628493a76882c37cad82d2da441a34142407caf610d480122a072b73bbb1c61'
         'd6f40dda41d2125597cfc3d6a311565c709f7d8d02bde5b671026b25070ea087bd5652ffac96af1bcd95f745fd799a0d8aa732739d4189ae9e51bb2ad488da41')
 
-# Building with over 16 arches fails in linking. Split them to a separate package
-rocm_split_suffix="gfx9"
-rocm_split_targets="gfx900,gfx906:xnack-,gfx908:xnack-,gfx90a:xnack+,gfx90a:xnack-,gfx942,gfx950"
+# Building with over 16 arches fails in linking. Split them to separate packages.
+_rocm_gfx9_targets="gfx900,gfx906:xnack-,gfx908:xnack-,gfx90a:xnack+,gfx90a:xnack-,gfx942,gfx950"
+_rocm_gfx10_targets="gfx1010,gfx1012,gfx1030,gfx1031,gfx1035,gfx1036"
+_rocm_gfx11_targets="gfx1100,gfx1101,gfx1102,gfx1103,gfx1150,gfx1151,gfx1152,gfx1153"
+_rocm_gfx12_targets="gfx1200,gfx1201"
+_rocm_depends=(
+  gcc-libs
+  glibc
+  hip-runtime-amd
+  hipblas
+  hipfft
+  hiprand
+  hipsparse
+  rccl
+  rocblas
+  rocsolver
+  roctracer
+  python
+  python-fastrlock
+  python-numpy
+)
 
 prepare() {
   cd $_name-$pkgver
@@ -86,8 +104,10 @@ prepare() {
   # (most artifacts end up in the build/ directory but .cpp files get generated
   # along the other sources)
   cd "$srcdir"
-  cp -ar $_name-$pkgver $_name-$pkgver-rocm
-  cp -ar $_name-$pkgver $_name-$pkgver-rocm-$rocm_split_suffix
+  cp -ar $_name-$pkgver $_name-$pkgver-rocm-gfx9
+  cp -ar $_name-$pkgver $_name-$pkgver-rocm-gfx10
+  cp -ar $_name-$pkgver $_name-$pkgver-rocm-gfx11
+  cp -ar $_name-$pkgver $_name-$pkgver-rocm-gfx12
 }
 
 build() {
@@ -105,18 +125,31 @@ build() {
   export CUDA_PATH=""
   export CUPY_INSTALL_USE_HIP=1
   export ROCM_HOME=/opt/rocm
-
-  export HCC_AMDGPU_TARGET=$(rocm-supported-gfx -e "${rocm_split_targets}" -d ,)
-  echo "Building for ROCm targets: ${HCC_AMDGPU_TARGET}"
-
-  cd "$srcdir"/$_name-$pkgver-rocm
-  python -m build --wheel --no-isolation
+  # avoid huge amount of warnings
+  HIPCC_COMPILE_FLAGS_APPEND+=" -Wno-unused-result"
 
   # build only gfx9
-  export HCC_AMDGPU_TARGET="${rocm_split_targets}"
+  export HCC_AMDGPU_TARGET="${_rocm_gfx9_targets}"
   echo "Building for ROCm targets: ${HCC_AMDGPU_TARGET}"
+  cd "$srcdir"/$_name-$pkgver-rocm-gfx9
+  python -m build --wheel --no-isolation
 
-  cd "$srcdir"/$_name-$pkgver-rocm-$rocm_split_suffix
+  # build only gfx10
+  export HCC_AMDGPU_TARGET="${_rocm_gfx10_targets}"
+  echo "Building for ROCm targets: ${HCC_AMDGPU_TARGET}"
+  cd "$srcdir"/$_name-$pkgver-rocm-gfx10
+  python -m build --wheel --no-isolation
+
+  # build only gfx11
+  export HCC_AMDGPU_TARGET="${_rocm_gfx11_targets}"
+  echo "Building for ROCm targets: ${HCC_AMDGPU_TARGET}"
+  cd "$srcdir"/$_name-$pkgver-rocm-gfx11
+  python -m build --wheel --no-isolation
+
+  # build only gfx12
+  export HCC_AMDGPU_TARGET="${_rocm_gfx12_targets}"
+  echo "Building for ROCm targets: ${HCC_AMDGPU_TARGET}"
+  cd "$srcdir"/$_name-$pkgver-rocm-gfx12
   python -m build --wheel --no-isolation
 }
 
@@ -140,54 +173,47 @@ package_python-cupy() {
   install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
-package_python-cupy-rocm() {
-  pkgdesc+=" (ROCm gfx10, gfx11 and gfx12 targets)"
-  depends=(
-    gcc-libs
-    glibc
-    hip-runtime-amd
-    hipblas
-    hipfft
-    hiprand
-    hipsparse
-    rccl
-    rocblas
-    rocsolver
-    roctracer
-    python
-    python-fastrlock
-    python-numpy
-  )
+package_python-cupy-rocm-gfx9() {
+  pkgdesc+=" (ROCm gfx9 targets)"
+  depends=(${_rocm_depends[@]})
   conflicts=(python-cupy)
   provides=(python-cupy)
 
-  cd $_name-$pkgver-rocm
+  cd $_name-$pkgver-rocm-gfx9
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
-package_python-cupy-rocm-gfx9() {
-  pkgdesc+=" (ROCm gfx9 targets)"
-  depends=(
-    gcc-libs
-    glibc
-    hip-runtime-amd
-    hipblas
-    hipfft
-    hiprand
-    hipsparse
-    rccl
-    rocblas
-    rocsolver
-    roctracer
-    python
-    python-fastrlock
-    python-numpy
-  )
+package_python-cupy-rocm-gfx10() {
+  pkgdesc+=" (ROCm gfx10 targets)"
+  depends=(${_rocm_depends[@]})
   conflicts=(python-cupy)
   provides=(python-cupy)
 
-  cd $_name-$pkgver-rocm-$rocm_split_suffix
+  cd $_name-$pkgver-rocm-gfx10
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+package_python-cupy-rocm-gfx11() {
+  pkgdesc+=" (ROCm gfx11 targets)"
+  depends=(${_rocm_depends[@]})
+  conflicts=(python-cupy)
+  provides=(python-cupy)
+  replaces=(python-cupy-rocm)
+
+  cd $_name-$pkgver-rocm-gfx11
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+package_python-cupy-rocm-gfx12() {
+  pkgdesc+=" (ROCm gfx12 targets)"
+  depends=(${_rocm_depends[@]})
+  conflicts=(python-cupy)
+  provides=(python-cupy)
+
+  cd $_name-$pkgver-rocm-gfx12
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
