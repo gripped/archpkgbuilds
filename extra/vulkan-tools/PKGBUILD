@@ -2,7 +2,7 @@
 # Maintainer: Laurent Carlier <lordheavym@gmail.com>
 
 pkgname=vulkan-tools
-pkgver=1.4.328.1
+pkgver=1.4.335.0
 pkgrel=1
 pkgdesc="Vulkan tools and utilities"
 url="https://www.vulkan.org/"
@@ -30,7 +30,7 @@ makedepends=(
 )
 groups=(vulkan-devel)
 source=("git+https://github.com/KhronosGroup/Vulkan-Tools#tag=vulkan-sdk-$pkgver")
-b2sums=('68c7c2550e2cc4364fddef560732451631ae373ae415567faabb903481233544de96be2808de9851be1e9aa01411042f13a464adf557cd20c89acd4706c543fc')
+b2sums=('0546f1f888da255ea25624241537916fb28128147095565cf8417f7ab7b142504b24a5e4eb78082f5edbed983f474c83ae43ad108a85e10f73e1e44bdc506f90')
 
 build() {
   local cmake_options=(
