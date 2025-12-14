@@ -2,7 +2,7 @@
 
 pkgname=perl-www-robotrules
 pkgver=6.02
-pkgrel=15
+pkgrel=16
 pkgdesc="Database of robots.txt-derived permissions"
 arch=('any')
 url="https://metacpan.org/release/WWW-RobotRules"
