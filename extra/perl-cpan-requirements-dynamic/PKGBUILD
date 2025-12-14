@@ -3,7 +3,7 @@
 pkgname=perl-cpan-requirements-dynamic
 _pkgname=CPAN-Requirements-Dynamic
 pkgver=0.002
-pkgrel=2
+pkgrel=3
 pkgdesc='Dynamic prerequisites in meta files'
 arch=(any)
 license=(PerlArtistic GPL)
