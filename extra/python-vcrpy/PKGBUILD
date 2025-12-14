@@ -3,7 +3,7 @@
 pkgname=python-vcrpy
 _name="${pkgname#python-}"
 pkgver=7.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Automatically mock your HTTP interactions to simplify and speed up testing'
 arch=('any')
 license=('MIT')
@@ -24,6 +24,7 @@ check() {
     -vv
     # we don't want to download the internet
     --ignore tests/integration
+    -m 'not online'
   )
 
   cd $_name-$pkgver
