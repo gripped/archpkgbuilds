@@ -2,7 +2,7 @@
 # https://github.com/orhun/pkgbuilds
 
 pkgname=treemd
-pkgver=0.5.2
+pkgver=0.5.3
 pkgrel=1
 pkgdesc="A markdown navigator with tree-based structural navigation"
 arch=('x86_64')
@@ -11,11 +11,11 @@ license=('MIT')
 depends=('gcc-libs' 'oniguruma')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('096b9f17a5801f7d2e1ab9ebc4dd4eb63e70d5f587a3dfe067fd53fef8cffb12')
+sha256sums=('e30ce75a7cfe0095302295b034553052e5b1e56af782d615f211fb59975c30d4')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
