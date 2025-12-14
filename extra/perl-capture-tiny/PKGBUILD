@@ -4,7 +4,7 @@
 pkgname=perl-capture-tiny
 _dist=Capture-Tiny
 pkgver=0.50
-pkgrel=3
+pkgrel=4
 pkgdesc="Capture STDOUT and STDERR from Perl, XS or external programs"
 url="https://metacpan.org/dist/$_dist"
 arch=(any)
