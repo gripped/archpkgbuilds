@@ -3,7 +3,7 @@
 
 pkgname=perl-parse-yapp
 pkgver=1.21
-pkgrel=9
+pkgrel=10
 pkgdesc="Perl/CPAN Module Parse::Yapp : Generates OO LALR parser modules"
 arch=("any")
 url="https://search.cpan.org/dist/Parse-Yapp"
@@ -11,6 +11,7 @@ license=("GPL" "PerlArtistic")
 depends=('perl')
 source=("https://cpan.metacpan.org/authors/id/W/WB/WBRASWELL/Parse-Yapp-$pkgver.tar.gz")
 sha256sums=('3810e998308fba2e0f4f26043035032b027ce51ce5c8a52a8b8e340ca65f13e5')
+options=(!emptydirs)
 
 build() {
   cd "$srcdir"/Parse-Yapp-$pkgver
