@@ -3,7 +3,7 @@
 
 pkgname=perl-datetime-format-ical
 pkgver=0.09
-pkgrel=15
+pkgrel=16
 pkgdesc="Perl/CPAN Module DateTime::Format::ICal"
 arch=("any")
 url="https://search.cpan.org/dist/DateTime-Format-ICal"
@@ -12,6 +12,7 @@ depends=("perl-datetime-timezone" "perl-datetime-event-ical" "perl-datetime" "pe
 makedepends=(perl-module-build)
 source=("https://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/DateTime-Format-ICal-$pkgver.tar.gz")
 sha256sums=('8b09f6539f5e9c0df0e6135031699ed4ef9eef8165fc80aefeecc817ef997c33')
+options=(!emptydirs)
 
 build() {
   cd "$srcdir"/DateTime-Format-ICal-$pkgver
