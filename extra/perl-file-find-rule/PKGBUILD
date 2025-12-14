@@ -5,7 +5,7 @@
 pkgname='perl-file-find-rule'
 _dist="File-Find-Rule"
 pkgver=0.35
-pkgrel=2
+pkgrel=3
 pkgdesc="Alternative interface to File::Find"
 arch=('any')
 license=('PerlArtistic' 'GPL')
