@@ -4,7 +4,7 @@
 
 pkgname=perl-mime-base32
 pkgver=1.303
-pkgrel=12
+pkgrel=13
 pkgdesc="Base32 encoder / decoder"
 arch=('any')
 license=('PerlArtistic' 'GPL')
