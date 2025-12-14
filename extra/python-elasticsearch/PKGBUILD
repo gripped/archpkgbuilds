@@ -4,7 +4,7 @@
 pkgname=python-elasticsearch
 _pkgname=elasticsearch-py
 pkgver=9.2.0
-pkgrel=1
+pkgrel=2
 arch=(any)
 pkgdesc="Official Python client for Elasticsearch"
 url="https://github.com/elastic/elasticsearch-py"
