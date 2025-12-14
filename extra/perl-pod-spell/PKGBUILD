@@ -2,7 +2,7 @@
 
 pkgname=perl-pod-spell
 pkgver=1.26
-pkgrel=5
+pkgrel=6
 pkgdesc="A formatter for spellchecking Pod"
 arch=('any')
 license=('PerlArtistic')
