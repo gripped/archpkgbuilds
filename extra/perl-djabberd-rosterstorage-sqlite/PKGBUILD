@@ -2,7 +2,7 @@
 
 pkgname=perl-djabberd-rosterstorage-sqlite
 pkgver=1.00
-pkgrel=15
+pkgrel=16
 pkgdesc="DJabberd sqlite roster storage module"
 arch=("any")
 url="https://search.cpan.org/~bradfitz/DJabberd-RosterStorage-SQLite/"
@@ -10,6 +10,7 @@ license=("GPL" "PerlArtistic")
 source=("https://search.cpan.org/CPAN/authors/id/B/BR/BRADFITZ/DJabberd-RosterStorage-SQLite-$pkgver.tar.gz")
 depends=("perl-djabberd" "perl-dbd-sqlite")
 sha256sums=('f3764cebfb8d242f82eee3a99474d2cb1ee766ab9ffc1fc91023c787fbc31a69')
+options=(!emptydirs)
 
 build() {
   cd "$srcdir"/DJabberd-RosterStorage-SQLite-$pkgver
