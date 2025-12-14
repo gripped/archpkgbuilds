@@ -4,7 +4,7 @@
 _pyname=fakeredis
 pkgname=python-fakeredis
 pkgver=2.32.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Fake implementation of redis API (redis-py) for testing purposes'
 arch=(any)
 url="https://github.com/dsoftwareinc/$_pyname-py"
