@@ -3,7 +3,7 @@
 
 pkgname=perl-datetime-cron-simple
 pkgver=0.3
-pkgrel=3
+pkgrel=4
 pkgdesc="Perl/CPAN Module DateTime::Cron::Simple"
 arch=("any")
 url="https://search.cpan.org/~bits/DateTime-Cron-Simple/"
@@ -11,6 +11,7 @@ license=("GPL" "PerlArtistic")
 depends=('perl-datetime')
 source=("https://cpan.metacpan.org/authors/id/F/FE/FERREIRA/DateTime-Cron-Simple-$pkgver.tar.gz")
 sha256sums=('9c90c4a5652a809d7b92e532358ec119f17508ea4b3ec131cd35d8b1c51606f2')
+options=(!emptydirs)
 
 build() {
   cd "$srcdir"/DateTime-Cron-Simple-$pkgver
