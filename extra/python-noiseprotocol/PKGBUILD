@@ -4,7 +4,7 @@
 _pyname=noiseprotocol
 pkgname=python-noiseprotocol
 pkgver=0.3.1
-pkgrel=3
+pkgrel=4
 pkgdesc='A Python implementation of Noise Protocol Framework'
 arch=(any)
 url="https://github.com/plizonczyk/$_pyname"
