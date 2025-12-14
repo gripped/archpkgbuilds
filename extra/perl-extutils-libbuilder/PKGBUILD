@@ -3,7 +3,7 @@
 pkgname='perl-extutils-libbuilder'
 _dist="ExtUtils-LibBuilder"
 pkgver=0.09
-pkgrel=2
+pkgrel=3
 pkgdesc="A tools to build C libraries"
 arch=('any')
 license=('PerlArtistic' 'GPL')
