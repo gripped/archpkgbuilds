@@ -4,7 +4,7 @@
 
 pkgname=perl-list-moreutils
 pkgver=0.430
-pkgrel=7
+pkgrel=8
 pkgdesc="Provide the stuff missing in List::Util"
 arch=('any')
 license=('PerlArtistic' 'GPL')
