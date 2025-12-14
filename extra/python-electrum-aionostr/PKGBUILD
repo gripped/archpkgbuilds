@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-electrum-aionostr
-pkgver=0.0.11
+pkgver=0.1.0
 pkgrel=1
 pkgdesc="Asyncio nostr client for Python"
 arch=('any')
@@ -28,7 +28,7 @@ checkdepends=(
 )
 optdepends=('python-click: for command line interface')
 source=("git+$url.git#tag=$pkgver?signed")
-sha512sums=('c6de0fd510aaf04e3daee540e263faa64e6fb19aab00411cca25aa1fe2ee15cf98186192683e42b131d9af19d7a430db5929037a54aea0ff4c64a9dcb5ae5b7f')
+sha512sums=('4ad43fcb8766062d889f477697a9bc9c50e3aed6dbdac63a0eab49b6c545c7d66fa05e6576ab09b708f0b5e9279a833a01a272c5fa8e84fce8dce63831c0f433')
 validpgpkeys=('4AD64339DFA05E20B3F6AD51E7B748CDAF5E5ED9') # SomberNight <somber.night@protonmail.com>
 
 build() {
