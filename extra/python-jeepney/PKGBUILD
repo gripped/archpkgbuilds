@@ -5,7 +5,7 @@
 pkgname=python-jeepney
 pkgver=0.9.0
 _pkgver=${pkgver%.0}
-pkgrel=1
+pkgrel=2
 pkgdesc="Low-level, pure Python DBus protocol wrapper"
 arch=('any')
 url="https://gitlab.com/takluyver/jeepney"
