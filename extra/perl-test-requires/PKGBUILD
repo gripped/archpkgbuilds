@@ -4,7 +4,7 @@
 
 pkgname=perl-test-requires
 pkgver=0.11
-pkgrel=8
+pkgrel=9
 pkgdesc="Checks to see if the module can be loaded"
 arch=('any')
 license=('PerlArtistic' 'GPL')
