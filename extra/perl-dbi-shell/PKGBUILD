@@ -3,7 +3,7 @@
 
 pkgname=perl-dbi-shell
 pkgver=11.98
-pkgrel=2
+pkgrel=3
 pkgdesc="Perl/CPAN Module DBI::Shell"
 arch=("any")
 url="https://search.cpan.org/dist/DBI-Shell"
@@ -12,6 +12,7 @@ makedepends=("perl-text-reform" "perl-io-tee")
 depends=("perl-text-reform" "perl-io-tee")
 source=("https://www.cpan.org/authors/id/D/DL/DLAMBLEY/DBI-Shell-$pkgver.tar.gz")
 sha256sums=('e931c3287ad523321e142ca89c629c3bcc82e29e5758401553efaa2486bc55d3')
+options=(!emptydirs)
 
 build() {
   cd "$srcdir"/DBI-Shell-$pkgver
