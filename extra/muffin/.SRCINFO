@@ -1,10 +1,11 @@
 pkgbase = muffin
 	pkgdesc = Cinnamon window manager based on Mutter
-	pkgver = 6.4.1
+	pkgver = 6.6.0
 	pkgrel = 1
 	url = https://github.com/linuxmint/muffin
 	arch = x86_64
 	license = GPL
+	makedepends = git
 	makedepends = meson
 	makedepends = intltool
 	makedepends = gobject-introspection
@@ -23,8 +24,8 @@ pkgbase = muffin
 	depends = pipewire
 	depends = xorg-xwayland
 	options = !emptydirs
-	source = https://github.com/linuxmint/muffin/archive/6.4.1/muffin-6.4.1.tar.gz
-	sha256sums = 3c4ef0139d9bbaf7ac17f39dd06b6397c175614a2eb6c55d463024a457293808
-	b2sums = bc77af9f56fce5c50cfa28e468a260876520a3d9e5bfa445af2b16e118b9306973a0632dadf3b7456a2131a6fd01616e2056a5f1799e787ae10777577ffe0ae3
+	source = git+https://github.com/linuxmint/muffin#tag=6.6.0
+	sha256sums = 501c947d642f3bdf685f770f720dc53cf193c196fe5492af9801a1f727e522b3
+	b2sums = 8b37b81e4287926234adab6d01953a87df164bce3ce8d99ef9de86492dd77fadf18576af7226e222cbef8376c9b4830b44a16d6b9a1755861031d0e06c2816e4
 
 pkgname = muffin
