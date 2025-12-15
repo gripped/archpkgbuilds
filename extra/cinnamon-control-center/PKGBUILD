@@ -6,7 +6,7 @@
 # Jan de Groot <jgc@archlinux.org>
 
 pkgname=cinnamon-control-center
-pkgver=6.4.2
+pkgver=6.6.0
 pkgrel=1
 pkgdesc="The Control Center for Cinnamon"
 arch=(x86_64)
@@ -17,19 +17,19 @@ depends=(cinnamon-settings-daemon cinnamon-menus colord
 optdepends=('cinnamon-translations: i18n'
             'gnome-color-manager: for color management tasks'
             'gnome-online-accounts: for the online accounts module')
-makedepends=(meson samurai gnome-online-accounts glib2-devel)
+makedepends=(git meson gnome-online-accounts glib2-devel)
 options=(!emptydirs)
-source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('2dfeb547d22c5ce3663120830dd96cccd3673c208f62c498b12346a485a57c1e')
-b2sums=('893f649c853bd1fd74cd46d8d75de395f6f13490c42443edb3e1bcde7556a8701a1d112f0f0e78b5e1fb57843abbcc8e0f440d65be67aa77d28542365fb6438f')
+source=(git+${url}#tag=$pkgver)
+sha256sums=('f3d14e4e30d473f7284314ccdb207bb970c8c8ceed1ac27c8cc7647c5ab04c8c')
+b2sums=('0521be583a47061f35d76474308269c821e7c5c5e7bcbf6fee7fd6e8b6ff0ef9d0ffd79ed2d397d3af1509ec284e3a2700430a41d2233568aac52b33446e5262')
 
 build() {
-  arch-meson build ${pkgname}-${pkgver}
-  samu -C build
+  arch-meson build ${pkgname}
+  meson compile -C build
 }
 
 package() {
-  DESTDIR="${pkgdir}" samu -C build install
+  meson install -C build --destdir="$pkgdir"
   # https://github.com/linuxmint/Cinnamon/pull/7382#issuecomment-374894901
   # /usr/bin/cinnamon-control-center is not meant for users, it is a development troubleshooting tool.
   # Just install the shell libs/headers.
