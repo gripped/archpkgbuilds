@@ -1,7 +1,7 @@
 pkgbase = blender
 	pkgdesc = A fully integrated 3D graphics creation suite
 	pkgver = 5.0.0
-	pkgrel = 1
+	pkgrel = 2
 	epoch = 17
 	url = https://www.blender.org
 	arch = x86_64
@@ -103,8 +103,10 @@ pkgbase = blender
 	optdepends = libdecor: wayland support
 	options = !lto
 	source = git+https://projects.blender.org/blender/blender.git#tag=v5.0.0
+	source = blender-hip-update.patch
 	source = https://developer.download.nvidia.com/redist/optix/v8.0/OptiX-8.0-Include.zip
 	sha512sums = f70cc04396f7d2d12f2a154ce41894527f012366e64f2ee53e416634c7b0a0ec6470310f3b9d622ef0304397f16625e1ab235a47d29ff226da9ba2b692d2258b
+	sha512sums = 611d5df84940625dce9f02622c6acd7abc884cdf31dc7ac54277accdbb4f8333362a1e448a035a6c7db09943214f94cd8315e929baa114aaf8de7a829b9b735e
 	sha512sums = 5502d9df847de12badc702c0444bd4f1f7620460b2235026df2c3133da1e04c148af0f1fc7f345e9a0c009c32f905f66c8d427743445e8864d3a797cdce6a483
 
 pkgname = blender
