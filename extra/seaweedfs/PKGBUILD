@@ -4,7 +4,7 @@
 # Contributor: krevedko <helllamer-gmail.com>
 
 pkgname=seaweedfs
-pkgver=4.02
+pkgver=4.03
 pkgrel=1
 pkgdesc="Simple and highly scalable distributed file system"
 arch=('x86_64')
@@ -13,7 +13,7 @@ license=('Apache-2.0')
 depends=('glibc' 'mailcap')
 makedepends=('go')
 source=(https://github.com/seaweedfs/seaweedfs/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('b331648c5c279e963f050c6e708b4179b306341982c16e7c2e3c54f2282538d5')
+sha256sums=('308548bf31ce7f6442eca23e4f2251f3cfe3644466e3002e39e8917e8129434c')
 
 prepare() {
   cd "$pkgname-$pkgver"
