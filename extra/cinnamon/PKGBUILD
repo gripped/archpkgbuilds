@@ -6,7 +6,7 @@
 # Contributor: CReimer
 
 pkgname=cinnamon
-pkgver=6.4.13
+pkgver=6.6.0
 pkgrel=1
 pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
 arch=(x86_64)
@@ -27,20 +27,20 @@ optdepends=('blueman: Bluetooth support'
             'gnome-terminal: X terminal emulator'
             'touchegg: touch gestures'
             'switcheroo-control: GPU offloading')
-makedepends=(meson samurai gobject-introspection intltool glib2-devel python-libsass)
+makedepends=(git meson gobject-introspection intltool glib2-devel python-libsass)
 options=('!emptydirs')
-source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
+source=(git+${url}#tag=$pkgver
         set_wheel.diff
         default-theme.patch)
-sha512sums=('2c9196a166cb6e8d8e7442eafa7fda716deb1e613b8e94a55dc61d2b8cf98b81940489fca28482863d3f82058805adfa2d606335041bcc45ba3d444ef1bff5a9'
+sha512sums=('5a8f50e4f41cf1eca6f77437b172090aaab52b9f6bcaaa4a3bd550e39bd4a5e71a35893b2435b7131a5072f9371f6a7d8f66ee9d3a0ee422404d4bd091b6a88d'
             'fd7e117054996ed1c3dfd0f968c2bf98ca4fcee9a100221f8839a232147745ec0140e1f68eeffba58a3c44f66f26e05d433648a7a28858ec669524f7266ba04c'
             'ee7dedd59ea370cf81d75def49060f9a29b22e7b025ca7d5db87a0102d50f138c79aa562b0d36a748c4b1c59a37f600ba1f60ff6caf303cf5b6fc4d110d051b4')
-b2sums=('3b78781bab4f6a25464d228e2a333779af67363ec83a8570ff186a7206a958f846db29253b87ee13cde22e6c08802ee436a48ee8048e20aa3a77a9c13b54f3e6'
+b2sums=('c14aaa973f56015b63353abd536c869bab630c514a8062ba1de875f4756b1774389be4dbf9f017c6a0156d019a0c4a767343ef61db60e18da4aff5685a2ad007'
         '3becf1f40068fc629109e6e7d464c3c484296afacc9ab6328b2ccbb3c9735bcbfa9550f9f73b430ede178ae668e37c660ce322b5b4d1873526de3d3d41185160'
         '86c3a29acd132ca321f08fd81dd5a45707accdc035b2aeec95bf358b29072ff1eedb77b2566cf48d7253d1d791599f0f44938c4600761d711cb18b59019f1c62')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
 
   # Use wheel group instread of sudo (taken from Fedora)
   patch -p1 < ../set_wheel.diff
@@ -62,10 +62,10 @@ prepare() {
 }
 
 build() {
-  arch-meson --libexecdir=lib/cinnamon ${pkgname}-${pkgver} build
-  samu -C build
+  arch-meson --libexecdir=lib/cinnamon ${pkgname} build
+  meson compile -C build
 }
 
 package() {
-  DESTDIR="${pkgdir}" samu -C build install
+  meson install -C build --destdir="$pkgdir"
 }
