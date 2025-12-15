@@ -3,13 +3,14 @@
 
 pkgname=perl-object-realize-later
 pkgver=0.21
-pkgrel=9
+pkgrel=10
 pkgdesc="Perl/CPAN Module Object::Realize::Later : Delay construction of real data until used"
 arch=("any")
 url="https://search.cpan.org/~markov/Object-Realize-Later/"
 license=("GPL" "PerlArtistic")
 source=("https://www.cpan.org/authors/id/M/MA/MARKOV/Object-Realize-Later-$pkgver.tar.gz")
 sha256sums=('8f7b9640cc8e34ea92bcf6c01049a03c145e0eb46e562275e28dddd3a8d6d8d9')
+options=(!emptydirs)
 
 build() {
   cd "$srcdir"/Object-Realize-Later-$pkgver
@@ -20,6 +21,4 @@ build() {
 package() {
   cd "$srcdir"/Object-Realize-Later-$pkgver
   make install DESTDIR="$pkgdir"
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
 }
