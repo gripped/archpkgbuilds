@@ -2,6 +2,13 @@
 
 TAG="$1"
 
+if [ -z "$1" ]
+  then
+    echo "Usage: $0 <pkgver>"
+    exit 1
+fi
+
+
 CONTENTS=$(curl -s "https://api.github.com/repos/bytecodealliance/wasm-tools/contents/tests/testsuite?ref=v$TAG")
 
 # Ensure that retrieved object is indeed a submodule
