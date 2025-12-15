@@ -6,7 +6,7 @@
 # Jan de Groot <jgc@archlinux.org>
 
 pkgname=cinnamon-screensaver
-pkgver=6.4.1
+pkgver=6.6.0
 pkgrel=1
 pkgdesc="Screensaver designed to integrate well with the Cinnamon desktop."
 arch=(x86_64)
@@ -15,17 +15,17 @@ license=(GPL)
 depends=(accountsservice cinnamon-desktop libgnomekbd
          python-cairo python-gobject python-setproctitle python-xapp xapp xdotool)
 optdepends=('cinnamon-translations: i18n')
-makedepends=(gobject-introspection meson samurai glib2-devel)
+makedepends=(git gobject-introspection meson glib2-devel)
 backup=(etc/pam.d/cinnamon-screensaver)
-source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('62125b6c8a0cfa8b969acd2be5f4ce0ae8f092565c45807b7ccedcf626a2c9bb2208838872eeea3ef2c418d902e55a58fab54e7f57cf2e6da00bbf19fd440783')
-b2sums=('83a9fda11bc0e1a809b43a2b7c3c4b6b540b0c6415faaa21f31534c550b956b4c67bd67108f2d1c8b66780dbedecf6f726dd9e3e29779ede9a496fce9a59237a')
+source=(git+${url}#tag=$pkgver)
+sha512sums=('13b613596a6ab82b3b1909698cb43ed44b9e3c60209c0ff445a4b4188bfd1050d1a3012c86819d9fc3bcebccc18954a8a97c0d23ccdc9d964f68f0812334d207')
+b2sums=('7fdce2f9c2123fe81a0b7e5018261f011f3c7fb962b09b297943a78a7f85574195f5d4038e8aa9d6ccb5e136cd4301fb68868319d9d85e6ed44c758e46ecb8f3')
 
 build() {
-  arch-meson --libexecdir=lib/cinnamon-screensaver build ${pkgname}-${pkgver}
-  samu -C build
+  arch-meson --libexecdir=lib/cinnamon-screensaver build ${pkgname}
+  meson compile -C build
 }
 
 package() {
-  DESTDIR="${pkgdir}" samu -C build install
+  meson install -C build --destdir="$pkgdir"
 }
