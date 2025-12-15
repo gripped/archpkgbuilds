@@ -2,7 +2,7 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=viu
-pkgver=1.6.0
+pkgver=1.6.1
 pkgrel=1
 pkgdesc="Simple terminal image viewer"
 arch=('x86_64')
@@ -11,12 +11,12 @@ license=('MIT')
 depends=('gcc-libs' 'libsixel')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('2164d8626b8210227ded514a0ca18fc4092571e174f55905facd33837fe2eb4c')
+sha256sums=('639c1fe14aee5e34b635de041ac77177e2959cf26072d8ef69c444b15c8273bd')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
