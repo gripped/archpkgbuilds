@@ -2,7 +2,7 @@
 
 pkgname=perl-scope-guard
 pkgver=0.21
-pkgrel=9
+pkgrel=10
 pkgdesc="Lexically-scoped resource management"
 arch=('any')
 license=('PerlArtistic')
