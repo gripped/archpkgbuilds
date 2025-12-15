@@ -4,7 +4,7 @@
 # Contributor: Sławomir Kowalski <suawekk@gmail.com>
 
 pkgname=percona-toolkit
-pkgver=3.7.0
+pkgver=3.7.0_2
 pkgrel=1
 pkgdesc="Collection of advanced command-line tools to perform a variety of MySQL and system tasks."
 url="https://www.percona.com/software/database-tools/percona-toolkit"
@@ -17,18 +17,18 @@ optdepends=(
     'perl-dbi: MySQL connections'
 )
 options=('!emptydirs' 'purge' '!lto')
-source=("https://github.com/percona/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('1afa7c9eeec7197cf0d94ece2e7f75383d45064cb30817d45ccf9af5f07ec8a2')
+source=("https://github.com/percona/$pkgname/archive/v${pkgver/_/-}/$pkgname-${pkgver/_/-}.tar.gz")
+sha256sums=('cecb22c582a61a6955eb3130761d9d0666eb290c917953817cce8e4f92940b48')
 
 prepare() {
     mkdir -p "$srcdir"/src/github.com/percona
     cd "$srcdir"/src/github.com/percona
-    mv "$srcdir"/$pkgname-$pkgver $pkgname
+    mv "$srcdir"/$pkgname-${pkgver/_/-} $pkgname
     cd $pkgname
 
     sed -ri src/go{,/*}/Makefile \
-        -e "s#\\$\\(shell git describe --abbrev=0\\)#v$pkgver#" \
-        -e "s#\\$\\(shell git rev-(parse|list).* HEAD\\)#v$pkgver#" \
+        -e "s#\\$\\(shell git describe --abbrev=0\\)#v${pkgver/_/-}#" \
+        -e "s#\\$\\(shell git rev-(parse|list).* HEAD\\)#v${pkgver/_/-}#" \
         -e "s#\\$\\(shell git rev-parse --show-toplevel\\)#$srcdir/src/github.com/percona/$pkgname#" \
         -e "s#\\$\\(shell basename \`git rev-parse --show-toplevel\`\\)#$pkgname#" \
         -e "s#\\bLDFLAGS\\b#PTLDFLAGS#" \
