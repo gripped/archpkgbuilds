@@ -2,7 +2,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=espflash
-pkgver=4.2.0
+pkgver=4.3.0
 pkgrel=1
 pkgdesc="Cargo subcommand for flashing Espressif devices over serial"
 url='https://github.com/esp-rs/espflash'
@@ -20,13 +20,13 @@ conflicts=('cargo-espflash')
 replaces=('cargo-espflash')
 options=(!lto)
 source=(https://github.com/esp-rs/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('6591daeb4a633799faff0fd1233e0723d7482372faea871cae46b4c6b0139b41')
-b2sums=('83c12f92bba1c8aaeabb2729b93bd247d634a92a8d7cafbcaf1e276f2995bfba5b43c577f25d9490cef7b303e57532f6a86b60391b546b15875dde5b6482ed17')
+sha256sums=('ea038015c548421c4aba4a3ed7391ab831d7003d09944f1ac247c77dfe090341')
+b2sums=('15adf73a35ce990cd23c1b33130720c7730bd530c6be47bcd021717f9881973850c9af8a28cce21e9628fb237ea15480e2a973aa86e634916003030817ac3613')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')" --locked
+  cargo fetch --target "$(rustc --print host-tuple)" --locked
 }
 
 build() {
