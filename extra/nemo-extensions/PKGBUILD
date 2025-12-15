@@ -17,8 +17,8 @@ pkgname=(nemo-audio-tab
         #nemo-dropbox dropbox in AUR
         #nemo-media-columns pypdf2 in AUR but mostly unmaintained
         #nemo-repairer
-pkgver=6.4.0
-pkgrel=3
+pkgver=6.6.0
+pkgrel=1
 pkgdesc="Various extensions for Nemo"
 arch=(x86_64)
 license=(GPL2)
@@ -27,34 +27,21 @@ depends=(nemo)
 _preview_deps=(cjs clutter-gtk clutter-gst libmusicbrainz5 gtksourceview4 xreader webkit2gtk-4.1)
 _python_deps=(python-gobject python-setuptools)
 _seahorse_deps=(libcryptui)
-makedepends=(intltool gobject-introspection meson samurai glib2-devel)
+makedepends=(git intltool gobject-introspection meson glib2-devel)
 makedepends+=("${_preview_deps[@]}" "${_python_deps[@]}" "${_seahorse_deps[@]}")
 options=(!emptydirs)
-source=("${url}/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz"
-        https://github.com/linuxmint/nemo-extensions/commit/9cd1e890.patch
-        gpgme-2.0.patch)
-sha256sums=('55e8fb43edde09c3ceba197a4359c1e79b1f0ea7007543d26f32532957aabd49'
-            '2d170132547eee4f698625aa5055cb5e15c510902c46ea70fcf84c05f71bc5cb'
-            'ee74ec6be83d1f44069cc04392e3e34139a90b521f7bf3e4e9172c409bcc6f0a')
-b2sums=('5c8b26b12ecd752d8e1fefc055891dc70c91b210c99c729babae3946b134634abfb5ef8f0314c8392f0edad891bee6b8e32fae7e4805f0463f30685dcb88ce11'
-        'cd83da627a1db611f78f9daaf6ce497fa36c86c749854174616e2a5418ffee7f3d166028e00172e38ec7c1ec86834fa6d080562aa1631daabb210606b0adfde2'
-        '2b040cfb9be99f86defe5dce18439c9b1d6d3a7f15700885e0125bd22ee87dc5076749de9fec4d6987b3e2481bf86abc4b07963b3a8b380aa1d92ae66e32a8e5')
-
-prepare() {
-  cd $pkgbase-$pkgver
-  patch -p1 -i ../9cd1e890.patch # Fix build
-  patch -p1 -i ../gpgme-2.0.patch # Fix build with gpgme 2.0
-}
+source=(git+${url}#tag=$pkgver)
+sha256sums=('9477bf5a298c03a5e83ff382665c1c7edcaf051757ca3b56449cf636a4494249')
+b2sums=('e3803f0d9254a663576c532e0dbdc08e29eac625ee18274725acdf37f73a1757f557b1bb6452a1f2578ac4c48017e919123ae9c36c117e5e917a81538b4f2d84')
 
 build() {
-  cd ${pkgbase}-${pkgver}
+  cd ${pkgbase}
 
   for _dir in "${pkgname[@]}"; do
     if [[ -f ${_dir}/meson.build ]]; then
-      mkdir -p ${_dir}/build
-      pushd ${_dir}/build
-      arch-meson --libexecdir=lib/${_dir} ..
-      samu
+      pushd ${_dir}
+      arch-meson --libexecdir=lib/${_dir} . build
+      meson compile -C build
       popd
     fi
   done
@@ -77,7 +64,7 @@ package_nemo-audio-tab(){
   depends+=(nemo-python python-mutagen)
   optdepends=('cinnamon-translations: i18n')
 
-  cd ${pkgbase}-${pkgver}/${pkgname}
+  cd ${pkgbase}/${pkgname}
   python setup.py install --prefix=/usr --root="${pkgdir}" --skip-build --optimize=1
 }
 
@@ -86,7 +73,7 @@ package_nemo-emblems(){
   depends+=(nemo-python)
   optdepends=('cinnamon-translations: i18n')
 
-  cd ${pkgbase}-${pkgver}/${pkgname}
+  cd ${pkgbase}/${pkgname}
   python setup.py install --prefix=/usr --root="${pkgdir}" --skip-build --optimize=1
 }
 
@@ -95,8 +82,8 @@ package_nemo-fileroller(){
   depends+=(file-roller)
   optdepends=('cinnamon-translations: i18n')
 
-  cd ${pkgbase}-${pkgver}/${pkgname}/build
-  DESTDIR="${pkgdir}" samu install
+  cd ${pkgbase}/${pkgname}
+  meson install -C build --destdir="$pkgdir"
 }
 
 package_nemo-image-converter(){
@@ -104,8 +91,8 @@ package_nemo-image-converter(){
   depends+=(imagemagick)
   optdepends=('cinnamon-translations: i18n')
 
-  cd ${pkgbase}-${pkgver}/${pkgname}/build
-  DESTDIR="${pkgdir}" samu install
+  cd ${pkgbase}/${pkgname}
+  meson install -C build --destdir="$pkgdir"
 }
 
 package_nemo-preview(){
@@ -113,8 +100,8 @@ package_nemo-preview(){
   depends+=("${_preview_deps[@]}")
   optdepends=('cinnamon-translations: i18n')
 
-  cd ${pkgbase}-${pkgver}/${pkgname}/build
-  DESTDIR="${pkgdir}" samu install
+  cd ${pkgbase}/${pkgname}
+  meson install -C build --destdir="$pkgdir"
 }
 
 package_nemo-pastebin(){
@@ -122,7 +109,7 @@ package_nemo-pastebin(){
   depends+=(nemo-python pastebinit)
   optdepends=('cinnamon-translations: i18n')
 
-  cd ${pkgbase}-${pkgver}/${pkgname}
+  cd ${pkgbase}/${pkgname}
   python setup.py install --prefix=/usr --root="${pkgdir}" --skip-build --optimize=1
 }
 
@@ -130,8 +117,8 @@ package_nemo-python() {
   pkgdesc="Python3 binding for Nemo components"
   depends+=("${_python_deps[@]}")
 
-  cd ${pkgbase}-${pkgver}/${pkgname}/build
-  DESTDIR="${pkgdir}" samu install
+  cd ${pkgbase}/${pkgname}
+  meson install -C build --destdir="$pkgdir"
 }
 
 package_nemo-seahorse(){
@@ -139,8 +126,8 @@ package_nemo-seahorse(){
   depends+=("${_seahorse_deps[@]}")
   optdepends=('cinnamon-translations: i18n')
 
-  cd ${pkgbase}-${pkgver}/${pkgname}/build
-  DESTDIR="${pkgdir}" samu install
+  cd ${pkgbase}/${pkgname}
+  meson install -C build --destdir="$pkgdir"
 }
 
 package_nemo-share(){
@@ -148,15 +135,15 @@ package_nemo-share(){
   depends+=(samba)
   optdepends=('cinnamon-translations: i18n')
 
-  cd ${pkgbase}-${pkgver}/${pkgname}/build
-  DESTDIR="${pkgdir}" samu install
+  cd ${pkgbase}/${pkgname}
+  meson install -C build --destdir="$pkgdir"
 }
 
 package_nemo-terminal(){
   pkgdesc="Embedded terminal window for Nemo"
   depends=(nemo-python vte3)
 
-  cd ${pkgbase}-${pkgver}/${pkgname}
+  cd ${pkgbase}/${pkgname}
   install -Dm644 src/nemo_terminal.py -t "${pkgdir}"/usr/share/nemo-python/extensions/
   install -Dm755 src/nemo-terminal-prefs.py "${pkgdir}"/usr/bin/nemo-terminal-prefs
   install -Dm644 src/org.nemo.extensions.nemo-terminal.gschema.xml -t "${pkgdir}"/usr/share/glib-2.0/schemas/
@@ -168,14 +155,14 @@ package_nemo-terminal(){
 #    pkgdesc=("A Nemo extension to display music/EXIF and PDF metadata info in the Nemo List View")
 #    depends=('nemo-python' 'mutagen' 'python2-exiv2' 'python2-kaa-base' 'python2-pillow' 'python2-pypdf')
 #
-#    cd "${srcdir}"/${pkgbase}-${pkgver}/${pkgname}
+#    cd "${srcdir}"/${pkgbase}/${pkgname}
 #    install -Dm644 nemo-media-columns.py \
 #        "${pkgdir}"/usr/share/nemo-python/extensions/nemo-media-columns.py
 #}
 
 ## no clue what any of this does
 # package_nemo-compare() {
-#   cd ${pkgbase}-${pkgver}/nemo-compare
+#   cd ${pkgbase}/nemo-compare
 
 #   pkgdesc="Context menu comparison extension for Nemo file manager"
 #   depends=(python2 python2-xdg meld nemo-python)
