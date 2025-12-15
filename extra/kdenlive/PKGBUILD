@@ -6,7 +6,7 @@
 
 pkgname=kdenlive
 pkgver=25.12.0
-pkgrel=1
+pkgrel=3
 pkgdesc='A non-linear video editor for Linux using the MLT video framework'
 arch=(x86_64)
 url='https://apps.kde.org/kdenlive/'
@@ -64,12 +64,18 @@ optdepends=('bigsh0t: VR360 effects'
             'recordmydesktop: for screen capture')
 groups=(kde-applications
         kde-multimedia)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/multimedia/kdenlive/-/commit/5ab6338f.patch)
 sha256sums=('cafee9d8ec29e99f507720f28d60bfc0963a8733f67a0ffd6a684273b8242ca5'
-            'SKIP')
+            'SKIP'
+            'f977929aa82249cf3f8b009f97082b6776305081fe900b4227b8f314b0435c2b')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < 5ab6338f.patch # Fix crash in splash screen
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
