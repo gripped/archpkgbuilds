@@ -1,8 +1,9 @@
 # Maintainer: Christian Hesse <mail@eworm.de>
 
 pkgname=vis
-pkgver=0.9
-pkgrel=2
+_commit='992804cb27993d5de8e6830a8ab9268045ce6892'
+pkgver=0.9.r347.g992804cb
+pkgrel=1
 pkgdesc='modern, legacy free, simple yet efficient vim-like editor'
 arch=('x86_64')
 url='https://github.com/martanne/vis#vis-a-vim-like-text-editor'
@@ -18,38 +19,34 @@ license=('custom:ISC')
 backup=('etc/vis/visrc.lua')
 validpgpkeys=('54A47F12462D26A7D078A932C83A52CD1962562C') # Marc André Tanner <mat@brain-dump.org>
 # TODO: can we have signed tag back?
-source=("git+https://github.com/martanne/vis.git#tag=v${pkgver}"
-        'git+https://github.com/martanne/vis-test.git')
-sha256sums=('ef6ca7af3d62a4617aca253a9b22f953fa50cde964debe831a982ed010f26de7'
-            'SKIP')
+source=("git+https://github.com/martanne/vis.git#commit=${_commit}")
+sha256sums=('65fa1eabcf6e2a346ae80a246aeb1cd51ade403a23cbe6dd764e8eb965cb6d5d')
 
 _backports=(
-  # lua: themes: add `STYLE_CODE`
-  'a9a4f5cabb766e3dadd504df4fd9583192c22315'
-
-  # lua: filetype: properly search for lexer path
-  'b6ae2fb782ac2c47dda3b786c3e6399d2972efc6'
 )
 
 _reverts=(
 )
 
+pkgver() {
+  cd vis/
+
+  git describe | sed 's|^v||; s|-|.r|; s|-|.|'
+}
+
 prepare() {
   cd vis/
 
-  git config --file=.gitmodules submodule.test.url ../vis-test/
-  git update-index --assume-unchanged .gitmodules
-  git submodule init
-  git -c protocol.file.allow=always submodule update
-  
-  local _c
+  local _c _l
   for _c in "${_backports[@]}"; do
-    git log --oneline -1 "${_c}"
-    git cherry-pick -n "${_c}"
+    if [[ "${_c}" == *..* ]]; then _l='--reverse'; else _l='--max-count=1'; fi
+    git log --oneline "${_l}" "${_c}"
+    git cherry-pick --mainline 1 --no-commit "${_c}"
   done
   for _c in "${_reverts[@]}"; do
-    git log --oneline -1 "${_c}"
-    git revert -n "${_c}"
+    if [[ "${_c}" == *..* ]]; then _l='--reverse'; else _l='--max-count=1'; fi
+    git log --oneline "${_l}" "${_c}"
+    git revert --mainline 1 --no-commit "${_c}"
   done
 }
 
