@@ -3,26 +3,23 @@
 # Contributor: Alexandre Filgueira <alexfilgueira@antergos.com>
 
 pkgname=cinnamon-menus
-pkgver=6.4.0
+pkgver=6.6.0
 pkgrel=1
 pkgdesc="Cinnamon menu specifications"
 arch=(x86_64)
 url="https://github.com/linuxmint/cinnamon-menus"
 license=(GPL LGPL)
 depends=(glib2)
-makedepends=(gobject-introspection meson samurai)
-source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('9cad5ac61900492f66c91810fd13bed9dc37b49ec0b9bbc0bbe9ebf48ee45452')
-b2sums=('3e37d078861eba9ce6144c788e43d0f314e5996c0cc03fbadec0dad78a1221a618880ddecfa620248d3d79da73e63feb3d610fc5fef3e0aa3bbb6af87e337152')
+makedepends=(git gobject-introspection meson)
+source=(git+${url}#tag=$pkgver)
+sha256sums=('480e800d776aaf128032d9abae6aa33069c6b53833d0bd9d235dacbf91033376')
+b2sums=('70a3045b6603e628768b77ea80dac6d12ce4d564f406a6fb73e73e89718f7c751ec8edd2abb368b431eced837de27e2f2e8ef0287dab6f8eda06ede87624abfc')
 
 build() {
-  mkdir -p build
-  cd build
-  arch-meson ../${pkgname}-${pkgver}
-  samu
+  arch-meson ${pkgname} build
+  meson compile -C build
 }
 
 package(){
-  cd build
-  DESTDIR="${pkgdir}" samu install
+  meson install -C build --destdir="$pkgdir"
 }
