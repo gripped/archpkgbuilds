@@ -5,7 +5,7 @@
 pkgbase=public-inbox
 pkgname=(lei perl-publicinbox)
 pkgver=2.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='An "archives first" approach to mailing lists'
 arch=('any')
 url="https://public-inbox.org"
@@ -34,6 +34,7 @@ check() {
 }
 
 package_perl-publicinbox() {
+        options=(!emptydirs)
 	cd "${pkgbase}-${pkgver}"
 	pkgdesc='The perl library for public-inbox'
 	unset PERL5LIB PERL_MM_OPT PERL_LOCAL_LIB_ROOT
