@@ -2,7 +2,7 @@
 
 pkgname=perl-acme-alien-dontpanic
 pkgver=2.7200
-pkgrel=7
+pkgrel=8
 pkgdesc="Test Module for Alien::Base"
 arch=('any')
 license=('PerlArtistic')
