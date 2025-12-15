@@ -4,8 +4,8 @@
 
 _pyname=agate
 pkgname=python-$_pyname
-pkgver=1.13.0
-pkgrel=2
+pkgver=1.14.0
+pkgrel=1
 pkgdesc='A data analysis library that is optimized for humans instead of machines'
 arch=(any)
 url='https://agate.readthedocs.org/'
@@ -27,7 +27,7 @@ checkdepends=(python-cssselect
 optdepends=('python-pyicu: non-English locale support')
 _archive="$_pyname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
-sha256sums=('24bc3d3cbd165aa3ab0ef9e798dd4c53ad703012d450fe89b9c26b239505c445')
+sha256sums=('426359123bebacd07a5c78397af1d8dc8f13c94e6cda34cc904227cd9e4bc222')
 
 prepare() {
 	cd "$_archive"
