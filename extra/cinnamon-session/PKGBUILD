@@ -3,7 +3,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 
 pkgname=cinnamon-session
-pkgver=6.4.2
+pkgver=6.6.1
 pkgrel=1
 pkgdesc="The Cinnamon Session Handler"
 arch=('x86_64')
@@ -11,24 +11,19 @@ url="https://github.com/linuxmint/${pkgname}"
 license=('GPL' 'LGPL')
 depends=('cinnamon-desktop' 'libsm' 'libcanberra' 'xapp')
 optdepends=('cinnamon-translations: i18n')
-makedepends=('meson' 'samurai' 'xtrans' 'glib2-devel')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('e4f0380ef45be08366fcdfbda431c6b0b20760d251ea78b810b4e0e223134690')
-b2sums=('f14215e9680ead7ab9220911bc5cd0d348c2d7334bbcb9ca3891ee06d3aae7334c89348937217f47b839b086149be473badaed9a1539b205675f653b332c56af')
+makedepends=(git meson xtrans glib2-devel)
+source=(git+${url}#tag=$pkgver)
+sha256sums=('941ea06e5d74db150b86118f1bbf6ab0eb9d417cafb7a5d29c93f601c89893ae')
+b2sums=('b8c352551d7381fe7dd718a760e77a1d6041065b26d8c88d34b76ea35d252fa25856117cc54038ee385787616828103e7f1b171efc379bc8738a5cb436390446')
 
 build() {
-    mkdir -p ${pkgname}-${pkgver}/build
-    cd ${pkgname}-${pkgver}/build
-
     meson --prefix=/usr \
           --libexecdir=lib/${pkgname} \
           --buildtype=plain \
-          ..
-    samu
+          build $pkgname
+    meson compile -C build
 }
 
 package() {
-    cd ${pkgname}-${pkgver}/build
-
-    DESTDIR="${pkgdir}" samu install
+    meson install -C build --destdir="$pkgdir"
 }
