@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=hl
-pkgver=0.33.0
+pkgver=0.33.1
 pkgrel=1
 pkgdesc="A fast and powerful log viewer and processor"
 arch=('x86_64')
@@ -10,12 +10,12 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('e2cc99109e25850f3db1320e3877827cbfeeeb49322e3b168b28d469634ceaff282fd3ccd13e38e9d6921634284590d475a0321cc05c386c8602b024f67bf0d6')
+sha512sums=('6572a4c62afc6c4df0479612a5aea75a99caeda49d65fe1b523e6a3308d137061742220aca2a84c7455067702221dd3bc15274235c63c5af94b4b503510acb44')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
