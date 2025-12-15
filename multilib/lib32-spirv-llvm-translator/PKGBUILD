@@ -3,7 +3,7 @@
 # Contributor: Bruno Pagani <archange@archlinux.org>
 
 pkgname=lib32-spirv-llvm-translator
-pkgver=21.1.2
+pkgver=21.1.3
 pkgrel=1
 pkgdesc="LLVM <-> SPIR-V converter for compilers targeting SPIR-V (32-bit)"
 url="https://www.khronos.org/spirv/"
@@ -29,16 +29,15 @@ checkdepends=(
 )
 source=(
   git+https://github.com/KhronosGroup/SPIRV-LLVM-Translator#tag=v$pkgver
-  0001-fixes-a-new-validation-failure-in-a-UniformId-test-3.patch
 )
-b2sums=('92688870a40251be3f06815d19d2b39fe9fc83e0ee71ee0db378e540e3da7af68951eeb76012b87b1f2923f9b7fc231275e653470762bde69087589184dd4b19'
-        '72582c18a18eaee813a262777ae638c36333e516d2b50493dae1e106abe8e7db851419c9fe358a0b80600aa24bd2a87acf0a77d9297836976322ba6109777657')
+b2sums=('7f99ace2560e2778f0621e6b586973a37269beb2c77151b149c2bab47a53668dcfcfb00e46dc868a4b8137eebd00332b2e62e40ec091e71e811e8d0dc9f3b541')
 
 prepare() {
   cd SPIRV-LLVM-Translator
 
   # Fix tests
-  git apply -3 ../0001-fixes-a-new-validation-failure-in-a-UniformId-test-3.patch
+  # https://github.com/KhronosGroup/SPIRV-LLVM-Translator/pull/3301
+  git cherry-pick -n fc5873ee760c333738c9e8e8d8c2eb906f0c40f5
 }
 
 build() {
