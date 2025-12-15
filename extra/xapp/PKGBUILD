@@ -4,31 +4,29 @@
 # Contributor: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=xapp
-pkgver=2.8.13
-pkgrel=1
+pkgver=3.2.0
+pkgrel=2
 pkgdesc="Common library for X-Apps project"
 arch=(x86_64)
 url="https://github.com/linuxmint/${pkgname}"
 license=(GPL)
-depends=(libdbusmenu-gtk3 libgnomekbd)
+depends=(libdbusmenu-gtk3 libgnomekbd xapp-symbolic-icons)
 optdepends=('python: for mate-desktop status applet')
-makedepends=(meson samurai gobject-introspection python-gobject vala glib2-devel)
+makedepends=(git meson gobject-introspection python-gobject vala glib2-devel)
 provides=(xapps)
 conflicts=(xapps)
 replaces=(xapps)
-source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('5282727e41c0fe86b22b745b3abd134a67edd7fb9337deaff762376b1f49b140')
-b2sums=('d7c17cc9908a12e7a82a9e9c78b50959355d72930f022aff6f4a04109da043eae0e1df6b4c52cb2644fb7e350f166b18af1d3f215b9cb326da8e195a13785a5e')
+source=(git+${url}#tag=$pkgver)
+sha256sums=('60793a54c51b57cea2fd28a7cbd14076476ad1966b14671c369ccc0253d14d24')
+b2sums=('21dd7a808439cbdbb7d01facaca7f533abe1bcfa8244de26eafa12db0381c37fcf5e458456e6d70d825d39a6c0b9c8e9a5ea70726ec1cf149e052796b53b3380')
 
 build() {
-  arch-meson ${pkgname}-${pkgver} build \
-    --buildtype=debugoptimized
-# https://github.com/linuxmint/xapp/issues/169
-  samu -C build
+  arch-meson ${pkgname} build
+  meson compile -C build
 }
 
 package(){
-  DESTDIR="${pkgdir}" samu -C build install
+  meson install -C build --destdir="$pkgdir"
 
   # byte-compile python modules since meson does not implement autotools’ py-compile.
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
