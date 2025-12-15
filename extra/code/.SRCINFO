@@ -1,6 +1,6 @@
 pkgbase = code
 	pkgdesc = The Open Source build of Visual Studio Code (vscode) editor
-	pkgver = 1.106.3
+	pkgver = 1.107.0
 	pkgrel = 1
 	url = https://github.com/microsoft/vscode
 	arch = x86_64
@@ -12,7 +12,7 @@ pkgbase = code
 	makedepends = desktop-file-utils
 	makedepends = zip
 	makedepends = jq
-	depends = electron37
+	depends = electron39
 	depends = libsecret
 	depends = libx11
 	depends = libxkbfile
@@ -23,13 +23,13 @@ pkgbase = code
 	provides = vscode
 	options = !strip
 	options = !debug
-	source = vscode::git+https://github.com/microsoft/vscode.git#tag=1.106.3
+	source = vscode::git+https://github.com/microsoft/vscode.git#tag=1.107.0
 	source = code.mjs
 	source = code.sh
 	source = product_json.diff
 	source = clipath.patch
 	source = 0009-openvsx-extension-signature.patch
-	sha512sums = 11d1e82406a1e9d5f8250c55f256633f40409a53b0a10689ab4043c5566ad5adaf9ca124043f8a200d6549d68aa0d3670c213e18a54e46cc8d1aae64ee55dd07
+	sha512sums = ed816bd909dc377d5f0ef188913a1a7700de530050df72c9867822d2aa0cddae65664c0952f527217e2bfed74d1d808cd461e830c0895d7903f2831c4fdde024
 	sha512sums = 793f9ff6306e3992ac89802d98110cba288ea1181a901467333293b7d76182ef9792c2a39ff49d9347a18a174b1f42bc58862091dff583f4146c2704eea28033
 	sha512sums = 937299c6cb6be2f8d25f7dbc95cf77423875c5f8353b8bd6cd7cc8e5603cbf8405b14dbf8bd615db2e3b36ed680fc8e1909410815f7f8587b7267a699e00ab37
 	sha512sums = b1aa0d7c5b3e3e8ba1172822d75ea38e90efc431b270e0b4ca9e45bf9c0be0f60922c8618969ef071b5b6dbd9ac9f030294f1bf49bcc28c187b46d113dca63a7
