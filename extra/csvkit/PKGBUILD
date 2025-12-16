@@ -2,7 +2,7 @@
 # Contributor: Michał Pałubicki <maln0ir@gmx.com>
 
 pkgname=csvkit
-pkgver=2.1.0
+pkgver=2.2.0
 pkgrel=1
 pkgdesc='A suite of utilities for converting to and working with CSV'
 arch=(any)
@@ -22,7 +22,7 @@ makedepends=(python-{build,installer,wheel}
 checkdepends=(python-pytest)
 _archive="$pkgname-$pkgver"
 source=("$_archive.tgz::https://github.com/wireservice/$pkgname/archive/$pkgver.tar.gz")
-sha256sums=('75520fa0d2dde793e5b82cc4d42db18efcaffda019e6659e08a1788b6fe901d6')
+sha256sums=('2edbec092e05a7e0f81037a616a0210621681046d25533f73c97adceaaeb2063')
 
 build() {
 	cd "$_archive"
