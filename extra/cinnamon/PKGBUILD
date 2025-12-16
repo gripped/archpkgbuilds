@@ -7,12 +7,12 @@
 
 pkgname=cinnamon
 pkgver=6.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
 arch=(x86_64)
 url="https://github.com/linuxmint/cinnamon"
 license=(GPL2)
-depends=(accountsservice caribou cinnamon-control-center cinnamon-desktop cinnamon-menus cinnamon-screensaver
+depends=(accountsservice cinnamon-control-center cinnamon-desktop cinnamon-menus cinnamon-screensaver
          cinnamon-session cinnamon-settings-daemon cjs gcr gdk-pixbuf2 glib2 gnome-backgrounds gsound
          gstreamer gtk3 libibus libgnomekbd libkeybinder3 librsvg muffin
          network-manager-applet nemo pango polkit-gnome python python-cairo python-dbus
@@ -28,6 +28,7 @@ optdepends=('blueman: Bluetooth support'
             'touchegg: touch gestures'
             'switcheroo-control: GPU offloading')
 makedepends=(git meson gobject-introspection intltool glib2-devel python-libsass)
+conflicts=("caribou<=0.4.21+75+g8ad9883-8")
 options=('!emptydirs')
 source=(git+${url}#tag=$pkgver
         set_wheel.diff
