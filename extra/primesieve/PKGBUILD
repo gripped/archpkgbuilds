@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=primesieve
-pkgver=12.10
+pkgver=12.11
 pkgrel=1
 pkgdesc='Fast prime number generator'
 arch=(x86_64)
@@ -12,7 +12,7 @@ depends=(gcc-libs
 makedepends=(cmake
              git)
 source=(git+https://github.com/kimwalisch/primesieve#tag=v$pkgver)
-sha256sums=('183f99e14c701ab5592995a6d6321edc35095a48feb3207e013e941a3039128b')
+sha256sums=('30b662fd92bd90c86d1a561b9865eecc41e9355145881bcf2407d03982f7f3cc')
 
 build() {
   cmake -B build -S $pkgname \
