@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=ducker
-pkgver=0.5.5
+pkgver=0.5.6
 pkgrel=1
 pkgdesc="A terminal app for managing docker containers"
 url="https://github.com/robertpsoane/ducker"
@@ -10,12 +10,12 @@ makedepends=('cargo')
 arch=('x86_64')
 license=('MIT')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('3e9d66aa23d9385c375f452873a1fd58e723dedb1e0c09b691f1ae901b1bfe94831bc7fe1f25965793ea046d8a1f9876f74a918c9de7b9ec3c58a7ccd52c3677')
+sha512sums=('eeb781dc237e85ad2be2872f86cb56e232b587b9491fafc12d409f68f284937f5c197e2c510f20d954d1d237721fdf3be6118f7a252005f1f7db7a2c9ce53ea5')
 options=('!lto')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
