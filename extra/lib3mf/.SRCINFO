@@ -1,7 +1,7 @@
 pkgbase = lib3mf
 	pkgdesc = Implementation of the 3D Manufacturing Format file standard
-	pkgver = 2.3.2
-	pkgrel = 3
+	pkgver = 2.4.1
+	pkgrel = 1
 	url = https://github.com/3MFConsortium/lib3mf
 	arch = x86_64
 	license = BSD-2-Clause
@@ -9,18 +9,22 @@ pkgbase = lib3mf
 	makedepends = git
 	makedepends = cmake
 	makedepends = python
+	makedepends = ninja
 	depends = gcc-libs
 	depends = glibc
 	depends = libzip
 	depends = util-linux-libs
 	depends = zlib
 	options = !lto
-	source = lib3mf::git+https://github.com/3MFConsortium/lib3mf#tag=v2.3.2
+	source = lib3mf::git+https://github.com/3MFConsortium/lib3mf#tag=v2.4.1
 	source = __init__.py
-	sha512sums = 97a41e0ff66e69c3e0667aa7013012b43b4cf0f4f97125f8c4be64623e420ea30fcd322390d35a9bbf60155cb31b521dd42b34d508c09dcafb2ae5392a4219ab
+	source = fix-missing-header.patch
+	sha512sums = c34e768ef4c1f63c2910d245036ebf9b74040ebc98c13c3456f261303d5ecf6c3a516ed17bbf7098f857a254213e24af4d15573e826c4801d20a8c62d99cc0f1
 	sha512sums = 56cbdd17b95bb98c0d40c294d6a1691594da9630ee0d7ba1e5f0cc4c8be8276edf51af30509b32ba8336a1f24a5b45e3e7436792afa246f3c54d6d8adae47d7c
-	b2sums = a7f6acb1c9d535b2b504e972ec9514d037769d99d1695ae060b60a38f955c47b90de1fdcf9ca16f0ef4813719d3ff3cc2d162a4e647e3bb96c334ff49d1eda09
+	sha512sums = 576f146007b2831f819f4f2b5cbfc130aed88750b1ec91965ab2cb5a125b4e8bca489eaa11dcde88762755b7fadbd847b52729463923b6724149dc5fe8507f8c
+	b2sums = e5b8ea1060b99d800fd23bec0e55163cbe4757e1298ae13c851410e54f4eb153ad62e29da8fd6effe50358fd240635fa1f852e7a8b19a3fe7655379d8737c5da
 	b2sums = cf8f3e695861af2fdacb0d82bce0dc9c9424d8d671ffd37cf59250d3def01f957b57a80b4eb84b7ce0a1ddc339ce0b3a1da5c2bb2e7f2852f9602706b89f9ada
+	b2sums = 21668c04fe6bcb632dc7ed5a9cee8a5fbef71d8a14d110403fba23396aa1718d65920c10eb823187cef41bd7fd3d52a94345561f496ea0ab166f4dfae3cd091a
 
 pkgname = lib3mf
 	optdepends = python-lib3mf: Python bindings

@@ -1,0 +1,11 @@
+--- a/Source/Model/Writer/v100/NMR_ResourceDependencySorter.cpp
++++ b/Source/Model/Writer/v100/NMR_ResourceDependencySorter.cpp
+@@ -30,6 +30,8 @@ NMR_ResourcDependencySorter resolves the dependencies between resources by
+ sorting them topologically.
+ --*/
+ 
++#include <algorithm>
++
+ #include "Model/Writer/v100/NMR_ResourceDependencySorter.h"
+ 
+ #include "Common/Graph/DirectedGraph.h"
