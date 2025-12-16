@@ -4,7 +4,7 @@
 # Contributor: Jon Gjengset <jon@tsp.io>
 pkgname=rustup
 pkgver=1.28.2
-pkgrel=3
+pkgrel=4
 pkgdesc="The Rust toolchain installer"
 arch=('x86_64')
 url="https://github.com/rust-lang/rustup.rs"
@@ -29,9 +29,11 @@ replaces=('cargo-tree')
 install='post.install'
 options=("!lto")
 source=("rustup-${pkgver}.tar.gz::https://github.com/rust-lang/rustup.rs/archive/${pkgver}.tar.gz"
-        "rustup-profile.sh")
+        "rustup-profile.sh"
+        "rustup-profile.fish")
 sha512sums=('dc85f4551e9d3d9d105e4a5c8a7544b6944c82ca4db167a6993e1e0cea498221471b891cefc15e7f634a8528678bb8438dbddadb80a8afe19fbc69bb74817049'
-            '18d5b4ab9a032cb43fd0b59fb553a878068981534e549935c5ff4a12dc2f74849ce36367eb59e670d674a19a7d4bc0056d0694d7f87ede187416c2ffcbb20355')
+            '18d5b4ab9a032cb43fd0b59fb553a878068981534e549935c5ff4a12dc2f74849ce36367eb59e670d674a19a7d4bc0056d0694d7f87ede187416c2ffcbb20355'
+            '01477110cc630b2fbd60b45e53d5fddea1b96d56c7dd318c9dcd0fcb3401778df0f2ffaeda09ed57c3d09723e7e7b9080028ccde7ebd7774c7098e6fc7900669')
 _binlinks=('cargo' 'rustc' 'rustdoc' 'rust-gdb' 'rust-lldb' 'rustfmt' 'cargo-fmt' 'cargo-clippy' 'clippy-driver' 'cargo-miri')
 
 build() {
@@ -51,6 +53,7 @@ package() {
   ln -s /usr/bin/rustup "${pkgdir}/usr/lib/$pkgname/bin/rust-analyzer"
 
   install -Dm644 "$srcdir/$pkgname-profile.sh" "$pkgdir/etc/profile.d/$pkgname.sh"
+  install -Dm644 "$srcdir/$pkgname-profile.fish" "$pkgdir/usr/share/fish/vendor_conf.d/$pkgname.fish"
 
   # Generate completion files.
   mkdir -p "$pkgdir/usr/share/bash-completion/completions"
