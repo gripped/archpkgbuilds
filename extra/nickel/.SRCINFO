@@ -1,6 +1,6 @@
 pkgbase = nickel
 	pkgdesc = A generic configuration language
-	pkgver = 1.6.0
+	pkgver = 1.15.1
 	pkgrel = 1
 	url = https://nickel-lang.org
 	arch = x86_64
@@ -10,13 +10,14 @@ pkgbase = nickel
 	makedepends = rust
 	makedepends = nlohmann-json
 	makedepends = boost
+	makedepends = python
 	depends = glibc
 	depends = gcc-libs
 	depends = nix
 	options = !lto
-	source = nickel::git+https://github.com/tweag/nickel#tag=1.6.0
-	sha512sums = a45813f03814d3dbd8098652a529d24d929e481b9a09ad9aa71e310206039997d455a5ecf6103a7445c5bc242515c00b1d1c02c553c256cebadd539cb08b62a0
-	b2sums = c8fd2e5439e0fe46ffa6d8c71a0b0551fb4e9335e4cb8508c8b79347e54e89e359681a9c05ba9b991a4b79d927ac3ca731bdf3ce809e36fe0b468f4820d9ba1e
+	source = nickel::git+https://github.com/tweag/nickel#tag=1.15.1
+	sha512sums = dcfc0f85ae6ca4fa0ccfada6aff210c329ec40aa23d0ed097bc94e34494436348f569bb0d8d29f53322f43817623e8f16fc35fe7f745e368e9ee9018c24d4013
+	b2sums = 8e3707f0a22361f7e4930e2e66abaf8fdd3c3ea60276065c690a12a6b2dd97bdf71f2a9ea92a8e488280694e608825af24f237f73a8f27832e65ae6b083c8411
 
 pkgname = nickel
 	optdepends = nickel-docs: documentation
