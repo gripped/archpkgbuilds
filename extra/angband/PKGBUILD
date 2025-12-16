@@ -9,8 +9,8 @@
 # Contributor: Sebastian Sareyko <public@nooms.de>
 
 pkgname=angband
-pkgver=4.2.5
-pkgrel=4
+pkgver=4.2.6
+pkgrel=1
 pkgdesc='A roguelike dungeon exploration game based on the writings of JRR Tolkien'
 arch=(x86_64)
 url='https://rephial.org/'
@@ -32,9 +32,9 @@ source=(
   "$pkgname::git+https://github.com/angband/angband#tag=$pkgver"
   remove-dirty-version.patch
 )
-sha512sums=('5794ee23934ad76005968f1f2f1bd129e78e974b825e90ca4fe233582aa377a3dd7b9b6f090fc6d3e4318af0856863ad96feccd39469a5ea9b9a6ac38a330a27'
+sha512sums=('e6caae1b4caa66c116e86876353fd2f08b9919afa4e2590676468a8b57f11767ca8e9421480b5c2b6b92b8e59c317d9622331322567a8738e6db3ff1bd379ab2'
             'de2bddb3824d581cf6827b9e86f409f9100245b9ce800611e982fa4a80986b4b9a01aea59a3b60f430ece5425977ce5074843ebf4e3cc91c52b175778f86dbc5')
-b2sums=('9023ad6803a3514ab1b45e5efc04cbce6386532a388d95fa80084a328480f5603747f90273fcd2f828e5989e748a0e7b70a8825655de1851cd0b558d8a326567'
+b2sums=('40574c9367956af9ba89dbfcd0467f618a8da52d6ae1b13c6420d3c1fbde6c3efc68e7ee92d477ae44f2db8277811a37d29c8e2320735b7add2319f0aeb03a7a'
         '84e2a3f0a959072167aaf55718e02643d0b5793da18bc60d5464de0477fe9237e5f6e3374ee0919ca7079fb86a65c011db979e7d9dbe052af8caa883bf16e906')
 
 build() {
