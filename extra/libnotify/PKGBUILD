@@ -7,7 +7,7 @@ pkgname=(
   libnotify-docs
 )
 pkgver=0.8.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for sending desktop notifications"
 url="https://gitlab.gnome.org/GNOME/libnotify"
 arch=(x86_64)
@@ -43,6 +43,14 @@ validpgpkeys=(
 
 prepare() {
   cd libnotify
+
+  # notify: Do not make spec versions assumptions without a proxy
+  # notification-hints: Add an header with the standard notification hints
+  # notification: Simplify the logic to support the legacy hints names
+  git cherry-pick -n \
+    '92c3d2c315deeac94ff5e75333b58a629f0455a9' \
+    '7dbd6baed011e495d8617bd9b569b90e8817527c' \
+    '00a7b773e520161bdbd9c8139a9fddef976b2136'
 
   # Use external Xvfb
   sed -i "/xvfb_run, '-a'/d" tests/meson.build
