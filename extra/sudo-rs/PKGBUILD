@@ -2,7 +2,7 @@
 # Maintainer: T.J. Townsend <blakkheim@archlinux.org>
 
 pkgname=sudo-rs
-pkgver=0.2.10
+pkgver=0.2.11
 pkgrel=1
 pkgdesc="A memory-safe implementation of sudo and su"
 arch=('x86_64')
@@ -26,12 +26,12 @@ optdepends=(
   "apparmor: apparmor support"
 )
 source=(git+https://github.com/trifectatechfoundation/sudo-rs.git#tag=v${pkgver}?signed)
-sha256sums=('53a9cd5f934ab9e10f82b50f1d822c6a4d7dd62014abe3eeae863e06c6938446')
+sha256sums=('75da432bed6243504ad9fad94cdbaee1eb90672dc43e78930d314d48572ce131')
 validpgpkeys=(C2E4CAC4B12225DE1C3BB1C9289D082003D01E95) # Marc Schoolderman
 
 prepare() {
   cd "$pkgname"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
