@@ -7,19 +7,30 @@
 
 pkgname=cinnamon-screensaver
 pkgver=6.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Screensaver designed to integrate well with the Cinnamon desktop."
 arch=(x86_64)
 url="https://github.com/linuxmint/${pkgname}"
-license=(GPL)
+license=(GPL-2.0-or-later)
 depends=(accountsservice cinnamon-desktop libgnomekbd
          python-cairo python-gobject python-setproctitle python-xapp xapp xdotool)
 optdepends=('cinnamon-translations: i18n')
 makedepends=(git gobject-introspection meson glib2-devel)
 backup=(etc/pam.d/cinnamon-screensaver)
-source=(git+${url}#tag=$pkgver)
-sha512sums=('13b613596a6ab82b3b1909698cb43ed44b9e3c60209c0ff445a4b4188bfd1050d1a3012c86819d9fc3bcebccc18954a8a97c0d23ccdc9d964f68f0812334d207')
-b2sums=('7fdce2f9c2123fe81a0b7e5018261f011f3c7fb962b09b297943a78a7f85574195f5d4038e8aa9d6ccb5e136cd4301fb68868319d9d85e6ed44c758e46ecb8f3')
+source=(git+${url}#tag=$pkgver
+        cinnamon-screensaver-optional-caribou.patch)
+sha512sums=('13b613596a6ab82b3b1909698cb43ed44b9e3c60209c0ff445a4b4188bfd1050d1a3012c86819d9fc3bcebccc18954a8a97c0d23ccdc9d964f68f0812334d207'
+            'ad57b144d02de861fe2d144f0cbd8908531604aab9fa1efe185d073282d274bb05751a763457f064a98d63cb7bdedd88eb7bc5e7d3f0315cd5b717e1a626288d')
+b2sums=('7fdce2f9c2123fe81a0b7e5018261f011f3c7fb962b09b297943a78a7f85574195f5d4038e8aa9d6ccb5e136cd4301fb68868319d9d85e6ed44c758e46ecb8f3'
+        'ed6134828147d43ed101c4d6dd1d2b36b2c13cbe0ec21a8f708fc3b37c86623cc6d05febe7386d48b8f094aa87df97d147b9760422cd7b76432d05b8bcb80551')
+
+prepare() {
+  cd ${pkgname}
+
+  # Make Caribou dependency optional
+  # https://github.com/linuxmint/cinnamon-screensaver/pull/489
+  git apply -3 ../cinnamon-screensaver-optional-caribou.patch
+}
 
 build() {
   arch-meson --libexecdir=lib/cinnamon-screensaver build ${pkgname}
