@@ -2,7 +2,7 @@
 
 pkgname=tickrs
 epoch=2
-pkgver=0.14.11
+pkgver=0.15.0
 pkgrel=1
 pkgdesc="Realtime ticker data in your terminal"
 arch=('x86_64')
@@ -11,12 +11,12 @@ license=('MIT')
 depends=('gcc-libs' 'zlib')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('778ca069fde16aae2d9049f0bc09bae6679e99c47d79adaef21edc16b36803b0d83d36618279472ea79ab656f7f229928da25862e556196476987fb57b7a27ce')
+sha512sums=('b176fb7f1b60539e6738976f1c07b2fcfaa3e930bb2304512ae90630d483014f433d4d95ab983bb7276515fd2d280ea9427fe74d2277430babd336d2d904647d')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
