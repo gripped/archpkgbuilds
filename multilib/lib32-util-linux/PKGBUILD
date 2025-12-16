@@ -3,7 +3,7 @@
 
 _pkgbasename=util-linux
 pkgname=lib32-${_pkgbasename}
-pkgver=2.41.2
+pkgver=2.41.3
 pkgrel=1
 pkgdesc='Miscellaneous system utilities for Linux (32-bit)'
 url='https://github.com/util-linux/util-linux'
@@ -11,13 +11,25 @@ arch=('x86_64')
 makedepends=('git' 'meson' 'lib32-libxcrypt' 'lib32-ncurses')
 depends=('util-linux-libs' 'lib32-glibc')
 provides=('libuuid.so' 'libblkid.so' 'libfdisk.so' 'libmount.so' 'libsmartcols.so')
-license=('GPL2')
+license=(
+  'BSD-2-Clause'
+  'BSD-3-Clause'
+  'BSD-4-Clause-UC'
+  'GPL-2.0-only'
+  'GPL-2.0-or-later'
+  'GPL-3.0-or-later'
+  'ISC'
+  'LGPL-2.1-or-later'
+  'LicenseRef-PublicDomain'
+)
 options=('!emptydirs')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
 source=("git+https://github.com/util-linux/util-linux#tag=v${pkgver/rc/-rc}?signed")
-sha256sums=('d7fec66283cce093f54aaf0f30dcb6adfea7c7c170abf8cdf24df3c409397f87')
+sha256sums=('d95e1a90d4a0733372f46c4af4fbb6fe7667d96b800c46a0cc05c5abe699eabe')
 
 _backports=(
+  # tests: (swaplabel) don't create test image with truncate(1)
+  'ccb00ea5efe064b265104fbd19b36883172d9700'
 )
 
 _reverts=(
@@ -66,6 +78,11 @@ build() {
   arch-meson "${_pkgbasename}" build "${_meson_options[@]}"
 
   meson compile -C build
+}
+
+check() {
+  cd build
+  ../util-linux/tests/run.sh --show-diff
 }
 
 package() {

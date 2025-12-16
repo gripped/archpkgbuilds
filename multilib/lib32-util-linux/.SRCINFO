@@ -1,10 +1,18 @@
 pkgbase = lib32-util-linux
 	pkgdesc = Miscellaneous system utilities for Linux (32-bit)
-	pkgver = 2.41.2
+	pkgver = 2.41.3
 	pkgrel = 1
 	url = https://github.com/util-linux/util-linux
 	arch = x86_64
-	license = GPL2
+	license = BSD-2-Clause
+	license = BSD-3-Clause
+	license = BSD-4-Clause-UC
+	license = GPL-2.0-only
+	license = GPL-2.0-or-later
+	license = GPL-3.0-or-later
+	license = ISC
+	license = LGPL-2.1-or-later
+	license = LicenseRef-PublicDomain
 	makedepends = git
 	makedepends = meson
 	makedepends = lib32-libxcrypt
@@ -17,8 +25,8 @@ pkgbase = lib32-util-linux
 	provides = libmount.so
 	provides = libsmartcols.so
 	options = !emptydirs
-	source = git+https://github.com/util-linux/util-linux#tag=v2.41.2?signed
+	source = git+https://github.com/util-linux/util-linux#tag=v2.41.3?signed
 	validpgpkeys = B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284
-	sha256sums = d7fec66283cce093f54aaf0f30dcb6adfea7c7c170abf8cdf24df3c409397f87
+	sha256sums = d95e1a90d4a0733372f46c4af4fbb6fe7667d96b800c46a0cc05c5abe699eabe
 
 pkgname = lib32-util-linux
