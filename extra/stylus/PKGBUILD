@@ -2,7 +2,7 @@
 
 pkgname=stylus
 pkgdesc='Robust, expressive, and feature-rich CSS superset'
-pkgver=0.62.0
+pkgver=0.63.0
 pkgrel=1
 arch=('any')
 url='https://github.com/stylus/stylus'
@@ -11,7 +11,7 @@ depends=('nodejs')
 makedepends=('npm' 'git')
 source=(https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz)
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('bf76027f7d5ab5bc0940832d3cd5fc85c43ea240f8350693b8a19459f208f1e6aa9fede8b6b6edb462f5cd2319000b623ec073b509ee8d506e820fdc5c5529ca')
+sha512sums=('38c960ad308fcc4fe26ed44ca1e2d584e63445c36e356874ae1015a9e2a793f43072e50a41b9ea859d64836bf30fc554ffa8771683d3ab84493c780b06f5fa07')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
