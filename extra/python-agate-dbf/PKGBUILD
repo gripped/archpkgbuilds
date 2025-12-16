@@ -4,14 +4,15 @@
 
 _pyname=agate-dbf
 pkgname=python-$_pyname
-pkgver=0.2.3
-pkgrel=3
+pkgver=0.2.4
+pkgrel=1
 pkgdesc='Adds read support for dbf files to agate'
 arch=(any)
 url="https://$_pyname.readthedocs.org"
 license=(MIT)
 _pydeps=(agate
          dbfread
+         sphinx-furo
          sphinx_rtd_theme)
 depends=(python
          "${_pydeps[@]/#/python-}")
@@ -20,7 +21,7 @@ makedepends=(python-setuptools
 checkdepends=(python-pytest)
 _archive="$_pyname-$pkgver"
 source=("$_archive.tar.gz::https://github.com/wireservice/$_pyname/archive/$pkgver.tar.gz")
-sha256sums=('65b494c463f155f40b6728c2bc919dc8b8e0dc69a33bd52a19c39ee50af058af')
+sha256sums=('40983c2f9cdd7b6f83f258f484bf612a8b46bbce445f330064a701d7100a7e76')
 
 build() {
 	cd "$_archive"
