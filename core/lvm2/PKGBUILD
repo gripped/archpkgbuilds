@@ -3,7 +3,7 @@
 
 pkgbase=lvm2
 pkgname=('lvm2' 'device-mapper')
-pkgver=2.03.37
+pkgver=2.03.38
 pkgrel=1
 arch=('x86_64')
 url='https://sourceware.org/lvm2/'
@@ -12,7 +12,7 @@ makedepends=('git' 'systemd' 'libaio' 'thin-provisioning-tools')
 validpgpkeys=('88437EF5C077BD113D3B7224228191C1567E2C17'  # Alasdair G Kergon <agk@redhat.com>
               'D501A478440AE2FD130A1BE8B9112431E509039F') # Marian Csontos <marian.csontos@gmail.com>
 source=("git+https://gitlab.com/lvmteam/lvm2.git#tag=v${pkgver//./_}?signed")
-sha256sums=('6c58e14d6c23a725ef6d39f763b1873762bbdae2debebacb758c5d080c447fa9')
+sha256sums=('57906de8293d19f284c58bee82602f018bf7283ed03c043ca2ab3e28e453c974')
 
 _backports=(
 )
