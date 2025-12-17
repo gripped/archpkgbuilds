@@ -1,11 +1,12 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: farwayer <farwayer [at] gmail [dot] com>
 
 pkgbase=lib32-opus
 pkgname=(
   lib32-opus
 )
-pkgver=1.5.2
+pkgver=1.6
 pkgrel=1
 pkgdesc="Totally open, royalty-free, highly versatile audio codec (32-bit)"
 url="https://www.opus-codec.org/"
@@ -20,10 +21,10 @@ makedepends=(
   meson
 )
 source=("https://downloads.xiph.org/releases/opus/opus-$pkgver.tar.gz")
-b2sums=('1c54de8171df1da69b64a2eca4ce97a0280cfceafb387f40ef1186add366030a397fabc19b18cf1e50d6dbaccb027697d1e2b3da4fa6ab73d70c2b4e723e87f7')
+b2sums=('901d701ddda7a34d65444fe3bebb55f8fa0d2067cf0b4c782a46a799070ee05186f9171a6349a21117629a76703131379af13e9ab3fcb7bef04503c56c6fb981')
 
 # https://downloads.xiph.org/releases/opus/SHA256SUMS.txt
-sha256sums=('65c1d2f78b9f2fb20082c38cbe47c951ad5839345876e46941612ee87f9a7ce1')
+sha256sums=('b7637334527201fdfd6dd6a02e67aceffb0e5e60155bbd89175647a80301c92c')
 
 # Git doesn't contain model data
 #source=("git+https://gitlab.xiph.org/xiph/opus.git?signed#tag=v$pkgver")
@@ -57,9 +58,10 @@ package_lib32-opus() {
   provides=(libopus.so)
 
   meson install -C build --destdir "$pkgdir"
+
   rm -r "$pkgdir/usr/include"
 
-  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 opus/COPYING
+  install -Dm644 opus/COPYING -t "$pkgdir/usr/share/licenses/$pkgname"
 }
 
 # vim:set sw=2 sts=-1 et:
