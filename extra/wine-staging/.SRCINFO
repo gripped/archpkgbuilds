@@ -1,7 +1,7 @@
 pkgbase = wine-staging
 	pkgdesc = A compatibility layer for running Windows programs - Staging branch
 	pkgver = 10.20
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.wine-staging.com
 	install = wine.install
 	arch = x86_64
@@ -75,6 +75,7 @@ pkgbase = wine-staging
 	provides = wine=10.20
 	conflicts = wine
 	options = !lto
+	options = pestrip
 	source = git+https://gitlab.winehq.org/wine/wine.git?signed#tag=wine-10.20
 	source = git+https://gitlab.winehq.org/wine/wine-staging.git#tag=v10.20
 	source = 30-win32-aliases.conf
