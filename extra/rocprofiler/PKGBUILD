@@ -1,10 +1,11 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Maintainer: Christian Heusel <christian@heusel.eu>
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
+# Contributor: Lubosz Sarnecki <lubosz@gmail.com>
 
 pkgname=rocprofiler
 pkgver=7.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="ROC profiler library. Profiling with perf-counters and derived metrics."
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocprofiler/en/latest/index.html'
@@ -15,6 +16,9 @@ depends=(
   'python'
   'python-lxml'
   'rocm-core'
+  'fmt'
+  'google-glog'
+  'yaml-cpp'
 )
 makedepends=(
   'cmake'
@@ -30,9 +34,12 @@ makedepends=(
   'rocm-smi-lib'
   'rocm-toolchain'
   'roctracer'
+  'pybind11'
+  'ninja'
 )
 _git='https://github.com/ROCm/rocm-systems'
 _dir_name='rocm-systems/projects/rocprofiler'
+_dir_name_sdk='rocm-systems/projects/rocprofiler-sdk/'
 source=("rocm-systems::git+$_git#tag=rocm-$pkgver"
         "rocm-systems-perfetto::git+https://github.com/google/perfetto")
 sha256sums=('45103a278e43a8363bed0fc74515030819f72ae26aab801d1e106be9b2715903'
@@ -44,9 +51,28 @@ prepare() {
   git submodule init
   git config submodule."perfetto".url "${srcdir}/rocm-system-perfetto"
   git -c protocol.file.allow=always submodule update --init --recursive
+
+  # Use system packages for rocprofv3
+  # See https://github.com/ROCm/rocm-systems/pull/2319
+  cd "${srcdir}/rocm-systems"
+  # Add option to use system yaml-cpp
+  git cherry-pick -n 1575ff23f372153f185e8fadf8506bcc82ce0f99
+  # Fix build with ROCPROFILER_BUILD_GLOG=OFF
+  git cherry-pick -X theirs -n 7f4068e078ec763e544d28fca84a9a0371ed09ab
+  # Fix build with fmt 12.1.0
+  git cherry-pick -n 7feb490bcf476eb90346f26839e0c7d57f21bd01
+
+  # Add missing <cstdint> include
+  cd "${srcdir}/rocm-systems/projects/rocprofiler-sdk/external/elfio"
+  git cherry-pick -n 34d2c64237bb40f09879e7421db120e50e7e2923
 }
 
 build() {
+  # Build deprecated rocprof and rocprofv2
+
+  # Enabling too many targets errors out in GNU make
+  export EXCLUDED_GPU_TARGETS="gfx906:xnack-,gfx908:xnack-,gfx90a:xnack+,gfx90a:xnack-,gfx950"
+
   local cmake_args=(
     -Wno-dev
     -B build
@@ -54,17 +80,34 @@ build() {
     -D CMAKE_BUILD_TYPE=Release
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D ROCPROFILER_BUILD_TESTS=OFF
-    -D GPU_TARGETS="gfx803 gfx900 gfx906 gfx908 gfx90a gfx940 gfx941 gfx942 gfx1030 gfx1100 gfx1101 gfx1102 gfx1200 gfx1201"
-    # -D GPU_TARGETS="$(rocm-supported-gfx -d ' ')"
-    -D PROF_API_HEADER_PATH="$srcdir/rocm-system/projects/roctracer/inc/ext"
+    -D GPU_TARGETS="$(rocm-supported-gfx -e "${EXCLUDED_GPU_TARGETS}" -d ' ')"
+    -D PROF_API_HEADER_PATH="$srcdir/rocm-systems/projects/roctracer/inc/ext"
   )
   HIP_CLANG_PATH=/opt/rocm/llvm/bin \
   cmake "${cmake_args[@]}"
   cmake --build build
+
+  # Build rocprofv3
+  local cmake_args=(
+    -Wno-dev
+    -G Ninja
+    -B build-sdk
+    -S "$_dir_name_sdk"
+    -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_INSTALL_PREFIX=/opt/rocm
+    # Use system packages
+    -D ROCPROFILER_BUILD_FMT=OFF
+    -D ROCPROFILER_BUILD_GLOG=OFF
+    -D ROCPROFILER_BUILD_PYBIND11=OFF
+    -D ROCPROFILER_BUILD_YAML_CPP=OFF
+    -D GPU_TARGETS="$(rocm-supported-gfx -d ' ')"
+  )
+  cmake "${cmake_args[@]}"
+  cmake --build build-sdk
 }
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-
+  DESTDIR="$pkgdir" cmake --install build-sdk
   install -Dm644 "$_dir_name/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
