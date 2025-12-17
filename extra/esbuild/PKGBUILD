@@ -3,7 +3,7 @@
 # Contributor: George Rawlinson <george@rawlinson.net.nz>
 
 pkgname=esbuild
-pkgver=0.27.1
+pkgver=0.27.2
 pkgrel=1
 pkgdesc="An extremely fast JavaScript and CSS bundler and minifier."
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('MIT')
 depends=(glibc)
 makedepends=(go nodejs)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/evanw/${pkgname}/archive/v${pkgver}.tar.gz")
-sha512sums=('60c40b999c68d27a1235bd4d75f17be549a12f0dc4a2c3aece481b57bd5b1e11b73bd2a5515d6e0c046558abf1706163d076d10acb27fdcbe402c925c10cb889')
+sha512sums=('e9cea28edb8e0da8ac23fedc9b9b3cbcbe88df18be8ab1dd9f3943ecabee072630c0cca5e1080a77607746798edb9f1f0b560d586621493df4282cffa444f1df')
 
 export CGO_CPPFLAGS="${CPPFLAGS}"
 export CGO_CFLAGS="${CFLAGS}"
