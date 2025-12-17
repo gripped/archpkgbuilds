@@ -4,7 +4,7 @@
 
 pkgname=arch-wiki-lite
 pkgver=20251202
-pkgrel=1
+pkgrel=2
 pkgdesc='Arch Wiki without HTML. 1/9 as big, easily searched & viewable on console'
 arch=('any')
 url='https://gitlab.archlinux.org/grawlinson/arch-wiki-lite'
@@ -19,6 +19,7 @@ optdepends=(
   'dialog: for interactive menu'
   'arch-wiki-docs: for wiki-search-html'
   'xdg-utils: for wiki-search-html'
+  'less: pager to view content'
 )
 _commit='b87bada8c48378c5c48d7e10f9d54a6d2f01867d'
 source=("$pkgname::git+$url.git#commit=$_commit")
