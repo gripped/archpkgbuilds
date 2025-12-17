@@ -5,7 +5,7 @@
 
 pkgbase=nvidia-settings
 pkgname=('nvidia-settings' 'libxnvctrl')
-pkgver=580.105.08
+pkgver=580.119.02
 pkgrel=1
 pkgdesc='Tool for configuring the NVIDIA graphics driver'
 url='https://github.com/NVIDIA/nvidia-settings'
@@ -15,7 +15,7 @@ makedepends=('jansson' 'gtk3' 'libxv' 'libvdpau' 'nvidia-utils' 'libxext' 'vulka
 options=('staticlibs')
 source=(${pkgbase}-${pkgver}.tar.gz::https://github.com/NVIDIA/nvidia-settings/archive/${pkgver}.tar.gz
         nvidia-settings-libxnvctrl_so.patch)
-sha512sums=('e8d22a61b2840df94b9001e2279d683129ea9a4f3c89a0bb856ed8dc3c002782b6b7a4899d03793ff20a5a8e67a0fe973943d118be4413b184254c9e98586a9a'
+sha512sums=('9572a854cf5c97e79ad879fd6b9b1303443cbc1744a1fb57f8cce57a0759e83a56495840a48735551092986f0d1266bb83f501f44e1661b507b6c557ca9fdebb'
             '0303fe615d6ef4e14112998c531a17613b94776f9a6a027ddb81e400fddd5f2ff15583da8b8631c2306aca854edf2f54a8007eb36f1732b4c064c857aaf268ae')
 
 prepare() {
