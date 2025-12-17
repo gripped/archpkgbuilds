@@ -3,7 +3,7 @@
 # Contributor: Tianjiao Yin <ytj000@gmail.com>
 
 pkgname=mathjax
-pkgver=4.0.0
+pkgver=4.1.0
 pkgrel=1
 pkgdesc='An open source JavaScript display engine for mathematics that works in all modern browsers'
 url='https://www.mathjax.org/'
@@ -11,7 +11,7 @@ arch=(any)
 license=(Apache-2.0)
 makedepends=(git)
 source=(git+https://github.com/mathjax/MathJax#tag=$pkgver)
-sha256sums=('b77b3429373d068c92b36ece863573fb75c1214503e445d8ffc8d44b0c51df81')
+sha256sums=('069c9ae5568db9b7b630c552fb4fd89831298101e2a1b77452c86c7d1f9295f4')
 
 package() {
   cd MathJax
