@@ -3,7 +3,7 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=xh
-pkgver=0.25.0
+pkgver=0.25.3
 pkgrel=1
 pkgdesc="Friendly and fast tool for sending HTTP requests"
 arch=('x86_64')
@@ -13,11 +13,11 @@ depends=('gcc-libs' 'openssl' 'oniguruma')
 makedepends=('cargo')
 replaces=('ht-rs' 'ht')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('6145f48cbefbb2bd1aa97ebcc8528d15ada1303e6e80fdd6a4637014f0f1df1c')
+sha256sums=('ba331c33dc5d222f43cc6ad9f602002817772fd52ae28541976db49f34935ae3')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
