@@ -1,19 +1,16 @@
 pkgbase = deepin-anything-arch
 	pkgdesc = Deepin Anything file search tool, kernel module for Arch kernel
-	pkgver = 6.1.2
-	pkgrel = 187
+	pkgver = 6.2.10
+	pkgrel = 3
 	url = https://github.com/linuxdeepin/deepin-anything
 	arch = x86_64
 	license = GPL-3.0-or-later
 	makedepends = linux-headers
+	makedepends = deepin-anything-dkms=6.2.10
 	provides = DEEPIN-ANYTHING-MODULE
+	conflicts = deepin-anything-module
+	conflicts = deepin-anything-dkms
 	replaces = deepin-anything-module
-	source = https://github.com/linuxdeepin/deepin-anything/archive/6.1.2/deepin-anything-6.1.2.tar.gz
-	source = 0001-feat-Fix-compile-error-and-add-support-to-kernel-6.1.patch
-	source = 0002-Avoid-init_module-deprecation.patch
-	sha512sums = a69483f914aeee97b565a6191b21712b06dee1fe2076792ce0decf64da698b7c58ed64cf75073f2d2862c01c35ec1b29568f955bce8cb6b447ec9fa69c59f5e1
-	sha512sums = 0f251c79539a9d7efab22c1ebcad3098703951ff9cdbf9d6dd097a508fc55b88a0c4a54e48a576822285cd4de7e64b6631206d65ff5dfd43fc4689872597e95a
-	sha512sums = 0ccdc51a91e4b310f38d8b2e3e55b5214a1fd2c351eca403b91e11889ec204df0de872895293d1809378f4f37c84d95f8d36812c5e321e01341c138dff464713
 
 pkgname = deepin-anything-arch
 	depends = linux
