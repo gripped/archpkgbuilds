@@ -1,13 +1,19 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: Thomas Weißschuh <thomas t-8ch de>
 
 pkgname=patatt
 pkgver=0.6.3
-pkgrel=4
+pkgrel=6
 pkgdesc="A simple library to add cryptographic attestation to patches sent via email"
 arch=("any")
 depends=('python-pynacl')
-makedepends=('python-setuptools')
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
 url="https://git.kernel.org/pub/scm/utils/patatt/patatt.git/about/"
 license=("MIT")
 source=("https://git.kernel.org/pub/scm/utils/$pkgname/$pkgname.git/snapshot/$pkgname-$pkgver.tar."{gz,asc})
@@ -17,12 +23,13 @@ sha256sums=('d7cc136273541d659fa8f5a67e217ca5ad5685d7a180020f02e7e12029dcfd12'
 
 build() {
   cd "$pkgname-$pkgver"
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd "$pkgname-$pkgver"
-  python setup.py install --root="$pkgdir"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
   install -Dm644 COPYING "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 
   install -d "$pkgdir/usr/share/man/man5"
