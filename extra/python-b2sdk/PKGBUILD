@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-b2sdk
-pkgver=2.10.1
+pkgver=2.10.2
 pkgrel=1
 pkgdesc='Python module to access B2 cloud storage'
 arch=(any)
@@ -27,17 +27,20 @@ checkdepends=(
   python-pytest-mock
   python-pytest-lazy-fixtures
   python-pytest-timeout
+  python-pytest-xdist
   python-pyfakefs
   python-tqdm
   python-pydantic
+  python-responses
+  python-tenacity
 )
 optdepends=(
   'python-tqdm: for TqdmProgressListener class'
   'python-pydantic: for improved type hints'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('1512f73649c4e5c9864d417607fd04ce55de5da1256518b1c7d1492892f68bc1a684b1db0960f65ce65b3d55cfaf8e872187ddb2a8a0453fbdd285dd63f40e7f')
-b2sums=('32a650baedfc1f6b70ccf979fa527a208812493a408d3cfca89756c6b8cbfc6dd41f91658cbc8ba208adc01411f90e029315a30ca6ff2cdea7928e497daaa3da')
+sha512sums=('6c58f38f7baa813e1e59a883f6178bb3586e90de716f4681355dbc5bdc0a7be9a64c1eb213233ceae2153f2ea546f949da05110eb49109daafba535591fd7e8c')
+b2sums=('f9dd55dd9e4c4f6652674582cad5151d2963902485c4bbea677875a3618201f3590f639e5d7e0db59a8b466f1bf2bdd24c8cd010fd25e12c8796966cda63c12d')
 
 build() {
   cd "$pkgname"
