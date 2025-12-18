@@ -3,7 +3,7 @@
 # Contributor: boromil@gmail.com
 
 pkgname=ffmpegthumbnailer
-pkgver=2.2.4
+pkgver=2.3.0
 pkgrel=1
 pkgdesc="Lightweight video thumbnailer that can be used by file managers"
 url="https://github.com/dirkvdb/ffmpegthumbnailer"
@@ -13,7 +13,7 @@ depends=('ffmpeg' 'libjpeg-turbo' 'libpng')
 makedepends=('cmake' 'git')
 optdepends=('gvfs: support for gio uris')
 source=(git+https://github.com/dirkvdb/ffmpegthumbnailer#tag=v$pkgver)
-sha256sums=('52f57cee6963e99e2a367ff60a55ec542643688b69f4bf2d6b941fd679e6fac0')
+sha256sums=('36790613cfbc8dc0dbd125c9cd4ce9813925c1c9b5c88a1aa735f63bf13b8240')
 
 build() {
   cmake -B build -S $pkgname \
