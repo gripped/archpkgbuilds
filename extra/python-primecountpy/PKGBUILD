@@ -3,7 +3,7 @@
 _pyname=primecountpy
 pkgname=python-$_pyname
 pkgver=0.1.1
-pkgrel=1
+pkgrel=3
 pkgdesc='Cython interface to the C++ library primecount'
 arch=(x86_64)
 url='https://github.com/dimpase/primecountpy'
@@ -19,8 +19,15 @@ makedepends=(cython
              python-installer
              python-setuptools
              python-wheel)
-source=(git+https://github.com/dimpase/primecountpy#tag=v$pkgver)
-sha256sums=('4bbdb9e4cff7970634e1d9d565feae387554d6454380c34965a9d59bc6abadbc')
+source=(git+https://github.com/dimpase/primecountpy#tag=v$pkgver
+        primecount-8.patch)
+sha256sums=('4bbdb9e4cff7970634e1d9d565feae387554d6454380c34965a9d59bc6abadbc'
+            'f5559effa35b6cd9cd0fb82f399624a1a943c26e15476faa7ad1148bbdea2837')
+
+prepare() {
+  cd $_pyname
+  patch -p1 -i ../primecount-8.patch
+}
 
 build() {
   cd $_pyname
