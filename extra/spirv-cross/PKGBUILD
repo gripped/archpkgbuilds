@@ -1,11 +1,12 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=spirv-cross
-pkgver=1.4.328.1
+pkgver=1.4.335.0
 pkgrel=1
-_glslang_commit=8a85691a0740d390761a1008b4696f57facd02c4
-_spirv_tools_commit=40eb301f320e1d85ce3bc12798022149eae3eee3
-_spirv_headers_commit=04b76709bf40a7ce8df3382060ef3620f19de566
+# https://github.com/KhronosGroup/SPIRV-Cross/blob/vulkan-sdk-1.4.335.0/checkout_glslang_spirv_tools.sh#L5-L7
+_glslang_commit=5f6c7176c5483da9af6432afb3dd962e4f8873a1
+_spirv_tools_commit=021f92a757002fcdba6a73154ed46a203d3a56b8
+_spirv_headers_commit=9268f3057354a2cb65991ba5f38b16d81e803692
 pkgdesc='Tool and library for parsing and converting SPIR-V to other shader languages'
 arch=('x86_64')
 url='https://github.com/KhronosGroup/SPIRV-Cross/'
@@ -21,10 +22,10 @@ source=("git+https://github.com/KhronosGroup/SPIRV-Cross.git#tag=vulkan-sdk-${pk
         "git+https://github.com/KhronosGroup/glslang.git#commit=${_glslang_commit}"
         "git+https://github.com/KhronosGroup/SPIRV-Tools.git#commit=${_spirv_tools_commit}"
         "git+https://github.com/KhronosGroup/SPIRV-Headers.git#commit=${_spirv_headers_commit}")
-sha256sums=('a96ced240c9e99e2ed48b35af95761d68b2610d0a6d6ebdd8b915904f3d9771d'
-            '3baa14f82b7b7a21d6910d5ff3f906cfe716a81877e8296a88bbcd0d1be4896e'
-            'a3658f1e9046eba5c55ccbd3e83a6d256129e6a56f1d25aa92e4a25443656011'
-            '157890d75d99e923eb97ab8e00499d13ef21cc34f9814b6ae5f6f9c7f2ec2e56')
+sha256sums=('95e0ab5de168c30dac1219dfee568823fbac70b2ddc4f85c86ba987cbd12d4be'
+            'b60b757e5db6809976e953d21a802c270b55a9a7b55e8868d6d82d249a84c2c6'
+            'b7605c1aab079bada3eba2470b72caa73b9c5d22603cc95bf1e2862655f4cc8a'
+            '8f5d1dd2d4281d135bc632c97c1a96ccb4ba79edcdad337de87f3510c9798638')
 
 prepare() {
     mkdir -p SPIRV-Cross/external/{glslang,spirv-tools}
