@@ -2,7 +2,7 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 
 pkgname=xtrabackup
-pkgver=8.4.0_4
+pkgver=8.4.0_5
 pkgrel=1
 pkgdesc='Non-blocking backup tool for MySQL'
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('GPL-2.0-only')
 depends=('libaio' 'libev' 'libgcrypt' 'curl' 'perl-dbd-mysql' 'numactl' 'protobuf' 'libprocps' 'icu' 'zlib' 'zstd' 'lz4')
 makedepends=('cmake' 'python-sphinx' 'vim' 'libedit' 'libevent' 'libfido2')
 source=("https://downloads.percona.com/downloads/Percona-XtraBackup-${pkgver%.*}/Percona-XtraBackup-${pkgver//_/-}/source/tarball/percona-xtrabackup-${pkgver//_/-}.tar.gz")
-sha256sums=('e566a164a21b18781aad281b84426418ac2bcf71052ec85d8c5e62f742a7dfeb')
+sha256sums=('fadcf27efd2a2596f689388659e2ff5c36debcc051a55974ac8bb4a83c015f57')
 
 prepare() {
   mkdir build
