@@ -2,11 +2,11 @@
 
 pkgname=sdl3_ttf
 pkgver=3.2.2
-pkgrel=1
+pkgrel=3
 pkgdesc="A library that allows you to use TrueType fonts in your SDL applications (Version 3)"
 arch=('x86_64')
 url="https://github.com/libsdl-org/SDL_ttf"
-license=('MIT')
+license=('Zlib')
 depends=('glibc' 'sdl3' 'freetype2' 'harfbuzz')
 makedepends=('cmake')
 source=("https://github.com/libsdl-org/SDL_ttf/releases/download/release-${pkgver}/SDL3_ttf-${pkgver}.tar.gz"{,.sig})
