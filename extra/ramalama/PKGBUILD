@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: erdii <me at erdii dot engineering>
 pkgname=ramalama
-pkgver=0.15.0
+pkgver=0.16.0
 pkgrel=1
 pkgdesc="Simple local AI using OCI containers"
 arch=('any')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('python-argcomplete' 'python-jsonschema' 'python-jinja' 'python-yaml')
 makedepends=(python-build python-installer python-wheel python-setuptools)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/containers/ramalama/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('d2b77a4434ffb9e359b8d333bb64f1db5d88bf85da0bf67e76f9d0170567f80a')
+sha256sums=('c2d9cab713e38d902375cd733880830d907f6b35c971bd78b3137e1973db243c')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
