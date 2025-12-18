@@ -2,7 +2,7 @@
 
 pkgname=television
 _pkgname=tv
-pkgver=0.13.12
+pkgver=0.14.1
 pkgrel=1
 pkgdesc="A general purpose fuzzy finder for your terminal"
 arch=('x86_64')
@@ -12,12 +12,12 @@ depends=('gcc-libs')
 makedepends=('cargo')
 checkdepends=('fd' 'bat')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('1734796855cd88e91e72e29f4eea09adfa2f540df2ceb20d57b1adaff7064cd3f64e341fd8ff6332e0c73c3e318ea96719a2d597d0d77542cf4341381cde3977')
+sha512sums=('18a80b2e8b37c2f13ba03fba16a66fed3cb1a985ecc9fa3653d6e682132a3a8de746cc02f8e3354066f0ee7d883008774f2ef58c4319c0f8093307c6c4ee53ce')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
