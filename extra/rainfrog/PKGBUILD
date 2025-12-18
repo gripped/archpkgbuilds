@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=rainfrog
-pkgver=0.3.11
+pkgver=0.3.12
 pkgrel=1
 pkgdesc="A database management TUI for Postgres"
 arch=('x86_64')
@@ -10,12 +10,12 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('4eecc6f646a9ba4b7a836ae52c56b0c38817a3f5052fb4db02cd97192ac4aa41c2911ea888851704b9222a8d041aaf31079cb8ddbeff67215d163d5ecdd528fd')
+sha512sums=('9ff671a436d75587e9bee6ead5edb0eb6ed55555ce9517f7d344dc1c02522bbe812158b10da3df8e14f8c7b6fb35064c727dd3e0519394b961313b261c0dd56d')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
