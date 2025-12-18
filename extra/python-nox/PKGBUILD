@@ -2,48 +2,63 @@
 
 _pkgname=nox
 pkgname=python-$_pkgname
-pkgver=2024.10.09
+pkgver=2025.11.12
 pkgrel=1
 pkgdesc='Flexible test automation for Python'
-arch=('any')
+arch=(any)
 url='https://github.com/wntrblm/nox'
-license=('Apache')
-depends=('python' 'python-argcomplete' 'python-colorlog' 'python-virtualenv' 'python-packaging')
-optdepends=('python-jinja: tox_to_nox'
-            'python-tox: tox_to_nox')
-makedepends=('python-build' 'python-installer' 'python-hatchling')
-checkdepends=('python-pytest' 'python-jinja' 'python-tox')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
-         28bbaa5a.patch)
-sha512sums=('51d1f70ba94d01abd10ba3a12896facd13a7a2881496221b6fa9d0a43ff947303b0cc975a29169a3d9e0174277e23e0bc4b1137b2774c1abffa23a48c9d69a11'
-            '932a70916b6216b59d7352d5d1cdbcd9906f07b3c86611c15ba230e85c7b35b685f1273f26c447a7ac9a7205dcc30cc8c648694bf1faf0a21d6d4cc48d28cea8')
-
-prepare() {
-  cd $_pkgname-$pkgver
-  patch -p1 -i ../28bbaa5a.patch # Fix tests
-}
+license=(Apache-2.0)
+depends=(
+  python
+  python-argcomplete
+  python-attrs
+  python-colorlog
+  python-dependency-groups
+  python-humanize
+  python-packaging
+  python-virtualenv
+)
+makedepends=(
+  python-build
+  python-installer
+  python-hatchling
+)
+checkdepends=(
+  python-pytest
+  python-jinja
+  python-tox
+  uv
+)
+optdepends=(
+  'python-jinja: tox_to_nox'
+  'python-tox: tox_to_nox'
+  'uv: uv backend'
+)
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+sha512sums=('fe660f99263ef950e79ae70bd4beeee88046bf2f838e36e33ac74fba5bdd3d36f898a2d7194716f832222a13061f52ad6c03da7f4e3fc5c296ca6db04a48e13f')
 
 build() {
   cd $_pkgname-$pkgver
-
-  python -m build -nw
+  python -m build --wheel --no-isolation
 }
 
 check() {
   cd $_pkgname-$pkgver
+  local pytest_options=(
+    -vv
+    # subprocess.CalledProcessError: Command '['uv', 'pip', 'install', 'nox @ git+https://github.com/wntrblm/nox.git@2024.10.09']' returned non-zero exit status 1.
+    --deselect tests/test_main.py::test_noxfile_script_mode_url_req
+  )
 
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-# tox 4 isn't supported https://github.com/wntrblm/nox/issues/673
-  test-env/bin/python -m pytest -k 'not test_tox_to_nox'
+  test-env/bin/python -m pytest "${pytest_options[@]}"
 }
 
 package() {
   cd $_pkgname-$pkgver
-
-  python -m installer -d "$pkgdir" dist/*.whl
-
-  install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
 # vim:set ts=2 sw=2 et:
