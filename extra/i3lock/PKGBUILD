@@ -3,8 +3,8 @@
 # Contributor: Thorsten Töpper <atsutane-tu@freethoughts.de>
 
 pkgname=i3lock
-pkgver=2.15
-pkgrel=3
+pkgver=2.16
+pkgrel=1
 pkgdesc='Improved screenlocker based upon XCB and PAM'
 url='https://i3wm.org/i3lock/'
 arch=('x86_64')
@@ -28,7 +28,7 @@ makedepends=(
 options=('docs')
 backup=('etc/pam.d/i3lock')
 source=(https://i3wm.org/i3lock/$pkgname-$pkgver.tar.xz{,.asc})
-sha512sums=('6079f5233c0820c6e38f3cd8f3732d585e95e7d670408e4fb18ab580a2e1face8f3d6ea13eaaeedc8671f74def917183667e736b35306bf7c630d40625b41ac2'
+sha512sums=('f5d4db5f1cb23fa2599701c625da3ecd7cceb521e28f4d8401b3c35e05adb5dca3e8061e82a68cd33170d1cc8585acf19c5409e5bf8b7fa207e108d97ed68138'
             'SKIP')
 validpgpkeys=('424E14D703E7C6D43D9D6F364E7160ED4AC8EE1D') # Michael Stapelberg
 
