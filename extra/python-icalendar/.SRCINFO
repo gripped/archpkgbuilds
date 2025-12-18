@@ -1,7 +1,7 @@
 pkgbase = python-icalendar
 	pkgdesc = A parser/generator of iCalendar files (RFC 2445)
 	pkgver = 6.3.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/collective/icalendar
 	arch = any
 	license = BSD-2-Clause
@@ -13,10 +13,11 @@ pkgbase = python-icalendar
 	makedepends = python-hatch-vcs
 	makedepends = python-hatchling
 	makedepends = python-installer
+	depends = python
 	depends = python-dateutil
 	source = git+https://github.com/collective/icalendar.git#tag=v6.3.2
 	source = tzdata.patch
-	b2sums = 198abe1adf44da066c0a6b8ac66dde5a9e809d299e72fcb5c97f5fd5fa48a99a89d9fd8bc3ad0f4904704ecfbb3310ff7d6bc46924c7efc236d2395c7f3f80d5
+	b2sums = c538301b1abb056091f4a230e38ba577c98d48ead6588372315aea2d01056d7f6ca0aee3d78401af7df5a0c6eceafb869f1b1564a4cbfdae0ff4235e443c5dea
 	b2sums = 97090020758909ff25acd3eb42a426f6bbf763a4fce3fb798f615c04a4c177dd2d07112818495d3f00db8ad17a3098233211a1f53364f57528a887bd149dd1fa
 
 pkgname = python-icalendar
