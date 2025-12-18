@@ -1,17 +1,18 @@
 pkgbase = libsigc++
 	pkgdesc = Callback Framework for C++
 	pkgver = 2.12.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://libsigcplusplus.github.io/libsigcplusplus/
 	arch = x86_64
-	license = LGPL
+	license = LGPL-2.1-or-later
 	makedepends = git
 	makedepends = meson
 	makedepends = mm-common
 	depends = gcc-libs
+	depends = glibc
 	options = !emptydirs
-	source = git+https://github.com/libsigcplusplus/libsigcplusplus#commit=6bef4e0005f00f0844d917866aec7e3b2d829fdf
-	b2sums = SKIP
+	source = git+https://github.com/libsigcplusplus/libsigcplusplus#tag=2.12.1
+	b2sums = ae2a3775bbf10f438dd08413b28d9e206ee11c5b487fcf767f107843727adb086a360f605b643082c9b8a513527e4ac958004ff65fed2fbbb1b5d637dd40dc5e
 
 pkgname = libsigc++
 	provides = libsigc++2.0=2.12.1
