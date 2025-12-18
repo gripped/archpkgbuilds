@@ -1,23 +1,23 @@
 # Maintainer: Leonidas Spyropoulos <artafinde@archlinux.org>
 
 pkgname=goaurrpc
-pkgver=1.2.3
-pkgrel=3
+pkgver=1.2.4
+pkgrel=1
 license=('MIT')
 pkgdesc="An implementation of the aurweb /rpc service in go"
 depends=('glibc')
 makedepends=('go' 'git')
 arch=('x86_64')
-url="https://github.com/moson-mo/goaurrpc"
-_tag_commit=5ffa987642b5886ccb290a80a882dee9938e0560 # git show-ref -d v1.2.3
-source=("git+https://github.com/moson-mo/goaurrpc.git#tag=${_tag_commit}?signed"
+url="https://gitlab.archlinux.org/archlinux/goaurrpc"
+source=("git+https://gitlab.archlinux.org/archlinux/goaurrpc.git#tag=v${pkgver}?signed"
         goaurrpc.service
         goaurrpc.sysusers)
-sha256sums=('23618f493c18b7749be60cd8f9595b814d8cd5a5fdd39e83bd665f1367e07519'
+sha256sums=('e3ff617c8b2be3cf8de6e55c1921d4411f6b302874ed41eaf8b55066575f833a'
             'e6a298e647fcf3b255d9886180b992f0dc447e763509c50513473f6d9b9ac5e3'
             '85b94030647aefedf69b02764729b11fc8287301c8682599c063397e214eebc0')
 validpgpkeys=(
   D5AD89388A7C6C9C22E790994A4760AB4EE15296  # Mario Oenning <moson-mo@users.noreply.github.com>, retrieved from https://github.com/moson-mo.gpg
+  F00B96D15228013FFC9C9D0393B11DAA4C197E3D  # Christian Heusel <gromit@archlinux.org>
 )
 
 prepare() {
