@@ -2,7 +2,7 @@
 
 _name=cytoolz
 pkgname=python-cytoolz
-pkgver=1.0.0
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="Cython implementation of Toolz: High performance functional utilities"
 arch=(x86_64)
@@ -18,12 +18,12 @@ makedepends=(
   python-build
   python-installer
   python-setuptools
+  python-setuptools-git-versioning
   python-wheel
 )
 checkdepends=(python-pytest)
-source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('4edf016e8027c646d85170de418acedd4f254e8e684f249160e79c892d8cf19c6ab897f32e55a02d4b936c8a2e150ec27bde125336325a07af06d1715b4e1208')
-b2sums=('f409c1d577f81f6909153052968dd878dbe38e126ed94dc375afad9431b37d3903434b56221119cb5bdd15703ba400f32e03d55a01f8dd797dc9d45c72fdb3b3')
+source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
+b2sums=('21628828012aae90d3a73a298b3415c461072be85cb510ad121ffcbfda3bc4c9dcbb7a32a0c04806e5700d6afdb264677d714bc61183f1278838ab415e02df62')
 
 build() {
   cd $_name-$pkgver
