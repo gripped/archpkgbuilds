@@ -4,7 +4,7 @@
 # Contributor: Sławomir Kowalski <suawekk@gmail.com>
 
 pkgname=percona-toolkit
-pkgver=3.7.0_2
+pkgver=3.7.1
 pkgrel=1
 pkgdesc="Collection of advanced command-line tools to perform a variety of MySQL and system tasks."
 url="https://www.percona.com/software/database-tools/percona-toolkit"
@@ -18,7 +18,7 @@ optdepends=(
 )
 options=('!emptydirs' 'purge' '!lto')
 source=("https://github.com/percona/$pkgname/archive/v${pkgver/_/-}/$pkgname-${pkgver/_/-}.tar.gz")
-sha256sums=('cecb22c582a61a6955eb3130761d9d0666eb290c917953817cce8e4f92940b48')
+sha256sums=('6ba6b31ec437a6bce10df15a4e577f49f605ff8cb886557d0c7176ba7018b0cb')
 
 prepare() {
     mkdir -p "$srcdir"/src/github.com/percona
