@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=voa
-pkgver=0.5.0
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="CLI for interacting with the File Hierarchy for the Verification of OS Artifacts (VOA)"
 arch=(x86_64)
@@ -15,6 +15,7 @@ depends=(
 makedepends=(
   git
   just
+  lowdown
   rust
   rust-script
 )
@@ -24,13 +25,13 @@ checkdepends=(
 source=(
   $pkgname::git+${_url}.git?signed#tag=$pkgname/$pkgver
 )
-sha512sums=('0042f5bcba0bb5c0dc8b046d78e6d28c0f91339cce2406de382e6aeb599877d45e68e84bd409f9deec80709dc35cf5fad5541f46f73103213a1dbed66bd671d0')
-b2sums=('c4a5a97e6dc659ce7ce63256bf773a35896f0ab5a47e1c6e0ece9c49074fa3507d92e9fb947aed5cdbc7b17d64d00a1a9cca700d77bb5e0d5e2a5ac45d846467')
+sha512sums=('7573e8ce65879b748a4a9170af2c2c7a1d21db867e3c83a21b081d097889867c6b153e981161d06daf0b05754ba084b0d9cdf20388af6e60bf879bb75e18ac1a')
+b2sums=('8d25c32994c55ad268267dc865bcec87db12b73bc7438535f91b1b07b8e752d5edf04dc2dbbd7fc114abc96d0b29f667283b57a2b2be84e11b3a8213d41e5239')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
@@ -38,6 +39,7 @@ build() {
   cargo build --features cli --frozen --release --package voa
 
   just generate shell_completions voa
+  just generate specifications voa-config
   just generate manpages voa
 }
 
@@ -51,6 +53,7 @@ package() {
   install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
 
   install -vDm 644 output/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
+  install -vDm 644 output/manpages/*.5 -t "$pkgdir/usr/share/man/man5/"
   install -vDm 644 output/shell_completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
   install -vDm 644 output/shell_completions/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
   install -vDm 644 output/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completion/completions/$pkgname"
