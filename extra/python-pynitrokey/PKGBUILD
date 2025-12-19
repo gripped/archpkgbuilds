@@ -4,7 +4,7 @@
 
 _name=pynitrokey
 pkgname=python-pynitrokey
-pkgver=0.11.1
+pkgver=0.11.2
 pkgrel=1
 pkgdesc="A command line interface for the Nitrokey FIDO2 and Nitrokey Start"
 arch=(any)
@@ -49,8 +49,8 @@ optdepends=(
 source=(
   "$_name::git+$url.git?signed#tag=v$pkgver"
 )
-sha512sums=('b4f9f37341f471ddba5b86bc029669f94e4c3533e9fa5130d6b85af6b061bd945eb3581693239f7143e115a383eba41d10bae3d72ffc03d3c6f4e14afecb86c6')
-b2sums=('9bbce2908e8f0dbf830a69a1ce3860b4ff89a6d0ca16cb59292b13b109f8d00f75ba4051866d40ee657e2c54adc32a07b1d539b8ad2918f6262ca7b3ed97b314')
+sha512sums=('a5776acfcfa889c91e52ab6b7fa40f99c3ae0e85532ebeec20fbe9f0db9aae9e2b60e054d6f4ec2e9865581102e62c70b657567777f29601eff52d4124b74b97')
+b2sums=('5b94221fab87e60701123d37c0e85528a0206b881177a7ab1c78a1bf0fbf7ff9663e49280d048af06a8723a992d566092af836e1e90d6028b11491367013fdff')
 validpgpkeys=(
   868184069239FF65DE0BCD7DD9BAE35991DE5B22  # Szczepan Zalega <szczepan@nitrokey.com> (@szszszsz)
   CC74B7120BFAA36FF42868724C1449F1C9804176  # Markus Meissner <meissner@nitrokey.com> (@daringer)
