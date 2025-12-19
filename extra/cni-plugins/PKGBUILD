@@ -4,7 +4,7 @@
 
 _name=plugins
 pkgname=cni-plugins
-pkgver=1.8.0
+pkgver=1.9.0
 pkgrel=1
 pkgdesc='Some standard networking plugins, maintained by the CNI team'
 arch=(x86_64)
@@ -18,8 +18,8 @@ options=(
   emptydirs  # NOTE: we need /etc/cni/net.d/ for configs
 )
 source=($url/archive/v$pkgver/$_name-v$pkgver.tar.gz)
-sha512sums=('a2bf1bd2b87e2fda60329982aea4ccc4e80aff9e41de48501e72a09476e9c97132c77cf737b4c3b668383f398b9dee5f7574d2f300bfef10f15d7545cc06ab79')
-b2sums=('4d6192edd7613f61661d9216b2dd9a4277efceee0beaebb5116f7fd792e78a309cb87b96a638cb0f3735971e2a999b77cbf304bb22f9db2e07e31d6f4d7fe94f')
+sha512sums=('8383a9f3fca75e978b84035609668f139e34cac7c5c1547c2913b6893754c3a0ec55acef73fd8e362094ca022359f2fa6c54dec55bada6b8fb8db7e9d7c889ea')
+b2sums=('658b7b1cc47f44bea1e1c8df311bc3aa69d56bbd0c7d634fe7fc9f2a8f6d2ee7ec060a48cb2bc24512a860aea9e9c34420850f39cc1ae0ff1941bd773fdd6f14')
 
 prepare() {
   mkdir -vp $_name-$pkgver/bin
