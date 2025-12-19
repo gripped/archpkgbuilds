@@ -5,7 +5,7 @@
 # Contributor: Robert Emil Berge <robert@rebi.no>
 
 pkgname=rosegarden
-pkgver=25.06
+pkgver=25.12
 pkgrel=1
 pkgdesc="MIDI/audio sequencer and notation editor"
 arch=(x86_64)
@@ -59,8 +59,8 @@ provides=(
 source=(
   $pkgname::git+https://git.code.sf.net/p/rosegarden/git#tag=$pkgver
 )
-sha512sums=('b9c565e1681354d570113cc7a619243d918be6fc97a3a9015d6f5080cc4c2e89ce33ba4dab4c28ceb2cd905aeb1ba9c7a90e5bb234a7f3c27d574a38cc9ecb30')
-b2sums=('87ae29785ecabcf295e59cba6a58413d085773b705f5b40dd089fa45dfc52f216a08b6ef1592c911b2ff4df7383c45afd0af2402049093402fdc0dd015976809')
+sha512sums=('e99444d23fe5a381cc3f5f7ccceb3d5a4a6730afb422c1f4cd5283c73a22d8f9d34a05917afb099fbb55373211055fd04702aa0e4dbd38d9b4ae5e5ffc3410c6')
+b2sums=('a458faee418bbad19254e7f6bcab6fe8ea2905312ef29ce3ee740f43ab61af244ddc36138f5c86f34d1d0f4856db3c7b7263725c58cbfdbb10195381c1a9e3f5')
 
 build() {
   local cmake_options=(
