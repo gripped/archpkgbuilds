@@ -2,7 +2,7 @@
 
 _name=pdm
 pkgname=python-pdm
-pkgver=2.26.1
+pkgver=2.26.2
 pkgrel=1
 pkgdesc="A modern Python package and dependency manager supporting the latest PEP standards"
 arch=(any)
@@ -61,8 +61,8 @@ optdepends=(
   'python-uv: use uv as installer and resolver'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('e25a2d01a7f613e65c3591447984ff4f8f71849aa67dbf0ba6318b523d84966ef45a92608e25ac6bdbdf71cbc547579cb2dd39d47a197afb50a02a57e55ab906')
-b2sums=('5fdaf19b4458b64a118f7303010f6adca5f5acc5b998c34d47a23516791136d04788caadd3cc506ab54482bc76e099689f372aa98ade7b93ad62897373c99497')
+sha512sums=('5a80cda7151a49cd23c49121d1607fb7dec6a6b373a3278ec525cbf16e7dfda388ca82a45f2b68661877f3819da477733ac93c3a5b4d40c87a2b0f70cf43b6fe')
+b2sums=('d04f66cc15d63a5acde2f872354ca74b13dae83be6ad77997edea8bdf8ba36d8a80e912ef26dadda596cc08a45d77449e74957946ea6b25879b6656be96c5a40')
 
 build() {
   cd $_name-$pkgver
@@ -79,6 +79,13 @@ check() {
     --deselect tests/cli/test_build.py::test_build_with_no_isolation
     # issue since 2.25.5: https://github.com/pdm-project/pdm/issues/3590
     --deselect tests/cli/test_install.py::test_install_from_lock_with_higher_version
+    # issue with uv not supporting non-virtual envs: https://github.com/pdm-project/pdm/issues/3698
+    --deselect tests/cli/test_install.py::test_uv_install_pep582_not_allowed
+    --deselect tests/resolver/test_uv_resolver.py::test_resolve_requirements
+    --deselect tests/resolver/test_uv_resolver.py::test_resolve_vcs_requirement
+    --deselect tests/resolver/test_uv_resolver.py::test_resolve_with_python_requires
+    --deselect tests/resolver/test_uv_resolver.py::test_resolve_dependencies_with_nested_extras
+    --deselect tests/resolver/test_uv_resolver.py::test_resolve_dependencies_with_overrides
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
