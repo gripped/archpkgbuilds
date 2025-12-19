@@ -3,7 +3,7 @@
 
 _name=fuo-ytmusic
 pkgname=feeluown-ytmusic
-pkgver=0.4.12
+pkgver=0.4.13
 pkgrel=1
 pkgdesc="YouTube Music for FeelUOwn music player"
 arch=('any')
@@ -17,7 +17,7 @@ optdepends=('feeluown-netease: Lyric source')
 groups=('feeluown-full')
 source=("git+https://github.com/feeluown/feeluown-ytmusic.git#tag=v$pkgver"
 		$pkgname-fix-test_stream_url.patch::https://github.com/feeluown/feeluown-ytmusic/pull/9.patch)
-sha256sums=('13816f98eaad826f9cb81a6bd7e61c14c4f20dd8b2f604bcc30e5da999e2f8a1'
+sha256sums=('18df9ba5f5fe2c61ccedb9a47c575e111c4ccb9583bb16a5c92fea1e3d870fa1'
             '1261f7a31798e6a088ce6b58cafe19f7bd460f140e7ee0257e1c15dd237d0bce')
 
 prepare() {
