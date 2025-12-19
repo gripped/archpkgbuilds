@@ -1,22 +1,26 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=libvpl
-pkgver=2.15.0
+pkgver=2.16.0
 pkgrel=1
 pkgdesc='Intel Video Processing Library'
 arch=('x86_64')
 url='https://intel.github.io/libvpl/'
 license=('MIT')
-depends=('gcc-libs' 'glibc')
-optdepends=('intel-media-sdk: runtime implementation for legacy Intel GPUs'
-            'vpl-gpu-rt: runtime implementation for Tiger Lake and newer GPUs')
-makedepends=('cmake')
+depends=(
+    'gcc-libs'
+    'glibc')
+optdepends=(
+    'intel-media-sdk: runtime implementation for legacy Intel GPUs'
+    'vpl-gpu-rt: runtime implementation for Tiger Lake and newer GPUs')
+makedepends=(
+    'cmake')
 provides=('onevpl' 'libvpl.so')
 conflicts=('onevpl')
 replaces=('onevpl')
 options=('!emptydirs')
 source=("https://github.com/intel/libvpl/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('7218c3b8206b123204c3827ce0cf7c008d5c693c1f58ab461958d05fe6f847b3')
+sha256sums=('d60931937426130ddad9f1975c010543f0da99e67edb1c6070656b7947f633b6')
 
 build() {
     # fix warning: "_FORTIFY_SOURCE" redefined
