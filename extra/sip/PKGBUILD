@@ -2,7 +2,7 @@
 
 pkgname=sip
 pkgver=6.15.0
-pkgrel=1
+pkgrel=3
 arch=(any)
 pkgdesc='A tool that makes it easy to create Python bindings for C and C++ libraries'
 url='https://www.riverbankcomputing.com/'
@@ -17,6 +17,14 @@ makedepends=(git
              python-wheel)
 source=(git+https://github.com/Python-SIP/sip#tag=$pkgver)
 sha256sums=('e15f810c340d3732ce881dacac8b9cd4ce6ee10cf8e5e0bbd465620112293ba5')
+
+prepare() {
+  cd $pkgname
+  git cherry-pick -n 79da3321082f17d594b29c22dd94e58276d5d23e \
+                     c8424f0208c09c272977cd75b242b01d45d8ad55 \
+                     25010f24cde1f247bb27031543ef5f684fb3c080 \
+                     97b0fd965d9eaba621d6a438f0e7436916ffc3e7 # Fix regressions
+}
 
 build() {
   cd $pkgname
