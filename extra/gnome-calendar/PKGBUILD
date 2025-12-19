@@ -4,7 +4,7 @@
 
 pkgname=gnome-calendar
 pkgver=49.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Simple and beautiful calendar application designed to perfectly fit the GNOME desktop"
 url="https://apps.gnome.org/Calendar"
 arch=(x86_64)
@@ -43,6 +43,9 @@ b2sums=('7e6adde4b5452b8257e68ce62a0b796a2aba7b9d4a6348858c504a602c96a2f56187e13
 
 prepare() {
   cd $pkgname
+
+  # Backport fixes from gnome-49 branch
+  git cherry-pick -n ..26892365a20eb02f55a8cdba293c52a282765959
 }
 
 build() {
