@@ -3,7 +3,7 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-compute-runtime
-pkgver=25.44.36015.5
+pkgver=25.48.36300.8
 pkgrel=1
 pkgdesc='Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver'
 arch=('x86_64')
@@ -27,24 +27,18 @@ provides=(
     'level-zero-driver'
     'opencl-driver')
 source=("https://github.com/intel/compute-runtime/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz"
-        '010-intel-compute-runtime-disable-werror.patch'
-        '020-intel-compute-runtime-lto-warning-fix-part001.patch'::'https://github.com/intel/compute-runtime/commit/133421a5e9c8f26120413a8b770125c86e5e68d2.patch'
-        '030-intel-compute-runtime-lto-warning-fix-part002.patch'::'https://github.com/intel/compute-runtime/commit/7660b29bbbdcf05df14a1a4fe71ebea180a851cd.patch')
-sha256sums=('688cdb4cd9af6667842436b4b83b15ca64e848aa903f0686bf93968c0f264f6b'
-            'e075b6fe82ba66f2b622c9264933b8cf0af7b23cfac818efb9686a7bdc810df0'
-            'e06ff6281a1a3173cf60e8e3ea10a2f3c45141cb639a361b6ca8917079ac39d9'
-            '8b343e12469750a8096614366e77b7986c1485a77b1e4961af3931e1b25a0ca6')
+        '010-intel-compute-runtime-disable-werror.patch')
+sha256sums=('aa14a6629e6c47a124d3466491e41ea3ab662c4e87c9f625fd9f03626a42b148'
+            'c742a0dcf3404b3c0ec116887c148b21f9f09f7131c6372a44b21dfd4b7fb67b')
 
 prepare() {
     patch -d "compute-runtime-${pkgver}" -Np1 -i "${srcdir}/010-intel-compute-runtime-disable-werror.patch"
-    patch -d "compute-runtime-${pkgver}" -Np1 -i "${srcdir}/020-intel-compute-runtime-lto-warning-fix-part001.patch"
-    patch -d "compute-runtime-${pkgver}" -Np1 -i "${srcdir}/030-intel-compute-runtime-lto-warning-fix-part002.patch"
 }
 
 build() {
     # fix runtime error in blender
-    CFLAGS+=' -DSANITIZER_BUILD=1'
-    CXXFLAGS+=' -DSANITIZER_BUILD=1'
+    export CFLAGS+=' -DSANITIZER_BUILD=1'
+    export CXXFLAGS+=' -DSANITIZER_BUILD=1'
     
     # fix warning: "_FORTIFY_SOURCE" redefined
     # note: upstream forces _FORTIFY_SOURCE=2
