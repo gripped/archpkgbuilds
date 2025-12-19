@@ -5,25 +5,23 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=qcad
-pkgver=3.32.4.4
-pkgrel=3
+pkgver=3.32.5.0
+pkgrel=1
 pkgdesc='A 2D CAD package based upon Qt'
 arch=('x86_64')
 url="https://www.qcad.org"
 license=('GPL-3.0-or-later')
 options=('!staticlibs')
-depends=('qt6-declarative' 'qt6-svg' 'gcc-libs' 'qt6-tools' 'qt6-shadertools' 'qt6-5compat')
+depends=('qt6-svg' 'gcc-libs' 'qt6-tools' 'qt6-shadertools' 'qt6-5compat' 'qt6-declarative')
 makedepends=('glu' 'cmake' 'ninja' 'vulkan-headers')
 source=(
     "$pkgname-$pkgver-$pkgrel.tar.gz::https://github.com/qcad/qcad/archive/refs/tags/v$pkgver.tar.gz"
     "qtjsapi-$pkgver.tar.gz::https://github.com/qcad/qtjsapi/archive/refs/tags/v$pkgver.tar.gz"
     "qcadjsapi-$pkgver.tar.gz::https://github.com/qcad/qcadjsapi/archive/refs/tags/v$pkgver.tar.gz"
-    "qtjsapi-qt-6.10.patch"
 )
-sha512sums=('60e11e5cef4510bf468c300b70710d5530f4b42cbb482f8df3083cd2f95fea40791a7d8d77292400c8848a6b9fb25a7334be9b338cd7eefb21fe7e083b83cf59'
-            '68382c4b8b6295057c17b01b46298536fa4f2d6cdee9b6256af023a5f542e3395c29824e79be0b561ff8350b298389d9169473533e190c31996abf656416ebf5'
-            '1b0063ccbb836f23dfe12c3bed58d737872f2a4d66d26487977a6fef709c80ac967c7f0bd99c5e68131e6bbd4092bfbc01bb391b61e8e80c687df011dc6bd0ac'
-            '7ea8f83dcd5bf5446ed282144668796c72ca6cdf9d3b6195fc7ad6fcc4eb5b67f9c39195037f1812b537a974264bda090f4aaf1fc46a1a5e0ee0a6c198ae4d08')
+sha512sums=('1decf7c735d21b7d423b455fa0deacc04ef59f4120633431c404025a9d87fd9f16ee5ddd355a99295d77bde0c0063c42d093a286b97e2918856c65b3f977de61'
+            '5183eb91859a07b5a45454fa8a9bd2386b711f1af0e3788efe03a75030f718c7499d8c4e78ae77dc84351ebcf1c149f71455905f1773d25666648e78cbd5a440'
+            '74d3097d959bbbfadef3489ae5892d8eacce8b886590f70bf81a15657c2a2e08e15ea8e388a73aabf80a98886677e52a486d25244a226e852272428ed725ebd6')
 
 prepare() {
 
@@ -31,8 +29,6 @@ prepare() {
   ln -s qtjsapi-$pkgver qtjsapi
   ln -s qcadjsapi-$pkgver qcadjsapi
 
-  cd "$srcdir/qtjsapi-$pkgver"
-  patch -p1 -i "$srcdir/qtjsapi-qt-6.10.patch"
 }
 
 build() {
