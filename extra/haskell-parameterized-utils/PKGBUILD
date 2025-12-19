@@ -2,11 +2,11 @@
 
 _hkgname=parameterized-utils
 pkgname=haskell-parameterized-utils
-pkgver=2.1.10.0
-pkgrel=118
+pkgver=2.1.11.0
+pkgrel=1
 pkgdesc="Classes and data structures for working with data-kind indexed types"
 url="https://github.com/GaloisInc/parameterized-utils"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-constraints' 'haskell-hashable'
          'haskell-hashtables' 'haskell-indexed-traversable' 'haskell-lens' 'haskell-profunctors'
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-base-orphans' 'haskell-constraints' 'haskell-hashab
 makedepends=('ghc' 'uusi' 'haskell-hedgehog' 'haskell-hedgehog-classes' 'haskell-tasty'
              'haskell-tasty-ant-xml' 'haskell-tasty-hunit' 'haskell-tasty-hedgehog')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('c70d8e930e9d72a4c1fd9988b4239f32fa8ee85847c7cb01ee8ddbbfddd396f8c36f52df188fe5946ec10251d9aa4382268c48099bae56cb00ab1dc8e71228cf')
+sha512sums=('ee9780e2618fd1c9834be64516e37ae2e5b333b991cee35d59edb5c4617ea7337a78f3cb0663fe3ffe66187f48bd86c7922d1d288d104d9b90d8d1c9223a4162')
 
 prepare() {
     cd $_hkgname-$pkgver
@@ -22,8 +22,8 @@ prepare() {
 }
 
 build() {
-    cd $_hkgname-$pkgver    
-    
+    cd $_hkgname-$pkgver
+
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
@@ -41,7 +41,7 @@ check() {
 
 package() {
     cd $_hkgname-$pkgver
-    
+
     install -D -m744 register.sh "$pkgdir"/usr/share/haskell/register/$pkgname.sh
     install -D -m744 unregister.sh "$pkgdir"/usr/share/haskell/unregister/$pkgname.sh
     runhaskell Setup copy --destdir="$pkgdir"
