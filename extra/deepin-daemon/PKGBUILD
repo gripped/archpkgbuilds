@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-daemon
-pkgver=6.1.40
+pkgver=6.1.41
 pkgrel=1
 pkgdesc='Daemon handling the DDE session settings'
 arch=('x86_64')
@@ -16,7 +16,7 @@ depends=('deepin-desktop-schemas' 'deepin-api' 'deepin-app-services' 'deepin-wlo
          'gtk3' 'libx11' 'gdk-pixbuf-xlib' 'gdk-pixbuf2' 'libxi' 'libpulse' 'glib2' 'libxcursor'
          'libxcrypt' 'libgudev' 'pam' 'iso-codes'
          # accounts
-         'accountsservice' 
+         'accountsservice'
          # accounts/grub
          'deepin-polkit-agent' 'deepin-polkit-agent-ext-gnomekeyring'
          # accounts/keybinding/systeminfo
@@ -66,14 +66,11 @@ conflicts=('startdde')
 replaces=('startdde')
 groups=('deepin')
 install="$pkgname.install"
-source=("git+https://github.com/linuxdeepin/dde-daemon.git#tag=$pkgver"
-        $pkgname-gcc-15.patch::https://github.com/linuxdeepin/dde-daemon/commit/582054f3cb14902dcf96ae6e80b1b18a22187e23.patch)
-sha512sums=('542ed90155b55fd4c436c1addaea830774138df53ce0c6d286c6424e3b59724ddc3feb85eff1730095bfdb966114e18b2d319966cc58ff5c81ab72a9406a80e5'
-            '226574fd50cd3a2addcad1f67e5dbf0abcaaba4f594768195487436f26da6bf5025b087022d03db2ed18f08d0c922e057dd19ede1fc154aed9fa1224f7ef2616')
+source=("git+https://github.com/linuxdeepin/dde-daemon.git#tag=$pkgver")
+sha512sums=('bc7c5fe0a487427aec7e3200229d6c4435bb2e229799bbeb63822282137ed2158647d3f0894a5f20033758d2a9de7dfe03e18dfcee767422a63f747661f13ff0')
 
 prepare() {
   cd dde-daemon
-  patch -p1 -i ../$pkgname-gcc-15.patch
   go get github.com/linuxdeepin/go-gir
 
   # https://github.com/linuxdeepin/developer-center/discussions/3327
@@ -94,7 +91,7 @@ build() {
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
-  
+
   # make -C network/nm_generator gen-nm-code
   make
 }
