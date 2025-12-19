@@ -2,7 +2,7 @@
 
 pkgname=alpm-mtree
 _upstream=alpm
-pkgver=0.3.0
+pkgver=0.3.1
 pkgrel=1
 pkgdesc="A CLI for parsing of ALPM MTREE files"
 arch=(x86_64)
@@ -28,20 +28,17 @@ optdepends=(
   'alpm-docs: for additional specifications'
 )
 source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
-sha512sums=('4dbd2e3550f782da079895a72a5baa35b892efd57012bc056ebbec07abc77f73bce6faba8442e128321aa59649fe7bf2801ef350c405f6819e01c06022192cb7')
-b2sums=('a44815bf61aaa0b4af2cb61f5613d4e8a266c0a16dfb0c0b5b274ac46f7ed79d19a6d5180e06af5788c2f3f5f9562704785d7da44e4896a7489b545afe099522')
+sha512sums=('470c3aa9ca86beb1340ac48ab99653e831944d56b224fc34e5964672c8ae90066e5fe18ebbc15299c12838a2c1a8ccd18074245f01f63e21f0547c9c07b9149c')
+b2sums=('3bff37ab7ac5fda97143c9df21dff148927b029313d29440b1e5226bf2d344d4e43a15542fb846e807c8f89e088951a7b9754994d5fbc1768d0fc68bc3819a0d')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
   cd $_upstream
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd $_upstream
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --frozen --release --package $pkgname --features cli
 
   just generate shell_completions $pkgname
@@ -51,7 +48,6 @@ build() {
 
 check() {
   cd $_upstream
-  export RUSTUP_TOOLCHAIN=stable
   cargo test --frozen --package $pkgname
 }
 
