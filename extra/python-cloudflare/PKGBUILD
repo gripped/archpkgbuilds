@@ -1,14 +1,13 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-cloudflare
-pkgver=2.14.3
+pkgver=2.15.0
 pkgrel=1
 pkgdesc='Python wrapper for the Cloudflare v4 API'
 arch=('any')
 license=('MIT')
 url='https://github.com/cloudflare/python-cloudflare'
 depends=(
-  'python-beautifulsoup4'
   'python-jsonlines'
   'python-requests'
   'python-yaml'
@@ -24,7 +23,7 @@ checkdepends=(
   'python-pytest'
 )
 source=("git+https://github.com/cloudflare/python-cloudflare.git#tag=$pkgver")
-sha512sums=('365628bd6038c89e1aab4b483a1f479922f34e329271c39f922437155c1a412ff1d1f54b42155cbeeaa4ac7da0215dd5babd46a35a88dfc9527432062452f856')
+sha512sums=('2955fc4f9d83847952b496d3a8a8c9eb3f0758188ef89a4b2f5412a8db52ff16e5bad0e52368d714e34a6898e08f03125ed7edf4351fe6d8139074a8ecea7690')
 
 build() {
   cd python-cloudflare
@@ -45,7 +44,7 @@ package() {
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  rm -r "$pkgdir$site_packages"/examples
+  rm -r "$pkgdir$site_packages"/{examples,tests}
 }
 
 # vim:set ts=2 sw=2 et:
