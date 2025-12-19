@@ -2,7 +2,7 @@
 
 pkgname=alpm-pkginfo
 _upstream=alpm
-pkgver=0.5.0
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="A CLI for writing and parsing of ALPM PKGINFO files"
 arch=(x86_64)
@@ -28,20 +28,17 @@ optdepends=(
   'alpm-docs: for additional specifications'
 )
 source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
-sha512sums=('b0c28e57443a17242cb6dc697e885924552eedd2048baea771cd5d20718c12301759c545836c98140c545d0f9ce337fd60b390f28ebf035a4e6e351d2e5cc0fe')
-b2sums=('b652c8e8f31531ac89278016664485db286ac284b7df3771cd52725cf6369f276a5a9c903a96bf73acb36db54ed74242181202e23acfe8ce78e4e2078955eb06')
+sha512sums=('3e2074755818e82a82e1f12c8805b9557d132a5f2b19775f83130d5f0a5992902f3105389b5e9d01f25806527cfd6ea7e2d3b822b891126600dc5e9ac1967f1b')
+b2sums=('0b08702671fc912b452cd54a79c032879def23759afb2ff582ad6719141888dae17f2dff8f9d631e048e83dc81cde1fbb40add65d7f47628c53341342a120ca1')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
   cd $_upstream
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd $_upstream
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --frozen --release --features cli --package $pkgname
 
   just generate shell_completions $pkgname
@@ -51,7 +48,6 @@ build() {
 
 check() {
   cd $_upstream
-  export RUSTUP_TOOLCHAIN=stable
   cargo test --frozen --package $pkgname
 }
 
