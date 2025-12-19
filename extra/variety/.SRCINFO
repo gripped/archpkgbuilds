@@ -1,10 +1,10 @@
 pkgbase = variety
 	pkgdesc = Changes the wallpaper on a regular interval using user-specified or automatically downloaded images.
 	pkgver = 0.8.13
-	pkgrel = 2
+	pkgrel = 4
 	url = https://peterlevi.com/variety/
 	arch = any
-	license = GPL3
+	license = GPL-3.0-only
 	makedepends = python-distutils-extra
 	makedepends = python-build
 	makedepends = python-installer
@@ -26,6 +26,8 @@ pkgbase = variety
 	optdepends = xdg-user-dirs: set wallpaper for KDE Plasma
 	optdepends = qt5-tools: set wallpaper for KDE Plasma
 	source = variety-0.8.13.tar.gz::https://github.com/varietywalls/variety/archive/0.8.13.tar.gz
+	source = variety-0.8.13-fix-pep-517.patch
 	sha256sums = 3d41acc60922e6b03d8bdddaa05c8b1bb1b6b0316e7bb068663c502c487d45d9
+	sha256sums = 75a697924c692e4c0240e48066e82af4ed557ef035be20ed2e754efab2573c17
 
 pkgname = variety
