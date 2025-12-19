@@ -1,7 +1,22 @@
+post_install() {
+  # Enable socket by default
+  systemctl enable polkit-agent-helper.socket
+}
+
 pre_upgrade() {
-  if (( $(vercmp $2 124-2) < 0 )); then
+  if (( $(vercmp "$2" 124-2) < 0 )); then
     install -d -o root -g root -m 755 usr/share/polkit-1/rules.d
   fi
+}
+
+post_upgrade() {
+  if (( $(vercmp "$2" 127-1) < 0 )); then
+    systemctl enable polkit-agent-helper.socket
+  fi
+}
+
+pre_remove() {
+  systemctl disable polkit-agent-helper.socket
 }
 
 # vim:set ft=bash sw=2 sts=-1 et:
