@@ -2,7 +2,7 @@
 
 pkgname=chess-tui
 pkgver=2.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Play chess in your terminal"
 arch=('x86_64')
 url="https://github.com/thomas-mauran/chess-tui"
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('gcc-libs' 'alsa-lib')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('2f3efad8d43992173ff645d82a3ed8e037a844295f51cb5f46c69987eafeed2fd9ce0f955b18b07c5a52ecd09d5c15bd68970e88186e17bc412a7440a28b8857')
+sha512sums=('0b7fb8342751ae618d38a138e864cbf7fed6033e781c9202b7f0b96ef78ec620a8403b0abe04d1bb6343a48e5a61d341f8c9b1ceb0d97d9548c42dac774f9a7e')
 
 prepare() {
   cd "$pkgname-$pkgver"
