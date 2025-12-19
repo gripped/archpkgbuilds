@@ -4,7 +4,7 @@ pkgbase=lib32-libpulse
 pkgname=(
   lib32-libpulse
 )
-pkgver=17.0+r93+gbe2efb69b
+pkgver=17.0+r98+gb096704c0
 pkgrel=1
 pkgdesc="A featureful, general-purpose sound server (32-bit client libraries)"
 url="https://www.freedesktop.org/wiki/Software/PulseAudio/"
@@ -31,11 +31,11 @@ optdepends=('lib32-alsa-plugins: ALSA support')
 provides=("lib32-pulseaudio=$pkgver")
 conflicts=(lib32-pulseaudio)
 replaces=(lib32-pulseaudio)
-_commit=be2efb69b97ee49ba81094d49a1b8d7be0c588c2  # master
+_commit=b096704c0d42c5e784deb781a07b23cfb5286a82  # master
 source=(
   "git+https://gitlab.freedesktop.org/pulseaudio/pulseaudio.git#commit=$_commit"
 )
-b2sums=('a8925757686c824fef914b7ee99f867f019c7cc194382edc3f7ecef98341eb1d0cf76d58223c7eb3622032e21ef8669a866a9172b64c1d0813dcb67ee8ed1468')
+b2sums=('3b800dc84b1ccb0f1252e9c55390842d0d63c004393f3271daa7dcdcaa6b2351ca129d2a268855c57ec6c03e14bf1a571deac6c4bb89ac1e08a83cf910834490')
 
 pkgver() {
   cd pulseaudio
