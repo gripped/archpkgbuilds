@@ -1,7 +1,7 @@
 pkgbase = alpm-db
-	pkgdesc = Command line interface for the handling of the alpm-db-desc format
-	pkgver = 0.1.0
-	pkgrel = 1
+	pkgdesc = Command line interfaces for the handling of alpm-db structures
+	pkgver = 0.2.0
+	pkgrel = 2
 	url = https://alpm.archlinux.page/alpm-db/
 	arch = x86_64
 	groups = alpm
@@ -15,9 +15,13 @@ pkgbase = alpm-db
 	depends = gcc-libs
 	depends = glibc
 	optdepends = alpm-docs: for additional specifications
-	source = alpm::git+https://gitlab.archlinux.org/archlinux/alpm/alpm.git?signed#tag=alpm-db/0.1.0
+	source = alpm::git+https://gitlab.archlinux.org/archlinux/alpm/alpm.git?signed#tag=alpm-db/0.2.0
 	validpgpkeys = 991F6E3F0765CF6295888586139B09DA5BF0D338
-	sha512sums = 979d68ed5904c17172d9d4758e9950dc46c9bc85a827b0e64a4a318db0b062d5e89e2fc40662442699a37361ce62a1c704d57dcf14465c1e25286334b9897788
-	b2sums = 0243811d51330206a06cfba00062a750713960bf2118f422f5e3306f3c4fab326052b72766c8542d66e24e5056b52cfa8ed9fcb6a2ba500da54b8d54e69b44af
+	sha512sums = 622ab288d9e7b35ea3b90ac7c5cea352c76987521d98d308ef4dc29bc93689630f06c89ae321d6a8b5f2e4c94348dec80855e03e31090b2597295a0c46492ca2
+	b2sums = 6564dd0f786d63588d64aeb74aa72e56443bfe4bbfbf64534ecb237cfda8197e20c5d8deea16948d719be7c01e57aeed218a3459fc902c1643e2016370c5f3fb
 
-pkgname = alpm-db-desc
+pkgname = alpm-db
+	conflicts = alpm-db-desc
+	conflicts = alpm-files
+	replaces = alpm-db-desc
+	replaces = alpm-files
