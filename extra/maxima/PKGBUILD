@@ -4,10 +4,10 @@
 
 pkgbase=maxima
 pkgname=($pkgbase{,-sbcl,-ecl,-fas})
-pkgver=5.48.1
+pkgver=5.49.0
 _sbclver=2.5.11
 _eclver=24.5.10
-pkgrel=9
+pkgrel=1
 pkgdesc='A sophisticated computer algebra system'
 arch=(x86_64)
 license=(GPL-2.0-only)
@@ -24,7 +24,7 @@ source=(maxima::git://git.code.sf.net/p/maxima/code#tag=$pkgver
         matrixexp.patch
         maxima-sbcl-gmp.patch
         0001-ECL-Fix-autoconf-options-on-whitespace.patch)
-sha256sums=('111cf0d00d14db0ab0401adbe2a026e37ef3423d637383811a777daf68c5e89f'
+sha256sums=('0bbc6258d1982b60be2e6c6ed7868f687dee5af00c2d0468e19b36ad90188117'
             'ef1bc6a15fc982ff8c6aa1800bbbd3284d9e060ca27abf9d8c1266632c0c2619'
             '7e85da0b6672b096d7aefac861573a57323dfe805e08d033781448f7ca6ed856'
             '05f6f82550e03af3927379d71a4e2a762ea523fa0c0ea1021741c7dd51414c32')
@@ -35,8 +35,6 @@ prepare() {
   patch -d $pkgname -p1 < maxima-sbcl-gmp.patch # Use GMP arithmetic with sbcl (Void Linux)
   patch -d $pkgname -p1 < 0001-ECL-Fix-autoconf-options-on-whitespace.patch # Handle whitespace in LDFLAGS correctly
   cd $pkgbase
-  git cherry-pick -n fc85adb9a192bbd88269a695efd1df4136b94dc6 # Fix integration regression
-  git cherry-pick -n 0c11d969bc6cb7b75d4103eab13d5ce72edcdc1b # Fix another 5.48 regression
   rm -fr .git # prevent a dirty version number
   autoreconf -fiv
 }
