@@ -1,17 +1,22 @@
 pkgbase = python-pytools
 	pkgdesc = A collection of tools for Python
-	pkgver = 2024.1.6
+	pkgver = 2025.2.5
 	pkgrel = 1
 	url = https://github.com/inducer/pytools
 	arch = any
 	license = MIT
+	checkdepends = python-attrs
 	checkdepends = python-pytest
 	makedepends = git
-	makedepends = python-setuptools
+	makedepends = python-build
+	makedepends = python-hatchling
+	makedepends = python-installer
+	depends = python
 	depends = python-numpy
 	depends = python-platformdirs
+	depends = python-siphash24
 	depends = python-typing_extensions
-	source = git+https://github.com/inducer/pytools.git#tag=v2024.1.6
-	sha512sums = e43998ae59e120def3d823f916c12e1a99453e7772311e841f6fda8d268ead5fca652156b9f9fcf910c297e9b53a0363a707402ee2237a775ad55487fd0fb006
+	source = git+https://github.com/inducer/pytools.git#tag=v2025.2.5
+	sha512sums = 0d2106e5cbb921e43b4060509e68a905181c17a9bf6dff6d9b0c0f7a0f3906767c86d745be6ae636b2b0b9d7031a9506dfe7d4f707498d5572ce80e600695ee6
 
 pkgname = python-pytools
