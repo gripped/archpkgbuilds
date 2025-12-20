@@ -2,7 +2,7 @@
 
 pkgname=ruby-unicode-emoji
 _pkgname="${pkgname#ruby-}"
-pkgver=4.1.0
+pkgver=4.2.0
 pkgrel=1
 pkgdesc='Provides Unicode Emoji data and regexes, incorporating the latest standards'
 arch=(any)
@@ -25,9 +25,9 @@ source=(
   "$pkgname::git+$url#tag=v$pkgver"
   "$pkgname-$pkgver-emoji-test.txt::https://www.unicode.org/Public/emoji/latest/emoji-test.txt"
 )
-sha512sums=('9d65c774030f3760a57690a6fd5180aecf7c656e12c7919953f7545c0b2a12cea819c14974a8b09a20203b5565971dabc669266a5f9074b840b1244a1f0159e3'
+sha512sums=('cb35151d15313f7a3b37698e3ea57741c36d01b16a0656ecd2696fc0c32f24690d124edf68c48ac353e2954075ffd3752562c4e39cc3d24a14bae5179f7062e0'
             '25f72b7e66ac8d96df68cc86b1f059552073cbd022e289e6bbcef0a09368fcbc5b43de6f97ed8ed10d30cf8524f019677105f2120f097b585480b4477aaa49dc')
-b2sums=('fe54c1f9c9a24deaef532cc09df53e17c991fbbecd30f803d0dd305aca15d0524bc626dabc857b45fb1f0c4fe3d36d5ca392c6fdd538b50096594c8a5ea333a2'
+b2sums=('09d887724fa8513a23ba9d0d79cc556335906b82d4dfc8243720a60f4695948e6938362743c2f7c1a65f64f5df823e0319f256717ad2179cabef9ae5eb95d6d2'
         'addd7e2aba8c0ee3db27fe496ff78c43ef5cacd05d58afc438a9574893ba63d6c6a0ed209766ac9ec3509f7ffdbe9202ccbb84bf75a8b132d60fd19da3f823d9')
 
 prepare() {
