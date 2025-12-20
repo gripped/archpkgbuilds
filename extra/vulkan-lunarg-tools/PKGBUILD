@@ -8,7 +8,7 @@ pkgname=(
   vulkan-extra-layers
 )
 pkgver=1.4.335.0
-pkgrel=1
+pkgrel=2
 pkgdesc="LunarG's Vulkan tools and utilities"
 url="https://www.lunarg.com/"
 arch=(x86_64)
@@ -24,7 +24,7 @@ makedepends=(
   jsoncpp
   ninja
   python
-  qt5-base
+  qt6-base
   valijson
   vulkan-headers
   vulkan-utility-libraries
@@ -61,7 +61,7 @@ package_vulkan-extra-tools() {
   pkgdesc="Vulkan Configurator and Installation Analyzer"
   depends+=(
     jsoncpp
-    qt5-base
+    qt6-base
   )
 
   DESTDIR="$pkgdir" cmake --install build
