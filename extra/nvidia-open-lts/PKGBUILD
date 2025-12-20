@@ -2,9 +2,9 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 
 pkgname=nvidia-open-lts
-pkgver=580.119.02
+pkgver=590.48.01
 epoch=1
-pkgrel=3
+pkgrel=2
 pkgdesc="NVIDIA open kernel modules"
 arch=('x86_64')
 url="https://github.com/NVIDIA/open-gpu-kernel-modules"
@@ -13,7 +13,7 @@ makedepends=('linux-lts-headers' "nvidia-open-dkms=$pkgver")
 license=('MIT AND GPL-2.0-only')
 options=('!strip' '!debug')
 conflicts=('nvidia-lts')
-#replaces=('nvidia-lts')
+replaces=('nvidia-open-lts<=1:580.119.02-3')
 provides=('NVIDIA-MODULE')
 
 build() {
