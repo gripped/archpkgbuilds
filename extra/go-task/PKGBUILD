@@ -1,25 +1,25 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=go-task
-pkgver=3.45.5
+pkgver=3.46.3
 pkgrel=1
 pkgdesc='A task runner written in Go'
 arch=(x86_64)
 url='https://taskfile.dev'
-license=('MIT')
-depends=('glibc')
-makedepends=('git' 'go')
+license=(MIT)
+depends=(glibc)
+makedepends=(git go)
 install=go-task.install
 source=(
   "$pkgname::git+https://github.com/go-task/task#tag=v$pkgver"
   rename-completions.patch
   fix-version.patch
 )
-sha512sums=('d8e4512b36b23c4a2542a9805f12c168fa62bc1af55ad08e1d508eb39bb6f08e9405d2f3c660789f9c59c71f8c3f4469d5bb9341ed2131e73bea70c36dde5eb5'
-            '1b31bd63e3ce982c9a1714eafbc2c6ac1adc6b50b5187b11dddbfc8c5dbb53bdb0fff2a0200d03f71af61ee3b34f7a6af34585e056b0ae9ad889607c54cb0369'
+sha512sums=('fac809dbc4afa747f50ca4d2c8ff8f9f26104ad43d678da4a090109d54760e989f387143e37c8833b0e2ccb0b7b81936d240c63fff997e73e00cc510c47278c7'
+            '828d43dee9d2514aa2d71983c4b525ab6704703f928f6b4fc4c9a4fc3f941c46fd2261ff6730af99011772b701fd8d8375d1a9419ccdea6df5beb342c804298b'
             '5ca079e3d2875d1efe8bba390ae8960445f42b53f309b50cff8a8c13dc3d5ca06065a0bd9ea4504817bbdccc36f7ff39f937817f4feb28fd1d3006dbf382636a')
-b2sums=('8507fe89f96da5d1573c4ed3babdc41ac42af6b3c6ffc8d5d9fd2d197f26a1eaf777efe5f532765f2d955304f8e0eea7f3a4e61369e6beb69be72a3871ff286b'
-        '5b515faeaaae296e102ee0309fb6e4cf99a2d1c3d23e2a333da019973b9204a357f288be6ab74a88fc7b85d802983bc8b877a25ed7b578fb2deef379f272d309'
+b2sums=('a5de4e6ecbac22b0354c16fe4f590825e0602039c0ffd4d57163fea97862bb6aa73951ce1d25554bceea6aabf9e510a491e468dd211997f4492c2c5355a4b95b'
+        '4b78a151e4652c79b8b53e9fefd752590b440c9fd2d1d92ba747edc13c2fe9cad2d5fbb1342e7cb581d3c2a041ef6f29ceafae1ab7acef9f6779bc9169084c53'
         '99f5fd755334a9c5b0a0375d4cdda6e640444d7550d1c105d41f4b94da9f25f74331465b90bc2f79ab0daa5e3d95d9d27d62cce86646f5c22b6c95947c919a0c')
 
 prepare() {
@@ -30,6 +30,8 @@ prepare() {
   go mod download
 
   # rename completions from `task` to `go-task`
+  # TODO: set env var? see upstream ref:
+  # https://github.com/go-task/task/pull/2495
   patch -p1 -i "$srcdir/rename-completions.patch"
 
   # fix version
