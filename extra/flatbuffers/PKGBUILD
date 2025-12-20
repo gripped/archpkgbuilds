@@ -5,8 +5,8 @@
 pkgbase=flatbuffers
 pkgname=(flatbuffers python-flatbuffers)
 # https://github.com/google/flatbuffers/blob/master/CHANGELOG.md
-pkgver=25.9.23
-pkgrel=2
+pkgver=25.12.19
+pkgrel=1
 pkgdesc='An efficient cross platform serialization library for C++, with support for Java, C# and Go'
 arch=(x86_64)
 url='https://google.github.io/flatbuffers/'
@@ -18,7 +18,7 @@ makedepends=(cmake
              python-numpy
              python-setuptools)
 source=(https://github.com/google/$pkgbase/archive/v$pkgver/$pkgbase-$pkgver.tar.gz)
-sha256sums=('9102253214dea6ae10c2ac966ea1ed2155d22202390b532d1dea64935c518ada')
+sha256sums=('f81c3162b1046fe8b84b9a0dbdd383e24fdbcf88583b9cb6028f90d04d90696a')
 
 prepare() {
   sed -i 's/-Werror=/-W/g;s/-Werror//g' $pkgname-$pkgver/CMakeLists.txt
