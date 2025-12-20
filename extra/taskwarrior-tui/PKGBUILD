@@ -1,22 +1,22 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=taskwarrior-tui
-pkgver=0.26.4
+pkgver=0.26.5
 pkgrel=1
 pkgdesc="A terminal user interface for taskwarrior"
 arch=('x86_64')
 url="https://github.com/kdheepak/taskwarrior-tui"
 license=('MIT')
 depends=('task')
-makedepends=('cargo' 'git')
+makedepends=('cargo' 'git' 'desktop-file-utils')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
-        "git+https://github.com/kdheepak/taskwarrior-testdata")
-sha256sums=('064ab8a4a7f057ed00a6cf061bf124607d5b4812fce145fd60efa7315c765625'
-            'SKIP')
+  "git+https://github.com/kdheepak/taskwarrior-testdata")
+sha256sums=('9eebb2f736693cbb64b3a79b88d3e5bbae8603ef9206d47e555c9a9cf9077708'
+  'SKIP')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
@@ -40,6 +40,7 @@ package() {
   install -Dm 644 "completions/$pkgname.bash" "${pkgdir}/usr/share/bash-completion/completions/$pkgname"
   install -Dm 644 "completions/$pkgname.fish" -t "${pkgdir}/usr/share/fish/vendor_completions.d"
   install -Dm 644 "completions/_$pkgname" -t "${pkgdir}/usr/share/zsh/site-functions"
+  desktop-file-install -m 644 --dir "$pkgdir/usr/share/applications/" "docs/$pkgname.desktop"
 }
 
 # vim: ts=2 sw=2 et:
