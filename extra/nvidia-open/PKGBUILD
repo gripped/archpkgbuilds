@@ -2,8 +2,8 @@
 # Maintainer: Peter Jung <ptr1337@archlinux.org>
 
 pkgname=nvidia-open
-pkgver=580.119.02
-pkgrel=2
+pkgver=590.48.01
+pkgrel=3
 pkgdesc="NVIDIA open kernel modules"
 arch=('x86_64')
 url="https://github.com/NVIDIA/open-gpu-kernel-modules"
@@ -12,6 +12,7 @@ makedepends=('linux-headers' "nvidia-open-dkms=$pkgver")
 license=('MIT AND GPL-2.0-only')
 options=('!strip' '!debug')
 conflicts=('nvidia')
+replaces=('nvidia<=580.119.02-2')
 provides=('NVIDIA-MODULE')
 
 build() {
