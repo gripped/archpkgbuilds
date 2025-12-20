@@ -1,11 +1,15 @@
 #!/bin/sh
 
+# Priority order for PYCHARM_JDK:
+# 1. Use PYCHARM_JDK if provided from external variable
+# 2. Use package JBR if it exists
+# 3. Fall back to /usr/lib/jvm/java-17-openjdk/ (shoundn't happen)
 if [ -z "$PYCHARM_JDK" ] ; then
-  PYCHARM_JDK="/usr/lib/jvm/java-17-openjdk/"
-fi
-# use JBR if exists
-if [ -d "/usr/share/pycharm/jbr/" ] ; then
-  PYCHARM_JDK="/usr/share/pycharm/jbr/"
+  if [ -d "/usr/share/pycharm/jbr/" ] ; then
+    PYCHARM_JDK="/usr/share/pycharm/jbr/"
+  else
+    PYCHARM_JDK="/usr/lib/jvm/java-17-openjdk/"
+  fi
 fi
 # open-jfx location that should match the JDK version
 if [ -z "$PYCHARM_JFX" ] ; then
