@@ -2,8 +2,8 @@
 
 pkgname=pandora_box
 _pkgname=pandora
-pkgver=0.16.1
-pkgrel=2
+pkgver=0.17.0
+pkgrel=1
 pkgdesc="Syd's log inspector & profile writer"
 url="https://gitlab.exherbo.org/sydbox/sydbox/-/tree/main/pandora"
 arch=('x86_64')
@@ -12,19 +12,16 @@ depends=('gcc-libs' 'glibc' 'syd')
 makedepends=('cargo' 'git')
 provides=("${_pkgname}")
 source=("git+https://gitlab.exherbo.org/sydbox/sydbox.git#tag=${_pkgname}-${pkgver}?signed")
-sha256sums=('38e1cff3f4420dbdf4bca7cc0008ebe2111f7bfa8f2611322ed74610f71c68a8')
+sha256sums=('b15489d233546c51f2df4c6d32145e287ed6d862277d57cee76891200043f5c1')
 validpgpkeys=('5DF763560390A149AC6C14C7D076A377FB27DE70')
 
 prepare() {
 	cd "sydbox/${_pkgname}"
-	export RUSTUP_TOOLCHAIN=stable
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
 	cd "sydbox/${_pkgname}"
-	export RUSTUP_TOOLCHAIN=stable
-	export CARGO_TARGET_DIR=target
 	cargo build --frozen --release --all-features
 }
 
