@@ -5,12 +5,12 @@
 pkgbase=highlight
 pkgname=('highlight' 'highlight-perl' 'highlight-gui')
 pkgver=4.18
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast and flexible source code highlighter"
 url="http://www.andre-simon.de/doku/highlight/highlight.html"
 license=('GPL-3.0-or-later')
 arch=('x86_64')
-makedepends=('qt5-base' 'lua' 'boost' 'swig')
+makedepends=('qt6-base' 'lua' 'boost' 'swig')
 source=("http://www.andre-simon.de/zip/${pkgbase}-${pkgver}.tar.bz2"{,.asc}
         'use_gcc.patch')
 sha256sums=('f52c211dcd5626526af45ab8e558253caa713d060709bbac22c23ceae35eb502'
@@ -28,8 +28,8 @@ prepare() {
 build() {
 	cd "${pkgbase}-${pkgver}"
 
-	make QMAKE=qmake-qt5
-	make QMAKE=qmake-qt5 gui
+	make QMAKE=qmake6
+	make QMAKE=qmake6 gui
 	make -C extras/swig perl
 }
 
@@ -40,7 +40,7 @@ package_highlight() {
 
 	cd "${pkgbase}-${pkgver}"
 
-	make DESTDIR="${pkgdir}" QMAKE=qmake-qt5 install
+	make DESTDIR="${pkgdir}" QMAKE=qmake6 install
 
 	# Remove extras modules files from doc folder
 	rm -rf "${pkgdir}/usr/share/doc/${pkgbase}/extras"
@@ -58,10 +58,10 @@ package_highlight-perl() {
 }
 package_highlight-gui() {
 	pkgdesc="${pkgdesc} - QT GUI version"
-	depends=('qt5-base' 'highlight' 'hicolor-icon-theme')
+	depends=('qt6-base' 'highlight' 'hicolor-icon-theme')
 
 	cd "${pkgbase}-${pkgver}"
 
 	install -dm 755 "${pkgdir}/usr/bin"
-	make DESTDIR="${pkgdir}" QMAKE=qmake-qt5 install-gui
+	make DESTDIR="${pkgdir}" QMAKE=qmake6 install-gui
 }
