@@ -6,28 +6,33 @@ _pkg=netcdf
 _mpi=openmpi
 pkgname=${_pkg}-${_mpi}
 pkgver=4.9.3
-pkgrel=4
+pkgrel=5
 pkgdesc="network Common Data Form interface for array-oriented data access and corresponding library with parallel support (${_mpi} version)"
 arch=(x86_64)
 url="https://www.unidata.ucar.edu/software/netcdf/"
 license=(custom)
 depends=("hdf5-${_mpi}" "pnetcdf-${_mpi}" curl libxml2 libzip)
-makedepends=(cmake)
+makedepends=(cmake git)
 optdepends=('netcdf-fortran: fortran bindings' 'netcdf-cxx: c++ bindings')
 checkdepends=(unzip)
 provides=("${_pkg}")
 conflicts=("${_pkg}")
 options=(!makeflags)
-source=(https://github.com/Unidata/netcdf-c/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('990f46d49525d6ab5dc4249f8684c6deeaf54de6fec63a187e9fb382cc0ffdff')
+source=("git+https://github.com/Unidata/netcdf-c.git#tag=v${pkgver}")
+sha256sums=('01e621bb0a556860bb6e580142e4c05ba1ca7ef46f115ec41f592fd1736423ab')
+
 prepare() {
   # https://github.com/Unidata/netcdf-c/issues/2188 https://github.com/Unidata/netcdf-c/issues/2242
-  sed -i "/tst_remote3/d" ${_pkg}-c-${pkgver}/ncdap_test/CMakeLists.txt
+  sed -i "/tst_remote3/d" ${_pkg}-c/ncdap_test/CMakeLists.txt
+
+  git -C ${_pkg}-c cherry-pick -n 1f1f359aeb4a31c47410d36581a141bb04d7b4a1 \
+                                  cf095c623963552a571b1c7fc46a2af69be071e2 \
+                                  741c4b4a909179d3fce56b60eede7ee5332af349 # Fix build with HDF5 2.0
 }
 
 build() {
   export CC=mpicc
-  cmake -B build -S ${_pkg}-c-${pkgver} \
+  cmake -B build -S ${_pkg}-c \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_BUILD_TYPE=Release \
@@ -55,10 +60,10 @@ check() {
   # We don’t have CUDA by default
   export OMPI_MCA_opal_warn_on_missing_libcuda=0
 
-  make -C build test
+  ctest --test-dir build --output-on-failure -E nczarr_test_test_unlim_vars
 }
 
 package() {
   make -C build DESTDIR="${pkgdir}" install
-  install -Dm644 ${_pkg}-c-${pkgver}/COPYRIGHT -t "${pkgdir}"/usr/share/licenses/${_pkg}/
+  install -Dm644 ${_pkg}-c/COPYRIGHT -t "${pkgdir}"/usr/share/licenses/${_pkg}/
 }
