@@ -2,7 +2,7 @@
 
 pkgname=csound-plugins
 pkgver=1.0.2
-pkgrel=14
+pkgrel=15
 pkgdesc="Extra opcodes for Csound"
 arch=(x86_64)
 url="https://github.com/csound/plugins"
@@ -31,8 +31,20 @@ makedepends=(
 	'libwebsockets'
 	'wiiuse'
 )
-source=("$pkgname-$pkgver.tar.gz::https://github.com/csound/plugins/archive/refs/tags/$pkgver.tar.gz")
-sha256sums=('8c2f0625ad1d38400030f414b92d82cfdec5c04b7dc178852f3e1935abf75d30')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/csound/plugins/archive/refs/tags/$pkgver.tar.gz"
+         hdf5-2.0.patch
+         eigen-5.patch)
+sha256sums=('8c2f0625ad1d38400030f414b92d82cfdec5c04b7dc178852f3e1935abf75d30'
+            'ea1bddc8fe921a7deed49756d91b8e0e7b4dd822617877520a36d0c42730ef27'
+            'a389aaaaa8f311371089ac6ee7041b0b4a3e90f11018288ed06818640eff491e')
+
+prepare() {
+  cd plugins-$pkgver
+# Fix build with HDF5 2.0
+  patch -p1 -i ../hdf5-2.0.patch
+# Fix build with eigen 5
+  patch -p1 -i ../eigen-5.patch
+}
 
 build() {
 	CFLAGS+=" -Wno-incompatible-pointer-types" \
