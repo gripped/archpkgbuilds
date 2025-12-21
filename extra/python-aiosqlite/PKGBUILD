@@ -2,7 +2,7 @@
 # Contributor: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=python-aiosqlite
-pkgver=0.21.0
+pkgver=0.22.0
 pkgrel=1
 pkgdesc="Asyncio bridge to the standard sqlite3 module"
 arch=(any)
@@ -16,7 +16,7 @@ makedepends=(
 )
 checkdepends=(python-aiounittest)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('f2338f94d62f5faf5c2da409c3fcd6862e53075cfa52abe521ddba324d472f21')
+sha256sums=('80559e2304d6f30f4a3e9a5e8d11eb706468ac723bd4b84c6f3f2771e8e13912')
 
 build() {
   cd ${pkgname#python-}-$pkgver
