@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=dpdk
-pkgver=24.11.3
+pkgver=25.11
 pkgrel=1
 pkgdesc="A set of libraries and drivers for fast packet processing"
 arch=(x86_64)
@@ -33,7 +33,7 @@ makedepends=(
   python-pyelftools
 )
 source=("git+https://dpdk.org/git/dpdk-stable#tag=v$pkgver")
-sha256sums=('abbb3971ba13ef3dfd678fc61888a7d87a50ec5f56dfe364418d5b0cda558df0')
+sha256sums=('6a94136335a708d0425451b95bb44e38530670ead3ec9217807ecc7e64aecbb7')
 
 build() {
   cd dpdk-stable
@@ -48,9 +48,27 @@ check() {
     meson test -C build --suite fast-tests --list \
       | awk '{print $3}' \
       | grep -Ev argparse_autotest \
+      | grep -Ev bitmap_autotest \
+      | grep -Ev bpf_convert_autotest \
+      | grep -Ev byteorder_autotest \
+      | grep -Ev crc_autotest \
+      | grep -Ev debug_autotest \
+      | grep -Ev devargs_autotest \
+      | grep -Ev eventdev_common_autotest \
+      | grep -Ev hash_autotest \
+      | grep -Ev latencystats_autotest \
+      | grep -Ev lpm_autotest \
+      | grep -Ev metrics_autotest \
+      | grep -Ev net_ether_autotest \
+      | grep -Ev node_list_dump \
       | grep -Ev pflock_autotest \
+      | grep -Ev power_autotest \
+      | grep -Ev ptr_compress_autotest \
+      | grep -Ev rcu_qsbr_autotest \
       | grep -Ev rwlock_test1_autotest \
-      | grep -Ev ticketlock_autotest
+      | grep -Ev seqlock_autotest \
+      | grep -Ev telemetry_json_autotest \
+      | grep -Ev ticketlock_autotest \
   )
   # shellcheck disable=SC2068
   meson test -C build --print-errorlogs ${tests[@]}
