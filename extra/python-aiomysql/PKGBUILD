@@ -3,7 +3,7 @@
 
 pkgname=python-aiomysql
 pkgver=0.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for accessing a MySQL database from the asyncio"
 arch=(any)
 url="https://github.com/aio-libs/aiomysql"
@@ -28,7 +28,7 @@ makedepends=(
 # )
 optdepends=('python-sqlalchemy: SQLAlchemy support')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('f9c218491e7356ffb2d9f2f1c19c86147f20f88cac5b86962e84e40e2a6d5260')
+b2sums=('da4d1ef5fa2fee271e200e4c9c297d7837a90486c3d5cc22349a96e539c267befe4eb93cf086e247f3cbb0e2f72bc9e12c3ee7e4ca99d3d988d47a741f411640')
 
 build() {
   cd ${pkgname#python-}-$pkgver
