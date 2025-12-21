@@ -3,7 +3,7 @@
 # Contributor: Luis Martinez <luis dot martinez at tuta dot io>
 
 pkgname=termscp
-pkgver=0.19.0
+pkgver=0.19.1
 pkgrel=1
 pkgdesc="A feature rich terminal UI file transfer and explorer"
 arch=('x86_64')
@@ -12,12 +12,12 @@ license=('MIT')
 depends=('gcc-libs' 'zlib' 'openssl' 'dbus' 'smbclient')
 makedepends=('cargo' 'git')
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('16da20a8e252a18c6be54058b02e518f6e47a46e9353675b1fece1aeae877518ea2ffdcede4ed031fdd6f398170a55d1eb15cccffda73f04218eb77ec030b35a')
+sha512sums=('f4daeed147d50057f5c5bbc68d9337b7e8995ffb71c3fb06565ccefd09b707132c4f2d5c0f343c0ea2f080287376a982dd5ec9c11b16f94960c0ee9ce53e7664')
 options=('!lto')
 
 prepare() {
   cd "$pkgname"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
