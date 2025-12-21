@@ -2,9 +2,8 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=python-fastparquet
-_pkgname=${pkgname#python-}
 pkgver=2024.11.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A Python implementation of the Parquet columnar file format"
 arch=(x86_64)
 url="https://github.com/dask/fastparquet"
@@ -28,17 +27,17 @@ makedepends=(
   python-wheel
 )
 checkdepends=(python-pytest)
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('312c2252bc2a5507430561efeb7e574035da70fbe16cb894f9cf0abda4392dfa')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+b2sums=('7836a8e1bfdc67095d2c9f1e7eb5ad4063628209d8c1a0a9fedf942d6c0c57cfb179c3fc835bd54f5391b43f051d7afe0b472cff5d53019603cf14ea4006ccc2')
 
 build() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir=tmp_install dist/*.whl
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   cp -r fastparquet/test test-data "$PWD/tmp_install/$site_packages"
@@ -46,6 +45,6 @@ check() {
 }
 
 package() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
