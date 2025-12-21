@@ -2,14 +2,14 @@
 
 pkgname=sz
 pkgver=2.1.12.5
-pkgrel=9
+pkgrel=10
 pkgdesc="Modular parametrizable lossy compressor framework for scientific data"
 arch=(x86_64)
 url="https://szcompressor.org/"
 license=(BSD)
 depends=(glibc gcc-libs)
 makedepends=(cmake gcc-fortran hdf5 netcdf python python-numpy swig)
-source=(https://github.com/szcompressor/SZ/releases/download/v${pkgver}/sz-${pkgver}.tar.gz)
+source=(https://github.com/szcompressor/SZ2/releases/download/v${pkgver}/sz-${pkgver}.tar.gz)
 sha256sums=('32a820daf6019156a777300389d2392e4498a5c9daffce7be754cd0a5ba8729c')
 
 build() {
