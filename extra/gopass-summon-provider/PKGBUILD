@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=gopass-summon-provider
-pkgver=1.16.0
+pkgver=1.16.1
 pkgrel=1
 pkgdesc="summon provider for gopass"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('glibc')
 makedepends=('go')
 options=('!lto')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('38f3b993052900852996480a0456631643bffce67490e4c57a5254892d7ef93ca175bd53693747afb99811b9c2427745aead2dd99f66a49a92c6cbee2c3bf130')
+sha512sums=('b5a85136f54ef07b1eb80944cdb1bd2cb101deea8c22eb51c1194613cce853d40f382c184af6a4b381fef740546b231417e84fe0aa6e0d64154e00c8a1b1621f')
 
 prepare() {
   cd $pkgname-$pkgver
