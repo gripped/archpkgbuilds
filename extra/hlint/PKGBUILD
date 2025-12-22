@@ -2,11 +2,11 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hlint
-pkgver=3.6
-pkgrel=4
+pkgver=3.6.1
+pkgrel=1
 pkgdesc="Source code suggestions"
-url="http://community.haskell.org/~ndm/hlint/"
-license=("BSD")
+url="https://github.com/ndmitchell/hlint"
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-cmdargs' 'haskell-cpphs'
          'haskell-data-default' 'haskell-deriving-aeson' 'haskell-extra' 'haskell-file-embed'
@@ -17,12 +17,12 @@ conflicts=('haskell-hlint')
 replaces=('haskell-hlint')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('3c1ee2969fc96aac87c8a69b11497696dd6450024d2254860a8e3181f988254794a65ecabed9d97fc2bcdc61bbd6abdf6809fe535c4121fad17ad1dc1dfe8d9e')
+sha512sums=('1e46092efafc6853f94030a7aa632d0a9b161a6adfaf60df80ed41522ee1cc291665be566123d1d1a8962d9c112cc68b2b60ac2fb7d2a2d8aa6fd57b3ccd8296')
 
 build() {
-    cd "${srcdir}/${pkgname}-${pkgver}"
+    cd $pkgname-$pkgver
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fgpl -fthreaded -f-ghc-lib
     runhaskell Setup build $MAKEFLAGS
@@ -32,8 +32,13 @@ build() {
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
 }
 
+check() {
+    cd $pkgname-$pkgver
+    runhaskell Setup test --show-details=direct
+}
+
 package() {
-    cd "${srcdir}/${pkgname}-${pkgver}"
+    cd $pkgname-$pkgver
     install -D -m744 register.sh   "${pkgdir}/usr/share/haskell/register/${pkgname}.sh"
     install -D -m744 unregister.sh "${pkgdir}/usr/share/haskell/unregister/${pkgname}.sh"
     runhaskell Setup copy --destdir="${pkgdir}"
