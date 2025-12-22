@@ -2,16 +2,16 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-chewing
-pkgver=5.1.9
+pkgver=5.1.10
 pkgrel=1
 pkgdesc="Chewing Wrapper for Fcitx5"
 arch=('x86_64')
 url="https://github.com/fcitx/fcitx5-chewing"
-license=('GPL')
+license=('LGPL-2.1-or-later')
 depends=('fcitx5' 'libchewing')
 makedepends=('git' 'extra-cmake-modules' 'ninja')
 source=("git+https://github.com/fcitx/fcitx5-chewing.git#tag=$pkgver?signed")
-sha512sums=('beeae2969136023139b949f0d6d062c1ab480730c1c8e5690308fddf1c0c8a6aaa7b7ba36ebc40cfa05844e63f65316eb66bd4ac072e3df781da0c244cf8c021')
+sha512sums=('6dc71023f7269f3100b6d705a71d71fc9a27e072f2bd8c7c2581fc0ad3ec0c838022af1efcf00cbf5133cd7965f1ab216e7cebbc15bdde252713b403255e83ce')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
 build() {
