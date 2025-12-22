@@ -7,8 +7,8 @@ pkgname=(
   openal
   openal-examples
 )
-pkgver=1.24.3
-pkgrel=2
+pkgver=1.25.0
+pkgrel=1
 pkgdesc="Cross-platform 3D audio library, software implementation"
 url="https://github.com/kcat/openal-soft"
 arch=(x86_64)
@@ -30,11 +30,11 @@ makedepends=(
   ninja
   pipewire
   portaudio
-  qt5-base
+  qt6-base
   sdl3
 )
 source=("git+https://github.com/kcat/openal-soft#tag=$pkgver")
-b2sums=('57c685f1978ab961e90df74e667bb5fcb114fbac37ba59874619800e85a2c05c877fcc26eaf0a204138357f2bb4e6fa185e7ea4bef0e8dab3dd583486f8eaf69')
+b2sums=('3dff86afc1e8950b82adf27f723166a986699d881ba5cff3069a63f6aecf44a539b38295e59507d13666c4dc52a808c05de2ce1898d54d44348ba80a9e8adbb4')
 
 prepare() {
   cd openal-soft
@@ -63,7 +63,7 @@ _pick() {
 
 package_openal() {
   optdepends=(
-    'qt5-base: alsoft-config GUI Configurator'
+    'qt6-base: alsoft-config GUI Configurator'
     'fluidsynth: MIDI rendering'
     'libmysofa: makemhr tool'
   )
