@@ -5,7 +5,7 @@
 
 pkgname=btrfsmaintenance
 pkgver=0.5.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Btrfs maintenance scripts"
 arch=('any')
 url="https://github.com/kdave/${pkgname}"
@@ -28,7 +28,8 @@ package() {
 	install -Dm644 ${pkgname}-refresh.{path,service} -t "${pkgdir}/usr/lib/systemd/system/"
 
 	install -Dm755 btrfs-{balance,defrag{,-plugin},scrub,trim}.sh -t "${pkgdir}/usr/share/${pkgname}/"
-	install -Dm644 ${pkgname}-{functions,refresh-cron.sh} -t "${pkgdir}/usr/share/${pkgname}/"
+	install -Dm755 ${pkgname}-refresh-cron.sh -t "${pkgdir}/usr/share/${pkgname}/"
+	install -Dm644 ${pkgname}-functions -t "${pkgdir}/usr/share/${pkgname}/"
 
 	install -Dm644 README.{md,man} CHANGES.md -t "${pkgdir}/usr/share/doc/${pkgname}/"
 }
