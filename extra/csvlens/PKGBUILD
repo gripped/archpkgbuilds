@@ -1,7 +1,8 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=csvlens
-pkgver=0.14.0
+pkgver=0.15.0
 pkgrel=1
 pkgdesc="Command line csv viewer"
 arch=('x86_64')
@@ -10,11 +11,11 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('d653c97c55c8638d2137dfc3b8dcb62f6d76a6786eadc468086e23214cbea3c4')
+sha256sums=('4e759823b8df1d03b0a1e0202e6b300d1a99eea6898cfdf827accb89f1547b65')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
