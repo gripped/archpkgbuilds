@@ -7,7 +7,7 @@ pkgname=(
   libclapper-gtk
   libclapper
 )
-pkgver=0.8.0
+pkgver=0.10.0
 pkgrel=1
 pkgdesc="Modern and user-friendly media player"
 arch=(x86_64)
@@ -40,9 +40,9 @@ makedepends=(
   vala
 )
 source=("git+https://github.com/Rafostar/clapper.git?signed#tag=$pkgver")
-b2sums=('805ffa7c4ba6b8422b7261c97fee45e129d561765997fa335b35afc9ed29a862b81a8bc7bbd9e745b17b16a311813145179d4caad9e525b6541d1faea4e0c5df')
+b2sums=('ebb0811e9d4cf775284fea05549a4cfd5372023aba1ad6b22bb61e11f7ca96cdcfcb8d03b82b116b5cdfdd7fad397a53d41695854136be15c962a51c67322cb5')
 validpgpkeys=(
-  'D3B89B4D49ABFABA6A3EF1B9228FF576F6E2EC17'    # Rafał Dzięgiel <rafostar.github@gmail.com>
+  '0E0DC8F450DBFADF5BA08B117D6F9EA15BAE2562'    # Rafał Dzięgiel <rafostar.github@gmail.com>
 )
 
 build() {
@@ -93,6 +93,7 @@ package_clapper() {
     glib2
     glibc
     graphene
+    graphviz
     gstreamer
     gtk4
     hicolor-icon-theme
@@ -145,6 +146,7 @@ package_libclapper-gtk() {
     gtk4
     libclapper-0.0.so
     libmicrodns
+    libpeas-2
     libsoup3
   )
   provides=(libclapper-gtk-0.0.so)
@@ -155,6 +157,7 @@ package_libclapper() {
   pkgdesc="Clapper playback library"
   license=('LGPL-2.1-or-later')
   depends=(
+    gcc-libs
     glib2
     glibc
     gst-plugins-base

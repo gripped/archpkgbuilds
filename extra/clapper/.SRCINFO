@@ -1,6 +1,6 @@
 pkgbase = clapper
 	pkgdesc = Modern and user-friendly media player
-	pkgver = 0.8.0
+	pkgver = 0.10.0
 	pkgrel = 1
 	url = https://rafostar.github.io/clapper
 	arch = x86_64
@@ -26,9 +26,9 @@ pkgbase = clapper
 	makedepends = gobject-introspection
 	makedepends = meson
 	makedepends = vala
-	source = git+https://github.com/Rafostar/clapper.git?signed#tag=0.8.0
-	validpgpkeys = D3B89B4D49ABFABA6A3EF1B9228FF576F6E2EC17
-	b2sums = 805ffa7c4ba6b8422b7261c97fee45e129d561765997fa335b35afc9ed29a862b81a8bc7bbd9e745b17b16a311813145179d4caad9e525b6541d1faea4e0c5df
+	source = git+https://github.com/Rafostar/clapper.git?signed#tag=0.10.0
+	validpgpkeys = 0E0DC8F450DBFADF5BA08B117D6F9EA15BAE2562
+	b2sums = ebb0811e9d4cf775284fea05549a4cfd5372023aba1ad6b22bb61e11f7ca96cdcfcb8d03b82b116b5cdfdd7fad397a53d41695854136be15c962a51c67322cb5
 
 pkgname = clapper
 	license = GPL-3.0-or-later
@@ -36,6 +36,7 @@ pkgname = clapper
 	depends = glib2
 	depends = glibc
 	depends = graphene
+	depends = graphviz
 	depends = gstreamer
 	depends = gtk4
 	depends = hicolor-icon-theme
@@ -59,12 +60,14 @@ pkgname = libclapper-gtk
 	depends = gtk4
 	depends = libclapper-0.0.so
 	depends = libmicrodns
+	depends = libpeas-2
 	depends = libsoup3
 	provides = libclapper-gtk-0.0.so
 
 pkgname = libclapper
 	pkgdesc = Clapper playback library
 	license = LGPL-2.1-or-later
+	depends = gcc-libs
 	depends = glib2
 	depends = glibc
 	depends = gst-plugins-base
