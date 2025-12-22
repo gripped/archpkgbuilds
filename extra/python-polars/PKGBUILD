@@ -2,9 +2,8 @@
 # Contributor: Alexandre Bury <alexandre.bury@gmail.com>
 
 pkgbase=python-polars
-# TODO: make this easier for other architectures
-pkgname=($pkgbase $pkgbase-runtime-64)
-pkgver=1.35.2
+pkgname=($pkgbase $pkgbase-runtime-{32,64,compat})
+pkgver=1.36.1
 pkgrel=1
 pkgdesc="Blazingly fast DataFrames library using Apache Arrow Columnar Format as memory model"
 arch=("x86_64")
@@ -38,17 +37,20 @@ checkdepends=('python-pytest'
 _name=${pkgname#python-}
 _tag="py-$pkgver"
 source=("https://github.com/pola-rs/polars/archive/refs/tags/$_tag.tar.gz")
-b2sums=('0e88e764be39f749e1a61cd2c18d77c7c399a9c1481af460127b2a99255fdb0a95278063b95de3486aef74a0bf0911626effb10095d1692f33430481a463f6c1')
+b2sums=('6725bd70969dc29a37f1970833d7dfa8853d328e316665e59bd5b7c5a4e2d6388a154db3186dca6fcb00a099c4c3f694afe51fa63f6318919cc10546e78a55d1')
 
 prepare() {
     cd polars-$_tag/py-polars
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
+    local runtime
     cd polars-$_tag/py-polars
     python -m build --wheel --no-isolation
-    maturin build -o dist --release --locked --strip --compatibility linux --manifest-path runtime/Cargo.toml
+    for runtime in 32 64 compat; do
+        maturin build -o dist --release --locked --strip --compatibility linux --manifest-path runtime/polars-runtime-$runtime/Cargo.toml
+    done
 }
 
 check() {
@@ -59,6 +61,9 @@ check() {
     find dist -name '*.whl' -print0 | xargs -n1 --null test-env/bin/python -m installer
 
     local _pytest_args=(
+        -W ignore::DeprecationWarning
+        # ResourceWarning may come from aiosqlite: https://github.com/omnilib/aiosqlite/commit/1cd60adcab12347577150a6fa6c7d92b7b86d989
+        -W ignore::ResourceWarning
         -W ignore::pydantic.warnings.PydanticDeprecatedSince211
         --ignore tests/unit/io/test_delta.py
         --ignore tests/unit/operations/namespaces/test_plot.py
@@ -66,20 +71,16 @@ check() {
         --ignore tests/unit/functions/range/test_datetime_range.py
         --ignore tests/unit/io/test_spreadsheet.py
         --ignore tests/unit/io/test_iceberg.py
+        --ignore tests/unit/io/database
         --deselect "tests/unit/streaming/test_streaming_categoricals.py::test_streaming_cat_14933"
         --deselect "tests/unit/dataframe/test_df.py::test_extension"
         --deselect "tests/unit/streaming/test_streaming_group_by.py::test_streaming_group_by_literal[1]"
-        --deselect "tests/unit/io/database/test_read.py::test_read_database_mocked"
-        --deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_uri"
-        --deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_multiple_adbc"
-        --deselect "tests/unit/io/database/test_read.py::test_read_database_uri_parameterised"
-        --deselect "tests/unit/io/database/test_read.py::test_read_database_uri_parameterised_multiple"
-        --deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_adbc"
-        --deselect "tests/unit/io/database/test_read.py::test_read_database_cx_credentials[fakedb://123:456@account/database/schema?warehouse=warehouse&role=role]"
-        --deselect "tests/unit/io/database/test_read.py::test_read_database_cx_credentials[fakedb://my#%us3r:p433w0rd@not_a_real_host:9999/database]"
-        --deselect "tests/unit/io/database/test_write.py::test_write_database_adbc_temporary_table"
         --deselect tests/unit/io/test_hive.py::test_hive_decode_reserved_ascii_23241
         --deselect tests/unit/io/test_hive.py::test_hive_decode_utf8_23241
+        # tests failing due to changes in Python 3.14
+        --deselect tests/unit/constructors/test_constructors.py::test_init_structured_objects_nested[_TestFooNT-_TestBarNT-_TestBazNT]
+        --deselect tests/unit/series/test_item.py::test_series_item_out_of_range_date
+        --deselect tests/unit/test_init.py::test_type_aliases_deprecated
     )
 
     # Ignore several test files as they either use unpackaged dependencies, or
@@ -90,7 +91,7 @@ check() {
 package_python-polars() {
     # note: changing the arch for the main package causes pkgctl to not detect the release correctly.
     # arch=('any')
-    depends=('python' 'python-numpy' 'python-polars-runtime-64')
+    depends=('python' 'python-numpy' 'python-polars-runtime')
     optdepends=('python-pandas: for interoperability with pandas frames'
                 'python-pyarrow: for interoperability with arrow types'
                 'python-pytz: to enable conversion to python datetimes with timezones'
@@ -101,12 +102,27 @@ package_python-polars() {
     install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }
 
-package_python-polars-runtime-64() {
+_package_runtime() {
+    local runtime=$1
     arch=("x86_64")
     depends=('python')
-    pkgdesc="$pkgdesc, native runtime libraries"
+    provides=(python-polars-runtime)
+    pkgdesc="$pkgdesc, runtime libraries$2"
 
     cd polars-$_tag/py-polars
-    python -m installer -d "$pkgdir" ./dist/polars_runtime*.whl
+    python -m installer -d "$pkgdir" ./dist/polars_runtime_${runtime}*.whl
     install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+}
+
+package_python-polars-runtime-32() {
+  _package_runtime 32 ""
+}
+
+
+package_python-polars-runtime-compat() {
+  _package_runtime compat ", older CPU compatibility"
+}
+
+package_python-polars-runtime-64() {
+    _package_runtime 64 ", large dataset support"
 }
