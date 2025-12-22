@@ -5,7 +5,7 @@
 
 pkgname=menumaker
 pkgver=0.99.14
-pkgrel=3
+pkgrel=4
 pkgdesc="Heuristics-driven menu generator for Deskmenu, FluxBox, IceWM, OpenBox, WindowMaker and XFCE"
 arch=('any')
 url="http://menumaker.sourceforge.net/"
@@ -14,6 +14,14 @@ depends=('python')
 options=('!makeflags')
 source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
 sha512sums=('81d44c1917d0fd4cd1c8b7cdd4ce12795fee7cc286959a7fc9dc6f84a096ea850a4348d98b6a7dce153c5d07fdb8b3aaf13f3476a9f34dd56646af3097d406d0')
+
+prepare() {
+  cd "${srcdir}"/${pkgname}-${pkgver}
+
+  # Compatibility fix for PekWM 0.3.1
+  # https://sourceforge.net/p/menumaker/bugs/17/
+  sed -i 's/Exec %s &/Exec %s/' MenuMaker/PekWM.py
+}
 
 build() {
   cd "${srcdir}"/${pkgname}-${pkgver}
