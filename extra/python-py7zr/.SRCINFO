@@ -1,6 +1,6 @@
 pkgbase = python-py7zr
 	pkgdesc = Pure python 7-zip library
-	pkgver = 1.0.0
+	pkgver = 1.1.0
 	pkgrel = 1
 	url = https://github.com/miurahr/py7zr
 	arch = any
@@ -11,6 +11,7 @@ pkgbase = python-py7zr
 	checkdepends = python-pytest-benchmark
 	checkdepends = python-pytest-httpserver
 	checkdepends = python-pytest-timeout
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
@@ -26,7 +27,7 @@ pkgbase = python-py7zr
 	depends = python-pyzstd
 	depends = python-texttable
 	depends = python-inflate64
-	source = https://files.pythonhosted.org/packages/source/p/py7zr/py7zr-1.0.0.tar.gz
-	sha256sums = f6bfee81637c9032f6a9f0eb045a4bfc7a7ff4138becfc42d7cb89b54ffbfef1
+	source = git+https://github.com/miurahr/py7zr.git#tag=v1.1.0
+	sha256sums = cd9707411f154c90fe09b71a1bad740ec085339398ab659aef5965768a90fa8a
 
 pkgname = python-py7zr
