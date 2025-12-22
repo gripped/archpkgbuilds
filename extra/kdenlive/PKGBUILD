@@ -6,7 +6,7 @@
 
 pkgname=kdenlive
 pkgver=25.12.0
-pkgrel=3
+pkgrel=5
 pkgdesc='A non-linear video editor for Linux using the MLT video framework'
 arch=(x86_64)
 url='https://apps.kde.org/kdenlive/'
@@ -65,16 +65,16 @@ optdepends=('bigsh0t: VR360 effects'
 groups=(kde-applications
         kde-multimedia)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/multimedia/kdenlive/-/commit/5ab6338f.patch)
+        kdenlive-fixes.patch)
 sha256sums=('cafee9d8ec29e99f507720f28d60bfc0963a8733f67a0ffd6a684273b8242ca5'
             'SKIP'
-            'f977929aa82249cf3f8b009f97082b6776305081fe900b4227b8f314b0435c2b')
+            'a781a11656fdd9ce918b0a4ed28c9c8f48260f6a32e269de0e97f4832423c8be')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
 
 prepare() {
-  patch -d $pkgname-$pkgver -p1 < 5ab6338f.patch # Fix crash in splash screen
+  patch -d $pkgname-$pkgver -p1 < kdenlive-fixes.patch # Backport fixes from stable branch
 }
 
 build() {
