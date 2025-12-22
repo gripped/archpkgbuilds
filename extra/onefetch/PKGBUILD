@@ -4,7 +4,7 @@
 # Contributor: Ossama Hjaji <ossama-hjaji@live.fr>
 
 pkgname=onefetch
-pkgver=2.25.0
+pkgver=2.26.1
 pkgrel=1
 pkgdesc="Git repository summary on your terminal"
 url="https://github.com/o2sh/onefetch"
@@ -13,13 +13,13 @@ arch=('x86_64')
 depends=('gcc-libs' 'zlib-ng')
 makedepends=('cargo' 'cmake' 'git')
 source=("git+$url.git#tag=$pkgver")
-sha256sums=('469f0ed1620c4a84e67a890f642e564686d13fff212a870aa5bca9cb9df7ee64')
+sha256sums=('fb752ae60ffc5c64e4198478ae33f9cc7c84f28c3a30a1ecaf9e7a35ea9e9a97')
 
 prepare() {
   cd "$pkgname"
 
   # Rust target triple.
-  local target=$(rustc -vV | sed -n 's/host: //p')
+  local target=$(rustc --print host-tuple)
   # Use zlib-ng
   mkdir -p .cargo
 	cat > .cargo/config.toml <<-EOF
