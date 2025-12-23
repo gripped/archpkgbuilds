@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=dysk
-pkgver=3.5.0
+pkgver=3.6.0
 pkgrel=1
 pkgdesc="Get information on your mounted filesystems"
 arch=('x86_64')
@@ -11,11 +11,11 @@ depends=('gcc-libs')
 makedepends=('cargo')
 replaces=('lfs')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('0652b2ad56c3fa7a4a4e0629b320e1981bcd80b75388a0143c213d68abbd6644fabf35117e005031586bf45de14d6172efc343b8d329899fd2764278095b53ec')
+sha512sums=('71ab2f5920833dc44ce607f8db0739243728536b6e4dcf3b7143c3feca0e95e35a88840727e401353073a2f5b9d1015604279eadc0c7212a210d179d54b6fa8c')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
