@@ -8,7 +8,7 @@
 
 pkgname=khal
 pkgver=0.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc='CLI calendar application built around CalDAV'
 arch=(any)
 url=https://lostpackets.de/khal/
@@ -30,7 +30,7 @@ makedepends=(
   python-build
   python-installer
   python-setuptools-scm
-  python-sphinxcontrib-newsfeed
+  python-sphinx
   python-wheel
 )
 checkdepends=(
@@ -48,6 +48,12 @@ optdepends=(
 source=("git+https://github.com/pimutils/khal.git#tag=v$pkgver")
 sha256sums=('b7b1e17b56a0ceaeaa2cfa1fae4b21409b69a5ad62f7f1c99c8f145b0fe49e6e')
 b2sums=('6227f7d3c42f0c0316073a65b5ea1f04e57149b8473d3cfd06a5616d2edcfa98bcb1221d772ef87a90b9aa8e1fda92152c58bad86a4707c9b64697684e7231ec')
+
+prepare() {
+  # avoid makedepends on python-sphinxcontrib-newsfeed
+  # (we build only the man page, not HTML docs)
+  sed -i "s|'sphinxcontrib.newsfeed',||" $pkgname/doc/source/conf.py
+}
 
 build() {
   cd $pkgname
