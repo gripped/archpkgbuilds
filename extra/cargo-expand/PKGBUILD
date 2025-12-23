@@ -3,7 +3,7 @@
 # Contributor: Jian Zeng <anonymousknight96 AT gmail.com>
 
 pkgname=cargo-expand
-pkgver=1.0.118
+pkgver=1.0.119
 pkgrel=1
 pkgdesc="Subcommand to show result of macro expansion"
 arch=('x86_64')
@@ -11,12 +11,12 @@ url='https://github.com/dtolnay/cargo-expand'
 license=('MIT' 'Apache-2.0')
 depends=('cargo' 'gcc-libs')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('d9c412a4dff5052c05ab5afae8e3948f51a8892de121a6fc5c4957dbf599ea05')
+sha256sums=('c4b2c38dd157ce8eeb81ee1762b0a235ed23d2300fdb29a73c54313a927b0262')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
