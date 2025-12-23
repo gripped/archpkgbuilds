@@ -2,7 +2,7 @@
 # Contributor: AndyRTR <andyrtr@archlinux.org>
 
 pkgname=hunspell-hu
-pkgver=1.8.1
+pkgver=1.9
 pkgrel=1
 pkgdesc='Hungarian hunspell dictionary'
 arch=(any)
@@ -14,9 +14,9 @@ makedepends=(
 )
 optdepends=('hunspell: the spell checking libraries and apps')
 provides=(hunspell-dictionary)
-_commit=c5b2a36bde02841590b8ccc490ca88bfdb69f153
+_commit=74b6ae2a2df22fd9d6e253f0391ac3a67cb7b3f8
 source=("libreoffice-dictionaries::git+https://git.libreoffice.org/dictionaries#commit=$_commit")
-b2sums=(ba7663edd9a77df9cd3462f3f86089311f0d85b7b53d8928f8e4c539b4ef1fe6a710b7464e772909c0c3d3dac7099848071d64a044af1e3ca2c2adfffbf8d626)
+b2sums=(ef3f3db6edc51b09828955bb11422af2f1746f6af72b419bc394aebd31d708bde5f8734e3b1b39b0599e531cfea07e32ecd0edd1859ee2072efb232bad17c68a)
 
 pkgver() {
   cd libreoffice-dictionaries/hu_HU/
