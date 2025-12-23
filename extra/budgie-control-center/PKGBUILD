@@ -2,14 +2,14 @@
 
 pkgname=budgie-control-center
 pkgver=1.4.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Budgie's main interface to configure various aspects of the system"
 arch=(x86_64)
 url="https://github.com/BuddiesOfBudgie/budgie-control-center"
 license=("GPL-2.0-or-later")
 groups=("budgie")
-depends=(accountsservice gcr gnome-bluetooth gnome-desktop gnome-settings-daemon ibus libgtop libpwquality smbclient
-         libcheese libnma udisks2 libhandy gsound colord-gtk)
+depends=(accountsservice gcr gnome-bluetooth gnome-desktop gnome-settings-daemon libibus libgtop libpwquality smbclient
+         libnma udisks2 libhandy gsound colord-gtk libwacom)
 makedepends=(docbook-xsl modemmanager meson glib2-devel colord)
 optdepends=("system-config-printer: Printer settings"
             "gnome-user-share: WebDAV file sharing"
@@ -33,7 +33,7 @@ prepare() {
 }
 
 build() {
-    arch-meson "$pkgname-$pkgver" build -Ddocumentation=true
+    arch-meson "$pkgname-$pkgver" build -Ddocumentation=true -Dcheese=false
     meson compile -C build
 }
 
