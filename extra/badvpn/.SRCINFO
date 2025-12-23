@@ -1,11 +1,14 @@
 pkgbase = badvpn
 	pkgdesc = Peer-to-peer VPN system, and NCD, a programming language for network interface configuration
 	pkgver = 1.999.130
-	pkgrel = 8
+	pkgrel = 9
 	url = https://github.com/ambrop72/badvpn
 	arch = x86_64
-	license = GPL
+	license = BSD-3-Clause
 	makedepends = cmake
+	depends = gcc-libs
+	depends = glibc
+	depends = nspr
 	depends = nss
 	depends = openssl
 	depends = iproute2
