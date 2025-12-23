@@ -2,7 +2,7 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-configtool
-pkgver=5.1.11
+pkgver=5.1.12
 pkgrel=1
 pkgdesc="Configuration Tool for Fcitx5"
 arch=('x86_64')
@@ -21,7 +21,7 @@ optdepends=('kcmutils: for KCM support'
 makedepends=('git' 'extra-cmake-modules' 'kcmutils' 'kdeclarative' 'kirigami' 'ksvg' 'libplasma'
              'ninja' 'python')
 source=("git+https://github.com/fcitx/fcitx5-configtool.git#tag=$pkgver?signed")
-sha512sums=('c41b208df95c502f0f2e658a20621de4f29b137a51990721ba36bbdb595021619d8ce0626434240c6a1e3cb6ac32168c9e368c8dab6652626612bd860e49943c')
+sha512sums=('42a417d358f13f0e09520e766037f186275a80cc3ab1f049b173f00d724bb7eb50e9821d67c8e6acded6257515f6fd3b2d7e79fb3096d5a7e57ee6590013c98a')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
 prepare() {
@@ -36,7 +36,6 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DUSE_QT6=ON \
     ../$pkgname
   ninja
 }
