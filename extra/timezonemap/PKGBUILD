@@ -1,36 +1,44 @@
-# Maintainer: Eli Schwartz <eschwartz@archlinux.org>
+# Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=timezonemap
-pkgver=0.4.5.2
-pkgrel=2
-pkgdesc="Gtk3 timezone map widget, forked from gnome which forked from Ubiquity"
-arch=('x86_64')
-url="https://github.com/dashea/${pkgname}"
-license=('GPL3')
-depends=('gtk3' 'libsoup')
-makedepends=('gobject-introspection')
-source=(https://github.com/dashea/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('80f631f79754c772ccbb80f5b6f9d232766f5706089bcfa7897bdf093323b6be')
-b2sums=('56e3497e85e313cc14759e7c00921b3a347b6599ce2f7c01636e6d68b36466f2bc55ae252b3734213919dd9864b2bcc183771a42e533364cd9852dabc5cd2aff')
+pkgver=0.4.5.4
+pkgrel=1
+pkgdesc='GTK3 timezone map widget'
+arch=(x86_64)
+url='https://codeberg.org/dashea/timezonemap'
+license=(GPL-3.0-only)
+depends=(
+  cairo
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  json-glib
+  librsvg
+  libsoup3
+)
+makedepends=(
+  git
+  gobject-introspection
+)
+source=("git+https://codeberg.org/dashea/timezonemap.git#tag=$pkgver")
+b2sums=(36209220b8b68e597cb17f6abb709737a85186ec9c0dbf461c3f5ba8fbbf2493ddf12f6ce088222922a6ce6c8b2201d5f640cdcd6f50222ceb533eb588f44ec6)
 
 prepare() {
-    cd ${pkgname}-${pkgver}
-
-    autoreconf -fi
+  cd $pkgname
+  autoreconf -fiv
 }
 
 build() {
-    cd ${pkgname}-${pkgver}
-
-    ./configure --prefix=/usr
-    # https://bugzilla.gnome.org/show_bug.cgi?id=656231
-    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
-    make
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  make
 }
 
 package() {
-    cd ${pkgname}-${pkgver}
-
-    make DESTDIR="${pkgdir}" install
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
 }
