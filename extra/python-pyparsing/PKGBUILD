@@ -6,7 +6,7 @@
 # Contributor: Michael Krauss <hippodriver@gmx.net>
 
 pkgname=python-pyparsing
-pkgver=3.2.5
+pkgver=3.3.0
 pkgrel=1
 pkgdesc='General parsing module for Python'
 arch=(any)
@@ -28,8 +28,8 @@ checkdepends=(
 optdepends=('python-railroad-diagrams: for generating Railroad Diagrams'
             'python-jinja: for generating Railroad Diagrams')
 source=("$pkgname::git+https://github.com/pyparsing/pyparsing.git#tag=$pkgver")
-sha512sums=('fa496039fed41503bbbdd93d1b936b91b990fda946d6d0c5a7867146f84ff56fa4455c62f4a3dafbe3e184f82f7f1fbbcb5dd04377ff19705f68a08f7cdd3ffc')
-b2sums=('01a58a0ff7acd6e52720333aefdd127c62b0cc058e11fa35f37c3050edbdb25725f7f1601ed0231959473e60064b594524eb04485353c26ee08991f638578e83')
+sha512sums=('c2cdbfa7831a7d4b4f2fe1f7a59caa01ce551fa7fd43c5938f5173621da4956599c8c9cd43b0038303d16355533a69e02896770686f2f45a2489af7aefa1d3bb')
+b2sums=('e890a879be7f3a6cade8517844702c1f53300afbf02e04025326121c5eab39e2184c9c4c87d6c607360bf42ea729245481fe404454f078332b5cb7738689cc2c')
 
 build() {
   cd "$pkgname"
