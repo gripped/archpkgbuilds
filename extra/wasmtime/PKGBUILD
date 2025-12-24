@@ -2,7 +2,7 @@
 # Contributor: Dario Ostuni <dario.ostuni@gmail.com>
 
 pkgname=wasmtime
-pkgver=39.0.1
+pkgver=40.0.0
 pkgrel=1
 pkgdesc='Standalone JIT-style runtime for WebAssembly, using Cranelift'
 arch=('x86_64')
@@ -17,7 +17,7 @@ source=("git+https://github.com/bytecodealliance/wasmtime.git#commit=v${pkgver}"
         git+https://github.com/WebAssembly/WASI.git
         git+https://github.com/WebAssembly/wasi-nn.git
         git+https://github.com/WebAssembly/wasi-crypto.git)
-b2sums=('0b593570dd011b3ce91fca55246e732db109295e98f1af3a27eae42c78288d6ba68ef9cc6b90bbd0f14668d20384e06601325f54056f938650b66e410097559a'
+b2sums=('38b87f3bc82eaf89de6e09cb56538a2cfabf47b86c7d2f6b815bdbe4a25bc9a9c599f83ffb96037dbbc70de37fafcbe9d34aff9a35cf079a912a4088f0b1d901'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -33,13 +33,11 @@ prepare() {
   git config submodule.crates/wasi-nn/spec.src "${srcdir}"/wasi-nn
   git config submodule.crates/wasi-crypto/spec.src "${srcdir}"/wasi-crypto
   git submodule update
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd ${pkgname}
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --locked --release
   cargo build --locked --release --manifest-path crates/c-api/Cargo.toml
 }
