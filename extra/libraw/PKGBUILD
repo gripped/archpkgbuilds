@@ -6,7 +6,7 @@
 # Contributor: Brad Fanella <bradfanella@archlinux.us>
 
 pkgname=libraw
-pkgver=0.21.4
+pkgver=0.21.5
 pkgrel=1
 pkgdesc='A library for reading RAW files obtained from digital photo cameras (CRW/CR2, NEF, RAF, DNG, and others)'
 arch=(x86_64)
@@ -21,7 +21,7 @@ depends=(gcc-libs
          zlib)
 makedepends=(git)
 source=(git+https://github.com/LibRaw/LibRaw#tag=$pkgver)
-sha256sums=('fe87603708b7ca52a0278d1ed55610afea26ddd8b6e4fb813811bff158bfd105')
+sha256sums=('94c35b8a7fbf7cecf2a395a13c4de5c6da79c9a71ab7d01c4fbed470f4d7cf98')
 
 prepare() {
   cd LibRaw
