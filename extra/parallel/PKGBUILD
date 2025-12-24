@@ -5,31 +5,31 @@
 # Contributor: Peter Simons <simons@cryp.to>
 
 pkgbase=parallel
-pkgname=('parallel' 'parallel-docs')
-pkgver=20251122
+pkgname=(parallel parallel-docs)
+pkgver=20251222
 pkgrel=1
 pkgdesc='A shell tool for executing jobs in parallel'
-arch=('any')
+arch=(any)
 url='https://www.gnu.org/software/parallel/'
-license=('GPL-3.0-or-later')
+license=(GPL-3.0-or-later)
 makedepends=(
-  'git'
-  'perl'
-  'libreoffice-fresh'
-  'graphviz'
-  'jdk-openjdk'
-  'perl-pod2pdf'
-  'perl-pod-pom-view-restructured'
+  git
+  perl
+  libreoffice-fresh
+  graphviz
+  jdk-openjdk
+  perl-pod2pdf
+  perl-pod-pom-view-restructured
   # pod2texi provided by texinfo in base-devel
 )
 source=(
   "$pkgname::git+https://git.savannah.gnu.org/git/parallel.git?signed#tag=${pkgver}"
-  '0001-Remove-citation-things.patch'
+  0001-Remove-citation-things.patch
 )
-sha512sums=('79178dec6a5d1fc4c279fa1152018514afa06ad21b889f743c52c70feb97da9e53d86907890c93a8a40196465e72cb811345ef29ebe999e9451b57d381a53ebb'
-            '667f30332c4f0578793ad9a8f13a43f1d840d14855c69e97c83acd4457932bf86bc3a269d73f8e1c27375cb5ff0dfa65dc9bd785ee199d618ef8d4e83c61360e')
-b2sums=('b054d77f4300494b9759354f1b6151c4bbb21061bf3c869783db2c755dd5a7a9880d42456629c5c946f98c95ae210a796e2aa158203d5e1c5dac2d1c66d506b8'
-        'bfa9086cdb52fae39e39c655a090613cbf2bdaaf719cac34bf2c33db622a2437f82da97c48c3aba0a7ac09cbe3a3015fc575c714c12b5740b53cb74616402390')
+sha512sums=('80921cd5c27b98f8cae0e63bc668a2a5ef8fcb0e65a8045c45d70c8fdb90b7bce6a8378cbed6587709fb2782b83013a5615464e8d055b851e557b5b379708eea'
+            'd80f1906e8635528784a618c3804d425e7c19810aed339d4c355a6e58a35e62e1c3a1ccd997a347c2c6a3d5a46a4a709514e55c1ad13b32da10136a4faa3901f')
+b2sums=('6c6f658325ed35987d210ab62a49a9e8108e98bee04efe77ba32a4b99b2b0f9b4b39254228263d9e332de915978a2b3f3c3190b7101f991c732a104ba127f72a'
+        'fd41fabb689cfa89dcda3aacc153b29654b60f7b540200a10b7fffc839f86dd27a3692d576a621f6a71653d3d3bba814e9dcf54cb278b7efd670b9481f5e7d6a')
 validpgpkeys=('CDA01A4208C4F74506107E7BD1AB451688888888')
 
 prepare() {
@@ -51,7 +51,7 @@ build() {
 }
 
 package_parallel() {
-  depends=('perl' 'procps')
+  depends=(perl procps)
   optdepends=('parallel-docs: documentation')
 
   cd "$pkgbase"
