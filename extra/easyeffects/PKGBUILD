@@ -6,7 +6,7 @@
 
 pkgname=easyeffects
 pkgver=8.0.8
-pkgrel=1
+pkgrel=2
 pkgdesc='Audio Effects for Pipewire applications'
 arch=('x86_64')
 url='https://github.com/wwmm/easyeffects'
@@ -19,8 +19,6 @@ depends=(
   'qqc2-desktop-style'
   'breeze-icons'
   'qt6-base'
-  'qt6-graphs'
-  'qt6-webengine'
   'pipewire-pulse'
   'lilv'
   'libsamplerate'
@@ -34,10 +32,17 @@ depends=(
   'tbb'
   'speexdsp'
   'gsl'
-  'libportal-qt6'
   'webrtc-audio-processing'
 )
-makedepends=('cmake' 'extra-cmake-modules' 'ninja' 'intltool' 'appstream' 'ladspa')
+makedepends=(
+  'cmake'
+  'extra-cmake-modules'
+  'ninja'
+  'intltool'
+  'appstream'
+  'ladspa'
+  'qt6-graphs'
+)
 optdepends=(
   'calf: limiter, exciter, bass enhancer and others'
   'lsp-plugins-lv2: equalizer, compressor, delay, loudness'
