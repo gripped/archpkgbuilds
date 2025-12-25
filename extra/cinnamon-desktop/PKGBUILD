@@ -5,29 +5,35 @@
 
 pkgname=cinnamon-desktop
 pkgver=6.6.1
-pkgrel=1
-pkgdesc="Library with common API for various Cinnamon modules"
+pkgrel=2
+pkgdesc='Library with common API for various Cinnamon modules'
 arch=(x86_64)
-url="https://github.com/linuxmint/${pkgname}"
-license=(GPL LGPL)
-depends=(accountsservice gtk3 libxkbfile libpulse)
-makedepends=(git meson gobject-introspection intltool glib2-devel)
-source=(git+${url}#tag=$pkgver
-        config.patch)
-sha256sums=('c8a23a91f005a301bde170612fcd99d49b7dcef0a071a36209b9b28f00c64965'
-            'e70227c64eca6857fe9adc21c6aee851df40b3a54bf34a145e0dc4b9819a7b6a')
-b2sums=('60d012b7e5838b3b58225942c8a68a42d36940628078c4e8676e67753d2dc9d8d3d27da88c8f0d3f8e5e4b96c563f1c320ea59bf2da9fae7b3ce84ec734205ba'
-        '5ae28fca1f3fee35222569afdba3f6f2df00f2b27709d1135589f33a3b80546ca541c391f5ee02759467fcaffe380dc1cbc4117dffe3c10cdf7046fd8588e384')
-
-prepare() {
-  cd ${pkgname}
-  # Adjust configuration
-  patch -p1 < ../config.patch
-  mkdir -p build
-}
+url='https://github.com/linuxmint/cinnamon-desktop'
+license=('GPL-2.0-or-later AND LGPL-2.0-or-later')
+depends=(
+  cairo
+  dconf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  libpulse
+  libx11
+  libxkbfile
+  systemd-libs
+)
+makedepends=(
+  git
+  glib2-devel
+  gobject-introspection
+  meson
+)
+source=("git+https://github.com/linuxmint/cinnamon-desktop.git#tag=$pkgver")
+b2sums=(60d012b7e5838b3b58225942c8a68a42d36940628078c4e8676e67753d2dc9d8d3d27da88c8f0d3f8e5e4b96c563f1c320ea59bf2da9fae7b3ce84ec734205ba)
 
 build() {
-  arch-meson build $pkgname
+  arch-meson $pkgname build
   meson compile -C build
 }
 
