@@ -6,7 +6,7 @@
 # Contributor: Josh VanderLinden <arch@cloudlery.com>
 
 pkgname=docker-compose
-pkgver=5.0.0
+pkgver=5.0.1
 pkgrel=1
 pkgdesc="Fast, isolated development environments using Docker"
 arch=('x86_64')
@@ -15,7 +15,7 @@ license=("Apache-2.0")
 makedepends=('go')
 checkdepends=('docker')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/docker/compose/archive/v$pkgver.tar.gz")
-b2sums=('ec56099894bfbee5e86ac5c2f449bb3a52f90a419eaafc0852f7df82fff33538e1c3044ea413b399d345bf64eb52b495e5b9778ead79e1f169b8dede93e1bc91')
+b2sums=('57cc76dfae0c4289153d8518430c9b43a883a2ea6f21b1e6fc91ff56b84a2513cbdc1994a27bff97d8ec3c00bdd25dbb8011d4e74f9b24c704556267c0468ec1')
 
 build() {
   cd "compose-$pkgver"
@@ -25,7 +25,7 @@ build() {
   export CGO_LDFLAGS="${LDFLAGS}"
   export GOPATH="${srcdir}"
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
-  GO_LDFLAGS="-linkmode=external -compressdwarf=false -X=github.com/docker/compose/v2/internal.Version=${pkgver}"
+  GO_LDFLAGS="-linkmode=external -compressdwarf=false -X=github.com/docker/compose/v5/internal.Version=${pkgver}"
   go build -ldflags "${GO_LDFLAGS}" -trimpath -tags "e2e,kube" -o compose ./cmd
 }
 
