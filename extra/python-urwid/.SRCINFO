@@ -1,7 +1,7 @@
 pkgbase = python-urwid
 	pkgdesc = Curses-based user interface library
 	pkgver = 3.0.4
-	pkgrel = 1
+	pkgrel = 3
 	url = https://urwid.org/
 	arch = any
 	license = LGPL-2.1-only
@@ -11,6 +11,7 @@ pkgbase = python-urwid
 	checkdepends = python-tornado
 	checkdepends = python-trio
 	checkdepends = python-twisted
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -25,8 +26,8 @@ pkgbase = python-urwid
 	optdepends = python-tornado: for tornado integration
 	optdepends = python-trio: for trio integration
 	optdepends = python-twisted: for twisted integration
-	source = https://github.com/urwid/urwid/archive/3.0.4/urwid-3.0.4.tar.gz
-	sha512sums = 33dfc74ffbce8cc59334c3fcadf3924b2fd3065ba1711d72f917c6061aa54295abde3bce05ab3e3881d071812dad5017377fcb60d96a0469da30c8156d9dda3c
-	b2sums = 0cfdee5fa29303452d03565179c41ba865b5252d48b299013c8bac4b0a96180aca2a4e6616d1f7cecd5e8369662f0dd6a34a8f0ca4bc7e9b885b2a1ed80e9427
+	source = git+https://github.com/urwid/urwid.git#tag=3.0.4
+	sha512sums = 1b6df1946fb69d6c2aaff8117ca32b03687aca63e068d732953c87931cf2388b80638b27eb6c9b528bbfe5df1822df534e27101f58b46585b476c60dca22eea1
+	b2sums = 1e4e7557a6beb5a7f9b1b0cb5bf9a2268a453e53f6962b19f4f9ed51b9be5c9aec88a70c0c0d75fe14cbbe7c5d1bb7ef70007715fbb742cbcc48cc8bec9d25c1
 
 pkgname = python-urwid
