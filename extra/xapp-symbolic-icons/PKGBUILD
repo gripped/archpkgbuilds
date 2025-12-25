@@ -2,21 +2,22 @@
 
 pkgname=xapp-symbolic-icons
 pkgver=1.0.7
-pkgrel=1
-pkgdesc="A set of symbolic icons for Gtk applications and projects"
+pkgrel=2
+pkgdesc='A set of symbolic icons for GTK applications and projects'
 arch=(any)
-url="https://github.com/xapp-project/xapp-symbolic-icons"
-license=(LGPL-3.0-only
-         GPL-3.0-only)
-depends=()
-makedepends=(git
-             meson)
-source=(git+https://github.com/xapp-project/xapp-symbolic-icons#tag=$pkgver)
-sha256sums=('a0cd8e79c361b320d97ceaa283e46a58824cfebad54a067a3a72237b7a11d537')
+url='https://github.com/xapp-project/xapp-symbolic-icons'
+license=(LGPL-3.0-only)
+depends=(hicolor-icon-theme)
+makedepends=(
+  git
+  meson
+)
+optdepends=('python: for xsi-replace-adwaita-symbolic command')
+source=("git+https://github.com/xapp-project/xapp-symbolic-icons#tag=$pkgver")
+b2sums=(85361e9b5e54f01800142916cd14c0ce6aed55b2a575c07418ba6ba10eb16a4e5056ca8ac524b4ae432bbd2ffd9000ce74d2d771e3afd59e90179b1631a68500)
 
 build() {
-  meson setup $pkgname build \
-    --prefix=/usr
+  arch-meson $pkgname build
   meson compile -C build
 }
 
