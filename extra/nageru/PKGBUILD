@@ -1,8 +1,8 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=nageru
-pkgver=2.3.1
-pkgrel=5
+pkgver=2.3.2
+pkgrel=1
 pkgdesc="live video mixer, based around the standard M/E workflow."
 arch=(x86_64)
 url="https://nageru.sesse.net/"
@@ -11,19 +11,8 @@ depends=('libmicrohttpd' 'ffmpeg' 'libx264' 'protobuf'
          'movit' 'bmusb' 'qcustomplot' 'pciutils' 'zita-resampler'
          'sqlite3' 'luajit' 'cmake')
 makedepends=('meson' 'eigen' 'qt5-tools')
-source=("https://nageru.sesse.net/nageru-${pkgver}.tar.gz"
-        patch-werror.patch
-        ffmpeg-8.patch)
-sha256sums=('95607aa966d74591f0861d9a671be2e87658b7349b8959e8c9d2095cffef14aa'
-            '428854148687e1bf7497c805a1dd35d6d976b3a0c4af256482a61aba01cdf025'
-            '74e51ad216fc96315c3b5c9609bb29a1701121bccf31a3c4df651c86b7d3d929')
-
-prepare() {
-  cd $pkgname-$pkgver
-
-  patch -p1 -i ../patch-werror.patch
-  patch -p1 -i ../ffmpeg-8.patch
-}
+source=("https://nageru.sesse.net/nageru-${pkgver}.tar.gz")
+sha256sums=('89fd0b67052d08262f59b25739ea5d0ea5fff7a46180603a93cd4f9037226b08')
 
 build() {
   arch-meson $pkgname-$pkgver build
