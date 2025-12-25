@@ -3,7 +3,7 @@
 # Contributor: Clement Tsang (xoronth) <cjhtsang@uwaterloo.ca>
 
 pkgname=bottom
-pkgver=0.11.4
+pkgver=0.12.0
 pkgrel=1
 pkgdesc='A graphical process/system monitor'
 arch=(x86_64)
@@ -12,13 +12,13 @@ license=(MIT)
 depends=(gcc-libs)
 makedepends=(git rust)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('fa098000440b96125d68532f7f5d5540a1ff46b1a095055d829f64aa0fc33bf8d2fb56cb2ea53cf0adafc8f65e9676c41991372933936f439556b082eef548f8')
-b2sums=('f4b326e1f9f39c9195de18a8c6a884cf7e4ceb4b2ca30cf6c6c0b7513bc0da82abe86f2adab2879bcaec17d921a848cc049bfb9b1fe9673f85fa82047893e1db')
+sha512sums=('6d1f9cdb578a518721dfa303fea884bd8900e6cdb6852de53f9fb1ee6d45ebdeb7e7a3f4d11796ba148868baa98154616b6cc7490da5802bc77d75370f3f7f3e')
+b2sums=('2e31cfd4dfa2f16f4f96ef78263218732f256bf5544079e758a9086fb5c955701191f9af0d214c32fcf825c2bef5da03f423db3d12da1afba447ce459a4a3403')
 
 prepare() {
   cd "$pkgname"
 
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
