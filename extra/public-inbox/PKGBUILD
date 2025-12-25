@@ -4,8 +4,8 @@
 
 pkgbase=public-inbox
 pkgname=(lei perl-publicinbox)
-pkgver=2.0.0
-pkgrel=2
+pkgver=2.1.0
+pkgrel=1
 pkgdesc='An "archives first" approach to mailing lists'
 arch=('any')
 url="https://public-inbox.org"
@@ -13,7 +13,7 @@ license=('AGPL')
 depends=(perl perl-inline-c perl-dbd-sqlite perl-uri perl-search-xapian)
 makedepends=('git')
 source=("https://public-inbox.org/public-inbox.git/snapshot/public-inbox-${pkgver}.tar.gz")
-sha256sums=('7b59c9962d479812856d1f90523b1a0b688a3ad3c0157a5c7d69e80bc616807b')
+sha256sums=('03da8788e62e24e5230eabb8ea0a7206e95ee3716c810107d05ee66995236deb')
 
 # TODO(Foxboron): Add publicinbox, but perl-plack needs quite a few more packages
 #		  lei mirror doesn't work.
