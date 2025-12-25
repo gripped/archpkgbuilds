@@ -1,22 +1,36 @@
 pkgbase = cinnamon-session
-	pkgdesc = The Cinnamon Session Handler
+	pkgdesc = The Cinnamon session handler
 	pkgver = 6.6.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/linuxmint/cinnamon-session
 	arch = x86_64
-	license = GPL
-	license = LGPL
+	license = GPL-2.0-or-later
 	makedepends = git
+	makedepends = glib2-devel
 	makedepends = meson
 	makedepends = xtrans
-	makedepends = glib2-devel
+	depends = bash
 	depends = cinnamon-desktop
-	depends = libsm
+	depends = dconf
+	depends = gcc-libs
+	depends = glib2
+	depends = glibc
+	depends = gtk3
+	depends = hicolor-icon-theme
 	depends = libcanberra
+	depends = libglvnd
+	depends = libice
+	depends = libsm
+	depends = libx11
+	depends = libxau
+	depends = libxcomposite
+	depends = python
+	depends = python-gobject
+	depends = python-setproctitle
+	depends = systemd-libs
 	depends = xapp
 	optdepends = cinnamon-translations: i18n
-	source = git+https://github.com/linuxmint/cinnamon-session#tag=6.6.1
-	sha256sums = 941ea06e5d74db150b86118f1bbf6ab0eb9d417cafb7a5d29c93f601c89893ae
+	source = git+https://github.com/linuxmint/cinnamon-session.git#tag=6.6.1
 	b2sums = b8c352551d7381fe7dd718a760e77a1d6041065b26d8c88d34b76ea35d252fa25856117cc54038ee385787616828103e7f1b171efc379bc8738a5cb436390446
 
 pkgname = cinnamon-session
