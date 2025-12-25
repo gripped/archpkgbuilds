@@ -6,24 +6,77 @@
 
 pkgname=muffin
 pkgver=6.6.0
-pkgrel=1
-pkgdesc="Cinnamon window manager based on Mutter"
+pkgrel=2
+pkgdesc='Cinnamon window manager based on Mutter'
 arch=(x86_64)
-url="https://github.com/linuxmint/${pkgname}"
-license=(GPL)
-depends=(cinnamon-desktop gobject-introspection-runtime libcanberra libinput
-         libsm libxkbcommon-x11 startup-notification zenity graphene pipewire xorg-xwayland)
-makedepends=(git meson intltool gobject-introspection wayland-protocols glib2-devel egl-wayland)
-options=(!emptydirs)
-source=(git+${url}#tag=$pkgver)
-sha256sums=('501c947d642f3bdf685f770f720dc53cf193c196fe5492af9801a1f727e522b3')
-b2sums=('8b37b81e4287926234adab6d01953a87df164bce3ce8d99ef9de86492dd77fadf18576af7226e222cbef8376c9b4830b44a16d6b9a1755861031d0e06c2816e4')
+url='https://github.com/linuxmint/muffin'
+license=(GPL-2.0-or-later)
+depends=(
+  at-spi2-core
+  cairo
+  cinnamon-desktop
+  cinnamon-settings-daemon
+  dconf
+  fontconfig
+  fribidi
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  graphene
+  gtk3
+  json-glib
+  libcanberra
+  libdrm
+  libglvnd
+  libgudev
+  libice
+  libinput
+  libpipewire
+  libsm
+  libwacom
+  libx11
+  libxau
+  libxcb
+  libxcomposite
+  libxcursor
+  libxdamage
+  libxext
+  libxfixes
+  libxi
+  libxinerama
+  libxkbcommon
+  libxkbcommon-x11
+  libxkbfile
+  libxrandr
+  libxtst
+  mesa
+  pango
+  pipewire
+  startup-notification
+  systemd-libs
+  wayland
+  xorg-xwayland
+  zenity
+)
+makedepends=(
+  egl-wayland
+  git
+  glib2-devel
+  gobject-introspection
+  meson
+  wayland-protocols
+)
+source=("git+https://github.com/linuxmint/muffin.git#tag=$pkgver")
+b2sums=(8b37b81e4287926234adab6d01953a87df164bce3ce8d99ef9de86492dd77fadf18576af7226e222cbef8376c9b4830b44a16d6b9a1755861031d0e06c2816e4)
 
 build() {
-  arch-meson build ${pkgname} -D egl_device=true -D wayland_eglstream=true
+  arch-meson $pkgname build \
+    -D egl_device=true \
+    -D wayland_eglstream=true
   meson compile -C build
 }
 
 package() {
-  meson install --destdir="${pkgdir}" -C build
+  meson install -C build --destdir="$pkgdir"
 }
