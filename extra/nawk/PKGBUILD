@@ -9,10 +9,10 @@
 # If this happens again, releases can be bumped from commits that appear in the
 # master branch at points where internal version number is updated. Uncomment
 # this for it to take effect:
-_commit=d7f37646965ee26214da0e1d97f3c1d54349ae2d
+# _commit=61a7c75e225e3035390be32d635545e40d8c5faf
 
 pkgname=nawk
-pkgver=20250804
+pkgver=20251225
 pkgrel=1
 pkgdesc='The one, true implementation of AWK'
 url="https://github.com/onetrueawk/awk"
@@ -23,7 +23,7 @@ depends=(glibc)
 makedepends=(git)
 source=("git+$url.git#commit=${_commit:-$pkgver}"
         'manpage-naming.patch')
-sha256sums=('74f1a765cca18372168d7c2102b1909b8a97355b3a0a4c36f81ba6138747e938'
+sha256sums=('a6ab93f9c748343f0469f8bd0ccf45a1429489f32b087272806011bb086fb9c3'
             'fa1bade363896033a50fbdadc8fa2f490f85a044d11afcd537f317067c70d3b5')
 
 # This pkgver function is not necessary for tagged releases but if _commit is
