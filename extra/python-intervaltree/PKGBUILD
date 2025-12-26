@@ -3,26 +3,33 @@
 
 pkgname=python-intervaltree
 _pyname=intervaltree
-pkgver=3.1.0
-pkgrel=9
+pkgver=3.2.0
+pkgrel=1
 pkgdesc='Library providing a mutable, self-balancing interval tree for Python'
 url="https://github.com/chaimleib/intervaltree"
 arch=('any')
-license=('Apache')
-depends=('python-sortedcontainers')
-makedepends=('python-setuptools')
+license=('Apache-2.0')
+depends=(
+  'python-sortedcontainers'
+)
+makedepends=(
+  'python-build'
+  'python-hatchling'
+  'python-installer'
+  'python-wheel'
+)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/chaimleib/${_pyname}/archive/${pkgver}.tar.gz")
-sha512sums=('96dd7710bb5b02470cb7d1b479d905d5e4a18abb9aef055fa55de6b7c25dcad46260f76e5d042bec599b02de2045d8ba03ff1900fff9562227dff5a76b45a070')
-b2sums=('c11a93d3dfcf9f58ccf18e1a2a219daa5082abc3187f0c65fb309df221ec61495a31923819a92c03ff251a2f00b0588ab00aaaf70417a3b1a785c18a7bb3a702')
+sha512sums=('7cf567f8a093b198144e2cffda8f70e937d5edbb045e947042b7a62b3771098ccb7dc1911f031de35cd33c6cac96b85d9326a7d237348c7a64379290086360d4')
+b2sums=('7de0ecb6fe45aa030f4f604f6d7dd048f419b73b1fbbfc80ad6576891ffd489a3c2d9e46754f9bdc11562a22258d0f69aec77383d70feab3bc2dcab96485db25')
 
 build() {
   cd "${_pyname}-${pkgver}"
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd "${_pyname}-${pkgver}"
-  python setup.py install -O1 --root="${pkgdir}" --skip-build
+  python -m installer --destdir="${pkgdir}" dist/*.whl
 }
 
 # vim: ts=2 sw=2 et:
