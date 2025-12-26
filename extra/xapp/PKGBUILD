@@ -4,24 +4,49 @@
 # Contributor: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=xapp
-pkgver=3.2.0
-pkgrel=2
+pkgver=3.2.1
+pkgrel=1
 pkgdesc="Common library for X-Apps project"
 arch=(x86_64)
-url="https://github.com/linuxmint/${pkgname}"
-license=(GPL)
-depends=(libdbusmenu-gtk3 libgnomekbd xapp-symbolic-icons)
-optdepends=('python: for mate-desktop status applet')
-makedepends=(git meson gobject-introspection python-gobject vala glib2-devel)
+url='https://github.com/linuxmint/xapp'
+license=('GPL-3.0-only AND LGPL-3.0-only')
+depends=(
+  bash
+  cairo
+  dconf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  libdbusmenu-gtk3
+  libgnomekbd
+  libx11
+  libxkbfile
+  pango
+  python
+  python-gobject
+  python-setproctitle
+  xapp-symbolic-icons
+)
+makedepends=(
+  git
+  glib2-devel
+  gobject-introspection
+  meson
+  vala
+)
 provides=(xapps)
 conflicts=(xapps)
 replaces=(xapps)
-source=(git+${url}#tag=$pkgver)
-sha256sums=('60793a54c51b57cea2fd28a7cbd14076476ad1966b14671c369ccc0253d14d24')
-b2sums=('21dd7a808439cbdbb7d01facaca7f533abe1bcfa8244de26eafa12db0381c37fcf5e458456e6d70d825d39a6c0b9c8e9a5ea70726ec1cf149e052796b53b3380')
+source=("git+https://github.com/linuxmint/xapp.git#tag=$pkgver")
+sha256sums=(052b06513f205e62ec038c6045612ff228d0966c39f5e47fd83a70dd72846824)
+b2sums=(be3e2fc6140abeec0cf5362a1ca63b4a65f0ec50bbddbf0a78331a3713d7b42c62db6df033c0c08e5f7c023b0b7a5ad0080248f0cea7dc9d362a9b530d3e29e6)
 
 build() {
-  arch-meson ${pkgname} build
+  arch-meson $pkgname build \
+    -D docs=true
   meson compile -C build
 }
 
@@ -30,5 +55,5 @@ package(){
 
   # byte-compile python modules since meson does not implement autotools’ py-compile.
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  python -m compileall -o 0 -o 1 -o 2 --hardlink-dupes -s "${pkgdir}" "${pkgdir}"${site_packages}
+  python -m compileall -o 0 -o 1 -o 2 --hardlink-dupes -s "$pkgdir" "$pkgdir"$site_packages
 }
