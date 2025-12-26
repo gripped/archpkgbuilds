@@ -2,13 +2,13 @@
 
 pkgname=budgie-control-center
 pkgver=1.4.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Budgie's main interface to configure various aspects of the system"
 arch=(x86_64)
 url="https://github.com/BuddiesOfBudgie/budgie-control-center"
 license=("GPL-2.0-or-later")
 groups=("budgie")
-depends=(accountsservice gcr gnome-bluetooth gnome-desktop gnome-settings-daemon libibus libgtop libpwquality smbclient
+depends=(accountsservice gcr gnome-desktop gnome-settings-daemon libibus libgtop libpwquality smbclient
          libnma udisks2 libhandy gsound colord-gtk libwacom)
 makedepends=(docbook-xsl modemmanager meson glib2-devel colord)
 optdepends=("system-config-printer: Printer settings"
@@ -17,15 +17,21 @@ optdepends=("system-config-printer: Printer settings"
             "openssh: Remote login"
             "power-profiles-daemon: Power profiles support")
 source=("https://github.com/BuddiesOfBudgie/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
-        'budgie-control-center-dark-mode.patch::https://github.com/BuddiesOfBudgie/budgie-control-center/commit/859fad15.patch')
+        'budgie-control-center-dark-mode.patch::https://github.com/BuddiesOfBudgie/budgie-control-center/commit/859fad15.patch'
+        'budgie-control-center-optional-bluetooth.patch::https://github.com/BuddiesOfBudgie/budgie-control-center/commit/810f8af9.patch')
 b2sums=('1e2e80013f91d22b86782123395e0621b80e225a34a2a3a316bc66c7148dccf76cb7d918e3fd17be74a8a44ae54bd938d54136069c30eedda13e9de2af39f885'
         'SKIP'
-        'de69fc47a01da306745fff00096e43beffcbbb69fd8acbccf5b92f43940a7f3fec38e7124e15801e88e161985c289faae05db01438fb0bed7e13513fa9e9516e')
+        'de69fc47a01da306745fff00096e43beffcbbb69fd8acbccf5b92f43940a7f3fec38e7124e15801e88e161985c289faae05db01438fb0bed7e13513fa9e9516e'
+        'ee1c4fb0787340f74ec67163b0ffb7ab0bb114fd0bd7238194eb9a70a56865b5e5b2c1c956a53a1583f198efd5fcaf57ac0bca07a261f1e543f7a648fd7462a4')
 validpgpkeys=("1E1FB0017C998A8AE2C498A6C2EAA8A26ADC59EE" # David Mohammed <fossfreedom at ubuntu dot com>
               "0E0D97562A4EC8BD8E329DCDAA7A2325E04B609B") # Joshua Strobl <me at joshuastrobl dot com>
 
 prepare() {
     cd "$pkgname-$pkgver"
+
+    # Make building with bluetooth optional
+    # https://github.com/BuddiesOfBudgie/budgie-control-center/pull/91
+    patch -Np1 -i ../budgie-control-center-optional-bluetooth.patch
 
     # Support dark mode
     # https://github.com/BuddiesOfBudgie/budgie-control-center/pull/98
@@ -33,7 +39,7 @@ prepare() {
 }
 
 build() {
-    arch-meson "$pkgname-$pkgver" build -Ddocumentation=true -Dcheese=false
+    arch-meson "$pkgname-$pkgver" build -Ddocumentation=true -Dbluetooth=false -Dcheese=false
     meson compile -C build
 }
 
