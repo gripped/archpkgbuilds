@@ -2,19 +2,19 @@
 
 pkgname=ruby-unicode-version
 _pkgname="${pkgname#ruby-}"
-pkgver=1.5.0
+pkgver=1.6.0
 pkgrel=1
 pkgdesc='Returns Unicode/Emoji versions of current and previous Rubies'
-arch=('any')
+arch=(any)
 url='https://github.com/janlelis/unicode-version'
-license=('MIT')
-depends=('ruby')
-makedepends=('git')
-checkdepends=('ruby-rake' 'ruby-minitest')
-options=('!emptydirs')
+license=(MIT)
+depends=(ruby)
+makedepends=(git)
+checkdepends=(ruby-rake ruby-minitest)
+options=(!emptydirs)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('35c943ca3f15ec79c31434a22fb1a4c982e16eeb7376599c408682ae71ee335fd96c53e0ce8a2554947ff9ae29eced7b623d14cdad447a05c819cb4e061a4700')
-b2sums=('dbde315662beeaa92950660cfde90881df717af3d776af9d6b10dccabdc50ae9142fd573614e1d0b84d582d0be1a7cccd4d9b9d11052382fe213577b49193a3b')
+sha512sums=('8cbed70ff497ee6882e418c272af041b2ed6b7d0931aa3c69fc4472a00debda9a517042764a0be1e443ff0032b4ac6324a7d3e298953aa542e50a7f6b5bf9605')
+b2sums=('f0926a7720f7c7bc134da64110be2a805a98c104d5d301f7674e500445f8b76cefba0aad22a862cb284fd4a4d2dbfdcbd403c14e4a319db63898b76e58a41a40')
 
 build() {
   cd "$pkgname"
@@ -42,10 +42,6 @@ package() {
     --bindir "$pkgdir/usr/bin" \
     "$_pkgname-$pkgver.gem"
 
-  # delete cache
-  rm -rf "$pkgdir/$_gemdir/cache"
-
   # license
-  install -vd "$pkgdir/usr/share/licenses/$pkgname"
-  ln -sf "$_gemdir/gems/$_pkgname-$pkgver/MIT-LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname"
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" MIT-LICENSE.txt
 }
