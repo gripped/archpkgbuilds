@@ -2,8 +2,8 @@
 
 _pyname=primecountpy
 pkgname=python-$_pyname
-pkgver=0.1.1
-pkgrel=3
+pkgver=0.2.1
+pkgrel=1
 pkgdesc='Cython interface to the C++ library primecount'
 arch=(x86_64)
 url='https://github.com/dimpase/primecountpy'
@@ -15,19 +15,11 @@ depends=(gcc-libs
          python-cysignals)
 makedepends=(cython
              git
+             meson-python
              python-build
-             python-installer
-             python-setuptools
-             python-wheel)
-source=(git+https://github.com/dimpase/primecountpy#tag=v$pkgver
-        primecount-8.patch)
-sha256sums=('4bbdb9e4cff7970634e1d9d565feae387554d6454380c34965a9d59bc6abadbc'
-            'f5559effa35b6cd9cd0fb82f399624a1a943c26e15476faa7ad1148bbdea2837')
-
-prepare() {
-  cd $_pyname
-  patch -p1 -i ../primecount-8.patch
-}
+             python-installer)
+source=(git+https://github.com/dimpase/primecountpy#tag=v$pkgver)
+sha256sums=('aed1b7ed62cd981d43a32aec84c566676b05b5a20b092691a7b312b069706180')
 
 build() {
   cd $_pyname
