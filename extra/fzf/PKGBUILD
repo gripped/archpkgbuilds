@@ -10,7 +10,7 @@
 
 pkgname=fzf
 pkgver=0.67.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Command-line fuzzy finder'
 arch=('x86_64')
 url='https://github.com/junegunn/fzf'
@@ -39,6 +39,7 @@ build() {
 	export CGO_CXXFLAGS="${CXXFLAGS}"
 	export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
 	make
+        make bin/fzf
 }
 
 check() {
@@ -64,11 +65,12 @@ package() {
 	## Binaries
 	install -dm755 "$pkgdir"/usr/bin
 	install -m755 bin/fzf-tmux "$pkgdir"/usr/bin/
-	install -Dm755 target/fzf-linux_amd64 "$pkgdir"/usr/bin/fzf
+	install -m755 bin/fzf "$pkgdir"/usr/bin/
 
 	## Completion and keybindings
 	install -dm755 "$pkgdir"/usr/share/fzf
 	install -m644 shell/*.bash shell/*.zsh "$pkgdir"/usr/share/fzf
+	install -m755 bin/fzf-preview.sh "$pkgdir"/usr/share/fzf/fzf-preview.sh
 
 	## Fish keybindings
 	install -Dm644 shell/key-bindings.fish "$pkgdir"/usr/share/fish/vendor_functions.d/fzf_key_bindings.fish
