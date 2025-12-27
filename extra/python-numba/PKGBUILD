@@ -1,8 +1,8 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=python-numba
-pkgver=0.61.0
-pkgrel=1
+pkgver=0.63.1
+pkgrel=4
 pkgdesc="JIT compiler that translates a subset of Python and NumPy code into fast machine code"
 url="https://numba.pydata.org/"
 arch=(x86_64)
@@ -50,12 +50,13 @@ checkdepends=(
   python-pyyaml
   python-scipy
 )
-source=(git+https://github.com/numba/numba#tag=$pkgver)
-sha256sums=('893d8faf62cd5c612d0da8492db3c8a795713e67a734665b4bb4cb87d5ccb80c')
+source=(git+https://github.com/numba/numba#tag=$pkgver
+        numpy-2.4.patch)
+sha256sums=('55b7c20aaa5a3ce79d7011312c7a657c81477d75d110d154ba1be32fe94df07e'
+            'ee0195be5d22683f1546ccd8aac2cb9232e5cc96f9c210f0590dd666701d212a')
 
 prepare() {
-  cd numba
-  git revert -n 5e917b96ae7033e994f185cb37329a07e56d51b6 # Drop numpy version constraint
+  patch -d numba -p1 < numpy-2.4.patch
 }
 
 build() {
@@ -66,7 +67,7 @@ build() {
 check() {
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer numba/dist/*.whl
-  test-env/bin/python -m numba.runtests -b -v -m 64 -- numba.tests || true # numpy 1.25 support incomplete
+  test-env/bin/python -m numba.runtests -b -v -m 64 -- numba.tests
 }
 
 package() {
