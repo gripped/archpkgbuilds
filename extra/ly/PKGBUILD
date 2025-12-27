@@ -4,7 +4,7 @@
 
 pkgname=ly
 pkgver=1.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc="TUI display manager"
 arch=(x86_64)
 url="https://codeberg.org/fairyglade/ly"
@@ -38,6 +38,12 @@ prepare() {
     for dep in "${_zig_deps[@]}"; do
         zig fetch --global-cache-dir ./zig-global-cache "${dep%%::*}"
     done
+
+    cd $pkgname
+    # Backport changes for session saving and systemd templates
+    git cherry-pick -n \
+        ced8f9bee35ad97c1e59ef1e182e064c04eb76a7 \
+        c7e442be8b083dd3dba818806f143cb5dddd4c1f
 }
 
 build() {
