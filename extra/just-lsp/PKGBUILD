@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=just-lsp
-pkgver=0.2.8
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="A language server for just"
 arch=(x86_64)
@@ -14,12 +14,12 @@ depends=(
 )
 makedepends=(rust)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('9934443d4f64bcb9a1079a12ab1a49271f2b5185140087d4a24a163d4433cde2ed225fc7d10f0d97b70166c23a3d7879c302a7c6e90f48e37a132fe60832bd10')
-b2sums=('3c80a7de7e142f88f051b009e0a45c6b404364f95b84bec42072a133a78ff8efa5a83e4154fc3aab7a279287d50804af6fe75d34c4dc49a752c39cc02962a15e')
+sha512sums=('b4177156112230f2d00f7eb4584f21c03cb2d1720d303f86f2f5b304b976f55a3d2d8796806e84e17f3ed86c66c6d52121f311af5c6e0553d75a287767c20fd4')
+b2sums=('9e8eaa32cdd14c4afcee6758a2033ca06bb5b4f606447e618a7cf8e46760969e153010f91cfaec8c711751a737369df577bd88d026d27afa62d1b53e40e86f22')
 
 prepare() {
   cd $pkgname-$pkgver
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
