@@ -6,7 +6,7 @@
 pkgbase=kea
 pkgname=("${pkgbase}" "${pkgbase}-docs")
 pkgver=3.0.2
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="High-performance, extensible DHCP server engine from ISC, supporting both DHCPv4 and DHCPv6"
 url="https://kea.isc.org"
@@ -54,17 +54,17 @@ build() {
 check() {
 	# Ignore tests that require live DBs
 	meson test -C build $(meson test -C build --list | \
-		grep -v 'kea / kea-mysql-tests' | \
-		grep -v 'kea / kea-pgsql-tests' | \
-		grep -v 'kea / kea-dhcp-tests' | \
-		grep -v 'kea / dhcp-mysql-lib-tests' | \
-		grep -v 'kea / dhcp-pgsql-lib-tests' | \
-		grep -v 'kea / dhcp-forensic-log-libloadtests' | \
-		grep -v 'kea / dhcp-lease-query-tests' | \
-		grep -v 'kea / kea-dhcp4-tests' | \
-		grep -v 'kea / kea-dhcp6-tests' | \
-		grep -v 'kea:shell-tests / kea_admin_mysql_tests.sh' | \
-		grep -v 'kea:shell-tests / kea_admin_pgsql_tests.sh' | \
+		grep -v 'kea:kea-mysql-tests' | \
+		grep -v 'kea:kea-pgsql-tests' | \
+		grep -v 'kea:kea-dhcp-tests' | \
+		grep -v 'kea:dhcp-mysql-lib-tests' | \
+		grep -v 'kea:dhcp-pgsql-lib-tests' | \
+		grep -v 'kea:dhcp-forensic-log-libloadtests' | \
+		grep -v 'kea:dhcp-lease-query-tests' | \
+		grep -v 'kea:kea-dhcp4-tests' | \
+		grep -v 'kea:kea-dhcp6-tests' | \
+		grep -v 'shell-tests - kea:kea_admin_mysql_tests.sh' | \
+		grep -v 'shell-tests - kea:kea_admin_pgsql_tests.sh' | \
 		awk '{print $NF}')
 }
 
