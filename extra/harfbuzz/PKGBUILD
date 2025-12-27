@@ -10,8 +10,8 @@ pkgname=(
   harfbuzz-utils
   harfbuzz-docs
 )
-pkgver=12.2.0
-pkgrel=2
+pkgver=12.3.0
+pkgrel=1
 pkgdesc="OpenType text shaping engine"
 url="https://harfbuzz.github.io/"
 arch=(x86_64)
@@ -40,7 +40,7 @@ checkdepends=(
   python-setuptools
 )
 source=("git+https://github.com/harfbuzz/harfbuzz?signed#tag=$pkgver")
-b2sums=('988b06606dad96d520fe74b5e64072aa9dc129fede677def677e88d0574c860930e92ae48cc567e779041ff0efc002a667393f22f3918387919975079b4d4a2b')
+b2sums=('6f415ac0aa2ce7f2cd0bfe960ce7c331283671e1c14bd0f8aa204d403c8a27638295dd58ae1891b13e7a27dc4abb19847381db4dbf7445de2db497860c52f61d')
 validpgpkeys=(
   053D20F17CCCA9651B2C6FCB9AB24930C0B997A2 # Khaled Hosny <khaled@aliftype.com> (@khaledhosny)
   9F377DDB6D3153A48EB3EB1E63CC496475267693 # Caleb Maclennan <caleb@alerque.com> (@alerque)
