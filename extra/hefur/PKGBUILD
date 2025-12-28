@@ -4,8 +4,7 @@
 
 pkgname=hefur
 pkgver=1.0
-pkgrel=33
-_protobuf_ver=33.1
+pkgrel=34
 pkgdesc='A standalone and lightweight BitTorrent tracker'
 arch=('x86_64')
 url='https://github.com/abique/hefur'
@@ -24,49 +23,37 @@ makedepends=(
     'cmake')
 source=("git+https://github.com/abique/hefur.git#tag=${pkgver}"
         'git+https://github.com/abique/mimosa.git'
-        "https://github.com/protocolbuffers/protobuf/archive/v${_protobuf_ver}/protobuf-${_protobuf_ver}.tar.gz"
         'hefurd.service'
         'sysusers.conf'
         'tmpfiles.conf'
         '010-hefur-fix-install.patch'::'https://github.com/abique/hefur/commit/5136250a567a290f41507f607d2c590f1a14eb2f.patch'
-        '020-hefur-fix-invalid-port-set-for-https.patch'::'https://github.com/abique/hefur/commit/f8b0fe6295257a6bfd7da00b1bd9cd4da966ddeb.patch'
-        '030-hefur-mimosa-submodule-protobuf23-fix.patch'
-        '040-hefur-mimosa-submodule-protobuf30-fix.patch')
+        '020-hefur-fix-invalid-port-set-for-https.patch'::'https://github.com/abique/hefur/commit/f8b0fe6295257a6bfd7da00b1bd9cd4da966ddeb.patch')
 sha256sums=('d6db02ee070102c6da4374edaf50f558e47559268eb4c1491bdc44a7bb4c8e04'
             'SKIP'
-            '0c98bb704ceb4e68c92f93907951ca3c36130bc73f87264e8c0771a80362ac97'
             '3d8b0a716f35798f6aa25d6ee6a032d8a142811b920338bcb398c24beb1c8b43'
             '2e87fa1d1662d13103e4b84bc52c4f97507b06cd9982e0e9d1fec24ac495327a'
             '7d39eec7c9f004a8651de95d11d32422f0a506f0fe21d5fdf37a407a05d4de0f'
             'def46ba311fc4df1c039cddec69f23c19ba4f5a362acbc128084c38df6c3ba50'
-            '05cd1f9630f3bbd4ff9f60d7d4d93603eb839450141e7aeff6cef57763421c2b'
-            '0f995b712fa4390e4b9b625113d283ae8264892d4707ee240c99f220e0a8048c'
-            '26d28f737e804b947036c2599f838114d41d584cd197e3be25c954cc1e4c228c')
+            '05cd1f9630f3bbd4ff9f60d7d4d93603eb839450141e7aeff6cef57763421c2b')
 
 prepare() {
 	git -C hefur submodule init
 	git -C hefur config --local submodule.mimosa.url "${srcdir}/mimosa"
 	git -C hefur -c protocol.file.allow='always' submodule update
 	
+	# add fixes for recent protobuf versions
+	git -C hefur/mimosa config --local advice.detachedHead false
+	git -C hefur/mimosa checkout 075e75a069abc6756c738a5835bbb9ec29e08259
+	
 	patch -d hefur -Np1 -i "${srcdir}/010-hefur-fix-install.patch"
 	patch -d hefur -Np1 -i "${srcdir}/020-hefur-fix-invalid-port-set-for-https.patch"
-	patch -d hefur/mimosa -Np1 -i "${srcdir}/030-hefur-mimosa-submodule-protobuf23-fix.patch"
-	patch -d hefur/mimosa -Np1 -i "${srcdir}/040-hefur-mimosa-submodule-protobuf30-fix.patch"
 }
 
 build() {
-	# workaround for protobuf 30.0 until upstream can find a solution:
-	# protobuf 30.0 removed documented headers that they considered as private
-	# https://github.com/abique/hefur/issues/52
-	# https://github.com/protocolbuffers/protobuf/issues/20647
-	# https://gitlab.archlinux.org/archlinux/packaging/packages/grpc/-/issues/6
-	export CXXFLAGS+=" -isystem${srcdir}/protobuf-${_protobuf_ver}/src"
-	
 	cmake -B build -S hefur \
 		-G 'Unix Makefiles' \
 		-DCMAKE_BUILD_TYPE:STRING='None' \
 		-DCMAKE_INSTALL_PREFIX:PATH='/usr' \
-		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
 		-Wno-dev
 	cmake --build build
 }
