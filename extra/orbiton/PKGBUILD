@@ -2,7 +2,7 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3 orbiton-nano)
-pkgver=2.70.4
+pkgver=2.70.5
 pkgrel=1
 pkgdesc='Configuration-free text editor and IDE'
 arch=(x86_64)
@@ -12,7 +12,7 @@ makedepends=(git go vte3)
 depends=(glibc)
 options=(!lto)
 source=("git+https://github.com/xyproto/orbiton#tag=v$pkgver")
-b2sums=('f9f042526286601ba9e75b25f0f84622e4e8135f25d913332672b3c236453314bc51407557bc80f126502f02d51e2f6b1d8e362f411e50f641fa3c9671f3cc87')
+b2sums=('23e8042f594c2b4a0244b452c918bdaaaaa9b5b449a4100537f6f9797a377f2ef431f4f75b5942242fbef3561fabd4c9856c0eb63d67acf232fcd3caf89bd64c')
 
 build() {
   export LDFLAGS="$(echo $LDFLAGS | sed 's/ -Wl//g;s/,--sort-common//')"
@@ -23,9 +23,10 @@ package_orbiton() {
   # TODO: consider moving one or more of these from AUR:
   # 'cxx: for compiling C and C++'
   # 'elm-bin: for compiling Elm'
+  # 'gnucobol: for compiling COBOL'
   # 'google-java-format: for formatting Java'
-  # 'lua-format: for formatting Lua'
   # 'hare: for compiling Hare'
+  # 'lua-format: for formatting Lua'
   # 'scala: for compiling Scala'
   # 'vlang: for compiling and formatting V'
   optdepends=('abcmidi: for writing music in the ABC notation'
@@ -54,7 +55,7 @@ package_orbiton() {
               'ocaml: for compiling and formatting OCaml'
               'odin: for compiling Odin'
               'odinfmt: for formatting Odin'
-              'ollama: for experimental tab completion'
+              'ollama: for explaining code'
               'perl-tidy: for formatting Perl'
               'pandoc: for exporting Markdown to PDF'
               'prettier: for formatting JavaScript, TypeScript and CSS'
