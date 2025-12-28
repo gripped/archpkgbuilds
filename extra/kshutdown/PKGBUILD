@@ -4,7 +4,7 @@
 # Contributor: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kshutdown
-pkgver=6.0
+pkgver=6.2
 pkgrel=1
 pkgdesc='Shutdown Utility'
 arch=(x86_64)
@@ -28,7 +28,7 @@ depends=(gcc-libs
          qt6-base)
 makedepends=(extra-cmake-modules)
 source=(https://downloads.sourceforge.net/$pkgname/KShutdown/$pkgver/$pkgname-source-$pkgver.zip)
-sha256sums=('197b3409bd60b653f2f1fc72dc2275d2df7b04434c585b112478a3fb5d3804b0')
+sha256sums=('c15f42592d88e431adea8a255c0c94aaf3783a457c33732e99f96f78694d8396')
 
 build() {
   cmake -B build -S $pkgname-$pkgver
