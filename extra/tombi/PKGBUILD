@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=tombi
-pkgver=0.7.5
+pkgver=0.7.12
 pkgrel=1
 pkgdesc='TOML Formatter / Linter / Language Server'
 arch=(x86_64)
@@ -14,11 +14,11 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://github.com/tombi-toml/tombi.git#tag=v$pkgver")
-b2sums=('5ced4f91d98c07f63d87f3e685f877ffda2527bcfff2b587d62a6ac1d3fc1ec2c4d905dac392869ebdb45d1af30d520cf7a09d503794c565b67eb35fb9983ec8')
+b2sums=('9977015c69a49a90bfa39a9c31a6844277862268f46e3a14d3dd659756cd296ecfbc6127aad454f2fc48103ca50dd8aa95ddb1ae860cdb1d745d3ad800b90521')
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
