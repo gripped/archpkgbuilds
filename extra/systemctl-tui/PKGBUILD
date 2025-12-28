@@ -1,7 +1,8 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=systemctl-tui
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=1
 pkgdesc="A fast, simple TUI for interacting with systemd services and their logs"
 arch=('x86_64')
@@ -10,11 +11,11 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('685854f6e07a3132499a16b7207f40bc5366f3fa6c578bad200f380d838d96cd7f94c8363f87b4668d7f9f8d58247db81242870a61573ed256759ca960576a15')
+sha512sums=('ff7dd78e02e73ebbb63f96f7cd2aed0d748c1fa15136d3a78ac72703373f4f11c8afe1ad074538b263840b53af833c1feec3ed24e20da58369ac95eff6da5798')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
