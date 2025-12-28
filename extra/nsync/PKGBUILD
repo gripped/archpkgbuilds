@@ -3,7 +3,7 @@
 # Contributor: Chih-Hsuan Yen <yan12125@gmail.com>
 
 pkgname=nsync
-pkgver=1.29.2
+pkgver=1.30.0
 pkgrel=1
 pkgdesc='A C library that exports various synchronization primitives, such as mutexes'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('gcc-libs')
 makedepends=('cmake')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         "$pkgname-export.patch")
-sha256sums=('1d63e967973733d2c97e841e3c05fac4d3fa299f01d14c86f2695594c7a4a2ec'
+sha256sums=('883a0b3f8ffc1950670425df3453c127c1a3f6ed997719ca1bbe7f474235b6cc'
             'f59245d9b3845030d005cfb524efd01167e44b085b0872f1f9de856a0d2c7c48')
 
 prepare() {
