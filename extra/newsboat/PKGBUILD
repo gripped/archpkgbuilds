@@ -4,7 +4,7 @@
 # Contributor: Sven Pfleiderer <pfleidi@roothausen.de>
 
 pkgname=newsboat
-pkgver=2.41
+pkgver=2.42
 pkgrel=1
 pkgdesc="RSS/Atom feed reader for text terminals"
 arch=('x86_64')
@@ -22,13 +22,13 @@ optdepends=(
 replaces=('newsbeuter')
 options=('!makeflags' '!lto')
 source=("git+https://github.com/newsboat/newsboat.git?signed#tag=r${pkgver}")
-sha256sums=('dea60add2e3e31d92a56dde8530c91c9f0f2affad7e208be05f4dde6b07e807d')
+sha256sums=('d346e65abaf4b2ccf952380938393b12d140bca3c6838b6f369ccea0913f8827')
 validpgpkeys=('B8B1756A0DDBF0760CE67CCF4ED6CD61932B9EBE') # Newsboat project <newsboat@googlegroups.com>
 
 prepare() {
   cd $pkgname
 
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
