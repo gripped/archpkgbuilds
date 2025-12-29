@@ -1,6 +1,6 @@
 pkgbase = python-tldextract
 	pkgdesc = Accurately separate the TLD from the registered domain and subdomains of a URL, using the Public Suffix List
-	pkgver = 5.3.0
+	pkgver = 5.3.1
 	pkgrel = 1
 	url = https://github.com/john-kurkowski/tldextract
 	arch = any
@@ -16,11 +16,13 @@ pkgbase = python-tldextract
 	makedepends = python-setuptools
 	makedepends = python-setuptools-scm
 	makedepends = python-wheel
+	depends = python
 	depends = python-idna
 	depends = python-requests
 	depends = python-requests-file
 	depends = python-filelock
-	source = git+https://github.com/john-kurkowski/tldextract.git#tag=5.3.0
-	sha512sums = 7e60bbd43e9d8f5c7973dcab99676545a0a219ae58b7eb01ee6bdd739fb9b159cf2d099b834c6e06ab003dfe637ee1392e9f12ab72981f447983d77ed645ba62
+	source = python-tldextract::git+https://github.com/john-kurkowski/tldextract.git#tag=5.3.1
+	sha512sums = 82d54bd13ac85cdc70db01f92fec2a27991d4391250e7a570eee35642a0a8229d5cb315a9aa5a55dbeb448da283f56e915f7dd56e998c0a9433b4c437d42a6da
+	b2sums = a08e7615c207dfbace5dc307198ab52ccbcd481e01114231692c31e1ae405c1ddc1568d4501aaf49c996a5defb0c45a4ec08a9fc4ce64d6765b339b5490229a6
 
 pkgname = python-tldextract
