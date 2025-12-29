@@ -1,8 +1,8 @@
 # Maintainer: Peter Jung <ptr1337@cachyos.org>
 
 pkgname=libunicode
-pkgver=0.6.0
-pkgrel=2
+pkgver=0.7.0
+pkgrel=1
 pkgdesc="Unicode and UTF-8 C++ library"
 arch=('x86_64')
 url="https://github.com/contour-terminal/libunicode"
@@ -19,7 +19,7 @@ makedepends=(
   unicode-character-database
 )
 source=("git+https://github.com/contour-terminal/libunicode.git#tag=v$pkgver")
-sha256sums=('c870c781d1b830e764c933b3601ade23eb55ae37af7900609f415950c2e08398')
+sha256sums=('aedf8a21121aef086f5fd09e21c3473b112ddf9b6f31b9f7757a23ad2a23d7f7')
 
 build() {
   cmake -B build -S libunicode \
