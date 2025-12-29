@@ -6,7 +6,7 @@
 # Contributor: Jan Fader <jan.fader@web.de>
 
 pkgname=fish
-pkgver=4.2.1
+pkgver=4.3.1
 pkgrel=1
 pkgdesc='Smart and user friendly shell intended mostly for interactive use'
 url='https://fishshell.com/'
@@ -29,8 +29,8 @@ install=fish.install
 backup=(etc/fish/config.fish)
 source=("${pkgname}::git+https://github.com/fish-shell/fish-shell#tag=${pkgver}")
 #validpgpkeys=(003837986104878835FA516D7A67D962D88A709A) # David Adam <zanchey@gmail.com>
-sha512sums=('8465f69f31207e15fcb4d28c00b30450e5f8ff6bb6bcb4c5eb0ee93cbe474bf9fd1caa5269663c1fd731336e4f7aa9c32d7e27308547f02194fbc6f62b40ab82')
-b2sums=('f0f89d223cfd9c3f16d9603d262a5c4830e7c5bd0f9a05114a17a1cb09cf0d478c920e52abcf16231a5e9b115df06f431a669343e640b71f86aecd8205c7b032')
+sha512sums=('ae25983e5c94f416a4afea0799d35cfce58eb9ead3b97801c6cc75dc57de7d6cea927257ab55a398ee48739c4ec66eba987180f4ae19d2c2fbaf2d8d52d2d381')
+b2sums=('9386fc0488d1d648ea0b8f1e8884eee42bdfe68a6f83d217a0d2ce9fb6eaebee0a68f44f395ce5f5a726eeb59abdae007be0ae3123b214b1d45fcab3d4b7b06f')
 
 build() {
   cd ${pkgname}
@@ -39,13 +39,13 @@ build() {
 
   local cmake_options=(
     -B build
-    -DCMAKE_INSTALL_PREFIX=/usr
-    -DCMAKE_INSTALL_SYSCONFDIR=/etc
-    -DCMAKE_BUILD_TYPE=Release
-    -DBUILD_DOCS=True
-    -DFISH_USE_SYSTEM_PCRE2=ON
-    -DWITH_GETTEXT=ON
-    -Wno-dev
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_INSTALL_SYSCONFDIR=/etc
+    -D CMAKE_BUILD_TYPE=Release
+    -D WITH_DOCS=ON
+    -D FISH_USE_SYSTEM_PCRE2=ON
+    -D WITH_GETTEXT=ON
+    -W no-dev
   )
   cmake "${cmake_options[@]}"
 
