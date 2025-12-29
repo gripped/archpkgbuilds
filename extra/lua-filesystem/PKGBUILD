@@ -9,9 +9,9 @@
 pkgbase=lua-filesystem
 _rockname=${pkgbase/-/}
 pkgname=(lua-filesystem lua51-filesystem lua52-filesystem lua53-filesystem)
-pkgver=1.8.0
+pkgver=1.9.0
 _tag=${pkgver//./_}
-pkgrel=5
+pkgrel=1
 _rockrel=1
 pkgdesc='File System Library for the Lua Programming Language'
 arch=(x86_64)
@@ -27,8 +27,8 @@ _archive="$_rockname-$_tag"
 _rock="$_rockname-$pkgver-$_rockrel.linux-$CARCH.rock"
 source=("$_url/archive/v$_tag/$_archive.tar.gz"
         "https://luarocks.org/manifests/hisham/$_rockname-$pkgver-$_rockrel.rockspec")
-sha256sums=('16d17c788b8093f2047325343f5e9b74cccb1ea96001e45914a58bbae8932495'
-            'ca559fbf3df9bfaf0bf526bdd9b4070df17295a4bb3c4999afad9c05f454d3a2')
+sha256sums=('1142c1876e999b3e28d1c236bf21ffd9b023018e336ac25120fb5373aade1450'
+            '32bbfb40a23a10063a8f332b874556019232e4a01e9bcd9c0cfb422118e2e1c9')
 
 build() {
 	cd "$_archive"
