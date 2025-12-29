@@ -7,7 +7,7 @@ pkgname=(
   aom-docs
 )
 pkgver=3.13.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Alliance for Open Media video codec"
 url="https://aomedia.org/"
 arch=(x86_64)
@@ -33,6 +33,9 @@ validpgpkeys=(
 
 prepare() {
   cd libaom-$pkgver
+
+  # Don't require static library
+  sed -i 's/aom aom_static/aom/' build/cmake/aom_install.cmake
 }
 
 build() {
