@@ -7,8 +7,8 @@
 
 pkgname=darktable
 epoch=2
-pkgver=5.2.1
-pkgrel=4
+pkgver=5.4.0
+pkgrel=1
 pkgdesc='Utility to organize and develop raw images'
 arch=(x86_64)
 url='https://darktable.org'
@@ -49,18 +49,11 @@ makedepends=(clang
              portmidi
              python-jsonschema)
 _archive="$pkgname-$pkgver"
-source=("$_url/releases/download/release-$pkgver/$_archive.tar.xz"{,.asc}
-        0001-Fix-build-with-clang-21.patch )
-sha256sums=('02f1aa9ae93949e7bc54c34eeb5ff92c2b87f95d2547865df55c60467564ee11'
-            'SKIP'
-            'ff199cbd3964a109b76d029ca46d52aecda7f67cfcfde8c00099f7931c1b75ae')
+source=("$_url/releases/download/release-$pkgver/$_archive.tar.xz"{,.asc})
+sha256sums=('2bf0baea78d27945cf09c33d8804f179e03a83ee19d2e927fd660ea46aca3b16'
+            'SKIP')
 validpgpkeys=(C4CBC150699956E2A3268EF5BB5CC8295B1779C9  # darktable releases <release@darktable.org>
               F10F9686652B0E949FCD94C318DCA123F949BD3B) # Pascal Obry <pascal@obry.net>
-
-prepare() {
-    cd $pkgname-$pkgver
-    patch -Np1 -i ../0001-Fix-build-with-clang-21.patch 
-}
 
 build() {
     cmake -B build -S "$_archive" \
