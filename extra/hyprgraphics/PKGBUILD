@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hyprgraphics
-pkgver=0.4.0
-pkgrel=2
+pkgver=0.5.0
+pkgrel=1
 pkgdesc='hyprland graphics resources and utilities'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -23,7 +23,7 @@ makedepends=(cmake)
 provides=("lib$pkgname.so")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('1ee818778eafd36919a463481fe0838ea3440d53fbd2305a5bf1449c61148678')
+sha256sums=('bb37f611c1f50e58dcc0aa97ec1b39c186b78160807f109c5dd8833d58f8bc04')
 
 build() {
 	cd "$_archive"
