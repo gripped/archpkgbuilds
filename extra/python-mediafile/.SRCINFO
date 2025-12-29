@@ -1,17 +1,19 @@
 pkgbase = python-mediafile
 	pkgdesc = Elegant audio file tagging
-	pkgver = 0.13.0
+	pkgver = 0.14.0
 	pkgrel = 1
 	url = https://github.com/beetbox/mediafile
 	arch = any
 	license = MIT
 	makedepends = git
 	makedepends = python-build
-	makedepends = python-flit-core
+	makedepends = python-poetry-core
 	makedepends = python-installer
+	depends = python
 	depends = python-mutagen
 	depends = python-filetype
-	source = git+https://github.com/beetbox/mediafile.git#tag=e1de3640e253ff88f00e8495d3b7626ff6b3e2b8
-	sha256sums = 8b9a86f0ca50f95dda715f475b03cfe081db48648fe58faaff0e65de429370e8
+	source = python-mediafile::git+https://github.com/beetbox/mediafile#tag=v0.14.0
+	sha512sums = 5c6e2f462b121eee241ca5883e245c90c44777c1362271b18a03460e76f3ff7ce460aeb85f2ab7919aa69be09fb133a61cd043e1cdcc925b1804668f3bfb6b6e
+	b2sums = a72e18cc94dd393b245c2bb966d7e2f370a091575920027949a7f4973b189deb036032b19dee6027fde7a28e66ab7e183e248ed7a8da91c26544a9e8b19da8fb
 
 pkgname = python-mediafile
