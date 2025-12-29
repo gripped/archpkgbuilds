@@ -4,7 +4,7 @@
 
 pkgname=firefoxpwa
 _pkgname=PWAsForFirefox
-pkgver=2.17.2
+pkgver=2.18.0
 pkgrel=1
 pkgdesc="A tool to install, manage and use Progressive Web Apps (PWAs) in Mozilla Firefox (native component)"
 url="https://pwasforfirefox.filips.si"
@@ -18,7 +18,7 @@ replaces=('firefox-pwa')
 install="${pkgname}.install"
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/filips123/PWAsForFirefox/archive/refs/tags/v${pkgver}.tar.gz"
         'no_libexec.patch')
-b2sums=('8bd5a4ee3435fb24b92bcee506231021b43d5ef2251a9cabe93d92536bfbe514b23cb766b891b952be829fd149e7568b1d998b7f2204a328945adef66a3ab939'
+b2sums=('5cb0428bf8a683db44d869d065a0f3063bca228d5c08581c77299ed53598b3d5019ec0fbb71e797dd3dbd5911bbacbdfce406028d1e20261d67bcf2280c532d0'
         '4502cf881be1682b835d8b9cac6e9884c12e7212a681dd6820a4bbee331eda183c4475be60ed0152964750c59da3cdca005e4ef760fa6e3ce68835c885ddc617')
 
 prepare() {
@@ -31,9 +31,8 @@ prepare() {
 	# We don't use libexec in Arch
 	patch -Np1 -i "${srcdir}/no_libexec.patch"
 
-	export RUSTUP_TOOLCHAIN=stable
 	cargo update
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
@@ -42,8 +41,6 @@ build() {
 	# Required for LTO
 	export CFLAGS+=" -ffat-lto-objects"
 	
-	export RUSTUP_TOOLCHAIN=stable
-	export CARGO_TARGET_DIR=target
 	cargo build --frozen --release
 }
 
