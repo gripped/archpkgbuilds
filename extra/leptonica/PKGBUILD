@@ -3,7 +3,7 @@
 # Contributor: Christoph Drexler <chrdr at gmx dot at>
 
 pkgname=leptonica
-pkgver=1.86.0
+pkgver=1.87.0
 pkgrel=1
 pkgdesc='Software that is broadly useful for image processing and image analysis applications'
 arch=(x86_64)
@@ -20,7 +20,7 @@ depends=(giflib libgif.so
          zlib libz.so)
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('b4447faf61a8786a9b211d58d4103d85d47fd3a5dd418d5a6bc525d41db54ccc')
+sha256sums=('fa2b40c5caea96d1bb93a97486262aed8731b69ce25a84a6bf5d25323e33f631')
 
 prepare() {
   cd "$_archive"
