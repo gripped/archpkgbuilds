@@ -1,5 +1,5 @@
 diff --git a/cuda/CMakeLists.txt b/cuda/CMakeLists.txt
-index 8394b3aef..a91011666 100644
+index 3cddd9a8d0..3e5720432e 100644
 --- a/cuda/CMakeLists.txt
 +++ b/cuda/CMakeLists.txt
 @@ -1,5 +1,9 @@
@@ -10,165 +10,136 @@ index 8394b3aef..a91011666 100644
 +add_library(ginkgo_cuda_4 $<TARGET_OBJECTS:ginkgo_cuda_device> "")
 +add_library(ginkgo_cuda_5 $<TARGET_OBJECTS:ginkgo_cuda_device> "")
  include(${PROJECT_SOURCE_DIR}/cmake/template_instantiation.cmake)
- add_instantiation_files(${PROJECT_SOURCE_DIR}/common/cuda_hip matrix/csr_kernels.instantiate.cpp CSR_INSTANTIATE)
- add_instantiation_files(${PROJECT_SOURCE_DIR}/common/cuda_hip matrix/fbcsr_kernels.instantiate.cpp FBCSR_INSTANTIATE)
-@@ -30,16 +34,32 @@ target_sources(
-         matrix/fft_kernels.cu
-         preconditioner/batch_jacobi_kernels.cu
-         solver/batch_bicgstab_kernels.cu
+ add_instantiation_files(
+     ${PROJECT_SOURCE_DIR}/common/cuda_hip
+@@ -40,14 +44,8 @@ list(
+ target_sources(
+     ginkgo_cuda
+     PRIVATE
 -        ${BATCH_BICGSTAB_INSTANTIATE1}
 -        ${BATCH_BICGSTAB_INSTANTIATE2}
-         solver/batch_cg_kernels.cu
 -        ${BATCH_CG_INSTANTIATE1}
 -        ${BATCH_CG_INSTANTIATE2}
+         ${CSR_INSTANTIATE}
+         ${FBCSR_INSTANTIATE}
+-        ${GKO_CUDA_HIP_COMMON_SOURCES}
+-        ${GKO_UNIFIED_COMMON_SOURCES}
+         base/device.cpp
+         base/event_kernels.cpp
+         base/exception.cpp
+@@ -65,6 +63,28 @@ target_sources(
          solver/lower_trs_kernels.cu
          solver/upper_trs_kernels.cu
-+)
-+target_sources(
-+    ginkgo_cuda_2
-+    PRIVATE
-         ${GKO_UNIFIED_COMMON_SOURCES}
-+)
-+target_sources(
-+    ginkgo_cuda_3
-+    PRIVATE
-         ${GKO_CUDA_HIP_COMMON_SOURCES}
  )
 +target_sources(
-+    ginkgo_cuda_4
++    ginkgo_cuda_2
 +    PRIVATE
 +        ${BATCH_BICGSTAB_INSTANTIATE1}
 +        ${BATCH_BICGSTAB_INSTANTIATE2}
 +)
 +target_sources(
-+    ginkgo_cuda_5
++    ginkgo_cuda_3
 +    PRIVATE
 +        ${BATCH_CG_INSTANTIATE1}
 +        ${BATCH_CG_INSTANTIATE2}
 +)
++target_sources(
++    ginkgo_cuda_4
++    PRIVATE
++        ${GKO_CUDA_HIP_COMMON_SOURCES}
++)
++target_sources(
++    ginkgo_cuda_5
++    PRIVATE
++        ${GKO_UNIFIED_COMMON_SOURCES}
++)
  if(GINKGO_JACOBI_FULL_OPTIMIZATIONS)
      set(GKO_CUDA_JACOBI_BLOCK_SIZES)
      foreach(blocksize RANGE 1 32)
-@@ -87,65 +107,74 @@ configure_file(
+@@ -112,42 +132,43 @@ configure_file(
      common/cuda_hip/preconditioner/jacobi_common.hpp
  )
  
--if(CMAKE_CUDA_COMPILER_ID STREQUAL "NVIDIA")
--    # remove false positive CUDA warnings when calling one<T>() and zero<T>()
--    # and allows the usage of std::array for nvidia GPUs
--    target_compile_options(
++function(configure_cuda_target target_name)
+ if(CMAKE_CUDA_COMPILER_ID STREQUAL "NVIDIA")
+     # remove false positive CUDA warnings when calling one<T>() and zero<T>()
+     # and allows the usage of std::array for nvidia GPUs
+     target_compile_options(
 -        ginkgo_cuda
--        PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:--expt-relaxed-constexpr>
--    )
--    if(MSVC)
-+function(confgure_cuda_target target_name)
-+    if(CMAKE_CUDA_COMPILER_ID STREQUAL "NVIDIA")
-+        # remove false positive CUDA warnings when calling one<T>() and zero<T>()
-+        # and allows the usage of std::array for nvidia GPUs
++        ${target_name}
+         PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:--expt-relaxed-constexpr>
+     )
+     if(MSVC)
          target_compile_options(
 -            ginkgo_cuda
--            PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>
--        )
--    else()
--        target_compile_options(
--            ginkgo_cuda
--            PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:--expt-extended-lambda>
 +            ${target_name}
-+            PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:--expt-relaxed-constexpr>
+             PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>
          )
-+        if(MSVC)
-+            target_compile_options(
-+                ${target_name}
-+                PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>
-+            )
-+        else()
-+            target_compile_options(
-+                ${target_name}
-+                PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:--expt-extended-lambda>
-+            )
-+        endif()
+     else()
+         target_compile_options(
+-            ginkgo_cuda
++            ${target_name}
+             PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:--expt-extended-lambda>
+         )
      endif()
--endif()
+ endif()
  
 -ginkgo_compile_features(ginkgo_cuda)
--target_compile_definitions(
++ginkgo_compile_features(${target_name})
+ target_compile_definitions(
 -    ginkgo_cuda
--    PRIVATE GKO_COMPILING_CUDA GKO_DEVICE_NAMESPACE=cuda
--)
--if(GINKGO_CUDA_CUSTOM_THRUST_NAMESPACE)
-+    ginkgo_compile_features(${target_name})
++    ${target_name}
+     PRIVATE GKO_COMPILING_CUDA GKO_DEVICE_NAMESPACE=cuda
+ )
+ if(GINKGO_CUDA_CUSTOM_THRUST_NAMESPACE)
      target_compile_definitions(
 -        ginkgo_cuda
--        PRIVATE THRUST_CUB_WRAPPED_NAMESPACE=gko
 +        ${target_name}
-+        PRIVATE GKO_COMPILING_CUDA GKO_DEVICE_NAMESPACE=cuda
+         PRIVATE THRUST_CUB_WRAPPED_NAMESPACE=gko
      )
--endif()
-+    if(GINKGO_CUDA_CUSTOM_THRUST_NAMESPACE)
-+        target_compile_definitions(
-+            ${target_name}
-+            PRIVATE THRUST_CUB_WRAPPED_NAMESPACE=gko
-+        )
-+    endif()
+ endif()
  
--# include path for generated headers like jacobi_common.hpp
+ # include path for generated headers like jacobi_common.hpp
 -target_include_directories(ginkgo_cuda PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
--target_link_libraries(
++target_include_directories(${target_name} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+ target_link_libraries(
 -    ginkgo_cuda
--    PRIVATE
--        CUDA::cudart
--        CUDA::cublas
--        CUDA::cusparse
--        CUDA::curand
--        CUDA::cufft
--        nvtx::nvtx
--)
--# NVTX3 is header-only and requires dlopen/dlclose in static builds
++    ${target_name}
+     PRIVATE
+         CUDA::cudart
+         CUDA::cublas
+@@ -157,13 +178,13 @@ target_link_libraries(
+         nvtx::nvtx
+ )
+ if(CUDAToolkit_VERSION VERSION_GREATER_EQUAL 13)
+-    target_link_libraries(ginkgo_cuda PRIVATE Thrust)
++    target_link_libraries(${target_name} PRIVATE Thrust)
+ endif()
+ # NVTX3 is header-only and requires dlopen/dlclose in static builds
 -target_link_libraries(ginkgo_cuda PUBLIC ginkgo_device ${CMAKE_DL_LIBS})
-+    # include path for generated headers like jacobi_common.hpp
-+    target_include_directories(${target_name} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-+    target_link_libraries(
-+        ${target_name}
-+        PRIVATE
-+            CUDA::cudart
-+            CUDA::cublas
-+            CUDA::cusparse
-+            CUDA::curand
-+            CUDA::cufft
-+            nvtx::nvtx
-+    )
-+    # NVTX3 is header-only and requires dlopen/dlclose in static builds
-+    target_link_libraries(${target_name} PUBLIC ginkgo_device ${CMAKE_DL_LIBS})
++target_link_libraries(${target_name} PUBLIC ginkgo_device ${CMAKE_DL_LIBS})
  
 -ginkgo_default_includes(ginkgo_cuda)
 -ginkgo_install_library(ginkgo_cuda)
-+    ginkgo_default_includes(${target_name})
-+    ginkgo_install_library(${target_name})
++ginkgo_default_includes(${target_name})
++ginkgo_install_library(${target_name})
  
--if(GINKGO_CHECK_CIRCULAR_DEPS)
--    set(check_header_def "GKO_COMPILING_CUDA;GKO_DEVICE_NAMESPACE=cuda")
--    if(GINKGO_CUDA_CUSTOM_THRUST_NAMESPACE)
--        set(check_header_def
--            "${check_header_def};THRUST_CUB_WRAPPED_NAMESPACE=gko"
--        )
-+    if(GINKGO_CHECK_CIRCULAR_DEPS)
-+        set(check_header_def "GKO_COMPILING_CUDA;GKO_DEVICE_NAMESPACE=cuda")
-+        if(GINKGO_CUDA_CUSTOM_THRUST_NAMESPACE)
-+            set(check_header_def
-+                "${check_header_def};THRUST_CUB_WRAPPED_NAMESPACE=gko"
-+            )
-+        endif()
-+        ginkgo_check_headers(${target_name} "${check_header_def}")
+ if(GINKGO_CHECK_CIRCULAR_DEPS)
+     set(check_header_def "GKO_COMPILING_CUDA;GKO_DEVICE_NAMESPACE=cuda")
+@@ -172,8 +193,16 @@ if(GINKGO_CHECK_CIRCULAR_DEPS)
+             "${check_header_def};THRUST_CUB_WRAPPED_NAMESPACE=gko"
+         )
      endif()
 -    ginkgo_check_headers(ginkgo_cuda "${check_header_def}")
--endif()
++    ginkgo_check_headers(${target_name} "${check_header_def}")
+ endif()
 +endfunction()
 +
-+confgure_cuda_target(ginkgo_cuda)
-+confgure_cuda_target(ginkgo_cuda_2)
-+confgure_cuda_target(ginkgo_cuda_3)
-+confgure_cuda_target(ginkgo_cuda_4)
-+confgure_cuda_target(ginkgo_cuda_5)
++configure_cuda_target(ginkgo_cuda)
++configure_cuda_target(ginkgo_cuda_2)
++configure_cuda_target(ginkgo_cuda_3)
++configure_cuda_target(ginkgo_cuda_4)
++configure_cuda_target(ginkgo_cuda_5)
 +target_link_libraries(ginkgo_cuda PUBLIC ginkgo_cuda_2 ginkgo_cuda_3 ginkgo_cuda_4 ginkgo_cuda_5)
  
  if(GINKGO_BUILD_TESTS)

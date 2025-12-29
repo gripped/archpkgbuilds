@@ -1,0 +1,183 @@
+diff --git a/hip/CMakeLists.txt b/hip/CMakeLists.txt
+index ed6a3c63cf..59b5eca97a 100644
+--- a/hip/CMakeLists.txt
++++ b/hip/CMakeLists.txt
+@@ -1,4 +1,10 @@
+ cmake_minimum_required(VERSION 3.21)
++add_library(ginkgo_hip $<TARGET_OBJECTS:ginkgo_hip_device> "")
++add_library(ginkgo_hip_2 $<TARGET_OBJECTS:ginkgo_hip_device> "")
++add_library(ginkgo_hip_3 $<TARGET_OBJECTS:ginkgo_hip_device> "")
++add_library(ginkgo_hip_4 $<TARGET_OBJECTS:ginkgo_hip_device> "")
++add_library(ginkgo_hip_5 $<TARGET_OBJECTS:ginkgo_hip_device> "")
++add_library(ginkgo_hip_6 $<TARGET_OBJECTS:ginkgo_hip_device> "")
+ include(${PROJECT_SOURCE_DIR}/cmake/template_instantiation.cmake)
+ add_instantiation_files(
+     ${PROJECT_SOURCE_DIR}/common/cuda_hip
+@@ -37,23 +43,55 @@ set(GINKGO_HIP_SOURCES
+     base/stream.hip.cpp
+     base/timer.hip.cpp
+     base/version.hip.cpp
+-    ${CSR_INSTANTIATE}
+     ${FBCSR_INSTANTIATE}
+     preconditioner/batch_jacobi_kernels.hip.cpp
+     solver/batch_bicgstab_kernels.hip.cpp
+-    ${BATCH_BICGSTAB_INSTANTIATE}
+     solver/batch_cg_kernels.hip.cpp
+-    ${BATCH_CG_INSTANTIATE}
+     solver/lower_trs_kernels.hip.cpp
+     solver/upper_trs_kernels.hip.cpp
+-    ${GKO_UNIFIED_COMMON_SOURCES}
+-    ${GKO_CUDA_HIP_COMMON_SOURCES}
++)
++target_sources(
++    ginkgo_hip
++    PRIVATE
++        ${GINKGO_HIP_SOURCES}
++)
++target_sources(
++    ginkgo_hip_2
++    PRIVATE
++        ${BATCH_BICGSTAB_INSTANTIATE}
++        ${BATCH_CG_INSTANTIATE}
++)
++target_sources(
++    ginkgo_hip_3
++    PRIVATE
++        ${CSR_INSTANTIATE}
++)
++target_sources(
++    ginkgo_hip_4
++    PRIVATE
++        ${GKO_UNIFIED_COMMON_SOURCES}
++)
++list(LENGTH GKO_CUDA_HIP_COMMON_SOURCES GKO_CUDA_HIP_COMMON_SOURCES_LENGTH)
++math(EXPR GKO_CUDA_HIP_COMMON_SOURCES_OFFSET "${GKO_CUDA_HIP_COMMON_SOURCES_LENGTH} / 4")
++list(SUBLIST GKO_CUDA_HIP_COMMON_SOURCES 0 ${GKO_CUDA_HIP_COMMON_SOURCES_OFFSET} GKO_CUDA_HIP_COMMON_SOURCES_1)
++list(SUBLIST GKO_CUDA_HIP_COMMON_SOURCES ${GKO_CUDA_HIP_COMMON_SOURCES_OFFSET} -1 GKO_CUDA_HIP_COMMON_SOURCES_2)
++target_sources(
++    ginkgo_hip_5
++    PRIVATE
++        ${GKO_CUDA_HIP_COMMON_SOURCES_1}
++)
++target_sources(
++    ginkgo_hip_6
++    PRIVATE
++        ${GKO_CUDA_HIP_COMMON_SOURCES_2}
+ )
+ 
+ if(hipfft_FOUND)
+     list(APPEND GINKGO_HIP_SOURCES matrix/fft_kernels.hip.cpp)
++    target_sources(ginkgo_hip PRIVATE matrix/fft_kernels.hip.cpp)
+ else()
+     list(APPEND GINKGO_HIP_SOURCES matrix/fft_kernels_stub.hip.cpp)
++    target_sources(ginkgo_hip PRIVATE matrix/fft_kernels_stub.hip.cpp)
+ endif()
+ 
+ set(GKO_HIP_JACOBI_MAX_BLOCK_SIZE 64)
+@@ -84,7 +122,7 @@ set_source_files_properties(
+     ${GKO_HIP_JACOBI_SOURCES}
+     PROPERTIES COMPILE_OPTIONS $<$<CONFIG:Debug>:-O2>
+ )
+-list(APPEND GINKGO_HIP_SOURCES ${GKO_HIP_JACOBI_SOURCES})
++target_sources(ginkgo_hip PRIVATE ${GKO_HIP_JACOBI_SOURCES})
+ string(
+     REPLACE
+     ";"
+@@ -97,32 +135,41 @@ configure_file(
+     common/cuda_hip/preconditioner/jacobi_common.hpp
+ )
+ 
+-set_source_files_properties(${GINKGO_HIP_SOURCES} PROPERTIES LANGUAGE HIP)
+-add_library(
+-    ginkgo_hip
+-    $<TARGET_OBJECTS:ginkgo_hip_device>
+-    ${GINKGO_HIP_SOURCES}
++foreach(
++    source_file
++    IN
++    LISTS
++        GINKGO_HIP_SOURCES
++        BATCH_BICGSTAB_INSTANTIATE
++        BATCH_CG_INSTANTIATE
++        CSR_INSTANTIATE
++        GKO_UNIFIED_COMMON_SOURCES
++        GKO_CUDA_HIP_COMMON_SOURCES
++        GKO_HIP_JACOBI_SOURCES
+ )
++    set_source_files_properties(${source_file} PROPERTIES LANGUAGE HIP)
++endforeach(source_file)
+ 
++function(configure_hip_target target_name)
+ target_include_directories(
+-    ginkgo_hip
++    ${target_name}
+     PRIVATE
+         ${CMAKE_CURRENT_BINARY_DIR} # for generated headers like jacobi_common.hip.hpp
+ )
+ target_compile_definitions(
+-    ginkgo_hip
++    ${target_name}
+     PRIVATE GKO_COMPILING_HIP GKO_DEVICE_NAMESPACE=hip
+ )
+ if(GINKGO_HIP_CUSTOM_THRUST_NAMESPACE)
+     target_compile_definitions(
+-        ginkgo_hip
++        ${target_name}
+         PRIVATE THRUST_CUB_WRAPPED_NAMESPACE=gko
+     )
+ endif()
+ 
+-target_link_libraries(ginkgo_hip PUBLIC ginkgo_device)
++target_link_libraries(${target_name} PUBLIC ginkgo_device)
+ target_link_libraries(
+-    ginkgo_hip
++    ${target_name}
+     PRIVATE
+         hip::host
+         roc::hipblas
+@@ -132,20 +179,20 @@ target_link_libraries(
+         roc::rocthrust
+ )
+ if(hipfft_FOUND)
+-    target_link_libraries(ginkgo_hip PRIVATE hip::hipfft)
++    target_link_libraries(${target_name} PRIVATE hip::hipfft)
+ endif()
+ if(GINKGO_HAVE_ROCTX)
+-    target_link_libraries(ginkgo_hip PRIVATE roc::roctx)
++    target_link_libraries(${target_name} PRIVATE roc::roctx)
+ endif()
+ 
+ target_compile_options(
+-    ginkgo_hip
++    ${target_name}
+     PRIVATE $<$<COMPILE_LANGUAGE:CXX>:${GINKGO_COMPILER_FLAGS}>
+ )
+ 
+-ginkgo_compile_features(ginkgo_hip)
+-ginkgo_default_includes(ginkgo_hip)
+-ginkgo_install_library(ginkgo_hip)
++ginkgo_compile_features(${target_name})
++ginkgo_default_includes(${target_name})
++ginkgo_install_library(${target_name})
+ 
+ if(GINKGO_CHECK_CIRCULAR_DEPS)
+     set(check_header_def "GKO_COMPILING_HIP;GKO_DEVICE_NAMESPACE=hip")
+@@ -154,8 +201,17 @@ if(GINKGO_CHECK_CIRCULAR_DEPS)
+             "${check_header_def};THRUST_CUB_WRAPPED_NAMESPACE=gko"
+         )
+     endif()
+-    ginkgo_check_headers(ginkgo_hip "${check_header_def}")
++    ginkgo_check_headers(${target_name} "${check_header_def}")
+ endif()
++endfunction()
++
++configure_hip_target(ginkgo_hip)
++configure_hip_target(ginkgo_hip_2)
++configure_hip_target(ginkgo_hip_3)
++configure_hip_target(ginkgo_hip_4)
++configure_hip_target(ginkgo_hip_5)
++configure_hip_target(ginkgo_hip_6)
++target_link_libraries(ginkgo_hip PUBLIC ginkgo_hip_2 ginkgo_hip_3 ginkgo_hip_4 ginkgo_hip_5 ginkgo_hip_6)
+ 
+ if(GINKGO_BUILD_TESTS)
+     add_subdirectory(test)
