@@ -6,7 +6,7 @@
 # Contributor: Y <y.archlinux@paritcher.com>
 
 pkgname=luarocks
-pkgver=3.12.2
+pkgver=3.13.0
 pkgrel=1
 pkgdesc='Deployment and management system for Lua modules'
 backup=(etc/luarocks/config-5.{1,2,3,4}.lua)
@@ -34,7 +34,7 @@ source=("https://luarocks.org/releases/$pkgname-$pkgver.tar.gz"{,.asc}
         luarocks-admin.zsh
         )
 install=luarocks.install
-sha512sums=('a1182c5f0ba87841014bb8063c170968659e35339d559a56fe8eb007ebfbe0ce356e4c4341bbfe4279986d9ca10f04a38e3fdbc80223251526d2de34b2849cc5'
+sha512sums=('44381bb7fd3d474f92b0d2d0bf492246907f88ac6d5bdbb30b889222d755681777042195cfbfa136c068e05db78896760d5aea28c2f60a46d2f30c4c28ba704b'
             'SKIP'
             'cd90cba877c0dd435b44328a0869e3102c52eb36ed5b764c3ee8a78de95772fe094419dc032db2e2c91d9a0aa35ab7c6e8a13e29b9feeb3a3172d7a129d005c0'
             '25b2303f39ecf8e6ce44bd6c9f59d322eb748eea89e4ca31991fe36eae46949062bd4d3c876de488b4dd7354fcb0531b5e29454dec99a7f981f3dc857776d2bb'
@@ -47,6 +47,12 @@ sha512sums=('a1182c5f0ba87841014bb8063c170968659e35339d559a56fe8eb007ebfbe0ce356
             '6b52bd6f446586c3e7d5dbe1ba870e5e37c5bb9cdd5e5878959fa1c151b5a43d8b37c1dc43de46ff2c70c1f57c0429a85c382f53390179609a2880e5aa089497'
             'f6ab6c65aaaa2680ce83a3277a2aec4400d234ddfc17c62f44190928a53b7146c38f8a779aedc1c71fed3dd2f1833e1ca924080e98ecf7462274b0d9acb07f90')
 validpgpkeys=('8460980B2B79786DE0C7FCC83FD8F43C2BB3C478')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  # https://github.com/luarocks/luarocks/issues/1851
+  sed -i -e '/tag = "3.12.2"/d' luarocks-3.13.0-1.rockspec
+}
 
 build() {
   cd "$pkgname-$pkgver"
