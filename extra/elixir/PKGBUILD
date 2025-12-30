@@ -5,7 +5,7 @@
 
 pkgname=elixir
 pkgver=1.19.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A dynamic, functional language for building scalable and maintainable applications"
 url="https://elixir-lang.org"
 license=('Apache-2.0')
@@ -32,6 +32,12 @@ checkdepends=(
 )
 source=("git+https://github.com/elixir-lang/elixir.git#tag=v${pkgver}")
 sha512sums=('e50912fd912a197487c9edaebb0c1db3f2b1afd65053f8312c0d9efea0072715ba8b7447b6b443a7989a888097470ea1b90546d62dc25c830709dec74d57361f')
+
+prepare() {
+  cd ${pkgname}
+  # Fix regex position test for newer PCRE2
+  sed -i 's/position 0\$/position [01]$/' lib/elixir/test/elixir/regex_test.exs
+}
 
 build() {
   cd ${pkgname}
