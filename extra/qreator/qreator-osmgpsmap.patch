@@ -1,0 +1,174 @@
+From 5bca06074e9560f0a45c46661ac19a241ee8289f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 16 Dec 2025 04:23:55 +0100
+Subject: [PATCH] Use osm-gps-map instead of libchamplain to display map
+
+This removes the dependency on Clutter, which is deprecated a long time ago.
+---
+ debian/control                       | 10 +---
+ qreator/qrcodes/QRCodeLocationGtk.py | 89 +++++++++++-----------------
+ 2 files changed, 35 insertions(+), 64 deletions(-)
+
+diff --git a/debian/control b/debian/control
+index 176cb1b..397e653 100644
+--- a/debian/control
++++ b/debian/control
+@@ -4,15 +4,12 @@ Priority: optional
+ Build-Depends:  debhelper (>= 8.0.0),
+  dh-python,
+  geoclue-2.0,
+- gir1.2-champlain-0.12,
+- gir1.2-clutter-1.0,
+  gir1.2-gdkpixbuf-2.0,
+  gir1.2-geoclue-2.0,
+  gir1.2-glib-2.0,
+  gir1.2-gtk-3.0,
+- gir1.2-gtkchamplain-0.12,
+- gir1.2-gtkclutter-1.0,
+  gir1.2-nm-1.0,
++ gir1.2-osmgpsmap-1.0,
+  python3-all (>= 2.6.6-3~),
+  python3-cairo,
+  python3-dbus,
+@@ -34,15 +31,12 @@ Vcs-Browser: https://code.launchpad.net/~qreator-hackers/qreator/trunk
+ Package: qreator
+ Architecture: all
+ Depends: geoclue-2.0,
+- gir1.2-champlain-0.12,
+- gir1.2-clutter-1.0,
+  gir1.2-gdkpixbuf-2.0,
+  gir1.2-geoclue-2.0,
+  gir1.2-glib-2.0,
+  gir1.2-gtk-3.0,
+- gir1.2-gtkchamplain-0.12,
+- gir1.2-gtkclutter-1.0,
+  gir1.2-nm-1.0,
++ gir1.2-osmgpsmap-1.0,
+  gnome-icon-theme-symbolic,
+  python3-cairo,
+  python3-dbus,
+diff --git a/qreator/qrcodes/QRCodeLocationGtk.py b/qreator/qrcodes/QRCodeLocationGtk.py
+index aa7630b..53bc5fa 100644
+--- a/qreator/qrcodes/QRCodeLocationGtk.py
++++ b/qreator/qrcodes/QRCodeLocationGtk.py
+@@ -15,11 +15,10 @@
+ ### END LICENSE
+ 
+ import gi
+-gi.require_version('GtkChamplain', '0.12')
+-from gi.repository import Gtk, GtkChamplain, Clutter, Champlain
++gi.require_version('Geoclue', '2.0')
++gi.require_version('OsmGpsMap', '1.0')
++from gi.repository import Geoclue, GLib, Gtk, OsmGpsMap
+ from qreator_lib.helpers import get_data_file
+-gi.require_version('GtkClutter', '1.0')
+-from gi.repository import GtkClutter
+ 
+ 
+ class QRCodeLocationGtk(object):
+@@ -31,34 +30,28 @@ class QRCodeLocationGtk(object):
+             get_data_file('ui', '%s.ui' % ('QrCodeLocation',)))
+         self.grid = self.builder.get_object('qr_code_location')
+ 
+-        GtkClutter.init([])
+-        map_widget = GtkChamplain.Embed()
+-        map_widget.set_hexpand(True)
+-        map_widget.set_vexpand(True)
++        self.osm = OsmGpsMap.Map()
++        self.osm.layer_add(
++            OsmGpsMap.MapOsd(show_zoom=True,
++                             show_crosshair=True)
++        )
++        self.osm.set_property("map-source", OsmGpsMap.MapSource_t.OPENSTREETMAP)
++        self.osm.set_center_and_zoom(0, 0, 1)
+ 
+-        map_grid = self.grid
++        self.osm.connect("changed", self.on_map_change)
+ 
+-        #map_grid.set_size_request(-1, 350)
+-        map_grid.attach(map_widget, 0, 0, 1, 1)
+-
+-        self.map_view = map_widget.get_view()
+-        self.map_view.set_reactive(True)
+-        map_widget.connect('button-release-event',
+-                           self.on_map_widget_button_press_event,
+-                           self.map_view)
++        self.osm.set_hexpand(True)
++        self.osm.set_vexpand(True)
++        self.grid.attach(self.osm, 0, 0, 1, 1)
++        self.grid.show_all()
+ 
+-        # Get the current location, center the map on it, and initialize
+-        # other map features
+         self.get_current_location()
+-        self.map_view.set_zoom_level(1)
+-        self.map_view.set_kinetic_mode(True)
+ 
+-        scale = Champlain.Scale()
+-        scale.connect_view(self.map_view)
+-        self.map_view.bin_layout_add(scale, Clutter.BinAlignment.START,
+-                                     Clutter.BinAlignment.END)
++    def on_map_change(self, osm):
++        self.builder.get_object('lat_entry').set_text(str(self.osm.props.latitude))
++        self.builder.get_object('lon_entry').set_text(str(self.osm.props.longitude))
+ 
+-        self.grid.show_all()
++        self.qr_code_update_func(f'geo:{self.osm.props.latitude},{self.osm.props.longitude}')
+ 
+     def on_activated(self):
+         pass
+@@ -66,37 +59,21 @@ class QRCodeLocationGtk(object):
+     def on_prepared(self):
+         pass
+ 
+-    def on_map_widget_button_press_event(self, actor, event, view):
+-        x, y = event.get_coords()
+-        lon, lat = view.x_to_longitude(x), view.y_to_latitude(y)
++    def get_current_location(self):
++        Geoclue.Simple.new(
++            'qreator',
++            Geoclue.AccuracyLevel.EXACT,
++            callback=self.on_current_location_ready
++        )
+ 
+-        self.builder.get_object('lat_entry').set_text(str(lat))
+-        self.builder.get_object('lon_entry').set_text(str(lon))
++    def on_current_location_ready(self, source, result):
++        self.simple = source.new_finish(result)
++        location = self.simple.get_location()
+ 
+-        self.qr_code_update_func('geo:{0},{1}'.format(str(lat), str(lon)))
++        latitude = location.get_property('latitude')
++        longitude = location.get_property('longitude')
+ 
+-        return True
++        if latitude != 0 and longitude != 0:
++            self.osm.set_center_and_zoom(latitude, longitude, 15)
+ 
+-    def get_current_location(self):
+-        '''Gets the current location from geolocation via using Geoclue-2.0'''
+-
+-        gi.require_version('Geoclue', '2.0')
+-        from gi.repository import Geoclue
+-
+-        Geoclue.Simple.new('qreator',
+-                           Geoclue.AccuracyLevel.EXACT,
+-                           callback=on_current_location_ready,
+-                           user_data=self)
+-        return True
+-
+-
+-def on_current_location_ready(self, widget, data=None):
+-    location = self.get_location()
+-    latitude = location.get_property('latitude')
+-    longitude = location.get_property('longitude')
+-    if latitude != 0 and longitude != 0:
+-        data.builder.get_object('lat_entry').set_text(str(latitude))
+-        data.builder.get_object('lon_entry').set_text(str(longitude))
+-        data.map_view.center_on(latitude, longitude)
+-        data.map_view.set_zoom_level(15)
+-    return
++        GLib.idle_add(lambda: setattr(self, "simple", None))
+-- 
+GitLab
+

@@ -1,3 +1,16 @@
+From 75f9ed8baf7183aa8da800c18a38234c63ecfa46 Mon Sep 17 00:00:00 2001
+From: Chow Loong Jin <hyperair@debian.org>
+Date: Sun, 11 Apr 2021 15:54:21 +0800
+Subject: [PATCH] Port ElementTree.getiterator() usage to ElementTree.iter()
+
+.getiterator() has been deprecated since python3.2 and has been removed from
+python3.9
+
+Closes: https://gitlab.com/qreator-dev/qreator/-/issues/1
+---
+ qreator_lib/Builder.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
 diff --git a/qreator_lib/Builder.py b/qreator_lib/Builder.py
 index 4c3c7be..e1c5b82 100644
 --- a/qreator_lib/Builder.py
@@ -20,3 +33,6 @@ index 4c3c7be..e1c5b82 100644
          for ele_signal in ele_signals:
              self.glade_handler_dict.update(
              {ele_signal.attrib["handler"]: None})
+-- 
+GitLab
+

@@ -2,25 +2,56 @@
 
 pkgname=qreator
 pkgver=20.02.1
-pkgrel=6
+pkgrel=8
 pkgdesc='Graphical utility for creating QR codes'
-arch=('any')
+arch=(any)
 url='https://gitlab.com/qreator-dev/qreator'
-license=('GPL3')
-depends=('geoclue' 'libchamplain' 'libnm' 'python-pillow' 'python-cairo' 'python-gobject'
-         'python-qrencode' 'python-requests' 'python-vobject' 'python-pyxdg')
-makedepends=('python-distutils-extra' 'git')
+license=(GPL-3.0-only)
+depends=(
+  dconf
+  gdk-pixbuf2
+  geoclue
+  glib2
+  gtk3
+  libnm
+  osm-gps-map
+  python
+  python-cairo
+  python-gobject
+  python-pillow
+  python-pyxdg
+  python-qrencode
+  python-requests
+  python-vobject
+)
+makedepends=(
+  git
+  python-distutils-extra
+)
 _commit=56c4926413ef5202bfbfbfedecdb3ed4b9ae91a7  # master
-source=("git+https://gitlab.com/qreator-dev/qreator.git#commit=$_commit"
-        'python3.9.patch'
-        'qreator.appdata.xml')
-sha256sums=('SKIP'
-            '0e12e98e58c497d3b7dc44da1b15eeb0a7a2dc1e75483b7ec1870c59b85ccf34'
-            '55c0de408952322217f6f39c52ea9940c1e5f0a14f0fa14687644ad2c4740549')
+source=(
+  "git+https://gitlab.com/qreator-dev/qreator.git#commit=$_commit"
+  qreator-python3.9.patch
+  qreator-osmgpsmap.patch
+  qreator.appdata.xml
+)
+b2sums=(
+  0693b279bd1b3deec9ec86b85c8eee8259623932c09b24efff7ced00807273006d351e290e8da527f137a71c0afabaa7e432888318f743e23ced49ea0b2b1601
+  1ebe4e39f36967efe6133622800608d91c0034c789865cc59d3c9a87571e14924211e90599f6220cbb9eaa103fa2ba55e8e7bf7b00d5d40e1c2305b41d1c6987
+  9899e5c3c9aa591969be52c06ad725da479126514594e48dea7130eed3f233d5e7b9958f5df7f3ca70477199c5e6955fce8bd6eceab4ff5e634c46e56c61840d
+  315cc870864ea9c61714645e2ef0ff1b06a241e44745d057a18799b5ccb83e8e32ae9de16e75e65f4a42ea5443b99645bfc8dcde6a4cb480da77a53e03748328
+)
 
 prepare() {
   cd $pkgname
-  patch -Np1 -i ../python3.9.patch
+
+  # Fix for Python 3.9
+  # https://gitlab.com/qreator-dev/qreator/-/merge_requests/6
+  patch -Np1 -i ../qreator-python3.9.patch
+
+  # Use osm-gps-map instead of libchamplain to display map
+  # https://gitlab.com/qreator-dev/qreator/-/merge_requests/5
+  git apply -3 ../qreator-osmgpsmap.patch
 }
 
 build() {
@@ -31,5 +62,5 @@ build() {
 package() {
   cd $pkgname
   python setup.py install --root "$pkgdir" --optimize=1
-  install -Dm644 ../$pkgname.appdata.xml "$pkgdir/usr/share/metainfo/$pkgname.appdata.xml"
+  install -Dm644 -t "$pkgdir/usr/share/metainfo/" ../$pkgname.appdata.xml
 }
