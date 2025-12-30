@@ -1,0 +1,71 @@
+From b2ef823d668ed04bc04384a9ed96f1154f605007 Mon Sep 17 00:00:00 2001
+From: Carl Smedstad <carsme@archlinux.org>
+Date: Thu, 25 Dec 2025 14:37:56 +0100
+Subject: [PATCH 2/2] Add CMake option ZIG_LOCAL
+
+---
+ cmake/targets/BuildBun.cmake | 10 +++++++---
+ cmake/tools/SetupZig.cmake   |  5 +++++
+ 2 files changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/cmake/targets/BuildBun.cmake b/cmake/targets/BuildBun.cmake
+index 6b23266ade..43eae47be3 100644
+--- a/cmake/targets/BuildBun.cmake
++++ b/cmake/targets/BuildBun.cmake
+@@ -334,6 +334,7 @@ register_command(
+   SOURCES
+     ${BUN_JAVASCRIPT_CODEGEN_SOURCES}
+     ${BUN_CXX_SOURCES}
++    ${ESBUILD_EXECUTABLE}
+   OUTPUTS
+     ${BUN_CPP_OUTPUTS}
+ )
+@@ -677,6 +678,11 @@ if(NOT "${REVISION}" STREQUAL "")
+   set(ZIG_FLAGS_BUN ${ZIG_FLAGS_BUN} -Dsha=${REVISION})
+ endif()
+ 
++set(BUN_ZIG_TARGETS clone-zstd bun-cppbind)
++if(NOT ZIG_LOCAL)
++  list(INSERT BUN_ZIG_TARGETS 0 clone-zig)
++endif()
++
+ register_command(
+   TARGET
+     bun-zig
+@@ -710,9 +716,7 @@ register_command(
+   ARTIFACTS
+     ${BUN_ZIG_OUTPUT}
+   TARGETS
+-    clone-zig
+-    clone-zstd
+-    bun-cppbind
++    ${BUN_ZIG_TARGETS}
+   SOURCES
+     ${BUN_ZIG_SOURCES}
+     ${BUN_ZIG_GENERATED_SOURCES}
+diff --git a/cmake/tools/SetupZig.cmake b/cmake/tools/SetupZig.cmake
+index 320a6f4e64..fe1428e4df 100644
+--- a/cmake/tools/SetupZig.cmake
++++ b/cmake/tools/SetupZig.cmake
+@@ -56,6 +56,7 @@ optionx(ZIG_LOCAL_CACHE_DIR FILEPATH "The path to local the zig cache directory"
+ optionx(ZIG_GLOBAL_CACHE_DIR FILEPATH "The path to the global zig cache directory" DEFAULT ${CACHE_PATH}/zig/global)
+ 
+ optionx(ZIG_COMPILER_SAFE BOOL "Download a ReleaseSafe build of the Zig compiler." DEFAULT ${CI})
++optionx(ZIG_LOCAL BOOL "Use pre-existing Zig in vendor/zig instead of downloading" DEFAULT OFF)
+ 
+ setenv(ZIG_LOCAL_CACHE_DIR ${ZIG_LOCAL_CACHE_DIR})
+ setenv(ZIG_GLOBAL_CACHE_DIR ${ZIG_GLOBAL_CACHE_DIR})
+@@ -74,6 +75,10 @@ set(CMAKE_ZIG_FLAGS
+   --zig-lib-dir ${ZIG_PATH}/lib
+ )
+ 
++if(ZIG_LOCAL)
++  return()
++endif()
++
+ register_command(
+   TARGET
+     clone-zig
+-- 
+2.52.0
+
