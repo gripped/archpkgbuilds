@@ -3,7 +3,7 @@
 # Contributor: Amin Vakil <info AT aminvakil DOT com>
 
 pkgname=actionlint
-pkgver=1.7.9
+pkgver=1.7.10
 pkgrel=1
 pkgdesc="Static checker for GitHub Actions workflow files"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('MIT')
 makedepends=('go' 'git')
 optdepends=('python-pyflakes' 'shellcheck')
 source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('3decd3ee2ef2e7382dee8c09994ad9f5a3c456751efbe2ba39fef7f1305703c0')
+sha256sums=('fd5193e1724062dbc086af4478a3c28492585266a9ff6fa134c3751eb38bc4ef')
 
 prepare(){
   cd "$pkgname-$pkgver"
