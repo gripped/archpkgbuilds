@@ -4,7 +4,7 @@
 # Contributor: Alexander Baldeck <alexander@archlinux.org>
 
 pkgname=xterm
-pkgver=404
+pkgver=406
 pkgrel=1
 pkgdesc="X Terminal Emulator"
 arch=('x86_64')
@@ -31,7 +31,7 @@ depends=(
 makedepends=('git')
 optdepends=('xorg-mkfontscale: font scaling')
 source=("$pkgname::git+https://github.com/ThomasDickey/xterm-snapshots.git?signed#tag=xterm-$pkgver")
-sha256sums=('b20973e8760e0eba1f870477139cb232d6866e9ed889d3567ebb69325eb8fb2c')
+sha256sums=('1ae19266e4b054393fd1456176159093600e4c71c58e4897fe1dbf1548b73aac')
 #validpgpkeys=('C52048C0C0748FEE227D47A2702353E0F7E48EDB') # "Thomas Dickey <dickey@invisible-island.net>"
 validpgpkeys=('19882D92DDA4C400C22C0D56CC2AF4472167BE03') # "Thomas E. Dickey (self-signed w/o SHA1) <dickey@invisible-island.net>"
 
