@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=glaze
-pkgver=6.4.0
+pkgver=6.4.1
 pkgrel=1
 pkgdesc='An Extremely fast, In-Memory JSON and Interface Library for Modern C++'
 arch=(any)
@@ -10,7 +10,7 @@ license=(MIT)
 makedepends=(cmake)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('20bdfcc6a97f632ba9f962565710a5dd37e9833f5629b898b3fc1ad301edce60')
+sha256sums=('144383449e3676ccceeee17bce6b1cddf877e21f328d38e7c40db7803ccfe4f1')
 
 build() {
 	cd "$_archive"
