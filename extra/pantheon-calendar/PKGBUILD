@@ -2,26 +2,21 @@
 
 pkgname=pantheon-calendar
 pkgver=8.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='The Pantheon Calendar'
 arch=(x86_64)
 url=https://github.com/elementary/calendar
 license=(GPL-3.0-only)
 groups=(pantheon)
 depends=(
-  clutter
-  clutter-gtk
   dconf
   evolution-data-server
   folks
-  gdk-pixbuf2
-  geoclue
   geocode-glib-2
   glib2
   glibc
   gtk3
   hicolor-icon-theme
-  libchamplain
   libfolks.so
   libgee
   libgranite.so
@@ -44,6 +39,17 @@ sha256sums=('fdaaa06bf25d2e77fbfce2510311d44bc6b6ebc9a382379cfdc0ca3f4a362c76')
 pkgver() {
   cd pantheon-calendar
   git describe --tags
+}
+
+prepare() {
+  cd pantheon-calendar
+
+  # Disable location panel (removes deprecated clutter dependency)
+  sed -i '/champlain_dep/,+9d' meson.build
+  sed -i '/champlain_dep/,+3d' src/meson.build
+  sed -i '/gclue_dep/d' meson.build src/meson.build
+  sed -i '/GtkClutter/d' src/Application.vala
+  sed -i -e '/LocationPanel/d' -e '/location_panel/d' src/meson.build src/EventEdition/EventDialog.vala
 }
 
 build() {
