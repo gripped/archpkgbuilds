@@ -2,14 +2,13 @@
 
 pkgname=eog-plugins
 pkgver=44.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Plugins for Eye of Gnome"
 url="https://wiki.gnome.org/Apps/EyeOfGnome/Plugins"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
   eog
-  libchamplain
   python-gobject
 )
 makedepends=(
@@ -26,6 +25,7 @@ prepare() {
 
 build() {
   local meson_options=(
+    -D plugin_map=false
     -D plugin_postasa=false
   )
 
