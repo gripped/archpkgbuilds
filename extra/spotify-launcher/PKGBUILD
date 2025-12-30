@@ -1,8 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=spotify-launcher
-pkgver=0.6.3
-pkgrel=2
+pkgver=0.6.4
+pkgrel=1
 pkgdesc="Client for spotify's apt repository in Rust for Arch Linux"
 url='https://github.com/kpcyrd/spotify-launcher'
 arch=('x86_64')
@@ -27,9 +27,9 @@ makedepends=('cargo')
 backup=('etc/spotify-launcher.conf')
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
-sha256sums=('2f94319ecd59d6129b2124262a1155a56a40601c452b5099a5b59bf17c7b1c27'
+sha256sums=('80e0a883f71c7f56987757d7e0cd69125a0fc6c62b52bbfe5e706cc5d11883e7'
             'SKIP')
-b2sums=('4db34a37e3ef93f85f07b1ad6572835206fe07bc66933af773556bd40511adbd26b5014b876789ef9a1102fd0972c500aaa92f18b230b478351118ac3d32897a'
+b2sums=('033b8e12058a290da98f0ab6dee809d3c999116213219cfdf5861621f6e4132b94331894ede32feb685182fcabfceac5f44c9ad3f61d51d676ef0ef1db2cc4a3'
         'SKIP')
 options=('!lto')
 
@@ -37,7 +37,7 @@ validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
