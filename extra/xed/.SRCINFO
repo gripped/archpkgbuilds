@@ -1,25 +1,35 @@
 pkgbase = xed
-	pkgdesc = A small and lightweight text editor. X-Apps Project.
-	pkgver = 3.8.5
+	pkgdesc = A small and lightweight text editor
+	pkgver = 3.8.7
 	pkgrel = 1
 	url = https://github.com/linuxmint/xed
 	arch = x86_64
 	groups = x-apps
-	license = GPL
+	license = GPL-2.0-or-later
 	makedepends = git
-	makedepends = meson
+	makedepends = glib2-devel
 	makedepends = gobject-introspection
 	makedepends = intltool
 	makedepends = itstool
-	makedepends = glib2-devel
-	makedepends = python-gobject
+	makedepends = meson
+	depends = at-spi2-core
+	depends = cairo
+	depends = dconf
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
 	depends = gspell
+	depends = gtk3
 	depends = gtksourceview4
+	depends = libgirepository
 	depends = libpeas
+	depends = libx11
+	depends = libxml2
+	depends = pango
+	depends = python
+	depends = python-gobject
 	depends = xapp
-	optdepends = python: required for some plugins
-	source = git+https://github.com/linuxmint/xed#tag=3.8.5
-	sha256sums = d9b92857975f0e0b2ccad2cd27bf94839111655f4d12996d07e3e8519b39124b
-	b2sums = 35e30c5b58273572f817853aaefb5721f64e811e034121199fcb41e9a8c2aa79356848e4ca60b7780ec5a66cfd23189e68052a8ac5a181bf094dc02b1961d486
+	source = git+https://github.com/linuxmint/xed.git#tag=3.8.7
+	b2sums = 41c18cf0f7e9c3876e615454e0156eb9ed6e8e7b942078b982be56c42f08bac853e6c22f6cb3486fa0a4d3344481fcdee6ee482cfa59d61454dcf20dda74da82
 
 pkgname = xed
