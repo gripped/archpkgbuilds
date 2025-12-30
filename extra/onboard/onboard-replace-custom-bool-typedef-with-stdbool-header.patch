@@ -1,0 +1,25 @@
+From 067504b89ac352d0e2713c28c1143a32adc6cc65 Mon Sep 17 00:00:00 2001
+From: Carl Smedstad <carsme@archlinux.org>
+Date: Thu, 25 Dec 2025 15:50:21 +0100
+Subject: [PATCH] Replace custom bool typedef with stdbool header
+
+---
+ Onboard/osk/osk_module.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Onboard/osk/osk_module.h b/Onboard/osk/osk_module.h
+index f611f7b..c79bb1a 100644
+--- a/Onboard/osk/osk_module.h
++++ b/Onboard/osk/osk_module.h
+@@ -25,7 +25,7 @@
+ #include <Python.h>
+ #include <structmember.h>
+ 
+-typedef enum { false, true } bool;
++#include <stdbool.h>
+ 
+ /**
+  * Python2 to Python3 conversion
+-- 
+2.52.0
+
