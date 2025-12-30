@@ -2,26 +2,41 @@
 # Contributor: Arnaud Berthomier <arnaud@cyprio.net>
 
 pkgname=gleam
-pkgver=1.13.0
-pkgrel=2
+pkgver=1.14.0
+pkgrel=3
 pkgdesc='Friendly programming language for building type-safe and scalable systems'
 arch=(x86_64)
 url='https://github.com/gleam-lang/gleam'
 license=(Apache-2.0)
-depends=(erlang-core erlang-eunit)
+depends=(erlang-core erlang-eunit gcc-libs glibc)
 makedepends=(cargo git rust)
+checkdepends=(bun deno nodejs)
 optdepends=('rebar3: erlang dependency support'
             'erlang: standard erlang distribution')
 provides=(gleam)
 options=(!docs !libtool !staticlibs !lto)
 source=("git+$url#tag=v$pkgver")
-b2sums=('55676086e7e74ac578980e7889e4802d07db5ffe6ce775208d26eaa98761b252b34a9c7f24512483c724c89cfd4eb831cea373cbecac2dd26f76d2ef24bb5e76')
+b2sums=('67b66dca4c28ca1909c0d4584a75cad9c65b244565b083000deac7ba4b167ba28c3735c8b523c15c0b3eb3e8a1185b6958f5a62bdf3fcb2b85bccfc781b22e86')
+
+prepare() {
+  cd $pkgname
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
+}
 
 build() {
   cd $pkgname
-  cargo build --release
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release
+}
+
+check() {
+  cd $pkgname
+  export RUSTUP_TOOLCHAIN=stable
+  cargo test --frozen --workspace
 }
 
 package() {
-  install -Dm755 $pkgname/target/release/gleam "$pkgdir/usr/bin/gleam"
+  install -vDm755 $pkgname/target/release/gleam "$pkgdir/usr/bin/gleam"
 }

@@ -1,15 +1,20 @@
 pkgbase = gleam
 	pkgdesc = Friendly programming language for building type-safe and scalable systems
-	pkgver = 1.13.0
-	pkgrel = 2
+	pkgver = 1.14.0
+	pkgrel = 3
 	url = https://github.com/gleam-lang/gleam
 	arch = x86_64
 	license = Apache-2.0
+	checkdepends = bun
+	checkdepends = deno
+	checkdepends = nodejs
 	makedepends = cargo
 	makedepends = git
 	makedepends = rust
 	depends = erlang-core
 	depends = erlang-eunit
+	depends = gcc-libs
+	depends = glibc
 	optdepends = rebar3: erlang dependency support
 	optdepends = erlang: standard erlang distribution
 	provides = gleam
@@ -17,7 +22,7 @@ pkgbase = gleam
 	options = !libtool
 	options = !staticlibs
 	options = !lto
-	source = git+https://github.com/gleam-lang/gleam#tag=v1.13.0
-	b2sums = 55676086e7e74ac578980e7889e4802d07db5ffe6ce775208d26eaa98761b252b34a9c7f24512483c724c89cfd4eb831cea373cbecac2dd26f76d2ef24bb5e76
+	source = git+https://github.com/gleam-lang/gleam#tag=v1.14.0
+	b2sums = 67b66dca4c28ca1909c0d4584a75cad9c65b244565b083000deac7ba4b167ba28c3735c8b523c15c0b3eb3e8a1185b6958f5a62bdf3fcb2b85bccfc781b22e86
 
 pkgname = gleam
