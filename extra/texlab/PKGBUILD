@@ -4,7 +4,7 @@
 # Contributor: Patrick Förster <patrick DOT foerster AT outlook DOT de>
 
 pkgname=texlab
-pkgver=5.24.0
+pkgver=5.25.1
 pkgrel=1
 pkgdesc="A cross-platform implementation of the Language Server Protocol for LaTeX."
 arch=('x86_64')
@@ -13,24 +13,21 @@ license=('MIT')
 depends=('glibc' 'gcc-libs')
 makedepends=('cargo' 'npm')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/latex-lsp/texlab/archive/v${pkgver}.tar.gz")
-b2sums=('5bea9344e8a67a8b0a05f40e0cce1f2862397e841abbe968b1e21c1d9c56e115900d3ad44ec1fed9f48e0bc72ad5c1a86a2af6092b368944bbd770d0f0aeb0bf')
+b2sums=('49d7a352eb86d1952bb3ddbb6da16ae0f72b8e8c097cd1b1a5ff309045b19a845900c490a38d142050d50150731ea89f3de69925ef3186eeafa5ceb807cfe829')
 options=('!lto')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --frozen --release --all-features
 }
 
 check() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  export RUSTUP_TOOLCHAIN=stable
   cargo test --frozen --all-features
 }
 
