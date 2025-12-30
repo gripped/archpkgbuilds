@@ -3,36 +3,68 @@
 # Contributor: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=xreader
-pkgver=4.6.0
+pkgver=4.6.1
 pkgrel=1
-pkgdesc="Document viewer for files like PDF and Postscript. X-Apps Project."
+pkgdesc='Document viewer for files like PDF and Postscript'
 arch=(x86_64)
-url="https://github.com/linuxmint/${pkgname}"
+url='https://github.com/linuxmint/xreader'
 license=(GPL-2.0-or-later)
 groups=(x-apps)
-depends=(poppler-glib webkit2gtk-4.1 xapp)
-optdepends=('djvulibre: support for djvu files'
-            'libgxps: support for xps files'
-            'libspectre: support for dvi and ps files'
-            'mathjax2: support for math in epub files'
-            'texlive-bin: support for dvi files')
-makedepends=(meson intltool itstool gobject-introspection djvulibre
-             git libgxps libspectre texlive-bin glib2-devel)
-source=(git+https://github.com/linuxmint/xreader.git#tag=${pkgver})
-sha256sums=('486281f9afe2edfd78f601c8ae169333511db098e8320cd77f87d37854f66659')
-b2sums=('5b5d10782bbc5346f774483e4f3f8e14ad8cf007d790fdcf54519e2eff5bcf9972d67b540e9db55c9b06ca846a7d28d569f763baea8ca03a030783f384c96617')
+depends=(
+  at-spi2-core
+  cairo
+  dconf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  libarchive
+  libice
+  libsm
+  libtiff
+  libx11
+  libxml2
+  pango
+  poppler-glib
+  webkit2gtk-4.1
+  xapp
+  zlib
+)
+makedepends=(
+  djvulibre
+  git
+  glib2-devel
+  gobject-introspection
+  intltool
+  itstool
+  libgxps
+  libspectre
+  meson
+  texlive-bin
+)
+optdepends=(
+  'djvulibre: support for djvu files'
+  'libgxps: support for xps files'
+  'libspectre: support for dvi and ps files'
+  'mathjax2: support for math in epub files'
+  'texlive-bin: support for dvi files'
+)
+source=("git+https://github.com/linuxmint/xreader.git#tag=${pkgver}")
+b2sums=(9fadfa533d7113522fc9f10166a3b6ea7f8cd2276c812e4714de829da32d4baf3c1ab56857d401eca62f6902f4bfebf38a1f00d2a7aa50e9155d11857b481040)
 
 build() {
-  arch-meson ${pkgname} build \
-    --libexecdir=lib/${pkgname} \
-    -Dmathjax-directory=/usr/share/mathjax2 \
-    -Dcomics=true \
-    -Ddjvu=true \
-    -Ddvi=true \
-    -Dt1lib=true \
-    -Dpixbuf=true \
-    -Dhelp_files=true \
-    -Dintrospection=true
+  arch-meson $pkgname build \
+    --libexecdir=lib/$pkgname \
+    -D mathjax-directory=/usr/share/mathjax2 \
+    -D comics=true \
+    -D djvu=true \
+    -D dvi=true \
+    -D t1lib=true \
+    -D pixbuf=true \
+    -D help_files=true \
+    -D introspection=true
   meson compile -C build
 }
 
