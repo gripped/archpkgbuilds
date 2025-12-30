@@ -4,15 +4,13 @@
 
 pkgname=gthumb
 pkgver=3.12.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Image browser and viewer for the GNOME Desktop"
 url="https://wiki.gnome.org/Apps/Gthumb"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
   cairo
-  clutter
-  clutter-gtk
   dconf
   exiv2
   gcc-libs
@@ -44,14 +42,12 @@ makedepends=(
   docbook-xsl
   git
   glib2-devel
-  libchamplain
   libraw
   meson
   yelp-tools
 )
 optdepends=(
   'brasero: burn discs'
-  'libchamplain: map viewer'
   'libraw: read RAW files'
 )
 source=(
@@ -64,7 +60,7 @@ prepare() {
 }
 
 build() {
-  arch-meson gthumb build -D libchamplain=true
+  arch-meson gthumb build
   meson compile -C build
 }
 
