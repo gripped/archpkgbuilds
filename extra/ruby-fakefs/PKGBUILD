@@ -2,8 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=ruby-fakefs
-_pkgname=${pkgname#ruby-}
-pkgver=3.0.4
+pkgver=3.2.0
 pkgrel=1
 pkgdesc='A fake filesystem. Use it in your tests.'
 arch=(any)
@@ -27,10 +26,10 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("git+$url.git#tag=v$pkgver")
-sha256sums=('37aca73abcb26af3482dde3ef2bc9660b7035678872c531d76d7ed0cfe094e4e')
+b2sums=('05957a030f93ba90ffae5978e636427d63c620be3ea079ab1956309d30146e1c19af12afcae43012388cf16c60e19c405d240854a4ad56264748a08e6c2cd65d')
 
 prepare() {
-  cd "$_pkgname"
+  cd ${pkgname#ruby-}
   sed -r -e 's|~>|>=|' -i fakefs.gemspec
   # Remove dependency on bump and rubocop
   sed -r -e '/bump|rubocop/d' -i fakefs.gemspec
@@ -39,7 +38,7 @@ prepare() {
 
 build() {
   local gemdir="$(gem env gemdir)"
-  cd "$_pkgname"
+  cd ${pkgname#ruby-}
   gem build fakefs.gemspec
   gem install \
     --local \
@@ -65,12 +64,12 @@ build() {
 
 check() {
   local gemdir="$(gem env gemdir)"
-  cd "$_pkgname"
+  cd ${pkgname#ruby-}
   GEM_HOME="tmp_install/$gemdir" rake test spec
 }
 
 package() {
-  cd "$_pkgname"
+  cd ${pkgname#ruby-}
   cp -a -t "$pkgdir" tmp_install/*
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
