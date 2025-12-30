@@ -2,7 +2,7 @@
 
 pkgname=gnome-2048
 pkgver=50alpha.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Obtain the 2048 tile"
 arch=(x86_64)
 url="https://gitlab.gnome.org/GNOME/gnome-2048"
@@ -36,6 +36,22 @@ export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
 
 # Use LTO
 export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
+
+  # Fix application name
+  # https://gitlab.gnome.org/GNOME/gnome-2048/-/merge_requests/53
+  git cherry-pick -n 11b613fbe702bc4fbb194630d0099a18954d6100
+
+  # Specify libgnome_games_support as dependency
+  # https://gitlab.gnome.org/GNOME/gnome-2048/-/merge_requests/54
+  git cherry-pick -n 6b1c41352c8be42fd2d3cb9c2f2be0415db4fe16
+}
+
 
 build() {
   arch-meson $pkgname build
