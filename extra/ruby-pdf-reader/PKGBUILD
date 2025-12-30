@@ -4,7 +4,7 @@
 
 pkgname=ruby-pdf-reader
 _pkgname=${pkgname#ruby-}
-pkgver=2.15.0
+pkgver=2.15.1
 pkgrel=1
 pkgdesc="Ruby library that implements a PDF parser conforming as much as possible to the PDF specification from Adobe"
 arch=(any)
@@ -22,7 +22,7 @@ makedepends=(rubygems)
 checkdepends=(ruby-rspec)
 options=(!emptydirs)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('14d5b689dbc9c8b662d29f62dd10feb0157b35da03ffe39d9f0e85dc613e8ce1')
+sha256sums=('d5d48cb4db839c58fff850b7417874cb770aff334aae5eefb6cf0fe918707e7d')
 
 prepare() {
   cd "$_pkgname-$pkgver"
