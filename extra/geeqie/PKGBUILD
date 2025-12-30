@@ -5,7 +5,7 @@
 
 pkgname=geeqie
 pkgver=2.6.1
-pkgrel=5
+pkgrel=6
 pkgdesc='Lightweight image viewer'
 arch=('x86_64')
 url="http://www.geeqie.org/"
@@ -13,8 +13,6 @@ license=('GPL-2.0-or-later')
 # https://github.com/BestImageViewer/geeqie#optional-libraries
 depends=('cairo'
          'cfitsio'
-         'clutter'
-         'clutter-gtk'
          'djvulibre'
          'exiv2'
          'ffmpegthumbnailer'
@@ -25,15 +23,16 @@ depends=('cairo'
          'gspell'
          'gtk3'
          'hicolor-icon-theme'
+         'imath'
          'lcms2'
          'libarchive'
-         'libchamplain'
          'libheif'
          'libjpeg-turbo'
          'libjxl'
          'libraw'
          'libtiff'
          'libunwind'
+         'libwebp'
          'lua'
          'openexr'
          'openjpeg2'
@@ -47,7 +46,6 @@ makedepends=('evince'
              'imagemagick'
              'intltool'
              'librsvg'
-             'libwebp'
              'libwmf'
              'meson'
              'perl-image-exiftool'
@@ -64,8 +62,7 @@ optdepends=('librsvg: SVG rendering'
             'perl-image-exiftool: for the jpeg extraction plugin'
             'gphoto2: command-line tools for various (plugin) operations'
             'imagemagick: command-line tools for various (plugin) operations'
-            'evince: for print preview'
-            'libwebp: for WebP image format')
+            'evince: for print preview')
 source=(#"http://www.geeqie.org/${pkgname}-${pkgver}.tar.xz"{,.asc}
         https://github.com/BestImageViewer/geeqie/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz{,.asc}
         0001-Don-t-remove-PATH-from-tests.patch
@@ -93,7 +90,7 @@ prepare() {
 }
 
 build() {
-  arch-meson $pkgname-$pkgver build
+  arch-meson $pkgname-$pkgver build -D gps-map=disabled
   meson compile -C build
 }
 
