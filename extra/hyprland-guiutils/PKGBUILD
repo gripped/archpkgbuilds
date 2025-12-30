@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hyprland-guiutils
-pkgver=0.2.0
-pkgrel=3
+pkgver=0.2.1
+pkgrel=2
 pkgdesc='Hyprland GUI utilities'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -18,7 +18,7 @@ makedepends=(cmake)
 replaces=(hyprland-qtutils)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('9b24c0662dd0fca18ad171300a09517ee05ab8a2099749792975259db5d2bc21')
+sha256sums=('8de6ab7295dd120bab6b6b3e884b27b3c6ccc38ae345f3144bf9b5ad79251bcb')
 
 build() {
 	cd "$_archive"
