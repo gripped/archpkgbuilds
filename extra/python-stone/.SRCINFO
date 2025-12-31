@@ -1,7 +1,7 @@
 pkgbase = python-stone
 	pkgdesc = The Official API Spec Language for Dropbox API V2
 	pkgver = 3.3.9
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/dropbox/stone
 	arch = any
 	license = MIT
@@ -14,8 +14,12 @@ pkgbase = python-stone
 	depends = python
 	depends = python-packaging
 	depends = python-ply
-	depends = python-six
-	source = git+https://github.com/dropbox/stone#tag=v3.3.9
-	sha256sums = c964f72c4a4da6c88924cadc864121422eeb9a676e72c14d87c4ba1948e5a915
+	depends = python-jinja
+	source = python-stone::git+https://github.com/dropbox/stone#tag=v3.3.9
+	source = remove-six.patch
+	sha512sums = ed3b4d442f04935849aff44360a8c4d62934f7ecb0833ea0e3b7575d6f6fb712a9cce3a98009b85967729004c3ce7c33d2eadd5453693a2fa48f1b6a7dd48205
+	sha512sums = 701543d14e59c6ba1e0cb02e61bb41bc686b6d653f4ff0e8a1738912ecee27a51bfde9906cba3f00425caab793397f4b3ea32b030bb2271ab2e5fd5ba66bb216
+	b2sums = 499ba79dde93ef42825dcd848802a202ad59e1601d2db55c91a29b7b5b85704d7c60236a91eef4b812bd79bb319127768adc25d6722cedf7a61c410ff6c6db53
+	b2sums = 7e9c846c467263bb21fca75f97cc6ff83eee80a213db165284e2a84b3c6b27bfbda19960a501cd1ca23006898d344d87e69345a466bdb845b5e6ee385f9f25a1
 
 pkgname = python-stone
