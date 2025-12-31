@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=dot-language-server
-pkgver=1.2.5
+pkgver=3.0.2
 pkgrel=1
 pkgdesc="A language server for the DOT language"
 arch=(x86_64)
@@ -14,12 +14,13 @@ depends=(
 )
 makedepends=(npm)
 source=($url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('5c38fd3c1dafe300fc60cf3bc7e0a6aa274922bf222a4b2eb60a1ef222aa01239a7a4365ff855979d4e7ff7478a8098cdbdb672b838692496f50d164f09482f6')
-b2sums=('2fbc34c61520369bfa170837dec7cb3154a01fccfc31ccb50ffcb6052de1b317d5df2c3be58a3709cd4b46434d2b853d7fd77fc942cb4854eb42cc5d59ca1441')
+sha512sums=('7c4f3ce5a6393e54e142b35562aab0cc17c73df5664a38409f850e9402e846ba47447838db3779030b98bfb9a5017c4db55fd52172b09f9334110fccb10aaaff')
+b2sums=('9a24e54413eb0bad87f7481baf37dcb2bd42b62082dae8bf0574d73cbf3cc7231cd73a9a306111ad7856a7fea948a55e91e79d3c9fc6f0d6b24d2fb905a0ec62')
 
 build() {
   cd $pkgname-$pkgver
   npm install --cache "$srcdir"/npm-cache
+  npm run build --cache "$srcdir"/npm-cache
 }
 
 check() {
