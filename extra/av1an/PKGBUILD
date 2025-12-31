@@ -2,32 +2,33 @@
 # Contributor: Nathaniel Chin <thegamingorangutans+aur at gmail.com>
 
 pkgname=av1an
-pkgver=0.5
+pkgver=0.5.1
 pkgrel=1
 pkgdesc='Cross-platform command-line encoding framework with per scene quality encoding'
 arch=('x86_64')
 url='https://github.com/rust-av/Av1an'
 license=('GPL-3.0-only')
-makedepends=('rust' 'nasm' 'clang')
-depends=('ffmpeg' 'aom' 'vapoursynth')
+makedepends=('rust' 'nasm' 'clang' 'git')
+depends=('gcc-libs' 'glibc' 'ffmpeg' 'aom' 'vapoursynth')
 optdepends=('svt-av1: SVT-AV1 encoder support'
             'rav1e: rav1e encoder support'
             'libvpx: vpx encoder support'
             'vmaf: VMAF calculation support'
             'mkvtoolnix-cli: mkvmerge support'
             'ffms2: FFMS2 chunk detection support'
+            'vapoursynth-plugin-bestsource: Preferred chunk detection plugin'
             'vapoursynth-plugin-lsmashsource: L-SMASH chunk detection support')
-source=("$pkgname-$pkgver.tar.gz"::https://github.com/master-of-zen/Av1an/archive/refs/tags/$pkgver.tar.gz)
-sha256sums=('edfbe6df5fdee9a63f1fc7462198714ce4ace4d00bac7eb09d34d8bfe5798e1c')
+source=("git+https://github.com/master-of-zen/Av1an#tag=v$pkgver")
+sha256sums=('055b4093315dad0896fd9c835a2ddd6b5c26ec006a6ebb2c8a0d19d0c47a1be3')
 
 build() {
-  cd "Av1an-${pkgver}"
+  cd "Av1an"
   export CFLAGS+=" -ffat-lto-objects"
   cargo build --release --locked
 }
 
 package() {
-  cd "Av1an-${pkgver}"
+  cd "Av1an"
   install -Dm755 target/release/av1an "${pkgdir}/usr/bin/av1an"
   install -Dm644 LICENSE.md "${pkgdir}"/usr/share/licenses/$pkgname/LICENSE.md
 }
