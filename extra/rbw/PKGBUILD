@@ -3,29 +3,29 @@
 # Contributor: Jesse Luehrs <archlinux@tozt.net>
 
 pkgname=rbw
-pkgver=1.14.1
+pkgver=1.15.0
 pkgrel=1
 pkgdesc='Unofficial Bitwarden CLI'
-arch=('x86_64')
+arch=(x86_64)
 url='https://git.tozt.net/rbw'
-license=('MIT')
+license=(MIT)
 depends=(
-  'gcc-libs'
-  'glibc'
-  'pinentry'
+  gcc-libs
+  glibc
+  pinentry
 )
 makedepends=(
-  'git'
-  'rust'
+  git
+  rust
 )
-options=('!lto')
-source=("git+https://github.com/doy/rbw.git#tag=$pkgver")
-sha512sums=('343fe97832cc6693f27fa00a9b058baafe6ccce0c2cbf47ac57ba058b1470c6e2997b513210b5f28a17c6a62ac63a2430406e28bd7609c490f5a9181181fab4e')
-b2sums=('95a3ee38cbd0a5008820ce362abc88974a2643e8e9bcfce6ed001bea5f476be710cbb4a3644b3f2858e8c741f6bb836f69c17546e58c483e1388811d2320655d')
+options=(!lto)
+source=("$pkgname::git+https://github.com/doy/rbw.git#tag=$pkgver")
+sha512sums=('a4d38bf7c95e72ad8c4986cdeff07a8d2bdc79bf1577164381f6a119c21a98889da021ce0370b8b0372bf8d180f52824502ef16e92e90f63d8efe56d25058eb9')
+b2sums=('16a11c30f7d23f3d2f25410e48b3cb7b2747e4198be5692330d8b037bd709523f3cb70dd79411151f1d2b396a853d1b4ba5c2e62a5fea46b9d15d3e383cc0aa0')
 
 prepare() {
   cd "$pkgname"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
