@@ -3,7 +3,7 @@
 # Contributor: Stijn Segers <francesco dot borromini at gmail dot com>
 
 pkgname=freerdp
-pkgver=3.19.1
+pkgver=3.20.0
 _libver=${pkgver/.*/}
 pkgrel=1
 epoch=2
@@ -66,8 +66,8 @@ provides=(
 source=(
   "git+https://github.com/$pkgname/$pkgname#tag=$pkgver"
 )
-sha512sums=('987d9337ccb8db11ab2308165b8deb56086795a17a042371983584e50f4846f3a7daf0435f94881c447d9fa3afb44f99c8d0112eaf76d2296265d600ebc0b450')
-b2sums=('dce17e6838a7bd7064deba9a0845eabe6c6a881db3fb7447c22ef4b85e82ff3e37d1f69adba56f0059b8d23a71bf2e26aa33c208e4756acb837e10cbe73b9409')
+sha512sums=('64c5183d862b7ed167c32722b4ac3d975019e8e50503c8db9684d94ffe79f98866d758a4c8b2d763065c395683c5f8c70f71ada91a36a58b86b96e0012c7d3f5')
+b2sums=('222efecaa6e091a5da1bcb017c75569e922d37628bde872e1fb2c37232cce81bcb72457475dd26eeaf855d59fb9110c32b8bf27d191a94ae7aed163942a8d773')
 
 prepare() {
   # Fix building downstream packages
