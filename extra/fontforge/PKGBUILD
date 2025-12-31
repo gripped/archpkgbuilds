@@ -5,7 +5,7 @@
 
 pkgname=fontforge
 pkgver=20251009
-pkgrel=2
+pkgrel=4
 pkgdesc='Outline and bitmap font editor'
 url='https://fontforge.github.io/'
 _url="https://github.com/$pkgname/$pkgname"
@@ -33,11 +33,11 @@ source=("$_url/releases/download/$pkgver/$_archive.tar.xz"
 sha256sums=('69046500185a5581b58139dfad30c0b3d8128f00ebbfddc31f2fcf877e329e52'
             'dcabf49b2057df11c4e64999f3acb6636d5b80f7931b593cd095de80b6e1a702')
 
-build() {
+prepare() {
 	cd "$_archive"
 	# https://gitlab.archlinux.org/archlinux/packaging/packages/fontforge/-/issues/2
 	# https://github.com/fontforge/fontforge/pull/5702
-	patch -p1 -i 5702.patch
+	patch -p1 -i "$srcdir/5702.patch"
 }
 
 build() {
