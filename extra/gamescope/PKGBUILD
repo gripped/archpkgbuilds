@@ -6,7 +6,7 @@
 
 pkgname=gamescope
 pkgver=3.16.19
-pkgrel=2
+pkgrel=3
 pkgdesc='SteamOS session compositing window manager'
 arch=(x86_64)
 url=https://github.com/ValveSoftware/gamescope
@@ -102,8 +102,6 @@ build() {
 package() {
   DESTDIR="${pkgdir}" meson install -C build \
     --skip-subprojects
-  setcap 'CAP_SYS_NICE=ep' "${pkgdir}/usr/bin/gamescope"
-
   install -Dm 644 gamescope/LICENSE -t "${pkgdir}"/usr/share/licenses/gamescope/
 }
 
