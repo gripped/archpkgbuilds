@@ -4,8 +4,8 @@
 # Contributor: bjoern lindig (bjoern _dot_ lindig _at_ google.com)
 
 pkgname=faust
-pkgver=2.81.10
-pkgrel=3
+pkgver=2.83.1
+pkgrel=1
 pkgdesc="A functional programming language for realtime audio signal processing."
 arch=(x86_64)
 url="https://faust.grame.fr/"
@@ -63,8 +63,8 @@ source=(
   https://github.com/grame-cncm/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz
   # faust-2.79.3-add-missing-cstdint-include.patch::https://github.com/grame-cncm/faust/commit/0dd9e72f3b8da3c86421c6bba77b0ea19f2b7b6b.patch
 )
-sha512sums=('71ab77d385cb8d3ebe24fa5c2ab033dd423ab7e8f0b6aec93142d349a437863e0ab213e533d3f33daf51943485466ed09c65fd8b2db13ba5328e3d1184797691')
-b2sums=('fd9763022b698eded484fd0acee50ee3cc11e5c1c3e1efb2b46dab33e837acbafa3670be707b3e17cfe70ac222186e6367447b14fc44e5151bf658a2c32db63d')
+sha512sums=('b17016dda2395496f688dcb38b1b1c05fe855e0ecb2dd57f2bf55b75204c0ccec48350110f6f9980aff3eb4a353318abac325242760547d9d6166d58dd825224')
+b2sums=('9ef28fd3402201293962f584cdfa6a6599179016a54848949ac32d70d97b77745412e545b412850b20a428af1af2cda96db011c92df482186c41b50469f00dc1')
 
 # prepare() {
 #   cd $pkgname-$pkgver
