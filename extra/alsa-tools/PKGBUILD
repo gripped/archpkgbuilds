@@ -5,8 +5,8 @@
 # Contributor: Jochen Immendœrfer <jochen.immendoerfer@gmail.com>
 
 pkgname=alsa-tools
-pkgver=1.2.14
-pkgrel=3
+pkgver=1.2.15
+pkgrel=1
 pkgdesc="Advanced tools for certain sound cards"
 arch=(x86_64)
 url="https://alsa-project.org/"
@@ -20,24 +20,25 @@ makedepends=(
   alsa-lib
   fltk
   gtk3
+  gtk4
 )
 optdepends=(
-  'fltk: hdspconf, hdspmixer'
-  'gtk3: envy24control, hdajackretask, hwmixvolume'
-  'python-pyalsa: hwmixvolume'
-  'python-gobject: hwmixvolume'
+  'fltk: for hdspconf, hdspmixer'
+  'gtk3: for hdajackretask and hwmixvolume'
+  'gtk4: for envy24control'
+  'python-pyalsa: for hwmixvolume'
+  'python-gobject: for hwmixvolume'
 )
 provides=($pkgname-emu10k1 $pkgname-ice1712 liblo10k1.so)
 source=($url/files/pub/tools/$pkgname-$pkgver.tar.bz2{,.sig})
-sha512sums=('36996eb19c590f3f8deb5831ef4e4a9016578e42172901dd97ebe78a4c6fc14e8d84d8f6639cc37d2db91c1d73727226cf1a5d952c586cfc909768377b04e8c7'
+sha512sums=('b2354fcaccfa316df7847438ad6b4ca3702be4ca88c46878c198a52ca6c659263b61759d4898e7a73acf64dd0e3004c103fa67a1cbdb2e53212f13368173be23'
             'SKIP')
-b2sums=('e1afda4a4b6f6b1b3c0ab27e7f7bb211f85036c8f874c3f627e7454a7f52777aae68cb07ca05c62c5a12488eeedc062a11290786ee2bfcfe62d72f4ff5f87f51'
+b2sums=('c7790391233546fe6faf5e0bbb58d8067bb71137da25a9d3f02c07dc4abcdd78d361fd9b9a43e8d75a3328a364a4916b64c16d2972718b8bcf9c6d1a4b717882'
         'SKIP')
 validpgpkeys=('F04DF50737AC1A884C4B3D718380596DA6E59C91') # ALSA Release Team (Package Signing Key v1) <release@alsa-project.org>
 
 _tools=(
   as10k1
-  # echomixer  # disabled, because depends on gtk2
   envy24control
   hda-verb
   hdajackretask
@@ -50,7 +51,6 @@ _tools=(
   mixartloader
   pcxhrloader
   # qlo10k1  # disabled, because build is broken
-  # rmedigicontrol  # disabled, because depends on gtk2
   sb16_csp
   seq/sbiload
   sscape_ctl
