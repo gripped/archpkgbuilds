@@ -6,7 +6,7 @@
 
 pkgname=muffin
 pkgver=6.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Cinnamon window manager based on Mutter'
 arch=(x86_64)
 url='https://github.com/linuxmint/muffin'
@@ -67,8 +67,22 @@ makedepends=(
   meson
   wayland-protocols
 )
-source=("git+https://github.com/linuxmint/muffin.git#tag=$pkgver")
-b2sums=(8b37b81e4287926234adab6d01953a87df164bce3ce8d99ef9de86492dd77fadf18576af7226e222cbef8376c9b4830b44a16d6b9a1755861031d0e06c2816e4)
+source=(
+  "git+https://github.com/linuxmint/muffin.git#tag=$pkgver"
+  muffin-menu-icon.patch
+)
+b2sums=(
+  8b37b81e4287926234adab6d01953a87df164bce3ce8d99ef9de86492dd77fadf18576af7226e222cbef8376c9b4830b44a16d6b9a1755861031d0e06c2816e4
+  3e511043e740ecc08ca611ec67b4e50d5a13bd4b3e0bb0f300d4ada57a7f4346afa303493bcfa43242f6715c7dc50fb7005a54a9def0079505da1846f8bb4f7c
+)
+
+prepare() {
+  cd $pkgname
+
+  # Use window icon for the menu button if available
+  # https://github.com/linuxmint/muffin/pull/778
+  git apply -3 ../muffin-menu-icon.patch
+}
 
 build() {
   arch-meson $pkgname build \
