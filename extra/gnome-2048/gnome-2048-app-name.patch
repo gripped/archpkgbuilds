@@ -1,0 +1,53 @@
+From 11b613fbe702bc4fbb194630d0099a18954d6100 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 30 Dec 2025 15:21:16 +0100
+Subject: [PATCH] Fix application name
+
+- The application name is visible to the user, so it should be the localized name instead of the ID.
+- Fix the window title ("2048" instead of "GNOME 2048").
+- Setting the prgname and default icon name is not needed for GTK4 apps.
+---
+ src/game_window.rs | 2 +-
+ src/main.rs        | 6 ++----
+ 2 files changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/src/game_window.rs b/src/game_window.rs
+index c23c3a3..8a7ff3c 100644
+--- a/src/game_window.rs
++++ b/src/game_window.rs
+@@ -108,7 +108,7 @@ mod imp {
+ 
+                 header_bar: Default::default(),
+                 title: adw::WindowTitle::builder()
+-                    .title(pgettext("window title", "GNOME 2048"))
++                    .title(pgettext("window title", "2048"))
+                     .build(),
+                 new_game_button: gtk::MenuButton::builder()
+                     .label(&pgettext(
+diff --git a/src/main.rs b/src/main.rs
+index e621382..b32ca57 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -32,6 +32,7 @@ use crate::{
+     application::TwentyFortyEight,
+     config::{GETTEXT_PACKAGE, LOCALEDIR},
+ };
++use gettextrs::pgettext;
+ use gtk::{glib, prelude::*};
+ use std::{error::Error, process::Termination};
+ 
+@@ -52,10 +53,7 @@ fn main() -> Result<impl Termination, Box<dyn Error>> {
+ 
+     gtk::init()?;
+ 
+-    let application_name = "org.gnome.TwentyFortyEight";
+-    glib::set_application_name(application_name);
+-    glib::set_prgname(Some("org.gnome.TwentyFortyEight"));
+-    gtk::Window::set_default_icon_name("org.gnome.TwentyFortyEight");
++    glib::set_application_name(&pgettext("application name", "2048"));
+ 
+     let app = TwentyFortyEight::default();
+     let exis_code = app.run();
+-- 
+GitLab
+

@@ -2,7 +2,7 @@
 
 pkgname=gnome-2048
 pkgver=50alpha.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Obtain the 2048 tile"
 arch=(x86_64)
 url="https://gitlab.gnome.org/GNOME/gnome-2048"
@@ -28,8 +28,16 @@ makedepends=(
   vala
 )
 options=(!lto)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-2048.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('77117bde2aae07382a99c102e1113c55646e0300a646d50ad6acd3646ecfd5c922b98debb49ad42e728aee775e2f4a270fd768596d25ce26a8645f647220d743')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-2048.git#tag=${pkgver/[a-z]/.&}"
+  gnome-2048-app-name.patch
+  gnome-2048-build-depends.patch
+)
+b2sums=(
+  77117bde2aae07382a99c102e1113c55646e0300a646d50ad6acd3646ecfd5c922b98debb49ad42e728aee775e2f4a270fd768596d25ce26a8645f647220d743
+  840f4c98c273dc50cebe85ef0f6352137aca7a12f7d79272d45abd37843905a7f0e0db68fbe90d7c021f3de9912e0cfc891e2ae3eba2a3ad0addea5d5e606102
+  dce8b9ab3e6e89026486f73e97c066e6da45e24f2e20069299ee0dd8c69cbfb890077a5ba7a1425ec78b39ac2d725a7e8f3c6b3bb343e27d3ad3a6a4de648ce0
+)
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
@@ -45,11 +53,11 @@ prepare() {
 
   # Fix application name
   # https://gitlab.gnome.org/GNOME/gnome-2048/-/merge_requests/53
-  git cherry-pick -n 11b613fbe702bc4fbb194630d0099a18954d6100
+  git apply -3 ../gnome-2048-app-name.patch
 
   # Specify libgnome_games_support as dependency
   # https://gitlab.gnome.org/GNOME/gnome-2048/-/merge_requests/54
-  git cherry-pick -n 6b1c41352c8be42fd2d3cb9c2f2be0415db4fe16
+  git apply -3 ../gnome-2048-build-depends.patch
 }
 
 

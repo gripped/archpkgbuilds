@@ -1,7 +1,7 @@
 pkgbase = gnome-2048
 	pkgdesc = Obtain the 2048 tile
 	pkgver = 50alpha.2
-	pkgrel = 2
+	pkgrel = 3
 	url = https://gitlab.gnome.org/GNOME/gnome-2048
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -23,6 +23,10 @@ pkgbase = gnome-2048
 	depends = pango
 	options = !lto
 	source = git+https://gitlab.gnome.org/GNOME/gnome-2048.git#tag=50.alpha.2
+	source = gnome-2048-app-name.patch
+	source = gnome-2048-build-depends.patch
 	b2sums = 77117bde2aae07382a99c102e1113c55646e0300a646d50ad6acd3646ecfd5c922b98debb49ad42e728aee775e2f4a270fd768596d25ce26a8645f647220d743
+	b2sums = 840f4c98c273dc50cebe85ef0f6352137aca7a12f7d79272d45abd37843905a7f0e0db68fbe90d7c021f3de9912e0cfc891e2ae3eba2a3ad0addea5d5e606102
+	b2sums = dce8b9ab3e6e89026486f73e97c066e6da45e24f2e20069299ee0dd8c69cbfb890077a5ba7a1425ec78b39ac2d725a7e8f3c6b3bb343e27d3ad3a6a4de648ce0
 
 pkgname = gnome-2048
