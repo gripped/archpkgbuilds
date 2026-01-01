@@ -2,7 +2,7 @@
 # Contributor: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=cargo-tarpaulin
-pkgver=0.34.1
+pkgver=0.35.0
 pkgrel=1
 pkgdesc="Tool to analyse test coverage of cargo projects"
 arch=('x86_64')
@@ -20,11 +20,11 @@ depends=(
 )
 makedepends=('git')
 source=("$pkgname-$pkgver::git+$url.git#tag=$pkgver")
-b2sums=('5adf3b5526c37590b3fdaf13f6702dc642c9120c5706ca938c5da99dfee057c73a7106fec05947b510a2cd57419d3ee0a113b71d0b38a56e435c73ea4a964b0b')
+b2sums=('208b36cf8acd8b80234c044c1ed0a546a02f97b5ca90523493532f942bae00ae6e43aa780d5a471d4158d1ae19fb30c47326c5e5cc43d8f0843f88661ffbd535')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
