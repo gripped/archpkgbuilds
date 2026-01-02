@@ -4,7 +4,7 @@
 # Contributor: soloturn <soloturn@gmail.com>
 
 pkgname=cosmic-text-editor
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 epoch=1
 pkgdesc='Text editor for the COSMIC desktop'
@@ -30,7 +30,7 @@ source=(
   git+https://github.com/pop-os/cosmic-edit.git#tag=epoch-${pkgver}
   cosmic-text-editor-lto.patch
 )
-b2sums=('f7233368401f8a4da2257d0a3a5a87b1442284a208fda14d9f2b2f498818aa09e86231e812cffaef02b199a4a23cb96496cb907e964a787101531a4f2c505316'
+b2sums=('6b3ed4349067b72b0bd7d9ab933aa7a37a761cc73359d5f927d84f2c431039e98a9d90396f6bc557eb691a2116a2c3aeea416b97c4ce96728945047d1e5d8fa0'
         'd0ac6a0caa849a4445812f574787c5f99e42e73dbc53dcbf0c0a212cc97382dcd3cdbce58f6203fb2d920fc45d4a0a4b5d086308bcb5e2a92b86f1bebf1dd6da')
 
 prepare() {
