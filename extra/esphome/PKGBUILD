@@ -3,38 +3,39 @@
 
 pkgname=esphome
 pkgver=2025.12.1
-pkgrel=1
+pkgrel=3
 pkgdesc='Solution for your ESP8266/ESP32 projects with Home Assistant'
 url='https://github.com/esphome/ESPHome'
 depends=(
   python
-	python-voluptuous
-	python-yaml
-	python-paho-mqtt
-	python-icmplib
-	python-tornado
-	python-tzlocal
-	python-tzdata
-	python-pyserial
-	platformio-core
-	esptool
-	python-click
-	python-aioesphomeapi
-	python-zeroconf
-	python-magic
-	python-ruamel-yaml
-	python-kconfiglib
-	python-pyparsing
-	python-argcomplete
-	python-pillow
-	python-cairosvg
-	python-requests
-	python-colorama
-	python-packaging
-	python-cryptography
-	python-puremagic
-	python-freetype-py
-	python-esphome-glyphsets
+  python-voluptuous
+  python-yaml
+  python-paho-mqtt
+  python-icmplib
+  python-tornado
+  python-tzlocal
+  python-tzdata
+  python-pyserial
+  platformio-core
+  esptool
+  python-click
+  python-aioesphomeapi
+  python-zeroconf
+  python-magic
+  python-ruamel-yaml
+  python-kconfiglib
+  python-pyparsing
+  python-argcomplete
+  python-pillow
+  python-cairosvg
+  python-requests
+  python-colorama
+  python-packaging
+  python-cryptography
+  python-puremagic
+  python-freetype-py
+  python-esphome-glyphsets
+  python-jinja
 )
 makedepends=(python-build python-installer python-wheel)
 optdepends=('python-esphome-dashboard: ESPHome dashboard')
@@ -44,23 +45,23 @@ source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
 b2sums=('7291875339d6d37197ed38615523a2f58a5428f75d190c159871c347988a0d6e1fc3dca4e3f2ce5864f98b36f378216971ecd52349727640d57fa5fcbb9f3f13')
 
 prepare() {
-	cd $pkgname-$pkgver
+  cd $pkgname-$pkgver
 
-	# relax requirements
-	sed -i 's/==.*//' requirements.txt
-	sed -i 's/setuptools==[0-9.]\+/setuptools/' pyproject.toml
-	sed -i 's/wheel~=[0-9.]\+/wheel/' pyproject.toml
+  # relax requirements
+  sed -i 's/==.*//' requirements.txt
+  sed -i 's/setuptools==[0-9.]\+/setuptools/' pyproject.toml
+  sed -i 's/wheel~=[0-9.]\+/wheel/' pyproject.toml
 }
 
 build() {
-	cd $pkgname-$pkgver
-	python -m build --wheel --no-isolation
+  cd $pkgname-$pkgver
+  python -m build --wheel --no-isolation
 }
 
 package() {
-	cd $pkgname-$pkgver
-	python -m installer --destdir="$pkgdir" dist/*.whl
-	install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  cd $pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
 # vim:set ts=2 sw=2 et:
