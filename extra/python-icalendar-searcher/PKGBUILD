@@ -1,0 +1,35 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=python-icalendar-searcher
+pkgver=1.0.3
+pkgrel=2
+pkgdesc='Code for filtering, sorting and expanding icalendar components'
+arch=(any)
+url='https://github.com/python-caldav/icalendar-searcher'
+license=(AGPL-3.0-only)
+depends=(
+  python
+  python-icalendar
+  python-recurring-ical-events
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-poetry-dynamic-versioning
+  python-wheel
+)
+optdepends=('python-pyicu: for advanced Unicode collation')
+source=("git+https://github.com/python-caldav/icalendar-searcher.git?signed#tag=v$pkgver")
+b2sums=(08c3921929bef55f9d4b18a25965d121c4e13e0522edbd52f39d3170d1d50300d86f16d8fb950f4603d309da10866da4d09a6a950799edc04cc4f8d805bcc7f6)
+validpgpkeys=(CC67B0D4A21A344811DD5B54A8591F23C40DEF4E) # Tobias Brox <tobias@redpill-linpro.com>
+
+build() {
+  cd icalendar-searcher
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd icalendar-searcher
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
