@@ -4,51 +4,52 @@
 
 pkgname=budgie-session
 pkgver=0.9.1
-pkgrel=2
+pkgrel=3
 pkgdesc="The Budgie Desktop session handler"
-arch=('x86_64')
+arch=(x86_64)
 url="https://github.com/BuddiesOfBudgie/budgie-session"
-license=('GPL-2.0-or-later')
+license=(GPL-2.0-or-later)
 groups=(budgie)
 depends=(
-    dconf
-    glib2
-    gnome-desktop
-    gsettings-desktop-schemas
-    gtk3
-    json-glib
-    libepoxy
-    libgl
-    libice
-    libsm
-    libxcomposite
-    libx11
-    systemd
-    systemd-libs
+  bash
+  dconf
+  gcc-libs
+  glib2
+  glibc
+  gnome-desktop
+  gsettings-desktop-schemas
+  gtk3
+  json-glib
+  libepoxy
+  libgl
+  libice
+  libsm
+  libx11
+  libxcomposite
+  systemd-libs
 )
 makedepends=(
-    docbook-xsl
-    git
-    glib2-devel
-    gtk-doc
-    mesa
-    meson
-    python
-    python-packaging
-    xmlto
-    xtrans
+  docbook-xsl
+  git
+  glib2-devel
+  gtk-doc
+  mesa
+  meson
+  xmlto
+  xtrans
 )
-source=("https://github.com/BuddiesOfBudgie/$pkgname/releases/download/v0.9.1/${pkgname}-v${pkgver}.tar.xz"{,.asc})
-b2sums=('e11d0a508f86fe3e946dacf627e31bbd909ee85a7726d28c64c3dc126ffa48f022edad075dfd3c7ff628514d8e8123369540bffafb1421b0d3cb224ea729fb48'
-        'SKIP')
-validpgpkeys=("1E1FB0017C998A8AE2C498A6C2EAA8A26ADC59EE" # David Mohammed <fossfreedom at ubuntu dot com>
-              "0E0D97562A4EC8BD8E329DCDAA7A2325E04B609B") # Joshua Strobl <me at joshuastrobl dot com>
+source=("git+https://github.com/BuddiesOfBudgie/budgie-session.git#tag=v$pkgver")
+b2sums=(a038898de518360adbeebbbbf07f40d8c8db6875c8404bc4f0a147b4263bc8ecb1ea16423d458ea49f3544f6e61fd6d5e4510df3a297b3c880b8a97f8fbf1736)
+validpgpkeys=(
+  1E1FB0017C998A8AE2C498A6C2EAA8A26ADC59EE # David Mohammed <fossfreedom at ubuntu dot com>
+  0E0D97562A4EC8BD8E329DCDAA7A2325E04B609B # Joshua Strobl <me at joshuastrobl dot com>
+)
 
 build() {
-    arch-meson "$pkgname-$pkgver" build
-    meson compile -C build
+  arch-meson $pkgname build
+  meson compile -C build
 }
 
 package() {
-    meson install -C build --destdir "$pkgdir"
+  meson install -C build --destdir "$pkgdir"
 }
