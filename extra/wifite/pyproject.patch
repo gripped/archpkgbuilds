@@ -1,0 +1,38 @@
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,15 +1,24 @@
++[project]
++name = "wifite"
++version = "2.8.2"
++description = "Wireless Network Auditor for Linux"
++readme = "README.md"
++license = { text = "GPL-2.0-only" }
++requires-python = ">=3.9"
++authors = [
++  { name = "kimocoder", email = "christian@aircrack-ng.org" }
++]
++dependencies = [
++  "chardet>=5.2.0",
++  "scapy>=2.6.1; python_version < '4'",
++  "setuptools>=78.1.1",
++]
++
++[project.scripts]
++wifite = "wifite.wifite:main"
++
+ [tool.poetry]
+-name = "wifite2"
+-version = "0.1.0"
+-description = ""
+-authors = ["kimocoder <christian@aircrack-ng.org>"]
+-readme = "README.md"
+-
+-[tool.poetry.dependencies]
+-python = "^3.11"
+-setuptools = "^80.9.0"
+-chardet = "^5.2.0"
+-
++packages = [{ include = "wifite" }]
+ 
+ [build-system]
+ requires = ["poetry-core"]
