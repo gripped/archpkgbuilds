@@ -6,13 +6,13 @@
 # Contributor: Peter Wu <peter@lekensteyn.nl>
 
 pkgbase=wireshark
-pkgname=('wireshark-cli' 'wireshark-qt')
+pkgname=(wireshark-cli wireshark-qt)
 pkgver=4.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Network traffic and protocol analyzer/sniffer'
 url='https://www.wireshark.org/'
-arch=('x86_64')
-license=('GPL-2.0-only')
+arch=(x86_64)
+license=(GPL-2.0-only)
 makedepends=(
   asciidoctor
   bcg729
@@ -32,18 +32,22 @@ makedepends=(
   libgcrypt
   libmaxminddb
   libnghttp2
+  libnghttp3
+  libnl
   libnl
   libpcap
   libssh
   libxml2
   libxslt
-  lua53
+  lua
   lz4
   minizip
   ninja
   opus
+  pcre2
   python
   qt6-5compat
+  qt6-base
   qt6-multimedia
   qt6-svg
   qt6-tools
@@ -51,8 +55,14 @@ makedepends=(
   snappy
   spandsp
   speexdsp
+  systemd-libs
+  xxhash
   zlib-ng
   zstd
+)
+checkdepends=(
+  python-pytest
+  python-pytest-xdist
 )
 options=('!emptydirs')
 source=(
@@ -73,46 +83,57 @@ build() {
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DCMAKE_INSTALL_RPATH= \
-    -DCMAKE_SKIP_RPATH=ON \
+    -DCMAKE_SKIP_INSTALL_RPATH=TRUE \
     -DENABLE_LUA=ON \
+    -DENABLE_ZLIB=OFF \
     -Wno-dev
   ninja -C build -v
+}
+
+check() {
+  cd ${pkgbase}
+  ninja -C build -v test
 }
 
 package_wireshark-cli() {
   pkgdesc+=' - CLI tools and data files'
   depends=(
-    'bcg729'
-    'brotli'
-    'c-ares'
-    'glib2'
-    'glibc'
-    'gnutls'
-    'krb5'
+    bcg729
+    brotli
+    c-ares
+    gcc-libs
+    glib2
+    glibc
+    gnutls
+    krb5
     libbrotlidec.so
-    'libcap'
+    libcap
     libcap.so
     libcares.so
-    'libgcrypt'
+    libgcrypt
     libk5crypto.so
     libkrb5.so
-    'libmaxminddb'
-    'libnghttp2'
-    'libpcap'
+    libmaxminddb
+    libnghttp2
+    libnghttp3
+    libnl
+    libpcap
     libpcap.so
-    'libssh'
-    'libxml2'
-    'lua53'
-    'lz4'
-    'opencore-amr'
-    'opus'
-    'sbc'
-    'snappy'
-    'spandsp'
-    'speexdsp'
-    'zlib-ng'
-    'zstd'
+    libssh
+    libxml2
+    lua
+    lz4
+    opencore-amr
+    opus
+    pcre2
+    sbc
+    snappy
+    spandsp
+    speexdsp
+    systemd-libs
+    xxhash
+    zlib-ng
+    zstd
   )
   install=wireshark.install
   conflicts=(wireshark)
@@ -140,26 +161,27 @@ package_wireshark-cli() {
 package_wireshark-qt() {
   pkgdesc+=' - Qt GUI'
   depends=(
-    'desktop-file-utils'
-    'gcc-libs'
-    'glibc'
-    'hicolor-icon-theme'
-    'libgcrypt'
-    'libnl'
-    'libpcap'
+    desktop-file-utils
+    gcc-libs
+    glib2
+    glibc
+    hicolor-icon-theme
+    libgcrypt
+    libnl
+    libpcap
     libpcap.so
-    'libwireshark.so'
-    'libwiretap.so'
-    'libwsutil.so'
-    'minizip'
-    'qt6-5compat'
-    'qt6-multimedia'
-    'qt6-svg'
-    'shared-mime-info'
-    'speexdsp'
-    'wireshark-cli'
-    'xdg-utils'
-    'zlib-ng'
+    libwireshark.so
+    libwiretap.so
+    libwsutil.so
+    minizip
+    qt6-5compat
+    qt6-base
+    qt6-multimedia
+    qt6-svg
+    shared-mime-info
+    speexdsp
+    wireshark-cli
+    xdg-utils
   )
   replaces=(wireshark wireshark-gtk wireshark-common)
   conflicts=(wireshark wireshark-gtk wireshark-common)
@@ -168,9 +190,10 @@ package_wireshark-qt() {
   install -d "${srcdir}/staging"
   DESTDIR="${srcdir}/staging" ninja -C build install
 
-  install -Dm 755 build/run/wireshark -t "${pkgdir}"/usr/bin
-  install -Dm 644 build/doc/man_pages/wireshark.1 -t "${pkgdir}"/usr/share/man/man1
-  install -Dm 644 build/doc/man_pages/wireshark.html -t "${pkgdir}"/usr/share/doc/wireshark
+  cd "${srcdir}"/staging
+  install -Dm 755 usr/bin/wireshark -t "${pkgdir}"/usr/bin
+  install -Dm 644 usr/share/man/man1/wireshark.1 -t "${pkgdir}"/usr/share/man/man1
+  install -Dm 644 usr/share/doc/wireshark/wireshark.html -t "${pkgdir}"/usr/share/doc/wireshark
 
   cd "${srcdir}"/staging/usr/share
   install -Dm 644 applications/org.wireshark.Wireshark.desktop -t "${pkgdir}"/usr/share/applications
