@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-settings
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 epoch=1
 pkgdesc='The settings application for the COSMIC desktop environment'
@@ -41,7 +41,7 @@ makedepends=(
 )
 optdepends=('power-profiles-daemon: power profiles support')
 source=(git+https://github.com/pop-os/cosmic-settings.git#tag=epoch-${pkgver})
-b2sums=('af4523b4fc83302f80157772c27f4fca0d184b391e79bf7d39e9bfe93577d7a0f95abe8397f6507f7b3af2ee57868c077af7d93ece87c8252f7ad635d1dcfcd5')
+b2sums=('c1bd3efb80abad3bbb94a740691d821a8c07ea0f133944b5b3a2d26cf5bba69acc1c2c28f21af050ae3935eddeff9136a0b39a4e1beec0315aded6ea8ce6d2e7')
 
 prepare() {
   cd cosmic-settings
