@@ -5,7 +5,7 @@
 _pkgname=igt-gpu-tools
 pkgname=intel-gpu-tools
 pkgver=2.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Tools for development and testing of the Intel DRM driver"
 arch=(x86_64)
 license=(MIT)
@@ -22,6 +22,8 @@ validpgpkeys=('775965B85650195ACE77E18D7370055DB74C2475'
 prepare() {
   mkdir -p build
   cd igt-gpu-tools-${pkgver}
+  # Make man pages reproducible
+  sed -i 's/gzip/gzip -n/' man/rst2man.sh
 }
 
 build() {
