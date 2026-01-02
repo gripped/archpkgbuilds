@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-screenshot
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 epoch=1
 pkgdesc='Utility for capturing screenshots via XDG Desktop Portal'
@@ -25,7 +25,7 @@ makedepends=(
 source=(
   git+https://github.com/pop-os/cosmic-screenshot.git#tag=epoch-${pkgver}
 )
-b2sums=('94353c5594c4b99a46a5542b1bedf6e948353a3bef1e4dd173cf73aebd67b78c1c12c743f5e7f3f3c713cdf734175adfb22b35a999bc4b738a6de734f9acd0ce')
+b2sums=('e55a70259961f8e9362c263810967a1a93f984c1e0d9e88f7922d1e1cf7f7944919fb9bdeb561043c0a53b84bc698434945d99b18c76d572fa0996558562d5a1')
 
 prepare() {
   cd cosmic-screenshot
