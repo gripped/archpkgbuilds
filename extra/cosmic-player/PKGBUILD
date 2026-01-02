@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=cosmic-player
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 epoch=1
 pkgdesc="WIP COSMIC media player"
@@ -28,17 +28,15 @@ makedepends=(
   lld
 )
 source=(git+https://github.com/pop-os/cosmic-player.git#tag=epoch-${pkgver})
-sha256sums=('67cb2339b23662f4b1fda4a605650465a2160d5ca9283ee6bde35aae0ef1da9d')
+sha256sums=('2984fb4f4c93e6344c340285de13b9e051a8e60e1468557c6388ad388edfb7a4')
 
 prepare() {
   cd "$pkgname"
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd "$pkgname"
-  export RUSTUP_TOOLCHAIN=stable
 
   RUSTFLAGS+=" -C link-arg=-fuse-ld=lld"
 
