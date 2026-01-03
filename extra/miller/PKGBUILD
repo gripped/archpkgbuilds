@@ -1,18 +1,18 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=miller
-pkgver=6.15.0
+pkgver=6.16.0
 pkgrel=1
 pkgdesc='Name-indexed data processing tool'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/johnkerl/miller'
-license=('BSD-2-Clause')
-depends=('glibc')
-makedepends=('go' 'git')
-options=('!lto')
+license=(BSD-2-Clause)
+depends=(glibc)
+makedepends=(go git)
+options=(!lto)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('ef9484bf207c92c356d04439018fae4257024a5f5613a6d876629122d49b884778bb9b311e397c0a0113f941509feb2301c7cb260ebf9270f6c37b49f3c46b15')
-b2sums=('c8c4ae7bfaae7a0c759530f4535a32d56346c7665323a3386d55864d90965d427298fb0222e1fb20033738fd88e5571aea48cf2f77ec598b4623251710091fae')
+sha512sums=('df3854e8313ea87705fa68897e958301b35c416b44bb039a0139ed2cf1dbc3787cc1b5145d94b54fc35b12fa6f5028391dd0be0ee1024f66f3d7b4252e4be2a2')
+b2sums=('82d7ca8a5b8559bad6b5ae4b4951909a21526f8c3148f71054aa218381f9df402eae173e16f9de08263d79e4227397b328dccd521273d9c28d41328736566497')
 
 prepare() {
   cd "$pkgname"
