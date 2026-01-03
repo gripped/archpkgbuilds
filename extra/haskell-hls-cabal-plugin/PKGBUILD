@@ -2,8 +2,8 @@
 
 _hkgname=hls-cabal-plugin
 pkgname=haskell-hls-cabal-plugin
-pkgver=2.1.0.0
-pkgrel=103
+pkgver=2.2.0.0
+pkgrel=1
 pkgdesc="Cabal integration plugin with Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-cabal-plugin"
 license=("MIT")
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-extra' 'haskell-ghcide' 'haskell-hashable' 'haskell
          'haskell-unordered-containers')
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils' 'haskell-tasty-hunit' 'haskell-row-types')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('37a7033e9cc28df9dd61f8430340ffe6223fc28081646db9f6c5da4fe40667e3')
+sha256sums=('b62cd63746734f46b99e25e56a3a5979947108695f25e2269d6ead9d80fd855e')
 
 prepare() {
   cd $_hkgname-$pkgver
