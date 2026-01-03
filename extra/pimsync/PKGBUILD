@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=pimsync
-pkgver=0.5.4
+pkgver=0.5.5
 pkgrel=1
 pkgdesc='Synchronize calendars and contacts'
 arch=(x86_64)
@@ -17,11 +17,11 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://git.sr.ht/~whynothugo/pimsync#tag=v$pkgver")
-b2sums=('e9e80e47873a42567d30ff21043f3f6fc3696c693059d8c0a3ff30844a29e1e75b2c8f325762ca1232f2d4f795974230aaf76b7e76f9200fe25235b4e91204d2')
+b2sums=('d526c045207cac060977f15ae71c527211a5ec25c80b1f9c2cf7b158ea4bab13a478eefeca2d16411245f2a541f91d79f01222b2f5c4fa570ef4cb2cf0027002')
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
