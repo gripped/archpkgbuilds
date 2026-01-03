@@ -2,7 +2,7 @@
 # Contributor: linus.mussmaecher@gmail.com
 
 pkgname=rucola
-pkgver=0.8.1
+pkgver=0.8.2
 pkgrel=1
 pkgdesc="Terminal-based markdown note manager"
 arch=('x86_64')
@@ -12,12 +12,12 @@ depends=('gcc-libs')
 makedepends=('cargo')
 replaces=('rucola-notes')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('1b9687bc121679fa6d1f789b824e13e06720289ccfdc86435a8c8f2042f8be7e')
+sha256sums=('6c5c5c09491bd10f10f914b36323f202db1cc71ad2889d6707422ce849d85193')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')" # --locked
+  cargo fetch --target "$(rustc --print host-tuple)" # --locked
 }
 
 build() {
