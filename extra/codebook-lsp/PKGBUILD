@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=codebook-lsp
-pkgver=0.3.20
+pkgver=0.3.22
 pkgrel=1
 pkgdesc='Code-aware spell checker with language server implementation'
 arch=(x86_64)
@@ -14,11 +14,11 @@ makedepends=(
 )
 options=(!lto)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('b0a138be55c23bee56b739202211b1d2ef6a56798fdc3d8b4aa682eff2655e00702170341c65293e0edbcab5d96988ce0866c201e6c315ea7ddd4a0200321d8a')
+b2sums=('8ffd2c6eb2ea3f7a29c312a28bbf5c6ae13938ae5b34c19d677afaa21f18439704b5d91aae6cff64a07d34fd8fa7bd1207bebaa08b709691fa233dee948fb149')
 
 prepare() {
   cd codebook
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
