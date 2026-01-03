@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=diskus
-pkgver=0.8.0
+pkgver=0.9.0
 pkgrel=1
 pkgdesc="Minimal, fast alternative to 'du -sh'"
 arch=(x86_64)
@@ -13,11 +13,11 @@ makedepends=(
   rust
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('60a42ae06d892cfa46c9e077645e276931666cb8d6712c9ebe11292b4fe9dfb0ee3eaad0de955388d6a2671e4b2f735ebd34cf2a9402956ddabd794ca12e1605')
+b2sums=('cce6328f89d6daabfdb36b554c7f686f11754fb5d4aedd06af81b1813e6cf08d48d7cf74efc863e6b63d8a9553f1c0b8919d25a7c11c5f3ab07978a3a877ae71')
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
