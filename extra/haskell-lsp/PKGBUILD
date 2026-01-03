@@ -2,20 +2,20 @@
 
 _hkgname=lsp
 pkgname=haskell-lsp
-pkgver=2.1.0.0
-pkgrel=65
+pkgver=2.2.0.0
+pkgrel=1
 pkgdesc="Haskell library for the Microsoft Language Server Protocol"
 url="https://github.com/haskell/lsp"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-async' 'haskell-attoparsec' 'haskell-co-log-core'
-         'haskell-data-default' 'haskell-hashable' 'haskell-lens' 'haskell-lsp-types'
+         'haskell-data-default' 'haskell-hashable' 'haskell-lens' 'haskell-lens-aeson' 'haskell-lsp-types'
          'haskell-prettyprinter' 'haskell-random' 'haskell-row-types' 'haskell-sorted-list'
          'haskell-temporary' 'haskell-text-rope' 'haskell-unliftio-core'
          'haskell-unordered-containers' 'haskell-uuid' 'haskell-unliftio')
 makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('8218a3560470f36432daea79d42f0cbd4d92c31b9cd6764846ef5f5734621e3c36cf5e8140eb94d614070762845227730fe7869f81d68b1f25ac05e796eabc9a')
+sha512sums=('ce29342a0db433b7dd73dc057b016ec45f6e4f21a3b16c023c5ced68651d8469d2cf853854ff447c3650efa3d6febce3d3ad1d4de42e65fd697e82980fd3a6f5')
 
 prepare() {
   cd $_hkgname-$pkgver
