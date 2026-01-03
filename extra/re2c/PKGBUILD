@@ -4,7 +4,7 @@
 # Contributor: Dale Blount <dale@archlinux.org>
 
 pkgname=re2c
-pkgver=4.3.1
+pkgver=4.4
 pkgrel=1
 arch=(x86_64)
 pkgdesc='A tool for generating C-based recognizers from regular expressions'
@@ -19,7 +19,7 @@ makedepends=(
   python
 )
 source=("https://github.com/skvadrik/re2c/archive/$pkgver/re2c-$pkgver.tar.gz")
-sha256sums=('6963eabb99eb6ca1dd0ee37a9fa6900778c998f99f46b5ba746076d16d78300f')
+b2sums=('6cd791c3c51cc8651cd48b2fb52998c25cc6497c3257893ec70ec003e40f9c76893d00fa81f83b4d975f110de8e58418af63112f337969cd9b36059b11115cc9')
 
 build() {
   cd $pkgname-$pkgver
