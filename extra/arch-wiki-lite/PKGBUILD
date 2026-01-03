@@ -3,8 +3,8 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=arch-wiki-lite
-pkgver=20251202
-pkgrel=2
+pkgver=20260102
+pkgrel=1
 pkgdesc='Arch Wiki without HTML. 1/9 as big, easily searched & viewable on console'
 arch=('any')
 url='https://gitlab.archlinux.org/grawlinson/arch-wiki-lite'
@@ -29,7 +29,7 @@ b2sums=('6a145d401e6f758483ac3f5634fedac93d17076983f724c5c321c21716d8f8ed6de6587
 build() {
   cd "$pkgname"
 
-  LC_ALL=en_US.UTF-8 python3 wiki_lite.py
+  LC_ALL=C.UTF-8 python3 wiki_lite.py
 }
 
 package() {
@@ -45,4 +45,3 @@ package() {
   # dialog
   install -vDm644 -t "$pkgdir/etc/dialog.d" wiki-search.dialog.rc
 }
-
