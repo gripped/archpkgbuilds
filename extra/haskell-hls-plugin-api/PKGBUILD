@@ -2,8 +2,8 @@
 
 _hkgname=hls-plugin-api
 pkgname=haskell-hls-plugin-api
-pkgver=2.1.0.0
-pkgrel=96
+pkgver=2.2.0.0
+pkgrel=1
 pkgdesc="Haskell Language Server API for plugin communication"
 url="https://github.com/haskell/haskell-language-server/hls-plugin-api"
 license=('Apache-2.0')
@@ -17,7 +17,7 @@ depends=('ghc-libs' 'haskell-diff' 'haskell-aeson' 'haskell-co-log-core' 'haskel
 makedepends=('ghc' 'uusi' 'haskell-lsp-types' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck' 'haskell-tasty-rerun')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('a00a440dabb05b8399100ffa75382aa8385a5e5395c599379f147168ad73902dcf350afc24f414285be5708d3fd61855b33e9e8034465327b4c94c91d9978f4b')
+sha512sums=('260ce2db73d57ef1d6245c66bb80b929541a7611791e38a6dd9f5a236171fb029c75338e7b9c6f654103fd5d3c16787d035fb4f60322924da7e19a7e6847761f')
 
 prepare() {
   cd $_hkgname-$pkgver
