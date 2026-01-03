@@ -3,16 +3,16 @@
 
 _hkgname=language-c
 pkgname=haskell-language-c
-pkgver=0.10.0
-pkgrel=3
+pkgver=0.10.1
+pkgrel=1
 pkgdesc="Analysis and generation of C code"
 url="https://visq.github.io/language-c/"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('alex' 'happy' 'ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('a8199066961f196bc1c9730b993338dae735dbd470e10c951c1e99ef6ed9748e34d74990904682557b6db58a95580d96c7cf6b5e75c0acb919c2022045e46c62')
+sha512sums=('7c1b8f6caf962ed421f02cb2f2106db99abcdab11a31e82ca53e3b53eedd0763bb0f35fffa18dc6481b726f3cbbb9f396b8030ab20115bf3630a952d56d7ff39')
 
 prepare() {
     cd $_hkgname-$pkgver
