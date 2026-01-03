@@ -7,7 +7,7 @@
 
 pkgname=cinnamon
 pkgver=6.6.3
-pkgrel=3
+pkgrel=5
 pkgdesc='Desktop environment which provides advanced innovative features and a traditional user experience'
 arch=(x86_64)
 url='https://github.com/linuxmint/cinnamon'
@@ -87,6 +87,7 @@ makedepends=(
   git
   glib2-devel
   gobject-introspection
+  gtk-doc
   meson
   python-libsass
 )
@@ -128,7 +129,8 @@ prepare() {
 
 build() {
   arch-meson $pkgname build \
-    --libexecdir=lib/$pkgname
+    --libexecdir=lib/$pkgname \
+    -D docs=true
   meson compile -C build
 }
 
