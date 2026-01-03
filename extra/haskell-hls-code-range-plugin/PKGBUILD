@@ -2,8 +2,8 @@
 
 _hkgname=hls-code-range-plugin
 pkgname=haskell-hls-code-range-plugin
-pkgver=2.1.0.0
-pkgrel=103
+pkgver=2.2.0.0
+pkgrel=1
 pkgdesc="HLS Plugin to support smart selection range and Folding range"
 url="https://github.com/haskell/haskell-language-server.git"
 license=('Apache-2.0')
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-extra' 'haskell-ghcide' 'haskell-ha
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils' 'haskell-lsp-test' 'haskell-tasty-hunit')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('45aaaaab8fc96f01e820689520038b3eaf73c0047d6df948b71fc3d2de1910cb')
+sha256sums=('e8e5cdea2d85d77ed47355ac283c40335b39b29c8c1dd0fbbe4fceafcd80d070')
 
 prepare() {
   cd $_hkgname-$pkgver
