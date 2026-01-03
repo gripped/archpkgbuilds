@@ -2,8 +2,8 @@
 
 _hkgname=hls-hlint-plugin
 pkgname=haskell-hls-hlint-plugin
-pkgver=2.1.0.0
-pkgrel=105
+pkgver=2.2.0.0
+pkgrel=1
 pkgdesc="Hlint integration plugin with Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-hlint-plugin"
 license=('Apache-2.0')
@@ -16,7 +16,7 @@ depends=('ghc-libs' 'haskell-diff' 'haskell-aeson' 'haskell-apply-refact' 'haske
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils' 'haskell-lsp-types' 'haskell-row-types')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('6ad94abee0617401ac4222d0a87b85df90bbf592d062c81ad767f9dd50fa69acbe514a776a168661bcbbf7efe274978af16d1449809002c6d69edf29af30b35b')
+sha512sums=('1bbb9d79b6d0f87ce5401c99d2e8f42e34f038dbdfcf3f7126b7796efc69caedd99525b10b1795fea30d7e2545f7eac825601a49381c23d40aefb7171e681050')
 
 prepare() {
   cd $_hkgname-$pkgver
