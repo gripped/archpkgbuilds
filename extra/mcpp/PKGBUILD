@@ -3,8 +3,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=mcpp
-pkgver=2.7.2.2
-pkgrel=2
+pkgver=2.7.2.3
+pkgrel=1
 pkgdesc="Matsui's CPP implementation precisely conformed to standards"
 arch=(x86_64)
 url="http://mcpp.sourceforge.net"
@@ -12,14 +12,14 @@ license=(BSD-2-Clause)
 depends=(glibc)
 source=(
   "https://github.com/museoa/mcpp/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-  "double-namlen.patch"
+  "$pkgname-double-namlen.patch"
 )
-sha256sums=('d2d74eab7a13ade4b1070b11a5bd6775cc5509d88c1ca525f8c4ee3bae79c601'
-            'ee8bf97c42150d2424a5984baec8227a44538e15c23cec93aabfc65daf9a6081')
+b2sums=('2c43c4da044ebd9c0fb7b093dad8a6418e71bb3cd524db3535178cefaa2f0f20cf6dfa23308068d5b0647d82d757f3d7a491de5d44f848b2eb502f66f1ee353f'
+        '8c9c0f2dfa7af0050492c821873ca0e5712fed1683447608af1cbae07b76f5b07d031b35076e03430de6565572e29bbf29182709513808cae1594387590a79fb')
 
 prepare() {
   cd $pkgname-$pkgver
-  patch -Np1 -i ../double-namlen.patch
+  patch -Np1 -i ../$pkgname-double-namlen.patch
 
   autoreconf -fiv
 }
