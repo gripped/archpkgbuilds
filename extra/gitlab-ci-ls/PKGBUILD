@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=gitlab-ci-ls
-pkgver=1.2.3
+pkgver=1.2.5
 pkgrel=1
 pkgdesc='Language server for Gitlab CI'
 arch=(x86_64)
@@ -17,11 +17,11 @@ makedepends=(
 )
 options=(!lto)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('1089c313dc6e9e9fc930bf675011adc450502a0efcf254dc5ca82d9ab7e204b7b3d5f4eccdd841ad1d67585afce4df570dbd93dca70bd05553b934bb96a5a238')
+b2sums=('8a8004463ca8411669d23b87810297ee75952268c8a1aea9a75c1a6b656db4d9e5f98bbd82c957fd4311a4b7fea713dd2c959e7e519dba5b37ccaa0012acf7dd')
 
 prepare() {
   cd $pkgname
-  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --target "$(rustc --print host-tuple)"
 }
 
 build() {
