@@ -14,7 +14,7 @@ WorkingDirectory=~
 RuntimeDirectory=forgejo
 LogsDirectory=forgejo
 StateDirectory=forgejo
-Environment=USER=forgejo HOME=/var/lib/forgejo GITEA_WORK_DIR=/var/lib/forgejo
+Environment=FORGEJO_WORK_DIR=/var/lib/forgejo
 ExecStart=/usr/bin/forgejo web -c /etc/forgejo/app.ini
 Restart=always
 RestartSec=2s
