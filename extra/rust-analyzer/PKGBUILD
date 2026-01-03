@@ -3,7 +3,7 @@
 # Contributor: Sergey A. <murlakatamenka@disroot.org>
 
 pkgname=rust-analyzer
-_pkgver=2025-12-08
+_pkgver=2025-12-29
 pkgver=${_pkgver//-/}
 pkgrel=1
 pkgdesc='Rust compiler front-end for IDEs'
@@ -16,11 +16,11 @@ depends=(
 )
 makedepends=(git)
 source=("git+https://github.com/rust-lang/$pkgname.git#tag=$_pkgver")
-b2sums=('78bc0b4cea4acf1544dadfdff3d520c4ec998c02b26dff6a0f69e712a78916c14f885f652b3b855bd97b3a8b1f8a6adc9f90f21b7b4e85267de8e9233b57b58e')
+b2sums=('789379c256fd743c11de680b6b889a49f9b5cff0ce7c6b69342ab7e90871a5ac553922efd26d416870457ffd0b551a882cbc6d8136c6b12a0750160d43d7e319')
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
