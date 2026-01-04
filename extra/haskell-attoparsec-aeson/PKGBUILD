@@ -2,20 +2,22 @@
 
 _hkgname=attoparsec-aeson
 pkgname=haskell-attoparsec-aeson
-pkgver=2.1.0.0
-pkgrel=167
+pkgver=2.2.0.0
+pkgrel=1
 pkgdesc="Parsing of aeson's Value with attoparsec"
 url="https://github.com/haskell/aeson"
 license=("BSD")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-aeson')
+depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-integer-conversion'
+         'haskell-primitive' 'haskell-scientific' 'haskell-vector')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('b34afb1c330428d9ff7e9e99655ece826ed7a1928dd5880c8127e73a12e906a9')
+sha256sums=('fa08fe3359914059fd74c10d35122e38382ef95aea16a6192ae688e62f4342e4')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u primitive
 }
 
 build() {
