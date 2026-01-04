@@ -7,7 +7,7 @@ pkgname=('gambas3-gb-args'
          'gambas3-gb-dbus' 'gambas3-gb-data'
          'gambas3-gb-db-form' 'gambas3-gb-db-mysql' 'gambas3-gb-db-odbc' 'gambas3-gb-db-postgresql' 'gambas3-gb-db-sqlite3' 'gambas3-gb-db'
          'gambas3-gb-db2-form' 'gambas3-gb-db2-mysql' 'gambas3-gb-db2-odbc' 'gambas3-gb-db2-postgresql' 'gambas3-gb-db2-sqlite3' 'gambas3-gb-db2'
-         'gambas3-gb-desktop-gnome' 'gambas3-gb-desktop-x11' 'gambas3-gb-desktop'
+         'gambas3-gb-desktop-x11' 'gambas3-gb-desktop'
          'gambas3-gb-eval-highlight'
          'gambas3-gb-form-dialog' 'gambas3-gb-form-mdi' 'gambas3-gb-form-terminal' 'gambas3-gb-form-stock' 'gambas3-gb-form-editor' 'gambas3-gb-form-htmlview' 'gambas3-gb-form'
          'gambas3-gb-gmp' 'gambas3-gb-gsl' 'gambas3-gb-gtk3-opengl' 'gambas3-gb-gtk3'
@@ -30,7 +30,7 @@ pkgname=('gambas3-gb-args'
          'gambas3-gb-web-feed' 'gambas3-gb-web-form' 'gambas3-gb-web-gui' 'gambas3-gb-web'
          'gambas3-runtime' 'gambas3-dev-tools' 'gambas3-ide' 'gambas3-script')
 pkgver=3.21.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A free development environment based on a Basic interpreter."
 arch=('x86_64')
 url="http://gambas.sourceforge.net/"
@@ -41,7 +41,7 @@ makedepends=('intltool' 'postgresql' 'libffi' 'bzip2' 'glib2' 'v4l-utils'
          'postgresql-libs' 'mariadb-libs' 'unixodbc' 'mongo-c-driver' 'sqlite' 'librsvg'
          'curl' 'poppler-glib' 'sdl2' 'sdl2_mixer' 'sdl2_image' 'sdl2_ttf' 'libxtst'
          'pcre2' 'qt5-x11extras' 'qt5-svg' 'qt6-webengine' 'qt6-svg' 'libxcursor'
-         'libsm' 'dbus' 'libxml2' 'libxslt' 'libgnome-keyring' 'gsl' 'gst-plugins-base-libs' 'alure' 'ncurses'
+         'libsm' 'dbus' 'libxml2' 'libxslt' 'gsl' 'gst-plugins-base-libs' 'alure' 'ncurses'
          'gmime3' 'libxcrypt')
 options=('!emptydirs' 'libtool')
 source=("https://gitlab.com/gambas/gambas/-/archive/${pkgver}/gambas-${pkgver}.tar.bz2")
@@ -61,6 +61,7 @@ build() {
     --disable-sqlite2 \
     --disable-qt4  \
     --disable-gtk \
+    --disable-gb_desktop_gnome_keyring \
     --disable-pdf \
     --disable-sdl \
     --disable-sdlsound \
@@ -261,14 +262,6 @@ package_gambas3-gb-dbus() {
 
   _install fakeinstall/usr/lib/gambas3/gb.dbus.*
   _install fakeinstall/usr/share/gambas3/info/gb.dbus.*
-}
-
-package_gambas3-gb-desktop-gnome() {
-  depends=('libgnome-keyring')
-  pkgdesc="Desktop component for Gnome"
-
-  _install fakeinstall/usr/lib/gambas3/gb.desktop.gnome.*
-  _install fakeinstall/usr/share/gambas3/info/gb.desktop.gnome.*
 }
 
 package_gambas3-gb-desktop-x11() {
