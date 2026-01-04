@@ -1,7 +1,7 @@
 pkgbase = haskell-floskell
 	pkgdesc = A flexible Haskell source code pretty printer
 	pkgver = 0.10.8
-	pkgrel = 181
+	pkgrel = 182
 	url = https://github.com/ennocramer/floskell
 	arch = x86_64
 	license = BSD-3-Clause
@@ -13,6 +13,7 @@ pkgbase = haskell-floskell
 	depends = haskell-aeson-pretty
 	depends = haskell-ansi-wl-pprint
 	depends = haskell-attoparsec
+	depends = haskell-attoparsec-aeson
 	depends = haskell-data-default
 	depends = haskell-src-exts
 	depends = haskell-monad-dijkstra
@@ -21,7 +22,9 @@ pkgbase = haskell-floskell
 	depends = haskell-utf8-string
 	source = https://github.com/ennocramer/floskell/archive/floskell-0.10.8.tar.gz
 	source = optparse-applicative-0.18.patch
+	source = haskell-floskell-aeson-2.2.patch
 	sha256sums = 6e312f9ab13bf224550f9ffd77ee5d03eb27a7165d1fdc20339dbb228daa82e5
 	sha256sums = fa2f92bfc0426f9e61489d96533e982cff1a70136303a3701907cb0a28c78b8f
+	sha256sums = 1fefc6c299b01a727504cdf0ce390750a8caed9ddae3e03c13ca2e7f7d96ae2d
 
 pkgname = haskell-floskell

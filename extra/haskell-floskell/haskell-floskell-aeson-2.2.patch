@@ -1,0 +1,45 @@
+From 6606da71a951e00fe7bb0820839ebf712fd941aa Mon Sep 17 00:00:00 2001
+From: Enno Cramer <ecramer@memfrob.de>
+Date: Tue, 12 Sep 2023 22:12:52 +0200
+Subject: [PATCH] Bump upper version bounds on aeson
+
+---
+ floskell.cabal             | 3 ++-
+ src/Floskell/ConfigFile.hs | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/floskell.cabal b/floskell.cabal
+index 767a9b4f..14cdeaf7 100644
+--- a/floskell.cabal
++++ b/floskell.cabal
+@@ -57,8 +57,9 @@ library
+     ghc-options:      -Wall
+     build-depends:
+         base >=4.9 && <4.19,
+-        aeson >=0.11.3.0 && <2.2,
++        aeson >=0.11.3.0 && <2.3,
+         attoparsec >=0.13.1.0 && <0.15,
++        attoparsec-aeson >=2.1.0.0 && <2.3,
+         bytestring >=0.10.8.1 && <0.12,
+         containers >=0.5.7.1 && <0.7,
+         data-default >=0.7.1.1 && <0.8,
+diff --git a/src/Floskell/ConfigFile.hs b/src/Floskell/ConfigFile.hs
+index ef73c4a4..c8820e84 100644
+--- a/src/Floskell/ConfigFile.hs
++++ b/src/Floskell/ConfigFile.hs
+@@ -29,6 +29,7 @@ import           Control.Applicative        ( (<|>) )
+ import           Data.Aeson
+                  ( (.:?), (.=), FromJSON(..), ToJSON(..) )
+ import qualified Data.Aeson                 as JSON
++import qualified Data.Aeson.Parser          as JSON ( json' )
+ import qualified Data.Aeson.Types           as JSON ( typeMismatch )
+ import qualified Data.Attoparsec.ByteString as AP
+ import qualified Data.ByteString            as BS
+@@ -37,7 +38,6 @@ import           Data.Char                  ( isLetter, isSpace )
+ #if MIN_VERSION_aeson(2,0,0)
+ import qualified Data.Aeson.KeyMap          as Map
+ #else
+-import qualified Data.Aeson.Parser          as JSON ( json' )
+ import qualified Data.HashMap.Lazy          as Map
+ #endif
+ 
