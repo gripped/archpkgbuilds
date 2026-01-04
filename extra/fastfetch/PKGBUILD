@@ -3,14 +3,14 @@
 
 pkgname=fastfetch
 pkgver=2.56.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A feature-rich and performance oriented neofetch like system information tool"
 url="https://github.com/fastfetch-cli/fastfetch"
 arch=('x86_64')
 license=('MIT')
 depends=('glibc' 'yyjson')
-makedepends=('chafa' 'cmake' 'dbus' 'dconf' 'ddcutil' 'directx-headers' 'imagemagick' 'libpulse' 'libxcb' 'libxrandr'
-             'ocl-icd' 'opencl-headers' 'sqlite' 'vulkan-headers' 'vulkan-icd-loader' 'wayland' 'xfconf' 'zlib')
+makedepends=('chafa' 'cmake' 'dbus' 'dconf' 'ddcutil' 'directx-headers' 'imagemagick' 'libglvnd' 'libpulse' 'libxcb'
+             'libxrandr' 'ocl-icd' 'opencl-headers' 'sqlite' 'vulkan-headers' 'vulkan-icd-loader' 'wayland' 'xfconf' 'zlib')
 optdepends=('chafa: Image output as ascii art'
             'dbus: Bluetooth, Player & Media detection'
             'dconf: Needed for values that are only stored in DConf + Fallback for GSettings'
@@ -21,6 +21,7 @@ optdepends=('chafa: Image output as ascii art'
             'imagemagick: Image output using sixel or kitty graphics protocol'
             'libdrm: Displays detection'
             'libelf: st term font detection and fast path of systemd version detection'
+            'libglvnd: OpenGL module'
             'libpulse: Sound detection'
             'libxrandr: Multi monitor support'
             'ocl-icd: OpenCL module'
