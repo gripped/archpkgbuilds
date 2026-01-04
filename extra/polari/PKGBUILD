@@ -2,7 +2,7 @@
 
 pkgname=polari
 pkgver=49.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An IRC Client for GNOME"
 url="https://apps.gnome.org/Polari/"
 arch=(x86_64)
@@ -10,20 +10,23 @@ license=(GPL-2.0-or-later)
 depends=(
   dconf
   gcc-libs
+  gdk-pixbuf2
   gjs
   glib2
   glibc
-  gnome-keyring
+  graphene
   gtk4
   hicolor-icon-theme
   libadwaita
   libgirepository
+  libsecret
   libsoup3
+  org.freedesktop.secrets
+  pango
   telepathy-glib
   telepathy-idle
-  telepathy-logger
   telepathy-mission-control
-  tracker3
+  tinysparql
 )
 makedepends=(
   appstream
