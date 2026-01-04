@@ -5,7 +5,7 @@ pkgname=(
   papers
   papers-lib-docs
 )
-pkgver=49.2
+pkgver=49.3
 pkgrel=1
 pkgdesc='Document viewer for PDF and other document formats aimed at the GNOME desktop'
 arch=(x86_64)
@@ -45,7 +45,7 @@ makedepends=(
   rust
 )
 source=("git+https://gitlab.gnome.org/GNOME/papers.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('38630b957d92b51be859efc519910897c3e9d7e0593953ba203ba918646d10911e3286eb96e6650e71c97ac2af5fbde51fb44a2ac3c2c081a3fff0950cc94e00')
+b2sums=('720bd937603b01232b54bf68f6e85ee86952b161e7a0689848c45cc3f81bd8eb480be9d0a9409e68a5d0e2b49e9fc0eaf798653a2d6f2fe2be4ade19ba0a1e64')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
@@ -57,7 +57,7 @@ prepare() {
   cd $pkgbase
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
