@@ -4,31 +4,28 @@
 
 pkgname=haskell-aeson
 _hkgname=aeson
-pkgver=2.1.2.1
-pkgrel=183
+pkgver=2.2.0.0
+pkgrel=1
 pkgdesc="A JSON parsing and encoding library optimized for ease of use and high performance"
 url="https://github.com/haskell/aeson"
 license=("GPL")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-onetuple' 'haskell-quickcheck' 'haskell-attoparsec'
-         'haskell-base-compat-batteries' 'haskell-data-fix' 'haskell-dlist' 'haskell-generically'
-         'haskell-hashable' 'haskell-indexed-traversable' 'haskell-primitive' 'haskell-scientific'
-         'haskell-semialign' 'haskell-strict' 'haskell-tagged' 'haskell-text-short'
-         'haskell-th-abstraction' 'haskell-these' 'haskell-time-compat'
-         'haskell-unordered-containers' 'haskell-uuid-types' 'haskell-vector' 'haskell-witherable')
-makedepends=('ghc' 'uusi' 'haskell-diff' 'haskell-base-compat' 'haskell-base-orphans'
-             'haskell-base16-bytestring' 'haskell-generic-deriving' 'haskell-integer-logarithms'
+depends=('ghc-libs' 'haskell-data-fix' 'haskell-dlist' 'haskell-generically' 'haskell-hashable'
+         'haskell-indexed-traversable' 'haskell-integer-conversion' 'haskell-network-uri' 'haskell-onetuple'
+         'haskell-primitive' 'haskell-quickcheck' 'haskell-scientific' 'haskell-semialign' 'haskell-strict'
+         'haskell-tagged' 'haskell-text-iso8601' 'haskell-text-short' 'haskell-th-abstraction' 'haskell-these'
+         'haskell-time-compat' 'haskell-unordered-containers' 'haskell-uuid-types' 'haskell-vector'
+         'haskell-witherable')
+makedepends=('ghc' 'uusi' 'haskell-base-compat' 'haskell-base-orphans' 'haskell-base16-bytestring'
+             'haskell-diff' 'haskell-generic-deriving' 'haskell-integer-logarithms' 'haskell-nothunks'
              'haskell-quickcheck-instances' 'haskell-tasty' 'haskell-tasty-golden'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
-source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-${pkgver}.tar.gz"
-        $pkgname-quickcheck-2.14.3.patch::https://github.com/haskell/aeson/commit/58766a1916b4980792763bab74f0c86e2a7ebf20.patch)
-sha512sums=('c7e3c5d61ac99b7e66a468cdcd0a20c9d0f42142b2398086aa1a3a992c60814c9d7505e4c15120fb00f0015ab1fb5592d6acdb31995e7af956f2867b95f12a40'
-            'd381ca8f114856649d059405cfac810385fa0d24f86981b27665db250b2642e0227791cd448c5be04fa7cc1577b9888f75275b84ec8242ebf4b1d615a74af29a')
+source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-${pkgver}.tar.gz")
+sha512sums=('7a190d7c444668cf77a2789d0f339c4b69df464ee71f9c9ef2dd85e6e8ea5bcf1bf55687edd1789fb71017ba4a052e445fc945398585f33820b8da1530ee3592')
 
 prepare() {
   cd $_hkgname-$pkgver
-  patch -Np1 -i ../$pkgname-quickcheck-2.14.3.patch
-  uusi -u Diff -u OneTuple -u QuickCheck -u base-compat-batteries -u base-orphans -u ghc-prim -u primitive -u semialign -u strict -u template-haskell -u these
+  uusi -u Diff -u QuickCheck -u ghc-prim -u nothunks -u primitive
 }
 
 build() {
@@ -36,7 +33,7 @@ build() {
   runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
-            -f-cffi -fordered-keymap
+            -fordered-keymap
   runhaskell Setup build $MAKEFLAGS
   runhaskell Setup register --gen-script
   runhaskell Setup unregister --gen-script
