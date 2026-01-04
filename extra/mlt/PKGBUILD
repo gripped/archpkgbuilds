@@ -7,7 +7,7 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgname=mlt
-pkgver=7.34.1
+pkgver=7.36.1
 pkgrel=1
 pkgdesc='An open source multimedia framework'
 arch=(x86_64)
@@ -75,7 +75,7 @@ makedepends=(cmake
              vid.stab)
 source=(git+https://github.com/mltframework/mlt#tag=v$pkgver
         git+https://gitlab.com/mattbas/glaxnimate.git)
-sha256sums=('960137f625fd0cfa3f74b020e1c755c87039d4789ab4960fa6b9e1c976c47f59'
+sha256sums=('96c89f203e0e2061f29fa21ab6c5c449cd5ed9b37c29d50779bd2975ef339937'
             'SKIP')
 
 prepare() {
@@ -89,7 +89,6 @@ build() {
   cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DMOD_OPENCV=ON \
-    -DMOD_GLAXNIMATE=ON \
     -DMOD_GLAXNIMATE_QT6=ON \
     -DMOD_QT6=ON \
     -DSWIG_PYTHON=ON
