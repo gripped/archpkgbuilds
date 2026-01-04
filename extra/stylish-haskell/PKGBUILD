@@ -3,7 +3,7 @@
 
 pkgname=stylish-haskell
 pkgver=0.14.5.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Haskell code prettifier"
 url="https://github.com/haskell/stylish-haskell"
 license=("BSD")
@@ -11,10 +11,15 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-file-embed' 'haskell-ghc' 'haskell-ghc-lib-parser-ex'
          'haskell-optparse-applicative' 'haskell-regex-tdfa' 'haskell-strict' 'haskell-syb'
          'haskell-hsyaml' 'haskell-hsyaml-aeson')
-makedepends=('ghc' 'haskell-hunit' 'haskell-random' 'haskell-test-framework'
+makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-random' 'haskell-test-framework'
              'haskell-test-framework-hunit')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
 sha512sums=('cca1c8bddfae17299b877be5fbf8237536f762003d5504fa798a818870cb3066f7defad34fc1a160fd4504b63979a15d51f023a9dea87e1cb7d5d86f714e3872')
+
+prepare() {
+    cd $pkgname-$pkgver
+    uusi -u aeson
+}
 
 build() {
     cd $pkgname-$pkgver
