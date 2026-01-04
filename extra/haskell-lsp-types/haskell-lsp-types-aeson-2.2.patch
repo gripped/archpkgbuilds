@@ -1,0 +1,48 @@
+From 5933a70b6023fe1d060456ad679fbc5f903c6ea0 Mon Sep 17 00:00:00 2001
+From: Zubin Duggal <zubin.duggal@gmail.com>
+Date: Mon, 13 Nov 2023 16:04:09 +0530
+Subject: [PATCH] Support aeson 2.2.0
+
+---
+ lsp-types/lsp-types.cabal                           | 4 ++--
+ lsp-types/src/Language/LSP/Protocol/Types/Common.hs | 4 ++++
+ 3 files changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/lsp-types/lsp-types.cabal b/lsp-types/lsp-types.cabal
+index e4b69fab..86e5bad7 100644
+--- a/lsp-types/lsp-types.cabal
++++ b/lsp-types/lsp-types.cabal
+@@ -69,7 +69,7 @@ library
+     UndecidableInstances
+ 
+   build-depends:
+-    , aeson             >=1.2.2.0 && <2.2
++    , aeson             >=1.2.2.0 && <2.3
+     , base              >=4.11    && <5
+     , binary
+     , containers
+@@ -87,7 +87,7 @@ library
+     , mtl               <2.4
+     , prettyprinter     
+     , network-uri       >=2.6
+-    , row-types
++    , row-types         >=1.0
+     , safe
+     , some
+     , template-haskell
+diff --git a/lsp-types/src/Language/LSP/Protocol/Types/Common.hs b/lsp-types/src/Language/LSP/Protocol/Types/Common.hs
+index a503006f..0931d8ed 100644
+--- a/lsp-types/src/Language/LSP/Protocol/Types/Common.hs
++++ b/lsp-types/src/Language/LSP/Protocol/Types/Common.hs
+@@ -183,7 +183,11 @@ instance Semigroup s => Semigroup (s |? Null) where
+ -- in both aeson-1 and aeson-2
+ 
+ -- | Include a value in an JSON object optionally, omitting it if it is 'Nothing'.
++#if MIN_VERSION_aeson(2,2,0)
++(.=?) :: (J.KeyValue e kv, J.ToJSON v) => String -> Maybe v -> [kv]
++#else
+ (.=?) :: (J.KeyValue kv, J.ToJSON v) => String -> Maybe v -> [kv]
++#endif
+ k .=? v = case v of
+   Just v' -> [fromString k J..= v']
+   Nothing -> mempty
