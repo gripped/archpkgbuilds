@@ -3,17 +3,14 @@
 # Contributor: Eddie Lozon <almostlucky@attbi.com>
 
 pkgname=pekwm
-pkgver=0.4.1
+pkgver=0.4.2
 pkgrel=1
 pkgdesc='Tabbed X11 window manager'
 arch=(x86_64)
 license=(GPL-2.0-or-later)
-url='https://github.com/pekdon/pekwm'
+url='https://www.pekwm.se/'
 makedepends=(cmake gendesk git)
-depends=(libjpeg-turbo libpng libxft libxinerama libxpm libxrandr)
-optdepends=('lxappearance: feature-rich GTK+ theme switcher'
-            'nitrogen: background browser and setter'
-            'tint2: basic, good-looking task manager')
+depends=(curl libjpeg-turbo libpng libxft libxinerama libxpm libxrandr systemd-libs)
 backup=(etc/pekwm/autoproperties
         etc/pekwm/autoproperties_typerules
         etc/pekwm/config
@@ -24,10 +21,11 @@ backup=(etc/pekwm/autoproperties
         etc/pekwm/mouse_click
         etc/pekwm/mouse_sloppy
         etc/pekwm/mouse_system
+        etc/pekwm/panel
         etc/pekwm/start
         etc/pekwm/vars)
-source=("git+$url#tag=release-$pkgver")
-b2sums=('f364376bacd8e034249d8ca70770b079c37ec5cd9a2b67b92fcf4c35569902839ca3d78ffc77dc18f773f97ae9587bd2cb08fb4e192a98544afbbd3146c78291')
+source=("https://www.pekwm.se/pekwm/uv/pekwm-$pkgver.tar.gz")
+b2sums=('0ce50d98eef0c7bcd2a5cde7774f75807ed8e2fd95bbee1ad05d911b284eb5e4de152e6f7a3c08db2fb9ac3fdb027da4c146db2b7fabc6846c6f76530c1e5256')
 
 prepare() {
   gendesk -f -n --pkgname $pkgname --pkgdesc "$pkgdesc" --name PekWM
@@ -40,7 +38,7 @@ build() {
     -D CMAKE_BUILD_TYPE=Release \
     -D CMAKE_INSTALL_LIBDIR=lib \
     -D CMAKE_INSTALL_PREFIX=/usr \
-    -S $pkgname \
+    -S $pkgname-$pkgver \
     -W no-dev
   make -C build
 }
