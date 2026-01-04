@@ -1,32 +1,16 @@
 pkgbase = bear
 	pkgdesc = A tool to generate compilation database for clang tooling
-	pkgver = 3.1.6
-	pkgrel = 10
+	pkgver = 4.0.0
+	pkgrel = 1
 	url = https://github.com/rizsotto/Bear
 	arch = x86_64
 	license = GPL-3.0-or-later
 	makedepends = git
-	makedepends = cmake
-	makedepends = nlohmann-json
-	makedepends = gtest
-	makedepends = python
-	makedepends = llvm
+	makedepends = rust
 	depends = glibc
 	depends = gcc-libs
-	depends = grpc
-	depends = libgrpc++.so
-	depends = fmt
-	depends = spdlog
-	depends = abseil-cpp
-	depends = protobuf
-	depends = openssl
-	depends = c-ares
-	depends = re2
-	source = bear::git+https://github.com/rizsotto/Bear.git#tag=3.1.6
-	source = disable-lit-tests.patch
-	sha512sums = 583e9a0f9edc609a17f9697379787b1c359e386d22c25ef0d8cdd756c474672b6476747baef656618ffde453820d4f429203001cacfe220b160192c90e31b6a7
-	sha512sums = 9cb74c653d514fb0802da1b2cf103fdcf25a8aa314f4e7023ce851044a6232b87c340814d61a24aa5af3f4aecdf7c0560262be2b68f19f3566164f2babb12f87
-	b2sums = 91b75a510a4d2818411854e732c4dd83027a9c34f9a630d7a31901c3c66a4ba88cdbb685c1df36a61b392107f209adcf4a32164a1efdc4c12e2a08b1a117115f
-	b2sums = 9bc603ac82c4b2c8bf1263e7d24205f7445b265da16c21935f58c651c5ed78fdb81d00565a3f2b81415831564b81384cd71c799f58c85bce0445ecdf67b7c3b8
+	source = bear::git+https://github.com/rizsotto/Bear.git#tag=4.0.0
+	sha512sums = 5c84536095c04d640fe05e47cfa0aa586c6a0f539c4a3d0f5391fdd52da89b6955d6f5f7bde5cbcbe6053f929febf2716c4ae47a7373e9ea1d5118043ed1a433
+	b2sums = f22505fb18cb8f271542fcd1262da9e5f9c71fa6836202ff32ec62966982f70410fa751b484d2622f0f97c0e7f7415d23446feb84ee1f49ead3ea779c2af9426
 
 pkgname = bear
