@@ -1,9 +1,9 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=3cpio
-pkgver=0.12.0
+pkgver=0.13.0
 #_commit=213416e787f147c2c5066ef45b83fa58aa0d30db
-pkgrel=1
+pkgrel=2
 pkgdesc='Manage Linux kernel initramfs cpio files written in Rust'
 arch=('x86_64')
 url='https://github.com/bdrung/3cpio'
@@ -19,7 +19,7 @@ makedepends=(
 )
 checkdepends=(
   bzip2 
-  gzip 
+  pigz 
   lz4
   lzop 
   xz 
@@ -29,16 +29,17 @@ optdepends=(
   'bzip2: Support for bzip2 compressed initramfs image'
   'lz4: Support for lz4 compressed initramfs image'
   'lzop: Support for lzo compressed initramfs image'
+  'pigz: Support for gzip compressed initramfs image'
   'xz: Support for lzma or xz compressed initramfs image'
   'zstd: Support for zstd compressed initramfs image'
 )
 source=(
-  git+https://github.com/bdrung/3cpio.git#tag=${pkgver}?signed
+  git+https://github.com/bdrung/3cpio.git#tag=${pkgver}
 )
 validpgpkeys=(
   A62D2CFBD50B9B5BF360D54B159EB5C4EFC8774C # Benjamin Drung bdrung@debian.de
 )
-b2sums=('dfe3d8b087ebdf5325db6d6eadd6e3fad2fabed6d080e4cfbda09ca73cda7c6521d37cbb4925babf255847edeca08f5a9b09956ca0cbc080fdcf82f7615a13ce')
+b2sums=('c5c956ae474538e833538250a1c3ed80313b66a6ea99db2d572c4bc926a06b6505dfda66ae78b4c82b60b84c910d07996b1f6e65a1731d99129e7fc75450e22b')
 
 build() {
   cd "${pkgname}"
