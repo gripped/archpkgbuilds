@@ -4,12 +4,12 @@
 
 pkgname=openttd
 pkgver=15.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Engine for running Transport Tycoon Deluxe'
 arch=(x86_64)
 url='https://www.openttd.org'
-# bundled squirrel is under Zlib license
-# bundled fmt is under MIT license
+# squirrel (bundled) is licensed under the Zlib license
+# fmt (bundled) is licensed under the MIT license
 license=('GPL-2.0-only' 'BSD-3-Clause' 'LGPL-2.1-or-later' 'MIT' 'Zlib')
 depends=(fluidsynth sdl2-compat fontconfig hicolor-icon-theme)
 makedepends=(cmake)
@@ -31,7 +31,6 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" make -C build install
-
-  # license
-  install -D -m644 $pkgname-$pkgver/COPYING.md "${pkgdir}"/usr/share/licenses/${pkgname}/COPYING
+  install -Dm644 $pkgname-$pkgver/COPYING.md \
+    "$pkgdir/usr/share/licenses/$pkgname/COPYING"
 }
