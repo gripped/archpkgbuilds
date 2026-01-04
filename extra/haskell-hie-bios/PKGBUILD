@@ -3,7 +3,7 @@
 _hkgname=hie-bios
 pkgname=haskell-hie-bios
 pkgver=0.12.0
-pkgrel=151
+pkgrel=152
 pkgdesc="Set up a GHC API session"
 url="https://github.com/mpickering/hie-bios"
 license=("BSD")
@@ -20,7 +20,7 @@ sha512sums=('eb9effc1bab68f7d2f2f1d6c64971c48f3428e47de472ea34428c1fcfc813f65754
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u unix-compat $_hkgname.cabal
+  uusi -u aeson -u unix-compat
 
   # https://github.com/mpickering/hie-bios/issues/290
   chmod +x tests/projects/*/*.sh
