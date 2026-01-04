@@ -46,12 +46,12 @@
  ;; This enables automated log rotate(switch of following options), default is true
  ;LOG_ROTATE = true
  ;; Max size shift of a single file, default is 28 means 1 << 28, 256MB
-@@ -963,7 +963,7 @@ LEVEL = Info
+@@ -961,7 +961,7 @@ LEVEL = Info
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
- ;; Root path for storing all repository data. By default, it is set to %(APP_DATA_PATH)s/gitea-repositories.
+ ;[repository]
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+-;; Root path for storing all repository data. By default, it is set to %(APP_DATA_PATH)s/gitea-repositories.
++;; Root path for storing all repository data. By default, it is set to %(APP_DATA_PATH)s/forgejo-repositories.
  ;; A relative path is interpreted as _`AppWorkPath`_/%(ROOT)s
--;ROOT =
-+ROOT = /var/lib/forgejo/repos
+ ;ROOT =
  ;;
- ;; The script type this server supports. Usually this is `bash`, but some users report that only `sh` is available.
- ;SCRIPT_TYPE = bash
