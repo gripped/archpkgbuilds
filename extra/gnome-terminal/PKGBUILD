@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-terminal
-pkgver=3.58.0
+pkgver=3.58.1
 pkgrel=1
 pkgdesc="The GNOME Terminal Emulator"
 url="https://wiki.gnome.org/Apps/Terminal"
@@ -47,7 +47,7 @@ optdepends=(
   "libnautilus-extension: Nautilus integration"
 )
 source=("git+https://gitlab.gnome.org/GNOME/gnome-terminal.git#tag=$pkgver")
-b2sums=('1f8816e0041977052ee58ea5aadcba10fe76fd5560b5982471507804c292c8fe5d35fd1c083cfc963480e683bff773a12d0e3d6ee40db3c41ec973409d0ffaf3')
+b2sums=('845ae71284034ddcc3c4e6f8d40183c60fffda3324d432d95c8300342587685bbdd654be427408d49daa070d3c96fc34d4a405337ccca6b6f8b2599040cba6e6')
 
 prepare() {
   cd $pkgname
