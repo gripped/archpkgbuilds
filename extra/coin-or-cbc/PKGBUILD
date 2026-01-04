@@ -4,7 +4,7 @@
 
 pkgname=coin-or-cbc
 pkgver=2.10.12
-pkgrel=4
+pkgrel=5
 pkgdesc='COIN-OR branch-and-cut mixed integer programming solver'
 arch=(x86_64)
 url='https://github.com/coin-or/Cbc'
