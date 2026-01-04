@@ -1,9 +1,9 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=nvshmem
-pkgver=3.4.5
+pkgver=3.5.19
 _cudaver=13
-pkgrel=3
+pkgrel=1
 pkgdesc="NVIDIA parallel programming interface based on OpenSHMEM"
 arch=(x86_64)
 url="https://developer.nvidia.com/nvshmem"
@@ -23,7 +23,7 @@ optdepends=(
 )
 options=(!strip)
 source=(https://developer.download.nvidia.com/compute/nvshmem/redist/libnvshmem/linux-x86_64/lib${pkgname}-linux-x86_64-${pkgver}_cuda${_cudaver}-archive.tar.xz)
-b2sums=('ff117701106edbdf9209bbb49f93a9bfee4c4f599ded49a1c0955becc225529dcc6ba8eb71d4f02d5ecd079125dea75e7e7329083494610144e188e4e3500b5c')
+b2sums=('18701fb9f5cd230f84fc93bf87b9f93dc0f66892ad352e014c02c64c9fae5493adef5ea646f586b6b6d62ca2b5979f605d3478dbe1cd990bf6588b9f4bfdfab2')
 
 package() {
   cd libnvshmem-linux-x86_64-${pkgver}_cuda${_cudaver}-archive
