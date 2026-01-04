@@ -5,14 +5,12 @@ pkgname=orchis-theme
 _pkgname="${pkgname^}"
 pkgver=2025_04_25
 _pkgver="${pkgver//_/-}"
-pkgrel=1
+pkgrel=2
 pkgdesc="A Material Design theme for GNOME/GTK based desktop environments"
 url="https://github.com/vinceliuice/orchis-theme"
 arch=('any')
 license=('GPL-3.0-or-later')
-optdepends=('gtk-engine-murrine: for gtk2 themes'
-            'gnome-themes-extra: for gtk2 themes'
-            'tela-circle-icon-theme: recommended icon theme'
+optdepends=('tela-circle-icon-theme: recommended icon theme'
             'vimix-cursors: recommended cursors theme')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${_pkgver}.tar.gz")
 sha256sums=('d479653415e271fe9f3324f1f4f51cf28b1134164667142c6c6a6db41cf4da9b')
