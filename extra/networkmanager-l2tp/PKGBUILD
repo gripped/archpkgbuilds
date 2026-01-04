@@ -5,57 +5,33 @@
 # Contributor: Moritz Lipp <mlq@pwmt.org>
 
 pkgbase=networkmanager-l2tp
-pkgname=(
-  networkmanager-l2tp
-  networkmanager-vpn-plugin-l2tp
-)
-pkgver=1.20.20
-pkgrel=4
-pkgdesc="NetworkManager VPN plugin for L2TP"
-url="https://github.com/nm-l2tp/NetworkManager-l2tp/wiki"
+pkgname=(networkmanager-l2tp networkmanager-vpn-plugin-l2tp)
+pkgver=1.20.22
+pkgrel=1
+pkgdesc='NetworkManager VPN plugin for L2TP'
+url='https://github.com/nm-l2tp/NetworkManager-l2tp/wiki'
 arch=(x86_64)
 license=(GPL-2.0-or-later)
-depends=(
-  gcc-libs
-  glib2
-  glibc
-  gtk3
-  libnm
-  libnma
-  libsecret
-  openssl
-)
-makedepends=(
-  git
-  glib2-devel
-  libnma-gtk4
-  nspr
-  nss
-  ppp
-  python
-  strongswan
-  xl2tpd
-)
+depends=(gcc-libs glib2 glibc gtk3 libnm libnma libsecret openssl)
+makedepends=(git glib2-devel libnma-gtk4 nspr nss ppp python strongswan xl2tpd)
 source=("git+https://github.com/nm-l2tp/NetworkManager-l2tp#tag=$pkgver")
-b2sums=('d9af2df90be167e7cfe58109623636655f79d7147fee782cfdadbeca9dc495bc67cd26c8f9e3ae900b9f38d6f8c56bb1e88928002aefba9dd0d6b530ec71ee54')
+b2sums=('c6d39db624270f5d7c962a7eb51ca07817911f72fd7fde1f9d616f112e360ad60266914288528dc70491077714fc010a95b4917df128f480f4fbe0f2a25699b8')
+_dirname=NetworkManager-l2tp
 
 prepare() {
-  cd NetworkManager-l2tp
+  cd $_dirname
   autoreconf -fvi
 }
 
 build() {
-  local configure_options=(
-    --prefix=/usr
-    --sysconfdir=/etc
-    --localstatedir=/var
-    --libexecdir=/usr/lib
-    --disable-static
+  cd $_dirname
+  ./configure \
+    --disable-static \
+    --libexecdir=/usr/lib \
+    --localstatedir=/var \
+    --prefix=/usr \
+    --sysconfdir=/etc \
     --with-gtk4
-  )
-
-  cd NetworkManager-l2tp
-  ./configure "${configure_options[@]}"
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
@@ -71,17 +47,13 @@ _pick() {
 }
 
 package_networkmanager-l2tp() {
-  pkgdesc+=" (with GUI)"
-  depends+=(
-    "networkmanager-vpn-plugin-l2tp=$pkgver-$pkgrel"
-  )
-  optdepends=(
-    'libnma-gtk4: GUI support (GTK 4)'
-  )
+  pkgdesc+=' (with GUI)'
+  depends+=("networkmanager-vpn-plugin-l2tp=$pkgver-$pkgrel")
+  optdepends=('libnma-gtk4: GUI support (GTK 4)')
   conflicts=(networkmanager-l2tp-gtk{3,4})
   replaces=(networkmanager-l2tp-gtk{3,4})
 
-  cd NetworkManager-l2tp
+  cd $_dirname
   make DESTDIR="$pkgdir" install dbusservicedir=/usr/share/dbus-1/system.d
 
   cd "$pkgdir"
@@ -93,25 +65,10 @@ package_networkmanager-l2tp() {
 }
 
 package_networkmanager-vpn-plugin-l2tp() {
-  pkgdesc+=" (VPN plugin only)"
-  depends=(
-    gcc-libs
-    glib2
-    glibc
-    libnm
-    nspr
-    nss
-    openssl
-    ppp
-    xl2tpd
-  )
-  optdepends=(
-    'strongswan: IPSec support'
-  )
+  pkgdesc+=' (VPN plugin only)'
+  depends=(gcc-libs glib2 glibc libnm nspr nss openssl ppp xl2tpd)
+  optdepends=('strongswan: IPSec support')
 
   mv plugin/* "$pkgdir"
-
-  install -Dm644 NetworkManager-l2tp/NEWS -t "$pkgdir/usr/share/doc/$pkgbase"
+  install -Dm644 $_dirname/NEWS -t "$pkgdir/usr/share/doc/$pkgbase"
 }
-
-# vim:set sw=2 sts=-1 et:
