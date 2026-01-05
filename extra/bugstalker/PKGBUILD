@@ -2,7 +2,7 @@
 
 pkgname=bugstalker
 _pkgname=BugStalker
-pkgver=0.3.5
+pkgver=0.4.0
 pkgrel=1
 pkgdesc="Rust debugger for Linux x86-64"
 arch=('x86_64')
@@ -11,13 +11,13 @@ license=('MIT')
 depends=('gcc-libs' 'libunwind' 'oniguruma')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('2d10b97a675c9ae2a563602080e39c95b17c3582c1bbf05fdf59e2b8ebd4cc521190fa3896735665efd28e893787368642c4d0b7ccb7641aa0ca2552139001b6')
+sha512sums=('8e5a3eb007aa44f2a948b3c8c3aaf829fa1a4eab109b00afd837aa1e056860792bae8979cc890106a1aa00776eb7d12aa196f147be0dec804e5fe5d423778c9b')
 options=('!lto')
 
 prepare() {
   mv "$_pkgname-$pkgver" "$pkgname-$pkgver"
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
