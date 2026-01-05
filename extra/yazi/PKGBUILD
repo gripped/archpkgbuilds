@@ -4,8 +4,8 @@
 # Contributor: Evine Deng <evinedeng@hotmail.com>
 
 pkgname=yazi
-pkgver=25.12.29
-pkgrel=2
+pkgver=26.1.4
+pkgrel=1
 pkgdesc="Blazing fast terminal file manager written in Rust, based on async I/O"
 url="https://github.com/sxyazi/yazi"
 arch=("x86_64")
@@ -30,7 +30,7 @@ optdepends=(
 )
 makedepends=('cargo' 'imagemagick')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/sxyazi/$pkgname/archive/v$pkgver.tar.gz")
-sha256sums=('95d426eb933837bc499d3cddadaf845b919586d0105ffb831dcd5e085f73fd6c')
+sha256sums=('17839410a2865dc6ddb40da4b034dbf2729602fc325d07ad4df7dbc354c94c9e')
 options=('!lto')
 
 prepare() {
@@ -44,28 +44,34 @@ build() {
 }
 
 check() {
-  cd "$pkgname"-$pkgver
+  cd "$pkgname-$pkgver"
   cargo test --frozen --workspace
 }
 
 package() {
   cd "$pkgname-$pkgver"
-  install -Dm755 "target/release/$pkgname" "$pkgdir/usr/bin/$pkgname"
-  install -Dm755 "target/release/ya" "$pkgdir/usr/bin/ya"
-  install -Dm644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENCE"
-  install -Dm644 "README.md" "$pkgdir/usr/share/doc/$pkgname/README.md"
-  install -Dm644 "assets/yazi.desktop" "$pkgdir/usr/share/applications/yazi.desktop"
+  install -Dm755 "target/release/$pkgname" -t "$pkgdir/usr/bin/"
+  install -Dm755 "target/release/ya" -t "$pkgdir/usr/bin/"
+  install -Dm644 "LICENSE" -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -Dm644 "README.md" -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -Dm644 "assets/yazi.desktop" -t "$pkgdir/usr/share/applications/"
 
-  local r
-  for r in 16 24 32 48 64 128 256; do
+  for r in 16 24 32 48 64 128 256 512; do
     install -dm755 "$pkgdir/usr/share/icons/hicolor/${r}x${r}/apps"
     magick assets/logo.png -resize "${r}x${r}" "$pkgdir/usr/share/icons/hicolor/${r}x${r}/apps/yazi.png"
   done
 
-  cd "$pkgname-boot/completions"
-  install -Dm644 "$pkgname.bash" "$pkgdir/usr/share/bash-completion/completions/$pkgname"
-  install -Dm644 "$pkgname.fish" -t "$pkgdir/usr/share/fish/vendor_completions.d/"
-  install -Dm644 "_$pkgname" -t "$pkgdir/usr/share/zsh/site-functions/"
+  _install_completions "$pkgname-boot" "$pkgname"
+  _install_completions "$pkgname-cli" "ya"
+}
+
+_install_completions() {
+  pushd "$1/completions"
+  install -Dm644 "$2.bash" "$pkgdir/usr/share/bash-completion/completions/$2"
+  install -Dm644 "$2.fish" -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+  install -Dm644 "_$2" -t "$pkgdir/usr/share/zsh/site-functions/"
+  install -Dm644 "$2.elv" -t "$pkgdir/usr/share/elvish/lib/"
+  popd
 }
 
 # vim: ts=2 sw=2 et:
