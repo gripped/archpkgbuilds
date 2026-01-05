@@ -1,0 +1,59 @@
+From 5edf0393723186d3c3cc3529557d85dc15f8dfe0 Mon Sep 17 00:00:00 2001
+From: Ruoyu Zhong <zhongruoyu@outlook.com>
+Date: Mon, 13 Oct 2025 01:48:48 +0800
+Subject: [PATCH] [python] fix compatibility with Python 3.14
+
+argparse.ArgumentParser.__init__ added a new keyword argument `color` in
+Python 3.14 [1]. This caused latexminted to break with the following
+error:
+
+    Traceback (most recent call last):
+      File "/opt/homebrew/bin/latexminted", line 372, in <module>
+        main()
+        ~~~~^^
+      File "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/scripts/minted/latexminted-0.5.0-py3-none-any.whl/latexminted/cmdline.py", line 148, in main
+        parser.add_command('batch', help='Batch process highlight, styledef, and clean', func=batch)
+        ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/scripts/minted/latexminted-0.5.0-py3-none-any.whl/latexminted/cmdline.py", line 41, in add_command
+        parser = self._command_subparsers.add_parser(name, help=help)
+      File "/opt/homebrew/Cellar/python@3.14/3.14.0/Frameworks/Python.framework/Versions/3.14/lib/python3.14/argparse.py", line 1271, in add_parser
+        parser = self._parser_class(**kwargs)
+    TypeError: ArgParser.__init__() got an unexpected keyword argument 'color'
+    system returned with code 256
+
+    ! Package minted Error: minted v3+ executable is not installed, is not added to
+    PATH, or is not permitted with restricted shell escape; or MiKTeX is being use
+    d with -aux-directory or -output-directory without setting a TEXMF_OUTPUT_DIREC
+    TORY environment variable.
+
+Fix by allowing ArgParser.__init__ to accept unknown keyword arguments
+and pass them to the superclass.
+
+Fixes https://github.com/gpoore/minted/issues/463.
+
+[1]: https://docs.python.org/3.14/library/argparse.html#color
+
+Co-authored-by: Yukai Chou <muzimuzhi@gmail.com>
+---
+ python/latexminted/cmdline.py | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/python/latexminted/cmdline.py b/python/latexminted/cmdline.py
+index a3d03e6..ede1bbb 100644
+--- a/python/latexminted/cmdline.py
++++ b/python/latexminted/cmdline.py
+@@ -22,11 +22,12 @@
+ 
+ 
+ class ArgParser(argparse.ArgumentParser):
+-    def __init__(self, *, prog: str):
++    def __init__(self, *, prog: str, **kwargs):
+         super().__init__(
+             prog=prog,
+             allow_abbrev=False,
+-            formatter_class=argparse.RawTextHelpFormatter
++            formatter_class=argparse.RawTextHelpFormatter,
++            **kwargs
+         )
+         self._prog = prog
+         self._command_subparsers = None

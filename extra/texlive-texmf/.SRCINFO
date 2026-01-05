@@ -1,11 +1,12 @@
 pkgbase = texlive-texmf
 	pkgdesc = TeX Live -
 	pkgver = 2025.2
-	pkgrel = 2
+	pkgrel = 3
 	url = https://tug.org/texlive/
 	arch = any
 	license = GPL
 	makedepends = subversion
+	makedepends = zip
 	depends = texlive-bin
 	options = !strip
 	source = svn://tug.org/texlive/tags/texlive-2025.2/Master/texmf-dist#revision=74725
@@ -24,6 +25,7 @@ pkgbase = texlive-texmf
 	source = 80-mtxrun.hook
 	source = mtxrun.script
 	source = https://gitlab.com/git-latexdiff/git-latexdiff/-/commit/a0aa6bad.patch
+	source = minted-python-3.14.patch
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
@@ -40,6 +42,7 @@ pkgbase = texlive-texmf
 	sha256sums = f6bb67db32d37ca15eba88bd15d8b9882c61915f98bc8d7c3c21a66c8cf8f019
 	sha256sums = 98b730e917281227e29077ba5689ad78baee0af3859b55966b2604c6a85f1305
 	sha256sums = e6b754b49563531ec737891ae7c9ad3d2e5bc716e0718ae7bfda298463af48f1
+	sha256sums = e01cb79d11a5eee51084565b77edb83fa85b1f24df2b30061c04f9e88f058a4e
 
 pkgname = texlive-doc
 	pkgdesc = TeX Live - documentation
