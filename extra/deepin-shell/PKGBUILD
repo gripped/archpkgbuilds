@@ -2,7 +2,7 @@
 # Contributor: justforlxz <justforlxz@gmail.com>
 
 pkgname=deepin-shell
-pkgver=2.0.20
+pkgver=2.0.21
 pkgrel=1
 pkgdesc='New DDE shell'
 arch=('x86_64')
@@ -17,7 +17,7 @@ groups=('deepin')
 replaces=('deepin-dock')
 conflicts=('deepin-dock')
 source=("git+https://github.com/linuxdeepin/dde-shell.git#tag=$pkgver")
-sha512sums=('709c6e232a30a78cfe570d38e0287f2a83fdb739b9bbded17a085bedebe04d5a0e5e65dc99b2f174b3fbfc400b323c30c959ce08ff4abb1ebaff45e896592fc1')
+sha512sums=('97e44b8ebb4864ed691512e8b8688b0e8c0cb4cbba3e1516383894420d8f23828226adc0aacac093848e8596afa41b8619b81719127a80ff57c7dbaf9d37147b')
 
 build() {
   cd dde-shell
@@ -27,6 +27,10 @@ build() {
     -DCMAKE_INSTALL_SYSCONFDIR=/etc \
     -DCMAKE_INSTALL_LIBEXECDIR=lib
   cmake --build .
+}
+
+check() {
+  ctest --test-dir dde-shell --output-on-failure
 }
 
 package() {
