@@ -4,7 +4,7 @@
 
 pkgname=keyd
 pkgver=2.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A key remapping daemon for linux"
 arch=(x86_64)
 url="https://github.com/rvaiya/keyd"
@@ -22,7 +22,8 @@ sha256sums=('697089681915b89d9e98caf93d870dbd4abce768af8a647d54650a6a90744e26'
 
 build() {
     cd "$pkgname-$pkgver"
-    make
+    # https://gitlab.archlinux.org/archlinux/packaging/packages/keyd/-/issues/3
+    make PREFIX=/usr
 }
 
 # TODO: Work with upstream to make tests more suitable for PKGBUILDS
