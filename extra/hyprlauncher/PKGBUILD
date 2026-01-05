@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hyprlauncher
-pkgver=0.1.4
-pkgrel=3
+pkgver=0.1.5
+pkgrel=1
 pkgdesc='A multipurpose and versatile launcher / picker for Hyprland'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
@@ -21,7 +21,7 @@ depends=(gcc-libs # libgcc_s.so libstdc++.so
 makedepends=(cmake)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('f3ae0d0b34451db90fce9631f6040097d5207e0fffb72bb77a5a61f514379f91')
+sha256sums=('907bf3ce39699d565d49adff1f9b2baee4b59fbb0c1c2b1ec41814f05065bec7')
 
 build() {
 	cd "$_archive"
