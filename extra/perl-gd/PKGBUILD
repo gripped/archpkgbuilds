@@ -2,8 +2,8 @@
 # Contributor: Sergej Pupykin <pupykin.s+aur@gmail.com>
 
 pkgname=perl-gd
-pkgver=2.83
-pkgrel=3
+pkgver=2.84
+pkgrel=1
 pkgdesc="Interface to Gd Graphics Library"
 arch=('x86_64')
 url="https://search.cpan.org/dist/GD"
@@ -12,7 +12,7 @@ depends=('perl' 'gd')
 makedepends=('perl-extutils-pkgconfig' 'perl-file-which')
 options=('!emptydirs')
 source=(https://search.cpan.org/CPAN/authors/id/R/RU/RURBAN/GD-$pkgver.tar.gz)
-sha512sums=('65080a18ff675b7997a4425dcd9c8171e7d4cd5d53f499541caa7a0d85399ecffa04cae742ffcf8a0f2102a446ea46ecac45293fe14637b6d8a56d589c8c95cf')
+sha512sums=('2de86591f9e1032389f79262649148e3a49f4633b1d749e8f02474d995f48942cc513a0c0ee0cac34030b75736e7e1ec9b0474d5ee5eea18ba40291f6ae3977c')
 
 build() {
   export PERL_MM_USE_DEFAULT=1 PERL_AUTOINSTALL="--skipdeps" \
