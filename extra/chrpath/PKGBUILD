@@ -2,7 +2,7 @@
 # Contributor: Gerardo Exequiel Pozzi <vmlinuz386@yahoo.com.ar>
 
 pkgname=chrpath
-pkgver=0.17
+pkgver=0.18
 pkgrel=1
 pkgdesc="Change or delete the rpath or runpath in ELF files"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('GPL2')
 depends=('glibc')
 makedepends=('git')
 source=("git+https://codeberg.org/pere/chrpath.git#tag=release-$pkgver")
-sha256sums=('SKIP')
+sha256sums=('5c304cace5b15e820eeea341d8a98d24fca8593d440b2ffe1b41c6ad08002d4a')
 
 prepare() {
   cd "${srcdir}"/$pkgname
