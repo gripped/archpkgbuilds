@@ -7,9 +7,9 @@
 # Contributor: Marcus Fritzsch <fritschy@googlemail.com>
 
 pkgname=coin
-pkgver=4.0.5
+pkgver=4.0.6
 epoch=1 # downgrade, ref https://gitlab.archlinux.org/archlinux/packaging/packages/freecad/-/issues/23
-pkgrel=3
+pkgrel=1
 pkgdesc='3D graphics library compatible with Open Inventor'
 url='https://github.com/coin3d/coin'
 license=(BSD-3-Clause)
@@ -21,7 +21,7 @@ optdepends=('fontconfig: dynamic linking support'
             'openal: audio/dynamic linking support'
             'zlib: dynamic linking support')
 source=("git+$url#tag=v$pkgver")
-b2sums=('10e752d0a2b92953dc4fbd351e27de7110d4b30b54c1e5afe36144d40105f88c576a856e8e0bd08bf6e12d1dbc98ae2301017d0e9755e66b15e2aa343d002f85')
+b2sums=('ce6afac17f41880b794b6825e855e6ba826ed3bf5ee91ecb3736e959973b3fdaaee91aaae582d5191807a3ceef39b62166b95dfd66fa2d2627cce716ea5ed74d')
 
 build() {
   cmake \
