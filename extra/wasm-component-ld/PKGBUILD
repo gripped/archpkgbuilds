@@ -2,7 +2,7 @@
 # Contributor: greyltc (AUR)
 
 pkgname=wasm-component-ld
-pkgver=0.5.19
+pkgver=0.5.20
 pkgrel=1
 pkgdesc="Command line linker for creating WebAssembly components"
 url="https://github.com/bytecodealliance/wasm-component-ld"
@@ -22,11 +22,11 @@ checkdepends=(
 )
 options=(!lto)
 source=("git+$url#tag=v$pkgver")
-b2sums=('a81dccd6e43ac9417452ff55090b8a8e01b0cf4a2646ba557ba332178ad00daf9bffd0c871ea16e267a4eece056f34d00e4c537538197cc8be5e8c8fd715cab4')
+b2sums=('c556711fd73db185a93cab5461282aaad0ffb53256fe03ffbfe52a28a339224ae6c9377a13aaaf3399195e516086be2a4d2f3dac9b1d678aa4ab2cfcc291511d')
 
 prepare() {
   cd wasm-component-ld
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
