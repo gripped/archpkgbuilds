@@ -3,7 +3,7 @@
 # Contributor: GordonGR <ntheo1979@gmail.com>
 
 pkgname=lib32-gtk3
-pkgver=3.24.50
+pkgver=3.24.51
 pkgrel=1
 epoch=1
 pkgdesc="GObject-based multi-platform GUI toolkit (32-bit)"
@@ -50,7 +50,7 @@ source=(
   gtk-query-immodules-3.0-32.hook
   0001-Allow-disabling-legacy-Tracker-search.patch
 )
-b2sums=('93ee986e75b2b94b50f1485a183d6ab558306bf17ab15a500ea485c40123257873a6a99fc5e20f864da6c561f0f6f4c7a15f42694bd691db03aeddd5dd6587d2'
+b2sums=('06f5dcfe6cf693d4e0da0964715e7ea07ab8940eea21b7fba28615c6d9ecdd8533e51e061b57e6b4f5b9401041adeb52fd81fc856fa79dc5bf8e5a4058d9fa92'
         'c7136723735c4cbfe654851d0ccc1698142fa8f90b724ed9a970ebd6a74b4f59ea558e134e600736a1041417fc7fd9b3baa8bc561ed9598f2fbf45392dcc9159'
         'f63a30a5823c564861145128a91b6d6ca4f13fd40cf09d1b8897bccaf8664af085b3cbe20ba7da6289439a820440a7af17b6281efea1f84a8c4decd62df00a54')
 
