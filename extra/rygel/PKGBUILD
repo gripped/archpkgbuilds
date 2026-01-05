@@ -2,7 +2,7 @@
 # Contributor: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=rygel
-pkgver=45.0
+pkgver=45.1
 pkgrel=1
 epoch=1
 pkgdesc="UPnP AV MediaServer and MediaRenderer"
@@ -52,7 +52,7 @@ groups=(gnome)
 source=(
   "git+$url.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('56555768254872bcdaf9d68ac9c9e63757391ceb91c56492ff34cbe5b1ce2872f39a4709c27c5f68212f7d3e89be7d6a450236c73fefea3a9f74ea179cd7b77b')
+b2sums=('a0db116810a87361e885208c169f2abaeca55ef5f2321d5fbd24662aaee4e39c53f9c7f27c25d99c6deb23df155d9372d57e3124af1cf0b56d4b105b60da4297')
 validpgpkeys=(
   AC9CD4E32D7C7F6357BA8ADD10F6E970175D29E1 # Jens Georg <mail@jensge.org>
 )
