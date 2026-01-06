@@ -3,8 +3,8 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=git-grab
-pkgver=4.0.0
-pkgrel=1
+pkgver=4.0.1
+pkgrel=2
 pkgdesc='A tool to clone git repositories to a standard location organised by domain and path'
 arch=(x86_64)
 url='https://github.com/wezm/git-grab'
@@ -13,8 +13,8 @@ depends=(git gcc-libs)
 makedepends=(rust)
 options=(!lto)
 source=("$pkgname::git+$url.git#tag=$pkgver")
-sha512sums=('1f418e8470608375e575c42a86bfc93b31972093f69ff3227361681ff6480a71cef7b2894e22219fa7ec837380bd8e565e5293e612266114c04eb4b02ca74be5')
-b2sums=('3e2e37165862a473715e1ac5ec6a0fedc89f2f95f51bf5d80fdd07cfa1993b4d3ca37e65b4f44a977f8ccbf930baede99f6b7d35504b33a17d076ef1bbeb7a60')
+sha512sums=('d2de025ad0208d94a8e0f6d86754e7dd08fc520747a65f0462865afe952c2d94a65b1ef3604e00a6b5cf84d1fa3c663d9b5474c20a25ef85afad4863767bce29')
+b2sums=('cda1390dca7771fa1f7efc74ad36c28b018322b6fb5d449e70f2510b2f3b4becdcfcf686e45f9dc3971eb21fa2decc28a6b120fa7b5dfc15ee87703415ee77fa')
 
 prepare() {
   cd "$pkgname"
@@ -42,6 +42,9 @@ package() {
 
   # documentation
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+
+  # man page
+  install -vDm644 -t "$pkgdir/usr/share/man/man1" git-grab.1
 
   # license
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE*
