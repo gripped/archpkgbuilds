@@ -2,7 +2,7 @@
 # Contributor: Jonas Witschel <diabonas@archlinux.org>
 
 pkgname=libtpms
-pkgver=0.10.1
+pkgver=0.10.2
 pkgrel=1
 pkgdesc='Library providing a software emulation of a Trusted Platform Module (TPM 1.2 and TPM 2.0)'
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=(
 )
 makedepends=('git')
 source=("git+$url.git?signed#tag=v$pkgver")
-sha512sums=('11b023199beb54c38df6d60eedc0dcddcdf99f866788da5e893ec5337795623b3442f8878e3fff06dd31eb5e682c8ef159a8b43f33baeddbe978f563e4f96bc6')
+sha512sums=('5c809f685b91e34a61c74f8bf9ee74533fbd47a6138e1b2343f93c8d496eb71e237963ab263728a8c204371117221978730b6459e2cde401dff3939c3b2b0777')
 validpgpkeys=('B818B9CADF9089C2D5CEC66B75AD65802A0B4211') # Stefan Berger <stefanb@linux.vnet.ibm.com>
 
 prepare() {
