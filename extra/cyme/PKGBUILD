@@ -2,7 +2,7 @@
 # Contributor:  Vitalii Kuzhdin <vitaliikuzhdin@gmail.com>
 
 pkgname=cyme
-pkgver=2.2.8
+pkgver=2.2.9
 pkgrel=1
 pkgdesc="List system USB buses and devices; a lib and modern cross-platform lsusb"
 arch=('x86_64')
@@ -12,11 +12,11 @@ depends=('gcc-libs' 'libusb')
 makedepends=('cargo')
 _pkgsrc="${pkgname}-${pkgver}"
 source=("${_pkgsrc}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('a4fc0d5e2434d9a98f1b37683d3c1fe60d8605e8ad99f0a4f95387830c81b930')
+sha256sums=('fd6ac39ef39210b6875fe63a51c37a50b1a801c87b988051f1f74fd1312d7264')
 
 prepare() {
   cd "${srcdir}/${_pkgsrc}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
