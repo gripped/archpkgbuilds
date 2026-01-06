@@ -1,7 +1,7 @@
 pkgbase = bear
 	pkgdesc = A tool to generate compilation database for clang tooling
 	pkgver = 4.0.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/rizsotto/Bear
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -10,7 +10,10 @@ pkgbase = bear
 	depends = glibc
 	depends = gcc-libs
 	source = bear::git+https://github.com/rizsotto/Bear.git#tag=4.0.0
+	source = fix-wrapper-preload-path.patch
 	sha512sums = 5c84536095c04d640fe05e47cfa0aa586c6a0f539c4a3d0f5391fdd52da89b6955d6f5f7bde5cbcbe6053f929febf2716c4ae47a7373e9ea1d5118043ed1a433
+	sha512sums = 9445568e3865dafc2c562382f7c214b5189f2b2c9eb274210912b1ef42c0343f345c39e4a914739dc22bad36fec8e992fa0756ca988c50501ddbd6487b16d0cf
 	b2sums = f22505fb18cb8f271542fcd1262da9e5f9c71fa6836202ff32ec62966982f70410fa751b484d2622f0f97c0e7f7415d23446feb84ee1f49ead3ea779c2af9426
+	b2sums = 4a1c08a0b56613985f81f2249afca0c30a319faed6c6f320c55f72fc97fc72aea8dec4faa698e84d887b21eb649a2bb1588da43c98cec84220efe9586479f28a
 
 pkgname = bear
