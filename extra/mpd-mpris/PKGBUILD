@@ -2,7 +2,7 @@
 # Contributor: Nguyen Pham Cao <natsukagami at gmail dot com>
 
 pkgname=mpd-mpris
-pkgver=0.4.2
+pkgver=0.4.3
 pkgrel=1
 pkgdesc="An implementation of the MPRIS protocol for MPD"
 arch=(x86_64)
@@ -14,7 +14,7 @@ optdepends=("mpd: for connecting to MPD on localhost")
 # we cannot use LTO as otherwise we do not get reproducible package with full RELRO
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-b2sums=('78385991f3a57f76ecf76dba9de0b8bf19ed9d92d3a8e06e506e32fb90cfc5504d4f3139ce3fc721fa42c712ffe849c81d4e04e5c3e73778d493864011a0b262')
+b2sums=('a5b75b031f1d9e57e62e2e4ef0d3e992012943c2806cdcdf75bf92b5b067880be49bd3f35398931178c26e8f9498b290f2cddb7172f2d1535ec3ade4c8ecb7e5')
 
 prepare(){
   cd $pkgname-$pkgver
