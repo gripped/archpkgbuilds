@@ -2,28 +2,28 @@
 
 pkgname=prometheus-snmp-exporter
 _pkgname=snmp_exporter
-pkgver=0.29.0
+pkgver=0.30.0
 pkgrel=1
 pkgdesc='Prometheus exporter for SNMP metrics'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/prometheus/snmp_exporter'
-license=('Apache-2.0')
-depends=('glibc' 'net-snmp')
-makedepends=('git' 'go')
+license=(Apache-2.0)
+depends=(glibc net-snmp)
+makedepends=(git go)
 backup=("etc/conf.d/$pkgname")
-install='package.install'
-options=('!lto')
+install=package.install
+options=(!lto)
 source=(
   "$pkgname::git+$url#tag=v$pkgver"
-  'systemd.service'
-  'sysusers.conf'
-  'config.env'
+  systemd.service
+  sysusers.conf
+  config.env
 )
-sha512sums=('cd828ec2cea290dd1ecb3f65536ca43f6908effe34e4fde821d0e77a1ff6cfba4bcc7ae91585f7c4f7834c22575b592e53fa67ae44178eded664ce25ea23abdc'
+sha512sums=('8a8f2b4ff1954291496e0999942457cdafab1a749d1f5a17341bf5b04d745cccb72ded59e96e701b28bc3564c7c6f1b8f09cd61eb5bf0ceb96c8169cc00e6b3d'
             '9ca53c18fe84d49cf283a402dc3162d0e6a2045f7030a7c05b9d31a39cc16e86557d49361d985e4993993cf59acbe65d12ebedeebdff87c87b647f49499ec321'
             '845bd76b3284b13673d35dde5a2068f48e391baf99baf2287ad1eb65f35c34d3619962992538dd4d01e84e0d78deb7e7ed029b6e89f3db4772e6c232959e4050'
             '3cac11e6c0935b2c123a4ed85791fbab4585d35820e89baa927883619a03c3925876bdc5e385ac7df48f7adec8ee1082aaa347bce2ad6c237f7401eba58e2905')
-b2sums=('9232ed7fca40f63548f5531a1dfe7fcd2e21da527f48945061009c2a5832ea5b58e2ea729577745e8d93bc37dd8a2234dff032a38c58fed430f4f5bcc74fff9b'
+b2sums=('cacaf93b022f15aabda3e877beac9b6b64710bc4a3aaf855b34911724503d40d73aca8c20faad243ca8c9c68f18087e9370f79dcf07924b646149ed8119458a3'
         'ac862a1fecc719c04684836b0c0e0aaff93912ad09f676555fc3212dcb8fa93bd4569550247fb0aaca9e7083e6d4707ebd7f6332d28ab14ba0774625fc176737'
         'e3ee4223014a9db6ba74b45d3e2a5e7fe32bf2628289245a7864d2a5118647de851314c877a4148f9693eca9722a025ed92b23f8389694b196e0af671f618467'
         '88d48f0485a485a7840f9cc9aa6c5c3a0de2c28542bd77f16fa181772532287375e214f214bf925c30705a60ee48ebf15ac6ca707f58a7b3ed74984afb22aded')
