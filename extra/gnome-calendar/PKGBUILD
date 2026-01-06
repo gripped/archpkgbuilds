@@ -3,8 +3,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-calendar
-pkgver=49.0.1
-pkgrel=2
+pkgver=49.1
+pkgrel=1
 pkgdesc="Simple and beautiful calendar application designed to perfectly fit the GNOME desktop"
 url="https://apps.gnome.org/Calendar"
 arch=(x86_64)
@@ -39,13 +39,10 @@ optdepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-calendar.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('7e6adde4b5452b8257e68ce62a0b796a2aba7b9d4a6348858c504a602c96a2f56187e136d367c1b6110e38db745c2acee8496a31365ec68b0ce1fcd73d2ef385')
+b2sums=('16f89b6e5ba8abb00d65b00fb75c91b0f19dfa780ea4f6e464b687b2897772e310b3fcef6e4e3bea82728fb4b21c0b543330772a55dc195ff6bb0196b2d64c26')
 
 prepare() {
   cd $pkgname
-
-  # Backport fixes from gnome-49 branch
-  git cherry-pick -n ..26892365a20eb02f55a8cdba293c52a282765959
 }
 
 build() {
