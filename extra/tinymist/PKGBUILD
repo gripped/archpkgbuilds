@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=tinymist
-pkgver=0.14.6
+pkgver=0.14.8
 pkgrel=1
 epoch=1
 pkgdesc='an integrated language service for Typst'
@@ -15,7 +15,7 @@ makedepends=(cargo)
 replaces=("$pkgname-bin")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('c49cbfc6ddb4abd3a2f74259b8272c72f86fc82090a887fa5b7c0b84b718a9ac')
+sha256sums=('22d4d682df5ad56496da6965e74f0a89f00133c22a30c1c07f1bb45acd841aa7')
 
 prepare() {
 	cd "$_archive"
