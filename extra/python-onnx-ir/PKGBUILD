@@ -1,8 +1,8 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=python-onnx-ir
-pkgver=0.1.11
-pkgrel=2
+pkgver=0.1.14
+pkgrel=1
 pkgdesc="Efficient in-memory representation for ONNX"
 arch=('x86_64')
 url="http://onnx.ai/ir-py/"
@@ -23,7 +23,7 @@ makedepends=(
   python-wheel
 )
 source=("${pkgname}::git+https://github.com/onnx/ir-py#tag=v$pkgver")
-sha256sums=('14eade4e7cf7709aa131ac3ebd833c42f401bf957eae8ba5a976c92f9bb6b923')
+sha256sums=('baa21f381a5360245aa1b94712b9e602d93034aabbbadb8ef0c55b5e77cd2c6a')
 
 build() {
   cd $pkgname
