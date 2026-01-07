@@ -4,7 +4,7 @@
 pkgbase=archlinux-keyring
 pkgname=(archlinux-keyring
          voa-verifiers-arch)
-pkgver=20251116
+pkgver=20260107
 pkgrel=1
 pkgdesc='Arch Linux PGP keyring'
 arch=('any')
@@ -13,7 +13,7 @@ license=('GPL-3.0-or-later')
 makedepends=('git' 'python' 'sequoia-sq' 'pkgconf' 'systemd' 'voa')
 checkdepends=('python-coverage' 'python-pytest')
 source=("archlinux-keyring::git+https://gitlab.archlinux.org/archlinux/archlinux-keyring.git#tag=${pkgver}?signed")
-sha256sums=('559df2321040d2f08345c5327168fdf56352147a049c0b4c88d033814dcf23c9')
+sha256sums=('0d2a7ef2a865fd51f1549656f482fa4970019a4a16f6543f767091fb7e2fdf11')
 validpgpkeys=('02FD1C7A934E614545849F19A6234074498E9CEE'  # Christian Hesse <eworm@archlinux.org>
               'C7E7849466FE2358343588377258734B41C31549'  # David Runge <dvzrv@archlinux.org>
               '4AA4767BBC9C4B1D18AE28B77F2D434B9741E8AC'  # Pierre Schmitz <pierre@archlinux.org>
