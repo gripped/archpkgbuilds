@@ -6,26 +6,31 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=curl-rustls
-pkgver=8.17.0
+pkgver=8.18.0
 pkgrel=1
 pkgdesc='command line tool and library for transferring data with URLs (with rustls)'
 arch=('x86_64')
 url='https://curl.se/'
 license=('MIT')
-depends=('ca-certificates'
-         'brotli' 'libbrotlidec.so'
-         'glibc'
-         'krb5' 'libgssapi_krb5.so'
-         'libidn2' 'libidn2.so'
-         'libnghttp2' 'libnghttp2.so'
-         'libpsl' 'libpsl.so'
-         'librustls' 'librustls.so'
-         'zlib' 'libz.so'
-         'zstd' 'libzstd.so')
-makedepends=('git' 'patchelf')
+depends=(
+  'ca-certificates'
+  'brotli' 'libbrotlidec.so'
+  'glibc'
+  'krb5' 'libgssapi_krb5.so'
+  'libidn2' 'libidn2.so'
+  'libnghttp2' 'libnghttp2.so'
+  'libpsl' 'libpsl.so'
+  'librustls' 'librustls.so'
+  'zlib' 'libz.so'
+  'zstd' 'libzstd.so'
+)
+makedepends=(
+  'git'
+  'patchelf'
+)
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
 source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
-sha512sums=('b2d6ab7e3bbfd7436524d78f82d1cf99151e43bc356a41f08005dff2cd0c15516af870c945db7f26c4495f5b2a013df116ffb9060dc52aa2e9acca085abc7044')
+sha512sums=('304ddac52ee589f6e6e168747d720ea1ecc6f66adb469b70e0a1ee7c9f0bf5ed12e2538647bb746b8a6aaa1e3860e9b00ed29cd2079ca2e4c25a2afc972f0e6a')
 
 _backports=(
 )
