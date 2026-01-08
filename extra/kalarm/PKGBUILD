@@ -3,7 +3,7 @@
 
 pkgname=kalarm
 pkgver=25.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Personal alarm scheduler'
 arch=(x86_64)
 url='https://apps.kde.org/kalarm/'
@@ -69,4 +69,6 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
+
+  setcap cap_wake_alarm+ep "$pkgdir"/usr/bin/kalarm
 }
