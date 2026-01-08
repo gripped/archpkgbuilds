@@ -6,37 +6,36 @@
 
 pkgbase=curl
 pkgname=(curl libcurl-compat libcurl-gnutls)
-pkgver=8.17.0
+pkgver=8.18.0
 pkgrel=2
 pkgdesc='command line tool and library for transferring data with URLs'
 arch=('x86_64')
 url='https://curl.se/'
 license=('MIT')
-depends=('ca-certificates'
-         'brotli' 'libbrotlidec.so'
-         'krb5' 'libgssapi_krb5.so'
-         'libidn2' 'libidn2.so'
-         'libnghttp2' 'libnghttp2.so'
-         'libnghttp3' 'libnghttp3.so'
-         'libpsl' 'libpsl.so'
-         'libssh2' 'libssh2.so'
-         'zlib' 'libz.so'
-         'zstd' 'libzstd.so')
-makedepends=('git' 'patchelf')
+makedepends=(
+  # for building
+  'git'
+  'patchelf'
+  # actual package dependencies
+  'ca-certificates'
+  'brotli'
+  'gnutls'
+  'krb5'
+  'libidn2'
+  'libnghttp2'
+  'libnghttp3'
+  'libngtcp2'
+  'libpsl'
+  'libssh2'
+  'nettle'
+  'zlib'
+  'zstd')
 checkdepends=('valgrind')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
 source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
-sha512sums=('b2d6ab7e3bbfd7436524d78f82d1cf99151e43bc356a41f08005dff2cd0c15516af870c945db7f26c4495f5b2a013df116ffb9060dc52aa2e9acca085abc7044')
+sha512sums=('304ddac52ee589f6e6e168747d720ea1ecc6f66adb469b70e0a1ee7c9f0bf5ed12e2538647bb746b8a6aaa1e3860e9b00ed29cd2079ca2e4c25a2afc972f0e6a')
 
 _backports=(
-  # curl: fix progress meter in parallel mode
-  'f12a81de4f34bf0f8055d264a432f0f3befe7921'
-
-  # vtls: fix CURLOPT_CAPATH use
-  'f55974c139d88582a9c503c9a35840f3b9fae458'
-
-  # wcurl: import v2025.11.09
-  '79d3e1d7d44dda65fdc303a53a44109583135b12'
 )
 
 _reverts=(
@@ -80,6 +79,8 @@ build() {
     --enable-websockets
     --with-gssapi
     --with-libssh2
+    --with-nghttp3
+    --with-ngtcp2
     --with-ca-bundle='/etc/ssl/certs/ca-certificates.crt'
   )
 
@@ -91,9 +92,9 @@ build() {
   "${srcdir}/${pkgbase}"/configure \
     "${_configure_options[@]}" \
     --enable-versioned-symbols \
-    --with-fish-functions-dir=/usr/share/fish/vendor_completions.d/ \
+    --without-gnutls \
     --with-openssl \
-    --with-openssl-quic \
+    --with-fish-functions-dir=/usr/share/fish/vendor_completions.d/ \
     --with-zsh-functions-dir=/usr/share/zsh/site-functions/
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
@@ -104,8 +105,8 @@ build() {
   "${srcdir}/${pkgbase}"/configure \
     "${_configure_options[@]}" \
     --disable-versioned-symbols \
-    --with-openssl \
-    --with-openssl-quic
+    --without-gnutls \
+    --with-openssl
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make -C lib
   patchelf --set-soname 'libcurl-compat.so.4' ./lib/.libs/libcurl.so
@@ -136,7 +137,19 @@ check() {
 }
 
 package_curl() {
-  depends+=('openssl' 'libcrypto.so' 'libssl.so')
+  depends=(
+    'ca-certificates'
+    'brotli' 'libbrotlidec.so'
+    'krb5' 'libgssapi_krb5.so'
+    'libidn2' 'libidn2.so'
+    'libnghttp2' 'libnghttp2.so'
+    'libnghttp3' 'libnghttp3.so'
+    'libngtcp2' 'libngtcp2.so'
+    'libpsl' 'libpsl.so'
+    'libssh2' 'libssh2.so'
+    'openssl' 'libcrypto.so' 'libssl.so'
+    'zlib' 'libz.so'
+    'zstd' 'libzstd.so')
   provides=('libcurl.so')
   replaces=('wcurl')
   conflicts=('wcurl')
@@ -154,7 +167,19 @@ package_curl() {
 
 package_libcurl-compat() {
   pkgdesc='command line tool and library for transferring data with URLs (no versioned symbols)'
-  depends=('curl')
+  depends=(
+    'ca-certificates'
+    'brotli' 'libbrotlidec.so'
+    'krb5' 'libgssapi_krb5.so'
+    'libidn2' 'libidn2.so'
+    'libnghttp2' 'libnghttp2.so'
+    'libnghttp3' 'libnghttp3.so'
+    'libngtcp2' 'libngtcp2.so'
+    'libpsl' 'libpsl.so'
+    'libssh2' 'libssh2.so'
+    'openssl' 'libcrypto.so' 'libssl.so'
+    'zlib' 'libz.so'
+    'zstd' 'libzstd.so')
   provides=('libcurl-compat.so')
 
   cd "${srcdir}"/build-curl-compat
@@ -174,7 +199,20 @@ package_libcurl-compat() {
 
 package_libcurl-gnutls() {
   pkgdesc='command line tool and library for transferring data with URLs (no versioned symbols, linked against gnutls)'
-  depends=('curl' 'gnutls')
+  depends=(
+    'ca-certificates'
+    'brotli' 'libbrotlidec.so'
+    'gnutls' # 'libgnutls.so'
+    'krb5' 'libgssapi_krb5.so'
+    'libidn2' 'libidn2.so'
+    'libnghttp2' 'libnghttp2.so'
+    'libnghttp3' 'libnghttp3.so'
+    'libngtcp2' 'libngtcp2.so' 'libngtcp2_crypto_gnutls.so'
+    'libpsl' 'libpsl.so'
+    'libssh2' 'libssh2.so'
+    'nettle' 'libnettle.so'
+    'zlib' 'libz.so'
+    'zstd' 'libzstd.so')
   provides=('libcurl-gnutls.so')
 
   cd "${srcdir}"/build-curl-gnutls
