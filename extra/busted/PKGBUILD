@@ -2,9 +2,9 @@
 
 pkgbase=busted
 pkgname=("$pkgbase" "lua-$pkgbase" "lua53-$pkgbase" "lua52-$pkgbase" "lua51-$pkgbase")
-pkgver=2.2.0
+pkgver=2.3.0
 _rockrel=1
-pkgrel=2
+pkgrel=1
 pkgdesc='Elegant Lua unit testing'
 arch=(any)
 url="https://lunarmodules.github.io/$pkgbase/"
@@ -25,7 +25,7 @@ makedepends=(lua
              luarocks)
 _archive="$pkgbase-$pkgver"
 source=("https://github.com/lunarmodules/$pkgbase/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('befca10f573bb476fa1db2e3149150d65f802a71d34d1682679e640665f2dc2b')
+sha256sums=('1669a4f59ff9e08ad4b38d4212ad8cdd4519209101e3af5459a596d5ad9a7d24')
 
 _package() {
 	cd "$_archive"
