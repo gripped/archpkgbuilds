@@ -7,26 +7,34 @@
 
 pkgbase=lib32-curl
 pkgname=(lib32-curl lib32-libcurl-compat lib32-libcurl-gnutls)
-pkgver=8.17.0
-pkgrel=1
+pkgver=8.18.0
+pkgrel=3
 pkgdesc='command line tool and library for transferring data with URLs (32-bit)'
 arch=('x86_64')
 url='https://curl.se/'
 license=('MIT')
-depends=('curl'
-         'lib32-brotli' 'libbrotlidec.so'
-         'lib32-krb5' 'libgssapi_krb5.so'
-         'lib32-libidn2' 'libidn2.so'
-         'lib32-libnghttp2' 'libnghttp2.so'
-         'lib32-libnghttp3' 'libnghttp3.so'
-         'lib32-libpsl' 'libpsl.so'
-         'lib32-libssh2' 'libssh2.so'
-         'lib32-zlib' 'libz.so'
-         'lib32-zstd' 'libzstd.so')
-makedepends=('git' 'patchelf' 'lib32-gnutls' 'lib32-openssl')
+makedepends=(
+  # for building
+  'git'
+  'patchelf'
+  'curl'
+  # actual package dependencies
+  'lib32-brotli'
+  'lib32-gnutls'
+  'lib32-krb5'
+  'lib32-nettle'
+  'lib32-libidn2'
+  'lib32-libnghttp2'
+  'lib32-libnghttp3'
+  'lib32-libngtcp2'
+  'lib32-libpsl'
+  'lib32-libssh2'
+  'lib32-openssl'
+  'lib32-zlib'
+  'lib32-zstd')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
 source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
-sha512sums=('b2d6ab7e3bbfd7436524d78f82d1cf99151e43bc356a41f08005dff2cd0c15516af870c945db7f26c4495f5b2a013df116ffb9060dc52aa2e9acca085abc7044')
+sha512sums=('304ddac52ee589f6e6e168747d720ea1ecc6f66adb469b70e0a1ee7c9f0bf5ed12e2538647bb746b8a6aaa1e3860e9b00ed29cd2079ca2e4c25a2afc972f0e6a')
 
 _backports=(
 )
@@ -75,7 +83,9 @@ build() {
     --enable-threaded-resolver
     --enable-websockets
     --with-gssapi
-    # --with-libssh2 TODO Fix when new release of libssh2
+    --with-libssh2
+    --with-nghttp3
+    --with-ngtcp2
     --with-random='/dev/urandom'
     --with-ca-bundle='/etc/ssl/certs/ca-certificates.crt'
     --libdir='/usr/lib32'
@@ -88,9 +98,9 @@ build() {
 
   "${srcdir}/curl"/configure \
     "${_configure_options[@]}" \
-    --with-openssl \
-    --with-openssl-quic \
-    --enable-versioned-symbols
+    --enable-versioned-symbols \
+    --without-gnutls \
+    --with-openssl
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make -C lib
   make libcurl.pc
@@ -100,9 +110,9 @@ build() {
 
   "${srcdir}/curl"/configure \
     "${_configure_options[@]}" \
-    --with-openssl \
-    --with-openssl-quic \
-    --disable-versioned-symbols
+    --disable-versioned-symbols \
+    --without-gnutls \
+    --with-openssl
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make -C lib
   patchelf --set-soname 'libcurl-compat.so.4' ./lib/.libs/libcurl.so
@@ -113,15 +123,27 @@ build() {
   "${srcdir}/curl"/configure \
     "${_configure_options[@]}" \
     --disable-versioned-symbols \
-    --without-openssl \
-    --with-gnutls
+    --with-gnutls \
+    --without-openssl
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make -C lib
   patchelf --set-soname 'libcurl-gnutls.so.4' ./lib/.libs/libcurl.so
 }
 
 package_lib32-curl() {
-  depends+=('lib32-openssl' 'libcrypto.so' 'libssl.so')
+  depends=(
+    'curl'
+    'lib32-brotli' 'libbrotlidec.so'
+    'lib32-krb5' 'libgssapi_krb5.so'
+    'lib32-libidn2' 'libidn2.so'
+    'lib32-libnghttp2' 'libnghttp2.so'
+    'lib32-libnghttp3' 'libnghttp3.so'
+    'lib32-libngtcp2' 'libngtcp2.so'
+    'lib32-libpsl' 'libpsl.so'
+    'lib32-libssh2' 'libssh2.so'
+    'lib32-openssl' 'libcrypto.so' 'libssl.so'
+    'lib32-zlib' 'libz.so'
+    'lib32-zstd' 'libzstd.so')
   provides=('libcurl.so')
 
   cd "${srcdir}"/build-curl
@@ -136,7 +158,19 @@ package_lib32-curl() {
 
 package_lib32-libcurl-compat() {
   pkgdesc='command line tool and library for transferring data with URLs (32-bit, no versioned symbols)'
-  depends=('lib32-curl')
+  depends=(
+    'libcurl-compat'
+    'lib32-brotli' 'libbrotlidec.so'
+    'lib32-krb5' 'libgssapi_krb5.so'
+    'lib32-libidn2' 'libidn2.so'
+    'lib32-libnghttp2' 'libnghttp2.so'
+    'lib32-libnghttp3' 'libnghttp3.so'
+    'lib32-libngtcp2' 'libngtcp2.so'
+    'lib32-libpsl' 'libpsl.so'
+    'lib32-libssh2' 'libssh2.so'
+    'lib32-openssl' 'libcrypto.so' 'libssl.so'
+    'lib32-zlib' 'libz.so'
+    'lib32-zstd' 'libzstd.so')
   provides=('libcurl-compat.so')
 
   cd "${srcdir}"/build-curl-compat
@@ -157,7 +191,20 @@ package_lib32-libcurl-compat() {
 
 package_lib32-libcurl-gnutls() {
   pkgdesc='command line tool and library for transferring data with URLs (32-bit, no versioned symbols, linked against gnutls)'
-  depends=('lib32-curl' 'lib32-gnutls')
+  depends=(
+    'libcurl-gnutls'
+    'lib32-brotli' 'libbrotlidec.so'
+    'lib32-gnutls' # 'libgnutls.so'
+    'lib32-krb5' 'libgssapi_krb5.so'
+    'lib32-libidn2' 'libidn2.so'
+    'lib32-libnghttp2' 'libnghttp2.so'
+    'lib32-libnghttp3' 'libnghttp3.so'
+    'lib32-libngtcp2' 'libngtcp2.so' 'libngtcp2_crypto_gnutls.so'
+    'lib32-libpsl' 'libpsl.so'
+    'lib32-libssh2' 'libssh2.so'
+    'lib32-nettle' 'libnettle.so'
+    'lib32-zlib' 'libz.so'
+    'lib32-zstd' 'libzstd.so')
   provides=('libcurl-gnutls.so')
 
   cd "${srcdir}"/build-curl-gnutls
