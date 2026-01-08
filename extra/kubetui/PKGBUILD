@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=kubetui
-pkgver=1.11.0
+pkgver=1.12.0
 pkgrel=1
 pkgdesc="A TUI for real-time monitoring and exploration of Kubernetes resources"
 arch=('x86_64')
@@ -10,12 +10,12 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('352e446f0b5a7d8aa9690af80d213474c2e75741028711859478a6ed8944c3cdd1d993dc056f59b812f5ba435c5c0cfd127be7f222f337b30b40a9771e992dfc')
+sha512sums=('22181f62f5229b5136c32b5fd882e6939d72833dc2f80f1f83c729be52c13564d440422dd8005f4cde846d38b42b97c6182937306038a77a843f24b72022098e')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
   mkdir completions
 }
 
