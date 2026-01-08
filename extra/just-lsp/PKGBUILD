@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=just-lsp
-pkgver=0.3.1
+pkgver=0.3.2
 pkgrel=1
 pkgdesc="A language server for just"
 arch=(x86_64)
@@ -14,8 +14,8 @@ depends=(
 )
 makedepends=(rust)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('65bdea623121d224613aeca825b796e7ddc35c06e9195d16bceca3cc8d57723691fb4acf3767d659dc0c973e39941cd88019c3549e1ab041bfd42a5d590699bc')
-b2sums=('ba0a17b15d269f7ba4b002ae8f17ca191cbb60d50166ba123c3fcf55442d4cf4970388ad8396e3f34c96dd5e36da8ec70031e0e7e3c1c00e0e774783046b28f3')
+sha512sums=('a75f29ef2210585990d704a69094cf2cb2512f455647ec3156c7dd0010c081424acb1920e19dafa4f3c20652580d326ae9aee83828eeacc96a12b6f0864dbaf6')
+b2sums=('eeb9fe82bb36f45d030814dfdeedac144f872b8dbc0129f8feac967e71d123da2a576905010314b0d759d4a6c2c41e66bf13b86ec073f08529aeeb82b8173b2e')
 
 prepare() {
   cd $pkgname-$pkgver
