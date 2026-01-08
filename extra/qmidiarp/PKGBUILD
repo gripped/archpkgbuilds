@@ -7,7 +7,7 @@ pkgname=(
   qmidiarp
   qmidiarp-{lv2,standalone}
 )
-pkgver=0.7.2
+pkgver=0.7.3
 pkgrel=1
 pkgdesc="A MIDI arpeggiator, phrase generator and controller LFO for the ALSA sequencer."
 arch=(x86_64)
@@ -25,8 +25,8 @@ makedepends=(
 )
 checkdepends=(lv2lint)
 source=(https://downloads.sourceforge.net/project/$pkgbase/$pkgbase/$pkgver/$pkgbase-$pkgver.tar.bz2)
-sha512sums=('e566fc4926c809cbabde93a95e801053a59cda05b7de65ff272c00d8d990d0a0dbe119486a096c9cc15ead726bf2c3aa0f55873b6bd8c0a2608a81b1bb62cd72')
-b2sums=('13f588607d2f3e078739923ccc698f52481319fcf507314a6a02e96e3758895b7279406754f386e8bbc97af0c93a955e3db118d6c17a48640bbbdcbedefc4d83')
+sha512sums=('a16bceb3c22c50bd2185f5c2fe076b765ddc5baccc951fc0614b8ba2abaf6addf7b937a2541ba7c4df8a926f6ba28ba9db84c2e1315a50561a17f67d1b18e219')
+b2sums=('54f73d89caaef6bbb0d524052780db9a48c33a744f5370a08355f50dad21d16271f54e663c02a1cdfbb6cdcc34403658e588968fe9b8f8e370b961bed9f7f208')
 
 _pick() {
   local p="$1" f d; shift
