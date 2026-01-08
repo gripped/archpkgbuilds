@@ -1,7 +1,7 @@
 pkgbase = vis
 	pkgdesc = modern, legacy free, simple yet efficient vim-like editor
-	pkgver = 0.9.r348.g3aa3501a
-	pkgrel = 1
+	pkgver = 0.9.r361.g36b52cf8
+	pkgrel = 3
 	url = https://github.com/martanne/vis#vis-a-vim-like-text-editor
 	arch = x86_64
 	license = custom:ISC
@@ -18,13 +18,18 @@ pkgbase = vis
 	depends = lua
 	depends = tre
 	depends = file
+	source = git+https://github.com/martanne/vis.git#commit=36b52cf87f6d69854a3e951bd1062fe6857e64de
+	validpgpkeys = 54A47F12462D26A7D078A932C83A52CD1962562C
+	sha256sums = 88178f58d832a60df73bc69324e2dd230b5e343ac2a5fbeb3586f162dc99d47b
+
+pkgname = vis
 	optdepends = wl-clipboard: wayland clipboard support
 	optdepends = xclip: X11 clipboard support
 	optdepends = xsel: X11 clipboard support
-	optdepends = lua-lpeg: syntax highlighting
+	optdepends = vis-syntax-highlighting: syntax highlighting
 	backup = etc/vis/visrc.lua
-	source = git+https://github.com/martanne/vis.git#commit=3aa3501aa6d93e96653eb8e8c3662f724d3090ce
-	validpgpkeys = 54A47F12462D26A7D078A932C83A52CD1962562C
-	sha256sums = fc867aeedcd49e63a9f34223481d0592272a894643f512abbc60c6ae453dae79
 
-pkgname = vis
+pkgname = vis-syntax-highlighting
+	pkgdesc = syntax highlighting for vis editor
+	depends = vis
+	depends = lua-lpeg
