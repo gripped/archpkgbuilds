@@ -5,8 +5,8 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgname=kdenlive
-pkgver=25.12.0
-pkgrel=5
+pkgver=25.12.1
+pkgrel=1
 pkgdesc='A non-linear video editor for Linux using the MLT video framework'
 arch=(x86_64)
 url='https://apps.kde.org/kdenlive/'
@@ -64,18 +64,12 @@ optdepends=('bigsh0t: VR360 effects'
             'recordmydesktop: for screen capture')
 groups=(kde-applications
         kde-multimedia)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
-        kdenlive-fixes.patch)
-sha256sums=('cafee9d8ec29e99f507720f28d60bfc0963a8733f67a0ffd6a684273b8242ca5'
-            'SKIP'
-            'a781a11656fdd9ce918b0a4ed28c9c8f48260f6a32e269de0e97f4832423c8be')
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('ab40da31896a1e0931e6acd59820082c0e10cc5efc599d40025fc0a0eb8039c0'
+            'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < kdenlive-fixes.patch # Backport fixes from stable branch
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
