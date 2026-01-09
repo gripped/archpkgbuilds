@@ -1,0 +1,34 @@
+diff --git i/Makefile w/Makefile
+index 9c08a8b..4914fad 100644
+--- i/Makefile
++++ w/Makefile
+@@ -137,7 +137,7 @@ install:
+ 	fi
+ 
+ 	# Install the HIP report script
+-	install -Dm755 packaging/files/usr/libexec/gpclient/hipreport.sh $(DESTDIR)/usr/libexec/gpclient/hipreport.sh
++	install -Dm755 packaging/files/usr/libexec/gpclient/hipreport.sh $(DESTDIR)/usr/lib/gpclient/hipreport.sh
+ 
+ 	# Install the disconnect hooks
+ 	install -Dm755 packaging/files/usr/lib/NetworkManager/dispatcher.d/pre-down.d/gpclient.down $(DESTDIR)/usr/lib/NetworkManager/dispatcher.d/pre-down.d/gpclient.down
+@@ -159,7 +159,7 @@ uninstall:
+ 	rm -f $(DESTDIR)/usr/bin/gpgui-helper
+ 	rm -f $(DESTDIR)/usr/bin/gpgui
+ 
+-	rm -f $(DESTDIR)/usr/libexec/gpclient/hipreport.sh
++	rm -f $(DESTDIR)/usr/lib/gpclient/hipreport.sh
+ 
+ 	rm -f $(DESTDIR)/usr/lib/NetworkManager/dispatcher.d/pre-down.d/gpclient.down
+ 	rm -f $(DESTDIR)/usr/lib/NetworkManager/dispatcher.d/gpclient-nm-hook
+diff --git i/crates/openconnect/src/vpn_utils.rs w/crates/openconnect/src/vpn_utils.rs
+index 0e8f270..589cee0 100644
+--- i/crates/openconnect/src/vpn_utils.rs
++++ w/crates/openconnect/src/vpn_utils.rs
+@@ -15,6 +15,7 @@ const VPNC_SCRIPT_LOCATIONS: &[&str] = &[
+ ];
+ 
+ const CSD_WRAPPER_LOCATIONS: &[&str] = &[
++  "/usr/lib/gpclient/hipreport.sh",
+   "/usr/libexec/gpclient/hipreport.sh",
+   #[cfg(target_arch = "x86_64")]
+   "/usr/lib/x86_64-linux-gnu/openconnect/hipreport.sh",

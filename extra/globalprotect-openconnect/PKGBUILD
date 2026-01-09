@@ -1,31 +1,80 @@
 # Maintainer: Anatol Pomozov
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Keinv Yue <yuezk001@gmail.com>
 
 pkgname=globalprotect-openconnect
-pkgver=2.4.7
+pkgver=2.5.1
 pkgrel=1
 pkgdesc="A GlobalProtect VPN GUI client based on Openconnect and built with Qt5, supports SAML auth mode"
 arch=(x86_64)
 url="https://github.com/yuezk/GlobalProtect-openconnect"
-license=(GPL3)
-depends=(openconnect webkit2gtk-4.1)
-makedepends=(git cargo)
-provides=(gpclient gpservice)
-source=(git+https://github.com/yuezk/GlobalProtect-openconnect#tag=v$pkgver) # github does not allow to download sources with submodules, thus use git directly
-sha256sums=('0d75cc7aedbede190d85bc0ef1aa2e0df14e14fd17805fea8b257e5838c8760d')
+license=(GPL-3.0-only)
+depends=(
+  cairo
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  gmp
+  gnutls
+  gtk3
+  hicolor-icon-theme
+  libp11-kit
+  libsoup3
+  libxml2
+  lz4
+  nettle
+  openssl
+  webkit2gtk-4.1
+  xz
+  zlib
+)
+makedepends=(
+  cargo
+  git
+)
+optdepends=('libappindicator: for system tray icon')
+provides=(
+  gpclient
+  gpservice
+)
 options=(!lto)
+source=(
+  "$pkgname::git+$url.git#tag=v$pkgver"
+	"git+https://gitlab.com/openconnect/openconnect.git"
+	"git+https://gitlab.gnome.org/GNOME/libxml2.git"
+  "$pkgname-hipreport-install-location.patch"
+)
+b2sums=('f9ebb58dbb978a8df56a4ea73afd9b304630485d030826ed2214a0899bf6448197f2cfc41b702dd873a59fdaaadfd5b89e2f69907c8a7c2962d405abf7bd207d'
+        'SKIP'
+        'SKIP'
+        '06a9c5d3d854912720a9f38ba80ee96e7743213d9f62e1152f9445f6a13fc9089367f2dc0b258af60608665e1414776759c0652d889b0362283e9747a243f568')
 
 prepare() {
-  cd GlobalProtect-openconnect
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cd $pkgname
+  patch -Np1 < ../$pkgname-hipreport-install-location.patch
+
+  git submodule init
+  git config submodule.crates/openconnect/deps/openconnect.url ../openconnect
+  git config submodule.crates/openconnect/deps/libxml2.url ../libxml2
+  git -c protocol.file.allow=always submodule update \
+    crates/openconnect/deps/openconnect \
+    crates/openconnect/deps/libxml2
+
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
-  cd GlobalProtect-openconnect
+  cd $pkgname
   cargo build --release --frozen
 }
 
+check() {
+  cd $pkgname
+  cargo test --frozen
+}
+
 package() {
-  cd GlobalProtect-openconnect
+  cd $pkgname
   DESTDIR="$pkgdir" make install
 }

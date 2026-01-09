@@ -1,18 +1,41 @@
 pkgbase = globalprotect-openconnect
 	pkgdesc = A GlobalProtect VPN GUI client based on Openconnect and built with Qt5, supports SAML auth mode
-	pkgver = 2.4.7
+	pkgver = 2.5.1
 	pkgrel = 1
 	url = https://github.com/yuezk/GlobalProtect-openconnect
 	arch = x86_64
-	license = GPL3
-	makedepends = git
+	license = GPL-3.0-only
 	makedepends = cargo
-	depends = openconnect
+	makedepends = git
+	depends = cairo
+	depends = gcc-libs
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
+	depends = gmp
+	depends = gnutls
+	depends = gtk3
+	depends = hicolor-icon-theme
+	depends = libp11-kit
+	depends = libsoup3
+	depends = libxml2
+	depends = lz4
+	depends = nettle
+	depends = openssl
 	depends = webkit2gtk-4.1
+	depends = xz
+	depends = zlib
+	optdepends = libappindicator: for system tray icon
 	provides = gpclient
 	provides = gpservice
 	options = !lto
-	source = git+https://github.com/yuezk/GlobalProtect-openconnect#tag=v2.4.7
-	sha256sums = 0d75cc7aedbede190d85bc0ef1aa2e0df14e14fd17805fea8b257e5838c8760d
+	source = globalprotect-openconnect::git+https://github.com/yuezk/GlobalProtect-openconnect.git#tag=v2.5.1
+	source = git+https://gitlab.com/openconnect/openconnect.git
+	source = git+https://gitlab.gnome.org/GNOME/libxml2.git
+	source = globalprotect-openconnect-hipreport-install-location.patch
+	b2sums = f9ebb58dbb978a8df56a4ea73afd9b304630485d030826ed2214a0899bf6448197f2cfc41b702dd873a59fdaaadfd5b89e2f69907c8a7c2962d405abf7bd207d
+	b2sums = SKIP
+	b2sums = SKIP
+	b2sums = 06a9c5d3d854912720a9f38ba80ee96e7743213d9f62e1152f9445f6a13fc9089367f2dc0b258af60608665e1414776759c0652d889b0362283e9747a243f568
 
 pkgname = globalprotect-openconnect
