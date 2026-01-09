@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=rattler-build
-pkgver=0.52.0
+pkgver=0.55.1
 pkgrel=1
 pkgdesc="A fast conda-package builder"
 arch=('x86_64')
@@ -11,12 +11,12 @@ depends=('gcc-libs' 'openssl' 'bzip2' 'xz')
 makedepends=('cargo')
 checkdepends=('patchelf' 'git')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('a08da65709afec315715745986df4da7f2e33f437c777d6f1d7840266de4b5637e5b36fbdef70ee781b42057fb005564e03f36074d2f06bd902b563006a23314')
+sha512sums=('b498ab1b27713d417a577775942529ac53da9980cc52cf54ba82caeaa1a04884d90faddaea0d42dffa50f66270668b78475a788980566eafe05307155629d5f8')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
   mkdir -p completions/
 }
 
