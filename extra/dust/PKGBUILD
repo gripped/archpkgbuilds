@@ -3,20 +3,21 @@
 # Contributor: Knut Ahlers <knut at ahlers dot me>
 
 pkgname=dust
-pkgver=1.2.3
+pkgver=1.2.4
 pkgrel=1
 pkgdesc='A more intuitive version of du in rust'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/bootandy/dust'
-license=('Apache-2.0')
-depends=('gcc-libs' 'glibc')
-makedepends=('rust' 'git')
+license=(Apache-2.0)
+depends=(gcc-libs glibc)
+makedepends=(rust git)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha256sums=('3f681bf4268d364352b2c7e8be377151478aa2ef05e25d2224e5d765f7efa8f9')
+sha512sums=('0a6dcf9ba0668afbeb39dfe288ece1723d0caa6012511d17c93513ddd1edfb6242f743bec39e9419c9780c7961c51c54614490cca36739254b4fb45dbccea344')
+b2sums=('648fff66583dc0a6c6e0d555615fa40d5ff395ba8699dd13c8254b1e0e4bfb1740b51ae7bb00615948b6363cb00e1bac3353a2fb3c3a6ffc92d81dab8d4051d3')
 
 prepare() {
   cd "$pkgname"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
