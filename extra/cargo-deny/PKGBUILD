@@ -3,7 +3,7 @@
 # Contributor: Vlad Frolov <frolvlad@gmail.com>
 
 pkgname=cargo-deny
-pkgver=0.18.9
+pkgver=0.19.0
 pkgrel=1
 pkgdesc='Cargo plugin for linting your dependencies'
 arch=('x86_64')
@@ -15,7 +15,7 @@ options=(!lto)
 source=("$pkgname-$pkgver::git+$url.git#tag=$pkgver"
   "$pkgname-advisory-db::git+https://github.com/rustsec/advisory-db"
   "$pkgname-test-advisory-db::git+https://github.com/EmbarkStudios/test-advisory-db")
-sha256sums=('71d70070d7324beb2f2a6f444195463bef0fb7849f09e7456ef673df648fef7d'
+sha256sums=('2de4ca6677ca044cda821223b3974ab4ae2b3c256d1c8d55e65e487861f67915'
             'SKIP'
             'SKIP')
 
@@ -25,7 +25,7 @@ prepare() {
   git config submodule."tests/advisory-db/github.com-2f857891b7f43c59".url "${srcdir}/${pkgname}-advisory-db"
   git config submodule."tests/advisory-db/github.com-c373669cccc50ac0".url "${srcdir}/${pkgname}-test-advisory-db"
   git -c protocol.file.allow=always submodule update --init --recursive
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
