@@ -2,8 +2,8 @@
 # Contributor: Rémy Oudompheng <remy@archlinux.org>
 
 pkgname=perl-tie-cycle
-pkgver=1.231
-pkgrel=2
+pkgver=1.233
+pkgrel=1
 pkgdesc='Cycle through a list of values via a scalar'
 arch=(any)
 url='https://github.com/briandfoy/tie-cycle'
@@ -12,8 +12,8 @@ depends=(perl)
 makedepends=(git)
 checkdepends=(perl-test-pod perl-test-pod-coverage)
 source=("$pkgname::git+$url#tag=release-$pkgver")
-sha512sums=('e3f64c814a841a3efdd1f53f14bce2f77d496e716050fd525ca401f3f80e40c687cc576741fa7b271436a77fdd7c6f90df5eee65814f21620ab017f692e50316')
-b2sums=('21d56fbdf9ce8dfb328d5f9cb7093bf385e0b6fd30460fee737053a0d0240290afbf615530efb0564c60ae0ec4e6c0b96c56ee4d40dd084b7e77eea4609cd5a2')
+sha512sums=('f7f4f7fea0c06c16e907802a42425379b7ccf91790408c93b66a4d99ca34debcfa2321a7e2298f904541ef1283583421606017f1358ce07465be9bf7531ef366')
+b2sums=('7055ef9be9c087e6fd53715ae8fef3582b5f9703d63583d35a9ea6c787313808d7463d259269b33f27e579bd576b02233e32aa71541224bd9ac0e403b54211c3')
 options=(!emptydirs)
 
 build() {
