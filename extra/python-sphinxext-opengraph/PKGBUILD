@@ -3,7 +3,7 @@
 _name=sphinxext-opengraph
 pkgname=python-$_name
 pkgver=0.9.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Sphinx extension to generate unique OpenGraph metadata"
 arch=('any')
 url="https://sphinxext-opengraph.readthedocs.io/"
