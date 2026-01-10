@@ -3,7 +3,7 @@
 
 pkgname=python-pint
 pkgver=0.25.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A unit library for Python"
 arch=('any')
 license=('BSD-3-Clause')
