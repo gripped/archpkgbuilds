@@ -3,7 +3,7 @@
 
 pkgname=certbot-dns-rfc2136
 pkgver=5.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc='RFC2136 DNS Authenticator plugin for Certbot'
 arch=('any')
 license=('Apache-2.0')
