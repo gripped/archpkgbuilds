@@ -3,7 +3,7 @@
 pkgname=python-tlv8
 _name="${pkgname#python-}_python"
 pkgver=0.10.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Python module to handle type-length-value (TLV) encoded data"
 arch=(any)
 url="https://github.com/jlusiardi/tlv8_python"
