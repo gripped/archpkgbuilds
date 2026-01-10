@@ -2,7 +2,7 @@
 
 pkgname=python-immutabledict
 pkgver=4.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Immutable wrapper around dictionaries (a fork of frozendict)"
 arch=('any')
 url=https://github.com/corenting/immutabledict
