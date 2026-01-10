@@ -1,15 +1,20 @@
 pkgbase = python-jmespath
 	pkgdesc = A query language for JSON
 	pkgver = 1.0.1
-	pkgrel = 5
+	pkgrel = 7
 	url = https://github.com/jmespath/jmespath
 	arch = any
-	license = Apache
+	license = Apache-2.0
 	checkdepends = python-hypothesis
 	checkdepends = python-pytest
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
-	source = https://github.com/jmespath/jmespath.py/archive/1.0.1/python-jmespath-1.0.1.tar.gz
-	sha512sums = c1676a4b7565d25c2948569005c503a0ca33908de6ed16536767da2c00c634e4ee345bcaf88a01bf6cd2996aaf722faaedff80061ab65ee77e5bc0f494f86a70
+	source = python-jmespath::git+https://github.com/jmespath/jmespath#tag=1.0.1
+	sha512sums = 53d8c0d1678d8bcd31440e3d2041c92c7121c4876bf1a6e8de357ecda5e7d20e3aab2a91fb3f7bb73a42fc20ed9df2d90971e8164da781e0a93fad762347e53b
+	b2sums = 318b8a6170bc4de0168184b42d319276f39098ca93315adc44b3a915795eb108e7d11ea4732f0ed8b6e39ff5272f28267cce699a8e9e55425c521fa05398d077
 
 pkgname = python-jmespath
