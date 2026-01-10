@@ -4,7 +4,7 @@
 pkgname=python-hexdump
 _name=${pkgname/python-/}
 pkgver=3.3
-pkgrel=10
+pkgrel=11
 pkgdesc='Library and tool to work with hex and binary data'
 url='https://pypi.org/project/hexdump/'
 arch=('any')
