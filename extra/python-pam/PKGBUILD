@@ -3,7 +3,7 @@
 
 pkgname=python-pam
 pkgver=2.0.2
-pkgrel=5
+pkgrel=6
 pkgdesc='Pure Python interface to the Pluggable Authentication Modules system'
 arch=(any)
 url='https://github.com/FirefighterBlu3/python-pam'
