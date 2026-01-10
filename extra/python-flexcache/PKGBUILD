@@ -3,7 +3,7 @@
 pkgname=python-flexcache
 _name=${pkgname#python-}
 pkgver=0.3
-pkgrel=3
+pkgrel=4
 pkgdesc="A robust and extensible package to cache on disk the result of expensive calculations."
 arch=(any)
 url="https://github.com/hgrecco/flexcache"
