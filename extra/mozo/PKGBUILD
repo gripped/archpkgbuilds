@@ -4,7 +4,7 @@
 
 pkgname=mozo
 pkgver=1.28.0
-pkgrel=4
+pkgrel=5
 pkgdesc="MATE menu editing tool"
 url="https://mate-desktop.org"
 arch=('any')
@@ -19,7 +19,7 @@ sha256sums=('eb1d5af4ac0c72268e78deca888ae00c604ddfd67d50989ab0f7f82bc8fbcbef')
 
 prepare() {
     	cd "${pkgname}-${pkgver}"
-	./autogen.sh
+	autoreconf -fiv -I /usr/share/gettext/m4/
 }
 
 build() {
