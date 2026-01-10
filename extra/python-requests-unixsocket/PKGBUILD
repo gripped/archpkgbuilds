@@ -3,7 +3,7 @@
 
 pkgname=python-requests-unixsocket
 pkgver=0.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Use requests to talk HTTP via a UNIX domain socket'
 arch=('any')
 url='https://github.com/msabramo/requests-unixsocket'
