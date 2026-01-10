@@ -4,7 +4,7 @@
 
 pkgname=knotifications
 pkgver=6.21.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Abstraction for system notifications'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
