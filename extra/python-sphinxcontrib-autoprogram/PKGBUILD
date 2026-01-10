@@ -3,7 +3,7 @@
 pkgname=python-sphinxcontrib-autoprogram
 pkgver=0.1.9
 _commit=a7cad48b6eddf6a461e3fae91f231dc3e3f2a88f
-pkgrel=3
+pkgrel=4
 pkgdesc="Documenting CLI programs"
 url="https://github.com/sphinx-contrib/autoprogram"
 license=('BSD-2-Clause')
