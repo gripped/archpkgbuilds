@@ -2,7 +2,7 @@
 
 pkgname=python-propcache
 pkgver=0.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast property caching'
 arch=(x86_64)
 url='https://github.com/aio-libs/propcache'
@@ -22,6 +22,12 @@ makedepends=(
 checkdepends=(python-pytest)
 source=("$url/archive/v$pkgver/${pkgname#python-}-$pkgver.tar.gz")
 sha512sums=('b7bc1e7f41c42e0f6e22a3fe4e4bbccf44f30ac19af274c74b1acd8430f24c201363b1dfb909bdbbb12b4aaf9fb12eb32d611e09865d3df11fde379cfeb62103')
+
+prepare() {
+  cd ${pkgname#python-}-$pkgver
+  # Drop Cython versioned requirement
+  sed -i 's/ ~= 3.1.0//' packaging/pep517_backend/_backend.py
+}
 
 build() {
   cd ${pkgname#python-}-$pkgver
