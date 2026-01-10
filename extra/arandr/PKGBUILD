@@ -3,7 +3,7 @@
 
 pkgname=arandr
 pkgver=0.1.11
-pkgrel=5
+pkgrel=6
 pkgdesc="Provide a simple visual front end for XRandR 1.2."
 arch=('any')
 url="https://christian.amsuess.com/tools/arandr/"
