@@ -3,7 +3,7 @@
 
 pkgname=mat2
 pkgver=0.14.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Metadata removal tool, supporting a wide range of commonly used file formats'
 url='https://github.com/jvoisin/mat2'
 arch=('any')
