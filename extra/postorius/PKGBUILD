@@ -2,7 +2,7 @@
 
 pkgname=postorius
 pkgver=1.3.13
-pkgrel=4
+pkgrel=5
 pkgdesc="The New Mailman Web UI"
 arch=(any)
 url="https://gitlab.com/mailman/postorius"
