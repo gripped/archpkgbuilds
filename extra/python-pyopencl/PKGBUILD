@@ -4,8 +4,8 @@
 pkgbase=python-pyopencl
 _name="${pkgbase#python-}"
 pkgname=('python-pyopencl' 'pyopencl-headers')
-pkgver=2024.2.6
-pkgrel=3
+pkgver=2025.2.7
+pkgrel=2
 epoch=1
 pkgdesc="A complete, object-oriented language binding of OpenCL to Python"
 arch=('x86_64')
@@ -29,16 +29,15 @@ makedepends=(
     'python-mako'
     'python-numpy'
     'python-platformdirs'
+    'python-pytools'
     'python-scikit-build-core'
 )
 # NOTE: we install all available OpenCL drivers so that tests don't fail on PLATFORM_NOT_FOUND_KHR
 checkdepends=(
     'intel-compute-runtime'
-    'opencl-clover-mesa'
+    'opencl-mesa'
     'opencl-nvidia'
-    'opencl-rusticl-mesa'
     'python-pytest'
-    'python-pytools'
     'python-six'
     'rocm-opencl-runtime'
 )
@@ -47,7 +46,7 @@ source=(
     git+https://github.com/inducer/compyte
 )
 validpgpkeys=("900A958D9A0ACA58B1468F2471AA298BCA171145") # Andreas Ratchke
-sha256sums=('12898a9c815268b746689a9a0b0cad22cb7b8097d53c26f2e7392a1d15a4eb23'
+sha256sums=('43b3cdd3d5c141cecf2f5dd62f05ab3b3703f3c57f501bb9e5f44ae11f51599d'
             'SKIP')
 
 prepare() {

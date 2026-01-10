@@ -1,7 +1,7 @@
 pkgbase = python-pyopencl
 	pkgdesc = A complete, object-oriented language binding of OpenCL to Python
-	pkgver = 2024.2.6
-	pkgrel = 3
+	pkgver = 2025.2.7
+	pkgrel = 2
 	epoch = 1
 	url = https://documen.tician.de/pyopencl/
 	arch = x86_64
@@ -10,11 +10,9 @@ pkgbase = python-pyopencl
 	license = MIT
 	license = MIT
 	checkdepends = intel-compute-runtime
-	checkdepends = opencl-clover-mesa
+	checkdepends = opencl-mesa
 	checkdepends = opencl-nvidia
-	checkdepends = opencl-rusticl-mesa
 	checkdepends = python-pytest
-	checkdepends = python-pytools
 	checkdepends = python-six
 	checkdepends = rocm-opencl-runtime
 	makedepends = ctags
@@ -29,11 +27,12 @@ pkgbase = python-pyopencl
 	makedepends = python-mako
 	makedepends = python-numpy
 	makedepends = python-platformdirs
+	makedepends = python-pytools
 	makedepends = python-scikit-build-core
-	source = git+https://github.com/inducer/pyopencl.git?signed#tag=v2024.2.6
+	source = git+https://github.com/inducer/pyopencl.git?signed#tag=v2025.2.7
 	source = git+https://github.com/inducer/compyte
 	validpgpkeys = 900A958D9A0ACA58B1468F2471AA298BCA171145
-	sha256sums = 12898a9c815268b746689a9a0b0cad22cb7b8097d53c26f2e7392a1d15a4eb23
+	sha256sums = 43b3cdd3d5c141cecf2f5dd62f05ab3b3703f3c57f501bb9e5f44ae11f51599d
 	sha256sums = SKIP
 
 pkgname = python-pyopencl
