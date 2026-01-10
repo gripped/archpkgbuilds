@@ -3,7 +3,7 @@
 
 pkgname=python-google-auth-oauthlib
 pkgver=1.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc="oauthlib integration for Google auth."
 url="http://google-auth-oauthlib.readthedocs.io/en/latest/"
 checkdepends=('python-click' 'python-pytest')
