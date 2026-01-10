@@ -3,7 +3,7 @@
 
 pkgname=python-uvloop
 pkgver=0.22.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Ultra fast asyncio event loop'
 arch=(x86_64)
 url=https://github.com/MagicStack/uvloop
