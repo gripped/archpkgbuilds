@@ -5,7 +5,7 @@
 _origname=reportlab
 pkgname=python-reportlab
 pkgver=4.2.2
-pkgrel=5
+pkgrel=6
 pkgdesc="A proven industry-strength PDF generating solution"
 arch=('any')
 url="https://www.reportlab.com/"
