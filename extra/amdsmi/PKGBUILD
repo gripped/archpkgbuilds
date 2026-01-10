@@ -3,7 +3,7 @@
 
 pkgname=amdsmi
 pkgver=7.1.1
-pkgrel=2
+pkgrel=3
 pkgdesc='AMD System Management Interface library'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/amdsmi/en/latest/'
@@ -67,10 +67,6 @@ build() {
 
   cd build/py-interface/python_package
   python -m build --wheel --no-isolation
-}
-
-get_pyver() {
-  python -c 'import sys; print(str(sys.version_info[0]) + "." + str(sys.version_info[1]))'
 }
 
 package() {
