@@ -3,7 +3,7 @@
 
 pkgname=python-jschema-to-python
 pkgver=1.2.3
-pkgrel=8
+pkgrel=9
 pkgdesc='Generate source code for a set of Python classes from a JSON schema'
 arch=(any)
 url='https://github.com/microsoft/jschema-to-python'
