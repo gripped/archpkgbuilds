@@ -3,7 +3,7 @@
 
 pkgname=python-patch-ng
 pkgver=1.19.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Python library to parse and apply unified diffs (new generation)'
 arch=('any')
 url='https://github.com/conan-io/python-patch-ng/'
