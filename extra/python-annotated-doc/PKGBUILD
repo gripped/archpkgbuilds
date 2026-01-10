@@ -3,7 +3,7 @@
 pkgname=python-annotated-doc
 _pkgname=${pkgname#python-}
 pkgver=0.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Document parameters, class attributes, return types, and variables inline, with Annotated"
 arch=('any')
 url="https://github.com/fastapi/annotated-doc"
