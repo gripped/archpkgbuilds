@@ -3,7 +3,7 @@
 
 pkgname=python-python-socks
 pkgver=2.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Core proxy client (SOCKS4, SOCKS5, HTTP) functionality for Python'
 arch=('any')
 url='https://github.com/romis2012/python-socks'
