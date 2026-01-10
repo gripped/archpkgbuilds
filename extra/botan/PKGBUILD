@@ -8,7 +8,7 @@
 
 pkgname=botan
 pkgver=3.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Crypto library written in C++'
 arch=(x86_64)
 url='https://botan.randombit.net/'
