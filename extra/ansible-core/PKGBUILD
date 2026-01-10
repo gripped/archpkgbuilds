@@ -10,7 +10,7 @@
 pkgname=ansible-core
 _pkgname=ansible
 pkgver=2.20.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Radically simple IT automation platform'
 arch=('any')
 url='https://www.ansible.com'
