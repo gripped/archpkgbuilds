@@ -2,7 +2,7 @@
 
 pkgname=python-maxminddb
 pkgver=2.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Reader for the MaxMind DB format"
 url="https://github.com/maxmind/MaxMind-DB-Reader-python"
 license=('Apache-2.0')
