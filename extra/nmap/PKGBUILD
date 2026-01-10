@@ -11,7 +11,7 @@ pkgname=(
   zenmap
 )
 pkgver=7.98
-pkgrel=3
+pkgrel=4
 pkgdesc="Utility for network discovery and security auditing"
 url='https://nmap.org/'
 arch=(x86_64)
