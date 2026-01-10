@@ -3,7 +3,7 @@
 
 pkgname=python-sphinx-hawkmoth
 pkgver=0.22.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Sphinx autodoc C extension"
 url="https://github.com/jnikula/hawkmoth"
 arch=(x86_64)
