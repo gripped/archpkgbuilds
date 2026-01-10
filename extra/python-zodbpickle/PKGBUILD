@@ -3,7 +3,7 @@
 pkgname=python-zodbpickle
 _pkgname=${pkgname#python-}
 pkgver=4.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Fork of Python's pickle module to work with ZODB"
 arch=(x86_64)
 url="https://github.com/zopefoundation/zodbpickle"
