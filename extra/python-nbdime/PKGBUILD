@@ -5,7 +5,7 @@
 
 pkgname=python-nbdime
 pkgver=4.0.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Diff and merge of Jupyter Notebooks'
 url='https://github.com/jupyter/nbdime'
 makedepends=(python-build python-installer
