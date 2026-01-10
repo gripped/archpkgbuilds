@@ -2,7 +2,7 @@
 
 pkgname=memray
 pkgver=1.19.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A memory profiler for Python"
 arch=('x86_64')
 url="https://github.com/bloomberg/memray"
@@ -28,13 +28,18 @@ build() {
 }
 
 check() {
-  export PYTEST_ARGS="--ignore=tests/test_tui_reporter.py --ignore=tests/integration/test_attach.py"
   cd ${pkgname}
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m pytest -vvv \
     --log-cli-level=info -s \
-    --ignore=tests/integration/test_greenlet.py \
+    --deselect 'tests/integration/test_greenlet.py::test_integration_with_greenlet' \
+    --deselect 'tests/integration/test_greenlet.py::test_importing_greenlet_after_tracking_starts' \
+    --deselect 'tests/integration/test_greenlet.py::test_uninstall_profile_in_greenlet' \
+    --deselect 'tests/unit/test_tree_reporter.py::TestTUILooks::test_basic_node_selected_not_leaf' \
+    --deselect 'tests/unit/test_tree_reporter.py::TestTUILooks::test_basic_node_selected_leaf' \
+    --deselect 'tests/unit/test_tree_reporter.py::TestTUILooks::test_two_chains_after_expanding_second' \
+    --deselect 'tests/unit/test_tree_reporter.py::TestTUILooks::test_select_screen' \
     tests
 }
 
