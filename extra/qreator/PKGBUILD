@@ -2,7 +2,7 @@
 
 pkgname=qreator
 pkgver=20.02.1
-pkgrel=8
+pkgrel=9
 pkgdesc='Graphical utility for creating QR codes'
 arch=(any)
 url='https://gitlab.com/qreator-dev/qreator'
@@ -47,7 +47,7 @@ prepare() {
 
   # Fix for Python 3.9
   # https://gitlab.com/qreator-dev/qreator/-/merge_requests/6
-  patch -Np1 -i ../qreator-python3.9.patch
+  git apply -3 ../qreator-python3.9.patch
 
   # Use osm-gps-map instead of libchamplain to display map
   # https://gitlab.com/qreator-dev/qreator/-/merge_requests/5
