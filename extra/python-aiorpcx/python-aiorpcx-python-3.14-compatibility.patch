@@ -1,0 +1,42 @@
+From 439dbbc020da2a6ae8bca84e98da49cdda010c51 Mon Sep 17 00:00:00 2001
+From: Carl Smedstad <carsme@archlinux.org>
+Date: Thu, 25 Dec 2025 13:59:12 +0100
+Subject: [PATCH] Fix Python 3.14 compatibility: use get_running_loop
+
+---
+ aiorpcx/jsonrpc.py | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/aiorpcx/jsonrpc.py b/aiorpcx/jsonrpc.py
+index 1c8d9bb..1da29da 100755
+--- a/aiorpcx/jsonrpc.py
++++ b/aiorpcx/jsonrpc.py
+@@ -34,7 +34,7 @@ import json
+ from functools import partial
+ from numbers import Number
+ 
+-from asyncio import get_event_loop
++from asyncio import get_running_loop
+ from aiorpcx.util import signature_info
+ 
+ 
+@@ -592,7 +592,6 @@ class JSONRPCConnection:
+         # The key is its request ID; for a batch it is sorted tuple
+         # of request IDs
+         self._requests = {}
+-        self._create_future = get_event_loop().create_future
+         # A public attribute intended to be settable dynamically
+         self.max_response_size = 0
+ 
+@@ -675,7 +674,7 @@ class JSONRPCConnection:
+         return message
+ 
+     def _future(self, request, request_id):
+-        future = self._create_future()
++        future = get_running_loop().create_future()
+         self._requests[request_id] = (request, future)
+         return future
+ 
+-- 
+2.52.0
+
