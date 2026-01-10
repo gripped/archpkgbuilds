@@ -4,7 +4,7 @@
 pkgname=python-changelog-chug
 _pkgname=${pkgname#python-}
 pkgver=0.0.3
-pkgrel=4
+pkgrel=5
 pkgdesc="Parser for project Change Log documents"
 url="https://git.sr.ht/~bignose/changelog-chug"
 arch=('any')
