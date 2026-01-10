@@ -4,7 +4,7 @@
 
 pkgname=distro-info
 pkgver=1.11
-pkgrel=1
+pkgrel=2
 pkgdesc="Information about all releases of Debian and Ubuntu"
 arch=('x86_64')
 url="https://salsa.debian.org/debian/distro-info"
