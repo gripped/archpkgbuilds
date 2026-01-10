@@ -9,7 +9,7 @@ pkgname=(
   glib2-docs
 )
 pkgver=2.86.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Low level core library"
 url="https://gitlab.gnome.org/GNOME/glib"
 license=(LGPL-2.1-or-later)
