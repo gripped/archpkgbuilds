@@ -3,7 +3,7 @@
 
 pkgname=python-httptools
 pkgver=0.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast HTTP parser'
 arch=(x86_64)
 url=https://github.com/MagicStack/httptools
@@ -28,10 +28,9 @@ prepare() {
   cd httptools
   sed 's/CYTHON_DEPENDENCY =.*/CYTHON_DEPENDENCY = "Cython"/' -i setup.py
   git rm vendor/llhttp
-  git config --global protocol.file.allow always
   git submodule init
   git config submodule.vendor/http-parser.url "$srcdir"/http-parser
-  git submodule update
+  git -c protocol.file.allow=always submodule update
 }
 
 pkgver() {
