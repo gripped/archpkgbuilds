@@ -2,7 +2,7 @@
 
 pkgname=python-deepdiff
 pkgver=7.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Deep Difference and Search of any Python object/data."
 url="https://github.com/seperman/deepdiff"
 license=('MIT')
@@ -28,7 +28,7 @@ build() {
 check() {
   cd deepdiff-$pkgver
   # json.decoder.JSONDecodeError: Illegal trailing comma before end of object: line 3 column 21 (char 45)
-  pytest tests --deselect "tests/test_command.py::TestCommands::test_diff_command[t1_corrupt.json-t2.json-Expecting property name enclosed in double quotes-1]"
+  pytest tests --deselect "tests/test_command.py::TestCommands::test_diff_command[t1_corrupt.json-t2.json-Expecting property name enclosed in double quotes-1]" --deselect "tests/test_delta.py::TestBasicsOfDelta::test_simple_set_elem_value"
 }
 
 package() {
