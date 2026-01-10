@@ -3,7 +3,7 @@
 
 pkgname=python-webtest
 pkgver=3.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Helper to test WSGI applications"
 arch=('any')
 url='https://docs.pylonsproject.org/projects/webtest/en/latest/'
