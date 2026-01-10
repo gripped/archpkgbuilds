@@ -3,7 +3,7 @@
 
 pkgname=tldr
 pkgver=3.4.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Command line client for tldr, a collection of simplified man pages."
 arch=('any')
 url="https://github.com/tldr-pages/tldr-python-client"
