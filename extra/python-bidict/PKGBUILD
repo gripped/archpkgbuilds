@@ -4,7 +4,7 @@
 pkgname=python-bidict
 _name=${pkgname#python-}
 pkgver=0.23.1
-pkgrel=4
+pkgrel=5
 pkgdesc='Bidirectional mapping library for Python'
 url='https://bidict.readthedocs.org/'
 arch=('any')
