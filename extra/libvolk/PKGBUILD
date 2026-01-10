@@ -3,7 +3,7 @@
 
 pkgname=libvolk
 pkgver=3.2.0
-pkgrel=1
+pkgrel=2
 epoch=2
 pkgdesc="The Vector-Optimized Library of Kernels from Gnuradio"
 arch=(x86_64)
@@ -46,7 +46,8 @@ build() {
 
 check() {
   cd $pkgname
-  ctest --test-dir build --output-on-failure
+  ctest --test-dir build --output-on-failure \
+    -E "qa_volk_32fc_s32fc_rotator2puppet_32fc" # https://github.com/gnuradio/volk/issues/794
 }
 
 package() {
