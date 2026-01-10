@@ -4,7 +4,7 @@
 
 pkgname=python-rtree
 pkgver=1.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Rtree: spatial index for Python GIS"
 arch=(any)
 url="https://rtree.readthedocs.io/en/latest/"
