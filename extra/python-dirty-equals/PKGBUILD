@@ -3,7 +3,7 @@
 _name=dirty-equals
 pkgname=python-dirty-equals
 pkgver=0.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Doing dirty (but extremely useful) things with equals"
 arch=(any)
 url="https://github.com/samuelcolvin/dirty-equals"
