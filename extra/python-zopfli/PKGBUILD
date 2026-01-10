@@ -3,7 +3,7 @@
 pkgname=python-zopfli
 _name="${pkgname/thon/}"
 pkgver=0.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Python bindings to zopfli"
 arch=(x86_64)
 url="https://github.com/fonttools/py-zopfli"
