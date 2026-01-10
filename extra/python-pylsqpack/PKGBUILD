@@ -3,7 +3,7 @@
 pkgname=python-pylsqpack
 _name=pylsqpack
 pkgver=0.3.18
-pkgrel=3
+pkgrel=4
 pkgdesc='Python bindings for ls-qpack'
 url='https://github.com/aiortc/pylsqpack'
 arch=('x86_64')
