@@ -5,7 +5,7 @@
 pkgname=python-vobject
 _name=${pkgname#python-}
 pkgver=0.9.9
-pkgrel=2
+pkgrel=3
 pkgdesc='Module for parsing and generating vCard and vCalendar files'
 arch=(any)
 url=http://py-vobject.github.io
