@@ -3,7 +3,7 @@
 
 pkgname=python-jiter
 pkgver=0.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast iterable JSON parser"
 arch=(x86_64)
 url="https://github.com/pydantic/jiter"
@@ -28,7 +28,6 @@ sha256sums=('cc579369476205f8081c2a9e1a23ae992abeecd8faf83662fc4850df07bcfe02')
 
 build() {
   cd "${pkgname#python-}-$pkgver/crates/jiter-python"
-  export RUSTUP_TOOLCHAIN=stable
   python -m build --wheel --no-isolation
 }
 
