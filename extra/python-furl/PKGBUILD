@@ -4,7 +4,7 @@
 _name=furl
 pkgname=python-furl
 pkgver=2.1.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A small Python library that makes parsing and manipulating URLs easy"
 arch=('any')
 url="https://github.com/gruns/furl"
