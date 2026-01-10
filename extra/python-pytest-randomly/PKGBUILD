@@ -2,7 +2,7 @@
 
 pkgname=python-pytest-randomly
 pkgver=4.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Pytest plugin to randomly order tests and control random.seed'
 arch=('any')
 license=('MIT')
