@@ -4,7 +4,7 @@
 pkgname=python-hiredis
 _pkgname=hiredis-py
 pkgver=3.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Non-blocking redis client for python'
 arch=('x86_64')
 url='https://pypi.org/project/hiredis/'
