@@ -9,7 +9,7 @@
 
 pkgname=python-lz4
 pkgver=4.4.5
-pkgrel=1
+pkgrel=2
 pkgdesc="LZ4 bindings for Python"
 arch=('x86_64')
 url="https://github.com/python-lz4/python-lz4"
