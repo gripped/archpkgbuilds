@@ -3,19 +3,19 @@
 
 pkgname=afl++
 pkgver=4.32c
-pkgrel=2
+pkgrel=3
 pkgdesc='instrumentation-driven fuzzer for binary format'
 url='https://aflplus.plus/'
 arch=(x86_64)
 license=(Apache-2.0)
 depends=(
   bash
-  clang
+  clang19
   compiler-rt
   gcc-libs
   glibc
-  lld
-  llvm
+  lld19
+  llvm19
   python
   zlib
 )
@@ -51,19 +51,19 @@ b2sums=('259edf3fe4405a8703a7452f99406fd390e97763d687445e0a6104f884ba304b3f6755f
 build() {
   cd "AFLplusplus-${pkgver}"
   export LLVM_LTO=1
-  make PREFIX=/usr
+  PATH="/usr/lib/llvm19/bin:$PATH" make PREFIX=/usr
 }
 
 check() {
   cd "AFLplusplus-${pkgver}"
   # Unset our CFLAGS/CXXFLAGS for the tests since these may
   # interact in unexpected ways with afl-cc instrumentation.
-  CFLAGS= CXXFLAGS= make test
+  PATH="/usr/lib/llvm19/bin:$PATH" CFLAGS= CXXFLAGS= make test
 }
 
 package() {
   cd "AFLplusplus-${pkgver}"
-  make install PREFIX=/usr DESTDIR="${pkgdir}"
+  PATH="/usr/lib/llvm19/bin:$PATH" make install PREFIX=/usr DESTDIR="${pkgdir}"
   install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
 }
 
