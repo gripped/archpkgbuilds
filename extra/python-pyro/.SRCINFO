@@ -1,15 +1,19 @@
 pkgbase = python-pyro
 	pkgdesc = Distributed object middleware (RPC)
 	pkgver = 4.82
-	pkgrel = 4
+	pkgrel = 6
 	url = https://github.com/irmen/Pyro4
 	arch = any
 	license = MIT
 	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
 	depends = python-serpent
-	source = git+https://github.com/irmen/Pyro4#commit=40336cb0d47c326ebdd498d7e3afb9a34e1045fe
-	b2sums = SKIP
+	source = python-pyro::git+https://github.com/irmen/Pyro4#tag=4.82
+	sha512sums = 5c09f2f651e5fcd3545c5b377246160cfa4f744163cac0856832d063c223eb42b9fa25fe3cdbc1fd1dd75b4a23260718c79f437e53ec151ea681ea7645e8a03a
+	b2sums = 3d4c903a6b4515851c949f8a59419990f801ac0eb21c449a5581aeec0c96af7b0ce463229d9af1a16fc78d702ec5a0bedce7cbaaeffbf2f5971aedc8b2db5920
 
 pkgname = python-pyro
