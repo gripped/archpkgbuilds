@@ -1,0 +1,21 @@
+diff -ru parsel-1.10.0.orig/tests/test_xpathfuncs.py parsel-1.10.0/tests/test_xpathfuncs.py
+--- parsel-1.10.0.orig/tests/test_xpathfuncs.py	2025-12-19 20:50:48.618940634 +0100
++++ parsel-1.10.0/tests/test_xpathfuncs.py	2025-12-19 20:51:42.828451510 +0100
+@@ -120,7 +120,7 @@
+         sel = Selector(text=body)
+         self.assertRaisesRegex(
+             ValueError,
+-            "Unregistered function in myfunc",
++            r"Unregistered function(: myfunc)? in myfunc",
+             sel.xpath,
+             "myfunc()",
+         )
+@@ -132,7 +132,7 @@
+         set_xpathfunc("myfunc", None)
+         self.assertRaisesRegex(
+             ValueError,
+-            "Unregistered function in myfunc",
++            r"Unregistered function(: myfunc)? in myfunc",
+             sel.xpath,
+             "myfunc()",
+         )
