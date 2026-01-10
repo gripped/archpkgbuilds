@@ -2,7 +2,7 @@
 
 pkgname=python-ephemeral-port-reserve
 pkgver=1.1.4
-pkgrel=6
+pkgrel=7
 pkgdesc='Bind to an ephemeral port'
 url='https://github.com/Yelp/ephemeral-port-reserve/'
 arch=('any')
