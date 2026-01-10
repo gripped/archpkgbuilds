@@ -4,7 +4,7 @@
 _pkgname=linkify-it-py
 pkgname=python-$_pkgname
 pkgver=2.0.3
-pkgrel=5
+pkgrel=6
 pkgdesc='Links recognition library with full unicode support'
 arch=('any')
 url='https://github.com/tsutsu3/linkify-it-py'
