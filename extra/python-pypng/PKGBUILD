@@ -3,7 +3,7 @@
 
 pkgname=python-pypng
 pkgver=0.20250521.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Pure Python library for PNG image encoding/decoding'
 arch=('any')
 url='https://gitlab.com/drj11/pypng'
