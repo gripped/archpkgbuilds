@@ -8,7 +8,7 @@
 _pkg=mpi4py
 pkgname=python-${_pkg}
 pkgver=4.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Python bindings for the Message Passing Interface (MPI) standard"
 arch=(x86_64)
 url="https://github.com/mpi4py/mpi4py"
