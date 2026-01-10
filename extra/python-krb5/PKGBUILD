@@ -3,7 +3,7 @@
 _pkg=krb5
 pkgname=python-${_pkg}
 pkgver=0.5.1
-pkgrel=4
+pkgrel=5
 pkgdesc="krb5 API interface"
 arch=(x86_64)
 url="https://github.com/jborean93/pykrb5"
