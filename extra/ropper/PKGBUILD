@@ -3,7 +3,7 @@
 pkgname=ropper
 _pkgname=Ropper
 pkgver=1.13.13
-pkgrel=1
+pkgrel=2
 pkgdesc='Show information about binary files and find gadgets to build rop chains for different architectures'
 url='https://github.com/sashs/Ropper'
 arch=(any)
