@@ -3,7 +3,7 @@
 pkgname=python-lazr.config
 _name="${pkgname#python-}"
 pkgver=3.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Create configuration schemas, and process and validate configurations"
 arch=(any)
 url="https://launchpad.net/lazr.config"
