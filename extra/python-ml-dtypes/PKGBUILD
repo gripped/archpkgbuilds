@@ -3,7 +3,7 @@
 
 pkgname='python-ml-dtypes'
 pkgver=0.5.4
-pkgrel=1
+pkgrel=2
 pkgdesc='A stand-alone implementation of several NumPy dtype extensions used in ML'
 arch=('x86_64')
 url='https://github.com/jax-ml/ml_dtypes'
