@@ -2,7 +2,7 @@
 
 pkgname=jupyter-collaboration
 pkgver=4.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Jupyter Server Extension Providing Support for Y Documents'
 arch=(any)
 url='https://jupyterlab-realtime-collaboration.readthedocs.io/en/latest/'
@@ -36,6 +36,11 @@ conflicts=(jupyter-server-ydoc)
 replaces=(jupyter-server-ydoc)
 source=(git+https://github.com/jupyterlab/jupyter-collaboration#tag=v$pkgver)
 sha256sums=('61614d639cf9b7d641839006311eae47a50258c206b50c8d3c260a404e565fae')
+
+prepare() {
+  cd $pkgname
+  git cherry-pick -n 50bfd3678b36d481526afb972eec50a6db0e252d # Fix tests with new pycrdt-store
+}
 
 build() {
   for _proj in jupyter-server-ydoc jupyter-docprovider jupyter-collaboration-ui; do
