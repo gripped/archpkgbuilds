@@ -8,7 +8,7 @@
 
 pkgname=catfish
 pkgver=4.20.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Versatile file searching tool"
 arch=('any')
 url="https://docs.xfce.org/apps/catfish/start"
