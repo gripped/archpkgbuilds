@@ -2,7 +2,7 @@
 
 pkgname=gaphor
 pkgver=3.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple UML and SysML modeling tool'
 arch=(any)
 url='https://apps.gnome.org/Gaphor/'
