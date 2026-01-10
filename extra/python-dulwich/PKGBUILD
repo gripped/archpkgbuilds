@@ -3,13 +3,16 @@
 
 pkgname=python-dulwich
 _name=${pkgname#python-}
-pkgver=0.24.10
+pkgver=0.25.0
 pkgrel=1
 pkgdesc='Pure-Python implementation of the Git file formats and protocols'
 arch=(x86_64)
 url=https://www.dulwich.io
 license=('Apache-2.0 OR GPL-2.0-or-later')
-depends=(python-urllib3)
+depends=(
+  python
+  python-urllib3
+)
 makedepends=(
   git
   python-build
@@ -36,8 +39,19 @@ optdepends=(
   'python-rich: for colorized diff support'
 )
 source=("git+https://github.com/jelmer/dulwich.git#tag=dulwich-$pkgver")
-b2sums=('a7fec6c9b43656d86aa78a5b01437e034b649fb7fbcbec104f88e493d0088687ccaf96e479ef6dc1f9159832091e2f2d088a0ef1ebfd97a8c91e9e9ab20fe298')
+b2sums=('7f2503ef8df21326c14ecdbcc7ca3c3458d4c5c09ac47879d36e6bd337964bc6da765b0c7a979a8fdb0d16bd3314d401740abd2d2f189d9414db60aafae2d430')
 validpgpkeys=(DC837EE14A7E37347E87061700806F2BD729A457) # Jelmer Vernooĳ <jelmer@jelmer.uk>
+
+prepare() {
+  cd "$_name"
+  # Fixes test test_sha256_pack.py::SHA256PackTests::test_pack_index_v1_with_sha25
+  git cherry-pick -n 790d9df61ad2c135ec5289d5c91ca5fd7d3b2098
+  # Fixes tests failing if build in project absolute path, see:
+  # https://github.com/jelmer/dulwich/pull/2055
+  git cherry-pick -n e133c69c8bf203469a50cfb83b7693b50d645e81
+
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
+}
 
 build() {
   cd "$_name"
@@ -52,9 +66,8 @@ check() {
   )
 
   cd "$_name"
-  python -m venv --system-site-packages test-env
-  test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest "${pytest_options[@]}" tests
+  cargo test --frozen --all-features
+  pytest "${pytest_options[@]}" tests
 }
 
 package() {
