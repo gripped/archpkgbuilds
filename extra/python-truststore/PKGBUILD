@@ -3,7 +3,7 @@
 _name=truststore
 pkgname=python-truststore
 pkgver=0.10.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Verify certificates using OS trust stores"
 arch=(any)
 url="https://github.com/sethmlarson/truststore"
