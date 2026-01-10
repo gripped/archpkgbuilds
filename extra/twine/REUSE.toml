@@ -7,13 +7,24 @@ path = [
     "keys/**",
     ".SRCINFO",
     ".nvchecker.toml",
+    "*.install",
+    "*.sysusers",
+    "*.tmpfiles",
+    "*.logrotate",
+    "*.pam",
+    "*.service",
+    "*.socket",
+    "*.timer",
+    "*.desktop",
+    "*.hook",
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
-  "docutils-test-failure.patch"
+    "docutils-test-failure.patch",
+    "update-expected-error-message.patch",
 ]
 SPDX-FileCopyrightText = "twine contributors"
 SPDX-License-Identifier = "Apache-2.0"

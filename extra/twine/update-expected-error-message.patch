@@ -1,0 +1,23 @@
+From d94a4750883dc7cc92b2cbbb3970895303af216d Mon Sep 17 00:00:00 2001
+From: William Woodruff <william@astral.sh>
+Date: Fri, 8 Aug 2025 16:54:07 -0400
+Subject: [PATCH] fix(tests): update expected error message
+
+Signed-off-by: William Woodruff <william@astral.sh>
+---
+ tests/test_check.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/test_check.py b/tests/test_check.py
+index 74e0b1ce..7a1d9820 100644
+--- a/tests/test_check.py
++++ b/tests/test_check.py
+@@ -119,7 +119,7 @@ def test_fails_rst_syntax_error(tmp_path, capsys, caplog):
+             logging.ERROR,
+             "`long_description` has syntax errors in markup "
+             "and would not be rendered on PyPI.\n"
+-            "line 2: Error: Document or section may not begin with a transition.",
++            "line 2: Warning: Document or section may not begin with a transition.",
+         ),
+     ]
+ 
