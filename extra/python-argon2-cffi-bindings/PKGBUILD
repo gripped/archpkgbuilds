@@ -2,7 +2,7 @@
 
 pkgname=python-argon2-cffi-bindings
 pkgver=25.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Low-level CFFI bindings for Argon2'
 arch=(x86_64)
 url='https://github.com/hynek/argon2-cffi-bindings'
