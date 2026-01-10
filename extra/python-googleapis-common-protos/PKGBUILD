@@ -5,7 +5,7 @@
 _name=googleapis-common-protos
 pkgname=python-$_name
 pkgver=1.72.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Python classes generated from the common protos in the googleapis repository"
 arch=('any')
 url="https://github.com/googleapis/googleapis"
