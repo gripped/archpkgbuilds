@@ -3,8 +3,8 @@
 
 _pyname=srt_equalizer
 pkgname=python-$_pyname
-pkgver=0.1.10
-pkgrel=2
+pkgver=0.1.11
+pkgrel=1
 pkgdesc='A tool to transform subtitle lengths, splitting into multiple fragments if necessary'
 arch=(any)
 url='https://github.com/peterk/srt_equalizer'
@@ -17,7 +17,7 @@ makedepends=(git
              python-poetry-core)
 checkdepends=(python-pytest)
 source=(git+https://github.com/peterk/srt_equalizer#tag=v$pkgver)
-sha256sums=('521b276aaea7bac1c5d265d3cdba94f4d6765389a3227149d96a1cd32ee65416')
+sha256sums=('3bce936cead8065d4701427d7962576e92429b01e7e4471b246456b578186fdd')
 
 build() {
   cd $_pyname
