@@ -2,7 +2,7 @@
 
 pkgname=python-webcolors
 pkgver=25.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A library for working with the color formats defined by HTML and CSS"
 url="https://github.com/ubernostrum/webcolors"
 license=('BSD-3-Clause')
