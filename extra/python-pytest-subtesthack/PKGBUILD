@@ -5,7 +5,7 @@
 _name=pytest-subtesthack
 pkgname=python-$_name
 pkgver=0.2.0
-pkgrel=4
+pkgrel=5
 pkgdesc="A hack to explicitly set up and tear down fixtures"
 arch=(any)
 url="https://github.com/untitaker/pytest-subtesthack"
