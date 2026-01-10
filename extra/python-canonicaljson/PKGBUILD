@@ -4,7 +4,7 @@
 
 pkgname=python-canonicaljson
 pkgver=2.0.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Canonical JSON'
 url='https://pypi.python.org/pypi/canonicaljson/'
 arch=('any')
