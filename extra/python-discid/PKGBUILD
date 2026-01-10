@@ -4,7 +4,7 @@
 
 pkgname=python-discid
 pkgver=1.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Python binding of MusicBrainz libdiscid"
 url="https://github.com/JonnyJD/python-discid"
 license=(LGPL-3.0-or-later)
