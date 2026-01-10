@@ -3,7 +3,7 @@
 _pkgname=TinyFPGA-Bootloader
 pkgname=tinyprog
 pkgver=1.0.23
-pkgrel=6
+pkgrel=7
 pkgdesc='TinyFPGA CLI Programmer'
 arch=('any')
 url='https://github.com/tinyfpga/TinyFPGA-Bootloader'
