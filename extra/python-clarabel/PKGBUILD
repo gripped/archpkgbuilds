@@ -3,7 +3,7 @@
 _pyname=clarabel
 pkgname=python-$_pyname
 pkgver=0.11.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Interior-point solver for convex conic optimisation problems'
 arch=(x86_64)
 url='https://github.com/oxfordcontrol/Clarabel.rs'
@@ -21,7 +21,7 @@ sha256sums=('5cffa7d3971db186ae534bd69c2dcb985f74679b7205b1c9361dca41a5806ace')
 prepare() {
   cd Clarabel.rs
   cargo generate-lockfile # https://github.com/oxfordcontrol/Clarabel.rs/pull/64
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
