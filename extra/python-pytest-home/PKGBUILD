@@ -3,7 +3,7 @@
 pkgname=python-pytest-home
 _name=${pkgname#python-}
 pkgver=0.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Home directory fixtures'
 arch=(any)
 url=https://github.com/jaraco/pytest-home
@@ -28,6 +28,8 @@ build() {
 
 check() {
   cd "$_name"
+  export GIT_CONFIG_GLOBAL="$HOME/.gitconfig"
+  git config user.email builduser@archlinux
   PYTHONPATH="$PWD/${_name/-/_}:$PYTHONPATH" pytest
 }
 
