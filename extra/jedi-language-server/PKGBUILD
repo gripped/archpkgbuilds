@@ -2,7 +2,7 @@
 
 pkgname=jedi-language-server
 pkgver=0.45.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Language server for Jedi'
 arch=(any)
 url=https://github.com/pappasam/jedi-language-server
