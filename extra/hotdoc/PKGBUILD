@@ -3,7 +3,7 @@
 
 pkgname=hotdoc
 pkgver=0.17.4
-pkgrel=3
+pkgrel=4
 pkgdesc="The tastiest API documentation system"
 url="https://github.com/hotdoc/hotdoc"
 arch=(x86_64)
