@@ -2,7 +2,7 @@
 
 pkgname=python-uri-template
 pkgver=1.3.0
-pkgrel=4
+pkgrel=5
 pkgdesc='An implementation of RFC 6570 URI Templates'
 arch=('any')
 url='https://github.com/plinss/uri_template'
