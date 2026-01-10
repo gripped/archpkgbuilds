@@ -1,0 +1,13 @@
+diff -ru xapian-haystack-3.1.0.orig/tests/xapian_tests/models.py xapian-haystack-3.1.0/tests/xapian_tests/models.py
+--- xapian-haystack-3.1.0.orig/tests/xapian_tests/models.py	2025-12-25 10:15:27.277201561 +0100
++++ xapian-haystack-3.1.0/tests/xapian_tests/models.py	2025-12-25 10:19:38.188773016 +0100
+@@ -3,6 +3,9 @@
+ 
+ from ..core.models import MockTag, AnotherMockModel, MockModel, AFourthMockModel
+ 
++import multiprocessing, sys
++if sys.version_info >= (3, 14):
++    multiprocessing.set_start_method("fork", force=True)
+ 
+ class Document(models.Model):
+     type_name = models.CharField(max_length=50)
