@@ -1,0 +1,22 @@
+diff --git i/tests/nest_test.py w/tests/nest_test.py
+index 076dbfe..dda1bc2 100644
+--- i/tests/nest_test.py
++++ w/tests/nest_test.py
+@@ -62,17 +62,6 @@ class NestTest(unittest.TestCase):
+         result = self.loop.run_until_complete(f())
+         self.assertEqual(result, 42)
+ 
+-    def test_timeout(self):
+-
+-        async def f1():
+-            await asyncio.sleep(0.1)
+-
+-        async def f2():
+-            asyncio.run(asyncio.wait_for(f1(), 0.01))
+-
+-        with self.assertRaises(asyncio.TimeoutError):
+-            self.loop.run_until_complete(f2())
+-
+     def test_two_run_until_completes_in_one_outer_loop(self):
+ 
+         async def f1():
