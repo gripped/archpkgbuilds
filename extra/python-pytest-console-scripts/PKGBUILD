@@ -3,7 +3,7 @@
 pkgname=python-pytest-console-scripts
 _pyname=pytest-console-scripts
 pkgver=1.4.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Pytest plugin for testing console scripts'
 arch=(any)
 license=(MIT)
