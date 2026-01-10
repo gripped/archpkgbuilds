@@ -3,8 +3,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hledger
-pkgver=1.51.1
-pkgrel=3
+pkgver=1.51.2
+pkgrel=1
 pkgdesc="Command-line interface for the hledger accounting system"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
@@ -19,7 +19,14 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-cmdargs'
          'haskell-utility-ht' 'haskell-wizards')
 makedepends=('ghc' 'haskell-extra' 'haskell-timeit')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('947c1189847d85424f9b93882c88cc06e53c84361a1aa292737ceea8e6a60954f18b437632dfcd1e20fe6ae84a455b18acd1f201f5e4cca10c108411a38424b4')
+sha512sums=('51e7dbe378b44707cd94f31881d77ba600ec3a900314dea9e4a244d40068d560e81016bc513c660cfedf2fcb682b580c129642473257f30e93899d2e24e50189')
+
+prepare() {
+    cd $pkgname-$pkgver
+    # This backtracks upstream bug fixes for 2410 and 2512, but we're blocked on
+    # this being baked into our (not so fresh) ghc-libs package for the moment.
+    sed -i -e '/haskeline/s/0.8.4.0/0.8/' hledger.cabal
+}
 
 build() {
     cd $pkgname-$pkgver
