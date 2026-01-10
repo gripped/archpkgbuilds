@@ -2,7 +2,7 @@
 
 pkgname=python-pytest-repeat
 pkgver=0.9.3
-pkgrel=2
+pkgrel=3
 pkgdesc='pytest plugin for repeating test execution'
 arch=('any')
 license=('MPL')
