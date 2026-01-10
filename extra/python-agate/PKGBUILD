@@ -5,7 +5,7 @@
 _pyname=agate
 pkgname=python-$_pyname
 pkgver=1.14.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A data analysis library that is optimized for humans instead of machines'
 arch=(any)
 url='https://agate.readthedocs.org/'
@@ -22,8 +22,8 @@ makedepends=(python-setuptools
              python-sphinx_rtd_theme
              python-sphinx-furo)
 checkdepends=(python-cssselect
-              python-lxml
-              python-nose)
+	      python-lxml
+      	      python-pytest)
 optdepends=('python-pyicu: non-English locale support')
 _archive="$_pyname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
@@ -49,7 +49,7 @@ build() {
 
 check() {
 	cd "$_archive"
-	LC_ALL=POSIX nosetests --exclude=test_cast_format_locale
+	LC_ALL=POSIX pytest -vs -k 'not test_cast_format_locale' .
 }
 
 package() {
