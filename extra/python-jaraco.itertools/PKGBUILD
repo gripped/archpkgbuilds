@@ -3,7 +3,7 @@
 _name=jaraco.itertools
 pkgname=python-jaraco.itertools
 pkgver=6.4.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Itertools for Python"
 arch=(any)
 url="https://github.com/jaraco/jaraco.itertools"
