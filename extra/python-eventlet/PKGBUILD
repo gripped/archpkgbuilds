@@ -3,7 +3,7 @@
 
 pkgname=python-eventlet
 pkgver=0.40.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Highly concurrent networking library'
 url='https://eventlet.net'
 arch=('any')
