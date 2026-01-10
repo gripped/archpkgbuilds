@@ -3,7 +3,7 @@
 pkgname=python-rcssmin
 _name="${pkgname#python-}"
 pkgver=1.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast CSS minifier for Python"
 arch=(x86_64)
 url="https://github.com/ndparker/rcssmin"
