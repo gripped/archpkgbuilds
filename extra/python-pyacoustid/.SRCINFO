@@ -1,17 +1,21 @@
 pkgbase = python-pyacoustid
 	pkgdesc = Bindings for Chromaprint acoustic fingerprinting and the Acoustid API
 	pkgver = 1.3.0
-	pkgrel = 5
+	pkgrel = 7
 	url = https://github.com/beetbox/pyacoustid
 	arch = any
 	license = MIT
 	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = chromaprint
 	depends = python
 	depends = python-requests
-	optdepends = python-audioread: fingerprint a file
-	source = git+https://github.com/beetbox/pyacoustid.git#tag=d2698e46aa23b9d3380c7b97278fc84fac502d7f
-	sha256sums = SKIP
+	depends = python-audioread
+	source = python-pyacoustid::git+https://github.com/beetbox/pyacoustid#tag=v1.3.0
+	sha512sums = cf2dab12fb7bcdaf5cd47c8fcc57f1d1994cc3bdd0ca506f70da23db33895878c2bc2f366873e7d7feaba623d7cf00744d424c000cf9910d48e2fb81294d100f
+	b2sums = 0b0f01d19e23f8d72c69a3d1b5a833483bf4e7fe366edea9d43d2b073454fd513c2cd512e8c2b346c89e1a927973239bee78d0af4e494cd0cdec9cc8a09c3d0a
 
 pkgname = python-pyacoustid
