@@ -4,7 +4,7 @@
 
 pkgname=beets
 pkgver=2.5.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Flexible music library manager and tagger'
 arch=(any)
 url=https://beets.io/
@@ -87,6 +87,7 @@ b2sums=('f7a8cc35696380364acd0c6dc9ad1681f2076d0ab3c233f84ead5b18c46c148f4d1d8a2
 prepare() {
   cd "$pkgname"
 
+  git cherry-pick -n ec141dbfd6079209e994d0a4ad97fedcc3a2ab1b # Fix tests with python 3.14
   patch -p1 -i "$srcdir/fix-failing-tests.patch"
 }
 
