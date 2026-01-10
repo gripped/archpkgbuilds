@@ -3,7 +3,7 @@
 _pyname=pycrdt-store
 pkgname=python-$_pyname
 pkgver=0.1.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Persistent storage for pycrdt'
 arch=(any)
 url='https://github.com/y-crdt/pycrdt-store'
