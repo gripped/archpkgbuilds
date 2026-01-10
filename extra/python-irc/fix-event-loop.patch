@@ -1,0 +1,45 @@
+diff -ru irc-20.5.0.orig/irc/client_aio.py irc-20.5.0/irc/client_aio.py
+--- irc-20.5.0.orig/irc/client_aio.py	2025-12-25 13:33:54.338826902 +0100
++++ irc-20.5.0/irc/client_aio.py	2025-12-25 13:34:30.099941901 +0100
+@@ -230,7 +230,7 @@
+                 connection.privmsg('#my-irc-channel', 'hello!')
+                 await asyncio.sleep(60)
+ 
+-        my_loop = asyncio.get_event_loop()
++        my_loop = asyncio.new_event_loop()
+ 
+         client = AioReactor(loop=my_loop)
+         server = client.server()
+@@ -261,7 +261,7 @@
+ 
+         self.mutex = threading.RLock()
+ 
+-        self.loop = asyncio.get_event_loop() if loop is None else loop
++        self.loop = asyncio.new_event_loop() if loop is None else loop
+ 
+         self.add_global_handler("ping", _ping_ponger, -42)
+ 
+diff -ru irc-20.5.0.orig/irc/tests/test_client_aio.py irc-20.5.0/irc/tests/test_client_aio.py
+--- irc-20.5.0.orig/irc/tests/test_client_aio.py	2025-12-25 13:33:54.343223851 +0100
++++ irc-20.5.0/irc/tests/test_client_aio.py	2025-12-25 13:34:30.102726809 +0100
+@@ -27,7 +27,7 @@
+ 
+     # connect to dummy server
+     with suppress_issue_197():
+-        loop = asyncio.get_event_loop()
++        loop = asyncio.new_event_loop()
+     loop.create_connection = make_mocked_create_connection(
+         mock_transport, mock_protocol
+     )
+diff -ru irc-20.5.0.orig/scripts/irccat-aio.py irc-20.5.0/scripts/irccat-aio.py
+--- irc-20.5.0.orig/scripts/irccat-aio.py	2025-12-25 13:33:54.345826959 +0100
++++ irc-20.5.0/scripts/irccat-aio.py	2025-12-25 13:34:30.103177644 +0100
+@@ -66,7 +66,7 @@
+     jaraco.logging.setup(args)
+     target = args.target
+ 
+-    loop = asyncio.get_event_loop()
++    loop = asyncio.new_event_loop()
+     reactor = irc.client_aio.AioReactor(loop=loop)
+ 
+     try:
