@@ -2,7 +2,7 @@
 
 pkgname=python-humanfriendly
 pkgver=10.0
-pkgrel=9
+pkgrel=10
 pkgdesc="Human friendly input/output for text interfaces using Python"
 arch=(any)
 url="https://github.com/xolox/python-humanfriendly"
