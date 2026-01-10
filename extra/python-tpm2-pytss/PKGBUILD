@@ -2,7 +2,7 @@
 pkgname=python-tpm2-pytss
 _name=${pkgname#python-}
 pkgver=2.3.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Python bindings for tpm2-tss'
 arch=(x86_64)
 url='https://github.com/tpm2-software/tpm2-pytss'
@@ -40,6 +40,8 @@ sha512sums=('ca6013685b5f0e251a691086a48476f87fde6a74166bd499a12105d1bce8648b2b3
 
 prepare() {
   cd $_name
+  git cherry-pick -n 55d28b259f1a68f60c937ea8be7815685d32757f 61d00b4dcca131b3f03f674ceabf4260bdbd6a61 # Fix build with GCC 15
+  git cherry-pick -n 6ab4c74e6fb3da7cd38e97c1f8e92532312f8439 # Fix tests with cyptography 45
   patch -Np1 -i ../adjust-tpm-pt-revision-to-fix-test.patch
 }
 
