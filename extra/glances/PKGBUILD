@@ -6,7 +6,7 @@
 
 pkgname=glances
 pkgver=4.4.1
-pkgrel=2
+pkgrel=3
 pkgdesc="CLI curses-based monitoring tool"
 url="https://nicolargo.github.io/glances"
 arch=('any')
