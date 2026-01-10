@@ -4,7 +4,7 @@ pkgname=soapysdr
 _pkgname=SoapySDR
 pkgver=0.8.1
 _gitver=soapy-sdr-$pkgver
-pkgrel=6
+pkgrel=7
 pkgdesc='Vendor and platform neutral SDR support library'
 arch=('x86_64')
 url='https://github.com/pothosware/SoapySDR'
@@ -30,6 +30,7 @@ build() {
   cmake .. \
     -DSOAPY_SDR_EXTVER=ARCH \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DCMAKE_BUILD_TYPE=Release
 
   make
