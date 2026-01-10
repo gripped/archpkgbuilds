@@ -5,7 +5,7 @@
 
 pkgname=orca
 pkgver=49.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Screen reader for individuals who are blind or visually impaired"
 url="https://orca.gnome.org/"
 arch=(any)
