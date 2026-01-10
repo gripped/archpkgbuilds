@@ -1,0 +1,22 @@
+diff --unified --recursive --text --new-file onionshare-2.6.3.orig/cli/tests/test_cli_web.py onionshare-2.6.3/cli/tests/test_cli_web.py
+--- onionshare-2.6.3.orig/cli/tests/test_cli_web.py	2025-12-28 12:21:21.361677564 +0100
++++ onionshare-2.6.3/cli/tests/test_cli_web.py	2025-12-28 12:23:02.855318710 +0100
+@@ -13,7 +13,7 @@
+ 
+ import pytest
+ from contextlib import contextmanager
+-from multiprocessing import Process
++import multiprocessing
+ from urllib.request import urlopen, Request
+ from werkzeug.datastructures import Headers
+ from werkzeug.exceptions import RequestedRangeNotSatisfiable
+@@ -402,7 +402,8 @@
+     def run():
+         web.app.run(host="127.0.0.1", port=port, debug=False)
+ 
+-    proc = Process(target=run)
++    # Use fork context explicitly for Python 3.14+ (forkserver cannot pickle local functions)
++    proc = multiprocessing.get_context('fork').Process(target=run)
+     proc.start()
+ 
+     url = "http://127.0.0.1:{}".format(port)
