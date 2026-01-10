@@ -4,7 +4,7 @@
 
 pkgname=python-toolz
 pkgver=1.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A functional standard library for Python"
 arch=(any)
 url="https://github.com/pytoolz/toolz"
