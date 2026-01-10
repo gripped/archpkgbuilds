@@ -4,7 +4,7 @@
 
 pkgname=ktoblzcheck
 pkgver=1.53
-pkgrel=7
+pkgrel=8
 pkgdesc="A library to check account numbers and bank codes of German banks"
 arch=('x86_64')
 url="http://ktoblzcheck.sourceforge.net"
@@ -25,9 +25,9 @@ build() {
 
   cmake \
     ../$pkgname-$pkgver \
-    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DENABLE_BANKDATA_DOWNLOAD=OFF
+    -DENABLE_BANKDATA_DOWNLOAD=OFF \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   make
 }
 
