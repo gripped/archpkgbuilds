@@ -3,7 +3,7 @@
 pkgname=python-svglib
 _name="${pkgname#python-}"
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Read SVG files and convert them to other formats"
 arch=(any)
 url="https://github.com/deeplook/svglib"
