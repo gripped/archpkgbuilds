@@ -2,7 +2,7 @@
 
 pkgbase=vl-convert
 pkgname=(vl-convert python-vl-convert)
-pkgver=1.8.0
+pkgver=1.9.0
 pkgrel=1
 pkgdesc="Convert Vega-Lite chart specifications to SVG, PNG, or Vega"
 arch=(x86_64)
@@ -17,11 +17,11 @@ checkdepends=(
   python-pytest
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('193a7fa805b89d1b82825734db2077de64c4cc0bf0063643b7a5106c197dec0afa104351e3b8468431428d6c60b7beeda53b6644afa996e29afeef4ea57c6b2b')
+b2sums=('ed0d4f42e19f3b7a24d96e45e679ec9febdf8b324aaae9653ff0293a0d4341e967a2556a6866f540051fdf94c6aed5e4e78408915dfbcaf521bac5ef6c0d08f6')
 
 prepare() {
   cd $pkgbase-$pkgver
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
@@ -33,7 +33,7 @@ build() {
 
   # build Python bindings
   cd $pkgbase-python
-  maturin build --locked --release --target "$(rustc -vV | sed -n 's/host: //p')" --strip
+  maturin build --locked --release --target "$(rustc --print host-tuple)" --strip
 }
 
 check() {
