@@ -4,7 +4,7 @@
 
 pkgname=python-pandas-datareader
 pkgver=0.10.0
-pkgrel=5
+pkgrel=6
 pkgdesc="Data readers extracted from the pandas codebase"
 arch=('any')
 url="https://github.com/pydata/pandas-datareader"
