@@ -4,7 +4,7 @@
 pkgname=ropgadget
 _pkgname=ROPgadget
 pkgver=7.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Search gadgets in binaries to facilitate ROP exploitation for several file formats and architectures'
 url='https://github.com/JonathanSalwan/ROPgadget'
 arch=(any)
