@@ -5,7 +5,7 @@
 _name=i3ipc-python
 pkgname=python-i3ipc
 pkgver=2.2.1
-pkgrel=8
+pkgrel=9
 pkgdesc="An improved Python library to control i3wm"
 url="https://github.com/altdesktop/i3ipc-python"
 arch=('any')
