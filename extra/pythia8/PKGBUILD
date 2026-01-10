@@ -8,11 +8,11 @@ pkgver=8.3.14
 _pkgver="${pkgver//./}"
 _pkgid="${pkgbase:0:-1}${_pkgver}"
 _pkgpre="${_pkgver:0:2}"
-pkgrel=1
+pkgrel=2
 pkgdesc="High-energy physics events generator"
 arch=('x86_64')
 url="https://pythia.org"
-license=('GPL2')
+license=(GPL-2.0-or-later)
 makedepends=('fastjet' 'hepmc' 'hepmc2' 'lhapdf' 'openmp' 'python' 'root' 'zlib')
 source=("https://pythia.org/download/pythia${_pkgpre}/${_pkgid}.tgz"
         'pythia8.sh'
