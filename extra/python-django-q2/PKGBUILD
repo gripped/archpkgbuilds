@@ -1,6 +1,6 @@
 
 pkgname=python-django-q2
-pkgver=1.8.0
+pkgver=1.9.0
 pkgrel=1
 pkgdesc='A multiprocessing distributed task queue for Django'
 arch=(any)
@@ -21,7 +21,7 @@ optdepends=(
   'python-pymongo: MongoDB as a message broker support'
 )
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/django-q2/django-q2/archive/refs/tags/v${pkgver}.tar.gz)
-sha256sums=('3f35acadb506ee653d4137cdd27bfd301392922c0c943c373de11962f310a268')
+sha256sums=('c2d2df923dd40c300060c41efe544a638fb67ab0135c4a16826ea21c5913e2cb')
 
 build() {
   cd django-q2-${pkgver}
