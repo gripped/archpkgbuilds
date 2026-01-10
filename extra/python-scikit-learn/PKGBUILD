@@ -4,7 +4,7 @@
 
 pkgname=python-scikit-learn
 pkgver=1.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A set of python modules for machine learning and data mining'
 arch=(x86_64)
 url='https://scikit-learn.org'
