@@ -4,7 +4,7 @@
 _name=fastnumbers
 pkgname=python-fastnumbers
 pkgver=5.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Super-fast and clean conversions to numbers"
 arch=(x86_64)
 url="https://github.com/SethMMorton/fastnumbers"
