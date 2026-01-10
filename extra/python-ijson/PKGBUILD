@@ -3,7 +3,7 @@
 
 pkgname=python-ijson
 pkgver=3.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Iterative JSON parser with Pythonic interface"
 arch=(x86_64)
 url="https://github.com/ICRAR/ijson"
