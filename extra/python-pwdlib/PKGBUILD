@@ -3,7 +3,7 @@
 pkgname=python-pwdlib
 _pkgname=${pkgname#python-}
 pkgver=0.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Modern password hashing for Python"
 url="https://frankie567.github.io/pwdlib"
 arch=('any')
