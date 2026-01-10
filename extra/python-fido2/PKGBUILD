@@ -6,7 +6,7 @@
 
 pkgname=python-fido2
 pkgver=2.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Library for FIDO 2.0, including communication with a device over USBA'
 url='https://github.com/Yubico/python-fido2'
 license=('custom:BSD-2-clause')
