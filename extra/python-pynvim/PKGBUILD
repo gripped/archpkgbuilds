@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=python-pynvim
 pkgver=0.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Python client for Neovim'
 url='https://github.com/neovim/pynvim'
 arch=('any')
