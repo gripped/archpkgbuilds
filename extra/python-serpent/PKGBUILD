@@ -3,7 +3,7 @@
 
 pkgname=python-serpent
 pkgver=1.42
-pkgrel=1
+pkgrel=2
 pkgdesc='Serializer for literal Python expressions'
 url='https://github.com/irmen/Serpent'
 arch=(any)
