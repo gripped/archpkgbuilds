@@ -2,7 +2,7 @@
 
 pkgname=python-libarchive-c
 pkgver=5.1
-pkgrel=4
+pkgrel=5
 pkgdesc='Python interface to libarchive'
 url='https://github.com/Changaco/python-libarchive-c'
 arch=('any')
