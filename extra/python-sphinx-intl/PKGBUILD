@@ -3,7 +3,7 @@
 _pyname=sphinx-intl
 pkgname=python-$_pyname
 pkgver=2.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A Sphinx utility that make it easy to translate and to apply translations'
 arch=(any)
 url='https://github.com/sphinx-doc/sphinx-intl'
