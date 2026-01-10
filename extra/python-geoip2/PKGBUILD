@@ -2,7 +2,7 @@
 
 pkgname=python-geoip2
 pkgver=5.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="MaxMind GeoIP2 API"
 url="https://github.com/maxmind/GeoIP2-python"
 license=('Apache')
