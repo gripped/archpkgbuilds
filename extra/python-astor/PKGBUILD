@@ -2,7 +2,7 @@
 
 pkgname=python-astor
 pkgver=0.8.1
-pkgrel=8
+pkgrel=9
 pkgdesc="Read/rewrite/write Python ASTs"
 arch=('any')
 license=('BSD')
