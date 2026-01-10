@@ -6,7 +6,7 @@
 # Contributor: snoopy33 <snoopy33@no-log.org>
 
 pkgname=cairo-dock-plug-ins
-pkgver=3.6.1
+pkgver=3.6.2
 pkgrel=1
 pkgdesc="Plugins for Cairo-Dock"
 arch=('x86_64')
@@ -53,7 +53,7 @@ depends=(
 makedepends=('cmake' 'vala')
 replaces=('cairo-dock-plugins')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('5452e6759f935627adf92988efca91fd897feb75c3342cce9a112443814ac4e2')
+sha256sums=('a93700e9633d7562f34af83b5f0a0a97b24915dd2ae908c2e627acec2e4b295e')
 
 build() {
 	cmake -B build \
