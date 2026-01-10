@@ -7,7 +7,7 @@
 pkgbase=brltty
 pkgname=(brltty brltty-udev-generic)
 pkgver=6.8
-pkgrel=5
+pkgrel=6
 pkgdesc="Braille display driver for Linux/Unix"
 arch=(x86_64)
 url="https://brltty.app"
