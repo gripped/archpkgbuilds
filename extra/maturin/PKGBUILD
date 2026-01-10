@@ -6,7 +6,7 @@ pkgname=(
   maturin
   python-maturin
 )
-pkgver=1.10.2
+pkgver=1.11.4
 pkgrel=1
 pkgdesc="Build and publish crates with pyo3, rust-cpython and cffi bindings"
 url="https://github.com/PyO3/maturin"
@@ -34,12 +34,12 @@ checkdepends=(
 # https://github.com/briansmith/ring/issues/1444
 options=(!lto)
 source=("git+$url.git#tag=v$pkgver")
-sha512sums=('bd579ac2f56447444afeab64b85d000ad4b8dfe42996aac1667227c4edf5880597c9bac28ae9743f491b2506ba1043305c1bf9374cb223bda434ca845527f617')
-b2sums=('d2f8966b3c691855ca09cd2f14f6bbe45ae24a557a8176caf2729a99422053e10369c501162b4a5f3f85fe790e6a927ba0b6878d11b6779b52cada8f234d947b')
+sha512sums=('bd87686a1f3c55dceef98f3e64a187b42b7fc67a7b67df5434edd99ba197fc9b8a4d32bcb4995f7f2181bc04010ed8e9b217772e5f3be0f91e06145427ca0dda')
+b2sums=('73d7257c744ec8795dfcae23cc93ee1992a185ad6b712876ba7078e071b6cd5ae6d6ba1f71ca47c448c73ef03c98bfc6fda32b2c91491b89b1200856eea4af8c')
 
 prepare() {
   cd $pkgbase
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
