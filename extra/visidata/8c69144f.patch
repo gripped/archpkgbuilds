@@ -1,0 +1,23 @@
+From 8c69144fb1fd4572f7ad1e0d8a760e1a7082f4ea Mon Sep 17 00:00:00 2001
+From: Saul Pwanson <code@saul.pw>
+Date: Mon, 22 Dec 2025 14:21:54 -0800
+Subject: [PATCH] [test] disable "foo." base_stem test as results may vary
+ #2773
+
+---
+ visidata/tests/test_path.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/visidata/tests/test_path.py b/visidata/tests/test_path.py
+index 170b28c93..00759c189 100644
+--- a/visidata/tests/test_path.py
++++ b/visidata/tests/test_path.py
+@@ -22,7 +22,7 @@ def test_withName(self):
+         assert Path('foo').ext == ''
+         assert Path('foo').base_stem == 'foo'
+         assert Path('foo.').ext == ''
+-        assert Path('foo.').base_stem == 'foo.'
++        # assert Path('foo.').base_stem == 'foo.' # only 'foo' since python 3.14
+         assert Path('.foo').ext == ''
+         assert Path('.foo').base_stem == '.foo'
+ 

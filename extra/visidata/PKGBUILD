@@ -5,7 +5,7 @@
 
 pkgname=visidata
 pkgver=3.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Terminal spreadsheet multitool for discovering and arranging data'
 arch=(any)
 url="https://www.$pkgname.org"
@@ -63,8 +63,14 @@ checkdepends=(python-pytest)
 _archive="$pkgname-$pkgver"
 # pypi sources don’t have scripts to generate completions
 # source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$_archive.tar.gz")
-source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('4d7f93bdcc6da98030df5e3198e4098d9b57b9cae6f0ccaca9820a85e1bef51b')
+source=("$_url/archive/v$pkgver/$_archive.tar.gz"
+         8c69144f.patch)
+sha256sums=('4d7f93bdcc6da98030df5e3198e4098d9b57b9cae6f0ccaca9820a85e1bef51b'
+            'c5c132f88c227b2f11e1f2e8cdd279749e93fbe780189b7dae0f1a4508135456')
+
+prepare() {
+  patch -d $_archive -p1 < 8c69144f.patch # Fix tests with python 3.14
+}
 
 build() {
 	cd "$_archive"
