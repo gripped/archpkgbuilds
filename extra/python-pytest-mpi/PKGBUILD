@@ -1,32 +1,50 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
-_pkg=pytest-mpi
-pkgname=python-${_pkg}
+_name=pytest-mpi
+pkgname=python-$_name
 pkgver=0.6
-pkgrel=6
+pkgrel=7
 pkgdesc="pytest plugin for working with MPI"
 arch=(any)
-url="https://pytest-mpi.readthedocs.io/"
-license=(BSD)
-depends=(python-pytest)
-makedepends=(python-setuptools)
-checkdepends=(openmpi python-mpi4py python-sybil)
-source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-#source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('09b3cd3511f8f3cd4d205f54d4a7223724fed0ab68b872ed1123d312152325a9')
+url="https://github.com/aragilar/pytest-mpi"
+license=(BSD-3-Clause)
+depends=(
+  python
+  python-mpi4py
+  python-pytest
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+)
+checkdepends=(
+  python-sybil
+)
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
+b2sums=('ee71c3ee65354801de81a9af1a5b5733c96fc061af68fa34c2d88edffbe3b8b4b59c87cff3062b2780b829074dcaed85fa50f1cccf7c9d0eaee1edf9db553e60')
 
 build() {
-  cd ${_pkg}-${pkgver}
-  python setup.py build
+  cd $_name-$pkgver
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd ${_pkg}-${pkgver}
-  PYTHONPATH="${PWD}"/build/lib pytest -vv --color=yes tests -p pytester --runpytest=subprocess
+  local pytest_options=(
+    -vv
+    -W ignore::DeprecationWarning
+    -p pytester
+    --runpytest=subprocess
+  )
+
+  cd $_name-$pkgver
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest "${pytest_options[@]}" tests
 }
 
 package() {
-  cd ${_pkg}-${pkgver}
-  python setup.py install --prefix=/usr --root="${pkgdir}" --skip-build --optimize=1
-  install -Dm644 LICENSE.txt -t "${pkgdir}"/usr/share/licenses/${pkgname}
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
