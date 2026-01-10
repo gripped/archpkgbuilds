@@ -8,7 +8,7 @@
 
 pkgname=mlt
 pkgver=7.36.1
-pkgrel=1
+pkgrel=3
 pkgdesc='An open source multimedia framework'
 arch=(x86_64)
 url='https://www.mltframework.org'
@@ -33,10 +33,8 @@ optdepends=('ffmpeg: ffmpeg plugin'
             'libxml2: XML plugin'
             'movit: opengl plugin'
             'opencv: openCV plugin'
-            'qt5-base: QT5 plugins'
-            'qt5-svg: Qt5 plugins'
-            'qt6-base: Qt6 plugin'
             'qt6-5compat: Qt6 plugin'
+            'qt6-base: Qt6 plugin'
             'qt6-svg: Qt6 plugin'
             'pango: gdk plugin'
             'python: python bindings'
@@ -64,7 +62,6 @@ makedepends=(cmake
              opencv
              pango
              python
-             qt5-svg
              qt6-5compat
              qt6-svg
              rtaudio
