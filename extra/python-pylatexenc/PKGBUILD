@@ -4,7 +4,7 @@
 pkgname=python-pylatexenc
 _pkgname=${pkgname#python-}
 pkgver=2.10
-pkgrel=5
+pkgrel=6
 pkgdesc="Simple LaTeX parser providing latex-to-unicode and unicode-to-latex conversion"
 arch=(any)
 url="https://github.com/phfaist/pylatexenc"
