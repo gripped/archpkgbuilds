@@ -8,14 +8,13 @@
 # Contributor: Pablo Olmos de Aguilera C. pablo+aur at odac dot co
 
 pkgbase=powerline
-_pkgname=$pkgbase
 pkgname=(
   powerline
   powerline-fonts
   vim-powerline
 )
 pkgver=2.8.4
-pkgrel=3
+pkgrel=4
 pkgdesc="Statuslines and prompts for several applications including vim, zsh, bash, tmux, IPython, Awesome, i3 and Qtile"
 arch=(x86_64)
 url="https://github.com/powerline/powerline"
@@ -34,27 +33,31 @@ checkdepends=(
   python-psutil
 )
 source=(
-  "$_pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
+  "git+$url.git#tag=$pkgver"
   # This patch set is maintained here:
   # https://github.com/carlsmedstad/powerline/tree/archlinux
   "0001-Compile-powerline-executable-without-setuptools.patch::$url/commit/ab071647568255b7c80c776beaaf467168b4f5ec.patch"
   "0002-Point-shebangs-to-system-Python.patch::$url/commit/6324b25a2a16d5c0bf5dd05ba1bc5448215ad969.patch"
   "0003-Remove-failing-tests.patch::$url/commit/b8772a7583e25f798e4790e550e101f9ce78a2f3.patch"
+  "0004-Fix-argparse-nested-argument-groups-for-Python-3.14.patch::$url/commit/9528eec9c0d79d9ee0fe8029519aa1e39220ab60.patch"
+  "0005-Replace-codecs.open-with-open.patch::$url/commit/ec357c25676b0fda099fba975109f18f2930ba2d.patch"
 )
-sha256sums=('9e846af9379b57e410efe264cff3a6b98eb78dd9526e83016776ae5ffc5798f4'
-            'f3098fc46c6b41adb8fd9da82ea39de218459d8064da7e4cfe5fb65ed2dd66b7'
-            '6a45dd8fefffbe4ef7dcadc3461217c010447aa67610649880ca83aa3440cd76'
-            'd0b5ff60b4fcddc89954279ffb2b4046466529cb66ca90d342ac4b4450cf81e8')
+b2sums=('8a288cc64c2568868550a6de18ecede51f811582456450ae169f806256ad09555c068302fe2982711e47fe1899b64ae3f3084bd5c8ca1b364a36630709af6bed'
+        '1c0bd34fbfeaa87cd5decc459bb58da2ad71cb438b2d2572217f2f31c70cf59150676c896a0b0bb9f6e33f21f4c91744b5230a788f86c47636ec571e73fa1f7b'
+        'c5a80e823abecfddf1ca7b4299b4fc05b2af6d3d90e87d0508566a43405757b1c99ab2cae5a68f5ae353f06310c2c91a0bfbb04b99eb5ed644bb3f103e8c7020'
+        'a81c18629808868d37ef12f70558e685e0c13d1a1c157d5dc52dc81e364a61df42df1e80000c6ad2d07e049c2f3d2973375894e26e857cf1b5b15063ea1a048f'
+        '4c0775a2131a22ba460538335da5cb0b3c42cc7bd7e6041edee3d28e4158c4fac33f7684155fd26d0a902fcc25f47334cccd9c19b5ba5fc57a8c00c6b6f701fe'
+        '46361b62bbe50733091b52244fe23fde37d540c07c090a600f6d7088ef4dc8a8d35d1572b8e2a6936de28196f608bf5664d91ae75b533d29ed810095b893f099')
 
 prepare() {
-  cd $_pkgname-$pkgver
-  for patch in "$srcdir"/*.patch; do
-    patch -Np1 -i "$patch"
+  cd $pkgbase
+  for patch in ../*.patch; do
+    patch -Np1 < "$patch"
   done
 }
 
 build() {
-  cd $_pkgname-$pkgver
+  cd $pkgbase
   # shellcheck disable=SC2086
   gcc $CFLAGS $LDFLAGS -o scripts/powerline client/powerline.c
   python -m build --wheel --no-isolation
@@ -62,7 +65,7 @@ build() {
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd $pkgbase
   python -m unittest discover -vs tests/test_python
 }
 
@@ -88,7 +91,7 @@ package_powerline() {
     python-powerline
   )
 
-  cd $_pkgname-$pkgver
+  cd $pkgbase
   python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -vdm755 "$pkgdir/usr/share/powerline"
@@ -105,7 +108,7 @@ package_powerline-fonts() {
   pkgdesc="Patched fonts for powerline"
   provides=(otf-powerline-symbols)
 
-  cd $_pkgname-$pkgver
+  cd $pkgbase
   install -vDm644 -t "$pkgdir/usr/share/fonts/OTF" font/PowerlineSymbols.otf
   install -vDm644 -t "$pkgdir/usr/share/fontconfig/conf.avail" font/10-powerline-symbols.conf
   install -vdm755 "$pkgdir/usr/share/fontconfig/conf.default"
@@ -124,7 +127,7 @@ package_vim-powerline() {
   provides=(powerline-vim)
   replaces=(powerline-vim)
 
-  cd $_pkgname-$pkgver
+  cd $pkgbase
   install -vDm644 -t "$pkgdir/usr/share/vim/vimfiles/plugin" \
     powerline/bindings/vim/plugin/powerline.vim
   install -vDm644 -t "$pkgdir/usr/share/licenses/vim-powerline" LICENSE
