@@ -4,7 +4,7 @@
 
 pkgname=python-coloredlogs
 pkgver=15.0.1
-pkgrel=7
+pkgrel=8
 pkgdesc="Colored terminal output for Python's logging module"
 arch=('any')
 url="https://github.com/xolox/python-coloredlogs"
