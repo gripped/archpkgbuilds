@@ -1,7 +1,7 @@
 pkgbase = gnuradio-iqbal
 	pkgdesc = Gnuradio I/Q balancing
 	pkgver = 0.38.3
-	pkgrel = 1
+	pkgrel = 2
 	url = https://cgit.osmocom.org/gr-iqbal/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -21,8 +21,10 @@ pkgbase = gnuradio-iqbal
 	replaces = gr-iqbal
 	source = git+https://gitea.osmocom.org/sdr/gr-iqbal.git#tag=v0.38.3
 	source = git+https://gitea.osmocom.org/sdr/libosmo-dsp.git
+	source = boost-1.89.patch
 	sha256sums = cd30127783b952545f3ab1f2675fd59ee52c1264769b49838da0f09b4bfb4abe
 	sha256sums = SKIP
+	sha256sums = 23594ed764caf13f104a06245f61a2c99232afa8d3635a3461ad88296b314805
 
 pkgname = gnuradio-iqbal
 	depends = gcc-libs

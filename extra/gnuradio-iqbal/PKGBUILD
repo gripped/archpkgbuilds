@@ -5,7 +5,7 @@
 pkgname=gnuradio-iqbal
 _pkgname=gr-iqbal
 pkgver=0.38.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Gnuradio I/Q balancing"
 arch=(x86_64)
 url="https://cgit.osmocom.org/gr-iqbal/"
@@ -31,15 +31,19 @@ replaces=(gr-iqbal)
 source=(
   "git+https://gitea.osmocom.org/sdr/gr-iqbal.git#tag=v$pkgver"
   "git+https://gitea.osmocom.org/sdr/libosmo-dsp.git"  # TODO: package this instead
+   boost-1.89.patch
 )
 sha256sums=('cd30127783b952545f3ab1f2675fd59ee52c1264769b49838da0f09b4bfb4abe'
-            'SKIP')
+            'SKIP'
+            '23594ed764caf13f104a06245f61a2c99232afa8d3635a3461ad88296b314805')
 
 prepare() {
   cd $_pkgname
   git submodule init
   git submodule set-url libosmo-dsp "$srcdir/libosmo-dsp"
   git -c protocol.file.allow=always submodule update
+
+  patch -p1 -i ../boost-1.89.patch
 }
 
 build() {
