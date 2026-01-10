@@ -7,7 +7,7 @@ pkgname=(
   libpeas-2-docs
 )
 pkgver=2.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="GObject Plugin System"
 url="https://wiki.gnome.org/Projects/Libpeas"
 arch=(x86_64)
