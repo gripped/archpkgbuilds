@@ -3,24 +3,30 @@
 pkgbase=keystone
 pkgname=('keystone' 'python-keystone')
 pkgver=0.9.2
-pkgrel=7
+pkgrel=8
 pkgdesc='Lightweight multi-platform, multi-architecture assembler framework'
 url='https://www.keystone-engine.org/'
 arch=('x86_64')
 license=('GPL2')
 makedepends=('cmake' 'ninja' 'gcc-libs' 'python' 'python-setuptools')
 options=('staticlibs' '!emptydirs')
-source=(https://github.com/keystone-engine/keystone/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz)
-sha512sums=('5d4dd30410410bc7848e75a2e31e8ecef6241ad25e21963aa7a07bbea21d95b75e235c80573129014102684c9647710ace3c0776a8401844d7e4b45cab7bd04b')
-b2sums=('5654ae6a66ccf6832fbdbb8c1083a2318e413bb833a0fadc4e1374f0de601e3dad9f354b1dec92d9a944621923458e432510299c1b55579ac9bb6b6e90a818de')
+source=(https://github.com/keystone-engine/keystone/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz
+        gcc-15.patch)
+sha512sums=('5d4dd30410410bc7848e75a2e31e8ecef6241ad25e21963aa7a07bbea21d95b75e235c80573129014102684c9647710ace3c0776a8401844d7e4b45cab7bd04b'
+            'f0cc08a981a1070fad5c62e4aaaf277f1d6443308205be3365a2e7eff7bc690717dea8ee19bd41f9049b44a989c58e6fd1c1ef02897bd673d3960ba76fb19b59')
+b2sums=('5654ae6a66ccf6832fbdbb8c1083a2318e413bb833a0fadc4e1374f0de601e3dad9f354b1dec92d9a944621923458e432510299c1b55579ac9bb6b6e90a818de'
+        '8a7948296c38f2f6c09758d714c2c5c705035ec94612a636361f11ecd45a069c80576147fee69dc9f30fe4d8f516c36587bf37e987286d97ae7281c563a39aa5')
 
 prepare() {
   cd ${pkgbase}-${pkgver}
   sed 's|set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS|# set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS|' -i llvm/CMakeLists.txt
+  sed -e 's|CMP0051 OLD|CMP0051 NEW|' -i CMakeLists.txt -i llvm/CMakeLists.txt
+  patch -p1 -i ../gcc-15.patch
 }
 
 build() {
   cd ${pkgbase}-${pkgver}
+  export CMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake \
     -B build-shared \
     -DCMAKE_INSTALL_PREFIX=/usr \
