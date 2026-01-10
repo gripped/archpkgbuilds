@@ -8,7 +8,7 @@
 _pkgname=mechanize
 pkgname=python-mechanize
 pkgver=0.4.10
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc='Stateful programmatic web browsing in Python'
 arch=('any')
@@ -25,6 +25,7 @@ validpgpkeys=('3CE1780F78DD88DF45194FD706BC317B515ACE7C') # Kovid Goyal (New lon
 
 prepare() {
   cd $_pkgname
+  git cherry-pick -n 0c1cd4b65697dee4e4192902c9a2965d94700502
 }
 
 build() {
