@@ -3,7 +3,7 @@
 
 pkgname=python-blessed
 pkgver=1.25
-pkgrel=1
+pkgrel=3
 pkgdesc='A thin, practical wrapper around terminal styling, screen positioning, and keyboard input'
 arch=(any)
 url=https://github.com/jquast/blessed
@@ -31,6 +31,11 @@ b2sums=('abd1bc99026547ce266e03554f685f07fa446964f92dbab99fc7a42321baed3ce96a7b1
 pkgver() {
   cd blessed
   git describe --tags
+}
+
+prepare() {
+  cd blessed
+  git cherry-pick -n e4ec8f00033c99719171074010331457d227cd1b cee680ff7fb3ad31f42ae98582ba74629f1fd6b0 # Fix tests
 }
 
 build() {
