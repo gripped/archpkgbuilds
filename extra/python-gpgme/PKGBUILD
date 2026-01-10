@@ -2,7 +2,7 @@
 
 pkgname=python-gpgme
 pkgver=2.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Python bindings for GPGME'
 arch=(x86_64)
 url='https://gnupg.org/software/gpgme/index.html'
