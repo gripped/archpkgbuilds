@@ -2,7 +2,7 @@
 
 pkgname=python-h5netcdf
 pkgver=1.7.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Pythonic interface to netCDF4 via h5py"
 arch=('any')
 url="https://github.com/h5netcdf/h5netcdf"
