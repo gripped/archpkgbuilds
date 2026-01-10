@@ -1,0 +1,15 @@
+diff --git a/minimal/do b/minimal/do
+index 557c433..b4b381f 100755
+--- a/minimal/do
++++ b/minimal/do
+@@ -355,7 +357,9 @@ _do()
+ 		fi
+ 		target=$PWD/$target
+ 		tmp=$PWD/$tmp
+-		cd "$dodir" || return 99
++		if [ -n "$dodir" ]; then
++			cd "$dodir" || return 99
++		fi
+ 		target=$(_relpath "$target" "$PWD") || return 98
+ 		tmp=$(_relpath "$tmp" "$PWD") || return 97
+ 		base=${target%$ext}
