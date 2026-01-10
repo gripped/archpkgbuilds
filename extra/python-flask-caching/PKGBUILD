@@ -4,7 +4,7 @@
 pkgname=python-flask-caching
 pkgver=2.3.1
 _commit=e59bc040cd47cd2b43e501d636d43d442c50b3ff
-pkgrel=2
+pkgrel=3
 pkgdesc="A caching extension for Flask"
 url="https://github.com/pallets-eco/flask-caching"
 license=('BSD-3-Clause')
