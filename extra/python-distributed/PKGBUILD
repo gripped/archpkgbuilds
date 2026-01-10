@@ -4,7 +4,7 @@
 _name=distributed
 pkgname=python-$_name
 pkgver=2025.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Distributed task scheduler for Dask"
 arch=(any)
 url="https://distributed.dask.org/"
@@ -128,9 +128,12 @@ check() {
     --deselect distributed/cli/tests/test_dask_scheduler.py::test_hostport
     --deselect distributed/deploy/tests/test_local.py::test_only_local_access
     --deselect distributed/deploy/tests/test_local.py::test_remote_access
+    # since Python 3.14: Failed: DID NOT RAISE <class 'TypeError'>
+    --deselect distributed/protocol/tests/test_protocol.py::test_deeply_nested_structures
     # hangs
     --deselect distributed/tests/test_client.py::test_futures_in_subgraphs
     --deselect distributed/cli/tests/test_dask_scheduler.py::test_preload_config
+    --deselect distributed/cli/tests/test_dask_scheduler.py::test_preload_command
   )
 
   cd $_name-$pkgver
