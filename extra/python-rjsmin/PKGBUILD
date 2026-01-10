@@ -3,7 +3,7 @@
 pkgname=python-rjsmin
 _name="${pkgname#python-}"
 pkgver=1.2.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast javascript minifier for Python"
 arch=(x86_64)
 url="https://github.com/ndparker/rjsmin"
