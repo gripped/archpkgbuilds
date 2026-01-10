@@ -3,7 +3,7 @@
 _name=django-sekizai
 pkgname=python-django-sekizai
 pkgver=4.1.0
-pkgrel=5
+pkgrel=6
 pkgdesc="Django Template Blocks with extra functionality"
 arch=(any)
 url="https://github.com/django-cms/django-sekizai"
