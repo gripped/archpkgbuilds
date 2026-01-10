@@ -3,7 +3,7 @@
 _pkg=Fiona
 pkgname=python-${_pkg,,}
 pkgver=1.10.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Read and write geographic data files"
 arch=(x86_64)
 url="https://github.com/Toblerity/Fiona"
