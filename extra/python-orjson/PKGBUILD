@@ -4,7 +4,7 @@
 _name=orjson
 pkgname=python-orjson
 pkgver=3.11.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast, correct Python JSON library supporting dataclasses and datetimes"
 arch=(x86_64)
 url="https://github.com/ijl/orjson"
