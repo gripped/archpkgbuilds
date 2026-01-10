@@ -7,7 +7,7 @@ pkgname=(
   python-dleyna
 )
 pkgver=0.8.3
-pkgrel=3
+pkgrel=4
 pkgdesc="Services and D-Bus APIs to access UPnP and DLNA media devices"
 url="https://gitlab.gnome.org/World/dLeyna"
 arch=(x86_64)
