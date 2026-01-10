@@ -6,7 +6,7 @@
 
 pkgname=python-levenshtein
 pkgver=0.27.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Python extension for computing string edit distances and similarities'
 arch=(x86_64)
 url='https://github.com/rapidfuzz/Levenshtein'
@@ -40,6 +40,7 @@ prepare() {
   cd "$pkgname"
 
   patch -p1 -i "$srcdir/remove-version-constraints.patch"
+  sed -e 's|-m cython|-m cython --cplus|g' -i src/Levenshtein/CMakeLists.txt # Fix build with cython 3.2
 }
 build() {
   cd "$pkgname"
