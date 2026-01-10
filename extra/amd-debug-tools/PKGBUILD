@@ -3,7 +3,7 @@
 
 pkgname=amd-debug-tools
 pkgver=0.2.11
-pkgrel=1
+pkgrel=2
 pkgdesc="A collection of Python-based tools for debugging AMD platforms, particularly Zen-based systems."
 arch=('any')
 url="https://git.kernel.org/pub/scm/linux/kernel/git/superm1/amd-debug-tools.git"
@@ -44,6 +44,6 @@ build() {
 package() {
   cd "$pkgname"
   python -m installer --destdir="$pkgdir/" dist/*.whl
-  install -Dm755 "$pkgdir/usr/lib/python3.13/site-packages/amd_debug/s2idle-hook" "$pkgdir/usr/lib/systemd/system-sleep/s2idle-hook"
+  install -Dm755 "$pkgdir/usr/lib/python3.14/site-packages/amd_debug/s2idle-hook" "$pkgdir/usr/lib/systemd/system-sleep/s2idle-hook"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"  
 }
