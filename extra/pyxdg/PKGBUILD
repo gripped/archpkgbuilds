@@ -5,7 +5,7 @@
 pkgbase=pyxdg
 pkgname=python-pyxdg
 pkgver=0.28
-pkgrel=4
+pkgrel=6
 pkgdesc="Python library to access freedesktop.org standards"
 arch=('any')
 url="http://freedesktop.org/Software/pyxdg"
