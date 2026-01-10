@@ -3,7 +3,7 @@
 
 pkgname=python-xmlschema
 pkgver=4.2.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='An XML Schema validator and decoder'
 arch=(any)
