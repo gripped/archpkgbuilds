@@ -3,7 +3,7 @@
 pkgname=python-netifaces2
 _pkgname=netifaces-2
 pkgver=0.0.22
-pkgrel=1
+pkgrel=3
 pkgdesc="Portable network interface information (Supports Python 3.6 and higher)"
 url="https://pypi.org/project/netifaces2"
 arch=('x86_64')
@@ -16,7 +16,6 @@ sha256sums=('1680050452f67cd2de204326db75ec040bbe5a27b2921109402de8e36679c704')
 
 prepare() {
 	cd "${_pkgname}-${pkgver}"
-	export RUSTUP_TOOLCHAIN=stable
 	cargo fetch --locked
 }
 
