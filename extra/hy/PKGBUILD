@@ -3,17 +3,17 @@
 
 pkgname=hy
 epoch=1
-pkgver=1.0.0
-pkgrel=2
+pkgver=1.1.0
+pkgrel=1
 pkgdesc="A dialect of Lisp that's embedded in Python"
 arch=('any')
 url="http://hylang.org/"
 license=('MIT')
 depends=('python-funcparserlib')
 makedepends=('python-setuptools' 'python-build' 'python-wheel' 'python-installer')
-checkdepends=('python-pytest')
+checkdepends=('python-pytest' 'python-pip')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/hylang/hy/archive/$pkgver.tar.gz")
-sha256sums=('7cc98e0579cf64da31bb2e2d9cd00faa25d515215d24acf57ebd9853e16370ba')
+sha256sums=('e3508b13733e1e00c5c9c806384d05485ce182b162e73510b097dcc8bcd477d5')
 
 prepare() {
     cd "$pkgname-$pkgver"
@@ -31,29 +31,10 @@ build() {
 check(){
     cd "$pkgname-$pkgver"
 
-    export PYTHONDONTWRITEBYTECODE=0
-
-    python setup.py develop --user
-    PATH="$HOME/.local/bin:$PATH"
-    pytest -k 'not test_correct_logic and not test_compact_logic'
-
-    # Hy does magic to the bytecode, but we need this gone from check.
-    # this should be generated as part of the build step
-    for file in hy/contrib/__pycache__/__init__.cpython-*.pyc \
-	hy/contrib/__pycache__/loop.cpython-*.pyc \
-	hy/contrib/__pycache__/sequences.cpython-*.pyc \
-	hy/contrib/__pycache__/walk.cpython-*.pyc \
-	hy/core/__pycache__/__init__.cpython-*.pyc \
-	hy/core/__pycache__/language.cpython-*.pyc \
-	hy/core/__pycache__/macros.cpython-*.pyc \
-	hy/core/__pycache__/shadow.cpython-*.pyc \
-	hy/extra/__pycache__/__init__.cpython-*.pyc \
-	hy/extra/__pycache__/anaphoric.cpython-*.pyc \
-	hy/extra/__pycache__/reserved.cpython-*.pyc
-    do
-        rm "$file" || true
-    done
-
+    python -m venv --system-site-packages test-env
+    test-env/bin/python -m installer dist/*.whl
+    export PATH="$PATH:$PWD/test-env/bin" PYTHONPATH="$PWD"
+    test-env/bin/python -m pytest -v -k 'not test_correct_logic and not test_compact_logic'
 }
 
 package() {
