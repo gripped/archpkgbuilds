@@ -5,11 +5,11 @@
 
 pkgname=ranger
 pkgver=1.9.4
-pkgrel=4
+pkgrel=5
 pkgdesc='Simple, vim-like file manager'
 arch=('any')
 url='https://ranger.github.io'
-license=('GPL')
+license=('GPL-3.0-only')
 depends=('python')
 optdepends=(
     'atool: for previews of archives'
