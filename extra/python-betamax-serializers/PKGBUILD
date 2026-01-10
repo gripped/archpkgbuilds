@@ -2,7 +2,7 @@
 
 pkgname=python-betamax-serializers
 pkgver=0.2.1
-pkgrel=10
+pkgrel=11
 pkgdesc="A set of third-party serializers for Betamax"
 arch=('any')
 license=('Apache')
