@@ -3,7 +3,7 @@
 
 pkgname=python-cramjam
 pkgver=2.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Thin Python bindings to de/compression algorithms in Rust"
 arch=(x86_64)
 url="https://github.com/milesgranger/cramjam"
@@ -33,7 +33,6 @@ sha256sums=('542ea349a7528d88935856d3eb562cd17bff713d7a41eab8d6812d78a3cb00ba')
 
 build() {
   cd ${pkgname#python-}-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
   python -m build --wheel --no-isolation
 }
 
