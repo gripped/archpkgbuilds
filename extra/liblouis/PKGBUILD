@@ -4,7 +4,7 @@
 
 pkgname=liblouis
 pkgver=3.36.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Braille translator and back-translator library'
 arch=(x86_64)
 url='https://liblouis.io/'
