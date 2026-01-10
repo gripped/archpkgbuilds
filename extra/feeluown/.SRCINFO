@@ -1,7 +1,7 @@
 pkgbase = feeluown
 	pkgdesc = FeelUOwn Music Player
 	pkgver = 4.1.16
-	pkgrel = 3
+	pkgrel = 5
 	url = https://github.com/feeluown/FeelUOwn
 	arch = any
 	groups = feeluown-full
@@ -14,7 +14,11 @@ pkgbase = feeluown
 	checkdepends = xorg-server-xvfb
 	checkdepends = yt-dlp
 	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = python
 	depends = python-qasync
 	depends = python-pyqt5
 	depends = mpv
@@ -40,11 +44,13 @@ pkgbase = feeluown
 	provides = feeluown-local
 	conflicts = feeluown-local
 	replaces = feeluown-local
-	source = git+https://github.com/feeluown/FeelUOwn.git#tag=v4.1.16
+	source = feeluown::git+https://github.com/feeluown/FeelUOwn.git#tag=v4.1.16
 	source = FeelUOwn.desktop
-	source = pytest-skip-benchmark-cov-plugin.patch
+	source = feeluown-pytest-skip-benchmark-cov-plugin.patch
+	source = feeluown-python-3.14-asyncio-future.patch
 	sha512sums = c705c4d50028c5549cc8c90b9e313bd3bda9175e7f5019327dff69e8b7ea363130668dc2dae75bb326457a03af7c934c16bfbf5b80a3a5391c78b95e89337b8c
 	sha512sums = 48882f7469c22e5db332663bc1aa8b398b0a10a0c929d4d7e3d7b8b91205d7d3070c5fa295cb9a14f8c352bff57978bfaad167343e0ddc51c92417eda07c8087
 	sha512sums = 97e1d3133c921b1071ad1f6966b5175755cde22660bc76d2f107ddea9d3cde6b105636ed39838d4e81bef168b40ade130c09e8f9752bf1ac77d67cff2a42bae1
+	sha512sums = e934049b48c6f2b88aa98d89d9ea5c0ae4a21184fa2366256f7de08b18d66cb363d4b14b23a949c96f349177815b25ca0a571304f4a1e86a31cc75fd3eb23a67
 
 pkgname = feeluown
