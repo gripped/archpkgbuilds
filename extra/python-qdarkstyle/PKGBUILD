@@ -3,7 +3,7 @@
 _pkg=QDarkStyle
 pkgname=python-${_pkg,,}
 pkgver=3.2.3
-pkgrel=4
+pkgrel=5
 pkgdesc="Dark style sheet for QtWidgets application"
 arch=(any)
 url="https://github.com/ColinDuquesnoy/QDarkStyleSheet"
