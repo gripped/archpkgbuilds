@@ -5,7 +5,7 @@
 
 pkgname=python-kivy
 pkgver=2.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A software library for rapid development of hardware-accelerated multitouch applications."
 arch=('x86_64')
 url="https://kivy.org/"
@@ -37,6 +37,8 @@ prepare() {
          -e 's/setuptools.*/setuptools",/' \
          -e 's/wheel.*/wheel",/' \
          -e 's/packaging.*/packaging",/' pyproject.toml
+
+  git cherry-pick -n 4b20740cb63b03fdfb65b782f1ce3de42bd6e7b3 # python 3.14 support
 }
 
 build() {
