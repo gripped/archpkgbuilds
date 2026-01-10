@@ -6,7 +6,7 @@ _name="${pkgname#python-}"
 pkgver=0.4.1
 # pin commit that likely reflects 0.4.1: https://github.com/seanbrant/requests-wsgi-adapter/issues/20
 _commit=5b771effb5414096089375a3a36a3e7af1522ae0
-pkgrel=4
+pkgrel=5
 pkgdesc="WSGI Transport Adapter for Requests"
 arch=(any)
 url="https://github.com/seanbrant/requests-wsgi-adapter"
