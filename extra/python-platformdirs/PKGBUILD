@@ -4,7 +4,7 @@
 
 pkgname=python-platformdirs
 pkgver=4.5.1
-pkgrel=1
+pkgrel=3
 pkgdesc='A library to determine platform-specific system directories'
 arch=(any)
 url='https://github.com/tox-dev/platformdirs'
