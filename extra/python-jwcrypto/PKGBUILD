@@ -5,7 +5,7 @@
 _pkgname=jwcrypto
 pkgname=python-$_pkgname
 pkgver=1.5.6
-pkgrel=5
+pkgrel=6
 pkgdesc='Python implementation of JWK, JWS, JWE specifications'
 arch=(any)
 url='https://github.com/latchset/jwcrypto'
