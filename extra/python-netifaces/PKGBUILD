@@ -4,7 +4,7 @@
 
 pkgname=python-netifaces
 pkgver=0.11.0
-pkgrel=7
+pkgrel=8
 pkgdesc="Portable module to access network interface information in Python"
 arch=('x86_64')
 url="https://alastairs-place.net/netifaces/"
