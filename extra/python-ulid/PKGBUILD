@@ -2,7 +2,7 @@
 
 pkgname=python-ulid
 pkgver=3.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="ULID implementation for Python"
 arch=(any)
 url="https://github.com/mdomke/python-ulid"
