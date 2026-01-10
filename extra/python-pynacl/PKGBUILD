@@ -3,7 +3,7 @@
 # Contributor: Ivan Shapovalov <intelfx@intelfx.name>
 
 pkgname=python-pynacl
-pkgver=1.6.1
+pkgver=1.6.2
 pkgrel=1
 pkgdesc='Python binding to the Networking and Cryptography (NaCl) library'
 arch=('x86_64')
@@ -27,7 +27,7 @@ checkdepends=(
   'python-pytest'
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('77ea6ae114a6f4e980e59c291485e12fdc2a639803b7d6f521932bba041e1df12c9b394adead2240d99f3c726748446449068ce62896ee354f94949a1e0be34d')
+b2sums=('6df2326873b5cac01cf4d427946fc3c57228f6b87b006d6d54c36ae882d3c2277c490be2f328e9c52e6213ba749c6cb9e0ea3b5745c04cc68e5691692eaf64b4')
 
 build() {
   cd ${pkgname#python-}-$pkgver
