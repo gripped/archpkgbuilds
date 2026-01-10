@@ -3,7 +3,7 @@
 _name=pywlroots
 pkgname=python-pywlroots
 pkgver=0.17.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Python binding to the wlroots library using cffi"
 arch=(x86_64)
 url="https://github.com/flacjacket/pywlroots"
