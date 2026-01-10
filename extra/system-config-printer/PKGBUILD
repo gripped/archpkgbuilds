@@ -3,7 +3,7 @@
 
 pkgname=system-config-printer
 pkgver=1.5.18
-pkgrel=5
+pkgrel=6
 pkgdesc="A CUPS printer configuration tool and status applet"
 url="https://github.com/OpenPrinting/system-config-printer"
 arch=('x86_64')
@@ -18,7 +18,7 @@ optdepends=('libsecret: password management'
             'python-pysmbc: SMB browser support'
             'cups-pk-helper: PolicyKit helper to configure cups with fine-grained privileges')
 source=(https://github.com/OpenPrinting/system-config-printer/releases/download/v${pkgver}/system-config-printer-${pkgver}.tar.xz{,.asc}
-        makefile-am-fix-setup-py-install.patch )
+        makefile-am-fix-setup-py-install.patch)
 sha256sums=('b1a69e1b4ec2add569a87aeca811a37c5361ee6ae327ec852b79e64223e34bee'
             'SKIP'
             '7576c1ada53a9eec6a4aea92c2d1050e0f12c68c0928c9b6db28e6a85dc8b31f')
@@ -28,7 +28,14 @@ prepare() {
   cd ${pkgname}-${pkgver}
   # fix install path
   patch -Np1 -i ../makefile-am-fix-setup-py-install.patch
-  autoreconf -vfi
+
+# autopoint --force || /bin/true
+# aclocal || /bin/true
+# automake --foreign --copy --add-missing || /bin/true
+# autoconf
+
+  autoreconf -vfi || /bin/true
+  # ./bootstrap
 }
 
 build() {
