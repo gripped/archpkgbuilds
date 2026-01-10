@@ -3,7 +3,7 @@
 _name=base58
 pkgname=python-$_name
 pkgver=2.1.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Base58 and Base58Check implementation compatible with what is used by the bitcoin network"
 arch=(any)
 url="https://github.com/keis/base58"
