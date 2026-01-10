@@ -3,7 +3,7 @@
 
 pkgname=python-cssselect
 pkgver=1.3.0
-pkgrel=1
+pkgrel=2
 license=('BSD-3-Clause')
 arch=('any')
 url="https://pypi.python.org/pypi/cssselect"
