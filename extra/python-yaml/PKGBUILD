@@ -6,7 +6,7 @@
 _name=pyyaml
 pkgname=python-yaml
 pkgver=6.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Python bindings for YAML, using fast libYAML library'
 arch=(x86_64)
 url='https://github.com/yaml/pyyaml'
