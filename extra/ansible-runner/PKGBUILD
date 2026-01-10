@@ -3,7 +3,7 @@
 
 pkgname=ansible-runner
 pkgver=2.4.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A tool and python library that helps when interfacing with Ansible"
 url="https://github.com/ansible/ansible-runner"
 arch=('any')
