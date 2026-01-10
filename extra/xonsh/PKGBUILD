@@ -3,7 +3,7 @@
 
 pkgname=xonsh
 pkgver=0.20.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A python-powered shell. Full-featured and cross-platform.'
 url='https://xon.sh/'
 arch=('any')
