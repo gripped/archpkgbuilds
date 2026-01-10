@@ -13,7 +13,7 @@
 pkgbase=util-linux
 pkgname=(util-linux util-linux-libs)
 pkgver=2.41.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/util-linux/util-linux'
 arch=('x86_64')
