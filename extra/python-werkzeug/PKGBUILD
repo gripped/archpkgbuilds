@@ -8,7 +8,7 @@
 
 pkgname=python-werkzeug
 pkgver=3.1.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Swiss Army knife of Python web development'
 url='https://werkzeug.palletsprojects.com/'
 arch=('any')
