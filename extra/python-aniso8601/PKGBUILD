@@ -2,7 +2,7 @@
 
 pkgname=python-aniso8601
 pkgver=10.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A library for parsing ISO 8601 strings."
 url="https://codeberg.org/nielsenb-jf/aniso8601"
 license=('BSD-3-Clause')
