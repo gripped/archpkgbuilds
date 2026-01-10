@@ -4,7 +4,7 @@
 _pkgname=qtpy
 pkgname=python-qtpy
 pkgver=2.4.3
-pkgrel=4
+pkgrel=5
 pkgdesc="Provides an uniform layer to support PyQt and PySide with a single codebase"
 arch=(any)
 url="https://github.com/spyder-ide/qtpy/"
