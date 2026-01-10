@@ -7,7 +7,7 @@ pkgname=(
   python-dbus-docs
 )
 pkgver=1.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Python bindings for D-Bus'
 arch=(x86_64)
 url='https://www.freedesktop.org/wiki/Software/dbus/'
