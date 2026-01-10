@@ -5,7 +5,7 @@
 
 pkgname=python-pycurl
 pkgver=7.45.7
-pkgrel=1
+pkgrel=3
 pkgdesc="A Python 3.x interface to libcurl"
 arch=('x86_64')
 url="https://github.com/pycurl/pycurl"
@@ -59,6 +59,9 @@ check() {
     # unclear failures
     --deselect tests/multi_callback_test.py::MultiCallbackTest::test_multi_socket_action
     --deselect tests/multi_socket_select_test.py::MultiSocketSelectTest::test_multi_socket_select
+    # fail due to missing krb in curl
+    --deselect tests/option_constants_test.py::OptionConstantsTest::test_krb4level
+    --deselect tests/option_constants_test.py::OptionConstantsTest::test_krblevel
   )
 
   cd pycurl
