@@ -6,7 +6,7 @@
 pkgname=python-onigurumacffi
 _pkgname=${pkgname#python-}
 pkgver=1.4.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Python cffi bindings for the oniguruma regex engine"
 url="https://github.com/asottile/onigurumacffi"
 arch=('x86_64')
