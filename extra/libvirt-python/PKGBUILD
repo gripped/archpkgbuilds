@@ -6,7 +6,7 @@
 pkgname='libvirt-python'
 epoch=1
 pkgver=11.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc="libvirt python binding"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/libvirt-python"
