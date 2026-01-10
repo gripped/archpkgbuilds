@@ -4,7 +4,7 @@
 pkgname=python-openapi-schema-validator
 # https://github.com/p1c2u/openapi-schema-validator/releases
 pkgver=0.6.3
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenAPI schema validation for Python"
 url="https://github.com/p1c2u/openapi-schema-validator"
 # https://github.com/python-openapi/openapi-schema-validator/blob/0.6.2/pyproject.toml#L36
