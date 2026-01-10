@@ -1,0 +1,56 @@
+diff --git i/heatclient/common/utils.py w/heatclient/common/utils.py
+index 61c7783..071c44e 100644
+--- i/heatclient/common/utils.py
++++ w/heatclient/common/utils.py
+@@ -426,8 +426,8 @@ def base_url_for_url(url):
+ def normalise_file_path_to_url(path):
+     if parse.urlparse(path).scheme:
+         return path
+-    path = os.path.abspath(path)
+-    return parse.urljoin('file:', request.pathname2url(path))
++    from pathlib import Path
++    return Path(path).resolve().as_uri()
+ 
+ 
+ def get_response_body(resp):
+diff --git i/heatclient/tests/unit/test_shell.py w/heatclient/tests/unit/test_shell.py
+index e4cf2ca..b32df04 100644
+--- i/heatclient/tests/unit/test_shell.py
++++ w/heatclient/tests/unit/test_shell.py
+@@ -1224,8 +1224,8 @@ class ShellTestUserPass(ShellBase):
+ 
+         self.useFixture(fixtures.MockPatchObject(utils, 'read_url_content',
+                                                  return_value='xxxxxx'))
+-        url = 'file://' + request.pathname2url(
+-            '%s/private_key.env' % TEST_VAR_DIR)
++        from pathlib import Path
++        url = Path('%s/private_key.env' % TEST_VAR_DIR).as_uri()
+ 
+         template_file = os.path.join(TEST_VAR_DIR, 'minimal.template')
+         create_text = self.shell(
+@@ -1255,8 +1255,8 @@ class ShellTestUserPass(ShellBase):
+ 
+         self.useFixture(fixtures.MockPatchObject(utils, 'read_url_content',
+                                                  return_value='xxxxxx'))
+-        url = 'file://' + request.pathname2url(
+-            '%s/private_key.env' % TEST_VAR_DIR)
++        from pathlib import Path
++        url = Path('%s/private_key.env' % TEST_VAR_DIR).as_uri()
+ 
+         template_file = os.path.join(TEST_VAR_DIR, 'minimal.template')
+         create_text = self.shell(
+diff --git i/heatclient/tests/unit/test_utils.py w/heatclient/tests/unit/test_utils.py
+index 24454e3..cc9ab1e 100644
+--- i/heatclient/tests/unit/test_utils.py
++++ w/heatclient/tests/unit/test_utils.py
+@@ -386,8 +386,9 @@ class TestURLFunctions(testtools.TestCase):
+         self.addCleanup(self.m.UnsetStubs)
+ 
+     def test_normalise_file_path_to_url_relative(self):
++        from pathlib import Path
+         self.assertEqual(
+-            'file://' + request.pathname2url('%s/foo' % os.getcwd()),
++            Path('%s/foo' % os.getcwd()).as_uri(),
+             utils.normalise_file_path_to_url(
+                 'foo'))
+ 

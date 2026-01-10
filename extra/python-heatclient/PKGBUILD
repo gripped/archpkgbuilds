@@ -3,18 +3,27 @@
 
 pkgname=python-heatclient
 pkgver=4.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenStack Orchestration API Client Library"
 arch=('any')
 url="https://docs.openstack.org/python-heatclient/latest/"
-license=('Apache')
+license=('Apache-2.0')
 depends=('python-pbr' 'python-cliff' 'python-iso8601' 'python-osc-lib' 'python-prettytable'
          'python-oslo-i18n' 'python-oslo-serialization' 'python-oslo-utils' 'python-keystoneauth1'
          'python-swiftclient' 'python-yaml' 'python-requests' 'python-openstackclient')
 makedepends=('git' 'python-build' 'python-installer')
 checkdepends=('python-stestr' 'python-testscenarios' 'python-requests-mock')
-source=("git+https://github.com/openstack/python-heatclient.git#tag=$pkgver")
-sha512sums=('ba88196bccf027826abe601cb4e2888f6c1c8dd28b0a640290e327bbf492770c5f1ebadc103a3b6753c3152d0f78145f310c0a69acb29dcec814e0d2a243e629')
+source=(
+  "git+https://github.com/openstack/python-heatclient.git#tag=$pkgver"
+  "$pkgname-python-3.14.patch"
+)
+sha512sums=('ba88196bccf027826abe601cb4e2888f6c1c8dd28b0a640290e327bbf492770c5f1ebadc103a3b6753c3152d0f78145f310c0a69acb29dcec814e0d2a243e629'
+            'a87ed82b0708a35c348729553d4a5ee43f5b88f35a55932152f5059c61bc8bd0be0384259474f05cd58248c03102df885f21ebc8acf532d59d35d6fa80adc7c3')
+
+prepare() {
+  cd python-heatclient
+  patch -Np1 < ../$pkgname-python-3.14.patch
+}
 
 build() {
   cd python-heatclient
