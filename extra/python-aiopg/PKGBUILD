@@ -3,7 +3,7 @@
 
 pkgname=python-aiopg
 pkgver=1.4.0
-pkgrel=6
+pkgrel=7
 pkgdesc="Library for accessing a PostgreSQL database from the asyncio"
 arch=(any)
 url="https://github.com/aio-libs/aiopg"
