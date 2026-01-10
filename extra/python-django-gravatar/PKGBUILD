@@ -3,7 +3,7 @@
 pkgname=python-django-gravatar
 _name="${pkgname#python-}"
 pkgver=1.4.5
-pkgrel=3
+pkgrel=4
 pkgdesc="Essential Gravatar support for Django"
 arch=(any)
 url="https://github.com/twaddington/django-gravatar"
