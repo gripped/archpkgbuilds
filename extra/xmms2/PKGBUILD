@@ -10,7 +10,7 @@
 
 pkgname=xmms2
 pkgver=0.9.6
-pkgrel=1
+pkgrel=2
 pkgdesc='X-platform Music Multiplexing System 2'
 arch=(x86_64)
 url='https://github.com/xmms2/wiki/wiki'
