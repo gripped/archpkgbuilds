@@ -7,7 +7,7 @@
 
 pkgname=python-websocket-client
 pkgver=1.9.0
-pkgrel=2
+pkgrel=3
 pkgdesc="WebSocket client library for Python"
 arch=('any')
 url="https://github.com/websocket-client/websocket-client"
