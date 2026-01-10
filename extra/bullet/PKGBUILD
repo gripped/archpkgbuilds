@@ -5,7 +5,7 @@ pkgbase=bullet
 pkgname=('bullet' 'bullet-dp' 'bullet-docs' 'python-pybullet')
 pkgver=3.25
 _pkgver=3.25
-pkgrel=6
+pkgrel=8
 pkgdesc="A 3D Collision Detection and Rigid Body Dynamics Library for games and animation"
 arch=('x86_64')
 url="http://www.bulletphysics.com/Bullet/"
@@ -39,7 +39,8 @@ build() {
       -DBUILD_OPENGL3_DEMOS=ON \
       -DCMAKE_BUILD_TYPE=Release \
       -DBULLET2_MULTITHREADING=ON \
-      -DCMAKE_SKIP_RPATH=YES
+      -DCMAKE_SKIP_RPATH=YES \
+      -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   ninja -C build
 
   # For Python and docs it doesn't matter whether we build multithreaded or not.
@@ -60,7 +61,8 @@ build() {
       -DCMAKE_BUILD_TYPE=Release \
       -DBULLET2_MULTITHREADING=ON \
       -DUSE_DOUBLE_PRECISION=ON \
-      -DCMAKE_SKIP_RPATH=YES
+      -DCMAKE_SKIP_RPATH=YES \
+      -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   ninja -C build
 }
 
