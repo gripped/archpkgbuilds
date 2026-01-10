@@ -3,7 +3,7 @@
 pkgname=python-aiohttp-openmetrics
 _name=${pkgname#python-}
 pkgver=0.0.12
-pkgrel=3
+pkgrel=4
 pkgdesc='OpenMetrics provider for aiohttp'
 arch=('any')
 url=https://github.com/jelmer/aiohttp-openmetrics
