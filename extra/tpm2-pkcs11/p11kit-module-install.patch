@@ -1,0 +1,46 @@
+Subject: [PATCH] Revert "configure: detect --prefix when checking for P11_KIT"
+
+This reverts commit fab3140c27518ba45ab206ce6a58a90cf2e51c51.
+---
+ Makefile.am  | 5 -----
+ configure.ac | 4 ----
+ 2 files changed, 9 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 505b90a0..adcb3a64 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -58,10 +58,6 @@ endif # HAVE_LD_VERSION_SCRIPT
+ src_libtpm2_pkcs11_la_LIBADD = $(AM_LDFLAGS)
+ src_libtpm2_pkcs11_la_SOURCES = $(LIB_PKCS11_SRC) $(LIB_PKCS11_INTERNAL_LIB_SRC)
+ 
+-if HAVE_PREFIX
+-  # Use standard install location when using --prefix
+-  lib_LTLIBRARIES = $(libtpm2_pkcs11)
+-else
+ if HAVE_P11KIT
+   # Use P11 kit library module install location
+   p11libdir=$(P11_MODULE_PATH)
+@@ -74,7 +70,6 @@ else
+   # Use standard install location when P11Kit is not found
+   lib_LTLIBRARIES = $(libtpm2_pkcs11)
+ endif
+-endif
+ 
+ AM_DISTCHECK_CONFIGURE_FLAGS = --with-p11kitconfigdir='$$(datarootdir)/p11kitconfigdir' --with-p11kitmoduledir='$$(libdir)'
+ 
+diff --git a/configure.ac b/configure.ac
+index 104cf127..0f1457ef 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -488,10 +488,6 @@ AS_IF([test "x$have_p11kit" = "xyes"], [
+ 
+ AM_CONDITIONAL([HAVE_P11KIT], [test "x$have_p11kit" = "xyes"])
+ 
+-# check for --prefix and set flag HAVE_PREFIX if found
+-#   do not change install location if --prefix is given and with P11_KIT found
+-AM_CONDITIONAL([HAVE_PREFIX], [test ! -z "$prefix"])
+-
+ # END P11 CONFIG
+ 
+ AC_C_BIGENDIAN()

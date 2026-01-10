@@ -2,7 +2,7 @@
 
 pkgname=tpm2-pkcs11
 pkgver=1.9.2
-pkgrel=1
+pkgrel=2
 pkgdesc='PKCS#11 interface for Trusted Platform Module 2.0 hardware'
 arch=('x86_64')
 url='https://github.com/tpm2-software/tpm2-pkcs11'
@@ -13,14 +13,21 @@ depends=('glibc' 'libyaml' 'openssl' 'python' 'python-bcrypt' 'python-cryptograp
 makedepends=('cmocka' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('expect' 'iproute2' 'java-hamcrest' 'junit' 'libp11' 'opensc' 'openssh'
               'python-python-pkcs11' 'swtpm' 'tpm2-abrmd' 'tpm2-openssl' 'wget' 'xxd')
-source=("$url/releases/download/$pkgver/$pkgname-$pkgver.tar.gz"{,.asc})
+source=("$url/releases/download/$pkgver/$pkgname-$pkgver.tar.gz"{,.asc}
+        'p11kit-module-install.patch')
 sha512sums=('b997c45041acecdcbd2d2cee2d41d4b641a6eb735e5cbb34be368c5aff9e4517b83e02ccebd4775d10e78d129b315611465b46a52139fb3feb11d19c2a7ed58a'
+            'SKIP'
             'SKIP')
 validpgpkeys=('5B482B8E3E19DA7C978E1D016DE2E9078E1F50C1' # William Roberts (Bill Roberts) <william.c.roberts@intel.com>
               'D91A82DB310E8E07519C298A9877C26A3CD36409') # Bill Roberts (Bills Personal Dev Key) <bill.c.roberts@gmail.com>
 
 prepare() {
 	cd "$pkgname-$pkgver"
+	
+	# Fix p11-kit module installation when using --prefix
+	# See: https://github.com/tpm2-software/tpm2-pkcs11/pull/818
+	patch -Np1 -i "$srcdir/p11kit-module-install.patch"
+	
 	autoreconf -fiv
 
 	# disable broken test: https://github.com/tpm2-software/tpm2-pkcs11/issues/836
