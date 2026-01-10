@@ -5,7 +5,7 @@
 # Contributor: hexchain <i@hexchain.org>
 
 pkgname=mypy
-pkgver=1.19.0
+pkgver=1.19.1
 pkgrel=1
 pkgdesc='Optional static typing for Python (PEP484)'
 arch=('any')
@@ -31,6 +31,7 @@ checkdepends=(
   'python-psutil'
   'python-pytest'
   'python-pytest-xdist'
+  'python-tests'
 )
 optdepends=(
   'python-lxml: for reports'
@@ -42,8 +43,8 @@ source=(
   "$pkgname-$pkgver.tar.gz::https://github.com/python/mypy/archive/v$pkgver.tar.gz"
   "$pkgname-exclude-tests.patch"
 )
-sha256sums=('afe9fcb2618256a7b0d778b9509e94f6c86309b639f9a8e3492a482db7706d34'
-            '4f270a2ab4e20366ae2ebc912c2589edd070f488a224d2a6b3209c731c3a28f9')
+b2sums=('f1d1c511ede6e9e933a8e6236cfdef506778ad56acc1a72d89ee088f0c8dc25c9afc2b174c0a74138aebaee14666ce345e57c8a8ac71a85948c35ca8d6984a7b'
+        '83b6d12dac919b917ba13c6a5b6da6e4cd6dc517f85b4f8e81d793d9c0e871af5a48708c4a5a54c45c7be89c5ed394b2f77007be89420fea4a1f3ca1efb04c0d')
 
 prepare() {
   cd "$pkgname-$pkgver"
