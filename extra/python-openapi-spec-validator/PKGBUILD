@@ -4,7 +4,7 @@
 
 pkgname=python-openapi-spec-validator
 pkgver=0.7.2
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenAPI 2.0 (aka Swagger) and OpenAPI 3 spec validator"
 url="https://github.com/p1c2u/openapi-spec-validator"
 license=('Apache-2.0')
