@@ -7,7 +7,7 @@
 _pkg=ruamel.yaml.clib
 pkgname=python-$_pkg
 pkgver=0.2.15
-pkgrel=1
+pkgrel=2
 pkgdesc='C version of reader, parser and emitter for ruamel.yaml derived from libyaml'
 arch=(x86_64)
 url='https://sourceforge.net/projects/ruamel-yaml-clib/'
