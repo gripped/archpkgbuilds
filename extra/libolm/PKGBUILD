@@ -5,7 +5,7 @@ pkgbase='libolm'
 pkgname=('libolm' 'python-olm')
 pkgver=3.2.16
 _tag=c2ccf54de20b2563331e273f113b2b51c59be619 # git rev-parse "$pkgver"
-pkgrel=5
+pkgrel=6
 pkgdesc='Implementation of the Olm and Megolm cryptographic ratchets'
 arch=('x86_64')
 url='https://gitlab.matrix.org/matrix-org/olm'
@@ -24,7 +24,8 @@ prepare() {
 
 build() {
   cmake -B build -S olm-$pkgver \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake --build build
 
   ln -sr build olm-$pkgver
