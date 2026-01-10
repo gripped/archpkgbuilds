@@ -1,0 +1,12 @@
+diff -aur aws-xray-sdk-python.old/tests/test_async_local_storage.py aws-xray-sdk-python/tests/test_async_local_storage.py
+--- aws-xray-sdk-python.old/tests/test_async_local_storage.py	2025-12-19 20:01:44.952296025 +0100
++++ aws-xray-sdk-python/tests/test_async_local_storage.py	2025-12-19 20:02:02.237405303 +0100
+@@ -6,7 +6,7 @@
+ 
+ 
+ def test_localstorage_isolation():
+-    loop = asyncio.get_event_loop()
++    loop = asyncio.new_event_loop()
+     local_storage = TaskLocalStorage(loop=loop)
+ 
+     async def _test():
