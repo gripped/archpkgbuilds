@@ -4,7 +4,7 @@
 _pkgname=cachy
 pkgname=python-cachy
 pkgver=0.3.0
-pkgrel=11
+pkgrel=12
 pkgdesc='simple yet effective caching library'
 arch=(any)
 url="https://github.com/sdispater/${_pkgname}"
