@@ -2,7 +2,7 @@
 
 pkgname=python-apispec-webframeworks
 pkgver=1.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Web framework plugins for apispec"
 url="https://github.com/marshmallow-code/apispec-webframeworks"
 license=('MIT')
