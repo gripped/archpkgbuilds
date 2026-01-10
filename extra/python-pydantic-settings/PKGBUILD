@@ -4,7 +4,7 @@
 _name=pydantic-settings
 pkgname=python-pydantic-settings
 pkgver=2.12.0
-pkgrel=1
+pkgrel=3
 pkgdesc="Settings management using pydantic"
 arch=(any)
 url="https://github.com/pydantic/pydantic-settings"
@@ -30,9 +30,17 @@ checkdepends=(
 optdepends=(
   'python-pyyaml: for YAML support'
 )
-source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('db69dc6d78dd5229587a69bb754c864c9a53101d142fa77a257af4af4fd0f8fd9eff94ba13b511da654ef2a1c5fc4255cab5fdcfa4c6032e15eb3b18d42721c2')
-b2sums=('a2e2f4609bf52add8dd3066204484d951f89a01dd17a5427805ff105cef032ac103f8c75b67cd5452c3f7a2f02b0dc3335f6dd660f522e6eea2b84172a95258b')
+source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
+        1f202814.patch)
+sha512sums=('db69dc6d78dd5229587a69bb754c864c9a53101d142fa77a257af4af4fd0f8fd9eff94ba13b511da654ef2a1c5fc4255cab5fdcfa4c6032e15eb3b18d42721c2'
+            'a527b4a9e9e4188b6902918a59634781739b67d04fa229e3288f8987d2d5f2a766796153d6b5024bcc409ca75151f479cfd341901a6d34f650e11bcfbef0a42d')
+b2sums=('a2e2f4609bf52add8dd3066204484d951f89a01dd17a5427805ff105cef032ac103f8c75b67cd5452c3f7a2f02b0dc3335f6dd660f522e6eea2b84172a95258b'
+        'ba729401d2bd616799c044b38c11177f17332fdfcf1bc3d9f729d26b1a5fba37ec3c023f882136ba551d02ea2c4d92db70c6e99ba5bbfc96a72a9947fa516c9a')
+
+prepare() {
+  cd $_name-$pkgver
+  patch -p1 -i ../1f202814.patch # Fix tests with Python 3.14
+}
 
 build() {
   cd $_name-$pkgver
