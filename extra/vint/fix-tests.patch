@@ -1,0 +1,31 @@
+diff --git a/test/acceptance/test_cli.py b/test/acceptance/test_cli.py
+index b529365..59927e1 100644
+--- a/test/acceptance/test_cli.py
++++ b/test/acceptance/test_cli.py
+@@ -68,7 +68,7 @@ class TestCLI(unittest.TestCase):
+ 
+         got_output = context_manager.exception.output
+ 
+-        expected_output_pattern = r'^vint ERROR:'
++        expected_output_pattern = r'\nvint ERROR:'
+         self.assertRegex(got_output, expected_output_pattern)
+ 
+ 
+@@ -82,7 +82,7 @@ class TestCLI(unittest.TestCase):
+ 
+         got_output = context_manager.exception.output
+ 
+-        expected_output_pattern = r'^vint ERROR:'
++        expected_output_pattern = r'\nvint ERROR:'
+         self.assertRegex(got_output, expected_output_pattern)
+ 
+ 
+@@ -126,7 +126,7 @@ class TestCLI(unittest.TestCase):
+                                              universal_newlines=True,
+                                              stderr=subprocess.STDOUT)
+ 
+-        expected_output_pattern = r'^vint DEBUG:'
++        expected_output_pattern = r'\nvint DEBUG:'
+         self.assertRegex(got_output, expected_output_pattern)
+ 
+ 

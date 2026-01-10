@@ -3,7 +3,7 @@
 
 pkgname=vint
 pkgver=0.3.21
-pkgrel=4
+pkgrel=5
 pkgdesc='Lint tool for Vim script Language'
 arch=('any')
 url=https://github.com/Vimjas/vint
@@ -11,8 +11,15 @@ license=('MIT')
 depends=('python-ansicolor' 'python-chardet' 'python-setuptools' 'python-yaml')
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
-source=("git+$url.git#tag=v$pkgver")
-b2sums=('0bf6770ecbf60d148c9ee269de4ca5a3b84e44e517b8a7001c06096c7acd902e686d3afe88d4d1a5ebe5d99a8b9186a394669b543af601a208e543f31d29c7d9')
+source=("git+$url.git#tag=v$pkgver"
+         fix-tests.patch)
+b2sums=('0bf6770ecbf60d148c9ee269de4ca5a3b84e44e517b8a7001c06096c7acd902e686d3afe88d4d1a5ebe5d99a8b9186a394669b543af601a208e543f31d29c7d9'
+        '09aa53ad9dd990abdf822b535aad648ad0a304ab12828c8aba08c7b6d3e730ef48f88f5be01e2570dcd293b1d2963d1b0274f27f844cf2043e461794760433ab')
+
+prepare() {
+  cd $pkgname
+  patch -p1 -i ../fix-tests.patch
+}
 
 build() {
   cd $pkgname
