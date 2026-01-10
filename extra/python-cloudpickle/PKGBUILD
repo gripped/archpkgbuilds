@@ -6,7 +6,7 @@
 _pkg=cloudpickle
 pkgname=python-${_pkg}
 pkgver=3.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Extended pickling support for Python objects"
 arch=(any)
 url="https://github.com/cloudpipe/cloudpickle"
