@@ -5,7 +5,7 @@
 
 pkgname=pelican
 pkgver=4.11.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A tool to generate a static blog, with restructured text (or markdown) input files."
 arch=('any')
 url="https://blog.getpelican.com/"
@@ -24,6 +24,7 @@ depends=(
   'python-watchfiles'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-installer'
   'python-pdm-backend'
@@ -31,7 +32,6 @@ makedepends=(
   'python-sphinxext-opengraph'
 )
 checkdepends=(
-  'git'
   'pandoc-cli'
   'python-beautifulsoup4'
   'python-feedparser'
@@ -56,25 +56,30 @@ optdepends=(
   's3cmd: uploading through S3'
 )
 source=(
-  "https://github.com/getpelican/pelican/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+  "git+https://github.com/getpelican/pelican.git#tag=$pkgver"
   "$pkgname-dont-install-tests.patch"
 )
-sha512sums=('6ccbaa473a7fc441f9033657c99310673950e460f8bf4d27c90cec4f8e8a122b162efb226d8d62ade96e8dfd2f8fb0b16c86097cb8ba8f5273078a8239088521'
-            '558c6aeaf2fe99312c03f39fe96cefce01864e223d396d93f091a68c80a66d5ccb8385764c60ef965d9a9f134af692a7dfe92e0c8fd9411b6827c75ce8b10bac')
+b2sums=('d1fefe3e1c6134ca920c926f1cbc61764699d17d8b93a565fb313543c9fe6dcb42bbae12deb6c7d5c23721974e607c8dd9092c95f6d48b657bc4033a97da4cd5'
+        '4bc1d735140e9ff344ec232354fa5083f50fb1e0deeb364e31324df8dff970936a3af4fc7857602fe0cc09fa765eb1f0e9c50bc5e399f605bc1e8ffb64136858')
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
+  # Fix docutils PendingDeprecationWarning for Python 3.14 compat
+  git cherry-pick -n 5acf155c328eb10df10507c28a880e47a939de8e
+  # Upgrade Beautiful Soup & adjust tests to conform
+  git cherry-pick -n 88a6f57940f89e141ff66550f59708fc62bde71c
+
   patch -Np1 -i ../$pkgname-dont-install-tests.patch
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m build --wheel --no-isolation
   make -C docs man text
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   # Deselect failing tests, unsure why they fail.
@@ -86,7 +91,7 @@ check() {
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/man/man1" docs/_build/man/*.1
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" docs/_build/text/*.txt
