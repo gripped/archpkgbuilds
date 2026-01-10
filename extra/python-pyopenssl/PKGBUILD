@@ -5,7 +5,7 @@
 
 pkgname=python-pyopenssl
 pkgver=25.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Python wrapper around the OpenSSL library'
 arch=('any')
 url='https://pyopenssl.org/'
@@ -34,7 +34,8 @@ check() {
   # TODO: Fix deselected tests failing due to throwing the wrong exception.
   PYTHONPATH="$PWD"/build/lib pytest -v \
     --deselect tests/test_ssl.py::TestConnectionSendall::test_closed \
-    --deselect tests/test_ssl.py::TestConnection::test_shutdown_closed
+    --deselect tests/test_ssl.py::TestConnection::test_shutdown_closed \
+    --deselect tests/test_ssl.py::TestOCSP::test_client_receives_servers_data # https://github.com/pyca/pyopenssl/issues/1455
 }
 
 package() {
