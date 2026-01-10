@@ -4,7 +4,7 @@
 
 pkgname=python-kubernetes
 pkgver=34.1.0
-pkgrel=1
+pkgrel=2
 license=('Apache-2.0')
 pkgdesc='Python client for the kubernetes API'
 arch=('any')
