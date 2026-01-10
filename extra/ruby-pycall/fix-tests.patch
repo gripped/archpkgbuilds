@@ -1,0 +1,22 @@
+diff --git a/spec/pycall_spec.rb b/spec/pycall_spec.rb
+index 536438b..cb1f2eb 100644
+--- a/spec/pycall_spec.rb
++++ b/spec/pycall_spec.rb
+@@ -152,7 +152,7 @@ require 'pycall'
+ puts(PyCall.init ? 'true' : 'false')
+ RUBY
+       expect(status).to be_success
+-      expect(out.chomp).to eq('true')
++      expect(out.lines.last.chomp).to eq('true')
+     end
+ 
+     it 'returns false if already initialized' do
+@@ -162,7 +162,7 @@ PyCall.init
+ puts(PyCall.init ? 'true' : 'false')
+ RUBY
+       expect(status).to be_success
+-      expect(out.chomp).to eq('false')
++      expect(out.lines.last.chomp).to eq('false')
+     end
+ 
+     it 'raises PyCall::PythonNotFound error if unable to find libpython library' do

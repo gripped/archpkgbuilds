@@ -3,7 +3,7 @@
 
 pkgname=ruby-pycall
 pkgver=1.5.2
-pkgrel=6
+pkgrel=7
 pkgdesc='Calling Python functions from the Ruby language'
 arch=(x86_64)
 url='https://github.com/mrkn/pycall.rb'
@@ -30,16 +30,20 @@ options=(!emptydirs)
 source=(
   "git+${url}#tag=v${pkgver}"
   "${pkgname}_fix_tests.patch::${url}/pull/191.patch"
+  fix-tests.patch
 )
 sha512sums=('84396383428c2a70983436598f793fd6ec9a5f2f116b5ebd32bc7969660133bbc3018705bf1ef69d44dd02ba28d7c996cc3d308edb882e9c0759de5dc98629dc'
-            '882eb2b0c37065c93e18937578800ddf5ed56ef9c734ed40cfb4f428d3c0c1daef1482543cff8a8ac9590a00853ff634887c402932ee150501fedbbb38b1db5c')
+            'c78acecefd6eac32002bacb0ab7b14daad7122d3e0093a02affcc126f9b6991d12f37dc8df82173b209dc4a0d4915897412133b0ca28a39758180572e8ecdaa7'
+            'd2b4ee28fe3acb4f734053d64c764ad0b148e6b4e8bc5a6244bcc59dc2f8ea6cdcaaacf921f1b49385784afba4a1bcf33b684b375dd2c3083ec4687ebe9401e2')
 b2sums=('823bae125b6ab9d4b0b47b7a4be0bf7cde0fe8f4741bfba32e3c2acebe09707de782712c3c96e1251e1e8eefefbd127a675605a5db514d8dc1e33c52a7917e3e'
-        '677600734f87a83905949e93df866930084baad556a967608a8bc6d7265083105a88627610cb65dd6bd15ba34679a48c14752e1b8e44e8b423a829feef2e098c')
+        'bc3242b5dcfaef7ad9e6a1805182d259e0c4f402279fb1a467baf54f569345f6eaecdececa1eb2df3b87473927b95476c9212d6421ddefce87fd18a45ef6a07e'
+        '69977bf23dd44cfc178bf33695c599279ec3c7bc51429387e2c864c7aecce2d97b5bf614938ddd2effd6d3e058b8f54c3fd72e18d131578bde804a3808c55f0d')
 
 prepare() {
   cd pycall.rb
 
   patch --verbose --strip=1 --input="../${pkgname}_fix_tests.patch"
+  patch -p1 -i ../fix-tests.patch # https://github.com/red-data-tools/pycall.rb/pull/193
 
   sed -r -e '/rake-compiler-dock/d' -e '/launchy/d' -i pycall.gemspec
 }
