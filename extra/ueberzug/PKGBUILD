@@ -4,7 +4,7 @@
 
 pkgname=ueberzug
 pkgver=18.3.1
-pkgrel=4
+pkgrel=5
 pkgdesc='Command line util which allows to display images in combination with X11'
 arch=('x86_64')
 url=https://github.com/ueber-devel/ueberzug
