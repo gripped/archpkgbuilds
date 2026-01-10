@@ -4,7 +4,7 @@
 
 pkgname=python-pystray
 pkgver=0.19.5
-pkgrel=6
+pkgrel=7
 arch=(any)
 license=(GPL-3.0-only LGPL-3.0-only)
 pkgdesc='Allows to create a system tray icon'
