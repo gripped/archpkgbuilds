@@ -2,11 +2,11 @@
 # Collaborator: Jonathan Fine (were.Vire AT gmail DOT com)
 pkgname=tiled
 pkgver=1.11.2
-pkgrel=2
+pkgrel=3
 pkgdesc='A general purpose tile map editor, built to be flexible and easy to use'
 arch=('x86_64')
 url='http://www.mapeditor.org'
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('qt6-base' 'libgl' 'gtk-update-icon-cache' 'shared-mime-info' 'desktop-file-utils' 'libxkbcommon-x11'
          'qt6-declarative' 'qt6-svg' 'zstd')
 makedepends=('mesa' 'qt6-tools' 'python' 'qbs')
@@ -15,10 +15,14 @@ optdepends=('python: Python plugin'
             'qaseprite: Support for the Aseprite image format')
 source=($pkgname-$pkgver.tar.gz::https://github.com/mapeditor/tiled/archive/v${pkgver}.tar.gz
         tiled-4197.patch::https://patch-diff.githubusercontent.com/raw/mapeditor/tiled/pull/4197.patch
-        https://github.com/mapeditor/tiled/commit/60388da00.patch)
+        https://github.com/mapeditor/tiled/commit/60388da00.patch
+        qbs3.patch
+        https://github.com/mapeditor/tiled/commit/64175fc9.patch)
 sha512sums=('c8fc3d853b91e1e74bdeb1873912e5dfe6efea49d937803502bac42865b6406adf6845f7f393098dccdf59adba522a5672e48e4a673e22e2fc320fe8c4b43405'
             '593cff05bf435985f34e37a68c953305f4bda4bb8c2a25515b77409f9ca2a67290434c9a28bf0872dbecc822a8b44d5881b4302613d14634a7f436d251fa9aa7'
-            'b44ba445190dffb3975aa0e066d6b6b2fcb840774212dbd54a0fe035d322676faeb84f90e78d1e276fa0e50284ad949d13dd5e11ba46930e083c4f598110ae38')
+            'b44ba445190dffb3975aa0e066d6b6b2fcb840774212dbd54a0fe035d322676faeb84f90e78d1e276fa0e50284ad949d13dd5e11ba46930e083c4f598110ae38'
+            '076c94f3956b20efd3213eb7bcdb38a204383930852257aeaedb755363fa5d76d8d466facd2d9b2a5f9282a5fef122a5f584c63ddd84a03f4c6dfe13e4aabb2a'
+            'fab88c9473b2463b067cb91f8469077f56863623200980fa6c5f28fda9b5558f6105c40412a5f5eaba99d0c4d3c32c89108cc5851d015b05988c93ecd288792d')
 
 prepare() {
   sed -e '/QT_DISABLE_DEPRECATED_BEFORE/d' -i $pkgname-$pkgver/*/*/*.qbs
@@ -28,6 +32,8 @@ prepare() {
   cd $pkgname-$pkgver
   patch -Np1 -i "$srcdir"/tiled-4197.patch
   patch -Np1 -i "$srcdir"/60388da00.patch
+  patch -p1 -i ../qbs3.patch # Fix build with new qbs (Fedora)
+  patch -p1 -i ../64175fc9.patch # Fix build with Qt 6.10.1
 }
 
 build() {
