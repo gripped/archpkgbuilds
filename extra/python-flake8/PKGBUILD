@@ -6,7 +6,7 @@
 
 pkgname=python-flake8
 pkgver=7.3.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="The modular source code checker: pep8, pyflakes and co"
 arch=('any')
