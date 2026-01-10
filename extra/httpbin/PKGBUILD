@@ -3,7 +3,7 @@
 
 pkgname=httpbin
 pkgver=0.10.2
-pkgrel=5
+pkgrel=6
 pkgdesc="HTTP Request and Response Service"
 arch=('any')
 url="https://github.com/psf/httpbin"
