@@ -2,7 +2,7 @@
 
 pkgname=sugar-datastore
 pkgver=0.121
-pkgrel=3
+pkgrel=4
 pkgdesc='Sugar datastore service'
 arch=(x86_64)
 url='https://github.com/sugarlabs/sugar-datastore'
