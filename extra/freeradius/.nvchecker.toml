@@ -1,0 +1,6 @@
+[freeradius]
+source = "git"
+git = "https://github.com/FreeRADIUS/freeradius-server.git"
+from_pattern = 'release_(\d+)_(\d+)_(\d+)'
+to_pattern = '\1.\2.\3'
+exclude_regex = '.*(rc|beta|\d\.\d\.\d).*'
