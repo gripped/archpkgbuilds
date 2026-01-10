@@ -8,7 +8,7 @@
 _pyname=pylint
 pkgname=python-$_pyname
 pkgver=4.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Analyzes Python code looking for bugs and signs of poor quality'
 arch=(any)
 url=https://pylint.pycqa.org
