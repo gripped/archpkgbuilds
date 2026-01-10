@@ -3,7 +3,7 @@
 pkgname=python-fastbencode
 _pkgname=fastbencode
 pkgver=0.3.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Implementation of bencode with optional fast C extensions"
 arch=(x86_64)
 url="https://github.com/breezy-team/fastbencode"
@@ -25,7 +25,6 @@ sha256sums=('8e7b30a9811f8b3229077513006f189d2fcc8e09765fd1783bb773ad11147b1a')
 
 build() {
   cd $_pkgname-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
   python -m build --wheel --no-isolation
 }
 
