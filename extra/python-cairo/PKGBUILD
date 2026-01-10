@@ -5,7 +5,7 @@
 pkgbase=python-cairo
 pkgname=(python-cairo python-cairo-docs)
 pkgver=1.29.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Python bindings for the cairo graphics library"
 url="https://pycairo.readthedocs.io/en/latest/"
 arch=(x86_64)
