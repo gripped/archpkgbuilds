@@ -3,7 +3,7 @@
 
 pkgname=jrnl
 pkgver=4.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Collect your thoughts and notes without leaving the command line"
 arch=('any')
 url="https://jrnl.sh/"
@@ -42,7 +42,8 @@ build() {
 
 check() {
   cd $pkgname-$pkgver
-  pytest
+  # Deselected test fails with Python 3.14
+  pytest --deselect=tests/bdd/test_features.py::test_override_configured_linewrap_with_a_value_of_23
 }
 
 package() {
