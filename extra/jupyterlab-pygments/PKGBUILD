@@ -4,7 +4,7 @@
 _pyname=jupyterlab_pygments
 pkgname=${_pyname/_/-}
 pkgver=0.3.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Pygments theme using JupyterLab CSS variables'
 arch=(any)
 url='https://github.com/jupyterlab/jupyterlab_pygments'
