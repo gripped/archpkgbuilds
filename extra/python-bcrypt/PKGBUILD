@@ -6,7 +6,7 @@
 
 pkgname=python-bcrypt
 pkgver=5.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Modern password hashing for your software and your servers"
 arch=(x86_64)
 url="https://github.com/pyca/bcrypt"
