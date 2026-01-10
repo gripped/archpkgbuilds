@@ -3,7 +3,7 @@
 
 pkgname=onboard
 pkgver=1.4.1
-pkgrel=12
+pkgrel=13
 pkgdesc='On-screen keyboard useful on tablet PCs or for mobility impaired users'
 arch=('x86_64')
 url='https://launchpad.net/onboard'
