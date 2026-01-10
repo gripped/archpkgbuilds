@@ -1,0 +1,33 @@
+diff --git a/nikola/plugins/command/auto/__init__.py b/nikola/plugins/command/auto/__init__.py
+index 7c702214c..11d074112 100644
+--- a/nikola/plugins/command/auto/__init__.py
++++ b/nikola/plugins/command/auto/__init__.py
+@@ -240,7 +240,7 @@ class CommandAuto(Command):
+
+         # Prepare asyncio event loop
+         # Required for subprocessing to work
+-        loop = asyncio.get_event_loop()
++        loop = asyncio.new_event_loop()
+
+         # Set debug setting
+         loop.set_debug(self.site.debug)
+@@ -305,8 +305,8 @@ class CommandAuto(Command):
+         # Run the event loop forever and handle shutdowns.
+         try:
+             # Run rebuild queue
+-            rebuild_queue_fut = asyncio.ensure_future(self.run_rebuild_queue())
+-            reload_queue_fut = asyncio.ensure_future(self.run_reload_queue())
++            rebuild_queue_fut = asyncio.ensure_future(self.run_rebuild_queue(), loop=loop)
++            reload_queue_fut = asyncio.ensure_future(self.run_reload_queue(), loop=loop)
+
+             self.dns_sd = dns_sd(port, (options['ipv6'] or '::' in host))
+             loop.run_forever()
+diff --git a/tests/integration/dev_server_test_helper.py b/tests/integration/dev_server_test_helper.py
+index 78479981a..53e7d0475 100644
+--- a/tests/integration/dev_server_test_helper.py
++++ b/tests/integration/dev_server_test_helper.py
+@@ -41,3 +41,4 @@ class MyFakeSite(FakeSite):
+         self.registered_auto_watched_folders = set()
+         self.config = config
+         self.configuration_filename = configuration_filename
++        self.show_tracebacks = True
