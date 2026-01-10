@@ -3,7 +3,7 @@
 
 pkgname=python-augeas
 pkgver=1.1.0
-pkgrel=10
+pkgrel=11
 pkgdesc="Python bindings for Augeas"
 arch=('any')
 license=('LGPL-2.1-or-later')
