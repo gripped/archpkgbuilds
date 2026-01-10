@@ -3,7 +3,7 @@
 _name=dep-logic
 pkgname=python-dep-logic
 pkgver=0.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Python dependency specifications supporting logical operations"
 arch=(any)
 url="https://github.com/pdm-project/dep-logic"
