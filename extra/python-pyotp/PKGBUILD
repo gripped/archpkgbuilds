@@ -4,7 +4,7 @@
 pkgname=python-pyotp
 _pkgname=pyotp
 pkgver=2.9.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Python library for generating and verifying one-time passwords'
 url='https://pyotp.readthedocs.io/'
 arch=('any')
