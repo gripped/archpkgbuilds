@@ -3,7 +3,7 @@
 
 pkgname=python-aiosignal
 pkgver=1.4.0
-pkgrel=2
+pkgrel=3
 pkgdesc='List of registered asynchronous callbacks'
 arch=('any')
 url='https://github.com/aio-libs/aiosignal'
