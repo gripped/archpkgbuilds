@@ -3,7 +3,7 @@
 
 pkgname=codesnap
 pkgver=0.13.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Pure Rust tool for generating beautiful code snapshots"
 arch=('x86_64')
 url="https://github.com/codesnap-rs/codesnap"
@@ -16,7 +16,7 @@ options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')" --locked
+  cargo fetch --target "$(rustc --print host-tuple)" --locked
 }
 
 build() {
