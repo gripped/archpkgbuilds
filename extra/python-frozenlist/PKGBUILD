@@ -4,7 +4,7 @@
 
 pkgname=python-frozenlist
 pkgver=1.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc='FrozenList is a list-like structure which can be made immutable'
 arch=('x86_64')
 url='https://github.com/aio-libs/frozenlist'
