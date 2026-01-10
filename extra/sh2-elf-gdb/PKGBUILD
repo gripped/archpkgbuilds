@@ -4,8 +4,8 @@
 
 _target=sh2-elf
 pkgname=$_target-gdb
-pkgver=15.2
-pkgrel=1
+pkgver=17.1
+pkgrel=2
 pkgdesc='The GNU Debugger for the SuperH SH 2 (bare-metal) target'
 arch=(x86_64)
 url='https://www.gnu.org/software/gdb/'
@@ -14,7 +14,7 @@ depends=(xz ncurses expat python guile gdb-common mpfr libelf source-highlight)
 makedepends=(boost)
 options=(!emptydirs)
 source=(https://ftp.gnu.org/gnu/gdb/gdb-$pkgver.tar.xz{,.sig})
-sha512sums=('624007deceb5b15ba89c0725883d1a699fa46714ef30887f3d0165e17c5d65d634671740a135aa69e437d916218abb08cfa2a38ed309ff19d48f51da56b2a8ba'
+sha512sums=('f1a6751e439a2128fecf3eae8b57c1608a0dc7cfe79b4356a937874e5a42bb2df0aba36eb6a9452c41966908b9a59076c7cad9720f684688ab956b65080f1d7c'
             'SKIP')
 validpgpkeys=('F40ADB902B24264AA42E50BF92EDB04BFF325CF3') # Joel Brobecker <brobecker@adacore.com>
 
