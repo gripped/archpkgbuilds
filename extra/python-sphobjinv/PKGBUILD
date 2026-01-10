@@ -3,7 +3,7 @@
 pkgname=python-sphobjinv
 _name=${pkgname#python-}
 pkgver=2.3.1
-pkgrel=4
+pkgrel=5
 pkgdesc="Manipulate and inspect Sphinx objects.inv files"
 arch=('any')
 url="https://github.com/bskinn/sphobjinv"
