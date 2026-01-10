@@ -2,7 +2,7 @@
 
 pkgname=python-makefun
 pkgver=1.16.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Dynamically create Python functions with a proper signature"
 arch=('any')
 url="https://github.com/smarie/python-makefun"
@@ -15,9 +15,12 @@ makedepends=(
   'python-setuptools-scm'
   'python-wheel'
 )
-checkdepends=('python-pytest')
+checkdepends=(
+  'python-pytest'
+  'python-pytest-asyncio'
+)
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('fa403bbc3229f6f0e3e1de2bb2cb14f08503858f60cc9eadb4f3b3f4eb60053b')
+b2sums=('0ba44a034f7e994335bb5a54565dea4b7738734baddff47b8001e58d3e3021ba8e9cd8103968d2579d30e52abc65b3460d20a2a89890c472437f31d46a131055')
 
 build() {
   cd $pkgname-$pkgver
@@ -29,7 +32,7 @@ check() {
   cd $pkgname-$pkgver
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest
+  test-env/bin/python -m pytest --asyncio-mode=auto
 }
 
 package() {
