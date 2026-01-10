@@ -3,7 +3,7 @@
 
 pkgname=libiptcdata
 pkgver=1.0.5
-pkgrel=4
+pkgrel=5
 pkgdesc='Library for manipulating the IPTC metadata'
 arch=(x86_64)
 url='https://libiptcdata.sourceforge.net/'
