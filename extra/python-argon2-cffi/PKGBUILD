@@ -3,7 +3,7 @@
 
 pkgname=python-argon2-cffi
 pkgver=25.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Secure password hashing algorithm for Python'
 arch=(any)
 url='https://github.com/hynek/argon2-cffi'
