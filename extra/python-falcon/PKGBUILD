@@ -3,7 +3,7 @@
 _name=falcon
 pkgname=python-falcon
 pkgver=4.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Web API framework for fast and reliable microservices, proxies, and app backends"
 arch=(x86_64)
 url="https://falconframework.org/"
