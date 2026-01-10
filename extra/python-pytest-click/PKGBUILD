@@ -2,7 +2,7 @@
 
 pkgname=python-pytest-click
 pkgver=1.1.0
-pkgrel=5
+pkgrel=6
 pkgdesc='pytest plugin for Click'
 arch=('any')
 url='https://github.com/Stranger6667/pytest-click'
