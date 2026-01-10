@@ -9,7 +9,7 @@
 
 pkgname=blender
 pkgver=5.0.1
-pkgrel=1
+pkgrel=2
 epoch=17
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
@@ -113,6 +113,7 @@ makedepends=(
 )
 optdepends=('cuda: Cycles renderer CUDA support'
             'intel-compute-runtime: Cycles renderer Intel OneAPI support'
+            'intel-level-zero-raytracing-support: Cycles renderer Intel OneAPI Raytracing Support'
             'hip-runtime-amd: Cycles renderer AMD ROCm support'
             'hiprt: Ray tracing AMD ROCm support'
             'libdecor: wayland support')
