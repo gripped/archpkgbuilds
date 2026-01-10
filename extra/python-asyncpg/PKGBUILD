@@ -3,7 +3,7 @@
 
 pkgname=python-asyncpg
 pkgver=0.31.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast PostgreSQL Database Client Library for Python/asyncio"
 arch=(x86_64)
 url="https://github.com/MagicStack/asyncpg"
