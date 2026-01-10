@@ -3,7 +3,7 @@
 pkgname=python-pdm-build-locked
 _name=${pkgname#python-}
 pkgver=0.3.7
-pkgrel=1
+pkgrel=3
 pkgdesc="A pdm plugin to publish locked dependencies as optional-dependencies"
 arch=(any)
 url="https://github.com/pdm-project/pdm-build-locked"
