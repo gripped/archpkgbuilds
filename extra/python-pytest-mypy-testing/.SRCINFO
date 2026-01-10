@@ -1,19 +1,20 @@
 pkgbase = python-pytest-mypy-testing
 	pkgdesc = Plugin to test mypy output with pytest
 	pkgver = 0.1.3
-	pkgrel = 3
+	pkgrel = 5
 	url = https://github.com/davidfritzsche/pytest-mypy-testing
 	arch = any
 	license = Apache
 	license = MIT
 	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-flit-core
 	makedepends = python-installer
 	depends = mypy
 	depends = python
 	depends = python-pytest
-	source = https://github.com/davidfritzsche/pytest-mypy-testing/archive/v0.1.3/python-pytest-mypy-testing-0.1.3.tar.gz
-	sha256sums = 8b7702c0ded93d805ff60af52703de184a1d5a88a039647028bc8897c74283b5
+	source = git+https://github.com/davidfritzsche/pytest-mypy-testing#tag=v0.1.3
+	sha256sums = 271794518463c32c25518ece5e1b95f3a30008e30e6349b150923e80f2e2abad
 
 pkgname = python-pytest-mypy-testing
