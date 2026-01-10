@@ -4,7 +4,7 @@
 
 pkgname=liblc3
 pkgver=1.1.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Low Complexity Communication Codec library and tools"
 url="https://github.com/google/liblc3"
 arch=(x86_64)
