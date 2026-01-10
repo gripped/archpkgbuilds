@@ -3,7 +3,7 @@
 
 pkgname=python-xarray
 pkgver=2025.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="N-D labeled arrays and datasets in Python"
 arch=(any)
 url="https://xarray.pydata.org/"
