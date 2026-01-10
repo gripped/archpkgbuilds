@@ -3,7 +3,7 @@
 
 pkgname=python-py-partiql-parser
 pkgver=0.6.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Python Parser for PartiQL'
 arch=(any)
 url='https://github.com/getmoto/py-partiql-parser'
