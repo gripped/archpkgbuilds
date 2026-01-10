@@ -8,7 +8,7 @@ _pkg=arrow
 _pkgname=pyarrow
 pkgname=python-$_pkgname
 pkgver=22.0.0
-pkgrel=1
+pkgrel=2
 # parquet-testing and arrow-testing projects have no releases, commits may need to be updated on pkgver bumps
 _parquet_testing_commit=4cf674fc589309ba8651ad676f3fb557582d9cab
 _arrow_testing_commit=fbf6b703dc93d17d75fa3664c5aa2c7873ebaf06
@@ -75,7 +75,8 @@ check() {
     -vv
     --pyargs pyarrow
     # ignore test that fails in version 22.0.0
-    -k 'not test_timezone_absent'
+    # test_s3_options etc. crash with aws-sdk-cpp-s3-1.11.710, probably related to https://github.com/apache/arrow/issues/48540
+    -k 'not test_timezone_absent and not _s3'
   )
 
   python -m venv --system-site-packages test-env
