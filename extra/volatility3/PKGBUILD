@@ -4,7 +4,7 @@
 
 pkgname=volatility3
 pkgver=2.26.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Advanced memory forensics framework'
 url='https://github.com/volatilityfoundation/volatility3'
 arch=(any)
