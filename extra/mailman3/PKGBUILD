@@ -3,7 +3,7 @@
 _name=mailman
 pkgname=mailman3
 pkgver=3.3.10
-pkgrel=6
+pkgrel=7
 pkgdesc="The GNU mailing list manager"
 arch=(any)
 url="https://www.list.org/"
