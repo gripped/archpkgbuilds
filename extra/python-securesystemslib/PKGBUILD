@@ -3,7 +3,7 @@
 
 pkgname=python-securesystemslib
 pkgver=1.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Cryptographic and general-purpose routines for Secure Systems Lab projects at NYU"
 arch=('any')
 url="https://github.com/secure-systems-lab/securesystemslib"
@@ -39,6 +39,8 @@ prepare() {
   cd ${pkgname#python-}
   # Test requires python-pyspx which is not packaged.
   patch -Np1 -i ../skip-failing-test.patch
+
+  sed -i 's/hatchling==1.27.0/hatchling/' pyproject.toml
 }
 
 build() {
