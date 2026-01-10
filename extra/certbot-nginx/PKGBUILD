@@ -4,7 +4,7 @@
 
 pkgname=certbot-nginx
 pkgver=5.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Nginx plugin for Certbot'
 arch=('any')
 license=('Apache-2.0')
