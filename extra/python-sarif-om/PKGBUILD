@@ -4,7 +4,7 @@
 pkgname=python-sarif-om
 _pkgname=sarif-python-om
 pkgver=1.0.4
-pkgrel=8
+pkgrel=9
 pkgdesc='Python classes for the SARIF object model'
 arch=(any)
 url='https://github.com/microsoft/sarif-python-om'
