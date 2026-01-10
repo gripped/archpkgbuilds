@@ -4,7 +4,7 @@
 _gitname=yara-python
 pkgname=python-yara
 pkgver=4.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Tool aimed at helping malware researchers to identify and classify malware samples'
 url='https://github.com/VirusTotal/yara-python'
 arch=('x86_64')
