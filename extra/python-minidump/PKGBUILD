@@ -4,7 +4,7 @@
 _pyname=minidump
 pkgname=python-${_pyname}
 pkgver=0.0.24
-pkgrel=1
+pkgrel=2
 pkgdesc='Python library to parse and read Microsoft minidump file format'
 url='https://github.com/skelsec/minidump'
 arch=('any')
