@@ -5,8 +5,8 @@
 
 pkgname=python-proton-vpn-local-agent
 pkgver=1.6.0
-pkgrel=1
-_pyver=3.13
+pkgrel=3
+_pyver=3.14
 pkgdesc="Proton VPN local agent written in Rust"
 arch=(x86_64)
 url="https://github.com/ProtonVPN/local-agent-rs"
@@ -26,7 +26,7 @@ sha256sums=('e37902dd39ca9cbee37095ccce841e3e9f744f8b86f5935fa68f833dcd37d0ed')
 
 prepare() {
     cd "${srcdir}"/local-agent-rs/python-proton-vpn-local-agent
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
