@@ -5,7 +5,7 @@ _devendored=1
 _name=pdm-backend
 pkgname=python-pdm-backend
 pkgver=2.4.6
-pkgrel=1
+pkgrel=4
 pkgdesc="The build backend used by PDM that supports latest packaging standards"
 arch=(any)
 url="https://github.com/pdm-project/pdm-backend"
@@ -70,6 +70,7 @@ check() {
   export PYTHONPATH="$PWD/test_dir/$site_packages:$PYTHONPATH"
 
   # set default git config for test
+  export GIT_CONFIG_GLOBAL="$HOME/.gitconfig"
   git config --global user.email "you@example.com"
   git config --global user.name "Your Name"
   pytest "${pytest_options[@]}"
