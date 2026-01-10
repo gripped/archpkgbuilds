@@ -3,7 +3,7 @@
 _pkgname=intelhex
 pkgname=python-$_pkgname
 pkgver=2.3.0
-pkgrel=8
+pkgrel=9
 pkgdesc='Python library for Intel HEX files manipulations'
 arch=('any')
 url='https://github.com/python-intelhex/intelhex'
