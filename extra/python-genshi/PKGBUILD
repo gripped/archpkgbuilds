@@ -3,7 +3,7 @@
 
 pkgname=python-genshi
 pkgver=0.7.10
-pkgrel=1
+pkgrel=2
 pkgdesc='Toolkit for stream-based generation of output for the web'
 arch=(x86_64)
 url='https://genshi.edgewall.org'
