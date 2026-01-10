@@ -3,7 +3,7 @@
 
 pkgname=opensnitch
 pkgver=1.7.2
-pkgrel=2
+pkgrel=4
 pkgdesc='A GNU/Linux application firewall'
 arch=(x86_64)
 url=https://github.com/evilsocket/opensnitch
