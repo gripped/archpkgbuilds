@@ -6,7 +6,7 @@ _name=jsonpath-ng
 pkgname="python-$_name"
 # https://github.com/h2non/jsonpath-ng/releases
 pkgver=1.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="JSONPath for Python that aims to be standard compliant"
 arch=('any')
 url="https://github.com/h2non/jsonpath-ng"
