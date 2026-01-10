@@ -3,7 +3,7 @@
 pkgname=python-pytest-instafail
 _pkgname=pytest-instafail
 pkgver=0.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="py.test plugin to show failures instantly"
 url="https://github.com/pytest-dev/pytest-instafail"
 arch=('any')
