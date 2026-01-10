@@ -3,7 +3,7 @@
 
 pkgname=ansible-creator
 pkgver=25.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A CLI tool for scaffolding all your Ansible Content"
 arch=('any')
 url="https://github.com/ansible/ansible-creator"
