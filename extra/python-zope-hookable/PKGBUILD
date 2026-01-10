@@ -4,7 +4,7 @@
 pkgname=python-zope-hookable
 _pkgname=zope.hookable
 pkgver=8.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Represents the core of the Zope hookable Architecture"
 arch=('x86_64')
 url="https://github.com/zopefoundation/zope.hookable"
