@@ -4,7 +4,7 @@
 
 pkgname=tdb
 pkgver=1.4.14
-pkgrel=1
+pkgrel=2
 pkgdesc='Trivial Database similar to GDBM but allows simultaneous commits'
 arch=(x86_64)
 license=('GPL-3.0-or-later')
