@@ -5,7 +5,7 @@
 _name=pyperf
 pkgname='python-perf'
 pkgver=2.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Toolkit to run Python benchmarks'
 arch=('any')
 url='https://github.com/psf/pyperf'
