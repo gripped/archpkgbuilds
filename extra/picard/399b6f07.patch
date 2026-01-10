@@ -1,0 +1,78 @@
+From 399b6f073b8ef17bc7ec7711cce13d044356b1cc Mon Sep 17 00:00:00 2001
+From: Philipp Wolfer <ph.wolfer@gmail.com>
+Date: Thu, 12 Jun 2025 12:00:37 +0200
+Subject: [PATCH] PICARD-3079: Declare support for Python 3.14 and fix tests
+
+---
+ pyproject.toml    |  1 +
+ test/test_file.py | 36 ++++++++++++++++++++++--------------
+ 2 files changed, 23 insertions(+), 14 deletions(-)
+
+diff --git a/test/test_file.py b/test/test_file.py
+index 0f6a8aba12..67b6faf8e6 100644
+--- a/test/test_file.py
++++ b/test/test_file.py
+@@ -393,41 +393,49 @@ def test_empty_patterns(self):
+     def test_simple_patterns(self):
+         pattern = 'cover.jpg'
+         expected = {
+-            (re.compile('(?s:cover\\.jpg)\\Z', re.IGNORECASE), False)
++            (re.compile(r'(?s:cover\.jpg)\Z', re.IGNORECASE), False)
+         }
+-        self.assertEqual(File._compile_move_additional_files_pattern(pattern), expected)
++        self._assert_patterns_match(pattern, expected)
+ 
+     def test_whitespaces_patterns(self):
+         pattern = "  a   \n b   "
+         expected = {
+-            (re.compile('(?s:a)\\Z', re.IGNORECASE), False),
+-            (re.compile('(?s:b)\\Z', re.IGNORECASE), False),
++            (re.compile(r'(?s:a)\Z', re.IGNORECASE), False),
++            (re.compile(r'(?s:b)\Z', re.IGNORECASE), False),
+         }
+-        self.assertEqual(File._compile_move_additional_files_pattern(pattern), expected)
++        self._assert_patterns_match(pattern, expected)
+ 
+     def test_duplicated_patterns(self):
+         pattern = 'cover.jpg cover.jpg COVER.JPG'
+         expected = {
+-            (re.compile('(?s:cover\\.jpg)\\Z', re.IGNORECASE), False)
++            (re.compile(r'(?s:cover\.jpg)\Z', re.IGNORECASE), False)
+         }
+-        self.assertEqual(File._compile_move_additional_files_pattern(pattern), expected)
++        self._assert_patterns_match(pattern, expected)
+ 
+     def test_simple_hidden_patterns(self):
+         pattern = 'cover.jpg .hidden'
+         expected = {
+-            (re.compile('(?s:cover\\.jpg)\\Z', re.IGNORECASE), False),
+-            (re.compile('(?s:\\.hidden)\\Z', re.IGNORECASE), True)
++            (re.compile(r'(?s:cover\.jpg)\Z', re.IGNORECASE), False),
++            (re.compile(r'(?s:\.hidden)\Z', re.IGNORECASE), True)
+         }
+-        self.assertEqual(File._compile_move_additional_files_pattern(pattern), expected)
++        self._assert_patterns_match(pattern, expected)
+ 
+     def test_wildcard_patterns(self):
+         pattern = 'c?ver.jpg .h?dden* *.jpg *.JPG'
+         expected = {
+-            (re.compile('(?s:c.ver\\.jpg)\\Z', re.IGNORECASE), False),
+-            (re.compile('(?s:\\.h.dden.*)\\Z', re.IGNORECASE), True),
+-            (re.compile('(?s:.*\\.jpg)\\Z', re.IGNORECASE), False),
++            (re.compile(r'(?s:c.ver\.jpg)\Z', re.IGNORECASE), False),
++            (re.compile(r'(?s:\.h.dden.*)\Z', re.IGNORECASE), True),
++            (re.compile(r'(?s:.*\.jpg)\Z', re.IGNORECASE), False),
+         }
+-        self.assertEqual(File._compile_move_additional_files_pattern(pattern), expected)
++        self._assert_patterns_match(pattern, expected)
++
++    def _assert_patterns_match(self, pattern, expected):
++        compiled = File._compile_move_additional_files_pattern(pattern)
++        # With Python 3.14 the \Z regex flag was renamed to \z. Convert the old
++        # naming when comparing the patterns.
++        expected = {(p.pattern, h) for p, h in expected}
++        compiled = {(p.pattern.replace(r'\z', r'\Z'), h) for p, h in compiled}
++        self.assertEqual(compiled, expected)
+ 
+ 
+ class FileUpdateTest(PicardTestCase):
