@@ -6,7 +6,7 @@
 pkgbase=kea
 pkgname=("${pkgbase}" "${pkgbase}-docs")
 pkgver=3.0.2
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc="High-performance, extensible DHCP server engine from ISC, supporting both DHCPv4 and DHCPv6"
 url="https://kea.isc.org"
@@ -97,10 +97,10 @@ package_kea() {
 
 	# Upstream changed the default permissions of all directories to 750 to address [CVE-2025-32803]
 	# To avoid pacman warning notices about top level directories' permissions differing between the package and the filesystem,
-	# yet comply with upstream change regarding [CVE-2025-32803], we are switching back filesystem's directory tree to 755
+	# but still comply with upstream change regarding [CVE-2025-32803], we are switching back filesystem's directory tree to 755
 	# but leave kea's directories in 750
 	for dir in etc \
-		   usr{,/bin,/share,/include,/lib{,/pkgconfig,/python3.13{,/site-packages}}} \
+		   usr{,/bin,/share,/include,/lib{,/pkgconfig,/python3.14{,/site-packages}}} \
 		   var{,/lib,/log}
 	do
 		chmod 755 "${pkgdir}/${dir}"
