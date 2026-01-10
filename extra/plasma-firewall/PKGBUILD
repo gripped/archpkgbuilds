@@ -3,7 +3,7 @@
 pkgname=plasma-firewall
 pkgver=6.5.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Control Panel for your system firewall'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
