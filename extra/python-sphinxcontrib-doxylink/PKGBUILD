@@ -3,7 +3,7 @@
 pkgname=python-sphinxcontrib-doxylink
 _pkgname=doxylink
 pkgver=1.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A Sphinx extension to link to external Doxygen API documentation"
 arch=('any')
 url="https://github.com/sphinx-contrib/doxylink"
