@@ -2,7 +2,7 @@
 
 pkgname=python-google-auth-httplib2
 pkgver=0.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Google Authentication Library: httplib2 transport"
 url="https://github.com/googleapis/google-auth-library-python-httplib2"
 license=('Apache-2.0')
