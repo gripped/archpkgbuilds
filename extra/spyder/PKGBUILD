@@ -5,7 +5,7 @@
 # Contributor: TDY <tdy@gmx.com>
 
 pkgname=spyder
-pkgver=6.1.1
+pkgver=6.1.2
 pkgrel=1
 pkgdesc="The Scientific Python Development Environment"
 arch=(any)
@@ -116,7 +116,7 @@ optdepends=(
   'python-sympy: symbolic mathematics in the IPython Console'
 )
 source=("git+https://github.com/spyder-ide/spyder#tag=v$pkgver")
-sha256sums=('9cdedace2642d48b994a36c7c52634bbd844bd27ac8c94859c4f429b60103e35')
+b2sums=('9a79f651c15e09c3a48fdb0dbafee650e9cead52ee311b0fffc88ca3a9fa4311b85cd3e3cb86d49c2b875ca6b103fb71559acc4f246c37d51e697a1b955a6233')
 
 build() {
   cd $pkgname
@@ -141,7 +141,12 @@ check() {
     --deselect='spyder/app/tests/test_find_plugins.py::test_find_external_plugins'
     --deselect='spyder/utils/tests/test_programs.py::test_is_valid_interpreter'
     --deselect='spyder/plugins/variableexplorer/widgets/objectexplorer/tests/test_objectexplorer.py::test_objectexplorer_types[params0]'
+    --deselect='spyder/plugins/variableexplorer/widgets/objectexplorer/tests/test_objectexplorer.py::test_objectexplorer_collection_types[params3]'
     --deselect='spyder/plugins/variableexplorer/widgets/objectexplorer/tests/test_objectexplorer.py::test_objectexplorer_collection_types[params5]'
+
+    # NotImplementedError: Pandas Categorical.__setstate__ incompatible with
+    # Python 3.14's copy module
+    --deselect='spyder/widgets/tests/test_collectioneditor.py::test_edit_nonsettable_objects'
 
     # AttributeError: 'NoneType' object has no attribute 'isFinished'
     --deselect='spyder/plugins/updatemanager/tests/test_update_manager.py::test_updates'
