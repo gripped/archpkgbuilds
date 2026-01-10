@@ -3,7 +3,7 @@
 pkgname=python-id
 _name="${pkgname#python-}"
 pkgver=1.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A tool for generating OIDC identities"
 arch=(any)
 url="https://github.com/di/id"
