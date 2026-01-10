@@ -4,7 +4,7 @@
 
 pkgname=zeitgeist
 pkgver=1.0.4
-pkgrel=5
+pkgrel=6
 pkgdesc="Service logging user activities and events"
 url="https://launchpad.net/zeitgeist/"
 arch=(x86_64)
