@@ -2,7 +2,7 @@
 
 pkgname=python-pika
 pkgver=1.3.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Pure Python RabbitMQ/AMQP 0-9-1 client library"
 arch=(any)
 url="https://github.com/pika/pika/"
