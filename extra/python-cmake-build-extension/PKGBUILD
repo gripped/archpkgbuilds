@@ -3,7 +3,7 @@
 
 pkgname=python-cmake-build-extension
 pkgver=0.6.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Setuptools extension to build and package CMake projects'
 arch=(any)
 url=https://github.com/diegoferigo/cmake-build-extension
