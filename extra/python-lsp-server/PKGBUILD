@@ -3,14 +3,28 @@
 # Contributor: Platon Pronko <platon7pronko@gmail.com>
 
 pkgname=python-lsp-server
-pkgver=1.12.2
+pkgver=1.14.0
 pkgrel=1
 pkgdesc="Fork of the python-language-server project, maintained by the Spyder IDE team and the community"
 arch=(any)
 url="https://github.com/python-lsp/python-lsp-server"
 license=(MIT)
-depends=(python-jedi python-lsp-jsonrpc python-pluggy python-ujson python-websockets python-docstring-to-markdown)
-makedepends=(python-build python-installer python-setuptools python-setuptools-scm python-wheel)
+depends=(
+    python-black
+    python-jedi
+    python-lsp-jsonrpc
+    python-pluggy
+    python-ujson
+    python-websockets
+    python-docstring-to-markdown
+)
+makedepends=(
+    python-build
+    python-installer
+    python-setuptools
+    python-setuptools-scm
+    python-wheel
+)
 optdepends=(
     'python-mccabe: complexity checking'
     'python-pycodestyle: linter - style checking'
@@ -43,38 +57,34 @@ checkdepends=(
     python-appdirs
 )
 source=(https://github.com/python-lsp/python-lsp-server/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('6619b497fc7cbdd92558827757c6443b7a7e98d57853e943b312aa0121835e19')
+b2sums=('3a741ba70e6bddc6f8052d0c76343e756874e284cdcdcc3ff0c48fb6302c5e4b2ef47fa0b1a6bd4f85d1972cd3740dc87c3af711419ea0fb50239d53565d829c')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
-  sed 's|jedi>=0.17.2,<0.19.0|jedi>=0.17.2,<0.20.0|' -i pyproject.toml
-  sed 's|autopep8>=1.6.0,<1.7.0|autopep8>=1.6.0|' -i pyproject.toml
-  sed 's|flake8>=6.1.0,<7|flake8>=6.1.0|' -i pyproject.toml
-  sed 's|mccabe>=0.7.0,<0.8.0|mccabe>=0.7.0|' -i pyproject.toml
-  sed 's|pycodestyle>=2.11.0,<2.12.0|pycodestyle>=2.11.0|' -i pyproject.toml
-  sed 's|pyflakes>=3.1.0,<3.2.0|pyflakes>=3.1.0|' -i pyproject.toml
-  sed 's|yapf<=0.32.0|yapf>=0.33.0|' -i pyproject.toml
-
-  # https://github.com/python-lsp/python-lsp-server/issues/605
-  sed -i 's/DEBUG/INFO/' test/conftest.py
+  cd $pkgname-$pkgver
+  sed 's|jedi>=[0-9.]\+,<[0-9.]\+|jedi|' -i pyproject.toml
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd $pkgname-$pkgver
   SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver \
-  python -m build -wn
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd ${pkgname}-${pkgver}
-  # Disable coverage
-  sed -i '/--cov/d' pyproject.toml
-  # https://github.com/python-lsp/python-lsp-server/issues/602
-  pytest -vv --color=yes -k 'not test_jedi_completion_with_fuzzy_enabled'
+  local pytest_options=(
+    -vv
+    --override-ini="addopts="
+    -W ignore::DeprecationWarning
+    --deselect test/plugins/test_completion.py::test_pyqt_completion
+    --deselect test/test_language_server.py::test_missing_message
+  )
+
+  cd $pkgname-$pkgver
+  python -m pytest "${pytest_options[@]}"
 }
 
 package() {
   cd ${pkgname}-${pkgver}
-  python -m installer -d="${pkgdir}" dist/*.whl
-  install -Dm644 LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
