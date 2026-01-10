@@ -3,7 +3,7 @@
 pkgname=python-pytest-snapshot
 _name=${pkgname#python-}
 pkgver=0.9.0
-pkgrel=3
+pkgrel=4
 pkgdesc="A plugin for snapshot testing with pytest."
 arch=('any')
 url="https://github.com/joseph-roitman/pytest-snapshot"
