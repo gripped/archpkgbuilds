@@ -1,0 +1,28 @@
+From 619aae2569ccc33703fc7f9132cf297e0cdb454d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=D0=94=D0=B0=D0=BC=D0=B8=D1=80=20=D0=91=D0=BE=D0=BB=D1=82?=
+ =?UTF-8?q?=D0=B0=D1=87=D0=B5=D0=B2?= <d.boltachev@puls.ru>
+Date: Thu, 15 May 2025 15:43:50 +0400
+Subject: [PATCH] fix: fixed test failure caused by postgres_cluster fixture
+ ipv6 invalid characters
+
+---
+ tests/test_db.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tests/test_db.py b/tests/test_db.py
+index e26c535..a695182 100644
+--- a/tests/test_db.py
++++ b/tests/test_db.py
+@@ -42,10 +42,10 @@
+          'secret',
+          5431),
+         # postgres://user:password@host:port,host:port,host:port/dbname
+-        ('postgres://username:p@ss:12,wor:34d@host1:111,22.55.44.88:222,[2001:db8::1234]:333/db',
++        ('postgres://username:p@ss:12,wor:34d@host1:111,22.55.44.88:222,2001:db8::1234:333/db',
+          DJANGO_POSTGRES,
+          'db',
+-         'host1,22.55.44.88,[2001:db8::1234]',
++         'host1,22.55.44.88,2001:db8::1234',
+          'username',
+          'p@ss:12,wor:34d',
+          '111,222,333'
