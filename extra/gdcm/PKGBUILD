@@ -3,7 +3,7 @@
 pkgbase=gdcm
 pkgname=(gdcm gdcm-docs)
 pkgver=3.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="C++ library for DICOM medical files"
 arch=(x86_64)
 url="https://github.com/malaterre/GDCM"
@@ -15,8 +15,6 @@ makedepends=(
   swig
   doxygen
   graphviz
-  texlive-formatsextra
-  texlive-latexextra
   # depends
   expat
   json-c
@@ -52,6 +50,7 @@ build() {
     -DGDCM_BUILD_SHARED_LIBS=ON
     -DGDCM_BUILD_TESTING=ON
     -DGDCM_DOCUMENTATION=ON
+    -DGDCM_PDF_DOCUMENTATION=OFF  # does not work - latex error Bad register code (32866).
     -DGDCM_USE_SYSTEM_CHARLS=OFF  # not packaged
     -DGDCM_USE_SYSTEM_EXPAT=ON
     -DGDCM_USE_SYSTEM_JSON=ON
