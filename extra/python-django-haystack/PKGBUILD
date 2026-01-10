@@ -3,7 +3,7 @@
 pkgname=python-django-haystack
 _name="${pkgname#python-}"
 pkgver=3.3.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Modular search for Django"
 arch=(any)
 url="https://github.com/django-haystack/django-haystack"
@@ -33,9 +33,17 @@ optdepends=(
   'python-whoosh: use whoosh as search backend'
   'python-xapian-haystack: use python-xapian as search backend'
 )
-source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('f8fb6fe11957391d4dc48f279c07e29b2063c7268a4585c4d2d0462f9b17d3563997a29bed4da5577b4125e70668aa79ce86a553cda71cb94c1af19b9bd808fe')
-b2sums=('d6193172f5baae90792a636f925f5d9eb6f886f362fcb36f4551dcf0e097fbb2ef58bd7a7bb8dc8401846df3eea4601566e58495f6ab8ce99b4498b8d9b55196')
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
+        python-3.14.patch)
+sha512sums=('f8fb6fe11957391d4dc48f279c07e29b2063c7268a4585c4d2d0462f9b17d3563997a29bed4da5577b4125e70668aa79ce86a553cda71cb94c1af19b9bd808fe'
+            '28a6e7ef61e87bfacb01eacf7ae1bc0f3648f034b007b16a4b3394fbb6e0b3aa073d030ba202f0d111e29353c316537956acba0b624470b7e2abe98a9d96444f')
+b2sums=('d6193172f5baae90792a636f925f5d9eb6f886f362fcb36f4551dcf0e097fbb2ef58bd7a7bb8dc8401846df3eea4601566e58495f6ab8ce99b4498b8d9b55196'
+        'e251e9e3ae7d2a460aa8a5cb249cf49485f3e509b5d98d5507d5c68af829ee99120eef595540fa7b914fe3e8c74f57e256742f4b0d4fd13e818ce1b1343f67a1')
+
+prepare() {
+  cd $_name-$pkgver
+  patch -p1 -i ../python-3.14.patch # Fix tests with python 3.14
+}
 
 build() {
   cd $_name-$pkgver
