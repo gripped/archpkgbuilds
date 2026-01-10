@@ -4,7 +4,7 @@
 pkgname=python-css-parser
 _name="${pkgname#python-}"
 pkgver=1.0.10
-pkgrel=3
+pkgrel=4
 pkgdesc='CSS related utilities for Python'
 arch=('any')
 url='https://github.com/ebook-utils/css-parser'
