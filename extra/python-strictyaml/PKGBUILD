@@ -4,7 +4,7 @@
 
 pkgname=python-strictyaml
 pkgver=1.7.3
-pkgrel=4
+pkgrel=5
 pkgdesc="Type-safe YAML parser that parses a restricted subset of the YAML specificaton"
 url="http://hitchdev.com/strictyaml"
 arch=(any)
