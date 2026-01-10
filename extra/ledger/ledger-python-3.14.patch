@@ -1,0 +1,19 @@
+diff --unified --recursive --text --new-file ledger-3.4.1.orig/test/RegressTests.py ledger-3.4.1/test/RegressTests.py
+--- ledger-3.4.1.orig/test/RegressTests.py	2025-12-27 18:55:00.666121277 +0100
++++ ledger-3.4.1/test/RegressTests.py	2025-12-27 18:57:20.813574788 +0100
+@@ -11,6 +11,7 @@
+ 
+ multiproc = False
+ try:
++    import multiprocessing
+     from multiprocessing import Pool
+     multiproc = True
+ except:
+@@ -203,6 +204,7 @@
+ 
+ if __name__ == '__main__':
+     if multiproc:
++        multiprocessing.set_start_method('fork')
+         pool = Pool(args.jobs*2)
+     else:
+         pool = None
