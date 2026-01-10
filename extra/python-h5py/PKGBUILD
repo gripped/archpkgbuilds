@@ -7,7 +7,7 @@
 
 pkgname=python-h5py
 pkgver=3.15.1
-pkgrel=2
+pkgrel=3
 pkgdesc="General-purpose Python bindings for the HDF5 library"
 arch=(x86_64)
 url="https://www.h5py.org/"
