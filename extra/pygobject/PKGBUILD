@@ -8,7 +8,7 @@ pkgname=(
   python-gobject-docs
 )
 pkgver=3.54.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Python bindings for GLib/GObject/GIO/GTK"
 url="https://pygobject.gnome.org/"
 arch=(x86_64)
