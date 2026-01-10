@@ -3,7 +3,7 @@
 pkgname=python-django-guardian
 _name="${pkgname#python-}"
 pkgver=3.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Per object permissions for Django"
 arch=(any)
 url="https://github.com/django-guardian/django-guardian"
