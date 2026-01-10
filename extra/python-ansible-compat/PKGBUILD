@@ -4,7 +4,7 @@
 _name=ansible-compat
 pkgname=python-ansible-compat
 pkgver=25.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Functions that help interacting with various versions of Ansible"
 arch=(any)
 url="https://github.com/ansible/ansible-compat"
