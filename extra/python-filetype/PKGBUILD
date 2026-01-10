@@ -2,7 +2,7 @@
 
 pkgname=python-filetype
 pkgver=1.2.0
-pkgrel=6
+pkgrel=7
 pkgdesc="Infer file type and MIME type of any file/buffer"
 url="https://github.com/h2non/filetype.py"
 license=('MIT')
