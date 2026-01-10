@@ -3,7 +3,7 @@
 _pyname=jupyter_packaging
 pkgname=python-${_pyname/_/-}
 pkgver=0.12.3
-pkgrel=6
+pkgrel=7
 pkgdesc='Jupyter Packaging Utilities'
 arch=(any)
 url='https://jupyter.org/'
