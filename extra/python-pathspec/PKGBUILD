@@ -4,7 +4,7 @@
 pkgname=python-pathspec
 _name=${pkgname#python-}
 pkgver=0.12.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Utility library for gitignore style pattern matching of file paths'
 arch=('any')
 url=https://github.com/cpburnz/python-pathspec
