@@ -4,13 +4,13 @@
 
 pkgname=streamlink
 pkgver=8.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='CLI program that launches streams from various streaming services in a custom video player (livestreamer fork)'
 arch=('any')
 url='https://streamlink.github.io/'
 license=('BSD')
 depends=("python-"{certifi,isodate,lxml,pycountry,pycryptodome,pysocks,requests,trio,trio-websocket,websocket-client})
-checkdepends=("python-"{freezegun,pytest,pytest-cov,pytest-trio,requests-mock})
+checkdepends=("python-"{freezegun,pytest,pytest-trio,requests-mock})
 makedepends=("python-"{build,installer,setuptools,wheel})
 optdepends=('ffmpeg: Required to play streams that are made up of separate audio and video streams, eg. YouTube 1080p+')
 source=("https://github.com/${pkgname}/${pkgname}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz"{,.asc})
