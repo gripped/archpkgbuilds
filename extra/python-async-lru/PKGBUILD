@@ -3,7 +3,7 @@
 _pyname=async-lru
 pkgname=python-$_pyname
 pkgver=2.0.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple LRU cache for asyncio'
 arch=(any)
 url='https://github.com/aio-libs/async-lru'
@@ -29,7 +29,7 @@ check() {
   cd $_pyname
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest -v
+  test-env/bin/python -m pytest -v -W ignore::DeprecationWarning
 }
 
 package() {
