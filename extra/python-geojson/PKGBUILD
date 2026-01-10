@@ -5,7 +5,7 @@
 _pyname=geojson
 pkgname="python-$_pyname"
 pkgver=3.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Python bindings and utilities for GeoJSON'
 url="https://github.com/jazzband/$_pyname"
 arch=(any)
@@ -14,8 +14,14 @@ depends=(python)
 makedepends=(python-{build,installer,wheel}
              python-setuptools)
 _archive="$_pyname-$pkgver"
-source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('4ea0262bc8c733d3ee4a7ff8971bf0065c2148bff170644fe5d194f07694532a')
+source=("$url/archive/$pkgver/$_archive.tar.gz"
+         https://github.com/jazzband/geojson/commit/2584c0de.patch)
+sha256sums=('4ea0262bc8c733d3ee4a7ff8971bf0065c2148bff170644fe5d194f07694532a'
+            '18a8dc66706b08f9b96e2d4383e1a6cbc628921f20ce4cc86a6510a3082daaff')
+
+prepare() {
+  patch -d $_archive -p1 < 2584c0de.patch # Support python 3.14
+}
 
 build() {
 	cd "$_archive"
