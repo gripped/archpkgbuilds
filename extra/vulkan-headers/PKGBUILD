@@ -4,7 +4,7 @@
 
 pkgname=vulkan-headers
 pkgver=1.4.335.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Vulkan header files and API registry"
 url="https://www.vulkan.org/"
