@@ -2,7 +2,7 @@
 
 pkgname=python-transaction
 pkgver=5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Transaction management for Python'
 arch=('any')
 license=('ZPL')
