@@ -3,7 +3,7 @@
 pkgname=python-django-allauth
 _name=${pkgname#python-}
 pkgver=65.13.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Authentication, registration, account management and 3rd party account authentication"
 arch=(any)
 url="https://codeberg.org/allauth/django-allauth"
