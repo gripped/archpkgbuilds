@@ -7,7 +7,7 @@
 _name=charset_normalizer
 pkgname=python-charset-normalizer
 pkgver=3.4.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Encoding and language detection alternative to chardet'
 arch=(x86_64)
 url=https://github.com/Ousret/charset_normalizer
