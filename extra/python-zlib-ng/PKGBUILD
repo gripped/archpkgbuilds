@@ -2,7 +2,7 @@
 
 pkgname=python-zlib-ng
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A drop-in replacement for Python's zlib and gzip modules using zlib-ng"
 arch=(x86_64)
 url=https://github.com/pycompression/python-zlib-ng
