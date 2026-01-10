@@ -3,7 +3,7 @@
 
 pkgname=python-mss
 pkgver=10.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Ultra fast cross-platform multiple screenshots module"
 arch=(any)
 url="https://github.com/BoboTiG/python-mss"
