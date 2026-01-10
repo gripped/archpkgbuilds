@@ -4,7 +4,7 @@
 pkgname=python-wheezy-template
 _pkgname=wheezy.template
 pkgver=3.2.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A lightweight template library"
 arch=(x86_64)
 url="https://github.com/akornatskyy/wheezy.template"
