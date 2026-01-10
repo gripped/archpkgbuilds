@@ -2,7 +2,7 @@
 
 pkgname=python-graphql-relay
 pkgver=3.2.0
-pkgrel=6
+pkgrel=7
 pkgdesc='A library to help construct a graphql-py server supporting react-relay'
 url=https://github.com/graphql-python/graphql-relay-py
 arch=(any)
@@ -32,6 +32,7 @@ pkgver() {
 prepare() {
   cd graphql-relay-py
   sed -i 's/setuptools>=59,<70/setuptools/' pyproject.toml
+  sed -i 's/poetry_core>=1,<2/poetry_core/' pyproject.toml
 }
 
 build() {
