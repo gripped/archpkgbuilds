@@ -5,7 +5,7 @@
 pkgbase=django
 pkgname=('python-django')
 pkgver=5.1.15
-pkgrel=1
+pkgrel=3
 pkgdesc="A high-level Python Web framework that encourages rapid development and clean design"
 arch=('any')
 license=('BSD')
@@ -16,13 +16,18 @@ depends=('python' 'python-pytz' 'python-sqlparse' 'python-asgiref')
 # TODO: package and add python-pymemcache https://docs.djangoproject.com/en/dev/topics/cache/
 optdepends=('python-psycopg2: for PostgreSQL backend'
             'python-argon2-cffi: for Argon2 password hashing support')
-source=("Django-$pkgver.tar.gz::https://www.djangoproject.com/download/$pkgver/tarball/")
-sha512sums=('050a3ded3566e378cb273cb95fa1720632f1920aa86993c998758236df5041628ada7a5fb6bd3056720a5becbb45e358c70a2ca7c230b28606a1fd954771c070')
+source=("Django-$pkgver.tar.gz::https://www.djangoproject.com/download/$pkgver/tarball/"
+         https://github.com/django/django/commit/8d7b1423.patch)
+sha512sums=('050a3ded3566e378cb273cb95fa1720632f1920aa86993c998758236df5041628ada7a5fb6bd3056720a5becbb45e358c70a2ca7c230b28606a1fd954771c070'
+            'ecce816e006b77788b1a7b63b08f1bc990b5852841567c5ff5b64d2ce48410715de79a95d2ed8696b6470c50d334399fb11f2f00399c7b7fa8236ed5e2c6ee16')
 
 prepare() {
   cd "django-$pkgver"
   # Drop versioned setuptools requirement
   sed -i 's/>=61.0.0,<69.3.0//' pyproject.toml
+
+  # Support Python 3.14
+  patch -p1 -i ../8d7b1423.patch
 }
 
 build() {
