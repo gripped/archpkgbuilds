@@ -4,7 +4,7 @@
 
 pkgname=python-frozendict
 pkgver=2.4.6
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc='An immutable dictionary'
 url='https://pypi.python.org/pypi/frozendict/'
