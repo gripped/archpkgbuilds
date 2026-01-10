@@ -4,7 +4,7 @@
 
 pkgname=python-pipenv
 pkgver=2026.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Sacred Marriage of Pipfile, Pip, & Virtualenv."
 url="https://pipenv.pypa.io"
 arch=('any')
