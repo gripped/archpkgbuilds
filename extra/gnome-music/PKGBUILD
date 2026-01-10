@@ -4,7 +4,7 @@
 
 pkgname=gnome-music
 pkgver=49.1
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Music player and management application"
 url="https://apps.gnome.org/Music/"
