@@ -5,7 +5,7 @@
 
 pkgname=python-prettytable
 pkgver=3.17.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple Python library for easily displaying tabular data"
 url="https://github.com/jazzband/prettytable"
 arch=('any')
