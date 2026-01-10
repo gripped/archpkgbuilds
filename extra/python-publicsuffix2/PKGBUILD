@@ -5,7 +5,7 @@ _name="${pkgname#python-}"
 # bizarre tagging: https://github.com/nexB/python-publicsuffix2/issues/12
 _version=2.2019-12-21
 pkgver=${_version//-/}
-pkgrel=9
+pkgrel=10
 pkgdesc="Library to deal with publicsuffix data"
 arch=(any)
 url="https://github.com/nexB/python-publicsuffix2"
