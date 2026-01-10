@@ -2,7 +2,7 @@
 
 pkgname=python-pytest-ruff
 pkgver=0.4.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Pytest plugin to check ruff requirements"
 url="https://github.com/businho/pytest-ruff"
 license=('MIT')
