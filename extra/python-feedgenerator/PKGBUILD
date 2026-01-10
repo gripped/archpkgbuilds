@@ -5,7 +5,7 @@
 
 pkgname=python-feedgenerator
 pkgver=2.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Standalone version of Django's feedgenerator module"
 url="https://github.com/getpelican/feedgenerator"
 arch=('any')
