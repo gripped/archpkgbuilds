@@ -2,7 +2,7 @@
 
 pkgname=python-automat
 pkgver=25.4.16
-pkgrel=1
+pkgrel=2
 arch=('any')
 license=('MIT')
 pkgdesc="Self-service finite-state machines for the programmer on the go."
