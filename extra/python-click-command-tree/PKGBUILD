@@ -3,7 +3,7 @@
 _name=click-command-tree
 pkgname=python-click-command-tree
 pkgver=1.2.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Click plugin to show the command tree of your CLI"
 arch=(any)
 url="https://github.com/whwright/click-command-tree"
