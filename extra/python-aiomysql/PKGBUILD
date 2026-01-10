@@ -3,7 +3,7 @@
 
 pkgname=python-aiomysql
 pkgver=0.3.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Library for accessing a MySQL database from the asyncio"
 arch=(any)
 url="https://github.com/aio-libs/aiomysql"
