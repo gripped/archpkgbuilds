@@ -4,7 +4,7 @@
 
 pkgname=python-rtmidi
 pkgver=1.5.8
-pkgrel=4
+pkgrel=5
 pkgdesc='Python bindings for the MIDI I/O library RtMidi'
 arch=(x86_64)
 url='https://github.com/SpotlightKid/python-rtmidi'
@@ -54,6 +54,7 @@ pkgver() {
 prepare() {
   cd "$pkgname"
 
+  git cherry-pick -n e81ec0bea542ea67c043a0020273765d87b3f7e2 # Update rtmidi to an existing commit
   # use forked/vendored rtmidi
   git submodule init
   git config submodule.src/rtmidi.url "$srcdir/github.com-SpotlightKid-rtmidi"
