@@ -3,7 +3,7 @@
 
 pkgname=yamllint
 pkgver=1.37.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Linter for YAML files'
 arch=('any')
 url='https://github.com/adrienverge/yamllint'
