@@ -7,7 +7,7 @@
 
 pkgname=cinnamon
 pkgver=6.6.3
-pkgrel=5
+pkgrel=7
 pkgdesc='Desktop environment which provides advanced innovative features and a traditional user experience'
 arch=(x86_64)
 url='https://github.com/linuxmint/cinnamon'
@@ -33,7 +33,6 @@ depends=(
   glib2
   glibc
   gnome-backgrounds
-  gnome-keyring
   gnome-themes-extra
   gsound
   gstreamer
@@ -77,6 +76,7 @@ depends=(
 )
 optdepends=(
   'blueman: Bluetooth support'
+  'gnome-keyring: Secrets service backend'
   'ibus: input method support'
   'switcheroo-control: GPU offloading'
   'system-config-printer: printer settings'
