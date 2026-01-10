@@ -4,7 +4,7 @@
 
 pkgname=python-cram
 pkgver=0.7
-pkgrel=12
+pkgrel=13
 pkgdesc='Functional tests for command line applications'
 arch=('any')
 url='https://bitheap.org/cram/'
