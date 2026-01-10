@@ -4,7 +4,7 @@
 
 pkgname=python-ldap3
 pkgver=2.9.1
-pkgrel=8
+pkgrel=9
 pkgdesc="A strictly RFC 4510 conforming LDAP V3 pure Python client library"
 url="https://github.com/cannatag/ldap3"
 license=('LGPL')
