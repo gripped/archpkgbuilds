@@ -2,7 +2,7 @@
 
 pkgname=python-speg
 pkgver=0.3
-pkgrel=15
+pkgrel=16
 pkgdesc="A PEG-based parser interpreter with memoization"
 arch=('any')
 url="https://pypi.org/project/speg/"
