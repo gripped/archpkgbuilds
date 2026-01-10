@@ -2,7 +2,7 @@
 
 pkgname=python-prawcore
 pkgver=2.4.0
-pkgrel=5
+pkgrel=6
 pkgdesc="Low-level communication layer for PRAW 4+."
 arch=('any')
 license=('BSD-2-Clause')
