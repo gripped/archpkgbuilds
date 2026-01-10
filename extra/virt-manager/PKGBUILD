@@ -7,7 +7,7 @@
 pkgbase=virt-manager
 pkgname=(virt-install virt-manager)
 pkgver=5.1.0
-pkgrel=1
+pkgrel=2
 arch=('any')
 url='https://virt-manager.org/'
 license=('GPL-2.0-only')
