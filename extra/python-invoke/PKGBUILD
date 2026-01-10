@@ -3,7 +3,7 @@
 
 pkgname=python-invoke
 pkgver=2.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Pythonic task execution"
 arch=('any')
 url="https://github.com/pyinvoke/invoke"
