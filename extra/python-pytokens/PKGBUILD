@@ -2,7 +2,7 @@
 
 pkgname=python-pytokens
 pkgver=0.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A fast, spec compliant Python 3.12+ tokenizer'
 arch=(any)
 url='https://github.com/tusharsadhwani/pytokens'
