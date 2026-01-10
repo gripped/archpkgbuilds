@@ -2,19 +2,25 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstackclient
-pkgver=7.4.0
+pkgver=7.5.0
 pkgrel=1
 pkgdesc="OpenStack Command-line Client"
 arch=('any')
 url="https://docs.openstack.org/python-openstackclient/latest/"
-license=('Apache')
+license=('Apache-2.0')
 depends=('python-pbr' 'python-cryptography' 'python-cliff' 'python-iso8601' 'python-openstacksdk'
          'python-osc-lib' 'python-oslo-i18n' 'python-keystoneclient' 'python-novaclient'
          'python-cinderclient' 'python-stevedore')
 makedepends=('git')
 checkdepends=('python-requests-mock' 'python-stestr' 'python-testtools' 'python-wrapt' 'python-ddt')
-source=("git+https://github.com/openstack/python-openstackclient.git#tag=$pkgver")
-sha512sums=('ec709b1ed0742dc801a73b26ec596658ae63c255cb97c847cd879f6aee78f5a0040cba71db9b392b6647a4ca13b15bde07ab9419a7c784c297e5cdbab46ef726')
+source=("git+https://github.com/openstack/python-openstackclient.git#tag=$pkgver" "fix-tests.patch")
+sha512sums=('25aaf6fc2af4c2f240e2326c7bdd42585930fae3a65b95318b600779737e8616bf42ba05732d15a6b0c89dedb7437d4f45ef93a6f5e7c7339ac80c567224e651'
+            'ca6722057f1ce96a131043666086d259862e65f7cdb55b63f8834e75553d0788fb7ce87dff559db43989260d7cd35f7f7beddc3d0441f6749e95352041d4a9cd')
+
+prepare() {
+  cd python-openstackclient
+  patch -Np1 -i "${srcdir}/fix-tests.patch"
+}
 
 build() {
   cd python-openstackclient
@@ -23,7 +29,8 @@ build() {
 
 check() {
   cd python-openstackclient
-  stestr run
+  # https://bugs.launchpad.net/python-openstackclient/+bug/2137223
+  stestr run --exclude-regex "openstackclient.tests.unit.common.test_module.TestModuleList.test_module_list_all|openstackclient.tests.unit.common.test_module.TestModuleList.test_module_list_no_options"
 }
 
 package() {

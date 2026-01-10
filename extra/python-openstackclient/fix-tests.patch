@@ -1,0 +1,21 @@
+diff -aur python-openstackclient.old/openstackclient/tests/unit/network/v2/test_ndp_proxy.py python-openstackclient/openstackclient/tests/unit/network/v2/test_ndp_proxy.py
+--- python-openstackclient.old/openstackclient/tests/unit/network/v2/test_ndp_proxy.py	2025-12-29 20:06:37.575331178 +0100
++++ python-openstackclient/openstackclient/tests/unit/network/v2/test_ndp_proxy.py	2025-12-29 20:06:39.963038460 +0100
+@@ -313,7 +313,7 @@
+             **{'project_id': project.id}
+         )
+         self.assertEqual(self.columns, columns)
+-        self.assertItemsEqual(self.data, list(data))
++        self.assertCountEqual(self.data, list(data))
+ 
+     def test_ndp_proxy_list_project_domain(self):
+         project = identity_fakes_v3.FakeProject.create_one_project()
+@@ -334,7 +334,7 @@
+ 
+         self.network_client.ndp_proxies.assert_called_once_with(**filters)
+         self.assertEqual(self.columns, columns)
+-        self.assertItemsEqual(self.data, list(data))
++        self.assertCountEqual(self.data, list(data))
+ 
+ 
+ class TestSetNDPProxy(TestNDPProxy):
