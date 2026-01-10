@@ -3,7 +3,7 @@
 
 pkgname=pifpaf
 pkgver=3.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Suite of tools and fixtures to manage daemons for testing'
 arch=('any')
 url='https://github.com/jd/pifpaf'
