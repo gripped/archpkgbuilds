@@ -4,7 +4,7 @@
 
 pkgname=python-caja
 pkgver=1.28.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Python binding for Caja, to allow Caja property page and menu item extensions to be written in Python"
 url="https://mate-desktop.org"
 arch=('x86_64')
