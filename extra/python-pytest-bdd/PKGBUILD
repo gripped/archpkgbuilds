@@ -3,7 +3,7 @@
 
 pkgname=python-pytest-bdd
 pkgver=8.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='BDD library for the pytest runner'
 arch=('any')
 license=('MIT')
