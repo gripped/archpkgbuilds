@@ -3,7 +3,7 @@
 _pyname=jupyter_server_terminals
 pkgname=python-${_pyname//_/-}
 pkgver=0.5.3
-pkgrel=3
+pkgrel=4
 pkgdesc='A Jupyter Server extension providing terminals'
 arch=(any)
 url=https://github.com/jupyter-server/jupyter_server_terminals
