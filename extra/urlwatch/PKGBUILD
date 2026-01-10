@@ -7,7 +7,7 @@
 
 pkgname=urlwatch
 pkgver=2.29
-pkgrel=3
+pkgrel=4
 pkgdesc='Tool for monitoring webpages for updates'
 arch=(any)
 url=https://thp.io/2008/urlwatch/
@@ -30,8 +30,11 @@ makedepends=(
 )
 checkdepends=(
   python-docutils
+  python-jq
+  python-pdftotext
   python-pytesseract
   python-pytest
+  tesseract-data-eng
 )
 optdepends=(
   'lynx: for one of the html2text filter methods'
