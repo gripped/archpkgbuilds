@@ -3,7 +3,7 @@
 
 pkgname=python-trio
 pkgver=0.32.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A friendly Python library for async concurrency and I/O'
 arch=(any)
 url=https://github.com/python-trio/trio
@@ -28,8 +28,6 @@ checkdepends=(
   python-astor
   python-black
   python-isort
-  python-jedi
-  python-pylint
   python-pytest
   python-ruff
   python-trustme
@@ -55,6 +53,7 @@ check() {
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m pytest -W=ignore::DeprecationWarning \
+    -m "not redistributors_should_skip" \
     --deselect=src/trio/_tests/tools/test_gen_exports.py::test_run_ruff
 }
 
