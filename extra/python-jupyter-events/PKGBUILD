@@ -3,7 +3,7 @@
 _pyname=jupyter_events
 pkgname=python-jupyter-events
 pkgver=0.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Configurable event system for Jupyter applications and extensions'
 arch=(any)
 url='https://jupyter.org/'
