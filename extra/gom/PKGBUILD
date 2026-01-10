@@ -7,7 +7,7 @@ pkgname=(
   gom-docs
 )
 pkgver=0.5.5
-pkgrel=1
+pkgrel=2
 pkgdesc='GObject to SQLite object mapper library'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/Gom'
