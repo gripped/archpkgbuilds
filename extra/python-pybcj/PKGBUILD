@@ -4,7 +4,7 @@
 pkgname=python-pybcj
 _pyname=${pkgname#python-}
 pkgver=1.0.7
-pkgrel=1
+pkgrel=2
 pkgdesc='BCJ (Branch-Call-Jump) filter for python'
 arch=(x86_64)
 url="https://github.com/miurahr/$_pyname"
