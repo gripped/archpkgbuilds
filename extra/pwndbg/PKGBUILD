@@ -2,7 +2,7 @@
 
 pkgname=pwndbg
 pkgver=2025.04.18
-pkgrel=1
+pkgrel=2
 pkgdesc='Makes debugging with GDB suck less'
 url='https://github.com/pwndbg/pwndbg'
 arch=(any)
