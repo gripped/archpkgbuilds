@@ -5,7 +5,7 @@
 pkgname=python-polib
 _pkgname=polib
 pkgver=1.2.0
-pkgrel=3
+pkgrel=4
 pkgdesc='A library to manipulate gettext files'
 url='https://pypi.python.org/pypi/polib'
 arch=('any')
