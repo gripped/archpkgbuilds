@@ -5,7 +5,7 @@
 pkgname=python-pyvips
 _pkgname=pyvips
 pkgver=3.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Python binding for libvips using cffi'
 arch=('x86_64')
 url='https://github.com/libvips/pyvips'
