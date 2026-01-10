@@ -3,7 +3,7 @@
 _pkgname=pytest-regressions
 pkgname=python-$_pkgname
 pkgver=2.5.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Pytest plugin for regression testing'
 arch=('any')
 url='https://github.com/ESSS/pytest-regressions'
