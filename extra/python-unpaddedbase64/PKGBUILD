@@ -3,7 +3,7 @@
 
 pkgname=python-unpaddedbase64
 pkgver=2.1.0
-pkgrel=7
+pkgrel=8
 
 pkgdesc='Unpadded Base64'
 url='https://pypi.python.org/pypi/unpaddedbase64/'
