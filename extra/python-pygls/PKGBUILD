@@ -4,7 +4,7 @@
 pkgname=python-pygls
 _name=${pkgname#python-}
 pkgver=1.3.1
-pkgrel=4
+pkgrel=5
 pkgdesc='Pythonic generic implementation of the Language Server Protocol'
 arch=('any')
 url=https://github.com/openlawlibrary/pygls
