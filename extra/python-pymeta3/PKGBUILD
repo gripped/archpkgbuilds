@@ -1,30 +1,36 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
 
-_pkgname=pymeta3
-pkgname=python-$_pkgname
+pkgname=python-pymeta3
 pkgver=0.5.1
-pkgrel=8
-pkgdesc='A Pattern-Matching Language Based on Python'
-arch=('any')
+pkgrel=10
+pkgdesc='A pattern-matching language based on Python'
+arch=(any)
 url='https://github.com/wbond/pymeta3'
-license=('MIT')
-depends=('python')
-makedepends=('python-setuptools')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('0fe89511e8a01589e25cee1bc0e1504698e7c044f008697a9470b80fdf2d9113c0a2c8ca14fbb3fa2be43f60aa6d45d2a852b8ae09e164e28903a314176dbb7d')
+license=(MIT)
+depends=(python)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('657fb5640baf47e6154aa2c5df7413dcaf88cfbc54909b230d519dcb02bffb21ecae5e0ac7b27dcfab85995ae4b18357603b7359e6fb84d6ddedc521faab3436')
+b2sums=('54ed9958d8ebe9cb89c902354cbef5b77f8ed951b332d9b1e9b3479d3eba0642b0f3bcd1f3bc5ef50793b085ae7aa735abe88138c9e2177d7b8258161e2caeb9')
 
 build() {
-  cd $_pkgname-$pkgver
+  cd "$pkgname"
 
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd "$pkgname"
 
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
-  install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
-
 # vim:set ts=2 sw=2 et:
