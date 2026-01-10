@@ -4,7 +4,7 @@
 _pkgname=antlr4
 pkgname="python-${_pkgname}"
 pkgver=4.13.2
-pkgrel=2
+pkgrel=3
 pkgdesc="ANTLR4 runtime for Python"
 arch=('any')
 url="https://www.antlr.org/"
