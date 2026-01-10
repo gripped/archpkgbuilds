@@ -7,7 +7,7 @@
 
 pkgname=python-pytest-testinfra
 pkgver=10.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Testinfra test your infrastructures'
 arch=(any)
 url='https://github.com/pytest-dev/pytest-testinfra'
