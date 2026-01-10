@@ -3,7 +3,7 @@
 pkgname=python-setuptools-git-versioning
 _pkgname=setuptools_git_versioning
 pkgver=2.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Use Git repo data for building a version number according to PEP 440.'
 url='https://github.com/dolfinus/setuptools-git-versioning'
 arch=('any')
