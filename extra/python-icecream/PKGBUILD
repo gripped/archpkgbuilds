@@ -3,7 +3,7 @@
 
 pkgname=python-icecream
 pkgver=2.1.8
-pkgrel=1
+pkgrel=2
 pkgdesc='Sweet and creamy print debugging'
 arch=(any)
 url='https://github.com/gruns/icecream'
