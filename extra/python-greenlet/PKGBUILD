@@ -4,7 +4,7 @@
 
 pkgname=python-greenlet
 pkgver=3.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Lightweight in-process concurrent programming"
 license=("MIT")
 arch=('x86_64')
