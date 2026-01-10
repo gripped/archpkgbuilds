@@ -3,7 +3,7 @@
 _pyname=sortedcollections
 pkgname=python-${_pyname}
 pkgver=2.1.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Sorted Collections Library'
 url='https://github.com/grantjenks/python-sortedcollections'
 arch=('any')
