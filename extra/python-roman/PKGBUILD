@@ -2,7 +2,7 @@
 
 pkgname=python-roman
 pkgver=5.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Small helper library to convert arabic to roman numerals"
 arch=('any')
 license=('ZPL-2.1')
