@@ -2,7 +2,7 @@
 
 pkgname=python-b2sdk
 pkgver=2.10.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Python module to access B2 cloud storage'
 arch=(any)
 url='https://github.com/Backblaze/b2-sdk-python'
@@ -38,9 +38,17 @@ optdepends=(
   'python-tqdm: for TqdmProgressListener class'
   'python-pydantic: for improved type hints'
 )
-source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('6c58f38f7baa813e1e59a883f6178bb3586e90de716f4681355dbc5bdc0a7be9a64c1eb213233ceae2153f2ea546f949da05110eb49109daafba535591fd7e8c')
-b2sums=('f9dd55dd9e4c4f6652674582cad5151d2963902485c4bbea677875a3618201f3590f639e5d7e0db59a8b466f1bf2bdd24c8cd010fd25e12c8796966cda63c12d')
+source=("$pkgname::git+$url#tag=v$pkgver"
+         python-3.14.patch)
+sha512sums=('6c58f38f7baa813e1e59a883f6178bb3586e90de716f4681355dbc5bdc0a7be9a64c1eb213233ceae2153f2ea546f949da05110eb49109daafba535591fd7e8c'
+            '18278748a696278e933d6d393fbba00d83a0ae66ae5868234bdb89a19a3e29a7a0180a643d87f959ecd315d631cce18e9695f2b4b59b92363833f56a50972cfd')
+b2sums=('f9dd55dd9e4c4f6652674582cad5151d2963902485c4bbea677875a3618201f3590f639e5d7e0db59a8b466f1bf2bdd24c8cd010fd25e12c8796966cda63c12d'
+        '40fad62e729db203cd05aba9554692bf2b1fd5a93e65d6e4b873edcc199a2c743a83b2d80490920c5c691e34cb78382558d8b49faa45e0d9adaaa66edee18eee')
+
+prepare() {
+  cd $pkgname
+  patch -p1 -i ../python-3.14.patch
+}
 
 build() {
   cd "$pkgname"

@@ -1,0 +1,15 @@
+diff --git a/test/unit/scan/test_folder_traversal.py b/test/unit/scan/test_folder_traversal.py
+index 4971b08f..502cd09b 100644
+--- a/test/unit/scan/test_folder_traversal.py
++++ b/test/unit/scan/test_folder_traversal.py
+@@ -719,8 +719,8 @@ class TestFolderTraversal:
+ 
+         # Check that no access warnings are issued for the excluded directory/file
+         assert set(reporter.warnings) == {
+-            f'WARNING: {tmp_path/"no_perm_dir/file.txt"} could not be accessed (no permissions to read?)',
+-            f'WARNING: {tmp_path/"no_perm_dir/file2.txt"} could not be accessed (no permissions to read?)',
++            f'WARNING: {tmp_path/"no_perm_dir/file.txt"} could not be accessed (broken symlink?)',
++            f'WARNING: {tmp_path/"no_perm_dir/file2.txt"} could not be accessed (broken symlink?)',
+         }
+ 
+         reporter.close()
