@@ -2,7 +2,7 @@
 
 pkgname=python-syrupy
 pkgver=4.6.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Pytest Snapshot Test Utility"
 arch=('any')
 license=('Apache-2.0')
