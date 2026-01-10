@@ -2,7 +2,7 @@
 
 pkgname=krita
 pkgver=5.2.14
-pkgrel=1
+pkgrel=2
 pkgdesc='Edit and paint images'
 arch=(x86_64)
 url='https://krita.org'
@@ -69,18 +69,15 @@ optdepends=('kimageformats5: PSD support'
             'poppler-qt5: PDF filter'
             'python-pyqt5: for the Python plugins')
 source=(https://download.kde.org/stable/krita/$pkgver/$pkgname-$pkgver.tar.gz{,.sig}
-        sip-6.8.patch
         xsimd-14.patch)
 sha256sums=('556900726c2ff14e60f7bac1e8e9150100f2cd92669ca5dc74ac5851efac2887'
             'SKIP'
-            'bb3b503993030bb98a99c6a0376c65ee74d0c32c1e8932110698682eed1e3d3c'
             'd52a6d31e98c1de730c3a5ead5239a786d1b6f3a1aec731f449e9f429a5b8a94')
 validpgpkeys=('05D00A8B73A686789E0A156858B9596C722EA3BD'  # Boudewijn Rempt <foundation@krita.org>
               'E9FB29E74ADEACC5E3035B8AB69EB4CF7468332F'  # Dmitry Kazakov (main key) <dimula73@gmail.com>
               '064182440C674D9F8D0F6F8B4DA79EDA231C852B') # Stichting Krita Foundation <foundation@krita.org>
 
 prepare() {
-  patch -d $pkgname-$pkgver -p1 < sip-6.8.patch
   patch -d $pkgname-$pkgver -p1 < xsimd-14.patch
 }
 
