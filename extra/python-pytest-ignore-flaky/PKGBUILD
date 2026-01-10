@@ -2,7 +2,7 @@
 
 pkgname=python-pytest-ignore-flaky
 pkgver=2.2.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Ignore failures from flaky tests (pytest plugin)"
 arch=('any')
 license=('MIT')
