@@ -4,7 +4,7 @@
 
 pkgname=magic-wormhole
 pkgver=0.22.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Securely transfer data between computers"
 arch=(any)
 url="https://github.com/magic-wormhole/magic-wormhole"
