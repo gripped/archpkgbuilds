@@ -3,7 +3,7 @@
 
 pkgname=python-tensile
 pkgver=7.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="benchmark-driven backend libraries for general matrix-matrix multiplications"
 arch=('any')
 url='https://rocm.docs.amd.com/projects/Tensile/en/latest/'
