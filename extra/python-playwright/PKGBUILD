@@ -5,7 +5,7 @@
 _name=playwright-python
 pkgname=python-playwright
 pkgver=1.57.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Python library to automate Chromium, Firefox and WebKit browsers with a single API'
 arch=(any)
 url='https://github.com/microsoft/playwright-python'
