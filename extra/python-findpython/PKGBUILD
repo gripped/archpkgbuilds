@@ -3,7 +3,7 @@
 _name=findpython
 pkgname=python-findpython
 pkgver=0.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A utility to find python versions on your system"
 arch=(any)
 url="https://github.com/frostming/findpython"
