@@ -7,7 +7,7 @@
 
 pkgname=ipython
 pkgver=9.7.0
-pkgrel=2
+pkgrel=4
 pkgdesc='Enhanced Interactive Python shell'
 arch=(any)
 url=https://ipython.org
