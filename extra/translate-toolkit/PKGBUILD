@@ -5,7 +5,7 @@
 # Contributor: Hugo Doria <hugodoria at gmail.com>
 
 pkgname=translate-toolkit
-pkgver=3.17.4
+pkgver=3.17.5
 pkgrel=1
 pkgdesc="A toolkit to convert between various different translation formats, help process and validate localisations"
 arch=('any')
@@ -43,7 +43,7 @@ optdepends=(
   'python-vobject: iCalendar files support for po2ical'
 )
 source=("https://github.com/translate/translate/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('8c15f121e8858e83e3cdc261f7338718975da4a48d2de0e5cb51c9324a35667a')
+b2sums=('c8e6cc72e5ff5c324da69d58ed0bd6a6c72257b902797b8673eda49b8cc80061aee898fdafa23a604c6527a9c4d1e3889813d50d876566c408a3e5dde467882f')
 
 build() {
   cd translate-$pkgver
@@ -55,6 +55,7 @@ check() {
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   PATH=$PWD/test-env/bin:$PATH test-env/bin/python -m pytest \
+    -W "ignore::DeprecationWarning" \
     --deselect tests/translate/storage/test_csvl10n.py::TestCSV::test_encoding_save \
     --deselect tests/translate/tools/test_help.py::test_help \
     --deselect tests/translate/tools/test_junitmsgfmt.py::test_output \
