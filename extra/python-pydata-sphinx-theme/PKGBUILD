@@ -2,7 +2,7 @@
 
 pkgname=python-pydata-sphinx-theme
 pkgver=0.16.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Clean, Bootstrap-based Sphinx theme by and for the PyData community."
 url="https://pydata-sphinx-theme.readthedocs.io"
 license=('BSD-3-Clause')
