@@ -3,7 +3,7 @@
 pkgname=python-regress
 _name=regress
 pkgver=2025.10.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Python bindings to the Rust regress crate which provides ECMA regular expressions"
 arch=(x86_64)
 url="https://github.com/crate-py/regress"
@@ -26,15 +26,14 @@ b2sums=('96d16bd087c0e94c5d84059b04ec3991eedc345127e6dba9cbcb605bb9cdba78eb2b436
 
 prepare() {
   cd $_name-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   local python_build_options=(
     --wheel
     --no-isolation
-    -C="--target=$(rustc -vV | sed -n 's/host: //p')"
+    -C="--target=$(rustc --print host-tuple)"
     -C="--locked"
     -C="--release"
     -C="--all-features"
