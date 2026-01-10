@@ -4,7 +4,7 @@
 _pyname=jupyterlab_server
 pkgname=python-${_pyname/_/-}
 pkgver=2.28.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Launch an application built using JupyterLab'
 arch=(any)
 url='https://jupyter.org/'
