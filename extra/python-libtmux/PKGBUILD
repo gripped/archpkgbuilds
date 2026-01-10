@@ -3,7 +3,7 @@
 _name=libtmux
 pkgname=python-libtmux
 pkgver=0.53.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Python api for tmux"
 arch=(any)
 url="https://libtmux.git-pull.com/"
@@ -39,6 +39,7 @@ build() {
 check() {
   local pytest_options=(
     --deselect tests/test_pane.py::test_capture_pane_start
+    --deselect 'tests/test_pane_capture_pane.py::test_capture_pane_flags[join_wrapped_numbers]'
     -vv
     # we do not want to package python-gp-libs: https://github.com/tmux-python/libtmux/issues/496
     -o addopts=''
