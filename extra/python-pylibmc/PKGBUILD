@@ -4,7 +4,7 @@
 pkgname=python-pylibmc
 _pkgname=${pkgname#python-}
 pkgver=1.6.3
-pkgrel=5
+pkgrel=6
 pkgdesc='Quick and small memcached client for Python'
 arch=('x86_64')
 url='https://github.com/lericson/pylibmc'
