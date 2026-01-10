@@ -3,7 +3,7 @@
 
 pkgname=python-lexicon
 pkgver=3.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Powerful dict subclass(es) with aliasing & attribute access"
 arch=('any')
 url="https://github.com/bitprophet/lexicon"
