@@ -1,23 +1,39 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgbase=vosk-api
-pkgname=('vosk-api' 'python-vosk')
+pkgname=(
+    'vosk-api'
+    'python-vosk')
 pkgver=0.3.50
-pkgrel=5
+pkgrel=6
 _openblas_ver=0.3.20
-_clapack_commit=c13f1973ac5282c28dad9330e46d940ec2eee291 # from v3.2.1 branch
-_openfst_commit=7dfd808194105162f20084bb4d8e4ee4b65266d5
-_kaldi_commit=2b69aed630e26fb2c700bba8c45f3bd012371c5c # from vosk branch
+_clapack_commit=f4e1647de96343fb20eea08a9d4f0e0d04c31c51 # from v3.2.1 branch
+_openfst_commit=18e94e63870ebcf79ebb42b7035cd3cb626ec090
+_kaldi_commit=bc5baf14231660bd50b7d05788865b4ac6c34481 # from vosk branch
 _model_small_ver=0.15
 _model_spk_ver=0.4
 pkgdesc='Offline speech recognition toolkit'
 arch=('x86_64')
 url='https://alphacephei.com/vosk/'
 license=('Apache-2.0')
-makedepends=('git' 'cmake' 'gradle' 'python' 'python-build' 'python-cffi' 'python-installer'
-             'python-requests' 'python-setuptools' 'python-srt' 'python-tqdm' 'python-websockets'
-             'python-wheel' 'java-environment=17')
-checkdepends=('ffmpeg' 'python-numpy')
+makedepends=(
+    'cmake'
+    'git'
+    'gradle'
+    'java-environment=21'
+    'python'
+    'python-build'
+    'python-cffi'
+    'python-installer'
+    'python-requests'
+    'python-setuptools'
+    'python-srt'
+    'python-tqdm'
+    'python-websockets'
+    'python-wheel')
+checkdepends=(
+    'ffmpeg'
+    'python-numpy')
 source=("https://github.com/alphacep/vosk-api/archive/v${pkgver}/${pkgbase}-${pkgver}.tar.gz"
         "https://github.com/xianyi/OpenBLAS/archive/v${_openblas_ver}/openblas-${_openblas_ver}.tar.gz"
         "git+https://github.com/alphacep/clapack.git#commit=${_clapack_commit}"
@@ -26,16 +42,16 @@ source=("https://github.com/alphacep/vosk-api/archive/v${pkgver}/${pkgbase}-${pk
         # models are for running tests in the check() function
         "https://alphacephei.com/vosk/models/vosk-model-small-en-us-${_model_small_ver}.zip"
         "https://alphacephei.com/vosk/models/vosk-model-spk-${_model_spk_ver}.zip"
-        '010-vosk-api-openfst-gcc14-fix.patch')
+        '010-vosk-api-gradle9.2-fix.patch')
 noextract=("vosk-model-small-en-us-${_model_small_ver}.zip")
 sha256sums=('cc1067bcc599c9a2f5f38d4257caf2ac636ba244f7c965cee20293a41024f70f'
             '8495c9affc536253648e942908e88e097f2ec7753ede55aca52e5dead3029e3c'
-            '4a4e4e100cb5535457c1c310ce8bad57e0d56e369fc71f49170ed8b609a29995'
-            'cfab49539f89e7e0ceba228300c08343a6857c28d1afcfecaaa6656bc6ab675e'
-            'fc025cae7246b780ba7ba85deeff0386ec272d901185058c0b5e614543d5676c'
+            'b5653996fc4487fc17d5976e598923abe8ee46973ed581b06312a81c1d56b7a4'
+            'cab85e0a4057f1c0dd85bc6f92b0e8437a7ca4859cca4a29482d2fd1d5bd7c4a'
+            'be5ee5e9bd2902f43beef8ab1a117525e0813010d660dfe4d22eb7ddee14aede'
             '30f26242c4eb449f948e42cb302dd7a686cb29a3423a8367f99ff41780942498'
             'a74d8f51144484813e16af689bb0f916b7a111e2347f467c4933c1166097b5a7'
-            '30908c76206fdf88b5606234665f12fc6effd61cd09c64ec6dfd379c383dda15')
+            '546cde8eaf5e38de498cf522be7b3990dcf5451c05e1632889441b9c60b28733')
 
 prepare() {
     mkdir -p models
@@ -46,7 +62,7 @@ prepare() {
     ln -sf ../../clapack "kaldi-${_kaldi_commit}/tools/clapack"
     ln -sf ../../openfst "kaldi-${_kaldi_commit}/tools/openfst"
     
-    patch -d openfst -Np1 -i "${srcdir}/010-vosk-api-openfst-gcc14-fix.patch"
+    patch -d "${pkgbase}-${pkgver}" -Np1 -i "${srcdir}/010-vosk-api-gradle9.2-fix.patch"
     
     autoreconf -fi openfst
 }
@@ -63,7 +79,10 @@ build() {
     
     # clapack
     CFLAGS+=' -Wno-error=format-security -fcommon -Wno-implicit-function-declaration' \
-    cmake -B build-clapack -S clapack -Wno-dev
+    cmake -B build-clapack -S clapack \
+        -DCMAKE_C_STANDARD:STRING='17' \
+        -DCMAKE_POLICY_VERSION_MINIMUM:STRING='3.5.0' \
+        -Wno-dev
     cmake --build build-clapack
     while read -r -d '' _file
     do
@@ -118,6 +137,7 @@ build() {
 check() {
     local _test
     cd "${pkgbase}-${pkgver}/python/example"
+    
     # https://github.com/alphacep/vosk-api/issues/1220
     for _test in alternatives empty ffmpeg nlsml simple speaker srt text words #reset
     do
@@ -127,8 +147,11 @@ check() {
 }
 
 package_vosk-api() {
-    depends=('gcc-libs')
-    optdepends=('java-runtime: for java bindings')
+    depends=(
+        'gcc-libs'
+        'glibc')
+    optdepends=(
+        'java-runtime: for java bindings')
     
     install -d -m755 "${pkgdir}/usr/lib"
     install -D -m644 "${pkgbase}-${pkgver}/src/vosk_api.h" -t "${pkgdir}/usr/include"
@@ -138,8 +161,14 @@ package_vosk-api() {
 
 package_python-vosk() {
     pkgdesc='Python module for vosk-api'
-    depends=('python' 'python-cffi' 'python-requests' 'python-srt' 'python-tqdm' 'python-websockets'
-             "vosk-api=${pkgver}")
+    depends=(
+        'python'
+        'python-cffi'
+        'python-requests'
+        'python-srt'
+        'python-tqdm'
+        'python-websockets'
+        "vosk-api=${pkgver}")
     
     local _site_pkgs
     _site_pkgs="$(python -c 'import site; print(site.getsitepackages()[0])')"
