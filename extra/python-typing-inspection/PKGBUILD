@@ -3,7 +3,7 @@
 _name=typing-inspection
 pkgname=python-typing-inspection
 pkgver=0.4.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Runtime typing introspection tools"
 arch=(any)
 url="https://github.com/pydantic/typing-inspection"
