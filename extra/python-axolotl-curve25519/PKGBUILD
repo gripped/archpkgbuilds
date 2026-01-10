@@ -7,11 +7,11 @@
 pkgname=python-axolotl-curve25519
 _pkgver=0.4.1-2
 pkgver=${_pkgver//-/.}
-pkgrel=11
+pkgrel=13
 pkgdesc='Python wrapper for curve25519 library with ed25519 signatures'
 url='https://github.com/tgalal/python-axolotl-curve25519'
 arch=('x86_64')
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('python' 'zlib' 'glibc')
 makedepends=('python-setuptools')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/tgalal/python-axolotl-curve25519/archive/${_pkgver}.tar.gz
