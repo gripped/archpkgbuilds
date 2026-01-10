@@ -3,7 +3,7 @@
 
 pkgname=python-pytest-subprocess
 pkgver=1.5.3
-pkgrel=3
+pkgrel=4
 pkgdesc='Pytest plugin to fake subprocess'
 arch=('any')
 url='https://github.com/aklajnert/pytest-subprocess'
@@ -32,7 +32,7 @@ sha256sums=('20369ba261a1075824ef57cc5a80e9f2be55cfc2836ce1a45648a085b003aba7')
 prepare() {
   cd "${pkgname#python-}"
   git cherry-pick -n 153a413fe2d4668cab43384d905294844fecf3ff
-
+  git cherry-pick -n be30d9a94ba45afb600717e3fcd95b8b2ff2c60e # Python 3.14 support
 }
 
 build() {
@@ -44,7 +44,7 @@ check() {
   cd "${pkgname#python-}"
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest
+  test-env/bin/python -m pytest -W ignore::DeprecationWarning
 }
 
 package() {
