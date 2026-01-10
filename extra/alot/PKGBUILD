@@ -5,8 +5,8 @@
 # Contributor: Ian Denhardt <ian@zenhack.net>
 
 pkgname=alot
-pkgver=0.11
-pkgrel=2
+pkgver=0.12
+pkgrel=1
 pkgdesc='Terminal-based MUA for the notmuch mail system'
 arch=(any)
 url=https://github.com/pazz/alot
@@ -16,8 +16,8 @@ depends=('desktop-file-utils' 'notmuch' 'python-configobj' 'python-gpgme'
          'python-urwidtrees' 'python-cffi' 'python-mailcap')
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-sphinx' 'python-setuptools-scm')
 checkdepends=('procps-ng' 'python-pytest')
-source=("git+https://github.com/pazz/alot.git#tag=${pkgver}")
-sha512sums=('8749bb7a1d3380e18158bf7391091d1371d8fecd9b78c7c005c6413cb4300b4aa16aacb31bdc83138db10a784356d2af9d0e313282f0beeb3eb6be045fbaf8fb')
+source=("git+https://github.com/pazz/alot.git#tag=v${pkgver}")
+sha512sums=('63f97df56f9444d2cd0d2c1276da295f4fe473a617b51e16176db6cb2d73ef059f0536d447cfd8d492babba75c5c5ecef8077cc62bd8d146b20114bc613112a2')
 validpgpkeys=('B7838D65FEE80DED1DCA494D94340367D7D6C5AA') # Patrick Totzke
 
 build() {
