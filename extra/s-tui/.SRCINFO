@@ -1,7 +1,7 @@
 pkgbase = s-tui
 	pkgdesc = Terminal UI stress test and monitoring tool
 	pkgver = 1.2.0
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/amanusk/s-tui
 	arch = any
 	license = GPL-2.0-only
@@ -14,6 +14,8 @@ pkgbase = s-tui
 	depends = python-urwid
 	depends = stress
 	source = s-tui-1.2.0.tar.gz::https://github.com/amanusk/s-tui/archive/v1.2.0.tar.gz
+	source = s-tui-fix-urwid.patch::https://github.com/amanusk/s-tui/commit/11ad606e3e60c81801909b654f8adb1c5ee10c06.patch
 	sha512sums = c6024ceaaed4e27f6210c106a1550a88376995efc925f92d6ffc4309e8981a1b3d0e59c502fd16ad1786fb61fc28de2dadee668f838057cc8dd4e54908859bda
+	sha512sums = 2b2d3b9fd3293943828b05feba5d516c9bf5ddec531d52ca08dfe55311d31188ff006e2f7be6960c438f1bb053e45cc8850615b55e03cbc8a1f60121b14f1fad
 
 pkgname = s-tui
