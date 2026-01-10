@@ -3,7 +3,7 @@ pkgname=(
   ast-grep
   python-ast-grep
 )
-pkgver=0.38.2
+pkgver=0.40.3
 pkgrel=1
 pkgdesc='CLI tool for code structural search, lint and rewriting'
 url='https://ast-grep.github.io/'
@@ -22,19 +22,16 @@ makedepends=(
 )
 options=(!lto)
 source=(https://github.com/ast-grep/ast-grep/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz)
-sha512sums=('0caa0171f5357401f827bef27ee6cb8be64016374b82f909443f761cbb2cf85fe03b11e6a9d6669e53944cd21a711a2c2fe8d1acf2454390001e333acdc95e8c')
-b2sums=('7cef2c9f5edd5239af9dde2211ccd562aa6e2ea8d524782310761071ad378912400e326a6bf606c49b37dff6e9ec111c423b6cc66c42d3122ac353d14ebc46e6')
+sha512sums=('3a903b57f0052959c2fa6281566950847d61a2fb6eb4774b3561a7846bd60f3784926a21d508c2948a561d346b1a3d0c468d9e73137e9855c38bb3dfd0ee104e')
+b2sums=('d915487c402ebc53700ada9e4e2bd41f35ed414e2b9a99ec591f5fbcd200f3fb5c80e515a6de03d5ab245395a5419a703f2fb6fd10bd09c3f767f15b13eb3ee0')
 
 prepare() {
   cd ${pkgbase}-${pkgver}
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd ${pkgbase}-${pkgver}
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --frozen --release --all-features
 
 	local shell; for shell in bash fish zsh; do
