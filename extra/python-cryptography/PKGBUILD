@@ -3,7 +3,7 @@
 
 pkgname=python-cryptography
 pkgver=46.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A package designed to expose cryptographic recipes and primitives to Python developers"
 arch=('x86_64')
 license=('Apache-2.0 OR BSD-3-Clause')
