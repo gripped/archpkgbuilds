@@ -6,7 +6,7 @@
 
 pkgname=udiskie
 pkgver=2.5.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Removable disk automounter using udisks"
 arch=("any")
 url="https://pypi.python.org/pypi/udiskie"
