@@ -4,7 +4,7 @@
 pkgname=python-zope-i18nmessageid
 _pkgname=zope.i18nmessageid
 pkgver=8.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Message Identifiers for internationalization"
 arch=('x86_64')
 url="https://github.com/zopefoundation/zope.i18nmessageid"
