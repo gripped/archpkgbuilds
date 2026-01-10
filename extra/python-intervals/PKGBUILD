@@ -4,7 +4,7 @@
 _name=intervals
 pkgname="python-${_name}"
 pkgver=0.9.2
-pkgrel=6
+pkgrel=7
 pkgdesc='Python tools for handling intervals (ranges of comparable objects).'
 url='https://github.com/kvesteri/intervals'
 depends=('python' 'python-infinity')
