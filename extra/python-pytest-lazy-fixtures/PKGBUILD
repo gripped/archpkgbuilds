@@ -2,7 +2,7 @@
 
 pkgname=python-pytest-lazy-fixtures
 pkgver=1.3.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Use fixtures in @pytest.mark.parametrize"
 arch=(any)
 url="https://github.com/dev-petrov/pytest-lazy-fixtures"
