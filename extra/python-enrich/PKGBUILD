@@ -4,7 +4,7 @@
 pkgname=python-enrich
 _pkgname=${pkgname#python-}
 pkgver=1.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Extends rich library functionality with a set of changes that were not accepted"
 arch=(any)
 url="https://github.com/pycontribs/enrich"
