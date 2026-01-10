@@ -4,7 +4,7 @@
 
 pkgname=transmageddon
 pkgver=1.5
-pkgrel=14
+pkgrel=15
 pkgdesc='Simple python application for transcoding video into formats supported by GStreamer'
 arch=(any)
 url='http://www.linuxrising.org/'
