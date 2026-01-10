@@ -3,7 +3,7 @@
 
 pkgname=python-proxy.py
 pkgver=2.4.10
-pkgrel=2
+pkgrel=3
 pkgdesc='Lightweight HTTP, HTTPS, HTTP2 and WebSockets proxy server'
 arch=(any)
 url=https://github.com/abhinavsingh/proxy.py
@@ -56,6 +56,7 @@ check() {
   local pytest_options=(
     -vv
     -o addopts=''  # we are not interested in coverage
+    -W ignore::ResourceWarning  # ignore tests failing due to a warning
     --ignore tests/integration  # we are not interested in integration tests using the internet
     --deselect tests/http/proxy/test_http2.py::TestHttp2WithProxy::test_http2_via_proxy
     --deselect tests/http/exceptions/test_http_proxy_auth_failed.py::TestHttpProxyAuthFailed::test_proxy_auth_fails_without_cred
