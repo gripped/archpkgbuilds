@@ -4,7 +4,7 @@
 
 pkgname=python-slugify
 pkgver=8.0.4
-pkgrel=3
+pkgrel=4
 pkgdesc='A Python slugify application that handles unicode'
 arch=(any)
 url=https://github.com/un33k/python-slugify
