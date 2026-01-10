@@ -5,7 +5,7 @@
 _pkgname=hvac
 pkgname=python-$_pkgname
 pkgver=2.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Python client for HashiCorp Vault'
 url='https://python-hvac.org/'
 # The license defined at https://github.com/hvac/hvac/blob/main/pyproject.toml#L17
@@ -21,7 +21,7 @@ optdepends=(
   'python-pyhcl: for HCL parser'
 )
 source=("https://github.com/$_pkgname/$_pkgname/archive/v$pkgver/$_pkgname-$pkgver.tar.gz")
-sha512sums=('396759e83eab0a9a104720746418e052716e790a1515f4b25c2a0ceacad5592e33907076360e64aff8870e580f1b318b726f27e7ff3ff7f4b30a5ac8fb9babb6')
+sha512sums=('9613177174d832a3079ffc82a3304c2d6f7576cad3f60db096847e081569afd86c77b8174f311e9578e3e26dec4f4f932307fbb5979d5df50e40940d2a24d086')
 
 build() {
   cd $_pkgname-$pkgver
