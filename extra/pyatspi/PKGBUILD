@@ -4,7 +4,7 @@
 pkgbase=pyatspi
 pkgname=(python-atspi)
 pkgver=2.58.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Python bindings for D-Bus AT-SPI"
 url="https://gitlab.gnome.org/GNOME/pyatspi2"
 arch=(any)
@@ -25,6 +25,7 @@ b2sums=('8eea640ae1fdc8a06a652def26e05842cf0e927e0334d40d75e98c72fda11476663230f
 
 prepare() {
   cd pyatspi2
+  git cherry-pick -n 76ca7bae2d3c69a770d93cf42a351b7069332348 # Fix tests
 }
 
 build() {
