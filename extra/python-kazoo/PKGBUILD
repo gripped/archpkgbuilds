@@ -3,7 +3,7 @@
 _name=kazoo
 pkgname=python-kazoo
 pkgver=2.10.0
-pkgrel=4
+pkgrel=5
 pkgdesc="A high-level Python library that makes it easier to use Apache Zookeeper"
 arch=(any)
 url="https://github.com/python-zk/kazoo"
