@@ -2,7 +2,7 @@
 
 pkgname=python-backrefs
 pkgver=6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Wrapper around re or regex that adds additional back references"
 arch=('any')
 url="https://github.com/facelessuser/backrefs"
