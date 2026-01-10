@@ -4,7 +4,7 @@
 pkgname=python-pdftotext
 _name=${pkgname#python-}
 pkgver=2.2.2
-pkgrel=9
+pkgrel=10
 pkgdesc='Simple PDF text extraction'
 arch=('x86_64')
 url=https://github.com/jalan/pdftotext
