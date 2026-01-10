@@ -5,7 +5,7 @@ pkgname=python-authheaders
 pkgver=0.16.3
 # last updated as per https://www.psddmarc.org/registry.html
 _version=2023.09.02
-pkgrel=3
+pkgrel=4
 pkgdesc="Library for the generation of email authentication headers"
 arch=(any)
 url="https://github.com/ValiMail/authentication-headers"
