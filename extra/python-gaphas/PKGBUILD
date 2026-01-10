@@ -2,7 +2,7 @@
 
 pkgname=python-gaphas
 pkgver=5.1.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Diagramming widget library for Python'
 arch=(any)
 url='https://github.com/gaphor/gaphas'
