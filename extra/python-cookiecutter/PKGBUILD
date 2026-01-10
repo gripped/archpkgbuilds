@@ -3,7 +3,7 @@
 _name=cookiecutter
 pkgname=python-cookiecutter
 pkgver=2.6.0
-pkgrel=3
+pkgrel=4
 pkgdesc="A command-line utility that creates projects from project templates"
 arch=(any)
 url="https://github.com/cookiecutter/cookiecutter"
