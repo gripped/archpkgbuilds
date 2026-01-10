@@ -5,7 +5,7 @@
 pkgname=python-cachelib
 _pkgname=${pkgname#python-}
 pkgver=0.13.0
-pkgrel=3
+pkgrel=4
 pkgdesc="A collection of cache libraries in the same API interface. Extracted from werkzeug"
 arch=(any)
 url="https://github.com/pallets/cachelib"
