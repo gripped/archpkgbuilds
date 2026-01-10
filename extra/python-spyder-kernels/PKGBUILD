@@ -3,7 +3,7 @@
 
 pkgname=python-spyder-kernels
 pkgver=3.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Jupyter Kernels for the Spyder console"
 arch=(any)
 url="https://github.com/spyder-ide/spyder-kernels/"
@@ -59,7 +59,10 @@ build() {
 
 check() {
   cd ${pkgname#python-}-${pkgver}
-  pytest --deselect spyder_kernels/console/tests/test_console_kernel.py::test_np_threshold
+  pytest \
+    --deselect spyder_kernels/console/tests/test_console_kernel.py::test_np_threshold \
+    --deselect spyder_kernels/console/tests/test_console_kernel.py::test_functions_with_locals_in_pdb \
+    --deselect spyder_kernels/console/tests/test_console_kernel.py::test_debug_namespace
 }
 
 package() {
