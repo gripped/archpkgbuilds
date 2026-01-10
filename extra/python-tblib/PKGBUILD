@@ -3,7 +3,7 @@
 
 pkgname=python-tblib
 pkgver=3.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Python traceback fiddling library'
 arch=('any')
 url='https://github.com/ionelmc/python-tblib'
