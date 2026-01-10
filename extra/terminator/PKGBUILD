@@ -7,7 +7,7 @@
 
 pkgname=terminator
 pkgver=2.1.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Terminal emulator that supports tabs and grids'
 arch=('any')
 url='https://github.com/gnome-terminator/terminator'
