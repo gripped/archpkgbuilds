@@ -3,7 +3,7 @@
 pkgname=python-pprofile
 _name="${pkgname#python-}"
 pkgver=2.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Line-granularity, thread-aware deterministic and statistic pure-python profiler"
 arch=(any)
 url="https://github.com/vpelletier/pprofile"
