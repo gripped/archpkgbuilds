@@ -3,7 +3,7 @@
 pkgbase=hyperqueue
 pkgname=(hyperqueue python-hyperqueue)
 pkgver=0.24.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Scheduler for sub-node tasks for HPC systems with batch scheduling"
 arch=(x86_64)
 url="https://github.com/It4innovations/hyperqueue/"
@@ -34,7 +34,7 @@ b2sums=('437bf54627bbb130508c221d497b0f545173c5344ffd9374fe4501524730f4034ab853d
 
 prepare() {
   cd $pkgbase-$pkgver
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # run Python tests with the release binary
   sed -i 's|"target", directory, "hq"|"target", "release", "hq"|' tests/conftest.py
@@ -56,7 +56,7 @@ build() {
 
   # build Python bindings
   cd crates/pyhq
-  maturin build --locked --release --target "$(rustc -vV | sed -n 's/host: //p')" --strip
+  maturin build --locked --release --target "$(rustc --print host-tuple)" --strip
 }
 
 check() {
