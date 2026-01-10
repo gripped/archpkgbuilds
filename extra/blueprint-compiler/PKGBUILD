@@ -3,7 +3,7 @@
 
 pkgname=blueprint-compiler
 pkgver=0.18.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Markup language and compiler for GTK 4 user interfaces"
 url="https://gnome.pages.gitlab.gnome.org/blueprint-compiler/"
 arch=(any)
