@@ -3,7 +3,7 @@
 pkgname=python-mujson
 _name="${pkgname#python-}"
 pkgver=1.4
-pkgrel=8
+pkgrel=9
 pkgdesc="Use the fastest JSON functions available at import time"
 arch=(any)
 url="https://github.com/mattgiles/mujson"
