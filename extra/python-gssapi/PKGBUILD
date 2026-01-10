@@ -4,7 +4,7 @@
 
 pkgname=python-gssapi
 pkgver=1.10.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides both low-level and high level wrappers around the GSSAPI C libraries'
 url='https://github.com/pythongssapi/python-gssapi'
 arch=('x86_64')
