@@ -3,14 +3,14 @@
 
 pkgname=python-txaio
 # https://github.com/crossbario/txaio/blob/master/docs/releases.rst
-pkgver=23.1.1
-pkgrel=5
+pkgver=25.12.2
+pkgrel=1
 pkgdesc='Compatibility API between asyncio/Twisted/Trollius'
 arch=('any')
 url="https://github.com/crossbario/txaio"
 license=('MIT')
 depends=('python')
-makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+makedepends=('git' 'python-build' 'python-installer' 'python-hatchling')
 # python-tests is used here:
 # https://github.com/crossbario/txaio/blob/v20.1.1/test/_asyncio_test_utils.py#L35
 checkdepends=('python-pytest' 'python-twisted' 'python-tests')
@@ -19,14 +19,7 @@ optdepends=(
   'python-zope-interface: Twisted support'
 )
 source=("git+https://github.com/crossbario/txaio.git#tag=v$pkgver")
-sha512sums=('ae0a25cb2d0b7e5c459650a83c388d7bae6000c3a0c909cc00994d8b5ac595800e97b55cbc9afe968b2bcd914657ec6c5d2b6a68333dde8872bb8211d981f5f8')
-
-prepare() {
-  # This tests whether pip can install the sdist, and is completely broken
-  # except in their boutique setup. They won't fix it.
-  # https://github.com/crossbario/txaio/issues/77#issuecomment-246276723
-  rm txaio/test/test_packaging.py
-}
+sha512sums=('1b5201e01b78f3ae4a81c4246e4817d16ad7f31a67432968f24d226baa4e0a1b18763650cdceecd8a609023ddc10bb9196d676b955fe2e372ac314a3b3ab0567')
 
 build() {
   cd "$srcdir"/txaio
@@ -35,7 +28,9 @@ build() {
 
 check() {
   cd "$srcdir"/txaio
-  python -m pytest
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest -v
 }
 
 package() {
