@@ -3,7 +3,7 @@
 
 pkgname=gufw
 pkgver=26.04
-pkgrel=1
+pkgrel=2
 pkgdesc='Uncomplicated way to manage your Linux firewall'
 url='https://costales.github.io/projects/gufw/'
 arch=('any')
