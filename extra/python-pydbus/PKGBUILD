@@ -4,7 +4,7 @@
 _name='pydbus'
 pkgname="python-${_name}"
 pkgver=0.6.0
-pkgrel=12
+pkgrel=13
 pkgdesc='Pythonic D-Bus library'
 arch=('any')
 url="https://github.com/LEW21/${_name}"
