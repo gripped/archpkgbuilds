@@ -2,7 +2,7 @@
 
 pkgname=python-sybil
 pkgver=6.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Automated testing for the examples in your documentation.'
 arch=('any')
 license=('MIT')
