@@ -3,7 +3,7 @@
 
 pkgname=python-blosc2
 pkgver=3.12.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Wrapper for the blosc2 compressor'
 arch=(x86_64)
 url='https://github.com/Blosc/python-blosc2'
@@ -50,7 +50,9 @@ check() {
   python -m venv venv-test --system-site-packages
   ./venv-test/bin/python -m installer dist/*.whl
   # Deselect tests failing since v3.4.0, not sure why
+  # test_expand_dims: sys.getrefcount() behavior changed in Python 3.14
   ./venv-test/bin/python -m pytest \
+    --deselect tests/ndarray/test_resize.py::test_expand_dims \
     --deselect tests/ndarray/test_lazyexpr.py::test_broadcasting \
     --deselect tests/ndarray/test_lazyexpr.py::test_chain_expressions \
     --deselect tests/ndarray/test_lazyexpr.py::test_chain_persistentexpressions \
