@@ -3,7 +3,7 @@
 # Contributor: Bart Ribbers <bribbers@disroot.org>
 
 pkgname=waydroid
-pkgver=1.6.0
+pkgver=1.6.1
 pkgrel=1
 pkgdesc="A container-based approach to boot a full Android system on a regular Linux system"
 arch=('any')
@@ -22,7 +22,7 @@ depends=(
 )
 optdepends=('python-pyclip: clipboard manager support')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/${pkgname}/${pkgname}/archive/${pkgver}.tar.gz")
-sha256sums=('aab88897a3a5578b4fc602a47d3357ad5d39b603e2e630ea2370a2fde3371f97')
+sha256sums=('f81ae0281701942a8beb749397a4fa8ce828c2dc727878b44d1385e23a921bcd')
 
 package() {
 	DESTDIR="${pkgdir}" USE_NFTABLES=1 make -C "${pkgname}-${pkgver}" install
