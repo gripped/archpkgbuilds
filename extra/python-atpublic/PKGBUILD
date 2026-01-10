@@ -3,7 +3,7 @@
 _name=public
 pkgname=python-atpublic
 pkgver=7.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="@public decorator for Python"
 arch=(any)
 url="https://gitlab.com/warsaw/public"
