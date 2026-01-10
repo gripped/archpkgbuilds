@@ -2,8 +2,8 @@
 
 _name=pytest-run-parallel
 pkgname=python-pytest-run-parallel
-pkgver=0.7.0
-pkgrel=2
+pkgver=0.8.1
+pkgrel=1
 pkgdesc="A simple pytest plugin to run tests concurrently"
 arch=(any)
 url="https://github.com/Quansight-Labs/pytest-run-parallel"
@@ -26,10 +26,11 @@ optdepends=(
 checkdepends=(
     python-hypothesis
     python-pytest-order
+    python-pytest-xdist
 )
 source=("git+https://github.com/Quansight-Labs/pytest-run-parallel.git#tag=v${pkgver}")
-sha512sums=('6ea933410d9b8cb288ff2d96d09c35cd6e37473ba54acf4eb49d89b5d2d8d7725c05365afe68b2b98e63a7bdb4f1b699602961163ffd30392711a4bb5d512989')
-b2sums=('7ab0d214df5f052fb676946fe609ffca9eb89c7d5d85c18eae7eaa1e05903f1f7bbaf0174f983db9b6be0c9b2bfaebc9feb3d35ef8ccaede6b24bb8e8954447c')
+sha512sums=('1efb314a01c5b49de1bbbeacb7b816c5a6881a5754643706e7dcf26c50364deb0d308ea1cdea7f1dbaf1456a4dbe3658130a37a1d2b272fa71bef783a844ac25')
+b2sums=('9c80260990cbcdee030275250869954f3d7b87b24575adc79100ed65dc5d75bcb6bfa52600389119836933ae7a0d8e7575b89e634e6e29e7afc1b00da6cee712')
 
 build() {
     cd $_name
