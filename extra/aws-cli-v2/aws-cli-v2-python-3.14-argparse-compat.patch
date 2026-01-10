@@ -1,0 +1,49 @@
+From 0a2ed70a4cfa8a19f67f60ee93510efdef8ed197 Mon Sep 17 00:00:00 2001
+From: Carl Smedstad <carsme@archlinux.org>
+Date: Thu, 25 Dec 2025 14:34:28 +0100
+Subject: [PATCH] Fix argparse help string errors with Python 3.14
+
+---
+ awscli/arguments.py | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/awscli/arguments.py b/awscli/arguments.py
+index 96ac5de17..86889e0d6 100644
+--- a/awscli/arguments.py
++++ b/awscli/arguments.py
+@@ -446,10 +446,15 @@ class CLIArgument(BaseCLIArgument):
+         See the ``BaseCLIArgument.add_to_parser`` docs for more information.
+ 
+         """
++        # Escape % characters in help text to prevent argparse from
++        # interpreting them as format specifiers (Python 3.14+).
++        help_text = self.documentation
++        if help_text:
++            help_text = help_text.replace('%', '%%')
+         cli_name = self.cli_name
+         parser.add_argument(
+             cli_name,
+-            help=self.documentation,
++            help=help_text,
+             type=self.cli_type,
+             required=self.required,
+         )
+@@ -598,9 +603,14 @@ class BooleanArgument(CLIArgument):
+         argument_table[negative_name] = negative_version
+ 
+     def add_to_parser(self, parser):
++        # Escape % characters in help text to prevent argparse from
++        # interpreting them as format specifiers (Python 3.14+).
++        help_text = self.documentation
++        if help_text:
++            help_text = help_text.replace('%', '%%')
+         parser.add_argument(
+             self.cli_name,
+-            help=self.documentation,
++            help=help_text,
+             action=self._action,
+             default=self._default,
+             dest=self._destination,
+-- 
+2.52.0
+
