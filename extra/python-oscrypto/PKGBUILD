@@ -1,7 +1,7 @@
 # Maintainer: Jonas Witschel <diabonas@archlinux.org>
 pkgname=python-oscrypto
 pkgver=1.3.0
-pkgrel=7
+pkgrel=8
 pkgdesc='Compiler-free Python crypto library backed by the OS'
 arch=('any')
 url='https://github.com/wbond/oscrypto'
@@ -37,6 +37,28 @@ check() {
 		# https://github.com/wbond/oscrypto/issues/80
 		--deselect tests/test_tls.py::TLSTests::test_tls_error_http
 		--deselect tests/test_tls.py::TLSTests::test_tls_error_weak_dh_params
+                # https://github.com/wbond/oscrypto/issues/82#issuecomment-2220451234
+                --deselect tests/test_tls.py::TLSTests::test_tls_error_missing_issuer
+                --deselect tests/test_tls.py::TLSTests::test_tls_error_domain_mismatch
+                --deselect tests/test_tls.py::TLSTests::test_tls_error_san_mismatch
+                --deselect tests/test_tls.py::TLSTests::test_tls_wildcard_success
+                --deselect tests/test_tls.py::TLSTests::test_tls_error_not_yet_valid
+                --deselect tests/test_tls.py::TLSTests::test_tls_error_expired_2
+                --deselect tests/test_tls.py::TLSTests::test_tls_error_client_cert_required
+                --deselect tests/test_tls.py::TLSTests::test_tls_error_handshake_error_3
+                --deselect tests/test_tls.py::TLSTests::test_tls_error_non_web
+                --deselect tests/test_tls.py::TLSTests::test_tls_error_wildcard_mismatch
+                --deselect tests/test_tls.py::TLSTests::test_tls_error_expired
+                --deselect tests/test_tls.py::TLSTests::test_tls_error_handshake_error
+                --deselect tests/test_tls.py::TLSTests::test_tls_error_handshake_error_2
+                --deselect tests/test_tls.py::TLSTests::test_tls_extra_trust_roots_no_match
+                --deselect tests/test_tls.py::TLSTests::test_tls_extra_trust_roots
+                --deselect tests/test_tls.py::TLSTests::test_tls_closed_connection_read
+                --deselect tests/test_tls.py::TLSTests::test_tls_closed_connection_write
+                --deselect tests/test_tls.py::TLSTests::test_tls_closed_connection_read_handshake
+                --deselect tests/test_tls.py::TLSTests::test_tls_closed_connection_write_handshake
+                --deselect tests/test_tls.py::TLSTests::test_tls_closed_connection_read_shutdown
+                --deselect tests/test_tls.py::TLSTests::test_tls_closed_connection_write_shutdown
 	)
 
 	cd "${pkgname#python-}-$pkgver"
