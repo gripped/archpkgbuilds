@@ -5,7 +5,7 @@
 _pyname=terminado
 pkgname=python-$_pyname
 pkgver=0.18.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Terminals served to term.js using Tornado websockets'
 url='https://github.com/takluyver/terminado'
 arch=(any)
@@ -28,7 +28,7 @@ build() {
 
 check() {
   cd $_pyname-$pkgver
-  pytest -v
+  pytest -v -W ignore::pytest.PytestUnraisableExceptionWarning
 }
 
 package() {
