@@ -1,20 +1,20 @@
 pkgbase = jupyter-console
 	pkgdesc = An IPython-like terminal frontend for Jupyter kernels in any language
 	pkgver = 6.6.3
-	pkgrel = 4
+	pkgrel = 5
 	url = https://pypi.org/project/jupyter_console/
 	arch = any
-	license = BSD
-	checkdepends = python-pytest
+	license = BSD-3-Clause
 	checkdepends = python-flaky
+	checkdepends = python-ipykernel
+	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-build
-	makedepends = python-installer
 	makedepends = python-hatchling
+	makedepends = python-installer
+	depends = python
 	depends = python-jupyter-client
-	provides = jupyter_console
-	conflicts = jupyter_console
-	replaces = jupyter_console
-	source = https://pypi.python.org/packages/source/j/jupyter_console/jupyter_console-6.6.3.tar.gz
-	sha256sums = 566a4bf31c87adbfadf22cdf846e3069b59a71ed5da71d6ba4d8aaad14a53539
+	source = git+https://github.com/jupyter/jupyter_console#tag=v6.6.3
+	sha256sums = c696f4350818e7858de62e43e25f15fec43c4b54f0c7ff4f8d7c78280a1c25ef
 
 pkgname = jupyter-console
