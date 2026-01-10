@@ -6,7 +6,7 @@
 pkgname=python-dasbus
 _pkgname=dasbus
 pkgver=1.7
-pkgrel=4
+pkgrel=5
 pkgdesc="DBus library in Python 3"
 arch=('any')
 url="https://github.com/rhinstaller/dasbus"
