@@ -7,10 +7,10 @@
 
 pkgname=ibus-libpinyin
 pkgver=1.15.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Intelligent Pinyin engine based on libpinyin for IBus"
 arch=('x86_64')
-license=('LGPL')
+license=('GPL-3.0-or-later')
 url="https://github.com/libpinyin/ibus-libpinyin"
 depends=('ibus' 'libpinyin' 'libsoup3' 'lua' 'opencc' 'python-pyxdg')
 makedepends=('boost' 'git' 'gnome-common' 'intltool')
@@ -21,6 +21,10 @@ build() {
   cd $pkgname
   ./autogen.sh --prefix=/usr --libexecdir=/usr/lib/$pkgname --enable-boost --enable-opencc --enable-cloud-input-mode
   make
+}
+
+check() {
+  make -C $pkgname check
 }
 
 package() {
