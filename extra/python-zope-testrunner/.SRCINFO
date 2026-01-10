@@ -1,11 +1,12 @@
 pkgbase = python-zope-testrunner
 	pkgdesc = Zope testrunner script
 	pkgver = 8.1
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/zopefoundation/zope.testrunner
 	arch = any
 	license = ZPL-2.1
 	checkdepends = python-zope-testing
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
@@ -13,7 +14,9 @@ pkgbase = python-zope-testrunner
 	depends = python-setuptools
 	depends = python-zope-exceptions
 	depends = python-zope-interface
-	source = https://github.com/zopefoundation/zope.testrunner/archive/8.1/python-zope-testrunner-8.1.tar.gz
-	sha512sums = 9b313d4d196d3f7423690e1ac2cfd843557c810afd947bfd8de9307755f4735677bb4423d6bfebee075b2c53d582c6a3ff3bcc969055bfe16dfd399dcc411c36
+	source = python-zope-testrunner::git+https://github.com/zopefoundation/zope.testrunner.git#tag=8.1
+	source = python-zope-testrunner-python-3.14.patch
+	b2sums = 30e28a825dd67eafc66e922026d189861ebbf87845727cb1c6aa08828442fa843eb578b3698bc6643e1f1fa8e6b44af70f6fd05691e74256371cda71a91e5816
+	b2sums = 6727d478c37ac9c816e19099fe6a349bcc0ee9ded8bf35ca1ac70bcd8fa0210e16e8877235c6a4c91eda744a5da84a6b1b0435d1c11fcb620778f3098d28f9ff
 
 pkgname = python-zope-testrunner
