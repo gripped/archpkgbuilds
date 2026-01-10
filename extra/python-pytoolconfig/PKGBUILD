@@ -4,7 +4,7 @@
 pkgname=python-pytoolconfig
 _name=${pkgname#python-}
 pkgver=1.3.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Manage configuration for python tools, such as black and rope."
 arch=('any')
 url="https://github.com/bagel897/pytoolconfig"
