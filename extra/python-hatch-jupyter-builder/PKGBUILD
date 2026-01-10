@@ -3,7 +3,7 @@
 _pyname=hatch-jupyter-builder
 pkgname=python-$_pyname
 pkgver=0.9.1
-pkgrel=5
+pkgrel=6
 pkgdesc='A hatch plugin to help build Jupyter packages'
 arch=(any)
 url='https://jupyter.org/'
