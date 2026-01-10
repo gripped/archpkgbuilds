@@ -5,7 +5,7 @@
 
 pkgname=python-gitdb
 pkgver=4.0.12
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='A pure Python git object database'
 arch=(any)
