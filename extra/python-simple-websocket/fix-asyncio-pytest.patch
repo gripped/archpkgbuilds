@@ -1,0 +1,12 @@
+diff -ru simple-websocket-1.1.0.orig/tests/helpers.py simple-websocket-1.1.0/tests/helpers.py
+--- simple-websocket-1.1.0.orig/tests/helpers.py	2025-12-20 13:03:38.097351065 +0100
++++ simple-websocket-1.1.0/tests/helpers.py	2025-12-20 13:03:54.186903041 +0100
+@@ -15,7 +15,7 @@
+ 
+ def _run(coro):
+     """Run the given coroutine."""
+-    return asyncio.get_event_loop().run_until_complete(coro)
++    return asyncio.new_event_loop().run_until_complete(coro)
+ 
+ 
+ def make_sync(coro):
