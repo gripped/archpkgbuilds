@@ -4,7 +4,7 @@
 pkgname=python-zope-proxy
 _pkgname=zope.proxy
 pkgver=7.1
-pkgrel=1
+pkgrel=3
 pkgdesc="Generic Transparent Proxies"
 arch=('x86_64')
 url="https://github.com/zopefoundation/zope.proxy"
