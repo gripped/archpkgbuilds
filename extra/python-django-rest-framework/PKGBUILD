@@ -3,7 +3,7 @@
 pkgname=python-django-rest-framework
 _name="${pkgname#python-}"
 pkgver=3.16.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A powerful and flexible toolkit for building Web APIs."
 arch=(any)
 url="https://www.django-rest-framework.org/"
