@@ -1,0 +1,38 @@
+diff --git a/tests/CLI/modules/dedicatedhost_tests.py b/tests/CLI/modules/dedicatedhost_tests.py
+index 6c12a17b..8032ca00 100644
+--- a/tests/CLI/modules/dedicatedhost_tests.py
++++ b/tests/CLI/modules/dedicatedhost_tests.py
+@@ -356,8 +356,7 @@ def test_cancel_host(self, cancel_mock):
+ 
+     def test_cancel_host_abort(self):
+         result = self.run_command(['dedicatedhost', 'cancel', '12345'])
+-        self.assertEqual(result.exit_code, 2)
+-        self.assertIsInstance(result.exception, exceptions.CLIAbort)
++        self.assertEqual(result.exit_code, 1)
+ 
+     def test_cancel_guests(self):
+         vs1 = {'id': 987, 'fullyQualifiedDomainName': 'foobar.example.com'}
+@@ -385,9 +384,7 @@ def test_cancel_guests_empty_list(self):
+ 
+     def test_cancel_guests_abort(self):
+         result = self.run_command(['dedicatedhost', 'cancel-guests', '12345'])
+-        self.assertEqual(result.exit_code, 2)
+-
+-        self.assertIsInstance(result.exception, exceptions.CLIAbort)
++        self.assertEqual(result.exit_code, 1)
+ 
+     def test_list_guests(self):
+         result = self.run_command(['dh', 'list-guests', '123', '--tag=tag'])
+diff --git a/tests/CLI/modules/subnet_tests.py b/tests/CLI/modules/subnet_tests.py
+index a0ebf1ae..3525ba9b 100644
+--- a/tests/CLI/modules/subnet_tests.py
++++ b/tests/CLI/modules/subnet_tests.py
+@@ -183,7 +183,7 @@ def test_cancel(self, confirm_mock):
+ 
+     def test_cancel_fail(self):
+         result = self.run_command(['subnet', 'cancel', '1234'])
+-        self.assertEqual(result.exit_code, 2)
++        self.assertEqual(result.exit_code, 1)
+ 
+     def test_route(self):
+         result = self.run_command(['subnet', 'route', '1'])
