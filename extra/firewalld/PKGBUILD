@@ -6,7 +6,7 @@
 pkgbase=firewalld
 pkgname=('firewalld' 'firewalld-test')
 pkgver=2.4.0
-pkgrel=1
+pkgrel=2
 url="https://firewalld.org"
 arch=('any')
 license=('GPL-2.0-or-later')
