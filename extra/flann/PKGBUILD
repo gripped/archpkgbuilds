@@ -7,7 +7,7 @@
 
 pkgname=flann
 pkgver=1.9.2
-pkgrel=6
+pkgrel=7
 pkgdesc="A library for performing fast approximate nearest neighbor searches in high dimensional spaces"
 arch=('x86_64')
 url='https://github.com/flann-lib/flann'
@@ -38,6 +38,7 @@ build() {
       -DBUILD_PYTHON_BINDINGS=ON \
       -DPYTHON_EXECUTABLE=/usr/bin/python \
       -DBUILD_TESTS=OFF \
+      -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
       -DBUILD_EXAMPLES=OFF
   ninja -C build
   ninja -C build doc
