@@ -2,7 +2,7 @@
 # Contributor: gardar <aur@gardar.net>
 pkgname=python-pynetbox
 _name="${pkgname#python-}"
-pkgver=7.5.0
+pkgver=7.6.0
 pkgrel=1
 pkgdesc="NetBox API client library"
 arch=('any')
@@ -12,8 +12,8 @@ depends=('python' 'python-packaging' 'python-requests')
 makedepends=('python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 checkdepends=('python-pytest' 'python-pyyaml')
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('da5139a8054d5854fbc3f5294503b7474aeec1df72cfe0bca3b24fb43dc77fce5d2a02f0a0059c370425bb66cdc190939c7db650a3a4804c55271afca3fbcf31')
-b2sums=('5bc20f33bda9de5881893355070b13454ccdae0a1a73212d95a9e4261208016b7bbb3c2dab2a16d10887d119de6ecfa44a51b6b3ac7d9a67cb8ab44b53409967')
+sha512sums=('287c9f283a0741bbb6f39167382347a686d5142bd469eac7bad316e4010c5d3193cd05a12c109b56bbaf5be59313a274048e779a3e9cbf21ded787caa965c459')
+b2sums=('a55dd895f1d1fe0c938a88d93cdc2d5b5c0800eb9858c23e8baebabc26a8f77862d7fb38a8bdd45aca3d6f5e7d742694aefea0e519577c73279d77b99ff55619')
 
 build() {
   cd "$_name-${pkgver}"
