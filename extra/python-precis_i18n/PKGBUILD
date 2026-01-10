@@ -4,7 +4,7 @@
 _pkgname=precis_i18n
 pkgname=python-precis_i18n
 pkgver=1.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc='PRECIS framework (RFC 8264, RFC 8265, RFC 8266)'
 url='https://github.com/byllyfish/precis_i18n'
 arch=('any')
