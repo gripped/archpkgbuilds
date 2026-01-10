@@ -11,7 +11,7 @@ pkgname=('virtualbox'
          'virtualbox-sdk')
 pkgver=7.2.4
 _tarver=${pkgver}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://virtualbox.org/'
 license=('GPL-3.0-only AND (GPL-3.0-only OR CDDL-1.0)')
