@@ -2,8 +2,8 @@
 
 _name=scikit-image
 pkgname=python-$_name
-pkgver=0.25.2
-pkgrel=2
+pkgver=0.26.0
+pkgrel=1
 pkgdesc="Image processing in Python"
 arch=(x86_64)
 url="https://github.com/scikit-image/scikit-image"
@@ -34,9 +34,10 @@ makedepends=(
 )
 checkdepends=(
   python-pytest
+  python-pytest-pretty
+  python-pytest-localserver
   # optdepends
   python-astropy
-  python-cloudpickle
   python-dask
   python-matplotlib
   python-pooch
@@ -45,7 +46,6 @@ checkdepends=(
 )
 optdepends=(
   'python-astropy: for FITS I/O capability'
-  'python-cloudpickle: necessary to provide the 'processes' scheduler for dask'
   'python-dask: used to speed up certain functions'
   'python-matplotlib: for plotting'
   'python-pooch: for data fetching and caching'
@@ -55,7 +55,7 @@ optdepends=(
   'python-simpleitk: Optional I/O plugin providing a wide variety of formats. including specialized formats using in medical imaging'
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-b2sums=('652eff12e70cf23cd91dedc92ee7ebab9ec4901394c0803fdf663b03770ef1c456648bbf4006239e06f3ed6f7c11f1069a2c46aa8fc704a836840a8b8eb3c543')
+b2sums=('2969e48298ef8e5439b9806b14f06bde8ede3121d399495f85533f017752ae566bc33e2114cfdfb9161d8dd2ff0c638bc7531fac8c32b0221cf03f5cc46dd507')
 
 build() {
   cd $_name-$pkgver
@@ -66,16 +66,18 @@ check() {
   local pytest_options=(
     -vv
     -W ignore::DeprecationWarning
-    # select tests from the Python module rather than by path
-    --pyargs skimage
-    # skip test that depends on the imread package
-    # skip test that downloads data from the internet
-    # skip test that fails due to division by zero
-    -k "not test_imread_http_url and not test_download_all_with_pooch and not test_ellipse_parameter_stability"
+    # ValueError: Unexpected warning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    --deselect tests/skimage/io/test_pil.py::test_all_color
+    --deselect tests/skimage/io/test_pil.py::test_all_mono
+    # assert 2 == 1  where 2 = len(WarningsChecker(record=True))
+    --deselect tests/skimage/io/test_plugin.py::test_deprecation_warnings_on_plugin_funcs[call_plugin-args1]
+    # RuntimeWarning: divide by zero encountered in scalar divide
+    --deselect tests/skimage/measure/test_fit.py::test_ellipse_parameter_stability
   )
 
+  cd $_name-$pkgver
   python -m venv --system-site-packages test-env
-  test-env/bin/python -m installer $_name-$pkgver/dist/*.whl
+  test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m pytest "${pytest_options[@]}"
 }
 
