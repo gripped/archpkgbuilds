@@ -4,7 +4,7 @@
 pkgname=remmina
 epoch=1
 pkgver=1.4.41
-pkgrel=1
+pkgrel=2
 pkgdesc="Remote desktop client written in GTK+"
 url="https://www.remmina.org"
 arch=('x86_64')
