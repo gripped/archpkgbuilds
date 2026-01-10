@@ -3,7 +3,7 @@
 
 pkgname=python-pyzmq
 pkgver=27.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Python bindings for ZeroMQ'
 arch=(x86_64)
 url='https://zeromq.org/languages/python/'
