@@ -2,7 +2,7 @@
 
 pkgname=python-btrees
 pkgver=6.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A fancy and practical functional tools'
 arch=('x86_64')
 license=('ZPL-2.1')
