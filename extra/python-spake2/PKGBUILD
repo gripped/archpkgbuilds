@@ -3,7 +3,7 @@
 
 pkgname=python-spake2
 pkgver=0.9
-pkgrel=1
+pkgrel=2
 pkgdesc="Pure-python implementation of the SPAKE2 Password-Authenticated Key"
 arch=('any')
 url="https://github.com/warner/python-spake2"
