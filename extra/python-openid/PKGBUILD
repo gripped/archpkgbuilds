@@ -3,7 +3,7 @@
 pkgname=python-openid
 _name="${pkgname//-/3-}"
 pkgver=3.2.0
-pkgrel=9
+pkgrel=10
 pkgdesc="Python 3 port of the python2-openid library"
 arch=(any)
 url="https://github.com/necaris/python3-openid"
