@@ -3,7 +3,7 @@
 _name=robot-detection
 pkgname=python-robot-detection
 pkgver=0.4.0
-pkgrel=10
+pkgrel=11
 pkgdesc="Detect web crawlers using HTTP User Agent"
 arch=(any)
 url="https://github.com/amandasaurus/robot-detection"
