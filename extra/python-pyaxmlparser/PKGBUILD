@@ -3,7 +3,7 @@
 _pyname=pyaxmlparser
 pkgname=python-${_pyname}
 pkgver=0.3.31
-pkgrel=2
+pkgrel=3
 pkgdesc='Parser for Android XML file and get Application Name without using Androguard'
 url='https://github.com/appknox/pyaxmlparser'
 arch=('any')
