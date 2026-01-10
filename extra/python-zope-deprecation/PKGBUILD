@@ -3,7 +3,7 @@
 
 pkgname=python-zope-deprecation
 pkgver=6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Zope Deprecation Infrastructure"
 arch=('any')
 url="https://github.com/zopefoundation/zope.deprecation"
