@@ -9,7 +9,7 @@
 pkgname=python-keyrings-alt
 epoch=1
 pkgver=5.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Alternate keyring implementations"
 arch=('any')
 url='https://github.com/jaraco/keyrings.alt'
