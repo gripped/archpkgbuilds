@@ -1,13 +1,13 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
-_pkgname=flask-security
 pkgname=python-flask-security-too
-pkgver=5.6.2
-pkgrel=2
+_pkgname=flask-security
+pkgver=5.7.1
+pkgrel=1
 pkgdesc='Quick and simple security for Flask applications'
-url='https://github.com/pallets-eco/flask-security'
 arch=(any)
+url='https://github.com/pallets-eco/flask-security'
 license=(MIT)
 depends=(
   python
@@ -45,7 +45,7 @@ checkdepends=(
 
   python-argon2_cffi
   python-bcrypt
-  python-flask-mailman
+  python-flask-mail
   python-bleach
 
   python-cryptography
@@ -69,8 +69,8 @@ optdepends=('python-bleach: scrub user input')
 provides=('python-flask-security')
 conflicts=('python-flask-security')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('0d80a8642d3523161b9744411ddeb075c00c75d287020a7874ad9db92f8080f49a4fc3486f292369b5ff3b7427c757731d4a006297671bd55c07a803602cd1b7')
-b2sums=('1f8d84172c91ca1704f8074f8cf5e80373c50c399f623d798ea0f078275633dfb3182a0292aa8acfec5dda08ed6792ccac147ffe24044c5323a340e96967619f')
+sha512sums=('c2de9cc84f6e90e8c5f99d0f64b9a0730c1475777cf9b081e3dbf204de0a6915945705f39dee29da6c339ebf8f9bf81b8e27c91963eab4993737e1e0761d2e80')
+b2sums=('b0cc7099f694becf9a0267885aed951d13c46648bf21abc8456b53a4fff119d541a02699c8a3079c13e3ba346d00639958dab0a13c4aac1f8040486a2e624f5a')
 
 build() {
   cd $_pkgname-$pkgver
@@ -80,7 +80,11 @@ build() {
 
 check() {
   cd $_pkgname-$pkgver
-  pytest -v -W=ignore::UserWarning
+  # ignore incompatible bcrypt tests
+  # https://github.com/pallets-eco/flask-security/commit/568d81219fc8408e39cc19acc57a682ac0bb9136
+  pytest -v -W=ignore::DeprecationWarning -W=ignore::UserWarning \
+    --deselect=tests/test_hashing.py::test_login_with_bcrypt_enabled \
+    --deselect=tests/test_misc.py::test_password_unicode_password_salt
 }
 
 package() {
@@ -89,5 +93,3 @@ package() {
   install -vDm 644 -t "$pkgdir/usr/share/doc/$pkgname" README.rst CHANGES.rst
   install -vDm 644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
 }
-
-# vim: ts=2 sw=2 et:
