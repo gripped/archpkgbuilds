@@ -17,7 +17,7 @@ pkgname=(
   python-audit
 )
 pkgver=4.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Userspace components of the audit framework'
 url="https://github.com/linux-audit/audit-userspace"
 arch=(x86_64)
