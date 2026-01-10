@@ -2,7 +2,7 @@
 
 pkgname=python-semver
 pkgver=3.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Python helper for Semantic Versioning"
 url="https://github.com/python-semver/python-semver"
 license=('BSD')
