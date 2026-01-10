@@ -4,7 +4,7 @@
 
 pkgname=libcaca
 pkgver=0.99.beta20
-pkgrel=5
+pkgrel=6
 pkgdesc='Color ASCII art library'
 arch=(x86_64)
 url='http://caca.zoy.org/wiki/libcaca'
