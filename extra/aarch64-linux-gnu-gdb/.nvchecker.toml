@@ -1,0 +1,6 @@
+[aarch64-linux-gnu-gdb]
+source = 'git'
+git = 'https://sourceware.org/git/binutils-gdb.git'
+include_regex = 'gdb-.*-release'
+from_pattern = 'gdb-([\d.]+)-release'
+to_pattern = '\1'
