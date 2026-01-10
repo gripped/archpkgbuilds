@@ -1,0 +1,86 @@
+diff --git a/osc_lib/tests/utils/test_tags.py b/osc_lib/tests/utils/test_tags.py
+index 0832802..0c525ad 100644
+--- a/osc_lib/tests/utils/test_tags.py
++++ b/osc_lib/tests/utils/test_tags.py
+@@ -236,9 +236,10 @@ class TestTagHelps(test_utils.TestCase):
+         self._test_tag_method_help(
+             tags.add_tag_filtering_option_to_parser,
+             """\
+-usage: run.py [-h] [--tags <tag>[,<tag>,...]] [--any-tags <tag>[,<tag>,...]]
+-              [--not-tags <tag>[,<tag>,...]]
+-              [--not-any-tags <tag>[,<tag>,...]]
++usage: python -m stestr.subunit_runner.run [-h] [--tags <tag>[,<tag>,...]]
++                                           [--any-tags <tag>[,<tag>,...]]
++                                           [--not-tags <tag>[,<tag>,...]]
++                                           [--not-any-tags <tag>[,<tag>,...]]
+ 
+ %s:
+   -h, --help            show this help message and exit
+@@ -256,9 +257,10 @@ usage: run.py [-h] [--tags <tag>[,<tag>,...]] [--any-tags <tag>[,<tag>,...]]
+                         separated list of tags)
+ """,
+             """\
+-usage: run.py [-h] [--tags <tag>[,<tag>,...]] [--any-tags <tag>[,<tag>,...]]
+-              [--not-tags <tag>[,<tag>,...]]
+-              [--not-any-tags <tag>[,<tag>,...]]
++usage: python -m stestr.subunit_runner.run [-h] [--tags <tag>[,<tag>,...]]
++                                           [--any-tags <tag>[,<tag>,...]]
++                                           [--not-tags <tag>[,<tag>,...]]
++                                           [--not-any-tags <tag>[,<tag>,...]]
+ 
+ %s:
+   -h, --help            show this help message and exit
+@@ -281,7 +283,7 @@ usage: run.py [-h] [--tags <tag>[,<tag>,...]] [--any-tags <tag>[,<tag>,...]]
+         self._test_tag_method_help(
+             tags.add_tag_option_to_parser_for_create,
+             """\
+-usage: run.py [-h] [--tag <tag> | --no-tag]
++usage: python -m stestr.subunit_runner.run [-h] [--tag <tag> | --no-tag]
+ 
+ %s:
+   -h, --help   show this help message and exit
+@@ -290,7 +292,7 @@ usage: run.py [-h] [--tag <tag> | --no-tag]
+   --no-tag     No tags associated with the test
+ """,
+             """\
+-usage: run.py [-h] [--tag <tag> | --no-tag]
++usage: python -m stestr.subunit_runner.run [-h] [--tag <tag> | --no-tag]
+ 
+ %s:
+   -h, --help   show this help message and exit
+@@ -304,7 +306,7 @@ usage: run.py [-h] [--tag <tag> | --no-tag]
+         self._test_tag_method_help(
+             tags.add_tag_option_to_parser_for_set,
+             """\
+-usage: run.py [-h] [--tag <tag>] [--no-tag]
++usage: python -m stestr.subunit_runner.run [-h] [--tag <tag>] [--no-tag]
+ 
+ %s:
+   -h, --help   show this help message and exit
+@@ -314,7 +316,7 @@ usage: run.py [-h] [--tag <tag>] [--no-tag]
+                --no-tag to overwrite current tags
+ """,
+             """\
+-usage: run.py [-h] [--tag <tag>] [--no-tag]
++usage: python -m stestr.subunit_runner.run [-h] [--tag <tag>] [--no-tag]
+ 
+ %s:
+   -h, --help   show this help message and exit
+@@ -329,7 +331,7 @@ usage: run.py [-h] [--tag <tag>] [--no-tag]
+         self._test_tag_method_help(
+             tags.add_tag_option_to_parser_for_unset,
+             """\
+-usage: run.py [-h] [--tag <tag> | --all-tag]
++usage: python -m stestr.subunit_runner.run [-h] [--tag <tag> | --all-tag]
+ 
+ %s:
+   -h, --help   show this help message and exit
+@@ -338,7 +340,7 @@ usage: run.py [-h] [--tag <tag> | --all-tag]
+   --all-tag    Clear all tags associated with the test
+ """,
+             """\
+-usage: run.py [-h] [--tag <tag> | --all-tag]
++usage: python -m stestr.subunit_runner.run [-h] [--tag <tag> | --all-tag]
+ 
+ %s:
+   -h, --help   show this help message and exit

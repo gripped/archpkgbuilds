@@ -3,7 +3,7 @@
 
 pkgname=python-osc-lib
 pkgver=3.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="OpenStackClient Library"
 arch=('any')
 url="https://docs.openstack.org/osc-lib/latest/"
@@ -13,8 +13,15 @@ depends=('python-pbr' 'python-cliff' 'python-keystoneauth1' 'python-openstacksdk
 makedepends=('git' 'python-setuptools')
 checkdepends=('python-oslotest' 'python-requests-mock' 'python-stestr' 'python-testrepository'
               'python-testtools')
-source=("git+https://github.com/openstack/osc-lib.git#tag=$pkgver")
-sha512sums=('528b7120fce3214899db6c5ae171f44e9bc44fd2df3a41323ec44075bbe93327784f48816b96c68d98a9703ea14ff458aa9952df342e3552698909a49a4be7a7')
+source=("git+https://github.com/openstack/osc-lib.git#tag=$pkgver"
+         fix-tests.patch)
+sha512sums=('528b7120fce3214899db6c5ae171f44e9bc44fd2df3a41323ec44075bbe93327784f48816b96c68d98a9703ea14ff458aa9952df342e3552698909a49a4be7a7'
+            'e8525265efe6ff590e0c7be385dd64adc6fa39d27bf68183969069d1a5c01a6aabc65d60594b8590e21d03c0681e81322078a2aa50a85b7c8a341b4f01020610')
+
+prepare() {
+  cd osc-lib
+  patch -p1 -i ../fix-tests.patch
+}
 
 build() {
   cd osc-lib
