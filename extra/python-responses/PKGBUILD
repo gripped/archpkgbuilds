@@ -2,7 +2,7 @@
 
 pkgname=python-responses
 pkgver=0.25.8
-pkgrel=2
+pkgrel=3
 pkgdesc='A utility library for mocking out the `requests` Python library.'
 arch=('any')
 license=('Apache-2.0')
