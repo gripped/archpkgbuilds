@@ -2,7 +2,7 @@
 
 pkgname=python-marshmallow
 pkgver=3.20.2
-pkgrel=4
+pkgrel=5
 pkgdesc="A lightweight library for converting complex datatypes to and from native Python datatypes."
 url="https://github.com/marshmallow-code/marshmallow"
 license=('MIT')
