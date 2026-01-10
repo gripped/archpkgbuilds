@@ -4,7 +4,7 @@
 pkgname=nanobind
 pkgdesc="Tiny and efficient C++/Python bindings"
 pkgver=2.10.2
-pkgrel=1
+pkgrel=2
 arch=(any)
 url="https://github.com/wjakob/nanobind"
 license=(BSD-3-Clause)
@@ -52,7 +52,9 @@ build() {
 
 check() {
   cd $pkgname-$pkgver
-  pytest build
+  # one test requires running pytest from the build directory
+  cd build
+  python -m pytest
 }
 
 package() {
