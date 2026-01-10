@@ -6,7 +6,7 @@
 
 pkgname=electrum
 pkgver=4.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Lightweight Bitcoin wallet"
 arch=('any')
 url="https://electrum.org"
