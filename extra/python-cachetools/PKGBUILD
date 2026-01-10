@@ -2,7 +2,7 @@
 
 pkgname=python-cachetools
 pkgver=6.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Extensible memoizing collections and decorators"
 url="https://github.com/tkem/cachetools"
 license=('MIT')
