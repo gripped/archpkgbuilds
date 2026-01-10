@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=copr-cli
-pkgver=2.3
+pkgver=2.4
 pkgrel=1
 pkgdesc="CLI tool to run copr"
 url="https://github.com/fedora-copr/copr"
@@ -28,7 +28,7 @@ checkdepends=(
   'python-responses'
 )
 source=("git+$url.git#tag=copr-cli-$pkgver-1")
-sha512sums=('cbd07d5cb2b1e8e0453645a5a6cebcaface28e4bf857f98e66390e759674bf609122f71cf65cbb2f48a1ba0975a70e0d813eb50aab8119673c7788a7d4467f48')
+b2sums=('c3259f7fc3d349fa8cbb8600c64dcbc125029eb8f120623e2789552587369fa39091c1920aa1ab2fbdc2cd9a829ec498022544c2f05a025782274142be54c082')
 
 build() {
   cd copr/cli
