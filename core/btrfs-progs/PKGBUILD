@@ -4,7 +4,7 @@
 
 pkgname=btrfs-progs
 pkgver=6.17.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Btrfs filesystem utilities'
 arch=('x86_64')
 makedepends=(
