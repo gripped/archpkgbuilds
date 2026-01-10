@@ -3,7 +3,7 @@
 _name=pytest-qt
 pkgname=python-pytest-qt
 pkgver=4.4.0
-pkgrel=4
+pkgrel=5
 pkgdesc='pytest support for PyQt and PySide applications'
 arch=(any)
 license=('MIT')
