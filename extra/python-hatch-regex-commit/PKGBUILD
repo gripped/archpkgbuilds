@@ -3,7 +3,7 @@
 pkgname=python-hatch-regex-commit
 _pkgname=${pkgname#python-}
 pkgver=0.0.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Hatch plugin to create a commit and tag when bumping version"
 url="https://github.com/frankie567/hatch-regex-commit"
 arch=('any')
