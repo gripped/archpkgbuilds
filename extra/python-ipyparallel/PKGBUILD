@@ -6,7 +6,7 @@
 _pyname=ipyparallel
 pkgname=python-$_pyname
 pkgver=9.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Interactive Parallel Computing in Python'
 url='https://pypi.org/project/ipyparallel/'
 arch=(any)
