@@ -3,7 +3,7 @@
 pkgname=python-crispy-bootstrap5
 _name="${pkgname#python-}"
 pkgver=2025.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Bootstrap5 template pack for django-crispy-forms"
 arch=(any)
 url="https://github.com/django-crispy-forms/crispy-bootstrap5"
