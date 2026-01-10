@@ -1,15 +1,16 @@
-# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: kpcyrd <kpcyrd[at]archlinux[dot]org>
 # Contributor: Dobroslaw Kijowski [dobo] <dobo90_at_gmail.com>
 
 pkgname=python-intervaltree
-_pyname=intervaltree
-pkgver=3.2.0
+pkgver=3.2.1
 pkgrel=1
 pkgdesc='Library providing a mutable, self-balancing interval tree for Python'
-url="https://github.com/chaimleib/intervaltree"
 arch=('any')
+url="https://github.com/chaimleib/intervaltree"
 license=('Apache-2.0')
 depends=(
+  'python'
   'python-sortedcontainers'
 )
 makedepends=(
@@ -18,18 +19,31 @@ makedepends=(
   'python-installer'
   'python-wheel'
 )
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/chaimleib/${_pyname}/archive/${pkgver}.tar.gz")
-sha512sums=('7cf567f8a093b198144e2cffda8f70e937d5edbb045e947042b7a62b3771098ccb7dc1911f031de35cd33c6cac96b85d9326a7d237348c7a64379290086360d4')
-b2sums=('7de0ecb6fe45aa030f4f604f6d7dd048f419b73b1fbbfc80ad6576891ffd489a3c2d9e46754f9bdc11562a22258d0f69aec77383d70feab3bc2dcab96485db25')
+checkdepends=('python-pytest')
+source=(
+  "$url/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+  "$pkgname-remove-uv-dynamic-version.patch"
+)
+b2sums=('7aa45f4d7908eee0d613e782bd4180e5e90111e9740f9cfc4025700ad0e6b3530cb9487275ce6959d5a0ea75fe74d1e9436e24c63f5abd4a4cf863a54381634c'
+        '2cc99fdcc760e53579d3d2a603c8b78f85e21daeb09dac44431c4dc307355fd0237b173d162f68fbfceac59c870aad2730f31421ea46a328e39a93a560a267ea')
+
+prepare() {
+  cd ${pkgname#python-}-$pkgver
+  patch -Np1 < ../$pkgname-remove-uv-dynamic-version.patch
+  sed -i "s/@VERSION@/$pkgver/" pyproject.toml
+}
 
 build() {
-  cd "${_pyname}-${pkgver}"
-  python -m build --wheel --no-isolation
+  cd ${pkgname#python-}-$pkgver
+  python -m build --wheel --no-isolation --skip-dependency-check
+}
+
+check() {
+  cd ${pkgname#python-}-$pkgver
+  pytest
 }
 
 package() {
-  cd "${_pyname}-${pkgver}"
-  python -m installer --destdir="${pkgdir}" dist/*.whl
+  cd ${pkgname#python-}-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
-
-# vim: ts=2 sw=2 et:
