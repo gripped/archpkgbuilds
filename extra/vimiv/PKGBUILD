@@ -3,7 +3,7 @@
 
 pkgname=vimiv
 pkgver=0.9.1
-pkgrel=9
+pkgrel=10
 pkgdesc='Image viewer with vim-like keybindings'
 url='https://github.com/karlch/vimiv'
 arch=('x86_64')
