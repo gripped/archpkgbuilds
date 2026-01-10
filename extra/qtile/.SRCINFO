@@ -1,7 +1,7 @@
 pkgbase = qtile
 	pkgdesc = A full-featured, pure-Python tiling window manager
 	pkgver = 0.34.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://qtile.org/
 	install = qtile.install
 	arch = x86_64
@@ -71,10 +71,13 @@ pkgbase = qtile
 	optdepends = python-xdg: launchbar widget
 	optdepends = xorg-xwayland: for XWayland support
 	source = git+https://github.com/qtile/qtile?signed#tag=v0.34.1
+	source = qtile-fix-test-fd-leak.patch
 	validpgpkeys = 3CCAB226289DE0160C61BDB418D18F1BC464DCA3
 	validpgpkeys = 35D92E7CC7357A81173EA1C974F9FDD20984FBEC
 	validpgpkeys = A6BAA1E17D2664ADB97B2C6F58A9AA7C86727DF7
 	sha512sums = 62955251b255109f0552ae272ef72d12ea8416c0c4032d7199770c5789b12103417eaf8bf15d25697a79a2898886a2b2ccccf89f995fae2874331020c7d61ca2
+	sha512sums = 76bb61721332066809d503b45aa6c81aea2a89c1bded668913190b8354ae2b4ec06a4cb5c39f7821e942f010609c6566edb24fc86ad6b418d0ff49f307c5f3ae
 	b2sums = 336f9ef541ff5e0a8cbe33474e187d3b428117a06e2459e88085011523b4e960f58339e1184e8b9571c531fa311aaf909567aaf2b49c78092ecab4bc40063fb7
+	b2sums = 81c79fc4f5b9a0ef5f1ec86314f091ff77c830415cee0da44bbee694fe165932642e085280a5de17f87d8d869e8b2d71f72883ef780a221383af7902f892d2c4
 
 pkgname = qtile
