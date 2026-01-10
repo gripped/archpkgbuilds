@@ -4,7 +4,7 @@
 _name=google-auth-library-python
 pkgname=python-google-auth
 pkgver=2.43.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Google Authentication Library"
 url="https://github.com/GoogleCloudPlatform/google-auth-library-python"
 license=('Apache-2.0')
