@@ -3,7 +3,7 @@
 pkgname=python-ndindex
 _pkgname=${pkgname#python-}
 pkgver=1.10.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for manipulating indices of ndarrays"
 arch=(x86_64)
 url="https://quansight-labs.github.io/ndindex/"
