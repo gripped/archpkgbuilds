@@ -1,0 +1,148 @@
+diff --unified --recursive --text --new-file scrapy-2.13.4.orig/tests/test_command_check.py scrapy-2.13.4/tests/test_command_check.py
+--- scrapy-2.13.4.orig/tests/test_command_check.py	2025-12-31 15:19:04.722260395 +0100
++++ scrapy-2.13.4/tests/test_command_check.py	2025-12-31 15:36:59.844337896 +0100
+@@ -1,11 +1,24 @@
+ import sys
+ from io import StringIO
+ from unittest.mock import Mock, PropertyMock, call, patch
++from unittest.runner import _WritelnDecorator
+ 
+ from scrapy.commands.check import Command, TextTestResult
+ from tests.test_commands import TestCommandBase
+ 
+ 
++class _MockStream(StringIO):
++    """A StringIO subclass that supports fileno() for Python 3.14+ compatibility.
++
++    Python 3.14's TextTestResult calls os.isatty(stream.fileno()) for color
++    support. This class provides a fileno() that raises OSError, which isatty()
++    handles gracefully by returning False.
++    """
++
++    def fileno(self):
++        raise OSError("Mock stream has no file descriptor")
++
++
+ class TestCheckCommand(TestCommandBase):
+     command = "check"
+ 
+@@ -103,7 +116,12 @@
+     def test_printSummary_with_unsuccessful_test_result_without_errors_and_without_failures(
+         self,
+     ):
+-        result = TextTestResult(Mock(), descriptions=False, verbosity=1)
++        # Use _WritelnDecorator(_MockStream()) for stream because:
++        # 1. Python 3.14+ TextTestResult calls os.isatty(stream.fileno())
++        # 2. TextTestResult.printSummary expects stream.writeln to exist
++        result = TextTestResult(
++            _WritelnDecorator(_MockStream()), descriptions=False, verbosity=1
++        )
+         start_time = 1.0
+         stop_time = 2.0
+         result.testsRun = 5
+@@ -115,7 +133,12 @@
+             mock_write.assert_has_calls([call("FAILED"), call("\n")])
+ 
+     def test_printSummary_with_unsuccessful_test_result_with_only_failures(self):
+-        result = TextTestResult(Mock(), descriptions=False, verbosity=1)
++        # Use _WritelnDecorator(_MockStream()) for stream because:
++        # 1. Python 3.14+ TextTestResult calls os.isatty(stream.fileno())
++        # 2. TextTestResult.printSummary expects stream.writeln to exist
++        result = TextTestResult(
++            _WritelnDecorator(_MockStream()), descriptions=False, verbosity=1
++        )
+         start_time = 1.0
+         stop_time = 2.0
+         result.testsRun = 5
+@@ -126,7 +149,12 @@
+             mock_write.assert_called_with(" (failures=1)")
+ 
+     def test_printSummary_with_unsuccessful_test_result_with_only_errors(self):
+-        result = TextTestResult(Mock(), descriptions=False, verbosity=1)
++        # Use _WritelnDecorator(_MockStream()) for stream because:
++        # 1. Python 3.14+ TextTestResult calls os.isatty(stream.fileno())
++        # 2. TextTestResult.printSummary expects stream.writeln to exist
++        result = TextTestResult(
++            _WritelnDecorator(_MockStream()), descriptions=False, verbosity=1
++        )
+         start_time = 1.0
+         stop_time = 2.0
+         result.testsRun = 5
+@@ -139,7 +167,12 @@
+     def test_printSummary_with_unsuccessful_test_result_with_both_failures_and_errors(
+         self,
+     ):
+-        result = TextTestResult(Mock(), descriptions=False, verbosity=1)
++        # Use _WritelnDecorator(_MockStream()) for stream because:
++        # 1. Python 3.14+ TextTestResult calls os.isatty(stream.fileno())
++        # 2. TextTestResult.printSummary expects stream.writeln to exist
++        result = TextTestResult(
++            _WritelnDecorator(_MockStream()), descriptions=False, verbosity=1
++        )
+         start_time = 1.0
+         stop_time = 2.0
+         result.testsRun = 5
+diff --unified --recursive --text --new-file scrapy-2.13.4.orig/tests/test_feedexport.py scrapy-2.13.4/tests/test_feedexport.py
+--- scrapy-2.13.4.orig/tests/test_feedexport.py	2025-12-31 15:19:04.723846987 +0100
++++ scrapy-2.13.4/tests/test_feedexport.py	2025-12-31 15:39:04.601343807 +0100
+@@ -19,7 +19,7 @@
+ from string import ascii_letters, digits
+ from typing import TYPE_CHECKING, Any
+ from unittest import mock
+-from urllib.parse import quote, urljoin
++from urllib.parse import quote
+ from urllib.request import pathname2url
+ 
+ import lxml.etree
+@@ -57,7 +57,10 @@
+ 
+ 
+ def path_to_url(path):
+-    return urljoin("file:", pathname2url(str(path)))
++    # Use file:// prefix directly to ensure proper file URL format.
++    # urljoin("file:", ...) produces "file:/path" which FileFeedStorage
++    # doesn't recognize as a file URL (it expects "file://").
++    return "file://" + pathname2url(str(path))
+ 
+ 
+ def printf_escape(string):
+@@ -68,7 +71,12 @@
+     path_str = str(path)
+     if path_str[0] != "/":
+         path_str = "/" + path_str
+-    return urljoin("file:", path_str)
++    # Use file:// prefix directly to ensure proper file URL format.
++    # urljoin("file:", ...) produces "file:/path" which FileFeedStorage
++    # doesn't recognize as a file URL (it expects "file://").
++    # Don't use pathname2url here as it encodes % which breaks template
++    # placeholders like %(batch_id)d used in batch tests.
++    return "file://" + path_str
+ 
+ 
+ def mock_google_cloud_storage() -> tuple[Any, Any, Any]:
+@@ -2690,7 +2698,8 @@
+     with tempfile.NamedTemporaryFile(suffix="json") as tmp:
+         settings = {
+             "FEEDS": {
+-                f"file:///{tmp.name}": {
++                # tmp.name already starts with /, so file:// + /path = file:///path
++                f"file://{tmp.name}": {
+                     "format": "json",
+                 },
+             },
+diff --unified --recursive --text --new-file scrapy-2.13.4.orig/tests/test_squeues.py scrapy-2.13.4/tests/test_squeues.py
+--- scrapy-2.13.4.orig/tests/test_squeues.py	2025-12-31 15:19:04.726563730 +0100
++++ scrapy-2.13.4/tests/test_squeues.py	2025-12-31 15:19:06.273683290 +0100
+@@ -123,7 +123,11 @@
+         if hasattr(sys, "pypy_version_info"):
+             assert isinstance(exc_info.value.__context__, pickle.PicklingError)
+         else:
+-            assert isinstance(exc_info.value.__context__, AttributeError)
++            # Python 3.14+ changed the exception context type from AttributeError
++            # to pickle.PicklingError for unpicklable objects
++            assert isinstance(
++                exc_info.value.__context__, (AttributeError, pickle.PicklingError)
++            )
+         sel = Selector(text="<html><body><p>some text</p></body></html>")
+         with pytest.raises(
+             ValueError, match="can't pickle Selector objects"

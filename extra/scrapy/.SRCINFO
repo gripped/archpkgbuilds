@@ -1,10 +1,10 @@
 pkgbase = scrapy
 	pkgdesc = A fast high-level scraping and web crawling framework.
 	pkgver = 2.13.4
-	pkgrel = 1
+	pkgrel = 3
 	url = https://scrapy.org
 	arch = any
-	license = BSD
+	license = BSD-3-Clause
 	checkdepends = bpython
 	checkdepends = ipython
 	checkdepends = mitmproxy
@@ -49,8 +49,11 @@ pkgbase = scrapy
 	optdepends = python-h2: for HTTP2 support
 	optdepends = python-hpack: for HTTP2 streaming support
 	optdepends = python-zstandard: for HTTP compression using zstandard
-	source = scrapy-2.13.4.tar.gz::https://github.com/scrapy/scrapy/archive/2.13.4.tar.gz
+	source = https://github.com/scrapy/scrapy/archive/2.13.4/scrapy-2.13.4.tar.gz
+	source = scrapy-python-3.14.patch
 	sha512sums = 28c337371ab19b3b32ad4f622ecd80601e7b2e4c502a4cd003da7bc5cf8e626d53a21703076c7227a1c5e6133b0cac35b26caaddd947751fcabfa0ddce4bafb3
+	sha512sums = 1c49919d930afc1cc9d74099d9207474b6ea93024b8b0c2aaf21b61855fb758ac05b10e0eeb924ce37da2e2eb25ab534fb43d1697f43fb2d9fd0ef4ba344eefe
 	b2sums = eb25a4afc99fd65665111d7cd13cdb88d92712430c12904415d9502c1b30bce5332f4db22d3b2fe5b610b35073d06634ce9f7768c8b9381c52261ef5073f3c30
+	b2sums = db10e489e4d09b49843b7ca5ffc3cb3fe20744a50fb029ab184946bf7a7ea8b581db8ac2baadbd7452e36c59affe6f87b3c910b0fca5c73b5f7596c18a734a72
 
 pkgname = scrapy
