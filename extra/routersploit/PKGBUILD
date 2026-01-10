@@ -4,7 +4,7 @@
 
 pkgname=routersploit
 pkgver=3.4.7
-pkgrel=1
+pkgrel=2
 pkgdesc='Open-source exploitation framework dedicated to embedded devices'
 arch=(any)
 url='https://github.com/threat9/routersploit'
@@ -52,15 +52,32 @@ build() {
 
 check() {
   cd $pkgname-$pkgver
-  pytest -n auto tests/ \
-    -k 'not telnet' \
-    --deselect tests/exploits/cameras/multi/test_cctv_dvr_rce.py::test_check_success \
-    --deselect tests/exploits/cameras/multi/test_jvc_vanderbilt_honeywell_path_traversal.py::test_check_v2_success \
-    --deselect tests/exploits/cameras/xiongmai/test_uc_httpd_path_traversal.py::test_check_success \
-    --deselect tests/exploits/misc/miele/test_pg8528_path_traversal.py::test_check_success \
-    --deselect tests/exploits/routers/3com/test_officeconnect_rce.py::test_check_success \
-    --deselect tests/exploits/routers/linksys/test_1500_2500_rce.py::test_check_success \
-    --deselect tests/exploits/routers/tplink/test_wdr740nd_wdr740n_path_traversal.py::test_check_success
+  local pytest_args=(
+    -n auto
+    -k 'not telnet'
+
+    # python-threat9-test-bed uses deprecated asyncio.get_event_loop() which
+    # raises RuntimeError in Python 3.14.
+    --ignore=tests/creds/
+
+    # ssh_auth_keys uses paramiko.DSSKey which was removed (DSA is obsolete).
+    --deselect=tests/test_exploit_scenarios.py::test_exploit_trash_response[Exploit23]
+    --deselect=tests/test_exploit_scenarios.py::test_exploit_empty_response[Exploit23]
+    --deselect=tests/test_exploit_scenarios.py::test_exploit_not_found_response[Exploit23]
+    --deselect=tests/test_exploit_scenarios.py::test_exploit_error_response[Exploit23]
+    --deselect=tests/test_exploit_scenarios.py::test_exploit_redirect_response[Exploit23]
+    --deselect=tests/test_exploit_scenarios.py::test_exploit_timeout_response[Exploit23]
+
+    # Flaky tests.
+    --deselect=tests/exploits/cameras/multi/test_cctv_dvr_rce.py::test_check_success
+    --deselect=tests/exploits/cameras/multi/test_jvc_vanderbilt_honeywell_path_traversal.py::test_check_v2_success
+    --deselect=tests/exploits/cameras/xiongmai/test_uc_httpd_path_traversal.py::test_check_success
+    --deselect=tests/exploits/misc/miele/test_pg8528_path_traversal.py::test_check_success
+    --deselect=tests/exploits/routers/3com/test_officeconnect_rce.py::test_check_success
+    --deselect=tests/exploits/routers/linksys/test_1500_2500_rce.py::test_check_success
+    --deselect=tests/exploits/routers/tplink/test_wdr740nd_wdr740n_path_traversal.py::test_check_success
+  )
+  pytest "${pytest_args[@]}"
 }
 
 package() {
