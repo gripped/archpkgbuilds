@@ -3,7 +3,7 @@
 
 pkgname=python-ldap
 pkgver=3.4.4
-pkgrel=3
+pkgrel=4
 pkgdesc="LDAP client API for Python"
 url="https://python-ldap.readthedocs.io/"
 arch=('x86_64')
@@ -32,7 +32,7 @@ check(){
   cd "$pkgbase-$pkgbase-$pkgver"
   local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
 
-  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-${python_version}" pytest . 
+  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-${python_version}" pytest . -W ignore::ResourceWarning
 }
 
 package() {
