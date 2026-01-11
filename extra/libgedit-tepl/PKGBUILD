@@ -2,8 +2,8 @@
 # Contributor: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=libgedit-tepl
-pkgver=6.13.0
-pkgrel=2
+pkgver=6.14.0
+pkgrel=1
 pkgdesc='Library that eases the development of GtkSourceView-based text editors and IDEs'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/gedit/libgedit-tepl'
@@ -32,8 +32,8 @@ checkdepends=(xorg-server-xvfb)
 conflicts=(tepl)
 replaces=(tepl)
 provides=(libgedit-tepl-6.so)
-source=("git+https://gitlab.gnome.org/World/gedit/libgedit-tepl.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=(bfc9d4582727f04e93e206a0f7303ec34d50b54f3435dd372533920b280d037c5b8b25515a86cf090257e9dd4432cc3a7fa67d82be2a44ced6a07d57edee55fb)
+source=("git+https://gitlab.gnome.org/World/gedit/libgedit-tepl.git#tag=${pkgver/[a-z]/.&}")
+b2sums=(94da4f18e4b9e67f5b473770a92a1f0adce7368b90a7a1d9e67fe4ec44e7851a4ca602d70c1d6e55382482d17cf2bd9140093972aa8c433455092181a623372f)
 validpgpkeys=(08C0A6B1A08310A45363B328426F014A261FD87F) # Sébastien Wilmet <swilmet@mailfence.com>
 
 build() {
