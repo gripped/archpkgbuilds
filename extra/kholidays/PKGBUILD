@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kholidays
-pkgver=6.21.0
+pkgver=6.22.0
 pkgrel=1
 epoch=1
 pkgdesc='KDE library for regional holiday information'
@@ -18,7 +18,7 @@ makedepends=(doxygen
 optdepends=('qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('91e6820ff652ea771b2213974559e7ff4babb6d9f357f40b8c72266bd0432be4'
+sha256sums=('39b7f1c713d6c5ae225bfa18a6dece20ff7a7f4c325a0c6fc4a48cf3e4e0a690'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
