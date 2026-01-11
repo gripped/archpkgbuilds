@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=ogre
-pkgver=14.4.1
-pkgrel=2
+pkgver=14.5.0
+pkgrel=1
 pkgdesc='Scene-oriented, flexible 3D engine written in C++'
 arch=('x86_64')
 url='http://www.ogre3d.org'
@@ -11,7 +11,7 @@ makedepends=('cmake' 'doxygen' 'graphviz' 'ttf-dejavu' 'mesa' 'python' 'ninja' '
 install=ogre.install
 source=("$pkgname-$pkgver.tar.gz::https://github.com/OGRECave/ogre/archive/v${pkgver}.tar.gz")
 optdepends=('python: python bindings')
-sha512sums=('fbacb7c94beb1ba16b9f2185556c83086be3fb89196566e91bdb7a7655adda8139f1344aaa267d5fce7d83798f20e2f8fa31a9ad823bcbd1c3090c9c13d51183')
+sha512sums=('25ccda2278bd6a82d84fbad183e04efc33b42b43cf18e05fdfd6a3579f90673e11f5ae474e497f8ddffd54a5c58931abb1cb34dac607e85548909d4defe8a59a')
 
 prepare() {
   cd ogre-${pkgver}
