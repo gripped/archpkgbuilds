@@ -2,16 +2,16 @@
 
 _hkgname=th-orphans
 pkgname=haskell-th-orphans
-pkgver=0.13.16
-pkgrel=63
+pkgver=0.13.17
+pkgrel=1
 pkgdesc="Orphan instances for TH datatypes"
 url="https://github.com/ekmett/th-orphans/"
-license=('BSD')
+license=('BSD-3-clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-th-compat' 'haskell-th-lift' 'haskell-th-reify-many')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('2b5c6db633eea589b1e9568012853628892dc01bb46f770f9172dbaaf413bce2931db39cb335766c33780c4aeac08d476e8b5a14c92883117a53891a63b4ba97')
+sha512sums=('49ea2262cf1d7db62dd8e53133f0e9baf9be598298d52d15fea7b10ff83a9fd3bf3a70b816bc945f800ad04e855517b179c543511a33e48e2c6a47e4f1600e7e')
 
 build() {
     cd $_hkgname-$pkgver
