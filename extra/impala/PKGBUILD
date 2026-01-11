@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=impala
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=1
 pkgdesc="TUI for managing wifi"
 url="https://github.com/pythops/impala"
@@ -11,11 +11,11 @@ makedepends=('cargo')
 arch=('x86_64')
 license=('GPL-3.0-only')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('59517770c9d7fa9892a00bc2121cb752d6377662c52f7efa9134490f76ac5d9c179812d4a13aaeeafdef452afbff1c1d6cff68a31eeb060107fa70c5ce08fcb5')
+sha512sums=('231f9965fdc0e53ae2cf93d8acc0d6f23209f83dec512e0735e80b67b29d5f713b00d32739c64745c9482ce04dcb4b344d32daccdfe15aad7d0859bdfb5958a7')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --target "$(rustc --print host-tuple)" # --locked
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
