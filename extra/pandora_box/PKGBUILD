@@ -2,7 +2,7 @@
 
 pkgname=pandora_box
 _pkgname=pandora
-pkgver=0.17.0
+pkgver=0.18.0
 pkgrel=1
 pkgdesc="Syd's log inspector & profile writer"
 url="https://gitlab.exherbo.org/sydbox/sydbox/-/tree/main/pandora"
@@ -12,7 +12,7 @@ depends=('gcc-libs' 'glibc' 'syd')
 makedepends=('cargo' 'git')
 provides=("${_pkgname}")
 source=("git+https://gitlab.exherbo.org/sydbox/sydbox.git#tag=${_pkgname}-${pkgver}?signed")
-sha256sums=('b15489d233546c51f2df4c6d32145e287ed6d862277d57cee76891200043f5c1')
+sha256sums=('c4b82bac1316dac7c308fe92989db8f3c1fe9ef39bda7c07ce66382592b44ffc')
 validpgpkeys=('5DF763560390A149AC6C14C7D076A377FB27DE70')
 
 prepare() {
@@ -22,7 +22,7 @@ prepare() {
 
 build() {
 	cd "sydbox/${_pkgname}"
-	cargo build --frozen --release --all-features
+	cargo build --frozen --release --no-default-features --features system-dns
 }
 
 package() {
