@@ -2,46 +2,55 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
-pkgname=freeciv
-pkgver=3.2.1
+pkgbase=freeciv
+pkgname=(
+  freeciv-common
+  freeciv-gtk3
+  freeciv-gtk4
+  freeciv-qt
+)
+pkgver=3.2.2
 pkgrel=4
 pkgdesc="A multiuser clone of the famous Microprose game of Civilization"
 arch=('x86_64')
-url="http://www.freeciv.org/"
+url="https://www.freeciv.org/"
 license=('GPL-2.0-or-later')
 depends=(
+  'glibc'
+  'lua'
+  'sqlite'
+)
+makedepends=(
   'bzip2'
   'cairo'
   'curl'
   'gcc-libs'
   'gdk-pixbuf2'
   'glib2'
-  'glibc'
+  'gtk3'
   'gtk4'
   'hicolor-icon-theme'
   'icu'
-  'lua'
+  'meson'
   'pango'
+  'python'
   'qt6-base'
   'readline'
   'sdl2'
   'sdl2_mixer'
-  'sqlite'
   'xz'
   'zlib'
   'zstd'
 )
-makedepends=(
-  'meson'
-  'python'
-)
-backup=('etc/freeciv/database.lua')
-source=("https://downloads.sourceforge.net/sourceforge/$pkgname/$pkgname-$pkgver.tar.xz")
-sha512sums=('8667d756b67b0e1a63ad3015f6e33e0dacbda5bbbf85dae92238c88f4d660536623f4950d4461ab35a01764c767add138bc1c4f794a842cd47be9d62d1f2199b')
+conflicts=('freeciv<3.2.2-2')
+source=("https://downloads.sourceforge.net/sourceforge/$pkgname/$pkgbase-$pkgver.tar.xz")
+b2sums=('a525ac68dd1649467abafa928b72b8dfc9ed34fd1958a5836f7fdb43de972405b693fb75a7309953ccaae1245f954fb87a3106ff19268d426c96c1b4b2254fe1')
 
 build() {
-  arch-meson $pkgname-$pkgver build \
-    -Dsyslua=true
+  arch-meson $pkgbase-$pkgver build \
+    -Dsyslua=true \
+    -Dclients=gtk4,gtk3.22,qt \
+    -Dfcmp=gtk4,gtk3,qt,cli
   meson compile -C build
 }
 
@@ -49,6 +58,112 @@ check() {
   meson test -C build
 }
 
-package() {
+_pick() {
+  local dest="$1"
+  shift
+  for obj in "$@"; do
+    mkdir -p "$dest/$(dirname "$obj")/"
+    mv -v -t "$dest/$(dirname "$obj")/" "$obj"
+  done
+}
+
+package_freeciv-common() {
+  pkgdesc+=" (common files)"
+  depends+=(
+    'bzip2'
+    'curl'
+    'hicolor-icon-theme'
+    'icu'
+    'readline'
+    'xz'
+    'zlib'
+    'zstd'
+  )
+  backup=('etc/freeciv/database.lua')
+
   meson install -C build --destdir="$pkgdir"
+
+  cd "$pkgdir"
+  _pick "$srcdir/freeciv-gtk3" \
+    usr/bin/freeciv-gtk3.22 \
+    usr/bin/freeciv-mp-gtk3 \
+    usr/share/applications/org.freeciv.gtk3.mp.desktop \
+    usr/share/applications/org.freeciv.gtk322.desktop \
+    usr/share/freeciv/gtk3.22_menus.xml \
+    usr/share/freeciv/themes/gtk3.22 \
+    usr/share/metainfo/org.freeciv.gtk3.mp.metainfo.xml \
+    usr/share/metainfo/org.freeciv.gtk322.metainfo.xml
+  _pick "$srcdir/freeciv-gtk4" \
+    usr/bin/freeciv-gtk4 \
+    usr/bin/freeciv-mp-gtk4 \
+    usr/share/applications/org.freeciv.gtk4.desktop \
+    usr/share/applications/org.freeciv.gtk4.mp.desktop \
+    usr/share/freeciv/themes/gtk4 \
+    usr/share/metainfo/org.freeciv.gtk4.metainfo.xml \
+    usr/share/metainfo/org.freeciv.gtk4.mp.metainfo.xml
+  _pick "$srcdir/freeciv-qt" \
+    usr/bin/freeciv-mp-qt \
+    usr/bin/freeciv-qt \
+    usr/bin/freeciv-ruledit \
+    usr/share/applications/org.freeciv.qt.desktop \
+    usr/share/applications/org.freeciv.qt.mp.desktop \
+    usr/share/freeciv/themes/gui-qt \
+    usr/share/metainfo/org.freeciv.qt.metainfo.xml \
+    usr/share/metainfo/org.freeciv.qt.mp.metainfo.xml
+  rm -vr "$pkgdir/usr/share/freeciv/themes" # Remove empty dir
+}
+
+package_freeciv-gtk3() {
+  pkgdesc+=" (GTK3 client)"
+  depends+=(
+    'freeciv-common'
+
+    'cairo'
+    'gdk-pixbuf2'
+    'glib2'
+    'gtk3'
+    'pango'
+    'sdl2'
+    'sdl2_mixer'
+  )
+  provides=('freeciv')
+  replaces=('freeciv<3.2.2-2')
+
+  cp -va -t "$pkgdir" "$pkgname/"*
+}
+
+package_freeciv-gtk4() {
+  pkgdesc+=" (GTK4 client)"
+  depends+=(
+    'freeciv-common'
+
+    'cairo'
+    'gdk-pixbuf2'
+    'glib2'
+    'gtk4'
+    'pango'
+    'sdl2'
+    'sdl2_mixer'
+  )
+  provides=('freeciv')
+  replaces=('freeciv<3.2.2-2')
+
+  cp -va -t "$pkgdir" "$pkgname/"*
+}
+
+package_freeciv-qt() {
+  pkgdesc+=" (Qt client)"
+  depends+=(
+    'freeciv-common'
+
+    'gcc-libs'
+    'qt6-base'
+    'readline'
+    'sdl2'
+    'sdl2_mixer'
+  )
+  provides=('freeciv')
+  replaces=('freeciv<3.2.2-2')
+
+  cp -va -t "$pkgdir" "$pkgname/"*
 }
