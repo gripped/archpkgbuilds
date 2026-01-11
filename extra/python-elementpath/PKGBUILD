@@ -1,30 +1,46 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-elementpath
-pkgver=5.0.4
-pkgrel=2
-pkgdesc="XPath 1.0/2.0 parsers and selectors for ElementTree and lxml"
-url="https://github.com/sissaschool/elementpath"
-license=('MIT')
-arch=('any')
-depends=('python')
-makedepends=('git' 'python-build' 'python-installer' 'python-setuptools')
-checkdepends=('python-lxml' 'python-pytest' 'python-xmlschema')
-source=("git+https://github.com/sissaschool/elementpath.git#tag=v$pkgver")
-sha512sums=('4eefdb6fcba8bfe567e17e9ec84a44105d9122834c1bc0b9bbb444d0b50b7c6edd9d150931fe0c6e91b749caec1ad7086cffdb92d1dc171c328c6fd4ceea9301')
+pkgver=5.1.0
+pkgrel=1
+pkgdesc='XPath 1.0/2.0/3.0/3.1 parsers and selectors for ElementTree and lxml'
+arch=(any)
+url='https://github.com/sissaschool/elementpath'
+license=(MIT)
+depends=(python)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-pytest
+  python-lxml
+  python-xmlschema
+)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('83db4ae1d102cf8063f86b399b3fed6b279b87a3206625665157b52d5dfc9993d65abc5fdaa42362904eab8557e67c1683438d52fc9d952d17f9141f2f589a59')
+b2sums=('7d35d24e5fbde81166b389cfc66cb1d06c720cf28fc3e624e25d6d62b54b91c41e6a0e4feb5e6dd18ef810411262d4346df2a11aeddc0f5314c6a94439bab430')
 
 build() {
-  cd elementpath
-  python -m build -nw
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd elementpath
-  python -m pytest
+  cd "$pkgname"
+
+  pytest -v
 }
 
 package() {
-  cd elementpath
+  cd "$pkgname"
+
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
