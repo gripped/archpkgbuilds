@@ -3,7 +3,7 @@
 # Contributor: MareDevi <maredevi at foxmail dot com>
 pkgname=readest
 _Packagename=Readest
-pkgver=0.9.96
+pkgver=0.9.97
 pkgrel=1
 pkgdesc="Modern, feature-rich ebook reader"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('cairo' 'desktop-file-utils' 'gcc-libs' 'gdk-pixbuf2' 'glib2' 'glibc' '
          'hicolor-icon-theme' 'libsoup3' 'openssl' 'pango' 'webkit2gtk-4.1' 'gst-plugins-good')
 makedepends=('git' 'openssl' 'librsvg' 'pnpm' 'npm' 'nodejs' 'rust')
 source=("git+https://github.com/readest/readest.git#tag=v$pkgver")
-sha256sums=('13d6d6deda60602c5747bb856511056a12be61c8f48bf789595720fe31a59716')
+sha256sums=('3626f5f939aedf543a5a75c7ad0c46f7ed178d40f34dedb800e9870363cb5d5f')
 options=(!lto)  # Disable Link Time Optimization. Otherwise build fails with some 'cc' linking error.
 
 prepare() {
