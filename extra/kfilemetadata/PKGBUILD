@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kfilemetadata
-pkgver=6.21.0
+pkgver=6.22.0
 pkgrel=1
 pkgdesc='A library for extracting file metadata'
 arch=(x86_64)
@@ -33,7 +33,7 @@ makedepends=(catdoc
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('d8fdfcc5434200b26ca2e46e13c422d415b77ad86213d561526da816f653f0a4'
+sha256sums=('58e594fdb77883d684bd699731ed57ff24e8970c13c2a1bdb470f5dca84fb2bd'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
