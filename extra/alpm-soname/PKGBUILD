@@ -2,7 +2,7 @@
 
 pkgname=alpm-soname
 _upstream=alpm
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=1
 pkgdesc="A CLI for looking up soname data in an ALPM context"
 arch=(x86_64)
@@ -14,7 +14,6 @@ license=(
 )
 groups=(alpm)
 depends=(
-  alpm-pkgbuild-bridge
   gcc-libs
   glibc
   xz
@@ -31,8 +30,8 @@ optdepends=(
   'alpm-docs: for additional specifications'
 )
 source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
-sha512sums=('4c7be25a34eed1914fca3e196cf4e530e90d568fb6d126a31dafcc558fea6ce661c075f2906e1a34a7a860986a857f6a0c6691e66fc5ac6a19da0de07ca4e4cc')
-b2sums=('fac38590d5f555289d7aab708448d5323740258ce5906513248db866ad4e7f4740337ac9af91470f9a51be9708c318c2f2167253105282b844d36aa381011a21')
+sha512sums=('a451963a8ebc723fceb57e9f0ddc3c871abc03e22f3fa4a6a4f42e4965dec5b1a5eadf630b9942eeeb5ac98492fe759a4f5fb8621085d2f063ab0bc822461346')
+b2sums=('90ef743d286585788de5027733325a7b1573ad98ab441ee7476ee0854657499c873d22d3519465aab37640b7be4755d926b5c3878467e91ee0fe4b002d37c075')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
