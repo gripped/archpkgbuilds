@@ -4,8 +4,8 @@
 
 _name=starlette
 pkgname=python-$_name
-pkgver=0.50.0
-pkgrel=4
+pkgver=0.51.0
+pkgrel=1
 pkgdesc='The little ASGI framework that shines'
 arch=(any)
 url="https://github.com/encode/starlette"
@@ -43,8 +43,8 @@ optdepends=(
   'python-httpx: for test client'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('2440bc996ba0a303f4e02daff5a00d6edf51a23442ac6c4491655a1db81e3311c56ee03c93d582855f2bbd3c1267b7cde92e2091551f81dc1cf285746a9d4de2')
-b2sums=('efbec279e34687a9e038833ff9347a671bdbfc57515741155f2434235bfc78e10d815a39c03535308c13616a3a70a206142d28bede6831cecf0944da9bfe626d')
+sha512sums=('ac04bd6857c9f61cc0203df6faa19ac27b67717c22ed1826f7bb3138b7a8979cd7f151521737cd78ab2c32ee281f98f91507fe21cc8688901d903b38cdee41de')
+b2sums=('b0b4a1acd80e70e4e97c798b21157a91c6a572a2e3429280868aef907f4a9a32ed77fa5a2aa8fdff726fb5f71efde140a46029f66e60e573b140d595260f0617')
 
 prepare() {
   cd $_name-$pkgver
