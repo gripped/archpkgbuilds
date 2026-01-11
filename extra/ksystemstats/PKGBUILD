@@ -3,7 +3,7 @@
 pkgname=ksystemstats
 pkgver=6.5.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='A plugin based system monitoring daemon'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -25,7 +25,6 @@ optdepends=('libnl: network usage monitor'
             'networkmanager-qt: network usage monitor'
             'systemd-libs: GPU monitor')
 groups=(plasma)
-install=ksystemstats.install
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('a53038232221b773c695312c6cd3f11a903be1aa186fd4c274ddded8c1ac31fb'
             'SKIP')
@@ -43,4 +42,5 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
+  setcap CAP_PERFMON=+ep "$pkgdir"/usr/lib/ksystemstats_intel_helper
 }
