@@ -1,7 +1,7 @@
 pkgbase = shortwave
 	pkgdesc = Internet radio player
-	pkgver = 5.0.0
-	pkgrel = 3
+	pkgver = 5.1.0
+	pkgrel = 1
 	url = https://apps.gnome.org/Shortwave/
 	arch = x86_64
 	groups = gnome-circle
@@ -10,13 +10,12 @@ pkgbase = shortwave
 	makedepends = git
 	makedepends = meson
 	makedepends = rust
-	depends = bubblewrap
 	depends = dconf
-	depends = fontconfig
 	depends = gcc-libs
 	depends = glib2
 	depends = glibc
-	depends = glycin1
+	depends = glycin
+	depends = glycin-gtk4
 	depends = graphene
 	depends = gst-plugins-bad
 	depends = gst-plugins-base
@@ -25,15 +24,13 @@ pkgbase = shortwave
 	depends = gstreamer
 	depends = gtk4
 	depends = hicolor-icon-theme
-	depends = lcms2
 	depends = libadwaita
-	depends = libseccomp
 	depends = libshumate
 	depends = openssl
 	depends = pango
 	depends = sqlite
 	options = !lto
-	source = git+https://gitlab.gnome.org/World/Shortwave.git#tag=5.0.0
-	b2sums = d0019aaf3069c44cf8ceb92e2d66d94de586a26c7a623c09f5fccce358d0dfbb62c3a6e557e4ff911c00a15ff12e915b4d4bff89a1722dfe89fd21ab2dbf97a1
+	source = git+https://gitlab.gnome.org/World/Shortwave.git#tag=5.1.0
+	b2sums = 5172239d703d73f4b283543f62fbb64dae93ebdadc474e9980800082ecf20a2e4576ee45abc5bcfd9f9376709583dbc3a1261c5bc597e30af9488e02941392c3
 
 pkgname = shortwave
