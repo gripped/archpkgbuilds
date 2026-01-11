@@ -1,29 +1,69 @@
 # Maintainer: Anatol Pomozov
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: László Várady <laszlo.varady93@gmail.com>
 
 pkgname=rocksdb
-pkgver=9.10.0
+pkgver=10.9.1
 pkgrel=1
 pkgdesc='Embedded key-value store for fast storage'
 arch=(x86_64)
 url="https://rocksdb.org/"
-license=(GPL2 Apache)
-depends=(bzip2 lz4 snappy zlib zstd tbb liburing)
-makedepends=(python)
-source=(rocksdb-$pkgver.tar.gz::https://github.com/facebook/rocksdb/archive/v$pkgver.tar.gz)
-sha256sums=('fdccab16133c9d927a183c2648bcea8d956fb41eb1df2aacaa73eb0b95e43724')
+license=('GPL-2.0-only OR Apache-2.0')
+depends=(
+  bzip2
+  gcc-libs
+  gflags
+  glibc
+  liburing
+  lz4
+  snappy
+  zlib
+  zstd
+)
+makedepends=(
+  cmake
+  git
+  python
+)
+source=(
+  "git+https://github.com/facebook/rocksdb.git#tag=v$pkgver"
+  "$pkgname-system-liburing.patch::https://src.fedoraproject.org/rpms/rocksdb/raw/rawhide/f/shared-liburing.patch"
+  "$pkgname-enable-tests.patch"
+)
+b2sums=('e713210b34040afbf7cc77cc5e9cd74a83ce9d77dc515704e65980f3f6c3eafa887168ec41f0a11f30a2d133b65ba9141ea351621e47faa15d742ccba2299b40'
+        '1c625b0df6c6d363d80bec1ad12d5ad6e0f08593f9e996a516334a6b91b5cb22e72213418d0c4592e9ef4aeb2689576d31675ab0b4ec4d657624b51303faa52e'
+        '40944ff982fcbdeee50f0cfce96a7bb0859e963510aa8f60e77987af2288337586397ccb0272462ec892793bdfa77bdf78defc6c70abeb785ead9859da49feda')
+
+prepare() {
+  patch -d $pkgname -Np1 < $pkgname-system-liburing.patch
+  patch -d $pkgname -Np1 < $pkgname-enable-tests.patch
+}
 
 build() {
-  cd rocksdb-$pkgver
-  DISABLE_JEMALLOC=1 PORTABLE=1 USE_RTTI=1 make shared_lib
+  local cmake_args=(
+    -DCMAKE_BUILD_TYPE=None
+    -DCMAKE_INSTALL_PREFIX=/usr
+    -Wno-dev
+    -DROCKSDB_BUILD_SHARED=ON
+    -DWITH_BZ2=ON
+    -DWITH_SNAPPY=ON
+    -DWITH_LZ4=ON
+    -DWITH_ZSTD=ON
+    -DWITH_ZLIB=ON
+    -DUSE_RTTI=ON
+    -DFAIL_ON_WARNINGS=OFF
+    -DPORTABLE=ON
+  )
+  cmake -S $pkgname -B build "${cmake_args[@]}"
+  cmake --build build
 }
 
 check() {
-  cd rocksdb-$pkgver
-  # make check # fails due to https://github.com/facebook/rocksdb/issues/8974
+  # Deselected test fails for some reason
+  ctest --test-dir build --output-on-failure --parallel \
+    -E OptionsSettableTest.ColumnFamilyOptionsAllFieldsSettable
 }
 
 package() {
-  cd rocksdb-$pkgver
-  make install-shared DESTDIR="$pkgdir" PREFIX=/usr
+  DESTDIR="$pkgdir" cmake --install build
 }
