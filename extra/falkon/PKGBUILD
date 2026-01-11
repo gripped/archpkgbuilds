@@ -2,7 +2,7 @@
 
 pkgname=falkon
 pkgver=25.12.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Cross-platform QtWebEngine browser'
 arch=(x86_64)
 url='https://www.falkon.org/'
@@ -18,7 +18,6 @@ depends=(gcc-libs
          qt6-webengine)
 makedepends=(extra-cmake-modules
              kio
-             libgnome-keyring
              purpose
              pyside6
              qt6-tools
@@ -28,7 +27,6 @@ optdepends=('kcoreaddons: KDE integration'
             'kio: KDE integration'
             'kjobwidgets: KDE integration'
             'kwallet: KDE integration'
-            'libgnome-keyring: gnome keyring integration'
             'purpose: KDE integration'
             'pyside6: Python plugins')
 groups=(kde-applications
