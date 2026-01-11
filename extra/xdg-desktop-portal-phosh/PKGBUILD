@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=xdg-desktop-portal-phosh
-pkgver=0.51.0
+pkgver=0.52.0
 pkgrel=1
 pkgdesc='Backend implementation for xdg-desktop-portal that is using GTK/GNOME/Phosh'
 arch=(x86_64)
@@ -16,7 +16,6 @@ depends=(
   glib2
   glibc
   gnome-desktop-4
-  graphene
   gtk4
   libadwaita
   libx11
@@ -36,7 +35,7 @@ source=(
   git+https://gitlab.gnome.org/guidog/pfs.git
 )
 b2sums=(
-  a27e040664cd7d62bfd445859d8094e5fb43dc3903e0bf71614b092788ff276d9c3c63f7c4140cdd1fdb3aa3ad09948a966ca24fe24f3f065ca521e77d3e71ca
+  e2ba82a3e80b48c50df34cd9bfd28ad7300256100dac413eae045f997b525c683c919116e6476782ea0fbd47c8d348547b42129de78161137ea4e94ca47de07f
   SKIP
 )
 validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
@@ -47,11 +46,14 @@ prepare() {
 
   cd $pkgname
   CARGO_HOME="$srcdir/build/cargo" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   cd subprojects/pfs
   CARGO_HOME="$srcdir/build/subprojects/pfs/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
+
+  # Don't do debug build unless requested
+  sed -i "s/if get_option('buildtype') == 'release'/if not get_option('debug')/" src/meson.build
 }
 
 build() {
