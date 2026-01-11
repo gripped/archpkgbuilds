@@ -2,38 +2,47 @@
 # Contributor: Jose Valecillos <valecillosjg (at) gmail (dot) com>
 # Contributor: Olivier Ramonat <olivier at ramonat dot fr>
 pkgname=gource
-pkgver=0.54
-pkgrel=7
+pkgver=0.55
+pkgrel=3
 pkgdesc="software version control visualization"
-license=(GPL3)
+license=(GPL-3.0-or-later)
 arch=(x86_64)
-url=http://gource.io/
-depends=('ftgl' 'sdl2' 'sdl2_image' 'pcre2' 'glew' 'boost-libs')
+url=https://gource.io/
+depends=(
+  'boost-libs'
+  'freetype2'
+  'gcc-libs'
+  'glew'
+  'glibc'
+  'glu'
+  'libglvnd'
+  'libpng'
+  'pcre2'
+  'sdl2'
+  'sdl2_image'
+)
 makedepends=('boost' 'glm' 'mesa')
 source=(https://github.com/acaudwell/Gource/releases/download/gource-${pkgver}/gource-${pkgver}.tar.gz
-        https://github.com/acaudwell/Gource/commit/79b967e0.patch
         boost-1.89.patch)
-sha512sums=('a9fd2ff7c51931a543d4ab6dc85dd4b2c187ecca1be630006bb60ac2507180ccf40561e37f50493e052c839d9f5f896ae8f113fb65844c2fa9bde33fcd6b53e8'
-            '80225d987bb389199a9d92eeb533e94e4079488f357779c012c4488ca0c7414d8cd8b763457830d981c705fa8c68723f18da5ff2eafea8e50428fd3e9d24af81'
+sha512sums=('6df687441fc04e9bdfcf3620ed6b8a8fc1ac5774d21f51afdb0d518339ea1518914db77c90fb457ada899653c491a3b45c340665c3efa28bddeac65eeb334488'
             'ac280018c55d3219cbedcec0179c870199b347ab07339966eef31ed603035a04fd93554141447414062a1d6e9e0183bed2f41bbfce8d44b1a7b532b1c8bdd3cb')
 
 prepare() {
   cd $pkgname-$pkgver
-  patch -p1 < ../79b967e0.patch # Fix build with boost 1.85
   patch -p1 < ../boost-1.89.patch
   autoreconf -fiv
 }
 
 build() {
-	cd "$srcdir/$pkgname-$pkgver"
+  cd "$pkgname-$pkgver"
 
-	./configure --prefix=/usr
-	make
+  ./configure --prefix=/usr
+  make
 }
 
 package() {
-	cd "$srcdir/$pkgname-$pkgver"
+  cd "$pkgname-$pkgver"
 
-	make DESTDIR="$pkgdir" install
+  make DESTDIR="$pkgdir" install
 }
 # vim: ts=2:sw=2 et:
