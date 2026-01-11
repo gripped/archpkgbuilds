@@ -2,8 +2,8 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-xmlschema
-pkgver=4.2.0
-pkgrel=2
+pkgver=4.3.0
+pkgrel=1
 epoch=1
 pkgdesc='An XML Schema validator and decoder'
 arch=(any)
@@ -20,8 +20,8 @@ makedepends=(
 checkdepends=(python-lxml python-jinja)
 optdepends=('python-jinja: for XSD based code generators')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('757a3be17cf7d23ec4b78606e14fa7173b4c4bca4fa5f849d8ca0b06cc741745cfda5d5e71e65cf40af29e7428e37c91680d1fcab97cbda22f035df5af7a02bc')
-b2sums=('412892d0abc3e9b41501be47906ab7caafdd1f0f371293d4babe75de16412c8edd8cdedbf810278e9e6a8267a5a3ae7c314cd39f87b21b1985a1732cddd951a4')
+sha512sums=('1c7e7016f843fa663e13656a9de430981e8e599aecda858d414d80fe46dd601b71efe735df665adcc85511d15dd00b55d31bfad520d90a302c3ddcfc28b1d963')
+b2sums=('cb3f6d7f9ed6c0610f84f36a0112c6b6e7de687ed0f560db5f478ed5c5e1e11c19bfdf9771e093bdbb20bb4e239724680173e2a954e87b90955baec5e2b09dbc')
 
 
 build() {
