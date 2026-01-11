@@ -2,7 +2,7 @@
 # Contributor: William Aass Dahlen <cznk@protonmail.com>
 
 pkgname=azure-kubelogin
-pkgver=0.2.13
+pkgver=0.2.14
 pkgrel=1
 pkgdesc="A Kubernetes credential (exec) plugin implementing azure authentication"
 arch=(x86_64)
@@ -15,7 +15,7 @@ makedepends=(
 )
 options=(!lto)
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha256sums=('808ef7b3993f594e4e6d0ec9be3b1904f9a88ed9032f894d81e7a89bf78dd6f2')
+b2sums=('5d0d15455f6d8cf7f1b028a5d15249c1c17c09996cc38e16da412f7490e1426c8c097db4a05d8e81531aa27e3879284cdc1f8965e19b47e295d6924630a63862')
 
 prepare() {
   cd $pkgname
