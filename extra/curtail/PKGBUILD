@@ -2,8 +2,8 @@
 # Contributor: Mark Wagie <mark dot wagie at tutanota dot com>
 
 pkgname=curtail
-pkgver=1.13.0
-pkgrel=4
+pkgver=1.14.0
+pkgrel=1
 pkgdesc='Image compressor GUI, supporting PNG, JPEG, WebP and SVG file types, both lossless and lossy compression mode'
 arch=(any)
 url='https://apps.gnome.org/Curtail/'
@@ -29,30 +29,11 @@ makedepends=(
   git
   meson
 )
-source=(
-  "git+https://github.com/Huluti/Curtail.git#tag=$pkgver"
-  curtail-activate-window.patch
-  curtail-dbus-activatable.patch
-  curtail-invalid-file.patch
-)
-b2sums=(
-  0f6750bf65d81f110863048a94bafca42b26cec386681fb33848a0ecf402c4351b880b730c023255f52977f3a824679e127365906ae9c31b90bf36d8b2c2a0a4
-  0a629a87e22284eef3ab50f0c93519353d15e99913f7d181b2027981d8aec14f5d08ddff6bdb66b8d576271b9b423b64a2fe3a207528a5473f51281ba1b3d60a
-  f967e776611384bfbb9b8fc071c2ad181bd8a79a6270d43a2831cb730a0003065c99f0f53af6e13922b452a3417e9ae401fb075e04b6c6c300a2381097280da0
-  f576acd6e4407f4aad6b22ed647b1c341bbb8c950012c95d852109cc2c7d95ce1d25b3feb7662625cc26abae88b70f8edf2d631a275cc6b5117828cfbf493b01
-)
+source=("git+https://github.com/Huluti/Curtail.git#tag=$pkgver")
+b2sums=(67692ff7b333880da2d3269aef03ee39b1334b6bd1aa4cbd0733050c54c4a9813bf55ba84889ef6a6528bda108d54085b69f6b0d2ae3a709d0ba7b16db964fba)
 
 prepare() {
   cd Curtail
-
-  # https://github.com/Huluti/Curtail/pull/284
-  git apply -3 ../curtail-activate-window.patch
-
-  # https://github.com/Huluti/Curtail/pull/285
-  git apply -3 ../curtail-dbus-activatable.patch
-
-  # https://github.com/Huluti/Curtail/pull/286
-  git apply -3 ../curtail-invalid-file.patch
 }
 
 build() {
