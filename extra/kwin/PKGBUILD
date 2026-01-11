@@ -5,7 +5,7 @@
 pkgname=kwin
 pkgver=6.5.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=3
+pkgrel=5
 pkgdesc='An easy to use, but flexible, Wayland compositor'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -79,7 +79,6 @@ optdepends=('plasma-keyboard: virtual keyboard')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
         https://invent.kde.org/plasma/kwin/-/commit/ef450432.patch)
-install=$pkgname.install
 sha256sums=('258443f72180cf5a8141b440bb51a714a2e67e30867736290793ce50d7bb1d70'
             'SKIP'
             '4e35db494b436d2d4dc35eb467a90d93db2279561be3fc2c3f4a74a64ffa6081')
@@ -102,4 +101,5 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
+  setcap CAP_SYS_NICE=+ep "$pkgdir"/usr/bin/kwin_wayland
 }
