@@ -6,7 +6,7 @@
 # Contributor: Kaos < gianlucaatlas dot gmail dot com >
 
 pkgname=('lib32-sqlite')
-pkgver=3.51.1
+pkgver=3.51.2
 _srcver=$(echo "$pkgver" | awk -F. '{ printf "%d%02d%02d00", $1, $2, $3 }')
 pkgrel=1
 pkgdesc="A C library that implements an SQL database engine (32-bit)"
@@ -15,10 +15,10 @@ license=('custom:Public Domain')
 url="https://www.sqlite.org/"
 makedepends=('tcl' 'lib32-readline' 'sqlite')
 options=('!emptydirs')
-source=(https://www.sqlite.org/2025/sqlite-src-${_srcver}.zip
+source=(https://www.sqlite.org/2026/sqlite-src-${_srcver}.zip
         license.txt)
 # upstream now switched to sha3sums - currently not supported by makepkg
-sha256sums=('0f8e765ac8ea7c36cf8ea9bffdd5c103564f4a8a635f215f9f783b338a13d971'
+sha256sums=('85110f762d5079414d99dd5d7917bc3ff7e05876e6ccbd13d8496a3817f20829'
             '4e57d9ac979f1c9872e69799c2597eeef4c6ce7224f3ede0bf9dc8d217b1e65d')
 
 prepare() {
