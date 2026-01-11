@@ -5,7 +5,7 @@
 
 pkgname=lutris
 pkgver=0.5.19
-pkgrel=7
+pkgrel=8
 pkgdesc='Open Gaming Platform'
 arch=(any)
 url=https://lutris.net
@@ -49,7 +49,7 @@ makedepends=(
   python-poetry-core
 )
 checkdepends=(
-  python-nose
+  python-nose2
   xorg-server-xvfb
   xterm
   fluidsynth
@@ -99,7 +99,7 @@ build() {
 
 check() {
   cd lutris
-  xvfb-run nosetests
+  xvfb-run nose2
 }
 
 package() {
