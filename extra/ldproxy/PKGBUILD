@@ -1,8 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=ldproxy
-pkgver=0.3.3
-pkgrel=4
+pkgver=0.3.4
+pkgrel=1
 pkgdesc="A linker proxy tool"
 url='https://github.com/esp-rs/embuild'
 arch=('x86_64')
@@ -16,10 +16,10 @@ makedepends=(
 )
 source=(https://github.com/esp-rs/embuild/archive/${pkgname}-v${pkgver}/${pkgname}-${pkgver}.tar.gz
         Cargo.lock)
-sha256sums=('da159083ee9cd0de1fb197b38336d44463d2c93a6bd8ee218cf28fd052a2a4a7'
-            'af2964490ef5da85dc84a042023fe61942c5425cb0d3b1e729ab5f2b032c715c')
-b2sums=('d8571ddf5ab3684206e4802871aedea216f6edc978adcb80b7879e58aa01d564634ec654f62eaf401ef1992c48d1cbf8b0b7d7b4cfafb5b2d7e36e3b4d7c22c2'
-        'aba0e9a86cc83d2964995bb96ba2e004eac091266af2642f389894289d17c24e2873b71d168cd94b66eb6f2c712326d08c78bb9527a4613c4bc09b7a029b384b')
+sha256sums=('858ea83abf9bb009c970555650d388ef5a0e75496ae0d01d6be46da69fa61e86'
+            '4abcd9c29d6303c9e3ee59990aee522c45bc2237e5fc079c2bade789eacc482c')
+b2sums=('33f99229617943884d4ac05e44a36f5b2a3ee059c5f84e52c0101ae7cc7fd55b923057b536d066383017c90fee68a55da2c1deba632a57c1d169f2c6f1e30400'
+        'f27bb6464a6b818c0732467ebfaf47f2d60817cc3766f142a376b020b7b5110c61ba62edad7e22d5e3c354454aca490d7ea46bb0d4fd6024627b5e4b6ef47097')
 
 prepare() {
   cd "embuild-${pkgname}-v${pkgver}/${pkgname}"
