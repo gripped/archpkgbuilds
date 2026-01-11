@@ -5,8 +5,8 @@
 # Contributor: Robert Emil Berge <filoktetes@linuxophic.org>
 
 pkgname=recoll
-pkgver=1.43.6
-pkgrel=2
+pkgver=1.43.9
+pkgrel=1
 pkgdesc="Full text search tool based on Xapian backend"
 arch=('x86_64')
 url="https://www.recoll.org"
@@ -35,7 +35,7 @@ optdepends=('libxslt: for XML based formats (fb2,etc)'
 	    'krunner: KDE plugins'
 	    'aspell-en: English stemming support')
 source=("https://www.recoll.org/$pkgname-${pkgver/_/}.tar.gz")
-sha512sums=('edadabd4bb4816868e109d59fed6607494731e2ca5a6765f58ff08fd45f5b1cbc96d827c458bc45901dafb9fe4b52d644df5d82491442ebe448d9fdc7875e3d1')
+sha512sums=('7dd8d70c3b51056a067f83df7ca2b46bb1663c0074b42949b9e0a9da03e4cbba3bc9182b93935f9d3b34693229841fe2162a4224bbcd0c4610d1dd550a18deb0')
 
 prepare() {
   cd "$srcdir/$pkgname-${pkgver/_/}"
