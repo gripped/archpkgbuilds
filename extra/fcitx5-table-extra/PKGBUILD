@@ -2,16 +2,16 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-table-extra
-pkgver=5.1.9
+pkgver=5.1.10
 pkgrel=1
 pkgdesc="Extra tables for Fcitx5"
 arch=('any')
 url="https://github.com/fcitx/fcitx5-table-extra"
-license=('GPL')
+license=('GPL-3.0-or-later')
 depends=('fcitx5-chinese-addons')
 makedepends=('git' 'extra-cmake-modules' 'boost')
 source=("git+https://github.com/fcitx/fcitx5-table-extra.git#tag=$pkgver?signed")
-sha512sums=('aa410e3898817a8febb88253432391386ba2c8d8e9114ece99c42a0445e54d5dbe804186de263bcbf6e2b8de6b58b1943b63b838e4d01b592502c1000c44a712')
+sha512sums=('b4f28eefeb6bd60596213b5991b77feb813cb2b8cc79f3aba532186746ee3a2df4775215fb791157100322c96937d62fc1cd766c52476595d71461b15006557a')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
 build() {
