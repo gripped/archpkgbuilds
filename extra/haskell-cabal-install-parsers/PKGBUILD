@@ -3,7 +3,7 @@
 _hkgname=cabal-install-parsers
 pkgname=haskell-cabal-install-parsers
 pkgver=0.6.1.1
-pkgrel=5
+pkgrel=6
 pkgdesc="Utilities to work with cabal-install files"
 url="https://haskell-ci.rtfd.org/"
 license=("GPL" "BSD")
@@ -19,6 +19,7 @@ sha512sums=('a1c48ad793020b0b6c0642f78ca180c3edebf1f801d44c428d33ea80f88e6af0000
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u ansi-terminal
 }
 
 build() {
