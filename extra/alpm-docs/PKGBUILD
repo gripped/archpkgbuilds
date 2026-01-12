@@ -3,7 +3,7 @@
 pkgname=alpm-docs
 _upstream=alpm
 _upstream_project=alpm-types
-pkgver=0.11.0
+pkgver=0.11.1
 pkgrel=1
 pkgdesc="Specifications for Arch Linux Package Management"
 arch=(any)
@@ -19,8 +19,8 @@ makedepends=(
   rust-script
 )
 source=($_upstream::git+$_url?signed#tag=$_upstream_project/$pkgver)
-sha512sums=('43d70fdbc74627329a112adedccd8152e79fc2a940fe6c76d77903d12cf734077a3de369363e05fd651f36d4afcfcee39e752861a5914f65055c624641ed19dc')
-b2sums=('d316505eeb5a4fd650ef307becea925e852932710fa885451eb1d2cfb0f39b94b1db7b94a82c5fbd83578a7be706084e7f6ef36369bfa30e1143aa4e262c8178')
+sha512sums=('0779abb7e002dfe660f08f64a46d29c8057d6a10a22aad0353d0428be0517a16179ae72f5d4a4d0d4bad9598e6344404997c05dcbc2a16d1e4752d4e962f999f')
+b2sums=('acbcdfaf522e0bfd150eb6ea37ff1420a0543ddda052e0b42e0ff9e30af7885bf2e5c884224d43576ca402f76e7209150277d129f941aa4e164fe72e2a7005b7')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 build() {
