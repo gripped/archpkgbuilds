@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=python-pyfuse3
-pkgver=3.4.0
-pkgrel=4
+pkgver=3.4.2
+pkgrel=1
 pkgdesc='Python bindings for libfuse 3 with asynchronous API'
 arch=(x86_64)
 url='https://github.com/libfuse/pyfuse3'
@@ -19,22 +19,16 @@ makedepends=(
   python-build
   python-installer
   python-setuptools
+  python-setuptools-scm
   python-wheel
 )
 checkdepends=(python-pytest)
-source=("git+https://github.com/libfuse/pyfuse3.git?signed#tag=$pkgver")
-b2sums=(7a8afd92130ffa56818eade9aaf7f29f0e51fa3bcc802b90b3a9ce3bee08628040356815ba5fb31afbe8e0cf6226523a504962778670f87178ec488e1622da97)
+source=("git+https://github.com/libfuse/pyfuse3.git#tag=v$pkgver")
+b2sums=(a1eac4735bc3f242f16725a52f7fc2f861ecfb916db95020db4b190ed92eb703452a06cb3f3e49e1a6612bc7267e1104f3a00a40702dfed42300cf92adf43e26)
 validpgpkeys=(6D5BEF9ADD2075805747B70F9F88FB52FAF7B393) # Thomas Waldmann <tw@waldmann-edv.de>
-
-prepare() {
-  cd pyfuse3
-  # Disable developer mode - avoid enabling harsh compiler flags, like -Werror.
-  sed -i 's/DEVELOPER_MODE = .*/DEVELOPER_MODE = False/' setup.py
-}
 
 build() {
   cd pyfuse3
-  python setup.py build_cython
   python -m build --wheel --no-isolation
 }
 
