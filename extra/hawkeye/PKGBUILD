@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hawkeye
-pkgver=6.3.0
+pkgver=6.4.0
 pkgrel=1
 pkgdesc="Simple license header checker and formatter"
 arch=('x86_64')
@@ -12,11 +12,11 @@ depends=('gcc-libs')
 makedepends=('cargo-nightly')
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('b83f1f9b3fc349e51ba1bb791d0b438de9aae4b4e10be865d14dce3a8fa70182')
+sha256sums=('04556d69eadc502cd9aab0b591f1cd996aa8cb699ebafcab362ac598ae4369eb')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
