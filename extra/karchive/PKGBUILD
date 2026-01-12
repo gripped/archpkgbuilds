@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=karchive
-pkgver=6.21.0
+pkgver=6.22.0
 pkgrel=1
 pkgdesc='Qt addon providing access to numerous types of archives'
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('a5f7ccd904105083c442bc825c198872bdb7a009b2b2bb30b038dabd6bb1c6c4'
+sha256sums=('84254bd0a51ff3d5e2fa22bb946309cec508f1fae726a7aea15149260c4db59d'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
