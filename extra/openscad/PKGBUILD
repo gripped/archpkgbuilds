@@ -7,59 +7,59 @@
 
 pkgname=openscad
 pkgver=2021.01
-pkgrel=18
+pkgrel=19
 pkgdesc='The programmers solid 3D CAD modeller'
-arch=('x86_64')
+arch=(x86_64)
 url='https://openscad.org'
-license=('GPL-2.0-or-later')
+license=(GPL-2.0-or-later)
 depends=(
-  'glibc'
-  'gcc-libs'
-  'glib2'
-  'freetype2'
-  'fontconfig'
-  'harfbuzz'
-  'libx11'
-  'libglvnd'
-  'glu'
-  'gmp'
-  'double-conversion'
-  'glew'
-  'libxml2'
-  'cairo'
-  'qt5-base'
-  'qscintilla-qt5'
-  'opencsg'
-  'boost-libs'
-  'libzip'
-  'qt5-multimedia'
-  'libspnav'
-  'lib3mf'
-  'nettle'
-  'mpfr'
-  'hicolor-icon-theme'
+  glibc
+  gcc-libs
+  glib2
+  freetype2
+  fontconfig
+  harfbuzz
+  libx11
+  libglvnd
+  glu
+  gmp
+  double-conversion
+  glew
+  libxml2
+  cairo
+  qt5-base
+  qscintilla-qt5
+  opencsg
+  boost-libs
+  libzip
+  qt5-multimedia
+  libspnav
+  lib3mf
+  nettle
+  mpfr
+  hicolor-icon-theme
 )
 makedepends=(
-  'git'
-  'cgal'
-  'eigen'
-  'boost'
-  'imagemagick'
-  'itstool'
+  git
+  cgal
+  eigen
+  boost
+  imagemagick
+  itstool
 )
 # full tests need imagemagick and an X11 or framebuffer session
 # can't find lib3MF from libsavitar?
 checkdepends=(
-  'cmake'
-  'xorgproto'
-  'xorg-server-xvfb'
-  'python'
+  cmake
+  xorgproto
+  xorg-server-xvfb
+  python
 )
 source=(
   "$pkgname::git+https://github.com/openscad/openscad#tag=openscad-$pkgver"
   "github.com-openscad-MCAD::git+https://github.com/openscad/MCAD"
-  "boost-1.86.patch"
-  "boost-1.89.patch"
+  boost-1.86.patch
+  boost-1.89.patch
 )
 b2sums=('077aeeeb7b43c69337793dd7543c179234c6f08ff6ef6c67b36bdeaa0be44fb5acb86574447d0a6b9c3f266fcf844d5cc355e76c84383975643da9e8c84c750d'
         'SKIP'
@@ -90,9 +90,9 @@ prepare() {
   # fix boost join
   git cherry-pick --no-commit 08bf69b4115c989fc5671254e0d05735d01bcca5
 
-  # boost 1.86 compatibility
-  patch -Np1 -i "$srcdir/boost-1.86.patch"
-  patch -Np1 -i ../boost-1.89.patch
+  # boost compatibility
+  patch -p1 -i "$srcdir/boost-1.86.patch"
+  patch -p1 -i "$srcdir/boost-1.89.patch"
 
   # Upstream can't be built using newer C++ std libs
   echo 'CONFIG += c++17' >> defaults.pri
