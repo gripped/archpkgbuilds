@@ -4,7 +4,7 @@
 _hkgname=haskell-ci
 pkgname=haskell-ci
 pkgver=0.16.6
-pkgrel=41
+pkgrel=42
 pkgdesc="Cabal package script generator for Travis-CI"
 url="https://haskell-ci.rtfd.org/"
 license=('GPL-3.0-or-later')
@@ -21,7 +21,7 @@ sha512sums=('0618c878e0a7baae3e7f3fbf3b2a00dcec113cd6bdae260694a19d154b66c839d0b
 
 prepare(){
   cd $_hkgname-$pkgver
-  uusi -u Diff -u aeson -u base -u base-compat -u Cabal-syntax -u mtl -u ShellCheck -u tasty -u transformers
+  uusi -u Diff -u aeson -u ansi-terminal -u base -u base-compat -u Cabal-syntax -u mtl -u ShellCheck -u tasty -u transformers
 }
 
 build() {
