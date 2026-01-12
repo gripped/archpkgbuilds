@@ -3,7 +3,7 @@
 _hkgname=retrie
 pkgname=haskell-retrie
 pkgver=1.2.3
-pkgrel=152
+pkgrel=153
 pkgdesc="A powerful, easy-to-use codemodding tool for Haskell."
 url="https://github.com/facebookincubator/retrie"
 license=("MIT")
@@ -12,10 +12,15 @@ depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-async' 'haskell-data-defaul
          'haskell-ghc' 'haskell-ghc-exactprint' 'haskell-ghc-paths' 'haskell-src-exts'
          'haskell-list-t' 'haskell-optparse-applicative' 'haskell-random-shuffle' 'haskell-syb'
          'haskell-unordered-containers')
-makedepends=('ghc' 'haskell-hunit' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-temporary')
+makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-temporary')
 checkdepends=('git' 'mercurial')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha512sums=('6380a1f276ac832af0a19979f792134098ff4d93d5cf47284a37ef77b8ddee7cc46d3344c681ad5c77777e7f4263ad2c9ab8ebb812a03c28e80499690c23535b')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  uusi -u ansi-terminal
+}
 
 build() {
   cd $_hkgname-$pkgver
