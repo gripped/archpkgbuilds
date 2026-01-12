@@ -1,0 +1,7 @@
+post_upgrade() {
+  if (( $(vercmp $2 0.9.9b1-4) < 0)); then
+		echo "==> NOTE:"
+		echo "    If you previously had the debug package installed, please remove it to prevent issues:"
+		echo "    pacman -R python-pysdl3-debug"
+	fi
+}
