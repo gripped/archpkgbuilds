@@ -1,0 +1,23 @@
+diff --unified --recursive --text --new-file fossil-src-2.27.orig/test/tester.tcl fossil-src-2.27/test/tester.tcl
+--- fossil-src-2.27.orig/test/tester.tcl	2026-01-04 23:11:04.041903447 +0100
++++ fossil-src-2.27/test/tester.tcl	2026-01-04 23:11:08.324323450 +0100
+@@ -284,6 +284,7 @@
+       access-log \
+       admin-log \
+       allow-symlinks \
++      anon-cookie-lifespan \
+       auto-captcha \
+       auto-hyperlink \
+       auto-hyperlink-delay \
+@@ -360,9 +361,11 @@
+       proxy \
+       raw-bgcolor \
+       redirect-to-https \
++      regexp-limit \
+       relative-paths \
+       repo-cksum \
+       repolist-skin \
++      robot-exception \
+       robot-restrict \
+       robots-txt \
+       safe-html \
