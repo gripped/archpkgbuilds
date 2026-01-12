@@ -1,0 +1,21 @@
+diff -ruN a/Makefile b/Makefile
+--- a/Makefile	2014-03-09 12:59:20.000000000 +0100
++++ b/Makefile	2026-01-12 20:26:17.091705936 +0100
+@@ -19,7 +19,7 @@
+ # --------------------------------------------------------------------------
+ 
+ 
+-CPPFLAGS += -I. -D_REENTRANT
++CPPFLAGS += -I. -D_REENTRANT $(CXXFLAGS)
+ CXXFLAGS += -ffast-math -fPIC -Wall -O3
+ 
+ 
+@@ -30,7 +30,7 @@
+ WAHPLUGINS_H = ladspaplugin.h autowah.h
+ 
+ autowah.so:	$(WAHPLUGINS_O)
+-	g++ -shared  -o autowah.so $(WAHPLUGINS_O)
++	g++ -shared  -o autowah.so $(WAHPLUGINS_O) $(LDFLAGS)
+ 
+ $(WAHPLUGINS_O):	$(WAHPLUGINS_H)
+ 
