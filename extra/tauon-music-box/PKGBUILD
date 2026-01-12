@@ -1,0 +1,100 @@
+# Maintainer: Martin Rys <https://rys.rs/contact>
+# Contributor: Taiko2k <captain dot gxj at gmail dot com>
+
+pkgname=tauon-music-box
+_pkgname=tauonmb
+_gitname=Tauon
+pkgver=8.2.3
+pkgrel=4
+pkgdesc="A modern music player"
+arch=("x86_64") # "aarch64"
+url="https://tauonmusicbox.rocks"
+license=("GPL-3.0-or-later")
+
+depends=(
+	"python-pillow"
+	"python-pylast"
+	"python-pysdl3"
+	"python-send2trash"
+	"python-musicbrainzngs"
+	"python-mutagen"
+	"python-unidecode"
+	"python-setproctitle"
+	"python-gobject"
+	"python-cairo"
+	"python-beautifulsoup4"
+	"python-requests"
+	"python-dbus"
+	"python-natsort"
+	"python-websocket-client"
+	"kissfft"
+	"libnotify"
+	"ffmpeg"
+	"flac"
+	"noto-fonts-extra"
+	"noto-fonts"
+	"xdg-utils"
+	"mpg123"
+	"opusfile"
+	"wavpack"
+	"libvorbis"
+	"libayatana-appindicator"
+	"libopenmpt"
+	"libsamplerate"
+	"opencc"
+	"libgme"
+	"libpipewire"
+	"sdl3_image"
+)
+
+makedepends=(
+	"miniaudio"
+	"git"
+	"pkgconf"
+	"python-build"
+	"python-installer")
+
+optdepends=(
+	"noto-fonts-cjk: Matching font for CJK characters"
+	"picard: Recommended tag editor"
+	"p7zip: 7z archive extraction support"
+	"unrar: RAR archive extraction support"
+	"python-plexapi: Plex streaming support"
+	"python-pypresence: Discord status support"
+	"python-pychromecast: Chromecast stream support"
+	"python-jxlpy: JPEG XL image support"
+	"python-tekore: Spotify feature support"
+	"python-tidalapi: Tidal feature support"
+	"librespot: Spotify audio playback"
+)
+
+source=("${_gitname}-${pkgver}.tar.gz::https://github.com/Taiko2k/Tauon/archive/v${pkgver}.tar.gz")
+
+sha256sums=("8d77306c7181c50685834b2d95d89fbcad95ee30bf647d917daac09a66e0ce6a")
+
+prepare() {
+	# Use system kissfft instead of the expected cloned repository
+	cd "${_gitname}-${pkgver}"
+	sed -i 's|"src/phazor/kissfft/kiss_fftr.c", "src/phazor/kissfft/kiss_fft.c", ||g' pyproject.toml
+	sed -i 's|"samplerate"|"kissfft-float", "samplerate"|g' pyproject.toml
+}
+
+build() {
+	cd "${_gitname}-${pkgver}"
+	python -m build --wheel
+}
+
+package() {
+	cd "${_gitname}-${pkgver}"
+	python -m installer --destdir="${pkgdir}" dist/*.whl
+
+	for t in cs de es fr_FR fi hu id ja_JP nb_NO pl pt pt_BR pt_PT ru sv tr zh_CN; do
+		install -Dm644 src/tauon/locale/${t}/LC_MESSAGES/*.mo -t "${pkgdir}/usr/share/locale/${t}/LC_MESSAGES"
+	done
+
+	install -Dm644 "extra/${_pkgname}.desktop" -t "${pkgdir}/usr/share/applications"
+	install -Dm644 "extra/${_pkgname}-symbolic.svg" -t "${pkgdir}/usr/share/icons/hicolor/symbolic/apps"
+	install -Dm644 "extra/${_pkgname}.svg" -t "${pkgdir}/usr/share/icons/hicolor/scalable/apps"
+	install -Dm755 "extra/tauonmb.sh" "${pkgdir}/opt/${pkgname}/tauonmb.sh"
+	install -Dm755 "extra/tauonmb.sh" "${pkgdir}/usr/bin/tauon"
+}
