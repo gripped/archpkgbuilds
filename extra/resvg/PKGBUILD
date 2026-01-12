@@ -3,8 +3,8 @@
 # Contributor: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=resvg
-pkgver=0.45.1
-pkgrel=2
+pkgver=0.46.0
+pkgrel=1
 pkgdesc='SVG rendering library and CLI'
 arch=('x86_64')
 url="https://github.com/linebender/resvg"
@@ -16,11 +16,11 @@ optdepends=(
 )
 makedepends=(cargo clang qt5-base qt5-tools cairo pango)
 source=("$url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
-sha256sums=('02915519b7409f43110f3cbdc5f87724efd58da1d8516914bdabf060c8a9a178')
+sha256sums=('81a82a8de33da0fcf13fd18532d653bbd0b50b146d82c319dd0ce7294562c7c5')
 
 prepare() {
 	cd "$pkgname-$pkgver"
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 	mkdir -p tools/kde-dolphin-thumbnailer/build
 }
 
