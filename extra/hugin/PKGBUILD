@@ -7,7 +7,7 @@
 
 pkgname=hugin
 pkgver=2025.0.1
-pkgrel=2
+pkgrel=4
 pkgdesc="Panorama photo stitcher"
 arch=(x86_64)
 url="http://hugin.sourceforge.net/"
@@ -15,11 +15,11 @@ license=(GPL-2.0-only)
 depends=(enblend-enfuse
          exiv2
          fftw
-         glew
          glu
          lapack
          lcms2
          lensfun
+         libepoxy
          libpano13
          libtiff
          libxi
@@ -57,7 +57,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DENABLE_LAPACK=yes \
     -DBUILD_HSI=ON \
-    -DUSE_GDKBACKEND_X11=ON
+    -DUSE_GDKBACKEND_X11=ON \
+    -DBUILD_WITH_EPOXY=ON
   make -C build
 }
 
