@@ -8,7 +8,7 @@
 # Contributor: zhuqin <zhuqin83@gmail.com>
 
 pkgname=gedit-plugins
-pkgver=48.2
+pkgver=49.0
 pkgrel=1
 pkgdesc='Collection of plugins for the gedit Text Editor'
 arch=(x86_64)
@@ -29,8 +29,8 @@ makedepends=(
   itstool
   meson
 )
-source=("git+https://gitlab.gnome.org/World/gedit/gedit-plugins.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=(f132f079700f2e09d2718f3802036a53ca94831b1d9da1ceb7f94e60687aca9748384392c2aa3cdcc70377ec801fb1146f90e66b5d8af5b394607a9057a21e43)
+source=("git+https://gitlab.gnome.org/World/gedit/gedit-plugins.git#tag=${pkgver/[a-z]/.&}")
+b2sums=(0378b433319a2f1c4195251f75d8903ba2b1ef2f3f2dbd56869b11f821cdadd5adb9543357de5d069ae84459c379dcb2a545a01707651a2ad8a94cf22ce30560)
 validpgpkeys=(08C0A6B1A08310A45363B328426F014A261FD87F) # Sébastien Wilmet <swilmet@mailfence.com>
 
 build() {
