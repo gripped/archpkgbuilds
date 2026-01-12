@@ -1,0 +1,55 @@
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Jason Stryker <public at jasonstryker dot com>
+# Contributor: Konstantin Liberty <jon9097 at gmail dot com>
+
+pkgname=protontricks
+pkgver=1.13.1
+pkgrel=3
+pkgdesc="Run Winetricks commands for Steam Play/Proton games among other common Wine features"
+arch=('any')
+url="https://github.com/Matoking/protontricks"
+license=('GPL-3.0-only')
+depends=(
+  'python'
+  'python-pillow'
+  'python-vdf'
+  'winetricks'
+)
+makedepends=(
+  'git'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-setuptools-scm'
+  'python-wheel'
+)
+checkdepends=('python-pytest')
+optdepends=(
+  'yad: GUI for game selection'
+  'zenity: GUI for winetricks'
+)
+source=("git+$url.git#tag=$pkgver")
+b2sums=('55aba742eb3b9661ddf47ff57cad13004cf91b81645357fdb351bd970592962ce825ff3c17bcefeed283e27161cbd86fe055f049939f3a7085ff12342948f814')
+
+build() {
+  cd $pkgname
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd $pkgname
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest
+}
+
+package() {
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
+
+  # We already install the desktop entries, not needed
+  rm -v "$pkgdir/usr/bin/protontricks-desktop-install"
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  rm -vr "$pkgdir/$site_packages/protontricks/data/share"
+}
