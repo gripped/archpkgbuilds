@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=bird
-pkgver=3.1.5
+pkgver=3.2.0
 pkgrel=1
 pkgdesc='RIP, OSPF, BGP, MPLS, BFD, Babel routing daemon'
 arch=('x86_64')
@@ -19,12 +19,12 @@ replaces=('bird6')
 backup=('etc/bird.conf')
 source=("https://gitlab.nic.cz/labs/bird/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz"
         'bird.service')
-sha256sums=('a7ad2e28efc24bc2679cb643be2a192f439e80ee77b3f48646a64fa7de92227c'
-            '4aa1e8d41229badd276aa3747f613e7df34761892add2258c63bdb5097dfeb2b')
+b2sums=('e83801ee645066b81d7d3525d8ae13fa29aa2d4a7aeab4adc4d7cb7813d8db1c236d330c438be5fc365084c154e3d38fe41ae72afb5b7619d5013fb70665a317'
+        '03ba113301babdba0f12974157386dab76603e84ee868af9c21718184a8fc87b7a1bc8e363258e76cca6397781d93a9f7210f49c3f602154ed4e2d6730c76e03')
 
 prepare() {
   cd $pkgname-v$pkgver
-  autoreconf -vif
+  autoreconf -fiv
 }
 
 build() {
@@ -48,9 +48,5 @@ package() {
   cd $pkgname-v$pkgver
   make DESTDIR="$pkgdir" install
   rm -vr "$pkgdir/run" # Remove installed runstatedir, should not be packaged.
-
-  # systemd
-  install -vD -m 644 -t "$pkgdir/usr/lib/systemd/system" "$srcdir/bird.service"
+  install -vDm644 -t "$pkgdir/usr/lib/systemd/system" "$srcdir/bird.service"
 }
-
-# vim:set ts=2 sw=2 et:
