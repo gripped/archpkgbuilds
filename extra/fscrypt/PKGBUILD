@@ -1,33 +1,60 @@
 # Maintainer: Anatol Pomozov <anatol.pomozov@gmail.com>
-# Maintainer: Eric Biggers <ebiggers3 at gmail dot com>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Eric Biggers <ebiggers3 at gmail dot com>
 
 pkgname=fscrypt
-pkgver=0.3.5
-pkgrel=1
+pkgver=0.3.6
+pkgrel=2
 pkgdesc='A tool for managing Linux filesystem encryption'
 arch=('x86_64')
 url='https://github.com/google/fscrypt'
-license=('Apache')
+license=('Apache-2.0')
+depends=(
+  'glibc'
+  'pam'
+)
 makedepends=('go')
-depends=('pam')
-source=("fscrypt-$pkgver.zip::https://github.com/google/fscrypt/archive/v$pkgver.zip"
-        "pam_config")
-sha512sums=('9c21e0ad204ca4ac51e885fce65d7f8b4826c587e0ea54684b671f91b283235c721927fe613184d4646f2186838442bda19467b397ed4d29ca195bf5d6652e6b'
-            '56f443cd2fbed9c164693c800cd8dc08bb35b88bb9c912fb35eb43cc6c6bc3b966d22d9810f43580d12b9faa8d753419a06336f08c47a0e602c48a103a705299')
+options=('!lto')
+source=(
+  "https://github.com/google/fscrypt/archive/v$pkgver/fscrypt-$pkgver.tar.gz"
+  "$pkgname.pam"
+)
+b2sums=('c6b5ca3c5fb614eb2c7d6eefbbdb04dcc1956ab57bc4204f22e5aacea02511fffaef8d45829210e16f1503a849767cfb2759f04de57b3c2b409de1c8b937f810'
+        'bdfb7cf185a0070f82bfa8f4ee05fc2fffba6c3b8327ff07b91a99d31bf61024e35f22d296c60cf56971c51c9c1cfc07126830c93ee39c7d5a485676611cf0fe')
+
+prepare() {
+  cd $pkgname-$pkgver
+  GOFLAGS="-mod=readonly" go mod vendor -v
+}
 
 build() {
-  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+  cd $pkgname-$pkgver
+  export CGO_LDFLAGS="$LDFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw -buildvcs=false"
+  export GOPATH="$srcdir"
 
-  cd "fscrypt-$pkgver"
-  BUILDDATE="`date --utc --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}"`" make
+  local ld_flags=" \
+    -compressdwarf=false \
+    -linkmode=external \
+  "
+  go build -v -ldflags "$ld_flags" ./cmd/fscrypt
+  go build -v -ldflags "$ld_flags" -buildmode=c-shared -o pam_fscrypt.so ./pam_fscrypt
+}
+
+check() {
+  cd $pkgname-$pkgver
+  go test -v ./...
 }
 
 package() {
-  cd "fscrypt-$pkgver"
-  make PREFIX="${pkgdir}/usr" install
-  install -Dm644 ../pam_config "${pkgdir}/etc/pam.d/fscrypt"
-  install -Dm644 -t "$pkgdir/usr/share/licenses/fscrypt/" LICENSE
+  install -vDm644 fscrypt.pam "$pkgdir/etc/pam.d/fscrypt"
 
-  # Remove Ubuntu-specific PAM file
-  rm -r "$pkgdir"/usr/share/pam-configs/
+  cd $pkgname-$pkgver
+  install -vDm755 -t "$pkgdir/usr/bin" fscrypt
+  install -vDm755 -t "$pkgdir/usr/lib/security" pam_fscrypt.so
+  install -vDm644 cmd/fscrypt/fscrypt_bash_completion \
+    "$pkgdir/usr/share/bash-completion/completions/fscrypt"
 }
