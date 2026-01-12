@@ -3,7 +3,7 @@
 _project_name=zbus
 _name=zbus-xmlgen
 pkgname=zbus_xmlgen
-pkgver=5.1.0
+pkgver=5.2.0
 pkgrel=1
 pkgdesc="D-Bus XML interface code generator"
 arch=(x86_64)
@@ -17,25 +17,21 @@ makedepends=(rust)
 source=(
   $url/archive/refs/tags/$pkgname-$pkgver.tar.gz
 )
-sha512sums=('1332378bd3d5c46d6b6d1b5c472cea9140a1c99c1dbe82795cf15d85ba8f2838f470f8c5badbb991f2a6e75b803838e754ef1f621a0674046406ab89a2661985')
-b2sums=('cab1144e949fc070dd5bc9b7354463b35143957dc69f20921cba2cb6d853f38af0315c26840a3a867b0ba4a792b566b6c55020c3bd113ab034cfa7e498daf741')
+sha512sums=('f2b536e840b3a3ffa46551015e2f6fa954fcb2ee426416253a856da61c1cb6caf7cfcc1f180a496c209c36978ce331d1be045f34e175e21c4e4fc181e237a5e7')
+b2sums=('d42c2c65d23836916051e89b0ae04d4fe01d95267e53b883fe5ea962313708048e9875af91dff19f1258f77adaf8eb37838ce19803a931c943195b0636e59952')
 
 prepare() {
   cd $_project_name-$pkgname-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
   cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {
   cd $_project_name-$pkgname-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --frozen --release --all-features --package $pkgname
 }
 
 check() {
   cd $_project_name-$pkgname-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
   cargo test --frozen --all-features --package $pkgname
 }
 
