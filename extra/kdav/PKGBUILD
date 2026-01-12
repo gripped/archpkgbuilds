@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kdav
-pkgver=6.21.0
+pkgver=6.22.0
 pkgrel=1
 epoch=1
 pkgdesc='A DAV protocol implemention with KJobs'
@@ -19,7 +19,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('b5afa42ee16404bbd662682f1a66610ef5b6479eaba6e9510da934f3867f9ae2'
+sha256sums=('f05d61b13646ac3ec19c791db21143bf487d1be26a4281c8f606385101566914'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
