@@ -1,19 +1,20 @@
 pkgbase = ananta
 	pkgdesc = A command-line tool to execute commands on multiple remote hosts
-	pkgver = 1.2.2
-	pkgrel = 3
+	pkgver = 1.3.0
+	pkgrel = 1
 	url = https://sr.ht/~cwt/ananta/
 	arch = any
 	license = MIT
 	checkdepends = python-pytest
 	checkdepends = python-pytest-asyncio
-	makedepends = mercurial
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-poetry-core
 	depends = python-asyncssh
+	depends = python-urwid
 	optdepends = python-uvloop: for improved performance
-	source = hg+https://hg.sr.ht/~cwt/ananta#tag=v1.2.2
-	sha512sums = 09f58c15c8ea8bfc7ce80d0a459fe4ec13d67751981af0a8ac37bcd209490e17c5a7644616710e2a1a38f1a7f827b3203870a4aa62970bf320b3ee047e7c218c
+	source = git+https://github.com/cwt/ananta.git#tag=v1.3.0
+	sha512sums = 49b46363d5e2d08036144b8c25b56e70b02dc23baad8101a7334c415596e49c47ed9c0bb61d1fc4ce16c07059b5ac6bf8227b3f06df9bdd6c1759139fec29558
 
 pkgname = ananta
