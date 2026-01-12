@@ -2,8 +2,8 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=ddm
-pkgver=0.2.3
-pkgrel=3
+pkgver=0.3.0
+pkgrel=1
 pkgdesc='New Display Manager for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/ddm"
@@ -27,13 +27,7 @@ makedepends=(git
              treeland-protocols
              ninja)
 source=("git+https://github.com/linuxdeepin/ddm.git#tag=$pkgver")
-sha512sums=('3bc4948f751136a85752ffe39de6ce1d00a04a7408d01f28cfe8bb7c93e2f3e680876b2e137c6e81d33047a6a2b3c589988104b9549024aa9efb893308c3f99f')
-
-prepare() {
-  cd ddm
-  # fix seat errors on startup
-  git cherry-pick -n c5d26af8f9bab50958a2725d22fb82c76992fcae
-}
+sha512sums=('163c167276cbc64cd893534948890fb3e9311fc551ca44f3b13a12509337dadcd8942fdfff5468ca5dd06c027a0d1a498fb7fff263ecf0942767326b7f2efff5')
 
 build() {
   cd ddm
