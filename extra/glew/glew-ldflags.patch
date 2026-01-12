@@ -1,5 +1,5 @@
---- glew-2.2.0/Makefile	2020-03-15 12:53:59.000000000 +0100
-+++ glew-2.2.0/Makefile	2020-04-17 11:51:25.568482195 +0200
+--- a/Makefile	2025-12-22 07:11:32.000000000 +0100
++++ b/Makefile.new	2025-12-22 07:19:15.988127967 +0100
 @@ -120,7 +120,7 @@
  endif
  
@@ -23,10 +23,10 @@
  
  # Force re-write of glew.pc, GLEW_DEST can vary
  
-@@ -180,13 +180,13 @@
- 	mkdir bin
+@@ -178,25 +178,25 @@
  
  bin/$(GLEWINFO.BIN): $(GLEWINFO.BIN.OBJ) $(LIB.SHARED.DIR)/$(LIB.SHARED)
+ 	@mkdir -p $(dir $@)
 -	$(CC) $(CFLAGS) -o $@ $(GLEWINFO.BIN.OBJ) $(BIN.LIBS)
 +	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(GLEWINFO.BIN.OBJ) $(BIN.LIBS)
  ifneq ($(STRIP),)
@@ -34,12 +34,12 @@
  endif
  
  bin/$(VISUALINFO.BIN): $(VISUALINFO.BIN.OBJ) $(LIB.SHARED.DIR)/$(LIB.SHARED)
+ 	@mkdir -p $(dir $@)
 -	$(CC) $(CFLAGS) -o $@ $(VISUALINFO.BIN.OBJ) $(BIN.LIBS)
 +	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(VISUALINFO.BIN.OBJ) $(BIN.LIBS)
  ifneq ($(STRIP),)
  	$(STRIP) -x $@
  endif
-@@ -193,11 +193,11 @@
  
  $(GLEWINFO.BIN.OBJ): $(GLEWINFO.BIN.SRC) include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
  	@mkdir -p $(dir $@)
@@ -53,21 +53,3 @@
  
  # Install targets
  
---- glew-2.1.0/Makefile.install	2018-08-15 13:51:45.220637107 +0200
-+++ glew-2.1.0/Makefile	2018-08-15 13:52:02.168740876 +0200
-@@ -231,6 +231,7 @@ install.bin: glew.bin
- 
- install.include:
- 	$(INSTALL) -d -m 0755 "$(DESTDIR)$(INCDIR)"
-+	$(INSTALL) -m 0644 include/GL/eglew.h "$(DESTDIR)$(INCDIR)/"
- 	$(INSTALL) -m 0644 include/GL/wglew.h "$(DESTDIR)$(INCDIR)/"
- 	$(INSTALL) -m 0644 include/GL/glew.h "$(DESTDIR)$(INCDIR)/"
- 	$(INSTALL) -m 0644 include/GL/glxew.h "$(DESTDIR)$(INCDIR)/"
-@@ -241,6 +242,7 @@ install.pkgconfig: glew.pc
- 	$(INSTALL) -m 0644 glew.pc "$(DESTDIR)$(PKGDIR)/"
- 
- uninstall:
-+	$(RM) "$(DESTDIR)$(INCDIR)/eglew.h"
- 	$(RM) "$(DESTDIR)$(INCDIR)/wglew.h"
- 	$(RM) "$(DESTDIR)$(INCDIR)/glew.h"
- 	$(RM) "$(DESTDIR)$(INCDIR)/glxew.h"
