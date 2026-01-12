@@ -5,7 +5,7 @@
 
 pkgname=rocprofiler
 pkgver=7.1.1
-pkgrel=3
+pkgrel=4
 pkgdesc="ROC profiler library. Profiling with perf-counters and derived metrics."
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocprofiler/en/latest/index.html'
@@ -56,11 +56,11 @@ prepare() {
   # See https://github.com/ROCm/rocm-systems/pull/2319
   cd "${srcdir}/rocm-systems"
   # Add option to use system yaml-cpp
-  git cherry-pick -n 1575ff23f372153f185e8fadf8506bcc82ce0f99
+  git cherry-pick -n 00bf72c0c02d16b039384c61cce8e703ebff2063
   # Fix build with ROCPROFILER_BUILD_GLOG=OFF
-  git cherry-pick -X theirs -n 7f4068e078ec763e544d28fca84a9a0371ed09ab
+  git cherry-pick -X theirs -n fbab421a7c5bab676249b2ba5fe9d69244366c17
   # Fix build with fmt 12.1.0
-  git cherry-pick -n 7feb490bcf476eb90346f26839e0c7d57f21bd01
+  git cherry-pick -n 0413b45b94e0da7bad1a162c5d698567060ecbca
 
   # Add missing <cstdint> include
   cd "${srcdir}/rocm-systems/projects/rocprofiler-sdk/external/elfio"
