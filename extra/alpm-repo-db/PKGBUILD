@@ -2,7 +2,7 @@
 
 pkgname=alpm-repo-db
 _upstream=alpm
-pkgver=0.1.0
+pkgver=0.1.1
 pkgrel=1
 pkgdesc="Command line interfaces for the handling of alpm-repo-db files"
 arch=(x86_64)
@@ -28,8 +28,8 @@ optdepends=(
   'alpm-docs: for additional specifications'
 )
 source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
-sha512sums=('42a1dfc294495234663430b0c48b275edc3acd584bb0294b3cf0cdc954f9009d4a076c7739f9897d0ee2cf44bd06258d10d5924b72a35825d398c9b22947875e')
-b2sums=('3a67161a72115b5b300c5e4b67bfbfd66cd43d2a772e54e9c6ae0aa5f8cdd55c4a44278448ef777b381761dfd33b4017957891f4097774549ba4608c8ec85b71')
+sha512sums=('ef10652356d956ed2412a33d74dcd480d001336ae5414624e1abb6017b333801962daa63b0a7b7b290360aae4101d5a2ebac4d4aed7f2982a2a55a05233399f7')
+b2sums=('ac24d6e7eea98d0d1f7b6c658a47ce25e34d155b988c2c075406a2942c214accfe9e429e2ea588393c303b97e14fe98f550eeb83d15bf720325dc646a3e52740')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
