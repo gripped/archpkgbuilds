@@ -2,7 +2,7 @@
 # Contributor: speps <speps at aur dot archlinux dot org>
 
 pkgname=vmpk
-pkgver=0.9.1
+pkgver=0.9.2
 pkgrel=1
 pkgdesc="Virtual MIDI Piano Keyboard"
 arch=(x86_64)
@@ -22,8 +22,8 @@ makedepends=(
   qt6-tools
 )
 source=(https://downloads.sourceforge.net/project/$pkgname/$pkgname/${pkgver/a/}/$pkgname-$pkgver.tar.bz2)
-sha512sums=('fddeb5c87c442eb5aff85a871e0daa05ce2d56f006c8b710bad35152e3696f5f2f7eac5fc713afec461940d45d4a4156e81773aad1ea454494d65e47aac93016')
-b2sums=('752f395193509f829e5c259e833a0e41de7cd98f773a7c8c67df6e55d66e25c532530234104a50fffcce632473eeea7fbed1128a2a8417db8eada2759bab6016')
+sha512sums=('a585c4e63934a11b834e633133c5dcd407011a669a894b31b72875ee73170aa7e260ab13247b8fbe79acef6e306bbfefcc08b6cd0d4d621d2b80e1d000b60084')
+b2sums=('e3700d092958ebea80e28ef3af4aded61cf17179494905490d00b83fbf068bae103908dce8b890e5cb66da7b11ad0088d4b0d1568938ad2d0f8e60dce086a9fc')
 
 build() {
   local cmake_options=(
