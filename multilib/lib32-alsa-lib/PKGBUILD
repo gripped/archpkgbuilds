@@ -3,7 +3,7 @@
 
 _name=alsa-lib
 pkgname=lib32-alsa-lib
-pkgver=1.2.15.1
+pkgver=1.2.15.2
 pkgrel=1
 pkgdesc="An alternative implementation of Linux sound support (32 bit)"
 arch=(x86_64)
@@ -21,9 +21,9 @@ provides=(
 source=(
   https://www.alsa-project.org/files/pub/lib/$_name-$pkgver.tar.bz2{,.sig}
 )
-sha512sums=('36d79055537cf516dd435db56559ee59f3efbbea72ae0dbe5244191cfba4e181ed13100d908eb51bfd3a3be70aa87081df9b56921e7d24c3b3728e4374507236'
+sha512sums=('e9a13aafa9693be2ce501059db0ff9f83a0044d07019bd6b420617da44cc4e7df6f444da9eccf37577893ed81426dce44ecdb9a652d1db047e24a3b803da4a8a'
             'SKIP')
-b2sums=('96910ecadafdf5bd12d98c765598f06f7dda94cdfb554e972663b77dc19646700962d6984a228a652f0fb3339e8dc44565d3695aa06971e084f5b951793679e1'
+b2sums=('bc58d48ec5da704b2d19919c608c07454c126565d7a13f66b9af73a47e6212a7659645b560c0825f46d96b74bc5d49d055e15c32bb88511044efc27bb7801b58'
         'SKIP')
 validpgpkeys=('F04DF50737AC1A884C4B3D718380596DA6E59C91') # ALSA Release Team (Package Signing Key v1) <release@alsa-project.org>
 
