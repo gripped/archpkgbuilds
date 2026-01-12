@@ -4,7 +4,7 @@
 
 pkgname=libretro-ppsspp
 pkgver=44520
-pkgrel=1
+pkgrel=3
 pkgdesc='Sony PlayStation Portable core'
 arch=(x86_64)
 url=https://github.com/hrydgard/ppsspp
@@ -75,6 +75,7 @@ prepare() {
 
   patch -Np1 -i ../libretro-ppsspp-assets-path.patch
 
+  export GIT_CONFIG_GLOBAL="$HOME/.gitconfig"
   git config --global protocol.file.allow always
 
   for submodule in ffmpeg assets/lang ext/glslang ext/lua; do
