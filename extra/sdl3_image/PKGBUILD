@@ -1,0 +1,39 @@
+# Maintainer: Martin Rys <https://rys.rs/contact>
+# Contributor: Erik Kallen <info@erikkallen.nl>
+
+pkgname=sdl3_image
+pkgver=3.2.4
+pkgrel=1
+pkgdesc="SDL3 image loading library"
+arch=("x86_64")
+url="https://github.com/libsdl-org/SDL_image"
+license=("Zlib")
+depends=(
+	"sdl3"
+	"libpng"
+	"libtiff"
+	"libjpeg"
+	"libwebp"
+	"libavif"
+	"libjxl"
+)
+makedepends=("cmake")
+source=("https://github.com/libsdl-org/SDL_image/releases/download/release-${pkgver}/SDL3_image-${pkgver}.tar.gz")
+sha256sums=("a725bd6d04261fdda0dd8d950659e1dc15a8065d025275ef460d32ae7dcfc182")
+
+build() {
+	cmake \
+		-B build \
+		-S "SDL3_image-${pkgver}" \
+		-DSDLIMAGE_SAMPLES=OFF \
+		-DSDLIMAGE_TESTS=OFF \
+		-DCMAKE_BUILD_TYPE=None \
+		-DCMAKE_INSTALL_PREFIX=/usr
+
+	cmake --build build
+}
+
+package() {
+	DESTDIR="${pkgdir}" cmake --install build
+	install -Dm644 "SDL3_image-${pkgver}/LICENSE.txt" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
