@@ -1,0 +1,15 @@
+diff -ruN a/Makefile b/Makefile
+--- a/Makefile	2004-04-12 14:02:33.000000000 +0200
++++ b/Makefile	2026-01-12 14:07:20.648998734 +0100
+@@ -1,9 +1,9 @@
+ 
+-CPPFLAGS += -I. -fPIC -D_REENTRANT -Wall -O3
++CPPFLAGS += -I. -fPIC -D_REENTRANT -Wall -O3 $(CXXFLAGS)
+ 
+ 
+ blvco.so:	blvco.o blvco_if.o exp2ap.o
+-	g++ -shared  blvco.o blvco_if.o exp2ap.o -o blvco.so
++	g++ -shared  blvco.o blvco_if.o exp2ap.o -o blvco.so $(LDFLAGS)
+ 
+ blvco.o:	ladspaplugin.h blvco.h ladspa.h
+ blvco_if.o:	ladspaplugin.h blvco.h ladspa.h
