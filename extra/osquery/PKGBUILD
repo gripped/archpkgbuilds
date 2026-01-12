@@ -3,7 +3,7 @@
 
 pkgname=osquery
 pkgver=5.20.0
-pkgrel=1
+pkgrel=2
 pkgdesc="SQL powered operating system instrumentation, monitoring, and analytics"
 arch=(x86_64)
 url="https://osquery.io"
@@ -106,8 +106,8 @@ sha256sums=('09173537a0d65d4d931c2c2886b8a05baaaad9dafa3f7b5bf9f5b9108bd7c397'
 prepare() {
   cd $pkgname
   git submodule init
-  git config submodule.libraries/cmake/source/linenoise-ng/src.url "$srcdir/linenoise-ng"
-  git config submodule.libraries/cmake/source/util-linux/src.url "$srcdir/$pkgname-util-linux"
+  git config submodule.libraries/cmake/source/linenoise-ng/src.url ../linenoise-ng
+  git config submodule.libraries/cmake/source/util-linux/src.url ../$pkgname-util-linux
   git -c protocol.file.allow=always submodule update \
     libraries/cmake/source/linenoise-ng \
     libraries/cmake/source/util-linux
