@@ -3,7 +3,7 @@
 # Contributor: judd <jvinet@zeroflux.org>
 
 pkgname=alsa-utils
-pkgver=1.2.15.1
+pkgver=1.2.15.2
 pkgrel=1
 pkgdesc="Advanced Linux Sound Architecture - Utilities"
 arch=(x86_64)
@@ -33,10 +33,10 @@ source=(
   $url/files/pub/utils/$pkgname-$pkgver.tar.bz2{,.sig}
   $pkgname.tmpfiles
 )
-sha512sums=('f961c6f85244a6f10708f7e352e1eaa05fc898ec9e0d26e792efe4d2934568a455836035b311376dd03568f6c3607fad8702c5958c5874304d7afd6b8d5906e0'
+sha512sums=('13ca15a63bcbf81a4643ef03e391200d7523335bc300e290756089c4cfeccb9773cf6b77f9fcf4b80e6aa2e8c5e33a2c86c9173f1feb480aedf5ecda0f7c47cd'
             'SKIP'
             '17ca2d760f383c02ccd00073d4fe73d6687ee58eb0ab5e458ad9d09845be7891cfe389e365bef00c7885e8afad45ea9ebf2925950f8d3fd8157feb818f986990')
-b2sums=('e3bd56822ec092f96386be3f8ae6772ced899884dfdef2341700be877a4822a3168d55a5aa9ba269e8e1b9fc61ae33a027abfa2e1c4f7fc68e0d8ce8780d3586'
+b2sums=('0688e668241917027b5dd161ebe3ea4ab6f8fede612e148dee74e033ab09f9557c7610a6b506d2507402cca7007a031b85c8c0cb9af80652ae9f3cc5ea157973'
         'SKIP'
         '24b8e44833c7e8b142162878a837b10e1c2a862568280f2ce16fcb81ecc1383802654dbe88930f2cc13c345635c5003cbc3712e121e589dffc2e25c540749ee3')
 validpgpkeys=('F04DF50737AC1A884C4B3D718380596DA6E59C91') # ALSA Release Team (Package Signing Key v1) <release@alsa-project.org>
