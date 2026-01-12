@@ -2,7 +2,7 @@
 
 pkgname=alpm-mtree
 _upstream=alpm
-pkgver=0.3.1
+pkgver=0.3.2
 pkgrel=1
 pkgdesc="A CLI for parsing of ALPM MTREE files"
 arch=(x86_64)
@@ -28,8 +28,8 @@ optdepends=(
   'alpm-docs: for additional specifications'
 )
 source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
-sha512sums=('470c3aa9ca86beb1340ac48ab99653e831944d56b224fc34e5964672c8ae90066e5fe18ebbc15299c12838a2c1a8ccd18074245f01f63e21f0547c9c07b9149c')
-b2sums=('3bff37ab7ac5fda97143c9df21dff148927b029313d29440b1e5226bf2d344d4e43a15542fb846e807c8f89e088951a7b9754994d5fbc1768d0fc68bc3819a0d')
+sha512sums=('c07dba4f99841c87d986614fb57c987ac575fbbd8362297dbfd6e987f2eafbcbf62913adb64c8e3e0fd092f9ea3074de5ac04d86c41ae905ef238cb348657bcc')
+b2sums=('6f07f21fb1ffbbcedd43d8bf98c673baa8f2a70887eeffa899aab26b02ed0e56119c0fe5f52c52289fcfe904ab7424e0342b262a2a7d5db1e01795d5865bc1d4')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
