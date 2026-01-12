@@ -2,25 +2,26 @@
 
 _pkgbasename=glew
 pkgname=lib32-$_pkgbasename
-pkgver=2.2.0
-pkgrel=5
+pkgver=2.3.0
+pkgrel=2
 pkgdesc="A cross-platform C/C++ extension loading library (32 bit)"
 arch=('x86_64')
 url="https://github.com/nigels-com/glew"
-license=('BSD' 'MIT' 'GPL')
+license=("LicenseRef-$pkgname")
 depends=('lib32-libxmu' 'lib32-libxi' 'lib32-glu' "$_pkgbasename>=$pkgver")
 makedepends=('gcc-multilib')
 provides=('libGLEW.so')
 source=(https://downloads.sourceforge.net/${_pkgbasename}/${_pkgbasename}-${pkgver}.tgz
-        glew-install.patch)
-sha1sums=('22d6e9b9e691080eb6313407dbf51cfebc3345ea'
-          'e1bfa1e6ae3c7a553920978111092ea9d3a33c95')
-sha256sums=('d4fc82893cfb00109578d0a1a2337fb8ca335b3ceccf97b97e5cc7f08e4353e1'
-            'ef864c1e673f6a8fab4d3f5bc3c3eb9596cd225c24765de9dff2064e72f350d5')
+        glew-2.3.0-install.patch
+        glew-ldflags.patch)
+sha256sums=('b261a06dfc8b970e0a1974488530e58dd2390acf68acb05b45235cd6fb17a086'
+            '32581990e2f825c9f2442dfee5a319674c2c98b191f8d777125b9be25478cade'
+            '92d57a082d0a6cdd2e82ed7e3b9aa86e9d15f5f376d8c60ae7a2f4d1f2570459')
 
 prepare() {
   cd "${srcdir}/${_pkgbasename}-${pkgver}"
-  patch -Np1 -i ../glew-install.patch
+  patch -Np1 -i ../glew-2.3.0-install.patch
+  patch -Np1 -i ../glew-ldflags.patch
 }
 
 
@@ -29,7 +30,6 @@ build() {
 
   sed -i 's|CC = cc|CC = gcc -m32|' config/Makefile.linux
   sed -i 's|LD = cc|LD = gcc -m32|' config/Makefile.linux
-  sed -i 's|lib64|lib32|g' config/Makefile.linux
 
   make
 }
@@ -42,6 +42,5 @@ package() {
 
   rm -rf "${pkgdir}"/usr/{include,bin}
 
-  mkdir -p "$pkgdir/usr/share/licenses"
-  ln -s $_pkgbasename "$pkgdir/usr/share/licenses/$pkgname"
+  install -D -m644 LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
