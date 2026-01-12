@@ -4,7 +4,7 @@
 pkgname=bonzomatic
 pkgver=1.0.20230615
 _commit=1201b0baa040100178f60f34cb0cff02ac7f9df7 # tag: 2023-06-15
-pkgrel=2
+pkgrel=4
 pkgdesc='Live shader coding tool'
 arch=(x86_64)
 url='https://github.com/Gargaj/bonzomatic'
@@ -28,6 +28,7 @@ build() {
     -D CMAKE_CXX_FLAGS="$CXXFLAGS -fPIC -w" \
     -D CMAKE_INSTALL_LIBDIR=lib \
     -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -G Ninja \
     -S $pkgname
   ninja -C build
