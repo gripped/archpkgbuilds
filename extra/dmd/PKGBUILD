@@ -11,22 +11,23 @@ pkgname=('dmd' 'dmd-docs' 'libphobos')
 pkgdesc='D programming language compiler and standard library'
 groups=('dlang' 'dlang-dmd')
 pkgbase=dmd
-pkgver=2.111.0
-_docsvers=2.111.0
+pkgver=2.112.1
+_docsver=2.112.0
+_phobosver=2.112.0
 pkgrel=1
 epoch=1
 arch=('x86_64')
 url='https://www.dlang.org'
 makedepends=('git' 'ldc')
 source=("git+https://github.com/dlang/dmd.git#tag=v$pkgver"
-        "git+https://github.com/dlang/phobos.git#tag=v$pkgver"
-        "http://downloads.dlang.org/releases/2.x/$_docsvers/dmd.$_docsvers.linux.tar.xz"
-        "http://downloads.dlang.org/releases/2.x/$_docsvers/dmd.$_docsvers.linux.tar.xz.sig"
+        "git+https://github.com/dlang/phobos.git#tag=v$_phobosver"
+        "http://downloads.dlang.org/releases/2.x/$_docsver/dmd.$_docsver.linux.tar.xz"
+        "http://downloads.dlang.org/releases/2.x/$_docsver/dmd.$_docsver.linux.tar.xz.sig"
         'dmd.conf'
         'dmd-doc.desktop')
-sha256sums=('073b8c18e1f47c718661898ebd1bc51eecee13bcc2828f2974ac98315766f9ba'
-            '192de324c9965341cab2346decc6f51d2a7d349cad34a56811f4ae68bd159914'
-            '63bd32222b51a406e365904aea6761cd4de3cb1de02f003a370b5961196caa77'
+sha256sums=('385a3407d71d80e0c7b44f3e1bfd6a8e3d0f952aeb1dd29cb386491df84f4842'
+            '853a68c3e5644562104c8a7be63ede5fcdb98735f2a67c628848daf0c47a63cf'
+            '4556ecde412c6c43662cd1c6e7cec5c6d567b7e74508287a8a0c3c6c506a7e94'
             'SKIP'
             '3d639e89528fed1da90006f4dfb2b0fdc41308da5a96d953381ff4ccf257c035'
             '4b7b8722b3fa11082f0f332397b1b66c85b30ce773c43c3fedcba5768a1484b1')
@@ -36,11 +37,11 @@ validpgpkeys=(
     'F8A26D5D7572ECA06EC7973182C52E37A8BC8393' # Martin Nowak <code@dawg.eu>
     '30AE2FC45DE4153268ED91754CF5FA5326CC62EB' # Iain Buclaw <ibuclaw@gdcproject.org>
 )
-noextract=("dmd.$_docsvers.linux.tar.xz")
+noextract=("dmd.$_docsver.linux.tar.xz")
 
 prepare() {
     # We only want to extract the docs & samples, not the prebuild executables
-    tar xfJ "dmd.$_docsvers.linux.tar.xz" dmd2/html
+    tar xfJ "dmd.$_docsver.linux.tar.xz" dmd2/html
 
     # Make sure the version is not -dirty
     sed -i "s/\.git/.nope/" "$srcdir"/dmd/compiler/src/build.d
