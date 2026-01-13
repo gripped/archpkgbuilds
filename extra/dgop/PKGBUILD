@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=dgop
-pkgver=0.1.12
+pkgver=0.1.13
 pkgrel=1
 pkgdesc='System monitoring CLI + REST API'
 arch=(x86_64 aarch64 armv7h)
@@ -11,7 +11,7 @@ depends=(glibc)
 makedepends=(go)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('dbb76f5f42ce18893a3c7ffb277e7769632d35f63bbc1d6526697dc954f0fb66')
+sha256sums=('4271aba324d9d92547897990ad6325e996f7a28f25f26cfbd516fa9e7deec2ba')
 
 prepare() {
 	cd "$_archive"
