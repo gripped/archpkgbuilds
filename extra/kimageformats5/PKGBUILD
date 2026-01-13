@@ -5,7 +5,7 @@
 _name=kimageformats
 pkgname=${_name}5
 pkgver=5.116.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Image format plugins for Qt5'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
