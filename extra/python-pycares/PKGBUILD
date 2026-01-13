@@ -2,8 +2,8 @@
 
 pkgname=python-pycares
 _name=${pkgname#python-}
-pkgver=4.11.0
-pkgrel=2
+pkgver=5.0.1
+pkgrel=1
 pkgdesc='Python interface for c-ares'
 arch=(x86_64)
 url=https://github.com/saghul/pycares
@@ -25,7 +25,7 @@ checkdepends=(
 )
 optdepends=(python-idna)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('ac946aca6a2be3784da24e781c7da43965945e38f0b8ee639da3153cc7634333d510d04fd858c21558811a42dc11168fd01c9fa1edb14bdbb1b9718504bb8fa4')
+b2sums=('27d60776f3063e6dfc344651625e8a526872d911c1e095571999d57b4897e59bc7583244a71462d98f27d607b66cc83dfd381db8a532980cff9195166330f0ac')
 
 build() {
   cd "$_name"
