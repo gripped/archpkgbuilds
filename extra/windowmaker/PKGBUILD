@@ -4,7 +4,7 @@
 
 pkgname=windowmaker
 pkgver=0.96.0
-pkgrel=2
+pkgrel=3
 pkgdesc='X11 window manager with a NeXTSTEP look and feel'
 arch=(x86_64)
 url='https://www.windowmaker.org/'
@@ -37,6 +37,10 @@ b2sums=(e5d8bbdb253765533ab6191e74f57b04e36c6e7b4d37d840d0bb8b6ae31d099f9449255e
 
 prepare() {
   cd wmaker-crm
+
+  # Don't set X-GDM-SessionRegisters to true
+  sed -i '/X-GDM-SessionRegisters/d' WindowMaker/wmaker.desktop
+
   autoreconf -fiv
 }
 
