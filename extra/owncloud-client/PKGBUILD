@@ -2,8 +2,8 @@
 # Contributor: Kuba Serafinowski <zizzfizzix(at)gmail(dot)com>
 
 pkgname=owncloud-client
-pkgver=6.0.2.17506
-pkgrel=2
+pkgver=6.0.3.18040
+pkgrel=1
 pkgdesc='ownCloud client based on mirall'
 arch=(x86_64)
 url='http://owncloud.org/'
@@ -26,15 +26,9 @@ optdepends=('nemo-python: integration with Nemo'
             'python-caja: integration with Caja'
             'python-nautilus: integration with Nautilus')
 backup=('etc/ownCloud/sync-exclude.lst')
-source=(https://download.owncloud.com/desktop/ownCloud/stable/$pkgver/source/ownCloud-$pkgver.tar.xz #{,.asc}
-        https://github.com/owncloud/client/commit/ef0791a7.patch)
-sha256sums=('61eaebc251204fe344aa57ec392c2d4069f12b6f7a7ff11023ada9b2b802c72f'
-            '62c2dd73794297220efc384b09d786e94bfd54745e2f3df939e4aa96e942ab99')
+source=(https://download.owncloud.com/desktop/ownCloud/stable/$pkgver/source/ownCloud-$pkgver.tar.xz)
+sha256sums=('47ea41430801332b65c9dc067f4d0295c24fe8f0c12265d22849cc94ad13c4d4')
 validpgpkeys=(F05F7DD7953A07DF36579DAA498C45EBE94E7B37) # ownCloud Client Team (Signing Key) <info@owncloud.com>
-
-prepare() {
-  patch -d ownCloud-$pkgver -p1 < ef0791a7.patch # Fix loading plugin with ECM 6.19
-}
 
 build() {
   cmake -B build -S ownCloud-$pkgver \
