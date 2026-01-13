@@ -2,8 +2,8 @@
 
 pkgname=python-aiodns
 _name=${pkgname#python-}
-pkgver=3.6.1
-pkgrel=3
+pkgver=4.0.0
+pkgrel=1
 pkgdesc='Simple DNS resolver for asyncio'
 arch=(any)
 url=https://github.com/saghul/aiodns
@@ -22,7 +22,7 @@ checkdepends=(
   python-uvloop
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('e27bca08a4b96bdaf62dc2545296bd88cd2996e01fc08b1b655bde2ba5be7983490cd9746192628fe55c485aa800721d0dc3363f384e12e67bf7844ddebda9d6')
+b2sums=('521626b7368ce7de1f8e4f5df0a891d96702be3e3b886d7e4590062da55945691e9c7e0c66f66d4a6ccbb2656e72dd7f0c29d96d9ff0ba89823c2fb915b9af53')
 
 build() {
   cd "$_name"
@@ -39,7 +39,7 @@ package() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/"$_name"-$pkgver.dist-info/licenses/LICENSE \
-    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+    "$pkgdir"/usr/share/licenses/$pkgname
 
   cd "$_name"
   python -m installer --destdir="$pkgdir" dist/*.whl
