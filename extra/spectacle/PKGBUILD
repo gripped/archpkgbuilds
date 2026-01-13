@@ -3,7 +3,7 @@
 pkgname=spectacle
 pkgver=6.5.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='KDE screenshot capture utility'
 arch=(x86_64)
