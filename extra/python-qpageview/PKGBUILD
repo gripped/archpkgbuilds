@@ -2,9 +2,9 @@
 
 _pkg=qpageview
 pkgname=python-${_pkg}
-pkgver=1.0.0
-pkgrel=2
-pkgdesc="Page based document viewer widget for Qt5/PyQt5"
+pkgver=1.0.2
+pkgrel=1
+pkgdesc="Page based document viewer widget for PyQt"
 arch=(any)
 url="https://qpageview.org/"
 license=(GPL3)
@@ -12,7 +12,7 @@ depends=(python python-pyqt6 qt6-svg)
 makedepends=(python-build python-installer python-hatchling)
 optdepends=('python-pycups: printing support')
 source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('3662b69112ddba0a03efc475f5acd176930dde4c3db6588d548d417946f30907')
+sha256sums=('ac725bab22916417097ab14c4814ac061b3a3f94b97d3ed02b19d92f1f6af752')
 
 build() {
   cd ${_pkg}-${pkgver}
