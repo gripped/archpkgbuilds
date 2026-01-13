@@ -4,7 +4,7 @@
 _pyname=ipykernel
 pkgname=python-$_pyname
 pkgver=7.1.0
-pkgrel=4
+pkgrel=5
 pkgdesc='The ipython kernel for Jupyter'
 arch=(any)
 url='https://pypi.org/project/ipykernel/'
@@ -14,6 +14,7 @@ depends=(ipython
          python-comm
          python-jupyter-client
          python-jupyter-core
+         python-nest-asyncio
          python-packaging
          python-psutil
          python-pyzmq
