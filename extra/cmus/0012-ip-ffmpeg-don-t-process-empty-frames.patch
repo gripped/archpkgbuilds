@@ -1,0 +1,21 @@
+From: ihy123 <aladinandreyy@gmail.com>
+Date: Sun, 17 Aug 2025 19:22:50 +0300
+Subject: ip/ffmpeg: don't process empty frames
+
+---
+ ip/ffmpeg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/ip/ffmpeg.c b/ip/ffmpeg.c
+index af6ecfb..dd9061a 100644
+--- a/ip/ffmpeg.c
++++ b/ip/ffmpeg.c
+@@ -356,7 +356,7 @@ static int ffmpeg_get_frame(struct ffmpeg_private *priv)
+ 		priv->curr_duration += priv->pkt->duration;
+ 
+ 		res = avcodec_send_packet(priv->codec_ctx, priv->pkt);
+-		if (res == AVERROR(EAGAIN))
++		if (res == 0 || res == AVERROR(EAGAIN))
+ 			return 0;
+ 	}
+ 	if (res < 0)

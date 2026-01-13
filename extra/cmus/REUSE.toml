@@ -7,16 +7,25 @@ path = [
     "keys/**",
     ".SRCINFO",
     ".nvchecker.toml",
-    "*.install",
-    "*.sysusers",
-    "*.tmpfiles",
-    "*.logrotate",
-    "*.pam",
-    "*.service",
-    "*.socket",
-    "*.timer",
-    "*.desktop",
-    "*.hook",
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "0003-ip-ffmpeg-more-precise-seeking.patch",
+    "0004-ip-ffmpeg-skip-samples-only-when-needed.patch",
+    "0005-ip-ffmpeg-remove-excessive-version-checks.patch",
+    "0006-ip-ffmpeg-major-refactor.patch",
+    "0007-Validate-sample-format-in-ip_open.patch",
+    "0008-ip-ffmpeg-flush-swresample-buffer-when-seeking.patch",
+    "0009-ip-ffmpeg-remember-swr_frame-s-capacity.patch",
+    "0010-ip-ffmpeg-reset-swr_frame_start-when-seeking.patch",
+    "0011-ip-ffmpeg-better-frame-skipping-logic.patch",
+    "0012-ip-ffmpeg-don-t-process-empty-frames.patch",
+    "0013-ip-ffmpeg-improve-readability.patch",
+    "0014-ip-ffmpeg-fix-building-for-ffmpeg-8.0.patch",
+    "0015-ip-ffmpeg-change-sample-format-conversions.patch",
+]
+SPDX-FileCopyrightText = "cmus contributors"
+SPDX-License-Identifier = "GPL-2.0-only"
