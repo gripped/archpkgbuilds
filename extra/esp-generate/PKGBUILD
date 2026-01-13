@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=esp-generate
-pkgver=1.1.0
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="Template generation tool to create no_std applications for Espressif's chips"
 arch=('x86_64')
@@ -9,12 +9,12 @@ url="https://github.com/esp-rs/esp-generate"
 license=('MIT' 'Apache-2.0')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('acfdeb66af4eff3a733b89fffbf880dcc6a4c69beac7240d0aed105544c7583e')
+sha256sums=('33939a3021fce9605515351998a884fb355578aa2f06ddb2cf83db5e155ce68b')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
