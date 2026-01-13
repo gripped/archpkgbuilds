@@ -2,7 +2,7 @@
 
 pkgname=ukui-control-center
 pkgver=3.0.4
-pkgrel=16
+pkgrel=18
 pkgdesc="Utilities to configure the UKUI desktop"
 arch=('x86_64')
 license=('GPL')
@@ -36,6 +36,7 @@ prepare() {
   sed -i 's|gio-unix-2.0|glib-2.0|' plugins/account/userinfo/giodbus.cpp
   sed -i 's|KXmlGui|KConfigGui|' plugins/devices/shortcut/shortcut.pro
   sed -i 's|KActionCollection|KStandardShortcut|' plugins/devices/shortcut/*.h
+  find -name "*.h" | xargs sed -e 's|QGSettings/QGSettings|QGSettings|g' -i
 
   # Fix build with libkscreen 5.27
   sed -e 's|c++11||' -i plugins/system/display/display.pro -i plugins/system/touchscreen/touchscreen.pro
