@@ -1,7 +1,7 @@
 pkgbase = python-shodan
 	pkgdesc = The official Python library and CLI for Shodan
 	pkgver = 1.31.0
-	pkgrel = 4
+	pkgrel = 5
 	url = https://shodan.readthedocs.io/
 	arch = any
 	license = MIT
@@ -10,7 +10,6 @@ pkgbase = python-shodan
 	makedepends = python-wheel
 	depends = python
 	depends = python-click
-	depends = python-click-plugins
 	depends = python-colorama
 	depends = python-xlsxwriter
 	depends = python-requests
@@ -18,6 +17,10 @@ pkgbase = python-shodan
 	depends = python-tldextract
 	optdepends = python-ujson: faster JSON decoding
 	source = python-shodan-1.31.0.tar.gz::https://files.pythonhosted.org/packages/source/s/shodan/shodan-1.31.0.tar.gz
+	source = gh-pr-241.patch
+	sha512sums = fe66fdd4ae1088d165a2acd67f85a54a9fcbed8130ee5e2a5764d318fa0c50fb472fd5a76ce72f84fcfdb4c74c29ae2e14881f86468fb177ddc3191cb95d3b67
+	sha512sums = f264f49e349ac42091061bdc75a612a4b4fe3e0c5b0aa7626db1156fdf343f1160519902dae608bcdd1f0adac571984ad791fb167d7f6e41835c3557061c87dd
 	b2sums = 7d22e8ec9e32669494838ddef76115ce80ba4600ca71e5c7e9e6c91d82bbf2a55e5e754d7fd4018545c9dbba01fd21bd9fd444d4f2090938f09c7b1610b98100
+	b2sums = 4203c97f8f45edf00cf8b972929679ebc19b272ac20795c3f9c88443061a88d4dc21b06ebeec150128454b4ba449a0a43e3198c1f407b663a928f0771ba6c08e
 
 pkgname = python-shodan
