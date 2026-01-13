@@ -4,7 +4,7 @@
 
 pkgname=kimageformats
 pkgver=6.22.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Image format plugins for Qt 6'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
