@@ -8,4 +8,4 @@ if [[ -f "${OBSIDIAN_USER_FLAGS_FILE}" ]]; then
 fi
 
 # Launch
-exec electron37 /usr/lib/obsidian/app.asar $OBSIDIAN_USER_FLAGS "$@"
+exec electron39 /usr/lib/obsidian/app.asar $OBSIDIAN_USER_FLAGS "$@"
