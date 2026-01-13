@@ -3,8 +3,8 @@
 # Contributor: Lars Hagström <lars@foldspace.nu>
 
 pkgname=s-tui
-pkgver=1.2.0
-pkgrel=3
+pkgver=1.3.0
+pkgrel=1
 pkgdesc="Terminal UI stress test and monitoring tool "
 arch=(any)
 url="https://github.com/amanusk/s-tui"
@@ -21,16 +21,8 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz
-        $pkgname-fix-urwid.patch::https://github.com/amanusk/s-tui/commit/11ad606e3e60c81801909b654f8adb1c5ee10c06.patch)
-sha512sums=('c6024ceaaed4e27f6210c106a1550a88376995efc925f92d6ffc4309e8981a1b3d0e59c502fd16ad1786fb61fc28de2dadee668f838057cc8dd4e54908859bda'
-            '2b2d3b9fd3293943828b05feba5d516c9bf5ddec531d52ca08dfe55311d31188ff006e2f7be6960c438f1bb053e45cc8850615b55e03cbc8a1f60121b14f1fad')
-
-prepare() {
-  cd $pkgname-$pkgver
-  # Fix unsucceful import of curses_display https://github.com/amanusk/s-tui/pull/247
-  patch -p1 < ../$pkgname-fix-urwid.patch
-}
+source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
+sha512sums=('0ae12b93358e2f33aa7c4bcb697b1ff2a64915fdecd021b41416c59af83045c3cf6ca4e168f3b9da86047402f2ebadfc1a0c429873ad351410883ec641fcc514')
 
 build() {
   cd $pkgname-$pkgver
