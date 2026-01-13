@@ -8,7 +8,7 @@
 
 pkgname=kicad
 pkgver=9.0.7
-pkgrel=4
+pkgrel=5
 pkgdesc='Electronic schematic and printed circuit board (PCB) design tools'
 arch=(x86_64)
 url='http://kicad.org/'
@@ -32,7 +32,6 @@ depends=(
   wxwidgets-common
   zlib
   curl
-  glew
   glm
   ngspice
   opencascade
@@ -80,7 +79,6 @@ build() {
     -D CMAKE_BUILD_TYPE=Release
     -D CMAKE_INSTALL_PREFIX=/usr
     -D KICAD_USE_EGL=ON
-    -D KICAD_USE_BUNDLED_GLEW=OFF
     -D KICAD_BUILD_I18N=ON
     -D KICAD_I18N_UNIX_STRICT_PATH=ON
     -D KICAD_BUILD_QA_TESTS=OFF
