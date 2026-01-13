@@ -6,7 +6,7 @@
 
 pkgname=libpng
 pkgver=1.6.53
-pkgrel=1
+pkgrel=2
 pkgdesc='A collection of routines used to create PNG format graphics files'
 arch=('x86_64')
 url='http://www.libpng.org/pub/png/libpng.html'
@@ -22,6 +22,14 @@ validpgpkeys=('F57A55036A4D45837074FD92C9E384533403C2F8'  # Cosmin Truta <ctruta
 
 prepare() {
   cd $pkgname
+
+  # fix: Use `png_voidp` instead of `voidp` in pngread.c and pngwrite.c
+  # Fix a heap buffer over-read in `png_image_read_direct_scaled`
+  # fix: Remove incorrect truncation casts from `png_write_image_*`
+  git cherry-pick -n \
+    0e894374dd7ee53039c6d84bd538dd7f16fc4cbe \
+    e4f7ad4ea2a471776c81dda4846b7691925d9786 \
+    cf155de014fc6c5cb199dd681dd5c8fb70429072
 
   autoreconf -fiv
 }
