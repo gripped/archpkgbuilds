@@ -3,7 +3,7 @@
 
 pkgname=python-dulwich
 _name=${pkgname#python-}
-pkgver=0.25.0
+pkgver=0.25.2
 pkgrel=1
 pkgdesc='Pure-Python implementation of the Git file formats and protocols'
 arch=(x86_64)
@@ -21,6 +21,7 @@ makedepends=(
   python-wheel
 )
 checkdepends=(
+  openssh
   python-fastimport
   python-gevent
   python-gpgme
@@ -39,17 +40,11 @@ optdepends=(
   'python-rich: for colorized diff support'
 )
 source=("git+https://github.com/jelmer/dulwich.git#tag=dulwich-$pkgver")
-b2sums=('7f2503ef8df21326c14ecdbcc7ca3c3458d4c5c09ac47879d36e6bd337964bc6da765b0c7a979a8fdb0d16bd3314d401740abd2d2f189d9414db60aafae2d430')
+b2sums=('710183318307877089f412f4cdc58a4640c7baa5ad51edda94e1066c77f5dce148904abbab5fb6b8c34b1affdb863906cde9afcdcb1b95ad596104bbedf45196')
 validpgpkeys=(DC837EE14A7E37347E87061700806F2BD729A457) # Jelmer Vernooĳ <jelmer@jelmer.uk>
 
 prepare() {
   cd "$_name"
-  # Fixes test test_sha256_pack.py::SHA256PackTests::test_pack_index_v1_with_sha25
-  git cherry-pick -n 790d9df61ad2c135ec5289d5c91ca5fd7d3b2098
-  # Fixes tests failing if build in project absolute path, see:
-  # https://github.com/jelmer/dulwich/pull/2055
-  git cherry-pick -n e133c69c8bf203469a50cfb83b7693b50d645e81
-
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
