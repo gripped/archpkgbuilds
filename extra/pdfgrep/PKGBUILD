@@ -5,7 +5,7 @@
 
 pkgname=pdfgrep
 pkgver=2.2.0
-pkgrel=5
+pkgrel=6
 pkgdesc='A tool to search text in PDF files'
 arch=(x86_64)
 url='https://pdfgrep.org'
