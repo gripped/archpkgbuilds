@@ -9,7 +9,7 @@
 # Contributor: TIanyi Cui <tianyicui@gmail.com>
 
 pkgname=nodejs-lts-krypton
-pkgver=24.12.0
+pkgver=24.13.0
 pkgrel=1
 pkgdesc='Evented I/O for V8 javascript ("Active LTS" release: Krypton)'
 arch=('x86_64')
@@ -44,13 +44,14 @@ provides=(
 conflicts=(nodejs)
 options=('!lto')
 source=("git+https://github.com/nodejs/node.git#tag=v$pkgver?signed")
-b2sums=('b6c72708b1eeef7ceed507ff0f7db36ed07343391d947950bbdb717ede57493f632ca1f11fb7a59e818d2dfccd59127831ba7623d651f7989d27098d4dd2a2c1')
+b2sums=('ec771721f9aab7ee0e5ba4731bea1a75c8b1d039d9f8d50b69e86c27082fa5b28cac9802bdf22c4d0ad2ad59576cbe35081a042975fbe2f286e5e3c1232e9958')
 validpgpkeys=(
   '8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600' # Michaël Zasso (Targos) <targos@protonmail.com>
   '890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4' # RafaelGSS <rafael.nunu@hotmail.com>
   'C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C' # Richard Lau <rlau@redhat.com>
   'C0D6248439F1D5604AAFFB4021D900FFDB233756' # Antoine du Hamel <duhamelantoine1995@gmail.com>
   '5BE8A3F6C8A5C01D106C0AD820B1A390B168D356' # Antoine du Hamel <antoine.duhamel@rosa.be>
+  'CC68F5A3106FF448322E48ED27F5E38D5B0A215F' # marco-ippolito <marcoippolito54@gmail.com>
 )
 
 _set_flags() {
