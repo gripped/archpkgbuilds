@@ -6,7 +6,7 @@ pkgname=(
     'level-zero-headers'
     'level-zero-loader')
 pkgver=1.26.1
-pkgrel=1
+pkgrel=2
 pkgdesc='API for accessing low level interfaces in oneAPI platform devices'
 arch=('x86_64')
 url='https://github.com/oneapi-src/level-zero/'
