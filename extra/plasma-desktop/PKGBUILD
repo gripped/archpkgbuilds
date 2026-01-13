@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=plasma-desktop
-pkgver=6.5.4
+pkgver=6.5.5
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE Plasma Desktop'
@@ -97,7 +97,7 @@ makedepends=(extra-cmake-modules
              xorg-server-devel)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('e08d1841adfa374af1001c86604a4bf2f0d5a2230fe1f2c925db61cd984b8c0c'
+sha256sums=('2367f12531575b2e445cd2b0fa0b756f151f10eaa27358b0966735ff400146c7'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
