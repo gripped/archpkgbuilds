@@ -1,6 +1,6 @@
 pkgbase = systing
 	pkgdesc = A libbpf based tracer to help figure out what an application is doing
-	pkgver = r463.ebfc784
+	pkgver = r485.3a4e5bb
 	pkgrel = 1
 	url = https://github.com/josefbacik/systing
 	arch = x86_64
@@ -10,19 +10,20 @@ pkgbase = systing
 	makedepends = rust
 	makedepends = linux
 	depends = bpf
-	depends = libbpf
+	depends = libelf
 	depends = libbpf
 	depends = gcc-libs
 	depends = glibc
 	depends = fmt
 	depends = libcap
 	depends = re2
+	depends = zlib
 	options = !lto
-	source = systing::git+https://github.com/josefbacik/systing.git#commit=ebfc78490e4dfe18e973e623872424686a1561be
+	source = systing::git+https://github.com/josefbacik/systing.git#commit=3a4e5bb2defc754d55f04474ad30615c41ac9831
 	source = systing-strobelight-libs::git+https://github.com/facebookincubator/strobelight-libs.git
-	sha512sums = 95336e45b70ba0a9726fc06723eb1ebfb5abc5fbf83480b22e4aa743e7c8cbcf8ca7d202396c16970f19e4051cde78cebfb603d38a8ffb56afb2737973bdc539
+	sha512sums = 04e5aa33dedbe5cb05e04c69de4b336f46ab68ebe279e9a547ef74baa50749105fc4205b4b8c631c14a629e64f4195b027246e620e18ccdda156924302062a25
 	sha512sums = SKIP
-	b2sums = a2d8ba43c3718856e74ea64858df827c5c69291966491e0729aad6933bda792b75dad131d7d4f55f9b03c11c0c706bae11636954eb79b5eb418b4a7da3975651
+	b2sums = 14390bdfcb3819d03ac2e1c31bf79bd2270a5910e2af5d3d5f8469d93243ce422c1f94a1951417247a558ffc0e251cec32a1c1b617a9726fae7564abe1958739
 	b2sums = SKIP
 
 pkgname = systing
