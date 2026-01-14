@@ -3,7 +3,7 @@
 # Contributor: Marcin Kulik <marcin@asciinema.org>
 
 pkgname=asciinema
-pkgver=3.0.1
+pkgver=3.1.0
 pkgrel=1
 pkgdesc='Record and share terminal sessions'
 arch=(x86_64)
@@ -13,11 +13,11 @@ makedepends=(cargo git)
 depends=(glibc gcc-libs)
 options=(!lto)
 source=("git+https://github.com/$pkgname/$pkgname#tag=v$pkgver")
-b2sums=('79c0dab84e53229b2c2d10a10f4f7c83fc19817945bde1336848f99d43fbcb113646d35d6e8340e8767d6bc73f61b69f0271bd41510488162cd549871b7c1a55')
+b2sums=('db4230b4f53120b2ce202fc10cde40170b3bdb52025ef3d99a69b1c695ca57ced84a619f3aa9935c4fa11b9bb57216f9734f101ac5cf9c963f82214e3666fe55')
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
