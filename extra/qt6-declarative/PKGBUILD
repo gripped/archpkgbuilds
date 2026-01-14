@@ -5,7 +5,7 @@
 pkgname=qt6-declarative
 _pkgver=6.10.1
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -32,6 +32,7 @@ sha256sums=('814050edddb87c37b118fcdff1c2f287917597c853258f5fd0e15e9b646b9a0b')
 
 prepare() {
   git -C $_pkgfn cherry-pick -n 9c6b2b78e9076f1c2676aa0c41573db9ca480654 # Fix Plasma crashes
+  git -C $_pkgfn cherry-pick -n dc2358e98b8ddab532866a403ffc09d1162ad0f9 # Fix crashes
 }
 
 build() {
