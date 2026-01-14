@@ -3,8 +3,8 @@
 
 _pkgname=filesystem_spec
 pkgname=python-fsspec
-pkgver=2025.12.0
-pkgrel=3
+pkgver=2026.1.0
+pkgrel=1
 pkgdesc="Specification that python filesystems should adhere to"
 arch=(any)
 url="https://github.com/intake/filesystem_spec"
@@ -62,7 +62,7 @@ optdepends=(
   'python-zstandard: zstandard (zstd) compression support'
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('4bb9e82dd5b95db6bc2a21b85629dc9e30b949c615e70163d709e5e00746e342')
+sha256sums=('5f3c5b6ce1f4fa6d751893d329967a1ae5de922d73b656c5eb814bcbc424e5ee')
 
 build() {
   cd $_pkgname-$pkgver
