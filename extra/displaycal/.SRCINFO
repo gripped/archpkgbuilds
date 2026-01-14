@@ -1,10 +1,10 @@
 pkgbase = displaycal
 	pkgdesc = Open Source Display Calibration and Characterization powered by Argyll CMS (Formerly known as dispcalGUI)
 	pkgver = 3.9.17
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/eoyilmaz/displaycal-py3
 	arch = x86_64
-	license = GPL3
+	license = GPL-3.0-or-later
 	makedepends = libxrandr
 	makedepends = libxxf86vm
 	makedepends = python-build
@@ -25,6 +25,8 @@ pkgbase = displaycal
 	optdepends = gnome-color-manager: profile installation for GNOME
 	optdepends = colord-kde: profile installation for KDE Plasma
 	source = https://github.com/eoyilmaz/displaycal-py3/releases/download/3.9.17/DisplayCAL-3.9.17.tar.gz
+	source = python-3.14.patch
 	sha256sums = 715f31d47c7e29052138eceac3ff3d420a19f7ef36be1c06ae11b5dcaa44f55c
+	sha256sums = 89cda094c8ac5555be1bf51b31c2ee3261a95701eaa6a1a691a72777a9a26165
 
 pkgname = displaycal

@@ -6,11 +6,11 @@
 _pkgname=DisplayCAL
 pkgname=displaycal
 pkgver=3.9.17
-pkgrel=2
+pkgrel=3
 pkgdesc="Open Source Display Calibration and Characterization powered by Argyll CMS (Formerly known as dispcalGUI)"
 arch=(x86_64)
 url="https://github.com/eoyilmaz/displaycal-py3"
-license=(GPL3)
+license=(GPL-3.0-or-later)
 depends=(argyllcms dbus dbus-python glib2 python-certifi python-distro
          python-numpy python-pillow python-send2trash python-wxpython
          python-zeroconf)
@@ -18,8 +18,15 @@ makedepends=(libxrandr libxxf86vm python-build python-installer
              python-setuptools python-wheel)
 optdepends=('gnome-color-manager: profile installation for GNOME'
             'colord-kde: profile installation for KDE Plasma')
-source=(${url}/releases/download/${pkgver}/${_pkgname}-${pkgver}.tar.gz)
-sha256sums=('715f31d47c7e29052138eceac3ff3d420a19f7ef36be1c06ae11b5dcaa44f55c')
+source=(${url}/releases/download/${pkgver}/${_pkgname}-${pkgver}.tar.gz
+        python-3.14.patch)
+sha256sums=('715f31d47c7e29052138eceac3ff3d420a19f7ef36be1c06ae11b5dcaa44f55c'
+            '89cda094c8ac5555be1bf51b31c2ee3261a95701eaa6a1a691a72777a9a26165')
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -p1 -i ../python-3.14.patch
+}
 
 build() {
   cd ${pkgname}-${pkgver}
