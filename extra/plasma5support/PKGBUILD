@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma5support
-pkgver=6.5.4
+pkgver=6.5.5
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Support components for porting from KF5/Qt5 to KF6/Qt6'
@@ -36,7 +36,7 @@ optdepends=('gpsd: GPS-based geolocation dataengine'
             'plasma-activities: activities dataengine')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('addeb62d9eee6e70a0642876ce00e27e437cfd6e6d0bdaee31a378c26ac3d258'
+sha256sums=('1a2f3e7ebb85e2a1c54c3aa32b712e8f285289758ba2c8236ec0dc66dd8c5cfd'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
