@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-filelock
-pkgver=3.20.2
+pkgver=3.20.3
 pkgrel=1
 pkgdesc="A platform independent file lock"
 url="https://github.com/benediktschmitt/py-filelock"
@@ -24,7 +24,7 @@ checkdepends=(
   'python-virtualenv'
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('99165d59448c1f5c8edbd8d0ee9d876558d35dc94ab64c01f3e6844bf0a04f18a9cde1d030e037089ba32aa2ca59258026f26a3f25438ce2e5ffa608e3324e1a')
+b2sums=('50cf3f9a8e0f8154182001f7b23f17babb4c81f36d22f9d5be18d71ed3cb84bf388a224a17d9c36fd4bd391cf9b8aec0cace26f34e28c6c6e42ab5a292bf5e3d')
 
 build() {
   cd py-filelock
