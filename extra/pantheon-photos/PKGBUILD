@@ -2,7 +2,7 @@
 
 pkgname=pantheon-photos
 pkgver=8.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc='The Pantheon Photos Manager'
 arch=(x86_64)
 url=https://github.com/elementary/photos
@@ -53,6 +53,7 @@ pkgver() {
 }
 
 build() {
+  export LDFLAGS+=" -lm"
   arch-meson pantheon-photos build
   meson compile -C build
 }
