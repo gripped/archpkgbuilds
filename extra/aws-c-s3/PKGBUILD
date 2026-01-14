@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-s3
-pkgver=0.11.3
+pkgver=0.11.4
 pkgrel=1
 pkgdesc='C99 library implementation for communicating with the S3 service, designed for maximizing throughput on high bandwidth EC2 instances'
 arch=(x86_64)
@@ -19,7 +19,7 @@ depends=(
 )
 makedepends=(cmake)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('b8350a10050015493345453167d619f1b407c4970fa3fe5aaaf2b42ab93b7b6b')
+sha256sums=('4a2d34a92eafe66f0edfe2483ca4fb16c48b610bfc9cccb13b00108d587fe9c9')
 
 build() {
   cd $pkgname-$pkgver
