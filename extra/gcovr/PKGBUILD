@@ -1,8 +1,8 @@
 # Maintainer: Jelle van der Waa <jelle@vdwaa.nl>
 
 pkgname=gcovr
-pkgver=8.4
-pkgrel=2
+pkgver=8.6
+pkgrel=1
 pkgdesc='provides a utility for managing the use of the GNU gcov utility'
 arch=(any)
 url="https://gcovr.com/"
@@ -12,12 +12,12 @@ makedepends=('python-hatchling' 'python-hatch-vcs' 'python-hatch-fancy-pypi-read
              'python-build' 'python-installer' 'python-wheel' 'git')
 checkdepends=('python-pytest')
 source=("git+https://github.com/gcovr/gcovr.git#tag=${pkgver}")
-sha256sums=('d4c7cb02dcaf79ec0e254d4bc2d18c979550732716dd3dd32ddb423db17742a2')
+sha256sums=('256fa0cd538daa7f2719c8f539d878dc93a18d8381f0d3d7f5411c2d2c566a0a')
 
 prepare() {
   cd ${pkgname}
   # Remove unnecessary dependency version pinning
-  sed -i 's/hatchling==1.26.3/hatchling/' pyproject.toml
+  sed -i 's/hatchling==1.27.0/hatchling/' pyproject.toml
   sed -i 's/hatch-fancy-pypi-readme==24.1.0/hatch-fancy-pypi-readme/' pyproject.toml
   sed -i 's/hatch-vcs==0.4.0/hatch-vcs/' pyproject.toml
 }
