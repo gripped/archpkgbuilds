@@ -1,7 +1,7 @@
 # Maintainer: Johannes Löthberg <johannes@kyriasis.com>
 
 pkgname=python-prometheus_client
-pkgver=0.24.0
+pkgver=0.24.1
 pkgrel=1
 
 pkgdesc="Prometheus instrumentation library for Python applications"
@@ -16,14 +16,12 @@ optdepends=('python-snappy: snappy compression support'
 	    'python-aiohttp: aiohttp server support'
 	    'python-django: django exporter support')
 
-source=(client_python-$pkgver.tar.gz::https://github.com/prometheus/client_python/archive/v${pkgver}.tar.gz fix-test.patch)
+source=(client_python-$pkgver.tar.gz::https://github.com/prometheus/client_python/archive/v${pkgver}.tar.gz)
 
-sha512sums=('3e4d5c2fd3263eacfd79c52c0e7b86d301fb053539cd99de5940cae4166d720495c399c45ba417c2602fac6ad283f52c9bc85028a0802f0e289bda5a6adb87bb'
-            '4442ff79fc7dc57e500634156ebffbb81b3ac58ae5d1cfaa4e487c85bfcb3e1b73dfa2d9b29c9fd7a5ed4dcae48e79c4fe7139a0b94bf8b72f9691b368a2e57e')
+sha512sums=('5188472d93fe0e2a2ba36431d08dfd3af42dee5f39c32d600f8de4728ba8d9396ca4f3a35fc7370b4f23f9ba733d2c81db9464c9b8e6ce515523470edc8b8001')
 
 prepare() {
   cd client_python-$pkgver
-  patch -Np1 -i ${srcdir}/fix-test.patch
 }
 
 build() {
