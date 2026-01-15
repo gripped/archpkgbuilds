@@ -4,7 +4,7 @@
 
 _name=datasets
 pkgname=python-$_name
-pkgver=4.4.2
+pkgver=4.5.0
 pkgrel=1
 pkgdesc="Ready-to-use datasets for ML models with fast, easy-to-use and efficient data manipulation tools"
 arch=(any)
@@ -59,7 +59,7 @@ optdepends=(
   'python-pytorch: PyTorch support'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-b2sums=('205f9bad54a01830fe4f324e5ae7f1d55732f6ce0532a9828b78e5732c8e30b65e1590cdeb81ddd4d26ff882fbe6c184c33e1af13fc13fd80a753794b91c5688')
+b2sums=('c1a387b4a35ff5329be4ae27b8dc7208c95e2c4b51dcc47986007db7abfd98b4d974c8d60c6ef69a91e7541e8b10c2a150de939516cc8ab37f5f78865634d30a')
 
 build() {
   cd $_name-$pkgver
@@ -76,6 +76,8 @@ check() {
     --reruns 2
     # python-pyspark is not packaged, causes error when collecting tests
     --ignore tests/packaged_modules/test_spark.py
+    # python-pylance is not packaged https://github.com/lance-format/lance/tree/main
+    --ignore tests/packaged_modules/test_lance.py
     # ModuleNotFoundError: No module named 'aifc'
     --deselect tests/packaged_modules/test_audiofolder.py::test_data_files_with_metadata_and_archives
     # subprocess.CalledProcessError
