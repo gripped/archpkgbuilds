@@ -1,0 +1,23 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -98,7 +98,7 @@ install:
+ 	cd $(CURL_VERSION)
+ 	$(MAKE) install-exec MAKEFLAGS=
+ 	# Wrapper scripts for the cli shortcut (e.g. 'curl_chrome99')
+-	install $(srcdir)/bin/curl_* @bindir@
++	install $(srcdir)/bin/curl_* $(DESTDIR)@bindir@
+ .PHONY: install
+ 
+ install-strip: ## Like 'install', but strip binaries for smaller size
+@@ -106,9 +106,9 @@ install-strip: ## Like 'install', but strip binaries for smaller size
+ 	$(MAKE) install-exec MAKEFLAGS=
+ 	# We could have used 'install-strip' but then the docs would be installed as well.
+ 	# Instead strip manually.
+-	$(STRIP) @bindir@/curl-impersonate
++	$(STRIP) $(DESTDIR)@bindir@/curl-impersonate
+ 	# Wrapper scripts for the cli shortcut (e.g. 'curl_chrome99')
+-	install $(srcdir)/bin/curl_* @bindir@
++	install $(srcdir)/bin/curl_* $(DESTDIR)@bindir@
+ .PHONY: install-strip
+ 
+ uninstall: ## Uninstall the Chrome version of curl-impersonate after 'make install'
