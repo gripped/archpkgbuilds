@@ -1,29 +1,182 @@
 --- a/completion/bash/task.bash
 +++ b/completion/bash/task.bash
-@@ -1,7 +1,7 @@
+@@ -1,9 +1,9 @@
  # vim: set tabstop=2 shiftwidth=2 expandtab:
  
  _GO_TASK_COMPLETION_LIST_OPTION='--list-all'
 -TASK_CMD="${TASK_EXE:-task}"
-+TASK_CMD="${TASK_EXE:-go-task}"
++GO_TASK_CMD="${TASK_EXE:-go-task}"
  
- function _task()
+-function _task()
++function _go_task()
  {
+   local cur prev words cword
+   _init_completion -n : || return
+@@ -53,4 +53,4 @@ function _task()
+   __ltrim_colon_completions "$cur"
+ }
+ 
+-complete -F _task "$TASK_CMD"
++complete -F _go_task "$GO_TASK_CMD"
 --- a/completion/fish/task.fish
 +++ b/completion/fish/task.fish
-@@ -1,4 +1,4 @@
+@@ -1,33 +1,33 @@
 -set -l GO_TASK_PROGNAME (if set -q GO_TASK_PROGNAME; echo $GO_TASK_PROGNAME; else if set -q TASK_EXE; echo $TASK_EXE; else; echo task; end)
-+set -l GO_TASK_PROGNAME (if set -q GO_TASK_PROGNAME; echo $GO_TASK_PROGNAME; else if set -q TASK_EXE; echo $TASK_EXE; else; echo go-task; end)
++set -l GO_TASK_PROGNAME (if set -q GO_TASK_PROGNAME; echo $GO_TASK_PROGNAME; else if set -q GO_TASK_EXE; echo $GO_TASK_EXE; else; echo go-task; end)
  
  # Cache variables for experiments (global)
- set -g __task_experiments_cache ""
+-set -g __task_experiments_cache ""
+-set -g __task_experiments_cache_time 0
++set -g __go_task_experiments_cache ""
++set -g __go_task_experiments_cache_time 0
+ 
+ # Helper function to get experiments with 1-second cache
+-function __task_get_experiments
++function __go_task_get_experiments
+     set -l now (date +%s)
+     set -l ttl 1  # Cache for 1 second only
+ 
+     # Return cached value if still valid
+-    if test (math "$now - $__task_experiments_cache_time") -lt $ttl
+-        printf '%s\n' $__task_experiments_cache
++    if test (math "$now - $__go_task_experiments_cache_time") -lt $ttl
++        printf '%s\n' $__go_task_experiments_cache
+         return
+     end
+ 
+     # Refresh cache
+-    set -g __task_experiments_cache (task --experiments 2>/dev/null)
+-    set -g __task_experiments_cache_time $now
+-    printf '%s\n' $__task_experiments_cache
++    set -g __go_task_experiments_cache (go-task --experiments 2>/dev/null)
++    set -g __go_task_experiments_cache_time $now
++    printf '%s\n' $__go_task_experiments_cache
+ end
+ 
+ # Helper function to check if an experiment is enabled
+-function __task_is_experiment_enabled
++function __go_task_is_experiment_enabled
+     set -l experiment $argv[1]
+-    __task_get_experiments | string match -qr "^\* $experiment:.*on"
++    __go_task_get_experiments | string match -qr "^\* $experiment:.*on"
+ end
+ 
+-function __task_get_tasks --description "Prints all available tasks with their description" --inherit-variable GO_TASK_PROGNAME
++function __go_task_get_tasks --description "Prints all available tasks with their description" --inherit-variable GO_TASK_PROGNAME
+   # Check if the global task is requested
+   set -l global_task false
+   commandline --current-process | read --tokenize --list --local cmd_args
+@@ -62,7 +62,7 @@ end
+ 
+ complete -c $GO_TASK_PROGNAME \
+   -d 'Runs the specified task(s). Falls back to the "default" task if no task name was specified, or lists all tasks if an unknown task name was specified.' \
+-  -xa "(__task_get_tasks)" \
++  -xa "(__go_task_get_tasks)" \
+   -n "not __fish_seen_subcommand_from --"
+ 
+ # Standard flags
+@@ -103,14 +103,14 @@ complete -c $GO_TASK_PROGNAME -s y -l yes                       -d 'assume yes t
+ 
+ # Experimental flags (dynamically checked at completion time via -n condition)
+ # GentleForce experiment
+-complete -c $GO_TASK_PROGNAME -n "__task_is_experiment_enabled GENTLE_FORCE" -l force-all -d 'force execution of task and all dependencies'
++complete -c $GO_TASK_PROGNAME -n "__go_task_is_experiment_enabled GENTLE_FORCE" -l force-all -d 'force execution of task and all dependencies'
+ 
+ # RemoteTaskfiles experiment - Options
+-complete -c $GO_TASK_PROGNAME -n "__task_is_experiment_enabled REMOTE_TASKFILES" -l offline          -d 'use only local or cached Taskfiles'
+-complete -c $GO_TASK_PROGNAME -n "__task_is_experiment_enabled REMOTE_TASKFILES" -l timeout          -d 'timeout for remote Taskfile downloads'
+-complete -c $GO_TASK_PROGNAME -n "__task_is_experiment_enabled REMOTE_TASKFILES" -l expiry           -d 'cache expiry duration'
+-complete -c $GO_TASK_PROGNAME -n "__task_is_experiment_enabled REMOTE_TASKFILES" -l remote-cache-dir -d 'directory to cache remote Taskfiles' -xa "(__fish_complete_directories)"
++complete -c $GO_TASK_PROGNAME -n "__go_task_is_experiment_enabled REMOTE_TASKFILES" -l offline          -d 'use only local or cached Taskfiles'
++complete -c $GO_TASK_PROGNAME -n "__go_task_is_experiment_enabled REMOTE_TASKFILES" -l timeout          -d 'timeout for remote Taskfile downloads'
++complete -c $GO_TASK_PROGNAME -n "__go_task_is_experiment_enabled REMOTE_TASKFILES" -l expiry           -d 'cache expiry duration'
++complete -c $GO_TASK_PROGNAME -n "__go_task_is_experiment_enabled REMOTE_TASKFILES" -l remote-cache-dir -d 'directory to cache remote Taskfiles' -xa "(__fish_complete_directories)"
+ 
+ # RemoteTaskfiles experiment - Operations
+-complete -c $GO_TASK_PROGNAME -n "__task_is_experiment_enabled REMOTE_TASKFILES" -l download    -d 'download remote Taskfile'
+-complete -c $GO_TASK_PROGNAME -n "__task_is_experiment_enabled REMOTE_TASKFILES" -l clear-cache -d 'clear remote Taskfile cache'
++complete -c $GO_TASK_PROGNAME -n "__go_task_is_experiment_enabled REMOTE_TASKFILES" -l download    -d 'download remote Taskfile'
++complete -c $GO_TASK_PROGNAME -n "__go_task_is_experiment_enabled REMOTE_TASKFILES" -l clear-cache -d 'clear remote Taskfile cache'
 --- a/completion/zsh/_task
 +++ b/completion/zsh/_task
-@@ -1,6 +1,6 @@
- #compdef task
+@@ -1,23 +1,23 @@
+-#compdef task
++#compdef go_task
  typeset -A opt_args
 -TASK_CMD="${TASK_EXE:-task}"
-+TASK_CMD="${TASK_EXE:-go-task}"
- compdef _task "$TASK_CMD"
+-compdef _task "$TASK_CMD"
++GO_TASK_CMD="${TASK_EXE:-go_task}"
++compdef _go_task "$GO_TASK_CMD"
  
  _GO_TASK_COMPLETION_LIST_OPTION="${GO_TASK_COMPLETION_LIST_OPTION:---list-all}"
+ 
+ # Check if an experiment is enabled
+-function __task_is_experiment_enabled() {
++function __go_task_is_experiment_enabled() {
+     local experiment=$1
+-    task --experiments 2>/dev/null | grep -q "^\* ${experiment}:.*on"
++    go-task --experiments 2>/dev/null | grep -q "^\* ${experiment}:.*on"
+ }
+ 
+ # Listing commands from Taskfile.yml
+-function __task_list() {
++function __go_task_list() {
+     local -a scripts cmd
+     local -i enabled=0
+     local taskfile item task desc
+ 
+-    cmd=($TASK_CMD)
++    cmd=($GO_TASK_CMD)
+     taskfile=${(Qv)opt_args[(i)-t|--taskfile]}
+     taskfile=${taskfile//\~/$HOME}
+ 
+@@ -68,7 +68,7 @@ function __task_list() {
+     fi
+ }
+ 
+-_task() {
++_go_task() {
+     local -a standard_args operation_args
+ 
+     standard_args=(
+@@ -106,11 +106,11 @@ _task() {
+ 
+     # Experimental flags (dynamically added based on enabled experiments)
+     # Options (modify behavior)
+-    if __task_is_experiment_enabled "GENTLE_FORCE"; then
++    if __go_task_is_experiment_enabled "GENTLE_FORCE"; then
+         standard_args+=('(--force-all)--force-all[force execution of task and all dependencies]')
+     fi
+ 
+-    if __task_is_experiment_enabled "REMOTE_TASKFILES"; then
++    if __go_task_is_experiment_enabled "REMOTE_TASKFILES"; then
+         standard_args+=(
+             '(--offline --download)--offline[use only local or cached Taskfiles]'
+             '(--timeout)--timeout[timeout for remote Taskfile downloads]:duration: '
+@@ -121,7 +121,7 @@ _task() {
+ 
+     operation_args=(
+         # Task names completion (can be specified multiple times)
+-        '(operation)*: :__task_list'
++        '(operation)*: :__go_task_list'
+         # Operational args completion (mutually exclusive)
+         + '(operation)'
+             '(*)'{-l,--list}'[list describable tasks]'
+@@ -132,7 +132,7 @@ _task() {
+     )
+ 
+     # Experimental operations (dynamically added based on enabled experiments)
+-    if __task_is_experiment_enabled "REMOTE_TASKFILES"; then
++    if __go_task_is_experiment_enabled "REMOTE_TASKFILES"; then
+         standard_args+=(
+             '(--offline --clear-cache)--download[download remote Taskfile]'
+         )
+@@ -145,6 +145,6 @@ _task() {
+ }
+ 
+ # don't run the completion function when being source-ed or eval-ed
+-if [ "$funcstack[1]" = "_task" ]; then
+-    _task "$@"
++if [ "$funcstack[1]" = "_go_task" ]; then
++    _go_task "$@"
+ fi
