@@ -5,12 +5,11 @@
 
 pkgname=ttf-anonymous-pro
 pkgver=1.003
-pkgrel=8
+pkgrel=9
 pkgdesc='A family of four fixed-width fonts designed especially with coding in mind'
-arch=('any')
+arch=(any)
 url='https://www.marksimonson.com/fonts/view/anonymous-pro'
-license=('custom:OFL')
-depends=('xorg-fonts-encodings')
+license=(OFL-1.1)
 source=('https://www.marksimonson.com/assets/content/fonts/AnonymousPro-1_002.zip'
         'https://www.marksimonson.com/assets/content/fonts/AnonymousProMinus-1_003.zip')
 sha512sums=('e34c757b6be907b84194b4506ec2389113bb0d3750d518d7b2f7f9deb992172fd625dfb5a9c105df985b796c15559a5fcf53b123e86449a3fb71fdbfb57b6dd1'
@@ -19,12 +18,10 @@ b2sums=('e9cc288dfca7836cf914d5b225b64998467fad2da7c164104a1903ae6884713ca354329
         '461979adcb141b40cc64fe0e9c961a9a9ae2dc2f3ba0797d0869ff405067a96dbad795518e686b060240891ed72e99a1d11ad0f7c262bea0cb496795bb935003')
 
 package() {
-  install -d "${pkgdir}/usr/share/fonts/TTF/"
-  install -m644 AnonymousPro-1.002.001/*.ttf "${pkgdir}/usr/share/fonts/TTF/"
-  install -m644 AnonymousProMinus-1_003/*.ttf "${pkgdir}/usr/share/fonts/TTF/"
+  install -vd "${pkgdir}/usr/share/fonts/TTF/"
 
-  install -d "${pkgdir}"/usr/share/licenses/${pkgname}
-  install -m644 AnonymousPro-1.002.001/OFL{,-FAQ}.txt \
-    "${pkgdir}"/usr/share/licenses/${pkgname}
+  install -vDm644 -t "$pkgdir/usr/share/fonts/TTF" AnonymousPro*/*.ttf
+
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" AnonymousPro-1.002.001/OFL*
 }
 
