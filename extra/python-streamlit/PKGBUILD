@@ -2,8 +2,8 @@
 
 _name=streamlit
 pkgname=python-$_name
-pkgver=1.52.2
-pkgrel=2
+pkgver=1.53.0
+pkgrel=1
 pkgdesc="A faster way to build and share data apps"
 arch=(any)
 url="https://streamlit.io"
@@ -39,37 +39,46 @@ makedepends=(
 )
 checkdepends=(
   # https://github.com/streamlit/streamlit/blob/develop/lib/test-requirements.txt
-  python-authlib
-  python-graphviz
+  python-httpx
   python-hypothesis
-  python-matplotlib
   python-parameterized
-  python-plotly
   python-pytest
   python-requests-mock
-  python-rich
   python-seaborn
   python-testfixtures
   # additional optdepends
+  python-authlib
   python-gitpython
+  python-graphviz
+  python-itsdangerous
+  python-matplotlib
+  python-plotly
+  python-python-multipart
+  python-rich
+  python-starlette
+  uvicorn
 )
 optdepends=(
   'python-authlib: for user authentication'
   'python-gitpython: for obtaining information from git repositories'
   'python-graphviz: for graphviz_chart'
+  'python-itsdangerous: for running with Starlette (session middleware)'
   'python-matplotlib: for pyplot figures'
   'python-plotly: for plotly_chart'
   'python-polars: for using Polars dataframes'
   'python-pydeck: for pydeck_chart'
+  'python-python-multipart: for running with Starlette (file upload)'
   'python-rich: for syntax highlighting in error logs'
   'python-sqlalchemy: for connecting to SQL databases'
+  'python-starlette: for running with Starlette server'
   'python-xarray: for using Xarray datasets'
+  'uvicorn: for running with Starlette server'
 )
 source=(
   # build requires git in frontend/protobuf/scripts/generate-proto.js
   git+https://github.com/streamlit/streamlit#tag=$pkgver
 )
-b2sums=('2c98bc1983267ffef431c2d13eaf6c460179b140e280cfdbfe3be38ea51fefda01dde3b216288930143db3359dc68148ede14149b5538344e536cafd0147f5d2')
+b2sums=('fc90ac5db98d588c25b99ded1f0b2958068d13390a206b65d84de529ae4e3e167a362317b10a753d7d8080033b4c5a98bc14729810c9fdb3cdd0607ab7da9fee')
 
 # based on https://github.com/streamlit/streamlit/blob/develop/Makefile
 build() {
