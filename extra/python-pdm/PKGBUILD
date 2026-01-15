@@ -2,8 +2,8 @@
 
 _name=pdm
 pkgname=python-pdm
-pkgver=2.26.3
-pkgrel=2
+pkgver=2.26.4
+pkgrel=1
 pkgdesc="A modern Python package and dependency manager supporting the latest PEP standards"
 arch=(any)
 url="https://github.com/pdm-project/pdm"
@@ -61,8 +61,8 @@ optdepends=(
   'python-uv: use uv as installer and resolver'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('7705ccfeed840968e2deee789636fbbdd312bc4dc6deb265220e54efffb3c115583e1c1c0fe8ba41e962b0a0a2bab2a1e3e7c3e2aeb20d57cdcddd83d45f568a')
-b2sums=('e6fb7a6d80fc9460a9675231ce821a1c994210284f3211ac47b6b34bb7a91513d9a51c656a96b4922c2a4aa0efe7fa83da8ef1fd854f8efbfb22eef7726024a9')
+sha512sums=('8f00bc4a733b880dfc6dd91084e1c82056ae748e0b63293fa9c210c71b0d7e27cbff33e1ae9d9e325570d1227451ef46a3fdb99161de35e6b05eeee28d4b5c30')
+b2sums=('a38529dc3f454dee41e093c6e05049e129e822dff0c968864ad0314b67b4cebf14b17839f973811f04ad7dfb71d9b859ff18c66ad33715a1f81da8ed739ecb98')
 
 build() {
   cd $_name-$pkgver
