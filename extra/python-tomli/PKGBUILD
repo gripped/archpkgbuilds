@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-tomli
-pkgver=2.2.1
-pkgrel=2
+pkgver=2.3.0
+pkgrel=1
 pkgdesc="A lil' TOML parser"
 url="https://github.com/hukkin/tomli"
 license=('MIT')
@@ -10,11 +10,11 @@ arch=('any')
 depends=('python')
 makedepends=('python-build' 'python-installer' 'python-flit-core')
 source=("https://github.com/hukkin/tomli/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('6bd2600b06b9d41f45ae34172380d3ec162d0e25a7602e8e77ee37bbe165674ff17afc39c4d1f87c9cec9bd1f02003ba5ebaa313a60efca64ef5124f77a2c887')
+sha512sums=('bd39f9ef09bf43dc48787541ef96781459f66899fab12f72b24e57ef13a8975e135b6a90b0ed7f44c0c3171a4b3afbe0c8a2a8ffeace4255771a0f331288835e')
 
 build() {
   cd tomli-$pkgver
-  python -m build -wn --skip-dependency-check
+  python -m build -wn
 }
 
 check() {
