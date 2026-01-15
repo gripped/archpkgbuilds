@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=cosmic-player
-pkgver=1.0.1
+pkgver=1.0.2
 pkgrel=1
 epoch=1
 pkgdesc="WIP COSMIC media player"
