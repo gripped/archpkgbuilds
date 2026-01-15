@@ -2,8 +2,8 @@
 
 _pyname=jupyter_server_terminals
 pkgname=python-${_pyname//_/-}
-pkgver=0.5.3
-pkgrel=4
+pkgver=0.5.4
+pkgrel=1
 pkgdesc='A Jupyter Server extension providing terminals'
 arch=(any)
 url=https://github.com/jupyter-server/jupyter_server_terminals
@@ -20,7 +20,7 @@ makedepends=(python-build
 checkdepends=(python-pytest-jupyter
               python-pytest-timeout)
 source=(https://github.com/jupyter-server/jupyter_server_terminals/releases/download/v$pkgver/$_pyname-$pkgver.tar.gz)
-sha256sums=('5ae0295167220e9ace0edcfdb212afd2b01ee8d179fe6f23c899590e9b8a5269')
+sha256sums=('bbda128ed41d0be9020349f9f1f2a4ab9952a73ed5f5ac9f1419794761fb87f5')
 
 build() {
   cd $_pyname-$pkgver
