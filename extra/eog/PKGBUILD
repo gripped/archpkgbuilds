@@ -8,7 +8,7 @@ pkgname=(
   eog-docs
 )
 pkgver=47.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Eye of Gnome: An image viewing and cataloging program"
 url="https://wiki.gnome.org/Apps/EyeOfGnome"
 arch=(x86_64)
@@ -32,7 +32,6 @@ depends=(
   libpeas
   librsvg
   libx11
-  webp-pixbuf-loader
   zlib
 )
 makedepends=(
