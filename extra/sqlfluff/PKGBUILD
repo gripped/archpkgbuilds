@@ -3,48 +3,52 @@
 # Contributor: Morteza NourelahiAlamdari <m@0t1.me>
 
 pkgname=sqlfluff
-pkgver=3.5.0
-pkgrel=2
+pkgver=4.0.0
+pkgrel=1
 pkgdesc='A dialect-flexible and configurable SQL linter'
-arch=('any')
+arch=(any)
 url='https://github.com/sqlfluff/sqlfluff'
-license=('MIT')
+license=(MIT)
 depends=(
-  'python'
-  'python-chardet'
-  'python-click'
-  'python-colorama'
-  'python-diff-cover'
-  'python-jinja'
-  'python-pathspec'
-  'python-platformdirs'
-  'python-pluggy'
-  'python-pytest'
-  'python-regex'
-  'python-tblib'
-  'python-tqdm'
-  'python-yaml'
+  python
+  python-chardet
+  python-click
+  python-colorama
+  python-diff-cover
+  python-jinja
+  python-pathspec
+  python-platformdirs
+  python-pluggy
+  python-pytest
+  python-regex
+  python-tblib
+  python-tqdm
+  python-yaml
 )
 makedepends=(
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
 )
 checkdepends=(
-  'python-hypothesis'
-  'python-pytest-xdist'
+  python-hypothesis
+  python-pytest-xdist
 )
-source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('c2d40e554310f5fabe94f782f9d62ad409f59a22d5770947401d2e541375246abbb8caf04341bfb435c7cc45301349f7699e4adcdaa9f168cb403a8ad4e59965')
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('f953f48b399c6f0067d13684a61d43e3b89e530365f09f8ae7598f7c619140326a8a3295961bd949d778cedd99d9800a36258a3df958fe97ddfb5fee716fc6e1')
+b2sums=('a6906d4910613bc3e906bcb249371198a148e50c0fb9d18432de87070d83804cf89db5beb9942ea7d5b198008d9d68bca9ef871bffe55915924dfd12e9af5dc7')
 
 build() {
-  cd $pkgname-$pkgver
+  cd "$pkgname"
+
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd "$pkgname"
+
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest -n=auto \
@@ -55,8 +59,13 @@ check() {
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd "$pkgname"
+
   python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # documentation
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+
+  # license
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.md
 }

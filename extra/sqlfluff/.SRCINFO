@@ -1,12 +1,13 @@
 pkgbase = sqlfluff
 	pkgdesc = A dialect-flexible and configurable SQL linter
-	pkgver = 3.5.0
-	pkgrel = 2
+	pkgver = 4.0.0
+	pkgrel = 1
 	url = https://github.com/sqlfluff/sqlfluff
 	arch = any
 	license = MIT
 	checkdepends = python-hypothesis
 	checkdepends = python-pytest-xdist
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -25,7 +26,8 @@ pkgbase = sqlfluff
 	depends = python-tblib
 	depends = python-tqdm
 	depends = python-yaml
-	source = https://github.com/sqlfluff/sqlfluff/archive/3.5.0/sqlfluff-3.5.0.tar.gz
-	b2sums = c2d40e554310f5fabe94f782f9d62ad409f59a22d5770947401d2e541375246abbb8caf04341bfb435c7cc45301349f7699e4adcdaa9f168cb403a8ad4e59965
+	source = sqlfluff::git+https://github.com/sqlfluff/sqlfluff#tag=4.0.0
+	sha512sums = f953f48b399c6f0067d13684a61d43e3b89e530365f09f8ae7598f7c619140326a8a3295961bd949d778cedd99d9800a36258a3df958fe97ddfb5fee716fc6e1
+	b2sums = a6906d4910613bc3e906bcb249371198a148e50c0fb9d18432de87070d83804cf89db5beb9942ea7d5b198008d9d68bca9ef871bffe55915924dfd12e9af5dc7
 
 pkgname = sqlfluff
