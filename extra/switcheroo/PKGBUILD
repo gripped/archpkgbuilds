@@ -2,7 +2,7 @@
 
 pkgname=switcheroo
 pkgver=2.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Convert between different image filetypes and resize them easily'
 arch=(x86_64)
 url='https://apps.gnome.org/Converter/'
@@ -25,7 +25,6 @@ depends=(
   librsvg
   libtiff
   libwebp
-  webp-pixbuf-loader
   zip
 )
 makedepends=(
@@ -42,7 +41,7 @@ prepare() {
   cd Switcheroo
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
