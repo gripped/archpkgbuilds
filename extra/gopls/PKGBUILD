@@ -3,7 +3,7 @@
 
 pkgname=gopls
 pkgver=0.21.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Language server for Go programming language'
 arch=('x86_64')
 url='https://github.com/golang/tools/tree/master/gopls'
@@ -30,6 +30,7 @@ build() {
     -modcacherw \
     -ldflags "-compressdwarf=false \
     -linkmode external \
+    -X main.version=v${pkgver} \
     -extldflags \"${LDFLAGS}\"" \
     -o "${pkgname}"
 }
