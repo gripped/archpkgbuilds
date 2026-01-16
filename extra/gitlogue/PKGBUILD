@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=gitlogue
-pkgver=0.6.0
+pkgver=0.7.0
 pkgrel=1
 pkgdesc="A cinematic Git commit replay tool for the terminal"
 arch=('x86_64')
@@ -10,12 +10,12 @@ license=('ISC')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('f123daba18f0b4d6f4623c618a8c8a8ffc27c4805bed903c8c4726e7f32c0488')
+sha256sums=('57b1c7ed46bf989cd32c274a4e59469661f3018b89ba1cc01c0a0c964495f426')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
