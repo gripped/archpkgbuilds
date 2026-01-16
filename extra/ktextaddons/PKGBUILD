@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=ktextaddons
-pkgver=1.9.0
+pkgver=1.9.1
 pkgrel=1
 pkgdesc='Various text handling addons'
 arch=(x86_64)
@@ -14,8 +14,10 @@ depends=(gcc-libs
          kconfig
          kcoreaddons
          ki18n
+         kiconthemes
          kio
          kitemviews
+         kservice
          ktextwidgets
          kwidgetsaddons
          qt6-base
@@ -29,7 +31,7 @@ optdepends=('languagetool: Grammar checking'
             'grammalecte: French grammar checking'
             'libreoffice: Use autocorrection data from LibreOffice')
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('053bcf84e45c141042186a9115a8dd51a7262802fe9547745e44b419015b9694'
+sha256sums=('366d5a94c7405482c3a6d261347c1b995de73a087059996b117d612bfc1291c2'
             'SKIP')
 validpgpkeys=(90A774939A973FF1ECC827788FFE4352ED54BB8A) # laurent Montel <montel@kde.org>
 
