@@ -5,7 +5,7 @@
 # Contributor: Ner0
 
 pkgname=muffin
-pkgver=6.6.1
+pkgver=6.6.2
 pkgrel=1
 pkgdesc='Cinnamon window manager based on Mutter'
 arch=(x86_64)
@@ -72,7 +72,7 @@ source=(
   muffin-menu-icon.patch
   muffin-wayland-wm-capabilities.patch
 )
-b2sums=('9c65a70ed7437d351b75fac93448b5869e5ec2e5016d30a19b8349105a3f33946f7b4506de9ce7f6cb72e51b6b9b833c0d6d70600a4c0dfa093feb451205532d'
+b2sums=('9a9842d27075fd2f3d07c110f8e13129388e6a7c07391694e7a123d416a8555f74a49799cc22851f61036644dec008bebe4f49a2e17c9fea804cc5a08ab57644'
         '3e511043e740ecc08ca611ec67b4e50d5a13bd4b3e0bb0f300d4ada57a7f4346afa303493bcfa43242f6715c7dc50fb7005a54a9def0079505da1846f8bb4f7c'
         '90e1dde17c970cc1e87e0517c8fcef3f6f53e20969bec34437aa99a042cc7d27eaf8ed08e722f534c758adf80548055948d6ed3efb06489d30559b3243372034')
 
