@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=intelli-shell
-pkgver=3.3.1
+pkgver=3.4.0
 pkgrel=1
 pkgdesc="Like IntelliSense, but for shells"
 arch=('x86_64')
@@ -10,12 +10,12 @@ license=('Apache-2.0')
 depends=('gcc-libs' 'zlib')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('66e3cd070c69f37eb54996c8171a0e52c88c482651dd2964b567f5ea2c4c68d68c1541d65c5d57d26b297ff75d7596aec380483687c5eae94d7aa404de556268')
+sha512sums=('c164d8e039233ae12503bd7c730fe090daa321969871e781241d5c1468caa0d53a61c009c1e6e0d042fcc9646a2325757dcb5e9ad21c0917e9aebd70b01dd88b')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
