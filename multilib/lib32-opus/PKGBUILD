@@ -6,7 +6,7 @@ pkgbase=lib32-opus
 pkgname=(
   lib32-opus
 )
-pkgver=1.6
+pkgver=1.6.1
 pkgrel=1
 pkgdesc="Totally open, royalty-free, highly versatile audio codec (32-bit)"
 url="https://www.opus-codec.org/"
@@ -21,10 +21,10 @@ makedepends=(
   meson
 )
 source=("https://downloads.xiph.org/releases/opus/opus-$pkgver.tar.gz")
-b2sums=('901d701ddda7a34d65444fe3bebb55f8fa0d2067cf0b4c782a46a799070ee05186f9171a6349a21117629a76703131379af13e9ab3fcb7bef04503c56c6fb981')
+b2sums=('dda8fb4e30e5f22d2b37616902892dcc715a2886150ab54f67d61a90c60a03afee05fb7b56a0d88355db007bb4d72c8bd6de3d874a49767318a5bba115b1a613')
 
 # https://downloads.xiph.org/releases/opus/SHA256SUMS.txt
-sha256sums=('b7637334527201fdfd6dd6a02e67aceffb0e5e60155bbd89175647a80301c92c')
+sha256sums=('6ffcb593207be92584df15b32466ed64bbec99109f007c82205f0194572411a1')
 
 # Git doesn't contain model data
 #source=("git+https://gitlab.xiph.org/xiph/opus.git?signed#tag=v$pkgver")
