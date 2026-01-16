@@ -2,7 +2,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=wild
-pkgver=0.7.0
+pkgver=0.8.0
 pkgrel=1
 pkgdesc="A very fast linker for Linux written in Rust"
 url='https://github.com/davidlattimore/wild'
@@ -25,15 +25,15 @@ source=(
   https://github.com/davidlattimore/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
   test-config.toml
 )
-sha256sums=('4e361126f564f721efca627a414759111d88b06fe26ed15c7604a6420cb9a8ab'
+sha256sums=('3828028f41c668caf02aa9ffc4dc3bd1a33b4957eb66a7aa015f7c92e4f064ce'
             'f6d85c23f76bd8881c7e5d0e3de385aa130472bcef2f5d372d61e78774fa0248')
-b2sums=('bb38526c84a7af7e5bd36f082a2c3e04136da01205797fc8970365475263d428c9efd4dfd16cf316f0147e1a8c74c2415c7eb4d487eb05f42923f2910a13ee41'
+b2sums=('fd4bf76a7074e20b8256461d79be0ac72679c6d4432c038997383cf1dd2d38a83fe84c14d85f1d3ddb292f01d99bd453acb291c730c85f059f05744972a4ecf2'
         'feea6dac7af3ff51d160dde9850da85013c63296ac16d1fa00e2a273bd18a9d9038ba2324209c0c064087e1e57acd83094332d9e71c5d195705c0021a001b63f')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
   cp "${srcdir}/test-config.toml" .
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
