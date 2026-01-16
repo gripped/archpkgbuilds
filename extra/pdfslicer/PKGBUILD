@@ -2,7 +2,7 @@
 
 pkgname=pdfslicer
 pkgver=1.8.8
-pkgrel=6
+pkgrel=7
 pkgdesc='Simple application to extract, merge, rotate and reorder pages of PDF documents'
 arch=('x86_64')
 url='https://junrrein.github.io/pdfslicer/'
@@ -14,8 +14,8 @@ source=("git+https://github.com/junrrein/pdfslicer.git#commit=$_commit"
         "git+https://github.com/ericniebler/range-v3.git"
         "git+https://github.com/Microsoft/GSL.git"
         "git+https://github.com/fmtlib/fmt.git"
-        qpdf-11.diff
-        catch2_fix.diff)
+        qpdf-11.patch
+        catch2_fix.patch)
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
@@ -36,14 +36,20 @@ prepare() {
   git submodule set-url third-party/fmtlib "$srcdir/fmt"
   git -c protocol.file.allow=always submodule update
 
-  patch -Np1 -i ../qpdf-11.diff
+  patch -Np1 -i ../qpdf-11.patch
   # https://patch-diff.githubusercontent.com/raw/prusa3d/PrusaSlicer/pull/6518.patch
-  patch -Np1 -i ../catch2_fix.diff
+  patch -Np1 -i ../catch2_fix.patch
+
+  # Update third-party projects to newer versions to fix the build
+  cd "$srcdir/$pkgname/third-party/range-v3"
+  git checkout 0.12.0
+  cd "$srcdir/$pkgname/third-party/fmtlib"
+  git checkout 7.1.3
 }
 
 build() {
   cmake -S $pkgname -B build -G Ninja -DCMAKE_INSTALL_PREFIX='/usr' \
-    -DCMAKE_CXX_FLAGS="$CXXFLAGS -Wno-error=changes-meaning" # Fix build with GCC 14
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake --build build
 }
 
