@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=forgejo
-pkgver=13.0.4
-pkgrel=1
+pkgver=14.0.0
+pkgrel=2
 pkgdesc='A lightweight software forge'
 arch=(x86_64)
 url='https://forgejo.org'
@@ -35,16 +35,16 @@ source=(
   tmpfiles.conf
   use-correct-variables.patch
 )
-sha512sums=('febbd7e4846b47616164786e7ad103b3ab375cacd29628ef1985678824e461d93334cd3f115af39854f54014e997b982a9d400b3823644619a42afdc24ae003e'
+sha512sums=('d04d95a28a1b6876aafac386a7eec54c5219d16bcb151e4c1a81fc3cfa766c18c0ca6a0e3d211fe825ce4efbbfe2ea0e2218c8b05f2f54427d815006a0b5d82c'
             'a88aefed4aaee9c4d356444a2b3cbad384e07d738da4c87c7298744222ed784c6d5079d74596b8440605da0ad85699ced20106897c345a12994bd1d3ee84da37'
             '7eb2766c06bb0e104da5860c16fbb9743220b01eec2760a84353b315d0d91a03a10939a105a8b06c6e074782cb76d26e0af8bf8f10881fef6e942dc43300208a'
             'f18cbfa60912221b29e3b3b824c77571797ac76b90cacd28f2014f295c90c964990d4d5079822d280681fa6b0bb80248cd98d0479a3ac6441a3eaf8179f640a3'
-            'bbf13b108070b18af7c6aaa86166f886d6b4fa4f2aaa09e66d234a660c7637a812a515d7200fbe2900f77d1e8a2265286e14979c287382d355b8ad6551fbaa9f')
-b2sums=('1b06c41416aef4d8604ea30f83d74397a4297fb7abf14fbf243d5a7e725cfd946ae50545c9adfdefc0d02b1b1bf2b860ac8e8f9de5ac799702d5df31b6244889'
+            '95437d2e9a27320bde31fbe070c20832a7244552e4add2ee93172653b3717326b71d9f3608776564935f9e3cd182fcc02e88dd1baa70f67c1fd2dc3a32970664')
+b2sums=('6d77c5896ac320b1cb2ec0de19254b4a616263baee86ff73dd0e147ba15af4347700127aa49000eac6dc5f9dd025ca8f0ce7b169c0fa4bdc642049f962beaa6b'
         '8233177c7931b8baa046f58b086f733b3dd36ab42e50173724f6d4ab6be85dda2c674a9d0c6f3d7393a5c4f751af889972a0633828f40dc446f1b276a8c9fba2'
         '939ba4a1cc6862cbe592b930a613694e79457a51c21c258ec01a0baa84d358286db2a457f78e8cc18daac1f8bb7df170d00e57ce877ab486a31a44e707f5e7e8'
         '1e1b1fa2d31a87913625f0a235524d9131e26108414d06f91e61bc5134ebf8f570ee599ddb80956821dbbfa565dba09d4b046bafd336d4b0a097bb859da3e183'
-        '1e487218206a9a914f503f369d4975bb0e312b4c39cb29ef3910e50ca81f0ec61ce07e70eff2ba4ccbbcafcade0bb4d261db2d3fccc04afbbe831b474ba9ea91')
+        'dcc93fc744d6791ea21c34a1ce8a4532f7a7f52118010445cae61c2030ec0c5adfbefe02fb0e912a1c8906455a6633928758b8bf90fe3076da0464dcd302290b')
 
 prepare() {
   cd "$pkgname"
@@ -80,5 +80,6 @@ package() {
   install -vDm755 gitea "$pkgdir/usr/bin/$pkgname"
 
   # configuration
-  install -vDm644 custom/conf/app.example.ini "$pkgdir/etc/$pkgname/app.ini"
+  install -vdm750 "$pkgdir/etc/forgejo"
+  install -vDm660 custom/conf/app.example.ini "$pkgdir/etc/$pkgname/app.ini"
 }

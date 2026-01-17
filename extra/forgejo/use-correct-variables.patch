@@ -8,7 +8,7 @@
 +RUN_USER = forgejo
  ;;
  ;; Application run mode, affects performance and debugging: "dev" or "prod", default is "prod"
- ;; Mode "dev" makes Gitea easier to develop and debug, values other than "dev" are treated as "prod" which is for production use.
+ ;; Mode "dev" makes Forgejo easier to develop and debug, values other than "dev" are treated as "prod" which is for production use.
  ;RUN_MODE = prod
  ;;
  ;; The working directory, see the comment of AppWorkPath above
@@ -17,7 +17,7 @@
  
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-@@ -576,14 +576,14 @@ ENABLED = true
+@@ -577,14 +577,14 @@ ENABLED = true
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
  ;; Root path for the log files - defaults to %(GITEA_WORK_DIR)/log
@@ -34,7 +34,7 @@
  ;;
  ;; Either "Trace", "Debug", "Info", "Warn", "Error" or "None", default is "Info"
  LEVEL = Info
-@@ -638,9 +638,9 @@ LEVEL = Info
+@@ -639,9 +639,9 @@ LEVEL = Info
  ;[log.console]
  ;STDERR = false
  ;;
@@ -46,7 +46,7 @@
  ;; This enables automated log rotate(switch of following options), default is true
  ;LOG_ROTATE = true
  ;; Max size shift of a single file, default is 28 means 1 << 28, 256MB
-@@ -961,7 +961,7 @@ LEVEL = Info
+@@ -957,7 +957,7 @@ LEVEL = Info
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
  ;[repository]
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
