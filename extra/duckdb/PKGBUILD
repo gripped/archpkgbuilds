@@ -1,0 +1,87 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgbase=duckdb
+pkgname=(duckdb python-duckdb)
+pkgver=1.4.3
+pkgrel=2
+pkgdesc='An analytical in-process SQL database management system'
+arch=(x86_64)
+url='https://www.duckdb.org'
+license=(MIT)
+depends=(glibc gcc-libs)
+makedepends=(
+  git
+  cmake
+  ninja
+  pybind11
+  uv
+  python-installer
+  python-setuptools-scm
+  python-scikit-build-core
+)
+source=(
+  "$pkgbase::git+https://github.com/duckdb/duckdb#tag=v$pkgver"
+  "python-duckdb::git+https://github.com/duckdb/duckdb-python#tag=v$pkgver"
+)
+sha512sums=('f275358dfe5e7c282a60bc609e2fef9a31b339b53de3e6cf602a3b90150f36ff6dccb461045916cf87e99f14f4403a6163297222a63c79e28ca22c0d3fbc4c55'
+            'bb65fa822b93940bd691f874ea7ecd92897cc1923be7550531725bea6188084c202ce1b28a0c8befeea25549bf1fd5e45589eb591b47eaea0ac4e14fb4cb405d')
+b2sums=('5e07b30dd57240e521ff849eb03adf655a3791beba77ea3eefba010cdf95b227ac79f05895920bf7146b2f8d52a62ea7966e7af3d1dc8c6319d5c025f80158dd'
+        'bb075924166283fd591c7df089e288014986804527e1ecedd712baf7384df41640905e6d8f146ec443c4382cd32bdf13503326005835b1469b8e66f23fe5f168')
+
+prepare() {
+  cd python-duckdb
+  # python-duckdb requires a copy of the duckdb sourcetree *shrugs*
+  git submodule init
+  git config submodule.external/duckdb.url "$srcdir/$pkgbase"
+  git -c protocol.file.allow=always submodule update
+}
+
+build() {
+  local cmake_options=(
+    -S "$pkgbase"
+    -B build
+    -G Ninja
+    -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D OVERRIDE_GIT_DESCRIBE="v$pkgver"
+  )
+  cmake "${cmake_options[@]}"
+
+  cmake --build build
+
+  # Python API
+  uv build \
+    --wheel \
+    --directory='python-duckdb' \
+    --no-build-isolation
+}
+
+package_duckdb() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$pkgname/LICENSE"
+}
+
+package_python-duckdb() {
+  pkgdesc+=' Python API'
+  depends+=(
+    python
+    python-typing_extensions
+  )
+  optdepends=(
+    'ipython: used in duckdb.query_graph'
+    'python-fsspec: used in duckdb.filesystem'
+    'python-numpy: used in duckdb.experimental.spark and in duckdb.fetchnumpy()'
+    'python-pandas: used for pandas dataframes all over the place'
+    'python-pyarrow: used for pyarrow support'
+    'python-arrow-adbc: for the adbc driver'
+  )
+
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}
