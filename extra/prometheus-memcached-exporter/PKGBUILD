@@ -1,18 +1,18 @@
 # Maintainer: Jelle van der Waa <jelle@dwaa.nl>
 
 pkgname=prometheus-memcached-exporter
-pkgver=0.15.4
+pkgver=0.15.5
 pkgrel=1
 pkgdesc="Exports metrics from memcached servers for consumption by Prometheus"
 arch=('x86_64')
 url="https://github.com/prometheus/memcached_exporter"
-license=('Apache')
+license=('Apache-2.0')
 depends=(glibc memcached)
 makedepends=(go)
 backup=('etc/conf.d/prometheus-memcached-exporter')
 source=($pkgname-$pkgver.tar.gz::https://github.com/prometheus/memcached_exporter/archive/v${pkgver}.tar.gz prometheus-memcached-exporter.service
         prometheus-memcached-exporter.conf)
-sha512sums=('4c2f95a67f88aa36d4cc0992d2443ff5948dc8ae3c1a3224d338d9b1a65a468d22e36d663afbc72ab918858dfa40b8553b5bbffe87b037409bb85a89c0de7755'
+sha512sums=('118db06d7f9c9b017cfffbc5922c77a58d812a784b98a2a03c954fbfd993a763ab17c62f1d56239d9edb4907ea41d4e0c17dac1f8414a9ca71aef083312c0656'
             '13ae8e9cc8445cffab1e51f000fbe5ca0dd2a30532f8303957dc376c8891552e719681e49ffd8a83c4cd01aca897031770c9d96ed92276ff85c2e32c4fa999ee'
             'bc92af08207bee78a48cc764f038d6f5175b0051873f1238d90531f81d9b403085ec7ac62dfe934ee804794426c6bed4c309b374a418c9f7a4dbdbb157d58c23')
 
