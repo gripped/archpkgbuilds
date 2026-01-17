@@ -1,0 +1,40 @@
+# Maintainer: Jakub Klinkovský <lahwaacz@archlinux.org>
+
+pkgname=cccl
+pkgver=3.1.4
+pkgrel=1
+pkgdesc="CUDA Core Compute Libraries"
+arch=(any)
+url="https://github.com/NVIDIA/cccl"
+license=(Apache-2.0)
+makedepends=(cmake)
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
+b2sums=('c5841fdc874ec2b07393428d016f0a96450f7115a74f0d27e3c44dd43af0add179aece842f5fabbbce7c2ec482f858bd16598bd984619bc4d4280dadc92ae527')
+
+build() {
+  local cmake_options=(
+    -B build
+    -S $pkgname-$pkgver
+    -W no-dev
+    -DCMAKE_BUILD_TYPE=None
+    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCCCL_ENABLE_EXAMPLES=OFF
+    -DCCCL_ENABLE_TESTING=OFF
+    -DTHRUST_ENABLE_EXAMPLES=OFF
+    -DTHRUST_ENABLE_HEADER_TESTING=OFF
+    -DTHRUST_ENABLE_TESTING=OFF
+    -DCUB_ENABLE_EXAMPLES=OFF
+    -DCUB_ENABLE_HEADER_TESTING=OFF
+    -DCUB_ENABLE_TESTING=OFF
+    -DLIBCUDACXX_ENABLE_LIBCUDACXX_TESTS=OFF
+    # controls only enable_language(CUDA) in CMake, but we don't build anything
+    -DLIBCUDACXX_ENABLE_CUDA=OFF
+  )
+  cmake "${cmake_options[@]}"
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm 644 $pkgname-$pkgver/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
