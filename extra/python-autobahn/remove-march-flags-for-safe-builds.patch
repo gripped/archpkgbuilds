@@ -1,0 +1,21 @@
+diff -ura autobahn-python.orig/autobahn/nvx/_compile_args.py autobahn-python.new/autobahn/nvx/_compile_args.py
+--- autobahn-python.orig/autobahn/nvx/_compile_args.py	2026-01-10 16:30:20.721405588 +0100
++++ autobahn-python.new/autobahn/nvx/_compile_args.py	2026-01-10 16:44:55.784630451 +0100
+@@ -251,12 +251,13 @@
+     -------
+     str or None
+         Safe -march flag for the architecture, or None for unknown architectures.
++        Patched to always return None for Arch Linux x64 package builds.
++        If Arch decides to increase CPU requirements [1], -march=x86-64-v3 or
++        others could be used here.
++        [1] https://gitlab.archlinux.org/archlinux/rfcs/-/blob/master/rfcs/0002-x86-64-v3-microarchitecture.md
+     """
+     if machine in ("x86_64", "amd64", "x64"):
+-        # x86-64: Use microarchitecture level 2 (2009+ CPUs)
+-        # Includes: SSE4.2, POPCNT, SSSE3, SSE4.1
+-        # Compatible with: Intel Nehalem+, AMD Bulldozer+
+-        return "-march=x86-64-v2"
++        return None
+ 
+     elif machine in ("aarch64", "arm64"):
+         # ARM64: Use ARMv8-A baseline (all 64-bit ARM)
