@@ -4,7 +4,7 @@
 
 pkgname=matrix-synapse
 pkgver=1.144.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Matrix reference homeserver"
 url="https://github.com/element-hq/synapse"
 arch=('x86_64')
@@ -68,6 +68,9 @@ prepare() {
 
 	# Required to make synapse work with lxml 6.0
 	git cherry-pick --no-commit 4555f61db5d6caf3cbbe03dfd3051e72c1b9c221
+
+	# Required to make synapse work with prometheus_client 0.24
+	git cherry-pick --no-commit 8b36740bad82d421b4e93f2b78611eb6958c36e9
 
 	# allow any poetry-core to be used
 	sed 's/poetry-core>=2.0.0,<=2.1.3/poetry-core>=1.1.0/' -i pyproject.toml
