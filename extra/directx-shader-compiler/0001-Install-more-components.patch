@@ -1,0 +1,246 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Fri, 16 Jan 2026 08:50:13 +0100
+Subject: [PATCH] Install more components
+
+---
+ CMakeLists.txt                              |  2 +-
+ include/dxc/CMakeLists.txt                  |  9 +++++++
+ tools/clang/lib/CMakeLists.txt              |  1 +
+ tools/clang/lib/Headers/hlsl/CMakeLists.txt | 19 +++++++++++++
+ tools/clang/test/CMakeLists.txt             |  4 +--
+ tools/clang/tools/dxa/CMakeLists.txt        |  9 ++++++-
+ tools/clang/tools/dxildll/CMakeLists.txt    | 30 ++++++++++++++++-----
+ tools/clang/tools/dxr/CMakeLists.txt        |  9 ++++++-
+ tools/clang/tools/dxv/CMakeLists.txt        |  9 ++++++-
+ 9 files changed, 79 insertions(+), 13 deletions(-)
+ create mode 100644 tools/clang/lib/Headers/hlsl/CMakeLists.txt
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 521071800513..8f24095bbdaf 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -805,7 +805,7 @@ endif()
+ include(CoverageReport)
+ 
+ # HLSL Change begin - Set default distribution value.
+-set(LLVM_DISTRIBUTION_COMPONENTS "dxc;dxcompiler;dxc-headers" CACHE STRING "")
++set(LLVM_DISTRIBUTION_COMPONENTS "dxc;dxcompiler;dxc-headers;dxa;dxr;dxv;dxil;hlsl-headers" CACHE STRING "")
+ # HLSL Change end - Set default distribution value.
+ 
+ # This must be at the end of the LLVM root CMakeLists file because it must run
+diff --git a/include/dxc/CMakeLists.txt b/include/dxc/CMakeLists.txt
+index b2bf9662975e..2fdec9f18a3f 100644
+--- a/include/dxc/CMakeLists.txt
++++ b/include/dxc/CMakeLists.txt
+@@ -26,21 +26,30 @@ set(DXC_PUBLIC_HEADERS
+     ${CMAKE_CURRENT_SOURCE_DIR}/dxcerrors.h
+     ${CMAKE_CURRENT_SOURCE_DIR}/dxcisense.h)
+ 
++set(DXC_PUBLIC_SUPPORT_HEADERS
++    ${CMAKE_CURRENT_SOURCE_DIR}/Support/ErrorCodes.h)
++
+ if (NOT WIN32)
+   set(DXC_PLATFORM_PUBLIC_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/WinAdapter.h)
+ endif()
+ 
+ # This target just needs to exist for the distribution build, it doesn't need to
+ # actually build anything since the headers are static.
+ add_custom_target(dxc-headers)
+ 
+ install(FILES 
+     ${DXC_PUBLIC_HEADERS}
+     ${DXC_PLATFORM_PUBLIC_HEADERS}
+     DESTINATION include/dxc
+     COMPONENT dxc-headers
+     )
+ 
++install(FILES
++    ${DXC_PUBLIC_SUPPORT_HEADERS}
++    DESTINATION include/dxc/Support
++    COMPONENT dxc-headers
++    )
++
+ add_custom_target(install-dxc-headers
+     DEPENDS dxc-headers
+     COMMAND "${CMAKE_COMMAND}"
+diff --git a/tools/clang/lib/CMakeLists.txt b/tools/clang/lib/CMakeLists.txt
+index 47cb69f0425c..1a13e4afa0de 100644
+--- a/tools/clang/lib/CMakeLists.txt
++++ b/tools/clang/lib/CMakeLists.txt
+@@ -1,4 +1,5 @@
+ # add_subdirectory(Headers)
++add_subdirectory(Headers/hlsl)
+ add_subdirectory(Basic)
+ add_subdirectory(Lex)
+ add_subdirectory(Parse)
+diff --git a/tools/clang/lib/Headers/hlsl/CMakeLists.txt b/tools/clang/lib/Headers/hlsl/CMakeLists.txt
+new file mode 100644
+index 000000000000..e685e78bd66d
+--- /dev/null
++++ b/tools/clang/lib/Headers/hlsl/CMakeLists.txt
+@@ -0,0 +1,19 @@
++# This target just needs to exist for the distribution build, it doesn't need to
++# actually build anything since the headers are static.
++add_custom_target(hlsl-headers)
++
++install(FILES LICENSE.txt README.txt
++    DESTINATION include/hlsl
++    COMPONENT hlsl-headers
++    )
++
++install(DIRECTORY dx vk
++    DESTINATION include/hlsl
++    COMPONENT hlsl-headers
++    )
++
++add_custom_target(install-hlsl-headers
++    DEPENDS hlsl-headers
++    COMMAND "${CMAKE_COMMAND}"
++            -DCMAKE_INSTALL_COMPONENT=hlsl-headers
++            -P "${CMAKE_BINARY_DIR}/cmake_install.cmake")
+diff --git a/tools/clang/test/CMakeLists.txt b/tools/clang/test/CMakeLists.txt
+index 6b0aa32fbcc6..3fd41cf45fed 100644
+--- a/tools/clang/test/CMakeLists.txt
++++ b/tools/clang/test/CMakeLists.txt
+@@ -79,11 +79,11 @@ endif()
+ set(CLANG_TEST_DEPS dxc dxa dxopt dxl dxv dxr dxcompiler clang-tblgen llvm-config opt FileCheck count not ClangUnitTests)
+ if (WIN32)
+ list(APPEND CLANG_TEST_DEPS
+-     dxc_batch ExecHLSLTests dxildll
++     dxc_batch ExecHLSLTests dxil
+     )
+ else()
+ list(APPEND CLANG_TEST_DEPS
+-     dxildll
++     dxil
+     )
+ endif()
+ add_custom_target(clang-test-depends DEPENDS ${CLANG_TEST_DEPS})
+diff --git a/tools/clang/tools/dxa/CMakeLists.txt b/tools/clang/tools/dxa/CMakeLists.txt
+index 6f12425939e9..1696821ace8d 100644
+--- a/tools/clang/tools/dxa/CMakeLists.txt
++++ b/tools/clang/tools/dxa/CMakeLists.txt
+@@ -43,5 +43,12 @@ else()
+ endif()
+ 
+ install(TARGETS dxa
+-  RUNTIME DESTINATION bin)
++  RUNTIME DESTINATION bin
++  COMPONENT dxa)
++
++add_custom_target(install-dxa
++  DEPENDS dxa
++  COMMAND "${CMAKE_COMMAND}"
++          -DCMAKE_INSTALL_COMPONENT=dxa
++          -P "${CMAKE_BINARY_DIR}/cmake_install.cmake")
+ 
+diff --git a/tools/clang/tools/dxildll/CMakeLists.txt b/tools/clang/tools/dxildll/CMakeLists.txt
+index 67a24d11074f..5f56e3300ccb 100644
+--- a/tools/clang/tools/dxildll/CMakeLists.txt
++++ b/tools/clang/tools/dxildll/CMakeLists.txt
+@@ -42,45 +42,61 @@ set(sources
+ )
+ 
+ if (WIN32)
+-add_clang_library(dxildll SHARED ${sources})
++add_clang_library(dxil SHARED ${sources})
+ list(APPEND DXCLibs
+   kernel32.lib
+   atls.lib
+   advapi32.lib
+   ole32.lib)
+ else()
+-add_clang_library(dxildll SHARED ${sources})
++add_clang_library(dxil SHARED ${sources})
+ endif()
+ 
+-target_link_libraries(dxildll PRIVATE
++target_link_libraries(dxil PRIVATE
+   ${DXCLibs}
+   clangBasic # for clang::getGitCommitHash.
+   dxcvalidator
+ )
+ 
+ if (WIN32)
+-add_dependencies(dxildll
++add_dependencies(dxil
+     ${DXCDependencies}
+     DxcEtw
+     DxcRuntimeEtw
+ )
+ else()
+-add_dependencies(dxildll
++add_dependencies(dxil
+     ${DXCDependencies}
+ )
+ endif()
+ 
+ if (WIN32)
+-    get_target_property(sources dxildll SOURCES)
++    get_target_property(sources dxil SOURCES)
+ 
+     list(APPEND sources dxildll.rc)
+     set_target_properties(${target_name} PROPERTIES SOURCES "${sources}")
+ 
+     set_property(SOURCE dxildll.rc PROPERTY COMPILE_DEFINITIONS "INCLUDE_HLSL_VERSION_FILE=1")
+     set_property(SOURCE dxildll.rc PROPERTY COMPILE_OPTIONS "/I" "${HLSL_VERSION_LOCATION}" "/I" "${LLVM_MAIN_SRC_DIR}")
+ endif()
+ 
+-set_target_properties(dxildll
++set_target_properties(dxil
+   PROPERTIES
+   OUTPUT_NAME "dxil"
+ )
++
++if (WIN32)
++  set(install_dest RUNTIME DESTINATION bin)
++else()
++  set(install_dest LIBRARY DESTINATION lib${LLVM_LIBDIR_SUFFIX})
++endif()
++
++install(TARGETS dxil
++  ${install_dest}
++  COMPONENT dxil)
++
++add_custom_target(install-dxil
++  DEPENDS dxil
++  COMMAND "${CMAKE_COMMAND}"
++          -DCMAKE_INSTALL_COMPONENT=dxil
++          -P "${CMAKE_BINARY_DIR}/cmake_install.cmake")
+diff --git a/tools/clang/tools/dxr/CMakeLists.txt b/tools/clang/tools/dxr/CMakeLists.txt
+index f0d222833471..08fd4d7ba8b9 100644
+--- a/tools/clang/tools/dxr/CMakeLists.txt
++++ b/tools/clang/tools/dxr/CMakeLists.txt
+@@ -36,5 +36,12 @@ else()
+ endif()
+ 
+ install(TARGETS dxr
+-  RUNTIME DESTINATION bin)
++  RUNTIME DESTINATION bin
++  COMPONENT dxr)
++
++add_custom_target(install-dxr
++  DEPENDS dxr
++  COMMAND "${CMAKE_COMMAND}"
++          -DCMAKE_INSTALL_COMPONENT=dxr
++          -P "${CMAKE_BINARY_DIR}/cmake_install.cmake")
+ 
+diff --git a/tools/clang/tools/dxv/CMakeLists.txt b/tools/clang/tools/dxv/CMakeLists.txt
+index 6bbc305eaab4..c2d930b33a33 100644
+--- a/tools/clang/tools/dxv/CMakeLists.txt
++++ b/tools/clang/tools/dxv/CMakeLists.txt
+@@ -32,5 +32,12 @@ else()
+ endif()
+ 
+ install(TARGETS dxv
+-  RUNTIME DESTINATION bin)
++  RUNTIME DESTINATION bin
++  COMPONENT dxv)
++
++add_custom_target(install-dxv
++  DEPENDS dxv
++  COMMAND "${CMAKE_COMMAND}"
++          -DCMAKE_INSTALL_COMPONENT=dxv
++          -P "${CMAKE_BINARY_DIR}/cmake_install.cmake")
+ 
