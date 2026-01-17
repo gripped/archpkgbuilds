@@ -1,0 +1,53 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+pkgname=python-cuda-tile
+pkgver=1.0.1
+pkgrel=1
+pkgdesc="A Python-based DSL and parallel programming model for NVIDIA GPUs"
+arch=(x86_64)
+url="https://docs.nvidia.com/cuda/cutile-python/"
+license=(Apache-2.0)
+depends=(
+  cuda
+  glibc
+  python
+  python-numpy
+  python-typing_extensions
+)
+makedepends=(
+  cmake
+  dlpack
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+source=(
+  $pkgname-$pkgver.tar.gz::https://github.com/NVIDIA/cutile-python/archive/refs/tags/v$pkgver.tar.gz
+)
+b2sums=('ae9acba8fea4888bdd0243061597f57d9423f568f147754d4dd8e9ec898ba6a4f38d941c0384c829dd49959596c1e2daf428c878efe5e9423456972b1227df33')
+
+prepare() {
+  cd cutile-python-$pkgver
+  # remove custom FindCUDAToolkit module to fix finding CUDA
+  # https://github.com/NVIDIA/cutile-python/issues/58
+  rm -v cmake/FindCUDAToolkit.cmake
+
+  # -nostdlib and -fstack-clash-protection do not work together (undefined reference to `__stack_chk_fail')
+  # https://github.com/NVIDIA/cutile-python/issues/60
+  sed -i 's|-nostdlib||' cext/CMakeLists.txt
+
+  # fix version https://github.com/NVIDIA/cutile-python/issues/59
+  echo $pkgver > src/cuda/tile/VERSION
+}
+
+build() {
+  cd cutile-python-$pkgver
+  CUDA_PATH=/opt/cuda CUDA_TILE_CMAKE_DLPACK_PATH=/usr \
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd cutile-python-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
