@@ -7,9 +7,10 @@ Documentation=man:incusd(1)
 [Service]
 Environment=INCUS_UI=/usr/share/incus-ui
 Environment=HOME=/var/lib/incus
-ExecStart=/usr/bin/incusd --group=incus-admin --logfile=/var/log/incus/incusd.log
-ExecStartPost=/usr/bin/incusd waitready --timeout=600
-ExecStop=/usr/bin/incusd shutdown
+Environment=INCUS_AGENT_PATH=/usr/lib/incus/agents
+ExecStart=/usr/lib/incus/incusd --group=incus-admin --logfile=/var/log/incus/incusd.log
+ExecStartPost=/usr/lib/incus/incusd waitready --timeout=600
+ExecStop=/usr/lib/incus/incusd shutdown
 KillMode=process
 TimeoutStartSec=600s
 TimeoutStopSec=30s
