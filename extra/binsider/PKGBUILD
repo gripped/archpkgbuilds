@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=binsider
-pkgver=0.3.0
+pkgver=0.3.1
 pkgrel=1
 pkgdesc="A TUI for analyzing binaries like a boss"
 arch=('x86_64')
@@ -10,11 +10,11 @@ license=('MIT' 'Apache-2.0')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('d37939435ad30ad5fdae1d61ac17c686a89a68186936c4c625d5c4785636faf966118ceff53ca31c58318beeab8b278afa3771fd9afca8ff0d44f451cb8db70a')
+sha512sums=('c058bc00338721274a59ebb2b65c118eb68e9e27f6e22367776751b65679374f1bc65bc46df90560fc13bd09c3a8461af81ab696853688978f68b06390725a69')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
