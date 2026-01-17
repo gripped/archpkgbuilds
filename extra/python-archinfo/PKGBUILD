@@ -1,9 +1,10 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: RocketDev <ma2014119@outlook.com>
 
 _pyname=archinfo
 pkgname=python-${_pyname}
-pkgver=9.2.148
-pkgrel=2
+pkgver=9.2.193
+pkgrel=1
 pkgdesc='Classes with architecture-specific information useful to other projects'
 url='https://github.com/angr/archinfo'
 arch=('any')
@@ -22,14 +23,27 @@ optdepends=(
   python-unicorn
   python-keystone
   python-pyvex
+  python-pypcode
+)
+checkdepends=(
+  python-pytest
+  python-pytest-xdist
+  python-pypcode
 )
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('a3c92f0ec1284a937a7ba274cf00a859bc915964797a8d97a09130109972bcf031bb0164fede624ce22d11b428405a5518e02376e413a96a80eda20157200d77')
-b2sums=('75b3d42dfd027ef0077cbca86c7597832b8ac20a806dcf8520be04626cc060307021213fc01d625554f61a74d4f0559a32f76b144040722cccd2dcb5f2340614')
+sha512sums=('c9db39c5a23dc030100c177f2d76eb7152fdc8cd63c0e01e315f92cd0208a900ce107c80482677b3e7f1ca137a048582752d497399996b3abcc9e34d7a37e411')
+b2sums=('9a14450ffb86299cf1f896e81f54eeea87c75560d4543f6fed92ca4e0e5609f8b5a3df9cd3c23e7a822c49f2df083ae1a009da09134f6bd3272f98e3741bf87b')
 
 build() {
   cd "${_pyname}-${pkgver}"
   python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "${_pyname}-${pkgver}"
+  python -m venv --system-site-packages .venv
+  .venv/bin/python -m installer dist/*.whl
+  .venv/bin/python -m pytest tests
 }
 
 package() {
