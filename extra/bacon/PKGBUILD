@@ -5,14 +5,14 @@
 # Contributor: JisuWoniu <jswn@jswn9945.xyz>
 
 pkgname=bacon
-pkgver=3.21.0
+pkgver=3.22.0
 pkgrel=1
 pkgdesc='A background rust code checker'
-arch=('x86_64')
+arch=(x86_64)
 url='https://dystroy.org/bacon'
-license=('AGPL-3.0-only')
-depends=('alsa-lib' 'glibc' 'gcc-libs')
-makedepends=('git' 'rust')
+license=(AGPL-3.0-only)
+depends=(alsa-lib glibc gcc-libs)
+makedepends=(git rust)
 optdepends=('bash-completion: enable bash completions'
             'cargo: for use with Rust'
             'clang: for use with C++ via clang'
@@ -20,10 +20,10 @@ optdepends=('bash-completion: enable bash completions'
             'eslint: for use with JavaScript'
             'python: for use with Python via unittest'
             'python-pytest: for use with Python via pytest')
-options=('!lto')
+options=(!lto)
 source=("$pkgname::git+https://github.com/Canop/bacon#tag=v$pkgver")
-sha512sums=('e4cae325c7c7c9827608625707ce66aad163bd3a328b26aac1afea375cd08b2d3439e1ba2f2f0adb87f02e153fc54c43e41aaa812838e334f655e68a67c0ef44')
-b2sums=('7777f7055db73f5e42a956dd7c3a305a9a9c08051f8758c3d99788e4f43a56a17a6270b36a5b286cbe39c8429c45d1ffcf1ec24f5cbdbdd54015ab800b7eca08')
+sha512sums=('56d744bfba9020a7dd038f5dc63553e694d56e03663fc252d481164f27e7e50503a0314141c0563ecb123b91f1cb484fc756ea2d8c5ed02f042e67939eb27865')
+b2sums=('185ff5e8166618f3eaff9cf01cd8e296fa3629326dd4dc4239274995a33f95e66404957bec9a814089ac47b4f7044b232197f171da3c860f966a32362f9680c1')
 
 prepare() {
   cd "$pkgname"
