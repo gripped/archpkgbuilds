@@ -6,17 +6,39 @@
 pkgname=kismet
 pkgver=2025_09_R1
 _realver="${pkgver//_/-}"
-pkgrel=2
+pkgrel=3
 pkgdesc="802.11 layer2 wireless network detector, sniffer, and intrusion detection system"
 url="https://www.kismetwireless.net/"
-arch=('x86_64')
-license=('GPL-2.0-or-later')
-depends=('libpcap' 'pcre2' 'bluez-libs' 'libcap' 'protobuf-c' 'libprotobuf-c.so'
-         'sqlite' 'libnm' 'gcc-libs' 'libusb' 'libusb-1.0.so' 'libnl' 'glibc' 'zlib' 'libelf'
-         'lm_sensors' 'systemd' 'python' 'python-setuptools' 'python-protobuf' 'python-pyserial'
-         'python-numpy' 'python-websockets' 'libwebsockets' 'libcap-ng'
-         libpcap.so libprotobuf.so libnm.so libwebsockets.so libsensors.so rtl-sdr mosquitto)
-makedepends=('python-setuptools')
+arch=(x86_64)
+license=(GPL-2.0-or-later)
+depends=(
+  bash
+  bluez-libs
+  gcc-libs
+  glib2
+  glibc
+  libcap
+  libcap-ng
+  libelf
+  libnl
+  libnm
+  libnm.so
+  libpcap
+  libpcap.so
+  libsensors.so
+  libusb
+  libusb-1.0.so
+  libwebsockets
+  libwebsockets.so
+  lm_sensors
+  mosquitto
+  openssl
+  pcre2
+  rtl-sdr
+  sqlite
+  systemd
+  zlib
+)
 optdepends=(
   'gpsd: log coordinates of detected networks'
   'wireshark-cli: provide OUI files used to determine device manufacturer'
@@ -34,17 +56,16 @@ backup=(
   etc/kismet/kismet_memory.conf
   etc/kismet/kismet_uav.conf)
 install=kismet.install
-source=(https://www.kismetwireless.net/code/${pkgname}-${_realver}.tar.xz
-        kismet.sysusers
-        python-install-flags.patch)
+source=(
+  https://www.kismetwireless.net/code/${pkgname}-${_realver}.tar.xz
+  kismet.sysusers
+)
 sha512sums=('218f6bd2ab1f1c99d3d18a8ff2da542a76965ad6251703c06c0d62ed16e084a5135c715288f99a7f0ebb54e924a42762a0fb768f0ef5868afb62fb15daff3dff'
-            '452b728c30c9932bdb91741af425267da87a66962ea9b736751948881f5477dee0bff8e2eeca2befdea2920da6d7d9e198bde69cef8c48bb49a0093a7f0ef897'
-            'fbf487148e50b6e3ec60fd0490ccfef1249fdb6b974d6fa25ae1e04101cd62f3c2737d81554b8f1229cd89b177f46f0ea2e853d066fe434a1bd988407809b067')
+            '452b728c30c9932bdb91741af425267da87a66962ea9b736751948881f5477dee0bff8e2eeca2befdea2920da6d7d9e198bde69cef8c48bb49a0093a7f0ef897')
 validpgpkeys=('354689DF3C9DED803381A661D7B28822738BBDB1') # Michael Kershaw
 
 prepare() {
   cd ${pkgname}-${_realver}
-  patch -Np0 < ../python-install-flags.patch
   autoreconf -fiv
 }
 
