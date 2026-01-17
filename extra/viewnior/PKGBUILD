@@ -4,14 +4,13 @@
 
 pkgname=viewnior
 pkgver=1.8
-pkgrel=6
+pkgrel=7
 pkgdesc="A simple, fast and elegant image viewer program"
 arch=('x86_64')
 url="https://siyanpanayotov.com/project/viewnior"
-license=('GPL3')
+license=('GPL-3.0-only')
 depends=('gtk3' 'exiv2')
 makedepends=('meson' 'glib2-devel')
-optdepends=('webp-pixbuf-loader')
 source=(https://github.com/hellosiyan/Viewnior/archive/viewnior-$pkgver.tar.gz
         viewnior-gtk3.patch::https://github.com/BwackNinja/Viewnior/commit/420f08a5f47a2fc1ae476615bab93df3478ba078.patch
         exiv2-0.28.patch)
