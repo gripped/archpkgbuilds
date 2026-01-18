@@ -1,0 +1,40 @@
+--- a/numba_cuda/numba/cuda/np/arraymath.py
++++ b/numba_cuda/numba/cuda/np/arraymath.py
+@@ -2296,7 +2296,7 @@ def get_d_impl(x, dx):
+     return impl
+
+
+-@overload(np.trapz)
++@overload(np.trapezoid)
+ def np_trapz(y, x=None, dx=1.0):
+     if isinstance(y, (types.Number, types.Boolean)):
+         raise TypingError("y cannot be a scalar")
+@@ -2317,11 +2317,6 @@ def np_trapz(y, x=None, dx=1.0):
+     return impl
+
+
+-# numpy 2.0 rename np.trapz to np.trapezoid
+-if numpy_version >= (2, 0):
+-    overload(np.trapezoid)(np_trapz)
+-
+-
+ @register_jitable
+ def _np_vander(x, N, increasing, out):
+     """
+@@ -5106,7 +5101,7 @@ def jit_np_setdiff1d(ar1, ar2, assume_unique=False):
+         else:
+             ar1 = np.unique(ar1)
+             ar2 = np.unique(ar2)
+-        return ar1[np.in1d(ar1, ar2, assume_unique=True, invert=True)]
++        return ar1[np.isin(ar1, ar2, assume_unique=True, invert=True)]
+
+     return np_setdiff1d_impl
+
+@@ -5123,7 +5118,7 @@ def jit_np_isin(element, test_elements, assume_unique=False, invert=False):
+     # https://github.com/numpy/numpy/blob/03b62604eead0f7d279a5a4c094743eb29647368/numpy/lib/arraysetops.py#L889 # noqa: E501
+     def np_isin_impl(element, test_elements, assume_unique=False, invert=False):
+         element = np.asarray(element)
+-        return np.in1d(
++        return np.isin(
+             element, test_elements, assume_unique=assume_unique, invert=invert
+         ).reshape(element.shape)
