@@ -1,0 +1,46 @@
+# Maintainer: Tobias Powalowski <tpowa@archlinux.org>
+# Contributor: GreyXor <greyxor@protonmail.com>
+# Contributor: Kyle Keen <keenerd@gmail.com>
+# Contributor: Chris Tam <lchris314 at gmail dot com>
+# Contributor: Daniel Micay <danielmicay at gmail dotcom>
+# Contributor: David Herrmann <dh.herrmann@googlemail dot com>
+
+pkgname=kmscon
+pkgver=9.2.1
+pkgrel=1
+pkgdesc='Kernel Mode Setting (KMS) and DRM based virtual Console Emulator'
+arch=('x86_64')
+url='https://github.com/kmscon/kmscon'
+license=('MIT')
+backup=('etc/kmscon/kmscon.conf')
+depends=(
+  bash
+  glibc
+  glib2
+  libdrm
+  libgl
+  libtsm
+  libxkbcommon
+  mesa
+  pango
+  systemd-libs
+)
+makedepends=(
+  check
+  docbook-xsl
+  git
+  libxslt
+  linux-api-headers
+  meson)
+source=(git+${url}.git#tag=v${pkgver})
+b2sums=('4863387062297017824d0c93e61caeb973ea13a8bc860fa7b3fe5ace1151dd2706754b9d0da34ca245945fe6720fda07c315c25103c95772cba6bf4894b0f20b')
+
+build() {
+  arch-meson "$pkgname" build
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir="$pkgdir"
+  install -Dm644 $pkgname/COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+}

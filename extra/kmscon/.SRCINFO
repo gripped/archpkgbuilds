@@ -1,0 +1,28 @@
+pkgbase = kmscon
+	pkgdesc = Kernel Mode Setting (KMS) and DRM based virtual Console Emulator
+	pkgver = 9.2.1
+	pkgrel = 1
+	url = https://github.com/kmscon/kmscon
+	arch = x86_64
+	license = MIT
+	makedepends = check
+	makedepends = docbook-xsl
+	makedepends = git
+	makedepends = libxslt
+	makedepends = linux-api-headers
+	makedepends = meson
+	depends = bash
+	depends = glibc
+	depends = glib2
+	depends = libdrm
+	depends = libgl
+	depends = libtsm
+	depends = libxkbcommon
+	depends = mesa
+	depends = pango
+	depends = systemd-libs
+	backup = etc/kmscon/kmscon.conf
+	source = git+https://github.com/kmscon/kmscon.git#tag=v9.2.1
+	b2sums = 4863387062297017824d0c93e61caeb973ea13a8bc860fa7b3fe5ace1151dd2706754b9d0da34ca245945fe6720fda07c315c25103c95772cba6bf4894b0f20b
+
+pkgname = kmscon
