@@ -5,7 +5,7 @@
 
 pkgname=libfilezilla
 epoch=1
-pkgver=0.53.1
+pkgver=0.54.0
 pkgrel=1
 pkgdesc="Small and modern C++ library, offering some basic functionality to build high-performing, platform-independent programs"
 url="https://lib.filezilla-project.org/"
@@ -19,8 +19,8 @@ provides=('libfilezilla.so')
 # See https://trac.filezilla-project.org/ticket/13186
 #source=("https://download.filezilla-project.org/libfilezilla/libfilezilla-${pkgver}.tar.xz")
 source=("https://sources.archlinux.org/other/libfilezilla/${pkgname}-${pkgver}.tar.xz")
-sha512sums=('c41b7b803d433d381300bbd3127dfb086a412943b881f9135ee59b4d20130744e07372fad80bb22b241efdbec1b93eff5b5796b85e6c92921da2905dbc74e4af')
-b2sums=('47df6962fb0c94397d1d967f7f62cfa9b5cf39a2b39fe47eedc18f69559ddb28f3405590d5a572063a236396af4183f58fd3820dfddb722ecb1b512f3706206f')
+sha512sums=('9c365946de1ae45b6ab17d0fbe271664ae84378383cbb7ea380fe46e300f1a2b6991781882c35d63308e0f5ceca941fd6d61f75124dd22cee51feb84d7fec3e5')
+b2sums=('fc1c8005bedf0417b091e7d43f159f0a19f6cb61ebbae02aa893d901a3ed9fb91635a5de84507a38a42e277e25c0566ac2ac7e44934f349102d0ae03d49393b1')
 
 build() {
   cd "${pkgname}-${pkgver}"
