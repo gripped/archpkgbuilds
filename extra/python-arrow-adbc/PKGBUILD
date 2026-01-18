@@ -1,0 +1,181 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgbase=python-arrow-adbc
+pkgname=(
+  python-arrow-adbc
+  python-arrow-adbc-driver-bigquery
+  python-arrow-adbc-driver-flightsql
+  python-arrow-adbc-driver-postgresql
+  python-arrow-adbc-driver-sqlite
+  python-arrow-adbc-driver-snowflake
+)
+pkgver=22
+pkgrel=1
+pkgdesc='Database connectivity API for Apache Arrow'
+arch=(x86_64)
+url='https://arrow.apache.org/adbc/current/index.html'
+license=(Apache-2.0)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools-scm
+  python-wheel
+  cython
+  cmake
+  ninja
+  go
+  postgresql-libs
+)
+source=("$pkgbase::git+https://github.com/apache/arrow-adbc#tag=apache-arrow-adbc-$pkgver")
+sha512sums=('8a33b7655d2c09d57888fc59d314320296f8d5590c8fcc5282be27a91354be070bf3988daaf5393fe6bea6f72e9b4d37586a64f3a9548899bb5246d30f13449d')
+b2sums=('2905c5bad8a395579f14586a8d372ecdfe370ac085f25ba3de0a096f69b197f9865d07c7a0ded3d57efac4cdbcc49fec4b2e334499d15a659e3b63714b7e21b7')
+
+build() {
+  local cmake_options=(
+    -B build
+    -S "$pkgbase/c"
+    -G Ninja
+    -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D ADBC_BUILD_PYTHON=ON
+    -D ADBC_DRIVER_MANAGER=ON
+    -D ADBC_DRIVER_BIGQUERY=ON
+    -D ADBC_DRIVER_FLIGHTSQL=ON
+    -D ADBC_DRIVER_POSTGRESQL=ON
+    -D ADBC_DRIVER_SQLITE=ON
+    -D ADBC_DRIVER_SNOWFLAKE=ON
+    
+    -W no-dev
+  )
+
+  cmake "${cmake_options[@]}"
+
+  cmake --build build
+
+  # build wheels
+  cd "$pkgbase/python"
+
+  pushd adbc_driver_bigquery
+  ADBC_BIGQUERY_LIBRARY="$srcdir/build/driver/bigquery/libadbc_driver_bigquery.so" \
+  python -m build --wheel --no-isolation
+  popd
+  pushd adbc_driver_flightsql
+  ADBC_FLIGHTSQL_LIBRARY="$srcdir/build/driver/flightsql/libadbc_driver_flightsql.so" \
+  python -m build --wheel --no-isolation
+  popd
+  pushd adbc_driver_manager
+  python -m build --wheel --no-isolation
+  popd
+  pushd adbc_driver_postgresql
+  ADBC_POSTGRESQL_LIBRARY="$srcdir/build/driver/postgresql/libadbc_driver_postgresql.so" \
+  python -m build --wheel --no-isolation
+  popd
+  pushd adbc_driver_snowflake
+  ADBC_SNOWFLAKE_LIBRARY="$srcdir/build/driver/snowflake/libadbc_driver_snowflake.so" \
+  python -m build --wheel --no-isolation
+  popd
+  pushd adbc_driver_sqlite
+  ADBC_SQLITE_LIBRARY="$srcdir/build/driver/sqlite/libadbc_driver_sqlite.so" \
+  python -m build --wheel --no-isolation
+  popd
+}
+
+package_python-arrow-adbc() {
+  depends=(
+    glibc
+    gcc-libs
+    python
+    python-typing_extensions
+    python-pandas
+    python-pyarrow
+  )
+  optdepends=(
+    'python-arrow-adbc-driver-bigquery: BigQuery driver'
+    'python-arrow-adbc-driver-flightsql: Flight SQL driver'
+    'python-arrow-adbc-driver-postgresql: PostgreSQL driver'
+    'python-arrow-adbc-driver-sqlite: SQLite driver'
+    'python-arrow-adbc-driver-snowflake: Snowflake driver'
+  )
+
+  cd "$pkgbase/python/adbc_driver_manager"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-arrow-adbc-driver-bigquery() {
+  pkgdesc+=' - BigQuery driver'
+  depends=(
+    glibc
+    gcc-libs
+    python
+    python-arrow-adbc
+    python-importlib_resources
+  )
+
+  cd "$pkgbase/python/adbc_driver_bigquery"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-arrow-adbc-driver-flightsql() {
+  pkgdesc+=' - Flight SQL driver'
+  depends=(
+    glibc
+    gcc-libs
+    python
+    python-arrow-adbc
+    python-importlib_resources
+  )
+
+  cd "$pkgbase/python/adbc_driver_flightsql"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-arrow-adbc-driver-postgresql() {
+  pkgdesc+=' - PostgreSQL driver'
+  depends=(
+    glibc
+    gcc-libs
+    python
+    python-arrow-adbc
+    python-importlib_resources
+    postgresql-libs
+  )
+
+  cd "$pkgbase/python/adbc_driver_postgresql"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-arrow-adbc-driver-sqlite() {
+  pkgdesc+=' - SQLite driver'
+  depends=(
+    glibc
+    gcc-libs
+    python
+    python-arrow-adbc
+    python-importlib_resources
+    sqlite
+  )
+
+  cd "$pkgbase/python/adbc_driver_sqlite"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-arrow-adbc-driver-snowflake() {
+  pkgdesc+=' - Snowflake driver'
+  depends=(
+    glibc
+    gcc-libs
+    python
+    python-arrow-adbc
+    python-importlib_resources
+  )
+
+  cd "$pkgbase/python/adbc_driver_snowflake"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
