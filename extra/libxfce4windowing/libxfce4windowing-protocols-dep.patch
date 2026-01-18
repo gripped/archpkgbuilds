@@ -1,0 +1,32 @@
+From 0b1ea4ff66fd458aaaaa75be7266b91c9fb9656a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 18 Jan 2026 10:56:41 +0100
+Subject: [PATCH] Don't depend on wayland-scanner and wayland-protocols
+
+wayland-scanner and wayland-protocols are needed to build
+libxfce4windowing, but not for dependent projects. It's not needed to
+specify them in the pkg-config file.
+---
+ meson.build | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 960e774..185f6d1 100644
+--- a/meson.build
++++ b/meson.build
+@@ -54,10 +54,8 @@ x11_deps += dependency('xrandr', version: dependency_versions['xrandr'], require
+ wayland_deps = []
+ wayland_deps += dependency('gdk-wayland-3.0', version: dependency_versions['gtk'], required: get_option('wayland'))
+ wayland_deps += dependency('wayland-client', version: dependency_versions['wayland'], required: get_option('wayland'))
+-wayland_deps += dependency('wayland-scanner', version: dependency_versions['wayland'], required: get_option('wayland'), native: true)
+-wayland_scanner = wayland_deps[-1]
+-wayland_deps += dependency('wayland-protocols', version: dependency_versions['wayland-protocols'], required: get_option('wayland'))
+-wayland_protocols = wayland_deps[-1]
++wayland_scanner = dependency('wayland-scanner', version: dependency_versions['wayland'], required: get_option('wayland'), native: true)
++wayland_protocols = dependency('wayland-protocols', version: dependency_versions['wayland-protocols'], required: get_option('wayland'))
+ 
+ wlr_protocols = dependency('wlr-protocols', version: dependency_versions['wlr-protocols'], required: false)
+ 
+-- 
+GitLab
+

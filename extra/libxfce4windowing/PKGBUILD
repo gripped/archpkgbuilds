@@ -3,7 +3,7 @@
 
 pkgname=libxfce4windowing
 pkgver=4.20.5
-pkgrel=2
+pkgrel=3
 pkgdesc="Windowing concept abstraction library for X11 and Wayland"
 arch=('x86_64')
 url="https://docs.xfce.org/xfce/libxfce4windowing/start"
@@ -11,9 +11,11 @@ license=('LGPL-2.1-only')
 depends=('gdk-pixbuf2' 'glib2' 'gtk3' 'libwnck3' 'libdisplay-info' 'libx11' 'wayland')
 makedepends=('git' 'glib2-devel' 'gobject-introspection' 'gtk-doc' 'meson' 'vala' 'wayland-protocols' 'xfce4-dev-tools')
 source=("git+https://gitlab.xfce.org/xfce/libxfce4windowing.git#tag=$pkgname-$pkgver"
-        git+https://gitlab.freedesktop.org/wlroots/wlr-protocols.git)
+        git+https://gitlab.freedesktop.org/wlroots/wlr-protocols.git
+        libxfce4windowing-protocols-dep.patch)
 sha256sums=('d5398e111c02a6896fefdf5d732abff14ba4396d540fcaa706723819056fa9d0'
-            'SKIP')
+            'SKIP'
+            'a7696a2e9bb39ddfcff017505a831b2866a25be67ec4e891485ba907e1348bf5')
 
 prepare() {
   cd $pkgname
@@ -21,6 +23,10 @@ prepare() {
   git submodule init
   git config submodule.mate-submodules.url "$srcdir/protocols/wlr-protocols"
   git -c protocol.file.allow=always submodule update
+
+  # Don't depend on wayland-scanner and wayland-protocols
+  # https://gitlab.xfce.org/xfce/libxfce4windowing/-/merge_requests/96
+  git apply -3 ../libxfce4windowing-protocols-dep.patch
 }
 
 build() {
