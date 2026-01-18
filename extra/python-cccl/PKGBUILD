@@ -1,0 +1,52 @@
+# Maintainer: Jakub Klinkovský <lahwaacz@archlinux.org>
+
+_name=cccl
+pkgname=python-$_name
+pkgver=0.4.4
+pkgrel=1
+pkgdesc="CUDA Core Compute Libraries for Python"
+arch=(x86_64)
+url="https://github.com/NVIDIA/cccl"
+license=("Apache-2.0 WITH LLVM-exception")
+depends=(
+  gcc-libs
+  glibc
+  python
+  python-cuda-bindings
+  python-cuda-core
+  python-cuda-pathfinder
+  python-llvmlite
+  python-numba
+  python-numba-cuda
+  python-numpy
+  python-typing_extensions
+)
+makedepends=(
+  cython
+  nlohmann-json
+  python-build
+  python-installer
+  python-scikit-build-core
+  python-setuptools-scm
+  python-wheel
+)
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/python-$pkgver.tar.gz)
+b2sums=('ed11292b10e291db64e4db8a81efa15ea4025813819754fe604630e8e1b43f21aea7cb120df882d94c6188a723711e56bed9423e82e1777006d87e751a2dac9f')
+
+prepare() {
+  cd $_name-python-$pkgver
+  # disable CPM dependency
+  sed -i 's|CPMAddPackage("gh:nlohmann/json@3.12.0")|find_package(nlohmann_json REQUIRED)|' cmake/CCCLGetDependencies.cmake
+}
+
+build() {
+  cd $_name-python-$pkgver/python/cuda_cccl
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver \
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd $_name-python-$pkgver/python/cuda_cccl
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 ../../LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
