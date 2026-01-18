@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=bluetui
-pkgver=0.8.0
+pkgver=0.8.1
 pkgrel=1
 pkgdesc="TUI for managing bluetooth devices"
 arch=('x86_64')
@@ -10,11 +10,12 @@ license=('GPL3')
 depends=('gcc-libs' 'dbus' 'bluez')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('f8fba48b2cfd8b696b7864c3298453f7d0f712787a451ea8ba3a6f4532ed2956f608c4b7a13eac7e10191b4eb46074d9cfe0803299efcdf8f54f84a120cbac62')
+sha512sums=('d131fba89e65a1bbfbb67de3e3a0d0db262bf7cb9dc795de1a63af2cf47b2c8bd73f5da4604059991796442dcbfd1ea5e7063f5988b53bd03b8b2fd16d5756ad')
+options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
