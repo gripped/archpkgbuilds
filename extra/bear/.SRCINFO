@@ -1,6 +1,6 @@
 pkgbase = bear
 	pkgdesc = A tool to generate compilation database for clang tooling
-	pkgver = 4.0.1
+	pkgver = 4.0.2
 	pkgrel = 1
 	url = https://github.com/rizsotto/Bear
 	arch = x86_64
@@ -9,11 +9,12 @@ pkgbase = bear
 	makedepends = rust
 	depends = glibc
 	depends = gcc-libs
-	source = bear::git+https://github.com/rizsotto/Bear.git#tag=4.0.1
+	options = !lto
+	source = bear::git+https://github.com/rizsotto/Bear.git#tag=4.0.2
 	source = fix-wrapper-preload-path.patch
-	sha512sums = ae850f6607bac3a1a8e670af5e3914f2fd06b352892b087b3cb45687bb376ccb7e83678beef1ec13ac69970dfd8891434582e9636cb034ba566c61f03ae5a4ee
-	sha512sums = 489db7d869eb00676ccc500d8482680da2cb41903518d22064f4c6baa38995875312883a962117c993655c62ef2d299ede53dd7ef7ef7bd6e46b88459d879357
-	b2sums = 3f076dd2e655238a290b68f2f64d6acf985e5b7fb7d543fd8eedaf96a0fe025a92927c91aad28d90ee148546e415c924f6d293251b09f54630841cb68f214b4b
-	b2sums = 88888001effd42cce90cafc1dc7ee621594501f84da1cdab42768efa5aff97a934bcce4c851267a70eedd51307c73527dd7f8206c011790280ed91f308e76935
+	sha512sums = 4d8ceaeebffe817e4d606335372383e12d0c93041e5ea2df93f5eb38f7e9f99a640264e357c578ee050893a9f1d7f07b9a49f4030d333daa325bb00ed7dc992c
+	sha512sums = 0f74102b49da4ca97f4c0c0618a6314a29dd391cda76417bac99eb222fee7cc2d1d3d0fbff6f8b82f9936bb9056f573fc6b036b9af4e6e4636e9eda2c3fb0cff
+	b2sums = 552ff2c485addee83b7675eacf0486cc8357614fef9cf349c8c5549714c73c3ccaffac1402530349f17758c0eb215cf5b1b9a4b9906e0dbbb7c8a5cb93b1482d
+	b2sums = 40962bdd175e26feb3497b412076347022ef3294ff74acf12d415c41e01e2e2e48582077e15c1f4cad05a3f5250613a44ee2683bfa297b634389a9081f49a9bc
 
 pkgname = bear
