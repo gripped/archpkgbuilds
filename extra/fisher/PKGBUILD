@@ -3,18 +3,18 @@
 # Contributor: Daniel Maslowski <info@orangecms.org>
 
 pkgname=fisher
-pkgver=4.4.5
+pkgver=4.4.6
 pkgrel=1
 pkgdesc='A package manager for the fish shell'
-arch=('any')
+arch=(any)
 url='https://github.com/jorgebucaran/fisher'
-license=('MIT')
-depends=('fish' 'curl')
-makedepends=('git')
+license=(MIT)
+depends=(fish curl)
+makedepends=(git)
 # TODO add fishtape for tests
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('d9ba01b9fe23623360572107409d2c161e5a94df7af69cd5399084f80ca19a60a581c4185502badfd4889eeaf243d7342314b9ef8c30ab0591f6c23e3aed392a')
-b2sums=('a54cc3fcb8e5c11f66bf4351fafc4255b8819fa01990b4d0740b35b3f6d029d8e47797a155dabb119ccd69cd1bab556f24e79534272dd2e81cf0c104129ef145')
+sha512sums=('23a610dc305bc8d29980f29cacda36789ea982d53c3c1fc8a05375367b386331c0a3a799376b6f03cdd7f3cfb875063a1771fe2b905c4c9c2f963be67d9f8dbc')
+b2sums=('65fda39e1436dfc95fac9285976963167cf23bfc7f011b44dd928bbbf0bc528920425b4c509c6e0f85ee8e0c510be302a3ad8ef0bf234f0754c7be6de376f6dd')
 
 package() {
   cd "$pkgname"
