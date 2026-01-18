@@ -1,0 +1,16 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 886deb1..027ccb1 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -9,11 +9,9 @@ requires = [
+     "setuptools>=77.0.3",
+     "tomli>=2.0.1; python_version < '3.11'",
+     # whatever version works here, see builder/utils.py for detail
+-    "cuda-toolkit[cudart,nvcc] >=13.1,<14",
+     # needed for internal/bindings
+     "cuda-bindings >=13.1,<14",
+     # needed for internal/bindings (cuda.bindings.cydriver)
+-    "nvidia-cuda-profiler-api",
+ ]
+ build-backend = "setuptools.build_meta"
+ 

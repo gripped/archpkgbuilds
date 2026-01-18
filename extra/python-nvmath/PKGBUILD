@@ -1,0 +1,54 @@
+# Maintainer: Jakub Klinkovský <lahwaacz@archlinux.org>
+
+_name=nvmath
+pkgname=python-$_name
+pkgver=0.8.0
+pkgrel=1
+pkgdesc="NVIDIA Math Libraries for Python"
+arch=(x86_64)
+url="https://github.com/NVIDIA/nvmath-python"
+license=(Apache-2.0)
+depends=(
+  gcc-libs
+  glibc
+  python
+  python-cuda-bindings
+  python-cuda-core
+  python-cuda-pathfinder
+  python-llvmlite
+  python-mpi4py
+  python-numba
+  python-numba-cuda
+  python-numpy
+)
+makedepends=(
+  cuda
+  cython
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+source=(
+  $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
+  pyproject.patch
+)
+b2sums=('d2dbab6752162380b6615aed3a4bb1d8e8eb30966eb9687ce43fbddf43c4d5dc8c2ffb8b8ce150733a003ea2d6f5a3f380bbba747594619c881127710be918c7'
+        'e80cb7fbbc5c5265eccecab42502044249d53401468b7c36f4a5fdc19262c6d271e206bd42717913c718f36765b27a8df35da0be0d8067ca80c541d2694c637b')
+
+prepare() {
+  cd $_name-python-$pkgver
+  # patch out Python dependencies provided by the cuda package
+  patch -p1 < ../pyproject.patch
+}
+
+build() {
+  cd $_name-python-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd $_name-python-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
