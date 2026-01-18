@@ -4,7 +4,7 @@
 # Contributor: Sander Boom <sanderboom@gmail.com>
 
 pkgname=ansible-lint
-pkgver=26.1.0
+pkgver=26.1.1
 pkgrel=1
 pkgdesc="Checks playbooks for practices and behaviour that could potentially be improved."
 arch=('any')
@@ -18,7 +18,7 @@ optdepends=('ansible: check official ansible collections')
 source=(git+https://github.com/ansible/ansible-lint.git#tag=v$pkgver
         disable_version_check.patch
         ignore_yamllint_unknown_option.patch)
-b2sums=('a7853aeb0171ce23191a338d9d4fef177365adf9de5dd7b432c07154f9f74a07619d2500aecaa06ccc899a1ef7eec97273514be321bd62e282a7a6d3f2b73896'
+b2sums=('4421527ed474d0fa49350a6c00505338b1864c59e679a465559508b2a4b87c9240d6005a576028d5b053222fc240c0bd2beb14981137f7be331566c24fb7bb12'
         '98294f267ca693c0bc3921f8e076d674a219a891502cd31a0af789bc0b1447b53834b9c85853a134f6bc1ac384f31cb174cba2d55fbcc1636cae9bd3c0bd8f84'
         '8e419c65642bdbd60aa81d1e204139e69fc4c86aaddde4131fbfe3c21f5751e608a5a635d3ec4f518d3d5dc9d254a84b302e09bb4f873e21628e2f014b151516')
 
