@@ -3,8 +3,8 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=gajim
-pkgver=2.4.1
-pkgrel=3
+pkgver=2.4.2
+pkgrel=2
 pkgdesc="Full featured and easy to use XMPP (Jabber) client"
 url="https://gajim.org/"
 arch=('any')
@@ -17,10 +17,8 @@ optdepends=('python-dbus: to have gajim-remote working'
             'libsecret: for GNOME Keyring or KDE support as password storage'
             'gupnp-igd: for better NAT traversing'
             'networkmanager: for network lose detection'
-            'geoclue2: share current location'
+            'geoclue: share current location'
             'gsound: Notification Sounds'
-            'gsound: Notification Sounds'
-            'libayatana-appindicator: for App Indicator on Wayland'
             'farstream: for video and audio calls'
             'gstreamer: for video and audio calls'
             'gst-plugins-base: for video and audio calls'
@@ -29,20 +27,11 @@ optdepends=('python-dbus: to have gajim-remote working'
             'gst-plugin-gtk4: for video and audio calls'
             'libxss: for idle time checking on X11'
             'python-gnupg: encrypting chat messages with OpenPGP'
-            'emoji-font: for emojis support'
-            'webp-pixbuf-loader: for WebP images support')
-source=("https://dev.gajim.org/gajim/gajim/-/archive/${pkgver}/gajim-${pkgver}.tar.gz"
-        "fix_missing_gst.patch::https://dev.gajim.org/gajim/gajim/-/commit/e4d3fd7dcce3c3261a13eaaa2b75cb5a2d86130f.patch")
-sha512sums=('9b6806a106b6a66bc3663563e43e38cd33e7d0950edee189f452e3f3a540e90a4ac1890d55bd2bd614a778f451c6514ea84f24f5ca8fb9b7c0104bc6448ff797'
-            '576de87aa477223414eb9db50ec0a23479371605f7f562ed1eb2ab7e642a48841737c03543f8d6d5804d09638325a489bc4efe583f29526fe6e9b19b809ce99f')
-b2sums=('6d2817987f0e1af4f03936496ba0d036cc8f16d8f1b38edd53d4761c92f25fcb1744d5b3e1a460e4067e3033b0f7ea6e74f8e805b188aa97b4d36c18edcc1705'
-        '3c64e7d8d8535735c0c004dbccf6a9735768f35734184646440e5024dd0cf088aecc31e789b268ffce838f2b1f481a58ba5a0cae6d402bf769706ef81dbe18de')
+            'emoji-font: for emojis support')
+source=("https://dev.gajim.org/gajim/gajim/-/archive/${pkgver}/gajim-${pkgver}.tar.gz")
+sha512sums=('58a98359699f092d8a767a548b6fa02ba334dd7df224a4e0453ac183eb384e30cc7d511b43b04ca982893a96e4e2fcfeef653f615fcc270e640d0912f4d0743a')
+b2sums=('5849e2fbf989f1086e34a4e0817e35f8a87d9da043611cb4553720f396c907ec60be83aac93098fe93f9395f0663a19b75dffd65de6646e42bdd172bc4f3c270')
 
-
-prepare() {
-	cd "${pkgname}-${pkgver}"
-	patch -Np1 -i "${srcdir}/fix_missing_gst.patch"
-}
 
 build() {
 	cd "${pkgname}-${pkgver}"
