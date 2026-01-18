@@ -2,8 +2,8 @@
 # Maintainer: Mantas M. <grawity@gmail.com>
 
 pkgname=sssd
-pkgver=2.11.1
-pkgrel=3
+pkgver=2.12.0
+pkgrel=1
 pkgdesc="System Security Services Daemon"
 arch=('x86_64')
 url="https://github.com/SSSD/sssd"
@@ -49,7 +49,7 @@ install=sssd.install
 backup=('etc/logrotate.d/sssd')
 source=("https://github.com/SSSD/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz"{,.asc}
         "sssd-perms.tmpfile")
-sha512sums=('e65897bcb9ddd64f6c01787ad7b7eab3c9916e10f9ead02a6e92de503a4ea71c091e998ccf0344576b520bea75abfe5fd2880e8401237a26274d764d291f6fa4'
+sha512sums=('3bd90a88a43019b00d3f0a674ef4d2473bf6895e749a54bec8ac1661e7d289083e0cbd64846dacc8bdd4b2447f171dddb2d0ba108962dbd862bce86c2247b038'
             'SKIP'
             '21646ea5900340c1b0a69c79fc72b0d3e360d56e04dc0daf7947024a420d214a931365e684e8f7cfd37c959327e6909ad4c0d6c3a8186153bca870f508dad486')
 validpgpkeys=('C13CD07FFB2DB1408E457A3CD3D21B2910CF6759')
