@@ -2,22 +2,22 @@
 # Contributor: Bruce Zhang <zttt183525594@gmail.com>
 
 pkgname=feeluown-qqmusic
-pkgver=1.0.14
-pkgrel=2
+pkgver=1.0.15
+pkgrel=1
 pkgdesc="feeluown qqmusic plugin"
 arch=('any')
 url="https://github.com/feeluown/feeluown-qqmusic"
 license=('GPL3')
 depends=('feeluown' 'python-marshmallow' 'python-requests')
-makedepends=('git' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools')
 checkdepends=('python-pytest')
 groups=('feeluown-full')
 source=("git+https://github.com/feeluown/feeluown-qqmusic.git#tag=v$pkgver")
-sha512sums=('9000e009dd30097176c897e41792c712550c4a4204ba2304f3e727ad3edeb18ce941afd6f944cb10e1b559e7091b058e47e82a67040ea06dd5a809b012989ca9')
+sha512sums=('280ab8a9a9ec00996ce27c2760b39a54c2e5ab453e4c3f388887c53d199c2eb226b475e5b015cebd3681fc50b90028f19cfafc31dd6e5d2562406a6eac1bdf6a')
 
 build() {
   cd feeluown-qqmusic
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -27,5 +27,5 @@ check() {
 
 package() {
   cd feeluown-qqmusic
-  python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
