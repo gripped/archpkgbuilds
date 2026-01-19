@@ -1,0 +1,39 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=ocicl
+pkgver=2.15.3
+pkgrel=2
+pkgdesc='An OCI-based ASDF system distribution and management tool for Common Lisp'
+arch=(x86_64)
+url='https://github.com/ocicl/ocicl'
+license=(MIT)
+depends=(glibc zstd sbcl)
+makedepends=(git libfixposix)
+options=(!debug !strip)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('e976db2be91ab2792693faec41dc93805358c71ff798c3c194ccd1f7d01b4d9fbe65977029d8e366bdeef1085e2ed529aae4da0d6f6b2395a08059db02d76f56')
+b2sums=('20755977abcb7f1b09c816a67da625025729df2415c35b0e755f9481010958ba26343ac6c58ba2e2c505d48820f21ead3bf00fd38095642c9fb8da8c8f0b3dda')
+
+build() {
+  cd "$pkgname"
+
+  sbcl --load setup.lisp --eval "(sb-ext:quit)"
+
+  # generate licenses for vendored libraries
+  ./ocicl collect-licenses > VENDORED-LICENSES.txt
+}
+
+package() {
+  cd "$pkgname"
+
+  # binary
+  install -vDm755 -t "$pkgdir/usr/bin" ocicl
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+
+  # licenses
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" \
+    LICENSE \
+    VENDORED-LICENSES.txt
+}
