@@ -1,0 +1,46 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=swhid
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Reference implementation of the Software Hash Identifier (SWHID) standard - ISO 18670"
+url='https://github.com/swhid/swhid-rs'
+arch=('x86_64')
+license=('MIT')
+depends=(
+  'gcc-libs'
+  'glibc'
+)
+makedepends=(
+  'cargo'
+)
+options=(!lto)
+source=("${pkgname}-${pkgver}.tar.gz::https://crates.io/api/v1/crates/${pkgname}/${pkgver}/download")
+sha256sums=('5add61bd640300bc2e02d5433cb8bbd4875e84f905efd561a815d2b5ccbd9fc3')
+b2sums=('ded555bf619a933c0c26da45218d5ff35d1b436f6b5b41612bbc22c2e93eb57b0c2d3fdd2e90db4356021444106a30baee34c0ceb2c6c56c076d29dc219ead61')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
+}
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  cargo build --frozen --release
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+  cargo test --frozen
+  target/release/swhid --help
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  install -Dm 755 -t "${pkgdir}/usr/bin" \
+    target/release/swhid
+
+  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:
