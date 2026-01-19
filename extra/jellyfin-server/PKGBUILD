@@ -3,14 +3,13 @@
 
 pkgname=jellyfin-server
 _pkgname="${pkgname%-server}"
-pkgver=10.11.5
+pkgver=10.11.6
 pkgrel=1
 pkgdesc='Jellyfin server backend'
 arch=(x86_64)
 url='https://jellyfin.org'
 _url='https://github.com/jellyfin/jellyfin'
 license=(GPL-2.0-or-later)
-_dotnet_runtime=linux-x64
 depends=(
   aspnet-runtime-9.0
   bash
@@ -40,13 +39,13 @@ source=(
   fix-envfile-path.patch
   use-system-jemalloc.patch
 )
-sha512sums=('324a7da24228921b6edab0c64a9e5b49a8a8a178a6e0afb068e6ffc46bee1c3c981fd4f414425a8e32923b4c3e87d144da3d4a6175666258918da3e709bc08be'
+sha512sums=('0e5b3219bde8a199b3a4afc3776fd5ffe5d7ed58a86033d6a5f9de4bd8546c77f3d75d9929d9f0dce1f8e0eb4a5ba61a97ac69725627e5781fc3e60d6c7f046e'
             'SKIP'
             '3d2699174fe8719536e4f3ad98bac609a959815e38491f166257d248c195f007745634fa1907557d55c814bb06235130e9cea2d226770956004650d7d9b2b564'
             '3e12ec3d3fcb15975d5f86bc3ce3363ae89b0e9e0b2580c29fc8a612c0220a74a067138b15c48ae27bb3c5777eca33055f10651949678a1ee7bd094293f6abb6'
             '26d4a2c081c5a2563863fb21a427e6b5ff0f551549b7ba77075054e81fbda064991e3443ec3f11f42ffdcc8adef0e20363f00d248d7967d327656280db919672'
             '5e1903a424efc444fb1dfa2d6a0c1488bd0eb1213b7c872b39c0e240150366c4ce379b9d39bb43dc2dc8eed25f8f9402c8ba545ba7a66fa93ee6acda0315ca94')
-b2sums=('60de6b555a534ef8c40015144a523bc7fd7ed1a37885c0b77903ffb57c8fa8cc3bf5264727465b451e126f2965612565196100cf918c6e797f27864fcaadedb7'
+b2sums=('bc14635e89eb821124cea3f13c8d0e594ca78e9b6a835cd06122de243f25793e7efff729b7064e2e70e96166d7c5708517387701b8d3821a6ff1fba69e09fde7'
         'SKIP'
         '5aa5e041513db1cd58e4b0dd91b712931be956d0c4e240c92f5183260a55ad48b6d34612b9a22bf49eb9c80418b2437b01f2cfef200f035a3475a0737d6871ea'
         'bc8001cf28ebf76a125e7ab0d9d5a8fcf35e0def5b907dc5fe90e16cdbb3fdf8b7f098779ced9a44e7a3918ee605058b379d445a224178456a32a6a99cd084b4'
@@ -78,7 +77,7 @@ build(){
     --configuration Release \
     --output builddir \
     --self-contained false\
-    --runtime "$_dotnet_runtime" \
+    --os linux \
     -p:DebugSymbols=false \
     -p:DebugType=none
 }
