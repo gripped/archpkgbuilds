@@ -4,7 +4,7 @@
 # Contributor: Philip Goto <philip.goto@gmail.com>
 
 pkgname=phosh
-pkgver=0.51.0
+pkgver=0.52.1
 pkgrel=1
 pkgdesc='A Wayland shell for GNOME on mobile devices'
 arch=(x86_64)
@@ -33,6 +33,7 @@ depends=(
   gtk3
   gtk4
   hicolor-icon-theme
+  iio-sensor-proxy
   libadwaita
   libgmobile
   libgudev
@@ -48,6 +49,7 @@ depends=(
   phoc
   phosh-osk-provider
   polkit
+  qrcodegen
   systemd-libs
   upower
   wayland
@@ -66,19 +68,16 @@ checkdepends=(
   xmlstarlet
   xorg-server-xvfb
 )
-optdepends=('iio-sensor-proxy: accelerometer and other sensors')
 source=(
   "git+https://gitlab.gnome.org/World/Phosh/phosh.git?signed#tag=v$pkgver"
   git+https://gitlab.gnome.org/World/Phosh/libcall-ui.git
-  git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
+  git+https://gitlab.gnome.org/guidog/libgnome-volume-control.git
   phosh.pam
 )
-b2sums=(
-  76d05f99d3f4051ccf5f3ec9bd44ef12b218f5306bfba682451250186e7c0caf1fde71117866a9e3c5d021949bd14aa36917ca6df6eb6c5ed4768f8929c0a50e
-  SKIP
-  SKIP
-  d89e16605e2e8e29834f9537bd09ef3f76f1cf6420cdd99346a760cab8c7217f86898be66c24b206b464239fc8b5277150abd19bae81af72187a435bd8c2f869
-)
+b2sums=('855564e4c4a3e1757d72b70ceb448616fddddd7a5625c603bca1c720d0f9f40c71876577f8f77a28d7d01dc2e0b7d6e3b1bfbfa45169e802cabc8a7ff6620d69'
+        'SKIP'
+        'SKIP'
+        'd89e16605e2e8e29834f9537bd09ef3f76f1cf6420cdd99346a760cab8c7217f86898be66c24b206b464239fc8b5277150abd19bae81af72187a435bd8c2f869')
 validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
 
 prepare() {
