@@ -6,9 +6,9 @@
 # Contributor: Masato TOYOSHIMA <phoepsilonix at phoepsilonix dot love>
 
 ## Mozc compile option
-_mozc_commit=7cd777dbb
+_mozc_commit=acc6b842
 
-_bcr_commit=041f0926e
+_bcr_commit=3001281d5
 # Following are subject to change if bcr, bazel, and mozc commit changes.
 # The build process does not necessary use all of them, but it is required to allow a no download build process.
 # https://github.com/fcitx/flatpak-fcitx5/blob/master/mozc-deps.yaml has a constantly maintain list of these files
@@ -41,7 +41,7 @@ _bazel_deps=(
 _pkgbase=mozc
 pkgname=fcitx5-mozc
 pkgdesc="Fcitx5 Module of A Japanese Input Method for Chromium OS, Windows, Mac and Linux (the Open Source Edition of Google Japanese Input)"
-pkgver=2.32.5994.102.g7cd777dbb
+pkgver=3.33.6079.2
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/google/mozc"
@@ -70,7 +70,7 @@ for _bazel_dep in "${_bazel_deps[@]}"; do
   fi
 done
 
-sha512sums=('10b225f8ee4b7f8d686190e1f36518304e3673dbc95631954862733d27eb7ee6b0f517e11314a9c1d95b4dcd8c6ab410644a5c50d29027141cfde714baac60aa'
+sha512sums=('1003346e87b2e4dcc1a0b8e984ab3fe79bb21204fe954a38e01ddb004547aa005bcc685593a6a751d1ecce9972fca2977d2da41c787169739472e68355ac8321'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -78,7 +78,7 @@ sha512sums=('10b225f8ee4b7f8d686190e1f36518304e3673dbc95631954862733d27eb7ee6b0f
             'SKIP'
             'SKIP'
             'SKIP'
-            '221ff5bb186f0854c74429a5e5c915734ecb594b9c09906474e36a87f641181e355a7663c00ac300bcd049a6d395d6ce311e5aaed6adbabebadc0a964bffa72a'
+            'bcc112bd6280707ea56406d1d8efba4fb56f39eae41c1d0e587b4d5811dabf2513a9f3887ecbe0b11554f36c25afdc2a924d4b23a69bdd52469e08ed1431441e'
             '4ee1a217203933382e728d354a149253a517150eee7580a0abecc69584b2eb200d91933ef424487e3a3fe0e8ab5e77b0288485cac982171b3585314a4417e7d4'
             'c4aa3a09324abcbc1a2d9aa6a6278645d74af63cad76666224e53c50620450fb686c067db0f799afe84fefe575e0b2bea13b1b952f55e7e075562194b8e5ac43'
             '9cca730483639e6b711c1e48d8d916839d5c618eda0b07ccb965184e79326ac6fcecc1446c61efcb4f7bb76b557e291cd2666b90e280dc8a4a76e1f9c09f1bb2'
@@ -103,11 +103,14 @@ sha512sums=('10b225f8ee4b7f8d686190e1f36518304e3673dbc95631954862733d27eb7ee6b0f
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9')  # Weng Xuetian
 
 pkgver(){
-  cd mozc
-  # change pkgver is OK because we fixed commit
-  # parse major.minor.buildid from version template, revision is fixed to 102 for Linux
-  _bzr_ver=$(sed 's/ //g;$ a echo $MAJOR.$MINOR.$BUILD_OSS.102' src/data/version/mozc_version_template.bzl | source /dev/stdin)
-  printf "%s.g%s" "${_bzr_ver}" "${_mozc_commit}"
+  cd mozc/src
+  # https://github.com/google/mozc/discussions/1429
+  # REVISION in mozc_version_template.bzl is no longer used by Bazel builds.
+  # REVISION will be probably removed once GYP builds are completely removed.
+  bazel build --config oss_linux --config stable_channel base:mozc_version_txt >/dev/null 2>&1
+  source <(grep -E '^(MAJOR|MINOR|BUILD_OSS|REVISION)\s*=' bazel-bin/base/mozc_version.txt)
+   _bzr_ver="$MAJOR.$MINOR.$BUILD_OSS.$REVISION"
+  printf "%s" "${_bzr_ver}"
 }
 
 prepare() {
@@ -139,6 +142,7 @@ build() {
   # Pass them with --cxxopt, and --linkopt.
   bazel build \
       --config oss_linux \
+      --config stable_channel \
       --distdir="${srcdir}" \
       --registry="file://${srcdir}/bazel-central-registry" \
       --copt=-DNDEBUG \
