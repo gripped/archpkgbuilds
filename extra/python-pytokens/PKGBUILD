@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-pytokens
-pkgver=0.3.0
-pkgrel=2
+pkgver=0.4.0
+pkgrel=1
 pkgdesc='A fast, spec compliant Python 3.12+ tokenizer'
 arch=(any)
 url='https://github.com/tusharsadhwani/pytokens'
@@ -14,16 +14,17 @@ makedepends=(
   python-installer
   python-setuptools
   python-wheel
+  mypy
 )
 checkdepends=(python-pytest)
 source=(
   "$pkgname::git+$url#tag=$pkgver"
   no-coverage-testing.patch
 )
-sha512sums=('28e0003d07c76b7010b1bc6704929fa184e47393f5803bdc945d1ab9d9c612b4bce1336665bb714d7ccaca0cb7a9a87d2815d7c3f73ec7b35f877d1af31733c8'
-            '6709c47b15b64739b2b3d9cda874bd657d9a0a587b8d26f1328c4b5bf1ad69fec8a8f856bd87e001fa6a15a4a80a728fb1695271b5da38d90fe28275c645557e')
-b2sums=('8cb96784eeeec2e2f0fc8d314af690053e2e69e23c8a3cc8bd28abf0eff0b7b92eb09f5536c3bd1d3e80e06cc3bee630451c7829314bee1097d1ee288d856607'
-        '3f9764488acbc4bf120ffdc62a29fe8ddf5935374be8e3b0beeb1524fa8979fd6ddfda428c852140447af79135333fd6dba3ed0cf8d264f494862fcf9f2fba27')
+sha512sums=('3b805739e91d4a6e10c7b2dd5d1c228e9cda225ff30e3d905b45212373213482130e38bed17be37058215064e7e4f3aa7e56cc19b8b68957a0b9e38e23ae03a7'
+            '6a0640f25be3bcf175a824702c926463a3be3cf5548b2e031fca0752763979242583ddf67d1f8cba60aa3867384ae8a661f50f8bb1123de4940113d9d34006b1')
+b2sums=('6791a928d333f572f4e0075046313056a3c0d470867baba9670f68ecc0b5c6ba959ea35286e5be1bf840568bf6700762b85f8c318fa7568ec81108600d38e31f'
+        '30475636dcc667338995990446e965edd1cce9124bb00d9cca1a3dd32b49b858895a2001e1b0d16e8ed5c496cb5c11053766f130883ab6bc1e79890ed8e00097')
 
 prepare() {
   cd "$pkgname"
@@ -34,19 +35,20 @@ prepare() {
 build() {
   cd "$pkgname"
 
-  python -m build --wheel --no-isolation
+  # skip compilation, seems that there are 4 .so files generated
+  PYTOKENS_USE_MYPYC=0 python -m build --wheel --no-isolation
 }
 
-#check() {
-#  cd "$pkgname"
-#
-#  # temporarily install wheel
-#  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
-#  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-#  export PYTHONPATH="$(pwd)/tmp/$site_packages"
-#
-#  pytest -v
-#}
+check() {
+  cd "$pkgname"
+
+  # temporarily install wheel
+  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$(pwd)/tmp/$site_packages"
+
+  pytest -v
+}
 
 package() {
   cd "$pkgname"
