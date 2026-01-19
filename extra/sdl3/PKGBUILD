@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=sdl3
 pkgver=3.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A library for portable low-level access to a video framebuffer, audio output, mouse, and keyboard (Version 3)"
 arch=('x86_64')
 url="https://www.libsdl.org"
@@ -62,7 +62,7 @@ build() {
 
 package() {
   DESTDIR="${pkgdir}" cmake --install build
-
+  install -Dm755 build/test/testcontroller "$pkgdir/usr/bin/testcontroller"
   install -Dm644 SDL3-${pkgver}/LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 
