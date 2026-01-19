@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-calver
-pkgver=2025.04.17
+pkgver=2025.10.20
 pkgrel=1
 pkgdesc="Setuptools extension for CalVer package versions"
 url="https://github.com/di/calver"
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest' 'python-pretend')
 source=("git+https://github.com/di/calver.git#tag=$pkgver")
-sha512sums=('e398dc781d235e8a497a1ac5eacbc13ff23d3f4143957a157ae5e649437015c72423528fa5417c0d875cfa131c171090904a539bfa3a64ccef790de05220932d')
+sha512sums=('16dcd12f3d7eb0977e3f9e8aaf46dbee836e39d1608b4318a7700e18e497bdfa06bd6797e91e4a12189eb4d3007703690210f90c69af832b05e3e319944c6caa')
 
 prepare() {
   cd calver
