@@ -2,8 +2,8 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=python-google-auth-oauthlib
-pkgver=1.2.3
-pkgrel=2
+pkgver=1.2.4
+pkgrel=1
 pkgdesc="oauthlib integration for Google auth."
 url="http://google-auth-oauthlib.readthedocs.io/en/latest/"
 checkdepends=('python-click' 'python-pytest')
@@ -13,7 +13,7 @@ optdepends=('python-click')
 license=('Apache')
 arch=('any')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/googleapis/google-auth-library-python-oauthlib/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('5b758145c10e42f6a421e3502095c8cd0d29e1da7198f34a63d66f26918c3b5e')
+sha256sums=('69573391dbf165f324ee0aa5be2eafcb6aa63146d1c23b6b3abbb9d790a6d83b')
 
 # check() {
 #     cd "google-auth-library-python-oauthlib-${pkgver}"
