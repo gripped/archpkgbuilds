@@ -2,9 +2,9 @@
 # Contributor: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=python-meilisearch
-pkgver=0.39.0
+pkgver=0.40.0
 epoch=1
-pkgrel=2
+pkgrel=1
 pkgdesc='Python client for MeiliSearch API'
 arch=(any)
 license=('MIT')
@@ -13,7 +13,7 @@ depends=(python python-requests python-camel-converter python-pydantic)
 makedepends=(python-setuptools python-build python-installer python-wheel)
 checkdepends=(python-pytest python-pytest-ordering)
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/meilisearch/meilisearch-python/archive/v${pkgver}.tar.gz)
-sha512sums=('72ced8ac8743f26fad8b7068e31130fbdbfdc265916560b4fccc43d75c03ba525bc8ea3cb00551b7cf64b30c7bafc165f30f46fc51d9a3d4102874aeced8d9c6')
+sha512sums=('3578cde3a583f3098b57d944b53afd7e9fa129dee1943afff1df9f17094d5f344cbcbf2c2374c7afb30916ea703b0593616704460fb13a39194a59c9641aae22')
 
 build() {
   cd "meilisearch-python-${pkgver}"
