@@ -1,6 +1,6 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 pkgname=functional-plus
-pkgver=0.2.26
+pkgver=0.2.27
 pkgrel=1
 pkgdesc='Functional Programming Library for C++'
 arch=('any')
@@ -10,7 +10,7 @@ makedepends=('cmake' 'python')
 checkdepends=('doctest')
 _git='https://github.com/Dobiasd/FunctionalPlus'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('119894b4ab521d22e7dbd4692c364dc911cf206fca011071575658d4053e61f2')
+sha256sums=('7852a3507e10153b3efb72d1eb6d252ceb8204bd89759b0af5420bbc57eefbae')
 _dirname="$(basename "$_git")-$pkgver"
 
 build() {
