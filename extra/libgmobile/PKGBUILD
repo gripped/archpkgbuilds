@@ -2,32 +2,41 @@
 # Contributor: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=libgmobile
-pkgver=0.5.0
-pkgrel=2
+pkgver=0.6.0
+pkgrel=1
 pkgdesc='Functions useful in mobile related, glib based projects'
-arch=('x86_64')
+arch=(x86_64)
 url='https://gitlab.gnome.org/World/Phosh/gmobile'
 license=('LGPL-2.1-or-later AND GPL-3.0-or-later')
 depends=(
-        "json-glib"
-        "glib2"
+  gcc-libs
+  glib2
+  glibc
+  json-glib
 )
 makedepends=(
-            "meson"
-            "gi-docgen"
-            "git"
-            "gobject-introspection"
-            "python-docutils"
-            "vala"
+  gi-docgen
+  git
+  gobject-introspection
+  meson
+  python-docutils
+  vala
 )
-source=("git+${url}.git#tag=v${pkgver}")
-sha256sums=('109dad0d5650b9cdfa4523f8e32079583489a644b1ffa0fe35af9646b76703e9')
+source=("git+https://gitlab.gnome.org/World/Phosh/gmobile.git?signed#tag=v$pkgver")
+b2sums=('f9c90046d2ad7be71230e95ff7c8f1bf3ea31ec47ae118330e5b47e43eeef4ba7606d8bd6ebc24c4b6171652a42ba64febe992790d830cf5e67157b0a6f40494')
+validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
 
 build() {
-  arch-meson gmobile build -Dgtk_doc=true -Dman=true
+  arch-meson gmobile build \
+    -D gtk_doc=true \
+    -D man=true
   meson compile -C build
 }
 
+check() {
+  meson test -C build --print-errorlogs
+}
+
 package() {
-  DESTDIR="${pkgdir}" meson install -C build
+  meson install -C build --destdir "$pkgdir"
 }
