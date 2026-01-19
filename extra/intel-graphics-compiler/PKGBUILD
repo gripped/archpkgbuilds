@@ -3,14 +3,14 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=2.24.8
+pkgver=2.27.10
 _llvmmaj=16
 _llvmver="${_llvmmaj}.0.6"
-_vciver=0.24.1
+_vciver=0.24.2
 _spirv_tools_commit=28a883ba4c67f58a9540fb0651c647bb02883622
 _spirv_headers_commit=01e0577914a75a2569c846778c2f93aa8e6feddd
-_spirv_llvm_commit=2e666b9ed404bcc86a6fc357e2823fcb5c5e1382
-_opencl_clang_commit=4157bbe686dbe2a464b317c74f56b6601d5f3be3
+_spirv_llvm_commit=ee2a14e38f24c422cf1f0375b5b9cec0afe4412c
+_opencl_clang_commit=6ab2da341420eba7d022a85a5190c46133347719
 pkgrel=1
 epoch=1
 pkgdesc='Intel Graphics Compiler for OpenCL'
@@ -40,14 +40,14 @@ source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${p
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}"
         '010-intel-graphics-compiler-disable-werror.patch')
-sha256sums=('47e41a3a1d5138024da7fac5dd6a80fc220971172909de952db85b8afaf1a9c7'
-            'b7e8ea7d62f7a6239dd51590da702d73f82fa049eabd53ce0040e6b8d5c099a4'
-            '4e3b7baf125fc850f4d0094880bc0ff6a13c964c5165d323fec96636ec0dc701'
+sha256sums=('3e6114f0c371ed88e1b0930b35ff8ac468c63f5448bf52e31341223e19cf572f'
+            'fea4af79a1819253827a1d05f884d729e091a480decbdf0033144d66287ef676'
+            'e2e661178c52c60ff0449f93d538e42cf69ec0017d05c359e3fee6503151031f'
             'e028a800c43945d94fc100aa25427d360a21c00b1154fb239ec2fce0c06ea85d'
             '8d4d0e7c1e60914372fb7dae6e491f346af481f73901fd4b0970be7f7ef73b81'
-            'c69aaec482bffa20560882b6b901ca7a62fe402ab9ec6375e5f7323eaf2356ec'
+            '317f8e11edcb3cc7a065ccb866a2609afa4fd5673fe9a6514b397d576bf9a5cb'
             'b47ada280614670a467f80e9f8c67542050983f238f2f4b3fa17682855faf9bf'
-            'd2efb42a4562789a101af66e9731fe75bb89ddc9a916845fcf002fe8d7ceca70')
+            'eac4352a78d537e8a6bbca55c059377dc704e3e1e5a267c99a0e9edda7a87380')
 
 prepare() {
     # rename to prevent SPIRV-LLVM-Translator from being included
@@ -105,7 +105,6 @@ package() {
     install -D -m644 "${pkgname}-${pkgver}"/LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
     mv "${pkgdir}/usr/include"/opencl-c{,-base}.h "${pkgdir}/usr/include/igc"
     mv "${pkgdir}/usr/lib/igc${pkgver%%.*}/NOTICES.txt" "${pkgdir}/usr/share/licenses/${pkgname}"
-    rm "${pkgdir}/usr/bin/lld"
     
     # additional files for opencl-clang
     install -D -m644 opencl-clang/opencl_clang.h -t "${pkgdir}/usr/include/cclang"

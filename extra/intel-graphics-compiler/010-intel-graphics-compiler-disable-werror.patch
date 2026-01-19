@@ -20,7 +20,7 @@
        ALIAS UnreferencedVariable
        ALIAS UninitializedVarWarning
        ALIAS WholeProgramOptimization
-@@ -925,7 +925,7 @@ foreach(_compilerFlagName IN ITEMS "CMAKE_CXX_FLAGS" "CMAKE_C_FLAGS")
+@@ -925,7 +925,7 @@ foreach(_compilerFlagName IN ITEMS "CMAK
              #-march=armv8.2-a+fp+simd+sve2
              -march=armv8-a+fp+simd
              -fms-extensions
@@ -29,12 +29,12 @@
              -Wno-unused-parameter
              -Wno-missing-field-initializers
              -Wwrite-strings
-@@ -990,7 +990,7 @@ foreach(_compilerFlagName IN ITEMS "CMAKE_CXX_FLAGS" "CMAKE_C_FLAGS")
-           -march=corei7
-           -mstackrealign
-           -fms-extensions
--          -Werror
-+          #-Werror
-           -Wno-unused-parameter
-           -Wno-missing-field-initializers
-           -Wwrite-strings
+@@ -990,7 +990,7 @@ foreach(_compilerFlagName IN ITEMS "CMAK
+             -march=corei7
+             -mstackrealign
+             -fms-extensions
+-            -Werror
++            #-Werror
+             -Wno-unused-parameter
+             -Wno-missing-field-initializers
+             -Wwrite-strings
