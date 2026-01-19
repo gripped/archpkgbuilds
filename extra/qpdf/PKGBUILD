@@ -5,18 +5,22 @@
 
 pkgbase=qpdf
 pkgname=('qpdf' 'qpdf-docs')
-pkgver=12.3.0
+pkgver=12.3.1
 pkgrel=1
 pkgdesc="QPDF: A Content-Preserving PDF Transformation System"
 arch=('x86_64')
 url="https://github.com/qpdf/qpdf"
 license=('Apache-2.0' 'Artistic-2.0')
 makedepends=('libjpeg-turbo' 'zlib' 'gnutls' 'cmake'
-             'texlive-bin' 'texlive-binextra' 'texlive-fontsrecommended' 'python-sphinx' 'python-sphinx_rtd_theme' 'texlive-latexextra')
+             'texlive-bin' 'texlive-binextra' 'texlive-fontsrecommended'
+             'python-sphinx' 'python-sphinx_rtd_theme' 'texlive-latexextra')
 # https://github.com/qpdf/qpdf/releases/download/v11.10.1/qpdf-11.10.1.sha256
-source=(https://github.com/qpdf/qpdf/releases/download/v$pkgver/${pkgname}-${pkgver}.tar.gz{,.asc})
-sha256sums=('5e59dbea264ce096bcaf230ea2a2fb1d991a9d56d940fd54c1a7570b48dde04b'
-            'SKIP')
+source=(https://github.com/qpdf/qpdf/releases/download/v$pkgver/${pkgname}-${pkgver}.tar.gz
+# {,.asc}
+)
+sha256sums=('6de2a390b807a881bba2ab1abb080e985c2338a64137807ed28a946a258ffc89'
+            # 'SKIP'
+)
 validpgpkeys=('C2C96B10011FE009E6D1DF828A75D10998012C7E') # "Jay Berkenbilt <ejb@ql.org>"
 
 # howto build the docs:
