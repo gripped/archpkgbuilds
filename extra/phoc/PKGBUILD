@@ -2,7 +2,7 @@
 # Contributor: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=phoc
-pkgver=0.51.0
+pkgver=0.52.0
 pkgrel=1
 pkgdesc='Display compositor designed for phones'
 arch=(x86_64)
@@ -41,10 +41,8 @@ source=(
   "git+https://gitlab.gnome.org/World/Phosh/phoc.git?signed#tag=v$pkgver"
   git+https://gitlab.gnome.org/GNOME/gvdb.git
 )
-b2sums=(
-  806dc3f686eac4538ea8a3900684464c66d28834ada2106bcdec4e6749a16c3bb0f85ebfbaaa3dabfcb382d081faf1134a959c718dcaff6913db8c80e92eb851
-  SKIP
-)
+b2sums=('cd315ca48bcfd8ea18721bffd9a58e780993b8bb15e445b40ccbffddca7b2a63f3675ffce00d08afa38508277672fd5f8a8b54d8de17ba434a56882d78935e2c'
+        'SKIP')
 validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
 
 prepare() {
