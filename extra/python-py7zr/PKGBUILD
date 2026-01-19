@@ -3,8 +3,8 @@
 
 pkgname=python-py7zr
 _pyname=${pkgname#python-}
-pkgver=1.1.0
-pkgrel=3
+pkgver=1.1.2
+pkgrel=1
 pkgdesc='Pure python 7-zip library'
 arch=(any)
 url="https://github.com/miurahr/${_pyname}"
@@ -30,7 +30,7 @@ checkdepends=(p7zip
               python-pytest-httpserver
               python-pytest-timeout)
 source=("git+$url.git#tag=v$pkgver")
-sha256sums=('cd9707411f154c90fe09b71a1bad740ec085339398ab659aef5965768a90fa8a')
+sha256sums=('a1b6eba3150284112ba9eeb370e8580bd459514d6cd863aeb4bc7497532b4937')
 
 build() {
 	cd "$_pyname"
