@@ -2,8 +2,8 @@
 # Contributor: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=python-dill
-pkgver=0.4.0
-pkgrel=2
+pkgver=0.4.1
+pkgrel=1
 pkgdesc='serialize all of Python'
 arch=(any)
 url='https://github.com/uqfoundation/dill'
@@ -17,17 +17,9 @@ makedepends=(
   python-wheel
 )
 optdepends=('python-objgraph: graph support')
-source=("$pkgname::git+$url#tag=$pkgver" "fix-tests-3.14.patch")
-sha512sums=('4e39a28c9d3ebcffffb8ccdb75fb3183fe9fc33c06105698d674a0245806b0aa82a2aeffcadf713defc6a32f71176c88876f542134f3715a8bbdcfb057b28444'
-            'a8a6bd893ee141cb966ee710317589fb4c13b890b40346399f19b6b3839c54314079591e5166e4d338090a73eaa2685fa06697949780e4e359dca9e70f77f992')
-b2sums=('faf256e2fcc5588a85aa15b05bcbb4438ac3f3da85681664746f49b67e7130f59f9bb954743e8290ba0fd200b8cbca4ac3d33b0c5c139fe8a5de0e8be07e79a9'
-        '03c403c260a400dd94c05607fe32bdaa1e91945626347fb887259500e3f8544167d2d8c827385573566be0345d59626cff86e26a6e2411206c8b92d1778f4a01')
-
-prepare() {
-  # https://github.com/uqfoundation/dill/pull/717
-  cd "$pkgname"
-  patch -Np1 -i "${srcdir}/fix-tests-3.14.patch"  
-}
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('13b0f7d297b689ada4e72daa47dce05d03972457905357a4572f5937f08b6f5a1cf8d2351896e685067a210f51b3ba992efeef0d978f7f32cc21cd3a466f0349')
+b2sums=('6316a79225f216439e0c616a4146c659ff46e0af54c05c0b8ff023e8bd0473a1085c074216417bf4417a3fe74541317dae022bd52fe0d61c2dbd1fb61c885908')
 
 build() {
   cd "$pkgname"
