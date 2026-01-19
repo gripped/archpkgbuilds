@@ -4,9 +4,9 @@
 # Contributor: Xiao-Long Chen <chenxiaolong@cxl.epac.to>
 
 pkgname=389-ds-base
-pkgver=3.1.3
+pkgver=3.2.0
 pkgdesc="389 Directory Server (base)"
-pkgrel=5
+pkgrel=1
 arch=(x86_64)
 url="http://port389.org/"
 license=('GPL-3.0-only')
@@ -21,17 +21,14 @@ makedepends=('cargo' 'rsync' 'doxygen' 'cmocka' 'python-build' 'python-argparse-
              'npm' 'nodejs' 'systemd' 'python-pip' 'python-installer')
 optdepends=('cockpit: LDAP administration through the Cockpit web UI')
 source=(https://github.com/389ds/389-ds-base/archive/389-ds-base-${pkgver}.tar.gz
-        389-ds-base-3.0.6-rust-1.89.patch
         389-ds-base.sysusers
         389-ds-base.tmpfiles)
-sha512sums=('c0692583642ee894224fcdb949fe3900f564115eb334353e63f7970e65910d687ec8a343bada1e559ad98e1f26279a7734db82bdac106d8d8500399e148ad21e'
-            '645bd3708144c8670c15c2883abc24b1520bc8c59a3c52fdd4bd45c05db6625b1ead5af10861ec619a9194ddb72af0bf88cd69a8ae516a73312b1339d87a9c04'
+sha512sums=('e7bbaecf3ed106607b9e43d0dea08de647e2381b69a5202631d4fadaafe4a01ac24914ee3f76920c34ee6aa08b7875e1d7dc7651d7080e8cfbb6258ba7bb86d1'
             '7947f50e0fc26f07b388a20f53360cc5e1faf6dfa26dd6a48ffa833c4d247ade3f4269479b5ed4dbb99a2a1367b0ace4054da3d58e3bc3563c7daf947da72a72'
             '69ed8b8f3bdbf9098088b0c92c41a238f16d14ba9f86ebc2b5debe5f001b4d8e235f7cff4731d72b30b5ac70486b0f4300b99646aa3926a3fa59515a64f16402')
 
 prepare() {
   cd "${pkgname}-${pkgname}-${pkgver}"
-  patch -Np1 -i ../389-ds-base-3.0.6-rust-1.89.patch
   ./autogen.sh
 }
 
