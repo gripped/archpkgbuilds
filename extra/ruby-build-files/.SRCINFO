@@ -1,7 +1,7 @@
 pkgbase = ruby-build-files
 	pkgdesc = Abstractions for handling and mapping paths
-	pkgver = 1.9.1
-	pkgrel = 2
+	pkgver = 1.10.0
+	pkgrel = 1
 	url = https://github.com/ioquatix/build-files
 	arch = any
 	license = MIT
@@ -12,11 +12,12 @@ pkgbase = ruby-build-files
 	checkdepends = ruby-covered
 	checkdepends = ruby-decode
 	checkdepends = ruby-sus
+	makedepends = git
 	makedepends = ruby-rdoc
 	depends = ruby
 	options = !emptydirs
-	source = https://github.com/ioquatix/build-files/archive/v1.9.1/ruby-build-files-1.9.1.tar.gz
-	sha512sums = 118da8815a1d40d23f1009d1b469996a2a640c6e190dceb888c0778f37147eefb42e83b6a47cda484089338b4e7eb51717e5bf4c8304e55d0d95617f087fbe39
-	b2sums = df8017f27fa12cb075403fe51083e7e689cce6f8a196beac71cc270890eca0713eb11102633623afea01c54867a341da11124b609a21816c4adef3726464445b
+	source = git+https://github.com/ioquatix/build-files.git#tag=v1.10.0
+	sha512sums = 0ba4c31b795d5f22f59596bcecd807aa1072d86e89984cdfee2f4c6fb6d46d77286c60c675f342ca515065cef5edcc63def0d9da39fd7fca2ffec6ffc603a634
+	b2sums = 3a7836ec856228b1ee64e5e40847166bb532b01d05bb533fa416a22e4d9e8fb1cd6104024d17f8308c035c1b275c0e234226dcc3a5e86ede1abad53185471fdd
 
 pkgname = ruby-build-files
