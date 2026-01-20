@@ -7,7 +7,7 @@
 
 pkgname=kmscon
 pkgver=9.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Kernel Mode Setting (KMS) and DRM based virtual Console Emulator'
 arch=('x86_64')
 url='https://github.com/kmscon/kmscon'
@@ -32,8 +32,20 @@ makedepends=(
   libxslt
   linux-api-headers
   meson)
-source=(git+${url}.git#tag=v${pkgver})
-b2sums=('4863387062297017824d0c93e61caeb973ea13a8bc860fa7b3fe5ace1151dd2706754b9d0da34ca245945fe6720fda07c315c25103c95772cba6bf4894b0f20b')
+source=(
+  git+${url}.git#tag=v${pkgver}
+  8a9cb88a7bb57801c1127ccb26e5d5a1f3706ac9.patch
+  bbd427c8fb0a1292f9077224aa223296becfce63.patch
+)
+b2sums=('4863387062297017824d0c93e61caeb973ea13a8bc860fa7b3fe5ace1151dd2706754b9d0da34ca245945fe6720fda07c315c25103c95772cba6bf4894b0f20b'
+        'f0680e52d6b1b48394b49517461ecfc4533c6925dae050c6e9c4e48c72848875f9fd951726611828faa0172c94e96032f793c26be6a78ed4718eea98d5711d88'
+        'bd9c8ec2aaac96f8ea1a71e0b1c276d8f903f86991c4c39a4aa018de0526010ac2b90752f5bbbbc30c31f09898e04fbf6af29d6b9bc6a9354041de11967fa823')
+
+prepare() {
+  cd $pkgname
+  patch -Np1 -i ../8a9cb88a7bb57801c1127ccb26e5d5a1f3706ac9.patch
+  patch -Np1 -i ../bbd427c8fb0a1292f9077224aa223296becfce63.patch
+}
 
 build() {
   arch-meson "$pkgname" build

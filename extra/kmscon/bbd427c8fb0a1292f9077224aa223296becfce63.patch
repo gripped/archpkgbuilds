@@ -1,0 +1,39 @@
+From bbd427c8fb0a1292f9077224aa223296becfce63 Mon Sep 17 00:00:00 2001
+From: Jocelyn Falempe <jfalempe@redhat.com>
+Date: Thu, 4 Dec 2025 00:15:01 +0100
+Subject: [PATCH] kmscon systemd services: specify TERM for agetty
+
+Otherwise agetty will overwrite TERM with vt102
+
+Signed-off-by: Jocelyn Falempe <jfalempe@redhat.com>
+---
+ scripts/systemd/kmscon.service.in    | 2 +-
+ scripts/systemd/kmsconvt@.service.in | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/scripts/systemd/kmscon.service.in b/scripts/systemd/kmscon.service.in
+index ad5600da..ee4ae460 100644
+--- a/scripts/systemd/kmscon.service.in
++++ b/scripts/systemd/kmscon.service.in
+@@ -6,7 +6,7 @@ After=systemd-user-sessions.service
+ After=rc-local.service
+ 
+ [Service]
+-ExecStart=@bindir@/kmscon --login -- /sbin/agetty -o '-p -- \\u' --noclear -- -
++ExecStart=@bindir@/kmscon --login -- /sbin/agetty -o '-p -- \\u' --noclear -- - $$TERM
+ 
+ [Install]
+ WantedBy=multi-user.target
+diff --git a/scripts/systemd/kmsconvt@.service.in b/scripts/systemd/kmsconvt@.service.in
+index a496e261..b1e9c3ec 100644
+--- a/scripts/systemd/kmsconvt@.service.in
++++ b/scripts/systemd/kmsconvt@.service.in
+@@ -38,7 +38,7 @@ IgnoreOnIsolate=yes
+ ConditionPathExists=/dev/tty0
+ 
+ [Service]
+-ExecStart=@bindir@/kmscon --vt=%I --seats=seat0 --no-switchvt --login -- /sbin/agetty -o '-p -- \\u' --noclear -- -
++ExecStart=@bindir@/kmscon --vt=%I --seats=seat0 --no-switchvt --login -- /sbin/agetty -o '-p -- \\u' --noclear -- - $$TERM
+ UtmpIdentifier=%I
+ TTYPath=/dev/%I
+ TTYReset=yes
