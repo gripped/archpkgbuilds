@@ -2,8 +2,8 @@
 # Contributor: a821 at mail dot de
 
 pkgname=python-mpegdash
-pkgver=0.4.0
-pkgrel=2
+pkgver=0.4.1
+pkgrel=1
 pkgdesc="MPD (Media Presentation Description) parser"
 url="https://github.com/sangwonl/python-mpegdash"
 arch=("any")
@@ -15,7 +15,7 @@ makedepends=(
 	"python-installer"
 )
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('4128520c920d55906430a3540ca0b78db184554d1726bc91119f1fbc07aeb61a')
+sha256sums=('fbcedd9a95cb28f99ec6d87e13b72697873965d72c53183ffe5d9f9b13d78161')
 
 build() {
 	cd ${pkgname}-${pkgver}
