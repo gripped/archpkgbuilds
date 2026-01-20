@@ -3,7 +3,7 @@
 # Contributor: Vlad M. <vlad@archlinux.net>
 
 pkgname=watchexec
-pkgver=2.3.2
+pkgver=2.3.3
 pkgrel=1
 pkgdesc="Executes commands in response to file modifications"
 url='https://github.com/watchexec/watchexec'
@@ -13,11 +13,11 @@ arch=('x86_64')
 license=('Apache-2.0')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/watchexec/watchexec/archive/refs/tags/v${pkgver}.tar.gz")
 options=('!lto')
-sha256sums=('52201822ab00bfaf6757f953f667870b3aada52f887813e94b4f322f239ff8fb')
+sha256sums=('8d897bc79d6e6a381ad9b3abf2a4967b58bc376bdc0aa418bb99829660d74aff')
 
 prepare() {
   cd "watchexec-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
