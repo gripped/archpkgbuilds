@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-security-plugin
-pkgver=3.3.0.0
+pkgver=3.4.0.0
 pkgrel=1
-_opensearchver=3.3.0
+_opensearchver=3.4.0
 _jdkver=21
 pkgdesc="OpenSearch Security Plugin"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('Apache-2.0')
 depends=("opensearch=${_opensearchver}")
 makedepends=("java-environment=${_jdkver}" 'unzip' 'git')
 source=("git+https://github.com/opensearch-project/security.git#tag=${pkgver}") # Build requires git
-sha256sums=('f1407391e862f2e7b41940294e25990a8364de4ceaa278c69cc9b61b3a1e36f6')
+sha256sums=('121dfdc39c6b9bdb6ab03e29700819796eabd43bc53d0de752544dda6d7a9d90')
 
 build() {
   cd "security"
