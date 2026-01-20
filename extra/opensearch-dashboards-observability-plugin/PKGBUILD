@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-observability-plugin'
 _pluginname='observability-dashboards-plugin'
-pkgver=3.3.0.0
-_dashboardsver=3.3.0
+pkgver=3.4.0.0
+_dashboardsver=3.4.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Observability Plugin'
 url='https://docs.opensearch.org/latest/observing-your-data/'
@@ -16,8 +16,8 @@ source=(
   "git+https://github.com/opensearch-project/dashboards-observability.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
 )
-sha256sums=('4bd27248fdaf143e8bde7637279978e46d7646b38e8c8e939b408ea713405d8e'
-            '856d319d1485996f16406590d49ad69f0d37c318eab7b93b641cf6081028253c')
+sha256sums=('54c67ec12abd99a361593acce06604093dd5f62c7ca04aa45928552144e6a9d5'
+            'b99d6edf20a7f16fae2bc6bca2dc1a09392e35961df40921781c819f70b9f321')
 
 prepare() {
   nodeVersion="$(node -v)"
