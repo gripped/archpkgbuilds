@@ -1,0 +1,30 @@
+From 508f2c2fd36a9ed83d5a6a18dfa4dda7ecee284e Mon Sep 17 00:00:00 2001
+From: Gon Solo <gonsolo@gmail.com>
+Date: Wed, 14 Jan 2026 10:30:25 +0100
+Subject: [PATCH] bla.
+
+---
+ CMakeLists.txt | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 03e1cc7..4518248 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,11 +1,9 @@
+-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+-
+-CMAKE_POLICY(SET CMP0048 OLD)
++CMAKE_MINIMUM_REQUIRED(VERSION 3.12...5.0)
+ 
+ SET(PROJECT_NAME "LEMON")
+ PROJECT(${PROJECT_NAME})
+ 
+-INCLUDE(FindPythonInterp)
++find_package(Python3 REQUIRED COMPONENTS Interpreter)
+ INCLUDE(FindWget)
+ 
+ IF(EXISTS ${PROJECT_SOURCE_DIR}/cmake/version.cmake)
+-- 
+2.52.0
+
