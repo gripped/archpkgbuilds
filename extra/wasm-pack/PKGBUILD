@@ -2,7 +2,7 @@
 # Contributor: Dario Ostuni <dario.ostuni@gmail.com>
 
 pkgname=wasm-pack
-pkgver=0.13.1
+pkgver=0.14.0
 pkgrel=1
 pkgdesc="Your favorite rust -> wasm workflow tool!"
 arch=('x86_64')
@@ -11,12 +11,12 @@ license=('MIT' 'Apache')
 depends=('bzip2' 'curl')
 makedepends=('cargo' 'cmake')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha384sums=('0524f53216575dd81acc8127b89890080efeaba5e8588016a2194fc4140ef75940a9506e04746d7818f5b4d71b70f4de')
+sha384sums=('bd92f7470f2789e3876ea4a8a7343106a89b8964921bf4a4328f928a9fcd46c4e9e594cab909a2b68c24be0682a63505')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
