@@ -4,29 +4,41 @@
 
 pkgname=libmatemixer
 pkgver=1.28.0
-pkgrel=1
-pkgdesc="Mixer library for MATE Desktop"
-url="https://mate-desktop.org"
-arch=('x86_64')
-license=('LGPL')
-depends=('glib2' 'gettext' 'libpulse' 'alsa-lib')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('5d73b922397f60688e3c9530eb532bce46c30e262db1b5352fa32c40d870a0c7')
+pkgrel=2
+pkgdesc='Mixer library for MATE Desktop'
+arch=(x86_64)
+url='https://github.com/mate-desktop/libmatemixer'
+license=(LGPL-2.0-or-later)
+depends=(
+  alsa-lib
+  glib2
+  glibc
+  libpulse
+  systemd-libs
+)
+makedepends=(
+  git
+  gtk-doc
+)
+source=("git+https://github.com/mate-desktop/libmatemixer.git#tag=v$pkgver")
+b2sums=(c58a061454d6e8c74f725f2811de51f0fde44cb4e2baba2186b06ec999512cfee4e427418a4889d40b51f5615f9128000db873fc32b210335cba2effbec60c6b)
+
+prepare() {
+  cd $pkgname
+  autoreconf -fiv
+}
 
 build() {
-    	cd "${pkgname}-${pkgver}"
-    	./configure \
-        	--prefix=/usr \
-        	--sysconfdir=/etc \
-        	--localstatedir=/var
-
-    	#https://bugzilla.gnome.org/show_bug.cgi?id=656231
-    	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
-    	make
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --enable-gtk-doc
+  make
 }
 
 package() {
-    	cd "${pkgname}-${pkgver}"
-    	make DESTDIR="${pkgdir}" install
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
 }
