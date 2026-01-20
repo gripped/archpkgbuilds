@@ -2,8 +2,8 @@
 # Contributor: Martin Sandsmark <martin.sandsmark@kde.org>
 
 pkgname=miniaudio
-pkgver=0.11.23
-pkgrel=2
+pkgver=0.11.24
+pkgrel=1
 pkgdesc='Single file audio playback and capture library'
 arch=('any')
 url='https://github.com/mackron/miniaudio'
@@ -12,7 +12,7 @@ makedepends=('git')
 conflicts=('mini_al')
 provides=('mini_al')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mackron/miniaudio/archive/${pkgver}.tar.gz")
-sha256sums=('1062155cc5882b55c48cb37f57a4dc783669e83ae0838535c62b206eeb1587a6')
+sha256sums=('3fdeb62a9387a3164e901475c663f5ab5c8318de268fd2c64af937c6a65980bd')
 
 package() {
 	cd "${pkgname}-${pkgver}"
