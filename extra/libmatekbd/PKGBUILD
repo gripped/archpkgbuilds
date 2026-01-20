@@ -4,30 +4,45 @@
 
 pkgname=libmatekbd
 pkgver=1.28.0
-pkgrel=1
+pkgrel=2
 pkgdesc="MATE keyboard library"
-url="https://mate-desktop.org"
-arch=('x86_64')
-license=('LGPL')
-depends=('gtk3' 'gettext' 'libxklavier') 
-makedepends=('python')
-conflicts=('libmatekbd-gtk3')
-replaces=('libmatekbd-gtk3')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('5d2e58483c2b23d33503d24c88f8b90a28cc0189d7e4001b3e273a604f6fe80e')
+arch=(x86_64)
+url='https://github.com/mate-desktop/libmatekbd'
+license=(LGPL-2.0-or-later)
+depends=(
+  cairo
+  dconf
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  libx11
+  libxklavier
+  pango
+)
+makedepends=(
+  git
+  glib2-devel
+  gobject-introspection
+)
+source=("git+https://github.com/mate-desktop/libmatekbd.git#tag=v$pkgver")
+b2sums=(b0a71c4fdfa1477e22c5427a6693e2b8111c1feaac71773bfe8d75bf260950ccbfb5bbf387219bf6c9b5a95b47ba934e8638695f569716eab98911f3bc85f66a)
 
-build() {
-    	cd "$pkgname-$pkgver"
-    	./configure \
-        	--prefix=/usr 
-
-    	#https://bugzilla.gnome.org/show_bug.cgi?id=656231
-    	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
-    	make
+prepare() {
+  cd $pkgname
+  autoreconf -fiv
 }
 
-package_libmatekbd() {
-	cd "${pkgname}-${pkgver}"
-    	make DESTDIR="${pkgdir}" install
+build() {
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  make
+}
+
+package() {
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
 }

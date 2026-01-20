@@ -1,17 +1,23 @@
 pkgbase = libmatekbd
 	pkgdesc = MATE keyboard library
 	pkgver = 1.28.0
-	pkgrel = 1
-	url = https://mate-desktop.org
+	pkgrel = 2
+	url = https://github.com/mate-desktop/libmatekbd
 	arch = x86_64
-	license = LGPL
-	makedepends = python
+	license = LGPL-2.0-or-later
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = gobject-introspection
+	depends = cairo
+	depends = dconf
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
 	depends = gtk3
-	depends = gettext
+	depends = libx11
 	depends = libxklavier
-	conflicts = libmatekbd-gtk3
-	replaces = libmatekbd-gtk3
-	source = https://pub.mate-desktop.org/releases/1.28/libmatekbd-1.28.0.tar.xz
-	sha256sums = 5d2e58483c2b23d33503d24c88f8b90a28cc0189d7e4001b3e273a604f6fe80e
+	depends = pango
+	source = git+https://github.com/mate-desktop/libmatekbd.git#tag=v1.28.0
+	b2sums = b0a71c4fdfa1477e22c5427a6693e2b8111c1feaac71773bfe8d75bf260950ccbfb5bbf387219bf6c9b5a95b47ba934e8638695f569716eab98911f3bc85f66a
 
 pkgname = libmatekbd
