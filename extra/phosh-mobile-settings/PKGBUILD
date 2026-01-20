@@ -3,7 +3,7 @@
 # Contributor: Thomas Booker <tw.booker@outlook.com>
 
 pkgname=phosh-mobile-settings
-pkgver=0.51.0
+pkgver=0.52.0
 pkgrel=1
 pkgdesc='A settings app for mobile specific things'
 arch=(x86_64)
@@ -44,10 +44,8 @@ source=(
   "git+https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings.git?signed#tag=v$pkgver"
   git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
 )
-b2sums=(
-  ec63ce4b5942a459b68d4d69589c807d99761802a78769ada5da7f52cf550f94737535cbee14cdf83b8b0886b61ba08600af487b7bc0d37a4d046c1c47dc1a26
-  SKIP
-)
+b2sums=('ee2c679a22054b03d45b94dbf224023cdc13434b10632a9b7165195e6e1d3f5b66f4cbc1c2df2b6446a98f4f79f801f97d9fb7392c37c26017601079b480e43c'
+        'SKIP')
 validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
 
 prepare() {
