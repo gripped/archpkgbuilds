@@ -1,26 +1,38 @@
 # Maintainer: Christian Hesse <eworm@archlinux.org>
 
 pkgname=lib32-libnghttp3
-pkgver=1.14.0
+pkgver=1.15.0
 pkgrel=1
-pkgdesc="HTTP/3 library written in C (32-bit)"
+pkgdesc='HTTP/3 library written in C (32-bit)'
 url='https://github.com/ngtcp2/nghttp3'
 arch=('x86_64')
 license=('MIT')
 depends=('lib32-glibc' 'libnghttp3')
+makedepends=('git')
 provides=('libnghttp3.so')
 validpgpkeys=('F4F3B91474D1EB29889BD0EF7E8403D5D673C366') # Tatsuhiro Tsujikawa <tatsuhiro.t@gmail.com>
-source=("https://github.com/ngtcp2/nghttp3/releases/download/v${pkgver}/nghttp3-${pkgver}.tar.xz"{,.asc})
-sha256sums=('b3083dae2ff30cf00d24d5fedd432479532c7b17d993d384103527b36c1ec82d'
+source=("git+https://github.com/ngtcp2/nghttp3.git#tag=v${pkgver}?signed"
+        'git+https://github.com/ngtcp2/munit.git'
+        'git+https://github.com/ngtcp2/sfparse.git')
+sha256sums=('490ce6f743bd9515351020a1182d7e220879ce40ee695d0b019a10eb3a7359bc'
+            'SKIP'
             'SKIP')
 
 prepare() {
-  cd nghttp3-${pkgver}
+  cd nghttp3/
+
+  git config --file=.gitmodules submodule.tests/munit.url ../munit/
+  git config --file=.gitmodules submodule.lib/sfparse.url ../sfparse/
+
+  git submodule init
+  git -c protocol.file.allow=always submodule update
+
   autoreconf -i
 }
 
 build() {
-  cd nghttp3-${pkgver}
+  cd nghttp3/
+
   export CC='gcc -m32'
   export CXX='g++ -m32'
   export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
@@ -31,13 +43,15 @@ build() {
 }
 
 check() {
-  cd nghttp3-${pkgver}
+  cd nghttp3/
+
   make check
 }
 
 package() {
-  cd nghttp3-${pkgver}/lib
+  cd nghttp3/
+
   make DESTDIR="${pkgdir}" install
-  rm -r "${pkgdir}"/usr/include
-  install -Dm644 ../COPYING -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  rm -r "${pkgdir}"/usr/{include,share}
+  install -D -m0644 COPYING -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
