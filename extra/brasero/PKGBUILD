@@ -4,12 +4,12 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=brasero
-pkgver=3.12.3+r41+g98342080
-pkgrel=2
+pkgver=3.12.3+r44+gdea4990b
+pkgrel=1
 pkgdesc="CD/DVD mastering tool"
 url="https://wiki.gnome.org/Apps/Brasero"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-2.0-or-later)
 depends=(
   cairo
   cdrtools
@@ -53,19 +53,23 @@ optdepends=(
   'libisofs: Alternative backend to create disc images from a file selection'
   'vcdimager: Create disc images suitable for SVCDs'
 )
-_commit=98342080aa1a05c3543ff45f383681012d4a53c8  # master
+_commit=dea4990bdcc886c37d8f776fb52bda051e1dee0f  # master
 source=(
   "git+https://gitlab.gnome.org/GNOME/brasero.git#commit=$_commit"
-  brasero-appdata.patch
-  brasero-better-error.patch
-  brasero-cell-renderer.patch
-  brasero-multidrag-treeview.patch
+  0001-Update-metainfo-file-to-follow-the-latest-specificat.patch
+  0002-libbrasero-burn-Fix-incorrect-condition-during-error.patch
+  0003-cdrdao-Add-better-error-message-for-Unsupported-trac.patch
+  0004-cdrkit-Add-better-error-message-for-Unsupported-sect.patch
+  0005-Replace-BaobabCellRendererProgress-with-native-GtkCe.patch
+  0006-Remove-libegg-multidrag-treeview-support-for-in-buil.patch
 )
-b2sums=('d34a48dac687c361415bfc769904261790f21d58a4a778e71034593b04582835642c88dcb8ca64be18aba7a40cb63d4ad27e1ad19eccb089e3eb2519a97951cc'
-        '7c197c6c51fe5d8ae3e761badc56152260621b6e666a47af4b0691f51def7bc8b3e8d53a5cf86d5f45f14a3cbabad13604e62bd1f015c560e35ea81ce24aa655'
-        'e250c13beafeb62aec9daccd0cb98276d35f3db66244edec3be4cc430b9ccaee40f0b6bfc46e0f418bb9d13c6339c6dfaab6150d3372cdf1855bc98de7dcda9e'
-        '9ef20ebe27cfe68452fc6588df1e77875c17de13598b94d41a05c669d926ed87c700fc9da16bb5263923935ec3f27b93187a973045eb8840b2c0ed949582976b'
-        'af0a907a788e2ddd682854028a8f66764e2202edf65dee6aa50082d4d97fdc93f43087ca8b354d0c9373c827ce2f55fa9d9db571894f0d151afa24d41a63d50f')
+b2sums=('f70cecff851909dc545b8a0159f6d0cc6b40b851da7dc8124ac80799859f89fd9df3f30379f03fdf3bc46152ba35b0908ea8698bac05b8de0f85d208365b4517'
+        '26a6df234ea97bfe198946c0818f75c82c8e4554e99891eb80db25d9d7eb8406250ec95ae7fd6dce7b1953daaed3668d4f43390cc97413e08e48a237efd970eb'
+        '8509b4d71249151d27ca72b73ffa1644af341ecd0d4a0a606533eead815b99e6ad67e68bffee9e38afcaa98e29e78fd3ef8717234c5c55ec14615688ee5a4ca5'
+        '9d37f56d7fe9c26a0f641d7f433a6a331b29b97ce05c7790ecef8360f980422b6acd9c099d872e1b6bd4a3a2cb68d0ef2e21e7952078664b827a3c674f6731e4'
+        'a742b82797e021d7df7bb1b86b098037fb3d4d8aa4d22088a305e98e207158cb608cf939f93c27d0142f2dba47b7b3eab63396543ef6baa09c87c1cb50a27254'
+        '78864eef85d05edbac13932baca3a343394771313a0c341b64c98b20bd363ece3e8bff43afcf05fbbe59a90b3a2f22ab776d6833707ab557827aee542f800286'
+        'e631169739d178365affc0a6370de5e3dbca5e0ec2a25c4a03aa85cf2b4abb1cb1ab168b36713f01e3b4490f26b6acdbab2c6435272474c10e4f3bd5d1cced71')
 
 pkgver() {
   cd brasero
@@ -76,31 +80,36 @@ prepare() {
   cd brasero
 
   # https://gitlab.gnome.org/GNOME/brasero/-/merge_requests/11
-  git apply -3 ../brasero-appdata.patch
+  git apply -3 ../0001-Update-metainfo-file-to-follow-the-latest-specificat.patch
 
   # https://gitlab.gnome.org/GNOME/brasero/-/merge_requests/22
-  git apply -3 ../brasero-better-error.patch
+  git apply -3 ../0002-libbrasero-burn-Fix-incorrect-condition-during-error.patch
+  git apply -3 ../0003-cdrdao-Add-better-error-message-for-Unsupported-trac.patch
+  git apply -3 ../0004-cdrkit-Add-better-error-message-for-Unsupported-sect.patch
 
   # https://gitlab.gnome.org/GNOME/brasero/-/merge_requests/28
-  git apply -3 ../brasero-cell-renderer.patch
+  git apply -3 ../0005-Replace-BaobabCellRendererProgress-with-native-GtkCe.patch
 
   # https://gitlab.gnome.org/GNOME/brasero/-/merge_requests/29
-  git apply -3 ../brasero-multidrag-treeview.patch
+  git apply -3 ../0006-Remove-libegg-multidrag-treeview-support-for-in-buil.patch
 
   NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
-  cd brasero
-  ./configure \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --disable-caches \
-    --disable-search \
-    --disable-schemas-compile \
-    --enable-compile-warnings=minimum \
+  local configure_options=(
+    --prefix=/usr
+    --sysconfdir=/etc
+    --localstatedir=/var
+    --disable-caches
+    --disable-search
+    --disable-schemas-compile
+    --enable-compile-warnings=minimum
     --enable-gtk-doc
+  )
+
+  cd brasero
+  ./configure "${configure_options[@]}"
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
@@ -109,3 +118,5 @@ package() {
   cd brasero
   make DESTDIR="$pkgdir" install
 }
+
+# vim:set sw=2 sts=-1 et:

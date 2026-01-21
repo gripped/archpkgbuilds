@@ -1,4 +1,4 @@
-From dc477f32c21a116d6358841f46d1c3cabb882469 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: sid <sidtosh4@gmail.com>
 Date: Mon, 3 Jun 2024 09:29:16 +0100
 Subject: [PATCH] Remove libegg multidrag treeview support for in-built
@@ -30,7 +30,7 @@ Refer: https://gitlab.gnome.org/GNOME/gtk/-/issues/217
  3 files changed, 1 insertion(+), 63 deletions(-)
 
 diff --git a/src/brasero-file-chooser.c b/src/brasero-file-chooser.c
-index b658dafea..124295ad2 100644
+index b658dafea437..124295ad201e 100644
 --- a/src/brasero-file-chooser.c
 +++ b/src/brasero-file-chooser.c
 @@ -211,60 +211,10 @@ brasero_file_chooser_allocation_changed (GtkWidget *widget,
@@ -96,7 +96,7 @@ index b658dafea..124295ad2 100644
  		gchar *stock_id = NULL;
  
 diff --git a/src/brasero-multi-dnd.c b/src/brasero-multi-dnd.c
-index bf7b6a2d8..bf8fe9ce2 100644
+index bf7b6a2d874b..bf8fe9ce23d1 100644
 --- a/src/brasero-multi-dnd.c
 +++ b/src/brasero-multi-dnd.c
 @@ -200,15 +200,6 @@ static const GInterfaceInfo brasero_data_track_cfg_multi_DND_drag_source_info =
@@ -116,7 +116,7 @@ index bf7b6a2d8..bf8fe9ce2 100644
  brasero_enable_multi_DND (void)
  {
 diff --git a/src/brasero-multi-dnd.h b/src/brasero-multi-dnd.h
-index 8a37637c3..507d93e8c 100644
+index 8a37637c30c6..507d93e8cc76 100644
 --- a/src/brasero-multi-dnd.h
 +++ b/src/brasero-multi-dnd.h
 @@ -33,9 +33,6 @@ G_BEGIN_DECLS
@@ -129,6 +129,3 @@ index 8a37637c3..507d93e8c 100644
  G_END_DECLS
  
  #endif /* _MULTI_DND_H */
--- 
-GitLab
-

@@ -1,4 +1,4 @@
-From fa0a88d6fb6dbde4a10b2e761dcf1237d97968f5 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: sid <sidtosh4@gmail.com>
 Date: Fri, 31 May 2024 20:35:07 +0100
 Subject: [PATCH] Replace 'BaobabCellRendererProgress' with native
@@ -21,7 +21,7 @@ it looks consistent with the rest of the ecosystem.
  delete mode 100644 src/baobab-cell-renderer-progress.h
 
 diff --git a/src/Makefile.am b/src/Makefile.am
-index 55b933f3c..59fb13fe3 100644
+index 55b933f3c8e0..59fb13fe30a1 100644
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
 @@ -91,8 +91,6 @@ brasero_SOURCES = \
@@ -35,7 +35,7 @@ index 55b933f3c..59fb13fe3 100644
  	brasero-rename.h         \
 diff --git a/src/baobab-cell-renderer-progress.c b/src/baobab-cell-renderer-progress.c
 deleted file mode 100644
-index c494cafaa..000000000
+index c494cafaa20d..000000000000
 --- a/src/baobab-cell-renderer-progress.c
 +++ /dev/null
 @@ -1,251 +0,0 @@
@@ -292,7 +292,7 @@ index c494cafaa..000000000
 -}
 diff --git a/src/baobab-cell-renderer-progress.h b/src/baobab-cell-renderer-progress.h
 deleted file mode 100644
-index 26f3b980a..000000000
+index 26f3b980ae20..000000000000
 --- a/src/baobab-cell-renderer-progress.h
 +++ /dev/null
 @@ -1,57 +0,0 @@
@@ -354,7 +354,7 @@ index 26f3b980a..000000000
 -
 -#endif  /* __BAOBAB_CELL_RENDERER_PROGRESS_H__ */
 diff --git a/src/brasero-data-disc.c b/src/brasero-data-disc.c
-index 1fcb22376..b6b424ba3 100644
+index 458bb5043c59..895f3951a740 100644
 --- a/src/brasero-data-disc.c
 +++ b/src/brasero-data-disc.c
 @@ -36,7 +36,6 @@
@@ -382,6 +382,3 @@ index 1fcb22376..b6b424ba3 100644
  	gtk_tree_view_column_set_title (column, _("Space"));
  
  	gtk_tree_view_append_column (GTK_TREE_VIEW (priv->tree), column);
--- 
-GitLab
-
