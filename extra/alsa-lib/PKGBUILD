@@ -2,8 +2,8 @@
 # Contributor: judd <jvinet@zeroflux.org>
 
 pkgname=alsa-lib
-pkgver=1.2.15.2
-pkgrel=1
+pkgver=1.2.15.3
+pkgrel=2
 pkgdesc="An alternative implementation of Linux sound support"
 arch=(x86_64)
 url="https://www.alsa-project.org"
@@ -21,9 +21,9 @@ install=$pkgname.install
 source=(
   $url/files/pub/lib/$pkgname-$pkgver.tar.bz2{,.sig}
 )
-sha512sums=('e9a13aafa9693be2ce501059db0ff9f83a0044d07019bd6b420617da44cc4e7df6f444da9eccf37577893ed81426dce44ecdb9a652d1db047e24a3b803da4a8a'
+sha512sums=('7fc0fa8a5ae02d3404d2c262c6a14fcbb8b08e25993eac86b9e89b8419ed4d293b422da77b3eb7a1930f26c316b638e5aa7bdba78b0ada9908b0362d132a0cc0'
             'SKIP')
-b2sums=('bc58d48ec5da704b2d19919c608c07454c126565d7a13f66b9af73a47e6212a7659645b560c0825f46d96b74bc5d49d055e15c32bb88511044efc27bb7801b58'
+b2sums=('13c21ad3686ed5a8dfa48e8fa8e1b6f3f9a138aeaef2ba778838a8c6f9cbe209a5ece0d9953e2dcdd1e5b90ce50409e77b9485010689adfe4aed176cb8774c0e'
         'SKIP')
 validpgpkeys=('F04DF50737AC1A884C4B3D718380596DA6E59C91') # ALSA Release Team (Package Signing Key v1) <release@alsa-project.org>
 
