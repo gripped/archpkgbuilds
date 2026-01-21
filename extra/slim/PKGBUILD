@@ -6,7 +6,7 @@
 
 pkgname=slim
 pkgver=1.4.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Simple Login Manager resurrected"
 arch=('x86_64')
@@ -47,6 +47,7 @@ build() {
   cd $pkgname-$pkgver
 
   cmake \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
