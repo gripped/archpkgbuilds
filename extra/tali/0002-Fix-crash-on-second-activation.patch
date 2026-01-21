@@ -1,4 +1,4 @@
-From e42526755d00b7972ee31b3059515733f9b09516 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Sun, 29 Dec 2024 12:02:34 +0000
 Subject: [PATCH] Fix crash on second activation
@@ -9,10 +9,10 @@ Switch to the existing window properly when the application is launched second t
  1 file changed, 11 insertions(+), 12 deletions(-)
 
 diff --git a/src/gyahtzee.c b/src/gyahtzee.c
-index 753bfdf..42a99bb 100644
+index fe4f62d26da8..c244b4bc08d6 100644
 --- a/src/gyahtzee.c
 +++ b/src/gyahtzee.c
-@@ -736,6 +736,7 @@ static const GActionEntry app_entries[] = {
+@@ -736,24 +736,32 @@ static const GActionEntry app_entries[] = {
  static void
  GyahtzeeCreateMainWindow (GApplication *app, gpointer user_data)
  {
@@ -20,7 +20,17 @@ index 753bfdf..42a99bb 100644
    GtkWidget *hbox, *vbox;
    GtkWidget *toolbar;
    GtkWidget *tmp;
-@@ -753,7 +754,14 @@ GyahtzeeCreateMainWindow (GApplication *app, gpointer user_data)
+   GtkWidget *dicebox;
+   GtkWidget *undo_button;
+   GtkWidget *menu_button;
+   GtkWidget *icon;
+   GtkBuilder *builder;
+   GMenuModel *appmenu;
+   int i, j;
+ 
+   window = gtk_application_window_new (application);
+   gtk_window_set_application (GTK_WINDOW (window), application);
+   gtk_window_set_title (GTK_WINDOW (window), _(appName));
    gtk_window_set_hide_titlebar_when_maximized (GTK_WINDOW (window), FALSE);
    gtk_window_set_icon_name (GTK_WINDOW (window), "org.gnome.Tali");
  
@@ -59,6 +69,3 @@ index 753bfdf..42a99bb 100644
    }
  }
  
--- 
-GitLab
-

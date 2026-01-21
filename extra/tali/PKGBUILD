@@ -3,25 +3,42 @@
 
 pkgname=tali
 pkgver=40.9
-pkgrel=5
+pkgrel=6
 pkgdesc="Beat the odds in a poker-style dice game"
 url="https://wiki.gnome.org/Apps/Tali"
 arch=(x86_64)
-license=(GPL)
-depends=(gtk3 librsvg libgnome-games-support)
-makedepends=(meson gobject-introspection yelp-tools appstream-glib git)
-source=("git+https://gitlab.gnome.org/GNOME/tali.git?signed#tag=$pkgver"
-        tali-prgname.patch
-        tali-fix-activate.patch
-        tali-create-window.patch
-        tali-command-line.patch
-        tali-dbus-activatable.patch)
+license=(GPL-2.0-or-later)
+depends=(
+  at-spi2-core
+  dconf
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  libgnome-games-support
+  pango
+)
+makedepends=(
+  git
+  gobject-introspection
+  meson
+  yelp-tools
+)
+source=(
+  "git+https://gitlab.gnome.org/GNOME/tali.git?signed#tag=$pkgver"
+  0001-Set-prgname-to-application-ID.patch
+  0002-Fix-crash-on-second-activation.patch
+  0003-Don-t-create-window-in-startup-phase.patch
+  0004-Use-GApplication-to-parse-command-line-options.patch
+  0005-Add-D-Bus-service-file.patch
+)
 b2sums=('bca079d586d79bcdc905660b2a721f711b51d568b19a369b1834c6c9fac615774915aaa7765e5b26609dc86c38c1439941b9f0260727a78c2b56ac3637c0722c'
-        '313e8ff97b333a7ed931b014b8d61692e419ed07027ae56d29739c92df0c308037499c12aee717d6cd2afabf10732bf57b187bc5aab88d0da4131962f1abf807'
-        'b9263f00bee8cb4aecdbda7e17fab57167e31237bd1ec91eb76c530feca73a8a621793b8ca9aa1163d2be536cb5b2d84f92c80fe2da61fdc6655a7368044ed70'
-        '792fb476493093e4ab3bfd4dba1291cfff1c8a3cb8f1ac2913df86f0db3c9dc187851300d83c7088f05b3265af66040f94272f01ea73b2d00f91fb56eba6b1b5'
-        '8cf154de081faa300462b1612cafe8a46cf990ed46b7f359b6fec12dc28e3b44b1a13edc2a96fc5785d59fee5d33f2e4973f02f2dd281c4b08daeaaeeb33282e'
-        '9f69a2c01d532cfbde95230c238b22fd8659de6bc73b43dd98830a13da02577add516b41c62c31c7db8aaa24e514c41fc61c15c498da8a0c0bdcaea9309d32b6')
+        '71c70b4f3efe9130d0f4660e164c3bc4a1397b369fd030460d672f2297e710b7994884ce9c917e740c53c231b0a7f4fd10d3331add9936428c0f294a4bcc14e2'
+        '16013cb22385c4e548a0aa654f8c32b2fd58b277352e4679d04526174e95c7aaa723c4b632e127d5b3ce6fe4880bc935c3f515348dd928f16f9a22e4a9efa284'
+        '3408ab6fa5fcb8ed9ca18294d312c4c170a9f92de2364dd41920b27d588dfc7f7eca3f4ba1d1f3a151af18e8f6e06216f442170eca7a9dcc80ad580e0dd46309'
+        'a8ab8e5ba9c213ce65eee921a91d84d0956349bedf33837992acca85ae4e256def062760091be1f00c566e3bf1e18b8d0c33eb261e422d621113e7bc87d912d7'
+        '2620f849655d2d48cd9cbe434a359bae6f378da4ec78889fdd194ca948e9874fc6c414423a3f94d2e190252eaf633ae8de44f2e4fc1143a23fc32bc03b1e3613')
 validpgpkeys=(93A56F193C261368CD7F056904DA8079BE94C646) # Mart Raudsepp <leio@gentoo.org>
 
 prepare() {
@@ -29,20 +46,20 @@ prepare() {
 
   # Set prgname to application ID
   # https://gitlab.gnome.org/GNOME/tali/-/merge_requests/20
-  git apply -3 ../tali-prgname.patch
+  git apply -3 ../0001-Set-prgname-to-application-ID.patch
 
   # Fix crash on second activation
   # https://gitlab.gnome.org/GNOME/tali/-/merge_requests/21
-  git apply -3 ../tali-fix-activate.patch
-  git apply -3 ../tali-create-window.patch
+  git apply -3 ../0002-Fix-crash-on-second-activation.patch
+  git apply -3 ../0003-Don-t-create-window-in-startup-phase.patch
 
   # Use GApplication to parse command line options
   # https://gitlab.gnome.org/GNOME/tali/-/merge_requests/23
-  git apply -3 ../tali-command-line.patch
+  git apply -3 ../0004-Use-GApplication-to-parse-command-line-options.patch
 
   # Add D-Bus service file
   # https://gitlab.gnome.org/GNOME/tali/-/merge_requests/24
-  git apply -3 ../tali-dbus-activatable.patch
+  git apply -3 ../0005-Add-D-Bus-service-file.patch
 }
 
 build() {

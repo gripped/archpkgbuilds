@@ -1,4 +1,4 @@
-From 1a0994a1e273a086d1169f6836404fc4be8a28fe Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Mon, 14 Apr 2025 19:51:40 +0200
 Subject: [PATCH] Use GApplication to parse command line options
@@ -10,7 +10,7 @@ necessary to parse them manually.
  1 file changed, 30 insertions(+), 36 deletions(-)
 
 diff --git a/src/gyahtzee.c b/src/gyahtzee.c
-index 03be2b2..8b3c8e9 100644
+index 03be2b2e913e..8b3c8e950aa5 100644
 --- a/src/gyahtzee.c
 +++ b/src/gyahtzee.c
 @@ -956,42 +956,11 @@ GyahtzeeActivateGame (GApplication *app, gpointer user_data)
@@ -96,6 +96,3 @@ index 03be2b2..8b3c8e9 100644
    gtk_window_set_default_icon_name ("org.gnome.Tali");
  
    g_application_run (G_APPLICATION (application), argc, argv);
--- 
-GitLab
-
