@@ -2,8 +2,8 @@
 # Contributor: HurricanePootis <hurricanepootis@protonmail.com>
 
 pkgname=amd-debug-tools
-pkgver=0.2.11
-pkgrel=2
+pkgver=0.2.12
+pkgrel=1
 pkgdesc="A collection of Python-based tools for debugging AMD platforms, particularly Zen-based systems."
 arch=('any')
 url="https://git.kernel.org/pub/scm/linux/kernel/git/superm1/amd-debug-tools.git"
@@ -34,7 +34,7 @@ makedepends=(
   python-wheel
 )
 source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/superm1/amd-debug-tools.git#tag=${pkgver}")
-sha256sums=('4c1180b76fcdc171cdf56da0c34d04fbf9d95b25a6a0b9ad648a4c560c108c3a')
+sha256sums=('9bffd2a6f265e3850d789b82f83a5efff7321eebfd62a0363e9c1e24635dc315')
 
 build() {
   cd "$pkgname"
