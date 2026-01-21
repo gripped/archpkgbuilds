@@ -3,7 +3,7 @@
 
 pkgname=bash-completion
 pkgver=2.17.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Programmable completion for the bash shell'
 arch=(any)
 url='https://github.com/scop/bash-completion'
@@ -33,5 +33,8 @@ package() {
 
   # checksec 3.1.0-2 ships its own
   rm "${pkgdir}/usr/share/bash-completion/completions/checksec"
+
+  # patchutils 0.4.4-1 ships its own
+  rm "${pkgdir}/usr/share/bash-completion/completions/interdiff"
 }
 
