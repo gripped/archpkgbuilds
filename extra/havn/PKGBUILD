@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=havn
-pkgver=0.3.3
+pkgver=0.3.4
 pkgrel=1
 pkgdesc="A fast configurable port scanner with reasonable defaults"
 arch=('x86_64')
@@ -10,11 +10,11 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('70c21f379b0a3264cca153b8f971fe45588a574333b71191d195ace7729c29cf')
+sha256sums=('1648ad392093ea3dee85e9a1d6c8309a1733034f3f489fb0d6ef2289f0babca4')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
