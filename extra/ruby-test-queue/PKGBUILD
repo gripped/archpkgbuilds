@@ -3,8 +3,8 @@
 
 _gemname='test-queue'
 pkgname="ruby-${_gemname}"
-pkgver=0.11.1
-pkgrel=4
+pkgver=0.12.0
+pkgrel=1
 pkgdesc='parallel test runner for CI environments'
 arch=('any')
 url="https://github.com/tmm1/${_gemname}"
@@ -18,8 +18,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('d1a8f91d78e073ebeb8bf75c1b0edba245d396f0e72c881b6da2daa3255c9ab72e3cb3e0f7c3acdc592de91a13bebe111c847a8a3c3831515cc39e65a382acae')
-b2sums=('1be947bc3ce2102cca9f7596c744f39c48a79bfbd7f2d47238b8f68df0cb97d6eb42a3186efd7f481676702107d57eaac097ac720b4d1fe425c6a8972a306662')
+sha512sums=('9aaf1ddde2c25ee4f893fbce59a6eb0164c7916f20b1b5f4624786af3465d530d6e0a27d6eb961ea1e936923cf993a00077f646093d13cf49319bd6d54d53e5c')
+b2sums=('23ec61d67126f10e88c3eef5a141bbbd0ff6bea2380828013a8a17523c26a34696642a9d5faa74d05fccabf22130c37cead9c9b73a4c0b536090caa343150449')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
