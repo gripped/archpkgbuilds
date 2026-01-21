@@ -1,4 +1,4 @@
-From d05589075e1da1b1bf5ff5539b7449f8a5ad3d88 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Mon, 7 Apr 2025 21:16:04 +0200
 Subject: [PATCH] Don't create window in startup phase
@@ -10,10 +10,10 @@ running as GApplication service.
  1 file changed, 43 insertions(+), 29 deletions(-)
 
 diff --git a/src/taquin-main.vala b/src/taquin-main.vala
-index 894c368..ceab377 100644
+index 37e5b8cd0869..e1ad4bab9846 100644
 --- a/src/taquin-main.vala
 +++ b/src/taquin-main.vala
-@@ -153,6 +153,36 @@ private class Taquin : Gtk.Application, BaseApplication
+@@ -154,6 +154,36 @@ private class Taquin : Gtk.Application, BaseApplication
              settings.apply ();
          }
  
@@ -50,7 +50,7 @@ index 894c368..ceab377 100644
          /* UI parts */
          view = new TaquinView ();
  
-@@ -232,28 +262,6 @@ private class Taquin : Gtk.Application, BaseApplication
+@@ -233,85 +263,69 @@ private class Taquin : Gtk.Application, BaseApplication
          window.undo.connect (undo_cb);
          window.restart.connect (restart_cb);
  
@@ -79,7 +79,15 @@ index 894c368..ceab377 100644
          /* New-game screen signals */
          settings.changed ["size"].connect (() => {
              if (!size_changed)
-@@ -269,12 +277,6 @@ private class Taquin : Gtk.Application, BaseApplication
+                 update_size_button_label (settings.get_int ("size") /* 2 <= size <= 9 */);
+             size_changed = false;
+         });
+         update_size_button_label (settings.get_int ("size") /* 2 <= size <= 9 */);
+ 
+         settings.changed ["theme"].connect (() => {
+             if (!theme_changed)
+                 update_theme (settings.get_string ("theme"));
+             theme_changed = false;
          });
          update_theme (settings.get_string ("theme"));
  
@@ -92,7 +100,8 @@ index 894c368..ceab377 100644
          if (settings.get_boolean ("sound"))
              init_sound ();
  
-@@ -283,13 +285,20 @@ private class Taquin : Gtk.Application, BaseApplication
+         add_window (window);
+     }
  
      protected override void activate ()
      {
@@ -113,7 +122,10 @@ index 894c368..ceab377 100644
          if (game == null)
          {
              settings.set_string ("type", "fifteen");
-@@ -300,6 +309,9 @@ private class Taquin : Gtk.Application, BaseApplication
+             start_game ();
+         }
+         window.present ();
+     }
  
      private void play_sixteen_game ()
      {
@@ -123,7 +135,10 @@ index 894c368..ceab377 100644
          if (game == null)
          {
              settings.set_string ("type", "sixteen");
-@@ -310,7 +322,9 @@ private class Taquin : Gtk.Application, BaseApplication
+             start_game ();
+         }
+         window.present ();
+     }
  
      protected override void shutdown ()
      {
@@ -134,6 +149,3 @@ index 894c368..ceab377 100644
          base.shutdown ();
      }
  
--- 
-GitLab
-

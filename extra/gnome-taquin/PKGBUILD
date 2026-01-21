@@ -2,21 +2,37 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-taquin
-pkgver=3.38.1+r43+g33ad61e
-pkgrel=2
+pkgver=3.38.1+r45+g1ee5d8e
+pkgrel=1
 pkgdesc="Move tiles so that they reach their places"
 url="https://wiki.gnome.org/Apps/Taquin"
 arch=(x86_64)
-license=(GPL3)
-depends=(gtk3 librsvg gsound)
-makedepends=(meson vala yelp-tools appstream-glib git)
-_commit=33ad61ea2aa838da2cd5efaba39494b71696289d  # master
-source=("git+https://gitlab.gnome.org/GNOME/gnome-taquin.git#commit=$_commit"
-        gnome-taquin-prgname.patch
-        gnome-taquin-create-window.patch)
-b2sums=('499ba900241b0d249f667ec13f6a47f963216c5e6f5fce82ad17e73b3ae73a323f4155514181bbe6239bb667f774413e8e91ea8c603a22c76415542c1bc41d1c'
-        'dc846f32dcb43d295aa1fc2b7c92146f3ccc60bac8d98e78389640fc27d165011daf42f65f6bda1360e6a3cb7f3a36d64bf247513099e42ab49b720f486e4e2a'
-        '5500ee91114e8d230bee704b60cde67fee9e4b77e233bc00e2feb61bc9462247c536f4b10d547cdb4ee29f3f5371595ba6d41216f0b3e61df86caea30c40b410')
+license=(GPL-3.0-or-later)
+depends=(
+  cairo
+  dconf
+  gdk-pixbuf2
+  glib2
+  glibc
+  gsound
+  gtk3
+  hicolor-icon-theme
+)
+makedepends=(
+  git
+  meson
+  vala
+  yelp-tools
+)
+_commit=1ee5d8e8772c668acfc9f6cb1c84d1fb953edc50  # master
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-taquin.git#commit=$_commit"
+  0001-Set-prgname-to-application-ID.patch
+  0002-Don-t-create-window-in-startup-phase.patch
+)
+b2sums=('04dbba1b335ce18fbb1b83398510c1dad75da656e589af01d8f9e6cbb481626e97d8295fcc7842c576bf3d04bd3493526bcfbc1d35950ae6ba2f3c54e4ba2a21'
+        '51985b28076ac14e5770c234efda7ad478bd6933529b6ed966448535631825d0c1719d49149d75552b8c8b0c53badef6494613f8e2fbbae26045c4065e800e7f'
+        '37f6f2a46505a55f1219c515cf5f325a091a21ca1e8ca990199a00e028cc990e28cd1316d33fad092c6e68d3c2c680ab50b333ca901bdc4b680c443e9bc61b5d')
 
 pkgver() {
   cd $pkgname
@@ -28,11 +44,11 @@ prepare() {
 
   # Set prgname to application ID
   # https://gitlab.gnome.org/GNOME/gnome-taquin/-/merge_requests/26
-  git apply -3 ../gnome-taquin-prgname.patch
+  git apply -3 ../0001-Set-prgname-to-application-ID.patch
 
   # Don't create window in startup phase
   # https://gitlab.gnome.org/GNOME/gnome-taquin/-/merge_requests/27
-  git apply -3 ../gnome-taquin-create-window.patch
+  git apply -3 ../0002-Don-t-create-window-in-startup-phase.patch
 }
 
 build() {
