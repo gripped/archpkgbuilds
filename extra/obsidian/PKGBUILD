@@ -3,10 +3,10 @@
 # Contributor: Xuanwo <xuanwo@archlinuxcn.org>
 
 pkgname=obsidian
-pkgver=1.11.4
+pkgver=1.11.5
 pkgrel=1
 pkgdesc="A powerful knowledge base that works on top of a local folder of plain text Markdown files"
-arch=('x86_64')
+arch=('x86_64' 'aarch64')
 url="https://obsidian.md"
 license=('LicenseRef-Obsidian')
 depends=('glibc' 'gcc-libs' 'fontconfig' 'bash' 'zlib' 'hicolor-icon-theme' 'fuse' 'electron39')
@@ -20,7 +20,8 @@ source_aarch64=("https://github.com/obsidianmd/obsidian-releases/releases/downlo
 sha256sums=('56cc879afe1ccd207f8e5146afdce16226db17dba1784b1176ee20678faece33'
             'be67713e873a5935d910efc6f6005c104b35c7b3a002dfcb5643fd185d1b0056'
             'd9fdc14f9c2fb95bb38310281268fdad413c1b49fa93213df3184f9b0ca1175c')
-sha256sums_x86_64=('c1be7f7ba84318369de31fcb6bb7033ac74d4e6ce3a20527c37f3b87625c08b3')
+sha256sums_x86_64=('8f584c11ecb967480790e65319674340bfcd2a34fb4b7a95bb70a96fcf19abaf')
+sha256sums_aarch64=('865d95bf18e18274eac5a61f693d8c5a6b334d355413f914ee5c5bd2e4b454c6')
 
 package() {
     if [[ $CARCH == "aarch64" ]]; then
