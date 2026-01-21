@@ -3,36 +3,54 @@
 
 pkgname=gnome-klotski
 pkgver=3.38.2
-pkgrel=4
+pkgrel=5
 pkgdesc="Slide blocks to solve the puzzle"
 url="https://wiki.gnome.org/Apps/Klotski"
 arch=(x86_64)
-license=(GPL)
-depends=(gtk3 librsvg libgnome-games-support)
-makedepends=(meson gobject-introspection yelp-tools appstream-glib vala git)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-klotski.git#tag=$pkgver"
-        gnome-klotski-prgname.patch
-        gnome-klotski-appname.patch
-        gnome-klotski-create-window.patch)
+license=(GPL-3.0-or-later)
+depends=(
+  cairo
+  dconf
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  libgee
+  libgnome-games-support
+  librsvg
+)
+makedepends=(
+  git
+  gobject-introspection
+  meson
+  vala
+  yelp-tools
+)
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-klotski.git#tag=$pkgver"
+  0001-Set-prgname-to-application-ID.patch
+  0002-Fix-setting-application-name.patch
+  0003-Don-t-create-window-in-startup-phase.patch
+)
 b2sums=('7a3be2584ea6399799d163b0effca5129a5a7bf773998f39a517f90d184fdb72476def3897fc71ae95b0266d12998ff7f340822c45145ab3c77fae5b388846f1'
-        'cd9345cbab3248cb21515e41aa2c52772d05ed261d4cd3de2ea08404c4c5e37eebd4241d70628d2989479b65a48ab3b6dfc529bd49524b137669712ff6c4268b'
-        '53fd87a698590b6e530f97e85ef9bc799d5d4eede34353cd9305ed53e3de2b857931ee610fa23726b3335547ae172d76719b89e1810288ba12e23ce2f8037648'
-        '5a9b171dec08f982af095a45240d66ca42fcff5e913f8b177d5fff34d4e4c322482c6d82e34e1bb736a03a98b2630dc3bed321c8385d5fb64c1a04a1e5dcf5f8')
+        '621449435ec417e17e2e280fdcf0892527016b032b6448f247e7e48232ab8ccb8a4063b38c1ac195967e5762c0d95bc393b049b51ba75d0b6fd4d754f7a5db85'
+        'd13c965dfa8d9db82382c571a50dec06ae3c999bfff634bbb8abfc2d8c749314b13d5d71f6ccb20073bb31c9ac737fe636fafd1fef70fcb57ec5322712f757e9'
+        'f35bd598de8e57ad1650f96caa9fa8ea1faa16c0bd608d4625d3f88dda4822d689684343c876b6a366d1bbf12ccb863df87b0e111b5a0fcf4801a472573d498b')
 
 prepare() {
   cd $pkgname
 
   # Set prgname to application ID
   # https://gitlab.gnome.org/GNOME/gnome-klotski/-/merge_requests/20
-  git apply -3 ../gnome-klotski-prgname.patch
+  git apply -3 ../0001-Set-prgname-to-application-ID.patch
 
   # Fix setting application name
   # https://gitlab.gnome.org/GNOME/gnome-klotski/-/merge_requests/21
-  git apply -3 ../gnome-klotski-appname.patch
+  git apply -3 ../0002-Fix-setting-application-name.patch
 
   # Don't create window in startup phase
   # https://gitlab.gnome.org/GNOME/gnome-klotski/-/merge_requests/22
-  git apply -3 ../gnome-klotski-create-window.patch
+  git apply -3 ../0003-Don-t-create-window-in-startup-phase.patch
 }
 
 build() {
@@ -47,3 +65,5 @@ check() {
 package() {
   DESTDIR="$pkgdir" meson install -C build
 }
+
+# vim:set sw=2 sts=-1 et:
