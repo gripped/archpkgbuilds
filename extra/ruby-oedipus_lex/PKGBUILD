@@ -2,8 +2,8 @@
 
 _gemname='oedipus_lex'
 pkgname="ruby-${_gemname}"
-pkgver=2.6.2
-pkgrel=5
+pkgver=2.6.3
+pkgrel=1
 pkgdesc="This is not your father’s lexer"
 arch=('any')
 url="https://github.com/seattlerb/${_gemname}"
@@ -19,7 +19,7 @@ makedepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('2ea91433cac258d76bd1aaec876b44218460ac2e276ee2da6c6ad3fb714e84d9')
+sha256sums=('b881a9f860960030272592a6a132ccef52d7767ec8a89f537488ac4323e053f6')
 
 build() {
   cd "${_gemname}-${pkgver}"
