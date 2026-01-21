@@ -1,7 +1,7 @@
 # Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
 pkgname='usage'
-pkgver=2.6.0
+pkgver=2.12.0
 pkgrel=1
 pkgdesc='A specification for CLIs'
 arch=('x86_64')
@@ -10,17 +10,20 @@ license=('MIT')
 makedepends=(
   cargo
 )
+checkdepends=(
+  nodejs
+)
 options=(
   '!emptydirs'
 )
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('9547519c03f445cad1d51b8c84318bade893e62f1c43f114e5abfb92570dfa336e07e117afba83bb2d87b74ec10abe1f122384a31df448b904f2723ce66c5265')
-b2sums=('3dd1116a04468b1d3444405450272698de3960dfb8b05a705f6524a7df4d4e9f88d978bf8eddbfc7271fe4d94abb30a1f0550bd9d8a7a39e062257b87098526c')
+sha512sums=('e321ca016e0df1d985e73d7d0e2447a723fed2d55d2d6f58bd844198ac5a05a9d16b325de2e0e1144f265b39bb5da6953b7b24ba590d9fbec59247524cad6882')
+b2sums=('11302874a045798cfbe82dc128c2b6ba9dc9d326437645c1b3e728d94c282e57a49d89093106a7e4c7ea7e20afc9c17f82ef9ab6cca0d7dd8fc66db7a2adafc4')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
 
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
