@@ -1,4 +1,4 @@
-From f6a85e0e5e15732f74b582e52363761700c775cb Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Tue, 15 Apr 2025 22:38:46 +0200
 Subject: [PATCH] Add "new-window" command-line option
@@ -11,7 +11,7 @@ And specify the action in the desktop file.
  3 files changed, 45 insertions(+), 17 deletions(-)
 
 diff --git a/data/org.gnome.Dictionary.desktop.in.in b/data/org.gnome.Dictionary.desktop.in.in
-index d1c97ae..c6a2fc0 100644
+index d1c97aeb09fd..c6a2fc08d5d7 100644
 --- a/data/org.gnome.Dictionary.desktop.in.in
 +++ b/data/org.gnome.Dictionary.desktop.in.in
 @@ -13,3 +13,8 @@ Categories=GNOME;GTK;Office;Dictionary;
@@ -24,7 +24,7 @@ index d1c97ae..c6a2fc0 100644
 +Exec=gnome-dictionary --new-window
 +Name=New Window
 diff --git a/src/gdict-app-menus.ui b/src/gdict-app-menus.ui
-index 5c045d5..5ae6fae 100644
+index 5c045d556868..5ae6faebc779 100644
 --- a/src/gdict-app-menus.ui
 +++ b/src/gdict-app-menus.ui
 @@ -3,7 +3,7 @@
@@ -37,7 +37,7 @@ index 5c045d5..5ae6fae 100644
        </item>
      </section>
 diff --git a/src/gdict-app.c b/src/gdict-app.c
-index 86af0d7..548b0ca 100644
+index e84938707643..d486d44a108e 100644
 --- a/src/gdict-app.c
 +++ b/src/gdict-app.c
 @@ -38,6 +38,12 @@
@@ -62,7 +62,7 @@ index 86af0d7..548b0ca 100644
    { "preferences", gdict_app_cmd_preferences, NULL, NULL, NULL },
    { "help", gdict_app_cmd_help, NULL, NULL, NULL },
    { "about", gdict_app_cmd_about, NULL, NULL, NULL },
-@@ -226,6 +232,7 @@ gdict_app_command_line (GApplication            *application,
+@@ -223,15 +229,17 @@ gdict_app_command_line (GApplication            *application,
    GdictApp *app = GDICT_APP (application);
    gsize words_len, i;
    GVariantDict *options;
@@ -70,7 +70,9 @@ index 86af0d7..548b0ca 100644
    gchar **gdict_lookup_words = NULL;
    gchar **gdict_match_words = NULL;
    gchar **remaining = NULL;
-@@ -235,6 +242,7 @@ gdict_app_command_line (GApplication            *application,
+   const gchar *gdict_source_name = NULL;
+   const gchar *gdict_database_name = NULL;
+   const gchar *gdict_strategy_name = NULL;
  
    options = g_application_command_line_get_options_dict (cmd_line);
  
@@ -78,7 +80,7 @@ index 86af0d7..548b0ca 100644
    g_variant_dict_lookup (options, "look-up", "^as", &gdict_lookup_words);
    g_variant_dict_lookup (options, "match", "^as", &gdict_match_words);
    g_variant_dict_lookup (options, "source", "&s", &gdict_source_name);
-@@ -262,14 +270,25 @@ gdict_app_command_line (GApplication            *application,
+@@ -259,14 +267,25 @@ gdict_app_command_line (GApplication            *application,
    if (gdict_lookup_words == NULL &&
        gdict_match_words == NULL)
      {
@@ -112,7 +114,7 @@ index 86af0d7..548b0ca 100644
  
        goto out;
      }
-@@ -327,13 +346,17 @@ static void
+@@ -324,38 +343,42 @@ static void
  gdict_app_activate (GApplication *application)
  {
    GdictApp *app = GDICT_APP (application);
@@ -136,7 +138,24 @@ index 86af0d7..548b0ca 100644
  }
  
  static void
-@@ -358,7 +381,7 @@ gdict_app_startup (GApplication *application)
+ gdict_app_startup (GApplication *application)
+ {
+   static const gchar *action_accels[] =
+   {
+     /* Win shortcuts */
+     "win.save-as",          "<Primary>s", NULL,
+     "win.preview",          "<Primary><Shift>p", NULL ,
+     "win.print",            "<Primary>p", NULL,
+     "win.find",             "<Primary>f", NULL,
+     "win.previous-def",     "Page_Up", NULL,
+     "win.next-def",         "Page_Down", NULL,
+     "win.first-def",        "Home", NULL,
+     "win.last-def",         "End", NULL,
+     "win.view-sidebar",     "F9", NULL,
+     "win.view-speller",     "<Primary>t", NULL,
+     "win.view-source",      "<Primary>d", NULL,
+     "win.view-strat",       "<Primary>r", NULL,
+     "win.lookup",           "<Primary>l", NULL,
      "win.escape",           "Escape", NULL,
      "win.help-overlay-ui",  "<Primary>question", NULL,
      /* App shortcuts */
@@ -145,6 +164,3 @@ index 86af0d7..548b0ca 100644
      "app.preferences",      "<Primary>comma", NULL,
      "app.help",             "F1", NULL,
      "app.close",            "<Primary>w", NULL,
--- 
-2.49.0
-

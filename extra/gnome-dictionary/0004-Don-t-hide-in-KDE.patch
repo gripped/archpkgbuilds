@@ -1,0 +1,21 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Wed, 21 Jan 2026 04:54:46 +0100
+Subject: [PATCH] Don't hide in KDE
+
+---
+ data/org.gnome.Dictionary.desktop.in.in | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/data/org.gnome.Dictionary.desktop.in.in b/data/org.gnome.Dictionary.desktop.in.in
+index c6a2fc08d5d7..0a85f6742009 100644
+--- a/data/org.gnome.Dictionary.desktop.in.in
++++ b/data/org.gnome.Dictionary.desktop.in.in
+@@ -10,7 +10,6 @@ Type=Application
+ Icon=@application_id@
+ StartupNotify=true
+ Categories=GNOME;GTK;Office;Dictionary;
+-NotShowIn=KDE;
+ X-GNOME-DocPath=gnome-dictionary/gnome-dictionary.xml
+ DBusActivatable=true
+ Actions=new-window;
