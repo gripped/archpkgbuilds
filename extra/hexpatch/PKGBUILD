@@ -2,7 +2,7 @@
 
 pkgname=hexpatch
 _pkgname=HexPatch
-pkgver=1.12.4
+pkgver=1.12.5
 pkgrel=1
 pkgdesc="A binary patcher and editor with a TUI"
 url="https://github.com/Etto48/HexPatch"
@@ -11,12 +11,12 @@ makedepends=('cargo' 'cmake' 'python')
 arch=('x86_64')
 license=('MIT')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('f65cbb6479ebf5dbf738a6b2fbcb4da1ba5d071185a76c0e7d90caa4355053980947960f2c22596680ddc31000162ea99f4615049993299884bd6d593a1141c3')
+sha512sums=('e50ff6853c342956155782df5c5c2485d5c965e1089345d43a0f2ffab529f03ac9c32ef8e62292f4509dcac09ae03b0f7b9bb83676f7199b6e3d84c3518d86ed')
 options=('!lto')
 
 prepare() {
   cd "${_pkgname}-${pkgver}"
-  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')" --locked
+  cargo fetch --target "$(rustc --print host-tuple)" --locked
 }
 
 build() {
