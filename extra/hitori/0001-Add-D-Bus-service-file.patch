@@ -1,4 +1,4 @@
-From 6a325b2910ca568f99bad2698acb06000b7630b9 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Tue, 8 Apr 2025 19:42:28 +0200
 Subject: [PATCH] Add D-Bus service file
@@ -13,7 +13,7 @@ launchers to activate it via D-Bus.
  create mode 100644 data/org.gnome.Hitori.service.in
 
 diff --git a/data/meson.build b/data/meson.build
-index c66a233..a9eae15 100644
+index c66a23322f6a..a9eae15b6a74 100644
 --- a/data/meson.build
 +++ b/data/meson.build
 @@ -1,5 +1,16 @@
@@ -34,7 +34,7 @@ index c66a233..a9eae15 100644
    type: 'desktop',
    input: '@0@.desktop.in'.format(application_id),
 diff --git a/data/org.gnome.Hitori.desktop.in b/data/org.gnome.Hitori.desktop.in
-index 7ed4e41..bf3b21d 100644
+index 7ed4e41b7162..bf3b21dec138 100644
 --- a/data/org.gnome.Hitori.desktop.in
 +++ b/data/org.gnome.Hitori.desktop.in
 @@ -10,3 +10,4 @@ Terminal=false
@@ -44,13 +44,10 @@ index 7ed4e41..bf3b21d 100644
 +DBusActivatable=true
 diff --git a/data/org.gnome.Hitori.service.in b/data/org.gnome.Hitori.service.in
 new file mode 100644
-index 0000000..a3843f5
+index 000000000000..a3843f5427bf
 --- /dev/null
 +++ b/data/org.gnome.Hitori.service.in
 @@ -0,0 +1,3 @@
 +[D-BUS Service]
 +Name=org.gnome.Hitori
 +Exec=@bindir@/hitori --gapplication-service
--- 
-GitLab
-

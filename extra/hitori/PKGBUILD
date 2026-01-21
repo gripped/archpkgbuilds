@@ -3,22 +3,31 @@
 
 pkgname=hitori
 pkgver=44.0
-pkgrel=4
-pkgdesc="GTK application to generate and let you play games of Hitori"
+pkgrel=5
+pkgdesc="Play the eponymous puzzle game"
 url="https://wiki.gnome.org/Apps/Hitori"
 arch=(x86_64)
-license=(GPL)
-depends=(gtk3)
+license=(GPL-3.0-or-later)
+depends=(
+  cairo
+  dconf
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  pango
+)
 makedepends=(
-  appstream-glib
   git
   meson
   yelp-tools
 )
-source=("git+https://gitlab.gnome.org/GNOME/hitori.git?signed#tag=$pkgver"
-        hitori-dbus-activatable.patch)
+source=(
+  "git+https://gitlab.gnome.org/GNOME/hitori.git?signed#tag=$pkgver"
+  0001-Add-D-Bus-service-file.patch
+)
 b2sums=('57c5e93536d15f12a7b63013235a1644c8db1c899b3b68837f25f602374d79459af16b9b0ddf12972bc52933ff2faba48c4b179cededd1bd5ff9c6655bb16b1f'
-        'fbe7073831f936f1c03823885234c5b7868fd0bd2ee73813a60346365a1ac48d940152a2a7b8f7df25a783fd8f29deed7d22e397f38f700e84f880280b488351')
+        '6f711b43d54738e2f85993b9054e20435163c4f33e39546d9a3c1a71d8644f2c90b655df4c994bcb42e92fc5b90523e25f30adfd25213aed1b75cfe1dfc9414f')
 validpgpkeys=(923B7025EE03C1C59F42684CF0942E894B2EAFA0) # Philip Withnall <philip@tecnocode.co.uk>
 
 prepare() {
@@ -34,7 +43,7 @@ prepare() {
 
   # Add D-Bus service file
   # https://gitlab.gnome.org/GNOME/hitori/-/merge_requests/48
-  git apply -3 ../hitori-dbus-activatable.patch
+  git apply -3 ../0001-Add-D-Bus-service-file.patch
 }
 
 build() {
