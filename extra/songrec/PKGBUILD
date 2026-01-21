@@ -2,7 +2,7 @@
 
 _pkgname=SongRec
 pkgname=songrec
-pkgver=0.4.3
+pkgver=0.5.0
 pkgrel=1
 pkgdesc='An open-source, unofficial Shazam client for Linux'
 arch=('x86_64')
@@ -13,12 +13,12 @@ depends=('gtk3' 'alsa-lib' 'openssl' 'ffmpeg' 'libpulse' 'pulse-native-provider'
          'gdk-pixbuf2')
 makedepends=('cargo' 'pkgconf' 'git')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('f543e6acc6d3ed06ba1beb0afdb9a1b92080be01ddc2734a95e465abbfee6f19')
+sha256sums=('73880156496a4bb8d490e7cd1aa1de6c9760d17a9b008b967457a4d7482def91')
 options=('!lto')
 
 prepare() {
   cd "$_pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
@@ -35,17 +35,16 @@ package() {
   cd "$_pkgname-$pkgver"
   install -Dm 755 "target/release/songrec" "$pkgdir/usr/bin/songrec"
 
-  install -Dm 644 "packaging/rootfs/usr/share/applications/com.github.marinm.songrec.desktop" \
-                    "$pkgdir/usr/share/applications/com.github.marinm.songrec.desktop"
+  install -Dm 644 "packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop" \
+                    "$pkgdir/usr/share/applications/re.fossplant.songrec.desktop"
 
-  install -Dm 644 "packaging/rootfs/usr/share/icons/hicolor/scalable/apps/com.github.marinm.songrec.svg" \
-                    "$pkgdir/usr/share/icons/hicolor/scalable/apps/com.github.marinm.songrec.svg"
+  install -Dm 644 "packaging/rootfs/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg" \
+                    "$pkgdir/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg"
 
-  install -Dm 644 "packaging/rootfs/usr/share/metainfo/com.github.marinm.songrec.metainfo.xml" \
-                    "$pkgdir/usr/share/metainfo/com.github.marinm.songrec.metainfo.xml"
+  install -Dm 644 "packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml" \
+                    "$pkgdir/usr/share/metainfo/re.fossplant.songrec.metainfo.xml"
 
-  mkdir -p "$pkgdir/usr/share/songrec/translations"
-  cp -r translations/*/ -t "$pkgdir/usr/share/songrec/translations"
+  cp -r translations/*/ -t "$pkgdir/usr/share"
 
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
 }
