@@ -4,15 +4,22 @@
 
 pkgname=gnome-nettool
 pkgver=42.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Graphical interface for various networking tools"
 url="https://gitlab.gnome.org/GNOME/gnome-nettool"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-2.0-or-later)
 depends=(
+  cairo
+  dconf
+  gdk-pixbuf2
+  glib2
+  glibc
   gtk3
+  hicolor-icon-theme
   iputils
   libgtop
+  pango
   whois
 )
 makedepends=(
@@ -28,24 +35,16 @@ optdepends=(
   'net-tools: Network statistics'
   'nmap: Port scanning'
 )
-_commit=5748c0fa632c9caad9e46377ca1aa330dec4b757  # tags/gnome-nettool-42-0^0
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-nettool.git#commit=$_commit"
-  fix-build.diff
+  "git+https://gitlab.gnome.org/GNOME/gnome-nettool.git#tag=$pkgname-${pkgver//./-}"
+  0001-Fix-build-with-recent-Meson.patch
 )
-b2sums=('SKIP'
-        '1da17fa0249252842a4cc4c68d00f67b5f085642ae10e6db68708df3cf1fa4b88c9039b2deff2e70ffadf8474da85a33b50bf1a1b639bf12dda05e696f239e72')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/^gnome-nettool-//;s/-/./;s/[^-]*-g/r&/;s/-/+/g'
-}
+b2sums=('7ebe7ea4164df45e1d3316a1b43e27644d34b108f8b6f8395cdbc9a8c30a61c7e78d6264bd5d0f972f81c0116540637462692d3fbf2111d868689e7c16bc71b9'
+        'ca105075b2f8ffd805d2dc5df515856319b6c3da3796c67ec03e1303923c660c909c75e413e26952a7e116bbc1872a3bf3ae76b117a5c9b5d15f28dd5f30f40d')
 
 prepare() {
   cd $pkgname
-
-  # Fix build with recent Meson
-  git apply -3 ../fix-build.diff
+  git apply -3 ../0001-Fix-build-with-recent-Meson.patch
 }
 
 build() {

@@ -1,7 +1,16 @@
-diff --git i/data/meson.build w/data/meson.build
-index 585e6d3..c4b35cc 100644
---- i/data/meson.build
-+++ w/data/meson.build
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Wed, 6 Apr 2022 23:01:11 +0000
+Subject: [PATCH] Fix build with recent Meson
+
+---
+ data/meson.build | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/data/meson.build b/data/meson.build
+index 585e6d3dd0a3..c4b35cc335fd 100644
+--- a/data/meson.build
++++ b/data/meson.build
 @@ -20,21 +20,18 @@ desktop_in = configure_file(input: 'gnome-nettool.desktop.in.in',
                              output: 'gnome-nettool.desktop.in',
                              configuration: desktop_conf)
