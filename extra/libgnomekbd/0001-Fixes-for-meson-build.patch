@@ -1,11 +1,17 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jan Alexander Steffens <heftig@archlinux.org>
+Date: Wed, 17 Aug 2022 19:18:23 +0000
+Subject: [PATCH] Fixes for meson build
+
+---
  libgnomekbd/meson.build | 7 +++++++
  meson.build             | 1 +
  2 files changed, 8 insertions(+)
 
-diff --git c/libgnomekbd/meson.build i/libgnomekbd/meson.build
-index ca65a89..0bffa32 100644
---- c/libgnomekbd/meson.build
-+++ i/libgnomekbd/meson.build
+diff --git a/libgnomekbd/meson.build b/libgnomekbd/meson.build
+index ca65a8988c1a..0bffa32e5a7f 100644
+--- a/libgnomekbd/meson.build
++++ b/libgnomekbd/meson.build
 @@ -39,6 +39,7 @@ libgnomekbd_deps = [
    glib_dep,
    gobject_dep,
@@ -34,10 +40,10 @@ index ca65a89..0bffa32 100644
  )
  
  libgnomekbdui_dep = declare_dependency(
-diff --git c/meson.build i/meson.build
-index cf8a9f5..921591c 100644
---- c/meson.build
-+++ i/meson.build
+diff --git a/meson.build b/meson.build
+index cf8a9f52f6fb..921591cd091c 100644
+--- a/meson.build
++++ b/meson.build
 @@ -28,6 +28,7 @@ libxklavier_req = '>= 5.2'
  glib_dep = dependency('glib-2.0', version: glib_req)
  gobject_dep = dependency('gobject-2.0', version: glib_req)
