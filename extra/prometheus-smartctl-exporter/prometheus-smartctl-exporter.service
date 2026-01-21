@@ -7,8 +7,8 @@ ConditionVirtualization=false
 [Service]
 EnvironmentFile=-/etc/conf.d/prometheus-smartctl-exporter
 ExecStart=/usr/bin/prometheus-smartctl-exporter $SMARTCTL_EXPORTER_ARGS
-User=root
-Group=root
+User=smartctl-exporter
+Group=smartctl-exporter
 Restart=on-failure
 
 NoNewPrivileges=true
@@ -21,7 +21,7 @@ ProtectHome=true
 PrivateTmp=true
 #PrivateDevices=true    # this is actually needed to access the disks
 ProtectHostname=true
-#ProtectClock=true      # this is actually needed - no idea why...
+ProtectClock=true
 ProtectKernelTunables=true
 ProtectKernelModules=true
 ProtectKernelLogs=true
@@ -33,8 +33,12 @@ MemoryDenyWriteExecute=true
 RestrictRealtime=true
 RestrictSUIDSGID=true
 RemoveIPC=true
-CapabilityBoundingSet=CAP_SYS_ADMIN CAP_SYS_RAWIO CAP_MKNOD
-AmbientCapabilities=
+
+# CAP_SYS_ADMIN: Required by NVME_IOCTL_ADMIN_CMD to read NVMe SMART/Health Information
+# CAP_DAC_READ_SEARCH: Required to search for disks
+# CAP_SYS_RAWIO: Required to to read disk SMART/Health Information
+AmbientCapabilities=CAP_SYS_ADMIN CAP_DAC_READ_SEARCH CAP_SYS_RAWIO
+CapabilityBoundingSet=CAP_SYS_ADMIN CAP_DAC_READ_SEARCH CAP_SYS_RAWIO
 
 SystemCallFilter=@system-service
 SystemCallFilter=~@privileged @resources

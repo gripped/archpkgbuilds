@@ -3,7 +3,7 @@
 _name=smartctl_exporter
 pkgname=prometheus-smartctl-exporter
 pkgver=0.14.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Prometheus exporter for S.M.A.R.T. metrics using smartctl"
 arch=(x86_64)
 url="https://github.com/prometheus-community/smartctl_exporter"
@@ -13,17 +13,25 @@ makedepends=(go)
 backup=("etc/conf.d/$pkgname")
 # we cannot use LTO as otherwise we do not get reproducible package with full RELRO
 options=('!lto')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
-        "$pkgname.conf"
-        "$pkgname.service")
+source=(
+  "$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
+  "$pkgname.conf"
+  "$pkgname.service"
+  "$pkgname.sysusers"
+)
 b2sums=('93b5e0be2941303e3b1681d7e49c89f84c155e234a31ce9e8e80b8263718b1eb30c1443fc49f77e295fcee9f9d830e986889726c8c4d45d63e9abebbf03eaf3e'
         '8f90333769207a931453ef129c1cb91bfd5351d43df64826bc2fafe07b149028b156eb74ac5dfe4e5d990f39605b94e93d1b2598d4eca85ead06b0db5555c50c'
-        '124b6b6273e99e7e72d8a3a569ffe46efe07e0fa70fa5f6a3135f3b2ad6f49c9737e2d491a29adac292f95e8524b8f11cb2e4aad617ff0c26b4f50c819d767ac')
+        'd210a73fd5bc0a38cf01521bb6af67d67be2375d2849182b0b551c0f0211a9bb30da06afaf558f36989ea88590b2d7ec60d8d1d23df969a2d1cb33b2e1e30bed'
+        '93466afbae66c74fd4e1641a77a5a803d8c7f9ef689054d6d42da0db887f2bf1890a25fba9276c2d77f64633f55be68731d545af9e6d8f610b703f6f6af54f84')
 
 prepare() {
   cd "$_name-$pkgver"
-  go mod vendor
-  mkdir -p build
+
+  # create folder for build output
+  mkdir build
+
+  # download dependencies
+  GOPATH="$srcdir" go mod download -modcacherw
 }
 
 build() {
@@ -47,9 +55,10 @@ build() {
 }
 
 package() {
-  # systemd service
+  # systemd integration
   install -vDm 644 "$pkgname.service" -t "$pkgdir/usr/lib/systemd/system/"
   install -vDm 644 "$pkgname.conf" "$pkgdir/etc/conf.d/$pkgname"
+  install -vDm 644 "$pkgname.sysusers" "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
 
   cd "$_name-$pkgver"
 
