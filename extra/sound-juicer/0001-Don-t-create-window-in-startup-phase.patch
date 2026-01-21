@@ -1,4 +1,4 @@
-From c0610eb85e07e403a5f77adcdfd7b2b42f328b01 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Thu, 31 Jul 2025 17:53:11 +0200
 Subject: [PATCH] Don't create window in startup phase
@@ -10,7 +10,7 @@ service.
  1 file changed, 24 insertions(+), 14 deletions(-)
 
 diff --git a/src/sj-main.c b/src/sj-main.c
-index 64ec87f6..a58e62f7 100644
+index 64ec87f612f1..a58e62f702aa 100644
 --- a/src/sj-main.c
 +++ b/src/sj-main.c
 @@ -1773,10 +1773,6 @@ static const gchar *action_accels[][5] = {
@@ -73,6 +73,3 @@ index 64ec87f6..a58e62f7 100644
  }
  
  static GAction*
--- 
-2.50.1
-
