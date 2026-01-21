@@ -3,17 +3,19 @@
 
 pkgname=gnome-sound-recorder
 pkgver=42.0
-pkgrel=4
+pkgrel=5
 pkgdesc="A utility to make simple audio recording from your GNOME desktop"
 url="https://wiki.gnome.org/Apps/SoundRecorder"
 arch=(any)
-license=(GPL)
+license=(GPL-2.0-or-later)
 depends=(
+  dconf
   gjs
   gst-plugins-bad-libs
   gst-plugins-base
   gst-plugins-good
   gtk4
+  hicolor-icon-theme
   libadwaita
 )
 makedepends=(
@@ -22,10 +24,14 @@ makedepends=(
   meson
 )
 groups=(gnome-extra)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-sound-recorder.git#tag=$pkgver"
-        gnome-sound-recorder-dbus-activatable.patch)
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-sound-recorder.git#tag=$pkgver"
+  0001-Replace-emblem-icon-removed-from-Adwaita.patch
+  0002-Add-D-Bus-service-file.patch
+)
 b2sums=('be3e4e1a0508075bc1e0fe895e2fa0660a1b5cbc4bb69db61c76c7aef0630e1eaa5567e1766b4d666a147383a532d06fced94078d43b5b557df4fc3ec477865f'
-        'cad5e8831e6f8b09fd1cd86af4faa1167f5e4691d3178534be10a568deaf967023a3a699c336ca0b000074b84d8d98a502bd3d6198f3f8eb322081af14fe61bc')
+        '6c4301e6a639a33d0833dea49a73f73f6623e5eaaaf46a0d5a4d1793467019c2b5be147a6950026e0c97e839b2e7db31eb969ce0251ef6cb1a6431421f43b8b3'
+        'eb05e0313609c31474207dbc608a601a04ad1b4b123162a08f059ecb5ee1a84e1b16d664c5875ebec5e43acc89bbf201971799f9a6e4756f419ad9cc88ffbcc2')
 
 prepare() {
   cd $pkgname
@@ -40,11 +46,11 @@ prepare() {
 
   # Fix missing icon
   # https://gitlab.gnome.org/GNOME/gnome-sound-recorder/-/merge_requests/235
-  sed -i 's/emblem-ok-symbolic/object-select-symbolic/' data/ui/row.ui
+  git apply -3 ../0001-Replace-emblem-icon-removed-from-Adwaita.patch
 
   # Add D-Bus service file
   # https://gitlab.gnome.org/GNOME/gnome-sound-recorder/-/merge_requests/236
-  git apply -3 ../gnome-sound-recorder-dbus-activatable.patch
+  git apply -3 ../0002-Add-D-Bus-service-file.patch
 }
 
 build() {
