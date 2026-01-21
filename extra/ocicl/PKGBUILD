@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=ocicl
-pkgver=2.15.3
-pkgrel=2
+pkgver=2.16.0
+pkgrel=1
 pkgdesc='An OCI-based ASDF system distribution and management tool for Common Lisp'
 arch=(x86_64)
 url='https://github.com/ocicl/ocicl'
@@ -11,8 +11,8 @@ depends=(glibc zstd sbcl)
 makedepends=(git libfixposix)
 options=(!debug !strip)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('e976db2be91ab2792693faec41dc93805358c71ff798c3c194ccd1f7d01b4d9fbe65977029d8e366bdeef1085e2ed529aae4da0d6f6b2395a08059db02d76f56')
-b2sums=('20755977abcb7f1b09c816a67da625025729df2415c35b0e755f9481010958ba26343ac6c58ba2e2c505d48820f21ead3bf00fd38095642c9fb8da8c8f0b3dda')
+sha512sums=('eaa31705ce373abd099647480dcb923b28d3e2d3eb671d7f18c64f987ab9c6660c3fa0cf1aac1f27f0efe183342170bb44d543ded6c0d81a406a7dede107e169')
+b2sums=('16d3ac2eb254c35c210b23f2eb0d10ce7f2edc707abbd32ca3e9177d523d6c6a1d97f6eddaff703a2fa8d40e35816d512ccc0285a2ae6d962c80c8da2e1f5e7b')
 
 build() {
   cd "$pkgname"
