@@ -1,7 +1,7 @@
 # Maintainer: Eric Bélanger <eric@archlinux.org>
 
 pkgname=liferea
-pkgver=1.16.5
+pkgver=1.16.7
 pkgrel=1
 pkgdesc="A desktop news aggregator for online news feeds and weblogs"
 arch=('x86_64')
@@ -18,17 +18,8 @@ optdepends=('libsecret: for keyring plugin support'
             'gst-plugins-good: for media player plugin support'
             'gst-plugins-bad: for media player plugin support'
             'gst-libav: for media player plugin support')
-source=("https://github.com/lwindolf/liferea/releases/download/v$pkgver/$pkgname-${pkgver}.tar.bz2"
-        '0001-Backport-fixes-from-1459.patch')
-sha256sums=('b07e10da62f42f18d1539e204037d32cb63b433bc68a2f8836c25bbd1098e0a5'
-            'ab5058fd81ba2c8f234b6155d4219f8200772412249c2cb71826c25e9a403ef3')
-
-prepare() {
-  cd ${pkgname}-${pkgver}
-
-  # GI fix
-  patch -Np1 -i ../0001-Backport-fixes-from-1459.patch
-}
+source=("https://github.com/lwindolf/liferea/releases/download/v$pkgver/$pkgname-${pkgver}.tar.bz2")
+sha256sums=('e7bd66c44aa73d5bee27fafc854e1baed2618953f16c138f5e158bdd75a65132')
 
 build() {
   cd ${pkgname}-${pkgver}
