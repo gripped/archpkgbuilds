@@ -1,0 +1,21 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Wed, 21 Jan 2026 05:12:35 +0100
+Subject: [PATCH] Don't hide outside of GNOME
+
+---
+ data/org.gnome.Photos.desktop.in.in | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/data/org.gnome.Photos.desktop.in.in b/data/org.gnome.Photos.desktop.in.in
+index b7dcf5b1d20b..6342f667f98a 100644
+--- a/data/org.gnome.Photos.desktop.in.in
++++ b/data/org.gnome.Photos.desktop.in.in
+@@ -8,7 +8,6 @@ DBusActivatable=true
+ StartupNotify=true
+ Terminal=false
+ Type=Application
+-OnlyShowIn=GNOME;
+ Categories=GNOME;GTK;Core;Graphics;Photography;
+ # Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+ Keywords=Photos;Pictures;

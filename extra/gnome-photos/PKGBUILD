@@ -2,26 +2,38 @@
 
 pkgname=gnome-photos
 pkgver=44.0
-pkgrel=6
+pkgrel=7
 epoch=1
 pkgdesc="Access, organize, and share your photos on GNOME"
 url="https://wiki.gnome.org/Apps/Photos"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-3.0-or-later)
 depends=(
+  at-spi2-core
   babl
+  cairo
+  dconf
   dleyna
+  gcc-libs
+  gdk-pixbuf2
   gegl
   geocode-glib-2
-  gnome-online-accounts
+  glib2
+  glibc
   gsettings-desktop-schemas
   gtk3
+  hicolor-icon-theme
   libdazzle
   libgexiv2
+  libgoa
   libhandy
+  libjpeg-turbo
+  libpng
+  libportal
   libportal-gtk3
-  librsvg
-  tracker3-miners
+  localsearch
+  pango
+  tinysparql
 )
 makedepends=(
   docbook-xsl
@@ -32,36 +44,38 @@ makedepends=(
   yelp-tools
 )
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-photos.git#tag=$pkgver"
+  "git+https://gitlab.gnome.org/GNOME/gnome-photos.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/libgd.git"
-  gnome-photos-xdp-portal.patch
-  gnome-photos-window-icon.patch
-  gnome-photos-fix-search-provider.patch
+  0001-Don-t-abort-if-failed-to-create-XdpPortal-instance.patch
+  0002-Set-default-window-icon.patch
+  0003-Fixes-for-the-search-provider.patch
+  0004-Don-t-hide-outside-of-GNOME.patch
 )
 b2sums=('a85d6f4f5c8cce703b44d1de1f319db16d71ce2f5bc1fa02017eafafaa0deedc07e6178d7c1c955470e2e88a187a42f5680df0584c1833c548ec32c8d675c64d'
         'SKIP'
-        '0bfd295a050f72802df0ea75afa2cc44b1e414a5bd6a85ff9dc1f524acb15a211001499005b07d60dd2c73ca8c2510731173e0ec5d19d373470fe760f0acf9f3'
-        'f7a1c9204fa33203d3c7ece9a29809192f2e7882e9cf0f1180a7cacb5c00d90b223ccdf22800344e38be727aa7b540b7b77e1432cef3c58943c945d21ebdbc11'
-        'ae57996420631effe3eef058247a92550a3913652b96788d89a341c6a297cfcfa4c691cf3b7b9d0aa9fa581317bfcd25af3ebf401699ea1e4beedc3757961f43')
+        'e25e5588d4370106406de586a1cc6205613ab321f5601417631b0e6c6725949323f379a249cecebff8aa3e456c7ea729b1a0c268eff861b3480d7a9e7a52e3d3'
+        '89154808676c39b819b47b37762b4490bf0850c6762ed20ac0901c9becfa83e6548cfe7b4212c15bac188aa044b13b88c96bacfdcbc400c40aa0d618485a087d'
+        'b9c735a42eb03f60366fb6eb00382c8156ad074045b365e17f2d09e4e37c5bf33f02b3d213c7200f5dfae73d83f100b6a9ed2c550637694487214235a369fdf7'
+        'd995691d7e06e1d42c88e28f2fa2ca726e0297e5979c8bcbfc9fef4840410e99a6dc781710bb4685b9517f5fc96b54df913c843aed641376dbac92ee9d9a7ef8')
 
 prepare() {
   cd $pkgname
 
-  git submodule init
-  git submodule set-url subprojects/libgd "$srcdir/libgd"
-  git -c protocol.file.allow=always submodule update
-
   # Don't abort if failed to create XdpPortal instance
-  git apply -3 ../gnome-photos-xdp-portal.patch
+  git apply -3 ../0001-Don-t-abort-if-failed-to-create-XdpPortal-instance.patch
 
   # Set default window icon
-  git apply -3 ../gnome-photos-window-icon.patch
+  git apply -3 ../0002-Set-default-window-icon.patch
 
   # Fixes for the search provider
-  git apply -3 ../gnome-photos-fix-search-provider.patch
+  git apply -3 ../0003-Fixes-for-the-search-provider.patch
 
   # Don't hide outside of GNOME
-  sed -i '/^OnlyShowIn=GNOME/d' data/org.gnome.Photos.desktop.in.in
+  git apply -3 ../0004-Don-t-hide-outside-of-GNOME.patch
+
+  git submodule init
+  git submodule set-url subprojects/libgd "$srcdir/libgd"
+  git -c protocol.file.allow=always -c protocol.allow=never submodule update
 }
 
 build() {
