@@ -2,7 +2,7 @@
 # Contributor: Luis Martinez <luis dot martinez at disroot dot org>
 
 pkgname=python-icecream
-pkgver=2.1.9
+pkgver=2.1.10
 pkgrel=1
 pkgdesc='Sweet and creamy print debugging'
 arch=(any)
@@ -23,8 +23,8 @@ makedepends=(
   python-wheel
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('a1c3edd36e1ad9a13edeac7f71de9a11d231fc485d54f1eb595c0f057dabf1750cd57a818b5cce3a53d51a6b6e565be4550188548e750d6b51c89c57155ab4b5')
-b2sums=('abd315015d5fb8af75ba052ddf3c131edcb475be2636374842c79aefc891520cd5aca5e826ba4998311b2aae6a701ecd7c2e0d0ab4720ea66f74bf6861069d37')
+sha512sums=('a94c5e017311aa3b443dc045a0de7e82c4b9b7f7f65a28597f36c3d472089345b77e48059c570fe842f1a0f05927f75f47cffdca3dab362ab920ec3a87bb0fc0')
+b2sums=('81f6faa3a1c72d2338e7f57f286ecfae3fd7d4d5c477d8a8f7bbf83d7c0893e4538405ad38899a12537ed58416cc88e79c3cd1ef32b9e52a5a83614d2ab4f5bc')
 
 build() {
   cd "$pkgname"
