@@ -2,7 +2,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=firefox-developer-edition
-pkgver=148.0b3
+pkgver=148.0b5
 pkgrel=1
 pkgdesc="Fast, Private & Safe Web Browser (Developer Edition)"
 url="https://www.mozilla.org/firefox/developer/"
@@ -87,16 +87,16 @@ validpgpkeys=(
   # https://blog.mozilla.org/security/2025/04/01/updated-gpg-key-for-signing-firefox-releases-2/
   14F26682D0916CDD81E37B6D61B7B526D98F0353
 )
-sha256sums=('7961ff5700296d0ab76bb576ebc802ec1ef313d6f1b4a04e2a9f27d40d25549a'
+sha256sums=('5383f4e272c73b5c4160ec0225cc4ead78977a37f539cdebbada93d7ce854722'
             'SKIP'
             'a9b8b4a0a1f4a7b4af77d5fc70c2686d624038909263c795ecc81e0aec7711e9'
-            '4b3a21f98bb14aca2c9970257042f5355a93ed1f292e86e3ad57197b47a50981'
+            '69bda73277e9a47002a40e18021262b3c3cd88a0ca48237f42a4a5792e839af8'
             '48e33f75f3760387305997ee0a3fcea030a1e7310fc461e92d7b73e6cf600096'
             'ef63a12975f108f30b00bb3290d9ca76f311d8af9c1d5dfc0d8335ad57e8f77c')
-b2sums=('18269f9e6a2e96aec921e92dca8e1309aa1bffe7629ab5005f9ee4a91ba3c6620117f9ce865f1732e1ac9ba1365a88e4d536fe34fb6289ab166a63c2fc69da9f'
+b2sums=('cc8f56da7a74a4a982e3469cc77be879d53e343250a4a06a2712e19d2bfa130310fbf40b54a67e9e0aa7ef043dd5f492090cbf296442806904fbbb17176dd12d'
         'SKIP'
         '63a8dd9d8910f9efb353bed452d8b4b2a2da435857ccee083fc0c557f8c4c1339ca593b463db320f70387a1b63f1a79e709e9d12c69520993e26d85a3d742e34'
-        '546fb9ce1266681f2f6525f41a6f24ece80207a4686c586754575d2c6ebe0117de5164e334ac2a31f0693b64687eaa5b2fde4de83ebdfd8eae3b65dcf19100bb'
+        'b3e5b7f4d202eb3bd26eef851c9340c7fe10fbaeb385c3fa989af949e500e9eae6bf67f2ab2e330342cacd71ba40bb02d1840510b7555adbe539615021a5a16e'
         '826db294d078c66e6bf3561c3c6de32d7522251b2ccbd47ab26fb6380988f117d854a726c36f45ddd2e846a1456ca0f6c883733d1c660351430f2d1fbc95b1eb'
         'ff0ba11844e99ab1b1fed91d70c6f45837198ba43e77313c8b9c48a621e40c459953fc35283b6b6eafb5641510a5ce1e18ebda4d7d076f8212810391c0a9234b')
 
@@ -214,9 +214,9 @@ END
 package() {
   cd firefox-${pkgver%b*}
   DESTDIR="$pkgdir" ./mach install
+  local appdir="$pkgdir/usr/lib/$pkgname"
 
-  local vendorjs="$pkgdir/usr/lib/$pkgname/browser/defaults/preferences/vendor.js"
-  install -Dvm644 /dev/stdin "$vendorjs" <<END
+  install -Dvm644 /dev/stdin "$appdir/browser/defaults/preferences/vendor.js" <<END
 // Use LANG environment variable to choose locale
 pref("intl.locale.requested", "");
 
@@ -233,8 +233,7 @@ pref("extensions.autoDisableScopes", 11);
 pref("browser.gnome-search-provider.enabled", true);
 END
 
-  local distini="$pkgdir/usr/lib/$pkgname/distribution/distribution.ini"
-  install -Dvm644 /dev/stdin "$distini" <<END
+  install -Dvm644 /dev/stdin "$appdir/distribution/distribution.ini" <<END
 [Global]
 id=archlinux
 version=1.0
@@ -247,7 +246,7 @@ app.partner.archlinux=archlinux
 END
 
   # Link up system ONNX runtime  
-  ln -srv "$pkgdir/usr/lib/libonnxruntime.so" -t "$pkgdir/usr/lib/$pkgname"
+  ln -srv "$pkgdir/usr/lib/libonnxruntime.so" -t "$appdir"
 
   # Install desktop icons and metadata
   local i theme=aurora
@@ -274,10 +273,15 @@ END
 
   # Replace duplicate binary with wrapper
   # https://bugzilla.mozilla.org/show_bug.cgi?id=658850
-  ln -srfv "$pkgdir/usr/bin/$pkgname" "$pkgdir/usr/lib/$pkgname/firefox-bin"
+  ln -srfv "$pkgdir/usr/bin/$pkgname" "$appdir/firefox-bin"
 
-  local sprovider="$pkgdir/usr/share/gnome-shell/search-providers/$pkgname.search-provider.ini"
-  install -Dvm644 /dev/stdin "$sprovider" <<END
+  # Use system certificates
+  if [[ -e $appdir/libnss3.so ]]; then
+    ln -sfv ../libnssckbi.so -t "$appdir"
+  fi
+
+  # Register GNOME search provider
+  install -Dvm644 /dev/stdin "$pkgdir/usr/share/gnome-shell/search-providers/$pkgname.search-provider.ini" <<END
 [Shell Search Provider]
 DesktopId=$pkgname.desktop
 BusName=org.mozilla.${pkgname//-/_}.SearchProvider
