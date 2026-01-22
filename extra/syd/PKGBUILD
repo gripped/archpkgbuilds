@@ -3,7 +3,7 @@
 pkgname=syd
 _pkgname=sydbox
 pkgver=3.48.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Seccomp and landlock based application sandbox with support for namespaces"
 url="https://gitlab.exherbo.org/sydbox/sydbox"
 arch=('x86_64')
@@ -16,6 +16,7 @@ provides=("${_pkgname}")
 source=("git+${url}.git#tag=v${pkgver}?signed")
 sha256sums=('0d22b7524fab8703c48eefe51f9036676d809c91144353be7acb992c80122230')
 validpgpkeys=('5DF763560390A149AC6C14C7D076A377FB27DE70')
+options=('!lto')
 
 prepare() {
 	cd "${_pkgname}"
@@ -24,7 +25,7 @@ prepare() {
 
 build() {
 	cd "${_pkgname}"
-	cargo build --frozen --release --all-features
+	cargo build --frozen --release --features oci
 
 	find man -type f -name "*.scd" -exec sh -c 'scdoc < "${1}" > "${1%.scd}"' _ {} \;
 }
@@ -34,7 +35,7 @@ check() {
 	# "syd_test" and "fs" tests fail with sandbox
 	# "hash" tests seems flaky (they fail on the build server for some reason)
 	# "proc / executables paths [...]" fails if `/usr/lib/libgcc_s.so.1` is not executable (which is shipped by `gcc_libs`)
-	cargo test --frozen --all-features -- \
+	cargo test --frozen --features oci -- \
 		--skip=syd_test \
 		--skip=fs::tests::test_canonicalize_non_directory_with_slash \
 		--skip=fs::tests::test_canonicalize_self_referential_symlink \
