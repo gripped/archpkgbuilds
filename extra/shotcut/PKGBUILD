@@ -4,7 +4,7 @@
 
 pkgname=shotcut
 pkgdesc='Cross-platform Qt based Video Editor'
-pkgver=25.10.31
+pkgver=25.12.31
 pkgrel=1
 arch=('x86_64')
 url='https://www.shotcut.org'
@@ -16,7 +16,7 @@ optdepends=('swh-plugins: Several audio filters'
             'opencv: For motion tracking')
 makedepends=('qt6-tools' 'git' 'cmake' 'ninja' 'clang')
 source=("git+https://github.com/mltframework/shotcut.git#tag=v${pkgver}")
-sha512sums=('98fddd73c5725caf4d5df82329ae1c244dc6cb77664e8805e1ecf4c51cb4cd77ed1aa1dc663906808f99288251e516c01a887aa5d3b1e0a0b09582f7ea73b699')
+sha512sums=('b7008c142d5436759bdd2a1ebd9e56f9f39cc83fc6bb2ac332e42fac2a1cc74b05091113f54d628b793dd10ed12e51125b78badbcf639da96f723692fd57f6ba')
 
 prepare() {
   cd "${pkgname}"
