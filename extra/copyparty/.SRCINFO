@@ -1,15 +1,15 @@
 pkgbase = copyparty
 	pkgdesc = File server with accelerated resumable uploads, dedup, WebDAV, FTP, TFTP, zeroconf, media indexer, thumbnails++
-	pkgver = 1.19.23
+	pkgver = 1.20.3
 	pkgrel = 1
 	url = https://github.com/9001/copyparty
 	arch = any
 	license = MIT
-	makedepends = python-wheel
-	makedepends = python-setuptools
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = make
+	makedepends = python-setuptools
+	makedepends = python-wheel
 	makedepends = pigz
 	depends = bash
 	depends = python
@@ -25,7 +25,8 @@ pkgbase = copyparty
 	optdepends = python-pyzmq: send zeromq messages from event-hooks
 	optdepends = python-argon2-cffi: hashed passwords in config
 	backup = etc/copyparty/copyparty.conf
-	source = https://github.com/9001/copyparty/releases/download/v1.19.23/copyparty-1.19.23.tar.gz
-	sha256sums = 2d0c5d126ca2f4b78c40ae4d03cac191526d98e5072f4ace121601d2af40e3cf
+	source = copyparty::git+https://github.com/9001/copyparty#tag=v1.20.3
+	sha512sums = 8a0cd7f4c4b17f0a735607f49bd989c00e08fb86d9d2fb736b3cd2e2bf3bc8c1f5303d230b1d9a331afdde3c2e9a43460f7b32162b658fbed456f107f24e14d9
+	b2sums = 41be3ae249b053d6946549a8619b57dab719f29c97df9e73af35bf50a50bbc48107544c7ebfef16a872cb141ca74cca7ea6c4de01eea2aa092e84237b152c8e6
 
 pkgname = copyparty

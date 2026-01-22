@@ -2,48 +2,83 @@
 # Contributor: icxes <dev.null@need.moe>
 
 pkgname=copyparty
-pkgver=1.19.23
+pkgver=1.20.3
 pkgrel=1
-pkgdesc="File server with accelerated resumable uploads, dedup, WebDAV, FTP, TFTP, zeroconf, media indexer, thumbnails++"
-arch=("any")
-url="https://github.com/9001/${pkgname}"
-license=('MIT')
-depends=("bash" "python" "lsof" "python-jinja")
-makedepends=("python-wheel" "python-setuptools" "python-build" "python-installer" "make" "pigz")
-optdepends=("ffmpeg: thumbnails for videos, images (slower) and audio, music tags"
-            "cfssl: generate TLS certificates on startup"
-            "python-mutagen: music tags (alternative)"
-            "python-pillow: thumbnails for images"
-            "python-pyvips: thumbnails for images (higher quality, faster, uses more ram)"
-            "libkeyfinder: detection of musical keys"
-            "python-pyopenssl: ftps functionality"
-            "python-pyzmq: send zeromq messages from event-hooks"
-            "python-argon2-cffi: hashed passwords in config"
+pkgdesc='File server with accelerated resumable uploads, dedup, WebDAV, FTP, TFTP, zeroconf, media indexer, thumbnails++'
+arch=(any)
+url='https://github.com/9001/copyparty'
+license=(MIT)
+depends=(
+  bash
+  python
+  lsof
+  python-jinja
 )
-source=("https://github.com/9001/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-backup=("etc/${pkgname}/copyparty.conf" )
-sha256sums=('2d0c5d126ca2f4b78c40ae4d03cac191526d98e5072f4ace121601d2af40e3cf')
+makedepends=(
+  git 
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+  pigz
+)
+optdepends=(
+  'ffmpeg: thumbnails for videos, images (slower) and audio, music tags'
+  'cfssl: generate TLS certificates on startup'
+  'python-mutagen: music tags (alternative)'
+  'python-pillow: thumbnails for images'
+  'python-pyvips: thumbnails for images (higher quality, faster, uses more ram)'
+  'libkeyfinder: detection of musical keys'
+  'python-pyopenssl: ftps functionality'
+  'python-pyzmq: send zeromq messages from event-hooks'
+  'python-argon2-cffi: hashed passwords in config'
+)
+backup=(etc/copyparty/copyparty.conf)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('8a0cd7f4c4b17f0a735607f49bd989c00e08fb86d9d2fb736b3cd2e2bf3bc8c1f5303d230b1d9a331afdde3c2e9a43460f7b32162b658fbed456f107f24e14d9')
+b2sums=('41be3ae249b053d6946549a8619b57dab719f29c97df9e73af35bf50a50bbc48107544c7ebfef16a872cb141ca74cca7ea6c4de01eea2aa092e84237b152c8e6')
 
+prepare() {
+  cd "$pkgname"
+
+  sed \
+    -e 's/python3/python/g' \
+    -i bin/prisonparty.sh \
+    -i contrib/systemd/*.service
+}
 build() {
-    cd "${srcdir}/${pkgname}-${pkgver}/copyparty/web"
-    make
+  cd "$pkgname"
 
-    cd "${srcdir}/${pkgname}-${pkgver}"
-    python -m build --wheel --no-isolation
+  pushd copyparty/web
+  make
+  popd
+
+  python -m build --wheel --no-isolation
 }
 
 package() {
-    cd "${srcdir}/${pkgname}-${pkgver}"
-    python -m installer --destdir="$pkgdir" dist/*.whl
+  cd "$pkgname"
 
-    sed -i s/python3/python/g bin/prisonparty.sh contrib/systemd/*.service
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 
-    install -dm755 "${pkgdir}/etc/${pkgname}"
-    install -Dm755 "bin/prisonparty.sh" "${pkgdir}/usr/bin/prisonparty"
-    install -Dm644 "contrib/systemd/${pkgname}.conf" "${pkgdir}/etc/${pkgname}/copyparty.conf"
-    install -Dm644 "contrib/systemd/${pkgname}@.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}@.service"
-    install -Dm644 "contrib/systemd/${pkgname}-user.service" "${pkgdir}/usr/lib/systemd/user/${pkgname}.service"
-    install -Dm644 "contrib/systemd/prisonparty@.service" "${pkgdir}/usr/lib/systemd/system/prisonparty@.service"
-    install -Dm644 "contrib/systemd/index.md" "${pkgdir}/var/lib/${pkgname}-jail/README.md"
-    install -Dm644 "LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  # python pkg
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # prisonparty
+  install -vDm755 bin/prisonparty.sh "$pkgdir/usr/bin/prisonparty"
+
+  cd contrib/systemd
+
+  # global configuration
+  install -vDm644 -t "$pkgdir/etc/copyparty" copyparty.conf
+
+  # systemd integration
+  install -vDm644 \
+    -t "$pkgdir/usr/lib/systemd/system" \
+    {copy,prison}party@.service
+  install -vDm644 \
+    copyparty-user.service \
+    "$pkgdir/usr/lib/systemd/user/copyparty.service"
+  install -vDm644 index.md "$pkgdir/var/lib/copyparty-jail/README.md"
 }
