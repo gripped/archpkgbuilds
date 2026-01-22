@@ -2,7 +2,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=gitoxide
-pkgver=0.49.0
+pkgver=0.50.0
 pkgrel=1
 pkgdesc="An idiomatic, lean, fast & safe pure Rust implementation of Git"
 url='https://github.com/Byron/gitoxide'
@@ -18,8 +18,8 @@ makedepends=(
 )
 options=(!lto)
 source=(https://github.com/Byron/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('190d8708ddcd27ca6c1df264286a1115343bc324d210f07eeadcc3a110abfa8c')
-b2sums=('e3adfdf3550b80f468bc60332fccaa53fcada2e6765c551727402aff69e7a9b14590d317477146063868e81c3639d5527f13ef663a038e2f9bb8de7c81e1e875')
+sha256sums=('8ad0fdcfa465fedac7c4bafaae2349ad0db7daf48a80d9cb2bd70dd36fa567aa')
+b2sums=('4de88ee39703b155c3d34684b4b5d535a90b6bf033b8ba0b499c70eae554aa8c683a3834785c7076426f8c3b627c2430af1fad3c1088103635beb81ffa9989de')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
