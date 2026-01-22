@@ -9,7 +9,7 @@ pkgname=(
   python-lilv
 )
 pkgver=0.26.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A C library interface to the LV2 plug-in standard"
 arch=(x86_64)
 url="https://gitlab.com/lv2/lilv"
@@ -34,13 +34,16 @@ makedepends=(
 source=(
   https://download.drobilla.net/$pkgname-$pkgver.tar.xz{,.sig}
   lilv-python-3.14.patch
+  $pkgname-0.26.2-multiple-types.patch
 )
 sha512sums=('623ca8cbde013691b22f49f4e279bd5f5e2fda0391206a1570a9b8cde568c8fa792787d7c41bddb7957fb32780b52c263fb63f6ac28527fa8123267bdda286da'
             'SKIP'
-            'bdd34a39129ef226d49f81aea90f42b0a99a12f1f2b14b5d2d04dc9b3e3e918de139026e0bfc0f7bcdcf1681ee5f7e37419ac2c005af68c8ebefa8ca6afd480f')
+            'bdd34a39129ef226d49f81aea90f42b0a99a12f1f2b14b5d2d04dc9b3e3e918de139026e0bfc0f7bcdcf1681ee5f7e37419ac2c005af68c8ebefa8ca6afd480f'
+            '339e45c16f6f952623f9aee3db2eb04edb394750415fa14dc4a209c84da6557a46ac7640dd2c0e04d408f6167264beebf7767d94b5f5fb330ecddcf2ff55af4e')
 b2sums=('c92575d5d2cf89c533169706e3be76f9ece261d7b92122a53817f8ca3b543d8c12925699c45ad084ea947a44d3bce58ea84e2ed4b5ff41b57147f04733991ae3'
         'SKIP'
-        '5f43587b85f387a098c0b1dc0e7b2aa3bffeac3273019cf12a45407e50ae86e634e513957013411b57eaffdba568ff35c64dfca28c863be493cbc3cd104fad08')
+        '5f43587b85f387a098c0b1dc0e7b2aa3bffeac3273019cf12a45407e50ae86e634e513957013411b57eaffdba568ff35c64dfca28c863be493cbc3cd104fad08'
+        '12f0ecd066a9e28af7ef4e88eee9888888d8136e0ed23d3d7c588c69351197bd82a85b65fd3be780b7dcda0171cb5e6106416ca84ce52f49f833580017e1594e')
 validpgpkeys=('907D226E7E13FA337F014A083672782A9BF368F3') # David Robillard <d@drobilla.net>
 
 _pick() {
@@ -55,6 +58,10 @@ _pick() {
 
 prepare() {
   patch -d $pkgname-$pkgver -Np1 < lilv-python-3.14.patch
+  # Fix crash with loading of LV2 UIs with multiple types, see:
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/muse/-/issues/2
+  # Backport of https://github.com/lv2/lilv/commit/d3d8a43daeabe537590611ef4ffe12d340553773
+  patch -d $pkgname-$pkgver -Np1 < $pkgname-0.26.2-multiple-types.patch
 }
 
 build() {
