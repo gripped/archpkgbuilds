@@ -1,38 +1,60 @@
-# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Evangelos Foutras <foutrelis@archlinux.org>
 # Contributor: Jose Riha <jose1711 gmail com>
 
 pkgname=gcompris-qt
-pkgver=25.1
+pkgver=25.1.1
 pkgrel=1
-pkgdesc="Educational software suite comprising of numerous activities for children aged 2 to 10"
-arch=('x86_64')
-url="https://gcompris.net/"
-license=('AGPL-3.0-only')
-depends=('qt6-base' 'qt6-charts' 'qt6-declarative' 'qt6-imageformats'
-         'qt6-multimedia' 'qt6-sensors' 'qt6-svg' 'qml-box2d'
-         'gst-plugins-good' 'hicolor-icon-theme')
-makedepends=('cmake' 'extra-cmake-modules' 'qt6-tools')
-replaces=('gcompris' 'gcompris-data')
-source=(https://download.kde.org/stable/gcompris/qt/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('dda4e486c7ec4d080744a05a6b89dbafe0dfe07041fbf245f08982716375acb5'
-            'SKIP')
-validpgpkeys=('D2FAAB621F618D42685B427B63D7264C05687D7E') # Timothée Giet <animtim@gmail.com>
+pkgdesc='Educational software suite comprising of numerous activities for children aged 2 to 10'
+arch=(x86_64)
+url='https://gcompris.net/'
+license=(AGPL-3.0-only)
+depends=(
+  gcc-libs
+  glibc
+  hicolor-icon-theme
+  qml-box2d
+  qt6-base
+  qt6-charts
+  qt6-declarative
+  qt6-imageformats
+  qt6-multimedia
+  qt6-sensors
+  qt6-svg
+)
+makedepends=(
+  cmake
+  extra-cmake-modules
+  git
+  kdoctools
+  ninja
+  qt6-tools
+)
+source=("git+https://invent.kde.org/education/gcompris.git#tag=V$pkgver")
+b2sums=(3e48895ad6a3eeffe57a76510d472fac210addfd1ed896db290c0a5cb0bb45002a2297a8cbccf4741f2673a7f87773e4c9b6fd0575c45fe667510763556fad5f)
+validpgpkeys=(D2FAAB621F618D42685B427B63D7264C05687D7E) # Timothée Giet <animtim@gmail.com>
 
 prepare() {
-  cd $pkgname-$pkgver
-  sed -i 's/Box2D\.2.0/Box2D/g' src/core/ApplicationInfo.cpp
+  cd gcompris
+
+  # Fix build with Qt 6.10
+  git cherry-pick -n d4bd9ad1d588158963610f3dacef86e8d3b2641c
+
+  # Fix documentation subdir name
+  git cherry-pick -n 45f4e093dbf72c079e2edb91671fbc4df4d16dc1
 }
 
 build() {
-  cmake -B build -S $pkgname-$pkgver \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCOMPILE_DOC=ON \
-    -DQML_BOX2D_LIBRARY=/usr/lib/qt6/qml/Box2D
-  make -C build
+  cmake -S gcompris -B build -G Ninja \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D COMPILE_DOC=ON \
+    -D QML_BOX2D_LIBRARY=/usr/lib/qt6/qml/Box2D
+  cmake --build build
 }
 
 package() {
-  make -C build DESTDIR="$pkgdir" install
-}
+  DESTDIR="$pkgdir" cmake --install build
 
-# vim:set ts=2 sw=2 et:
+  # Install missing SVG images for documentation
+  install -Dm644 -t "$pkgdir/usr/share/doc/HTML/en/gcompris/" gcompris/docs/docbook/*.svg
+}
