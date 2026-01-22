@@ -1,0 +1,39 @@
+From d5fcd000901e1abefc46d180d4064b6117483574 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 22 Jan 2026 17:46:57 +0100
+Subject: [PATCH] Install application icon into hicolor directory
+
+This is defined by the Icon Theme Specification.
+
+Omit the xpm icons from the installation, as they are already pulled into
+the main binary.
+---
+ CMakeLists.txt | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index cbafa22b..c2f5f3ef 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -197,14 +197,10 @@ install(TARGETS stopmotion
+   DESTINATION ${CMAKE_INSTALL_FULL_BINDIR})
+ install(FILES stopmotion.desktop
+   DESTINATION ${CMAKE_INSTALL_FULL_DATADIR}/applications)
+-install(FILES
+-  graphics/stopmotion.png
+-  graphics/stopmotion.svg
+-  graphics/stopmotion.xpm
+-  graphics/stopmotion_logo.xpm
+-  DESTINATION ${CMAKE_INSTALL_FULL_DATADIR}/pixmaps)
+-install(DIRECTORY graphics/icons
+-  DESTINATION ${CMAKE_INSTALL_FULL_DATADIR})
++install(FILES graphics/stopmotion.png
++  DESTINATION ${CMAKE_INSTALL_FULL_DATADIR}/icons/hicolor/32x32/apps)
++install(FILES graphics/stopmotion.svg
++  DESTINATION ${CMAKE_INSTALL_FULL_DATADIR}/icons/hicolor/scalable/apps)
+ install(FILES ${QM_FILES}
+   DESTINATION ${CMAKE_INSTALL_FULL_DATADIR}/stopmotion/translations)
+ install(FILES stopmotion.1
+-- 
+GitLab
+

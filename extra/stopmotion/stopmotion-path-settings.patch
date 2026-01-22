@@ -1,0 +1,76 @@
+From 07d6343de880c8de048cfa2edbce69864516342b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 22 Jan 2026 17:37:36 +0100
+Subject: [PATCH] Fix setting path for translation and HTML documentation
+
+This fixes the setting -DTRANSLATIONS_PATH= and -DHTML_PATH= options for
+cmake. Also fix the default path (stopmotion/manual instead of
+stopmotion/html), and fix handling of relative links in the help browser
+by setting the URL with fromLocalFile().
+---
+ CMakeLists.txt                                       | 8 ++++----
+ README.md                                            | 2 +-
+ src/config.cpp                                       | 2 +-
+ src/presentation/frontends/qtfrontend/helpwindow.cpp | 2 +-
+ 4 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index cbafa22b..c8b1a257 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -57,11 +57,11 @@ include(FeatureSummary)
+ feature_summary(WHAT PACKAGES_FOUND PACKAGES_NOT_FOUND)
+ 
+ # if given, pass path to translations and html path
+-if(${TRANSLATIONS_PATH})
+-  add_compile_definitions(TRANSLATIONS_PATH=${TRANSLATIONS_PATH})
++if(TRANSLATIONS_PATH)
++  add_compile_definitions(TRANSLATIONS_PATH="${TRANSLATIONS_PATH}")
+ endif()
+-if(${HTML_PATH})
+-  add_compile_definitions(HTML_PATH=${HTML_PATH})
++if(HTML_PATH)
++  add_compile_definitions(HTML_PATH="${HTML_PATH}")
+ endif()
+ 
+ add_subdirectory(src)
+diff --git a/README.md b/README.md
+index f11e7b16..3dac3f91 100644
+--- a/README.md
++++ b/README.md
+@@ -72,7 +72,7 @@ You can tell CMake to install in a specific location:
+     cmake -DCMAKE_INSTALL_PREFIX=<specific/location> <path/to/source/dir>
+ 
+ You can also specify the path to the translation and HTML documentation path
+-by setting `-DTRANSLATION_PATH=` and `-DHTML_PATH=`.
++by setting `-DTRANSLATIONS_PATH=` and `-DHTML_PATH=`.
+ 
+ Please see `src/domain/undo/README.md` for some notes on Stopmotion's
+ architecture.
+diff --git a/src/config.cpp b/src/config.cpp
+index 17fdc56a..b84583c8 100644
+--- a/src/config.cpp
++++ b/src/config.cpp
+@@ -1,7 +1,7 @@
+ #include "src/config.h"
+ 
+ #ifndef HTML_PATH
+-#define HTML_PATH "/usr/local/share/doc/stopmotion/html"
++#define HTML_PATH "/usr/local/share/doc/stopmotion/manual"
+ #endif
+ 
+ #ifndef TRANSLATIONS_PATH
+diff --git a/src/presentation/frontends/qtfrontend/helpwindow.cpp b/src/presentation/frontends/qtfrontend/helpwindow.cpp
+index d73dd5d0..fed69e9e 100644
+--- a/src/presentation/frontends/qtfrontend/helpwindow.cpp
++++ b/src/presentation/frontends/qtfrontend/helpwindow.cpp
+@@ -31,5 +31,5 @@ HelpWindow::HelpWindow(QWidget *parent)
+ {
+ 	ui.setupUi(this);
+ 	QObject::connect(ui.textBrowser, &QTextBrowser::highlighted, ui.lineEdit, [&](const QUrl &url) { ui.lineEdit->setText(url.path()); });
+-	ui.textBrowser->setSource(QUrl( QString(stopmotion::htmlDirectory) + "/index.html" ));
++	ui.textBrowser->setSource(QUrl::fromLocalFile( QString(stopmotion::htmlDirectory) + "/index.html" ));
+ }
+-- 
+GitLab
+
