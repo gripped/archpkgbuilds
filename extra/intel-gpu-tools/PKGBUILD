@@ -4,8 +4,8 @@
 
 _pkgname=igt-gpu-tools
 pkgname=intel-gpu-tools
-pkgver=2.2
-pkgrel=3
+pkgver=2.3
+pkgrel=1
 pkgdesc="Tools for development and testing of the Intel DRM driver"
 arch=(x86_64)
 license=(MIT)
@@ -13,7 +13,7 @@ url='https://gitlab.freedesktop.org/drm/igt-gpu-tools'
 depends=(libdrm libpciaccess cairo python xorg-xrandr libprocps kmod libxv libunwind peg systemd)
 makedepends=(python-docutils swig xorg-util-macros xorgproto meson)
 source=(https://xorg.freedesktop.org/releases/individual/app/${_pkgname}-$pkgver.tar.xz{,.sig})
-sha512sums=('20032b90e397ca73f9f8f5b453034fffc09e28372adddebd1a71b1323235e3e379bf452d5a4dd76b895e4c47df67595051c16b8a1488249e5aae946f6a35258c'
+sha512sums=('669e5f124c1177ed58c43b8b9b945f6436fc37b1162b16bbd1db78c5e170c68be98cc3b08b5ecb438d1313722fee2ab8bba8ca86a971443401c2acc3f3ec68ff'
             'SKIP')
 validpgpkeys=('775965B85650195ACE77E18D7370055DB74C2475'
               'E1996E8A119F43C4BA2BE889D8C620766EA3F69D'
