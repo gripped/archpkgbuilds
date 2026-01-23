@@ -1,16 +1,15 @@
 pkgbase = libevent
 	pkgdesc = Event notification library
 	pkgver = 2.1.12
-	pkgrel = 4
+	pkgrel = 5
 	url = https://libevent.org/
 	arch = x86_64
-	license = BSD
+	license = BSD-3-Clause-Modification
 	makedepends = cmake
-	makedepends = ninja
-	makedepends = python
-	makedepends = zlib
 	makedepends = doxygen
-	depends = openssl
+	makedepends = ninja
+	makedepends = openssl
+	makedepends = python
 	source = https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
 	source = https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz.asc
 	source = EVENT__SIZEOF_TIME_T.patch
@@ -23,6 +22,8 @@ pkgbase = libevent
 	sha256sums = e41527c55f6dacc6453b13eeeea2664798496896b796abcd2a5c8304c9eb2bae
 
 pkgname = libevent
+	depends = glibc
+	depends = openssl
 	optdepends = python: event_rpcgen.py
 	provides = libevent-2.1.so
 	provides = libevent_core-2.1.so
@@ -32,4 +33,3 @@ pkgname = libevent
 
 pkgname = libevent-docs
 	pkgdesc = Event notification library (documentation)
-	depends = 
