@@ -1,0 +1,76 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=crow-translate
+pkgver=4.0.2
+pkgrel=2
+pkgdesc='Application that allows you to translate and speak text'
+arch=(x86_64)
+url='https://apps.kde.org/crowtranslate/'
+license=(GPL-3.0-or-later)
+depends=(
+  gcc-libs
+  glibc
+  hicolor-icon-theme
+  kwayland
+  libx11
+  libxcb
+  onnxruntime
+  qt6-base
+  qt6-multimedia
+  qt6-scxml
+  qt6-speech
+  tesseract
+)
+makedepends=(
+  cmake
+  extra-cmake-modules
+  git
+  ninja
+  protobuf
+  qt6-tools
+)
+source=(
+  "git+https://invent.kde.org/office/crow-translate.git#tag=v$pkgver"
+  git+https://invent.kde.org/pillowtrucker/SingleApplication.git
+  git+https://github.com/Skycoder42/QHotkey.git
+  git+https://invent.kde.org/frameworks/breeze-icons.git
+  git+https://github.com/espeak-ng/espeak-ng.git
+  crow-translate-window-icon.patch
+)
+b2sums=(
+  290883ef0dfc06a6ffaf48da46ad185e46f50a47d45d41466fe0e8759f0c6b15074db6c49e3a0651e4713b3431089b5094948280c47085b7d52dc913e9c11aef
+  SKIP
+  SKIP
+  SKIP
+  SKIP
+  96ed180beaa2070e557814de2f9a44c5521eb6d34666fc5dc8de5999f9b7d3d03c08e58f6db27975fa0a514a278cbffebd3d2f7abc59903a9f7df6c92edf3332
+)
+
+prepare() {
+  cd $pkgname
+
+  # Work around broken crash recovery
+  # https://invent.kde.org/office/crow-translate/-/merge_requests/772
+  git cherry-pick -n 0b1c0d08f9033c0ccbc97c08af4f23c77be785fa
+
+  git submodule init
+  git submodule set-url src/3rdparty/singleapplication "$srcdir/SingleApplication"
+  git submodule set-url src/3rdparty/qhotkey "$srcdir/QHotkey"
+  git submodule set-url data/icons/3rdparty/breeze-icons "$srcdir/breeze-icons"
+  git submodule set-url src/3rdparty/espeak-ng "$srcdir/espeak-ng"
+  git -c protocol.file.allow=always submodule update
+
+  # Set window icon
+  # https://invent.kde.org/office/crow-translate/-/merge_requests/775
+  git apply -3 ../crow-translate-window-icon.patch
+}
+
+build() {
+  cmake -S $pkgname -B build -G Ninja \
+    -D CMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
