@@ -2,7 +2,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=ruby-cucumber-cucumber-expressions
-pkgver=18.0.1
+pkgver=18.1.0
 _commit=33e9d62439e760b2bc0d122039d84a6d7b103084
 pkgrel=1
 pkgdesc="Cucumber Expressions - a simpler alternative to Regular Expressions"
@@ -24,6 +24,13 @@ checkdepends=(
 options=(!emptydirs)
 source=(git+https://github.com/cucumber/cucumber-expressions.git#commit=$_commit)
 sha256sums=('d58d5ed0e073656568e400adb8da7b310e0c09efb8d493923a44d5ee77de943a')
+
+prepare() {
+  cd cucumber-expressions/ruby
+
+  # The last tag appears to have forgotten to update this file
+  echo "$pkgver" > VERSION
+}
 
 build() {
   local _gemdir="$(gem env gemdir)"
