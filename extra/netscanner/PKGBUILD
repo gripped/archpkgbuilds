@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=netscanner
-pkgver=0.6.3
+pkgver=0.6.41
 pkgrel=1
 pkgdesc="Network scanner"
 arch=('x86_64')
@@ -10,11 +10,11 @@ license=('GPL3')
 depends=('gcc-libs' 'iw')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('836f8934450dcd7701d0f559f3d70527902abef154b1111fd098c4d90de5c941b1ae5e742e562b3061019112e59306387317c449e6213fc1c2606de6b4e7016e')
+sha512sums=('c73eb4b4dd455afeac889c70a7af20827d9dc75a5f9e25cd28543cfac1dbde055d66c18c58c7008ebdb228c81266f588806939aa6df2e7a7b22a63f81db052ef')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')" # --locked
+  cargo fetch --target "$(rustc --print host-tuple)" # --locked
 }
 
 build() {
