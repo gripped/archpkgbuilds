@@ -4,8 +4,8 @@
 # Contributor: Shinlun Hsieh <yngwiexx@yahoo.com.tw>
 
 pkgname=linuxsampler
-pkgver=2.3.1
-pkgrel=1
+pkgver=2.4.2
+pkgrel=2
 pkgdesc="Professional-grade audio sampler alternative to Gigasampler"
 arch=(x86_64)
 url="https://www.linuxsampler.org/"
@@ -24,6 +24,7 @@ makedepends=(
   libgig
   libsndfile
   lv2
+  perl-xml-parser
 )
 optdepends=(
   'dssi-host: for DSSI plugin'
@@ -32,24 +33,16 @@ optdepends=(
 provides=(liblinuxsampler.so)
 source=(
   https://download.linuxsampler.org/packages/$pkgname-$pkgver.tar.bz2
-  $pkgname-2.2.0-libdir.patch
-  $pkgname-2.2.0-libgig_package.patch
 )
-sha512sums=('160820d1a1c44169bb84fd5b6380256af31e42701ff2d2e4394df8c680fa0b6f9b8a21047ff2ec757009f53d1694bafdf254067d8aae9994c244aaf247a5890d'
-            'fd552a6efff47ddd0114f7d394d699ba2df624c5a9dfd3b88f754f38b4aa7c9e04523b79b179e1f4d8f73cb142158134d74a11eb8718f8a22ace2a0d5b2f0c86'
-            '84c5e2a322783e33e83aa319466c5e49f32d4b5175f63515df7857ddcdb9d2a3a11afde376b77d1f18c474ab341d42d2d1e018ab2525971b680fe36abbd221d1')
-b2sums=('e07866d1ccaadf4bb95e4bb17f4b643b8dec5ff8c3b363b0e55b7fcb1383be59d2a22c84536db3e31f7c67467ef293a01147120294884005bd1d4c1f5b6c326b'
-        '98df780dfe7bf1a0379e7b4a15390aab411b1a5b8ef5c9c9fe04cdcd963ed572eeeaa00eb184017b61248bc396f58cfca571a748d6d17caf5030a447a05ebbf0'
-        '599ff6db7c87c4c4ee2306f62c6bec2a612d3c556c371a660430d09c93cda7b0b951f78e742d679407215fabb60939619fc9edcbf3813bf1665a9ee5fe0ddf95')
+sha512sums=('9bbb8d85fcf10d7720f9b30872d1222f64c59bb16ea726379585864e20e888ff191dbdc77e87ef7e522d29b37ff129ef8abd0a643a749ba52ad5ee12ad615b77')
+b2sums=('39bbf327ad81638ca60085b9016855b175987eb5ccd3754d4c56345e4c36566cfe0b91be563bcd69aeb2035ef2cdceb6c81dd91dfcdb9f7959c2fda3466f9d16')
 
 prepare(){
-  # install shared object in global namespace
-  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-2.2.0-libdir.patch
-  # fix generation of instruments in package()
-  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-2.2.0-libgig_package.patch
-
   # extract custom license exception
   sed -n '11,15p' $pkgname-$pkgver/README > LinuxSampler-Non-Commercial.txt
+
+  cd $pkgname-$pkgver
+  autoreconf -fiv
 }
 
 build() {
@@ -57,7 +50,8 @@ build() {
   ./configure --prefix=/usr
   # prevent excessive overlinking due to libtool
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-  make
+  # Prevent code generation from creating unreproducible results.
+  make -j1
 }
 
 package() {
@@ -70,6 +64,10 @@ package() {
 
   cd $pkgname-$pkgver
   make DESTDIR="$pkgdir" install
+  # NOTE: Due to autotools obfuscating how to properly configure the installation location of the shared libraries in /usr/lib/, we have to move files manually... :(
+  #       In the past we have used patches to the Makefile.in files, but with running `autoreconf`, this no longer works.
+  mv -v "$pkgdir/usr/lib/$pkgname/lib$pkgname"* "$pkgdir/usr/lib/"
+
   # docs
   install -vDm 644 {AUTHORS,ChangeLog,NEWS,README} -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 ../LinuxSampler-Non-Commercial.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
