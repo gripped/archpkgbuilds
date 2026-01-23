@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-qt5platform-plugins
-pkgver=5.7.28
+pkgver=5.7.29
 pkgrel=1
 pkgdesc='Qt platform plugins for DDE'
 arch=('x86_64')
@@ -12,13 +12,10 @@ makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt5-xcb-private-headers' 'libglv
              'extra-cmake-modules' 'dtkcommon' 'cairo')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/qt5platform-plugins.git#tag=$pkgver")
-sha512sums=('23a2326b7174586941238c940c5e466e7ae45b0105a6f85986bb9ef43f0f1ec6bff52e8917d3927717fcee793f63c4401910f7192da368f0365eb27912e21478')
+sha512sums=('114b9f1133913edb228ebc364e9ed5c1aa0df321a3cae87e66f750beab70563ffefc47473451a3e3ed2318f411831a57999563d50d1ac3aebdc68886fe856480')
 
 prepare() {
   cd qt5platform-plugins
-
-  # fix build with qt5
-  git cherry-pick -n e5c1de3b1b43976e12b7b19fea1f458b0cb17e46
 
   rm -r xcb/libqt5xcbqpa-dev wayland/qtwayland-dev
   sed -i 's|qt${QT_VERSION_MAJOR}/plugins|qt/plugins|' xcb/CMakeLists.txt
