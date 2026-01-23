@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=selene
-pkgver=0.29.0
+pkgver=0.30.0
 pkgrel=1
 pkgdesc='Blazing-fast modern Lua linter written in Rust'
 arch=(x86_64)
@@ -19,11 +19,11 @@ makedepends=(
 )
 options=(!lto)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('02e60b094cd942d5b010573c5f5e1086d1ba911501f3b5c2bfbabd639504b05ffb3c56fb64bc66a362856ab16014225158be635f97f160b0b07d839b61dafaf3')
+b2sums=('08139162434fa13c77cfffabf785f7026449c87997d42a4bdf637f2745ce7921c457a1e175f344822c68e932f95940aef3e26c05bfe474670f958bbefd9aa4a3')
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
