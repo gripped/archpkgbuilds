@@ -3,7 +3,7 @@
 # Contributor: Markus Richter <mqus at disroot dot org>
 
 pkgname=vaultwarden-web
-pkgver=2025.12.1.1
+pkgver=2025.12.2.0
 pkgrel=1
 pkgdesc='Bitwarden web vault with the patches to make it work with Vaultwarden'
 arch=(any)
@@ -16,9 +16,9 @@ makedepends=(
   npm
 )
 install=$pkgname.install
-source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('0d759802510d629508f5c6d84a046b59f5704dc55a63dd19dc2fc51123fc376bb835f557034aef72233e17e11ae5950bbc3ed3437e695e1ef379681695bbcfb1')
-b2sums=('3cefc96134c5888d3d410dca7aae34914051b58d4b3c96900829d1a129bb3f55beb55938493f26d6c2d1f6a933db4db2c5ce0d6a9d2a55162d30964cc1038bc8')
+source=("$pkgname::git+$url#tag=v${pkgver//.0/+0}") # + may be a typo. double check on next release.
+sha512sums=('02cc4df64390eae5fdb304ed870e2c7909f14e3035d0d765d2a6d2941d384fecbfcd02b33f28113cdfce410f8c5d5b4a0486cfa3b6abe483a9a8f7dea5a569ae')
+b2sums=('9fa12ba29f1ad15c1f3f1dbbade8729d256ca236995696406daade422ee7e9e6fe83221c4b8479eb6d4ee19c8cba70bca237a8a8266ed5533217fb2091d0c975')
 
 prepare() {
   cd "$pkgname"
