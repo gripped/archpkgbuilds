@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=marknote
-pkgver=1.3.0
-pkgrel=3
+pkgver=1.4.1
+pkgrel=1
 pkgdesc='A simple markdown note management app'
 url='https://apps.kde.org/marknote/'
 arch=(x86_64)
@@ -12,24 +12,28 @@ depends=(breeze-icons
          glibc
          kcolorscheme
          kconfig
-         kconfigwidgets
          kcoreaddons
-         kcrash
          ki18n
          kiconthemes
          kirigami
          kirigami-addons
          kmime
-         kxmlgui
          md4c
          qqc2-desktop-style
          qt6-base
          qt6-declarative)
 makedepends=(extra-cmake-modules)
-source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('ff99598415a6cca5900cb4d10d2b72a6f392eafe07874b6e2eb42e9f7ab3bd28'
-            'SKIP')
+source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/office/marknote/-/commit/25cf115f.patch)
+sha256sums=('96c2f551c3d9a09cdbc2d6cc242e64b3a9c811df7f29410d5b85871ec2ad2799'
+            'SKIP'
+            'cbd6657562ae7416b5bf93099852e70db974aa5681117d18b86b8e770ea3a6df')
 validpgpkeys=(39FFA93CAE9C6AFC212AD00202325448204E452A) # Carl Schwan <carl@carlschwan.eu>
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -p1 -i ../25cf115f.patch # Drop unused kxmlgui dependency
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver
