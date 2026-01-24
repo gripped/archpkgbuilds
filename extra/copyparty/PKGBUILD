@@ -3,7 +3,7 @@
 
 pkgname=copyparty
 pkgver=1.20.4
-pkgrel=1
+pkgrel=2
 pkgdesc='File server with accelerated resumable uploads, dedup, WebDAV, FTP, TFTP, zeroconf, media indexer, thumbnails++'
 arch=(any)
 url='https://github.com/9001/copyparty'
@@ -15,7 +15,6 @@ depends=(
   python-jinja
 )
 makedepends=(
-  git 
   python-build
   python-installer
   python-setuptools
@@ -34,12 +33,12 @@ optdepends=(
   'python-argon2-cffi: hashed passwords in config'
 )
 backup=(etc/copyparty/copyparty.conf)
-source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('1725b3a35048d8856803e4cdbc2c326aa31608df2ada88ddaa917057acf93705776a979e672a9e67f978a644a79570cfb35375f09fc1f705c47f7da41b68beeb')
-b2sums=('63f60a88dfab1239888e0b99ca921c496a44b0d5b9ef056ccfe95de919c6e81675e9f9a9b1e78c7cda19f4d61d295967f0f0ab130f19f7afaed816e0b42fb4ac')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/9001/copyparty/releases/download/v$pkgver/copyparty-$pkgver.tar.gz")
+sha512sums=('1f75fce1428b6d9dc3e9c70f2ac67ce712ad6519f0042f261a408b442d829ed7c4e798e4bce813f59448039f0a624e367fed60965f309e7791a1fa3c8ef2c39b')
+b2sums=('471a43e5928c3c343d32b14f8ac9ee0ac96e110340ac4a9c38b84af276111e09a0cb1462c71473623c03f7c1a07e4ec59b757ffad39dacae11ffe866156a81f5')
 
 prepare() {
-  cd "$pkgname"
+  cd "$pkgname-$pkgver"
 
   sed \
     -e 's/python3/python/g' \
@@ -47,17 +46,13 @@ prepare() {
     -i contrib/systemd/*.service
 }
 build() {
-  cd "$pkgname"
-
-  pushd copyparty/web
-  make
-  popd
+  cd "$pkgname-$pkgver"
 
   python -m build --wheel --no-isolation
 }
 
 package() {
-  cd "$pkgname"
+  cd "$pkgname-$pkgver"
 
   # license
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
@@ -67,6 +62,9 @@ package() {
 
   # prisonparty
   install -vDm755 bin/prisonparty.sh "$pkgdir/usr/bin/prisonparty"
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
 
   cd contrib/systemd
 
