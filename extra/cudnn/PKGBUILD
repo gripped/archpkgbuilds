@@ -5,7 +5,7 @@
 # Contributor: Yunhui Fu <yhfdev@gmail.com>
 
 pkgname=cudnn
-pkgver=9.18.0.77
+pkgver=9.18.1.3
 _cudaver=13
 pkgrel=1
 pkgdesc="NVIDIA CUDA Deep Neural Network library"
@@ -26,7 +26,7 @@ options=(!strip)
 # or https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/
 # or https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/
 source=("https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-${pkgver}_cuda${_cudaver}-archive.tar.xz")
-b2sums=('5242cc2e01286fc6fd76cc6c9b27dc2e393fbf0793f95693ad32f50eec739068a1379155bd5adc3c31b78e964636635ca3f07d95e577ba45742616b3b2151ef0')
+b2sums=('b7af48737fb929dde2e4a301035bdac3b447e1a2c3eaf2d9f40759aad40019055f4dd244fb73dac3700436e6180f8378e08876639688376b9f70893bd7d18f59')
 
 package() {
   cd cudnn-linux-x86_64-${pkgver}_cuda${_cudaver}-archive
