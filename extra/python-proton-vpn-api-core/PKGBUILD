@@ -2,8 +2,8 @@
 # Maintainer: Ali Molaei <ali dot molaei at protonmail dot com>
 
 pkgname=python-proton-vpn-api-core
-pkgver=4.14.1
-pkgrel=4
+pkgver=4.14.3
+pkgrel=1
 pkgdesc="The proton-vpn-core-api acts as a facade to the other Proton VPN components, exposing a uniform API to the available Proton VPN services."
 arch=("any")
 url="https://github.com/ProtonVPN/python-proton-vpn-api-core"
@@ -34,7 +34,7 @@ makedepends=(
 provides=(python-proton-vpn-network-manager)
 replaces=(python-proton-vpn-network-manager)
 source=("git+https://github.com/ProtonVPN/${pkgname}.git#tag=v${pkgver}")
-sha256sums=('dcac6fb893b1d4b5fd62e0e9de8106ddaa309f40c6b388b01384eab9e7f2e10f')
+sha256sums=('329cee02322d392b8cea39a14fb9d085c438f7ab1ce7a5bc13e4beccaa2d60af')
 optdepends=("network-manager-applet: password prompt on Gnome and other GTK DEs"
             "plasma-nm: password prompt on KDE Plasma")
 build() {
