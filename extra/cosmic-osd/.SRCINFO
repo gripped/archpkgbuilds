@@ -1,7 +1,7 @@
 pkgbase = cosmic-osd
 	pkgdesc = COSMIC On-Screen Display
 	pkgver = 1.0.3
-	pkgrel = 1
+	pkgrel = 2
 	epoch = 1
 	url = https://github.com/pop-os/cosmic-osd
 	arch = x86_64
@@ -22,6 +22,8 @@ pkgbase = cosmic-osd
 	depends = systemd-libs
 	depends = wayland
 	source = git+https://github.com/pop-os/cosmic-osd.git#tag=epoch-1.0.3
+	source = suid-polkit-agent-helper.rs
 	b2sums = fd816e79d0c68391afd893373beb72b0ef6d640c92c97465fef0ab6dc89b906ffba1eecb96ed0cfc26763a85a719e84a5e3af60a1aca57477e64b3d6e9a37543
+	b2sums = b2c1f956aad81b17fa82f0663e4b67265d904af04f67c003f39614f0338ee1ad0cd32e0ed9d7437800ef4b9f82f105533acd14c3b479ce289db4cee1c1309d92
 
 pkgname = cosmic-osd
