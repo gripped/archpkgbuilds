@@ -2,7 +2,7 @@
 # Contributor: travisghansen <travisghansen@yahoo.com>
 
 pkgname=yubico-piv-tool
-pkgver=2.7.2
+pkgver=2.7.3
 pkgrel=1
 pkgdesc="Command line tool for the YubiKey PIV application"
 url="https://developers.yubico.com/yubico-piv-tool"
@@ -11,7 +11,7 @@ license=('BSD-2-Clause')
 depends=('zlib' 'glibc' 'pcsclite' 'openssl')
 makedepends=('check' 'cmake' 'gengetopt' 'git' 'help2man')
 source=("git+https://github.com/Yubico/yubico-piv-tool.git#tag=${pkgname}-${pkgver}?signed")
-sha256sums=('69d052a715a7a2a38ef71d5fb01349b8d6b2d3a59a49f9ad589a6806c33101d0')
+sha256sums=('cb2407cab31266c240f6aecdebf1ea34303bb099c0cf46559f4c4cb72fddc684')
 validpgpkeys=('1D7308B0055F5AEF36944A8F27A9C24D9588EA0F') # Aveen Ismail <aveen.ismail@yubico.com>
 
 build() {
