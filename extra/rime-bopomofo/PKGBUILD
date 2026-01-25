@@ -3,11 +3,11 @@
 pkgname=rime-bopomofo
 pkgver=0.0.0.20251124
 _commit=78325817b095c98db8f41d491f8e8be2aa4fdaaa
-pkgrel=1
+pkgrel=2
 pkgdesc="Bopomofo input for rime"
 arch=('x86_64')
 url="https://github.com/rime/rime-bopomofo"
-license=('LGPL')
+license=('LGPL-3.0-only')
 # Rime will regenerate yaml&prism bin, which makes terra-pinyin required on runtime (for translator)
 # rime-cangjie is dependency for reverse lookup
 depends=('rime-cangjie' 'rime-terra-pinyin')
@@ -29,7 +29,7 @@ build(){
 package() {
   cd $pkgname
   find . -type l -delete
-  rm build/terra_pinyin.*
+  rm build/terra_pinyin*
   rm build/*.txt
   install -Dm644 *.yaml -t "$pkgdir"/usr/share/rime-data/
   install -Dm644 build/* -t "$pkgdir"/usr/share/rime-data/build/
