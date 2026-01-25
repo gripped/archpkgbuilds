@@ -1,0 +1,56 @@
+From 65806f8cead19972aac2261730070855eb12cad0 Mon Sep 17 00:00:00 2001
+From: Sven-Hendrik Haase <svenstaro@gmail.com>
+Date: Sun, 25 Jan 2026 09:06:21 +0100
+Subject: [PATCH] Fix compile errors and warnings on Linux
+
+Signed-off-by: Sven-Hendrik Haase <svenstaro@gmail.com>
+---
+ src/commands/start.rs | 2 +-
+ src/main.rs           | 4 ++++
+ 2 files changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/src/commands/start.rs b/src/commands/start.rs
+index 72769c8..9b8977d 100644
+--- a/src/commands/start.rs
++++ b/src/commands/start.rs
+@@ -7,12 +7,12 @@ use std::ffi::CString;
+ #[cfg(target_os = "macos")]
+ use std::fs;
+ use std::fs::File;
++#[cfg(target_os = "macos")]
+ use std::io::Write;
+ #[cfg(target_os = "linux")]
+ use std::io::{Error, ErrorKind};
+ #[cfg(target_os = "macos")]
+ use std::os::unix::fs::PermissionsExt;
+-#[cfg(target_os = "macos")]
+ use std::os::unix::io::AsRawFd;
+ #[cfg(target_os = "macos")]
+ use std::path::Path;
+diff --git a/src/main.rs b/src/main.rs
+index d3e0237..4ae47dd 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -2,18 +2,22 @@
+ // SPDX-License-Identifier: Apache-2.0
+ 
+ use std::collections::HashMap;
++#[cfg(target_os = "macos")]
+ use std::env;
++#[cfg(target_os = "macos")]
+ use std::ffi::CString;
+ #[cfg(target_os = "macos")]
+ use std::fs::File;
+ #[cfg(target_os = "macos")]
+ use std::io::{self, Error, ErrorKind, Read, Write};
++#[cfg(target_os = "macos")]
+ use std::os::unix::ffi::OsStringExt;
+ 
+ use crate::commands::{
+     ChangeVmCmd, ConfigCmd, CreateCmd, DeleteCmd, InspectCmd, ListCmd, StartCmd,
+ };
+ use clap::{Parser, Subcommand};
++#[cfg(target_os = "macos")]
+ use nix::unistd::execve;
+ use serde_derive::{Deserialize, Serialize};
+ #[cfg(target_os = "macos")]
