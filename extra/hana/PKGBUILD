@@ -2,7 +2,7 @@
 
 pkgname=hana
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Application to capture thumbnails from video files'
 arch=(x86_64)
 url='https://apps.kde.org/hana/'
@@ -32,7 +32,8 @@ validpgpkeys=(4E421C6554B89766DF9B7A37E12AB207C8755905) # George Florea Bănuș 
 
 build() {
   cmake -S $pkgname -B build -G Ninja \
-    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_BUILD_TYPE=None
   cmake --build build
 }
 
