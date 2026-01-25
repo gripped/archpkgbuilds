@@ -2,7 +2,7 @@
 
 _gemname='lsp'
 pkgname="ruby-${_gemname}"
-pkgver=0.26.2
+pkgver=0.26.5
 pkgrel=1
 pkgdesc='An opinionated language server for Ruby'
 arch=('any')
@@ -19,8 +19,8 @@ makedepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/ruby-${pkgname}-${pkgver}.tar.gz")
-sha512sums=('4a79b4f99db36519df3d346fb9d946c9c48941e5c58d3c583d50b5b1ba4e56b7acb9aff758c7d5a8e1cb4f71b920cd291449e61f2103136ad9e7769fb515ef43')
-b2sums=('f65ef5dcce95334d68b5b4dc0b0443e092fbf90e6823ac7a422a49d48822cd5decd86fef27ed646dbf36faa5a01098d7eda3d4cdc2e88898bcc3699788fe5472')
+sha512sums=('139a71d2b0c7862ca8b97f782e7d5fc0626e06fdc2112d3b9d07e7e52dc217984a553c86d5ac9c38931847fbffc82e8393961606478be1ee72545d9c180a9080')
+b2sums=('0b089c06dc66310d3892f22e61c4d10729005107a52d99d1b88642720db7a1863eb4c51ad714d01c7b0f94507999b8348584ca7d4c6dfb14f4750e9d7d39322b')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
