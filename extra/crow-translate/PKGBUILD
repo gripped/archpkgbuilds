@@ -2,7 +2,7 @@
 
 pkgname=crow-translate
 pkgver=4.0.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Application that allows you to translate and speak text'
 arch=(x86_64)
 url='https://apps.kde.org/crowtranslate/'
@@ -59,6 +59,10 @@ prepare() {
   git submodule set-url data/icons/3rdparty/breeze-icons "$srcdir/breeze-icons"
   git submodule set-url src/3rdparty/espeak-ng "$srcdir/espeak-ng"
   git -c protocol.file.allow=always submodule update
+
+  # Fix »translate selection« shortcut on wayland
+  # https://invent.kde.org/office/crow-translate/-/merge_requests/769
+  git cherry-pick -n 3c530120fc0b52bc6b31b74fbe9a124a8fbd49d9
 
   # Set window icon
   # https://invent.kde.org/office/crow-translate/-/merge_requests/775
