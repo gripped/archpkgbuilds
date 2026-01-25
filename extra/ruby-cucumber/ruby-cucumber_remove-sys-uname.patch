@@ -1,0 +1,53 @@
+diff --git a/cucumber.gemspec b/cucumber.gemspec
+index 8162a1df..cba29f4f 100644
+--- a/cucumber.gemspec
++++ b/cucumber.gemspec
+@@ -33,7 +33,6 @@ Gem::Specification.new do |s|
+   s.add_dependency 'logger', '~> 1.6'
+   s.add_dependency 'mini_mime', '~> 1.1'
+   s.add_dependency 'multi_test', '~> 1.1'
+-  s.add_dependency 'sys-uname', '~> 1.3'
+ 
+   s.add_development_dependency 'cucumber-compatibility-kit', '~> 20.0'
+   # Only needed whilst we are testing the formatters. Can be removed once we remove tests for those
+diff --git a/lib/cucumber/runtime.rb b/lib/cucumber/runtime.rb
+index da05e6f2..3b09710e 100644
+--- a/lib/cucumber/runtime.rb
++++ b/lib/cucumber/runtime.rb
+@@ -12,7 +12,6 @@ require 'cucumber/glue/registry_wrapper'
+ require 'cucumber/step_match_search'
+ require 'cucumber/messages'
+ require 'cucumber/runtime/meta_message_builder'
+-require 'sys/uname'
+ 
+ module Cucumber
+   module FixRuby21Bug9285
+diff --git a/lib/cucumber/runtime/meta_message_builder.rb b/lib/cucumber/runtime/meta_message_builder.rb
+index a412b018..86216a39 100644
+--- a/lib/cucumber/runtime/meta_message_builder.rb
++++ b/lib/cucumber/runtime/meta_message_builder.rb
+@@ -69,8 +69,7 @@ module Cucumber
+ 
+         def os
+           Cucumber::Messages::Product.new(
+-            name: RbConfig::CONFIG['target_os'],
+-            version: Sys::Uname.uname.version
++            name: RbConfig::CONFIG['target_os']
+           )
+         end
+ 
+diff --git a/spec/cucumber/runtime/meta_message_builder_spec.rb b/spec/cucumber/runtime/meta_message_builder_spec.rb
+index 9f434142..4eb1e206 100644
+--- a/spec/cucumber/runtime/meta_message_builder_spec.rb
++++ b/spec/cucumber/runtime/meta_message_builder_spec.rb
+@@ -33,10 +33,6 @@ describe Cucumber::Runtime::MetaMessageBuilder do
+       expect(subject.os.name).to eq(RbConfig::CONFIG['target_os'])
+     end
+ 
+-    it 'has an os version' do
+-      expect(subject.os.version).to eq(Sys::Uname.uname.version)
+-    end
+-
+     it 'has a cpu name' do
+       expect(subject.cpu.name).to eq(RbConfig::CONFIG['target_cpu'])
+     end
