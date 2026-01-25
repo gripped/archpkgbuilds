@@ -2,7 +2,7 @@
 
 pkgname=plasma-camera
 pkgver=2.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Camera application for Plasma Mobile'
 arch=(x86_64)
 url='https://apps.kde.org/plasma.camera/'
@@ -42,7 +42,8 @@ prepare() {
 
 build() {
   cmake -S $pkgname -B build -G Ninja \
-    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_BUILD_TYPE=None
   cmake --build build
 }
 
