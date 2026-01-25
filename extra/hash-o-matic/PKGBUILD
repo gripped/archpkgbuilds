@@ -2,7 +2,7 @@
 
 pkgname=hash-o-matic
 pkgver=1.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple hash validator allowing to compare two files, generate the checksum of a file and verify if a hash matches a file'
 arch=(x86_64)
 url='https://apps.kde.org/hashomatic/'
@@ -44,7 +44,8 @@ prepare() {
 
 build() {
   cmake -S $pkgname -B build -G Ninja \
-    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_BUILD_TYPE=None
   cmake --build build
 }
 
