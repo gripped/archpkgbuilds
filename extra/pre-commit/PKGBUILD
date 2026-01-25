@@ -1,8 +1,8 @@
 # Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
 pkgname='pre-commit'
-pkgver=4.4.0
-pkgrel=3
+pkgver=4.5.1
+pkgrel=1
 pkgdesc="A framework for managing and maintaining multi-language pre-commit hooks"
 url="https://github.com/pre-commit/pre-commit"
 license=('MIT')
@@ -43,8 +43,8 @@ replaces=(
   python-pre-commit
 )
 source=("https://github.com/pre-commit/pre-commit/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('e0d1736d77b9759c4aa97c061d7dfb2dbe26c6b8b8c636b979d3de8cc6203773d13aacfebec7490293db87d4377640545bd97169e4bdfc63ae8e8a7d64867fdb')
-b2sums=('ccc5829be668349882c8880b8fb9fc93dba317547a78f42752ea846c84cf5754126fcd9966512562537457f753357f4ce847a5ee762da20177444f779f638d14')
+sha512sums=('9600b09e10a4811886849ad881a3584c66a5f8a5ae217ef13e373df7fe78c2b5e72d7c9ae40c2174bda520a24c8bd26280c4292a3c500b2dd5879229c9a9a9fb')
+b2sums=('416e842a618fda5d32ef8b40d9b9ea9ec181a1c915493c6647429229b361bf6138a8730016103a9772d11324c3e0503592c65aed5f8174e2d1397abc9d83cee4')
 
 build() {
   cd pre-commit-$pkgver
