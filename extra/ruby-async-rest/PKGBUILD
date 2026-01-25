@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-async-rest
-pkgver=0.19.1
+pkgver=0.20.0
 pkgrel=1
 pkgdesc='A library for RESTful clients (and hopefully servers)'
 arch=(any)
@@ -24,8 +24,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(https://github.com/socketry/async-rest/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('31bce6f344370f38fd096765567ea729dd6f0d9cc32a462d431bf17d9a7a4c407b26dc3220e6568ac5c991079155af8e6ed84f5e854afc20b7266e00bcaa5206')
-b2sums=('40938b67f3f7c0b4c6c175736b2d98858c276472cfd342fca86545db2a1d72e107fde5a0236c566b00ad90d10171ee4773eb492e723bc47f1b572ea73b071b69')
+sha512sums=('68e978b210a105265203f8024a8e1c10ad728bb9ae6fc9b773acea6375bcade248480a0e2f0805ff8de2a2072c04cd84eba98bcd0e5efd0f5b1d019e360632e8')
+b2sums=('ba69917f12349c45cfff7309a2d698b93a8b906b14701f7702f8e68f5e1d05eaf528164a83fc4e090600d140ce5e5b61c4d394ada19e535ebf599057c91a9696')
 
 prepare() {
   cd async-rest-$pkgver
