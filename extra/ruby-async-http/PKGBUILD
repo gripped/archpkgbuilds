@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-async-http
-pkgver=0.94.0
+pkgver=0.94.2
 pkgrel=1
 pkgdesc='A HTTP client and server library'
 arch=(any)
@@ -41,8 +41,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(https://github.com/socketry/async-http/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('dd66efc028b6d7c062cdbabc14af4ac6854e55752d5f3f1511d41f103195ba87487ec60e701ca977cb86de70c0cc4577897b43004f4d23c09e787c5534273d06')
-b2sums=('24de7dd77f87b253d25a5ce316f6ecb63c5d04f343ed9e06c7aa8727e441fd6f606c18e42699c5bff3d5fc22ee4bdf496b24c0acb7831c4b3f80ddbc235b93aa')
+sha512sums=('e44bea2da90a84d271e32d7b5219b315d1e608d6e57f412237b82ae17c0bd1b4e9aa2485209637223abaa8baf413d1a640d90c65c3772f8e4d60f8396082cef1')
+b2sums=('a901d08b69044ff80da65b755c7a160dd12de8eb86d46dc8d0eee72bc00939065235addc6e0476806ee8a58bbb04b5f5a695037b82e3f20b30c2845b15078cb0')
 
 prepare() {
   cd async-http-$pkgver
