@@ -2,7 +2,7 @@
 
 pkgname=klevernotes
 pkgver=1.2.5
-pkgrel=2
+pkgrel=3
 pkgdesc='Note-taking and management application using markdown'
 arch=(x86_64)
 url='https://apps.kde.org/klevernotes/'
@@ -38,7 +38,8 @@ validpgpkeys=(311DA4D94B93A7AEA0496DAF5F812C367AC0A802) # Louis Schul <schul9lou
 
 build() {
   cmake -S $pkgname -B build -G Ninja \
-    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_BUILD_TYPE=None
   cmake --build build
 }
 
