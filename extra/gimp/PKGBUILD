@@ -5,7 +5,7 @@
 
 pkgname=gimp
 pkgver=3.0.8
-pkgrel=1
+pkgrel=2
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
 arch=('x86_64')
@@ -14,7 +14,6 @@ depends=(
   # Core deps
   'appstream'
   'babl'
-  'bash-completion'
   'cairo'
   'fontconfig'
   'freetype2'
@@ -64,6 +63,7 @@ depends=(
 )
 makedepends=(
   'alsa-lib'
+  'bash-completion'
   'cfitsio'
   'ghostscript'
   'gi-docgen'
@@ -80,6 +80,7 @@ makedepends=(
 )
 optdepends=(
   'alsa-lib: for MIDI event controller module'
+  'bash-completion: for bash completion support'
   'cfitsio: for FITS support'
   'ghostscript: for PostScript support'
   'gjs: for JavaScript scripting support'
