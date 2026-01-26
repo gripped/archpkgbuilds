@@ -2,7 +2,7 @@
 # Maintainer: Campbell Jones <serebit at archlinux dot org>
 # Contributor: VCalV
 pkgname=mergiraf
-pkgver=0.16.1
+pkgver=0.16.3
 pkgrel=1
 pkgdesc="A syntax-aware git merge driver for a growing collection of programming languages and file formats"
 arch=('x86_64')
@@ -13,20 +13,17 @@ checkdepends=('git')
 depends=('glibc' 'gcc-libs')
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::https://codeberg.org/mergiraf/mergiraf/archive/v$pkgver.tar.gz")
-sha512sums=('704d2d2c630605634540fba0930de76e8800040d9bcaaf55d40ec55929094d0307c52c59a103ef8599d533cd781c69dcb5f993067bbe9375fad49dc781845e35')
+sha512sums=('48d46e8968a9c1bd0c9078caea84862b3876f36fef4471d93cdf93b8f33758cbeb47adcbeb61e8d0245020735d316177f50f1a95ebb33e8fd5ef9188155407f4')
 
 prepare() {
     cd "$pkgname"
 
-    export RUSTUP_TOOLCHAIN=stable
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
     cd "$pkgname"
 
-    export RUSTUP_TOOLCHAIN=stable
-    export CARGO_TARGET_DIR=target
     cargo build --frozen --release --all-features --bin mergiraf
 }
 
