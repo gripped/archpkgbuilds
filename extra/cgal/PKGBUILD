@@ -4,7 +4,7 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=cgal
-pkgver=6.1
+pkgver=6.1.1
 pkgrel=1
 pkgdesc="Computational Geometry Algorithms Library"
 arch=(any)
@@ -13,7 +13,7 @@ license=(GPL-3.0-or-later LGPL-3.0-or-later)
 depends=(boost eigen gmp mpfr)
 makedepends=(cmake)
 source=(https://github.com/CGAL/cgal/releases/download/v$pkgver/CGAL-$pkgver.tar.xz)
-sha256sums=('618da8a8b3f5be46b4f0a47a1efb3c9e6c03d6aab0f5531d56d355d32701d79f')
+sha256sums=('52506935f70e247ed2777e3c65f20e86f79208c2a2d0e180ae7475daf11c96ef')
 
 build() {
   local cmake_options=(
