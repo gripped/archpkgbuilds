@@ -13,7 +13,7 @@
 pkgbase=posix
 pkgname=('posix' 'posix-xsi' 'posix-user-portability' 'posix-c-development' 'posix-software-development')
 pkgver=2017
-pkgrel=4
+pkgrel=5
 pkgdesc="metapackage providing the POSIX shell and utilities (XCU)"
 arch=('any')
 url="https://pubs.opengroup.org/onlinepubs/9699919799/"
@@ -75,7 +75,7 @@ package_posix-user-portability() {
     pkgdesc+=": User Portability Utilities"
     depends=('posix'
              'cronie' # crontab
-             'vi' # ex vi
+             'ex-vi-compat' # ex vi
              'util-linux' # more
              'inetutils' # talk
     )
