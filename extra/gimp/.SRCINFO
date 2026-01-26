@@ -1,7 +1,7 @@
 pkgbase = gimp
 	pkgdesc = GNU Image Manipulation Program
-	pkgver = 3.0.6
-	pkgrel = 2
+	pkgver = 3.0.8
+	pkgrel = 1
 	url = https://www.gimp.org/
 	install = gimp.install
 	arch = x86_64
@@ -22,6 +22,7 @@ pkgbase = gimp
 	makedepends = vala
 	depends = appstream
 	depends = babl
+	depends = bash-completion
 	depends = cairo
 	depends = fontconfig
 	depends = freetype2
@@ -72,9 +73,9 @@ pkgbase = gimp
 	optdepends = gjs: for JavaScript scripting support
 	optdepends = gutenprint: for sophisticated printing only as gimp has built-in cups print support
 	optdepends = gvfs: for HTTP/S support (and many other schemes)
-	source = git+https://gitlab.gnome.org/GNOME/gimp.git#tag=GIMP_3_0_6
+	source = git+https://gitlab.gnome.org/GNOME/gimp.git#tag=GIMP_3_0_8
 	source = git+https://gitlab.gnome.org/GNOME/gimp-data.git
-	sha256sums = 207318f002baa3703197d24bc45267c00564505b0307cd312a2279424ca4d7e2
+	sha256sums = 7737db8e51e7a95a43734cfe8c01cdf8a8391c9d19262348c3f5bee42a0bda04
 	sha256sums = SKIP
 
 pkgname = gimp
