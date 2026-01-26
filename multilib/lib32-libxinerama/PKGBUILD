@@ -3,16 +3,16 @@
 
 _pkgbasename=libxinerama
 pkgname=lib32-$_pkgbasename
-pkgver=1.1.5
-pkgrel=2
+pkgver=1.1.6
+pkgrel=1
 pkgdesc="X11 Xinerama extension library (32-bit)"
 arch=(x86_64)
 url="https://xorg.freedesktop.org/"
-license=('custom')
-depends=('lib32-libxext' $_pkgbasename)
+license=('MIT')
+depends=('lib32-libxext' $_pkgbasename 'lib32-libx11' 'lib32-glibc')
 makedepends=('xorg-util-macros' gcc-multilib)
 source=(${url}/releases/individual/lib/libXinerama-${pkgver}.tar.xz)
-sha512sums=('735b5320de4782005b379e409bf2f976131c17d496b297d33a0e127ca1443034778586b6b25c077b2ad73a4ab34d440d7510475e0041f38202bb40f15fb08ff7')
+sha512sums=('64bff837941625120da43b8876db4204bc5740bcf3147997fc4df1475f90d6d9e3f9caa8748c7ebbf69d681be8e5ab4bc40f82c56c367dddcec3ab27d1c71573')
 
 build() {
   export CC="gcc -m32"
