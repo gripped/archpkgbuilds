@@ -2,20 +2,20 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 _pkgbasename=libxrandr
 pkgname=lib32-$_pkgbasename
-pkgver=1.5.4
+pkgver=1.5.5
 pkgrel=1
 pkgdesc="X11 RandR extension library (32-bit)"
 arch=('x86_64')
-license=('custom')
+license=('HPND-sell-variant')
 url="https://xorg.freedesktop.org/"
-depends=('lib32-libxext' 'lib32-libxrender' $_pkgbasename)
+depends=('lib32-libxext' 'lib32-libxrender' $_pkgbasename 'lib32-libx11' 'lib32-glibc')
 makedepends=('xorg-util-macros')
 source=(${url}/releases/individual/lib/libXrandr-${pkgver}.tar.xz{,.sig})
-sha256sums=('1ad5b065375f4a85915aa60611cc6407c060492a214d7f9daf214be752c3b4d3'
+sha256sums=('72b922c2e765434e9e9f0960148070bd4504b288263e2868a4ccce1b7cf2767a'
             'SKIP')
 validpgpkeys=('10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE'  # Dave Airlie <airlied@redhat.com>
               'C41C985FDCF1E5364576638B687393EE37D128F8'  # Matthieu Herrb <matthieu.herrb@laas.fr>
-              '4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+              '3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2') # Alan Coopersmith <alan.coopersmith@oracle.com>
 
 build() {
   export CC="gcc -m32"
