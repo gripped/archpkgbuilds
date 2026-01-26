@@ -2,16 +2,16 @@
 
 _pkgbasename=libxcomposite
 pkgname=lib32-$_pkgbasename
-pkgver=0.4.6
-pkgrel=2
+pkgver=0.4.7
+pkgrel=1
 pkgdesc="X11 Composite extension library (32-bit)"
 arch=(x86_64)
 url="https://xorg.freedesktop.org/"
-license=('custom')
-depends=('lib32-libxfixes' $_pkgbasename)
+license=('MIT' 'HPND-sell-variant')
+depends=('lib32-libxfixes' $_pkgbasename 'lib32-libx11' 'lib32-glibc')
 makedepends=('xorg-util-macros' gcc-multilib)
 source=(${url}/releases/individual/lib/libXcomposite-${pkgver}.tar.xz)
-sha512sums=('f35a0da8f9f22fd788eee01209557fe3a1b1abdc9744f76330ba42b21b6e3af5464ca4451c33415856417c30da5aa5624e3707980c644327249bfeda5a62a59b')
+sha512sums=('24a03e3242f22b113aa6a3f9341858c072730f0f0073a1a7b9d36b982cd5b77223151aad32b61d1a38bbcb9f8ffedaf67b882dcb95f197d80ece9dbc99332c36')
 
 build() {
   export CC="gcc -m32"
