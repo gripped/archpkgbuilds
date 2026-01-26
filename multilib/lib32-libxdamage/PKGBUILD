@@ -2,16 +2,16 @@
 
 _pkgbasename=libxdamage
 pkgname=lib32-$_pkgbasename
-pkgver=1.1.6
-pkgrel=2
+pkgver=1.1.7
+pkgrel=1
 pkgdesc="X11 damaged region extension library (32-bit)"
 arch=(x86_64)
 url="https://xorg.freedesktop.org/"
-license=('custom')
-depends=('lib32-libxfixes>=4.0.4' $_pkgbasename)
+license=('HPND-sell-variant')
+depends=('lib32-libxfixes>=4.0.4' $_pkgbasename 'lib32-libx11' 'lib32-glibc')
 makedepends=('xorgproto')
 source=(${url}/releases/individual/lib/libXdamage-${pkgver}.tar.xz)
-sha256sums=('52733c1f5262fca35f64e7d5060c6fcd81a880ba8e1e65c9621cf0727afb5d11')
+sha256sums=('127067f521d3ee467b97bcb145aeba1078e2454d448e8748eb984d5b397bde24')
 
 build() {
   export CC="gcc -m32"

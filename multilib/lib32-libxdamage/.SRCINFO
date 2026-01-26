@@ -1,14 +1,16 @@
 pkgbase = lib32-libxdamage
 	pkgdesc = X11 damaged region extension library (32-bit)
-	pkgver = 1.1.6
-	pkgrel = 2
+	pkgver = 1.1.7
+	pkgrel = 1
 	url = https://xorg.freedesktop.org/
 	arch = x86_64
-	license = custom
+	license = HPND-sell-variant
 	makedepends = xorgproto
 	depends = lib32-libxfixes>=4.0.4
 	depends = libxdamage
-	source = https://xorg.freedesktop.org//releases/individual/lib/libXdamage-1.1.6.tar.xz
-	sha256sums = 52733c1f5262fca35f64e7d5060c6fcd81a880ba8e1e65c9621cf0727afb5d11
+	depends = lib32-libx11
+	depends = lib32-glibc
+	source = https://xorg.freedesktop.org//releases/individual/lib/libXdamage-1.1.7.tar.xz
+	sha256sums = 127067f521d3ee467b97bcb145aeba1078e2454d448e8748eb984d5b397bde24
 
 pkgname = lib32-libxdamage
