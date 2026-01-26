@@ -4,8 +4,8 @@
 # Contributor:  Po-An,Yang(Antonio) <yanganto gmail.com>
 
 pkgname=clipcat
-pkgver=0.21.1
-pkgrel=2
+pkgver=0.23.0
+pkgrel=1
 pkgdesc="A clipboard manager"
 arch=('x86_64')
 url="https://github.com/xrelkd/clipcat"
@@ -15,17 +15,14 @@ makedepends=('cargo' 'protobuf')
 source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
   'libgit2.pc'
-  "$pkgname-fix-build.patch"
 )
-sha256sums=('a665cb1f8688b12d3fad3d1e2757d355d3bd566d0985573281f6a8a446f1edea'
-            'f0b4952bd7ac83d19e11b491af6debc6cce1263070943a886726915f8c4283df'
-            'b06ac41fbf8dcfeb68af0d53752d47aaebe659d6000c4057c4c0df029a1540d5')
+sha256sums=('ae9262c8d6cca676ef4731c15ff3df7fd75db4256ddcc4cffd34fd6af9b0e36f'
+            'f0b4952bd7ac83d19e11b491af6debc6cce1263070943a886726915f8c4283df')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
-  patch -Np1 < ../$pkgname-fix-build.patch
+  cargo fetch --locked --target host-tuple
 }
 
 _force_libgit19() {
