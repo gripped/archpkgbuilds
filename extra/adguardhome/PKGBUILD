@@ -5,18 +5,20 @@
 pkgname=adguardhome
 _name=AdGuardHome
 pkgver=0.107.71
-pkgrel=1
+pkgrel=3
 epoch=1
 pkgdesc='Network-wide ads and trackers blocking DNS server'
 arch=(x86_64)
 url='https://github.com/AdguardTeam/AdGuardHome'
 license=(GPL-2.0-only)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
-        $pkgname.service)
+        $pkgname.service
+        $pkgname.sysusers)
 makedepends=(go nodejs npm git)
 depends=(glibc)
 b2sums=('2619d0fbe8e6e4e67df6bc4898c7b1f5fec2885614b1a3b4b9b53a14268b0dfaf6d2a8748d6eb9629b0a5717dfb65c43b64c1b09230f8bd975e7143bacfff683'
-        '161152f91e09fe491db631eb6ed603c0c975453b682467945fdade6091bf427ec932230f3a10e40e2f054dc01567930ecc27343c04882fb0e736b4f6becc96da')
+        'b668bf969fddf94b28a5ece22f69dd5879b01ccac3ddf18dfebbcec94fefe6bfaeb43f74d11b575406a686a86587cab72ed9693d6f85f8f420ab16cafc975ab9'
+        '39c0caacf9261d1be4668086701b4b207ec63f40f575dd322bdb37b1e6796ab89d7bbc56806867ddf11a0c71bcac5f62629518a3065cbcb2eea340ab8272abb4')
 
 prepare() {
   cd $_name-$pkgver
@@ -43,6 +45,7 @@ build() {
 package() {
   install -Dm755 $_name-$pkgver/$pkgname "$pkgdir"/usr/bin/$pkgname
   install -Dm644 $pkgname.service "$pkgdir"/usr/lib/systemd/system/$pkgname.service
+  install -Dm644 $pkgname.sysusers "$pkgdir"/usr/lib/sysusers.d/$pkgname.conf
   install -dm755 "$pkgdir"/etc
   ln -s /var/lib/$pkgname/$_name.yaml "$pkgdir"/etc/$pkgname.yaml
 }
