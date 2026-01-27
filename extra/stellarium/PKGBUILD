@@ -5,8 +5,8 @@
 # Contributor: Damir Perisa <damir.perisa@bluewin.ch>
 
 pkgname=stellarium
-pkgver=25.3
-pkgrel=2
+pkgver=25.4
+pkgrel=1
 pkgdesc="Software which renders realistic skies in real time with OpenGL"
 arch=(x86_64)
 url="https://stellarium.org"
@@ -43,7 +43,7 @@ optdepends=(
 source=(git+https://github.com/Stellarium/stellarium?signed#tag=v$pkgver
         qt-6.10.patch)
 validpgpkeys=('79151C2E6351E7278DA1A730BF38D4D02A328DFF') # Alexander Wolf <alex.v.wolf@gmail.com>
-sha256sums=('bad95db8bd59bd3733b0065c888907603102456d56d7cc68bb2a116be9a14c5b'
+sha256sums=('04b8cda0ebc06d94db8f2739bc22caaecf1af1aecf65536c6f2c4d4622e5235d'
             'ddef4435490c1aac4de5892386e93967b945c8e88f18fbe465c0c166c8a9d514')
 
 prepare() {
