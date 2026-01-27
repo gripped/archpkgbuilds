@@ -1,7 +1,7 @@
 # Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
 pkgname='usage'
-pkgver=2.12.0
+pkgver=2.15.0
 pkgrel=1
 pkgdesc='A specification for CLIs'
 arch=('x86_64')
@@ -17,8 +17,8 @@ options=(
   '!emptydirs'
 )
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('e321ca016e0df1d985e73d7d0e2447a723fed2d55d2d6f58bd844198ac5a05a9d16b325de2e0e1144f265b39bb5da6953b7b24ba590d9fbec59247524cad6882')
-b2sums=('11302874a045798cfbe82dc128c2b6ba9dc9d326437645c1b3e728d94c282e57a49d89093106a7e4c7ea7e20afc9c17f82ef9ab6cca0d7dd8fc66db7a2adafc4')
+sha512sums=('fd272297042a50bcec9fc640653256588ea4ece0191a5b7f92b2e55f6447f84ab371d06f451f6c951541b3095b728462dd4c8a78c7605d8a4e57bcc1dfca258f')
+b2sums=('032fa7fc7123255ad1c837ae06020c63e1b7229fd797cb5c2971545fa3df51f975cca6b06279b20a534ecc0dbff83378d14f91fc789c1b9449781ae8d5f69e63')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
