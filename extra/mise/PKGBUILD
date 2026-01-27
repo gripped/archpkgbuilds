@@ -1,7 +1,7 @@
 # Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
 pkgname='mise'
-pkgver=2026.1.6
+pkgver=2026.1.7
 pkgrel=1
 pkgdesc='The front-end to your dev env'
 arch=('x86_64')
@@ -33,8 +33,8 @@ options=(
   '!lto'
 )
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('5a5562e6fb7715a90ccac98affd89ab50f932294d96486d43537f54f505375a2ba32d61501a36d4bf964a970cef206ed3ba9fc25c3b8d7edd85755963e36cff7')
-b2sums=('cb0ce9fa864edde29b071b64acdfd53bb03d5acc66331b701b95863f08ad476feb47a8e4346d620ec1ccd4dc2bc1a28d0e3e7fa61d30c092e4931bc854cb8ba1')
+sha512sums=('0c26c8514a21e1033ca8f233e46f87efe95c209f2b955f7d6e737633003c11ace2f65b172eaec84710b3110906b2e98c71929208584ab84efe57b3a5966292d9')
+b2sums=('d4e27e2f6614a3c497f351c44d66dbcf59bc5f0a0e6e789042bd27bc4038018e621b1b306858e3e6f531d87e827ed2c44e6863c6216431cf12a4f526625da410')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
