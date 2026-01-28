@@ -9,9 +9,9 @@ pkgname=('virtualbox'
          'virtualbox-guest-utils-nox'
          'virtualbox-host-dkms'
          'virtualbox-sdk')
-pkgver=7.2.4
+pkgver=7.2.6
 _tarver=${pkgver}
-pkgrel=2
+pkgrel=1
 arch=('x86_64')
 url='https://virtualbox.org/'
 license=('GPL-3.0-only AND (GPL-3.0-only OR CDDL-1.0)')
@@ -71,9 +71,8 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_tarv
         '012-vbglR3GuestCtrlDetectPeekGetCancelSupport.patch'
         '013-support-building-from-dkms.patch'
         '018-upate-xclient-script.patch'
-        '020-python-3-12.patch'
-        '021-curl_proxytype-to-long.patch')
-sha256sums=('d281ec981b5f580211a0cedd1b75a1adcb0fbfcbb768d8c2bf4429f4763e8bbd'
+        '020-python-3-12.patch')
+sha256sums=('c58443a0e6fcc7fc7e84c1011a10823b3540c6a2b8f2e27c4d8971272baf09f7'
             'f753501352054576c510aa81e83f4935079ea620e601057784b02b4d4d1eeb04'
             '07fe5c8b313cd7f01505eb9721357269a288ccd0c04e6467afb954038d6f46df'
             '2101ebb58233bbfadf3aa74381f22f7e7e508559d2b46387114bc2d8e308554c'
@@ -92,8 +91,7 @@ sha256sums=('d281ec981b5f580211a0cedd1b75a1adcb0fbfcbb768d8c2bf4429f4763e8bbd'
             '8c64b3617e597390dd25cf85c9afac0ebbe369d620349d7f5c8056d834acb6c6'
             '00f68b86d32a1fada900c2da8dad2ab4215106cd58004f049bded99727cda2ff'
             '2540381de895fabbcc68d820c1f72ba644ef566ff5dab0f60be055c7b45cc06f'
-            'ddb2092a5a000aa6ef854796f39dcdf86e72c06d53b24bac3835350571182df6'
-            'c52d5950570f5b48e28f7fa9564b279df1a1ca1ef87149272dbc8a0d075db621')
+            'ddb2092a5a000aa6ef854796f39dcdf86e72c06d53b24bac3835350571182df6')
 
 prepare() {
     cd "VirtualBox-${pkgver}"
