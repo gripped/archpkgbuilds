@@ -4,7 +4,7 @@
 # Contributor:  Po-An,Yang(Antonio) <yanganto gmail.com>
 
 pkgname=clipcat
-pkgver=0.23.0
+pkgver=0.24.0
 pkgrel=1
 pkgdesc="A clipboard manager"
 arch=('x86_64')
@@ -16,7 +16,7 @@ source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
   'libgit2.pc'
 )
-sha256sums=('ae9262c8d6cca676ef4731c15ff3df7fd75db4256ddcc4cffd34fd6af9b0e36f'
+sha256sums=('27d9b724b36794dd06eb43a26bb71b61c612a0e67252f5bf8707b55f09f48461'
             'f0b4952bd7ac83d19e11b491af6debc6cce1263070943a886726915f8c4283df')
 options=('!lto')
 
@@ -44,9 +44,7 @@ build() {
 check() {
   cd "$pkgname-$pkgver"
   _force_libgit19
-  cargo test --frozen --all-features -- \
-    --skip test_x11_clipboard \
-    --skip test_x11_primary
+  cargo test --frozen --all-features
 }
 
 package() {
