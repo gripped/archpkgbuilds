@@ -1,0 +1,47 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+pkgbase=highs
+pkgname=(highs
+         python-highspy)
+pkgver=1.12.0
+pkgrel=1
+pkgdesc='Linear optimization software'
+arch=(x86_64)
+url='https://www.libraw.org/'
+license=(MIT)
+depends=(gcc-libs
+         glibc)
+makedepends=(cmake
+             git
+             pybind11
+             python-build
+             python-installer
+             python-numpy
+             python-scikit-build-core)
+source=(git+https://github.com/ERGO-Code/HiGHS#tag=v$pkgver)
+sha256sums=('df1c66e4fda1f273ea78fc9ee4ca0f4016de19800f129e41d64765e388069a79')
+
+build() {
+  cmake -B build -S HiGHS \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
+
+  cd HiGHS
+  python -m build --wheel --no-isolation
+}
+
+package_highs() {
+  depends+=(zlib)
+
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 HiGHS/LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname
+}
+
+package_python-highspy() {
+  depends+=(python
+            python-numpy)
+
+  cd HiGHS
+  python -m installer --destdir "$pkgdir" dist/*.whl
+  install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname
+}

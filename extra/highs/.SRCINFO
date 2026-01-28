@@ -1,0 +1,29 @@
+pkgbase = highs
+	pkgdesc = Linear optimization software
+	pkgver = 1.12.0
+	pkgrel = 1
+	url = https://www.libraw.org/
+	arch = x86_64
+	license = MIT
+	makedepends = cmake
+	makedepends = git
+	makedepends = pybind11
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-numpy
+	makedepends = python-scikit-build-core
+	depends = gcc-libs
+	depends = glibc
+	source = git+https://github.com/ERGO-Code/HiGHS#tag=v1.12.0
+	sha256sums = df1c66e4fda1f273ea78fc9ee4ca0f4016de19800f129e41d64765e388069a79
+
+pkgname = highs
+	depends = gcc-libs
+	depends = glibc
+	depends = zlib
+
+pkgname = python-highspy
+	depends = gcc-libs
+	depends = glibc
+	depends = python
+	depends = python-numpy
