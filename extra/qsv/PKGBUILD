@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=qsv
-pkgver=14.0.0
+pkgver=15.0.0
 pkgrel=1
 pkgdesc='quicksilver data-wrangling toolkit (fork of xsv) for tabular data such as CSV'
 arch=(x86_64)
@@ -21,7 +21,7 @@ replaces=(qsv-bin)
 _archive="$pkgname-$pkgver"
 options=(!lto)
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('b03c3aeb5e6106c2c0a1aa15dd2bec04c493c3347166edbebe39dc7006a3791c')
+sha256sums=('441e214b93a11939c7dc9f294c504977285104fd9d8895c17eabbd4f80a53590')
 
 prepare() {
 	cd "$_archive"
