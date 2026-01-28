@@ -3,9 +3,9 @@
 # Contributor: Batuhan Baserdem <lastname dot firstname at gmail>
 
 pkgname=qmk
-pkgver=1.1.8
-_qmk_udev_pkgver=0.1.1
-pkgrel=2
+pkgver=1.2.0
+_qmk_udev_pkgver=0.1.2
+pkgrel=1
 pkgdesc="CLI tool for customizing supported mechanical keyboards."
 arch=('any')
 url="https://github.com/qmk/qmk_cli"
@@ -26,8 +26,8 @@ optdepends=('gcc'
             'diffutils: some update scripts')
 source=("https://files.pythonhosted.org/packages/source/q/qmk/qmk-${pkgver}.tar.gz"
         "qmk-udev-${_qmk_udev_pkgver}.tar.gz::https://github.com/qmk/qmk_udev/archive/refs/tags/v${_qmk_udev_pkgver}.tar.gz")
-sha256sums=('0b426b6bf20aeb5b67806b2e127303e26c9245cfe265581d6046cc5edc29059d'
-            'e6cde001890e1d030d13bbe18799b76754aaea8a6d1309ce8c7956d713714920')
+sha256sums=('164bd16c4c401b2b765ee4f017bcfa8141942ddf362961c4cba1975d8cb28a48'
+            'd5f3ba2ba97f1e70aec1c49cd8054577e35dcc436b310190dbbb1aa8296ff0e1')
 
 build() {
   make -C qmk_udev-${_qmk_udev_pkgver}
