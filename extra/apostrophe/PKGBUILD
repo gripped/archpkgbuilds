@@ -2,7 +2,7 @@
 
 pkgname=apostrophe
 pkgver=3.4
-pkgrel=2
+pkgrel=3
 pkgdesc='Distraction free Markdown editor'
 arch=(any)
 url='https://apps.gnome.org/Apostrophe/'
@@ -40,10 +40,12 @@ optdepends=(
 source=(
   "git+https://gitlab.gnome.org/World/apostrophe.git#tag=v$pkgver"
   apostrophe-weasyprint.patch
+  apostrophe-python3.14.patch
 )
 b2sums=(
   91d6e6fe1d559adad1f91a518c650c7599f5423c92dac320188bfa921ef8c509dc1ff5397c56ff7940ef26e7d70bc3d14012b2bd7d86ed49d67fc2221bb07f25
   3dd7601fa9cf45cc0a4088ccdb64c95cf775e8cf236a851ff159320d312cd5c64996fb26ae54ece8f268e71cf28a7454200bc019ffc870853dadb84e5deb65b1
+  63aa6294a215f0078aa5ab6d79902f9fdf375d9507dbc22cf260e12ecc63aaf5adbafeb4e09dd8056d69c1f6d3ecb0aa984549fb9f5195266b6e759f27c5b1b0
 )
 
 prepare() {
@@ -52,6 +54,10 @@ prepare() {
   # Use weasyprint instead of typst for PDF export
   # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/338
   git apply -3 ../apostrophe-weasyprint.patch
+
+  # Fix compatibility with Python 3.14
+  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/343
+  git apply -3 ../apostrophe-python3.14.patch
 }
 
 build() {
