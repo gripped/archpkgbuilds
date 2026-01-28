@@ -2,23 +2,23 @@
 # Contributor: Bruce Zhang <zttt183525594@gmail.com>
 
 pkgname=feeluown-netease
-pkgver=1.0.6
-pkgrel=2
+pkgver=1.0.7
+pkgrel=1
 pkgdesc="feeluown netease plugin"
 arch=('any')
 url="https://github.com/feeluown/feeluown-netease"
 license=('GPL3')
 depends=('feeluown' 'python-beautifulsoup4' 'python-pycryptodome' 'python-marshmallow'
          'python-requests' 'python-mutagen')
-makedepends=('git' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools')
 checkdepends=('python-pytest')
 groups=('feeluown-full')
 source=("git+https://github.com/feeluown/feeluown-netease.git#tag=v$pkgver")
-sha512sums=('5756dcc164c8861d9838ef5e7b6505283bbd4bbf60d3afb57bb9f909b4471fe6be70f911137b5da6f007d2f57dd3fcb8e245d4e9ca8a8e2976963c1fbd8d4e92')
+sha512sums=('40e4cd076cf814c98a171ca646e6430eea5aaab67e2a6f7e0739120c35833d62f5a3ca22ec28a88cddde3d53a2fad50be604903e2ee670d6477bc072fa15b914')
 
 build() {
   cd feeluown-netease
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -28,5 +28,5 @@ check() {
 
 package() {
   cd feeluown-netease
-  python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
