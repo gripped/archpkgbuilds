@@ -2,18 +2,18 @@
 # Contributor: Julius Michaelis <gitter@liftm.de>
 
 pkgname=wasmer
-pkgver=6.1.0
-pkgrel=2
+pkgver=7.0.0
+pkgrel=1
 pkgdesc="Universal Binaries Powered by WebAssembly"
 arch=('x86_64')
 url="https://github.com/wasmerio/wasmer"
 license=('MIT')
-depends=('gcc-libs' 'zlib' 'ncurses' 'libffi' 'libxkbcommon' 'llvm18' 'glibc')
+depends=('gcc-libs' 'zlib' 'ncurses' 'libffi' 'libxkbcommon' 'llvm' 'glibc')
 makedepends=('rustup' 'cmake')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/wasmerio/wasmer/archive/refs/tags/v${pkgver}.tar.gz"
         reproducible-builds.patch)
-sha512sums=('d3893e95facdfba002257136f5a2972d0a48698b9bd286964e1833242378c48a08dc6d2c74b3160e30828050a44d56bd5e8330a6d072afd6e0ad611168b64e00'
-            'dbefb95fb2cb4449251451e931f6c3ee2e128809b34f096393b5dbf9d260a55185e5542aafce2714d8db9baded086ec9af97b63d87340d8a22d3010a1f756a17')
+sha512sums=('55018fd07030a11ff0b0f2c7352654be0f5db4201dd4556f4c4f4dc0ff86a4b3be4fe244fbd58287c145758b4972fb101cc8fb77eb5b234a4b6d5442a81597fe'
+            '5e1f26fc8684af4cf53103b1250d986ff0174bddec6eb7107d086c5b82cf1ad9e02bc7b56e47274da444f345b482dea3282de0f5d413fdded84c94f55f59eb6e')
 options=('staticlibs' '!lto')
 
 prepare() {
