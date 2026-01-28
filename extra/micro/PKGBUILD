@@ -8,18 +8,19 @@
 
 pkgname=micro
 pkgver=2.0.15
-pkgrel=1
+pkgrel=2
 # manually set date instead of "go run tools/build-date.go", for reproducible builds
-_build_date='January 27, 2026'
+_build_date='January 28, 2026'
 pkgdesc='Modern and intuitive terminal-based text editor'
 arch=(x86_64)
 url='https://micro-editor.github.io/'
 license=(MIT)
+depends=('glibc' 'hicolor-icon-theme')
 makedepends=(git go)
 optdepends=('wl-clipboard: for copying/pasting text using Wayland'
             'xclip: for copying/pasting text using X')
-source=("git+https://github.com/zyedidia/micro#commit=04c577049ca898f097cd6a2dae69af0b4d4493e1") # tag: v2.0.14
-b2sums=('6c1d0fbf3b6830de95cc5bf1bd3905af36dc7a204fc353c8424848015c7ef6056e6d803e998f8dc397322168dc83a2861c75af29ff846c50435a2e5524c1632c')
+source=("git+https://github.com/zyedidia/micro#commit=6a62575bcfdf4965f187eedafceb3400316e612b") # tag: v2.0.15
+b2sums=('49b68b8b3e5c1f501d97921162f8585f7796c024fb1a9877e1fdbe99beb6873b6cfd5fd5a718f0eb3f35bdd826fbd2341b418212b468c8d630527bb18b7318b2')
 
 prepare() {
   cd $pkgname
@@ -30,7 +31,7 @@ prepare() {
 }
 
 build() {
-  make -C $pkgname
+  CGO_ENABLED=1 make -C $pkgname
 }
 
 check() {
