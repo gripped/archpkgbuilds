@@ -2,7 +2,7 @@
 # Contributor: Daniel Eklöf <daniel at ekloef dot se>
 
 pkgname=fuzzel
-pkgver=1.13.1
+pkgver=1.14.0
 pkgrel=1
 pkgdesc='Application launcher for wlroots based Wayland compositors'
 url="https://codeberg.org/dnkl/$pkgname"
@@ -23,7 +23,7 @@ makedepends=(meson
              wayland-protocols)
 backup=('etc/xdg/fuzzel/fuzzel.ini')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('17e8f01753469573965a2a37b5745d03e6f6e7bda9d675cd2bc4644abb42d818')
+sha256sums=('f46387b29e855990614c0b699fda99130d1406f65e5ea8b447c8f7ac4b64efe4')
 
 build() {
 	cd "$pkgname"
