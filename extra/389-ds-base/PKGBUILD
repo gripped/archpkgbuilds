@@ -6,7 +6,7 @@
 pkgname=389-ds-base
 pkgver=3.2.0
 pkgdesc="389 Directory Server (base)"
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url="http://port389.org/"
 license=('GPL-3.0-only')
@@ -86,4 +86,7 @@ package() {
 
   install -Dm644 "${srcdir}/${pkgname}.sysusers" "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"
   install -Dm644 "${srcdir}/${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
+
+  # Fix warning with nonexistent jemalloc, see #3.
+  sed -i "/Environment=LD_PRELOAD/s/^/#/" "${pkgdir}/usr/lib/systemd/system/dirsrv@.service.d/custom.conf"
 }
