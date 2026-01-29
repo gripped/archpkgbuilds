@@ -2,8 +2,8 @@
 
 _hkgname=fourmolu
 pkgname=haskell-fourmolu
-pkgver=0.12.0.0
-pkgrel=8
+pkgver=0.13.0.0
+pkgrel=1
 pkgdesc="A formatter for Haskell source code"
 url="https://github.com/parsonsmatt/fourmolu"
 license=('BSD-3-Clause')
@@ -14,11 +14,11 @@ depends=('ghc-libs' 'haskell-diff' 'haskell-aeson' 'haskell-ansi-terminal' 'hask
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover'
              'haskell-hspec-megaparsec' 'haskell-path' 'haskell-path-io' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('57ca9a1554bf6cd58920f337e351a3614c998ab674c2fbbb4619273f20e10919')
+sha256sums=('5102c41c159f41901cde28728d8f4e9feb443f3c4c8798a5c21ba78872fda257')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u Diff -u ansi-terminal -u optparse-applicative
+  uusi -u Diff -u ansi-terminal
 }
 
 build() {
