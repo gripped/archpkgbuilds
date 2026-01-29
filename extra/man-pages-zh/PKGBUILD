@@ -5,10 +5,10 @@
 pkgbase=man-pages-zh
 pkgname=(man-pages-zh_cn man-pages-zh_tw)
 pkgver=1.6.4.0
-pkgrel=3
+pkgrel=4
 arch=('any')
 url='https://github.com/man-pages-zh/manpages-zh'
-license=('custom:GFDL1.2')
+license=('GFDL-1.2-or-later')
 depends=('man')
 makedepends=('opencc' 'python' 'git')
 source=("git+https://github.com/man-pages-zh/manpages-zh.git#tag=v$pkgver")
@@ -35,7 +35,7 @@ package_man-pages-zh_cn() {
 
   # remove conflicted files
   cd "$pkgdir"/usr/share/man/zh_CN
-  rm ./man1/groups.1 ./man1/free.1 ./man8/vmstat.8
+  rm ./man1/groups.1 ./man1/free.1 ./man1/uptime.1 ./man1/w.1 ./man8/vmstat.8
 }
 
 package_man-pages-zh_tw() {
