@@ -3,8 +3,8 @@
 # Contributor: Vesa Kaihlavirta <vegai@iki.fi>
 
 pkgname=openttd
-pkgver=15.0
-pkgrel=2
+pkgver=15.1
+pkgrel=1
 pkgdesc='Engine for running Transport Tycoon Deluxe'
 arch=(x86_64)
 url='https://www.openttd.org'
@@ -16,7 +16,7 @@ makedepends=(cmake)
 optdepends=('openttd-opengfx: free graphics'
             'openttd-opensfx: free soundset')
 source=("https://cdn.$pkgname.org/$pkgname-releases/$pkgver/$pkgname-$pkgver-source.tar.xz")
-b2sums=('4f3210e573e622298c3238e2701e0953826eeb91abce232da4acdd47094508cc30f988899ba204a58c30210fbdd9d37e849ba27bfcc4b7a1dfa10d8647279224')
+b2sums=('39f1ba1d8c790ccb9784a40e902aa1c7eaf8198f57b2dadf0122bc11dba235c5451a9877b8852094f226dafec9657767ee2bbf736922f48edc98b695534dd1cb')
 
 build() {
   cmake \
@@ -31,6 +31,9 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" make -C build install
-  install -Dm644 $pkgname-$pkgver/COPYING.md \
-    "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+  cd $pkgname-$pkgver
+  install -Dm644 COPYING.md "$pkgdir/usr/share/licenses/$pkgname/COPYING.md"
+  for f in CREDITS.md known-bugs.md; do
+    install -Dm644 $f "$pkgdir/usr/share/doc/$pkgname/$f"
+  done
 }
