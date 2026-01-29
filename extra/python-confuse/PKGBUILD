@@ -3,8 +3,8 @@
 # Contributor: Frederik “Freso” S. Olesen <freso.dk@gmail.com>
 
 pkgname=python-confuse
-pkgver=2.1.0
-pkgrel=2
+pkgver=2.2.0
+pkgrel=1
 pkgdesc='Painless YAML config files for Python'
 arch=(any)
 url=https://github.com/beetbox/confuse
@@ -19,9 +19,10 @@ makedepends=(
   python-poetry-core
   python-installer
 )
+checkdepends=(python-pytest)
 source=("$pkgname::git+https://github.com/beetbox/confuse#tag=v$pkgver")
-sha512sums=('b00725143832118830a58abdce59c845d4de47cbbc6d07f3f08e7a193568123fb1b194c1084ae7b8abf1278113611566cadefc3c2f8077fe358a419c93d309e0')
-b2sums=('ebf3c86cc259f70aed99cd13c457161e9cbd73fe33d15eef75592bce8aee6fd3d331ac42fa2ffb9675a59d8e965ac94058fe786a6df3534344a1998ceb500b10')
+sha512sums=('07158115f266ca72d361484637977e8963477b357880387147925fee357486634cfeae03450c1c0a903e9f4b27c32fa787015884f47c604069b3a35fb0bab117')
+b2sums=('fc98caa4bbfb99a1b5ee061f05ae25d03320881e8837c715be6a78f2dcee7ca28a7d8114d35bea92b5eeacb277cda978607302f263751d38264eb32f9ef673cf')
 
 build() {
   cd "$pkgname"
