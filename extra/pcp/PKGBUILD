@@ -5,8 +5,8 @@ pkgbase=pcp
 pkgname=(pcp pcp-gui pcp-pmda-activemq pcp-pmda-bcc pcp-pmda-bind2 pcp-pmda-bpftrace pcp-pmda-libvirt
          pcp-pmda-mysql pcp-pmda-nginx pcp-pmda-nutcracker pcp-pmda-openmetrics
          pcp-pmda-podman pcp-pmda-postgresql pcp-pmda-snmp pcp-pmda-json)
-pkgver=7.0.5
-pkgrel=2
+pkgver=7.1.0
+pkgrel=1
 arch=('x86_64')
 url="https://pcp.io"
 license=(GPL-2.0-or-later LGPL-2.1-or-later CC-BY-3.0)
@@ -33,20 +33,17 @@ source=("https://github.com/performancecopilot/pcp/archive/$pkgver/$pkgname-$pkg
         "sysuser.conf"
         "tmpfile.conf"
         "check-lto.patch"
-        "setuptools.patch"
-        "remove-six.patch")
-sha256sums=('60367829d7793511d6433773c765f31375f413fd9f18f468a8fe70d07cc0184a'
+        "setuptools.patch")
+sha256sums=('39c8394b1019137614fb28013234a47b317e4e00b1cdb74db40631e9d84b0754'
             '85fe78e3c481d89017a0ab6e7925308b6649d0356a7ebaa017240901e039fb9d'
             '0166ffea180527de5a48a8e8f145cc80860b93e8f44bc5f96836c3d1cb4b01a2'
             'd0de05ebb577c5ee67ebd583ea8a0febcfad6a74b33afd9aa5b8a7a38a8096bf'
-            'b76db42b08c1cc5e2a61cc0b3371aee2508667ac544eeba40dfcc2b895f9587d'
-            'e60859efcf3d1ab136f0707335ddcc112a4bbe57d715f5ec639f4d80fe0c59bc')
+            'b76db42b08c1cc5e2a61cc0b3371aee2508667ac544eeba40dfcc2b895f9587d')
 
 prepare() {
   cd "$pkgbase-$pkgver"
   patch -p1 -i "$srcdir/check-lto.patch"
   patch -p1 -i "$srcdir/setuptools.patch"
-  patch -p1 -i "$srcdir/remove-six.patch"
 }
 
 build() {
