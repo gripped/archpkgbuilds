@@ -5,14 +5,14 @@ pkgname=(
   sof-firmware
   sof-tools
 )
-pkgver=2025.12.1
+pkgver=2025.12.2
 pkgrel=1
 pkgdesc="Sound Open Firmware"
 url="https://www.sofproject.org/"
 arch=(x86_64)
 license=('BSD-3-Clause AND ISC')
 source=(https://github.com/thesofproject/sof-bin/releases/download/v$pkgver/sof-bin-$pkgver.tar.gz)
-b2sums=('f791dccb488ae3a1db26e39d149d0a51b68c200943ef35d2f40a59c0e17a4bc7bcaea5f54195ccc6cd9574371aceb07a394a1869efe1bdfd418d938283f8e7b8')
+b2sums=('284584e043404a65bbc2f04fcd78e9db4b1e844343a5fe1fd463e1021e92e7dcddbf8e5a8b620ca1e25d77a2469dec1804a0bafea02d3bcbfe175f64a92816a1')
 
 prepare() {
   cd sof-bin-$pkgver
