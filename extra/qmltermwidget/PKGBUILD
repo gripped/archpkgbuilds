@@ -2,28 +2,22 @@
 # Contributor: Doug Newgard <scimmia at archlinux dot info>
 
 pkgname=qmltermwidget
+_commit=ce8e09a
 pkgrel=1
-pkgver=0.2.0.git1
+pkgver=2.0.0.git1
 pkgdesc='QML port of qtermwidget'
 arch=('x86_64')
 url='https://github.com/Swordfish90/qmltermwidget'
 license=('GPL-2.0-only')
-depends=('qt5-declarative')
+depends=('qt6-declarative')
 makedepends=('git')
-source=("git+https://github.com/Swordfish90/qmltermwidget.git#commit=6322802"
-        $pkgname-pr31.patch::https://github.com/Swordfish90/qmltermwidget/pull/31.patch)
-sha512sums=('SKIP'
-            '319971c928e8d2cf4582fc985e81579981d0aeca7b8dc9286e6b2da3df5a004d13aa3b458e99af515b6f44a89660801a9d2b77ca482c697faac0ac91c1ce5594')
-
-prepare() {
-  cd $pkgname
-  patch -Np1 -i "$srcdir"/$pkgname-pr31.patch
-}
+source=("git+https://github.com/Swordfish90/qmltermwidget.git#commit=$_commit")
+sha512sums=('78f2bee3619d09fc7a888ccd91237421bce044006f7b8b05f61d21f7550421f6ef01e3b3a6f8825f39a2149bd4d1338ab83883d45a8a22f3273f8080d8524721')
 
 build() {
   cd $pkgname
 
-  qmake
+  qmake6
   make
 }
 
