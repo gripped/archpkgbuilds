@@ -5,8 +5,8 @@
 
 pkgbase=cockpit
 pkgname=(cockpit cockpit-packagekit cockpit-storaged)
-pkgver=354
-pkgrel=2
+pkgver=355
+pkgrel=1
 pkgdesc='A systemd web based user interface for Linux servers'
 arch=('x86_64')
 url='https://cockpit-project.org/'
@@ -16,7 +16,7 @@ makedepends=(krb5 libssh json-glib glib-networking glib2-devel systemd asciidoc
              gendesk python-installer python-wheel python-build python-pip)
 source=("https://github.com/cockpit-project/cockpit/releases/download/$pkgver/cockpit-$pkgver.tar.xz"
         "cockpit.pam")
-sha256sums=('5a03b2237e445ba5fa2e1976d5c8768f76516ef77da97290836531172836ace3'
+sha256sums=('cc212f9d4070bce003bf6801ce9851bab8eb627de538dd2ed7d2cfd03c3ac82c'
             '1257fb3be713ca26831faea6963d292ec2ccd284f3a6be800142fab270c504fc')
 
 prepare() {
@@ -79,6 +79,10 @@ package_cockpit() {
   # remove plugins packaged separately
   rm -rf "$pkgdir"/usr/share/cockpit/{apps,packagekit,storaged} \
          "$pkgdir"/usr/share/metainfo/org.cockpit-project.cockpit-storaged.metainfo.xml
+
+  # Arch lacks the necessary kdump packages and grub infra
+  rm -rf "$pkgdir"/usr/share/cockpit/kdump \
+         "$pkgdir"/usr/share/metainfo/org.cockpit_project.cockpit_kdump.metainfo.xml
 
   # Disallow root login by default
   printf "# List of users which are not allowed to login to Cockpit\nroot\n" > "$pkgdir"/etc/cockpit/disallowed-users
