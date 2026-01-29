@@ -4,36 +4,40 @@
 # Contributor: Glen Oakley <goakley123@gmail.com>
 
 pkgname=cool-retro-term
-pkgver=1.2.0
-pkgrel=4
+pkgver=2.0.0beta1
+_pkgver=2.0.0-beta1
+pkgrel=2
 pkgdesc='A good looking terminal emulator which mimics the old cathode display'
 arch=('x86_64')
 url='https://github.com/Swordfish90/cool-retro-term'
 license=('GPL-3.0-or-later')
-depends=('qmltermwidget' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-graphicaleffects' 'hicolor-icon-theme')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/Swordfish90/cool-retro-term/archive/$pkgver.tar.gz"
-        0001-nvidia-fix.patch)
-sha256sums=('68bd3137439941e6253a97c7dcd27b553ce4d76c8c38e7f8db63db4d6cc7000b'
-            '2dacc4c110283facbeff7f0ce69b5edb2feba41c9d4761e9f5703e17df45f74b')
+depends=('qmltermwidget' 'qt6-base' 'qt6-declarative' 'hicolor-icon-theme' 'gcc-libs' 'glibc')
+makedepends=('git')
+source=("git+https://github.com/Swordfish90/cool-retro-term.git#tag=$_pkgver"
+        "git+https://github.com/KDAB/KDSingleApplication.git")
+sha256sums=('3890cefa0453f7d63d228457998abb9291297d915d5e5a65c5af28509e64fabf'
+            'SKIP')
 
 prepare() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd cool-retro-term
+
+  git submodule init
+  git submodule set-url KDSingleApplication "$srcdir/KDSingleApplication"
+  git -c protocol.file.allow=always submodule update
 
   # Don't build vendored qmltermwidget as we package it separately.
   sed -i '/qmltermwidget/d' cool-retro-term.pro
-
-  patch -Np1 -i "$srcdir"/0001-nvidia-fix.patch
 }
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd cool-retro-term
 
-  qmake
+  qmake6
   make
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd cool-retro-term
 
   make INSTALL_ROOT="$pkgdir" install
 }
