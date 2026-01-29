@@ -1,10 +1,9 @@
 pkgbase = python-cuda
 	pkgdesc = Python interface for CUDA provided by NVIDIA
 	pkgver = 13.1.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://nvidia.github.io/cuda-python
 	arch = x86_64
-	license = Apache-2.0
 	license = LicenseRef-NVIDIA
 	checkdepends = python-pytest
 	checkdepends = python-pytest-benchmark
@@ -19,32 +18,24 @@ pkgbase = python-cuda
 	makedepends = python-setuptools-scm
 	makedepends = python-versioneer
 	makedepends = python-pyclibrary
+	makedepends = python-cuda-pathfinder
 	options = !emptydirs
 	source = python-cuda::git+https://github.com/NVIDIA/cuda-python#tag=v13.1.1
 	b2sums = aeabb096e55a8f71d713b2990789c425d9597e8f2a744e2fa280b173003f5beb76def191f9f151806f5ae867ab6811461885321e01ab0afc6c8fb54389dd69cf
 
 pkgname = python-cuda
-	license = LicenseRef-NVIDIA
 	depends = python-cuda-bindings
 	depends = python-cuda-core
 	depends = python-cuda-pathfinder
-
-pkgname = python-cuda-core
-	license = Apache-2.0
-	depends = gcc-libs
-	depends = glibc
-	depends = python
-	depends = python-cuda-bindings
-	depends = python-numpy
+	optdepends = python-cccl: cuda.coop and cuda.compute modules
+	optdepends = python-numba-cuda: a DSL for CUDA SIMT programming model
+	optdepends = python-cuda-tile: a DSL for CUDA Tile programming model
+	optdepends = python-nvmath: bindings for math libraries
+	optdepends = python-nvshmem: bindings for NVSHMEM
 
 pkgname = python-cuda-bindings
-	license = LicenseRef-NVIDIA
 	depends = cuda
 	depends = gcc-libs
 	depends = glibc
 	depends = python
 	depends = python-cuda-pathfinder
-
-pkgname = python-cuda-pathfinder
-	license = Apache-2.0
-	depends = python
