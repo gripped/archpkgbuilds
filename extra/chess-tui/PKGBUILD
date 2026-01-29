@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=chess-tui
-pkgver=2.3.0
+pkgver=2.4.0
 pkgrel=1
 pkgdesc="Play chess in your terminal"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('gcc-libs' 'alsa-lib')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('48277a5d25c17aa1843280e4ad2095724c4902ce3d532e968a9725d7afa3aeb4d3c83698f32384fc3c02897649b39b8554e138861ccebb8f7fa5eeb6578ca741')
+sha512sums=('d8be1fd139517a7470a8f2c45a5c50690190d3eff29f1f2ca5598cfb94f64a8ffe55a52d5c94d7c34e5ad28d3a9cedd02faaf7d43c5e39649834bfee819778e5')
 
 prepare() {
   cd "$pkgname-$pkgver"
