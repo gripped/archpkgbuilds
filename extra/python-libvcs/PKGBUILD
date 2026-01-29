@@ -2,8 +2,8 @@
 
 _name='libvcs'
 pkgname="python-${_name}"
-pkgver=0.37.0
-pkgrel=2
+pkgver=0.38.6
+pkgrel=1
 pkgdesc='Lite, typed, pythonic utilities for git, svn, mercurial, etc'
 arch=('any')
 url='https://libvcs.git-pull.com/'
@@ -32,17 +32,17 @@ optdepends=(
   'python-pytest: for pytest plugin'
 )
 source=("https://github.com/vcs-python/libvcs/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('2d20208dedcc07ceb73c5d2fee96783037ce8300827d518b4d935bcda0e982045908a122fd88ef4334e5171e456db6d41a7321b1e05c972477d0f1d463ff7a1c')
-b2sums=('0beabed2d4c9b7fa3d4e6ea64e7d80ba06683cc84ab86839aaa39a53940d9f0b13436ddb06b9ad3875a80df5196c2044b66a3306a89c986e2cfae65699da71b0')
+sha512sums=('d1c179002ba78c1f791014b7bcb289b6c5eb989006e5572c96faaf9cdaa6d13ea3069b07456377d74605b3c0533d6e3661a47920d36c68a62c674b5d055a346d')
+b2sums=('c0f40de15f4ba69528724a0d0be19def9410e6f0338d272dfd3cdf8a6a5f4a80c8886fb44595b12959dec99f4e763b152abe2676b823d30f55d1862cff6b5146')
 
 build() {
-  cd  "${_name}-${pkgver}"
+  cd "${_name}-${pkgver}"
 
   python -m build --wheel --skip-dependency-check --no-isolation
 }
 
 check() {
-  cd  "${_name}-${pkgver}"
+  cd "${_name}-${pkgver}"
 
   export GIT_CONFIG_GLOBAL="$HOME/.gitconfig"
   git config --global user.email "custom_email@testemail.com"
@@ -58,7 +58,7 @@ check() {
 }
 
 package() {
-  cd  "${_name}-${pkgver}"
+  cd "${_name}-${pkgver}"
 
   python -m installer --destdir="${pkgdir}" dist/*.whl
 
