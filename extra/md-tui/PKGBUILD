@@ -2,7 +2,7 @@
 
 _pkgname=mdt
 pkgname=md-tui
-pkgver=0.9.1
+pkgver=0.9.3
 pkgrel=1
 pkgdesc="Markdown renderer in the terminal"
 arch=('x86_64')
@@ -11,13 +11,13 @@ license=('AGPL-3.0-only')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('a31ca01958eb117a63425f7ce0c2568079a4b2032b999caafedec1c9bfc49273')
+sha256sums=('409731ae512a307c5f6b05c5a0bbf7e21206820c33e3fb7f4dbf0cea23cb1ba6')
 options=('!lto')
 install="$pkgname.install"
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
