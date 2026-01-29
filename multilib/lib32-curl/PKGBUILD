@@ -8,7 +8,7 @@
 pkgbase=lib32-curl
 pkgname=(lib32-curl lib32-libcurl-compat lib32-libcurl-gnutls)
 pkgver=8.18.0
-pkgrel=3
+pkgrel=4
 pkgdesc='command line tool and library for transferring data with URLs (32-bit)'
 arch=('x86_64')
 url='https://curl.se/'
@@ -37,6 +37,8 @@ source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
 sha512sums=('304ddac52ee589f6e6e168747d720ea1ecc6f66adb469b70e0a1ee7c9f0bf5ed12e2538647bb746b8a6aaa1e3860e9b00ed29cd2079ca2e4c25a2afc972f0e6a')
 
 _backports=(
+  # vquic: handle SOCKEMSGSIZE correctly
+  'cf4164fa8dc3e09b2fb729ba231ecbf7b5d015de'
 )
 
 _reverts=(
