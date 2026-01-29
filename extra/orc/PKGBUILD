@@ -2,8 +2,12 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
-pkgname=orc
-pkgver=0.4.41
+pkgbase=orc
+pkgname=(
+  orc
+  orc-docs
+)
+pkgver=0.4.42
 pkgrel=1
 pkgdesc="Optimized Inner Loop Runtime Compiler"
 url="https://gstreamer.freedesktop.org/modules/orc.html"
@@ -13,14 +17,15 @@ depends=(
   glibc
 )
 makedepends=(
+  clang
   git
-  gtk-doc
+  hotdoc
+  llvm
   meson
   valgrind
 )
-provides=(liborc{,-test}-${pkgver%.*}.so)
 source=("git+https://gitlab.freedesktop.org/gstreamer/orc.git?signed#tag=$pkgver")
-b2sums=('eb29733e3033b272c718a622e774379d993aa50ca4f23be0ef1d7dc1e99c267b0c07173f2a79ce47cbf1cb1fecfe2742c48e43994b15308c703aecf8887526e3')
+b2sums=('65b8fc3a403fb0eeb89edf865f8631bc56997149ef8e09a6a20a5e36a2fea84ab1b5cc7e916e0016d3e49cdc188957279f16baba615648bc7c7dbaf7f57e791a')
 validpgpkeys=(
   D637032E45B8C6585B9456565D2EEE6F6F349D7C # Tim-Philipp Müller <tim@centricular.com>
 )
@@ -38,8 +43,21 @@ check() {
   meson test -C build --print-errorlogs
 }
 
-package() {
+package_orc() {
+  provides=(liborc{,-test}-${pkgver%.*}.so)
+
   meson install -C build --destdir "$pkgdir"
+  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 orc/COPYING
+
+  mkdir -p doc/usr/share
+  mv {"$pkgdir",doc}/usr/share/doc
+}
+
+package_orc-docs() {
+  pkgdesc+=" (documentation)"
+  depends=()
+
+  mv doc/* "$pkgdir"
   install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 orc/COPYING
 }
 
