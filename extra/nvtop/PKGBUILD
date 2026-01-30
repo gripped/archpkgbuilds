@@ -2,22 +2,27 @@
 # Contributor: Maxime Schmitt <maxime.schmitt91@gmail.com>
 
 pkgname=nvtop
-pkgver=3.2.0
+pkgver=3.3.0
 pkgrel=1
 pkgdesc="GPUs process monitoring for AMD, Intel and NVIDIA"
 arch=('x86_64')
 url="https://github.com/Syllo/nvtop"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('ncurses' 'systemd-libs')
 makedepends=('git' 'cmake' 'libdrm' 'systemd')
+checkdepends=('gtest')
 source=("git+https://github.com/Syllo/nvtop.git#tag=$pkgver")
-sha512sums=('15edd1f83a78ade76942bcf8f4baf63903bb88641dc82fceef44999dc3452d7ffe49339f019a8a25df4f510bed10ce32f693414e5e5b5495c789359e4708579b')
+sha512sums=('38000dc7382b4ec6ccd498dc209773d9345c66b1c6dfaab181cf5370b98d27ad01d64d93e60de481f4d1d7b135f519837f85d2cb42b4c59b6727a02f13e09b85')
 
 build() {
   cd $pkgname
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr -DNVIDIA_SUPPORT=ON -DAMDGPU_SUPPORT=ON .
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DNVIDIA_SUPPORT=ON -DAMDGPU_SUPPORT=ON -DBUILD_TESTING=ON .
   make
+}
+
+check() {
+  ctest --test-dir $pkgname --output-on-failure
 }
 
 package() {
