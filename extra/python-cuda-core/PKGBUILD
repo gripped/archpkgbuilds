@@ -1,0 +1,58 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+# NOTE: python-cuda-core shares the git repository with python-cuda,
+# but it has different versioning scheme and release frequency
+pkgname=python-cuda-core
+epoch=1
+pkgver=0.5.1
+pkgrel=1
+pkgdesc="Pythonic access to CUDA core functionality"
+arch=(x86_64)
+url="https://nvidia.github.io/cuda-python/cuda-core/latest/index.html"
+license=(Apache-2.0)
+depends=(
+  gcc-libs
+  glibc
+  python
+  python-cuda-bindings
+  python-numpy
+)
+makedepends=(
+  cuda
+  cython
+  git
+  python-wheel
+  python-build
+  python-installer
+  python-setuptools-scm
+)
+checkdepends=(
+  python-pytest
+)
+source=(
+  python-cuda::git+https://github.com/NVIDIA/cuda-python#tag=cuda-core-v$pkgver
+)
+b2sums=('b0ef120d080fbd5bbe98cbd99475a7ef5ceefbdde4672970a2a3e26793822c4195377931426c98d091e8d2f0e00883792f96a2381812d6ddc946645610fea135')
+
+build() {
+  cd python-cuda/cuda_core
+
+  # enable parallel build
+  export CUDA_PYTHON_PARALLEL_LEVEL=$(nproc)
+
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd python-cuda
+  # cannot run tests in chroot
+  #python -m venv --system-site-packages test-env
+  #test-env/bin/python -m installer cuda_core/dist/*.whl
+  #test-env/bin/python -m pytest cuda_core/tests
+}
+
+package() {
+  cd python-cuda/cuda_core
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
