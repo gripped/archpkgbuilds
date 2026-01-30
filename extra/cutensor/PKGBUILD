@@ -1,7 +1,7 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=cutensor
-pkgver=2.4.1.4
+pkgver=2.5.0.2
 _cudaver=13
 pkgrel=1
 pkgdesc="High-performance CUDA library for tensor primitives"
@@ -18,7 +18,7 @@ optdepends=(
 )
 options=(!strip)
 source=(https://developer.download.nvidia.com/compute/$pkgname/redist/lib$pkgname/linux-x86_64/lib$pkgname-linux-x86_64-${pkgver}_cuda$_cudaver-archive.tar.xz)
-b2sums=('fafbebb43299aa7d8441e6f81a87e3eebbf1e7f146f465a3b12c9107d6f3fc1e3cd22ab861eb4b4266a62d5976ab57dc7dc54fc7eb20e2ea1975e9573f491d1a')
+b2sums=('7299a9b3ce2a1e42edf20a986c88ea81324a9b841f1eb02d10edb03e9ca9f395c469ab89aec9d85bc5c06565aaf370a6f3756bbdbce97f87667c2f34b8f5dbed')
 
 package() {
   cd lib$pkgname-linux-x86_64-${pkgver}_cuda${_cudaver}-archive
