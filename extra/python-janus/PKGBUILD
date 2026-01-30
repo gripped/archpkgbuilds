@@ -2,17 +2,17 @@
 # Contributor: Bruce Zhang <zttt183525594@gmail.com>
 
 pkgname=python-janus
-pkgver=1.1.0
-pkgrel=4
+pkgver=1.2.0
+pkgrel=1
 pkgdesc="Thread-safe asyncio-aware queue for Python"
 arch=('any')
 url="https://github.com/aio-libs/janus"
 license=('Apache-2.0')
 depends=('python')
 makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
-checkdepends=('python-pytest-asyncio')
+checkdepends=('python-pytest-asyncio' 'python-pytest-benchmark')
 source=("git+https://github.com/aio-libs/janus.git#tag=v$pkgver")
-sha512sums=('4a9f850b2c3c7fbe0f5a99c064a45bb8e13355518e2e83b80f5ef1a978fe5db7b01c137cf6c830c4b9f9f03bc0a5c67940fe98aa546cbe1866bb860805d39bd0')
+sha512sums=('8ca7008f90873868efb027314efa9b0e3b4587ec3977924ccf517df5c7c8ab23f80ccbf878b24dfcaebed11f5f82e28cdf5290319006d7d5b4234005b89062f1')
 
 prepare() {
   cd janus
