@@ -3,36 +3,33 @@
 # Contributor: Eric Biggers <ebiggers3 at gmail dot com>
 
 pkgname=wimlib
-pkgver=1.14.4
-pkgrel=2
+pkgver=1.14.5
+pkgrel=1
 pkgdesc='A library and program to extract, create, and modify WIM files'
-arch=('x86_64')
+arch=(x86_64)
 url='https://wimlib.net'
-license=('custom')
-depends=('fuse3' 'ntfs-3g')
-makedepends=('git')
-checkdepends=('attr')
+license=('LGPL-2.1-only OR LGPL-3.0-only')
+depends=(fuse3 ntfs-3g)
+makedepends=(git)
+checkdepends=(attr)
 optdepends=(
   'cdrkit: for making ISO image of Windows PE'
   'mtools: for making disk image of Windows PE' 
   'syslinux: for making disk image of Windows PE'
   'cabextract: for extracting Windows PE from the WAIK'
 )
-provides=('libwim.so')
-_commit='cd2a5e5d2e95c36e81d09077d06ad136f7d24950'
-source=("$pkgname::git+https://github.com/ebiggers/wimlib#commit=$_commit")
-b2sums=('SKIP')
+provides=(libwim.so)
+source=("$pkgname::git+https://github.com/ebiggers/wimlib#tag=v$pkgver")
+sha512sums=('9cb7a9c43aea142fe188e0408c2d1384bda6d4063ebd914539ca5180eca105216964c6c5e4f1921f4183b9ccfa429f94e3f31de3a1d4280a70d559ab205d1ebc')
+b2sums=('34970da4dd0f3ae463c79895c444ee99391eacc14176f32732ef662dda99c484107dee830cae668054bd657fa272845264d1d1424c2672c85728ef28751cd958')
 
-pkgver() {
+prepare() {
   cd "$pkgname"
 
-  git describe --tags | sed 's/^v//'
+  autoreconf -vfi
 }
-
 build() {
   cd "$pkgname"
-
-  autoreconf -i
 
   ./configure \
     --disable-static \
