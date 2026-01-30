@@ -1,0 +1,107 @@
+From 0ed0744bfd07752d74cb02588b40702c2517c7c0 Mon Sep 17 00:00:00 2001
+From: Jerome Tollet <jerome.tollet@gmail.com>
+Date: Thu, 29 Jan 2026 16:01:36 +0100
+Subject: [PATCH] feat: Read /proc/sys/kernel/ctrl-alt-del to decide reboot
+ behavior
+
+Instead of adding a new configuration parameter, this change makes kmscon
+respect the system-wide ctrl-alt-del setting.
+
+When ctrl-alt-del is 0 (default), a soft reboot is performed by signaling
+init (PID 1) with SIGINT, allowing for a graceful shutdown.
+
+When ctrl-alt-del is > 0, an immediate hard reboot is performed after
+syncing disk buffers.
+
+This approach follows the system configuration and eliminates the need
+for an additional kmscon-specific parameter.
+---
+ docs/man/kmscon.conf.1.xml.in   |  6 +++++-
+ scripts/etc/kmscon.conf.example |  5 ++++-
+ src/kmscon_seat.c               | 31 +++++++++++++++++++++++++++++--
+ 3 files changed, 38 insertions(+), 4 deletions(-)
+
+diff --git a/docs/man/kmscon.conf.1.xml.in b/docs/man/kmscon.conf.1.xml.in
+index f36ac78f..550ca6ec 100644
+--- a/docs/man/kmscon.conf.1.xml.in
++++ b/docs/man/kmscon.conf.1.xml.in
+@@ -392,7 +392,11 @@ font-name=Ubuntu Mono
+         <listitem>
+           <para>Reboot the system when this keyboard shortcut is pressed.
+                 This option is disabled by default.
+-                Use with caution as the reboot is immediate.
++                The reboot behavior follows the system-wide setting in
++                /proc/sys/kernel/ctrl-alt-del: when set to 0 (default),
++                a graceful reboot is performed by sending SIGINT to init (PID 1);
++                when set to a value greater than 0, an immediate hard reboot
++                is performed after syncing disk buffers.
+                 Example: grab-reboot=&lt;Ctrl&gt;&lt;Alt&gt;Delete
+                 (default: disabled)</para>
+         </listitem>
+diff --git a/scripts/etc/kmscon.conf.example b/scripts/etc/kmscon.conf.example
+index b04290c6..71db2fa4 100644
+--- a/scripts/etc/kmscon.conf.example
++++ b/scripts/etc/kmscon.conf.example
+@@ -67,7 +67,10 @@
+ #grab-terminal-new=<Ctrl><Logo>Return
+ #grab-rotate-cw=<Logo>Plus
+ #grab-rotate-ccw=<Logo>Minus
+-## Reboot system (disabled by default, use with caution - immediate reboot without confirmation)
++## Reboot system (disabled by default)
++## Reboot behavior follows /proc/sys/kernel/ctrl-alt-del:
++##   0 (default): graceful reboot (sends SIGINT to init)
++##   >0: immediate hard reboot after syncing disk buffers
+ #grab-reboot=<Ctrl><Alt>Delete
+ 
+ ## Enable mouse
+diff --git a/src/kmscon_seat.c b/src/kmscon_seat.c
+index 7779ad12..b62d4319 100644
+--- a/src/kmscon_seat.c
++++ b/src/kmscon_seat.c
+@@ -30,6 +30,8 @@
+  */
+ 
+ #include <errno.h>
++#include <signal.h>
++#include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <sys/reboot.h>
+@@ -567,10 +569,35 @@ static int seat_vt_event(struct uterm_vt *vt, struct uterm_vt_event *ev, void *d
+ 
+ static void seat_trigger_reboot(struct kmscon_seat *seat)
+ {
+-	log_warning("reboot triggered by keyboard shortcut on seat %s", seat->name);
++	FILE *fp;
++	int ctrl_alt_del = 0; /* Default to soft reboot */
++
++	/* Read system's ctrl-alt-del behavior setting */
++	fp = fopen("/proc/sys/kernel/ctrl-alt-del", "r");
++	if (fp) {
++		if (fscanf(fp, "%d", &ctrl_alt_del) != 1) {
++			log_warning(
++				"failed to read ctrl-alt-del setting, defaulting to soft reboot");
++			ctrl_alt_del = 0;
++		}
++		fclose(fp);
++	} else {
++		log_warning("failed to open /proc/sys/kernel/ctrl-alt-del: %m, defaulting to soft "
++			    "reboot");
++	}
+ 
+-	sync(); /* Synchronize disk buffers */
++	/* Soft reboot: signal init to handle graceful restart */
++	if (ctrl_alt_del == 0) {
++		log_warning("soft reboot triggered by keyboard shortcut on seat %s", seat->name);
++		if (kill(1, SIGINT) < 0) {
++			log_error("failed to signal PID 1 for reboot: %m");
++		}
++		return;
++	}
+ 
++	/* Hard reboot: immediate reboot */
++	log_warning("hard reboot triggered by keyboard shortcut on seat %s", seat->name);
++	sync(); /* Synchronize disk buffers */
+ 	if (reboot(RB_AUTOBOOT) < 0) {
+ 		log_error("failed to reboot system: %m");
+ 	}
