@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-webview
-_pkgver=6.10.1
+_pkgver=6.10.2
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -23,7 +23,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('8f94c58b9387065319f08a55df2e29239ae4213fa85a557bfcf81e94f098659a')
+sha256sums=('2c211e9213c7bcf7a46b7f37dce9c29c0ece992b778be3ae61d51019443899c6')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
