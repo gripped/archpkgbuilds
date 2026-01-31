@@ -2,13 +2,13 @@
 
 pkgname=python-patchwork
 pkgver=1.0.1
-pkgrel=10
+pkgrel=11
 pkgdesc="Common deployment/sysadmin operations, built on Fabric"
 arch=(any)
 url="https://github.com/fabric/patchwork"
-license=('BSD')
+license=('BSD-2-Clause')
 depends=('fabric')
-makedepends=('python-setuptools')
+makedepends=(python-setuptools python-build python-installer python-wheel)
 source=("https://github.com/fabric/patchwork/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         "invoke-devendor.patch")
 sha256sums=('0fda64a68a26a8acab897742773894fb765e1cc0049971675f50d7d5f8ae4fd7'
@@ -21,11 +21,11 @@ prepare() {
 
 build() {
   cd "$srcdir"/patchwork-$pkgver
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd "$srcdir"/patchwork-$pkgver
-  python setup.py install -O1 --skip-build --root="$pkgdir"
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm0644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
