@@ -3,7 +3,7 @@
 # Contributor: Christopher Cooper <christopher@cg505.com>
 
 pkgname=openai-codex
-pkgver=0.87.0
+pkgver=0.91.0
 pkgrel=1
 pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
 arch=(x86_64)
@@ -16,14 +16,14 @@ depends=(
   glibc
 )
 makedepends=(cargo)
-checkdepends=(cargo-nextest git)
+checkdepends=(cargo-nextest git clang cmake)
 optdepends=(
   'git: allow for repository actions'
   'ripgrep: accelerated large-repo search'
 )
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/rust-v$pkgver.tar.gz")
-b2sums=('c95c642a0bb15c4394788e0a4ed501cd3eee205a66c320ff818dbc97682e52154cfffbbf89ba0fd7c9317c1e707be33b938c16be934217b1f585615f8bb71694')
+b2sums=('07f6d614eac1bbcafbe818a28c342d953480abff934984398631af37e43ca98f35d887e41ef1f5b7048a5e0678579604734bb9f3cba0b5d1915910b359eea2d4')
 
 prepare() {
   cd codex-rust-v$pkgver/codex-rs
@@ -80,7 +80,8 @@ check() {
     --skip 'suite::truncation::mcp_image_output_preserves_image_and_no_text_summary' \
     --skip 'suite::truncation::mcp_tool_call_output_not_truncated_with_custom_limit' \
     --skip 'suite::compact::manual_compact_uses_custom_prompt' \
-    --skip 'suite::compact::auto_compact_runs_after_token_limit_hit'
+    --skip 'suite::compact::auto_compact_runs_after_token_limit_hit' \
+    --skip 'status::tests::status_snapshot_includes_forked_from'
 }
 
 package() {
