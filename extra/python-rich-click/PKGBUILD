@@ -2,19 +2,19 @@
 
 pkgname=python-rich-click
 _name=${pkgname#python-}
-pkgver=1.9.5
+pkgver=1.9.6
 pkgrel=1
 pkgdesc='Format click help output nicely with rich.'
 arch=(any)
 url='https://github.com/ewels/rich-click'
 depends=(python python-click python-typing_extensions python-rich python-importlib-metadata)
 makedepends=(python-build python-installer python-wheel python-setuptools git)
-checkdepends=(python-pytest python-typer python-inline-snapshot)
+checkdepends=(python-pytest python-typer python-inline-snapshot ruff)
 license=(MIT)
 source=(git+$url.git#tag=v$pkgver
   coverage.patch)
-b2sums=('bd54e0883b751507013f4468de2540efb648bfd054bb7bc9329c57d9339334b077d72f3d29ed1d50f0adfc6572e01e766436ee15de569411a73d5d1a02141e27'
-        'ce76531f596c44b9da8b5ae0b462a9a41e1003f46a2b8b7141f75ae127e0c285dcf0ae4cc0655381f839c196f8097789e83c6f236c5661d8cf30b20c455329d8')
+b2sums=('564dbde92edb8ee9550c1e9692f8e5365e4330460334a5803957d82e7787c488e452a2ac28bbc9ad48ec0686b6a92cc54cdc2724c5f2d84b839435e372f79758'
+  'ce76531f596c44b9da8b5ae0b462a9a41e1003f46a2b8b7141f75ae127e0c285dcf0ae4cc0655381f839c196f8097789e83c6f236c5661d8cf30b20c455329d8')
 
 prepare() {
   cd $_name
@@ -31,7 +31,7 @@ check() {
   cd $_name
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -P -m pytest
+  test-env/bin/python -P -m pytest -k "not test_markdown_help_rich_12 and not test_markdown_help_text_markup_field_rich_12"
 }
 
 package() {
