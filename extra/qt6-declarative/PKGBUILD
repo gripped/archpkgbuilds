@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-declarative
-_pkgver=6.10.1
+_pkgver=6.10.2
 pkgver=${_pkgver/-/}
-pkgrel=3
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -28,7 +28,7 @@ optdepends=('qt6-svg: for QtQuickVectorImage and svgtoqml')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('814050edddb87c37b118fcdff1c2f287917597c853258f5fd0e15e9b646b9a0b')
+sha256sums=('89bcfe1328a2b67a02db12d55241eaf47f6a799ecb6838dee6c37f3ebd9d9b41')
 
 prepare() {
   git -C $_pkgfn cherry-pick -n 9c6b2b78e9076f1c2676aa0c41573db9ca480654 # Fix Plasma crashes
