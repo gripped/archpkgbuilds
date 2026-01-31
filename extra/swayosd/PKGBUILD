@@ -2,8 +2,8 @@
 
 pkgname=swayosd
 _name=SwayOSD
-pkgver=0.2.1
-pkgrel=2
+pkgver=0.3.0
+pkgrel=1
 pkgdesc='A GTK based on screen display for keyboard shortcuts like caps-lock and volume'
 arch=(x86_64)
 url='https://github.com/ErikReider/SwayOSD'
@@ -11,21 +11,18 @@ license=(GPL-3.0-only)
 depends=(glibc gtk4 gtk4-layer-shell libinput gdk-pixbuf2 pango libevdev libpulse systemd-libs glib2 gcc-libs cairo dbus)
 makedepends=(cargo meson ninja sassc)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-b2sums=('e90762cf45c8208b9fc50988a466507009220652da778bfe234b09f0fd825583d933074dc7e46dd0a6329ac6e4be8726a3e3d2da1adf786fb1e21dde90838b9d')
+b2sums=('7ded222958a6d463a7c80f335e4849a0ad8fe484037d8be557274fe62b30291161088b8e03cf30f83d4b423e7e06ef240d4b9e6f4f6a23f7c6b88fe254558296')
 
 prepare() {
   cd $_name-$pkgver
 
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd $_name-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   arch-meson --buildtype=release build
-	ninja -C build
+  ninja -C build
 }
 
 package() {
