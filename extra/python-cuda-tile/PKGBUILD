@@ -1,7 +1,7 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=python-cuda-tile
-pkgver=1.0.1
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="A Python-based DSL and parallel programming model for NVIDIA GPUs"
 arch=(x86_64)
@@ -25,7 +25,7 @@ makedepends=(
 source=(
   $pkgname-$pkgver.tar.gz::https://github.com/NVIDIA/cutile-python/archive/refs/tags/v$pkgver.tar.gz
 )
-b2sums=('ae9acba8fea4888bdd0243061597f57d9423f568f147754d4dd8e9ec898ba6a4f38d941c0384c829dd49959596c1e2daf428c878efe5e9423456972b1227df33')
+b2sums=('a7015a521c582917b3a3013d15981d0e031a644d157e9bb49c143e74537330d5ef2f55ecbf32dd2ab0580c4ea02b178cedc6290cb5c5eadb2c015bc92d151a90')
 
 prepare() {
   cd cutile-python-$pkgver
