@@ -2,10 +2,10 @@
 
 pkgbase=nvhpc
 pkgname=(nvhpc nvhpc-comm-libs nvhpc-compilers)
-_cuda_ver=13.0
-_hpcx_ver=2.24
-_rel_year=2025
-pkgver=25.11
+_cuda_ver=13.1
+_hpcx_ver=2.25
+_rel_year=2026
+pkgver=26.1
 pkgrel=1
 pkgdesc="NVIDIA HPC SDK"
 arch=(x86_64)
@@ -16,6 +16,8 @@ makedepends=(
   gcc-fortran
   nsight-compute
   nsight-systems
+  nccl
+  nvshmem
 )
 options=(!strip !debug staticlibs)
 install=nvhpc.install
@@ -28,8 +30,8 @@ source=(
   nvhpc-compilers.conf.in
   nvhpc-compilers.sh.in
 )
-b2sums=('5871c9a0bfcfa29e34fa66d7d5bbafb0b33925ce078f92a4d3db8be6507c1a173556f6fd96bdf09696a1af8a54800f3788b7f98bbf4d9e21d6a95e575ba64dca'
-        '13cb59c79108d1274c42507a760efca5b340838e540c7c933b4b6173a3c1543240093d46f7764db01a6d075cee03a0c458cd9d2cbdbbd7f3eeacff70767b7946'
+b2sums=('9c10b1fbf92e3f24bdf314a96ce84aac815293603ab76a57c95bc7599a074423c62d8aa0b27cc474d110096f7eb5a995bb721cac0ad2c2219012e1129de08e67'
+        '0367f862889b02a623eba4c3e46aac8effd8096f6f6a7433bff17963f14c37f7f4c95c6ae1182722900b1cfe329aa81e5f7d0f80532bdcaca7cab2d3fb546a9c'
         '83dbff1adbb72c10300038e816445abbad7d826ffd28c7e61ec3069e2ceb8858e6e180416c268731ea0b7a98bbba26ccd177f0b40d9d131763a7dfa68286e95f'
         '40546862e00688b8d1e1428260a79b9e6eda38be461db3cab1b30b62abdc1875a332b7d3557b7eb94bfddc79849b95c9e7bd43ad93a20f93548331ec1bb5111c'
         '4bd2ac804d6d344823078435e30b3a75989db0c752d021de326d972f3efb95d7f3ea02728ae0a4f7f1875ddec7b934ddd0574105c7afe37c1d5372120863a2ca'
@@ -111,8 +113,13 @@ build() {
     rm $compdir/bin/$f
   done
 
-  # Move components for split packages
   cd "$prepdir"
+
+  # Replace nccl and nvshmem with symlinks
+  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/comm_libs/$_cuda_ver/nccl /usr
+  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/comm_libs/$_cuda_ver/nvshmem /usr
+
+  # Move components for split packages
   _pick $pkgbase-comm-libs opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/comm_libs
   _pick $pkgbase-compilers opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/compilers
 
@@ -154,7 +161,9 @@ package_nvhpc-comm-libs() {
     cuda
     gcc-libs
     glibc
+    nccl
     numactl
+    nvshmem
     zlib
   )
 
@@ -164,8 +173,6 @@ package_nvhpc-comm-libs() {
   local comm_libs_dir=/opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/comm_libs/$_cuda_ver/
   install -vdm 755 "$pkgdir"/usr/share/licenses/$pkgname/
   ln -vs --no-target-directory "$comm_libs_dir"/hpcx/hpcx-$_hpcx_ver/sharp/share/doc/sharp/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE_hpcx
-  ln -vs --no-target-directory "$comm_libs_dir"/nccl/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE_nccl
-  ln -vs --no-target-directory "$comm_libs_dir"/nvshmem/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE_nvshmem
 }
 
 package_nvhpc-compilers() {
