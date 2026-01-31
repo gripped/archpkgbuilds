@@ -3,13 +3,13 @@
 
 pkgname=supervisor
 pkgver=4.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A system for controlling process state under UNIX"
 arch=('any')
 url="http://supervisord.org"
-license=('custom')
+license=('LicenseRef-custom')
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=(python-setuptools python-build python-installer python-wheel)
 backup=('etc/supervisord.conf')
 source=("https://files.pythonhosted.org/packages/source/s/$pkgname/$pkgname-$pkgver.tar.gz"
         'supervisord.service'
@@ -22,12 +22,12 @@ sha256sums=('4a2bf149adf42997e1bb44b70c43b613275ec9852c3edacca86a9166b27e945e'
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
-	python setup.py build
+	python -m build --wheel --no-isolation
 }
 
 package() {
 	cd "$srcdir/$pkgname-$pkgver"
-	python setup.py install -O1 --skip-build --prefix=/usr --root="$pkgdir"
+	python -m installer --destdir="$pkgdir" dist/*.whl
 	install -Dm600 "$srcdir/supervisord.conf" "$pkgdir/etc/supervisord.conf"
 	install -Dm644 "$srcdir/supervisor.logrotate" "$pkgdir/etc/logrotate.d/supervisor"
 	install -Dm644 "$srcdir/supervisord.service" "$pkgdir/usr/lib/systemd/system/supervisord.service"

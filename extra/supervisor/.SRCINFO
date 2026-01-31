@@ -1,11 +1,14 @@
 pkgbase = supervisor
 	pkgdesc = A system for controlling process state under UNIX
 	pkgver = 4.3.0
-	pkgrel = 2
+	pkgrel = 3
 	url = http://supervisord.org
 	arch = any
-	license = custom
+	license = LicenseRef-custom
 	makedepends = python-setuptools
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
 	depends = python
 	backup = etc/supervisord.conf
 	source = https://files.pythonhosted.org/packages/source/s/supervisor/supervisor-4.3.0.tar.gz
