@@ -1,0 +1,23 @@
+diff --git a/waylib/src/server/platformplugin/qwlrootsintegration.cpp b/waylib/src/server/platformplugin/qwlrootsintegration.cpp
+index bdbafa4b..10f15276 100644
+--- a/waylib/src/server/platformplugin/qwlrootsintegration.cpp
++++ b/waylib/src/server/platformplugin/qwlrootsintegration.cpp
+@@ -287,6 +287,9 @@ bool QWlrootsIntegration::hasCapability(Capability cap) const
+     case ApplicationState:
+     case ForeignWindows:
+     case NonFullScreenWindows:
++#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 2)
++    case OffscreenSurface:
++#endif
+     case WindowManagement:
+     case WindowActivation:
+     case SyncState:
+@@ -504,7 +507,7 @@ QPlatformTheme *QWlrootsIntegration::createPlatformTheme(const QString &name) co
+ QPlatformOffscreenSurface *QWlrootsIntegration::createPlatformOffscreenSurface(QOffscreenSurface *surface) const
+ {
+     if (QW::OffscreenSurface::check(surface))
+-        return new OffscreenSurface(surface);
++        return new Waylib::Server::OffscreenSurface(surface);
+ 
+     return CALL_PROXY(createPlatformOffscreenSurface, surface);
+ }
