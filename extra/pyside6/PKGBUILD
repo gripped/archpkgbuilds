@@ -6,7 +6,7 @@ pkgname=(pyside6
          pyside6-tools
          shiboken6)
 pkgver=6.10.1
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
