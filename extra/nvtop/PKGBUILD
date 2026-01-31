@@ -2,7 +2,7 @@
 # Contributor: Maxime Schmitt <maxime.schmitt91@gmail.com>
 
 pkgname=nvtop
-pkgver=3.3.0
+pkgver=3.3.1
 pkgrel=1
 pkgdesc="GPUs process monitoring for AMD, Intel and NVIDIA"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('ncurses' 'systemd-libs')
 makedepends=('git' 'cmake' 'libdrm' 'systemd')
 checkdepends=('gtest')
 source=("git+https://github.com/Syllo/nvtop.git#tag=$pkgver")
-sha512sums=('38000dc7382b4ec6ccd498dc209773d9345c66b1c6dfaab181cf5370b98d27ad01d64d93e60de481f4d1d7b135f519837f85d2cb42b4c59b6727a02f13e09b85')
+sha512sums=('5a9f1932273b2a78a6d5114f8d93a3b00fa5bb6f0c185000859ef1b2b3b57d09b278da78233f29d957f4a5863d5de40a52466c77fe52bb40742d7adb9058307b')
 
 build() {
   cd $pkgname
