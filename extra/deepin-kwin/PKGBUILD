@@ -4,7 +4,7 @@
 
 pkgname=deepin-kwin
 pkgver=6.0.8
-pkgrel=4
+pkgrel=5
 pkgdesc='DDE window manager forked from KWin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-kwin"
@@ -21,9 +21,11 @@ makedepends=(git extra-cmake-modules ninja qt6-tools clang wayland-protocols
 conflicts=('kwin' 'kwin-x11')
 source=("git+https://github.com/linuxdeepin/deepin-kwin.git#tag=$pkgver"
          qt-6.10.patch
+         qt-6.10.2.patch
          disable-kglobalaccel.patch)
 sha512sums=('295451187c76e690af0bf3ae87ad1a03cc323efbf9971ba76c9fbaf9ec5590a0bbcdeed4331f106462c5c44519a8a44ed3272ed3bf63fecb1e6042275b557f4d'
             'e2d18def480dc62cdd7d0a0e2d6b313501701616a01983ad2f7fe092ad044b1882e9cd39f7bb47564743e6b2b63fee2585369b319e41021db2f3aa0e1f7466c8'
+            'a561fed7fe5922128cc85f0014034555ffd12a56b6edf55ed8e2f10d6bc64cc93fdd2b36d95d3dbb726fba3bbdfdd3addb72a141e8488be26a0cc1d79aa55bd9'
             '18f4ef2cce61fe8e6b6a0ec35fd942ad631e37cfbf2688ef9dbc7767d93a27d27603fcd5b2df4383b2a3a7449402a933751f7b2ebe90edb3ae7110c849e766fa')
 
 prepare() {
@@ -33,6 +35,7 @@ prepare() {
   sed -i 's|/usr/share/backgrounds/default_background.jpg|/usr/share/backgrounds/deepin/desktop.jpg|' src/effects/multitaskview/multitaskview.cpp
 
   patch -p1 -i ../qt-6.10.patch
+  patch -p1 -i ../qt-6.10.2.patch
 # Disable kglobalaccel, doesn't build with Plasma 6.5
   patch -p1 -i ../disable-kglobalaccel.patch
 }

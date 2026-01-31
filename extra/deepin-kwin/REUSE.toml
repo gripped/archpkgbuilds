@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -23,8 +26,9 @@ SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
-    "qt-6.10.patch",
     "disable-kglobalaccel.patch",
+    "qt-6.10.2.patch",
+    "qt-6.10.patch",
 ]
 SPDX-FileCopyrightText = "deepin-kwin contributors"
 SPDX-License-Identifier = "GPL-2.0-or-later"
