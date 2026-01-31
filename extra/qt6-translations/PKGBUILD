@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-translations
-_pkgver=6.10.1
+_pkgver=6.10.2
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(any)
@@ -21,7 +21,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('31d8eefa7fbb134c156d12b3087b7e9e1e94bd34457c4af50f3e3aeb62b6224a')
+sha256sums=('7181898a85d46af66595cb00dc59453e59501dd49495ca8c0e8ad5b149c31191')
 
 build() {
   export PATH="/usr/lib/qt6/bin:$PATH"
