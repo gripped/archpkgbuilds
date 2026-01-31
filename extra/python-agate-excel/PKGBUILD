@@ -5,7 +5,7 @@
 _pyname=agate-excel
 pkgname=python-$_pyname
 pkgver=0.4.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Adds read support for Excel files (xls and xlsx) to agate'
 arch=(any)
 url="https://$_pyname.readthedocs.org"
@@ -16,16 +16,19 @@ _pydeps=(agate
          xlrd)
 depends=(python
          "${_pydeps[@]/#/python-}")
-makedepends=(python-setuptools
+makedepends=(python-build
+             python-installer
+             python-setuptools
              python-sphinx
-             python-sphinx-furo)
+             python-sphinx-furo
+             python-wheel)
 _archive="$_pyname-$pkgver"
 source=("$_archive.tar.gz::https://github.com/wireservice/$_pyname/archive/$pkgver.tar.gz")
 sha256sums=('1c3df325257c6f5047dc1ce7475caa109565f0ae98379e39e1bd83503617153e')
 
 build() {
 	cd "$_archive"
-	python setup.py build
+	python -m build --wheel --no-isolation
 	make -C docs html
 	local _rtd_theme_path="$(python -c 'import sphinx_rtd_theme; print(sphinx_rtd_theme.get_html_theme_path())')"
 	rm -rvf docs/_build/html/_static
@@ -39,7 +42,7 @@ check() {
 
 package() {
 	cd "$_archive"
-	python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+	python -m installer --destdir="$pkgdir" dist/*.whl
 	install -dm0755 "$pkgdir/usr/share/doc/"
 	cp -rv docs/_build/html "$pkgdir/usr/share/doc/$pkgname"
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" COPYING
