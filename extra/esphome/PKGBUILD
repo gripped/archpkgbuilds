@@ -2,7 +2,7 @@
 # Contributor: sgar < swhaat at github >
 
 pkgname=esphome
-pkgver=2025.12.5
+pkgver=2026.1.2
 pkgrel=1
 pkgdesc='Solution for your ESP8266/ESP32 projects with Home Assistant'
 url='https://github.com/esphome/ESPHome'
@@ -42,7 +42,7 @@ optdepends=('python-esphome-dashboard: ESPHome dashboard')
 license=('MIT AND GPL-3.0-only')
 arch=(any)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-b2sums=('dddb57aa7fe115ef5aa5aab30e89154f1e8c8f534ec4292c2fc543512fd568e9310678e151250d1ef96e44786136310334102bdff9931712142f1a60244ac01b')
+b2sums=('d06770de09cef75ac50f12dac5c971980b2bc49fdcc64ef6a765a4805624fe43daf8131909b4bb61ca7438ee94f004c17d124b99ae96acaf11da801002418e64')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -50,7 +50,7 @@ prepare() {
   # relax requirements
   sed -i 's/==.*//' requirements.txt
   sed -i 's/setuptools==[0-9.]\+/setuptools/' pyproject.toml
-  sed -i 's/wheel~=[0-9.]\+/wheel/' pyproject.toml
+  sed -i 's/wheel>=[0-9.]\+,<[0-9.]\+/wheel/' pyproject.toml
 }
 
 build() {
