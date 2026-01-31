@@ -2,10 +2,10 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-webengine
-_pkgver=6.10.1
+_pkgver=6.10.2
 pkgver=${_pkgver/-/}
-pkgrel=2
-_chromium=8f09636407c9e0a41e6a98bc71e9bda8794c40d8
+pkgrel=1
+_chromium=
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -81,7 +81,7 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
         git+https://code.qt.io/qt/qtwebengine-chromium)
-sha256sums=('b72b99bca4b28016af96e69706bab3c5e49c4ae4f2f5b9a2b93fdfb3e9470261'
+sha256sums=('98d8f65137ae6d913ddbe45b3dac562e6b01a5879695424d7f1c3f9eeeb16c21'
             'SKIP')
 
 prepare() {
