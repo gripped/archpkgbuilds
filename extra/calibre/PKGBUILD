@@ -9,7 +9,7 @@
 
 pkgname=calibre
 pkgver=8.7.0
-pkgrel=8
+pkgrel=9
 pkgdesc='Ebook management application'
 arch=(x86_64)
 url=https://calibre-ebook.com
@@ -75,6 +75,7 @@ makedepends=(cmake
              xdg-utils)
 checkdepends=(poppler
               python-fonttools
+              python-pyzstd
               speech-dispatcher
               tk)
 optdepends=('poppler: required for converting pdf to html'
