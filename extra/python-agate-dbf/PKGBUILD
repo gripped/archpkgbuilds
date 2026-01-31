@@ -5,7 +5,7 @@
 _pyname=agate-dbf
 pkgname=python-$_pyname
 pkgver=0.2.4
-pkgrel=2
+pkgrel=3
 pkgdesc='Adds read support for dbf files to agate'
 arch=(any)
 url="https://$_pyname.readthedocs.org"
@@ -16,8 +16,11 @@ _pydeps=(agate
          sphinx_rtd_theme)
 depends=(python
          "${_pydeps[@]/#/python-}")
-makedepends=(python-setuptools
-             python-sphinx)
+makedepends=(python-build
+             python-installer
+             python-setuptools
+             python-sphinx
+             python-wheel)
 checkdepends=(python-pytest)
 _archive="$_pyname-$pkgver"
 source=("$_archive.tar.gz::https://github.com/wireservice/$_pyname/archive/$pkgver.tar.gz")
@@ -25,7 +28,7 @@ sha256sums=('40983c2f9cdd7b6f83f258f484bf612a8b46bbce445f330064a701d7100a7e76')
 
 build() {
 	cd "$_archive"
-	python setup.py build
+	python -m build --wheel --no-isolation
 	make -C docs html
 	_rtd_theme_path="$(python -c 'import sphinx_rtd_theme; print(sphinx_rtd_theme.get_html_theme_path())')"
 	rm -rvf docs/_build/html/_static
@@ -39,7 +42,7 @@ check() {
 
 package() {
 	cd "$_archive"
-	python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+	python -m installer --destdir="$pkgdir" dist/*.whl
 	install -dm0755 "$pkgdir/usr/share/doc/"
 	cp -rv docs/_build/html "$pkgdir/usr/share/doc/$pkgname"
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" COPYING
