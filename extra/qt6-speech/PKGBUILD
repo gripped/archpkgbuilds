@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-speech
-_pkgver=6.10.1
+_pkgver=6.10.2
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -28,7 +28,7 @@ optdepends=('flite: flite TTS backend'
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('d461e32ef0ee32f7851c85e9b9311085563c8635d9ae9fb61e2453476aafb882')
+sha256sums=('94b439bca3bf42b0d59e5869efcfe5acd8263b194b7fdf1f741f3910c5e32b6e')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
