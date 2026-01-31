@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-svg
-_pkgver=6.10.1
+_pkgver=6.10.2
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -23,7 +23,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('b3a779b09f3a5ad14fee120873d07d64f0c9991406c40a46e902d6a07850b158')
+sha256sums=('0866183ad66a9479476ea6abd51af614f769b3850359fa39359adfabacdbdcca')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
