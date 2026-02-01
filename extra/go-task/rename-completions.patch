@@ -12,12 +12,12 @@
  {
    local cur prev words cword
    _init_completion -n : || return
-@@ -53,4 +53,4 @@ function _task()
+@@ -57,4 +57,4 @@ function _task()
    __ltrim_colon_completions "$cur"
  }
  
 -complete -F _task "$TASK_CMD"
-+complete -F _go_task "$GO_TASK_CMD"
++complete -F _task "$GO_TASK_CMD"
 --- a/completion/fish/task.fish
 +++ b/completion/fish/task.fish
 @@ -1,33 +1,33 @@
@@ -48,7 +48,7 @@
 -    set -g __task_experiments_cache (task --experiments 2>/dev/null)
 -    set -g __task_experiments_cache_time $now
 -    printf '%s\n' $__task_experiments_cache
-+    set -g __go_task_experiments_cache (go-task --experiments 2>/dev/null)
++    set -g __go_task_experiments_cache (task --experiments 2>/dev/null)
 +    set -g __go_task_experiments_cache_time $now
 +    printf '%s\n' $__go_task_experiments_cache
  end
@@ -75,7 +75,7 @@
    -n "not __fish_seen_subcommand_from --"
  
  # Standard flags
-@@ -103,14 +103,14 @@ complete -c $GO_TASK_PROGNAME -s y -l yes                       -d 'assume yes t
+@@ -104,17 +104,17 @@ complete -c $GO_TASK_PROGNAME -s y -l yes                       -d 'assume yes t
  
  # Experimental flags (dynamically checked at completion time via -n condition)
  # GentleForce experiment
@@ -87,10 +87,16 @@
 -complete -c $GO_TASK_PROGNAME -n "__task_is_experiment_enabled REMOTE_TASKFILES" -l timeout          -d 'timeout for remote Taskfile downloads'
 -complete -c $GO_TASK_PROGNAME -n "__task_is_experiment_enabled REMOTE_TASKFILES" -l expiry           -d 'cache expiry duration'
 -complete -c $GO_TASK_PROGNAME -n "__task_is_experiment_enabled REMOTE_TASKFILES" -l remote-cache-dir -d 'directory to cache remote Taskfiles' -xa "(__fish_complete_directories)"
+-complete -c $GO_TASK_PROGNAME -n "__task_is_experiment_enabled REMOTE_TASKFILES" -l cacert           -d 'custom CA certificate for TLS' -r
+-complete -c $GO_TASK_PROGNAME -n "__task_is_experiment_enabled REMOTE_TASKFILES" -l cert             -d 'client certificate for mTLS' -r
+-complete -c $GO_TASK_PROGNAME -n "__task_is_experiment_enabled REMOTE_TASKFILES" -l cert-key         -d 'client certificate private key' -r
 +complete -c $GO_TASK_PROGNAME -n "__go_task_is_experiment_enabled REMOTE_TASKFILES" -l offline          -d 'use only local or cached Taskfiles'
 +complete -c $GO_TASK_PROGNAME -n "__go_task_is_experiment_enabled REMOTE_TASKFILES" -l timeout          -d 'timeout for remote Taskfile downloads'
 +complete -c $GO_TASK_PROGNAME -n "__go_task_is_experiment_enabled REMOTE_TASKFILES" -l expiry           -d 'cache expiry duration'
 +complete -c $GO_TASK_PROGNAME -n "__go_task_is_experiment_enabled REMOTE_TASKFILES" -l remote-cache-dir -d 'directory to cache remote Taskfiles' -xa "(__fish_complete_directories)"
++complete -c $GO_TASK_PROGNAME -n "__go_task_is_experiment_enabled REMOTE_TASKFILES" -l cacert           -d 'custom CA certificate for TLS' -r
++complete -c $GO_TASK_PROGNAME -n "__go_task_is_experiment_enabled REMOTE_TASKFILES" -l cert             -d 'client certificate for mTLS' -r
++complete -c $GO_TASK_PROGNAME -n "__go_task_is_experiment_enabled REMOTE_TASKFILES" -l cert-key         -d 'client certificate private key' -r
  
  # RemoteTaskfiles experiment - Operations
 -complete -c $GO_TASK_PROGNAME -n "__task_is_experiment_enabled REMOTE_TASKFILES" -l download    -d 'download remote Taskfile'
@@ -105,7 +111,7 @@
  typeset -A opt_args
 -TASK_CMD="${TASK_EXE:-task}"
 -compdef _task "$TASK_CMD"
-+GO_TASK_CMD="${TASK_EXE:-go_task}"
++GO_TASK_CMD="${GO_TASK_EXE:-go-task}"
 +compdef _go_task "$GO_TASK_CMD"
  
  _GO_TASK_COMPLETION_LIST_OPTION="${GO_TASK_COMPLETION_LIST_OPTION:---list-all}"
@@ -139,7 +145,7 @@
      local -a standard_args operation_args
  
      standard_args=(
-@@ -106,11 +106,11 @@ _task() {
+@@ -107,11 +107,11 @@ _task() {
  
      # Experimental flags (dynamically added based on enabled experiments)
      # Options (modify behavior)
@@ -153,7 +159,7 @@
          standard_args+=(
              '(--offline --download)--offline[use only local or cached Taskfiles]'
              '(--timeout)--timeout[timeout for remote Taskfile downloads]:duration: '
-@@ -121,7 +121,7 @@ _task() {
+@@ -125,7 +125,7 @@ _task() {
  
      operation_args=(
          # Task names completion (can be specified multiple times)
@@ -162,7 +168,7 @@
          # Operational args completion (mutually exclusive)
          + '(operation)'
              '(*)'{-l,--list}'[list describable tasks]'
-@@ -132,7 +132,7 @@ _task() {
+@@ -136,7 +136,7 @@ _task() {
      )
  
      # Experimental operations (dynamically added based on enabled experiments)
@@ -171,12 +177,10 @@
          standard_args+=(
              '(--offline --clear-cache)--download[download remote Taskfile]'
          )
-@@ -145,6 +145,6 @@ _task() {
- }
+@@ -150,5 +150,5 @@ _task() {
  
  # don't run the completion function when being source-ed or eval-ed
--if [ "$funcstack[1]" = "_task" ]; then
+ if [ "$funcstack[1]" = "_task" ]; then
 -    _task "$@"
-+if [ "$funcstack[1]" = "_go_task" ]; then
 +    _go_task "$@"
  fi
