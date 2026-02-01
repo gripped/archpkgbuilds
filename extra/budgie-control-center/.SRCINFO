@@ -1,12 +1,13 @@
 pkgbase = budgie-control-center
 	pkgdesc = Budgie's main interface to configure various aspects of the system
-	pkgver = 1.4.1
-	pkgrel = 5
+	pkgver = 2.1.0
+	pkgrel = 1
 	url = https://github.com/BuddiesOfBudgie/budgie-control-center
 	arch = x86_64
 	groups = budgie
 	license = GPL-2.0-or-later
 	makedepends = colord
+	makedepends = colord-gtk
 	makedepends = docbook-xsl
 	makedepends = git
 	makedepends = glib2-devel
@@ -15,7 +16,6 @@ pkgbase = budgie-control-center
 	depends = accountsservice
 	depends = at-spi2-core
 	depends = cairo
-	depends = colord-gtk
 	depends = dconf
 	depends = fontconfig
 	depends = gcc-libs
@@ -29,7 +29,6 @@ pkgbase = budgie-control-center
 	depends = gtk3
 	depends = hicolor-icon-theme
 	depends = krb5
-	depends = libcolord
 	depends = libcups
 	depends = libepoxy
 	depends = libgtop
@@ -56,9 +55,9 @@ pkgbase = budgie-control-center
 	optdepends = power-profiles-daemon: Power profiles support
 	optdepends = rygel: Media sharing
 	optdepends = system-config-printer: Printer settings
-	source = git+https://github.com/BuddiesOfBudgie/budgie-control-center.git#tag=v1.4.1
+	source = git+https://github.com/BuddiesOfBudgie/budgie-control-center.git#tag=v2.1.0
 	validpgpkeys = 1E1FB0017C998A8AE2C498A6C2EAA8A26ADC59EE
 	validpgpkeys = 0E0D97562A4EC8BD8E329DCDAA7A2325E04B609B
-	b2sums = df546ef6bddb9c120d7d31b4eb3bc339f096a42d555f10ab8bffc744b09adc4dbb1d169b9c4893aaa6790782474f52be44d99ec95ad0c08dbcda2b6726fe3508
+	b2sums = b43f00cf91754e4c30ac8e59905448c3eceb7ad7fbadbed8801cfd36259cbca52591d7e00fb40eba7b2c04212d3a8ff496251841fe380683d4f0e8d3040a537e
 
 pkgname = budgie-control-center

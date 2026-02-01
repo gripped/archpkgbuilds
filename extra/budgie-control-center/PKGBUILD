@@ -1,8 +1,8 @@
 # Maintainer: Campbell Jones <serebit@archlinux.org>
 
 pkgname=budgie-control-center
-pkgver=1.4.1
-pkgrel=5
+pkgver=2.1.0
+pkgrel=1
 pkgdesc="Budgie's main interface to configure various aspects of the system"
 arch=(x86_64)
 url="https://github.com/BuddiesOfBudgie/budgie-control-center"
@@ -12,7 +12,6 @@ depends=(
   accountsservice
   at-spi2-core
   cairo
-  colord-gtk
   dconf
   fontconfig
   gcc-libs
@@ -26,7 +25,6 @@ depends=(
   gtk3
   hicolor-icon-theme
   krb5
-  libcolord
   libcups
   libepoxy
   libgtop
@@ -51,6 +49,7 @@ depends=(
 )
 makedepends=(
   colord
+  colord-gtk
   docbook-xsl
   git
   glib2-devel
@@ -65,23 +64,11 @@ optdepends=(
   'system-config-printer: Printer settings'
 )
 source=("git+https://github.com/BuddiesOfBudgie/budgie-control-center.git#tag=v$pkgver")
-b2sums=(df546ef6bddb9c120d7d31b4eb3bc339f096a42d555f10ab8bffc744b09adc4dbb1d169b9c4893aaa6790782474f52be44d99ec95ad0c08dbcda2b6726fe3508)
+b2sums=('b43f00cf91754e4c30ac8e59905448c3eceb7ad7fbadbed8801cfd36259cbca52591d7e00fb40eba7b2c04212d3a8ff496251841fe380683d4f0e8d3040a537e')
 validpgpkeys=(
   1E1FB0017C998A8AE2C498A6C2EAA8A26ADC59EE # David Mohammed <fossfreedom at ubuntu dot com>
   0E0D97562A4EC8BD8E329DCDAA7A2325E04B609B # Joshua Strobl <me at joshuastrobl dot com>
 )
-
-prepare() {
-  cd $pkgname
-
-  # Make building with bluetooth optional
-  # https://github.com/BuddiesOfBudgie/budgie-control-center/pull/91
-  git cherry-pick -n 810f8af92c94f77a045cbec0ed516d9b3bded2a6
-
-  # Support dark mode
-  # https://github.com/BuddiesOfBudgie/budgie-control-center/pull/98
-  git cherry-pick -n 859fad15a43008b32020c8f445a7c2b490832fa1
-}
 
 build() {
   arch-meson $pkgname build \
