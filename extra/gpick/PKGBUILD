@@ -5,7 +5,7 @@
 
 pkgname=gpick
 pkgver=0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Advanced color picker written in C++ using GTK+ toolkit"
 arch=('x86_64')
 url="http://www.gpick.org/"
@@ -30,6 +30,11 @@ makedepends=(
 )
 source=("git+https://github.com/thezbyg/gpick.git#tag=v$pkgver")
 b2sums=('08d293ee6f5412f3cf80acd659c4eb941ef46c95d3b9260e92210dbf108d33256e06800a2fc4b9254d3bd11e33c9dc3c5aec594aa79bfea85fa0dbcc1a669163')
+
+prepare() {
+  cd $pkgname
+  git cherry-pick -n 480f9ef15bb657aed0d320d67e30197fe02bcad4
+}
 
 build() {
   cd $pkgname
