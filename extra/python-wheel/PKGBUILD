@@ -6,8 +6,8 @@ _bootstrap=0
 _bootstrap_version=3.14.0
 pkgname=python-wheel
 _name=${pkgname#python-}
-pkgver=0.45.1
-pkgrel=4
+pkgver=0.46.3
+pkgrel=1
 pkgdesc="A built-package format for Python"
 arch=(any)
 url="https://pypi.python.org/pypi/wheel"
@@ -29,7 +29,6 @@ checkdepends=('python-jsonschema' 'python-pytest' 'python-keyring' 'python-keyri
 if (( _bootstrap == 0 )); then
   source=(
     "$pkgname-$pkgver.tar.gz::https://github.com/pypa/wheel/archive/$pkgver.tar.gz"
-    $pkgname-0.45.0-devendor.patch
   )
 else
   source=(
@@ -43,15 +42,11 @@ else
     python-setuptools::git+https://github.com/pypa/setuptools.git
   )
 fi
-sha512sums=('d15299512d0b401214c866334dfa68b11810da02f9dd67925d66f546c7ca62eda37312fb37dec0e1a7d861b1f507131029ab4a42d63f5dd27aaca50c517e1d50'
-            'b9e705f1ca4f71332cd20b404d3eaae13a0785958a021078d786177b161e789c370d20dd0411246e53890235d8dc527c72a4cc8023c0bcff8921135422b98173')
+sha512sums=('8f92313cc26b55dd5d9720b95a7dce81493ac26f988c261c7eb2591bc0ac204df1c2ec5a58ab3c069bbdb59b13b27f807be29edec996c02d0b09e3ac2ad4aebc')
 
 prepare() {
   if (( _bootstrap == 0 )); then
     cd wheel-$pkgver
-    # remove vendored python-packaging
-    patch -Np1 -d . -i ../$pkgname-0.45.0-devendor.patch
-    rm -rv src/wheel/vendored
   else
     cd python-bootstrap
     git submodule init
