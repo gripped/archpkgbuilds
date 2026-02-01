@@ -2,133 +2,90 @@
 # Contributor: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=budgie-desktop
-pkgver=10.9.4
-pkgrel=2
+pkgver=10.10.1
+pkgrel=1
 pkgdesc='A familiar, modern desktop environment'
 arch=(x86_64)
 url='https://github.com/BuddiesOfBudgie/budgie-desktop'
 license=('GPL-2.0-or-later AND LGPL-2.1-or-later')
 groups=(budgie)
 depends=(
-  accountsservice
-  alsa-lib
-  bash
-  budgie-control-center
-  budgie-screensaver
-  budgie-session
-  cairo
-  dconf
-  gcc-libs
-  gdk-pixbuf2
-  glib2
-  glibc
-  gnome-desktop
-  gnome-themes-extra
-  gstreamer
-  gtk3
-  hicolor-icon-theme
-  libcanberra
-  libgee
-  libglvnd
-  libgudev
-  libibus
-  libnotify
-  libpeas-2
-  libpulse
-  libwacom
-  libwnck3
-  libx11
-  libxext
-  libxfce4windowing
-  libxi
-  magpie-wm
-  materia-gtk-theme
-  pango
-  papirus-icon-theme
-  polkit
-  upower
-  util-linux-libs
-  xdg-desktop-portal-gtk
-  zenity
+	accountsservice
+	alsa-lib
+	bash
+	budgie-control-center
+	budgie-desktop-services
+	budgie-session
+	cairo
+	dconf
+	gammastep
+	gcc-libs
+	gdk-pixbuf2
+	glib2
+	glibc
+	gnome-desktop
+	gnome-themes-extra
+	grim
+	gtk3
+	gtklock
+	gtk-layer-shell
+	hicolor-icon-theme
+	labwc
+	libcanberra
+	libgee
+	libnotify
+	libpeas-2
+	libpulse
+	libxfce4windowing
+	materia-gtk-theme
+	pango
+	papirus-icon-theme
+	polkit
+	python
+	python-gobject
+	python-psutil
+	python-systemd
+	slurp
+	swaybg
+	swayidle
+	upower
+	util-linux-libs
+	wdisplays
+	wlopm
+	xdg-desktop-portal-gtk
+	xdg-desktop-portal-wlr
 )
 makedepends=(
-  git
-  glib2-devel
-  gobject-introspection
-  intltool
-  meson
-  sassc
-  vala
+	git
+	glib2-devel
+	gobject-introspection
+	intltool
+	meson
+	sassc
+	vala
 )
 optdepends=(
-  'budgie-backgrounds: Default background set'
-  'budgie-desktop-view: Desktop icons'
-  'ibus: Input method support'
-  'network-manager-applet: Network management in the panel'
-  'power-profiles-daemon: Manage power and performance from the panel'
-  'switcheroo-control: Open apps with the secondary GPU'
+	'budgie-backgrounds: Default background set'
+	'budgie-desktop-view: Desktop icons'
+	'ibus: Input method support'
+	'network-manager-applet: Network management in the panel'
+	'power-profiles-daemon: Manage power and performance from the panel'
+	'switcheroo-control: Open apps with the secondary GPU'
 )
 source=(
-  "git+https://github.com/BuddiesOfBudgie/budgie-desktop.git#tag=v$pkgver"
-  budgie-desktop-fix-builtin-theme.patch
-  budgie-desktop-fix-highcontrast-theme.patch
-  budgie-desktop-set-focused-color.patch
-  30_org.archlinux.budgie-desktop.gschema.override
+	"git+https://github.com/BuddiesOfBudgie/budgie-desktop.git#tag=v$pkgver"
+	30_org.archlinux.budgie-desktop.gschema.override
 )
-b2sums=(
-  315e9f32b8ef86f6c19d230aaf6672533811aa5e531ca9dfef8f822047417e5bc98b2521f40c67de938f843b6f9d2719ee6e0ce3aac7e9d8e861219c8fb18b99
-  c698a9ef769f05da32ea7198e8c0440750ec51d4af2a5f89ba330da26919cc81f4433e4e1bf39c251ad2b672dc90aa42238b81009fc209239b1012340c754daa
-  005c6542a56f611691b683c57ae2965c6b8a037d11a3ac075f86deb6c096d917208fb613d4f0f8c2bb4d5390c0e7da4f2623adcb0d11bd78fc7effae63d180de
-  194a9b2a2d019f704a1cf22aee2e6b136405617ae0ea16a10f5b4aa54553b8a9a8638724a62dcf026bb59da3dbd6111fe6d18dc82275224ad2f1fc6602bfcede
-  3ff3664b2dc075a068e008a63d4558fe05d1d8a2b2e647d2b491169455b05d18e4970d46a9ffc83a500b4cb00d2048dbf0aea8ffdf8ea2f9262e7a554d25073d
-)
+b2sums=('82863766d0f75b63d8f64af3670a7570418397b2c9f846c76cac4004d36ddfd9db738e637e0d0421395f91cceee7e830373c34415100c5ac3056d98dc20c3348'
+        '3ff3664b2dc075a068e008a63d4558fe05d1d8a2b2e647d2b491169455b05d18e4970d46a9ffc83a500b4cb00d2048dbf0aea8ffdf8ea2f9262e7a554d25073d')
 validpgpkeys=(0E0D97562A4EC8BD8E329DCDAA7A2325E04B609B) # Joshua Strobl <me at joshuastrobl dot com>
 
-prepare() {
-  cd $pkgname
-
-  # Hide icon themes that marked as 'Hidden'
-  # https://github.com/BuddiesOfBudgie/budgie-desktop/pull/760
-  git cherry-pick -n e497499635c904f7371c9a9784972324cf990069
-
-  # Check if GTK theme file is exists
-  # https://github.com/BuddiesOfBudgie/budgie-desktop/pull/755
-  git cherry-pick -n 673231e658216ce72677985377c17ecf1ea839f3
-
-  # Theme fixes
-  # https://github.com/BuddiesOfBudgie/budgie-desktop/pull/757
-  git apply -3 ../budgie-desktop-fix-builtin-theme.patch
-  # https://github.com/BuddiesOfBudgie/budgie-desktop/pull/758
-  git apply -3 ../budgie-desktop-fix-highcontrast-theme.patch
-  # https://github.com/BuddiesOfBudgie/budgie-desktop/pull/759
-  git apply -3 ../budgie-desktop-set-focused-color.patch
-
-  # Show screenshot tool only in Budgie session
-  # https://github.com/BuddiesOfBudgie/budgie-desktop/pull/761
-  echo 'OnlyShowIn=Budgie' >> src/daemon/org.buddiesofbudgie.BudgieScreenshot.desktop.in
-
-  # Don't read settings after bind
-  # https://github.com/BuddiesOfBudgie/budgie-desktop/pull/762
-  git cherry-pick -n 8fa59392a1817f9d15a47f3254cc69f7cb76d771
-
-  # Reset values of caffeine mode only if needed
-  # https://github.com/BuddiesOfBudgie/budgie-desktop/pull/764
-  git cherry-pick -n 407bc70a839e229ab88eb8287a223009a249b80f
-
-  # Don't save settings on start to avoid overriding defaults for other sessions
-  sed -i '/apply_dark_theme_pref();/d
-          /this.on_wm_settings_changed("button-style");/d' src/daemon/settings.vala
-
-  # Don't hide any valid themes from the list
-  sed -i '/for (int index = 0; index < gtk_theme_blacklist\.length; index++)/,+6 d' src/panel/settings/themes.vala
-}
-
 build() {
-  arch-meson $pkgname build
-  meson compile -C build
+	arch-meson $pkgname build
+	meson compile -C build
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
-  install -Dm644 -t "$pkgdir/usr/share/glib-2.0/schemas/" 30_org.archlinux.budgie-desktop.gschema.override
+	meson install -C build --destdir "$pkgdir"
+	install -Dm 644 -t "$pkgdir/usr/share/glib-2.0/schemas/" 30_org.archlinux.budgie-desktop.gschema.override
 }
