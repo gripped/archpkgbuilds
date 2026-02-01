@@ -1,13 +1,17 @@
 pkgbase = python-crc8
 	pkgdesc = A module with the CRC8 algorithm for Python
 	pkgver = 0.2.0
-	pkgrel = 4
+	pkgrel = 5
 	url = https://github.com/niccokunzmann/crc8
 	arch = any
 	license = MIT
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
-	source = python-crc8-0.2.0.tar.gz::https://github.com/niccokunzmann/crc8/archive/v0.2.0.tar.gz
-	sha512sums = 142b62baec2e83ea668037df9bb2d240fa22fe8d6957799453630f4667a3c7ecf8f097e3907ce0032f4c8caf729623e07d32e1501ec2ff157393ce08f4531f9b
+	source = git+https://github.com/niccokunzmann/crc8.git#tag=v0.2.0
+	sha512sums = 1677c179a42c3772c4640eab579ba914f8a29a98179e091b22ce2f37faa251b15df53875e6f30e474526bb8492ed776742ad9329842c148a971ad3c10222b0f1
 
 pkgname = python-crc8
