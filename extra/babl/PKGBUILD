@@ -3,7 +3,7 @@
 # Contributor: Daniel Isenmann <daniel@archlinux.org>
 
 pkgname=babl
-pkgver=0.1.120
+pkgver=0.1.122
 pkgrel=1
 pkgdesc='Dynamic, any to any, pixel format conversion library'
 arch=('x86_64')
@@ -18,7 +18,7 @@ makedepends=(
     'gi-docgen'
 )
 source=("git+https://gitlab.gnome.org/GNOME/babl.git#tag=BABL_${pkgver//./_}")
-sha256sums=('e4ff53e1a03f2a22201b739b6f47bfb9c6abd14ce3e0bca589c3a7e6dea258dc')
+sha256sums=('0119e0c4c707f61a5244d649a0d22a385b5e43ed3292f12a76b82c9a22a2bff6')
 
 build() {
   arch-meson "${pkgname}" build
