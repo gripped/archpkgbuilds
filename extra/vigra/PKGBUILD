@@ -6,7 +6,7 @@
 pkgbase=vigra
 pkgname=(vigra python-vigra)
 pkgver=1.12.3
-pkgrel=2
+pkgrel=3
 pkgdesc='Computer vision library'
 arch=(x86_64)
 url="https://ukoethe.github.io/$pkgname"
@@ -28,17 +28,26 @@ makedepends=(
   python-scipy
   zlib
 )
-checkdepends=(python-nose)
+checkdepends=(python-pytest)
 _pkgver="Version-${pkgver//./-}"
 _archive="$pkgname-$_pkgver"
 source=("$_url/archive/$_pkgver/$_archive.tar.gz"
-        vigra-openexr3.patch)
+        vigra-openexr3.patch
+        vigra-python3.14.patch)
 sha256sums=('04bd9bcf3d5fd694c8fd25d651a56376f2b8bc2623d41b1805fc84ac5bad0512'
-            '2572717e39f916c7c463b8f49306b683c5923906be2721f7da181c58b3a2b34b')
+            '2572717e39f916c7c463b8f49306b683c5923906be2721f7da181c58b3a2b34b'
+            '2dd80d542d00957503ce9213c004c88c49e45fc603b063aedab8951c9a91fb9e')
 
 prepare() {
   cd "$_archive"
   patch -p1 -i ../vigra-openexr3.patch
+  # Address changes in reference counting for python 3.14 #612
+  # https://github.com/ukoethe/vigra/pull/612
+  patch -p1 -i ../vigra-python3.14.patch
+
+  # Delete invocation of failing test with hdf5 2.0
+  # https://github.com/ukoethe/vigra/issues/615
+  sed -i '/add( testCase( &ClassifierTest::HDF5ImpexTest));/d' test/classifier/test.cxx
 }
 
 build() {
@@ -55,8 +64,7 @@ build() {
 }
 
 check() {
-  # https://github.com/ukoethe/vigra/issues/491
-  make -C build -j1 -k check || echo "Tests failed"
+  make -C build -j1 -k check
 }
 
 _pick() {
