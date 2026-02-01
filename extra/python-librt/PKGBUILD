@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-librt
-pkgver=0.7.7
+pkgver=0.7.8
 pkgrel=1
 pkgdesc='Mypyc runtime library'
 arch=('x86_64')
@@ -16,7 +16,7 @@ makedepends=(
 )
 checkdepends=('python-mypy_extensions')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('aff5fee4629af71cb56e317fd7437616adefc86e5751dd74a47c9454c8ffaa38dd995fc2589832e6148c87ce0912ee54bbc8528ce0199890211307aea84ef6a1')
+b2sums=('2617f6e87ad85dfee96aee9d84578e791bddf54e95ac1250bc381453157ca5ab27a30cf7b956cd6ebf977d910539352d7a261705f970f4738f37e7c8827c4f99')
 
 prepare() {
   cd ${pkgname#python-}-$pkgver
