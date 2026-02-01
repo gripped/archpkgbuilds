@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=xandikos
-pkgver=0.3.0
+pkgver=0.3.4
 pkgrel=1
 pkgdesc='Lightweight yet complete CardDAV/CalDAV server that backs onto a Git repository'
 arch=(any)
@@ -35,7 +35,7 @@ source=(
   sysusers.conf
   tmpfiles.conf
 )
-b2sums=('a690ba8a59c00e2c097597b2c4fa6e4ae8596d97e77345ee92ec47525ce6a27dbe9e1e5c452386e4654ff0674f20dc27cac73d31fb4a94655f9a7b427e3918d7'
+b2sums=('79ee3e9a5612b3bbade94f263d73371b39722cbd66eb70c66bedce432fb49cd5efa3314b291d7317b46937350c615ec0a3091c84841890dab4088083a25985a4'
         '66e31fa7cb6e363df4411eed424ee1ffba1151d504eb957d0fa079d9d19ac34e7b0de76dd781dc6a3802140410428403e77c9cf0ea34e3961e305c154996d8b9'
         'be8df371a3cdd55e2efd4549251b44cbb5699762f14aa3dcb0e85cdbb3710d75fae8e38b615057f6da37fe744019aabc2c366136ca577a152cd03d380db189c2')
 #validpgpkeys=('DC837EE14A7E37347E87061700806F2BD729A457') # Jelmer Vernooĳ <jelmer@jelmer.uk>
@@ -65,4 +65,7 @@ package() {
   install -Dm644 -t "$pkgdir"/usr/share/doc/$pkgname README.rst
   install -Dm644 -t "$pkgdir"/usr/share/doc/$pkgname/examples examples/*
   install -Dm644 -t "$pkgdir"/usr/share/man/man8 man/$pkgname.8
+
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  rm -r "$pkgdir"/"$site_packages"/tests
 }
