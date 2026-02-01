@@ -2,7 +2,7 @@
 
 pkgname=proton-vpn-daemon
 pkgver=0.13.4
-pkgrel=6
+pkgrel=7
 pkgdesc="Daemons for Proton VPN Linux client (split tunneling service)"
 arch=('any')
 url="https://github.com/ProtonVPN/proton-vpn-daemon"
@@ -16,7 +16,6 @@ depends=(
   python-packaging
   python-proton-vpn-api-core
   wireguard-tools
-  gnome-keyring # ProtonVPN does not support KDE Wallet. Make it depend on gnome-keyring so users have a proper expeirence for CLI and GTK App
 )
 makedepends=(
   git

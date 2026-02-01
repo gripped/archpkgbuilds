@@ -1,7 +1,7 @@
 pkgbase = proton-vpn-daemon
 	pkgdesc = Daemons for Proton VPN Linux client (split tunneling service)
 	pkgver = 0.13.4
-	pkgrel = 6
+	pkgrel = 7
 	url = https://github.com/ProtonVPN/proton-vpn-daemon
 	install = proton-vpn-daemon.install
 	arch = any
@@ -19,7 +19,6 @@ pkgbase = proton-vpn-daemon
 	depends = python-packaging
 	depends = python-proton-vpn-api-core
 	depends = wireguard-tools
-	depends = gnome-keyring
 	source = proton-vpn-daemon::git+https://github.com/ProtonVPN/proton-vpn-daemon.git#tag=v0.13.4
 	source = dbus.conf::https://raw.githubusercontent.com/ProtonVPN/proton-vpn-daemon/stable/rpmbuild/SOURCES/dbus.conf
 	source = dbus.service::https://raw.githubusercontent.com/ProtonVPN/proton-vpn-daemon/stable/rpmbuild/SOURCES/dbus.service
