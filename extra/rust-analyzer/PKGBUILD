@@ -3,7 +3,7 @@
 # Contributor: Sergey A. <murlakatamenka@disroot.org>
 
 pkgname=rust-analyzer
-_pkgver=2026-01-12
+_pkgver=2026-01-26
 pkgver=${_pkgver//-/}
 pkgrel=1
 pkgdesc='Rust compiler front-end for IDEs'
@@ -16,7 +16,7 @@ depends=(
 )
 makedepends=(git)
 source=("git+https://github.com/rust-lang/$pkgname.git#tag=$_pkgver")
-b2sums=('169fb1715b6b48c91ad29b514a918b44bc862ad83b9615cf783f099fe4c57d7c7d36dca6594e23e1a4ad27871ad80a36ce1f481467470ec5bf38261ede322d67')
+b2sums=('b62010e23c17850868b2e622a25805388ed56aa7afad6636f4f3bbaa5e1b3d9d2adc702a5ae6e7e01bba14d8ac20ee95d1e82dfb57ed1b54260b73f336c3284b')
 
 prepare() {
   cd $pkgname
