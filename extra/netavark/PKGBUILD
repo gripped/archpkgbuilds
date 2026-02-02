@@ -3,7 +3,7 @@
 
 pkgname=netavark
 pkgver=1.17.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Container network stack"
 arch=(x86_64)
 url="https://github.com/containers/netavark"
@@ -12,6 +12,7 @@ depends=(
   aardvark-dns
   gcc-libs
   glibc
+  nftables
 )
 makedepends=(
   cargo
@@ -26,21 +27,24 @@ b2sums=('e239b18efb5006130a575d16f6226f8cdbebd46825835e9166cda52e004650de2099238
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
+
+  # Adjust unit .in files manually, as we are not using the Makefile.
+  local in_file
+  for in_file in contrib/systemd/system/*.in; do
+    sed "s|@@NETAVARK@@|/usr/lib/podman/netavark|" "$in_file" > "${in_file%.in}"
+  done
 }
 
 build() {
   cd $pkgname
   make -C docs
-  # create service file manually as we are not using the Makefile
-  sed "s|@@NETAVARK@@|/usr/lib/podman/netavark|" contrib/systemd/system/netavark-dhcp-proxy.service.in > contrib/systemd/system/netavark-dhcp-proxy.service
-  sed "s|@@NETAVARK@@|/usr/lib/podman/netavark|" contrib/systemd/system/netavark-firewalld-reload.service.in > contrib/systemd/system/netavark-firewalld-reload.service
-  cargo build --frozen --release --all-features
+  cargo build --frozen --release
 }
 
 check() {
   cd $pkgname
-  cargo test --frozen --all-features
+  cargo test --frozen
 }
 
 package() {

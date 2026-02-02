@@ -1,7 +1,7 @@
 pkgbase = netavark
 	pkgdesc = Container network stack
 	pkgver = 1.17.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/containers/netavark
 	arch = x86_64
 	license = Apache-2.0
@@ -12,6 +12,7 @@ pkgbase = netavark
 	depends = aardvark-dns
 	depends = gcc-libs
 	depends = glibc
+	depends = nftables
 	provides = container-network-stack=2
 	source = git+https://github.com/containers/netavark#tag=v1.17.1
 	sha512sums = 1afbb2a336318eb27a2d64b4d147474062d7ae68dc949582349752ff780294b988ae6518d752ef02f06cb21d0befa70665a63c738e71da8cdba0fb4da6e919b8
