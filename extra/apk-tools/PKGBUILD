@@ -2,7 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=apk-tools
-pkgver=3.0.3
+pkgver=3.0.4
 pkgrel=1
 pkgdesc="Alpine Package Keeper - package manager for alpine"
 url="https://gitlab.alpinelinux.org/alpine/apk-tools"
@@ -23,8 +23,8 @@ checkdepends=(
   'cmocka'
 )
 source=("https://gitlab.alpinelinux.org/alpine/${pkgname}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
-sha256sums=('a45214cb2135fbb7cddbdb7a7daab6179300b42eb9040f6a6c6e06061c5dffca')
-b2sums=('2f146671a9ceca03cc8de87b2c5538368ec4a56168e967fe8094b5c82cb0b84771b696c44257d16dfab446cfd9d456833649cbc9ae1bcd0418cebd0495fdb1e0')
+sha256sums=('e64bf295c8d24bd437831f74633cb9c162bd149d41cd9fbb9cf3bb2b1c56213c')
+b2sums=('399b7a4e1718f993ee19faebbadb110f5fc32555f7a647ab8af993937cb7fbb07486d0b33567b43bdcba887beed60571d2b78a692146d0676ae4f955b95382a6')
 
 build() {
   arch-meson "${pkgname}-v${pkgver}" build \
