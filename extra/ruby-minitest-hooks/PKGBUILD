@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-minitest-hooks
-pkgver=1.5.2
-pkgrel=3
+pkgver=1.5.3
+pkgrel=1
 pkgdesc='Around and before_all/after_all/around_all hooks for Minitest'
 arch=(any)
 url='https://github.com/jeremyevans/minitest-hooks'
@@ -21,7 +21,7 @@ makedepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/jeremyevans/minitest-hooks.git#tag=$pkgver)
-sha256sums=('25907325542707bb490f462926d6d12bf2881b7b0726fa8d2240b77a3c362070')
+sha256sums=('6ddb199571121021d75c42d9475570000814e5516d3aa92302b41b5bec53b604')
 
 build() {
   local _gemdir="$(gem env gemdir)"
