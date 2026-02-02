@@ -1,0 +1,12 @@
+diff -ruN a/plessey.c b/plessey.c
+--- a/plessey.c	2013-03-29 23:23:36.000000000 +0100
++++ b/plessey.c	2026-02-02 17:11:15.738936726 +0100
+@@ -149,7 +149,7 @@
+                         checkptr[i+j] ^= check[j];
+     }
+     for (i = 0; i < 8; i++) {
+-        sprintf(ptr, patterns[checkptr[strlen(text) * 4 + i]]);
++        sprintf(ptr, "%s", patterns[checkptr[strlen(text) * 4 + i]]);
+ 	ptr += 2;
+     }
+     fprintf(stderr, _("CRC: "));
