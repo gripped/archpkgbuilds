@@ -8,7 +8,7 @@ pkgname=(
   libnautilus-extension
   libnautilus-extension-docs
 )
-pkgver=49.3
+pkgver=49.4
 pkgrel=1
 pkgdesc="Default file manager for GNOME"
 url="https://apps.gnome.org/Nautilus/"
@@ -57,7 +57,7 @@ checkdepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/nautilus.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('1f813d010cf7bd919c0faf9b889e940919656682f19e3009a2048c437696ec446376da016780e77a7090bdb453bbd5abb43c9a122cc23dc0630bddf48f6e0c3a')
+b2sums=('6bc5372bb504d80d2e0c3b230d893ab0faf9aca90e76cba20b812d8e05d487a942740f32fcefa78bc9f94c93eee0ff0d9399055debf9e868fca9c14349d398df')
 validpgpkeys=(
   6B211753AC950672287226800538577822AE4B17 # António Fernandes <antoniof@gnome.org>
   550660707A6F40376B9B9F8D504A78811E6160CC # Corey Berla <corey@berla.me>
