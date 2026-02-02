@@ -2,15 +2,15 @@
 
 pkgname=python-id
 _name="${pkgname#python-}"
-pkgver=1.5.0
-pkgrel=2
+pkgver=1.6.0
+pkgrel=1
 pkgdesc="A tool for generating OIDC identities"
 arch=(any)
 url="https://github.com/di/id"
 license=(Apache-2.0)
 depends=(
   python
-  python-requests
+  python-urllib3
 )
 makedepends=(
   python-build
@@ -22,8 +22,8 @@ checkdepends=(
   python-pretend
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('bedc354e59d569595b9b7258b3fb2da29f2701a4b9ec80487b98ce30a7077e8b35990bea80db955a95a8d0703d23ab98365077f3c66858f4cab8806f365c25a7')
-b2sums=('d5f1b959ed8c5151d049cad9c470e0ed773edb68f5c9e721e2d4d5207823af660c641546651fc4eee1dba398bebdd509098471046f7482f102d8be3ae6e4a846')
+sha512sums=('1bcc4c36bf5e79da04fa94f9efa00a642a66a1ca02f9dce8bba4ae76d426827a0a060481eaacd5a948eb83837286bd2be29fefea19a9ae92ee208cbbc0b0e23d')
+b2sums=('eed37815071faad0e0fc1cadb2f6634a90b60fcb5af3d19515f2a7629124257864f2048b590169cca67a5e39b4dd1f90cd3e6a331ce245e541a956550f80967c')
 
 build() {
   cd $_name-$pkgver
