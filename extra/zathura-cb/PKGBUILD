@@ -3,7 +3,7 @@
 # Contributor: Lex Black <autumn-wind at web dot de>
 
 pkgname=zathura-cb
-pkgver=0.1.12
+pkgver=2026.01.30
 pkgrel=1
 pkgdesc="Adds comic book support to zathura"
 url="https://pwmt.org/projects/zathura-cb/"
@@ -12,7 +12,7 @@ license=('Zlib')
 depends=('zathura' 'libarchive' 'desktop-file-utils')
 makedepends=('meson' 'ninja' 'appstream' 'appstream-glib')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pwmt/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
-sha512sums=('81eed1a3891349162dfe1a10590ea572f0caedc5968318222a37744832beb12ffd192e5f4aeac6859fbd505d3b6963382a54e4d18a48dd404ad8e3b32e044dce')
+sha512sums=('821caa4049181e74c6b47845bd574b1a35ce2e226381d05b389ce694ea9d13ffa1a81eec7781e9c3c2c35683c461255b5900d09f9f88a26d7e030dcf79a65254')
 
 build() {
         cd "${pkgname}-${pkgver}"
