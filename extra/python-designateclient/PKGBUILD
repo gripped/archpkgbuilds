@@ -3,15 +3,15 @@
 
 pkgname=python-designateclient
 pkgver=6.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc="OpenStack DNS-as-a-Service - Client"
 arch=('any')
 url="https://docs.openstack.org/python-designateclient/latest/"
-license=('Apache')
+license=('Apache-2.0')
 depends=('python-cliff' 'python-jsonschema' 'python-osc-lib' 'python-oslo-serialization'
          'python-oslo-utils' 'python-pbr' 'python-keystoneauth1' 'python-requests'
          'python-stevedore' 'python-debtcollector')
-makedepends=('git')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-oslo-config' 'python-oslotest' 'python-subunit' 'python-requests-mock'
               'python-stestr')
 source=("git+https://github.com/openstack/python-designateclient.git#tag=$pkgver")
@@ -19,7 +19,7 @@ sha512sums=('4bcfec047952d01820249299c05ff0eb225fdd7163ab84213ec9a10eb38803cdcb3
 
 build() {
   cd python-designateclient
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -29,5 +29,5 @@ check() {
 
 package() {
   cd python-designateclient
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
