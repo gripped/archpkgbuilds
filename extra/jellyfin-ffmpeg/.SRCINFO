@@ -1,7 +1,7 @@
 pkgbase = jellyfin-ffmpeg
 	pkgdesc = Jellyfin fork of ffmpeg
 	pkgver = 7.1.3p1
-	pkgrel = 1
+	pkgrel = 2
 	epoch = 1
 	url = https://github.com/jellyfin/jellyfin-ffmpeg
 	arch = x86_64
@@ -65,7 +65,10 @@ pkgbase = jellyfin-ffmpeg
 	optdepends = vulkan-intel: for Intel ANV Vulkan support
 	options = !lto
 	source = jellyfin-ffmpeg::git+https://github.com/jellyfin/jellyfin-ffmpeg#tag=v7.1.3-1
+	source = 0001-unbreak-svt-av1-4-build.patch
 	sha512sums = 1b422ad95a9baef0847243321e978b5e67c6e804f9a17beefc232fbb77c521e7caba0f6172204b619eb47d2e4da203341cf1e396f8319ec2c69db67a4f2cb2b1
+	sha512sums = d13251bd6e76b58c63650f07a60f34cb74da5e107396812166b587bb586fc4d39579591ac7c12cb96a704e5e23b073912436823480f9a85ae511534561600868
 	b2sums = 9005d5d0a8a36573532db7b9332b9f50ded7692dc76d75c4ffb351d7ad4d1edd4d09ec4fc1b9685f778470af32d58700b253fe2596561599ddf67e3673bb29e7
+	b2sums = a004d7b7b021e82ae01e9fd171c4cd2901bb1348aafa8ec2256f38c967521cdb947c01b8b6872b6076fc0ee96bf296992abfecb5446a83eb8c052b976851948a
 
 pkgname = jellyfin-ffmpeg
