@@ -2,7 +2,7 @@
 # Contributor: Sergey A. <murlakatamenka@disroot.org>
 
 pkgname=rmpc
-pkgver=0.10.0
+pkgver=0.11.0
 pkgrel=1
 pkgdesc='A beautiful and configurable TUI client for MPD'
 url='https://mierak.github.io/rmpc/'
@@ -17,11 +17,11 @@ optdepends=(
   'cava: for visualizer')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/mierak/rmpc/archive/v$pkgver.tar.gz")
-sha256sums=('86e6b465707cdca82f53aed2a3bef600430edbf4e626124d194ac346ee989cbd')
+sha256sums=('930019066228d18e9530a8c0d77f10e231ab5efbbbca73b331efcd6fbb47557d')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
