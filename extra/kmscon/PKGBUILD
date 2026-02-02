@@ -6,8 +6,8 @@
 # Contributor: David Herrmann <dh.herrmann@googlemail dot com>
 
 pkgname=kmscon
-pkgver=9.3.0
-pkgrel=3
+pkgver=9.3.1
+pkgrel=1
 pkgdesc='Kernel Mode Setting (KMS) and DRM based virtual Console Emulator'
 arch=('x86_64')
 url='https://github.com/kmscon/kmscon'
@@ -34,20 +34,8 @@ makedepends=(
   meson)
 source=(
   git+${url}.git#tag=v${pkgver}
-  0ed0744bfd07752d74cb02588b40702c2517c7c0.patch
-  3ebaa40606b5d13c765841eff31ff56792b64fe3.patch
 )
-b2sums=('81f905e053e941ddb1fa37a63ce815865c4f0a7fa96f2f0c7c74b683a9d98527e32a12d412ce97698aa51be497848496aefcc5da2d3bbb3b99df6d44c60ac76b'
-        '26e9f1b663ae1e157da1cfd0d93033d2dfa6a2af81e2792a7ecd1164da82ce1b947cfe10c0907bd783b8e3b4e453f0ef61458fa0a602ea178c584ffa56c703e0'
-        '34330c66c9d22ec3587f9256d7f6eae8ee457b29bd76e887e55e4cd5d36e9a6ab2052dd86f481074066ddd41ff6fa6dc765fd28c2d7f2611b845c141d9f78e8e')
-
-prepare() {
-  cd "$pkgname"
-  # repesct ctr-alt-del setting
-  patch -Np1 -i ../0ed0744bfd07752d74cb02588b40702c2517c7c0.patch
-  # fix accented chars
-  patch -Np1 -i ../3ebaa40606b5d13c765841eff31ff56792b64fe3.patch
-}
+b2sums=('389418768ed59c5715f3616c62eca5a4fd45253cd93941a976caa7702dcfa6e66388f0e39fcb9f4eb24d87f92e9c69fe0f514ede0eb2c2d035c9eadd9ad5861d')
 
 build() {
   arch-meson "$pkgname" build
