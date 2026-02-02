@@ -5,7 +5,7 @@
 
 _base=textual
 pkgname=python-${_base}
-pkgver=7.4.0
+pkgver=7.5.0
 pkgrel=1
 pkgdesc="Modern Text User Interface framework"
 arch=(any)
@@ -15,7 +15,7 @@ depends=(python python-rich python-markdown-it-py python-typing_extensions pytho
 makedepends=(python-build python-installer python-poetry-core)
 checkdepends=(python-pytest-asyncio python-time-machine python-linkify-it-py python-pytest-xdist python-pytest-textual-snapshot)
 source=(${_base}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz)
-sha512sums=('c0e49861680fdbbd588859fb22303cc8fc1bcadfe110c66e52518eda4b0b2422498d83f567bb1e5b480a02116b3bdc2662da41d1790d87c420a55ff0f07c1409')
+sha512sums=('d5698193a1c582766b9ed185d6ea43b4a298cd5c2653f60457d4adb3f6237a791a02de48619e6a0743e3ca8a0ae74d7772e4503502b646ac861b69517158da12')
 
 build() {
   cd ${_base}-${pkgver}
