@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=tmuxp
-pkgver=1.63.1
+pkgver=1.64.0
 pkgrel=1
 pkgdesc="Tmux session manager built on libtmux"
 arch=(any)
@@ -23,9 +23,11 @@ makedepends=(
   python-wheel
 )
 checkdepends=(
+  python-docutils
   python-pytest
   python-pytest-mock
   python-pytest-rerunfailures
+  python-sphinx
 )
 optdepends=(
   'python-shtab: for workspace completion and import'
@@ -35,8 +37,8 @@ optdepends=(
   # TODO: package ptpython for additional alternative CLI
 )
 source=($pkgname-$pkgver.tar.gz::$_url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('b9fcf652cc44739c11394bbd0cf922416540cbfe22ea008abcc6b2cb0b88ce3cc123bdc04e375062b3b9a19d1cc63a0fc03ee2a5421d97a5d1357e835045002e')
-b2sums=('384aec4a6c96aaf15642a24d442360b0d4758602c60b09c1916d556083910eb39c52a8c966cad4a267a2dceee1405e9bc23cac30ccf24f104d9dea7fd345f5dd')
+sha512sums=('84e54be070ca94688a873cdcdfd8af3214ea53fe6ae02a92994f0f9bee7d7401b2e77be9f2e4a3ada4d973a328ef89117d6fe9b315ffabd845e5f5cde5ad10b6')
+b2sums=('e26c2095450259f2f2fb919939e61f7559233915f209b1e0957ca27f53dfe8bbcd6e53aec4a243eb88aabf60336c69aa855b617564603e6ecdaa1ea86d82ed34')
 
 build() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
