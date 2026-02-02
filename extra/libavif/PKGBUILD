@@ -3,7 +3,7 @@
 
 pkgname=libavif
 pkgver=1.3.0
-pkgrel=3
+pkgrel=5
 pkgdesc="Library for encoding and decoding .avif files"
 arch=(x86_64)
 url="https://github.com/AOMediaCodec/libavif"
@@ -25,6 +25,12 @@ makedepends=(cmake
 source=(git+https://github.com/AOMediaCodec/libavif#tag=v$pkgver)
 sha256sums=('71f5a51a8e1a9198cd9f2e38c158e50815989bb1fe28cc80e481aa16a3e1ec2d')
 
+prepare() {
+  cd $pkgname
+  # SVT AV1 4.0 Rebuild
+  # https://github.com/AOMediaCodec/libavif/pull/2971
+  git cherry-pick -n 34a14decb6732c8abf01e6135a9a1dd55b58e33a
+}
 build() {
   cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
