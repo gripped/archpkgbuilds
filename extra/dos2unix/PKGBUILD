@@ -6,27 +6,26 @@
 # Contributor: Gerson E. Ruotolo <gersonruotolo@globo.com>
 
 pkgname=dos2unix
-pkgver=7.5.3
+pkgver=7.5.4
 pkgrel=1
 pkgdesc='Text file format converter'
 arch=('x86_64')
 url='https://waterlan.home.xs4all.nl/dos2unix.html'
 license=('BSD')
 depends=('glibc')
-makedepends=('perl')
+makedepends=('git' 'perl' 'perl-pod-parser' 'po4a')
 conflicts=('hd2u')
-source=(https://waterlan.home.xs4all.nl/${pkgname}/${pkgname}-${pkgver}.tar.gz{,.asc})
-validpgpkeys=('F8F1BEA490496A09CCA328CC38C1F572B12725BE')
-sha256sums=('28a4b0d9f9179da4e44c567b9c01f818b070a20827115fffd96f760dcfa0f3b2'
-            'SKIP')
+source=(git+https://git.code.sf.net/p/dos2unix/dos2unix.git#tag=${pkgname}-${pkgver})
+sha256sums=('b995b668f154bf37668933e3d98072adff6bfca85b024a95b75d897b232a7f04')
+#validpgpkeys=('F8F1BEA490496A09CCA328CC38C1F572B12725BE')
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname/dos2unix
   make LDFLAGS_USER="${LDFLAGS}"
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname/dos2unix
 
   make DESTDIR="$pkgdir" install
   install -D -m644 COPYING.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
