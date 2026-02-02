@@ -2,7 +2,7 @@
 # Contributor: Julius Michaelis <gitter@liftm.de>
 
 pkgname=wasmer
-pkgver=7.0.0
+pkgver=7.0.1
 pkgrel=1
 pkgdesc="Universal Binaries Powered by WebAssembly"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('gcc-libs' 'zlib' 'ncurses' 'libffi' 'libxkbcommon' 'llvm' 'glibc')
 makedepends=('rustup' 'cmake')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/wasmerio/wasmer/archive/refs/tags/v${pkgver}.tar.gz"
         reproducible-builds.patch)
-sha512sums=('55018fd07030a11ff0b0f2c7352654be0f5db4201dd4556f4c4f4dc0ff86a4b3be4fe244fbd58287c145758b4972fb101cc8fb77eb5b234a4b6d5442a81597fe'
+sha512sums=('e8cf1c23d9b65d133ff54b6d2ebb73fe415e688f28d6349badd2d5e21334a46c25fc435a34d6c734d442f8605c37307b072f714fa8556f2e3be943f3c957ff14'
             '5e1f26fc8684af4cf53103b1250d986ff0174bddec6eb7107d086c5b82cf1ad9e02bc7b56e47274da444f345b482dea3282de0f5d413fdded84c94f55f59eb6e')
 options=('staticlibs' '!lto')
 
