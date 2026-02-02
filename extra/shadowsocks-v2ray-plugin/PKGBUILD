@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=shadowsocks-v2ray-plugin
-pkgver=5.13.0
+pkgver=5.14.1
 pkgrel=1
 pkgdesc='A SIP003 plugin based on v2ray for shadowsocks'
 arch=('x86_64')
@@ -10,8 +10,8 @@ license=('GPL')
 options=('!lto')
 depends=('glibc')
 makedepends=('go' 'git')
-source=("https://github.com/teddysun/v2ray-plugin/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('0e1db1cab6acc7ceed8f3a359ea1e8b2ae87f85c5122435dc365d91030934cb26dcf89b4ba046ced2c33c3bb1b101c0d2c5dc5c436df9b97bf66f3b06b3c10e2')
+source=("git+https://github.com/teddysun/v2ray-plugin.git#tag=v$pkgver")
+sha512sums=('faa6012a3fdbcc6e83da6ce3fa7a4ffa3801323d2c8ba7f62da8c0e9c5ba5b2a28c984148ed1c9abe8ea89f233f800c65cb60bd5c91e4c888a8cb34863ee4a0d')
 
 build() {
   export CGO_CPPFLAGS="${CPPFLAGS}"
@@ -20,11 +20,11 @@ build() {
   export CGO_LDFLAGS="${LDFLAGS}"
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
 
-  cd v2ray-plugin-$pkgver
+  cd v2ray-plugin
   go build
 }
 
 package() {
-  cd v2ray-plugin-$pkgver
+  cd v2ray-plugin
   install -Dm755 v2ray-plugin "$pkgdir"/usr/bin/v2ray-plugin
 }
