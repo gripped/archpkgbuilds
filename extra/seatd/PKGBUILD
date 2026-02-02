@@ -1,7 +1,7 @@
 # Maintainer: Brett Cornwall <ainola@archlinux.org>
 
 pkgname=seatd
-pkgver=0.9.1
+pkgver=0.9.2
 pkgrel=1
 pkgdesc="A minimal seat management daemon, and a universal seat management library"
 arch=(x86_64)
@@ -22,7 +22,7 @@ source=(
     "$pkgname-$pkgver.tar.gz::https://git.sr.ht/~kennylevinsen/seatd/archive/$pkgver.tar.gz"
     "sysuser.conf"
 )
-sha256sums=('819979c922a0be258aed133d93920bce6a3d3565a60588d6d372ce9db2712cd3'
+sha256sums=('2811654fc87b3b1877f62e69cbf1e761c7072146f127860d9b8fe1ca27607d0e'
             'e833292adf5da25b5258a5209c258f0e4c12e1d6fe81cf228fd0cfb575080d78')
 build() {
     mkdir build
