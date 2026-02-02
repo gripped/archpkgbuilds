@@ -4,8 +4,8 @@
 # Contributor: bender02 at gmx dot com
 
 pkgname=asymptote
-pkgver=3.05
-pkgrel=2
+pkgver=3.06
+pkgrel=1
 pkgdesc='A vector graphics language (like metapost)'
 arch=(x86_64)
 url='http://asymptote.sourceforge.net/'
@@ -41,17 +41,11 @@ makedepends=(boost
 optdepends=('python-pyqt5: for the xasy GUI'
             'python-cson: for the xasy GUI'
             'ghostscript: PDF output')
-source=(git+https://github.com/vectorgraphics/asymptote#tag=$pkgver
-        boost-1.88.patch
-        boost-1.89.patch)
-sha256sums=('501c2d4d0f8a90f2e4ec8f79b00e70974d2fe2a23496550cfa88d45a36579eb0'
-            '07529adb880c42f474f2cd371e557f079717a5023883c4fbefd4ec824caa6dd1'
-            'fd48e245671d3466d56f243d10fd317ab5aac3868c86eb54d196e59a7f00e883')
+source=(git+https://github.com/vectorgraphics/asymptote#tag=$pkgver)
+sha256sums=('870bc3993969f60e142f0f7cfc91ac081626bc6c47d321432af28f726319d9b1')
 
 prepare() {
   cd $pkgname
-  patch -d LspCpp -p1 < ../boost-1.88.patch
-  patch -p1 < ../boost-1.89.patch
   ./autogen.sh
 }
 
