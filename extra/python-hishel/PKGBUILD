@@ -2,8 +2,8 @@
 
 pkgname=python-hishel
 _name="${pkgname#python-}"
-pkgver=1.1.7
-pkgrel=2
+pkgver=1.1.8
+pkgrel=1
 pkgdesc="An elegant HTTP Cache implementation for HTTPX and HTTP Core"
 arch=(any)
 url="https://github.com/karpetrosyan/hishel"
@@ -42,8 +42,8 @@ optdepends=(
   'python-requests: for requests support'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('cf2f8d52afcf5f1eb01ded5fda630fd3bf2dd76536ca9cd54f6d7fa7de4afee1b08c4c3ccc78ae4a207c655dd8a9595e8aa0f94a8ff8cd00cad6e746643a26e0')
-b2sums=('b51c0daa98b771528697c00ab50c58966354ce6a838feb818511c0aadc178c47e59537b92e4cdd2a705fe8af2f5cccaf7af91c6a4ad5808091a0ea7fdd296f5c')
+sha512sums=('c36f11bf3cdaf69197ce8daa84f022c73c41fb07c8d63c18abba40aecf31b22038a2226b48b93179161aab8c898dad475a5dcdba253cfd7b43ee1b56b618604a')
+b2sums=('835d31935cb55ea3f0aa5a665302be78a673142ec2d5b4151a420d30bcaaa4efc419f4307ca6641d8541707bb401810bf120d0994b7e8b242faa3ff39b11f95d')
 
 build() {
   cd $_name-$pkgver
