@@ -4,8 +4,8 @@
 _devendored=1
 _name=pdm-backend
 pkgname=python-pdm-backend
-pkgver=2.4.6
-pkgrel=4
+pkgver=2.4.7
+pkgrel=1
 pkgdesc="The build backend used by PDM that supports latest packaging standards"
 arch=(any)
 url="https://github.com/pdm-project/pdm-backend"
@@ -41,9 +41,9 @@ source=(
   $_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
   $pkgname-2.4.3-devendor.patch
 )
-sha256sums=('0164657b2456e3bb76300e9d3f29e6deb1f00a8391920b84d327c9a7ea9c63c7'
+sha256sums=('faedc13818a447927f307393a64a17529c22c0206e963fd35245126a8e81c271'
             '2bc1924abc74c66ea3056ddefdcf7a7e9b76c4ca9f87a0bbddc1a5da73a99eaa')
-b2sums=('2e2de500fa61f059d350388c73b9585c582f1bf4b6a45a2215e97a8c130873d2ffad3113fdf0db7ea16eb49066e09539d7db7cf3a55be4098180837c51efa8d0'
+b2sums=('113e69b1ec8a667331ad17779cea5b32ce04f8d72a4e17a8ff857d45ac64d962e767aaaf50d402fcc57fb274b9b28db1838016638cf39c4ec2165ac88ee8b3e9'
         'c65bd035b0caad6b18059de5fec99ee358dc2e5552de9349e9d2c1166f95d6bd9615a0087f0003ff828002eb0ea0a36461db148acb694a0ac6ec469235724aa6')
 
 prepare() {
