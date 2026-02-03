@@ -1,0 +1,13 @@
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -61,10 +61,4 @@ requires = ["setuptools>=42", "wheel"]
+ build-backend = "setuptools.build_meta"
+ 
+ [tool.pytest.ini_options]
+-addopts = [
+-  "--cov-report=term-missing:skip-covered",
+-  "--cov=url_normalize",
+-  "--disable-socket",
+-  "-v",
+-]
+ python_files = ["tests.py", "test_*.py", "*_tests.py"]

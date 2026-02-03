@@ -1,0 +1,58 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-url-normalize
+pkgver=2.2.1
+pkgrel=1
+pkgdesc='URL normalization for Python'
+arch=(any)
+url='https://github.com/niksite/url-normalize'
+license=(MIT)
+depends=(python python-idna)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(python-pytest)
+source=(
+  "$pkgname::git+$url#tag=v$pkgver"
+  remove-pytest-args.patch
+)
+sha512sums=('976f70452b535e449ee45ded895f2e2a31993ed9d6c63c59e6c5245a0d82fe7d543738b8dd606ee9fcc7668eaf0f8703c48dae27441382c34898fd692681af7e'
+            'd5123db37bbf5982edac45a5c752271d96d89c10072ae5f582f50d575a9191f280332a5c8c0ce913a726aa6b99e0a187dfafeaec0eab9d0950c6e63cb36f65a9')
+b2sums=('f332bd088e31bba2d86cb95568155a12ed403f9f870d7c078f7e4233240aafb4ae4150f4a5bac4709e98bd4ef680d4da3fd7d52d6a89b5cca4cd322e9924dea3'
+        '0b0caa7b886ca01164f7b4a193694db8b8285398a3c77dcb9d77fbc0d6b7bb80e9153dc89e66a09fcaed8e2119e9261b5c4d0006d037c2cdc20d4e5ee322b5bb')
+
+prepare() {
+  cd "$pkgname"
+
+  patch -p1 -i "$srcdir/remove-pytest-args.patch"
+}
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "$pkgname"
+
+  # install to temporary directory
+  python -m installer --destdir="$PWD/tmp_install" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$PWD/tmp_install$site_packages"
+
+  pytest -v
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}
