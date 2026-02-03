@@ -3,7 +3,7 @@
 # Contributor: Felix Richter <judge@felixrichter.tech>
 
 pkgname=hipsparselt
-pkgver=7.1.1
+pkgver=7.2.0
 pkgrel=1
 pkgdesc='SPARSE marshalling library with AMD GPU backend'
 arch=('x86_64')
@@ -13,15 +13,19 @@ depends=(
   'rocm-core'
   'hip-runtime-amd'
   'hipsparse'
+  'roctracer'
   'rocminfo'
   'rocm-smi-lib'
   'glibc'
   'gcc-libs'
   'msgpack-cxx'
+  'lapack'
 )
 makedepends=(
   'git'
   'cmake'
+  'ninja'
+  'gtest'
   'gcc-fortran'
   'rocm-cmake'
   'rocm-toolchain'
@@ -37,7 +41,7 @@ _tensilelite='https://github.com/ROCm/hipBLASLt'
 _commit='25c46a44a79d748394622b0b0c7b7acf7574619a'
 source=("rocm-libraries::git+$_git.git#tag=rocm-$pkgver"
         "$pkgname-tensilelite-$pkgver.tar.gz::$_tensilelite/archive/$_commit/hipBLASLt-$_commit.tar.gz")
-sha256sums=('028cb964aeba74a9b3f4ce29dddf9bc35c30aff60d4617e60b0078a154af2a04'
+sha256sums=('e1b1239b5c9025437edd1a3af757fd37cd8fa299bdbbbce6f82392fd2c7df736'
             'e2b3c6b584e12853474315393789d0a4f2a813a2eb003560adbde735ce4140bd')
 _dirname="rocm-libraries/projects/$pkgname"
 
@@ -77,17 +81,19 @@ build() {
   local cmake_args=(
     -Wno-dev
     -S "$_dirname"
+    -G Ninja
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_C_COMPILER=amdclang
     -D CMAKE_CXX_COMPILER=amdclang++
-    -D BUILD_CLIENTS_TESTS=OFF
-    -D BUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF
-    -D BUILD_VERBOSE=ON
+    -D CMAKE_PREFIX_PATH=/opt/rocm/lib
     -D CMAKE_Fortran_COMPILER=gfortran
     -D CMAKE_VERBOSE_MAKEFILE=ON
     -D HIP_PLATFORM=amd
     -D BUILD_WITH_TENSILE=ON
+    -D HIPSPARSELT_BUILD_TESTING=OFF
+    -D HIPSPARSELT_ENABLE_BENCHMARKS=OFF
+    -D HIPSPARSELT_ENABLE_SAMPLES=OFF
     -D msgpack_DIR=/usr/lib/cmake/msgpack-c
     -D Tensile_ROOT="$tensile_path/Tensile"
     -D Tensile_COMPILER=amdclang++
