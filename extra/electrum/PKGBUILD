@@ -5,8 +5,8 @@
 # Contributor: Andy Weidenbaum <archbaum@gmail.com>
 
 pkgname=electrum
-pkgver=4.6.2
-pkgrel=2
+pkgver=4.7.0
+pkgrel=1
 pkgdesc="Lightweight Bitcoin wallet"
 arch=('any')
 url="https://electrum.org"
@@ -59,10 +59,10 @@ source=(
   "git+https://github.com/spesmilo/electrum-http.git"
   "$pkgname-remove-runtime-aiorpcx-version-check.patch"
 )
-sha512sums=('5ef13385ed53ff983d9d88a9f2d8601ffb4cd5c86cf25447bc43e00e8bdeada688cdaec8a0b79927bc05b0207650efedd9c88204014e1639fa98acf2b9f71b76'
-            'SKIP'
-            'SKIP'
-            'e0b904cdb21b0be0abd3f22a721fd12a55be516a6f41ea498e327e6402d8e7a9e0f83f3a31a30e128defce6c9d02369389ee3b2c2ea0ebc31258184cc4241b82')
+b2sums=('f7e103256cc22c2c57662b338dcc71c5f31a334419c4401fb5c806fa29381345d995e1ebffd2e74c3efad36b38f7e75e7635170205d18d86b7aeed08268031d1'
+        'SKIP'
+        'SKIP'
+        '9faa19e6442e1f736ec05499f7a66839c9791c5487ac8edd8d3ccb13b6ad070fba7a3625d9aa5040962aa336567409c2720fb933829eedc027cb3ceac5d6e479')
 validpgpkeys=(
   '6694D8DE7BE8EE5631BED9502BD5824B7F9470E6' # Thomas Voegtlin (https://electrum.org) <thomasv@electrum.org>
   '4AD64339DFA05E20B3F6AD51E7B748CDAF5E5ED9' # SomberNight <somber.night@protonmail.com>
