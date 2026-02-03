@@ -1,25 +1,28 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=nominatim-ui
-pkgver=3.7.1
+pkgver=3.10.1
 pkgrel=1
 pkgdesc="Debug UI for Nominatim"
 arch=('any')
 url="https://github.com/osm-search/nominatim-ui"
 license=('GPL-2.0-only')
 makedepends=('yarn')
-checkdepends=('chromium')
+checkdepends=('chromium' 'jq')
 optdepends=('nginx' 'nominatim')
 backup=('etc/webapps/nominatim-ui/config.theme.js')
 install=nominatim-ui.install
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/tags/v${pkgver}.tar.gz"
         'nginx.conf'
 )
-sha256sums=('c86ac08af54e0bb8966e317138c37df9dd2448fced993055461ef14664757f9a'
+sha256sums=('8298987fd0f51f3e9e45c402e6907c6f239e18f482b27ea507eef278a964d2fd'
             '045dda10d978acedba43b071271731b2b63a8ad2743cdd6eda7dab2fd98a52ae')
 
 prepare() {
   cd "${pkgname}-tags-v${pkgver}"
+
+  # You can run with the latest yarn, you just don't know it yet
+  jq 'del(.packageManager)' package.json > temp.json && mv temp.json package.json
 
   yarn install
 }
