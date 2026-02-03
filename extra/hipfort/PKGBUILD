@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=hipfort
-pkgver=7.1.1
+pkgver=7.2.0
 pkgrel=1
 pkgdesc='Fortran interfaces for ROCm libraries'
 arch=('x86_64')
@@ -40,7 +40,7 @@ optdepends=(
 )
 _git='https://github.com/ROCm/hipfort'
 source=("hipfort::git+$_git.git#tag=rocm-$pkgver")
-sha256sums=('16667272f42af4da310b2cbc82dcf2a93be1401dd7bba6479b578ecf02b9950c')
+sha256sums=('24b91f534c0cef6088fd7a92b33a28cc1d86662e5fb61be0d38851b7613aaa9b')
 options=(!strip)
 
 build() {
