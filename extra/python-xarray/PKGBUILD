@@ -2,8 +2,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-xarray
-pkgver=2025.12.0
-pkgrel=2
+pkgver=2026.01.0
+pkgrel=1
 pkgdesc="N-D labeled arrays and datasets in Python"
 arch=(any)
 url="https://xarray.pydata.org/"
@@ -46,27 +46,36 @@ optdepends=(
   'python-netcdf4: netCDF4 support'
   'python-h5netcdf: alternative for netCDF4 support'
   'python-scipy: interpolation features & fallback for netCDF3 support'
-#  'python-pydap: fallback for accessing OPeNDAP'
-#  'python-zarr: chunked, compressed N-dimensional arrays'
+  # 'python-pydap: fallback for accessing OPeNDAP'
+  # 'python-zarr: chunked, compressed N-dimensional arrays'
   'python-cftime: datetimes support for non-standard calendars or distant dates'
-#  'python-pseudonetcdf: atmospheric science specific file formats support'
-#  'python-rasterio: GeoTiffs and other gridded raster datasets support'
-#  'python-iris: conversion to and from iris’ Cube objects'
-#  'python-cfgrib: mapping GRIB files to CDF4'
+  # 'python-pseudonetcdf: atmospheric science specific file formats support'
+  # 'python-rasterio: GeoTiffs and other gridded raster datasets support'
+  # 'python-iris: conversion to and from iris’ Cube objects'
+  # 'python-cfgrib: mapping GRIB files to CDF4'
   'python-bottleneck: faster NaN-skipping and rolling window aggregations'
-#  'python-numbagg: faster exponential rolling window operations'
-#  'python-flox: faster GroupBy reductions'
+  # 'python-numbagg: faster exponential rolling window operations'
+  # 'python-flox: faster GroupBy reductions'
   'python-dask: parallel computation'
   'python-distributed: parallel computation'
   'python-matplotlib: plotting support'
-#  'python-cartopy: plotting of cartographic data'
+  # 'python-cartopy: plotting of cartographic data'
   'python-seaborn: better color palettes for plots'
-#  'python-nc-time-axis: plotting of cftime.datetime objects'
-#  'python-sparse: sparse arrays support'
+  # 'python-nc-time-axis: plotting of cftime.datetime objects'
+  # 'python-sparse: sparse arrays support'
   'python-pint: units of measure support'
 )
-source=("https://github.com/pydata/xarray/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('08922858f6b790c85c2611c72eee42fbd9c90076f3ac893f491df3d076d717e54a3002382303b713d6a12864cec6b830eda0e0c328272ecf7d538dd68710a9a1')
+source=(
+  "https://github.com/pydata/xarray/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+  "$pkgname-fix-period-dtype-concat.patch"
+)
+b2sums=('4794146565fb10b6b3aa674f2c765deb65c29a63cdafe409fbdf4e93f1a56517064013506c887cfed9fea25917be816faf6f1e0ba45b6ef082954821a7415672'
+        'c7535292388989d0a2dde3f32d03081254ea5d1bf859cd0ca8fecf0c40af9eddcb60d97e22b160256b6c7cd6b24f0001dc1e3efb1d9725cac4c672e785286e5d')
+
+prepare() {
+  cd ${pkgname#python-}-$pkgver
+  patch -Np1 < ../$pkgname-fix-period-dtype-concat.patch
+}
 
 build() {
   cd ${pkgname#python-}-$pkgver
@@ -95,6 +104,10 @@ check() {
     # Fails with:
     # pandas/_libs/arrays.pyx:103: NotImplementedError
     --deselect=xarray/tests/test_duck_array_ops.py::test_extension_array_attr
+
+    # Fails with Python 3.14+ because inspect.signature() can now introspect
+    # np.power, so no ValueError is raised
+    --deselect=xarray/tests/test_dataarray.py::TestDataArray::test_curvefit_helpers
   )
   pytest "${pytest_args[@]}"
 }
@@ -104,5 +117,5 @@ package() {
   python -m installer --destdir="$pkgdir" dist/*.whl
   # Remove tests
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  rm -r "${pkgdir}/${site_packages}/xarray/tests"
+  rm -vr "$pkgdir/$site_packages/xarray/tests"
 }
