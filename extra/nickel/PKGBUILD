@@ -7,7 +7,7 @@ pkgname=(
   nickel-language-server
 )
 pkgver=1.15.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A generic configuration language'
 arch=(x86_64)
 url='https://nickel-lang.org'
@@ -41,7 +41,7 @@ build() {
   cd "$pkgbase"
 
   # binaries
-  cargo build --frozen --release --all-features
+  PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 cargo build --frozen --release --all-features
 
   # generate shell completions
   pushd target/release
