@@ -1,13 +1,13 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=prometheus-elasticsearch-exporter
-pkgver=1.9.0
-pkgrel=2
+pkgver=1.10.0
+pkgrel=1
 
 pkgdesc='Elasticsearch stats exporter for Prometheus'
 url='https://github.com/prometheus-community/elasticsearch_exporter'
 arch=('x86_64')
-license=('Apache')
+license=('Apache-2.0')
 
 depends=('glibc')
 makedepends=('go' 'git')
@@ -20,10 +20,10 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/prometheus-community/elasti
         prometheus-elasticsearch-exporter.service
         prometheus-elasticsearch-exporter.sysusers)
 
-sha256sums=('ac18fe4ca62a8cd4be6a8c6b2692df05831c83faa8fa86c87a1e1fa5f7944601'
+sha256sums=('99eec6c3d59102eabeaf880d4849e7ea924f072c2816f13f29f54a398f529771'
             '5e02085a3aee96ff0364921f3195abdb08c0be8dca2fc3731b2b327e772d4b45'
             'a3be4e20fe1acdf8330fe939711ac824d59b87f552eb461ee59d40e392a130d0'
-            'ececb3f170234308c9e240f68544133be16b35c77720bb7d903684a794c14ae8')
+            '63c3513b6c37eb81e0ab94bccdcc96a5f7f71f491678e743485852d3691ecae6')
 
 build() {
   cd elasticsearch_exporter-$pkgver
