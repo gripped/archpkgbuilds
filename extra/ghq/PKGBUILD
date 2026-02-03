@@ -3,8 +3,8 @@
 # Contributor: Kohei Suzuki <eagletmt@gmail.com>
 
 pkgname=ghq
-pkgver=1.8.0
-pkgrel=2
+pkgver=1.8.1
+pkgrel=1
 pkgdesc="Remote repository management made easy"
 arch=(x86_64)
 url="https://github.com/x-motemen/ghq"
@@ -13,18 +13,16 @@ depends=(glibc)
 makedepends=(go)
 checkdepends=(git)
 options=(!lto)
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('76cce5e3b3a39ab37d59138b916cc97d21dd6e98791775bdadc6986624918343')
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+b2sums=('f20d1a62929a2d45336bf9b45fe1b509ffb232baf55f836df8227330b09358eb6db99105d322db6eeb4bb7db514b1c56defd4823e2ea94f81daf761a3b6864fa')
 
 prepare() {
   cd $pkgname-$pkgver
-
   GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
 build() {
   cd $pkgname-$pkgver
-
   export CGO_CPPFLAGS="$CPPFLAGS"
   export CGO_CFLAGS="$CFLAGS"
   export CGO_CXXFLAGS="$CXXFLAGS"
@@ -39,13 +37,11 @@ build() {
 
 check() {
   cd $pkgname-$pkgver
-
   go test -v .
 }
 
 package() {
   cd $pkgname-$pkgver
-
   install -vDm755 -t "$pkgdir/usr/bin" ghq
   install -vDm644 misc/bash/_ghq "$pkgdir/usr/share/bash-completion/completions/ghq"
   install -vDm644 misc/zsh/_ghq "$pkgdir/usr/share/zsh/site-functions/_ghq"
