@@ -5,13 +5,14 @@
 # Contributor: Amr Hassan <amr.hassan@gmail.com>
 
 pkgname=python-pylast
-pkgver=7.0.0
-pkgrel=2
+pkgver=7.0.2
+pkgrel=1
 pkgdesc='A Python interface to Last.fm and Libre.fm'
 arch=(any)
 url='https://github.com/pylast/pylast'
-license=(Apache)
+license=(Apache-2.0)
 depends=(
+  python
   python-httpx
 )
 makedepends=(
@@ -21,22 +22,19 @@ makedepends=(
   python-hatchling
   python-installer
 )
-_tag=b95a694b6af9cc8f8279e03c5b859cc0bd5dff52
-source=(git+https://github.com/pylast/pylast.git#tag=${_tag})
-b2sums=('1bc52fd97ebfefe07b8269eb6fcc5790133880436f6e16a299dff076d782f5b97ce028dc88394ad14dc1641617d456559d1b66d6322ac48f89f2c36d40d8353c')
-
-pkgver() {
-  cd pylast
-  git describe --tags
-}
+source=("$pkgname::git+https://github.com/pylast/pylast.git#tag=$pkgver")
+sha512sums=('6e7094152490a2f82708dec1f304e73281fa0c5420768e97de43c446829f68e748f104129a914dc11044447ffc58f77ed68b4860d1f9a87cefd5fccc50cc407d')
+b2sums=('713cf4d4fff535fcedecd26297338285cd4e01d7139cf02b1998a26ab87c675efc0c4b0d6f19dd68eff830cac74d4386a1d32ccd4dae308bee3e78d0d6c5b3f4')
 
 build() {
-  cd pylast
+  cd "$pkgname"
+
   python -m build --wheel --no-isolation
 }
 
 package() {
-  python -m installer --destdir="${pkgdir}" pylast/dist/*.whl
-}
+  cd "$pkgname"
 
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
 # vim: ts=2 sw=2 et:
