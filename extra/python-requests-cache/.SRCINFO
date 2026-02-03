@@ -1,0 +1,34 @@
+pkgbase = python-requests-cache
+	pkgdesc = Persistent HTTP cache for python requests
+	pkgver = 1.3.0
+	pkgrel = 1
+	url = https://github.com/requests-cache/requests-cache
+	arch = any
+	license = BSD-2-Clause
+	checkdepends = python-pytest
+	checkdepends = python-requests-mock
+	checkdepends = python-rich
+	checkdepends = python-pymongo
+	checkdepends = python-responses
+	checkdepends = python-redis
+	checkdepends = python-tenacity
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-hatchling
+	depends = python
+	depends = python-requests
+	depends = python-urllib3
+	depends = python-attrs
+	depends = python-cattrs
+	depends = python-platformdirs
+	depends = python-url-normalize
+	optdepends = python-boto3: DynamoDB support
+	optdepends = python-botocore: DynamoDB support
+	optdepends = python-pymongo: MongoDB support
+	optdepends = python-redis: Redis support
+	source = python-requests-cache::git+https://github.com/requests-cache/requests-cache#tag=v1.3.0
+	sha512sums = cc47994eb071622318d27b7309baf77d467a5963a6b8f05c7eb0f776d6caa6909bae31106beffe406a852dd2af64ab9a88a2f911569131f1bc09da88b79f4090
+	b2sums = b043da0c02e76069cdba8a3dac476e8cc03d2f80328cbd4fb24777293ee0781d4af989cc26f2cf8c20e30a34c796a038db60938e2739333481474f9632c5fa18
+
+pkgname = python-requests-cache
