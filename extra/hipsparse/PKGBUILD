@@ -4,7 +4,7 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=hipsparse
-pkgver=7.1.1
+pkgver=7.2.0
 pkgrel=1
 pkgdesc='rocSPARSE marshalling library.'
 arch=('x86_64')
@@ -26,7 +26,7 @@ makedepends=(
 )
 _git='https://github.com/ROCm/rocm-libraries'
 source=("rocm-libraries::git+$_git.git#tag=rocm-$pkgver")
-sha256sums=('028cb964aeba74a9b3f4ce29dddf9bc35c30aff60d4617e60b0078a154af2a04')
+sha256sums=('e1b1239b5c9025437edd1a3af757fd37cd8fa299bdbbbce6f82392fd2c7df736')
 _dirname="rocm-libraries/projects/$pkgname"
 options=(!lto)
 
@@ -41,6 +41,9 @@ build() {
     -D CMAKE_CXX_COMPILER=/opt/rocm/bin/hipcc
     -D CMAKE_CXX_FLAGS="${CXXFLAGS} -fcf-protection=none"
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
+    -D BUILD_CLIENTS_SAMPLES=OFF
+    -D BUILD_CLIENTS_TESTS=OFF
+    -D BUILD_CLIENTS_BENCHMARKS=OFF
   )
   HIP_PATH=/opt/rocm cmake "${cmake_args[@]}"
   cmake --build build
