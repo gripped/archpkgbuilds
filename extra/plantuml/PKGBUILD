@@ -4,7 +4,7 @@
 # Contributor : Jingbei Li <i@jingbei.li>
 
 pkgname=plantuml
-pkgver=1.2026.0
+pkgver=1.2026.1
 pkgrel=1
 pkgdesc="Component that allows to quickly write uml diagrams"
 arch=(any)
@@ -33,9 +33,9 @@ source=(
   "$pkgname.run"
   "plantuml@.service"
 )
-sha256sums=('5e05d0a4a43d8c2ebe81f90efa4d82dd0b74b83e7c02fa78132894f56c1727e0'
-            'a3fb528f4c719cfd0ff6154c60fd54ce341011d132caf950cc30af4989f6aac8'
-            'c423ab0c00f25c0a42a9c10144b827debff6fd3d79175a277ea9b2c1a27ec1a5')
+b2sums=('68af787dfbea0f7d86fb17f46cfe41789b0f0239d3b6db050079a542c84a301447d34b33bc32b7432d9292c42355e1643daf45783928cb50b296d035dfc08ac9'
+        'ef64a657bf688fc103f68a5181035ad2ab6dee50f190664b62309ef2322add4648bbdffac4598c24395680e73b4d25c9105a6259cb50676818b558dfc50a2b7d'
+        'c211ea5ad01038b348dda9c8bde3cfc09f869a31f1dbb7e9c410043a434912f3aea2afd7eee4ebd64505e80976693c55de31699f080bdb8d04d025a1623ca1cc')
 
 build() {
   cd $pkgname-$pkgver
