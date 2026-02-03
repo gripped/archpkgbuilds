@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=ponyc
-pkgver=0.60.4
+pkgver=0.60.5
 pkgrel=1
 pkgdesc='An actor model, capabilities, high performance programming language'
 arch=('x86_64')
@@ -24,10 +24,10 @@ source=(
   "ponyc-exclude-failing-test.patch"
   "ponyc-remove-usr-local-refs.patch"
 )
-sha512sums=('e5c8e4889b5a7b94523b4728b7c1e77b260b6cbe670ab4281c0e42837c9671209281a715fdc5f4f7a47577716dac96ea8b96d11d96c98ff3500bcd939eeab535'
-            'SKIP'
-            'dc4a160216727d5b946d8a359866b38ffc7c8d00c98ea1e1a105c191781265a2ecfa33afc283ecc23652012a811037aaa5dbe99e75566f26ff9eeecafa7934ab'
-            'abbc3feb2802d7151f546616e1d9d353526e2ececfb7733fa810a59d63066c59ba0321321970fc82a1eceb71ff5a760e5bc77acc7af08bb72805635a7ae62ea8')
+b2sums=('181e7dc2345748ec09577532e2765a62f1273cd8a19e3509d244fa78837e188471ff0ef830ad0fcb01d4a070a7ff8f4864a45e2ce3efe65248543debd0705b7f'
+        'SKIP'
+        '7f1ddbe5d7aac363558b927e29227df94a370baec50818484805f1a95d533554f1505ca1788879a0fc84b2c175e5459a69f1469bc13e1b12082aadd88a5d3c4f'
+        'de5e9301abcf937eb754412b730dde359a10d7eaaa1fcab5292f82429d724cdbfa5313aff2eea05c4e479d9d881ae220a80d6ba19b97f9191851f8b48553daaf')
 
 prepare() {
   cd $pkgname
