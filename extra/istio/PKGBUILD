@@ -4,7 +4,7 @@
 # Contributor: jtagcat <arch-3ff61201@jtag.cat>
 
 pkgname=istio
-pkgver=1.28.2
+pkgver=1.28.3
 pkgrel=1
 pkgdesc="Istio configuration command line utility for service operators to debug and diagnose their Istio mesh"
 arch=(x86_64)
@@ -13,9 +13,9 @@ license=(Apache-2.0)
 depends=(glibc)
 makedepends=(go)
 options=(!lto)
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('4d138e2864b25e2c99dba4c7f725716978245b7d42edd4070ecba25feb80f96c3f7d5f5c8ae1df51086f3323e4c7eeef3d6f1a0de1ee546e1593e2754ee10b2b')
-b2sums=('6dade1492a10a99dba42a95e9517db8cd0c137157420f16ab2ab224cc5299bd85dcd96258c48ca8abeea7b1bda80525c0ab04710b566cd7da66921155fab9cd1')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('c1bc7599640bef88aadce9e3b57ce5dcd1a1d688364759060833d3647e99e89827aea7786eef439c07e93417655009e701a54afc58d9ee6619da007e5f1db8a6')
+b2sums=('fc58703436e6b156a90b462f93251d0b0ef09f845e717a799107b7b239edf06150c61ffb12c9743425afc086cb30997d2e9fd9e677a9b1fd0b7d9faf99e70d2d')
 
 prepare() {
   cd $pkgname-$pkgver
