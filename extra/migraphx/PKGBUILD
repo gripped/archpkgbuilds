@@ -1,7 +1,8 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=migraphx
-pkgver=7.1.1
+pkgver=7.2.0
 pkgrel=1
 pkgdesc="AMD's graph optimization engine"
 arch=('x86_64')
@@ -33,7 +34,7 @@ source=(
   "rocmlir-$pkgname-$pkgver.tar.gz::$_mlir/archive/rocm-$_mlir_version.tar.gz"
   "0001-migraphx-check-if-use_hipblaslt-before-call-gfx_defa.patch"
 )
-sha256sums=('beb9cbf4475d979e8431a983ee0ae8a9f5b75bb24699b7b8dfa2753db9822c4d'
+sha256sums=('085ea6fcf6197b20fed60917194ca622e5d2c1705237fe063563f988494a8b3d'
             '2e57ff0b098ebe67fca02ef65cb2e1a44f3aaa6d23456d747c4c8c0df24f9d50'
             'd1ef55d9b38e923567b8195d8e577ff59c3c939cbdf2451e27472d03ee5a851b')
 options=(!lto)
