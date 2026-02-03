@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-cython-lint
-pkgver=0.18.1
-pkgrel=2
+pkgver=0.19.0
+pkgrel=1
 pkgdesc='A tool to lint Cython files'
 arch=(any)
 url='https://github.com/MarcoGorelli/cython-lint'
@@ -23,8 +23,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('61e2893181231e5bb38c1fc87b31b85bc91de44729093df9909c01cc521a4a34a301e06bf7f0364b91038749b4e962e3655c16ffa0dbb07e0ac75f721f4f8638')
-b2sums=('c5db88ecca6aa726e094b68e02abecd696009ece8833b01e80e62ef6166939cf908640cc8608051af9c8e548a08284069877e8256816f49ce038caac2f75383b')
+sha512sums=('636dacef5dcba442d512b46d9416d8e9b2e9381aaf895bb1db1aeee669b40182f9eba887b660239c28c986e05bdec413c3ea5cca71c228972a1aa2cc19056dd6')
+b2sums=('e9a85660b026c5cefe4f67e84709b776ffa43f20f626f84d655a80d64b416c43246e5fb892ce7101af20cf083ff89afa8140579515e94fcb3cfdde8e999ab64a')
 
 build() {
   cd "$pkgname"
