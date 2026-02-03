@@ -3,7 +3,7 @@
 # Contributor: Simon Legner <Simon.Legner@gmail.com>
 
 pkgname=osm2pgsql
-pkgver=2.0.1
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="tool for loading OpenStreetMap data into a PostgreSQL / PostGIS database"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=('boost' 'cmake' 'nlohmann-json' 'boost-libs' 'geos')
 optdepends=('postgresql: for creating a PostgreSQL database'
             'postgis: for creating a PostGIS database')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/openstreetmap/osm2pgsql/archive/$pkgver.tar.gz")
-sha256sums=('b9d5c95ccc928aafc3c6caccb8b5bc19c4d48a5d1640cada07388d0dbf171ecc')
+sha256sums=('567dad078f8a66d6d706ac1876b5251b688109d16974909d89ce2056d6e9f258')
 
 prepare() {
     cmake -B build -S "${pkgname}-${pkgver}" \
