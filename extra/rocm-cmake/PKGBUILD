@@ -5,7 +5,7 @@
 # Contributor: Greg Land <landjgregory at gmail dot com>
 
 pkgname=rocm-cmake
-pkgver=7.1.1
+pkgver=7.2.0
 pkgrel=1
 pkgdesc='CMake modules for common build tasks needed for the ROCm software stack'
 arch=('any')
@@ -14,7 +14,7 @@ license=('MIT')
 depends=('rocm-core' 'cmake')
 checkdepends=('git' 'rocm-llvm')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('4ef6bbe518a3d4670272203c83f98b2a7135ad570a13498f871efda2320b698e')
+sha256sums=('3f3899e84d78a0fecab62a35eed0014bb503c04d2cf76d263b29daf17f178636')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
 
 prepare() {
@@ -25,10 +25,6 @@ prepare() {
     # https://github.com/RadeonOpenCompute/rocm-docs-core
     # As we don't package it, disable also this test
     rm test/pass/doc-sphinxdoxygen.cmake
-    # New test failures with version 6.4, see
-    # https://github.com/ROCm/rocm-cmake/issues/269
-    rm test/pass/{analyze-gh.cmake,analyze.cmake}
-    rm test/fail/rename-compatibility.cmake
 }
 
 build() {
