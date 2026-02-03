@@ -1,8 +1,8 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=python-gitlabber
-pkgver=2.1.0
-pkgrel=2
+pkgver=2.1.1
+pkgrel=1
 pkgdesc='Clones or pulls entire groups tree from GitLab'
 arch=('any')
 license=('MIT')
@@ -25,12 +25,15 @@ optdepends=(
 )
 makedepends=(
   'git'
+  'python-build'
+  'python-installer'
+  'python-wheel'
 )
 checkdepends=(
   'python-pytest-integration'
 )
 source=("$pkgname::git+${url}#tag=v${pkgver}")
-sha256sums=('7c996119c734bf554c376a4bb2c5dbb4de7b941b3cbd93fef7418e415463cffd')
+sha256sums=('75d577b638d434d0bdab4ee215946d76a10d11ccd2c09265d9c3a95e897fb19c')
 
 pkgver() {
   cd "$pkgname"
@@ -46,7 +49,7 @@ prepare() {
 build() {
   cd "$pkgname"
 
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -58,7 +61,7 @@ check() {
 package() {
   cd "$pkgname"
 
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -Dm644 LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
   install -Dm644 README.rst "$pkgdir/usr/share/doc/$pkgname/README.rst"
