@@ -2,8 +2,8 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=rocal
-pkgver=7.1.1
-pkgrel=3
+pkgver=7.2.0
+pkgrel=1
 pkgdesc='A high-performance jpeg decode library for AMD’s GPUs'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocAL/en/latest/'
@@ -39,7 +39,7 @@ _rapidjson='https://github.com/Tencent/rapidjson'
 _commit=24b5e7a8b27f42fa16b96fc70aade9106cf7102f
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz"
         "$pkgname-rapidjson-$_commit.tar.gz::$_rapidjson/archive/$_commit.tar.gz")
-sha256sums=('e1ce21471a3f91eb26245daf0720e8ac52c95a382cbc6918b90cc1721c881f5f'
+sha256sums=('0de82b955229ed3883e237f0ffd23b4052aa78a1308873185662ab46ca01e711'
             '2d2601a82d2d3b7e143a3c8d43ef616671391034bc46891a9816b79cf2d3e7a8')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 _rapidjsondir="$(basename "$_rapidjson")-$(basename "${source[1]}" ".tar.gz")"
