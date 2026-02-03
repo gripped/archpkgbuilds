@@ -2,8 +2,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=bun
-pkgver=1.3.5
-_webkitver=6d0f3aac0b817cc01a846b3754b21271adedac12
+pkgver=1.3.8
+_webkitver=9a2cc42ae1bf693a0fd0ceb9b1d7d965d9cfd3ea
 _zigver=c1423ff3fc7064635773a4a4616c5bf986eb00fe
 pkgrel=2
 pkgdesc="Incredibly fast JavaScript runtime, bundler, test runner, and package manager – all in one"
@@ -14,6 +14,7 @@ depends=(
   gcc-libs
   glibc
   icu
+  sqlite
 )
 makedepends=(
   cargo # bun
@@ -34,15 +35,17 @@ source=(
   "$pkgname-linux-x64-$pkgver.zip::https://github.com/oven-sh/bun/releases/download/bun-v$pkgver/bun-linux-x64.zip"
   "$pkgname-WebKit::git+https://github.com/oven-sh/WebKit.git#commit=$_webkitver"
   "$pkgname-zig::git+https://github.com/oven-sh/zig.git#commit=$_zigver"
-  "$pkgname-fix-webkit-include-paths.patch"
   "$pkgname-add-cmake-option-zig-local.patch"
+  "$pkgname-fix-dangling-pointer-in-remote-debugger.patch"
+  "$pkgname-sqlite3-lib-path.diff"
 )
-b2sums=('4306ddb41002da09d5962477aa84008e2f254ef4ba7101507e947e4e9f4dcf1ac2ea07941c7d1cb1aa025b911693943c376d30ba025debf11c9042d1dfda068d'
-        'f5cb85236c41fa5f049098d0a87bbbee23a55cc8321471fc878ef766570231bd04b67c6d4d24d06123271fb356564e02c5ca62c79e349e4375788c06a07e8a33'
-        'e936ac26e6467a85f83e8874f38b4e8868daadfe4d34363bc58f576f9691c19f6cd28aa48c6014daaccf3cccf73376aa632e8f4920b24a3cad54a8d52c32b988'
+b2sums=('62a3ba4da9dad6c81f0d44e9453a53a89e69a0d5c1a2763e2f09531b3c850b5d91383ebc835ef583c7e13e0bf11ecb6b5def2174c2e556eeaebe3e7dffd8e9bd'
+        '5a548fe46b5050445d5057b9568b1d22a6270b68f3d2824f9c63d05d12b0a04eddffce2f76c05714b50fe731e81cf9304960625271aee4eba9d623f5ecbbc202'
+        '1ee5878d590bd7b8b1e5f5ac7b6e62b63e1cdcdac4cf78a65f3a7a8823e5f85508b2114f50226c051ad1b9857c969208d90bfb2b7054b520a93f7650d93fe57f'
         '8c867cf8d1a4895c366e9230cedd2328f7d6ee73be89cb58e794a8f226bb57c2ca7323650c4f275f8b502df4c1e2eec90c295b61079b6865d09d9ec8d8170483'
-        'b72ed9afcd42f84ed610b21f4a379900cc1affe694b8853992144bc3216cf9630253a7667c451f4a2e3353266e2620cffa3dbc1148cfea677de554dad5e809a7'
-        'fb11b321280b79ef2807c8a3947dc8ec3e413bf53471fce7891923f8bb5bcb555c672638143d838d7af6229a147dcd2f8b9a76107a35f09146b7e2da88a2cd45')
+        'fb11b321280b79ef2807c8a3947dc8ec3e413bf53471fce7891923f8bb5bcb555c672638143d838d7af6229a147dcd2f8b9a76107a35f09146b7e2da88a2cd45'
+        'f08b27d947235dc556275ccce421d7d9de72add117c1482fa62e92a9aa38f3f01349b77488c3e167476955994cccf0e57f691ace92d2b21a2d2503dda398b9c9'
+        'f1ad976393570be7f09e0391d68a4f573735ddc13be577f9d3746f8adb71d66b74d705429a8bd5c3582107971a5ded1931303185dae6763251ad7ce4ce9e2cd5')
 
 prepare() {
   cd $pkgname
@@ -50,8 +53,9 @@ prepare() {
     || (echo "WebKit version mismatch"; exit 1)
   grep -q "ZIG_COMMIT \"$_zigver\"" cmake/tools/SetupZig.cmake \
     || (echo "Zig version mismatch"; exit 1)
-  patch -Np1 < ../$pkgname-fix-webkit-include-paths.patch
   patch -Np1 < ../$pkgname-add-cmake-option-zig-local.patch
+  patch -Np1 < ../$pkgname-fix-dangling-pointer-in-remote-debugger.patch
+  patch -Np1 < ../$pkgname-sqlite3-lib-path.diff
 }
 
 build() {

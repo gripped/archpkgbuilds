@@ -1,0 +1,11 @@
+--- a/src/bun.js/bindings/sqlite/lazy_sqlite3.h	2026-01-17 19:11:31.133406737 +0100
++++ b/src/bun.js/bindings/sqlite/lazy_sqlite3.h	2026-01-17 19:12:04.624323374 +0100
+@@ -215,7 +215,7 @@
+ #elif OS(DARWIN)
+ static const char* sqlite3_lib_path = "libsqlite3.dylib";
+ #else
+-static const char* sqlite3_lib_path = "sqlite3";
++static const char* sqlite3_lib_path = "libsqlite3.so";
+ #endif
+ 
+ static HMODULE sqlite3_handle = nullptr;
