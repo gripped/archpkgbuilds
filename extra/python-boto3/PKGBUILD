@@ -4,7 +4,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-boto3
-pkgver=1.42.25
+pkgver=1.42.39
 pkgrel=1
 pkgdesc='The AWS SDK for Python'
 arch=('any')
@@ -29,7 +29,7 @@ checkdepends=(
 )
 optdepends=('python-awscrt: AWS CRT S3 transfers')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('33aff7204332da82b7b5df93b74a2b17538734441d3cbd8d2dd971e71794301b5ee281ccf6c9aade4848a36f0611e4cc4b5531c2aff8eba920a78eacbe3f6142')
+b2sums=('15a852156234ae0ac04c7ff2d47bfb0da973835be2fa37f94db9ae3f865e1b53b8a1683ca69c61b8dd0165062b3e1e0e39c796e2b9b3ca1c16d20d2b3bce5ffc')
 
 build() {
   cd ${pkgname#python-}-$pkgver
