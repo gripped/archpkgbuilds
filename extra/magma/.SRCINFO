@@ -1,6 +1,6 @@
 pkgbase = magma
 	pkgver = 2.9.0
-	pkgrel = 5
+	pkgrel = 6
 	url = https://icl.utk.edu/magma/
 	arch = x86_64
 	license = BSD-3-Clause
@@ -11,6 +11,7 @@ pkgbase = magma
 	makedepends = gcc-fortran
 	makedepends = cuda
 	makedepends = rocm-core
+	makedepends = rocm-toolchain
 	makedepends = hip-runtime-amd
 	makedepends = hipblas
 	makedepends = hipsparse
@@ -19,7 +20,6 @@ pkgbase = magma
 	optdepends = python: for examples and tests
 	optdepends = gcc-fortran: Fortran interface
 	options = !lto
-	options = !debug
 	source = magma::git+https://github.com/icl-utk-edu/magma.git#tag=v2.9.0
 	source = ROCm-use-HIPBLAS_V2-types-and-APIs-ROCm-7-ready.patch
 	sha256sums = bd18fbfd1b36dbcfd604b22f2fdfaf0a18c5dcfbe09fe1f1b2f2fe3e365bc304

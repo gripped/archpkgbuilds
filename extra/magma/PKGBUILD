@@ -10,7 +10,7 @@ _pkgname=magma
 pkgbase=$_pkgname
 pkgname=(magma-cuda magma-hip)
 pkgver=2.9.0
-pkgrel=5
+pkgrel=6
 _pkgdesc="Matrix Algebra on GPU and Multicore Architectures"
 arch=('x86_64')
 url="https://icl.utk.edu/magma/"
@@ -18,7 +18,7 @@ license=('BSD-3-Clause')
 depends=('blas' 'lapack')
 makedepends=('git' 'cmake' 'ninja' 'python' 'gcc-fortran'
              'cuda'
-             'rocm-core' 'hip-runtime-amd' 'hipblas' 'hipsparse')
+             'rocm-core' 'rocm-toolchain' 'hip-runtime-amd' 'hipblas' 'hipsparse')
 optdepends=('python: for examples and tests'
             'gcc-fortran: Fortran interface')
 source=(
@@ -27,16 +27,14 @@ source=(
 )
 sha256sums=('bd18fbfd1b36dbcfd604b22f2fdfaf0a18c5dcfbe09fe1f1b2f2fe3e365bc304'
             '1dd10785f143adfd73cfd5c5fae44553ea52c10bd9a8fcd20f97819529a0ead1')
-# -g makes rocm-llvm crash for magma
-options=(!lto !debug)
+options=(!lto)
 
 _valid_sm() {
   echo "sm_75 sm_80 sm_86 sm_87 sm_88 sm_89 sm_90 sm_100 sm_103 sm_110 sm_120 sm_121"
 }
 
 _valid_gfx() {
-  #List of GPU targets from rocBLAS
-  echo "gfx900 gfx906:xnack- gfx908:xnack- gfx90a:xnack+ gfx90a:xnack- gfx940 gfx941 gfx942 gfx1010 gfx1012 gfx1030 gfx1100 gfx1101 gfx1102 gfx1200 gfx1201"
+  echo "$(rocm-supported-gfx -s -d ' ')"
 }
 
 prepare() {
@@ -89,7 +87,7 @@ build() {
   CXXFLAGS+=" -DROCM_VERSION=$_rocm_ver"
   # With ROCm 6.0.0 the header moved from /opt/rocm/include to the subfolder hipsparse.
   # magma still uses the old location.
-  CXXFLAGS+=" -isystem /opt/rocm/include/hipsparse"
+  CXXFLAGS+=" -isystem /opt/rocm/include/hipsparse --offload-compress"
   cmake \
     -Bbuild \
     -GNinja \
