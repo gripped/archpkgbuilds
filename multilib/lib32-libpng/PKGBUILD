@@ -6,9 +6,9 @@
 
 _pkgbasename=libpng
 pkgname=lib32-$_pkgbasename
-pkgver=1.6.53
+pkgver=1.6.54
 _libversion=16
-pkgrel=2
+pkgrel=1
 pkgdesc='A collection of routines used to create PNG format graphics files (32-bit)'
 arch=('x86_64')
 url='http://www.libpng.org/pub/png/libpng.html'
@@ -17,20 +17,12 @@ depends=('lib32-zlib' $_pkgbasename)
 makedepends=('git')
 provides=('libpng16.so')
 source=("git+https://github.com/pnggroup/libpng.git?signed#tag=v${pkgver}?signed")
-sha256sums=('08c7700264cf66f1700d47719cdaa45eac10743de5702f19164c84b67035b0ba')
+sha256sums=('155ff1a4337ee71133c943c0a1033fa63f6aa7be91fe594508eb2298b0954cb6')
 validpgpkeys=('F57A55036A4D45837074FD92C9E384533403C2F8'  # Cosmin Truta <ctruta@gmail.com>
               '1FED507E3236B4A6E53E922BB292C64843FF5BCF') # Cosmin Truta <ctruta@gmail.com>
 
 prepare() {
   cd libpng
-
-  # fix: Use `png_voidp` instead of `voidp` in pngread.c and pngwrite.c
-  # Fix a heap buffer over-read in `png_image_read_direct_scaled`
-  # fix: Remove incorrect truncation casts from `png_write_image_*`
-  git cherry-pick -n \
-    0e894374dd7ee53039c6d84bd538dd7f16fc4cbe \
-    e4f7ad4ea2a471776c81dda4846b7691925d9786 \
-    cf155de014fc6c5cb199dd681dd5c8fb70429072
 
   autoreconf -fiv
 }
