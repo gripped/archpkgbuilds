@@ -3,8 +3,8 @@
 # Contributor: renek <aur@spaceshore.net>
 
 pkgname=python-multidict
-pkgver=6.7.0
-pkgrel=5
+pkgver=6.7.1
+pkgrel=1
 pkgdesc='Asyncio-based multidict implementation for Python'
 arch=('x86_64')
 url='https://github.com/aio-libs/multidict'
@@ -28,8 +28,8 @@ checkdepends=(
   'python-pytest-codspeed'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('6268acb9fc6efa1dc0adcaae06e61c5d6b9342fd654efc142116eee3acbd4d337e1c721cfeaa0a653241f0c2d9839cc8e55aa7531776c062c7c0c0c785db6be9')
-b2sums=('53d642e7ad4471979ecb1aa60574935aa50d8032126f4956d6c4b27a9076290f7b8254609c758b1124d70ed32249cc463bcf55380f7421f5d640fdcbca4d6122')
+sha512sums=('4009a310dac4732c48cc9654fbd55468dda5a6d18a05ef013ff90b030d3124459620d6d6ae4f85e88ef6cefa0b9bccea1b745f3acbfa0b351eb2c92cc8812b89')
+b2sums=('db03d9be850b3d2b042ecaa5484fd692fdb47a626862b57e2b218beeba90ae7b12a5e204bd3fdf20a4a125abf1dffb88c52cfc449c0daa31cfed585a74782a3f')
 
 build() {
   cd ${pkgname#python-}-$pkgver
@@ -48,5 +48,3 @@ package() {
   cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
-
-# vim: ts=2 sw=2 et:
