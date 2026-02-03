@@ -1,50 +1,49 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: arch3y <arch3y[at]archstrike[dot]org>
 
-_gitname=yara-python
 pkgname=python-yara
-pkgver=4.5.1
-pkgrel=2
+pkgver=4.5.4
+pkgrel=1
 pkgdesc='Tool aimed at helping malware researchers to identify and classify malware samples'
-url='https://github.com/VirusTotal/yara-python'
 arch=('x86_64')
-license=('Apache')
-depends=('python' 'yara' 'libyara.so' 'glibc')
-makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
+url='https://github.com/VirusTotal/yara-python'
+license=('Apache-2.0')
+depends=(
+  'glibc'
+  'libyara.so'
+  'python'
+  'yara'
+)
+makedepends=(
+  'git'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
 checkdepends=('python-pytest')
-source=(${pkgname}::git+"https://github.com/VirusTotal/${_gitname}#tag=v$pkgver")
-sha512sums=('807e7f07acaaae5071076cc334a80e09920918c4fd871a6cdc8e5d72cad386bc16ba384b1d6943e567beec7d1ea992e66e61b372f65fb15bf9427425cdf360d0')
-
-pkgver() {
-  cd ${pkgname}
-  git describe --tags --match 'v*' | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
-}
-
-prepare() {
-  cd ${pkgname}
-  mkdir -p tests
-  mv tests.py tests
-}
+source=("$pkgname::git+https://github.com/VirusTotal/yara-python#commit=v$pkgver?signed")
+b2sums=('1c220616dc4f7caebba75754d75b4892ebbe1496b5337f5db636a8795ba026febb04ce24ca0bd4b3ce1dff73acde7a64c5efcc49e6d3eea93c2583ab359989fa')
+validpgpkeys=('2A05514ACB63CB0E0C89DEE2B471460BB894AB84') # Victor M. Alvarez <vmalvarez@virustotal.com>
 
 build() {
-  cd ${pkgname}
+  cd $pkgname
   python -m build --wheel --no-isolation \
     -C--global-option=build_ext \
     -C--global-option=--dynamic-linking
 }
 
 check() {
-  cd ${pkgname}/tests
-  local PYTHONVERSION="$(python -c 'import sys; print("{}{}".format(sys.version_info.major, sys.version_info.minor))')"
-  PYTHONPATH="$PWD/../build/lib.linux-${CARCH}-cpython-${PYTHONVERSION}" \
-    pytest tests.py
+  cd $pkgname
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest tests.py
 }
 
 package() {
-  cd ${pkgname}
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
-  ln -s /usr/share/doc/yara/docs "${pkgdir}/usr/share/doc/${pkgname}/docs"
+  install -vDm 644 -t "$pkgdir/usr/share/doc/$pkgname" README.rst
+  ln -vs /usr/share/doc/yara/docs "$pkgdir/usr/share/doc/$pkgname/docs"
 }
-
-# vim: ts=2 sw=2 et:
