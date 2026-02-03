@@ -3,8 +3,8 @@
 # Contributor: Ian Beringer <ian@ianberinger.com>
 
 pkgname=python-kubernetes
-pkgver=34.1.0
-pkgrel=2
+pkgver=35.0.0
+pkgrel=1
 license=('Apache-2.0')
 pkgdesc='Python client for the kubernetes API'
 arch=('any')
@@ -36,7 +36,7 @@ checkdepends=(
   'python-pytest'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('39f9fc9d4662c44ba5ddf1104a1000cbc7e16ae605cd906d56f0bee83211ce93')
+b2sums=('009537e806dc43b9efaa628bf83a9a8e6287b6d718586c2f9fc79797bb771ad16159cf8479fb3c2754677936871c2294edfa5d4e2992b2bf424a2dbb2efa3a33')
 
 build() {
   cd python-$pkgver
@@ -45,7 +45,9 @@ build() {
 
 check() {
   cd python-$pkgver
-  PYTHONPATH="$PWD" pytest -v
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest
 }
 
 package() {
