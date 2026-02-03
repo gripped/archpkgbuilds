@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=kompose
-pkgver=1.37.0
+pkgver=1.38.0
 pkgrel=1
 pkgdesc="Docker compose to Kubernetes transformation tool"
 arch=('x86_64')
@@ -15,8 +15,8 @@ makedepends=(
   'jq'
 )
 options=('!lto')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('f361c9243ca781b27357d65e0a4a12dc8c0b1ae330021d6203f9cfd69280eeba73b77b50e608f058e81858f4ea069a5895813bff0c65781d9fef216798cfee8d')
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+b2sums=('67f5ef32d97b43d45b3ec0b459e13396b97ee26446361cfaea65a66345831d4c239a53db021601a50c170c25479abdd17d0978f59a62c89c2012dd3664e9b6e3')
 
 prepare() {
   cd $pkgname-$pkgver
