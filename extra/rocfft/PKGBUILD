@@ -4,7 +4,7 @@
 # Contributor: Markus Näther <naetherm@cs.uni-freiburg.de>
 
 pkgname=rocfft
-pkgver=7.1.1
+pkgver=7.2.0
 pkgrel=1
 pkgdesc='Next generation FFT implementation for ROCm'
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('rocm-core' 'hip-runtime-amd' 'glibc' 'gcc-libs')
 makedepends=('cmake' 'rocm-cmake' 'rocm-toolchain')
 _git='https://github.com/ROCmSoftwarePlatform/rocFFT'
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/releases/download/rocm-$pkgver/$pkgname.tar.gz")
-sha256sums=('a3a98a3d29292b9e28c8685b85b3d5a5e2fdc3bb2773c5fa59d219f43db03ccd')
+sha256sums=('ce23994caf23bb618c856095aaefd0b6367b0097dde22558e4558e66d07783d8')
 options=(!lto)
 
 build() {
