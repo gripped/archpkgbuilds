@@ -10,8 +10,8 @@ pkgname=(
   'bcc-examples'
   'python-bcc'
 )
-pkgver=0.35.0
-pkgrel=7
+pkgver=0.36.0
+pkgrel=1
 pkgdesc='BPF Compiler Collection'
 arch=('x86_64')
 url='https://github.com/iovisor/bcc'
@@ -37,16 +37,14 @@ source=(
   "git+https://github.com/libbpf/blazesym.git"
   "git+https://github.com/libbpf/libbpf.git"
   "$pkgbase-define-cmake-components.patch"
-  "$pkgbase-blazesym-fix-compilation-error.patch"
   "$pkgbase-libbpf-tools-respect-external-CFLAGS.patch"
 )
-sha512sums=('a412160dcd4026110cabc9d3149d796b6dbb1b4dc069d5516f4e61911a77cd0dc195f8536b3fbb3b82dd551636acdae8296676d395f0ca492d77fa4d11b3ba1d'
-            'SKIP'
-            'SKIP'
-            'SKIP'
-            'd5143245ab8c6c214507b050669042b9a0547d7d91fa74f55ede1a2d1e9ec17b75e5e1a024614fac94f1211b3f052c5dc026876a29da7da7b8dddc2e9ba9eae8'
-            'e09dbc2117e0fe7035fb331ea460c2277054801819ab7746178c927672ca6d4f2455da585a17ed858c47bbb0bd9239f7c895214fef312b0666f1da6ae52f6f5c'
-            '20a1a3add9d1fa264e2306d365c6e340891043b19e16158e5bff7dfd1eaaa71b2dc2e88fe6ef6d357c6b5276110c3256a424c0db26aa006256c931342c334f64')
+b2sums=('b3bfa0a4c13adff9330ef4078729e99c43ce09ed28ae4cde146aa49541c90b5c863c011cb1cf9ffce6ac44c03dd0ce7f23cd45438db68ac85bc2aa0566ac5aea'
+        'SKIP'
+        'SKIP'
+        'SKIP'
+        '0a5ae8d7d99768f43a54013777846a821fa06f7ff04d3d9343f7b093278b508c0b89dc9e74e489af192aa38525c357811fa09785dea81b97bcfd3eb03f88fb81'
+        'a26b7f8e17eb60778d8227d2e46d563937f8860629c6134075dfdee50f6836e057da9f2f8281773db46f6b32c74a588c1f03e2a0b753913855f58563be5bcef4')
 
 prepare() {
   cd "$pkgbase"
@@ -67,12 +65,7 @@ prepare() {
   )
 
   # Patches required to build libbpf-tools
-  patch -Np1 -d libbpf-tools/blazesym < ../$pkgbase-blazesym-fix-compilation-error.patch
   patch -Np1 < ../$pkgbase-libbpf-tools-respect-external-CFLAGS.patch
-
-  # Fix a build failure with clang21
-  # https://github.com/iovisor/bcc/pull/5369
-  git cherry-pick -n 8c5c96ad3beeed2fa827017f451a952306826974
 
   # Don't build Python bindings with CMake
   sed -i '/add_subdirectory(python)/d' src/CMakeLists.txt
@@ -100,7 +93,8 @@ build() {
 
   export EXTRA_LDFLAGS=$LDFLAGS
   unset LDFLAGS
-  make -C $pkgbase/libbpf-tools
+  make -C $pkgbase/libbpf-tools \
+    USE_BLAZESYM=0
 }
 
 package_bcc() {
@@ -137,7 +131,6 @@ package_bcc-libbpf-tools() {
   conflicts=('bcc-tools')
   replaces=('bcc-tools')
   depends=(
-    'gcc-libs'
     'glibc'
     'libelf'
     'zlib'
@@ -146,7 +139,7 @@ package_bcc-libbpf-tools() {
   make -C $pkgbase/libbpf-tools install \
     DESTDIR="$pkgdir" \
     prefix=/usr \
-    USE_BLAZESYM=1
+    USE_BLAZESYM=0
 }
 
 package_bcc-examples() {
