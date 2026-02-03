@@ -8,8 +8,8 @@
 # Contributor: Alexandru M Stan <alex@hypertriangle.com>
 
 pkgname=hsa-rocr
-pkgver=7.1.1
-pkgrel=2
+pkgver=7.2.0
+pkgrel=1
 pkgdesc='HSA Runtime API and runtime for ROCm'
 arch=('x86_64')
 url='https://github.com/ROCm/rocm-systems'
@@ -19,18 +19,10 @@ depends=('rocm-core' 'glibc' 'gcc-libs' 'numactl' 'pciutils' 'libelf' 'libdrm'
 provides=("hsakmt-roct=$pkgver")
 replaces=('hsakmt-roct')
 makedepends=('cmake' 'rocm-llvm' 'xxd')
-source=("rocm-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz"
-        "hsa-rocr-7.1.1-fix-vgpr-count.patch")
-sha256sums=('3abbc89eb9c23d4ca51a4fc15db08acf0dfca48255f72bcb2cde94e99b4dc22a'
-            '3b850e5497982fd4787e240e0a8f8af8da0677a93495f091a1c643af8c2857c6')
+source=("rocm-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
+sha256sums=('728ea7e9bf16e6ed217a0fd1a8c9afaba2dae2e7908fa4e27201e67c803c5638')
 _dirname="$(basename "$url")-rocm-$pkgver"/projects/rocr-runtime/
 options=(!lto)
-
-prepare() {
-    # https://gitlab.archlinux.org/archlinux/packaging/packages/hsa-rocr/-/issues/5
-    cd "rocm-systems-rocm-$pkgver"
-    patch -Np1 -i ../hsa-rocr-7.1.1-fix-vgpr-count.patch
-}
 
 build() {
   # Silence warnings on optional libraries with -DNDEBUG,
