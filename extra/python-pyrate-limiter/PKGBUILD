@@ -3,9 +3,9 @@
 # Contributor: Carlos Aznarán <caznaranl@uni.pe>
 
 pkgname=python-pyrate-limiter
-pkgdesc="Python Rate-Limiter using Leaky-Bucket Algorithm"
-pkgver=3.9.0
-pkgrel=2
+pkgdesc='Python Rate-Limiter using Leaky-Bucket Algorithm'
+pkgver=4.0.2
+pkgrel=1
 arch=(any)
 url=https://github.com/vutran1710/PyrateLimiter
 license=(MIT)
@@ -14,29 +14,50 @@ makedepends=(
   git
   python-build
   python-installer
-  python-poetry-core
+  python-hatchling
 )
 optdepends=(
   'python-filelock: concurrent sqlite backend'
   'python-redis: redis backend'
 )
-_tag=8cb467ea54c68368eaf34deef1a6cc38c41218a2
-source=(git+https://github.com/vutran1710/PyrateLimiter.git#tag=${_tag})
-b2sums=('b55757a05950fab4004f0bb22201dbf77d3dbff44eebfa01d6b42f55401a635ae709080cfaa830fb28532faa36b94624fb3a482d8bed00b608625c3430d2767c')
+source=(
+  "$pkgname::git+$url#tag=v$pkgver"
+  remove-uv-dynamic-versioning.patch
+)
+sha512sums=('01931e940d91222b407ec6cef486ddbaa38cdf5a9dfecdda5c9fbe8e73668162bb44237968230deff52dcef0ac6f8e750fb57b6c1d453664027ebc6415952b48'
+            '82022fd57ae79270cf65e33e02be823bb9e5541171e4532650c0c2ca46c70ee7ddcba5cbf9d5e95350702726972136e39644f7f281799e0032c33088a80e5936')
+b2sums=('75b58f952b88374e90205f59f1b30bc4df895814c99b97c0b20bf9ed8274c7cee9e0a2d3718c8b2417f38e9b2a67fadd71a3580c893c12e4b4fd23d20f5da0bb'
+        '36bfc646fb7952c0ca3cd45b6b5892a578844604783c76772d323eaec58de8d7a46b95668ff0b2e0eab3187406979980d7a57b7ace03a12a93843269095bef29')
 
-pkgver() {
-  cd PyrateLimiter
-  git describe --tags | sed 's/^v//'
+prepare() {
+  cd "$pkgname"
+
+  # does not work as advertised
+  # https://github.com/astral-sh/uv/issues/14561
+  patch -p1 -i "$srcdir/remove-uv-dynamic-versioning.patch"
+
+  sed \
+    -e "s/dynamic = \[\"version\"\]/version = \"$pkgver\"/" \
+    -i pyproject.toml
+
+  sed \
+    -e "s/0\.0\.0/$pkgver/" \
+    pyrate_limiter/_version.py
 }
 
 build() {
-  cd PyrateLimiter
+  cd "$pkgname"
+
   python -m build --wheel --no-isolation
 }
 
 package() {
-  python -m installer --destdir="${pkgdir}" PyrateLimiter/dist/*.whl
-  install -Dm 644 PyrateLimiter/LICENSE -t "${pkgdir}"/usr/share/licenses/python-pyrate-limiter/
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
 
 # vim: ts=2 sw=2 et:
