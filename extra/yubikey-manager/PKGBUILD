@@ -5,8 +5,8 @@
 
 pkgname=yubikey-manager
 epoch=1
-pkgver=5.8.0
-pkgrel=2
+pkgver=5.9.0
+pkgrel=1
 pkgdesc='Python library and command line tool for configuring a YubiKey'
 arch=('any')
 url='https://developers.yubico.com/yubikey-manager/'
@@ -18,6 +18,7 @@ depends=(
   'python-cryptography'
   'python-fido2'
   'python-keyring'
+  'python-pskc'
   'python-pyscard'
 )
 makedepends=(
@@ -26,6 +27,7 @@ makedepends=(
   'python-poetry-core'
 )
 checkdepends=(
+  'python-astroid'
   'python-makefun'
   'python-pytest'
 )
@@ -33,8 +35,8 @@ source=(
   "https://github.com/Yubico/yubikey-manager/releases/download/$pkgver/yubikey_manager-$pkgver.tar.gz"
 	"https://github.com/Yubico/yubikey-manager/releases/download/$pkgver/yubikey_manager-$pkgver.tar.gz.sig"
 )
-sha256sums=('3af0da65e1fdd46763c94ee74e2da55a4b6e7771da776c197f5f4b4581738560'
-            'SKIP')
+b2sums=('0e81504ee75f7b898ba5899b65a193e9bca53d1e516008df251f755c9bc8cce47d4948c0b99a7048e9504f9751673a4cf8322da32edbae5395092cbf5b10d5e1'
+        'SKIP')
 # https://developers.yubico.com/Software_Projects/Software_Signing.html
 validpgpkeys=(
   '8D0B4EBA9345254BCEC0E843514F078FF4AB24C3'  # Dag Heyman <dag@yubico.com>
