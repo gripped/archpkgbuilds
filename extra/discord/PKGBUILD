@@ -7,7 +7,7 @@
 pkgname=discord
 _pkgname=Discord
 pkgver=0.0.123
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="All-in-one voice and text chat for gamers"
 arch=('x86_64')
@@ -23,6 +23,14 @@ source=("https://dl.discordapp.net/apps/linux/$pkgver/$pkgname-$pkgver.tar.gz"
 sha512sums=('00363fb7feba38a8cb75136535c9c721e2b8b3c1251ea3db36517cd5a87f023733cb877a1b65478002189b0325bebfbe001448fabb6281b1e481da9b5f647ada'
             '808a9bd8a848245d564d2a791b32881d9f14a2b7047fe49c2f97eba0823ab0739a012b09d168b03e06b49e15c3113ffe204384c5f8e25e8c7b9c22db4092cce3'
             '5c1196019b3bf5dd89c4974107eb65f5401d7b39ef85ccd5a983c396b917bd8fdc8c494206f3040ee0dd8a249f42e0f4131b9db820fb99923e5be02604f2e2e7')
+
+# Skip license hashes as they are unstable (discord#2)
+# Since "updpkgsums"/"pkgctl version upgrade" overwrite the checksum array with
+# literal hashes, set them to SKIP with indexed assignments (pacman-contrib#119)
+# https://gitlab.archlinux.org/archlinux/packaging/packages/discord/-/issues/2
+# https://gitlab.archlinux.org/pacman/pacman-contrib/-/issues/119
+sha512sums[1]='SKIP'
+sha512sums[2]='SKIP'
 
 prepare() {
   cd $_pkgname
