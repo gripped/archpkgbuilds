@@ -6,7 +6,7 @@
 pkgbase=firewalld
 pkgname=('firewalld' 'python-firewall' 'firewall-config' 'firewall-applet' 'firewalld-test')
 pkgver=2.4.0
-pkgrel=5
+pkgrel=6
 url="https://firewalld.org"
 arch=('any')
 license=('GPL-2.0-or-later')
