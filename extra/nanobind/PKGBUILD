@@ -3,8 +3,8 @@
 
 pkgname=nanobind
 pkgdesc="Tiny and efficient C++/Python bindings"
-pkgver=2.10.2
-pkgrel=2
+pkgver=2.11.0
+pkgrel=1
 arch=(any)
 url="https://github.com/wjakob/nanobind"
 license=(BSD-3-Clause)
@@ -26,21 +26,21 @@ checkdepends=(
   python-tests
 )
 source=(
-  "$pkgname-$pkgver::git+$url.git#tag=v$pkgver"
+  "git+$url.git#tag=v$pkgver"
   "git+https://github.com/Tessil/robin-map.git"
 )
-sha512sums=('abad80ac86f9b686f02b5df19527d217ce512d520b0fadb1dbea2c5af8cb8737f6b0593694b1e25938a4d2bccaba3e3932d9062168fb9118a11fcb42157ed700'
-            'SKIP')
+b2sums=('02f19efc8fe0a673de68b49de1576f4c3199067d0cc70bf734f27bf374e59c73691dd663ce6f876921cb534c04f69dbc4184948e4c8a0c12b46137c5ee98bedb'
+        'SKIP')
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   git submodule init
-  git config submodule.libs/ext/robin_map.url "$srcdir/robin_map"
+  git config submodule.libs/ext/robin_map.url ../robin_map
   git -c protocol.file.allow=always submodule update
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m build --wheel --no-isolation
   cmake -S . -B build \
     -DCMAKE_BUILD_TYPE=None \
@@ -51,14 +51,14 @@ build() {
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   # one test requires running pytest from the build directory
   cd build
   python -m pytest
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
 
   local python_version=$(python -c "import sys; print(sys.version[:4])")
