@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=soplex
-pkgver=8.0.0
-pkgrel=1
+pkgver=8.0.1
+pkgrel=2
 pkgdesc='Sequential object-oriented simPlex'
 arch=(x86_64)
 url='https://www.scipopt.org/'
@@ -17,7 +17,7 @@ makedepends=(boost
              git
              papilo)
 source=(git+https://github.com/scipopt/soplex#tag=v$pkgver)
-sha256sums=('189c725ded504fbef447e8de7bdca858ef1b06f191ed3a06dfb87c70247e0505')
+sha256sums=('e91f51b412e237136c87af3ce04040d85a23077a90ccb9af3adc7c45cd39fd4f')
 
 prepare() {
   cd soplex
@@ -34,4 +34,7 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
+
+# Use shared library by default
+  sed -e 's|SOPLEX_LIBRARIES libsoplex|SOPLEX_LIBRARIES libsoplexshared|' -i "$pkgdir"/usr/lib/cmake/soplex/soplex-config.cmake
 }
