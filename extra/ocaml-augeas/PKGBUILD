@@ -2,8 +2,8 @@
 # Contributor: Toolybird <toolybird at tuta dot io>
 
 pkgname=ocaml-augeas
-pkgver=0.6
-pkgrel=8
+pkgver=0.7
+pkgrel=1
 pkgdesc="OCaml bindings for Augeas"
 arch=(x86_64)
 url="https://people.redhat.com/~rjones/augeas/"
@@ -17,21 +17,11 @@ makedepends=(
   ocaml-findlib
 )
 source=(
-  https://people.redhat.com/~rjones/augeas/files/$pkgname-$pkgver.tar.gz{,.sig}
-  $pkgname-0.6-options.patch
-  $pkgname-0.6-ocaml4.patch
+  https://download.libguestfs.org/ocaml-augeas/$pkgname-$pkgver.tar.gz{,.sig}
 )
-sha256sums=('8aba99ddacd08768ebeef4a2138361d13b41a30317fce7503140cd86a1307611'
-            'SKIP'
-            'f6e5cbe28c72f44f69f7fd9820281ae170ab95cdab8c713bf2e20f36a257b781'
-            '015d419b92ab46996689559b8b95f4748e5189f861fe6590b850acc8eedc8873')
+sha256sums=('ee3899c85d5b22cdcc659183e571add0980725a8a705a9fe7bf53ddc2ba2dd63'
+            'SKIP')
 validpgpkeys=(F7774FB1AD074A7E8C8767EA91738F73E1B768A0) # Richard W.M. Jones <rjones@redhat.com>
-
-prepare() {
-  # patches from upstream (for which no new release was made because reasons...): http://git.annexia.org/?p=ocaml-augeas.git
-  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-0.6-options.patch
-  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-0.6-ocaml4.patch
-}
 
 build() {
   cd $pkgname-$pkgver
