@@ -5,7 +5,7 @@
 # Contributor: Hugo Doria <hugodoria at gmail.com>
 
 pkgname=translate-toolkit
-pkgver=3.18.0
+pkgver=3.18.1
 pkgrel=1
 pkgdesc="A toolkit to convert between various different translation formats, help process and validate localisations"
 arch=('any')
@@ -43,7 +43,7 @@ optdepends=(
   'python-vobject: iCalendar files support for po2ical'
 )
 source=("https://github.com/translate/translate/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('2c31240428dfcd3af50c9325a22edeed8e14751787dc52497c64d309a77214c18313813432ed68e4a09b6da1c386beca2676bf544f24255c3bb7ad7e0ecd4e8e')
+b2sums=('ee27941987046ee1ac545c360d1d87f68e275dca7c9a5b364f35bf130add441e8c5ac515df0cebedcbdb4a7922913455fe5556c537508cc79410542fd6288588')
 
 build() {
   cd translate-$pkgver
