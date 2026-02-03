@@ -9,10 +9,11 @@
 # Command for generating the list of zip files for the source array:
 #   curl -s https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/index.xml | tr '"' '\n' | grep '\.zip'
 #
+# nltk_data repo is not versioned, pkgver refers to nltk repo instead
 
 pkgname=nltk-data
 pkgver=3.9.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Corpora, grammars and other linguistic data for NLTK'
 arch=(any)
 url='https://www.nltk.org/data.html'
@@ -140,6 +141,7 @@ https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/wordn
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/wordnet_ic.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/words.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/ycoe.zip
+
 https://raw.githubusercontent.com/nltk/nltk_data/refs/heads/gh-pages/LICENSE
 https://raw.githubusercontent.com/nltk/nltk_data/refs/heads/gh-pages/LICENSE-OVERVIEW.md
 https://raw.githubusercontent.com/nltk/nltk_data/refs/heads/gh-pages/DATASET-LICENSES.md
@@ -170,7 +172,7 @@ b2sums=('ba28be6f7d5fcd1840af11bae1e669233a151f9d6a5ae1a958ab5b5b8bf33eaac03a517
         '2f5103c9801b965ce5d893b690dedc5f8524b1266e32a01251834c80cf291963657b3c1366ef6ed21f9f89c9ab4a696de72a752ce53b651d596ade99edaace2e'
         'a60a95f9bcbb72b4ee19a91c380eb620261687f23bd867ae4cf2d7937b60b8dacafb52c09d7bcbcb9fbbbda4e57954ee55a900d70e69e7e290e53c668dd0775f'
         'a79b5d5de2ab03be43e5fdb1b34c70a458af6efce0e35f42f3c4d748c84cd950c98981f969fea2b0507ee405438f84b50e526aa94a93f99de7567ccb5c462215'
-        '83b3ccd6f8b08b4310b067775bbd80c135b5fb1161483f27572f30a8ab9b16f19d00def11f437b4d937a89d9f200e20780f4b2ce9e5590406e6ba018b116ae1b'
+        '7db8d95c313649b042db591a1967d79b5e9645599a43f01ef3d219c8bad0e943e137a37ebdfc782c2f6a370a696f8866e1101a1a1b4c615e95611c649b31a337'
         '295e274880ae34c9618a70cabc1b1075e35c442158aabe437972caebbf36d09c4f5f5b66d8ae7ac953f4312f9dac8f5e0c6d3346a444afe98ac700fb3e622539'
         '11dafcc49c3608e5178b2cf82a943a95afd900f80308bf40d56b29a4518029832fe52241df728f6c38114e60b9c03617337717d987221918a11810b77b1b33ea'
         '092886cb15c6215b4fe979ce62a1a137de97c4749c372426211d36117d367697d19ebe6a9337f702ee9dfc133318b1e7de51393c5a41afc31a960e10ebe7c498'
@@ -237,7 +239,7 @@ b2sums=('ba28be6f7d5fcd1840af11bae1e669233a151f9d6a5ae1a958ab5b5b8bf33eaac03a517
         '44c10439b142540ac7eece967efa1431fd8f45342f0a90875dacf29ad374fe4c7d30af11d42ba45e0f1ec1836d56b2ff684ee352c5e8536cfb5db5eb7632285b'
         'd8a8dbb558850a6a60f1fe5ab0f617f3a0f3c64bc7d49980cf793d374c6679d1bd42afb7e61776737b5eec162f2520abf2ee3acc92ea9ee0f397c3089b3b5b28'
         '2d352af0ced736d3c11a821eaba0b035b3b5b6b0f20db3bd5d4ac2451f99daf68bffd3ad984bd404ecc4a1e67ca9281c529af2cc9e295a3a7330f36ee9640bc8'
-        '682acd8fd6bf9d59c796af084e01070dfd8bc868c41d207fbfaff206d70986e212a274db43c66a9c4348d89b1e2d4ecf93615f30f68c1bbf9bfea2810291165e'
+        '51cd7ee4650817a21fb1f08652d53cd9755c97efae265dc0fb52744ea8d7ad5a76ac37f72f79fcd0ad6779cbd232739e0295135b46416593cbd2a74f3155c84b'
         '0a8777a5b91b1b825fbde41cc927d496480129f0a810349bddde2036ed16f37611f2bc3b007e74fe36523612529a92433d32d094be72d247f5faef8220c3c491'
         '1cd9d5355c6b53694ec545ca001b0807b4912a7878ba075b0f81ce8b9b22a5c7a18cf52cf2449483a1c89cd20d8d86986dc3d827fa93a7ef5824fddbc0922025'
         '211116a751ae246fa31b6aca96b396d3642d89ad112588a09f8d91a5b76dc41c7fb4d36c16c6358cd8e0da8056bc83598ed0dc635cf7b1fd8469a0e80b5f1761'
