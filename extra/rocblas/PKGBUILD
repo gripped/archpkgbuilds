@@ -4,7 +4,7 @@
 # Contributor: Lubosz Sarnecki <lubosz@gmail.com>
 
 pkgname=rocblas
-pkgver=7.1.1
+pkgver=7.2.0
 pkgrel=1
 pkgdesc='Next generation BLAS implementation for ROCm platform'
 arch=('x86_64')
@@ -43,7 +43,7 @@ optdepends=(
   'rocm-smi-lib: for rocblas-bench and rocblas-gemm-tune'
 )
 source=("rocm-libraries-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('2c00694c6131192354b0e785e4dcb06a302e4b7891ec50ca30927e05ba7b368b')
+sha256sums=('8ad5f4a11f1ed8a7b927f2e65f24083ca6ce902a42021a66a815190a91ccb654')
 options=(!strip)
 _dirname="rocm-libraries-rocm-$pkgver/projects/$pkgname"
 _tensile_dir="rocm-libraries-rocm-$pkgver/shared/tensile"
