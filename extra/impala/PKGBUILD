@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=impala
-pkgver=0.7.2
+pkgver=0.7.3
 pkgrel=1
 pkgdesc="TUI for managing wifi"
 url="https://github.com/pythops/impala"
@@ -11,7 +11,7 @@ makedepends=('cargo')
 arch=('x86_64')
 license=('GPL-3.0-only')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('231f9965fdc0e53ae2cf93d8acc0d6f23209f83dec512e0735e80b67b29d5f713b00d32739c64745c9482ce04dcb4b344d32daccdfe15aad7d0859bdfb5958a7')
+sha512sums=('303871f0a4e809a299f48a6899ff49641ae64f31f35fb1cc4f5612a66ae83cc3ef5fdb1acd838bbbce4196a0b13da1d7fb485030aaddf5a7aea8b62d201dcf68')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
