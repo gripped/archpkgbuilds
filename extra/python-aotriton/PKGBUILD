@@ -4,8 +4,8 @@
 
 _pkgname=aotriton
 pkgname=python-${_pkgname}
-pkgver=0.11.1b
-pkgrel=3
+pkgver=0.11.2b
+pkgrel=1
 pkgdesc="Ahead of Time Triton Math Library"
 url="https://github.com/ROCm/aotriton"
 license=(MIT)
@@ -35,7 +35,6 @@ makedepends=(
 	python-wheel
 	python-yaml
 	rocm-toolchain
-	rocm-toolchain
 )
 source=(
 	"git+https://github.com/ROCm/aotriton#tag=$pkgver"
@@ -45,7 +44,7 @@ source=(
 	python-aotriton-don-t-create-a-virtualenv-and-build-triton.patch
 	python-aotriton-v3src-Use-system-python-executable-instead-of-venv.patch
 )
-sha256sums=('11dab271c65301bec86555ba7dae9acd3cdca19fe3193b2ad95055ce6a5ab9e4'
+sha256sums=('1f24d9720c8c22adb2c12c278a901ad37742306beed5f69407e2d66a5bf86a16'
             'SKIP'
             'SKIP'
             '2ce5f6112a9a83dd7110a2ef9eecee520ac5872cfe767c53d6ebdebbe0dd06a1'
@@ -76,6 +75,8 @@ build() {
 		-Wno-dev
 		-S "${_pkgname}"
 		-B build
+		-D CMAKE_C_COMPILER=amdclang
+		-D CMAKE_CXX_COMPILER=amdclang++
 		-D CMAKE_CXX_FLAGS="${CXXFLAGS} -DNDEBUG"
 		-D CMAKE_BUILD_TYPE=None
 		-D CMAKE_INSTALL_PREFIX=/usr
@@ -83,7 +84,7 @@ build() {
 		# Don't depend on torch, torch depends on us
 		-D AOTRITON_USE_TORCH=OFF
 		# List taken from release notes
-		-D AOTRITON_TARGET_ARCH="gfx950;gfx1100;gfx1101;gfx1102;gfx1150;gfx1151;gfx1200;gfx1201"
+		-D AOTRITON_TARGET_ARCH="gfx950;gfx1100;gfx1101;gfx1102;gfx1103;gfx1150;gfx1151;gfx1152;gfx1153;gfx1200;gfx1201"
 	)
 	cmake "${cmake_args[@]}"
 	cmake --build build

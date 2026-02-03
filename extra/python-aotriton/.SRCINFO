@@ -1,7 +1,7 @@
 pkgbase = python-aotriton
 	pkgdesc = Ahead of Time Triton Math Library
-	pkgver = 0.11.1b
-	pkgrel = 3
+	pkgver = 0.11.2b
+	pkgrel = 1
 	url = https://github.com/ROCm/aotriton
 	arch = x86_64
 	license = MIT
@@ -20,7 +20,6 @@ pkgbase = python-aotriton
 	makedepends = python-wheel
 	makedepends = python-yaml
 	makedepends = rocm-toolchain
-	makedepends = rocm-toolchain
 	depends = gcc-libs
 	depends = glibc
 	depends = hip-runtime-amd
@@ -28,13 +27,13 @@ pkgbase = python-aotriton
 	depends = python
 	depends = python-triton
 	depends = rocm-core
-	source = git+https://github.com/ROCm/aotriton#tag=0.11.1b
+	source = git+https://github.com/ROCm/aotriton#tag=0.11.2b
 	source = aotriton-aiter::git+https://github.com/ROCm/aiter.git
 	source = aotriton-incbin::git+https://github.com/graphitemaster/incbin.git
 	source = python-aotriton-use-system-pybind11.patch
 	source = python-aotriton-don-t-create-a-virtualenv-and-build-triton.patch
 	source = python-aotriton-v3src-Use-system-python-executable-instead-of-venv.patch
-	sha256sums = 11dab271c65301bec86555ba7dae9acd3cdca19fe3193b2ad95055ce6a5ab9e4
+	sha256sums = 1f24d9720c8c22adb2c12c278a901ad37742306beed5f69407e2d66a5bf86a16
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = 2ce5f6112a9a83dd7110a2ef9eecee520ac5872cfe767c53d6ebdebbe0dd06a1
