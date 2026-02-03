@@ -2,26 +2,19 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=libaec
-pkgver=1.1.4
-pkgrel=3
+pkgver=1.1.5
+pkgrel=1
 pkgdesc="Adaptive Entropy Coding library"
 arch=(x86_64)
 url="https://gitlab.dkrz.de/k202009/libaec"
 license=(BSD-2-Clause)
 depends=(glibc)
 makedepends=(cmake)
-source=("${url}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.bz2"
-         0001-Guard-against-redefinition-of-cmake-targets.patch)
-sha256sums=('cf869c166656a83857adf62a092311a0069855c6ced3446e3f090a6d52279f65'
-            'b983e822f58f166bc6ffcfbd5f28efb570df3470f4bdfcf1fbe6e982b672ff6a')
-
-prepare() {
-# Avoid redefinition of cmake targets when included twice https://github.com/MathisRosenhauer/libaec/pull/46
-  patch -d ${pkgname}-v${pkgver} -p1 < 0001-Guard-against-redefinition-of-cmake-targets.patch
-}
+source=("$url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.bz2")
+b2sums=('43764239b5d7cce08bced884a5fa49aeb12df1778ccd613774cfeab5e7f8bad2f9674bfaf52815a8533e522a03768c947a41de698ade4ed358e60e897d13cc17')
 
 build() {
-  cmake -B build -S ${pkgname}-v${pkgver} \
+  cmake -B build -S $pkgname-v$pkgver \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Wno-dev \
@@ -29,8 +22,12 @@ build() {
   cmake --build build
 }
 
+check() {
+  ctest --test-dir build --output-on-failure
+}
+
 package() {
   DESTDIR="$pkgdir" cmake --install build
-  install -vDm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" \
-    ${pkgname}-v${pkgver}/LICENSE.txt
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" \
+    $pkgname-v$pkgver/LICENSE.txt
 }
