@@ -5,46 +5,15 @@
 pkgbase=rocm-llvm
 pkgname=(rocm-llvm rocm-device-libs comgr)
 epoch=2
-pkgver=7.1.1
-pkgrel=2
+pkgver=7.2.0
+pkgrel=1
 arch=('x86_64')
 url='https://rocm.docs.amd.com/en/latest/reference/rocmcc.html'
 makedepends=('git' 'cmake' 'python' 'ninja' 'rocm-core' 'rocm-cmake' 'perl'
              'gcc-libs' 'zlib' 'zstd' 'libffi' 'libedit' 'ncurses' 'libxml2' 'patchelf')
-source=("$pkgbase::git+https://github.com/ROCm/llvm-project#tag=rocm-$pkgver"
-        rocm-llvm-6.4-llvm-gold-plugin-fix-ModuleName.patch
-        rocm-llvm-6.4-fix-array-assert.patch
-        rocm-llvm-6.4-fix-glibc-2.42-termio-removal.patch)
-sha256sums=('fed80645f307dff71c2bf54ae19133b87a2d90ad812ae86a9bc0203ffc7b09d5'
-            '0293c307131426a9c031f215045e2f0725677de0aac6dda1729456ac9a444415'
-            '6485a06e4f3b85df76110548f428217f86e785ec3dec7b0de0a7a2cf6384f0c0'
-            '09d9135f8212a93d678c6c2fd9f551e55cab431e257f1182cfdfae7834e2fa14')
+source=("$pkgbase::git+https://github.com/ROCm/llvm-project#tag=rocm-$pkgver")
+sha256sums=('676db89f6b7b0c954f24ff1eb1c16db769a5c43b826337b9f4fd9f38f7b8af27')
 options=(staticlibs !lto)
-
-prepare() {
-  cd $pkgbase
-
-  # Fix build with cmake 4.0
-  git cherry-pick -n a18cc4c7cb51f94182b6018c7c73acde1b8ebddb
-
-  # Fix build with gcc 15
-  git cherry-pick -n \
-      7e44305041d96b064c197216b931ae3917a34ac1 \
-      8f39502b85d34998752193e85f36c408d3c99248
-
-  # Add fix for build failure in the gold plugin
-  patch -Np1 < ../rocm-llvm-6.4-llvm-gold-plugin-fix-ModuleName.patch
-
-  # Apply fix for gcc15
-  patch -Np1 < ../rocm-llvm-6.4-fix-array-assert.patch
-
-  # Add fix for missing function overload (openat)
-  # https://github.com/llvm/llvm-project/issues/100754
-  git cherry-pick -n 155b7a12820ec45095988b6aa6e057afaf2bc892
-
-  # Fix build with glibc 2.42: https://github.com/llvm/llvm-project/issues/137321
-  patch -Np1 < ../rocm-llvm-6.4-fix-glibc-2.42-termio-removal.patch
-}
 
 build() {
     # Build only minimal debug info to reduce size
@@ -73,7 +42,7 @@ build() {
         -D LIBCXXABI_ENABLE_SHARED=OFF
         -D LIBCXXABI_ENABLE_STATIC=ON
         -D LIBCXXABI_INSTALL_STATIC_LIBRARY=OFF
-        -D LLVM_TARGETS_TO_BUILD='AMDGPU;NVPTX;X86'
+        -D LLVM_TARGETS_TO_BUILD='AMDGPU;NVPTX;Native'
         -D CLANG_DEFAULT_LINKER=lld
         -D ENABLE_LINKER_BUILD_ID=ON
         -D CLANG_DEFAULT_RTLIB=compiler-rt
