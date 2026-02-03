@@ -3,7 +3,7 @@
 
 pkgname=python-aws-sam-translator
 _pkgname=serverless-application-model
-pkgver=1.106.0
+pkgver=1.107.0
 pkgrel=1
 pkgdesc='AWS Serverless Application Model (AWS SAM) prescribes rules for expressing Serverless applications on AWS'
 arch=(any)
@@ -33,7 +33,7 @@ checkdepends=(
   python-yaml
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('96799192803acacb28cb5616dc5afe1a2564b94f1c6d284ceb48bf3578311fa817d1047963a00e2a9a39287731e4141ca3c8cfccb5757b65ca08d6217db977b3')
+b2sums=('3df0ca4957a527372106bc3d4bf6135c400e6bbfeab332dbbb445b086a2d77372a7088febe42cc1049780303b254aa21b4418fd6ff2cba2fd79037ebad41589b')
 
 prepare() {
   cd $_pkgname-$pkgver
