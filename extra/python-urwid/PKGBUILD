@@ -5,8 +5,8 @@
 # Contributor: Douglas Soares de Andrade <dsandrade@gmail.com>
 
 pkgname=python-urwid
-pkgver=3.0.4
-pkgrel=4
+pkgver=3.0.5
+pkgrel=1
 pkgdesc='Curses-based user interface library'
 arch=('any')
 url='https://urwid.org/'
@@ -41,16 +41,8 @@ optdepends=(
   'python-twisted: for twisted integration'
 )
 source=("git+https://github.com/urwid/urwid.git#tag=$pkgver")
-sha512sums=('1b6df1946fb69d6c2aaff8117ca32b03687aca63e068d732953c87931cf2388b80638b27eb6c9b528bbfe5df1822df534e27101f58b46585b476c60dca22eea1')
-b2sums=('1e4e7557a6beb5a7f9b1b0cb5bf9a2268a453e53f6962b19f4f9ed51b9be5c9aec88a70c0c0d75fe14cbbe7c5d1bb7ef70007715fbb742cbcc48cc8bec9d25c1')
-
-prepare() {
-  cd ${pkgname#python-}
-  # Revert backwards-incompatible change that broke downstream packages, e.g.
-  # todoman and pudb. See:
-  # https://github.com/urwid/urwid/issues/1086
-  git revert -n eaddcd279f59a0f68f00ad06019aea69f91a809b
-}
+sha512sums=('757a8aaaf75ad3391c9e59acd51360cbf9ae4a268e909d1938396c7d867fee25a13123a66a277b7f272a886c3f3de810c5c30e825e177f162fa84cae78f06036')
+b2sums=('ac999ff34d633d4055327af69112cd085b0cdc28219d3c8cb0c7c9127adda07cd3d209246e1a99e15c58229b3e321266e955bb550cfb2789c64bac98b6fee36b')
 
 build() {
   cd ${pkgname#python-}
@@ -68,5 +60,3 @@ package() {
   cd ${pkgname#python-}
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
-
-# vim: ts=2 sw=2 et:
