@@ -1,12 +1,14 @@
 pkgbase = ddcutil
 	pkgdesc = Query and change Linux monitor settings using DDC/CI and USB.
-	pkgver = 2.2.3
+	pkgver = 2.2.5
 	pkgrel = 1
 	url = http://ddcutil.com/
 	arch = x86_64
-	license = GPL2
+	license = GPL-2.0-or-later
 	makedepends = git
 	makedepends = systemd
+	depends = gcc-libs
+	depends = glibc
 	depends = glib2
 	depends = i2c-tools
 	depends = libusb
@@ -15,7 +17,8 @@ pkgbase = ddcutil
 	depends = libx11
 	depends = libxext
 	depends = libxrandr
-	source = git+https://github.com/rockowitz/ddcutil.git#tag=v2.2.3
-	sha512sums = 1679daddb4dd1f4a4acc7d8c3297e9fcb305fec4b0f5b87921d880074ccb5a35ebd7a3ea7c4e614d3c493b625711c02aa499f991a1924003a792e703169dc8c8
+	depends = systemd-libs
+	source = git+https://github.com/rockowitz/ddcutil.git#tag=v2.2.5
+	sha512sums = 9b610790a8fba7273c1f9870b6f494de5b3b45be9b189667df5d20e3224119db1177f844af6a108ee2b17dbc752861500ddfdd7ed445e5296286771a36adaa07
 
 pkgname = ddcutil
