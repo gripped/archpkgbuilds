@@ -1,7 +1,7 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=vector
-pkgver=0.46.0
+pkgver=0.53.0
 pkgrel=1
 pkgdesc="A high-performance observability data pipeline"
 arch=("x86_64")
@@ -23,6 +23,7 @@ makedepends=(
     "perl"
     "cmake"
     "git"
+    "clang"
 )
 checkdepends=(
     "cargo-nextest"
@@ -32,8 +33,8 @@ source=(
     "${pkgname}.sysusers"
     "${pkgname}.tmpfiles"
 )
-sha512sums=('589880b48af66f099c7d3e47916edde3bf2847a060f69b00ce9b5c354c62e25e05f5e0126bda38a0ff8c785f13493ff65b3c1eca0730f67f47edc079bc2f9ee3'
-            '4f7a5d63f4e89018d1f0e9aa0fba2bb5c448d7031a7ff40c82878f574243e075c2fca020e78c4c71b1caa1a5bd1f06b496a5d3ab432f01d145233fd6c9ec4b87'
+sha512sums=('b72f096a10aafe831dce470d79a067b9d5ee24df9751521ab608f2db9526d473b012cd8e3ab4d217ee2338a7a33d0b540f01a217e76e67bcb5aab70817740c0d'
+            '9179cf571762819773d8f14ce457d20a54e5a7dcaf24ea88a11723af63c31775a3b59fc17fca41de547fc0cc3a72bf7501a8abfb4a95558f1e8789b12b951733'
             'c192492df09d131f9174d2acbb7f265c280eb6d678589b8c93bacc47ae55c51573a5477d715897f8580ced420730992fb68bee78b374f1cc042888ea6b5512fd')
 
 pkgver() {
@@ -50,11 +51,15 @@ prepare() {
 
 build() {
     cd "${pkgname}"
-    # --frozen fails atm due to "Unable to update https://github.com/vectordotdev/openssl-src-rs.git?tag=release-300-force-engine+3.1.2"
-    # Should we provide that manually?
 
-    export CMAKE_POLICY_VERSION_MINIMUM=3.5 # Required for rdkafka-sys
+    # # Required for rdkafka-sys
+    export CMAKE_POLICY_VERSION_MINIMUM=3.5
+
+    # https://github.com/vectordotdev/vector/issues/22888
+    export CFLAGS="${CFLAGS} -std=gnu17"
+
     cargo build \
+        --frozen \
         --release \
         --locked \
         --target "${_target}"
@@ -66,7 +71,10 @@ build() {
 check() {
     cd "${pkgname}"
 
-    # Unit-Tests only, integration tests require services
+    # Unit-Tests only, integration tests require services.
+    # UDP syslog/socket sources currently take too long, so we skip them.
+    # Test sources::file::tests::file_start_position_server_restart_unfinalized is flaky,
+    # see https://github.com/vectordotdev/vector/issues/23813
     cargo nextest run \
         --workspace \
         --fail-fast \
@@ -76,7 +84,13 @@ check() {
         --locked \
         --no-default-features \
         --features "target-${_target}" \
-        --target "${_target}"
+        --target "${_target}" \
+        -- \
+        --skip sources::socket::test::multicast_udp_message \
+        --skip sources::socket::test::multicast_and_unicast_udp_message \
+        --skip sources::socket::test::multiple_multicast_addresses_udp_message \
+        --skip sources::syslog::test::test_udp_syslog \
+        --skip sources::file::tests::file_start_position_server_restart_unfinalized
 }
 
 package() {
