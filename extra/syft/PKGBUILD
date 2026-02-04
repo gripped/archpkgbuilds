@@ -2,7 +2,7 @@
 
 pkgname=syft
 pkgver=1.41.2
-pkgrel=1
+pkgrel=2
 pkgdesc="CLI tool and library for generating a Software Bill of Materials from container images and filesystems"
 arch=('x86_64')
 url="https://github.com/anchore/syft"
@@ -18,25 +18,37 @@ source=("${pkgname}-${pkgver}.tar.gz::https://github.com/anchore/${pkgname}/arch
 sha512sums=('81e8b34b1f22738cdfab52a35266129d8f1de7fa6fe8a7ce9342744d5c0bf320f2cf306041ee9d60d43e6cad0e168efbb03ddc77a30d60a867d20d224210781b')
 b2sums=('a3642ae696e2a65be37b61f3d9094c19e6e63eeaa5f5f00655d285050794d24e3dea15df0f2455d2598e88227b6001fb26ca63a92ed79e79a8e5dbd2f5d892d9')
 
-build(){
+build() {
   cd "${pkgname}-${pkgver}"
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -ldflags=-linkmode=external -trimpath -modcacherw"
-  mkdir build
-  go mod tidy
-  go build -o build/ ./...
+  export CGO_REQUIRED="1"
+
+  mkdir -p build
+  go build \
+    -o build/ \
+    -buildmode=pie \
+    -mod=readonly \
+    -ldflags "-compressdwarf=false -linkmode=external -X main.version=${pkgver}" \
+    ./...
 }
 
-# disabled, needs docker
-# check() {
-#  cd "${pkgname}-${pkgver}"
-#  go test -v ./...
-# }
+check() {
+  cd "${pkgname}-${pkgver}"
+  build/syft --help
+}
 
 package() {
   cd "${pkgname}-${pkgver}"
   install -Dm755 build/syft "${pkgdir}/usr/bin/${pkgname}"
+
+  # install completions
+  install -d "${pkgdir}/usr/share/bash-completion/completions" \
+             "${pkgdir}/usr/share/zsh/site-functions" \
+             "${pkgdir}/usr/share/fish/vendor_completions.d"
+  "${pkgdir}/usr/bin/${pkgname}" completion zsh > "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
+  "${pkgdir}/usr/bin/${pkgname}" completion fish > "${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}.fish"
+  "${pkgdir}/usr/bin/${pkgname}" completion bash > "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
 }
