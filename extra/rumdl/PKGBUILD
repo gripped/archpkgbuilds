@@ -1,0 +1,34 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Contributor: Julien Virey <julien.virey@gmail.com>
+
+pkgname=rumdl
+pkgver=0.1.12
+pkgrel=1
+pkgdesc='Markdown Linter and Formatter written in Rust'
+arch=('x86_64')
+options=(!lto)
+url=https://github.com/rvben/rumdl
+license=('MIT')
+depends=(glibc gcc-libs)
+makedepends=(cargo)
+
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
+sha256sums=('89f6b20c31922a0713a38ec33f10f78b0a2bd12d4c2b1cdff82b4cf0a9ca572e')
+
+prepare() {
+  cd $pkgname-$pkgver
+  cargo fetch --locked --target $(rustc --print host-tuple)
+}
+
+build() {
+  cd $pkgname-$pkgver
+  cargo build --frozen --release --bin rumdl
+}
+
+package() {
+  cd $pkgname-$pkgver
+  install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
+
+# vim: ts=2 sw=2 et:
