@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=scip
-pkgver=10.0.0
-pkgrel=2
+pkgver=10.0.1
+pkgrel=1
 pkgdesc='Solving Constraint Integer Programs'
 arch=(x86_64)
 url='https://www.scipopt.org/'
@@ -12,17 +12,16 @@ depends=(bliss
          glibc
          gmp
          mpfr
+         onetbb
          readline
-         tbb
+         soplex
          zlib)
-makedepends=(bliss
-             boost
+makedepends=(boost
              cmake
              git
-             papilo
-             soplex)
+             papilo)
 source=(git+https://github.com/scipopt/scip#tag=v$pkgver)
-sha256sums=('3dadcd25d3e27fecca3c6a64b68a013084e777cd5d61d2259dbf9ebc6b310616')
+sha256sums=('1ef2db032928e13c4b33c8aee88669cac0dab9e0ba298747e8fb5e9a0be5a120')
 
 prepare() {
   git -C $pkgname cherry-pick -n a096844db787bb3492aa69a2ff97b586639e584d # Fix crash
