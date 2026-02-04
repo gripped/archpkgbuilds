@@ -5,7 +5,7 @@
 _pyname=agate
 pkgname=python-$_pyname
 pkgver=1.14.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A data analysis library that is optimized for humans instead of machines'
 arch=(any)
 url='https://agate.readthedocs.org/'
@@ -34,6 +34,8 @@ prepare() {
 	# parsedatetime bugs so they limit allowed versions. We're going to skip
 	# known problematic tests to allow Arch's packaged version.
 	sed -i -e '/parsedatetime/s/>.*"/"/' pyproject.toml
+	# https://github.com/wireservice/agate/pull/796
+	sed -i -e '/packages.find/,+2d' pyproject.toml
 }
 
 build() {
