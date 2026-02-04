@@ -2,7 +2,7 @@
 
 pkgname=scip
 pkgver=10.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Solving Constraint Integer Programs'
 arch=(x86_64)
 url='https://www.scipopt.org/'
@@ -22,10 +22,6 @@ makedepends=(boost
              papilo)
 source=(git+https://github.com/scipopt/scip#tag=v$pkgver)
 sha256sums=('1ef2db032928e13c4b33c8aee88669cac0dab9e0ba298747e8fb5e9a0be5a120')
-
-prepare() {
-  git -C $pkgname cherry-pick -n a096844db787bb3492aa69a2ff97b586639e584d # Fix crash
-}
 
 build() {
   cmake -B build -S $pkgname \
