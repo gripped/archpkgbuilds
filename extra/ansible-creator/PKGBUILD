@@ -3,7 +3,7 @@
 
 pkgname=ansible-creator
 pkgver=25.12.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A CLI tool for scaffolding all your Ansible Content"
 arch=('any')
 url="https://github.com/ansible/ansible-creator"
@@ -26,5 +26,5 @@ package() {
 	cd "${pkgname}-${pkgver}"
 	python -m installer --destdir="${pkgdir}" dist/*.whl
 	local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-	cp -av src/ansible_creator/resources/{common,execution_env_project,playbook_project} "${pkgdir}/${site_packages}/ansible_creator/resources/"
+	cp -av src/ansible_creator/resources/{common,execution_env_project,playbook_project,collection_project} "${pkgdir}/${site_packages}/ansible_creator/resources/"
 }
