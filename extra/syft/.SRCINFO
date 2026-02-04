@@ -1,14 +1,15 @@
 pkgbase = syft
 	pkgdesc = CLI tool and library for generating a Software Bill of Materials from container images and filesystems
-	pkgver = 1.38.0
-	pkgrel = 2
+	pkgver = 1.41.2
+	pkgrel = 1
 	url = https://github.com/anchore/syft
 	arch = x86_64
-	license = Apache
-	makedepends = go
+	license = Apache-2.0
 	makedepends = git
-	source = syft-1.38.0.tar.gz::https://github.com/anchore/syft/archive/v1.38.0.tar.gz
-	sha512sums = e21f6106a61295faf79eda97ce22336de7f3fc830d6e763cc53f152a8071cf6f050e9bada7e8226b2ac0180fa63cc852125e8e26a03a4f3855d406fac45e989a
-	b2sums = 1b84380c74b75939de7aac2980d31b3ff0f89340db89d6227c7a7cf3c9aa854008063dbb35fe57f5d94034f50793ba6412d83a4c28c92bbba38fee08b1166df7
+	makedepends = go
+	depends = glibc
+	source = syft-1.41.2.tar.gz::https://github.com/anchore/syft/archive/v1.41.2.tar.gz
+	sha512sums = 81e8b34b1f22738cdfab52a35266129d8f1de7fa6fe8a7ce9342744d5c0bf320f2cf306041ee9d60d43e6cad0e168efbb03ddc77a30d60a867d20d224210781b
+	b2sums = a3642ae696e2a65be37b61f3d9094c19e6e63eeaa5f5f00655d285050794d24e3dea15df0f2455d2598e88227b6001fb26ca63a92ed79e79a8e5dbd2f5d892d9
 
 pkgname = syft
