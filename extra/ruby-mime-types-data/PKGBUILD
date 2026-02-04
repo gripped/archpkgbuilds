@@ -3,7 +3,7 @@
 
 _name=mime-types-data
 pkgname=ruby-$_name
-pkgver=3.2026.0127
+pkgver=3.2026.0203
 pkgrel=1
 pkgdesc='provides a registry for information about MIME media type definitions'
 arch=(any)
@@ -13,7 +13,7 @@ depends=(ruby)
 makedepends=('ruby-rdoc')
 options=(!emptydirs)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/mime-types/$_name/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('c327b511c2dc5294b38b9cbac33ce27c06e6221f6bd891ee8713bccf90bb0e85')
+sha256sums=('e6bb6261316127d28482f9a30f206fa090dedaffc16971c55806e85cb096634b')
 
 prepare() {
   cd "${_name}-${pkgver}"
