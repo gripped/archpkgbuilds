@@ -2,7 +2,7 @@
 
 pkgname=ko
 pkgver=0.18.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Build and deploy Go container images"
 arch=('x86_64')
 url="https://github.com/ko-build/ko"
@@ -11,22 +11,16 @@ depends=(
   'glibc'
 )
 makedepends=(
-  'git'
-  'go'
+  'repro-go'
 )
+options=(!lto)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ko-build/ko/archive/refs/tags/v${pkgver}.tar.gz")
 sha512sums=('651d0e2ab075b954aaa6e82a12708515b84f08ae9f9fad1335931a317aa1ac72a8f62f8ac238f550790e43328b5c4b701436e6763b0bb87c3f80145848d8a469')
 b2sums=('d67fc6d7618cc354318d2c83f22d73cf716e801e1b5a4c51024815a85cfce213ffe64e05ad00beac6a646670d09bddc167229bd336a4de6dc323b34f5225e920')
 
 build() {
   cd "${pkgname}-${pkgver}"
-  export CGO_CPPFLAGS="${CPPFLAGS}"
-  export CGO_CFLAGS="${CFLAGS}"
-  export CGO_CXXFLAGS="${CXXFLAGS}"
-  export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
-  go build -ldflags="-w -s -linkmode=external" .
-  chmod +x ./ko
+  repro-go build -modcacherw .
 }
 
 check() {
