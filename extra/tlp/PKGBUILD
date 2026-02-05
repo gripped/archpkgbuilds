@@ -7,15 +7,15 @@ pkgname=(
   tlp-pd
   tlp-rdw
 )
-pkgver=1.9.0
-pkgrel=3
+pkgver=1.9.1
+pkgrel=1
 arch=(any)
 url=https://linrunner.de/en/tlp/tlp.html
 license=(GPL-2.0-or-later)
 makedepends=(git)
-_tag=50fd73cff7b346a0d9ffd644185e359332f453c2
+_tag=fc87251e2c5325acfbc2d59f4063f74d80916f76
 source=(git+https://github.com/linrunner/TLP.git#tag=${_tag})
-sha256sums=('4b1099e0a5ee14103fe4aa02c4883c7e30a86cfe4845ae77c0b2a45b1a3c53be')
+sha256sums=('bc9538c688efa51f84ff8a1e990f7469fa343e64b5b50deed9959d178cf49c71')
 install=tlp.install
 
 pkgver() {
