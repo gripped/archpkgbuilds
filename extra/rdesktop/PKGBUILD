@@ -6,29 +6,40 @@
 
 pkgname=rdesktop
 pkgver=1.9.0
-pkgrel=2
-pkgdesc="An open source client for Windows Remote Desktop Services"
-arch=('x86_64')
-url="https://www.rdesktop.org/"
-license=('GPL-3.0-only')
-depends=('libao' 'libsamplerate' 'xorg-xrandr' 'pcsclite' 'libgssglue' 'libxcursor')
-source=(https://github.com/rdesktop/rdesktop/archive/v${pkgver}.tar.gz)
-sha512sums=('c5120ea615e4a83c9c86dd77e536d48218121dfce2425fa6b78b4d59f194e28a709dcc86ed410921759b2bafa4aab1bf0b89d4440b8ae5e4741d1af092b0fbcf')
+pkgrel=3
+pkgdesc='An open source client for Windows Remote Desktop Services'
+arch=(x86_64)
+url='https://www.rdesktop.org/'
+_url='https://github.com/rdesktop/rdesktop'
+license=(GPL-3.0-only)
+depends=(libao
+         libgssglue
+         libsamplerate
+         libxcursor
+         pcsclite
+         xorg-xrandr)
+options=(!lto)
+_archive="$pkgname-$pkgver"
+source=("$_url/archive/v$pkgver/$_archive.tar.gz"
+        "$pkgname-ssl.patch")
+sha256sums=('d547c2e6f3e4c818a7e69a0f39adb39fac303633e0c25aa804bb588507ffc230'
+            '52cdece7b301e1234b313ece9006e848d33cdf02568604f99a4697913166f1cc')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
-  ./bootstrap
+	cd "$_archive"
+	patch -Np1 -i "../$pkgname-ssl.patch"
+	./bootstrap
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
-  ./configure --prefix=/usr \
-    --enable-smartcard \
-    --with-ipv6
-  make
+	cd "$_archive"
+	export CCFLAGS+=' --std=c++11 -std=gnu++98'
+	export CXXFLAGS+=' --std=c++11 -std=gnu++98'
+	./configure --prefix=/usr --enable-smartcard --with-ipv6
+	make
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  make DESTDIR="${pkgdir}" install
+	cd "$_archive"
+	make DESTDIR="$pkgdir" install
 }
