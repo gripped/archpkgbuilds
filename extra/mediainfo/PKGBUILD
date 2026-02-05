@@ -5,7 +5,7 @@
 
 pkgbase=mediainfo
 pkgname=(mediainfo mediainfo-gui)
-pkgver=25.10
+pkgver=26.01
 pkgrel=1
 pkgdesc='Supplies technical and tag information about media files'
 arch=('x86_64')
@@ -14,8 +14,8 @@ license=('BSD-2-Clause')
 depends=("libmediainfo=$pkgver")
 makedepends=('wxwidgets-gtk3')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/MediaArea/MediaInfo/archive/v$pkgver.tar.gz")
-sha512sums=('e4a4b00f8bf6285d9a8ab50a03f564cb094f02345d085713d55c642f4a8e159daad44b1e70f6e28c1a920942eb0524fef399327194aa4ed6e725163b48365668')
-b2sums=('fe3492f37bf7a2229e02428fee33e2f07e382c62e981bb93e30fb56afa38f77fce2b370794a349a78961c5676a457e82d43905b6152f9876225b2abe1274163b')
+sha512sums=('b3b14baa2e5b8f4fac085ed904e5ff65f8870f3143422c63bf6242d4bd429c9ba5fe97444a07fa51e64849931c576a8e625193c429ace61d1a7e643307787f7d')
+b2sums=('fd217f9e077e12325303b79f5e3c6879b95c6832a79081ab0914b9ec3c7dcb7d2102615800d242f48885c0b66c0c74bc5aec113d46f84a94a6937fd0f06f9970')
 
 prepare() {
   cd MediaInfo-$pkgver
