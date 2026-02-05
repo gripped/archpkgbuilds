@@ -5,7 +5,7 @@
 # Contributor: Moritz Lipp <mlq@pwmt.org>
 
 pkgname=zathura-pdf-mupdf
-pkgver=2026.01.30
+pkgver=2026.02.03
 pkgrel=1
 pkgdesc="PDF support for Zathura (MuPDF backend) (Supports PDF, ePub, and OpenXPS)"
 url="https://pwmt.org/projects/zathura-pdf-mupdf/"
@@ -16,7 +16,7 @@ depends=('cairo' 'gumbo-parser' 'jbig2dec' 'libjpeg-turbo' 'libmupdf' 'openjpeg2
 makedepends=('meson' 'ninja' 'git' 'appstream' 'appstream-glib')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pwmt/${pkgname}/archive/refs/tags/${pkgver}.tar.gz"
         0001-Remove-mupdf-linking-detection.patch)
-sha512sums=('ec0cae4f876960caf0d62567c8d027ed8f1abb918e2669eb086c3a8e63a015bb008b89d25f935b66631e6e7d36b196cde86c4edd68094dcdd9abfa4af82b430b'
+sha512sums=('25cddec7445669c24cc7f75374857947744f041227416d7027ddd7affc5b186ef048f3570f80c0bb0af66dc90669e035b75609bb8619d10ec34348e0c93878b8'
             '5402a6ae9f4b177a9f96483f59b5c50042eb9de3267675725ea2aa0beedfc677f267847e6b0274a7043c0d281136ec72282a2d40f87b408db935d7411eef7cac')
 
 prepare() {
