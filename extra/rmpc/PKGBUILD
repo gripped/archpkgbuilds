@@ -3,7 +3,7 @@
 
 pkgname=rmpc
 pkgver=0.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A beautiful and configurable TUI client for MPD'
 url='https://mierak.github.io/rmpc/'
 arch=('x86_64')
@@ -15,7 +15,7 @@ optdepends=(
   'python-mutagen: for youtube playback'
   'ueberzugpp: for alternative album art method'
   'cava: for visualizer')
-makedepends=('cargo')
+makedepends=('cargo' 'desktop-file-utils')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/mierak/rmpc/archive/v$pkgver.tar.gz")
 sha256sums=('930019066228d18e9530a8c0d77f10e231ab5efbbbca73b331efcd6fbb47557d')
 
@@ -53,6 +53,9 @@ package() {
 
   # license
   install -Dm 644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENCE"
+
+  # desktop file
+  desktop-file-install -m 644 --dir "$pkgdir/usr/share/applications/" "assets/$pkgname.desktop"
 }
 
 # vim: ts=2 sw=2 et:
