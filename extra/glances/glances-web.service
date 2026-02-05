@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 EnvironmentFile=/etc/conf.d/glances
-ExecStart=/usr/bin/glances -s $GLANCES_ARGS
+ExecStart=/usr/bin/glances -w $GLANCES_ARGS
 Restart=always
 RemainAfterExit=no
 
