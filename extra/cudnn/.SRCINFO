@@ -1,9 +1,10 @@
 pkgbase = cudnn
 	pkgdesc = NVIDIA CUDA Deep Neural Network library
-	pkgver = 9.18.1.3
+	pkgver = 9.19.0.56
 	pkgrel = 1
 	url = https://developer.nvidia.com/cuDNN
 	arch = x86_64
+	arch = aarch64
 	license = LicenseRef-NVIDIA-cuDNN
 	depends = cuda>=13
 	depends = glibc
@@ -11,7 +12,9 @@ pkgbase = cudnn
 	depends = zlib
 	depends = libz.so
 	options = !strip
-	source = https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-9.18.1.3_cuda13-archive.tar.xz
-	b2sums = b7af48737fb929dde2e4a301035bdac3b447e1a2c3eaf2d9f40759aad40019055f4dd244fb73dac3700436e6180f8378e08876639688376b9f70893bd7d18f59
+	source_x86_64 = https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-9.19.0.56_cuda13-archive.tar.xz
+	b2sums_x86_64 = f9489f8bff79db530e1fd591a55d7e06d1dd8dd3847ecd2ee83c625c93242abdc1e96efed1d791663ca15016d38fdf065e21d6a8b290468797dc85f730f2513f
+	source_aarch64 = https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-sbsa/cudnn-linux-sbsa-9.19.0.56_cuda13-archive.tar.xz
+	b2sums_aarch64 = cfceddfaf1222199f30351e01d541ddb36d17590c22fcaa26a07455b240a5a3fef68617869951624014d04dcec07618e9bcedffb46471b3f159f42864f1cf396
 
 pkgname = cudnn
