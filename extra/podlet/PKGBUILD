@@ -1,9 +1,10 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=podlet
 pkgver=0.3.1
-pkgrel=1
-pkgdesc="Generate podman quadlet (systemd-like) files from a podman command "
+pkgrel=2
+pkgdesc="Generate podman quadlet (systemd-like) files from a podman command"
 arch=('x86_64')
 url="https://github.com/containers/podlet"
 license=('MPL-2.0')
@@ -25,5 +26,4 @@ check() {
 package() {
   cd "$pkgname-$pkgver"
   install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
-  install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
 }
