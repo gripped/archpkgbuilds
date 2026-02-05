@@ -5,7 +5,7 @@
 # Contributor: karnath <karnathtorjian@gmail.com>
 
 pkgname=zathura-pdf-poppler
-pkgver=2026.01.30
+pkgver=2026.02.03
 pkgrel=1
 pkgdesc="Adds pdf support to zathura by using the poppler engine"
 url="https://pwmt.org/projects/zathura-pdf-poppler/"
@@ -14,7 +14,7 @@ license=('Zlib')
 depends=('poppler-glib' 'zathura' 'desktop-file-utils')
 makedepends=('meson' 'ninja' 'appstream' 'appstream-glib')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pwmt/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
-sha512sums=('54c9067f6a78d7d6865ecdd72304187e4bd9b43cae7a72e2017a691b763c36bdf51f7365817f0ba7195e019f065aae83e748ce5dd98fdbad41bb871963813014')
+sha512sums=('4c6c32bb213f99b6f3d61fcce317d6be289530ad6ec0a6df4f599abcb4109c75da44822563346ee55828ead504d0a49f9fdbe846c2f4f17d2718d0631d2cee88')
 
 build() {
         cd "${pkgname}-${pkgver}"
