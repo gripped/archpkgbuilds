@@ -3,13 +3,13 @@
 # Contributor: Juliette Cordor 
 
 pkgname=podman-desktop
-pkgver=1.23.1
+pkgver=1.24.2
 pkgrel=1
 pkgdesc="Manage Podman and other container engines from a single UI and tray."
 arch=("x86_64")
 url="https://podman-desktop.io"
 license=('Apache-2.0')
-_electron=electron38
+_electron=electron39
 depends=(${_electron} "hicolor-icon-theme")
 makedepends=(
     'pnpm' 'node-gyp' 'npm' 'nodejs-lts-jod' 'libvips' 'lcms2'
@@ -21,7 +21,7 @@ optdepends=(
 )
 source=(${pkgname}-${pkgver}.tar.gz"::https://github.com/${pkgname}/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz"
 "run.sh.in")
-b2sums=('e8cc0b4079575764046138985d51369127de10f87dd9ae0307ff57b45606de493f556740d8ae1f10bdbaaf654cb4b9b9c30e4ab9d7641574065f3f5165cc43b5'
+b2sums=('47349336b2a03b20bb69a78e224ccc82f1e1bec5b5dc3e0c922cb97cc8006acafee4858518cfa28e167c90c9ea40b3df14bca274f50f86ad835a4cca481d9bce'
         '962868734a928753a0855a701fe356511f5066057e642677328ac522429a47d5091a8849d138fb29e06b100e4fe5762eee1f6feab1d9c95b2935794ca31f0016')
 
 prepare(){
@@ -31,6 +31,8 @@ prepare(){
     echo -n Replacing $(cat package.json|grep '"electron":')
     npm pkg set devDependencies.electron=${_elver}
     echo with $(cat package.json|grep '"electron":')
+    export ELECTRON_SKIP_BINARY_DOWNLOAD=1
+    export ELECTRON_OVERRIDE_DIST_PATH="/usr/lib/${_electron}"
     pnpm install --ignore-scripts --no-frozen-lockfile
 }
 
