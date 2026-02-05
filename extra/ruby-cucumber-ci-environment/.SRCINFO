@@ -1,16 +1,17 @@
 pkgbase = ruby-cucumber-ci-environment
 	pkgdesc = Detect CI Environment from environment variables
-	pkgver = 12.0.0
+	pkgver = 13.0.0
 	pkgrel = 1
 	url = https://github.com/cucumber/ci-environment
 	arch = any
 	license = MIT
+	makedepends = git
 	makedepends = ruby-bundler
 	makedepends = ruby-rake
 	makedepends = ruby-rspec
 	depends = ruby
 	options = !emptydirs
-	source = https://github.com/cucumber/ci-environment/archive/v12.0.0/ruby-cucumber-ci-environment-12.0.0.tar.gz
-	sha256sums = 3eebf3c2d7e80075bfed59a24413406c6c87b70aec747dce5b1ecfb0a0aae502
+	source = git+https://github.com/cucumber/ci-environment.git#tag=v13.0.0
+	sha256sums = 909402214b89be4fd68e310e89a369f10827102f0ef8a3991900583bfaa5da86
 
 pkgname = ruby-cucumber-ci-environment

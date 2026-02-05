@@ -2,7 +2,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=ruby-cucumber-ci-environment
-pkgver=12.0.0
+pkgver=13.0.0
 pkgrel=1
 pkgdesc='Detect CI Environment from environment variables'
 arch=(any)
@@ -12,23 +12,24 @@ depends=(
   ruby
 )
 makedepends=(
+  git
   ruby-bundler
   ruby-rake
   ruby-rspec
 )
 options=(!emptydirs)
-source=(https://github.com/cucumber/ci-environment/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('3eebf3c2d7e80075bfed59a24413406c6c87b70aec747dce5b1ecfb0a0aae502')
+source=(git+https://github.com/cucumber/ci-environment.git#tag=v$pkgver)
+sha256sums=('909402214b89be4fd68e310e89a369f10827102f0ef8a3991900583bfaa5da86')
 
 prepare() {
-  cd ci-environment-$pkgver/ruby
+  cd ci-environment/ruby
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended 's|~>|>=|g' "cucumber-ci-environment.gemspec"
 }
 
 build() {
   local _gemdir="$(gem env gemdir)"
-  cd ci-environment-$pkgver/ruby
+  cd ci-environment/ruby
   rake ci_environments
   gem build cucumber-ci-environment.gemspec
   gem install \
@@ -55,12 +56,12 @@ build() {
 
 check() {
   local _gemdir="$(gem env gemdir)"
-  cd ci-environment-$pkgver/ruby
+  cd ci-environment/ruby
   GEM_HOME="tmp_install/$_gemdir" rake
 }
 
 package() {
-  cd ci-environment-$pkgver/ruby
+  cd ci-environment/ruby
   cp -a tmp_install/* "$pkgdir"/
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
