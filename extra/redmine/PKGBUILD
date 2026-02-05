@@ -2,7 +2,7 @@
 # Contributor: Federico Cuello <fedux@fedux.com.ar>
 
 pkgname=redmine
-pkgver=6.1.0
+pkgver=6.1.1
 pkgrel=1
 pkgdesc="A flexible project management web application written using Ruby on Rails framework."
 arch=('x86_64')
@@ -31,7 +31,7 @@ optdepends=('apache: A supported application server'
 source=("$url/releases/$pkgname-$pkgver.tar.gz"
 	"Gemfile.local"
 	"redmine.service")
-sha512sums=('e9e9025c7304e4f4d74f8b0d61a22dc614e5b3e81aff093b2cffa3c2f2ee119ea5c188093d7c4abe500ef1c8cd71d329f49ad5cdf7ca3e9ee2d499b8cb2112b4'
+sha512sums=('ed3e3e4f8939e652893eaa3f1d8728570cb2d92093a3abb3d2308618dc4956bd809b0ed40ddcb92d34aa6a07bd08b0c309e2df76ca63f52168e120d800811adc'
             'dff9cdfaa296130003cdc92822e924bea164ba6a7405893887cc3b87e8f84325b499c884853d13c33fe00613a776d6b84cfdf8a5240a6130fbf7c6eb1bd9b39b'
             'e8cf8b47fdc51f01cbbcfde2b822e9c57eb3989ada116cd2ffe6982d9947feca30f256221e018babc3afedb9c62c65ff158bb024259ebfabc30d719b90692166')
 
@@ -40,13 +40,15 @@ build() {
 
     sed -i "/ruby '/d" Gemfile
     cp "${srcdir}"/Gemfile.local Gemfile.local
-    bundle config set force_ruby_platform true
+
     bundle config build.nokogiri --use-system-libraries "-- --with-cflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CFLAGS"]') -Wno-incompatible-pointer-types'"
-#    bundle config set without 'development test'
-#    bundle config set no-cache 'true'
-#    bundle config set deployment 'true'
+    bundle config set without 'development test'
+    bundle config set force_ruby_platform true
+    bundle config set no-cache true
+    bundle config set deployment true
+
     bundle lock
-    bundle install --no-cache --deployment --without development test
+    bundle install
 }
 
 package() {
