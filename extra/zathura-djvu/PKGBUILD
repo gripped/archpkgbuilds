@@ -5,7 +5,7 @@
 # Contributor: karnath <karnathtorjian@gmail.com>
 
 pkgname=zathura-djvu
-pkgver=2026.01.30
+pkgver=2026.02.03
 pkgrel=1
 pkgdesc="DjVu support for Zathura"
 url="https://pwmt.org/projects/zathura-djvu/"
@@ -14,7 +14,7 @@ license=('Zlib')
 depends=('djvulibre' 'zathura' 'desktop-file-utils')
 makedepends=('meson' 'ninja' 'appstream' 'appstream-glib')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pwmt/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
-sha512sums=('3179b19b7540447c73571baf1dda06bb80dc685bf58ef4dfc59d0eec109bbb38dd4a1b4356bc61daa05811403199612acd1794bbbab75562346ee41b7195379f')
+sha512sums=('c2772c9d33bed7571f90aa5036a94e16c07a5be8950f956e537c922f17d3b1558f838dc0ab1e739fc817fad24eb073b36fec9c8d83b073067845e5c71f5e35d3')
 
 build() {
         cd "${pkgname}-${pkgver}"
