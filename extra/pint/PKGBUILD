@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=pint
-pkgver=0.78.0
+pkgver=0.79.0
 pkgrel=1
 pkgdesc='Rule linter/validator for Prometheus'
 arch=(x86_64)
@@ -10,8 +10,8 @@ license=(Apache-2.0)
 depends=(glibc)
 makedepends=(git go)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('50933629413acf71c66fefd8050f86ce1f24e8a4254e6f8258c469a0faa12480b3797cf198e8f3910cba654bf572f3cfcb1bb94ecfd4bc86ae4b194cef3d5026')
-b2sums=('4a074c362c6f9ae8432b456d256ed3453d9d169686c2e6e151a42da8a04f6cb7aca2debe3d57085a2834a981e2b9140cbc6d4b1271ca1a5c2d0e269bc97c5e2f')
+sha512sums=('4d598f72b927ea984f84a13cb049eb5981d0c5881e0ad98bf65c20336b2d46ed3bdaa661cf974db5b3ec0d9a8221bf58c7b57ee9041e5058b56aaf2c398c9794')
+b2sums=('31dd140b83fb3dc646da0febdcec9790ef0d56aaa4c29196b04ce0fcdf5259cd5d94b43f496a07de937b521737aae72977d35f28bc352c42f0c5f897c5981571')
 
 prepare() {
   cd "$pkgname"
