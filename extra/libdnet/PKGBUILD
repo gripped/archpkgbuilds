@@ -2,7 +2,7 @@
 # Contributor: James Fryman <jfryman@gmail.com>
 
 pkgname=libdnet
-pkgver=1.18.0
+pkgver=1.18.2
 pkgrel=1
 pkgdesc='A simplified, portable interface to several low-level networking routines'
 arch=('x86_64')
@@ -10,7 +10,7 @@ checkdepends=('check')
 license=('BSD')
 url='https://github.com/ofalk/libdnet'
 source=("https://github.com/ofalk/${pkgname}/archive/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('a4a82275c7d83b85b1daac6ebac9461352731922161f1dcdcccd46c318f583c9')
+sha256sums=('95611c6d2703f1772fc01ce74acf4ebcc4bcd4315cede35b343bb90dc43bfd8f')
 
 prepare() {
   cd "$srcdir"/$pkgname-$pkgname-$pkgver
