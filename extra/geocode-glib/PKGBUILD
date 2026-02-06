@@ -8,30 +8,28 @@ pkgname=(
   geocode-glib-2
 )
 pkgver=3.26.4
-pkgrel=4
+pkgrel=5
 pkgdesc="Helper library for geocoding services"
 url="https://gitlab.gnome.org/GNOME/geocode-glib"
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-2.0-or-later)
 makedepends=(
+  gcc-libs
   git
   glib2
+  glib2-devel
+  glibc
   gobject-introspection
   gtk-doc
+  hicolor-icon-theme
   json-glib
   libsoup
   libsoup3
   meson
 )
 checkdepends=(glibc-locales)
-_commit=210abe69d68e38947106f4680631c369b0c23189  # tags/3.26.4^0
-source=("git+https://gitlab.gnome.org/GNOME/geocode-glib.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd geocode-glib
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/geocode-glib.git#tag=$pkgver")
+b2sums=('c235a8ebf5d5b7ef19d8a6ff0b8b4f2d7e1609350ffc915cf4c9252b9ee3401383e0aab1ebde4aed8ab02c8e594f83a33a411a4b28093f091bc25d3cf6a74eea')
 
 prepare() {
   cd geocode-glib
@@ -65,10 +63,7 @@ _pick() {
 
 package_geocode-glib-common() {
   pkgdesc+=" (common files)"
-  depends=(
-    glib2
-    json-glib
-  )
+  depends=(hicolor-icon-theme)
 
   meson install -C build2 --destdir "$pkgdir"
   meson install -C build3 --destdir "$pkgdir"
@@ -93,8 +88,12 @@ package_geocode-glib-common() {
 package_geocode-glib() {
   pkgdesc+=" (legacy)"
   depends=(
-    geocode-glib-common="$pkgver-$pkgrel"
-    libsoup-2.4.so
+    "geocode-glib-common=$pkgver-$pkgrel"
+    gcc-libs
+    glib2
+    glibc
+    json-glib
+    libsoup libsoup-2.4.so
   )
   provides=(libgeocode-glib.so)
 
@@ -103,8 +102,12 @@ package_geocode-glib() {
 
 package_geocode-glib-2() {
   depends=(
-    geocode-glib-common="$pkgver-$pkgrel"
-    libsoup-3.0.so
+    "geocode-glib-common=$pkgver-$pkgrel"
+    gcc-libs
+    glib2
+    glibc
+    json-glib
+    libsoup3 libsoup-3.0.so
   )
   provides=(libgeocode-glib-2.so)
 
