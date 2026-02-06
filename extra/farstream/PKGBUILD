@@ -2,7 +2,7 @@
 
 pkgname=farstream
 pkgver=0.2.9
-pkgrel=3
+pkgrel=4
 pkgdesc="Farstream (formerly Farsight) - Audio/Video Communications Framework"
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/Farstream"
@@ -31,7 +31,7 @@ build() {
     --enable-gtk-doc \
     --with-package-name='Arch Linux farstream package' \
     --with-package-origin='http://archlinux.org'
-  make
+  make -j1
 }
 
 package() {
