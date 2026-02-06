@@ -3,7 +3,7 @@
 
 pkgname=budgie-desktop
 pkgver=10.10.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A familiar, modern desktop environment'
 arch=(x86_64)
 url='https://github.com/BuddiesOfBudgie/budgie-desktop'
@@ -13,6 +13,7 @@ depends=(
 	accountsservice
 	alsa-lib
 	bash
+	budgie-backgrounds
 	budgie-control-center
 	budgie-desktop-services
 	budgie-session
@@ -65,7 +66,6 @@ makedepends=(
 	vala
 )
 optdepends=(
-	'budgie-backgrounds: Default background set'
 	'budgie-desktop-view: Desktop icons'
 	'ibus: Input method support'
 	'network-manager-applet: Network management in the panel'
