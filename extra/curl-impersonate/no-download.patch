@@ -1,26 +1,23 @@
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -119,22 +119,16 @@ uninstall: ## Uninstall the Chrome version of curl-impersonate after 'make insta
+@@ -115,21 +115,16 @@ uninstall: ## Uninstall the Chrome version of curl-impersonate after 'make insta
  
  clean:
  	## Remove all build artifacts, including dependencies
 -	rm -Rf brotli-$(BROTLI_VERSION).tar.gz brotli-$(BROTLI_VERSION)
--	rm -Rf boringssl-$(BORING_SSL_COMMIT).zip boringssl-$(BORING_SSL_COMMIT)
++	rm -Rf brotli-$(BROTLI_VERSION)
+ 	rm -Rf boringssl-$(BORING_SSL_COMMIT).zip boringssl-$(BORING_SSL_COMMIT)
 -	rm -Rf nghttp2-$(NGHTTP2_VERSION).tar.bz2 nghttp2-$(NGHTTP2_VERSION)
 -	rm -Rf ngtcp2-$(NGTCP2_VERSION).tar.bz2 ngtcp2-$(NGTCP2_VERSION)
 -	rm -Rf nghttp3-$(NGHTTP3_VERSION).tar.bz2 nghttp3-$(NGHTTP3_VERSION)
--	rm -Rf c-ares-$(CARES_VERSION).tar.gz c-ares-$(CARES_VERSION)
 -	rm -Rf $(CURL_VERSION).tar.gz $(CURL_VERSION)
-+	rm brotli-$(BROTLI_VERSION)
-+	rm boringssl-$(BORING_SSL_COMMIT)
-+	rm nghttp2-$(NGHTTP2_VERSION)
-+	rm ngtcp2-$(NGTCP2_VERSION)
-+	rm nghttp3-$(NGHTTP3_VERSION)
-+	rm c-ares-$(CARES_VERSION)
-+	rm $(CURL_VERSION)
++	rm -Rf nghttp2-$(NGHTTP2_VERSION)
++	rm -Rf ngtcp2-$(NGTCP2_VERSION)
++	rm -Rf nghttp3-$(NGHTTP3_VERSION)
++	rm -Rf $(CURL_VERSION)
  .PHONY: clean
  
--
+ 
 -brotli-$(BROTLI_VERSION).tar.gz:
 -	curl -L "https://github.com/google/brotli/archive/refs/tags/v${BROTLI_VERSION}.tar.gz" \
 -		-o "brotli-${BROTLI_VERSION}.tar.gz"
@@ -31,11 +28,10 @@
  	cd brotli-$(BROTLI_VERSION)
  	mkdir -p out
  	cd out
-@@ -165,20 +159,13 @@ $(brotli_static_libs): brotli-$(BROTLI_VERSION).tar.gz
- 
+@@ -161,19 +156,13 @@ $(brotli_static_libs): brotli-$(BROTLI_VERSION).tar.gz
  	@cmake@ --build . --config Release --target install --parallel $(SUBJOBS)
  
--
+ 
 -boringssl-$(BORING_SSL_COMMIT).zip:
 -	curl -L https://github.com/google/boringssl/archive/$(BORING_SSL_COMMIT).zip \
 -		-o boringssl-$(BORING_SSL_COMMIT).zip
@@ -53,11 +49,10 @@
  	mkdir -p $(boringssl_install_dir)
  	cd $(boringssl_install_dir)
  
-@@ -217,12 +204,7 @@ $(boringssl_static_libs): boringssl-$(BORING_SSL_COMMIT).zip boringssl-$(BORING_
- 	cp ssl/libssl.a $(boringssl_dir)/lib
+@@ -213,11 +202,7 @@ $(boringssl_static_libs): boringssl-$(BORING_SSL_COMMIT).zip boringssl-$(BORING_
  	cp crypto/libcrypto.a $(boringssl_dir)/lib
  
--
+ 
 -nghttp2-$(NGHTTP2_VERSION).tar.bz2:
 -	curl -L $(NGHTTP2_URL) -o nghttp2-$(NGHTTP2_VERSION).tar.bz2
 -
@@ -67,7 +62,7 @@
  	cd nghttp2-$(NGHTTP2_VERSION)
  
  	# Set up the configure flags to nghttp2.
-@@ -241,11 +223,7 @@ $(nghttp2_static_libs): nghttp2-$(NGHTTP2_VERSION).tar.bz2
+@@ -236,11 +221,7 @@ $(nghttp2_static_libs): nghttp2-$(NGHTTP2_VERSION).tar.bz2
  	$(MAKE) MAKEFLAGS=-j$(SUBJOBS)
  	$(MAKE) install MAKEFLAGS=
  
@@ -80,7 +75,7 @@
  	cd ngtcp2-$(NGTCP2_VERSION)
  	autoreconf -i
  
-@@ -270,11 +248,7 @@ $(ngtcp2_static_libs): ngtcp2-$(NGTCP2_VERSION).tar.bz2 $(boringssl_static_libs)
+@@ -265,11 +246,7 @@ $(ngtcp2_static_libs): ngtcp2-$(NGTCP2_VERSION).tar.bz2 $(boringssl_static_libs)
  	$(MAKE) MAKEFLAGS=-j$(SUBJOBS)
  	$(MAKE) install MAKEFLAGS=
  
@@ -92,21 +87,8 @@
 +$(nghttp3_static_libs):
  	cd nghttp3-$(NGHTTP3_VERSION)
  
- 	# Set up the configure flags to nghttp3.
-@@ -293,11 +267,7 @@ $(nghttp3_static_libs): nghttp3-$(NGHTTP3_VERSION).tar.bz2
- 	$(MAKE) MAKEFLAGS=-j$(SUBJOBS)
- 	$(MAKE) install MAKEFLAGS=
- 
--cares-$(CARES_VERSION).tar.gz:
--	curl -L $(CARES_URL) -o c-ares-$(CARES_VERSION).tar.gz
--
--$(cares_static_libs): cares-$(CARES_VERSION).tar.gz
--	tar -xzf c-ares-$(CARES_VERSION).tar.gz
-+$(cares_static_libs):
- 	cd c-ares-$(CARES_VERSION)
- 
- 	{ \
-@@ -312,15 +282,8 @@ $(cares_static_libs): cares-$(CARES_VERSION).tar.gz
+ 	# Set up the configure flags to nghttp2.
+@@ -288,15 +265,8 @@ $(nghttp3_static_libs): nghttp3-$(NGHTTP3_VERSION).tar.bz2
  	$(MAKE) MAKEFLAGS=-j$(SUBJOBS)
  	$(MAKE) install MAKEFLAGS=
  
@@ -122,12 +104,12 @@
  	cd $(CURL_VERSION)
  	for p in $^; do patch -p1 < $$p; done
  	# Re-generate the configure script
-@@ -328,7 +291,7 @@ $(CURL_VERSION)/.patched: $(srcdir)/patches/curl.patch
+@@ -304,7 +274,7 @@ $(CURL_VERSION)/.patched: $(srcdir)/patches/curl.patch
  	touch .patched
  
  # This is a small hack that flags that curl was patched and configured in the "chrome" version
 -$(CURL_VERSION)/.chrome: $(chrome_libs)	$(CURL_VERSION).tar.gz $(CURL_VERSION)/.patched
-+$(CURL_VERSION)/.chrome: $(chrome_libs) $(CURL_VERSION)/.patched
++$(CURL_VERSION)/.chrome: $(chrome_libs)	$(CURL_VERSION)/.patched
  	cd $(CURL_VERSION)
  
  	# Set up the configure flags to curl.
