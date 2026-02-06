@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-sudoku
-pkgver=49.3
+pkgver=49.4
 pkgrel=1
 pkgdesc="Test your logic skills in this number grid puzzle"
 url="https://gitlab.gnome.org/GNOME/gnome-sudoku/-/wikis/home"
@@ -33,7 +33,7 @@ groups=(gnome-extra)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-sudoku.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('6b3ea1507aba4b046a31966d0ef5f8103d1ffa2670f2db000ad1f398e98838875af69c8889410407871deae0fecf848595230d33891c53f6104b831300584399')
+b2sums=('fab607a885ba274992cd17597be54b88adde40d29843143f8fdadfe1fa8e2ad3eb19205aba5e70fc06e2c98c44081d50e15bf02585d3452ca5d9c2d52c365f32')
 
 prepare() {
   cd $pkgname
