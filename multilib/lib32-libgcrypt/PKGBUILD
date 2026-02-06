@@ -2,23 +2,33 @@
 
 _pkgbasename=libgcrypt
 pkgname=lib32-$_pkgbasename
-pkgver=1.11.2
+pkgver=1.12.0
 pkgrel=1
 pkgdesc="General purpose cryptographic library based on the code from GnuPG (32-bit)"
 arch=(x86_64)
 url="https://www.gnupg.org"
-license=('LGPL')
-depends=('lib32-libgpg-error' $_pkgbasename)
+license=(
+    'BSD-3-Clause'
+    'BSD-3-Clause OR GPL-2.0-only'
+    'GPL-2.0-or-later'
+    'LGPL-2.0-or-later'
+    'LGPL-2.1-or-later'
+    'X11'
+    'LicenseRef-scancode-public-domain'
+    'LicenseRef-OCB1'
+)
+depends=('lib32-libgpg-error' 'lib32-glibc' $_pkgbasename)
 makedepends=(gcc-multilib libtool-multilib)
 source=(https://gnupg.org/ftp/gcrypt/${_pkgbasename}/${_pkgbasename}-${pkgver}.tar.bz2{,.sig})
-sha1sums=('b0d3d966894a5ee3b629e55350464f69e1c7859e'
+sha1sums=('02f80e9bc9967609b7041ef874eae4e542f240a5'
           'SKIP')
-sha256sums=('6ba59dd192270e8c1d22ddb41a07d95dcdbc1f0fb02d03c4b54b235814330aac'
+sha256sums=('0311454e678189bad62a7e9402a9dd793025efff6e7449898616e2fc75e0f4f5'
             'SKIP')
-validpgpkeys=(
-  '6DAA6E64A76D2840571B4902528897B826403ADA' # Werner Koch (dist signing 2020)
-  'AC8E115BF73E2D8D47FA9908E98E9B2D19C6C8BD' # Niibe Yutaka (GnuPG Release Key)
-)
+# validpgpkeys=(
+#   '6DAA6E64A76D2840571B4902528897B826403ADA' # Werner Koch (dist signing 2020)
+#   'AC8E115BF73E2D8D47FA9908E98E9B2D19C6C8BD' # Niibe Yutaka (GnuPG Release Key)
+# )
+validpgpkeys=('6DAA6E64A76D2840571B4902528897B826403ADA')  # "Werner Koch (dist signing 2020)"
 
 prepare() {
   cd ${_pkgbasename}-${pkgver}
@@ -47,4 +57,6 @@ package() {
 
   make DESTDIR="${pkgdir}" install
   rm -rf "${pkgdir}"/usr/{include,share,bin,sbin}
+  install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -m644 {COPYING.LIB,LICENSES} "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
