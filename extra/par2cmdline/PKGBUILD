@@ -3,17 +3,16 @@
 # Maintainer: Sébastien Luttringer <seblu@aur.archlinux.org
 
 pkgname=par2cmdline
-pkgver=1.1.0
-pkgrel=2
+pkgver=1.1.1
+pkgrel=1
 pkgdesc='A PAR 2.0 compatible file verification and repair tool'
 url='https://github.com/BlackIkeEagle/par2cmdline'
 license=('GPL-2.0-or-later')
 arch=('x86_64')
-options=(debug)
 depends=('gcc-libs')
 source=("https://github.com/Parchive/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz"
         "https://github.com/Parchive/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz.sig")
-sha512sums=('b880d5db2b2c32301a3081788a09d82fc89f5538238162ba5cc9a01b900eec623d310c2934753daa5d197fb235858076e19467f1820e8b2daa13034aec293cb9'
+sha512sums=('d97f5bb5f3e8351d5baf2e8ab553a328b9e4705613623bb7dc8273526374a79a4987819852652dd59e90c26c864a84b9e7d7aafc83784068c3cac1a81fb129a3'
             'SKIP')
 
 validpgpkeys=(
