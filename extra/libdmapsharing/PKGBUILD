@@ -3,32 +3,31 @@
 
 pkgname=libdmapsharing
 pkgver=3.9.13
-pkgrel=1
+pkgrel=2
 pkgdesc="A library that implements the DMAP family of protocols"
 url="https://www.flyn.org/projects/libdmapsharing/index.html"
 arch=(x86_64)
-license=(LGPL2.1)
+license=(LGPL-2.1-or-later)
 depends=(
   avahi
   gdk-pixbuf2
+  glib2
+  glibc
   gst-plugins-base-libs
+  gstreamer
   libsoup3
+  zlib
 )
 makedepends=(
   git
+  glib2-devel
   gobject-introspection
   gtk-doc
   vala
 )
 provides=(libdmapsharing-4.0.so)
-_commit=9eadd4a2ab454201437612b54e7df760431d8e0b  # tags/LIBDMAPSHARING_3_9_13^0
-source=("git+https://gitlab.gnome.org/GNOME/libdmapsharing.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/^LIBDMAPSHARING_//;s/_/./g;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/libdmapsharing.git#tag=LIBDMAPSHARING_${pkgver//./_}")
+b2sums=('4df17a6e8b7b74ad527e4e7447414a34f021e647b1d7afabf21ec062deb8dd8083039639f5c488209442cbd19e0b318a0e0499a68e442ab326ad3d6d91e8f08d')
 
 prepare() {
   cd $pkgname
