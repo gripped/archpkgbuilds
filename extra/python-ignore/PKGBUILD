@@ -1,0 +1,53 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+_name=ignore-python
+pkgname=python-ignore
+pkgver=0.3.1
+pkgrel=1
+pkgdesc="Python bindings for the Rust crate ignore"
+arch=(x86_64)
+url="https://github.com/borsattoz/ignore-python"
+license=(MIT)
+depends=(
+  gcc-libs
+  glibc
+  python
+)
+makedepends=(
+  cargo
+  maturin
+  python-installer
+)
+checkdepends=(
+  python-pytest
+)
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
+b2sums=('185270fe4259f7e1f893000caf74fac1e2cd3804ad57e737f7e02c227ec092ce2d9fbe71fd18d74219c2658419ad1b61c661e6b997be5c2d51b325b2639b8105')
+
+prepare() {
+  cd $_name-$pkgver
+  # upstream does not keep Cargo.lock in git https://github.com/borsattoz/ignore-python/issues/5
+  cargo update
+  cargo fetch --locked --target host-tuple
+}
+
+build() {
+  cd $_name-$pkgver
+  maturin build --locked --release --target $(rustc --print host-tuple) --strip
+}
+
+check() {
+  local pytest_options=(
+    -vv
+    -W ignore::DeprecationWarning
+  )
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer $_name-$pkgver/target/wheels/*.whl
+  test-env/bin/python -m pytest "${pytest_options[@]}" $_name-$pkgver/tests
+}
+
+package() {
+  cd $_name-$pkgver
+  python -m installer --destdir "$pkgdir" target/wheels/*.whl
+  install -vDm 644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
