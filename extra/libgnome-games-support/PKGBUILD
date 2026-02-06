@@ -2,29 +2,26 @@
 
 pkgname=libgnome-games-support
 pkgver=1.8.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Code shared between GNOME games"
 url="https://gitlab.gnome.org/GNOME/libgnome-games-support"
 arch=(x86_64)
 license=(LGPL-3.0-or-later)
 depends=(
+  glib2
+  glibc
   gtk3
   libgee
 )
 makedepends=(
   git
+  glib2-devel
   meson
   vala
 )
 provides=("libgnome-games-support-${pkgver%%.*}.so")
-_commit=406695a2bd14436cb7ff10001865db9d1c236fad  # tags/1.8.2^0
-source=("git+https://gitlab.gnome.org/GNOME/libgnome-games-support.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd libgnome-games-support
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/libgnome-games-support.git#tag=$pkgver")
+b2sums=('620cd420db4596afe0615f8c4372f5646c55dd66a6f4135e6067bdf3f9d9460245ca189b0326ada5d90a18a0ebb60f0ef45298ef66dec009548e142bb6d03c3b')
 
 prepare() {
   cd libgnome-games-support
