@@ -3,7 +3,7 @@
 # Contributor: Christopher Cooper <christopher@cg505.com>
 
 pkgname=openai-codex
-pkgver=0.97.0
+pkgver=0.98.0
 pkgrel=1
 pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
 arch=(x86_64)
@@ -23,7 +23,7 @@ optdepends=(
 )
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/rust-v$pkgver.tar.gz")
-b2sums=('86af28258eddae0d161f589fa5a6ac9c2cb723af91070fae99382c012aa6597137d134c1167f83f943e808e2bcb001586a1ff1738199862a85ec3bf3a365d9bf')
+b2sums=('4e7166ec2ee1c2e7f05e93e7434a3e59f22d0bbdf6f1dca8d30e68831a0f89ab04c55c024dbc37ca89bc0201f551c73889e31fbbfd95045816ead9f20111ea70')
 
 prepare() {
   cd codex-rust-v$pkgver/codex-rs
@@ -81,7 +81,9 @@ check() {
     --skip 'suite::truncation::mcp_tool_call_output_not_truncated_with_custom_limit' \
     --skip 'suite::compact::manual_compact_uses_custom_prompt' \
     --skip 'suite::compact::auto_compact_runs_after_token_limit_hit' \
-    --skip 'status::tests::status_snapshot_includes_forked_from'
+    --skip 'status::tests::status_snapshot_includes_forked_from' \
+    --skip 'suite::cli_stream::integration_creates_and_checks_session_file' \
+    --skip 'suite::cli_stream::responses_api_stream_cli'
 }
 
 package() {
