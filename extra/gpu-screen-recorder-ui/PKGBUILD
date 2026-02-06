@@ -1,0 +1,52 @@
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
+# Contributor: dec05eba <dec05eba@protonmail.com>
+
+pkgname=gpu-screen-recorder-ui
+pkgver=1.10.7
+pkgrel=2
+pkgdesc='A fullscreen overlay UI for GPU Screen Recorder in the style of ShadowPlay'
+arch=('x86_64')
+url="https://git.dec05eba.com/gpu-screen-recorder-ui"
+license=('GPL-3.0-only')
+makedepends=(
+  git
+  meson
+  libcap
+  linux-api-headers
+  gtk-update-icon-cache
+  desktop-file-utils
+)
+depends=(
+  gcc-libs
+  glibc
+  dbus
+  gpu-screen-recorder
+  gpu-screen-recorder-notification
+  libglvnd
+  libx11
+  libxrandr
+  libxrender
+  libxcomposite
+  libxfixes
+  libxext
+  libxi
+  libxcursor
+  libpulse
+  libdrm
+  wayland
+)
+
+source=(git+https://repo.dec05eba.com/gpu-screen-recorder-ui#tag=${pkgver})
+sha512sums=('be786dadeb0b2129dddfc8304a1ff0586648de54d6b4493d6d0801906b4d36c90ce6dbd51176b608adec73c0211ff8f5dc5bfd1174d9008a9584dd92214792a0')
+install="${pkgname}.install"
+
+build() {
+  cd "$srcdir"/$pkgname
+  arch-meson build --buildtype=release -Dstrip=true
+  meson compile -C build
+}
+
+package() {
+  cd "$srcdir"/$pkgname
+  meson install -C build --destdir "$pkgdir"
+}

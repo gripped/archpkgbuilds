@@ -1,0 +1,7 @@
+post_install() {
+    setcap cap_setuid+ep usr/bin/gsr-global-hotkeys
+}
+
+post_upgrade() {
+    setcap cap_setuid+ep usr/bin/gsr-global-hotkeys
+}
