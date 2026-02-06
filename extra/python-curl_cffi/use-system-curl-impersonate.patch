@@ -14,8 +14,8 @@
  from cffi import FFI
  
  # this is the upstream libcurl-impersonate version
- __version__ = "1.2.5"
- 
+-__version__ = "1.2.5"
+-
 -
 -def detect_arch():
 -    with open(Path(__file__).parent.parent / "libs.json") as f:
@@ -140,7 +140,8 @@
 -    else:
 -        return []
 -
--
++__version__ = "@CURL_IMPERSONATE_VERSION@"
+ 
  ffibuilder = FFI()
 -system = platform.system()
  root_dir = Path(__file__).parent.parent
