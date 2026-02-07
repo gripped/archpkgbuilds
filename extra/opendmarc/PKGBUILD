@@ -5,14 +5,13 @@
 
 pkgname=opendmarc
 pkgver=1.4.2
-pkgrel=5
+pkgrel=6
 _tarball_folder="OpenDMARC-rel-${pkgname}-${pkgver//./-}"
 pkgdesc="Free open source software implementation of the DMARC specification"
 arch=('x86_64')
 url="https://github.com/trusteddomainproject/OpenDMARC"
 license=('custom')
-depends=('smtp-server' 'libspf2' 'libbsd' 'libidn' 'perl-json')
-makedepends=('libmilter')
+depends=('smtp-server' 'libspf2' 'libbsd' 'libidn' 'perl-json' 'libmilter')
 optdepends=('opendbx: acts as a middleware layer between OpenDMARC and a SQL backend of choice'
             'python: run opendmarc scripts at /usr/share/doc/opendmarc'
             'perl: run opendmarc scripts at /usr/share/doc/opendmarc'
