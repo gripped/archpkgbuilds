@@ -1,0 +1,60 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+_name=gersemi
+pkgname=python-$_name
+pkgver=0.25.4
+pkgrel=1
+pkgdesc="A formatter to make your CMake code the real treasure"
+arch=(any)
+url="https://github.com/blankspruce/gersemi"
+license=(MPL-2.0)
+depends=(
+  python
+  python-colorama
+  python-ignore
+  python-lark-parser
+  python-platformdirs
+  python-yaml
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+)
+checkdepends=(
+  git
+  python-pytest
+  python-pytest-xdist
+  python-pydantic
+)
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
+b2sums=('45b1bb961c15bf2cb4029644ed2f79674eccef7e3f556bf53bc8b6083af84777625376a7033fcd5d852046dc4a30ed6360c86830c2f1de31568c3c23a52a2977')
+
+build() {
+  cd $_name-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  local pytest_options=(
+    -vv
+    -W ignore::DeprecationWarning
+    # distribute tests across multiple CPUs
+    -n auto
+  )
+
+  cd $_name-$pkgver
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  # the tests use Python subprocess module to execute gersemi, so we must actually activate the venv
+  (
+    source test-env/bin/activate
+    python -m pytest "${pytest_options[@]}" tests
+  )
+}
+
+package() {
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
