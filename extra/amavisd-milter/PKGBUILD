@@ -4,13 +4,12 @@
 
 pkgname=amavisd-milter
 pkgver=1.7.2
-pkgrel=2
+pkgrel=3
 pkgdesc="sendmail milter for amavisd-new using the AM.PDP protocol"
 arch=('x86_64')
 url="http://amavisd-milter.sourceforge.net/"
 license=('BSD-3-Clause')
-depends=('amavisd-new')
-makedepends=('libmilter')
+depends=('glibc' 'libmilter' 'amavisd-new')
 source=("https://github.com/prehor/amavisd-milter/releases/download/$pkgver/amavisd-milter-$pkgver.tar.gz"
         'amavisd-milter.service')
 sha512sums=('639a5a4f92131f9b8d004255819e36dedd529ec95f8290663c6ea5860dbbce049a822ba0e68158228716778265009b93024e9102defdf9250d4e889157008181'
