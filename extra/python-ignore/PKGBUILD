@@ -2,7 +2,7 @@
 
 _name=ignore-python
 pkgname=python-ignore
-pkgver=0.3.1
+pkgver=0.3.2
 pkgrel=1
 pkgdesc="Python bindings for the Rust crate ignore"
 arch=(x86_64)
@@ -22,12 +22,10 @@ checkdepends=(
   python-pytest
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('185270fe4259f7e1f893000caf74fac1e2cd3804ad57e737f7e02c227ec092ce2d9fbe71fd18d74219c2658419ad1b61c661e6b997be5c2d51b325b2639b8105')
+b2sums=('91a5cc60a8750ff27c41bcd1ee285acc69d3d39a2da7ed903e47a32cd5d57526cc9be0616f8681f6d2efe076e70798d765663c965a450a69ea41742b95101b4c')
 
 prepare() {
   cd $_name-$pkgver
-  # upstream does not keep Cargo.lock in git https://github.com/borsattoz/ignore-python/issues/5
-  cargo update
   cargo fetch --locked --target host-tuple
 }
 
