@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Paul <pb.orzel@proton.me>
 pkgname=amdgpu_top
-pkgver=0.11.0
+pkgver=0.11.2
 pkgrel=1
 pkgdesc="Tool that shows AMD GPU utilization"
 arch=('x86_64')
@@ -10,12 +10,12 @@ license=("MIT")
 depends=("glibc" "libdrm")
 makedepends=("rust")
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Umio-Yasuno/amdgpu_top/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('a56152d738a0bfc3757d9587aaed409ecb05ccc3ec81861cbc9e4af84aa9fd46')
+sha256sums=('4e7174edbaaa55dfeb0e5913c712a57c6805acb01eae6f968b1c826cda48dd2e')
 
 prepare() {
 	cd "$srcdir/$pkgname-$pkgver"
 	export CARGO_TARGET_DIR=target
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
