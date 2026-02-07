@@ -18,7 +18,12 @@ APPENDDEF(`confINCGRP',`root')
 APPENDDEF(`confLIBGRP',`root')
 APPENDDEF(`confMBINGRP',`root')
 APPENDDEF(`confSBINGRP',`root')
-APPENDDEF(`confBINGRP',`root')
+APPENDDEF(`confUBINGRP',`root')
+APPENDDEF(`confUBINOWN', `root')
 
-dnl Allow library to be stipped
+dnl Allow stripping by giving write permission
+define(`confGBINMODE',`2755')
 define(`confLIBMODE',`644')
+
+dnl Force libmilter to use stdbool.h for GCC23+
+APPENDDEF(`confCCOPTS', `-DSM_CONF_STDBOOL_H=1')
