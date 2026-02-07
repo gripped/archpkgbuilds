@@ -6,21 +6,31 @@
 
 pkgname=fcron
 pkgver=3.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Feature-rich cron implementation'
 arch=(x86_64)
 url='http://fcron.free.fr'
-license=('GPL')
-depends=('pam' 'run-parts')
-makedepends=('smtp-forwarder' 'vim' 'fcron' 'systemd')
+license=(GPL-2.0-or-later)
+depends=(
+  pam
+  run-parts
+)
+makedepends=(
+  fcron
+  smtp-forwarder
+  systemd
+  vim
+)
 # use fcron as recursive deps to have user fcron installed during installation
 # else add the following in build chroot
 # groupadd -g 23 fcron
 # useradd -r -d /var/spool/fcron -u 23 -g 23 fcron
-optdepends=('smtp-forwarder: to send mails from cron jobs'
-            'vim: default editor for fcrontab')
-provides=('cron')
-conflicts=('dcron')
+optdepends=(
+  'smtp-forwarder: to send mails from cron jobs'
+  'vim: default editor for fcrontab'
+)
+provides=(cron)
+conflicts=(dcron)
 backup=('etc/fcron/fcron.conf'
         'etc/fcron/fcron.allow'
         'etc/fcron/fcron.deny'
