@@ -1,15 +1,17 @@
 pkgbase = cloc
 	pkgdesc = Count lines of code
-	pkgver = 2.06
-	pkgrel = 2
+	pkgver = 2.08
+	pkgrel = 1
 	url = https://github.com/AlDanial/cloc
 	arch = any
 	license = GPL-2.0-or-later
+	checkdepends = unzip
+	makedepends = git
 	depends = perl
 	depends = perl-algorithm-diff
 	depends = perl-regexp-common
 	depends = perl-parallel-forkmanager
-	source = https://github.com/AlDanial/cloc/releases/download/v2.06/cloc-2.06.tar.gz
-	sha256sums = 27b6b007a5d482e5f50b23984cbe10f6a9f26e1052e9c7e010edfdcf879dc554
+	source = git+https://github.com/AlDanial/cloc.git#tag=v2.08
+	b2sums = 9921837e28fbb85aa2a0e5e5e1135d6264762543d6aa258de8e3992eaf4034ec8d1016333d498ec795ac56c0bd49bf17fa52f762b80b2103722f5bdda8c9aa9c
 
 pkgname = cloc
