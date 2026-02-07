@@ -4,7 +4,7 @@
 # Contributor: endlesseden <eden at rose dot place>
 
 pkgname=fast_float
-pkgver=8.2.2
+pkgver=8.2.3
 pkgrel=1
 pkgdesc='Fast and exact implementation of the C++ from_chars functions for float and double types'
 arch=('any')
@@ -16,7 +16,7 @@ makedepends=(
   'git'
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('23b4707c3e486ed83338d97497cdb83c912fa07fba78b47dddbd8b450ff3e19974e5a010f50a499d1f26c3f36198b39f9ef955d6a6c11887181fbe7d333b263c')
+b2sums=('65c079fc80281915ba1007c63a4e12a401ae01d19f8d09de3cd3e382a87a133e0d44189fde22bb0b858dd51420837d93f0d3e58141d6964dbd3366939eb1cb7a')
 
 build() {
   cmake -B build -S $pkgname \
