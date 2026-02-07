@@ -2,7 +2,7 @@
 
 pkgname=ospray
 pkgver=3.2.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Ray Tracing Based Rendering Engine for High-Fidelity Visualization"
 arch=(x86_64)
 url="https://www.ospray.org/"
@@ -27,6 +27,7 @@ makedepends=(
   gtest
   level-zero-headers
   level-zero-loader
+  ninja
 )
 optdepends=('benchmark: benchmarks'
             'gtest: tests suite')
@@ -40,17 +41,17 @@ prepare() {
 build() {
   local cmake_options=(
     -B build
+    -S $pkgname-$pkgver
+    -G Ninja
+    -W no-dev
     -DCMAKE_BUILD_TYPE=Release  # None is not supported :(
     -DCMAKE_INSTALL_PREFIX=/usr
     -DCMAKE_INSTALL_LIBDIR=lib
     -DOSPRAY_BUILD_ISA=ALL
     -DOSPRAY_ENABLE_APPS_EXAMPLES=OFF
     -DOSPRAY_ENABLE_APPS_TUTORIALS=OFF
-    -DOSPRAY_ENABLE_MODULES=ON
     -DOSPRAY_MODULE_DENOISER=ON
     -DOSPRAY_MODULE_MPI=ON
-    -S $pkgname-$pkgver
-    -W no-dev
   )
 
   cmake "${cmake_options[@]}"
