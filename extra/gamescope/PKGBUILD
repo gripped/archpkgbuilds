@@ -5,8 +5,8 @@
 # Contributor: PedroHLC <root@pedrohlc.com>
 
 pkgname=gamescope
-pkgver=3.16.19
-pkgrel=3
+pkgver=3.16.20
+pkgrel=1
 pkgdesc='SteamOS session compositing window manager'
 arch=(x86_64)
 url=https://github.com/ValveSoftware/gamescope
@@ -71,7 +71,7 @@ source=(
   git+https://github.com/Joshua-Ashton/vkroots.git
   git+https://github.com/Joshua-Ashton/wlroots.git
 )
-b2sums=('3a4d281f20c3818afd2d733962307429c0411f24b619e2223007a3e8c1928530b63e99ae88ec14cd25ad0f72765153897a8ff824775662b75e82a043eeab75b6'
+b2sums=('c57b9593a8ae7a60bf54339dec1d30b104a0d35a2e3f1e5ae30949e33d4c694c171f561d19b80c027d23a2442af2462a7a29645b49a67ba8af98e201b414a7ed'
         'SKIP'
         'SKIP'
         'SKIP'
