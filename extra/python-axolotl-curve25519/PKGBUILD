@@ -7,13 +7,22 @@
 pkgname=python-axolotl-curve25519
 _pkgver=0.4.1-2
 pkgver=${_pkgver//-/.}
-pkgrel=13
+pkgrel=14
 pkgdesc='Python wrapper for curve25519 library with ed25519 signatures'
 url='https://github.com/tgalal/python-axolotl-curve25519'
-arch=('x86_64')
-license=('GPL-3.0-or-later')
-depends=('python' 'zlib' 'glibc')
-makedepends=('python-setuptools')
+arch=(x86_64)
+license=(GPL-3.0-or-later)
+depends=(
+  glibc
+  python
+  zlib
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/tgalal/python-axolotl-curve25519/archive/${_pkgver}.tar.gz
         pymoduledef-gcc-compile-error.patch)
 sha256sums=('cc8de0c140831519e45598b082fdef0e939fd30930be442e38bdec13dc16aab5'
@@ -29,12 +38,12 @@ prepare() {
 build() {
   echo "Building python..."
   cd ${pkgname}-${_pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd ${pkgname}-${_pkgver}
-  python setup.py install --root="${pkgdir}" -O1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
 }
 
