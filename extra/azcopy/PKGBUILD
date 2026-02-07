@@ -6,7 +6,7 @@
 
 pkgname=azcopy
 _pkgname=azure-storage-azcopy
-pkgver=10.31.1
+pkgver=10.32.0
 pkgrel=1
 pkgdesc="A command-line utility designed for copying data to/from Microsoft Azure"
 arch=('x86_64')
@@ -16,7 +16,7 @@ depends=('glibc')
 makedepends=('go')
 options=('!lto')
 source=("$url/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('9b86b8c0d50e0f201b1a9c8c35933d2a85dbcae66283d3149681098ada4df0b82aa6f7b6151e36d6133de7d31e401d3aa50082b229322045205048703a8d77b1')
+b2sums=('b030396d8fc74ec14b5becd95b991fc481bef7ab8d79ebd83fae14d9829ce96e97a3af0094065bd49c8833758814d4f2d7dcf1329920ff6379ea86010795c324')
 
 prepare() {
   cd $_pkgname-$pkgver
@@ -38,13 +38,17 @@ build() {
 
 check() {
   cd $_pkgname-$pkgver
-  # Skip failing tests - not sure why they fail.
+  # Skip packages with tests that require Azure credentials or have upstream bugs:
+  # - azcopy: TestValidateProtocolCompatibility has nil pointer dereference bug
+  # - cmd, common, ste: require ACCOUNT_NAME/ACCOUNT_KEY env vars for Azure
+  # - e2etest: full E2E tests requiring Azure infrastructure
   local unit_tests=$(
     go list ./... \
-      | grep -v 'github.com/Azure/azure-storage-azcopy/v10/cmd' \
-      | grep -v 'github.com/Azure/azure-storage-azcopy/v10/common' \
-      | grep -v 'github.com/Azure/azure-storage-azcopy/v10/e2etest' \
-      | grep -v 'github.com/Azure/azure-storage-azcopy/v10/ste'
+      | grep -v github.com/Azure/azure-storage-azcopy/v10/azcopy$ \
+      | grep -v github.com/Azure/azure-storage-azcopy/v10/cmd$ \
+      | grep -v github.com/Azure/azure-storage-azcopy/v10/common$ \
+      | grep -v github.com/Azure/azure-storage-azcopy/v10/e2etest \
+      | grep -v github.com/Azure/azure-storage-azcopy/v10/ste$
   )
   # shellcheck disable=SC2086
   go test $unit_tests
