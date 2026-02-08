@@ -3,7 +3,7 @@
 
 pkgbase=python-polars
 pkgname=($pkgbase $pkgbase-runtime-{32,64,compat})
-pkgver=1.37.1
+pkgver=1.38.1
 pkgrel=1
 pkgdesc="Blazingly fast DataFrames library using Apache Arrow Columnar Format as memory model"
 arch=("x86_64")
@@ -37,7 +37,7 @@ checkdepends=('python-pytest'
 _name=${pkgname#python-}
 _tag="py-$pkgver"
 source=("https://github.com/pola-rs/polars/archive/refs/tags/$_tag.tar.gz")
-b2sums=('7c7fff4811043c7916ab7618baa44379b95197215ce539933597eb787906dbf399fe2667d48d9cd82b2a79052ba136588bae2351d999f778dd8a79c3c60d98cb')
+b2sums=('82db2363cec73cb1c5992d1e8d5b335c311619bab03b1837f30850c51905b2b1a23ef8dad0c41fe5e41cd8823fdf377dc6e961ccc8d5b40c2dc2febf5d95095d')
 
 prepare() {
     cd polars-$_tag/py-polars
@@ -58,7 +58,9 @@ check() {
 
     # Package needs to be installed to run the tests, use a venv
     python -m venv --system-site-packages test-env
-    find dist -name '*.whl' -print0 | xargs -n1 --null test-env/bin/python -m installer
+    test-env/bin/python -m installer dist/polars_runtime_32*.whl
+    test-env/bin/python -m installer dist/polars-*.whl
+
 
     local _pytest_args=(
         -W ignore::DeprecationWarning
@@ -81,8 +83,6 @@ check() {
         --deselect tests/unit/constructors/test_constructors.py::test_init_structured_objects_nested[_TestFooNT-_TestBarNT-_TestBazNT]
         --deselect tests/unit/series/test_item.py::test_series_item_out_of_range_date
         --deselect tests/unit/test_init.py::test_type_aliases_deprecated
-        # Incorrectly generates 32bit/64bit integers in test and expected
-        --deselect tests/unit/operations/arithmetic/test_list.py::test_list_boolean_arithmetic_23146
     )
 
     # Ignore several test files as they either use unpackaged dependencies, or
