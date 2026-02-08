@@ -2,7 +2,7 @@
 
 pkgname=rizin
 pkgver=0.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Open-source tools to disasm, debug, analyze and manipulate binary files'
 url='https://rizin.re'
 arch=('x86_64')
@@ -38,10 +38,12 @@ makedepends=(
   libzip
   meson
   ninja
+  pcre2
   python
   python-yaml
   tree-sitter
   xxhash
+  zstd
 )
 optdepends=('rz-ghidra: ghidra decompiler plugin')
 options=('!emptydirs')
@@ -56,11 +58,13 @@ build() {
     -D use_capstone_version=v5 \
     -D use_sys_magic=enabled \
     -D use_sys_libzip=enabled \
+    -D use_sys_libzstd=enabled \
     -D use_sys_lz4=enabled \
     -D use_sys_lzma=enabled \
     -D use_sys_zlib=enabled \
     -D use_sys_xxhash=enabled \
     -D use_sys_openssl=enabled \
+    -D use_sys_pcre2=enabled \
     -D use_sys_tree_sitter=enabled \
     -D use_sys_libmspack=enabled \
     -D use_zlib=true \
@@ -75,8 +79,10 @@ package() {
     file libmagic.so
     libmspack libmspack.so
     libzip libzip.so
+    pcre2 libpcre2-8.so
     tree-sitter libtree-sitter.so
     xxhash libxxhash.so
+    zstd libzstd.so
   )
 
   cd ${pkgname}-v${pkgver}
