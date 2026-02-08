@@ -2,7 +2,7 @@
 # Contributor: Olli <olli@suruatoel.xyz>
 
 pkgname=tomcat9
-pkgver=9.0.113
+pkgver=9.0.115
 pkgrel=1
 pkgdesc='Open source implementation of the Java Servlet 4.0 and JavaServer Pages 2.3 technologies'
 arch=(any)
@@ -30,14 +30,13 @@ backup=(
   etc/tomcat9/web.xml
 )
 install=tomcat9.install
-_tag=1da89d3d01aece456d622548d92055a60ff19c37
 source=(
-  git+https://github.com/apache/tomcat.git#tag=${_tag}
+  git+https://github.com/apache/tomcat.git#tag=${pkgver}
   tomcat9.service
   tomcat9.sysusers
   tomcat9.tmpfiles
 )
-b2sums=('e2c97148cd34e62181985d6bc4d6a7608914e86ee4382444f80c98916f7c94bbc0a32826d8a0ac0591c0aeb4be9781f78fd5aa4656aa87f0c2fa467438268bc5'
+b2sums=('34a4bffbb5675ca3284d13255f9a509755714365f9b59320b8f6a9e13f4bddbcde5e0c4f13bc7a22afe303c787cd5fb5c2688a4d9085ffbd6cda544835c4cab3'
         '54b745cefdb9dbe5993b0b2ca08fae8d453a7610ffdeb2795b766d3ce321c267d570f6a1f5bd197f4c8053df3ab46ff68363f9d5ea1d96ddf96d19b84c075d21'
         'b5206f649229ed67e8f9bfbd942d2fcdeb4056633e47b6a0cbbd813220c74a708a418fb09fe2e5a3c6fb17e271f268e2326bc3d26cdfd0e54c4f0eb9eeba3413'
         '85a0dc807d3398856046e1450578e8f3a81ee34435eba119a883231ecd0e09ed32c97bf1747b20a253270df8a6e918d3823e6273ec52c01afd9a34a042e9dfcf')
@@ -45,15 +44,6 @@ b2sums=('e2c97148cd34e62181985d6bc4d6a7608914e86ee4382444f80c98916f7c94bbc0a3282
 _gid_log=19
 _gid_tomcat=58
 _uid_tomcat=58
-
-pkgver() {
-  cd tomcat
-  _pkgver=$(git describe --tags)
-  if [[ ${_pkgver} != 9.* ]]; then
-    exit 1
-  fi
-  echo ${_pkgver}
-}
 
 prepare() {
   cd tomcat
