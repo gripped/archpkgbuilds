@@ -1,4 +1,5 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 # Contributor: Daniel Micay <danielmicay@gmail.com>
 # Contributor: Bartłomiej Piotrowski <nospam@bpiotrowski.pl>
@@ -8,25 +9,35 @@
 # Contributor: Elisamuel Resto <ryuji@simplysam.us>
 
 pkgname=chrony
-pkgver=4.6.1
+pkgver=4.8
 pkgrel=2
 pkgdesc='Lightweight NTP client and server'
 url=https://chrony-project.org/
 arch=('x86_64')
 license=('GPL-2.0-only')
-depends=('glibc' 'libcap' 'libcap.so' 'libedit' 'libedit.so' 'libseccomp' 'libseccomp.so'
-         'nettle' 'libnettle.so' 'gnutls' 'sh')
-makedepends=('asciidoctor' 'git' 'pps-tools')
+depends=(
+  'glibc'
+  'gnutls'
+  'libcap' 'libcap.so'
+  'libedit' 'libedit.so'
+  'libseccomp' 'libseccomp.so'
+  'nettle' 'libnettle.so'
+  'sh'
+)
+makedepends=(
+  'asciidoctor'
+  'git'
+  'pps-tools'
+)
 options=('!emptydirs')
 backup=('etc/chrony.conf')
-source=(git+https://gitlab.com/chrony/chrony.git?signed#tag=$pkgver
-        chrony.sysusers
-        chrony.tmpfiles)
-sha256sums=('61b722109be5d23a0e6f74cf9b3b1e728e6a39e47cc7e0252e69b5f61f3f25be'
-            '56aa817638c8f959169d514f1e7fc727ef31e7d3beda4fca5165292c7602ee42'
-            'c0b52787f68f3ef365eef64f53f22b4fb0046a91f0e38923f9d16f1ca19c3f3a')
-b2sums=('5b6eb7578e48123cb3dca10103712a64802e6ab0a2d59d1c853492eacabd83f425c042c3d668242332d57103c5e180060513edd472d2f3c167bc230972c28435'
-        'e310a05f95d84741f7ddbbc496c52a9f603bb79afc47e57d291a92ae02efb630a357fda378ab5a11875c3997d073e05019d88dce7bbf4377a0228f328ba78fec'
+source=(
+  "git+https://gitlab.com/chrony/chrony.git?signed#tag=$pkgver"
+  chrony.sysusers
+  chrony.tmpfiles
+)
+b2sums=('a8ec6f39c7504ea2aa0b7c8abfbdabed793dd3e9fcc9811ad5244525d2eb2490f055110ae657c522e6e19a4afe872b8453055a8f5ef935cc6d53f1226d942138'
+        'a7aba9192a1b9ba512e78e768c5f5b3c630db0cfff23dd231f1254c5389ee8d750c6c33667cb9cec65712f3e2ef595a66d1dd87faf500a68e8b15d33fec162dc'
         'e709df2f97b523ef1c7a9dae3232ccbd235ac8f025eba866165272f8ba0372a0aba965d3aae1402395e43331bd629b9d8f3fbffd75fc254f4a7e5ecd47f73130')
 validpgpkeys=(
   '8F375C7E8D0EE125A3D3BD51537E2B76F7680DAC' # Miroslav Lichvar <mlichvar@redhat.com>
@@ -67,15 +78,15 @@ package() {
   cd $pkgname
   make DESTDIR="${pkgdir}" install install-docs
 
-  install -Dm 644 "${srcdir}/chrony.sysusers" "${pkgdir}/usr/lib/sysusers.d/chrony.conf"
-  install -Dm 644 "${srcdir}/chrony.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/chrony.conf"
-  install -Dm 644 examples/{chronyd,chrony-wait}.service -t "${pkgdir}/usr/lib/systemd/system"
-  install -Dm 644 examples/chrony.logrotate "${pkgdir}/etc/logrotate.d/chrony"
-  install -Dm 644 README NEWS -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -Dm 644 examples/* -t "${pkgdir}/usr/share/doc/${pkgname}/examples"
-  echo "chronyd.service" | install -Dm 644 /dev/stdin "${pkgdir}/usr/lib/systemd/ntp-units.d/50-chrony.list"
+  install -vDm 644 "${srcdir}/chrony.sysusers" "${pkgdir}/usr/lib/sysusers.d/chrony.conf"
+  install -vDm 644 "${srcdir}/chrony.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/chrony.conf"
+  install -vDm 644 examples/{chronyd,chrony-wait}.service -t "${pkgdir}/usr/lib/systemd/system"
+  install -vDm 644 examples/chrony.logrotate "${pkgdir}/etc/logrotate.d/chrony"
+  install -vDm 644 README NEWS -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -vDm 644 examples/* -t "${pkgdir}/usr/share/doc/${pkgname}/examples"
+  echo "chronyd.service" | install -vDm 644 /dev/stdin "${pkgdir}/usr/lib/systemd/ntp-units.d/50-chrony.list"
 
-  install -Dm 644 examples/chrony.conf.example3 "${pkgdir}/etc/chrony.conf"
+  install -vDm 644 examples/chrony.conf.example3 "${pkgdir}/etc/chrony.conf"
   sed -i \
     -e '/^! pool /s/^! //' \
     -e '/^! leapseclist /s/^! //' \
@@ -83,7 +94,7 @@ package() {
     -e '/^! rtcsync/s/^! //' \
     "${pkgdir}/etc/chrony.conf"
 
-  rmdir "${pkgdir}"{/var/lib/chrony,/var/lib}
+  rmdir -v "${pkgdir}"{/var/lib/chrony,/var/lib}
 }
 
 # vim: ts=2 sw=2 et:

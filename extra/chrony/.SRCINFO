@@ -1,6 +1,6 @@
 pkgbase = chrony
 	pkgdesc = Lightweight NTP client and server
-	pkgver = 4.6.1
+	pkgver = 4.8
 	pkgrel = 2
 	url = https://chrony-project.org/
 	arch = x86_64
@@ -9,6 +9,7 @@ pkgbase = chrony
 	makedepends = git
 	makedepends = pps-tools
 	depends = glibc
+	depends = gnutls
 	depends = libcap
 	depends = libcap.so
 	depends = libedit
@@ -17,19 +18,15 @@ pkgbase = chrony
 	depends = libseccomp.so
 	depends = nettle
 	depends = libnettle.so
-	depends = gnutls
 	depends = sh
 	options = !emptydirs
 	backup = etc/chrony.conf
-	source = git+https://gitlab.com/chrony/chrony.git?signed#tag=4.6.1
+	source = git+https://gitlab.com/chrony/chrony.git?signed#tag=4.8
 	source = chrony.sysusers
 	source = chrony.tmpfiles
 	validpgpkeys = 8F375C7E8D0EE125A3D3BD51537E2B76F7680DAC
-	sha256sums = 61b722109be5d23a0e6f74cf9b3b1e728e6a39e47cc7e0252e69b5f61f3f25be
-	sha256sums = 56aa817638c8f959169d514f1e7fc727ef31e7d3beda4fca5165292c7602ee42
-	sha256sums = c0b52787f68f3ef365eef64f53f22b4fb0046a91f0e38923f9d16f1ca19c3f3a
-	b2sums = 5b6eb7578e48123cb3dca10103712a64802e6ab0a2d59d1c853492eacabd83f425c042c3d668242332d57103c5e180060513edd472d2f3c167bc230972c28435
-	b2sums = e310a05f95d84741f7ddbbc496c52a9f603bb79afc47e57d291a92ae02efb630a357fda378ab5a11875c3997d073e05019d88dce7bbf4377a0228f328ba78fec
+	b2sums = a8ec6f39c7504ea2aa0b7c8abfbdabed793dd3e9fcc9811ad5244525d2eb2490f055110ae657c522e6e19a4afe872b8453055a8f5ef935cc6d53f1226d942138
+	b2sums = a7aba9192a1b9ba512e78e768c5f5b3c630db0cfff23dd231f1254c5389ee8d750c6c33667cb9cec65712f3e2ef595a66d1dd87faf500a68e8b15d33fec162dc
 	b2sums = e709df2f97b523ef1c7a9dae3232ccbd235ac8f025eba866165272f8ba0372a0aba965d3aae1402395e43331bd629b9d8f3fbffd75fc254f4a7e5ecd47f73130
 
 pkgname = chrony
