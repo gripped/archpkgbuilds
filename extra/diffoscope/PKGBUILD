@@ -2,7 +2,7 @@
 
 pkgname=diffoscope
 pkgver=312
-pkgrel=1
+pkgrel=2
 pkgdesc='Tool for in-depth comparison of files, archives, and directories'
 url='https://diffoscope.org/'
 arch=('x86_64')
@@ -105,12 +105,10 @@ check() {
   # HACK test_dtb fails because our version of fdtdump outputs v1.7.2-1-ge1e5298
   rm tests/comparators/test_dtb.py
   PYTHONPATH=".:${PYTHONPATH}" PYTHONDONTWRITEBYTECODE=1 py.test \
-    --deselect tests/comparators/test_fit.py::test_file_differences \
     -k 'not test_ppu and not test_superblock and not test_listing'
     # unsquashfs output differs from fixture.
     # ppu bug https://salsa.debian.org/reproducible-builds/diffoscope/issues/9
     # skip test_listing due to a bug in binwalk comparison with test_listing
-    # skip test_file_differences for uboot-tools 2026.01 https://salsa.debian.org/reproducible-builds/diffoscope/-/issues/422
 }
 
 package() {
