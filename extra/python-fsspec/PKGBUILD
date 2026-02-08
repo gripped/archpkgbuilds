@@ -3,8 +3,8 @@
 
 _pkgname=filesystem_spec
 pkgname=python-fsspec
-pkgver=2026.1.0
-pkgrel=1
+pkgver=2026.2.0
+pkgrel=2
 pkgdesc="Specification that python filesystems should adhere to"
 arch=(any)
 url="https://github.com/intake/filesystem_spec"
@@ -45,7 +45,6 @@ checkdepends=(
   python-smbprotocol
   python-snappy
   python-tqdm
-  python-zstandard
 )
 optdepends=(
   'python-aiohttp: HTTP support'
@@ -59,10 +58,9 @@ optdepends=(
   'python-smbprotocol: SMB support'
   'python-snappy: snappy compression support'
   'python-tqdm: progress bar support'
-  'python-zstandard: zstandard (zstd) compression support'
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('5f3c5b6ce1f4fa6d751893d329967a1ae5de922d73b656c5eb814bcbc424e5ee')
+b2sums=('ad2fc26545c3f8984a356c489f4c44bd7b96ae09ee38726c38ac7adebe3168a875eff5eea2b3fc3e2fa87d3b609d88bc31aed887969d7154fa1cc22d0861e9bb')
 
 build() {
   cd $_pkgname-$pkgver
