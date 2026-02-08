@@ -1,19 +1,34 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: RocketDev <ma2014119@outlook.com>
 
 _pyname=pyvex
 pkgname=python-${_pyname}
-pkgver=9.2.160
-pkgrel=2
+pkgver=9.2.197
+pkgrel=1
 pkgdesc="Python bindings for Valgrind's VEX IR"
 url='https://github.com/angr/pyvex'
-license=('BSD')
-arch=('x86_64')
-depends=('python' 'python-archinfo' 'python-bitstring' 'python-cffi' 'python-setuptools')
-makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
-checkdepends=('python-pytest')
+license=('BSD-2-Clause AND GPL-2.0-only')
+arch=(x86_64)
+depends=(
+  glibc
+  python
+  python-bitstring
+  python-cffi
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-scikit-build-core
+  python-wheel
+)
+checkdepends=(
+  python-pytest
+  python-pytest-xdist
+)
 source=("git+${url}.git#commit=v${pkgver}"
         git+https://github.com/angr/vex.git)
-sha512sums=('785021aa203a0226ea579dfd96d71f98534c57bd7425b45b45307e6ed9fa029874ad826740575b9587694358821a2b17d6b0cd9e48c1735a4e12bd27efd37f1f'
+sha512sums=('3ab2e6da31f0a6bbf09f0b2cc8ce752ddb6993a3f2c06274559b1c7fe033c57368b7071267def991f8b5b852448b5641abbe3cc35272e7e84777e891be9ad92b'
             'SKIP')
 
 prepare() {
@@ -22,21 +37,22 @@ prepare() {
   git config submodule."vex".url "${srcdir}/vex"
   git -c protocol.file.allow=always submodule update --recursive
 
-  sed 's/FLAGS=/FLAGS+=/g' -i pyvex_c/Makefile
   sed 's/-shared/$(LDFLAGS) -shared/' -i "${srcdir}"/vex/Makefile-gcc
 }
 
 build() {
   cd ${_pyname}
   export EXTRA_CFLAGS="${CFLAGS} ${CPPFLAGS}"
-  python -m build --wheel --no-isolation
+  # Workaround for parallelism race condition
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/python-pyvex/-/merge_requests/1#note_397135
+  export CMAKE_BUILD_PARALLEL_LEVEL=1
+  python -m build --wheel --no-isolation -C install.strip=false -C cmake.build-type=None
 }
 
 check() {
   cd ${_pyname}
-  # TODO: enable all tests once angr is packaged
-  rm tests/test_spotter.py
-  PYTHONPATH=build/lib pytest
+  python -m venv --system-site-packages .venv
+  .venv/bin/python -m pytest tests
 }
 
 package() {
