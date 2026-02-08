@@ -2,11 +2,11 @@
 # Contributor: Loodse <aur@loodse.com>
 
 pkgname=kubeone
-_pkgver=1.12.2
+_pkgver=1.12.3
 pkgver="${_pkgver/-/}"
 # We check out the repo via git for retrieving necessary information
 # for `kubeone version`.
-_kubeone_commit="fce20b815d35d73d30237729770a79bb58b539c3"
+_kubeone_commit="f69803795c04bbfdfcd6058d9d8206d25c389e3b"
 pkgrel=2
 pkgdesc="A lifecycle management tool for Highly-Available Kubernetes clusters"
 url="https://github.com/kubermatic/kubeone"
@@ -15,7 +15,7 @@ license=("Apache")
 makedepends=("go" "git")
 optdepends=("terraform: sourcing data about infrastructure and control plane nodes")
 source=("${pkgname}-${_pkgver}::git+https://github.com/kubermatic/kubeone#commit=${_kubeone_commit}")
-sha512sums=('2fdfdbeffc6f5410c8b84434ae709803c8920ff2bfc2d532ad2f855f26597c59845dfd7c75e4631831abd61e5e77b0d613bc43f4d02483f56b54087ae096077b')
+sha512sums=('d7ec6c2817bd825dbe6c33c14706db94d949a0ebae1cd8e8c907e8cbbfc238193a8b01055d89187690235e3ea819546e1a0ca1779c44c8e89fe989831e8a7598')
 options=('!lto')
 
 prepare() {
