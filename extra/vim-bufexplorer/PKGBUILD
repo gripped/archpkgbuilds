@@ -2,7 +2,7 @@
 # Contributor: Aaron Griffin <aaron@archlinux.org>
 
 pkgname=vim-bufexplorer
-pkgver=7.4.27
+pkgver=7.13.0
 pkgrel=1
 pkgdesc='Simple buffer list/switcher for vim'
 url='https://github.com/jlanzarotta/bufexplorer'
@@ -12,9 +12,9 @@ depends=(
   vim-plugin-runtime
 )
 groups=(vim-plugins)
-source=(https://github.com/jlanzarotta/bufexplorer/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('91d9ab6e6e988239d9f88221df35f11da9a464507ed0023c8f0399cc0874f3960cf43061242419aa076ef74b30dc0bc800b90e716cda79a940c57b2304753107')
-b2sums=('015bbee4655397e695b87f87899ca76cc49f6681c88c96494e6a468a7236fdaa5de223dbdb458822818175f990fe63f8efb8e3d59dbaa1ba4ba95a0f7f950b3c')
+source=(https://github.com/jlanzarotta/bufexplorer/archive/refs/tags/${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha512sums=('3d7dff41dd26e06e6769c3c1ee088b79b60afd38fff1c23b76bd1ddde2460d6cdf4c92132b5f6cdd93002adc06109ba6706723dee6bef0ea781d2632e8440fdd')
+b2sums=('0d762fbf98d68591dac1e7133adec0186929f102f8e28cb126979a494efd9778235823e55a2a4e79ff5a2515bfbbf30ce12a9555cf521c33cc891e42c33e5cda')
 
 package() {
   cd bufexplorer-${pkgver}
