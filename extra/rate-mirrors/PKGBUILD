@@ -1,0 +1,38 @@
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Nikita Almakov <nikita.almakov@gmail.com>
+
+pkgname=rate-mirrors
+pkgver=0.25.0
+pkgrel=3
+pkgdesc="Everyday-use client-side map-aware mirror ranking tool"
+arch=('x86_64')
+url="https://github.com/westandskif/rate-mirrors"
+license=('CC-BY-NC-SA-3.0')
+depends=(
+  'gcc-libs'
+  'glibc'
+)
+makedepends=('cargo')
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+b2sums=('ed730a3557e570651da5860c9a33f7b437467958373c54a1977bb763db90142f4a77e02bb1a6fca5f5d20c04db5f4831fed9190cc8521a354f90ed25a39ce43f')
+
+prepare() {
+  cd $pkgname-$pkgver
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
+}
+
+build() {
+  cd $pkgname-$pkgver
+  export CFLAGS+=' -ffat-lto-objects'
+  cargo build --frozen --release
+}
+
+check() {
+  cd $pkgname-$pkgver
+  cargo test --frozen
+}
+
+package() {
+  cd $pkgname-$pkgver
+  install -vDm755 target/release/rate_mirrors "$pkgdir/usr/bin/rate-mirrors"
+}
