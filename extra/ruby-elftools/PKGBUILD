@@ -3,18 +3,25 @@
 
 _gemname=elftools
 pkgname=ruby-${_gemname}
-pkgver=1.2.0
-pkgrel=5
+pkgver=1.3.1
+pkgrel=1
 pkgdesc='ELF parser library implemented in pure Ruby'
 url='https://github.com/david942j/rbelftools/'
-arch=('any')
-license=('MIT')
-depends=('ruby' 'ruby-bindata')
-makedepends=('ruby-rake' 'ruby-rdoc' 'ruby-bundler')
+arch=(any)
+license=(MIT)
+depends=(
+  ruby
+  ruby-bindata
+)
+makedepends=(
+  ruby-bundler
+  ruby-rake
+  ruby-rdoc
+)
 options=('!emptydirs')
 source=(${url}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz)
-sha512sums=('8f5ef2b96f42ab2e06a203fea53bafbd14a08cbd0c60df1ce1fcdd5b4de45c77720f96d1ab551ce9f93ff94a50bb81ad7561c4540379ea4b2c888db446149a5f')
-b2sums=('03790ccf38fe1adaf6cf7427ac7cc69f122a72d0bba2005690b2436e2f3806e944ed3bb80b83fe671142f1e56919562c280bb84ebd33e868cdd9ad01b7455959')
+sha512sums=('5a0e0528dff675cc1d6630c0af55ca0643d4a592ccb781b39cb8bc5edcefc1b12e3a0109803669c8634b970ed3493eea9745c54a8bde7d0cf59eba4e8adcbbba')
+b2sums=('a60e22639bf678f023dd6abdddf165f9e4c61d0e6a810f5faf67261dda4de7f981e1b4b75fad4605aa8920ad3cfbd963dd0889a55cb8d05fb087c4e0ac3229fa')
 
 prepare() {
   cd rbelftools-${pkgver}
