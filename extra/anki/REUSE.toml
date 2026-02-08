@@ -1,0 +1,37 @@
+version = 1
+
+[[annotations]]
+path = [
+    "PKGBUILD",
+    "README.md",
+    "keys/**",
+    ".SRCINFO",
+    ".gitignore",
+    ".nvchecker.toml",
+    "*.install",
+    "*.sysusers",
+    "*sysusers.conf",
+    "*.tmpfiles",
+    "*tmpfiles.conf",
+    "*.logrotate",
+    "*.pam",
+    "*.service",
+    "*.socket",
+    "*.timer",
+    "*.desktop",
+    "*.hook",
+]
+SPDX-FileCopyrightText = "Arch Linux contributors"
+SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "no-corepack.patch",
+    "no-update.patch",
+    "reproducible-sveltekit.patch",
+    "strip-formatter-deps.patch",
+    "strip-python-pip-system-certs.patch",
+    "strip-type-checking-deps.patch",
+]
+SPDX-FileCopyrightText = "anki contributors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
