@@ -1,79 +1,92 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 # Maintainer: Bruno Pagani <archange@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Tomas Krizek <tomas.krizek@nic.cz>
 # Contributor: Ondřej Surý <ondrej@sury.org>
 
 pkgname=knot-resolver
-pkgver=5.7.6
-pkgrel=1
-arch=('x86_64')
+pkgver=6.2.0
+pkgrel=2
 pkgdesc="Caching DNSSEC-validating DNS resolver"
+arch=('x86_64')
 url='https://www.knot-resolver.cz/'
 license=('GPL-3.0-or-later')
 depends=(
-    'dnssec-anchors'
-    'gnutls'
-    'knot'
-    'libedit'
-    'libuv'
-    'lmdb'
-    'luajit'
-    'libcap-ng'
-    'libnghttp2'
-    'systemd-libs'
+  'dnssec-anchors'
+  'fstrm'
+  'gcc-libs'
+  'glibc'
+  'gnutls'
+  'knot'
+  'libcap-ng'
+  'libnghttp2'
+  'libngtcp2'
+  'libuv'
+  'lmdb'
+  'luajit'
+  'protobuf-c'
+  'systemd-libs'
 )
 makedepends=(
-    'cmocka'
-    'git'
-    'meson'
+  'cmocka'
+  'git'
+  'meson'
 )
 optdepends=(
-    'lua51-basexx: experimental_dot_auth module'
-    'lua51-cqueues: http and dns64 module, policy.rpz() function'
-    # TODO: 'lua51-etcd: etcd module'
-    'lua51-http: http and prefill modules, trust_anchors bootstrap'
-    'lua51-psl: policy.slice_randomize_psl() function'
+  'lua51-basexx: experimental_dot_auth module'
+  'lua51-cqueues: http and dns64 module, policy.rpz() function'
+  # TODO: 'lua51-etcd: etcd module'
+  'lua51-http: http and prefill modules, trust_anchors bootstrap'
+  'lua51-psl: policy.slice_randomize_psl() function'
 )
 backup=('etc/knot-resolver/kresd.conf')
-source=("git+https://gitlab.nic.cz/knot/knot-resolver.git#tag=v${pkgver}?signed"
-        "git+https://gitlab.nic.cz/knot/deckard.git"
-        "git+https://gitlab.nic.cz/knot/3rdparty/lua-aho-corasick.git"
-        "git+https://gitlab.nic.cz/knot/3rdparty/lua-tapered.git")
-sha256sums=('ede0b82ab74a90a05d3657779f399df9dce165d941357df8e8773fe3bf9c5879'
-            'SKIP'
-            'SKIP'
-            'SKIP')
-validpgpkeys=(3057EE9A448F362D74205A779AB120DA0A76F6DE  # Ales Mrazek <ales.mrazek@nic.cz>
-              B6006460B60A80E782062449E747DF1F9575A3AA) # Vladimír Čunát (work) <vladimir.cunat@nic.cz>
+source=(
+  "git+https://gitlab.nic.cz/knot/knot-resolver.git#tag=v${pkgver}?signed"
+  "git+https://gitlab.nic.cz/knot/deckard.git"
+  "git+https://gitlab.nic.cz/knot/3rdparty/lua-aho-corasick.git"
+  "git+https://gitlab.nic.cz/knot/3rdparty/lua-tapered.git"
+)
+b2sums=('cd58df699bc94d05f4f34431486c7233c49a718c1b7db3daf7196e213fd7c661c64a539482c4b71a0ff3cb2df143da7f7c86c3985118a3ee003c212a2461e650'
+        'SKIP'
+        'SKIP'
+        'SKIP')
+validpgpkeys=(
+  '3057EE9A448F362D74205A779AB120DA0A76F6DE' # Ales Mrazek <ales.mrazek@nic.cz>
+  'B6006460B60A80E782062449E747DF1F9575A3AA' # Vladimír Čunát (work) <vladimir.cunat@nic.cz>
+)
 
 prepare() {
-    cd ${pkgname}
-    git submodule init
-    git config submodule.tests.integration.deckard.url "${srcdir}/deckard"
-    git config submodule.modules.policy.lua-aho-corasick.url "${srcdir}/lua-aho-corasick"
-    git config submodule.tests.config.tapered.url "${srcdir}/lua-tapered"
-    git -c protocol.file.allow=always submodule update
+  cd ${pkgname}
+  # https://archlinux.org/todo/change-sysusers-to-fully-locked-system-accounts/
+  sed -i 's/^u /u! /' systemd/sysusers.d/knot-resolver.conf.in
+
+  git submodule init
+  git config submodule.tests/integration/deckard.url ../deckard
+  git config submodule.modules/policy/lua-aho-corasick.url ../lua-aho-corasick
+  git config submodule.tests/config/tapered.url ../lua-tapered
+  git -c protocol.file.allow=always submodule update \
+    tests/integration/deckard \
+    modules/policy/lua-aho-corasick \
+    tests/config/tapered
 }
 
 build() {
-    cd ${pkgname}
-    arch-meson build \
-        -D keyfile_default=/etc/trusted-key.key \
-        -D systemd_files=enabled \
-        -D client=enabled \
-        -D install_kresd_conf=enabled \
-        -D unit_tests=enabled
-    ninja -C build
+  arch-meson ${pkgname} build \
+    -D keyfile_default=/etc/trusted-key.key \
+    -D systemd_files=enabled \
+    -D install_kresd_conf=enabled \
+    -D unit_tests=enabled
+  ninja -C build
 }
 
 check() {
-    meson test -C ${pkgname}/build
+  meson test -C build
 }
 
 package() {
-    DESTDIR="${pkgdir}" ninja -C ${pkgname}/build install
+  DESTDIR="${pkgdir}" ninja -C build install
 
-    # add kresd.target to multi-user.target.wants to support enabling kresd services
-    mkdir -p "${pkgdir}/usr/lib/systemd/system/multi-user.target.wants/"
-    ln -s ../kresd.target "${pkgdir}/usr/lib/systemd/system/multi-user.target.wants/kresd.target"
+  # Add knot-resolver.service to multi-user.target.wants to support enabling the service
+  install -vdm755 "${pkgdir}/usr/lib/systemd/system/multi-user.target.wants/"
+  ln -vs ../knot-resolver.service "${pkgdir}/usr/lib/systemd/system/multi-user.target.wants/knot-resolver.service"
 }
