@@ -1,16 +1,24 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=hcxtools
-pkgver=7.0.1
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='Portable solution for capturing wlan traffic and conversion to hashcat and John the Ripper formats'
 url='https://github.com/ZerBea/hcxtools'
 arch=('x86_64')
 license=('MIT')
-depends=('curl' 'libcurl.so' 'zlib' 'openssl')
-source=(https://github.com/ZerBea/hcxtools/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
-        https://github.com/ZerBea/hcxtools/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
-sha512sums=('2ea099415c8fa3ae30e26c4011c961c3dba576d8e246fe4169b54367352e44dccad6e04bd2e3baf2bfc0f849dc61a428291a96e1b80d9714dc75b368d2ca455e'
+depends=(
+  'curl' 'libcurl.so'
+  'glibc'
+  'openssl'
+  'zlib'
+)
+source=(
+  "${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+  "${url}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz.asc"
+)
+sha512sums=('dc0045c9443c1e86c1e0f5ed6e26d73edd7f5339212ab208bd3a1b0427229c5cddac346eb92094fd515e4068fe3984e0931bedf54502129be530444188622fcf'
             'SKIP')
 validpgpkeys=('5920CE1C567948AFD2C0A9B7375516A45DB88630') # ZeroBeat <ZeroBeat@gmx.de>
 
@@ -23,8 +31,8 @@ build() {
 package() {
   cd ${pkgname}-${pkgver}
   make DESTDIR="${pkgdir}" PREFIX=/usr PRODUCTION=1 install
-  install -Dm 644 README.md changelog -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -Dm 644 license.txt -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -vDm 644 README.md changelog -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -vDm 644 license.txt -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
 
 # vim: ts=2 sw=2 et:
