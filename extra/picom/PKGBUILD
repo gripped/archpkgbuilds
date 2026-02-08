@@ -5,8 +5,8 @@
 # Contributor: Valère Monseur <valere.monseur@ymail.com>
 
 pkgname=picom
-pkgver=12.5
-pkgrel=3
+pkgver=13
+pkgrel=1
 pkgdesc='Lightweight compositor for X11'
 url='https://picom.app'
 arch=(x86_64)
@@ -19,9 +19,10 @@ optdepends=('dbus: for controlling picom via D-Bus'
             'xorg-xprop: for picom-trans'
             'xorg-xwininfo: for picom-trans')
 backup=(etc/xdg/picom.conf)
-source=("git+https://github.com/yshui/picom.git?signed#tag=v$pkgver")
-validpgpkeys=('A22F5C0F4FCF9C7C89A167462C965E9E5D45D730') # Yuxuan Shui <yshuiv7@gmail.com>
-b2sums=('6df1649e6b7842223b846e148ea59160a2b8c5513235a4f84f62387648b5f64cce39fefa65d40cef59e6fc02c40fff4f40d2b7c26158c132c3cc9ab651eb814c')
+source=("git+https://github.com/yshui/picom.git#tag=v$pkgver")
+# Upstream switched to SSH signature
+#validpgpkeys=('A22F5C0F4FCF9C7C89A167462C965E9E5D45D730') # Yuxuan Shui <yshuiv7@gmail.com>
+b2sums=('8a616065ba019583db41e71282e5bd731544d46fd807904e1fc5be3d4b08c23f07d03248a71972d4c1f63da3b95125106d5380e3fde6d379dfc925c7cda229ee')
 
 prepare() {
   cd $pkgname
