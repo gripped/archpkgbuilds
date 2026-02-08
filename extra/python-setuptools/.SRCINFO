@@ -1,7 +1,7 @@
 pkgbase = python-setuptools
 	pkgdesc = Easily download, build, install, upgrade, and uninstall Python packages
-	pkgver = 80.9.0
-	pkgrel = 4
+	pkgver = 81.0.0
+	pkgrel = 1
 	epoch = 1
 	url = https://pypi.org/project/setuptools/
 	arch = any
@@ -20,6 +20,7 @@ pkgbase = python-setuptools
 	checkdepends = python-tests
 	checkdepends = python-tomli-w
 	checkdepends = python-wheel
+	checkdepends = python-coverage
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
@@ -34,9 +35,9 @@ pkgbase = python-setuptools
 	depends = python-wheel
 	provides = python-distribute
 	replaces = python-distribute
-	source = git+https://github.com/pypa/setuptools.git#tag=v80.9.0
+	source = git+https://github.com/pypa/setuptools.git#tag=v81.0.0
 	source = build-no-isolation.patch
-	b2sums = 08f0812ac48df1b4044749c5f4f6474ab0e622a1194cef94aa666c9317612361fd6f648b97c634c21898ea228b8e2134fad15c636372266cbac4a05078cee8b3
+	b2sums = 144812c838206c1be7daf33431268dfa156f1ef199c52d9894cc235cce5b1c6223532b3dd3c43612b64cb918b8d71cae4e7a2a8f28e0a3a5ec4518c2b77f6baa
 	b2sums = ff0caf384def8ba8aa1c7fbb29077f2bc14c42935f7f81b6c4993ebe835053207b6773865158ad3143147234b311b95033b266f9b4c34a78a67f0b7e83bb5537
 
 pkgname = python-setuptools
