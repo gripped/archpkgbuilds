@@ -1,66 +1,85 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Ondřej Surý <ondrej@sury.org>
 # Contributor: Julian Brost <julian@0x4a42.net>
 # Contributor: Oleander Reis <oleander@oleander.cc>
 # Contributor: Otto Sabart <seberm[at]gmail[dot]com>
 
 pkgname=knot
-pkgver=3.4.6
-pkgrel=1
+pkgver=3.5.3
+pkgrel=2
 pkgdesc="High-performance authoritative-only DNS server"
 arch=(x86_64)
 url="https://www.knot-dns.cz/"
-license=(GPL3)
-depends=(libedit gnutls liburcu lmdb
-         libidn2 systemd libcap-ng
-         fstrm protobuf-c libmaxminddb
-         libbpf libxdp libnghttp2 libmnl)
-makedepends=(git python-sphinx)
+license=(GPL-3.0-or-later)
+depends=(
+  fstrm
+  gcc-libs
+  glibc
+  gnutls
+  libbpf
+  libcap-ng
+  libedit
+  libidn2
+  libmaxminddb
+  libmnl
+  libnghttp2
+  libngtcp2
+  liburcu
+  libxdp
+  lmdb
+  protobuf-c
+  systemd-libs
+)
+makedepends=(
+  git
+  python-sphinx
+)
 backup=('etc/knot/knot.conf')
 source=("git+https://gitlab.nic.cz/knot/knot-dns.git#tag=v${pkgver}?signed")
-sha256sums=('79521afb1a33a66f0c5db157c6ab1fb7d2cb1eb07d9dd93ec99379e26efa1681')
+b2sums=('2b821b94e2f00d889f01c78ebb1e816e42efd4e1be150ab12a79379b77e2fd68b4500cc88c833056940d0065e9bbf5b346a2aed48e6087573106fd844d82242f')
 validpgpkeys=(742FA4E95829B6C5EAC6B85710BB7AF6FEBBD6AB) # Daniel Salzman <daniel.salzman@nic.cz>
 
 prepare() {
-    cd ${pkgname}-dns
-    autoreconf -fiv
+  cd ${pkgname}-dns
+  # https://archlinux.org/todo/change-sysusers-to-fully-locked-system-accounts/
+  sed -i 's/^u /u! /' distro/pkg/arch/knot.sysusers
+
+  autoreconf -fiv
 }
 
 build() {
-    cd ${pkgname}-dns
-
-    ./configure \
-        --prefix=/usr \
-        --sbindir=/usr/bin \
-        --sysconfdir=/etc \
-        --localstatedir=/var/lib \
-        --libexecdir=/usr/lib/knot \
-        --with-rundir=/run/knot \
-        --with-storage=/var/lib/knot \
-        --enable-dnstap \
-        --enable-quic \
-        --disable-silent-rules
-
-    make
+  cd ${pkgname}-dns
+  ./configure \
+    --prefix=/usr \
+    --sbindir=/usr/bin \
+    --sysconfdir=/etc \
+    --localstatedir=/var/lib \
+    --libexecdir=/usr/lib/knot \
+    --with-rundir=/run/knot \
+    --with-storage=/var/lib/knot \
+    --enable-dnstap \
+    --enable-quic \
+    --disable-silent-rules
+  make
 }
 
 check() {
-    cd ${pkgname}-dns
-    make check
+  cd ${pkgname}-dns
+  make check
 }
 
 package() {
-    cd ${pkgname}-dns
+  cd ${pkgname}-dns
+  make DESTDIR="${pkgdir}" install
 
-    make DESTDIR="${pkgdir}" install
+  # Don’t keep those empty dir, manage them with systemd-tmpfiles instead
+  rmdir -v "${pkgdir}"/{var/{lib/{knot/,},},run/{knot/,}}
 
-    # Don’t keep those empty dir, manage them with systemd-tmpfiles instead
-    rmdir "${pkgdir}"/{var/{lib/{knot/,},},run/{knot/,}}
+  rm -v "${pkgdir}"/etc/knot/example.com.zone
+  mv -v "${pkgdir}"/etc/knot/{knot.sample.conf,knot.conf}
 
-    rm "${pkgdir}"/etc/knot/example.com.zone
-    mv "${pkgdir}"/etc/knot/{knot.sample.conf,knot.conf}
-
-    install -Dm644 distro/common/knot.service -t "${pkgdir}"/usr/lib/systemd/system/
-    install -Dm644 distro/pkg/arch/knot.tmpfiles.arch "${pkgdir}"/usr/lib/tmpfiles.d/${pkgname}.conf
-    install -Dm644 distro/pkg/arch/knot.sysusers "${pkgdir}"/usr/lib/sysusers.d/${pkgname}.conf
+  install -vDm644 -t "${pkgdir}/usr/lib/systemd/system" distro/common/knot.service
+  install -vDm644 distro/pkg/arch/knot.tmpfiles.arch "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
+  install -vDm644 distro/pkg/arch/knot.sysusers "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"
 }
