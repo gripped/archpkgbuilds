@@ -3,18 +3,32 @@
 
 _pyname=pypcode
 pkgname=python-${_pyname}
-pkgver=3.2.1
-pkgrel=2
+pkgver=3.3.3
+pkgrel=1
 pkgdesc="Python bindings to Ghidra's SLEIGH library for disassembly and lifting to p-code IR"
 url='https://github.com/angr/pypcode'
-license=('custom')
-arch=('x86_64')
-depends=('python' 'python-cffi' 'nanobind')
-makedepends=('cmake' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
-checkdepends=('python-pytest')
+license=(BSD-2-Clause)
+arch=(x86_64)
+depends=(
+  gcc-libs
+  glibc
+  nanobind
+  python
+  python-cffi
+)
+makedepends=(
+  cmake
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-pytest
+)
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('aec0b7ba114d095d511995568a2c1bbe9a400cd01b9e762b3cc9946a8a4c44d73603be938438bd8c0da6f097b55a854e847c92c23402beaba1830ed586deb846')
-b2sums=('716065bebdfe6d8a89e73aac9c0064b977eec7fa60eb30daa754a4ef6f50f5aaa2aa5fdb950e57ea8847b966501eab1b4207fc2006a12e8c007dcdda71629e7e')
+sha512sums=('f68d4a86d2c2f9f70fcebae7fabeddbc8c83a6378fdcc96392b7f648f38eaab9aaf8c8e69a95a31010080c50cb9898f10633dc1d91c45a6ffd5e5ec08b05cdc3')
+b2sums=('ade8d8870ac861e2f341cf042ecdafe14fb4afb4f1e1c658b5e0ed22348c59761685833c45f304c4d0a5dcf892920446e842eb578276e048793f0d27e20c69a5')
 
 build() {
   cd ${_pyname}-${pkgver}
