@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=ponyc
-pkgver=0.60.5
+pkgver=0.60.6
 pkgrel=1
 pkgdesc='An actor model, capabilities, high performance programming language'
 arch=('x86_64')
@@ -21,43 +21,97 @@ options=('!lto')
 source=(
   "git+https://github.com/ponylang/ponyc.git#tag=$pkgver"
   "git+https://github.com/llvm/llvm-project.git"
-  "ponyc-exclude-failing-test.patch"
   "ponyc-remove-usr-local-refs.patch"
 )
-b2sums=('181e7dc2345748ec09577532e2765a62f1273cd8a19e3509d244fa78837e188471ff0ef830ad0fcb01d4a070a7ff8f4864a45e2ce3efe65248543debd0705b7f'
+b2sums=('e0d0ac35ca5fe7ee6f3e6722fc59b064a1d7c7d2cb9701f10a2a05a679e77d07891009b93ed3eee257de7d03ad9997e6dd5d0d3c64c7aece9dc1fb5995ec05c2'
         'SKIP'
-        '7f1ddbe5d7aac363558b927e29227df94a370baec50818484805f1a95d533554f1505ca1788879a0fc84b2c175e5459a69f1469bc13e1b12082aadd88a5d3c4f'
         'de5e9301abcf937eb754412b730dde359a10d7eaaa1fcab5292f82429d724cdbfa5313aff2eea05c4e479d9d881ae220a80d6ba19b97f9191851f8b48553daaf')
 
 prepare() {
   cd $pkgname
   git submodule init
-  git config submodule.lib/llvm/src.url "$srcdir/llvm-project"
+  git config submodule.lib/llvm/src.url ../llvm-project
   git -c protocol.file.allow=always submodule update \
     lib/llvm/src
 
-  patch -Np1 < ../ponyc-exclude-failing-test.patch
   patch -Np1 < ../ponyc-remove-usr-local-refs.patch
 }
 
 build() {
+  cmake_options=(
+    -DCMAKE_BUILD_TYPE=Release
+    -Wno-dev
+  )
+  if [ "$CARCH" = "aarch64" ]; then
+    cmake_options+=(-DPONY_PIC_FLAG=-fPIC)
+  fi
+
   cd $pkgname
-  make prefix=/usr build_flags="$MAKEFLAGS" libs
-  make prefix=/usr build_flags="$MAKEFLAGS" arch=x86-64 configure
-  make prefix=/usr build_flags="$MAKEFLAGS" build
+  # Build vendored dependencies (LLVM, googletest, gbenchmark, blake2)
+  cmake -B build/build_libs -S lib \
+    "${cmake_options[@]}" \
+    -DCMAKE_INSTALL_PREFIX="$PWD/build/libs" \
+    -DLLVM_TARGETS_TO_BUILD="Native" \
+    -DGIT_SUBMODULE=OFF
+  cmake --build build/build_libs --target install
+
+  cmake -B build/build_release -S . \
+    "${cmake_options[@]}" \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_SKIP_RPATH=ON
+  cmake --build build/build_release
 
   mkdir docs
   build/release/ponyc packages/stdlib -rexpr -g -o docs
 }
 
 check() {
-  cd $pkgname
-  make prefix=/usr build_flags="$MAKEFLAGS" test
+  cd $pkgname/build/release
+  ./libponyrt.tests --gtest_shuffle
+  ./libponyc.tests --gtest_shuffle
+
+  mkdir -p full-program-tests/release
+  ../build_release/test/full-program-runner/full-program-runner \
+    --timeout_s=60 --max_parallel=1 \
+    --compiler="$PWD/ponyc" \
+    --output="$PWD/full-program-tests/release" \
+    --test_lib="$PWD/test_lib" \
+    ../../test/full-program-tests
+
+  mkdir -p full-program-tests/debug
+  ../build_release/test/full-program-runner/full-program-runner \
+    --timeout_s=60 --max_parallel=1 \
+    --compiler="$PWD/ponyc" --debug \
+    --output="$PWD/full-program-tests/debug" \
+    --test_lib="$PWD/test_lib" \
+    ../../test/full-program-tests
+
+  PONYPATH=. ./ponyc -b stdlib-release --pic --checktree \
+    ../../packages/stdlib
+  ./stdlib-release --sequential --exclude="net/Broadcast"
+
+  find ../../examples/*/* -name '*.pony' -print0 \
+    | xargs -0 -n 1 dirname | sort -u | grep -v ffi- \
+    | xargs -n 1 -I {} ./ponyc -d -s --checktree -o {} {}
 }
 
 package() {
   cd $pkgname
-  make build_flags="$MAKEFLAGS" DESTDIR="$pkgdir/usr/lib/pony" install
+  install -vDm755 -t "$pkgdir/usr/lib/pony/bin" \
+    build/Release/pony-lsp \
+    build/release/ponyc
+
+  install -vDm644 -t "$pkgdir/usr/lib/pony/lib/native" \
+    build/build_release/src/libponyrt/libponyrt.a \
+    build/release/libponyc-standalone.a \
+    build/release/libponyc.a \
+    build/release/libponyrt-pic.a
+
+  install -vDm644 src/libponyrt/pony.h "$pkgdir/usr/lib/pony/include/pony.h"
+  install -vDm644 src/common/pony/detail/atomics.h \
+    "$pkgdir/usr/lib/pony/include/pony/detail/atomics.h"
+
+  cp -va packages "$pkgdir/usr/lib/pony/"
 
   install -vdm755 "$pkgdir/usr/bin"
   ln -vs -t "$pkgdir/usr/bin" /usr/lib/pony/bin/ponyc
@@ -70,7 +124,8 @@ package() {
 
   install -vdm755 "$pkgdir/usr/include/pony/detail"
   ln -vs -t "$pkgdir/usr/include" /usr/lib/pony/include/pony.h
-  ln -vs -t "$pkgdir/usr/include/pony/detail" /usr/lib/pony/include/pony/detail/atomics.h
+  ln -vs -t "$pkgdir/usr/include/pony/detail" \
+    /usr/lib/pony/include/pony/detail/atomics.h
 
   install -vdm755 "$pkgdir/usr/share/doc/$pkgname"
   cp -va -t "$pkgdir/usr/share/doc/$pkgname" docs/*
