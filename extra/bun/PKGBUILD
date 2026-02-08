@@ -2,10 +2,10 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=bun
-pkgver=1.3.8
-_webkitver=9a2cc42ae1bf693a0fd0ceb9b1d7d965d9cfd3ea
+pkgver=1.3.9
+_webkitver=8af7958ff0e2a4787569edf64641a1ae7cfe074a
 _zigver=c1423ff3fc7064635773a4a4616c5bf986eb00fe
-pkgrel=2
+pkgrel=1
 pkgdesc="Incredibly fast JavaScript runtime, bundler, test runner, and package manager – all in one"
 arch=(x86_64)
 url="https://github.com/oven-sh/bun"
@@ -17,12 +17,15 @@ depends=(
   sqlite
 )
 makedepends=(
-  cargo # bun
-  clang20
+  cargo   # bun
+  clang   # bun, webkit
+  clang20 # zig
   cmake
   git
-  lld20
-  llvm20
+  lld    # bun, webkit
+  lld20  # zig
+  llvm   # bun
+  llvm20 # zig
   ninja
   python          # webkit
   ruby            # webkit
@@ -36,15 +39,13 @@ source=(
   "$pkgname-WebKit::git+https://github.com/oven-sh/WebKit.git#commit=$_webkitver"
   "$pkgname-zig::git+https://github.com/oven-sh/zig.git#commit=$_zigver"
   "$pkgname-add-cmake-option-zig-local.patch"
-  "$pkgname-fix-dangling-pointer-in-remote-debugger.patch"
   "$pkgname-sqlite3-lib-path.diff"
 )
-b2sums=('62a3ba4da9dad6c81f0d44e9453a53a89e69a0d5c1a2763e2f09531b3c850b5d91383ebc835ef583c7e13e0bf11ecb6b5def2174c2e556eeaebe3e7dffd8e9bd'
-        '5a548fe46b5050445d5057b9568b1d22a6270b68f3d2824f9c63d05d12b0a04eddffce2f76c05714b50fe731e81cf9304960625271aee4eba9d623f5ecbbc202'
-        '1ee5878d590bd7b8b1e5f5ac7b6e62b63e1cdcdac4cf78a65f3a7a8823e5f85508b2114f50226c051ad1b9857c969208d90bfb2b7054b520a93f7650d93fe57f'
+b2sums=('d5f3c8ae6d3d25b34216efbfd0996d24673ccb478bcb2a920a174906a512079905fcfc2b9af3abf093b27cafc23df0db783addbae84d98641193004ffab9135b'
+        'fde5e4ca09b6fc907b2dbaa571d1fd5da69bf71f3c9f1567e3d33a7feb1b6eecfc7ac590669e3eab80860db40587c67ceae344600c61e2d1704e1e5e6d9a34fb'
+        '6b31bcabcf1cbef002d0eb824b3e4ad62127447849a748389ef304440126e2494762f89a10b8a2fc66dd0df9d146717b4e5ca7b2c9597c184a6e1bdbe35fd472'
         '8c867cf8d1a4895c366e9230cedd2328f7d6ee73be89cb58e794a8f226bb57c2ca7323650c4f275f8b502df4c1e2eec90c295b61079b6865d09d9ec8d8170483'
         'fb11b321280b79ef2807c8a3947dc8ec3e413bf53471fce7891923f8bb5bcb555c672638143d838d7af6229a147dcd2f8b9a76107a35f09146b7e2da88a2cd45'
-        'f08b27d947235dc556275ccce421d7d9de72add117c1482fa62e92a9aa38f3f01349b77488c3e167476955994cccf0e57f691ace92d2b21a2d2503dda398b9c9'
         'f1ad976393570be7f09e0391d68a4f573735ddc13be577f9d3746f8adb71d66b74d705429a8bd5c3582107971a5ded1931303185dae6763251ad7ce4ce9e2cd5')
 
 prepare() {
@@ -54,7 +55,6 @@ prepare() {
   grep -q "ZIG_COMMIT \"$_zigver\"" cmake/tools/SetupZig.cmake \
     || (echo "Zig version mismatch"; exit 1)
   patch -Np1 < ../$pkgname-add-cmake-option-zig-local.patch
-  patch -Np1 < ../$pkgname-fix-dangling-pointer-in-remote-debugger.patch
   patch -Np1 < ../$pkgname-sqlite3-lib-path.diff
 }
 
@@ -65,7 +65,7 @@ build() {
     -GNinja
   )
 
-  export PATH="/usr/lib/llvm20/bin:$PATH"
+  export PATH="/usr/lib/llvm/bin:$PATH"
   CC=clang CXX=clang++ \
     cmake -S bun-WebKit -B build-WebKit \
     "${cmake_args_common[@]}" \
@@ -79,7 +79,8 @@ build() {
     -DENABLE_REMOTE_INSPECTOR=ON
   cmake --build build-WebKit --target jsc
 
-  cmake -S bun-zig -B build-zig \
+  PATH="/usr/lib/llvm20/bin:$PATH" \
+    cmake -S bun-zig -B build-zig \
     "${cmake_args_common[@]}" \
     -DCMAKE_BUILD_TYPE=None \
     -DZIG_PIE=ON \
@@ -94,6 +95,7 @@ build() {
   mkdir -vp bun/vendor/zig
   ln -vsf "$PWD/build-zig/stage3/bin/zig" bun/vendor/zig/zig
   ln -vsf "$PWD/build-zig/stage3/lib/zig" bun/vendor/zig/lib
+  ln -vsf "$PWD/bun-WebKit" bun/vendor/WebKit
 
   # Link system ICU libs - bun expects .a but works with .so
   ln -vs /usr/lib/libicudata.so build-WebKit/lib/libicudata.a
