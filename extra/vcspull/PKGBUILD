@@ -1,7 +1,7 @@
 # Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
 pkgname='vcspull'
-pkgver=1.51.1
+pkgver=1.52.1
 pkgrel=1
 pkgdesc='Synchronize projects via yaml/json manifest. Built using `libvcs`'
 arch=('any')
@@ -33,11 +33,11 @@ optdepends=(
   'bash-completion: for command line completion in bash'
 )
 source=("https://github.com/vcs-python/vcspull/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('746adf5ba025d92a25366f75c37eeb662614605c3261afe26c232373185ff36ee852537114d4e65a0202925ba644b846279e3183cafb9ad9656c52a0ce0daf37')
-b2sums=('8c26944910ab35a275ce1df1be82042819a81b6d660e0bb1a2f09bf9e018b6c21529ac371741d2aaa5c354b2525952c22f1825ff38c08f8df7bf1a9942922a80')
+sha512sums=('f388bc58fec2b680f5efb8d3ced1efc1aee4379e7d8e47bcc205b1195261d52bcc1f7559c9ff97c18bf1865b1498bbd525fa740cd978d41bbd487845ca5f52ad')
+b2sums=('1a8782f29b08047ee2e9de96282aecf962acd18ac9bb6b764a1383b9eac2f84ab5b7b40cd87841a6793fff5f27a945cc762588061baa05553de1310a1cd2279e')
 
 build() {
-  cd  "${pkgname}-${pkgver}"
+  cd "${pkgname}-${pkgver}"
 
   local _site_packages="$(python -c "import site; print(site.getsitepackages()[0])")"
 
@@ -48,13 +48,13 @@ build() {
 }
 
 check() {
-  cd  "${pkgname}-${pkgver}"
+  cd "${pkgname}-${pkgver}"
 
   pytest -vv tests
 }
 
 package() {
-  cd  "${pkgname}-${pkgver}"
+  cd "${pkgname}-${pkgver}"
 
   cp --archive --verbose tmp_install/* "${pkgdir}"
 
