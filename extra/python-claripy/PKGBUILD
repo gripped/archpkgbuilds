@@ -1,31 +1,33 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: RocketDev <ma2014119@outlook.com>
 
 _pyname=claripy
 pkgname=python-${_pyname}
-pkgver=9.2.160
-pkgrel=2
+pkgver=9.2.197
+pkgrel=1
 pkgdesc='Abstraction layer for constraint solvers'
 url='https://github.com/angr/claripy'
-license=('custom:BSD2')
-arch=('any')
+license=(BSD-2-Clause)
+arch=(any)
 depends=(
-  'python'
-  'python-cachetools'
-  'python-decorator'
-  'python-pysmt'
-  'python-typing_extensions'
-  'python-z3-solver'
+  python
+  python-cachetools
+  python-typing_extensions
+  python-z3-solver
 )
 makedepends=(
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
 )
-checkdepends=('python-pytest')
+checkdepends=(
+  python-pytest
+  python-pytest-xdist
+)
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('7bb1a6b3c50fb9cc2d0e7b9174ef06f5eb119cb2fedcb9fc7482177022953160ff1837e23a28f70910b62ab2185e7c96e7d2ab8d2afbf72e21778220da7a6249')
-b2sums=('7060d03e881a3b65bc53b0b220067e9ede5d08c380af6ac8bf54e6664d7d7914397994f3472866b1973f570241231253eecedcd55122f7b524e2aafa7fa92b7a')
+sha512sums=('1c2605b1f6a6cc84fd63ded5f60b18be0ca55d25e7788596e94ee0466cc8a4db8e141ecbac25755edc625a7ffe4e0ac5a8799df6a2bd2ada652a1bb1fdcbb44d')
+b2sums=('541e815665c3339c7f8556e7424b3ca6ba68fe3a12ccac52432ba9e5fcbe6022d622c4686ed94c22e8db1f2972ef9d3e65fd1276d338556df29154750b9f1d6f')
 
 build() {
   cd ${_pyname}-${pkgver}
@@ -33,22 +35,6 @@ build() {
 }
 
 check() {
-  local pytest_options=(
-    -vv
-    # disable broken tests: https://github.com/angr/claripy/issues/348
-    --deselect tests/test_solver.py::StandardTests::test_simplification_annotations
-    --deselect tests/test_solver.py::TestSolver::test_solver_with_reuse
-    --deselect tests/test_solver.py::TestSolver::test_solver_without_reuse
-    --deselect tests/test_solver.py::TestSolverReplacement::test_solver_with_reuse
-    --deselect tests/test_solver.py::TestSolverReplacement::test_solver_without_reuse
-    --deselect tests/test_solver.py::TestHybrid::test_solver_with_reuse
-    --deselect tests/test_solver.py::TestHybrid::test_solver_without_reuse
-    --deselect tests/test_solver.py::TestComposite::test_solver_with_reuse
-    --deselect tests/test_solver.py::TestComposite::test_solver_without_reuse
-    --deselect tests/test_solver.py::TestSolverCacheless::test_solver_with_reuse
-    --deselect tests/test_solver.py::TestSolverCacheless::test_solver_without_reuse
-  )
-
   cd ${_pyname}-${pkgver}
   PYTHONPATH=build/lib pytest "${pytest_options[@]}"
 }
