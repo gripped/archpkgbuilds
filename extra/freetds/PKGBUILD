@@ -1,7 +1,7 @@
 # Maintainer:
 
 pkgname=freetds
-pkgver=1.5.10
+pkgver=1.5.11
 pkgrel=1
 pkgdesc='Library for accessing Sybase and MS SQL Server databases'
 url='https://www.freetds.org'
@@ -17,7 +17,7 @@ backup=(etc/freetds/freetds.conf
         etc/freetds/locales.conf
         etc/freetds/pool.conf)
 source=(https://www.freetds.org/files/stable/$pkgname-$pkgver.tar.bz2)
-sha256sums=('b5aa4377a669b266ff26f2d11893e65430bef377eefd92934832310774dc6942')
+sha256sums=('8966e4dc0c35bfd77601ccc5795669a9c868828ba3cb4fbd28b355b461a78aee')
 
 build() {
   cd $pkgname-$pkgver
@@ -28,6 +28,7 @@ build() {
     --enable-krb5 \
     --with-unixodbc=/usr \
     --with-openssl
+  sed -i 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool # Avoid overlinking
   make 
 }
 
