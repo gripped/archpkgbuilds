@@ -4,8 +4,8 @@
 # Original Packager: Tom K <tomk@runbox.com>
 
 pkgname=hevea
-pkgver=2.36
-pkgrel=2
+pkgver=2.38
+pkgrel=1
 pkgdesc="A quite complete and fast LATEX to HTML translator"
 arch=(x86_64)
 depends=('texlive-bin')
@@ -13,7 +13,7 @@ makedepends=('ocaml' 'ocamlbuild')
 license=('GPL')
 url="http://pauillac.inria.fr/~maranget/hevea/"
 source=(http://pauillac.inria.fr/~maranget/$pkgname/distri/$pkgname-$pkgver.tar.gz)
-sha256sums=('5d6759d7702a295c76a12c1b2a1a16754ab0ec1ffed73fc9d0b138b41e720648')
+sha256sums=('722038065007226f0fa3de4629127294d2e29bfbbc41042c83a570fa0c455a47')
 
 build() {
   cd $pkgname-$pkgver
