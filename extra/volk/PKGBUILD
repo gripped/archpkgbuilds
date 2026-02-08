@@ -3,7 +3,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=volk
-pkgver=1.4.335.0
+pkgver=1.4.341.0
 pkgrel=1
 pkgdesc="Meta loader for Vulkan API"
 url="https://github.com/zeux/volk"
@@ -21,7 +21,7 @@ options=(
   !lto
 )
 source=("git+$url#tag=vulkan-sdk-$pkgver")
-b2sums=('5d6c2425a29da0cc865cdc276ce083094a24591258091091f777cdc5064d1707c65b8da0102a3d4a6793b3e998ad90b75ca6d8e915d7dd05733f9a5e49302e72')
+b2sums=('1de7de26b0b7bd893950aea5538092292014fc19408b92c53bc4dd302669153532c79603d624e78d2971293056ddb0c2e27ecc7782fc3d27180c3d895f0b101f')
 
 build() {
   local cmake_options=(
