@@ -4,15 +4,15 @@
 # Contributor: Rohan Dhruva (rohandhruva at gmail dot com)
 
 pkgname=python-docs
-pkgver=3.14.2
-pkgrel=2
+pkgver=3.14.3
+pkgrel=1
 pkgdesc="Set of HTML documentation for python"
 url="https://www.python.org/doc"
 arch=('any')
 license=('PSF-2.0')
 options=('docs')
 source=("${pkgname}-${pkgver}.tar.bz2::https://www.python.org/ftp/python/doc/${pkgver}/python-${pkgver}-docs-html.tar.bz2")
-sha256sums=('d72a50b427913492be4c8eacfa66618096be9163bf27b97a651fd96bfec4df3d')
+sha256sums=('1ac42341fdb73ff6176f6004ba0d8276b8b61b06a9bb80bf2e6ccc170f7fd47c')
 
 package() {
 	cd "python-${pkgver}-docs-html"
