@@ -4,8 +4,8 @@
 
 pkgname=kubeseal
 _pkgname=sealed-secrets
-pkgver=0.33.1
-pkgrel=2
+pkgver=0.34.0
+pkgrel=1
 pkgdesc="A Kubernetes controller and tool for one-way encrypted Secrets"
 arch=('x86_64')
 url="https://github.com/bitnami-labs/sealed-secrets"
@@ -13,7 +13,7 @@ license=('Apache')
 makedepends=('go')
 depends=('glibc')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('3056e6c88bc79e08dfc58546656da95a49737990f835e147e30f2ce653a1b328e6438df2bba81cdc4cda30857f527eef5b483f361e2e313a44c3ab44a663ba88')
+sha512sums=('28296c1a32339a20b09238a65aafffe321d1de00b9c1e95c72be1aedfaf880de385726e9d48d4612447e497a9634039150026ed8ab3bf1d2a7e6f4edac7dceb2')
 options=('!lto')
 
 build() {
