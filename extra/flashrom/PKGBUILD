@@ -6,7 +6,7 @@
 
 pkgname=flashrom
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Utility for reading, writing, erasing and verifying flash ROM chips"
 arch=(x86_64)
 url="https://www.flashrom.org/"
@@ -24,17 +24,27 @@ makedepends=(
   python-sphinx
 )
 optdepends=('dmidecode: for SMBIOS/DMI table decoder support')
-source=(git+https://github.com/flashrom/flashrom.git#tag=v${pkgver})
-sha256sums=('2e27f7b13161c03d1ccec0de14601722f6114214555c7f025a5d91f08259eb38')
+source=(
+  "git+https://github.com/flashrom/flashrom.git#tag=v${pkgver}"
+  cmocka-v2-compatibility.patch
+)
+sha256sums=('2e27f7b13161c03d1ccec0de14601722f6114214555c7f025a5d91f08259eb38'
+            'd65e2a6506cfe2becbf7a38564ebf0bfa1bc9c4219497365319c77a997d624db')
 
 prepare() {
   sed -i 's#GROUP="plugdev"#TAG+="uaccess"#g' flashrom/util/flashrom_udev.rules
+  patch -Np1 -d flashrom < cmocka-v2-compatibility.patch
 }
 
 build() {
   arch-meson ${pkgname} build
   meson compile -C build
 }
+
+# FYI, tests are incompatible with LTO enabled
+# check() {
+#   meson test -C build --print-errorlogs
+# }
 
 package() {
   meson install -C build --destdir "${pkgdir}"
