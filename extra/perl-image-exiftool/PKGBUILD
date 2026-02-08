@@ -6,7 +6,7 @@
 
 pkgname=perl-image-exiftool
 # We only package "production" releases
-pkgver=13.44
+pkgver=13.50
 pkgrel=1
 pkgdesc="Read and write EXIF information"
 arch=('any')
@@ -23,7 +23,7 @@ provides=(
 replaces=("perl-exiftool")
 options=('!emptydirs')
 source=("git+https://github.com/exiftool/exiftool.git#tag=${pkgver}")
-sha256sums=('a3bcef2ed40e52ad8b9f90674958ee76ec6bb4bf66f2f1d960c3d6753a1b186e')
+sha256sums=('cc8474c1d750a1e2c6f4b1cdc4f082c77c282921a68d5400644ad77eeb6aef7d')
 
 build() {
   cd exiftool
