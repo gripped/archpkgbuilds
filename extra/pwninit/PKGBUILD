@@ -2,8 +2,8 @@
 # Contributor: Benjamin Levy <blevy@protonmail.com>
 
 pkgname=pwninit
-pkgver=3.3.1
-pkgrel=2
+pkgver=3.3.2
+pkgrel=1
 pkgdesc='Automate starting binary exploit challenges'
 url='https://github.com/io12/pwninit'
 arch=(x86_64)
@@ -23,15 +23,15 @@ makedepends=(
 )
 options=(!lto)
 source=("git+${url}.git?signed#commit=${pkgver}")
-sha256sums=('SKIP')
-b2sums=('SKIP')
+sha256sums=('89944db7d36a4e9f9ea68f56a13500a219f666c89052e45b5bcc362ca060d70b')
+b2sums=('6e9e43595aadf854dece5664abc3b718d6f71f2977891040460315c1b9c96562ad0efb29bafe1681845dd560f8e2449e50553cac724e19905b189eac3f4ad4d1')
 validpgpkeys=(
   05A4711013D373A1F2FEE261AAB1132642EF3045 # Benjamin Levy <blevy@protonmail.com>
 )
 
 prepare() {
   cd "${pkgname}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
