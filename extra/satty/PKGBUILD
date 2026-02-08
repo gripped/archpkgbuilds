@@ -2,7 +2,7 @@
 
 pkgname=satty
 _pkgname=Satty
-pkgver=0.20.0
+pkgver=0.20.1
 pkgrel=1
 pkgdesc="Modern screenshot annotation tool, inspired by Swappy and Flameshot"
 url="https://github.com/gabm/satty"
@@ -21,18 +21,15 @@ depends=(
 )
 makedepends=(cargo)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('ee521697e13a65e19124aa115ca4d8a6d140242ba500aeb3c36629d62f9d6df4')
+sha256sums=('86e85e8abdcfee925f0b95d424bd9eed9ad78aeb537707132e77ccb63133ac97')
 
 prepare() {
   cd $_pkgname-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd $_pkgname-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --frozen --release --all-features
 }
 
