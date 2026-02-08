@@ -2,7 +2,7 @@
 # Contributor: robertfoster
 
 pkgname=distrobox
-pkgver=1.8.2.3
+pkgver=1.8.2.4
 pkgrel=1
 pkgdesc="Use any linux distribution inside your terminal."
 url="https://distrobox.it"
@@ -12,7 +12,7 @@ depends=('bash' 'hicolor-icon-theme')
 optdepends=('docker: Docker support'
 	    'podman: Podman support')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/89luca89/distrobox/archive/${pkgver}.tar.gz")
-sha256sums=('b4fcc60c0b856aac93385ea0eb88fb27fdaeb00b365c75e0eed497c306069837')
+sha256sums=('83eab6ba893dce56f0523a70ebfcf2a78f7785637a6895255777ef1b72d4eb89')
 
 package() {
 	cd "${pkgname}-${pkgver}"
