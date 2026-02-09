@@ -4,68 +4,16 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 # Contributor: K900 <k0009000@gmail.com>
 
-pkgname=steam
+pkgbase=steam
+pkgname=(steam steam-devices)
 pkgver=1.0.0.85
-pkgrel=1
+pkgrel=3
 pkgdesc="Valve's digital software delivery system"
 url='https://steampowered.com/'
 arch=('x86_64')
 license=('LicenseRef-steam-subscriber-agreement')
-depends=(
-  bash
-  coreutils
-  curl
-  dbus
-  desktop-file-utils
-  diffutils
-  freetype2
-  gcc-libs
-  gdk-pixbuf2
-  glibc
-  hicolor-icon-theme
-  libxcrypt
-  libxcrypt-compat
-  libxkbcommon-x11
-  lsb-release
-  lsof
-  nss
-  python
-  ttf-font
-  usbutils
-  vulkan-driver
-  vulkan-icd-loader
-  xdg-user-dirs
-  xorg-xrandr
-  xz
-  zenity
-)
-depends_x86_64=(
-  lib32-alsa-plugins
-  lib32-fontconfig
-  lib32-gcc-libs
-  lib32-glibc
-  lib32-libgl
-  lib32-libgpg-error
-  lib32-libnm
-  lib32-libva
-  lib32-libx11
-  lib32-libxcrypt
-  lib32-libxcrypt-compat
-  lib32-libxinerama
-  lib32-libxss
-  lib32-nss
-  lib32-pipewire
-  lib32-systemd
-  lib32-vulkan-driver
-  lib32-vulkan-icd-loader
-)
-optdepends=(
-  'polkit: to setup SteamVR without root access'
-  'steam-native-runtime: steam native runtime support'
-  'xdg-desktop-portal-impl: file & folder picker'
-)
 # the beta directory is a superset of stable and also contains the stable releases
-source=(https://repo.steampowered.com/${pkgname}/archive/stable/${pkgname}_${pkgver}{.tar.gz,.dsc}
+source=(https://repo.steampowered.com/${pkgbase}/archive/stable/${pkgbase}_${pkgver}{.tar.gz,.dsc}
         steam.sh)
 sha512sums=('81d404fcbd516fa1d984a991be3530855c0ded826ea8aca68c8cb5492e95d3d430cd7c556a9997a7c0780055a810239322181b1785e78f8d8fabe01c39fee2f7'
             'e3722d006485249fc91113feee0df018d341dc8d7327199a9161022c84b04ca5faa2be36268d50ae0bc29b6fd6063fe2b69a29a354adb32dd6b75d78dc7f9702'
@@ -75,7 +23,61 @@ b2sums=('6cc699e7b740693529845ef76d39570a977716735da46e21b681629aebf3e5ee80b09a3
         'c6bac99336b7c30fec7cdbaf9e949555c687dd9dff50bcae136134d6314f4b841f5fc66ddb2caac1b003690b926fd4afbdc11da143b4674db4b75f27709fdd23')
 validpgpkeys=('BA1816EF8E75005FCF5E27A1F24AEA9FB05498B7') # linux@steampowered.com
 
-package() {
+package_steam() {
+  depends=(
+    bash
+    coreutils
+    curl
+    dbus
+    desktop-file-utils
+    diffutils
+    freetype2
+    gcc-libs
+    gdk-pixbuf2
+    glibc
+    hicolor-icon-theme
+    libxcrypt
+    libxcrypt-compat
+    libxkbcommon-x11
+    lsb-release
+    lsof
+    nss
+    python
+    ttf-font
+    usbutils
+    vulkan-driver
+    vulkan-icd-loader
+    xdg-user-dirs
+    xorg-xrandr
+    xz
+    zenity
+  )
+  depends_x86_64=(
+    lib32-alsa-plugins
+    lib32-fontconfig
+    lib32-gcc-libs
+    lib32-glibc
+    lib32-libgl
+    lib32-libgpg-error
+    lib32-libnm
+    lib32-libva
+    lib32-libx11
+    lib32-libxcrypt
+    lib32-libxcrypt-compat
+    lib32-libxinerama
+    lib32-libxss
+    lib32-nss
+    lib32-pipewire
+    lib32-systemd
+    lib32-vulkan-driver
+    lib32-vulkan-icd-loader
+  )
+  optdepends=(
+    'polkit: to setup SteamVR without root access'
+    'xdg-desktop-portal-impl: file & folder picker'
+  )
+  depends+=(steam-devices)
+
   cd ${pkgname}-launcher
   make DESTDIR="${pkgdir}" install
 
@@ -88,10 +90,21 @@ package() {
 
   # blank steamdeps because apt-get
   ln -sf true "${pkgdir}/usr/bin/steamdeps"
+}
 
-  install -Dm 644 subprojects/steam-devices/60-steam-input.rules \
+package_steam-devices() {
+  pkgdesc="List of devices Steam and SteamVR will want read/write permissions on"
+  license=(MIT)
+  depends=(udev)
+
+  cd "$srcdir/steam-launcher/subprojects/steam-devices"
+
+  install -Dm 644 LICENSE \
+    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+
+  install -Dm 644 60-steam-input.rules \
     "${pkgdir}/usr/lib/udev/rules.d/60-steam-input.rules"
-  install -Dm 644 subprojects/steam-devices/60-steam-vr.rules \
+  install -Dm 644 60-steam-vr.rules \
     "${pkgdir}/usr/lib/udev/rules.d/60-steam-vr.rules"
 }
 
