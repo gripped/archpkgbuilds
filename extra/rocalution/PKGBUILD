@@ -4,16 +4,15 @@
 
 pkgname=rocalution
 pkgver=7.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Next generation library for iterative sparse solvers for ROCm platform'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocALUTION/en/latest/index.html'
 license=('MIT')
 depends=('rocm-core' 'hip-runtime-amd' 'glibc' 'gcc-libs'
-         'rocsparse' 'rocblas' 'rocsolver' 'rocprim' 'rocrand')
+         'rocsparse' 'rocblas' 'rocsolver' 'rocprim' 'rocrand'
+         'openmp' 'openmpi')
 makedepends=('rocm-cmake' 'rocm-toolchain' 'openmp' 'openmpi')
-optdepends=('openmp: Multithreaded CPU applications'
-            'openmpi: Distributed CPU and multi GPU applications')
 _git='https://github.com/ROCm/rocALUTION'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
 sha256sums=('15cf2f3cded70c300a2b5ee2af5b887397640ece922b4e384daef26e3ef65656')
