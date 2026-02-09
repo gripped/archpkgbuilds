@@ -5,7 +5,7 @@ pkgname=bun
 pkgver=1.3.9
 _webkitver=8af7958ff0e2a4787569edf64641a1ae7cfe074a
 _zigver=c1423ff3fc7064635773a4a4616c5bf986eb00fe
-pkgrel=1
+pkgrel=2
 pkgdesc="Incredibly fast JavaScript runtime, bundler, test runner, and package manager – all in one"
 arch=(x86_64)
 url="https://github.com/oven-sh/bun"
@@ -109,6 +109,7 @@ build() {
   cmake -S bun -B build-bun \
     "${cmake_args_common[@]}" \
     -DCMAKE_BUILD_TYPE=Release \
+    -DENABLE_CANARY=OFF \
     -DLLVM_VERSION="$llvmver" \
     -DENABLE_LTO=ON \
     -DENABLE_ASAN=OFF \
