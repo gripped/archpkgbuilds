@@ -3,13 +3,15 @@
 # Contributor: Morteza NourelahiAlamdari <m@0t1.me>
 
 pkgname=sqlfluff
-pkgver=4.0.0
+pkgver=4.0.4
 pkgrel=1
 pkgdesc='A dialect-flexible and configurable SQL linter'
-arch=(any)
+arch=(x86_64)
 url='https://github.com/sqlfluff/sqlfluff'
 license=(MIT)
 depends=(
+  glibc
+  gcc-libs
   python
   python-chardet
   python-click
@@ -31,18 +33,31 @@ makedepends=(
   python-installer
   python-setuptools
   python-wheel
+  python-maturin
 )
 checkdepends=(
   python-hypothesis
   python-pytest-xdist
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('f953f48b399c6f0067d13684a61d43e3b89e530365f09f8ae7598f7c619140326a8a3295961bd949d778cedd99d9800a36258a3df958fe97ddfb5fee716fc6e1')
-b2sums=('a6906d4910613bc3e906bcb249371198a148e50c0fb9d18432de87070d83804cf89db5beb9942ea7d5b198008d9d68bca9ef871bffe55915924dfd12e9af5dc7')
+sha512sums=('ca292c09315fe5f616e57cf039525f8d89094997d659480c39de4746a4daf6e5a701b298f7eff8a1c902e10ed8447cc5d49045c169ad4128fc0ae47a7036866a')
+b2sums=('ec7cbdf1228c10415d1af5f0847ae50f456d9e721a69119d8246dd44784d62f7608171c81c9ca3eb89c2849801070f64d7e4d4ce1a812e76a5efc4a6bb6d8b00')
 
 build() {
   cd "$pkgname"
 
+  python -m build --wheel --no-isolation
+
+  # temporary install
+  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$(pwd)/tmp/$site_packages"
+
+  # generate dialects
+  python utils/rustify.py build
+
+  # build sqlfluffrs
+  cd sqlfluffrs
   python -m build --wheel --no-isolation
 }
 
@@ -51,6 +66,7 @@ check() {
 
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m installer sqlfluffrs/dist/*.whl
   PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest -n=auto \
     --deselect='test/core/linter/discovery_test.py::test__linter__path_from_paths__ignore[test/fixtures/linter/sqlfluffignore]' \
     --deselect='test/core/plugin_test.py::test__plugin_default_config_read[Example_L001-forbidden_columns]' \
@@ -62,6 +78,7 @@ package() {
   cd "$pkgname"
 
   python -m installer --destdir="$pkgdir" dist/*.whl
+  python -m installer --destdir="$pkgdir" sqlfluffrs/dist/*.whl
 
   # documentation
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
