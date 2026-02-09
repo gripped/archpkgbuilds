@@ -2,7 +2,7 @@
 # Contriubutor: Jamie Magee <jamie dot magee at gmail dot com>
 
 pkgname=gitsign
-pkgver=0.13.0
+pkgver=0.14.0
 pkgrel=2
 pkgdesc='Keyless Git signing using Sigstore'
 arch=('x86_64')
@@ -10,7 +10,7 @@ url='https://github.com/sigstore/gitsign'
 license=("APACHE")
 makedepends=(go)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/sigstore/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz")
-b2sums=('b3c165e110ffe12b7439d7a5be698d1f20f077c0204dc07928dfe8ea6a0aa11e6ff09dd91dc1d1e12d15b0670d1b091cdcf8d7658c8ca8ee588a37a97b06bc02')
+b2sums=('235d46799b7fc2895c277bca420a361acf93b0c106c7deecc7b3b9a0ec6dbf7881e89e23e1c1fd5e18c6d5ce94c8d1a453ba99fb8ddfed428da5df3322c97ad8')
 
 build() {
   cd $pkgname-$pkgver
