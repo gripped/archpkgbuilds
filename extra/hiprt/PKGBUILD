@@ -2,8 +2,12 @@
 # Contributor: HurricanePootis <hurricanepootis@protonmail.com>
 pkgname=hiprt
 pkgver=3.1.0.cb09c56
-_libver=03000
-pkgrel=1
+# For the calculation of the HIPRT_VERSION, see
+# https://github.com/GPUOpen-LibrariesAndSDKs/HIPRT/blob/8602b8c475255fb922c2792654aae0a6bcdeb0af/CMakeLists.txt#L262
+# For zero padding, see
+# https://github.com/GPUOpen-LibrariesAndSDKs/HIPRT/blob/8602b8c475255fb922c2792654aae0a6bcdeb0af/CMakeLists.txt#L265-L266
+_libver=$(awk -F "." '{printf "%05d\n", $1 * 1000 + $2}' <<< $pkgver)
+pkgrel=2
 pkgdesc="Ray Tracing Library for HIP"
 arch=('x86_64')
 url="https://gpuopen.com/hiprt/"
