@@ -4,7 +4,7 @@
 
 pkgname=roctracer
 pkgver=7.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc='ROCm tracer library for performance tracing'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/roctracer/en/latest'
@@ -21,7 +21,8 @@ build() {
     -Wno-dev
     -B build
     -S "$_dirname"
-    -D CMAKE_BUILD_TYPE=None
+    # https://gitlab.archlinux.org/archlinux/packaging/packages/roctracer/-/issues/6
+    -D CMAKE_BUILD_TYPE=Release
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D HIP_ROOT_DIR=/opt/rocm
   )
