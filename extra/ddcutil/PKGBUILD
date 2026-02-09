@@ -3,7 +3,7 @@
 
 pkgname=ddcutil
 pkgver=2.2.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Query and change Linux monitor settings using DDC/CI and USB.'
 url='http://ddcutil.com/'
 arch=('x86_64')
@@ -15,6 +15,7 @@ sha512sums=('9b610790a8fba7273c1f9870b6f494de5b3b45be9b189667df5d20e3224119db117
 
 prepare() {
   cd ddcutil
+  git revert -n 642ddd5785e034eeae51db00a1d1402412471f43 316fcb977070f6161fd5b2779f7f2c8f6dca8593
   autoreconf -fiv
 }
 
