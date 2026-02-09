@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-nibbles
-pkgver=4.4.2
+pkgver=4.5.0
 pkgrel=1
 pkgdesc="Guide a worm around a maze"
 url="https://wiki.gnome.org/Apps/Nibbles"
@@ -31,7 +31,7 @@ groups=(gnome-extra)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-nibbles.git?signed#tag=$pkgver"
 )
-b2sums=('e3d2e9adabc5d5a6501312096e326f007216d859ff88cf7bbf6048b8ca55fcaa6762bd804ed0996aea0a6684903cb53bc3621b89571205ef54a6f5acfd668d7d')
+b2sums=('1f1960c8fce8d9538c59f94512f30e4373a75d28dcf06fe12238fc3c25b89c10971a5ba7f89e29f4e29b453dab71280d87a6ac034411b29c571dbc7b6ea324df')
 validpgpkeys=(
   31F449AE968CBE194119A3AD1F1DC770CE79E68B # Ben Corby <bcorby@new-ms.com> (old)
   9CE6D700965C6A1D6F7B4A1C18B04BB8340E3EC5 # Ben Corby <bcorby@new-ms.com>
