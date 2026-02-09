@@ -1,18 +1,19 @@
 # Maintainer: Jan de Groot <jgc@archlinux.org>
 
 pkgname=lib32-libx11
-pkgver=1.8.12
-pkgrel=2
+pkgver=1.8.13
+pkgrel=1
 pkgdesc="X11 client-side library (32-bit)"
 arch=(x86_64)
 url="https://gitlab.freedesktop.org/xorg/lib/libx11"
-depends=('lib32-libxcb' 'libx11')
+depends=('lib32-libxcb' 'libx11' 'lib32-glibc' 'xorgproto')
 makedepends=('xorg-util-macros' 'xorgproto' 'xtrans' 'gcc-multilib')
 license=('MIT AND X11')
 source=(https://xorg.freedesktop.org/releases/individual/lib/libX11-${pkgver}.tar.xz{,.sig})
-sha512sums=('cb7a284d9081a8b67f7d8568d56dc403a4b787e46ac497b07768d236084c01f80f4ea2ebd814f950ac9738adc3baea3912932fc333858195c4f8217744b6f730'
+sha512sums=('4c4a098eaff09a51309f3f322bc435ccd022c8f753974eb2650b60e42b737077ca0fde0df82b53f4ba8ed2388bbc8cb59ba66cc9946ae2b5907d7d1a9580e03d'
             'SKIP')
-validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alanc@freedesktop.org>
+validpgpkeys=('3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2') # Alan Coopersmith <alan.coopersmith@oracle.com>
+# validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alanc@freedesktop.org>
 
 build() {
   export CC="gcc -m32"
