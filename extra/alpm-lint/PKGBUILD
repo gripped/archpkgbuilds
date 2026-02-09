@@ -3,7 +3,7 @@
 pkgname=alpm-lint
 _upstream=alpm
 pkgver=0.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Linting of ALPM packaging related files and projects"
 arch=(x86_64)
 url="https://alpm.archlinux.page/alpm-lint/"
@@ -55,7 +55,7 @@ package() {
   cd $_upstream
   install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
   install -vDm 644 output/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
-  install -vDm 644 output/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completions/completions/$pkgname"
+  install -vDm 644 output/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completion/completions/$pkgname"
   install -vDm 644 output/shell_completions/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
   install -vDm 644 output/shell_completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
   install -vDm 644 LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
