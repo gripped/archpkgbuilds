@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-jaconv
-pkgver=0.4.1
-pkgrel=3
+pkgver=0.5.0
+pkgrel=1
 pkgdesc='Japanese character interconverter for Hiragana, Katakana, Hankaku, and Zenkaku'
 url='https://ikegami-yukino.github.io/jaconv/jaconv.html'
 license=(MIT)
@@ -19,8 +19,8 @@ checkdepends=(
   python-pytest
 )
 source=("$pkgname::git+https://github.com/ikegami-yukino/jaconv#tag=v$pkgver")
-sha512sums=('e5a21d003818a23925a279fea7cb786076c4a091e64d5d8f48b3c8c82294393ba957556ba24de2980bc52aa70a80eec758406fd8ea0ce7197dd3d875c5923fb3')
-b2sums=('c75abdcb63f17da013057b3ac3728574c6ac7d50b6b51e479ddb233452882bb09b51a273622c36b6736900093fedf4923d1cc2410cd3298adb9afb188eb8e1c1')
+sha512sums=('998292cb4e008e4c3ca986c5c5d03db4ba63267b1c0c3905ed1969e1223bfdb65f6c6eb04d90d542610e3668f40218ba8bea115fdb0f91f028cf7517dee21013')
+b2sums=('ceb3025f9a5be78fb5314ad634c1184a354c9e6410579010fdaf74f23ac06f1090a54459a31399909f379856066cbab36b842be666567252d16516bb48ae6d7a')
 
 build() {
   cd "$pkgname"
