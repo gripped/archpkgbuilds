@@ -3,7 +3,7 @@
 # Contributor: Tobias Kieslich <tobias@justdreams.de>
 
 pkgname=gthumb
-pkgver=3.12.9
+pkgver=3.12.10
 pkgrel=1
 pkgdesc="Image browser and viewer for the GNOME Desktop"
 url="https://wiki.gnome.org/Apps/Gthumb"
@@ -53,7 +53,7 @@ optdepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/gthumb.git#tag=$pkgver"
 )
-b2sums=('174ecd4caa5692f09f0254eef4f60809878bd30d50ae3b119c3af9c6c6606ebbeda8997ba1a9400cc82ede73d7fb5428ee9becb85a9abeb410757cebdaa35501')
+b2sums=('71c6117d28e08d2704eddc0824e2d1f38aaaebf4eee25c501d4adb69c2a6877ffa02509368ef6887f731be8c9c598ef7a55f3feb96cc934fd9fc8149ee4bf329')
 
 prepare() {
   cd gthumb
