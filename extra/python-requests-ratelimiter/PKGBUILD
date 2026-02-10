@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-requests-ratelimiter
-pkgver=0.8.0
+pkgver=0.9.0
 pkgrel=1
 pkgdesc='A general-purpose rate-limiting library for python-requests'
 arch=(any)
@@ -24,20 +24,8 @@ checkdepends=(
   python-requests-cache
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('1ec8d0b684ba77e8bf26a0bca67d80bcd56bef762fd148bb9c48bf994052585b2bf5eeed4696a6c364ed06a6a88f96bf3c4717c01b4a7cadef149a139782845e')
-b2sums=('05c3b3274af205af776f227553f795ef8597ba5e9b1a5b1cf4a4aaacf621a7f38a050d9a62b9749a8fa6cb5a835a10a5f411cc2a310711cb7c1be65f229ced86')
-
-prepare() {
-  cd "$pkgname"
-
-  # migrate to pyrate-limiter v4
-  # https://github.com/JWCook/requests-ratelimiter/pull/126
-  git cherry-pick --no-commit \
-    878cc0cfe89b0487847f24953196ea9da4025771 \
-    d133318d8aa8c2be4a87379fb017a3ba20540268 \
-    db7c6720fa135c7ba44ee4f965262a85a731b9d6 \
-    fd3e2457b226bc013399f3167bf59aed9bba61e3
-}
+sha512sums=('fac8eb58fef4fcd75dfc6b084a7533a3cbc142d49abf74e14a04834b627b02161820f9c50230ab7793fd5bfdc46f9e30ef859ee8907b7334504ce24a07d0102f')
+b2sums=('8923e4f25a883eaaf8a31322f5ef067b1d303cacbff31f719f3aba2ecdf98fa5d725245e4c697ff7dc4b046965a093b14d1efce5ff1bbfa51c7e99339c117723')
 
 build() {
   cd "$pkgname"
