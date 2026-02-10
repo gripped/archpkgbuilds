@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: hexchain <arch at hexchain.org>
 pkgname=krunvm
-pkgver=0.2.5
+pkgver=0.2.6
 pkgrel=1
 pkgdesc="Create microVMs from OCI images"
 url='https://github.com/containers/krunvm'
@@ -9,16 +9,8 @@ arch=('x86_64')
 license=('Apache-2.0')
 makedepends=('cargo' 'asciidoctor')
 depends=('glibc' 'gcc-libs' 'libkrun' 'buildah')
-source=("https://github.com/containers/krunvm/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz"
-        krunvm025-fix.patch::https://github.com/containers/krunvm/pull/77.patch)
-sha256sums=('1309cbffad87c0348a468ed728a0575cf3187cba0d26543a00174a48ac89ec61'
-            '9c02d63cb88b161338426139f8657cb3bd4602330cd80d349a6c3d16429f3831')
-
-prepare() {
-    cd "$pkgname-$pkgver"
-
-    patch -Np1 -i "$srcdir"/krunvm025-fix.patch
-}
+source=("https://github.com/containers/krunvm/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('9f13e938a10565cdd0d38bd49f8c7fc5be57245740bad2bb138eec8675d4ee3b')
 
 build() {
     cd "$pkgname-$pkgver"
@@ -30,6 +22,5 @@ package() {
     cd "$pkgname-$pkgver"
 
     make DESTDIR="$pkgdir" PREFIX=/usr install
-
     install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
