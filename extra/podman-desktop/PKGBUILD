@@ -3,7 +3,7 @@
 # Contributor: Juliette Cordor 
 
 pkgname=podman-desktop
-pkgver=1.24.2
+pkgver=1.25.1
 pkgrel=1
 pkgdesc="Manage Podman and other container engines from a single UI and tray."
 arch=("x86_64")
@@ -12,7 +12,7 @@ license=('Apache-2.0')
 _electron=electron39
 depends=(${_electron} "hicolor-icon-theme")
 makedepends=(
-    'pnpm' 'node-gyp' 'npm' 'nodejs-lts-jod' 'libvips' 'lcms2'
+    'pnpm' 'node-gyp' 'npm' 'nodejs-lts-krypton' 'libvips' 'lcms2'
     'openjpeg2' 'glib2' 'python-setuptools'
 )
 optdepends=(
@@ -21,7 +21,7 @@ optdepends=(
 )
 source=(${pkgname}-${pkgver}.tar.gz"::https://github.com/${pkgname}/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz"
 "run.sh.in")
-b2sums=('47349336b2a03b20bb69a78e224ccc82f1e1bec5b5dc3e0c922cb97cc8006acafee4858518cfa28e167c90c9ea40b3df14bca274f50f86ad835a4cca481d9bce'
+b2sums=('b8a88f350b5aeda348e664e9e2c2967628c1e24322e1c1ce2f968d2c445160b73fabdbc3869b6fc86b8d2e10848bc6682e7f998a8f7b3d6149f1c55360a95586'
         '962868734a928753a0855a701fe356511f5066057e642677328ac522429a47d5091a8849d138fb29e06b100e4fe5762eee1f6feab1d9c95b2935794ca31f0016')
 
 prepare(){
