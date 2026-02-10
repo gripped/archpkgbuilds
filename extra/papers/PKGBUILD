@@ -5,7 +5,7 @@ pkgname=(
   papers
   papers-lib-docs
 )
-pkgver=49.3
+pkgver=49.4
 pkgrel=1
 pkgdesc='Document viewer for PDF and other document formats aimed at the GNOME desktop'
 arch=(x86_64)
@@ -45,7 +45,7 @@ makedepends=(
   rust
 )
 source=("git+https://gitlab.gnome.org/GNOME/papers.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('720bd937603b01232b54bf68f6e85ee86952b161e7a0689848c45cc3f81bd8eb480be9d0a9409e68a5d0e2b49e9fc0eaf798653a2d6f2fe2be4ade19ba0a1e64')
+b2sums=('ae7175abfa1f2178fc7a4eabd1a68c3f3951470821501f4dacf26116f09756c69f82bde76cd132e9654413d2f3831f496d2d59d79a1bf5a5eb32d940ee65877f')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
