@@ -3,8 +3,8 @@
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 
 pkgname=cinnamon-session
-pkgver=6.6.1
-pkgrel=2
+pkgver=6.6.2
+pkgrel=1
 pkgdesc='The Cinnamon session handler'
 arch=(x86_64)
 url='https://github.com/linuxmint/cinnamon-session'
@@ -39,7 +39,7 @@ makedepends=(
   xtrans
 )
 source=("git+https://github.com/linuxmint/cinnamon-session.git#tag=$pkgver")
-b2sums=(b8c352551d7381fe7dd718a760e77a1d6041065b26d8c88d34b76ea35d252fa25856117cc54038ee385787616828103e7f1b171efc379bc8738a5cb436390446)
+b2sums=('6d2e33e3f78b5a9e4049da70e72e08d5651081ded8c1dd49a44ff80e7366a34e8595ed81b466c3c6d319208ec8fd06f9427234402e02179df744dcc3e9fc3a51')
 
 build() {
   arch-meson $pkgname build \
