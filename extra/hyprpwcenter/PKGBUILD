@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hyprpwcenter
-pkgver=0.1.1
-pkgrel=10
+pkgver=0.1.2
+pkgrel=1
 pkgdesc='A GUI Pipewire control center'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
@@ -18,7 +18,7 @@ makedepends=(cmake)
 optdepends=('ttf-material-symbols-variable: Recommended font for icons')
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('4786a54e5f1841cfb1d54ba57a4818089e0d70705c656303104580ce2270c4fb')
+sha256sums=('ab4cfd4710566b07e98973d6723c24802d95774aa9c02aca839ff03e3bf09659')
 
 build() {
 	cd "$_archive"
