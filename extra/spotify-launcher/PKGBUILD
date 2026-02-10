@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=spotify-launcher
-pkgver=0.6.4
+pkgver=0.6.5
 pkgrel=1
 pkgdesc="Client for spotify's apt repository in Rust for Arch Linux"
 url='https://github.com/kpcyrd/spotify-launcher'
@@ -27,9 +27,9 @@ makedepends=('cargo')
 backup=('etc/spotify-launcher.conf')
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
-sha256sums=('80e0a883f71c7f56987757d7e0cd69125a0fc6c62b52bbfe5e706cc5d11883e7'
+sha256sums=('be30e513b8e6d9afd1d2f10cdf39386a95fc02c876dc21b8e2afca31d33d97b6'
             'SKIP')
-b2sums=('033b8e12058a290da98f0ab6dee809d3c999116213219cfdf5861621f6e4132b94331894ede32feb685182fcabfceac5f44c9ad3f61d51d676ef0ef1db2cc4a3'
+b2sums=('42b4eb133cf0246cdaac41b76c97df958a453a3208c87c21a4ce674e985b5cf92dfa602c50c305dea3169c0d0d5e88da9df973302652898f32413dd42f226095'
         'SKIP')
 options=('!lto')
 
@@ -54,7 +54,7 @@ package() {
   cd "${pkgname}-${pkgver}"
   install -Dm 755 -t "${pkgdir}/usr/bin" \
     target/release/spotify-launcher
-  install -Dm 644 data/pubkey_C85668DF69375001.gpg \
+  install -Dm 644 data/pubkey_5384CE82BA52C83A.gpg \
     "${pkgdir}/usr/share/spotify-launcher/keyring.pgp"
 
   install -Dm644 contrib/spotify-launcher.desktop -t "${pkgdir}/usr/share/applications"
