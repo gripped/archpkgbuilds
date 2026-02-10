@@ -1,7 +1,7 @@
 pkgbase = kmscon
 	pkgdesc = Kernel Mode Setting (KMS) and DRM based virtual Console Emulator
 	pkgver = 9.3.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/kmscon/kmscon
 	arch = x86_64
 	license = MIT
@@ -21,6 +21,7 @@ pkgbase = kmscon
 	depends = mesa
 	depends = pango
 	depends = systemd-libs
+	optdepends = inotify-tools: for kmscon-launch-gui waiting mechanism
 	backup = etc/kmscon/kmscon.conf
 	source = git+https://github.com/kmscon/kmscon.git#tag=v9.3.1
 	b2sums = 389418768ed59c5715f3616c62eca5a4fd45253cd93941a976caa7702dcfa6e66388f0e39fcb9f4eb24d87f92e9c69fe0f514ede0eb2c2d035c9eadd9ad5861d

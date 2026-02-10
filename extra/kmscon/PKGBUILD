@@ -7,7 +7,7 @@
 
 pkgname=kmscon
 pkgver=9.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Kernel Mode Setting (KMS) and DRM based virtual Console Emulator'
 arch=('x86_64')
 url='https://github.com/kmscon/kmscon'
@@ -31,7 +31,9 @@ makedepends=(
   git
   libxslt
   linux-api-headers
-  meson)
+  meson
+)
+optdepends=('inotify-tools: for kmscon-launch-gui waiting mechanism')
 source=(
   git+${url}.git#tag=v${pkgver}
 )
