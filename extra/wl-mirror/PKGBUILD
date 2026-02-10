@@ -2,7 +2,7 @@
 # Maintainer: Brett Cornwall <ainola@archlinux.org>
 
 pkgname=wl-mirror
-pkgver=0.18.4
+pkgver=0.18.5
 pkgrel=1
 pkgdesc="a simple Wayland output mirror client"
 url="https://github.com/Ferdi265/wl-mirror"
@@ -29,10 +29,10 @@ optdepends=(
 )
 source=("$pkgname-$pkgver.tar.gz::$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz"
         "$pkgname-$pkgver.tar.gz::$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz.sig")
-sha512sums=('3fcf05187256270312506264681498233e07a1928c76cf4fd9df97e90f4d6e9f5ed1a2ffa26983dfd528a03dd6557221000b78e028264a88ead02c0acbb8ba93'
-            '3fcf05187256270312506264681498233e07a1928c76cf4fd9df97e90f4d6e9f5ed1a2ffa26983dfd528a03dd6557221000b78e028264a88ead02c0acbb8ba93')
-b2sums=('23eb501534adfedb2a7ce3c0830d5a6ac7845fd2426e95672dab39ea8ab3db85208d44b63c18803af6e3e916b714d9d0cc5fcef680a4ac38f493c01a8442caaf'
-        '23eb501534adfedb2a7ce3c0830d5a6ac7845fd2426e95672dab39ea8ab3db85208d44b63c18803af6e3e916b714d9d0cc5fcef680a4ac38f493c01a8442caaf')
+sha512sums=('2e92f027495fd43c16ef911b103a154bb635a1ed5844a20c526d09ee8a5bbbf2dd70b722c3e7d060082b2fe2bcade1ec1cd40bdbdc9a3c8eba5ab5793aa8ac7a'
+            '2e92f027495fd43c16ef911b103a154bb635a1ed5844a20c526d09ee8a5bbbf2dd70b722c3e7d060082b2fe2bcade1ec1cd40bdbdc9a3c8eba5ab5793aa8ac7a')
+b2sums=('f3b2bf218547783f23370f6f32535871eaa31e7123d56b83a68e49c51ea7aa9f9d988073478c5ada8c2d6f520fb0e0b89d475b6d01d414340d824cc1c47ce60b'
+        'f3b2bf218547783f23370f6f32535871eaa31e7123d56b83a68e49c51ea7aa9f9d988073478c5ada8c2d6f520fb0e0b89d475b6d01d414340d824cc1c47ce60b')
 validpgpkeys=('087489B679A69AD292EE5FDEA4FAD9CEDA213AF3')  # Ferdinand Bachmann
 
 build() {
