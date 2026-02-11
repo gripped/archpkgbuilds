@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=kvirc
-pkgver=5.2.8
-pkgrel=2
+pkgver=5.2.10
+pkgrel=1
 pkgdesc='Qt based IRC client'
 arch=('x86_64')
 url='https://www.kvirc.net/'
@@ -13,7 +13,7 @@ optdepends=('perl: scripting support'
             'python: scripting support')
 source=("https://github.com/kvirc/KVIrc/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         'kvirc.metainfo.xml')
-sha256sums=('914a8cd0b88d2576450798d5c51973c1cf3ee40a45baaf2151630c9daf46615d'
+sha256sums=('6b448b08aeaf5fd3f2b120525c8c87ddad3336f5b750a557b2022aaad0dda626'
             '5f90d6161f3ed9527375d210ba30dde5f2d8e68b7c9bef9419d145b3bbbe1d24')
 
 prepare() {
