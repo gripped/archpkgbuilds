@@ -6,7 +6,7 @@ pkgname=(
   glycin
   glycin-gtk4
 )
-pkgver=2.0.7
+pkgver=2.0.8
 pkgrel=1
 pkgdesc="Sandboxed and extendable image decoding"
 arch=(x86_64)
@@ -44,7 +44,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/glycin.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/sophie-h/test-images.git"
 )
-b2sums=('61ab8899386ee20ff3da597c3fd1eb458c3044a5c94cde3536f03b7e1d7f20d3c8c03544705c1b855d604ebd78addedee051ef8de7b1f8e38549cace9d6a0684'
+b2sums=('82c04a7bad9d3a30c69b8da760077fc785cebefbc79620274df93e19a7ec954d182e0eb309f86ea2cbe711a47ffee14736912ef919d9b829d0709d4ebbe8ffa0'
         'SKIP')
 
 # Use debug
@@ -62,7 +62,7 @@ prepare() {
 
   # Match cargo_home in meson.build
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
