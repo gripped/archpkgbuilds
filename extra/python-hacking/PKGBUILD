@@ -2,13 +2,13 @@
 
 pkgname=python-hacking
 pkgver=7.0.0
-pkgrel=3
+pkgrel=4
 arch=('any')
 pkgdesc='OpenStack Hacking Guideline Enforcement'
 url='https://docs.openstack.org/developer/hacking'
-license=('Apache')
+license=('Apache-2.0')
 depends=('flake8')
-makedepends=('git' 'python-pbr' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-pbr' 'python-setuptools' 'python-wheel')
 checkdepends=('python-subunit' 'python-stestr' 'python-testscenarios' 'python-testtools'
               'python-ddt' 'python-eventlet')
 source=("git+https://github.com/openstack/hacking.git#tag=$pkgver")
@@ -21,7 +21,7 @@ prepare() {
 
 build() {
   cd hacking
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -31,5 +31,5 @@ check() {
 
 package() {
   cd hacking
-  python setup.py install --root "$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
