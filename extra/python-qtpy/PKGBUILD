@@ -4,12 +4,13 @@
 _pkgname=qtpy
 pkgname=python-qtpy
 pkgver=2.4.3
-pkgrel=5
+pkgrel=6
 pkgdesc="Provides an uniform layer to support PyQt and PySide with a single codebase"
 arch=(any)
 url="https://github.com/spyder-ide/qtpy/"
 license=(MIT)
-depends=(python-packaging)
+depends=(python-packaging
+         qt6-python-bindings)
 makedepends=(
     python-build
     python-installer
