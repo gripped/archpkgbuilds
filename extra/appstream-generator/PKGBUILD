@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=appstream-generator
-pkgver=0.10.1
-pkgrel=2
+pkgver=0.10.2
+pkgrel=1
 pkgdesc='A fast AppStream metadata generator'
 arch=(x86_64)
 url='https://github.com/ximion/appstream-generator'
@@ -22,14 +22,8 @@ makedepends=(catch2
              docbook-xsl
              inja
              meson)
-source=(https://github.com/ximion/appstream-generator/archive/v$pkgver/$pkgname-$pkgver.tar.gz
-        fix-repo-path.patch)
-sha256sums=('002c509c54daa39b3bc179afca84227c9675368264040d19e7847540b7d0ed48'
-            '654f2440f21503783f695db34cadfb345de5443f4d2a0eb913744a00689aeea7')
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < fix-repo-path.patch
-}
+source=(https://github.com/ximion/appstream-generator/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('cfafd3de39e124208123591e83f3165e40196edb9aa6acc536dc2cea5662ec81')
 
 build() {
   arch-meson $pkgname-$pkgver build \
