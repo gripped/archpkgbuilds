@@ -4,19 +4,21 @@
 
 _pkgname=qtconsole
 pkgname=python-qtconsole
-pkgver=5.7.0
-pkgrel=4
+pkgver=5.7.1
+pkgrel=1
 pkgdesc='Qt-based console for Jupyter with support for rich media output'
 arch=(any)
 url='https://qtconsole.readthedocs.io/'
 license=(BSD-3-Clause)
-depends=(python-ipykernel
+depends=(ipython
+         python
+         python-ipykernel
+         python-ipython-pygments-lexers
          python-jupyter-core
          python-jupyter-client
          python-traitlets
+         python-packaging
          python-pygments
-         python-pyqt6
-         python-pyzmq
          python-qtpy
          qt6-svg)
 makedepends=(git
@@ -29,7 +31,7 @@ checkdepends=(python-flaky
               python-pytest-qt
               xorg-server-xvfb)
 source=(git+https://github.com/jupyter/$_pkgname#tag=$pkgver)
-sha256sums=('2f046ee25ef5d6444a6c83d3be5fc18f619272a730d58bc4b1911520916ce576')
+sha256sums=('a1281dcf8f093262b9b56eefc6e758ac6c3ca4df8e984a66399b8e19cfe32fd4')
 
 build() {
   cd $_pkgname
@@ -38,9 +40,8 @@ build() {
 
 check() {
   cd $_pkgname
-  xvfb-run -s '-nolisten local' pytest -vv --color=yes qtconsole \
-    --deselect qtconsole/tests/test_00_console_widget.py::test_debug \
-    --deselect qtconsole/tests/test_00_console_widget.py::test_scroll[True] # Fail on build server
+  export QT_QPA_PLATFORM='offscreen'
+  pytest -v qtconsole
 }
 
 package() {

@@ -1,7 +1,7 @@
 pkgbase = python-qtconsole
 	pkgdesc = Qt-based console for Jupyter with support for rich media output
-	pkgver = 5.7.0
-	pkgrel = 4
+	pkgver = 5.7.1
+	pkgrel = 1
 	url = https://qtconsole.readthedocs.io/
 	arch = any
 	license = BSD-3-Clause
@@ -14,16 +14,18 @@ pkgbase = python-qtconsole
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
+	depends = ipython
+	depends = python
 	depends = python-ipykernel
+	depends = python-ipython-pygments-lexers
 	depends = python-jupyter-core
 	depends = python-jupyter-client
 	depends = python-traitlets
+	depends = python-packaging
 	depends = python-pygments
-	depends = python-pyqt6
-	depends = python-pyzmq
 	depends = python-qtpy
 	depends = qt6-svg
-	source = git+https://github.com/jupyter/qtconsole#tag=5.7.0
-	sha256sums = 2f046ee25ef5d6444a6c83d3be5fc18f619272a730d58bc4b1911520916ce576
+	source = git+https://github.com/jupyter/qtconsole#tag=5.7.1
+	sha256sums = a1281dcf8f093262b9b56eefc6e758ac6c3ca4df8e984a66399b8e19cfe32fd4
 
 pkgname = python-qtconsole
