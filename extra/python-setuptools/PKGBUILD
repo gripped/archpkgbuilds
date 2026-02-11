@@ -7,7 +7,7 @@ _bootstrap=0
 _bootstrap_version=3.14.0
 pkgname=python-setuptools
 _name=${pkgname#python-}
-pkgver=81.0.0
+pkgver=82.0.0
 pkgrel=1
 epoch=1
 pkgdesc="Easily download, build, install, upgrade, and uninstall Python packages"
@@ -27,6 +27,7 @@ if (( _bootstrap == 0 )); then
     'python-packaging'
     'python-platformdirs'
     'python-wheel'
+    'python-pkg_resources'
   )
 fi
 makedepends=(
@@ -74,7 +75,7 @@ else
     python-setuptools::git+https://github.com/pypa/setuptools.git
   )
 fi
-b2sums=('144812c838206c1be7daf33431268dfa156f1ef199c52d9894cc235cce5b1c6223532b3dd3c43612b64cb918b8d71cae4e7a2a8f28e0a3a5ec4518c2b77f6baa'
+b2sums=('11d6044380fa982552a92aebc07b5c86c0f8d03f5840eb8fb9ea5193540665fbd9e2c25c3075b96f9c36f192f6fcfdb3d0f1c0b67d96303b337f3b0a3f235bb4'
         'ff0caf384def8ba8aa1c7fbb29077f2bc14c42935f7f81b6c4993ebe835053207b6773865158ad3143147234b311b95033b266f9b4c34a78a67f0b7e83bb5537')
 #validpgpkeys=('CE380CF3044959B8F377DA03708E6CB181B4C47E') # Jason R. Coombs <jaraco@jaraco.com>
 
