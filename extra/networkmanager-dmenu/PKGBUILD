@@ -2,7 +2,7 @@
 # Contributor: Scott Hansen (firecat53) tech at firecat53 dot net
 
 pkgname=networkmanager-dmenu
-pkgver=2.6.2
+pkgver=2.6.3
 pkgrel=1
 pkgdesc='Control Networkmanager via dmenu'
 arch=(any)
@@ -15,7 +15,7 @@ optdepends=(
   'libnotify: recieve notifications'
 )
 source=("git+https://github.com/firecat53/$pkgname.git#tag=v$pkgver")
-b2sums=('e1ccbf11f4d200c5bd595cfc3c36e1bf5094025e9c993a7421865d5e0c789f39f6b36b0ea6a0e2069e245dfa72e34e4b2c9ac16dff6841b2249645db7207aa6b')
+b2sums=('5eee72dfcaa3e0625c73121baaaa8ed08d6dcac170d9918e2bafe8ffe9beca5eb1631e8eb072989c910a27afc261761706be3ae8ca19d580746b747d86224619')
 
 package() {
   install -Dm755 $pkgname/networkmanager_dmenu "$pkgdir"/usr/bin/networkmanager_dmenu
