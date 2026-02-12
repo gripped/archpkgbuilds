@@ -8,8 +8,8 @@
 
 pkgname=julia
 epoch=2
-pkgver=1.12.4
-pkgrel=2
+pkgver=1.12.5
+pkgrel=1
 arch=(x86_64)
 pkgdesc='High-level, high-performance, dynamic programming language'
 url='https://julialang.org/'
@@ -37,16 +37,12 @@ makedepends=(cmake
 optdepends=('gnuplot: If using the Gaston Package from julia')
 source=(https://github.com/JuliaLang/julia/releases/download/v$pkgver/$pkgname-$pkgver-full.tar.gz{,.asc}
         c12e8515.patch
-        julia-hardcoded-libs.patch
-        https://github.com/JuliaLang/julia/commit/e7b2b231.patch
-        https://github.com/JuliaLang/julia/commit/657273ae.patch)
+        julia-hardcoded-libs.patch)
 backup=(etc/julia/startup.jl)
-sha256sums=('6ea60c05395e29012b63934e686b0daa1cc155947be429ae0b247b3ea7e7be93'
+sha256sums=('de3bf3693d938d7e15539a5c3ac2177c546acd0d7b7bc4e327e30d6a7238f1e3'
             'SKIP'
             '2cc294b63e601d50341979fb936826bdba59de2165a5929eae927e152652f367'
-            '120c3b77a1aecfdb045ac64902164210ea8dd139d2fb8e8b098155b344a8e1fb'
-            '9cfbe07b174777c1801e2552ce6e30b7a95d577db2d4bb5886603571a6c5bd2b'
-            'b2b8768f708580d58dd7d9206fa3a8fe406fdaaafa581152d3024a6e96c29845')
+            '120c3b77a1aecfdb045ac64902164210ea8dd139d2fb8e8b098155b344a8e1fb')
 validpgpkeys=('3673DF529D9049477F76B37566E3C7DC03D6E495') # Julia (Binary signing key) <buildbot@julialang.org>
 options=(!lto)
 
@@ -57,9 +53,6 @@ prepare() {
   patch -Rp1 -i ../c12e8515.patch
 # Don't hardcode library names
   patch -p1 -i ../julia-hardcoded-libs.patch
-# Fix make install with system p7zip
-  patch -p1 -i ../e7b2b231.patch
-  patch -p1 -i ../657273ae.patch
 }
 
 _make() {
