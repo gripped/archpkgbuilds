@@ -3,7 +3,7 @@
 
 pkgbase=linux-rt-lts
 pkgver=6.6.87.rt54.arch1
-pkgrel=5
+pkgrel=6
 pkgdesc='Linux RT LTS'
 arch=(x86_64)
 url="https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt-lts"
@@ -40,6 +40,7 @@ source=(
   config
   fix-sphinx-error.patch::https://github.com/archlinux/linux/commit/c7dd449e808fbd0a2a070bde516450f92a0790fe.patch # Sphinx error
   0001-docs-sphinx-kernel_abi-adjust-coding-style.patch # Sphinx error 2
+  c23.patch
  )
 sha512sums=('613005605b2358c4d8e844a2e59e5a06b973671bed68c3754d7541cf4ac4b45da03f07bf37b23a019cc9717d4bf0f1d3e21e9b64595b32496d3d7351e232d494'
             'SKIP'
@@ -50,7 +51,8 @@ sha512sums=('613005605b2358c4d8e844a2e59e5a06b973671bed68c3754d7541cf4ac4b45da03
             'b7d85508e3eb7f269977e972550e5d0975c8566a85d48b4b1667e5fc580734ef55e8576aa3cbaffcdbc5686965058e8eaecfee623918336a255b6ff3cc85640d'
             '8b2a0e4d8f466623e37b13e98d2dc24c2d9c5f535c50a5bb32e6701214dc87907672190596df5bc8339073c14bcd0dd9d671095127e25103d47b676c87173673'
             'ba5eab321a2f9771685fa7389e492c21a040a2ba9e6f950fcce1e6459fc67a9d4f75f41e36034ae62e9d1977a10e8950536115a7679a7bf95a9a5973898c8baf'
-            'cffe2bac5ca4f79cbd78f51c0d9b8f65f95df8b195824d265d3a0e72345ff33439b4e6a5ddd46593c4cbf6c7ed125546de6946a5671d6b53555954657ff82ba0')
+            'cffe2bac5ca4f79cbd78f51c0d9b8f65f95df8b195824d265d3a0e72345ff33439b4e6a5ddd46593c4cbf6c7ed125546de6946a5671d6b53555954657ff82ba0'
+            '9db779cdc1adbe6e20645aaff73d341aafea7aadaa2038d53a79d4e141d9c144bc99098f3c5a74dc9f78368c037150631a89d02cddbc78e5bc5e99f33b3e39f1')
 b2sums=('37af97ec6e188f53803fcbb714530cdb4259b71cd3cfafb6ed6210fe47acf9e0ce6a59daa18c1269421d013532fca8713ce63e7861f2138c2c2980c40f4062a2'
         'SKIP'
         '999a605fff617cb746eafea257408c5f2abe6716c7e83aa6fbd9c2587cb5faa9e3380c9bed7b375a6dec2e50658cd92e4ba111a1b77a73d60de58cb9469d3c6f'
@@ -60,7 +62,8 @@ b2sums=('37af97ec6e188f53803fcbb714530cdb4259b71cd3cfafb6ed6210fe47acf9e0ce6a59d
         'af0bc4eedb77a7d1d7605c15d040e606ce0534fb56887ba1361d303705b97415a9c38d76a7a87585f41020ffacbe07ef7de1c3a3f3ef7bedacbe6989cd078fe3'
         'a53ece79b57ba70890a3f445543ad8b0e50b7ce8fcd1be9c47cdab564d64214329753c3cd3a5e8893abd34bd1727b127143371add5d2dab3ca093596ada9f049'
         'b3539217b05686fd7062cbde174593b9b14a640594590ecbdaea37f59a85aeccd2d6d0f3ac37f25a3ed3a87e9f36bf70f1becea28781f1b445c6d79fb7c64698'
-        'c547bbe0a581542d598b698ee8020aa7151f8998cbbbac958c4a312abb89ad0e0ad043bae563201318abba0dfd7fc90930bbab375618159dc69e14d464f85463')
+        'c547bbe0a581542d598b698ee8020aa7151f8998cbbbac958c4a312abb89ad0e0ad043bae563201318abba0dfd7fc90930bbab375618159dc69e14d464f85463'
+        'ee60fde18f84a371de08369504fe76cd7aea1bfcd128c7bdd33b579309b8031a7a7f83a9957637905fc4ce0f2a4e03a0d2f9f4526e8fbacb1d01ba2cacc5e48f')
 validpgpkeys=(
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman <gregkh@linuxfoundation.org>
   D5653EA39C8675DA4BD5971C13B55DD07C53B851  # Clark Williams (Kernel Correspondence) <clrkwllms@kernel.org>
@@ -229,6 +232,7 @@ _package-headers() {
     Zlib
   )
   depends=(pahole)
+  provides=(LINUX-HEADERS)
 
   cd $_srcname
   local builddir="$pkgdir/usr/lib/modules/$(<version)/build"
