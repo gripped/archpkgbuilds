@@ -5,14 +5,13 @@
 _pyname=isort
 pkgname=python-$_pyname
 pkgver=7.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A Python utility / library to sort Python imports'
 arch=(any)
 url="https://github.com/PyCQA/$_pyname"
 license=(MIT)
 _pydeps=(colorama
-         setuptools
-         tomli)
+         setuptools)
 depends=(python
          "${_pydeps[@]/#/python-}")
 makedepends=(python-{build,installer,wheel}
