@@ -2,51 +2,76 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Ellie Huxtable <e@elm.sh>
 
-pkgname=atuin
-pkgver=18.12.0
+pkgbase=atuin
+pkgname=(atuin atuin-server)
+pkgver=18.12.1
 pkgrel=1
-pkgdesc="Magical shell history"
+pkgdesc='Magical shell history'
 arch=('x86_64')
-url="https://github.com/atuinsh/atuin"
-license=('MIT')
-depends=('gcc-libs' 'glibc')
-makedepends=('cargo')
-optdepends=('bash-preexec: bash integration')
-options=('!lto')
-source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('d64f62d11cab68c1a27008550782873af54ad55833c637cd8542071071004983')
+url="https://github.com/atuinsh/$pkgbase"
+license=(MIT)
+depends=(gcc-libs
+         glibc)
+makedepends=(cargo)
+options=(!lto)
+_archive="$pkgbase-$pkgver"
+source=("$url/archive/v$pkgver/$_archive.tar.gz")
+sha256sums=('8643a7df1e366e9ad3134514b9bcaf4d6440accb13c64340ec9ec1923d58eb6e')
+
+_srcenv () {
+	cd "$_archive"
+
+	# Use debug
+	export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
+
+	# Use LTO
+	export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+}
 
 prepare() {
-  cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
-  mkdir completions/
+	_srcenv
+
+	# Fully lock down user
+	sed -i 's/^u /u! /' systemd/atuin-server.sysusers
+
+	cargo fetch --locked --target host-tuple
+	mkdir -p completions/
 }
 
 build() {
-  cd "$pkgname-$pkgver"
-  env \
-      CARGO_PROFILE_RELEASE_LTO=true \
-      CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
-      CARGO_PROFILE_RELEASE_DEBUG=2 \
-  cargo build --release --frozen --all-features
-  for sh in 'bash' 'fish' 'zsh'; do
-    "target/release/$pkgname" gen-completions -s "$sh" -o completions/
-  done
+	_srcenv
+	cargo build --release --frozen --all-features
+	for sh in 'bash' 'fish' 'zsh'; do
+		"target/release/$pkgbase" gen-completions -s "$sh" -o completions/
+	done
 }
 
 check() {
-  cd "$pkgname-$pkgver"
-  cargo test --frozen --all-features --workspace --lib
+	_srcenv
+	cargo test --frozen --all-features --workspace --lib
 }
 
-package() {
-  cd "$pkgname-$pkgver"
-  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
-  install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
-  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
-  install -Dm 644 "completions/$pkgname.bash" "${pkgdir}/usr/share/bash-completion/completions/$pkgname"
-  install -Dm 644 "completions/$pkgname.fish" -t "${pkgdir}/usr/share/fish/vendor_completions.d"
-  install -Dm 644 "completions/_$pkgname" -t "${pkgdir}/usr/share/zsh/site-functions"
+package_atuin() {
+	cd "$_archive"
+	optdepends=('atuin-server: sync server'
+	            'bash-preexec: bash integration')
+	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
+	install -Dm0644 "completions/$pkgname.bash" "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+	install -Dm0644 -t "$pkgdir/usr/share/fish/vendor_completions.d/" "completions/$pkgname.fish"
+	install -Dm0644 -t "$pkgdir/usr/share/zsh/site-functions/" "completions/_$pkgname"
+	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }
 
-# vim: ts=2 sw=2 et:
+package_atuin-server() {
+	cd "$_archive"
+	pkgdesc+=' - sync server'
+	depends+=(atuin)
+	optdepends=('postgresql: server database')
+	mkdir -p "$pkgdir/etc/$pkgbase"
+	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
+	install -Dm0644 -t "$pkgdir/usr/lib/systemd/system/" "systemd/$pkgname.service"
+	install -Dm0644 "systemd/$pkgname.sysusers" "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
+	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md "crates/$pkgname/server.toml"
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+}
