@@ -2,7 +2,7 @@
 
 pkgname=proton-vpn-daemon
 pkgver=0.13.4
-pkgrel=7
+pkgrel=8
 pkgdesc="Daemons for Proton VPN Linux client (split tunneling service)"
 arch=('any')
 url="https://github.com/ProtonVPN/proton-vpn-daemon"
@@ -31,12 +31,19 @@ source=(
   "dbus.conf::https://raw.githubusercontent.com/ProtonVPN/${pkgname}/stable/rpmbuild/SOURCES/dbus.conf"
   "dbus.service::https://raw.githubusercontent.com/ProtonVPN/${pkgname}/stable/rpmbuild/SOURCES/dbus.service"
   "systemd.service::https://raw.githubusercontent.com/ProtonVPN/${pkgname}/stable/rpmbuild/SOURCES/systemd.service"
+  "split-tunneling.patch"
 )
 sha256sums=('7042b6a2598bfc8732317ea532e975a983c59dc522822de96650bc5d1be8ceb2'
             '87ed0dcd92d9ec1f90f1012013acfbb7a78b19521fd89fb8857f97f39941943c'
             '49c2a78014c6e33103991a218a20d17f5ea95ddc9fda4d78ac26e2799bd8300d'
-            'e5bdae949524e86958b8cdf00b3a78d17dddaeacf6de3290917de71cfc31a029')
+            'e5bdae949524e86958b8cdf00b3a78d17dddaeacf6de3290917de71cfc31a029'
+            'f97d433e9d04716e7b4ac7d69cce681c03e846e9b9618d70241bda437c5539e8')
 
+prepare() {
+  cd $pkgname
+  # Fix for https://github.com/ProtonVPN/proton-vpn-gtk-app/issues/143#issuecomment-3873095536
+  patch -Np1 < ../split-tunneling.patch
+}
 build() {
   cd "$pkgname"
   python -m build --wheel --no-isolation

@@ -1,7 +1,7 @@
 pkgbase = proton-vpn-daemon
 	pkgdesc = Daemons for Proton VPN Linux client (split tunneling service)
 	pkgver = 0.13.4
-	pkgrel = 7
+	pkgrel = 8
 	url = https://github.com/ProtonVPN/proton-vpn-daemon
 	install = proton-vpn-daemon.install
 	arch = any
@@ -23,9 +23,11 @@ pkgbase = proton-vpn-daemon
 	source = dbus.conf::https://raw.githubusercontent.com/ProtonVPN/proton-vpn-daemon/stable/rpmbuild/SOURCES/dbus.conf
 	source = dbus.service::https://raw.githubusercontent.com/ProtonVPN/proton-vpn-daemon/stable/rpmbuild/SOURCES/dbus.service
 	source = systemd.service::https://raw.githubusercontent.com/ProtonVPN/proton-vpn-daemon/stable/rpmbuild/SOURCES/systemd.service
+	source = split-tunneling.patch
 	sha256sums = 7042b6a2598bfc8732317ea532e975a983c59dc522822de96650bc5d1be8ceb2
 	sha256sums = 87ed0dcd92d9ec1f90f1012013acfbb7a78b19521fd89fb8857f97f39941943c
 	sha256sums = 49c2a78014c6e33103991a218a20d17f5ea95ddc9fda4d78ac26e2799bd8300d
 	sha256sums = e5bdae949524e86958b8cdf00b3a78d17dddaeacf6de3290917de71cfc31a029
+	sha256sums = f97d433e9d04716e7b4ac7d69cce681c03e846e9b9618d70241bda437c5539e8
 
 pkgname = proton-vpn-daemon
