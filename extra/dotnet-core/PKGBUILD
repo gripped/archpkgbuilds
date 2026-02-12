@@ -13,7 +13,7 @@ pkgname=(
  aspnet-targeting-pack
  dotnet-source-built-artifacts
 )
-pkgver=10.0.0.sdk100
+pkgver=10.0.3.sdk103
 pkgrel=1
 arch=(x86_64)
 url=https://dotnet.microsoft.com
@@ -23,7 +23,7 @@ makedepends=(
   clang20
   cmake
   dotnet-sdk
-  # dotnet-source-built-artifacts
+  dotnet-source-built-artifacts
   git
   icu
   krb5
@@ -43,9 +43,9 @@ options=(
   !lto
   staticlibs
 )
-_tag=b0f34d51fccc69fd334253924abd8d6853fad7aa
+_tag=c2435c3e0f46de784341ac3ed62863ce77e117b4
 source=(git+https://github.com/dotnet/dotnet.git#tag=${_tag})
-b2sums=('0742a7412aaf03a6217cbbed5324c3dbb981fc8bea3f164b15808c43e8eee1b5b7cf15af8fad99ae72a9f5ad8286531a01785c8f440fb9d334841cc0e8450256')
+b2sums=('bc6afb278d7752a52077417290b4ed61f16e6ebf308e3a34465ca6f4a537573f31fe72fedc1490cbca52ef2dd00fd5761071ac2457b54b8548f1cf85995bb898')
 
 prepare() {
   cd dotnet
@@ -78,10 +78,13 @@ pkgver() {
     exit 1
   fi
 
-  local _sdkver=$(xmllint --xpath "//*[local-name()='VersionSDKMinor']/text()" src/sdk/eng/Versions.props)$(xmllint --xpath "//*[local-name()='VersionFeature']/text()" src/sdk/eng/Versions.props)
-  local _runtimever=$(xmllint --xpath "//*[local-name()='ProductVersion']/text()" src/runtime/eng/Versions.props)
+  local _runtimemajorver=$(xmllint --xpath "//*[local-name()='MajorVersion']/text()" src/runtime/eng/Versions.props)
+  local _runtimeminorver=$(xmllint --xpath "//*[local-name()='MinorVersion']/text()" src/runtime/eng/Versions.props)
+  local _runtimepatchver=$(xmllint --xpath "//*[local-name()='PatchVersion']/text()" src/runtime/eng/Versions.props)
+  local _sdkminorver=$(xmllint --xpath "//*[local-name()='VersionSDKMinor']/text()" src/sdk/eng/Versions.props)
+  local _sdkminorpatchver=$(xmllint --xpath "//*[local-name()='VersionSDKMinorPatch']/text()" src/sdk/eng/Versions.props)
 
-  echo "${_runtimever}.sdk${_sdkver}"
+  echo "${_runtimemajorver}.${_runtimeminorver}.${_runtimepatchver}.sdk${_sdkminorver}$(printf %02d ${_sdkminorpatchver})"
 }
 
 build() {
@@ -107,7 +110,7 @@ build() {
   unset LDFLAGS
 
   # rtm branding strips out the "prerelease" tag from the version (see https://github.com/dotnet/dotnet/blob/b0f34d51fccc69fd334253924abd8d6853fad7aa/build.sh#L18)
-  ./build.sh --clean-while-building --online --source-build --branding rtm
+  ./build.sh --clean-while-building --online --source-build
 }
 
 package_dotnet-host() {
