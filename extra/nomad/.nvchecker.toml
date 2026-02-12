@@ -1,6 +1,5 @@
 [nomad]
-source = "github"
-github = "hashicorp/nomad"
+source = "git"
+git = "https://github.com/hashicorp/nomad.git"
 prefix = "v"
-use_max_tag = true
-exclude_regex = ".*(beta|rc).*"
+exclude_regex = ".*(pre|release|weekly|rc|alpha|a|beta|b|dev).*"
