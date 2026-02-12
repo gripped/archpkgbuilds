@@ -1,7 +1,7 @@
 # Maintainer: Peter Jung <ptr1337@archlinux.org>
 
 pkgname=proton-vpn-cli
-pkgver=0.1.5
+pkgver=0.1.6
 pkgrel=1
 pkgdesc="Official ProtonVPN CLI Linux app"
 arch=('any')
@@ -29,7 +29,7 @@ makedepends=(
   python-setuptools
 )
 source=("git+https://github.com/ProtonVPN/proton-vpn-cli.git#tag=v$pkgver")
-sha256sums=('a7073b38ee3fef036a18368d38194ae8186696603f65ccdd535fd03107ffda96')
+sha256sums=('8377e6c6c86c96c77fcaddf7a75671796010c8c68d1ab7a7ba51100bf947115f')
 
 build() {
   cd "$pkgname"
