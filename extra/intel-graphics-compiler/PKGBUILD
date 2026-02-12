@@ -3,14 +3,14 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=2.27.10
+pkgver=2.28.4
 _llvmmaj=16
 _llvmver="${_llvmmaj}.0.6"
-_vciver=0.24.2
+_vciver=0.24.3
 _spirv_tools_commit=28a883ba4c67f58a9540fb0651c647bb02883622
-_spirv_headers_commit=01e0577914a75a2569c846778c2f93aa8e6feddd
-_spirv_llvm_commit=ee2a14e38f24c422cf1f0375b5b9cec0afe4412c
-_opencl_clang_commit=6ab2da341420eba7d022a85a5190c46133347719
+_spirv_headers_commit=9268f3057354a2cb65991ba5f38b16d81e803692
+_spirv_llvm_commit=c13fcf6c5072483d50993e9175087bead3b7bf8a
+_opencl_clang_commit=7161d7c6d97da80f12739cebad9bf508555bbfd9
 pkgrel=1
 epoch=1
 pkgdesc='Intel Graphics Compiler for OpenCL'
@@ -40,12 +40,12 @@ source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${p
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}"
         '010-intel-graphics-compiler-disable-werror.patch')
-sha256sums=('3e6114f0c371ed88e1b0930b35ff8ac468c63f5448bf52e31341223e19cf572f'
-            'fea4af79a1819253827a1d05f884d729e091a480decbdf0033144d66287ef676'
-            'e2e661178c52c60ff0449f93d538e42cf69ec0017d05c359e3fee6503151031f'
+sha256sums=('1594e9425246fd9d2947f56f42f0f3676a3be77f0a5291438bca02a7d8520ce2'
+            '043c7628d557e24faafc2718f40037be7db219b471c52b0914b7edfd21233080'
+            '6c7c4a6a9e6ec46178eff4a4379f5260bbcda8f33b25f68851c5cc63ce9ca7e8'
             'e028a800c43945d94fc100aa25427d360a21c00b1154fb239ec2fce0c06ea85d'
-            '8d4d0e7c1e60914372fb7dae6e491f346af481f73901fd4b0970be7f7ef73b81'
-            '317f8e11edcb3cc7a065ccb866a2609afa4fd5673fe9a6514b397d576bf9a5cb'
+            '8f5d1dd2d4281d135bc632c97c1a96ccb4ba79edcdad337de87f3510c9798638'
+            '7a2c3c9c66aac0b3319ad0cf0cce10f973d8db4bc01f162a02d6369774f03195'
             'b47ada280614670a467f80e9f8c67542050983f238f2f4b3fa17682855faf9bf'
             'eac4352a78d537e8a6bbca55c059377dc704e3e1e5a267c99a0e9edda7a87380')
 
@@ -56,12 +56,6 @@ prepare() {
 
     ln -s "${srcdir}/SPIRV-LLVM-Translator-IGC-LLVM"  "${srcdir}/llvm-project/llvm/projects/llvm-spirv"
     ln -s "${srcdir}/opencl-clang" "${srcdir}/llvm-project/llvm/projects/opencl-clang"
-    
-    # llvm: fix build with gcc 15
-    # https://github.com/llvm/llvm-project/commit/7e44305041d96b064c197216b931ae3917a34ac1
-    export GIT_COMMITTER_NAME='builduser'
-    export GIT_COMMITTER_EMAIL='builduser@archlinux.org'
-    git -C llvm-project cherry-pick 7e44305041d96b064c197216b931ae3917a34ac1
     
     patch -d "intel-graphics-compiler-${pkgver}" -Np1 -i "${srcdir}/010-intel-graphics-compiler-disable-werror.patch"
 }
