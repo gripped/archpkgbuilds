@@ -2,7 +2,7 @@
 # Contributor: Marco A Rojas <marco.rojas@zentek.com.mx>
 
 pkgname=dbmate
-pkgver=2.29.5
+pkgver=2.30.0
 pkgrel=1
 pkgdesc='A lightweight, framework-agnostic database migration tool'
 arch=(x86_64)
@@ -17,8 +17,8 @@ optdepends=(
 )
 options=(!lto)
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('855a3e989b6b0f8f34b780f9420c929de6e30fe256d536695f7c89f6921d5480ed90890bc47cd13d90f6e3767c85ba2540752eec220c46d34991e795b5832b95')
-b2sums=('05b75cad6af9b921351d85d6c0d697a09b69ae1655d6ce54fba290f99f5f2dc4e9c98cc9ac75a4bd67ad2c488c1828dfffefc755d07a80ffb160cfe18fe93d23')
+sha512sums=('729af87d60d5a5d6723fa0684a49c50cdfecbc8c9a7544d12bb36fa066bcfbcf4fe0040b519cf481d0f0e43d1ba5916716aed72ba000385d515cd613e3d78ade')
+b2sums=('a992f95068ecede941cf7d53afb1fa99ad4fd8754b16c68395a0f45f9d2913c108d654af054fd7d6d025d07e2f8e01337184e547367f5163e38e92cfafd49493')
 
 prepare() {
   cd "$pkgname"
