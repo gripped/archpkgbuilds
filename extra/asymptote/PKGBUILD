@@ -5,16 +5,14 @@
 
 pkgname=asymptote
 pkgver=3.06
-pkgrel=1
+pkgrel=2
 pkgdesc='A vector graphics language (like metapost)'
 arch=(x86_64)
 url='http://asymptote.sourceforge.net/'
 license=(GPL-3.0-only)
-depends=(boost-libs
-         curl
+depends=(curl
          fftw
          freeglut
-         gc
          gcc-libs
          glibc
          gsl
@@ -32,13 +30,12 @@ makedepends=(boost
              glm
              glu
              imagemagick
-             python-click
-             python-pyqt5
+             python
              texlive-binextra
              texlive-fontutils
              texlive-latexextra
              texlive-plaingeneric)
-optdepends=('python-pyqt5: for the xasy GUI'
+optdepends=('pyside6: for the xasy GUI'
             'python-cson: for the xasy GUI'
             'ghostscript: PDF output')
 source=(git+https://github.com/vectorgraphics/asymptote#tag=$pkgver)
