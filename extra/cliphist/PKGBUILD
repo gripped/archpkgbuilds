@@ -3,7 +3,7 @@
 
 pkgname=cliphist
 pkgver=0.7.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='wayland clipboard manager'
 arch=(i686 x86_64)
@@ -31,4 +31,5 @@ build() {
 package() {
 	cd "$_archive"
 	install -Dm0755 -t "$pkgdir/usr/bin/" $pkgname
+	install -Dm644 "contrib/$pkgname.service" "$pkgdir/usr/lib/systemd/user/$pkgname.service"
 }
