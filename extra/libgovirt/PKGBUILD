@@ -4,7 +4,7 @@
 
 pkgname=libgovirt
 epoch=2
-pkgver=0.3.10
+pkgver=0.3.11
 pkgrel=1
 pkgdesc='GObject-based library to access oVirt REST API'
 arch=(x86_64)
@@ -13,7 +13,7 @@ license=(LGPL)
 depends=(librest)
 makedepends=(gobject-introspection meson glib2-devel)
 source=("https://gitlab.gnome.org/GNOME/libgovirt/-/archive/v${pkgver}/libgovirt-v${pkgver}.tar.bz2")
-b2sums=('ba69fecc88d7e47b797f8cda25eaf91d6519714bdf7d93ebea011a54529ebe596ef41a327a4b207f5cd16ce1eb5a746d98897303accbf55cabdf4945d05080db')
+b2sums=('7f2be3cfaa29bb56217e9b8e24d0aa8a3f43fb3f6c5f66cd1773b09238f0a8c7332ea4fc3c18dcc6827fc972ab35e435c4a1904836cb116533d927f509b5909b')
 
 prepare() {
   cd ${pkgname}-v${pkgver}
