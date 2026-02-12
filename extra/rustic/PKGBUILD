@@ -2,7 +2,7 @@
 # contributor: Daniele Basso <d dot bass05 at proton dot me>
 
 pkgname=rustic
-pkgver=0.10.3
+pkgver=0.11.0
 pkgrel=1
 pkgdesc='Fast, encrypted, deduplicated backups powered by Rust (reads and writes restic repos)'
 arch=(x86_64)
@@ -16,7 +16,7 @@ replaces=(rustic-rs
 options=(!lto)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('a964e7bf09207bbed4e302b0c2592204005210ef3d25e0870ca74c4c078c3460')
+sha256sums=('760566567a1302db795a9657d1723bdf0b2a7edd111f8e2d1e1780d9cdbeaff7')
 
 prepare() {
 	cd "$_archive"
@@ -25,15 +25,18 @@ prepare() {
 
 build() {
 	cd "$_archive"
-	env \
-		CARGO_PROFILE_RELEASE_DEBUG=2 \
-		CARGO_PROFILE_RELEASE_STRIP=false \
+	export CARGO_PROFILE_RELEASE_DEBUG=2
+	export CARGO_PROFILE_RELEASE_STRIP=false
 	cargo build --frozen --release
 }
 
 check() {
 	cd "$_archive"
-	cargo test --frozen
+	local skipped=(
+		# Assumes system has a locale not generated in our chroot
+		test_backup_and_check_passes
+	)
+	cargo test --frozen --release -- ${skipped[@]/#/--skip }
 }
 
 package() {
