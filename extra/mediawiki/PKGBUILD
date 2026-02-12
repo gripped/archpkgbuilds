@@ -1,40 +1,54 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=mediawiki
-pkgver=1.44.3
+pkgver=1.45.1
 _basever=${pkgver%.*}
-pkgrel=1
-pkgdesc="MediaWiki engine"
+pkgrel=3
+pkgdesc="Free and open-source wiki software system"
 arch=('any')
 url="https://www.mediawiki.org/wiki/MediaWiki"
-license=("GPL")
+license=(GPL-2.0-or-later)
 backup=('etc/webapps/mediawiki/LocalSettings.php')
 depends=('php' 'diffutils')
-optdepends=('pcre2: for regular expressions support'
-	    'php-intl: to handle Unicode normalization'
-#	    'php-mysql: for MySQL database support'
-	    'php-pgsql: for PostgreSQL database support'
-	    'php-sqlite: for sqlite database support'
-#	    'php-apcu: for cache support'
-#	    'php-xcache: for cache support'
-	    'memcached: for cache support'
-	    'php-gd: for thumbnails rendering'
-	    'imagemagick: for thumbnails rendering'
-	    'smtp-forwarder: for mail sending'
-            'python: required for SyntaxHighlight/ConfirmEdit extensions'
-            'perl: compare_schemas.pl and mediawiki_mysql2postgres.pl'
-            'git: hash versions on Special:Version')
+optdepends=(
+  'pcre2: for regular expressions support'
+  'php-pgsql: for PostgreSQL database support'
+  'php-sqlite: for sqlite database support'
+#  'php-apcu: for cache support'
+#  'php-xcache: for cache support'
+  'memcached: for cache support'
+  'php-gd: for thumbnails rendering'
+  'imagemagick: for thumbnails rendering'
+  'smtp-forwarder: for mail sending'
+  'python: required for SyntaxHighlight/ConfirmEdit extensions'
+  'python-pillow: required for ConfirmEdit extension (creating FancyCaptcha images)'
+  'perl: compare_schemas.pl and mediawiki_mysql2postgres.pl'
+  'git: hash versions on Special:Version'
+)
 install=mediawiki.install
-options=(!strip)
+options=(!strip !debug)
 validpgpkeys=('41B2ABE817ADD3E52BDA946F72BC1C5D23107F8A'
               '1D98867E82982C8FE0ABC25F9B69B3109D3BB7B0'
               'C83A8E4D3C8FEB7C8A3A1998131910E01605D9AA'
               'E059C034E7A430583C252F4AA8F734246D73B586')
-source=("https://releases.wikimedia.org/mediawiki/${_basever}/mediawiki-$pkgver.tar.gz"{,.sig}
-	apache.example.conf)
-sha256sums=('581cc1f7ed9f8e302e38eacea74cc63ff9f2ed5d8412f3920e7d7118351832ff'
+source=(
+  "https://releases.wikimedia.org/mediawiki/${_basever}/mediawiki-$pkgver.tar.gz"{,.sig}
+  apache.example.conf
+  mediawiki-parsoid-php-8.4.patch.zip::https://gerrit.wikimedia.org/r/changes/mediawiki%2Fservices%2Fparsoid~1220366/revisions/4/patch?zip
+  mediawiki-parsoid-php-8.4-2.patch.zip::https://gerrit.wikimedia.org/r/changes/mediawiki%2Fservices%2Fparsoid~1235160/revisions/1/patch?zip
+)
+sha256sums=('e2f126b19aec422051a0a50e0c6ab7e904f33b3988a47b9da8afbfd0c0a252cc'
             'SKIP'
-            'cfeff68331e930b6a93f166c12666ac59a84aa24334f94520eff3f988f37ce2b')
+            'cfeff68331e930b6a93f166c12666ac59a84aa24334f94520eff3f988f37ce2b'
+            '9d609403743593afb315cf4f8645723949616bff378711a9c59cf4be3e9bbd6a'
+            '0b52894e299ae564ad3d674fc037e92723c5d19ec01bce83d512d8739783aea4')
+
+prepare() {
+  # Parsoid compatibility for PHP 8.4+ https://phabricator.wikimedia.org/T409283
+  cd $pkgname-$pkgver/vendor/wikimedia/parsoid
+  patch -p1 < "$srcdir"/2db95b1.diff
+  patch -p1 < "$srcdir"/8067aef.diff
+}
 
 package() {
   cd "$srcdir"
