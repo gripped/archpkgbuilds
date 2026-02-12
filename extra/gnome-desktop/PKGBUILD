@@ -8,7 +8,7 @@ pkgname=(
   gnome-desktop-4
   gnome-desktop-docs
 )
-pkgver=44.4
+pkgver=44.5
 pkgrel=1
 epoch=1
 pkgdesc="Provides API shared by several apps on the GNOME desktop"
@@ -21,12 +21,12 @@ license=(
 depends=(
   bubblewrap
   cairo
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
   gsettings-desktop-schemas
   iso-codes
+  libgcc
   libseccomp
   libxkbcommon
   systemd-libs
@@ -45,7 +45,7 @@ makedepends=(
 )
 checkdepends=(xorg-server-xvfb)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-desktop.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('1eff749ce5a00178c2186f01654299314aa2fa6084347f773e6c1778d3316e85cd9d0ddf64c77263ec102ddf19b22881df709bfad41482e14c7e5eb8fecbf3ad')
+b2sums=('f74ddc9f55508ff1a8ed8d2ac22286162bfabf49335f38a8eeb9d0d1084f3f8f54ce37a406ca0eb038a3dbc4b6d7327bb3f3654e42c5a7578687bd19e13d56a1')
 
 prepare() {
   cd $pkgbase
