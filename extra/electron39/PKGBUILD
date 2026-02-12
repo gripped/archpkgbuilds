@@ -8,7 +8,7 @@
 # Note: source array can be synced with an Electron release after updating $pkgver with:
 # bash -c 'source PKGBUILD; _update_sources'
 
-pkgver=39.5.1
+pkgver=39.5.2
 _gcc_patches=142
 pkgrel=1
 _major_ver=${pkgver%%.*}
@@ -232,7 +232,7 @@ source=("git+https://github.com/electron/electron.git#tag=v$pkgver"
         chromium-mirror_third_party_openscreen_src_third_party_tinycbor_src::git+https://chromium.googlesource.com/external/github.com/intel/tinycbor.git#commit=d393c16f3eb30d0c47e6f9d92db62272f0ec4dc7
         # END managed sources
         )
-sha256sums=('c0cd1ba72b89f5d75cfef166fe1ccb8c8ad9a1dee87c50f284f260114f6b0c40'
+sha256sums=('cef6deaf139745f46bbcee57f842bbcc2a44f46c3d737107e46533bbd4528545'
             '27c2669be463ab462636c7367efddea29e810c58a185281084132ee4a98a17c5'
             '11a96ffa21448ec4c63dd5c8d6795a1998d8e5cd5a689d91aea4d2bdd13fb06e'
             '5abc8611463b3097fc5ce58017ef918af8b70d616ad093b8b486d017d021bbdf'
@@ -242,7 +242,7 @@ sha256sums=('c0cd1ba72b89f5d75cfef166fe1ccb8c8ad9a1dee87c50f284f260114f6b0c40'
             '13fcf26193f4417fd5dfbc82a3f24e5c7a1cce82f729f6a73f1b1d3a7b580b34'
             '55dbe71dbc1f3ab60bf1fa79f7aea7ef1fe76436b1d7df48728a1f8227d2134e'
             '2eacf9210185e497fec084d9ba87fd5796f867d871f7f0c5418d2833f3fd4226'
-            '250151e532698e6849b810a672074f264626d2cefd53da2eadcb5447130783e6'
+            'da228d1bbe2e078acf33f0f1123f5eaf82fbd3af6f93e67315390a6cd685c1df'
             '2998e33d9d607bd07aff299acebce7ba9edde87c32fd9dfef64b8d44a958013e'
             '0b7a546ee6913c49519c10c293ac530ff381641a8a465fa2e184d6dbe0fb784d'
             '15355f12077d5751500bfb1a427ed37df12a7abdddc9f979ccd44751ff7a2c01'
@@ -623,6 +623,15 @@ build() {
 
   # https://crbug.com/957519#c122
   CXXFLAGS=${CXXFLAGS/-Wp,-D_GLIBCXX_ASSERTIONS}
+
+  if [[ $CARCH == aarch64 ]]; then
+    # On aarch64, certain files (e.g. in libvpx and libyuv) needs to be compiled
+    # with additional arch features (e.g. dotprod, sve, sme)
+    # Having an arch setting in the C(XX)FLAGS overrides those
+    # and causes compilation failure
+    CFLAGS="${CFLAGS/-march=*([^ ]) }"
+    CXXFLAGS="${CXXFLAGS/-march=*([^ ]) }"
+  fi
 
   export CHROMIUM_BUILDTOOLS_PATH="${PWD}/buildtools"
   gn gen out/Release \

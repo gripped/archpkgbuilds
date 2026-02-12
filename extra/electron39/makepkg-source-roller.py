@@ -296,6 +296,8 @@ CARCH="$1"
 case "$CARCH" in
     x86_64)
         _go_arch=amd64;;
+    aarch64)
+        _go_arch=arm64;;
     *)
         _go_arch="$CARCH";;
 esac
@@ -379,7 +381,7 @@ def generate_cipd_cmds(cipd_deps, enabled_deps):
             if is_optional:
                 continue
             else:
-                raise f"cipd dependency {dep} not found"
+                raise Exception(f"cipd dependency {dep} not found")
         for package in packages:
             yield f"cipd install {cipd_path_substitute(package['package'])} {package['version']} -root {dep}"
 
