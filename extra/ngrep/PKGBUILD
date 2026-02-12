@@ -3,7 +3,7 @@
 # Contributor: dorphell <dorphell@archlinux.org>
 
 pkgname=ngrep
-pkgver=1.48.3
+pkgver=1.49.0
 pkgrel=1
 pkgdesc='A grep-like utility that allows you to search for network packets on an interface.'
 arch=('x86_64')
@@ -12,8 +12,8 @@ license=('custom')
 depends=('libpcap>=1.0.0' 'pcre2')
 makedepends=('git')
 source=("git+https://github.com/jpr5/ngrep#tag=v${pkgver}")
-md5sums=('bf2031ade9d17f2cb411f288c88dfa7a')
-sha256sums=('5d744d8b743143291815b8c666f60c7c3a7d782c365fd80d1fca951bbc2525d7')
+md5sums=('97fb7f37ec569a02afd8218727a3cb48')
+sha256sums=('874fb154f232cab6f070d799cb37561765fee311439b8e5a2d4e019558918d31')
 
 build() {
 	cd "${srcdir}/${pkgname}"
