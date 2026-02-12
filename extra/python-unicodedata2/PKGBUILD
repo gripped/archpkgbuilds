@@ -5,8 +5,8 @@
 
 pkgname=python-unicodedata2
 _pyname=${pkgname#python-}
-pkgver=17.0.0
-pkgrel=2
+pkgver=17.0.1
+pkgrel=1
 pkgdesc="unicodedata backport/updates to Python 3"
 arch=('x86_64')
 url="https://github.com/fonttools/$_pyname"
@@ -19,7 +19,7 @@ checkdepends=(python-pytest
               python-pytest-randomly)
 _archive="$_pyname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('f647eeb841e639c7dad02417209b6f9555d8650e561134b8e6412c7ecc934f8e')
+sha256sums=('3d2cc9a7360672fbb591aa56f49b21faeed999c241317aff677be6152150fd9e')
 
 build() {
 	cd "$_archive"
