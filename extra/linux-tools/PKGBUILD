@@ -16,7 +16,7 @@ pkgname=(
   'x86_energy_perf_policy'
 )
 pkgver=6.19
-pkgrel=1
+pkgrel=2
 license=('GPL-2.0-only')
 arch=('x86_64')
 url='https://www.kernel.org'
@@ -78,6 +78,8 @@ EOF
 }
 
 build() {
+  export CFLAGS="${CFLAGS} -Wno-error=discarded-qualifiers"
+
   echo ':: perf'
   pushd linux/tools/perf
   make -f Makefile.perf \
@@ -185,7 +187,7 @@ package_perf() {
     prefix=/usr \
     lib=lib/perf \
     perfexecdir=lib/perf \
-    EXTRA_CFLAGS=' -Wno-error=bad-function-cast -Wno-error=declaration-after-statement -Wno-error=switch-enum' \
+    EXTRA_CFLAGS=' -Wno-error=bad-function-cast -Wno-error=declaration-after-statement -Wno-error=switch-enum -Wno-error=discarded-qualifiers' \
     NO_SDT=1 \
     BUILD_BPF_SKEL=1 \
     PYTHON=python \
