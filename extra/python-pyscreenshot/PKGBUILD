@@ -3,7 +3,7 @@
 _pkg=pyscreenshot
 pkgname=python-${_pkg}
 pkgver=3.1
-pkgrel=8
+pkgrel=9
 pkgdesc="Copy the contents of the screen to a PIL or Pillow image memory"
 arch=(any)
 url="https://github.com/ponty/pyscreenshot"
@@ -12,7 +12,7 @@ depends=(python-easyprocess python-entrypoint2 python-mss python-jeepney)
 makedepends=(python-setuptools python-wheel python-build python-installer)
 checkdepends=(
     python-pytest python-pyvirtualdisplay python-pillow python-path.py python-pygame
-    python-xlib python-gobject python-pyqt5 python-wxpython
+    python-xlib python-gobject python-wxpython
     xorg-server-xvfb xorg-xdpyinfo gnome-screenshot scrot imagemagick
     maim pqiv
 )
