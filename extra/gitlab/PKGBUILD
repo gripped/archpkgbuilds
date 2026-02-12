@@ -9,7 +9,7 @@
 # Contributor: loqs <bugs-archlinux@entropy-collector.net>
 
 pkgname=gitlab
-pkgver=18.6.2
+pkgver=18.8.4
 pkgrel=1
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
@@ -67,8 +67,8 @@ provides=(gitlab-workhorse) # FS78036
 conflicts=(gitlab-workhorse)
 replaces=(gitlab-workhorse)
 install=gitlab.install
-sha256sums=('3f82e5b62af290246a6206cdbde446538a4c0dc65aa015855998e055f58c9f73'
-            '63c0b6c8e01bc34b9c1e15f113a104f4b15278353ba082a3390fa889990c1a6c'
+sha256sums=('5a149078e4b9e400a231a0d77bddc6ace404f5bb3749c899b5dc89a9c8e5005e'
+            'e20f0dc35f53d946e256471c697542793ec605856621ef301cc587ca3965f19f'
             '8cc4d933743906b4213b8ea8d8c5a62535e27e4073f73581a5dad40078dde000'
             '37b6fed60f169441ed1578324a91f65bed96dd086c09e73bdb15a8ccecd5d219'
             '1875d202ccf6133819bf2b7130ca9d887122fdbdc72975466821f5a49858cb4d'
@@ -153,6 +153,12 @@ build() {
 	make -C workhorse
 
 	yarn install --production --pure-lockfile
+
+	# Gitlab Query Language gem uses require_relative for the .so which conflicts with "deployment true": https://gitlab.com/gitlab-org/glql/-/issues/82
+	local gql_ext=$(bundle exec ruby -e 'puts Gem::Specification.find_by_name("gitlab_query_language").extension_dir')/gitlab_query_language/gitlab_query_language.so
+	local gql_lib=$(bundle exec ruby -e 'puts Gem::Specification.find_by_name("gitlab_query_language").full_gem_path')/lib/gitlab_query_language/gitlab_query_language.so
+	ln -srv $gql_ext $gql_lib
+
 	bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production USE_DB=false SKIP_STORAGE_VALIDATION=true NODE_OPTIONS="--max_old_space_size=8192"
 }
 
