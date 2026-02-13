@@ -4,7 +4,7 @@
 
 pkgname=keyd
 pkgver=2.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A key remapping daemon for linux"
 arch=(x86_64)
 url="https://github.com/rvaiya/keyd"
@@ -26,7 +26,10 @@ build() {
     make PREFIX=/usr
 }
 
-# TODO: Work with upstream to make tests more suitable for PKGBUILDS
+check() {
+    cd "$pkgname-$pkgver"
+    make test-io
+}
 
 package() {
     cd "$pkgname-$pkgver"
