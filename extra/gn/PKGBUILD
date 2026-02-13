@@ -1,9 +1,10 @@
-# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
+# Contributor: Evangelos Foutras <foutrelis@archlinux.org>
 
 pkgname=gn
-pkgver=0.2238.a84e399f
-_commit=a84e399f9999003472192286abc03d752c9cb1f0
-pkgrel=2
+pkgver=0.2324.304bbef6
+_commit=304bbef6c7e9a86630c12986b99c8654eb7fe648
+pkgrel=1
 pkgdesc="Meta-build system that generates build files for Ninja"
 arch=('x86_64')
 url="https://gn.googlesource.com/gn/"
@@ -11,7 +12,7 @@ license=('BSD-3-Clause')
 depends=('gcc-libs')
 makedepends=('clang' 'ninja' 'python' 'git')
 source=(git+https://gn.googlesource.com/gn#commit=$_commit)
-sha256sums=('209c34c157d181ba81b78c1780657474768fac6ac6b37311f3722c6d7ced5732')
+sha256sums=('8f48494ca7ff106fc80db6a1fecb94cfaddc5eaa07a1c989a418df1df16c4b14')
 
 pkgver() {
   cd $pkgname
