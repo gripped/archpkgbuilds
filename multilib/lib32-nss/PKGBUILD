@@ -7,7 +7,7 @@ pkgbase=lib32-nss
 pkgname=(
   lib32-nss
 )
-pkgver=3.120
+pkgver=3.120.1
 pkgrel=1
 pkgdesc="Network Security Services (32-bit)"
 url="https://firefox-source-docs.mozilla.org/security/nss/index.html"
@@ -29,16 +29,21 @@ makedepends=(
 )
 source=(
   "hg+https://hg.mozilla.org/projects/nss#tag=NSS_${pkgver//./_}_RTM"
-  0001-Hack-mpi_x86.s-to-work-with-fno-plt.patch
+  0001-Bug-2012313-fix-build-with-glibc-2.43-assignment-dis.patch
+  0002-Hack-mpi_x86.s-to-work-with-fno-plt.patch
 )
-b2sums=('3e3f5db816f5a5ea5ca510c7c2916671e8dd5ec6096afb68b0b61641c10b50990761af7874c92aa0191ac3d3d888676a7c420fd91f5ba23fdffb00f8f919d32f'
+b2sums=('4218ec30a16da54cb6dfe1a211dd2d58ed5424695209320de7db61448da46fa2c99ee6c8d163a54f920bcddc2512a376203bbdc400eb173d050b4e364bab4ff9'
+        '7e34d6e8251a3690aa64887af067f26791766a8ae97f8b0bb1d90c8d568494240a28bf6121ab9478b6372a4f4c01fdeb5be93660580126487f491fddbeb1a267'
         '6d7bfcfc2b7681ca24b220b8f07d55e305342ee4e3475a221f71d21c83b5a5e998ef9e2779ca1c76d9075a80de0f42a7f97565ab568dc47530ee2accc9eec966')
 
 prepare() {
   cd nss
 
+  # Fix build
+  patch -Np1 -i ../0001-Bug-2012313-fix-build-with-glibc-2.43-assignment-dis.patch
+
   # https://bugzilla.mozilla.org/show_bug.cgi?id=1382942
-  patch -Np1 -i ../0001-Hack-mpi_x86.s-to-work-with-fno-plt.patch
+  patch -Np1 -i ../0002-Hack-mpi_x86.s-to-work-with-fno-plt.patch
 }
 
 build() {
