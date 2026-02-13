@@ -1,7 +1,7 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
 
 pkgname=tinyxxd
-pkgver=1.3.10
+pkgver=1.3.11
 pkgrel=1
 pkgdesc='Standalone version of the hex dump utility that comes with ViM'
 arch=(x86_64)
@@ -10,7 +10,7 @@ provides=(xxd)
 conflicts=(xxd)
 license=(GPL-2.0-only MIT)
 source=("$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz")
-b2sums=('7e30ec9b7c7779876a28585140d52f7a54fccd11e6e0f44525e011da798d46d0f21a6b74b5c33bbdfcaa868059e9cfec39845fe036831e9040a271ef05fe9c27')
+b2sums=('35c1a76a89d5db2e3ec8dd49ab6b66f2065b7ce6d2626ee5b474b6cb925fd65c3a919846b0d4b5b41aca67491d4c154354c21021d893faf046a44ac73c8cc45c')
 
 build() {
   make -C $pkgname-$pkgver
