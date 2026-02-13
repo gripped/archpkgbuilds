@@ -1,8 +1,8 @@
 # Maintainer: Frederik Schwan <freswa at archlinux dot org>
 
 pkgname=tbtools
-pkgver=0.7.0
-pkgrel=2
+pkgver=0.8.0
+pkgrel=1
 pkgdesc='Collection of tools for Linux Thunderbolt/USB4 development, debugging and validation'
 arch=('x86_64')
 url='https://github.com/intel/tbtools'
@@ -17,18 +17,15 @@ makedepends=(
   'rust'
 )
 source=("git+https://github.com/intel/tbtools.git#tag=v$pkgver")
-b2sums=('769d4a445b86fca1c342bec97f9de75756a8872f5a4ca48ddc5284c00481dc982cbc4607986e5de70107adf9216b6dfd1141a575b0737377e456b1a75c3389c5')
+b2sums=('436f97b153a459ab76ba5ed7cfdd6cc0a443b4cb4e40085756266642b89997f5e3596c7753b0a75e6a8913fe45245ba5d1a19f751315508e9c2bf3bec85c3c18')
 
 prepare() {
   cd ${pkgname}
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd ${pkgname}
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --release --locked 
 }
 
