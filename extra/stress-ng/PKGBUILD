@@ -4,18 +4,18 @@
 
 pkgname=stress-ng
 pkgver=0.20.00
-pkgrel=1
+pkgrel=2
 pkgdesc="Software to stress test a computer system in various selectable ways"
 url="https://github.com/ColinIanKing/stress-ng"
 arch=('x86_64')
 license=('GPL-2.0-or-later')
-depends=('apparmor' 'gmp' 'judy' 'kmod' 'libbsd' 'libglvnd' 'libjpeg-turbo' 'lksctp-tools' 'mpfr' 'xxhash')
+depends=('acl' 'apparmor' 'gmp' 'judy' 'kmod' 'libbsd' 'libjpeg-turbo' 'lksctp-tools' 'mpfr' 'xxhash')
 optdepends=('intel-ipsec-mb: support for IPsec tests'
 	    'linux-headers: include some headers from the Arch kernel'
 	    'linux-lts-headers: include some headers from the LTS kernel'
 	    'linux-zen-headers: include some headers from the ZEN kernel'
 	    'linux-hardened-headers: include some headers from the HARDENED kernel')
-makedepends=('attr' 'eigen' 'keyutils' 'libaio' 'libcap' 'libgcrypt' 'libglvnd' 'libmd')
+makedepends=('attr' 'eigen' 'keyutils' 'libaio' 'libcap' 'libgcrypt' 'libmd')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/V${pkgver}.tar.gz")
 b2sums=('b92ed564ad7aaff00199bc5500f4e37721f95708caa53b57641e07481d6f1ded86c15732b942d90044a2db575baaf13d7894ec8969c2f15cfde34177dcfabbd9')
 
