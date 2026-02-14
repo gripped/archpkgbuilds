@@ -5,7 +5,7 @@
 
 pkgname=zathura-ps
 pkgver=2026.02.03
-pkgrel=1
+pkgrel=2
 pkgdesc="Adds ps support to zathura by using the libspectre library"
 url="https://pwmt.org/projects/zathura-ps"
 arch=('x86_64')
