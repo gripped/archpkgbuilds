@@ -6,8 +6,8 @@
 # Contributor: David Herrmann <dh.herrmann@googlemail dot com>
 
 pkgname=kmscon
-pkgver=9.3.1
-pkgrel=2
+pkgver=9.3.2
+pkgrel=1
 pkgdesc='Kernel Mode Setting (KMS) and DRM based virtual Console Emulator'
 arch=('x86_64')
 url='https://github.com/kmscon/kmscon'
@@ -37,7 +37,7 @@ optdepends=('inotify-tools: for kmscon-launch-gui waiting mechanism')
 source=(
   git+${url}.git#tag=v${pkgver}
 )
-b2sums=('389418768ed59c5715f3616c62eca5a4fd45253cd93941a976caa7702dcfa6e66388f0e39fcb9f4eb24d87f92e9c69fe0f514ede0eb2c2d035c9eadd9ad5861d')
+b2sums=('9543e7c25b2d61d9c54c26a9ffb665b8e1a26bc4a6e9a4087ec895fd5409ad582a1368806f775f718788e06dc66e40c872eae491b00cac7b4fa8587d3e9bf35f')
 
 build() {
   arch-meson "$pkgname" build
