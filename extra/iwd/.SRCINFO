@@ -1,7 +1,7 @@
 pkgbase = iwd
 	pkgdesc = Internet Wireless Daemon
 	pkgver = 3.11
-	pkgrel = 1
+	pkgrel = 2
 	url = https://git.kernel.org/cgit/network/wireless/iwd.git/
 	arch = x86_64
 	license = LGPL-2.1-or-later
@@ -12,7 +12,7 @@ pkgbase = iwd
 	depends = readline
 	depends = libreadline.so
 	depends = ell
-	depends = gcc-libs
+	depends = libgcc
 	optdepends = qrencode: for displaying QR code after DPP is started
 	options = !lto
 	source = https://www.kernel.org/pub/linux/network/wireless/iwd-3.11.tar.xz
