@@ -2,7 +2,7 @@
 # Contributor: Nico Huber <nico.h@gmx.de>
 
 pkgname=flashprog
-pkgver=1.4
+pkgver=1.5
 pkgrel=1
 pkgdesc='A utility which can be used to detect, read, erase, or write BIOS chips (DIP, PLCC, SPI)'
 arch=('x86_64')
@@ -23,7 +23,7 @@ optdepends=(
   'dmidecode: for SMBIOS/DMI table decoder support'
 )
 source=(git+https://review.sourcearcade.org/flashprog.git?signed#tag=v${pkgver})
-b2sums=('41fe0d7babcd1d17a55b91b79b79b621f519a5c816a0177a1ff269f8114dbca306f6f0bf31552982b4066cd26f71f3a12f39d361109a920f07ac68f566a97241')
+b2sums=('c323b92027965bed70d18ffc4b06fb12f1b0d3ef206db1ba25fa89e4d90dd1c9553a69b6aa9909df531d0149900cd4c6f0d321d5fdf74d3b1012be6f37a4bae4')
 validpgpkeys=('2853079C9C66AB7E82C64966A5C163B7E557CAEB')
 
 prepare() {
