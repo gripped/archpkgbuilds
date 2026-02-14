@@ -5,7 +5,7 @@
 pkgbase=doxygen
 pkgname=(doxygen doxygen-docs)
 pkgver=1.16.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Documentation system for C++, C, Java, IDL and PHP'
 url='http://www.doxygen.nl'
 arch=(x86_64)
@@ -15,10 +15,11 @@ makedepends=(
   cmake
   flex
   fmt
-  gcc-libs
   ghostscript
   glibc
   graphviz
+  libgcc
+  libstdc++
   llvm
   python
   qt6-base
@@ -83,8 +84,9 @@ package_doxygen() {
   depends=(
     clang
     fmt libfmt.so
-    gcc-libs
     glibc
+    libgcc
+    libstdc++
     llvm-libs
     spdlog libspdlog.so
     sqlite libsqlite3.so
