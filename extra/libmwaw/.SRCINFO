@@ -1,7 +1,7 @@
 pkgbase = libmwaw
 	pkgdesc = Import library for some old mac text documents.
 	pkgver = 0.3.22
-	pkgrel = 3
+	pkgrel = 4
 	url = https://sourceforge.net/projects/libmwaw/
 	arch = x86_64
 	license = LGPL-2.1-or-later OR MPL-2.0
@@ -14,8 +14,9 @@ pkgbase = libmwaw
 pkgname = libmwaw
 	depends = librevenge
 	depends = zlib
-	depends = gcc-libs
 	depends = glibc
+	depends = libstdc++
+	depends = libgcc
 
 pkgname = libmwaw-docs
 	pkgdesc = Import library for some old mac text documents. (documentation)
