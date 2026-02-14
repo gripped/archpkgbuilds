@@ -1,14 +1,15 @@
 pkgbase = gurk
 	pkgdesc = Signal Messenger client for terminal
 	pkgver = 0.8.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/boxdot/gurk-rs
 	arch = x86_64
 	license = AGPL-3.0-only
 	makedepends = cargo
 	makedepends = protobuf
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libgcc_s.so
 	depends = sqlcipher
 	replaces = gurk-bin
 	options = !lto

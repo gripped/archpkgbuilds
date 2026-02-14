@@ -3,15 +3,15 @@
 
 pkgname=gurk
 pkgver=0.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Signal Messenger client for terminal"
 url='https://github.com/boxdot/gurk-rs'
 arch=('x86_64')
 license=('AGPL-3.0-only')
 depends=(
-  'gcc-libs'
-  'glibc'
-  'sqlcipher'
+  glibc # libc.so libm.so
+  libgcc libgcc_s.so
+  sqlcipher # libsqlcipher.so
 )
 makedepends=(
   'cargo'
@@ -25,7 +25,7 @@ b2sums=('ffdfe87b7569c0e46bdf491191f15b6b055386ce24ba4805a4490a560e4f5a09faa3771
 
 prepare() {
   cd "${pkgname}-rs-${pkgver}"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
