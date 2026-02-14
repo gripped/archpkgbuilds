@@ -3,15 +3,17 @@
 pkgname=cudss
 pkgver=0.7.1.4
 _cudaver=13
-pkgrel=1
+pkgrel=2
 pkgdesc="A high-performance CUDA library for Direct Sparse Solvers"
 arch=(x86_64)
 url="https://docs.nvidia.com/cuda/cudss/"
 license=(LicenseRef-NVIDIA-cuDSS)
 depends=(
   "cuda>=$_cudaver"
-  gcc-libs
   glibc
+  libgcc
+  libgomp
+  libstdc++
 )
 optdepends=(
   'nccl: for the NCCL multi-GPU communication layer'
