@@ -1,7 +1,7 @@
 pkgbase = gammu
 	pkgdesc = GNU All Mobile Management Utilities
-	pkgver = 1.42.0
-	pkgrel = 2
+	pkgver = 1.43.2
+	pkgrel = 1
 	url = https://wammu.eu/gammu/
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -10,17 +10,21 @@ pkgbase = gammu
 	makedepends = doxygen
 	makedepends = python
 	makedepends = systemd
-	depends = glib2
+	makedepends = git
 	depends = bluez-libs
 	depends = curl
+	depends = glib2
+	depends = glibc
 	depends = libdbi
+	depends = libgudev
+	depends = libusb
 	depends = mariadb-libs
 	depends = postgresql-libs
-	depends = libusb
-	depends = libgudev
 	optdepends = dialog: support for the gammu-config script
-	optdepends = python: for python bindings
-	source = https://dl.cihar.com/gammu/releases/gammu-1.42.0.tar.xz
-	sha256sums = d8f152314d7e4d3d643610d742845e0a016ce97c234ad4b1151574e1b09651ee
+	optdepends = python: for Python bindings
+	source = git+https://github.com/gammu/gammu.git#tag=1.43.2
+	source = gammu-add-missing-mysql-include.patch
+	b2sums = 28fe32d42b23592f14c1eec06805aa4197f27c80749a52567e938ea3bc72bdc64b5e796466d1c179f7a7dc20cbb73c06928d2cad63f4996261b9fd66b344c2ce
+	b2sums = c29a3712886d8b04df9fefd6167a557c39efc9ed42cf9ba89c68974355adfce16965311bf8ce36a2884f924524ab9aced63acbda440c679dcfff981a51293952
 
 pkgname = gammu

@@ -1,44 +1,67 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Ray Rashif <schiv@archlinux.org>
 # Contributor: Corrado Primier <bardo@aur.archlinux.org>
 # Contributor: Aurelien Foret <orelien@chez.com>
 
 pkgname=gammu
-pkgver=1.42.0
-pkgrel=2
+pkgver=1.43.2
+pkgrel=1
 pkgdesc="GNU All Mobile Management Utilities"
 arch=('x86_64')
 url="https://wammu.eu/gammu/"
 license=('GPL-2.0-or-later')
-depends=('glib2' 'bluez-libs' 'curl' 'libdbi' 'mariadb-libs' 'postgresql-libs' 'libusb' 'libgudev')
-makedepends=('cmake' 'doxygen' 'python' 'systemd')
+depends=(
+  'bluez-libs'
+  'curl'
+  'glib2'
+  'glibc'
+  'libdbi'
+  'libgudev'
+  'libusb'
+  'mariadb-libs'
+  'postgresql-libs'
+)
+makedepends=(
+  'cmake'
+  'doxygen'
+  'python'
+  'systemd'
+  'git'
+)
 checkdepends=('libdbi-drivers')
-optdepends=('dialog: support for the gammu-config script' 'python: for python bindings')
-source=(https://dl.cihar.com/$pkgname/releases/$pkgname-$pkgver.tar.xz)
-sha256sums=('d8f152314d7e4d3d643610d742845e0a016ce97c234ad4b1151574e1b09651ee')
+optdepends=(
+  'dialog: support for the gammu-config script'
+  'python: for Python bindings'
+)
+source=(
+  "git+https://github.com/gammu/gammu.git#tag=$pkgver"
+  "$pkgname-add-missing-mysql-include.patch"
+)
+b2sums=('28fe32d42b23592f14c1eec06805aa4197f27c80749a52567e938ea3bc72bdc64b5e796466d1c179f7a7dc20cbb73c06928d2cad63f4996261b9fd66b344c2ce'
+        'c29a3712886d8b04df9fefd6167a557c39efc9ed42cf9ba89c68974355adfce16965311bf8ce36a2884f924524ab9aced63acbda440c679dcfff981a51293952')
 
 prepare() {
-  cd $pkgname-$pkgver
-# bash completion dir change
-  sed -i 's,COMPLETIONSDIR "/etc/bash_completion.d",COMPLETIONSDIR "/usr/share/bash-completion/completions",' contrib/CMakeLists.txt
+  cd $pkgname
+  # bash completion dir change
+  sed -i 's,COMPLETIONSDIR "/etc/bash_completion.d",COMPLETIONSDIR "/usr/share/bash-completion/completions",' \
+    contrib/CMakeLists.txt
+  patch -Np1 < ../$pkgname-add-missing-mysql-include.patch
 }
 
 build() {
-  cd $pkgname-$pkgver
-
-  cmake . -DCMAKE_INSTALL_PREFIX="/usr" -DLIB_SUFFIX=""
-  make
+  cmake -B build -S $pkgname \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev \
+    -DLIB_SUFFIX=""
+  cmake --build build
 }
 
 check() {
-  cd $pkgname-$pkgver
-
-  # tests can be flaky on slower hardware due to timing
-#   make test
+  ctest --test-dir build --output-on-failure
 }
 
 package() {
-  cd $pkgname-$pkgver
-
-  make DESTDIR="${pkgdir}" install
+  DESTDIR="$pkgdir" cmake --install build
 }
