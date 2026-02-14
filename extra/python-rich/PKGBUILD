@@ -3,23 +3,28 @@
 
 pkgname=python-rich
 pkgver=14.3.2
-pkgrel=1
-pkgdesc='Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal'
+pkgrel=2
+pkgdesc='Python library for rich text and beautiful formatting in the terminal'
 arch=(any)
-url='https://github.com/willmcgugan/rich'
-license=('MIT')
-depends=(python-{markdown-it-py,pygments})
-makedepends=(python-{build,installer,poetry-core,wheel})
-source=("https://github.com/willmcgugan/rich/archive/v${pkgver}/rich-${pkgver}.tar.gz")
-b2sums=('4ed2d676273dcb671b602982709179e7e2d317ce39ee1b882ee3c52c844b0357b6c4ab11e0617dd4db9edcd4865a01975f453b2fde8f97e73bced962467e315e')
+url='https://github.com/Textualize/rich'
+license=(MIT)
+depends=(python python-{markdown-it-py,pygments})
+makedepends=(git python-{build,installer,poetry-core,wheel})
+source=("$pkgname::git+https://github.com/Textualize/rich#tag=v$pkgver")
+sha512sums=('e768b5c0b2ababd91aaeb1a21abb97324dd4530b08ef3ca2eac8876d14b34700da808fc1a4a1a036c20421a89cc746ad32bfd6bae975b4ab38ccebde7e9a4d4f')
+b2sums=('b8bec0b0d517ccd517a8ab6f0c64d63b9ba85909cdfd310170900ad2340ad2392dfc0043e7ce0326043cf72cd1aa46f8d5baeea48cb27edd0547bd05555ebbf8')
 
 build() {
-  cd rich-${pkgver}
+  cd "$pkgname"
+
   python -m build --wheel --no-isolation
 }
 
 package() {
-  cd rich-${pkgver}
+  cd "$pkgname"
+
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }

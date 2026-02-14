@@ -1,17 +1,20 @@
 pkgbase = python-rich
-	pkgdesc = Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal
+	pkgdesc = Python library for rich text and beautiful formatting in the terminal
 	pkgver = 14.3.2
-	pkgrel = 1
-	url = https://github.com/willmcgugan/rich
+	pkgrel = 2
+	url = https://github.com/Textualize/rich
 	arch = any
 	license = MIT
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-poetry-core
 	makedepends = python-wheel
+	depends = python
 	depends = python-markdown-it-py
 	depends = python-pygments
-	source = https://github.com/willmcgugan/rich/archive/v14.3.2/rich-14.3.2.tar.gz
-	b2sums = 4ed2d676273dcb671b602982709179e7e2d317ce39ee1b882ee3c52c844b0357b6c4ab11e0617dd4db9edcd4865a01975f453b2fde8f97e73bced962467e315e
+	source = python-rich::git+https://github.com/Textualize/rich#tag=v14.3.2
+	sha512sums = e768b5c0b2ababd91aaeb1a21abb97324dd4530b08ef3ca2eac8876d14b34700da808fc1a4a1a036c20421a89cc746ad32bfd6bae975b4ab38ccebde7e9a4d4f
+	b2sums = b8bec0b0d517ccd517a8ab6f0c64d63b9ba85909cdfd310170900ad2340ad2392dfc0043e7ce0326043cf72cd1aa46f8d5baeea48cb27edd0547bd05555ebbf8
 
 pkgname = python-rich
