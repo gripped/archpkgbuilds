@@ -1,6 +1,6 @@
 pkgbase = jami-qt
 	pkgdesc = Free and universal communication platform which preserves the users’ privacy and freedoms (Qt client)
-	pkgver = 20251003.0
+	pkgver = 20260206.0
 	pkgrel = 1
 	url = https://jami.net
 	arch = x86_64
@@ -16,7 +16,6 @@ pkgbase = jami-qt
 	depends = gdk-pixbuf2
 	depends = libnm
 	depends = libnotify
-	depends = qrencode
 	depends = qt6-declarative
 	depends = qt6-multimedia
 	depends = qt6-svg
@@ -28,25 +27,26 @@ pkgbase = jami-qt
 	depends = tidy
 	depends = md4c
 	depends = qwindowkit
+	depends = zxing-cpp
 	conflicts = jami-gnome
 	conflicts = jami-libclient
 	replaces = jami-gnome
 	replaces = jami-libclient
-	source = git+https://git.jami.net/savoirfairelinux/jami-client-qt.git#tag=stable/20251003.0
+	source = git+https://git.jami.net/savoirfairelinux/jami-client-qt.git#tag=stable/20260206.0
 	source = jami-qt-SortFilterProxyModel::git+https://github.com/atraczyk/SortFilterProxyModel
-	source = jami-qt-zxing-cpp::git+https://github.com/nu-book/zxing-cpp
 	source = drop-qt-version-check.patch
 	source = qt-6.6.patch
 	source = fix-link.patch
 	source = missing-cmake-include.patch
 	source = unbundle-qwindowkit.patch
-	sha256sums = f5abe7feece656c46b029ba8b4c9726c5f5c8e81e8ee94e63e8d67f0e1df9eab
-	sha256sums = SKIP
+	source = zxing-cpp-3.patch
+	sha256sums = 32ad7c9410af9388d827040eb9b21f36c30f48c3d5665d891eb4673ec3e16091
 	sha256sums = SKIP
 	sha256sums = e64eb0e5abf1be8245aea7eb705659d225b0c711c286166e28541fc66532a220
 	sha256sums = 61d7ca804ed18650274f233cd60a811518859b4c6739ecc246414c35c4b8d906
 	sha256sums = 08d1950475835d9cf0b8cc37bca5946c9182c1e15d32b8b7efc657e3d38117f2
 	sha256sums = b2d3f7b062eb41906fcad0d52c1a34f303e99bd5a160b4631b6d2a1e21a7d45d
-	sha256sums = 2e7a2c658a155db43825bfd94d79a7ebb54e4d304b4a5d95400040710d4a6cbf
+	sha256sums = eeca49350b1dc81574c9a8680f83cdefa76bf91d3a90eed849a366b2f8a5fa79
+	sha256sums = 2fb4c9c57e1827ec429e8e5d1bbc54376ff9b63f5ab9c7365722f7702abd65b0
 
 pkgname = jami-qt
