@@ -15,9 +15,9 @@ index f999ffe42..eae622d48 100644
          }
          avformat_free_context(outputCtx_);
 @@ -354,7 +350,7 @@ MediaEncoder::initStream(const SystemCodecInfo& systemCodecInfo, AVBufferRef* fr
+         if (scaledFrameBufferSize_ < 0)
              throw MediaEncoderException(
-                 ("Unable to compute buffer size: " + libav_utils::getError(scaledFrameBufferSize_))
-                     .c_str());
+                 ("Unable to compute buffer size: " + libav_utils::getError(scaledFrameBufferSize_)).c_str());
 -        else if (scaledFrameBufferSize_ <= AV_INPUT_BUFFER_MIN_SIZE)
 +        else if (scaledFrameBufferSize_ <= 16384)
              throw MediaEncoderException("buffer too small");

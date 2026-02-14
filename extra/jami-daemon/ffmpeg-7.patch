@@ -1,3 +1,16 @@
+diff --git a/src/media/audio/resampler.cpp b/src/media/audio/resampler.cpp
+index fe0c80a2c..8eebe42d0 100644
+--- a/src/media/audio/resampler.cpp
++++ b/src/media/audio/resampler.cpp
+@@ -225,7 +225,7 @@ Resampler::resample(const AVFrame* input, AVFrame* output)
+             newOutput->format = output->format;
+             newOutput->nb_samples = static_cast<int>(targetOutputLength);
+             newOutput->ch_layout = output->ch_layout;
+-            newOutput->channel_layout = output->channel_layout;
++            newOutput->ch_layout.u.mask = output->ch_layout.u.mask;
+             newOutput->sample_rate = output->sample_rate;
+             int bufferRet = av_frame_get_buffer(newOutput, 0);
+             if (bufferRet < 0) {
 diff --git a/src/media/audio/sound/dtmfgenerator.cpp b/src/media/audio/sound/dtmfgenerator.cpp
 index c05435f66..5b9eca18a 100644
 --- a/src/media/audio/sound/dtmfgenerator.cpp
@@ -50,13 +63,11 @@ index 0589affd5..f0005f6b0 100644
 --- a/src/media/socket_pair.cpp
 +++ b/src/media/socket_pair.cpp
 @@ -382,8 +382,8 @@ SocketPair::createIOContext(const uint16_t mtu)
-         [](void* sp, uint8_t* buf, int len) {
-             return static_cast<SocketPair*>(sp)->readCallback(buf, len);
-         },
--        [](void* sp, uint8_t* buf, int len) {
--            return static_cast<SocketPair*>(sp)->writeCallback(buf, len);
-+        [](void* sp, const uint8_t* buf, int len) {
-+            return static_cast<SocketPair*>(sp)->writeCallback((uint8_t*)buf, len);
-         },
+         mtu - (srtpContext_ ? SRTP_OVERHEAD : 0) - UDP_HEADER_SIZE - ip_header_size,
+         true,
+         [](void* sp, uint8_t* buf, int len) { return static_cast<SocketPair*>(sp)->readCallback(buf, len); },
+-        [](void* sp, uint8_t* buf, int len) { return static_cast<SocketPair*>(sp)->writeCallback(buf, len); },
++        [](void* sp, const uint8_t* buf, int len) { return static_cast<SocketPair*>(sp)->writeCallback((uint8_t*)buf, len); },
          0,
          reinterpret_cast<void*>(this));
+ }
