@@ -2,14 +2,14 @@
 
 pkgname=libcupsfilters
 pkgver=2.1.1
-pkgrel=3
+pkgrel=4
 pkgdesc="OpenPrinting CUPS Filters - contains all the code of the filters of the former cups-filters package as library functions"
 arch=('x86_64')
 url="https://github.com/OpenPrinting/libcupsfilters"
 license=('Apache-2.0 WITH LLVM-exception')
 depends=('libcups' 'libexif' 'qpdf' 'poppler'
          'libjpeg-turbo' 'libpng' 'libtiff' 'lcms2'
-         'fontconfig' 'glibc' 'gcc-libs' 'dbus')
+         'fontconfig' 'glibc' 'libstdc++' 'libgcc' 'dbus')
 makedepends=(
 	'ghostscript' 
 #        'mupdf-tools' ???
