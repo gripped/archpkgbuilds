@@ -1,8 +1,8 @@
 # Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 
 pkgname=openmp
-pkgver=21.1.6
-pkgrel=2
+pkgver=21.1.8
+pkgrel=1
 pkgdesc="LLVM OpenMP Runtime Library"
 arch=('x86_64')
 url="https://openmp.llvm.org/"
@@ -15,9 +15,9 @@ options=('!lto') # https://bugzilla.redhat.com/show_bug.cgi?id=1988155
 _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkgver
 source=($_source_base/openmp-$pkgver.src.tar.xz{,.sig}
         $_source_base/cmake-$pkgver.src.tar.xz{,.sig})
-sha256sums=('47ce66334725d3919cbdc9a506245ba12c77e1c15d1347c1f7917289624eb7db'
+sha256sums=('856b023748b41ac7b2c83fd8e9f765ff48a4df2fe6777d2811ef7c7ed8f2f977'
             'SKIP'
-            'e364f135fa14c343d70cac96f577f44e8e20bf026682f647f8c3c5687a0bebd1'
+            '85735f20fd8c81ecb0a09abb0c267018475420e93b65050cc5b7634eab744de9'
             'SKIP')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
               'D574BD5D1D0E98895E3BF90044F2485E45D59042'  # Tobias Hieta <tobias@hieta.se>
