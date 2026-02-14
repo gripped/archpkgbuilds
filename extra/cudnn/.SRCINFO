@@ -1,14 +1,15 @@
 pkgbase = cudnn
 	pkgdesc = NVIDIA CUDA Deep Neural Network library
 	pkgver = 9.19.0.56
-	pkgrel = 1
+	pkgrel = 2
 	url = https://developer.nvidia.com/cuDNN
 	arch = x86_64
 	arch = aarch64
 	license = LicenseRef-NVIDIA-cuDNN
 	depends = cuda>=13
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = zlib
 	depends = libz.so
 	options = !strip
