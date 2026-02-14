@@ -1,0 +1,126 @@
+From 34624d8eccdf9d5c2874227f2a6eaa59c588434a Mon Sep 17 00:00:00 2001
+From: Leonidas Spyropoulos <artafinde@archlinux.org>
+Date: Sat, 14 Feb 2026 20:42:40 +0000
+Subject: [PATCH] Format translations for Spanish and Chinese
+
+Signed-off-by: Leonidas Spyropoulos <artafinde@archlinux.org>
+---
+ .../translations/Resources_es.properties      | 36 +++++++++----------
+ .../translations/Resources_zh_CN.properties   |  6 ++--
+ 2 files changed, 21 insertions(+), 21 deletions(-)
+
+diff --git a/freeplane/src/editor/resources/translations/Resources_es.properties b/freeplane/src/editor/resources/translations/Resources_es.properties
+index fbe05233e9..845f4cf256 100644
+--- a/freeplane/src/editor/resources/translations/Resources_es.properties
++++ b/freeplane/src/editor/resources/translations/Resources_es.properties
+@@ -89,10 +89,16 @@ ai_chat_chats_open=Abrir
+ ai_chat_chats_open.tooltip=Abrir el chat seleccionado
+ ai_chat_chats_refresh=Actualizar
+ ai_chat_chats_refresh.tooltip=Actualizar lista de chat en vivo
++ai_chat_manage_profiles=Gestionar perfiles
+ ai_chat_new_chat=Nuevo chat
+ ai_chat_no_provider_configured=No hay ning\u00FAn proveedor de IA configurado.
++ai_chat_profile_label=Perfil de IA
++ai_chat_profile_message=Perfil de IA {0}
+ ai_chat_send.tooltip=Enviar ({0})
+ ai_chat_stop=Detener
++ai_chat_token_counter.input=entrada
++ai_chat_token_counter.output=salida
++ai_mcp_token_generated_message=Se ha generado un nuevo token MCP.\n\u00DAselo en el encabezado X-Freeplane-MCP-Token:\n{0}
+ ai_panel=IA
+ AllMapsNodeListAction.text=Buscar y reemplazar en todos los mapas
+ always=Siempre
+@@ -1226,7 +1232,15 @@ OptionPanel.add_emojis_to_menu=A\u00F1adir emoticonos al men\u00FA
+ OptionPanel.ADD_SIBLING=A\u00F1adir nodo hermano
+ OptionPanel.addons=Complementos
+ OptionPanel.af=Afrik\u00E1ans
++OptionPanel.ai_chat_memory_maximum_token_count=Recuento m\u00E1ximo de tokens de la memoria del chat con IA
++OptionPanel.ai_chat_memory_maximum_token_count.tooltip=L\u00EDmite aproximado de tokens para la memoria del chat con IA. El recuento utiliza un estimador local y puede diferir de la tokenizaci\u00F3n del proveedor.
+ OptionPanel.ai_chat_shows_tool_calls=Herramienta de chat con IA muestra llamadas
++OptionPanel.ai_chat_token_counter_mode=Contadores de tokens de chat con IA
++OptionPanel.ai_chat_token_counter_mode.context=Estimaciones de la ventana de contexto
++OptionPanel.ai_chat_token_counter_mode.hidden=Oculto
++OptionPanel.ai_chat_token_counter_mode.model_response=Respuesta del modelo reciente
++OptionPanel.ai_chat_token_counter_mode.tooltip=Selecciona c\u00F3mo se muestran los contadores de tokens. Las estimaciones utilizan un tokenizador local y son aproximadas.
++OptionPanel.ai_chat_token_counter_mode.total=Estimaciones totales de chat
+ OptionPanel.ai_edits_persistence_enabled=Persistir marcadores AI en archivos de mapa
+ OptionPanel.ai_edits_persistence_enabled.tooltip=Cuando est\u00E1 habilitado, los marcadores de IA se guardan con el mapa; de lo contrario, solo est\u00E1n disponibles durante la sesi\u00F3n.
+ OptionPanel.ai_edits_state_icon_visible=Mostrar iconos de marcadores de IA
+@@ -1236,6 +1250,8 @@ OptionPanel.ai_gemini_model_list=Lista de modelos AI Gemini
+ OptionPanel.ai_gemini_service_address=Direcci\u00F3n del servicio AI Gemini
+ OptionPanel.ai_mcp_server_enabled=Servidor AI MCP habilitado
+ OptionPanel.ai_mcp_server_port=Puerto del servidor AI MCP
++OptionPanel.ai_mcp_token=Token MCP
++OptionPanel.ai_mcp_token.tooltip=Los clientes MCP deben enviar este token en el encabezado X-Freeplane-MCP-Token.
+ OptionPanel.ai_model_name=Nombre del modelo de IA
+ OptionPanel.ai_ollama_model_allowlist=Lista de modelos AI Ollama permitidos
+ OptionPanel.ai_ollama_model_allowlist.tooltip=Patrones de lista blanca separados por comas o saltos de l\u00EDnea. Admite los comodines \u00AB*\u00BB y \u00AB?\u00BB. Si est\u00E1 vac\u00EDo, significa que se permiten todos los modelos de proveedor.
+@@ -1698,6 +1714,8 @@ OptionPanel.scrollbar_increment=Velocidad
+ OptionPanel.scrolling_speed=Velocidad de desplazamiento autom\u00E1tica del mapa
+ OptionPanel.scrollOnSelect=Desplazamiento autom\u00E1tico del sub\u00E1rbol tras seleccionar un nodo
+ OptionPanel.scrollOnUnfold=Desplazamiento autom\u00E1tico del sub\u00E1rbol tras desplegar un nodo
++OptionPanel.secret.hide=Ocultar
++OptionPanel.secret.show=Mostrar
+ OptionPanel.selected_map_follows_active_window=El mapa seleccionado sigue a la ventana activa
+ OptionPanel.selection_inside.any_map=Cualquier mapa
+ OptionPanel.selection_inside.same_map=El mismo mapa
+@@ -2624,21 +2642,3 @@ yes=S\u00ED
+ zoom=Zum
+ ZoomInAction.text=Acercar
+ ZoomOutAction.text=Alejar
+-OptionPanel.ai_mcp_token.tooltip=Los clientes MCP deben enviar este token en el encabezado X-Freeplane-MCP-Token.
+-ai_chat_manage_profiles=Gestionar perfiles
+-ai_chat_profile_label=Perfil de IA
+-ai_chat_profile_message=Perfil de IA {0}
+-ai_chat_token_counter.input=entrada
+-ai_chat_token_counter.output=salida
+-ai_mcp_token_generated_message=Se ha generado un nuevo token MCP.\nÚselo en el encabezado X-Freeplane-MCP-Token:\n{0}
+-OptionPanel.ai_chat_memory_maximum_token_count=Recuento máximo de tokens de la memoria del chat con IA
+-OptionPanel.ai_chat_memory_maximum_token_count.tooltip=Límite aproximado de tokens para la memoria del chat con IA. El recuento utiliza un estimador local y puede diferir de la tokenización del proveedor.
+-OptionPanel.ai_chat_token_counter_mode=Contadores de tokens de chat con IA
+-OptionPanel.ai_chat_token_counter_mode.context=Estimaciones de la ventana de contexto
+-OptionPanel.ai_chat_token_counter_mode.hidden=Oculto
+-OptionPanel.ai_chat_token_counter_mode.model_response=Respuesta del modelo reciente
+-OptionPanel.ai_chat_token_counter_mode.tooltip=Selecciona cómo se muestran los contadores de tokens. Las estimaciones utilizan un tokenizador local y son aproximadas.
+-OptionPanel.ai_chat_token_counter_mode.total=Estimaciones totales de chat
+-OptionPanel.ai_mcp_token=Token MCP
+-OptionPanel.secret.hide=Ocultar
+-OptionPanel.secret.show=Mostrar
+diff --git a/freeplane/src/editor/resources/translations/Resources_zh_CN.properties b/freeplane/src/editor/resources/translations/Resources_zh_CN.properties
+index 855916d9b8..c9fce676e5 100644
+--- a/freeplane/src/editor/resources/translations/Resources_zh_CN.properties
++++ b/freeplane/src/editor/resources/translations/Resources_zh_CN.properties
+@@ -370,7 +370,7 @@ CopyIDAction.tooltip=\u590D\u5236\u9009\u4E2D\u8282\u70B9\u7684\u5BFC\u56FE ID
+ CopyMapStylesAction.text=\u4ECE\u2026\u590D\u5236\u5BFC\u56FE\u6837\u5F0F
+ CopyNodeURIAction.text=\u590D\u5236\u8282\u70B9 URI
+ CopyNodeURIAction.tooltip=\u590D\u5236\u8282\u70B9\u7EDF\u4E00\u8D44\u6E90\u6807\u8BC6\u7B26\uFF08\u8282\u70B9\u94FE\u63A5\uFF09
+-copyright=\u7248\u6743\u6240\u6709 © 2000-2026 Freeplane \u5F00\u53D1\u56E2\u961F\u53CA\u8D21\u732E\u8005
++copyright=\u7248\u6743\u6240\u6709 \u00A9 2000-2026 Freeplane \u5F00\u53D1\u56E2\u961F\u53CA\u8D21\u732E\u8005
+ CopySingleAction.text=\u590D\u5236\u8282\u70B9\uFF08\u5355\u8282\u70B9\uFF09
+ CopySingleAction.tooltip=\u4EC5\u590D\u5236\u9009\u4E2D\u8282\u70B9\uFF0C\u4E0D\u542B\u5B50\u8282\u70B9
+ CopyStyleExtensionsAction.text=\u4ECE\u6837\u5F0F\u8282\u70B9\u590D\u5236\u6269\u5C55
+@@ -1253,6 +1253,7 @@ OptionPanel.ai_edits_persistence_enabled=\u5728\u5BFC\u56FE\u6587\u4EF6\u4E2D\u4
+ OptionPanel.ai_edits_persistence_enabled.tooltip=\u5F00\u542F\u540E AI \u6807\u8BB0\u968F\u5BFC\u56FE\u4FDD\u5B58\uFF0C\u5426\u5219\u4EC5\u5F53\u524D\u4F1A\u8BDD\u6709\u6548
+ OptionPanel.ai_edits_state_icon_visible=\u663E\u793A AI \u6807\u8BB0\u56FE\u6807
+ OptionPanel.ai_edits_state_icon_visible.tooltip=\u5207\u6362 AI \u6807\u8BB0\u56FE\u6807\u663E\u793A\uFF0C\u4E0D\u5220\u9664\u6807\u8BB0
++OptionPanel.ai_gemini_key=AI Gemini \u5BC6\u94A5
+ OptionPanel.ai_gemini_model_list=AI Gemini \u6A21\u578B\u5217\u8868
+ OptionPanel.ai_gemini_service_address=AI Gemini \u670D\u52A1\u5730\u5740
+ OptionPanel.ai_mcp_server_enabled=\u542F\u7528 AI MCP \u670D\u52A1
+@@ -1263,6 +1264,7 @@ OptionPanel.ai_model_name=AI \u6A21\u578B\u540D\u79F0
+ OptionPanel.ai_ollama_model_allowlist=AI Ollama \u6A21\u578B\u767D\u540D\u5355
+ OptionPanel.ai_ollama_model_allowlist.tooltip=\u9017\u53F7/\u6362\u884C\u5206\u9694\uFF0C\u652F\u6301 *? \u901A\u914D\u7B26\uFF0C\u7A7A\u4E3A\u5141\u8BB8\u6240\u6709\u6A21\u578B
+ OptionPanel.ai_ollama_service_address=AI Ollama \u670D\u52A1\u5730\u5740
++OptionPanel.ai_openrouter_key=AI OpenRouter \u5BC6\u94A5
+ OptionPanel.ai_openrouter_model_allowlist=AI OpenRouter \u6A21\u578B\u767D\u540D\u5355
+ OptionPanel.ai_openrouter_model_allowlist.tooltip=\u9017\u53F7/\u6362\u884C\u5206\u9694\uFF0C\u652F\u6301 *? \u901A\u914D\u7B26\uFF0C\u7A7A\u4E3A\u5141\u8BB8\u6240\u6709\u6A21\u578B
+ OptionPanel.ai_openrouter_service_address=AI OpenRouter \u670D\u52A1\u5730\u5740
+@@ -2647,5 +2649,3 @@ yes=\u662F
+ zoom=\u7F29\u653E
+ ZoomInAction.text=\u653E\u5927
+ ZoomOutAction.text=\u7F29\u5C0F
+-OptionPanel.ai_openrouter_key=AI OpenRouter \u5BC6\u94A5
+-OptionPanel.ai_gemini_key=AI Gemini \u5BC6\u94A5
+-- 
+2.53.0
+
