@@ -1,14 +1,15 @@
 pkgbase = skim
 	pkgdesc = Fuzzy Finder in Rust
 	pkgver = 3.2.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/skim-rs/skim
 	arch = x86_64
 	license = MIT
 	makedepends = git
 	makedepends = rust
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libgcc_s.so
 	depends = ncurses
 	optdepends = bash: for resp. completions and key bindings, and for sk-tmux script
 	optdepends = fish: for resp. key bindings
