@@ -1,32 +1,43 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=basis-universal
-pkgver=1.60
+pkgver=2.0.2
 pkgrel=1
 pkgdesc='Basis Universal GPU Texture Codec'
 arch=(x86_64)
 url='https://github.com/BinomialLLC/basis_universal'
 license=(Apache-2.0)
-depends=(glibc gcc-libs)
-makedepends=(git cmake ninja)
+depends=(
+  glibc
+  libgcc
+  libstdc++
+  zstd
+)
+makedepends=(
+  git
+  cmake
+  ninja
+)
 source=(
   "$pkgname::git+$url#tag=v${pkgver//./_}"
   strip-rpath.patch
+  use-system-zstd.patch
 )
-sha512sums=('a425bd0619aa97891142383e720e3348d84fc642ed674cb9d40bd74b43278a78b9a577667553bbe991e733cec46cf08f98fd790cd1f4286d015b466c4b7a467c'
-            '767cdd69636423b39e94acd0bacd011551a3745e0fb296f3263650c0c410128dd592775428b345d5a4661e837ee9dd6550004d516412d6cd6ca1664e8017f8fa')
-b2sums=('8e155ba45db8fea7902606288582af7af4dbcde9d59ce6c7342b659480ed6cd9bf6cff0aaf3024713a7d8b06212860bbce94f60edd131e475c73450d5972d263'
-        'c6ef61d468151aae7711a0adef474c21cc746a1bff80f32e33dca72760d23494e733d4dd941bf72510f586fe8b6564d6cdca6dc7c6ff0b05aef7758b46b30f8f')
+sha512sums=('a166f322b9e029bacdfec3871e34d2b7cbcbc1dd1d1226f76f7491203b53226cc33a929d3f2e5a0f8525729c5e2b6d9556715d95cb8289a355af22c30a662493'
+            '5ed53acc3191c27888097a81e966e9a2aceb38d71d328e7405d7ee5a46e30758bae35f5d99418043d00c60a92d8893cf0e08c238da8fa460896b8e5c80e38fde'
+            '2c15b4262895b960e4f9e6898659af250747e48f7afca7f5490caa8c74a24386c47cfe00c6448449687bae53b73856c1f9fb13e34a12f1cda52a25acd1d3ffcc')
+b2sums=('aa102f47e4c8a8b03eadda6be89703baeeb001c2ef770976d5243ece4caa6567c00bb557ed4bf09be5d2904c0390e1c952368dd3478e8739fbf7920c32a56393'
+        '49382bb1758c6e998f49bf6484a4164351896cbc5ad8c7d882c144ce438d014b7928f8aaeb4d5b2162747ad594f93fc76794a9a6d6d6dd5784ec6336b24506c0'
+        'f304b9ce848b8afddbd7f4d37387c6b6c1cfcbea72971dc77eeba128dccfb8b689af71ed1fc7156a0cf22c928c535c75aaac877d0c3ef6e5d1701a52bfe169b8')
 
 prepare() {
   cd "$pkgname"
 
-  # enable installation of binary+library
-  git cherry-pick --no-commit \
-    e4d2662015233f2bd111d73d49981a75ed8f2a6d \
-    28d6f71ee33003a8ccbdf6ecf1174d003f2ffc2d \
-    56fedfe14ebd21dfec68e8f71f23feabad6c1b44 \
-    872aca5dc25036c12cb31b3916923b16bdd70fe3
+  # cmake install support
+  # https://github.com/BinomialLLC/basis_universal/pull/420
+  git cherry-pick --no-commit 8c4c65b6ed079a3a012a895b10d044fd9452dea5
+
+  patch -p1 -i "$srcdir/use-system-zstd.patch"
 
   patch -p1 -i "$srcdir/strip-rpath.patch"
 }
@@ -38,7 +49,9 @@ build() {
     -G Ninja
     -D CMAKE_BUILD_TYPE=Release
     -D CMAKE_INSTALL_PREFIX=/usr
-    -D SSE=ON
+    -D BASISU_SSE=ON
+    -D BASISU_ZSTD=ON
+    -D BASISU_SYSTEM_ZSTD=ON
     -W no-dev
   )
 

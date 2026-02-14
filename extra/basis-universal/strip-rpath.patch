@@ -1,8 +1,6 @@
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index e2c7a1d..31b250e 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -114,8 +114,6 @@ if (NOT MSVC)
+@@ -178,8 +182,6 @@ if (NOT MSVC AND NOT BASISU_BUILD_WASM)
              set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -DBASISU_SUPPORT_SSE=0")
              set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -DBASISU_SUPPORT_SSE=0")
          endif()
