@@ -1,7 +1,7 @@
 pkgbase = difftastic
 	pkgdesc = An experimental diff tool that compares files based on their syntax
 	pkgver = 0.67.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://difftastic.wilfred.me.uk
 	arch = x86_64
 	license = MIT
@@ -9,7 +9,10 @@ pkgbase = difftastic
 	makedepends = git
 	makedepends = mdbook
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libgcc_s.so
+	depends = libstdc++
+	depends = libstdc++.so
 	depends = shared-mime-info
 	options = !lto
 	source = git+https://github.com/Wilfred/difftastic.git#tag=0.67.0
