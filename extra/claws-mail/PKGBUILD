@@ -2,17 +2,20 @@
 
 pkgname=claws-mail
 pkgver=4.3.1
-pkgrel=4
+pkgrel=5
 pkgdesc="A GTK+ based e-mail client"
 arch=('x86_64')
 license=('GPL-3.0-or-later')
 url="https://www.claws-mail.org"
 depends=('gtk3' 'gnutls' 'startup-notification' 'enchant' 'gpgme'
-         'libetpan' 'compface' 'libsm' 'dbus-glib')
+         'libetpan' 'compface' 'libsm' 'dbus-glib' 'librsvg'
+         'libldap' 'glib2' 'pango' 'libice' 'gdk-pixbuf2' 'cairo'
+         'nettle' 'glibc' 'hicolor-icon-theme' 'sh')
 makedepends=('spamassassin' 'bogofilter' 'networkmanager' 'valgrind'
              # dependencies for plugins
              'libnotify' 'libcanberra' 'poppler-glib' 'libytnef' 'libical'
              'dillo' 'python' 'gumbo-parser' 'webkit2gtk-4.1'
+             'libayatana-appindicator'
              # deps to build the docs
              'docbook-utils' 'texlive-formatsextra')
 optdepends=('python:            needed for some tools'
@@ -22,6 +25,7 @@ optdepends=('python:            needed for some tools'
             'libnotify:         for notification plugin'
             'libcanberra:       for notification plugin'
             'dbus:              for notification plugin'
+            'libayatana-appindicator: for notification plugin'
             'libxml2:           for rssyl plugins'
             'curl:              for vcalendar, rssyl and spamreport plugins'
             'libarchive:        for archive plugin and various other plugins'
