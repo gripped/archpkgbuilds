@@ -4,7 +4,7 @@
 
 pkgname=rpi-imager
 pkgver=2.0.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Raspberry Pi Imaging Utility"
 depends=(
     'curl'
@@ -40,8 +40,12 @@ b2sums=('03f831add77a894efca198cb7ed119a0db4e9001559e9e46faa4ed23d14cfd2c626ebf8
         '0e1f638695ffe702efd7a8a66bc822787119af98eee6fc21dc6f134765de89d12f661b34a444e16b466b7397fb9098cee968520fd4d9e95c86e18f5708c496b1')
 
 prepare() {
+    cd "${pkgname}" 
     # https://github.com/raspberrypi/rpi-imager/issues/924
-    patch -Np1 -d "${pkgname}" -i "$srcdir/remove-vendoring.patch"
+    patch -Np1 -i "$srcdir/remove-vendoring.patch"
+
+    # Fix file selection with QT 10.0
+    git cherry-pick -n c73a1b004c154ab74be2acb86364c4452af41f1d
 }
 
 build() {
