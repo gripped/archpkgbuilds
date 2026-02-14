@@ -4,25 +4,21 @@
 _name=StyLua
 pkgname=stylua
 pkgver=2.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Deterministic code formatter for Lua'
 arch=(x86_64)
 url=https://github.com/JohnnyMorganz/StyLua
 license=(MPL-2.0)
-depends=(
-  gcc-libs
-  glibc
-)
-makedepends=(
-  git
-  rust
-)
+depends=(glibc # libc.so
+         libgcc libgcc_s.so)
+makedepends=(git
+             rust)
 source=("git+$url.git#tag=v$pkgver")
 b2sums=('b0e0291a2a1a89525b90a43fa52c4307ccd9463a9f72c805ef1f83bed837b8a653df04f64b28e9cc41649791c455453c17213ffeb269eef657059590be350adc')
 
 prepare() {
   cd $_name
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
