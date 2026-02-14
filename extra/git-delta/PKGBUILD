@@ -6,13 +6,13 @@
 pkgname=git-delta
 _pkgname=delta
 pkgver=0.18.2
-pkgrel=6
+pkgrel=7
 pkgdesc='Syntax-highlighting pager for git and diff output'
 arch=(x86_64)
 url='https://dandavison.github.io/delta/'
 license=(MIT)
-depends=(gcc-libs # libgcc_s.so ld-linux-x86-64.so
-         glibc # libc.so libm.so
+depends=(glibc # libc.so libm.so
+         libgcc libgcc_s.so
          libgit2
          oniguruma # libonig.so
          zlib)
@@ -27,7 +27,7 @@ prepare() {
   cd "$_pkgname-$pkgver"
 
   # download dependencies
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
@@ -43,7 +43,8 @@ build() {
 
   # html manual
   cd manual
-  mdbook build --dest-dir html
+  # mdbook upgrade broke doc generation here, this projects docs are full of errors
+  # mdbook build --dest-dir html
 }
 
 check() {
@@ -79,5 +80,5 @@ package() {
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
 
   # html manual
-  cp -r manual/html "$pkgdir/usr/share/doc/$pkgname"
+  # cp -r manual/html "$pkgdir/usr/share/doc/$pkgname"
 }
