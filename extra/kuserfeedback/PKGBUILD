@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kuserfeedback
-pkgver=6.22.0
+pkgver=6.23.0
 pkgrel=1
 pkgdesc='Framework for collecting user feedback for applications via telemetry and surveys'
 arch=(x86_64)
@@ -22,7 +22,7 @@ optdepends=('qt6-charts: Feedback console'
 conflicts=(kuserfeedback5)
 replaces=(kuserfeedback5)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('10e2db5703649bfd377121ea2daf629dae8cc082d0457488a04238d55d9e8b87'
+sha256sums=('c96918d21adfedf5c2337a4692ec246e6290eba94e5dfde4c857f24fd71874d8'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
