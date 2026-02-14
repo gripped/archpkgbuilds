@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kconfig
-pkgver=6.22.0
+pkgver=6.23.0
 pkgrel=1
 pkgdesc='Configuration system'
 arch=(x86_64)
@@ -18,7 +18,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('bea5cfc35f586f337aa518bae4f445b68977b5e9be785c158af7969bfe345790'
+sha256sums=('6d96d6a6b9e66e027a17284c48261ba81e1262fbd382fcdddc248107a9ca95ee'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
