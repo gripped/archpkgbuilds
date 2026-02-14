@@ -3,7 +3,7 @@
 pkgbase=gdcm
 pkgname=(gdcm gdcm-docs)
 pkgver=3.2.2
-pkgrel=2
+pkgrel=3
 pkgdesc="C++ library for DICOM medical files"
 arch=(x86_64)
 url="https://github.com/malaterre/GDCM"
@@ -17,7 +17,10 @@ makedepends=(
   graphviz
   # depends
   expat
+  glibc
   json-c
+  libgcc
+  libstdc++
   libxml2
   openjpeg2
   openssl
@@ -87,9 +90,10 @@ check() {
 package_gdcm() {
   depends=(
     expat libexpat.so
-    gcc-libs
     glibc
     json-c libjson-c.so
+    libgcc
+    libstdc++
     libxml2 libxml2.so
     openjpeg2
     openssl libcrypto.so
