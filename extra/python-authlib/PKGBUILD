@@ -2,7 +2,7 @@
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=python-authlib
-pkgver=1.6.7
+pkgver=1.6.8
 pkgrel=1
 pkgdesc='The ultimate Python library in building OAuth and OpenID Connect servers & clients'
 arch=(any)
@@ -34,8 +34,8 @@ checkdepends=(
   python-python-multipart
 )
 source=("$pkgname::git+$url#tag=v$pkgver" )
-sha512sums=('b23c2bf938b33a65de8fa5754a866f689fb373031d0a5400bd04b0b5d8e416cb523b05ec8af9a51d2d448b1e4cb905afbb943239aa7c49b7cc8a479f0a15118a')
-b2sums=('fe0d5de4a65e9e72fe0037b1052514781910fb6768818d6c2ea5d665349e6cf90e834202f47f40e33ac6885a6b67ca5b4bdefbde4024ce4f8128ae5ca78b4670')
+sha512sums=('f6aa1b8f4baad4edd9b4d600cd4431d184513343ca96d1e35186d28473db5a3fa1d062a9ae1a469ffc9952f54729b302f651e955706ed46e24ac63e97eec4350')
+b2sums=('65aaf3199a2bcc4daccada56ef6750d0a19e2ad8018390072bc5d66bf8f4e63ecda8164fd8500e232b488057dc7add751364b747a565274dc8d15b94d93d3305')
 
 build() {
   cd "$pkgname"
