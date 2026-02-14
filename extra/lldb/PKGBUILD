@@ -2,8 +2,8 @@
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
 
 pkgname=lldb
-pkgver=21.1.6
-pkgrel=2
+pkgver=21.1.8
+pkgrel=1
 pkgdesc="Next generation, high-performance debugger"
 arch=('x86_64')
 url="https://lldb.llvm.org/"
@@ -15,11 +15,11 @@ _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkg
 source=($_source_base/lldb-$pkgver.src.tar.xz{,.sig}
         $_source_base/llvm-$pkgver.src.tar.xz{,.sig}
         $_source_base/cmake-$pkgver.src.tar.xz{,.sig})
-sha256sums=('215993495bb262cb069545eb205d5933578477bd925d679ea7b0fe3cd6c93868'
+sha256sums=('e28d73ed3f9e231f798ed66865e652a641eb0666cfa6c7b36e116da92fb72e56'
             'SKIP'
-            '908bce97be0275943414b45af2e2b20e8f6d5d9266fdc120bd59f096ebc547ad'
+            'd9022ddadb40a15015f6b27e6549a7144704ded8828ba036ffe4b8165707de21'
             'SKIP'
-            'e364f135fa14c343d70cac96f577f44e8e20bf026682f647f8c3c5687a0bebd1'
+            '85735f20fd8c81ecb0a09abb0c267018475420e93b65050cc5b7634eab744de9'
             'SKIP')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
               'D574BD5D1D0E98895E3BF90044F2485E45D59042'  # Tobias Hieta <tobias@hieta.se>
