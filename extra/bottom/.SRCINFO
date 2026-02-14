@@ -1,13 +1,15 @@
 pkgbase = bottom
 	pkgdesc = A graphical process/system monitor
 	pkgver = 0.12.3
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/ClementTsang/bottom
 	arch = x86_64
 	license = MIT
 	makedepends = git
 	makedepends = rust
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
+	depends = libgcc_s.so
 	source = bottom::git+https://github.com/ClementTsang/bottom#tag=0.12.3
 	sha512sums = 6ba81fb711a86db6df60f0472c104e4d4d7f5fc3bbf81d7e7058dc56425aa559b8b7e2a384c21f5f2ccee34ec15dd101405e5bac7edd9286b9c3698fb0950bc9
 	b2sums = ca6b0cdf7be8dd7b22409f9db867dfd19da04d9e84c0bc82b8d0be92259f805250693e7e867e258c545daa555b06272261790688ab6ee0eef692b803ad73cc67

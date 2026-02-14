@@ -4,13 +4,15 @@
 
 pkgname=bottom
 pkgver=0.12.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A graphical process/system monitor'
 arch=(x86_64)
 url='https://github.com/ClementTsang/bottom'
 license=(MIT)
-depends=(gcc-libs)
-makedepends=(git rust)
+depends=(glibc # libc.so libm.so
+         libgcc libgcc_s.so)
+makedepends=(git
+             rust)
 source=("$pkgname::git+$url#tag=$pkgver")
 sha512sums=('6ba81fb711a86db6df60f0472c104e4d4d7f5fc3bbf81d7e7058dc56425aa559b8b7e2a384c21f5f2ccee34ec15dd101405e5bac7edd9286b9c3698fb0950bc9')
 b2sums=('ca6b0cdf7be8dd7b22409f9db867dfd19da04d9e84c0bc82b8d0be92259f805250693e7e867e258c545daa555b06272261790688ab6ee0eef692b803ad73cc67')
@@ -18,7 +20,7 @@ b2sums=('ca6b0cdf7be8dd7b22409f9db867dfd19da04d9e84c0bc82b8d0be92259f805250693e7
 prepare() {
   cd "$pkgname"
 
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
