@@ -3,15 +3,15 @@
 pkgname=cutensor
 pkgver=2.5.0.2
 _cudaver=13
-pkgrel=1
+pkgrel=2
 pkgdesc="High-performance CUDA library for tensor primitives"
 arch=(x86_64)
 url="https://docs.nvidia.com/cuda/cutensor/latest/index.html"
 license=(LicenseRef-NVIDIA-cuTENSOR)
 depends=(
   "cuda>=$_cudaver"
-  gcc-libs
   glibc
+  libgcc
 )
 optdepends=(
   'nccl: for the multi-process extension (cuTENSORMp)'

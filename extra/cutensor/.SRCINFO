@@ -1,13 +1,13 @@
 pkgbase = cutensor
 	pkgdesc = High-performance CUDA library for tensor primitives
 	pkgver = 2.5.0.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://docs.nvidia.com/cuda/cutensor/latest/index.html
 	arch = x86_64
 	license = LicenseRef-NVIDIA-cuTENSOR
 	depends = cuda>=13
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	optdepends = nccl: for the multi-process extension (cuTENSORMp)
 	options = !strip
 	source = https://developer.download.nvidia.com/compute/cutensor/redist/libcutensor/linux-x86_64/libcutensor-linux-x86_64-2.5.0.2_cuda13-archive.tar.xz
