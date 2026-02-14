@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=curl-impersonate
-pkgver=1.4.3
+pkgver=1.4.4
 pkgrel=1
 pkgdesc='A build of curl that impersonates four major browsers: Chrome, Edge, Safari & Firefox'
 arch=(x86_64)
@@ -9,7 +9,8 @@ url='https://github.com/lexiforest/curl-impersonate'
 license=(MIT)
 depends=(
   glibc
-  gcc-libs
+  libgcc
+  libstdc++
   bash
 )
 makedepends=(
@@ -44,7 +45,7 @@ source=(
   "libidn2-${_libidn2_version}.tar.gz::https://ftp.gnu.org/gnu/libidn/libidn2-${_libidn2_version}.tar.gz"
   no-download.patch
 )
-sha512sums=('8d72c3493c4e71aaa661bfc90314d5c22fa6c2daf38f6dac2be2224252b7a256a1c12357fdf88d0b04c995fd4005680f178db5a700024ad1197756f45ad8b428'
+sha512sums=('62f19a155789b04fefa665ad193f46f7287f620817cb426311f3c38a7289ce48926c30d0d87d0dd600933f446965727a12a8f940a14ac8e01b92522e14ac7d75'
             'f94542afd2ecd96cc41fd21a805a3da314281ae558c10650f3e6d9ca732b8425bba8fde312823f0a564c7de3993bdaab5b43378edab65ebb798cefb6fd702256'
             'cb542c349ab6f51451de6fbe20483690965bdb36eb315970b3d1faf3d64968863e5fb59fb6cd2fc945126668fd526f4976077b13b03590ac32b1ca100ed1ee35'
             'a328b4642c6ca4395adfcaaf4e6eb6dbd39fa7bd86f872a76260af59a5a830e0ff5ad015865d6bc00e0baa8e4d0d9a67b4b97e9d78e5e05d1c53522364e5e235'
@@ -56,7 +57,7 @@ sha512sums=('8d72c3493c4e71aaa661bfc90314d5c22fa6c2daf38f6dac2be2224252b7a256a1c
             '9cb1acc8b39096f30e77ad2f4c6127c3ff01588dbf41389ff294e9b89616d54d6a76cad5748f8dcb70b78ec28100fc1272d4eb9e6527b52e89a1ecac25b43647'
             'eab5702bc0baed45492f8dde43a4d2ea3560ad80645e5f9e0cfa8d3b57bccd7fd782d04638e000ba07924a5d9f85e760095b55189188c4017b94705bef9b4a66'
             '968204bf21de0e530d01d1181e313885c6c6af1516252f534a20547813703bb2bc5d71d86f87821c9287793b0397843fcd371ee30f2f2fe1df91e564b9eb4033')
-b2sums=('f1f20846afcbb5b1bffc0bd862a9c1cfb6ee358c0929e14b9a76c88f76f8e2f40c93b51f6988736fd6a5cca76d4896b03626451a49662c5cbdc2d8867eae67d8'
+b2sums=('5c264d4984e0afcc6fd118b214df3a3a1f161d3fba08fed1187ea5efc7f037409b43c94e6c1f2d98631fb91abb4a1a45807d51aacba75a8f575587821d73590a'
         'e38ea35f4abe47b2113ccc0778bb7b0be77dcf4d26ce248347ecc4cfdea7ba40d17e0b175cad6f82055d07b1ec9976ffea649f59065866db2c36116c77e59824'
         'e31b039f0161bb2ad50b62ea588c319b4cbb7bf3cab59dafcf40f88defc2f27d42744edb88b04e2ce97789a81fefd6657601024811bf38e3ed1170f4920247a1'
         '8caab3602d79abe03f0b266feba07edbdcc95288824d41b39c672a74a9ef9c97e9421138eba4fc04c87aaaa0f26a7ce3779831825629f421f293481fa9f315e3'
@@ -104,9 +105,7 @@ package() {
   make DESTDIR="$pkgdir" install
 
   # remove unnecessary files
-  rm -rf \
-    "$pkgdir/usr/bin/wcurl" \
-    "$pkgdir/usr/include"
+  rm -rf "$pkgdir/usr/include"
 
   # remove unsafe rpath
   chrpath --delete \
