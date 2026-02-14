@@ -2,7 +2,7 @@
 # Contributor: Florian Pritz <bluewind@xinu.at>
 
 pkgname=grafana-zabbix
-pkgver=6.1.2
+pkgver=6.2.0
 pkgrel=1
 pkgdesc="Zabbix plugin for Grafana dashboard"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('grafana')
 makedepends=('yarn' 'npm' 'libfaketime' 'go' 'git' 'nodejs-lts-iron' 'mage')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
         'update_flag_for_yarnV2.patch')
-sha256sums=('4c38654218ab78ad572ddc17c4e71d31dcae219c0a8dfed89826e2c45f6b8e03'
+sha256sums=('6beccc93aabc4f26907a1a32adf456883c9c45bb6ce4a2b428c856407f33d84e'
             '7c4eb35fe8b92a7e3089b328da1cc901431887806b8b496b4d001778cbafc887')
 
 prepare() {
