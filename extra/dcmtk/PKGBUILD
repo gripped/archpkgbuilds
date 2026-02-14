@@ -3,7 +3,7 @@
 pkgbase=dcmtk
 pkgname=(dcmtk dcmtk-docs)
 pkgver=3.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A collection of libraries and applications implementing large parts the DICOM standard"
 arch=(x86_64)
 url="http://dicom.offis.de/dcmtk"
@@ -13,7 +13,10 @@ makedepends=(
   doxygen
   ninja
   # depends
+  glibc
+  libgcc
   libpng
+  libstdc++
   libtiff
   libxml2
   openjpeg2
@@ -63,9 +66,10 @@ build() {
 
 package_dcmtk() {
   depends=(
-    gcc-libs
     glibc
+    libgcc
     libpng libpng16.so
+    libstdc++
     libtiff libtiff.so
     libxml2 libxml2.so
     openjpeg2
