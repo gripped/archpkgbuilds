@@ -4,7 +4,7 @@
 pkgbase=libstaroffice
 pkgname=(libstaroffice libstaroffice-doc)
 pkgver=0.0.7
-pkgrel=4
+pkgrel=5
 pkgdesc="filter for old StarOffice documents(.sdc, .sdw, ...) based on librevenge"
 url="https://github.com/fosnola/libstaroffice"
 arch=('x86_64')
@@ -30,7 +30,7 @@ check() {
 }
 
 package_libstaroffice() {
-  depends=('librevenge' 'zlib' 'gcc-libs' 'glibc')
+  depends=('librevenge' 'zlib' 'glibc' 'libstdc++' 'libgcc')
 
   cd "${pkgbase}-${pkgver}"
   make DESTDIR="${pkgdir}" install-exec install-pkgconfDATA
