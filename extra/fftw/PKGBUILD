@@ -6,7 +6,7 @@
 pkgbase=fftw
 pkgname=(fftw fftw-openmpi)
 pkgver=3.3.10
-pkgrel=7
+pkgrel=8
 pkgdesc="A library for computing the discrete Fourier transform (DFT)"
 arch=(x86_64)
 url="http://www.fftw.org/"
@@ -15,8 +15,10 @@ makedepends=(
   bash
   cmake
   gcc-fortran
-  gcc-libs
   glibc
+  libgcc
+  libgomp
+  libquadmath
   openmpi
 )
 source=(http://www.fftw.org/$pkgname-$pkgver.tar.gz)
@@ -79,6 +81,7 @@ build() {
     -S $pkgname-$pkgver-$_build_types
     -D CMAKE_INSTALL_PREFIX=/usr
     -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -D ENABLE_OPENMP=ON
     -D ENABLE_THREADS=ON
     -D ENABLE_FLOAT=ON
@@ -138,8 +141,10 @@ check() {
 package_fftw() {
   depends=(
     bash
-    gcc-libs
     glibc
+    libgcc
+    libgomp
+    libquadmath
   )
   optdepends=('fftw-openmpi: for OpenMPI integration')
   provides=(
