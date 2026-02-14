@@ -4,15 +4,16 @@
 _pkg=orc
 pkgname=apache-${_pkg}
 pkgver=2.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Columnar storage for Hadoop workloads."
 arch=(x86_64)
 url="https://orc.apache.org"
 license=(Apache-2.0)
 depends=(
   abseil-cpp
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   lz4
   protobuf
   snappy
@@ -72,10 +73,7 @@ build(){
 }
 
 check(){
-  # One test is failing and cannot be skipped
-  # https://github.com/apache/orc/issues/2239
-  # https://github.com/apache/orc/issues/2238
-  ctest --test-dir build --output-on-failure || true
+  ctest --test-dir build --output-on-failure
 }
 
 package(){
