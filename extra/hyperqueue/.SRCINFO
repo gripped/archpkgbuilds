@@ -1,7 +1,7 @@
 pkgbase = hyperqueue
 	pkgdesc = Scheduler for sub-node tasks for HPC systems with batch scheduling
 	pkgver = 0.24.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/It4innovations/hyperqueue/
 	arch = x86_64
 	license = MIT
@@ -25,14 +25,14 @@ pkgbase = hyperqueue
 	b2sums = 437bf54627bbb130508c221d497b0f545173c5344ffd9374fe4501524730f4034ab853df52391f899fee4b07a81f355c002248b161245d2dbe24babfb6ebc886
 
 pkgname = hyperqueue
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 
 pkgname = python-hyperqueue
 	pkgdesc = Scheduler for sub-node tasks for HPC systems with batch scheduling - Python bindings
-	depends = gcc-libs
 	depends = glibc
 	depends = hyperqueue
+	depends = libgcc
 	depends = python
 	depends = python-cloudpickle
 	depends = python-tqdm

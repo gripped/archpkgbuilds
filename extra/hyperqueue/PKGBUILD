@@ -3,7 +3,7 @@
 pkgbase=hyperqueue
 pkgname=(hyperqueue python-hyperqueue)
 pkgver=0.24.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Scheduler for sub-node tasks for HPC systems with batch scheduling"
 arch=(x86_64)
 url="https://github.com/It4innovations/hyperqueue/"
@@ -81,8 +81,8 @@ check() {
 
 package_hyperqueue() {
   depends=(
-    gcc-libs
     glibc
+    libgcc
   )
 
   cd $pkgbase-$pkgver
@@ -102,9 +102,9 @@ package_hyperqueue() {
 package_python-hyperqueue() {
   pkgdesc+=" - Python bindings"
   depends=(
-    gcc-libs
     glibc
     hyperqueue
+    libgcc
     # https://github.com/It4innovations/hyperqueue/blob/main/crates/pyhq/pyproject.toml
     python
     python-cloudpickle
