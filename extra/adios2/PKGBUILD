@@ -3,7 +3,7 @@
 
 pkgname=adios2
 pkgver=2.11.0
-pkgrel=5
+pkgrel=6
 pkgdesc="The Adaptable Input/Output System version 2"
 arch=(x86_64)
 url="https://adios2.readthedocs.io/en/latest/"
@@ -11,12 +11,14 @@ license=(Apache-2.0)
 depends=(
   blosc2
   bzip2 libbz2.so
-  gcc-libs
   glibc
   hdf5
   libfabric
+  libgcc
+  libgfortran
   libpng libpng16.so
   libsodium libsodium.so
+  libstdc++
   mgard
   openmpi libmpi.so
   openssl libssl.so
