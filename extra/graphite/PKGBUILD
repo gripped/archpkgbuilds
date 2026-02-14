@@ -3,13 +3,13 @@
 pkgbase=graphite
 pkgname=(graphite graphite-docs)
 pkgver=1.3.14
-pkgrel=5
+pkgrel=6
 epoch=1
 arch=('x86_64')
 url="https://graphite.sil.org/"
 pkgdesc="a \"smart font\" system to handle the complexities of lesser-known languages of the world"
 license=('LGPL-2.1-or-later OR MPL-2.0 OR GPL-2.0-or-later')
-depends=('gcc-libs' 'glibc')
+depends=('glibc' 'libstdc++' 'libgcc')
 makedepends=('cmake' 'freetype2' 'python'
              # for documentation
              'doxygen' 'dblatex' 'graphviz' 'asciidoc' 'texlive-xetex')
