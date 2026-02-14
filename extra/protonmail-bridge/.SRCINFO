@@ -1,7 +1,7 @@
 pkgbase = protonmail-bridge
 	pkgdesc = Integrate ProtonMail paid account with any program that supports IMAP and SMTP
-	pkgver = 3.21.2
-	pkgrel = 7
+	pkgver = 3.22.0
+	pkgrel = 2
 	url = https://github.com/ProtonMail/proton-bridge
 	arch = x86_64
 	license = GPL-3.0-only
@@ -13,6 +13,7 @@ pkgbase = protonmail-bridge
 	makedepends = glibc
 	makedepends = go
 	makedepends = grpc
+	makedepends = libfido2
 	makedepends = libsecret
 	makedepends = protobuf
 	makedepends = qt6-base
@@ -20,19 +21,20 @@ pkgbase = protonmail-bridge
 	makedepends = qt6-svg
 	makedepends = sentry-native
 	options = !lto
-	source = git+https://github.com/ProtonMail/proton-bridge#tag=v3.21.2
+	source = git+https://github.com/ProtonMail/proton-bridge#tag=v3.22.0
 	source = protonmail-bridge.service
 	source = remove-vcpkg-dependency.patch
 	source = fix-wayland-icon.patch::https://github.com/ProtonMail/proton-bridge/commit/75e7bba6e62ef4b0a58334f2bcc7c56b7769c69c.patch
-	sha256sums = 17e8014f0d30da4720492d2b68d941ddf6d2be12eb337677acf111a003956bc6
+	sha256sums = 1114a6f0c6cac19dcd75267bcb621884f0c6e37e577698eac89d9659e9b39dd6
 	sha256sums = 5d273f1245fec8549a3daa3fe76e22bb6c23957cf5bcb51c24f878e19c7a5692
-	sha256sums = 436a9a293424fb7d48a8fd61fff7d63985dec56d6170cd2fbae24fe03ef98136
+	sha256sums = 2efdc9476f9f187a9c2d296cd3dce6717d5200eac672c5481a0039315cb333e7
 	sha256sums = 45a68688cf2a06539d60e3e35b112a67319c58c23c35ec4cf3712d2f0cb50cb2
 
 pkgname = protonmail-bridge-core
 	pkgdesc = Integrate ProtonMail paid account with any program that supports IMAP and SMTP (core executable and daemon)
 	depends = glib2
 	depends = glibc
+	depends = libfido2
 	depends = libsecret
 	optdepends = gnome-keyring: gnome-keyring support
 	optdepends = org.freedesktop.secrets: Applications that support Freedesktop secrets api
