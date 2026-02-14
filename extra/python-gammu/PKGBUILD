@@ -3,7 +3,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux>
 
 pkgname=python-gammu
-pkgver=3.2.5
+pkgver=3.2.6
 pkgrel=1
 pkgdesc="Python bindings for Gammu library"
 arch=('x86_64')
@@ -26,11 +26,12 @@ checkdepends=(
   'libdbi-drivers'
 )
 source=("git+https://github.com/gammu/python-gammu.git?signed#tag=$pkgver")
-b2sums=('bf890ce85da5bffbfbd1876f5a3e63f12479bf556612fcf9e03094c9e24bb85910cc871dbc66902f128d30b87e9ead74fffd40313000b1c5237616a14d297e52')
+b2sums=('8a15514003ea775ce85f0126aaf1f47aa89b785343382731349bc59bdfdf422c042b3cc2271c2d8015fd36375dea44d091ff80eb21474360b310edb3ea99c7ec')
 validpgpkeys=('63CB1DF1EF12CF2AC0EE5A329C27B31342B7511D') # Michal Čihař <michal@cihar.com>
 
 build() {
   cd $pkgname
+  export CFLAGS+=" -Wno-error=return-mismatch"
   python -m build --no-isolation
 }
 
