@@ -2,7 +2,7 @@
 # Contributor: Julien Virey <julien.virey@gmail.com>
 
 pkgname=rumdl
-pkgver=0.1.20
+pkgver=0.1.21
 pkgrel=1
 pkgdesc='Markdown Linter and Formatter written in Rust'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=(glibc gcc-libs)
 makedepends=(cargo)
 
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('b31f33d9001fd9018fcb4034ecf65f39131b80878860ab5c9ffec405ac1a4ddb')
+sha256sums=('cb57a732eaef7d41c17547d7604081dd8003356d9427edc82ecef956cb79c759')
 
 prepare() {
   cd $pkgname-$pkgver
