@@ -2,8 +2,8 @@
 # Contributor: Jeremy Gust <jeremy AT plasticsoup DOT net>
 
 pkgname=hyprpicker
-pkgver=0.4.5
-pkgrel=8
+pkgver=0.4.6
+pkgrel=1
 pkgdesc="A wlroots-compatible Wayland color picker that does not suck"
 arch=(x86_64)
 url="https://github.com/hyprwm/hyprpicker"
@@ -28,7 +28,7 @@ makedepends=(
 )
 optdepends=('wl-clipboard: Allows --autocopy to automatically copy the output to the clipboard')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('fe9611ec78524f9bbea0d39308da3d9c61cb20f6103179a269cad8013bb0c1f3')
+sha256sums=('3dc3dec1ba3254a9ab3303461a12593f18318961934d24e4b1adc08927ba675d')
 
 build() {
   cd $pkgname-$pkgver
