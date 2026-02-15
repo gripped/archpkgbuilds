@@ -4,13 +4,13 @@
 
 pkgname=sshx
 pkgver=0.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A secure web-based, collaborative terminal'
 url="https://github.com/ekzhang/$pkgname"
 license=(MIT)
 arch=(x86_64 aarch64)
-depends=(gcc-libs
-         glibc)
+depends=(glibc # libc.so libm.so
+         libgcc libgcc_s.so)
 makedepends=(cargo
              protobuf)
 options=(!lto) # https://github.com/briansmith/ring/issues/1444
@@ -22,7 +22,7 @@ sha256sums=('ab6de41546b849726faa3b964466c1f8bb558bd27ee2452a9758405ff013108f')
 
 prepare() {
 	cd "$_archive"
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target host-tuple
 }
 
 build() {
@@ -32,7 +32,7 @@ build() {
 
 check() {
 	cd "$_archive"
-	cargo test --frozen
+	cargo test --frozen --release
 }
 
 package() {
