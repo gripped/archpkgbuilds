@@ -5,7 +5,7 @@
 pkgname=freerdp
 pkgver=3.22.0
 _libver=${pkgver/.*/}
-pkgrel=1
+pkgrel=2
 epoch=2
 pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)"
 arch=(x86_64)
@@ -13,7 +13,6 @@ url="https://www.freerdp.com/"
 license=(Apache-2.0)
 depends=(
   fuse3
-  gcc-libs
   glibc
   jansson
   libcups
