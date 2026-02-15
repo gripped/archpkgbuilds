@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kirigami
-pkgver=6.22.0
+pkgver=6.23.0
 pkgrel=1
 pkgdesc='A QtQuick based components set'
 arch=(x86_64)
@@ -18,7 +18,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('062255655919629c5bdf9a1d30676fb842b1335f352c3fa7698bb81c27e7cdfa'
+sha256sums=('8dc28d406be06d360d47e8013e13d633b8c2cfb03607f49029bb45ffdbd28910'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
