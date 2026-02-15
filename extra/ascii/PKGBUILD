@@ -5,23 +5,23 @@
 # Contributor: Damir Perisa <damir.perisa@bluewin.ch>
 
 pkgname=ascii
-pkgver=3.30
-pkgrel=2
+pkgver=3.31
+pkgrel=1
 pkgdesc="Utility for conversion between various byte representations and the ASCII character table"
 arch=('x86_64')
 url='http://www.catb.org/~esr/ascii'
 license=('BSD-2-Clause')
 depends=('glibc')
-source=("$pkgname-$pkgver.tar.gz::$url/$pkgname-$pkgver.tar.gz")
-sha512sums=('1096afac6aaa043c4ecf7f3f9a010edcec3caefc980fd44a3e613aad579d838f5be0fc6a31bb3fdd680a102885f34fcf3cd5ea50739ef134e9eb929a18e7fdce')
+source=("$url/$pkgname-$pkgver.tar.gz")
+b2sums=('8483d8fee35a340265e6176ffd7f68ee482c2fd861ebcb879b8ec792b806cd23cd69075db9d3d04a0bbd8cd87ff1101b09e9a7beb56c45b76945d175874e2fd8')
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd $pkgname-$pkgver
   make CFLAGS="$CFLAGS $LDFLAGS"
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd $pkgname-$pkgver
   install -vDm755 -t "$pkgdir/usr/bin" ascii
   install -vDm644 -t "$pkgdir/usr/share/man/man1" ascii.1
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" COPYING
