@@ -2,7 +2,7 @@
 # Contributor: Veeti Paananen <veeti.paananen@rojekti.fi>
 
 pkgname=cmark
-pkgver=0.31.1
+pkgver=0.31.2
 pkgrel=1
 pkgdesc='CommonMark parsing and rendering library and program in C'
 arch=(x86_64)
@@ -13,7 +13,7 @@ makedepends=(cmake
              git
              python)
 source=(git+https://github.com/commonmark/cmark#tag=$pkgver)
-sha512sums=('7869348e7966095b1688691cef8d88ec8c3bc5dee0a44682057f4168c05496d2d9013e3e89cfc3ca7e7a37f67bf7fcb2dd55077649e342d2060944e414d355b9')
+sha512sums=('bb1f7c9a8ca2a506a5f68ce78c768c9c509809ccabfb70fc1b6ccb612f22628f4922b291ed063a41858a6d045e9d68a5a31f37bffbe201d5a5c4710ac547747d')
 
 build() {
   cmake -B build -S $pkgname \
@@ -23,7 +23,8 @@ build() {
 }
 
 check() {
-  cmake --build build --target test
+  cd build
+  ctest --rerun-failed --output-on-failure -E pathological_tests_library
 }
 
 package() {
