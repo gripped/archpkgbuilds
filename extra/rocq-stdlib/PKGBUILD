@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=rocq-stdlib
-pkgver=9.0.0
+pkgver=9.1.0
 pkgrel=1
 pkgdesc="Stdlib for the Rocq Prover"
 arch=('any')
@@ -21,7 +21,7 @@ options=(
   'staticlibs'
 )
 source=("https://github.com/rocq-prover/stdlib/archive/V$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('de68fa0a1528d1ac9843e3b4b34b4e56beeca80d4f0c35f26a103fdf7dee2ed74395961f490d670720f05d40ebc0851a3e4f18bc6224330fd78c2874ecd273b1')
+b2sums=('e69b7159a56c1ee74577ca34f94dff3198023069e403fd686f4f215ad3db76058c36a657ff26a033bcd732e4993cdefd807fbd5b6963850524aa51cba5e55195')
 
 build() {
   cd stdlib-$pkgver
