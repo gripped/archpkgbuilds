@@ -13,16 +13,17 @@
 
 pkgname=dpkg
 pkgver=1.23.5
-pkgrel=1
+pkgrel=2
 pkgdesc='The Debian Package Manager tools'
 arch=('x86_64')
 url="https://tracker.debian.org/pkg/dpkg"
 license=('GPL-2.0-or-later')
 depends=(
   'bzip2'
-  'gcc-libs'
   'glibc'
+  'libgcc'
   'libmd'
+  'libstdc++'
   'ncurses'
   'perl'
   'xz'
