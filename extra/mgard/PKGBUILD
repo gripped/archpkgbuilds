@@ -3,17 +3,15 @@
 
 pkgname=mgard
 pkgver=1.6.0
-pkgrel=5
+pkgrel=4
 pkgdesc="MultiGrid Adaptive Reduction of Data"
 arch=(x86_64)
 url="https://github.com/CODARcode/MGARD"
 license=(Apache-2.0)
 depends=(
   abseil-cpp
+  gcc-libs
   glibc
-  libgcc
-  libgomp
-  libstdc++
   protobuf libprotobuf.so
   zlib libz.so
   zstd libzstd.so
