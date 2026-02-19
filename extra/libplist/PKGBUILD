@@ -5,14 +5,15 @@
 
 pkgname=libplist
 pkgver=2.7.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Library to handle Apple Property List files'
 arch=(x86_64)
 url='https://libimobiledevice.org/'
 license=(LGPL-2.1-or-later)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
 )
 makedepends=(
   cython
