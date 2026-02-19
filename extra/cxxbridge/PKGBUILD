@@ -3,14 +3,14 @@
 
 pkgname=cxxbridge
 pkgver=1.0.194
-pkgrel=1
+pkgrel=2
 pkgdesc='Safe interop between Rust and C++'
 url='https://github.com/dtolnay/cxx'
 arch=('x86_64')
 license=('Apache-2.0' 'MIT')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
 )
 makedepends=('cargo')
 options=(!lto)
