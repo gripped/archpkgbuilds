@@ -3,14 +3,14 @@
 
 pkgname=python-cryptography
 pkgver=46.0.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A package designed to expose cryptographic recipes and primitives to Python developers"
 arch=('x86_64')
-license=('Apache-2.0 OR BSD-3-Clause')
 url="https://github.com/pyca/cryptography"
+license=('Apache-2.0 OR BSD-3-Clause')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
   'openssl'
   'python'
   'python-cffi'
@@ -32,11 +32,16 @@ checkdepends=(
   'python-pretend'
   'python-pytest'
 )
-source=("git+https://github.com/pyca/cryptography.git#tag=$pkgver")
-b2sums=('590e118bed2b977e9ee763744f17b1f6fa7bffe7e7fb8ace01a36d1ae34f3eec833940cff5690cec04ae0e7e42ba57383a29573c6b461ef91daf45c9fb6197bc')
+source=(
+  "git+https://github.com/pyca/cryptography.git#tag=$pkgver"
+  "$pkgname-sdist-only-includes.patch"
+)
+b2sums=('590e118bed2b977e9ee763744f17b1f6fa7bffe7e7fb8ace01a36d1ae34f3eec833940cff5690cec04ae0e7e42ba57383a29573c6b461ef91daf45c9fb6197bc'
+        'b2778db329fb43c9e7e81a894fa1a25db8001e83a1e0edb6f0e5a0a0ef8f4c2a7f4867c63a46c89376da3a2301ee39dc13e21e19536b4b458efa727f83346ca8')
 
 prepare() {
   cd cryptography
+  patch -Np1 < ../$pkgname-sdist-only-includes.patch
   # Drop all benchmark tests, this means we don't have to checkdepends on
   # pytest-benchmark nor are benchmark tests interesting for a distribution.
   rm -rf tests/bench
@@ -55,7 +60,7 @@ check() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   python -m installer --destdir="tmp_install" dist/*.whl
   PYTHONPATH="$PWD/tmp_install/$site_packages:$PWD/vectors" \
-    pytest --override-ini="addopts="
+    pytest --override-ini="addopts=" tests
 }
 
 package() {
