@@ -5,7 +5,7 @@ pkgname=(
     'vosk-api'
     'python-vosk')
 pkgver=0.3.50
-pkgrel=6
+pkgrel=7
 _openblas_ver=0.3.20
 _clapack_commit=f4e1647de96343fb20eea08a9d4f0e0d04c31c51 # from v3.2.1 branch
 _openfst_commit=18e94e63870ebcf79ebb42b7035cd3cb626ec090
@@ -148,8 +148,9 @@ check() {
 
 package_vosk-api() {
     depends=(
-        'gcc-libs'
-        'glibc')
+        'glibc'
+        'libgcc'
+        'libstdc++')
     optdepends=(
         'java-runtime: for java bindings')
     

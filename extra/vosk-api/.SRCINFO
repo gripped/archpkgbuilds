@@ -1,7 +1,7 @@
 pkgbase = vosk-api
 	pkgdesc = Offline speech recognition toolkit
 	pkgver = 0.3.50
-	pkgrel = 6
+	pkgrel = 7
 	url = https://alphacephei.com/vosk/
 	arch = x86_64
 	license = Apache-2.0
@@ -40,8 +40,9 @@ pkgbase = vosk-api
 	sha256sums = 546cde8eaf5e38de498cf522be7b3990dcf5451c05e1632889441b9c60b28733
 
 pkgname = vosk-api
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	optdepends = java-runtime: for java bindings
 
 pkgname = python-vosk
