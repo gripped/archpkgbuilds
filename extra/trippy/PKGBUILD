@@ -3,12 +3,12 @@
 
 pkgname=trippy
 pkgver=0.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A network diagnostic tool'
 arch=('x86_64')
 url='https://trippy.cli.rs'
 license=('Apache-2.0')
-depends=('gcc-libs' 'libcap')
+depends=('glibc' 'libgcc' 'libcap')
 makedepends=('cargo')
 install=$pkgname.install
 source=("$pkgname-$pkgver.tar.gz::https://github.com/fujiapple852/trippy/archive/$pkgver.tar.gz")
@@ -16,7 +16,7 @@ b2sums=('cab7d88b0c1c83139a80ed8b8f6ebfff3f0ee686740e0176d4607bb488ff94e67d8e5fe
 
 prepare() {
   cd $pkgname-$pkgver
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
   mkdir completions
   mkdir manuals
 }
