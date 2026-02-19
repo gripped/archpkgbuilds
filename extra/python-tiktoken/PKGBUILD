@@ -4,14 +4,14 @@
 pkgname=python-tiktoken
 _name=${pkgname#python-}
 pkgver=0.12.0
-pkgrel=1
+pkgrel=3
 pkgdesc="A fast BPE tokeniser for use with OpenAI's models"
 arch=(x86_64)
 url="https://github.com/openai/tiktoken"
 license=(MIT)
 depends=(
-  gcc-libs
   glibc
+  libgcc
   python
   python-regex
   python-requests
