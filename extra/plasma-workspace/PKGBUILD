@@ -4,7 +4,7 @@
 # Contributor: Alexey D. <lq07829icatm at rambler.ru>
 pkgbase=plasma-workspace
 pkgname=(plasma-workspace plasma-x11-session)
-pkgver=6.5.5
+pkgver=6.6.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE Plasma Workspace'
@@ -50,7 +50,6 @@ depends=(accountsservice
          knewstuff
          knighttime
          knotifications
-         knotifyconfig
          kpackage
          kparts
          kpipewire
@@ -90,7 +89,6 @@ depends=(accountsservice
          ocean-sound-theme
          plasma-activities
          plasma-activities-stats
-         plasma5support
          prison
          qt6-5compat
          qt6-base
@@ -115,12 +113,11 @@ makedepends=(baloo
              extra-cmake-modules
              kdoctools
              networkmanager-qt
-             phonon-qt6
              plasma-wayland-protocols
              qcoro)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('29b0763bbbdd9e27416dce1fd939242d2588feef36c4cbae941c31964d531fd4'
+sha256sums=('098e1fddb30600855248bea36e012c0f5ff12d1ba3381a1ce42005e4d2304d6e'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
