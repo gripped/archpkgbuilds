@@ -2,15 +2,16 @@
 
 pkgname=kvazaar
 pkgver=2.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc='An open-source HEVC encoder'
 arch=('x86_64')
 url='https://github.com/ultravideo/kvazaar/'
 license=('BSD-3-Clause')
 depends=(
     'crypto++'
-    'gcc-libs'
-    'glibc')
+    'glibc'
+    'libgcc'
+    'libstdc++')
 makedepends=(
     'git')
 checkdepends=(
