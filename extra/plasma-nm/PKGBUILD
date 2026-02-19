@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=plasma-nm
-pkgver=6.5.5
+pkgver=6.6.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Plasma applet written in QML for managing network connections'
@@ -24,8 +24,10 @@ depends=(gcc-libs
          kio
          kirigami
          kirigami-addons
+         kjobwidgets
          knotifications
          kquickcharts
+         kservice
          ksvg
          kwallet
          kwidgetsaddons
@@ -43,13 +45,13 @@ depends=(gcc-libs
          solid)
 makedepends=(extra-cmake-modules
              openconnect
-	      qt6-webengine
-)
+	     qt6-webengine)
 optdepends=('openconnect: Cisco AnyConnect VPN plugin'
+            'qrca: QR code scanner'
             'qt6-webengine: Cisco AnyConnect VPN plugin')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('fb096f1bc85f5eb1ee8ae80df044479860987c8bcecd4ab7120fed253698c2a0'
+sha256sums=('01e543d5c6f101fb2e01ceefd7d4338b7e2ed0b2d67546d7227ed3aa78dd5d50'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
