@@ -1,7 +1,7 @@
 pkgbase = openfpgaloader
 	pkgdesc = Universal utility for programming FPGA
 	pkgver = 1.0.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/trabucayre/openFPGALoader
 	arch = x86_64
 	license = Apache-2.0
@@ -16,7 +16,8 @@ pkgbase = openfpgaloader
 	depends = libusb
 	depends = zlib
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	source = openfpgaloader::git+https://github.com/trabucayre/openFPGALoader#tag=v1.0.0
 	sha512sums = b460819e0f10a659bc0e356cf5155e278207c7508c783b8ee42fb90ddfa7e72f2aa1aac16d25af3c5811bd2c2a029fd40bca15e8d2eb093bb26eafe5e1e5995f
 	b2sums = 75b091345607115faa289a6b76aef25fd05a85866f348fedf161c673f348e1f98dc978963443e61572d7fab343b4820171991582f885bcd46a9b09b9e86bdcda
