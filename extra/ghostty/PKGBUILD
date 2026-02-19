@@ -4,7 +4,7 @@
 pkgbase=ghostty
 pkgname=(ghostty ghostty-shell-integration ghostty-terminfo)
 pkgver=1.2.3
-pkgrel=2
+pkgrel=3
 pkgdesc='Fast, native, feature-rich terminal emulator pushing modern features'
 arch=(x86_64 aarch64 i686)
 url="https://github.com/ghostty-org/$pkgbase"
@@ -12,7 +12,6 @@ license=(MIT)
 depends=(bzip2
          fontconfig libfontconfig.so
          freetype2 libfreetype.so
-         gcc-libs # ld-linux-x86-64.so
          glibc # libc.so libm.so
          glib2 libglib-2.0.so libgio-2.0.so libgobject-2.0.so
          gtk4 libgtk-4.so
@@ -29,12 +28,16 @@ makedepends=(blueprint-compiler
              pandoc-cli
              zig0.14)
 _archive="$pkgname-$pkgver"
-source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('e17d39482fc70fba3d72f5f25c12e9d9a72b87dd45a61a854d9928e98b69edd8')
+source=("$url/archive/v$pkgver/$_archive.tar.gz"
+        ghostty-1.2.3-update-schemes-to-working-tag.patch
+    )
+sha256sums=('e17d39482fc70fba3d72f5f25c12e9d9a72b87dd45a61a854d9928e98b69edd8'
+            '4d6b324e79cf6182ab8518f328054a8a31ad1adec613414e1431cbf7a6c30057')
 
 prepare() {
 	cd "$_archive"
-
+    # current scheme was removed upstream, use next tag
+    patch -Np1 -i ../ghostty-1.2.3-update-schemes-to-working-tag.patch
 	ZIG_GLOBAL_CACHE_DIR="$srcdir/zig-global-cache/" ./nix/build-support/fetch-zig-cache.sh
 }
 
@@ -75,5 +78,5 @@ package_ghostty-terminfo() {
 	depends=()
 	cd "$_archive"
 	mkdir -p "$pkgdir/usr/share/terminfo"
-	cp -r build/usr/share/terminfo/* "$pkgdir/usr/share/terminfo/"
+	cp -r build/usr/share/terminfo/x "$pkgdir/usr/share/terminfo/"
 }
