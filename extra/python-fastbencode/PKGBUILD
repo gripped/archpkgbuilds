@@ -2,14 +2,14 @@
 
 pkgname=python-fastbencode
 pkgver=0.3.9
-pkgrel=1
+pkgrel=2
 pkgdesc="Implementation of bencode with optional fast C extensions"
 arch=(x86_64)
 url="https://github.com/breezy-team/fastbencode"
 license=(GPL-2.0-or-later)
 depends=(
-  gcc-libs
   glibc
+  libgcc
   python
 )
 makedepends=(
