@@ -3,14 +3,14 @@
 
 pkgname=lxqt-config
 pkgver=2.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="LXQt system configuration."
 arch=("x86_64")
 groups=("lxqt")
 url="https://github.com/lxqt/$pkgname"
 # Upstream licenses are messy and need clarifications... https://github.com/lxqt/lxqt-config/issues/966
 license=("LGPL2.1")
-depends=("glibc" "gcc-libs"
+depends=("glibc" "libstdc++"
          "qt6-base" "qt6-svg" "libkscreen"
          "libQt6Xdg.so" "liblxqt" "lxqt-themes" "lxqt-menu-data"
          "libx11" "libxcb" "libxcursor" "libxfixes" "libxi" "xf86-input-libinput"
