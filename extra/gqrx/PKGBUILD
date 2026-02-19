@@ -5,19 +5,18 @@
 
 pkgname=gqrx
 pkgver=2.17.7
-pkgrel=2
+pkgrel=1
 pkgdesc="Software defined radio receiver powered by GNU Radio and Qt."
 arch=(x86_64)
 url="https://www.gqrx.dk/"
 license=('GPL-3.0-or-later AND GPL-2.0-or-later AND Apache-2.0 AND BSD-2-Clause')
 depends=(
+  gcc-libs
   glibc
   gnuradio
   gnuradio-osmosdr
   hicolor-icon-theme
-  libgcc
   libpulse
-  libstdc++
   libvolk
   qt6-base
   qt6-svg
