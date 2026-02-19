@@ -4,10 +4,11 @@
 
 pkgbase=breeze
 pkgname=(breeze
-         breeze5)
-pkgver=6.5.5
+         breeze5
+         breeze-cursors)
+pkgver=6.6.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 pkgdesc='Artwork, styles and assets for the Breeze visual style for the Plasma Desktop'
 url='https://kde.org/plasma-desktop/'
@@ -40,7 +41,7 @@ optdepends=('breeze-gtk: Breeze widget style for GTK applications'
             'breeze5: Breeze widget style for Qt5 applications')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('09b3f7bd2386c4b91c418462f02b203510f2ae88489398ef05e0b6ddea3aa590'
+sha256sums=('162594cb74d2e6c033d08b45fc52904b488f232097c7aa025d837bf1e7fa38e8'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
@@ -60,7 +61,11 @@ build() {
 }
 
 package_breeze() {
+  depends+=(breeze-cursors)
+
   DESTDIR="$pkgdir" cmake --install build
+# Split cursors
+  rm -r "$pkgdir"/usr/share/icons/{breeze_cursors,Breeze_Light}
 }
 
 package_breeze5() {
@@ -85,4 +90,13 @@ package_breeze5() {
 
   DESTDIR="$pkgdir" cmake --install build5
   rm -r "$pkgdir"/usr/share
+}
+
+package_breeze-cursors() {
+  pkgdesc='Breeze cursors'
+  depends=()
+  optdepends=()
+
+  DESTDIR="$pkgdir" cmake --install build/cursors
+  rm -r "$pkgdir"/usr/bin
 }
