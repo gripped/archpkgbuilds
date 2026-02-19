@@ -1,7 +1,7 @@
 pkgbase = libfbclient
 	pkgdesc = Client library for Firebird
 	pkgver = 5.0.3
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.firebirdsql.org
 	arch = x86_64
 	license = MPL-1.1
@@ -11,7 +11,9 @@ pkgbase = libfbclient
 	makedepends = libtomcrypt
 	makedepends = unzip
 	makedepends = cmake
-	depends = gcc-libs
+	depends = sh
+	depends = glibc
+	depends = libgcc
 	depends = libtommath
 	options = !lto
 	source = libfbclient::git+https://github.com/FirebirdSQL/firebird#tag=v5.0.3

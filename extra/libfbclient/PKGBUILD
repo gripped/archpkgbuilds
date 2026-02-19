@@ -5,14 +5,25 @@
 
 pkgname=libfbclient
 pkgver=5.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Client library for Firebird'
 arch=(x86_64)
 url='https://www.firebirdsql.org'
 license=(MPL-1.1 Interbase-1.0)
-depends=(gcc-libs libtommath)
-makedepends=(git editline libtomcrypt unzip cmake)
-options=('!lto') # segfaults with LTO
+depends=(
+  sh
+  glibc
+  libgcc
+  libtommath
+)
+makedepends=(
+  git
+  editline
+  libtomcrypt
+  unzip
+  cmake
+)
+options=(!lto) # segfaults with LTO
 source=("$pkgname::git+https://github.com/FirebirdSQL/firebird#tag=v$pkgver")
 sha512sums=('c96a9c384f12b92a2ab07aabc031ce697e608683c978a6a68c0fa0235593a93809bbc80a636914fea830224207c336c839eeb985759d24658cef9c15329aa1c6')
 b2sums=('f16119b11063de5a64157c8ed2d51cda15437739072e202a4408ac26ffd6be57c80381e99cb9d5353de7fe5bdd25dcec4149da91ead0671491019dc3de110ae1')
