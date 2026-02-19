@@ -6,15 +6,17 @@
 
 pkgname=libsvm
 pkgver=3.36
-pkgrel=2
+pkgrel=3
 pkgdesc='Library for support vector machines (SVM) classification and regression'
 arch=('x86_64')
 url='https://www.csie.ntu.edu.tw/~cjlin/libsvm/'
 license=('BSD-3-Clause')
 depends=(
-    'gcc-libs'
     'glibc'
     'gnuplot'
+    'libgcc'
+    'libgomp'
+    'libstdc++'
     'python')
 makedepends=(
     'python-build'
