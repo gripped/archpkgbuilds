@@ -1,17 +1,20 @@
 pkgbase = libultrahdr
 	pkgdesc = The reference codec for the Ultra HDR format
 	pkgver = 1.4.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/google/libultrahdr
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = cmake
 	makedepends = git
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	depends = libglvnd
 	depends = libjpeg-turbo
+	depends = libstdc++
 	source = git+https://github.com/google/libultrahdr#tag=v1.4.0
+	source = 010-libultrahdr-gcc15-fix.patch::https://github.com/google/libultrahdr/commit/5fa99b5271a3c80a13c78062d7adc6310222dd8e.patch
 	sha256sums = 67a20b13bef0a0100054956f2db880d1233843a5382a773bc2da2db0ffd93796
+	sha256sums = 6335c62964591e46a990100998104434fc8d395834b9923782ef91f64a6891cd
 
 pkgname = libultrahdr
