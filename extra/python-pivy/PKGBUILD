@@ -4,7 +4,7 @@
 
 pkgname=python-pivy
 pkgver=0.6.10
-pkgrel=3
+pkgrel=4
 epoch=1
 pkgdesc='Python bindings to Coin3D'
 arch=(x86_64)
@@ -12,7 +12,8 @@ url='https://github.com/coin3d/pivy'
 license=(ISC)
 depends=(
   glibc
-  gcc-libs
+  libgcc
+  libstdc++
   coin
   python
   pyside6
