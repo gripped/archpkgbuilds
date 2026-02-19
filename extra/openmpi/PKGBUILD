@@ -10,7 +10,7 @@ pkgname=(
   openmpi-docs
 )
 pkgver=5.0.9
-pkgrel=3
+pkgrel=4
 pkgdesc='High performance message passing library (MPI)'
 arch=(x86_64)
 url='https://www.open-mpi.org'
@@ -19,19 +19,17 @@ makedepends=(
   cuda
   nvidia-utils  # for libcuda.so
   gcc-fortran
-  gcc-libs
   glibc
   hip-runtime-amd
   hwloc
+  libgcc
   libevent
   libfabric
-  libnl
   openpmix
   openucc
   openucx
   prrte
   valgrind
-  zlib
 )
 source=(
   https://www.open-mpi.org/software/ompi/v${pkgver%.*}/downloads/$pkgbase-$pkgver.tar.bz2
@@ -103,16 +101,14 @@ check() {
 
 package_openmpi() {
   depends=(
-    gcc-libs
     glibc
     hwloc
+    libgcc
     libevent libevent_{core,pthreads}-2.1.so
     libfabric
-    libnl
     openpmix libpmix.so
     openucx
     prrte
-    zlib
   )
   optdepends=(
     'cuda: cuda support'
