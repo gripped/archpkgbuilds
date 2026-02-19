@@ -1,15 +1,15 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 pkgname=msedit
 pkgver=1.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple editor for simple needs (Microsoft Edit)"
 arch=(x86_64)
 url="https://github.com/microsoft/edit"
 license=('MIT')
 depends=(
-  gcc-libs
   glibc
   hicolor-icon-theme
+  libgcc
 )
 optdepends=(
   'icu: for search and replace'
@@ -25,7 +25,7 @@ sha256sums=('272a51d6ddf0b8768b373ac3ed561af21ed266620e492a838df2226e82255c50')
 
 prepare() {
   cd "$pkgname"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # patch the desktop file so it matches the alternative binary name
   sed --in-place 's/=edit/=msedit/' assets/com.microsoft.edit.desktop
