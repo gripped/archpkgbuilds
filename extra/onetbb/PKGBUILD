@@ -8,15 +8,16 @@
 
 pkgname=onetbb
 pkgver=2022.3.0
-pkgrel=3
+pkgrel=4
 pkgdesc='oneAPI Threading Building Blocks - a high level abstract threading library'
 arch=('x86_64')
 url='https://uxlfoundation.github.io/oneTBB/'
 license=('Apache-2.0')
 depends=(
-    'gcc-libs'
     'glibc'
-    'hwloc')
+    'hwloc'
+    'libgcc'
+    'libstdc++')
 optdepends=(
     'python: for Python module')
 makedepends=(
