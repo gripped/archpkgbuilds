@@ -3,8 +3,8 @@
 
 pkgname=remmina
 epoch=1
-pkgver=1.4.41
-pkgrel=2
+pkgver=1.4.42
+pkgrel=1
 pkgdesc="Remote desktop client written in GTK+"
 url="https://www.remmina.org"
 arch=('x86_64')
@@ -27,7 +27,7 @@ optdepends=('freerdp: RDP plugin'
 replaces=('remmina-plugins')
 provides=('remmina-plugins')
 source=("${pkgname}-${pkgver}.tar.gz::https://gitlab.com/Remmina/Remmina/-/archive/v${pkgver}/Remmina-v${pkgver}.tar.gz")
-sha512sums=('60d582d9e31e568158c05d5afbe1b368661980ec1b8b293e078361f652a393cfeb5d4233e4568827d9faf12fedb313db0e59a60e49b3598bd8c2920ef4c83094')
+sha512sums=('20cf17699c85c1ba6e82a6607ef6dc807f22f569b3c9eb7eee87f4b26bc49f465d3dff6cc6fc5a6fffbb71cf868e2cd7d7b689d52b25b2617af4bfa6163015dd')
 
 build() {
 	cmake -S "Remmina-v${pkgver}" -B build -G Ninja \
