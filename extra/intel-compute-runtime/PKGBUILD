@@ -4,16 +4,17 @@
 
 pkgname=intel-compute-runtime
 pkgver=26.05.37020.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver'
 arch=('x86_64')
 url='https://github.com/intel/compute-runtime/'
 license=('MIT')
 depends=(
-    'gcc-libs'
     'glibc'
     'intel-gmmlib'
-    'intel-graphics-compiler')
+    'intel-graphics-compiler'
+    'libgcc'
+    'libstdc++')
 makedepends=(
     'cmake'
     'igsc'
