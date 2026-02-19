@@ -3,7 +3,7 @@
 pkgbase=sg-323
 pkgname=(sg-323-{clap,vst3,lv2})
 pkgver=1.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Emulation of the Ursa Major Stargate 323 digital reverb'
 arch=(x86_64)
 url='https://github.com/greyboxaudio/SG-323'
@@ -11,15 +11,16 @@ license=(GPL-3.0-only)
 groups=(pro-audio)
 _common_depends=(
   glibc
-  gcc-libs
+  libgcc
+  libstdc++
   alsa-lib
+  fontconfig
   freetype2
 )
 makedepends=(
   "${_common_depends[@]}"
   git
   cmake
-  fontconfig
   libx11
   libxrandr
   libxinerama
