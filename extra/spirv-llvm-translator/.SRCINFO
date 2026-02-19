@@ -1,7 +1,7 @@
 pkgbase = spirv-llvm-translator
 	pkgdesc = LLVM <-> SPIR-V converter for compilers targeting SPIR-V
 	pkgver = 21.1.4
-	pkgrel = 1
+	pkgrel = 3
 	url = https://www.khronos.org/spirv/
 	arch = x86_64
 	license = NCSA
@@ -12,8 +12,8 @@ pkgbase = spirv-llvm-translator
 	makedepends = llvm
 	makedepends = ninja
 	makedepends = spirv-headers
-	depends = gcc-libs
 	depends = glibc
+	depends = libstdc++
 	depends = llvm-libs
 	depends = spirv-tools
 	source = git+https://github.com/KhronosGroup/SPIRV-LLVM-Translator#tag=v21.1.4
