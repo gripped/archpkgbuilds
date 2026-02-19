@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-store
-pkgver=1.0.6
+pkgver=1.0.7
 pkgrel=1
 epoch=1
 pkgdesc='Cosmic App Store'
@@ -26,13 +26,13 @@ makedepends=(
   cargo
   git
   just
-  lld
+  mold
 )
 source=(
   git+https://github.com/pop-os/cosmic-store.git#tag=epoch-${pkgver}
   cosmic-store-lto.patch
 )
-b2sums=('6f66754004b3ec885145054f92f13141124e11a2acfcccff33b20bb8360c05083c5a787a9d441cd86278ab58660eda3c117bd96a6fe995e91f32ae6063645b2f'
+b2sums=('d2270738cb1e61b01f874e6d31406e75f378f53868e7f270ac37bcb919e03d22e53f66d07407bee2804411e35be6216c390b4ea4431a2ed77ad9a0adbc509c15'
         'ed4089dd1ded4a87307c50f38af03ff3742bfc54053a668416f713c9b27eb591e608166ce14f2f50f8303aaf06533963fd821d00522b77e7f965827035a7ff11')
 
 prepare() {
@@ -43,7 +43,7 @@ prepare() {
 
 build() {
   cd cosmic-store
-  RUSTFLAGS+=" -C link-arg=-fuse-ld=lld"
+  RUSTFLAGS+=" -C link-arg=-fuse-ld=mold"
   just build-release --frozen --no-default-features --features dbus-config,desktop-systemd-scope,flatpak,logind,notify,single-instance,wgpu,wayland,xdg-portal
 }
 
