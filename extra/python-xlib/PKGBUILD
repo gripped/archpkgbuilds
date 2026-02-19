@@ -5,14 +5,14 @@
 
 pkgname=python-xlib
 pkgver=0.33
-pkgrel=5
+pkgrel=6
 pkgdesc="A fully functional X client library for Python programs"
 url="https://github.com/python-xlib/python-xlib"
 arch=('any')
-license=('LGPL')
+license=('LGPL-2.1-or-later')
 depends=('python-six')
-makedepends=('python-setuptools-scm')
-checkdepends=('xorg-xauth' 'xorg-server-xvfb' 'python-nose')
+makedepends=('python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
+checkdepends=('xorg-xauth' 'xorg-server-xvfb' 'python-pytest')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/python-xlib/python-xlib/archive/$pkgver.tar.gz"
         "mock.patch")
 sha256sums=('e10d1b49655800bffe0fbb5eb31eeef915a4421952ef006d468d53d34901f6f8'
@@ -25,15 +25,15 @@ prepare() {
 
 build(){
   cd "$pkgname-$pkgver"
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check(){
   cd "$pkgname-$pkgver"
-  python ./runtests.py
+  xvfb-run pytest -v examples/run_examples.py test/
 }
 
 package_python-xlib() {
   cd "$pkgname-$pkgver"
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
