@@ -5,12 +5,12 @@
 
 pkgname=opencsg
 pkgver=1.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Library for image-based CSG rendering using OpenGL'
 arch=(x86_64)
 url='https://www.opencsg.org'
 license=(GPL-2.0-or-later)
-depends=(glibc gcc-libs)
+depends=(glibc libgcc libstdc++)
 makedepends=(git cmake ninja glu)
 source=("$pkgname::git+https://github.com/floriankirsch/OpenCSG#tag=$pkgname-${pkgver//./-}-release")
 sha512sums=('11e80ba45b531121047aa49fd776b261420cf295d856f40c00dca5e62668c0e44c89036dcbff36657c7d16846f6cb5617e7ab56ec6946e3e8be026295349d9b9')
