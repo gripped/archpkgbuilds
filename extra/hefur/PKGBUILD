@@ -4,16 +4,17 @@
 
 pkgname=hefur
 pkgver=1.0
-pkgrel=34
+pkgrel=35
 pkgdesc='A standalone and lightweight BitTorrent tracker'
 arch=('x86_64')
 url='https://github.com/abique/hefur'
 license=('MIT')
 depends=(
     'abseil-cpp'
-    'gcc-libs'
     'glibc'
     'gnutls'
+    'libgcc'
+    'libstdc++'
     'nettle'
     'protobuf'
     'xz'
