@@ -5,17 +5,18 @@
 
 pkgname=ccache
 pkgver=4.12.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Compiler cache that speeds up recompilation by caching previous compilations'
 url='https://ccache.dev/'
 arch=('x86_64')
 license=('GPL-3.0-or-later')
 depends=(
   'fmt'
-  'gcc-libs'
   'glibc'
   'hiredis'
   'libblake3'
+  'libgcc'
+  'libstdc++'
   'libxxhash.so'
   'libzstd.so'
   'xxhash'
