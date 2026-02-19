@@ -1,13 +1,13 @@
 pkgbase = ladspa
 	pkgdesc = Linux Audio Developer's Simple Plugin API (LADSPA)
 	pkgver = 1.17
-	pkgrel = 6
+	pkgrel = 7
 	url = https://www.ladspa.org/
 	arch = x86_64
 	license = LGPL-2.1-or-later
-	depends = gcc-libs
 	depends = glibc
 	depends = libsndfile
+	depends = libstdc++
 	source = https://ladspa.org/download/ladspa_sdk_1.17.tgz
 	source = ladspa-1.17-plugin_underlinking.patch
 	source = ladspa-1.17-fix-memleak-in-plugin-scanning.patch

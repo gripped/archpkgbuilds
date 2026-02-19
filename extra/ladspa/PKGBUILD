@@ -3,15 +3,15 @@
 
 pkgname=ladspa
 pkgver=1.17
-pkgrel=6
+pkgrel=7
 pkgdesc="Linux Audio Developer's Simple Plugin API (LADSPA)"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 url="https://www.ladspa.org/"
 depends=(
-  gcc-libs
   glibc
   libsndfile
+  libstdc++
 )
 source=(
   https://ladspa.org/download/ladspa_sdk_$pkgver.tgz
