@@ -2,7 +2,7 @@
 
 pkgname=gettext
 pkgver=1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="GNU internationalization library"
 url="https://www.gnu.org/software/gettext/"
 arch=(x86_64)
@@ -15,7 +15,12 @@ license=(
 depends=(
   acl
   attr
-  gcc-libs
+  curl
+  glibc
+  json-c
+  libgcc
+  libgomp
+  libstdc++
   gnulib-l10n
   libunistring
   libxml2
