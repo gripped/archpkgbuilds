@@ -1,7 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma-keyboard
-pkgver=0.1.0
+pkgver=6.6.0
+_dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 arch=(x86_64)
 pkgdesc='Virtual Keyboard for Qt based desktops'
@@ -23,13 +24,17 @@ depends=(gcc-libs
          wayland)
 makedepends=(extra-cmake-modules
              wayland-protocols)
-source=(https://download.kde.org/unstable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('55ed656036ff5130484b1b6d09b5a0ba87791c330346662f89bf53e505f07093'
+groups=(plasma)
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('cc2ee9154e55e1a49c934aa8b2d4146a7209859de58057d96d297561652b76dc'
             'SKIP')
-validpgpkeys=(23919AE71103C02137422E3C5E023F97C5BB4C13) # Devin Lin <espidev@gmail.com>
+validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
+              '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
+              'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
+              '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
 
 build() {
-  cmake -B build -S $pkgname-v$pkgver
+  cmake -B build -S $pkgname-$pkgver
   cmake --build build
 }
 
