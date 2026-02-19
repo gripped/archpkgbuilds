@@ -2,31 +2,32 @@
 
 pkgname=reapack
 pkgver=1.2.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Package manager for the Reaper DAW'
-arch=('x86_64')
+arch=(x86_64)
 url='https://reapack.com'
 license=(
-  'GPL-3.0-or-later'
-  'LGPL-3.0-or-later'
+  GPL-3.0-or-later
+  LGPL-3.0-or-later
 )
 depends=(
-  'glibc'
-  'gcc-libs'
-  'openssl'
-  'zlib'
-  'reaper'
-  'libxml2'
-  'curl'
-  'sqlite'
+  glibc
+  libgcc
+  libstdc++
+  openssl
+  zlib
+  reaper
+  libxml2
+  curl
+  sqlite
 )
 makedepends=(
-  'git'
-  'cmake'
-  'boost'
-  'ruby'
-  'php'
-  'catch2'
+  git
+  cmake
+  boost
+  ruby
+  php
+  catch2
 )
 source=(
   "$pkgname::git+https://github.com/cfillion/reapack#tag=v$pkgver"
@@ -34,10 +35,14 @@ source=(
   'github.com-justinfrankel-reaper-sdk::git+https://github.com/justinfrankel/reaper-sdk'
   $pkgname-1.2.4.5-system_wide.patch
 )
+sha512sums=('e785b8f1d5fe142251c55329e69f77fa08fadb34983fcfa3f7df5cdc6d971eda7545d8050e34258ec63a0841b3ad72af0fce37c13d3d251af4b7b0da276a3f5b'
+            'SKIP'
+            'SKIP'
+            '96b3392ee3059d1d7dd8c20039ec278d25c80f8fb0cfacab33738d24e2272f048ab36506fdc7049d2639e3bf7c5c403571568fc0261a278c69e040578f3c157d')
 b2sums=('6dc565343c12629d50f487fc78ae50769127b7d0a2e6f901bfe2417b09853fa6de7c0ebbecac84df8fe70a9c185ef40e23994eeb25da909ede19d70991be1759'
         'SKIP'
         'SKIP'
-        '0f24c87d822322db6807a262fdb808b72937838fcb998b8d69cd938a9b33a22dfcdd95cf620ef862134f30e87681c40d99323a7762c92aef4e29f83f665e036d')
+        '222e37d29c6b9c3b1593545e3e12c40561a6f44b82234e0ba2b8223da541bc74191d955b98a9c72fc29ceac1a09a8e9d8fa24466524a7296e18c148563ee45e8')
 
 prepare() {
   cd "$pkgname"
@@ -49,10 +54,12 @@ prepare() {
   git -c protocol.file.allow=always submodule update
 
   # allow installing the plugin to reaper's system-wide plugin path: https://github.com/cfillion/reapack/issues/80
-  patch -Np1 -i ../$pkgname-1.2.4.5-system_wide.patch
+  patch -p1 -i ../$pkgname-1.2.4.5-system_wide.patch
 }
 
 build() {
+  cd "$pkgname"
+
   local cmake_options=(
     -B build
     -D CMAKE_BUILD_TYPE=None
@@ -62,8 +69,8 @@ build() {
     -W no-dev
   )
 
-  cd "$pkgname"
   cmake "${cmake_options[@]}"
+
   cmake --build build
 }
 
