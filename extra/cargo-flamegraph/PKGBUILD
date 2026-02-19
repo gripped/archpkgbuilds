@@ -1,14 +1,15 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+# Maintainer: Bert Peters <bertptrs@archlinux.org<
 
 pkgname=cargo-flamegraph
 pkgver=0.6.11
-pkgrel=1
+pkgrel=2
 pkgdesc='Easy flamegraphs for Rust projects and everything else'
 url="https://github.com/flamegraph-rs/flamegraph"
 depends=(
   'cargo'
-  'gcc-libs'
   'glibc'
+  'libgcc'
   'perf'
 )
 arch=('x86_64')
