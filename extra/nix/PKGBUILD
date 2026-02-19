@@ -10,7 +10,7 @@
 pkgbase=nix
 pkgname=(nix perl-nix)
 pkgver=2.33.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A purely functional package manager'
 arch=(x86_64)
 url='https://nixos.org/nix'
@@ -101,13 +101,20 @@ build() {
 
 package_nix() {
   depends=(
-    aws-sdk-cpp-core aws-sdk-cpp-iam aws-sdk-cpp-s3
+    aws-sdk-cpp-core
+    aws-sdk-cpp-iam
+    aws-sdk-cpp-s3
+    aws-c-auth
+    aws-crt-cpp
+    libstdc++
+    aws-c-common
     boost-libs libboost_context.so
     brotli libbrotlienc.so libbrotlidec.so
     curl libcurl.so
     editline libeditline.so
     gc
-    gcc-libs
+    libgcc
+    libstdc++
     glibc
     libarchive libarchive.so
     libblake3
@@ -141,7 +148,8 @@ package_perl-nix() {
   pkgdesc+=' (Perl bindings)'
   depends=(
     glibc
-    gcc-libs
+    libgcc
+    libstdc++
     libsodium
     nix
     perl
