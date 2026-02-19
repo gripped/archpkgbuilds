@@ -2,7 +2,7 @@
 # Contributor: Justin Davis (juster) <jrcd83@gmail.com>
 
 pkgname=perl-net-server
-pkgver=2.017
+pkgver=2.018
 pkgrel=1
 pkgdesc='Extensible, general Perl server engine'
 arch=(any)
@@ -11,8 +11,8 @@ license=('Artistic-1.0-Perl OR GPL-1.0-or-later')
 depends=(perl)
 options=(!emptydirs)
 source=("$pkgname-$pkgver.tar.gz::https://cpan.metacpan.org/authors/id/B/BB/BBB/Net-Server-$pkgver.tar.gz")
-sha512sums=('0fe6b684c76e73a4ac68d25ba073ba9628699dfce507f13c63be2c2ac7965b4db8b55ec6e2c2e06fed52a4f7b065635345ab0f03e43740419ccdc2bb55b29714')
-b2sums=('5ad84a89be87b1da7ea0deb483f44d76f766934c33824be05234bbd231240950ab94f6d2a0690764a640c6f10304abeaebf3eef9c0fe7386ab7c791f21bd01cf')
+sha512sums=('a7045397431d8f986e755a7abb208ac73c2ec9bd2ea2100a846684bd6afc49a4354d77b02bba8e29f793021c0aa8f3dfd2c5721dadb01b242877a74c3e5171c8')
+b2sums=('56d519a3b4da1de843a7dc1ad5de6011d779b57757ce00238d81523c70433bfbc1ddd3b18bdb40443b486305ccd6e072b7951eb762aa4e15755742f5c1bae3d8')
 
 build() {
   cd Net-Server-$pkgver
