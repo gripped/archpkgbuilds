@@ -3,12 +3,12 @@
 
 pkgname=fnm
 pkgver=1.38.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Fast and simple Node.js version manager, built with Rust"
 arch=('x86_64')
 url="https://github.com/Schniz/${pkgname}"
 license=('GPL-3.0-or-later')
-depends=('xz' 'gcc-libs')
+depends=('xz' 'glibc' 'libgcc')
 makedepends=('cargo')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
 sha256sums=('c24e4c26183a4d88a33e343902ed2d45da23e78c66b2a696a7420eb86deddda9')

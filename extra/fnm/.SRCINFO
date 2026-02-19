@@ -1,13 +1,14 @@
 pkgbase = fnm
 	pkgdesc = Fast and simple Node.js version manager, built with Rust
 	pkgver = 1.38.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/Schniz/fnm
 	arch = x86_64
 	license = GPL-3.0-or-later
 	makedepends = cargo
 	depends = xz
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	source = fnm-1.38.1.tar.gz::https://github.com/Schniz/fnm/archive/v1.38.1.tar.gz
 	sha256sums = c24e4c26183a4d88a33e343902ed2d45da23e78c66b2a696a7420eb86deddda9
 
