@@ -9,8 +9,8 @@
 pkgname=toxcore
 _pkgname=c-toxcore
 epoch=1
-pkgver=0.2.21
-pkgrel=3
+pkgver=0.2.22
+pkgrel=1
 pkgdesc='Secure, configuration-free, P2P Skype replacement backend'
 arch=('x86_64')
 url='https://tox.chat'
@@ -36,10 +36,10 @@ source=(
   'toxcore.sysusers'
   'toxcore.tmpfiles'
 )
-sha512sums=('620309a4c23a651fc4f4a01f955f0da6de9748f3930e9a3e1d09c011bed11599f208d389acbfb36c282aeb0953183fb0a9c8ef306c0d8314476607727e4b7936'
-            'SKIP'
-            '06d5f7b26e2e10edeb96dfd961b400eacad12df4cd227d0fccc0b1436cc37e9141d712a37eae9ead370c49126758546941f43208d377b7ecdd57f53ee20170a3'
-            'f1534f5f46d0b8e2f21b2bce802f48a8bd45ba6beca34112d44e27b6033352867cd9d25f1c3c35c59faf6e6d727793f3d552d0d9b724c9d09cb83075ca196743')
+b2sums=('bfd890868439372c0d3d89d3dedf0247b485b7885418239152ff6185da67ea6ce645994df5f9d0410b7a9c394ed5cbde3500235fd7fb21957303c5021a2a579d'
+        'SKIP'
+        '8faed598106644d161fd59a369833bd985efd2b1da2611fb346e33dc1a4bf1cadc9863d0da3bc3fca74636b302ce7b721f764499e2714df6af4383ebb6c76996'
+        '6c48116f064d9da91ea17a1b08d659b8f0201697676e478e7d7d80a05566029ea415ab270a799747c98e8c7cff4b0e1cb5448e21942531df90c8cc60e7032c6b')
 validpgpkeys=(
   '15D3B9A6B3951DF9854FCA93E786548AE0A0B56B' # RobinLindén<mail+gitlab@robinlinden.eu>
   'B7008FF12C079BF6E6EA19D1601A604B7E605776' # Robin Lindén <mail@robinlinden.eu>
@@ -51,6 +51,7 @@ validpgpkeys=(
   'C7A2552D0B250F983827742C133203A3AC399151' # - initramfs
   '2880C860D95C909D3DA45C687E086DD661263264' # - tux3
   '94CB3CD51379B7734C5617D82DEB4706E996351E' # Green-Sky (Dev keys) <Green-Sky@users.noreply.github.com>
+  'A90E2D9711FDD3A1DD68882C3855DBA2D74403C9' # Iphigenia Df <iphydf@users.noreply.github.com>
 )
 
 prepare() {
