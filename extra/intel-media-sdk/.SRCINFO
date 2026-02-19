@@ -1,7 +1,7 @@
 pkgbase = intel-media-sdk
 	pkgdesc = Legacy API for hardware video acceleration on Intel GPUs (Broadwell to Rocket Lake)
 	pkgver = 23.2.2
-	pkgrel = 5
+	pkgrel = 6
 	url = https://github.com/Intel-Media-SDK/MediaSDK/
 	arch = x86_64
 	license = MIT
@@ -26,11 +26,12 @@ pkgbase = intel-media-sdk
 	sha256sums = 4a7bab16e6d90f1f6e4a365328c0edd08dd8ea02d38687fcb0c2248bb69171d2
 
 pkgname = intel-media-sdk
-	depends = gcc-libs
 	depends = glibc
 	depends = intel-media-driver
 	depends = libdrm
+	depends = libgcc
 	depends = libmfx=23.2.2
+	depends = libstdc++
 	depends = libva
 	depends = wayland
 	provides = vpl-runtime
@@ -38,5 +39,6 @@ pkgname = intel-media-sdk
 
 pkgname = libmfx
 	pkgdesc = Intel Media SDK dispatcher library
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++

@@ -3,7 +3,7 @@
 pkgbase=intel-media-sdk
 pkgname=('intel-media-sdk' 'libmfx')
 pkgver=23.2.2
-pkgrel=5
+pkgrel=6
 pkgdesc='Legacy API for hardware video acceleration on Intel GPUs (Broadwell to Rocket Lake)'
 arch=('x86_64')
 url='https://github.com/Intel-Media-SDK/MediaSDK/'
@@ -61,11 +61,12 @@ check() {
 
 package_intel-media-sdk() {
     depends=(
-        'gcc-libs'
         'glibc'
         'intel-media-driver'
         'libdrm'
+        'libgcc'
         "libmfx=${pkgver}"
+        'libstdc++'
         'libva'
         'wayland')
     options=('!emptydirs')
@@ -85,8 +86,9 @@ package_intel-media-sdk() {
 package_libmfx() {
     pkgdesc='Intel Media SDK dispatcher library'
     depends=(
-        'gcc-libs'
-        'glibc')
+        'glibc'
+        'libgcc'
+        'libstdc++')
     
     mv -T libmfx "$pkgdir"
     install -D -m644 "MediaSDK-intel-mediasdk-${pkgver}/LICENSE" -t "${pkgdir}/usr/share/licenses/${pkgname}"
