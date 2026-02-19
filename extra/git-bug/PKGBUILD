@@ -3,16 +3,17 @@
 
 pkgname=git-bug
 pkgver=0.10.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Distributed, offline-first bug tracker embedded in git, with bridges '
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/MichaelMure/git-bug'
-license=('GPL-3.0-only')
-depends=('gcc-libs' 'git')
-makedepends=('go')
-options=('!lto')
+license=(GPL-3.0-only)
+depends=(glibc git)
+makedepends=(go)
+options=(!lto)
 source=("git+$url#tag=v$pkgver")
-sha256sums=('4bedbb81c1b1f727bc0c62c065a20d60421665b03a4856b5f3a3226e19138d05')
+sha512sums=('80e3b3bc1d6ae8847fa7bcda418e29f42caf345876ccf3715ae53ef8edf88bd7ab28bc158660c16b7f4ba021c15c365062b82fc112ad922fba5ba2c1b7a9e6e0')
+b2sums=('cbeac34dc63676079f8ff5ba02abdc90762e1f55ffbc5572d98e2a4a8764ffd6ddce4ec6bb97712517c8c26401a7ee78ab9611f97244b63544bd9963e9d53b1e')
 
 # NOTE: webui assets seem to be pregenerated & committed into the repo
 # so there is very little point in regenerating them
