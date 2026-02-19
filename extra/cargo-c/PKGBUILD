@@ -2,7 +2,7 @@
 
 pkgname=cargo-c
 pkgver=0.10.20
-pkgrel=1
+pkgrel=2
 pkgdesc='A cargo subcommand to build and install C-ABI compatible dynamic and static libraries'
 arch=('x86_64')
 url='https://github.com/lu-zero/cargo-c/'
@@ -10,8 +10,8 @@ license=('MIT')
 depends=(
   'cargo'
   'curl' 'libcurl.so'
-  'gcc-libs'
   'glibc'
+  'libgcc'
   'openssl' 'libssl.so'
   'zlib' 'libz.so'
 )
