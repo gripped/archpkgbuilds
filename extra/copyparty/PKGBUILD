@@ -2,7 +2,7 @@
 # Contributor: icxes <dev.null@need.moe>
 
 pkgname=copyparty
-pkgver=1.20.6
+pkgver=1.20.7
 pkgrel=1
 pkgdesc='File server with accelerated resumable uploads, dedup, WebDAV, FTP, TFTP, zeroconf, media indexer, thumbnails++'
 arch=(any)
@@ -34,8 +34,8 @@ optdepends=(
 )
 backup=(etc/copyparty/copyparty.conf)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/9001/copyparty/releases/download/v$pkgver/copyparty-$pkgver.tar.gz")
-sha512sums=('a235222fc9a05202d98ca047070181955cf321570128b076902d7430656e36728e6f65173cc22806321041c5edf76a0923857919f0388086c6ac23b03c32c6f4')
-b2sums=('bc2b3a7cd9a7d084c6a815959e9f31be15fb64c6f7ecf9c25377f16bd7670d2aea438e910a1b8419b913a9afdeb9164ab363f182f712986a4e6a59baa24c2a8e')
+sha512sums=('a73f422634ecad394d6b6c48a2003973e6aedcf3d5f408bbc45e1a492a7274d74af75c6b2e74903f883249c26554f0af011733a2ea47a92969eb730f778388f7')
+b2sums=('aebdc34b65a36aaf52b49794da45740f3655bc1f379f2f1d01132eac5958acc53330b8741f230cd46cd9f43d6235b09deb6a4b775f259b63a926f954d6108d6b')
 
 prepare() {
   cd "$pkgname-$pkgver"
