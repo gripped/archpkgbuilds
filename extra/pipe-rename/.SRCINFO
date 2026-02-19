@@ -1,14 +1,14 @@
 pkgbase = pipe-rename
 	pkgdesc = Rename your files using your favorite text editor
 	pkgver = 1.6.6
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/marcusbuffett/pipe-rename
 	arch = x86_64
 	license = MIT
 	makedepends = git
 	makedepends = rust
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	options = !lto
 	source = pipe-rename::git+https://github.com/marcusbuffett/pipe-rename.git#tag=1.6.6
 	sha512sums = bfdf0428bfc6dcd3128acb24007f9ead452a4113f7811c39c91459e4644e0060498b2dbc8db8d60102b780b67eb55dcc45cc1ac577908d35f4aa068a3b790e64
