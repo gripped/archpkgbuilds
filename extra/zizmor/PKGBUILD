@@ -3,14 +3,14 @@
 
 pkgname=zizmor
 pkgver=1.22.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A static analysis tool for GitHub Actions"
 url='https://github.com/zizmorcore/zizmor'
 arch=('x86_64')
 license=('MIT')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
 )
 makedepends=(
   'cargo'
