@@ -1,40 +1,42 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=satty
-_pkgname=Satty
 pkgver=0.20.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Modern screenshot annotation tool, inspired by Swappy and Flameshot"
-url="https://github.com/gabm/satty"
 arch=(x86_64)
+url="https://github.com/gabm/satty"
 license=(MPL-2.0)
 depends=(
   fontconfig
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
   pango
 )
-makedepends=(cargo)
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('86e85e8abdcfee925f0b95d424bd9eed9ad78aeb537707132e77ccb63133ac97')
+makedepends=(
+  cargo
+  git
+)
+source=("$pkgname::git+$url.git#tag=v$pkgver")
+b2sums=('c97f8bc8144f070fcf2ea1b01a62989150932010a5176bee35bc74dd757a722dc40eaca8f3a1e9b8c8c020d50739d300c5bd11c54478a53d3c4f9bbf43467d69')
 
 prepare() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
   cargo build --frozen --release --all-features
 }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
   install -vDm755 -t "$pkgdir/usr/bin" target/release/satty
 
   install -vDm644 completions/_satty \
