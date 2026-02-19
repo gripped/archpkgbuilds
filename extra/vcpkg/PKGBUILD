@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=vcpkg
-pkgver=2025.12.16
+pkgver=2026.02.17
 _pkgver="${pkgver//./-}"
 pkgrel=1
 pkgdesc='C++ library manager'
@@ -10,7 +10,8 @@ url='https://vcpkg.io'
 license=(MIT)
 depends=(
   glibc
-  gcc-libs
+  libgcc
+  libstdc++
   fmt
   unzip
   zip
@@ -22,39 +23,43 @@ install=vcpkg.install
 source=(
   "$pkgname::git+https://github.com/microsoft/vcpkg-tool#tag=$_pkgver"
   vcpkg.sh
-   fmt-12.patch
+  fmt-12.patch
 )
-sha512sums=('84f504eaeaaa2857a4bd96b7293175ad24fcc06473d4cfbe5662b09f52a75336fb86f540629bf4e3078fd25761eb907414a1c18d7d2cd3648eb1a546e0c42dd5'
+sha512sums=('8797d1edeb11ee88020a3146b0434ee2fa6dcabb725818d17e16745a07739c1ae9cae1317d32071107b43f293cfa9acf64159cae0d511cc6e1ed4a35859c08f7'
             'a71f4de5044197871b01d66db0453c8df228d690b259972fd4cf242806f3eac65d80e3c794ce511ce03b69f95d6c40ab20989e6fd9907efc962337d5dfbdf4f6'
             '79cb073b763f9e65aebebd7d09c7b1c11d1cbe439e0b18fc7968686aa29056674f0b8de552b0d755a2ba47016d9a0cfbca0ad7f7b346c7254f671486303f1ec8')
-b2sums=('63570c996944e028da17ee63b0fed4e971fa90c34afa5223e2355f5be636a32e7ba0b165183069c8d336beba2e1368646c506756c369299a7d2d09d3895c984e'
+b2sums=('530899bb627f9f1a111e5cd6785a954b1517d6ed1bf09a270a0421b5b510f00f9ee40d169af192915ea40c1c54651438dd9d858e1e48b42c9990813970d2ebdc'
         'c67bb718f04146ae72ba5d7a290d08079e965cc330db11c98b94de355cd4a6ff489dbd4c363c940f4a96a1fd7ff8a754ff0efb62156e81bcccfd80376b4d0e39'
         'eb4f0be5aa3d5a8c5da68fa4820804ea5ccb231b37e8b10b4e5257a767b91cc60ba587840651734d2ab574b87801d669995576e3f313e96014baac0da1d5b262')
 
 prepare() {
   cd $pkgname
-  patch -p1 -i ../fmt-12.patch
+
+  patch -p1 -i  "$srcdir/fmt-12.patch"
 }
 
 build() {
-  cmake \
-    -S "$pkgname" \
-    -B build \
-    -G Ninja \
-    -D CMAKE_BUILD_TYPE=Release \
-    -D CMAKE_INSTALL_PREFIX='/usr' \
-    -D CMAKE_SKIP_INSTALL_RPATH=ON \
-    -D VCPKG_DEVELOPMENT_WARNINGS=OFF \
-    -D VCPKG_DEPENDENCY_EXTERNAL_FMT=ON \
-    -D VCPKG_BASE_VERSION="$_pkgver" \
-    -D VCPKG_VERSION=$(git -C $pkgname rev-parse HEAD) \
-    -D BUILD_TESTING=OFF \
-    -D VCPKG_WARNINGS_AS_ERRORS=OFF \
-    -D VCPKG_BUILD_TLS12_DOWNLOADER=OFF \
-    -D VCPKG_BUILD_FUZZING=OFF \
-    -D VCPKG_EMBED_GIT_SHA=OFF \
-    -D VCPKG_BUILD_BENCHMARKING=OFF \
+  local cmake_options=(
+    -S "$pkgname"
+    -B build
+    -G Ninja
+    -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_INSTALL_PREFIX='/usr'
+    -D CMAKE_SKIP_INSTALL_RPATH=ON
+    -D VCPKG_DEVELOPMENT_WARNINGS=OFF
+    -D VCPKG_DEPENDENCY_EXTERNAL_FMT=ON
+    -D VCPKG_BASE_VERSION="$_pkgver"
+    -D VCPKG_VERSION="$(git -C $pkgname rev-parse HEAD)"
+    -D BUILD_TESTING=OFF
+    -D VCPKG_WARNINGS_AS_ERRORS=OFF
+    -D VCPKG_BUILD_TLS12_DOWNLOADER=OFF
+    -D VCPKG_BUILD_FUZZING=OFF
+    -D VCPKG_EMBED_GIT_SHA=OFF
+    -D VCPKG_BUILD_BENCHMARKING=OFF
     -D VCPKG_ADD_SOURCELINK=OFF
+    -W no-dev
+  )
+  cmake "${cmake_options[@]}"
 
   cmake --build build
 }
@@ -67,5 +72,6 @@ package() {
 
   # license
   cd "$pkgname"
+
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt NOTICE.txt
 }
