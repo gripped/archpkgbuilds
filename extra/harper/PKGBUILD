@@ -1,42 +1,47 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=harper
-pkgver=1.7.0
+pkgver=1.8.0
 pkgrel=1
 pkgdesc='The Grammar Checker for Developers'
 arch=(x86_64)
 url='https://github.com/Automattic/harper'
 license=(Apache-2.0)
 depends=(
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(
-  cargo
+  git
+  rust
 )
 options=(!lto)
-source=(https://github.com/Automattic/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('da56b2fd6163f7bb5e51b43d8658a402d3773e708eefe8758143301285a16959')
-b2sums=('7f8a45583cc9a6a94de22842d9df3dce5e71f676be3e5782e3180e8515b023989c6702e5b84b4a879f3f5ce5c488640a78d225acf694d5b88a6a9e0bf856a199')
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('0f848bb3713d5c40178cd4339b4157717d0124fdb1e7cd4c1f0f176cfd03365ffb3de5619cf3f111c0f565e86d0ee842eff22c56f09c17b1deab193e40a3244b')
+b2sums=('e9068be5ad0bad30318175097e5b1ce0c10d8465135e2da86100088da4081773bd928cd76f682cf8fa729255126660d3c2b98a66ba3dc4c633c47fe9929a858f')
 
 prepare() {
-  cd "${pkgname}-${pkgver}"
+  cd "$pkgname"
+
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd "$pkgname"
+
   cargo build --frozen --release
 }
 
 check() {
-  cd ${pkgname}-${pkgver}
+  cd "$pkgname"
+
   cargo test --frozen
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  install -Dm 755 -t "${pkgdir}/usr/bin" \
+  cd "$pkgname"
+
+  install -Dm 755 -t "$pkgdir/usr/bin" \
     target/release/harper-cli \
     target/release/harper-ls
 }
