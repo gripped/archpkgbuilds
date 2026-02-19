@@ -2,14 +2,15 @@
 
 pkgname=libvpl
 pkgver=2.16.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Intel Video Processing Library'
 arch=('x86_64')
 url='https://intel.github.io/libvpl/'
 license=('MIT')
 depends=(
-    'gcc-libs'
-    'glibc')
+    'glibc'
+    'libgcc'
+    'libstdc++')
 optdepends=(
     'intel-media-sdk: runtime implementation for legacy Intel GPUs'
     'vpl-gpu-rt: runtime implementation for Tiger Lake and newer GPUs')

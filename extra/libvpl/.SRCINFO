@@ -1,13 +1,14 @@
 pkgbase = libvpl
 	pkgdesc = Intel Video Processing Library
 	pkgver = 2.16.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://intel.github.io/libvpl/
 	arch = x86_64
 	license = MIT
 	makedepends = cmake
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	optdepends = intel-media-sdk: runtime implementation for legacy Intel GPUs
 	optdepends = vpl-gpu-rt: runtime implementation for Tiger Lake and newer GPUs
 	provides = onevpl
