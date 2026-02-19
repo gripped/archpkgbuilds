@@ -1,0 +1,10 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -48,6 +48,7 @@ option(BUILD_WITH_QT6 "Build against Qt6" OFF)
+ 
+ if (BUILD_WITH_QT6)
+ 	set(QT_MAJOR_VERSION 6)
++	list(APPEND QT_COMPONENTS GuiPrivate)
+ else()
+ 	set(QT_MAJOR_VERSION 5)
+ endif()
