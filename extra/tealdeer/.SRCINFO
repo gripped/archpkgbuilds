@@ -1,14 +1,15 @@
 pkgbase = tealdeer
 	pkgdesc = A fast tldr client in Rust
 	pkgver = 1.8.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/tealdeer-rs/tealdeer
 	arch = x86_64
 	license = MIT
 	license = Apache-2.0
 	makedepends = git
 	makedepends = rust
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	provides = tldr
 	conflicts = tldr
 	options = !lto

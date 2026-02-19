@@ -4,16 +4,16 @@
 
 pkgname=tealdeer
 pkgver=1.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A fast tldr client in Rust'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/tealdeer-rs/tealdeer'
-license=('MIT' 'Apache-2.0')
-depends=('gcc-libs')
-makedepends=('git' 'rust')
-provides=('tldr')
-conflicts=('tldr')
-options=('!lto')
+license=(MIT Apache-2.0)
+depends=(glibc libgcc)
+makedepends=(git rust)
+provides=(tldr)
+conflicts=(tldr)
+options=(!lto)
 source=("$pkgname::git+$url#tag=v$pkgver")
 sha512sums=('d55c1b0f551b377164a2081e2f39e932e67113ad4b30c54ef75a52dabff7776e5fe1018673290555f563d97bcb8a4a038354db9e3a5e55847fe0395282a7d4b9')
 b2sums=('084a27d19b8e00d414d6d478f760e105e4d0ebf642477867ff6cd1f2a2a63d2660a82733eea99d4e43f39b2f8bbd3bea3bc4a29048e5e1c3e82a616cbcf10049')
@@ -22,7 +22,7 @@ prepare() {
   cd "$pkgname"
 
   # download dependencies
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
@@ -41,10 +41,10 @@ package() {
   cd "$pkgname"
 
   # binary
-  install -vDm755 -t "$pkgdir/usr/bin" "target/release/tldr"
+  install -vDm755 -t "$pkgdir/usr/bin" target/release/tldr
 
   # licenses
-  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE*
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" ./LICENSE*
 
   # completions
   cd completion
