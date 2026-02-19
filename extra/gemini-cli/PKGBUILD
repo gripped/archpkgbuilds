@@ -2,7 +2,7 @@
 # Contributor: huyz
 
 pkgname=gemini-cli
-pkgver=0.28.2
+pkgver=0.29.2
 pkgrel=1
 epoch=1
 pkgdesc="Open-source AI agent that brings the power of Gemini directly into your terminal"
@@ -10,7 +10,8 @@ arch=(x86_64)
 url="https://github.com/google-gemini/gemini-cli"
 license=(Apache-2.0)
 depends=(
-  gcc-libs
+  libgcc
+  libstdc++
   glib2
   glibc
   libsecret
@@ -21,8 +22,11 @@ makedepends=(
   jq
   npm
 )
+checkdepends=(
+  vim
+)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('d877d26c98cbc7b5a0abff033f20ba89296a66238fd7877758c61df779073989bd08ee25c65e1cf83b177e165462c62241489fa14b67b7d531bb0eda0dbe80e9')
+b2sums=('7ce4b1261e779a0be65eb2ac5dac4ecdb5fd852f068a2af98be3f5d0892696ddf2f60fce2ca7ab2756a73c88eed7a505525de4908612c8713abd9933c10b7cbb')
 
 prepare() {
   cd $pkgname
