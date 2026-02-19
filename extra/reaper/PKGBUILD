@@ -2,7 +2,7 @@
 
 pkgname=reaper
 pkgver=7.61
-pkgrel=1
+pkgrel=2
 pkgdesc="A complete digital audio production application for computers"
 arch=(
   aarch64
@@ -15,7 +15,8 @@ depends=(
   aribb24
   alsa-lib libasound.so
   fontconfig
-  gcc-libs
+  libgcc
+  libstdc++
   glibc
   hicolor-icon-theme
   libglvnd
