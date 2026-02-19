@@ -1,13 +1,14 @@
 pkgbase = ada
 	pkgdesc = WHATWG-compliant and fast URL parser written in modern C++
 	pkgver = 3.4.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/ada-url/ada
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = cmake
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	source = ada-3.4.2.tar.gz::https://github.com/ada-url/ada/archive/refs/tags/v3.4.2.tar.gz
 	b2sums = 92a0f4f41c75241d2650f5c1de4d206980032834024f9bf35550b6ecca872780d5dfa3eea38c9ade0b1d643cf38f8c922a79a552a689e15d9584e5894a07d71a
 
