@@ -4,12 +4,12 @@
 
 pkgname=cargo-sort
 pkgver=2.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Check if tables and items in a .toml file are lexically sorted'
 arch=(x86_64)
 url='https://github.com/DevinR528/cargo-sort'
 license=(Apache-2.0 MIT)
-depends=(gcc-libs)
+depends=(glibc libgcc)
 makedepends=(git rust)
 source=("$pkgname::git+$url#tag=v$pkgver")
 sha512sums=('09e9590fe06b3d889c4eeb6a9216e0eb0e1374aea96c4d8721b35d911b060613a707dd656234cb7c3e256bf5c75de45f679ad277d65484903fd53d4cc7f09969')
@@ -19,7 +19,7 @@ prepare() {
   cd "$pkgname"
 
   # download dependencies
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
