@@ -3,14 +3,14 @@
 
 pkgname=python-jiter
 pkgver=0.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast iterable JSON parser"
 arch=(x86_64)
 url="https://github.com/pydantic/jiter"
 license=(MIT)
 depends=(
-  gcc-libs
   glibc
+  libgcc
   python
 )
 makedepends=(
