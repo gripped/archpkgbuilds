@@ -1,7 +1,7 @@
 pkgbase = fish
 	pkgdesc = Smart and user friendly shell intended mostly for interactive use
-	pkgver = 4.4.0
-	pkgrel = 1
+	pkgver = 4.5.0
+	pkgrel = 2
 	url = https://fishshell.com/
 	install = fish.install
 	arch = x86_64
@@ -14,8 +14,7 @@ pkgbase = fish
 	makedepends = rust
 	makedepends = python-sphinx
 	depends = glibc
-	depends = gcc-libs
-	depends = ncurses
+	depends = libgcc
 	depends = pcre2
 	optdepends = python: man page completion parser / web config tool
 	optdepends = pkgfile: command-not-found hook
@@ -26,8 +25,8 @@ pkgbase = fish
 	optdepends = wl-clipboard: Wayland clipboard integration
 	options = !lto
 	backup = etc/fish/config.fish
-	source = fish::git+https://github.com/fish-shell/fish-shell#tag=4.4.0
-	sha512sums = c7e3ce4b4779c9d5d01ba36cdcd21eebc2e876ed0167fbf64378536c93b4b885ae87d6206bce428e05bc695541775266d3943cd0efd70fac28cba53ae12893fb
-	b2sums = 8e762c32b47899a9a00190eecd22254fb1ddaad689ad882e297f4625c809f1868cf5b806a70cf6a9c1009c95238e4190f7e9eea56a9b8016e9c63406e874d324
+	source = fish::git+https://github.com/fish-shell/fish-shell#tag=4.5.0
+	sha512sums = bf06ac239c4755cb87e5450051737d87dc3c681464a19646029ec9037577ec21d6c7f41a4beaa550c718f0c568c4369869e9369d6ed3c39f0a05d47422704c22
+	b2sums = 5df0d8270b7372a5a4ee9dd91466a2ace576d93a95cc18bd1c38d47b89298f009c2a84fa42856abd6260836ab56207a7939f3c4f5ef7b1818af8513a60e0394e
 
 pkgname = fish
