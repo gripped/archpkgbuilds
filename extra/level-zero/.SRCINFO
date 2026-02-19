@@ -1,7 +1,7 @@
 pkgbase = level-zero
 	pkgdesc = API for accessing low level interfaces in oneAPI platform devices
 	pkgver = 1.27.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/oneapi-src/level-zero/
 	arch = x86_64
 	license = MIT
@@ -17,6 +17,7 @@ pkgname = level-zero-headers
 
 pkgname = level-zero-loader
 	pkgdesc = API for accessing low level interfaces in oneAPI platform devices (loader)
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = spdlog
