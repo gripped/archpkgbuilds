@@ -2,13 +2,14 @@
 # Contributor: Omar Sandoval <osandov at osandov dot com>
 
 pkgname=libkdumpfile
-pkgver=0.5.5
-pkgrel=3
+pkgver=0.5.6
+pkgrel=1
 pkgdesc='Library for kernel core dump file access'
 arch=('x86_64')
-url='https://github.com/ptesarik/libkdumpfile'
+url='https://codeberg.org/ptesarik/libkdumpfile'
 license=('LGPL-3.0-or-later OR GPL-2.0-or-later')
 depends=(
+    'binutils'
     'glibc'
     'lzo'
     'snappy'
@@ -16,20 +17,14 @@ depends=(
     'zstd'
 )
 makedepends=(
-    git
+    'git'
 )
 source=(git+${url}.git#tag=v${pkgver})
-sha256sums=('13ab8512a0dbd7a6e8f121fa1b2cb9c4d979ba58bf1d49de4ab9a8f7f1def36d')
+sha256sums=('5664e4e9801713bd78ab96811c20562cd95747208075532ef883ec2bc4800980')
 
 prepare() {
     cd "$pkgname"
     autoreconf -fiv
-
-    # https://github.com/ptesarik/libkdumpfile/issues/86
-    git cherry-pick -n \
-        120d4f09798fc4616f1af548a9811bbc43e55f72 \
-        c59ccc0c996868c63f5425a150979ecbaa9ba2d6 \
-        3796453174045b424cfba5a2c44d1e612e71e14e
 }
 
 build() {
