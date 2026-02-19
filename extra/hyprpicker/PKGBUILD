@@ -3,17 +3,18 @@
 
 pkgname=hyprpicker
 pkgver=0.4.6
-pkgrel=1
+pkgrel=2
 pkgdesc="A wlroots-compatible Wayland color picker that does not suck"
 arch=(x86_64)
 url="https://github.com/hyprwm/hyprpicker"
 license=(BSD-3-Clause)
 depends=(
   cairo
-  gcc-libs
   glibc
   hyprutils
   hyprwayland-scanner
+  libgcc
+  libstdc++
   libxkbcommon
   wayland
 )
