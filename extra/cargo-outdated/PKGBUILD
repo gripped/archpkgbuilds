@@ -1,21 +1,22 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
 # Contributor: Jian Zeng <anonymousknight96+aur AT gmail.com>
 # Contributor: Alexandre Bury <alexandre.bury+aur AT gmail.com>
 # Contributor: Vlad M. <vlad@archlinux.net>
 
 pkgname=cargo-outdated
 pkgver=0.18.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A cargo subcommand for displaying when Rust dependencies are out of date"
 url="https://github.com/kbknapp/cargo-outdated"
 arch=('x86_64')
 license=('MIT')
 depends=(
   'cargo'
-  'gcc-libs'
   'glibc'
   'libcurl.so'
+  'libgcc'
   'libssh2.so'
   'libssl.so'
   'libz.so'
@@ -27,7 +28,7 @@ options=('!lto')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
