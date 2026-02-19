@@ -11,15 +11,16 @@ _spirv_tools_commit=28a883ba4c67f58a9540fb0651c647bb02883622
 _spirv_headers_commit=9268f3057354a2cb65991ba5f38b16d81e803692
 _spirv_llvm_commit=c13fcf6c5072483d50993e9175087bead3b7bf8a
 _opencl_clang_commit=7161d7c6d97da80f12739cebad9bf508555bbfd9
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='Intel Graphics Compiler for OpenCL'
 arch=('x86_64')
 url='https://github.com/intel/intel-graphics-compiler/'
 license=('MIT' 'Apache-2.0 WITH LLVM-exception')
 depends=(
-    'gcc-libs'
     'glibc'
+    'libgcc'
+    'libstdc++'
     'zlib'
     'zstd')
 makedepends=(
