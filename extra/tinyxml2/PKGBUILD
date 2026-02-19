@@ -5,13 +5,17 @@
 
 pkgname=tinyxml2
 pkgver=11.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple XML parser made for easy integration'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/leethomason/tinyxml2'
 license=('LicenseRef-zlib')
-depends=('glibc' 'gcc-libs')
-makedepends=('git' 'cmake')
+depends=(
+  glibc
+  libgcc
+  libstdc++
+)
+makedepends=(git cmake)
 source=("$pkgname::git+$url#tag=$pkgver")
 sha512sums=('f13b0fa564bce8c6cd7940c69e65472f23164d2815c4f81c6aefe6527e861468fe089fb9e86f93bdbd3b6007db63d2888508ce13ed840c51a3f72a323a20ec8b')
 b2sums=('8c20892fdd705b4ed0acffb2729ffa9bb77c96e4af07a7108abea4374fa47fde3465798d60c7f0582bd056cdd083dcf61ba5a4301aeb9b385f93a0bd77ab5bfd')
