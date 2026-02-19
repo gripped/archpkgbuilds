@@ -4,7 +4,7 @@
 
 pkgname=kooha
 pkgver=2.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Elegantly record your screen"
 arch=('x86_64')
 url="https://github.com/SeaDve/Kooha"
@@ -14,7 +14,7 @@ depends=('glib2'
          'gst-plugins-base'
          'gst-plugins-good'
          'gst-plugins-ugly'
-         'gstreamer-vaapi'
+         'gst-plugin-va'
          'gtk4'
          'libadwaita>=1:1.5.0'
          'libpulse'
@@ -31,7 +31,7 @@ source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
 
 prepare() {
   cd Kooha-$pkgver
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
