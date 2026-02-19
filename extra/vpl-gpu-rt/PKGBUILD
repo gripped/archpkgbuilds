@@ -2,16 +2,17 @@
 
 pkgname=vpl-gpu-rt
 pkgver=25.3.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Intel VPL runtime implementation for Intel GPUs (Tiger Lake and newer)'
 arch=('x86_64')
 url='https://github.com/intel/vpl-gpu-rt/'
 license=('MIT')
 depends=(
-    'gcc-libs'
     'glibc'
     'intel-media-driver'
     'libdrm'
+    'libgcc'
+    'libstdc++'
     'libva')
 makedepends=('cmake')
 provides=('onevpl-intel-gpu' 'vpl-runtime')
