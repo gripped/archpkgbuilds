@@ -15,9 +15,9 @@ pkgname=(
   "python-${pkgbase}-rocm"
   "python-${pkgbase}-opt-rocm"
 )
-pkgver=1.23.2
+pkgver=1.24.1
 _pkgdesc='Cross-platform, high performance scoring engine for ML models'
-pkgrel=5
+pkgrel=1
 arch=('x86_64')
 url='https://github.com/microsoft/onnxruntime'
 license=('MIT')
@@ -35,15 +35,11 @@ source=("git+https://github.com/microsoft/onnxruntime#tag=v${pkgver}"
         "${pkgbase}-install-orttraining-files.patch"
         "${pkgbase}-system-dnnl.patch"
         "${pkgbase}-system-flatbuffers.patch"
-        fix-gcc-15.patch
-        deps-cutlass-4.2.0.patch
         fix-thrust-api.patch)
-b2sums=('ba28fe6c0ee88f151c0df386c42155b5a70bf0593691c8584b7f8314de148f10b22d509a7b201a684233b7a3a01e5f07752121e40678fb8021e99270f769b6dd'
+b2sums=('49f56c7511ea4e7ef5f165dbf6263e47d7ed6919b4ac0038ff236f7e194b5add5d848f72045ab9cffc51ef1c9c1f83c79a5e399a8aef52db4f2e782ea643c3a3'
         'af5a5524dd9b5fe0052d2d0da232de7f219d4abffb37a7a321145b428d06fcb2901ab4e76b6754440146c223fc761bcbdfeee230167d33aa4434b82a1ebad5c0'
         '57c79382537f5bd25a891de3a99415a6dd8f490676df213016e897040c88e28fb5f5a5c3a8a98057e3f6630edb3ddcaeae36dcc47d5354abaafafc36e579f731'
         '207f020f310a7b447b4dc2fac74819f80099f088fdad6e42d67d0f01aa35bb5b9475bd006d9bec318127ae2db3d7ae3df33382fa16339d936c1dfb3832010837'
-        'eda81fc2c2a9e9a241a1147cc470a90f437b559fac6c6c2da3d8d70b5e3492fcc98617aa3dbaec6d9548c7a370b3e825297f4ec98e2c067085dd5ef403340ee2'
-        '33809e4c3e99c22e5f066c8cbaebcb9f9a6165104c86be5dba65148e9bc7af01ace6580c7607eb73767f1c5e1b159805726cfb8f7f67b763033e24c00c31770f'
         'b0b58e2eb42a38956ef9e86b853d413c2fd002737d37721962dd9e1fc5c39c1ef4594325c6f6081f2b4cdce39a14907dbebc156645fa25ff3f2bbbce6417cd14')
 
 _valid_sm() {
@@ -85,19 +81,6 @@ prepare() {
 
   # Fix build with abseil 20250814; see https://github.com/microsoft/onnxruntime/issues/25815
   sed -i '/^absl::low_level_hash$/d' cmake/external/abseil-cpp.cmake
-
-  # Fix build with GCC 15
-  patch -p1 -i "${srcdir}/fix-gcc-15.patch"
-  # https://github.com/microsoft/onnxruntime/pull/25658
-  git cherry-pick -n d6e712c5b7b6260a61e54d1fe40107cf5366ee77
-
-  # Update deprecated CCCL API (#25246)
-  git cherry-pick -n a2bd54bc8c59562428f6b09d3f64f9e735599cd4
-  # [CUDA] Upgrade cutlass to 3.9.2 (#24794)
-  git cherry-pick -n 8983424d9a8d0a39d065b0e353d6fd3f2b2a638c
-
-  # Bump cutlass to v4.2 which supports CUDA 13 https://github.com/NVIDIA/cutlass/pull/2587
-  patch -p1 -i "${srcdir}/deps-cutlass-4.2.0.patch"
 
   # Fix thrust and cub API usage
   patch -p1 -i "${srcdir}/fix-thrust-api.patch"
@@ -146,7 +129,10 @@ build() {
     -Donnxruntime_NVCC_THREADS=2
     -Donnxruntime_USE_DNNL=ON
     -Donnxruntime_USE_CUDA=ON
-    -Donnxruntime_USE_NCCL=ON
+    # Disable NCCL until
+    # https://github.com/microsoft/onnxruntime/issues/27269
+    # is fixed
+    -Donnxruntime_USE_NCCL=OFF
     -Donnxruntime_CUDA_HOME=/opt/cuda
     -Donnxruntime_CUDNN_HOME=/usr)
 
