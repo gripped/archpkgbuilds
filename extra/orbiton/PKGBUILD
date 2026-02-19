@@ -2,7 +2,7 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3 orbiton-nano)
-pkgver=2.70.5
+pkgver=2.72.1
 pkgrel=1
 pkgdesc='Configuration-free text editor and IDE'
 arch=(x86_64)
@@ -12,7 +12,7 @@ makedepends=(git go vte3)
 depends=(glibc)
 options=(!lto)
 source=("git+https://github.com/xyproto/orbiton#tag=v$pkgver")
-b2sums=('23e8042f594c2b4a0244b452c918bdaaaaa9b5b449a4100537f6f9797a377f2ef431f4f75b5942242fbef3561fabd4c9856c0eb63d67acf232fcd3caf89bd64c')
+b2sums=('c7ed5ef708721c4e8cd3b13067f603ff2ba11c7ee7001df094377297a0ba6106812b72bb6f029158a7d859034d6d856e1b57c5c04bf4990e539737a3bdf8e537')
 
 build() {
   export LDFLAGS="$(echo $LDFLAGS | sed 's/ -Wl//g;s/,--sort-common//')"
@@ -30,18 +30,18 @@ package_orbiton() {
   # 'scala: for compiling Scala'
   # 'vlang: for compiling and formatting V'
   optdepends=('abcmidi: for writing music in the ABC notation'
-              'asciidoctor: for writing man pages'
               'agda: for compiling Agda'
+              'asciidoctor: for writing man pages'
               'astyle: for formatting C#'
               'clang: for formatting C++ code with clang-format'
               'clojure: for compiling Clojure'
               'crystal: for compiling Crystal'
               'dart: for compiling and formatting Dart'
               'fpc: for compiling Object Pascal'
-              'gdb: for debugging C'
               'gcc-d: for compiling D'
+              'gdb: for debugging C'
               'ghc: for compiling Haskell'
-              'gopls: for tab completing Go'
+              'gopls: for Tab completing Go'
               'haskell-brittany: for formatting Haskell'
               'jad: for decompiling .class files on the fly'
               'java-environment: for compiling Java'
@@ -56,17 +56,21 @@ package_orbiton() {
               'odin: for compiling Odin'
               'odinfmt: for formatting Odin'
               'ollama: for explaining code'
-              'perl-tidy: for formatting Perl'
               'pandoc: for exporting Markdown to PDF'
+              'perl-tidy: for formatting Perl'
               'prettier: for formatting JavaScript, TypeScript and CSS'
-              'python-black: for formatting Python'
+              'pylsp: for Tab completing Python'
+              'python-ruff: for formatting Python'
+              'rust-analyzer: for Tab completing Rust'
               'rustup: for compiling and formatting Rust'
               'scdoc: for writing man pages'
               'shfmt: for formattig Shell scripts'
               'tidy: for formatting HTML'
               'timidity: for playing music in the ABC notation'
               'yasm: for compiling Assembly'
-              'zig: for compiling and formatting Zig')
+              'zig: for compiling and formatting Zig'
+              'zls: for Tab completing Zig')
+
   DESTDIR="$pkgdir" make -C $pkgbase install symlinks easteregg license
 }
 
