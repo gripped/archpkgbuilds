@@ -1,13 +1,14 @@
 pkgbase = rdfind
 	pkgdesc = Redundant data find - a program that finds duplicate files
 	pkgver = 1.7.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://rdfind.pauldreik.se
 	arch = x86_64
 	license = GPL-2.0-only
 	makedepends = git
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = nettle
 	depends = xxhash
 	source = git+https://github.com/pauldreik/rdfind.git?signed#tag=releases/1.7.0
