@@ -2,36 +2,37 @@
 
 pkgbase=vaporizer2
 pkgname=(
-  'vaporizer2-common'
-  'vaporizer2-lv2'
-  'vaporizer2-vst3'
-  'vaporizer2-clap'
-  'vaporizer2-standalone'
+  vaporizer2-common
+  vaporizer2-lv2
+  vaporizer2-vst3
+  vaporizer2-clap
+  vaporizer2-standalone
 )
 pkgver=3.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A hybrid wavetable additive/subtractive synthesizer/sampler workstation'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/VASTDynamics/Vaporizer2'
-license=('GPL-3.0-only')
-groups=('pro-audio')
+license=(GPL-3.0-only)
+groups=(pro-audio)
 _common_depends=(
-  'glibc'
-  'gcc-libs'
-  'fftw'
-  'libglvnd'
-  'freetype2'
+  glibc
+  libgcc
+  libstdc++
+  fftw
+  libglvnd
+  freetype2
 )
 makedepends=(
   "${_common_depends[@]}"
-  'git'
-  'cmake'
-  'jack'
-  'libx11'
-  'alsa-lib'
-  'libxrandr'
-  'libxinerama'
-  'libxcursor'
+  git
+  cmake
+  jack
+  libx11
+  alsa-lib
+  libxrandr
+  libxinerama
+  libxcursor
 )
 source=(
   "$pkgbase::git+$url#tag=v$pkgver"
@@ -102,11 +103,11 @@ package_vaporizer2-common() {
 
 package_vaporizer2-lv2() {
   pkgdesc+=' - LV2 plugin'
-  groups+=('lv2-plugins')
+  groups+=(lv2-plugins)
   depends=(
     "${_common_depends[@]}"
-    'vaporizer2-common'
-    'lv2-host'
+    vaporizer2-common
+    lv2-host
   )
 
   install -vd "$pkgdir/usr/lib/lv2"
@@ -116,11 +117,11 @@ package_vaporizer2-lv2() {
 
 package_vaporizer2-vst3() {
   pkgdesc+=' - VST3 plugin'
-  groups+=('vst3-plugins')
+  groups+=(vst3-plugins)
   depends=(
     "${_common_depends[@]}"
-    'vaporizer2-common'
-    'vst3-host'
+    vaporizer2-common
+    vst3-host
   )
 
   install -vd "$pkgdir/usr/lib/vst3"
@@ -130,11 +131,11 @@ package_vaporizer2-vst3() {
 
 package_vaporizer2-clap() {
   pkgdesc+=' - CLAP plugin'
-  groups+=('clap-plugins')
+  groups+=(clap-plugins)
   depends=(
     "${_common_depends[@]}"
-    'vaporizer2-common'
-    'clap-host'
+    vaporizer2-common
+    clap-host
   )
 
   install -vDm755 -t "$pkgdir/usr/lib/clap" build/VASTvaporizer2_artefacts/Release/CLAP/*.clap
@@ -144,8 +145,8 @@ package_vaporizer2-standalone() {
   pkgdesc+=' - standalone'
   depends=(
     "${_common_depends[@]}"
-    'vaporizer2-common'
-    'alsa-lib'
+    vaporizer2-common
+    alsa-lib
   )
 
   install -vDm755 -t "$pkgdir/usr/bin" build/VASTvaporizer2_artefacts/Release/Standalone/VASTvaporizer2
