@@ -5,12 +5,12 @@
 
 pkgname=procs
 pkgver=0.14.10
-pkgrel=1
+pkgrel=2
 pkgdesc='A modern replacement for ps written in Rust'
 arch=(x86_64)
 url="https://github.com/dalance/$pkgname"
 license=(MIT)
-depends=(gcc-libs # libgcc_s.so
+depends=(libgcc # libgcc_s.so
          glibc) # libc.so libm.so
 makedepends=(cargo asciidoctor)
 _archive="$pkgname-$pkgver"
@@ -19,7 +19,7 @@ sha256sums=('7b287ac253fd1d202b0ea6a9a8ba2ed97598cf8e7dfd539bd40e382c6dc6d350')
 
 prepare() {
 	cd "$_archive"
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
