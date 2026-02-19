@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kwin
-pkgver=6.5.5
+pkgver=6.6.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=3
+pkgrel=1
 pkgdesc='An easy to use, but flexible, Wayland compositor'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -49,6 +49,7 @@ depends=(aurorae
          libdrm
          libei
          libepoxy
+         libevdev
          libinput
          libpipewire
          libqaccessibilityclient-qt6
@@ -56,6 +57,7 @@ depends=(aurorae
          libxcvt
          libxkbcommon
          mesa
+         milou
          pipewire-session-manager
          libplasma
          qt6-5compat
@@ -77,20 +79,14 @@ makedepends=(extra-cmake-modules
              xorg-xwayland)
 optdepends=('plasma-keyboard: virtual keyboard')
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/plasma/kwin/-/commit/f79af348.patch)
-sha256sums=('fbad845044231174ca7aad45572d1713d1b6f65289d94cac24776a103f051e46'
-            'SKIP'
-            '75d194ed2a3ddcabad010844319572b1cec17d34b603f9cdb498fd51f33ff42d')
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('35134fcfb64d01904cdcd25aea8e90c68c37973a088971e4d678acfdc5020914'
+            'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1'  # Nicolas Fella <nicolas.fella@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < f79af348.patch
-}
 
 build() {
   cmake -B build  -S $pkgname-$pkgver \
