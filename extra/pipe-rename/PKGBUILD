@@ -3,12 +3,12 @@
 
 pkgname=pipe-rename
 pkgver=1.6.6
-pkgrel=3
+pkgrel=2
 pkgdesc='Rename your files using your favorite text editor'
 arch=(x86_64)
 url='https://github.com/marcusbuffett/pipe-rename'
 license=(MIT)
-depends=(glibc libgcc)
+depends=(gcc-libs glibc)
 makedepends=(git rust)
 options=(!lto)
 source=("$pkgname::git+$url.git#tag=$pkgver")
@@ -18,7 +18,7 @@ b2sums=('28377d41f593bfb6c3caa3eab5ce9d758d7432a72f865f128db1b3e9028aef37b67f58e
 prepare() {
   cd "$pkgname"
 
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
