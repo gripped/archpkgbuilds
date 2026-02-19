@@ -1,15 +1,15 @@
 # Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
 pkgname='mise'
-pkgver=2026.1.7
-pkgrel=1
+pkgver=2026.2.13
+pkgrel=2
 pkgdesc='The front-end to your dev env'
 arch=('x86_64')
 url='https://github.com/jdx/mise'
 license=('MIT')
 depends=(
   bzip2
-  gcc-libs
+  libgcc
   glibc
   openssl
 )
@@ -33,8 +33,8 @@ options=(
   '!lto'
 )
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('0c26c8514a21e1033ca8f233e46f87efe95c209f2b955f7d6e737633003c11ace2f65b172eaec84710b3110906b2e98c71929208584ab84efe57b3a5966292d9')
-b2sums=('d4e27e2f6614a3c497f351c44d66dbcf59bc5f0a0e6e789042bd27bc4038018e621b1b306858e3e6f531d87e827ed2c44e6863c6216431cf12a4f526625da410')
+sha512sums=('1d89c59c95e0ad1507ef9765b479c3afa0d366d3cfb28db7b842f48786867b947b1711ad7ad2a7cc9306a32fee9a2365a33187fe441e769ce2f42b71c0b7269a')
+b2sums=('13c79b6860b22df1e273fcf50b0b8f7e7c2564e4242ca0ce1e0f110cfdb6dd2206de98ae828020bc3b2ce6a1f09ecbf8b824cd10d4e06c59e8d32ec0ed4636d8')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
