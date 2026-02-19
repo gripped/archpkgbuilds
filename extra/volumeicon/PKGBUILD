@@ -1,9 +1,10 @@
-# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Maintainer:
+# Contributor: Alexander F. Rødseth <xyproto@archlinux.org>
 # Contributor: Maato <maato softwarebakery com>
 
 pkgname=volumeicon
 pkgver=0.5.1
-pkgrel=7
+pkgrel=8
 pkgdesc='Volume control for the system tray'
 arch=(x86_64)
 url='https://github.com/Maato/volumeicon'
