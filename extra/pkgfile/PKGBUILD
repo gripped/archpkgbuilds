@@ -3,16 +3,17 @@
 
 pkgname=pkgfile
 pkgver=25
-pkgrel=1
+pkgrel=2
 pkgdesc='A tool to search for files in official repository packages'
 arch=('x86_64')
 url='https://github.com/falconindy/pkgfile/'
 license=('MIT')
 depends=(
     'curl'
-    'gcc-libs'
     'glibc'
     'libarchive'
+    'libgcc'
+    'libstdc++'
     'pacman'
     'pcre'
     'systemd-libs')
@@ -21,8 +22,7 @@ makedepends=(
     'meson')
 checkdepends=(
     'gtest'
-    'python'
-)
+    'python')
 install=pkgfile.install
 source=("git+https://github.com/falconindy/pkgfile.git#tag=v${pkgver}?signed")
 sha256sums=('3b247c9e0647ddf93682b7b9fedee5822004b9b4b57af37be82351f1cdca3b81')
@@ -34,7 +34,7 @@ build() {
 }
 
 check() {
-  meson test -C build --print-errorlogs
+    meson test -C build --print-errorlogs
 }
 
 package() {
