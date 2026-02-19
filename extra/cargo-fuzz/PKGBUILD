@@ -1,14 +1,15 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=cargo-fuzz
 pkgver=0.13.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Command line helpers for fuzzing rust"
 url="https://github.com/rust-fuzz/cargo-fuzz"
 depends=(
   'cargo'
-  'gcc-libs'
   'glibc'
+  'libgcc'
 )
 arch=('x86_64')
 license=('MIT' 'Apache-2.0')
@@ -18,7 +19,7 @@ b2sums=('3f9f842777561bc779e52b9ef31c8d02a945a092af97b9ec6a036de411206fb649aa343
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
