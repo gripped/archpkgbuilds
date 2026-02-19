@@ -4,14 +4,14 @@
 
 pkgname=alsa-utils
 pkgver=1.2.15.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Advanced Linux Sound Architecture - Utilities"
 arch=(x86_64)
 url="https://www.alsa-project.org"
 license=(GPL-2.0-or-later)
 depends=(
-  gcc-libs
   glibc
+  libgcc
   pciutils
   psmisc
 )
