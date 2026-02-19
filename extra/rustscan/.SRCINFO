@@ -1,14 +1,15 @@
 pkgbase = rustscan
 	pkgdesc = A modern port scanner
 	pkgver = 2.4.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/rustscan/RustScan
 	arch = x86_64
 	license = GPL-3.0-or-later
 	checkdepends = python
 	makedepends = git
 	makedepends = rust
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	optdepends = nmap: Script engine support
 	options = !lto
 	source = rustscan::git+https://github.com/rustscan/RustScan#tag=2.4.1
