@@ -3,7 +3,7 @@
 
 pkgbase=pastel
 pkgname=(pastel pastel-docs)
-pkgver=0.11.0
+pkgver=0.12.0
 pkgrel=1
 pkgdesc='A command-line tool to generate, analyze, convert and manipulate colors'
 arch=(x86_64)
@@ -18,8 +18,8 @@ optdepends=(
   'kcolorchooser: external color picker'
 )
 source=("$pkgbase::git+$url.git#tag=v$pkgver")
-sha512sums=('2ecdb1cd610ee7a221d4eba3c2ee00f8f964f2bf5efff5d81e9ec28a4b2058242c3030c863bcfc0c04dc495f923751a8cd96ec42781563cfe89818d26ee8c906')
-b2sums=('8f6852e4b2e45b3a167578ed0050be7ff40d892cc6b7d3f59736dd37fa0cef19ed1722855794a0f515bfa484b539427170f7025a5b0158c72d0c7077244a7b20')
+sha512sums=('db2baef228457c594d90e2a63ffbe12ea8838033ffa79967616aae56779aedd5a13bde7f27c909d4f2e5b5185844e5de4e3e63e2abc4a82e29c1d3c568f8f042')
+b2sums=('ef2698cf81152e1135cec776dc794de3ac5b8f6e702d93708f121beba58255d1fe4f3c5708d7941706988c9d4a992fe74a0588472c1a8083c3a9772bb37843f6')
 
 prepare() {
   cd "$pkgbase"
@@ -39,7 +39,10 @@ check() {
 }
 
 package_pastel() {
-  depends=('gcc-libs')
+  depends=(
+    glibc
+    libgcc
+  )
   cd "$pkgbase"
 
   # binary
@@ -59,7 +62,7 @@ package_pastel() {
 
 package_pastel-docs() {
   pkgdesc+=' (documentation)'
-  depends=('bash')
+  depends=(bash)
 
   cd "$pkgbase"
   
