@@ -4,7 +4,7 @@
 pkgbase=itk
 pkgname=(itk python-itk)
 pkgver=5.4.5
-pkgrel=4
+pkgrel=5
 pkgdesc="An open-source toolkit for multidimensional image analysis"
 arch=(x86_64)
 url="https://www.itk.org"
@@ -120,12 +120,13 @@ package_itk() {
     dcmtk
     double-conversion
     expat libexpat.so
-    gcc-libs
     gdcm libgdcmCommon.so libgdcmDICT.so libgdcmDSED.so libgdcmMSFF.so
     glibc
     hdf5
+    libgcc
     libjpeg-turbo libjpeg.so
     libpng libpng16.so
+    libstdc++
     libtiff libtiff.so
     zlib libz.so
   )
