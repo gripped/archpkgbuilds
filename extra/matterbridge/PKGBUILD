@@ -4,13 +4,13 @@
 
 pkgname=matterbridge
 pkgver=1.26.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Multi-protocols (IRC/XMPP/Mattermost/Slack/Matrix/etc) bridge'
 arch=(x86_64)
 url="https://github.com/42wim/$pkgname"
-license=(Apache GPL3)
-depends=(glibc
-         gcc-libs)
+# matterbridge is Apache, whatsappmulti includes a GPL3 library
+license=("Apache-2.0" "GPL-3.0-only")
+depends=(glibc)
 makedepends=(go
              git)
 backup=("etc/$pkgname.toml")
