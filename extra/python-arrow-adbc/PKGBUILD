@@ -10,7 +10,7 @@ pkgname=(
   python-arrow-adbc-driver-snowflake
 )
 pkgver=22
-pkgrel=1
+pkgrel=2
 pkgdesc='Database connectivity API for Apache Arrow'
 arch=(x86_64)
 url='https://arrow.apache.org/adbc/current/index.html'
@@ -84,7 +84,8 @@ build() {
 package_python-arrow-adbc() {
   depends=(
     glibc
-    gcc-libs
+    libgcc
+    libstdc++
     python
     python-typing_extensions
     python-pandas
@@ -107,7 +108,6 @@ package_python-arrow-adbc-driver-bigquery() {
   pkgdesc+=' - BigQuery driver'
   depends=(
     glibc
-    gcc-libs
     python
     python-arrow-adbc
     python-importlib_resources
@@ -122,7 +122,6 @@ package_python-arrow-adbc-driver-flightsql() {
   pkgdesc+=' - Flight SQL driver'
   depends=(
     glibc
-    gcc-libs
     python
     python-arrow-adbc
     python-importlib_resources
@@ -137,7 +136,8 @@ package_python-arrow-adbc-driver-postgresql() {
   pkgdesc+=' - PostgreSQL driver'
   depends=(
     glibc
-    gcc-libs
+    libgcc
+    libstdc++
     python
     python-arrow-adbc
     python-importlib_resources
@@ -153,7 +153,8 @@ package_python-arrow-adbc-driver-sqlite() {
   pkgdesc+=' - SQLite driver'
   depends=(
     glibc
-    gcc-libs
+    libgcc
+    libstdc++
     python
     python-arrow-adbc
     python-importlib_resources
@@ -169,7 +170,6 @@ package_python-arrow-adbc-driver-snowflake() {
   pkgdesc+=' - Snowflake driver'
   depends=(
     glibc
-    gcc-libs
     python
     python-arrow-adbc
     python-importlib_resources
