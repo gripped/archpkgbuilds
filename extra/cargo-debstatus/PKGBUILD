@@ -1,15 +1,16 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=cargo-debstatus
 pkgver=0.6.5
-pkgrel=1
+pkgrel=2
 pkgdesc="cargo-tree for Debian packaging"
 url='https://github.com/kpcyrd/cargo-debstatus'
 arch=('x86_64')
 license=('(MIT OR Apache-2.0) AND GPL-3.0-or-later')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
 )
 makedepends=(
   'cargo'
@@ -20,7 +21,7 @@ b2sums=('f3982908367a2212e7b68e11cb4cf2d6e82b407250aea627cb486f2106756409f5a6363
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
