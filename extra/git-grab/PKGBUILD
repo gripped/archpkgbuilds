@@ -4,12 +4,16 @@
 
 pkgname=git-grab
 pkgver=4.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc='A tool to clone git repositories to a standard location organised by domain and path'
 arch=(x86_64)
 url='https://github.com/wezm/git-grab'
 license=('MIT OR Apache-2.0')
-depends=(git gcc-libs)
+depends=(
+  glibc
+  libgcc
+  git
+)
 makedepends=(rust)
 options=(!lto)
 source=("$pkgname::git+$url.git#tag=$pkgver")
