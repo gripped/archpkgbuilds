@@ -7,7 +7,7 @@
 
 pkgname=nvme-cli
 pkgver=2.16
-pkgrel=1
+pkgrel=2
 pkgdesc="NVM-Express user space tooling for Linux"
 arch=('x86_64')
 url="https://github.com/linux-nvme/nvme-cli"
@@ -21,7 +21,7 @@ makedepends=(
     'xmlto'
 )
 depends=(
-    'gcc-libs'
+    'libgcc'
     'glibc'
     'json-c'
     'libnvme'
