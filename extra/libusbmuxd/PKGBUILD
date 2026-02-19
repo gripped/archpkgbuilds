@@ -1,18 +1,19 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 # Contributor: Gabriel Martinez < reitaka at gmail dot com >
 
 pkgname=libusbmuxd
 pkgver=2.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Client library to multiplex connections from and to iOS devices'
 arch=(x86_64)
 url='https://libimobiledevice.org/'
 license=('GPL-2.0-or-later AND LGPL-2.1-or-later')
 depends=(
-  gcc-libs
   glibc
+  libgcc
   libimobiledevice-glue
   libplist
 )
