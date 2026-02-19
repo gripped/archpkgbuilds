@@ -4,19 +4,19 @@
 # Contributor: Lucas De Marchi <lucas.de.marchi@gmail.com>
 
 pkgname=connman
-pkgver=1.45
-pkgrel=2
+pkgver=2.0
+pkgrel=1
 pkgdesc="Intel's modular network connection manager"
-url="https://git.kernel.org/pub/scm/network/connman/connman.git/"
 arch=('x86_64')
+url="https://git.kernel.org/pub/scm/network/connman/connman.git/"
 license=('GPL-2.0-only')
 depends=(
   'dbus'
-  'gcc-libs'
   'glib2'
   'glibc'
   'gnutls'
   'iptables'
+  'libgcc'
   'libmnl'
   'readline'
 )
@@ -38,13 +38,13 @@ optdepends=(
 )
 backup=('etc/connman/main.conf')
 source=(
-  "$pkgname-$pkgver.tar.xz::https://www.kernel.org/pub/linux/network/$pkgname/$pkgname-$pkgver.tar.xz"
-  "$pkgname-$pkgver.tar.sign::https://www.kernel.org/pub/linux/network/$pkgname/$pkgname-$pkgver.tar.sign"
+  "https://www.kernel.org/pub/linux/network/$pkgname/$pkgname-$pkgver.tar.xz"
+  "https://www.kernel.org/pub/linux/network/$pkgname/$pkgname-$pkgver.tar.sign"
   "allow_group_network.diff"
 )
-sha512sums=('174a7201e6b68db44efddc6d200b5bedb70078ddddaab5037dccc1036e255cafe61a7c0cebc4492e3d6c1be1dc7372051302bbd4ac3312a64fd518a51b8cb814'
-            'SKIP'
-            '06dd5867d460f1c3cf6c359e650ca2ef24495493a99cd03dbd17f23e587e9066d9bc98758d85d5c690d1ae21fa77ad8da5e2fa83d0b52c95d7a535784c5c4964')
+b2sums=('205aebbd59f77c87e98c34774f3b727a8b2bbf2889c987406cc623e30e3fd7aa6229b2919a42936cd886a6bf2e71936e8dcedf6adb9b8a96627ea7d31da0d90a'
+        'SKIP'
+        '07303d0ae544ca3e52ae7d2558dc5268115f4c3b370e170f0656b5b1948e3f4dcb20ae930b64dcb9e819ca7e0757e874e9c7a5412ee933bb1af58102c548e72b')
 validpgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659') # Marcel Holtmann <marcel@holtmann.org>
 
 prepare() {
