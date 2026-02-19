@@ -7,14 +7,15 @@
 
 pkgname=elinks
 pkgver=0.19.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Advanced feature-rich text-mode web browser'
 arch=(x86_64)
 url='https://github.com/rkd77/elinks'
 license=(GPL-2.0-only)
 depends=(
   glibc
-  gcc-libs
+  libgcc
+  libstdc++
   brotli
   bzip2
   gpm
