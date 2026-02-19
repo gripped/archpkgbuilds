@@ -8,7 +8,7 @@
 
 pkgbase=godot
 pkgname=(godot godot-mono)
-pkgver=4.6
+pkgver=4.6.1
 pkgrel=1
 pkgdesc='Advanced cross-platform 2D and 3D game engine'
 url='https://godotengine.org/'
@@ -19,8 +19,8 @@ depends=(brotli ca-certificates embree freetype2 graphite libglvnd libspeechd li
          libwebp libwslay libxcursor libxi libxinerama libxrandr miniupnpc openxr pcre2)
 optdepends=('pipewire-alsa: for audio support'
             'pulse-native-provider: for audio support')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/godotengine/godot/archive/$pkgver-stable.tar.gz")
-b2sums=('086dc97858e066e1510a108c7751186f5072fe7b41fdbc658957ebd8a5540d6ad34b54f410363bbe12244b2503ce4fd1d02d25c9d0bb6ab701610902b9df8f5b')
+source=("$pkgname-$pkgver.tar.xz::https://github.com/godotengine/$pkgname/releases/download/$pkgver-stable/$pkgname-$pkgver-stable.tar.xz")
+b2sums=('8cfc477472d224579b525a36df98f5cc7616b66e9ba4fc943753351cc6093bd0c7f542916cc26ddb625bbbbb8de850015b72610af05df443ec8c0a3c2e03ff3f')
 
 prepare() {
   cd $pkgname-$pkgver-stable
