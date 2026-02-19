@@ -3,18 +3,18 @@
 
 pkgname=meilisearch
 epoch=1
-pkgver=1.35.0
+pkgver=1.35.1
 pkgrel=1
 pkgdesc="Lightning Fast, Ultra Relevant, and Typo-Tolerant Search Engine"
 arch=(x86_64)
 url="https://docs.meilisearch.com/"
 license=('MIT')
-depends=(gcc-libs)
+depends=(glibc libgcc)
 makedepends=(rust)
 options=(!lto)
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/meilisearch/MeiliSearch/archive/v${pkgver}.tar.gz
         ${pkgname}.service ${pkgname}.tmpfiles ${pkgname}.sysusers ${pkgname}.conf)
-sha512sums=('cd44285045ddb4e56fca2ec3bee72dbe8d9de8349fcd393713a1cfd8c17e0fa40a1f43f3467d89536b2938cb2e328a2032e13fc7e77cccf8926125faef1c590e'
+sha512sums=('6933731d013c775e93b6bed82bef03fc4fa6d5dc8f0ae3e22f4641fa715e600a35666e5bbc860cdc511dbf524f86385f64de5585fb9d919a38cd042693837c9c'
             'dd936591833fa4ca4832e0574bdfcfd5ccfcbe1c794c6be2f6a5c9f8e4b9588a95b6da24d29ee533043dda200b37e67e3a8ba04339c1e7530a4c95e17ee14268'
             '76284bf4c436a6b3365edd6bd12ffcb186b721d284b29933e77ddc841d333be9eeb2701c89fba1567a8eedda52787be8d3c5f55809a051488b7295fbb6842bce'
             '10066f77a81020ef5c975a26d510d64fdc61582dff1383e8777db0c78c4164a8b489b01e1ced97adf13d024be688d8f4ae970eda952882bae7f20881699dffd6'
