@@ -5,21 +5,22 @@
 
 pkgname=libmediainfo
 pkgver=26.01
-pkgrel=1
+pkgrel=2
 pkgdesc='Shared library for MediaInfo'
-arch=('x86_64')
+arch=(x86_64)
 url='https://mediaarea.net'
-license=('BSD-2-Clause')
+license=(BSD-2-Clause)
 depends=(
-  'glibc'
-  'gcc-libs'
-  'curl'
-  'glib2'
-  'libmms'
-  'libzen'
-  'tinyxml2'
-  'graphviz'
-  'zlib'
+  glibc
+  curl
+  glib2
+  libmms
+  libzen
+  libgcc
+  libstdc++
+  tinyxml2
+  graphviz
+  zlib
 )
 source=("$pkgname-$pkgver.tar.xz::https://mediaarea.net/download/source/libmediainfo/$pkgver/libmediainfo_$pkgver.tar.xz"
          graphviz-13.patch)
