@@ -3,7 +3,7 @@
 # Contributor: Kohei Suzuki <eagletmt@gmail.com>
 
 pkgname=ghq
-pkgver=1.8.1
+pkgver=1.9.3
 pkgrel=1
 pkgdesc="Remote repository management made easy"
 arch=(x86_64)
@@ -14,7 +14,7 @@ makedepends=(go)
 checkdepends=(git)
 options=(!lto)
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('f20d1a62929a2d45336bf9b45fe1b509ffb232baf55f836df8227330b09358eb6db99105d322db6eeb4bb7db514b1c56defd4823e2ea94f81daf761a3b6864fa')
+b2sums=('3d265199ebc7127b1f670ea95e8e73b634a43ac4e9818bd80766d6b8831aeea372f921498b6338648e12620cb1e4a0e823efe14adcdabb2239db363bfebdc61c')
 
 prepare() {
   cd $pkgname-$pkgver
