@@ -2,12 +2,15 @@
 pkgname=simdjson
 epoch=1
 pkgver=4.2.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A C++ library to see how fast we can parse JSON with complete validation."
 arch=('x86_64')
 url="https://github.com/simdjson/simdjson"
 license=('Apache-2.0')
-depends=(gcc-libs)
+depends=(
+  libgcc
+  libstdc++
+)
 # This package should makedepend on cxxopts to build the tools, but that doesn't
 # work regardless so we skip it.
 makedepends=(
