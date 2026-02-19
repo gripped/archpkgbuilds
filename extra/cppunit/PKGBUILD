@@ -3,12 +3,12 @@
 
 pkgname=cppunit
 pkgver=1.15.1
-pkgrel=4
+pkgrel=5
 pkgdesc="A C++ unit testing framework"
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/cppunit"
 license=('LGPL-2.1-or-later')
-depends=('gcc-libs' 'glibc')
+depends=('glibc' 'libstdc++' 'libgcc')
 makedepends=('doxygen')
 options=('!emptydirs')
 source=(https://dev-www.libreoffice.org/src/${pkgname}-${pkgver}.tar.gz)
