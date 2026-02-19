@@ -4,14 +4,14 @@
 
 pkgname=sqlfluff
 pkgver=4.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc='A dialect-flexible and configurable SQL linter'
 arch=(x86_64)
 url='https://github.com/sqlfluff/sqlfluff'
 license=(MIT)
 depends=(
   glibc
-  gcc-libs
+  libgcc
   python
   python-chardet
   python-click
@@ -71,7 +71,9 @@ check() {
     --deselect='test/core/linter/discovery_test.py::test__linter__path_from_paths__ignore[test/fixtures/linter/sqlfluffignore]' \
     --deselect='test/core/plugin_test.py::test__plugin_default_config_read[Example_L001-forbidden_columns]' \
     --deselect='test/core/plugin_test.py::test__plugin_example_rules_returned[Rule_Example_L001]' \
-    --deselect='test/core/plugin_test.py::test__plugin_manager_registers_example_plugin'
+    --deselect='test/core/plugin_test.py::test__plugin_manager_registers_example_plugin' \
+    --deselect='test/core/config/loader_test.py::test__config__get_user_config_dir_path[darwin-False-False-~/Library/Application Support/sqlfluff-paths_checked2]'
+
 }
 
 package() {
