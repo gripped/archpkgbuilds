@@ -4,15 +4,17 @@ _pkgname=ginkgo
 pkgbase=ginkgo-hpc
 pkgname=(ginkgo-hpc ginkgo-hpc-docs ginkgo-hpc-cuda ginkgo-hpc-hip)
 pkgver=1.11.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Numerical linear algebra software package"
 arch=(x86_64)
 url=https://ginkgo-project.github.io/
 license=(BSD-3-Clause)
 depends=(
-  gcc-libs
   glibc
   hwloc
+  libgcc
+  libgomp
+  libstdc++
   openmpi
   yaml-cpp
 )
@@ -54,6 +56,9 @@ prepare() {
   # https://github.com/ginkgo-project/ginkgo/issues/1734#issuecomment-2517784197
   patch --directory=$_pkgname-$pkgver -Np1 < split_cuda_library.patch
   patch --directory=$_pkgname-$pkgver -Np1 < split_hip_library.patch
+
+  # fix build with rocm 7.2.0 https://github.com/ginkgo-project/ginkgo/issues/1983
+  sed -i 's|set(GINKGO_HIP_CUSTOM_THRUST_NAMESPACE ON)|set(GINKGO_HIP_CUSTOM_THRUST_NAMESPACE OFF)|' $_pkgname-$pkgver/CMakeLists.txt
 }
 
 build() {
@@ -77,7 +82,9 @@ build() {
   local cuda_archs="75;80;86;87;88;89;90;100;103;110;120;121;121-virtual"
   # archs gfx1010;gfx1012;gfx1030;gfx1100;gfx1101;gfx1102 are not supported: https://github.com/ginkgo-project/ginkgo/issues/1429
   # 128-bit atomics not available on gfx940 and gfx941 https://github.com/ginkgo-project/ginkgo/issues/1965
-  local amdgpu_archs="gfx900,gfx906:xnack-,gfx908:xnack-,gfx90a:xnack+,gfx90a:xnack-,gfx942,gfx950"
+  #local amdgpu_archs="gfx900,gfx906:xnack-,gfx908:xnack-,gfx90a:xnack+,gfx90a:xnack-,gfx942,gfx950"
+  # building for more architectures does not work since rocm 7.2.0
+  local amdgpu_archs="gfx908,gfx90a,gfx942,gfx950"
 
   # base package
   cmake -B build "${common_cmake_options[@]}" \
