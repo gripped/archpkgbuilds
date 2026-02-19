@@ -15,7 +15,7 @@
 
 pkgname=dovecot
 pkgver=2.4.2
-pkgrel=4
+pkgrel=5
 pkgdesc="An IMAP and POP3 server written with security primarily in mind"
 url="https://dovecot.org/"
 arch=('x86_64')
@@ -26,18 +26,20 @@ license=(
 depends=(
   'bzip2'
   'expat'
-  'gcc-libs'
   'glibc'
   'icu'
   'krb5'
   'libcap'
+  'libgcc'
   'libsodium'
+  'libstdc++'
   'libstemmer'
   'libxcrypt'
   'lz4'
   'mariadb-libs'
   'openssl'
   'pam'
+  'pcre2'
   'postgresql-libs'
   'sqlite'
   'systemd-libs'
@@ -122,7 +124,6 @@ build() {
     --with-sqlite \
     --with-pgsql \
     --with-mysql \
-    --with-ssl=openssl \
     --with-ssldir=/etc/ssl \
     --with-gssapi \
     --with-ldap=plugin \
@@ -136,7 +137,7 @@ build() {
     --with-libcap \
     --with-stemmer \
     --with-flatcurve \
-    --with-docs
+    --with-pcre2
 
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 
