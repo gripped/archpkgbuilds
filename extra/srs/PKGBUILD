@@ -4,14 +4,14 @@
 
 pkgname=srs
 pkgver=5.0_r3
-pkgrel=1
+pkgrel=2
 pkgdesc="High performance realtime video server"
-_pkgcommit=f32c8c31c0966fc37f9689000dd5ed5426af1fc0
 arch=('x86_64')
 url="https://github.com/ossrs/srs"
 license=('MIT')
-depends=('gcc-libs'
-         'openssl'
+depends=('openssl'
+         'srt'
+         'libsrtp'
          'srs-state-threads'
          'tcl')
 makedepends=('zlib'
@@ -22,11 +22,14 @@ makedepends=('zlib'
              'cmake')
 backup=(etc/srs/srs.conf)
 options=('docs')
-source=("git+https://github.com/ossrs/srs/#commit=${_pkgcommit}")
-sha256sums=('67bb3a7241ba3773496b30fc7b833fbd3862da338c9951cac5fc42b920cc7677')
+source=("git+https://github.com/ossrs/srs/#tag=v${pkgver/_/-}")
+sha256sums=('8c77718dc7745120fc59cda75db44666d6b0bc868483cd499ad71775c2934959')
 
 build() {
   cd "${srcdir}"/srs/trunk
+
+  export CMAKE_POLICY_VERSION_MINIMUM=3.5
+
   ./configure --prefix=/install --use-sys-ssl --use-shared-st --generic-linux=on
   make
   make DESTDIR="${srcdir}" install
