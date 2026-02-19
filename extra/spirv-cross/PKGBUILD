@@ -1,9 +1,9 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=spirv-cross
-pkgver=1.4.335.0
+pkgver=1.4.341.0
 pkgrel=1
-# https://github.com/KhronosGroup/SPIRV-Cross/blob/vulkan-sdk-1.4.335.0/checkout_glslang_spirv_tools.sh#L5-L7
+# https://github.com/KhronosGroup/SPIRV-Cross/blob/vulkan-sdk-1.4.341.0/checkout_glslang_spirv_tools.sh#L5-L7
 _glslang_commit=5f6c7176c5483da9af6432afb3dd962e4f8873a1
 _spirv_tools_commit=021f92a757002fcdba6a73154ed46a203d3a56b8
 _spirv_headers_commit=9268f3057354a2cb65991ba5f38b16d81e803692
@@ -12,8 +12,9 @@ arch=('x86_64')
 url='https://github.com/KhronosGroup/SPIRV-Cross/'
 license=('Apache-2.0')
 depends=(
-    'gcc-libs'
-    'glibc')
+    'glibc'
+    'libgcc'
+    'libstdc++')
 makedepends=(
     'cmake'
     'git'
@@ -22,7 +23,7 @@ source=("git+https://github.com/KhronosGroup/SPIRV-Cross.git#tag=vulkan-sdk-${pk
         "git+https://github.com/KhronosGroup/glslang.git#commit=${_glslang_commit}"
         "git+https://github.com/KhronosGroup/SPIRV-Tools.git#commit=${_spirv_tools_commit}"
         "git+https://github.com/KhronosGroup/SPIRV-Headers.git#commit=${_spirv_headers_commit}")
-sha256sums=('95e0ab5de168c30dac1219dfee568823fbac70b2ddc4f85c86ba987cbd12d4be'
+sha256sums=('60356c46e076c2cc24b574e6786903f632a69991af3a283ac8d3ebeeb7d0feb8'
             'b60b757e5db6809976e953d21a802c270b55a9a7b55e8868d6d82d249a84c2c6'
             'b7605c1aab079bada3eba2470b72caa73b9c5d22603cc95bf1e2862655f4cc8a'
             '8f5d1dd2d4281d135bc632c97c1a96ccb4ba79edcdad337de87f3510c9798638')
