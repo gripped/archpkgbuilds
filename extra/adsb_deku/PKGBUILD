@@ -2,19 +2,19 @@
 
 pkgname=adsb_deku
 pkgver=2025.05.03
-pkgrel=1
+pkgrel=2
 pkgdesc="TUI radar application"
 arch=('x86_64')
 url="https://github.com/rsadsb/adsb_deku"
 license=('MIT')
-depends=('gcc-libs' 'dump1090_rs')
+depends=('dump1090_rs' 'glibc' 'libgcc')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('c9ebc7ad3111ac128d7d164adb075570543448a3f9fa030d9240f84341e9f8c2ef833b29e095566e82a117d481161bf71618c3326dacd3c900b3cc1a47162c9e')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
