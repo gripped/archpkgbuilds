@@ -8,7 +8,7 @@ pkgname=(
   freetype2-docs
 )
 pkgver=2.14.1
-pkgrel=1
+pkgrel=2
 epoch=
 pkgdesc="Font rasterization library"
 url="https://www.freetype.org/"
@@ -23,7 +23,8 @@ depends=(
 )
 makedepends=(
   cairo
-  gcc-libs
+  libgcc
+  libstdc++
   glib2
   harfbuzz
   librsvg
@@ -119,7 +120,8 @@ package_freetype2-demos() {
   depends=(
     cairo
     freetype2
-    gcc-libs
+    libgcc
+    libstdc++
     glib2
     glibc
     librsvg
