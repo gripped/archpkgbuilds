@@ -2,48 +2,46 @@
 # Contributor: t3ddy  <t3ddy1988 "at" gmail {dot} com>
 # Contributor: Adrián Chaves Fernández (Gallaecio) <adriyetichaves@gmail.com>
 pkgname=0ad
-pkgver=a27.1
-_pkgver=0.27.1
-pkgrel=5
+pkgver=a28.0
+_pkgver=0.28.0
+pkgrel=1
 pkgdesc="Cross-platform, 3D and historically-based real-time strategy game"
 arch=('x86_64')
 url="http://play0ad.com/"
 license=('GPL-2.0-or-later')
 depends=('0ad-data' 'binutils' 'boost-libs' 'curl' 'enet' 'libogg' 'libpng' 'libvorbis'
-         'libxml2' 'openal' 'sdl2' 'wxwidgets-gtk3' 'zlib' 'libgl' 'glu' 'fmt'
+         'libxml2' 'openal' 'sdl2' 'wxwidgets-gtk3' 'zlib' 'libgl' 'glu' 'fmt' 'js128'
          'gloox' 'miniupnpc' 'libminiupnpc.so' 'icu' 'nspr' 'libsodium' 'which')
-makedepends=('boost' 'cmake' 'mesa' 'zip' 'libsm' 'rust' 'git' 'python' 'llvm')
+makedepends=('boost' 'cmake' 'mesa' 'zip' 'libsm' 'rust' 'git' 'python' 'llvm' 'cbindgen'
+             'premake')
 options=('!lto') # breaks spidermonkey linking (https://bugs.gentoo.org/746947)
-source=("https://releases.wildfiregames.com/$pkgname-$_pkgver-unix-build.tar.xz"
-         boost-1.89.patch)
+source=("https://releases.wildfiregames.com/$pkgname-$_pkgver-unix-build.tar.xz")
 validpgpkeys=('A035C8C19219BA821ECEA86B64E628F8D684696D')  # Pablo Galindo Salgado <pablogsal@gmail.com>
-sha512sums=('7ddc355afed44511f3c62bb4119e308f921fc9624980a3171853d923042777eeb248a1ce326d3768f23596d75e8346025321d7d72d6fa3b1106a5818ca62b40d'
-            'fa3741c82c2ea037f47c1466c29b5b5af2eb921f2f4033f4f7db8999c712b68402471a4015b39dfbac2d3fd82c30afac89b3aef01bf01c7f01b2097187206f87')
-
-prepare() {
-  cd "$pkgname-$_pkgver"
-  patch -p1 -i ../boost-1.89.patch
-}
+sha512sums=('6b5d7893d27d5fa71ce4cad1b424a7d4b36e8bc438c590cbd86d9872148d5051cd3215f8f8f4b817e48d4fe386d8902ecc0dcd612ca779306ef35dfa2898a878')
 
 build() {
   cd "$pkgname-$_pkgver"
 
-  export CMAKE_POLICY_VERSION_MINIMUM=3.5
-  cd libraries
-  ./build-source-libs.sh
-  cd ../build/workspaces
+  # If buidling the included spidermonkey, we need to
+  # a compile error: https://gitea.wildfiregames.com/0ad/0ad/issues/8571
+  #export CXXFLAGS="${CXXFLAGS/-fexceptions/}"
 
-  # Currently broken:
-  # --with-system-premake5 \
+  cd libraries
+  ./build-source-libs.sh \
+    --with-system-premake \
+    --with-system-mozjs
+
+  cd ../build/workspaces
   ./update-workspaces.sh -j$(nproc) \
-      --with-lto \
-      --without-pch \
-      --bindir=/usr/bin \
-      --libdir=/usr/lib/0ad \
-      --datadir=/usr/share/0ad/data
+    --with-system-premake5 \
+    --with-system-mozjs \
+    --with-lto \
+    --without-pch \
+    --bindir=/usr/bin \
+    --libdir=/usr/lib/0ad \
+    --datadir=/usr/share/0ad/data
 
   cd gcc
-
   make -j$(nproc)
 }
 
