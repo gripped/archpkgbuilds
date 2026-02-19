@@ -1,12 +1,12 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
-# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
-# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Contributor: Daniel M. Capella <polyzen@archlinux.org>
 # Contributor: fenuks
 
 pkgname=skim
-pkgver=3.2.0
-pkgrel=2
+pkgver=3.3.0
+pkgrel=1
 pkgdesc='Fuzzy Finder in Rust'
 arch=(x86_64)
 url='https://github.com/skim-rs/skim'
@@ -23,8 +23,8 @@ optdepends=(
   'zsh: for resp. completions and key bindings'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('ae6260a8fd17168d143baa8f94c97d076ac0ce4395711e4140fdc0d4e1fe504e349a05afdb0b857fba4a179d87ce53ba7a25490a62852288297060477c0d183d')
-b2sums=('0d62939d469f8fbd1a46e9bc2a637ea573028e13bbf90f0fa130ca37efc92fc628b69585080a2922df51739a6ac13823df1547c973e16800f9d3e16384e88984')
+sha512sums=('0940adc71c9781329e9d45f0c946f6439218a243287c116fd4394e88030028f600628f0d895a1db58d22e592b3e3c9af308c6faa617ce4bcc45ee2e13768893f')
+b2sums=('9e3cef40ef1854dd542f2e8f7497e751dd9c178b03b74b137325cfed87f577c402f509c9e3442a395c9127a9bacee636b6dd0c3f822906677c57e60f1489aac8')
 
 prepare() {
   cd "$pkgname"
