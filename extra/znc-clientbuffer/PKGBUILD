@@ -3,14 +3,15 @@
 
 pkgname=znc-clientbuffer
 pkgver=1.0.48
-pkgrel=6
+pkgrel=7
 pkgdesc='ZNC module for client specific buffers'
 arch=('x86_64')
 url='https://github.com/CyberShadow/znc-clientbuffer/'
 license=('Apache-2.0')
 depends=(
-    'gcc-libs'
     'glibc'
+    'libgcc'
+    'libstdc++'
     'znc')
 makedepends=(
     'cmake'
