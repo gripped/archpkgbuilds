@@ -2,13 +2,18 @@
 
 pkgname=libilbc
 pkgver=3.0.4
-pkgrel=3
+pkgrel=4
 pkgdesc='A friendly copy of the iLBC codec from the WebRTC project'
 arch=('x86_64')
 url='https://github.com/TimothyGu/libilbc/'
 license=('BSD-3-Clause')
-depends=('gcc-libs')
-makedepends=('git' 'cmake')
+depends=(
+    'glibc'
+    'libgcc'
+    'libstdc++')
+makedepends=(
+    'cmake'
+    'git')
 source=("git+https://github.com/TimothyGu/libilbc.git#tag=v${pkgver}?signed"
         'git+https://github.com/abseil/abseil-cpp.git')
 validpgpkeys=('9456AFC0814A8139E99483517FE6B095B582B0D4') # Timothy Gu
