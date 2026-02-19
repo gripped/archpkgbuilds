@@ -4,13 +4,14 @@
 pkgbase=lib3mf
 pkgname=({,python-}lib3mf)
 pkgver=2.4.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Implementation of the 3D Manufacturing Format file standard'
 arch=(x86_64)
 url='https://github.com/3MFConsortium/lib3mf'
 license=(BSD-2-Clause)
 depends=(
-  gcc-libs
+  libgcc
+  libstdc++
   glibc
   libzip
   util-linux-libs
