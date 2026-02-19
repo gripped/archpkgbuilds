@@ -4,12 +4,12 @@
 
 pkgname=rust-script
 pkgver=0.36.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Run Rust files and expressions as scripts without any setup or compilation'
 arch=(x86_64)
 url='https://rust-script.org'
 license=(MIT Apache-2.0)
-depends=(gcc-libs)
+depends=(glibc libgcc)
 makedepends=(git rust)
 source=("$pkgname::git+https://github.com/fornwall/rust-script#tag=$pkgver")
 sha512sums=('f7b775c39b7416085a3466e7afbef01692e8db357256588f353cbe2828d67de52a3993117fc26b8e7b054525e1b610c30ff20a4415fdf275e64b18eeca406380')
@@ -19,7 +19,7 @@ prepare() {
   cd "$pkgname"
 
   # download dependencies
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
