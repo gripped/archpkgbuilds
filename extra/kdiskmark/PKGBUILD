@@ -6,14 +6,14 @@ arch=('x86_64')
 _pkgname=KDiskMark
 pkgname=kdiskmark
 pkgver=3.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="HDD and SSD benchmark tool with a very friendly graphical user interface"
 url="https://github.com/JonMagon/${_pkgname}"
 license=(GPL-3.0-or-later)
-depends=(qt6-base fio libaio hicolor-icon-theme glibc gcc-libs polkit-qt6)
+depends=(qt6-base fio libaio hicolor-icon-theme glibc libgcc libstdc++ polkit-qt6)
 makedepends=(git cmake extra-cmake-modules qt6-tools qt6-declarative clang)
 source=("git+https://github.com/JonMagon/${_pkgname}#tag=$pkgver"
-        "git+https://github.com/itay-grudev/SingleApplication.git")
+        "$pkgname-SingleApplication::git+https://github.com/itay-grudev/SingleApplication.git")
 sha256sums=('c4182293e1612fe42bb2cb58d6b3d0fdc7302388820ae420543c8b90df177c8e'
             'SKIP')
 
@@ -22,7 +22,7 @@ prepare() {
 
   git submodule init
 
-  git config submodule."src/singleapplication".url "${srcdir}/SingleApplication"
+  git config submodule."src/singleapplication".url "${srcdir}/$pkgname-SingleApplication"
 
   git -c protocol.file.allow=always submodule update
 }

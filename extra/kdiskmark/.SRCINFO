@@ -1,7 +1,7 @@
 pkgbase = kdiskmark
 	pkgdesc = HDD and SSD benchmark tool with a very friendly graphical user interface
 	pkgver = 3.2.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/JonMagon/KDiskMark
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -16,10 +16,11 @@ pkgbase = kdiskmark
 	depends = libaio
 	depends = hicolor-icon-theme
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = polkit-qt6
 	source = git+https://github.com/JonMagon/KDiskMark#tag=3.2.0
-	source = git+https://github.com/itay-grudev/SingleApplication.git
+	source = kdiskmark-SingleApplication::git+https://github.com/itay-grudev/SingleApplication.git
 	sha256sums = c4182293e1612fe42bb2cb58d6b3d0fdc7302388820ae420543c8b90df177c8e
 	sha256sums = SKIP
 
