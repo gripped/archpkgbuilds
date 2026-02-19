@@ -2,7 +2,7 @@
 
 pkgname=crow-translate
 pkgver=4.0.2
-pkgrel=3
+pkgrel=4
 pkgdesc='Application that allows you to translate and speak text'
 arch=(x86_64)
 url='https://apps.kde.org/crowtranslate/'
@@ -35,7 +35,6 @@ source=(
   git+https://github.com/Skycoder42/QHotkey.git
   git+https://invent.kde.org/frameworks/breeze-icons.git
   git+https://github.com/espeak-ng/espeak-ng.git
-  crow-translate-window-icon.patch
 )
 b2sums=(
   290883ef0dfc06a6ffaf48da46ad185e46f50a47d45d41466fe0e8759f0c6b15074db6c49e3a0651e4713b3431089b5094948280c47085b7d52dc913e9c11aef
@@ -43,7 +42,6 @@ b2sums=(
   SKIP
   SKIP
   SKIP
-  96ed180beaa2070e557814de2f9a44c5521eb6d34666fc5dc8de5999f9b7d3d03c08e58f6db27975fa0a514a278cbffebd3d2f7abc59903a9f7df6c92edf3332
 )
 
 prepare() {
@@ -66,7 +64,7 @@ prepare() {
 
   # Set window icon
   # https://invent.kde.org/office/crow-translate/-/merge_requests/775
-  git apply -3 ../crow-translate-window-icon.patch
+  git cherry-pick -n 29decebd6a9eefa716d47f3105b555970e316e57
 }
 
 build() {
