@@ -5,7 +5,7 @@
 
 pkgname=db5.3
 pkgver=5.3.28
-pkgrel=5
+pkgrel=7
 pkgdesc="The Berkeley DB embedded database system v5.3"
 arch=(x86_64)
 url='https://www.oracle.com/technology/software/products/berkeley-db/index.html'
@@ -13,7 +13,8 @@ license=(
   Sleepycat
 )
 depends=(
-  gcc-libs
+  libgcc
+  libstdc++
   sh
 )
 source=(
