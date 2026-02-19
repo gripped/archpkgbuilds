@@ -5,17 +5,17 @@
 
 _base=textual
 pkgname=python-${_base}
-pkgver=7.5.0
+pkgver=8.0.0
 pkgrel=1
 pkgdesc="Modern Text User Interface framework"
 arch=(any)
 url="https://github.com/Textualize/${_base}"
 license=(MIT)
-depends=(python python-rich python-markdown-it-py python-typing_extensions python-platformdirs)
+depends=(python python-rich python-markdown-it-py python-linkify-it-py python-typing_extensions python-platformdirs)
 makedepends=(python-build python-installer python-poetry-core)
-checkdepends=(python-pytest-asyncio python-time-machine python-linkify-it-py python-pytest-xdist python-pytest-textual-snapshot)
+checkdepends=(python-pytest-asyncio python-time-machine python-pytest-xdist python-pytest-textual-snapshot)
 source=(${_base}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz)
-sha512sums=('d5698193a1c582766b9ed185d6ea43b4a298cd5c2653f60457d4adb3f6237a791a02de48619e6a0743e3ca8a0ae74d7772e4503502b646ac861b69517158da12')
+sha512sums=('d8e972f0792c68d23305ea7b486ab82ec9d38834a3c39022b6819813a741ca4e5cb5ec67dd0ab8378058d42179bcd2104655781f595e994e01373c533b57de86')
 
 build() {
   cd ${_base}-${pkgver}
