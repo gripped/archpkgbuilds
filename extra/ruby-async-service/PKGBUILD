@@ -2,7 +2,7 @@
 
 _gemname='async-service'
 pkgname="ruby-${_gemname}"
-pkgver=0.18.1
+pkgver=0.19.1
 pkgrel=1
 pkgdesc='A service layer for Async'
 arch=('any')
@@ -29,8 +29,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('4c9dd6db358196fc5c2570f676ce602df9d64d6f6dbb8ed8a16c784c39c0ae4f5e76b519ac44824704c6e6f880870fb1bcae6ffdfe0c0cc0b109a43e8f1d90bd')
-b2sums=('9c04ad78700c8221a3046592c3bc0f36ae1638ffaee667bfea6c4ca0aebf48265621350b50c8ead8e2b96fbd16dc2252a6149c05e06e6c0a5aeb233c7d31cbbd')
+sha512sums=('ec3e68f87275e2390917efcc61b081a2200a1c07347bf7186d4cb791b9b40c3983a477ed5c3ca57d4348577465d18e1f33d8d04b0b5bc18e3376e718571076c3')
+b2sums=('f6e1a69d1f958b9db26bd807fdd2dd37835e6efc14ada2dd7d1bf5029d6d6c6fddbe063bbe69e8628c983e9d06b6d226191f1390f49e45cf865d334a1e2b1a34')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
