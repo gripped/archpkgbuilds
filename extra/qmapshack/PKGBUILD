@@ -5,18 +5,19 @@
 
 pkgname=qmapshack
 pkgver=1.19.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Consumer grade GIS software'
 arch=('x86_64')
 url='https://github.com/Maproom/qmapshack'
 license=('GPL-3.0-only')
 depends=(
   'alglib'
-  'gcc-libs'
   'gdal'
   'glibc'
   'hicolor-icon-theme'
+  'libgcc'
   'libjpeg-turbo'
+  'libstdc++'
   'proj'
   'qt6-5compat'
   'qt6-base'
@@ -31,7 +32,7 @@ makedepends=(
   'cmake'
 )
 source=("$url/archive/V_$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('2686bad86dafb582e1dfb20a40972bd7986906de47f8620f0646cb4ca672523c7fd27658810b73245c3c41a613da9f4f7fe41a5abb42554f3838f04b6b54ad74')
+b2sums=('d6a18cf17f65e2992c071d65e69433edc6838014cc0669c0a9c169abccb52b93759c8c74f76d292123fdf22e7f27d610fe4e1b64fd0fe47ea168bbd851bae2ec')
 
 build() {
   cmake -B build -S $pkgname-V_$pkgver \
