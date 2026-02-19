@@ -3,12 +3,13 @@
 
 pkgname=viu
 pkgver=1.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Simple terminal image viewer"
 arch=('x86_64')
 url="https://github.com/atanunq/viu"
 license=('MIT')
-depends=('gcc-libs' 'libsixel')
+depends=('glibc'
+         'libgcc' 'libgcc_s.so')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('639c1fe14aee5e34b635de041ac77177e2959cf26072d8ef69c444b15c8273bd')
