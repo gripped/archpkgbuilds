@@ -4,17 +4,16 @@
 pkgname=imagemagick
 pkgver=7.1.2.13
 _pkgver=${pkgver%.*}-${pkgver##*.}
-pkgrel=1
+pkgrel=2
 pkgdesc='An image viewing/manipulation program'
 url='https://www.imagemagick.org/'
 arch=(x86_64)
-license=(custom)
+license=(ImageMagick)
 depends=(bzip2
          cairo
          fftw
          fontconfig
          freetype2
-         gcc-libs
          glib2
          glibc
          lcms2
@@ -24,6 +23,9 @@ depends=(bzip2
          libraqm
          libxext
          libxml2
+         libgcc
+         libstdc++
+         libgomp
          xz
          zlib)
 optdepends=('ghostscript: PS/PDF support'
