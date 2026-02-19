@@ -5,7 +5,7 @@
 
 pkgname=libtorrent-rasterbar
 pkgver=2.0.11
-pkgrel=7
+pkgrel=8
 epoch=1
 pkgdesc='An efficient and feature complete C++ BitTorrent library implementation'
 url='https://www.rasterbar.com/products/libtorrent/'
@@ -13,8 +13,9 @@ arch=('x86_64')
 license=('BSD-3-Clause')
 depends=(
     'boost-libs'
-    'gcc-libs'
     'glibc'
+    'libgcc'
+    'libstdc++'
     'openssl')
 makedepends=(
     'boost'
