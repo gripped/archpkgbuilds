@@ -5,7 +5,7 @@
 # Contributor: Phillip Fynan <pfynan@gmail.com>
 
 pkgname=abcmidi
-pkgver=2025_01_04
+pkgver=2026_02_13
 pkgrel=1
 pkgdesc='Tools for ABC and MIDI files'
 groups=(pro-audio)
@@ -13,11 +13,13 @@ arch=(x86_64)
 url='https://github.com/sshlien/abcmidi'
 license=(GPL-2.0-or-later)
 makedepends=(git)
+depends=(glibc)
 source=("git+$url#tag=${pkgver//_/.}")
-b2sums=('eab2daaf57789df0b39451aaca97ce78e2927e6eed1119632a5f8c8d56b4b88ccd6bf205336596fa32138560ac51cf376e5d0e803761f11c7c700334ddfee843')
+b2sums=('38bb403635ce440d8850941b85d11fc70b3e9190e69d90fc8435613f8dc5de25267ab7c075a209abd1f20e5af7e7ff19e5a8bd5dbfe4d1518015760be685cbcf')
 
 build() {
   cd $pkgname
+  export CFLAGS+=' -std=c99 -Wno-implicit-function-declaration'
   ./configure --prefix=/usr
   make
 }
