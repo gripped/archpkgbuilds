@@ -1,17 +1,18 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Maxim Baz <archlinux at maximbaz dot com>
 # Contributor: Andrew Gallant <jamslam@gmail.com>
 
 pkgname=ripgrep
 pkgver=15.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A search tool that combines the usability of ag with the raw speed of grep"
 arch=('x86_64')
 url="https://github.com/BurntSushi/ripgrep"
 license=('MIT OR Unlicense')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
   'pcre2'
 )
 makedepends=('rust')

@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-sonar
-pkgver=1.4.0
+pkgver=1.5.0
 pkgrel=1
 pkgdesc="Produce Sonar-compatible format from different Rust tools"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/-/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('9728786fb6b199ca2fcb595bd0449a7bae8d149dfb5b61abfee8081a5937d436')
+sha256sums=('c31f2b1a23f6278c6b23a86c59942e88ebc655531123a68b41458f375879167c')
 
 prepare() {
   cd "$pkgname-$pkgver"
