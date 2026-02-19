@@ -9,7 +9,7 @@ pkgname=(jack2 jack2-dbus jack2-docs)
 pkgdesc="The JACK low-latency audio server"
 pkgver=1.9.22
 _commit=80149e552b56d6d57d754dc04d119b8170d27313  # refs/tags/v1.9.22
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url="https://github.com/jackaudio/jack2"
 license=(GPL-2.0-or-later)
@@ -67,9 +67,10 @@ package_jack2() {
     alsa-lib libasound.so
     db5.3
     dbus libdbus-1.so
-    gcc-libs
     glibc
+    libgcc
     libsamplerate libsamplerate.so
+    libstdc++
     opus libopus.so
     systemd-libs libsystemd.so
   )
@@ -102,9 +103,9 @@ package_jack2-dbus() {
   depends=(
     dbus libdbus-1.so
     expat libexpat.so
-    gcc-libs
     glibc
     jack2 libjackserver.so
+    libstdc++
     python-dbus
   )
 
