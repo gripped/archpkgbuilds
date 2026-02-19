@@ -2,14 +2,14 @@
 
 pkgname=tbtools
 pkgver=0.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Collection of tools for Linux Thunderbolt/USB4 development, debugging and validation'
 arch=('x86_64')
 url='https://github.com/intel/tbtools'
 license=('MIT')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
   'systemd-libs'
 )
 makedepends=(
