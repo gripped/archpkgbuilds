@@ -3,14 +3,14 @@
 
 pkgname=cargo-audit
 pkgver=0.22.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Audit Cargo.lock for crates with security vulnerabilities"
 url="https://github.com/RustSec/cargo-audit"
 arch=('x86_64')
 license=('Apache-2.0' 'MIT')
 depends=(
   'cargo'
-  'gcc-libs'
+  'libgcc'
   'glibc'
 )
 options=(!lto)
