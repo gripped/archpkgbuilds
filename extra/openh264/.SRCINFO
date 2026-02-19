@@ -1,12 +1,14 @@
 pkgbase = openh264
 	pkgdesc = H.264 encoder and decoder
 	pkgver = 2.6.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.openh264.org/
 	arch = x86_64
 	license = BSD-2-Clause
 	makedepends = nasm
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	provides = libopenh264.so
 	source = https://github.com/cisco/openh264/archive/v2.6.0/openh264-2.6.0.tar.gz
 	source = https://github.com/google/googletest/archive/release-1.8.1/googletest-1.8.1.tar.gz

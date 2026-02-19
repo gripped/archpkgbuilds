@@ -3,15 +3,19 @@
 
 pkgname=openh264
 pkgver=2.6.0
-pkgrel=1
+pkgrel=2
 # https://github.com/cisco/openh264/blob/v2.6.0/Makefile#L33
 _gtestver=1.8.1
 pkgdesc='H.264 encoder and decoder'
 arch=('x86_64')
 url='https://www.openh264.org/'
 license=('BSD-2-Clause')
-depends=('gcc-libs')
-makedepends=('nasm')
+depends=(
+    'glibc'
+    'libgcc'
+    'libstdc++')
+makedepends=(
+    'nasm')
 provides=('libopenh264.so')
 source=("https://github.com/cisco/openh264/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "https://github.com/google/googletest/archive/release-${_gtestver}/googletest-${_gtestver}.tar.gz")
