@@ -2,14 +2,20 @@
 
 pkgname=vmaf
 pkgver=3.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Perceptual video quality assessment algorithm based on multi-method fusion'
 arch=('x86_64')
 url='https://github.com/Netflix/vmaf/'
-license=('BSD')
-depends=('gcc-libs')
-makedepends=('meson' 'nasm')
-checkdepends=('vim')
+license=('BSD-2-Clause-Patent')
+depends=(
+    'glibc'
+    'libgcc'
+    'libstdc++')
+makedepends=(
+    'meson'
+    'nasm')
+checkdepends=(
+    'vim')
 source=("https://github.com/Netflix/vmaf/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
 sha256sums=('7178c4833639e6b989ecae73131d02f70735fdb3fc2c7d84bc36c9c3461d93b1')
 
