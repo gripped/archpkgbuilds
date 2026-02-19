@@ -4,11 +4,12 @@
 
 pkgname=gmp
 pkgver=6.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A free library for arbitrary precision arithmetic'
 arch=(x86_64)
 url='https://gmplib.org/'
-depends=(gcc-libs
+depends=(libgcc
+         libstdc++
          glibc)
 license=(GPL-2.0-or-later
          LGPL-3.0-or-later)
