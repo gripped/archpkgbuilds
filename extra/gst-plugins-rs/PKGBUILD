@@ -54,16 +54,16 @@ pkgname=(
   gst-plugin-webrtchttp
 )
 pkgver=0.14.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Multimedia graph framework"
 url="https://gstreamer.freedesktop.org/"
 arch=(x86_64)
 license=(MPL-2.0)
 depends=(
-  gcc-libs
   glib2
   glibc
   gstreamer
+  libgcc
 )
 makedepends=(
   cairo
@@ -80,6 +80,7 @@ makedepends=(
   gst-plugins-good
   gtk4
   libsodium
+  libstdc++
   nasm
   openssl
   pango
@@ -116,7 +117,7 @@ export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 prepare() {
   cd $pkgbase
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
@@ -138,8 +139,8 @@ _pick() {
 package_gst-webrtc-signalling-server() {
   pkgdesc+=" - webrtc signalling server"
   depends=(
-    gcc-libs
     glibc
+    libgcc
   )
 
   cd $pkgbase
@@ -281,7 +282,10 @@ package_gst-plugin-hlsmultivariantsink() {
 
 package_gst-plugin-hlssink3() {
   pkgdesc+=" - hlssink3 plugin"
-  depends+=(gst-plugins-base-libs)
+  depends+=(
+    gst-plugin-fmp4
+    gst-plugins-base-libs
+  )
 
   mv plugin-hlssink3/* "$pkgdir"
 }
@@ -515,6 +519,7 @@ package_gst-plugin-skia() {
     fontconfig
     freetype2
     gst-plugins-base-libs
+    libstdc++
   )
 
   mv plugin-skia/* "$pkgdir"
