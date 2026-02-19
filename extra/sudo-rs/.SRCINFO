@@ -1,15 +1,15 @@
 pkgbase = sudo-rs
 	pkgdesc = A memory-safe implementation of sudo and su
 	pkgver = 0.2.12
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/trifectatechfoundation/sudo-rs
 	arch = x86_64
 	license = Apache-2.0 AND MIT
 	checkdepends = procps-ng
 	makedepends = cargo
 	makedepends = git
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	depends = pam
 	optdepends = sudo: default configuration files
 	optdepends = apparmor: apparmor support

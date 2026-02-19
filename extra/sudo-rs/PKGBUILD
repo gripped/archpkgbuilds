@@ -3,14 +3,14 @@
 
 pkgname=sudo-rs
 pkgver=0.2.12
-pkgrel=1
+pkgrel=2
 pkgdesc="A memory-safe implementation of sudo and su"
 arch=('x86_64')
 url="https://github.com/trifectatechfoundation/sudo-rs"
 license=('Apache-2.0 AND MIT')
 depends=(
-  gcc-libs
   glibc
+  libgcc
   pam
 )
 makedepends=(
