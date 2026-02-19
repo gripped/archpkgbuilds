@@ -6,32 +6,33 @@
 # Contributor: Tobias T. <OldShatterhand at gmx-topmail dot de>
 
 pkgname=bibletime
-pkgver=3.1.1
-pkgrel=1
+pkgver=3.2.0
+pkgrel=2
 pkgdesc='Bible study tool'
 arch=('x86_64')
 url='https://www.bibletime.info/'
 license=('GPL-2.0-only')
-depends=('sword' 'clucene' 'qt6-webengine' 'qt6-svg')
-makedepends=('cmake' 'docbook-xsl' 'expac' 'fop' 'git' 'ninja' 'po4a' 'qt6-tools')
+depends=('sword' 'clucene' 'qt6-speech' 'qt6-webengine' 'qt6-svg')
+makedepends=('cmake' 'docbook-xsl' 'expac' 'fop' 'git' 'po4a' 'qt6-tools')
 source=("git+https://github.com/bibletime/bibletime.git?signed#tag=v${pkgver}")
-sha256sums=('0f621d0427df53d50625a9582603143fc60d305d682ae8a216bc30640e556c88')
+sha256sums=('8b866b2b9493beaf3a1cb33965f24f318ed84178db2f16fac5cc0aa2b1fb2c81')
 validpgpkeys=('6C0462117260CA4934F7B3E049D76194699FD9A4') # Jaak Ristioja
 
 build() {
-  local _xsl_shared=/usr/share/xml/docbook/xsl-stylesheets-$(expac %v docbook-xsl | cut -d - -f 1)
-  cmake -B build -G Ninja $pkgname \
-    -DCMAKE_BUILD_TYPE=None \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DBT_DOCBOOK_XSL_HTML_CHUNK_XSL=$_xsl_shared/html/chunk.xsl \
-    -DBUILD_HANDBOOK_PDF=OFF \
-    -DBUILD_HOWTO_PDF=OFF \
-    -Wno-dev
-  ninja -C build
+  local xsl_shared=/usr/share/xml/docbook/xsl-stylesheets-$(expac %v docbook-xsl | cut -d - -f 1)
+  local cmake_options=(
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D BT_DOCBOOK_XSL_HTML_CHUNK_XSL="$xsl_shared/html/chunk.xsl"
+    -D BUILD_HANDBOOK_PDF=Off
+    -D BUILD_HOWTO_PDF=Off
+  )
+  cmake -B build -S $pkgname -W no-dev ${cmake_options[@]}
+  cmake --build build
 }
 
 package() {
-  DESTDIR="$pkgdir" ninja -C build install
+  DESTDIR="$pkgdir" cmake --install build
 }
 
 # vim:set ts=2 sw=2 et:
