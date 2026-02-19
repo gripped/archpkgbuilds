@@ -1,7 +1,7 @@
 pkgbase = gcin
 	pkgdesc = Input method server supporting various input methods
 	pkgver = 2.9.4
-	pkgrel = 2
+	pkgrel = 3
 	url = https://hyperrate.com/dir.php?eid=67
 	arch = x86_64
 	license = LGPL-2.1-only
@@ -18,7 +18,8 @@ pkgbase = gcin
 	depends = libxtst
 	depends = libappindicator-gtk3
 	optdepends = qt5-base: support for qt5 input method
-	optdepends = gcc-libs: support for qt5 input method
+	optdepends = libstdc++: support for qt5 input method
+	optdepends = libgcc: support for qt5 input method
 	optdepends = anthy: support for anthy input method
 	optdepends = curl: for downloading and uploading vocabulary databases via ts-edit
 	optdepends = bash: for various scripts
