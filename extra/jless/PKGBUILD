@@ -4,23 +4,26 @@
 
 pkgname=jless
 pkgver=0.9.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A command-line pager for JSON data'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/PaulJuliusMartinez/jless'
-license=('MIT')
-depends=('gcc-libs' 'libxcb' 'libxkbcommon')
-makedepends=('git' 'rust' 'python')
-options=('!lto')
-_commit='21dd6100edb47145bb9570931bec29697bcd0d9b'
-source=("$pkgname::git+$url.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+license=(MIT)
+depends=(
+  glibc
+  libgcc
+  libxcb
+  libxkbcommon
+)
+makedepends=(
+  git
+  rust
+  python
+)
+options=(!lto)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('6aa4bbf08d5bc3688ab9167498cf103a9446f8ded24a92ece65a508e590e89ceb477e827370f31179f689ace702e8d377cfc0339db179e5646bf3167c38ca629')
+b2sums=('4fbf14c1173579cfc22177b9c1073aaf707e762fcdee2d19ddfd2388c764b2c1eae720688400a504268dcc070158bdaea00bbe2c59d7c1109954719b36a4baae')
 
 prepare() {
   cd "$pkgname"
