@@ -6,7 +6,7 @@
 
 pkgname=knot-resolver
 pkgver=6.2.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Caching DNSSEC-validating DNS resolver"
 arch=('x86_64')
 url='https://www.knot-resolver.cz/'
@@ -14,7 +14,6 @@ license=('GPL-3.0-or-later')
 depends=(
   'dnssec-anchors'
   'fstrm'
-  'gcc-libs'
   'glibc'
   'gnutls'
   'knot'
@@ -102,10 +101,6 @@ check() {
 
 package() {
   DESTDIR="${pkgdir}" ninja -C build install
-
-  # Add knot-resolver.service to multi-user.target.wants to support enabling the service
-  install -vdm755 "${pkgdir}/usr/lib/systemd/system/multi-user.target.wants/"
-  ln -vs ../knot-resolver.service "${pkgdir}/usr/lib/systemd/system/multi-user.target.wants/knot-resolver.service"
 
   # Install knot-resolver Python manager and kresctl
   cd ${pkgname}
