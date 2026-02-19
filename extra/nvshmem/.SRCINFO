@@ -1,7 +1,7 @@
 pkgbase = nvshmem
 	pkgdesc = NVIDIA parallel programming interface based on OpenSHMEM
 	pkgver = 3.5.19
-	pkgrel = 2
+	pkgrel = 3
 	url = https://developer.nvidia.com/nvshmem
 	arch = x86_64
 	license = LicenseRef-NVIDIA-NVSHMEM
@@ -24,8 +24,9 @@ pkgbase = nvshmem
 
 pkgname = nvshmem
 	depends = cuda
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	optdepends = libfabric: For OpenFabrics transport plugin
 	optdepends = openmpi: For MPI and OpenSHMEM bootstrap plugins
 	optdepends = openpmix: For PMI bootstrap plugins

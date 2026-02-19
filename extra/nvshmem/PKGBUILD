@@ -5,7 +5,7 @@ pkgname=(nvshmem python-nvshmem)
 pkgver=3.5.19
 _upstream_pkgrel=1
 _cuda_ver=13
-pkgrel=2
+pkgrel=3
 pkgdesc="NVIDIA parallel programming interface based on OpenSHMEM"
 arch=(x86_64)
 url="https://developer.nvidia.com/nvshmem"
@@ -98,8 +98,9 @@ build() {
 package_nvshmem() {
   depends=(
     cuda
-    gcc-libs
     glibc
+    libgcc
+    libstdc++
   )
   optdepends=(
     'libfabric: For OpenFabrics transport plugin'
