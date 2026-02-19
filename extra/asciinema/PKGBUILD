@@ -4,13 +4,13 @@
 
 pkgname=asciinema
 pkgver=3.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Record and share terminal sessions'
 arch=(x86_64)
 url='https://asciinema.org'
 license=(GPL-3.0-only)
 makedepends=(cargo git)
-depends=(glibc gcc-libs)
+depends=(glibc libgcc)
 options=(!lto)
 source=("git+https://github.com/$pkgname/$pkgname#tag=v$pkgver")
 b2sums=('db4230b4f53120b2ce202fc10cde40170b3bdb52025ef3d99a69b1c695ca57ced84a619f3aa9935c4fa11b9bb57216f9734f101ac5cf9c963f82214e3666fe55')
