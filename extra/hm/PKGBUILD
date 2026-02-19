@@ -2,14 +2,15 @@
 
 pkgname=hm
 pkgver=18.0
-pkgrel=2
+pkgrel=3
 pkgdesc='HEVC Test Model - the reference software for HEVC'
 arch=('x86_64')
 url='https://hevc.hhi.fraunhofer.de/'
 license=('BSD-3-Clause')
 depends=(
-    'gcc-libs'
-    'glibc')
+    'glibc'
+    'libgcc'
+    'libstdc++')
 makedepends=(
     'cmake'
     'lsb-release'
