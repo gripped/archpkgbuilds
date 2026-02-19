@@ -4,7 +4,7 @@
 
 pkgname=budgie-session
 pkgver=1.0.0
-pkgrel=2
+pkgrel=1
 pkgdesc="The Budgie Desktop session handler"
 arch=(x86_64)
 url="https://github.com/BuddiesOfBudgie/budgie-session"
@@ -13,6 +13,7 @@ groups=(budgie)
 depends=(
 	bash
 	dconf
+	gcc-libs
 	glib2
 	glibc
 	gnome-desktop
@@ -26,7 +27,6 @@ depends=(
 	libx11
 	libxcomposite
 	systemd-libs
-	wayland
 )
 makedepends=(
 	docbook-xsl
