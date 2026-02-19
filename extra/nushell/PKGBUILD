@@ -6,7 +6,7 @@
 
 pkgname=nushell
 pkgver=0.110.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A new type of shell'
 arch=(x86_64)
 url='https://www.nushell.sh'
@@ -14,7 +14,7 @@ license=(MIT)
 depends=(
   curl
   glibc
-  gcc-libs
+  libgcc
   libcrypto.so
   libssl.so
   zlib
