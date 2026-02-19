@@ -4,14 +4,14 @@
 
 pkgname=breezy
 pkgver=3.3.21
-pkgrel=1
+pkgrel=2
 pkgdesc='A decentralized revision control system with support for Bazaar and Git file formats'
 arch=(x86_64)
 url=https://www.breezy-vcs.org/
 license=(GPL-2.0-or-later)
 depends=(
-  gcc-libs
   glibc
+  libgcc
   python
   python-configobj
   python-dulwich
