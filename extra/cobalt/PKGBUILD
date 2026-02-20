@@ -3,7 +3,7 @@
 # Contributor: Stas Rudakou <stas at garage22 dot net>
 
 pkgname=cobalt
-pkgver=0.20.3
+pkgver=0.20.4
 pkgrel=1
 pkgdesc='Static site generator written in Rust'
 url='https://cobalt-org.github.io/'
@@ -17,8 +17,8 @@ makedepends=(
   cargo
 )
 source=(https://github.com/cobalt-org/cobalt.rs/archive/v${pkgver}/${pkgname}.rs-v${pkgver}.tar.gz)
-sha512sums=('fda34b9e146571fa53820e6ab79515765568e1632ab5180103b18390c204346ce2962aba7c2d8d68f8c9bbeed2d6be1527c3cbd04c762d2167db82b57f88a06d')
-b2sums=('90406b6e167b504c2c0fccc03228c3aa66d5c4bbf4f0767cbb7c0eb723e6ce4cf7408c8f6459f288ff81559a7edf611fc99dd530b63be307144dba33605c3872')
+sha512sums=('b9edbf2fddd56d0fe3f95662980ec53d45c676829d0766cfdce4a1e5fb38d7d5894f51ac74f1fa4592a84c7d9f58d0b616bb1e1ddee0a9208b384dbd42fbdf4f')
+b2sums=('e6291d7cd5469cd0cc871df19669893e33b722f485230138a732b5ae4287c3b8ac054c7e0d33cca75b62c5170330934f070528cf47d2ac1305af27f004e63390')
 
 prepare() {
   cd ${pkgname}.rs-${pkgver}
