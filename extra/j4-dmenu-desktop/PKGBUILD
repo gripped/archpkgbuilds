@@ -6,15 +6,16 @@
 
 pkgname=j4-dmenu-desktop
 pkgver=3.2
-pkgrel=6
+pkgrel=7
 pkgdesc="Find .desktop files and offer you a menu to start an application using dmenu"
 arch=('x86_64')
 url="https://github.com/enkore/j4-dmenu-desktop"
 license=('GPL-3.0-only')
 depends=(
     'fmt'
-    'gcc-libs'
     'glibc'
+    'libstdc++.so'
+    'libgcc_s.so'
     'spdlog'
 )
 makedepends=(
