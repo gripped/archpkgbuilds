@@ -4,15 +4,19 @@
 
 pkgname=openai-codex
 pkgver=0.104.0
-pkgrel=1
+pkgrel=2
 pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
 arch=(x86_64)
 url='https://github.com/openai/codex'
 license=(Apache-2.0)
 depends=(
-  openssl
-  gcc-libs
+  bzip2
   glibc
+  libcap
+  libgcc
+  openssl
+  xz
+  zlib
 )
 makedepends=(cargo)
 checkdepends=(cargo-nextest git clang cmake dotslash)
@@ -91,6 +95,13 @@ package() {
   install -Dm755 -t "$pkgdir"/usr/bin \
     target/release/codex \
     target/release/codex-responses-api-proxy
+
+  install -d "${pkgdir}/usr/share/bash-completion/completions" \
+             "${pkgdir}/usr/share/zsh/site-functions" \
+             "${pkgdir}/usr/share/fish/vendor_completions.d"
+  "${pkgdir}/usr/bin/codex" completion bash > "${pkgdir}/usr/share/bash-completion/completions/codex"
+  "${pkgdir}/usr/bin/codex" completion zsh > "${pkgdir}/usr/share/zsh/site-functions/_codex"
+  "${pkgdir}/usr/bin/codex" completion fish > "${pkgdir}/usr/share/fish/vendor_completions.d/codex.fish"
 }
 
 # vim:set ts=2 sw=2 et:
