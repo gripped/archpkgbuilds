@@ -4,7 +4,7 @@
 
 pkgname=libvpx
 pkgver=1.15.2
-pkgrel=2
+pkgrel=3
 pkgdesc='VP8 and VP9 codec'
 arch=(x86_64)
 url=https://www.webmproject.org/
@@ -25,6 +25,13 @@ b2sums=('7dac94f25867bf023b5d15662996f867e435533b038da881352730b88f8fc9ae657c45b
 pkgver() {
   cd libvpx
   git describe --tags | sed 's/^v//'
+}
+
+prepare() {
+  cd libvpx
+
+  # Backport fix for CVE-2026-1861
+  git cherry-pick -n d5f35ac8d93cba7f7a3f7ddb8f9dc8bd28f785e1
 }
 
 build() {
