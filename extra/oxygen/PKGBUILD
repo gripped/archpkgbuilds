@@ -4,11 +4,12 @@
 
 pkgbase=oxygen
 pkgname=(oxygen
-         oxygen5)
+         oxygen5
+         oxygen-cursors)
 pkgdesc='KDE Oxygen style'
 pkgver=6.6.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL-2.0-or-later)
@@ -61,7 +62,11 @@ build() {
 }
 
 package_oxygen() {
+  depends+=(oxygen-cursors)
+
   DESTDIR="$pkgdir" cmake --install build
+# Split cursors
+  rm -r "$pkgdir"/usr/share/icons/{KDE_Classic,Oxygen*}
 }
 
 package_oxygen5() {
@@ -88,4 +93,12 @@ package_oxygen5() {
 
   DESTDIR="$pkgdir" cmake --install build5
   rm -r "$pkgdir"/usr/share/kstyle
+}
+
+package_oxygen-cursors() {
+  pkgdesc='Oxygen cursors'
+  depends=()
+  optdepends=()
+
+  DESTDIR="$pkgdir" cmake --install build/cursors
 }

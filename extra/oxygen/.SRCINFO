@@ -1,7 +1,7 @@
 pkgbase = oxygen
 	pkgdesc = KDE Oxygen style
 	pkgver = 6.6.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://kde.org/plasma-desktop/
 	arch = x86_64
 	groups = plasma
@@ -43,6 +43,24 @@ pkgbase = oxygen
 	sha256sums = SKIP
 
 pkgname = oxygen
+	depends = frameworkintegration
+	depends = gcc-libs
+	depends = glibc
+	depends = kcmutils
+	depends = kcolorscheme
+	depends = kcompletion
+	depends = kconfig
+	depends = kconfigwidgets
+	depends = kcoreaddons
+	depends = kdecoration
+	depends = kguiaddons
+	depends = ki18n
+	depends = kwidgetsaddons
+	depends = kwindowsystem
+	depends = libxcb
+	depends = qt6-base
+	depends = qt6-declarative
+	depends = oxygen-cursors
 
 pkgname = oxygen5
 	pkgdesc = Qt5 Oxygen style
@@ -65,3 +83,8 @@ pkgname = oxygen5
 	optdepends = 
 	conflicts = oxygen<5.27.80
 	replaces = oxygen<5.27.80
+
+pkgname = oxygen-cursors
+	pkgdesc = Oxygen cursors
+	depends = 
+	optdepends = 
