@@ -6,8 +6,8 @@
 _devendored=1  # set to 0 to use vendored sources
 _pkgname=poetry-core
 pkgname=python-poetry-core
-pkgver=2.2.1
-pkgrel=2
+pkgver=2.3.1
+pkgrel=1
 pkgdesc='Poetry PEP 517 Build Backend & Core Utilities'
 arch=(any)
 url="https://github.com/python-poetry/${_pkgname}"
@@ -31,8 +31,8 @@ checkdepends=(git
 _archive="$_pkgname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz"
         "$pkgname-1.9.0-devendor.patch")
-sha256sums=('f5a68f3f1d24078624c124fc9dd24ec7365a65a22dc7a24a2a5d5680490325e4'
-            '568e62b1a4fd2a5507d5c0644a5dee891780ebbc8db7e777f14a718e0f777215')
+sha256sums=('f37e326a9ba5a573ad52ad25973d90955606183c90f9dd43f417c72c0119ba72'
+            '0de43988285714681d7fd7cb1928888e04d7755e369f787392f6b82c1d7d2b0e')
 
 prepare() {
 	if (( _devendored == 1 )); then
