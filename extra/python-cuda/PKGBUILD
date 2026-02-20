@@ -5,7 +5,7 @@ pkgbase=python-cuda
 # NOTE: python-cuda-pathfinder and python-cuda-core are packaged separately
 pkgname=(python-cuda python-cuda-bindings)
 pkgver=13.1.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Python interface for CUDA provided by NVIDIA"
 arch=(x86_64)
 url="https://nvidia.github.io/cuda-python"
@@ -67,8 +67,9 @@ check() {
 package_python-cuda-bindings() {
   depends=(
     cuda
-    gcc-libs
     glibc
+    libgcc
+    libstdc++
     python
     python-cuda-pathfinder
   )

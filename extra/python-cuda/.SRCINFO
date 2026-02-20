@@ -1,7 +1,7 @@
 pkgbase = python-cuda
 	pkgdesc = Python interface for CUDA provided by NVIDIA
 	pkgver = 13.1.1
-	pkgrel = 3
+	pkgrel = 4
 	url = https://nvidia.github.io/cuda-python
 	arch = x86_64
 	license = LicenseRef-NVIDIA
@@ -35,7 +35,8 @@ pkgname = python-cuda
 
 pkgname = python-cuda-bindings
 	depends = cuda
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = python
 	depends = python-cuda-pathfinder
