@@ -6,8 +6,8 @@
 
 _pyname=astroid
 pkgname=python-$_pyname
-pkgver=4.0.3
-pkgrel=2
+pkgver=4.1.0
+pkgrel=1
 pkgdesc='A common base representation of python source code'
 arch=(any)
 url="https://github.com/pylint-dev/$_pyname"
@@ -27,7 +27,7 @@ replaces=(python-logilab-astng)
 conflicts=(python-logilab-astng)
 _archive="$_pyname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('42f49822d3693fc5d723138cec315b6c8bdbf52f36b0cee66d8f85756d104581')
+sha256sums=('f4950a8c83305c656400bf5fa8912b55f464646736fead8f8eac8dfe5a5430db')
 
 build() {
 	cd "$_archive"
