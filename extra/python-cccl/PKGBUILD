@@ -3,14 +3,15 @@
 _name=cccl
 pkgname=python-$_name
 pkgver=0.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc="CUDA Core Compute Libraries for Python"
 arch=(x86_64)
 url="https://github.com/NVIDIA/cccl"
 license=("Apache-2.0 WITH LLVM-exception")
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   python
   python-cuda-bindings
   python-cuda-core
