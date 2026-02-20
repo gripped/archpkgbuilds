@@ -1,6 +1,6 @@
 pkgbase = gitlab-runner
 	pkgdesc = The official GitLab CI runner written in Go
-	pkgver = 18.8.0
+	pkgver = 18.9.0
 	pkgrel = 1
 	url = https://gitlab.com/gitlab-org/gitlab-runner
 	install = gitlab-runner.install
@@ -18,19 +18,19 @@ pkgbase = gitlab-runner
 	depends = tar
 	optdepends = inetutils: hostname command
 	replaces = gitlab-ci-multi-runner
-	noextract = prebuilt-alpine-x86_64-18.8.0.tar.xz
-	noextract = prebuilt-ubuntu-x86_64-18.8.0.tar.xz
+	noextract = prebuilt-alpine-x86_64-18.9.0.tar.xz
+	noextract = prebuilt-ubuntu-x86_64-18.9.0.tar.xz
 	backup = etc/gitlab-runner/config.toml
-	source = git+https://gitlab.com/gitlab-org/gitlab-runner.git#tag=v18.8.0
-	source = prebuilt-alpine-x86_64-18.8.0.tar.xz::https://gitlab-runner-downloads.s3.amazonaws.com/v18.8.0/helper-images/prebuilt-alpine-x86_64.tar.xz
-	source = prebuilt-ubuntu-x86_64-18.8.0.tar.xz::https://gitlab-runner-downloads.s3.amazonaws.com/v18.8.0/helper-images/prebuilt-ubuntu-x86_64.tar.xz
+	source = git+https://gitlab.com/gitlab-org/gitlab-runner.git#tag=v18.9.0
+	source = prebuilt-alpine-x86_64-18.9.0.tar.xz::https://gitlab-runner-downloads.s3.amazonaws.com/v18.9.0/helper-images/prebuilt-alpine-x86_64.tar.xz
+	source = prebuilt-ubuntu-x86_64-18.9.0.tar.xz::https://gitlab-runner-downloads.s3.amazonaws.com/v18.9.0/helper-images/prebuilt-ubuntu-x86_64.tar.xz
 	source = gitlab-runner.service
 	source = gitlab-runner.sysusers
 	source = gitlab-runner.tmpfiles
 	source = config.toml
-	sha512sums = dfacfaeb10f48b56476951124ac997a9fc5106755c475f0752c560709067360cc94c6d947f7ef63aa5227f7e5aad0cb44f1d9ca514630ecd589520ab13ca9de8
-	sha512sums = 67e6a9f0b9cb0cad979d6c7e2b6f46abf2cf8b920051e1dae4af19792b656f20d1ac9f9fc6cd2de0f90321d133102726964d001bf11b3fe415e4347b09090c40
-	sha512sums = 1a4c5bb00b86f600dd0de295a031fe11ca111da44b1dfda53f406c974b696e0283acee761474f14ad56b45e4045537a6a8242a734ad3e7e74843188e1a37127f
+	sha512sums = 3f73932e3887c42ab60f3da79b255609d6facd1f075f96c1c0ab5729e9fd6eefe1be2dcc986f1adfa8bf7809dd246cc3e3e3e796e2e8e024098cab7bf98b2c73
+	sha512sums = 45f6a0e777007b471bf125e66e3be1be5a261c2146631f48f7f1fed284db6156016d7713229c31911288a2a69b94fb60d2b8fae5cb8cf9a10feed43909b17a6d
+	sha512sums = b021094dce9acc8f676e813d550ffadf4ac9f2f1ecc80aef81f08fa8ff644ff41fa06f0ceef14a87879938c77ba6f35299d3f4796e000cf4132b39930d7ac1b3
 	sha512sums = a61348bc0c817a21588bd4a82daf7f230d41816b576befbc5727e37da534de6378031a49e9f5e2da34be5d78f4927a64ee856afaa80ec7b6e7037244d9dbead0
 	sha512sums = 8aa7f08702e99053c696fcc2aaba83beb9e9cd6f31973d82862db9350ac46df3a095377625d31fe909677525290d2de922d7a97930ed235774cb8f0da8944d40
 	sha512sums = 6751d9fa0b27172d1b419c4138f5ac15cbc7c9147653a7258cf1470216142c637210bb60608c7ed0974e0e4057e5ddeae32225df1bb36e7dd1f20fec71e33cc3
