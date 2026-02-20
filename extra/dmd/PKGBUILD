@@ -14,7 +14,7 @@ pkgbase=dmd
 pkgver=2.112.1
 _docsver=2.112.0
 _phobosver=2.112.0
-pkgrel=1
+pkgrel=2
 epoch=1
 arch=('x86_64')
 url='https://www.dlang.org'
@@ -119,7 +119,6 @@ package_dmd-docs() {
 package_libphobos() {
     pkgdesc="The Phobos standard library for D programming language"
     options=('staticlibs' '!strip')
-    depends=('gcc-libs')
     conflicts=('libphobos-devel')
     provides=("d-runtime=$pkgver" "d-stdlib=$pkgver" "libphobos-devel=$pkgver")
     replaces=('libphobos-devel')
