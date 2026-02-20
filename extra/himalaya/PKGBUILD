@@ -2,8 +2,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=himalaya
-pkgver=1.1.0
-pkgrel=2
+pkgver=1.2.0
+pkgrel=1
 pkgdesc="A CLI email client"
 arch=('x86_64')
 url="https://github.com/soywod/himalaya"
@@ -11,13 +11,13 @@ license=('MIT')
 depends=('gcc-libs' 'glibc' 'gpgme' 'notmuch' 'openssl')
 makedepends=('cargo')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('5e4389942eda1979c4e0a6ef93a7aa28bad9a94dca9373412d286bc5b0dd14f5489a3366868fc3a89aa09cedb2e386dd838faca2c99a0dc235cfeb5865d86c82')
+sha512sums=('3103b0adf17abc19513801078ac9eb5433d9f87649399eb8f0baad9ee3efc4ba4ff465dbfd8575961a33627e99adddf00b18c20c3620574f904320ba9dbcee6c')
 
 _features='notmuch,pgp-gpg'
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
   mkdir -p {completions,man}
 }
 
