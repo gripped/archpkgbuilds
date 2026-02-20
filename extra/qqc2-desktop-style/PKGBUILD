@@ -2,11 +2,12 @@
 
 pkgname=qqc2-desktop-style
 pkgver=6.23.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A style for Qt Quick Controls 2 to make it follow your desktop theme'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
-license=(LGPL-2.0-only LGPL-3.0-only)
+license=(LGPL-2.0-only
+         LGPL-3.0-only)
 depends=(gcc-libs
          glibc
          kcolorscheme
@@ -19,13 +20,19 @@ depends=(gcc-libs
 makedepends=(extra-cmake-modules
              qt6-tools)
 groups=(kf6)
-source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/frameworks/qqc2-desktop-style/-/commit/6d79bb73.patch)
 sha256sums=('a7aa7e0b20d51ffb91f0446640a5e052369c433ef48e3526b4f507384ce7980d'
-            'SKIP')
+            'SKIP'
+            '7f87fb9d706ea4f4b8e43dbf4ebf43051fa71573bd7fd0ca0fba138061e78151')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
               90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1 # Nicolas Fella <nicolas.fella@kde.org>
               )
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < 6d79bb73.patch # fix broken menus
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
