@@ -3,16 +3,16 @@
 _name=torchcodec
 pkgname=python-$_name
 pkgver=0.10.0
-pkgrel=1
+pkgrel=2
 license=(BSD-3-Clause)
 pkgdesc="PyTorch media decoding and encoding"
 arch=(x86_64)
 url="https://github.com/pytorch/torchcodec"
 depends=(
   ffmpeg
-  gcc-libs
   glibc
-  google-glog
+  libgcc
+  libstdc++
   python
   python-pytorch
 )
