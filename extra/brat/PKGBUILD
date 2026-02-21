@@ -1,0 +1,46 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=brat
+pkgver=0.9.0
+pkgrel=2
+pkgdesc='A parallel TAP testing harness for the POSIX shell'
+arch=(any)
+url='https://codeberg.org/sstephenson/brat'
+license=(BSD-2-Clause 'LicenseRef-MIT-TransRights')
+depends=(sh awk sed coreutils)
+makedepends=(git)
+source=(
+  "$pkgname::git+$url#tag=v$pkgver"
+  fix-paths.patch
+)
+sha512sums=('9d3ac841b70a365d70625e0d4a5ae884de5a8236d341eddf4f99282de8a1d3486ddf62925ab63b80c51080274f4aad8432ef858f6ae583e2b5cf1c9246d0b4c7'
+            'dbd6465e423094d7d3251babe330633b3bc616a3edcd8e79bab5d1f13318cbc4d402cdefea4973c7226ec4a0032d588ed7b9b0618d3f1bb7c46ad2499f5b4cfa')
+b2sums=('a6607992dd05a8b25df08d6a90cc231ff1b839aa3eefab7a7b7fb271f5d99015f6638790f6b0bcf1fd6812521f07731204f1c420a02135be7c5d6b51b6fd27fe'
+        'e1825256a00005bb36e6c96ad5fc31a25fdd02b7c6200b967c773c198f5af6e4484f837ca96be3b442d357cc9695c535d69d5e6ca0245ca9363549e1e03cff78')
+
+check() {
+  cd "$pkgname"
+
+  ./script/test
+}
+
+package() {
+  cd "$pkgname"
+
+  # disallow usage of libexec
+  # ensure $ROOT points to /usr
+  patch -p1 -i "$srcdir/fix-paths.patch"
+
+  # binary
+  install -vDm755 -t "$pkgdir/usr/bin" bin/brat
+
+  # lib
+  install -vDm644 -t "$pkgdir/usr/lib/brat" lib/brat/*
+  install -vDm755 -t "$pkgdir/usr/lib/brat" libexec/*
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.md
+}

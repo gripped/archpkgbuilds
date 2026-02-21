@@ -1,0 +1,13 @@
+--- a/bin/brat
++++ b/bin/brat
+@@ -5,8 +5,8 @@ set -eu
+ 
+ export SELF="$(realpath "$0")"
+ NAME="${SELF##*/}"
+-ROOT="${SELF%/*/*}"
+-PATH="$ROOT/libexec:$ROOT/lib/$NAME:$PATH"
++ROOT="/usr"
++PATH="$ROOT/lib/$NAME:$PATH"
+ USAGE="<COMMAND>"
+ unset VERSION
+ 
