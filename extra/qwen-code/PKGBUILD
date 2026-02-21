@@ -1,0 +1,52 @@
+# Contributor: noureddinex
+# Contributor: envolution
+# Contributor: Aaron Coach <aur@awc.id.au>
+# shellcheck shell=bash disable=SC2034,SC2154
+
+pkgname=qwen-code
+pkgver=0.10.5
+pkgrel=1
+pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
+url='https://github.com/QwenLM/qwen-code'
+arch=(x86_64)
+license=(Apache-2.0)
+depends=(
+  libgcc
+  libstdc++
+  glibc
+  nodejs
+)
+makedepends=(
+  git
+  jq
+  npm
+)
+source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}")
+sha256sums=('c34ac31affc667445d75c314955f34754041c685eee742af0ee509f05784026a')
+b2sums=('958f8964234616df9645523e235559febd0fbe3d95418c7efb7e89fc04b822e23f460f68239d2f049a71f08d714e31f4ef932e2891933df09c7c5435a5916e3e')
+
+prepare() {
+  cd $pkgname
+  npm clean-install --ignore-scripts
+}
+build() {
+  cd $pkgname
+  npm run bundle
+  local bundled=$(jq '.dependencies + .optionalDependencies | keys' package.json)
+  npm pkg set --json bundledDependencies="$bundled"
+  npm pack
+}
+
+check() {
+  cd $pkgname
+  npm run build
+  npm test
+}
+
+package() {
+  cd $pkgname
+  npm install --global --offline --prefix "$pkgdir/usr" \
+    $pkgname-$pkgname-$pkgver.tgz
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}
