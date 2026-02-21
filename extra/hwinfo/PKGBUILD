@@ -7,18 +7,18 @@
 # Contributor: ninja_pt
 
 pkgname=hwinfo
-pkgver=25.0
-pkgrel=2
+pkgver=25.2
+pkgrel=1
 pkgdesc='Hardware detection tool from openSUSE'
 arch=(x86_64)
 url='https://github.com/openSUSE/hwinfo'
 license=(GPL-2.0-or-later)
-depends=(libx86emu perl-xml-parser perl-xml-writer)
+depends=(libx86emu perl-xml-parser perl-xml-writer util-linux-libs)
 makedepends=(flex git sysfsutils)
 options=(!emptydirs)
 source=("git+$url#tag=$pkgver"
         custom_ioctl.patch)
-b2sums=('ecab8bc9f378532c960625036b9fdce9036d621a64efefc85bfa2ebec61a10f9eb82dc6ea9cd75edc0797682be6fdcdd8c08fbc4feef3a17c456b35d86a23fe3'
+b2sums=('4613436f1fadd7e22681c88c6078cbc91624dc61048904153da8dd03918940743dc2c1519b5049805c4e25729ac545f022805eeb827cc425832ceab1f1bc3f1c'
         '2b1bd3b53bbfc1e545e1a70ffd6cca08f704639a104928b2c02ccca3e82000f07a470fbdf129566ece6dfb2b98fdad0e82f18cc5c2016ebfeed043b4edb295b4')
 
 prepare() {
