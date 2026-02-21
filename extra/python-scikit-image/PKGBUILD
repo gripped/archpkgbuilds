@@ -3,7 +3,7 @@
 _name=scikit-image
 pkgname=python-$_name
 pkgver=0.26.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Image processing in Python"
 arch=(x86_64)
 url="https://github.com/scikit-image/scikit-image"
@@ -13,8 +13,9 @@ license=(
   MIT
 )
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   python
   python-imageio
   python-lazy-loader
