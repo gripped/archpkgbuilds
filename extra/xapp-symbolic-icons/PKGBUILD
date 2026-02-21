@@ -1,7 +1,7 @@
 # Maintainer:
 
 pkgname=xapp-symbolic-icons
-pkgver=1.0.8
+pkgver=1.0.9
 pkgrel=1
 pkgdesc='A set of symbolic icons for GTK applications and projects'
 arch=(any)
@@ -14,7 +14,7 @@ makedepends=(
 )
 optdepends=('python: for xsi-replace-adwaita-symbolic command')
 source=("git+https://github.com/xapp-project/xapp-symbolic-icons#tag=$pkgver")
-b2sums=('ffd9e00b4300ed2278ffe08d3470f7700ae10e45baa98c3d4f16b890e14db90bbc1c7036f2b72b9928237284d2512117a1c97a279b10e520f0294badea1d079b')
+b2sums=('8dcdb22f90a23baf3c76b7d4d1195d601a991f0eab2c44b72764cdd59654fedc21b48c9c9d6b760c21f164bd74f34d9f1d1e30808bdb96aa2ef9fe8530d09edf')
 
 build() {
   arch-meson $pkgname build
