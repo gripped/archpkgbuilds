@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=luametatex
-pkgver=2.11.07
+pkgver=2.11.08
 pkgrel=1
 pkgdesc='The lean and mean successor of the LuaTeX engine'
 arch=(x86_64)
@@ -11,7 +11,7 @@ depends=(glibc)
 makedepends=(cmake
              git)
 source=(git+https://github.com/contextgarden/luametatex#tag=v$pkgver)
-sha256sums=('33b33f353ab57c7106232a1a4814966a3f0a4ac75af54e6bfb476ad0565f4aad')
+sha256sums=('9272431f670d15787bfbba01c4aae212758cf54c7951ac2ac33936a8901b5137')
 
 build() {
   cmake -B build -S $pkgname \
