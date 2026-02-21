@@ -3,7 +3,7 @@
 # Contributor: Mikaela Szekely <qyriad@gmail.com>
 
 pkgname=cargo-update
-pkgver=18.0.0
+pkgver=18.1.0
 pkgrel=1
 pkgdesc="A cargo subcommand for checking and applying updates to installed executables"
 arch=('x86_64')
@@ -12,14 +12,14 @@ license=('MIT')
 depends=('cargo' 'gcc-libs' 'zlib' 'openssl')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "Cargo.lock")
-sha256sums=('cfa56d6c5fb2d7d1536efb4765031731fe70bf1a8246757a7a9d6a4a046e640f'
-            '39dcade1fd3af27c1f4d8ad7b078a786ce9e1af6501d3c4b7cac43095cc90067')
+sha256sums=('bea4c83f689756b8483faa3b32de1fb2a7730955717df72ee6ebf01cfd8ca4ea'
+            '9b603dc9eba3d24ba8e37de263edc710ded5899db64efaaef9567e8a3ff9ee79')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
   cp "$srcdir/Cargo.lock" .
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
