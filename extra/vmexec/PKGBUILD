@@ -1,20 +1,21 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 
 pkgname=vmexec
-pkgver=0.2.0
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="Run a single command in a speedy virtual machine with zero-setup"
 arch=('x86_64')
 url="https://github.com/svenstaro/vmexec"
 license=('MIT')
-depends=('gcc-libs' 'libguestfs')
+depends=('libguestfs' 'libgcc' 'glibc')
 makedepends=('rust')
 source=(vmexec-$pkgver.tar.gz::https://gitlab.archlinux.org/archlinux/vmexec/-/archive/v${pkgver}/vmexec-v${pkgver}.tar.gz)
-sha512sums=('c1437887227487c49013e412d79a5e2f67a22f30f1b22d7eb6ca22f272727e828be66e585d20faf201cda5b0e68e6f7527dce3e44b77e78033782052577c9e37')
+sha512sums=('5f30d05b9ba2ace6fa9914074980d6f420df250e5d5a301fc91b0c1a667f40c1edb61f440b8f07826ec83959160343bd9a39b85206fdf967237051d6d3b10364')
 
 build() {
   cd $pkgname-v$pkgver
 
+  export CFLAGS+=" -ffat-lto-objects"
   cargo build --release --locked
 }
 
