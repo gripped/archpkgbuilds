@@ -1,43 +1,43 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 # Contributor: Ronald van Haren <ronald.archlinux.org>
-# Contributor : shining <shiningxc.at.gmail.com>
-# Contributor : cyberdune <cyberdune@gmail.com>
+# Contributor: shining <shiningxc.at.gmail.com>
+# Contributor: cyberdune <cyberdune@gmail.com>
 
 pkgname=octave
-pkgver=10.3.0
-pkgrel=2
+pkgver=11.1.0
+pkgrel=1
 pkgdesc='A high-level language, primarily intended for numerical computations'
-arch=('x86_64')
+arch=(x86_64)
 url='https://www.gnu.org/software/octave/'
-license=('GPL')
+license=(GPL)
 depends=(
-  'fftw'
-  'curl'
-  'graphicsmagick'
-  'glpk'
-  'hdf5'
-  'qhull'
-  'arpack'
-  'glu'
-  'ghostscript'
-  'sundials'
-  'gl2ps'
-  'qscintilla-qt6'
-  'libsndfile'
-  'qt6-5compat'
-  'qt6-tools'
-  'qrupdate'
-  'pcre2'
+  fftw
+  curl
+  graphicsmagick
+  glpk
+  hdf5
+  qhull
+  arpack
+  glu
+  ghostscript
+  sundials
+  gl2ps
+  qscintilla-qt6
+  libsndfile
+  qt6-5compat
+  qt6-tools
+  qrupdate
+  pcre2
 )
 makedepends=(
-  'gcc-fortran'
-  'suitesparse'
-  'texinfo'
-  'gnuplot'
-  'fltk'
-  'portaudio'
-  'jdk-openjdk'
-  'rapidjson'
+  gcc-fortran
+  suitesparse
+  texinfo
+  gnuplot
+  fltk
+  portaudio
+  jdk-openjdk
+  rapidjson
 )
 optdepends=(
   'texinfo: for help-support in octave'
@@ -48,9 +48,9 @@ optdepends=(
   'texlive-bin: for the publish command'
 )
 source=("https://ftp.gnu.org/gnu/octave/octave-$pkgver.tar.gz"{,.sig})
-options=('!emptydirs')
+options=(!emptydirs)
 validpgpkeys=('DBD9C84E39FE1AAE99F04446B05F05B75D36644B')  # John W. Eaton
-sha512sums=('9fb7a03add45f68bd1299dddb2a277319a060c0268a052a286809b8999ced52e30f8bbf682958ca590005bb0d6525b5635bb1b9a25a06eacc20a6818eb2f7210'
+sha512sums=('394db743e1f0591d6332bc4721a484f9219633b56a131586c7fe332c7341563824332be9ee10f0f5e513c75a9ec716da672d442a1ef96c7c24b0028eff7cccb3'
             'SKIP')
 
 build() {
