@@ -5,7 +5,7 @@
 
 pkgname=xrootd
 pkgver=5.9.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Software framework for fast, low latency, scalable and fault tolerant data access."
 arch=(x86_64)
 url="https://xrootd.slac.stanford.edu/"
@@ -16,9 +16,10 @@ depends=(
   davix
   e2fsprogs libcom_err.so
   fuse2
-  gcc-libs
   glibc
   krb5 libkrb5.so
+  libgcc
+  libstdc++
   libxcrypt libcrypt.so
   libxml2 libxml2.so
   openssl libssl.so libcrypto.so
