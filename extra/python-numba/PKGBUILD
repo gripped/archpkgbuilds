@@ -1,15 +1,17 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=python-numba
-pkgver=0.63.1
-pkgrel=5
-pkgdesc="JIT compiler that translates a subset of Python and NumPy code into fast machine code"
-url="https://numba.pydata.org/"
+pkgver=0.64.0
+pkgrel=1
+pkgdesc='JIT compiler that translates a subset of Python and NumPy code into fast machine code'
 arch=(x86_64)
-license=(BSD)
+url='https://numba.pydata.org/'
+license=(BSD-1-Clause)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libgomp
+  libstdc++
   python
   python-llvmlite
   python-numpy
@@ -50,14 +52,9 @@ checkdepends=(
   python-pyyaml
   python-scipy
 )
-source=(git+https://github.com/numba/numba#tag=$pkgver
-        numpy-2.4.patch)
-sha256sums=('55b7c20aaa5a3ce79d7011312c7a657c81477d75d110d154ba1be32fe94df07e'
-            'ee0195be5d22683f1546ccd8aac2cb9232e5cc96f9c210f0590dd666701d212a')
-
-prepare() {
-  patch -d numba -p1 < numpy-2.4.patch
-}
+source=(git+https://github.com/numba/numba#tag=$pkgver)
+sha512sums=('0e5adcb628c5eb4be54f8a6193ba05b281cbfca1833e0f900d361ce553ecab8bdd68a4251af92d7cd19f3171da88c0d8043cf252487bc016ea6d4445b8a00d11')
+b2sums=('5d9acbcb9e2166ff673682fb3cba22e0cca57ec52a717d2d88fca252b29e14ebca69e74ce32c7ce2362490ecad3af6f7fbcec615a719a453802350e376a6a391')
 
 build() {
   cd numba
