@@ -2,14 +2,16 @@
 
 pkgname=viskores
 pkgver=1.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A visualization library for many-threaded devices"
 arch=(x86_64)
 url="https://github.com/Viskores/viskores"
 license=(LicenseRef-viskores)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libgomp
+  libstdc++
   onetbb
   openmpi libmpi.so
 )
