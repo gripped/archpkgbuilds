@@ -2,8 +2,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=pipe-rename
-pkgver=1.6.6
-pkgrel=3
+pkgver=1.6.7
+pkgrel=1
 pkgdesc='Rename your files using your favorite text editor'
 arch=(x86_64)
 url='https://github.com/marcusbuffett/pipe-rename'
@@ -12,8 +12,8 @@ depends=(glibc libgcc)
 makedepends=(git rust)
 options=(!lto)
 source=("$pkgname::git+$url.git#tag=$pkgver")
-sha512sums=('bfdf0428bfc6dcd3128acb24007f9ead452a4113f7811c39c91459e4644e0060498b2dbc8db8d60102b780b67eb55dcc45cc1ac577908d35f4aa068a3b790e64')
-b2sums=('28377d41f593bfb6c3caa3eab5ce9d758d7432a72f865f128db1b3e9028aef37b67f58e9b60cb350731daf16e0ada227368a3be45fa8c3f98326214e0592d709')
+sha512sums=('72dbd75ff7e5674f6430695379a847ac8d301b02f1347c1bbcee2daf98ed3c2291db64d3c01b111e6547dfbcc1675f8d2fb59881595637df8812949a0accae0b')
+b2sums=('149ab60d97381753c7b19e129bf453493818d476f6dbb4268db95f52afb69356b96a1656db2ba338dc8b9c964a58e427d93d623cd69ea0805b11e72aa100c0f6')
 
 prepare() {
   cd "$pkgname"
