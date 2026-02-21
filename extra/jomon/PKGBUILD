@@ -1,17 +1,17 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
 
 pkgname=jomon
-pkgver=0.5.3
-pkgrel=2
+pkgver=0.6.3
+pkgrel=1
 pkgdesc='Network forensics and sniffer tool'
 arch=(x86_64)
 url='https://github.com/jo-lund/jomon'
 license=(MIT)
-depends=(gcc-libs glibc geoip ncurses)
+depends=(geoip glibc libgcc ncurses)
 makedepends=(git python re2c)
 optdepends=("geoip-database-extra: for extra geolocation data")
 source=("git+$url#tag=v$pkgver")
-b2sums=('4bb0a937d7b7faa7e56917a6835bd37a2a9f3574fa6f41094086f646997833fce2a1853060427aa9aba46c45d2dc2ba15a7c6abfbf16ba4c72adcb559fec21c7')
+b2sums=('e13a2e314565c28be59509b39c64c865464a93e933c65777482bb2135e9f94d429f316a593649a64816a5825d3da02607224d70587f2a39685ed99165c7dee11')
 
 build() {
   cd $pkgname
