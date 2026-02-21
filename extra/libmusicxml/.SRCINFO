@@ -1,13 +1,13 @@
 pkgbase = libmusicxml
 	pkgdesc = Portable C++ library around the MusicXML format
 	pkgver = 3.22
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/grame-cncm/libmusicxml
 	arch = x86_64
-	license = MPL2
+	license = MPL-2.0
 	makedepends = cmake
-	depends = gcc-libs
-	depends = glibc
+	depends = libgcc_s.so
+	depends = libstdc++.so
 	provides = liblibmusicxml.so
 	source = https://github.com/grame-cncm/libmusicxml/archive/v3.22/libmusicxml-v3.22.tar.gz
 	sha512sums = 31e7dcddfd471185f927c84369f4ae2b0a92354073368400d63e09a413dc2227bcc3b9124a2035b07553e6dc79c1cee19d4e27e1f2ff19a43d512a19505fb8dc
