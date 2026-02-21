@@ -3,14 +3,15 @@
 _name=nvmath
 pkgname=python-$_name
 pkgver=0.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc="NVIDIA Math Libraries for Python"
 arch=(x86_64)
 url="https://github.com/NVIDIA/nvmath-python"
 license=(Apache-2.0)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   python
   python-cuda-bindings
   python-cuda-core
