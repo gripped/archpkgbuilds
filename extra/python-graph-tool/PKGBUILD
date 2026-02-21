@@ -7,7 +7,7 @@ pkgname=(
   python-graph-tool-opt
 )
 pkgver=2.98
-pkgrel=3
+pkgrel=4
 pkgdesc='A Python module for manipulation and statistical analysis of graphs'
 arch=(x86_64)
 url='https://graph-tool.skewed.de'
@@ -16,10 +16,12 @@ depends=(
   boost-libs
   cairomm-1.16
   expat
-  gcc-libs
   glib2
   glibc
   gmp
+  libgcc
+  libgomp
+  libstdc++
   python
   python-cairo
   python-gobject
