@@ -1,8 +1,8 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=pwndbg
-pkgver=2025.04.18
-pkgrel=2
+pkgver=2026.02.18
+pkgrel=1
 pkgdesc='Makes debugging with GDB suck less'
 url='https://github.com/pwndbg/pwndbg'
 arch=(any)
@@ -10,8 +10,11 @@ license=(MIT)
 depends=(
   debuginfod
   gdb
+  ipython
   python
   python-capstone
+  python-capstone6pwndbg
+  python-niche-elf
   python-psutil
   python-pt
   python-ptrace
@@ -20,11 +23,14 @@ depends=(
   python-pyelftools
   python-pygments
   python-requests
+  python-rich
   python-setuptools
   python-sortedcontainers
   python-tabulate
   python-typing_extensions
   python-unicorn
+  # TODO:
+  # decomp2dbg
   which
 )
 makedepends=(
@@ -45,8 +51,8 @@ optdepends=(
 source=(
   https://github.com/pwndbg/pwndbg/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
 )
-sha512sums=('34afa5ee756f405f662f494d47a0cc324ad193f9083ef371c9946681ec58e0ce6c1a5097b3f3b88ab58beb7941317e9a6a0dc0ee643834fc90ccac2f07576de7')
-b2sums=('8cc3cede9abc024e485737c0c38c525456e489eb12beb908bf9bd44fbb33ed1b27a206237452b7bc741fc569a61874cc134725f90fd04d6e46723704a9fb466e')
+sha512sums=('aab6bf6df2954aa8c78c8990df1ce34627fed70811ee06bf87d98897a381cfed5d0a9375cd1713d4d77575fe96a05255fedfbb2e3b742726b6860fe5c6efdef6')
+b2sums=('c153e833fee3c96b21fb11c83e3c09cb8ecad730f6a7145a7674ed8d1c04cb3888d6541c5009f1169b4dcefa836028970270f63216dcfa9c767ca86c622e0cb2')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -69,7 +75,7 @@ package() {
   cp -r *.py __pycache__ "${pkgdir}/usr/share/pwndbg"
   touch "${pkgdir}/usr/share/pwndbg/.skip-venv"
 
-  install -Dm 644 README.md FEATURES.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -Dm 644 LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
 
