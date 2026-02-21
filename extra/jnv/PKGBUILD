@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=jnv
-pkgver=0.6.1
+pkgver=0.6.2
 pkgrel=1
 pkgdesc="Interactive JSON filter using jq"
 arch=(x86_64)
@@ -18,11 +18,11 @@ makedepends=(
 )
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('03223fb20a4c65c2610b94e6208b65098e6b3fe836d3deea75931a5c808f4869')
+sha256sums=('767226c67378381d1e71ffe0e631a5b5ffc00e957a05780a9b23b6a65023bb44')
 
 prepare() {
   cd $pkgname-$pkgver
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
