@@ -4,7 +4,7 @@
 
 pkgname=rocrand
 pkgver=7.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Pseudo-random and quasi-random number generator on ROCm'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocRAND/en/latest/index.html'
@@ -13,22 +13,26 @@ depends=('rocm-core' 'hip-runtime-amd' 'glibc' 'gcc-libs')
 makedepends=('rocm-cmake' 'rocm-toolchain' 'gcc-fortran' 'python' 'git')
 optdepends=('gcc-fortran: Use Fortran wrapper')
 _git='https://github.com/ROCm/rocm-libraries/'
-source=("rocm-libraries-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('8ad5f4a11f1ed8a7b927f2e65f24083ca6ce902a42021a66a815190a91ccb654')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/releases/download/rocm-$pkgver/$pkgname.tar.gz")
+sha256sums=('80342e32511766d96a80aeb93ecd95660420969c53e72019857612a2dd081735')
 options=(!lto !strip)
-_dirname="rocm-libraries-rocm-$pkgver/projects/$pkgname"
 
 build() {
-  # -fcf-protection is not supported by HIP, see
-  # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
+  # Export compiler and ROCm path as these are read by the toolchain file,
+  # https://github.com/ROCm/rocm-libraries/blob/5b515cf1bca9959fb434c2414cf79b42fe25e93b/projects/rocrand/toolchain-linux.cmake#L19
+  export CC=amdclang
+  export CXX=amdclang++
+  export ROCM_PATH=/opt/rocm
   local cmake_args=(
     -Wno-dev
-    -S "$_dirname"
+    -S $pkgname
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_TOOLCHAIN_FILE=toolchain-linux.cmake
     -D CMAKE_CXX_COMPILER=/opt/rocm/bin/amdclang++
     -D GPU_TARGETS="$(rocm-supported-gfx)"
+    # -fcf-protection is not supported by HIP, see
+    # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
     -D CMAKE_CXX_FLAGS="${CXXFLAGS} -fcf-protection=none"
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
   )
@@ -39,5 +43,5 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -Dm644 "$_dirname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$pkgname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
