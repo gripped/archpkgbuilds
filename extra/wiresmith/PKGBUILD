@@ -1,12 +1,12 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=wiresmith
 pkgver=0.4.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Auto-config WireGuard clients into a mesh"
 arch=('x86_64')
 url="https://github.com/svenstaro/wiresmith"
 license=('MIT')
-depends=('gcc-libs' 'glibc')
+depends=('libgcc' 'glibc')
 makedepends=('rust')
 options=('!lto')
 source=($pkgname-$pkgver.tar.gz::https://github.com/svenstaro/wiresmith/archive/v${pkgver}.tar.gz)
