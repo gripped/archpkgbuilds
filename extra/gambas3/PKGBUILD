@@ -30,7 +30,7 @@ pkgname=('gambas3-gb-args'
          'gambas3-gb-web-feed' 'gambas3-gb-web-form' 'gambas3-gb-web-gui' 'gambas3-gb-web'
          'gambas3-runtime' 'gambas3-dev-tools' 'gambas3-ide' 'gambas3-script')
 pkgver=3.21.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A free development environment based on a Basic interpreter."
 arch=('x86_64')
 url="http://gambas.sourceforge.net/"
@@ -191,7 +191,7 @@ package_gambas3-gb-db-postgresql() {
 }
 
 package_gambas3-gb-db-sqlite3() {
-  depends=('gambas3-gb-db' 'sqlite' 'gcc-libs')
+  depends=('gambas3-gb-db' 'sqlite')
   pkgdesc="Sqlite3 database access component"
 
   _install fakeinstall/usr/lib/gambas3/gb.db.sqlite3.*
@@ -240,7 +240,7 @@ package_gambas3-gb-db2-postgresql() {
 }
 
 package_gambas3-gb-db2-sqlite3() {
-  depends=('gambas3-gb-db2' 'sqlite' 'gcc-libs')
+  depends=('gambas3-gb-db2' 'sqlite')
   pkgdesc="Sqlite3 database access component"
 
   _install fakeinstall/usr/lib/gambas3/gb.db2.sqlite3.*
@@ -409,7 +409,7 @@ package_gambas3-gb-httpd() {
 }
 
 package_gambas3-gb-image-effect() {
-  depends=('gambas3-gb-image' 'gcc-libs')
+  depends=('gambas3-gb-image')
   pkgdesc="Image effect component"
 
   _install fakeinstall/usr/lib/gambas3/gb.image.effect.*
@@ -836,7 +836,7 @@ package_gambas3-gb-xml-xslt() {
 }
 
 package_gambas3-gb-xml() {
-  depends=('gambas3-runtime' 'gcc-libs')
+  depends=('gambas3-runtime')
   pkgdesc="XML component"
 
   _install fakeinstall/usr/lib/gambas3/gb.xml.*
