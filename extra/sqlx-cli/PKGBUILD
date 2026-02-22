@@ -3,25 +3,24 @@
 
 pkgname=sqlx-cli
 pkgver=0.8.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Command-line utility for SQLx, the Rust SQL toolkit'
-license=('Apache' 'MIT')
+license=('Apache-2.0' 'MIT')
 arch=('x86_64')
 url="https://github.com/launchbadge/sqlx"
-depends=('gcc-libs' 'openssl')
+depends=('libgcc' 'glibc' 'openssl' 'sqlite')
 makedepends=('rust')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/launchbadge/sqlx/archive/refs/tags/v${pkgver}.tar.gz")
 sha512sums=('d2d6713c11f0ba77d24cc1c48e62c528ec1cb2095fd70e6bb10ecab41d27bfa9d1fc58ea6663548b9fadefb00a0e954bf71dfb1a299d8bf06097c3c6907ad920')
-options=('!lto')
 
 build() {
     cd "sqlx-$pkgver/sqlx-cli"
-    cargo build --locked --release
+    LIBSQLITE3_SYS_USE_PKG_CONFIG=1 cargo build --locked --release
 }
 
 check() {
     cd "sqlx-$pkgver/sqlx-cli"
-    cargo test --locked
+    LIBSQLITE3_SYS_USE_PKG_CONFIG=1 cargo test --locked
 }
 
 package() {
