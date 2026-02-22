@@ -1,6 +1,6 @@
 pkgbase = notmuch
-	pkgver = 0.39
-	pkgrel = 3
+	pkgver = 0.40
+	pkgrel = 1
 	url = https://notmuchmail.org/
 	arch = x86_64
 	license = GPL3
@@ -22,11 +22,13 @@ pkgbase = notmuch
 	makedepends = sfsexp
 	options = !distcc
 	options = !makeflags
-	source = https://notmuchmail.org/releases/notmuch-0.39.tar.xz
-	source = https://notmuchmail.org/releases/notmuch-0.39.tar.xz.asc
+	source = https://notmuchmail.org/releases/notmuch-0.40.tar.xz
+	source = https://notmuchmail.org/releases/notmuch-0.40.tar.xz.asc
+	source = https://github.com/felipec/notmuch-vim/commit/f72faa623fe2123ef9a2712520524ee7838ad7c2.patch
 	validpgpkeys = 7A18807F100A4570C59684207E4E65C8720B706B
-	sha512sums = a9864a6a8423c723d36df269dcc73c2987be63c6e328b818235d0604cb594e0e91ee7639ee99a4b867be4387a605abc187a3b458aa7b0e4fc3a1744c0c2daa69
+	sha512sums = 937c72c05b00520cc3dbc7db6282ad65a621c8e102fbcbac3c9d99061ae510741b13ef9cf5c6476ba8e7fa15a6905631159477a938d1369db6d9885780b90867
 	sha512sums = SKIP
+	sha512sums = e8be631babc660bb5dac1f49e9aee400a5d60a4a4964d28ae8e851448e0a846a7af9021854fb73f0f5d16f98e3e6c1449e9bc69e93f7bbfdaec7c7fb6e99f0b7
 
 pkgname = notmuch
 	pkgdesc = Notmuch is not much of an email program

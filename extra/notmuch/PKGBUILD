@@ -8,17 +8,24 @@
 
 pkgbase=notmuch
 pkgname=('notmuch' 'notmuch-vim' 'notmuch-mutt' 'notmuch-runtime')
-pkgver=0.39
-pkgrel=3
+pkgver=0.40
+pkgrel=1
 arch=('x86_64')
 url="https://notmuchmail.org/"
 license=('GPL3')
 makedepends=('python' 'python-build' 'python-cffi' 'python-installer' 'python-setuptools' 'python-sphinx' 'python-wheel' 'doxygen' 'emacs' 'gnupg' 'ruby' 'pkgconfig' 'xapian-core' 'gmime3' 'talloc' 'sfsexp')
 options=(!distcc !makeflags)
-source=("https://notmuchmail.org/releases/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha512sums=('a9864a6a8423c723d36df269dcc73c2987be63c6e328b818235d0604cb594e0e91ee7639ee99a4b867be4387a605abc187a3b458aa7b0e4fc3a1744c0c2daa69'
-            'SKIP')
+source=("https://notmuchmail.org/releases/${pkgname}-${pkgver}.tar.xz"{,.asc}
+        https://github.com/felipec/notmuch-vim/commit/f72faa623fe2123ef9a2712520524ee7838ad7c2.patch)
+sha512sums=('937c72c05b00520cc3dbc7db6282ad65a621c8e102fbcbac3c9d99061ae510741b13ef9cf5c6476ba8e7fa15a6905631159477a938d1369db6d9885780b90867'
+            'SKIP'
+            'e8be631babc660bb5dac1f49e9aee400a5d60a4a4964d28ae8e851448e0a846a7af9021854fb73f0f5d16f98e3e6c1449e9bc69e93f7bbfdaec7c7fb6e99f0b7')
 validpgpkeys=('7A18807F100A4570C59684207E4E65C8720B706B') # David Bremner <bremner@debian.org>
+
+prepare() {
+    patch -d "$srcdir/$pkgbase-$pkgver/vim" -p2 \
+        -i ../../f72faa623fe2123ef9a2712520524ee7838ad7c2.patch
+}
 
 build() {
     cd "$srcdir/$pkgbase-$pkgver"
