@@ -4,7 +4,7 @@
 # Contributor: PiC0 <guill.p.linux@gmail.com>
 
 pkgname=python-xmltodict
-pkgver=1.0.3
+pkgver=1.0.4
 pkgrel=1
 pkgdesc='Python module that makes working with XML feel like you are working with JSON'
 arch=(any)
@@ -20,8 +20,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('2c518d2a0cf04496d6f50c0e514c02854dde3e14b45e163f59ac5ec25364f0a5c7bd4a4336a5d3f9ff2c47a786b1dd7a3d7f0b95546ffc596f9b6c6f2f60831a')
-b2sums=('f2427343a76dc503a10040067a72b4471f50ddce2b351cb7cb7469f1c38b37d0bc36842a1bdb6f2a3ed7913890b687ecce3ab5f31eb098ceda25b9437d1f1245')
+sha512sums=('398c2eb71c44612fc34b001445f2771257af86389127070db0016e2b56378ee66aefb239518fc4e5c11bb1b2590b0155ec412290dc540670015d2be46d6875e9')
+b2sums=('4bdb607ea34785a6237cca5e53addd799be8df6ca29e2c9b05eaf4bb5555dd7558d19b3e321b76a2f04d97b5865cbdd27133d717f025a99fbd7c47513f8bfce7')
 
 build() {
   cd "$pkgname"
