@@ -1,6 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=lib32-sdl3
-pkgver=3.4.0
+pkgver=3.4.2
 pkgrel=1
 pkgdesc="A library for portable low-level access to a video framebuffer, audio output, mouse, and keyboard (Version 3) - 32-bit"
 arch=('x86_64')
@@ -44,9 +44,9 @@ optdepends=(
   'lib32-libdecor: Wayland client decorations'
 )
 source=("https://github.com/libsdl-org/SDL/releases/download/release-${pkgver}/SDL3-${pkgver}.tar.gz"{,.sig})
-sha512sums=('b7803fc1a7260a0594644bf81df8c300d63c30c436a2b8c8217d58cd25814faf44e2945a4979c860f81cddc367913cc8c03f0bf6745da2918121f379fd9cb27b'
+sha512sums=('3d9e9514788ecefea586e788af2100a73befffd2b4a9aaccbbe3b3e0c8cb324605b1386b4f7a65cb59022fbaab430efda164a3d1301cbf2315987018bc110f64'
             'SKIP')
-validpgpkeys=('1528635D8053A57F77D1E08630A59377A7763BE6') # Sam Lantinga
+validpgpkeys=('0900104363B4C9D4223DE149D913FE7D4B61D39B') # Sam Lantinga
 
 build() {
   export CC='gcc -m32'
@@ -57,7 +57,7 @@ build() {
     -B build -G Ninja \
   	-D CMAKE_BUILD_TYPE=None \
     -D CMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=lib32 \
+    -D CMAKE_INSTALL_LIBDIR=lib32 \
     -D SDL_STATIC=OFF \
     -D SDL_RPATH=OFF
   cmake --build build
