@@ -2,7 +2,7 @@
 # Contributor: Piotr Miller <nwg.piotr@gmail.com>
 
 pkgname=nwg-hello
-pkgver=0.4.2
+pkgver=0.4.3
 pkgrel=1
 pkgdesc="GTK3-based greeter for greetd written in python"
 url="https://github.com/nwg-piotr/nwg-hello"
@@ -15,7 +15,7 @@ optdepends=('sway: Wayland compositor nwg-hello has been made for'
             'mugshot: for user avatar support')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
         "${pkgname}.tmpfiles")
-sha256sums=('473be80ae23a572ed7d61327eada60e1faa07a548120c951226155a52fca9584'
+sha256sums=('b0956b24a7033df247b1124659c88ee842c416ca2f16dc1e37d680a4c12c317e'
             '7f684ff594b49f22035b804659541aa7b14d046c70f50e434227dbb2d083aa1c')
 
 build() {
