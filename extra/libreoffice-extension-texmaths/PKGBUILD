@@ -2,7 +2,7 @@
 
 pkgname=libreoffice-extension-texmaths
 _extname=texmaths
-pkgver=0.52.5
+pkgver=0.52.6
 pkgrel=1
 pkgdesc='A LaTeX equation editor for LibreOffice'
 arch=(any)
@@ -11,7 +11,7 @@ license=(GPL-2.0-or-later)
 depends=(libreoffice
          texlive-basic)
 source=(https://downloads.sourceforge.net/project/$_extname/$pkgver/TexMaths-$pkgver.oxt)
-sha256sums=('e10ae08e2067f3737751c9126033b82ba1e38239a72549e7a9627643a2429649')
+sha256sums=('c4545539b17caa042110a356bf6f02631061a990e234b328670cb2ec8eecb9be')
 
 package() {
   install -d -m755 "$pkgdir"/usr/lib/libreoffice/share/extensions/$_extname
