@@ -6,15 +6,16 @@
 
 pkgname=alsa-tools
 pkgver=1.2.15
-pkgrel=2
+pkgrel=3
 pkgdesc="Advanced tools for certain sound cards"
 arch=(x86_64)
 url="https://alsa-project.org/"
 license=(GPL-2.0-or-later)
 depends=(
-  gcc-libs
   glibc
   hicolor-icon-theme
+  libgcc_s.so
+  libstdc++.so
 )
 makedepends=(
   alsa-lib
