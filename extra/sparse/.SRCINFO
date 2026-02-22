@@ -1,7 +1,7 @@
 pkgbase = sparse
 	pkgdesc = Semantic parser for C
 	pkgver = 0.6.4+r66+g0196afe1
-	pkgrel = 3
+	pkgrel = 4
 	url = https://sparse.docs.kernel.org/en/latest/
 	arch = x86_64
 	license = MIT
@@ -9,8 +9,8 @@ pkgbase = sparse
 	makedepends = gtk3
 	makedepends = llvm
 	depends = bash
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	depends = libxml2
 	depends = perl
 	depends = sqlite
@@ -18,6 +18,7 @@ pkgbase = sparse
 	optdepends = llvm-libs: for sparse-llvm
 	optdepends = llvm: for sparsec
 	source = git+https://git.kernel.org/pub/scm/devel/sparse/sparse.git#commit=0196afe16a50c76302921b139d412e82e5be2349
+	sha512sums = 73867776c9f7a5d66b559ec404c2fc071851d510e7c6c9f0a3f3517ccc7d402818f49ac6ed679637c23df3d4477f6750e3f8130aa4599c232526dbc7d730eb8a
 	b2sums = 525dc1c225fd5bd60f339e3a59f6bfcb472dafaf5a8464ed3a2d777d0721f64d9dd385f8dd328150c4c41fa8e53e7011b0e93da5a07457ee515429e7620d93cc
 
 pkgname = sparse

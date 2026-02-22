@@ -5,23 +5,23 @@
 
 pkgname=sparse
 pkgver=0.6.4+r66+g0196afe1
-pkgrel=3
+pkgrel=4
 pkgdesc='Semantic parser for C'
-arch=('x86_64')
+arch=(x86_64)
 url='https://sparse.docs.kernel.org/en/latest/'
-license=('MIT')
+license=(MIT)
 depends=(
-  'bash'
-  'gcc-libs'
-  'glibc'
-  'libxml2'
-  'perl'
-  'sqlite'
+  bash
+  glibc
+  libgcc
+  libxml2
+  perl
+  sqlite
 )
 makedepends=(
-  'git'
-  'gtk3'
-  'llvm'
+  git
+  gtk3
+  llvm
 )
 optdepends=(
   'gtk3: for test-inspect'
@@ -32,6 +32,7 @@ _commit=0196afe16a50c76302921b139d412e82e5be2349  # master
 source=(
   "git+https://git.kernel.org/pub/scm/devel/sparse/sparse.git#commit=$_commit"
 )
+sha512sums=('73867776c9f7a5d66b559ec404c2fc071851d510e7c6c9f0a3f3517ccc7d402818f49ac6ed679637c23df3d4477f6750e3f8130aa4599c232526dbc7d730eb8a')
 b2sums=('525dc1c225fd5bd60f339e3a59f6bfcb472dafaf5a8464ed3a2d777d0721f64d9dd385f8dd328150c4c41fa8e53e7011b0e93da5a07457ee515429e7620d93cc')
 
 pkgver() {
