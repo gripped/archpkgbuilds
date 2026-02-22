@@ -3,7 +3,7 @@
 pkgbase=scotch
 pkgname=(scotch scotch-metis)
 pkgver=7.0.11
-pkgrel=1
+pkgrel=3
 pkgdesc="Package for graph and mesh/hypergraph partitioning, graph clustering, and sparse matrix ordering"
 arch=(x86_64)
 url="https://gitlab.inria.fr/scotch/scotch"
@@ -60,6 +60,8 @@ build() {
     -W no-dev
     -DCMAKE_BUILD_TYPE=None
     -DCMAKE_INSTALL_PREFIX=/usr
+    # install in private include directory to avoid conflict with metis and parmetis (metis.h and parmetis.h)
+    -DCMAKE_INSTALL_INCLUDEDIR=include/scotch
     -DBUILD_SHARED_LIBS=ON
     -DPTHREAD_AFFINITY_LINUX_OK=ON
   )
@@ -80,7 +82,7 @@ package_scotch() {
 
   # move scotchmetis files to separate package
   cd "$pkgdir"
-  _pick $pkgbase-metis usr/include/*metis*
+  _pick $pkgbase-metis usr/include/scotch/*metis*
   _pick $pkgbase-metis usr/lib/*metis*
   _pick $pkgbase-metis usr/lib/cmake/scotch/*metis*
   _pick $pkgbase-metis usr/bin/adm2dgr  # depends on libptscotchparmetis
@@ -88,7 +90,6 @@ package_scotch() {
 
 package_scotch-metis() {
   pkgdesc="libScotchMeTiS compatibility library: MeTiS interface implemented using Scotch"
-  conflicts=(metis parmetis)
   # NOTE: provides would cause problems because the interface is not fully compatible
   # https://gitlab.inria.fr/scotch/scotch/-/issues/55
   #provides=(metis parmetis)
