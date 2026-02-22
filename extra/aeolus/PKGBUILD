@@ -8,15 +8,16 @@
 _stopver=0.4.0
 pkgname=aeolus
 pkgver=0.10.4
-pkgrel=3
+pkgrel=4
 pkgdesc="Synthesised pipe organ emulator"
 arch=(x86_64)
 url="https://kokkinizita.linuxaudio.org/linuxaudio/aeolus/"
 license=(GPL-3.0-only)
 groups=(pro-audio)
 depends=(
-  gcc-libs
   glibc
+  libstdc++.so
+  libgcc_s.so
   libx11
 )
 makedepends=(
