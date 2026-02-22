@@ -1,8 +1,8 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=gef
-pkgver=2025.01
-pkgrel=3
+pkgver=2026.01
+pkgrel=1
 pkgdesc='Multi-Architecture GDB Enhanced Features for Exploiters & Reverse-Engineers'
 url='https://github.com/hugsy/gef'
 arch=(any)
@@ -17,17 +17,11 @@ optdepends=(
   'python-unicorn: emulation support'
   'ropgadget: ROP gadget support'
 )
-source=(https://github.com/hugsy/gef/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz.tar.gz gef-python3-14-fix.patch)
-sha512sums=('0a028c0457b6b35a78ab4e8030010d586bb38bf8968ff1b4bf67d7f0bacedb78f3627699674f50217154f9254fac0ec5d65922845af3da0f72fed7b9bfc2ad8d'
-            '975a7e298b0265f036a37c7b79124d383044f438539c7671862973f9a06f57216e89998ffa38a927e738713430c1b2941e4c66dab5de79e30f6be50377217acf')
-b2sums=('a607d882ed62efa4da7a60d594852a9bc2f6d6583bd7049fd6db616e71fcfb1caf9a7fd9be261b604257740974cbd1ce7ce1b11c061006a22e85dac57e7011db'
-        '675b84fb57b856777eb289b1650ed086eea6ca43db91d2ded1006750af236259c95c2341bccac492e0d5a26405040e0d6a20ef0ff9ed9bbfaae14f8891fafd84')
-
-prepare() {
-  cd ${pkgname}-${pkgver}
-  # backport 3.14 winsize issue https://github.com/hugsy/gef/commit/c1e354ebad4f53389ade9fd8b474790887129d1b
-  patch -Np1 -i ${srcdir}/gef-python3-14-fix.patch
-}
+source=(
+  https://github.com/hugsy/gef/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz.tar.gz
+)
+sha512sums=('20e1bd398b1bc0345a7a637fe058a0aaee9f4c2b5a65ce67f3774d9fcf4a5c865f43fbe1ff9cb2d5e04091d025dded43e08f88b5333211084616955a3fc5eac6')
+b2sums=('5dffee69689aaa988dc35e56809f1a7775e872f12c20d047de9ee4f5b5bf1146c567549080e65cf98ae7310a1735263fdf525fd930099f694dc57f001c3660d0')
 
 build() {
   cd ${pkgname}-${pkgver}
