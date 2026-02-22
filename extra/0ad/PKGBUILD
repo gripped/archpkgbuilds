@@ -3,13 +3,13 @@
 # Contributor: Adrián Chaves Fernández (Gallaecio) <adriyetichaves@gmail.com>
 pkgname=0ad
 pkgver=0.28.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Cross-platform, 3D and historically-based real-time strategy game"
 arch=('x86_64')
 url="http://play0ad.com/"
 license=('GPL-2.0-or-later')
 depends=("0ad-data=$pkgver" 'binutils' 'boost-libs' 'curl' 'enet' 'libogg' 'libpng' 'libvorbis'
-         'libxml2' 'openal' 'sdl2' 'wxwidgets-gtk3' 'zlib' 'libgl' 'glu' 'fmt' 'js128'
+         'libxml2' 'openal' 'sdl2' 'wxwidgets-gtk3' 'zlib' 'libgl' 'glu' 'fmt'
          'gloox' 'miniupnpc' 'libminiupnpc.so' 'icu' 'nspr' 'libsodium' 'which')
 makedepends=('boost' 'cmake' 'mesa' 'zip' 'libsm' 'rust' 'git' 'python' 'llvm' 'cbindgen'
              'premake')
@@ -21,19 +21,17 @@ sha512sums=('6b5d7893d27d5fa71ce4cad1b424a7d4b36e8bc438c590cbd86d9872148d5051cd3
 build() {
   cd "$pkgname-$pkgver"
 
-  # If buidling the included spidermonkey, we need to
+  # When buidling the included spidermonkey, we need to
   # a compile error: https://gitea.wildfiregames.com/0ad/0ad/issues/8571
-  #export CXXFLAGS="${CXXFLAGS/-fexceptions/}"
+  export CXXFLAGS="${CXXFLAGS/-fexceptions/}"
 
   cd libraries
   ./build-source-libs.sh \
-    --with-system-premake \
-    --with-system-mozjs
+    --with-system-premake
 
   cd ../build/workspaces
   ./update-workspaces.sh -j$(nproc) \
     --with-system-premake5 \
-    --with-system-mozjs \
     --with-lto \
     --without-pch \
     --bindir=/usr/bin \
