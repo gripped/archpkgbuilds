@@ -3,7 +3,7 @@
 
 pkgbase=xdp-tools
 pkgname=(xdp-tools libxdp)
-pkgver=1.6.1
+pkgver=1.6.2
 pkgrel=1
 pkgdesc='Utilities and example programs for use with XDP'
 url='https://github.com/xdp-project/xdp-tools'
@@ -13,8 +13,8 @@ depends=('libelf' 'linux-api-headers' 'libbpf')
 makedepends=('clang' 'llvm' 'gcc' 'make' 'm4' 'pkgconfig' 'libpcap' 'zlib' 'bpf')
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/xdp-project/xdp-tools/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('b9f7dec6175005e871017839f1ee9ad27ce2649e2364c6ad00479bdcbd60bf8b0332f5b25fb401aa1a6a65346105b7be001781b9a6e744d9481740bfe919a135')
-b2sums=('28c4c6c6810647989fb7dff3ef98068fed8373da70374243bcbfcf806001d74ab28ae6dc7818cc7d6602ebefd3300383d4298f2e932bf5c488fd37907664b44b')
+sha512sums=('dc6c1e43921969e349aabbe2ceb14fd77827c726f62603764562358779462db57cdd8bcc3328c5c65ac765187bc80bcc72f5dcd82189cc001dbc813506dd719c')
+b2sums=('f5b2706318aaee96a19257bf10dccf605c38e85cf8cf284ae04102a0507060a8fd65b000273eeff0eed6c3649bc8e84037c21da447496e7a10ce9bd45662126e')
 
 
 build() {
