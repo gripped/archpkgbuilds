@@ -6,7 +6,7 @@ _cuda_ver=13.1
 _hpcx_ver=2.25
 _rel_year=2026
 pkgver=26.1
-pkgrel=1
+pkgrel=2
 pkgdesc="NVIDIA HPC SDK"
 arch=(x86_64)
 url="https://docs.nvidia.com/hpc-sdk/index.html"
@@ -159,8 +159,12 @@ package_nvhpc-comm-libs() {
   pkgdesc+=" - communication libraries"
   depends=(
     cuda
-    gcc-libs
     glibc
+    libatomic
+    libgcc
+    libgomp
+    libquadmath
+    libstdc++
     nccl
     numactl
     nvshmem
@@ -179,9 +183,11 @@ package_nvhpc-compilers() {
   pkgdesc+=" - compilers"
   depends=(
     gcc-fortran
-    gcc-libs
     glibc
-    libxml2
+    libatomic
+    libgcc
+    libstdc++
+    libxml2-legacy
     zlib
     zstd
   )
