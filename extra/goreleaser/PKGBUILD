@@ -2,8 +2,8 @@
 # Contributor: Fernandez Ludovic <lfernandez dot dev at gmail dot com>
 
 pkgname='goreleaser'
-pkgver=2.13.3
-pkgrel=2
+pkgver=2.14.0
+pkgrel=1
 pkgdesc='Deliver Go binaries as fast and easily as possible'
 url='https://github.com/goreleaser/goreleaser'
 arch=('x86_64')
@@ -11,8 +11,8 @@ license=('MIT')
 depends=('glibc')
 makedepends=('git' 'go')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/goreleaser/goreleaser/archive/v${pkgver}.tar.gz")
-sha512sums=('47e09beef315bedbc3d00f121a9668de9112d768dd65877ff918681b99a0f0ebc08068f60eb4968e2b7c85f6fc69d152e01f3b04328ce5aaf78ddb6bb4ad2960')
-b2sums=('a33f7bd37fb39f87b53d2ebca7c2f0213f4c8896a25174eaa490509053e3ad46f10bf96a61313ad7d9e42d3028f27f864baccdba78a6ccf69a2963598e396105')
+sha512sums=('e7d6acc40324bba6c3ed9ee313b9faadc1e645872ccb3c20a83b65a745f010a4a61ae24a78b23634062d498b2e57fd79aa998ab7ee1cee8e7f14754b662696c7')
+b2sums=('ccfcb1e80d39d297c289e977caa2e02fa5e2265478da7df3504f61bd0d6e3c54b5b5edd1925b53beca40b5103bc8b0ecccfac3fd85e03992b005540ef77bba02')
 
 build() {
   cd "${pkgname}-${pkgver}"
