@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=miller
-pkgver=6.16.0
+pkgver=6.17.0
 pkgrel=1
 pkgdesc='Name-indexed data processing tool'
 arch=(x86_64)
@@ -11,8 +11,8 @@ depends=(glibc)
 makedepends=(go git)
 options=(!lto)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('df3854e8313ea87705fa68897e958301b35c416b44bb039a0139ed2cf1dbc3787cc1b5145d94b54fc35b12fa6f5028391dd0be0ee1024f66f3d7b4252e4be2a2')
-b2sums=('82d7ca8a5b8559bad6b5ae4b4951909a21526f8c3148f71054aa218381f9df402eae173e16f9de08263d79e4227397b328dccd521273d9c28d41328736566497')
+sha512sums=('9ef7c613d2303747902368954f5dabd1a3a31044b35ca4163a9ab13e00a1095e16253259eaaa9a71505ce2528aac088afb53830d77d6d6389080befe3f634b3b')
+b2sums=('0269ac90c74425798ce8251f1e8a5eb29b5600564076db4a91a6a82d206d31553e6e590a4e5a792f44ace47823cea9e3bdabcf93c149772cf8d2689885770f88')
 
 prepare() {
   cd "$pkgname"
