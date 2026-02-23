@@ -2,7 +2,7 @@
 # Contributor: Mattias Andrée <`base64 -d`(bWFhbmRyZWUK)@kth.se>
 
 pkgname=sha3sum
-pkgver=1.2.3.1
+pkgver=1.2.4
 pkgrel=1
 pkgdesc="Keccak-family checksum calculator, including SHA-3"
 arch=('x86_64')
@@ -11,9 +11,9 @@ license=('custom:ISC')
 depends=('libkeccak>=1.4')
 makedepends=('git')
 source=("git+https://codeberg.org/maandree/sha3sum.git#tag=${pkgver}?signed")
-b2sums=('82c48b3b5ae39d37a926129f73318b0d0052fe2e4c953befb6b8199442e30f19869156636ae391cd5460b50ed8f1294cf6a9638b85dad2dc2871d33cc05333b2')
+b2sums=('56b5944be9477cffc26b6dbcebf1b61bb9f62b4105815a4261b39a1e6f99b0886beea8033f69814430b20fce71f0f41f73d396706ed29868d655ed8a5d4f7853')
 validpgpkeys=(
-  'BC61893EC01FDBDEE061BEF67BE0C42240089FE0' # attias Andrée <maandree@kth.se>
+  '3683C4B70CFA859F0173F2CCE0DD13EBFC7D5E3E' # Mattias Andrée <maandree@kth.se>
 )
 
 prepare() {
