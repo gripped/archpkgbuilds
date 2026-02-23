@@ -3,18 +3,18 @@
 
 pkgname=git-revise
 pkgdesc='A git subcommand to efficiently update, split, and rearrange commits'
-pkgver=0.7.0
-pkgrel=6
+pkgver=0.8.0
+pkgrel=1
 url="https://mystor.github.io/$pkgname.html"
 arch=(any)
 license=(MIT)
 depends=(git
          python)
 makedepends=(python-{build,installer,wheel}
-             python-setuptools)
-_archive="$pkgname-$pkgver"
+             python-hatchling)
+_archive="${pkgname/-/_}-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$_archive.tar.gz")
-sha256sums=('af92ca2e7224c5e7ac2e16ed2f302dd36839a33521655c20fe0b7d693a1dc4c4')
+sha256sums=('3239b1809cd659b33f6f323d3bfca5c7e3a9eb2eace223cf63b346f91c8c831c')
 
 build() {
 	cd "$_archive"
