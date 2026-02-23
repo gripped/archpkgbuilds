@@ -3,14 +3,15 @@
 # Contributor: Nico Suarez <nicodoggie@gmail.com>
 
 pkgname=galera
-pkgver=26.4.25
+pkgver=26.4.26
 pkgrel=1
 pkgdesc='write set replication (WSREP) provider for MariaDB cluster'
 arch=('x86_64')
 license=('GPL-2.0-or-later' 'custom:OpenSSL Linking Exception')
 depends=('glibc'
-         'gcc-libs'
          'boost-libs' 'libboost_program_options.so' # required for garbd!
+         'libgcc' 'libgcc_s.so'
+         'libstdc++' 'libstdc++.so'
          'mariadb-server'
          'openssl' 'libcrypto.so' 'libssl.so')
 makedepends=('git' 'boost' 'check' 'cmake')
@@ -21,7 +22,7 @@ options=('!libtool')
 validpgpkeys=('177F4010FE56CA3336300305F1656F24C74CD1D8') # MariaDB Signing Key <signing-key@mariadb.org>
 source=("git+https://github.com/mariadb/galera.git#tag=mariadb-${pkgver}"
         'git+https://github.com/codership/wsrep-API.git')
-sha256sums=('2ed638650c26c8b32fcb6d450f0315b981c55da73b2ca1edebb4a0ebe3296c34'
+sha256sums=('f562891836103d46fc18e592a32f1a4226ff352e79bfd40fa26585cc61a57161'
             'SKIP')
 
 prepare() {
