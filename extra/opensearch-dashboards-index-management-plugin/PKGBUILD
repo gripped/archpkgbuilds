@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-index-management-plugin'
 _pluginname='index-management-dashboards-plugin'
-pkgver=3.4.0.0
-_dashboardsver=3.4.0
+pkgver=3.5.0.0
+_dashboardsver=3.5.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Index Management Plugin'
 url='https://opensearch.org/docs/latest/im-plugin/index/'
@@ -16,8 +16,8 @@ source=(
   "git+https://github.com/opensearch-project/${_pluginname}.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
 )
-sha256sums=('51a0457e9471639e719938dbb97f16366e919baebaae3013e53dceb547c1d7ca'
-            'b99d6edf20a7f16fae2bc6bca2dc1a09392e35961df40921781c819f70b9f321')
+sha256sums=('78b0fe8663a4693277ff04c810757f2a529398393df40bd127397318ee4446eb'
+            'e8b318e1a695c72edec1b54c75c229b081c126a8e411516ab5657eab6e23b2de')
 
 prepare() {
   nodeVersion="$(node -v)"
