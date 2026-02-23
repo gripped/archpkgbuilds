@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-query-workbench-plugin'
 _pluginname='query-workbench-dashboards-plugin'
-pkgver=3.4.0.0
-_dashboardsver=3.4.0
+pkgver=3.5.0.0
+_dashboardsver=3.5.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Query Workbench Plugin'
 url='https://docs.opensearch.org/latest/dashboards/query-workbench/'
@@ -16,8 +16,8 @@ source=(
   "git+https://github.com/opensearch-project/dashboards-query-workbench.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
 )
-sha256sums=('292cdcf9e9aab8bcd06079430782840e7069c3a91644b242d76fa9aff338a309'
-            'b99d6edf20a7f16fae2bc6bca2dc1a09392e35961df40921781c819f70b9f321')
+sha256sums=('d074a5df40855e8a7ec41a7be3394e0b50aec41059eff1924211584638c2040c'
+            'e8b318e1a695c72edec1b54c75c229b081c126a8e411516ab5657eab6e23b2de')
 
 prepare() {
   nodeVersion="$(node -v)"
