@@ -2,22 +2,22 @@
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=frei0r-plugins
-pkgver=2.5.1
-pkgrel=2
+pkgver=2.5.2
+pkgrel=1
 pkgdesc='Collection of video effect plugins'
 arch=(x86_64)
 url='https://frei0r.dyne.org/'
 license=(GPL-2.0-or-later)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
 )
 makedepends=(
   cairo
   cmake
   gavl
   git
-  ninja
   opencv
 )
 optdepends=(
@@ -26,12 +26,12 @@ optdepends=(
   'opencv: facebl0r and facedetect plugins'
 )
 source=("git+https://github.com/dyne/frei0r#tag=v$pkgver")
-b2sums=(8059c804a28f3a7c56e8171b0e0d296f9d8f89ab6f12cd65e60c293cf6da96d9d499306b7a93fbf328d2af0e8d71c8cacd9787a8b395ededd7d40b57a6a3c595)
+b2sums=('82a06b4885cfb29c2e9274c32e83b157bfa714e998c9036dd4a3cc6697653ed5106a3886a85a619ac179508644e098fd3951578677cecfd6e01061b21e63d171')
 validpgpkeys=(6113D89CA825C5CEDD02C87273B35DA54ACB7D10) # Denis Roio (Jaromil)
 
 build() {
-  cmake -S frei0r -B build -G Ninja \
-    -D CMAKE_INSTALL_PREFIX=/usr
+  cmake -S frei0r -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr
   cmake --build build
 }
 
