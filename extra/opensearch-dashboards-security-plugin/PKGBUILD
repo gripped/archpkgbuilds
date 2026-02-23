@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-security-plugin'
 _pluginname='security-dashboards-plugin'
-pkgver=3.4.0.0
-_dashboardsver=3.4.0
+pkgver=3.5.0.0
+_dashboardsver=3.5.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Security Plugin'
 url='https://opensearch.org/docs/latest/security-plugin'
@@ -16,8 +16,8 @@ source=(
   "git+https://github.com/opensearch-project/${_pluginname}.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
 )
-sha256sums=('e74406f4287ebcb8d2915e2eb4a17b70892c9b6534d1ff362dfbe8ae82327f61'
-            'b99d6edf20a7f16fae2bc6bca2dc1a09392e35961df40921781c819f70b9f321')
+sha256sums=('f0979a872130e120e9fd9a64aaa6c73c5d79f2ec43f7105f2546f3782d4752a4'
+            'e8b318e1a695c72edec1b54c75c229b081c126a8e411516ab5657eab6e23b2de')
 
 prepare() {
   nodeVersion="$(node -v)"
