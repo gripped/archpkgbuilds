@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-performance-analyzer-plugin
-pkgver=3.4.0.0
+pkgver=3.5.0.0
 pkgrel=1
-_opensearchver=3.4.0
+_opensearchver=3.5.0
 _jdkver=21
 #_rcaver="$(echo -n "${_opensearchver}" | sed 's/\.[0-9]\+$//')"
 _rcaver="2.12"
@@ -17,7 +17,7 @@ source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/performance-analyzer/archive/${pkgver}.tar.gz"
   "git+https://github.com/opensearch-project/performance-analyzer-rca.git#branch=${_rcaver}"
 )
-sha256sums=('e85b93c4e6c200ee364021611b24c69c9ba8d12b96991b7da94540fd21368ec6'
+sha256sums=('39182d9be7a3ccb9b10ea8e3e86d200a641c23aa770a3115cf793a929dab9552'
             'SKIP')
 
 build() {
