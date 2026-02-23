@@ -9,7 +9,7 @@
 # Contributor: TIanyi Cui <tianyicui@gmail.com>
 
 pkgname=nodejs-lts-krypton
-pkgver=24.13.0
+pkgver=24.13.1
 pkgrel=1
 pkgdesc='Evented I/O for V8 javascript ("Active LTS" release: Krypton)'
 arch=('x86_64')
@@ -43,8 +43,12 @@ provides=(
 )
 conflicts=(nodejs)
 options=('!lto')
-source=("git+https://github.com/nodejs/node.git#tag=v$pkgver?signed")
-b2sums=('ec771721f9aab7ee0e5ba4731bea1a75c8b1d039d9f8d50b69e86c27082fa5b28cac9802bdf22c4d0ad2ad59576cbe35081a042975fbe2f286e5e3c1232e9958')
+source=(
+  "git+https://github.com/nodejs/node.git#tag=v$pkgver?signed"
+  "update-icu-tests.patch"
+)
+b2sums=('fbe32213a1e7d9d73e2dffd8a39955f771d1d9a6bd7fb817e41a9244efa7e429c6f9dfc8dc4ebadda87c8c8220a434f685f8cff2df75cefb6658bd2b38f0c5d1'
+        '1469b72d559972121e5896f32faff8fec0a34e890e23d60f4011505b10ca2d9a9e3d87bb8fa5b5674282dc854f6fdca0a50c6e4843a5d95e0beedd25d4e2b920')
 validpgpkeys=(
   '8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600' # Michaël Zasso (Targos) <targos@protonmail.com>
   '890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4' # RafaelGSS <rafael.nunu@hotmail.com>
@@ -63,7 +67,7 @@ _set_flags() {
 prepare() {
   cd node
   # Update ICU test data
-  git cherry-pick --no-commit 5afe4cd716cbf7699f6abc99338f44db3b1424d5
+  patch -Np1 -i ../update-icu-tests.patch
 }
 
 build() {
