@@ -1,21 +1,25 @@
 pkgbase = ruby-process-metrics
 	pkgdesc = Provide detailed OS-specific process metrics
-	pkgver = 0.2.1
-	pkgrel = 6
+	pkgver = 0.11.0
+	pkgrel = 1
 	url = https://github.com/socketry/process-metrics
 	arch = any
 	license = MIT
-	makedepends = git
-	makedepends = ruby-bundler
-	makedepends = ruby-covered
-	makedepends = ruby-rake
-	makedepends = ruby-rspec
+	checkdepends = ruby-bake
+	checkdepends = ruby-bake-test
+	checkdepends = ruby-bake-test-external
+	checkdepends = ruby-bundler
+	checkdepends = ruby-covered
+	checkdepends = ruby-decode
+	checkdepends = ruby-sus
+	makedepends = ruby-rdoc
 	depends = procps-ng
 	depends = ruby
 	depends = ruby-console
 	depends = ruby-samovar
 	options = !emptydirs
-	source = git+https://github.com/socketry/process-metrics.git#commit=54ea346c4ad0a02c911c801987111e215986a03b
-	sha256sums = SKIP
+	source = https://github.com/socketry/process-metrics/archive/v0.11.0/ruby-process-metrics-0.11.0.tar.gz
+	sha512sums = e6dff43a37b759fa23fdbeda4a35b68c13548ced203e278c0d7db1bd1745ec990fcb63722d1a0bc3ae199a6e47169659090f72f11672b1a1dadad8a9bcfa46d4
+	b2sums = 9eff4a73c74e0772af07a8df93be7e40570968b052b3e0c69b54de301a0a383dfb35709c108c166d13084f29de7e34411ceeb0781caf5652ae58b136ce071c0b
 
 pkgname = ruby-process-metrics

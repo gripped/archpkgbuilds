@@ -1,13 +1,14 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
-pkgname=ruby-process-metrics
-pkgver=0.2.1
-_commit=54ea346c4ad0a02c911c801987111e215986a03b
-pkgrel=6
+_gemname='process-metrics'
+pkgname="ruby-${_gemname}"
+pkgver=0.11.0
+pkgrel=1
 pkgdesc='Provide detailed OS-specific process metrics'
-arch=(any)
+arch=('any')
 url='https://github.com/socketry/process-metrics'
-license=(MIT)
+license=('MIT')
 depends=(
   procps-ng
   ruby
@@ -15,55 +16,68 @@ depends=(
   ruby-samovar
 )
 makedepends=(
-  git
+  ruby-rdoc
+)
+checkdepends=(
+  ruby-bake
+  ruby-bake-test
+  ruby-bake-test-external
   ruby-bundler
   ruby-covered
-  ruby-rake
-  ruby-rspec
+  ruby-decode
+  ruby-sus
 )
-options=(!emptydirs)
-source=(git+https://github.com/socketry/process-metrics.git#commit=$_commit)
-sha256sums=('SKIP')
+options=('!emptydirs')
+source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('e6dff43a37b759fa23fdbeda4a35b68c13548ced203e278c0d7db1bd1745ec990fcb63722d1a0bc3ae199a6e47169659090f72f11672b1a1dadad8a9bcfa46d4')
+b2sums=('9eff4a73c74e0772af07a8df93be7e40570968b052b3e0c69b54de301a0a383dfb35709c108c166d13084f29de7e34411ceeb0781caf5652ae58b136ce071c0b')
 
 prepare() {
-  cd process-metrics
-  sed -r -e 's|~>|>=|g' -i process-metrics.gemspec
-  sed -i '/bundler/d' spec/spec_helper.rb
+  cd "${_gemname}-${pkgver}"
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended \
+    --expression 's|~>|>=|g' \
+    --expression '/signing_key/d' \
+    "${_gemname}.gemspec"
+
+  sed --in-place \
+    --expression '/group :maintenance/,/end/d' \
+    --expression '/agent-context/d' \
+    --expression '/rubocop/d' \
+    gems.rb
 }
 
 build() {
+  cd "${_gemname}-${pkgver}"
+
   local _gemdir="$(gem env gemdir)"
-  cd process-metrics
-  gem build process-metrics.gemspec
+
+  gem build --verbose "${_gemname}.gemspec"
+
   gem install \
     --local \
     --verbose \
     --ignore-dependencies \
-    --no-user-install \
-    --install-dir "tmp_install/$_gemdir" \
-    --bindir "tmp_install/usr/bin" \
-    process-metrics-$pkgver.gem
-  find "tmp_install/$_gemdir/gems/" \
-    -type f \
-    \( \
-        -iname "*.o" -o \
-        -iname "*.c" -o \
-        -iname "*.so" -o \
-        -iname "*.time" -o \
-        -iname "gem.build_complete" -o \
-        -iname "Makefile" \
-    \) \
-    -delete
-  rm -r tmp_install/$_gemdir/cache
+    --build-root "tmp_install${_gemdir}" \
+    "${_gemname}-${pkgver}.gem"
 }
 
 check() {
+  cd "${_gemname}-${pkgver}"
+
   local _gemdir="$(gem env gemdir)"
-  cd process-metrics
-  GEM_HOME="tmp_install/$_gemdir" rake
+
+  GEM_HOME="tmp_install${_gemdir}" bake test
 }
 
 package() {
-  cd process-metrics
-  cp -a tmp_install/* "$pkgdir"/
+  cd "${_gemname}-${pkgver}"
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose -D --mode=0644 license* --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
 }
+
+# vim: tabstop=2 shiftwidth=2 expandtab:
