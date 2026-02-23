@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-reports-plugin'
 _pluginname='dashboards-reports'
-pkgver=3.4.0.0
-_dashboardsver=3.4.0
+pkgver=3.5.0.0
+_dashboardsver=3.5.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Reports Plugin'
 url='https://opensearch.org/docs/latest/dashboards/reporting'
@@ -16,8 +16,8 @@ source=(
   "git+https://github.com/opensearch-project/dashboards-reporting.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
 )
-sha256sums=('e14cee5606d848126c5b79389ecd76df0d76d3a413c6ba352fd2c2aaf0b7782d'
-            'b99d6edf20a7f16fae2bc6bca2dc1a09392e35961df40921781c819f70b9f321')
+sha256sums=('7ecff1cf70d3d21337dfd7cdfb61bb9659568743e608ea7a2b21088d06eb5051'
+            'e8b318e1a695c72edec1b54c75c229b081c126a8e411516ab5657eab6e23b2de')
 
 prepare() {
   nodeVersion="$(node -v)"
