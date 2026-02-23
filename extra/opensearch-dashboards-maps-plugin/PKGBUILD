@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-maps-plugin'
 _pluginname='dashboards-maps'
-pkgver=3.4.0.0
-_dashboardsver=3.4.0
+pkgver=3.5.0.0
+_dashboardsver=3.5.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Maps Plugin'
 url='https://opensearch.org/docs/latest/dashboards/geojson-regionmaps/'
@@ -16,8 +16,8 @@ source=(
   "git+https://github.com/opensearch-project/${_pluginname}.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
 )
-sha256sums=('651049780cf4c3f44f1c67ffe406b3e0c5c2304d445f9c569ff38f392c2e679e'
-            'b99d6edf20a7f16fae2bc6bca2dc1a09392e35961df40921781c819f70b9f321')
+sha256sums=('4ee4f644b7592355c55f44f71b32424d9d92a89aacab51fe4a30e1f7be75532e'
+            'e8b318e1a695c72edec1b54c75c229b081c126a8e411516ab5657eab6e23b2de')
 
 prepare() {
   nodeVersion="$(node -v)"
