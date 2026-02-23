@@ -6,8 +6,8 @@
 
 pkgbase=tuned
 pkgname=("${pkgbase}" "${pkgbase}-ppd")
-pkgver=2.26.0
-pkgrel=2
+pkgver=2.27.0
+pkgrel=1
 pkgdesc='Daemon that performs monitoring and adaptive configuration of devices in the system'
 arch=('any')
 url="https://github.com/redhat-performance/${pkgbase}"
@@ -16,7 +16,7 @@ depends=('ethtool' 'gawk' 'hdparm' 'polkit' 'perf' 'python-configobj'
          'python-dbus' 'python-gobject' 'python-linux-procfs' 'python-pyudev')
 makedepends=('desktop-file-utils')
 source=("https://github.com/redhat-performance/${pkgbase}/archive/v${pkgver}/${pkgbase}-${pkgver}.tar.gz")
-sha512sums=('af468e1b4ca2e10cf00cad53f27d65d0b5eab73e65b9c61d67fd39ff9687700704db87294fbf62bda949b3544a9ba69c82f6d35f448226654a5949fa8de1b2c0')
+sha512sums=('7471d073879a688da66e72c4f5c562d1a732d6bfb562d8c033874a8edbad2bab3cf3c7dc387270bf99ae6b1b35ffc451173122e32023116709567e529e09dc52')
 
 prepare() {
   cd "${pkgbase}-${pkgver}"
