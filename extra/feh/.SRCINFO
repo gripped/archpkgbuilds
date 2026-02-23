@@ -1,23 +1,30 @@
 pkgbase = feh
 	pkgdesc = Fast and light imlib2-based image viewer
-	pkgver = 3.11.2
-	pkgrel = 2
+	pkgver = 3.11.3
+	pkgrel = 1
 	url = https://feh.finalrewind.org/
 	arch = x86_64
 	license = MIT
+	makedepends = git
 	makedepends = libxt
 	depends = curl
+	depends = libcurl.so
 	depends = file
+	depends = libmagic.so
+	depends = glibc
 	depends = hicolor-icon-theme
 	depends = imlib2
 	depends = libexif
+	depends = libexif.so
+	depends = libpng
+	depends = libpng16.so
+	depends = libx11
 	depends = libxinerama
 	optdepends = imagemagick: support more file formats
-	source = https://feh.finalrewind.org/feh-3.11.2.tar.bz2
-	source = https://feh.finalrewind.org/feh-3.11.2.tar.bz2.asc
+	source = git+https://git.finalrewind.org/feh.git#tag=3.11.3?signed
+	validpgpkeys = 429AF7B8E9EC9C0709D32F7F5333FB7712E24FE8
 	validpgpkeys = 781BB7071C6BF648EAEB08A1100D5BFB5166E005
 	validpgpkeys = 64FE6EC055560F9EF13A304419E6E524EBB177BA
-	sha256sums = 020f8bce84c709333dcc6ec5fff36313782e0b50662754947c6585d922a7a7b2
-	sha256sums = SKIP
+	sha256sums = 73023aff2f31256729f0f79110d3b634884b4a86999842b56945308963b3faf0
 
 pkgname = feh

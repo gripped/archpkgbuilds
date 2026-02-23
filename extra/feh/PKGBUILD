@@ -6,23 +6,32 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=feh
-pkgver=3.11.2
-pkgrel=2
+pkgver=3.11.3
+pkgrel=1
 pkgdesc='Fast and light imlib2-based image viewer'
 url='https://feh.finalrewind.org/'
 license=('MIT')
 arch=('x86_64')
-depends=('curl' 'file' 'hicolor-icon-theme' 'imlib2' 'libexif' 'libxinerama')
+depends=('curl' 'libcurl.so'
+         'file' 'libmagic.so'
+         'glibc'
+         'hicolor-icon-theme'
+         'imlib2' #'libImlib2.so'
+         'libexif' 'libexif.so'
+         'libpng' 'libpng16.so'
+         'libx11' #'libX11.so'
+         'libxinerama' #'libXinerama.so'
+)
 optdepends=('imagemagick: support more file formats')
-makedepends=('libxt')
-validpgpkeys=('781BB7071C6BF648EAEB08A1100D5BFB5166E005'  # Daniel Friesel <derf@finalrewind.org> 
+makedepends=('git' 'libxt')
+validpgpkeys=('429AF7B8E9EC9C0709D32F7F5333FB7712E24FE8'  # Birte Kristina Friesel <birte.friesel@uni-osnabrueck.de>
+              '781BB7071C6BF648EAEB08A1100D5BFB5166E005'  # Daniel Friesel <derf@finalrewind.org> 
               '64FE6EC055560F9EF13A304419E6E524EBB177BA') # Derf Null <derf@ccc.de>
-source=("${url}${pkgname}-${pkgver}.tar.bz2"{,.asc})
-sha256sums=('020f8bce84c709333dcc6ec5fff36313782e0b50662754947c6585d922a7a7b2'
-            'SKIP')
+source=("git+https://git.finalrewind.org/feh.git#tag=${pkgver}?signed")
+sha256sums=('73023aff2f31256729f0f79110d3b634884b4a86999842b56945308963b3faf0')
 
 build() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
+	cd "${srcdir}/${pkgname}"
 	make PREFIX=/usr \
 		exif=1 \
 		help=1 \
@@ -32,7 +41,7 @@ build() {
 }
 
 package() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
+	cd "${srcdir}/${pkgname}"
 	make PREFIX=/usr DESTDIR="${pkgdir}" install
 	install -D -m0644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
