@@ -1,7 +1,7 @@
 # Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
 pkgname='vcspull'
-pkgver=1.56.1
+pkgver=1.57.0
 pkgrel=1
 pkgdesc='Synchronize projects via yaml/json manifest. Built using `libvcs`'
 arch=('any')
@@ -34,8 +34,8 @@ optdepends=(
   'bash-completion: for command line completion in bash'
 )
 source=("https://github.com/vcs-python/vcspull/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('ee223ea4b91363151a34901575637fc45184b0c71aa96aadcb6051400fd979b1aac53b64ac66067b789f0e6f44d1097b6e09a5f349ba9ddb93c2cac9e4ac00de')
-b2sums=('055763503021df3e09ba11fe773cac81b5b615352b7f2045886cee0bb1128b099edd430e90223aa5d4c51ed94b18ec57bf2f1dbc856b54f9152bdd2deeb90d87')
+sha512sums=('8effc14968ba911a617baf915a10a6ee155cf5d4cedce5c6af41854e4ff10453f24f21cef8e0dd07718036afbe4f28aca9cc519e150bbfa17f6173f92ffbc91c')
+b2sums=('1c52b9b9b15e827ea6b93cd9cf1848d8dd7b9592ac19b9150e8599c41baedc64a8a2a84f8f03dea5681b5f5df0917ea62157e119c1dff47b96fbab80de5958ca')
 
 build() {
   cd "${pkgname}-${pkgver}"
