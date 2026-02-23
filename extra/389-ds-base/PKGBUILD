@@ -6,7 +6,7 @@
 pkgname=389-ds-base
 pkgver=3.2.0
 pkgdesc="389 Directory Server (base)"
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url="http://port389.org/"
 license=('GPL-3.0-only')
@@ -21,14 +21,20 @@ makedepends=('cargo' 'rsync' 'doxygen' 'cmocka' 'python-build' 'python-argparse-
              'npm' 'nodejs' 'systemd' 'python-pip' 'python-installer')
 optdepends=('cockpit: LDAP administration through the Cockpit web UI')
 source=(https://github.com/389ds/389-ds-base/archive/389-ds-base-${pkgver}.tar.gz
+        https://github.com/389ds/389-ds-base/commit/4a73a31e6c91e507e5aa2cba1e5bd55d1d07894d.patch
+        https://github.com/389ds/389-ds-base/commit/48ad61231203d9ccb96d0fe542aae93dbb74a9bf.patch
         389-ds-base.sysusers
         389-ds-base.tmpfiles)
 sha512sums=('e7bbaecf3ed106607b9e43d0dea08de647e2381b69a5202631d4fadaafe4a01ac24914ee3f76920c34ee6aa08b7875e1d7dc7651d7080e8cfbb6258ba7bb86d1'
+            'f6b4b7209d7a86f3a8215b5e945282a8db4fbc0b180881ac6ba9c49ef6f1fb1b208a655bd38daa1e6da804a2dfca2a3a47f84d72d63d9f6a6f29e8fab6d2d243'
+            '71fbcf5f54d40e57df30986ce36e3e27bc9d8982634350c8156890e80635f2b61edbd053ea4167c90d149e0d508f0dae116b9a593bac5c21980fef138e19f9a8'
             '7947f50e0fc26f07b388a20f53360cc5e1faf6dfa26dd6a48ffa833c4d247ade3f4269479b5ed4dbb99a2a1367b0ace4054da3d58e3bc3563c7daf947da72a72'
             '69ed8b8f3bdbf9098088b0c92c41a238f16d14ba9f86ebc2b5debe5f001b4d8e235f7cff4731d72b30b5ac70486b0f4300b99646aa3926a3fa59515a64f16402')
 
 prepare() {
   cd "${pkgname}-${pkgname}-${pkgver}"
+  patch -Np1 -i "${srcdir}/4a73a31e6c91e507e5aa2cba1e5bd55d1d07894d.patch"
+  patch -Np1 -i "${srcdir}/48ad61231203d9ccb96d0fe542aae93dbb74a9bf.patch"
   ./autogen.sh
 }
 
