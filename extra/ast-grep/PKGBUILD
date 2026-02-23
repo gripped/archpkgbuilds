@@ -3,7 +3,7 @@ pkgname=(
   ast-grep
   python-ast-grep
 )
-pkgver=0.40.5
+pkgver=0.41.0
 pkgrel=1
 pkgdesc='CLI tool for code structural search, lint and rewriting'
 url='https://ast-grep.github.io/'
@@ -22,8 +22,8 @@ makedepends=(
 )
 options=(!lto)
 source=(https://github.com/ast-grep/ast-grep/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz)
-sha512sums=('b7319059da2e395a6de10265469fa49368beb6b141da9d260b3d05eddc760540abdd2b0737167f00eb1b873b789faf8f6ef858e07465344d151bafeded70efd0')
-b2sums=('c3f45308fd668cfde3dabd614edf6d47a7cd36d525229ecd8834480f13c54cf9a890b4abdb42ddf6b680a6b8a8194c343836cad64559de32197a1385808a87bf')
+sha512sums=('1dfa0b53ac0a5651922e373ef8737c11d953791e86d6904419229b8501fa2763bc571752eed68cb4c4ac42e5345dccc60f2d9956ae0cd8e53f41c573d6fb435f')
+b2sums=('1bfb50dee5544ff3bdc6ba3247f844528f7b795b654bdbbdb35e7414158b288173493c1a8f61be301576b8945c0efa0c8be6236bc00cf25caa91867966f799ab')
 
 prepare() {
   cd ${pkgbase}-${pkgver}
