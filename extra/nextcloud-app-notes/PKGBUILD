@@ -4,7 +4,7 @@
 
 pkgname=nextcloud-app-notes
 _name=notes
-pkgver=4.12.4
+pkgver=4.13.0
 pkgrel=1
 pkgdesc="Simple Notes app for Nextcloud"
 arch=(any)
@@ -14,8 +14,8 @@ makedepends=(nextcloud yq)
 groups=(nextcloud-apps)
 options=(!strip)
 source=($pkgname-$pkgver.tar.gz::https://github.com/nextcloud-releases/${_name}/releases/download/v$pkgver/${_name}-v$pkgver.tar.gz)
-sha512sums=('18350236561119973805a4b62d35ae24b03682f3a6cf0de4f6080172d95ba05479cf8b14aae38b067d6d72cf2f1c175043f09f1af68b7b161ac4393a5053a517')
-b2sums=('2c0573bf6aeca6c398c424b5793aa3b940d6332b9196cbb7fb2ad1b8f19c0b12cd202ff00133207fb1f1abbd65c6bfc210614a573c4ee2b9b3e7e9fbdf1ba537')
+sha512sums=('1ef19d0c76d022ad11508d7873bd6197ab5ea23be1ce2785c484a2bf0978df3afbdc42ed3f68eedc57f75326a5642f8d20dea55ceb77c20fc21cffffdbd1cccb')
+b2sums=('f8bb1938cfb49b0a5f87ab75b893568582bff9bea16ffc2282a96ce28f9753efe935bd78a9f38b24e53374689e85cda31d4b003f6d9d6e9e6536e36bd735e571')
 
 # BEGIN boilerplate nextcloud app version clamping, see also other packages in group
 # 1. Call respective function helpers in check() and package() *after* cd'ing to the source directory
