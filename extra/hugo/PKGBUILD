@@ -7,12 +7,12 @@
 
 pkgname=hugo
 pkgver=0.156.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast and Flexible Static Site Generator in Go"
 arch=('x86_64')
 url="https://gohugo.io/"
 license=('Apache-2.0')
-depends=('glibc' 'gcc-libs')
+depends=('glibc' 'libgcc' 'libstdc++')
 makedepends=('go' 'git')
 optdepends=('git: required to use the Hugo modules feature'
             'go: required to use the Hugo modules feature'
