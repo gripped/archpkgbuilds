@@ -5,24 +5,38 @@
 # Contributor: Iván Pulido <ijpulidos@riseup.net>
 
 pkgname=python-mpmath
-pkgver=1.3.0
-pkgrel=5
+pkgver=1.4.0
+pkgrel=1
 pkgdesc='Python library for arbitrary-precision floating-point arithmetic.'
 arch=(any)
 url='http://mpmath.org/'
-license=(BSD)
-depends=(python-gmpy2)
-makedepends=(python-build python-installer python-setuptools python-wheel)
-source=(https://pypi.python.org/packages/source/m/mpmath/mpmath-$pkgver.tar.gz)
-sha256sums=('7a28eb2a9774d00c7bc92411c19a89209d5da7c4c9a9e227be8330a23a25b91f')
+license=(BSD-3-Clause)
+depends=(python
+         python-gmpy2)
+makedepends=(git
+             python-build
+             python-installer
+             python-setuptools
+             python-setuptools-scm
+             python-wheel)
+checkdepends=(python-hypothesis
+              python-pexpect
+              python-pytest)
+source=(git+https://github.com/mpmath/mpmath#tag=$pkgver)
+sha256sums=('29a6b2f8f5d6e39f846ce0e523b6cef05c1227c42ac6f51c1a26e42746e5fcc4')
 
 build() {
-  cd mpmath-$pkgver
+  cd mpmath
   python -m build --wheel --no-isolation
 }
 
+#check() {
+#  cd mpmath
+#  pytest -v
+#}
+
 package() {
-  cd mpmath-$pkgver  
+  cd mpmath  
   python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
