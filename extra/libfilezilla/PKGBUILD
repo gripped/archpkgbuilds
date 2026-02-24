@@ -6,12 +6,12 @@
 pkgname=libfilezilla
 epoch=1
 pkgver=0.54.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Small and modern C++ library, offering some basic functionality to build high-performing, platform-independent programs"
 url="https://lib.filezilla-project.org/"
 arch=('x86_64')
 license=('GPL-2.0-or-later')
-depends=('glibc' 'gcc-libs' 'nettle' 'gnutls' 'libnettle.so' 'libhogweed.so' 'libcrypt.so')
+depends=('glibc' 'gmp' 'nettle' 'gnutls' 'libgcc' 'libstdc++' 'libnettle.so' 'libhogweed.so' 'libcrypt.so')
 makedepends=('clang')
 checkdepends=('cppunit')
 provides=('libfilezilla.so')
