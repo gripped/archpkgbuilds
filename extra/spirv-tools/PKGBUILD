@@ -5,14 +5,14 @@
 
 pkgname=spirv-tools
 pkgver=1.4.341.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="API and commands for processing SPIR-V modules"
 url="https://www.khronos.org/spirv/"
 arch=(x86_64)
 license=(Apache-2.0)
 depends=(
-  gcc-libs
+  libstdc++
   glibc
   sh
 )
