@@ -5,7 +5,7 @@
 
 pkgname=ruby-tins
 _pkgname="${pkgname#ruby-}"
-pkgver=1.51.1
+pkgver=1.52.0
 pkgrel=1
 pkgdesc='All the stuff that is not good/big enough for a real library'
 arch=(any)
@@ -15,8 +15,8 @@ depends=(ruby ruby-bigdecimal ruby-sync ruby-mize)
 makedepends=(git ruby-rake)
 options=(!emptydirs)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('626b6629c732f616091702d13fc60975858f3d767199b266a4085db893b93e91e9b584e7832eaa939701df00554283e9b64b00b9fd5b8a5d25819928949dc34f')
-b2sums=('93fcb2edc5333f9ec85927552a8fbbe5dbaa608357e9fe5777a43a6fef86324d67e907710ef2b0dd7e52e59fe4d68e71d8c479e909ea676ef797a02bf6e51ae2')
+sha512sums=('09b64c868f0da931eaa87e06a6fd54f233f078e0a701b262deb520f978c9a575e1cdb5839351b2b7e57d9294afcad60b9fb1083ed343eae9936a2dafe246c6a6')
+b2sums=('242ac32758d1b50757410fb3cdaefd42a97871527d297f7a3e7e6c91dc0435e881f677548b92f80d470750bd585a4561bf569b705c1ae2312c8076ce26f28c75')
 
 prepare() {
   cd "$pkgname"
