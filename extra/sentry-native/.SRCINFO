@@ -1,7 +1,7 @@
 pkgbase = sentry-native
 	pkgdesc = Sentry SDK for C, C++ and native applications
 	pkgver = 0.13.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/getsentry/sentry-native
 	arch = x86_64
 	license = MIT
@@ -14,8 +14,9 @@ pkgbase = sentry-native
 	makedepends = cmake
 	makedepends = git
 	depends = curl
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = zlib
 	provides = libsentry.so
 	source = git+https://github.com/getsentry/sentry-native.git#tag=0.13.0
