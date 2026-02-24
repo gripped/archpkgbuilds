@@ -7,12 +7,12 @@
 
 pkgname=sqlitebrowser
 pkgver=3.13.1
-pkgrel=2
+pkgrel=3
 pkgdesc="A light GUI editor for SQLite databases, built on top of Qt"
 url="https://sqlitebrowser.org"
 arch=('x86_64')
 license=('GPL-3.0-only')
-depends=('glibc' 'gcc-libs' 'qt5-base' 'qt5-svg' 'hicolor-icon-theme' 'sqlcipher'
+depends=('glibc' 'libgcc' 'libstdc++' 'qt5-base' 'qt5-svg' 'hicolor-icon-theme' 'sqlcipher'
          'qcustomplot' 'qhexedit2' 'qscintilla-qt5' 'libqcustomplot.so' 'libqhexedit.so')
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools')
 source=("git+https://github.com/sqlitebrowser/sqlitebrowser#tag=v${pkgver}?signed")
