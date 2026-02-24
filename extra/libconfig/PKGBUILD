@@ -7,13 +7,14 @@
 
 pkgname=libconfig
 pkgver=1.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc="C/C++ Configuration File Library"
 arch=(x86_64)
 url="https://github.com/hyperrealm/libconfig"
 license=(LGPL-2.1-only)
 depends=(
-  gcc-libs
+  libgcc
+  libstdc++
   glibc
 )
 makedepends=(texinfo)
