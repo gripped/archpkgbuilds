@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=flamelens
-pkgver=0.3.1
+pkgver=0.4.0
 pkgrel=1
 pkgdesc="Flamegraph viewer in the terminal "
 arch=('x86_64')
@@ -10,11 +10,11 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('758570322f6e20ac3c9b8d23ccc48ca2804e68808f32fb2aa1a6f631d4a9e2d4548981df61e412331bff5f12a65a2ee0760d307c57c85c69523e3bd8f40c3cb3')
+sha512sums=('142a945a1f132b533ceaea77409098b63ab01508b2df63d92974611c596ba82f524825e28c56bb335bc2255c6574401ddfc8850b2cfd6ee971f0307894ee08fe')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
