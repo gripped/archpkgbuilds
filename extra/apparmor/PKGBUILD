@@ -3,7 +3,7 @@
 
 pkgname=apparmor
 pkgver=4.1.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Mandatory Access Control (MAC) using Linux Security Module (LSM)"
 arch=(x86_64)
 url="https://gitlab.com/apparmor/apparmor"
@@ -15,8 +15,8 @@ license=(
 depends=(
   audit
   bash
-  gcc-libs
   glibc
+  libgcc
   pam
   python
   python-legacy-cgi
