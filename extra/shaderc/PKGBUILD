@@ -5,12 +5,12 @@
 
 pkgname=shaderc
 pkgver=2026.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Collection of tools, libraries and tests for shader compilation'
 url='https://github.com/google/shaderc'
 arch=('x86_64')
 license=('Apache-2.0')
-depends=('glibc' 'gcc-libs' 'glslang' 'spirv-tools')
+depends=('glibc' 'glslang' 'libgcc' 'libstdc++' 'spirv-tools')
 makedepends=('asciidoctor' 'cmake' 'ninja' 'python' 'spirv-headers')
 provides=('libshaderc_shared.so')
 source=(https://github.com/google/shaderc/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
