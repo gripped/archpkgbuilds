@@ -4,8 +4,8 @@
 
 pkgname=python-lap
 epoch=1
-pkgver=0.5.12
-pkgrel=3
+pkgver=0.5.13
+pkgrel=1
 pkgdesc='Linear Assignment Problem solver using Jonker-Volgenant algorithm (LAPJV/LAPMOD)'
 arch=(x86_64)
 url=https://github.com/gatagat/lap
@@ -23,23 +23,23 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-_tag=600c210d9bef793ee0fe502cbc350e676a6e083a
-source=(git+https://github.com/gatagat/lap.git#tag=${_tag})
-b2sums=('7e107d144c1a0dff21fa72496ca89d192041bb3952c79c5309cf2ed2a0dc8a7b9ca5132358b4ada8e9f52201be4424ab2f5a4bf8a08443e9c67674a1d5ff4b73')
-
-pkgver() {
-  cd lap
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+https://github.com/gatagat/lap.git#tag=v$pkgver")
+sha512sums=('811880be016335fcf82d45183561243960cf3457e3ed88f0dadd589d2d5af02091687fe1df1601692b2547c95a22cac3b424369bcb6595bc76b4bf802a74cf0e')
+b2sums=('3a032257120cb8e6ae71de2f32f9057942b579f5993aebe7a457a929bb69cef5a32161414f19ee482419d964c04cb962ebc27c6afb71dcda1fcb7d9532ea7b7b')
 
 build() {
-  cd lap
+  cd "$pkgname"
+
   python -m build --wheel --no-isolation
 }
 
 package() {
-  python -m installer --destdir="${pkgdir}" lap/dist/*.whl
-  install -Dm 644 lap/LICENSE -t "${pkgdir}"/usr/share/licenses/python-lap/
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
 
 # vim: ts=2 sw=2 et:
