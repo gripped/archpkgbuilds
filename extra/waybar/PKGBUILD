@@ -5,7 +5,7 @@
 
 pkgname=waybar
 pkgver=0.15.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Highly customizable Wayland bar for Sway and Wlroots based compositors'
 arch=('x86_64')
 url="https://github.com/Alexays/Waybar/"
@@ -14,7 +14,6 @@ depends=(
     'atkmm'
     'cairomm'
     'fmt'
-    'gcc-libs'
     'glib2'
     'glibc'
     'glibmm'
@@ -26,12 +25,14 @@ depends=(
     'jsoncpp'
     'libdbusmenu-gtk3'
     'libevdev'
+    'libgcc'
     'libinput'
     'libmpdclient'
     'libnl'
     'libpipewire'
     'libpulse'
     'libsigc++'
+    'libstdc++'
     'libwireplumber'
     'libxkbcommon'
     'playerctl'
