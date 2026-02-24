@@ -6,13 +6,14 @@
 
 pkgname=ddrescue
 pkgver=1.30
-pkgrel=1
+pkgrel=2
 pkgdesc="GNU data recovery tool"
 arch=(x86_64)
 url="https://www.gnu.org/software/ddrescue/ddrescue.html"
 license=(GPL-2.0-or-later)
 depends=(
-  gcc-libs
+  libgcc
+  libstdc++
   glibc
 )
 source=(https://ftp.gnu.org/gnu/$pkgname/$pkgname-$pkgver.tar.lz{,.sig})
