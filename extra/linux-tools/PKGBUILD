@@ -1,4 +1,5 @@
 # Maintainer: Sébastien Luttringer
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgbase=linux-tools
 pkgname=(
@@ -15,8 +16,9 @@ pkgname=(
   'usbip'
   'x86_energy_perf_policy'
 )
-pkgver=6.19
-pkgrel=2
+pkgver=6.19.3
+pkgrel=1
+_srcname=linux-${pkgver}
 license=('GPL-2.0-only')
 arch=('x86_64')
 url='https://www.kernel.org'
@@ -43,7 +45,7 @@ makedepends+=('llvm' 'clang')
 # intel-speed-select
 makedepends+=('libnl')
 groups=("$pkgbase")
-source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git#tag=v${pkgver//_/-}?signed"
+source=(https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/${_srcname}.tar.{xz,sign}
         'usbipd.service'
         'hv_kvp_daemon.service'
         'hv_vss_daemon.service'
@@ -52,13 +54,14 @@ validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-sha256sums=('05c6e18573ffacca5c3ff0105090a0bb063a2927d280c5ae0372c9667a60f871'
+sha256sums=('0e474968adfcbee32916fd01a89d8ccfd1168d8d32569e76a5c664c793198ebe'
+            'SKIP'
             '2e187734d8aec58a3046d79883510d779aa93fb3ab20bd3132c1a607ebe5498f'
             'b1315cb77a35454e1af9172f821a52e2a0cb18561be05a340d21cf337b01ae61'
             '2d5e2f8d40b6f19bf2e1dead57ca105d72098fb0b418c09ff2e0cb91089710af')
 
 prepare() {
-  cd linux
+  cd "$_srcname"
 
   # apply patch from the source array (should be a pacman feature)
   local src
@@ -81,7 +84,7 @@ build() {
   export CFLAGS="${CFLAGS} -Wno-error=discarded-qualifiers"
 
   echo ':: perf'
-  pushd linux/tools/perf
+  pushd "$_srcname"/tools/perf
   make -f Makefile.perf \
     prefix=/usr \
     lib=lib/perf \
@@ -97,17 +100,17 @@ build() {
   popd
 
   echo ':: cpupower'
-  pushd linux/tools/power/cpupower
+  pushd "$_srcname"/tools/power/cpupower
   make VERSION=$pkgver-$pkgrel
   popd
 
   echo ':: x86_energy_perf_policy'
-  pushd linux/tools/power/x86/x86_energy_perf_policy
+  pushd "$_srcname"/tools/power/x86/x86_energy_perf_policy
   make
   popd
 
   echo ':: usbip'
-  pushd linux/tools/usb/usbip
+  pushd "$_srcname"/tools/usb/usbip
   # Fix gcc compilation
   sed -i 's,-Wall -Werror -Wextra,-fcommon,' configure.ac
   ./autogen.sh
@@ -116,22 +119,22 @@ build() {
   popd
 
   echo ':: tmon'
-  pushd linux/tools/thermal/tmon
+  pushd "$_srcname"/tools/thermal/tmon
   make
   popd
 
   echo ':: turbostat'
-  pushd linux/tools/power/x86/turbostat
+  pushd "$_srcname"/tools/power/x86/turbostat
   make
   popd
 
   echo ':: hv'
-  pushd linux/tools/hv
+  pushd "$_srcname"/tools/hv
   CFLAGS+=' -DKVP_SCRIPTS_PATH=\"/usr/lib/hypervkvpd/\"' make
   popd
 
   echo ':: bpf'
-  pushd linux/tools/bpf
+  pushd "$_srcname"/tools/bpf
   # doesn't compile when we don't first compile bpftool in its own directory and
   # man pages require to be also launch from the subdirectory
   make -C bpftool all doc
@@ -140,17 +143,17 @@ build() {
   popd
 
   echo ':: bootconfig'
-  pushd linux/tools/bootconfig
+  pushd "$_srcname"/tools/bootconfig
   make
   popd
 
   echo ':: intel-speed-select'
-  pushd linux/tools/power/x86/intel-speed-select
+  pushd "$_srcname"/tools/power/x86/intel-speed-select
   make
   popd
 
   echo ':: kcpuid'
-  pushd linux/tools/arch/x86/kcpuid
+  pushd "$_srcname"/tools/arch/x86/kcpuid
   make
   popd
 }
@@ -182,7 +185,7 @@ package_perf() {
            'numactl' 'audit' 'coreutils' 'glib2' 'xz' 'zlib' 'libelf' 'bash'
            'zstd' 'libcap' 'libtraceevent' 'openssl' 'libsframe.so' 'llvm-libs' 'libpfm')
 
-  cd linux/tools/perf
+  cd "$_srcname"/tools/perf
   make -f Makefile.perf \
     prefix=/usr \
     lib=lib/perf \
@@ -215,7 +218,7 @@ package_cpupower() {
   replaces=('cpufrequtils')
   install=cpupower.install
 
-  pushd linux/tools/power/cpupower
+  pushd "$_srcname"/tools/power/cpupower
   make \
     DESTDIR="$pkgdir" \
     confdir='/etc/default/' \
@@ -232,7 +235,7 @@ package_x86_energy_perf_policy() {
   pkgdesc='Read or write MSR_IA32_ENERGY_PERF_BIAS'
   depends=('glibc')
 
-  cd linux/tools/power/x86/x86_energy_perf_policy
+  cd "$_srcname"/tools/power/x86/x86_energy_perf_policy
   install -Dm 755 x86_energy_perf_policy "$pkgdir/usr/bin/x86_energy_perf_policy"
   install -Dm 644 x86_energy_perf_policy.8 "$pkgdir/usr/share/man/man8/x86_energy_perf_policy.8"
 }
@@ -241,7 +244,7 @@ package_usbip() {
   pkgdesc='An USB device sharing system over IP network'
   depends=('glibc' 'glib2' 'sysfsutils' 'systemd-libs')
 
-  pushd linux/tools/usb/usbip
+  pushd "$_srcname"/tools/usb/usbip
   make install DESTDIR="$pkgdir"
   popd
   # module loading
@@ -255,7 +258,7 @@ package_tmon() {
   pkgdesc='Monitoring and Testing Tool for Linux kernel thermal subsystem'
   depends=('glibc' 'ncurses')
 
-  cd linux/tools/thermal/tmon
+  cd "$_srcname"/tools/thermal/tmon
   make install INSTALL_ROOT="$pkgdir"
 }
 
@@ -263,7 +266,7 @@ package_turbostat() {
   pkgdesc='Report processor frequency and idle statistics'
   depends=('glibc' 'libcap')
 
-  cd linux/tools/power/x86/turbostat
+  cd "$_srcname"/tools/power/x86/turbostat
   make install DESTDIR="$pkgdir"
 }
 
@@ -271,7 +274,7 @@ package_hyperv() {
   pkgdesc='Hyper-V tools'
   depends=('glibc')
 
-  cd linux/tools/hv
+  cd "$_srcname"/tools/hv
   make install DESTDIR="$pkgdir" sbindir=/usr/bin libexecdir=/usr/lib
   for _p in hv_kvp_daemon hv_vss_daemon; do
     install -Dm644 "$srcdir/$_p.service" "$pkgdir/usr/lib/systemd/system/$_p.service"
@@ -282,7 +285,7 @@ package_bpf() {
   pkgdesc='BPF tools'
   depends=('glibc' 'readline' 'zlib' 'libelf' 'libcap' 'zstd' 'llvm-libs' 'binutils' 'libsframe.so')
 
-  cd linux/tools/bpf
+  cd "$_srcname"/tools/bpf
   # skip runsqlower until disabled in build
   make -W runqslower_install install prefix=/usr DESTDIR="$pkgdir"
   # fix bpftool hard written path
@@ -296,7 +299,7 @@ package_bootconfig() {
   pkgdesc='Apply, delete or show boot config to initrd'
   depends=('glibc')
 
-  cd linux/tools/bootconfig
+  cd "$_srcname"/tools/bootconfig
   install -dm755 "$pkgdir/usr/bin"
   make install DESTDIR="$pkgdir"
 }
@@ -305,7 +308,7 @@ package_intel-speed-select() {
   pkgdesc='Intel Speed Select'
   depends=('libnl')
 
-  cd linux/tools/power/x86/intel-speed-select
+  cd "$_srcname"/tools/power/x86/intel-speed-select
   make install DESTDIR="$pkgdir"
 }
 
@@ -313,7 +316,7 @@ package_kcpuid() {
   pkgdesc='Kernel tool for various cpu debug outputs'
   depends=('glibc')
 
-  make BINDIR=/usr/bin HWDATADIR="/usr/share/misc" DESTDIR="$pkgdir" -C linux/tools/arch/x86/kcpuid install
+  make BINDIR=/usr/bin HWDATADIR="/usr/share/misc" DESTDIR="$pkgdir" -C "$_srcname"/tools/arch/x86/kcpuid install
 }
 
 # vim:set ts=2 sw=2 et:
