@@ -2,7 +2,7 @@
 # Contributor: Jason A. Donenfeld <Jason@zx2c4.com>
 
 pkgname=wireguard-tools
-pkgver=1.0.20250521
+pkgver=1.0.20260223
 pkgrel=1
 pkgdesc='next generation secure network tunnel - tools for configuration'
 arch=('x86_64')
@@ -14,7 +14,7 @@ optdepends=('openresolv: for DNS functionality'
             'sudo: elevate privileges')
 validpgpkeys=('AB9942E6D4A4CFC3412620A749FC7012A5DE03AE') # Jason A. Donenfeld <Jason@zx2c4.com>
 source=("git+https://git.zx2c4.com/${pkgname}#tag=v${pkgver}?signed")
-sha256sums=('d7d5b1ad1931cd472f8db1451f711ca04e0b359cf871a83747fb2a56653f89db')
+sha256sums=('dc2c44bdfd8ac11f7558e2e2536afa7e3da1381a3b17370b0798ecd83a4323eb')
 
 prepare() {
 	cd "${pkgname}/"
