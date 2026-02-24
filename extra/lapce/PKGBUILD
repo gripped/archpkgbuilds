@@ -4,7 +4,7 @@
 
 pkgname=lapce
 pkgver=0.4.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Lightning-fast and Powerful Code Editor'
 arch=(x86_64)
 url=https://lapce.dev
@@ -13,10 +13,13 @@ license=(Apache-2.0)
 depends=(expat
          fontconfig
          freetype2
-         gcc-libs
+         glibc # libc.so libm.so
          gtk3
+         libgcc libgcc_s.so
+         libgit2 libgit2.so
          libxcb
-         libxkbcommon)
+         libxkbcommon
+         openssl libcrypto.so libssl.so)
 makedepends=(cargo
              python
              cmake)
@@ -27,7 +30,7 @@ sha256sums=('c6790771ed0af5e242d2410d930197412af4c21c07a5a33ae5d6ac596ca7380a')
 
 prepare() {
 	cd "$_archive"
-	cargo fetch --locked --target "$(rustc --print host-tuple)"
+	cargo fetch --locked --target host-tuple
 }
 
 build() {
@@ -35,6 +38,8 @@ build() {
 	# See https://github.com/lapce/lapce/pull/2374 and https://bugs.archlinux.org/task/78922
 	export RELEASE_TAG_NAME="v$pkgver"
 	export CARGO_PROFILE_RELEASE_DEBUG=2
+	export LIBGIT2_NO_VENDOR=1
+	export OPENSSL_NO_VENDOR=true
 	cargo build --frozen --profile release-lto --all-features
 }
 
