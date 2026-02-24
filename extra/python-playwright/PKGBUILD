@@ -5,7 +5,7 @@
 _name=playwright-python
 pkgname=python-playwright
 pkgver=1.58.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Python library to automate Chromium, Firefox and WebKit browsers with a single API'
 arch=(any)
 url='https://github.com/microsoft/playwright-python'
@@ -48,6 +48,7 @@ prepare() {
 
 build() {
   cd $_name
+  SETUPTOOLS_SCM_PRETEND_VERSION="$pkgver" \
   python -m build --wheel --no-isolation
 }
 
