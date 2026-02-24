@@ -4,14 +4,15 @@
 
 pkgname=vulkan-validation-layers
 pkgver=1.4.341.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Vulkan Validation Layers"
 url="https://www.vulkan.org/"
 arch=(x86_64)
 license=(Apache-2.0)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   spirv-tools
 )
 makedepends=(
