@@ -3,26 +3,23 @@
 
 pkgname=wl-clip-persist
 pkgver=0.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Keep Wayland clipboard even after programs close"
 url="https://github.com/Linus789/wl-clip-persist"
 arch=('x86_64')
 license=('MIT')
-depends=('glibc' 'gcc-libs')
+depends=('glibc' 'libgcc')
 makedepends=('cargo')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
 sha256sums=('fdd2506e6556dda943a164d891fe498985838fdd0e94c54e595a8f1cd8c49b66')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
-	export RUSTUP_TOOLCHAIN=stable
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
 	cd "${pkgname}-${pkgver}"
-	export RUSTUP_TOOLCHAIN=stable
-	export CARGO_TARGET_DIR=target
 	cargo build --frozen --release --all-features
 }
 
