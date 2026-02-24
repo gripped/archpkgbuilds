@@ -1,6 +1,6 @@
 pkgbase = asymptote
 	pkgdesc = A vector graphics language (like metapost)
-	pkgver = 3.07
+	pkgver = 3.08
 	pkgrel = 1
 	url = http://asymptote.sourceforge.net/
 	arch = x86_64
@@ -21,10 +21,12 @@ pkgbase = asymptote
 	depends = curl
 	depends = fftw
 	depends = freeglut
-	depends = gcc-libs
 	depends = glibc
 	depends = gsl
+	depends = libgcc
+	depends = libglvnd
 	depends = libsigsegv
+	depends = libstdc++
 	depends = libtirpc
 	depends = ncurses
 	depends = readline
@@ -33,7 +35,7 @@ pkgbase = asymptote
 	optdepends = pyside6: for the xasy GUI
 	optdepends = python-cson: for the xasy GUI
 	optdepends = ghostscript: PDF output
-	source = git+https://github.com/vectorgraphics/asymptote#tag=3.07
-	sha256sums = 172be3e5cf4dae4bb9902f8514c08928639e8819548377aff402ca48f9f7989c
+	source = git+https://github.com/vectorgraphics/asymptote#tag=3.08
+	sha256sums = 789ac5d01f78711e080432d4282e35485968906e9d3cd3e468fdc23fee93c9b8
 
 pkgname = asymptote
