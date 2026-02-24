@@ -6,8 +6,8 @@ pkgname=(
   libcomps
   libcomps-docs
 )
-pkgver=0.1.23
-pkgrel=2
+pkgver=0.1.24
+pkgrel=1
 pkgdesc="Comps XML file manipulation library"
 arch=('x86_64')
 url="https://github.com/rpm-software-management/$pkgbase"
@@ -18,7 +18,7 @@ checkdepends=('check')
 source=(
   "$url/archive/$pkgver/$pkgbase-$pkgver.tar.gz"
 )
-sha256sums=('0f41c042ff672ce5b30769c0bf2066c8ecc3db4b14bd26a8e5ed80a4fb0963ef')
+sha256sums=('c24a81dea8e9f7f3c877618d3812a5293df772abc6b90fad1d34fa62326141bc')
 
 prepare() {
   cd "$pkgbase-$pkgver"
