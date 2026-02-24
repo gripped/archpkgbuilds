@@ -1,6 +1,6 @@
-From 3acbc94a66a9f196f1d55f8f3e2b4394048b20a3 Mon Sep 17 00:00:00 2001
+From 9dc5afe771a4905606d1d1f425c002f2afdd3eb0 Mon Sep 17 00:00:00 2001
 From: Caleb Maclennan <caleb@alerque.com>
-Date: Thu, 20 Mar 2025 11:12:13 +0300
+Date: Tue, 24 Feb 2026 13:05:07 +0300
 Subject: [PATCH] Patch config files with Arch Linux specific locations
 
 Arch uses upstream's default config files as a base for its configs, but
@@ -14,14 +14,14 @@ will cause a conflict that needs to be reviewed manually.
 
 Signed-off-by: Caleb Maclennan <caleb@alerque.com>
 ---
- config/database.yml.postgresql     | 79 +-------------------------------------
- config/gitlab.yml.example          | 72 +++++++++++++++++-----------------
- config/puma.example.development.rb | 16 ++++----
- config/puma.rb.example             | 16 ++++----
- 4 files changed, 54 insertions(+), 129 deletions(-)
+ config/database.yml.postgresql     | 79 +-----------------------------
+ config/gitlab.yml.example          | 76 ++++++++++++++--------------
+ config/puma.example.development.rb | 16 +++---
+ config/puma.rb.example             | 16 +++---
+ 4 files changed, 56 insertions(+), 131 deletions(-)
 
 diff --git a/config/database.yml.postgresql b/config/database.yml.postgresql
-index da9f458ff09..78b0dedae79 100644
+index da9f458ff091..78b0dedae792 100644
 --- a/config/database.yml.postgresql
 +++ b/config/database.yml.postgresql
 @@ -6,7 +6,7 @@ production:
@@ -136,7 +136,7 @@ index da9f458ff09..78b0dedae79 100644
 -    host: localhost
 -    reaping_frequency: nil
 diff --git a/config/gitlab.yml.example b/config/gitlab.yml.example
-index 8f7bf7a9b88..31422e3a413 100644
+index e0dbae20285e..c90f148c1555 100644
 --- a/config/gitlab.yml.example
 +++ b/config/gitlab.yml.example
 @@ -99,7 +99,7 @@ production: &base
@@ -204,7 +204,7 @@ index 8f7bf7a9b88..31422e3a413 100644
  
      # File location to read encrypted incoming email secrets from
      # encrypted_secret_file: /mnt/gitlab/smtp.yaml.enc
-@@ -370,7 +370,7 @@ production: &base
+@@ -400,7 +400,7 @@ production: &base
    artifacts:
      enabled: true
      # The location where build artifacts are stored (default: shared/artifacts).
@@ -213,7 +213,7 @@ index 8f7bf7a9b88..31422e3a413 100644
      # object_store:
      #   enabled: false
      #   remote_directory: artifacts # The bucket name
-@@ -389,7 +389,7 @@ production: &base
+@@ -419,7 +419,7 @@ production: &base
      # be stored on disk, or in object storage
      enabled: false
      # The location where external diffs are stored (default: shared/lfs-external-diffs).
@@ -222,7 +222,7 @@ index 8f7bf7a9b88..31422e3a413 100644
      # object_store:
      #   enabled: false
      #   remote_directory: external-diffs
-@@ -404,7 +404,7 @@ production: &base
+@@ -434,7 +434,7 @@ production: &base
    lfs:
      enabled: true
      # The location where LFS objects are stored (default: shared/lfs-objects).
@@ -231,7 +231,7 @@ index 8f7bf7a9b88..31422e3a413 100644
      object_store:
        enabled: false
        remote_directory: lfs-objects # Bucket name
-@@ -423,7 +423,7 @@ production: &base
+@@ -453,7 +453,7 @@ production: &base
    ## Uploads (attachments, avatars, etc...)
    uploads:
      # The location where uploads objects are stored (default: public/).
@@ -240,7 +240,7 @@ index 8f7bf7a9b88..31422e3a413 100644
      # base_dir: uploads/-/system
      object_store:
        enabled: false
-@@ -444,7 +444,7 @@ production: &base
+@@ -474,7 +474,7 @@ production: &base
      enabled: true
      dpkg_deb_path: /usr/bin/dpkg-deb
      # The location where build packages are stored (default: shared/packages).
@@ -249,7 +249,7 @@ index 8f7bf7a9b88..31422e3a413 100644
      object_store:
        enabled: false
        remote_directory: packages # The bucket name
-@@ -463,7 +463,7 @@ production: &base
+@@ -493,7 +493,7 @@ production: &base
    dependency_proxy:
      enabled: true
      # The location where build packages are stored (default: shared/dependency_proxy).
@@ -258,7 +258,7 @@ index 8f7bf7a9b88..31422e3a413 100644
      object_store:
        enabled: false
        remote_directory: dependency_proxy # The bucket name
-@@ -482,7 +482,7 @@ production: &base
+@@ -512,7 +512,7 @@ production: &base
    terraform_state:
      enabled: true
      # The location where Terraform state files are stored (default: shared/terraform_state).
@@ -267,7 +267,7 @@ index 8f7bf7a9b88..31422e3a413 100644
      object_store:
        enabled: false
        remote_directory: terraform # The bucket name
-@@ -499,7 +499,7 @@ production: &base
+@@ -529,7 +529,7 @@ production: &base
    ## CI Secure Files
    ci_secure_files:
      enabled: true
@@ -276,7 +276,7 @@ index 8f7bf7a9b88..31422e3a413 100644
      object_store:
        enabled: false
        remote_directory: ci-secure-files # The bucket name
-@@ -518,7 +518,7 @@ production: &base
+@@ -548,7 +548,7 @@ production: &base
      enabled: false
      access_control: false
      # The location where pages are stored (default: shared/pages).
@@ -285,7 +285,7 @@ index 8f7bf7a9b88..31422e3a413 100644
  
      # The domain under which the pages are served:
      # http://group.example.com/project
-@@ -533,7 +533,7 @@ production: &base
+@@ -563,7 +563,7 @@ production: &base
  
      # File that contains the shared secret key for verifying access for gitlab-pages.
      # Default is '.gitlab_pages_secret' relative to Rails.root (i.e. root of the GitLab app).
@@ -294,7 +294,7 @@ index 8f7bf7a9b88..31422e3a413 100644
      object_store:
        enabled: false
        remote_directory: pages # The bucket name
-@@ -729,7 +729,7 @@ production: &base
+@@ -759,7 +759,7 @@ production: &base
      # port: 5005
      # api_url: http://localhost:5000/ # internal address to the registry, will be used by GitLab to directly communicate with API
      # key: config/registry.key
@@ -303,7 +303,7 @@ index 8f7bf7a9b88..31422e3a413 100644
      # issuer: gitlab-issuer
      # notification_secret: '' # only set it when you use Geo replication feature without built-in Registry
  
-@@ -780,7 +780,7 @@ production: &base
+@@ -810,7 +810,7 @@ production: &base
      # Default project notifications settings:
  
      # The location where build traces are stored (default: builds/). Relative paths are relative to Rails.root
@@ -312,7 +312,7 @@ index 8f7bf7a9b88..31422e3a413 100644
  
    #
    # 3. Auth settings
-@@ -1256,7 +1256,7 @@ production: &base
+@@ -1286,7 +1286,7 @@ production: &base
  
    # Shared file storage settings
    shared:
@@ -321,13 +321,27 @@ index 8f7bf7a9b88..31422e3a413 100644
  
    # Encrypted Settings configuration
    encrypted_settings:
-@@ -1288,13 +1288,13 @@ production: &base
+@@ -1294,8 +1294,8 @@ production: &base
+ 
+   # Gitaly settings
+   gitaly:
+-    # In some cases, when Gitaly returns an error GitLab can backoff 
+-    # and retry the request, before giving up and returning an error 
++    # In some cases, when Gitaly returns an error GitLab can backoff
++    # and retry the request, before giving up and returning an error
+     # to the client.
+     # The 2 configuration below allows to tweak that retry configuration:
+     # `client_max_attempts`: the maximum number of retry attempt
+@@ -1318,7 +1318,7 @@ production: &base
    repositories:
      storages: # You must have at least a `default` storage path.
        default:
 -        gitaly_address: unix:/home/git/gitlab/tmp/sockets/private/gitaly.socket # TCP connections are supported too (e.g. tcp://host:port). TLS connections are also supported using the system certificate pool (eg: tls://host:port).
-+        gitaly_address: unix:/run/gitlab/gitlab-gitaly.socket # TCP connections are supported too (e.g. tcp://host:port). TLS connections are also supported using the system certificate pool (eg: tls://host:port).
-         # gitaly_token: 'special token' # Optional: override global gitaly.token for this storage.
++        gitaly_address: unix:/run/gitlab/tmp/sockets/private/gitaly.socket # TCP connections are supported too (e.g. tcp://host:port). TLS connections are also supported using the system certificate pool (eg: tls://host:port).
+         # For DNS-based load balancing with TLS, use: dns+tls://[authority_host]:[authority_port]/[host]:[port]
+         # The host:port portion will be used as the TLS server name for SNI.
+         # Example: dns+tls://1.1.1.1/gitaly.example.com:8075
+@@ -1326,8 +1326,8 @@ production: &base
  
    ## Backup settings
    backup:
@@ -338,7 +352,7 @@ index 8f7bf7a9b88..31422e3a413 100644
      # archive_permissions: 0640 # Permissions for the resulting backup.tar file (default: 0600)
      # keep_time: 604800   # default: 0 (forever) (in seconds)
      # pg_schema: public     # default: nil, it means that all schemas will be backed up
-@@ -1329,12 +1329,12 @@ production: &base
+@@ -1362,12 +1362,12 @@ production: &base
  
    ## GitLab Shell settings
    gitlab_shell:
@@ -354,7 +368,7 @@ index 8f7bf7a9b88..31422e3a413 100644
  
      # Git over HTTP
      upload_pack: true
-@@ -1349,7 +1349,7 @@ production: &base
+@@ -1382,7 +1382,7 @@ production: &base
    workhorse:
      # File that contains the secret key for verifying access for gitlab-workhorse.
      # Default is '.gitlab_workhorse_secret' relative to Rails.root (i.e. root of the GitLab app).
@@ -363,7 +377,7 @@ index 8f7bf7a9b88..31422e3a413 100644
  
    database_traffic_capture:
      config:
-@@ -1367,15 +1367,15 @@ production: &base
+@@ -1400,15 +1400,15 @@ production: &base
      #   skip_sequence_alteration: false
      # topology_service_client:
      #   address: topology-service.gitlab.example.com:443
@@ -383,7 +397,7 @@ index 8f7bf7a9b88..31422e3a413 100644
  
      # The URL to the external KAS API (used by the Kubernetes agents)
      # external_url: wss://kas.example.com
-@@ -1392,12 +1392,12 @@ production: &base
+@@ -1425,12 +1425,12 @@ production: &base
    zoekt:
      # Files that contain username and password for basic auth for Zoekt
      # Default is '.gitlab_zoekt_username' and '.gitlab_zoekt_password' in Rails.root
@@ -400,7 +414,7 @@ index 8f7bf7a9b88..31422e3a413 100644
    ## Git settings
    # CAUTION!
 diff --git a/config/puma.example.development.rb b/config/puma.example.development.rb
-index 1c7e72e11d9..ef4634fc0b1 100644
+index 1c7e72e11d98..ef4634fc0b17 100644
 --- a/config/puma.example.development.rb
 +++ b/config/puma.example.development.rb
 @@ -2,7 +2,7 @@
@@ -456,7 +470,7 @@ index 1c7e72e11d9..ef4634fc0b1 100644
  json_formatter = Gitlab::PumaLogging::JSONFormatter.new
  log_formatter do |str|
 diff --git a/config/puma.rb.example b/config/puma.rb.example
-index 3ee61316950..93d551a9445 100644
+index 3ee61316950e..93d551a94452 100644
 --- a/config/puma.rb.example
 +++ b/config/puma.rb.example
 @@ -5,11 +5,11 @@
@@ -506,3 +520,6 @@ index 3ee61316950..93d551a9445 100644
  
  error_handler = Gitlab::Puma::ErrorHandler.new(ENV['RAILS_ENV'] == 'production')
  
+-- 
+2.53.0
+
