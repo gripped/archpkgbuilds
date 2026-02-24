@@ -8,14 +8,15 @@ pkgname=(
   vulkan-extra-layers
 )
 pkgver=1.4.341.1
-pkgrel=1
+pkgrel=2
 pkgdesc="LunarG's Vulkan tools and utilities"
 url="https://www.lunarg.com/"
 arch=(x86_64)
 license=(Apache-2.0)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   vulkan-icd-loader
 )
 makedepends=(
