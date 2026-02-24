@@ -5,12 +5,12 @@
 
 pkgname=vale
 pkgver=3.13.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A markup-aware linter for prose built with speed and extensibility in mind"
 url="https://vale.sh"
 arch=('x86_64')
 license=('MIT')
-depends=('glibc' 'gcc-libs')
+depends=('glibc' 'libgcc' 'libstdc++')
 makedepends=('go')
 options=(!lto)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/errata-ai/vale/archive/v${pkgver}.tar.gz")
