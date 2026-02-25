@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-workspaces
-pkgver=1.0.7
+pkgver=1.0.8
 pkgrel=1
 epoch=2
 pkgdesc='Cosmic workspaces'
@@ -13,7 +13,7 @@ license=(GPL-3.0-only)
 groups=(cosmic)
 depends=(
   cosmic-icon-theme
-  gcc-libs
+  libgcc
   glibc
   libinput
   libxkbcommon
@@ -29,8 +29,8 @@ source=(
   git+https://github.com/pop-os/cosmic-workspaces-epoch.git#tag=epoch-${pkgver}
   cosmic-workspaces-lto.patch
 )
-b2sums=('548897e6e32c2c4362f73e39dbf01beade373ba7eb2e1a82b1c85e42429413fef5de55ae8e79e0232ae8ee648fb72a593dc20950f169ee097a4b6d2acf8051a8'
-        '1ea5088acc34078e58a6368976b470080aa8053a97f94a41546dd79a4c7450c419b260d1e17e7c5652bdc2b9f4b2ed547a83c69a2b37dc76ccedf94242a8fba3')
+b2sums=('bcdd22358a2b2aefd284984dc9a6b30b17184770053e9cb67fcb49a3b1b113914262d524db6f1ba7c4e76c81ce3f3467b3aae2441f9d718d5180a63c2d692d9c'
+        '05d93d371d529e1fb6ce7a35bac8fe409fe53ca0c9413fc4d47a46f8897792be9b7ed5178bce51d557210358f9cc1a0b08c1d4b29dc57928c30eb454733684f2')
 
 prepare() {
   cd cosmic-workspaces-epoch
