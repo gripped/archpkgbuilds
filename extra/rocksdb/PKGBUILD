@@ -4,7 +4,7 @@
 
 pkgname=rocksdb
 pkgver=10.10.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Embedded key-value store for fast storage'
 arch=(x86_64)
 url="https://rocksdb.org/"
@@ -49,6 +49,7 @@ build() {
     -Wno-dev
     -DROCKSDB_BUILD_SHARED=ON
     -DROCKSDB_BUILD_STATIC=OFF
+    -DWITH_CORE_TOOLS=ON
     -DWITH_BZ2=ON
     -DWITH_SNAPPY=ON
     -DWITH_LZ4=ON
