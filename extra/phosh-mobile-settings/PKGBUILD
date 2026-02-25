@@ -3,7 +3,8 @@
 # Contributor: Thomas Booker <tw.booker@outlook.com>
 
 pkgname=phosh-mobile-settings
-pkgver=0.52.0
+pkgver=0.53.0
+_gvcver=1cdc1cb2d622d64e9ad2781093bcc63719c5ea5b
 pkgrel=1
 pkgdesc='A settings app for mobile specific things'
 arch=(x86_64)
@@ -42,10 +43,11 @@ makedepends=(
 )
 source=(
   "git+https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings.git?signed#tag=v$pkgver"
-  git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
+  #git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
+  "git+https://gitlab.gnome.org/guidog/libgnome-volume-control.git#commit=$_gvcver"
 )
-b2sums=('ee2c679a22054b03d45b94dbf224023cdc13434b10632a9b7165195e6e1d3f5b66f4cbc1c2df2b6446a98f4f79f801f97d9fb7392c37c26017601079b480e43c'
-        'SKIP')
+b2sums=('7bb8e7aae44d1dc316b4f06090969c4394e36b91583ac8237b9464c4c697a1177880909a61d73740e0fd9fd5602313937e7e24ad44d49ecd4564ded210a1fa03'
+        '6f92aa86fa6c72d9a4e230593a696f918ab8515f1501b91c1121d250fb3a0415207ce68e23f2199b5f0a3e69299af01650a75c0c733fe7e02cb62014c5d4de1f')
 validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
 
 prepare() {
