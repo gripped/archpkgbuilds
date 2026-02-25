@@ -1,6 +1,6 @@
 pkgbase = cosmic-session
 	pkgdesc = Session manager for the COSMIC desktop environment
-	pkgver = 1.0.7
+	pkgver = 1.0.8
 	pkgrel = 1
 	epoch = 1
 	url = https://github.com/pop-os/cosmic-session
@@ -29,7 +29,7 @@ pkgbase = cosmic-session
 	depends = cosmic-settings-daemon
 	depends = cosmic-settings
 	depends = cosmic-workspaces
-	depends = gcc-libs
+	depends = libgcc
 	depends = glibc
 	depends = noto-fonts
 	depends = switcheroo-control
@@ -37,7 +37,6 @@ pkgbase = cosmic-session
 	depends = vulkan-driver
 	depends = xdg-desktop-portal-cosmic
 	depends = xorg-xwayland
-	optdepends = cosmic-files: COSMIC file manager
 	optdepends = cosmic-player: COSMIC media player
 	optdepends = cosmic-store: COSMIC store
 	optdepends = cosmic-terminal: COSMIC terminal
@@ -46,9 +45,9 @@ pkgbase = cosmic-session
 	optdepends = dconf: Apply COSMIC settings to GTK applications
 	optdepends = gnome-keyring: Start gnome keyring components if the daemon is active
 	optdepends = system-config-printer: printer settings
-	source = git+https://github.com/pop-os/cosmic-session.git#tag=epoch-1.0.7
+	source = git+https://github.com/pop-os/cosmic-session.git#tag=epoch-1.0.8
 	source = cosmic-session-lto.patch
-	b2sums = d58f5280ac23e4b7095be06e298c20116a4f45451450286d1b84e1a975efede355e15df92a9092fd17bba7fbfa799d23ec3d3cfbbfbbc9feae55559dd52b5da6
+	b2sums = 669121c071642121ca36b99f1b86b97ebb59973f40d39d9e5b13b97d5a3e16e733a502baa3407b8b8b85fa2c3d889f29fa57f564955fc4d9196b938504c59eaa
 	b2sums = 8b1a6ba7e159831e24d4e2abe1ee82c3b9a1f7c34af982a0ec20f5941c816922213cbc6bda3a7c2419ace2adf5cdfea131fab76045454b6ad800e18df0368307
 
 pkgname = cosmic-session
