@@ -4,7 +4,7 @@
 
 pkgname=endless-sky
 pkgver=0.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A sandbox-style space exploration and combat game'
 arch=(x86_64)
 url='https://endless-sky.github.io/'
@@ -23,7 +23,8 @@ license=(
 )
 depends=(
   glibc
-  gcc-libs
+  libgcc
+  libstdc++
   openal
   libpng
   glew
