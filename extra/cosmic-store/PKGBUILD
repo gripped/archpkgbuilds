@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-store
-pkgver=1.0.7
+pkgver=1.0.8
 pkgrel=1
 epoch=1
 pkgdesc='Cosmic App Store'
@@ -15,7 +15,7 @@ depends=(
   archlinux-appstream-data
   cosmic-icon-theme
   flatpak
-  gcc-libs
+  libgcc
   glib2
   glibc
   libxkbcommon
@@ -32,7 +32,7 @@ source=(
   git+https://github.com/pop-os/cosmic-store.git#tag=epoch-${pkgver}
   cosmic-store-lto.patch
 )
-b2sums=('d2270738cb1e61b01f874e6d31406e75f378f53868e7f270ac37bcb919e03d22e53f66d07407bee2804411e35be6216c390b4ea4431a2ed77ad9a0adbc509c15'
+b2sums=('109afb77eacd2b4e23e55cac37b97621fb0bf4d8dce32442ebd0850e084fba7554a865d8c34b0d4c9bfb7a27e15522a16a972097bf6dbd0b612337df46c92115'
         'ed4089dd1ded4a87307c50f38af03ff3742bfc54053a668416f713c9b27eb591e608166ce14f2f50f8303aaf06533963fd821d00522b77e7f965827035a7ff11')
 
 prepare() {
