@@ -2,39 +2,45 @@
 
 pkgname=antimicrox
 pkgver=3.5.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Graphical program used to map keyboard buttons & mouse controls to a gamepad'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/AntiMicroX/antimicrox'
-license=('GPL-3.0-only')
+license=(GPL-3.0-only)
 depends=(
-  'glibc'
-  'gcc-libs'
-  'hicolor-icon-theme'
-  'libxtst'
-  'libxi'
-  'libx11'
-  'qt6-base'
-  'sdl2'
+  glibc
+  hicolor-icon-theme
+  libxtst
+  libxi
+  libx11
+  libgcc
+  libstdc++
+  qt6-base
+  sdl2
 )
 makedepends=(
-  'git'
-  'cmake'
-  'extra-cmake-modules'
-  'itstool'
-  'qt6-tools'
+  git
+  cmake
+  extra-cmake-modules
+  itstool
+  qt6-tools
 )
 source=("$pkgname::git+$url#tag=$pkgver")
 sha512sums=('cd078eaeb3be188112c62cca0afd79167bda9875b9e4d01b9d655ec8be13857fc353a5135cf21d325cc5718d882ae81315683e0a9ad6e1843fdb93689f882206')
 b2sums=('0844fc4fd9f5c14aaaa3267c3f65c9763bf877450d0aebe843b8af8229da82ef9275a29840b10c44cf7f7a60e88b0e27e2a3502b7d9397ef560d4eb5dd935c16')
 
 build() {
-  cmake \
-    -B build \
-    -S "$pkgname" \
-    -D CMAKE_BUILD_TYPE=None \
-    -D ANTIMICROX_PKG_VERSION="$pkgver" \
+  local cmake_options=(
+    -B build
+    -S "$pkgname"
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D ANTIMICROX_PKG_VERSION="$pkgver"
     -D USE_QT6_BY_DEFAULT=ON
+  )
+
+  cmake "${cmake_options[@]}"
 
   cmake --build build
 }
