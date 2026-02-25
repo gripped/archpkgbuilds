@@ -2,14 +2,14 @@
 
 pkgname=chawan
 pkgver=0.3.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A text-mode web browser and pager for Unix-like systems'
 arch=(x86_64)
 url='https://chawan.net/'
 license=(Unlicense)
 depends=(
   glibc
-  gcc-libs
+  libgcc
   brotli
   libssh2
   openssl
