@@ -6,13 +6,14 @@
 pkgname=python-requests
 _name=${pkgname#python-}
 pkgver=2.32.5
-pkgrel=3
+pkgrel=4
 pkgdesc='Python HTTP for Humans'
 arch=(any)
 url=https://requests.readthedocs.io/
 license=(Apache-2.0)
 depends=(
   ca-certificates
+  python
   python-charset-normalizer
   python-idna
   python-urllib3
@@ -43,6 +44,10 @@ validpgpkeys=(87227E29AD9CFF5CFAC3EA6A44D3FF97B80DC864) # Nathanael Prewitt <nat
 
 prepare() {
   cd "$_name"
+
+  # Increase chardet upper limit to 7
+  git show 4bd79e397304d46dfccd76f36c07f66c0295ff82 -- src/requests/__init__.py | git apply
+
   sed -i '/certifi/d' setup.py
   patch -p1 -i ../certs.patch
 }
@@ -54,8 +59,18 @@ build() {
 
 check() {
   cd "$_name"
-  # test_unicode_header_name hangs
-  PYTHONPATH="$PWD/src" pytest -v tests --deselect tests/test_requests.py::TestRequests::test_unicode_header_name
+
+  pytest_options=(
+    -v tests
+    # test_unicode_header_name hangs
+    --deselect tests/test_requests.py::TestRequests::test_unicode_header_name
+    # [Errno 111] Connection refused
+    --deselect 'tests/test_requests.py::TestTimeout::test_connect_timeout[timeout0]'
+    --deselect 'tests/test_requests.py::TestTimeout::test_connect_timeout[timeout1]'
+    --deselect 'tests/test_requests.py::TestTimeout::test_total_timeout_connect[timeout0]'
+    --deselect 'tests/test_requests.py::TestTimeout::test_total_timeout_connect[timeout1]'
+  )
+  PYTHONPATH="$PWD/src" pytest "${pytest_options[@]}"
 }
 
 package() {
