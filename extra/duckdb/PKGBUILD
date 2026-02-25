@@ -3,12 +3,12 @@
 pkgbase=duckdb
 pkgname=(duckdb python-duckdb)
 pkgver=1.4.4
-pkgrel=1
+pkgrel=2
 pkgdesc='An analytical in-process SQL database management system'
 arch=(x86_64)
 url='https://www.duckdb.org'
 license=(MIT)
-depends=(glibc gcc-libs)
+depends=(glibc libgcc libstdc++)
 makedepends=(
   git
   cmake

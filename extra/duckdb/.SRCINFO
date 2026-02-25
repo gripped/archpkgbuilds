@@ -1,7 +1,7 @@
 pkgbase = duckdb
 	pkgdesc = An analytical in-process SQL database management system
 	pkgver = 1.4.4
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.duckdb.org
 	arch = x86_64
 	license = MIT
@@ -14,7 +14,8 @@ pkgbase = duckdb
 	makedepends = python-setuptools-scm
 	makedepends = python-scikit-build-core
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	source = duckdb::git+https://github.com/duckdb/duckdb#tag=v1.4.4
 	source = python-duckdb::git+https://github.com/duckdb/duckdb-python#tag=v1.4.4
 	sha512sums = 5aef261db968a974539f5de39c1e66efa1388d9a29e74e3bd3937d24c1bb074610b014390e817751be2238a28ce0f89c79870ba87e462b6c84e16382005781e6
@@ -27,7 +28,8 @@ pkgname = duckdb
 pkgname = python-duckdb
 	pkgdesc = An analytical in-process SQL database management system Python API
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = python
 	depends = python-typing_extensions
 	optdepends = ipython: used in duckdb.query_graph
