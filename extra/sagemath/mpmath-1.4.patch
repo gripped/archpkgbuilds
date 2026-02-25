@@ -5638,3 +5638,61 @@ index 98ffac46406..7f1eaabf623 100644
  
  
  cdef class CoercionModel:
+diff --git a/src/sage/functions/error.py b/src/sage/functions/error.py
+index 78eb4992aa6..8822b3ed584 100644
+--- a/src/sage/functions/error.py
++++ b/src/sage/functions/error.py
+@@ -257,7 +257,7 @@ class Function_erf(BuiltinFunction):
+             sage: erf(2).n(200)                                                         # needs sage.symbolic
+             0.99532226501895273416206925636725292861089179704006007673835
+             sage: erf(pi - 1/2*I).n(100)                                                # needs sage.symbolic
+-            1.0000111669099367825726058952 + 1.6332655417638522934072124547e-6*I
++            1.0000111669099367825726058952 + 1.6332655417638522934072124548e-6*I
+ 
+         TESTS:
+ 
+diff --git a/src/sage/functions/exp_integral.py b/src/sage/functions/exp_integral.py
+index e074c430808..09d2bbda71b 100644
+--- a/src/sage/functions/exp_integral.py
++++ b/src/sage/functions/exp_integral.py
+@@ -993,7 +993,7 @@ class Function_cos_integral(BuiltinFunction):
+             sage: N(cos_integral(10^-10), digits=30)                                    # needs sage.symbolic
+             -22.4486352650389239795759024568
+             sage: cos_integral(ComplexField(100)(I))                                    # needs sage.symbolic
+-            0.83786694098020824089467857943 + 1.5707963267948966192313216916*I
++            0.83786694098020824089467857944 + 1.5707963267948966192313216916*I
+         """
+         return _mpmath_utils_call(_mpmath_ci, z, parent=parent)
+ 
+diff --git a/src/sage/libs/mpmath/all.py b/src/sage/libs/mpmath/all.py
+index ea35faeb721..14a4be971e6 100644
+--- a/src/sage/libs/mpmath/all.py
++++ b/src/sage/libs/mpmath/all.py
+@@ -22,5 +22,5 @@ _constants_funcs = {
+ 
+ 
+ def eval_constant(name, ring):
+-    prec = ring.precision() + 20
++    prec = int(ring.precision() + 20)
+     return ring(_constants_funcs[name](prec)) >> prec
+diff --git a/src/sage/rings/complex_mpfr.pyx b/src/sage/rings/complex_mpfr.pyx
+index 11f58008fcf..ba26d194b1f 100644
+--- a/src/sage/rings/complex_mpfr.pyx
++++ b/src/sage/rings/complex_mpfr.pyx
+@@ -54,6 +54,7 @@ from sage.rings.integer_ring import ZZ
+ 
+ cimport gmpy2
+ gmpy2.import_gmpy2()
++from mpmath import mp
+ 
+ try:
+     from cypari2.gen import Gen as pari_gen
+@@ -984,7 +985,7 @@ cdef class ComplexNumber(sage.structure.element.FieldElement):
+                 real, imag = real
+             elif isinstance(real, complex):
+                 real, imag = real.real, real.imag
+-            elif type(real) is gmpy2.mpc:
++            elif isinstance(real, (gmpy2.mpc, mp.mpc)):
+                 real, imag = (<gmpy2.mpc>real).real, (<gmpy2.mpc>real).imag
+             else:
+                 imag = 0
