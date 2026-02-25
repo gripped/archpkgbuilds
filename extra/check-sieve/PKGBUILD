@@ -3,15 +3,19 @@
 
 pkgname=check-sieve
 pkgver=0.11
-pkgrel=1
+pkgrel=2
 pkgdesc='Syntax checker for Sieve scripts'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/dburkart/check-sieve'
-license=('MIT')
-depends=('gcc-libs')
-makedepends=('git')
-checkdepends=('python')
-options=('!buildflags')
+license=(MIT)
+depends=(
+  glibc
+  libgcc
+  libstdc++
+)
+makedepends=(git)
+checkdepends=(python)
+options=(!buildflags)
 source=("$pkgname::git+$url#tag=check-sieve-$pkgver")
 sha512sums=('89df18207442bf60fb2cd317ace1274ffdceb734984a84dbe42cb3f75e90778748034016e7b95a27043d895cdd8e7692f0ec5d7330837d3577aa55679bdc8486')
 b2sums=('6e08eb2c5e7a26a1a9339a33333a64502729eba2646c74d4d4f77e98df80654d5a7a499454a5eae8957afab66aeeb3e60b7a347afdb0a75331b6a002ed8a36b5')
