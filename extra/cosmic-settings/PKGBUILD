@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-settings
-pkgver=1.0.7
+pkgver=1.0.8
 pkgrel=1
 epoch=1
 pkgdesc='The settings application for the COSMIC desktop environment'
@@ -18,7 +18,7 @@ depends=(
   cosmic-icon-theme
   cosmic-randr
   fontconfig
-  gcc-libs
+  libgcc
   glibc
   iso-codes
   libinput
@@ -41,7 +41,7 @@ makedepends=(
 )
 optdepends=('power-profiles-daemon: power profiles support')
 source=(git+https://github.com/pop-os/cosmic-settings.git#tag=epoch-${pkgver})
-b2sums=('15900114c4ed245ea80d8359a1781f23836de4c00db2505e29ffe02a57c30eb1c0639a0db046ef928b09df8cec7d081a59bd1a6a6565932346e9326b147df373')
+b2sums=('a1fc45590133d88c0b6fe02ef6e75b381d9d484ef68e943d9df25ab2082d36d66a3ba774aa13f362e92b2b4c8fc122040f41a53d6a7e3c38978bac7b559ee9b7')
 
 prepare() {
   cd cosmic-settings
