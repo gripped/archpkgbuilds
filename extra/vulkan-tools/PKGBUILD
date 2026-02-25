@@ -3,14 +3,15 @@
 
 pkgname=vulkan-tools
 pkgver=1.4.341.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Vulkan tools and utilities"
 url="https://www.vulkan.org/"
 arch=(x86_64)
 license=(Apache-2.0)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   libx11
   libxcb
   vulkan-icd-loader
