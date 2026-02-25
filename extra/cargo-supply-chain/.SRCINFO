@@ -1,7 +1,7 @@
 pkgbase = cargo-supply-chain
 	pkgdesc = Gather author, contributor and publisher data on crates in your dependency graph
 	pkgver = 0.3.7
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/rust-secure-code/cargo-supply-chain
 	arch = x86_64
 	license = Apache-2.0
@@ -10,7 +10,7 @@ pkgbase = cargo-supply-chain
 	makedepends = git
 	makedepends = rust
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
 	options = !lto
 	source = cargo-supply-chain::git+https://github.com/rust-secure-code/cargo-supply-chain#tag=v0.3.7
 	sha512sums = 9769a1cc04e3459efa74f09dda7d2e58ec869b5bd4368beac566e51cb63c9333a423f74c3b3810c14c63cd65a39eeba1a2e2d43358b47a9c355d782192f32000

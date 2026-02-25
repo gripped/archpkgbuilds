@@ -2,12 +2,12 @@
 
 pkgname=cargo-supply-chain
 pkgver=0.3.7
-pkgrel=1
+pkgrel=2
 pkgdesc='Gather author, contributor and publisher data on crates in your dependency graph'
 arch=(x86_64)
 url='https://github.com/rust-secure-code/cargo-supply-chain'
 license=(Apache-2.0 MIT Zlib)
-depends=(glibc gcc-libs)
+depends=(glibc libgcc)
 makedepends=(git rust)
 options=(!lto)
 source=("$pkgname::git+$url#tag=v$pkgver")
