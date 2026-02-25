@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-settings-daemon
-pkgver=1.0.7
+pkgver=1.0.8
 pkgrel=1
 epoch=1
 pkgdesc='Cosmic settings daemon'
@@ -15,7 +15,7 @@ depends=(
   acpid
   adw-gtk-theme
   alsa-utils
-  gcc-libs
+  libgcc
   geoclue
   glibc
   libinput
@@ -39,7 +39,7 @@ source=(
   git+https://github.com/pop-os/cosmic-settings-daemon.git#tag=epoch-${pkgver}
   cosmic-settings-daemon-lto.patch
 )
-b2sums=('cb25ea2d883c12f14b85a26f794a089dabdacf07ff17acf3bf7cb7d67df34b17cb3936c7a1e4e4bab623f96ef5653d126fbf46797ce91870dac8e28af483ef80'
+b2sums=('7c9f4f33833ccce813af49701c0a6d5a076dbbd1c3d04ab564721a518c1d3ea49e9857799bd443a97032b31ac84c0a4cb747526ef85c2fb531ca9516b48b0384'
         'd08aacbcc5b98304f9a99bc2d6a0072473f4ccd9175dcd558334179561bb2e68c0c339471f6e85b849087108998fb1b17707be9d3c87bd018c75b45b7774e91e')
 
 prepare() {
