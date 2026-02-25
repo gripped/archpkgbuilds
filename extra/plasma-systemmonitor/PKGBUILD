@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma-systemmonitor
-pkgver=6.6.0
+pkgver=6.6.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='An interface for monitoring system sensors, process information and other system resources'
@@ -35,7 +35,7 @@ makedepends=(extra-cmake-modules)
 groups=(plasma)
 replaces=(ksysguard)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('c105ed686ad0799a89bf968213ab4a719820d8eb2609bd76033d656807aef958'
+sha256sums=('c5a84baf7fa9a368175865b7f5841ac8607239957cdd94b7c9e874894f45ec0d'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
