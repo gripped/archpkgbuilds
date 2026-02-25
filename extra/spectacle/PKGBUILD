@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=spectacle
-pkgver=6.6.0
+pkgver=6.6.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 epoch=1
@@ -49,7 +49,7 @@ makedepends=(extra-cmake-modules
 optdepends=('tesseract: OCR text extraction')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('aa14a7fdaa0c44311f0c41f3502af39374c65057c515b779682d5dbd94fcbfe3'
+sha256sums=('6ae033482f20fe847610ef4e2bef81eab2b483d7f5f230c5cdf873273695ebaf'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
