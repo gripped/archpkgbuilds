@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-comp
-pkgver=1.0.7
+pkgver=1.0.8
 pkgrel=1
 epoch=1
 pkgdesc='Compositor for the COSMIC desktop environment'
@@ -14,7 +14,7 @@ license=(GPL-3.0-only)
 groups=(cosmic)
 depends=(
   fontconfig
-  gcc-libs
+  libgcc
   glibc
   libdisplay-info
   libseat.so
@@ -32,7 +32,7 @@ makedepends=(
   lld
 )
 source=(git+https://github.com/pop-os/cosmic-comp.git#tag=epoch-${pkgver})
-b2sums=('31602748a629b8dbc4b23f11e36ee2f6c997b6dccde068347c0d9fbc00c170ed8b6e879aa06f75e038487a5653ba4aa21ffb0d0447f036b634081700a3fb22ee')
+b2sums=('8a7f396f73376e7fb797ebe5184fe26a5bf5d8d9c63d3936292ac297eeed978966d4e6b81f72be99a0a64381f26b746052cb2e644b2b55cc699d67e331fddaa9')
 
 prepare() {
   cd cosmic-comp
