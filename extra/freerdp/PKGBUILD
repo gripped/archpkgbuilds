@@ -3,9 +3,9 @@
 # Contributor: Stijn Segers <francesco dot borromini at gmail dot com>
 
 pkgname=freerdp
-pkgver=3.22.0
+pkgver=3.23.0
 _libver=${pkgver/.*/}
-pkgrel=2
+pkgrel=1
 epoch=2
 pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)"
 arch=(x86_64)
@@ -65,8 +65,8 @@ provides=(
 source=(
   "git+https://github.com/$pkgname/$pkgname#tag=$pkgver"
 )
-sha512sums=('0931decf1bac327c218ba4f4eeb95b39e9fa28ab8565504fac209629dc7b4775787d6356c381a5e00c152c803d829cdcd7387ea411d91a3a435e5f29842e05fc')
-b2sums=('c81be5ec57ab2f51202e6f4c30774b3fafd78ac33adcdd5414f92cdef3927958470b63966efb33b39343cc89d5e6eb877b548787d7d87a6cef056c260d869461')
+sha512sums=('fc067df40bfed774ce2152004ae466653455ca67f99c0364973e232978a28070fc38e599ff2b1923bebd2e761c360d472198c9fc899e4997b1598bdf0d1d178b')
+b2sums=('a298a00b6f0c506bf198309493eaf2b0580cf906e10f5876130e5cdc9dcc10c5e736dcb45d4d55a66ac91ca8fc27e903cf1d4fd0f57b4a58dac77d4858d4252f')
 
 prepare() {
   # Fix building downstream packages
