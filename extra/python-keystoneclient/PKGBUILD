@@ -2,15 +2,15 @@
 
 pkgname=python-keystoneclient
 pkgver=5.7.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Client Library for OpenStack Identity"
 arch=('any')
 url="https://docs.openstack.org/python-keystoneclient/latest/"
-license=('Apache')
+license=('Apache-2.0')
 depends=('python-pbr' 'python-debtcollector' 'python-oslo-config' 'python-oslo-i18n'
          'python-oslo-serialization' 'python-oslo-utils' 'python-requests' 'python-stevedore'
          'python-packaging')
-makedepends=('git' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-fixtures' 'python-keyring' 'python-lxml' 'python-oauthlib'
               'python-os-client-config' 'python-oslotest' 'python-requests-mock'
               'python-stestr' 'python-testresources' 'python-testscenarios' 'python-testtools')
@@ -19,7 +19,7 @@ sha512sums=('08c9ecc167c8732e4db861cc7663a41748026324d553db46529a19751d884b148f7
 
 build() {
   cd python-keystoneclient
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -29,5 +29,5 @@ check() {
 
 package() {
   cd python-keystoneclient
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
