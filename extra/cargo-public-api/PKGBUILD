@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=cargo-public-api
-pkgver=0.50.2
+pkgver=0.51.0
 pkgrel=1
 pkgdesc="List and diff the public API of Rust library crates"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('curl' 'gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('b258cd8c7de10e84158cfb6d50344677a5a56af9da80f0593f536c7029794ed9b42aea476cf5b5e60e9c4b50ac4fe60d72272db9ac0193f4a627d729c370ce99')
+sha512sums=('153a0b6c824621e62e9633fa38d3ee8ed17e3cd3e25c2b2840f8e40566b591fa6ca2f62f2cdceca1a6f23c9ed014a2e2ae1b60aceaa89e17dd1a2f88d1834b72')
 options=('!lto')
 
 prepare() {
