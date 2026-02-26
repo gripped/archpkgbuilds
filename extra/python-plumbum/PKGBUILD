@@ -2,8 +2,8 @@
 
 pkgname=python-plumbum
 _name=plumbum
-pkgver=1.9.0
-pkgrel=3
+pkgver=1.10.0
+pkgrel=1
 pkgdesc='A small yet feature-rich Python library for shell script-like programs, and more'
 url='https://github.com/tomerfiliba/plumbum'
 arch=('any')
@@ -18,8 +18,8 @@ makedepends=(
   'python-installer'
 )
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('afa0436e19ddea192ac7d33a3cdede6a86c801288d6678c9d9daa110ea049b14bc388fe4eb27e172d66595de282648b966043bed8f4c282350753afdf38e14de')
-b2sums=('eb155511c3726b7b7e564da05ab58294ffdbe9806599d8adbd0a05ffc9cf096a6c551f5d1ef0b9a781a13435e47a6598c90c04d90c852f8536c665d2bfbb58d9')
+sha512sums=('c290ae9bb4475380ae6cc32d801050642d1ef2806df6b1be9e45ed61f511ac5e3a4da2f45104d55b0eb34b6a73c649bab05b8ea9bb84d666adf8d921f8c503e2')
+b2sums=('6fa83c89d1585219a0a333929aefb52747d5f0bcd3eb3e890a8581607dda702ad71207226ce5007f7341b8d2105970d4aa237b0d7f59649bff8e991a9cecb150')
 
 build() {
   cd "${_name}-${pkgver}"
