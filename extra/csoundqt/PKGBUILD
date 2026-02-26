@@ -1,11 +1,11 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
-# Contributor: Ainola
+# Maintainer: Brett Cornwall <ainola@archlinux.org>
 # Contributor: rtfreedman
 
 _name=CsoundQt
 pkgname=csoundqt
 pkgver=1.1.3
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc="A frontend for Csound"
 arch=(x86_64)
@@ -20,7 +20,6 @@ license=(
 groups=(pro-audio)
 depends=(
   csound-doc
-  gcc-libs
   glibc
   hicolor-icon-theme
   qt5-base
@@ -49,6 +48,8 @@ build() {
 package() {
   depends+=(
     csound libcsnd6.so libcsound64.so
+    libgcc libgcc_s.so
+    libstdc++ libstdc++.so
     rtmidi librtmidi.so
   )
 
