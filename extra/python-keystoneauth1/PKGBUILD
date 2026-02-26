@@ -3,18 +3,18 @@
 
 pkgname=python-keystoneauth1
 pkgver=5.8.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Authentication Library for OpenStack Identity"
 arch=('any')
 url="https://docs.openstack.org/developer/keystoneauth"
-license=('Apache')
+license=('Apache-2.0')
 depends=('python-pbr' 'python-iso8601' 'python-stevedore' 'python-os-service-types' 'python-requests')
 optdepends=('python-requests-kerberos: for kerberos support'
             'python-lxml: for saml2 support'
             'python-oauthlib: for oauth1 support'
             'python-betamax: for betamax support'
             'python-fixtures: for betamax support')
-makedepends=('git' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-hacking' 'python-oslo-config' 'python-oslo-utils' 'python-oslotest'
               'python-betamax' 'python-requests-mock' 'python-stestr' 'python-testresources'
               'python-testtools' 'python-yaml' 'python-requests-kerberos' 'python-lxml'
@@ -24,7 +24,7 @@ sha512sums=('0abf65321360eef268fd7b77ff4fffe01f22d2c5fa9c02fcbad71a578e34f02c607
 
 build() {
   cd keystoneauth
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -34,7 +34,7 @@ check() {
 
 package() {
   cd keystoneauth
-  python setup.py install --root="$pkgdir/" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
 # vim:set ts=2 sw=2 et:
