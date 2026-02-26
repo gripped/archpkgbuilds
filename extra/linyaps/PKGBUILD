@@ -2,7 +2,7 @@
 # Contributor: taotieren <admin@taotieren.com>
 
 pkgname=linyaps
-pkgver=1.9.13
+pkgver=1.10.0
 pkgrel=1
 pkgdesc='Next-Gen Universal Package Manager for Linux (linglong)'
 arch=(x86_64)
@@ -44,12 +44,7 @@ makedepends=(
 source=(
   git+https://github.com/OpenAtom-Linyaps/linyaps.git#tag=$pkgver
 )
-sha256sums=('c68af1d16d7ea16c9e5a229451de8d9c0ab72437a1b9dc87d8439081de0224d4')
-
-prepare() {
-  cd linyaps
-  sed -i 's/Qt${QT_VERSION_MAJOR}::DBusPrivate//' libs/linglong/tests/ll-tests/CMakeLists.txt
-}
+sha256sums=('3cdba5efd87c36608cc2f8794c30f8b14f5584774116de25c6b9f7cce7d25143')
 
 build() {
   cd linyaps
