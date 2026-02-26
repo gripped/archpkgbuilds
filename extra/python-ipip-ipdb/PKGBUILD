@@ -2,20 +2,20 @@
 
 pkgname=python-ipip-ipdb
 pkgver=1.6.0
-pkgrel=7
+pkgrel=8
 pkgdesc="IPIP.net officially supported IP database ipdb format parsing library"
 url="https://github.com/ipipdotnet/ipdb-python"
-license=('Apache')
+license=('Apache-2.0')
 arch=('any')
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 conflicts=('python-ipdb')
 source=("https://pypi.io/packages/source/i/ipip-ipdb/ipip-ipdb-$pkgver.tar.gz")
 sha512sums=('88353892920e3c97a12417e52fcee23919f351d9dae22d5fbdba964d6fad528103e18b9fe736cc73208dad1a68ec59d7bc6f94d87772845985e3ca6f8b3a2860')
 
 build() {
   cd ipip-ipdb-$pkgver
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -26,5 +26,5 @@ check() {
 
 package() {
   cd ipip-ipdb-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
