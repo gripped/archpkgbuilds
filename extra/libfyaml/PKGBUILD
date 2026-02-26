@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=libfyaml
-pkgver=0.9.4
+pkgver=0.9.5
 pkgrel=1
 pkgdesc='Fully feature complete YAML parser and emitter'
 arch=(x86_64)
@@ -10,7 +10,7 @@ license=(MIT)
 depends=(glibc)
 makedepends=(git)
 source=(git+https://github.com/pantoniou/libfyaml#tag=v$pkgver)
-sha256sums=('06851d893ae1c66ce2db681f229aa62572a535a3ab67c49354c1b4c622c7c2ec')
+sha256sums=('71818aad6c4beed530b26e2ffdcc2fb4c1b68d531065d270f345cea2a4f4e2a7')
 
 prepare() {
   cd $pkgname
