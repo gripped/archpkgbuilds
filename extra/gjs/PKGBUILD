@@ -4,7 +4,7 @@
 
 pkgname=gjs
 pkgver=1.86.0
-pkgrel=1
+pkgrel=2
 epoch=2
 pkgdesc="Javascript Bindings for GNOME"
 url="https://wiki.gnome.org/Projects/Gjs"
@@ -13,12 +13,13 @@ license=(LGPL-2.0-or-later)
 depends=(
   cairo
   dconf
-  gcc-libs
   glib2
   glibc
   gobject-introspection-runtime
   js140
   libffi
+  libgcc
+  libstdc++
   libsysprof-capture
   libx11
   readline
@@ -35,16 +36,23 @@ checkdepends=(
   xorg-server-xvfb
 )
 provides=(libgjs.so)
-source=("git+https://gitlab.gnome.org/GNOME/gjs.git#tag=$pkgver"
-        "git+https://gitlab.gnome.org/GNOME/gobject-introspection-tests.git")
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gjs.git#tag=$pkgver"
+  "git+https://gitlab.gnome.org/GNOME/gobject-introspection-tests.git"
+  0001-gi-Allow-optional-inout-arguments-to-be-null.patch
+)
 b2sums=('c4875a14a5c0c2edf70f469af90a938baf87740b8a1d542cc2d3640e802efa420d7ecff2a807ca80b7bd4e65da0e393f7a9b708b653f906e77460671ebe3e8b4'
-        'SKIP')
+        'SKIP'
+        'cc7898bde1df722caae0d449582d3282d0ba292341293ac5dbf755d4fb881b7596bf52c3deee8df3567858ca55f2bcdccd582eeef6515c1247ad85bb4d04847c')
 validpgpkeys=(
   53C0524AD3AE115F69C47D2D0E9D857756977391 # Philip Chimento (Signing Key for GNOME Releases) <philip.chimento@gmail.com>
 )
 
 prepare() {
   cd gjs
+
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/gjs/-/issues/3
+  git apply -3 ../0001-gi-Allow-optional-inout-arguments-to-be-null.patch
 
   git submodule init
   git submodule set-url subprojects/gobject-introspection-tests "${srcdir}/gobject-introspection-tests"
