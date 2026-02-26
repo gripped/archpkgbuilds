@@ -3,30 +3,20 @@
 
 _name=fuo-ytmusic
 pkgname=feeluown-ytmusic
-pkgver=0.4.13
-pkgrel=2
+pkgver=0.4.14
+pkgrel=1
 pkgdesc="YouTube Music for FeelUOwn music player"
 arch=('any')
 url="https://github.com/feeluown/feeluown-ytmusic"
 license=('GPL-3.0-or-later')
 # pyqt removed from depends because it's decided by feeluown
-depends=('feeluown' 'python' 'python-pydantic' 'python-cachetools' 'python-pytube' 'python-requests' 'python-ytmusicapi' 'yt-dlp')
-makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core' 'python-wheel')
+depends=('feeluown' 'python' 'python-pydantic' 'python-cachetools' 'python-requests' 'python-ytmusicapi' 'yt-dlp')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
 optdepends=('feeluown-netease: Lyric source')
 groups=('feeluown-full')
-source=("git+https://github.com/feeluown/feeluown-ytmusic.git#tag=v$pkgver"
-		$pkgname-fix-test_stream_url.patch::https://github.com/feeluown/feeluown-ytmusic/pull/9.patch)
-sha256sums=('18df9ba5f5fe2c61ccedb9a47c575e111c4ccb9583bb16a5c92fea1e3d870fa1'
-            '1261f7a31798e6a088ce6b58cafe19f7bd460f140e7ee0257e1c15dd237d0bce')
-
-prepare() {
-	cd $pkgname
-	patch -p1 -i ../$pkgname-fix-test_stream_url.patch
-	# Fix breakage with python 3.14
-	# turn all type annotations into strings disabling native lazy evaluation
-	sed -i '1i from __future__ import annotations' fuo_ytmusic/models.py
-}
+source=("git+https://github.com/feeluown/feeluown-ytmusic.git#tag=v$pkgver")
+sha256sums=('ef57859b1785638254253e71dd0485acb85b2eea6f66885922eea2d29dfa2842')
 
 build() {
 	cd $pkgname
@@ -36,10 +26,6 @@ build() {
 check() {
 	local pytest_options=(
 		-vv
-		# broken with pytest >= 8
-		--deselect tests/test_service.py::TestService::test_search_song
-		--deselect tests/test_service.py::TestService::test_search_album
-		--deselect tests/test_service.py::TestService::test_stream_url
 	)
 	cd $pkgname
 	pytest "${pytest_options[@]}"
