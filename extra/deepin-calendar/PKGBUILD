@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-calendar
-pkgver=6.5.6
+pkgver=6.5.7
 pkgrel=1
 pkgdesc='Calendar for Deepin Desktop Environment'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'glibc' 'gcc-libs' 'libical' 'qt6-bas
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'qt6-declarative')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-calendar.git#tag=$pkgver")
-sha512sums=('6c29b46b89e9c2905b13ede6334f21847f1ef54f01cd9409ee108832d7f7ecd2da4e4b8a29b59d876774b0d40a340baed305488e3dd0b7268d8522304929e867')
+sha512sums=('4ed718f5d3e5439b66fd205b3b80d0b9aed6f3c352314835bdd8ea450c1cdd8e4b88747ed9111b45792aa03666418119ebe4c8e623a95e211d3e16e51e6b4d34')
 
 build() {
   cd dde-calendar
