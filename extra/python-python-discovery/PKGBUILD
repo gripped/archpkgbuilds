@@ -1,0 +1,55 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-python-discovery
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='Python interpreter discovery'
+arch=(any)
+url='https://python-discovery.readthedocs.io'
+license=(MIT)
+depends=(
+  python
+  python-filelock
+  python-platformdirs
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-hatchling
+  python-hatch-vcs
+)
+checkdepends=(
+  python-pytest
+  python-pytest-mock
+  python-setuptools
+)
+source=("$pkgname::git+https://github.com/tox-dev/python-discovery#tag=$pkgver")
+sha512sums=('9441f64f354ccb2c0bcc370740c930b9ff635f597ed446315f94fe30207649eab4578e3b2d53d23ef5335c7c2688c233e8d7c07cc67ecaaa7646bda1da11f02c')
+b2sums=('63d32eb9029a156f5f8b79e898bae3fb2f681610bb4aff2b55ed9f94bbc35290d6a9ed991862cd86f43dd1d7e561463899a3dd80cfa7e380f58fd1513b7d11b5')
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "$pkgname"
+
+  # temporary install
+  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$(pwd)/tmp/$site_packages"
+
+  pytest -v
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}
