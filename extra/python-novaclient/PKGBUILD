@@ -3,7 +3,7 @@
 
 pkgname=python-novaclient
 pkgver=18.11.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Client library for OpenStack Compute API"
 arch=('any')
 url="https://docs.openstack.org/python-novaclient/latest/"
@@ -11,14 +11,14 @@ license=('Apache-2.0')
 depends=('python' 'python-pbr' 'python-babel' 'python-prettytable' 'python-keystoneauth1'
          'python-requests' 'python-iso8601' 'python-oslo-utils' 'python-oslo-i18n'
          'python-oslo-serialization')
-makedepends=('git' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-oslotest' 'python-osprofiler' 'python-requests-mock' 'python-ddt' 'python-stestr' 'python-testscenarios')
 source=("git+https://github.com/openstack/python-novaclient.git#tag=$pkgver")
 sha512sums=('eec28c33fa13b5cf6c8a0571e4c2f47a474770e8b2b3b277f715bf3db20e5eea3355e18553695c169ce2cd2b658bee94297c234fb91018f48f4674c3cf39149b')
 
 build() {
   cd python-novaclient
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -28,5 +28,5 @@ check() {
 
 package() {
   cd python-novaclient
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
