@@ -4,14 +4,14 @@
 # Contributor: Jon Gjengset <jon@tsp.io>
 pkgname=rustup
 pkgver=1.28.2
-pkgrel=4
+pkgrel=5
 pkgdesc="The Rust toolchain installer"
 arch=('x86_64')
 url="https://github.com/rust-lang/rustup.rs"
 license=('MIT' 'Apache-2.0')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
   'xz'
   'zstd'
 )
