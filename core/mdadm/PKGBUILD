@@ -3,7 +3,7 @@
 
 pkgname=mdadm
 pkgver=4.5
-pkgrel=1
+pkgrel=2
 pkgdesc='A tool for managing/monitoring Linux md device arrays, also known as Software RAID'
 arch=('x86_64')
 license=('GPL-2.0-or-later')
@@ -20,8 +20,10 @@ validpgpkeys=('6A86B80E1D22F21D0B26BA75397D82E0531A9C91' # Jes Sorensen
               '8DF7BE9EFDFED8999D3C08109CE05640D703A136' # Xiao Ni
              )
 source=("git+https://git.kernel.org/pub/scm/utils/mdadm/mdadm.git#tag=${pkgname}-${pkgver}?signed"
+        'https://github.com/md-raid-utilities/mdadm/commit/b166a2042615aa81a5e60b6b9f553f101827609e.patch'
         'mdadm.conf')
 b2sums=('44269cc471544548b928d86ef48880de035945100882bf419fb1e495c61fe0038823e3b2b393e55ab49a6990a239b6c5b15f5aa3fb15eff76140a633a77c3db9'
+        '52345f33c3d2f8bf4e5d8a82c220c74fccf81fe5bf5f3d2ebd48da8a438cf34a361da8d89b4bdb9b54d2d5b539040f70ef85c3540e28b7557ebd00828e43fbf8'
         '8572eae7f566deb040fa1489cb5e3c9e501609e4c51b476c04c256b4466b3cbdb9d1d5345e9d9dbf1cfd8a22bfd60a171cc83fe68acd8dfe7e893e3b210fc8a3')
 
 prepare() {
@@ -32,6 +34,9 @@ prepare() {
 
   # mdadm/raid6check: add xmalloc.h to raid6check.c
   git cherry-pick -n e0df6c4c984d564e9e40913727e916a6cd8f466e
+
+  # fix archlinux/packaging/packages/mdadm#4
+  git apply ../b166a2042615aa81a5e60b6b9f553f101827609e.patch
 }
 
 build() {

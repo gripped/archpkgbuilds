@@ -1,7 +1,7 @@
 pkgbase = mdadm
 	pkgdesc = A tool for managing/monitoring Linux md device arrays, also known as Software RAID
 	pkgver = 4.5
-	pkgrel = 1
+	pkgrel = 2
 	url = https://git.kernel.org/pub/scm/utils/mdadm
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -14,12 +14,14 @@ pkgbase = mdadm
 	replaces = raidtools
 	backup = etc/mdadm.conf
 	source = git+https://git.kernel.org/pub/scm/utils/mdadm/mdadm.git#tag=mdadm-4.5?signed
+	source = https://github.com/md-raid-utilities/mdadm/commit/b166a2042615aa81a5e60b6b9f553f101827609e.patch
 	source = mdadm.conf
 	validpgpkeys = 6A86B80E1D22F21D0B26BA75397D82E0531A9C91
 	validpgpkeys = EED84966493AEEAF4B466F696F9E3E9D4EDEBB11
 	validpgpkeys = 352B79BDCF85284C0C31EFF4F0BC2709A971FA98
 	validpgpkeys = 8DF7BE9EFDFED8999D3C08109CE05640D703A136
 	b2sums = 44269cc471544548b928d86ef48880de035945100882bf419fb1e495c61fe0038823e3b2b393e55ab49a6990a239b6c5b15f5aa3fb15eff76140a633a77c3db9
+	b2sums = 52345f33c3d2f8bf4e5d8a82c220c74fccf81fe5bf5f3d2ebd48da8a438cf34a361da8d89b4bdb9b54d2d5b539040f70ef85c3540e28b7557ebd00828e43fbf8
 	b2sums = 8572eae7f566deb040fa1489cb5e3c9e501609e4c51b476c04c256b4466b3cbdb9d1d5345e9d9dbf1cfd8a22bfd60a171cc83fe68acd8dfe7e893e3b210fc8a3
 
 pkgname = mdadm
