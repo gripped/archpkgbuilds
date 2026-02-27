@@ -3,7 +3,7 @@
 pkgbase=lua-luautf8
 _rockname=${pkgbase#lua-}
 pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname")
-pkgver=0.2.0
+pkgver=0.2.1
 _rockrel=1
 pkgrel=1
 pkgdesc='Add UTF-8 support to Lua, compatible with Lua string module'
@@ -19,7 +19,7 @@ _archive="$_rockname-$pkgver"
 _rock="$_archive-$_rockrel.linux-$CARCH.rock"
 _rockspec="$_archive-$_rockrel.rockspec"
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('f79c11d994b86864f5c6c5326dcaede2b10c37303d664c1010705c3d2e23b232')
+sha256sums=('ea52075cd960aed8c37512ab31cdc166aa77a6458504d29f33ae40b93d2d8594')
 
 build() {
 	cd "$_archive"
