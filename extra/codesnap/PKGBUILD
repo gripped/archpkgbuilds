@@ -3,16 +3,15 @@
 
 pkgname=codesnap
 pkgver=0.13.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Pure Rust tool for generating beautiful code snapshots"
 arch=('x86_64')
 url="https://github.com/codesnap-rs/codesnap"
 license=('MIT')
-depends=('oniguruma' 'gcc-libs')
+depends=('openssl' 'libgcc')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('e1636f08781fdb6e380428bd54f458f59b7764702271a7f2f407ad4432753c33')
-options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -20,14 +19,13 @@ prepare() {
 }
 
 build() {
-  export RUSTFLAGS="-C link-arg=/usr/lib/libonig.so"
   cd "$pkgname-$pkgver"
-  cargo build --frozen --release
+  OPENSSL_NO_VENDOR=1 cargo build --frozen --release
 }
 
 # check() {
 #   cd "$pkgname-$pkgver"
-#   cargo test --frozen
+#   OPENSSL_NO_VENDOR=1 cargo test --frozen
 # }
 
 package() {
