@@ -1,6 +1,6 @@
 pkgbase = emscripten
 	pkgdesc = Compile C and C++ into highly-optimizable JavaScript for the web
-	pkgver = 5.0.1
+	pkgver = 5.0.2
 	pkgrel = 1
 	url = https://emscripten.org
 	install = emscripten.install
@@ -15,6 +15,8 @@ pkgbase = emscripten
 	depends = python
 	depends = which
 	depends = acorn
+	depends = zlib
+	depends = zstd
 	optdepends = java-environment: for using clojure
 	optdepends = ruby: for using websockify addon
 	optdepends = cmake: for emcc --show-ports
@@ -22,14 +24,14 @@ pkgbase = emscripten
 	conflicts = binaryen
 	options = !lto
 	options = !debug
-	source = git+https://github.com/kripken/emscripten#tag=5.0.1
-	source = git+https://github.com/llvm/llvm-project.git#commit=b447f5d9763010f8c6806c578533291aef2bd484
-	source = git+https://github.com/WebAssembly/binaryen.git#commit=18ba06162272bc8bbf1fc29b5cb0832dd54becac
+	source = git+https://github.com/kripken/emscripten#tag=5.0.2
+	source = git+https://github.com/llvm/llvm-project.git#commit=58f4da463e5b3cd3531cace17cc3f2d8d860964e
+	source = git+https://github.com/WebAssembly/binaryen.git#commit=f538edcd79e739e68bdbe6bdf7a62e3ec5ccaeed
 	source = emscripten.sh
 	source = emscripten-config
-	sha512sums = a515b4e4ecd53317ef34c7d75138e8df7ca78df8fb4658fd89e2abc77a598193f33a728e93b8ec1152630f46fce44453cfd930f9e258708a6996e7fa2804188b
-	sha512sums = 54cb1aa6abe32add0ae4a26d3ebfea6051cd6ffe3b1241465e816f8a7fde124003dcc73c9ddc9063dcf9719c4ce250e644f5899839ddda32d74ae2ddfa9677d0
-	sha512sums = 593cd1deb6e1079ad7ae12a745eabeec8b85dfa6fbcfb7adc01de51361429ba904fb022ed72840fe9b21f57853b8ba2e02408ea9752485d24348e0309f450f23
+	sha512sums = 78209f78e0e48a0cfbe0799190c8caa7a6253ee14d1371ea296271b05eb2d7e3d837938bc6fe8e994ecfc217001284925e7020cb9bd9b8aaa52b1f5f926dd4ad
+	sha512sums = daef89b24cfb7853886aa82abe9a2f0cda409d76bd3c8bacc5312ab8dc2cb6b293dc6fd86e83723812ed242682712dbb7f17e7be6e03029f01e8c04849123f3e
+	sha512sums = 523cd09f8f9af9f8fd11d84cf14098f918f023eb47a76dc804760ba03a28a3c0a4dd2b38b0f87a76e6f7077ee9ae37757375424229d1d1d91174608c18f5cc44
 	sha512sums = fbe9b95b8d18e7d0c6ec5fded6f11b72fbe4ddd0391e5704b281ba79c479f3563e82423b790ddf3f0554a23d659193ca898a81fe3db509f16c30c7188b790e4d
 	sha512sums = 8d22f727e64cace0eb33f049a2902b928c29a6448b05098030858590660f31e1dc142dae55a54bbcb4da09650173f571a64789e0a955aefb449ce0081fb438f9
 
