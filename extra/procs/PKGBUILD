@@ -4,8 +4,8 @@
 # Contributor: Attenuation <ouyangjun1999@gmail.com>
 
 pkgname=procs
-pkgver=0.14.10
-pkgrel=2
+pkgver=0.14.11
+pkgrel=1
 pkgdesc='A modern replacement for ps written in Rust'
 arch=(x86_64)
 url="https://github.com/dalance/$pkgname"
@@ -15,7 +15,7 @@ depends=(libgcc # libgcc_s.so
 makedepends=(cargo asciidoctor)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('7b287ac253fd1d202b0ea6a9a8ba2ed97598cf8e7dfd539bd40e382c6dc6d350')
+sha256sums=('3d6b3561ce05362a092ea8488458f552d6636d3a280290e21f841c432cadf91a')
 
 prepare() {
 	cd "$_archive"
