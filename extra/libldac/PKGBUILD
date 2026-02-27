@@ -2,41 +2,55 @@
 
 pkgname=libldac
 pkgver=2.0.2.3
-pkgrel=2
+pkgrel=3
 pkgdesc="LDAC Bluetooth encoder library"
 url="https://github.com/EHfive/ldacBT"
 arch=(x86_64)
 license=(Apache-2.0)
 depends=(glibc)
-makedepends=(git cmake)
+makedepends=(
+  cmake
+  git
+  ninja
+)
 provides=(libldacBT_{abr,enc}.so)
-_commit=fbffba45d15d959da6ee04eafe14c0d4721f6030  # tags/v2.0.2.3
-source=("git+$url#commit=$_commit"
-        "git+https://gitlab.com/eh5/libldac.git")
-sha256sums=('SKIP'
-            'SKIP')
-
-pkgver() {
-  cd ldacBT
-  git describe --tags | sed 's/^v//;s/-/+/g'
-}
+source=(
+  "git+$url#tag=v$pkgver"
+  "git+https://android.googlesource.com/platform/external/libldac"
+  0001-Allow-build-with-CMake-4.0.0.patch
+)
+b2sums=('1719c5c4cc227a592deefa3e765b925a2a9cfdf4212823a31efdc767f7f3e5044a6626a2880fc051e935254ab9fcda41dc4ba2880dd2a33cc2e62a3c5eccc7e8'
+        'SKIP'
+        'c19a3e4fc33eb4394c8466486b04d9a71f632b77fc4d0cb5df4751b705a938405346495bcf2942114604651a2ff24369bcae78711c5bceca86ecacbcf851c0b9')
 
 prepare() {
   cd ldacBT
 
+  # Fix build
+  git apply -3 ../0001-Allow-build-with-CMake-4.0.0.patch
+
   git submodule init
   git submodule set-url libldac "$srcdir/libldac"
-  git -c protocol.file.allow=always submodule update
+  git -c protocol.file.allow=always -c protocol.allow=never submodule update
 }
 
 build() {
-  cmake -S ldacBT -B build \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=None \
-    -DLDAC_SOFT_FLOAT=OFF
+  local cmake_options=(
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_BUILD_TYPE=None
+    -D LDAC_SOFT_FLOAT=OFF
+  )
+
+  cmake -S ldacBT -B build -G Ninja "${cmake_options[@]}"
   cmake --build build
+}
+
+check() {
+  ctest --test-dir build --output-on-failure --stop-on-failure -j$(nproc)
 }
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
 }
+
+# vim:set sw=2 sts=-1 et:
