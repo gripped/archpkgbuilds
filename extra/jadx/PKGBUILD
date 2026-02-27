@@ -2,7 +2,7 @@
 # Contributor: Nicolas Hureau <archlinux@kalenz.net>
 
 pkgname=jadx
-pkgver=1.5.4
+pkgver=1.5.5
 pkgrel=1
 pkgdesc='Command line and GUI tools to produce Java source code from Android Dex and APK files'
 url='https://github.com/skylot/jadx'
@@ -16,12 +16,13 @@ makedepends=(
   gradle
 )
 source=(https://github.com/skylot/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('c1a7d24a59cd51840a8539abff1de6cfbc740915101c6a31d04b4048600e8e7f868da61b532f65066589518c72adb04d9ebc535467a175b6ee9d9f952842f779')
-b2sums=('10d12bfce1b8afd42769bb76dd79255370ef91b3c29dee079c8e471fe513bd389ad3ac1ea6acf2fe70132348f1ec6cf44a2c60bebbd36c000a9f0726c91eb69d')
+sha512sums=('8b25c874fcf9c49b0b5e043f009ecd18d2373b8c336c8b300c8a2b5fb60745eedccde78bbb9fbb9917ddd86f896b2f332e3d4f9764f43322461130c7cd083be9')
+b2sums=('d0b327b8e5c9f47b26d86075e3537b8107471aedf3fed2ed2b3622f4ebc6330ffb4d01eb162095e2bf597adb9f6abab5d59f4b75e38c1d5fd0a4d266dae85744')
 
 build() {
   cd ${pkgname}-${pkgver}
-  gradle dist
+  # https://github.com/skylot/jadx/blob/v1.5.4/build.gradle.kts#L14
+  JADX_VERSION=${pkgver} gradle dist
 }
 
 check() {
