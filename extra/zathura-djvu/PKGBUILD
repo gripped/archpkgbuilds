@@ -6,7 +6,7 @@
 
 pkgname=zathura-djvu
 pkgver=2026.02.03
-pkgrel=2
+pkgrel=3
 pkgdesc="DjVu support for Zathura"
 url="https://pwmt.org/projects/zathura-djvu/"
 arch=('x86_64')
