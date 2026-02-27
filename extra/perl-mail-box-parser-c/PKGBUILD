@@ -2,7 +2,7 @@
 # Maintainer: Charles Mauch <cmauch@gmail.com>
 
 pkgname=perl-mail-box-parser-c
-pkgver=4.00
+pkgver=4.01
 pkgrel=1
 pkgdesc="Perl/CPAN Module Mail::Box::Parser::C : extends MailBox with the speed of C"
 arch=("x86_64")
@@ -10,7 +10,7 @@ url="https://search.cpan.org/dist/Mail-Box-Parser-C"
 license=("GPL" "PerlArtistic")
 options=('!emptydirs')
 source=("https://www.cpan.org/authors/id/M/MA/MARKOV/Mail-Box-Parser-C-${pkgver}.tar.gz")
-sha256sums=('43e60d05578af0cb946a40db15b544591febf846c2943f3bf93638544382dd2d')
+sha256sums=('b5f371d80a19ca6f38359794715b749c7fd6a9eaee0aaf9dc59d8e5e4de531ac')
 
 build() {
   cd Mail-Box-Parser-C-${pkgver}
@@ -25,6 +25,4 @@ package() {
 
   make install DESTDIR="$pkgdir"
 
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
 }
