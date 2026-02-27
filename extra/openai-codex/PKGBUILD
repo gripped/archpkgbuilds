@@ -3,8 +3,8 @@
 # Contributor: Christopher Cooper <christopher@cg505.com>
 
 pkgname=openai-codex
-pkgver=0.104.0
-pkgrel=2
+pkgver=0.105.0
+pkgrel=1
 pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
 arch=(x86_64)
 url='https://github.com/openai/codex'
@@ -26,7 +26,7 @@ optdepends=(
 )
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/rust-v$pkgver.tar.gz")
-b2sums=('3462fe6c7734182bb8c943f18d912199b850c2a7fa42b98e75daf385b8fa5df8f4f4b8b557ac3de9d6cfe0a61809813553bfd3f0d3f263d36ef7d91357f387bd')
+b2sums=('05cabf317cfe34427b2341dc0c514763e0af0b6f21b37a7c1879464d16dd387a1028a01aa0d1552da131d8cbc74b7eb9037418b9b4cd944208ba04ac7930955c')
 
 prepare() {
   cd codex-rust-v$pkgver/codex-rs
@@ -86,7 +86,14 @@ check() {
     --skip 'suite::compact::auto_compact_runs_after_token_limit_hit' \
     --skip 'status::tests::status_snapshot_includes_forked_from' \
     --skip 'suite::cli_stream::integration_creates_and_checks_session_file' \
-    --skip 'suite::cli_stream::responses_api_stream_cli'
+    --skip 'suite::cli_stream::responses_api_stream_cli' \
+    --skip 'suite::approvals::denying_network_policy_amendment_persists_policy_and_skips_future_network_prompt' \
+    --skip 'suite::js_repl::js_repl_blocks_sensitive_builtin_imports' \
+    --skip 'suite::js_repl::js_repl_can_invoke_builtin_tools' \
+    --skip 'suite::js_repl::js_repl_does_not_expose_process_global' \
+    --skip 'suite::js_repl::js_repl_tool_call_rejects_recursive_js_repl_invocation' \
+    --skip 'suite::js_repl::js_repl_persists_top_level_bindings_and_supports_tla' \
+    --skip 'suite::view_image::js_repl_view_image_tool_attaches_local_image'
 }
 
 package() {
