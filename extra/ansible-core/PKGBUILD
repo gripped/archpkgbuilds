@@ -9,8 +9,8 @@
 
 pkgname=ansible-core
 _pkgname=ansible
-pkgver=2.20.2
-pkgrel=3
+pkgver=2.20.3
+pkgrel=1
 pkgdesc='Radically simple IT automation platform'
 arch=('any')
 url='https://www.ansible.com'
@@ -63,10 +63,10 @@ provides=('python-ansible' 'ansible-base')
 replaces=('ansible-base')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ansible/ansible/archive/refs/tags/v${pkgver}.tar.gz"
         'relax_strict_dependencies_upper_bound.patch')
-sha512sums=('98214e69eebd4e15de2e8a9c9cd6d9ccfd36ce26dd3494065c3fb1ff1ea251e1289e9bf6f3b93c83e2b8e2db95998633317d1678d18ab4462f37ba35a6fbab24'
-            '3f012d27388707ed75048a19f05105b6ea3be907a49bf633d100ce2e57931adb04358700570af8f2e0151e0fba9d32376e0edc2988c0dafddd6e3ed76b167f61')
-b2sums=('ebad00fcfa349a6e267bdd706ca971579085c02bd80fa7bb4d181f3ad622141206f117013a347f8acdb6ce2a076608ea96e0284969c5ed0b4f34a3c92f74b2e2'
-        '737fad4e05dd404077700c668001ae772760529c2bb1d4ac31f1e04f7954771fe1c45b51c54194f374ea91ca463393ea2dabf875487f7857f16ef15ceaa117ed')
+sha512sums=('8d4ee0553e129a04871e42f40ed7d0426c35a323f5304f89c63bad57846c081015f831b6fb482af8929ac1f7d91b60a53094b5d617fda00252c600deb5856c84'
+            'b087d5854092d0a94c05df9b4362050b8cb71a72079d7bfe745e56034d8a0aa4cd34209c9738ba5ef5558193d8cfb83389ae5f8a4ab41f9762d7813896fdd3d5')
+b2sums=('a25df08de8062f688d85f3110dd1f35ff5f5de9783ec850acef75404f0604d77cbdc15a90e9a0628fcd43fa659c81b07c99a31f76d631b9c318960d911da1119'
+        '4d80ac419b2fc34465c4e4ca84db7358e0c0515a6bdeb240fb1b4ce7641703b9a8e7f1f45b019d818e455b32b02dd23a264003c80498d3fe96f8a33c6bbc8009')
 
 prepare() {
   cd "${_pkgname}-${pkgver}"
