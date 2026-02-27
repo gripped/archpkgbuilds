@@ -8,7 +8,7 @@ pkgname=(
   lib32-gst-plugins-base
   lib32-gst-plugins-good
 )
-pkgver=1.26.10
+pkgver=1.28.1
 pkgrel=1
 pkgdesc="Multimedia graph framework (32-bit)"
 url="https://gstreamer.freedesktop.org/"
@@ -80,8 +80,8 @@ source=(
   "git+https://gitlab.freedesktop.org/gstreamer/gstreamer.git?signed#tag=$pkgver"
   0001-HACK-meson-Disable-broken-tests.patch
 )
-b2sums=('17a6826af9ed8ae50a215e6f831d8cb2b85b80f8899610febfcf8733000d185caf9c153cb3ed6197fffedcad4f7d4547e13baddc74018eca8a4b2c660c316376'
-        '21d74423e44f4d9918ef477d7664b65d2848b14830f6d339c525f8de54aedfaae274ac772f157938f9a98bc9d1806210d807cab8ccf9dd95fcaf0547b587c36a')
+b2sums=('8e92829812e06312f99db805f59d2757f476f7c38dcf596adf37407f537d8664a27b9067059ab669b89bebfc367d2e724b6e1bd0717e05937b5a01f1a9ba4445'
+        'ff9b5e5e8dde09e242766bcf9e943e41a518967bb991586fb68906d91036ac3e8c79a499a5e66d294b4759a44dba3c7bea5a4e61d5fd9aab2fdf58e8b3ab6329')
 validpgpkeys=(
   D637032E45B8C6585B9456565D2EEE6F6F349D7C # Tim Müller <tim@gstreamer-foundation.org>
 )
@@ -129,7 +129,6 @@ build() {
     -D rtsp_server=disabled
     -D sharp=disabled
     -D ugly=disabled
-    -D vaapi=disabled
   )
 
   # https://gitlab.freedesktop.org/gstreamer/gstreamer/-/issues/3197
@@ -143,11 +142,12 @@ check() (
   export XDG_RUNTIME_DIR="$PWD/runtime-dir"
   mkdir -p -m 700 "$XDG_RUNTIME_DIR"
 
+  export CK_TIMEOUT_MULTIPLIER=5
   export NO_AT_BRIDGE=1 GTK_A11Y=none
 
   # Flaky due to timeouts
   xvfb-run -s "-nolisten local" \
-    meson test -C build --print-errorlogs -t 5 || :
+    meson test -C build --print-errorlogs -t $CK_TIMEOUT_MULTIPLIER || :
 )
 
 _install() {
@@ -264,6 +264,7 @@ package_lib32-gst-plugins-base() {
     lib32-alsa-lib
     lib32-cairo
     lib32-cdparanoia
+    lib32-gcc-libs
     lib32-glib2
     lib32-glibc
     lib32-libogg
@@ -399,7 +400,7 @@ package_lib32-gst-plugins-good() {
     usr/lib32/gstreamer-1.0/libgstwavparse.so
     usr/lib32/gstreamer-1.0/libgstximagesrc.so
     usr/lib32/gstreamer-1.0/libgstxingmux.so
-    usr/lib32/gstreamer-1.0/libgsty4menc.so
+    usr/lib32/gstreamer-1.0/libgsty4m.so
   ); _install
 }
 
