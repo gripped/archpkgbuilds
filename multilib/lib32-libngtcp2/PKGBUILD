@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=lib32-libngtcp2
-pkgver=1.20.0
+pkgver=1.21.0
 pkgrel=1
 pkgdesc='Implementation of IETF QUIC protocol (32-bit)'
 url='https://github.com/ngtcp2/ngtcp2'
@@ -27,10 +27,10 @@ validpgpkeys=('F4F3B91474D1EB29889BD0EF7E8403D5D673C366') # Tatsuhiro Tsujikawa 
 source=("git+https://github.com/ngtcp2/ngtcp2.git#tag=v${pkgver}?signed"
         'git+https://github.com/ngtcp2/munit.git'
         'git+https://github.com/ngtcp2/urlparse.git')
-sha256sums=('a2ecedfcb7c859fa699f6bd84afac3f71568a73a8dbc7e84f4213a533e4464ff'
+sha256sums=('beb57886229d8580829c22e300f46b1b56ca0d50398da675cc095d539ce5dee9'
             'SKIP'
             'SKIP')
-b2sums=('09390fc9dc1fa54be684e89f67f5049eb9c728c94e8dc1161be6dc1c1b42d941d0e10d62e1b54459f9f46ec7d2bc818afc0aed97ec74b32a0a14c59d73ef80c9'
+b2sums=('53c514d8d5281248138ffac02b5eb92238105288462b56de0ac1b0067b2d37c2a4bc62125e9e0d4e9c32d857df8fe8df12d1038588519157d637d06e93e6ad3a'
         'SKIP'
         'SKIP')
 
