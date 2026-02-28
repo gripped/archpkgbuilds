@@ -2,14 +2,14 @@
 
 pkgname=mandown
 pkgver=1.1.0
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 license=('Apache-2.0')
 url="https://gitlab.com/kornelski/mandown"
 pkgdesc="Create man pages from markdown markup"
 depends=(
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(rust cargo)
 source=(https://gitlab.com/kornelski/mandown/-/archive/v${pkgver}/mandown-v${pkgver}.tar.gz)
@@ -17,20 +17,16 @@ sha512sums=('516a7b655c8aee8e171ba8e0a23997a6cfc9cbbc60197039acc10892ebdd6a454df
 
 prepare() {
   cd "$pkgname-v$pkgver"
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd "$pkgname-v$pkgver"
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --frozen --release --all-features
 }
 
 check() {
   cd "$pkgname-v$pkgver"
-  export RUSTUP_TOOLCHAIN=stable
   cargo test --frozen --all-features
 }
 
