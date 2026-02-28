@@ -2,14 +2,14 @@
 
 pkgname=librustls
 pkgver=0.15.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Use rustls from languages other than Rust"
 arch=('x86_64')
 license=('Apache-2.0' 'MIT')
 url='https://github.com/rustls/rustls-ffi'
 depends=(
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(
   cargo-c
@@ -27,7 +27,7 @@ b2sums=('1b45c492fdbb79527d97e8a84143e4435198af095117ba5bdabe8d72d77adf65ba3b599
 
 prepare() {
   cd rustls-ffi-${pkgver}
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
