@@ -6,15 +6,17 @@ pkgname=(
   nickel-docs
   nickel-language-server
 )
-pkgver=1.15.1
-pkgrel=2
+pkgver=1.16.0
+pkgrel=1
 pkgdesc='A generic configuration language'
 arch=(x86_64)
 url='https://nickel-lang.org'
 license=(MIT)
 depends=(
   glibc
-  gcc-libs
+  libgcc
+  libstdc++
+  gc
   nix
 )
 makedepends=(
@@ -27,14 +29,14 @@ makedepends=(
 checkdepends=(python)
 options=(!lto)
 source=("$pkgbase::git+https://github.com/tweag/nickel#tag=$pkgver")
-sha512sums=('dcfc0f85ae6ca4fa0ccfada6aff210c329ec40aa23d0ed097bc94e34494436348f569bb0d8d29f53322f43817623e8f16fc35fe7f745e368e9ee9018c24d4013')
-b2sums=('8e3707f0a22361f7e4930e2e66abaf8fdd3c3ea60276065c690a12a6b2dd97bdf71f2a9ea92a8e488280694e608825af24f237f73a8f27832e65ae6b083c8411')
+sha512sums=('60822d8c475f591b693bda23b761d1b756153e331b3603c097757999d07ddea16967c8127e3e6f3bbab10cfc1dbe9796cf4a61be8478a181a9c58866cf74b91f')
+b2sums=('a1a9b0f78ce84f1fb14e8d9a308ada341d0f58cfc709f61b9b8d1cb7a4448066806b949273cf78e896aea1ad268fbb568104d41493264af37664875b61ad18f1')
 
 prepare() {
   cd "$pkgbase"
 
   # download dependencies
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
