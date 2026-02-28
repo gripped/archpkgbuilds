@@ -4,14 +4,14 @@
 
 pkgbase='lttng-ust'
 pkgname=('lttng-ust' 'python-lttngust')
-pkgver=2.14.0
-pkgrel=2
+pkgver=2.15.0
+pkgrel=1
 arch=('x86_64')
 url="https://lttng.org/"
-license=('LGPL2.1' 'GPL2' 'MIT')
+license=('LGPL-2.1-only' 'MIT' 'GPL-2.0-only' 'BSD-3-Clause' 'BSD-2-Clause' 'GPL-3.0-or-later')
 makedepends=('asciidoc' 'xmlto' 'libxml2' 'python' 'liburcu>=0.7.2' 'util-linux' 'numactl' 'python-setuptools')
 source=("https://lttng.org/files/${pkgbase}/${pkgbase}-${pkgver}.tar.bz2"{,.asc})
-sha512sums=('c64250ea127de75bd2023e2a1ca376667a2dcda45322bd7d4d6a8b38c9585e740b07d1321f42b5f3da0e656e91c9231ba8e199ebe025453165025f046e926409'
+sha512sums=('54e215b629016346dc95ee547430dc3bb613726b08d8ce12328a2113917f51ee4755a28d5f292b688f145efcb1b53e8e598610ff115a6cb9f2c212dc0dfd5011'
             'SKIP')
 validpgpkeys=('2A0B4ED915F2D3FA45F5B16217280A9781186ACF')
 
@@ -41,6 +41,7 @@ package_lttng-ust() {
     cd "${srcdir}/${pkgbase}-${pkgver}"
     make DESTDIR="${pkgdir}" install
     install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+    install -D -m644 LICENSES/*.txt "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
 
 package_python-lttngust() {
@@ -51,4 +52,5 @@ package_python-lttngust() {
 
     cd "${srcdir}/${pkgbase}-${pkgver}"
     install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+    install -D -m644 LICENSES/*.txt "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
