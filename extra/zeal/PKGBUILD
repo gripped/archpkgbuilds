@@ -4,41 +4,46 @@
 # Contributor: Thomas Weißschuh <thomas t-8ch de>
 
 pkgname=zeal
-pkgver=0.7.2
+pkgver=0.8.0
 pkgrel=1
 pkgdesc='Offline API documentation browser'
-arch=('x86_64')
+arch=(x86_64)
 url='https://zealdocs.org'
-license=('GPL-3.0-or-later')
+license=(GPL-3.0-or-later)
 depends=(
-  'glibc'
-  'gcc-libs'
-  'hicolor-icon-theme'
-  'qt6-webengine'
-  'qt6-base'
-  'qt6-webchannel'
-  'sqlite'
-  'libarchive'
-  'libxcb'
-  'libx11'
-  'xcb-util-keysyms'
+  glibc
+  hicolor-icon-theme
+  qt6-webengine
+  qt6-base
+  qt6-webchannel
+  sqlite
+  libarchive
+  libgcc
+  libstdc++
+  libxcb
+  libx11
+  xcb-util-keysyms
 )
 makedepends=(
-  'cmake'
-  'extra-cmake-modules'
-  'git'
+  cmake
+  extra-cmake-modules
+  git
 )
 source=("$pkgname::git+https://github.com/zealdocs/zeal#tag=v$pkgver")
-sha512sums=('1499d9f48163eaf9fc90eebfd62968035d083dc7b5ce1111d10a793b8fbe51d60fadef2f2d149a36f1a6be544a08053386d18951f80f0d04ab29f070e6012c68')
-b2sums=('e3570252d30ef21250a1755ff4e5a31a2b49f41b36e98c6ae80f2d8c75d5d4ebc9e4a7a878aef17a01587e9b7e7e15edd0087a0ccd48545b5823305742e497ff')
+sha512sums=('45aa993e8f1850d74a8d24f7af27866c1adfc664c0be2250673b75dc753e7f856a4c3c34308e8489dd2347975a852b0732166d50379bd497572091dca2bd5ba3')
+b2sums=('82441b8710573c37e7bd75b2488a8a340749557863bf927db1c72cc466981c4d6f7dd588813488da2e6e0b0ea9f6e526a6c2b54884cd3dbcf688bcd58d69882d')
 
 build() {
-  cmake \
-    -B build \
-    -S "$pkgname" \
-    -D CMAKE_INSTALL_PREFIX=/usr \
-    -D CMAKE_BUILD_TYPE=Release \
+  local cmake_options=(
+    -B build
+    -S "$pkgname"
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_INSTALL_PREFIX=/usr
     -D ZEAL_RELEASE_BUILD=ON
+  )
+
+  cmake "${cmake_options[@]}"
 
   cmake --build build
 }
