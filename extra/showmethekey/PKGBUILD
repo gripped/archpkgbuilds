@@ -2,16 +2,33 @@
 # Contributor: Alynx Zhou <alynx.zhou@gmail.com>
 
 pkgname=showmethekey
-pkgver=1.19.0
+pkgver=1.20.0
 pkgrel=1
 pkgdesc="A screenkey alternative that works under Wayland via libinput."
 arch=('x86_64')
 url="https://showmethekey.alynx.one/"
 license=("Apache-2.0")
-depends=("libevdev" "systemd-libs" "libinput" "glib2" "gtk4" "libadwaita" "json-glib" "cairo" "pango" "libxkbcommon" "polkit")
+depends=(
+	'cairo'
+	'dconf'
+	'glib2'
+	'glibc'
+	'gtk4'
+	'hicolor-icon-theme'
+	'json-glib'
+	'libadwaita'
+	'libevdev'
+	'libgcc'
+	'libinput'
+	'libx11'
+	'libxkbcommon'
+	'pango'
+	'polkit'
+	'systemd-libs'
+)
 makedepends=("meson" "glib2-devel")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/AlynxZhou/${pkgname}/archive/v${pkgver}.tar.gz")
-sha512sums=('c88157acde1051f6b248271be5e70531430d8576d852bb0196a5b914510dd33718e1129248710f5d3e513f4ba808863373d3da459e8985e3770f4b1d2c553625')
+sha512sums=('4f27896f43be0238f65a0758c6ea68b9d7ac8055ba47178196ba1dfbe25ba5eeca29811c32ad5781838eaf527fa99d644341b6ff7230868b1e00e955fb577cf6')
 
 build() {
 	arch-meson "${pkgname}-${pkgver}" build
