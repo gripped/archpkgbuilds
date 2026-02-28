@@ -3,12 +3,12 @@
 
 pkgname=sqlc
 pkgver=1.30.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Compile SQL to type-safe Go'
 arch=(x86_64)
 url='https://sqlc.dev'
 license=(MIT)
-depends=(glibc gcc-libs)
+depends=(glibc)
 makedepends=(git go)
 options=(!lto)
 source=("$pkgname::git+https://github.com/sqlc-dev/sqlc.git#tag=v$pkgver")
