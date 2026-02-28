@@ -1,6 +1,6 @@
 pkgbase = python-virtualenv
 	pkgdesc = Virtual Python Environment builder
-	pkgver = 20.39.0
+	pkgver = 21.1.0
 	pkgrel = 1
 	url = https://virtualenv.pypa.io
 	arch = any
@@ -11,6 +11,8 @@ pkgbase = python-virtualenv
 	checkdepends = python-pytest
 	checkdepends = python-pytest-freezer
 	checkdepends = python-pytest-mock
+	checkdepends = python-pytest-env
+	checkdepends = python-pytest-timeout
 	checkdepends = python-time-machine
 	checkdepends = python-setuptools
 	checkdepends = tcsh
@@ -33,11 +35,12 @@ pkgbase = python-virtualenv
 	depends = python-distlib
 	depends = python-filelock
 	depends = python-platformdirs
+	depends = python-python-discovery
 	conflicts = virtualenv
 	replaces = virtualenv
 	options = !makeflags
-	source = python-virtualenv::git+https://github.com/pypa/virtualenv#tag=20.39.0
-	sha512sums = 40d441b42c692ea158fd5375f488ad0ede4fb3348f5b802c6e29b9f3ac62cebe390645351b4d99a1001cfa68ec7d168ecdd3c1aadd9952fbf106412ae8219baa
-	b2sums = 39f4f49eb2ac19899dbd5641e60f3608737cbacd62289b83f8492b734d7067abddc6d2616051c872c486be4f2747e2142efaa5cc6c0a46adee4c44e06c88386a
+	source = python-virtualenv::git+https://github.com/pypa/virtualenv#tag=21.1.0
+	sha512sums = fd81efea761e3a92cd802885b563454ab0f93b0a91c5dac208d6e84e4518638385143f9921b2f10871aa8736c20e20e2f438fde337c6b3719586829340f25f46
+	b2sums = 30c10312762be666b290c60bc8c4266ebcbb283f2807318991a5a90cecb6257e5689dcb3c70a56db424345243c33083f4cae3f97b946b20577a136f252bbfb31
 
 pkgname = python-virtualenv
