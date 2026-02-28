@@ -1,0 +1,84 @@
+--- a/copyparty/util.py
++++ b/copyparty/util.py
+@@ -8,6 +8,7 @@ import codecs
+ import errno
+ import hashlib
+ import hmac
++import importlib.resources
+ import json
+ import logging
+ import math
+@@ -4427,23 +4428,14 @@ except ImportError:
+         import importlib_resources as impresources
+     except ImportError:
+         impresources = None
+-try:
+-    if sys.version_info > (3, 10):
+-        raise ImportError()
+-    import pkg_resources
+-except ImportError:
+-    pkg_resources = None
+-
+ 
+-def _pkg_resource_exists(pkg: str, name: str) -> bool:
+-    if not pkg_resources:
+-        return False
++def resource_exists(pkg: str, name: str) -> bool:
+     try:
+-        return pkg_resources.resource_exists(pkg, name)
+-    except NotImplementedError:
++        importlib.resources.files(pkg).joinpath(name).open("rb").close()
++        return True
++    except (FileNotFoundError, ModuleNotFoundError):
+         return False
+ 
+-
+ def stat_resource(E: EnvParams, name: str):
+     path = E.mod_ + name
+     if os.path.exists(path):
+@@ -4482,10 +4474,9 @@ def _has_resource(name: str):
+             _rescache_has[name] = True
+             return True
+ 
+-    if pkg_resources:
+-        if _pkg_resource_exists(pkg.__name__, name):
+-            _rescache_has[name] = True
+-            return True
++    if resource_exists(pkg.__name__, name):
++        _rescache_has[name] = True
++        return True
+ 
+     _rescache_has[name] = False
+     return False
+@@ -4508,14 +4499,13 @@ def load_resource(E: EnvParams, name: str, mode="rb") -> IO[bytes]:
+                 # throws if encoding= is mentioned at all
+                 return res.open(mode)
+ 
+-    if pkg_resources:
+-        assert __package__  # !rm
+-        pkg = sys.modules[__package__]
+-        if _pkg_resource_exists(pkg.__name__, name):
+-            stream = pkg_resources.resource_stream(pkg.__name__, name)
+-            if enc:
+-                stream = codecs.getreader(enc)(stream)
+-            return stream
++    assert __package__  # !rm
++    pkg = sys.modules[__package__]
++    if resource_exists(pkg.__name__, name):
++        stream = importlib.resources.open_binary(pkg.__name__, name)
++        if enc:
++            stream = codecs.getreader(enc)(stream)
++        return stream
+ 
+     ap = E.mod_ + name
+ 
+--- a/scripts/pyinstaller/build.sh
++++ b/scripts/pyinstaller/build.sh
+@@ -92,7 +92,6 @@ excl=(
+     packaging
+     pdb
+     pickle
+-    pkg_resources
+     PIL.EpsImagePlugin
+     pyftpdlib.prefork
+     urllib.request
