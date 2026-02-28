@@ -3,14 +3,14 @@
 
 pkgname=swaptop
 pkgver=1.0.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Swap usage monitor'
 url='https://github.com/luis-ota/swaptop'
 arch=('x86_64')
 license=('MIT')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
 )
 makedepends=(
   'cargo'
@@ -21,7 +21,7 @@ b2sums=('0142cf673745c5f2993a326d77ecd74d28d70e58ec761d5358636536bb95ef0650b2e2d
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
