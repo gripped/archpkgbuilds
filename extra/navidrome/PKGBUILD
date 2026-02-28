@@ -3,14 +3,15 @@
 
 pkgname=navidrome
 pkgver=0.60.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A web-based music collection server and streamer'
 arch=(x86_64)
 url='https://www.navidrome.org'
 license=(GPL-3.0-only)
 depends=(
   glibc
-  gcc-libs
+  libgcc
+  libstdc++
   zlib
   ffmpeg
   taglib
