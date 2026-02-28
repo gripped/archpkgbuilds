@@ -3,44 +3,46 @@
 # Contributor: Christian Krause ("wookietreiber") <christian.krause@mailbox.org>
 
 pkgname=freeorion
-pkgver=0.5.1.1
-pkgrel=5
+pkgver=0.5.1.2
+pkgrel=1
 pkgdesc='A turn-based space empire and galactic conquest game'
+arch=(x86_64)
 url='https://www.freeorion.org'
-arch=('x86_64')
-license=('GPL-2.0-only CC-BY-SA-3.0')
+license=(GPL-2.0-only CC-BY-SA-3.0)
 depends=(
-  'boost-libs'
-  'python'
-  'sdl2'
-  'libvorbis'
-  'glew'
-  'openal'
-  'hicolor-icon-theme'
-  'freetype2'
+  glibc
+  libglvnd
+  libpng
+  libgcc
+  libstdc++
+  boost-libs
+  python
+  sdl2
+  libvorbis
+  glew
+  openal
+  hicolor-icon-theme
+  freetype2
 )
 makedepends=(
-  'git'
-  'cmake'
-  'boost'
+  git
+  cmake
+  boost
 )
 source=(
   "$pkgname::git+https://github.com/freeorion/freeorion.git#tag=v$pkgver"
-  'fix-version-string.patch'
-   boost-1.89.patch
+  fix-version-string.patch
 )
-sha512sums=('de2bf3b0acc03d03905038f3448f887bdd70fb61ab46312c6a10815493de692dcf9e468c878b3875a619e7d5eb3b5405ad3196d6da606f5acd2c4bc7454678e6'
-            'ee322500818e5b55cbcdeb36c89aa7e1f2e8e193bec1c296e133927aa033cb30912544e2d3a22cc9273ad7b63d843d35ea856fae7e6d1644e6db89b9bcda74aa'
-            '0f9383fc6ed8fb38f8152c66262d37da8caccc7b0615860ee7183a7b145f21b0e53ab6f08bea4918cb1467385d775f10e7f2bdf3e9aa79b0e487f077c2c23bd6')
-b2sums=('84e20bea9ee8b8a0cc7a19816eb5e8a26bc026edd97e3bf76b17072b5a8aee123cfed3b53d9d92f5639f9510068be3f81c1c0cc5846b77d2c1bccc4399d3905c'
-        '93f18116fbd973e5bf62595572bdf744a4bd7225fad1266b7d6c81a76f1344fa4b082053c449041f2643563e27c45f893573f86b90c566d8b2b51f9122a2523c'
-        '90298de6af395cb70386c9c35d0c8659a4737b25440f2de17f179e8a16e47527b26c48913b6a67c7c2423ade0b59c05de08edfa02e0503ae49e0fe0970dff52f')
+sha512sums=('30cbcf63466a6c7ff8ff305c32cbe4fb21f87925360498779cdafd7245e95193c903fdf1323795e2c6b5d5e3bf7ebf07f0375a95eb04ac67a7584d1f9a6faa23'
+            '825d3f1f2a495caa12bf1f352b6e05b4dda6e7a28052b8e3e5bd7c8879d30b7ab510493c2bbc57bf88f396581d0cb470695bec21e9cd9ef4aebd0e701de3e924')
+b2sums=('506cb0e315ec4f9face125dd65bbdf2d4041f623a21acab7d99431860afe8831bf67c923706543885d431d67625a6ce44c2ab94b3a9982632a9688eb46ba7c26'
+        'ec1f8a0aa161e79da0e7028c7343b36d597017106a27cade48ed90ffafc8cd10eb608c2aca8347b3ee77c9f5a0fdbef40afbf02831f1ba15b66708529187d681')
 
 prepare() {
   cd "$pkgname"
 
+  # remove `makepkg` from version string
   git apply "$srcdir/fix-version-string.patch"
-  patch -p1 -i ../boost-1.89.patch
 }
 
 build() {
