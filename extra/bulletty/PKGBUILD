@@ -1,27 +1,27 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=bulletty
-pkgver=0.2.1
+pkgver=0.2.2
 pkgrel=1
 pkgdesc="Pretty feed reader for the terminal that stores the articles as Markdown"
 url='https://github.com/CrociDB/bulletty'
 arch=('x86_64')
 license=('MIT')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
 )
 makedepends=(
   'cargo'
 )
 options=(!lto)
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/CrociDB/${pkgname}/archive/v${pkgver}.tar.gz)
-sha256sums=('5c5cc4065e2b9529a7ac2262d4fbc7355065ae3d632dead7dcfa7e3ed385c304')
-b2sums=('f5af06ec32ddd9ece3db820ca564c5d24b45adf0b7e0ffc16fe78d89fa4057e8ab94a17809b986ecef671412b60337b216eecdda7e0e6026d673bfce234f937b')
+sha256sums=('9983879c1246779e39ebf7476dedea6174957c2d15f907429e7352e3a2fdcaeb')
+b2sums=('3ba91be37f14ed4f5764cf0f05a92e68e25c65f40665923f25fd969cf140231fac558d190a9075787de555f4d45eeee9a85de22479ecb02f099ee2a767900c87')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
