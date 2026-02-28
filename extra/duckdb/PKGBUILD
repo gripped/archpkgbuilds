@@ -3,7 +3,7 @@
 pkgbase=duckdb
 pkgname=(duckdb python-duckdb)
 pkgver=1.4.4
-pkgrel=2
+pkgrel=3
 pkgdesc='An analytical in-process SQL database management system'
 arch=(x86_64)
 url='https://www.duckdb.org'
@@ -44,6 +44,8 @@ build() {
     -D CMAKE_BUILD_TYPE=Release
     -D CMAKE_INSTALL_PREFIX=/usr
     -D OVERRIDE_GIT_DESCRIBE="v$pkgver"
+    -D ENABLE_EXTENSION_AUTOLOADING=1
+    -D ENABLE_EXTENSION_AUTOINSTALL=1
   )
   cmake "${cmake_options[@]}"
 
