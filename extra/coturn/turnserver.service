@@ -6,11 +6,9 @@ Wants=network-online.target
 
 [Service]
 User=turnserver
-Type=forking
-ExecStart=/usr/bin/turnserver -c /etc/turnserver/turnserver.conf -o -v
-RuntimeDirectory=turnserver
+Type=notify
+ExecStart=/usr/bin/turnserver -c /etc/turnserver/turnserver.conf -v
 LogsDirectory=turnserver
-RuntimeDirectoryMode=0700
 
 [Install]
 WantedBy=multi-user.target

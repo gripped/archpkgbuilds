@@ -1,6 +1,6 @@
 pkgbase = coturn
 	pkgdesc = Open-source implementation of TURN and STUN server
-	pkgver = 4.7.0
+	pkgver = 4.9.0
 	pkgrel = 1
 	url = https://github.com/coturn/coturn
 	arch = x86_64
@@ -11,12 +11,12 @@ pkgbase = coturn
 	depends = hiredis
 	depends = sqlite
 	backup = etc/turnserver/turnserver.conf
-	source = coturn-4.7.0.tar.gz::https://github.com/coturn/coturn/archive/4.7.0.tar.gz
+	source = coturn-4.9.0.tar.gz::https://github.com/coturn/coturn/archive/4.9.0.tar.gz
 	source = turnserver.service
-	source = turnserver.sysusers.d
-	source = turnserver.tmpfiles.d
-	sha256sums = adbc90550d326e1b0fef4ccf9955c0ea32e63792acedcbc9cdbe9f71f380e622
-	sha256sums = d625a21c96c34adeb74650892e84ee9e0b5c6774ee30e386218ef84d986b39c6
+	source = turnserver.sysusers
+	source = turnserver.tmpfiles
+	sha256sums = e01c0701792231d67768e0e314ebad6395501759ea56772dc7e36d3badec5549
+	sha256sums = 9fbc3e2f2bc7d43dad2ea6cac8a2c86ccf7a02b35220fcc1bbbc9fb761811e61
 	sha256sums = 11514a04ca93195502d48374d6163e8e17f6f00043d92b20180fa8f570f2e25a
 	sha256sums = d765d14ff3a6527498257e4dc9e76231742cd41d8fe658004e171b8937db6a75
 
