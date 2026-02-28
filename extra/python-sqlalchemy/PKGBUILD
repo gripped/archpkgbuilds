@@ -4,7 +4,7 @@
 
 pkgname=python-sqlalchemy
 _name="${pkgname#python-}"
-pkgver=2.0.46
+pkgver=2.0.47
 _ver="rel_${pkgver//./_}"
 pkgrel=1
 arch=('x86_64')
@@ -19,7 +19,7 @@ checkdepends=('python-pytest' 'python-pytest-xdist' 'mypy')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/sqlalchemy/sqlalchemy/archive/refs/tags/${_ver}.tar.gz")
 # https://github.com/sqlalchemy/sqlalchemy/discussions/11138
 #validpgpkeys=('83AF7ACE251C13E6BB7DEFBD330239C1C4DAFEE1')
-sha512sums=('e3245f52af1f9b13381bd26044a17450a7b3d53be170abb0781183e971e8826c3567acd07054a7974a4a4a4a68192df63fadcb808658a27bf4efb9fe7ffabbcb')
+sha512sums=('f50aaea527c0b0c14c837941db0098ac66d444bf5e54d50bda1edebc7ce5dbae98360f388e50a9522b1b34b2b701042d3b74da71211de34947acb076f8926bae')
 
 prepare() {
   cd $_name-$_ver
