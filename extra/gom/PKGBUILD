@@ -6,8 +6,8 @@ pkgname=(
   gom
   gom-docs
 )
-pkgver=0.5.5
-pkgrel=2
+pkgver=0.5.6
+pkgrel=1
 pkgdesc='GObject to SQLite object mapper library'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/Gom'
@@ -27,19 +27,19 @@ makedepends=(
 )
 source=(
   "git+https://gitlab.gnome.org/GNOME/$pkgbase.git#tag=$pkgver"
-  0001-build-Use-python-install_sources.patch
 )
-b2sums=('4d64037206fc2b012800eef6c3786e413741ab0e4217bc06cedcba42f8ddaf971e3ffbdd757924074bd13a84c9acdc0130eb92fe199373c2dc57f4ac089794ba'
-        '47801bd8817da2f867ea28b2e10ce5ead75f1b0c8906f97b0c5f47252655c04591b13e00d14d2ea19e7a04a0494934c73d87797f917d8ba17431fd012bedce4e')
+b2sums=('48a9fbe86d54565e1585ddb653993e02dfb79f404a3223259adc2c00f265ed0827acfc9a4b3ce01abd0289626a8d18ceae7ea860d127bd84fcfdd3f17944d776')
 
 prepare() {
-  # Compile python sources
-  git -C $pkgbase apply -3 ../0001-build-Use-python-install_sources.patch
+  cd $pkgbase
 }
 
 build() {
-  arch-meson $pkgbase build \
+  local meson_options=(
     -D enable-gtk-doc=true
+  )
+
+  arch-meson $pkgbase build "${meson_options[@]}"
   meson compile -C build
 }
 
@@ -60,3 +60,5 @@ package_gom-docs() {
 
   mv doc/* "$pkgdir"
 }
+
+# vim:set sw=2 sts=-1 et:
