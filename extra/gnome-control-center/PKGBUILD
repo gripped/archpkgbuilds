@@ -7,7 +7,7 @@ pkgname=(
   gnome-control-center
   gnome-keybindings
 )
-pkgver=49.4
+pkgver=49.5
 pkgrel=1
 pkgdesc="GNOME's main interface to configure various aspects of the desktop"
 url="https://apps.gnome.org/Settings/"
@@ -21,7 +21,6 @@ depends=(
   cups-pk-helper
   dconf
   fontconfig
-  gcc-libs
   gcr-4
   gdk-pixbuf2
   glib2
@@ -45,6 +44,7 @@ depends=(
   libcolord
   libcups
   libepoxy
+  libgcc
   libgoa
   libgtop
   libgudev
@@ -89,7 +89,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git"
   "git+https://gitlab.gnome.org/GNOME/libgxdp.git#commit=e68375c7aced97705953b8e3b30af9f17991153b"
 )
-b2sums=('fda0cb11093ebf8407e30174498bd9621387a0e2fc3113ce5282d25ccdfe1d1a682a4221e82c274a19cc3e0bafc551c0e8ed7dfbf989b3bee7c08911fa4dda45'
+b2sums=('6e0c285b20d4a55ff812d286c869730348e201f24972ae564b87ada80738ddfa31253eeb1402eb00d9fb8530f2d07ecabce9bb706fb2c8697561ef1fe6ce1b4f'
         'SKIP'
         '09bd02a627afffa49c11e4baec961878060d7710e852628c0e0d009d5bdc37eaa3cd1d5bbeea316f197197b9d88436ecf157ebaef41e01b66ad102e1f1c69fb2')
 validpgpkeys=(
