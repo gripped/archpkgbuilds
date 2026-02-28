@@ -2,7 +2,7 @@
 # Contributor: Eric Long <i@hack3r.moe>
 
 pkgname=bpf-linker
-pkgver=0.10.1
+pkgver=0.10.2
 pkgrel=1
 pkgdesc="Simple BPF static linker"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('Apache-2.0' 'MIT')
 depends=('glibc' 'gcc-libs' 'llvm-libs' 'clang')
 makedepends=('cargo' 'llvm')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/aya-rs/$pkgname/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('b09b2daec7e1935cabccab5b6d61cc61f195047775cf1d63c0c7e5a52cac6a39')
+sha256sums=('c4e99d548b6a0d90f6ef35acb348cf4b8944ff4ba62b2795aa688b3178d82141')
 
 prepare() {
   cd "$pkgname-$pkgver"
