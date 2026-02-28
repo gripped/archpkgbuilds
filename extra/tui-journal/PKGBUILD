@@ -3,25 +3,24 @@
 pkgname=tui-journal
 _pkgname=tjournal
 pkgver=0.16.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Write and manage journals/notes from the terminal"
 arch=('x86_64')
 url="https://github.com/AmmarAbouZor/tui-journal"
 license=('MIT')
-depends=('gcc-libs' 'zlib')
+depends=('libgcc' 'libgit2' 'sqlite')
 makedepends=('cargo' 'openssl')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('835f9a1dc27c58ede33f47e56c90e9102af1c9bf90403da12b3cb735f89701a067c0502db8db87388e0e850849611456390c8b0acd071cbbf59aa0c8ba090bf9')
-options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --frozen
+  LIBGIT2_NO_VENDOR=1 LIBSQLITE3_SYS_USE_PKG_CONFIG=1 cargo build --release --frozen
 }
 
 package() {
