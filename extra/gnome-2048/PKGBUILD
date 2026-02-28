@@ -1,21 +1,21 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-2048
-pkgver=50alpha.2
-pkgrel=3
+pkgver=50beta
+pkgrel=1
 pkgdesc="Obtain the 2048 tile"
 arch=(x86_64)
 url="https://gitlab.gnome.org/GNOME/gnome-2048"
 license=(GPL-3.0-or-later)
 depends=(
   dconf
-  gcc-libs
   glib2
   glibc
   graphene
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
   pango
 )
 makedepends=(
@@ -30,14 +30,8 @@ makedepends=(
 options=(!lto)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-2048.git#tag=${pkgver/[a-z]/.&}"
-  gnome-2048-app-name.patch
-  gnome-2048-build-depends.patch
 )
-b2sums=(
-  77117bde2aae07382a99c102e1113c55646e0300a646d50ad6acd3646ecfd5c922b98debb49ad42e728aee775e2f4a270fd768596d25ce26a8645f647220d743
-  840f4c98c273dc50cebe85ef0f6352137aca7a12f7d79272d45abd37843905a7f0e0db68fbe90d7c021f3de9912e0cfc891e2ae3eba2a3ad0addea5d5e606102
-  dce8b9ab3e6e89026486f73e97c066e6da45e24f2e20069299ee0dd8c69cbfb890077a5ba7a1425ec78b39ac2d725a7e8f3c6b3bb343e27d3ad3a6a4de648ce0
-)
+b2sums=('dc10a18852862bb7d1ef461c8f2bd68c7710f450dac8a2cbc79b2b3d314f30cb376034723986285aa43969825e766e5237220f28aec35330ef7f2d596bf924b3')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
@@ -48,16 +42,7 @@ export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 prepare() {
   cd $pkgname
 
-  CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc --print host-tuple)"
-
-  # Fix application name
-  # https://gitlab.gnome.org/GNOME/gnome-2048/-/merge_requests/53
-  git apply -3 ../gnome-2048-app-name.patch
-
-  # Specify libgnome_games_support as dependency
-  # https://gitlab.gnome.org/GNOME/gnome-2048/-/merge_requests/54
-  git apply -3 ../gnome-2048-build-depends.patch
+  CARGO_HOME="$srcdir/build/cargo-home" cargo fetch --locked --target host-tuple
 }
 
 
