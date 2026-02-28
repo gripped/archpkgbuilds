@@ -16,7 +16,7 @@ pkgname=(
   gvfs-smb
   gvfs-wsdd
 )
-pkgver=1.58.1
+pkgver=1.58.2
 pkgrel=1
 pkgdesc="Virtual filesystem implementation for GIO"
 url="https://gitlab.gnome.org/GNOME/gvfs"
@@ -25,7 +25,6 @@ license=(LGPL-2.0-only)
 depends=(
   dconf
   fuse3
-  gcc-libs
   gcr-4
   glib2
   glibc
@@ -34,6 +33,7 @@ depends=(
   libbluray
   libcdio
   libcdio-paranoia
+  libgcc
   libgcrypt
   libgudev
   libsecret
@@ -70,7 +70,7 @@ source=(
   gvfsd.hook
   0001-monitor-Do-not-load-monitors-when-GIO_USE_VFS-local.patch
 )
-b2sums=('d3d260c7c7d16221bf34899bd3506923b480534713755aa6224c48bf06db7925a57f98cea78a3c72cf0e0f39a0ca9950d8824faeb6f2dbad25b94ccad44add67'
+b2sums=('3f4441d4086afc18283dc9e461b9fc5116eeed74b4b491740c1a82e3ed87ab86341ea887a6ee5e7953858cab332a497e97c1f95761ce2e7c0afd666262ddecf1'
         'a0356a49c419dc69466c591d5e69701b865bb97ca336ea6d8bca0f0d9173b832b73d9f2c701d572a0245957d39c9a38ab6dff4ea7c737c34f2a1a28d93c0427f'
         '0f49b0c2425521f79c48ea092b7a26b601a18f9c2559cbfef6f2a1e338fa2f8d44e75edb85445248f4f35f41e2636836d398019fae0f908689385bf0171bd023')
 
@@ -260,6 +260,7 @@ package_gvfs-mtp() {
     "gvfs=$pkgver"
     glib2
     glibc
+    libgcc
     libgudev
     libmtp
     libusb
@@ -272,9 +273,9 @@ package_gvfs-nfs() {
   pkgdesc+=" - NFS backend"
   depends=(
     "gvfs=$pkgver"
-    gcc-libs
     glib2
     glibc
+    libgcc
     libnfs
   )
   install=gvfs-nfs.install
@@ -286,9 +287,9 @@ package_gvfs-onedrive() {
   pkgdesc+=" - Microsoft OneDrive backend"
   depends=(
     "gvfs-goa=$pkgver"
-    gcc-libs
     glib2
     glibc
+    libgcc
     libgoa
     msgraph
   )
@@ -302,9 +303,9 @@ package_gvfs-smb() {
     "gvfs=$pkgver"
     'smbclient>=4.12.0'
     dconf
-    gcc-libs
     glib2
     glibc
+    libgcc
   )
 
   mv smb/* "$pkgdir"
@@ -315,9 +316,9 @@ package_gvfs-wsdd() {
   depends=(
     "gvfs=$pkgver"
     dconf
-    gcc-libs
     glib2
     glibc
+    libgcc
     wsdd
   )
 
