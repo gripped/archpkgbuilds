@@ -6,7 +6,7 @@
 
 pkgname=gnome-boxes
 pkgver=49.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple GNOME application to access virtual systems'
 arch=(x86_64)
 url='https://apps.gnome.org/Boxes/'
@@ -16,13 +16,13 @@ depends=(
   cdrtools
   dconf
   edk2-ovmf
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
   gtk3
   hicolor-icon-theme
   libarchive
+  libgcc
   libgudev
   libhandy
   libosinfo
