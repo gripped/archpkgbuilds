@@ -2,30 +2,31 @@
 # Contributor: Alexander 'z33ky' Hirsch <1zeeky@gmail.com>
 
 pkgname=libabigail
-pkgver=2.8
+pkgver=2.9
 pkgrel=1
 pkgdesc='ABI Generic Analysis and Instrumentation Library'
-arch=('x86_64')
-license=('Apache-2.0')
+arch=(x86_64)
 url='https://sourceware.org/libabigail/'
+license=(Apache-2.0)
 depends=(
-  'glibc'
-  'gcc-libs'
-  'binutils'
-  'libxml2'
-  'libelf'
-  'elfutils'
-  'python'
-  'xxhash'
-  'xz'
+  glibc
+  binutils
+  libxml2
+  libelf
+  libgcc
+  libstdc++
+  elfutils
+  python
+  xxhash
+  xz
 )
 makedepends=(
-  'git'
-  'python-sphinx'
+  git
+  python-sphinx
 )
-source=("git://sourceware.org/git/libabigail.git#tag=libabigail-$pkgver")
-sha512sums=('7322deb92019d3dc79f977d56c663c2e641f348ffcfa8e1a756d6fe455c40505f7e5a6cd3e941e33035d294c146ac0cc448165823ab3b25dc6b27eec12588252')
-b2sums=('77c00046bb9cec6c67420f1a0feeafa32b1806379e5d5a7fb2d91e4fe60f45d7abd261ede19ca166fc5e948194e67b01f768cde25ba6dfe90e1aa567b81d3626')
+source=("$pkgname::git://sourceware.org/git/libabigail.git#tag=libabigail-$pkgver")
+sha512sums=('41ea967448788353c6048e1d45ce4593d7c4f44d73381976cd23811e1d082f8e1f1ffb6d7918e52cfc7afcebbee2ad55523a207955523fecd5fe43e5d4516146')
+b2sums=('a9845c22c3d724208866f7440cf1ed2200bb5dfee94e47a663039767b5c752b5f7e7e6fb250c370d186452456cfabf755220e33410260703a61b0f1f32ac2c2d')
 
 prepare() {
   cd "$pkgname"
