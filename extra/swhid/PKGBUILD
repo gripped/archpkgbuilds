@@ -2,14 +2,14 @@
 
 pkgname=swhid
 pkgver=0.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Reference implementation of the Software Hash Identifier (SWHID) standard - ISO 18670"
 url='https://github.com/swhid/swhid-rs'
 arch=('x86_64')
 license=('MIT')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
 )
 makedepends=(
   'cargo'
@@ -20,7 +20,7 @@ b2sums=('5a5e296c8f35af0e192e4469cf62833d10566cb5cc8a969be4522c1db57ec5179f22d31
 
 prepare() {
   cd "${pkgname}-rs-${pkgver}"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
