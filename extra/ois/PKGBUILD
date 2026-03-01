@@ -1,15 +1,16 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: scippio <scippio@berounet.cz>
 pkgname=ois
-pkgver=1.5.1
-pkgrel=2
+pkgver=1.6.0
+pkgrel=1
 pkgdesc="Object Oriented Input System"
 arch=('x86_64')
 url="https://github.com/wgois/OIS"
 license=('Zlib')
-makedepends=('cmake' 'gcc' 'libxaw')
-source=("https://github.com/wgois/OIS/archive/v${pkgver}.tar.gz")
-sha512sums=('20598aef999a70900cb7f75ffaf62059acf8e811822971cb21986b5d25d28dacb79e4b4cf4770c70e00d3c55cdd01ef3e68a77c2dd148677784fc4df38891340')
+depends=('libx11' 'libstdc++' 'glibc' 'libgcc')
+makedepends=('cmake' 'libxaw')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/wgois/OIS/archive/v${pkgver}.tar.gz")
+sha512sums=('f9145d632d4cb0f23199be803aa0847d7d339c739e4a0c8f733e121c51a28e72254285416810271bf164b3447097a26ca55a05e1547b30078d19669c7e84445f')
 
 build() {
   cd OIS-*/
