@@ -1,9 +1,10 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
 # Contributor: Benjamin Schneider <ben at bens dot haus>
 
 _srcname=alloy
 pkgname=grafana-${_srcname}
-pkgver=1.13.1
+pkgver=1.13.2
 pkgrel=1
 pkgdesc='OpenTelemetry Collector distribution with programmable pipelines'
 arch=('x86_64' 'aarch64')
@@ -16,7 +17,7 @@ options=('!lto')
 source=(git+https://github.com/grafana/alloy.git#tag=v${pkgver}
         grafana-alloy-1.13.0-reproducible-Makefile.patch
         ${pkgname}.service ${pkgname}.sysusers ${pkgname}.tmpfiles)
-b2sums=('04832db6de3a9876f6fdae079f26fdf81063b06cedce92f2bc39071f654f372c2267f8e4d82f0e917a5eab6b676cc6ab6a04732705e974cd5d03680b1c3db946'
+b2sums=('caaa56ca7f5dbf6129e99bd9058eb906827c46a59e57921171fc70def830706f9023dbbbd26e046a59ddf963e286bd3ca7ce2e36c57ce4c2c15d3aebee116d2f'
         '38abdb87d450c7a4821e0ee9e5b8fa4f951ae2607b858e00205c5c584e4a22fd67130b13f67afaad175b09bda3c80407baecd7986f06c338423b969bef009572'
         '5a7e4d4f327b56a35e699b6066224b90fb128d108d51753e36259a4bc2f28e12275375f16035d1f3de437bc9da9c44769a4ad60e6d9505b61d0e0f253e1928f0'
         '61efc7363478e841bf91466520def6353a467080e011c5d452f48e171306c82b8d0725e182e5037b544ab814988902844dc2ba76925e8ab63f0eec0148bcd0cd'
