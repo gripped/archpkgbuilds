@@ -3,12 +3,12 @@
 
 pkgname=oxipng
 pkgver=10.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A lossless PNG compression optimiser"
 arch=(x86_64)
 url="https://github.com/shssoichiro/oxipng"
 license=('MIT')
-depends=('gcc-libs')
+depends=('libgcc' 'glibc')
 options=('!lto')
 makedepends=('rust')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/shssoichiro/${pkgname}/archive/v${pkgver}.tar.gz")
