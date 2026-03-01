@@ -1,7 +1,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=systing
-pkgver=1.0.0r709.37e4603
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="A libbpf based tracer to help figure out what an application is doing"
 arch=(x86_64)
@@ -25,31 +25,17 @@ makedepends=(
   jq
 )
 license=(MIT)
-_commit="37e46038bc943507bada94e4bb251257e47c41f0"
 source=(
-  "${pkgname}::git+https://github.com/josefbacik/systing.git#commit=$_commit"
-  "${pkgname}-strobelight-libs::git+https://github.com/facebookincubator/strobelight-libs.git"
+  "${pkgname}::git+https://github.com/josefbacik/systing.git#tag=v$pkgver"
 )
-sha512sums=('fcea60d00e8b2c170346bd240f2f73ed0d78e3d3034f34ed085bf9e7e9052fa1c434a1be211ba967d6e3a2f83d6c42379a7df75521545ac255f94df2c1ed8c1a'
-            'SKIP')
-b2sums=('638dd3225063154f891d37425b8ca0c2d9bbed916dda45d8b8ea6b3a159e3b143c7d752a6f7035f28c4a2090ad35892d6be49560cebd653b692b5b47ce414259'
-        'SKIP')
+sha512sums=('fcea60d00e8b2c170346bd240f2f73ed0d78e3d3034f34ed085bf9e7e9052fa1c434a1be211ba967d6e3a2f83d6c42379a7df75521545ac255f94df2c1ed8c1a')
+b2sums=('638dd3225063154f891d37425b8ca0c2d9bbed916dda45d8b8ea6b3a159e3b143c7d752a6f7035f28c4a2090ad35892d6be49560cebd653b692b5b47ce414259')
 
 # needed to workaround linking error with BPF lib
 options=(!lto)
 
-pkgver() {
-  cd "$pkgname"
-
-  printf "%sr%s.%s" "$(cargo metadata --no-deps --format-version 1 | jq -r '.packages[0].version')" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
-}
-
 prepare() {
   cd $pkgname
-
-  git submodule init
-  git config submodule."strobelight-libs".url "${srcdir}/${pkgname}"-strobelight-libs
-  git -c protocol.file.allow=always submodule update --init
 
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
@@ -57,7 +43,9 @@ prepare() {
 build() {
   cd $pkgname
 
-  cargo build --frozen --release
+  for binary in systing{,-util,-analyze}; do
+      cargo build --release --bin $binary
+  done
 }
 
 check() {
@@ -68,6 +56,8 @@ check() {
 
 package() {
   cd $pkgname
-  install -vDm 0755 "target/release/$pkgname" -t "$pkgdir/usr/bin/"
+  for binary in systing{,-util,-analyze}; do
+      install -vDm 0755 "target/release/$binary" -t "$pkgdir/usr/bin/"
+  done
   install -vDm 0644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
