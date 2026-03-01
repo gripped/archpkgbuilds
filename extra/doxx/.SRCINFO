@@ -1,15 +1,15 @@
 pkgbase = doxx
 	pkgdesc = A terminal-native document viewer for Word files
 	pkgver = 0.1.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/bgreenwell/doxx
 	arch = x86_64
 	license = MIT
 	makedepends = cargo
-	depends = gcc-libs
+	depends = libgcc
 	depends = xz
 	depends = bzip2
-	options = !lto
+	depends = zstd
 	source = doxx-0.1.2.tar.gz::https://github.com/bgreenwell/doxx/archive/v0.1.2.tar.gz
 	sha256sums = 3627e65f39e437d954e1d4f02c30911fef1c5c99388bf6098564e1e89722e80d
 

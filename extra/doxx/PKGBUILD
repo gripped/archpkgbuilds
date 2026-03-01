@@ -3,30 +3,29 @@
 
 pkgname=doxx
 pkgver=0.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A terminal-native document viewer for Word files"
 arch=('x86_64')
 url="https://github.com/bgreenwell/doxx"
 license=('MIT')
-depends=('gcc-libs' 'xz' 'bzip2')
+depends=('libgcc' 'xz' 'bzip2' 'zstd')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('3627e65f39e437d954e1d4f02c30911fef1c5c99388bf6098564e1e89722e80d')
-options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --frozen
+  ZSTD_SYS_USE_PKG_CONFIG=1 cargo build --release --frozen
 }
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --frozen
+  ZSTD_SYS_USE_PKG_CONFIG=1 cargo test --frozen
 }
 
 package() {
