@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=sig
-pkgver=0.2.1
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="Interactive grep for streaming"
 arch=('x86_64')
@@ -10,11 +10,11 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('863bf2cdf218f2b820fa3160418ee1c31810139d4724d169cc6ad31ae2e2d8ae5b097b260b4cfaeeeaa95f1ddc6bf6a9a0bfa67825b28a30371d22f9fea6dff4')
+sha512sums=('95ce2a6246f8bf80076c61b253e1c2e5433c2b9b2593054ab8a399646bf3a39871478c1451b9809a3f5597c7ad67571fd9f57ad0fe85de4bd8262318233fed26')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
