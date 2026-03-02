@@ -2,7 +2,7 @@
 # https://github.com/orhun/pkgbuilds
 
 pkgname=treemd
-pkgver=0.5.7
+pkgver=0.5.8
 pkgrel=1
 pkgdesc="A markdown navigator with tree-based structural navigation"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('gcc-libs' 'oniguruma')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('500726be513e8f6e007e87523a627c49c1c53bbc97894c692e8b085ba69df3cd')
+sha256sums=('0c8754512438c29cfa10765e4eb2dbb372cbd40f16edf8aaa37a73643d9820f4')
 
 prepare() {
   cd "$pkgname-$pkgver"
