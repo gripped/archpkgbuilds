@@ -2,7 +2,7 @@
 
 pkgname=python-testresources
 pkgver=2.0.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Testresources, a pyunit extension for managing expensive test resources"
 arch=('any')
 license=('Apache' 'BSD')
@@ -20,7 +20,13 @@ build() {
 
 check() {
   cd testresources
-  python -m testtools.run discover
+  # test_test_resource imports fixtures.tests which is not installed
+  # https://bugs.launchpad.net/testresources/+bug/2143037
+  python -m testtools.run \
+    testresources.tests.test_optimising_test_suite \
+    testresources.tests.test_resourced_test_case \
+    testresources.tests.test_resource_graph \
+    testresources.tests.test_test_loader
 }
 
 package() {
