@@ -3,13 +3,13 @@
 
 pkgname=lldb
 pkgver=21.1.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Next generation, high-performance debugger"
 arch=('x86_64')
 url="https://lldb.llvm.org/"
 license=('Apache-2.0 WITH LLVM-exception')
-depends=('llvm-libs' 'clang' 'gcc-libs' 'zlib' 'xz' 'libedit' 'ncurses'
-         'libxml2' 'python')
+depends=('llvm-libs' 'clang' 'zlib' 'xz' 'libedit' 'ncurses'
+         'libxml2' 'libgcc' 'libstdc++' 'python')
 makedepends=('llvm' 'cmake' 'ninja' 'swig' 'python-sphinx')
 _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkgver
 source=($_source_base/lldb-$pkgver.src.tar.xz{,.sig}
