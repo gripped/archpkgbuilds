@@ -6,12 +6,12 @@
 
 pkgname=lzip
 pkgver=1.25
-pkgrel=2
+pkgrel=3
 pkgdesc="A lossless file compressor based on the LZMA algorithm"
 arch=('x86_64')
 url="https://www.nongnu.org/lzip/lzip.html"
 license=('GPL-2.0-or-later')
-depends=('gcc-libs' 'glibc')
+depends=('glibc' 'libgcc' 'libstdc++')
 source=("https://download.savannah.gnu.org/releases/$pkgname/$pkgname-$pkgver.tar.gz"{,.sig})
 sha256sums=('09418a6d8fb83f5113f5bd856e09703df5d37bae0308c668d0f346e3d3f0a56f'
             'SKIP')
