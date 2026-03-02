@@ -5,7 +5,7 @@
 # Contributor: Denis Tikhomirov <dvtikhomirov@gmail.com>
 
 pkgname=minicom
-pkgver=2.11
+pkgver=2.11.1
 pkgrel=1
 pkgdesc='A serial communication program'
 arch=('x86_64')
@@ -16,7 +16,7 @@ optdepends=('lrzsz: for xmodem, ymodem and zmodem file transfer protocols')
 backup=('etc/minirc.dfl')
 source=("${pkgname}-${pkgver}.tar.gz::https://salsa.debian.org/minicom-team/minicom/-/archive/${pkgver}/minicom-${pkgver}.tar.gz"
         "minicom-2.9-lrzsz-rename.patch")
-sha256sums=('64d68531dae6121dba7ae7d8e8e4b01e51cbf726e6cea8c1abd4af73e810d09f'
+sha256sums=('b296b0e5795ca143fb1ffa78f46fd294daddfccd720faf9909a842d2f70c564e'
             '4b00e97cadeb51e2cacba7114d2572dbe671b00f0f6695df96aa0ea0dab68c15')
 
 prepare() {
