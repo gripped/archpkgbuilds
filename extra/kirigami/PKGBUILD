@@ -1,12 +1,13 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kirigami
-pkgver=6.23.0
+pkgver=6.23.1
 pkgrel=1
 pkgdesc='A QtQuick based components set'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
-license=(LGPL-2.0-only LGPL-3.0-only)
+license=(LGPL-2.0-only
+         LGPL-3.0-only)
 depends=(gcc-libs
          glibc
          qt6-base
@@ -18,12 +19,11 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('8dc28d406be06d360d47e8013e13d633b8c2cfb03607f49029bb45ffdbd28910'
+sha256sums=('5f6134ab4c00e745ad5a27caee5fb9a4179d3aff03bb972acc067c597f59f796'
             'SKIP')
-validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
-              E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
-              90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1 # Nicolas Fella <nicolas.fella@kde.org>
-              )
+validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
+              E0A3EB202F8E57528E13E72FD7574483BB57B18D  # Jonathan Esk-Riddell <jr@jriddell.org>
+              90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1) # Nicolas Fella <nicolas.fella@kde.org>
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
