@@ -1,12 +1,13 @@
 pkgbase = gitlab-exporter
 	pkgdesc = A Gitlab prometheus metric exporter
 	pkgver = 0.5.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gitlab.archlinux.org/archlinux/gitlab-exporter
 	arch = x86_64
 	license = MIT
 	makedepends = cargo
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = openssl
 	source = https://gitlab.archlinux.org/archlinux/gitlab-exporter/-/releases/v0.5.2/downloads/gitlab-exporter-0.5.2.tar.gz
 	source = https://gitlab.archlinux.org/archlinux/gitlab-exporter/-/releases/v0.5.2/downloads/gitlab-exporter-0.5.2.tar.gz.sig

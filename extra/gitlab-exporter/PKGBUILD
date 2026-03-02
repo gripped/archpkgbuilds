@@ -2,12 +2,12 @@
 
 pkgname=gitlab-exporter
 pkgver=0.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A Gitlab prometheus metric exporter'
 arch=('x86_64')
 url='https://gitlab.archlinux.org/archlinux/gitlab-exporter'
 license=('MIT')
-depends=('gcc-libs' 'openssl')
+depends=('libgcc' 'libstdc++' 'openssl')
 makedepends=('cargo')
 source=("https://gitlab.archlinux.org/archlinux/${pkgname}/-/releases/v${pkgver}/downloads/${pkgname}-${pkgver}.tar".gz{,.sig})
 sha256sums=('aa6f3ef81afcca34f53bd73ce6869371b9f84b09db70a0c11ceaf871cf3b5d25'
@@ -20,20 +20,17 @@ validpgpkeys=(
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd "${pkgname}-${pkgver}"
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   CFLAGS+=' -ffat-lto-objects'
   cargo build --release --frozen
 }
 
 check() {
   cd "${pkgname}-${pkgver}"
-  export RUSTUP_TOOLCHAIN=stable
   CFLAGS+=' -ffat-lto-objects'
   cargo test --frozen -- --test-threads 1
 }
