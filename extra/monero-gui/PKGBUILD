@@ -1,21 +1,22 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=monero-gui
-pkgver=0.18.4.5
+pkgver=0.18.4.6
 pkgrel=1
 pkgdesc="Qt GUI wallet for Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
 arch=('x86_64')
 url="https://getmonero.org/"
 depends=(
-  'gcc-libs'
   'glibc'
   'hicolor-icon-theme'
   'libboost_program_options.so'
+  'libgcc'
   'libgcrypt'
   'libhidapi-libusb.so'
   'libsodium.so'
   'libssl.so'
+  'libstdc++' 'libstdc++.so'
   'libunbound.so'
   'libunwind'
   'libusb'
@@ -48,7 +49,7 @@ source=(
   "git+https://github.com/monero-project/supercop.git"
   "monero-gui.desktop"
 )
-sha512sums=('48b929329d8f6d09cb4cac4c0297434720e793ffeca93505c40494673a57d73b01807e01ffaeb99cd7ad154421120e9c84beee0a7f0102ac7d6568996e3c1260'
+sha512sums=('f431685c415000aa1a3b3647c8f571d9a8182dc03ccf3d0dc33116ceda89e085dd66e4da4adf818e14128128b24371d710caf7455ed473e72797e4b3fd2344d4'
             'SKIP'
             'SKIP'
             'SKIP'
