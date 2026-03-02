@@ -11,16 +11,17 @@
 pkgbase='protobuf'
 pkgname=('protobuf' 'python-protobuf' 'ruby-google-protobuf')
 pkgver=33.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Protocol Buffers - Google's data interchange format"
 arch=('x86_64')
 url='https://developers.google.com/protocol-buffers/'
 license=('BSD-3-Clause')
 depends=(
-  'gcc-libs'
-  'glibc'
-  'zlib'
   'abseil-cpp'
+  'glibc'
+  'libgcc'
+  'libstdc++'
+  'zlib'
 )
 makedepends=(
   'bazelisk'
@@ -181,6 +182,7 @@ package_python-protobuf() {
 package_ruby-google-protobuf() {
   pkgdesc='Ruby bindings for Google Protocol Buffers'
   depends=(
+    'libgcc'
     'ruby'
     'ruby-bigdecimal'
     'ruby-rake'
