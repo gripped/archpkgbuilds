@@ -2,14 +2,16 @@
 
 pkgname=framework-system
 pkgver=0.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Tools to interact with the Framework Computer systems'
 url='https://github.com/FrameworkComputer/framework-system'
 arch=(x86_64)
 license=(BSD-3-Clause)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libusb
+  systemd-libs
 )
 makedepends=(
   cargo
