@@ -4,14 +4,15 @@
 pkgname=('lact' 'lact-libadwaita')
 pkgbase=lact
 pkgver=0.8.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Linux GPU Configuration Tool"
 arch=('x86_64')
 url="https://github.com/ilya-zlobintsev/LACT"
 license=('MIT')
 depends=(
   hwdata
-  gcc-libs
+  libgcc
+  libstdc++
   glibc
   gtk4
   vulkan-tools
