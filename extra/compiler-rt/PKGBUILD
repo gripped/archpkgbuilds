@@ -3,12 +3,12 @@
 
 pkgname=compiler-rt
 pkgver=21.1.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Compiler runtime libraries for clang"
 arch=('x86_64')
 url="https://compiler-rt.llvm.org/"
 license=('Apache-2.0 WITH LLVM-exception')
-depends=('gcc-libs')
+depends=('glibc' 'libgcc' 'libstdc++')
 makedepends=('llvm' 'cmake' 'ninja' 'python')
 # Build 32-bit compiler-rt libraries on x86_64 (FS#41911)
 makedepends_x86_64=('lib32-gcc-libs')
