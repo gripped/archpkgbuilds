@@ -2,10 +2,10 @@
 
 pkgbase=nvshmem
 pkgname=(nvshmem python-nvshmem)
-pkgver=3.5.19
-_upstream_pkgrel=1
+pkgver=3.5.21
+_upstream_pkgrel=0
 _cuda_ver=13
-pkgrel=3
+pkgrel=1
 pkgdesc="NVIDIA parallel programming interface based on OpenSHMEM"
 arch=(x86_64)
 url="https://developer.nvidia.com/nvshmem"
@@ -27,7 +27,7 @@ makedepends=(
   python-wheel
 )
 source=($pkgbase-$pkgver.tar.gz::https://github.com/NVIDIA/nvshmem/archive/refs/tags/v$pkgver-$_upstream_pkgrel.tar.gz)
-b2sums=('7ef1d38d94f372e03eff75446b62377f473fef5c7cb61072ce012c50a99b93eb27a398c1f1637a8858810191bf9719f862b5ce1d4f9f64dff402ed8fecde2bb1')
+b2sums=('9d7029476a216295ee75d723561621ef498a36cb480c7eb7576222f386e9787f799e1e3d03600cb0ada2e94f9a40f6978648fbd1c088a682b0ab27e0998e2a89')
 
 prepare() {
   cd $pkgbase-$pkgver-$_upstream_pkgrel
@@ -44,6 +44,9 @@ prepare() {
 
   # fix INCLUDE_DIRS in cmake config file
   sed -i 's|${PACKAGE_PREFIX_DIR}/include|${PACKAGE_PREFIX_DIR}/include/'"$pkgname"'|' cmake_config/NVSHMEMConfig.cmake.in
+
+  # respect LDFLAGS
+  sed -i 's|set(CMAKE_EXE_LINKER_FLAGS "-Wl,--enable-new-dtags")|set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--enable-new-dtags")|' CMakeLists.txt
 }
 
 build() {
@@ -131,8 +134,11 @@ package_python-nvshmem() {
     nvshmem
     python
     python-cffi
+    python-cuda-bindings
     python-cuda-core
+    python-cuda-pathfinder
     python-numba
+    python-numpy
     python-mpi4py
   )
 
