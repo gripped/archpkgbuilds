@@ -3,24 +3,30 @@
 # Contributor: Paulo Matias <matias archlinux-br org>
 
 pkgname=iverilog
-pkgver=12.0
-pkgrel=2
+pkgver=13.0
+pkgrel=1
 pkgdesc='Icarus Verilog compiler and simulation tool'
 arch=('x86_64')
 url='https://github.com/steveicarus/iverilog'
 license=('GPL')
-depends=('zlib' 'bzip2')
-makedepends=('gperf' 'git')
-options=('staticlibs')
-source=("git+https://github.com/steveicarus/iverilog#tag=v${pkgver/./_}"
-        fix-string-literal.patch::https://github.com/steveicarus/iverilog/commit/23e51ef7a8e8e4ba42208936e0a6a25901f58c65.patch)
-b2sums=('e84a7ebcb525a4ad3013f371df8871adf98beb4056d4e4b3502d7171820f59594e3ce892f566a74689adf442ecb6d39597c91f4e3e14d1d0338073544eee8830'
-        '1ec55d4ec133de284bcaa6c9cd9e6d90e6d9c65e499816826e1e8add5d02e25371cb065820179c66c50ca615176a6cb0952d0b86f25ef6d73db5645ef46da04f')
+depends=(
+  bzip2
+  zlib
+)
+makedepends=(
+  git
+  gperf
+)
+options=(
+  staticlibs
+)
+source=(
+  "git+https://github.com/steveicarus/iverilog#tag=v${pkgver/./_}"
+)
+b2sums=('e1a6dd5c99aa5094042a0e23f68039b9882fc376a85e754e8ef6ec1a21166681df04c28ef4005ccc8402db04449dcdedb9a4e74658525d694bd2b306ebfdf4a3')
 
 prepare() {
   cd "$pkgname"
-
-  patch -Np1 < ../fix-string-literal.patch
 
   aclocal
   autoconf
@@ -40,4 +46,3 @@ package() {
 }
 
 # vim: ts=2 sw=2 et:
-# getver: raw.githubusercontent.com/steveicarus/iverilog/master/scripts/MAKE_RELEASE.sh
