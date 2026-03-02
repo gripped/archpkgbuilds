@@ -5,7 +5,7 @@
 
 pkgname='libvirt-python'
 epoch=1
-pkgver=12.0.0
+pkgver=12.1.0
 pkgrel=1
 pkgdesc="libvirt python binding"
 arch=('x86_64')
@@ -28,7 +28,7 @@ options=('emptydirs')
 source=(
   "git+https://gitlab.com/libvirt/libvirt-python.git#tag=v${pkgver}"
 )
-sha512sums=('0cfe5370920c2efa34cd003f12a2ce1e624bb8a39df84d3cfeccc9478593991e297380a98bc64a2c0b9850984b8a063c609116356804acbfe1fb458e288a8e68')
+sha512sums=('2e727a4760bfcef4d62fd7eb732174f59abb63d5efc56adf05ba2fe279dcabbb078224eb2a7dfb96ee3e0e802d182f83dd1300fddf3f47090886ec1431795617')
 
 build() {
   cd ${pkgbase}
