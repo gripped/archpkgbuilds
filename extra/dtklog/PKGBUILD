@@ -1,29 +1,51 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
-pkgname=dtklog
-pkgver=0.0.6
-pkgrel=3
-pkgdesc='Simple, convinient and thread safe logger for Qt-based C++ apps'
+pkgbase=dtklog
+pkgname=(dtklog dtk6log)
+pkgver=6.7.31
+pkgrel=1
+pkgdesc='Simple, convenient and thread safe logger for Qt-based C++ apps'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtklog"
-license=('LGPL-2.1-or-later')
-depends=('glibc' 'libsystemd' 'qt5-base' 'spdlog' 'fmt' 'gcc-libs')
-makedepends=('git' 'cmake' 'ninja')
+license=('LGPL-3.0-or-later')
+groups=('deepin')
+makedepends=('git' 'cmake' 'ninja' 'qt5-base' 'qt6-base' 'spdlog' 'fmt')
 source=("git+https://github.com/linuxdeepin/dtklog.git#tag=$pkgver")
-sha512sums=('73604a45ceff5e1ce1a6898ca689a6a6fd75ed0805c0657a446bd2c4dda9e152e714d37dbb999ec38b9f3afd761682440bdd4d8aa0636a12de5aa78c32ac9fc2')
+sha512sums=('74eace82c414431e60142cdd26a3fbb5d80159ca37d58f542b17bbb81939834adf6ea3f6c96ef1004386e55f4c683b9e25fd6324d5a58f5993d274f3dc544deb')
 
 build() {
   cd dtklog
-  cmake . -GNinja \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DMKSPECS_INSTALL_DIR=lib/qt/mkspecs/modules \
-    -DCMAKE_INSTALL_PREFIX=/usr \
+
+  # Build Qt5 variant (dtklog)
+  cmake . -Bbuild-qt5 -GNinja \
+    -DDTK5=ON \
     -DBUILD_WITH_SYSTEMD=ON \
-    -DBUILD_WITH_QT6=OFF
-  ninja
+    -DMKSPECS_INSTALL_DIR=lib/qt/mkspecs/modules \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build-qt5
+
+  # Build Qt6 variant (dtk6log)
+  cmake . -Bbuild-qt6 -GNinja \
+    -DDTK5=OFF \
+    -DBUILD_WITH_SYSTEMD=ON \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build-qt6
 }
 
-package() {
+package_dtklog() {
+  pkgdesc='Simple, convenient and thread safe logger for Qt-based C++ apps (Qt5 build)'
+  depends=('glibc' 'libgcc' 'libstdc++' 'libsystemd' 'qt5-base' 'spdlog' 'fmt')
+
   cd dtklog
-  DESTDIR="$pkgdir" ninja install
+  DESTDIR="$pkgdir" ninja -C build-qt5 install
+}
+
+package_dtk6log() {
+  pkgdesc='Simple, convenient and thread safe logger for Qt-based C++ apps (Qt6 build)'
+  depends=('glibc' 'libgcc' 'libstdc++' 'libsystemd' 'qt6-base' 'spdlog' 'fmt')
+
+  cd dtklog
+  DESTDIR="$pkgdir" ninja -C build-qt6 install
 }
