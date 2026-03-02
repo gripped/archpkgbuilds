@@ -2,14 +2,15 @@
 
 _pyname=sqlite-anyio
 pkgname=python-$_pyname
-pkgver=0.2.5
+pkgver=0.2.8
 pkgrel=1
 pkgdesc='Asynchronous client for SQLite using AnyIO'
 arch=(any)
 url='https://github.com/davidbrochart/sqlite-anyio'
 license=(MIT)
 depends=(python
-         python-anyio)
+         python-anyio
+         python-typing_extensions)
 makedepends=(git
              python-build
              python-installer
@@ -17,7 +18,7 @@ makedepends=(git
 checkdepends=(python-pytest
               python-trio)
 source=(git+https://github.com/davidbrochart/sqlite-anyio#tag=$pkgver)
-sha256sums=('6800182cab3e89a4a0a3fe0753c19fe9b35e90d90ad50830a6615a299b088e9b')
+sha256sums=('0d0c794060e9d1d99e41d473d75d0f61ae630f510891a3932ec329f0e4867185')
 
 build() {
   cd $_pyname
@@ -26,8 +27,9 @@ build() {
 
 check() {
   cd $_pyname
-  PYTHONPATH="$PWD"/src \
-  pytest -v
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest -v
 }
 
 package() {
