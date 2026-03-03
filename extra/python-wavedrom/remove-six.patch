@@ -1,0 +1,101 @@
+--- a/setup.py
++++ b/setup.py
+@@ -22,7 +22,6 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
+ # Fields marked as "Optional" may be commented out.
+ 
+ requires = ["svgwrite",
+-            "six", # 2 and 3 compatibility
+             "pyyaml"
+             ]
+ setup(
+--- a/wavedrom/tspan.py
++++ b/wavedrom/tspan.py
+@@ -4,7 +4,6 @@
+ import sys
+ 
+ import svgwrite
+-from six import string_types
+ from svgwrite.base import BaseElement
+ from svgwrite.etree import etree
+ from .attrdict import AttrDict
+@@ -75,7 +74,7 @@ class JsonMLElement(BaseElement):
+             raise ValueError("JsonML must be a list")
+         if len(e) == 0:
+             raise ValueError("JsonML cannot be an empty list")
+-        if not isinstance(e[0], string_types):
++        if not isinstance(e[0], str):
+             raise ValueError("JsonML tagname must be string")
+         ret = AttrDict({"tagname": e[0], "attributes": {}, "element-list": []})
+         if len(e) > 1:
+@@ -110,7 +109,7 @@ class JsonMLElement(BaseElement):
+         # style ("<tspan>a<tspan>b</tspan>c</tspan>")
+         last = None
+         for c in e.element_list:
+-            if isinstance(c, string_types):
++            if isinstance(c, str):
+                 # Strings need special treatment for insertion
+                 # as those are not elements
+                 if last is None:
+@@ -137,4 +136,4 @@ class JsonMLElement(BaseElement):
+         return element
+ 
+     def get_xml(self):
+-        return self.get_xml_element(self._jsonml)
+\ No newline at end of file
++        return self.get_xml_element(self._jsonml)
+--- a/wavedrom/waveform.py
++++ b/wavedrom/waveform.py
+@@ -13,8 +13,6 @@ import svgwrite
+ from .attrdict import AttrDict
+ from collections import deque
+ 
+-from six import string_types
+-
+ from wavedrom.tspan import JsonMLElement
+ from . import waveskin, css
+ from .base import SVGBase
+@@ -166,7 +164,7 @@ class WaveDrom(SVGBase):
+         def data_extract(e):
+             tmp = e.get("data")
+             if tmp is not None:
+-                tmp = tmp.split() if isinstance(tmp, string_types) else tmp
++                tmp = tmp.split() if isinstance(tmp, str) else tmp
+             return tmp
+ 
+         content = []
+@@ -282,7 +280,7 @@ class WaveDrom(SVGBase):
+         if cxt.get(anchor) and cxt[anchor].get("text"):
+             tmark = self.element.text("", x=[float(cxt.xmax)*float(cxt.xs)/2], y=[y], text_anchor="middle", fill="#000")
+             tmark["xml:space"] = "preserve"
+-            if isinstance(cxt[anchor]["text"], string_types):
++            if isinstance(cxt[anchor]["text"], str):
+                 tmark.add(self.element.tspan(cxt[anchor]["text"]))
+             else:
+                 tmark.add(JsonMLElement(cxt[anchor]["text"]))
+@@ -296,7 +294,7 @@ class WaveDrom(SVGBase):
+ 
+         val = cxt[ref1][ref2]
+ 
+-        if isinstance(val, string_types):
++        if isinstance(val, str):
+             val = val.split()
+         elif isinstance(val, (int, float, bool)):
+             offset = int(val)
+@@ -309,7 +307,7 @@ class WaveDrom(SVGBase):
+                 return
+             elif len(val) == 1:
+                 offset = val[0]
+-                if isinstance(offset, string_types):
++                if isinstance(offset, str):
+                     L = val
+                 else:
+                     for i in range(length):
+@@ -321,7 +319,7 @@ class WaveDrom(SVGBase):
+                 if len(tmp) == 2:
+                     dp = len(tmp[1])
+ 
+-                if isinstance(offset, string_types) or isinstance(step, string_types):
++                if isinstance(offset, str) or isinstance(step, str):
+                     L = val
+                 else:
+                     offset = step * offset

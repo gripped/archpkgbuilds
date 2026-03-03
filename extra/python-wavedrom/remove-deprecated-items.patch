@@ -1,0 +1,54 @@
+--- a/setup.cfg
++++ /dev/null
+@@ -1,7 +0,0 @@
+-[bdist_wheel]
+-universal = 1
+-
+-[egg_info]
+-tag_build = 
+-tag_date = 0
+-
+--- a/setup.py
++++ b/setup.py
+@@ -9,7 +9,6 @@ import sys
+ 
+ from setuptools import setup, find_packages
+ # To use a consistent encoding
+-from codecs import open
+ from os import path
+ 
+ here = path.abspath(path.dirname(__file__))
+@@ -79,6 +78,9 @@ setup(
+     # above.
+     author_email="k4zuki@github.com, stefan@wallentowitz.de",  # Optional
+ 
++    # Pick your license as you wish
++    license = "MIT",
++
+     # Classifiers help users find your project by categorizing it.
+     #
+     # For a list of valid classifiers, see
+@@ -94,9 +96,6 @@ setup(
+         "Intended Audience :: Developers",
+         "Topic :: Software Development :: Build Tools",
+ 
+-        # Pick your license as you wish
+-        "License :: OSI Approved :: MIT License",
+-
+         # Specify the Python versions you support here. In particular, ensure
+         # that you indicate whether you support Python 2, Python 3 or both.
+         "Programming Language :: Python :: 2",
+--- a/wavedrom/tspan.py
++++ b/wavedrom/tspan.py
+@@ -8,10 +8,7 @@ from svgwrite.base import BaseElement
+ from svgwrite.etree import etree
+ from .attrdict import AttrDict
+ 
+-if sys.version_info < (3, 0):
+-    from HTMLParser import HTMLParser
+-else:
+-    from html.parser import HTMLParser
++from html.parser import HTMLParser
+ 
+ 
+ class TspanParser(HTMLParser, object):
