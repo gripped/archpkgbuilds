@@ -3,22 +3,24 @@
 
 pkgname=python-jsonschema-path
 # https://github.com/p1c2u/jsonschema-path/releases
-pkgver=0.3.3
-pkgrel=3
+pkgver=0.3.4
+pkgrel=1
 pkgdesc="JSONSchema Spec with object-oriented paths"
 url="https://github.com/p1c2u/jsonschema-path"
-# https://github.com/p1c2u/jsonschema-path/blob/0.3.3/pyproject.toml#L25
+# https://github.com/p1c2u/jsonschema-path/blob/0.3.4/pyproject.toml#L25
 license=('Apache-2.0')
 arch=('any')
 depends=('python' 'python-pathable' 'python-yaml' 'python-requests' 'python-referencing')
 makedepends=('python-build' 'python-installer' 'python-poetry-core')
 checkdepends=('python-pytest' 'python-responses')
 source=("https://github.com/p1c2u/jsonschema-path/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('846d476285b4c89d0241d18be09eb7c12df855f7b28f0d3ea9942a9d23977f3c051b93a1281f6f5323c2c4bc9c86fe82b5eae1bce647f58d9d2acce65d4f54a8')
+sha512sums=('85b791a374d61bedf66a0ca44b6906ec74f02ffe991c1cb220267c85c0e7b493375d712d7ca0828681c9c15f170bc29d4b808b00778895fb13f1f7ff3cdf2a9c')
 
 prepare() {
   cd jsonschema-path-$pkgver
   sed -i '/--cov/d' pyproject.toml
+  # Allow newer referencing versions
+  sed -i 's/referencing = "<0.37.0"/referencing = ">=0.28.0"/' pyproject.toml
 }
 
 build() {
