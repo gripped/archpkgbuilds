@@ -1,7 +1,7 @@
 pkgbase = python-wand
 	pkgdesc = Ctypes-based simple MagickWand API binding for Python
-	pkgver = 0.6.11
-	pkgrel = 6
+	pkgver = 0.6.12
+	pkgrel = 1
 	url = https://github.com/emcconville/wand
 	arch = any
 	license = MIT
@@ -11,11 +11,12 @@ pkgbase = python-wand
 	checkdepends = python-psutil
 	checkdepends = ghostscript
 	checkdepends = librsvg
+	makedepends = git
 	makedepends = python-setuptools
 	depends = imagemagick
 	depends = libxml2
 	depends = python
-	source = python-wand-0.6.11.tar.gz::https://github.com/emcconville/wand/archive/0.6.11.tar.gz
-	sha512sums = 996073d1b22fdd7924801114b24d803eb15e94c8980800a4ddb58110f72f9495aebc4de227db3a07af9c754a96c369c9ba7c7201442933ba653df1eefb74165f
+	source = git+https://github.com/emcconville/wand.git#tag=0.6.12
+	sha512sums = 8badf7240d5173a7990f9388a9d1460cb4844aad5f9e42a4a7e00c639f987a75affd3691de63ae30e718be194b9348ad87c9034920ce030cbad13b30025b6751
 
 pkgname = python-wand

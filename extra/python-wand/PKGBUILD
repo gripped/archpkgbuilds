@@ -1,32 +1,32 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-wand
-pkgver=0.6.11
-pkgrel=6
+pkgver=0.6.12
+pkgrel=1
 pkgdesc="Ctypes-based simple MagickWand API binding for Python"
 url="https://github.com/emcconville/wand"
 license=('MIT')
 arch=('any')
 depends=('imagemagick' 'libxml2' 'python')
-makedepends=('python-setuptools')
+makedepends=('git' 'python-setuptools')
 checkdepends=('python-pytest' 'python-pytest-forked' 'python-pytest-xdist'
               'python-psutil' 'ghostscript' 'librsvg')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/emcconville/wand/archive/$pkgver.tar.gz")
-sha512sums=('996073d1b22fdd7924801114b24d803eb15e94c8980800a4ddb58110f72f9495aebc4de227db3a07af9c754a96c369c9ba7c7201442933ba653df1eefb74165f')
+source=("git+https://github.com/emcconville/wand.git#tag=$pkgver")
+sha512sums=('8badf7240d5173a7990f9388a9d1460cb4844aad5f9e42a4a7e00c639f987a75affd3691de63ae30e718be194b9348ad87c9034920ce030cbad13b30025b6751')
 
 build() {
-  cd wand-$pkgver
+  cd wand
   python setup.py build
 }
 
 check() {
-  cd wand-$pkgver
+  cd wand
   pytest --deselect tests/image_methods_test.py::test_forward_fourier_transform \
          --deselect tests/image_methods_test.py::test_inverse_fourier_transform
 }
 
 package() {
-  cd wand-$pkgver
+  cd wand
   python setup.py install --root="$pkgdir" --optimize=1
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
