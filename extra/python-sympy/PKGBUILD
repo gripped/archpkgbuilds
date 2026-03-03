@@ -6,7 +6,7 @@
 
 pkgname=python-sympy
 pkgver=1.14.0
-pkgrel=5
+pkgrel=6
 arch=('any')
 pkgdesc='Symbolic manipulation package (Computer Algebra System), written in pure Python'
 url='https://sympy.org/en/index.html'
@@ -30,6 +30,7 @@ prepare() {
   cd sympy
   git cherry-pick -n 2bfc02884645447072ebb02afa93acd648eb1970 # Port away from deprecated mpmath functions
   patch -p1 -i ../mpmath-1.4.patch
+  git revert -n abfbbcc8a6360da97013f575b8a6e3052b516fde # Unpin mpmath
 }
 
 build() {
