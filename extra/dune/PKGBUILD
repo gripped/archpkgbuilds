@@ -6,13 +6,13 @@
 
 pkgname=dune
 pkgver=3.21.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A composable build system for OCaml (formerly jbuilder)"
 arch=(x86_64)
 url="https://github.com/ocaml/dune"
 license=('MIT')
-depends=('glibc' 'ocaml')
-makedepends=('git' 'ocaml-re' 'ocaml-compiler-libs' 'ocaml-csexp' 'ocaml-pp' 'ocaml-findlib')
+depends=('glibc' 'ocaml' 'ocaml-csexp' 'ocaml-pp' 'ocaml-re')
+makedepends=('git' 'ocaml-compiler-libs' 'ocaml-findlib')
 optdepends=()
 provides=('dune-configurator')
 source=("https://github.com/ocaml/dune/releases/download/${pkgver}/dune-${pkgver}.tbz")
