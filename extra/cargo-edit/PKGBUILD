@@ -3,7 +3,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-edit
-pkgver=0.13.8
+pkgver=0.13.9
 pkgrel=1
 pkgdesc='Managing cargo dependencies from the command line'
 url='https://github.com/killercup/cargo-edit/releases'
@@ -11,12 +11,12 @@ arch=('x86_64')
 license=('MIT' 'Apache-2.0')
 depends=('cargo' 'libssh2' 'openssl')
 source=(https://github.com/killercup/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('29be6ef62ec7c7a9e69210990893aa9708b52f4fbf2b1623296c1f93b0606a1109bb14dbc67bcc4a6e908485832a136622815f886d981a0f5bc184a8534d4701')
-b2sums=('f2d94249aa5b1a0c725a6eba503ad594fac0881a0965df38a248fc553a0d83eb5039eb629684422200bfc82655344ed39d9bbeea2ece09ec8c6593c4d4fee76c')
+sha512sums=('77bec8d357ca88e94f0750cf35f17618ce3f734fe6a102971029e48ddef4e3083a2d4cb4224111f5f316655bd03b0da0a97ea4a10e03dab13469abcf85acca5c')
+b2sums=('0e772a73f1ba9cc51189e8c3027445f1fd23f03a8720a466effb89d949bb2a18cd8dba69fde4e215e34333f9a799d729ce1f5cb463bd2a79420725e06d06d15f')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
