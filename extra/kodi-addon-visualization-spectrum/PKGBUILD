@@ -2,18 +2,18 @@
 
 pkgname=kodi-addon-visualization-spectrum
 epoch=1
-pkgver=20.2.0
-_codename=Nexus  # No Omega tagged version yet
-pkgrel=16
+pkgver=21.0.2
+_codename=Omega
+pkgrel=2
 pkgdesc="Spectrum visualizer for Kodi"
 arch=('x86_64')
 url='https://github.com/xbmc/visualization.spectrum'
-license=('GPL')
+license=('GPL-2.0-or-later')
 groups=('kodi-addons' 'kodi-addons-visualization')
 makedepends=('cmake' 'glm' 'kodi-dev')
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/xbmc/visualization.spectrum/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('b5f07e51058ec644c6b2a889be9e49403c566c8e14a7745b7a3610304467412a6ee7df8bf0ada4123915fac38b8efd658d6b41ba32bbfb29d9df13669d68dded')
+sha512sums=('280c3512f099d13f0cdc1fbab98c8cec4c7b944130f2dfd65619f647671847c0239b5e024f92933d90c1adc30dbbf5f515daf7d813244df29ab2723647d157f6')
 
 build() {
     cd "visualization.spectrum-$pkgver-$_codename"
