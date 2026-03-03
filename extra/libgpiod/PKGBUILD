@@ -2,8 +2,8 @@
 # Contributor: Greg Erwin <first name last name 256 at gmail dot com>
 
 pkgname=libgpiod
-pkgver=2.2.2
-pkgrel=2
+pkgver=2.2.3
+pkgrel=1
 pkgdesc="C library and tools for interacting with the linux GPIO character device"
 url="https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git"
 arch=('x86_64')
@@ -14,10 +14,8 @@ source=(
   "git+$url#tag=v$pkgver"
   "libgpiod.patch"
 )
-sha256sums=(
-  '6ddfb8e643d030c5cf52307b02d754150afa8216d5dcf0e0f29451ba1942d916'
-  '4d82aa1a46c4c604bb857589a15968924389166b105a1777bcc2a4204dc0468b'
-)
+sha256sums=('f5e40c84369ef910220fa17adf842e92a6e490ca29098d06ea2f7064169d20f1'
+            '4d82aa1a46c4c604bb857589a15968924389166b105a1777bcc2a4204dc0468b')
 
 build() {
   cd $pkgname
