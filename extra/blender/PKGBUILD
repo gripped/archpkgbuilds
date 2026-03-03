@@ -9,7 +9,7 @@
 
 pkgname=blender
 pkgver=5.0.1
-pkgrel=5
+pkgrel=6
 epoch=17
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
@@ -138,6 +138,12 @@ prepare() {
   git revert -n 49414a72f607ccd15f8b71b81edc9aff040d581e
 
   patch -Np1 -i "$srcdir"/blender-hip-update.patch
+
+  # TODO Dirty hack / workaround to address:
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/blender/-/issues/44
+  local _hiprt_api_ver
+  _hiprt_api_ver=$(awk '/HIPRT_API_VERSION/ {print $3}' /opt/rocm/include/hiprt/hiprtew.h)
+  sed -i "/HIPRT_API_VERSION/s/2005/$_hiprt_api_ver/" extern/hipew/include/hiprtew.h
 }
 
 _get_pyver() {
