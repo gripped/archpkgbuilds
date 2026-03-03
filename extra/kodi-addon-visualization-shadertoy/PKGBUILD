@@ -2,18 +2,18 @@
 
 pkgname=kodi-addon-visualization-shadertoy
 epoch=1
-pkgver=20.3.0
-_codename=Nexus  # No Omega tagged version yet
-pkgrel=17
+pkgver=21.0.2
+_codename=Omega
+pkgrel=2
 pkgdesc="Shadertoy visualizer for Kodi"
 arch=('x86_64')
 url='https://github.com/xbmc/visualization.shadertoy'
-license=('GPL')
+license=('GPL-2.0-or-later')
 groups=('kodi-addons' 'kodi-addons-visualization')
 makedepends=('cmake' 'p8-platform' 'glm' 'jsoncpp' 'kodi-dev')
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/xbmc/visualization.shadertoy/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('e2521ec3298630c67cd4f3991a2b3120e48fd62e17b84ed1f0266c587583c0a3372abbbc85bf03448a713ddc6eb61668782babd01dec5267cb7a97ec887b6be0')
+sha512sums=('01a5c1652ab501803331ed33a0449d43a33ac250a3ba4b806e37ec4110fefbba8f03fc62337f1d076e625fbd88201884380a73cad28c986c97c62dde9463f4af')
 
 build() {
     cd "visualization.shadertoy-$pkgver-$_codename"
