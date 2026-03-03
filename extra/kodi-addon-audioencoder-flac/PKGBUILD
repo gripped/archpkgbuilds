@@ -2,18 +2,18 @@
 
 pkgname=kodi-addon-audioencoder-flac
 epoch=1
-pkgver=20.2.0
-_codename=Nexus  # No Omega tagged version yet
-pkgrel=16
+pkgver=21.0.2
+_codename=Omega
+pkgrel=2
 pkgdesc="FLAC Audio Encoder add-on for Kodi"
 arch=('x86_64')
 url='https://github.com/xbmc/audioencoder.flac'
-license=('GPL')
+license=('GPL-2.0-or-later')
 groups=('kodi-addons' 'kodi-addons-audioencoder')
 makedepends=('cmake' 'kodi-dev')
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/xbmc/audioencoder.flac/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('83e3a6cd0311af05c7f3ae456bbe3d5627e47bc5d8f163bdfe57f3e70f798db6e9728698c73b3dc9da6cca2204e6a07004edff012f9bbf2e2b062e3fb97d5338')
+sha512sums=('0d5caa123f8d0f84fca49f782009457e3665fe281241af9654dc30f0f0150c0d30b082c983bf3f9f75332a82555349a947531e5cbe00742ed42692e5e9cff0ce')
 
 build() {
     cd "audioencoder.flac-$pkgver-$_codename"
