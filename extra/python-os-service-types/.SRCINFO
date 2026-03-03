@@ -1,8 +1,8 @@
 pkgbase = python-os-service-types
 	pkgdesc = Python library for consuming OpenStack sevice-types-authority data
-	pkgver = 1.7.0
-	pkgrel = 19
-	url = https://pypi.python.org/pypi/os-service-types/1.7.0
+	pkgver = 1.8.0
+	pkgrel = 1
+	url = https://pypi.python.org/pypi/os-service-types/1.8.0
 	arch = any
 	license = Apache
 	checkdepends = python-stestr
@@ -12,10 +12,12 @@ pkgbase = python-os-service-types
 	checkdepends = python-keystoneauth1
 	checkdepends = python-six
 	makedepends = git
-	makedepends = python-setuptools
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
 	depends = python-pbr
 	options = !emptydirs
-	source = git+https://github.com/openstack/os-service-types.git#commit=0b2f4733eb1bbbd8880e7fa15a769a9bbf7338b4
-	sha512sums = SKIP
+	source = git+https://github.com/openstack/os-service-types.git#tag=1.8.0
+	sha512sums = 4ca875999d3dbf7143bf3cc2495a99413d8ac650c1b2622e91916eeb3b0d44ffaa02364be934ee67fafe0ec721e1a84a16a8c794185288c936dec5e27fe02fa2
 
 pkgname = python-os-service-types
