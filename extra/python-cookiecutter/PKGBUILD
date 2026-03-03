@@ -2,8 +2,8 @@
 
 _name=cookiecutter
 pkgname=python-cookiecutter
-pkgver=2.6.0
-pkgrel=4
+pkgver=2.7.0
+pkgrel=1
 pkgdesc="A command-line utility that creates projects from project templates"
 arch=(any)
 url="https://github.com/cookiecutter/cookiecutter"
@@ -30,9 +30,9 @@ checkdepends=(
   python-pytest
   python-pytest-mock
 )
-source=($url/archive/$pkgver/$_name-$pkgver.tar.gz)
-sha512sums=('619be103bb831cbe9c50c4fa5114d6151a462a29a233f8999305403dda449f90a5900940a2b9d98433a8cdd3dbad421afe6feded42f4bcb6ee83523570ed2c1e')
-b2sums=('967264bdf2b7f7ec7d2466d530e9ab6f689f88bb8537f833f76b952f4cbec07cfdf8c17c3f9690023f3687a8aab66ecb5dfe609e58ed933f1fcd2fc2174938f2')
+source=($url/archive/v$pkgver/$_name-$pkgver.tar.gz)
+sha512sums=('9fb441788c7b58f74e1e982519c2c66872751c4be45d65d35a3bafd41f767d6383f984ddb54ffc92f654aa96a1011a7861b618ac4dd91443bc00f366705ce842')
+b2sums=('2810a34e1388afba3aaaf8e5b0580a08d28f9fe2d9b6b02a3289024e9e1c9abac6cdbf9151e6d69da370a6d01ed1778a03c38272ba0f94239f4c272a9e4e919e')
 
 build() {
   cd $_name-$pkgver
