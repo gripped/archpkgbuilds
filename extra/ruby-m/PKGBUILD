@@ -1,9 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-m
-pkgver=1.6.1
-_commit=c5220612016b014f4aac29632d044a024704cdd9
-pkgrel=5
+pkgver=1.6.2
+pkgrel=1
 pkgdesc='Run test/unit tests by line number. Metal!'
 arch=(any)
 url='https://github.com/qrush/m'
@@ -24,14 +23,14 @@ checkdepends=(
   ruby-bundler
 )
 options=(!emptydirs)
-source=(git+https://github.com/qrush/m.git#commit=$_commit)
-sha256sums=('SKIP')
+source=(git+https://github.com/qrush/m.git#tag=v$pkgver)
+sha256sums=('7bd2890baca59aace81fc4a901a762674b4f27406953fbe0d5a245b40cdd5686')
 
 prepare() {
   cd m
-  sed '/[rR]occo/d;/appraisal/d;/coveralls/d' -i m.gemspec Rakefile
+  sed -i 's/task default: \[:test, "standard:fix"\]/task default: [:test]/' Rakefile
+  sed '/[rR]occo/d;/appraisal/d;/coveralls/d;/standard/d' -i m.gemspec Rakefile
   echo -e "gemspec\ngem 'logger'\ngem 'mutex_m'\ngem 'base64'\ngem 'bigdecimal'\ngem 'drb'" > Gemfile
-  git rm Gemfile.lock
 }
 
 build() {
