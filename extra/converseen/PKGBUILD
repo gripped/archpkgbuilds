@@ -4,7 +4,7 @@
 # Contributor: archtux <antonio.arias99999 at gmail.com>
 
 pkgname=converseen
-pkgver=0.15.2.0
+pkgver=0.15.2.1
 pkgrel=1
 pkgdesc="Batch image converter and resizer"
 arch=('x86_64')
@@ -13,7 +13,7 @@ license=('GPL-3.0-or-later')
 depends=('glibc' 'hicolor-icon-theme' 'imagemagick' 'libgcc' 'libstdc++' 'qt6-base')
 makedepends=('cmake' 'qt6-tools')
 source=("https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.bz2")
-sha256sums=('447ffc21c9470b666ac0123cacca93ca370b923329cf29ffe9a63f61a97bfb50')
+sha256sums=('0c720ab329a4e23e3403327a2521d86e4bd762057b8fb3be88cfb8973b4084be')
 
 build() {
 	cmake -B build \
