@@ -3,7 +3,7 @@
 # Contributor: Moritz Lipp <mlq@pwmt.org>
 
 pkgname=lib32-libunwind
-pkgver=1.8.1
+pkgver=1.8.2
 pkgrel=1
 pkgdesc="Determine and manipulate the call-chain of a program (32-bit)"
 url="https://www.nongnu.org/libunwind/"
@@ -23,7 +23,7 @@ provides=(
 source=(
   https://github.com/libunwind/libunwind/releases/download/v$pkgver/libunwind-$pkgver.tar.gz{,.asc}
 )
-b2sums=('936e70f2428d8f6ada3b4d58b3c9e3a9738eb2f7aee1ad5fb4e44dbb7400186d1bd1ead86a698e53d199d5944b102f8380d08b48104a138021286a79fb006ec3'
+b2sums=('b198b186c616adf1302d153a12949ceab07608f8133e42454e6b10bdf9518a514ef15d5ba52ef75b11e5f73fa330205accd415cfc30e6fa3ddd9724cbb088737'
         'SKIP')
 validpgpkeys=(
   F86EB09F72717426F20D36470A0FF845B7DB3427  # Stephen M. Webb <stephen.webb@bregmasoft.ca>
