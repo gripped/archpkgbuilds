@@ -1,17 +1,17 @@
 # Maintainer: BlackEagle <ike.devolder@gmail.com>>
 
 pkgname=kodi-platform
-_commit=280ff8a
-pkgver=20250416.280ff8a
+_commit=844cf3e
+pkgver=20251221.844cf3e
 pkgrel=2
 pkgdesc="platform library for external kodi addons"
 arch=('x86_64')
 url='https://github.com/xbmc/kodi-platform'
-license=('GPL')
+license=('GPL-2.0-or-later')
 makedepends=('git' 'cmake' 'kodi-dev')
 options=(!lto)
 source=("$pkgname::git+https://github.com/xbmc/kodi-platform.git#commit=$_commit")
-sha256sums=('a6045d005b467b0a3640bc68978afd63178ea0a5d08e97ad854235f3f38fa8c6')
+sha256sums=('f1241e99e59ac273b0b4b6f415b2429b0f21f7ce3a076a18a1ecf6e214d7d374')
 
 pkgver() {
     cd "$pkgname"
