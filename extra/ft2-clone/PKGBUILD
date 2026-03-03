@@ -3,7 +3,7 @@
 # Contributor: Alex Gentilucci <alexander.gentilucci@gmail.com>
 
 pkgname=ft2-clone
-pkgver=2.05
+pkgver=2.07
 pkgrel=1
 pkgdesc='Portable Fasttracker II clone'
 arch=(x86_64)
@@ -32,10 +32,10 @@ source=(
   "$pkgname::git+https://github.com/8bitbubsy/ft2-clone#tag=v$pkgver"
   templatify-build-date.patch
 )
-sha512sums=('adfe512f08a926d065cc48c31264c49900bd8b934777f6482616b4caea48b716c3b2b3a030daac1fda17618adbcb764dfb09420d23f2cc526c7414cf505d9bf9'
-            '3b434e7acf36230e7db570422e7c18430537334031641a14c3da8f5133dc780c6baab3c457409a86e189741820f0c69cb54fd7c28f01017135921deea2c218cd')
-b2sums=('ed9ffa059a23fb634dd58757d2e216f77dc1c3be642a5b7bd438aca6260b9e22f491d26b22bb8060131ed2a91b8cf5c1996f516b3a2de3916e85f4218ae6fee9'
-        '8d0a03a3cb744fe2f2bd98fd2b45afd9e9b4916db0c59eb64ae91cef2a61e67bdd6af5c41a0f89a75714099665df18ed726441d103d400f4751d9986643a863b')
+sha512sums=('c8bc739ea48b1a77b0912818e710fd6cadc6121241383d7957b741434a266e88b2c4c84525cad9b29b228ac342bb5ec6a19c654bc2ca63f1949a8f337f7f35ae'
+            'f5db97dee6e0675fff71f410473eedd7f78b42e7df66e0e9d5b41bbd1d815dd7288fc3fcef1f94557fa9529b747b116b2617a732ee6d0abc43958b8dd85b5aa4')
+b2sums=('c5d6803fc980f351e9b88e4a1bfe32338912f1d7e3843c7ca10dbbd8d42d8f1a9dc51c0fd303c4bae3fbdd02f8c85eb92594a945206f333bf34dbd368f070597'
+        '0c04fa59b357441cf6114b4ecc417124c0eee4532ecad8b57530b3938f986f78db2a30a3c5ccbfc8a5b61a824932ded5cdb18eafc2f2f481e21cb6838bf4de31')
 
 prepare() {
   cd "$pkgname"
