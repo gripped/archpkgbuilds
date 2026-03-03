@@ -1,15 +1,15 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=aspell-en
-pkgver=2020.12.07
-pkgrel=2
+pkgver=2026.02.25
+pkgrel=1
 pkgdesc="English dictionary for aspell"
 arch=('x86_64')
 url="http://aspell.net/"
 license=('custom')
 depends=('aspell')
 source=("https://ftp.gnu.org/gnu/aspell/dict/en/aspell6-en-$pkgver-0.tar.bz2")
-sha512sums=('9ed4e64891242e5e5e7d6ac82a0d1fda3bdc5116bd9d926e787b8f381080b357915f0c9b39cae04c1da0f2ec6e47ffe30a584f7f3bf7d455a46e8518a7858547')
+sha512sums=('869f4a09897a3d2a7f783c097b7ebd6146ba92bac5f5a1d0682e4ae0cf57748e9bcdd3eb2b18593402b3c04f0ce0e5c7c48c6dce03ab2beb02b28431ecef0d17')
 
 build() {
   cd "$srcdir/aspell6-en-$pkgver-0"
