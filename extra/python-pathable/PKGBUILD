@@ -1,34 +1,34 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pathable
-pkgver=0.4.3
-pkgrel=5
+pkgver=0.4.4
+pkgrel=1
 pkgdesc="Object-oriented paths"
 url="https://github.com/p1c2u/pathable"
-license=('Apache')
+license=('Apache-2.0')
 arch=('any')
 depends=('python')
-makedepends=('python-build' 'python-installer' 'python-poetry-core')
+makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
 checkdepends=('python-pytest')
-source=("https://github.com/p1c2u/pathable/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('5481ba1e6f4ab4318b9a7bd1d1ddd152f715b001bc7edd1b1221501da1a95578ee6601ce4ce0bdb98773c7954212687d249418e69acef1b350fc5d6cb188dbfc')
+source=("git+https://github.com/p1c2u/pathable.git#tag=$pkgver")
+sha512sums=('1815b840c9029438d3962db8bf8fa63ade065b9d50586d9fdcad56cf435e4c5a06eaa9bd19f0c229d95ed53865b038f6bb70b4db4397191de65cdf2c7caee5ee')
 
 prepare() {
-  cd pathable-$pkgver
+  cd pathable
   sed -i '/--cov/d' pyproject.toml
 }
 
 build() {
-  cd pathable-$pkgver
+  cd pathable
   python -m build -wn
 }
 
 check() {
-  cd pathable-$pkgver
+  cd pathable
   pytest
 }
 
 package() {
-  cd pathable-$pkgver
+  cd pathable
   python -m installer -d "$pkgdir" dist/*.whl
 }
