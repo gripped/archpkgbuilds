@@ -2,18 +2,18 @@
 
 pkgname=kodi-addon-screensaver-stars
 epoch=1
-pkgver=20.1.0
-_codename=Nexus  # No Omega tagged version yet
-pkgrel=16
+pkgver=21.0.2
+_codename=Omega
+pkgrel=2
 pkgdesc="Starfield screensaver for Kodi"
 arch=('x86_64')
 url='https://github.com/xbmc/screensaver.stars'
-license=('GPL')
+license=('GPL-2.0-or-later')
 groups=('kodi-addons' 'kodi-addons-screensaver')
 makedepends=('cmake' 'kodi-dev')
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/xbmc/screensaver.stars/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('1ebd5b02dbe058131919a8ff5f4b7368053744b62d91477c215192bfcfa8520662b81bad73f7f5bcc51f347c1e141cda51be308fe644d58a23e1ca1c15e973a4')
+sha512sums=('ecc160e26e4e866e44f93ca9ccdcc4db4f05e1941570bafa15e17a6cfe1926493d1592cfd858782a828d1784a269786b12b83a4c6bc874322e0903c2cfe92df4')
 
 build() {
     cd "screensaver.stars-$pkgver-$_codename"
