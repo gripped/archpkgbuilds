@@ -2,7 +2,8 @@
 # Contributor: hexchain <i@hexchain.org>
 
 pkgname=telegram-desktop
-pkgver=6.6.1
+pkgver=6.6.2
+_td_commit=af0cb1d30a1e5cb1a10cd83b48998ca9ea9ce249
 pkgrel=1
 pkgdesc='Official Telegram Desktop client'
 arch=('x86_64')
@@ -62,13 +63,12 @@ optdepends=(
   'webkitgtk-6.0: embedded browser features provided by webkitgtk-6.0 (Wayland only)'
   'xdg-desktop-portal: desktop integration'
 )
-_td_commit=6d74326c5ce53aeb52496f157f0080d9b8515970
 source=(
   "https://github.com/telegramdesktop/tdesktop/releases/download/v${pkgver}/tdesktop-${pkgver}-full.tar.gz"
   "git+https://github.com/tdlib/td.git#tag=${_td_commit}"
 )
-sha512sums=('a49c4370536751a4e8570ec0b3b093a813d65a37ffeaad790beba298adbdcba49891afda9bcca91f8ae1c84d1744dbfee0f70af8674e11701ef85ed2080ff065'
-            '6dc6e684a0bf35bb83f6fa6579a0da82d604190b222f2cd2de9b8ef5b93f5f18ac9a8733e2c5cf2a64ed9933b346ea31e26a4bcc0039956280ec2deef9649457')
+sha512sums=('9e3ea6db52c16d5735f6f0e5d2bbd62356298b26539c3e2502d33bb244aa05a3175d7db72451b385d0092ec2f67c8fa2ece4d387abaa676212a50b97b7d9ba74'
+            '9b5a0af914b9d8f9aaa44117531a268caf89665728d75ff2b6380320826b2fd5f2197d663e5230553119d0b539ebca98e20dd165bc8bafe3bd23f0a209ccfa5a')
 
 build() {
   CXXFLAGS+=' -ffat-lto-objects'
