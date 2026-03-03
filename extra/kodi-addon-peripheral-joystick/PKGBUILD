@@ -1,18 +1,18 @@
 # Maintainer: BlackEagle <ike.devolder@gmail.com>>
 
 pkgname=kodi-addon-peripheral-joystick
-pkgver=20.1.18
-_codename=Nexus  # No Omega tagged version yet
-pkgrel=7
+pkgver=21.1.23
+_codename=Omega
+pkgrel=2
 pkgdesc="Joystick support for Kodi"
 arch=('x86_64')
 url='https://github.com/xbmc/peripheral.joystick'
-license=('GPL')
+license=('GPL-2.0-or-later')
 groups=('kodi-addons' 'kodi-addons-peripheral')
 makedepends=('cmake' 'kodi-dev')
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/xbmc/peripheral.joystick/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('49b7f2466c968a0d56384974408e3a5c036b5a88292c2d34de680cf458a48314bc65de8c3dced52c0a8d1993d035e266f74b7fcddb27eec46900a8d08fe86909')
+sha512sums=('6c948680ec919076479c47031a75eefd7e6bad7d3f40d8b1a9d38e1f831b136cdab9381fa624e7d0255bd7bc558bf6b34ea4f38021724067059abc7df6917aae')
 
 build() {
     cd "peripheral.joystick-$pkgver-$_codename"
