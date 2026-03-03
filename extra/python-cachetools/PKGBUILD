@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-cachetools
-pkgver=7.0.1
+pkgver=7.0.2
 pkgrel=1
 pkgdesc="Extensible memoizing collections and decorators"
 url="https://github.com/tkem/cachetools"
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
 source=("git+https://github.com/tkem/cachetools.git#tag=v$pkgver")
-sha512sums=('0efdf330fc56b8d7986fbd48a07a470ea793c3c5511c62c40754e7444ff542eebb44a5ed846725c28c92a1b04079d42d6a36a54eb96102de87ef8f643e52bba5')
+sha512sums=('f1ecb0df69993dc07fe9c28b00bd98b40a1561d556cbd935ffb6625e6ca496af76d57129411cef4a4c0f2d0cd9728a4c27c0f6db6ed9b2e8a0926056d2a12d29')
 
 build() {
   cd cachetools
