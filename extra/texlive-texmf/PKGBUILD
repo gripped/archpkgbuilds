@@ -9,22 +9,20 @@ _collections=( basic bibtexextra binextra context fontsextra fontsrecommended fo
 for _coll in ${_collections[@]}; do
   pkgname+=(texlive-$_coll)
 done
-_rev=74725
-pkgver=2025.2
-pkgrel=3
+_rev=78236
+pkgver=2026.0
+pkgrel=1
 pkgdesc='TeX Live - '
 license=(GPL)
 arch=(any)
 depends=(texlive-bin)
-makedepends=(subversion
-             zip)
+makedepends=(subversion)
 url='https://tug.org/texlive/'
 source=(svn://tug.org/texlive/tags/texlive-$pkgver/Master/texmf-dist#revision=$_rev
         svn://tug.org/texlive/tags/texlive-$pkgver/Master/tlpkg#revision=$_rev
         svn://tug.org/texlive/tags/texlive-$pkgver/Master/bin/x86_64-linux#revision=$_rev
         09-texlive-fonts.conf
         texmf.cnf.patch
-        texmfcnf.lua.patch
         70-mktexlsr.hook
         71-texlive-language.hook
         texlive-language.script
@@ -33,42 +31,26 @@ source=(svn://tug.org/texlive/tags/texlive-$pkgver/Master/texmf-dist#revision=$_
         73-texlive-updmap.hook
         texlive-updmap.script
         80-mtxrun.hook
-        mtxrun.script
-        https://gitlab.com/git-latexdiff/git-latexdiff/-/commit/a0aa6bad.patch
-        minted-python-3.14.patch)
+        mtxrun.script)
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
             '5e79c40cf3ab93348fc89e97890198601767ea2c8fea89ea76088c17a2b35962'
-            '04fe1843336ee0707794497a7179abc31d5fc5148119e5b9b5f6c5de0962fa59'
-            '758c6593be7d0ee7e50095d08401a9fd3ea16db2f6b8bf22a8682fa82334a24f'
+            'b91ddb3a84ae13ee4030391ce113070ecb7058accc71df237fd99578ef360bd9'
             '95f6540c49b11f1ece8010d76b53ca90efd61e1831530562bfcde4350f6c1db1'
-            'e6d399faee55ba461cf7e617f2369f5c516de292b28afc6665c9e3fe2b821973'
+            '64c31485302e9fa8dafe15043d65aae240512054cd642532eb5cfc3bd9b1103e'
             'c64c2a6371e94b0f67799c0ac84ea74d8edbc181b26672aa15b8132ec5fbabc3'
-            '9b99f197c71149b03355f7c24ee1e07f54a1262bb030756fe660b9aa715a184f'
+            '47574c612b2b9265e63fa50d304353a066f2c89a4d89a0fe4eaf46ec5693c20c'
             'f96e9f815fa0a4b85e677f2a9215d9106b8abe46eceb3f3e36a6c76eda3e4a85'
             '2141c0842668fb937fd21ca2fae39b642c9665656e404a0d4ee7bdc477bf51fe'
             'ee6e76192a5ad880a2152cd7900b86c8465239fb228045a2f8360b0d7a449f4a'
             'f6bb67db32d37ca15eba88bd15d8b9882c61915f98bc8d7c3c21a66c8cf8f019'
-            '98b730e917281227e29077ba5689ad78baee0af3859b55966b2604c6a85f1305'
-            'e6b754b49563531ec737891ae7c9ad3d2e5bc716e0718ae7bfda298463af48f1'
-            'e01cb79d11a5eee51084565b77edb83fa85b1f24df2b30061c04f9e88f058a4e')
+            '98b730e917281227e29077ba5689ad78baee0af3859b55966b2604c6a85f1305')
 options=(!strip) # Nothing to strip, save packaging time
 
 prepare() {
 # Customize configuration
   patch -d texmf-dist/web2c -p0 < texmf.cnf.patch
-  patch -d texmf-dist/web2c -p0 < texmfcnf.lua.patch
-
-# Fix git-latexdiff
-  patch -d texmf-dist/scripts/git-latexdiff -p1 < a0aa6bad.patch
-
-# Fix minted with python 3.14
-  pushd texmf-dist/scripts/minted
-    bsdunzip latexminted-0.5.0-py3-none-any.whl
-    patch -p2 --binary < "$srcdir"/minted-python-3.14.patch
-    zip -r latexminted-0.5.0-py3-none-any.whl latexminted latexminted-0.5.0.dist-info
-  popd
 
   # Copy files where format and maps will be extracted from
   cp texmf-dist/web2c/{fmtutil.cnf,updmap.cfg,texmf.cnf} .
