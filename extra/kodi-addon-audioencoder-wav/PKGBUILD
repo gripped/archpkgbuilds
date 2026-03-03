@@ -2,18 +2,18 @@
 
 pkgname=kodi-addon-audioencoder-wav
 epoch=1
-pkgver=20.2.0
-_codename=Nexus  # No Omega tagged version yet
-pkgrel=15
+pkgver=21.0.2
+_codename=Omega
+pkgrel=2
 pkgdesc="WAV Audio Encoder add-on for Kodi"
 arch=('x86_64')
 url='https://github.com/xbmc/audioencoder.wav'
-license=('GPL')
+license=('GPL-2.0-or-later')
 groups=('kodi-addons' 'kodi-addons-audioencoder')
 makedepends=('cmake' 'kodi-dev')
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/xbmc/audioencoder.wav/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('7249bfbb0f01820353b089456fa766727dda62ab88306671e0e0941079808ee452f2d1f2824c30b6910bac37547a635f76f04ca682f4d8e5cfb3addffbff3459')
+sha512sums=('4b09a4c3c3c968a771af03090b83c1887918a0954282b7d57da03066c295c6ab337a9f8972bd64421f37f6e9c321e2b6a2a9eb2627e36d7a0d3190021ecb86c1')
 
 build() {
     cd "audioencoder.wav-$pkgver-$_codename"
