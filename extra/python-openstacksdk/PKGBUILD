@@ -2,8 +2,8 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstacksdk
-pkgver=4.0.1
-pkgrel=2
+pkgver=4.1.0
+pkgrel=1
 pkgdesc="An SDK for building applications to work with OpenStack"
 arch=('any')
 url="https://developer.openstack.org/sdks/python/openstacksdk"
@@ -17,7 +17,7 @@ checkdepends=('python-ddt' 'python-fixtures' 'python-hacking' 'python-jsonschema
               'python-oslo-config' 'python-oslotest' 'python-prometheus_client'
               'python-requests-mock' 'python-stestr' 'python-testscenarios' 'python-testtools')
 source=("git+https://github.com/openstack/openstacksdk.git#tag=$pkgver")
-sha512sums=('ae20f97e65104b13186c739dd0f6ca718fa9c73cd2c73055869445293c0cbd63b04cf7a5e5e4122d37a490d188039524ee33bae271be0ad45898c83ed63757c2')
+sha512sums=('3490661cdb91012c85e240dc3f1da6e430b75de3254111cfa2c6b9a5c43de2be48d4cf99abd7e1710a15790b7dece6e2364e1764adbb2290908870e32e411148')
 
 build() {
   cd openstacksdk
@@ -30,10 +30,11 @@ check() {
 
   # Deprecationwarnings break the tests, so we exclude these tests
   # TestConnection.test_create_unknown_proxy and test_unsupported_version_override
+  # test_ost_version checks if os-service-types is at the latest version, but we use the latest available
 
   cd openstacksdk
   # TODO: package statsd?
-  stestr run --exclude-regex "openstack.tests.unit.test_stats.TestStats|test_unsupported_version_override|TestConnection.test_create_unknown_proxy"
+  stestr run --exclude-regex "openstack.tests.unit.test_stats.TestStats|test_unsupported_version_override|TestConnection.test_create_unknown_proxy|test_ost_version"
 }
 
 package() {
