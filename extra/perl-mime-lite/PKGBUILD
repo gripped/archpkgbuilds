@@ -2,8 +2,8 @@
 # Contributor: Eric Johnson <eric@coding-zone.com>
 
 pkgname=perl-mime-lite
-pkgver=3.033
-pkgrel=7
+pkgver=3.035
+pkgrel=1
 pkgdesc="Perl module that provides lightweight MIME generator"
 arch=('any')
 url="https://search.cpan.org/dist/MIME-Lite/"
@@ -11,7 +11,7 @@ license=('GPL' 'PerlArtistic')
 depends=('perl-email-date-format' 'perl-mailtools' 'perl-mime-types' 'perl')
 options=('!emptydirs')
 source=("https://search.cpan.org/CPAN/authors/id/R/RJ/RJBS/MIME-Lite-${pkgver}.tar.gz")
-sha512sums=('315fbe01a432e67953305fb1db70aa337d3c7e1710087196535e108fbb516cf868a277acc693afbbc34ffa135386c6a784ddf4c1de0359fbe6c6339b26aac878')
+sha512sums=('762f0b7e837b6c11432fa5ffadd9b5fde4c05202295ef787087cca291390c617f16d540eb9e7c483d478126d43d4d5bbd6c849f24b3dc15c5f44d1666fc34fcd')
 
 build() {
   cd MIME-Lite-${pkgver}
