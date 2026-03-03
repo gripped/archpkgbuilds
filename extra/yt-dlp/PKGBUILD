@@ -3,7 +3,7 @@
 # Contributor: katt <magunasu.b97@gmail.com>
 
 pkgname=yt-dlp
-pkgver=2026.02.21
+pkgver=2026.03.03
 pkgrel=1
 pkgdesc='A youtube-dl fork with additional features and fixes'
 arch=(any)
@@ -22,6 +22,7 @@ optdepends=('ffmpeg: for video post-processing'
             'rtmpdump: for rtmp streams support'
             'atomicparsley: for embedding thumbnails into m4a files'
             'aria2: for using aria2 as external downloader'
+            'python-curl_cffi: support for impersonating browser requests'
             'python-mutagen: for embedding thumbnail in certain formats'
             'python-pycryptodome: for decrypting AES-128 HLS streams and various other data'
             'python-pycryptodomex: for decrypting AES-128 HLS streams and various other data'
@@ -33,7 +34,7 @@ optdepends=('ffmpeg: for video post-processing'
             'phantomjs: for extractors with javascript code'
             'python-secretstorage: For -cookies-from-browser to access the GNOME keyring while decrypting cookies of Chromium-based browsers')
 source=($pkgname-$pkgver.tar.gz::https://github.com/yt-dlp/yt-dlp/releases/download/$pkgver/yt-dlp.tar.gz)
-sha256sums=('3655cb66b0edf6accb2361e886b1399c7dad3be5fa4434ac6d0fdbfc07718867')
+sha256sums=('77974412fd5585a12dea2cb0334bfbc96d9d0a2d6c102cf8cc06b5159f2d9ad4')
 
 build() {
   cd $pkgname
