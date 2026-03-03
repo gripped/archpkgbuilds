@@ -10,39 +10,40 @@
 pkgbase=nix
 pkgname=(nix perl-nix)
 pkgver=2.34.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A purely functional package manager'
 arch=(x86_64)
 url='https://nixos.org/nix'
 license=(LGPL-2.1-only)
 makedepends=(
-  aws-sdk-cpp-core aws-sdk-cpp-iam aws-sdk-cpp-s3
-  boost libboost_context.so
-  brotli libbrotlienc.so libbrotlidec.so
+  aws-crt-cpp
+  aws-c-common
+  boost
+  brotli
   bzip2
-  curl libcurl.so
+  curl
   cmake
-  editline libeditline.so
+  editline
   gc
   git
   graphviz
   gtest
   jq
   libblake3
-  libsodium libsodium.so
-  libarchive libarchive.so
-  libcpuid libcpuid.so
-  libgit2 libgit2.so
-  libseccomp libseccomp.so
-  lowdown liblowdown.so
+  libsodium
+  libarchive
+  libcpuid
+  libgit2
+  libseccomp
+  lowdown
   meson
   nix-busybox
   nlohmann-json
-  openssl libcrypto.so
+  openssl
   perl
   perl-dbd-sqlite
   rapidcheck
-  sqlite libsqlite3.so
+  sqlite
   toml11
 )
 source=(
@@ -100,32 +101,28 @@ build() {
 
 package_nix() {
   depends=(
-    aws-sdk-cpp-core
-    aws-sdk-cpp-iam
-    aws-sdk-cpp-s3
-    aws-c-auth
     aws-crt-cpp
-    libstdc++
+    aws-c-auth
     aws-c-common
-    boost-libs libboost_context.so
-    brotli libbrotlienc.so libbrotlidec.so
-    curl libcurl.so
-    editline libeditline.so
+    boost-libs
+    brotli
+    curl
+    editline
     gc
+    glibc
     libgcc
     libstdc++
-    glibc
-    libarchive libarchive.so
+    libarchive
     libblake3
-    libcpuid libcpuid.so
-    libgit2 libgit2.so
-    libseccomp libseccomp.so
-    libsodium libsodium.so
-    lowdown liblowdown.so
+    libcpuid
+    libgit2
+    libseccomp
+    libsodium
+    lowdown
     nix-busybox
     nlohmann-json
-    openssl libcrypto.so
-    sqlite libsqlite3.so
+    openssl
+    sqlite
   )
   optdepends=('perl-nix: Perl bindings for Nix')
   backup=('etc/nix/nix.conf')
