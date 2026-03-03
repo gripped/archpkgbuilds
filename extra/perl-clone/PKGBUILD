@@ -3,8 +3,8 @@
 # Contributor: Alex Dioso <adioso->gmail*com>
 
 pkgname=perl-clone
-pkgver=0.47
-pkgrel=2
+pkgver=0.48
+pkgrel=1
 pkgdesc='Recursive copy of nested objects.'
 arch=('x86_64')
 url='https://github.com/garu/Clone'
@@ -13,7 +13,7 @@ depends=('perl')
 checkdepends=('perl-b-cow')
 options=('!emptydirs')
 source=("https://cpan.metacpan.org/authors/id/A/AT/ATOOMIC/Clone-$pkgver.tar.gz")
-sha512sums=('dc5ebde05ecafbd3089cdb978083584ad77e1e4dce2e95e466b1cc8357092422a36489d2e9cda99c8009a8d7a0bd18466e3c21b580b95c29fb9ad843911bb9fe')
+sha512sums=('ea3b5e5f2a48fe2f03231f41dfd8c3acca57d72a31adac3ece297eec0993cbce9f5a15fc6ac3a1a7887e4fa7e0097ffc8cf20ae8d192a62419544b6173a6e608')
 
 build() {
   cd Clone-$pkgver
@@ -29,6 +29,4 @@ check() {
 package() {
   cd Clone-$pkgver
   make DESTDIR="$pkgdir" install
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
 }
