@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-daemon
-pkgver=6.1.43
+pkgver=6.1.44
 pkgrel=1
 pkgdesc='Daemon handling the DDE session settings'
 arch=('x86_64')
@@ -67,7 +67,7 @@ replaces=('startdde')
 groups=('deepin')
 install="$pkgname.install"
 source=("git+https://github.com/linuxdeepin/dde-daemon.git#tag=$pkgver")
-sha512sums=('f51a5c503173c147c0f0459508daa9db269b69f25690585d236ed4d6408df8a03f6d2926df28159427b7039b15832c0f614ac456bdec020e054f8459e60cd785')
+sha512sums=('4de65a7085dffce9078d51190cf3b16b7a07871d398a35247af878c70fcdd44f6e52aee306295dda43fea1ebe3f2853e6db2c68627eaf8f2f280fc0f6834ed7c')
 
 prepare() {
   cd dde-daemon
@@ -76,6 +76,7 @@ prepare() {
   git cherry-pick -n c064dfa6613fbecca1fcf08f5035ef35ea90a374
 
   go get github.com/linuxdeepin/go-gir
+  go get github.com/linuxdeepin/go-lib@a1f572ce1442a9064a992a72f8d3bec567379472
 
   # https://github.com/linuxdeepin/developer-center/discussions/3327
   sed -i 's#/usr/libexec#/usr/lib#' keybinding1/shortcuts/system_shortcut.go
