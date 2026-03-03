@@ -3,7 +3,7 @@
 # Contributor: Jingbei Li <i@jingbei.li>
 
 pkgname=libwebsockets
-pkgver=4.4.1
+pkgver=4.4.2
 pkgrel=1
 pkgdesc="C library for websocket clients and servers"
 arch=(x86_64)
@@ -13,8 +13,8 @@ depends=(glibc openssl libuv libev zlib)
 makedepends=(cmake glib2 libcap)
 provides=(libwebsockets.so)
 source=($pkgname-$pkgver.tar.gz::https://github.com/warmcat/$pkgname/archive/v$pkgver.tar.gz)
-sha512sums=('86f85066ce0e9f7f29af5b7c7be803bd19f1a7e6afd8bcdd7c3afc1a66735324317852d7b19bbe9a5af69e759ec532dd28bebffa256f3e1c30ade7ead41a4275')
-b2sums=('ecc71d595503dd211e6341c84c1fed8adf29b055cbcd7a06fbb0f807d6cfc3814bb0b7df51f78c3f535b6f3dbb8e57b3fdfb6c2b6b706801ef540f6bcaabc207')
+sha512sums=('4c0800daa822752d0b906f90412ffa83606713852ec83128519d086c47fc615681f368d1cf4737a5bbeb0c8fbceb097d8735c946efd201dee3167ee931e8c000')
+b2sums=('0c7ffb0ceebeba2e404ffb6842f6245c6586d78d90ed61c9f997cb5a947f6aeeb0883cd78be22e5131f3e598a8a781a3fc7f71212f1dce537761c6addec89106')
 
 build() {
   # this uses malloc_usable_size, which is incompatible with fortification level 3
