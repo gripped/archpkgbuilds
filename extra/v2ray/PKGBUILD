@@ -2,7 +2,7 @@
 # Contributor: pandada8 <pandada8@gmail.com>
 
 pkgname=v2ray
-pkgver=5.42.0
+pkgver=5.43.0
 pkgrel=1
 pkgdesc="A platform for building proxies to bypass network restrictions"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('glibc' 'v2ray-domain-list-community' 'v2ray-geoip')
 makedepends=('go' 'git')
 backup=(etc/v2ray/config.json)
 source=("git+https://github.com/v2fly/v2ray-core.git#tag=v$pkgver")
-sha512sums=('60584e3dfc1651244a994457993f72efc3d3a9eccfb760208e1abc35e78d1204fcf7adf48cf63a4137cead43f8603a2bb5060e67132f551542fe38469f2c7dac')
+sha512sums=('bcf6cd72718434360f5cd54ddf57ed35c0ad43f022cb46a6525a7ea39732a26056ed1bfcdc1b08ae04dd1d2bf7d82306f393512b0eb176e206842f4b43c7f9cf')
 
 prepare() {
   cd v2ray-core
@@ -31,7 +31,8 @@ build() {
 check() {
   cd v2ray-core
   # TestGeoIPMatcher6US: https://github.com/v2fly/v2ray-core/issues/3473
-  go test -p 1 -tags json -v -timeout 30m -skip TestGeoIPMatcher6US ./...
+  # QUIC tests: https://github.com/quic-go/quic-go/issues/5572
+  go test -p 1 -tags json -v -timeout 30m -skip 'TestGeoIPMatcher6US|TestQuic.*|TestVMessQuic|TestQUIC.*' ./...
 }
 
 package() {
