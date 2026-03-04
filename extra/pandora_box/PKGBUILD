@@ -2,8 +2,8 @@
 
 pkgname=pandora_box
 _pkgname=pandora
-pkgver=0.18.0
-pkgrel=2
+pkgver=0.19.0
+pkgrel=1
 pkgdesc="Syd's log inspector & profile writer"
 url="https://gitlab.exherbo.org/sydbox/sydbox/-/tree/main/pandora"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('glibc' 'libgcc' 'syd')
 makedepends=('cargo' 'git')
 provides=("${_pkgname}")
 source=("git+https://gitlab.exherbo.org/sydbox/sydbox.git#tag=${_pkgname}-${pkgver}?signed")
-sha256sums=('c4b82bac1316dac7c308fe92989db8f3c1fe9ef39bda7c07ce66382592b44ffc')
+sha256sums=('4f5a2c6806e0def290450a1416d3a5ec3fffc5f766e56e32983725daba53e6a8')
 validpgpkeys=('5DF763560390A149AC6C14C7D076A377FB27DE70')
 
 prepare() {
@@ -26,7 +26,7 @@ build() {
 }
 
 package() {
-	cd "sydbox/${_pkgname}"
+	cd sydbox
 	install -Dm 755 "target/release/${_pkgname}" "${pkgdir}/usr/bin/${_pkgname}"
-	install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+	install -Dm 644 "${_pkgname}/README.md" "${pkgdir}/usr/share/doc/${pkgname}/README.md"
 }
