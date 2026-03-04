@@ -4,22 +4,22 @@
 
 pkgname=python-cjkwrap
 pkgver=2.2
-pkgrel=13
+pkgrel=14
 pkgdesc="A library for wrapping and filling CJK text."
 url="https://github.com/fgallaire/cjkwrap"
-license=('LGPL')
+license=('LGPL-3.0-or-later')
 arch=('any')
 depends=('python')
-makedepends=('python-setuptools')
-source=("https://pypi.io/packages/source/C/CJKwrap/CJKwrap-$pkgver.tar.gz")
-sha512sums=('59e0139daadad4d0397f0684a0c1abd5803d133e90ff7ced0adb703be02b20e430bb96a6777227640e55aca6d1aaea796bfc79b5d5b3379953e38323003cbde0')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+source=("git+https://github.com/fgallaire/cjkwrap.git#tag=v$pkgver")
+sha512sums=('a4d3e26e0a8401f8b157bdd682c01ec286c6a0e3f7a16cea97ad27abf6dfc73a3c255164ce8da8afb42fec5db83603a464a6757946c1f72fbfc489ebd145b2fc')
 
 build() {
-  cd "$srcdir"/CJKwrap-$pkgver
-  python setup.py build
+  cd cjkwrap
+  python -m build --wheel --no-isolation
 }
 
-package_python-cjkwrap() {
-  cd CJKwrap-$pkgver
-  python3 setup.py install --root="$pkgdir" --optimize=1
+package() {
+  cd cjkwrap
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
