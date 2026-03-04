@@ -1,6 +1,6 @@
 pkgbase = ddm
 	pkgdesc = New Display Manager for DDE
-	pkgver = 0.3.2
+	pkgver = 0.3.3
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/ddm
 	arch = x86_64
@@ -9,7 +9,6 @@ pkgbase = ddm
 	makedepends = git
 	makedepends = extra-cmake-modules
 	makedepends = python-docutils
-	makedepends = qt6-tools
 	makedepends = treeland-protocols
 	makedepends = ninja
 	depends = bash
@@ -18,12 +17,13 @@ pkgbase = ddm
 	depends = libxau
 	depends = pam
 	depends = qt6-base
-	depends = qt6-declarative
 	depends = systemd-libs
+	depends = treeland
 	depends = ttf-font
+	depends = wayland
 	depends = xorg-server
 	depends = xorg-xauth
-	source = git+https://github.com/linuxdeepin/ddm.git#tag=0.3.2
-	sha512sums = 8d01435e8a1709075dc0660824c1263c4a8d04381179817a2c3707f60d4f13d3f13cd392fc822d48949c9ec7223a9598f9c66328f56cb8271c35476a4acb8729
+	source = git+https://github.com/linuxdeepin/ddm.git#tag=0.3.3
+	sha512sums = 011bd1be647aca6a07c2627fc58aee3d2e993f53033f43b10baaba8577984a1b3179d916510bfb56c01b24e239b97ef7661be5bbf96ff89eec6d860827de8351
 
 pkgname = ddm

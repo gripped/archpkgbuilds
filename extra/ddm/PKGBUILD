@@ -2,7 +2,7 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=ddm
-pkgver=0.3.2
+pkgver=0.3.3
 pkgrel=1
 pkgdesc='New Display Manager for DDE'
 arch=('x86_64')
@@ -15,19 +15,19 @@ depends=(bash
          libxau
          pam
          qt6-base
-         qt6-declarative
          systemd-libs
+         treeland
          ttf-font
+         wayland
          xorg-server
          xorg-xauth)
 makedepends=(git
              extra-cmake-modules
              python-docutils
-             qt6-tools
              treeland-protocols
              ninja)
 source=("git+https://github.com/linuxdeepin/ddm.git#tag=$pkgver")
-sha512sums=('8d01435e8a1709075dc0660824c1263c4a8d04381179817a2c3707f60d4f13d3f13cd392fc822d48949c9ec7223a9598f9c66328f56cb8271c35476a4acb8729')
+sha512sums=('011bd1be647aca6a07c2627fc58aee3d2e993f53033f43b10baaba8577984a1b3179d916510bfb56c01b24e239b97ef7661be5bbf96ff89eec6d860827de8351')
 
 build() {
   cd ddm
