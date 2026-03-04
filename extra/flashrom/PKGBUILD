@@ -5,8 +5,8 @@
 # Contributor: Anton Shestakov <engored*ya.ru>
 
 pkgname=flashrom
-pkgver=1.6.0
-pkgrel=2
+pkgver=1.7.0
+pkgrel=1
 pkgdesc="Utility for reading, writing, erasing and verifying flash ROM chips"
 arch=(x86_64)
 url="https://www.flashrom.org/"
@@ -27,13 +27,16 @@ optdepends=('dmidecode: for SMBIOS/DMI table decoder support')
 source=(
   "git+https://github.com/flashrom/flashrom.git#tag=v${pkgver}"
   cmocka-v2-compatibility.patch
+  glibc-2.42-fix.patch
 )
-sha256sums=('2e27f7b13161c03d1ccec0de14601722f6114214555c7f025a5d91f08259eb38'
-            'd65e2a6506cfe2becbf7a38564ebf0bfa1bc9c4219497365319c77a997d624db')
+sha256sums=('920995ce4c5600006ed784d892b2841d3d6f9e57c3cc979e09ebe98c2e9a6bb9'
+            '2f766927c1d066091e8c69dfb60a178f20d72110685967a3a24cbf5a2db87ea9'
+            '3b842e0c3bd2ca42b24cef81ecfd58b79f812a190476b8d35798dd7aa7391a63')
 
 prepare() {
   sed -i 's#GROUP="plugdev"#TAG+="uaccess"#g' flashrom/util/flashrom_udev.rules
   patch -Np1 -d flashrom < cmocka-v2-compatibility.patch
+  patch -Np1 -d flashrom < glibc-2.42-fix.patch
 }
 
 build() {
