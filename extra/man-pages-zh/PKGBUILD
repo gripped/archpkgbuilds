@@ -4,49 +4,42 @@
 
 pkgbase=man-pages-zh
 pkgname=(man-pages-zh_cn man-pages-zh_tw)
-pkgver=1.6.4.0
-pkgrel=4
+pkgver=1.6.4.1
+pkgrel=1
 arch=('any')
 url='https://github.com/man-pages-zh/manpages-zh'
 license=('GFDL-1.2-or-later')
 depends=('man')
-makedepends=('opencc' 'python' 'git')
+makedepends=('cmake' 'opencc' 'python' 'git')
 source=("git+https://github.com/man-pages-zh/manpages-zh.git#tag=v$pkgver")
-sha512sums=('cd08c39743b62e6c0c32dad7f1e596e3c8047bc3706ab533addcc3d9789f01a447d05384ec22c182b3a4357f8d43cae731ccb9e19a6d74dd3294c98074ccf430')
+sha512sums=('c41ea05a4d7d950588f0dc5e844f83448b5ad61b69e3205a2608990fd6596905447d3b4a9004b3d2ec8942fa2c30cc32881a5c5fbe11e4a7b769ad14e5afe58c')
 
 build() {
-  cd manpages-zh
-  autoreconf -i
-  ./configure --prefix=/usr
-  make
+  cmake -B build-cn -S manpages-zh \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DENABLE_ZHCN=ON \
+    -DENABLE_ZHTW=OFF
+  cmake --build build-cn
+
+  cmake -B build-tw -S manpages-zh \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DENABLE_ZHCN=OFF \
+    -DENABLE_ZHTW=ON
+  cmake --build build-tw
 }
 
 package_man-pages-zh_cn() {
   pkgdesc='Simplified Chinese Linux man pages'
 
-  cd manpages-zh
-  make install DESTDIR="$pkgdir"
+  DESTDIR="$pkgdir" cmake --install build-cn
 
-  install -dm755 "$pkgdir"/usr/share/licenses/$pkgname
-  mv "$pkgdir"/usr/share/doc/manpages-zh/COPYRIGHT "$pkgdir"/usr/share/licenses/$pkgname/
-  rmdir "$pkgdir"/usr/share/doc/manpages-zh "$pkgdir"/usr/share/doc
-
-  rm -r "$pkgdir"/usr/share/man/zh_TW
-
-  # remove conflicted files
-  cd "$pkgdir"/usr/share/man/zh_CN
-  rm ./man1/groups.1 ./man1/free.1 ./man1/uptime.1 ./man1/w.1 ./man8/vmstat.8
+  install -Dm644 manpages-zh/COPYRIGHT -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
 package_man-pages-zh_tw() {
   pkgdesc='Traditional Chinese Linux man pages'
 
-  cd manpages-zh
-  make install DESTDIR="$pkgdir"
+  DESTDIR="$pkgdir" cmake --install build-tw
 
-  install -dm755 "$pkgdir"/usr/share/licenses/$pkgname
-  mv "$pkgdir"/usr/share/doc/manpages-zh/COPYRIGHT "$pkgdir"/usr/share/licenses/$pkgname/
-  rmdir "$pkgdir"/usr/share/doc/manpages-zh "$pkgdir"/usr/share/doc
-
-  rm -r "$pkgdir"/usr/share/man/zh_CN
+  install -Dm644 manpages-zh/COPYRIGHT -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
