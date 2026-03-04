@@ -2,8 +2,8 @@
 # Contributor: Tomas Schertel<tschertel@gmail.com>
 
 pkgname=python-logbook
-pkgver=1.8.1
-pkgrel=2
+pkgver=1.8.2
+pkgrel=1
 pkgdesc="Logging sytem for Python that replaces the standard library’s logging module"
 arch=('x86_64')
 url="https://logbook.readthedocs.io/en/stable/"
@@ -13,7 +13,7 @@ makedepends=('git' 'python-setuptools' 'cython' 'python-build' 'python-installer
 checkdepends=('valkey' 'python-pytest' 'python-sqlalchemy' 'python-redis' 'python-pyzmq'
               'python-execnet' 'python-jinja' 'python-brotli' 'pifpaf')
 source=("git+https://github.com/mitsuhiko/logbook.git#tag=$pkgver")
-sha512sums=('a3f45347d4f228d019f7bc8077524e1ab20eb83165be5ee4ce655e2ccfbe50331fad235175124d1993212e00c6f8620cb8d8dba9adac6d5b2e25fa27e0f183b8')
+sha512sums=('a0d457fc50b715ab1bdfb1822ab6c74bfaea33375236236a2a867f909be9c24f2008a596aaa582f4c1e6ca425794477f6ae120fab6e9aafb7e5c178fc46ae6d9')
 
 prepare() {
   cd logbook
