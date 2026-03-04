@@ -1,16 +1,17 @@
 pkgbase = buildkit
 	pkgdesc = A toolkit for converting source code to build artifacts in a repeatable manner
-	pkgver = 0.27.1
+	pkgver = 0.28.0
 	pkgrel = 1
 	url = https://github.com/moby/buildkit
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = git
 	makedepends = go
+	depends = glibc
 	depends = runc
 	depends = containerd
-	source = buildkit::git+https://github.com/moby/buildkit.git#tag=v0.27.1
-	sha512sums = 6adcdad1cce5202994328abd0a74120f040c8dd32ed0d4bab37129008eacda9908f1e99c2ecf6ca9726df07e2c42476a7e943171f82c7952a64e7d4245d8b008
-	b2sums = 829315d48f209ce9162da67933216a60bed48f2dcd9e7c7153122d729b5d020e80339e491c7b0e027cf76db6989495cda8fbb54ec87ea44410489762d9511a97
+	source = buildkit::git+https://github.com/moby/buildkit.git#tag=v0.28.0
+	sha512sums = cce2dddf4712d77a7dd05614ee65f159a9fa30367a9d58711322d55bb6c7f1e3119a985fdd2e7a02fef8cbde3c783841067f4b126c9880e625cd698f9e3cb1f1
+	b2sums = 6dcc781cd16f2db561639c4517cc74eda3b4bcddf42d6aadd9a98a1548606e3b87e7dc9347ccf2c753c0a2b1b241389d7a361c76b3a914599680e013885aa2f7
 
 pkgname = buildkit
