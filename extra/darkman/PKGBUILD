@@ -2,7 +2,7 @@
 # Contributor: Hugo Osvaldo Barrera <hugo@barrera.io>
 
 pkgname=darkman
-pkgver=2.2.0
+pkgver=2.3.1
 pkgrel=1
 pkgdesc='Framework for dark-mode and light-mode transitions on Linux desktop'
 arch=(x86_64)
@@ -11,14 +11,13 @@ license=(ISC)
 makedepends=(
   git
   go
-  scdoc
 )
 optdepends=(
   "geoclue: to automatically determine the system's location"
   'xdg-desktop-portal-impl: to expose the current mode via the XDG settings portal D-Bus API'
 )
 source=("git+https://gitlab.com/WhyNotHugo/darkman.git#tag=v$pkgver?signed")
-b2sums=('d61e33f987e518287512800097a2e3321300262e039fff0315d582012f3c0f0542a993f57b4f8bb03629056c462f1159723e5dbeaef86da35f169e128750b2b9')
+b2sums=('5a96289ce2044ef276144f5245ed21819e06271a559db2fb1ae569c37720fb3a57f4e30ba092daf8de0b90e24effa22a645dc7b679fa6e8a58563b3a361f7df4')
 validpgpkeys=("1204CA9FC2FFADEEDC2961367880733B9D062837") # Hugo Osvaldo Barrera <hugo@whynothugo.nl>
 
 prepare() {
