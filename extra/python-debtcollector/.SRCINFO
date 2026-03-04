@@ -1,14 +1,19 @@
 pkgbase = python-debtcollector
 	pkgdesc = A collection of Python deprecation patterns and strategies that help you collect your technical debt in a non-destructive manner.
 	pkgver = 3.0.0
-	pkgrel = 5
+	pkgrel = 6
 	url = https://docs.openstack.org/developer/debtcollector
 	arch = any
-	license = Apache
+	license = Apache-2.0
 	checkdepends = python-stestr
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-pbr
+	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python-wrapt
-	source = https://github.com/openstack/debtcollector/archive/3.0.0/python-debtcollector-3.0.0.tar.gz
-	sha512sums = f3e189b952db59e69dce79459b2a9cf0e795503b53bac9688a442dfcdecdd920477481e26bf552f88f0983d348f2605c176acefba5341066648e066f22f249f9
+	source = git+https://github.com/openstack/debtcollector.git#tag=3.0.0
+	sha512sums = 477af894df32fc783312e057bed32db820475e490c9fae51f44c693b0d226eb7505da22f14021bbe5854b832137ec2f8766e10529061d44cd1a3b9a564fda6e4
 
 pkgname = python-debtcollector
