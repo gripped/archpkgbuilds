@@ -1,23 +1,27 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-gdstk
-pkgver=0.9.42
-_commit=41f72281ca4ec9f1727cde702b88cc780ccdb27a
-pkgrel=5
+pkgver=0.9.43
+pkgrel=1
 pkgdesc="Python module for creating GDSII stream files, usually CAD layouts"
 url="https://github.com/heitzmann/gdstk"
 license=('BSL-1.0')
 arch=('x86_64')
-depends=('python-numpy')
+depends=('python-numpy' 'qhull')
 makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel' 'cmake')
 checkdepends=('python-pytest')
-source=("git+https://github.com/heitzmann/gdstk.git#commit=$_commit")
-sha512sums=('SKIP')
+source=("git+https://github.com/heitzmann/gdstk.git#tag=v$pkgver"
+        'use-system-qhull.patch')
+sha512sums=('f4adf91e69015a6bc36842765aedd5a16b52b6708ca636a87ad61386e3aa91d780230a0519dc2b7134ee587161029aab01041b3c63ed1e2fc4188c96e37fea35'
+            '9c70b90c8fab50553b3f9fb78dbad70da5ce75de4f68031b6a30736a16a7cf6d975dcafefbebaecb63ddb7c6e5929a26ef9d0301ee825ca4bc97293ad0310e89')
 
 prepare() {
   cd gdstk
   # Upstream wants to test CI :/
   sed -i 's/oldest-supported-numpy/numpy/' pyproject.toml
+  
+  # Use system qhull
+  patch -p1 -i ../use-system-qhull.patch
 }
 
 build() {
