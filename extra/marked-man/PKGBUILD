@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=marked-man
-pkgver=1.3.3
-pkgrel=2
+pkgver=1.3.4
+pkgrel=1
 pkgdesc="Wrapper adding manpage output to 'marked', inspired by 'ronn'"
 arch=('any')
 url='https://github.com/kapouer/marked-man'
@@ -11,7 +11,7 @@ depends=('marked' 'nodejs')
 makedepends=('npm')
 source=(https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz)
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('96fee1f43768a1d175909aa8062b09d92d05d9813494620d31eddd8a3f78f1a704bd27f33a7b92a01f3458f697cddb652b439c4df5ee1ecbb6aa55da23fa2d1b')
+sha512sums=('20818611fc460b026942e42c961895174571e391a23888b09d4a7971feb162ed46a38cdc426718a0e87d704ab8e2a0255ebfec6cbaf2c651633e6bcb02d26eee')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
