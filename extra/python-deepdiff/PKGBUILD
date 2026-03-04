@@ -2,7 +2,7 @@
 
 pkgname=python-deepdiff
 pkgver=8.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Deep Difference and Search of any Python object/data."
 url="https://github.com/seperman/deepdiff"
 license=('MIT')
@@ -13,7 +13,7 @@ optdepends=('python-click: for cli'
             'python-yaml: for YAML support'
             'python-clevercsv: for more robust CSV parsing'
             'python-orjson: for speed and memory optimized parsing')
-makedepends=('python-setuptools' 'git')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel' 'git')
 checkdepends=('python-pytest' 'python-pytest-benchmark' 'python-clevercsv' 'python-click' 'python-dateutil'
               'python-jsonpickle' 'python-numpy' 'python-tomli-w' 'python-yaml' 'python-orjson'
 	      'python-pydantic' 'python-pandas' 'python-polars')
@@ -22,7 +22,7 @@ sha512sums=('733ed89dc51469067d849fb9ef04ef50af27ec37a7add7120731aa259aa1de0e708
 
 build() {
   cd deepdiff
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -35,7 +35,7 @@ check() {
 
 package() {
   cd deepdiff
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
