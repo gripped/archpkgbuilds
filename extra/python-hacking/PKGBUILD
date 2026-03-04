@@ -2,7 +2,7 @@
 
 pkgname=python-hacking
 pkgver=7.0.0
-pkgrel=4
+pkgrel=5
 arch=('any')
 pkgdesc='OpenStack Hacking Guideline Enforcement'
 url='https://docs.openstack.org/developer/hacking'
@@ -16,6 +16,8 @@ sha512sums=('82cdb3099877b9bba72855a9c4a2729f03ea94d6ba3f4fa1c8d31befccd250abec0
 
 prepare() {
   cd hacking
+  # Remove use of pkg_resources
+  git cherry-pick -n 62e7de42e2f474b1dadfb1918c15182cbd349cda
   sed -i 's/~=/>=/' requirements.txt
 }
 
