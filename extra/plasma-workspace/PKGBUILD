@@ -2,9 +2,10 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 # Contributor: Alexey D. <lq07829icatm at rambler.ru>
+
 pkgbase=plasma-workspace
 pkgname=(plasma-workspace plasma-x11-session)
-pkgver=6.6.1
+pkgver=6.6.2
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE Plasma Workspace'
@@ -116,13 +117,19 @@ makedepends=(baloo
              plasma-wayland-protocols
              qcoro)
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('c8c344bd3c842731cfd5df1c717db6e451329dd32b983717d7ff9abdff3434ed'
-            'SKIP')
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/plasma/plasma-workspace/-/commit/9114115f.patch)
+sha256sums=('26302234542ae2c8286727895997c8e22652e90e92febb60e3ce975194e0cacd'
+            'SKIP'
+            '40d0aa1d4691ae8f59772d9014bd6f8650f9f18c74cbffdc50e7ec2e02313412')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < 9114115f.patch # Fix race
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
