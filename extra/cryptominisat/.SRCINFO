@@ -1,7 +1,7 @@
 pkgbase = cryptominisat
 	pkgdesc = A modern, multi-threaded, feature-rich, simplifying SAT solver
-	pkgver = 5.12.1
-	pkgrel = 2
+	pkgver = 5.13.0
+	pkgrel = 1
 	url = https://github.com/msoos/cryptominisat/
 	arch = x86_64
 	license = MIT
@@ -14,21 +14,23 @@ pkgbase = cryptominisat
 	makedepends = python-tomli
 	makedepends = python-wheel
 	makedepends = vim
-	depends = gcc-libs
 	depends = glibc
 	depends = gmp
+	depends = libgcc
+	depends = libstdc++
 	depends = zlib
 	optdepends = python: python module
-	source = git+https://github.com/msoos/cryptominisat#tag=5.12.1
-	source = git+https://github.com/meelgroup/cadiback#commit=ea65a9442fc2604ee5f4ffd0f0fdd0bf481d5b42
-	source = git+https://github.com/meelgroup/cadical.git#commit=f13d74439a5b5c963ac5b02d05ce93a8098018b8
+	options = !lto
+	source = git+https://github.com/msoos/cryptominisat#tag=release/5.13.0
+	source = git+https://github.com/meelgroup/cadiback#commit=09c1e99a2ff8f583d479639d879f3a815d0d8189
+	source = git+https://github.com/meelgroup/cadical#commit=d3a78bc5ba014771e975d1ccf2a00e239048068d
 	source = python-system-libs.patch
 	source = link-private.patch
 	source = python-3.13.patch
-	sha256sums = 684c306c11e6e102667b9e39714f61bc5c0b0dbcb541f6c168369ac6af4d9a45
-	sha256sums = e7e96d6e91bba3c9d28c798545f25236f107aec97780ee0c459352606c7c3a0c
-	sha256sums = 88001b8122c8629e5026aa13753a47f0ed556e9e05a9a6c6b81759a3aac2550b
-	sha256sums = 0fb932fbf83c351568f54fc238827709e6cc2646d124af751050cfde0c255254
+	sha256sums = de03a2b0fc407949d9b4e511e13d8683cd5bd4e8b8ca95408272c0cb78e3ad8c
+	sha256sums = a450499060efe3a5518cdad4c487bc172c5a79182cc24320d222d069a0a73ced
+	sha256sums = c3498e1f57e9bddc843b9fc724fc55ae58c0668280880e4fe2c4ec8cc7d29840
+	sha256sums = d643fd09b201b5d6d6cf18b2f91fe91b85b2d72322452f9b764ceab26ff906ae
 	sha256sums = a5006f49e8adf1474725d2a3e4205cdd65beb2f100f5538b2f89e14de0613e0f
 	sha256sums = 369e1e31936c0fce8960eb9130a03ec2550f5f379af2a31164c2b4234503e81c
 

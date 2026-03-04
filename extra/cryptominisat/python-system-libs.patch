@@ -2,7 +2,7 @@ diff --git a/setup.py b/setup.py
 index d6859b6c5..51edc6daa 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -61,55 +61,12 @@ def gen_modules(version):
+@@ -61,51 +61,9 @@ def gen_modules(version):
          include_dirs = ["src/", "./"],
          sources = ["python/src/pycryptosat.cpp",
                     "python/src/GitSHA1.cpp",
@@ -21,7 +21,6 @@ index d6859b6c5..51edc6daa 100644
 -                   "src/distillerlitrem.cpp",
 -                   "src/distillerlong.cpp",
 -                   "src/distillerlongwithimpl.cpp",
--                   "src/frat.cpp",
 -                   "src/gatefinder.cpp",
 -                   "src/gaussian.cpp",
 -                   "src/get_clause_query.cpp",
@@ -52,9 +51,6 @@ index d6859b6c5..51edc6daa 100644
 -                   "src/probe.cpp",
                 ],
 +        library_dirs = ["../build/lib"],
-         depends = [
-             "python/cadiback/cadiback.h",
-         ],
 -        libraries = ['/usr/lib/libcadiback.so'], #, 'libgmpxx.so', 'libgmp.so'
 +        libraries = ['cryptominisat5', '/usr/lib/libcadiback.so'], #, 'libgmpxx.so', 'libgmp.so'
          extra_compile_args = extra_compile_args_val,
