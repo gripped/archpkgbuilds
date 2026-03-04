@@ -7,13 +7,13 @@ _current_pg_version=18
 _next_pg_version=$(( _current_pg_version + 1 ))
 # limit to last 5 releases
 declare -gA _commits=(
-  [2.23.0]=ba5dcfd1c69f3529d0cc9de3028e1a12a36042ba
   [2.23.1]=9cec3ac3211e340097ae3605b62cfd73130bb6b7
   [2.24.0]=119c8dca6c442c4d86ad1ddb3c863be9e6fac205
   [2.25.0]=a686498674d7a6c3bc36bdf665d464e5f371bd25
   [2.25.1]=62885bd90795d4da86cc4d2e2bb64c54e78fdec3
+  [2.25.2]=3d9e005987643878a0cd51da40abbf7d3a63d453
 )
-pkgver=2.25.1
+pkgver=2.25.2
 pkgrel=1
 pkgdesc='An open-source time-series database optimized for fast ingest and complex queries'
 arch=(x86_64)
@@ -34,8 +34,8 @@ optdepends=(
 )
 install=timescaledb.install
 source=("$pkgname::git+https://github.com/timescale/timescaledb#commit=${_commits[$pkgver]}")
-sha512sums=('a68020cc3a61d404d61853827e580c26832764f26b887da54956d29d9abf20215834a6683395ff97066c222b9a195385d2609e8dab7c104f8672a45ab0fe4c44')
-b2sums=('2a9561ad14a0b42149745a4ec98728088f52b864b61bde958673af1e9ffa0e6001cf82be7ac4acf553422943533035d11e583ab8e31fbacf3075f922436a516a')
+sha512sums=('e2997bfe71e2ac80768f690aa71e715356a66936db1edbedec85a668fb7c547c7908148b6288706b94bc24862298aedfebb0ede8fae96d2c2f3839478f1a14f8')
+b2sums=('c50fc88ba9db4abd749a9beeb76515f1a25b8ccadf7b874177d9063933d7220a61cffa7b4048c7c2ce91c42b63da6aa0a9fb247cbb0608a5aaebbeb71477907e')
 
 prepare() {
   mkdir -p build
