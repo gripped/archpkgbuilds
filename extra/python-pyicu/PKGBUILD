@@ -2,8 +2,8 @@
 # Contributor: Jonathan Liu <net147@gmail.com>
 
 pkgname=python-pyicu
-pkgver=2.14
-pkgrel=3
+pkgver=2.16.1
+pkgrel=1
 pkgdesc="Python binding for ICU"
 arch=('x86_64')
 license=('MIT')
@@ -11,8 +11,8 @@ url="http://pyicu.osafoundation.org/"
 depends=('python' 'icu')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-fonttools' 'python-pytest' 'python-six')
-source=("https://pypi.io/packages/source/P/PyICU/PyICU-$pkgver.tar.gz")
-sha512sums=('b237e90d542baba916c7eddb3d19ae5d7d42ad228d7a4a0a3df05edc21fe9fa3e0c52055b617b34db6eab14d649877a14a7c7cabea2e88bc85c724ccd8db41be')
+source=("https://pypi.io/packages/source/p/pyicu/pyicu-$pkgver.tar.gz")
+sha512sums=('f45044d02b31b56082767ec256d793a47fd4420f9b2974d739c8b56a82b0d5c273440830b11f5afbf0798b1d81ae6b6eeffd1cacee5f969d0587987d34ac68e0')
 
 build() {
   cd pyicu-$pkgver
