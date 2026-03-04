@@ -2,7 +2,7 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3 orbiton-nano)
-pkgver=2.72.1
+pkgver=2.73.0
 pkgrel=1
 pkgdesc='Configuration-free text editor and IDE'
 arch=(x86_64)
@@ -12,7 +12,7 @@ makedepends=(git go vte3)
 depends=(glibc)
 options=(!lto)
 source=("git+https://github.com/xyproto/orbiton#tag=v$pkgver")
-b2sums=('c7ed5ef708721c4e8cd3b13067f603ff2ba11c7ee7001df094377297a0ba6106812b72bb6f029158a7d859034d6d856e1b57c5c04bf4990e539737a3bdf8e537')
+b2sums=('6e77160cfdbdbbe84f48f86addfb70abad21b2bb032fcde1492c9910230fcc426dae544ad339520421c73f27b6bad0f07975e7531e85d7946bca270886fb4430')
 
 build() {
   export LDFLAGS="$(echo $LDFLAGS | sed 's/ -Wl//g;s/,--sort-common//')"
@@ -21,37 +21,42 @@ build() {
 
 package_orbiton() {
   # TODO: consider moving one or more of these from AUR:
-  # 'cxx: for compiling C and C++'
   # 'elm-bin: for compiling Elm'
   # 'gnucobol: for compiling COBOL'
   # 'google-java-format: for formatting Java'
   # 'hare: for compiling Hare'
-  # 'lua-format: for formatting Lua'
   # 'scala: for compiling Scala'
   # 'vlang: for compiling and formatting V'
   optdepends=('abcmidi: for writing music in the ABC notation'
               'agda: for compiling Agda'
               'asciidoctor: for writing man pages'
               'astyle: for formatting C#'
-              'clang: for formatting C++ code with clang-format'
+              'clang: for formatting C, C++ and Objective-C with clang-format'
               'clojure: for compiling Clojure'
-              'crystal: for compiling Crystal'
+              'cmake: for building CMake projects'
+              'crystal: for compiling and formatting Crystal'
               'dart: for compiling and formatting Dart'
-              'fpc: for compiling Object Pascal'
+              'delve: for debugging Go'
+              'erlang: for compiling Erlang'
+              'fpc: for compiling and formatting Object Pascal'
               'gcc-d: for compiling D'
-              'gdb: for debugging C'
-              'ghc: for compiling Haskell'
+              'gcc-fortran: for compiling Fortran'
+              'gdb: for debugging'
+              'ghc: for compiling and running Haskell'
               'gopls: for Tab completing Go'
-              'haskell-brittany: for formatting Haskell'
+              'guile: for running Scheme'
+              'haskell-ormolu: for formatting Haskell'
               'jad: for decompiling .class files on the fly'
               'java-environment: for compiling Java'
-              'just: for editing justfiles'
+              'just: for formatting and running justfiles'
               'kotlin: for compiling Kotlin'
               'ktlint: for formatting Kotlin'
-              'lua: for compiling Lua'
+              'lilypond: for typesetting music'
+              'lua: for compiling and running Lua'
               'mlton: for compiling Standard ML'
               'mono: for compiling C#'
               'nasm: for compiling Assembly'
+              'nim: for compiling Nim'
               'ocaml: for compiling and formatting OCaml'
               'odin: for compiling Odin'
               'odinfmt: for formatting Odin'
@@ -60,13 +65,19 @@ package_orbiton() {
               'perl-tidy: for formatting Perl'
               'prettier: for formatting JavaScript, TypeScript and CSS'
               'pylsp: for Tab completing Python'
+              'python-poetry: for running Poetry and Flask projects'
               'python-ruff: for formatting Python'
+              'ruby: for running Ruby'
+              'ruby-rubocop: for formatting Ruby'
               'rust-analyzer: for Tab completing Rust'
               'rustup: for compiling and formatting Rust'
               'scdoc: for writing man pages'
-              'shfmt: for formattig Shell scripts'
-              'tidy: for formatting HTML'
+              'shfmt: for formatting Shell scripts'
+              'stylua: for formatting Lua'
+              'tidy: for formatting HTML and XML'
               'timidity: for playing music in the ABC notation'
+              'wl-clipboard: for copy-paste on Wayland'
+              'xclip: for copy-paste on X11'
               'yasm: for compiling Assembly'
               'zig: for compiling and formatting Zig'
               'zls: for Tab completing Zig')
