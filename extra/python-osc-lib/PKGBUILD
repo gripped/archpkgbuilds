@@ -2,25 +2,25 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-osc-lib
-pkgver=3.1.0
-pkgrel=3
+pkgver=3.2.0
+pkgrel=1
 pkgdesc="OpenStackClient Library"
 arch=('any')
 url="https://docs.openstack.org/osc-lib/latest/"
-license=('Apache')
+license=('Apache-2.0')
 depends=('python-pbr' 'python-cliff' 'python-keystoneauth1' 'python-openstacksdk' 'python-oslo-i18n'
          'python-oslo-utils' 'python-requests' 'python-stevedore')
 makedepends=('git' 'python-setuptools')
 checkdepends=('python-oslotest' 'python-requests-mock' 'python-stestr' 'python-testrepository'
               'python-testtools')
-source=("git+https://github.com/openstack/osc-lib.git#tag=$pkgver"
-         fix-tests.patch)
-sha512sums=('528b7120fce3214899db6c5ae171f44e9bc44fd2df3a41323ec44075bbe93327784f48816b96c68d98a9703ea14ff458aa9952df342e3552698909a49a4be7a7'
-            'e8525265efe6ff590e0c7be385dd64adc6fa39d27bf68183969069d1a5c01a6aabc65d60594b8590e21d03c0681e81322078a2aa50a85b7c8a341b4f01020610')
+source=("git+https://github.com/openstack/osc-lib.git#tag=$pkgver")
+sha512sums=('845cb09806d12ee67fda58d2029235fba4bf6f2af2912efbf90bb060e61ec541b86e130c973940f923db1d77c6d8a9c134e9c21339350e39b3989f22fc5f1b69')
 
 prepare() {
   cd osc-lib
-  patch -p1 -i ../fix-tests.patch
+  # Fix test expectations for program name in argparse usage line
+  sed -i "s/parser = argparse.ArgumentParser()/parser = argparse.ArgumentParser(prog='run.py')/g" \
+    osc_lib/tests/utils/test_tags.py
 }
 
 build() {
