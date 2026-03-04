@@ -2,29 +2,35 @@
 
 pkgname=python-incremental
 pkgver=24.7.2
-pkgrel=3
+pkgrel=4
 pkgdesc='A small library that versions your Python projects'
 arch=('any')
 license=('MIT')
-depends=('python-click' 'python-setuptools' 'python-twisted')
-makedepends=('python-build' 'python-installer' 'python-wheel')
+depends=('python-click' 'python-packaging' 'python-twisted')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 url='https://github.com/hawkowl/incremental'
 checkdepends=('python-pytest')
-source=("https://github.com/hawkowl/incremental/archive/incremental-$pkgver.tar.gz")
-sha512sums=('d76a4192299bfa94a84f2e126800f2898c9c56c6831b6fe945fb291151f62958416d6d8118c0ea7c3cefbb85da6a97dfe9a2f8b95b31062a0831e84d522014d8')
+source=("git+https://github.com/hawkowl/incremental.git#tag=incremental-$pkgver")
+sha512sums=('25dee34209c856eeacb23f29c0cede207f354c136634bc6ca73a8389d727b0594714cb0c29330d4a5c97d547e6efd85b8bc7f30d1b833d04db427e9f51aa0cfd')
+
+prepare() {
+  cd incremental
+  # Replace pkg_resources.parse_version with packaging.version.Version
+  git cherry-pick -n 16001dabdb335084b86f3ac8db3f166121d56ec9
+}
 
 build() {
-  cd incremental-incremental-$pkgver
+  cd incremental
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd incremental-incremental-$pkgver
+  cd incremental
   pytest src
 }
 
 package() {
-  cd incremental-incremental-$pkgver
+  cd incremental
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
