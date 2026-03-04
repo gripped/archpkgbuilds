@@ -2,7 +2,7 @@
 # Contributor: Johannes Schleifenbaum <johannes [at] js-webcoding [dot] de>
 
 pkgname=testssl.sh
-pkgver=3.2.2
+pkgver=3.2.3
 pkgrel=1
 pkgdesc='Testing TLS/SSL encryption'
 url=https://github.com/testssl/testssl.sh
@@ -23,12 +23,12 @@ makedepends=(
   perl-test-base
 )
 source=(
-  "https://github.com/drwetter/testssl.sh/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+  "https://github.com/testssl/testssl.sh/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
   set-install-dir.patch
 )
-sha512sums=('17c25d6af08c10c1c49ff3ae6487a10e9a49273e9e100e7f2da71f369392d9be27cf6f624cd55f85c7dfb95d8900b970e62ebf195b0e8bd3ba2b2aad2e484143'
+sha512sums=('9b7889fbcf0a870333a5ff24e9fc10d159289f4b27ffcc427e924bc0354b8087e995c451a16e4eb1d0693a476075da433ffa3f9a1e3f1a5d603e506754db0898'
             '3272f29564325ff08cd9b28077969fcef8c7e5c72e3cd50ba3002b52f6dca0ce5933434a8f3052e0c94face96e7e4fd2af9b6da39c6f3f58565aa01e182fd9c1')
-b2sums=('00657a696d99be8a9ccea13920b169c906b1df037e910b1e1f0a3079c3993e33bc91c9eea1702bf0afa435cadb918ed848390dca6ece2ffd5695efd85ea251be'
+b2sums=('ebf8d194c6220fe0273d9f6138fb1b2a3b2194a6eb3f47e548d4bb1cd7b3fe441f038748e8e6547c3b8e19dab1514fdde7f19441f6db4fb6bfe1ff9c8d815d34'
         'c4f51614e4f7d029f6b27d08a507fe7ac8a04e3dac2a7cc50705c008c1900e7ac4db5d0a3f29e2dac2834ab022b6c6bae26907d9b388fc73ad78dfa59278b963')
 
 prepare() {
