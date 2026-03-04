@@ -1,8 +1,8 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=liquidctl
-pkgver=1.15.0
-pkgrel=3
+pkgver=1.16.0
+pkgrel=1
 arch=('any')
 url='https://github.com/liquidctl/liquidctl'
 license=('GPL3')
@@ -12,13 +12,7 @@ makedepends=('git' 'python-setuptools-scm' 'python-build' 'python-installer' 'py
 checkdepends=('python-pytest')
 source=("git+$url.git?signed#tag=v$pkgver")
 validpgpkeys=('23F335ED4E829797734B22F65841AF7406AF7AD0') # Jonas Tadeu Silva Malaco Filho <jonas@jonasmalaco.com>
-sha512sums=('e596460ea831a787068530533de1e5352f46e701d7a2d6bee7dbf791403b6b480afb0a4da8d50da3600771dcfe8b7d9d5cf01598246a651a204e3ca9bc1243a2')
-
-prepare() {
-  cd "${pkgname}"
-  #/ https://github.com/liquidctl/liquidctl/commit/c50afa4e610bd2e268e85c347e2644794c817a78
-  git cherry-pick -n -m1 c50afa4e610bd2e268e85c347e2644794c817a78
-}
+sha512sums=('ae8ce2898be0aa13a403180730a95d313efd4341630fa7ef0667176e050de4097ed12d744e1baaeccd52bd7ca2774fa3168d37974b436f98cde8dfb0e57bb874')
 
 build() {
   cd "${pkgname}"
