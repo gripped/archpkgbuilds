@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=aurorae
-pkgver=6.6.1
+pkgver=6.6.2
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='A themeable window decoration for KWin'
@@ -27,7 +27,7 @@ depends=(gcc-libs
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('8d7fc30f43cf8d9aa336f40935fffbfbdb2339ef6307f474222cb1101407d4de'
+sha256sums=('014d2934cd9608af22ceb503a01660ea5adb0b4ec9d6b1748ece161bb4b0b423'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
