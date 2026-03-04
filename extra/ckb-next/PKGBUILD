@@ -4,7 +4,7 @@
 
 pkgname=ckb-next
 pkgver=0.6.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Corsair Keyboard and Mouse RGB Driver"
 arch=(x86_64)
 url='https://github.com/ckb-next/ckb-next'
@@ -19,7 +19,8 @@ depends=(
   bash
   glibc
   libpulse
-  gcc-libs
+  libgcc
+  libstdc++
 )
 makedepends=(cmake qt6-tools)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
