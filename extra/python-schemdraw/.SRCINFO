@@ -1,16 +1,17 @@
 pkgbase = python-schemdraw
-	pkgdesc = Electrical circuit schematic drawing.
-	pkgver = 0.16
-	pkgrel = 5
-	url = https://bitbucket.org/cdelker/schemdraw
+	pkgdesc = Electrical circuit schematic drawing
+	pkgver = 0.17
+	pkgrel = 1
+	url = https://schemdraw.readthedocs.io
 	arch = any
-	license = BSD
+	license = MIT
 	checkdepends = python-pytest
 	checkdepends = python-nbval
 	checkdepends = python-matplotlib
 	checkdepends = python-ziafont
 	checkdepends = python-ziamath
 	checkdepends = python-latex2mathml
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
@@ -20,7 +21,7 @@ pkgbase = python-schemdraw
 	optdepends = python-ziafont: for svg backend
 	optdepends = python-ziamath: for svg backend
 	optdepends = python-latex2mathml: for svg backend
-	source = python-schemdraw-0.16.tar.bz2::https://bitbucket.org/cdelker/schemdraw/get/0.16.tar.bz2
-	sha512sums = d8f8f0547cbc2e6f32cac80ae522a91a243a903f7cc0d253e677efdf07e9f38bd0f0ad57483974d9ce362c1190f07f7de142a7522b52219d600eef90056a48ba
+	source = git+https://github.com/cdelker/schemdraw.git#tag=0.17
+	sha512sums = dab54e0333b2feb279fdeab81d07f8cb8d6194885849b769a2d28c760f8b59ed238bb298b0c24b8657c067831d41c84cae347101210eb7df8863c3d19fe741bd
 
 pkgname = python-schemdraw
