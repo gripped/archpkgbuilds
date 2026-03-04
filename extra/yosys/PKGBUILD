@@ -3,8 +3,8 @@
 # Contributor: killruana <killruana@gmail.com>
 
 pkgname=yosys
-pkgver=0.54
-pkgrel=3
+pkgver=0.55
+pkgrel=1
 pkgdesc='A framework for RTL synthesis'
 arch=('x86_64')
 url='https://yosyshq.net/yosys/'
@@ -21,7 +21,7 @@ options=('!lto') # getting SIGSEGV when running the tests with LTO
 source=(git+https://github.com/YosysHQ/yosys#tag=v$pkgver
         git+https://github.com/jarro2783/cxxopts
         boost-1.89.patch)
-sha512sums=('f9f1698f493855d537e72de0c7c7b13f409f0bdfbad3be0019449e98bec2dd98b1a1cdd0d7d74f978287a28733d84564120a624d297eb9c8be4388f2f48e074c'
+sha512sums=('04c50862c33c0541e17b9035c5fa6dde1dddd6d253cdeaae3fe7169c80ca79db4e42aabd006c7b180a6d77b9aab7e5f09f8862989469805db52d2fb57b0808c8'
             'SKIP'
             'f926dd219f6ea13fee0d215e3305e5c9bab8f06ebb715f7cadcc80e199096d87a3dd9acbdc6f2727bd8e6e8c85e4c63b8068212a81c906ba0694af6f2b394a96')
 
