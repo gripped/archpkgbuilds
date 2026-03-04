@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=comtool
-pkgver=2.3.0
+pkgver=2.4.0
 pkgrel=1
 pkgdesc="A cross platform serial debug tools written by python"
 arch=('any')
@@ -10,7 +10,7 @@ license=('LGPL-3.0-only')
 depends=('python-pyqt5' 'python-pyserial' 'python-requests' 'python-babel' 'python-qtawesome')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("git+https://github.com/Neutree/COMTool.git#tag=v$pkgver")
-sha512sums=('4aa9f92b505b62515cdbbd85ea26cdc0ae92be08f5f60e24de83bfec4ceb47acdc2799c3a50280fa757806c87adc6b59eacbb916786b6694081c1e9347009fd2')
+sha512sums=('32dd58f9a45f07ee5eb9c64bc1ae36730d2a50005cec2013b85ddb7fb23e4d2d04dd64e69c88a6d2ee1849be5826e1a3a6ecc40c418ca47db53533811fb70a76')
 
 prepare() {
   cd COMTool
