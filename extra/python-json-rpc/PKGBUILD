@@ -5,29 +5,29 @@
 
 pkgname=python-json-rpc
 pkgver=1.13.0
-pkgrel=6
+pkgrel=7
 pkgdesc="JSON-RPC transport realisation"
 arch=('any')
 license=('MIT')
 url="https://github.com/pavlov99/json-rpc"
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
-source=("https://github.com/pavlov99/json-rpc/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('34c62ecc94b50af754d6326858d5c2f3938fa762054e795ef8d67c7691f00380')
+source=("git+https://github.com/pavlov99/json-rpc.git#tag=$pkgver")
+sha256sums=('246e4af3d2c63830962c0c93c905657958c98b381939e62a015364fdb7b1e63a')
 
 build() {
-  cd json-rpc-$pkgver
-  python setup.py build
+  cd json-rpc
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd json-rpc-$pkgver
+  cd json-rpc
   pytest
 }
 
 package() {
-  cd json-rpc-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  cd json-rpc
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
