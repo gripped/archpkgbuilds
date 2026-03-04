@@ -2,14 +2,13 @@
 # Maintainer: Eric Bélanger <eric@archlinux.org>
 
 pkgname=kdiff3
-pkgver=1.12.3
-pkgrel=2
+pkgver=1.12.4
+pkgrel=1
 pkgdesc='A file comparator/merge tool'
 arch=(x86_64)
 url='https://apps.kde.org/kdiff3/'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          icu
          kconfig
          kcoreaddons
@@ -19,12 +18,14 @@ depends=(gcc-libs
          kio
          kwidgetsaddons
          kxmlgui
+         libgcc
+         libstdc++
          qt6-base)
 makedepends=(boost
              extra-cmake-modules
              kdoctools)
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('e22654c457881799808305529c6b596c0c9dc38b5a2ecc142ec76d46f6873f4c'
+sha256sums=('4690a35aa933b192751dd590a6b4f53fef3aa950246371112ad6e872f6b26ecb'
             'SKIP')
 validpgpkeys=(EE56D710885D36FB1E4D21F3F442B36D614B06BC) # Michael Reeves <reeves.87@gmail.com>
 
