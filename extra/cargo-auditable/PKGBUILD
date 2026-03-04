@@ -2,7 +2,7 @@
 # Contributor: CosmicHorror <LovecraftianHorror@pm.me>
 
 pkgname=cargo-auditable
-pkgver=0.7.2
+pkgver=0.7.4
 pkgrel=1
 pkgdesc="A cargo-subcommand to make production Rust binaries auditable"
 arch=('x86_64')
@@ -10,11 +10,11 @@ url="https://github.com/rust-secure-code/cargo-auditable"
 license=('Apache-2.0' 'MIT')
 depends=('cargo' 'gcc-libs')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('b2f3c4d9edde7ab4f56b15627409cf3e4a83046c009c7836be9da947dc22b744d4984c19484ba5ce79a5d0628a57f62afa4113e60f0641fdfd003d2ed971adf7')
+sha512sums=('ae4b485d10c1c7bc67cd50891c8fa706d14b4777bb09c054b474efafe22cbff1c197b137cfdd3a16ff95aa5ad63c3672dff1a8dcddefbf5ee31b8e703bfe679d')
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
