@@ -2,8 +2,8 @@
 # Contributor: Rhys Davies <rhys@johnguant.com>
 
 pkgname=ruby-multipart-post
-pkgver=2.3.0
-pkgrel=7
+pkgver=2.4.0
+pkgrel=1
 pkgdesc='A multipart form post accessory for Net::HTTP'
 arch=(any)
 url='https://github.com/socketry/multipart-post'
@@ -12,6 +12,7 @@ depends=(
   ruby
 )
 makedepends=(
+  git
   ruby-covered
   ruby-rspec
 )
@@ -22,25 +23,23 @@ checkdepends=(
   ruby-bundler
 )
 options=(!emptydirs)
-source=(https://github.com/socketry/multipart-post/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('006f1fd953eda4d41f4ce03602ab0930e911adb7a1124b5b23b9fbc3c29a601d')
+source=(git+https://github.com/socketry/multipart-post.git#tag=v$pkgver)
+sha256sums=('9d8063508b913af93cca38ab2d074ee18587c49c76c479d85889add38a549301')
 
 prepare() {
-  cd multipart-post-$pkgver
+  cd multipart-post
   sed --in-place \
     --expression '/signing_key/d' \
-    --expression 's/~>/>=/' \
     multipart-post.gemspec
 
   sed --in-place \
     --expression '/group :maintenance/,/end/d' \
-    --expression '/rubocop/d' \
     gems.rb
 }
 
 build() {
   local _gemdir="$(gem env gemdir)"
-  cd multipart-post-$pkgver
+  cd multipart-post
   gem build multipart-post.gemspec
   gem install \
     --local \
@@ -66,12 +65,12 @@ build() {
 
 check() {
   local _gemdir="$(gem env gemdir)"
-  cd multipart-post-$pkgver
+  cd multipart-post
   GEM_HOME="tmp_install/$_gemdir" bake test
 }
 
 package() {
-  cd multipart-post-$pkgver
+  cd multipart-post
   cp -a tmp_install/* "$pkgdir"/
   install -Dm644 license.md -t "$pkgdir"/usr/share/licenses/$pkgname/
 }

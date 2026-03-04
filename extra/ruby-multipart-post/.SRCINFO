@@ -1,7 +1,7 @@
 pkgbase = ruby-multipart-post
 	pkgdesc = A multipart form post accessory for Net::HTTP
-	pkgver = 2.3.0
-	pkgrel = 7
+	pkgver = 2.4.0
+	pkgrel = 1
 	url = https://github.com/socketry/multipart-post
 	arch = any
 	license = MIT
@@ -9,11 +9,12 @@ pkgbase = ruby-multipart-post
 	checkdepends = ruby-bake-test
 	checkdepends = ruby-bake-test-external
 	checkdepends = ruby-bundler
+	makedepends = git
 	makedepends = ruby-covered
 	makedepends = ruby-rspec
 	depends = ruby
 	options = !emptydirs
-	source = https://github.com/socketry/multipart-post/archive/v2.3.0/ruby-multipart-post-2.3.0.tar.gz
-	sha256sums = 006f1fd953eda4d41f4ce03602ab0930e911adb7a1124b5b23b9fbc3c29a601d
+	source = git+https://github.com/socketry/multipart-post.git#tag=v2.4.0
+	sha256sums = 9d8063508b913af93cca38ab2d074ee18587c49c76c479d85889add38a549301
 
 pkgname = ruby-multipart-post
