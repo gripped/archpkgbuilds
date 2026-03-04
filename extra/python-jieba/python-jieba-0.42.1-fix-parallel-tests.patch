@@ -1,0 +1,224 @@
+diff --git a/test/parallel/extract_tags.py b/test/parallel/extract_tags.py
+index 43cf1dc..28f6ab4 100644
+--- a/test/parallel/extract_tags.py
++++ b/test/parallel/extract_tags.py
+@@ -2,33 +2,35 @@ import sys
+ sys.path.append('../../')
+ 
+ import jieba
+-jieba.enable_parallel(4)
+ import jieba.analyse
+ from optparse import OptionParser
+ 
+-USAGE ="usage:    python extract_tags.py [file name] -k [top k]"
++if __name__ == "__main__":
++    jieba.enable_parallel(4)
++    
++    USAGE ="usage:    python extract_tags.py [file name] -k [top k]"
+ 
+-parser = OptionParser(USAGE)
+-parser.add_option("-k",dest="topK")
+-opt, args = parser.parse_args()
++    parser = OptionParser(USAGE)
++    parser.add_option("-k",dest="topK")
++    opt, args = parser.parse_args()
+ 
+ 
+-if len(args) <1:
+-    print(USAGE)
+-    sys.exit(1)
++    if len(args) <1:
++        print(USAGE)
++        sys.exit(1)
+ 
+-file_name = args[0]
++    file_name = args[0]
+ 
+-if opt.topK==None:
+-    topK=10
+-else:
+-    topK = int(opt.topK)
++    if opt.topK==None:
++        topK=10
++    else:
++        topK = int(opt.topK)
+ 
+ 
+-content = open(file_name,'rb').read()
++    content = open(file_name,'rb').read()
+ 
+-tags = jieba.analyse.extract_tags(content,topK=topK)
++    tags = jieba.analyse.extract_tags(content,topK=topK)
+ 
+-print(",".join(tags))
++    print(",".join(tags))
+ 
+ 
+diff --git a/test/parallel/test.py b/test/parallel/test.py
+index 3d97f37..0217db1 100644
+--- a/test/parallel/test.py
++++ b/test/parallel/test.py
+@@ -3,7 +3,6 @@ from __future__ import print_function
+ import sys
+ sys.path.append("../../")
+ import jieba
+-jieba.enable_parallel(4)
+ 
+ def cuttest(test_sent):
+     result = jieba.cut(test_sent)
+@@ -13,6 +12,7 @@ def cuttest(test_sent):
+ 
+ 
+ if __name__ == "__main__":
++    jieba.enable_parallel(4)
+     cuttest("这是一个伸手不见五指的黑夜。我叫孙悟空，我爱北京，我爱Python和C++。")
+     cuttest("我不喜欢日本和服。")
+     cuttest("雷猴回归人间。")
+diff --git a/test/parallel/test2.py b/test/parallel/test2.py
+index ce749b5..8d6680d 100644
+--- a/test/parallel/test2.py
++++ b/test/parallel/test2.py
+@@ -3,7 +3,6 @@ from __future__ import print_function
+ import sys
+ sys.path.append("../../")
+ import jieba
+-jieba.enable_parallel(4)
+ 
+ def cuttest(test_sent):
+     result = jieba.cut(test_sent,cut_all=True)
+@@ -13,6 +12,7 @@ def cuttest(test_sent):
+ 
+ 
+ if __name__ == "__main__":
++    jieba.enable_parallel(4)
+     cuttest("这是一个伸手不见五指的黑夜。我叫孙悟空，我爱北京，我爱Python和C++。")
+     cuttest("我不喜欢日本和服。")
+     cuttest("雷猴回归人间。")
+diff --git a/test/parallel/test_cut_for_search.py b/test/parallel/test_cut_for_search.py
+index f283596..c24b2f6 100644
+--- a/test/parallel/test_cut_for_search.py
++++ b/test/parallel/test_cut_for_search.py
+@@ -3,7 +3,6 @@ from __future__ import print_function
+ import sys
+ sys.path.append("../../")
+ import jieba
+-jieba.enable_parallel(4)
+ 
+ def cuttest(test_sent):
+     result = jieba.cut_for_search(test_sent)
+@@ -13,6 +12,7 @@ def cuttest(test_sent):
+ 
+ 
+ if __name__ == "__main__":
++    jieba.enable_parallel(4)
+     cuttest("这是一个伸手不见五指的黑夜。我叫孙悟空，我爱北京，我爱Python和C++。")
+     cuttest("我不喜欢日本和服。")
+     cuttest("雷猴回归人间。")
+diff --git a/test/parallel/test_disable_hmm.py b/test/parallel/test_disable_hmm.py
+index 7aa36fa..794b806 100644
+--- a/test/parallel/test_disable_hmm.py
++++ b/test/parallel/test_disable_hmm.py
+@@ -3,7 +3,6 @@ from __future__ import print_function
+ import sys
+ sys.path.append("../../")
+ import jieba
+-jieba.enable_parallel(4)
+ 
+ def cuttest(test_sent):
+     result = jieba.cut(test_sent, HMM=False)
+@@ -13,6 +12,7 @@ def cuttest(test_sent):
+ 
+ 
+ if __name__ == "__main__":
++    jieba.enable_parallel(4)
+     cuttest("这是一个伸手不见五指的黑夜。我叫孙悟空，我爱北京，我爱Python和C++。")
+     cuttest("我不喜欢日本和服。")
+     cuttest("雷猴回归人间。")
+diff --git a/test/parallel/test_file.py b/test/parallel/test_file.py
+index 8e06d42..f34fca2 100644
+--- a/test/parallel/test_file.py
++++ b/test/parallel/test_file.py
+@@ -3,18 +3,19 @@ import time
+ sys.path.append("../../")
+ import jieba
+ 
+-jieba.enable_parallel()
++if __name__ == "__main__":
++    jieba.enable_parallel()
+ 
+-url = sys.argv[1]
+-content = open(url,"rb").read()
+-t1 = time.time()
+-words = "/ ".join(jieba.cut(content))
++    url = sys.argv[1]
++    content = open(url,"rb").read()
++    t1 = time.time()
++    words = "/ ".join(jieba.cut(content))
+ 
+-t2 = time.time()
+-tm_cost = t2-t1
++    t2 = time.time()
++    tm_cost = t2-t1
+ 
+-log_f = open("1.log","wb")
+-log_f.write(words.encode('utf-8'))
++    log_f = open("1.log","wb")
++    log_f.write(words.encode('utf-8'))
+ 
+-print('speed %s bytes/second' % (len(content)/tm_cost))
++    print('speed %s bytes/second' % (len(content)/tm_cost))
+ 
+diff --git a/test/parallel/test_pos.py b/test/parallel/test_pos.py
+index 149a872..538fe5d 100644
+--- a/test/parallel/test_pos.py
++++ b/test/parallel/test_pos.py
+@@ -3,7 +3,6 @@ from __future__ import print_function
+ import sys
+ sys.path.append("../../")
+ import jieba
+-jieba.enable_parallel(4)
+ import jieba.posseg as pseg
+ 
+ def cuttest(test_sent):
+@@ -14,6 +13,7 @@ def cuttest(test_sent):
+ 
+ 
+ if __name__ == "__main__":
++    jieba.enable_parallel(4)
+     cuttest("这是一个伸手不见五指的黑夜。我叫孙悟空，我爱北京，我爱Python和C++。")
+     cuttest("我不喜欢日本和服。")
+     cuttest("雷猴回归人间。")
+diff --git a/test/parallel/test_pos_file.py b/test/parallel/test_pos_file.py
+index b44bc1e..1413bef 100644
+--- a/test/parallel/test_pos_file.py
++++ b/test/parallel/test_pos_file.py
+@@ -5,18 +5,19 @@ sys.path.append("../../")
+ import jieba
+ import jieba.posseg as pseg
+ 
+-jieba.enable_parallel(4)
++if __name__ == "__main__":
++    jieba.enable_parallel(4)
+ 
+-url = sys.argv[1]
+-content = open(url,"rb").read()
+-t1 = time.time()
+-words = list(pseg.cut(content))
++    url = sys.argv[1]
++    content = open(url,"rb").read()
++    t1 = time.time()
++    words = list(pseg.cut(content))
+ 
+-t2 = time.time()
+-tm_cost = t2-t1
++    t2 = time.time()
++    tm_cost = t2-t1
+ 
+-log_f = open("1.log","w")
+-log_f.write(' / '.join(map(str, words)))
++    log_f = open("1.log","w")
++    log_f.write(' / '.join(map(str, words)))
+ 
+-print('speed' , len(content)/tm_cost, " bytes/second")
++    print('speed' , len(content)/tm_cost, " bytes/second")
+ 
