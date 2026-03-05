@@ -4,29 +4,37 @@
 
 pkgbase=pythia8
 pkgname=('pythia8' 'python-pythia8')
-pkgver=8.3.14
+pkgver=8.3.17
 _pkgver="${pkgver//./}"
 _pkgid="${pkgbase:0:-1}${_pkgver}"
 _pkgpre="${_pkgver:0:2}"
-pkgrel=2
+pkgrel=1
 pkgdesc="High-energy physics events generator"
 arch=('x86_64')
 url="https://pythia.org"
 license=(GPL-2.0-or-later)
-makedepends=('fastjet' 'hepmc' 'hepmc2' 'lhapdf' 'openmp' 'python' 'root' 'zlib')
+makedepends=(
+    fastjet
+    hepmc
+    lhapdf
+    python
+    root
+    zlib
+)
 source=("https://pythia.org/download/pythia${_pkgpre}/${_pkgid}.tgz"
         'pythia8.sh'
-        'fix_python_lib_paths.patch')
-b2sums=('e953496c67e7678d6bb30660b83eba4928e7696e582924971ffb07aedc76baab5ab9103e720b49eac5d4f8014131926726df322e808e38416f395aa9f9f4776f'
+        'fix-rpath.patch')
+b2sums=('93d28e1e7b60a89fa948d3de784f8a251e44fe9ff189770828065e333497adbecaf6cbe76c966383088bc763ad68f6dd762a3be4fcb6cfc6c3d7b28d2a619eaf'
         '133b72411c3e60a6f0165212dadfa457a69706f045c21d217ac0bb78f84133a9daada0836633f62f8bffc7c70cacd86ffe7f34b2b8a444ea24149261852001e0'
-        '8c302349e5e834f175cf23885b0d5155bbca756769dc99111398ecabb1fd0df9a6fc02e65f7aafc2baf5b431f10bddf74226930bc204039d7b445a6902f197c3')
+        'a429cf0c1bda300dc05e395454b2810896a26e98714a2d40520ea8399e89b674762d033bd76f364acf99020898860cf621e891577966db2def99a5d7e065fe93')
+
 get_pyver () {
     python -c 'import sys; print(str(sys.version_info[0]) + "." + str(sys.version_info[1]))'
 }
 
 prepare() {
     cd "${_pkgid}"
-    patch -Np1 -i "../fix_python_lib_paths.patch"
+    patch -p1 < ../fix-rpath.patch
     # patch all date calls to make pythia reproducible
     sed 's/`date`/`TZ=UTC LANG=C date --date=@$SOURCE_DATE_EPOCH`/' -i configure
 }
@@ -54,9 +62,6 @@ build() {
         --with-gzip \
         --with-gzip-include=${_inc} \
         --with-gzip-lib=${_lib} \
-        --with-hepmc2 \
-        --with-hepmc2-include=${_inc} \
-        --with-hepmc2-lib=${_lib} \
         --with-hepmc3 \
         --with-hepmc3-include=${_inc} \
         --with-hepmc3-lib=${_lib} \
@@ -80,17 +85,16 @@ build() {
 
 package_pythia8() {
     depends=(
-        'bash'
-        'gcc-libs'
-        'glibc'
-        'openmp'
-        'python'
-        'zlib'
+        bash
+        glibc
+        libgcc
+        libstdc++
+        python
+        zlib
     )
     optdepends=(
         'fastjet: fast jet finding in pp and e+e- collisions'
         'hepmc: storing collisions from Monte Carlo'
-        'hepmc2: storing collisions from Monte Carlo (old interface)'
         'lhapdf: evaluate PDFs from discretised data files'
         'python-pythia8: for examples'
         'root: integrated examples with CERN ROOT data analysis framework'
@@ -115,11 +119,11 @@ package_pythia8() {
 package_python-pythia8() {
     pkgdesc="Python bindings for Pythia"
     depends=(
-        'gcc-libs'
-        'glibc'
-        'pythia8'
+        glibc
+        libgcc
+        libstdc++
+        pythia8
     )
-    replaces=('python-pythia')
 
     cd "${_pkgid}"
     _pyver="$(get_pyver)"
