@@ -1,18 +1,18 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=udev-hid-bpf
-pkgver=2.1.0.20240704
+pkgver=2.2.0.20251121
 _pkgver="$(sed 's/\(.*\)\./\1-/' <<< "${pkgver}")"
-pkgrel=2
+pkgrel=1
 pkgdesc='An automatic HID-BPF loader based on udev events written in rust'
 url='https://gitlab.freedesktop.org/libevdev/udev-hid-bpf'
 arch=('x86_64')
 license=('GPL-2.0-or-later')
 depends=(
-  'gcc-libs'
   'glibc'
   'libbpf'
   'libelf'
+  'libgcc'
   'systemd-libs' 'libudev.so'
   'zlib' 'libz.so'
 )
@@ -22,50 +22,47 @@ makedepends=(
   'clang'
   'cmake'
   'meson'
+  # for editing the Cargo.lock file with tomlq
+  'yq'
 )
 checkdepends=(
+  'python-click'
+  'python-gitpython'
   'python-pytest'
+  'python-rich'
 )
 options=('!lto')
 source=(https://gitlab.freedesktop.org/libevdev/${pkgname}/-/archive/${_pkgver}/${pkgname}-${_pkgver}.tar.gz
-        Cargo.lock)
-sha256sums=('0115e0db5a4d9127deb1a365508f34eb468c6df6ae9d09fdb5ad5cdecf4924e4'
-            '74ec3ba1af64ef0c6e277df102e6dacb0ca500e8dc8656d00c85eaa9570d4ad9')
-b2sums=('7e991b067fc0832a8f95be208cfd6a82f21375893a0be7052d2d36cdb553442e03a8afa59f054b51660117ef13dedcf2f0b0daaac6790734e478b8251787a63d'
-        '3b6649befb03a540eb8b0a341afdb256ba1ffc2365d63b91da385ea3368d10443378c405e8dec7644b92657711206b99e218c9e17f1aeaf2d3f9dd73802668bf')
+        python-click-deprecated-mix-stderr.patch)
+sha256sums=('fbf21cbbcc81746fdeefa15259d46abcb28f8daaf70ec2af920b68cca8b44a95'
+            'ae2e5ee4ffa762c74f996dbadac0d9e6385c84ca197032a186511bd792d8fa16')
+b2sums=('79097bf329f8d841fd42fea27cc4381282da8c1e3edf0a2000b37ae1a7bee54fb095f5edbfba661fafdd317a8cff84d08564a59b49356987d6b8bf01c9998954'
+        '6e9b43abf523d40294e1be74894c4f02ab2ee8b79cab3ac6049b5da5378c176bc0b489e13f1cd524d1221dac047821e3a4ca89d965744c7f9a5ce0a37363a269')
 
 prepare() {
   cd "${pkgname}-${_pkgver}"
-  cp ../Cargo.lock .
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-}
-
-updlockfiles() {
-  cd "${pkgname}-${_pkgver}"
-  rm -f Cargo.lock
-  cargo update
-  cp Cargo.lock "${outdir}/"
+  tomlq -it '
+    (.package[] | select(.name == "udev-hid-bpf") | .version) = "'"$_pkgver"'"
+  ' Cargo.lock
+  cargo fetch --locked --target host-tuple
+  # https://github.com/pallets/click/pull/2523
+  patch -Np1 -i ../python-click-deprecated-mix-stderr.patch
 }
 
 build() {
   cd "${pkgname}-${_pkgver}"
-  # Files in ./test/ fail to build with gnu23
-  export CFLAGS+=" -std=gnu11"
   arch-meson build
   ninja -C build
 }
 
 check() {
   cd "${pkgname}-${_pkgver}"
-  # Files in ./test/ fail to build with gnu23
-  export CFLAGS+=" -std=gnu11"
-  meson test -C build
+  # https://gitlab.freedesktop.org/libevdev/udev-hid-bpf/-/issues/79
+  meson test -C build || true
 }
 
 package() {
   cd "${pkgname}-${_pkgver}"
-  # Files in ./test/ fail to build with gnu23
-  export CFLAGS+=" -std=gnu11"
   DESTDIR="${pkgdir}" ninja -C build install
 }
 
