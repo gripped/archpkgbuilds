@@ -2,8 +2,8 @@
 
 pkgname=python-django-guardian
 _name="${pkgname#python-}"
-pkgver=3.2.0
-pkgrel=2
+pkgver=3.3.0
+pkgrel=1
 pkgdesc="Per object permissions for Django"
 arch=(any)
 url="https://github.com/django-guardian/django-guardian"
@@ -27,8 +27,8 @@ checkdepends=(
   python-pytest-django
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('3eb7a7c7a4d1bd24887078c74374d7fabb28953b8f17beb0a53676fe79ecad265bd90f3777c4031b5103c952f6c7b153220dcb39771f671eb07f4a683508462d')
-b2sums=('d8dca36942b9714263c7bb925df4ba58bbc55ad6556dad94d856d1f09aac56bfe061fa95047d23ecc2963e482c446c2ae42685c64f4f71f2ec988c9c45fdc933')
+sha512sums=('025f30515ff1b1ae2d988edd7a9dbed3e567ed6dc798bdb228694bfa813d955a30df9f84856074eee6d041c25ae7db9a43c1c7d8b694f35ce61f21adcbc7c968')
+b2sums=('cdfcc6504a8b9cd63969b51ed621714d8f70f7c82ca0f42dff0f94b473ca4fd39002376e9fb90a9d8b27a36c5cdfd43245b84f9f8f69faaea73518719a7147f8')
 
 prepare() {
   sed -n '1,23p' $_name-$pkgver/LICENSE > BSD-2-Clause.txt
