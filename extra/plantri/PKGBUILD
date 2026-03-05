@@ -1,15 +1,15 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plantri
-pkgver=5.5
-pkgrel=2
+pkgver=5.8
+pkgrel=1
 pkgdesc='A program for generation of certain types of planar graph'
 arch=(x86_64)
 url='https://cs.anu.edu.au/~bdm/plantri/'
 license=(Apache-2.0)
 depends=(glibc)
 source=(https://cs.anu.edu.au/~bdm/plantri/plantri${pkgver/./}.tar.gz)
-sha256sums=('911cdf5bcca7294eb80f8f79fefc148183f7ba81da15b3aa4d6d2401a3bc7ded')
+sha256sums=('e78a944116fec9f2c9f5e484206276cc2b0043bae803e9815f4b2683614629b8')
 
 prepare() {
   sed -e '/CFLAGS=/d' -e '/LDFLAGS=/d' -i plantri${pkgver/./}/makefile
