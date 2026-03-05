@@ -4,8 +4,8 @@
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=digikam
-pkgver=8.8.0
-pkgrel=3
+pkgver=9.0.0
+pkgrel=1
 pkgdesc='An advanced digital photo management application'
 arch=(x86_64)
 license=(GPL-2.0-or-later)
@@ -14,7 +14,6 @@ depends=(akonadi-contacts
          exiv2
          expat
          ffmpeg
-         gcc-libs
          glib2
          glibc
          imagemagick
@@ -36,13 +35,16 @@ depends=(akonadi-contacts
          kxmlgui
          lcms2
          lensfun
+         libgcc
          libglvnd
+         libgomp
          libgphoto2
          libheif
          libjpeg-turbo
          libjxl
          libksane
          libpng
+         libstdc++
          libtiff
          libx11
          libxml2
@@ -72,13 +74,9 @@ optdepends=('darktable: RAW import'
             'qt6-imageformats: support for additional image formats (WEBP, TIFF)'
             'rawtherapee: RAW import')
 source=(https://download.kde.org/stable/$pkgname/${pkgver%-*}/digiKam-$pkgver.tar.xz{,.sig})
-sha256sums=('db3a1b6e3c73f903e3dff8003f52455dd2ecd198cb66534fee4abbd0bdeb6b9a'
+sha256sums=('7680ea024fe00e10c96090e45fe4b7b4a1c3993bc5e87576eddd4e0eefd08ef3'
             'SKIP')
 validpgpkeys=(D1CF2444A7858C5F2FB095B74A77747BC2386E50) # digiKam.org (digiKam project) <digikamdeveloper@gmail.com>
-
-prepare() {
-  rm $pkgname-$pkgver/core/cmake/modules/FindEigen3.cmake # Fix build with Eigen 5
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
