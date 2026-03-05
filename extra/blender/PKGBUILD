@@ -9,7 +9,7 @@
 
 pkgname=blender
 pkgver=5.0.1
-pkgrel=6
+pkgrel=7
 epoch=17
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
@@ -144,6 +144,11 @@ prepare() {
   local _hiprt_api_ver
   _hiprt_api_ver=$(awk '/HIPRT_API_VERSION/ {print $3}' /opt/rocm/include/hiprt/hiprtew.h)
   sed -i "/HIPRT_API_VERSION/s/2005/$_hiprt_api_ver/" extern/hipew/include/hiprtew.h
+
+  # TODO Dirty hack / workaround to fix faulty manpage generation.. arguably an upstream issue.
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/blender/-/issues/19
+  sed -i "/blender_help = subprocess/i\    blender_env = {\"LD_LIBRARY_PATH\": \"${pkgdir}/usr/share/blender/lib\"}" \
+    doc/manpage/blender.1.py
 }
 
 _get_pyver() {
