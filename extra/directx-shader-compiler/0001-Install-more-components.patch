@@ -100,10 +100,10 @@ index 000000000000..e685e78bd66d
 +            -DCMAKE_INSTALL_COMPONENT=hlsl-headers
 +            -P "${CMAKE_BINARY_DIR}/cmake_install.cmake")
 diff --git a/tools/clang/test/CMakeLists.txt b/tools/clang/test/CMakeLists.txt
-index 6b0aa32fbcc6..3fd41cf45fed 100644
+index 5f0887ad8417..79ea9c0babb5 100644
 --- a/tools/clang/test/CMakeLists.txt
 +++ b/tools/clang/test/CMakeLists.txt
-@@ -79,11 +79,11 @@ endif()
+@@ -85,11 +85,11 @@ endif()
  set(CLANG_TEST_DEPS dxc dxa dxopt dxl dxv dxr dxcompiler clang-tblgen llvm-config opt FileCheck count not ClangUnitTests)
  if (WIN32)
  list(APPEND CLANG_TEST_DEPS

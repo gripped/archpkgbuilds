@@ -2,8 +2,8 @@
 # Maintainer: Laurent Carlier <lordheavym@archlinux.org>
 
 pkgname=directx-shader-compiler
-pkgver=1.8.2505.1
-pkgrel=2
+pkgver=1.9.2602
+pkgrel=1
 pkgdesc="Compiler for HLSL to DXIL (DirectX Intermediate Language)"
 url="https://github.com/microsoft/DirectXShaderCompiler"
 arch=(x86_64)
@@ -12,8 +12,9 @@ license=(
   'Apache-2.0 WITH LLVM-exception' # HLSL headers
 )
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
 )
 makedepends=(
   clang
@@ -30,11 +31,11 @@ source=(
   "git+https://github.com/KhronosGroup/SPIRV-Tools"
   0001-Install-more-components.patch
 )
-b2sums=('3335d42eee2baa254a377c8e4273bd623374ddef12befb675f22018801c906fd70ebcf60cd289cefa33a6b4edba85c13f90a4f881f28306682e2661330da1c68'
+b2sums=('7d8b7cdb0410e2fb6ac2986026851b1a3486aa558c0a54467aa9d2678e8d5bc90a2ca6e646e45d73aee3a01e9ae53e8d6b9ef3993611fa0d5055949ccb2ce707'
         'SKIP'
         'SKIP'
         'SKIP'
-        'a3929c6600b84dd2b3ed8475b95bb1860addc5cc4ae4d1139b09525e8c4a1d754f1f5d4cb0a24cd42d41c75d790f6da0ce965f9e2a40888602ab643f88a7c9de')
+        '018e118593b98e941ffa99882733e361342544c3cf806d256a8e27aca508292b1060aca55aa4c0a46388103818b8e04d193346ed789abf9080ba28756a891c86')
 
 prepare() {
   cd $pkgname
