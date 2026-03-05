@@ -4,8 +4,8 @@
 
 pkgname=python-proxmoxer
 _name=${pkgname#python-}
-pkgver=2.2.0
-pkgrel=2
+pkgver=2.3.0
+pkgrel=1
 pkgdesc="Python Wrapper for the Proxmox 2.x API (HTTP and SSH)"
 arch=('any')
 url="https://github.com/proxmoxer/proxmoxer"
@@ -15,7 +15,7 @@ optdepends=('python-requests: for https backend'
 			'python-paramiko: for ssh_paramiko backend')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-sha256sums=('3ed63a58e5c0822841afdb3801f9d913a4996955c1c54f7319b5842ba2615006')
+sha256sums=('0b0b2067187af1fc6d4257a46ac68c8fd79cc25d2813637cdae7a9a98fbfd11f')
 
 build() {
   cd "${srcdir}/${_name}-${pkgver}"
