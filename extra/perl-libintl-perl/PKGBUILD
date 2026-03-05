@@ -3,30 +3,31 @@
 # Contributor: Tobias Kieslich <tobias@justdreams.de>
 
 pkgname=perl-libintl-perl
-pkgver=1.35
-pkgrel=2
+pkgver=1.36
+pkgrel=1
 pkgdesc="Perl Module: Localization support"
 arch=('x86_64')
-license=('LGPL')
+license=('GPL-3.0-or-later')
 url="https://search.cpan.org/dist/libintl-perl"
 depends=('coreutils' 'gettext' 'perl')
+makedepends=('git')
 options=('!emptydirs')
-source=("https://www.cpan.org/authors/id/G/GU/GUIDO/libintl-perl-$pkgver.tar.gz")
-sha512sums=('2952a0cfb8bc84307208d71b974777fd7883266f595309cf7f38f7f640a20c1a3852c6daf4b02e758dc94d37cc84fc23ef9a51a892b3de50b4eaf28ee253ac77')
+source=("git+https://github.com/gflohr/libintl-perl.git#tag=v$pkgver")
+sha512sums=('52ad7593d06053a2cd0673b35c3ee4c3aca1fd186a781895b1d077a3a239f634527a67a396cdcd4fbe8f3f7f7bf1b360be547dfcc6f997dc71fa50e7e10dfaaa')
 
 build() {
-  cd libintl-perl-$pkgver
+  cd libintl-perl
   perl Makefile.PL INSTALLDIRS=vendor
   make
 }
 
 check() {
-  cd libintl-perl-$pkgver
+  cd libintl-perl
   make test
 }
 
 package() {
-  cd libintl-perl-$pkgver
+  cd libintl-perl
   PERL_USE_UNSAFE_INC=1 \
   make install DESTDIR="$pkgdir"
 }
