@@ -2,25 +2,31 @@
 # Contributor: Joshua Ellis < josh at jpellis dot me >
 # Contributor: Stefano Campanella < stefanocampanella1729 at gmail dot com >
 
-pkgbase=pythia8
-pkgname=('pythia8' 'python-pythia8')
+pkgname=pythia8
 pkgver=8.3.17
 _pkgver="${pkgver//./}"
-_pkgid="${pkgbase:0:-1}${_pkgver}"
+_pkgid="${pkgname:0:-1}${_pkgver}"
 _pkgpre="${_pkgver:0:2}"
-pkgrel=1
+pkgrel=2
 pkgdesc="High-energy physics events generator"
 arch=('x86_64')
 url="https://pythia.org"
 license=(GPL-2.0-or-later)
-makedepends=(
-    fastjet
-    hepmc
-    lhapdf
+depends=(
+    bash
+    glibc
+    libgcc
+    libstdc++
     python
-    root
     zlib
 )
+makedepends=(
+    root
+)
+optdepends=(
+    'root: integrated examples with CERN ROOT data analysis framework'
+)
+replaces=(python-pythia8)
 source=("https://pythia.org/download/pythia${_pkgpre}/${_pkgid}.tgz"
         'pythia8.sh'
         'fix-rpath.patch')
@@ -43,7 +49,7 @@ build() {
     _bin=/usr/bin
     _inc=/usr/include
     _lib=/usr/lib
-    _share="/usr/share/${pkgbase}"
+    _share="/usr/share/${pkgname}"
     _pyver="$(get_pyver)"
 
     cd "${_pkgid}"
@@ -56,21 +62,9 @@ build() {
         --cxx=/usr/bin/g++ \
         --cxx-common="${CXXFLAGS} -fPIC" \
         --cxx-shared="-shared ${LDFLAGS} -ldl" \
-        --with-fastjet3 \
-        --with-fastjet3-include=${_inc} \
-        --with-fastjet3-lib=${_lib} \
         --with-gzip \
         --with-gzip-include=${_inc} \
         --with-gzip-lib=${_lib} \
-        --with-hepmc3 \
-        --with-hepmc3-include=${_inc} \
-        --with-hepmc3-lib=${_lib} \
-        --with-lhapdf5 \
-        --with-lhapdf5-include=${_inc} \
-        --with-lhapdf5-lib=${_lib} \
-        --with-lhapdf6 \
-        --with-lhapdf6-include=${_inc} \
-        --with-lhapdf6-lib=${_lib} \
         --with-python \
         --with-python-include="/usr/include/python${_pyver}" \
         --with-python-lib="/usr/lib/python${_pyver}" \
@@ -83,51 +77,13 @@ build() {
     make
 }
 
-package_pythia8() {
-    depends=(
-        bash
-        glibc
-        libgcc
-        libstdc++
-        python
-        zlib
-    )
-    optdepends=(
-        'fastjet: fast jet finding in pp and e+e- collisions'
-        'hepmc: storing collisions from Monte Carlo'
-        'lhapdf: evaluate PDFs from discretised data files'
-        'python-pythia8: for examples'
-        'root: integrated examples with CERN ROOT data analysis framework'
-    )
-
+package() {
     cd "${_pkgid}"
+    _pyver="$(get_pyver)"
 
     install -Dm755 bin/pythia8-config "${pkgdir}/usr/bin/pythia8-config"
     install -Dm644 lib/libpythia8.a "${pkgdir}/usr/lib/libpythia8.a"
     install -Dm755 lib/libpythia8.so "${pkgdir}/usr/lib/libpythia8.so"
-    install -Dm755 lib/libpythia8lhapdf5.so "${pkgdir}/usr/lib/libpythia8lhapdf5.so"
-    install -Dm755 lib/libpythia8lhapdf6.so "${pkgdir}/usr/lib/libpythia8lhapdf6.so"
-
-    cp -r include "${pkgdir}/usr/"
-    install -d "${pkgdir}/usr/share/${pkgbase}"
-    cp -r share/Pythia8/* "${pkgdir}/usr/share/${pkgbase}/"
-    cp -r examples "${pkgdir}/usr/share/${pkgbase}/"
-
-    install -D "${srcdir}/pythia8.sh" "${pkgdir}/etc/profile.d/pythia8.sh"
-}
-
-package_python-pythia8() {
-    pkgdesc="Python bindings for Pythia"
-    depends=(
-        glibc
-        libgcc
-        libstdc++
-        pythia8
-    )
-
-    cd "${_pkgid}"
-    _pyver="$(get_pyver)"
-
     install -Dm755 lib/pythia8.so "${pkgdir}/usr/lib/python${_pyver}/site-packages/pythia8.so"
 
     # recompile pycache to strip $pkgdir from embedded paths
@@ -135,4 +91,11 @@ package_python-pythia8() {
         "${pkgdir}/usr/lib/python${_pyver}"
     python -O -m compileall -d "/usr/lib/python${_pyver}" \
         "${pkgdir}/usr/lib/python${_pyver}"
+
+    cp -r include "${pkgdir}/usr/"
+    install -d "${pkgdir}/usr/share/${pkgname}"
+    cp -r share/Pythia8/* "${pkgdir}/usr/share/${pkgname}/"
+    cp -r examples "${pkgdir}/usr/share/${pkgname}/"
+
+    install -D "${srcdir}/pythia8.sh" "${pkgdir}/etc/profile.d/pythia8.sh"
 }
