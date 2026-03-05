@@ -3,7 +3,7 @@
 # Contributor: damir <damir@archlinux.org>
 
 pkgname=qsynth
-pkgver=1.0.4
+pkgver=1.0.5
 pkgrel=1
 pkgdesc="Qt GUI for FluidSynth"
 arch=(x86_64)
@@ -11,9 +11,10 @@ url="https://qsynth.sourceforge.io/"
 license=(GPL-2.0-or-later)
 groups=(pro-audio)
 depends=(
-  gcc-libs
   glibc
   hicolor-icon-theme
+  libgcc
+  libstdc++
   qt6-base
   qt6-svg
 )
@@ -24,8 +25,8 @@ makedepends=(
   qt6-tools
 )
 source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
-sha512sums=('721e6e6685d7b12d9eba0475674488936c2d79b19968cb59a3a62ab4deb15dae64c9880361ed49afe0ec4fa13cf2e5135781051eaa97a73fac37b2472a636e39')
-b2sums=('ee75ec9ffd23c397bbf60f4f4375e11ae965d8219b836dfd90816290f10c131b01f8aa0500cd516add8b08316de4b1cfae2433b925bdeb66409c41c58d51d99f')
+sha512sums=('06cc53bc10d7219e1ea351c3e93a946a05b57ef6d495e70b1da30632f009d30d62e02cd40413894d2cd39626ce61db3f75cbd4ea2beb340806786ca6b1d9d5e2')
+b2sums=('f7a59130f4cba6fe50641c43f40047883b5c64216b143ec58cf264affc6aaede7d31b74bb9dec5fe27c9e120c9f22eca00eb3abc528be039076d3b4ee1e81294')
 
 build() {
   local cmake_options=(
