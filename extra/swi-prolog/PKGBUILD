@@ -5,8 +5,8 @@
 # Contributor: Juergen Hoetzel <juergen@archlinux.org>
 
 pkgname=swi-prolog
-pkgver=10.0.0
-pkgrel=2
+pkgver=10.0.1
+pkgrel=1
 pkgdesc='Prolog environment'
 arch=(x86_64)
 url='https://www.swi-prolog.org'
@@ -23,7 +23,7 @@ optdepends=('java-runtime: for using Prolog from Java'
             'python: for using Prolog from Python'
             'unixodbc: for using the odbc4pl library')
 source=("$pkgname-$pkgver.tar.gz::$url/download/stable/src/swipl-$pkgver.tar.gz")
-b2sums=('b8c05f517d5f5963ef7fd2f1a1103f03226a803b3f641db5e224032b0e03e53ef8aeaf8defd1a243a2e3ec0a2121658d224cf0be10f44f3c2783f845ad2ce3a0')
+b2sums=('c6daa8e1015278b58ba5afb16c5d5a0680086163ebc7ad91230e0a282bf8edead5b5960246fa2b8c3ebdcd643fa126903965778028e96ef705e019abe9d70f8b')
 
 build() {
   cmake \
@@ -39,8 +39,7 @@ build() {
 }
 
 check() {
-  # skip the jpl:prolog_in_java test, for now (has been reported upstream)
-  ctest -E "jpl:prolog_in_java" --test-dir build || cat build/Testing/Temporary/LastTest.log
+  ctest --test-dir build || cat build/Testing/Temporary/LastTest.log
 }
 
 package() {
