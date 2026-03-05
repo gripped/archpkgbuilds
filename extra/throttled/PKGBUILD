@@ -2,29 +2,31 @@
 # Contributor: Kenneth Endfinger <kaendfinger@gmail.com>
 
 pkgname=throttled
-pkgver=0.10.0
-pkgrel=5
+pkgver=0.11
+pkgrel=1
 pkgdesc="Workaround for Intel throttling issues in Linux."
 arch=('any')
 url="https://github.com/erpalma/throttled"
 license=('MIT')
 depends=('python-dbus' 'python-gobject')
+makedepends=('git')
 backup=('etc/throttled.conf')
 install=$pkgname.install
-source=("https://github.com/erpalma/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('b89c467295bfc592d7b3ce0c4a41fedf436acf8067f8ef63d8596b92343ed8e04d371d065a9e35fdddba40772f12255c30960c2c46f0cbd5093bfc5e72fb4e18')
+source=("git+https://github.com/erpalma/$pkgname.git#tag=v$pkgver")
+sha512sums=('f35f85282edda5ed6ef8394d4142abce008ef5e496efcad75e2d3f0ae3ababc7d20fe1b32f47474a9bf053e08e071adfb53a4253262c00c7ae23b9bfd2bae5d7')
 
 prepare() {
-  sed -i "s|ExecStart=.*|ExecStart=/usr/lib/$pkgname/throttled.py|" $pkgname-$pkgver/systemd/throttled.service
+  cd $pkgname
+  sed -i "s|ExecStart=.*|ExecStart=/usr/lib/$pkgname/throttled.py|" systemd/throttled.service
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m compileall *.py
 }
 
 package() {
-  cd throttled-$pkgver
+  cd $pkgname
   install -Dm644 etc/throttled.conf "$pkgdir"/etc/throttled.conf
   install -Dm644 systemd/throttled.service "$pkgdir"/usr/lib/systemd/system/throttled.service
   install -Dm755 throttled.py "$pkgdir"/usr/lib/$pkgname/throttled.py

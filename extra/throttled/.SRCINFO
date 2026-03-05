@@ -1,15 +1,16 @@
 pkgbase = throttled
 	pkgdesc = Workaround for Intel throttling issues in Linux.
-	pkgver = 0.10.0
-	pkgrel = 5
+	pkgver = 0.11
+	pkgrel = 1
 	url = https://github.com/erpalma/throttled
 	install = throttled.install
 	arch = any
 	license = MIT
+	makedepends = git
 	depends = python-dbus
 	depends = python-gobject
 	backup = etc/throttled.conf
-	source = https://github.com/erpalma/throttled/archive/v0.10.0/throttled-0.10.0.tar.gz
-	sha512sums = b89c467295bfc592d7b3ce0c4a41fedf436acf8067f8ef63d8596b92343ed8e04d371d065a9e35fdddba40772f12255c30960c2c46f0cbd5093bfc5e72fb4e18
+	source = git+https://github.com/erpalma/throttled.git#tag=v0.11
+	sha512sums = f35f85282edda5ed6ef8394d4142abce008ef5e496efcad75e2d3f0ae3ababc7d20fe1b32f47474a9bf053e08e071adfb53a4253262c00c7ae23b9bfd2bae5d7
 
 pkgname = throttled
