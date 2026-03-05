@@ -1,0 +1,154 @@
+diff --git a/src/runtime_src/core/edge/common_em/CMakeLists.txt b/src/runtime_src/core/edge/common_em/CMakeLists.txt
+index ff79ffbfc..61ac27ae8 100644
+--- a/src/runtime_src/core/edge/common_em/CMakeLists.txt
++++ b/src/runtime_src/core/edge/common_em/CMakeLists.txt
+@@ -4,6 +4,9 @@
+ SET (Protobuf_DEBUG)
+ INCLUDE(FindProtobuf)
+ FIND_PACKAGE(Protobuf REQUIRED)
++FIND_PACKGE(PkgConfig REQUIRED)
++PKG_CHECK_MODULES(protobuf REQUIRED IMPORTED_TARGET protobuf)
++message("Found protobuf with pkg-config")
+ 
+ include_directories (
+ ${PROTOBUF_INCLUDE_DIR}
+@@ -41,7 +44,7 @@ set_target_properties(common_em PROPERTIES VERSION ${XRT_VERSION_STRING}
+ 
+ target_link_libraries(common_em
+   PRIVATE
+-  ${PROTOBUF_LIBRARY}
++  PkgConfig::protobuf
+   xrt_coreutil
+   dl
+   pthread
+diff --git a/src/runtime_src/core/edge/sw_emu/CMakeLists.txt b/src/runtime_src/core/edge/sw_emu/CMakeLists.txt
+index a4be23411..652ea48eb 100644
+--- a/src/runtime_src/core/edge/sw_emu/CMakeLists.txt
++++ b/src/runtime_src/core/edge/sw_emu/CMakeLists.txt
+@@ -9,6 +9,9 @@ set(COMMON_SRC_DIR  "${CMAKE_CURRENT_SOURCE_DIR}/..")
+ set(Protobuf_DEBUG)
+ include(FindProtobuf)
+ find_package(Protobuf REQUIRED)
++find_package(PkgConfig REQUIRED)
++pkg_check_modules(protobuf REQUIRED IMPORTED_TARGET protobuf)
++message("Found protobuf with pkg-config")
+ 
+ include_directories(
+   ${EM_SRC_DIR}
+@@ -41,7 +44,7 @@ set_target_properties(xrt_swemu PROPERTIES VERSION ${XRT_VERSION_STRING}
+ 
+ target_link_libraries(xrt_swemu
+   PRIVATE
+-  ${PROTOBUF_LIBRARY}
++  PkgConfig::protobuf
+   xrt_coreutil
+   common_em
+   pthread
+diff --git a/src/runtime_src/core/pcie/emulation/common_em/CMakeLists.txt b/src/runtime_src/core/pcie/emulation/common_em/CMakeLists.txt
+index 2ce689785..5f57dc767 100644
+--- a/src/runtime_src/core/pcie/emulation/common_em/CMakeLists.txt
++++ b/src/runtime_src/core/pcie/emulation/common_em/CMakeLists.txt
+@@ -4,6 +4,9 @@
+ SET (Protobuf_DEBUG)
+ INCLUDE(FindProtobuf)
+ FIND_PACKAGE(Protobuf REQUIRED)
++FIND_PACKAGE(PkgConfig REQUIRED)
++PKG_CHECK_MODULES(protobuf REQUIRED GLOBAL IMPORTED_TARGET protobuf)
++MESSAGE("Found protobuf with pkg-config")
+ 
+ include_directories (
+ ${PROTOBUF_INCLUDE_DIR}
+@@ -40,7 +43,7 @@ set_target_properties(common_em PROPERTIES VERSION ${XRT_VERSION_STRING}
+ 
+ target_link_libraries(common_em
+   PRIVATE
+-  ${PROTOBUF_LIBRARY}
++  PkgConfig::protobuf
+   xrt_coreutil
+   dl
+   pthread
+diff --git a/src/runtime_src/core/pcie/emulation/hw_emu/CMakeLists.txt b/src/runtime_src/core/pcie/emulation/hw_emu/CMakeLists.txt
+index af0a6c5a6..dc3e95b67 100644
+--- a/src/runtime_src/core/pcie/emulation/hw_emu/CMakeLists.txt
++++ b/src/runtime_src/core/pcie/emulation/hw_emu/CMakeLists.txt
+@@ -48,7 +48,7 @@ set_target_properties(xrt_hwemu_static PROPERTIES OUTPUT_NAME "xrt_hwemu")
+ target_link_libraries(xrt_hwemu
+   PRIVATE
+   ${Boost_SYSTEM_LIBRARY}
+-  ${PROTOBUF_LIBRARY}
++  PkgConfig::protobuf
+   xrt_coreutil
+   common_em
+   rt
+@@ -58,7 +58,7 @@ target_link_libraries(xrt_hwemu
+ target_link_libraries(xrt_hwemu_static
+   INTERFACE
+   boost_system
+-  ${PROTOBUF_LIBRARY}
++  PkgConfig::protobuf
+   xrt_coreutil_static
+   rt
+   uuid
+diff --git a/src/runtime_src/core/pcie/emulation/sw_emu/CMakeLists.txt b/src/runtime_src/core/pcie/emulation/sw_emu/CMakeLists.txt
+index 8dd388098..591546d29 100644
+--- a/src/runtime_src/core/pcie/emulation/sw_emu/CMakeLists.txt
++++ b/src/runtime_src/core/pcie/emulation/sw_emu/CMakeLists.txt
+@@ -43,7 +43,7 @@ set_target_properties(xrt_swemu_static PROPERTIES OUTPUT_NAME "xrt_swemu")
+ 
+ target_link_libraries(xrt_swemu
+   PRIVATE
+-  ${PROTOBUF_LIBRARY}
++  PkgConfig::protobuf
+   xrt_coreutil
+   common_em
+   rt
+@@ -52,7 +52,7 @@ target_link_libraries(xrt_swemu
+ 
+ target_link_libraries(xrt_swemu_static
+   INTERFACE
+-  ${PROTOBUF_LIBRARY}
++  PkgConfig::protobuf
+   xrt_coreutil_static
+   rt
+   uuid
+diff --git a/src/runtime_src/core/tools/xbtracer/CMakeLists.txt b/src/runtime_src/core/tools/xbtracer/CMakeLists.txt
+index 2276159fb..5d44319f0 100644
+--- a/src/runtime_src/core/tools/xbtracer/CMakeLists.txt
++++ b/src/runtime_src/core/tools/xbtracer/CMakeLists.txt
+@@ -11,6 +11,9 @@ else (POLICY CMP0144)
+ endif ()
+ 
+ find_package(Protobuf)
++find_package(PkgConfig REQUIRED)
++PKG_CHECK_MODULES(protobuf REQUIRED IMPORTED_TARGET protobuf)
++message("Found protobuf with pkg-config")
+ if (NOT Protobuf_FOUND)
+   message("Protobuf is not found, skipping xbtracer")
+   return()
+@@ -63,7 +66,7 @@ add_library(xrt_trace SHARED ${XBTRACER_WRAPPER_SRC_FILES} ${ProtoHeaders})
+ set_target_properties(xrt_trace PROPERTIES VERSION ${XRT_VERSION_STRING} SOVERSION ${XRT_SOVERSION})
+ target_compile_definitions(xrt_trace PRIVATE XRT_ABI_VERSION=${XRT_VERSION_MAJOR})
+ 
+-target_link_libraries(xrt_trace PRIVATE xbtracer_common xbtracer_protobuf ${Protobuf_LIBRARIES} xrt_coreutil)
++target_link_libraries(xrt_trace PRIVATE xbtracer_common xbtracer_protobuf PkgConfig::protobuf xrt_coreutil)
+ add_dependencies(xrt_trace xbtracer_common xbtracer_protobuf xrt_coreutil)
+ 
+ file(GLOB XBTRACER_CAPTURE_SRC_FILES
+@@ -78,7 +81,7 @@ file(GLOB XBREPLAY_SRC_FILES
+   "${CMAKE_CURRENT_SOURCE_DIR}/src/replay/*.cpp"
+ )
+ add_executable(xrt-replay ${XBREPLAY_SRC_FILES})
+-target_link_libraries(xrt-replay PRIVATE xbtracer_common xbtracer_protobuf ${Protobuf_LIBRARIES} xrt_coreutil)
++target_link_libraries(xrt-replay PRIVATE xbtracer_common xbtracer_protobuf PkgConfig::protobuf xrt_coreutil)
+ if (NOT WIN32)
+   target_link_libraries(xrt-replay PRIVATE pthread)
+ endif (NOT WIN32)
+@@ -94,7 +97,7 @@ if (XRT_XBTRACER_ENABLE_JSON)
+   add_executable(xbtracer_dump
+     src/misc/xbtracer_dump.cpp
+   )
+-  target_link_libraries(xbtracer_dump PRIVATE xbtracer_common xbtracer_protobuf ${Protobuf_LIBRARIES})
++  target_link_libraries(xbtracer_dump PRIVATE xbtracer_common xbtracer_protobuf PkgConfig::protobuf)
+   add_dependencies(xbtracer_dump xbtracer_common xbtracer_protobuf xrt_coreutil)
+ endif (XRT_XBTRACER_ENABLE_JSON)
+ 
