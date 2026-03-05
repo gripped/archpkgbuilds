@@ -5,7 +5,7 @@
 pkgname=python-omegaconf
 _pkg="${pkgname#python-}"
 pkgver=2.3.0
-pkgrel=7
+pkgrel=8
 pkgdesc='Flexible Python configuration system'
 arch=('any')
 url='https://github.com/omry/omegaconf'
@@ -14,12 +14,15 @@ depends=('python-antlr4' 'python-yaml')
 makedepends=('antlr4' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 # checkdepends=('python-pytest' 'python-pytest-mock' 'python-pytest-lazy-fixture')
 source=("$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/o/$_pkg/$_pkg-$pkgver.tar.gz"
-        'antlr4-jar.patch')
+        'antlr4-jar.patch'
+        'python-omegaconf-2.3.0-remove-pkg_resources.patch')
 sha256sums=('d5d4b6d29955cc50ad50c46dc269bcd92c6e00f5f90d23ab5fee7bfca4ba4cc7'
-            '9e27af3dfc66fbd239f16c000acb73adf872376d1c1b041ff31d1fc5b57389bb')
+            '9e27af3dfc66fbd239f16c000acb73adf872376d1c1b041ff31d1fc5b57389bb'
+            'f8512d327e34915f1f28a4dddcfd180e24a5642428a889bedb13867d605b5427')
 
 prepare() {
 	patch -p1 -d "$_pkg-$pkgver" < antlr4-jar.patch
+	patch -p1 -d "$_pkg-$pkgver" < python-omegaconf-2.3.0-remove-pkg_resources.patch
 }
 
 build() {

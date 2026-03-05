@@ -1,0 +1,24 @@
+diff --git a/setup.py b/setup.py
+index 6088f1d..af62e9e 100644
+--- a/setup.py
++++ b/setup.py
+@@ -10,7 +10,6 @@ OmegaConf setup
+ """
+ import pathlib
+ 
+-import pkg_resources
+ import setuptools
+ 
+ from build_helpers.build_helpers import (
+@@ -24,8 +23,9 @@ from build_helpers.build_helpers import (
+ 
+ with pathlib.Path("requirements/base.txt").open() as requirements_txt:
+     install_requires = [
+-        str(requirement)
+-        for requirement in pkg_resources.parse_requirements(requirements_txt)
++        line.strip()
++        for line in requirements_txt
++        if line.strip() and not line.startswith("#")
+     ]
+ 
+ 
