@@ -2,7 +2,7 @@
 # Contributor: Shinlun Hsieh <yngwiexx@yahoo.com.tw>
 
 pkgname=gensio
-pkgver=2.8.10
+pkgver=3.0.2
 pkgrel=1
 pkgdesc="General Stream I/O"
 arch=(x86_64)
@@ -10,7 +10,7 @@ url="https://sourceforge.net/projects/ser2net/"
 license=('GPL')
 depends=()
 source=("$pkgname-$pkgver.tar.gz::https://github.com/cminyard/gensio/archive/v$pkgver.tar.gz")
-sha256sums=('1538d8ee6b6412ec620db46f8d134372006dae68721050215abc35f0cbd7539c')
+sha256sums=('1781aa049845da89c8fb902ea755123a6710f2b38282a338035caa6211997d14')
 
 build() {
   cd "$srcdir"/${pkgname}-${pkgver/rc/-rc}
