@@ -7,8 +7,8 @@
 # Contributor: Richard Murri
 
 pkgname=python-werkzeug
-pkgver=3.1.3
-pkgrel=2
+pkgver=3.1.4
+pkgrel=1
 pkgdesc='Swiss Army knife of Python web development'
 url='https://werkzeug.palletsprojects.com/'
 arch=('any')
@@ -18,6 +18,7 @@ depends=(
   'python-markupsafe'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-flit-core'
   'python-installer'
@@ -33,23 +34,23 @@ checkdepends=(
   'python-watchdog'
 )
 optdepends=('python-watchdog: faster and more advanced reloader')
-source=("https://github.com/pallets/werkzeug/archive/${pkgver}/$pkgname-$pkgver.tar.gz")
-sha512sums=('07b64f9c8a36a82df1dc70689f76d64f8ae4776e59ca91d53b327607f6a1896bc81a242cd4f85ef755ea6e7aeada4cb596c25ff9fe409ad3c9221c0fb13c4cdb')
+source=("git+https://github.com/pallets/werkzeug.git#tag=${pkgver}")
+sha512sums=('b8522aafa0d3dc6d02842229f738290381ed1707d75c9c20311f90f0bec4dc35b35390d5efd847137a9c6493cc06d4d4511795bf168ef542cc92ab81a142e102')
 
 build() {
-  cd "werkzeug-$pkgver"
+  cd werkzeug
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "werkzeug-$pkgver"
+  cd werkzeug
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m pytest
 }
 
 package() {
-  cd "werkzeug-$pkgver"
+  cd werkzeug
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm 644 LICENSE.txt -t "$pkgdir/usr/share/licenses/$pkgname"
 }
