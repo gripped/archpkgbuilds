@@ -11,7 +11,7 @@ for _coll in ${_collections[@]}; do
 done
 _rev=78236
 pkgver=2026.0
-pkgrel=1
+pkgrel=2
 pkgdesc='TeX Live - '
 license=(GPL)
 arch=(any)
@@ -31,7 +31,8 @@ source=(svn://tug.org/texlive/tags/texlive-$pkgver/Master/texmf-dist#revision=$_
         73-texlive-updmap.hook
         texlive-updmap.script
         80-mtxrun.hook
-        mtxrun.script)
+        mtxrun.script
+        https://files.pythonhosted.org/packages/30/b7/4fa3729952938e6e69e2a3a51c5a74480ce7a031d344830806dde5fb2210/latexminted-0.7.1-py3-none-any.whl)
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
@@ -45,7 +46,8 @@ sha256sums=('SKIP'
             '2141c0842668fb937fd21ca2fae39b642c9665656e404a0d4ee7bdc477bf51fe'
             'ee6e76192a5ad880a2152cd7900b86c8465239fb228045a2f8360b0d7a449f4a'
             'f6bb67db32d37ca15eba88bd15d8b9882c61915f98bc8d7c3c21a66c8cf8f019'
-            '98b730e917281227e29077ba5689ad78baee0af3859b55966b2604c6a85f1305')
+            '98b730e917281227e29077ba5689ad78baee0af3859b55966b2604c6a85f1305'
+            '30d49c11bfef387eb9365bc81edff3fbb4f9da49a5ae3b79ace179577f060e15')
 options=(!strip) # Nothing to strip, save packaging time
 
 prepare() {
@@ -252,6 +254,12 @@ _package() {
     backup=(etc/texmf/ttf2pk/ttf2pk.cfg)
   # copy config files to $TEXMFCONFIG tree
     install -Dm644 "$pkgdir"/usr/share/texmf-dist/ttf2pk/ttf2pk.cfg -t "$pkgdir"/etc/texmf/ttf2pk/
+  fi
+
+# Update latexminted for Python 3.14 compatibility
+  if [[ $1 == latexextra ]]; then
+    rm "$pkgdir"/usr/share/texmf-dist/scripts/minted/latexminted-0.6.0-py3-none-any.whl
+    cp "$srcdir"/latexminted-0.7.1-py3-none-any.whl "$pkgdir"/usr/share/texmf-dist/scripts/minted/
   fi
 }
   
