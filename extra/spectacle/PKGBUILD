@@ -3,7 +3,7 @@
 pkgname=spectacle
 pkgver=6.6.2
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='KDE screenshot capture utility'
 arch=(x86_64)
@@ -48,13 +48,19 @@ makedepends=(extra-cmake-modules
              plasma-wayland-protocols)
 optdepends=('tesseract: OCR text extraction')
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/plasma/spectacle/-/commit/e5f1a6ef.patch)
 sha256sums=('42efc317656c760a45918717edd86c367d515a4883cfd9cfec836459fb88439d'
-            'SKIP')
+            'SKIP'
+            'f89a41e9346b2357b75ca316af6f0be5314e6d229b1fbd601489a992af87638b')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < e5f1a6ef.patch # Fix crashes
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
