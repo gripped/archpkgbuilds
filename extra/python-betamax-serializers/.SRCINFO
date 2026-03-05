@@ -1,13 +1,17 @@
 pkgbase = python-betamax-serializers
 	pkgdesc = A set of third-party serializers for Betamax
 	pkgver = 0.2.1
-	pkgrel = 11
+	pkgrel = 12
 	url = https://gitlab.com/betamax/serializers
 	arch = any
-	license = Apache
+	license = Apache-2.0
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python-betamax
-	source = https://gitlab.com/betamax/serializers/-/archive/0.2.1/serializers-0.2.1.tar.bz2
-	sha256sums = 62f3e00393a00ce52895253914261297ff14fdef9840f9cc9d7eb7388c405d4f
+	source = git+https://gitlab.com/betamax/serializers.git#tag=0.2.1
+	sha256sums = c33ef6f2a7753d8d5746c3d4607562f3da678408b9e671f9743cc8925926ae37
 
 pkgname = python-betamax-serializers
