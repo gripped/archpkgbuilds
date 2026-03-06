@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=debian-ports-archive-keyring
-pkgver=2025.01.01
+pkgver=2025.02.01
 pkgrel=1
 pkgdesc="GnuPG archive keys of the debian-ports archive"
 arch=('any')
@@ -10,7 +10,7 @@ license=('GPL-2.0-or-later')
 depends=('gnupg')
 makedepends=('git')
 source=("git+https://salsa.debian.org/aurel32/debian-ports-archive-keyring.git#tag=debian/$pkgver")
-sha512sums=('0182add7ee92039ea05dd7b6b8073ac9315995811ff82dc529745eb0653a216ed4732118822e66e7342db3f7f65a7921268a46958607f07e443a059c4dd1ec80')
+sha512sums=('a548b3d121390e2a6639b7c8f029aa90c305eaa094ad00fbe349e41ee2b62ffd914535f760a5b9f3edeacee0b9a5d879567dcceb256577bdf6ad6e532cfded53')
 
 build() {
   cd $pkgname
