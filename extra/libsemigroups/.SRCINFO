@@ -1,16 +1,17 @@
 pkgbase = libsemigroups
 	pkgdesc = C++ library for semigroups and monoids
-	pkgver = 2.7.4
-	pkgrel = 2
+	pkgver = 3.5.1
+	pkgrel = 1
 	url = https://libsemigroups.github.io
 	arch = x86_64
 	license = GPL-3.0-or-later
 	makedepends = eigen
 	makedepends = git
 	depends = fmt
-	depends = gcc-libs
 	depends = glibc
-	source = git+https://github.com/libsemigroups/libsemigroups#tag=v2.7.4
-	sha256sums = 4c680b41875d6676bf25c4080ad1dc6e5ee76ff992daebffd7ce323593075d25
+	depends = libgcc
+	depends = libstdc++
+	source = git+https://github.com/libsemigroups/libsemigroups#tag=v3.5.1
+	sha256sums = 1fa665a632adb06ac966678c2bdf6eea19813f3b07139de45efb3106602ff96c
 
 pkgname = libsemigroups
