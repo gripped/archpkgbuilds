@@ -1,0 +1,38 @@
+# Maintainer: Torsten Keßler <tpkessler@archlinux.org>
+pkgname=googleworkspace-cli
+pkgver=0.7.0
+pkgrel=1
+pkgdesc="Command-line tool for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more"
+arch=('x86_64')
+url="https://developers.google.com/workspace"
+license=("Apache-2.0")
+depends=(
+	glibc
+	libgcc
+)
+makedepends=(
+	cargo
+)
+source=("$pkgname-$pkgver.tar.gz::https://github.com/googleworkspace/cli/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('1a7445195f96fd76860442c821f57614d41debfa5cfdc09791ac7db5f987288f')
+
+prepare() {
+	cd cli-$pkgver
+	cargo fetch --locked --target host-tuple
+}
+
+
+build() {
+	cd cli-$pkgver
+	CFLAGS+=" -ffat-lto-objects" cargo build --frozen --release --all-features
+}
+
+check() {
+	cd cli-$pkgver
+	CFLAGS+=" -ffat-lto-objects" cargo test --frozen --all-features
+}
+
+package() {
+	cd cli-$pkgver
+	install -vDm755 -t "$pkgdir/usr/bin" target/release/gws
+}
