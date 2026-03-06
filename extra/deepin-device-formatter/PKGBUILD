@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-device-formatter
-pkgver=0.0.1.16
+pkgver=0.0.1.17
 pkgrel=1
 pkgdesc='A simple graphical interface for creating file system in a block device'
 arch=('x86_64')
@@ -9,18 +9,18 @@ url="https://github.com/linuxdeepin/dde-device-formatter"
 license=('GPL-3.0-or-later')
 depends=('deepin-qt5integration' 'dtkcore' 'dtkgui' 'dtkwidget' 'qt5-base' 'qt5-x11extras'
          'libx11' 'udisks2-qt5' 'gcc-libs')
-makedepends=('deepin-gettext-tools' 'qt5-tools')
+makedepends=('git' 'deepin-gettext-tools' 'qt5-tools')
 groups=('deepin-extra')
-source=("https://github.com/linuxdeepin/dde-device-formatter/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('86c156908b7e52187baac225fc48a752c55769b25e9329a69b38f5de2411140fe5f5bd79775383ac6a4e04d9bb1157febd3ab769de5b6243a992783590a4555c')
+source=("git+https://github.com/linuxdeepin/dde-device-formatter.git#tag=$pkgver")
+sha512sums=('392edfa2182fa1916961b4690a37973ed74e4ece7dea062d79c8ef68f1fb4025f253a69bf2728de5849679cdbbf5af0713076eb5cab63020f479bdc30bc152c9')
 
 build(){
-  cd dde-device-formatter-$pkgver
+  cd dde-device-formatter
   qmake-qt5 PREFIX=/usr
   make
 }
 
 package() {
-  cd dde-device-formatter-$pkgver
+  cd dde-device-formatter
   make INSTALL_ROOT="$pkgdir" install
 }
