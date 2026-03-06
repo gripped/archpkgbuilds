@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kajongg
-pkgver=25.12.2
+pkgver=25.12.3
 pkgrel=1
 pkgdesc='The ancient Chinese board game for 4 players'
 url='https://apps.kde.org/kajongg/'
@@ -13,15 +13,14 @@ depends=(libkmahjongg
          python
          python-qtpy
          python-twisted
-         python-zope-interface
-         qt6-python-bindings)
+         python-zope-interface)
 makedepends=(extra-cmake-modules
              kdoctools)
 optdepends=('vorbis-tools: for playing sounds')
 groups=(kde-applications
         kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('05fa67455c626b01fd327114538009facbbd381f637e77144e7b81c285789e31'
+sha256sums=('b24ebbc30e68f5fd52d180cd2cc2734d481b3d793f084dd6bfc4a19ac3264b99'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
