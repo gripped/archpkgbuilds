@@ -1,28 +1,29 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=worker-build
-pkgver=0.1.2
-pkgrel=2
+pkgver=0.7.5
+pkgrel=1
 pkgdesc="Custom build command for a Cloudflare Workers project"
 url='https://github.com/cloudflare/workers-rs/tree/main/worker-build'
 arch=('x86_64')
 license=('Apache-2.0')
 depends=(
   'esbuild'
-  'gcc-libs'
   'glibc'
+  'libgcc'
+  'openssl' 'libcrypto.so' 'libssl.so'
   'wasm-bindgen'
   'wasm-pack'
 )
 makedepends=('cargo')
 options=('!lto')
 source=("${pkgname}-${pkgver}.tar.gz::https://crates.io/api/v1/crates/${pkgname}/${pkgver}/download")
-sha256sums=('4be7c6220993d669ee216b5d9b96617552b0656b2f6991dbc8629a4aea309663')
-b2sums=('e8ec85c3462c3a937fb68687f30af8465c20d0ef560cb3717cc8a60f7f8a9d80e8345a68b1e34f2aa1f393e2116066748c1b6ee87eb5b6d220ede1dc93fb1286')
+sha256sums=('95831ee9a995172acf3b75f7a8fa6fe115e88570329e06974e0aac4221b224ff')
+b2sums=('99021c3cb0b093940cada7352bc8a3a805b10dbf44b74712ad53fc9bd9864da3667e971ac353b54b7e1b8e1a4ee1123333ef941b02b4bb28c0ef9c4719c708b3')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
