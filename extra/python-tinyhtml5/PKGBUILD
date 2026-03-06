@@ -2,8 +2,8 @@
 
 pkgname=python-tinyhtml5
 _pyname=${pkgname#python-}
-pkgver=2.0.0
-pkgrel=2
+pkgver=2.1.0
+pkgrel=1
 pkgdesc='HTML parser based on the WHATWG HTML specification'
 arch=(any)
 url="https://github.com/CourtBouillon/$_pyname"
@@ -14,7 +14,7 @@ makedepends=(python-{build,installer,wheel}
 checkdepends=(python-pytest)
 _archive="$_pyname-$pkgver"
 source=("$url/archive/refs/tags/$pkgver/$_archive.tar.gz")
-sha256sums=('d2bf4fddeef7d7043bb96d9f28236cb755ee0d13489d2b60710cfd3c54e00a9c')
+sha256sums=('f9a94d1b0463bb109d6035e1c41dfebac1c4de8ebfe99701c473729944498706')
 
 build() {
 	cd "$_archive"
