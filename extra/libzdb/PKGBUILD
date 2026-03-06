@@ -1,7 +1,7 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=libzdb
-pkgver=3.4.1
+pkgver=3.5.0
 pkgrel=1
 pkgdesc="Zild Database Library"
 arch=('x86_64')
@@ -9,7 +9,7 @@ url="https://www.tildeslash.com/libzdb/"
 license=('GPL')
 depends=('postgresql-libs' 'sqlite' 'mariadb-libs')
 source=(https://www.tildeslash.com/libzdb/dist/libzdb-$pkgver.tar.gz)
-sha256sums=('5b4633fc2a16880f776197f4045f62ef8db5062f63030fa221011d4b85d736cb')
+sha256sums=('90c79bf23b0c8fcb6543634844d17c094a24a360c9d63ddf6efc3741ebec32c5')
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
