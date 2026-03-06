@@ -2,7 +2,7 @@
 # Contributor: Camille Moncelier <pix@devlife.org>, simo <simo@archlinux.org>
 
 pkgname=kexec-tools
-pkgver=2.0.31
+pkgver=2.0.32
 pkgrel=1
 pkgdesc="Load another kernel from the currently executing Linux kernel"
 arch=('x86_64')
@@ -16,7 +16,7 @@ depends=(
   zstd
 )
 license=('GPL-2.0-or-later')
-b2sums=('5ea9c0582cf05e3930c7d391c67ded18c18b1bea8bdd511b455479ddc95808777b3a121289849d7fd187b2799eeaae92f4c2623cfb7cfd475b821ce512b887f8')
+b2sums=('d0633ece7e8309aa88992675cda1f6ebba9027e49831e78e27b61cc6ee668a63bc158f56311b728ca09b76366b8d3c554c3a991092bed379e440f0b86c7b4d00')
 
 prepare() {
   cd "${pkgname}"
