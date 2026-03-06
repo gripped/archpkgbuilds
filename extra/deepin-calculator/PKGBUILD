@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-calculator
-pkgver=6.5.32
+pkgver=6.5.33
 pkgrel=1
 pkgdesc='An easy to use calculator for ordinary users'
 arch=('x86_64')
@@ -12,14 +12,12 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'glibc' 'gcc-libs' 'hicolor-icon-them
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'clang' 'qt6-declarative')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-calculator.git#tag=$pkgver")
-sha512sums=('4b17be6ed2f181febf35acc99187ea9a05da38e6a99f787cc2f73b47d6f0e8db4cba77464746308e6627fe50f8bf9a642b7e17a9e5fdb6448b61696f8db01c79')
+sha512sums=('8874214608d20e2bed0a8a8747a4893795ef69e638f61cbb4bd40c14846034eb0dc31a35139ef4e1431c2edc48bc46683d645b7fa958ad2bf447d268dab2f503')
 
 prepare() {
   cd deepin-calculator
   # respect our LDFLAGS
   sed -i '/CMAKE_EXE_LINKER_FLAGS/d' CMakeLists.txt
-  # how did they compile it?
-  sed -i 's|"../3rdparty/core/settings.h"|"../../3rdparty/core/settings.h"|' src/control/basickeypad.cpp src/control/scientifickeypad.cpp
 }
 
 build() {
