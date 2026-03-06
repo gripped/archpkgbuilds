@@ -2,22 +2,22 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstacksdk
-pkgver=4.1.0
+pkgver=4.2.0
 pkgrel=1
 pkgdesc="An SDK for building applications to work with OpenStack"
 arch=('any')
 url="https://developer.openstack.org/sdks/python/openstacksdk"
 license=('Apache')
 depends=('python-cryptography' 'python-decorator' 'python-dogpile.cache' 'python-iso8601'
-         'python-jmespath' 'python-jsonpatch' 'python-keystoneauth1' 'python-netifaces'
-         'python-os-service-types' 'python-pbr' 'python-platformdirs' 'python-yaml'
+         'python-jmespath' 'python-jsonpatch' 'python-keystoneauth1' 'python-os-service-types'
+         'python-pbr' 'python-platformdirs' 'python-psutil' 'python-yaml'
          'python-requestsexceptions')
 makedepends=('git' 'python-setuptools')
 checkdepends=('python-ddt' 'python-fixtures' 'python-hacking' 'python-jsonschema'
               'python-oslo-config' 'python-oslotest' 'python-prometheus_client'
               'python-requests-mock' 'python-stestr' 'python-testscenarios' 'python-testtools')
 source=("git+https://github.com/openstack/openstacksdk.git#tag=$pkgver")
-sha512sums=('3490661cdb91012c85e240dc3f1da6e430b75de3254111cfa2c6b9a5c43de2be48d4cf99abd7e1710a15790b7dece6e2364e1764adbb2290908870e32e411148')
+sha512sums=('04e444181e0ec3504fd83757c37c1549bf2d9c365fab42729632388ee6eb810a41e38ce71ba41c7daf9699f003ae95f4653b948c99819197e1aa0488016797f8')
 
 build() {
   cd openstacksdk
