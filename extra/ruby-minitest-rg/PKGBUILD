@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-minitest-rg
-pkgver=5.3.0
-pkgrel=6
+pkgver=5.4.0
+pkgrel=1
 pkgdesc='Colored red/green output for Minitest'
 arch=(any)
 url='https://github.com/minitest/minitest-rg'
@@ -12,6 +12,7 @@ depends=(
   ruby-minitest
 )
 makedepends=(
+  git
   ruby-rdoc
 )
 checkdepends=(
@@ -19,19 +20,19 @@ checkdepends=(
   ruby-rake
 )
 options=(!emptydirs)
-source=(https://github.com/minitest/minitest-rg/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('63fade1ad2fdb838a2b5c4814b18041270d457264c5c55b6d2f6aed690fa14c584fe18fd840870c85e01d94df5c1eeb6419d072b09068a0086f544affda2bc03')
-b2sums=('8d1d8c0b47fedc878f1c15f6f993876c9c718784312e04a8e86d70c3f60eaffe42e76f1782e9a3d533cd16de0ce80556d98831ca5a81461a249daaa83bfa7d9b')
+source=(git+https://github.com/minitest/minitest-rg.git#tag=v$pkgver)
+sha512sums=('116fc91eb70315b0c53b3f700357d8dd221d0dccb9c618c5a548616fa74efe3d711b557de43f49ba26524e84ca449582fbecfe75628fd941c019983ae142b6eb')
+b2sums=('4650c1f1df67b59ad087ca9520511c6567698aa2060b3e5d071be70ac7029c7aee69f3359fa792d9b46cb733b04aeb8ccf79733621c9c88a51901bf171fea098')
 
 prepare() {
-  cd minitest-rg-$pkgver
+  cd minitest-rg
 
   sed -i "s/s\\.version = .*/s\\.version = \"$pkgver\"/" minitest-rg.gemspec
 }
 
 build() {
   local _gemdir="$(gem env gemdir)"
-  cd minitest-rg-$pkgver
+  cd minitest-rg
   gem build minitest-rg.gemspec
   gem install \
     --local \
@@ -57,12 +58,12 @@ build() {
 
 check() {
   local _gemdir="$(gem env gemdir)"
-  cd minitest-rg-$pkgver
+  cd minitest-rg
   GEM_HOME="tmp_install/$_gemdir" rake || echo "Tests failed"
 }
 
 package() {
-  cd minitest-rg-$pkgver
+  cd minitest-rg
   cp -a tmp_install/* "$pkgdir"/
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
