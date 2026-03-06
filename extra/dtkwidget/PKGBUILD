@@ -5,7 +5,7 @@
 pkgbase=dtkwidget
 pkgname=(dtkwidget dtk6widget)
 pkgver=6.7.31
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='Deepin base graphical widgets library'
 arch=('x86_64')
@@ -25,6 +25,7 @@ sha512sums=('a20b1fc0e322bac8e4a922d1e6e39dc7bb60e478f0eba2ec18fe3c7c19733dcaf84
 
 prepare() {
   cd dtkwidget
+  git cherry-pick -n c2d2dd15d7747ec89d8621a613e7212a11119d59
   patch -p1 -i "$srcdir/qt-6.10.2.patch"
 }
 
