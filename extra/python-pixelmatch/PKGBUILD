@@ -4,7 +4,7 @@
 _pyname=pixelmatch-py
 pkgname=python-pixelmatch
 pkgdesc='A pixel-level image comparison library'
-pkgver=0.3.1
+pkgver=0.4.0
 pkgrel=1
 arch=(any)
 url='https://github.com/whtsky/pixelmatch-py'
@@ -19,7 +19,7 @@ checkdepends=(libpng
               python-pytest
               python-pytest-benchmark)
 source=(git+https://github.com/whtsky/pixelmatch-py#tag=v$pkgver)
-sha256sums=('8a9f94be9c0074e943566961c8be4d464d29ee0a4a9e1e05aa8474d813830582')
+sha256sums=('8a6d5a2a3687f150c5d095a03fc1cf997cbff9cecd1d553eceb021d7338b254d')
 
 build() {
   cd $_pyname
