@@ -4,12 +4,12 @@
 
 pkgname=buildah
 pkgver=1.43.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A tool which facilitates building OCI images"
 arch=(x86_64)
 url="https://github.com/containers/buildah"
 license=(Apache-2.0)
-depends=(oci-runtime skopeo passt libseccomp gpgme)
+depends=(oci-runtime skopeo passt libseccomp gpgme sqlite)
 makedepends=(go git bats btrfs-progs device-mapper gpgme libassuan
              bzip2 go-md2man skopeo systemd)
 options=(!lto !debug)
@@ -23,7 +23,7 @@ build() {
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
-  make PREFIX=/usr BUILDTAGS="containers_image_ostree_stub seccomp"
+  make PREFIX=/usr BUILDTAGS="containers_image_ostree_stub seccomp libsqlite3"
 }
 
 package() {
