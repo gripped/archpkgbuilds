@@ -1,8 +1,8 @@
 # Maintainer: Brett Cornwall <ainola@archlinux.org>
 
 pkgname=python-crazy-complete
-pkgver=0.3.6
-pkgrel=2
+pkgver=0.3.7
+pkgrel=1
 pkgdesc="Generate shell auto completion files"
 arch=('any')
 url="https://github.com/crazy-complete/crazy-complete"
@@ -17,7 +17,7 @@ makedepends=(
     'python-setuptools'
 )
 source=("https://github.com/crazy-complete/crazy-complete/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('f566d2cafc18a247b67d18a605f2e4867cd053588fadcb9beb5faf23ba67d84ecabbd6f4075ab21fc8d5158d5e906e29759de18978d258ec71ba95a82d4a6b52')
+sha512sums=('33e9ee51a214cf680b11b3bcd3bba4dc9d7864deab29c353b817dbb1ccc5550a2ab83d639e8cfdfe585c82fae8c1a18356f8ca0d6148a1af0b0a0bf6a9d89c22')
 
 build() {
     cd "crazy-complete-$pkgver"
@@ -30,5 +30,5 @@ package() {
 
     install -dm755 "$pkgdir/usr/share/doc/$pkgname/examples"
     install -Dm644 *.md -t "$pkgdir/usr/share/doc/$pkgname"
-    install -Dm644 examples/* -t "$pkgdir/usr/share/doc/$pkgname/examples"
+    cp -r --no-preserve=ownership examples/* "$pkgdir/usr/share/doc/$pkgname/examples"
 }
