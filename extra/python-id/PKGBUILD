@@ -2,7 +2,7 @@
 
 pkgname=python-id
 _name="${pkgname#python-}"
-pkgver=1.6.0
+pkgver=1.6.1
 pkgrel=1
 pkgdesc="A tool for generating OIDC identities"
 arch=(any)
@@ -22,8 +22,8 @@ checkdepends=(
   python-pretend
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('1bcc4c36bf5e79da04fa94f9efa00a642a66a1ca02f9dce8bba4ae76d426827a0a060481eaacd5a948eb83837286bd2be29fefea19a9ae92ee208cbbc0b0e23d')
-b2sums=('eed37815071faad0e0fc1cadb2f6634a90b60fcb5af3d19515f2a7629124257864f2048b590169cca67a5e39b4dd1f90cd3e6a331ce245e541a956550f80967c')
+sha512sums=('58ce4586eff00ad2ac36b4dff31199eedca7287a5a317175238b8ed0a015b8fd5e1b09ad66a5b2ad7042cefac6d8dd980ee1924d112afe6a62a56edf6f07ae24')
+b2sums=('ddea443e5924c6925789a900ea837e0764b795cbea838a05518a4d07718de861e2a66d1f95a8053afd118cc73b4a57fedabb9092292912a0f1dad937fa4e18be')
 
 build() {
   cd $_name-$pkgver
