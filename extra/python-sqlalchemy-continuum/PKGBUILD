@@ -3,13 +3,13 @@
 
 _name=sqlalchemy-continuum
 pkgname=python-sqlalchemy-continuum
-pkgver=1.5.2
-pkgrel=2
+pkgver=1.6.0
+pkgrel=1
 pkgdesc='Versioning and auditing extension for SQLAlchemy'
 url='https://github.com/kvesteri/sqlalchemy-continuum'
 arch=('any')
 license=('BSD')
-depends=('python' 'python-sqlalchemy' 'python-sqlalchemy-utils')
+depends=('python' 'python-sqlalchemy')
 makedepends=('python-setuptools' 'python-sphinx' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('sqlite' 'python-pytest' 'python-flexmock' 'python-psycopg2' 'python-mysql-connector'
               'python-flask' 'python-flask-login' 'python-flask-sqlalchemy'
@@ -20,8 +20,8 @@ optdepends=('python-flask: flask plugin'
             'python-sqlalchemy-i18n: internationalization')
 options=('!makeflags')
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/${_name//-/_}/${_name//-/_}-${pkgver}.tar.gz)
-sha512sums=('e424c246f49a704aeec677787adf10eacc92d98a5da709b05a8aea92f2ba6fc541f3476f292b0133d43441c192378be970b6d7d84260149336920628327e3ba1')
-b2sums=('234eeaf4341cee0e4fe225a9db71f5c602a4f8633f118a924daadc81535d438d9066fda4adf8d90f569ec26672d17d5fcc31f431436df7808a1bd4f357bec99a')
+sha512sums=('525190d69e63285e796ae95a6c144e48d0d9f363a543a9b9c3039ab2b7f8ca7e1e9613d5f9930be341e5f83611173b469dd0d259935088aca948f42358656fb1')
+b2sums=('a5fffd4087cbee77b03a51a478e0e5356a695ebb47540ef08d415bec18b7a47402db025853158d32da046fcac0c2a981956392cad055166f6f24617a77074a54')
 
 prepare() {
   cd ${_name/-/_}-${pkgver}
