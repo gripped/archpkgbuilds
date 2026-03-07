@@ -1,0 +1,41 @@
+diff --git a/shodan/__main__.py b/shodan/__main__.py
+index b868780..2af320b 100644
+--- a/shodan/__main__.py
++++ b/shodan/__main__.py
+@@ -30,7 +30,7 @@ import click
+ import csv
+ import os
+ import os.path
+-import pkg_resources
++import importlib.metadata
+ import shodan
+ import shodan.helpers as helpers
+ import threading
+@@ -48,9 +48,6 @@ from shodan.cli.settings import SHODAN_CONFIG_DIR, COLORIZE_FIELDS
+ from shodan.cli.helpers import async_spinner, get_api_key, escape_data, timestr, open_streaming_file, get_banner_field, match_filters
+ from shodan.cli.host import HOST_PRINT
+ 
+-# Allow 3rd-parties to develop custom commands
+-from pkg_resources import iter_entry_points
+-
+ # Large subcommands are stored in separate modules
+ from shodan.cli.alert import alert
+ from shodan.cli.data import data
+@@ -78,7 +75,7 @@ except NameError:
+ 
+ # Define the main entry point for all of our commands
+ # and expose a way for 3rd-party plugins to tie into the Shodan CLI.
+-@with_plugins(iter_entry_points('shodan.cli.plugins'))
++@with_plugins(importlib.metadata.entry_points(group='shodan.cli.plugins'))
+ @click.group(context_settings=CONTEXT_SETTINGS)
+ def main():
+     pass
+@@ -942,7 +939,7 @@ def radar():
+ @main.command()
+ def version():
+     """Print version of this tool."""
+-    print(pkg_resources.get_distribution("shodan").version)
++    print(importlib.metadata.version("shodan"))
+ 
+ 
+ if __name__ == '__main__':
