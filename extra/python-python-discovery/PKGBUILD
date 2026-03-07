@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-python-discovery
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc='Python interpreter discovery'
 arch=(any)
@@ -25,8 +25,8 @@ checkdepends=(
   python-setuptools
 )
 source=("$pkgname::git+https://github.com/tox-dev/python-discovery#tag=$pkgver")
-sha512sums=('81d531af70b2d19f5709fec4fb2771da911c69e65de875815ea492b90284b20c718a1e4fdff3a5c2821ca22b8ce507600923501787071493614498d3129de88b')
-b2sums=('bbf4bafac0c9bf7e74af0fea62bd304a0ed99ce2181199fc726613e70014243ad63cdea84241c3e900dfee718ff27ef96a2e85190abfff9c82e3ac419e650f7c')
+sha512sums=('0278032eb7e0177860af5cb6ed286b917edc17f39492fdc5808bc04ce65e6b1d5381ec2bd3d958d1ea9067e178e39adb0b05450ecc3c2e1cdd8a7bd905a1cdce')
+b2sums=('19be925c086b5108b0bf346165fd38129aecd990c2f9a96e79473cd801ba53a8f149118fa07d58252b452362adbeb91330db66e417c2e5176309d160c3e256cc')
 
 build() {
   cd "$pkgname"
