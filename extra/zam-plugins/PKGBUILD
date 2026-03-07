@@ -3,20 +3,21 @@
 pkgbase=zam-plugins
 pkgname=(zam-plugins{,-{clap,ladspa,lv2,standalone,vst,vst3}})
 pkgver=4.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Collection of audio plugins for high-quality processing"
 arch=(x86_64)
 url="https://github.com/zamaudio/zam-plugins"
 license=(GPL-2.0-or-later)
 makedepends=(
   fftw
-  gcc-libs
   glibc
   gendesk
   git
   ladspa
+  libgcc
   libglvnd
   libsamplerate
+  libstdc++
   libx11
   jack
   lv2
@@ -183,10 +184,11 @@ package_zam-plugins-clap() {
     clap-host
     dbus libdbus-1.so
     fftw libfftw3f.so
-    gcc-libs
     glibc
+    libgcc libgcc_s.so
     libglvnd libGL.so
     libsamplerate libsamplerate.so
+    libstdc++ libstdc++.so
     libx11
     libxext
     zita-convolver libzita-convolver.so
@@ -203,11 +205,12 @@ package_zam-plugins-standalone() {
     alsa-lib libasound.so
     dbus libdbus-1.so
     fftw libfftw3f.so
-    gcc-libs
     glibc
     jack
+    libgcc libgcc_s.so
     libglvnd libGL.so
     libsamplerate libsamplerate.so
+    libstdc++ libstdc++.so
     libx11
     libxext
     zita-convolver libzita-convolver.so
@@ -224,9 +227,10 @@ package_zam-plugins-ladspa() {
   pkgdesc+=" - ladspa plugins"
   depends=(
     fftw libfftw3f.so
-    gcc-libs
     glibc
     ladspa-host
+    libgcc libgcc_s.so
+    libstdc++ libstdc++.so
   )
   groups=(ladspa-plugins pro-audio)
 
@@ -239,10 +243,11 @@ package_zam-plugins-lv2() {
   depends=(
     dbus libdbus-1.so
     fftw libfftw3f.so
-    gcc-libs
     glibc
+    libgcc libgcc_s.so
     libglvnd libGL.so
     libsamplerate libsamplerate.so
+    libstdc++ libstdc++.so
     libx11
     libxext
     lv2-host
@@ -259,10 +264,11 @@ package_zam-plugins-vst() {
   depends=(
     dbus libdbus-1.so
     fftw libfftw3f.so
-    gcc-libs
     glibc
+    libgcc libgcc_s.so
     libglvnd libGL.so
     libsamplerate libsamplerate.so
+    libstdc++ libstdc++.so
     libx11
     libxext
     vst-host
@@ -279,10 +285,11 @@ package_zam-plugins-vst3() {
   depends=(
     dbus libdbus-1.so
     fftw libfftw3f.so
-    gcc-libs
     glibc
+    libgcc libgcc_s.so
     libglvnd libGL.so
     libsamplerate libsamplerate.so
+    libstdc++ libstdc++.so
     libx11
     libxext
     vst3-host
