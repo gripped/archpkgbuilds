@@ -2,7 +2,7 @@
 
 pkgname=groff
 pkgver=1.24.0
-pkgrel=1
+pkgrel=2
 pkgdesc='GNU troff text-formatting system'
 arch=('x86_64')
 url='https://www.gnu.org/software/groff/groff.html'
@@ -37,19 +37,23 @@ validpgpkeys=(
 )
 source=(
   git+https://git.savannah.gnu.org/git/groff.git?signed#tag=${pkgver}
+  eee74c1a8f73ff7dd68aee59711bfbeb9174c20d.patch
   site.tmac
 )
 b2sums=('504e9c5bb49369f3cf3b7560798d9da2c9c3cc89a5e0e36714c3d291db76b77870768e809c696f47339efc88e6095bd40eb993e33fb4c8ca526015149386667c'
+        '2d0c592c48f9864533e827ab97a9373599e42cbab3e42524985157d35198413579a501fcc44e44406b395c33fa1a83dfe13c52cee7442a4c617a4bb3b573c571'
         '39087d04a2af011820e9428c3c01da4be63cd34125bb087097b4e56865806e33e3e20a666885110ab71d36eeafdbfb01202ca4ee45d6cdeed8ab71d83852341b')
 
 prepare() {
   cd "${pkgname}"
+  # fix broken manpages
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/groff/-/issues/4
+  patch -Np1 -i ../eee74c1a8f73ff7dd68aee59711bfbeb9174c20d.patch
   ./bootstrap
 }  
 
 build() {
   cd "${pkgname}"
-
   ./configure \
     --prefix=/usr \
     --with-x \
