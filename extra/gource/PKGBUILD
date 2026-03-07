@@ -2,8 +2,8 @@
 # Contributor: Jose Valecillos <valecillosjg (at) gmail (dot) com>
 # Contributor: Olivier Ramonat <olivier at ramonat dot fr>
 pkgname=gource
-pkgver=0.55
-pkgrel=3
+pkgver=0.56
+pkgrel=1
 pkgdesc="software version control visualization"
 license=(GPL-3.0-or-later)
 arch=(x86_64)
@@ -11,7 +11,8 @@ url=https://gource.io/
 depends=(
   'boost-libs'
   'freetype2'
-  'gcc-libs'
+  'libstdc++'
+  'libgcc'
   'glew'
   'glibc'
   'glu'
@@ -22,14 +23,11 @@ depends=(
   'sdl2_image'
 )
 makedepends=('boost' 'glm' 'mesa')
-source=(https://github.com/acaudwell/Gource/releases/download/gource-${pkgver}/gource-${pkgver}.tar.gz
-        boost-1.89.patch)
-sha512sums=('6df687441fc04e9bdfcf3620ed6b8a8fc1ac5774d21f51afdb0d518339ea1518914db77c90fb457ada899653c491a3b45c340665c3efa28bddeac65eeb334488'
-            'ac280018c55d3219cbedcec0179c870199b347ab07339966eef31ed603035a04fd93554141447414062a1d6e9e0183bed2f41bbfce8d44b1a7b532b1c8bdd3cb')
+source=(https://github.com/acaudwell/Gource/releases/download/gource-${pkgver}/gource-${pkgver}.tar.gz)
+sha512sums=('31f8fe4790d18ee985f4a5173b13b2ff16ba39916df6e79e3df7f066ae31d1ed0ab381e17cf18f0374abdccee5cb30810dd2ec80e308e2a2afa011ed5f5d309f')
 
 prepare() {
   cd $pkgname-$pkgver
-  patch -p1 < ../boost-1.89.patch
   autoreconf -fiv
 }
 
