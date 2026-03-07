@@ -2,27 +2,28 @@
 
 pkgname=cl-cffi
 _pkgname="${pkgname#cl-}"
-pkgver=0.24.1.r23.gac07d76
-pkgrel=2
+pkgver=0.24.1.r49.g71fdf5d
+pkgrel=1
 pkgdesc='Common Foreign Function Interface for Common Lisp'
-arch=('any')
+arch=(any)
 url='https://cffi.common-lisp.dev/'
-license=('MIT')
+license=(MIT)
 depends=(
-  'common-lisp'
-  'cl-asdf'
-  'cl-babel'
-  'cl-alexandria'
-  'cl-trivial-features'
-  'cl-ppcre'
-  'cl-json'
-  'libffi'
+  common-lisp
+  cl-asdf
+  cl-babel
+  cl-alexandria
+  cl-trivial-features
+  cl-ppcre
+  cl-json
+  libffi
 )
-makedepends=('git')
-checkdepends=('sbcl' 'cl-bordeaux-threads' 'cl-rt')
-_commit='ac07d762d89ca03688392b4d9a4ca1784b995a99'
+makedepends=(git)
+checkdepends=(sbcl cl-bordeaux-threads cl-rt)
+_commit=71fdf5d4864dd07a74534c953350041ceaa93f0e
 source=("$pkgname::git+https://github.com/cffi/cffi#commit=$_commit")
-b2sums=('SKIP')
+sha512sums=('1ca99aa44ccc8dc2ab80c437c84f22d6844031dc9ff37b8797420b4b8207204b4fe14447e83c342642600eb325b2d08b9157e5517a7e6ce43624a1c70a2bc4bf')
+b2sums=('77ddd8b5ebce913f81e14d623579649eaaddb498eca38f47a51ceacedc38af54d407dc931fa1d788fa12a878cc00c63acf0033d9010401162f2265519f862e99')
 
 pkgver() {
   cd "$pkgname"
