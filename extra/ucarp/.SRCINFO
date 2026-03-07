@@ -1,10 +1,12 @@
 pkgbase = ucarp
 	pkgdesc = Userspace implementation of the CARP protocol
 	pkgver = 1.5.2
-	pkgrel = 8
+	pkgrel = 9
 	url = https://www.pureftpd.org/project/ucarp
 	arch = x86_64
-	license = GPL2
+	license = BSD-4-Clause
+	license = ISC
+	depends = glibc
 	depends = libpcap
 	optdepends = iproute2
 	source = https://download.pureftpd.org/pub/ucarp/ucarp-1.5.2.tar.gz

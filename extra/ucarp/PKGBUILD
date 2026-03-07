@@ -2,12 +2,18 @@
 
 pkgname=ucarp
 pkgver=1.5.2
-pkgrel=8
+pkgrel=9
 pkgdesc='Userspace implementation of the CARP protocol'
 arch=('x86_64')
 url='https://www.pureftpd.org/project/ucarp'
-license=('GPL2')
-depends=('libpcap')
+license=(
+  BSD-4-Clause
+  ISC
+)
+depends=(
+  glibc
+  libpcap
+)
 optdepends=('iproute2')
 source=("https://download.pureftpd.org/pub/$pkgname/$pkgname-$pkgver.tar.gz"{,.sig}
         "$pkgname.service"
@@ -32,7 +38,9 @@ prepare() {
       patch -p1 -N -i "$srcdir/${filename##*/}"
     fi
   done
-  :
+
+  sed -n '20,54p' src/bsd-getopt_long.h > BSD-4-Clause.txt
+  sed -n '4,19p' COPYING > ISC.txt
 }
 
 build() {
@@ -44,7 +52,7 @@ build() {
 }
 
 package() {
-  pushd $pkgname-$pkgver
+  cd $pkgname-$pkgver
   make DESTDIR="$pkgdir" install
   # install examples files
   install -D -m 644 examples/linux/vip-down.sh \
@@ -53,13 +61,12 @@ package() {
     "$pkgdir/usr/share/doc/$pkgname/examples/vip-up.sh"
   # install README
   install -D -m 644 README "$pkgdir/usr/share/doc/$pkgname/README"
-  popd
   # add manpage
-  install -D -m 644 $pkgname.8 "$pkgdir/usr/share/man/man8/$pkgname.8"
+  install -D -m 644 ../$pkgname.8 -t "$pkgdir/usr/share/man/man8/"
   # systemd
-  install -D -m 644 $pkgname.service \
-    "$pkgdir/usr/lib/systemd/system/$pkgname.service"
+  install -D -m 644 ../$pkgname.service -t "$pkgdir/usr/lib/systemd/system/"
 
+  install -vDm 644 {ISC,BSD-4-Clause}.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
 # vim:set ts=2 sw=2 et:
