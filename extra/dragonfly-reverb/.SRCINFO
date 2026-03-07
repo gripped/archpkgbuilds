@@ -1,18 +1,19 @@
 pkgbase = dragonfly-reverb
 	pkgdesc = A concert hall reverb and a room reverb
 	pkgver = 3.2.10
-	pkgrel = 4
+	pkgrel = 5
 	url = https://michaelwillis.github.io/dragonfly-reverb/
 	arch = x86_64
 	license = GPL-3.0-or-later
 	checkdepends = lv2lint
 	makedepends = freeverb3
-	makedepends = gcc-libs
 	makedepends = glibc
 	makedepends = gendesk
 	makedepends = jack
+	makedepends = libgcc
 	makedepends = libglvnd
 	makedepends = libsamplerate
+	makedepends = libstdc++
 	makedepends = libx11
 	makedepends = libxext
 	makedepends = lv2
@@ -21,20 +22,21 @@ pkgbase = dragonfly-reverb
 	b2sums = 247a29af2070b191aa17c457ee333b090e17bec8abd82812cf980aad8b534006b8e3c3bfede8195d0729ee1319e7b145d79abd41b015f794e3d02e679b5a4bd6
 
 pkgname = dragonfly-reverb
-	depends = dragonfly-reverb-clap=3.2.10-4
-	depends = dragonfly-reverb-lv2=3.2.10-4
-	depends = dragonfly-reverb-standalone=3.2.10-4
-	depends = dragonfly-reverb-vst=3.2.10-4
-	depends = dragonfly-reverb-vst3=3.2.10-4
+	depends = dragonfly-reverb-clap=3.2.10-5
+	depends = dragonfly-reverb-lv2=3.2.10-5
+	depends = dragonfly-reverb-standalone=3.2.10-5
+	depends = dragonfly-reverb-vst=3.2.10-5
+	depends = dragonfly-reverb-vst3=3.2.10-5
 
 pkgname = dragonfly-reverb-clap
 	pkgdesc = A concert hall reverb and a room reverb - CLAP plugin
 	groups = clap-plugins
 	groups = pro-audio
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	depends = libglvnd
 	depends = freeverb3
+	depends = libstdc++
 	depends = libx11
 	depends = libxext
 	depends = clap-host
@@ -43,10 +45,11 @@ pkgname = dragonfly-reverb-lv2
 	pkgdesc = A concert hall reverb and a room reverb - LV2 plugin
 	groups = lv2-plugins
 	groups = pro-audio
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	depends = libglvnd
 	depends = freeverb3
+	depends = libstdc++
 	depends = libx11
 	depends = libxext
 	depends = lv2-host
@@ -54,10 +57,11 @@ pkgname = dragonfly-reverb-lv2
 pkgname = dragonfly-reverb-standalone
 	pkgdesc = A concert hall reverb and a room reverb - standalone
 	groups = pro-audio
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	depends = libglvnd
 	depends = freeverb3
+	depends = libstdc++
 	depends = libx11
 	depends = libxext
 	conflicts = dragonfly-reverb-jack
@@ -67,10 +71,11 @@ pkgname = dragonfly-reverb-vst
 	pkgdesc = A concert hall reverb and a room reverb - VST plugin
 	groups = pro-audio
 	groups = vst-plugins
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	depends = libglvnd
 	depends = freeverb3
+	depends = libstdc++
 	depends = libx11
 	depends = libxext
 	depends = vst-host
@@ -79,10 +84,11 @@ pkgname = dragonfly-reverb-vst3
 	pkgdesc = A concert hall reverb and a room reverb - VST3 plugin
 	groups = pro-audio
 	groups = vst3-plugins
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	depends = libglvnd
 	depends = freeverb3
+	depends = libstdc++
 	depends = libx11
 	depends = libxext
 	depends = vst3-host

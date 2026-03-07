@@ -6,19 +6,20 @@ pkgname=(
   dragonfly-reverb-{clap,lv2,standalone,vst,vst3}
 )
 pkgver=3.2.10
-pkgrel=4
+pkgrel=5
 pkgdesc="A concert hall reverb and a room reverb"
 arch=(x86_64)
 url="https://michaelwillis.github.io/dragonfly-reverb/"
 license=(GPL-3.0-or-later)
 makedepends=(
   freeverb3
-  gcc-libs
   glibc
   gendesk
   jack
+  libgcc
   libglvnd
   libsamplerate
+  libstdc++
   libx11
   libxext
   lv2
@@ -34,10 +35,11 @@ _names=(
   DragonflyRoomReverb
 )
 _common_depends=(
-  gcc-libs
   glibc
+  libgcc
   libglvnd
   freeverb3
+  libstdc++
   libx11
   libxext
 )
