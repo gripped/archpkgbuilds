@@ -3,7 +3,7 @@
 
 _name=huggingface_hub
 pkgname=python-huggingface-hub
-pkgver=1.5.0
+pkgver=1.6.0
 pkgrel=1
 epoch=1
 pkgdesc='All the open source things related to the Hugging Face Hub'
@@ -35,6 +35,7 @@ checkdepends=(
   git
   git-lfs
   python-authlib
+  python-duckdb
   python-fastapi
   python-itsdangerous
   python-jedi
@@ -52,6 +53,7 @@ optdepends=(
   'python-fastapi: for OAuth'
   'python-itsdangerous: for OAuth'
   'python-gradio: for the webhooks server'
+  'python-duckdb: for hf datasets sql'
   python-graphviz
   python-jinja
   python-mcp
@@ -62,7 +64,7 @@ optdepends=(
   python-fastai
 )
 source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('5105d76e2cf953696f62fd3c337a312cdb8cd79ad32ad71974fce192a69459a0e1d4234bb86614c2d9572890a4203d9c89c13de432e4046fa3e65d31178d1b61')
+sha512sums=('e9d0c0259dec567355292f775055551af7cbab9ff5cea195b64775fdb74554f36a82d7ec126331d8deb6ca0273ecb35e0fa5ca3ba78aaeb447192228a807ca22')
 
 build() {
   cd $_name-$pkgver
