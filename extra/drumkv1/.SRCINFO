@@ -1,35 +1,38 @@
 pkgbase = drumkv1
 	pkgdesc = An old-school drum-kit sampler
-	pkgver = 1.3.2
-	pkgrel = 3
+	pkgver = 1.4.0
+	pkgrel = 1
 	url = https://drumkv1.sourceforge.io/
 	arch = x86_64
 	license = GPL-2.0-or-later
 	makedepends = alsa-lib
 	makedepends = cmake
 	makedepends = jack
+	makedepends = libgcc
 	makedepends = liblo
 	makedepends = libsndfile
+	makedepends = libstdc++
 	makedepends = lv2
 	makedepends = qt6-base
 	makedepends = qt6-svg
 	makedepends = qt6-tools
-	source = https://download.sourceforge.net/drumkv1/drumkv1-1.3.2.tar.gz
-	sha512sums = 753aec73246a344bddb10d64d936dccf469beb6cd368903e5054d5c8e2ceb49124955b69393f8b9ac477be38783b1a7ff019bd458a0a8c794b1d3667cb2d0fb9
-	b2sums = 0f6e4bbe11dc712b74991556bca1b0fbc461e48a126b403d4196f7afb6589218bd7ba8c9152cde8bb0b9b131ece842a7084b5d23ee0d1d81a22c650ccddf7391
+	source = https://download.sourceforge.net/drumkv1/drumkv1-1.4.0.tar.gz
+	sha512sums = 08e3f24a431e6b5be4cd944584930036036a195016bf9fc2cb8abcd3a670d88878d7b54f9ae6d7bd54ebfaf67785e01571c32d388feec79c1d30fde7aa238ed9
+	b2sums = 8a058d194cc1dc3ee8195b305c4f818de86a464e7b7e7cd1fbc04aa6255418497513e41b96ceeea76fb88768a7250f26d2e81fca45b8f652da85cf60a2ae6c9c
 
 pkgname = drumkv1
-	depends = drumkv1-lv2=1.3.2
-	depends = drumkv1-standalone=1.3.2
+	depends = drumkv1-lv2=1.4.0
+	depends = drumkv1-standalone=1.4.0
 
 pkgname = drumkv1-lv2
 	pkgdesc = An old-school drum-kit sampler - LV2 plugin
 	groups = lv2-plugins
 	groups = pro-audio
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	depends = libsndfile
 	depends = libsndfile.so
+	depends = libstdc++
 	depends = lv2-host
 	depends = qt6-base
 	depends = qt6-svg
@@ -38,13 +41,14 @@ pkgname = drumkv1-standalone
 	pkgdesc = An old-school drum-kit sampler - standalone
 	groups = pro-audio
 	depends = alsa-lib
-	depends = gcc-libs
 	depends = glibc
 	depends = hicolor-icon-theme
 	depends = jack
+	depends = libgcc
 	depends = liblo
 	depends = libsndfile
 	depends = libsndfile.so
+	depends = libstdc++
 	depends = qt6-base
 	depends = qt6-svg
 	optdepends = new-session-manager: for session management using the standalone application
