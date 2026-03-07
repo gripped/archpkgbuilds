@@ -4,37 +4,49 @@
 # Contributor: Chocobo1 <chocobo1 AT archlinux DOT net>
 
 pkgname=mac
-pkgver=12.02
+pkgver=12.50
 _pkgver="${pkgver//./}"
 pkgrel=1
 pkgdesc='APE codec and decompressor'
 arch=(x86_64)
 url='https://www.monkeysaudio.com/index.html'
 license=(BSD-3-Clause)
-depends=(glibc gcc-libs)
-makedepends=(cmake python-html2text)
+depends=(
+  glibc
+  libgcc
+  libstdc++
+)
+makedepends=(
+  cmake
+  python-html2text
+)
 source=(
   "$pkgname-$pkgver.zip::https://monkeysaudio.com/files/MAC_${_pkgver}_SDK.zip"
   "$pkgname-$pkgver-license.html::https://www.monkeysaudio.com/license.html"
 )
-sha512sums=('0ee3b8461f3fdf136a756f5fdab88455a1e95ab8f05685b8d3765552d75383d27b24d06a972382708f1b6412db111b5c0285615c9fe9cd9a52bf551be003a9dc'
-            'f038ba226861db06e9021e324afcb67705b896fd71851c87235c3055e6c3d2e3d321d8ed4849936a401ff3d5db94e8d3d8603edc9eafc505f64d4021b8a9c69e')
-b2sums=('3f3aee198775c61fe8d9d7f8548fa27e9cfe6d457bb4a1fa826c81b668ee6b48a5d9af198d95480237d1f3e125d33cd314b49cfbaaaecf0cbf8b9920beb4a8a8'
-        '7b1363fe62a75d988061d0e5938ef6a945aaf5c3cc5b16b52854893a851b16db9eff5f504a677ff07f483223ea8fb22fcf56e6b6610370878800c51206234c9f')
+sha512sums=('1c5e4ffb2204347250414f6f8b9261da12d6ea6f7905b57e901f0baf76995bdd31f6f1e80725fe93d0bcba501022803a68601ced8cd18e31e65f0a24d295228d'
+            '2ea89fb14c3de969a9c6d60fd3cd82b8f08212a7933b70d11a472cb9ece0fb516bd52eba6a3884e4693380f4ff01fc461c58367866a292515accf8dec15c1410')
+b2sums=('1baa7d0942e727becd4a5d4ed1708b46048aa1fcbaecfde5b33a9d456ffd0b755e6e1b7d630e665919c9e548efd79d20f9be3f0c8f63cdd3622ba581a7bce37b'
+        'cf3d0c275bc56c75ac124f105283a48b3afb962b8171d76a6dc210eb7f3e95095daefc53c92f839aaa757af9e64c34c911ec0614eea7f520cb17e98be8ca80fb')
 
-build() {
-  cmake \
-    -S . \
-    -B build \
-    -D CMAKE_BUILD_TYPE='None' \
-    -D CMAKE_INSTALL_PREFIX='/usr'
-
-  cmake --build build
-
+prepare() {
   # generate license
   html2text --ignore-links "$pkgname-$pkgver-license.html" \
     | sed -n '/^## License$/,$p' \
     > LICENSE.md
+}
+build() {
+  local cmake_options=(
+    -B build
+    -S .
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+  )
+
+  cmake "${cmake_options[@]}"
+
+  cmake --build build
 }
 
 package() {
