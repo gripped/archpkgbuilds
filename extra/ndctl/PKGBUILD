@@ -1,17 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ndctl
-pkgver=80
+pkgver=81
 pkgrel=1
 pkgdesc='Utility library for managing the libnvdimm (non-volatile memory device) sub-system in the Linux kernel'
 arch=('x86_64')
 url="https://github.com/pmem/ndctl"
-license=('LGPL')
+license=('LGPL-2.1-only' 'GPL-2.0-only' 'CC0-1.0' 'MIT')
 depends=('iniparser' 'json-c' 'keyutils' 'kmod' 'libtraceevent' 'libtracefs' 'systemd-libs'
          'util-linux-libs')
 makedepends=('asciidoctor' 'bash-completion' 'cmake' 'meson' 'systemd' 'xmlto')
 source=("https://github.com/pmem/ndctl/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('f8302c0c64c0b30524cc62d5af35a81bca9ed9afb94e3a9a1848e976aabb0af0824f9a12080a522ab935665ccdbf2a18ed3ac6347343446385830dae9f5736a4')
+sha512sums=('b6ca09482fd426b94b5e851a7bc924e0971613dc643647070df416fbbf6660dc165de515372af60fd87d93c5832aab86dad373ff9d8c1d01c84584bae34277b0')
 
 prepare() {
   # fix location of modprobe.d conf
