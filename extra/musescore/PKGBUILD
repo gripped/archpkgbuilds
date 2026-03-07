@@ -4,7 +4,7 @@
 # Contributor: Dr.Egg <rwhite@archlinux.us>
 
 pkgname=musescore
-pkgver=4.5.2
+pkgver=4.6.5
 pkgrel=1
 pkgdesc='Create, play and print beautiful sheet music'
 arch=(x86_64)
@@ -12,14 +12,16 @@ url=https://musescore.org/
 license=(GPL-3.0-only)
 groups=(pro-audio)
 depends=(
-  gcc-libs
   glibc
+  flac
   harfbuzz
   hicolor-icon-theme
   libasound.so
   libfreetype.so
   libopusenc
   libsndfile.so
+  libgcc
+  libstdc++
   opus
   qt6-5compat
   qt6-base
@@ -39,48 +41,45 @@ makedepends=(
   ninja
   python
   qt6-tools
+  vulkan-headers
 )
 optdepends=('lame: MP3 export')
 options=(!lto)
-source=(git+https://github.com/musescore/MuseScore.git#tag=v${pkgver})
-sha256sums=('a5ebc0484855d3984b85dbf9cb818563d5936a35402712f4a9f6113ebb654ee4')
-
-prepare() {
-  cd MuseScore
-  # Fix build failures
-  git cherry-pick -n \
-    05056ed19520060c3912a09a3adfa0927057f956 \
-    da3301afb1def9ac17915424d35829beb46dce4b \
-    c537785a6ff098ffd8a87597a0d073e40794afe7
-}
+source=("$pkgname::git+https://github.com/musescore/MuseScore.git#tag=v${pkgver}")
+sha512sums=('4f1fa2fc8684662bfafbefbbf63519a3f8077c077e063f2144e95a1eeedf5c54a97013c01461f55474379a8d0bcffc71e54a6ab994c6f61cc48aee7b97e64352')
+b2sums=('d8d43fe137d76b84caf36d9be81f11caeb1f925c4e81286b1f5b1b950ab4fceb8d91c8ae3380efd5cf906c898a41664f3985eebe092fe63280d1369b6d52cf9b')
 
 build() {
-  cmake -S MuseScore -B build -G Ninja \
-    -DCMAKE_BUILD_TYPE=None \
-    -DCMAKE_C_FLAGS_RELEASE="$CFLAGS" \
-    -DCMAKE_CXX_FLAGS_RELEASE="$CXXFLAGS" \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-    -DCMAKE_SKIP_RPATH=ON \
-    -DMUSE_APP_BUILD_MODE=release \
-    -DMUSESCORE_BUILD_CONFIGURATION=app \
-    -DMUSESCORE_REVISION=$(git rev-parse --short=7 HEAD) \
-    -DMUE_BUILD_UNIT_TESTS=OFF \
-    -DMUE_COMPILE_USE_SYSTEM_FLAC=ON \
-    -DMUE_COMPILE_USE_SYSTEM_FREETYPE=ON \
-    -DMUE_COMPILE_USE_SYSTEM_HARFBUZZ=ON \
-    -DMUE_COMPILE_USE_SYSTEM_OPUS=ON \
-    -DMUE_COMPILE_USE_SYSTEM_OPUSENC=ON \
-    -DMUE_COMPILE_USE_SYSTEM_TINYXML=ON \
-    -DMUE_ENABLE_FILE_ASSOCIATION=ON \
-    -DMUE_INSTALL_SOUNDFONT=ON \
-    -Wno-dev
+  local cmake_options=(
+    -B build
+    -S "$pkgname"
+    -G Ninja
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_C_FLAGS_RELEASE="$CFLAGS"
+    -D CMAKE_CXX_FLAGS_RELEASE="$CXXFLAGS"
+    -D CMAKE_POSITION_INDEPENDENT_CODE=ON
+    -D CMAKE_SKIP_RPATH=ON
+    -D MUSE_APP_BUILD_MODE=release
+    -D MUSESCORE_BUILD_CONFIGURATION=app
+    -D MUSESCORE_REVISION="$(git -C "$pkgname" rev-parse --short=7 HEAD)"
+    -D MUE_COMPILE_USE_SYSTEM_FLAC=ON
+    -D MUE_COMPILE_USE_SYSTEM_FREETYPE=ON
+    -D MUE_COMPILE_USE_SYSTEM_HARFBUZZ=ON
+    -D MUE_COMPILE_USE_SYSTEM_OPUS=ON
+    -D MUE_COMPILE_USE_SYSTEM_OPUSENC=ON
+    -D MUE_COMPILE_USE_SYSTEM_TINYXML=ON
+    -D MUE_INSTALL_SOUNDFONT=ON
+  )
+
+  cmake "${cmake_options[@]}"
+
   cmake --build build
 }
 
 package() {
-  DESTDIR="${pkgdir}" cmake --install build
-  rm -rf "${pkgdir}"/usr/{bin/crashpad_handler,include,lib}
+  DESTDIR="$pkgdir" cmake --install build
 }
 
 # vim: ts=2 sw=2 et:
