@@ -1,31 +1,31 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-screensaver
-pkgver=5.0.18
+pkgver=5.0.19
 pkgrel=1
 pkgdesc='Deepin screensaver viewer and tools'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-screensaver"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('deepin-qt-dbus-factory' 'dtkcore' 'dtkwidget' 'qt5-base' 'qt5-declarative'
          'qt5-x11extras' 'libx11' 'libxcb' 'libxss' 'xscreensaver' 'gcc-libs')
-makedepends=('qt5-tools' 'deepin-desktop-base')
+makedepends=('git' 'qt5-tools' 'deepin-desktop-base')
 groups=('deepin')
-source=("https://github.com/linuxdeepin/deepin-screensaver/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('21bd666dc7edc9ffaecdccac0feca0d9db3d71046d4fd638e5fd8f756385722a5e5ea995bc8e73b616e4b51a00cd97de7bfb0ba2c994c183f99a175db5807eaf')
+source=("git+https://github.com/linuxdeepin/deepin-screensaver.git#tag=$pkgver")
+sha512sums=('e6aec1b62c0322040ee9738818fbe6556a8da089dcd1a0508d592c693f60cd09fa50b16acbc30c1528c3cc3039431a1b519b5b6f1f3866da0c00e4d6b7b4e29e')
 
 prepare() {
-  cd deepin-screensaver-$pkgver
+  cd deepin-screensaver
   sed -i 's|/etc/os-version|/etc/deepin-version|' common.pri
 }
 
 build() {
-  cd deepin-screensaver-$pkgver
+  cd deepin-screensaver
   qmake-qt5 PREFIX=/usr
   make
 }
 
 package() {
-  cd deepin-screensaver-$pkgver
+  cd deepin-screensaver
   make INSTALL_ROOT="$pkgdir" install
 }

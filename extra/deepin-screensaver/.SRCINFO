@@ -1,11 +1,12 @@
 pkgbase = deepin-screensaver
 	pkgdesc = Deepin screensaver viewer and tools
-	pkgver = 5.0.18
+	pkgver = 5.0.19
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-screensaver
 	arch = x86_64
 	groups = deepin
-	license = GPL3
+	license = GPL-3.0-or-later
+	makedepends = git
 	makedepends = qt5-tools
 	makedepends = deepin-desktop-base
 	depends = deepin-qt-dbus-factory
@@ -19,7 +20,7 @@ pkgbase = deepin-screensaver
 	depends = libxss
 	depends = xscreensaver
 	depends = gcc-libs
-	source = https://github.com/linuxdeepin/deepin-screensaver/archive/5.0.18/deepin-screensaver-5.0.18.tar.gz
-	sha512sums = 21bd666dc7edc9ffaecdccac0feca0d9db3d71046d4fd638e5fd8f756385722a5e5ea995bc8e73b616e4b51a00cd97de7bfb0ba2c994c183f99a175db5807eaf
+	source = git+https://github.com/linuxdeepin/deepin-screensaver.git#tag=5.0.19
+	sha512sums = e6aec1b62c0322040ee9738818fbe6556a8da089dcd1a0508d592c693f60cd09fa50b16acbc30c1528c3cc3039431a1b519b5b6f1f3866da0c00e4d6b7b4e29e
 
 pkgname = deepin-screensaver
