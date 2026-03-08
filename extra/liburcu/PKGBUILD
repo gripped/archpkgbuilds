@@ -3,7 +3,7 @@
 # Contributor: Yggdrasil <tetzank at web dot de>
 
 pkgname=liburcu
-pkgver=0.15.5
+pkgver=0.15.6
 pkgrel=1
 pkgdesc="LGPLv2.1 userspace RCU (read-copy-update) library"
 arch=('x86_64')
@@ -11,7 +11,7 @@ url="https://lttng.org/urcu"
 license=('LGPL2.1')
 depends=('glibc')
 source=(https://lttng.org/files/urcu/userspace-rcu-${pkgver}.tar.bz2{,.asc})
-sha256sums=('b2f787a8a83512c32599e71cdabcc5131464947b82014896bd11413b2d782de1'
+sha256sums=('850b192096eb11ebf2c70e8f97bc7da7479ee41da1bebeb44e3986908bac414f'
             'SKIP')
 validpgpkeys=('2A0B4ED915F2D3FA45F5B16217280A9781186ACF')
 
