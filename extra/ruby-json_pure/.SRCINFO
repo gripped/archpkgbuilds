@@ -1,17 +1,19 @@
 pkgbase = ruby-json_pure
 	pkgdesc = A JSON implementation in pure Ruby
-	pkgver = 2.6.3
-	pkgrel = 6
-	url = http://flori.github.io/json/
+	pkgver = 2.7.0
+	pkgrel = 1
+	url = https://flori.github.io/json/
 	arch = any
 	license = RUBY
 	checkdepends = ruby-test-unit
+	checkdepends = ruby-test-unit-ruby-core
+	makedepends = git
 	makedepends = ruby-rake
 	makedepends = ruby-rdoc
 	depends = ruby
 	depends = ruby-bigdecimal
 	options = !emptydirs
-	source = https://github.com/flori/json/archive/v2.6.3/ruby-json_pure-2.6.3.tar.gz
-	sha256sums = 41151b4cca7f58a94b559c73ad5e6c1940fc35521e0f69d741de79f80fa50d1a
+	source = git+https://github.com/flori/json.git#tag=v2.7.0
+	sha256sums = 0fd77975caac2b044fd5b3d1f1f09bbd3fbb3d6d0ceaecc25b7ef58737bf3151
 
 pkgname = ruby-json_pure
