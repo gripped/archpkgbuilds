@@ -2,7 +2,7 @@
 
 pkgname=csound-plugins
 pkgver=1.0.2
-pkgrel=16
+pkgrel=17
 pkgdesc="Extra opcodes for Csound"
 arch=(x86_64)
 url="https://github.com/csound/plugins"
@@ -10,9 +10,10 @@ license=('LGPL-2.1-or-later')
 groups=('pro-audio')
 depends=(
 	'csound'
-	'gcc-libs'
 	'glibc'
 	'hdf5'
+	'libgcc'
+	'libstdc++'
 	'libx11'
 	'python'
 	'stk'
