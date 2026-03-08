@@ -4,7 +4,7 @@
 _pkg=orc
 pkgname=apache-${_pkg}
 pkgver=2.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Columnar storage for Hadoop workloads."
 arch=(x86_64)
 url="https://orc.apache.org"
@@ -24,14 +24,20 @@ makedepends=(cmake git)
 checkdepends=(gtest)
 source=(
   ${pkgname}::git+https://github.com/apache/orc.git#tag=v${pkgver}
+  fix-find-package-mode.patch
 )
-sha256sums=('512b8f41f9bbdd789ec4d66d5f9331d93df9af90736ee4f77ea4c252d4967d8b')
+sha256sums=('512b8f41f9bbdd789ec4d66d5f9331d93df9af90736ee4f77ea4c252d4967d8b'
+            '458ec83da45446442a32dd5bd21b8569a2f20c4cef07fd03ec0044f5604260ea')
 validpgpkeys=(F28C9C925C188C35E345614DEDA00CE834F0FC5C  # Dongjoon Hyun (CODE SIGNING KEY) <dongjoon@apache.org>
               AA94E2A8F0A0B7167305C5232D9F6201DECDFA29) # William Hyun (CODE SIGNING KEY) <william@apache.org>
 
 prepare(){
   cd ${pkgname}
   sed -i 's/orc STATIC/orc SHARED/' c++/src/CMakeLists.txt
+
+  # Our zlib package does not provide files for the config-mode of find_package.
+  # Also when "NAMES" is given, find_package cannot find zlib.
+  patch -p1 < ../fix-find-package-mode.patch
 }
 
 build(){
@@ -47,12 +53,7 @@ build(){
     -DCMAKE_BUILD_TYPE=None
     -DCMAKE_INSTALL_PREFIX=/usr
     -DSTOP_BUILD_ON_WARNING=OFF
-    -DLZ4_HOME=/usr
-    -DPROTOBUF_HOME=/usr
-    -DSNAPPY_HOME=/usr
-    -DZLIB_HOME=/usr
-    -DZSTD_HOME=/usr
-    -DGTEST_HOME=/usr
+    -DLZ4_HOME=/usr  # needed to use orc's FindLZ4Alt.cmake
     -DORC_PREFER_STATIC_PROTOBUF=OFF
     -DORC_PREFER_STATIC_SNAPPY=OFF
     -DORC_PREFER_STATIC_LZ4=OFF

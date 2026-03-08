@@ -1,7 +1,7 @@
 pkgbase = apache-orc
 	pkgdesc = Columnar storage for Hadoop workloads.
 	pkgver = 2.3.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://orc.apache.org
 	arch = x86_64
 	license = Apache-2.0
@@ -18,8 +18,10 @@ pkgbase = apache-orc
 	depends = zlib
 	depends = zstd
 	source = apache-orc::git+https://github.com/apache/orc.git#tag=v2.3.0
+	source = fix-find-package-mode.patch
 	validpgpkeys = F28C9C925C188C35E345614DEDA00CE834F0FC5C
 	validpgpkeys = AA94E2A8F0A0B7167305C5232D9F6201DECDFA29
 	sha256sums = 512b8f41f9bbdd789ec4d66d5f9331d93df9af90736ee4f77ea4c252d4967d8b
+	sha256sums = 458ec83da45446442a32dd5bd21b8569a2f20c4cef07fd03ec0044f5604260ea
 
 pkgname = apache-orc
