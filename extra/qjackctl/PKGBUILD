@@ -4,16 +4,17 @@
 
 pkgname=qjackctl
 pkgver=1.0.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A Qt front-end for the JACK low-latency audio server"
 arch=(x86_64)
 url="https://qjackctl.sourceforge.io"
 license=(GPL-2.0-or-later)
 groups=(pro-audio)
 depends=(
-  gcc-libs
   glibc
   hicolor-icon-theme
+  libgcc
+  libstdc++
   qt6-base
   qt6-svg
 )
