@@ -1,15 +1,16 @@
 pkgbase = deepin-turbo
 	pkgdesc = A daemon that helps to launch applications faster
-	pkgver = 0.0.6
-	pkgrel = 2
+	pkgver = 0.0.6.1
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-turbo
 	arch = x86_64
 	groups = deepin
-	license = GPL3
+	license = GPL-3.0-or-later
+	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
 	depends = dtkwidget
-	source = deepin-turbo-0.0.6.tar.gz::https://github.com/linuxdeepin/deepin-turbo/archive/0.0.6.tar.gz
-	sha512sums = b35ce156a654b9368dfa63ff0cdea62f52e4f823b10366ab15af91c8a8cb853b0d2fed2aa76b30616d852bd8c4d9d5d24a073ecc07307ae37b84396d5a0af1ec
+	source = git+https://github.com/linuxdeepin/deepin-turbo.git#tag=0.0.6.1
+	sha512sums = c58d27f1467b6f126d23c745d08652b3c99fe4a27a94abf4c4fe2b19bc6fa3b07bab7f7a42f64deff538d81085bd1da4e1b66db81c19d0e159276e6b58594644
 
 pkgname = deepin-turbo

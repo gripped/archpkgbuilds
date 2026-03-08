@@ -1,31 +1,30 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-turbo
-pkgver=0.0.6
-pkgrel=2
+pkgver=0.0.6.1
+pkgrel=1
 pkgdesc='A daemon that helps to launch applications faster'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-turbo"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('dtkwidget')
-makedepends=('cmake' 'ninja')
+makedepends=('git' 'cmake' 'ninja')
 groups=('deepin')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/deepin-turbo/archive/$pkgver.tar.gz")
-sha512sums=('b35ce156a654b9368dfa63ff0cdea62f52e4f823b10366ab15af91c8a8cb853b0d2fed2aa76b30616d852bd8c4d9d5d24a073ecc07307ae37b84396d5a0af1ec')
+source=("git+https://github.com/linuxdeepin/deepin-turbo.git#tag=$pkgver")
+sha512sums=('c58d27f1467b6f126d23c745d08652b3c99fe4a27a94abf4c4fe2b19bc6fa3b07bab7f7a42f64deff538d81085bd1da4e1b66db81c19d0e159276e6b58594644')
 
 prepare() {
-  cd deepin-turbo-$pkgver
-  sed -i 's/MODULE/SHARED/' src/launcherlib/CMakeLists.txt
-  sed -i '/-ldeepin-turbo/d;/Qt5::Widgets/a\    deepin-turbo' src/booster-dtkwidget/CMakeLists.txt
+  cd deepin-turbo
+  sed -i 's/DtkWidget5\.5/DtkWidget/g' src/booster-dtkwidget/CMakeLists.txt
 }
 
 build() {
-  cd deepin-turbo-$pkgver
-  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_BUILD_TYPE=Release .
+  cd deepin-turbo
+  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_POLICY_VERSION_MINIMUM=3.5 .
   ninja
 }
 
 package() {
-  cd deepin-turbo-$pkgver
+  cd deepin-turbo
   DESTDIR="$pkgdir" ninja install
 }
