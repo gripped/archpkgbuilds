@@ -4,7 +4,7 @@
 # Contributor: schuay <jakob.gruber@gmail.com>
 
 pkgname=puzzles
-pkgver=20251021.790f585
+pkgver=20251220.ecb576f
 pkgrel=1
 _commit=${pkgver##*.}
 pkgdesc="Simon Tatham's Portable Puzzle Collection"
@@ -22,7 +22,7 @@ makedepends=(cmake
              halibut
              imagemagick)
 source=(git+https://git.tartarus.org/simon/puzzles.git#commit=$_commit)
-sha256sums=('c0b09c2bd6404e1b01743ee8b80783bf30d38509004f263d829bf2c6067395d4')
+sha256sums=('f444d5f5850b677287902ccc76f265b6da4c0063fbd0b730e3b904e0db4841a7')
 
 build() {
   cmake -B build -S puzzles \
