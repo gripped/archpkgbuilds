@@ -1,14 +1,17 @@
 pkgbase = docparser
 	pkgdesc = A document parser library ported from document2html
-	pkgver = 1.0.3
-	pkgrel = 5
+	pkgver = 1.0.8
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/docparser
 	arch = x86_64
 	groups = deepin
-	license = GPL3
+	license = LGPL-3.0-or-later
+	makedepends = git
 	makedepends = qt5-tools
 	depends = poppler
-	source = https://github.com/linuxdeepin/docparser/archive/1.0.3/docparser-1.0.3.tar.gz
-	b2sums = f6f947de248696ecde5fe3f59fb14b402f2be1ed587350325f53fb84d923948e18aabe0c34da9a71f44497c3c5f2105298726d6e7b4765c67ef767f99754e081
+	depends = libzip
+	depends = pugixml
+	source = git+https://github.com/linuxdeepin/docparser.git#tag=1.0.8
+	b2sums = 684dc08d6b57100fd2f21a8e9c032d4b14d7ea29795495dad1e659a3fee7eea366eac587daddf74ee0808ecb4bd6eba5db5ddce3f4ce1e0b3dc7702d00081355
 
 pkgname = docparser
