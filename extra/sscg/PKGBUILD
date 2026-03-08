@@ -2,12 +2,12 @@
 
 pkgname=sscg
 pkgver=4.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Simple Signed Certificate Generator"
 url="https://github.com/sgallagher/sscg"
 license=('GPL-3.0-or-later')
 arch=(x86_64)
-depends=(openssl popt talloc ding-libs)
+depends=(openssl popt talloc glibc)
 makedepends=(git help2man meson)
 source=(git+https://github.com/sgallagher/sscg.git?signed#tag=${pkgname}-${pkgver})
 # https://github.com/sgallagher.gpg
