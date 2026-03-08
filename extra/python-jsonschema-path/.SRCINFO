@@ -1,12 +1,13 @@
 pkgbase = python-jsonschema-path
 	pkgdesc = JSONSchema Spec with object-oriented paths
-	pkgver = 0.3.4
+	pkgver = 0.4.0
 	pkgrel = 1
 	url = https://github.com/p1c2u/jsonschema-path
 	arch = any
 	license = Apache-2.0
 	checkdepends = python-pytest
 	checkdepends = python-responses
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-poetry-core
@@ -15,7 +16,7 @@ pkgbase = python-jsonschema-path
 	depends = python-yaml
 	depends = python-requests
 	depends = python-referencing
-	source = https://github.com/p1c2u/jsonschema-path/archive/0.3.4/python-jsonschema-path-0.3.4.tar.gz
-	sha512sums = 85b791a374d61bedf66a0ca44b6906ec74f02ffe991c1cb220267c85c0e7b493375d712d7ca0828681c9c15f170bc29d4b808b00778895fb13f1f7ff3cdf2a9c
+	source = git+https://github.com/p1c2u/jsonschema-path.git#tag=0.4.0
+	sha512sums = 6f346bdc665cb25f40f2748bb6d40ab9298b6b3adff1e927fc6d2e8cf3e3d903cac700eeb544eb4026c5d5bbf3f8016a86abf8350798dfbd233a897cbf3c8c57
 
 pkgname = python-jsonschema-path
