@@ -3,10 +3,14 @@
 # Contributor: Pierre Schmitz <pierre@archlinux.de>
 
 pkgbase=zlib
-pkgname=(zlib minizip)
+pkgname=(
+  zlib
+  zlib-static
+  minizip
+)
 epoch=1
 pkgver=1.3.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Compression library implementing the deflate compression method found in gzip and PKZIP'
 arch=(x86_64)
 license=(Zlib)
@@ -22,13 +26,15 @@ b2sums=('fd3a6e4c275a925f4814de487075c136e28421ea34ca7f93141781e7a414b392cd849fb
 validpgpkeys=('5ED46A6721D365587791E2AA783FCD8E58BCAFBA')  # Mark Adler <madler@alumni.caltech.edu>
 
 prepare() {
+  # Fix missing header
+  patch -Np1 -d $pkgbase-$pkgver -i "$srcdir"/36ff1be48ef696cc67b0855f7c8537ce0276210d.patch
+
   cd $pkgbase-$pkgver/contrib/minizip
   cp Makefile Makefile.orig
   cp ../README.contrib readme.txt
 
-# Fix missing header
-  patch -p3 < "$srcdir"/36ff1be48ef696cc67b0855f7c8537ce0276210d.patch
   autoreconf -fiv
+  # NOTE: We are not running autoreconf for the top-level project, because `configure` is a custom script.
 }
 
 build() {
@@ -49,12 +55,37 @@ check() {
   make -f Makefile.orig test -C $pkgbase-$pkgver/contrib/minizip
 }
 
+_pick() {
+  local p="$1" f d; shift
+  for f; do
+    d="$srcdir/$p/${f#$pkgdir/}"
+    mkdir -p "$(dirname "$d")"
+    mv "$f" "$d"
+    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+  done
+}
+
 package_zlib() {
   depends=(glibc)
   provides=(libz.so)
 
   make install DESTDIR="$pkgdir" -C $pkgbase-$pkgver
   install -D -m644 $pkgbase-$pkgver/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+
+  cd "$pkgdir"
+  _pick $pkgbase-static usr/lib/libz.a
+}
+
+package_zlib-static() {
+  pkgdesc+=" - static library"
+  depends=(
+    glibc
+    zlib
+  )
+  options=(staticlibs)
+
+  mv -v $pkgbase-static/* "$pkgdir"
+  install -vDm 644 $pkgbase-$pkgver/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
 package_minizip() {
