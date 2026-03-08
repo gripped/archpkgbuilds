@@ -1,25 +1,25 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=glacier-calc
-pkgver=0.3.3
-pkgrel=2
+pkgver=0.3.4
+pkgrel=1
 pkgdesc="Nemo calculator"
 arch=('x86_64')
 url="https://github.com/nemomobile-ux/glacier-calc"
-license=('LGPL')
+license=('LGPL-2.1-only')
 depends=('qt5-quickcontrols-nemo')
-makedepends=('cmake' 'qt5-tools')
-source=("https://github.com/nemomobile-ux/glacier-calc/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('16f94492e5b2b1f0863deb1fd5a036f4c56698fcdb276dfa4c1c90638c1b73d2a9620265bff033c6e21a52168c0c458bf3d7e2b557c474b219a2bf4a3fead950')
+makedepends=('git' 'cmake' 'qt5-tools')
+source=("git+https://github.com/nemomobile-ux/glacier-calc.git#tag=$pkgver")
+sha512sums=('1590bb75cbf08370093f1cbf6c7dded5bda516c84887ee68bda7f0ab58e7e33de05fe9fcbe44aba7348b79a092aca200fe09eab8afcc779a8af304552f3b1811')
 
 build(){
-  cd $pkgname-$pkgver
+  cd glacier-calc
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr .
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_POLICY_VERSION_MINIMUM=3.5 .
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd glacier-calc
   make DESTDIR="$pkgdir" install
 }
