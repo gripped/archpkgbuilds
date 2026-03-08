@@ -3,8 +3,8 @@
 # Contributor: Andrey Mikhaylenko <neithere at gmail dot com>
 
 pkgname=python-pytest-cov
-pkgver=6.1.1
-pkgrel=2
+pkgver=6.2.0
+pkgrel=1
 pkgdesc='py.test plugin for coverage reporting with support for both centralised and distributed testing, including subprocesses and multiprocessing'
 arch=('any')
 license=('MIT')
@@ -13,7 +13,7 @@ depends=('python-coverage' 'python-pytest')
 makedepends=('git' 'python-setuptools')
 checkdepends=('python-virtualenv' 'python-process-tests' 'python-pytest-xdist' 'python-fields')
 source=("git+https://github.com/pytest-dev/pytest-cov.git#tag=v$pkgver")
-sha512sums=('d2d68807abbdaf039ebfae420a6b4d1c0f7c67e5e5076972352f51609e7888f231910221d1725af72529412f920be48cfcfae42a9abb65cb2cec0b56b528ce74')
+sha512sums=('ed89ef3560dc8f625664b5a6eb51d0e35c985c49f9d2f8c05e6f36c2f15a4920a0ba038139259f13a699686c217ee22a6b61a34d65007424a86a76cb5f0a1465')
 
 build() {
   cd pytest-cov
