@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=egl-wayland2
-pkgver=1.0.0.rc.r57.g1893c37
+pkgver=1.0.1
 pkgrel=1
 pkgdesc="EGLStream-based Wayland external platform (2)"
 url="https://github.com/NVIDIA/egl-wayland2"
@@ -22,18 +22,8 @@ makedepends=(
   wayland-protocols
 )
 provides=(libnvidia-egl-wayland2.so)
-_commit=1893c371d074c5a648a65e198c4e0eee80d2d7f1
-source=("git+$url#tag=$_commit")
-b2sums=('22347b3e1fbd1b13874df1aaad1662cdb357e9c338efe4551a44112b3f72ef76893738e37c88261d288087ea269c593bccf4e2e89168a07db9ef10901ffe65f1')
-
-pkgver() {
-  cd $pkgname
-  git describe --long --tags | sed -E 's/^v//;s/-0-g[0-9a-f]+$//;s/-([0-9]+)-g/.r\1.g/;s/-/./g'
-}
-
-prepare() {
-  cd $pkgname
-}
+source=("git+$url#tag=v$pkgver")
+b2sums=('8cec511a964b4a79f624120f2719520da685bed52e15dfac63e68ab83ee9d0c65f4cbdf3519a04952ba30526609ffd2737a2a06dd9a160cdc6dba4545708e3d2')
 
 build() {
   arch-meson $pkgname build
