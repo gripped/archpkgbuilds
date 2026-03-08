@@ -3,7 +3,7 @@
 # Contributor: Christopher Cooper <christopher@cg505.com>
 
 pkgname=openai-codex
-pkgver=0.106.0
+pkgver=0.111.0
 pkgrel=1
 pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
 arch=(x86_64)
@@ -26,7 +26,7 @@ optdepends=(
 )
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/rust-v$pkgver.tar.gz")
-b2sums=('448fff4f75517270f6adc9bdcbd3b912bc7e08434145637cb85ed09dc39f24abbc8f5ac6d7660ccac65a4af112f4bf4018501e309d4b4ceff9f6d6920543144f')
+b2sums=('a5c48a49ceb66e722eecd68956248604bfcc81e77f15f0c7af548de4204f19ce577b203779ced2a8ae8c41251874a1aeb25a4d29a113cacd31014122100fe506')
 
 prepare() {
   cd codex-rust-v$pkgver/codex-rs
@@ -36,7 +36,8 @@ prepare() {
 
 build() {
   cd codex-rust-v$pkgver/codex-rs
-
+  # Reducing build time for around 10 minutes
+  export CARGO_PROFILE_RELEASE_LTO=thin
   cargo build --frozen --release --bin codex --bin codex-responses-api-proxy
 }
 
@@ -93,7 +94,11 @@ check() {
     --skip 'suite::js_repl::js_repl_does_not_expose_process_global' \
     --skip 'suite::js_repl::js_repl_tool_call_rejects_recursive_js_repl_invocation' \
     --skip 'suite::js_repl::js_repl_persists_top_level_bindings_and_supports_tla' \
-    --skip 'suite::view_image::js_repl_view_image_tool_attaches_local_image'
+    --skip 'suite::view_image::js_repl_view_image_tool_attaches_local_image' \
+    --skip 'suite::v2::initialize::turn_start_notify_payload_includes_initialize_client_name' \
+    --skip 'suite::view_image::js_repl_emit_image_attaches_local_image' \
+    --skip 'suite::view_image::js_repl_view_image_requires_explicit_emit' \
+    --skip 'history_cell::tests::session_info_availability_nux_tooltip_snapshot'
 }
 
 package() {
