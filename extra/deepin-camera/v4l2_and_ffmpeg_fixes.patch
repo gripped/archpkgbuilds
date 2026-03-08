@@ -15,7 +15,7 @@ diff --git a/libcam/libcam/camview.c b/libcam/libcam/camview.c
 index 338ff4d..190d23f 100644
 --- a/libcam/libcam/camview.c
 +++ b/libcam/libcam/camview.c
-@@ -1034,7 +1034,7 @@ void *capture_loop(void *data)
+@@ -1037,7 +1037,7 @@ void *capture_loop(void *data)
      if(my_options->photo_timer > 0)
      {
          my_photo_timer = NSEC_PER_SEC * my_options->photo_timer;
@@ -24,20 +24,21 @@ index 338ff4d..190d23f 100644
      }
  
      if(my_options->photo_npics > 0)
-@@ -1288,9 +1288,9 @@ void *capture_loop(void *data)
-  *
+@@ -1291,9 +1291,9 @@ int stop_encoder_thread()
   * returns: error code
   */
 -int start_encoder_thread(void *data)
-+int start_encoder_thread()
++int start_encoder_thread(void)
  {
+     if (encode_thread_running)
+         return 0;
+ 
 -    int ret = __THREAD_CREATE(&encoder_thread, encoder_loop, data);
 +    int ret = __THREAD_CREATE(&encoder_thread, encoder_loop, NULL);
  
-     if(ret)
-         fprintf(stderr, "deepin-camera: encoder thread creation failed (%i)\n", ret);
-diff --git a/libcam/libcam_encoder/audio_codecs.c b/libcam/libcam_encoder/audio_codecs.c
-index 04e1f61..7fefd6d 100644
+     if(ret) {
+ diff --git a/libcam/libcam_encoder/audio_codecs.c b/libcam/libcam_encoder/audio_codecs.c
+index 04e1f61..7eefd6d 100644
 --- a/libcam/libcam_encoder/audio_codecs.c
 +++ b/libcam/libcam_encoder/audio_codecs.c
 @@ -40,7 +40,11 @@ extern int verbosity;
@@ -441,8 +442,8 @@ index e890a84..c9e395e 100644
  typedef int (*uos_av_image_alloc)( uint8_t *pointers[4], int linesizes[4],int w, int h, enum AVPixelFormat pix_fmt, int align); 
 +typedef int (*uos_av_channel_layout_copy) (AVChannelLayout *dst, const AVChannelLayout *src);
  typedef struct SwsContext  *(*uos_sws_getContext)( int srcW, int srcH, enum AVPixelFormat srcFormat,\
-                                   int dstW, int dstH, enum AVPixelFormat dstFormat,\
-                                   int flags, SwsFilter *srcFilter,\
+                                    int dstW, int dstH, enum AVPixelFormat dstFormat,\
+                                    int flags, SwsFilter *srcFilter,\
 @@ -265,6 +266,7 @@ typedef struct _LoadAvutil {
      uos_av_buffer_unref  m_av_buffer_unref;
      uos_av_buffer_ref  m_av_buffer_ref;
