@@ -2,7 +2,7 @@
 # Contributor: Matt Monaco <cx monaco matt>
 
 pkgname=lmdb
-pkgver=0.9.34
+pkgver=0.9.35
 pkgrel=1
 pkgdesc="Symas Lightning Memory-Mapped Database"
 arch=('x86_64')
@@ -13,7 +13,7 @@ makedepends=('git')
 options=('!emptydirs')
 source=("git+https://git.openldap.org/openldap/openldap.git#tag=LMDB_$pkgver"
         lmdb.pc)
-sha512sums=('e233d9b3924c45a27b74ccb927308d685ac64bea7b44877aa1da864e00a970da86406956896054e1dcf09cd8219ce54ecb9041405c324e557aa4324fac2e0857'
+sha512sums=('7e58038d3e414d7e0c90559fb1e080c78da988df27a07bda471bcc69a00ec03140c1c2ab8a2e3da18f10077fb290ea46d85f753d8b8727716eefc16871922b5f'
             '0349d4b08a1f93fe338d8f8e3e5a83e24211a46f999fe529bc1ac49c8c4975559d95a548c203d9427e3f82d62e934ba3cd1be6f734f9b9405b2a26477be4ed33')
 
 prepare() {
