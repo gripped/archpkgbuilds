@@ -3,18 +3,18 @@
 
 pkgname=python-openapi-schema-validator
 # https://github.com/p1c2u/openapi-schema-validator/releases
-pkgver=0.6.3
-pkgrel=2
+pkgver=0.7.0
+pkgrel=1
 pkgdesc="OpenAPI schema validation for Python"
 url="https://github.com/p1c2u/openapi-schema-validator"
-# https://github.com/python-openapi/openapi-schema-validator/blob/0.6.2/pyproject.toml#L36
+# https://github.com/p1c2u/openapi-schema-validator/blob/0.7.0/pyproject.toml#L36
 license=('BSD-3-Clause')
 arch=('any')
 depends=('python' 'python-jsonschema' 'python-jsonschema-specifications' 'python-rfc3339-validator')
 makedepends=('python-build' 'python-installer' 'python-poetry-core')
 checkdepends=('python-pytest')
 source=("https://github.com/p1c2u/openapi-schema-validator/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('2eb4b57884c7da6c47a2f7be3fed348f0ddd61c136dad900d1c01b2fee1250d9')
+sha256sums=('0d773fafba1bc96944bf9f4230ad8d1004541460a561673e383d1219597ac10a')
 
 prepare() {
   cd openapi-schema-validator-$pkgver
