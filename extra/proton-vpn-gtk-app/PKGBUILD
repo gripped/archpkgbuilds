@@ -2,8 +2,8 @@
 # Contributor: Ali Molaei <ali dot molaei at protonmail dot com>
 
 pkgname=proton-vpn-gtk-app
-pkgver=4.14.1
-pkgrel=2
+pkgver=4.14.2
+pkgrel=1
 pkgdesc="ProtonVPN GTK app, Maintained by Community"
 arch=(any)
 url="https://github.com/ProtonVPN/proton-vpn-gtk-app"
@@ -37,9 +37,14 @@ makedepends=(
 optdepends=(
   libappindicator-gtk3
 )
-source=("git+https://github.com/ProtonVPN/proton-vpn-gtk-app.git#tag=v${pkgver}")
-sha256sums=('65daf7a10be49306ff39a8f8b7fb6286e6dbc4792a9039b261e9f1519136c5a0')
-
+source=("git+https://github.com/ProtonVPN/proton-vpn-gtk-app.git#tag=v${pkgver}"
+        "fix-gear-icon.patch")
+sha256sums=('2bf2179d66be4f8e908b219142bb465f105dc31b93e74c7548848bbad4f64033'
+            'd1b2db3f3ef1b80d0b1f3972d0a17f5c329953b8951d3b2fbc9d3ecce2b6c4c4')
+prepare() {
+  cd "$pkgname"
+  patch -Np1 < ../fix-gear-icon.patch
+}
 build() {
   cd "$pkgname"
   python -m build --wheel --no-isolation

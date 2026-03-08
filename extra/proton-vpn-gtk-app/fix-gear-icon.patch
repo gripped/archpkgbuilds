@@ -1,0 +1,12 @@
+diff --git a/proton/vpn/app/gtk/widgets/headerbar/headerbar.py b/proton/vpn/app/gtk/widgets/headerbar/headerbar.py
+index a02a47a..99a2057 100644
+--- a/proton/vpn/app/gtk/widgets/headerbar/headerbar.py
++++ b/proton/vpn/app/gtk/widgets/headerbar/headerbar.py
+@@ -48,6 +48,7 @@ class HeaderBar(Gtk.HeaderBar):
+         self.set_decoration_layout("menu:minimize,close")
+
+         menu_button = Gtk.MenuButton()
++        menu_button.set_icon_name("open-menu-symbolic")
+         self.menu = Menu(
+             controller=controller,
+             main_window=main_window,
