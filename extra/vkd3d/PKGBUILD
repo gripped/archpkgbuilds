@@ -6,7 +6,7 @@ pkgname=(
   vkd3d
   vkd3d-docs
 )
-pkgver=1.18
+pkgver=1.19
 pkgrel=1
 pkgdesc="Direct3D 12 to Vulkan translation library By WineHQ"
 url="https://wiki.winehq.org/Vkd3d"
@@ -34,7 +34,7 @@ makedepends=(
 source=(
   "git+https://gitlab.winehq.org/wine/vkd3d.git?signed#tag=vkd3d-$pkgver"
 )
-b2sums=('ae114a0d5e990c6f7d77117d46c058f4e96585a0862185f11aaf940a9d5e1540855bb5854d70f36353b8d07ad19ce5bb7fd23d20b4733eecc5785b910c18af25')
+b2sums=('89c5b3521491cca9a1ee7633f8c3258f05f1b04aa53c11b8ff1a5afa0803788f8968d3ad0bc370927c9a41eabc5bd7c416e750780d81f04b52f337095ef0555a')
 validpgpkeys=(
   277EB71D1BEBFC86E0E14983C380B588AA8A1D1C # Henri Verbeet <hverbeet@locutus.nl>
 )
