@@ -2,7 +2,7 @@
 
 _npmname=yaml
 pkgname=nodejs-$_npmname
-pkgver=2.2.2
+pkgver=2.3.0
 pkgrel=1
 pkgdesc="JavaScript parser and stringifier for YAML"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('nodejs')
 makedepends=('npm')
 source=("https://registry.npmjs.org/$_npmname/-/$_npmname-$pkgver.tgz")
 noextract=($_npmname-$pkgver.tgz)
-sha512sums=('081285584c4c9f8e85a28e1c95d882844ce7ed2ed2455fb0aa296e01beb19ae783fdf1b24472215fc9b5e2f54681e1568cde78d272823558fa3f6d5e423813b8')
+sha512sums=('f3fd7083374a73b6dcf44ea6cb9c198e675abc72ef3bf40e98b1b5141ba06e512f638217acb8e556220e98bdb81ed854d38da55930d13bdd05cf5629eba52733')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$_npmname-$pkgver.tgz
@@ -26,5 +26,5 @@ package() {
   chown -R root:root "$pkgdir"
 
   install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s ../../../lib/node_modules/marked/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  ln -s ../../../lib/node_modules/$_npmname/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
