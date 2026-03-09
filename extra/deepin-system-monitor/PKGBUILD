@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-system-monitor
-pkgver=6.5.17
+pkgver=6.5.18
 pkgrel=1
 pkgdesc='A more user-friendly system monitor'
 arch=('x86_64')
@@ -15,7 +15,16 @@ makedepends=('git' 'cmake' 'deepin-gettext-tools' 'gtest' 'ninja' 'qt6-tools' 'd
 groups=('deepin')
 install=deepin-system-monitor.install
 source=("git+https://github.com/linuxdeepin/deepin-system-monitor.git#tag=$pkgver")
-sha512sums=('e37b9c499eb95eaacc75bf36da3b852b2c956fcd35bb79ef35a9c70cbfaa36f31d8920d7e38cf130ce311a94a20e7421fb8b00efc0255291cd0b0d64a2fc4125')
+sha512sums=('5b90c510db3ac2e3b75bd5630ad69f33f2b3b53809e068dabe1e94db0730f365ba33cfd0427ee47b40ed58245ed1b4a14811d0d14d4e9bb261bf2e0ddb61f8ba')
+
+prepare() {
+  cd deepin-system-monitor
+  # Fix missing language attribute in translation files
+  for lang in af eu my tzm; do
+    sed -i "s|<TS version=\"2.1\">|<TS version=\"2.1\" language=\"$lang\">|" \
+      deepin-system-monitor-system-server/translations/policy/policy_$lang.ts
+  done
+}
 
 build() {
   cd deepin-system-monitor
