@@ -2,30 +2,30 @@
 
 pkgname=python-pyasn1
 pkgdesc="ASN.1 library for Python 3"
-pkgver=0.6.1
-pkgrel=2
+pkgver=0.6.2
+pkgrel=1
 arch=('any')
 url="https://github.com/pyasn1/pyasn1"
 license=('BSD-2-Clause')
 depends=('python')
-makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 replaces=('pyasn1')
 provides=('pyasn1')
-source=("https://github.com/pyasn1/pyasn1/archive/v$pkgver/pyasn1-$pkgver.tar.gz")
-sha512sums=('a7f995413643d4f9283a9878a1bc3c8d606d018a31209309e4eeda42461eee89efcedd7af4c75fd9e8c9d7e628d86229afbbd0c1bf3862982e45524845c7a833')
+source=("git+https://github.com/pyasn1/pyasn1.git#tag=v$pkgver")
+sha512sums=('0e0d720119ad0b69e7da0aee21fbed5d7fc89b73a07085a0d5082f3ad6cf91bd96190daaf5d0bad36c6d69412b992486a585e3815b1708acdfbf61a7cd9cb037')
 
 build() {
-  cd pyasn1-$pkgver
+  cd pyasn1
   python -m build -nw
 }
 
 check() {
-  cd pyasn1-$pkgver
+  cd pyasn1
   python -m unittest discover -s tests
 }
 
 package() {
-  cd pyasn1-$pkgver
+  cd pyasn1
   python -m installer -d "$pkgdir" dist/*.whl
 
   # Symlink license file

@@ -1,10 +1,11 @@
 pkgbase = python-pyasn1
 	pkgdesc = ASN.1 library for Python 3
-	pkgver = 0.6.1
-	pkgrel = 2
+	pkgver = 0.6.2
+	pkgrel = 1
 	url = https://github.com/pyasn1/pyasn1
 	arch = any
 	license = BSD-2-Clause
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -12,7 +13,7 @@ pkgbase = python-pyasn1
 	depends = python
 	provides = pyasn1
 	replaces = pyasn1
-	source = https://github.com/pyasn1/pyasn1/archive/v0.6.1/pyasn1-0.6.1.tar.gz
-	sha512sums = a7f995413643d4f9283a9878a1bc3c8d606d018a31209309e4eeda42461eee89efcedd7af4c75fd9e8c9d7e628d86229afbbd0c1bf3862982e45524845c7a833
+	source = git+https://github.com/pyasn1/pyasn1.git#tag=v0.6.2
+	sha512sums = 0e0d720119ad0b69e7da0aee21fbed5d7fc89b73a07085a0d5082f3ad6cf91bd96190daaf5d0bad36c6d69412b992486a585e3815b1708acdfbf61a7cd9cb037
 
 pkgname = python-pyasn1
