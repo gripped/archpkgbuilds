@@ -1,7 +1,7 @@
 pkgbase = python-vcrpy
 	pkgdesc = Automatically mock your HTTP interactions to simplify and speed up testing
-	pkgver = 7.0.0
-	pkgrel = 3
+	pkgver = 8.0.0
+	pkgrel = 1
 	url = https://github.com/kevin1024/vcrpy
 	arch = any
 	license = MIT
@@ -14,6 +14,7 @@ pkgbase = python-vcrpy
 	checkdepends = python-pytest-httpbin
 	checkdepends = python-requests
 	checkdepends = python-tornado
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -21,8 +22,7 @@ pkgbase = python-vcrpy
 	depends = python
 	depends = python-pyyaml
 	depends = python-wrapt
-	depends = python-yarl
-	source = https://github.com/kevin1024/vcrpy/archive/v7.0.0/python-vcrpy-7.0.0.tar.gz
-	sha512sums = 6e82f56adddc5b5e3d56c261e612af5a66daed6a3485dfc082be235e95901ceaae9aa83bab96cef19d8fbe35c27953b4b101fea702fd3a44cbe578c926990d87
+	source = git+https://github.com/kevin1024/vcrpy.git#tag=v8.0.0
+	sha512sums = 8a5d5e95cc51eb7bb63dff29777cfc549c502faa891156a3a1863e2fcca81797e4e7ae849b35dbcdc6675e438193bbff49bc4243a85068f2ccf81dfb9414b770
 
 pkgname = python-vcrpy
