@@ -9,7 +9,7 @@
 
 pkgname=tenacity
 pkgver=1.3.4
-pkgrel=4
+pkgrel=5
 pkgdesc="An easy-to-use multi-track audio editor and recorder, forked from Audacity"
 arch=(x86_64)
 url="https://tenacityaudio.org"
@@ -49,6 +49,9 @@ makedepends=(
     python
     sdl2
 )
+optdepends=(
+    "ffmpeg4.4: allow importing more audio formats"
+)
 source=("git+https://codeberg.org/tenacityteam/tenacity.git#tag=v${pkgver}"
         "git+https://codeberg.org/tenacityteam/libnyquist")
 b2sums=('241f1d3eea9c2a288d9bc1fa046bb5c84bb7f9620008605eb712ce4da2298893da53ab528c25fa7c148dd413be165b80a6639d39a444b681df5274f41ba668b8'
@@ -56,6 +59,9 @@ b2sums=('241f1d3eea9c2a288d9bc1fa046bb5c84bb7f9620008605eb712ce4da2298893da53ab5
 
 prepare() {
   cd $pkgname
+
+  # Fix build with GCC 15
+  git cherry-pick -n e573633c2031013f95180f44af2bc938112460f2
 
   # disable the vcpkg submodule by only initing the other one
   git submodule init lib-src/libnyquist
