@@ -1,17 +1,18 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=framework-system
-pkgver=0.5.0
-pkgrel=2
+pkgver=0.6.1
+pkgrel=1
 pkgdesc='Tools to interact with the Framework Computer systems'
 url='https://github.com/FrameworkComputer/framework-system'
 arch=(x86_64)
 license=(BSD-3-Clause)
 depends=(
-  glibc
-  libgcc
-  libusb
-  systemd-libs
+  glibc # libc.so
+  libgcc libgcc_s.so
+  libusb libusb-1.0.so
+  systemd-libs libudev.so
 )
 makedepends=(
   cargo
@@ -19,8 +20,8 @@ makedepends=(
 )
 options=(!lto)
 source=($pkgname::"git+https://github.com/FrameworkComputer/framework-system.git#tag=v${pkgver}")
-sha256sums=('85d6dad07a5e9474d647eae9805f9b25510b689e890751f7f33dd9123b7dc593')
-b2sums=('13345007ab152a5287b7a5fcb5969f9c481bdcce10263be7acf6047b5324e95585b84c5a00724f3a2b51a9745bb696b9168e2309db7d9189adf4bb7dd76b5ef5')
+sha256sums=('ea3ad2243edd794275e151a441c06792dde606e959396c045a813051838cf37f')
+b2sums=('373af2cc5009fe87554b0378a3bdcbf6a74e17e3f9db34988beca492ff764598b1e1eaa7124d71226eb9a97fe58ace2cb49fbd64ab5609901e14b09d376f92a4')
 
 prepare() {
   cd $pkgname
