@@ -1,7 +1,7 @@
 # Maintainer: Chih-Hsuan Yen <base64_decode("eXUzYWN0eHQydHR0ZmlteEBjaHllbi5jYwo=")>
 
 pkgname=lxqt-wayland-session
-pkgver=0.3.1
+pkgver=0.3.2
 pkgrel=1
 pkgdesc='Files needed for the LXQt Wayland Session'
 arch=('any')
@@ -37,24 +37,26 @@ optdepends=(
   'sway'
 )
 makedepends=('git' 'cmake' 'qt6-tools' 'lxqt-build-tools')
-source=("git+https://github.com/lxqt/$pkgname.git?signed#tag=$pkgver"
+source=("https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
         'lxqt-wayland-session-import-environment.patch')
-sha256sums=('74e2b9ac207211d7fe6e7de84bc0895b99c6eb3ac2907b88bd7e187733e139a2'
+sha256sums=('64b6eb9bbbeadaee1d79e57b3ca0524c9e2df8c39fb365f5112159dc46e8baad'
+            'SKIP'
             '339637044f205dbd2c730953166b4ed7acca54efd2b50a1aa2fcfed8d63c3feb')
 validpgpkeys=(
   "19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # https://github.com/tsujan
+  "48836EB124A1EAAE695EDFEA229CA0A00A17D258"  # the key owned by standreas@riseup.net as per keys.openpgp.org. That email is used by https://github.com/stefonarch/, a long-time LXQt contributor
 )
 
 prepare() {
-  cd "$srcdir/$pkgname"
+  cd "$srcdir/$pkgname-$pkgver"
 
   # Set XDG_CURRENT_DESKTOP for new units started by user service manager
   # https://github.com/lxqt/lxqt-wayland-session/pull/90
-  git apply -3 ../lxqt-wayland-session-import-environment.patch
+  patch -Np1 -i ../lxqt-wayland-session-import-environment.patch
 }
 
 build() {
-  cmake -B build -S "$srcdir/$pkgname" \
+  cmake -B build -S "$srcdir/$pkgname-$pkgver" \
     -DCMAKE_INSTALL_PREFIX=/usr
   make -C build
 }
@@ -62,5 +64,5 @@ build() {
 package() {
   make -C build DESTDIR="$pkgdir" install
 
-  install -Dm644 $pkgname/{COPYING.LESSER,COPYING,LICENSE.MIT,LICENSE.GPLv2,LICENSE.BSD} -t "$pkgdir"/usr/share/licenses/$pkgname
+  install -Dm644 $pkgname-$pkgver/{COPYING.LESSER,COPYING,LICENSE.MIT,LICENSE.GPLv2,LICENSE.BSD} -t "$pkgdir"/usr/share/licenses/$pkgname
 }
