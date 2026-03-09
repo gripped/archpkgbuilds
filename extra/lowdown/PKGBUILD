@@ -2,7 +2,7 @@
 # Contributor: Adrián Pérez de Castro <aperez@igalia.com>
 
 pkgname=lowdown
-pkgver=2.0.4
+pkgver=3.0.0
 pkgrel=1
 pkgdesc='A simple Markdown translator'
 arch=(x86_64)
@@ -12,8 +12,8 @@ depends=(glibc libmd)
 makedepends=(git bmake)
 provides=(liblowdown.so)
 source=("$pkgname::git+https://github.com/kristapsdz/lowdown#tag=$(echo $pkgver | sed -e 's/^/VERSION_/' -e 's/\./_/g')")
-sha512sums=('d30350b64b49722c27f6da31bb4a4306bc2b9329ed07d2e02e9c9b6ce2f7c281a4c72a6bec2efa383803c50fe5d834687f9f7435538229d4fcbacd7927749f42')
-b2sums=('3307166d40f95247bb6e8ebccee83d0877234ba2fce7e9b80d216ab1229dd21c26e61b3ce399740b8449c6dd647df784d7be8d2a367d647988a690dadfad2906')
+sha512sums=('e7c3af9571988bab17f281dbb12e7e46ec4eb3442479604fcb713e32fd1960d153c54e4ef35e66ebb7776617fa121b2c93f388322e87a8585e280be5ee4a045e')
+b2sums=('3525068db1e12c26b081063f49b0c315ee1ab5b61cadf8330bdccea8cfb1ce4ef8181b92f73c31f5999bbbd203e34bbbcb7112c98e279c1ba8c9ae939657bd65')
 
 build () {
   cd "$pkgname"
