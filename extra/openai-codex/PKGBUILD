@@ -3,7 +3,7 @@
 # Contributor: Christopher Cooper <christopher@cg505.com>
 
 pkgname=openai-codex
-pkgver=0.111.0
+pkgver=0.112.0
 pkgrel=1
 pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
 arch=(x86_64)
@@ -19,14 +19,15 @@ depends=(
   zlib
 )
 makedepends=(cargo)
-checkdepends=(cargo-nextest git clang cmake dotslash)
+checkdepends=(cargo-nextest git clang cmake dotslash nodejs)
 optdepends=(
   'git: allow for repository actions'
+  'nodejs: enable the js_repl experimental tool'
   'ripgrep: accelerated large-repo search'
 )
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/rust-v$pkgver.tar.gz")
-b2sums=('a5c48a49ceb66e722eecd68956248604bfcc81e77f15f0c7af548de4204f19ce577b203779ced2a8ae8c41251874a1aeb25a4d29a113cacd31014122100fe506')
+b2sums=('f89f0aedc52e46ea3e702b2accfe28760710991d944616d95cabc01cc8a9d11425bf40a5512461f048536dfb3b4949b0016e1897ccf245e3e0b0c48a0c03f4da')
 
 prepare() {
   cd codex-rust-v$pkgver/codex-rs
