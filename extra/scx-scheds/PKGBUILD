@@ -4,7 +4,7 @@
 
 pkgname=scx-scheds
 _gitname=scx
-pkgver=1.0.20
+pkgver=1.1.0
 pkgrel=1
 pkgdesc='sched_ext schedulers and tools'
 url='https://github.com/sched-ext/scx'
@@ -14,7 +14,7 @@ license=('GPL-2.0-only')
 depends=(
   bash
   bpf
-  gcc-libs
+  libgcc
   glibc
   jq
   libseccomp
@@ -33,7 +33,7 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://github.com/sched-ext/scx#tag=v${pkgver}")
-sha256sums=('4d3046befb93f8d8cf3d29df084913a4e4e7ea257975f4d4b3e735bc648dbac5')
+sha256sums=('cbd1df221238afe9163c04ed76ebeffdb9cb7ee3cc83c98098fcc627c929c343')
 
 prepare() {
   cd $_gitname
