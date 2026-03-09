@@ -1,17 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=perl-file-desktopentry
-pkgver=0.22
-pkgrel=15
+pkgver=0.23
+pkgrel=1
 pkgdesc='Object to handle .desktop files'
 arch=('any')
 license=('GPL' 'PerlArtistic')
-url="https://search.cpan.org/dist/File-DesktopEntry/"
+url="https://codeberg.org/michielb/File-DesktopEntry"
 depends=('perl-file-basedir' 'perl-uri')
 checkdepends=('perl-test-pod' 'perl-test-pod-coverage')
 options=('!emptydirs')
 source=(https://search.cpan.org/CPAN/authors/id/M/MI/MICHIELB/File-DesktopEntry-$pkgver.tar.gz)
-sha256sums=('169c01e3dae2f629767bec1a9f1cdbd6ec6d713d1501e0b2786e4dd1235635b8')
+sha256sums=('63f95798d80b81ea8cea4848f342f26593c60f152dbd04d8981c846f979e6835')
 
 build() {
   cd File-DesktopEntry-$pkgver
