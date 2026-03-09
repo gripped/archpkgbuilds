@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-glanceclient
-pkgver=4.8.0
+pkgver=4.9.0
 pkgrel=1
 pkgdesc="OpenStack Image API Client Library"
 arch=('any')
@@ -16,7 +16,7 @@ options=('!emptydirs')
 source=("git+https://github.com/openstack/python-glanceclient.git#tag=$pkgver"
          python-3.13.patch
          0001-Fix-bytes-related-test-failures-with-urllib-3.patch)
-sha512sums=('3813e611b437fd62c70ec3b83d9f1a339149b86c767bb740c5c6f1fc753812dddb2365245f6045031e8ed6f06f7285bb859d1e873140a3554eea848d773e3c57'
+sha512sums=('a68203e134b7a10d097ed00f579d76d9195c1f58cd19e5d28f31b8e7b8fcfd4d25f360cf4d17c8a74257226b91722bd3487da42645158e2a4df06f2c89d3936f'
             'cd699eacd600df4aabdb67ec7017419023d48bbdef25909326bd722c0b8a8b4291edc71090ae32b2207e8fb1f2b0a2dd2c6de46dda50ddad11e40c510d1dd87e'
             '7d97c196adbd5ca5de6dbee12f25abd8e22394e81594180103fc0bd3e4a968f2d76b4943400f28805c4dbef5c2e0147953da699308b8997a50bc92643ae6416e')
 
