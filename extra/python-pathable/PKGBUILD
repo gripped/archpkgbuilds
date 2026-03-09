@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pathable
-pkgver=0.4.4
+pkgver=0.5.0
 pkgrel=1
 pkgdesc="Object-oriented paths"
 url="https://github.com/p1c2u/pathable"
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
 checkdepends=('python-pytest')
 source=("git+https://github.com/p1c2u/pathable.git#tag=$pkgver")
-sha512sums=('1815b840c9029438d3962db8bf8fa63ade065b9d50586d9fdcad56cf435e4c5a06eaa9bd19f0c229d95ed53865b038f6bb70b4db4397191de65cdf2c7caee5ee')
+sha512sums=('5c2d69556e3b8a7054be77014109d01b40289d098e0674ae51f7555cf18b017c6fe93849b7c7e8bb72288e15b0af4776c83d4f21fcc353f8557ae60ee7da0dbf')
 
 prepare() {
   cd pathable
