@@ -3,7 +3,7 @@
 pkgbase=libpoly
 pkgname=('libpoly' 'python-polypy')
 pkgver=0.2.1
-pkgrel=2
+pkgrel=4
 pkgdesc='C library for manipulating polynomials'
 arch=('x86_64')
 url="https://github.com/SRI-CSL/libpoly"
@@ -14,6 +14,7 @@ sha512sums=('f12a7eab7ece2b2cb123ac232e815eaaad6ff97d9219e0ef3a4785c036ef4fc887a
 
 build() {
   cd libpoly-$pkgver
+  export CFLAGS+=" -ffat-lto-objects"
   cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr .
   ninja
 
@@ -26,7 +27,7 @@ check() {
 }
 
 package_libpoly() {
-  depends=('gcc-libs' 'glibc' 'gmp')
+  depends=('glibc' 'gmp' 'libgcc' 'libstdc++')
   optdepends=('python-polypy: Python bindings')
 
   cd libpoly-$pkgver
