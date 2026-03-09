@@ -1,3 +1,5 @@
+diff --git a/etc/tinyproxy.conf.in b/etc/tinyproxy.conf.in
+index b7d46a7..e047d03 100644
 --- a/etc/tinyproxy.conf.in
 +++ b/etc/tinyproxy.conf.in
 @@ -12,8 +12,8 @@
@@ -33,7 +35,7 @@
  # can be used for signalling purposes.
  # If not specified, no pidfile will be written.
  #
--#PidFile "@localstatedir@/run/tinyproxy/tinyproxy.pid"
+-#PidFile "@runstatedir@/tinyproxy/tinyproxy.pid"
 +PidFile "/run/tinyproxy/tinyproxy.pid"
  
  #
