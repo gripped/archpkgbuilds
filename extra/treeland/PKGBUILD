@@ -2,7 +2,7 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=treeland
-pkgver=0.8.3
+pkgver=0.8.4
 pkgrel=1
 pkgdesc='New wayland compositer for DDE'
 arch=('x86_64')
@@ -18,16 +18,13 @@ groups=('deepin')
 replaces=('waylib' 'qwlroots')
 conflicts=('waylib' 'qwlroots')
 source=("git+https://github.com/linuxdeepin/treeland.git#tag=$pkgver"
-         qt-6.10.2.patch
-         ddm-0.3.3-compat.patch)
-sha256sums=('f7d6837aa64eabadb6ae1396f81445f71a53cc7175101df254851b507af0be87'
-            'cf02865c8cc0371c48d8a074d0f8fb7f8e87e67ac7c4b7ce61ace2df46b6b985'
-            'fc8537c8b1ba00e9387828d1319bbc4675b421d07a461e41c84807f5f67f85b0')
+         qt-6.10.2.patch)
+sha256sums=('5675445107b7208ccb803b4adcf9f2ff082e91d14f8798d3667c5f847a8efc47'
+            'cf02865c8cc0371c48d8a074d0f8fb7f8e87e67ac7c4b7ce61ace2df46b6b985')
 
 prepare() {
   cd treeland
   patch -p1 < ../qt-6.10.2.patch
-  patch -p1 < ../ddm-0.3.3-compat.patch
 }
 
 build() {
