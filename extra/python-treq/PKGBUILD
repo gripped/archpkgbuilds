@@ -2,37 +2,32 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-treq
-# https://github.com/twisted/treq/blob/trunk/CHANGELOG.rst
-pkgver=24.9.1
-pkgrel=3
+pkgver=25.5.0
+pkgrel=1
 pkgdesc="A requests-like API built on top of twisted.web's Agent"
 arch=('any')
 license=('MIT')
 url='https://github.com/twisted/treq'
-# Follow the order in upstream setup.py
-# https://github.com/twisted/treq/blob/treq-24.9.1/setup.py#L32-L39
 depends=('python' 'python-incremental' 'python-requests' 'python-hyperlink'
-         # Twisted[tls], see https://github.com/twisted/twisted/blob/twisted-24.7.0/pyproject.toml#L78-L84
          'python-pyopenssl' 'python-service-identity' 'python-idna' 'python-twisted'
-         'python-attrs' 'python-typing_extensions'
-         # Used but not declared upstream
+         'python-attrs' 'python-typing_extensions' 'python-multipart'
          'python-zope-interface')
-makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel' 'httpbin')
-source=("https://github.com/twisted/treq/archive/treq-$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('924515da514332cf9843b23a518cf0fe0215f5c42f87494b6132bf69f3c3d6a0a8c482110d022fa91c780c845b757b9fa367d606bda1ed0e4ec20f814183fa5d')
+makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-wheel' 'httpbin')
+source=("git+https://github.com/twisted/treq.git#tag=treq-$pkgver")
+sha512sums=('6c0f6e25019805504fcdedaad3bcb708a2a00b28ec9e7cb9c66322456bf03b78a91cb180edf7fec3969977cae9b8f54dfe802ebaf0f5adf2580d6209861115af')
 
 build() {
-  cd treq-treq-$pkgver
+  cd treq
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd treq-treq-$pkgver
-  PYTHONPATH="$PWD/build/lib" trial treq
+  cd treq
+  PYTHONPATH="$PWD/src" trial treq
 }
 
 package() {
-  cd treq-treq-$pkgver
+  cd treq
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
