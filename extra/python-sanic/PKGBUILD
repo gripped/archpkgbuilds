@@ -3,9 +3,9 @@
 # Contributor: Carl George < arch at cgtx dot us >
 
 pkgname=python-sanic
-pkgver=25.3.0
+pkgver=25.12.0
 pkgrel=1
-pkgdesc='Async Python 3.9+ web server/framework | Build fast. Run fast.'
+pkgdesc='Async Python 3.10+ web server/framework | Build fast. Run fast.'
 arch=("any")
 url='https://sanic.dev/'
 license=("MIT")
@@ -14,7 +14,7 @@ depends=('python-sanic-routing' 'python-httptools' 'python-uvloop' 'python-ujson
          'python-typing_extensions')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("git+https://github.com/sanic-org/sanic.git#tag=v$pkgver")
-sha256sums=('1bafeffa15206c7331c154577a8b4574cc54a5eacd2f1684a14f5ca4d982a3cf')
+sha256sums=('bc14f5b99a6b400012011b360ef1797d3758fdb04c4a96132f0227989eaa3e6a')
 
 build() {
     cd sanic
