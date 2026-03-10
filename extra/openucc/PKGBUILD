@@ -2,14 +2,15 @@
 
 _name=ucc
 pkgname=openucc
-pkgver=1.6.0
-pkgrel=2
+pkgver=1.7.0
+pkgrel=1
 pkgdesc="Unified Collective Communication Library"
 arch=(x86_64)
 url="https://github.com/openucx/ucc"
 license=(BSD-3-Clause)
 depends=(
   glibc
+  libstdc++
   openucx
 )
 makedepends=(
@@ -35,7 +36,7 @@ provides=(
 source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
 )
-b2sums=('4957c842f1e1b4ba50f37018b1c9dfdcb9ccd4aead78e8685abde790d8e69d67c871cfdefd5fd54a4508c114642b6f303cf7000f7c2cf668771acdcb859c1fa2')
+b2sums=('f3bf5bcaed9d461013531e9e816c8cf5060d0cd88e7eb66d2f983df0182849218a6bd1f2cd15603121d860602b9b8892e159bc85ff2edd0baca23b3f5733c8fe')
 
 prepare() {
   cd $_name-$pkgver
