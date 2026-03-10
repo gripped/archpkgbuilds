@@ -1,13 +1,14 @@
 pkgbase = pacparser
 	pkgdesc = Library to parse proxy auto-config (PAC) files
-	pkgver = 1.4.3
+	pkgver = 1.4.4
 	pkgrel = 1
 	url = https://github.com/pacparser/pacparser
 	arch = x86_64
 	license = LGPL-3.0-or-later
-	source = https://github.com/pacparser/pacparser/archive/v1.4.3/pacparser-1.4.3.tar.gz
+	makedepends = git
+	source = git+https://github.com/pacparser/pacparser.git#tag=v1.4.4
 	source = fix-va_list.patch
-	sha512sums = cc0d6c0a7b1fd9d55dece6c4ad80711d3d1055a0cde120dbb6e8274508631b325e7d876545b40ca05cefc6dce15aa1476e5b2936527e3183ad86114e4cd661a5
+	sha512sums = bfca4bc4af3725f704df92597a7dbbfc0ff3a7cbae70752dd87dbc40b41a1ad6517ff47c57cd41241cc5aeb348a9d139284c567c219c712401a8f3ff5c3ce6e3
 	sha512sums = 80b002dcc309acb4cd533907d681480525056939b4136a205fef13f2ccffe06b032e025b847225a5d0106d875e1a1f36b5328ae79329177e8d52bc6f8ca98b99
 
 pkgname = pacparser
