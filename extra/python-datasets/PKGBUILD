@@ -4,7 +4,7 @@
 
 _name=datasets
 pkgname=python-$_name
-pkgver=4.6.1
+pkgver=4.7.0
 pkgrel=1
 pkgdesc="Ready-to-use datasets for ML models with fast, easy-to-use and efficient data manipulation tools"
 arch=(any)
@@ -59,7 +59,7 @@ optdepends=(
   'python-pytorch: PyTorch support'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-b2sums=('c8e9bcdee4befdf27c547645a7a13cdc77d57229ac6adaf312eabd77af59481ee2e60a677be3e88dcdfb2aff4943edefb4fa0fc46c6960db9d0909d78cce0a25')
+b2sums=('cd1f11ddf6faf22454b20738801c58f55fb0beb6053cffc7670227a816e73d556099ad0b79c0974da6adbc8c92f30d82a41d1b870e8b97b30a12ec3135f0fa29')
 
 prepare() {
   cd $_name-$pkgver
@@ -85,6 +85,8 @@ check() {
     --ignore tests/packaged_modules/test_spark.py
     # python-pylance is not packaged https://github.com/lance-format/lance/tree/main
     --ignore tests/packaged_modules/test_lance.py
+    # python-tokenizers is not packaged
+    --ignore tests/test_fingerprint_tokenizer_stability.py
     # ModuleNotFoundError: No module named 'aifc'
     --deselect tests/packaged_modules/test_audiofolder.py::test_data_files_with_metadata_and_archives
     # subprocess.CalledProcessError
