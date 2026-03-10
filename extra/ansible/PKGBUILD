@@ -3,7 +3,7 @@
 
 pkgname=ansible
 pkgver=13.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Official assortment of Ansible collections'
 arch=('any')
 url='https://pypi.org/project/ansible/'
@@ -26,8 +26,15 @@ optdepends=('python-argcomplete: shell completions'
             'python-fqdn: fqdn_valid module'
             'acme-tiny: openssl_certificate module')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
-source=("https://pypi.python.org/packages/source/a/ansible/ansible-${pkgver}.tar.gz")
-sha512sums=('9ee82f208760a39d13d9b530760a0c26e65f656756793e7955fbaa1d7c3e4a22b9d95b52f208cb15bf8eec5c0b19347b7f013c09fb08a37f8ca3a782d8da16d9')
+source=("https://pypi.python.org/packages/source/a/ansible/ansible-${pkgver}.tar.gz"
+        "ansible-13.4.0-remove-pkg_resources.patch")
+sha512sums=('9ee82f208760a39d13d9b530760a0c26e65f656756793e7955fbaa1d7c3e4a22b9d95b52f208cb15bf8eec5c0b19347b7f013c09fb08a37f8ca3a782d8da16d9'
+            '8055d481ca3f4705822ce22fc3057129150fd647817ac1fad3937382b3af6a3f0379274aff9e9c4c8039266971302c7daea0311ddd8dea4b2ce2150bce06f82d')
+
+prepare() {
+  cd "ansible-${pkgver}"
+  patch -Np1 -i ../ansible-13.4.0-remove-pkg_resources.patch
+}
 
 build() {
   cd "ansible-${pkgver}"
