@@ -2,7 +2,7 @@
 
 _name=metakernel
 pkgname=jupyter-$_name
-pkgver=0.31.0
+pkgver=0.32.0
 pkgrel=1
 pkgdesc="A Jupyter/IPython kernel template"
 arch=(any)
@@ -40,12 +40,11 @@ optdepends=(
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
         pyproject.patch)
-b2sums=('d5b259482b054ee3724b7dafa3148fd2ac9560ee00fb704da3f188720e17e93e7316b16791b048e05c91255e6cd0f5c2e437d673787c99a3783a2465c5a7c437'
-        'a5ad30e1a44dfe1829a2d74a87aaa5fb2691fb1ceb9cd053e60986b6eb305d88c094efa55a0966fb4318d4be218016709086916933a3b1337a5058d9e1aeb7ea')
+b2sums=('067ee111824911ff4df6333655cb072354178ce1271c6e6904a1909d3d029846fbcd574e29459ccc19d64a267342c06ba4b41803c9c39d793e5a59b77bd8c914'
+        '7080f3016d0091fb25379955d481ba0dc11a6dfaa01056926ea670efdb5fe58c8c86845c59aa01e84b100a30cbfbbdcca548f46eb7eeab95324ff5c8d47916b5')
 
 prepare() {
   cd $_name-$pkgver
-  # Drop virtualenv from build-system requirements
   # Drop strict pytest minversion requirement
   patch -p1 < ../pyproject.patch
 }
