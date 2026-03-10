@@ -3,7 +3,7 @@
 
 pkgname=python-sphinx-autodoc-typehints
 _pyname=${pkgname/python-/}
-pkgver=3.6.2
+pkgver=3.9.5
 pkgrel=1
 pkgdesc='Type hints support for the Sphinx autodoc extension'
 arch=(any)
@@ -26,7 +26,7 @@ checkdepends=(
   python-typing_extensions
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('a54e8f9b894f759190fbe0c1ebf1d503e40501fc8daa607b0a7342f9e69e7e31a14b0f878143bf9dce5030337902e417ce6171cfdd29f9310a90c24263997498')
+b2sums=('02b36ced48e04509152e179294c7e45c30db6ba61e021d743c7a6763b96f3ec770834d7b08b404026cd78a6e4fd735262a92eec5d3dbc7827728d5e458d0c919')
 
 build() {
   cd "$_pyname"
@@ -35,7 +35,9 @@ build() {
 
 check() {
   cd "$_pyname"
-  PYTHONPATH="$PWD/src" pytest
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest -v
 }
 
 package() {
@@ -48,5 +50,3 @@ package() {
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
 }
-
-# vim: ts=2 sw=2 et:
