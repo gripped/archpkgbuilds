@@ -1,4 +1,5 @@
-# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Levente Polyak <anthraxx[at]archlinux[dot]org>
 # Contributor: Alexander F Rødseth <xyproto@archlinux.org>
 # Contributor: Dominik Picheta <morfeusz8@gmail.com>
 # Contributor: Sven-Hendrik Haase <svenstaro@archlinux.org>
@@ -6,7 +7,7 @@
 
 pkgname=nim
 _pkgname=Nim
-pkgver=2.0.8
+pkgver=2.0.10
 _csourcesver=86742fb02c6606ab01a532a0085784effb2e753e
 pkgrel=1
 pkgdesc='Imperative, multi-paradigm, compiled programming language'
@@ -16,7 +17,7 @@ license=(MIT)
 depends=(
   bash
   gcc
-  gcc-libs
+  libgcc
   glibc
 )
 makedepends=(
@@ -25,24 +26,29 @@ makedepends=(
 provides=(nimble)
 conflicts=(nimble)
 replaces=(nimble)
-options=('!emptydirs')
+options=(!emptydirs)
 backup=(
   etc/nim/nim.cfg
   etc/nim/nimdoc.cfg
   etc/nim/nimdoc.tex.cfg
   etc/nim/rename.rules.cfg
 )
-source=(https://github.com/nim-lang/Nim/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
-        "git+https://github.com/nim-lang/csources_v2.git#commit=${_csourcesver}")
-sha256sums=('3a408e8342392342db745e26bb6acab2e6acb381db89b2624e8e58a85a1c6656'
-            '130a6d21808f43da421057385a5a8fd0a6ebd0d211211d3edd645eefd4fc7087')
-b2sums=('37bdb4d4a1f234e0a298a3dcb6071c5d8983ec588a1e510f8734a3fd06e1f055e1ff8ab0801f056ede9b31c32db96742eeca1d92de789d754f2241b2ba002fde'
+source=(
+  "$pkgname::git+https://github.com/nim-lang/Nim#tag=v$pkgver"
+  "git+https://github.com/nim-lang/csources_v2.git#commit=${_csourcesver}"
+)
+sha512sums=('93f6dc51d09efdac22610af1c79cfdb84e857299ba85dc95fd248bbb4fd4feba32617d6d7e8e5472cd288c63841dc9c94ad2fb7191f3068bd9d2416bc80a9c09'
+            '0c6eabf3aff84d0ed6e0e0c1705d523e93eb7a7d70f4a01aed947af14eecd9eb15c43d8420b20f3ec463f600a23a73e485a77d5019abd49e09402f44d7aaa4f2')
+b2sums=('c0569703a24795bb7a37e5ca008eb165116131faf435b4aa74fe891362ed38332c897a4de8db94e4c1176c710ea9850aebd535b0e1f9d852d7a370f5b92ea7bd'
         '2325bebb91b56f9373df83366efb308994fececc0f73acb2ad7b0822fc549d101026a5c1bf7c5ff7fd534e57f9e956f167bbfe00223fe3db0b487175cf0ca369')
 
 prepare() {
-  cd ${_pkgname}-${pkgver}
+  cd "$pkgname"
+
   cp -r ../csources_v2/* .
+
   rm bin/empty.txt
+
   for nimcfg in {compiler,config}/nim.cfg; do
     echo "gcc.options.always %= \"\${gcc.options.always} ${CFLAGS:-} ${CPPFLAGS}\"" >> "${nimcfg}"
     echo "gcc.options.linker %= \"\${gcc.options.linker} ${LDFLAGS:-}\"" >> "${nimcfg}"
@@ -50,8 +56,9 @@ prepare() {
 }
 
 build() {
-  cd ${_pkgname}-${pkgver}
-  export PATH="${srcdir}/${_pkgname}-${pkgver}/bin:${PATH}"
+  cd "$pkgname"
+
+  export PATH="${srcdir}/${pkgname}/bin:${PATH}"
 
   echo "Building nim"
   sh build.sh
@@ -76,8 +83,9 @@ build() {
 }
 
 package() {
-  cd ${_pkgname}-${pkgver}
-  export PATH="${srcdir}/${_pkgname}-${pkgver}/bin:${PATH}"
+  cd "$pkgname"
+
+  export PATH="${srcdir}/${pkgname}/bin:${PATH}"
 
   ./koch install "${pkgdir}"
 
