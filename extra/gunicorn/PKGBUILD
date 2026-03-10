@@ -5,8 +5,8 @@
 # Contributor: Vsevolod Balashov <vsevolod at balashov dot name>
 
 pkgname=gunicorn
-pkgver=23.0.0
-pkgrel=3
+pkgver=25.1.0
+pkgrel=1
 pkgdesc='WSGI HTTP Server for UNIX'
 arch=('any')
 url='https://gunicorn.org/'
@@ -22,16 +22,20 @@ makedepends=(
 checkdepends=(
   'python-eventlet'
   'python-gevent'
+  'python-h2'
+  'python-httpx'
   'python-pytest'
+  'python-pytest-asyncio'
 )
 optdepends=(
   'python-eventlet: for asynchronous request handling with eventlet'
   'python-gevent: for asynchronous request handling with gevent'
+  'python-h2: for HTTP/2 support'
   'python-setproctitle: for process renaming'
   'python-tornado: for asynchronous request handling with tornado'
 )
 source=("git+https://github.com/benoitc/$pkgname.git#tag=$pkgver")
-b2sums=('0836b34726af4aceb5ceb040afdf9f71ed0a978259f455ff925f526b79b2e150c61c5dc93e9e9b58a71c1112e2c12c8040bdb0aeb36f8acf67480a835b33936b')
+b2sums=('77a976ca86533da8f24884f6e8b607bc6c4f61cb4f1a203dd99cda769a63e0d27c09cef0e614f6119a31992bcec4068ddadf04301f02977fe06f5f6ceed447a9')
 
 build() {
   cd $pkgname
@@ -41,18 +45,19 @@ build() {
 check() {
   cd $pkgname
   # Override addopts as they invoke coverage testing
-  python -m pytest --override-ini="addopts="
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest -v --override-ini="addopts=" tests/test_signal_integration.py
 }
 
 package() {
-  cd $pkgname
-  python -m installer --destdir="$pkgdir" dist/*.whl
-
-  # Symlink license file
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s "$site_packages"/$pkgname-$pkgver.dist-info/LICENSE \
-    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  ln -s "$site_packages"/$pkgname-$pkgver.dist-info/licenses/LICENSE \
+    "$pkgdir"/usr/share/licenses/$pkgname
+
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
 # vim:set ts=2 sw=2 et:
