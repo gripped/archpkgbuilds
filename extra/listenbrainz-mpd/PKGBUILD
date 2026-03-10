@@ -1,16 +1,15 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=listenbrainz-mpd
-pkgver=2.3.9
-pkgrel=2
+pkgver=2.4.0
+pkgrel=1
 pkgdesc="A ListenBrainz submission client for MPD"
 arch=(x86_64)
 url="https://codeberg.org/elomatreb/listenbrainz-mpd"
 license=(AGPL-3.0-only)
 depends=(
-  gcc-libs
   glibc
-  mpd
+  libgcc
   openssl
   sqlite
 )
@@ -18,9 +17,12 @@ makedepends=(
   asciidoctor
   rust
 )
+optdepends=(
+  'mpd: for using a local mpd instance'
+)
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('5344baf8cb6145a582b011ecf19cbc3b8553302cf01dd688ade805c0fe23777657140d94ae55797308c2c756fbd80dc7508e686a179d80693cfbfce0e802cba8')
-b2sums=('acfdac0341e923400484d8242b686c0f94f38e341ddda3483e8fb8f40a62a81a99dbae41f664c892e06951d511135467ee9de89b06059e12a1e78bcc78c77745')
+sha512sums=('69702dd6b6cf9b7d83424fb84a269221ea4f8aa4ee5bc29d7d21aed68919a5f2865160449de5ce63b5262ad7f6bcf4a02b7d919ef099489aa746a00607c78ca1')
+b2sums=('e9e7d33b32f61b4e1d3c5d16e8b4e9ee2ecc8c55026a0d5636e04ce85c020935382533286a84c5c2e6c52b3343acf2d44a8a968ce924724ca8c385f1815c57f9')
 
 prepare() {
   cd $pkgname
