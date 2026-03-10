@@ -2,7 +2,7 @@
 # Contributor: Sequencer <liujiuyang1994@gmail.com>
 
 pkgname=python-schemdraw
-pkgver=0.17
+pkgver=0.18
 pkgrel=1
 pkgdesc="Electrical circuit schematic drawing"
 url="https://schemdraw.readthedocs.io"
@@ -17,7 +17,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setu
 checkdepends=('python-pytest' 'python-nbval' 'python-matplotlib' 'python-ziafont'
               'python-ziamath' 'python-latex2mathml')
 source=("git+https://github.com/cdelker/schemdraw.git#tag=$pkgver")
-sha512sums=('dab54e0333b2feb279fdeab81d07f8cb8d6194885849b769a2d28c760f8b59ed238bb298b0c24b8657c067831d41c84cae347101210eb7df8863c3d19fe741bd')
+sha512sums=('64f0fd923c97a8559affedf72eded06e3ec3a31eb21170825b3a246bf6db6202c59edc30892394af934b844ac756386dccd7c22eb1dc6bd6eac3956dee51dfe1')
 
 build() {
   cd schemdraw
@@ -32,4 +32,5 @@ check() {
 package() {
   cd schemdraw
   python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
