@@ -1,7 +1,7 @@
 pkgbase = contour
 	pkgdesc = Modern C++ Terminal Emulator
 	pkgver = 0.6.2.8008
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/contour-terminal/contour
 	arch = x86_64
 	license = Apache-2.0
@@ -33,6 +33,8 @@ pkgbase = contour
 	depends = reflection-cpp
 	optdepends = ncurses: for contour terminfo database
 	source = contour-v0.6.2.8008::https://github.com/contour-terminal/contour/archive/refs/tags/v0.6.2.8008.tar.gz
+	source = libunicode0.8.patch::https://github.com/contour-terminal/contour/commit/0793b4315004dbd71da90e215ae7bfd7b4b38a56.patch
 	sha512sums = 47af0df0ea0754e34ef8daca3526a64f12d19e6544c1f26a3bf3347991e49b2c2ff739a168a56c1163121f8f9a9a30ab2c8bf3941e576f9e5af9ce26efc1dea1
+	sha512sums = 618ea661c4017986a1abd8f2896e898b04880139a621f6271782276928dbf567aaf3a64f5580d88e721e11e4e96a3f7d740486ddf7f163ef4bf03b4faaf6b891
 
 pkgname = contour
