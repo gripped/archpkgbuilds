@@ -2,7 +2,7 @@
 
 pkgname=fluidd
 
-pkgver=1.35.1
+pkgver=1.36.2
 pkgrel=1
 pkgdesc='A free and open-source Klipper web interface for managing your 3d printer'
 arch=(any)
@@ -14,10 +14,10 @@ makedepends=(
   npm
 )
 optdepends=('ustreamer: webcam streaming support')
-_tag=238dba1c0d9f783e53b461709eca6436f67e6f95
+_tag=248f8a2efc277d2c5a436754881c2d1917eec50c
 source=(git+https://github.com/fluidd-core/fluidd.git#tag=${_tag})
 validpgpkeys=(4C717BDC0E452F5B13490409AB4C64C58BA9C3ED) # Pedro Lamas <pedrolamas@gmail.com>
-b2sums=('cecf2de94984e148778186dbed2029176491cfeccc6281be66c985b39e4f1564e48c3809335abf68b995d1706c69644738359c986fe1549e7f9247ff3f54103b')
+b2sums=('5d2a5d7aa5920a3d163cc1ccb8ffaf231513a90274b4bbe5c1336b8344f50b9c0fb54d81a0e3201ddd54044aaf0121c31f2721453e0e718f2ceaec461cf3a83d')
 
 pkgver() {
   cd fluidd
