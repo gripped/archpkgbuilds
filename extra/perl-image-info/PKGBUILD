@@ -2,8 +2,8 @@
 # Contributor: Caleb Cushing <xenoterracide@gmail.com>
 
 pkgname=perl-image-info
-pkgver=1.44
-pkgrel=5
+pkgver=1.45
+pkgrel=1
 pkgdesc="Extract meta information from image files"
 arch=('any')
 license=('PerlArtistic' 'GPL')
@@ -11,7 +11,7 @@ options=('!emptydirs')
 depends=('perl')
 url='https://search.cpan.org/dist/Image-Info'
 source=(https://search.cpan.org/CPAN/authors/id/S/SR/SREZIC/Image-Info-$pkgver.tar.gz)
-sha256sums=('cb7fc65dd1effe01eb47c1c79a52dd1654f428e3a97db1ef23b126ce01636f0d')
+sha256sums=('9d6c1d28c29b137b1a5152e628083d8437577336d8bea191605dda20d55b3539')
 
 build() {
   cd "$srcdir"/Image-Info-$pkgver
@@ -24,5 +24,4 @@ build() {
 package() {
   cd "$srcdir"/Image-Info-$pkgver
   make DESTDIR="${pkgdir}/" install
-  find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
 }
