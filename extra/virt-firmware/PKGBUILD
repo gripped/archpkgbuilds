@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=virt-firmware
-pkgver=25.12
-pkgrel=2
+pkgver=26.2
+pkgrel=1
 pkgdesc="Collection of tools for edk2 firmware images"
 arch=(any)
 url="https://gitlab.com/kraxel/virt-firmware"
@@ -12,6 +12,7 @@ depends=(
   python-crc32c  # undeclared runtime dependency: https://gitlab.com/kraxel/virt-firmware/-/issues/4
   python-cryptography
   python-pefile
+  python-pkg_resources
 )
 makedepends=(
   python-build
@@ -24,8 +25,8 @@ checkdepends=(
   systemd  # tests require systemd-detect-virt(?!)
 )
 source=($url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('978c493bed3c908d9d176e16239f8a7e674abf5f9df43e369c67c5fb2ab73a9966db5632ceffc4d34b4bc4709cd6cda2913f40e50c513a67c6ab0ff2dd79f171')
-b2sums=('853367ed2bec725dcb7273c2fbd16311167b9a3beccb06c9ead211fb2d1f4f91d9826d60038ca3136cfe02d6da1166e0d14da8cf61b9456fbd9001842a8c1179')
+sha512sums=('1e11e7947ef188f1a3c44764f0015ac81c7cef011d6236c13275811a638d40dc920f93d397a7404256ece7c2c919b3b043e5ed59a6ac4b2c64811d5516a35e65')
+b2sums=('5b55baf44b089b0ff151387a6dc5ca90a15a297130611de72da6de8502157014d8086d43e2fa38fae67daa9db1b260fe2f84b5ae5b50ba03f75435bc47390cb3')
 
 build() {
   cd $pkgname-v$pkgver
