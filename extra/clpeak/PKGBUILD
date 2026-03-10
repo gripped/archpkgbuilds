@@ -1,15 +1,15 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=clpeak
-pkgver=1.1.5
+pkgver=1.1.6
 pkgrel=1
 pkgdesc="A tool which profiles OpenCL devices to find their peak capacities"
 arch=('x86_64')
 url="https://github.com/krrishnarraj/clpeak"
 license=("Unlicense")
-depends=('ocl-icd' 'gcc-libs')
+depends=('ocl-icd' 'libgcc' 'libstdc++' 'glibc')
 makedepends=('cmake' 'opencl-headers' 'ninja' 'git')
 source=(git+https://github.com/krrishnarraj/clpeak#tag=$pkgver)
-sha512sums=('2e6b62fb50a66d3ce1c393dc5fd171a9385c0013f9f78ac68e60716223f2ffbd94d1c179db2c4639b3c99ae9181f87475dc462b106ba938b1b75872b17e78cf2')
+sha512sums=('39f907bb51d1dd6186a9a7772083f21d61966436761cad5c00c5283c75614346db411df8d9329497f3296e32a0daa8596ea7404d08e1150772b1cec59ce31f89')
 
 build() {
     cd "$pkgname"
