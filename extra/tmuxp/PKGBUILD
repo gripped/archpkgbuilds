@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=tmuxp
-pkgver=1.64.0
+pkgver=1.67.0
 pkgrel=1
 pkgdesc="Tmux session manager built on libtmux"
 arch=(any)
@@ -37,8 +37,8 @@ optdepends=(
   # TODO: package ptpython for additional alternative CLI
 )
 source=($pkgname-$pkgver.tar.gz::$_url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('84e54be070ca94688a873cdcdfd8af3214ea53fe6ae02a92994f0f9bee7d7401b2e77be9f2e4a3ada4d973a328ef89117d6fe9b315ffabd845e5f5cde5ad10b6')
-b2sums=('e26c2095450259f2f2fb919939e61f7559233915f209b1e0957ca27f53dfe8bbcd6e53aec4a243eb88aabf60336c69aa855b617564603e6ecdaa1ea86d82ed34')
+sha512sums=('b0d68796f323b449a5abf6c1cc64e21d1faadbc69a0b26696fd4456fbe871ea6c2408e7e18d002128d7576be3ef36988e4fceccf16200e53d1f021cc73c88165')
+b2sums=('4637b7403c1f5699719b754b46d018ad8e90807f590c1ffba3e9877f46cf292e3d2cade7e63bdd46a984cddad95d926ba804fbde5ee7a75ad72bf5c52f9e7c09')
 
 build() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
@@ -58,6 +58,7 @@ check() {
     -vv
     # https://github.com/tmux-python/tmuxp/issues/855
     --deselect tests/workspace/test_builder.py::test_window_shell
+    --deselect 'tests/workspace/test_builder.py::test_pane_readiness_call_count[skips_all_panes_with_window_shell]'
     # https://github.com/tmux-python/tmuxp/issues/961
     --deselect tests/workspace/test_builder.py::test_global_options
     --deselect tests/workspace/test_builder.py::test_global_session_env_options
