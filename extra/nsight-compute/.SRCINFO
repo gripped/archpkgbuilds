@@ -1,9 +1,10 @@
 pkgbase = nsight-compute
 	pkgdesc = Interactive profiler for NVIDIA CUDA and OptiX
-	pkgver = 2025.4.1.2
+	pkgver = 2026.1.0.9
 	pkgrel = 1
 	url = https://developer.nvidia.com/nsight-compute
 	arch = x86_64
+	arch = aarch64
 	license = LicenseRef-NVIDIA-SLA
 	depends = dbus
 	depends = fontconfig
@@ -29,9 +30,11 @@ pkgbase = nsight-compute
 	optdepends = cuda: for profiling on the local system
 	options = !debug
 	options = !strip
-	source = https://developer.download.nvidia.com/compute/cuda/redist/nsight_compute/linux-x86_64/nsight_compute-linux-x86_64-2025.4.1.2-archive.tar.xz
 	source = nsight-compute.desktop
-	b2sums = 1613ba900df0e7e3adc2c05de48e57e19f5dcb062ceee4a2ab0e2ed19de16415d0d0ff1640fc5dbcbcd8457f7af99fbca9066b1ab60681e6d9b87e2540771e99
 	b2sums = 3dc305bcdbf6927a3645ce4c2bb4e251d45f3fe026710f54c8cc5949c8037780df0b75b5f76e4052cdb5992bc5f88d6ef582966d7b9f78e0a594b4dfc87e7e67
+	source_x86_64 = https://developer.download.nvidia.com/compute/cuda/redist/nsight_compute/linux-x86_64/nsight_compute-linux-x86_64-2026.1.0.9-archive.tar.xz
+	b2sums_x86_64 = 50dbb935099f4503cb1ff3a32c23fb0d56c03bfa57c4e1961b02e9920746ade0c5605cb0ba51860b6d7edfa07fc7850b9532d33af0216d674c5187a81c390b97
+	source_aarch64 = https://developer.download.nvidia.com/compute/cuda/redist/nsight_compute/linux-sbsa/nsight_compute-linux-sbsa-2026.1.0.9-archive.tar.xz
+	b2sums_aarch64 = a50821e6112a7298968af3a0a26152b313d259eb3398c8dfa67f7410359120a9a57b7f56c9941bed9801b38c2d4793fbd1fbaf9cf39122113603947d024f3ba3
 
 pkgname = nsight-compute
