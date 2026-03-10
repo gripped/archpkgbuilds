@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=granite7
-pkgver=7.7.0
+pkgver=7.8.0
 pkgrel=1
 pkgdesc='Library that extends Gtk+'
 arch=(x86_64)
@@ -26,9 +26,9 @@ makedepends=(
   vala
 )
 provides=(libgranite-7.so)
-_tag=ae94e9123bbf1dea8db38bedd8a925dbd5a8f812
+_tag=9d59c4a348de7f69c312ce9eabc154dcdc6c550f
 source=(git+https://github.com/elementary/granite.git#tag=${_tag})
-sha256sums=('8dd5f6584ac62f1d3b86de76f4eb13c21f59e19b7e6e3e30f88ddf1a89fbba10')
+sha256sums=('d11bb8e9646acfcbfb27c323f167c51b9e4c8e607af61885ec623d1ac11b2389')
 
 pkgver() {
   cd granite
