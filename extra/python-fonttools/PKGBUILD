@@ -5,8 +5,8 @@
 
 pkgname=python-fonttools
 _pyname=${pkgname#python-}
-pkgver=4.61.1
-pkgrel=2
+pkgver=4.62.0
+pkgrel=1
 pkgdesc='A library to manipulate font files from Python'
 url="https://github.com/fonttools/$_pyname"
 license=(MIT)
@@ -34,7 +34,7 @@ optdepends=('python-brotli: to compress/decompress WOFF 2.0 web fonts'
             'python-zopfli: faster backend fom WOFF 1.0 web fonts compression')
 _archive="$_pyname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('7dfe8416ee774c0d70e086e08021dfa4e2284a89777e6ade1a6434e4157f7ab3')
+sha256sums=('fcde3b87f03c28418a20efa0f005e62f453cf251db2e0dc8ea037abf6d14b0a0')
 
 build() {
 	cd "$_archive"
