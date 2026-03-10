@@ -1,6 +1,6 @@
 pkgbase = libunicode
 	pkgdesc = Unicode and UTF-8 C++ library
-	pkgver = 0.7.0
+	pkgver = 0.8.0
 	pkgrel = 1
 	url = https://github.com/contour-terminal/libunicode
 	arch = x86_64
@@ -10,9 +10,10 @@ pkgbase = libunicode
 	makedepends = ninja
 	makedepends = python
 	makedepends = unicode-character-database
-	depends = gcc-libs
+	depends = libstdc++
+	depends = libgcc
 	depends = glibc
-	source = git+https://github.com/contour-terminal/libunicode.git#tag=v0.7.0
-	sha256sums = aedf8a21121aef086f5fd09e21c3473b112ddf9b6f31b9f7757a23ad2a23d7f7
+	source = git+https://github.com/contour-terminal/libunicode.git#tag=v0.8.0
+	sha256sums = 7ebc5885633af66bef26583ff75a4b61d8cf16912b89a4eabed1b2ff167db0fc
 
 pkgname = libunicode
