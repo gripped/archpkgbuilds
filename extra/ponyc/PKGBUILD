@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=ponyc
-pkgver=0.60.6
+pkgver=0.61.0
 pkgrel=1
 pkgdesc='An actor model, capabilities, high performance programming language'
 arch=('x86_64')
@@ -23,7 +23,7 @@ source=(
   "git+https://github.com/llvm/llvm-project.git"
   "ponyc-remove-usr-local-refs.patch"
 )
-b2sums=('e0d0ac35ca5fe7ee6f3e6722fc59b064a1d7c7d2cb9701f10a2a05a679e77d07891009b93ed3eee257de7d03ad9997e6dd5d0d3c64c7aece9dc1fb5995ec05c2'
+b2sums=('175e005443ec04de780087f23d395b9a3c43e8a059855d4b25deb3fa0f472ac7cb3e69d76ed1e1f3ce1e64203fafdd7a0df7d4050f443c544d3ffdb5636cafd8'
         'SKIP'
         'de5e9301abcf937eb754412b730dde359a10d7eaaa1fcab5292f82429d724cdbfa5313aff2eea05c4e479d9d881ae220a80d6ba19b97f9191851f8b48553daaf')
 
@@ -99,6 +99,8 @@ package() {
   cd $pkgname
   install -vDm755 -t "$pkgdir/usr/lib/pony/bin" \
     build/Release/pony-lsp \
+    build/Release/pony-lint \
+    build/Release/pony-doc \
     build/release/ponyc
 
   install -vDm644 -t "$pkgdir/usr/lib/pony/lib/native" \
@@ -115,6 +117,8 @@ package() {
 
   install -vdm755 "$pkgdir/usr/bin"
   ln -vs -t "$pkgdir/usr/bin" /usr/lib/pony/bin/ponyc
+  ln -vs -t "$pkgdir/usr/bin" /usr/lib/pony/bin/pony-lint
+  ln -vs -t "$pkgdir/usr/bin" /usr/lib/pony/bin/pony-doc
 
   install -vdm755 "$pkgdir/usr/lib"
   ln -vs -t "$pkgdir/usr/lib" /usr/lib/pony/lib/native/libponyc-standalone.a
