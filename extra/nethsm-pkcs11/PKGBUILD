@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=nethsm-pkcs11
-pkgver=2.0.0
+pkgver=2.1.0
 pkgrel=1
 pkgdesc="PKCS#11 driver for NetHSM"
 arch=(x86_64)
@@ -13,25 +13,21 @@ options=(!lto)  # NOTE: as ring is used we can not use LTO
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
 )
-sha512sums=('2daea3b2aec40304bdf7bc3037862ac9b21169056734601af0e468c3f3a262061fc8ef18a0ad1f37d095ec5c5e380ed38bed91d06307f7d8c2d197f1479b89af')
-b2sums=('97bf28108b73fe41bd3186da2858aee3c94353c2dc4b1c95774d55e56f1e624de333af301e01386d1576b82bc89b59d5e99fc4092605518b976a831e42e1318a')
+sha512sums=('1d1b2cfbabf4f3b6cf0396802429f8ee0fa46224073e9fbfc80339c0e45392d2435dee86c2f9ac9c09b15bbb7bdc1012f5e1af0404f06680aca64c904d78278e')
+b2sums=('aca60b70a31b5a263b222c99a48ec1baea74f368664c66f674abafb6daef20b372bd7e419b40aafe5bfbacba57ca31f7aedaeabad2b48e51953fac48f4bece9b')
 
 prepare() {
   cd $pkgname-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd $pkgname-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --frozen --release --all-features
 }
 
 check() {
   cd $pkgname-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
   # using all features pulls in pkcs11-full-tests which are integration tests
   cargo test --frozen --features=default
 }
