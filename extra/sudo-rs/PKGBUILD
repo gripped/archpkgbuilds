@@ -2,8 +2,8 @@
 # Maintainer: T.J. Townsend <blakkheim@archlinux.org>
 
 pkgname=sudo-rs
-pkgver=0.2.12
-pkgrel=2
+pkgver=0.2.13
+pkgrel=1
 pkgdesc="A memory-safe implementation of sudo and su"
 arch=('x86_64')
 url="https://github.com/trifectatechfoundation/sudo-rs"
@@ -26,7 +26,7 @@ optdepends=(
   "apparmor: apparmor support"
 )
 source=(git+https://github.com/trifectatechfoundation/sudo-rs.git#tag=v${pkgver}?signed)
-sha256sums=('ec1aae56caecb2bcf5cb220f8a0911b26a5f858d70a361cf4c5d49915f0141fd')
+sha256sums=('17bdf6a122be2df0c6294d9735823fe7ecb77a53fc1dc100ccea6b887f8e95cf')
 validpgpkeys=(C2E4CAC4B12225DE1C3BB1C9289D082003D01E95) # Marc Schoolderman
 
 prepare() {
