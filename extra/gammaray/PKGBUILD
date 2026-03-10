@@ -1,15 +1,16 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=gammaray
-pkgver=3.3.1
-pkgrel=2
+pkgver=3.4.0
+pkgrel=1
 pkgdesc='A tool for examining the internals of a Qt application and to some extent also manipulate it'
 arch=(x86_64)
 url='https://www.kdab.com/gammaray/'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          libelf
+         libgcc
+         libstdc++
          qt6-base
          qt6-svg
          qt6-tools
@@ -30,7 +31,7 @@ optdepends=('qt6-declarative: QML support'
             'qt6-webengine: web inspector plugin'
             'qt6-connectivity: bluetooth plugin')
 source=(git+https://github.com/KDAB/GammaRay#tag=v$pkgver)
-sha256sums=('d20bdb96ac5e68f72e722a0cdcb620329910dd34bcf25b2966915cd2f65d08b5')
+sha256sums=('c009ba4548e74716436af250458f1d53f631af891a27759928ef01f00c4a63ac')
 validpgpkeys=(E86C000370B1B9E2A9191AD53DBFB6882C9358FB) # KDAB Products <info@kdab.com>
 
 prepare() {
