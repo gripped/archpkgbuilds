@@ -5,13 +5,13 @@
 pkgname=ttf-input-nerd
 pkgver=3.4.0
 _ttf_input_pkgver=20220502
-pkgrel=3
+pkgrel=4
 pkgdesc='Patched font Input containing nerd font symbols'
 arch=('any')
 url='https://input.djr.com/'
 license=('custom')
 makedepends=('fontforge' 'parallel')
-provides=('ttf-font')
+provides=('ttf-font' 'ttf-font-nerd')
 _url="${url}build/?fontSelection=whole&a=0&g=0&i=0&l=0&zero=0&asterisk=0&braces=0&preset=default&line-height=1.2&accept=I+do&email="
 # the content at $_url is dynamically generated every request, use a snapshot
 source=("https://sources.archlinux.org/other/packages/ttf-input/Input_Fonts_${_ttf_input_pkgver}.zip"
