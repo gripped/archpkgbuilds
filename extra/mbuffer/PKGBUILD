@@ -1,22 +1,22 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=mbuffer
-pkgver=20251025
+pkgver=20260221
 pkgrel=1
 pkgdesc="A tool for buffering data streams"
 arch=(x86_64)
 url="https://www.maier-komor.de/mbuffer.html"
 license=(GPL-3.0-or-later)
 depends=(
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(openssl)
 source=(
   https://www.maier-komor.de/software/$pkgname/$pkgname-$pkgver.tgz
 )
-sha512sums=('d1b4d49ed1d6a685a2db5a81cb2203ef92b5f8867bc534b7de6435c80a8e408e245052abc2ff5f79934a0c4079b33d496ba60fae005a5bd3f58a76443b1d31ae')
-b2sums=('9093d5c9e0a3554bb54af5781b32e9dc614d13771e23a660f0958ea99add18fcd8a5e1a491cc9c0f98267f70196b702528ad7e53f489c3bf25e9541ecdb3a66a')
+sha512sums=('5e78500dcfe1f871a2e7209d0b632fc89c7dc908bcfa512253fcc46f730ba8b9ec2fdebfa84c32bfb3641500ce865cda348259b0422fb3fee5b340d320e04224')
+b2sums=('2b2be39e1fbcad45714653eba448cf81c241915e8dc40743163e0404287cd3fe23e6c2b7d34a367db67306475335a95fb26f1fdf370ef3027995040fe9259e4d')
 
 prepare() {
   cd $pkgname-$pkgver
