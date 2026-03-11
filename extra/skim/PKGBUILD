@@ -5,15 +5,17 @@
 # Contributor: fenuks
 
 pkgname=skim
-pkgver=3.7.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='Fuzzy Finder in Rust'
 arch=(x86_64)
 url='https://github.com/skim-rs/skim'
 license=(MIT)
-depends=(glibc # libc.so libm.so
-         libgcc libgcc_s.so
-         ncurses)
+depends=(
+  glibc
+  libgcc
+  ncurses
+)
 makedepends=(git rust)
 optdepends=(
   'bash: for resp. completions and key bindings, and for sk-tmux script'
@@ -22,10 +24,10 @@ optdepends=(
   'vim-plugin-runtime: for N/Vim plugin'
   'zsh: for resp. completions and key bindings'
 )
+options=(!lto)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('7f508f266863275a6b3645e88fb39c681eba244cc60491f8dcf0c8c44bc731fc3f4e769905b9124f182f07c705e61432ffbba0b000700bdbbe1fb52c19143e31')
-b2sums=('e5be2dcfb1f6dd30122638cda03b85e923161655c3db66467ca2d4d15b46c30a3f2047ca63ec3ea7735f0e31034d3ee73f2eb321fb2a3bbde59ff5ed5d8d8235')
-options=('!lto')
+sha512sums=('bae0da77e08933299ffa87f1ff537c5a4e9abe12feebf32534032cfc493134ffc5ae5d0670ab0a0492997a9973fc0d7c920105b5975745879a3ff22c9b4f860c')
+b2sums=('e7fff577872f8adddea8fd3a0d10593d35da6e5f454615cb783ae9d692a71bfc0e66216365648172d93f361dda951df7970bc139d8dfbe0ac5b95a6af22c781c')
 
 prepare() {
   cd "$pkgname"
