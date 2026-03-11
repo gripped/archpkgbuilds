@@ -4,7 +4,7 @@
 # Contributor: Aaron Schaefer <aaron@elasticdog.com>
 
 pkgname=pv
-pkgver=1.10.3
+pkgver=1.10.4
 pkgrel=1
 pkgdesc='A terminal-based tool for monitoring the progress of data through a pipeline'
 arch=(x86_64)
@@ -17,7 +17,7 @@ _archive="$pkgname-$pkgver"
 source=("${url%/*}/sources/$_archive.tar.gz"
         "$_archive.tar.gz.sig::${url%/*}/sources/$_archive.tar.gz.txt")
 # source=("$_url/releases/download/v$pkgver/$_archive.tar.gz")
-sha256sums=('aa1630c79af6960a8922ffa64d2c3e7f87486da21fcb57e277824294fd266742'
+sha256sums=('7e994f9b8645820a289288468051575adf09a1e688d8e4d8fa3ecc48778bf7c9'
             'SKIP')
 validpgpkeys=(D8FF44A79CC8A61EF694FA7EB883E01314DA8E84  # https://ivarch.com/public-key.txt
               2189D5C29F041F2277AFD50AC1596BA33FC56F51  # andrew.wood@ivarch.com
