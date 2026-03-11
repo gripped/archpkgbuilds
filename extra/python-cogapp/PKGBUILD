@@ -2,31 +2,31 @@
 # Contributor: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=python-cogapp
-pkgver=3.3.0
-pkgrel=8
+pkgver=3.4.0
+pkgrel=1
 pkgdesc="A code generator for executing Python snippets in source files"
 url="https://nedbatchelder.com/code/cog"
 license=('MIT')
 arch=('any')
 depends=('python')
-makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 checkdepends=('python-pytest')
 conflicts=('cocogitto')
-source=("https://pypi.io/packages/source/c/cogapp/cogapp-$pkgver.tar.gz")
-sha512sums=('937b9372095ed0805d57083ff1642c66fc231ab65b09156fc0966df4439ced98f220d85e4ebca206b56969e1d721ff7dbb2c2d2550852b41a0dc17594317c322')
+source=("git+https://github.com/nedbat/cog.git#tag=v$pkgver")
+sha512sums=('03e429f0be149d715daa04144b2c6e40e9703de4a0792b82c74428ff633fedbfe47a81dab85c935260b4e1aabaa59bab663376dbf0f44a900c2d1c39472f89c5')
 
 build() {
-  cd cogapp-$pkgver
+  cd cog
   python -m build -wn
 }
 
 check() {
-  cd cogapp-$pkgver
+  cd cog
   pytest
 }
 
 package() {
-  cd cogapp-$pkgver
+  cd cog
   python -m installer -d "$pkgdir" dist/*.whl
   install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE.txt
 }
