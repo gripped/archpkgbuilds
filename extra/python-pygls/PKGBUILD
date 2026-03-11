@@ -3,17 +3,26 @@
 
 pkgname=python-pygls
 _name=${pkgname#python-}
-pkgver=1.3.1
-pkgrel=5
+pkgver=2.0.1
+pkgrel=1
 pkgdesc='Pythonic generic implementation of the Language Server Protocol'
-arch=('any')
+arch=(any)
 url=https://github.com/openlawlibrary/pygls
-license=('Apache-2.0')
-depends=('python-cattrs' 'python-lsprotocol')
-makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
-checkdepends=('python-pytest-asyncio')
+license=(Apache-2.0)
+depends=(
+  python-attrs
+  python-cattrs
+  python-lsprotocol
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-poetry-core
+)
+checkdepends=(python-pytest-asyncio)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('c893198f1004256118acfa1bee3aefb87f98a34f2a634de7263d621e56673312a735e94ab8703135e7e43df21cde0a07946a9187c54878c2dcadd696fb8830e4')
+b2sums=('43eeb437259783cfbfa13ca39dd2e8daee5e630555ea3bc2d7cb0023b5eaa4209c67cd9d52450fcfd9f0ff22d277dac07548030a46dcfccb2ecfe736432824a4')
 
 build() {
   cd "$_name"
@@ -26,12 +35,11 @@ check() {
 }
 
 package() {
-  cd "$_name"
-  python -m installer --destdir="$pkgdir" dist/*.whl
-
-  # Symlink license file
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s "$site_packages"/"$_name"-$pkgver.dist-info/LICENSE.txt \
-    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
+  ln -s "$site_packages"/"$_name"-$pkgver.dist-info/licenses/LICENSE.txt \
+    "$pkgdir"/usr/share/licenses/$pkgname
+
+  cd "$_name"
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
