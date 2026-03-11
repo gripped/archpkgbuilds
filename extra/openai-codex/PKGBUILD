@@ -3,7 +3,7 @@
 # Contributor: Christopher Cooper <christopher@cg505.com>
 
 pkgname=openai-codex
-pkgver=0.112.0
+pkgver=0.113.0
 pkgrel=1
 pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
 arch=(x86_64)
@@ -27,7 +27,7 @@ optdepends=(
 )
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/rust-v$pkgver.tar.gz")
-b2sums=('f89f0aedc52e46ea3e702b2accfe28760710991d944616d95cabc01cc8a9d11425bf40a5512461f048536dfb3b4949b0016e1897ccf245e3e0b0c48a0c03f4da')
+b2sums=('9f439c68d90e402972e5234d0b44d86510439fc226a317b5ca62593fea0ca42cb990ce3ed38d5c20d8cf5adcdb63c8cfaf57a9bf36979b179fa0164486115a6c')
 
 prepare() {
   cd codex-rust-v$pkgver/codex-rs
