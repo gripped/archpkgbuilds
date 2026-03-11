@@ -5,7 +5,7 @@
 
 pkgname=python-openai
 _name=openai-python
-pkgver=2.21.0
+pkgver=2.26.0
 pkgrel=1
 pkgdesc="Python client library for the OpenAI API"
 arch=('any')
@@ -52,14 +52,14 @@ optdepends=(
   'python-websockets: Realtime support'
 )
 # Defined in .stats.yml
-# curl -s https://raw.githubusercontent.com/openai/openai-python/refs/tags/v1.71.0/.stats.yml | grep openapi_spec_url | cut -d- -f5 | cut -d. -f1
-_openai_openapi_spec=0db5326a0fb6a30ffad9242c72872c3388ef927e8a4549ddd20aec3420541209
+# curl -s https://raw.githubusercontent.com/openai/openai-python/refs/tags/v2.26.0/.stats.yml | grep openapi_spec_url | cut -d- -f5 | cut -d. -f1
+_openai_openapi_spec=9c802d45a9bf2a896b5fd22ac22bba185e8a145bd40ed242df9bb87a05e954eb
 source=(
   "${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
   "https://storage.googleapis.com/stainless-sdk-openapi-specs/openai%2Fopenai-${_openai_openapi_spec}.yml"
 )
-b2sums=('cd07dc6341eb026124f1235b32e069c89206abcd0966defe74da0f310d397377218e5077ed4cd242d31cd3de54e6335e71a0aa3cf17fa34650901ad2aa69ec06'
-        '5d745417ec16cb9812e8c952eb2cb7803797a77cc47e34b82c17243a94759f452730f11825df3d9e74663fc5a68cdfbcfe648e63e3fbe7f46a22119f4ba87313')
+b2sums=('489aaa59492e6a60da9552fba9f463a57a4f0bea1c8074be9cb5e8f097738d92fd11912d0890e925c248dd5c998f83252cefb74a78731defe3ac92546a73b210'
+        'a99053e615b2b4a61d7dcfe72f4f9f76eb3d56a1b2eb00512d5d163420efe36f0ee3d25fe5fe33a0ff68d43e59de5d36ca55d25976dfdb8fd332105ae02fe722')
 
 prepare() {
   cd "${_name}-${pkgver}"
