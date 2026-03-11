@@ -1,9 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-build-environment
-pkgver=1.13.0
-_commit=6e8cb7f5ca00a8194dea5a6e01b5c92a2b48f8d1
-pkgrel=7
+pkgver=1.13.1
+pkgrel=1
 pkgdesc='A nested hash data structure for controlling build environments'
 arch=(any)
 url='https://github.com/ioquatix/build-environment'
@@ -15,18 +14,19 @@ makedepends=(
   git
 )
 checkdepends=(
-  ruby-bundler
   ruby-covered
-  ruby-rake
-  ruby-rspec
+  ruby-sus
+  ruby-decode
 )
 options=(!emptydirs)
-source=(git+https://github.com/ioquatix/build-environment.git#commit=$_commit)
-sha256sums=('SKIP')
+source=(git+https://github.com/ioquatix/build-environment.git#tag=v$pkgver)
+sha256sums=('51986e0605dd394d18a59abe67d4d92d7b4b84dd0d84053feb4a888311aca1c4')
 
 prepare() {
   cd build-environment
   sed -r -e 's|~>|>=|g' -i build-environment.gemspec
+  sed -i '/signing_key/d' build-environment.gemspec
+  rm gems.rb
 }
 
 build() {
@@ -58,7 +58,7 @@ build() {
 check() {
   local _gemdir="$(gem env gemdir)"
   cd build-environment
-  GEM_HOME="tmp_install/$_gemdir" rake
+  GEM_HOME="tmp_install/$_gemdir" sus
 }
 
 package() {
