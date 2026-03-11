@@ -1,0 +1,38 @@
+# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Contributor: pingplug < aur at pingplug dot me >
+# Contributor: Adrià Arrufat <swiftscythe@gmail.com>
+# Contributor: perlawk
+
+pkgname=dlib
+pkgver=20.0
+pkgrel=2
+pkgdesc='General purpose cross-platform C++ library designed using contract programming and modern C++ techniques'
+arch=(x86_64)
+url='http://dlib.net'
+license=(BSDL-1.0)
+depends=(blas cblas ffmpeg giflib lapack libjpeg-turbo libjxl libpng libwebp libx11 sqlite)
+makedepends=(cmake git)
+source=("git+https://github.com/davisking/dlib#tag=v$pkgver")
+b2sums=('b41813d34b76793dd137ef7194081e71dc3110c5aef8d896705e7586a2a519a211b472faf34b14f2d3fcc7d68f3ff24c39d44eb88e433ab322fdeec670925d3c')
+
+build() {
+  cmake \
+    -B build \
+    -D BUILD_SHARED_LIBS=ON \
+    -D CMAKE_BUILD_TYPE=Release \
+    -D CMAKE_INSTALL_LIBDIR:PATH=/usr/lib \
+    -D CMAKE_INSTALL_PREFIX:PATH=/usr \
+    -D DLIB_USE_CUDA=OFF \
+    -D USE_AVX_INSTRUCTIONS=OFF \
+    -D USE_SSE2_INSTRUCTIONS=ON \
+    -S $pkgname
+  make -C build
+}
+
+package() {
+  make -C build DESTDIR="$pkgdir" install
+  install -Dm644 $pkgname/LICENSE.txt \
+    "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  # remove redundant external libraries
+  rm -r "$pkgdir/usr/include/dlib/external"
+}
