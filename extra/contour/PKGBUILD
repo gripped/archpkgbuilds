@@ -3,7 +3,7 @@
 
 pkgname=contour
 pkgver=0.6.2.8008
-pkgrel=2
+pkgrel=3
 pkgdesc="Modern C++ Terminal Emulator"
 arch=(x86_64)
 url="https://github.com/contour-terminal/contour"
@@ -11,7 +11,8 @@ license=('Apache-2.0')
 depends=(
   fontconfig
   freetype2
-  gcc-libs
+  libstdc++
+  libgcc
   glibc
   harfbuzz
   libssh2
@@ -24,7 +25,7 @@ depends=(
   qt6-multimedia
   qt6-shadertools
   yaml-cpp
-  reflection-cpp
+  wayland
 )
 makedepends=(
   boxed-cpp
@@ -37,6 +38,7 @@ makedepends=(
   ninja
   python
   range-v3
+  reflection-cpp
 )
 optdepends=('ncurses: for contour terminfo database')
 source=($pkgname-v$pkgver::"$url/archive/refs/tags/v$pkgver.tar.gz"
