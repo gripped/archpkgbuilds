@@ -2,8 +2,8 @@
 
 _name=ignore-python
 pkgname=python-ignore
-pkgver=0.3.2
-pkgrel=2
+pkgver=0.3.3
+pkgrel=1
 pkgdesc="Python bindings for the Rust crate ignore"
 arch=(x86_64)
 url="https://github.com/borsattoz/ignore-python"
@@ -22,7 +22,7 @@ checkdepends=(
   python-pytest
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('91a5cc60a8750ff27c41bcd1ee285acc69d3d39a2da7ed903e47a32cd5d57526cc9be0616f8681f6d2efe076e70798d765663c965a450a69ea41742b95101b4c')
+b2sums=('11fc24335c547d9381526adc5de846ae3eb5a9eb873db8d55ab43b2e55bb2e870b0624de73d56d15e844067089dd6eb3b1edf72f73e21f52b70d3f2cc88dd9b3')
 
 prepare() {
   cd $_name-$pkgver
