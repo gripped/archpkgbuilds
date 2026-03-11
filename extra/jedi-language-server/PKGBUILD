@@ -1,8 +1,8 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=jedi-language-server
-pkgver=0.45.1
-pkgrel=2
+pkgver=0.46.0
+pkgrel=1
 pkgdesc='Language server for Jedi'
 arch=(any)
 url=https://github.com/pappasam/jedi-language-server
@@ -24,7 +24,7 @@ checkdepends=(
   python-pytest
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('f431d097c187a4d95a3a611f6793aeb85523765f6d55f9cee82ff3b6eadbd9ab50cd45c1fea929b015bbda0315d42a577c4c60821ee9decd2ac01930cd548ca7')
+b2sums=('214344f72a30f41e18d225217b4973bdada147f944711e0cae46c20576e0744af320fddd15c2e44e0ba8646ba91c4a544e662dc785179b080dced087fbe3a33e')
 
 build() {
   cd $pkgname
@@ -42,8 +42,8 @@ check() {
 package() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s "$site_packages"/${pkgname//-/_}-$pkgver.dist-info/LICENSE \
-    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  ln -s "$site_packages"/${pkgname//-/_}-$pkgver.dist-info/licenses/LICENSE \
+    "$pkgdir"/usr/share/licenses/$pkgname
 
   cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
