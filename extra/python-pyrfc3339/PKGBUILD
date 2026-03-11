@@ -2,39 +2,37 @@
 # Contributor: Gordian Edenhofer <gordian.edenhofer[at]yahoo[dot]de>
 
 pkgname=python-pyrfc3339
-pkgver=1.1
-pkgrel=16
+pkgver=2.0.1
+pkgrel=1
 pkgdesc="Parses and generates RFC 3339-compliant timestamps using Python datetime.datetime objects."
 arch=('any')
 license=('MIT')
 url="https://pypi.python.org/pypi/pyRFC3339"
-depends=('python-pytz')
-makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
+depends=('python')
+makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
-source=("https://pypi.python.org/packages/source/p/pyRFC3339/pyRFC3339-${pkgver}.tar.gz"
-        4fa081a3.patch
-        LICENSE.txt)
-sha512sums=('958b7761fab590aa42bb57a955c5d834441f717796a452b60df21663099dcf2fc046afe60f8157fd0f1edfd95c5e9c9c5349ab10ca4078d210fc63d848496a2f'
-            '10b5e4661509f14452146470c536cae20ba9b183da1883581c6ef6c8d65e86df2cecf593c6b8841bc927294cb501a6231e4ef6ca769c944e98d01be577d04bd6'
-            '73c58b87e14593ee283cc323a93820c18a00e9af4e5027687fc8f6cd5735c98f341c6ac1aa90c040d0899766cabb976a85201b171874b4b81934ff02a9728f2d')
+source=("git+https://github.com/kurtraschke/pyRFC3339.git#tag=v$pkgver"
+        4fa081a3.patch)
+sha512sums=('33ac2985c11527162d63cbb1adf82a8b7b6f3121e21c07262d094741676ae3bf4df7097603044a215307d70b2171ea37f9508e0c4f822cc4114bcf8d536f972d'
+            '10b5e4661509f14452146470c536cae20ba9b183da1883581c6ef6c8d65e86df2cecf593c6b8841bc927294cb501a6231e4ef6ca769c944e98d01be577d04bd6')
 
 prepare() {
-  cd "$srcdir/pyRFC3339-$pkgver"
+  cd pyRFC3339
   patch -p1 -i ../4fa081a3.patch # Fix tests with Python 3.14
 }
 
 build() {
-  cd "$srcdir/pyRFC3339-$pkgver"
+  cd pyRFC3339
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$srcdir/pyRFC3339-$pkgver"
+  cd pyRFC3339
   pytest --doctest-modules
 }
 
 package() {
-  cd "$srcdir/pyRFC3339-$pkgver"
+  cd pyRFC3339
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -D -m644 ../LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+  install -D -m644 LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
 }
