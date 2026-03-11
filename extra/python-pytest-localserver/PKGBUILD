@@ -1,9 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-localserver
-pkgver=0.8.1
-_commit=cb062902403e30b0f1b96402f0ba829711da9e55
-pkgrel=5
+pkgver=0.9.0
+pkgrel=1
 pkgdesc='py.test plugin to test server connections locally'
 arch=('any')
 license=('MIT')
@@ -13,8 +12,8 @@ optdepends=('python-aiosmtpd: for smtp')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel'
              'python-setuptools-scm')
 checkdepends=('python-requests')
-source=(git+https://github.com/pytest-dev/pytest-localserver.git#commit=$_commit)
-sha512sums=('SKIP')
+source=(git+https://github.com/pytest-dev/pytest-localserver.git#tag=v$pkgver)
+sha512sums=('b4b860b2ba17e5a3c9e2aa515758c092891f65714caf3f7bd227a8178877801d0b2eb8df69ab3e2abb57928112662f8526405e4c089d6aef4e44fa8327245f45')
 
 build() {
   cd pytest-localserver
