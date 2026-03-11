@@ -1,18 +1,18 @@
 # Maintainer: Leonidas Spyropoulos <artafinde at archlinux dot org>
 
 pkgname=vulture
-pkgver=2.14
-pkgrel=2
+pkgver=2.15
+pkgrel=1
 pkgdesc="Finds dead code in Python projects"
 arch=('any')
 url="https://github.com/jendrikseipp/vulture"
 license=('MIT')
-depends=(python-setuptools python-toml)
+depends=(python-setuptools)
 makedepends=(python-build python-installer python-wheel)
-checkdepends=(python-pytest python-pint)
+checkdepends=(python-pytest python-pint python-pytest-cov)
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('eac2cd25a3d38d7fac82c44827bf314e07d8f5426621aa16e5750972debaaf07')
-b2sums=('056068d7532bedf45d1594ffac48e6fe47b64c0a7483b3a1101f8081f7153aa43ed9a666a3676f62d99ab30b44cf04e99291b468d10a278259fc35dff023635b')
+sha256sums=('e52debc69cea96e4bcb54505c5bb373a677cb9a8cee5fd9039e5952b27ffc0f2')
+b2sums=('67c6dde0768b2796d9dec60736c0e5d3d7089d27abbf7d6c77b7fda2170a75a2a7bbc9c7c15adbbc5f0ef80eb1a719cd4a2592b0cda77defdcbcd13e746f34e9')
 
 build() {
   cd "${pkgname}"-"${pkgver}"
