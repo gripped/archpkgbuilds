@@ -1,17 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-iniconfig
-pkgver=2.1.0
-pkgrel=3
+pkgver=2.2.0
+pkgrel=1
 pkgdesc="brain-dead simple config-ini parsing"
-url="https://github.com/RonnyPfannschmidt/iniconfig"
+url="https://github.com/pytest-dev/iniconfig"
 license=('MIT')
 arch=('any')
 depends=('python')
-makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-hatch-vcs')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm')
 checkdepends=('python-pytest')
-source=("git+https://github.com/RonnyPfannschmidt/iniconfig.git#tag=v$pkgver")
-sha512sums=('6680292c0883c39f02ff99c0c79b247bf7a7b61b43b9720da52ef3b94ff9404f95c86a4537e273cc716cb2bd165937f978d8eef92de447eb94f973f39f8d59ff')
+source=("git+https://github.com/pytest-dev/iniconfig.git#tag=v$pkgver")
+sha512sums=('e999a70a4c26e95f6cf240780bb9168da3843daf28c9122e25a512f24ff4e5e1dd1fd476bc179ce5109f3d1775a3ef1e2bbec0f4692383689a1c9b02ecd7204d')
 
 build() {
   cd iniconfig
