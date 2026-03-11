@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=openpgp-card-tools
-pkgver=0.11.10
+pkgver=0.11.12
 pkgrel=1
 pkgdesc="CLI tool to inspect, manage and use OpenPGP cards"
 arch=(x86_64)
@@ -9,26 +9,24 @@ url="https://codeberg.org/openpgp-card/openpgp-card-tools"
 license=('Apache-2.0 OR MIT')
 depends=(
   ccid
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(
   cargo
   pcsclite
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('b2b69e804e506e1eb932588e627dafdea97a0602cea079305fc74653fb35b5e2b5ab87ce75375900e31d15db440da1e48c915c1538118d46eaad9803869a43ee')
-b2sums=('d9e40faf1d346e54a893b3f7b7d1e9a3fddbc8b2ee02d3938d1b748c37b83308114b2c28944acf93138b283ec374cb9e2b431ed9c9a3ea9882e5f39d0817f4fc')
+sha512sums=('23244e79be50031027400d958a38ac639ea6d963f46f4d5b13ccbe297af5f54ca43e3d1ef9424468a3ccaf89a027e1cc09643b4105b15e377be76d1b2e689b7f')
+b2sums=('bd63aca7036d5bf1439bc13d9321c046f80e7b5382032c416be2f5a66b80b4551c68d4b589e80101deb9eebdcc2d5c28a0264f1ca57a6b9a40c7cb7af5010466')
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd $pkgname
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --frozen --release
   OCT_MANPAGE_OUTPUT_DIR="$PWD/../man/" cargo run
   OCT_COMPLETION_OUTPUT_DIR="$PWD/../completion/" cargo run
