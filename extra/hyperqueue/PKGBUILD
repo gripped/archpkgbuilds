@@ -2,8 +2,8 @@
 
 pkgbase=hyperqueue
 pkgname=(hyperqueue python-hyperqueue)
-pkgver=0.24.0
-pkgrel=3
+pkgver=0.25.1
+pkgrel=1
 pkgdesc="Scheduler for sub-node tasks for HPC systems with batch scheduling"
 arch=(x86_64)
 url="https://github.com/It4innovations/hyperqueue/"
@@ -27,10 +27,16 @@ checkdepends=(
   python-requests
   python-aiohttp
   python-inline-snapshot
+  python-typing_extensions
   python-ruff
 )
 source=($pkgbase-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('437bf54627bbb130508c221d497b0f545173c5344ffd9374fe4501524730f4034ab853df52391f899fee4b07a81f355c002248b161245d2dbe24babfb6ebc886')
+b2sums=('68f3252db807419f005db8674e54118948a5c792072e4acd5ce45168e2b0c6261c8f1c866b8721abc79593d649bee5e2213964da56aa9ebd3e91d68ed841783e')
+
+# deselect highs from default features
+# https://github.com/It4innovations/hyperqueue/issues/1066#issuecomment-3968989734
+_cargo_features_flags=(--no-default-features --features dashboard,jemalloc,microlp)
+_maturin_features_flags=(--no-default-features --features microlp)
 
 prepare() {
   cd $pkgbase-$pkgver
@@ -52,16 +58,16 @@ build() {
   export HQ_BUILD_VERSION=$pkgver
 
   cd $pkgbase-$pkgver
-  cargo build --frozen --release --all-features
+  cargo build --frozen --release "${_cargo_features_flags[@]}"
 
   # build Python bindings
   cd crates/pyhq
-  maturin build --locked --release --target "$(rustc --print host-tuple)" --strip
+  maturin build --locked --release --target "$(rustc --print host-tuple)" --strip "${_maturin_features_flags[@]}"
 }
 
 check() {
   cd $pkgbase-$pkgver
-  cargo test --frozen --release --all-features
+  cargo test --frozen --release "${_cargo_features_flags[@]}"
 
   # test Python bindings
   local pytest_options=(
