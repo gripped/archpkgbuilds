@@ -2,15 +2,15 @@
 
 _name=pysequoia
 pkgname=python-pysequoia
-pkgver=0.1.29
-pkgrel=2
+pkgver=0.1.31
+pkgrel=1
 pkgdesc="Provides OpenPGP facilities in Python through the Sequoia PGP library"
 arch=(x86_64)
 url="https://github.com/wiktor-k/pysequoia"
 license=(Apache-2.0)
 groups=(sequoia)
 depends=(
-  gcc-libs
+  libgcc
   glibc
   python
 )
@@ -22,8 +22,8 @@ makedepends=(
   python-wheel
 )
 source=($_name-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('b306d5fe66501876566c135d49ed137456e68cff382b020330f70a4958ac2f038624ecaf6fffc60cbf689f354a4145584632a2bde4e1633b346a305048c56506')
-b2sums=('c2dec80a1be72d6d540666f03b9c664351114299de9fc8a7e5c2b5170c7bddbf45e85706d973a5fb88ae622c67d27465ce9bffcfa63f91ad55ce3b4dd16181ce')
+sha512sums=('fc5e1e5b2fff082f33bd554893981ffd367fc28ace3a9507774bbce82bd87553a46d8cc6994cc7ec64c5afced86b980eaefe745ce3676545a0413ed8da4734ba')
+b2sums=('83b801eb45611e4d9b5721348ea35d4fafeb4d819e5bd86288f7204443b81f02b25a5df61c8498994325dc4c5fa94258a608454008dea66c11a4256f8da27e31')
 
 build() {
   cd $_name-$pkgver
