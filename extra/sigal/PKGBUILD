@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sigal
-pkgver=2.5
-pkgrel=2
+pkgver=2.6.1
+pkgrel=1
 pkgdesc="Yet another simple static gallery generator"
 arch=(any)
 url="http://sigal.saimon.org/en/latest/"
@@ -30,6 +30,7 @@ checkdepends=(
   python-brotli
   python-cryptography
   python-feedgenerator
+  python-pillow-heif
   python-pytest
   python-zopfli
 )
@@ -42,8 +43,8 @@ optdepends=(
   'python-zopfli: compress assets plugin'
 )
 source=("$_url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('03bd816316e22543239fb5964e977c2844cb68345b0bc860a2b3c87fa243c6847f556164534442e502b2aecba055b0d34a8578f3a1dfc8748c9cca3a591e970c')
-b2sums=('564d21acf9307ccc587946ed739ef6bca9147171c9a470f91c5a25fecbe2d869ea7535808ff5a05bf6433b936371cd40ff9531790f9b60c6f4586e2452b46785')
+sha512sums=('cf2e00109f3bcf8a6d1cf916669ae7b3f39d5b63c7aa949f64a1f6c8989aa3c3b30252fd004a58a5ef0d18039276a3af979825320570b1096203aeb01efcb1ba')
+b2sums=('276b0e3c4fb67fcdc171695f96466fe6955fea4777ffe12f11c209e85965261558b558f579cc56bd7aa9cc8201c1123f8fc237775052b60b8430fa6c9df28fc9')
 
 build() {
   cd $pkgname-$pkgver
@@ -55,16 +56,12 @@ check() {
     -vv
   )
 
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-
   cd $pkgname-$pkgver
-  # install to temporary location, as importlib is used
-  python -m installer --destdir=test_dir dist/*.whl
-  export PYTHONPATH="$PWD/test_dir/$site_packages:$PYTHONPATH"
   # Sigal does not properly clean up multiprocessing pools, running tests on
   # b.a.o will cause file descriptors to be exhausted.
   export PYTHON_CPU_COUNT=1
-  pytest "${pytest_options[@]}"
+
+  PYTHONPATH="src" pytest "${pytest_options[@]}"
 }
 
 package() {
