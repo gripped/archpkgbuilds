@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-cymem
-pkgver=2.0.10
+pkgver=2.0.11
 pkgrel=1
 pkgdesc="Cython memory pool for RAII-style memory management"
 url="https://github.com/explosion/cymem"
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('git' 'cython' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
 source=("git+https://github.com/explosion/cymem.git#tag=release-v$pkgver")
-sha512sums=('28e8b53828a1f384bffa87542ce6d2d81fc3b92630b376e6e6dbf9787019be87f5089609e2e35255db798dba8a4671a4006b1daabe9716985f4a055611790b2e')
+sha512sums=('cc4418e648f676c731fe40170032dc5f722a2a0ea0cae6715ef53300d33331adb11574bd5f32cb963cf50c9798e92d8dec1a877213b78bd28019922f1c570977')
 
 build() {
   cd cymem
