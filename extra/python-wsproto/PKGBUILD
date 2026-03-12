@@ -3,30 +3,30 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=python-wsproto
-pkgver=1.2.0
-pkgrel=7
+pkgver=1.3.0
+pkgrel=1
 pkgdesc="WebSockets state-machine based protocol implementation"
 url="https://github.com/python-hyper/wsproto"
 license=('MIT')
 arch=('any')
 depends=('python-h11')
-makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
+makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
-source=("https://pypi.io/packages/source/w/wsproto/wsproto-$pkgver.tar.gz")
-sha512sums=('43270687a1cfb5f35423c527de5b9db7ee2ddf27d416f47358386c1c94dc3f836a601f300bf66441c4b90130e6e6f502fb29dfeb2374dd76aefa19cfbb70a372')
+source=("git+https://github.com/python-hyper/wsproto.git#tag=$pkgver")
+sha512sums=('61898257468a29c556ea00181b54f04edce0a8524af22b4f7cf93fda74063dbb2cffe66f780ae725d351a34e984e3325c60601fcd63ce1cd3f441fcdb913a4c6')
 
 build() {
-  cd wsproto-$pkgver
+  cd wsproto
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd wsproto-$pkgver
+  cd wsproto
   PYTHONPATH="$PWD"/src pytest
 }
 
 package() {
-  cd wsproto-$pkgver
+  cd wsproto
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
