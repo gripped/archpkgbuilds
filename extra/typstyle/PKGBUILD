@@ -3,12 +3,12 @@
 
 pkgname=typstyle
 pkgver=0.14.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Beautiful and reliable typst code formatter"
 arch=('x86_64')
 url="https://github.com/${pkgname}-rs/${pkgname}"
 license=("Apache-2.0")
-depends=("gcc-libs" "glibc")
+depends=("libgcc" "glibc")
 makedepends=("git" "cargo")
 optdepends=("typst: For typst compilation")
 source=("git+${url}.git#tag=v${pkgver}")
