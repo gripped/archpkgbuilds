@@ -2,7 +2,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=openfpgaloader
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc='Universal utility for programming FPGA'
 arch=(x86_64)
@@ -26,8 +26,8 @@ makedepends=(
   systemd
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('4f9ce75f58aabfad29b76a3dae6881cc4680b971f314fa2d03b23fd6684875976b813ad37bf9a2775be81990e558d5612b232446175d060708f49e99bb9026fc')
-b2sums=('b4a85de328ef10f81fb41ba7d8e19a8fa28f72e1901408d084c7158b6dc1c6c836bb039e5164378d3e6c6c0538ffe5df8e2f0050c5187610fb08d6ced80a9bcf')
+sha512sums=('624ec7b1c12a6729e85c215d65d98a5d959acc51049f3d3f0dccf0fa60bfbf09879399d39c8aeca0ab24f676a2684942780a0db13c2a33f617ed11323f6c81ae')
+b2sums=('e6b1ab3e3019a00e609d569accaed25deae1cbe1ec0565df3e891054a4db55648b5501199570ea29788b9816c98c80a73dbfa3c3e17afe7abed01763d53bc6b9')
 
 prepare() {
   cd "$pkgname"
