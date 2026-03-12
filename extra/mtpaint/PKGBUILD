@@ -3,8 +3,8 @@
 # Contributor: yosh64 <yosh64@gmail.com>
 
 pkgname=mtpaint
-pkgver=3.50.12
-_commit=7cae5d663ed835a365d89a535536c39e18862a83 # version: 3.50.12, no git tags are available
+pkgver=3.50.14
+_commit=8304376e8861a8a603371b0f188db30f9cafdc17 # version: 3.50.14, no git tags are available
 pkgrel=1
 pkgdesc='Paint program for creating icons and pixel art'
 arch=(x86_64)
@@ -16,7 +16,7 @@ optdepends=('gifsicle: export GIF files from mtPaint')
 source=(wayland.patch
         "git+$url#commit=$_commit")
 b2sums=('b4cfaad4f239a9dc124bdf97c6c183b437de51a4ebac42c7f37768aead3a157a36bf33ad2df14dd01cb222f81ee6a66a234f46c58a70a737b8188a76f4f12809'
-        'c463eb8b5fc36739f1e7160e26823f7a537b3930915c3f9b86bc047dbec3656b5249f2e37231d855127f3e8faebc486ac7dac2ff9cbb799c03655e65eced7303')
+        '5fd6ebd11a3dc5a5e8a238837fe92e26c7cd371f57b43516de32fdcd20b92d9cff58864fe3c29de8fda4980f37c82e3c1a987be8a85fa714eca20c4c3e8ffd87')
 
 prepare() {
   cd $pkgname
@@ -27,7 +27,7 @@ prepare() {
 
 build() {
   cd $pkgname
-  export CFLAGS+=" $(pkg-config libopenjp2 --cflags) -D_USE_MATH_DEFINES -Wno-incompatible-pointer-types -Wno-builtin-declaration-mismatch"
+  export CFLAGS+=" -D_GNU_SOURCE $(pkg-config libopenjp2 --cflags) -D_USE_MATH_DEFINES -Wno-incompatible-pointer-types -Wno-builtin-declaration-mismatch"
   export LDFLAGS+=" $(pkg-config libopenjp2 --libs) -lm"
   ./configure --mandir=/usr/share/man --prefix=/usr cflags gtk3 jp2v2 jpeg lcms2 man tiff
   make
