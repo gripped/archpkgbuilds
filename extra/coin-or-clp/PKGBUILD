@@ -3,7 +3,7 @@
 # Contributor: Daniel Ehlers <danielehlers@mindeye.net>
 
 pkgname=coin-or-clp
-pkgver=1.17.10
+pkgver=1.17.11
 pkgrel=1
 pkgdesc='COIN-OR linear programming solver'
 arch=(x86_64)
@@ -17,8 +17,14 @@ depends=(coin-or-asl
          glibc
          suitesparse)
 makedepends=(git)
-source=(git+https://github.com/coin-or/Clp#tag=releases/$pkgver)
-sha256sums=('675f2ba993bd78084a5dfcf61cd38798a9597ebf1d2321677c6f9483ce1a26da')
+source=(git+https://github.com/coin-or/Clp#tag=releases/$pkgver
+        fix-build.patch)
+sha256sums=('315f15c1815f4fc19532a36d66f7c2ff91f1be197f2fc93bf9731822cbfa88c4'
+            'bc7f730484a0f5c92e73e861c78141e5efdb015b7828740fef14656eedfb7541')
+
+prepare() {
+  patch -d Clp -p1 < fix-build.patch
+}
 
 build() {
   cd Clp
