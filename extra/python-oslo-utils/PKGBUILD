@@ -2,19 +2,19 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-utils
-pkgver=7.4.0
-pkgrel=5
+pkgver=8.0.0
+pkgrel=1
 pkgdesc="Oslo Utility library"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.utils/$pkgver"
-license=('Apache')
+license=('Apache-2.0')
 depends=('python-iso8601' 'python-oslo-i18n' 'python-netaddr' 'python-netifaces'
          'python-debtcollector' 'python-pyparsing' 'python-packaging' 'python-yaml' 'python-psutil')
 makedepends=('git' 'python-setuptools')
 checkdepends=('python-eventlet' 'python-testscenarios' 'python-testtools' 'python-oslotest'
               'python-ddt' 'python-stestr' 'qemu-img')
 source=("git+https://github.com/openstack/oslo.utils.git#tag=$pkgver")
-sha512sums=('5c31f88b364d7f5282e76941250182337656eedafcd0641c815bc6cafbf8e0b1557d6cb8cd54d6017d3a53d391e4889c654667e7b25f818cf3fd3f2f6641e19b')
+sha512sums=('176bf0dca32062db5de5ef43699ff686901726bc5925d658bb83515bb5cc778ed96c15bf6cb8d981d4fa25f8407a15e0c4f69fb5250c5ebcfbedc76e1941c90d')
 
 prepare() {
   cd oslo.utils
