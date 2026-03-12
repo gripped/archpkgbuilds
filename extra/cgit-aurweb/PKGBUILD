@@ -7,7 +7,7 @@
 
 pkgname=cgit-aurweb
 pkgver=1.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A web interface for git written in plain C (aurweb branch)'
 arch=('x86_64')
 url='https://git.zx2c4.com/cgit/'
@@ -40,12 +40,35 @@ sha256sums=('a285188cb3b9cda138e418ff07dddecfc0302d13418a9193c6d64548f981d3be'
             'c1d03b2abdd4091f10e777644242762d2e34f903b4587e1683a0560bebc45eea'
             'fde213191b38137c1e29b123eb777004dc84cc6ca9d97d5f78ad717689def5f1')
 
+_backports=(
+  # ui-log: allow link following to be disabled per-repo
+  '0d28d54f0a287ee3e5a12d14ffd2ee23b5e22d76'
+
+  # cgit: override die routine globally
+  '0d8e5fbc31e1082063bfb5155c35b7869721152b'
+)
+
+_reverts=(
+)
+
 prepare() {
   cd cgit/
 
   # branch 'aurweb' from https://gitlab.archlinux.org/archlinux/cgit.git ...
   # Please do *NOT* merge/cherry-pick, as commit hashes will change on rebase!
   git apply --verbose --index < ../1001-aurweb.patch
+
+  local _c _l
+  for _c in "${_backports[@]}"; do
+    if [[ "${_c}" == *..* ]]; then _l='--reverse'; else _l='--max-count=1'; fi
+    git log --oneline "${_l}" "${_c}"
+    git cherry-pick --mainline 1 --no-commit "${_c}"
+  done
+  for _c in "${_reverts[@]}"; do
+    if [[ "${_c}" == *..* ]]; then _l='--reverse'; else _l='--max-count=1'; fi
+    git log --oneline "${_l}" "${_c}"
+    git revert --mainline 1 --no-commit "${_c}"
+  done
 
   git config --file=.gitmodules submodule.git.url ../git/
   git submodule init
