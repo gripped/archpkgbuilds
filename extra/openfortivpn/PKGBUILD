@@ -2,7 +2,7 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 
 pkgname=openfortivpn
-pkgver=1.24.0
+pkgver=1.24.1
 pkgrel=1
 pkgdesc="An open implementation of Fortinet's proprietary PPP+SSL VPN solution"
 arch=(x86_64)
@@ -20,9 +20,9 @@ makedepends=(
   systemd
 )
 backup=(etc/openfortivpn/config)
-_tag=9230413f47de40fbf0dc8ba18eff42e943e27ca7
+_tag=a40a2d588733d48534eb78cd17b90142e5ba039b
 source=(git+https://github.com/adrienverge/openfortivpn.git#tag=${_tag})
-sha256sums=('6969bd60a301b8689d10a30be3b1f90f61b34d244e11064112a8026f37ef8fc6')
+sha256sums=('83f9e0894c363e454333ae4575a743358fedde95bc173b39e31dfb47373d473f')
 
 prepare() {
   cd openfortivpn
