@@ -6,28 +6,23 @@
 # Contributor: Aurelien Foret <orelien@chez.com>
 
 pkgname=zsnes
-pkgver=2.0.12
+pkgver=2.1.0
 pkgrel=2
 pkgdesc='Super Nintendo emulator'
 url='https://github.com/xyproto/zsnes'
 arch=(x86_64)
 license=(GPL-2.0-only)
-depends=(lib32-libpng lib32-opengl-driver lib32-sdl lib32-sdl12-compat)
-makedepends=(git mesa nasm setconf)
-optdepends=('lib32-alsa-lib: sound support for ALSA'
-            'lib32-pipewire: sound support for Pipewire'
-            'lib32-libpulse: sound support for Pulse Audio')
-source=("git+$url#commit=fb8713efa2807dc56b0e3e88bbb09a62ca22bcfb") # tag: 2.0.12
-b2sums=('1ff139d259e914d03bb224fc1d91d2c6c9decbb6d0fbf09e7d014b243352570ef402d87b1a590697f1af49281a41b31946d2a56506124bf20aa5d1d561fe3314')
+depends=(hicolor-icon-theme lib32-libpng lib32-opengl-driver lib32-pipewire lib32-sdl3)
+makedepends=(git mesa nasm python)
+source=("git+$url#tag=$pkgver")
+b2sums=('89a7306ea3bf20dfe0bbb40b3c967d843f4ddf1bb5f07fda5a44e1fe172ced3b8b160b510472d3639544d348a64f49bd7cb8d71ece9024e1b49c0a936a6eb202')
 
 build() {
-  export CFLAGS=${CFLAGS/-fcf-protection/}
-  export CXXFLAGS=${CXXFLAGS/-fcf-protection/}
-  export CFLAGS=${CFLAGS/-Wp,-D_FORTIFY_SOURCE=3/}
-  export CXXFLAGS=${CXXFLAGS/-Wp,-D_FORTIFY_SOURCE=3/}
-  export CFLAGS+=' -finline-functions -w'
-  export CXXFLAGS+=' -finline-functions -w'
+  # ZSNES is an old 32-bit x86 binary with hand-written Assembly
+  # that does not work well with several common flags.
+  unset CFLAGS CXXFLAGS LDFLAGS
 
+  export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
   make -C $pkgname
 }
 
