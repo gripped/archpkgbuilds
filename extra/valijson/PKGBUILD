@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=valijson
-pkgver=1.0.6
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="Header-only JSON Schema validation library for C++"
 url="https://github.com/tristanpenman/valijson"
@@ -17,7 +17,7 @@ makedepends=(
   qt5-base
 )
 source=("git+$url#tag=v$pkgver")
-b2sums=('e694b707a704a86e232036f67659d4e4ed96952f9b4b370ee3b95f907271a0b6c9bf9f416129af38fdfcf2caae5772d1d0b47295f6a7d5a4ddd6ee9142bf9524')
+b2sums=('88e53700aed7587d457a404099a3e9155a3a5afc6e70f44573f179537c9af96b9dd22f1a42c42a01b935a266a80c141a359aa61bfdb5834f72d12da967e960b2')
 
 build() {
   local cmake_options=(
