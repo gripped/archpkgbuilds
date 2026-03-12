@@ -2,7 +2,7 @@
 # Contributor: Bence Balint <balintbence1337@gmail.com>
 
 pkgname=python-w3lib
-pkgver=2.2.1
+pkgver=2.3.0
 pkgrel=1
 pkgdesc="Library of web-related functions"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python')
 makedepends=('git' 'python-setuptools')
 checkdepends=('python-pytest')
 source=("git+https://github.com/scrapy/w3lib.git#tag=v$pkgver")
-sha512sums=('cc98f2dcc80334c8a2d2ebfdb207e3e94412d64eff3760aa790b7134e591d16a9eb2d697b7813ff6ffd9706d41cdde92b94492d3223738113d4b5fe074747f43')
+sha512sums=('2f87875bec102450a12dd911e12719af1df478f9eaa2d329f76c85126bad2b62c36ad3a8bff775c2da86f5da583417df810c0323b585ccaafc7f619da34d24f0')
 
 build() {
   cd w3lib
