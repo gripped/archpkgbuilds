@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-path
-pkgver=16.14.0
+pkgver=16.15.0
 pkgrel=1
 pkgdesc='A module wrapper for os.path'
 arch=('any')
@@ -14,7 +14,7 @@ replaces=('python-path.py')
 conflicts=('python-path.py')
 provides=('python-path.py')
 source=("git+https://github.com/jaraco/path.git#tag=v$pkgver")
-sha512sums=('433c64791acf2022823a3d43d12792b08f2077d7316d66f1fee7e80414a43221777af108250db5be85d2c6f831487083b99ed25f1af3ef02beaa5fb66d8fa585')
+sha512sums=('c8b7a9201ab8ce136155e06c788a60a16761e88ba64550fd34d74ce604f37f274db1ee61d6efeaef9482e1f98decd41293de6675f3985a64c7f59fecf461f101')
 
 build() {
   cd path
