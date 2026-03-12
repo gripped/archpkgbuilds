@@ -5,16 +5,17 @@
 
 pkgname=hydrogen
 pkgver=1.2.6
-pkgrel=2
+pkgrel=3
 pkgdesc="An advanced drum machine"
 arch=(x86_64)
 url="http://www.hydrogen-music.org/"
 license=(GPL-2.0-or-later)
 groups=(pro-audio)
 depends=(
-  gcc-libs
   glibc
   hicolor-icon-theme
+  libgcc
+  libstdc++
   qt6-base
   qt6-svg
 )
