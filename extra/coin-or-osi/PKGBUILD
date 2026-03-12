@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=coin-or-osi
-pkgver=0.108.11
+pkgver=0.108.12
 pkgrel=1
 pkgdesc='COIN-OR Open Solver Interface'
 arch=(x86_64)
@@ -14,7 +14,7 @@ depends=(coin-or-coinutils
 makedepends=(gcc-fortran
              git)
 source=(git+https://github.com/coin-or/Osi#tag=releases/$pkgver)
-sha256sums=('596856f51b4dc5296e40703e04f62fd64e088445866148fd24c3875a894b49b7')
+sha256sums=('103cc33037c77ac9c8ec7e5c1a7d4b67f5b082b36f39b0651f51a24e71a5e1e1')
 
 build() {
   cd Osi
