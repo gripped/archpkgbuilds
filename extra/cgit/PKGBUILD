@@ -7,7 +7,7 @@
 
 pkgname=cgit
 pkgver=1.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A web interface for git written in plain C'
 arch=('x86_64')
 url='https://git.zx2c4.com/cgit/'
@@ -38,8 +38,31 @@ sha256sums=('a285188cb3b9cda138e418ff07dddecfc0302d13418a9193c6d64548f981d3be'
             '4004b72d433e5810b046fc6019171a11a0dae3e9c6b29a44f16ed41705c46c3d'
             '89927d462c0504863c163eb8a210e5d65db30ee6e4300ff6a2f92460e4f20a62')
 
+_backports=(
+  # ui-log: allow link following to be disabled per-repo
+  '0d28d54f0a287ee3e5a12d14ffd2ee23b5e22d76'
+
+  # cgit: override die routine globally
+  '0d8e5fbc31e1082063bfb5155c35b7869721152b'
+)
+
+_reverts=(
+)
+
 prepare() {
   cd cgit/
+
+  local _c _l
+  for _c in "${_backports[@]}"; do
+    if [[ "${_c}" == *..* ]]; then _l='--reverse'; else _l='--max-count=1'; fi
+    git log --oneline "${_l}" "${_c}"
+    git cherry-pick --mainline 1 --no-commit "${_c}"
+  done
+  for _c in "${_reverts[@]}"; do
+    if [[ "${_c}" == *..* ]]; then _l='--reverse'; else _l='--max-count=1'; fi
+    git log --oneline "${_l}" "${_c}"
+    git revert --mainline 1 --no-commit "${_c}"
+  done
 
   git config --file=.gitmodules submodule.git.url ../git/
   git submodule init
