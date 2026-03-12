@@ -1,4 +1,5 @@
 [kafka]
-source = "regex"
-url = "https://kafka.apache.org/downloads"
-regex = ">kafka-(.*)-src\\.tgz<"
+source = "htmlparser"
+url = "https://kafka.apache.org/community/downloads/"
+xpath = "//h2[@id='supported-releases']/following::h3[1]"
+
