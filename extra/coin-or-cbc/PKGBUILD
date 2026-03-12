@@ -3,8 +3,8 @@
 # Contributor: Daniel Ehlers <danielehlers@mindeye.net>
 
 pkgname=coin-or-cbc
-pkgver=2.10.12
-pkgrel=5
+pkgver=2.10.13
+pkgrel=1
 pkgdesc='COIN-OR branch-and-cut mixed integer programming solver'
 arch=(x86_64)
 url='https://github.com/coin-or/Cbc'
@@ -20,7 +20,7 @@ depends=(coin-or-asl
          nauty)
 makedepends=(git)
 source=(git+https://github.com/coin-or/Cbc#tag=releases/$pkgver)
-sha256sums=('36ce629474dd1c7bfff0e12c1a405d8046f6f794cdb403a94e9b3aeb09b8ccfa')
+sha256sums=('306ed55406540a69c5c2c1911f96df5c47a44524856b524294f04e9158d2d53a')
 
 build() {
   cd Cbc
