@@ -3,7 +3,7 @@
 # Contributor: Anibal Pacheco <apacheco.uy@gmail.com>
 
 pkgname=scrapy
-pkgver=2.14.1
+pkgver=2.14.2
 pkgrel=1
 pkgdesc="A fast high-level scraping and web crawling framework."
 arch=('any')
@@ -63,8 +63,8 @@ optdepends=(
   'python-zstandard: for HTTP compression using zstandard'
 )
 source=("https://github.com/scrapy/scrapy/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('53ce6c0b06cb78ccd4a694938a014f0e30924dbcc6a9f4c38565977347418fb0f95bcd0a707a5517042ddfec31fbe952bfdd7feb6edbc22fa5497aa0a13f6cc0')
-b2sums=('c3685343a7443eb4dcaf93e3828d06e108a2893cd958acf6049a4728cc88d98f4bf779d055207bd1b8e141d7b44ee45dccb0ad8e894b25063908c038764536d3')
+sha512sums=('4a6743047dd02361586e526f2ba9f7509068cbb618adc43dd683c240273c4e4ee41022d46752afd16067e2b02249423ca196b2d749b32064d65bd817839331a4')
+b2sums=('3d256fc8baa616a330b1ea6ee506098ade9fd1edc6b2fa8c9b8ec850ed7415f80ea945bfb19cadb9567780db84b7b82dd4f635ccaaa6428d3402970b7d3f3a2a')
 
 build() {
   cd $pkgname-$pkgver
