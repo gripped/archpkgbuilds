@@ -1,14 +1,14 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=solr
-pkgver=9.10.1
+pkgver=10.0.0
 pkgrel=1
 pkgdesc="Open source enterprise search platform built on Apache Lucene"
 arch=(any)
 url="https://lucene.apache.org/solr/"
 license=(Apache)
-depends=(bash 'java-runtime=11')
-makedepends=(gradle git groovy 'java-environment=11' npm)
+depends=(bash 'java-runtime=21')
+makedepends=(gradle git groovy 'java-environment=21' npm)
 backup=(
   etc/$pkgname/server/jetty-http.xml
   etc/$pkgname/server/jetty-https.xml
@@ -25,28 +25,22 @@ source=(
   $pkgname.sysusers
   $pkgname.tmpfiles
   support-reproducible-builds.patch
-  skip-failing-test.patch
   skip-checks-for-git-repo.patch
-  allow-using-system-gradle.patch
 )
-sha512sums=('14e786eacc4964bb7c41a5596d9eea930f66b6c27efa3da4a2941d2962d6ba70bde34a22b5909cc80b8953ff505cdea327e2a04222e4dfb2058d52903b4bef36'
+sha512sums=('b3b635943467d6f79027ca0cdd301b8dbee754ceb7b05312a262e0b2ffbda2a917a5ab2567a5e2bbec7f523ceb009e61a96e28177f7296f2935419e343606355'
             'SKIP'
             'd9a5dcc7a30bf449abf9028bc4aa88e196c953d82b884661ec3191d4a06ec50b106c01ecdcd225e3526ab4f4ce5634d6dcd4a03f1e128fdd4c26febb1b742532'
             '4a92e55709bcaffeab9456b2c3a7e76b38ab91f0bcf8a714f7da0691c46dfb28ef39741827ab90a1e7a26d716acfdc050af5cd4d043137bff51c07e114819fc2'
             '97252d1ba1e4e211a6b5a038981cbc9d6663a0d7a980b23484f838eebb2f8194571a3f34ea6b92ed0efd4b7f862e020b5e3e8478ad1de1c6832e232d0b20ff6d'
             'cda14703a9144e0add93d6f7a32691a80e2cadbb738c0c752122e6e27bbf1441a48a1a2ee146f10dd4f0ba4e5f5e38a46b45c1e01ff8c79bd477f3030a7c265d'
-            'cdf46ddc62f3f8c7b258a806cf1b2765b156077becb77a97dbe3dae8ee05942d5fcf34e40ff25da5c4022fe3fb47bf378f51e58fd18005f5b0f525099ae22353'
-            '1ad7eb67116fc58e7ad38926a696e76f9bc10447101e95ddfb0da914cb7a9916aeab47ad498fec3ff18285827f21d8855c1854778ce09c8e70dc9ce1576b57d1'
-            '5e45fcd63be50484dbdd7b909f187d4d90a89639b80571bd93c432599b2064498344d4168dd06dfc45368ce043a873ae6be804d3ff1a3c42746b045c215cab92')
-b2sums=('4fb5d7485188e5cbd239909758c55c55de485d25041906787d53825480849e576a9a7087070774d2de8d33a9a1578dec60e3652123e09d913b7d5fc67aee8ecd'
+            '1ad7eb67116fc58e7ad38926a696e76f9bc10447101e95ddfb0da914cb7a9916aeab47ad498fec3ff18285827f21d8855c1854778ce09c8e70dc9ce1576b57d1')
+b2sums=('d06b3938f210556e4e488461b49a3aac9c3421d989ffdd3af1fa3c48e245f01beb3e314fcda9bf6cdd24e72fc04ea96e255518283009a9f0705067a1eeacba00'
         'SKIP'
         'f970329fad0358cb19af9b9337047612d5949af8aea2dc7acd6c8424ba494644940d22f46b98a9cf1362ea2e5d966b863907de35e7c0edc2e48f7b0ed00473b7'
         'bd7624d92430c461063faa63dc00f5b546f86937c01161d3f2027406a37e8e3b7bcd7b3ca4b268e2ccd6c96c3f49addcfea4a86844145822ed70eaecdd3fd4bc'
         '37ab5d9af1da1178fcc58ce39654fdecb842b24d4e2264a2eec95c10223e7d003f27a6b2957a267a17ce0fa72258d96642d5b909963576a5a7d13e4e05c47a51'
         '60b0b2124ff8e4e2faa9323a0156fa02ea606c5779f7b80e42a05de78fa7e67546e33a444c5b1b4d61aaf2dcd067430022091449da386c310b8a99ce75eb1d3c'
-        '8120846e77a55611c07ba27ce526820b0a71ddc749caf18e9e936eef6e033cc9836dcf449aebe04090b36afb603ef1d15ac08d60d965c5af46c21fc8aadc0134'
-        '3e7d4e76994752bd62aa6e519bbfecc9db2ad81d3f086ea1920f5bc78bb93c68aab6ca01225860e46e59666af450f3a826fe91edf7a820396be342d431002b94'
-        'ef52cfc76c484b78bacfee8a6e6321d80d3a03bdf11f81ab15e8328dd680cc87010e34a3f59423325707f60c87fe03fb2e77a082140e364d61ebaf5582101f59')
+        '3e7d4e76994752bd62aa6e519bbfecc9db2ad81d3f086ea1920f5bc78bb93c68aab6ca01225860e46e59666af450f3a826fe91edf7a820396be342d431002b94')
 # list of trusted signing keys: https://downloads.apache.org/solr/KEYS
 validpgpkeys=(
   2085660D9C1FCCACC4A479A3BF160FF14992A24C  # Ishan Chattopadhyaya <ishan@apache.org>
@@ -75,8 +69,6 @@ prepare() {
   cd $pkgname-$pkgver
   patch -Np1 -i "$srcdir"/skip-checks-for-git-repo.patch
   patch -Np1 -i "$srcdir"/support-reproducible-builds.patch
-  patch -Np1 -i "$srcdir"/skip-failing-test.patch
-  # patch -Np1 -i "$srcdir"/allow-using-system-gradle.patch
   sed -i 's/download = true/download = false/' gradle/node.gradle
 }
 
