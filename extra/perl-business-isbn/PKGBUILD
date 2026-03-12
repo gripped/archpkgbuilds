@@ -2,8 +2,8 @@
 # Contributor: Rémy Oudompheng <remy@archlinux.org>
 
 pkgname=perl-business-isbn
-pkgver=3.012
-pkgrel=3
+pkgver=3.013
+pkgrel=1
 pkgdesc='Perl package to deal with International Standard Book Numbers'
 arch=(any)
 url='https://github.com/briandfoy/business-isbn'
@@ -14,8 +14,8 @@ checkdepends=(perl-test-pod)
 optdepends=('perl-libwww: for access to the xISBN service')
 options=(!emptydirs)
 source=("$pkgname::git+$url#tag=release-${pkgver}")
-sha512sums=('9025f30db9d22c342676d7d0dd8497883ef12fd06fc236715425a1df14899d3529e10cd753d91e815213f65b564fb759313eeacb37784b75248868905d938373')
-b2sums=('54d9f26c8a48b3020befdc165ceddeb6864695b104590b256969ffe9753566792cad27beb5580b41411161c740bc88f1af4c54e520d3b90ff5beda4d39e65fc3')
+sha512sums=('5164e4596854f9dd51ff8109cc81f6b6770dfe05ce4785414d899eefdf79c9a1265e2f19994bb8b095d91640b5ef66fa6abb70622c1b01bf7c4bfce4be86b896')
+b2sums=('1483249ebeb19800acfbacaefbd501f33c92778bf944c67b2e1804c17477bd3358ec359a382c62f982c3cdc1dde38a02df3bde4348feda51ca9bb02304155257')
 
 build() {
   cd "$pkgname"
