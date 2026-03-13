@@ -3,7 +3,7 @@
 
 pkgname=bazaar
 pkgver=0.7.12
-pkgrel=1
+pkgrel=2
 pkgdesc="A new app store for GNOME with focus on flatpaks, particularly Flathub"
 arch=('x86_64')
 url="https://github.com/kolunmi/bazaar"
@@ -59,4 +59,7 @@ package() {
   cd "${pkgname}"
 
   DESTDIR="${pkgdir}" ninja -C build install
+
+  # Remove files that conflict with blueprint-compiler
+  rm -rf "${pkgdir}/usr/lib/python"*"/site-packages/blueprintcompiler"
 }
