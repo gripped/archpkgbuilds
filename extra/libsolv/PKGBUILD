@@ -2,8 +2,8 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=libsolv
-pkgver=0.7.35
-pkgrel=2
+pkgver=0.7.36
+pkgrel=1
 pkgdesc="Library for solving packages and reading repositories"
 arch=('x86_64')
 url="https://github.com/openSUSE/libsolv"
@@ -14,7 +14,7 @@ optdepends=('perl: for perl bindings'
             'python: for python bindings'
             'ruby: for ruby bindings')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('e6ef552846f908beb3bbf6ca718b6dd431bd8a281086d82af9a6d2a3ba919be5')
+sha256sums=('32b8a565b70b6ba81d9ad68070de4561dfc8462be12288725a267a90423c0fa6')
 
 build() {
   cd "$pkgname-$pkgver"
