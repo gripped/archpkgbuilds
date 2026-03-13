@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-maps
-pkgver=49.4
+pkgver=49.5
 pkgrel=1
 pkgdesc="Find places around the world"
 url="https://apps.gnome.org/Maps"
@@ -12,16 +12,16 @@ license=(GPL-2.0-or-later)
 depends=(
   cairo
   dconf
-  hicolor-icon-theme
-  gcc-libs
   geoclue
   geocode-glib-2
   gjs
   glib2
   glibc
   gtk4
+  hicolor-icon-theme
   json-glib
   libadwaita
+  libgcc
   libgweather-4
   libportal
   librest
@@ -40,7 +40,7 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-maps.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('e8cd6a1d85d49859d640698cc2598fde11ec7cd316149b37cd10dd69653ca1a4b3123f1efc94a065ae8fd147cf8a87d0e70b037236cd4aa315441cf3804500ca')
+b2sums=('79932235081b9ab531d995d7908167ca6beb694c9954b70994050f221c08e2c2fe68c0cf9105e086380af19e2f9b021341a5ca6e94e5c67d3e7fe71b0ede8336')
 validpgpkeys=(
   7448F128A4B18AB2EF87F092FA6624580A420D5D # Marcus Lundblad <ml@update.uu.se>
 )
