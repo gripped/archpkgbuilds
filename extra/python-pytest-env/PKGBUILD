@@ -2,7 +2,7 @@
 # Contributor: Rafael Fontenelle <rafaelff@gnome.org>
 
 pkgname=python-pytest-env
-pkgver=1.5.0
+pkgver=1.6.0
 pkgrel=1
 pkgdesc='pytest plugin to set environment variables in pytest.ini or pyproject.toml file'
 arch=(any)
@@ -22,8 +22,8 @@ makedepends=(
 )
 checkdepends=(python-pytest-mock)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('5aaf0a14706cd8df6dcc808a1851126fb8332fbc5d12a42aceaa2c5e12a3aa73effb7d5a1befcc7513dfbc7ff16aea1bf203436cf8d5f1bf298463a38ddc81ad')
-b2sums=('f08ace69c95f18e03753225b72724ec84b4bd1ae0873e9194146974795c556a8dfe12f3d53ce654dca2502dfb81e65a41af33b74ba15b34b668c54cfa3632c06')
+sha512sums=('a4228f1ec925f7cb03d42a7307cee1f63e057270bd116c3e8a0a7f639abd0b55543565782e25b1437c03d9155dfecf18a1dc4e5df4e8dd6728fe629356c729ab')
+b2sums=('da29e5489206f2bff00e02b2488f05ed9c62cf63f48004a3708980666e9ff5b2972983e03c8d928ecf0b94ab606e4eb84aad6aed1a02a28ce34549b6a6beb34a')
 
 build() {
   cd "$pkgname"
