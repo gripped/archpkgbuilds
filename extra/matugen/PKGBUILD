@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=matugen
-pkgver=3.1.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='A material you color generation tool'
 arch=(x86_64)
@@ -12,7 +12,7 @@ depends=(gcc-libs
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('f00b7bd284ef6184a0c94d54cb745230c6e58f26012491eaf7f7bcea0f3a489b')
+sha256sums=('f8c9c698dc85c0168cb3d41098f235eb4e2ba39d7d66a5c494c6f76cc806992b')
 
 prepare() {
 	cd "$_archive"
