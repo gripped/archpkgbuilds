@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=davfs2
-pkgver=1.7.2
-pkgrel=3
+pkgver=1.7.3
+pkgrel=1
 pkgdesc="File system driver that allows you to mount a WebDAV folder"
 arch=(armv7h aarch64 x86_64)
 url="https://github.com/alisarctl/$pkgname"
@@ -13,7 +13,7 @@ backup=("etc/$pkgname/$pkgname.conf"
         "etc/$pkgname/secrets")
 _archive="$pkgname-$pkgver"
 source=("$url/releases/download/rel-${pkgver//./-}/$_archive.tar.gz"{,.sig})
-sha256sums=('1bdc2bb235a9f2e546a6a13c559ecf43c64407e3c4497d77b8ec3f62f4b84e46'
+sha256sums=('a5368161eb5055651d7e5e8180c1606da95e78c941b6bb8a9286df7923cfcba9'
             'SKIP')
 validpgpkeys=('51A0F4A0C8CFC98F842EA9A8B94556F81C85D0D5') # Ali Abdallah <aabdallah@suse.com>
 
