@@ -10,27 +10,27 @@ pkgname=(
   harfbuzz-utils
   harfbuzz-docs
 )
-pkgver=12.3.2
+pkgver=13.1.1
 pkgrel=1
 pkgdesc="OpenType text shaping engine"
 url="https://harfbuzz.github.io/"
 arch=(x86_64)
 license=(MIT)
-depends=(
-  freetype2
-  glib2
-  glibc
-  graphite
-)
 makedepends=(
   cairo
   chafa
+  freetype2
   git
+  glib2
   glib2-devel
+  glibc
   gobject-introspection
+  graphite
   gtk-doc
   help2man
   icu
+  libpng
+  libstdc++
   meson
   python
   ragel
@@ -39,8 +39,12 @@ checkdepends=(
   python-fonttools
   python-setuptools
 )
-source=("git+https://github.com/harfbuzz/harfbuzz?signed#tag=$pkgver")
-b2sums=('d6f26fe614aeea8f84e5be74b1cb4fd8212aa285b2a951f2dee3a39e1ad1be14524ce0b2c1d02b3307d63610e58510a2345b5b2619ea078bd820a07edcac1893')
+source=(
+  "git+https://github.com/harfbuzz/harfbuzz?signed#tag=$pkgver"
+  0001-util-Add-missing-chafa_dep-to-hb-raster.patch
+)
+b2sums=('3626b19545a4ea4dd92cf5f38b8cdffd3a5d7e3eae7c49df23821e2c05bc299ec62373836454e5f92ab9e90c4b4d8c9a360f16eefa1c0690153d4be9403af266'
+        '09831355f499e6481f8a4de236bcaf0c42f6559fd24fe92310bbb1a928543f332d7808af6167e81e1892940ef776baba20a0e8bb798169e7cb5c58010848b482')
 validpgpkeys=(
   053D20F17CCCA9651B2C6FCB9AB24930C0B997A2 # Khaled Hosny <khaled@aliftype.com> (@khaledhosny)
   9F377DDB6D3153A48EB3EB1E63CC496475267693 # Caleb Maclennan <caleb@alerque.com> (@alerque)
@@ -50,6 +54,9 @@ validpgpkeys=(
 
 prepare() {
   cd harfbuzz
+
+  # Fix build
+  git apply -3 ../0001-util-Add-missing-chafa_dep-to-hb-raster.patch
 }
 
 build() {
@@ -68,7 +75,7 @@ build() {
 
 check() {
   mkdir -p tmp
-  TMPDIR="$PWD/tmp" meson test -C build --print-errorlogs
+  TMPDIR="$PWD/tmp" meson test -C build --print-errorlogs --no-rebuild
   rm -r tmp
 }
 
@@ -83,15 +90,17 @@ _pick() {
 }
 
 package_harfbuzz() {
-  depends+=(
-    libfreetype.so
-    libgraphite2.so
-    libg{lib,object}-2.0.so
+  depends=(
+    freetype2 libfreetype.so
+    glib2 libg{lib,object}-2.0.so
+    glibc
+    graphite libgraphite2.so
+    libpng libpng16.so
   )
   optdepends=('harfbuzz-utils: utilities')
-  provides=(libharfbuzz{,-subset,-gobject}.so)
+  provides=(libharfbuzz{,-{subset,gobject,raster,vector}}.so)
 
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --destdir "$pkgdir" --no-rebuild
 
   ( cd "$pkgdir"
 
@@ -115,14 +124,12 @@ package_harfbuzz() {
 package_harfbuzz-cairo() {
   pkgdesc+=" - Cairo integration"
   depends=(
-    cairo
+    cairo libcairo.so
     freetype2
     glib2
     glibc
     graphite
-    harfbuzz
-    libcairo.so
-    libharfbuzz.so
+    harfbuzz libharfbuzz.so
   )
   provides=(libharfbuzz-cairo.so)
 
@@ -135,10 +142,8 @@ package_harfbuzz-icu() {
   pkgdesc+=" - ICU integration"
   depends=(
     glibc
-    harfbuzz
-    icu
-    libharfbuzz.so
-    libicuuc.so
+    harfbuzz libharfbuzz.so
+    icu libicuuc.so
   )
   provides=(libharfbuzz-icu.so)
 
@@ -150,22 +155,14 @@ package_harfbuzz-icu() {
 package_harfbuzz-utils() {
   pkgdesc+=" - Utilities"
   depends=(
-    cairo
-    chafa
-    freetype2
-    glib2
+    cairo libcairo.so
+    chafa libchafa.so
+    freetype2 libfreetype.so
+    glib2 libg{lib,object}-2.0.so
     glibc
-    harfbuzz
-    harfbuzz-cairo
-    libcairo.so
-    libchafa.so
-    libfreetype.so
-    libglib-2.0.so
-    libgobject-2.0.so
-    libharfbuzz-cairo.so
-    libharfbuzz-gobject.so
-    libharfbuzz-subset.so
-    libharfbuzz.so
+    harfbuzz libharfbuzz{,-gobject,-subset}.so
+    harfbuzz-cairo libharfbuzz-cairo.so
+    libstdc++ libstdc++.so
   )
 
   mv hb-utils/* "$pkgdir"
@@ -175,7 +172,6 @@ package_harfbuzz-utils() {
 
 package_harfbuzz-docs() {
   pkgdesc+=" - Documentation"
-  depends=()
 
   mv hb-docs/* "$pkgdir"
 
