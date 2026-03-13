@@ -7,8 +7,7 @@
 
 pkgname=nim
 _pkgname=Nim
-pkgver=2.0.10
-_csourcesver=86742fb02c6606ab01a532a0085784effb2e753e
+pkgver=2.2.8
 pkgrel=1
 pkgdesc='Imperative, multi-paradigm, compiled programming language'
 url='https://nim-lang.org/'
@@ -22,12 +21,15 @@ depends=(
 )
 makedepends=(
   git
+  nodejs
+  help2man
 )
 provides=(nimble)
 conflicts=(nimble)
 replaces=(nimble)
 options=(!emptydirs)
 backup=(
+  etc/nim/config.nims
   etc/nim/nim.cfg
   etc/nim/nimdoc.cfg
   etc/nim/nimdoc.tex.cfg
@@ -35,93 +37,80 @@ backup=(
 )
 source=(
   "$pkgname::git+https://github.com/nim-lang/Nim#tag=v$pkgver"
-  "git+https://github.com/nim-lang/csources_v2.git#commit=${_csourcesver}"
+  build-docs.patch
+  'nim-gh-pr-24405.patch::https://patch-diff.githubusercontent.com/raw/nim-lang/Nim/pull/24405.patch'
 )
-sha512sums=('93f6dc51d09efdac22610af1c79cfdb84e857299ba85dc95fd248bbb4fd4feba32617d6d7e8e5472cd288c63841dc9c94ad2fb7191f3068bd9d2416bc80a9c09'
-            '0c6eabf3aff84d0ed6e0e0c1705d523e93eb7a7d70f4a01aed947af14eecd9eb15c43d8420b20f3ec463f600a23a73e485a77d5019abd49e09402f44d7aaa4f2')
-b2sums=('c0569703a24795bb7a37e5ca008eb165116131faf435b4aa74fe891362ed38332c897a4de8db94e4c1176c710ea9850aebd535b0e1f9d852d7a370f5b92ea7bd'
-        '2325bebb91b56f9373df83366efb308994fececc0f73acb2ad7b0822fc549d101026a5c1bf7c5ff7fd534e57f9e956f167bbfe00223fe3db0b487175cf0ca369')
+sha512sums=('e653db3b66d142b3de73a531ead042e0d5110ed797298b82538eecf8b660c33fdb6eecfe493b5d2a7fd9dd430fdf854ed2b37bcddcfc632c07c9d8931027d421'
+            '73e359917fa721d069bf4c3de63a217624aedc334529161f1976fd9d6b38b8d24c5bfca4e2f0ba34e3e6e0fc3394268c4d785e76ad7d24355bb8394db0f0fbf0'
+            '82b63ffded3672ca42ba2185d3c2478989685974ee96d8a791b0f660cd273a79ec8916a2da9f29f1bd31a444377f31aa046f6b6e6974c4bea58e54b2befebf9a')
+b2sums=('d8089400740f18f679417a81eb1e93ae643445e9a00ec1b40b4d646f2717764887388fb301dd95f698003e645ef76de6e6942b8780efefe69f2fc329b63a9e0b'
+        'adfffe6b6df889e0cf3c1e37f43ba5c147ce50636150f74b2d73d8dd7df7f60b570c835af3d84d8b249852fa00eb180a4c54330d830947c4e829a2c87b22c4d0'
+        '1e28435933d66178bf718851d6e93e714434a53ddab28175d20bd89f6327a8bcb451a4178318bc7b13ae30a4617d1a5137031ad7c082f382c868d6ce8a41918b')
 
 prepare() {
   cd "$pkgname"
 
-  cp -r ../csources_v2/* .
+  # ensure build_all.sh generates docs
+  patch -p1 -i "$srcdir/build-docs.patch"
 
-  rm bin/empty.txt
-
-  for nimcfg in {compiler,config}/nim.cfg; do
-    echo "gcc.options.always %= \"\${gcc.options.always} ${CFLAGS:-} ${CPPFLAGS}\"" >> "${nimcfg}"
-    echo "gcc.options.linker %= \"\${gcc.options.linker} ${LDFLAGS:-}\"" >> "${nimcfg}"
-  done
+  # migrate from pcre to pcre2
+  # https://github.com/nim-lang/Nim/pull/24405
+  git apply "$srcdir/nim-gh-pr-24405.patch"
 }
 
 build() {
   cd "$pkgname"
 
-  export PATH="${srcdir}/${pkgname}/bin:${PATH}"
+  # https://nim-lang.org/docs/intern.html#bootstrapping-the-compiler-reproducible-builds
+  export SOURCE_DATE_EPOCH=$(git log -n 1 --format=%at)
 
-  echo "Building nim"
-  sh build.sh
+  ./build_all.sh
 
-  echo "Building koch"
-  nim c -d:release koch
-  ./koch boot -d:release -d:nativeStacktrace -d:useGnuReadline
-
-  echo "Building libs"
-  (cd lib
-    nim c --app:lib -d:createNimRtl -d:release nimrtl.nim
+  # generate man pages
+  local h2m_args=(
+    --section=1
+    --no-info
+    --version-string="$pkgver"
   )
+  help2man --name='Nim Language Compiler' "${h2m_args[@]}" -o nim.1 ./bin/nim
+  help2man --name='Nimsuggest' "${h2m_args[@]}" -o nimsuggest.1 ./bin/nimsuggest
+  help2man --name='Nimgrep' "${h2m_args[@]}" -o nimgrep.1 ./bin/nimgrep
+  help2man --name='Nimpretty' "${h2m_args[@]}" -o nimpretty.1 ./bin/nimpretty
+  help2man --name='Nim Package Installer' "${h2m_args[@]}" -o nimble.1 ./bin/nimble
 
-  echo "Building tools"
-  ./koch tools
-  (cd tools
-    nim c -d:release nimgrep.nim
-  )
-
-  echo "Building nimsuggest"
-  nim c -d:release nimsuggest/nimsuggest.nim
+  # generate install.sh
+  ./koch distrohelper
 }
 
 package() {
   cd "$pkgname"
 
-  export PATH="${srcdir}/${pkgname}/bin:${PATH}"
+  DESTDIR="$pkgdir" ./install.sh /usr/bin
 
-  ./koch install "${pkgdir}"
+  # documentation
+  install -vd "$pkgdir/usr/share/doc/$pkgname"
+  cp -vr doc/html "$pkgdir/usr/share/doc/$pkgname" 
+  find "$pkgdir/usr/share/doc/$pkgname" -name '*.idx' -delete
 
-  install -d "${pkgdir}/usr/lib"
-  cp -a lib "${pkgdir}/usr/lib/nim"
-  cp -a compiler "${pkgdir}/usr/lib/nim"
-  install -Dm 644 nim.nimble "${pkgdir}/usr/lib/nim/compiler"
-  install -m 755 lib/libnimrtl.so "${pkgdir}/usr/lib/libnimrtl.so"
+  # tools
+  for fn in nimble nimsuggest nimgrep nim-gdb; do cp ./bin/$fn $pkgdir/usr/bin/; done
+  install -vDm644 -t "$pkgdir/usr/lib/nim/doc" doc/nimdoc.{css,cls}
+  install -vDm644 -t "$pkgdir/usr/lib/nim/tools" tools/debug/nim-gdb.py
+  install -vDm644 -t "$pkgdir/usr/lib/nim/tools/dochack" tools/dochack/{dochack.js,fuzzysearch.nim}
 
-  install -Dm 644 config/* -t "${pkgdir}/etc/nim"
-  install -Dm 755 bin/* -t "${pkgdir}/usr/bin"
+  # man pages
+  install -vDm644 -t "$pkgdir/usr/share/man/man1" ./*.1
 
-  # Fix FS#50252, unusual placement of header files
-  install -d "${pkgdir}/usr/include"
-  cp -a "${pkgdir}/usr/lib/nim/"*.h "${pkgdir}/usr/include"
-
-  # Fix FS#48118, related to the doc2 command
-  ln -s /usr/share/nim/doc "${pkgdir}/usr/lib/nim/doc"
-  install -d "${pkgdir}/usr/share/nim/doc"
-  cp -a doc/* "${pkgdir}/usr/share/nim/doc"
-
-  # Fix wrong path for system.nim https://github.com/nim-lang/Nim/issues/22369
-  ln -s /usr/lib/nim "$pkgdir"/usr/lib/nim/lib
-
-  install -Dm 644 copying.txt -t "${pkgdir}/usr/share/licenses/${pkgname}"
-
-  # completions
-  for comp in tools/*.bash-completion; do
+  # shell completions
+  for comp in {tools,dist/nimble}/*.bash-completion; do
     install -Dm 644 "${comp}" "${pkgdir}/usr/share/bash-completion/completions/$(basename "${comp/.bash-completion}")"
   done
-  for comp in tools/*.zsh-completion; do
+  for comp in {tools,dist/nimble}/*.zsh-completion; do
     install -Dm 644 "${comp}" "${pkgdir}/usr/share/zsh/site-functions/_$(basename "${comp/.zsh-completion}")"
   done
 
-  rm -r "${pkgdir}/nim"
-  rm "${pkgdir}"/usr/bin/nim-gdb.bat
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" copying.txt
 }
 
 # vim: ts=2 sw=2 et:

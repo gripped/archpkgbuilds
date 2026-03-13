@@ -1,11 +1,13 @@
 pkgbase = nim
 	pkgdesc = Imperative, multi-paradigm, compiled programming language
-	pkgver = 2.0.10
+	pkgver = 2.2.8
 	pkgrel = 1
 	url = https://nim-lang.org/
 	arch = x86_64
 	license = MIT
 	makedepends = git
+	makedepends = nodejs
+	makedepends = help2man
 	depends = bash
 	depends = gcc
 	depends = libgcc
@@ -14,15 +16,19 @@ pkgbase = nim
 	conflicts = nimble
 	replaces = nimble
 	options = !emptydirs
+	backup = etc/nim/config.nims
 	backup = etc/nim/nim.cfg
 	backup = etc/nim/nimdoc.cfg
 	backup = etc/nim/nimdoc.tex.cfg
 	backup = etc/nim/rename.rules.cfg
-	source = nim::git+https://github.com/nim-lang/Nim#tag=v2.0.10
-	source = git+https://github.com/nim-lang/csources_v2.git#commit=86742fb02c6606ab01a532a0085784effb2e753e
-	sha512sums = 93f6dc51d09efdac22610af1c79cfdb84e857299ba85dc95fd248bbb4fd4feba32617d6d7e8e5472cd288c63841dc9c94ad2fb7191f3068bd9d2416bc80a9c09
-	sha512sums = 0c6eabf3aff84d0ed6e0e0c1705d523e93eb7a7d70f4a01aed947af14eecd9eb15c43d8420b20f3ec463f600a23a73e485a77d5019abd49e09402f44d7aaa4f2
-	b2sums = c0569703a24795bb7a37e5ca008eb165116131faf435b4aa74fe891362ed38332c897a4de8db94e4c1176c710ea9850aebd535b0e1f9d852d7a370f5b92ea7bd
-	b2sums = 2325bebb91b56f9373df83366efb308994fececc0f73acb2ad7b0822fc549d101026a5c1bf7c5ff7fd534e57f9e956f167bbfe00223fe3db0b487175cf0ca369
+	source = nim::git+https://github.com/nim-lang/Nim#tag=v2.2.8
+	source = build-docs.patch
+	source = nim-gh-pr-24405.patch::https://patch-diff.githubusercontent.com/raw/nim-lang/Nim/pull/24405.patch
+	sha512sums = e653db3b66d142b3de73a531ead042e0d5110ed797298b82538eecf8b660c33fdb6eecfe493b5d2a7fd9dd430fdf854ed2b37bcddcfc632c07c9d8931027d421
+	sha512sums = 73e359917fa721d069bf4c3de63a217624aedc334529161f1976fd9d6b38b8d24c5bfca4e2f0ba34e3e6e0fc3394268c4d785e76ad7d24355bb8394db0f0fbf0
+	sha512sums = 82b63ffded3672ca42ba2185d3c2478989685974ee96d8a791b0f660cd273a79ec8916a2da9f29f1bd31a444377f31aa046f6b6e6974c4bea58e54b2befebf9a
+	b2sums = d8089400740f18f679417a81eb1e93ae643445e9a00ec1b40b4d646f2717764887388fb301dd95f698003e645ef76de6e6942b8780efefe69f2fc329b63a9e0b
+	b2sums = adfffe6b6df889e0cf3c1e37f43ba5c147ce50636150f74b2d73d8dd7df7f60b570c835af3d84d8b249852fa00eb180a4c54330d830947c4e829a2c87b22c4d0
+	b2sums = 1e28435933d66178bf718851d6e93e714434a53ddab28175d20bd89f6327a8bcb451a4178318bc7b13ae30a4617d1a5137031ad7c082f382c868d6ce8a41918b
 
 pkgname = nim
