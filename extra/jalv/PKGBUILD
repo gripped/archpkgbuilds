@@ -2,43 +2,53 @@
 # Contributor: speps <speps at aur dot archlinux dot org>
 
 pkgname=jalv
-pkgver=1.6.8
-pkgrel=4
+pkgver=1.8.0
+pkgrel=1
 pkgdesc="A simple but fully featured LV2 host for Jack"
 arch=(x86_64)
 url="https://drobilla.net/software/jalv.html"
-license=(custom:ISC)
+license=(ISC)
 groups=(pro-audio)
 depends=(
-  gcc-libs
   glibc
+  gtk3
+  hicolor-icon-theme
+  libgcc
+  libstdc++
+  qt5-base
+  qt6-base
+  zix
 )
 makedepends=(
-  gtk3
   jack
   lilv
   lv2
+  mandoc
   meson
   qt5-tools
+  qt6-tools
   serd
   sord
   sratom
   suil
 )
-optdepends=(
-  'qt5-base: for jalv.qt5'
-  'gtk3: for jalv.gtk3'
-)
 provides=(lv2-host)
+options=(!lto)
 source=(https://download.drobilla.net/$pkgname-$pkgver.tar.xz{,.sig})
-sha512sums=('a3361239cbff8b02a0d46bb06480d727ad45abe1856ad4cec1a1299851392be04fdfa58ba6803ed2a446eb8964c4a44191733b53fe8529c65155b0221323428f'
+sha512sums=('ca960eaf965184240cb939b8ad427138bf13800998c6156173645bbad8fb76c0a66e18faecc3a2d4de55471a1f10dcaf40bda1104b274bf9ad287378eca47e37'
             'SKIP')
-b2sums=('d2264163821273bf40795d4dbfc1905c6ab334449461e311a18a6f667abafb92ed12afa8e9315bcf8d3f7bd3bde3a765994add294e5037b06349157f8b0bd734'
+b2sums=('782b47101cefb8fda974e680e3b6658f2cd1da93b9eb444a4e2652fb819a368ff48d4a34e9e91ecafe9719c4e03ad5595c2d686b09acf3131efdd8bc01523989'
         'SKIP')
 validpgpkeys=('907D226E7E13FA337F014A083672782A9BF368F3') # David Robillard <d@drobilla.net>
 
 build() {
-  arch-meson $pkgname-$pkgver build -D portaudio=disabled -D gtk2=disabled
+  local meson_options=(
+     -D portaudio=disabled
+  )
+
+  # NOTE: With LTO jalv.qt6 fails during linking: https://gitlab.com/drobilla/jalv/-/work_items/17
+  CFLAGS+=" -ffat-lto-objects"
+  arch-meson $pkgname-$pkgver build "${meson_options[@]}"
   meson compile -C build
 }
 
