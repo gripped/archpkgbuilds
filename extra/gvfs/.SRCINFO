@@ -1,6 +1,6 @@
 pkgbase = gvfs
 	pkgdesc = Virtual filesystem implementation for GIO
-	pkgver = 1.58.2
+	pkgver = 1.58.3
 	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/gvfs
 	arch = x86_64
@@ -44,12 +44,10 @@ pkgbase = gvfs
 	depends = systemd
 	depends = systemd-libs
 	depends = udisks2
-	source = git+https://gitlab.gnome.org/GNOME/gvfs.git#tag=1.58.2
+	source = git+https://gitlab.gnome.org/GNOME/gvfs.git#tag=1.58.3
 	source = gvfsd.hook
-	source = 0001-monitor-Do-not-load-monitors-when-GIO_USE_VFS-local.patch
-	b2sums = 3f4441d4086afc18283dc9e461b9fc5116eeed74b4b491740c1a82e3ed87ab86341ea887a6ee5e7953858cab332a497e97c1f95761ce2e7c0afd666262ddecf1
+	b2sums = e5e0a12a9514317be9559ef7c5b541d9b49e26acb7e45f4b21ae01ce2023b10aede93204fd4b894c51cc9d86518c45ba9468d6c77d50c3ba6d9187b9a1522f1a
 	b2sums = a0356a49c419dc69466c591d5e69701b865bb97ca336ea6d8bca0f0d9173b832b73d9f2c701d572a0245957d39c9a38ab6dff4ea7c737c34f2a1a28d93c0427f
-	b2sums = 0f49b0c2425521f79c48ea092b7a26b601a18f9c2559cbfef6f2a1e338fa2f8d44e75edb85445248f4f35f41e2636836d398019fae0f908689385bf0171bd023
 
 pkgname = gvfs
 	optdepends = gvfs-afc: AFC support (Apple mobile devices)
@@ -67,7 +65,7 @@ pkgname = gvfs
 
 pkgname = gvfs-afc
 	pkgdesc = Virtual filesystem implementation for GIO - AFC backend (Apple mobile devices)
-	depends = gvfs=1.58.2
+	depends = gvfs=1.58.3
 	depends = glib2
 	depends = glibc
 	depends = libimobiledevice
@@ -76,7 +74,7 @@ pkgname = gvfs-afc
 
 pkgname = gvfs-dnssd
 	pkgdesc = Virtual filesystem implementation for GIO - DNS-SD and WebDAV backend (macOS file sharing)
-	depends = gvfs=1.58.2
+	depends = gvfs=1.58.3
 	depends = avahi
 	depends = dconf
 	depends = glib2
@@ -86,14 +84,14 @@ pkgname = gvfs-dnssd
 
 pkgname = gvfs-goa
 	pkgdesc = Virtual filesystem implementation for GIO - Gnome Online Accounts backend (e.g. OwnCloud)
-	depends = gvfs=1.58.2
+	depends = gvfs=1.58.3
 	depends = glib2
 	depends = glibc
 	depends = libgoa
 
 pkgname = gvfs-google
 	pkgdesc = Virtual filesystem implementation for GIO - Google Drive backend
-	depends = gvfs-goa=1.58.2
+	depends = gvfs-goa=1.58.3
 	depends = glib2
 	depends = glibc
 	depends = libgdata
@@ -101,7 +99,7 @@ pkgname = gvfs-google
 
 pkgname = gvfs-gphoto2
 	pkgdesc = Virtual filesystem implementation for GIO - gphoto2 backend (PTP camera, MTP media player)
-	depends = gvfs=1.58.2
+	depends = gvfs=1.58.3
 	depends = glib2
 	depends = glibc
 	depends = libgphoto2
@@ -109,7 +107,7 @@ pkgname = gvfs-gphoto2
 
 pkgname = gvfs-mtp
 	pkgdesc = Virtual filesystem implementation for GIO - MTP backend (Android, media player)
-	depends = gvfs=1.58.2
+	depends = gvfs=1.58.3
 	depends = glib2
 	depends = glibc
 	depends = libgcc
@@ -120,7 +118,7 @@ pkgname = gvfs-mtp
 pkgname = gvfs-nfs
 	pkgdesc = Virtual filesystem implementation for GIO - NFS backend
 	install = gvfs-nfs.install
-	depends = gvfs=1.58.2
+	depends = gvfs=1.58.3
 	depends = glib2
 	depends = glibc
 	depends = libgcc
@@ -128,7 +126,7 @@ pkgname = gvfs-nfs
 
 pkgname = gvfs-onedrive
 	pkgdesc = Virtual filesystem implementation for GIO - Microsoft OneDrive backend
-	depends = gvfs-goa=1.58.2
+	depends = gvfs-goa=1.58.3
 	depends = glib2
 	depends = glibc
 	depends = libgcc
@@ -137,7 +135,7 @@ pkgname = gvfs-onedrive
 
 pkgname = gvfs-smb
 	pkgdesc = Virtual filesystem implementation for GIO - SMB/CIFS backend (Windows file sharing)
-	depends = gvfs=1.58.2
+	depends = gvfs=1.58.3
 	depends = smbclient>=4.12.0
 	depends = dconf
 	depends = glib2
@@ -146,7 +144,7 @@ pkgname = gvfs-smb
 
 pkgname = gvfs-wsdd
 	pkgdesc = Virtual filesystem implementation for GIO - Web Services Dynamic Discovery backend (Windows discovery)
-	depends = gvfs=1.58.2
+	depends = gvfs=1.58.3
 	depends = dconf
 	depends = glib2
 	depends = glibc
