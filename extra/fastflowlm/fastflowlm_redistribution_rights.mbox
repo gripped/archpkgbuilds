@@ -1,0 +1,127 @@
+Return-Path: <info@fastflowlm.com>
+Delivered-To: gromit@archlinux.org
+Received: from mail.archlinux.org
+	by mail.archlinux.org with LMTP
+	id GJtRN6LUsmnBUQwAK+/4rw
+	(envelope-from <info@fastflowlm.com>)
+	for <gromit@archlinux.org>; Thu, 12 Mar 2026 14:58:42 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com [IPv6:2a00:1450:4864:20::12e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.archlinux.org (Postfix) with ESMTPS id 49816485E72E
+	for <gromit@archlinux.org>; Thu, 12 Mar 2026 14:58:42 +0000 (UTC)
+Authentication-Results: mail.archlinux.org;
+	dkim=pass header.d=fastflowlm-com.20230601.gappssmtp.com header.s=20230601 header.b=H42Ad5++;
+	spf=pass (mail.archlinux.org: domain of info@fastflowlm.com designates 2a00:1450:4864:20::12e as permitted sender) smtp.mailfrom=info@fastflowlm.com;
+	dmarc=none;
+	arc=pass ("google.com:s=arc-20240605:i=1")
+Received: by mail-lf1-x12e.google.com with SMTP id 2adb3069b0e04-5a140efd2d5so2157823e87.2
+        for <gromit@archlinux.org>; Thu, 12 Mar 2026 07:58:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773327521; cv=none;
+        d=google.com; s=arc-20240605;
+        b=On8jwpuGzPqSJC2UF2QpCpR2LTN9cCxtSP1edhntUwpoCdvZF2qRyyjKydKjU12BSz
+         e/Ql+TgCueSWvOEHW8h+ItJ3prFn3vJHCK9B3R5gAvdv2i+DWfJBFCH0Oao0wdot4WKr
+         ddcORNGU+1eLPuZriCo2iwpkW8AaF8RA+pTK1n/gwoOlMlPW7gK0CWTMKMLlPIoS5poE
+         shoyn1NmXkPwZjKa9mGyux+a3ixs8qdLYQg756ZooaCh+UkoxN2+FmGEzwrdmOFaRnRu
+         LJ66wmJpHmoNg0vxyctOuGdT+F6loPVIffN8rGldOi1lK2+Nl9ATsRI5mnUqUp8P6AeK
+         Jz8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=xPjV79AWwNgSI8Wdsq8eqKunwcKqiMqxu9T1omi/alA=;
+        fh=SrEBHVYiF2/DtlMEX4L0Mi1Kd5jZkx6Q2LY+/eC52Qc=;
+        b=WBqdLDEsm/qgJJ0thQgKQ3Lb/TEnB1hHDniahIISrHpLkRWBy7hZILtnP9hVihhPTo
+         CBnkOtdJrt54/kyeIcYAcJabDNnwx41EJyNphry752InIzOSZ3yCRfkOCA2OnErtAdeE
+         2FZ73uoCBOQaRUljO12TwGO1RI3BUAz8EB7BQ19IBH8bL6LAAWWrf67T0dcTc/IzGVbS
+         5rHAmLF8ysXd/06NgkZAFk3E3UTtzN2D/5SpLroJGF4B6vwnqUreY3jh4p1VD8O0HLb8
+         HtbOk+EcUFJ9TmrOYVP9TkZ1Zogev9gGoK3mbg30YVZTq44SQ/lT/qoMtPNWArhQ4Lj3
+         Svpg==;
+        darn=archlinux.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fastflowlm-com.20230601.gappssmtp.com; s=20230601; t=1773327521; x=1773932321; darn=archlinux.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=xPjV79AWwNgSI8Wdsq8eqKunwcKqiMqxu9T1omi/alA=;
+        b=H42Ad5++sYdg5LSVo29c3VgIVxWVXxg57h2em1UpumxVXQy5+Xz06FaCNVBlUeeTnO
+         ZOBIke7RIf2PQSKXhO+dyrIHKqFcixLQh2/U6jb7WyFJZLhSJ0+LA/415g7rMJfQRs2N
+         uqpK48LwrQGmTC58aSCpkaygYkCYqURrqRO1ay5lkmz7Gh6AR8SipAykgLDrHgx0skrv
+         bThjEi8M9vzZ2cmWPtMdLroz518Gq4QjSaxhM2AXFsMr/se9dwag+/WsVrA9fG5RljqM
+         eE+rjf+IT43l2am9mhhI9AhGyAmiosD6tHEVTMoKtc7dPPGj8vi7AWjRqMThaj++2gtB
+         13xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1773327521; x=1773932321;
+        h=to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=xPjV79AWwNgSI8Wdsq8eqKunwcKqiMqxu9T1omi/alA=;
+        b=XKZ7pW7BWz32LEbQb9qPCrD4Cwd5IQM6kmVHf0DiRjA6zo7COSukLYMNuBBq98/NNo
+         nrpGRrWMAImFbRU1tMe6aEpFryRt7hQhmg/+8idIFUnMMIDawKlXPtshYcMwpCg10ua+
+         1qZSS8adjUGOPFtNLooqLZYFZ7x9VA256OP7WDJoI156bIFNtR3RALqvtljzTops8/zT
+         Eh6CusgV6qSYHDM3arfzaisAfmnqStExj6wHLXVeO12M6NwBF/8POI3j7eNX49LVThmT
+         9pbsyPyUXiL6LidWVO60KIPJXtRomaIU9S+hv/1PEipsK+kn4TWwCD+4ajSrAA9gvlWs
+         rCAA==
+X-Gm-Message-State: AOJu0YxpmuvQFvwgM+fpgyvVp4gqYSl/twyMpgCYRxm1aZuARRUrrFo7
+	Hqbd1xM3d7hOy22kVgJs8SUWlUgml22SiHxv19r9PtvuyOpMpuSb1jkOnVn3ZMIGK64oEP0RA2H
+	JhNVHvqGjXP2zCRJ4bCcUss1vnEjB8QD70R8lF91joz5zW3qBNLl1Q2B7ZdQ=
+X-Gm-Gg: ATEYQzzgQeIzqUDBexXYVK8hebiM7xVdlu5CrCWgSb6rtBMGIco3mcVl8YxXBwyvrsW
+	F2kOUCoJEQTK8L/E3MeVKIwxwFlGONblHdWJPy+fiwnrqbUpkUvTtN+jIOCkrz04YBUfCcXTqeC
+	o7PkwBUZq+mjHTvsBz+A7BYoIEYnIQkX6jXduSH8HjCfTk9kRUVjShzrtZjT0c/UyHvPzF8ghP1
+	0s53gG/mFNMXwrfuql6WBACWqNyfA11tfJF8+uF9xSuGbOw9aukeZD4kYTnc08uQ7gxOQinXR/x
+	WWCvf04zPlTtjmJMaNYU
+X-Received: by 2002:a05:6512:2c04:b0:5a1:18b4:6c47 with SMTP id
+ 2adb3069b0e04-5a156b5b579mr2308002e87.0.1773327520979; Thu, 12 Mar 2026
+ 07:58:40 -0700 (PDT)
+MIME-Version: 1.0
+From: FastFlowLM Info <info@fastflowlm.com>
+Date: Thu, 12 Mar 2026 10:58:28 -0400
+X-Gm-Features: AaiRm51KnxSxwzoXh4Au7JH_qnqltvO22GVYBaUEQAHpEigoJCNWKWtoE0wS9nQ
+Message-ID: <CAPvJmt_4tQjeC3u-1V-tVyfEiPVpVTn2X2FB1DQxcxJmpFp_BA@mail.gmail.com>
+Subject: Permission to Distribute FastFlowLM binaries
+To: gromit@archlinux.org
+Content-Type: multipart/alternative; boundary="000000000000f56fb4064cd4fcbd"
+X-Rspamd-Queue-Id: 49816485E72E
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-1.50 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	R_SPF_ALLOW(-0.20)[+ip6:2a00:1450:4000::/36];
+	R_DKIM_ALLOW(-0.20)[fastflowlm-com.20230601.gappssmtp.com:s=20230601];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	ASN(0.00)[asn:15169, ipnet:2a00:1450::/32, country:US];
+	RCVD_COUNT_ONE(0.00)[1];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	RCPT_COUNT_ONE(0.00)[1];
+	MISSING_XM_UA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DMARC_NA(0.00)[fastflowlm.com];
+	NEURAL_HAM(-0.00)[-0.999];
+	TO_DN_NONE(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_IN_DNSWL_NONE(0.00)[2a00:1450:4864:20::12e:from];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[gromit@archlinux.org];
+	DKIM_TRACE(0.00)[fastflowlm-com.20230601.gappssmtp.com:+]
+X-Rspamd-Server: mail.archlinux.org
+X-TUID: 5oT0V4VVKVPu
+
+--000000000000f56fb4064cd4fcbd
+Content-Type: text/plain; charset="UTF-8"
+
+Hey Christain,
+This is an official notification granting you permission to
+distributeFastFlowLM binaries in the Arch official repositories.
+Tao Wei
+FastFlowLM
+
+--000000000000f56fb4064cd4fcbd
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr"><pre class="gmail-code gmail-highlight" lang="plaintext"><span class="gmail-">Hey Christain,</span>
+
+<span class="gmail-">This is an official notification granting you permission to distribute</span>
+<span class="gmail-">FastFlowLM binaries in the Arch official repositories.</span>
+
+<span class="gmail-">Tao Wei</span>
+FastFlowLM</pre></div>
+
+--000000000000f56fb4064cd4fcbd--
