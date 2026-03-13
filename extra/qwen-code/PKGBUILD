@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.12.2
+pkgver=0.12.3
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -24,8 +24,8 @@ makedepends=(
   npm
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}")
-sha256sums=('eb3e81d83851184e24623fdaccc26ce6af43c379bed0428806d4dad61b18d411')
-b2sums=('bda7304173ebfe7fd03562257b270d411a2d60dfbcfdcb606963ce22cfad90288c01389033fabd1a26b66773921d62f4635ddd317ad9edd49eedd1980ceeaac8')
+sha256sums=('e8906fda7eb3e5c111586b4009ca70745af91f622ac7f7c0f45612759cf49b5c')
+b2sums=('5a27aab3372de5045d3dfdeb1d7b2c608522c1cfaa8d6d01850a7a40a99b8196f0f3b7b24ea2075fb69469d65950d567adb5cbcb5292fa693eecce4563e93c58')
 
 prepare() {
   cd $pkgname
