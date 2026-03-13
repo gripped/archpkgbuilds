@@ -2,7 +2,7 @@
 
 pkgbase=erofs-utils
 pkgname=(erofs-utils erofsfuse)
-pkgver=1.8.10
+pkgver=1.9.1
 pkgrel=1
 pkgdesc="Userspace utilities for linux-erofs file system"
 arch=(x86_64)
@@ -12,10 +12,12 @@ license=(
   GPL-2.0-or-later
 )
 makedepends=(
+  curl
   fuse2
   glibc
   libdeflate
   lz4
+  openssl
   util-linux
   xxhash
   xz
@@ -23,8 +25,8 @@ makedepends=(
   zstd
 )
 source=($url/snapshot/$pkgname-$pkgver.tar.gz)
-sha512sums=('8c7afd3db55fd4c4f7aa9fbd7ed40fa40de0bfffcee601a3f5dce823d406a32b5e939e24cd6dc336e3033e940fb16ee93f8821f627f90b10e6137113949933dd')
-b2sums=('9575258115192dc0ef7999dd1fa44f619f9f62c93cfe28e3e65fd5d9a601b09acdce293552c90f51c2f7b557d8830e856d6706af6ccd98fc157b05f819d136b4')
+sha512sums=('c66ac253e319886fc41e96813de2edb4281317df6477a8ea71a4af49d5750991964347d533a9be825daf2320370141859e3643c52abbac6bfabdd477f7365ebf')
+b2sums=('0e3d827e28751f22aa10d32c925debe064cb58cabb68d81d0c9825fd4d0b142cbc8da3bf5c6cda1d68b2a61c216a81f1a2bfa6cdae8e4cbb32abd5489f57c4ec')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -33,11 +35,12 @@ prepare() {
 
 build() {
   local configure_options=(
-    --prefix=/usr
     --enable-fuse
     --enable-lzma
-    --with-libdeflate
     --enable-multithreading
+    --prefix=/usr
+    --sbindir=/usr/bin/
+    --with-libdeflate
   )
 
   cd $pkgname-$pkgver
@@ -63,9 +66,11 @@ _pick() {
 
 package_erofs-utils() {
   depends+=(
+    curl libcurl.so
     glibc
     libdeflate libdeflate.so
     lz4 liblz4.so
+    openssl libcrypto.so
     util-linux libuuid.so
     xxhash libxxhash.so
     xz liblzma.so
