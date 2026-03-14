@@ -3,30 +3,32 @@
 # Contributor: phillid <dbphillipsnz _at_thingy_that_swirly_a_symbol gmaildott comm>
 
 pkgname=python-pydot
-pkgver=3.0.4
-pkgrel=2
+pkgver=4.0.0
+pkgrel=1
 pkgdesc="Python interface to Graphviz's Dot"
 arch=('any')
-url="https://github.com/erocarrera/pydot"
+url="https://github.com/pydot/pydot"
 license=('MIT')
 depends=('python-pyparsing' 'graphviz')
-makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-checkdepends=('python-chardet' 'python-parameterized')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/erocarrera/pydot/archive/v$pkgver.tar.gz")
-sha512sums=('9e8a3f7cce095cd50bb665e0f798c22589ea1caa783012afb1b9542924c39fb20968b8c123d33ee7ce86e307f5389d8c08cc491d7efcd62f8e34621a3a7e4abe')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+checkdepends=('python-chardet' 'python-parameterized' 'python-pytest')
+source=("git+https://github.com/pydot/pydot#tag=v$pkgver")
+sha512sums=('124ee088668d174150befc98ea0a95a261cc77154cc0d0387bf99e4b3d8d920689a237540b490ec72760c78186dd3366c3f6ab2bd2cd0f0690fb5473847b4b29')
 
 build() {
-  cd pydot-$pkgver
+  cd pydot
   python -m build --wheel --skip-dependency-check --no-isolation
 }
 
 check() {
-  cd pydot-$pkgver/test
-  PYTHONPATH="$PWD/../build/lib:$PYTHONPATH" python -m unittest -v
+  cd pydot
+  python -m venv --system-site-packages testenv
+  testenv/bin/python -m installer dist/*.whl
+  testenv/bin/python -m pytest
 }
 
 package() {
-  cd pydot-$pkgver
+  cd pydot
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSES/MIT.txt
 }
