@@ -7,23 +7,24 @@
 
 pkgname=odin
 # using monthly tags until a release is tagged
-pkgver=dev_2025_11
+pkgver=dev_2026_03
 pkgrel=1
 pkgdesc='Data-oriented programming language'
 arch=(x86_64)
 url='https://odin-lang.org/'
 license=(BSD-3-Clause)
-depends=(clang llvm-libs python)
-makedepends=(git llvm stb)
+depends=(clang llvm21-libs python)
+makedepends=(git llvm21 stb)
+checkdepends=(mbedtls)
 options=(staticlibs)
 source=("git+https://github.com/odin-lang/Odin#tag=${pkgver//_/-}")
-b2sums=('b810f934911ff63440b442cfb4698d7a675bb4e68afa4ef8a64ec3045b671ee697a4715f52f015a7a1467e5f0023f8c74cd601dc1a8b80a2bea9b8e832e14983')
+b2sums=('b2816189fd48ee712db3fe09f3942f24e6a3ab7d03c605935103cd8a679ecb777c2bec970d90b9ee91b423f5a12109b6942815e73865ddc15b87b0898f97f0f5')
 
 build() {
   cd Odin
 
   export CXX=clang++
-  export LLVM_CONFIG=llvm-config
+  export LLVM_CONFIG=/usr/lib/llvm21/bin/llvm-config
   make release
 
   # TODO: unbundle third-party dependencies
