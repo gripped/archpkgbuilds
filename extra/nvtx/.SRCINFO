@@ -1,0 +1,27 @@
+pkgbase = nvtx
+	pkgdesc = NVIDIA Tools Extension (NVTX) library
+	pkgver = 3.4.0
+	pkgrel = 2
+	url = https://nvidia.github.io/NVTX/
+	arch = x86_64
+	license = Apache-2.0 WITH LLVM-exception
+	makedepends = cmake
+	makedepends = cython
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	source = nvtx::git+https://github.com/NVIDIA/NVTX.git#tag=v3.4.0
+	b2sums = 0136fbb7db394bd5d072d6a5497e3f23eaba537f2d0f6ad4a0aeda765e771e0362e6dd07b9f9cf6e3e431923bc278c671fe338ad7b19e032f28fff3be61b1d12
+
+pkgname = nvtx
+	provides = nvtx3
+	replaces = nvtx3
+
+pkgname = python-nvtx
+	pkgdesc = NVIDIA Tools Extension (NVTX) library - Python bindings
+	depends = glibc
+	depends = python
+	optdepends = python-matplotlib: additional colors support
+	optdepends = python-numpy: typing annotations
