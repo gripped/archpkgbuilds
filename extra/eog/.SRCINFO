@@ -1,6 +1,6 @@
 pkgbase = eog
 	pkgdesc = Eye of Gnome: An image viewing and cataloging program
-	pkgver = 49.1
+	pkgver = 49.2
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/EyeOfGnome
 	arch = x86_64
@@ -15,7 +15,6 @@ pkgbase = eog
 	depends = cairo
 	depends = dconf
 	depends = exempi
-	depends = gcc-libs
 	depends = gdk-pixbuf2
 	depends = glib2
 	depends = glibc
@@ -24,6 +23,7 @@ pkgbase = eog
 	depends = hicolor-icon-theme
 	depends = lcms2
 	depends = libexif
+	depends = libgcc
 	depends = libgirepository
 	depends = libhandy
 	depends = libjpeg-turbo
@@ -31,8 +31,8 @@ pkgbase = eog
 	depends = librsvg
 	depends = libx11
 	depends = zlib
-	source = git+https://gitlab.gnome.org/GNOME/eog.git#tag=49.1
-	b2sums = cc488aff801833fee20a06386a43fea008b6e0ebcf4ac41db9c314c853c0659d78131773559574319b0d5b17c66ce4ef86e5cef546bb24baa0add88ac642ad59
+	source = git+https://gitlab.gnome.org/GNOME/eog.git#tag=49.2
+	b2sums = fb0d3379c57ec9ef03827e5cad4c3169a5a187615b9d6e0e86f174df3e0794d15986fb9a83d18d180bb87eb0ff7918285f4f964963b6905ea682b953d0d738cf
 
 pkgname = eog
 	optdepends = eog-plugins: Additional features
