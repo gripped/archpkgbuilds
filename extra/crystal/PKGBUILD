@@ -3,7 +3,7 @@
 
 pkgname=crystal
 pkgver=1.19.1
-pkgrel=1
+pkgrel=3
 pkgdesc='The Crystal Programming Language'
 arch=(x86_64)
 url='https://crystal-lang.org'
@@ -17,6 +17,13 @@ optdepends=('shards: crystal language package manager'
             'libxml2: For XML support')
 source=(crystal-$pkgver.tar.gz::https://github.com/crystal-lang/crystal/archive/$pkgver.tar.gz)
 sha256sums=('2f9cfaa6bdc872f6e89d483cfe474f35232e5dd4a33dcc05ec69e5fadb2b0257')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  # the helper script uses a hardcoded list of allowed/supported llvm versions
+  # the 1.19.1 release doesn't officially allow llvm 22.1, only up to 22.0
+  sed -i 's/^\(22.0\)/22.1 \1/1' src/llvm/ext/llvm-versions.txt
+}
 
 build() {
   cd $pkgname-$pkgver
