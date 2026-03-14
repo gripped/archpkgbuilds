@@ -11,7 +11,7 @@ pkgname=(
   'python-bcc'
 )
 pkgver=0.36.1
-pkgrel=1
+pkgrel=2
 pkgdesc='BPF Compiler Collection'
 arch=('x86_64')
 url='https://github.com/iovisor/bcc'
@@ -38,13 +38,15 @@ source=(
   "git+https://github.com/libbpf/libbpf.git"
   "$pkgbase-define-cmake-components.patch"
   "$pkgbase-libbpf-tools-respect-external-CFLAGS.patch"
+  "llvm22.patch::https://github.com/iovisor/bcc/commit/4c7be1ec6ab74e973f8d18a9011fa349c3d9dd58.patch"
 )
 b2sums=('d34803ec0d055bbb00219a6aafcb0c2e55f94d5dc383f6e6a5463dff535db4bef20c65767bc6144a0a90e392af97d390b6881b656f3664f6df83985c7bc22f40'
         'SKIP'
         'SKIP'
         'SKIP'
         '0a5ae8d7d99768f43a54013777846a821fa06f7ff04d3d9343f7b093278b508c0b89dc9e74e489af192aa38525c357811fa09785dea81b97bcfd3eb03f88fb81'
-        'a26b7f8e17eb60778d8227d2e46d563937f8860629c6134075dfdee50f6836e057da9f2f8281773db46f6b32c74a588c1f03e2a0b753913855f58563be5bcef4')
+        'a26b7f8e17eb60778d8227d2e46d563937f8860629c6134075dfdee50f6836e057da9f2f8281773db46f6b32c74a588c1f03e2a0b753913855f58563be5bcef4'
+        '93a045ebefb5b7b725808a208400f5cf4369cf1ff9edf4572c17f7c5373d50920d5fa381574921a4ecfa68bfdcafaa3836a2ff038cc85356cebc020f2650a938')
 
 prepare() {
   cd "$pkgbase"
@@ -66,6 +68,8 @@ prepare() {
 
   # Patches required to build libbpf-tools
   patch -Np1 < ../$pkgbase-libbpf-tools-respect-external-CFLAGS.patch
+  # LLVM 22
+  patch -Np1 < ../llvm22.patch
 
   # Don't build Python bindings with CMake
   sed -i '/add_subdirectory(python)/d' src/CMakeLists.txt
