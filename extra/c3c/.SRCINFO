@@ -1,7 +1,7 @@
 pkgbase = c3c
 	pkgdesc = Compiler for the C3 language
 	pkgver = 0.7.10
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/c3lang/c3c
 	arch = x86_64
 	license = LGPL-3.0-or-later
@@ -14,7 +14,11 @@ pkgbase = c3c
 	depends = curl
 	depends = lld
 	depends = llvm-libs
+	depends = libstdc++
+	depends = glibc
 	source = git+https://github.com/c3lang/c3c#tag=v0.7.10
+	source = llvm-22.patch
 	b2sums = 70e73c10eec628ff41fb0423ae073a9491643bd21424b38dc0d424870cfb6dff39ea08db1a0580f0f10d9dbd3565586772c9e94f17a4903ac8c66331f774dead
+	b2sums = 0f801703c61d3cbcd2feccff64e4a2568824ca880ac482cde65fe55094d2ed48821cc674d7f36a3347dca243627895726d9bb3c9b03a8eb113be5e39e159fb6c
 
 pkgname = c3c

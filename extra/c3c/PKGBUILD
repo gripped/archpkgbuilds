@@ -3,18 +3,21 @@
 
 pkgname=c3c
 pkgver=0.7.10
-pkgrel=1
+pkgrel=2
 pkgdesc='Compiler for the C3 language'
 arch=(x86_64)
 url='https://github.com/c3lang/c3c'
 license=(LGPL-3.0-or-later MIT)
-depends=(curl lld llvm-libs)
+depends=(curl lld llvm-libs libstdc++ glibc)
 makedepends=(clang cmake git libedit llvm)
-source=("git+$url#tag=v$pkgver")
-b2sums=('70e73c10eec628ff41fb0423ae073a9491643bd21424b38dc0d424870cfb6dff39ea08db1a0580f0f10d9dbd3565586772c9e94f17a4903ac8c66331f774dead')
+source=("git+$url#tag=v$pkgver"
+        "llvm-22.patch")
+b2sums=('70e73c10eec628ff41fb0423ae073a9491643bd21424b38dc0d424870cfb6dff39ea08db1a0580f0f10d9dbd3565586772c9e94f17a4903ac8c66331f774dead'
+        '0f801703c61d3cbcd2feccff64e4a2568824ca880ac482cde65fe55094d2ed48821cc674d7f36a3347dca243627895726d9bb3c9b03a8eb113be5e39e159fb6c')
 
 prepare() {
   cd $pkgname
+  patch -Np1 < ../llvm-22.patch
   # Pretend that git is missing and define the git hash manually
   sed -i '/find_package(Git /d' CMakeLists.txt git_hash.cmake
   sed -i "s/unknown/$(git rev-parse HEAD)/g" git_hash.cmake

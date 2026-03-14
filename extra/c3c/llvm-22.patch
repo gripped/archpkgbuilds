@@ -1,0 +1,397 @@
+From 064ff12722e24a61b7c8f044ed624daf74e36ec8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=D9=85=D9=87=D8=AF=D9=8A=20=D8=B4=D9=8A=D9=86=D9=88=D9=86?=
+ =?UTF-8?q?=20=28Mehdi=20Chinoune=29?= <mehdi.chinoune@hotmail.com>
+Date: Fri, 6 Mar 2026 16:00:18 +0100
+Subject: [PATCH 1/2] Refactor LLVM definitions handling in CMakeLists (#2988)
+
+That's the better way to use them, see https://github.com/llvm/llvm-project/blob/llvmorg-22.1.0/llvm/docs/CMake.rst#developing-llvm-passes-out-of-source
+
+Co-authored-by: Christoffer Lerno <christoffer@aegik.com>
+---
+ CMakeLists.txt | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 93e2dbfe..f5382964 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -265,7 +265,8 @@ if(C3_WITH_LLVM)
+ 
+     include_directories(${LLVM_INCLUDE_DIRS})
+     link_directories(${LLVM_LIBRARY_DIRS})
+-    add_definitions(${LLVM_DEFINITIONS})
++    separate_arguments(LLVM_DEFINITIONS_LIST NATIVE_COMMAND ${LLVM_DEFINITIONS})
++    add_definitions(${LLVM_DEFINITIONS_LIST})
+ 
+     if(NOT C3_LINK_DYNAMIC)
+         set(LLVM_LINK_COMPONENTS
+-- 
+2.53.0
+
+
+From 455ab765bee10ab55f81d2ddc89779ec19f8b5dd Mon Sep 17 00:00:00 2001
+From: Manu Linares <mbarriolinares@gmail.com>
+Date: Fri, 6 Mar 2026 14:14:02 -0300
+Subject: [PATCH 2/2] LLVM 22 compatibility (#2987)
+
+* llvm_22.1.0
+
+* add missing components
+
+* fix LLVM 22 compatibility and add AVX10.1, AVX10.2
+
+* update release notes, detect if `libLLVMDTLTO` exists
+
+* relax gather_scatter test expectations for LLVM compatibility
+
+* use LLVM_VERSION_MAJOR check for LLVM 22 masked intrinsics
+
+---------
+
+Co-authored-by: Christoffer Lerno <christoffer@aegik.com>
+---
+ .github/workflows/main.yml                |  2 +-
+ CMakeLists.txt                            | 40 +++++++----
+ releasenotes.md                           | 30 ++++++++
+ src/compiler/enums.h                      |  2 +
+ src/compiler/llvm_codegen_builtins.c      | 84 ++++++++++++++++-------
+ src/compiler/llvm_codegen_expr.c          |  2 +-
+ src/compiler/target.c                     |  8 +++
+ test/test_suite/vector/gather_scatter.c3t | 10 ++-
+ 8 files changed, 132 insertions(+), 46 deletions(-)
+
+diff --git a/.github/workflows/main.yml b/.github/workflows/main.yml
+index 250ae14b..e590bf5e 100644
+--- a/.github/workflows/main.yml
++++ b/.github/workflows/main.yml
+@@ -8,7 +8,7 @@ on:
+   workflow_dispatch:
+ 
+ env:
+-  LLVM_RELEASE_VERSION: 21.x
++  LLVM_RELEASE_VERSION: 22.x
+   LLVM_RELEASE_VERSION_LINUX_MUSL: 20
+   LLVM_RELEASE_VERSION_OPENBSD: 20
+   LLVM_RELEASE_VERSION_NETBSD: 19
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f5382964..48db1bd3 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,8 +1,8 @@
+ cmake_minimum_required(VERSION 3.20)
+ 
+ set(C3_LLVM_MIN_VERSION 17)
+-set(C3_LLVM_MAX_VERSION 22)
+-set(C3_LLVM_DEFAULT_VERSION 21)
++set(C3_LLVM_MAX_VERSION 23)
++set(C3_LLVM_DEFAULT_VERSION 22)
+ 
+ if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
+     message(FATAL_ERROR "In-tree build detected, please build in a separate directory")
+@@ -186,11 +186,9 @@ if(C3_WITH_LLVM)
+ 
+         # 3. Construct URL
+         set(C3_LLVM_ARTIFACT_NAME "llvm-${C3_LLVM_PLATFORM}${C3_LLVM_SUFFIX}")
+-        #set(C3_LLVM_URL "https://github.com/c3lang/c3-llvm/releases/download/${C3_LLVM_TAG}/${C3_LLVM_ARTIFACT_NAME}.tar.gz")
+-        #set(C3_LLVM_URL "https://github.com//ManuLinares/llvm-custom-builds/releases/download/${C3_LLVM_TAG}/${C3_LLVM_ARTIFACT_NAME}.tar.gz")
+-
+         # We could also just set "latest" here to always fetch the latest release
+-        set(C3_LLVM_URL "https://github.com/c3lang/llvm-for-c3/releases/latest/download/${C3_LLVM_ARTIFACT_NAME}.tar.gz")
++        #set(C3_LLVM_URL "https://github.com/c3lang/llvm-for-c3/releases/latest/download/${C3_LLVM_ARTIFACT_NAME}.tar.gz")
++        set(C3_LLVM_URL "https://github.com/c3lang/llvm-for-c3/releases/download/llvm_22.1.0/${C3_LLVM_ARTIFACT_NAME}.tar.gz")
+ 
+         message(STATUS "Fetching ${C3_LLVM_TYPE} LLVM artifact for ${C3_LLVM_PLATFORM}...")
+         message(STATUS "URL: ${C3_LLVM_URL}")
+@@ -232,15 +230,17 @@ if(C3_WITH_LLVM)
+         endif()
+     endif()
+ 
+-    if (NOT C3_FETCH_LLVM AND EXISTS /opt/homebrew/lib)
+-        list(APPEND LLVM_LIBRARY_DIRS /opt/homebrew/lib)
+-    endif()
++    if (NOT C3_FETCH_LLVM)
++        if (EXISTS /opt/homebrew/lib)
++            list(APPEND LLVM_LIBRARY_DIRS /opt/homebrew/lib)
++        endif()
+ 
+-    if (EXISTS /usr/lib)
+-        # Some systems (such as Alpine Linux) seem to put some of the relevant
+-        # LLVM files in /usr/lib, but this doesn't seem to be included in the
+-        # value of LLVM_LIBRARY_DIRS.
+-        list(APPEND LLVM_LIBRARY_DIRS /usr/lib)
++        if (EXISTS /usr/lib)
++            # Some systems (such as Alpine Linux) seem to put some of the relevant
++            # LLVM files in /usr/lib, but this doesn't seem to be included in the
++            # value of LLVM_LIBRARY_DIRS.
++            list(APPEND LLVM_LIBRARY_DIRS /usr/lib)
++        endif()
+     endif()
+ 
+     list(REMOVE_DUPLICATES LLVM_LIBRARY_DIRS)
+@@ -285,6 +285,18 @@ if(C3_WITH_LLVM)
+                 LibDriver
+                 Linker
+                 LTO
++        )
++        set(_dtlto_found FALSE)
++        foreach(_dir ${LLVM_LIBRARY_DIRS})
++            if (EXISTS "${_dir}/libLLVMDTLTO.a" OR EXISTS "${_dir}/LLVMDTLTO.lib")
++                set(_dtlto_found TRUE)
++                break()
++            endif()
++        endforeach()
++        if (_dtlto_found)
++            list(APPEND LLVM_LINK_COMPONENTS DTLTO)
++        endif()
++        list(APPEND LLVM_LINK_COMPONENTS
+                 MC
+                 MCDisassembler
+                 native
+diff --git a/releasenotes.md b/releasenotes.md
+index 42922a30..52eff364 100644
+--- a/releasenotes.md
++++ b/releasenotes.md
+@@ -1,5 +1,35 @@
+ # C3C Release Notes
+ 
++## 0.7.11 Change list
++
++### Changes / improvements
++- Removed support for LLVM 17, 18.
++- Detect large temporaries when creating slices on the stack #2665
++- Search for the linker in PATH; use the builtin linker if CC missing. #2906
++- `constdef` inference through binary expressions: `Foo f = Foo.AUDIO | Foo.VIDEO` can be written `Foo f = AUDIO | VIDEO;`
++- Fix for LLVM 22+ compatibility #2987
++
++### Stdlib changes
++- Add contract on `any_to_enum_ordinal` and `any_to_int` to improve error when passed an empty any. #2977
++- Add hash method for ZStrings. #2982
++- Added json serialization from structs.
++- Add `keccak` and Keccak-based hash functions: `sha3`, `shake`, `cshake`, `kmac`, `turboshake`, `tuplehash`, and `parallelhash`. #2728
++- Added `fault.short_name` and `fault.@short_name` to get just the fault name for both run and compile time. #3002
++
++### Fixes
++- `@deprecated` in function contracts would be processed twice, causing a compilation error despite being correct.
++- Name conflict with auto-imported std::core, but it should have lower priority #2902
++- Regression: missing generic nesting check on non-types.
++- Improved stringify.
++- PollSubscribe was incorrectly an int instead of ushort. #2997
++- SubProcessOptions.search_user_path did nothing on non-windows systems despite comment saying it should #2845
++- AES implementation fixed to be constant time #2806
++- Object would not properly compile on 32-bit Linux.
++- `read_varint` and `write_varint` did not work properly for ulong and wider.
++- `io::EOF.nameof` would yield just `EOF` whereas resolving it at runtime would (correctly) yield `io::EOF`.
++- `$stringify` would incorrectly capture lambdas. #2986
++- Regression: `String` was not implicitly `@constinit` #2983
++
+ ## 0.7.10 Change list
+ 
+ ### Changes / improvements
+diff --git a/src/compiler/enums.h b/src/compiler/enums.h
+index 52cfc160..7e9902d8 100644
+--- a/src/compiler/enums.h
++++ b/src/compiler/enums.h
+@@ -1899,6 +1899,8 @@ typedef enum
+ 	X86_FEAT_APX_CF,
+ 	X86_FEAT_APX_ZU,
+ 	X86_FEAT_AVX,
++	X86_FEAT_AVX10_1,
++	X86_FEAT_AVX10_2,
+ 	X86_FEAT_AVX10_1_512,
+ 	X86_FEAT_AVX10_1_256,
+ 	X86_FEAT_AVX10_2_512,
+diff --git a/src/compiler/llvm_codegen_builtins.c b/src/compiler/llvm_codegen_builtins.c
+index 527c8766..788734e9 100644
+--- a/src/compiler/llvm_codegen_builtins.c
++++ b/src/compiler/llvm_codegen_builtins.c
+@@ -578,15 +578,25 @@ static void llvm_emit_masked_load(GenContext *c, BEValue *be_value, Expr *expr)
+ 	ASSERT(vec_size(args) == 4);
+ 	LLVMValueRef arg_slots[4];
+ 	llvm_emit_intrinsic_args(c, args, arg_slots, 3);
+-	// Rearrange to match our builtin with the intrinsic which is ptr, align, mask, passthru
+ 	LLVMValueRef passthru = arg_slots[2];
+ 	LLVMValueRef mask = arg_slots[1];
++	LLVMValueRef ptr = arg_slots[0];
+ 	uint64_t alignment = args[3]->const_expr.ixx.i.low;
+ 	LLVMTypeRef call_type[2] = { LLVMTypeOf(passthru), c->ptr_type };
+-	arg_slots[1] = llvm_const_int(c, type_uint, alignment ? alignment : llvm_abi_alignment(c, call_type[0]));
+-	arg_slots[2] = mask;
+-	arg_slots[3] = passthru;
+-	LLVMValueRef result = llvm_emit_call_intrinsic(c, intrinsic_id.masked_load, call_type, 2, arg_slots, 4);
++	uint64_t align_val = alignment ? alignment : llvm_abi_alignment(c, call_type[0]);
++
++	LLVMValueRef decl = LLVMGetIntrinsicDeclaration(c->module, intrinsic_id.masked_load, call_type, 2);
++	LLVMTypeRef type = LLVMGlobalGetValueType(decl);
++
++#if LLVM_VERSION_MAJOR >= 22
++	LLVMValueRef call_args[] = { ptr, mask, passthru };
++	LLVMValueRef result = LLVMBuildCall2(c->builder, type, decl, call_args, 3, "");
++	if (align_val) llvm_attribute_add_call(c, result, attribute_id.align, 1, (int64_t)align_val);
++#else
++	LLVMValueRef call_args[] = { ptr, llvm_const_int(c, type_uint, align_val), mask, passthru };
++	LLVMValueRef result = LLVMBuildCall2(c->builder, type, decl, call_args, 4, "");
++#endif
++
+ 	llvm_value_set(be_value, result, expr->type);
+ }
+ 
+@@ -596,15 +606,25 @@ static void llvm_emit_gather(GenContext *c, BEValue *be_value, Expr *expr)
+ 	ASSERT(vec_size(args) == 4);
+ 	LLVMValueRef arg_slots[4];
+ 	llvm_emit_intrinsic_args(c, args, arg_slots, 3);
+-	// Rearrange to match our builtin with the intrinsic which is ptr, align, mask, passthru
+ 	LLVMValueRef passthru = arg_slots[2];
+ 	LLVMValueRef mask = arg_slots[1];
++	LLVMValueRef ptr = arg_slots[0];
+ 	uint64_t alignment = args[3]->const_expr.ixx.i.low;
+-	LLVMTypeRef call_type[2] = { LLVMTypeOf(passthru), LLVMTypeOf(arg_slots[0]) };
+-	arg_slots[1] = llvm_const_int(c, type_uint, alignment ? alignment : llvm_abi_alignment(c, LLVMGetElementType(call_type[0])));
+-	arg_slots[2] = mask;
+-	arg_slots[3] = passthru;
+-	LLVMValueRef result = llvm_emit_call_intrinsic(c, intrinsic_id.gather, call_type, 2, arg_slots, 4);
++	LLVMTypeRef call_type[2] = { LLVMTypeOf(passthru), LLVMTypeOf(ptr) };
++	uint64_t align_val = alignment ? alignment : llvm_abi_alignment(c, LLVMGetElementType(call_type[0]));
++
++	LLVMValueRef decl = LLVMGetIntrinsicDeclaration(c->module, intrinsic_id.gather, call_type, 2);
++	LLVMTypeRef type = LLVMGlobalGetValueType(decl);
++
++#if LLVM_VERSION_MAJOR >= 22
++	LLVMValueRef call_args[] = { ptr, mask, passthru };
++	LLVMValueRef result = LLVMBuildCall2(c->builder, type, decl, call_args, 3, "");
++	if (align_val) llvm_attribute_add_call(c, result, attribute_id.align, 1, (int64_t)align_val);
++#else
++	LLVMValueRef call_args[] = { ptr, llvm_const_int(c, type_uint, align_val), mask, passthru };
++	LLVMValueRef result = LLVMBuildCall2(c->builder, type, decl, call_args, 4, "");
++#endif
++
+ 	llvm_value_set(be_value, result, expr->type);
+ }
+ 
+@@ -643,17 +663,25 @@ static void llvm_emit_masked_store(GenContext *c, BEValue *be_value, Expr *expr)
+ 	ASSERT(vec_size(args) == 4);
+ 	LLVMValueRef arg_slots[4];
+ 	llvm_emit_intrinsic_args(c, args, arg_slots, 3);
+-	// Rearrange to match our builtin with the intrinsic which is value, ptr, align, mask
+ 	LLVMValueRef ptr = arg_slots[0];
+ 	LLVMValueRef value = arg_slots[1];
+ 	LLVMValueRef mask = arg_slots[2];
+-	arg_slots[0] = value;
+-	arg_slots[1] = ptr;
+ 	uint64_t alignment = args[3]->const_expr.ixx.i.low;
+ 	LLVMTypeRef call_type[2] = { LLVMTypeOf(value), c->ptr_type };
+-	arg_slots[2] = llvm_const_int(c, type_uint, alignment ? alignment : llvm_abi_alignment(c, call_type[0]));
+-	arg_slots[3] = mask;
+-	LLVMValueRef result = llvm_emit_call_intrinsic(c, intrinsic_id.masked_store, call_type, 2, arg_slots, 4);
++	uint64_t align_val = alignment ? alignment : llvm_abi_alignment(c, call_type[0]);
++
++	LLVMValueRef decl = LLVMGetIntrinsicDeclaration(c->module, intrinsic_id.masked_store, call_type, 2);
++	LLVMTypeRef type = LLVMGlobalGetValueType(decl);
++
++#if LLVM_VERSION_MAJOR >= 22
++	LLVMValueRef call_args[] = { value, ptr, mask };
++	LLVMValueRef result = LLVMBuildCall2(c->builder, type, decl, call_args, 3, "");
++	if (align_val) llvm_attribute_add_call(c, result, attribute_id.align, 2, (int64_t)align_val);
++#else
++	LLVMValueRef call_args[] = { value, ptr, llvm_const_int(c, type_uint, align_val), mask };
++	LLVMValueRef result = LLVMBuildCall2(c->builder, type, decl, call_args, 4, "");
++#endif
++
+ 	llvm_value_set(be_value, result, expr->type);
+ }
+ 
+@@ -663,17 +691,25 @@ static void llvm_emit_scatter(GenContext *c, BEValue *be_value, Expr *expr)
+ 	ASSERT(vec_size(args) == 4);
+ 	LLVMValueRef arg_slots[4];
+ 	llvm_emit_intrinsic_args(c, args, arg_slots, 3);
+-	// Rearrange to match our builtin with the intrinsic which is value, ptr, align, mask
+ 	LLVMValueRef ptr = arg_slots[0];
+ 	LLVMValueRef value = arg_slots[1];
+ 	LLVMValueRef mask = arg_slots[2];
+-	arg_slots[0] = value;
+-	arg_slots[1] = ptr;
+ 	uint64_t alignment = args[3]->const_expr.ixx.i.low;
+-	LLVMTypeRef call_type[2] = { LLVMTypeOf(value),  LLVMTypeOf(ptr) };
+-	arg_slots[2] = llvm_const_int(c, type_uint, alignment ? alignment : llvm_abi_alignment(c, LLVMGetElementType(call_type[0])));
+-	arg_slots[3] = mask;
+-	LLVMValueRef result = llvm_emit_call_intrinsic(c, intrinsic_id.scatter, call_type, 2, arg_slots, 4);
++	LLVMTypeRef call_type[2] = { LLVMTypeOf(value), LLVMTypeOf(ptr) };
++	uint64_t align_val = alignment ? alignment : llvm_abi_alignment(c, LLVMGetElementType(call_type[0]));
++
++	LLVMValueRef decl = LLVMGetIntrinsicDeclaration(c->module, intrinsic_id.scatter, call_type, 2);
++	LLVMTypeRef type = LLVMGlobalGetValueType(decl);
++
++#if LLVM_VERSION_MAJOR >= 22
++	LLVMValueRef call_args[] = { value, ptr, mask };
++	LLVMValueRef result = LLVMBuildCall2(c->builder, type, decl, call_args, 3, "");
++	if (align_val) llvm_attribute_add_call(c, result, attribute_id.align, 2, (int64_t)align_val);
++#else
++	LLVMValueRef call_args[] = { value, ptr, llvm_const_int(c, type_uint, align_val), mask };
++	LLVMValueRef result = LLVMBuildCall2(c->builder, type, decl, call_args, 4, "");
++#endif
++
+ 	llvm_value_set(be_value, result, expr->type);
+ }
+ 
+diff --git a/src/compiler/llvm_codegen_expr.c b/src/compiler/llvm_codegen_expr.c
+index 3e5cad89..3adf8e85 100644
+--- a/src/compiler/llvm_codegen_expr.c
++++ b/src/compiler/llvm_codegen_expr.c
+@@ -6352,7 +6352,7 @@ LLVMValueRef llvm_emit_call_intrinsic(GenContext *c, unsigned intrinsic, LLVMTyp
+ 									  LLVMValueRef *values, unsigned arg_count)
+ {
+ 	LLVMValueRef decl = LLVMGetIntrinsicDeclaration(c->module, intrinsic, types, type_count);
+-	LLVMTypeRef type = LLVMIntrinsicGetType(c->context, intrinsic, types, type_count);
++	LLVMTypeRef type = LLVMGlobalGetValueType(decl);
+ 	return LLVMBuildCall2(c->builder, type, decl, values, arg_count, "");
+ }
+ 
+diff --git a/src/compiler/target.c b/src/compiler/target.c
+index 4b46517c..9b4af7f6 100644
+--- a/src/compiler/target.c
++++ b/src/compiler/target.c
+@@ -125,6 +125,8 @@ static const char *x86_feature_name[] = {
+ 	[X86_FEAT_APX_ZU] = "zu",
+ 	[X86_FEAT_AVX] = "avx",
+ 	[X86_FEAT_AVX2] = "avx2",
++	[X86_FEAT_AVX10_1] = "avx10.1",
++	[X86_FEAT_AVX10_2] = "avx10.2",
+ 	[X86_FEAT_AVX10_1_512] = "avx10.1-512",
+ 	[X86_FEAT_AVX10_1_256] = "avx10.1-256",
+ 	[X86_FEAT_AVX10_2_512] = "avx10.2-512",
+@@ -815,6 +817,12 @@ static void x86_features_add_feature(CpuFeatures *cpu_features, X86Feature featu
+ 			x86_features_add_feature(cpu_features, X86_FEAT_VPCLMULQDQ);
+ 			x86_features_add_feature(cpu_features, X86_FEAT_AVX512FP16);
+ 			return;
++		case X86_FEAT_AVX10_1:
++			x86_features_add_feature(cpu_features, X86_FEAT_AVX10_1_256);
++			return;
++		case X86_FEAT_AVX10_2:
++			x86_features_add_feature(cpu_features, X86_FEAT_AVX10_2_256);
++			return;
+ 		case X86_FEAT_SOFT_FLOAT:
+ 			return;
+ 	}
+diff --git a/test/test_suite/vector/gather_scatter.c3t b/test/test_suite/vector/gather_scatter.c3t
+index f4868ae1..e941c993 100644
+--- a/test/test_suite/vector/gather_scatter.c3t
++++ b/test/test_suite/vector/gather_scatter.c3t
+@@ -19,12 +19,10 @@ fn void main()
+ /* #expect: foo.ll
+ 
+   %4 = load <2 x ptr>, ptr %ptrvec, align 16
+-  %5 = call <2 x i32> @llvm.masked.gather.v2i32.v2p0(<2 x ptr> %4, i32 4, <2 x i1> <i1 true, i1 false>, <2 x i32> <i32 10, i32 20>)
+-
++  @llvm.masked.gather.v2i32.v2p0
+   %9 = load <2 x ptr>, ptr %ptrvec1, align 16
+-  %10 = call <2 x i32> @llvm.masked.gather.v2i32.v2p0(<2 x ptr> %9, i32 4, <2 x i1> <i1 true, i1 false>, <2 x i32> <i32 10, i32 20>)
+-
++  @llvm.masked.gather.v2i32.v2p0
+   %14 = load <2 x ptr>, ptr %ptrvec3, align 16
+-  call void @llvm.masked.scatter.v2i32.v2p0(<2 x i32> <i32 66, i32 77>, <2 x ptr> %14, i32 4, <2 x i1> <i1 false, i1 true>)
++  @llvm.masked.scatter.v2i32.v2p0
+   %16 = load <2 x ptr>, ptr %ptrvec5, align 16
+-  call void @llvm.masked.scatter.v2i32.v2p0(<2 x i32> <i32 88, i32 99>, <2 x ptr> %16, i32 4, <2 x i1> <i1 true, i1 false>)
++  @llvm.masked.scatter.v2i32.v2p0
+-- 
+2.53.0
+
