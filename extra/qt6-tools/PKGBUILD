@@ -5,7 +5,7 @@
 pkgname=qt6-tools
 _pkgver=6.10.2
 pkgver=${_pkgver/-/}
-pkgrel=1
+pkgrel=3
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -31,15 +31,18 @@ optdepends=('clang: for qdoc and lupdate'
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
-        git+https://code.qt.io/playground/qlitehtml)
+        git+https://code.qt.io/playground/qlitehtml
+        llvm22.patch)
 sha256sums=('465dce6589e4944d51d282cafbf46c08e24bd60a4561c70ac36e13ef4dbe0202'
-            'SKIP')
+            'SKIP'
+            '5f5dcc9234a19a2d545698406ee5dd5c3655d8cf3310e446a57d6d0738dc8e2e')
 
 prepare() {
   cd $_pkgfn
   git submodule init
   git submodule set-url src/assistant/qlitehtml "$srcdir"/qlitehtml
   git -c protocol.file.allow=always submodule update
+  patch -Np1 < ../llvm22.patch
 }
 
 build() {
