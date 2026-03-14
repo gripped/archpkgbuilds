@@ -2,7 +2,7 @@
 
 pkgname=nsight-compute
 pkgver=2026.1.0.9
-pkgrel=1
+pkgrel=2
 pkgdesc="Interactive profiler for NVIDIA CUDA and OptiX"
 arch=(x86_64 aarch64)
 url="https://developer.nvidia.com/nsight-compute"
@@ -12,8 +12,14 @@ depends=(
   fontconfig
   glib2
   glibc
+  libatomic
+  libcap
   libdrm
+  libelf
+  libgcc
   libglvnd
+  libpng
+  libstdc++
   libx11
   libxcb
   libxext
@@ -22,13 +28,19 @@ depends=(
   libxkbcommon-x11
   libxkbfile
   libxshmfence
+  mesa
   nspr
   nss
+  openssl
+  python
+  sqlite
   wayland
+  xcb-util
   xcb-util-cursor
   xcb-util-image
   xcb-util-keysyms
   xcb-util-renderutil
+  zlib
   # there are bundled libs: boost, gcc-libs, icu, libssh, libz, openssl, qt6, zstd
 )
 optdepends=(
@@ -68,4 +80,19 @@ package() {
 
   # install desktop entry
   install -vDm 644 -t "$pkgdir"/usr/share/applications/ ../$pkgname.desktop
+
+  # change ncu_report to a proper Python package
+  # (compare with https://pypi.org/project/ncu-report/ in a venv)
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  install -vdm 755 "$pkgdir$site_packages"/ncu_report/
+  mv -v "$pkgdir"/usr/lib/nsight-compute/extras/python/ncu_report.py "$pkgdir$site_packages"/ncu_report/__init__.py
+  mv -v "$pkgdir"/usr/lib/nsight-compute/extras/python/_ncu_report.so "$pkgdir$site_packages"/ncu_report/
+  if [[ $CARCH = aarch64 ]]; then
+    ln -srv "$pkgname"/usr/lib/nsight-compute/target/linux-desktop-t210-a64/libnvperf_host.so "$pkgdir$site_packages"/ncu_report/
+  else
+    ln -srv "$pkgname"/usr/lib/nsight-compute/target/linux-desktop-glibc_2_11_3-x64/libnvperf_host.so "$pkgdir$site_packages"/ncu_report/
+  fi
+
+  # recompile pycache to strip $pkgdir from embedded paths
+  python -m compileall "$pkgdir$site_packages"
 }
