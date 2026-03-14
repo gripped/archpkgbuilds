@@ -5,7 +5,7 @@ _pkgbasename=systemd
 # Upstream versioning is incompatible with pacman's version comparisons, one
 # way or another. We use proper version for pacman here (no dash for rc
 # release!), and change in source array below.
-pkgver=259.4
+pkgver=259.5
 pkgrel=1
 pkgdesc='system and service manager (32-bit)'
 arch=('x86_64')
@@ -26,7 +26,7 @@ validpgpkeys=('63CDA1E5D3FC22B998D20DD6327F26951A015CC4'  # Lennart Poettering <
 # For pacman's version comparisons $pkgver is missing the dash that would be
 # in an upstream rc version so add it back when fetching the tag from github.
 source=("git+https://github.com/systemd/systemd#tag=v${pkgver/rc/-rc}?signed")
-sha512sums=('35e90a930a533eb86011857b9085ebd08c6cc7350c9db3915d89c82af634430fcea4b62ceab523fb97f2f9de746918e42382cae29f4851be8fa5cac760df2b7c')
+sha512sums=('9a08b35fd71b4377bac7ff6d592e3890006d3633665ec86c679665d7b2ece0ffcffc2ac3ff6477d288633aed2ca5a0051fde3391e880abc307339b43d974ef66')
 
 _backports=(
 )
