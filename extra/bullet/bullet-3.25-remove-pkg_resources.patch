@@ -1,0 +1,154 @@
+diff --git a/examples/pybullet/gym/pybullet_envs/bullet/cartpole_bullet.py b/examples/pybullet/gym/pybullet_envs/bullet/cartpole_bullet.py
+index 399b7f4..ec3d593 100644
+--- a/examples/pybullet/gym/pybullet_envs/bullet/cartpole_bullet.py
++++ b/examples/pybullet/gym/pybullet_envs/bullet/cartpole_bullet.py
+@@ -18,7 +18,6 @@ import subprocess
+ import pybullet as p2
+ import pybullet_data
+ from pybullet_utils import bullet_client as bc
+-from pkg_resources import parse_version
+ 
+ logger = logging.getLogger(__name__)
+ 
+diff --git a/examples/pybullet/gym/pybullet_envs/bullet/kukaCamGymEnv.py b/examples/pybullet/gym/pybullet_envs/bullet/kukaCamGymEnv.py
+index bb715ec..bf9dc79 100644
+--- a/examples/pybullet/gym/pybullet_envs/bullet/kukaCamGymEnv.py
++++ b/examples/pybullet/gym/pybullet_envs/bullet/kukaCamGymEnv.py
+@@ -13,7 +13,7 @@ import pybullet as p
+ from . import kuka
+ import random
+ import pybullet_data
+-from pkg_resources import parse_version
++from packaging.version import parse as parse_version
+ 
+ maxSteps = 1000
+ 
+diff --git a/examples/pybullet/gym/pybullet_envs/bullet/kukaGymEnv.py b/examples/pybullet/gym/pybullet_envs/bullet/kukaGymEnv.py
+index f47a0dd..1a4b9e7 100644
+--- a/examples/pybullet/gym/pybullet_envs/bullet/kukaGymEnv.py
++++ b/examples/pybullet/gym/pybullet_envs/bullet/kukaGymEnv.py
+@@ -13,7 +13,7 @@ import pybullet as p
+ from . import kuka
+ import random
+ import pybullet_data
+-from pkg_resources import parse_version
++from packaging.version import parse as parse_version
+ 
+ largeValObservation = 100
+ 
+diff --git a/examples/pybullet/gym/pybullet_envs/bullet/kuka_diverse_object_gym_env.py b/examples/pybullet/gym/pybullet_envs/bullet/kuka_diverse_object_gym_env.py
+index 294a598..b2da676 100644
+--- a/examples/pybullet/gym/pybullet_envs/bullet/kuka_diverse_object_gym_env.py
++++ b/examples/pybullet/gym/pybullet_envs/bullet/kuka_diverse_object_gym_env.py
+@@ -10,7 +10,7 @@ import pybullet_data
+ import pdb
+ import distutils.dir_util
+ import glob
+-from pkg_resources import parse_version
++from packaging.version import parse as parse_version
+ import gym
+ 
+ 
+diff --git a/examples/pybullet/gym/pybullet_envs/bullet/minitaur_duck_gym_env.py b/examples/pybullet/gym/pybullet_envs/bullet/minitaur_duck_gym_env.py
+index 6c2d9da..7dd6049 100644
+--- a/examples/pybullet/gym/pybullet_envs/bullet/minitaur_duck_gym_env.py
++++ b/examples/pybullet/gym/pybullet_envs/bullet/minitaur_duck_gym_env.py
+@@ -10,7 +10,7 @@ os.sys.path.insert(0, parentdir)
+ 
+ import math
+ import time
+-from pkg_resources import parse_version
++from packaging.version import parse as parse_version
+ 
+ import gym
+ from gym import spaces
+diff --git a/examples/pybullet/gym/pybullet_envs/bullet/minitaur_gym_env.py b/examples/pybullet/gym/pybullet_envs/bullet/minitaur_gym_env.py
+index 1770fa5..cddf910 100644
+--- a/examples/pybullet/gym/pybullet_envs/bullet/minitaur_gym_env.py
++++ b/examples/pybullet/gym/pybullet_envs/bullet/minitaur_gym_env.py
+@@ -19,7 +19,7 @@ from . import minitaur
+ import os
+ import pybullet_data
+ from . import minitaur_env_randomizer
+-from pkg_resources import parse_version
++from packaging.version import parse as parse_version
+ 
+ NUM_SUBSTEPS = 5
+ NUM_MOTORS = 8
+diff --git a/examples/pybullet/gym/pybullet_envs/bullet/racecarGymEnv.py b/examples/pybullet/gym/pybullet_envs/bullet/racecarGymEnv.py
+index 445ae7d..2f30272 100644
+--- a/examples/pybullet/gym/pybullet_envs/bullet/racecarGymEnv.py
++++ b/examples/pybullet/gym/pybullet_envs/bullet/racecarGymEnv.py
+@@ -14,7 +14,7 @@ from . import racecar
+ import random
+ from pybullet_utils import bullet_client as bc
+ import pybullet_data
+-from pkg_resources import parse_version
++from packaging.version import parse as parse_version
+ 
+ RENDER_HEIGHT = 720
+ RENDER_WIDTH = 960
+diff --git a/examples/pybullet/gym/pybullet_envs/bullet/racecarZEDGymEnv.py b/examples/pybullet/gym/pybullet_envs/bullet/racecarZEDGymEnv.py
+index ebd67f1..5e7aa87 100644
+--- a/examples/pybullet/gym/pybullet_envs/bullet/racecarZEDGymEnv.py
++++ b/examples/pybullet/gym/pybullet_envs/bullet/racecarZEDGymEnv.py
+@@ -14,7 +14,7 @@ from pybullet_utils import bullet_client as bc
+ from . import racecar
+ import random
+ import pybullet_data
+-from pkg_resources import parse_version
++from packaging.version import parse as parse_version
+ 
+ RENDER_HEIGHT = 720
+ RENDER_WIDTH = 960
+diff --git a/examples/pybullet/gym/pybullet_envs/deep_mimic/gym_env/deep_mimic_env.py b/examples/pybullet/gym/pybullet_envs/deep_mimic/gym_env/deep_mimic_env.py
+index 26366a0..3bd7491 100644
+--- a/examples/pybullet/gym/pybullet_envs/deep_mimic/gym_env/deep_mimic_env.py
++++ b/examples/pybullet/gym/pybullet_envs/deep_mimic/gym_env/deep_mimic_env.py
+@@ -18,7 +18,6 @@ import subprocess
+ import pybullet as p2
+ import pybullet_data
+ from pybullet_utils import bullet_client as bc
+-from pkg_resources import parse_version
+ from pybullet_envs.deep_mimic.env.pybullet_deep_mimic_env import PyBulletDeepMimicEnv, InitializationStrategy
+ from pybullet_utils.arg_parser import ArgParser
+ from pybullet_utils.logger import Logger
+diff --git a/examples/pybullet/gym/pybullet_envs/env_bases.py b/examples/pybullet/gym/pybullet_envs/env_bases.py
+index ac7c2c0..b545331 100644
+--- a/examples/pybullet/gym/pybullet_envs/env_bases.py
++++ b/examples/pybullet/gym/pybullet_envs/env_bases.py
+@@ -5,7 +5,7 @@ import os
+ 
+ from pybullet_utils import bullet_client
+ 
+-from pkg_resources import parse_version
++from packaging.version import parse as parse_version
+ 
+ try:
+   if os.environ["PYBULLET_EGL"]:
+diff --git a/examples/pybullet/gym/pybullet_envs/minitaur/envs/minitaur_gym_env.py b/examples/pybullet/gym/pybullet_envs/minitaur/envs/minitaur_gym_env.py
+index 608b8ea..97e966f 100644
+--- a/examples/pybullet/gym/pybullet_envs/minitaur/envs/minitaur_gym_env.py
++++ b/examples/pybullet/gym/pybullet_envs/minitaur/envs/minitaur_gym_env.py
+@@ -22,7 +22,7 @@ from pybullet_envs.minitaur.envs import minitaur_logging
+ from pybullet_envs.minitaur.envs import minitaur_logging_pb2
+ from pybullet_envs.minitaur.envs import minitaur_rainbow_dash
+ from pybullet_envs.minitaur.envs import motor
+-from pkg_resources import parse_version
++from packaging.version import parse as parse_version
+ 
+ NUM_MOTORS = 8
+ MOTOR_ANGLE_OBSERVATION_INDEX = 0
+diff --git a/examples/pybullet/gym/pybullet_envs/prediction/pybullet_sim_gym_env.py b/examples/pybullet/gym/pybullet_envs/prediction/pybullet_sim_gym_env.py
+index 0d94520..1b1759b 100644
+--- a/examples/pybullet/gym/pybullet_envs/prediction/pybullet_sim_gym_env.py
++++ b/examples/pybullet/gym/pybullet_envs/prediction/pybullet_sim_gym_env.py
+@@ -21,7 +21,7 @@ from pybullet_envs.prediction import boxstack_pybullet_sim
+ import os
+ import pybullet_data
+ 
+-from pkg_resources import parse_version
++from packaging.version import parse as parse_version
+ 
+ 
+ class PyBulletSimGymEnv(gym.Env):

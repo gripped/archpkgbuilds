@@ -5,19 +5,22 @@ pkgbase=bullet
 pkgname=('bullet' 'bullet-dp' 'bullet-docs' 'python-pybullet')
 pkgver=3.25
 _pkgver=3.25
-pkgrel=8
+pkgrel=9
 pkgdesc="A 3D Collision Detection and Rigid Body Dynamics Library for games and animation"
 arch=('x86_64')
 url="http://www.bulletphysics.com/Bullet/"
-license=('custom:zlib')
-makedepends=('cmake' 'doxygen' 'graphviz' 'ttf-dejavu' 'mesa' 'glu' 'python' 'python-numpy' 'python-setuptools' 'ninja')
+license=('Zlib')
+makedepends=('cmake' 'doxygen' 'graphviz' 'ttf-dejavu' 'mesa' 'glu' 'python' 'python-build' 'python-installer' 'python-numpy' 'python-setuptools' 'python-wheel' 'ninja')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/bulletphysics/bullet3/archive/refs/tags/${_pkgver}.tar.gz"
+        bullet-3.25-remove-pkg_resources.patch
         bullet3_examplebrowser.sh)
 sha512sums=('7086e5fcf69635801bb311261173cb8d173b712ca1bd78be03df48fad884674e85512861190e45a1a62d5627aaad65cde08c175c44a3be9afa410d3dfd5358d4'
+            '4a5480c460d34c5457c0db66aa85b66e5869e26259ff9481122488bd6499d9b10edce711bfc72bee3478cc647b120febf0c51225999557698bd41ed32a1497b9'
             '8741ad94b6c46c226d89aebc8ab06d8a11bac3c04d3f0a2bf7a7524792a3375aa7bf7d295410b16fbeb4c348a31057b4570acdebe9bbaea251f44daca8d9fe81')
 
 prepare() {
   cd bullet3-${_pkgver}
+  patch -Np1 -i ../bullet-3.25-remove-pkg_resources.patch
   sed -i '/SET_TARGET_PROPERTIES(pybullet PROPERTIES PREFIX/d' examples/pybullet/CMakeLists.txt
 }
 
@@ -44,7 +47,7 @@ build() {
   ninja -C build
 
   # For Python and docs it doesn't matter whether we build multithreaded or not.
-  python setup.py build
+  python -m build --wheel --no-isolation
   doxygen
 
   cd ../bullet3-${_pkgver}-dp
@@ -83,6 +86,7 @@ _package() {
 }
 
 package_bullet() {
+  depends+=('glibc' 'libgcc' 'libstdc++')
   optdepends=('glu: for the example browser'
               'python: python bindings'
               'python-numpy: python bindings'
@@ -97,6 +101,7 @@ package_bullet-dp() {
   pkgdesc="A 3D Collision Detection and Rigid Body Dynamics Library for games and animation (double precision)"
   conflicts=("bullet")
   provides=("bullet")
+  depends+=('glibc' 'libgcc' 'libstdc++')
   optdepends=('glu: for the example browser'
               'python: python bindings'
               'python-numpy: python bindings'
@@ -109,12 +114,12 @@ package_bullet-dp() {
 
 package_python-pybullet() {
   pkgdesc="Bullet Python bindings"
-  depends+=('bullet' 'gcc-libs')
+  depends+=('bullet' 'glibc' 'libgcc' 'libstdc++')
 
   cd bullet3-${_pkgver}
 
   install -Dm755 build/examples/pybullet/libpybullet.so.${pkgver} "${pkgdir}"/usr/lib/libpybullet.so.${pkgver}
-  python setup.py install --prefix=/usr --root="${pkgdir}" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -Dm644 LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
 }
