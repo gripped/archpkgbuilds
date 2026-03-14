@@ -3,7 +3,7 @@
 
 pkgname=yggdrasil
 pkgver=0.5.13
-pkgrel=1
+pkgrel=2
 pkgdesc="An experiment in scalable routing as an encrypted IPv6 overlay network"
 arch=('x86_64')
 url="https://github.com/yggdrasil-network/yggdrasil-go"
@@ -32,7 +32,7 @@ build() {
   export CGO_LDFLAGS="${LDFLAGS}"
   export CGO_REQUIRED="1"
 
-  for bin in yggdrasil yggdrasilctl; do
+  for bin in yggdrasil yggdrasilctl genkeys; do
     go build \
       -buildmode=pie \
       -mod=readonly \
@@ -50,6 +50,8 @@ package() {
   install -Dm755 -t "${pkgdir}/usr/bin" \
     yggdrasil \
     yggdrasilctl
+  install -Dm755 -t "${pkgdir}/usr/lib/yggdrasil" \
+    genkeys
 
   install -Dm644 -t "${pkgdir}/usr/lib/systemd/system" \
     contrib/systemd/yggdrasil.service \
