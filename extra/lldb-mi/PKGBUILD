@@ -2,13 +2,13 @@
 
 pkgname=lldb-mi
 pkgver=0.0.1
-pkgrel=6
+pkgrel=7
 pkgdesc="LDB's machine interface driver"
 url='https://lldb.llvm.org/'
 arch=(x86_64)
 license=(Apache-2.0)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libstdc++
          lldb
          llvm-libs)
 makedepends=(cmake
