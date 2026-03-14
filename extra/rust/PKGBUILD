@@ -19,7 +19,7 @@ pkgname=(
   rust-aarch64-musl
 )
 pkgver=1.94.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Systems programming language focused on safety, speed and concurrency"
 url=https://www.rust-lang.org/
@@ -37,6 +37,7 @@ depends=(
   gcc
   glibc
   libgcc
+  libgit2
   libssh2
   libstdc++
   lld
@@ -171,6 +172,8 @@ _pick() {
 build() {
   cd rustc-$pkgver-src
 
+  export LIBGIT2_NO_VENDOR=1
+  export LIBSSH2_SYS_USE_PKG_CONFIG=1
   export RUST_BACKTRACE=1
   unset CFLAGS CXXFLAGS LDFLAGS
 
@@ -235,6 +238,13 @@ _install_licenses() {
 }
 
 package_rust() {
+  depends+=(
+    libcurl.so
+    libgcc_s.so
+    libgit2.so
+    libssh2.so
+    libssl.so
+  )
   optdepends=(
     'gdb: rust-gdb script'
     'lldb: rust-lldb script'
