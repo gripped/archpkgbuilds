@@ -1,8 +1,9 @@
 # Maintainer: Frederik Schwan <freswa at archlinux dot org>
+# Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=wasi-libc
-pkgver=0+531+ec0effd7
-_commit=ec0effd769df5f05b647216578bcf5d3b5449725 # tags/wasi-sdk-30
+pkgver=0+571+2fc32bc8
+_commit=2fc32bc81b9f07f8d9525edea59bfbaf760c06d6 # tags/wasi-sdk-30
 pkgrel=1
 epoch=1
 pkgdesc='WASI libc implementation for WebAssembly'
@@ -15,13 +16,20 @@ makedepends=(
   git
   llvm
   ninja
+  wasi-compiler-rt
+  wasm-tools
+  wasm-component-ld
+  wasm-pkg-tools
+  wit-bindgen
 )
 options=(
   !buildflags
   staticlibs
 )
 source=("git+https://github.com/WebAssembly/wasi-libc.git#commit=${_commit}")
-b2sums=('6050e62313411cdc25883ec491ca16885e992ea8954e3b8dbf75a4c420fb34f5ec32776260b238d9ca37488135372ed009574997b566a4cc3be22f621b131f16')
+b2sums=('c6006678c2481039a9487cae9aaa738b048a40c53c836ef26e5cd91b8b962b831c12c63a07acf0d46401c071a2a91ecc6c8508375a3bb674775211e9878e60d1')
+
+_targets=(wasm32-wasi wasm32-wasip1 wasm32-wasip1-threads wasm32-wasip2)
 
 pkgver() {
   cd ${pkgname}
@@ -29,30 +37,58 @@ pkgver() {
 }
 
 build() {
-  local targets=(
-    wasm32-wasi
-    wasm32-wasip1
-    wasm32-wasip1-threads
-    wasm32-wasip2
-  ) cmake_options=(
-    -S ${pkgname}
-    -B build
-    -G Ninja
-    -D BUILD_SHARED=off
-    -D CMAKE_BUILD_TYPE=Release
-    -D CMAKE_C_COMPILER=clang
-  )
+  # Build options are derived from
+  # https://github.com/WebAssembly/wasi-sdk/blob/main/cmake/wasi-sdk-sysroot.cmake
 
-  for target in "${targets[@]}"; do
-    cmake "${cmake_options[@]}" -D TARGET_TRIPLE="${target}"
-    cmake --build build
+  local resource_dir
+  resource_dir="$(clang --print-resource-dir)"
+
+  local target builtins_lib extra_cflags
+  for target in "${_targets[@]}"; do
+    extra_cflags="-Wno-deprecated -fno-exceptions"
+
+    if [[ ${target} = *p[23]* ]]; then
+      extra_cflags+=" -fPIC"
+    fi
+
+    local cmake_options=(
+      -S $pkgname
+      -B build-$target
+      -G Ninja
+      -DCMAKE_AR=/usr/bin/llvm-ar
+      -DCMAKE_ASM_COMPILER=/usr/bin/clang
+      -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      -DCMAKE_C_COMPILER=/usr/bin/clang
+      -DCMAKE_C_COMPILER_WORKS=ON
+      -DCMAKE_C_FLAGS=-fno-exceptions
+      -DCMAKE_C_LINKER_DEPFILE_SUPPORTED=OFF
+      -DCMAKE_INSTALL_PREFIX=/usr/share/wasi-sysroot
+      -DCMAKE_RANLIB=/usr/bin/llvm-ranlib
+      -DCMAKE_SYSROOT=/usr/share/wasi-sysroot
+      -DCMAKE_SYSTEM_NAME=WASI
+      -DCMAKE_SYSTEM_PROCESSOR=wasm32
+      -DCMAKE_SYSTEM_VERSION=1
+      -DTARGET_TRIPLE=$target
+      -DCMAKE_C_FLAGS="$extra_cflags"
+      -DCMAKE_ASM_FLAGS="$extra_cflags"
+      -DBUILTINS_LIB="$resource_dir/lib/${target/wasm32/wasm32-unknown}/libclang_rt.builtins.a"
+    )
+
+    cmake "${cmake_options[@]}"
+    ninja -C build-$target
   done
 }
 
 package() {
-  install -dm755 "${pkgdir}"/usr/share
-  cp -dr --preserve=mode,timestamp build/sysroot "${pkgdir}"/usr/share/wasi-sysroot
-  install -Dm644 ${pkgname}/LICENSE* -t "${pkgdir}"/usr/share/licenses/${pkgname}
+  local target
+  for target in "${_targets[@]}"; do
+    DESTDIR="$pkgdir" ninja -C build-$target install
+  done
+
+  # reduce duplication
+  hardlink -c "$pkgdir/usr/share/wasi-sysroot"
+
+  install -Dm644 $pkgname/LICENSE* -t "$pkgdir/usr/share/licenses/$pkgname"
 }
 
 # vim:set sw=2 sts=-1 et:
