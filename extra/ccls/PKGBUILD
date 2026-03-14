@@ -4,14 +4,15 @@
 
 pkgname=ccls
 pkgver=0.20250815.1
-pkgrel=1
+pkgrel=2
 pkgdesc='C/C++/ObjC language server supporting cross references, hierarchies, completion and semantic highlighting'
 arch=('x86_64')
 url='https://github.com/MaskRay/ccls'
 license=('Apache-2.0')
 depends=(
   'clang'
-  'gcc-libs'
+  'libstdc++'
+  'libgcc'
   'glibc'
   'llvm-libs'
 )
@@ -21,9 +22,15 @@ makedepends=(
   'ninja'
   'rapidjson'
 )
-source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('2f0bdd62260c65881af55128f7e5008fba8910844173477daf9122f5408f21ac5d297eb0497ea87f1591124b96b9416388bd67894581cbe6bf9469f70d81ffb8')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+        "llvm22.patch::https://github.com/MaskRay/ccls/commit/d31cc9f07668a91c892d5f13367b9a1e773fbe2b.patch")
+sha512sums=('2f0bdd62260c65881af55128f7e5008fba8910844173477daf9122f5408f21ac5d297eb0497ea87f1591124b96b9416388bd67894581cbe6bf9469f70d81ffb8'
+            '8efbdbfa92cfb766dfc9179d95b12c51c29fd4b6154a40483d79eaa78740e86e158039a384f38b548c780bd5cf72ae6a8e678f20089654fd2efbf241a830d1c1')
 
+prepare() {
+  cd $pkgname-$pkgver
+  patch -Np1 < ../llvm22.patch
+}
 build() {
   local cmake_options=(
     -B build -S "$pkgname-$pkgver"
