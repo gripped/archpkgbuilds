@@ -5,7 +5,7 @@ pkgbase=python-cuda
 # NOTE: python-cuda-pathfinder and python-cuda-core are packaged separately
 pkgname=(python-cuda python-cuda-bindings)
 pkgver=13.1.1
-pkgrel=4
+pkgrel=5
 pkgdesc="Python interface for CUDA provided by NVIDIA"
 arch=(x86_64)
 url="https://nvidia.github.io/cuda-python"
@@ -93,6 +93,7 @@ package_python-cuda() {
     'python-cuda-tile: a DSL for CUDA Tile programming model'
     'python-nvmath: bindings for math libraries'
     'python-nvshmem: bindings for NVSHMEM'
+    'python-nsight: Python kernel profiling interface for performance analysis'
   )
 
   cd $pkgbase/cuda_python
