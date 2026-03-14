@@ -3,8 +3,8 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=iwd
-pkgver=3.11
-pkgrel=2
+pkgver=3.12
+pkgrel=1
 pkgdesc='Internet Wireless Daemon'
 arch=('x86_64')
 url='https://git.kernel.org/cgit/network/wireless/iwd.git/'
@@ -15,7 +15,7 @@ optdepends=('qrencode: for displaying QR code after DPP is started')
 source=(https://www.kernel.org/pub/linux/network/wireless/iwd-${pkgver}.tar{.xz,.sign}
         0001-use-network-group-for-unprivileged-access.diff)
 # https://mirrors.edge.kernel.org/pub/linux/network/wireless/sha256sums.asc
-sha256sums=('85730e79de05978e26e44b958fd11e2ebb45424ca181f8db7a8daf25fc2226ea'
+sha256sums=('d89a5e45c7180170e19be828f9e944a768c593758094fc57a358d0e7c4cb1a49'
             'SKIP'
             'd5fb4fb864b7a0632117aa2039df535ab5c1d024ae618a1f09e34dfab8ee0cc7')
 validpgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659')
@@ -32,12 +32,12 @@ prepare() {
   # https://lore.kernel.org/iwd/20240122105312.66fb4dbf@workstation64.local/T/#u
   # disable one expected test failure - requires a kernel module we cannot load
   # from inside the chroot
-  sed -i "s:unit/test-wsc::" Makefile.am
+  # sed -i "s:unit/test-wsc::" Makefile.am
   # and another failing test that depends on AES_CTR not available
   sed -i "s:unit/test-storage::" Makefile.am
   # and more since 3.10 - they don't fail building locally
-  sed -i "s:unit/test-crypto::" Makefile.am
-  sed -i "s:unit/test-eapol::" Makefile.am
+  # sed -i "s:unit/test-crypto::" Makefile.am
+  # sed -i "s:unit/test-eapol::" Makefile.am
   autoreconf -vfi
 }
 
