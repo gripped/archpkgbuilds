@@ -6,7 +6,7 @@
 
 pkgname=opensmtpd
 pkgver=7.8.0p0
-pkgrel=1
+pkgrel=2
 pkgdesc="Free implementation of the server-side SMTP protocol"
 arch=(x86_64)
 url="https://www.opensmtpd.org"
@@ -20,12 +20,10 @@ backup=(etc/smtpd/smtpd.conf etc/smtpd/aliases)
 options=(emptydirs)
 source=("git+https://github.com/OpenSMTPD/OpenSMTPD.git#tag=${pkgver}"
         opensmtpd.sysusers
-        smtpd.service
-        smtpd.socket)
+        smtpd.service)
 sha256sums=('10131c5cc2dfce51d520e6847cb43d08e0043d87fafeb74b3531ca617ab4aced'
             '955e25043dbbc266a496db10c5d5f25f70d5342bba0550915932c04068a4ca01'
-            'abf5baeb2a87c60d668ad18ea41cc08cab7a4f76339dd6df05de15cdaadaf922'
-            '32d46de5562d01de445d04c93bcc9f94bf103539b676e449c32e3603a3866cf8')
+            'abf5baeb2a87c60d668ad18ea41cc08cab7a4f76339dd6df05de15cdaadaf922')
 install="${pkgname}.install"
 
 prepare() {
@@ -70,6 +68,5 @@ package() {
   install -Dm644 LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 
   install -Dm644 ../smtpd.service -t "${pkgdir}"/usr/lib/systemd/system/
-  install -Dm644 ../smtpd.socket -t "${pkgdir}"/usr/lib/systemd/system/
   install -Dm644 ../opensmtpd.sysusers "${pkgdir}"/usr/lib/sysusers.d/opensmtpd.conf
 }
