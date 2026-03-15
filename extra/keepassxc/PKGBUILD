@@ -3,7 +3,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=keepassxc
-pkgver=2.7.11
+pkgver=2.7.12
 pkgrel=1
 pkgdesc="Cross-platform community-driven port of Keepass password manager"
 url="https://keepassxc.org/"
@@ -17,7 +17,7 @@ optdepends=('xclip: keepassxc-cli clipboard support under X server'
 provides=('org.freedesktop.secrets')
 source=("git+https://github.com/keepassxreboot/keepassxc.git#tag=${pkgver}?signed"
         'TestEntryModel.patch')
-sha256sums=('b278cecaeb49f8c6ba9253a956cf250f85e444a140054eb3ecf29f99cb6ea528'
+sha256sums=('7cfbeb0f0c732b07b99d04a27894c0dbf290192ad1363e3b35475b11b1f456e8'
             '1448fb616c4eaf7b0f9019ee10f813199d7105442e3f61aea31e901139b87f43')
 validpgpkeys=(3489040C1F0C3EEAB8D556A5440FC65F2E0C6E01  # Jonathan White <support@dmapps.us>
               BF5A669F2272CF4324C1FDA8CFB4C2166397D0D2  # KeePassXC Release <release@keepassxc.org>
