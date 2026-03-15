@@ -5,7 +5,7 @@
 # Contributor: Iván Pulido <ijpulidos@riseup.net>
 
 pkgname=python-mpmath
-pkgver=1.4.0
+pkgver=1.4.1
 pkgrel=1
 pkgdesc='Python library for arbitrary-precision floating-point arithmetic.'
 arch=(any)
@@ -23,7 +23,7 @@ checkdepends=(python-hypothesis
               python-pexpect
               python-pytest)
 source=(git+https://github.com/mpmath/mpmath#tag=$pkgver)
-sha256sums=('29a6b2f8f5d6e39f846ce0e523b6cef05c1227c42ac6f51c1a26e42746e5fcc4')
+sha256sums=('b3a29e28236f55687720e3b3722791339f9bb6352c96afdfd6216157d5fcf123')
 
 build() {
   cd mpmath
