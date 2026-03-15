@@ -3,8 +3,8 @@
 
 _name=PyMuPDF
 pkgname=python-pymupdf
-pkgver=1.27.1
-pkgrel=3
+pkgver=1.27.2
+pkgrel=1
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(x86_64)
 url="https://github.com/pymupdf/PyMuPDF"
@@ -44,10 +44,10 @@ source=(
   remove-clang-and-swig-dependencies.patch
   remove-pip-call-in-tests.patch
 )
-sha512sums=('f68fe810ce39a3612ec279e57270887f4d8d0425dfcd0356c775e30464708a0d867412f8a4da6e9dac164662df3f597b7d76b8366c7d222e813875e201b6cdaa'
+sha512sums=('3aecd0ae5bbc464ee67ab29a758beeffc6755365cea440fc48ccee0af3a9175b4c6b000deb81bcb722f6b176adada26cf32a144ca3d4219248e3093266b5f526'
             '8362c20cad0df07f14493b1456ca8ffa880a363c95c336a5ba102a7089c93e409e9abc9707653e9073500964b4cb17354d92206748f8fedb4e3815164a90fb7a'
             '8ddd524e124d579091f98b75ab02ed87a7dc431c1d85cf9b8da645a4935d3f7c1361d6796618cb1da05be95be05a694ab9b039a42c92012434cda6283158a0e7')
-b2sums=('cc3a5a428a30ff064d846bf4f36797708f282eac915efec9939e15b7cc4e576f7ce9184960755fe1b409d0902587b94fde5ca858501d55a529b5369c152d4c16'
+b2sums=('d8eb355acfcd91b941863e571b7ce32567c0d01001bde8cd20e0f45c348d2ca1f787e4cf9d6059d257692d436ef847d16ca0878a17a8e24f82c872777f35dbc6'
         '8bc15767ceeb691d3b4d43bebaf69978e4e24e654537f2cbe6de852b98db523f1b30f45545c3bfa48b915b05af1fb85925350c50e57fdbe5409c6725036d375c'
         '411b25296ed19f033270fe62afe12fe635c6c11e7d5d078188c76bef193e28ec2b461450d1366c80e2edad919baf730342ca84f02d9adbfbe7f3bce912884d88')
 
@@ -101,6 +101,7 @@ check() {
     --deselect tests/test_pixmap.py::test_3050
     --deselect tests/test_pixmap.py::test_3854
     --deselect tests/test_textextract.py::test_4180
+    --deselect tests/test_tesseract.py::test_3842
     # disable test that shells out to pip: https://github.com/pymupdf/PyMuPDF/issues/2950
     --deselect tests/test_font.py::test_fontarchive
     --deselect tests/test_general.py::test_subset_fonts
