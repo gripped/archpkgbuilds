@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 46f5cd33..ff7af606 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -60,6 +63,9 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Gui Network REQUIRED) # main depen
+ endif()
+ if(MLN_QT_WITH_LOCATION)
+     find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Location REQUIRED) # location
++    if(QT_VERSION_MAJOR EQUAL 6 AND QT_VERSION_MINOR GREATER_EQUAL 9)
++        find_package(Qt${QT_VERSION_MAJOR} COMPONENTS LocationPrivate REQUIRED)
++    endif()
+ endif()
+ if(MLN_QT_WITH_WIDGETS)
+     if(Qt6_FOUND)

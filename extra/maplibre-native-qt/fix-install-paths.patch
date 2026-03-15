@@ -1,0 +1,46 @@
+diff -ru maplibre-native-qt_v3.0.0_Source.orig/src/location/plugins/CMakeLists.txt maplibre-native-qt_v3.0.0_Source/src/location/plugins/CMakeLists.txt
+--- maplibre-native-qt_v3.0.0_Source.orig/src/location/plugins/CMakeLists.txt	2026-03-15 20:27:31.649175917 +0100
++++ maplibre-native-qt_v3.0.0_Source/src/location/plugins/CMakeLists.txt	2026-03-15 20:43:02.650794291 +0100
+@@ -77,10 +77,10 @@
+ install(
+     TARGETS ${MLN_QT_GEOSERVICES_PLUGIN} ${GeoServicesPluginOutputTargets}
+     EXPORT ${MLN_QT_NAME}LocationPluginGeoServicesTargets
+-    ARCHIVE DESTINATION "plugins/geoservices"
+-    LIBRARY DESTINATION "plugins/geoservices"
+-    OBJECTS DESTINATION "plugins/geoservices"
+-    RUNTIME DESTINATION "plugins/geoservices"
++    ARCHIVE DESTINATION "${QT6_INSTALL_PLUGINS}/geoservices"
++    LIBRARY DESTINATION "${QT6_INSTALL_PLUGINS}/geoservices"
++    OBJECTS DESTINATION "${QT6_INSTALL_PLUGINS}/geoservices"
++    RUNTIME DESTINATION "${QT6_INSTALL_PLUGINS}/geoservices"
+ )
+ 
+ # QtLocation QML extension plugin
+@@ -214,21 +214,21 @@
+ install(
+     TARGETS ${MLN_QT_QML_PLUGIN} ${QmlPluginOutputTargets}
+     EXPORT ${MLN_QT_NAME}LocationPluginQmlTargets
+-    ARCHIVE DESTINATION "qml/MapLibre"
+-    LIBRARY DESTINATION "qml/MapLibre"
+-    OBJECTS DESTINATION "qml/MapLibre"
+-    RUNTIME DESTINATION "qml/MapLibre"
++    ARCHIVE DESTINATION "${QT6_INSTALL_QML}/MapLibre"
++    LIBRARY DESTINATION "${QT6_INSTALL_QML}/MapLibre"
++    OBJECTS DESTINATION "${QT6_INSTALL_QML}/MapLibre"
++    RUNTIME DESTINATION "${QT6_INSTALL_QML}/MapLibre"
+ )
+ install(
+     FILES
+         "${CMAKE_CURRENT_BINARY_DIR}/MapLibre/qmldir"
+-    DESTINATION "qml/MapLibre"
++    DESTINATION "${QT6_INSTALL_QML}/MapLibre"
+ )
+ 
+ if(COMMAND qt_add_qml_module)
+     install(
+         FILES
+             "${CMAKE_CURRENT_BINARY_DIR}/MapLibre/${MLN_QT_QML_PLUGIN}.qmltypes"
+-        DESTINATION "qml/MapLibre"
++        DESTINATION "${QT6_INSTALL_QML}/MapLibre"
+     )
+ endif()
