@@ -2,7 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=sentry-native
-pkgver=0.13.1
+pkgver=0.13.2
 pkgrel=1
 pkgdesc="Sentry SDK for C, C++ and native applications"
 arch=(x86_64)
@@ -26,6 +26,7 @@ checkdepends=(
   python-psutil
   python-pytest
   python-pytest-httpserver
+  python-requests
 )
 provides=(libsentry.so)
 source=(
@@ -37,7 +38,7 @@ source=(
   "$pkgname-mini_chromium::git+https://github.com/getsentry/mini_chromium.git"
   "$pkgname-zlib::git+https://chromium.googlesource.com/chromium/src/third_party/zlib.git"
 )
-b2sums=('ec3e86468a3b3f069292bc901b9bc6719fcbcd515b26492bc82280bd0cfe5960239f21dcf2f610315c64291b7b3d708cac0986c7a26c7a9a9efcab203db502ef'
+b2sums=('7f404111115c83fc6f7a3ee4cddc4cf17a0bf6f262ac7ce156e1aef59fa30e0158c673770edcc774c8bd14c9243562e4598f30f018acb3766c656026acfa4804'
         'SKIP'
         'SKIP'
         'SKIP'
