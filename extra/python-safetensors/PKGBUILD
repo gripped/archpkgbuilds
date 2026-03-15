@@ -1,0 +1,57 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+_name=safetensors
+pkgname=python-$_name
+pkgver=0.7.0
+pkgrel=2
+pkgdesc="Simple, safe way to store and distribute tensors"
+arch=(x86_64)
+url="https://github.com/huggingface/safetensors"
+license=(Apache-2.0)
+depends=(
+  glibc
+  libgcc
+  python
+  python-numpy
+)
+makedepends=(
+  maturin
+  python-installer
+)
+optdepends=(
+  'python-jax: usage with jax'
+  'python-tensorflow: usage with tensorflow'
+  'python-pytorch: usage with pytorch'
+)
+checkdepends=(
+  python-pytest
+  python-pytorch
+  python-tensorflow
+)
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
+b2sums=('fdece7e01ed9268097071bb21754bc4d206776b600de0eafe681fc28e9b60db818477b534787159763a7068da509fcf5a157daa97c71ead02e921562c572be54')
+
+build() {
+  cd $_name-$pkgver/bindings/python
+  maturin build --locked --release --target "$(rustc --print host-tuple)" --strip
+}
+
+check() {
+  local pytest_options=(
+    -vv
+    -W ignore::DeprecationWarning
+    # Ignore tests with unpackaged dependencies
+    --ignore tests/test_paddle_comparison.py
+    --ignore tests/test_flax_comparison.py
+  )
+
+  cd $_name-$pkgver/bindings/python
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer target/wheels/*.whl
+  test-env/bin/python -m pytest "${pytest_options[@]}" tests
+}
+
+package() {
+  cd $_name-$pkgver/bindings/python
+  python -m installer --destdir="$pkgdir" target/wheels/*.whl
+}
