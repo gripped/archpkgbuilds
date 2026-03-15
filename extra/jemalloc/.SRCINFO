@@ -1,18 +1,21 @@
 pkgbase = jemalloc
 	pkgdesc = General-purpose scalable concurrent malloc implementation
 	pkgver = 5.3.0
-	pkgrel = 5
+	pkgrel = 7
 	epoch = 1
 	url = https://jemalloc.net/
 	arch = x86_64
 	license = BSD
-	makedepends = clang
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libgcc_s.so
+	depends = libstdc++
+	depends = libstdc++.so
 	optdepends = perl: for jeprof
 	provides = libjemalloc.so
-	options = !lto
 	source = https://github.com/jemalloc/jemalloc/releases/download/5.3.0/jemalloc-5.3.0.tar.bz2
+	source = jemalloc-0001-default-page-size-on-Aarch64.patch::https://github.com/facebook/jemalloc/commit/7dcdafea00a3a02cfbc84a798a0cc626515011eb.patch
 	sha256sums = 2db82d1e7119df3e71b7640219b6dfe84789bc0537983c3b7ac4f7189aecfeaa
+	sha256sums = ca3db9017aa5f0cdac33d58fff1e2a236fb8f0572081b0e8c3a8fc3a9667ac6c
 
 pkgname = jemalloc

@@ -5,25 +5,31 @@
 pkgname=jemalloc
 epoch=1
 pkgver=5.3.0
-pkgrel=5
+pkgrel=7
 pkgdesc='General-purpose scalable concurrent malloc implementation'
 arch=('x86_64')
 license=('BSD')
 url='https://jemalloc.net/'
-depends=('gcc-libs' 'glibc')
-makedepends=('clang')
-options=('!lto')
+depends=('glibc' 'libgcc' 'libgcc_s.so' 'libstdc++' 'libstdc++.so')
 provides=('libjemalloc.so')
 optdepends=('perl: for jeprof')
-source=("https://github.com/jemalloc/jemalloc/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.bz2")
-sha256sums=('2db82d1e7119df3e71b7640219b6dfe84789bc0537983c3b7ac4f7189aecfeaa')
+source=("https://github.com/jemalloc/jemalloc/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.bz2"
+        'jemalloc-0001-default-page-size-on-Aarch64.patch::https://github.com/facebook/jemalloc/commit/7dcdafea00a3a02cfbc84a798a0cc626515011eb.patch')
+sha256sums=('2db82d1e7119df3e71b7640219b6dfe84789bc0537983c3b7ac4f7189aecfeaa'
+            'ca3db9017aa5f0cdac33d58fff1e2a236fb8f0572081b0e8c3a8fc3a9667ac6c')
+
+prepare() {
+  cd $pkgname-$pkgver
+
+  patch -Np1 < ../jemalloc-0001-default-page-size-on-Aarch64.patch
+
+  autoconf
+}
 
 build() {
   cd $pkgname-$pkgver
-
-  # FS#71745: GCC-built jemalloc causes telegram-desktop to crash a lot. The reason is still not clear.
-  export CC=clang
-  export CXX=clang++
+  export CFLAGS+=" -ffat-lto-objects"
+  export CXXFLAGS+=" -ffat-lto-objects"
 
   ./configure \
     --enable-prof \
