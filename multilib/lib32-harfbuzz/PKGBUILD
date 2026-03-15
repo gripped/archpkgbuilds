@@ -10,7 +10,7 @@ pkgname=(
   lib32-harfbuzz-icu
 )
 pkgver=13.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenType text shaping engine - 32-bit"
 url="https://harfbuzz.github.io/"
 arch=(x86_64)
@@ -26,6 +26,7 @@ makedepends=(
   lib32-glibc
   lib32-icu
   lib32-libpng
+  lib32-zlib
   meson
   python
   ragel
@@ -90,6 +91,7 @@ package_lib32-harfbuzz() {
     lib32-glib2 libg{lib,object}-2.0.so
     lib32-glibc
     lib32-libpng libpng16.so
+    lib32-zlib libz.so
   )
   provides=(libharfbuzz{,-{subset,gobject,raster,vector}}.so)
 
