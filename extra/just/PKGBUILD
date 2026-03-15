@@ -3,7 +3,7 @@
 # Contributor: Fredy García <frealgagu at gmail dot com>
 
 pkgname=just
-pkgver=1.46.0
+pkgver=1.47.0
 pkgrel=1
 pkgdesc="A handy way to save and run project-specific commands"
 arch=("x86_64")
@@ -12,7 +12,7 @@ license=("custom:CC0")
 depends=("gcc-libs")
 makedepends=("cargo")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/casey/${pkgname}/archive/${pkgver}.tar.gz")
-sha256sums=('f60a578502d0b29eaa2a72c5b0d91390b2064dfd8d1a1291c3b2525d587fd395')
+sha256sums=('6b5d6f172c8f1c7babd0d76047143741b54b54d62e2abf4061863b24931461d5')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
