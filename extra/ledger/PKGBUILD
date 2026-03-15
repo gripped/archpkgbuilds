@@ -9,13 +9,13 @@
 
 pkgname=ledger
 pkgver=3.4.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Double-entry accounting system with a command-line reporting interface'
 arch=(i686 x86_64)
 url='https://ledger-cli.org'
 license=(BSD-3-Clause)
 depends=(boost-libs libedit mpfr)
-makedepends=(boost cmake python)
+makedepends=(boost cmake python texinfo)
 optdepends=(
 	'emacs: emacs interface'
 	'python: python library'
@@ -41,8 +41,11 @@ build() {
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
 		-Wno-dev \
-		-DUSE_PYTHON=ON
+		-DUSE_PYTHON=ON \
+		-DBUILD_DOCS=ON
+
 	cmake --build build
+	cmake --build build --target doc
 }
 
 check() {
