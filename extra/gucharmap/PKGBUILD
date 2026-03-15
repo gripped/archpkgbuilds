@@ -2,7 +2,7 @@
 # Contributor: Jan De Groot <jgc@archlinux.org>
 
 pkgname=gucharmap
-pkgver=17.0.1
+pkgver=17.0.2
 pkgrel=1
 pkgdesc="Unicode Character Map"
 url="https://wiki.gnome.org/Apps/Gucharmap"
@@ -32,7 +32,7 @@ makedepends=(
 provides=(libgucharmap_2_90.so)
 options=(!lto)
 source=("git+https://gitlab.gnome.org/GNOME/gucharmap.git#tag=$pkgver")
-b2sums=('e756ac6724f6ac14999d0c1b756689a746d66e93cbdf937464c245e29c0e8b1c1514319a6fb2d2c0ab9750550f6314d5f2dc8dab2be7e91d9fb8184324321bc0')
+b2sums=('4d7b1768f981064d2953983d5775e5f39a5b64fed4b1a347e0867294e15da797c4f61dd753634fea12a708866aabead525d1e873e6837ce167965064d3055092')
 
 prepare() {
   cd gucharmap
