@@ -1,0 +1,16 @@
+pre_upgrade() {
+	if (( $(vercmp "$2" 4.5.2-2) < 0 )); then
+
+	cat <<EOM
+
+:: Glances version 4.5.2 addresses multiple security vulnerabilities,
+   and several of the mitigations change observable behaviour.
+
+   Users who run Glances in web server or API mode (-w / --enable-webserver)
+   should check the following link for potential breaking changes notices:
+
+   https://github.com/nicolargo/glances/releases/tag/v4.5.2
+
+EOM
+	fi
+}
