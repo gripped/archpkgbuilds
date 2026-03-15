@@ -8,7 +8,7 @@
 
 pkgname=scribus
 pkgver=1.6.5
-pkgrel=5
+pkgrel=6
 pkgdesc="Desktop publishing software"
 arch=(x86_64)
 url="https://www.scribus.net/"
@@ -50,11 +50,13 @@ options=(!lto)
 _archive="$pkgname-$pkgver"
 source=("https://downloads.sourceforge.net/${pkgname}/$_archive.tar.xz"{,.asc}
         'fix_build_with_poppler_26.01.0.patch'
-        'fix_build_with_poppler_26.02.0.patch')
+        'fix_build_with_poppler_26.02.0.patch'
+        'fix_build_with_poppler_26.03.0.patch')
 sha256sums=('09bdb736a8ff8a437191458a36d847cc0adeca0fc059cf696474e0ba6f59ac6a'
             'SKIP'
             '6826daa9be333e722e91bd09d5e8c1f2c31317efb1875f2cf6c12a3c8c11f045'
-            '136aba5019f6fcadad44c6615af10546ac32e4b9dd7d1459273ce10a9a553c28')
+            '136aba5019f6fcadad44c6615af10546ac32e4b9dd7d1459273ce10a9a553c28'
+            '369b181a4f818057b0cf733a3b83e1419923aa9484fa6962497bb3252f0a1049')
 validpgpkeys=(5086B8D68E70FDDF4C40045AEF7B95E7F60166DA  # Peter Linnell <plinnell@scribus.net>
               757F5E9B13DD648887AD50092D47C099E782504E  # The Scribus Team (www.scribus.net) <the_scribus_team@scribus.net>
               6558BE84D27273A438A151198BEA48118AEBEE64) # Craig Bradney <cbradney@zipworld.com.au>
@@ -70,6 +72,10 @@ prepare() {
     # Fix build with poppler 26.02.0
     # https://github.com/scribusproject/scribus/commit/28bd3be104c06b9d4532affe150f7b74fe5b3e59
     patch -Np1 -i "$srcdir/fix_build_with_poppler_26.02.0.patch"
+
+    # Fix build with poppler 26.03.0
+    # https://bugs.scribus.net/view.php?id=17777
+    patch -Np1 -i "$srcdir/fix_build_with_poppler_26.03.0.patch"
 }
 
 pkgver() {
