@@ -4,14 +4,14 @@
 pkgname=python-sqlmodel
 _pkgname=${pkgname#python-}
 pkgver=0.0.37
-pkgrel=1
+pkgrel=2
 pkgdesc="SQL databases in Python, designed for simplicity, compatibility, and robustness"
 url="https://sqlmodel.tiangolo.com"
 license=('MIT')
 arch=('any')
-depends=('python' 'python-pydantic' 'python-sqlalchemy' 'python-fastapi' 'pre-commit')
+depends=('python' 'python-pydantic' 'python-sqlalchemy' 'python-fastapi')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-pdm-backend')
-checkdepends=('python-pytest' 'python-httpx' 'python-dirty-equals')
+checkdepends=('python-pytest' 'python-httpx' 'python-dirty-equals' 'pre-commit')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/fastapi/sqlmodel/archive/refs/tags/${pkgver}.tar.gz")
 sha256sums=('89f572c4f3eccd57c9a8e1483e51cbb23389a3ea29265d3a6071f37d735f6c05')
 

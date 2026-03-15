@@ -1,13 +1,14 @@
 pkgbase = python-sqlmodel
 	pkgdesc = SQL databases in Python, designed for simplicity, compatibility, and robustness
 	pkgver = 0.0.37
-	pkgrel = 1
+	pkgrel = 2
 	url = https://sqlmodel.tiangolo.com
 	arch = any
 	license = MIT
 	checkdepends = python-pytest
 	checkdepends = python-httpx
 	checkdepends = python-dirty-equals
+	checkdepends = pre-commit
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
@@ -16,7 +17,6 @@ pkgbase = python-sqlmodel
 	depends = python-pydantic
 	depends = python-sqlalchemy
 	depends = python-fastapi
-	depends = pre-commit
 	source = python-sqlmodel-0.0.37.tar.gz::https://github.com/fastapi/sqlmodel/archive/refs/tags/0.0.37.tar.gz
 	sha256sums = 89f572c4f3eccd57c9a8e1483e51cbb23389a3ea29265d3a6071f37d735f6c05
 
