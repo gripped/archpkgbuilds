@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-maxminddb
-pkgver=2.6.3
+pkgver=2.7.0
 pkgrel=1
 pkgdesc="Reader for the MaxMind DB format"
 url="https://github.com/maxmind/MaxMind-DB-Reader-python"
@@ -14,7 +14,7 @@ checkdepends=('python-pytest')
 source=("git+https://github.com/maxmind/MaxMind-DB-Reader-python.git#tag=v$pkgver"
         "git+https://github.com/maxmind/MaxMind-DB.git"
         "git+https://github.com/maxmind/libmaxminddb.git")
-sha512sums=('2d061685da28627eb2b42b8b91c99e4a1a6ba25c069145aaa49b18c0cf5a9eb42c4e57ac6d36770e4e4f82860d7c61a2e0a8683bab55aed2cd0129841995fcc3'
+sha512sums=('e459cf0625dec8999f70e2900bca302304649993dbecef0ad849fab58f4580d632c3e082b5c29ab44d6fe05a0cd5bc40154b2e3ee29f490916d011f8f70ad948'
             'SKIP'
             'SKIP')
 
