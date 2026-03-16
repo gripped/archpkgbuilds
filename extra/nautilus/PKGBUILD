@@ -8,7 +8,7 @@ pkgname=(
   libnautilus-extension
   libnautilus-extension-docs
 )
-pkgver=49.4
+pkgver=49.5
 pkgrel=1
 pkgdesc="Default file manager for GNOME"
 url="https://apps.gnome.org/Nautilus/"
@@ -17,7 +17,6 @@ license=(GPL-3.0-or-later)
 depends=(
   cairo
   dconf
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
@@ -32,6 +31,7 @@ depends=(
   icu
   libadwaita
   libcloudproviders
+  libgcc
   libgexiv2
   libportal
   libportal-gtk4
@@ -57,7 +57,7 @@ checkdepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/nautilus.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('6bc5372bb504d80d2e0c3b230d893ab0faf9aca90e76cba20b812d8e05d487a942740f32fcefa78bc9f94c93eee0ff0d9399055debf9e868fca9c14349d398df')
+b2sums=('b016febd72fd94faddc23dcab0a2daf3c41bac7bf07a39d0997d11f9c43f4333c68285315729d3f22edd3539e1e96166aff281c8d015ef2145b435d49ab5dab2')
 validpgpkeys=(
   6B211753AC950672287226800538577822AE4B17 # António Fernandes <antoniof@gnome.org>
   550660707A6F40376B9B9F8D504A78811E6160CC # Corey Berla <corey@berla.me>
@@ -126,9 +126,9 @@ package_nautilus() {
 package_libnautilus-extension() {
   pkgdesc="Extension interface for Nautilus"
   depends=(
-    gcc-libs
     glib2
     glibc
+    libgcc
   )
   provides=(libnautilus-extension.so)
 
