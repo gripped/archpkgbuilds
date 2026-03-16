@@ -1,7 +1,7 @@
 # Maintainer:Antonio Rojas <arojas@archlinux.org>
 
 pkgname=purpose
-pkgver=6.23.0
+pkgver=6.24.0
 pkgrel=1
 pkgdesc='Framework for providing abstractions to get the developers purposes fulfilled'
 arch=(x86_64)
@@ -17,6 +17,7 @@ depends=(accounts-qml-module
          ki18n
          kio
          kirigami
+         kitemmodels
          knotifications
          kservice
          libaccounts-qt
@@ -24,6 +25,7 @@ depends=(accounts-qml-module
          qt6-declarative)
 makedepends=(extra-cmake-modules
              intltool
+             prison
              qt6-tools)
 optdepends=('bluedevil: sharing via Bluetooth'
             'kdeclarative: Nextcloud and YouTube plugins'
@@ -33,7 +35,7 @@ optdepends=('bluedevil: sharing via Bluetooth'
 conflicts=('purpose5<5.114.0-2')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('d1554574d6dd394794daf00069bdd3f83d7e303a02d2c46a1973081c5de29d5d'
+sha256sums=('e95dba236f79bf1655a0581e9f1c3ce64d342750135fde700d463dd205bebc47'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
