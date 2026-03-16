@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-benchmark
-pkgver=5.0.0
+pkgver=5.0.1
 pkgrel=1
 pkgdesc='A py.test fixture for benchmarking code'
 arch=('any')
@@ -12,12 +12,14 @@ makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python
 checkdepends=('python-pygal' 'python-pygaljs' 'python-freezegun' 'mercurial' 'python-aspectlib'
               'python-pytest-xdist' 'python-elasticsearch' 'python-sniffio' 'git')
 source=("git+https://github.com/ionelmc/pytest-benchmark.git#tag=v$pkgver")
-sha512sums=('ca433a349e3e7901c03f66b131eb04c04dc2b5a9b06e5915420441ccf63e9fd1833b4f661b574ebfc38df83b4844210f86ed746ede6769f62b80505a26d02ce1')
+sha512sums=('4e26472801742769cb8f942e1d4815d38d45550c3ad86530d24ca4ca814eb8901c849148546b21fa59b0015f4de46308f625a186b1ff646e108b13e8236099cc')
 
 prepare() {
   cd pytest-benchmark
   # Do not treat warnings as errors
   sed -i '/^    error$/d' pytest.ini
+  # Remove --nbmake option (nbmake plugin not packaged in Arch)
+  sed -i '/--nbmake/d' pytest.ini
 }
 
 build() {
