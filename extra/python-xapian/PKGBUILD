@@ -5,8 +5,8 @@
 
 pkgname=python-xapian
 _name=xapian-bindings
-pkgver=1.4.29
-pkgrel=2
+pkgver=1.4.30
+pkgrel=1
 epoch=1
 pkgdesc="Python bindings for Xapian"
 arch=(x86_64)
@@ -22,9 +22,9 @@ makedepends=(
   "xapian-core=$epoch:$pkgver"
 )
 source=(https://oligarchy.co.uk/xapian/$pkgver/$_name-$pkgver.tar.xz{,.asc})
-sha512sums=('54735a30971a108d2e23c07229aab29d4f898368de5b04fc08331e82b1e9a52fa7425150aa7aef05428a2b3c65757e83148f4077423a9847eb04e1a7fb05fe34'
+sha512sums=('fb48e10c01a219b34da41c2a0475f607fb0b12b5c444c06c37f16b7405905c8c113362caee409382d0ff90945b975b7c77acb2385ec82395684bdea6ff9b3926'
             'SKIP')
-b2sums=('8bcfefb3e2c933223dd681874999905324c910d47a3260814a2bd9e97b3685b51c9828496db1a8275bf3da6fedf4727b173c69bfbe36dc458a1aa17eb47eb551'
+b2sums=('49c47eae230ff46cf169cc0fc301f3cf87f5cad7e0d47125332b8b4a3ca896a1fa7bb63c7a3bd046d645433a2c8efe8499ad4112e042d0ebef206f7e2197c681'
         'SKIP')
 validpgpkeys=('08E2400FF7FE8FEDE3ACB52818147B073BAD2B07') # Olly Betts <olly@debian.org>
 
