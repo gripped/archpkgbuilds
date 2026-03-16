@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-cloudflare
-pkgver=2.15.0
-pkgrel=2
+pkgver=2.15.1
+pkgrel=1
 pkgdesc='Python wrapper for the Cloudflare v4 API'
 arch=('any')
 license=('MIT')
@@ -23,7 +23,7 @@ checkdepends=(
   'python-pytest'
 )
 source=("git+https://github.com/cloudflare/python-cloudflare.git#tag=$pkgver")
-sha512sums=('2955fc4f9d83847952b496d3a8a8c9eb3f0758188ef89a4b2f5412a8db52ff16e5bad0e52368d714e34a6898e08f03125ed7edf4351fe6d8139074a8ecea7690')
+sha512sums=('5cc7e7afe086f312f4b2c9b9867b88f9ab3c7394f8820db7970753f2a3273c728a28cae6a057dae0f897317c9090f0c838c6c67be083ce357073e188cb04fff4')
 
 build() {
   cd python-cloudflare
@@ -35,7 +35,7 @@ check() {
 
   cd python-cloudflare
   python -m installer --destdir=test_dir dist/*.whl
-  PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH" pytest tests/test_cloudflare.py
+  PYTHONPATH="test_dir$site_packages:$PYTHONPATH" pytest tests/test_cloudflare.py
 }
 
 package() {
