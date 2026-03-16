@@ -1,6 +1,6 @@
 pkgbase = lib32-pipewire
 	pkgdesc = Low-latency audio/video router and processor - 32-bit
-	pkgver = 1.6.1
+	pkgver = 1.6.2
 	pkgrel = 1
 	epoch = 1
 	url = https://pipewire.org
@@ -13,11 +13,11 @@ pkgbase = lib32-pipewire
 	makedepends = lib32-systemd
 	makedepends = meson
 	makedepends = systemd
-	source = git+https://gitlab.freedesktop.org/pipewire/pipewire.git#tag=1.6.1
-	b2sums = 00950a1abea79b83e330ef90978c7475678d857425cf01483234277831904782579e8da053c4f31db9720e0eb9c93dc813cade3e233adff393a5997589ed9029
+	source = git+https://gitlab.freedesktop.org/pipewire/pipewire.git#tag=1.6.2
+	b2sums = 27c3f29c85791a7c524256c6e52dbd086f346ecc9d33b5f075f82cdfdef4f31e04af5f937c3d95c501a5f94d6e26160585bec4bb96808c8dc766396d99763aaa
 
 pkgname = lib32-pipewire
-	depends = lib32-libpipewire=1:1.6.1-1
+	depends = lib32-libpipewire=1:1.6.2-1
 	depends = libpipewire-0.3.so
 	depends = lib32-alsa-lib
 	depends = libasound.so
@@ -45,9 +45,9 @@ pkgname = lib32-pipewire-jack
 	license = MIT
 	license = GPL-2.0-only
 	license = LGPL-2.1-or-later
-	depends = lib32-libpipewire=1:1.6.1-1
+	depends = lib32-libpipewire=1:1.6.2-1
 	depends = libpipewire-0.3.so
-	depends = lib32-pipewire=1:1.6.1-1
+	depends = lib32-pipewire=1:1.6.2-1
 	depends = lib32-glibc
 	depends = pipewire-jack
 	provides = lib32-jack
@@ -59,9 +59,9 @@ pkgname = lib32-pipewire-jack
 
 pkgname = lib32-pipewire-v4l2
 	pkgdesc = Low-latency audio/video router and processor - 32-bit - V4L2 interceptor
-	depends = lib32-libpipewire=1:1.6.1-1
+	depends = lib32-libpipewire=1:1.6.2-1
 	depends = libpipewire-0.3.so
-	depends = lib32-pipewire=1:1.6.1-1
+	depends = lib32-pipewire=1:1.6.2-1
 	depends = libpipewire-0.3.so
 	depends = lib32-glibc
 	depends = pipewire-v4l2
