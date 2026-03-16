@@ -1,6 +1,6 @@
 pkgbase = bcachefs-tools
 	pkgdesc = BCacheFS filesystem utilities
-	pkgver = 1.36.1
+	pkgver = 1.37.1
 	pkgrel = 1
 	epoch = 3
 	url = https://bcachefs.org/
@@ -15,12 +15,12 @@ pkgbase = bcachefs-tools
 	makedepends = valgrind
 	depends = bash
 	depends = fuse3
-	depends = gcc-libs
 	depends = libaio.so
 	depends = libaio
 	depends = libblkid.so
 	depends = libuuid.so
 	depends = util-linux-libs
+	depends = libgcc
 	depends = libkeyutils.so
 	depends = keyutils
 	depends = libsodium.so
@@ -35,8 +35,8 @@ pkgbase = bcachefs-tools
 	depends = systemd-libs
 	depends = udev
 	options = !lto
-	source = git+https://github.com/koverstreet/bcachefs-tools.git#tag=v1.36.1
-	b2sums = 5c153cdd82977d53692ab350ed7b041308fd28c9afbbec61ead095004a1396633012fdf04b1c31a134e23fd230642c00bff56158ce614e867849512ca3a0e60b
+	source = git+https://github.com/koverstreet/bcachefs-tools.git#tag=v1.37.1
+	b2sums = 6cca8ee59cf7cbac838e9eba827e254be5c5d1ebcd2fe1f474fde56dd3fd21549b35aa88b2d80bf57e39b5ef000a0cfff3834733ac2941e37c79c09e51c6a6a8
 
 pkgname = bcachefs-tools
 

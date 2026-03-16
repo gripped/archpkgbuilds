@@ -4,7 +4,7 @@
 pkgbase=bcachefs-tools
 pkgname=(bcachefs-tools bcachefs-dkms)
 epoch=3
-pkgver=1.36.1
+pkgver=1.37.1
 pkgrel=1
 pkgdesc='BCacheFS filesystem utilities'
 arch=('x86_64')
@@ -13,9 +13,9 @@ license=('GPL-2.0-only')
 depends=(
   bash
   fuse3
-  gcc-libs
   libaio.so libaio
   libblkid.so libuuid.so util-linux-libs
+  libgcc
   libkeyutils.so keyutils
   libsodium.so libsodium
   liburcu
@@ -38,7 +38,7 @@ options=(!lto)
 source=(
   git+https://github.com/koverstreet/bcachefs-tools.git#tag=v${pkgver}
 )
-b2sums=('5c153cdd82977d53692ab350ed7b041308fd28c9afbbec61ead095004a1396633012fdf04b1c31a134e23fd230642c00bff56158ce614e867849512ca3a0e60b')
+b2sums=('6cca8ee59cf7cbac838e9eba827e254be5c5d1ebcd2fe1f474fde56dd3fd21549b35aa88b2d80bf57e39b5ef000a0cfff3834733ac2941e37c79c09e51c6a6a8')
 
 build() {
   cd ${pkgname}
