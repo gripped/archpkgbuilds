@@ -3,8 +3,8 @@
 
 pkgname=python-cysystemd
 _gitname=cysystemd
-pkgver=2.0.1
-pkgrel=2
+pkgver=2.0.5
+pkgrel=1
 pkgdesc="SystemD wrapper on Cython"
 arch=(x86_64)
 url="http://github.com/mosquito/cysystemd"
@@ -23,7 +23,7 @@ makedepends=(
   python-build
 )
 source=("git+https://github.com/mosquito/cysystemd.git#tag=${pkgver}")
-sha256sums=('c14f5e4f42c38587e6405191cc7fca0695b5b1bbe4d3c39d4796abd1d4fc07f8')
+sha256sums=('068fb8f7c16519d23c9ac329651592bd82891f94dbb0b3550348078544d97d06')
 
 build() {
   cd "${srcdir}/${_gitname}"
