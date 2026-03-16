@@ -1,6 +1,6 @@
 pkgbase = ndctl
 	pkgdesc = Utility library for managing the libnvdimm (non-volatile memory device) sub-system in the Linux kernel
-	pkgver = 81
+	pkgver = 82
 	pkgrel = 1
 	url = https://github.com/pmem/ndctl
 	arch = x86_64
@@ -8,6 +8,7 @@ pkgbase = ndctl
 	license = GPL-2.0-only
 	license = CC0-1.0
 	license = MIT
+	makedepends = git
 	makedepends = asciidoctor
 	makedepends = bash-completion
 	makedepends = cmake
@@ -22,7 +23,7 @@ pkgbase = ndctl
 	depends = libtracefs
 	depends = systemd-libs
 	depends = util-linux-libs
-	source = https://github.com/pmem/ndctl/archive/v81/ndctl-81.tar.gz
-	sha512sums = b6ca09482fd426b94b5e851a7bc924e0971613dc643647070df416fbbf6660dc165de515372af60fd87d93c5832aab86dad373ff9d8c1d01c84584bae34277b0
+	source = git+https://github.com/pmem/ndctl.git#tag=v82
+	sha512sums = 60e7a7babafce63ee7a273b071f511848f9954d508f7ae8df7a8e1faf27aef7a1d74fc50b308dd70c595f785d498807ef18c018aba839cd273ffe91dd2396a8d
 
 pkgname = ndctl
