@@ -1,20 +1,21 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=dummyhttp
-pkgver=1.1.2
+pkgver=1.1.3
 pkgrel=1
 pkgdesc="Super simple HTTP server that replies a fixed body with a fixed response code"
 arch=('x86_64')
 url="https://github.com/svenstaro/dummyhttp"
 license=('MIT')
-depends=('gcc-libs')
+depends=('glibc' 'libgcc')
 makedepends=('rust')
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/svenstaro/dummyhttp/archive/v${pkgver}.tar.gz")
-sha512sums=('4a5e28905568eb60590f3e5b0d3c74bf61d8ca0d37ab8752d222d94551967f7801ba31a3ab10359325f1cadab39224dc0ea956616bcb6b89fc33c98c17e35acd')
+sha512sums=('f8bc9e57284a039fe10675326be1854b3bbf32db5a9033cc278692f097cca3c09e33964c5672dd25650ff1ceab20aa7b56b8aa053facecfb86b9d16a18a8cdb1')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
 
+  export AWS_LC_SYS_NO_JITTER_ENTROPY=1
   cargo build --release --locked
 }
 
