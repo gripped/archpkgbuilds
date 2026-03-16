@@ -1,16 +1,16 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=jetring
-pkgver=0.31
+pkgver=0.32
 pkgrel=1
 pkgdesc="gpg keyring maintenance using changesets"
 arch=('any')
 url="https://packages.debian.org/sid/jetring"
-license=('GPL')
+license=('GPL-2.0-or-later')
 makedepends=('git')
 depends=('gnupg' 'perl')
 source=("git+https://salsa.debian.org/debian/jetring.git#tag=debian/$pkgver")
-sha512sums=('e5f183294f5fdcc29d8cc4738c75994c65941df6b5442811246ea57d610b28a39c05b1bfc07413062adc4fbe24b215c0521c812f8e2826a7e35d048e998bc227')
+sha512sums=('dc4ff55c25270d32541477414f907a2b16478ddd3616ab080aa29daa202e729bac0fb639fa4542056aa93fc9b4f262b3ea68e7c7f7d6ce7244dd5d2fe7768019')
 
 package() {
   cd $pkgname
