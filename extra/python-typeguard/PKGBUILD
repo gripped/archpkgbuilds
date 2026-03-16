@@ -2,7 +2,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=python-typeguard
-pkgver=4.5.0
+pkgver=4.5.1
 pkgrel=1
 pkgdesc="Run-time type checker for Python"
 url="https://github.com/agronholm/typeguard"
@@ -12,7 +12,7 @@ depends=('python-typing_extensions')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 checkdepends=('python-pytest')
 source=("git+$url.git#tag=$pkgver")
-b2sums=('afcc7f4a96e5c30272adfc3850f71bb09e8413c959f895805e95850185d4840efa705c984a00c700e9183ae3aade01183ed32c930d3c6e3524ce19f44bf78568')
+b2sums=('05b1de562d5933d3a386d39d9f9709141ee987c104b2986577d3c141f6fd4cf44e893d70fb45633302ad6ab765096181f327891267d1d8bd38435025f8b311a9')
 
 # Utilize venv for mypy
 # disabled, because mypy tests are still failing
