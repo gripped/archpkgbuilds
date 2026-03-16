@@ -1,16 +1,16 @@
 pkgbase = pyside6
 	pkgver = 6.10.2
-	pkgrel = 2
+	pkgrel = 3
 	url = https://www.qt.io
 	arch = x86_64
 	license = GPL-3.0-only
 	license = LGPL-3.0-only
 	license = LicenseRef-Qt-Commercial
 	license = Qt-GPL-exception-1.0
-	makedepends = clang21
+	makedepends = clang
 	makedepends = cmake
 	makedepends = git
-	makedepends = llvm21
+	makedepends = llvm
 	makedepends = ninja
 	makedepends = python-numpy
 	makedepends = python-setuptools
@@ -37,10 +37,13 @@ pkgbase = pyside6
 	makedepends = qt6-webchannel
 	makedepends = qt6-webengine
 	makedepends = qt6-websockets
+	makedepends = qt6-webview
 	source = git+https://code.qt.io/pyside/pyside-setup#tag=v6.10.2
 	source = fix-header-install-dir.patch
+	source = clang-22.patch
 	sha256sums = 8eb03468f637e9deddad966ddf00e4a291a9b3880db0e2678af13ad735160ad0
 	sha256sums = 3bc87409ea3dc41847f1d5d7612fd97931b67f1b40510b465543a8ef5c9764ff
+	sha256sums = 6e9b7c7f8799ca3d3ab92eeaa80c357014f979cf681b8aadeb7c55314795f0ca
 
 pkgname = pyside6
 	pkgdesc = Enables the use of Qt6 APIs in Python applications
@@ -72,6 +75,7 @@ pkgname = pyside6
 	optdepends = qt6-webchannel: QtWebChannel bindings
 	optdepends = qt6-webengine: QtWebEngine bindings
 	optdepends = qt6-websockets: QtWebSockets bindings
+	optdepends = qt6-webview: QtWebView bindings
 	provides = qt6-python-bindings
 
 pkgname = pyside6-tools
@@ -81,12 +85,12 @@ pkgname = pyside6-tools
 
 pkgname = shiboken6
 	pkgdesc = Generates bindings for C++ libraries using CPython source code
-	depends = clang21
+	depends = clang
 	depends = gcc-libs
 	depends = glibc
 	depends = libxml2
 	depends = libxslt
-	depends = llvm21
+	depends = llvm
 	depends = python
 	depends = qt6-base
 	optdepends = python: Python bindings
