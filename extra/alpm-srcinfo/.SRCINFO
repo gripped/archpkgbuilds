@@ -1,6 +1,6 @@
 pkgbase = alpm-srcinfo
 	pkgdesc = A CLI for parsing and validation of ALPM SRCINFO files
-	pkgver = 0.6.2
+	pkgver = 0.6.3
 	pkgrel = 1
 	url = https://alpm.archlinux.page/alpm-srcinfo/index.html
 	arch = x86_64
@@ -13,12 +13,12 @@ pkgbase = alpm-srcinfo
 	makedepends = rust
 	makedepends = rust-script
 	depends = alpm-pkgbuild-bridge
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	optdepends = alpm-docs: for additional specifications
-	source = alpm::git+https://gitlab.archlinux.org/archlinux/alpm/alpm.git?signed#tag=alpm-srcinfo/0.6.2
+	source = alpm::git+https://gitlab.archlinux.org/archlinux/alpm/alpm.git?signed#tag=alpm-srcinfo/0.6.3
 	validpgpkeys = 991F6E3F0765CF6295888586139B09DA5BF0D338
-	sha512sums = 179231d66abdbcfe32d3dce5464f1e9661f9c440ef502e2f1b729f20c26464c4f3c1e6c512be0760e1b7016525e5745bffca8049bffdd899a09b77292d53890b
-	b2sums = 0ccbb288b5b4c2defc9e9c23d5ad01ab771717a31eacf005133311dff7987d1952f106c67605b65459f856198489dc90433b1e0402dbbd446fc4beeeb0bee45d
+	sha512sums = 4678e170ac4331a53dd387e8ecdb7e7693debdf62947a1f2f3eeed926cb5db056678d49b977af873ac6bb897dcafa9af90bbfae9273f758c71df07ee7dda33ae
+	b2sums = 266385611dfb669db9841c793b9f35ca137e8d144eb794d0b9fc9c44d83964503be2c88265de24982c62bea0c38aea6434c58384a35660538edfb3c69aac0eae
 
 pkgname = alpm-srcinfo
