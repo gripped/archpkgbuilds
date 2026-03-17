@@ -1,6 +1,6 @@
 pkgbase = alpm-buildinfo
 	pkgdesc = A CLI for writing and parsing of ALPM BUILDINFO files
-	pkgver = 0.5.2
+	pkgver = 0.5.3
 	pkgrel = 1
 	url = https://alpm.archlinux.page/alpm-buildinfo/index.html
 	arch = x86_64
@@ -12,12 +12,12 @@ pkgbase = alpm-buildinfo
 	makedepends = lowdown
 	makedepends = rust
 	makedepends = rust-script
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	optdepends = alpm-docs: for additional specifications
-	source = alpm::git+https://gitlab.archlinux.org/archlinux/alpm/alpm.git?signed#tag=alpm-buildinfo/0.5.2
+	source = alpm::git+https://gitlab.archlinux.org/archlinux/alpm/alpm.git?signed#tag=alpm-buildinfo/0.5.3
 	validpgpkeys = 991F6E3F0765CF6295888586139B09DA5BF0D338
-	sha512sums = 02e42cd2010c4da3c73ed27df26dadd698682ec021ef2846440e34165ecc74f8dfdb3aead4b70030950ebe77e9dc70dc625f3ef108c9c7a097368699956f5457
-	b2sums = a52ed1534fbc154bcfe31dbfc4192181c0e5d38fab69ef04da945e74960e2197b29a2bbde1d5196ddf84b782d95f9a85bd6ebd67904263599e635c4049133712
+	sha512sums = f12142db3a88bf6ce82a3ff1417ebff2e80cf112fce1a294f955603b7783aca96c51512c809585f6b55ff14e0f2d5d0bb10d1d6d7153265a0fb465a219016f61
+	b2sums = 0e39904325a04fe72947e6f70af958bc95ed87019553a1154876a6c6c81c57c8a28603d4d774894f18f95850ef5b8c511ed1924c9ccaea58b975b6e102f478cc
 
 pkgname = alpm-buildinfo
