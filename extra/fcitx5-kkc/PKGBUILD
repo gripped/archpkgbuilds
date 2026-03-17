@@ -2,16 +2,16 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-kkc
-pkgver=5.1.9
+pkgver=5.1.10
 pkgrel=1
 pkgdesc="KKC Wrapper for Fcitx5"
 arch=('x86_64')
 url="https://github.com/fcitx/fcitx5-kkc"
-license=('GPL')
+license=('GPL-3.0-or-later')
 depends=('fcitx5-qt' 'libkkc' 'libkkc-data')
 makedepends=('git' 'extra-cmake-modules')
 source=("git+https://github.com/fcitx/fcitx5-kkc.git#tag=$pkgver?signed")
-sha512sums=('202bbc070ae214241fbc916a4574f44674fc7e56f8f68a40b6c411805f39b1404a27aaaa37b68810dbd4fbf64148f8af4b165ede863920483bb9af205ca8edf1')
+sha512sums=('aabfb53d5353201b6d8d9337541fe692131863ab72a889b08a2dc44434cd8a1cd28051f4b38f7f956cc88b1f2ac47d7c753d718e4315b19710d876c35880cb8c')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
 build() {
