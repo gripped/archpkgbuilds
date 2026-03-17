@@ -3,17 +3,16 @@
 
 pkgname=rucola
 pkgver=0.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Terminal-based markdown note manager"
 arch=('x86_64')
 url="https://github.com/Linus-Mussmaecher/rucola"
 license=("GPL-3.0-only")
-depends=('gcc-libs')
+depends=('glibc' 'libgcc' 'libgit2' 'libssh2' 'openssl')
 makedepends=('cargo')
 replaces=('rucola-notes')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('6c5c5c09491bd10f10f914b36323f202db1cc71ad2889d6707422ce849d85193')
-options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -22,12 +21,12 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --frozen
+  LIBGIT2_NO_VENDOR=1 LIBSSH2_SYS_USE_PKG_CONFIG=1 cargo build --release --frozen
 }
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --frozen
+  LIBGIT2_NO_VENDOR=1 LIBSSH2_SYS_USE_PKG_CONFIG=1 cargo test --frozen
 }
 
 package() {
