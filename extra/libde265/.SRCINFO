@@ -1,20 +1,17 @@
 pkgbase = libde265
 	pkgdesc = Open h.265 video codec implementation
-	pkgver = 1.0.16
-	pkgrel = 2
+	pkgver = 1.0.17
+	pkgrel = 1
 	url = https://github.com/strukturag/libde265
 	arch = x86_64
 	license = LGPL-3.0-or-later
-	makedepends = ffmpeg
+	makedepends = cmake
 	makedepends = git
-	makedepends = qt5-base
-	makedepends = sdl
-	depends = gcc-libs
 	depends = glibc
-	optdepends = ffmpeg: for sherlock265
-	optdepends = qt5-base: for sherlock265
-	optdepends = sdl: dec265 YUV overlay output
-	source = git+https://github.com/strukturag/libde265#tag=v1.0.16
-	sha256sums = 103ad98bbfbee5e93011c5197c9106ce849e2479e3ce2a49edf5882b15654015
+	depends = libgcc
+	depends = libstdc++
+	depends = sdl2-compat
+	source = git+https://github.com/strukturag/libde265#tag=v1.0.17
+	sha256sums = 9a38e7e178c857736470dca87b91d1346112c5d575ec2d65e82aa67f84c12f43
 
 pkgname = libde265

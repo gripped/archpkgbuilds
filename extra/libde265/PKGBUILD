@@ -3,38 +3,31 @@
 # Contributor: Daniel Nagy <danielnagy at gmx de>
 
 pkgname=libde265
-pkgver=1.0.16
-pkgrel=2
+pkgver=1.0.17
+pkgrel=1
 pkgdesc='Open h.265 video codec implementation'
 arch=(x86_64)
 url='https://github.com/strukturag/libde265'
 license=(LGPL-3.0-or-later)
-depends=(gcc-libs
-         glibc)
-makedepends=(ffmpeg
-             git
-             qt5-base
-             sdl)
-optdepends=('ffmpeg: for sherlock265'
-            'qt5-base: for sherlock265'
-            'sdl: dec265 YUV overlay output')
+depends=(glibc
+         libgcc
+         libstdc++
+         sdl2-compat)
+makedepends=(cmake
+             git)
 source=(git+https://github.com/strukturag/libde265#tag=v$pkgver)
-sha256sums=('103ad98bbfbee5e93011c5197c9106ce849e2479e3ce2a49edf5882b15654015')
-
-prepare() {
-  cd $pkgname
-  ./autogen.sh
-}
+sha256sums=('9a38e7e178c857736470dca87b91d1346112c5d575ec2d65e82aa67f84c12f43')
 
 build() {
-  cd $pkgname
-  ./configure --prefix=/usr --enable-static=no
-  make
+  cmake -B build -S $pkgname \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DENABLE_ENCODER=ON \
+    -DENABLE_TOOLS=ON
+  cmake --build build
 }
 
 package() {
-  cd $pkgname
-  make DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
 
 # Remove useless tests binary
   rm "$pkgdir"/usr/bin/tests
