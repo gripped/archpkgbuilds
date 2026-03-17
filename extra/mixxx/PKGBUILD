@@ -6,7 +6,7 @@
 
 pkgname=mixxx
 pkgver=2.5.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Free, open source software for digital DJing"
 arch=(x86_64)
 url="https://www.mixxx.org"
@@ -15,15 +15,16 @@ license=(GPL-2.0-or-later)
 groups=(pro-audio)
 # TODO: package libshout-idjc
 depends=(
-  gcc-libs
   glibc
   hicolor-icon-theme
   hidapi
   lame
   libebur128
+  libgcc
   libkeyfinder
   libmad
   libmodplug
+  libstdc++
   libx11
   openssl
   opus
