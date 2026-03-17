@@ -1,0 +1,19 @@
+diff --git a/pew/pew.py b/pew/pew.py
+index c588a2e..f231cad 100644
+--- a/pew/pew.py
++++ b/pew/pew.py
+@@ -723,11 +723,11 @@ def locate_python_cmd(argv):
+ 
+ def version_cmd(argv):
+     """Prints current pew version"""
+-    import pkg_resources
++    from importlib.metadata import version, PackageNotFoundError
+ 
+     try:
+-        __version__ = pkg_resources.get_distribution('pew').version
+-    except pkg_resources.DistributionNotFound:
++        __version__ = version('pew')
++    except PackageNotFoundError:
+         __version__ = 'unknown'
+         print('Setuptools has some issues here, failed to get our own package.', file=sys.stderr)
+ 

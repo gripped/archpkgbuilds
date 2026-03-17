@@ -4,25 +4,32 @@
 
 pkgname='python-pew'
 pkgver=1.2.0
-pkgrel=10
+pkgrel=11
 pkgdesc="Python Env Wrapper, a set of tools to manage multiple virtual environments"
 url="https://github.com/berdario/pew"
 arch=('any')
 license=('MIT')
 depends=('python' 'python-virtualenv' 'python-virtualenv-clone')
-makedepends=('python' 'python-setuptools')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/berdario/pew/archive/$pkgver.zip")
-sha256sums=('58e4f04ba644080ef820c2e07d1704112727e392c2fd1d42cdc31e112ffc2345')
+makedepends=('python' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/berdario/pew/archive/$pkgver.zip"
+        "python-pew-1.2.0-remove-pkg_resources.patch")
+sha256sums=('58e4f04ba644080ef820c2e07d1704112727e392c2fd1d42cdc31e112ffc2345'
+            '039115d0a89aebc513da3003d2df32bb73b92ac4b02f9dbfddc5881a52cf7276')
+
+prepare() {
+  cd "${pkgname##*-}-${pkgver}"
+  patch -Np1 -i ../python-pew-1.2.0-remove-pkg_resources.patch
+}
 
 build(){
   cd "$srcdir/pew-$pkgver"
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd "${pkgname##*-}-${pkgver}"
   #python3 setup.py install --prefix=/usr --root="$pkgdir"
-  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -D -m644 "pew/shell_config/complete.fish" \
     "$pkgdir/usr/share/fish/vendor_completions.d/pew.fish"
