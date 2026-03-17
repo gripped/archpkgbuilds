@@ -2,41 +2,47 @@
 # Contributor: Andrea Feletto <andrea@andreafeletto.com>
 
 pkgname=river
-pkgver=0.3.14
+pkgver=0.4.1
 pkgrel=1
-pkgdesc='A dynamic tiling wayland compositor'
+pkgdesc='a non-monolithic Wayland compositor'
 arch=('x86_64')
-url='https://codeberg.org/river/river'
-license=('GPL-3.0-or-later')
-depends=('glibc'
-         'libevdev'
-         'libinput'
-         'libxkbcommon'
-         'mesa'
-         'pixman'
-         'sh'
-         'wayland'
-         'wlroots0.19'
-         'xorg-xwayland')
-makedepends=('git'
-             'scdoc'
-             'wayland-protocols'
-             'zig')
-optdepends=('polkit: access seat through systemd-logind')
-provides=('wayland-compositor' 'river-classic')
-source=(git+https://codeberg.org/river/river-classic.git#tag=v${pkgver}?signed)
+url="https://isaacfreund.com/software/river/"
+license=('0BSD' 'CC-BY-SA-4.0' 'GPL-3.0-only' 'MIT')
+depends=(
+    'glibc'
+    'libevdev'
+    'libinput'
+    'libxkbcommon'
+    # 'mesa'
+    'pixman'
+    # 'sh'
+    'wayland'
+    'wlroots0.19'
+    'xorg-xwayland'
+)
+makedepends=(
+    'git'
+    'scdoc'
+    'wayland-protocols'
+    'zig'
+)
+# optdepends=('polkit: access seat through systemd-logind')
+# provides=('river-window-management-v1')
+
+source=(git+https://codeberg.org/river/river.git#tag=v${pkgver}?signed)
 # PACKAGING.md -> build.zig.zon
-source+=(zig-pixman-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-pixman/archive/v0.3.0.tar.gz
-         zig-wayland-v0.4.0.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.4.0.tar.gz
-         zig-wlroots-v0.19.3.tar.gz::https://codeberg.org/ifreund/zig-wlroots/archive/v0.19.3.tar.gz
-         zig-xkbcommon-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.3.0.tar.gz)
+source+=(zig-pixman-0.3.0.tar.gz::https://codeberg.org/ifreund/zig-pixman/archive/v0.3.0.tar.gz
+         zig-wayland-0.5.0.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.5.0.tar.gz
+         zig-wlroots-0.19.4.tar.gz::https://codeberg.org/ifreund/zig-wlroots/archive/v0.19.4.tar.gz
+         zig-xkbcommon-0.4.0.tar.gz::https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.4.0.tar.gz)
 noextract=("${source[@]:1}")
+conflicts=('river-classic')
 validpgpkeys=('5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11') # Isaac Freund <mail@isaacfreund.com>
-sha256sums=('6c19855ad1ecbe5a8102cc79ba965b50388bc1a3398f5781062e8bdb24616289'
+sha256sums=('79297f05a14b37abdd7069fb8d03bda4fc6f96c51f83181b0c1307b89f6916b4'
             'cd7fe3415d4d58685a94fdedd308e9994a37f012828940cfb603461de7f2c6ad'
-            '907fdd18c7ede1ab1f249c618ba5dce3b8a72c26e50090b4ae7010033a419ba9'
-            'bffcfa2af6b90d07cb187ceb3d70aeffb0ed11b3d3f9737ea004e722bc031d6b'
-            '1e185423e6b23ed9729614e66751ab7522db4487df4e0dcc7a2b06375aacda23')
+            'fa9705e83613b5555d7117ce5c602f10591d6598e69a73fba2e6039200db4f4b'
+            'ef3f8ef0c6ae516d244248f536290ef647dd10964ff992aa3160e53c06de85cf'
+            'e6df77d511cf9402f6ac08455c8d1fb727b6c3d66191e246671f62e5db083c49')
 
 prepare() {
     zig fetch --global-cache-dir ./zig-global-cache "./${source[1]%%::*}"
@@ -46,8 +52,7 @@ prepare() {
 }
 
 build() {
-  cd $pkgname-classic
-
+  cd $pkgname
   DESTDIR="build" zig build \
     --summary all \
     --prefix /usr \
@@ -63,7 +68,7 @@ build() {
 }
 
 check() {
-  cd $pkgname-classic
+  cd $pkgname
   zig build test \
     --summary all \
     --prefix /usr \
@@ -79,13 +84,13 @@ check() {
 }
 
 package() {
-  cd $pkgname-classic
+  cd $pkgname
 
   cp -a build/* "$pkgdir"
 
   install -Dm644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm644 contrib/river.desktop -t "$pkgdir/usr/share/wayland-sessions"
 
-  install -d "$pkgdir/usr/share/$pkgname"
-  cp -a example "$pkgdir/usr/share/$pkgname"
+  # add license + exception
+  install -m644 -Dt "${pkgdir}/usr/share/licenses/${pkgname}" LICENSES/{0BSD.txt,MIT.txt}
 }
