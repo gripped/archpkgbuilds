@@ -3,7 +3,7 @@
 
 pkgname=python-hid
 pkgver=1.0.6
-pkgrel=4
+pkgrel=5
 _pkgname=${pkgname#python-}
 pkgdesc="Python hidapi bindings in ctypes (aka pyhidapi)"
 arch=(any)
@@ -11,16 +11,17 @@ url="https://github.com/apmorton/pyhidapi"
 license=(MIT)
 depends=(hidapi python)
 conflicts=(python-hidapi)
-makedepends=(python-setuptools)
+makedepends=(python-build python-installer python-setuptools python-wheel)
 source=("$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/${_pkgname::1}/$_pkgname/$_pkgname-$pkgver.tar.gz")
 sha256sums=('48d764d7ae9746ba123b96dbf457893ca80268b7791c4b1d2e051310eeb83860')
 
 build() {
   cd "$_pkgname-$pkgver"
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd "$_pkgname-$pkgver"
-  python setup.py install --skip-build -O1 --root="$pkgdir"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/${pkgname}/
 }
