@@ -3,7 +3,7 @@
 
 _pkgbasename=libpciaccess
 pkgname=lib32-${_pkgbasename}
-pkgver=0.18.1
+pkgver=0.19
 pkgrel=1
 pkgdesc="X11 PCI access library (32-bit"
 arch=(x86_64)
@@ -12,9 +12,9 @@ url="https://xorg.freedesktop.org/"
 depends=('lib32-glibc' ${_pkgbasename} 'lib32-zlib')
 makedepends=('gcc-multilib' 'pkgconfig' 'xorg-util-macros' 'meson')
 source=(${url}/releases/individual/lib/${_pkgbasename}-${pkgver}.tar.xz{,.sig})
-sha512sums=('ef27999446e735df2331e94219ee3dafe9198a2472bb452f63ef9c9c446d5431f9e231e224cfabdeba1402974a5a0064546f9abced4d1770f994f5fc0c2b3310'
+sha512sums=('a20ea0ef3d650e2cdc18423ea4770780ce273c35115eece85dbbb59e5f2e24bdbaf88e53b1648f2c5d4fa34b015a3fe8318721bf5655a86a835db323e6ecd4f7'
             'SKIP')
-validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+validpgpkeys=('3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2') # Alan Coopersmith <alan.coopersmith@oracle.com>
 validpgpkeys+=('8703B6700E7EE06D7A39B8D6EDAE37B02CEB490D') # "Emil Velikov <emil.l.velikov@gmail.com>"
 validpgpkeys+=('995ED5C8A6138EB0961F18474C09DD83CAAA50B2') # "Adam Jackson <ajax@nwnk.net>"
 
