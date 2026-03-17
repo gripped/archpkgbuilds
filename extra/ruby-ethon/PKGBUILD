@@ -2,8 +2,8 @@
 
 _name=ethon
 pkgname=ruby-${_name}
-pkgver=0.17.0
-pkgrel=2
+pkgver=0.18.0
+pkgrel=1
 pkgdesc="Libcurl wrapper"
 arch=('any')
 url="https://github.com/typhoeus/ethon"
@@ -28,7 +28,7 @@ noextract=(${_name}-${pkgver}.gem)
 source=(
   ${pkgname}::git+$url.git#tag=v$pkgver
 )
-sha256sums=('813abc77d288bb85f939bdac7312761439ff36c521e3db0a93fbe35954e3862d')
+sha256sums=('80d572958f769d53d26cfa2fc5aeada1710132b15419fbc20d24505fa4778bef')
 
 prepare() {
   cd "${pkgname}"
