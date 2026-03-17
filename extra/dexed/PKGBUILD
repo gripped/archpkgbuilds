@@ -3,7 +3,7 @@
 pkgbase=dexed
 pkgname=(dexed dexed-docs dexed-clap dexed-vst3 dexed-standalone)
 pkgver=1.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A software synth closely modelled on the Yamaha DX7'
 arch=(x86_64)
 url='https://asb2m10.github.io/dexed'
@@ -157,7 +157,8 @@ package_dexed-clap() {
   groups+=(clap-plugins)
   depends=(
     glibc
-    gcc-libs
+    libgcc
+    libstdc++
     alsa-lib
     freetype2
     clap-host
@@ -173,7 +174,8 @@ package_dexed-vst3() {
   groups+=(vst3-plugins)
   depends=(
     glibc
-    gcc-libs
+    libgcc
+    libstdc++
     alsa-lib
     freetype2
     vst3-host
@@ -190,7 +192,8 @@ package_dexed-standalone() {
   pkgdesc+=' - standalone'
   depends=(
     glibc
-    gcc-libs
+    libgcc
+    libstdc++
     alsa-lib
     freetype2
     hicolor-icon-theme
