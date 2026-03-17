@@ -1,0 +1,62 @@
+diff --git a/acquisition/acquisition.go b/acquisition/acquisition.go
+index 09e1d90..446b5a6 100644
+--- a/acquisition/acquisition.go
++++ b/acquisition/acquisition.go
+@@ -20,7 +20,6 @@ import (
+ 	rt "github.com/botherder/go-savetime/runtime"
+ 	"github.com/google/uuid"
+ 	"github.com/mvt-project/androidqf/adb"
+-	"github.com/mvt-project/androidqf/assets"
+ 	"github.com/mvt-project/androidqf/log"
+ 	"github.com/mvt-project/androidqf/utils"
+ )
+@@ -177,7 +176,6 @@ func (a *Acquisition) Complete() {
+ 
+ 	// Stop ADB server before trying to remove extracted assets
+ 	adb.Client.KillServer()
+-	assets.CleanAssets()
+ }
+ 
+ func (a *Acquisition) GetSystemInformation() error {
+diff --git a/adb/adb_linux.go b/adb/adb_linux.go
+index 8d2a9e7..1df2878 100644
+--- a/adb/adb_linux.go
++++ b/adb/adb_linux.go
+@@ -10,15 +10,9 @@ import (
+ 	"path/filepath"
+ 
+ 	saveRuntime "github.com/botherder/go-savetime/runtime"
+-	"github.com/mvt-project/androidqf/assets"
+ )
+ 
+ func (a *ADB) findExe() error {
+-	err := assets.DeployAssets()
+-	if err != nil {
+-		return err
+-	}
+-
+ 	adbPath, err := exec.LookPath("adb")
+ 	if err == nil {
+ 		a.ExePath = adbPath
+diff --git a/adb/collector.go b/adb/collector.go
+index 7baedd3..b39de6e 100644
+--- a/adb/collector.go
++++ b/adb/collector.go
+@@ -14,8 +14,6 @@ import (
+ 	"strings"
+ 
+ 	"github.com/mvt-project/androidqf/log"
+-
+-	"github.com/mvt-project/androidqf/assets"
+ )
+ 
+ type Collector struct {
+@@ -112,7 +110,7 @@ func (c *Collector) Install() error {
+ 	}
+ 
+ 	log.Debugf("Deploying collector binary '%s' for architecture '%s'.", collectorName, c.Architecture)
+-	collectorBinary, err := assets.Collector.ReadFile(collectorName)
++	collectorBinary, err := os.ReadFile(filepath.Join("/usr/lib/androidqf/android-collector", collectorName))
+ 	if err != nil {
+ 		// Somehow the file doesn't exist
+ 		return errors.New("couldn't find the collector binary")
