@@ -3,23 +3,23 @@
 
 pkgname=python-ansicolor
 _name=${pkgname#python-}
-pkgver=0.3.2
-pkgrel=8
+pkgver=0.3.3
+pkgrel=1
 pkgdesc='Library to produce ansi color output and colored highlighting and diffing'
-arch=('any')
+arch=(any)
 url=https://github.com/numerodix/ansicolor
-license=('Apache-2.0')
-depends=('python')
+license=(Apache-2.0)
+depends=(python)
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
 )
-checkdepends=('python-pytest')
+checkdepends=(python-pytest)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('1826b94e1b970aa01263c974816047d7ac2cb8f175ff50cb7fa8c1cf53e3756e80b323a2944e14ccc77c4cd76500f5ca0d5972241ad4d90191059705287afc98')
+b2sums=('964a2b2b8acc35f4e0f4e238884069c56f019e40c0cd5ae6af92155a097c6208162084454a64fa324ee632ffb2b7f0132d312cf1a23a6d869299aaab165403bb')
 
 build() {
   cd "$_name"
