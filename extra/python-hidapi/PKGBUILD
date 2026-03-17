@@ -8,12 +8,12 @@ _pipname=hidapi
 pkgver=0.14.0
 # _pkgver=${pkgver%.*}.post${pkgver##*.}
 _pkgver="$pkgver"
-pkgrel=5
+pkgrel=6
 arch=('x86_64')
 pkgdesc="A Cython interface to the hidapi from signal11/hidapi"
 url="https://github.com/trezor/cython-hidapi"
 depends=('python' 'hidapi')
-makedepends=('cython' 'python-setuptools' 'udev')
+makedepends=('cython' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel' 'udev')
 license=('custom')
 source=("https://pypi.org/packages/source/${_pipname:0:1}/$_pipname/$_pipname-$_pkgver.tar.gz"
          https://github.com/trezor/cython-hidapi/commit/89aaf081.patch
@@ -32,8 +32,9 @@ prepare() {
 build() {
   cd "$_pipname-$_pkgver"
 
-  python setup.py build \
-        --without-libusb --with-system-hidapi
+    python -m build --wheel --no-isolation \
+        -C--build-option=--without-libusb \
+        -C--build-option=--with-system-hidapi
 }
 
 check() {
@@ -46,8 +47,7 @@ check() {
 package_python-hidapi() {
   cd "$_pipname-$_pkgver"
 
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build \
-        --without-libusb --with-system-hidapi
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -Dm 755 LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
   install -Dm 755 LICENSE-bsd.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE-bsd.txt
