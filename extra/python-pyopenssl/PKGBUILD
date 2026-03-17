@@ -4,24 +4,28 @@
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=python-pyopenssl
-pkgver=25.3.0
-pkgrel=2
+pkgver=26.0.0
+pkgrel=1
 pkgdesc='Python wrapper around the OpenSSL library'
-arch=('any')
+arch=(any)
 url='https://pyopenssl.org/'
-license=('Apache-2.0')
-depends=('python' 'python-cryptography')
+license=(Apache-2.0)
+depends=(python python-cryptography)
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
 )
-checkdepends=('python-pytest' 'python-pretend' 'python-pytest-rerunfailures')
+checkdepends=(
+  python-pytest
+  python-pytest-rerunfailures
+  python-pretend
+)
 source=("$pkgname::git+https://github.com/pyca/pyopenssl#tag=$pkgver")
-sha512sums=('519e2ac290688b488c78359a90e938138fb0d5cf1c82442470d46e83e8605eb2be5a065f96cb46c847f76e172fbce0adfd9e0247dc73b6e18fefea5425193699')
-b2sums=('b3ad0d96b739cb48b2811d9baea297cb0f2c5e2693bdccca17c7d8c7b6651b94c7bd16edf0e1e6520c6ed89712a7d190c91d3b860bd28230413a6d6c9e20d0bf')
+sha512sums=('df1cfecd4519d66fb2254cc01eb1b032c51c907abd51e48dd57e7fc768d738edf07ebd1a85c5adae0a62d5c0a95f126eb0f7a24554452c0876091e893363ab1a')
+b2sums=('d9eb705cbdfa28d10d01ac0a98a9c4ba55b209c1818887d27227afadb04744937ccc48ff18b0d100e347ec2dc66bcb6b651f8778bc8dfcf2a205360d5049452b')
 
 build() {
   cd "$pkgname"
@@ -31,11 +35,22 @@ build() {
 
 check() {
   cd "$pkgname"
-  # TODO: Fix deselected tests failing due to throwing the wrong exception.
-  PYTHONPATH="$PWD"/build/lib pytest -v \
-    --deselect tests/test_ssl.py::TestConnectionSendall::test_closed \
-    --deselect tests/test_ssl.py::TestConnection::test_shutdown_closed \
-    --deselect tests/test_ssl.py::TestOCSP::test_client_receives_servers_data # https://github.com/pyca/pyopenssl/issues/1455
+
+  # temporary install
+  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$(pwd)/tmp/$site_packages"
+
+  local pytest_options=(
+    -vv
+    # TODO: Fix deselected tests failing due to throwing the wrong exception.
+    --deselect tests/test_ssl.py::TestConnectionSendall::test_closed
+    --deselect tests/test_ssl.py::TestConnection::test_shutdown_closed
+    # https://github.com/pyca/pyopenssl/issues/1455
+    --deselect tests/test_ssl.py::TestOCSP::test_client_receives_servers_data 
+  )
+
+  pytest "${pytest_options[@]}"
 }
 
 package() {
