@@ -2,7 +2,7 @@
 
 pkgname=alpm-db
 _upstream=alpm
-pkgver=0.2.1
+pkgver=0.2.2
 pkgrel=1
 pkgdesc="Command line interfaces for the handling of alpm-db structures"
 arch=(x86_64)
@@ -14,8 +14,8 @@ license=(
 )
 groups=(alpm)
 depends=(
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(
   git
@@ -28,8 +28,8 @@ optdepends=(
   'alpm-docs: for additional specifications'
 )
 source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
-sha512sums=('eba239ac04f88d21733f5f0682944f820a0828f502af72d1a0671f4f2cd2aca93fe8b2836d0eb92661a83adb26ad01d82875368ae6ea9329840eb58a5f52ec16')
-b2sums=('fde37f4a41003d9d44fea5396272582dbd247bce75e40a9b8d01db4172d47df9013ce12a8e46229555f91abcd42f93e550e3290533382591edfc975694f44e80')
+sha512sums=('4d13f73b9db33d1aa50e8081fd18c6ea3ce0cf2db778c9be511ddce462977326899c33903cb8cf4dcde9b3d58ee0c9b53838f75e7a9b303e16b7ba025b6fa852')
+b2sums=('ad79067cb0741d26be797b8c1b4fb6b34518a900a115ffbf5adf7e0881aca60fe2473d72320542518f97d96928e6157b276e5a1d256868617466bce4ae2637fe')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
