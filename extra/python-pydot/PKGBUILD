@@ -3,21 +3,21 @@
 # Contributor: phillid <dbphillipsnz _at_thingy_that_swirly_a_symbol gmaildott comm>
 
 pkgname=python-pydot
-pkgver=4.0.0
+pkgver=4.0.1
 pkgrel=1
 pkgdesc="Python interface to Graphviz's Dot"
 arch=('any')
 url="https://github.com/pydot/pydot"
 license=('MIT')
-depends=('python-pyparsing' 'graphviz')
+depends=('python-pyparsing>=3.1.0' 'graphviz')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-chardet' 'python-parameterized' 'python-pytest')
 source=("git+https://github.com/pydot/pydot#tag=v$pkgver")
-sha512sums=('124ee088668d174150befc98ea0a95a261cc77154cc0d0387bf99e4b3d8d920689a237540b490ec72760c78186dd3366c3f6ab2bd2cd0f0690fb5473847b4b29')
+sha512sums=('f1400bf63300a0928a9c299f1ebe9eace7dcaf41192390dced202c0e25735dd904bbec3238ee0e9eff18f3250cb4f9d4f24a685fb2231e9e179b9156647c2934')
 
 build() {
   cd pydot
-  python -m build --wheel --skip-dependency-check --no-isolation
+  python -m build --wheel --no-isolation
 }
 
 check() {
