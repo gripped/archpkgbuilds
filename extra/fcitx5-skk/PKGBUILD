@@ -2,16 +2,16 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-skk
-pkgver=5.1.9
+pkgver=5.1.10
 pkgrel=1
 pkgdesc="libskk wrapper for Fcitx5"
 arch=('x86_64')
 url="https://github.com/fcitx/fcitx5-skk"
-license=('GPL')
+license=('GPL-3.0-or-later')
 depends=('fcitx5-qt' 'libskk' 'skk-jisyo')
 makedepends=('git' 'extra-cmake-modules' 'ninja')
 source=("git+https://github.com/fcitx/fcitx5-skk.git#tag=$pkgver?signed")
-sha512sums=('764d109973079878c6d1044aab75fb30b5b98f9dd7272d217dcb7abf17d1e4dc73d2c5a4047f9d40f7cd5694b2e566a3a3c9140ceb1fb081106a972e8bd0ead2')
+sha512sums=('8d464fb418563497171a2a75a13b368f60c1f42c41bc1c31c3ed40a8383253d40d323b16d93a060db436e1474fcd499914e0fc884984a4d413574b96d9b0445d')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
 build() {
