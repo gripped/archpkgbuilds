@@ -1,14 +1,15 @@
 pkgbase = odin2-synthesizer
 	pkgdesc = 24 voice polyphonic synthesizer with modulation and FX
 	pkgver = 2.4.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.thewavewarden.com/odin2
 	arch = x86_64
 	groups = pro-audio
 	license = GPL-3.0-only
 	license = OFL-1.1
 	makedepends = glibc
-	makedepends = gcc-libs
+	makedepends = libgcc
+	makedepends = libstdc++
 	makedepends = alsa-lib
 	makedepends = libglvnd
 	makedepends = freetype2
@@ -59,7 +60,8 @@ pkgname = odin2-synthesizer-standalone
 	depends = odin2-synthesizer-common=2.4.1
 	depends = hicolor-icon-theme
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = alsa-lib
 	depends = libglvnd
 	depends = freetype2
@@ -72,7 +74,8 @@ pkgname = odin2-synthesizer-vst3
 	groups = vst3-plugins
 	depends = odin2-synthesizer-common=2.4.1
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = alsa-lib
 	depends = libglvnd
 	depends = freetype2
@@ -84,7 +87,8 @@ pkgname = odin2-synthesizer-lv2
 	groups = lv2-plugins
 	depends = odin2-synthesizer-common=2.4.1
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = alsa-lib
 	depends = libglvnd
 	depends = freetype2
@@ -96,7 +100,8 @@ pkgname = odin2-synthesizer-clap
 	groups = clap-plugins
 	depends = odin2-synthesizer-common=2.4.1
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = alsa-lib
 	depends = libglvnd
 	depends = freetype2
