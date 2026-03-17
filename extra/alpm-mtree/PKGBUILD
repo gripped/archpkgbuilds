@@ -2,7 +2,7 @@
 
 pkgname=alpm-mtree
 _upstream=alpm
-pkgver=0.3.2
+pkgver=0.3.3
 pkgrel=1
 pkgdesc="A CLI for parsing of ALPM MTREE files"
 arch=(x86_64)
@@ -14,8 +14,8 @@ license=(
 )
 groups=(alpm)
 depends=(
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(
   git
@@ -28,8 +28,8 @@ optdepends=(
   'alpm-docs: for additional specifications'
 )
 source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
-sha512sums=('c07dba4f99841c87d986614fb57c987ac575fbbd8362297dbfd6e987f2eafbcbf62913adb64c8e3e0fd092f9ea3074de5ac04d86c41ae905ef238cb348657bcc')
-b2sums=('6f07f21fb1ffbbcedd43d8bf98c673baa8f2a70887eeffa899aab26b02ed0e56119c0fe5f52c52289fcfe904ab7424e0342b262a2a7d5db1e01795d5865bc1d4')
+sha512sums=('4fb376c4c475335fb2881f2b841cde1c0e7740aa817388a642802d7af70f875c59a6f414ed39c2bd1d68976c2ffafcff0ca77a21a0d597884a26aeb6107582a3')
+b2sums=('e2d932edd4c5b004d8187f36493c363ccc9e3034c9d2538b3247dcaeec741519b8693ccdd34338b78024388eb70c6ab58f32e0a10f4b86aadfc79d6a1bb63d95')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
