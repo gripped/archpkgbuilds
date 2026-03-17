@@ -2,7 +2,7 @@
 
 pkgname=alpm-repo-db
 _upstream=alpm
-pkgver=0.1.1
+pkgver=0.1.2
 pkgrel=1
 pkgdesc="Command line interfaces for the handling of alpm-repo-db files"
 arch=(x86_64)
@@ -14,8 +14,8 @@ license=(
 )
 groups=(alpm)
 depends=(
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(
   git
@@ -28,8 +28,8 @@ optdepends=(
   'alpm-docs: for additional specifications'
 )
 source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
-sha512sums=('ef10652356d956ed2412a33d74dcd480d001336ae5414624e1abb6017b333801962daa63b0a7b7b290360aae4101d5a2ebac4d4aed7f2982a2a55a05233399f7')
-b2sums=('ac24d6e7eea98d0d1f7b6c658a47ce25e34d155b988c2c075406a2942c214accfe9e429e2ea588393c303b97e14fe98f550eeb83d15bf720325dc646a3e52740')
+sha512sums=('2b43ba6a31d6a7329eb4897f5b1f693ab9ff9b0445dfcd4184db59c77d50c40fee22ee418105a63a7dda3ee569f0b13f658ee68ac2cd2f4ec64937668f59ecd4')
+b2sums=('4194e4b5a4db306dca05752ccf3db4b7c6c2f451f85bf85c22dad04be080c1f3ec7842043f370173a7bb45cf09adb48a5805566d0395175b659c1b428c8ab1e0')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
