@@ -5,13 +5,13 @@
 
 pkgname=python-nltk
 pkgver=3.9.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Natural language processing in Python'
 arch=('any')
 url='https://www.nltk.org/'
-license=('APACHE')
+license=('Apache-2.0')
 depends=('python-yaml' 'python-click' 'python-regex')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('nltk-data' 'python-requests' 'python-regex')
 optdepends=('nltk-data: test data'
 	    'python-numpy: used for calculations'
@@ -21,7 +21,7 @@ sha256sums=('03e06c8c13e352133962c4395ebe0696905c9f1fbdead2d19deae37ba48eb47c')
 
 build() {
   cd nltk-$pkgver
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 # Need to fix the nltk-data split
@@ -32,5 +32,5 @@ build() {
 
 package() {
   cd nltk-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
