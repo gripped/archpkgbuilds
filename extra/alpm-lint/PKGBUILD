@@ -2,8 +2,8 @@
 
 pkgname=alpm-lint
 _upstream=alpm
-pkgver=0.3.1
-pkgrel=2
+pkgver=0.3.2
+pkgrel=1
 pkgdesc="Linting of ALPM packaging related files and projects"
 arch=(x86_64)
 url="https://alpm.archlinux.page/alpm-lint/"
@@ -15,8 +15,8 @@ license=(
 groups=(alpm)
 depends=(
   alpm-pkgbuild-bridge
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(
   git
@@ -29,8 +29,8 @@ optdepends=(
   'alpm-docs: for additional specifications'
 )
 source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
-sha512sums=('5d66e8f4d9128488454c99f7d981002adad06415e44a4f1757f784fbff703c95e6ba34efd30bf29a813769b8542c6435de76152e48eda910fd2b88ab0f236f13')
-b2sums=('37da0c7471f63049e9ad72ef13a99a05ba59e421b111df124c82528bf178ae8ac207e6a61a8a4d84dbcdd310b5c0a673a7c687d8a80a12a08e120030848ba3f0')
+sha512sums=('e8121be3442cdbcbc8b71d15cb03a62b4d941b3385210143fd65687dde7cdb1be7a1b76cb52410f41df718cbfd2c9bc41a50308d0d56ed2d6c2f31f93f2c5295')
+b2sums=('f9b00ee9c9c0e5b86c6cfc4c5b2e103ce4b2c4a1f8a7aaada9c850e1b6f6befec090137fd7457a25f039fa636244b8641507006f4c757ee298036d90e0abf95a')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
