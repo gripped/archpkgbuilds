@@ -3,14 +3,14 @@
 # Contributor: Denis Martinez <deuns.martinez@gmail.com>
 
 pkgname=wt
-pkgver=4.12.5
+pkgver=4.12.6
 pkgrel=1
 pkgdesc="a C++ library and application server for developing and deploying web applications"
 arch=('x86_64')
 url="http://www.webtoolkit.eu/"
 license=('GPL-2.0-only')
 depends=('boost-libs' 'libharu' 'graphicsmagick' 'pango' 'zlib' 'libgl' 'harfbuzz'
-         'qt5-base')
+         'qt5-base' 'libstdc++' 'glibc' 'libgcc')
 makedepends=('boost' 'cmake' 'postgresql-libs' 'fcgi' 'sqlite' 'mysql++' 'doxygen'
              'graphviz' 'mesa' 'glu' 'ninja')
 optdepends=('openssl: for SSL support in built-in webserver'
@@ -21,7 +21,7 @@ optdepends=('openssl: for SSL support in built-in webserver'
 	    'mysql++: for the hangman example')
 backup=('etc/wt/wt_config.xml')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/emweb/wt/archive/${pkgver}.tar.gz")
-sha512sums=('d150d16eb5a464153436efdf970500c57122c7910faae3c35580026f7c78edfa32ac96c21a9e53cac6103b6f54d36f2baea295187f3026c4efe42d4e6fcb0afc')
+sha512sums=('2c2b746a8253d2a27efed18d908fa8e41ad1014c369b54a7cbe26f6a8a5dbd43902eb2aba99410ee63b858a8c752239f0f1a5d90bfb166e77796e7b6fc0aa960')
 
 build() {
   cd ${pkgname}-${pkgver}
