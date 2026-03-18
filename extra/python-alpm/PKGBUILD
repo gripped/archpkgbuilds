@@ -2,7 +2,7 @@
 
 pkgname=python-alpm
 _upstream=alpm
-pkgver=0.4.2
+pkgver=0.4.3
 pkgrel=1
 pkgdesc="Python bindings for the Rust-based ALPM project"
 arch=(x86_64)
@@ -33,8 +33,8 @@ optdepends=(
   'alpm-pkgbuild-bridge: for creating SRCINFO data from PKGBUILD files'
 )
 source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
-sha512sums=('aec3f7d6542f4af2e985707f396081466131d3520b15637cdd2639e2e2507dac9b082b1f7abc008ac649f6e08bccaa5ccc3c29d75345ba0b98466047603b38e4')
-b2sums=('233e31cfda911a8b824f1d86ddbcd5fcc2ffdaef873849f4b53c4589b01cea4db90f4d9346414bf8ad4cca0d8c65c6e801ba7be6dac0b96ca360781946d51a58')
+sha512sums=('d986ac2636477e653703f15fbceba5bd27dd6a0a83703e33d3ef1266519704488a3e9f9266d947d85cfcdf8510fdec5c3760c78cc36bc2f93074bb31a815d2b4')
+b2sums=('6df4b89811c046b20340b456aaede0faab3e018cc19c026fc254e2913ed93ff6495fbc8ab8c2666efa251c848ae51f137e2613360be441b85a1ae924833a1866')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
