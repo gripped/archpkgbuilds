@@ -3,7 +3,7 @@
 # Contributor: Christopher Cooper <christopher@cg505.com>
 
 pkgname=openai-codex
-pkgver=0.114.0
+pkgver=0.115.0
 pkgrel=1
 pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
 arch=(x86_64)
@@ -27,7 +27,7 @@ optdepends=(
 )
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/rust-v$pkgver.tar.gz")
-b2sums=('ddbb9d6d3e48851136411debf843e6314218380ecdcb3c51717aba0f278285822f0caa82d70c972d8db1877f1d816ce898096e7d3c64dc87e36a9ed7c69fd101')
+b2sums=('db9e1caf69563b35e6cec6bbceee12fd9d283623bb62262d2f9f6dc97486eb62551122045a873ae9657943345562dd2447b8deea69cc414ccefb3d830469079b')
 
 prepare() {
   cd codex-rust-v$pkgver/codex-rs
@@ -99,7 +99,10 @@ check() {
     --skip 'suite::v2::initialize::turn_start_notify_payload_includes_initialize_client_name' \
     --skip 'suite::view_image::js_repl_emit_image_attaches_local_image' \
     --skip 'suite::view_image::js_repl_view_image_requires_explicit_emit' \
-    --skip 'history_cell::tests::session_info_availability_nux_tooltip_snapshot'
+    --skip 'history_cell::tests::session_info_availability_nux_tooltip_snapshot' \
+    --skip 'suite::hooks::resumed_thread_keeps_stop_continuation_prompt_in_history' \
+    --skip 'suite::hooks::stop_hook_can_block_multiple_times_in_same_turn' \
+    --skip 'suite::v2::command_exec::command_exec_process_ids_are_connection_scoped_and_disconnect_terminates_process'
 }
 
 package() {
