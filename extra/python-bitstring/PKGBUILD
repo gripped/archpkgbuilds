@@ -4,9 +4,8 @@
 # Contributor: Thomas Conneely <tc116 at le dot ac dot uk>
 
 pkgname=python-bitstring
-_pkgname=${pkgname#python-}
-pkgver=4.3.1
-pkgrel=2
+pkgver=4.4.0
+pkgrel=1
 pkgdesc='A Python module to help you manage your bits'
 arch=('any')
 url="https://github.com/scott-griffiths/bitstring"
@@ -16,6 +15,7 @@ depends=(
   'python-bitarray'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-installer'
   'python-setuptools'
@@ -25,16 +25,16 @@ checkdepends=(
   'python-hypothesis'
   'python-pytest'
 )
-source=("$url/archive/$_pkgname-$pkgver.tar.gz")
-sha256sums=('49e0fa2d0f174ca1e40711f8b443e6ba2a2e939f13cfefab508bb4ef4257aff3')
+source=("git+$url.git#tag=$pkgver")
+b2sums=('18971e0c67bda9bf83c6a244c864c696f48057c07b26de097979ac5658477cfc95ab1c3578f597a100640afa15abe323120db9a6cf6543f9dc47d17e6bbd31f5')
 
 build() {
-  cd "$_pkgname-$_pkgname-$pkgver"
+  cd "${pkgname#python-}"
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_pkgname-$_pkgname-$pkgver"
+  cd "${pkgname#python-}"
   local pytest_args=(
     # Requires python-gfloat which is not yet packaged.
     # https://github.com/graphcore-research/gfloat
@@ -48,9 +48,7 @@ check() {
 }
 
 package() {
-  cd "$_pkgname-$_pkgname-$pkgver"
+  cd "${pkgname#python-}"
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
-
-# vim:set ts=2 sw=2 et:
