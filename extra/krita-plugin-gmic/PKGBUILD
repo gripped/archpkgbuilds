@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=krita-plugin-gmic
-pkgver=3.7.2.1
+pkgver=3.7.2.2
 pkgrel=1
 pkgdesc='GMic plugin for Krita'
 arch=(x86_64)
@@ -21,7 +21,7 @@ makedepends=(extra-cmake-modules
              git
              qt5-tools)
 source=(gmic-krita::git+https://github.com/vanyossi/gmic#tag=v$pkgver)
-sha256sums=('bb3c3942d89cccbc2725ae61b485864e7cd3816b1852a4b98393ddfcb53c9338')
+sha256sums=('f9217b257b35ed8df7e3949a963436776cc676ef866aa2914729bb694b3c3825')
 
 prepare() {
 # Remove bundled gmic, make sure to use system one
