@@ -4,7 +4,7 @@
 # Contributor: Daniel Martí <mvdan@mvdan.cc>
 
 pkgname=shfmt
-pkgver=3.12.0
+pkgver=3.13.0
 pkgrel=1
 pkgdesc="Format shell programs"
 url="https://github.com/mvdan/sh"
@@ -12,22 +12,21 @@ license=(BSD-3-Clause)
 arch=(x86_64)
 depends=(glibc)
 makedepends=(
+  git
   go
   scdoc
 )
 options=(!lto)
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-b2sums=('e3a8bee5b77c5b23eafa883e7498712d1dfa272692d8c413f656e3871150dc435e7660a1657a04f2994421ade6e77c45f450463af455d2c334ac5c566c08c9c5')
+source=("git+$url.git#tag=v$pkgver")
+b2sums=('5f4ee92777971092d25b39e0e5522961f30342c79e17b97a452893c20cb4fb9f5e9d2e7e64af526a93dc5fb2a284932adc902656725d989ae4b286aa9b48aa0c')
 
 prepare() {
-  cd "sh-$pkgver"
-
+  cd "sh"
   GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
 build() {
-  cd "sh-$pkgver"
-
+  cd "sh"
   export CGO_CPPFLAGS="$CPPFLAGS"
   export CGO_CFLAGS="$CFLAGS"
   export CGO_CXXFLAGS="$CXXFLAGS"
@@ -35,7 +34,7 @@ build() {
   export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw"
   export GOPATH="$srcdir"
 
-  local ld_flags="-compressdwarf=false -linkmode=external -X main.version=$pkgver"
+  local ld_flags="-compressdwarf=false -linkmode=external"
   go build -v \
     -ldflags "$ld_flags" \
     ./cmd/shfmt/...
@@ -44,18 +43,16 @@ build() {
 }
 
 check() {
-  cd "sh-$pkgver"
-
+  cd "sh"
   # Ensure the executable reports the correct version.
-  test "$(./shfmt --version)" = "$pkgver"
+  test "$(./shfmt --version)" = "v$pkgver"
 
   go test ./cmd/shfmt/...
 }
 
 package() {
-  cd "sh-$pkgver"
-
-  install -Dm755 -t "$pkgdir/usr/bin" shfmt
-  install -Dm644 -t "$pkgdir/usr/share/man/man1" shfmt.1
-  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+  cd "sh"
+  install -vDm755 -t "$pkgdir/usr/bin" shfmt
+  install -vDm644 -t "$pkgdir/usr/share/man/man1" shfmt.1
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
