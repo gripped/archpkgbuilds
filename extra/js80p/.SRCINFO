@@ -1,7 +1,7 @@
 pkgbase = js80p
 	pkgdesc = A MIDI driven, performance oriented, versatile synthesizer
 	pkgver = 3.5.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://attilammagyar.github.io/js80p/
 	install = js80p.install
 	arch = x86_64
@@ -14,7 +14,8 @@ pkgbase = js80p
 	makedepends = zenity
 	makedepends = kdialog
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = libxcb
 	depends = cairo
 	source = js80p::git+https://github.com/attilammagyar/js80p#tag=v3.5.0

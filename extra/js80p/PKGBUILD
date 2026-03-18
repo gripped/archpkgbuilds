@@ -2,7 +2,7 @@
 
 pkgname=js80p
 pkgver=3.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A MIDI driven, performance oriented, versatile synthesizer'
 arch=(x86_64)
 url='https://attilammagyar.github.io/js80p/'
@@ -10,7 +10,8 @@ license=(GPL-3.0-only)
 groups=(pro-audio vst3-plugins)
 depends=(
   glibc
-  gcc-libs
+  libgcc
+  libstdc++
   libxcb
   cairo
 )
