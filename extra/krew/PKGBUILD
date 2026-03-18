@@ -3,7 +3,7 @@
 # Contributor: Victor <victor@xirion.net>
 
 pkgname=krew
-pkgver=0.4.5
+pkgver=0.5.0
 pkgrel=1
 pkgdesc="Find and install kubectl plugins"
 arch=(x86_64)
@@ -18,7 +18,7 @@ depends=(
 makedepends=(go)
 options=(!lto)
 source=("git+$url#tag=v$pkgver")
-sha256sums=('7a4af7717c060b035ef975d00db3ea6fa9c35451b237f67efe508a7164fdc572')
+sha256sums=('7ffc8bb910e855b5c1ff92f4f57f17649e003369eecc6ae4d5bf0c478e53aec5')
 
 prepare() {
   cd $pkgname
