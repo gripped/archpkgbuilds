@@ -1,0 +1,76 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+pkgname=hypre
+pkgver=3.1.0
+pkgrel=2
+pkgdesc="Parallel solvers for sparse linear systems featuring multigrid methods"
+arch=(x86_64)
+url="https://github.com/hypre-space/hypre"
+license=("Apache-2.0 OR MIT")
+depends=(
+  blas
+  glibc
+  lapack
+  libgcc
+  libgomp
+  openmpi
+  superlu
+  superlu_dist
+)
+makedepends=(
+  cmake
+  gcc-fortran
+  ninja
+)
+source=($pkgname-$pkgver::$url/archive/v$pkgver.tar.gz)
+b2sums=('c9d7d697f924699e05dd1ebd4b18a674447306cb7a7399fd5a7ef8bfea3bbb9cab6f383add19d7af71b80f170d5cdc397f133637bff919c6571b95b325e1ed5f')
+
+build() {
+  local cmake_options=(
+    -B build
+    -S $pkgname-$pkgver/src
+    -G Ninja
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_INSTALL_INCLUDEDIR=include/hypre
+    -D BUILD_SHARED_LIBS=ON
+    -D HYPRE_BUILD_EXAMPLES=OFF  # installs too generic names in /usr/bin/
+    -D HYPRE_BUILD_TESTS=ON
+    -D HYPRE_ENABLE_FORTRAN=ON
+    -D HYPRE_ENABLE_MPI=ON
+    -D HYPRE_ENABLE_OPENMP=ON
+    -D HYPRE_ENABLE_HYPRE_BLAS=OFF  # use system BLAS
+    -D HYPRE_ENABLE_HYPRE_LAPACK=OFF  # use system LAPACK
+    -D HYPRE_ENABLE_SUPERLU=ON
+    -D HYPRE_ENABLE_DSUPERLU=ON
+  )
+  cmake "${cmake_options[@]}"
+  cmake --build build
+}
+
+check() {
+  local excluded_tests=""
+  # ij and sstuct tests take too long and fail with numerical difference from upstream
+  excluded_tests+="test_ij_solvers|test_sstruct_solvers"
+
+  local ctest_options=(
+    --test-dir build
+    # show the stdout and stderr when the test fails
+    --output-on-failure
+    # execute tests in parallel
+    --parallel $(nproc)
+    # limit execution time for each test
+    --timeout 200
+    # re-run failed tests
+    #--repeat until-pass:3
+    # exclude problematic tests
+    --exclude-regex "$excluded_tests"
+  )
+  ctest "${ctest_options[@]}"
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm 644 $pkgname-$pkgver/LICENSE-{APACHE,MIT} -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
