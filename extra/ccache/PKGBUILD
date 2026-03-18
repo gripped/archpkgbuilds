@@ -4,8 +4,8 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=ccache
-pkgver=4.12.3
-pkgrel=2
+pkgver=4.13.1
+pkgrel=1
 pkgdesc='Compiler cache that speeds up recompilation by caching previous compilations'
 url='https://ccache.dev/'
 arch=('x86_64')
@@ -29,15 +29,15 @@ makedepends=(
   'tl-expected'
 )
 checkdepends=('doctest')
-source=(https://github.com/ccache/ccache/releases/download/v${pkgver}/ccache-${pkgver}.tar.xz{,.minisig})
-sha512sums=('6745a6dc002e8cca802d2559993d88028fc138d25a079efbc7bb6d4b39e09b2f46eeb1c5aa857f34fc45b7e8f9cfa6764b412b0e96c7f12225083a29c0cde314'
-            '0c2334642f8ac15093b6838f9cea881960acb175e5418f1e8f54f11a8a3ace3784daf1489e7adff29198bc46704ac62db13a8d4f29e2c66cdc52383ccbe3e2da')
-b2sums=('f15d68b7f3fc457b967c76ee068c1f16cd5e210aa51b56d9672d43df0c7faf8e07cecb987cf0c13228e764431f170068d2f422f0f213ec66bd7a19f7adf4b594'
-        'a087a330e15567ee16541cd92df9defbb477e459407dfe78b642cfbf4bbb9741c91b32951f9cea0423a387ad487710747d5ba6e3bcf10f1523c5301ab3c37f85')
+source=("https://github.com/ccache/ccache/releases/download/v$pkgver/ccache-$pkgver.tar.xz"{,.minisig})
+sha512sums=('f621f2617c922ba82ee7e7a84613db1f7d9d73d097246cf171cb3ac0e9da79d42ce6dfab23937081ffadd3bc11fdd6df2f74a671873ba3836b96788441b13cca'
+            '205cb30a20ef1c0b2ed3e4df946e71581425a805be3e04cff172257bcc5b9968d720018093176e3466b41464a16f46ef401381a5c9ea13f2546b1aabdd0c1b9f')
+b2sums=('627e266bbeab8496322dcfde07c6880fc5e3ccf9f87edce972a6c5f54eba647a8bf4eca256adcef819afe315499b57cc9b3b02c2b6717af0b4c1432abdccf3f4'
+        'eb47644b7c5ae50e59ea33129e9e92a79082c44b5817385ee531da0472498830ba94d2d6e3aff35321691d56e3064ffc4a851f33566aa03eb22a541474f3a985')
 validpgpkeys=('5A939A71A46792CF57866A51996DDA075594ADB8') # Joel Rosdahl <joel@rosdahl.net>
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd $pkgname-$pkgver
   cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=None \
@@ -49,27 +49,24 @@ build() {
 }
 
 check() {
-  cd ${pkgname}-${pkgver}
+  cd $pkgname-$pkgver
   ctest --test-dir build --output-on-failure
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install -C build
+  make DESTDIR="$pkgdir" install -C build/doc
 
-  make DESTDIR="${pkgdir}" install -C build
-  make DESTDIR="${pkgdir}" install -C build/doc
+  install -vDm 644 -t "$pkgdir/usr/share/doc/$pkgname" doc/*.md doc/*.adoc
 
-  install -vDm 644 doc/*.md doc/*.adoc -t "${pkgdir}/usr/share/doc/${pkgname}"
-
-  install -vdm 755 "${pkgdir}/usr/lib/ccache/bin"
-  local _prog
-  for _prog in gcc g++ c++; do
-    ln -vs /usr/bin/ccache "${pkgdir}/usr/lib/ccache/bin/$_prog"
-    ln -vs /usr/bin/ccache "${pkgdir}/usr/lib/ccache/bin/${CHOST}-$_prog"
+  install -vdm 755 "$pkgdir/usr/lib/ccache/bin"
+  local prog
+  for prog in gcc g++ c++; do
+    ln -vs /usr/bin/ccache "$pkgdir/usr/lib/ccache/bin/$prog"
+    ln -vs /usr/bin/ccache "$pkgdir/usr/lib/ccache/bin/$CHOST-$prog"
   done
-  for _prog in cc clang clang++; do
-    ln -vs /usr/bin/ccache "${pkgdir}/usr/lib/ccache/bin/$_prog"
+  for prog in cc clang clang++; do
+    ln -vs /usr/bin/ccache "$pkgdir/usr/lib/ccache/bin/$prog"
   done
 }
-
-# vim: ts=2 sw=2 et:
