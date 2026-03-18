@@ -2,7 +2,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=ruby-cucumber-tag-expressions
-pkgver=8.1.0
+pkgver=9.0.0
 pkgrel=1
 pkgdesc="Cucumber tag expressions for ruby"
 arch=(any)
@@ -20,7 +20,7 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(https://github.com/cucumber/tag-expressions/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('a3cf60f292a0c12f7601e3b49716f2c1d7f3acc89c3998f80295db6fdd4d9e45')
+sha256sums=('05d10b69882306b58a092886a632f993f47f76e695d72de0171cad7d50682aa8')
 
 build() {
   local _gemdir="$(gem env gemdir)"
