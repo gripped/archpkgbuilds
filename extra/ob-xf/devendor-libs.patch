@@ -1,0 +1,22 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -98,6 +98,9 @@ if(UNIX AND NOT APPLE)
+     list(APPEND OBXF_JUCE_FORMATS LV2)
+ endif()
+ 
++find_package(PkgConfig REQUIRED)
++pkg_search_module(fmt REQUIRED fmt)
++
+ juce_add_plugin(OB-Xf
+     COMPANY_NAME "Surge Synth Team"
+     BUNDLE_ID "org.surge-synth-team.OB-Xf"
+--- a/libs/CMakeLists.txt
++++ b/libs/CMakeLists.txt
+@@ -4,7 +4,6 @@ add_subdirectory(sst/sst-cmake)
+ set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" PARENT_SCOPE)
+ 
+ add_subdirectory(JUCE EXCLUDE_FROM_ALL)
+-add_subdirectory(fmt EXCLUDE_FROM_ALL)
+ 
+ add_library(simde INTERFACE)
+ target_include_directories(simde INTERFACE simde)
