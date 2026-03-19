@@ -1,10 +1,10 @@
 pkgbase = python-oslo-db
 	pkgdesc = OpenStack Database Pattern Library
-	pkgver = 12.3.3
+	pkgver = 13.0.0
 	pkgrel = 1
-	url = https://pypi.python.org/pypi/oslo.db/12.3.3
+	url = https://pypi.python.org/pypi/oslo.db/13.0.0
 	arch = any
-	license = Apache
+	license = Apache-2.0
 	checkdepends = python-testresources
 	checkdepends = python-testscenarios
 	checkdepends = python-eventlet
@@ -13,6 +13,7 @@ pkgbase = python-oslo-db
 	checkdepends = python-stestr
 	checkdepends = python-testtools
 	checkdepends = pifpaf
+	checkdepends = python-psycopg2
 	makedepends = git
 	makedepends = python-setuptools
 	depends = python-pbr
@@ -26,7 +27,7 @@ pkgbase = python-oslo-db
 	optdepends = python-testresources: for sqlalchemy test fixtures
 	optdepends = python-testscenarios: for sqlalchemy test fixtures
 	options = !emptydirs
-	source = git+https://github.com/openstack/oslo.db.git#tag=12.3.3
-	sha512sums = f43da04c811e016262b6cf1f24d1c82bd2ff9dc49cd4143ed71bc526c3e502d1fa4cd104e137daeb0b80b3be31bb9add3b899e7a74b1642834f677c391628d30
+	source = git+https://github.com/openstack/oslo.db.git#tag=13.0.0
+	sha512sums = 609431e9c52fb2ab3ce8ba5fd5de52b31792b969073354eb8e6ab2ded454c6224d9eba8975f6e8c0f8952f544daf7543fd3175741fdc8922a53df9769441e03c
 
 pkgname = python-oslo-db

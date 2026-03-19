@@ -2,28 +2,22 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-db
-pkgver=12.3.3
+pkgver=13.0.0
 pkgrel=1
 pkgdesc="OpenStack Database Pattern Library"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.db/$pkgver"
-license=('Apache')
+license=('Apache-2.0')
 depends=('python-pbr' 'python-alembic' 'python-debtcollector' 'python-oslo-i18n'
          'python-oslo-config' 'python-oslo-utils' 'python-sqlalchemy1.4' 'python-stevedore')
 makedepends=('git' 'python-setuptools')
 checkdepends=('python-testresources' 'python-testscenarios' 'python-eventlet' 'python-oslotest'
-              'python-oslo-context' 'python-stestr' 'python-testtools' 'pifpaf')
+              'python-oslo-context' 'python-stestr' 'python-testtools' 'pifpaf' 'python-psycopg2')
 optdepends=('python-testresources: for sqlalchemy test fixtures'
             'python-testscenarios: for sqlalchemy test fixtures')
 options=('!emptydirs')
 source=("git+https://github.com/openstack/oslo.db.git#tag=$pkgver")
-sha512sums=('f43da04c811e016262b6cf1f24d1c82bd2ff9dc49cd4143ed71bc526c3e502d1fa4cd104e137daeb0b80b3be31bb9add3b899e7a74b1642834f677c391628d30')
-
-prepare() {
-  cd oslo.db
-  # remove sqlalchemy-migrate
-  git cherry-pick -n 94d6e24ca19b0116eed00d5ccdb8a538918c6dcf
-}
+sha512sums=('609431e9c52fb2ab3ce8ba5fd5de52b31792b969073354eb8e6ab2ded454c6224d9eba8975f6e8c0f8952f544daf7543fd3175741fdc8922a53df9769441e03c')
 
 build() {
   cd oslo.db
