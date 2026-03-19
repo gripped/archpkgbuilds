@@ -2,13 +2,14 @@
 
 pkgname=hyprlock
 pkgver=0.9.2
-pkgrel=8
+pkgrel=9
 pkgdesc='hyprland’s GPU-accelerated screen locking utility'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
 license=(BSD-3-Clause)
 depends=(cairo # libcairo.so
-         gcc-libs # libgcc_s.so libstdc++.so
+         libgcc # libgcc_s.so
+         'libstdc++' # libstdc++.so
          glib2 libgobject-2.0.so libglib-2.0.so
          glibc # libc.so libm.so
          hyprgraphics libhyprgraphics.so
