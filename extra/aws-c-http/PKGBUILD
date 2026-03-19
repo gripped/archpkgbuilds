@@ -2,14 +2,14 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-http
-pkgver=0.10.10
+pkgver=0.10.11
 pkgrel=1
 pkgdesc='C99 implementation of the HTTP/1.1 and HTTP/2 specifications'
 arch=(x86_64)
 url='https://github.com/awslabs/aws-c-http'
 license=(Apache-2.0)
 depends=(
-  aws-c-cal 
+  aws-c-cal
   aws-c-common
   aws-c-compression
   aws-c-io
@@ -17,7 +17,7 @@ depends=(
 )
 makedepends=(cmake)
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('4ad09d48d6582250ca809d65fe7690ba18160fa1ff478111896b65146955409a9ec8d24cc3cea9c328f145f3dbf9ac90af427200512e423b99179f5c73101969')
+b2sums=('9ebc091d4b26a72321125e80682d81f6051ca0fb1ee335bdf7cd55f880a398182cad650db8340a53937ac4d5c8c1986b190ace21ddf0197c6ff58c2e431e36db')
 
 build() {
   cd $pkgname-$pkgver
