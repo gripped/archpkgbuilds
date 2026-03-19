@@ -2,12 +2,12 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-configtool
-pkgver=5.1.12
-pkgrel=3
+pkgver=5.1.13
+pkgrel=1
 pkgdesc="Configuration Tool for Fcitx5"
 arch=('x86_64')
 url="https://github.com/fcitx/fcitx5-configtool"
-license=('GPL')
+license=('GPL-2.0-or-later')
 groups=('fcitx5-im')
 provides=('fcitx5-config-qt' 'kcm-fcitx5')
 conflicts=('kcm-fcitx5')
@@ -21,7 +21,7 @@ optdepends=('kcmutils: for KCM support'
 makedepends=('git' 'extra-cmake-modules' 'kcmutils' 'kdeclarative' 'kirigami' 'ksvg' 'libplasma'
              'ninja' 'python')
 source=("git+https://github.com/fcitx/fcitx5-configtool.git#tag=$pkgver?signed")
-sha512sums=('42a417d358f13f0e09520e766037f186275a80cc3ab1f049b173f00d724bb7eb50e9821d67c8e6acded6257515f6fd3b2d7e79fb3096d5a7e57ee6590013c98a')
+sha512sums=('3cd7f4160d1c7db286179582eda199216f6fa7f0583fb605844e11664a9595df41b8d0277b18cf38e39baf7e18a6ec6a19177b18e357a3faa04f5a3581d450a7')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
 prepare() {
