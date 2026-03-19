@@ -1,17 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=fcitx5-bamboo
-pkgver=1.0.9
+pkgver=1.0.10
 pkgrel=1
 pkgdesc="Bamboo (Vietnamese Input Method) engine support for Fcitx"
 arch=('x86_64')
 url="https://github.com/fcitx/fcitx5-bamboo"
-license=('GPL')
+license=('LGPL-2.1-or-later')
 depends=('fcitx5')
 makedepends=('git' 'extra-cmake-modules' 'go')
 source=("git+https://github.com/fcitx/fcitx5-bamboo.git#tag=$pkgver?signed"
         "git+https://github.com/BambooEngine/bamboo-core.git")
-sha512sums=('4b42ba56dca897e5c49595e4435ca1573a6ea61d3ec6b52ff06331d233a3d935fb2718b5854c638743dc28f92a99bd017b7244e1d92e8627ae62963579563d66'
+sha512sums=('ee19df1c13379f82337f50935e59b836f5d7af6829d30561c0ce25e210690e33ebb856ebb4fda7a1bce89b5b192b2fe0825c2102867a36924fea94176fad9817'
             'SKIP')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
