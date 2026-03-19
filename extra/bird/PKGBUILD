@@ -3,14 +3,14 @@
 
 pkgname=bird
 pkgver=3.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='RIP, OSPF, BGP, MPLS, BFD, Babel routing daemon'
 arch=('x86_64')
 url='https://bird.network.cz/'
 license=('GPL-2.0-or-later')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
   'libssh'
   'ncurses'
   'readline'
