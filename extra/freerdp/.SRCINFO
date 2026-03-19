@@ -1,6 +1,6 @@
 pkgbase = freerdp
 	pkgdesc = Free implementation of the Remote Desktop Protocol (RDP)
-	pkgver = 3.23.0
+	pkgver = 3.24.1
 	pkgrel = 1
 	epoch = 2
 	url = https://www.freerdp.com/
@@ -28,6 +28,8 @@ pkgbase = freerdp
 	depends = glibc
 	depends = jansson
 	depends = libcups
+	depends = libgcc
+	depends = libstdc++
 	depends = libx11
 	depends = libxcursor
 	depends = libxext
@@ -51,15 +53,17 @@ pkgbase = freerdp
 	provides = libfreerdp3.so
 	provides = libwinpr-tools3.so
 	provides = libwinpr3.so
-	source = git+https://github.com/freerdp/freerdp#tag=3.23.0
-	sha512sums = fc067df40bfed774ce2152004ae466653455ca67f99c0364973e232978a28070fc38e599ff2b1923bebd2e761c360d472198c9fc899e4997b1598bdf0d1d178b
-	b2sums = a298a00b6f0c506bf198309493eaf2b0580cf906e10f5876130e5cdc9dcc10c5e736dcb45d4d55a66ac91ca8fc27e903cf1d4fd0f57b4a58dac77d4858d4252f
+	source = git+https://github.com/freerdp/freerdp#tag=3.24.1
+	sha512sums = 3dbbe033370d126ac0d7f68067957b5b2f04e2c7d38cf654377338522f8a4695fce4768daba2067bb9f3b163ad60203f7430db7044946aed3cfcd9b612f11203
+	b2sums = 272c540c10467de4f6857c288286e9da4da4650e6f9aab6d09a2275537ba1ac7a8936462df010a2e5c2c6b2ecb6e86856a7f4d8f35237315c65b4458cdad6bbe
 
 pkgname = freerdp
 	depends = fuse3
 	depends = glibc
 	depends = jansson
 	depends = libcups
+	depends = libgcc
+	depends = libstdc++
 	depends = libx11
 	depends = libxcursor
 	depends = libxext
