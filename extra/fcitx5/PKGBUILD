@@ -2,7 +2,7 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5
-pkgver=5.1.18
+pkgver=5.1.19
 _dictver=20121020
 pkgrel=1
 pkgdesc="Next generation of fcitx"
@@ -17,7 +17,7 @@ makedepends=('git' 'extra-cmake-modules' 'ninja' 'nlohmann-json' 'wayland-protoc
 source=("git+https://github.com/fcitx/fcitx5.git#tag=$pkgver?signed"
         "https://download.fcitx-im.org/data/en_dict-$_dictver.tar.gz")
 noextract=("en_dict-$_dictver.tar.gz")
-sha512sums=('19cad7397e34ae52cc52ec9dccbd374052cad7b3799f419d4c1a58efde7ead9aa0c12dc71f2bd22ac943e1a230653f57a97247c9c253d0982471f64a311088ad'
+sha512sums=('5f62b9330477cb4c1754e2dc7738c2b81bd5fa9554913560b10559e7a67f1e2f4751edcdeed6ee625357aac3b4a089e252245e3b0fd5ea2ff47425267f4d631a'
             '8418bd02492bfd786c0fab93be4400ef027ec8e9fac02220cc1f653f5eb67f54573a6a84a15baba19bb34ab892745c87df16499d6304ea75009131e2ab3b97f2')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
