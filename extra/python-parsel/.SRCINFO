@@ -1,25 +1,23 @@
 pkgbase = python-parsel
 	pkgdesc = Library to extract data from HTML and XML using XPath and CSS selectors
-	pkgver = 1.10.0
-	pkgrel = 2
+	pkgver = 1.11.0
+	pkgrel = 1
 	url = https://github.com/scrapy/parsel
 	arch = any
 	license = BSD-3-Clause
 	checkdepends = python-pytest
 	checkdepends = python-sybil
 	checkdepends = python-psutil
-	makedepends = python-setuptools
+	makedepends = git
 	makedepends = python-build
+	makedepends = python-hatchling
 	makedepends = python-installer
-	makedepends = python-wheel
 	depends = python-cssselect
 	depends = python-jmespath
 	depends = python-lxml
 	depends = python-packaging
 	depends = python-w3lib
-	source = python-parsel-1.10.0.tar.gz::https://github.com/scrapy/parsel/archive/v1.10.0.tar.gz
-	source = libxml2-2.15.patch
-	sha512sums = 371552c3d364532c38390a97a44a39b6a2eea50c68ddac1e1e14bc884c351fd71e908ae75990f365453278873e7942c344b46ea2cf0638c5d6db17156ba62e66
-	sha512sums = cd2a162d1325b49cfd7e8cb7ffa3b7bc2dedac836597623269717397f4ceec1dd6c6e83ad3b2c76416a67b834b3eec9bf4529fe545a9ff67ed7e1a73a7195ef8
+	source = git+https://github.com/scrapy/parsel.git#tag=v1.11.0
+	sha512sums = b7e1a7b4e8e30eb330e3fd075b4db99e65cc943f62e0b638f3f8f9716616ddc5b97c232598381855ea5ce57d1a36d02c3a41971bcd868dc4e4e81d0e48bb64ee
 
 pkgname = python-parsel
