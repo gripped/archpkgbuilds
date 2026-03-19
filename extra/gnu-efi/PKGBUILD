@@ -1,19 +1,26 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=gnu-efi
-pkgver=3.0.18
-pkgrel=2
+pkgver=4.0.4
+pkgrel=1
 pkgdesc="Develop EFI applications using the GNU toolchain and the EFI development environment"
 arch=(x86_64)
-url="https://sourceforge.net/projects/gnu-efi/"
-license=(BSD-2-Clause)
+url="https://github.com/ncroxon/gnu-efi"
+license=(
+  BSD-2-Clause
+  BSD-2-Clause-Patent
+  BSD-3-Clause
+  'BSD-2-Clause OR GPL-2.0-or-later'
+  GPL-3.0-or-later
+  LGPL-3.0-or-later
+)
 conflicts=(gnu-efi-libs)
 provides=(gnu-efi-libs)
 replaces=(gnu-efi-libs)
-source=(https://download.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2)
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
 options=(!lto !strip)
-sha512sums=('39f9fa14b880441a94a04400ff8850efdd9474929e5501dfd05af06e7747b4d0f7cb742ac811c7026cf52d00508efb73018be4d61d63a1211de0cd931cbc473d')
-b2sums=('e080fa4c57a281452a6473304871304d1b5c30d42ee728b4c0c084258ed2f6f2099c068ec5841cee81ecf664dd658dee3b94d68324ebaa498cb49cec4f7f7df9')
+sha512sums=('4ed273ef8203f1b2fd90855821576523b070236911a26199eec220f1bad34f63759a32b06f11a681e532a2c793339d9e66bcb90e5cde5de02d8842a40c471a06')
+b2sums=('a636ec81a830206b4d793689b6b4b85ab88b9061224691d47076b096e4502f4625fdc759c351d3e8b0a93fc26c33dd4862c2383d7620bb1704649c275da322f7')
 
 prepare() {
   # -Werror, not even once
@@ -35,6 +42,6 @@ build() {
 package() {
   cd $pkgname-$pkgver
   make INSTALLROOT="$pkgdir" PREFIX=/usr install
-  install -vDm 644 README.efilib -t "$pkgdir/usr/share/licenses/$pkgname/"
-  install -vDm 644 {ChangeLog,README.{gnuefi,git,elilo}} -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 licenses/* -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 {README,SECURITY}.md -t "$pkgdir/usr/share/doc/$pkgname/"
 }
