@@ -2,16 +2,16 @@
 
 _hkgname=posix-paths
 pkgname=haskell-posix-paths
-pkgver=0.3.0.0
-pkgrel=95
+pkgver=0.3.0.1
+pkgrel=1
 pkgdesc="POSIX filepath/directory functionality"
 url="https://github.com/JohnLato/posix-paths.git"
-license=("BSD")
+license=("BSD-3-Clause")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-unliftio')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-doctest')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('82a89de8d2fafbfedbd3a23b1be31ada184cce5961f22e7fd22b2a75ad8757d2')
+sha256sums=('93dfe251e64cb9fee2371c5d7db00584fb2df5af9957e49b9cc8d4c52c546c62')
 
 build() {
   cd $_hkgname-$pkgver
