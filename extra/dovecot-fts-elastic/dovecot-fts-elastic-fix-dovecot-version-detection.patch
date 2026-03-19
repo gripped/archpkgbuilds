@@ -1,0 +1,30 @@
+From de137b6613e6a642c3e8d42b296dc817beb9fde4 Mon Sep 17 00:00:00 2001
+From: Carl Smedstad <carsme@archlinux.org>
+Date: Sun, 15 Mar 2026 17:30:28 +0100
+Subject: [PATCH] Fix version detection with dovecot 2.4
+
+dovecot-config no longer exports DOVECOT_VERSION in dovecot 2.4.x. Fall back to
+extracting it from the dovecot config.h header.
+
+Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
+---
+ configure.ac | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/configure.ac b/configure.ac
+index 8c82c70..728416b 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -20,6 +20,9 @@ AC_DEFINE_UNQUOTED(fts_elastic_VERSION, "$PACKAGE_VERSION",
+ #
+ 
+ DC_DOVECOT
++AS_IF([test -z "$DOVECOT_VERSION"], [
++    DOVECOT_VERSION=`grep '#define DOVECOT_VERSION ' "$dovecot_pkgincludedir/config.h" | sed 's/^.*"\(.*\)"$/\1/'`
++])
+ AS_VERSION_COMPARE([2.4.0], [$DOVECOT_VERSION], [], [],
+     [AC_MSG_ERROR([Dovecot >= 2.4.0 is required (found $DOVECOT_VERSION). Use fts-elastic 0.x for Dovecot 2.3.])])
+ DC_DOVECOT_MODULEDIR
+-- 
+2.53.0
+

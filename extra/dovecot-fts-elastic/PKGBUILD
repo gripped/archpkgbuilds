@@ -11,8 +11,8 @@ _dcpkgver=2.4.2
 # Make sure to bump pkgrel if changing this.
 
 pkgname=dovecot-fts-elastic
-pkgver=1.1.0
-pkgrel=9
+pkgver=2.0.0
+pkgrel=1
 pkgdesc="Dovecot FTS plugin for elasticsearch"
 arch=(x86_64)
 url="https://github.com/filiphanes/fts-elastic"
@@ -28,27 +28,15 @@ install=dovecot-fts-elastic.install
 source=(
   "git+$url.git#tag=$pkgver"
   "90-fts.conf"
+  "$pkgname-fix-dovecot-version-detection.patch"
 )
-sha256sums=('1bddb56eeb067a640d473e0669495977798c1ea7e3d5644ff645b825ead6e783'
-            '3442fa7350055c7328bcdf2f666727b9a5d8c942a0bfe93044db344c80ad7e69')
+b2sums=('67a9e8e382ecada7d05cf7768eb398ba02507479adde7791f5ba85bd725aa91a019bd1082269a689131f35ecd786ac69719cfa017cc266dafa0dcadd62df2dbf'
+        '1f00a23a7036d7b362eb0520c3852b67e56ca59bfba80cd941b8a1d485f7dded4a40f66097ee6bb695addd12a63a0b3857928178ab5a3bbff6d522582aa45ff2'
+        'c39e0fc7ca64f3f7dcf9ab721b749d4a254371c53c27d70925651c64fecdaf6b407e0b1738dc6df7a60a0e881046e479eda0764cd281b955c395c4e63b3e4ae8')
 
 prepare() {
   cd ${pkgname#dovecot-}
-  # Patches from the main branch needed to avoid conflicts when applying the
-  # dovecot 2.4 compatibility patches:
-  # Fix header include order
-  git cherry-pick -n 411d711b4a587f3124d0fcfd8c6fd0a6bce92cc5
-  # Restore compatibility with older versions
-  git cherry-pick -n 6433082ce7ee3dcc1c598e856c205638e31a0f29
-  # Refactor debug lines
-  git cherry-pick -n bbc66a6887fd0b44922ad02d2e8de8e9951d7663
-
-  # Dovecot 2.4 compatibility patches I've thrown together. Not 100$ sure of
-  # what I'm doing, but at least this builds. See:
-  # https://github.com/filiphanes/fts-elastic/pull/35
-  git cherry-pick -n 06ee7ddda0e60cb7bd1f56f3d3c8b07a6589fc12
-  git cherry-pick -n 2eb7b517324ee1c8cd29738d67bd41fb0fc94cf5
-
+  patch -Np1 < ../$pkgname-fix-dovecot-version-detection.patch
   ./autogen.sh
 }
 
