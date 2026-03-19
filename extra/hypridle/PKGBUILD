@@ -2,12 +2,13 @@
 
 pkgname=hypridle
 pkgver=0.1.7
-pkgrel=6
+pkgrel=7
 pkgdesc='hyprland’s idle daemon'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
 license=(BSD-3-Clause)
-depends=(gcc-libs # libgcc_s.so libstdc++.so
+depends=(libgcc # libgcc_s.so
+         'libstdc++' # libstdc++.so
          glibc # libc.so libm.so
          hyprlang libhyprlang.so
          hyprwayland-scanner
