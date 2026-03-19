@@ -4,7 +4,7 @@
 # Contributor: David Birks <david@birks.dev>
 
 pkgname=aws-cli-v2
-pkgver=2.33.22
+pkgver=2.34.9
 pkgrel=1
 pkgdesc='Universal Command Line Interface for Amazon Web Services (version 2)'
 arch=('any')
@@ -42,12 +42,10 @@ source=(
   "git+$_url#tag=$pkgver"
   "https://github.com/boto/botocore/commit/f0ff061aebd9ef15a66f87b675789275e373da43.patch"
   "$pkgname-python-prompt-toolkit-3.0.52-compat.patch"
-  "$pkgname-python-3.14-argparse-compat.patch"
 )
-b2sums=('67a78b2669222dc72c5579692ec2113846a380e3bf13ed536f81c72c4179548dab1321eb5aba271885a78922a0fce891dc23df9b655689e76b268499b57fc198'
+b2sums=('b9102c5aa3d34b355e1787c8757c5518172b0af3981586dea304108ab762dea1f836e06bba7c9f49115cc9c9ee63078096f025c5a113c5448e948f6e3da28e56'
         '34b49f02e77f5b0918df1ec61ba7076d6a795cb9d55708261aa6cfc2d065e4282c88ea6f4c40e0de6c7ca380056f527962cafc309ac9cc76e0286bcc1be6b409'
-        'd6c778ff47b20a9f48b80931c6972033dca30caff71edd189c4ee857cb911f65c0618b3396ac63f3d57034e3a1f87d34b4e0201bd684715fd5e348c57369c252'
-        'b11a980fd602f7ed61575677c4e75af7ce7784d9f3ff8ed4d7b9f7e830e8aae8780bbb27331f881d00d959469f7a35890725d1abc6e9d5f87b5ac632b3341ba6')
+        'd6c778ff47b20a9f48b80931c6972033dca30caff71edd189c4ee857cb911f65c0618b3396ac63f3d57034e3a1f87d34b4e0201bd684715fd5e348c57369c252')
 
 prepare() {
   cd ${pkgname%-v2}
@@ -57,8 +55,6 @@ prepare() {
 
   # Fix for python-prompt-toolkit 3.0.52
   patch -Np1 -f < ../$pkgname-python-prompt-toolkit-3.0.52-compat.patch
-  # Fix Python 3.14 argparse compatibility
-  patch -Np1 -f < ../$pkgname-python-3.14-argparse-compat.patch
 }
 
 build() {
@@ -123,6 +119,12 @@ check() {
 
     # Fails due to Python 3.14 reference counting changes.
     --deselect=tests/unit/botocore/test_utils.py::test_lru_cache_weakref
+
+    # Fails with AWS_ERROR_SYS_CALL_FAILURE when creating CRT EventLoopGroup
+    # in the build environment.
+    --deselect='tests/unit/s3transfer/test_crt.py::TestCreateS3CRTClient::test_fio_options[fio_options2-False-0.0-True]'
+    --deselect='tests/unit/s3transfer/test_crt.py::TestCreateS3CRTClient::test_fio_options[fio_options3-True-8-False]'
+    --deselect='tests/unit/s3transfer/test_crt.py::TestCreateS3CRTClient::test_fio_options[fio_options4-True-0.0-True]'
   )
   export AWS_ACCESS_KEY_ID=fake_id
   export AWS_SECRET_ACCESS_KEY=fake_key
