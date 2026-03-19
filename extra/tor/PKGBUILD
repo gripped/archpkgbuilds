@@ -7,18 +7,18 @@
 
 pkgname=tor
 pkgver=0.4.9.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Anonymizing overlay network.'
 arch=('x86_64')
 url='https://www.torproject.org/download/tor/'
 license=("BSD-3-Clause" "LGPL-3.0-only" "MIT")
 depends=(
   'bash'
-  'gcc-libs'
   'glibc'
   'libcap.so'
   'libcrypto.so'
   'libevent'
+  'libgcc'
   'liblzma.so'
   'libseccomp.so'
   'libssl.so'
