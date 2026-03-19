@@ -2,12 +2,12 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-filelock
-pkgver=3.24.0
+pkgver=3.25.2
 pkgrel=1
 pkgdesc="A platform-independent file lock"
+arch=('any')
 url="https://github.com/tox-dev/filelock"
 license=('MIT')
-arch=('any')
 depends=('python')
 makedepends=(
   'git'
@@ -24,7 +24,7 @@ checkdepends=(
   'python-virtualenv'
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('c222695dced2cd52d68d43599930b90426850c5c9d153bcfd11ab8584c5423a14be09a5f57480a21aa4e50bebcfd2ce58c5feee850aeed9f8f94783194d3503f')
+b2sums=('62faa7fad4aeb2ae6aab477e0c63bbd5fc6196f6f466b21bbec18bb7ae3af2cc0ebe3eb0a3b22118cf5084e58c1908c2af13f9f066567340723f7cbf4a182a04')
 
 build() {
   cd ${pkgname#python-}
