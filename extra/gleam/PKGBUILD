@@ -1,22 +1,36 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Arnaud Berthomier <arnaud@cyprio.net>
 
 pkgname=gleam
-pkgver=1.14.0
-pkgrel=4
+pkgver=1.15.1
+pkgrel=1
 pkgdesc='Friendly programming language for building type-safe and scalable systems'
 arch=(x86_64)
 url='https://github.com/gleam-lang/gleam'
 license=(Apache-2.0)
-depends=(erlang-core erlang-eunit glibc)
-makedepends=(cargo git rust)
-checkdepends=(bun deno nodejs)
+depends=(
+  erlang-core
+  erlang-eunit
+  glibc
+  libgcc
+)
+makedepends=(
+  cargo
+  git
+  rust
+)
+checkdepends=(
+  bun
+  deno
+  nodejs
+)
 optdepends=('rebar3: erlang dependency support'
             'erlang: standard erlang distribution')
 provides=(gleam)
 options=(!docs !libtool !staticlibs !lto)
 source=("git+$url#tag=v$pkgver")
-b2sums=('67b66dca4c28ca1909c0d4584a75cad9c65b244565b083000deac7ba4b167ba28c3735c8b523c15c0b3eb3e8a1185b6958f5a62bdf3fcb2b85bccfc781b22e86')
+b2sums=('2e9b90d7429ed7b32ebf7bf417c4e32acf2a0027461891fd349f772ab6e3ea88fefc67311a22748cf2b2a539d76f64baabc8216204e7a642dabdc2ebc77b24be')
 
 prepare() {
   cd $pkgname
