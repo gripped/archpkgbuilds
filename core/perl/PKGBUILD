@@ -5,7 +5,7 @@
 # Contributor: francois <francois.archlinux.org>
 
 pkgname=perl
-pkgver=5.42.0
+pkgver=5.42.1
 _baseversion="${pkgver%.*}"
 pkgrel=1
 pkgdesc="A highly capable, feature-rich programming language"
@@ -80,7 +80,7 @@ provides=('perl-archive-tar=3.04'
           'perl-math-complex=1.63'
           'perl-memoize=1.17'
           'perl-mime-base64=3.16_01'
-          'perl-module-corelist=5.20250702'
+          'perl-module-corelist=5.20260308'
           'perl-module-load-conditional=0.74'
           'perl-module-load=0.36'
           'perl-module-loaded=0.08'
@@ -140,7 +140,7 @@ source=(${pkgname}::git+https://github.com/Perl/perl5.git#tag=v${pkgver}
         detect-old-perl-modules.sh
         detect-old-perl-modules.hook)
 options=('makeflags' '!purge' 'emptydirs')
-sha512sums=('6b5da864ecc0ae7712ee224989a0ea5fa00563c58257cb8403de83c7f95643faae32027fc7f80090a257200a0c781be0b7fc0cc1ee16d4524120c9a7b32ec797'
+sha512sums=('5416030b3fa49019b440b0da58cce746dbafecfbd83a09c938e3a9a85b7905489657b9849746b6968b090ca881455f8745d092c1e31e36af1bd557055764be1c'
             'b96e3c2c44e7453ac4c1c77aef8b3370651c9cb9f59bb82de11218564fabe1b8d285a9c892ea87cb7d6acb6913bbd1af242d3ab20dcab8149270c2269cae9f7c'
             '6ed5bc6dbdc47bc7f4c0fedbe18deaf35ab02a2e6700988beb545954bb1d0fe20ff1a4de39d6d9fc882ef1741f7bf6d85ba165d0cd8dc0d9939b789c894f48a1'
             '53eb0cddfd637014f3d3a101665db8dcafe5ac5bf3d319a259974334eb89c1c405097518ae96b6d18e520194633c7be57c9b2cd9ae6398443eb08f1a2008d112'
@@ -227,6 +227,4 @@ package() {
   install -D -m755 -t "$pkgdir/usr/share/libalpm/scripts" "$srcdir/detect-old-perl-modules.sh"
   install -D -m644 -t "$pkgdir/usr/share/libalpm/hooks" "$srcdir/detect-old-perl-modules.hook"
 
-  find "$pkgdir" -name perllocal.pod -delete
-  find "$pkgdir" -name .packlist -delete
 }
