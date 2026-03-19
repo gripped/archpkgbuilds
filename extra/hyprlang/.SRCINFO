@@ -1,13 +1,14 @@
 pkgbase = hyprlang
 	pkgdesc = implementation library for the hypr config language
 	pkgver = 0.6.8
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/hyprwm/hyprlang
 	arch = x86_64
 	arch = aarch64
 	license = BSD-3-Clause
 	makedepends = cmake
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = glibc
 	depends = hyprutils
 	depends = libhyprutils.so

@@ -2,12 +2,13 @@
 
 pkgname=hyprlang
 pkgver=0.6.8
-pkgrel=1
+pkgrel=2
 pkgdesc='implementation library for the hypr config language'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
 license=(BSD-3-Clause)
-depends=(gcc-libs
+depends=(libgcc
+         'libstdc++'
          glibc
          hyprutils libhyprutils.so)
 makedepends=(cmake)
