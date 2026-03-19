@@ -2,8 +2,8 @@
 
 pkgbase=nvtx
 pkgname=(nvtx python-nvtx)
-pkgver=3.4.0
-pkgrel=2
+pkgver=3.5.0
+pkgrel=1
 pkgdesc="NVIDIA Tools Extension (NVTX) library"
 url="https://nvidia.github.io/NVTX/"
 arch=(x86_64)
@@ -18,7 +18,7 @@ makedepends=(
   python-wheel
 )
 source=($pkgbase::git+https://github.com/NVIDIA/NVTX.git#tag=v$pkgver)
-b2sums=('0136fbb7db394bd5d072d6a5497e3f23eaba537f2d0f6ad4a0aeda765e771e0362e6dd07b9f9cf6e3e431923bc278c671fe338ad7b19e032f28fff3be61b1d12')
+b2sums=('1e2b991c0ac647c585f863bbf5892b4a8e17a115aa6918353f86490873979378db8182f0136e5debd8ffee4296039658e1d989bc679e638351684fa0a593ff97')
 
 build() {
   # Build the C/C++ API (header-only)
