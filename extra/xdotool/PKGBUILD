@@ -3,7 +3,7 @@
 # Contributor: Rttommy <rttommy@gmail.com>
 
 pkgname=xdotool
-pkgver=4.20251130.1
+pkgver=4.20260303.1
 pkgrel=1
 pkgdesc="Command-line X11 automation tool"
 arch=('x86_64')
@@ -28,8 +28,9 @@ checkdepends=(
   'xorg-xwininfo'
   'xterm'
 )
-source=("https://github.com/jordansissel/xdotool/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('6495a6cd172213a668ca5072676b1969c35f5ee4bf927ad89eac323d878cb25fa85ab56e7079d562c1915277b6196a5286000fb51ceb2603f710c3d65a2ab524')
+provides=('libxdo.so')
+source=("https://github.com/jordansissel/xdotool/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+b2sums=('2ce3e01a196bde842a82279aeae02c347b25f3bff88a27000be7e7fc283294ccc19b4c76856471c4afda432224d4af663f6b43dabc179b99b5738c75886e9a26')
 
 build() {
   cd $pkgname-$pkgver
