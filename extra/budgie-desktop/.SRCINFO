@@ -1,7 +1,7 @@
 pkgbase = budgie-desktop
 	pkgdesc = A familiar, modern desktop environment
-	pkgver = 10.10.1
-	pkgrel = 3
+	pkgver = 10.10.2
+	pkgrel = 2
 	url = https://github.com/BuddiesOfBudgie/budgie-desktop
 	arch = x86_64
 	groups = budgie
@@ -41,6 +41,8 @@ pkgbase = budgie-desktop
 	depends = libpulse
 	depends = libxfce4windowing
 	depends = materia-gtk-theme
+	depends = mesa-utils
+	depends = mutter
 	depends = pango
 	depends = papirus-icon-theme
 	depends = polkit
@@ -62,10 +64,10 @@ pkgbase = budgie-desktop
 	optdepends = network-manager-applet: Network management in the panel
 	optdepends = power-profiles-daemon: Manage power and performance from the panel
 	optdepends = switcheroo-control: Open apps with the secondary GPU
-	source = git+https://github.com/BuddiesOfBudgie/budgie-desktop.git#tag=v10.10.1
+	source = git+https://github.com/BuddiesOfBudgie/budgie-desktop.git#tag=v10.10.2
 	source = 30_org.archlinux.budgie-desktop.gschema.override
 	validpgpkeys = 0E0D97562A4EC8BD8E329DCDAA7A2325E04B609B
-	b2sums = 82863766d0f75b63d8f64af3670a7570418397b2c9f846c76cac4004d36ddfd9db738e637e0d0421395f91cceee7e830373c34415100c5ac3056d98dc20c3348
+	b2sums = ab8fec0f4fc688d3267e14452051679dde42951e83b52bdb3336dae4b86f8b918175f34e8805f21377f5ab34687cb19887babbde0a614195a09aba2062230e5a
 	b2sums = 3ff3664b2dc075a068e008a63d4558fe05d1d8a2b2e647d2b491169455b05d18e4970d46a9ffc83a500b4cb00d2048dbf0aea8ffdf8ea2f9262e7a554d25073d
 
 pkgname = budgie-desktop
