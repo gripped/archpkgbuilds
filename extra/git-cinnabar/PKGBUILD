@@ -3,7 +3,7 @@
 
 pkgname=git-cinnabar
 pkgver=0.7.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Git remote helper to interact with Mercurial repositories"
 url="https://github.com/glandium/git-cinnabar"
 arch=(x86_64)
@@ -11,21 +11,27 @@ license=("GPL-2.0-only AND MPL-2.0")
 depends=(
   bzip2
   curl
-  gcc-libs
   glibc
+  libgcc
   zlib
 )
 makedepends=(
   cargo
   git
 )
-options=('!lto')
+options=(!lto)
 source=(
   "git+$url#tag=$pkgver"
   "git-for-windows::git+https://github.com/git-for-windows/git"
 )
 b2sums=('492508111eded4d1031d31abd64dfbff1eb288fb83b1d41e60f7767ee73e81904a4d477cd19e2c66e5089b33f0caf682c5c7571a9387f54a2ecce73627fa042f'
         'SKIP')
+
+# Use debug
+export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
+
+# Use LTO
+export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 prepare() {
   cd git-cinnabar
@@ -34,25 +40,20 @@ prepare() {
   git submodule set-url git-core "$srcdir/git-for-windows"
   git -c protocol.file.allow=always -c protocol.allow=never submodule update
 
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target host-tuple
 }
 
-build() {
+build() (
   cd git-cinnabar
-
-  # Use debug
-  export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
-
-  # Use LTO
-  export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
-
+  CFLAGS+=" -Wno-error=discarded-qualifiers"
   cargo build --release --frozen --no-default-features
-}
+)
 
-check() {
+check() (
   cd git-cinnabar
+  CFLAGS+=" -Wno-error=discarded-qualifiers"
   cargo test --frozen --no-default-features
-}
+)
 
 package() {
   cd git-cinnabar
