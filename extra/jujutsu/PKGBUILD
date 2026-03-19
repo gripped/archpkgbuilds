@@ -7,12 +7,12 @@
 pkgname=jujutsu
 _pkgname=jj
 pkgver=0.39.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Git-compatible VCS that is both simple and powerful'
 arch=(x86_64)
 url="https://github.com/jj-vcs/$_pkgname"
 license=(Apache-2.0)
-depends=(gcc-libs # libgcc_s.so ld-linux-x86-64.so
+depends=(libgcc # libgcc_s.so ld-linux-x86-64.so
          git
          glibc # libc.so libm.so
          zstd)
