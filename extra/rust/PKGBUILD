@@ -19,7 +19,7 @@ pkgname=(
   rust-aarch64-musl
 )
 pkgver=1.94.0
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc="Systems programming language focused on safety, speed and concurrency"
 url=https://www.rust-lang.org/
@@ -177,7 +177,49 @@ build() {
   export RUST_BACKTRACE=1
   unset CFLAGS CXXFLAGS LDFLAGS
 
-  DESTDIR="$srcdir/dest-rust" python ./x.py install -j "$(nproc)"
+  local xpy_options=(
+    -j "$(nproc)"
+  )
+
+  local host_tuple do_pgo=0
+  case $CARCH in
+    aarch64|x86_64) host_tuple=$CARCH-unknown-linux-gnu; do_pgo=1 ;;
+    loong64) host_tuple=loongarch64-unknown-linux-gnu ;;
+    riscv64) host_tuple=riscv64gc-unknown-linux-gnu ;;
+    *) host_tuple=$CARCH-unknown-linux-gnu ;;
+  esac
+
+  if (( do_pgo )); then
+    local profraw="$PWD/build/profiles"
+    mkdir -p "$profraw"
+
+    echo "Building instrumented compiler..."
+    python ./x.py build sysroot "${xpy_options[@]}" \
+      --rust-profile-generate="$profraw"
+
+    # Building cargo is our workload for profiling
+    echo "Profiling instrumented compiler..."
+    local stage2="$PWD/build/$host_tuple/stage2"
+    LLVM_PROFILE_FILE="$profraw/default_%m_%p.profraw" \
+      LD_LIBRARY_PATH="$stage2/lib" RUSTC="$stage2/bin/rustc" \
+      cargo build --manifest-path=src/tools/cargo/Cargo.toml
+
+    # Merge the profile data
+    local profdata="$PWD/build/rustc.profdata"
+    llvm-profdata merge -o "$profdata" "$profraw"
+
+    stat -c "Profile data found (%s bytes)" "$profdata"
+    test -s "$profdata"
+
+    # Clean up profraw and instrumented stage2 artifacts
+    echo "Removing instrumented compiler..."
+    rm -r "$profraw" "$stage2"*/
+
+    xpy_options+=(--rust-profile-use="$profdata")
+  fi
+
+  echo "Building optimized compiler..."
+  DESTDIR="$srcdir/dest-rust" python ./x.py install "${xpy_options[@]}"
 
   cd ../dest-rust
 
@@ -197,13 +239,6 @@ build() {
     esac
     rmdir -p --ignore-fail-on-non-empty "$d"
   done
-
-  local host_tuple
-  case $CARCH in
-    loong64) host_tuple=loongarch64-unknown-linux-gnu ;;
-    riscv64) host_tuple=riscv64gc-unknown-linux-gnu ;;
-          *) host_tuple=$CARCH-unknown-linux-gnu ;;
-  esac
 
   # rustbuild always installs copies of the shared libraries to /usr/lib,
   # overwrite them with symlinks to the per-architecture versions
