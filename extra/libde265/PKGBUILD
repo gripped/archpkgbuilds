@@ -3,8 +3,8 @@
 # Contributor: Daniel Nagy <danielnagy at gmx de>
 
 pkgname=libde265
-pkgver=1.0.17
-pkgrel=2
+pkgver=1.0.18
+pkgrel=1
 pkgdesc='Open h.265 video codec implementation'
 arch=(x86_64)
 url='https://github.com/strukturag/libde265'
@@ -17,19 +17,15 @@ makedepends=(cmake
              sdl2-compat)
 optdepends=('sdl2-compat: for the decoder tool')
 source=(git+https://github.com/strukturag/libde265#tag=v$pkgver)
-sha256sums=('9a38e7e178c857736470dca87b91d1346112c5d575ec2d65e82aa67f84c12f43')
+sha256sums=('4794e574bde26e8e1dbe7e08bc1176e714056ba134e0987e2cc84d9a882b6e15')
 
 build() {
   cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DENABLE_ENCODER=ON \
-    -DENABLE_TOOLS=ON
+    -DENABLE_ENCODER=ON
   cmake --build build
 }
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-
-# Remove useless tests binary
-  rm "$pkgdir"/usr/bin/tests
 }
