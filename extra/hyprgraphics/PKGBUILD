@@ -2,14 +2,15 @@
 
 pkgname=hyprgraphics
 pkgver=0.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='hyprland graphics resources and utilities'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
 license=(BSD-3-Clause)
 depends=(cairo # libcairo.so
          file libmagic.so
-         gcc-libs # libgcc_s.so libstdc++.so
+         libgcc # libgcc_s.so
+         'libstdc++' # libstdc++.so
          glibc # libc.so libm.so
          hyprutils libhyprutils.so
          libjpeg-turbo libjpeg.so
