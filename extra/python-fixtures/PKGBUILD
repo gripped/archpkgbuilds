@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-fixtures
-pkgver=4.2.8
+pkgver=4.3.1
 pkgrel=1
 pkgdesc="Python fixtures for testing / resource management"
 arch=('any')
@@ -18,7 +18,7 @@ makedepends=(
 )
 checkdepends=('python-testtools')
 source=("$url/archive/$pkgver/${pkgname#python-}-$pkgver.tar.gz")
-b2sums=('204c94f6566d4d39f60672bf30ad4894f71231655f9e67664898bc57a26997c5680ca72bbc4752242d1144f7ee792caab689e07ad0096e1549be8074b9a10c51')
+b2sums=('c302900848e1e5e9dbf39a09abc37b9518e2f0c2c41403e9542e678cd781268e1b0d60f73fe38dff2a85f1e146712c3789b7d8f672e9d231ae8792ccc1fdd65b')
 
 build() {
   cd ${pkgname#python-}-$pkgver
