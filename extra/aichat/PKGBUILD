@@ -3,39 +3,35 @@
 
 pkgname=aichat
 pkgver=0.30.0
-pkgrel=2
+pkgrel=3
 pkgdesc="All-in-one AI CLI tool featuring Chat-REPL, Shell Assistant, RAG, AI tools & agents"
 arch=(x86_64)
 url="https://github.com/sigoden/aichat"
 license=('MIT OR Apache-2.0')
 depends=(
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(
   cargo
   mold
 )
 options=(!lto)
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('e194cc89afc213a6e3169738221cae641c347421c4f2aacd5d6f4f7cc6edb387')
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+b2sums=('6e6f5d39c20ffbc072382c43000b73058e69a7f281337ad7b75b9682db1fa5273712097fb7bf0f18d9726a011b6e0cbc46b48f81ecced15a83de98cd3b0ab630')
 
 prepare() {
   cd $pkgname-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd $pkgname-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --frozen --release --all-features
 }
 
 check() {
   cd $pkgname-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
   cargo test --frozen --all-features
 }
 
