@@ -2,7 +2,7 @@
 # Contributor: josephgbr <rafael.f.f1@gmail.com>
 
 pkgname=lib32-icu
-pkgver=78.2
+pkgver=78.3
 pkgrel=1
 pkgdesc="International Components for Unicode library (32 bit)"
 arch=(x86_64)
@@ -17,8 +17,8 @@ provides=(libicu{data,i18n,io,test,tu,uc}.so)
 source=(https://github.com/unicode-org/icu/releases/download/release-${pkgver}/icu4c-${pkgver}-sources.tgz{,.asc} 
         ICU-22132.patch
         icu-77.1-invalid-malloc.patch)
-# https://github.com/unicode-org/icu/releases/download/release-76-1/SHASUM512.txt
-sha512sums=('92feddfe81c57336f386c7cbc9f6d976bf349db148a77a247c4559676f51116115c8c52c4d907feb50933f72ab75fd8e48be092bf9c8ca33a3e8fabc9372a5d6'
+# https://github.com/unicode-org/icu/releases/download/release-78.3/SHASUM512.txt
+sha512sums=('04a49455e1489030c520a4bfd2664fa2171e7938d08f2acdbbcb1fda976639fd8b1f0704f2eec89ba59a7b6d118ceaab6ec5a096e40d9085a0895d91ce225245'
             'SKIP'
             '1178062ccfcf7ecc698c64132b3612e73f9c4b0bbfaa668ae2039f3eb4cb2722d0b08a9f45b057da10def7a308d5c8d14c0c644892e7f11092c9cc488c850ab7'
             'be02b7e0df87ac2110ae94116eb505cbdaa2b78fbe0be5178973970299e543ac9d7946cec2f385307d1df13b04925cda46ebc8b2164ebbdb23be1a1f826bd4d8')
