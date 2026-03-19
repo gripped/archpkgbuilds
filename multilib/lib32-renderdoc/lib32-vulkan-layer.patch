@@ -1,13 +1,13 @@
-diff --git a/renderdoc/driver/vulkan/renderdoc.json b/renderdoc/driver/vulkan/renderdoc.json
-index f0e7a529e..65e77385a 100644
---- a/renderdoc/driver/vulkan/renderdoc.json
-+++ b/renderdoc/driver/vulkan/renderdoc.json
-@@ -1,7 +1,7 @@
- {
-   "file_format_version" : "1.1.2",
-   "layer" : {
--    "name": "VK_LAYER_RENDERDOC_Capture",
-+    "name": "VK_LAYER_RENDERDOC_Capture_32",
-     "type": "GLOBAL",
-     "library_path": "@VULKAN_LAYER_MODULE_PATH@",
-     "api_version": "1.3.131",
+diff --git a/renderdoc/driver/vulkan/CMakeLists.txt b/renderdoc/driver/vulkan/CMakeLists.txt
+index e7585a3fe..729e84eb1 100644
+--- a/renderdoc/driver/vulkan/CMakeLists.txt
++++ b/renderdoc/driver/vulkan/CMakeLists.txt
+@@ -116,7 +116,7 @@ elseif(UNIX)
+ 
+     set(VULKAN_LAYER_MODULE_PATH "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/${LIB_SUBFOLDER_TRAIL_SLASH}lib${RDOC_BASE_NAME}.so")
+     set(VULKAN_ENABLE_VAR "ENABLE_VULKAN_${RDOC_BASE_NAME_UPPER}_CAPTURE")
+-    set(VULKAN_LAYER_NAME "VK_LAYER_${RDOC_BASE_NAME_UPPER}_Capture")
++    set(VULKAN_LAYER_NAME "VK_LAYER_${RDOC_BASE_NAME_UPPER}_Capture_32")
+ 
+     set(json_in ${CMAKE_CURRENT_SOURCE_DIR}/renderdoc.json)
+     set(json_out ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${RDOC_BASE_NAME}_capture${VULKAN_JSON_SUFFIX}.json)
