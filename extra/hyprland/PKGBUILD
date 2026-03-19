@@ -5,14 +5,15 @@
 
 pkgname=hyprland
 pkgver=0.54.2
-pkgrel=1
+pkgrel=2
 pkgdesc='a highly customizable dynamic tiling Wayland compositor'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/${pkgname^}"
 license=(BSD-3-Clause)
 depends=(cairo # libcairo.so
          aquamarine libaquamarine.so
-         gcc-libs # libgcc_s.so libstdc++.so
+         libgcc # libgcc_s.so
+         'libstdc++' # libstdc++.so
          glibc # libc.so libm.so
          glib2 libgio-2.0.so libgobject-2.0.so
          glslang
