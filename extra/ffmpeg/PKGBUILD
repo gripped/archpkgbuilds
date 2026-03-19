@@ -6,7 +6,7 @@
 
 pkgname=ffmpeg
 pkgver=8.1
-pkgrel=1
+pkgrel=2
 epoch=2
 pkgdesc='Complete solution to record, convert and stream audio and video'
 arch=(x86_64)
@@ -30,6 +30,7 @@ depends=(
   harfbuzz
   jack
   lame
+  lcms2
   libass
   libavc1394
   libbluray
@@ -154,6 +155,7 @@ build() {
     --enable-gnutls \
     --enable-gpl \
     --enable-ladspa \
+    --enable-lcms2 \
     --enable-libaom \
     --enable-libass \
     --enable-libbluray \
