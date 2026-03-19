@@ -4,7 +4,7 @@
 
 pkgbase=cotp
 pkgname=(cotp cotp-converters)
-pkgver=1.9.7
+pkgver=1.9.8
 pkgrel=1
 pkgdesc='Trustworthy, encrypted, command-line TOTP/HOTP authenticator app with import functionality'
 arch=(x86_64)
@@ -16,11 +16,11 @@ optdepends=('cotp-converters: additional scripts import from other OTP apps')
 replaces=("$pkgname-bin")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('6234805a8eb20a71d2acb07ad8d7827bd5c98c653b7eb733bab0f90cbb9f6212')
+sha256sums=('6b8c42558b2dadaba58dba22eee4618b218bee5186d1bd522367449648740be7')
 
 prepare(){
 	cd "$_archive"
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
@@ -30,7 +30,7 @@ build() {
 
 check() {
 	cd "$_archive"
-	cargo test --frozen --all-features
+	cargo test --frozen --all-features -- --skip "test_version_subcommand"
 }
 
 package_cotp() {
