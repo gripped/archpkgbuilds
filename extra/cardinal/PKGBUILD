@@ -2,7 +2,7 @@
 
 pkgbase=cardinal
 pkgname=(cardinal cardinal-{clap,data,lv2,standalone,vst,vst3})
-pkgver=26.01
+pkgver=26.02
 pkgrel=1
 pkgdesc="Virtual modular synthesizer"
 arch=(x86_64)
@@ -13,17 +13,18 @@ makedepends=(
   dbus
   file
   fftw
-  gcc-libs
   gendesk
   git
   glibc
   jack
   jansson
   libarchive
+  libgcc
   libglvnd
   liblo
-  libsndfile
   libsamplerate
+  libsndfile
+  libstdc++
   libx11
   libxext
   libxrandr
@@ -42,9 +43,9 @@ source=(
   $url/releases/download/$pkgver/$pkgbase-$pkgver.tar.xz
   $pkgbase-$pkgver.svg::https://raw.githubusercontent.com/DISTRHO/Cardinal/eb95b5990cf734c10f2caab1a246eac893f0266d/plugins/Cardinal/orig/distrho.svg
 )
-sha512sums=('f4bde7188cbfc9e144d615027ea15030f681edabecd4fc74dec8be751a8119cfd02d346ac01b3560e39bab4e25665ead8a3201644856537d3fc3e2300218831b'
+sha512sums=('fdf156b4603f9f24ce021c3d69df55dac38704a4891b75d6932c8caab5b3e2617f427c9ea8e6bc8dd10853b0247ef52f0619b7a2e4ef7827865f74527b65d990'
             '31a7d1e548285af0ead1bc844fbb1d35b50f6284159047cb401a829d4068992fa328770e42c377c08d013f6787e55ac12b94eba4d5af4b90373b157971fc8835')
-b2sums=('7b126b965f991145c757fd86281f91a8f320e30b5fca9efa89cc971ba8c92cb350fa0b01ee099b964b6f9de267069befc561766df85e268ba4d58c78408db093'
+b2sums=('af4a59264bc2a103ee9f76346be16767210d2be06398e6fca1955455589938baa855665f3df9799665e62c5f58325e2e0e84751659532a033cff4dfa26b62cdb'
         'd82fefe15234c1ed3a4d487c6082a2e3ac73b60f11041314e99c5a5de5b3ea141efbd5afd18851510bd4f801fd71f7cd89d54d86258d1ba750bbfd762aa37a8d')
 
 _common_depends=(
@@ -52,14 +53,15 @@ _common_depends=(
   dbus libdbus-1.so
   file libmagic.so
   fftw libfftw3f.so
-  gcc-libs
   glibc
   jansson
   libarchive libarchive.so
+  libgcc
   libglvnd libGL.so
   liblo liblo.so
   libsamplerate libsamplerate.so
   libsndfile libsndfile.so
+  libstdc++
   libx11
   libxext
   libxrandr
