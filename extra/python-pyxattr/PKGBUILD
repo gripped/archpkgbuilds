@@ -4,13 +4,13 @@
 pkgname=python-pyxattr
 _pkgname=pyxattr
 pkgver=0.8.1
-pkgrel=4
+pkgrel=5
 pkgdesc='A Python extension module that allows you to manipulate the extended attributes.'
 arch=('x86_64')
 url='https://pyxattr.k1024.org/'
 license=('GPL')
-makedepends=('python' 'python-pytest' 'python-setuptools')
 depends=('python')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
 source=("https://pyxattr.k1024.org/downloads/pyxattr-$pkgver.tar.gz"{,.asc})
 sha512sums=('98ba196b29b431ecacf0257712aa219175ba030e1c62fb388b4f3109d2d6b14ef09ed38f85177bd2991d3109c0af4cd2a108d17886dd51549e817727714f72f1'
@@ -19,7 +19,7 @@ validpgpkeys=('CB94E3AA3B1755D61EBB19A5F66E3E419F84F4DE') # Iustin Pop <iustin@k
 
 build() {
 	cd "${srcdir}/${_pkgname}-${pkgver}"
-	python setup.py build
+	python -m build --wheel --no-isolation
 }
 
 check() {
@@ -30,5 +30,5 @@ check() {
 
 package() {
 	cd "${srcdir}/${_pkgname}-${pkgver}"
-	python setup.py install --root="${pkgdir}"
+	python -m installer --destdir="${pkgdir}" dist/*.whl
 }
