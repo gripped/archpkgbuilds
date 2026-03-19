@@ -4,12 +4,13 @@
 
 pkgname=hyprsunset
 pkgver=0.3.3
-pkgrel=4
+pkgrel=5
 pkgdesc='An application to enable a blue-light filter on Hyprland'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
 license=(BSD-3-Clause)
-depends=(gcc-libs # libgcc_s.so libstdc++.so
+depends=(libgcc # libgcc_s.so
+         'libstdc++' # libstdc++.so
          glibc # libc.so libm.so
          hyprlang libhyprlang.so
          hyprutils libhyprutils.so
