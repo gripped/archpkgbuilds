@@ -3,7 +3,7 @@
 # Contributor: katt <magunasu.b97@gmail.com>
 
 pkgname=yt-dlp
-pkgver=2026.03.13
+pkgver=2026.03.17
 pkgrel=1
 pkgdesc='A youtube-dl fork with additional features and fixes'
 arch=(any)
@@ -34,7 +34,7 @@ optdepends=('ffmpeg: for video post-processing'
             'phantomjs: for extractors with javascript code'
             'python-secretstorage: For -cookies-from-browser to access the GNOME keyring while decrypting cookies of Chromium-based browsers')
 source=($pkgname-$pkgver.tar.gz::https://github.com/yt-dlp/yt-dlp/releases/download/$pkgver/yt-dlp.tar.gz)
-sha256sums=('d10140b4afbfba22b13031935e59679ea144191ba472337ca4dd87127003a0da')
+sha256sums=('c74f56fc88a7f9b7c995646f30538974a03dd7609f55257b20594fdeeb1e13df')
 
 build() {
   cd $pkgname
