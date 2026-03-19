@@ -3,7 +3,7 @@
 
 pkgname=python-flask-socketio
 _pkgname=Flask-SocketIO
-pkgver=5.6.0
+pkgver=5.6.1
 pkgrel=1
 pkgdesc='Socket.IO integration for Flask applications'
 arch=('any')
@@ -29,8 +29,8 @@ checkdepends=(
   'python-redis'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('d8ac2eb1b6718d083d70d816da235faf570c6f13af6623533bd8a61b5a946daf7fe889235eed3fc57f335216291f8af4088f3a1f65dcca0212812a8671ebda60')
-b2sums=('d31dd17b3f4c5fed2fc5a85cd96e0f6e4892e899a990199079539d4bb38323b1dc47d72f343562bb486ef78f3a37219063d7dbb018c3c293a76302a737129b67')
+sha512sums=('2c882555b2015414263cb01549c506db555f43e33e74668c86a96bc3b44751b63d3dcb9d6bf67672b447ce0b73a47f26b62ed264460469803e8ed6841a9f8e3c')
+b2sums=('be649638c44add820b4b61a694aff0f79a5a0917e4d4dd314b8657bc49a953761132c3538dd3e673a75d4c475bbf632de18c0aad22f1a3b13628fbf857957eac')
 
 build() {
   cd $_pkgname-$pkgver
@@ -56,5 +56,3 @@ package() {
   install -vDm 644 -t "$pkgdir/usr/share/doc/$pkgname" docs/_build/text/index.txt
   install -vDm 644 docs/_build/man/flask-socketio.1 "$pkgdir/usr/share/man/man1/$pkgname.1"
 }
-
-# vim: ts=2 sw=2 et:
