@@ -2,13 +2,14 @@
 
 pkgname=hyprcursor
 pkgver=0.1.13
-pkgrel=3
+pkgrel=4
 pkgdesc='The hyprland cursor format, library and utilities'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
 license=(BSD-3-Clause)
 depends=(cairo # libcairo.so
-         gcc-libs # libgcc_s.so libstdc++.so
+         libgcc # libgcc_s.so
+         'libstdc++' # libstdc++.so
          glibc # libc.so libm.so
          hyprlang libhyprlang.so
          librsvg librsvg-2.so
