@@ -4,12 +4,12 @@
 
 pkgname=just
 pkgver=1.47.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A handy way to save and run project-specific commands"
 arch=("x86_64")
 url="https://github.com/casey/just"
 license=("custom:CC0")
-depends=("gcc-libs")
+depends=("libgcc")
 makedepends=("cargo")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/casey/${pkgname}/archive/${pkgver}.tar.gz")
 sha256sums=('2976e02f2dffd1ddc9cba57ef2fe75e8f4b97fde1657ee6fd145ab01efd789a7')
