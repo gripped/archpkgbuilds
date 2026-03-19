@@ -1,7 +1,7 @@
 pkgbase = fastflowlm
 	pkgdesc = Run LLMs on AMD Ryzen AI NPUs
 	pkgver = 0.9.35
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.fastflowlm.com/
 	arch = x86_64
 	license = MIT AND LicenseRef-FastFlowLMProprietaryBinaryLicenseAgreement-2.0
@@ -20,6 +20,7 @@ pkgbase = fastflowlm
 	depends = libstdc++
 	depends = readline
 	depends = xrt
+	depends = xrt-plugin-amdxdna
 	options = !lto
 	source = fastflowlm::git+https://github.com/FastFlowLM/FastFlowLM.git#tag=v0.9.35
 	source = fastflowlm-tokenizers-cpp::git+https://github.com/mlc-ai/tokenizers-cpp

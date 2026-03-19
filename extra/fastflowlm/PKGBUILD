@@ -2,7 +2,7 @@
 
 pkgname=fastflowlm
 pkgver=0.9.35
-pkgrel=1
+pkgrel=2
 pkgdesc='Run LLMs on AMD Ryzen AI NPUs'
 arch=('x86_64')
 url='https://www.fastflowlm.com/'
@@ -21,6 +21,7 @@ depends=(
   'libstdc++'
   'readline'
   'xrt'
+  'xrt-plugin-amdxdna'
 )
 makedepends=(
   'git'
