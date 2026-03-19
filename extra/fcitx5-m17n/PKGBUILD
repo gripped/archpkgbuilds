@@ -2,16 +2,16 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-m17n
-pkgver=5.1.5
+pkgver=5.1.6
 pkgrel=1
 pkgdesc="m17n Wrapper for Fcitx5"
 arch=('x86_64')
 url="https://github.com/fcitx/fcitx5-m17n"
-license=('GPL')
+license=('LGPL-2.1-or-later')
 depends=('fcitx5' 'm17n-lib')
 makedepends=('git' 'extra-cmake-modules')
 source=("git+https://github.com/fcitx/fcitx5-m17n.git#tag=$pkgver?signed")
-sha512sums=('18995a449f014a9bba405bf9c56e64e69ee9835cc9c65daac35cc33aa150fc50349b2a3e9c76d7b7e1b8ba1810402dfa1c8fd51572f05fbd1eedc415aad3ee8f')
+sha512sums=('cb7392e300cf1c4fcea213b44cf99179ae01242e6bf7b91a346294e15b82572d568f03a1b52ed87b2fb97cf69c58e4d8cba8898fde02e73410923457e558dbb5')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
 build() {
