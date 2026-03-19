@@ -1,7 +1,7 @@
 # Maintainer: AndyRTR <andyrtr@archlinux.org>
 
 pkgname=ghostscript
-pkgver=10.06.0
+pkgver=10.07.0
 pkgrel=1
 pkgdesc="An interpreter for the PostScript language"
 url="https://www.ghostscript.com/"
@@ -16,13 +16,10 @@ replaces=('ghostpcl' 'ghostxps')
 conflicts=('ghostpcl' 'ghostxps')
 # https://github.com/ArtifexSoftware/ghostpdl-downloads/releases
 source=(https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs${pkgver//./}/ghostscript-${pkgver}.tar.xz
-        2010_add_build_timestamp_setting.patch
-        # based on https://github.com/ArtifexSoftware/ghostpdl/commit/ae940946473ceb8c5353bc6e7f04673c6e60502d#diff-3afc86823fc854423009759b6293756aae04ef55b67616b388bb4c75237f443f
-        gcc15.patch)
+        2010_add_build_timestamp_setting.patch)
 # https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10051/SHA512SUMS
-sha512sums=('e9efa6a334cf34703f565f5043dd794452270415b34c2bea260e9dac6c72ebbcbedfa2e4cb9029841f8f582bbce91be8160e135a190081f3262bcf04417f80f1'
-            'cd7794ee4f28b11177021b950196385200b610127ed6cb94a45e3202b690b721a0dfcc0276ff39448d4dab64c1b31a76e6c323696a8315aad9edc22077f18a3d'
-            '248ff8c61f8988286705aec0931b891287546db5d0e60564fa6878198490b0b7b8922d61ef9a1d059aade200e1a3c856b8d39cde04f9f67ec076a616d868aeac')
+sha512sums=('1c2a14951223c975a53bd9767c28bd3a6e420c385a5e0d7a60a5ff5b091bc027929c815bf57cddf97611e8d265ece1c219321737f2cabb5646685c6e8cdb85c9'
+            'cd7794ee4f28b11177021b950196385200b610127ed6cb94a45e3202b690b721a0dfcc0276ff39448d4dab64c1b31a76e6c323696a8315aad9edc22077f18a3d')
 
 ### update jbig2dec first! ###
 
@@ -64,8 +61,6 @@ prepare() {
 
   # Debian: # allow the build timestamp to be externally set
   patch -Np1 -i ../2010_add_build_timestamp_setting.patch
-  # fix build with gcc15
-  # patch -Np1 -i ../gcc15.patch
 }
 
 build() {
