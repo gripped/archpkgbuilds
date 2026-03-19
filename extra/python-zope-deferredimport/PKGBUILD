@@ -3,7 +3,7 @@
 
 pkgname=python-zope-deferredimport
 _pkgname=zope.deferredimport
-pkgver=6.1
+pkgver=6.1.1
 pkgrel=1
 pkgdesc="Allows you to perform imports names that will only be resolved when used in the code"
 arch=('any')
@@ -21,7 +21,7 @@ makedepends=(
 )
 checkdepends=('python-zope-testrunner')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('8fb31ce3a916897f4b6437fc311d8bfc4bfc3b1f3b9a9770b5234236ebf2090ff68abb10b985960bd65e31d41b89f29e90de5936acea50ff726535a79ae707b9')
+b2sums=('5b7dae52bbf4d218fe35ba31a23ccd512165ac61347ad9c044c5bbd48a42eac4d0a74fdd380421c42b08dc1c45a2fe9c5765c9ace703f5856a613a741e713da4')
 
 build() {
   cd $_pkgname-$pkgver
