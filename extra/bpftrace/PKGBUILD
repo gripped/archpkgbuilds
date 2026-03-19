@@ -3,8 +3,8 @@
 # Contributor: Tommaso Sardelli <lacapannadelloziotom at gmail dot com>
 
 pkgname=bpftrace
-pkgver=0.24.2
-pkgrel=5
+pkgver=0.25.0
+pkgrel=1
 pkgdesc='High-level tracing language for Linux eBPF'
 arch=('x86_64')
 url='https://github.com/iovisor/bpftrace'
@@ -12,11 +12,11 @@ license=('Apache-2.0')
 depends=(
   'bcc'
   'clang'
-  'gcc-libs'
   'glibc'
-  'libbpf'
   'libelf'
+  'libgcc'
   'libpcap'
+  'libstdc++'
   'llvm-libs'
   'systemd-libs'
   'zlib'
@@ -39,20 +39,21 @@ options=(
   '!strip'
 )
 source=(
-  "$url/archive/v$pkgver/bpftrace-$pkgver.tar.gz"
-  "0001-llvm22-support.patch"
+  "git+$url.git#tag=v$pkgver"
+  "$pkgname-libbpf::git+https://github.com/libbpf/libbpf.git"
 )
-sha512sums=(
-  'd9ff773ce39b578877d5e73a48434d3654b46985bb4b9ad458fbf622718049da5075b3a2d2e6d1ae0a9effbdb74658822b4c4535bca384fbd6e539fdec393f4b'
-  'd426d632fb1e095d3403797d64b176b69021a7cbf07b6c07eee67a8705b2f9fcda170040b4e76b2cec41bfc870aba80e7ea8006c5fc69a58dcb9723914b83ff1'
-)
+b2sums=('1da885047e0b849133f4e8face5dbafe3aaa10a5abc14f8f2afd66001469589f5905a9f4abdb55cc109f129f833a9e5186586b2789a8b89513cc8b788b86a6e2'
+        'SKIP')
 
 prepare() {
-  patch -Np1 -d $pkgname-$pkgver < 0001-llvm22-support.patch
+  cd $pkgname
+  git submodule init
+  git config submodule.libbpf.url ../$pkgname-libbpf
+  git -c protocol.file.allow=always submodule update libbpf
 }
 
 build() {
-  cmake -S $pkgname-$pkgver -B build \
+  cmake -S $pkgname -B build \
     -D CMAKE_BUILD_TYPE=None \
     -D CMAKE_INSTALL_PREFIX=/usr \
     -W no-dev \
