@@ -1,0 +1,97 @@
+# Maintainer: Justin Kromlinger <hashworks@archlinux.org>
+# Contributor: Thayne McCombs <bytecurry.software@gmail.com>
+
+pkgname=openbao
+pkgver=2.5.1
+pkgrel=3
+pkgdesc="solution to manage, store, and distribute sensitive data"
+arch=("x86_64")
+url="https://openbao.org"
+license=('MPL-2.0')
+optdepends=(
+  openbao-plugin-auth-aws
+  openbao-plugin-auth-azure
+  openbao-plugin-auth-gcp
+  openbao-plugin-auth-github
+  openbao-plugin-secrets-aws
+  openbao-plugin-secrets-azure
+  openbao-plugin-secrets-consul
+  openbao-plugin-secrets-gcp
+  openbao-plugin-secrets-gcpkms
+  openbao-plugin-secrets-nomad
+)
+# nodejs 23 and later don't work
+# See https://github.com/openbao/openbao/issues/731
+# If built without the ui, the nodejs dependency can be removed
+makedepends=(go go-tools git yarn npm nodejs-lts-jod)
+backup=(etc/openbao/openbao.hcl etc/default/openbao)
+source=(
+  "git+https://github.com/openbao/openbao.git#tag=v${pkgver}"
+  openbao.hcl
+  openbao.sysusers
+  openbao.tmpfiles
+)
+sha256sums=('a3e7a91144f6a7ec14104267b11cc4d0a974c9b8f1222ed91697401d90a8eba3'
+            '0e79972482d846fd0546001d9611809e7034fc829d7f8bd213d13ace8edff8da'
+            '262fe55da0f6b0afa94a25a2ffff6e3c6b42f5743faad73cdcb18c912f835692'
+            '16de28adde67656e307b1f5a0eecd096cf466410da1bab407ce4c8804c34c97c')
+
+prepare() {
+  cd "${pkgname}"
+  sed -i 's|/etc/openbao/openbao.env|/etc/default/openbao|g' .release/linux/package/usr/lib/systemd/system/openbao.service
+
+  pushd ui
+  yarn install
+  popd
+
+  export GOPATH="${srcdir}"
+  go mod download -modcacherw
+}
+
+build() {
+  cd "${pkgname}"
+
+  pushd ui
+  yarn rebuild node-sass
+  yarn run build
+  popd
+
+  export CGO_ENABLED=0
+  export GOPATH="${srcdir}"
+
+  # https://openbao.org/docs/contributing/packaging/
+  # OpenBao expects the build date reference the commit
+  # https://github.com/openbao/openbao/blob/main/scripts/build.sh#L31
+  # https://github.com/openbao/openbao/issues/2660
+  local _build_date="$(git show --no-show-signature -s --format=%cd --date=format:"%Y-%m-%dT%H:%M:%SZ" HEAD)"
+  local _commit="$(git rev-parse HEAD)"
+
+  go build \
+    -trimpath \
+    -buildmode=pie \
+    -mod=readonly \
+    -modcacherw \
+    -ldflags "-X github.com/openbao/openbao/version.fullVersion=${pkgver} -X github.com/openbao/openbao/version.GitCommit=${_commit} -X github.com/openbao/openbao/version.BuildDate=${_build_date}" \
+    -tags 'openbao ui' \
+    -o dist/bao \
+    .
+}
+
+package() {
+  install -Dm644 "openbao.hcl" "${pkgdir}/etc/openbao/openbao.hcl"
+  install -Dm644 "openbao.sysusers" "${pkgdir}/usr/lib/sysusers.d/openbao.conf"
+  install -Dm644 "openbao.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/openbao.conf"
+
+  cd "${pkgname}"
+
+  install -Dm644 .release/linux/package/etc/openbao/openbao.env "${pkgdir}/etc/default/openbao"
+  install -Dm644 .release/linux/package/usr/lib/systemd/system/openbao.service "${pkgdir}/usr/lib/systemd/system/openbao.service"
+
+  install -Dm755 dist/bao "${pkgdir}/usr/bin/bao"
+
+  install -Dm644 "LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+
+  for file in README.md CHANGELOG.md; do
+    install -Dm644 "${file}" "${pkgdir}/usr/share/doc/${pkgname}/${file}"
+  done
+}
