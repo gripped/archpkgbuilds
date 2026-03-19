@@ -4,8 +4,8 @@
 # Contributor: Hugo Doria <hugo@archlinux.org>
 
 pkgname=libtorrent-rasterbar
-pkgver=2.0.11
-pkgrel=8
+pkgver=2.0.12
+pkgrel=1
 epoch=1
 pkgdesc='An efficient and feature complete C++ BitTorrent library implementation'
 url='https://www.rasterbar.com/products/libtorrent/'
@@ -24,7 +24,7 @@ makedepends=(
     'python-setuptools')
 source=("https://github.com/arvidn/libtorrent/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
         '010-libtorrent-rasterbar-fix-for-fortify-source-3.patch')
-sha512sums=('756fb24c44b5dcf22d0bbc06a812abc28be7388a409e577c71fb02b1ca3005040947244c0ae83bd3388264dd518119736b869397fedd7bdbcd60699b04a19969'
+sha512sums=('1bda7d45230c670bf3402873bf61fd4cd692daba16287fb5f213c3e5e3a9f34616061778944566343e4175ee71fc877fc370f7e0538231fcf8563dc959aabf93'
             '9f18a2e71b3924897f88b1c4148d3afe3bb29d1fe41a3166f0e3dfb64f1641f50ac25551e942241c7207e6692e4765df53e160ea9d3a8eca30879d6e299e9e1d')
 
 prepare() {
@@ -43,6 +43,7 @@ build() {
         -Dboost-python-module-name:STRING='python' \
         -Dpython-bindings:BOOL='ON' \
         -Dpython-egg-info:BOOL='ON' \
+        -Dpython-install-system-dir:BOOL='ON' \
         -Wno-dev
     cmake --build build
 }
