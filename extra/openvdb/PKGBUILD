@@ -1,7 +1,7 @@
 # Maintainer : Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=openvdb
 pkgver=12.1.1
-pkgrel=3
+pkgrel=4
 pkgdesc='A large suite of tools for the efficient storage and manipulation of sparse volumetric data discretized on three-dimensional grids'
 url='https://github.com/AcademySoftwareFoundation/openvdb'
 arch=('x86_64')
@@ -26,6 +26,7 @@ build() {
     -DUSE_IMATH_HALF=ON \
     -DUSE_NUMPY=ON \
     -DUSE_LOG4CPLUS=ON \
+    -DUSE_NANOVDB=ON \
     -DNB_DIR=/usr/lib/python${_pyversion}/site-packages/nanobind \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DOPENVDB_BUILD_PYTHON_MODULE=ON \
