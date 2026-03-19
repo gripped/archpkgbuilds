@@ -2,7 +2,7 @@
 
 pkgbase=lsp-plugins
 pkgname=(lsp-plugins{,-{clap,docs,gst,ladspa,lv2,standalone,vst,vst3}} liblsp-r3d-glx-lib)
-pkgver=1.2.26
+pkgver=1.2.27
 pkgrel=1
 pkgdesc="Collection of open-source plugins"
 arch=(x86_64)
@@ -29,8 +29,8 @@ checkdepends=(
   lv2lint
 )
 source=(https://github.com/sadko4u/$pkgname/releases/download/$pkgver/$pkgname-src-$pkgver.tar.gz)
-sha512sums=('098bab0fa246805d307f4fade5b48b311e0d85b0dc553133e4e3979c555c912f0ea80b8464dbfde095d976c531355f8dc64b28bf900a14a09f61cb1012cf02f7')
-b2sums=('dbb57d60ecc407dad6fe230fe5cd2f423f61e84c2217b6f553767b69a5b6f938ccc645fa774d35a05f500d54f667190108398ab3befa122597abfbc7e649bbc6')
+sha512sums=('b47bbe5afc0dbeac40b4e454f44a457c5528a329fb5b7607b002a505f7fa5356cc46c91cd131dff1db34d3ac41d9825e3332330736ae2b72d43427c75f0256ce')
+b2sums=('877162b756fa043e56420645d0a0d24464ff986f4b91c132af42df5ab663d06507160fe4ddfcec8832a32f90fbfad78078ba42f6444800876097d880b18122e9')
 _dir=$pkgbase
 
 _pick() {
@@ -90,15 +90,16 @@ package_lsp-plugins() {
     _pick $pkgbase-gst usr/lib/lsp-plugins/liblsp-plugins-gstreamer-*.so
     _pick $pkgbase-ladspa usr/lib/ladspa/*
     _pick $pkgbase-lv2 usr/lib/lv2/*
-    _pick $pkgbase-standalone etc/*
     _pick $pkgbase-standalone usr/bin/*
     _pick $pkgbase-standalone usr/lib/$pkgbase/*
     _pick $pkgbase-standalone usr/share/applications/*
-    _pick $pkgbase-standalone usr/share/desktop-directories/*
     _pick $pkgbase-standalone usr/share/icons/*
     _pick $pkgbase-vst usr/lib/vst/*
     _pick $pkgbase-vst3 usr/lib/vst3/*
   )
+
+  rm -rv "$pkgdir/etc"
+  rm -rv "$pkgdir/usr"
 }
 
 package_liblsp-r3d-glx-lib() {
@@ -120,10 +121,10 @@ package_lsp-plugins-clap() {
     clap-host
     fontconfig
     freetype2
-    gcc-libs
     glibc
     libglvnd libGL.so
     libsndfile libsndfile.so
+    libstdc++
     libx11
     libxrandr
   )
@@ -141,12 +142,12 @@ package_lsp-plugins-gst() {
   pkgdesc+=" - GStreamer"
   groups=(gstreamer-plugins)
   depends=(
-    gcc-libs
     glib2 libglib-2.0.so libgobject-2.0.so
     glibc
     gstreamer
     gst-plugins-base-libs
     libsndfile libsndfile.so
+    libstdc++
   )
 
   mv -v $pkgname/* "$pkgdir"
@@ -156,10 +157,10 @@ package_lsp-plugins-ladspa() {
   pkgdesc+=" - LADSPA"
   groups=(ladspa-plugins)
   depends=(
-    gcc-libs
     glibc
     ladspa-host
     libsndfile libsndfile.so
+    libstdc++
   )
 
   mv -v $pkgname/* "$pkgdir"
@@ -172,10 +173,10 @@ package_lsp-plugins-lv2() {
     cairo
     fontconfig
     freetype2
-    gcc-libs
     glibc
     libglvnd libGL.so
     libsndfile libsndfile.so
+    libstdc++
     libx11
     libxrandr
     lv2-host
@@ -191,12 +192,12 @@ package_lsp-plugins-standalone() {
     cairo
     fontconfig
     freetype2
-    gcc-libs
     glibc
     hicolor-icon-theme
     jack libjack.so
     libglvnd libGL.so
     libsndfile libsndfile.so
+    libstdc++
     libx11
     libxrandr
   )
@@ -211,10 +212,10 @@ package_lsp-plugins-vst() {
     cairo
     fontconfig
     freetype2
-    gcc-libs
     glibc
     libglvnd libGL.so
     libsndfile libsndfile.so
+    libstdc++
     libx11
     libxrandr
     vst-host
@@ -230,10 +231,10 @@ package_lsp-plugins-vst3() {
     cairo
     fontconfig
     freetype2
-    gcc-libs
     glibc
     libglvnd libGL.so
     libsndfile libsndfile.so
+    libstdc++
     libx11
     libxrandr
     vst3-host
