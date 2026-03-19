@@ -2,8 +2,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=jrnl
-pkgver=4.2.1
-pkgrel=2
+pkgver=4.3
+pkgrel=1
 pkgdesc="Collect your thoughts and notes without leaving the command line"
 arch=('any')
 url="https://jrnl.sh/"
@@ -21,6 +21,7 @@ depends=(
   'python-tzlocal'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-installer'
   'python-poetry-core'
@@ -32,21 +33,29 @@ checkdepends=(
   'python-toml'
 )
 _url=https://github.com/jrnl-org/jrnl
-source=("$_url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('dd2a1aebb336f1457415bbb43a8338357db3c70a1f021486af4d8e567c6384f3e8c0c815e7bf713db9d0d61cf230d67528d4d03ce1aec692b7a8c963728c2ce8')
+source=("git+$_url#tag=v$pkgver")
+b2sums=('d5d1fce780510e714b18e4784e8c9855bb13eba3f91a02509a569969e37ec69cf89411b61f17482f1579dc273945a498a6eb54eefdd754a6036dbee913fc4935')
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $pkgname-$pkgver
-  # Deselected test fails with Python 3.14
-  pytest --deselect=tests/bdd/test_features.py::test_override_configured_linewrap_with_a_value_of_23
+  cd $pkgname
+  # Deselected tests fail due to v-prefixed version mismatch:
+  # https://github.com/jrnl-org/jrnl/issues/2065
+  pytest \
+    --deselect tests/bdd/test_features.py::test_displaying_the_version_number \
+    --deselect tests/bdd/test_features.py::test_install_jrnl_with_custom_expanded_default_journal_path \
+    --deselect tests/bdd/test_features.py::test_install_jrnl_with_custom_relative_default_journal_path \
+    --deselect tests/bdd/test_features.py::test_install_jrnl_with_default_options \
+    --deselect tests/bdd/test_features.py::test_install_jrnl_with_encrypted_default_journal \
+    --deselect tests/bdd/test_features.py::test_install_jrnl_with_encrypted_default_journal_with_no_entries \
+    --deselect tests/bdd/test_features.py::test_update_version_number_in_config_file_when_running_newer_version
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
 }

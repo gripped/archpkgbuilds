@@ -1,7 +1,7 @@
 pkgbase = jrnl
 	pkgdesc = Collect your thoughts and notes without leaving the command line
-	pkgver = 4.2.1
-	pkgrel = 2
+	pkgver = 4.3
+	pkgrel = 1
 	url = https://jrnl.sh/
 	arch = any
 	license = GPL-3.0-or-later
@@ -9,6 +9,7 @@ pkgbase = jrnl
 	checkdepends = python-pytest-bdd
 	checkdepends = python-pytest-xdist
 	checkdepends = python-toml
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-poetry-core
@@ -22,7 +23,7 @@ pkgbase = jrnl
 	depends = python-rich
 	depends = python-ruamel-yaml
 	depends = python-tzlocal
-	source = https://github.com/jrnl-org/jrnl/archive/v4.2.1/jrnl-4.2.1.tar.gz
-	sha512sums = dd2a1aebb336f1457415bbb43a8338357db3c70a1f021486af4d8e567c6384f3e8c0c815e7bf713db9d0d61cf230d67528d4d03ce1aec692b7a8c963728c2ce8
+	source = git+https://github.com/jrnl-org/jrnl#tag=v4.3
+	b2sums = d5d1fce780510e714b18e4784e8c9855bb13eba3f91a02509a569969e37ec69cf89411b61f17482f1579dc273945a498a6eb54eefdd754a6036dbee913fc4935
 
 pkgname = jrnl
