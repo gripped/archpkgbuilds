@@ -4,17 +4,18 @@
 
 pkgname=libde265
 pkgver=1.0.17
-pkgrel=1
+pkgrel=2
 pkgdesc='Open h.265 video codec implementation'
 arch=(x86_64)
 url='https://github.com/strukturag/libde265'
 license=(LGPL-3.0-or-later)
 depends=(glibc
          libgcc
-         libstdc++
-         sdl2-compat)
+         libstdc++)
 makedepends=(cmake
-             git)
+             git
+             sdl2-compat)
+optdepends=('sdl2-compat: for the decoder tool')
 source=(git+https://github.com/strukturag/libde265#tag=v$pkgver)
 sha256sums=('9a38e7e178c857736470dca87b91d1346112c5d575ec2d65e82aa67f84c12f43')
 
