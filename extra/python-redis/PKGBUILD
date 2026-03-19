@@ -5,15 +5,13 @@
 # Contributor: Pierre Gueth <pierre.gueth@gmail.com>
 
 pkgname=python-redis
-pkgver=7.1.1
+pkgver=7.3.0
 pkgrel=1
 pkgdesc='The Python interface to the Redis key-value store'
 arch=(any)
 url='https://github.com/redis/redis-py'
 license=(MIT)
-depends=(
-  python
-)
+depends=(python)
 makedepends=(
   git
   python-build
@@ -41,8 +39,8 @@ optdepends=(
   'python-requests: OCSP certificate validation'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('b4710be3822804e9a0f21320778a6feef9c6b56f01630b2ad07c5d6c445d82f9278a57d4b2f56921ff1c64bbbdbd3e14eac69e5f09c4b37e6ca911344f6306ed')
-b2sums=('1baac39c9fb321f7a6e2c9989f358d87651ec2358486b33accf947064b1177b28725452a2a24d36de56a63153fafafb09ecb8c54ebac4b34ce5dd33aa6fd0ac9')
+sha512sums=('82790dd932a3b589a747b3cca34a119f01ab8147aa584e701d6d506601ce9e838cdb0697c6a8690f77f6183690677bed02d23b77c175d48e7eb07a61f15177d8')
+b2sums=('89afc0b2d967b743fe392e2fb565e23b5a11d3c567e7117222235bedb8069dc4034eea4e54ad97c799fbf06965034a931ddc1ec0c4473ed14bacbbacf7ef5617')
 
 prepare() {
   cd "$pkgname"
@@ -182,6 +180,15 @@ check() {
     --ignore=tests/test_asyncio/test_command_policies.py
     --deselect=tests/test_asyncio/test_sentinel.py::test_sentinel_commands_with_strict_redis_client
     --deselect=tests/test_sentinel.py::test_sentinel_commands_with_strict_redis_client
+
+    # New test failures in 7.3.0
+    # Expects "Redis ver." in lolwut output, but we use Valkey
+    --deselect=tests/test_commands.py::TestRedisCommands::test_lolwut
+    # Requires opentelemetry which is not packaged
+    --ignore=tests/test_observability
+    --ignore=tests/test_asyncio/test_observability
+    # Requires a cluster on ports 15379-15384 which we don't set up
+    --ignore=tests/maint_notifications
   )
 
   # Run standalone test suite - targets the Redis server running :6379 and the
