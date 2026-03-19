@@ -11,7 +11,7 @@ pkgname=(
   aws-sdk-cpp-kinesis
   aws-sdk-cpp-s3
 )
-pkgver=1.11.749
+pkgver=1.11.769
 pkgrel=1
 pkgdesc='AWS SDK for C++'
 arch=(x86_64)
@@ -27,13 +27,13 @@ makedepends=(
   aws-crt-cpp
   cmake
   curl
-  gcc-libs
   glibc
   libpulse
+  libstdc++
   zlib
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('4a18bdfcc11be67e13459f574e4f10a754e2a1815e8e32c5b12e2aafe997d165469fa1dfed8759c0a55e5f2226919f257d3a4ad9f9ccd5aa568d10966f99266c')
+b2sums=('8a985d8b737fcf151443806c55ebcf0fbda13dc2afb217d1419db09feb2a83949098129c8bc4a1c4192b031d1470a825b3508f7c7debf03d18df16eb5292f364')
 
 prepare() {
   cd $pkgbase-$pkgver
@@ -103,9 +103,9 @@ package_aws-sdk-cpp() {
     aws-sdk-cpp-iam
     aws-sdk-cpp-kinesis
     aws-sdk-cpp-s3
-    gcc-libs
     glibc
     libpulse
+    libstdc++
   )
 
   DESTDIR=$pkgdir cmake --install build
@@ -161,8 +161,8 @@ package_aws-sdk-cpp-core() {
     aws-c-event-stream
     aws-crt-cpp
     curl
-    gcc-libs
     glibc
+    libstdc++
     zlib
   )
 
@@ -172,11 +172,10 @@ package_aws-sdk-cpp-core() {
 package_aws-sdk-cpp-ec2() {
   pkgdesc+=" - EC2 libraries"
   depends=(
-    aws-c-common
     aws-crt-cpp
     aws-sdk-cpp-core
-    gcc-libs
     glibc
+    libstdc++
   )
 
   cp -va -t "$pkgdir" "$pkgname/"*
@@ -185,11 +184,10 @@ package_aws-sdk-cpp-ec2() {
 package_aws-sdk-cpp-firehose() {
   pkgdesc+=" - Firehose libraries"
   depends=(
-    aws-c-common
     aws-crt-cpp
     aws-sdk-cpp-core
-    gcc-libs
     glibc
+    libstdc++
   )
 
   cp -va -t "$pkgdir" "$pkgname/"*
@@ -200,8 +198,8 @@ package_aws-sdk-cpp-iam() {
   depends=(
     aws-crt-cpp
     aws-sdk-cpp-core
-    gcc-libs
     glibc
+    libstdc++
   )
 
   cp -va -t "$pkgdir" "$pkgname/"*
@@ -210,11 +208,10 @@ package_aws-sdk-cpp-iam() {
 package_aws-sdk-cpp-kinesis() {
   pkgdesc+=" - Kinesis libraries"
   depends=(
-    aws-c-common
     aws-crt-cpp
     aws-sdk-cpp-core
-    gcc-libs
     glibc
+    libstdc++
   )
 
   cp -va -t "$pkgdir" "$pkgname/"*
@@ -230,8 +227,8 @@ package_aws-sdk-cpp-s3() {
     aws-c-s3
     aws-crt-cpp
     aws-sdk-cpp-core
-    gcc-libs
     glibc
+    libstdc++
   )
 
   cp -va -t "$pkgdir" "$pkgname/"*
