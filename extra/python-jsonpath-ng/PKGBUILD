@@ -2,35 +2,39 @@
 # Adopted from aur/python-jsonpath-ng, original contributors:
 # Contributor: Paul Irofti <paul@irofti.net>
 
-_name=jsonpath-ng
-pkgname="python-$_name"
-# https://github.com/h2non/jsonpath-ng/releases
-pkgver=1.7.0
-pkgrel=2
+pkgname=python-jsonpath-ng
+pkgver=1.8.0
+pkgrel=1
 pkgdesc="JSONPath for Python that aims to be standard compliant"
 arch=('any')
 url="https://github.com/h2non/jsonpath-ng"
-# https://github.com/h2non/jsonpath-ng/blob/v1.6.1/setup.py#L16
 license=('Apache-2.0')
-depends=('python' 'python-ply')
-makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-checkdepends=('python-pytest')
-source=("git+https://github.com/h2non/jsonpath-ng.git#tag=v$pkgver")
-sha256sums=('322858dff5cbbcc2b1ac02ecadd94ed85e3847daaf4cba9df92e286108e69b07')
+depends=('python')
+makedepends=(
+  'git'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=(
+  'python-hypothesis'
+  'python-pytest'
+)
+source=("git+$url.git#tag=v$pkgver")
+b2sums=('90786a347999bd644ad8e6fd5fb6d857c05295e899f0430fbd75dc1741cf2f00cbb8e5f39ce182417154ee12f523ee938e74656b271363a498ad3995af8ca3d2')
 
 build() {
-  cd "$srcdir/$_name"
+  cd "${pkgname#python-}"
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$srcdir/$_name"
+  cd "${pkgname#python-}"
   pytest
 }
 
 package() {
-  cd "$srcdir/$_name"
+  cd "${pkgname#python-}"
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
-
-# vim:set sw=2 et:
