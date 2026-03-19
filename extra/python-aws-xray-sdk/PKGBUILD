@@ -5,7 +5,7 @@
 pkgname=python-aws-xray-sdk
 _pkgname=aws-xray-sdk-python
 pkgver=2.15.0
-pkgrel=3
+pkgrel=4
 pkgdesc='AWS X-Ray SDK for Python'
 arch=(any)
 url='https://github.com/aws/aws-xray-sdk-python'
@@ -32,15 +32,18 @@ source=(
   "git+$url.git#tag=$pkgver"
   "$pkgname-pytest-asyncio-compat.patch"
   "$pkgname-fix-asyncio-pytest.patch"
+  "$pkgname-remove-pkg_resources.patch"
 )
 sha256sums=('98db847bce19d2ee82095c28425451397dbcdd0c16f87494fc6157b69c0d7d07'
             '9c0fab3fd7b94e22807913f4b0051a4485c0bf7bbe47baed4be2a1ca3b475a9f'
-            'f347f4d8bcae8ef4e3d9a0ab19b882c903481f2ed7d2ee52b67b147c232643cc')
+            'f347f4d8bcae8ef4e3d9a0ab19b882c903481f2ed7d2ee52b67b147c232643cc'
+            'd1f752c4a3c25f9aa4ec33e0d498102e636fe99fa75d700545de56906e46ae6d')
 
 prepare() {
   cd $_pkgname
   patch -Np1 < ../$pkgname-pytest-asyncio-compat.patch
   patch -Np1 < ../$pkgname-fix-asyncio-pytest.patch
+  patch -Np1 < ../$pkgname-remove-pkg_resources.patch
 }
 
 build() {

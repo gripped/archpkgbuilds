@@ -1,0 +1,24 @@
+diff --git a/tests/test_local_sampling_benchmark.py b/tests/test_local_sampling_benchmark.py
+index c98b89c..f85c5f8 100644
+--- a/tests/test_local_sampling_benchmark.py
++++ b/tests/test_local_sampling_benchmark.py
+@@ -1,6 +1,6 @@
+ import json
+ import pkgutil
+-from pkg_resources import resource_filename
++from importlib.resources import files
+ 
+ # Faster
+ def test_pkgutil_static_read(benchmark):
+@@ -10,8 +10,8 @@ def test_pkgutil_static_read(benchmark):
+     benchmark(get_sampling_rule)
+ 
+ # Slower
+-def test_pkg_resources_static_read(benchmark):
++def test_importlib_static_read(benchmark):
+     def get_sampling_rule():
+-        with open(resource_filename(__name__, 'mock_sampling_rule.json')) as f:
+-            return json.load(f)
++        content = files(__name__).joinpath('mock_sampling_rule.json').read_text(encoding='utf-8')
++        return json.loads(content)
+     benchmark(get_sampling_rule)
