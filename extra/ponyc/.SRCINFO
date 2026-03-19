@@ -1,6 +1,6 @@
 pkgbase = ponyc
 	pkgdesc = An actor model, capabilities, high performance programming language
-	pkgver = 0.61.0
+	pkgver = 0.61.1
 	pkgrel = 1
 	url = https://ponylang.org/
 	arch = x86_64
@@ -8,13 +8,15 @@ pkgbase = ponyc
 	makedepends = cmake
 	makedepends = git
 	makedepends = python
-	depends = gcc-libs
 	depends = glibc
+	depends = libatomic
+	depends = libgcc
+	depends = zlib
 	options = !lto
-	source = git+https://github.com/ponylang/ponyc.git#tag=0.61.0
+	source = git+https://github.com/ponylang/ponyc.git#tag=0.61.1
 	source = git+https://github.com/llvm/llvm-project.git
 	source = ponyc-remove-usr-local-refs.patch
-	b2sums = 175e005443ec04de780087f23d395b9a3c43e8a059855d4b25deb3fa0f472ac7cb3e69d76ed1e1f3ce1e64203fafdd7a0df7d4050f443c544d3ffdb5636cafd8
+	b2sums = 38bbd0fcbdaf779ceeddbf89fb3bde4ad3299a99e11f14435158096b085433b1b60624e363504292f18aa8968d91629be981dedfe98af3bf9d1c0392ca72ec3a
 	b2sums = SKIP
 	b2sums = de5e9301abcf937eb754412b730dde359a10d7eaaa1fcab5292f82429d724cdbfa5313aff2eea05c4e479d9d881ae220a80d6ba19b97f9191851f8b48553daaf
 
