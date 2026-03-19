@@ -1,0 +1,25 @@
+pkgbase = python-msgspec
+	pkgdesc = A fast serialization and validation library, with builtin support for JSON, MessagePack, YAML, and TOML
+	pkgver = 0.20.0
+	pkgrel = 1
+	url = https://github.com/jcrist/msgspec
+	arch = x86_64
+	license = BSD-3-Clause
+	checkdepends = python-msgpack
+	checkdepends = python-pytest
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-setuptools-scm
+	makedepends = python-wheel
+	depends = glibc
+	depends = python
+	depends = python-attrs
+	depends = python-typing_extensions
+	optdepends = python-tomli-w: for TOML writing support
+	optdepends = python-yaml: for YAML support
+	source = python-msgspec::git+https://github.com/jcrist/msgspec.git#tag=0.20.0
+	b2sums = d91ac507e40a7055c0ded9cc3825220aaa7273dccc91f25386b9a740779296f9352ad8fca8debce2f8c2a0b88ef778c2cc7ad4324e52e6fea90e67a14a78c710
+
+pkgname = python-msgspec
