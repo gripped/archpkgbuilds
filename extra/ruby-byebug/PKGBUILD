@@ -1,23 +1,26 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-byebug
-pkgver=12.0.0
-pkgrel=2
+pkgver=13.0.0
+pkgrel=1
 pkgdesc='A simple to use and feature rich debugger for Ruby'
 arch=(x86_64)
 url='https://github.com/deivid-rodriguez/byebug'
-license=(BSD)
+license=(BSD-2-Clause)
 depends=(
   ruby
   ruby-irb
+  ruby-reline
 )
 makedepends=(
+  git
   ruby-rake
   ruby-rdoc
 )
 checkdepends=(
   markdownlint
   ruby-bundler
+  ruby-faraday
   ruby-faraday-retry
   ruby-minitest
   ruby-pry
@@ -28,16 +31,16 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(
-  "https://github.com/deivid-rodriguez/byebug/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+  "git+https://github.com/deivid-rodriguez/byebug.git#tag=v$pkgver"
   "${pkgname}_fix_tests.patch"
 )
-sha512sums=('2f54c554c451d9bdaf69de738b555f618b944154a810ccadce017aedb73524e0e98c8a6b62139f1df91bb67cf64653607c504e640a20e27ce2710827c9056c9d'
+sha512sums=('b6dc8ccee8d615c54ad5c196a171e9e0530db3d33aabca5b3e41308302a23608aa33bf82d94439f6f8e875b0bf74a47c90983a1ed147273d849017fbe9168b02'
             'fc97d570a1e0fd4ab3419a6351495e59dfe1ca5b954be7d9a0234ea69b4a207f6d7fd16add03e4fb76e9da364e8918694f37873c804457b96a8692321281fab9')
-b2sums=('1e15d1f6b72a06da9c40062f0451e46b7e62b9b8337f706fb21a3ca37d0ad70039e1ea87ded77b3228dad93e7b6a78210041b7ed4ccaa63936c36b2a0ecf64ac'
+b2sums=('413e79e15ca73290f5a25d74b872f4097bf96aece75a1ffb1a43a3f89100071def0a2377d72ebf456c0dcc5e688632ce5979d023ded4d0e064fb381ace6cc063'
         '1ecdb6928d68033a45822c959d5d273a426dc117892ff443b46bc7d3e02585c63fd06d7763910a1ca55453070131b5dbbce045fbefe1547fd480249bd07bb91b')
 
 prepare() {
-  cd byebug-$pkgver
+  cd byebug
 
   patch --verbose --strip=1 --input="../${pkgname}_fix_tests.patch"
 
@@ -55,6 +58,9 @@ prepare() {
   sed --in-place --regexp-extended \
     --expression '/bundler/d' \
     bin/minitest
+  sed --in-place --regexp-extended \
+    --expression '/add_development_dependency.*bundler/d' \
+    byebug.gemspec
 
   rm --recursive --verbose \
     .bundle \
@@ -63,7 +69,7 @@ prepare() {
 }
 
 build() {
-  cd byebug-$pkgver
+  cd byebug
 
   local _gemdir="$(gem env gemdir)"
 
@@ -89,32 +95,32 @@ build() {
   find "tmp_install${_gemdir}/gems/" \
     -type f \
     \( \
-      -iname "*.o" -o \
-      -iname "*.c" -o \
-      -iname "*.so" -o \
-      -iname "*.time" -o \
-      -iname "gem.build_complete" -o \
-      -iname "Makefile" \
+        -iname "*.o" -o \
+        -iname "*.c" -o \
+        -iname "*.so" -o \
+        -iname "*.time" -o \
+        -iname "gem.build_complete" -o \
+        -iname "Makefile" \
     \) \
     -delete
 
   find "tmp_install${_gemdir}/extensions/" \
     -type f \
     \( \
-      -iname "mkmf.log" -o \
-      -iname "gem_make.out" \
+        -iname "mkmf.log" -o \
+        -iname "gem_make.out" \
     \) \
     -delete
 }
 
 check() {
   local _gemdir="$(gem env gemdir)"
-  cd byebug-$pkgver
+  cd byebug
   RUBYOPT="-r bundler/setup" GEM_HOME="tmp_install/$_gemdir" rake test
 }
 
 package() {
-  cd byebug-$pkgver
+  cd byebug
 
   cp --archive --verbose tmp_install/* "${pkgdir}"
 
