@@ -11,7 +11,7 @@ pkgname=(
   'python-bcc'
 )
 pkgver=0.36.1
-pkgrel=2
+pkgrel=3
 pkgdesc='BPF Compiler Collection'
 arch=('x86_64')
 url='https://github.com/iovisor/bcc'
@@ -105,10 +105,11 @@ package_bcc() {
   pkgdesc+=' (C library)'
   depends=(
     'clang'
-    'gcc-libs'
     'glibc'
     'libbpf' 'libbpf.so'
     'libelf'
+    'libgcc'
+    'libstdc++'
     'llvm-libs'
     'xz'
   )
