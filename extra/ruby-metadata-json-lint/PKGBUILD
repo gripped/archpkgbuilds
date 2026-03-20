@@ -2,8 +2,8 @@
 
 _gemname='metadata-json-lint'
 pkgname="ruby-${_gemname}"
-pkgver=4.2.1
-pkgrel=2
+pkgver=4.3.0
+pkgrel=1
 pkgdesc='Tool to check the validity of Puppet metadata.json files'
 arch=('any')
 url="https://github.com/voxpupuli/${_gemname}"
@@ -25,7 +25,7 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/${pkgver}/${_gemname}-${pkgver}.tar.gz" 'dont_call_mjl_via-bundler.patch')
-sha512sums=('b6a9bbe8c2baf862edfde5daaacc5595065162b7d2093b272e132229bd4fc431784696e198c5e5125643f916ea9e980be7c2d832f7094f7f13b0438fbf98e1e7'
+sha512sums=('46369e20c3a94dd56ac9af0b8583139ba48a7131954373c6216cc98de701482397af4ec2bda6046f6e933629127c35f4f77fba8dfd4ff88ede1df8edf7ec1f6d'
             'ed730430b39554b74586fd47c85581afa289a700a677b5c9189fca06ccedb10b31bdef424f692949ed3fa54b292d7a51bb07d838f80d4bcd1cfe80e6d69e398c')
 
 prepare() {
