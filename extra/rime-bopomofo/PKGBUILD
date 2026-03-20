@@ -1,9 +1,9 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=rime-bopomofo
-pkgver=0.0.0.20251124
-_commit=78325817b095c98db8f41d491f8e8be2aa4fdaaa
-pkgrel=2
+pkgver=0.0.0.20251223
+_commit=18764b0a516600babe827a3a29fb273fa2e5e4cf
+pkgrel=1
 pkgdesc="Bopomofo input for rime"
 arch=('x86_64')
 url="https://github.com/rime/rime-bopomofo"
@@ -13,7 +13,7 @@ license=('LGPL-3.0-only')
 depends=('rime-cangjie' 'rime-terra-pinyin')
 makedepends=('git' 'librime' 'rime-prelude' 'rime-essay')
 source=("git+https://github.com/rime/rime-bopomofo.git#commit=$_commit")
-sha512sums=('5b12b93618208b2439ff89dc906b80e2d5a489a4d244795a32b273808ffbe2f02506da6c14f1b5e2602f518d944bc1811edd66a2d1aeb5777ed566a8e017933a')
+sha512sums=('5195a846f672d655fb4554a2d1383e8f08f5e052129373a0814f266db59ee5a55682f1b10896e6651946010990c2c53ba60730692c516b571982b5c49ff12c5b')
 
 prepare() {
   cd $pkgname
