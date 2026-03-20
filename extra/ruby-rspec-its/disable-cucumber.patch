@@ -1,8 +1,8 @@
-diff --git a/Rakefile b/Rakefile
-index 7a954d2..6451cc8 100644
---- a/Rakefile
-+++ b/Rakefile
-@@ -1,16 +1,7 @@
+--- a/Rakefile	2026-03-20 23:28:20.785812806 +0800
++++ b/Rakefile	2026-03-20 23:28:20.786794751 +0800
+@@ -1,18 +1,9 @@
+ # frozen_string_literal: true
+ 
 -require "bundler"
 -Bundler.setup
 -Bundler::GemHelper.install_tasks
@@ -18,4 +18,4 @@ index 7a954d2..6451cc8 100644
    t.ruby_opts = %w[-w]
  end
 -
--task :default => [:spec, :cucumber]
+-task default: %i[spec cucumber]
