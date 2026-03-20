@@ -1,13 +1,14 @@
 pkgbase = ocrad
 	pkgdesc = OCR (Optical Character Recognition) program based on a feature extraction method
 	pkgver = 0.29
-	pkgrel = 2
+	pkgrel = 3
 	url = https://www.gnu.org/software/ocrad/
 	arch = x86_64
 	license = GPL-2.0-or-later
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	depends = libpng
+	depends = libstdc++
 	source = https://ftp.gnu.org/gnu/ocrad/ocrad-0.29.tar.lz
 	source = https://ftp.gnu.org/gnu/ocrad/ocrad-0.29.tar.lz.sig
 	validpgpkeys = 1D41C14B272A2219A739FA4F8FE99503132D7742
