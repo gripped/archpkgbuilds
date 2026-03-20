@@ -5,11 +5,12 @@
 
 pkgname=wipe
 pkgver=2.3.1
-pkgrel=5
+pkgrel=6
 pkgdesc='Secure file wiping utility'
 url='http://wipe.sourceforge.net/'
-license=('GPL')
+license=('GPL-2.0-or-later')
 arch=('x86_64')
+depends=('glibc')
 validpgpkeys=('2915EE18E6A7747A4194E174F1B4DF9E15741ECE')
 source=("https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.bz2"{,.sig})
 sha256sums=('463916370f9b35bb34419c2c0ae3dc4c0a471db32e8595afa1d14c0337b61aa0'
@@ -18,6 +19,7 @@ sha256sums=('463916370f9b35bb34419c2c0ae3dc4c0a471db32e8595afa1d14c0337b61aa0'
 build() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
 	export CPPFLAGS=
+	CFLAGS+=" -Wno-error=implicit-int"
 	./configure --prefix=/usr --mandir=/usr/share/man
 	make
 }
