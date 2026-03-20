@@ -8,7 +8,7 @@ pkgname=(
   gtksourceviewmm-docs
 )
 pkgver=3.91.1
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='C++ bindings for the gtksourceview library'
 arch=(x86_64)
@@ -17,14 +17,15 @@ license=(LGPL-2.1-or-later)
 depends=(
   atkmm
   cairomm
-  gcc-libs
   glib2
   glibc
   glibmm
   gtk3
   gtkmm3
   gtksourceview4
+  libgcc
   libsigc++
+  libstdc++
   pangomm
 )
 makedepends=(
