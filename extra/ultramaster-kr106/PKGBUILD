@@ -4,8 +4,9 @@ pkgbase=ultramaster-kr106
 pkgname=(
   ultramaster-kr106-vst3
   ultramaster-kr106-lv2
+  ultramaster-kr106-clap
 )
-pkgver=2.1.7
+pkgver=2.2.2
 pkgrel=1
 pkgdesc='A virtual analog synthesizer inspired by the classic Roland Juno polysynths'
 arch=(x86_64)
@@ -34,12 +35,22 @@ makedepends=(
 source=(
   "$pkgbase::git+https://github.com/kayrockscreenprinting/ultramaster_kr106#tag=v$pkgver"
   'github.com-juce-framework-JUCE::git+https://github.com/juce-framework/JUCE'
+  'github.com-free-audio-clap-juce-extensions::git+https://github.com/free-audio/clap-juce-extensions'
+  # clap-juce-extensions
+  'github.com-free-audio-clap::git+https://github.com/free-audio/clap'
+  'github.com-free-audio-clap-helpers::git+https://github.com/free-audio/clap-helpers'
   no-copy-plugin.patch
 )
-sha512sums=('f0e09926f7052b5d1fabb4e852150ae91d4c98dcfe27e17366f1153d1f68d16ae9e52ad961d2685e263b47cffd150966e1bf44139b7e850e0b4e01948f5e4d6d'
+sha512sums=('ac342f22dd41014cc3b0b3d864a6d08018312848d546548936616a0d1ea8037023aa9403c805d4a060b37613254442bfa440957605ec6bf3173593a640c4fd5e'
+            'SKIP'
+            'SKIP'
+            'SKIP'
             'SKIP'
             '9bdaeaebb3a1a53c1614efb6c11b73992339f529add1784caf3ff88288c41e90774117b094927aac935b150135278294102a883428dd558a424d62cedc55a16c')
-b2sums=('85e0139f632ade0cf2079c887e1c4157eeb69793c2c30c4af7b558a926956dc42d5cfc5add406ebadf4cd66c92ea9c0719a9e4e64f1901c531faa76eebc2d488'
+b2sums=('680c340e6a5ab71cca28c886cb5dfa5b47d2804809cf4a4c9683a3df660cce7320ce6b360de941652935d41c5acfb103575a3fbd33931fb1f16097d412bd95d4'
+        'SKIP'
+        'SKIP'
+        'SKIP'
         'SKIP'
         '59225cca8ed887eec616f0ddb2880b17582fb5b6c2bd0909513c3ca8ef36c53debf8bfb42cd78dd6564f2873a917c77a422e43908c6bf64e7f47c2ff37910a40')
 
@@ -49,7 +60,15 @@ prepare() {
   # prepare git submodule(s)
   git submodule init
   git config submodule.libs/JUCE.url "$srcdir/github.com-juce-framework-JUCE"
+  git config submodule.libs/clap-juce-extensions.url "$srcdir/github.com-free-audio-clap-juce-extensions"
   git -c protocol.file.allow=always submodule update --init
+
+  pushd libs/clap-juce-extensions
+  git submodule init
+  git config submodule.clap-libs/clap.url "$srcdir/github.com-free-audio-clap"
+  git config submodule.clap-libs/clap-helpers.url "$srcdir/github.com-free-audio-clap-helpers"
+  git -c protocol.file.allow=always submodule update --init
+  popd
 
   # don't copy plugin after build
   patch -p1 -i "$srcdir/no-copy-plugin.patch"
@@ -90,4 +109,15 @@ package_ultramaster-kr106-lv2() {
 
   install -vd "$pkgdir/usr/lib/lv2"
   cp -vr build/KR106_artefacts/Release/LV2/* "$pkgdir/usr/lib/lv2"
+}
+
+package_ultramaster-kr106-clap() {
+  pkgdesc+=' - CLAP plugin'
+  groups+=(clap-plugins)
+  depends=(
+    "${_common_depends[@]}"
+    clap-host
+  )
+
+  install -vDm644 -t "$pkgdir/usr/lib/clap" build/KR106_artefacts/Release/CLAP/*.clap
 }
