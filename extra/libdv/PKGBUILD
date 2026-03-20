@@ -4,7 +4,7 @@
 
 pkgname=libdv
 pkgver=1.0.0
-pkgrel=11
+pkgrel=12
 pkgdesc='Decoder library for DV video'
 arch=(x86_64)
 url='https://libdv.sourceforge.net/'
@@ -19,7 +19,7 @@ b2sums=(42d17b07501fa508630afd1cdbaee9378f657a4ee4b77666f1a147ddfcf5a9d67d90e0a6
 
 prepare() {
   cd $pkgname-$pkgver
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
