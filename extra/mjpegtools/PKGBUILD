@@ -4,18 +4,19 @@
 
 pkgname=mjpegtools
 pkgver=2.2.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Video capture, editing, playback and compression to MPEG of MJPEG video'
 arch=(x86_64)
 url='https://mjpeg.sourceforge.io/'
 license=(GPL-2.0-or-later)
 depends=(
   bash
-  gcc-libs
   glibc
   libdv
+  libgcc
   libjpeg-turbo
   libpng
+  libstdc++
 )
 source=(
   "https://downloads.sourceforge.net/mjpeg/$pkgname-$pkgver.tar.gz"
@@ -32,7 +33,7 @@ prepare() {
   # Fix build with with GCC 15
   patch -Np2 -i ../mjpegtools-2.2.1-gcc15.patch
 
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
