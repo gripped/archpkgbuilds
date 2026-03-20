@@ -2,8 +2,8 @@
 
 _gemname=optimist
 pkgname=ruby-${_gemname}
-pkgver=3.1.0
-pkgrel=5
+pkgver=3.2.0
+pkgrel=1
 pkgdesc='Commandline option parser for Ruby that just gets out of your way'
 url='https://github.com/ManageIQ/optimist'
 arch=('any')
@@ -13,8 +13,8 @@ makedepends=('ruby-rdoc' 'ruby-rake' 'ruby-bundler')
 checkdepends=('ruby-minitest' 'ruby-chronic')
 options=('!emptydirs')
 source=(https://github.com/ManageIQ/optimist/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('8b0403e7b166644264b297641b8a666ed3a50bbc0a1722b9a46ca256eb45147c51ec02f1152af2030fd360828a4358c14af9afe35200ec2120764691412dc1af')
-b2sums=('861cf94a147246a9d5491497219efbdb0016cc6a0db57661d686e4d124c479286a95e1314fe31f640339321b3b64faadc1c40d9c385666dbaa25cea9d35e24a1')
+sha512sums=('c08c4a7329e82152449758bfc4dfc5befc69ad89e13fa5dbb9c13ca0553dae0902135d6a4b598c8102add36980dcdc2b652861e36c2c0e73700d2ac93dc6b61c')
+b2sums=('30cb6016c3e2e83d2fc9a82dadaaed99243172c40123dac324bd76d9f741cd63b70ef229ba1d4c455f864c7733e74aa34b16d9930f773715cb6c3ce26a4e716e')
 
 prepare() {
   cd ${_gemname}-${pkgver}
@@ -37,7 +37,7 @@ package() {
   local _gemdir="$(gem env gemdir)"
   gem install --ignore-dependencies --no-user-install -i "${pkgdir}${_gemdir}" \
     -n "${pkgdir}/usr/bin" ${_gemname}-${pkgver}.gem
-  install -Dm 644 README.md History.txt -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 README.md CHANGELOG.md -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -Dm 644 README.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
 
   cd "${pkgdir}/${_gemdir}"
