@@ -3,7 +3,7 @@
 
 pkgname=libdc1394
 pkgver=2.2.7
-pkgrel=1
+pkgrel=2
 pkgdesc='Library to control IEEE 1394 based cameras'
 arch=(x86_64)
 url='https://damien.douxchamps.net/ieee1394/libdc1394/'
@@ -24,7 +24,7 @@ b2sums=(2e4c03c6f7c96734230e452e9088abcc54907eabd81eebb0862f192e2d1c3c6d3f65d92a
 
 prepare() {
   cd $pkgname
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
