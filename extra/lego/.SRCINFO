@@ -1,6 +1,6 @@
 pkgbase = lego
 	pkgdesc = Lets Encrypt client and ACME library
-	pkgver = 4.32.0
+	pkgver = 4.33.0
 	pkgrel = 1
 	url = https://go-acme.github.io/lego
 	arch = x86_64
@@ -8,8 +8,9 @@ pkgbase = lego
 	makedepends = git
 	makedepends = go
 	depends = glibc
-	source = lego::git+https://github.com/go-acme/lego.git#tag=v4.32.0
-	sha512sums = a059ca9b9a903b81b6db17ab936e086743366940563204b74d7583b2f6b696abb4f75b5c7ab78f39cac2e68778184f331c92512d547c23f28d7d34819c3b55ae
-	b2sums = f4fb9d633268c29385946d46003cddccb0cee85b997f481138d0db7f320ad26259a23bd561d3b530344d973b96f87928f6707e65cae582537aa25406a8b59090
+	options = !lto
+	source = lego::git+https://github.com/go-acme/lego.git#tag=v4.33.0
+	sha512sums = 80923d135ac8e9a40813af7842ab98c24261aef405346e09f67ef309e3dc35e0d6da08a8bd13fe87ebf64e46c831c3ae42686c842a8e0228db92e4fb330e36ec
+	b2sums = 0450cbcf31b2e17aa8e144548b4210db1cf6f9a6af6fdf2b0afacff00e2d4d28cac70a455a8e9c40b168934c8d5d204d8a5f36e53b5452c1c0b942b394f0a39b
 
 pkgname = lego
