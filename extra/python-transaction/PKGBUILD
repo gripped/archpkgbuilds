@@ -1,17 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-transaction
-pkgver=5.0
-pkgrel=2
+pkgver=5.1
+pkgrel=1
 pkgdesc='Transaction management for Python'
 arch=('any')
-license=('ZPL')
+license=('ZPL-2.1')
 url='https://github.com/zopefoundation/transaction'
 depends=('python-zope-interface')
 makedepends=('git' 'python-setuptools')
 checkdepends=('python-zope-testrunner')
 source=("git+https://github.com/zopefoundation/transaction.git#tag=$pkgver")
-sha512sums=('929577f6ec5f912979a13f7b5ef071c7bb837d95102ec215a4792e06196214c9a89146d1cc12a20794c0bf1398d2220aa53fe680a6ca96f41d3892d9b62f57e5')
+sha512sums=('d836c40f8696628d94ec23a380767a2b47394b87a49cc39ad7ed9c3e052ef6e3b7f2c196c5da6567570e254dbf5db3b9b630ee69e7b5781ae753cceb66423887')
 
 build() {
   cd transaction
