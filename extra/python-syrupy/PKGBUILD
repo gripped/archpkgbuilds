@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-syrupy
-pkgver=4.6.2
+pkgver=4.6.3
 pkgrel=1
 pkgdesc="Pytest Snapshot Test Utility"
 arch=('any')
@@ -10,7 +10,7 @@ url="https://github.com/tophat/syrupy"
 depends=('python-pytest')
 makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
 source=("git+https://github.com/tophat/syrupy.git#tag=v$pkgver")
-sha512sums=('3c3d2206d86b649c6b35fa3b17eff75ec84117ca359b7f8e68adff04482929c255c26548626e880b2478c4f243cd0f1b12f15592035d9e975e24e89e9d77431c')
+sha512sums=('4eeb9f30dd6d9f724f05f14030249eac3684aa0a50f6fc9709f4184a86c7541a79dcc09afda63c9dc92b292d199e0eb003b608dbd099b3bc4865eb7e51831081')
 
 build() {
   cd syrupy
