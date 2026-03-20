@@ -4,34 +4,36 @@
 # Contributor: ccorn
 
 pkgname=git-delta
-_pkgname=delta
-pkgver=0.18.2
-pkgrel=7
+pkgver=0.19.0
+pkgrel=1
 pkgdesc='Syntax-highlighting pager for git and diff output'
 arch=(x86_64)
 url='https://dandavison.github.io/delta/'
 license=(MIT)
-depends=(glibc # libc.so libm.so
-         libgcc libgcc_s.so
-         libgit2
-         oniguruma # libonig.so
-         zlib)
-makedepends=(cargo
-             mdbook)
-checkdepends=(git)
-source=("https://github.com/dandavison/delta/archive/$pkgver/$_pkgname-$pkgver.tar.gz")
-sha512sums=('c096e22e07945f004f4ef8e805d6dfe45ae53a2e9bcb46736f9764d76fcfa556ce1622157ab66021b8fa36a1e322f80fee217e7f3d9d3489ec4df1f8fc61ca67')
-b2sums=('6a1dc650de50e495b0d1ced9369518a19d2b92270e58d9a1c93edd4b61cc5565bb23f5b6d69a250178e8f2ba13169dda700450539eafcc6f042ef35c03d19ed2')
+depends=(
+  glibc
+  libgcc
+  libgit2
+  oniguruma
+  zlib
+)
+makedepends=(
+  git
+  rust
+)
+source=("$pkgname::git+https://github.com/dandavison/delta#tag=$pkgver")
+sha512sums=('a552005edf1131075ebc0b08a3c325b1edcfc424fdbc797780f0443734d8366d149c3621ca974539e3843f35920a4e7c58ce30bbf910b86e355738c5c8d7e7dd')
+b2sums=('5de92cb80d54cc05654d2ceff61460f3eef619a8be33bb9547fbfde3431fd42d719cfd8d1ba839193b9e897fee8b74678ac48c0b87d254676ac5904ffe6cb97f')
 
 prepare() {
-  cd "$_pkgname-$pkgver"
+  cd "$pkgname"
 
   # download dependencies
   cargo fetch --locked --target host-tuple
 }
 
 build() {
-  cd "$_pkgname-$pkgver"
+  cd "$pkgname"
 
   # https://archlinux.org/todo/lto-fat-objects/
   CFLAGS+=' -ffat-lto-objects'
@@ -41,23 +43,21 @@ build() {
   # binary
   cargo build --frozen --release --all-features
 
-  # html manual
-  cd manual
-  # mdbook upgrade broke doc generation here, this projects docs are full of errors
-  # mdbook build --dest-dir html
+  # generate shell completions
+  for shell in bash elvish fish zsh; do
+    target/release/delta --generate-completion="$shell" > "${shell}-completion"
+  done
 }
 
 check() {
-  cd "$_pkgname-$pkgver"
+  cd "$pkgname"
   # some tests hang for 60+ seconds, find out why
   # took my machine ~ 470 seconds
   cargo test --frozen --all-features
 }
 
 package() {
-  depends+=(libgit2.so
-            libz.so)
-  cd "$_pkgname-$pkgver"
+  cd "$pkgname"
 
   # binary
   local _bin=target/release/delta
@@ -67,18 +67,15 @@ package() {
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 
   # shell completions
-  install -vDm644 <($_bin --generate-completion=bash) \
-    "$pkgdir/usr/share/bash-completion/completions/$_pkgname"
-  install -vDm644 <($_bin --generate-completion=elvish) \
-    "$pkgdir/usr/share/elvish/lib/$_pkgname.elv"
-  install -vDm644 <($_bin --generate-completion=fish) \
-    "$pkgdir/usr/share/fish/vendor_completions.d/$_pkgname.fish"
-  install -vDm644 <($_bin --generate-completion=zsh) \
-    "$pkgdir/usr/share/zsh/site-functions/_$_pkgname"
+  install -vDm644 bash-completion \
+    "$pkgdir/usr/share/bash-completion/completions/delta"
+  install -vDm644 elvish-completion \
+    "$pkgdir/usr/share/elvish/lib/delta.elv"
+  install -vDm644 fish-completion \
+    "$pkgdir/usr/share/fish/vendor_completions.d/delta.fish"
+  install -vDm644 zsh-completion \
+    "$pkgdir/usr/share/zsh/site-functions/_delta"
 
   # documentation
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
-
-  # html manual
-  # cp -r manual/html "$pkgdir/usr/share/doc/$pkgname"
 }

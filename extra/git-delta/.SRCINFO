@@ -1,29 +1,19 @@
 pkgbase = git-delta
 	pkgdesc = Syntax-highlighting pager for git and diff output
-	pkgver = 0.18.2
-	pkgrel = 7
+	pkgver = 0.19.0
+	pkgrel = 1
 	url = https://dandavison.github.io/delta/
 	arch = x86_64
 	license = MIT
-	checkdepends = git
-	makedepends = cargo
-	makedepends = mdbook
+	makedepends = git
+	makedepends = rust
 	depends = glibc
 	depends = libgcc
-	depends = libgcc_s.so
 	depends = libgit2
 	depends = oniguruma
 	depends = zlib
-	source = https://github.com/dandavison/delta/archive/0.18.2/delta-0.18.2.tar.gz
-	sha512sums = c096e22e07945f004f4ef8e805d6dfe45ae53a2e9bcb46736f9764d76fcfa556ce1622157ab66021b8fa36a1e322f80fee217e7f3d9d3489ec4df1f8fc61ca67
-	b2sums = 6a1dc650de50e495b0d1ced9369518a19d2b92270e58d9a1c93edd4b61cc5565bb23f5b6d69a250178e8f2ba13169dda700450539eafcc6f042ef35c03d19ed2
+	source = git-delta::git+https://github.com/dandavison/delta#tag=0.19.0
+	sha512sums = a552005edf1131075ebc0b08a3c325b1edcfc424fdbc797780f0443734d8366d149c3621ca974539e3843f35920a4e7c58ce30bbf910b86e355738c5c8d7e7dd
+	b2sums = 5de92cb80d54cc05654d2ceff61460f3eef619a8be33bb9547fbfde3431fd42d719cfd8d1ba839193b9e897fee8b74678ac48c0b87d254676ac5904ffe6cb97f
 
 pkgname = git-delta
-	depends = glibc
-	depends = libgcc
-	depends = libgcc_s.so
-	depends = libgit2
-	depends = oniguruma
-	depends = zlib
-	depends = libgit2.so
-	depends = libz.so
