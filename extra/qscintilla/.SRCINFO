@@ -1,11 +1,10 @@
 pkgbase = qscintilla
 	pkgver = 2.14.1
-	pkgrel = 5
+	pkgrel = 6
 	url = https://www.riverbankcomputing.com/software/qscintilla/intro
 	arch = x86_64
 	license = GPL
-	makedepends = python-pyqt5
-	makedepends = qt5-tools
+	makedepends = qt5-base
 	makedepends = python-pyqt6
 	makedepends = qt6-tools
 	makedepends = sip
@@ -16,12 +15,6 @@ pkgbase = qscintilla
 pkgname = qscintilla-qt5
 	pkgdesc = A port to Qt5 of Neil Hodgson's Scintilla C++ editor class
 	depends = qt5-base
-
-pkgname = python-qscintilla-qt5
-	pkgdesc = Python bindings for QScintilla2
-	depends = qscintilla-qt5
-	depends = python-pyqt5
-	replaces = python-qscintilla-qt5-common
 
 pkgname = qscintilla-qt6
 	pkgdesc = A port to Qt6 of Neil Hodgson's Scintilla C++ editor class
