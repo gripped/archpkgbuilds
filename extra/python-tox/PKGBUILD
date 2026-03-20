@@ -6,8 +6,8 @@
 
 pkgname=python-tox
 _name="${pkgname#python-}"
-pkgver=4.31.0
-pkgrel=2
+pkgver=4.32.0
+pkgrel=1
 pkgdesc='Python virtualenv management and testing tool'
 arch=('any')
 url='https://tox.readthedocs.io'
@@ -26,6 +26,7 @@ depends=(
   'python-virtualenv'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-hatch-vcs'
   'python-hatchling'
@@ -51,13 +52,12 @@ optdepends=(
   'python-pytest-mock: for pytest plugin to test tox and its plugins'
   'python-re-assert: for pytest plugin to test tox and its plugins'
 )
-source=($pkgname-$pkgver.tar.gz::$_url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('6e3712391fa4b4f40fac0e3ef276fa6093c5264646967f622859743ebdee171145c7b44f7801ed56f7dc8f1c26bb0087c758cdaf836d0f15898d5d3a2a4a4077')
-b2sums=('a2ec32c2ff87896b43fa2c51274d48343d791e32ac659f756a64db88bac09f2ff8a9899da2b59b957f050904be168fa3cb86ceb6b0c1e94499942d7cf04bbb92')
+source=("git+$_url.git#tag=$pkgver")
+sha512sums=('5432280cdcdfcfffa0820a1d081aad2e9b8dfe581c0025df5070ec3adbab663f36c95ba288bfbf77ef6e8f0c5f800196409ca1758994cc08da50a1f12f872e4f')
 
 build() {
-  cd $_name-$pkgver
-  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --no-isolation
+  cd $_name
+  python -m build --wheel --no-isolation
 }
 
 # NOTE: needs python-devpi-process to be packaged.
@@ -71,9 +71,7 @@ build() {
 # }
 
 package() {
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-
-  cd $_name-$pkgver
+  cd $_name
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
   # add legacy symlink
