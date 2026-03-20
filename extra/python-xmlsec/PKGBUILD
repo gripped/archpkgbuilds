@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-xmlsec
-pkgver=1.3.14
-pkgrel=4
+pkgver=1.3.15
+pkgrel=1
 pkgdesc="Python bindings for the XML Security Library"
 url="https://github.com/mehcode/python-xmlsec"
 license=('MIT')
@@ -10,15 +10,8 @@ arch=('x86_64')
 depends=('glibc' 'libxml2' 'python-lxml' 'xmlsec')
 makedepends=('git' 'python-build' 'python-installer' 'python-pkgconfig' 'python-setuptools-scm' 'python-wheel')
 checkdepends=('python-hypothesis' 'python-pytest')
-source=("git+https://github.com/mehcode/python-xmlsec.git#tag=$pkgver"
-	"explicitly-cast-pointer.patch")
-sha512sums=('809168e0b2501a3220640a2f092e38ee749636e4daeed5ba9eb247e0ef88aeedc3cd9c08d54db1a3a073303b940c592d4d0a9a6df4999fa55c2abf3745bc698d'
-            '12f8ab47afa14a0c73e7db502710cb2620ae9817be50aa3aa3dfd9aad48fa742a73f47e73281ee3a8428da812c84fa27814f196540bddcb866fa009325d5647f')
-
-prepare() {
-  cd python-xmlsec
-  patch -Np1 -i ${srcdir}/explicitly-cast-pointer.patch
-}
+source=("git+https://github.com/mehcode/python-xmlsec.git#tag=$pkgver")
+sha512sums=('9b212fa808402bf458efda2e06e6c17a5135a3252539811fc1ed8d79cc8bef770a6491c6e88191340396844d1bfe8e36c7c0830d0542ed9dfe6ea5f72b12e526')
 
 build() {
   cd python-xmlsec
@@ -36,7 +29,7 @@ check() {
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
-  cd $pkgname
+  cd python-xmlsec
   python -m installer --destdir=test_dir dist/*.whl
   export PYTHONPATH="test_dir/$site_packages:$PYTHONPATH"
   pytest -vv "${pytest_options[@]}"
