@@ -2,8 +2,8 @@
 
 _gemname='puppet_metadata'
 pkgname="ruby-${_gemname}"
-pkgver=5.0.0
-pkgrel=2
+pkgver=5.1.0
+pkgrel=1
 pkgdesc='Data structures for the Puppet Metadata'
 arch=('any')
 url="https://github.com/voxpupuli/${_gemname}"
@@ -24,17 +24,12 @@ checkdepends=(
 options=('!emptydirs')
 source=(
   "${url}/archive/${pkgver}/${_gemname}-${pkgver}.tar.gz"
-  "https://github.com/voxpupuli/puppet_metadata/commit/88326a08511318f04db58ad37e0712c25a80384c.patch"
 )
-sha512sums=('219edddfa7fab2bd459eca08f3677efbcdae2925704a88bd81bc8a10336918a63f03ff6afa1ebcfdd3f15d1eb28661ccc5f815e0b02a2122eecbd58f76e6eada'
-            '64f33517914686e0a2517ddddf45e240013372e2c24ba4e21af5c75e3a5c487c045dec71c0c0e7a32df13c37256617f4809eacba7b436f7fb616038dfd18223a')
-b2sums=('6280a4c4da6f929c24d5ff494d4d9e23f7675766d0fda5109ca653ef005743ca7fb3b3eba4e96317098614c1fbbc683165567503c4d33151dc545cf1a08ae7ba'
-        '3a718d79ef873cd8ead61cc239a95ecd01a3e4c3f685d989e46a5938a3429edaca855374ab08a089ba716734f2ca31a1ee08073e7f3f3cc5f361ce575902fbc2')
+sha512sums=('edb1cc0eec3defd5ad0d2d4d09992e65f4d69fe66a3be6372cef5c890fa97a7dd66ad65228f5d99625ba299d7e7ca3a1ee02b34e58189e1dedffdbfa7574ef3c')
+b2sums=('29208bb0bf2e824ccd2d8bc15baf957a210df7f6f8b088039cf30fd1b56893528f05051ca77d6ae0e6d5ee3720c83b6351095620d52c9481531bd751064e9da4')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
-
-  patch --verbose --strip=1 --input="../88326a08511318f04db58ad37e0712c25a80384c.patch"
 
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended 's|~>|>=|g' "${_gemname}.gemspec"
