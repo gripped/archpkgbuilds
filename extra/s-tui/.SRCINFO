@@ -1,10 +1,12 @@
 pkgbase = s-tui
 	pkgdesc = Terminal UI stress test and monitoring tool
-	pkgver = 1.3.0
+	pkgver = 1.4.0
 	pkgrel = 1
 	url = https://github.com/amanusk/s-tui
 	arch = any
 	license = GPL-2.0-only
+	checkdepends = python-pytest
+	checkdepends = python-pytest-mock
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -13,7 +15,8 @@ pkgbase = s-tui
 	depends = python-psutil
 	depends = python-urwid
 	depends = stress
-	source = s-tui-1.3.0.tar.gz::https://github.com/amanusk/s-tui/archive/v1.3.0.tar.gz
-	sha512sums = 0ae12b93358e2f33aa7c4bcb697b1ff2a64915fdecd021b41416c59af83045c3cf6ca4e168f3b9da86047402f2ebadfc1a0c429873ad351410883ec641fcc514
+	optdepends = python-numpy: for built-in stress tool
+	source = s-tui-1.4.0.tar.gz::https://github.com/amanusk/s-tui/archive/v1.4.0.tar.gz
+	sha512sums = 9b46e2e51695f22cb0c4c3f1948dd9f0f65a9acd5815ae8786b8a4df31c96ed31ab6cd22222c2d3fd55a11b7c08add4b9bc91387ff3ad82a7bcaf2e652b9cbe7
 
 pkgname = s-tui
