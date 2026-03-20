@@ -4,11 +4,11 @@
 pkgname=libcdaudio
 _pkgver=0.99.12p2
 pkgver=0.99.12.p2
-pkgrel=3
+pkgrel=4
 pkgdesc="Library for controlling Audio CDs and interacting with CDDB"
 arch=('x86_64')
 url="http://libcdaudio.sourceforge.net/"
-license=('GPL')
+license=('LGPL-2.0-or-later')
 depends=('glibc')
 source=("https://downloads.sourceforge.net/sourceforge/libcdaudio/${pkgname}-${_pkgver}.tar.gz"
         '01-cddb-bufferoverflow.patch'
@@ -21,7 +21,7 @@ build() {
   cd ${pkgname}-${_pkgver}
   patch -Np1 -i "${srcdir}/01-cddb-bufferoverflow.patch"
   patch -Np1 -i "${srcdir}/02-cddb-bufferoverflow.patch"
-  ./configure --prefix=/usr
+  ./configure --prefix=/usr ac_cv_func_getmntinfo=no
   make
 }
 
