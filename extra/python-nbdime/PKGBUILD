@@ -4,8 +4,8 @@
 # Contributor: Dominik Stańczak <stanczakdominik at gmail dot com>
 
 pkgname=python-nbdime
-pkgver=4.0.2
-pkgrel=3
+pkgver=4.0.4
+pkgrel=1
 pkgdesc='Diff and merge of Jupyter Notebooks'
 url='https://github.com/jupyter/nbdime'
 makedepends=(python-build python-installer
@@ -35,7 +35,7 @@ provides=(jupyterlab-extension-nbdime jupyter-nbdime)
 license=(BSD-3-Clause)
 arch=(any)
 source=(https://github.com/jupyter/nbdime/archive/v$pkgver/nbdime-$pkgver.tar.gz)
-sha256sums=('30cbcb70f575d9d74d94c7bbb363930f8557588b143609bcc276472accf9a7fb')
+sha256sums=('9ff1963446d06748a0e9419f6137cbe7d4134af9fea54b8659a355d6c48046c4')
 
 prepare() {
   cd nbdime-$pkgver
