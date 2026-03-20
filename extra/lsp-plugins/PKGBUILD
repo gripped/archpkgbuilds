@@ -3,7 +3,7 @@
 pkgbase=lsp-plugins
 pkgname=(lsp-plugins{,-{clap,docs,gst,ladspa,lv2,standalone,vst,vst3}} liblsp-r3d-glx-lib)
 pkgver=1.2.27
-pkgrel=1
+pkgrel=2
 pkgdesc="Collection of open-source plugins"
 arch=(x86_64)
 url="https://lsp-plug.in"
@@ -48,7 +48,7 @@ build() {
     config
     VERBOSE=1
     ARTIFACT_EXPORT_HEADERS=1
-    FEATURES='clap doc gst jack ladspa lv2 ui vst2 vst3 xdg'
+    FEATURES='clap doc gst jack ladspa launcher lv2 ui vst2 vst3 xdg'
     PREFIX=/usr
     -C $_dir
   )
