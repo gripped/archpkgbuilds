@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=wrangler
-pkgver=4.72.0
+pkgver=4.76.0
 pkgrel=1
 _esbuild_ver='0.27.3'
 pkgdesc="The CLI for Cloudflare Workers"
@@ -28,13 +28,17 @@ makedepends=(
 options=(!lto)
 source=(https://github.com/cloudflare/workers-sdk/archive/refs/tags/wrangler@${pkgver}.tar.gz
         "esbuild-${_esbuild_ver}.tar.gz::https://github.com/evanw/esbuild/archive/v${_esbuild_ver}.tar.gz")
-sha256sums=('af53bb78e3503f4a23e49dc21ab4072961c0342e4d733dc3741e702c27ce1ca5'
+sha256sums=('6cbce879912088952b32458fe8ddd1fa37736b3ec87b5a80303b0e2f1b4ec619'
             '05d56070104b46d24c8921bfc4c83209d71cf583eb0396c13d0f359705bb5b61')
-b2sums=('ea71ef8316829e0dd40da631480fb86e32ec05f80dc7233954fba2b24a1a4571d9bf3fe1d4aa636d3877a383fc32a9830c5850f00dc231ae6d18e3d11e3c4d14'
+b2sums=('98eed9efc2781e181e8181c5ac6f803f602a8b4e1ffd5cd75d52d001ba6417c1394451f6b5d1cbc5c4e7ab2a1de53a660afbef51cf8a24110dbe3cc9d0a6bce9'
         'b9a3f3d5c573e64e983d87d49de4b677aaab3f71d5c3dd32b22956833c407129a82b7caf4b2b5025dae95d56edec42acbf4f8f61c0b6860d0c29ee1e007c448e')
 
 prepare() {
   cd "workers-sdk-wrangler-${pkgver}"
+
+  # the build calls the git binary and fails if it's not there,
+  # but we don't want it to pull additional code, so place a dummy script
+  install -m 755 /dev/null ../git
 
   # verify we're still using the correct esbuild version
   esbuild=$(yq -r .catalogs.default.esbuild.version pnpm-lock.yaml)
@@ -42,6 +46,9 @@ prepare() {
 }
 
 build() {
+  # see the comment about the dummy `git` executable in prepare()
+  export PATH="$PATH:$PWD"
+
   cd "workers-sdk-wrangler-${pkgver}"
   pnpm install -C packages/wrangler --frozen-lockfile
   turbo build
