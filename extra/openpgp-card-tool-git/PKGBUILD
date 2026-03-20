@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=openpgp-card-tool-git
-pkgver=0.1.6
+pkgver=0.1.7
 pkgrel=1
 pkgdesc="A simple tool for Git signing and verification with a focus on OpenPGP cards"
 arch=(x86_64)
@@ -9,8 +9,8 @@ url="https://codeberg.org/openpgp-card/oct-git"
 _name="${url##*/}"
 license=('Apache-2.0 OR MIT')
 depends=(
-  gcc-libs
   glibc
+  libgcc
   openssl
   org.freedesktop.secrets
   sqlite
@@ -23,25 +23,21 @@ makedepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz
 )
-sha512sums=('fa9fb3068fb057860891efb2d7ed47d52a6ab1e8220e9c3ceced5c65b51756a9422de8d5544ba1509b4d490417e54f48c8013351f8c36472409233f48788874a')
-b2sums=('aa7cd6eb9eb8950383324bafa301c6adc9af5d7e542cd673414382946e2d3359df57f8778db7210e8b943131641cf5e3cfd95846bf4b091fdbf00be786168510')
+sha512sums=('446f982140d9c9db4f2da6c98422c8d72650bd4ce26bcc1a496b1f8620fa8fe262a1d8dd3d93c6bebddb825e7d8478435af35368f49e3db2e7920efcde171d48')
+b2sums=('7b9250d69f55102fc9bdb2a2c636fe94fbf67cf30830addd894f463599c6551ae162752464f1afb90e1efd039efc2e303951003571b23f63368c1a26070adb6b')
 
 prepare() {
   cd $_name
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd $_name
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --frozen --release --all-features
 }
 
 check() {
   cd $_name
-  export RUSTUP_TOOLCHAIN=stable
   cargo test --frozen --all-features
 }
 
