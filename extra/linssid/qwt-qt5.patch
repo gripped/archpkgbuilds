@@ -1,0 +1,12 @@
+diff -ru linssid-3.6.orig/linssid-app/linssid-app.pro linssid-3.6/linssid-app/linssid-app.pro
+--- linssid-3.6.orig/linssid-app/linssid-app.pro	2026-03-20 09:37:51.107876879 +0100
++++ linssid-3.6/linssid-app/linssid-app.pro	2026-03-20 09:38:25.488511631 +0100
+@@ -22,7 +22,7 @@
+ INCLUDEPATH += /usr/include/qt5
+ INCLUDEPATH += /usr/include/qwt
+ LIBS += -lboost_regex
+-LIBS += /usr/lib/libqwt.so.6
++LIBS += -lqwt-qt5
+ QMAKE_CXXFLAGS += -std=c++11
+ #
+ TARGET = linssid
