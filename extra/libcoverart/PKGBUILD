@@ -2,15 +2,16 @@
 
 pkgname=libcoverart
 pkgver=1.0.0
-pkgrel=8
+pkgrel=9
 pkgdesc='C/C++ library for accessing the MusicBrainz Cover Art Archive'
 arch=(x86_64)
 url='https://musicbrainz.org/doc/libcoverart'
 license=(LGPL-2.1-or-later)
 depends=(
-  gcc-libs
   glibc
   jansson
+  libgcc
+  libstdc++
   neon
 )
 makedepends=(
