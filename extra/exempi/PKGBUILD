@@ -4,15 +4,16 @@
 
 pkgname=exempi
 pkgver=2.6.6
-pkgrel=2
+pkgrel=3
 pkgdesc='Library to parse XMP metadata'
 arch=(x86_64)
 url='https://libopenraw.freedesktop.org/exempi/'
 license=(BSD-3-Clause)
 depends=(
   expat
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   zlib
 )
 makedepends=(
