@@ -2,8 +2,8 @@
 # Contributor: Armin K. <krejzi at email dot com>
 
 pkgname=ocaml-ctypes
-pkgver=0.23.0
-pkgrel=3
+pkgver=0.24.0
+pkgrel=1
 pkgdesc="Library for binding to C libraries using pure OCaml"
 arch=('x86_64')
 url="https://github.com/ocamllabs/ocaml-ctypes"
@@ -12,7 +12,7 @@ depends=('ocaml' 'libffi' 'ocaml-integers' 'ocaml-bigarray-compat')
 makedepends=('ocaml-findlib' 'ocaml-compiler-libs' 'dune')
 options=('!strip' '!makeflags' '!debug')
 source=($pkgname-$pkgver.tar.gz::https://github.com/yallop/ocaml-ctypes/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('0c287cd3162d092b37bd6d4b24c196d41c93b792c4aa77938fde60f5dbc7eedde588097493a645af9bffc0ed722eadd0fa90e04b04d5e36e78e6467ae9e4baf8')
+sha512sums=('0fa640f00e2960a8ceae3bb9835c5318d3718e748f40adc3f0a50dcb9b38a696de2442f2e75a6ce2356bab7e7eb5edea5486a757e553c17207191a49ceaa307d')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
