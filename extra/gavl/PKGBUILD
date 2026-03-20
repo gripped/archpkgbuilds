@@ -4,25 +4,24 @@
 # Contributor: Mateusz Herych <heniekk@gmail.com>
 
 pkgname=gavl
-pkgver=1.4.0
-pkgrel=9
+pkgver=2.0.0
+pkgrel=1
 pkgdesc='Low level library, upon which multimedia APIs can be built'
 arch=(x86_64)
-url='http://gmerlin.sourceforge.net/'
+url='https://github.com/bplaum/gavl'
 license=(GPL-2.0-or-later)
-depends=(glibc)
-makedepends=(doxygen)
-source=("https://downloads.sourceforge.net/gmerlin/$pkgname-$pkgver.tar.gz")
-b2sums=(2ed47cf63d8ce3424d0714e202a11ecef89c5a9c160a6045e238bae4179c02398600fc9c6d914784bb24a86c501f93971631461bdecaa8a70743a674748a2ec3)
+depends=(glibc nettle gnutls libdrm libgl libva)
+makedepends=(git doxygen libpng)
+source=("git+https://github.com/bplaum/gavl.git#tag=v$pkgver")
+b2sums=('da715487e58cc2bc2d2c49579161f964c1d1151bde589b2a1fad8b00c7a1e40fd582ae643c16f20b522ddc7bec6ebeb6254050dfc0278f8b74d1b37b80023b86')
 
 prepare() {
-  cd $pkgname-$pkgver
-  sed -i 's/LDFLAGS="$GMERLIN_DEP_RPATH"/LDFLAGS="$LDFLAGS $GMERLIN_DEP_RPATH"/' configure{,.ac}
+  cd $pkgname
   autoreconf -fi
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
@@ -32,6 +31,6 @@ build() {
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
