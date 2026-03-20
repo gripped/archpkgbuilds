@@ -3,7 +3,7 @@
 
 _name=huggingface_hub
 pkgname=python-huggingface-hub
-pkgver=1.7.1
+pkgver=1.7.2
 pkgrel=1
 epoch=1
 pkgdesc='All the open source things related to the Hugging Face Hub'
@@ -64,7 +64,7 @@ optdepends=(
   python-fastai
 )
 source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('a42d2bac6e27cde05490d4c0ac111132beeb8f9ed9bfd66a00e537606d1969005331eee4207d368a38127c880f9548f2391d89f414007ccab023ecb6d369cf85')
+sha512sums=('147ff0c4bee645f6eae956d14248c137a3974acc172d3c2f2e0a970df9fe0e17e13292095d27122eadebd17f05f281e6390afcc169e4bdd42b1cfafb64abcddf')
 
 build() {
   cd $_name-$pkgver
@@ -80,6 +80,9 @@ check() {
     -n auto
     # skip tests that connect to the real HuggingFace Hub
     # https://github.com/huggingface/huggingface_hub/issues/2820
+    --deselect tests/test_buckets_cli.py
+    --deselect tests/test_buckets_hf_file_system.py
+    --deselect tests/test_cache_layout.py
     --deselect tests/test_cache_no_symlinks.py
     --deselect tests/test_file_download.py
     --deselect tests/test_hf_api.py
