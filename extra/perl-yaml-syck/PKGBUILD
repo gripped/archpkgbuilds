@@ -1,16 +1,16 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=perl-yaml-syck
-pkgver=1.36
+pkgver=1.37
 pkgrel=1
 pkgdesc="Fast, lightweight YAML loader and dumper"
 arch=('x86_64')
-url="https://search.cpan.org/dist/YAML-Syck/"
-license=('BSD' 'custom')
+url="https://github.com/toddr/YAML-Syck"
+license=('MIT')
 depends=('perl')
 options=('!emptydirs')
 source=(https://www.cpan.org/authors/id/T/TO/TODDR/YAML-Syck-$pkgver.tar.gz)
-sha512sums=('596ddbb0502da94c78d4398b7f66311362b0bff1f9dd0ee58199e7a963d0a985f32404de365784d296d16579f6e288b0aade38988f58aaa1c9f82790eac97b01')
+sha512sums=('ad67dde722316a0e976825a420bcdfaf3d15b53b0847a630546f66af7cfbf323b36dcc3b74bf76a0f0b0fd58561aa5abc6174b9511b711e6a23e7a6d9ae98cd1')
 
 build() {
   cd YAML-Syck-$pkgver
