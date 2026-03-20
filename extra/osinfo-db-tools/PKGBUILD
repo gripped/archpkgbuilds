@@ -2,17 +2,17 @@
 
 pkgname=osinfo-db-tools
 pkgver=1.12.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Tools for managing the osinfo database'
 arch=(x86_64)
 url='https://libosinfo.org/'
 license=(GPL-2.0-or-later)
 depends=(
-  gcc-libs
   glib2
   glibc
   json-glib
   libarchive
+  libgcc
   libsoup3
   libxml2
 )
