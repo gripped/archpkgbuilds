@@ -1,6 +1,6 @@
 pkgbase = ruby-cucumber-messages
 	pkgdesc = Protocol Buffer messages for Cucumber's inter-process communication
-	pkgver = 31.2.0
+	pkgver = 32.0.0
 	pkgrel = 1
 	url = https://github.com/cucumber/messages/tree/main/ruby
 	arch = any
@@ -8,11 +8,12 @@ pkgbase = ruby-cucumber-messages
 	checkdepends = ruby-bundler
 	checkdepends = ruby-rake
 	checkdepends = ruby-rspec
+	makedepends = git
 	makedepends = ruby-rdoc
 	depends = ruby
 	options = !emptydirs
-	source = https://github.com/cucumber/messages/archive/v31.2.0/cucumber-messages-31.2.0.tar.gz
-	sha512sums = 8345d445f0c8c26c14c8a2984e66fb57f20de07af00fb3c079430a9e2e385ade1b1601fc4f469094084b639f7326ef96c3691e0b6014d9d67c0f288d009898dd
-	b2sums = dabe8600f24234001c8fa4f933a408f7d8ff92a7e594ad006a99fd4657347f9f8c25d7d6ed12b916c0f026a02f1f6c8f0452478da72d7522406fbf393405902c
+	source = git+https://github.com/cucumber/messages.git#tag=v32.0.0
+	sha512sums = cc440419d04f411a544bbd1f83f3cc48eebc3e7577de7dc10436488c3aaecd97473426254b273611682af394da45d0b2a06b8df7108b381ebdc5fa06397a3f78
+	b2sums = f83ed6b40262a2e8e71f2ead085fea165bd66da13e1acfd13962bc5a974bef18b56f5b9d4b1654b750ebcb4404e3f1b51c46eb101866e42e63be3cc167dbad14
 
 pkgname = ruby-cucumber-messages
