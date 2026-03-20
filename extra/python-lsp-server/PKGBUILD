@@ -4,7 +4,7 @@
 
 pkgname=python-lsp-server
 pkgver=1.14.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Fork of the python-language-server project, maintained by the Spyder IDE team and the community"
 arch=(any)
 url="https://github.com/python-lsp/python-lsp-server"
@@ -53,7 +53,7 @@ checkdepends=(
     python-matplotlib
     python-numpy
     python-pandas
-    python-pyqt5
+    python-pyqt6
     python-appdirs
 )
 source=(https://github.com/python-lsp/python-lsp-server/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
