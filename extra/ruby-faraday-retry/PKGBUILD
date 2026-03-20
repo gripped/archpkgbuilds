@@ -2,8 +2,8 @@
 
 _gemname='faraday-retry'
 pkgname="ruby-${_gemname}"
-pkgver=1.0.3
-pkgrel=7
+pkgver=1.0.4
+pkgrel=1
 pkgdesc='Perform multipart-post requests using Faraday'
 arch=('any')
 url="https://github.com/lostisland/${_gemname}"
@@ -20,8 +20,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${_gemname}-v${pkgver}.tar.gz")
-sha512sums=('d3d50c6ccca97b3c7f076a45f0be92c9d601a005328d09397d8ac56492688296cfc2e61327389e10d4989df957bc76be7c270b6cbae3b9b2b8023fc9da265698')
-b2sums=('4ab94c84242b1009221e7c44273a3dc3e07ce3303b776a42ac04c6adec5439ff83ad583e2b3670638d08aa5117ee897669dc4e8e3d13e3a84672cf9001580889')
+sha512sums=('8614c75123929a2b2112fa205020c92fab03f26c20601cf423bffaf4833182023068db94bde73b4a492898c5110f54a5f5c59a6252bd4c03000e6f80a67092f9')
+b2sums=('96ff9c8e2b745837eb3cdc40addf03dee3506b719026b525de1b782125ea2d1cc628a3f8207d389a70ad4ee36c319c4fc09943af09974a115a143888a20ecb9e')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
