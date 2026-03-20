@@ -4,30 +4,29 @@
 
 _pkgname=coveragepy
 pkgname=python-coverage
-pkgver=7.13.4
+pkgver=7.13.5
 pkgrel=1
 pkgdesc="A tool for measuring code coverage of Python programs"
 arch=('x86_64')
 url="https://coverage.readthedocs.io/en/latest/"
 license=('Apache-2.0')
 depends=('glibc' 'python')
-makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/nedbat/coveragepy/archive/$pkgver.tar.gz")
-sha512sums=('2666eef24c45eb0711e956fb924e1f0a9f6dc9364076a5721ad822316d3ca7ef6616b4f32d40e12abff9d9675accb1c9e37fa83e33018900123a47245dea879f')
-b2sums=('219a663c1546b074ed9ace96ca3ae758544fe291d2df5c694521f159c2d5872883b8ba03ba2aa1a028cefb67d90cd348c1c2125123597fd155aa21c7bb55c07a')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel' 'python-pytest' 'python-pytest-xdist' 'python-flaky' 'python-hypothesis')
+source=("git+https://github.com/nedbat/coveragepy.git#tag=$pkgver")
+sha512sums=('4ba95dcba3f81cb330b635d3cbe79eeeea1301fd0ce75a407c9f2590e6bd8a3e16e3b36ccb04b7c8955ed04ea908228c39f767900a18c32753f4d1df408b6346')
+b2sums=('c08eca86c512a73180a01cbb2c143b3017dff911fdedc0402818816bcc6f43496b048bbdcf327d413dda29357cdb5379ae2f5f02a9b375f7563d51690378b3ef')
 
 build() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
   python -m build --wheel --no-isolation
 }
 
 check() {
-  # Upstream test suite doesn't currently run in our build environment.
-  cd $_pkgname-$pkgver
+  cd $_pkgname
+  python -m pytest tests/
 }
 
 package() {
-  cd $_pkgname-$pkgver
-
+  cd $_pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
