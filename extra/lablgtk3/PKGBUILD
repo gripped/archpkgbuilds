@@ -3,8 +3,8 @@
 
 _pkgname=lablgtk
 pkgname="${_pkgname}3"
-pkgver=3.1.4
-pkgrel=5
+pkgver=3.1.5
+pkgrel=1
 pkgdesc="An Objective Caml interface to gtk3"
 arch=('x86_64')
 license=('LGPL')
@@ -12,17 +12,10 @@ url="http://lablgtk.forge.ocamlcore.org/"
 depends=('gtk3' 'gtksourceview3' 'gtkspell3' 'ocaml-cairo')
 makedepends=('ocaml-compiler-libs' 'ocaml-findlib' 'dune' 'camlp-streams')
 optdepends=('ocaml: for using the tools')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/garrigue/lablgtk/archive/refs/tags/${pkgver}.tar.gz" "0001-fix-178.patch")
-b2sums=('e3636b64b00eb250377eb2288cada8c0708aa9bd0f78f1bacf6aa317c59710dbcf49588392d0adbb07e3be1e5f67e86c3af51f411afe470484d671e867847703'
-        '0f7508c2df96315e267856de4babfca9932f93f3d3c0bea09a4395f96ca7c3df1d80e6c4fcd8e678678bd2e6feec7f39ea16fe51ea9a685f01cd64133b5132e9')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/garrigue/lablgtk/archive/refs/tags/${pkgver}.tar.gz")
+b2sums=('5f677d2ac1a39f23e5c3b66f6239540e369ec6916eb87f980543a7ea6c723b5126882fd4f9673f8a76171d0e83de236b98ae9068956f86a0a37cb836c353b9e5')
 
 _dune_release_pkgs=('lablgtk3' 'lablgtk3-gtkspell3' 'lablgtk3-sourceview3')
-
-prepare() {
-  cd "${_pkgname}-${pkgver}"
-  patch -Np1 -i  "${srcdir}/0001-fix-178.patch"
-}
-
 
 dune_release_pkgs_comma() {
   # dune build needs a comma separated list of packages
