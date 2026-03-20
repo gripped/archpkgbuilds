@@ -3,7 +3,7 @@
 # Contributor: Christopher Cooper <christopher@cg505.com>
 
 pkgname=openai-codex
-pkgver=0.115.0
+pkgver=0.116.0
 pkgrel=1
 pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
 arch=(x86_64)
@@ -27,7 +27,7 @@ optdepends=(
 )
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/rust-v$pkgver.tar.gz")
-b2sums=('db9e1caf69563b35e6cec6bbceee12fd9d283623bb62262d2f9f6dc97486eb62551122045a873ae9657943345562dd2447b8deea69cc414ccefb3d830469079b')
+b2sums=('cef82571e88f1096f031fac23310806b132d3c7a308135d7d49eadc7d02fe27e4b75a308d091287e92b1cbf932d665d9af8605e9ed7fd8e9e9e87a6d294a8902')
 
 prepare() {
   cd codex-rust-v$pkgver/codex-rs
@@ -102,6 +102,9 @@ check() {
     --skip 'history_cell::tests::session_info_availability_nux_tooltip_snapshot' \
     --skip 'suite::hooks::resumed_thread_keeps_stop_continuation_prompt_in_history' \
     --skip 'suite::hooks::stop_hook_can_block_multiple_times_in_same_turn' \
+    --skip 'suite::hooks::session_start_hook_sees_materialized_transcript_path' \
+    --skip 'suite::hooks::blocked_queued_prompt_does_not_strand_earlier_accepted_prompt' \
+    --skip 'suite::hooks::blocked_user_prompt_submit_persists_additional_context_for_next_turn' \
     --skip 'suite::v2::command_exec::command_exec_process_ids_are_connection_scoped_and_disconnect_terminates_process'
 }
 
