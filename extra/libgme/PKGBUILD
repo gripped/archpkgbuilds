@@ -4,14 +4,14 @@
 
 pkgname=libgme
 pkgver=0.6.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Video game music file emulation/playback library'
 arch=(x86_64)
 url='https://github.com/libgme/game-music-emu'
 license=(LGPL-2.1-or-later)
 depends=(
-  gcc-libs
   glibc
+  libstdc++
   zlib
 )
 makedepends=(
