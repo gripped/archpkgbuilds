@@ -3,28 +3,24 @@
 # Contributor: shadyabhi <abhijeet.1989@gmail.com>
 
 pkgname=python-google-api-python-client
-pkgver=2.140.0
-pkgrel=3
+pkgver=2.141.0
+pkgrel=1
 pkgdesc="Google API Client Library for Python"
 arch=('any')
 url="https://github.com/google/google-api-python-client"
-license=('Apache')
+license=('Apache-2.0')
 depends=('python-google-auth-httplib2' 'python-uritemplate' 'python-google-api-core')
 optdepends=('python-oauth2client: optional backend')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("google-api-python-client-${pkgver}.tar.gz::https://github.com/google/google-api-python-client/archive/v${pkgver}.tar.gz")
-sha256sums=('eb1658d1a8df9067949f7841abe8bc111698b3cbe0aa150fa9d1028760163853')
+sha256sums=('3cb8e1707aa2f2d6d5f2a4d290ea21cc9ec88d4fe046f62292f8b83a1a1fcdd6')
 
 build() {
   cd "google-api-python-client-${pkgver}"
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
  
 package() {
   cd "google-api-python-client-$pkgver"
-  python setup.py install --skip-build --root="$pkgdir" --optimize=1
-
-  # Workaround for FS#47243
-  _site_packages=`python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`
-  chmod -R a+r "$pkgdir$_site_packages"
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
