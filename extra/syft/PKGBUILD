@@ -1,7 +1,7 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 
 pkgname=syft
-pkgver=1.42.2
+pkgver=1.42.3
 pkgrel=1
 pkgdesc="CLI tool and library for generating a Software Bill of Materials from container images and filesystems"
 arch=('x86_64')
@@ -16,8 +16,8 @@ makedepends=(
 )
 options=(!lto)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/anchore/${pkgname}/archive/v${pkgver}.tar.gz")
-sha512sums=('9982c9cc8285ee3a7a33a0be6870497a0122d389bab9f5ea04271490639e492921419189efaafa8f57802858f28abb2361647f855e75304e93d93cbea21e6a01')
-b2sums=('781e3e8175898857adbb6f56409bec029b114d33dcdb94e9fbdd2e64ead3c7abe79b58c8b75863d9ddd32ca46b6a316d7c58e2a05c14c7e062c07a49b8f7ec57')
+sha512sums=('6dbc5a41b58567a0f33582227c0ea46db5c1e93b4aae7fe17d1a72809f2ed511daf471bbaab3999fd839a3920d3374bf42cf964897b45ae6631c069e4dec3f9b')
+b2sums=('0ccac27fb650ed9669760599261155366185525610082102b082c33cec2dcca7d33045cf879b21a45d232582072e69f0d825ffb78c5886a95199da5eb495fcf2')
 
 build() {
   cd "${pkgname}-${pkgver}"
