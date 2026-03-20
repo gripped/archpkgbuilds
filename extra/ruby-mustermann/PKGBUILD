@@ -2,8 +2,8 @@
 
 _gemname=mustermann
 pkgname=ruby-${_gemname}
-pkgver=3.0.0
-pkgrel=6
+pkgver=3.0.1
+pkgrel=1
 pkgdesc="Your personal string matching expert"
 arch=(any)
 url="https://github.com/sinatra/mustermann"
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('ruby')
 options=('!emptydirs')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/sinatra/mustermann/archive/v${pkgver}.tar.gz)
-sha256sums=('3727530c67d6b79f4cca30b2629121998efd5dd80ffb192f306e625fa3539066')
+sha256sums=('ac4f3283c1deec723d60f8167359098efa80cec1dfd3d1b383b63b81e7e3df54')
 
 prepare() {
   cd ${_gemname}-${pkgver}/${_gemname}
