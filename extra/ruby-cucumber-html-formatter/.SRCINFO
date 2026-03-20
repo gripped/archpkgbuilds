@@ -1,10 +1,11 @@
 pkgbase = ruby-cucumber-html-formatter
 	pkgdesc = HTML formatter for Cucumber
-	pkgver = 22.3.0
+	pkgver = 23.0.0
 	pkgrel = 1
 	url = https://github.com/cucumber/html-formatter/tree/main/ruby
 	arch = any
 	license = MIT
+	makedepends = git
 	makedepends = npm
 	makedepends = ruby-bundler
 	makedepends = ruby-rake
@@ -12,8 +13,8 @@ pkgbase = ruby-cucumber-html-formatter
 	depends = ruby
 	depends = ruby-cucumber-messages
 	options = !emptydirs
-	source = https://github.com/cucumber/html-formatter/archive/v22.3.0/cucumber-html-formatter-22.3.0.tar.gz
-	sha512sums = f2c5de853a62384373402522f7e9b1f894f6be5e5c762a0abe2b1ed5b48290594969be6750f1bc4f784e89c1e344c7f632c017526eec13cb342e3e5ac62736c5
-	b2sums = ddb9d76216eb29ddce0261aeafeb72947f3a550d51cf84fceb8e16727c4ef401fa46158e288660206e3472214e618831d5a637984244118f0311fd991fb37abf
+	source = git+https://github.com/cucumber/html-formatter.git#tag=v23.0.0
+	sha512sums = 57a9ad66ce53953ec7a4eed10adbe713f4d0256d66402acbe72b4a040133ebb5594c02fa95373af6fd58eec76e3ff329d50622c4e84c6548a037e91419f23be1
+	b2sums = df1b7649ba3445167d03768a0dd2df89954cb360677929a2a5a7cb9098821f74075b139ee6222ea0c9b4df6f9bf06510850b93e3102afdb9a0b9c5ae48c5724e
 
 pkgname = ruby-cucumber-html-formatter
