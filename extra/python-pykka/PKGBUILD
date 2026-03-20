@@ -3,8 +3,8 @@
 # Contributor: Antoine Pierlot-Garcin <antoine at bokbox dot com>
 
 pkgname=python-pykka
-pkgver=4.0.2
-pkgrel=4
+pkgver=4.1.0
+pkgrel=1
 pkgdesc="Easy to use concurrency abstractions for Python using the actor model"
 arch=('any')
 url="http://pykka.readthedocs.org/"
@@ -13,7 +13,7 @@ depends=('python')
 makedepends=('python-build' 'python-installer' 'python-poetry-core')
 optdepends=('python-gevent: Use gevent based actors from pykka.gevent')
 source=("https://pypi.python.org/packages/source/p/pykka/pykka-$pkgver.tar.gz")
-sha512sums=('7c2acb8ccf2039269dd8d41f9aa74981c353618ee6c7eab1e8e6af9efc9897d8b8b6ec4d7de2b98447b051cdc5bdd59d79a3f76685b7a45826e8e01d90548108')
+sha512sums=('b894f159025f8d5d87bc19723c3b7dacf295e0e657a2c3d7fea2b751ac1e6998dc429bec08f0437248f67ef0b76c9244d36ad0878e3a5d67037ceab41b3f208c')
 
 build() {
   cd "pykka-$pkgver"
