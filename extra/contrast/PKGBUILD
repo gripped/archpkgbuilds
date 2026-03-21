@@ -2,19 +2,19 @@
 
 pkgname=contrast
 pkgver=0.0.11
-pkgrel=2
+pkgrel=3
 pkgdesc='Checks whether the contrast between two colors meet the WCAG requirements'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/design/contrast'
 license=(GPL-3.0-or-later)
 depends=(
-  gcc-libs
   glib2
   glibc
   graphene
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
   pango
 )
 makedepends=(
@@ -36,7 +36,7 @@ prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # https://gitlab.gnome.org/World/design/contrast/-/merge_requests/44
   git cherry-pick -n fc520c05ff5d5fda7a9e3fba4509545cc0ba688d

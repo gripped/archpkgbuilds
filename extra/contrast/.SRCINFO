@@ -1,7 +1,7 @@
 pkgbase = contrast
 	pkgdesc = Checks whether the contrast between two colors meet the WCAG requirements
 	pkgver = 0.0.11
-	pkgrel = 2
+	pkgrel = 3
 	url = https://gitlab.gnome.org/World/design/contrast
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -9,13 +9,13 @@ pkgbase = contrast
 	makedepends = git
 	makedepends = meson
 	makedepends = rust
-	depends = gcc-libs
 	depends = glib2
 	depends = glibc
 	depends = graphene
 	depends = gtk4
 	depends = hicolor-icon-theme
 	depends = libadwaita
+	depends = libgcc
 	depends = pango
 	source = git+https://gitlab.gnome.org/World/design/contrast.git#tag=0.0.11
 	source = contrast-fix-color-picker.patch
