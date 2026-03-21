@@ -1,7 +1,7 @@
 pkgbase = decoder
 	pkgdesc = QR code scanner and generator
 	pkgver = 0.8.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://apps.gnome.org/Decoder/
 	arch = x86_64
 	groups = gnome-circle
@@ -11,7 +11,6 @@ pkgbase = decoder
 	makedepends = meson
 	makedepends = rust
 	depends = dconf
-	depends = gcc-libs
 	depends = glib2
 	depends = glibc
 	depends = graphene
@@ -25,6 +24,7 @@ pkgbase = decoder
 	depends = gtk4
 	depends = hicolor-icon-theme
 	depends = libadwaita
+	depends = libgcc
 	options = !lto
 	source = git+https://gitlab.gnome.org/World/decoder.git#tag=0.8.1
 	b2sums = fe947c615658223f39dac3c4e6492e8c4030d273195dbe5b3d742f752025115783eb873f3409635f83b922db70ab4791df34bc41745144f1a409df2dcf6dfebb

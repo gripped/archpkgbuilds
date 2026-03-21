@@ -2,7 +2,7 @@
 
 pkgname=decoder
 pkgver=0.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc='QR code scanner and generator'
 arch=(x86_64)
 url='https://apps.gnome.org/Decoder/'
@@ -10,7 +10,6 @@ license=(GPL-3.0-or-later)
 groups=(gnome-circle)
 depends=(
   dconf
-  gcc-libs
   glib2
   glibc
   graphene
@@ -24,6 +23,7 @@ depends=(
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
 )
 makedepends=(
   appstream
