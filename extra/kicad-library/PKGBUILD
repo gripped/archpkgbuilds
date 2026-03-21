@@ -5,13 +5,13 @@
 
 pkgbase=kicad-library
 pkgname=($pkgbase{,-3d})
-pkgver=9.0.8
+pkgver=10.0.0
 pkgrel=1
 pkgdesc='Assorted libraries for KiCad'
 arch=(any)
 url='http://kicad.org/'
 license=(CC-BY-SA-4.0)
-makedepends=(git cmake)
+makedepends=(git cmake python)
 options=(!strip !debug)
 source=(
   "git+https://gitlab.com/kicad/libraries/kicad-packages3D.git#tag=$pkgver"
@@ -19,24 +19,33 @@ source=(
   "git+https://gitlab.com/kicad/libraries/kicad-templates.git#tag=$pkgver"
   "git+https://gitlab.com/kicad/libraries/kicad-footprints.git#tag=$pkgver"
 )
-sha512sums=('a3a6ba3027bcef087cb5b05a9a7f493c2e69fa2d990e925bf16f81a5baf923112d5870978ff3937519e9da53d41fe8f4878a92c5f59aeda74da13f995c432fb0'
-            '332049ae9f1d3744f465928f8aca0d5dc8bf83a4e03e4883ec2db3d023fac77b059e883a93fd43026a31a42b015bbca44dc0f9781fce5cd4b2e3997a77d24798'
+sha512sums=('a26c3fb6e821144644972ac2065529073a184ebd846bfc2ab1671b5edcb2ca8175e5335dc65c5287a0d6e35b86f6bc5f42106110c5e9a63174f306a040519d70'
+            'd73a5408838499c9504e0d93af35c531b76b317195e3e054d2d33c1874340704d684567c2bd1efd85321666c6a19c1b2d054bdc9ebb115627a23c031a008c81f'
             '46b8685d7104decb21569aacad2a7941bb3101b09428039e3e17068a1261fa3e26c5a0dd2767ca56264f3bb5bf25358587a0878d50e698776375ab2ad9d9ddd6'
-            'a50eb3992bfa75c2f7cdd1f944dbbeb7a7491c222ba5748f5565ad6ce0027927fe8a234d344ce64e0da89fa321830cb866bc1dcb2fa70aa360efc018dc3c4d8c')
-b2sums=('ba2f9dc740ca1c0ade8f9f23791b8af9ce52d2a89c371c7956b22f395ff05d42ddcf2de48e01a33edb3c4c10a11ba719e207e8444bfb7fec2a50cc96a42f4a2e'
-        '2789a13670462cff4b93e6b024e5b5d1870e366d9e68e321e8d2a4565cc4865524d88f5f3f0f4e7ad5a5233e6c9e2218171398c76b168d8581196a1ed3132c45'
+            '83bfa5cf19be54c1012f4327f6d5c7c4b9890ba96b0114306136ec2ecca3c8eb99b5ff8c8622d7d05621aeeabee618d9d7481414a0fd104d894ba031391152be')
+b2sums=('e5f8dac189e65555ee94d8201c327dc678983eb6f742ed89028ad38bd9ddd143cb4b0bcb499602bea9557c8c736131947b1974308778f37c2bcec31b81df3d03'
+        'e1bd8430745288fc447e3aac815c79d27ef9b976f42d4fdeb9c0cf3ff4166d8fc0d20a84fcfd997f81dff18191701f53ebe102640783e28152b0737a24f67b24'
         'c54b437f06d78baa1123ad0e16028f12068082cbfb9a51c64abc7f44d62499761304bf3a5f97e0374f5f9cf3de6bcbf8aab3bdbc576747eb794cd669ec26fab6'
-        'bd5542cc15d72eb98884f53863d3c0584f1075aba0152ef198315b854638b0d016af17f20d431676d20ebb7f678ace38cfdad12fd6f53e150dd0539b91b98472')
+        'edffb46bacfc88145f5affa55724ff5346688aa9b957ddcb235f47aa3e56ae36578fcaaefefc4e68d813c67173826af32994c771e71aee4ba749d3f65e341a07')
 
 build() {
-  for package in symbols footprints packages3D templates; do
+  for package in footprints packages3D templates; do
      cmake \
        -B "build-$package" \
        -S "kicad-$package" \
        -DCMAKE_INSTALL_PREFIX=/usr
+  done
 
-     cmake --build "build-$package"
-   done
+  # Symbols are 'packed'
+  cmake \
+     -B "build-symbols" \
+     -S "kicad-symbols" \
+     -DCMAKE_INSTALL_PREFIX=/usr \
+     -DKICAD_PACK_SYM_LIBRARIES=ON
+
+  for package in symbols footprints packages3D templates; do
+      cmake --build "build-$package"
+  done
 }
 
 package_kicad-library() {
