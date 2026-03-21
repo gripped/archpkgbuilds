@@ -2,7 +2,7 @@
 
 pkgname=hieroglyphic
 pkgver=2.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Search through over 1000 different LaTeX symbols by sketching'
 arch=(x86_64)
 url='https://apps.gnome.org/Hieroglyphic/'
@@ -10,13 +10,14 @@ license=(GPL-3.0-or-later)
 groups=(gnome-circle)
 depends=(
   dconf
-  gcc-libs
   glib2
   glibc
   graphene
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
+  libstdc++
 )
 makedepends=(
   appstream
@@ -32,7 +33,7 @@ prepare() {
   cd Hieroglyphic
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
