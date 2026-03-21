@@ -7,7 +7,7 @@
 
 pkgname=easytag
 pkgver=2.4.3
-pkgrel=15
+pkgrel=16
 pkgdesc='Simple application for viewing and editing tags in audio files'
 arch=(x86_64)
 url='https://wiki.gnome.org/Apps/EasyTAG'
@@ -15,15 +15,16 @@ license=(GPL-2.0-or-later)
 depends=(
   dconf
   flac
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
   gtk3
   hicolor-icon-theme
   id3lib
+  libgcc
   libid3tag
   libogg
+  libstdc++
   libvorbis
   opus
   opusfile
@@ -105,7 +106,7 @@ prepare() {
   # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/21
   git apply -3 ../easytag-no-appmenu.patch
 
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
