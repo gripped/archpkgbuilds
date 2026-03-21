@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-jsonpickle
-pkgver=3.4.2
-pkgrel=3
+pkgver=4.0.0
+pkgrel=1
 arch=('any')
 pkgdesc="Python library for serializing any arbitrary object graph into JSON"
 url="https://jsonpickle.github.io/"
@@ -14,7 +14,7 @@ makedepends=('git' 'python-setuptools-scm' 'python-setuptools' 'python-build' 'p
 checkdepends=('python-numpy' 'python-feedparser' 'python-simplejson' 'python-gmpy2'
               'python-pymongo' 'python-ujson' 'python-pandas' 'python-pytest')
 source=("git+https://github.com/jsonpickle/jsonpickle.git#tag=v$pkgver")
-sha512sums=('a0992fd1a9c743cacb043a4db5025d9904f909fcd54fe1c23f32cfc1a01b6e6a47c7aa00e0fd741690bdbf0b79359fd159196b5b6e01122ff38298fff8fb87c9')
+sha512sums=('9a3aa4f7e71c7e2d3f1714b47f234566a4888d8ab5a956fcaf3f777bd29667425083c92db2b752507a8ea972e3981d14953965b565b3f207f13149405fd961ba')
 
 prepare() {
   cd jsonpickle
