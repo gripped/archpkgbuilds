@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-daemon
-pkgver=6.1.45
+pkgver=6.1.46
 pkgrel=1
 pkgdesc='Daemon handling the DDE session settings'
 arch=('x86_64')
@@ -67,7 +67,7 @@ replaces=('startdde')
 groups=('deepin')
 install="$pkgname.install"
 source=("git+https://github.com/linuxdeepin/dde-daemon.git#tag=$pkgver")
-sha512sums=('2b29567ad6b700b621d0baab26866788aff066dfeb13315bb9c15202eaa66992931eacfac97598cb2d9d27b48ae88e0b1c8d299474158a6a5142d8496631ec15')
+sha512sums=('a6c45f89f3f251da28e0eadcb2ac297b52bc7868459835e96cfa0ba6ac964ffd6e14521b3a9db6dfd43f509cbbcc6b18639e9405407278123b4a9093e141e11a')
 
 prepare() {
   cd dde-daemon
@@ -86,6 +86,9 @@ prepare() {
 
   sed -i 's|/usr/share/backgrounds/|/usr/share/backgrounds/deepin/|' accounts1/user.go
   sed -i 's|default_background.jpg|desktop.jpg|' accounts1/user.go
+
+  # Fix unused kernel variable in setPlymouthTheme
+  sed -z -i 's/\n\tkernel, err := exec\.Command("uname", "-r")\.CombinedOutput()\n\tif err != nil {\n\t\treturn fmt\.Errorf("failed to get kernel, err: %v", err)\n\t}\n\tout, err = exec\.Command("update-initramfs", "-u", "-k", "all")/\n\tout, err = exec.Command("update-initramfs", "-u", "-k", "all")/' bin/dde-system-daemon/plymouth.go
 }
 
 build() {
