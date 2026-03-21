@@ -2,14 +2,13 @@
 
 pkgname=audio-sharing
 pkgver=0.2.4
-pkgrel=3
+pkgrel=4
 pkgdesc='Share current computer audio playback in the form of an RTSP stream'
 arch=(x86_64)
 url='https://apps.gnome.org/AudioSharing/'
 license=(GPL-3.0-or-later)
 groups=(gnome-circle)
 depends=(
-  gcc-libs
   glib2
   glibc
   graphene
@@ -20,6 +19,7 @@ depends=(
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
 )
 makedepends=(
   appstream
@@ -40,7 +40,7 @@ prepare() {
   cd AudioSharing
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # https://gitlab.gnome.org/World/AudioSharing/-/merge_requests/18
   git apply -3 ../audio-sharing-pipewire.patch
