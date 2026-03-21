@@ -2,22 +2,21 @@
 
 pkgname=health
 pkgver=0.95.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Health tracking app for the GNOME desktop'
 arch=(x86_64)
-url='https://apps.gnome.org/Health/'
+url='https://gitlab.gnome.org/World/Health'
 license=(GPL-3.0-or-later)
-groups=(gnome-circle)
 depends=(
   cairo
   dconf
-  gcc-libs
   glib2
   glibc
   graphene
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
   libsecret
   pango
   tinysparql
@@ -44,7 +43,7 @@ prepare() {
   cd Health
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # https://gitlab.gnome.org/World/Health/-/merge_requests/205
   git cherry-pick -n 2b8b165107501e8eddc784841f4c219a20a822f1
