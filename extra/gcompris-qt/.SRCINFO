@@ -1,6 +1,6 @@
 pkgbase = gcompris-qt
 	pkgdesc = Educational software suite comprising of numerous activities for children aged 2 to 10
-	pkgver = 25.1.1
+	pkgver = 26.1
 	pkgrel = 1
 	url = https://gcompris.net/
 	arch = x86_64
@@ -11,19 +11,21 @@ pkgbase = gcompris-qt
 	makedepends = kdoctools
 	makedepends = ninja
 	makedepends = qt6-tools
-	depends = gcc-libs
 	depends = glibc
 	depends = hicolor-icon-theme
+	depends = libgcc
+	depends = libstdc++
 	depends = qml-box2d
 	depends = qt6-base
 	depends = qt6-charts
 	depends = qt6-declarative
+	depends = qt6-graphs
 	depends = qt6-imageformats
 	depends = qt6-multimedia
 	depends = qt6-sensors
 	depends = qt6-svg
-	source = git+https://invent.kde.org/education/gcompris.git#tag=V25.1.1
+	source = git+https://invent.kde.org/education/gcompris.git#tag=V26.1
 	validpgpkeys = D2FAAB621F618D42685B427B63D7264C05687D7E
-	b2sums = 3e48895ad6a3eeffe57a76510d472fac210addfd1ed896db290c0a5cb0bb45002a2297a8cbccf4741f2673a7f87773e4c9b6fd0575c45fe667510763556fad5f
+	b2sums = 7374056bbf14ee10a4afeaf153b716c345656d26b49c51c03b8917ac8558de48044e9b47844a1d89177c70dba04157abae3e9d7a333d5347bb04a694a8bafc1d
 
 pkgname = gcompris-qt
