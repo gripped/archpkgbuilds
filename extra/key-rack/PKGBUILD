@@ -2,18 +2,18 @@
 
 pkgname=key-rack
 pkgver=0.4.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Password manager for GNOME'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/key-rack'
 license=(GPL-3.0-or-later)
 depends=(
-  gcc-libs
   glib2
   glibc
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
 )
 makedepends=(
   git
@@ -35,7 +35,7 @@ prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # https://gitlab.gnome.org/World/key-rack/-/merge_requests/43
   git cherry-pick -n 5084dda8d41b60fb1c28ce1c1ec271913bc8a71d

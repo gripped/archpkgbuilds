@@ -1,19 +1,19 @@
 pkgbase = key-rack
 	pkgdesc = Password manager for GNOME
 	pkgver = 0.4.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://gitlab.gnome.org/World/key-rack
 	arch = x86_64
 	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = meson
 	makedepends = rust
-	depends = gcc-libs
 	depends = glib2
 	depends = glibc
 	depends = gtk4
 	depends = hicolor-icon-theme
 	depends = libadwaita
+	depends = libgcc
 	source = git+https://gitlab.gnome.org/World/key-rack.git#tag=0.4.0
 	source = key-rack-create-window.patch
 	source = key-rack-dbus-activatable.patch
