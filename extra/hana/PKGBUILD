@@ -2,14 +2,13 @@
 
 pkgname=hana
 pkgver=1.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Application to capture thumbnails from video files'
 arch=(x86_64)
 url='https://apps.kde.org/hana/'
 license=(GPL-3.0-or-later)
 depends=(
   ffmpeg
-  gcc-libs
   glibc
   hicolor-icon-theme
   kconfig
@@ -17,6 +16,7 @@ depends=(
   ki18n
   kio
   kirigami
+  libstdc++
   qt6-base
   qt6-declarative
 )
