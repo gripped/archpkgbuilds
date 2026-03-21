@@ -2,15 +2,16 @@
 
 pkgname=syndication-domination
 pkgver=1.0
-pkgrel=8
+pkgrel=9
 pkgdesc='A simple RSS/Atom parser library in C++'
 arch=(x86_64)
 url='https://gitlab.com/gabmus/syndication-domination'
 license=(AGPL-3.0-or-later)
 depends=(
   fmt
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   pugixml
   python
   tidy
