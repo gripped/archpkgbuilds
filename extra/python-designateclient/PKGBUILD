@@ -2,8 +2,8 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-designateclient
-pkgver=6.3.0
-pkgrel=3
+pkgver=6.4.0
+pkgrel=1
 pkgdesc="OpenStack DNS-as-a-Service - Client"
 arch=('any')
 url="https://docs.openstack.org/python-designateclient/latest/"
@@ -12,10 +12,10 @@ depends=('python-cliff' 'python-jsonschema' 'python-osc-lib' 'python-oslo-serial
          'python-oslo-utils' 'python-pbr' 'python-keystoneauth1' 'python-requests'
          'python-stevedore' 'python-debtcollector')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-checkdepends=('python-oslo-config' 'python-oslotest' 'python-subunit' 'python-requests-mock'
+checkdepends=('python-oslo-config' 'python-oslotest' 'python-requests-mock'
               'python-stestr')
 source=("git+https://github.com/openstack/python-designateclient.git#tag=$pkgver")
-sha512sums=('4bcfec047952d01820249299c05ff0eb225fdd7163ab84213ec9a10eb38803cdcb38c4f91f413ee72cdef0e38550364c0d78f70c148c587d4a95cfbb78b900b9')
+sha512sums=('463d775af82e2ebe63ad391955f805587a8e5c5c428ce60160779de0b3395fd513ad82276c64d78e1917b7a7c000ce4b5a47be877c20e2ce457a31dfd9b8f4b9')
 
 build() {
   cd python-designateclient
