@@ -5,18 +5,18 @@
 
 pkgname=retro-gtk
 pkgver=1.0.2
-pkgrel=5
+pkgrel=6
 pkgdesc='Toolkit to write GTK based Libretro frontends'
 arch=(x86_64)
-url='https://gnome.pages.gitlab.gnome.org/retro-gtk/'
+url='https://gitlab.gnome.org/Archive/retro-gtk'
 license=(GPL-3.0-or-later)
 depends=(
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
   gtk3
   libepoxy
+  libgcc
   libpulse
   libsamplerate
 )
@@ -27,7 +27,7 @@ makedepends=(
   meson
   vala
 )
-source=("git+https://gitlab.gnome.org/GNOME/$pkgname.git#tag=$pkgver")
+source=("git+https://gitlab.gnome.org/Archive/$pkgname.git#tag=$pkgver")
 b2sums=(a699e01edd159dfcebae12569350348caed57efe99ea2e0972a09125f869e7f0a07b5ddf025e3d2d2ce2a02c654fb622265766c553ab167b147a7a852bfb8a17)
 
 prepare() {
