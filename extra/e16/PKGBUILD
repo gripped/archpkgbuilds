@@ -3,7 +3,7 @@
 
 pkgname=e16
 pkgver=1.0.31
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast, flexible and extensible window manager (Enlightenment DR16)'
 arch=(x86_64)
 url='https://www.enlightenment.org/e16'
@@ -42,7 +42,11 @@ b2sums=(6e879230c31b5f7dfead71b8362d7bc135457faf6a2e2cf8a517f7db78e2d780ad7d724b
 
 prepare() {
   cd e16
-  autoreconf -fi
+
+  # Fix build
+  sed -i '/AM_GNU_GETTEXT_REQUIRE_VERSION/,+2d' configure.ac
+
+  autoreconf -fiv
 }
 
 build() {
