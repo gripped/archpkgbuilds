@@ -2,8 +2,8 @@
 # Contributor: wedjat <wedjat@protonmail.com>
 # Contributor: Andrzej Giniewicz <gginiu@gmail.com>
 pkgname=python-pydicom
-pkgver=3.0.1
-pkgrel=3
+pkgver=3.0.2
+pkgrel=1
 pkgdesc="Pure python package for working with DICOM files"
 arch=("any")
 url="https://pydicom.github.io/pydicom/stable/index.html"
@@ -15,9 +15,9 @@ optdepends=('python-numpy: for working with pixel data'
             )
 
 # Checkdepends needs all optdepends as it enables more tests
-checkdepends=('python-pytest' 'python-numpy' 'python-pillow')
+checkdepends=('python-pytest' 'python-numpy' 'python-pillow' 'python-pyfakefs')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/pydicom/pydicom/archive/v$pkgver.tar.gz")
-sha256sums=('848ae8e36f34750cf837e48ca5cdf6f7a472145724946d5f28f529279fe11f4e')
+sha256sums=('76f95d03cba3e978dc19470c0907c6ad8ca68e72311137622e5fe5e8f594d67f')
 
 build()
 {
