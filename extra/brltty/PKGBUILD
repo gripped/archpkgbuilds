@@ -15,7 +15,7 @@ pkgname=(
   tcl-brltty
 )
 pkgver=6.9
-pkgrel=1
+pkgrel=2
 pkgdesc="Braille display driver for Linux/Unix"
 arch=(x86_64)
 url="https://brltty.app"
