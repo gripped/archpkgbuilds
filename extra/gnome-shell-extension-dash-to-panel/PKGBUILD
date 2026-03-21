@@ -4,7 +4,7 @@
 
 pkgname=gnome-shell-extension-dash-to-panel
 _pkgname=dash-to-panel
-pkgver=72
+pkgver=73
 pkgrel=1
 pkgdesc='Extension for GNOME Shell to combine the dash and main panel'
 arch=(any)
@@ -17,11 +17,9 @@ source=(
   gnome-shell-extension-dash-to-panel-fix-crash-on-close.patch
   gnome-shell-extension-dash-to-panel-fix-crash-on-shutdown.patch
 )
-b2sums=(
-  3a8a0de3a623a96e57d7683a75cf988d1e71c8d73c3994e27ec1fe00499b07c17ba5450ac59e580a3466237eb6ad28188d58a30b5a97e498301fdd2255cf0e9a
-  45ffabd2e1a44635ded780c99809202d423713b7977b6bf9f354214605944a4bb032cfd342601ed1578ed7e25c140fcc178cc3c4723fb0f5eb787454a1815149
-  abdefe9de059329ffbb9ddcbc1064e63de47a89c732eb7537c9e4b16ec884bedb850a1b3e3ffbbf969b1d5891dcc095841a29c99cf8d6e00c1eb82dbb90dcfab
-)
+b2sums=('da6a4c7eb76e7f30797ba28866a1d45a257180c2ffc47428cf7bfa113e3b63f2ab27d3a555f3d449d231f91e70440d0f373c49a4a3bcd7ac04e5e31225570a5b'
+        '45ffabd2e1a44635ded780c99809202d423713b7977b6bf9f354214605944a4bb032cfd342601ed1578ed7e25c140fcc178cc3c4723fb0f5eb787454a1815149'
+        'abdefe9de059329ffbb9ddcbc1064e63de47a89c732eb7537c9e4b16ec884bedb850a1b3e3ffbbf969b1d5891dcc095841a29c99cf8d6e00c1eb82dbb90dcfab')
 
 prepare() {
   cd $_pkgname
