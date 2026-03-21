@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-widgets
-pkgver=6.0.17
+pkgver=6.0.18
 pkgrel=1
 pkgdesc='Desktop widgets service/implementation for DDE'
 arch=('x86_64')
@@ -12,12 +12,11 @@ depends=('qt5-base' 'dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 'gcc-libs' 'startdde'
 makedepends=('git' 'cmake' 'ninja' 'gtest' 'qt5-tools')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-widgets.git#tag=$pkgver")
-sha512sums=('3e31cfd57d1834d83ed861f53312960f0581944304d80c8dd35e82c7df809531d350cfcbeab508403b65216c4d56c2170b3b380ad95715d649400c69e38e627d')
+sha512sums=('3cb0da63565e12d4d739b008eff08d2fbba11686e1f38ccc74de71fb2a4aca31b20795a57c3c4beb8c127353c3eb074a4c53431568bb646cebfe6574662c8d71')
 
 prepare() {
   cd dde-widgets
-  # Fix linking errors - cherry-pick from 6.0.18 and 6.0.25
-  git cherry-pick -n fd042d41fec320dc54071f1816232e9d41bfb441
+  # Fix linking error - cherry-pick from 6.0.25
   git cherry-pick -n 58604a5180b79741325009c327d5186eae30da79
   
   # Fix main app linking to interface library
