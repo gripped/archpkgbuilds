@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-turbo
-pkgver=0.0.6.1
+pkgver=0.0.6.2
 pkgrel=1
 pkgdesc='A daemon that helps to launch applications faster'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('dtkwidget')
 makedepends=('git' 'cmake' 'ninja')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/deepin-turbo.git#tag=$pkgver")
-sha512sums=('c58d27f1467b6f126d23c745d08652b3c99fe4a27a94abf4c4fe2b19bc6fa3b07bab7f7a42f64deff538d81085bd1da4e1b66db81c19d0e159276e6b58594644')
+sha512sums=('4857501953be378d17b145d2b559d90bbafd3be3ec21400c2e3aba5a8481b728255be39253503afe7a0bb331ada4af2f3797e02d1ac59d9d7799cdb469c1691d')
 
 prepare() {
   cd deepin-turbo
