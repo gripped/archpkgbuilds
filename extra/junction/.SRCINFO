@@ -1,6 +1,6 @@
 pkgbase = junction
 	pkgdesc = Application chooser to open files and links
-	pkgver = 1.11
+	pkgver = 1.12
 	pkgrel = 1
 	url = https://apps.gnome.org/Junction/
 	arch = any
@@ -18,9 +18,11 @@ pkgbase = junction
 	depends = libadwaita
 	depends = libportal
 	depends = libportal-gtk4
-	source = git+https://github.com/sonnyp/Junction.git#tag=v1.11
+	source = git+https://github.com/sonnyp/Junction.git#tag=v1.12
 	source = git+https://github.com/sonnyp/troll.git
-	b2sums = 402f80f9d758132cd20034cca78efc7928b5250030baa7c863f42cd27a81cf6a43a173836b04483fa221a623e16215fbe5243d8dad12caffc0c0e46478824824
+	source = junction-application-hold.patch
+	b2sums = 718be299aa899d6cb8bce097b8ddb5db2ce237c69822c5e1a5c472c228d7c3f2f5157c2ce852ea3b32977b8e233ce4c6d411a9679406c06806e60bfb8d39955c
 	b2sums = SKIP
+	b2sums = 37db7a78ced76f802ce3e205dae6860bb5164da8f3c8a63a50ebe098ddee8a4ea33ed443d8032f1995a16f17d0a1702b539e07405b53ea89d02f01f7abe48c35
 
 pkgname = junction
