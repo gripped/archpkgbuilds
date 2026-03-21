@@ -2,8 +2,8 @@
 
 _gemname='faraday-net_http'
 pkgname="ruby-${_gemname}"
-pkgver=3.2.0
-pkgrel=6
+pkgver=3.3.0
+pkgrel=1
 pkgdesc='Faraday adapter for Net::HTTP'
 arch=('any')
 url='https://github.com/lostisland/faraday-net_http'
@@ -22,8 +22,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${_gemname}-v${pkgver}.tar.gz")
-sha512sums=('27966aaa0da55d398869fede0196de9859750227189564480f6129684a76fe617a477142559a717d5431c568aeea8357474f89ae8226f2398f3a4372001e8554')
-b2sums=('07ada54d9430d5255d7683d6eec0b86967657d9eceff631a343a49a943ed2fad4168a48f0faf1ddef7d680ec1d11f34c2a560272bd9701c8e0be89dfb43ce082')
+sha512sums=('99f4dd8b68565caf44a8e2a33e7c7ec5d7db523a213a5da1842456624c7db59dd3ee5852a0e3d32a84b2a199761402f08d6acf97a16176246e82277b16dfe576')
+b2sums=('49c8602a8c1aab68698216d9002f3a5c27594e0a694819f10ddc4e9346810dc3ab1e707f5b94ba69b1ecfb8f92fdc86071c7ba3c7ab3bdb1d7800adfd2e9a887')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
