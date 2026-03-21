@@ -5,7 +5,7 @@
 
 pkgname=gedit
 pkgver=49.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Easy-to-use general-purpose text editor'
 arch=(x86_64)
 url='https://gedit-text-editor.org/'
@@ -13,7 +13,6 @@ license=(GPL-2.0-or-later)
 depends=(
   cairo
   dconf
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
@@ -21,6 +20,7 @@ depends=(
   gspell
   gtk3
   hicolor-icon-theme
+  libgcc
   libgedit-amtk
   libgedit-gfls
   libgedit-gtksourceview
@@ -39,7 +39,7 @@ makedepends=(
 )
 optdepends=('gedit-plugins: Additional features')
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gedit.git#tag=${pkgver/[a-z]/.&}"
+  "git+https://gitlab.gnome.org/World/gedit/gedit.git#tag=${pkgver/[a-z]/.&}"
   git+https://gitlab.gnome.org/GNOME/libgd.git
   gedit-new-tab.patch
   gedit-prgname.patch
