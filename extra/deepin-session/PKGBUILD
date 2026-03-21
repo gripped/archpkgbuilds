@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-session
-pkgver=2.0.14
+pkgver=2.0.15
 pkgrel=1
 pkgdesc='New deepin session, based on systemd and existing projects'
 arch=('x86_64')
@@ -18,12 +18,10 @@ depends=('glibc' 'gcc-libs' 'glib2' 'libx11' 'libsecret' 'qt6-base' 'dtk6core'
 makedepends=('git' 'cmake' 'ninja')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-session.git#tag=$pkgver")
-sha512sums=('0628619b0fa146e9732e15b5cb7efd7ecb2dee5cf9fa813a042f483d2ef52957cae421d2098243c31b36842e4caf51df4e700eb89290a04e396d9fd1371e03e9')
+sha512sums=('03729ba83e7433b6ce56742ce6f5753168c24662006ea374813bbdf0297a7b646bfa0e3db33aa6c73d7269555f7f0565312ed9d454c20d21a772cccc79d92e57')
 
 prepare(){
   cd dde-session
-  # qt 6.10.1
-  git cherry-pick -n 8d9927d223ae99b09db7525c8170e550d0ff5226
   sed -i 's|/etc/os-version|/etc/uos-version|' tools/dde-version-checker/main.cpp
 }
 
