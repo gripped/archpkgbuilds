@@ -2,16 +2,17 @@
 
 pkgname=crow-translate
 pkgver=4.0.2
-pkgrel=6
+pkgrel=7
 pkgdesc='Application that allows you to translate and speak text'
 arch=(x86_64)
 url='https://apps.kde.org/crowtranslate/'
 license=(GPL-3.0-or-later)
 depends=(
-  gcc-libs
   glibc
   hicolor-icon-theme
   kwayland
+  libgcc
+  libstdc++
   libx11
   libxcb
   onnxruntime
