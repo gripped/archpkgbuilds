@@ -4,21 +4,21 @@
 
 pkgname=gnome-screenshot
 pkgver=41.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='Take pictures of your screen'
 arch=(x86_64)
-url='https://gitlab.gnome.org/GNOME/gnome-screenshot'
+url='https://gitlab.gnome.org/Archive/gnome-screenshot'
 license=(GPL-2.0-or-later)
 depends=(
   cairo
   dconf
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
   gtk3
   hicolor-icon-theme
+  libgcc
   libhandy
   libx11
   libxext
@@ -29,7 +29,7 @@ makedepends=(
   meson
 )
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-screenshot.git#tag=$pkgver"
+  "git+https://gitlab.gnome.org/Archive/gnome-screenshot.git#tag=$pkgver"
   0001-Fix-various-fallback-paths.patch
   0001-Present-existing-window-if-already-in-interactive-mo.patch
 )
