@@ -2,7 +2,7 @@
 
 pkgname=amberol
 pkgver=2025.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Small and simple sound and music player that is well integrated with GNOME'
 arch=(x86_64)
 url='https://apps.gnome.org/Amberol/'
@@ -10,7 +10,6 @@ license=(GPL-3.0-or-later)
 groups=(gnome-circle)
 depends=(
   dconf
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
@@ -23,6 +22,7 @@ depends=(
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
   pango
 )
 makedepends=(
@@ -44,7 +44,7 @@ prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
