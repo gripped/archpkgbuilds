@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-terminal
-pkgver=6.5.27
+pkgver=6.5.28
 pkgrel=1
 pkgdesc='Default terminal emulation application for Deepin'
 arch=('x86_64')
@@ -16,7 +16,7 @@ makedepends=('git' 'cmake' 'ninja' 'lxqt-build-tools' 'qt6-tools')
 optdepends=('zssh: for remote management support')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-terminal.git#tag=$pkgver")
-sha512sums=('d5087a60e843de5deaf50ecba5091443747336911100461557ddc885343c41b43a83e042a1f9640d7f841e6900957e34fee13c10cc396e12345cebdb0737e02c')
+sha512sums=('e23533cfee288a9b417073d7a2b0a518d3b477205967c46ce3f28c93bacafe42872edabcad0729d249ba9fd1be4944dde2b89a5bebce745324a3779276995651')
 
 build(){
   cd deepin-terminal
