@@ -2,7 +2,7 @@
 
 pkgname=python-pyasn1
 pkgdesc="ASN.1 library for Python 3"
-pkgver=0.6.2
+pkgver=0.6.3
 pkgrel=1
 arch=('any')
 url="https://github.com/pyasn1/pyasn1"
@@ -12,7 +12,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python
 replaces=('pyasn1')
 provides=('pyasn1')
 source=("git+https://github.com/pyasn1/pyasn1.git#tag=v$pkgver")
-sha512sums=('0e0d720119ad0b69e7da0aee21fbed5d7fc89b73a07085a0d5082f3ad6cf91bd96190daaf5d0bad36c6d69412b992486a585e3815b1708acdfbf61a7cd9cb037')
+sha512sums=('c00802fdccd779d0e2a6cad2c713b11e690bf631dd88e6d36c4489122a8c4503d4d5261fe8dbcdab8aa6c09a1cc7241b3dac2cb5f13d5ce31e2bb431411d0147')
 
 build() {
   cd pyasn1
