@@ -1,27 +1,27 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dmtcp
-pkgver=2.6.1rc1
-pkgrel=4
+pkgver=3.0.0
+pkgrel=1
 pkgdesc='Distributed MultiThreaded CheckPointing'
 url='http://dmtcp.sourceforge.net'
 arch=('x86_64')
-license=('LGPL')
+license=('LGPL-3.0-or-later')
 depends=('bash' 'gcc-libs' 'glibc')
-makedepends=('dash' 'emacs' 'gdb' 'java-environment' 'openmpi' 'procps-ng'
+makedepends=('git' 'dash' 'emacs' 'gdb' 'java-environment' 'openmpi' 'procps-ng'
 'python' 'screen' 'strace' 'tcsh' 'vim' 'zsh')
-source=("https://downloads.sourceforge.net/project/$pkgname/${pkgver/rc*}/$pkgname-${pkgver/rc/~rc}.tar.gz")
-sha256sums=('284c281b561a7518ee6eb0561baeca1fe33034e368c7a05bc3dcb9ffa434778d')
-b2sums=('6cbec14ee94b251717b237d7ed6a7f4047997eec222b0ffb3d85384b319df5384b2fe0454f731824b07391ff2162219060448b934f0308c70c755bbed1268208')
+source=("git+https://github.com/dmtcp/dmtcp.git#tag=$pkgver")
+sha256sums=('bcd0673e3312ead4d73a27a5e7765c93db5a4be529c6cd82f32f4c406adb3bf7')
+b2sums=('f071ac850dd28d8cf43ff0425d6a57ce34acdf1d1fdf370a3e4f03b73f3eb7fa43a6d48a68fd0b75f38525d2aa976fb808bf2e45707ae5315564ad202ede1efc')
 
 build() {
-  cd $pkgname-${pkgver/rc/~rc}
-  ./configure \
+  cd $pkgname
+  CFLAGS="$CFLAGS -std=gnu17" ./configure \
     --prefix=/usr \
     --sysconfdir=/etc
   make
 }
 
 package() {
-  make DESTDIR="$pkgdir" install -C $pkgname-${pkgver/rc/~rc}
+  make DESTDIR="$pkgdir" install -C $pkgname
 }

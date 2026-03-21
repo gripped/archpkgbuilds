@@ -1,10 +1,11 @@
 pkgbase = dmtcp
 	pkgdesc = Distributed MultiThreaded CheckPointing
-	pkgver = 2.6.1rc1
-	pkgrel = 4
+	pkgver = 3.0.0
+	pkgrel = 1
 	url = http://dmtcp.sourceforge.net
 	arch = x86_64
-	license = LGPL
+	license = LGPL-3.0-or-later
+	makedepends = git
 	makedepends = dash
 	makedepends = emacs
 	makedepends = gdb
@@ -20,8 +21,8 @@ pkgbase = dmtcp
 	depends = bash
 	depends = gcc-libs
 	depends = glibc
-	source = https://downloads.sourceforge.net/project/dmtcp/2.6.1/dmtcp-2.6.1~rc1.tar.gz
-	sha256sums = 284c281b561a7518ee6eb0561baeca1fe33034e368c7a05bc3dcb9ffa434778d
-	b2sums = 6cbec14ee94b251717b237d7ed6a7f4047997eec222b0ffb3d85384b319df5384b2fe0454f731824b07391ff2162219060448b934f0308c70c755bbed1268208
+	source = git+https://github.com/dmtcp/dmtcp.git#tag=3.0.0
+	sha256sums = bcd0673e3312ead4d73a27a5e7765c93db5a4be529c6cd82f32f4c406adb3bf7
+	b2sums = f071ac850dd28d8cf43ff0425d6a57ce34acdf1d1fdf370a3e4f03b73f3eb7fa43a6d48a68fd0b75f38525d2aa976fb808bf2e45707ae5315564ad202ede1efc
 
 pkgname = dmtcp
