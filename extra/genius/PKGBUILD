@@ -3,8 +3,8 @@
 # Contributor: Arjan Timmerman <arjan@soulfly.nl>
 
 pkgname=genius
-pkgver=1.0.27
-pkgrel=4
+pkgver=1.0.29
+pkgrel=1
 pkgdesc='Advanced calculator including a mathematical programming language'
 arch=(x86_64)
 url='https://www.jirka.org/genius.html'
@@ -30,17 +30,17 @@ makedepends=(
   intltool
 )
 source=(
-  "git+https://gitlab.gnome.org/GNOME/genius.git#tag=${pkgname}_${pkgver//./_}"
+  "git+https://gitlab.gnome.org/GNOME/genius.git#tag=$pkgver"
   org.gnome.Genius.appdata.xml
 )
 b2sums=(
-  08e9c154a6750240b6c4e6175cfda43c19fd2e4f7d3961a6aeff9f38ea515a5e5c21b8ee36c1622e1692cb6d99c07953bd064b6744c4dce28c59f8065736878a
+  52dabb57175caad82b5eab359b5ff7010d08543fb1ae60697feae7e67ef603c3cbf2911d9b59c87e20fd2172de723284dfd583ca92bfba88ba62ac1be3ebfbae
   6fffc6df8f2afd779e856df8add87317d34df9aef7b19adaeb513d2591e6136acdb149cd3a992512605a4e125f028d95781ae73824c62ab09f89021d377bb9bf
 )
 
 prepare() {
   cd $pkgname
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
