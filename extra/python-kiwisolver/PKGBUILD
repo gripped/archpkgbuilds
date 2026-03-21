@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-kiwisolver
-pkgver=1.4.8
+pkgver=1.4.9
 pkgrel=1
 pkgdesc="A fast implementation of the Cassowary constraint solver"
 url="https://github.com/nucleic/kiwi"
@@ -12,7 +12,7 @@ makedepends=('git' 'python-cppy' 'python-setuptools-scm' 'python-wheel' 'python-
              'python-installer')
 checkdepends=('python-pytest')
 source=("git+https://github.com/nucleic/kiwi.git#tag=$pkgver")
-sha512sums=('e7fdda5d735e64f709c472b20f37c86dd71bd0a3fad0f86d68b0317fe11d5724182e327fd394170ee37c3a914b9fc855452cca3f9ff06c4fe00fe92b88641512')
+sha512sums=('a7deafabd3c04fc5c1cd0a78c66b6314f7a220a8d21c6e2dca6a00242c67efa4461f10a87e03f629138770c89d2069d93697b4ee9f2c30a9eb3fba53818c5c48')
 
 build() {
   cd kiwi
