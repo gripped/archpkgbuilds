@@ -2,13 +2,12 @@
 
 pkgname=klevernotes
 pkgver=1.2.5
-pkgrel=3
+pkgrel=4
 pkgdesc='Note-taking and management application using markdown'
 arch=(x86_64)
 url='https://apps.kde.org/klevernotes/'
 license=(GPL-3.0-or-later)
 depends=(
-  gcc-libs
   glibc
   hicolor-icon-theme
   kcolorscheme
@@ -20,6 +19,7 @@ depends=(
   kirigami
   kirigami-addons
   kitemmodels
+  libstdc++
   qqc2-desktop-style
   qt6-base
   qt6-declarative
