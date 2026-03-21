@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=atac
-pkgver=0.22.1
+pkgver=0.23.0
 pkgrel=1
 pkgdesc="A simple API client (postman like) in your terminal"
 arch=('x86_64')
@@ -10,19 +10,19 @@ license=('MIT')
 depends=('gcc-libs' 'oniguruma')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('78da1641b96b7b1bf43277769a0c8487944f533f7ecab80c1e911997d6b580d182032ffa22b09683020ce615e2a22d5e6f85e7cca2e7325086b082ad137f98c2')
+sha512sums=('f77e3bb30361226a2b78ae5aadda7c428b8d766be4d4d542836840b709e973411af6baed6eb797e29a18180880737e13ad7ebb57c4ee1cf7b9b0b562539e051d')
 options=('!lto')
 
 prepare() {
   cd "${pkgname^^}-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
   mkdir completions/
 }
 
 build() {
   cd "${pkgname^^}-$pkgver"
   export RUSTONIG_DYNAMIC_LIBONIG=1
-  cargo build --release --frozen --no-default-features
+  cargo build --release --frozen --features clipboard
   local compgen="target/release/$pkgname completions"
   $compgen bash "completions"
   $compgen fish "completions"
