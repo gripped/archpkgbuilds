@@ -2,7 +2,7 @@
 
 pkgname=authenticator
 pkgver=4.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple application for generating two-factor authentication (2FA) codes'
 arch=(x86_64)
 url='https://apps.gnome.org/Authenticator/'
@@ -11,7 +11,6 @@ groups=(gnome-circle)
 depends=(
   bzip2
   dconf
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
@@ -26,6 +25,7 @@ depends=(
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
   openssl
   sqlite
   xz
@@ -52,7 +52,7 @@ prepare() {
   cd Authenticator
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # https://gitlab.gnome.org/World/Authenticator/-/merge_requests/296
   git apply -3 ../authenticator-fix-metainfo.patch
