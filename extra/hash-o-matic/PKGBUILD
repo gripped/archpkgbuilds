@@ -2,13 +2,12 @@
 
 pkgname=hash-o-matic
 pkgver=1.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Simple hash validator allowing to compare two files, generate the checksum of a file and verify if a hash matches a file'
 arch=(x86_64)
 url='https://apps.kde.org/hashomatic/'
 license=(LGPL-2.1-or-later)
 depends=(
-  gcc-libs
   glibc
   gpgmepp
   hicolor-icon-theme
@@ -20,6 +19,7 @@ depends=(
   kirigami-addons
   kwindowsystem
   libkleo
+  libstdc++
   qgpgme
   qqc2-desktop-style
   qt6-base
