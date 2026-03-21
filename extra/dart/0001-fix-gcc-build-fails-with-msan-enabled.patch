@@ -1,0 +1,35 @@
+From 9dadc66d7871d64d08c3bb548a725629c5413834 Mon Sep 17 00:00:00 2001
+From: jinqiang zhang <624223+peeweep@users.noreply.github.com>
+Date: Mon, 16 Feb 2026 03:28:21 -0800
+Subject: [PATCH] [build] Fix gcc build fails with msan enabled
+
+Closes https://github.com/dart-lang/sdk/pull/62635
+
+GitOrigin-RevId: 5a1772f71c3ebdf96d8df6217146bcfaae6fe7ae
+Change-Id: I5bc00d5fd02a8dae55c983bb53565874a4ea528e
+Reviewed-on: https://dart-review.googlesource.com/c/sdk/+/479680
+Commit-Queue: Slava Egorov <vegorov@google.com>
+Reviewed-by: Slava Egorov <vegorov@google.com>
+---
+ sdk/BUILD.gn | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/sdk/BUILD.gn b/sdk/BUILD.gn
+index 3caf66e2cf83..64fe45dc4222 100644
+--- a/sdk/BUILD.gn
++++ b/sdk/BUILD.gn
+@@ -395,9 +395,13 @@ if (!using_sanitizer && current_os == "linux" &&
+   if (current_cpu == "x64" || current_cpu == "arm64") {
+     sanitizers += [
+       "asan",
+-      "msan",
+       "tsan",
+     ]
++    if (is_clang) {
++      sanitizers += [
++        "msan",
++      ]
++    }
+   } else if (current_cpu == "riscv64") {
+     # Fuchsia Clang is missing the riscv64 MSAN runtime.
+     sanitizers += [
