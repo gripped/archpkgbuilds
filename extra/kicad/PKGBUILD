@@ -7,7 +7,7 @@
 # Contributor: Alexander Lutsai <s.lyra@ya.ru>
 
 pkgname=kicad
-pkgver=9.0.8
+pkgver=10.0.0
 pkgrel=1
 pkgdesc='Electronic schematic and printed circuit board (PCB) design tools'
 arch=(x86_64)
@@ -30,6 +30,7 @@ depends=(
   libstdc++
   libgcc
   libglvnd
+  libspnav
   wxwidgets-common
   zlib
   curl
@@ -39,10 +40,12 @@ depends=(
   python
   python-wxpython
   wxwidgets-gtk3
+  webkit2gtk-4.1
   unixodbc
   libgit2
   nng
   protobuf
+  poppler-glib
 )
 makedepends=(
   git
@@ -60,9 +63,9 @@ source=(
   "$pkgname::git+https://gitlab.com/kicad/code/kicad.git#tag=$pkgver"
   fix-version-string.patch
 )
-sha512sums=('4b3c155a60597fe513736c675d86b317cf2dd2db9e5b953ebebe7a898f436dfbf6a825127290ff4936956364a6bcd34dbee505b6d1b42a95947c29514e5f12c7'
+sha512sums=('a387ff89f45c707a5471a996385e2578ace837dd6de9320bc04ecde8251d3a7a1495579d60cfa2d7793e41fc7071e46a4745e4adff22bf426c74d74452285764'
             '17100967610c85ce2e8a860dcf703a87dc0c20f52d3f056cdb5d16323160e8594698bd51e095aea63c00a75ce8b121be681e93cec1bab72a8d1d4eb8065a91f5')
-b2sums=('f426f48e194fb4f99033e643ca45b17578f7f97df70d3dc81eecc7bd1dc3c8ed017f60f540438feeefa2ea3d643458fe8642803d16134e35dbdee38b5aac19de'
+b2sums=('a5f648036dcc46a6143af585a41ce665debc2fe203ed5fa9e4cac6f26f5d5b8784fa42f1555c8cefd52841f9fe89be986818d1caf9003dc80d09135f1881c5b8'
         '7e09300161b2a1d7af56580a195e3b132d7b6ad82f1c9c381e02a25cd2fabd7ed0cd33b99b87ca14f9f77dad26eee1e5ea962b6eca49bacb40567ecfc24c21ff')
 
 
