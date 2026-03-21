@@ -2,7 +2,7 @@
 
 pkgname=gnome-flashback
 pkgver=3.58.0
-pkgrel=2
+pkgrel=3
 pkgdesc='GNOME Flashback session'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/GnomeFlashback'
@@ -15,7 +15,6 @@ depends=(
   bash
   cairo
   dconf
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
@@ -27,6 +26,7 @@ depends=(
   gsettings-desktop-schemas
   gtk3
   libcanberra
+  libgcc
   libgdm
   libibus
   libpulse
@@ -94,7 +94,7 @@ prepare() {
   # Set default icon theme to GnomeFlashback
   sed -i '1i [org.gnome.desktop.interface:GNOME-Flashback]\nicon-theme='\''GnomeFlashback'\''\n' data/schemas/00_gnome-flashback.gschema.override
 
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
