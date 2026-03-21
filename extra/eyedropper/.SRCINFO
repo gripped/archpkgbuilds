@@ -1,7 +1,7 @@
 pkgbase = eyedropper
 	pkgdesc = Color picker and formatter
 	pkgver = 2.1.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://apps.gnome.org/Eyedropper/
 	arch = x86_64
 	groups = gnome-circle
@@ -12,7 +12,6 @@ pkgbase = eyedropper
 	makedepends = meson
 	makedepends = rust
 	depends = dconf
-	depends = gcc-libs
 	depends = gdk-pixbuf2
 	depends = glib2
 	depends = glibc
@@ -20,6 +19,7 @@ pkgbase = eyedropper
 	depends = gtk4
 	depends = hicolor-icon-theme
 	depends = libadwaita
+	depends = libgcc
 	source = git+https://github.com/FineFindus/eyedropper.git#tag=v2.1.0
 	b2sums = 2b2f2f5cc9a979599d9562fc25dabdb47ec43527d45a1bd0224afac6bc429583ae35320c269203295b37e71df8a6895b664d8c47a7f8beb9ad23acd60f5280b0
 
