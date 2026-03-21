@@ -2,13 +2,12 @@
 
 pkgname=gupnp-tools
 pkgver=0.12.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Utilities and demos to work with UPnP'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/GUPnP'
 license=(GPL-2.0-or-later)
 depends=(
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
@@ -19,6 +18,7 @@ depends=(
   gupnp
   gupnp-av
   hicolor-icon-theme
+  libgcc
   libsoup3
   libxml2
 )
@@ -27,7 +27,7 @@ makedepends=(
   meson
 )
 source=("git+https://gitlab.gnome.org/GNOME/gupnp-tools.git#tag=$pkgname-$pkgver")
-b2sums=('3c3dfa4580a32453f01c0b8ea3408ec25ade8087e0412da5584a647c85a359169f6a33266e34745a84a87fa67e1607de0c2362bd9bd1cfa04436e2640fab932e')
+b2sums=(3c3dfa4580a32453f01c0b8ea3408ec25ade8087e0412da5584a647c85a359169f6a33266e34745a84a87fa67e1607de0c2362bd9bd1cfa04436e2640fab932e)
 
 prepare() {
   cd $pkgname
