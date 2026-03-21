@@ -6,7 +6,7 @@
 # Contributor: Johannes Sjolund <j.sjolund@gmail.com>
 
 pkgname=gnome-commander
-pkgver=1.18.4
+pkgver=1.18.5
 pkgrel=1
 pkgdesc='Graphical two-pane filemanager for GNOME'
 arch=(x86_64)
@@ -16,13 +16,14 @@ depends=(
   cairo
   dconf
   exiv2
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
   gtk3
   hicolor-icon-theme
+  libgcc
   libgsf
+  libstdc++
   pango
   poppler-glib
   taglib
@@ -37,7 +38,7 @@ makedepends=(
   smbclient
 )
 source=("git+https://gitlab.gnome.org/GNOME/gnome-commander.git?signed#tag=$pkgver")
-b2sums=(49784a2e23673c8f32c45fe1a9d61cfc978466dd4826d33453c046c8b8ae5aadcb8f3d999765a0453b602f776c36072e967a5682db8da941305b86b9382b7928)
+b2sums=(9cece07d48952673d2b907eb78b536db2228366d66c79a376a7050e3f5a03bdaa49e2f6e65aaa9ced149ab63c10268a51195ef4cce1bfb7a7f45c87fc891a73c)
 validpgpkeys=(7627E6FCECF4FC066A03B673F50A89A3ADE4C6E8) # Uwe Scholz <u.scholz83@gmx.de>
 
 prepare() {
