@@ -1,25 +1,25 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=libglacierapp
-pkgver=0.9
-pkgrel=2
+pkgver=0.9.1
+pkgrel=1
 pkgdesc="Glacier Application library"
 arch=('x86_64')
 url="https://github.com/nemomobile-ux/libglacierapp"
-license=('LGPL')
+license=('LGPL-2.0-or-later')
 depends=('mlite' 'qt5-declarative')
-makedepends=('cmake')
-source=("https://github.com/nemomobile-ux/libglacierapp/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('03b3c761f6e3d7c283f1acfab5de7441df33610df6c349172667c6d0e9ea032675280f12f6ca3861fb143708da1e7618b6fd08bfac596d7988d45c575b711963')
+makedepends=('git' 'cmake')
+source=("git+https://github.com/nemomobile-ux/libglacierapp.git#tag=$pkgver")
+sha512sums=('1ab591849343156d4de01a30f6fa94bb5d99222639d118330c4abcb6d18e81054abd1d6a0c55a523e0918d068b9aaa803d9cba709a58376caba537f0b6db7768')
 
 build(){
-  cd $pkgname-$pkgver
+  cd $pkgname
 
   cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib .
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
