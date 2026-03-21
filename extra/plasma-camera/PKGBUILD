@@ -2,14 +2,13 @@
 
 pkgname=plasma-camera
 pkgver=2.1.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Camera application for Plasma Mobile'
 arch=(x86_64)
 url='https://apps.kde.org/plasma.camera/'
 license=(GPL-3.0-or-later)
 depends=(
   exiv2
-  gcc-libs
   glibc
   kconfig
   kcoreaddons
@@ -17,6 +16,8 @@ depends=(
   kirigami
   kirigami-addons
   libcamera
+  libgcc
+  libstdc++
   qt6-base
   qt6-declarative
   qt6-multimedia
