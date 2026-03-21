@@ -1,6 +1,6 @@
 pkgbase = citations
 	pkgdesc = Manage your bibliographies using the BibTeX format
-	pkgver = 0.9.0
+	pkgver = 0.10.0
 	pkgrel = 1
 	url = https://apps.gnome.org/Citations/
 	arch = x86_64
@@ -12,16 +12,18 @@ pkgbase = citations
 	makedepends = rust
 	depends = cairo
 	depends = dconf
-	depends = gcc-libs
 	depends = glib2
 	depends = glibc
 	depends = gtk4
 	depends = gtksourceview5
 	depends = hicolor-icon-theme
 	depends = libadwaita
-	depends = openssl
+	depends = libgcc
 	depends = poppler-glib
-	source = git+https://gitlab.gnome.org/World/citations.git#tag=0.9.0
-	b2sums = 2bafc52297bde73782fa67e2d5f037f568dfd6ff63bad3539f5b7faa0b8df2662a8d94bd0f753fb3735939b4e498d3f2b6134541fe1194b31734a264334d201d
+	options = !lto
+	source = git+https://gitlab.gnome.org/World/citations.git#tag=0.10.0
+	source = citations-out-of-tree-test.patch
+	b2sums = e1410d189be63cabeffa7d7880e414a811e60f3c2352b637831270c6b8b9d3be3b9d2669b3357d3025ddd19d6f73750bc61bb41664964b3a4a625c5efed11137
+	b2sums = a47047360422dc5a2c9005e578bfdcfdc0171a549f114d14b451716db2e414ca868449e3203aa4d0b50621278a88ad362d2e9098543727bc75f6b0df7ab20169
 
 pkgname = citations

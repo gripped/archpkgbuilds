@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=citations
-pkgver=0.9.0
+pkgver=0.10.0
 pkgrel=1
 pkgdesc='Manage your bibliographies using the BibTeX format'
 arch=(x86_64)
@@ -11,14 +11,13 @@ groups=(gnome-circle)
 depends=(
   cairo
   dconf
-  gcc-libs
   glib2
   glibc
   gtk4
   gtksourceview5
   hicolor-icon-theme
   libadwaita
-  openssl
+  libgcc
   poppler-glib
 )
 makedepends=(
@@ -27,14 +26,25 @@ makedepends=(
   meson
   rust
 )
-source=("git+https://gitlab.gnome.org/World/citations.git#tag=$pkgver")
-b2sums=(2bafc52297bde73782fa67e2d5f037f568dfd6ff63bad3539f5b7faa0b8df2662a8d94bd0f753fb3735939b4e498d3f2b6134541fe1194b31734a264334d201d)
+options=(!lto)
+source=(
+  "git+https://gitlab.gnome.org/World/citations.git#tag=$pkgver"
+  citations-out-of-tree-test.patch
+)
+b2sums=(
+  e1410d189be63cabeffa7d7880e414a811e60f3c2352b637831270c6b8b9d3be3b9d2669b3357d3025ddd19d6f73750bc61bb41664964b3a4a625c5efed11137
+  a47047360422dc5a2c9005e578bfdcfdc0171a549f114d14b451716db2e414ca868449e3203aa4d0b50621278a88ad362d2e9098543727bc75f6b0df7ab20169
+)
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
+
+  # Fix running test out of tree
+  # https://gitlab.gnome.org/World/citations/-/merge_requests/168
+  git apply -3 ../citations-out-of-tree-test.patch
 }
 
 build() {
