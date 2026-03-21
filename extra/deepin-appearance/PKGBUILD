@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-appearance
-pkgver=1.1.76
+pkgver=1.1.77
 pkgrel=1
 pkgdesc='Application resource management and control services for the dde desktop environment'
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('qt6-base' 'dtk6core' 'kconfig' 'kwindowsystem' 'kglobalaccel' 'libxcur
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-appearance.git#tag=$pkgver")
-sha512sums=('ae2bd099942c7d10e812d98bd23ed6f5ea8ba12a2e0f224a1e339f0ff08c28755862f6d049a1b73f22a01e85fcb0df99e9a561db84f5fc8ad0b741a8651d0849')
+sha512sums=('d5f50f894550d8100e25125f89bb9443f363c9c7152599146f89d4b39971cedc042120ae0b7cc35adac9c3a6b9c432b781cad70aef41772de7ffa9b110396690')
 
 build() {
   cd dde-appearance
