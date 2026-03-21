@@ -2,18 +2,24 @@
 # Contributor: Alexander F. Rødseth <xyproto@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
-pkgname=gexiv2
+pkgbase=gexiv2
+pkgname=(
+  gexiv2
+  gexiv2-docs
+)
+pkgver=50.0
 pkgver=0.16.0
-pkgrel=1
+pkgrel=2
 pkgdesc='GObject-based wrapper around the Exiv2 library'
 url='https://gitlab.gnome.org/GNOME/gexiv2'
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
   exiv2
-  gcc-libs
   glib2
   glibc
+  libgcc
+  libstdc++
 )
 makedepends=(
   gi-docgen
@@ -44,7 +50,7 @@ check() {
   meson test -C build --print-errorlogs
 }
 
-package() {
+package_gexiv2() {
   depends+=(
     libg{lib,object,io}-2.0.so
     libexiv2.so
@@ -52,4 +58,14 @@ package() {
   provides+=(libgexiv2-0.16.so)
 
   meson install -C build --destdir "$pkgdir"
+
+  mkdir -p doc/usr/share
+  mv {"$pkgdir",doc}/usr/share/doc
+}
+
+package_gexiv2-docs() {
+  pkgdesc+=" (documentation)"
+  depends=()
+
+  mv doc/* "$pkgdir"
 }
