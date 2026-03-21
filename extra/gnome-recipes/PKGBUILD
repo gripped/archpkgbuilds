@@ -2,7 +2,7 @@
 
 pkgname=gnome-recipes
 pkgver=2.0.4
-pkgrel=14
+pkgrel=15
 pkgdesc='Recipe management application for GNOME'
 arch=(x86_64)
 url='https://wiki.gnome.org/Apps/Recipes'
@@ -10,7 +10,6 @@ license=(GPL-3.0-or-later)
 depends=(
   cairo
   dconf
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
@@ -19,6 +18,7 @@ depends=(
   gtk3
   hicolor-icon-theme
   libcanberra
+  libgcc
   libsoup3
   pango
 )
