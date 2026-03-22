@@ -1,7 +1,7 @@
 pkgbase = deepin-polkit-agent
 	pkgdesc = Deepin Polkit Agent
 	pkgver = 6.0.19
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/linuxdeepin/dde-polkit-agent
 	arch = x86_64
 	groups = deepin
@@ -12,10 +12,13 @@ pkgbase = deepin-polkit-agent
 	makedepends = qt6-tools
 	depends = deepin-shell
 	depends = dtk6core
+	depends = dtk6gui
 	depends = dtk6widget
 	depends = polkit-qt6
 	depends = qt6-base
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	source = git+https://github.com/linuxdeepin/dde-polkit-agent.git#tag=6.0.19
 	sha512sums = ab24d1f37f4e80dc037fdc9659724ab518fd52d11cc6ab09d5f26e312fe09456375e53c0fba44cc997026a0c212e64db6bb2c9c19a24ba363cf9ebf0057e372b
 
