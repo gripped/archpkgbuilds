@@ -5,7 +5,7 @@
 pkgbase=gsettings-qt
 pkgname=('gsettings-qt5' 'gsettings-qt6')
 pkgver=1.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Library to access GSettings from Qt"
 arch=('x86_64')
 url="https://gitlab.com/ubports/development/core/gsettings-qt"
@@ -31,7 +31,7 @@ build() {
 
 package_gsettings-qt5() {
   pkgdesc="Library to access GSettings from Qt5"
-  depends=('gcc-libs' 'glib2' 'glibc' 'qt5-base' 'qt5-declarative')
+  depends=('glib2' 'glibc' 'libgcc' 'libstdc++' 'qt5-base' 'qt5-declarative')
   provides=('gsettings-qt')
   conflicts=('gsettings-qt')
   replaces=('gsettings-qt')
@@ -42,7 +42,7 @@ package_gsettings-qt5() {
 
 package_gsettings-qt6() {
   pkgdesc="Library to access GSettings from Qt6"
-  depends=('gcc-libs' 'glib2' 'glibc' 'qt6-base' 'qt6-declarative')
+  depends=('glib2' 'glibc' 'libgcc' 'libstdc++' 'qt6-base' 'qt6-declarative')
 
   cd gsettings-qt
   DESTDIR="$pkgdir" ninja -C build install
