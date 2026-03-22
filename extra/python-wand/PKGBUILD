@@ -2,13 +2,13 @@
 
 pkgname=python-wand
 pkgver=0.6.13
-pkgrel=1
+pkgrel=2
 pkgdesc="Ctypes-based simple MagickWand API binding for Python"
 url="https://github.com/emcconville/wand"
 license=('MIT')
 arch=('any')
 depends=('imagemagick' 'libxml2' 'python')
-makedepends=('git' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest' 'python-pytest-forked' 'python-pytest-xdist'
               'python-psutil' 'ghostscript' 'librsvg')
 source=("git+https://github.com/emcconville/wand.git#tag=$pkgver")
@@ -16,7 +16,7 @@ sha512sums=('ee4f80ba80ea8390693c7c9dcba9d48a98e553fd8dca22a38020f2fc8d808281db7
 
 build() {
   cd wand
-  python setup.py build
+  PYTHONPATH="$PWD" python -m build --wheel --no-isolation
 }
 
 check() {
@@ -27,6 +27,6 @@ check() {
 
 package() {
   cd wand
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
