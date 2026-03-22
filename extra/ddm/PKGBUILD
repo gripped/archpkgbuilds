@@ -3,15 +3,16 @@
 
 pkgname=ddm
 pkgver=0.3.3
-pkgrel=1
+pkgrel=2
 pkgdesc='New Display Manager for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/ddm"
 license=('GPL-2.0-or-later')
 groups=('deepin')
 depends=(bash
-         gcc-libs
          glibc
+         libgcc
+         libstdc++
          libxau
          pam
          qt6-base
@@ -34,7 +35,8 @@ build() {
   cmake . -GNinja \
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DCMAKE_INSTALL_LIBEXECDIR=lib \
-      -DCMAKE_INSTALL_PREFIX=/usr
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DDBUS_CONFIG_DIR=/usr/share/dbus-1/system.d
 
   cmake --build .
 }
