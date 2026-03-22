@@ -2,7 +2,7 @@
 
 pkgname=lorem
 pkgver=1.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple app to generate the Lorem Ipsum placeholder text'
 arch=(x86_64)
 url='https://apps.gnome.org/Lorem/'
@@ -10,12 +10,12 @@ license=(GPL-3.0-or-later)
 groups=(gnome-circle)
 depends=(
   dconf
-  gcc-libs
   glib2
   glibc
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
 )
 makedepends=(
   appstream
@@ -30,7 +30,7 @@ prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
