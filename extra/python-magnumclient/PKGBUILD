@@ -2,8 +2,8 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-magnumclient
-pkgver=4.9.0
-pkgrel=2
+pkgver=4.10.0
+pkgrel=1
 pkgdesc="Client library for Magnum API"
 arch=('any')
 url="https://docs.openstack.org/python-magnumclient/latest/"
@@ -16,8 +16,8 @@ makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python
 checkdepends=('python-openstackclient' 'python-oslotest' 'python-osprofiler' 'python-stestr'
               'python-testscenarios' 'python-testtools')
 source=("git+https://github.com/openstack/python-magnumclient.git#tag=$pkgver")
-sha512sums=('c317132946ba8eeb5107d6e8026264db4c5d1c776e32eb76ab5f4547e67d41cbe3885b124a8b7764f6e6c84c1d515aff7fa5f685ca05228bdc6b1a2383639bb0')
-b2sums=('9e2a83fc3fc066eecdb5e76a0fa6e1a077c425f8f41b5590765f50eced9dcd428e6eadeb49c16e59446b998cbcda339df07307af4bc76facedc52cacef5e9e46')
+sha512sums=('acfff650aa4629bcdef9ce51c5f64485967411e22a4a481568b9bcc4c3e4b3a5ef8ff3e725582552813f73c98b9526d9dda670dd6877a740e397f93f5bffd696')
+b2sums=('e48bcbc0827d2f0127623662720fd5bc59a1ee9c842d98c07ed0cbe7c5a2b0b3c13a07eb36d313fb3ffea1703181e3adfb91e78ad8b4a4b7230da1ca97160550')
 
 build() {
   cd python-magnumclient
