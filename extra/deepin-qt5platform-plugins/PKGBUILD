@@ -2,12 +2,12 @@
 
 pkgname=deepin-qt5platform-plugins
 pkgver=5.7.30
-pkgrel=1
+pkgrel=2
 pkgdesc='Qt platform plugins for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/qt5platform-plugins"
 license=('LGPL-3.0-or-later')
-depends=('qt5-base' 'qt5-x11extras' 'libx11' 'libxi' 'libxcb' 'xcb-util-wm' 'glibc' 'gcc-libs' 'libsm' 'libice')
+depends=('qt5-base' 'qt5-x11extras' 'libx11' 'libxi' 'libxcb' 'xcb-util-wm' 'glibc' 'libgcc' 'libstdc++' 'libsm' 'libice')
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt5-xcb-private-headers' 'libglvnd' 'gtest'
              'extra-cmake-modules' 'dtkcommon' 'cairo')
 groups=('deepin')
