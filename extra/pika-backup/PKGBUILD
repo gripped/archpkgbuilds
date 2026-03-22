@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=pika-backup
-pkgver=0.7.5
+pkgver=0.7.6
 pkgrel=1
 pkgdesc='Easy to use backup tool to keep your data safe'
 arch=(x86_64)
@@ -10,13 +10,13 @@ license=(GPL-3.0-only)
 groups=(gnome-circle)
 depends=(
   borg
-  gcc-libs
   glib2
   glibc
   gtk4
   gvfs
   hicolor-icon-theme
   libadwaita
+  libgcc
   openssh
   pango
   python-pyfuse3
@@ -29,14 +29,14 @@ makedepends=(
   rust
 )
 checkdepends=(xorg-server-xvfb)
-source=("git+https://gitlab.gnome.org/World/pika-backup.git#tag=v$pkgver")
-b2sums=(34170b9c1d46da73f0e6339acdc3e95ff03e53183eedbf83930fc9afa214f7d2461565225cf4d858a5a26b783ceb0b86985dc0c5ec864e9171967355331ad5b4)
+source=("git+https://gitlab.gnome.org/World/pika-backup.git#tag=$pkgver")
+b2sums=(0d73f7a7f4d5d3a3d0934814aa4976cd3b397a46c83f5cd86e47dbb1c6518d9055e1b206b786904ce71734702cb3c1f44b2f029c144875e531d423d8f0090517)
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # https://gitlab.gnome.org/World/pika-backup/-/merge_requests/310
   git cherry-pick -n f0f7603dc60c6519dfea2027ab357d72a97e1478
