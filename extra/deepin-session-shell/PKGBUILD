@@ -4,18 +4,18 @@
 
 pkgname=deepin-session-shell
 pkgver=6.0.26
-pkgrel=2
+pkgrel=3
 pkgdesc='Deepin desktop-environment - session-shell module'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-session-shell-snipe"
 license=('GPL-3.0-or-later')
 # startdde: org.deepin.dde.Display1
 # deepin-session: org.deepin.dde.Session1
-depends=('deepin-daemon' 'deepin-network-core' 'deepin-qt5integration' 'deepin-wallpapers'
+depends=('bash' 'deepin-daemon' 'deepin-network-core' 'deepin-qt5integration' 'deepin-wallpapers'
          'gsettings-qt' 'liblightdm-qt5' 'lightdm' 'qt5-tools' 'startdde' 'kwayland5'
          'deepin-pw-check' 'dtkcore' 'dtkgui' 'dtkwidget' 'libx11' 'libxcursor'
          'qt5-svg' 'qt5-base' 'libxi' 'dconf' 'qt5-base' 'libxtst' 'glibc' 'libxfixes' 'pam'
-         'gcc-libs' 'libxrandr' 'libxcb' 'qt5-x11extras' 'deepin-session')
+         'libgcc' 'libstdc++' 'libxrandr' 'libxcb' 'qt5-x11extras' 'deepin-session')
 makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja')
 conflicts=('deepin-session-ui<5')
 provides=('lightdm-deepin-greeter')
@@ -27,6 +27,7 @@ prepare() {
   cd dde-session-shell-snipe
   # We don't have common-auth on Arch
   sed -i 's/common-auth/system-login/' files/pam.d/dde-lock
+  sed -i 's/dconfig_meta_files/dtk_add_config_meta_files/g' CMakeLists.txt
 }
 
 build() {
