@@ -2,7 +2,7 @@
 # Contributor: Lukas Fleischer <lfleischer@archlinux.org>
 
 pkgname=perl-datetime-format-iso8601
-pkgver=0.17
+pkgver=0.19
 pkgrel=1
 pkgdesc="Parses ISO8601 formats"
 arch=('any')
@@ -13,8 +13,8 @@ makedepends=()
 optdepends=('perl-file-find-rule'
             'perl-test-pod')
 options=(!emptydirs)
-source=("https://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/DateTime-Format-ISO8601-$pkgver.tar.gz")
-sha256sums=('04899f3b1896b2e0933a1d728b3094ccd2f7d09e434c4eac2696cd931bbf0551')
+source=("https://cpan.metacpan.org/authors/id/T/TI/TIMLEGGE/DateTime-Format-ISO8601-$pkgver.tar.gz")
+sha256sums=('104fe5f79523cde5494ba7654b6b4357a2d8bb71f18ca6eb836e1475a70bcc1b')
 
 build() {
   cd "$srcdir"/DateTime-Format-ISO8601-$pkgver
@@ -25,6 +25,4 @@ build() {
 package() {
   cd "$srcdir"/DateTime-Format-ISO8601-$pkgver
   make install DESTDIR="${pkgdir}"
-  find "$pkgdir" -name perllocal.pod -delete
-  find "$pkgdir" -name .packlist -delete
 }
