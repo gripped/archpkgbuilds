@@ -2,14 +2,13 @@
 
 pkgname=warp
 pkgver=0.9.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Securely send files to each other via the internet or local network by exchanging a word-based code'
 arch=(x86_64)
 url='https://apps.gnome.org/Warp/'
 license=(GPL-3.0-or-later)
 groups=(gnome-circle)
 depends=(
-  gcc-libs
   glib2
   glibc
   graphene
@@ -24,6 +23,7 @@ depends=(
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
 )
 makedepends=(
   appstream
@@ -41,7 +41,7 @@ prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # https://gitlab.gnome.org/World/warp/-/merge_requests/97
   git cherry-pick -n a34c02f2f1dc8baea3be2dae03167fab6427f792
