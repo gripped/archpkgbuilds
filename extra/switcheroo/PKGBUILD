@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=switcheroo
-pkgver=2.5.1
-pkgrel=2
+pkgver=2.5.2
+pkgrel=1
 pkgdesc='Convert between different image filetypes and resize them easily'
 arch=(x86_64)
 url='https://apps.gnome.org/Converter/'
@@ -10,7 +10,6 @@ license=(GPL-3.0-only)
 groups=(gnome-circle)
 depends=(
   dconf
-  gcc-libs
   gdk-pixbuf2
   ghostscript
   glib2
@@ -19,6 +18,7 @@ depends=(
   hicolor-icon-theme
   imagemagick
   libadwaita
+  libgcc
   libheif
   libjpeg-turbo
   libjxl
@@ -35,7 +35,7 @@ makedepends=(
   rust
 )
 source=("git+https://gitlab.com/adhami3310/Switcheroo.git#tag=v$pkgver")
-b2sums=(b68b5d43e74269a6a3d17a1b7f0946878aa4b886b56a752d2bd42d7bff9e646097459904e451afaa0656681c43f50aeb80cf1800347e286530511fbb6f31222f)
+b2sums=(22ef233203de4ffea7c2f1b27b53a88f9dd373e216fb041713bab57258f1ca8c3081f9c98a9bd5b702830d25203d486915832ba658bf163665a3ab64e78a9e4f)
 
 prepare() {
   cd Switcheroo
