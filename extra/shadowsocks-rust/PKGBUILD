@@ -4,12 +4,12 @@
 
 pkgname=shadowsocks-rust
 pkgver=1.24.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Rust port of shadowsocks'
 arch=(x86_64)
 url='https://github.com/shadowsocks/shadowsocks-rust'
 license=('MIT')
-depends=('glibc' 'gcc-libs' 'openssl')
+depends=('glibc' 'libgcc' 'libstdc++' 'openssl' 'rocksdb' 'zstd')
 makedepends=('git' 'cargo' 'clang')
 options=(!lto)
 source=("git+https://github.com/shadowsocks/shadowsocks-rust.git#tag=v$pkgver"
@@ -26,7 +26,7 @@ prepare() {
 
 build() {
   cd shadowsocks-rust
-  cargo build --release --frozen --features full-extra
+  ROCKSDB_LIB_DIR=/usr/lib ZSTD_SYS_USE_PKG_CONFIG=1 cargo build --release --frozen --features full-extra
 }
 
 package() {
