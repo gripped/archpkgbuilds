@@ -2,19 +2,19 @@
 
 pkgname=wildcard
 pkgver=0.3.3
-pkgrel=3
+pkgrel=4
 pkgdesc='Provides a simple interface to test/practice regular expressions'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/Wildcard'
 license=(GPL-3.0-or-later)
 depends=(
   dconf
-  gcc-libs
   glib2
   glibc
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
 )
 makedepends=(
   appstream
@@ -37,7 +37,7 @@ prepare() {
   cd Wildcard
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # https://gitlab.gnome.org/World/Wildcard/-/merge_requests/40
   git apply -3 ../wildcard-dbus-activatable.patch
