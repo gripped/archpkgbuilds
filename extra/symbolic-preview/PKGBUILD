@@ -2,7 +2,7 @@
 
 pkgname=symbolic-preview
 pkgver=0.0.9
-pkgrel=7
+pkgrel=8
 pkgdesc='Utility to create, preview and export symbolic icons'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/design/symbolic-preview'
@@ -10,13 +10,13 @@ license=(GPL-3.0-or-later)
 depends=(
   cairo
   dconf
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
   libxml2
   pango
 )
@@ -41,7 +41,7 @@ prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # https://gitlab.gnome.org/World/design/symbolic-preview/-/issues/46
   git cherry-pick -n 75e47ee4811dc466e9a5ece21e73f56a42866009
