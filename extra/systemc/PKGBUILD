@@ -5,12 +5,12 @@
 
 pkgname=systemc
 pkgver=3.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Set of C++ classes and macros which provide an event-driven simulation interface for modeling and describing complex hardware systems"
 url="http://www.accellera.org/downloads/standards/systemc"
 arch=('x86_64')
-license=('Apache')
-depends=('gcc-libs')
+license=('Apache-2.0')
+depends=('glibc' 'libgcc' 'libstdc++')
 makedepends=('cmake' 'ninja' 'git')
 replaces=('systemc-cmake')
 source=("git+https://github.com/accellera-official/systemc.git#tag=$pkgver")

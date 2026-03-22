@@ -1,14 +1,16 @@
 pkgbase = systemc
 	pkgdesc = Set of C++ classes and macros which provide an event-driven simulation interface for modeling and describing complex hardware systems
 	pkgver = 3.0.1
-	pkgrel = 1
+	pkgrel = 2
 	url = http://www.accellera.org/downloads/standards/systemc
 	arch = x86_64
-	license = Apache
+	license = Apache-2.0
 	makedepends = cmake
 	makedepends = ninja
 	makedepends = git
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	replaces = systemc-cmake
 	source = git+https://github.com/accellera-official/systemc.git#tag=3.0.1
 	sha512sums = 463e57295eaea929d02b62f3269ab665d5720f4d5dc85ee820d8464b684acaa741e5d83e5caeee15cd9f14282f540238af3227a4762d53fd03d2f0bc1c8665fa
