@@ -7,33 +7,30 @@
 _pkgname=requests-futures
 pkgname=python-requests-futures
 pkgver=1.0.1
-pkgrel=4
+pkgrel=5
 pkgdesc='Asynchronous Python HTTP Requests for Humans using Futures'
 arch=('any')
 url='https://github.com/ross/requests-futures'
-license=('Apache')
+license=('Apache-2.0')
 depends=('python-requests')
-makedepends=('python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 checkdepends=('python-pytest' 'pifpaf' 'httpbin')
-source=(https://files.pythonhosted.org/packages/source/r/requests-futures/requests-futures-$pkgver.tar.gz)
-sha256sums=('f55a4ef80070e2858e7d1e73123d2bfaeaf25b93fd34384d8ddf148e2b676373')
+source=("git+https://github.com/ross/requests-futures.git#tag=v$pkgver")
+sha256sums=('9fb481df169e4e8890adb1c96621eea29cfdf8651753623529df484f55b8abc8')
 
 build() {
-  cd requests-futures-$pkgver
-  python setup.py build
+  cd requests-futures
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd requests-futures-$pkgver
+  cd requests-futures
   eval `pifpaf run httpbin`
   HTTPBIN_URL="${PIFPAF_URLS}/" pytest
   pifpaf_stop
 }
 
 package() {
-  cd requests-futures-$pkgver
-  python setup.py install \
-    -O1 \
-    --root="$pkgdir" \
-    --skip-build
+  cd requests-futures
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
