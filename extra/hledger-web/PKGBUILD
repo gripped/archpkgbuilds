@@ -3,8 +3,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hledger-web
-pkgver=1.51.2
-pkgrel=4
+pkgver=1.52
+pkgrel=1
 pkgdesc="Web-based user interface for the hledger accounting system"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
@@ -22,7 +22,7 @@ depends=('ghc-libs' 'hledger' 'haskell-hledger-lib' 'haskell-aeson' 'haskell-bas
 makedepends=('ghc')
 replaces=('hledger-api')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('24c9c56941713d768c3718ad714c3765e282b25c5db609f51938008471432c055c790f9fcc64dc8e995717d679e49c8aff383750dfe9bf7f966fb4ea5a97ceda')
+sha512sums=('c33fe21c1873bbd521deabb478019212e2e117ddaa66087f43462a55000d63583b8ff929d62eead108124db996642f7167b4bd05697344cc548304b591296e7e')
 
 build() {
     cd $pkgname-$pkgver
