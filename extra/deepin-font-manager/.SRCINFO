@@ -1,7 +1,7 @@
 pkgbase = deepin-font-manager
 	pkgdesc = A font management tool for Deepin desktop
 	pkgver = 6.5.12
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/linuxdeepin/deepin-font-manager
 	arch = x86_64
 	groups = deepin-extra
@@ -19,7 +19,10 @@ pkgbase = deepin-font-manager
 	depends = qt6-svg
 	depends = fontconfig
 	depends = freetype2
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
+	depends = hicolor-icon-theme
 	optdepends = deepin-file-manager: font preview in file manager
 	source = git+https://github.com/linuxdeepin/deepin-font-manager.git#tag=6.5.12
 	sha512sums = 55554630b8145a19a17f4b99ee8fd968acb48ef4b80159e79f4a1725bcfaedea08c60717b16dc1765e2b8e75bd916142041d3bb5c74f7e7563d0a885983b21d3

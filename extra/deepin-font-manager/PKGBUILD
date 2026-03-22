@@ -2,12 +2,12 @@
 
 pkgname=deepin-font-manager
 pkgver=6.5.12
-pkgrel=1
+pkgrel=2
 pkgdesc='A font management tool for Deepin desktop'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-font-manager"
 license=('GPL-3.0-or-later')
-depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-svg' 'fontconfig' 'freetype2' 'gcc-libs')
+depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-svg' 'fontconfig' 'freetype2' 'glibc' 'libgcc' 'libstdc++' 'hicolor-icon-theme')
 makedepends=('git' 'cmake' 'deepin-file-manager' 'ninja' 'qt6-tools' 'clang')
 optdepends=('deepin-file-manager: font preview in file manager')
 groups=('deepin-extra')
