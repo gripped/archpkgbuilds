@@ -2,7 +2,7 @@
 
 pkgname=share-preview
 pkgver=1.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Preview and debug websites metadata tags for social media share'
 arch=(x86_64)
 url='https://apps.gnome.org/SharePreview/'
@@ -11,12 +11,12 @@ groups=(gnome-circle)
 depends=(
   curl
   dconf
-  gcc-libs
   glib2
   glibc
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
 )
 makedepends=(
   appstream
@@ -34,7 +34,7 @@ prepare() {
   git cherry-pick -n cacc49175c3288099939ad359fb93f4ce34f0b70
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # https://github.com/rafaelmardojai/share-preview/pull/96
   git cherry-pick -n 519d15fedb035afc831ac9e86e2186d16fabe7c7
