@@ -2,14 +2,13 @@
 
 pkgname=metronome
 pkgver=1.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Beats the rhythm for you to keep the tempo'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/metronome'
 license=(GPL-3.0-or-later)
 depends=(
   dconf
-  gcc-libs
   glib2
   glibc
   graphene
@@ -20,6 +19,7 @@ depends=(
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
 )
 makedepends=(
   appstream
@@ -40,7 +40,7 @@ prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # https://gitlab.gnome.org/World/metronome/-/merge_requests/62
   git apply -3 ../metronome-dbus-activatable.patch
