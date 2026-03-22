@@ -1,17 +1,20 @@
 pkgbase = deepin-picker
 	pkgdesc = Color picker tool for deepin
 	pkgver = 6.0.11
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/linuxdeepin/deepin-picker
 	arch = x86_64
 	groups = deepin-extra
-	license = GPL3
+	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = qt6-tools
 	depends = dtk6gui
 	depends = dtk6widget
 	depends = qt6-base
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
+	depends = hicolor-icon-theme
 	source = git+https://github.com/linuxdeepin/deepin-picker.git#tag=6.0.11
 	sha512sums = faf5e242d3452cbf225378261d263594e35c358b0b0ce637cad3aa25a06908d9ac2ee0c927a6a61339753a8c496e17eda3d2de6d40729cda744e872f160365ba
 
