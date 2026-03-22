@@ -4,14 +4,13 @@
 
 pkgname=frameworkintegration
 pkgver=6.24.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Framework providing components to allow applications to integrate with a KDE Workspace'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL-2.0-only
          LGPL-3.0-only)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kcolorscheme
          kconfig
          ki18n
@@ -19,6 +18,7 @@ depends=(gcc-libs
          knewstuff
          knotifications
          kwidgetsaddons
+         libstdc++
          qt6-base)
 makedepends=(appstream-qt
              extra-cmake-modules
