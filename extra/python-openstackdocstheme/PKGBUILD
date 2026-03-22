@@ -3,25 +3,25 @@
 
 pkgname=python-openstackdocstheme
 pkgver=3.5.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Open Infrastructure Projects Sphinx Themes"
 arch=('any')
 url="https://opendev.org/openstack/openstackdocstheme"
-license=('Apache')
+license=('Apache-2.0')
 depends=('python-pbr' 'python-dulwich' 'python-sphinx')
-makedepends=('git' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
 options=('!emptydirs')
 source=("git+https://github.com/openstack/openstackdocstheme.git#tag=$pkgver")
 sha512sums=('1b552da5bd13d5b9501348d1659225a35a9b5de2223f724345a687775ad97c98dbe12fb0498ec52c4b3a2529d788357abacfa4abf620e63b024018b5c6053537')
 
 build() {
   cd openstackdocstheme
-  python setup.py build
-  PYTHONPATH="$PWD/build/lib" sphinx-build -W -b man doc/source doc/build/man
+  python -m build --wheel --no-isolation
+  PYTHONPATH="$PWD" sphinx-build -W -b man doc/source doc/build/man
 }
 
 package() {
   cd openstackdocstheme
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 doc/build/man/*.1 -t "$pkgdir"/usr/share/man/man1/
 }
