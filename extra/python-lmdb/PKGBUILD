@@ -3,7 +3,7 @@
 
 _srcname=py-lmdb
 pkgname=python-lmdb
-pkgver=1.8.1
+pkgver=2.1.1
 pkgrel=1
 pkgdesc='Universal Python binding for the LMDB Lightning Database'
 arch=('x86_64')
@@ -25,7 +25,7 @@ checkdepends=(
     'python-pytest')
 source=("https://github.com/jnwatson/py-lmdb/archive/${_srcname}_${pkgver}/${pkgname}-${pkgver}.tar.gz"
         '010-python-lmdb-replace-pkg_resources-due-to-deprecation-in-setuptools-82.patch')
-sha256sums=('fa608c66b138fb963b0ac460ef6511c4faa7045417b461dc37aa77d1c5739592'
+sha256sums=('e2d07142ac523be99026b3b61073e7d4bfd0cc569295602cf1acdd08280d0e20'
             'f1e175793c7a020361a98acba9bc190ccf3dae8c9800c0d207e63a2419aa8e70')
 
 prepare() {
