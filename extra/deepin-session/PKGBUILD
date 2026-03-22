@@ -2,7 +2,7 @@
 
 pkgname=deepin-session
 pkgver=2.0.15
-pkgrel=1
+pkgrel=2
 pkgdesc='New deepin session, based on systemd and existing projects'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-session"
@@ -11,7 +11,7 @@ license=('GPL-3.0-or-later')
 # deepin-kwin: dde-session@.service
 # deepin-shell: dde-session-initialized.target.wants/dde-shell@DDE.service
 # deepin-qt{5,6} plugins/integrations: enabled by dde-session
-depends=('glibc' 'gcc-libs' 'glib2' 'libx11' 'libsecret' 'qt6-base' 'dtk6core'
+depends=('bash' 'glibc' 'glib2' 'libcap-ng' 'libgcc' 'libstdc++' 'libx11' 'libsecret' 'qt6-base' 'dtk6core'
          'libxcursor' 'libxfixes' 'systemd-libs' 'deepin-session-ui' 'deepin-kwin' 'deepin-shell'
          'deepin-qt5platform-plugins' 'deepin-qt5integration'
          'deepin-qt6platform-plugins' 'deepin-qt6integration')
