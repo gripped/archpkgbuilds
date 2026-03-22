@@ -1,7 +1,7 @@
 pkgbase = xapian-core
 	pkgdesc = Open source search engine library
 	pkgver = 1.4.30
-	pkgrel = 1
+	pkgrel = 2
 	epoch = 1
 	url = https://www.xapian.org/
 	arch = x86_64
@@ -18,7 +18,8 @@ pkgbase = xapian-core
 
 pkgname = xapian-core
 	depends = bash
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = glibc
 	depends = util-linux-libs
 	depends = libuuid.so
