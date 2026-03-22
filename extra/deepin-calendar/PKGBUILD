@@ -4,12 +4,12 @@
 
 pkgname=deepin-calendar
 pkgver=6.5.9
-pkgrel=1
+pkgrel=2
 pkgdesc='Calendar for Deepin Desktop Environment'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-calendar"
 license=('GPL-3.0-or-later')
-depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'glibc' 'gcc-libs' 'libical' 'qt6-base' 'qt6-svg')
+depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'glibc' 'libgcc' 'libstdc++' 'libical' 'qt6-base' 'qt6-svg')
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'qt6-declarative')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-calendar.git#tag=$pkgver")
