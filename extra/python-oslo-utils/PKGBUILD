@@ -3,14 +3,14 @@
 
 pkgname=python-oslo-utils
 pkgver=8.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Oslo Utility library"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.utils/$pkgver"
 license=('Apache-2.0')
 depends=('python-pbr' 'python-iso8601' 'python-oslo-i18n' 'python-netaddr'
          'python-debtcollector' 'python-pyparsing' 'python-packaging' 'python-yaml' 'python-psutil')
-makedepends=('git' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-eventlet' 'python-testscenarios' 'python-testtools' 'python-oslotest'
               'python-ddt' 'python-stestr' 'qemu-img')
 source=("git+https://github.com/openstack/oslo.utils.git#tag=$pkgver")
@@ -24,7 +24,7 @@ prepare() {
 
 build() {
   cd oslo.utils
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -34,7 +34,7 @@ check() {
 
 package() {
   cd oslo.utils
-  python setup.py install --root="$pkgdir/" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
 # vim:set ts=2 sw=2 et:
