@@ -2,41 +2,29 @@
 # Contributor: Josip Ponjavic <josipponjavic at gmail dot com>
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
-pkgbase=deepin-wallpapers
-pkgname=(deepin-wallpapers deepin-community-wallpapers)
-pkgver=1.7.7
-pkgrel=3
+pkgname=deepin-wallpapers
+pkgver=1.7.8
+pkgrel=1
 epoch=1
 pkgdesc='Deepin Wallpapers'
 arch=('any')
-license=('GPL')
+license=('CC0-1.0')
 url="https://github.com/linuxdeepin/deepin-wallpapers"
-makedepends=('deepin-api')
-source=("$pkgbase-$pkgver.tar.gz::https://github.com/linuxdeepin/deepin-wallpapers/archive/$pkgver.tar.gz")
-sha512sums=('11c049d9e5a5864340c989447e2c8b1f423256ed64813071d23bec75c4ee6c0d8de119018c119ea35aee55971a153bf0105e9284880a0aa310b08fb261fbf4df')
-
-prepare() {
-  cd $pkgbase-$pkgver
-  cp -a "$srcdir"/$pkgbase-$pkgver{,-community}
-}
+makedepends=('git' 'deepin-api')
+replaces=('deepin-community-wallpapers')
+source=("git+https://github.com/linuxdeepin/deepin-wallpapers.git#tag=$pkgver")
+sha512sums=('00c8e88c0fabd39706404aa9013c267c2cfe0c3b5a293399415f7b577ef00b6a282702f0500a13ad428f048747f24e419c4d42d96ff2212d57ec4490e1ad00d4')
 
 build() {
-  cd "$srcdir"/$pkgbase-$pkgver
-  for _pic in deepin/*; do
-    make PICS=$_pic
-  done
-
-  cd "$srcdir"/$pkgbase-$pkgver-community
-  for _pic in deepin-community/*; do
-    make PICS=$_pic
-  done
+  cd deepin-wallpapers
+  make
 }
 
-package_deepin-wallpapers() {
+package() {
+  cd deepin-wallpapers
   pkgdesc='Default wallpapers for DDE'
   groups=('deepin')
 
-  cd $pkgbase-$pkgver
   install -dm755 "$pkgdir"/usr/share/wallpapers
   cp -r deepin "$pkgdir"/usr/share/wallpapers/
 
@@ -45,19 +33,7 @@ package_deepin-wallpapers() {
 
   # Suggested by upstream
   install -dm755 "$pkgdir"/usr/share/backgrounds/deepin
-  ln -s ../../wallpapers/deepin/Hummingbird_by_Shu_Le.jpg "$pkgdir"/usr/share/backgrounds/deepin/desktop.jpg
-  ln -s $(echo -n /usr/share/wallpapers/deepin/Hummingbird_by_Shu_Le.jpg | md5sum | cut -d " " -f 1).jpg \
+  ln -s ../../wallpapers/deepin/desktop.jpg "$pkgdir"/usr/share/backgrounds/deepin/desktop.jpg
+  ln -s $(echo -n /usr/share/wallpapers/deepin/desktop.jpg | md5sum | cut -d " " -f 1).jpg \
         "$pkgdir"/var/cache/image-blur/$(echo -n /usr/share/backgrounds/deepin/desktop.jpg | md5sum | cut -d " " -f 1).jpg
-}
-
-package_deepin-community-wallpapers() {
-  pkgdesc='Community wallpapers for DDE'
-  groups=('deepin-extra')
-
-  cd $pkgbase-$pkgver-community
-  install -dm755 "$pkgdir"/usr/share/wallpapers/deepin
-  cp deepin-community/* "$pkgdir"/usr/share/wallpapers/deepin/
-
-  install -dm755 "$pkgdir"/var/cache
-  cp -r image-blur "$pkgdir"/var/cache/
 }
