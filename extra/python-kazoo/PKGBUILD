@@ -2,8 +2,8 @@
 
 _name=kazoo
 pkgname=python-kazoo
-pkgver=2.10.0
-pkgrel=5
+pkgver=2.11.0
+pkgrel=1
 pkgdesc="A high-level Python library that makes it easier to use Apache Zookeeper"
 arch=(any)
 url="https://github.com/python-zk/kazoo"
@@ -15,26 +15,20 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-# checkdepends=(python-nose python-objgraph)
+# NOTE: tests require running zookeeper
 optdepends=(
   'python-eventlet: for using eventlet as networking library'
   'python-gevent: for using gevent as networking library'
   'python-pure-sasl: for SASL support'
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('b65181ed1ace1676ac973f7d4cac9045600f9fc5b2499d50bd0502e32016ffe8caf267a54cdbab8bf216f42d40b8eba4cbfafe8360286fc373731dbfe883c231')
-b2sums=('e1f43ac16c48a7756391fdb24c426943a54b0a6e04e7e07be16024d2b10f1d599fa5e33a3cdd170a71dde1deadc67a270615df24d839e138f248ad389cdf3973')
+sha512sums=('4714b1ce308aaad16004feccc23fdc97eda1db491424500c5a443717e95afc9ecc6df2163c38fe254f9cf0750bc41d8891bfce41752e1bf31533b10c0533ec5f')
+b2sums=('5d4d7762a920c53669eb7d2582d43835d2cfb3eb170c3e0c03271d515fbfc555935ea06025155dd2011b037a34a005970e88702d3640e133534d019e0dba5168')
 
 build() {
   cd $_name-$pkgver
   python -m build --wheel --no-isolation
 }
-
-# NOTE: check() requires running zookeeper
-# check() {
-#   cd $_name-$pkgver
-#   export PYTHONPATH="build:${PYTHONPATH}"
-# }
 
 package() {
   cd $_name-$pkgver
