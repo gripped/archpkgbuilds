@@ -1,15 +1,16 @@
 pkgbase = smartdns
 	pkgdesc = A local DNS server to obtain the fastest website IP for the best Internet experience
 	pkgver = 47.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/pymumu/smartdns
 	arch = x86_64
-	license = GPL
+	license = GPL-3.0-or-later
 	checkdepends = gtest
 	checkdepends = bind
 	makedepends = git
 	makedepends = systemd
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	depends = openssl
 	backup = etc/smartdns/smartdns.conf
 	source = git+https://github.com/pymumu/smartdns.git#tag=Release47.1
