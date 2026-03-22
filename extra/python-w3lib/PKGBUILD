@@ -3,20 +3,20 @@
 
 pkgname=python-w3lib
 pkgver=2.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Library of web-related functions"
 arch=('any')
 license=('BSD-3-Clause')
 url="https://github.com/scrapy/w3lib"
 depends=('python')
-makedepends=('git' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 checkdepends=('python-pytest')
 source=("git+https://github.com/scrapy/w3lib.git#tag=v$pkgver")
 sha512sums=('2f87875bec102450a12dd911e12719af1df478f9eaa2d329f76c85126bad2b62c36ad3a8bff775c2da86f5da583417df810c0323b585ccaafc7f619da34d24f0')
 
 build() {
   cd w3lib
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -26,6 +26,6 @@ check() {
 
 package() {
   cd w3lib
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
