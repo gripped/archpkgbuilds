@@ -3,13 +3,13 @@
 
 pkgname=python-cliff
 pkgver=4.13.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Command Line Interface Formulation Framework"
 arch=('any')
 url="https://docs.openstack.org/cliff/latest/"
-license=('Apache')
+license=('Apache-2.0')
 depends=('python-autopage' 'python-cmd2' 'python-prettytable' 'python-stevedore' 'python-yaml')
-makedepends=('git' 'python-setuptools' 'python-pbr')
+makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-pbr')
 checkdepends=('python-stestr' 'python-sphinx' 'python-testscenarios')
 options=('!emptydirs')
 source=("git+https://github.com/openstack/cliff.git#tag=$pkgver"
@@ -25,17 +25,17 @@ prepare() {
 
 build() {
   cd cliff
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
   cd cliff
-  PYTHONPATH="$PWD/build/lib" stestr run
+  PYTHONPATH="$PWD/src" stestr run
 }
 
 package() {
   cd cliff
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
 # vim:set ts=2 sw=2 et:
