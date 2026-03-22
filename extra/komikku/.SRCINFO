@@ -1,6 +1,6 @@
 pkgbase = komikku
 	pkgdesc = Manga and comics reader for GNOME
-	pkgver = 1.99.0
+	pkgver = 50.0.0
 	pkgrel = 1
 	url = https://apps.gnome.org/Komikku/
 	arch = any
@@ -10,6 +10,7 @@ pkgbase = komikku
 	makedepends = blueprint-compiler
 	makedepends = git
 	makedepends = meson
+	makedepends = python-curl_cffi
 	depends = dconf
 	depends = gdk-pixbuf2
 	depends = glib2
@@ -25,8 +26,10 @@ pkgbase = komikku
 	depends = python-colorthief
 	depends = python-cryptography
 	depends = python-dateparser
+	depends = python-ebooklib
 	depends = python-emoji
 	depends = python-gobject
+	depends = python-jxlpy
 	depends = python-keyring
 	depends = python-lxml
 	depends = python-magic
@@ -42,7 +45,8 @@ pkgbase = komikku
 	depends = python-unidecode
 	depends = python-urllib3
 	depends = webkitgtk-6.0
-	source = git+https://codeberg.org/valos/Komikku.git#tag=v1.99.0
-	b2sums = 0a466cadad47bdde494f35091f211a76aa926df658b049849eac8c570f0c070d443efc495b59c7efe85751f32c4683742efc16dba20d83f5ec8731c464def898
+	optdepends = python-curl_cffi: for impersonating browser requests
+	source = git+https://codeberg.org/valos/Komikku.git#tag=v50.0.0
+	b2sums = 236599464fff6ad8769a7cb3b176ab115f7b911dc4b984a3528161857f268263cf2280fccf447c62a9ca756e7a516f0af3b26a7ecf3716b828dec46bbe4fe882
 
 pkgname = komikku
