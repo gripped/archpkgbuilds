@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-oslo-serialization
-pkgver=5.9.0
+pkgver=5.9.1
 pkgrel=1
 pkgdesc="Oslo Serialization library"
 arch=('any')
@@ -11,13 +11,7 @@ depends=('python-msgpack' 'python-oslo-utils')
 makedepends=('git' 'python-build' 'python-installer' 'python-pbr')
 checkdepends=('python-stestr' 'python-oslotest' 'python-oslo-i18n')
 source=("git+https://github.com/openstack/oslo.serialization.git#tag=$pkgver")
-sha512sums=('a7a2c0c02986b2c247d00b1d561e00d25e3e3ad6657eb37b27cc8296e64db2baca7214e864c8e4f7d1440d28f6b49ca57fcdb5cfed9ad9fef64e827557ba197f')
-
-prepare() {
-  cd oslo.serialization
-  # We have system tzdata
-  sed -i '/tzdata/d' requirements.txt
-}
+sha512sums=('740a80be974e51df6331f4a8867ce0344a370d4be01c900bdab32cbbe567a9d336b97fa10ae4e5c366b5ae468f09a8d3459cd5735a5fb1f7def7476ef45780dc')
 
 build() {
   cd oslo.serialization
