@@ -5,13 +5,13 @@
 
 pkgname=python-pyx
 pkgver=0.17
-pkgrel=1
+pkgrel=2
 pkgdesc='Python library for the creation of PostScript and PDF files'
 arch=('any')
 url="https://pyx-project.org/"
 license=('GPL-2.0-or-later')
 depends=('python' 'texlive-latex')
-makedepends=('git' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 checkdepends=('ghostscript' 'python-pillow' 'python-testfixtures' 'texlive-fontsrecommended')
 source=("git+https://github.com/pyx-project/pyx.git#tag=$pkgver")
 sha512sums=('dce81fd0214728a0719f4074f4db5df1677bdcbbe1e91f943df9472c2fb4692d8b7380a04adad0e5ca86249e4e8d3010fe98cc4b0239286b2a09d03106a7e415')
@@ -25,7 +25,7 @@ prepare() {
 
 build() {
   cd pyx
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -36,5 +36,5 @@ check() {
 
 package() {
   cd pyx
-  python setup.py install -O1 --root="$pkgdir"
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
