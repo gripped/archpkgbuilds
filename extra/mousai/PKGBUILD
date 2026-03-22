@@ -2,7 +2,7 @@
 
 pkgname=mousai
 pkgver=0.7.9
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple application to identify songs'
 arch=(x86_64)
 url='https://apps.gnome.org/Mousai/'
@@ -11,7 +11,6 @@ groups=(gnome-circle)
 depends=(
   cairo
   dconf
-  gcc-libs
   glib2
   glibc
   graphene
@@ -22,6 +21,7 @@ depends=(
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
   libsoup3
 )
 makedepends=(
@@ -37,7 +37,7 @@ prepare() {
   cd Mousai
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
