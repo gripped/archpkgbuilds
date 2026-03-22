@@ -2,7 +2,7 @@
 
 pkgname=ocrfeeder
 pkgver=0.8.5
-pkgrel=9
+pkgrel=10
 pkgdesc='Document layout analysis and optical character recognition application'
 arch=(any)
 url='https://wiki.gnome.org/Apps/OCRFeeder'
@@ -11,13 +11,13 @@ depends=(
   gdk-pixbuf2
   ghostscript
   glib2
-  goocanvas
   gtk3
   gtkspell3
   hicolor-icon-theme
   iso-codes
   pango
   python
+  python-cairo
   python-gobject
   python-odfpy
   python-pillow
@@ -47,6 +47,9 @@ source=(
   ocrfeeder-20.patch
   ocrfeeder-22.patch
   ocrfeeder-25.patch
+  ocrfeeder-26.patch
+  ocrfeeder-27.patch
+  ocrfeeder-29.patch
 )
 b2sums=(
   a74150bf64cacab33ec11be5d01012f97024f3c8fb3bba57c7f70491fd5065cb1e841b606776e0937186007f8227998094df72cd0fb5a18c2922afde66a84e8c
@@ -59,6 +62,9 @@ b2sums=(
   f73b46b108c531d7ea6be1fdf880541729819569c030c9747b32ba45defdaf09ed39b6492d8c6f7056c36446c5bd239962cb87656226342328a800580a99d228
   a969308c8d66d49db90af83123514c094f5ae07de543e1458994d7ddcb06519f914b8f3750acaed70a9b26bd5b7c1757d20c7e2ffafd35e3c4cc9bab792a751c
   9b533c9216da1a8ecbd2777f040e57c119156cba283cfeb5aba684aff800d4d932b7499dd84390ca9f695f02047164230d505be0787cec8c7742cccc0324c0d4
+  956b92dfac2dfefd3ff8711a17dfb27aa32d4147673c5b14937ca1f0f5f21e708b4a9f42a4b059a77e4d3472f4b4a28f0471f0ba5f8dd65bd355ee4110f544b5
+  10f6caa4d70d7c288a2e84cced8307c48798305cd400a6e84e9063775302ef52629791c2e5404555b89c5595dfbccddeebf6b3cd6ed3247a19eeb68b595c2872
+  c1c9c9761f4e62d372ce8d148b28f838b4e8bebb71062eccb1310515227e5052be3c81955e37cf58e32e9e854d4134a7f64af580fb130d6eccbc9d4c0c9ad1ad
 )
 
 prepare() {
@@ -68,7 +74,7 @@ prepare() {
   git apply -3 ../ocrfeeder-11.patch
 
   # https://gitlab.gnome.org/GNOME/ocrfeeder/-/merge_requests/12
-  git apply -3 ../ocrfeeder-12.patch
+  # git apply -3 ../ocrfeeder-12.patch
 
   # https://gitlab.gnome.org/GNOME/ocrfeeder/-/merge_requests/16
   git apply -3 ../ocrfeeder-16.patch
@@ -91,7 +97,16 @@ prepare() {
   # https://gitlab.gnome.org/GNOME/ocrfeeder/-/merge_requests/25
   git apply -3 ../ocrfeeder-25.patch
 
-  autoreconf -fi
+  # https://gitlab.gnome.org/GNOME/ocrfeeder/-/merge_requests/26
+  git apply -3 ../ocrfeeder-26.patch
+
+  # https://gitlab.gnome.org/GNOME/ocrfeeder/-/merge_requests/27
+  git apply -3 ../ocrfeeder-27.patch
+
+  # https://gitlab.gnome.org/GNOME/ocrfeeder/-/merge_requests/29
+  git apply -3 ../ocrfeeder-29.patch
+
+  autoreconf -fiv
 }
 
 build() {

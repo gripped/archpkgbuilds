@@ -1,0 +1,26 @@
+From c4620314ca7ea149923fa9832d1149db814ada1e Mon Sep 17 00:00:00 2001
+From: Pieter Lenaerts <pieter.lenaerts@outlook.be>
+Date: Tue, 11 Nov 2025 15:25:21 +0100
+Subject: [PATCH] Fix SyntaxWarning
+
+Refer to https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1085746
+---
+ src/ocrfeeder/util/configuration.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/ocrfeeder/util/configuration.py b/src/ocrfeeder/util/configuration.py
+index 1eec7f5..1c5f425 100644
+--- a/src/ocrfeeder/util/configuration.py
++++ b/src/ocrfeeder/util/configuration.py
+@@ -187,7 +187,7 @@ class ConfigurationManager(object):
+     def __getColorFromString(self, color):
+         if type(color) != str:
+             return color
+-        color_list = [value.strip('()\ ') for value in color.split(',')]
++        color_list = [value.strip('()\\ ') for value in color.split(',')]
+         try:
+             int_color_list = [int(value) for value in color_list]
+         except ValueError as exception:
+-- 
+GitLab
+
