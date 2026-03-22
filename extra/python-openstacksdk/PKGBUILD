@@ -3,7 +3,7 @@
 
 pkgname=python-openstacksdk
 pkgver=4.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An SDK for building applications to work with OpenStack"
 arch=('any')
 url="https://developer.openstack.org/sdks/python/openstacksdk"
@@ -12,7 +12,7 @@ depends=('python-cryptography' 'python-decorator' 'python-dogpile.cache' 'python
          'python-jmespath' 'python-jsonpatch' 'python-keystoneauth1' 'python-os-service-types'
          'python-pbr' 'python-platformdirs' 'python-psutil' 'python-typing_extensions'
          'python-yaml' 'python-requestsexceptions')
-makedepends=('git' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-ddt' 'python-fixtures' 'python-hacking' 'python-jsonschema'
               'python-oslo-config' 'python-oslotest' 'python-prometheus_client'
               'python-requests-mock' 'python-stestr' 'python-testscenarios' 'python-testtools')
@@ -21,7 +21,7 @@ sha512sums=('7b6b016e3bc38b9f25e05eb6dfec2bb6dd66ae932528b8caaeb9db9b1353f19fcf4
 
 build() {
   cd openstacksdk
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -39,7 +39,7 @@ check() {
 
 package() {
   cd openstacksdk
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
 # vim:set ts=2 sw=2 et:
