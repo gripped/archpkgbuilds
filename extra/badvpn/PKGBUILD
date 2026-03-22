@@ -4,12 +4,12 @@
 
 pkgname=badvpn
 pkgver=1.999.130
-pkgrel=9
+pkgrel=10
 pkgdesc="Peer-to-peer VPN system, and NCD, a programming language for network interface configuration"
 arch=('x86_64')
 url="https://github.com/ambrop72/badvpn"
 license=('BSD-3-Clause')
-depends=('gcc-libs' 'glibc' 'nspr' 'nss' 'openssl' 'iproute2')
+depends=('glibc' 'libgcc' 'nspr' 'nss' 'openssl' 'iproute2')
 makedepends=('cmake')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ambrop72/badvpn/archive/$pkgver.tar.gz"
         'badvpn-udpgw.service'
