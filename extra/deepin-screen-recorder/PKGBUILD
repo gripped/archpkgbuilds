@@ -4,14 +4,15 @@
 
 pkgname=deepin-screen-recorder
 pkgver=6.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Deepin Screen Recorder'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-screen-recorder"
 license=('GPL-3.0-or-later')
 depends=('deepin-qt6integration' 'deepin-qt-dbus-factory' 'deepin-tray-loader' 'dtk6core' 'dtk6gui' 'dtk6widget'
-         'qt6-base' 'qt6-multimedia' 'qt6-wayland' 'deepin-turbo' 'ffmpeg4.4' 'libxtst' 'opencv'
-         'dconf' 'libprocps' 'libxext' 'libx11' 'libxfixes' 'portaudio' 'deepin-image-editor' 'gcc-libs')
+         'qt6-base' 'qt6-multimedia' 'qt6-svg' 'qt6-wayland' 'deepin-turbo' 'ffmpeg4.4' 'libxtst' 'opencv'
+         'dconf' 'libprocps' 'libxext' 'libx11' 'libxfixes' 'portaudio' 'deepin-image-editor'
+         'glibc' 'libgcc' 'libstdc++' 'wayland' 'hicolor-icon-theme')
 makedepends=('git' 'deepin-tray-loader' 'qt6-tools')
 optdepends=('deepin-shortcut-viewer: for shortcut display')
 provides=('deepin-screenshot')
