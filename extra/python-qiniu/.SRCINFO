@@ -1,14 +1,17 @@
 pkgbase = python-qiniu
 	pkgdesc = Qiniu Resource Storage SDK for Python
 	pkgver = 7.17.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/qiniu/python-sdk
 	arch = any
 	license = MIT
 	checkdepends = python-pytest
 	checkdepends = python-freezegun
 	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python-requests
 	source = git+https://github.com/qiniu/python-sdk.git#tag=v7.17.0
 	sha512sums = f29e1feefaaf42543d19a0e4024fd6ef6e7f932371df07d8addd99bb407a42b991160522cc82e216c4f57c0b2f904dc60b40b1f04cc558828ee521f79f57d214
