@@ -1,13 +1,17 @@
 pkgbase = python-suds
 	pkgdesc = A lightweight SOAP python client
 	pkgver = 1.4.2.0
-	pkgrel = 5
+	pkgrel = 6
 	url = https://github.com/cackharot/suds-py3
 	arch = any
-	license = LGPL
+	license = LGPL-3.0-or-later
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
-	source = https://github.com/cackharot/suds-py3/archive/1.4.2.0/python-suds-1.4.2.0.tar.gz
-	sha512sums = b4aa5235b7615c4ef6bd763be8b72f60c86d0c22ba6ea86cb927e4f4425f6c40c55533140e5e9dd47e3684986c574746fdde8187e3f70b35a6cacbb1bfbc3b49
+	source = git+https://github.com/cackharot/suds-py3.git#tag=1.4.2.0
+	sha512sums = f2b9cecaffde3478f1cb1049922415b60cd59ac4f3267c6deb46556dc1543419e35984950b3a17d27fc70a0271fe8946f8b199c79a9a70969f5703de43c4d454
 
 pkgname = python-suds
