@@ -2,12 +2,12 @@
 
 pkgname=darts
 pkgver=0.32
-pkgrel=2
+pkgrel=3
 pkgdesc="C++ Template Library for implementation of Double-Array"
 arch=('x86_64')
 url="http://chasen.org/~taku/software/darts/"
-license=('BSD' 'LGPL')
-depends=('gcc-libs')
+license=('BSD-3-Clause' 'LGPL-2.1-or-later')
+depends=('glibc' 'libgcc' 'libstdc++')
 source=("http://chasen.org/~taku/software/darts/src/darts-$pkgver.tar.gz")
 sha256sums=('0dfc0b82f0a05d93b92acf849368e54bf93f1de8ffb31ba0a21e45ab9e269285')
 
