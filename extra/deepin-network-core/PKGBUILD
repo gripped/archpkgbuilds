@@ -2,12 +2,12 @@
 
 pkgname=deepin-network-core
 pkgver=2.0.41
-pkgrel=1
+pkgrel=2
 pkgdesc='DDE network library and plugins'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-network-core"
 license=('LGPL-3.0-or-later')
-depends=(deepin-control-center glibc gcc-libs dtk6core qt6-base qt6-declarative networkmanager-qt)
+depends=(deepin-control-center glibc libgcc libstdc++ dtk6core dtk6declarative dtk6log qt6-base qt6-declarative networkmanager-qt systemd-libs)
 makedepends=(git cmake deepin-session-shell gtest ninja qt6-tools)
 groups=(deepin)
 source=(git+https://github.com/linuxdeepin/dde-network-core.git#tag=$pkgver)
