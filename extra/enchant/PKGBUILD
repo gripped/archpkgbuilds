@@ -4,15 +4,16 @@
 
 pkgname=enchant
 pkgver=2.8.15
-pkgrel=1
+pkgrel=2
 pkgdesc="A wrapper library for generic spell checking"
 url="https://rrthomas.github.io/enchant/"
 arch=('x86_64')
 license=('LGPL-2.1-or-later')
 depends=(
-  'gcc-libs'
   'glib2'
   'glibc'
+  'libgcc'
+  'libstdc++'
 )
 makedepends=(
   'aspell'
