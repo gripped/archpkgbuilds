@@ -1,18 +1,22 @@
 pkgbase = python-pystemmer
 	pkgdesc = Snowball stemming algorithms, for information retrieval
 	pkgver = 3.0.0
-	pkgrel = 2
+	pkgrel = 3
 	url = http://snowball.tartarus.org
 	arch = x86_64
-	license = BSD
+	license = BSD-3-Clause
 	license = MIT
 	makedepends = cython
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
 	depends = libstemmer
-	source = python-pystemmer-3.0.0.tar.gz::https://github.com/snowballstem/pystemmer/archive/refs/tags/v3.0.0.tar.gz
+	source = git+https://github.com/snowballstem/pystemmer.git#tag=v3.0.0
 	source = 0001-Update-algorithm-list-for-snowball-3.0.0.patch
-	sha512sums = 8bcb839df2c3964d410bddaa56599e5498152a81ff121b56490e5b4e42a4e52c74c9fc822a30283325e73f19219ac117ae3ac1a8e738b5a9c72ff0342b4991cf
+	sha512sums = 448307548007b5bba036541c593091c69fa9c0022e4f7fd1bde36d9442fff18bd4912f373f3e80d1c2b1876866c724a4191edfa8fbd59368c431a821d75fff9c
 	sha512sums = 61e12f623f02c0d5831144d5cd2649ab417cef4c09d206841f1cfee82ee7815334398718791788b47e1d4045e4ce89e85b249687dd1ccce7aef4452c36b83aef
 
 pkgname = python-pystemmer
