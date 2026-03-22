@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 pkgname=python-django-ninja
 _name="${pkgname#python-}"
-pkgver=1.6.0
+pkgver=1.6.2
 pkgrel=1
 pkgdesc="Fast, Async-ready, Openapi, type hints based framework for building APIs"
 arch=(any)
@@ -28,8 +28,8 @@ checkdepends=(
   python-psycopg2
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('4fca9b7112461bb39a9b4f902c0ed52e4e99449ecb3685390e366efec15145ecf34c127464e9b99d8678e6b3eb5f1a2f6995a1c717b5d44db432aae013325cbb')
-b2sums=('f7017a1136863ee7899ad9184ebc2edc9ead12bf7e40222fe5397c76c3a026d941595d998da730ada2484bc0ab5f38a362b94d4234bdf742d5b790dbf760d33e')
+sha512sums=('dd8a7d04d9798b038a27e3815df6b8c5c2cec9cf47af80a6c6bfaee861ed18d061c1e6a85f575e6848b8eaf430ae2b11e17adab96c2b2a6fc73bd09a5db19e8a')
+b2sums=('9d30a4fce6dba02240204bd2a4a00916ac7a64c08b1719110bf190a7bec5409b29627e75a5a42597821dbe746c319d2a141e3961419bb9c54d30a1f542af5afc')
 
 
 build() {
