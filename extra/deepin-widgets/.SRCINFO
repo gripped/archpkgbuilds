@@ -1,7 +1,7 @@
 pkgbase = deepin-widgets
 	pkgdesc = Desktop widgets service/implementation for DDE
 	pkgver = 6.0.18
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/linuxdeepin/dde-widgets
 	arch = x86_64
 	groups = deepin
@@ -16,7 +16,8 @@ pkgbase = deepin-widgets
 	depends = dtkgui
 	depends = dtkwidget
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = startdde
 	source = git+https://github.com/linuxdeepin/dde-widgets.git#tag=6.0.18
 	sha512sums = 3cb0da63565e12d4d739b008eff08d2fbba11686e1f38ccc74de71fb2a4aca31b20795a57c3c4beb8c127353c3eb074a4c53431568bb646cebfe6574662c8d71

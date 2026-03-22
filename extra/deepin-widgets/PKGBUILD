@@ -2,13 +2,13 @@
 
 pkgname=deepin-widgets
 pkgver=6.0.18
-pkgrel=1
+pkgrel=2
 pkgdesc='Desktop widgets service/implementation for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-widgets"
 license=('GPL-3.0-or-later')
 # startdde: org.deepin.dde.Display1
-depends=('qt5-base' 'dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 'gcc-libs' 'startdde')
+depends=('qt5-base' 'dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 'libgcc' 'libstdc++' 'startdde')
 makedepends=('git' 'cmake' 'ninja' 'gtest' 'qt5-tools')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-widgets.git#tag=$pkgver")
