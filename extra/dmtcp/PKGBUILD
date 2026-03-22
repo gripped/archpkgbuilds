@@ -2,12 +2,12 @@
 
 pkgname=dmtcp
 pkgver=3.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Distributed MultiThreaded CheckPointing'
 url='http://dmtcp.sourceforge.net'
 arch=('x86_64')
 license=('LGPL-3.0-or-later')
-depends=('bash' 'gcc-libs' 'glibc')
+depends=('bash' 'glibc' 'libgcc' 'libstdc++')
 makedepends=('git' 'dash' 'emacs' 'gdb' 'java-environment' 'openmpi' 'procps-ng'
 'python' 'screen' 'strace' 'tcsh' 'vim' 'zsh')
 source=("git+https://github.com/dmtcp/dmtcp.git#tag=$pkgver")
