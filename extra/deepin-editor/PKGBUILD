@@ -2,14 +2,14 @@
 
 pkgname=deepin-editor
 pkgver=6.5.40
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple editor for Deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-editor"
 license=('GPL-3.0-or-later')
-depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'dtk6declarative' 'gcc-libs'
+depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'dtk6declarative' 'glibc' 'libgcc' 'libstdc++'
          'icu' 'qt6-5compat' 'qt6-base' 'qt6-svg' 'kcodecs' 'syntax-highlighting' 'libchardet'
-         'uchardet')
+         'uchardet' 'hicolor-icon-theme')
 makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-editor.git#tag=$pkgver")
