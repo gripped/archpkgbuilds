@@ -1,10 +1,10 @@
 pkgbase = dtk6systemsettings
 	pkgdesc = Qt-based development library for system settings on Deepin.
 	pkgver = 6.0.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/linuxdeepin/dtk6systemsettings
 	arch = x86_64
-	license = LGPL3
+	license = LGPL-3.0-or-later
 	makedepends = git
 	makedepends = qt6-tools
 	makedepends = qt6-base
@@ -13,8 +13,9 @@ pkgbase = dtk6systemsettings
 	makedepends = doxygen
 	makedepends = graphviz
 	depends = dtk6core
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = libxcrypt
 	depends = qt6-base
 	source = git+https://github.com/linuxdeepin/dtk6systemsettings.git#tag=6.0.2
