@@ -4,8 +4,8 @@
 
 _hkgname=hledger-lib
 pkgname=haskell-hledger-lib
-pkgver=1.51.2
-pkgrel=3
+pkgver=1.52
+pkgrel=1
 pkgdesc="A library providing the core functionality of hledger"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
@@ -21,7 +21,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-ansi-termina
          'haskell-uglymemo' 'haskell-unordered-containers' 'haskell-utf8-string')
 makedepends=('ghc' 'haskell-doctest')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('cf84538f919005955b8527e345b2ca1f412ed954130d44b0dbcd37590d97b8ad3e50bf6979ef04d458a40a69ce771b87a1095f1afe612a5740d76735634cd6d9')
+sha512sums=('70274a68feff1f67041ac4e507bbca8f02c18c4569a04f32bdafabc628c2dd638ed3d625079c5def6f760d1a8226df93cff40d81db7d2bb601471f8197d0bd06')
 
 build() {
     cd $_hkgname-$pkgver
