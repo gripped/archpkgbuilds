@@ -2,32 +2,28 @@
 
 pkgname=python-termstyle
 pkgver=0.1.11
-_commit=ed18c5ed4bfee21267843f758094a5620d5f7929
-pkgrel=13
+pkgrel=14
 pkgdesc="Console colouring for python"
 url="https://github.com/timbertson/termstyle"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('any')
-depends=('python-setuptools')
-source=("$pkgname-$_commit.tar.gz::https://github.com/timbertson/termstyle/archive/$_commit.tar.gz")
-sha512sums=('02849055614caf37d3b836bef52b6c5ad281570ad5577aa253e079ecd3d82ed1f2168394edbf4760e1a9ba16e7f23aecd7191c39d3dc1de2aeb4ab9599b0717a')
-
-prepare() {
-  mv termstyle-{$_commit,$pkgver}
-}
+depends=('python')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+source=("git+https://github.com/timbertson/termstyle.git#commit=ed18c5ed4bfee21267843f758094a5620d5f7929")
+sha512sums=('fa562187e0a967d4fc112bd08e400b1531e62bcde0a9e883ce47546c501ab6e00dd861f98b0c507cdbb54f7f5b21d5e9e6bff105e8d521a18ea0f9f13fc5690d')
 
 build() {
-  cd "$srcdir"/termstyle-$pkgver
-  python setup.py build
+  cd termstyle
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$srcdir"/termstyle-$pkgver
+  cd termstyle
   python test3.py
 }
 
 package() {
-  cd termstyle-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  cd termstyle
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
