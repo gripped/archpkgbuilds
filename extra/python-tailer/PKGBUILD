@@ -4,28 +4,28 @@
 
 pkgname=python-tailer
 pkgver=0.4.1
-pkgrel=10
+pkgrel=11
 pkgdesc="A simple implementation of GNU tail and head"
 url="https://github.com/six8/pytailer"
 license=('MIT')
 arch=('any')
 depends=('python')
-makedepends=('python-setuptools')
-source=("https://pypi.io/packages/source/t/tailer/tailer-$pkgver.tar.gz")
-sha512sums=('c1f0f4cf9356c58366e3d86087bc922378a5d5d9833385e8b0f9acd16211a7ff486c4ea3be13208b85a9766b3fa163071216de54c7170395c18ba6da61650da3')
+makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
+source=("git+https://github.com/six8/pytailer.git#tag=$pkgver")
+sha512sums=('168d06bb45eb1484b8dd61232f9d7374a8178aacb0c1a617d891a7d012147960025eec464a3df6bec60acc6f247d7bf9dac4fffefdfe606b7e0934d5b1897e0e')
 
 build() {
-  cd tailer-$pkgver
-  python setup.py build
+  cd pytailer
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd tailer-$pkgver
+  cd pytailer
   python -m doctest -v src/tailer/__init__.py
 }
 
 package() {
-  cd tailer-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  cd pytailer
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
