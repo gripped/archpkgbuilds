@@ -2,17 +2,17 @@
 
 _npmname=nopt
 pkgname=nodejs-$_npmname
-pkgver=8.1.0
+pkgver=9.0.0
 pkgrel=1
 pkgdesc="Node/npm Option Parsing library"
 arch=('any')
 url="https://github.com/npm/nopt"
-license=('custom:ISC')
+license=('ISC')
 depends=('nodejs')
 makedepends=('npm')
 source=("https://registry.npmjs.org/$_npmname/-/$_npmname-$pkgver.tgz")
 noextract=($_npmname-$pkgver.tgz)
-sha256sums=('60aba7d630bb40bc386577f16fce64a96f4631988fa48a774242f9dee410f0a6')
+sha256sums=('0f9914e5614ba8c750d221c44b2b04e9300ebf32a3e800925ffdf7070cc28b24')
 options=("!strip")
 
 package() {
