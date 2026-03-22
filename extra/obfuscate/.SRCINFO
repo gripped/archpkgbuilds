@@ -1,7 +1,7 @@
 pkgbase = obfuscate
 	pkgdesc = Censor private information from any image
 	pkgver = 0.0.10
-	pkgrel = 2
+	pkgrel = 3
 	url = https://apps.gnome.org/Obfuscate/
 	arch = x86_64
 	groups = gnome-circle
@@ -11,13 +11,13 @@ pkgbase = obfuscate
 	makedepends = meson
 	makedepends = rust
 	depends = dconf
-	depends = gcc-libs
 	depends = glib2
 	depends = glibc
 	depends = graphene
 	depends = gtk4
 	depends = hicolor-icon-theme
 	depends = libadwaita
+	depends = libgcc
 	source = git+https://gitlab.gnome.org/World/obfuscate.git#tag=0.0.10
 	source = obfuscate-dbus-activatable.patch
 	source = obfuscate-new-window.patch

@@ -2,7 +2,7 @@
 
 pkgname=obfuscate
 pkgver=0.0.10
-pkgrel=2
+pkgrel=3
 pkgdesc='Censor private information from any image'
 arch=(x86_64)
 url='https://apps.gnome.org/Obfuscate/'
@@ -10,13 +10,13 @@ license=(GPL-3.0-or-later)
 groups=(gnome-circle)
 depends=(
   dconf
-  gcc-libs
   glib2
   glibc
   graphene
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
 )
 makedepends=(
   appstream
@@ -39,7 +39,7 @@ prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # https://gitlab.gnome.org/World/obfuscate/-/merge_requests/37
   git cherry-pick -n c1999aef671e68ed52017047715bb178c13190e2
