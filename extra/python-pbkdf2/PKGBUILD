@@ -4,38 +4,33 @@
 
 pkgname=python-pbkdf2
 pkgver=1.3
-pkgrel=14
+pkgrel=15
 pkgdesc='Password-based key derivation function PBKDF2'
 url='https://www.dlitz.net/software/python-pbkdf2/'
 arch=('any')
 license=('MIT')
-makedepends=('python' 'python-setuptools' 'python-crypto')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 depends=('python')
 checkdepends=('python-pytest')
 optdepends=('python-crypto: to make use of PyCrypto`s HMAC and SHA')
-source=(${pkgname}-${pkgver}.tar.gz::https://github.com/dlitz/python-pbkdf2/archive/v${pkgver}.tar.gz)
-sha256sums=('f35d36855c082c9cc258da555ea513c800b125c6b5f2fbf9cc4a45655579de5c')
-sha512sums=('642372615a2ffc9cf352805789f836c42763c49cbf113d64524a55c6ff8a09f0fda36c92713387f27c2f6a2950ce89ae04dc9f92495cba904400685b148f947e')
+source=("git+https://github.com/dlitz/python-pbkdf2.git#tag=v${pkgver}")
+sha512sums=('a6dd129d4cc6053418834a80b552db702175ac1871be7591bfa0a65f6c53af5421a5eb869ff8302cd923c42dbebaf4c57d5a24aa4d6e900c6b32861500479517')
 
 build() {
-  echo "Building python..."
-  (cd ${pkgbase}-${pkgver}
-    python setup.py build
-  )
+  cd python-pbkdf2
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  echo "Checking python..."
-  (cd ${pkgbase}-${pkgver}
-    py.test
-  )
+  cd python-pbkdf2
+  pytest
 }
 
 package() {
-  cd ${pkgbase}-${pkgver}
-  python setup.py install --prefix=/usr --root="${pkgdir}" -O1 --skip-build
-  install -Dm 644 README.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  install -Dm 644 README.txt -t "${pkgdir}/usr/share/doc/${pkgname}"
+  cd python-pbkdf2
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm 644 README.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm 644 README.txt -t "$pkgdir/usr/share/doc/$pkgname"
 }
 
 # vim: ts=2 sw=2 et:
