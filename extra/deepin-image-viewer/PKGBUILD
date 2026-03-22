@@ -2,13 +2,13 @@
 
 pkgname=deepin-image-viewer
 pkgver=5.9.20
-pkgrel=2
+pkgrel=3
 pkgdesc='An image viewing tool with fashion interface and smooth performance'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-image-viewer"
 license=('GPL-3.0-or-later')
 depends=('deepin-qt5integration' 'qt5-base' 'dtkcore' 'dtkgui' 'dtkwidget' 'deepin-image-editor'
-         'gcc-libs' 'libraw' 'dtkdeclarative')
+         'glibc' 'libgcc' 'libstdc++' 'libraw' 'dtkdeclarative' 'hicolor-icon-theme')
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools')
 optdepends=('deepin-manual: for help manual'
             'deepin-shortcut-viewer: for shortcut display')

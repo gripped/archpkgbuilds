@@ -1,7 +1,7 @@
 pkgbase = deepin-image-viewer
 	pkgdesc = An image viewing tool with fashion interface and smooth performance
 	pkgver = 5.9.20
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/linuxdeepin/deepin-image-viewer
 	arch = x86_64
 	groups = deepin
@@ -16,9 +16,12 @@ pkgbase = deepin-image-viewer
 	depends = dtkgui
 	depends = dtkwidget
 	depends = deepin-image-editor
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = libraw
 	depends = dtkdeclarative
+	depends = hicolor-icon-theme
 	optdepends = deepin-manual: for help manual
 	optdepends = deepin-shortcut-viewer: for shortcut display
 	source = git+https://github.com/linuxdeepin/deepin-image-viewer.git#tag=5.9.20
