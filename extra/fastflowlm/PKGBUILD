@@ -1,7 +1,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=fastflowlm
-pkgver=0.9.35
+pkgver=0.9.36
 pkgrel=2
 pkgdesc='Run LLMs on AMD Ryzen AI NPUs'
 arch=('x86_64')
@@ -36,7 +36,7 @@ source=(
   "${pkgname}::git+https://github.com/FastFlowLM/FastFlowLM.git#tag=v${pkgver}"
   "${pkgname}-tokenizers-cpp::git+https://github.com/mlc-ai/tokenizers-cpp"
 )
-sha256sums=('fd2dfa637cbba11fc6cc808c6cfaf0acf46b3ef1a552fe237c34c45c5b084734'
+sha256sums=('7561f1561253dc3651e387b3307a56b6f25677c23669249fb03d85f9699d0005'
             'SKIP')
 
 prepare() {
@@ -60,8 +60,9 @@ build() {
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
     -D CMAKE_XCLBIN_PREFIX=/usr/share/flm
-    -D FLM_VERSION=0.9.35
-    -D NPU_VERSION=32.0.203.304
+    -D FLM_VERSION=${pkgver}
+    # this is used for a driver version check that only applies to windows
+    -D NPU_VERSION=dummy
   )
   cmake "${cmake_args[@]}"
   cmake --build build
