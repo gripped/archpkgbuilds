@@ -2,13 +2,13 @@
 
 pkgname=deepin-clone
 pkgver=5.0.15
-pkgrel=2
+pkgrel=3
 pkgdesc='Disk and partition backup/restore tool'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-clone"
-license=('GPL3')
+license=('GPL-3.0-only')
 depends=('deepin-qt5integration' 'deepin-file-manager' 'dtkcore' 'dtkgui' 'dtkwidget' 'qt5-base'
-         'gcc-libs' 'e2fsprogs' 'jfsutils' 'xfsprogs' 'partclone')
+         'glibc' 'libgcc' 'libstdc++' 'e2fsprogs' 'jfsutils' 'xfsprogs' 'partclone')
 makedepends=('cmake' 'ninja' 'qt5-tools' 'deepin-gettext-tools')
 groups=('deepin-extra')
 source=("https://github.com/linuxdeepin/deepin-clone/archive/$pkgver/$pkgname-$pkgver.tar.gz")
@@ -17,6 +17,8 @@ sha512sums=('8fe1b1c9a722af982107101a3cc28faa942081e26e2a0a9903e8a34c80e9f6f96be
 prepare() {
   cd deepin-clone-$pkgver
   sed -i 's|sbin|bin|' CMakeLists.txt
+  sed -i 's/logger->/dlogger->/g' app/src/main.cpp
+  sed -i 's/DTK_WIDGET_NAMESPACE/DTK_GUI_NAMESPACE/g' honest_child/main.cpp
 }
 
 build() {
