@@ -6,7 +6,7 @@ pkgname=(
   papers-lib-docs
 )
 pkgver=49.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Document viewer for PDF and other document formats aimed at the GNOME desktop'
 arch=(x86_64)
 url='https://apps.gnome.org/Papers/'
@@ -16,7 +16,6 @@ depends=(
   dconf
   djvulibre
   exempi
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
@@ -26,6 +25,7 @@ depends=(
   hicolor-icon-theme
   libadwaita
   libarchive
+  libgcc
   libnautilus-extension
   libspelling
   libtiff
@@ -45,7 +45,7 @@ makedepends=(
   rust
 )
 source=("git+https://gitlab.gnome.org/GNOME/papers.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('ae7175abfa1f2178fc7a4eabd1a68c3f3951470821501f4dacf26116f09756c69f82bde76cd132e9654413d2f3831f496d2d59d79a1bf5a5eb32d940ee65877f')
+b2sums=(ae7175abfa1f2178fc7a4eabd1a68c3f3951470821501f4dacf26116f09756c69f82bde76cd132e9654413d2f3831f496d2d59d79a1bf5a5eb32d940ee65877f)
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
