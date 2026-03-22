@@ -5,11 +5,11 @@
 pkgname=lib32-ncurses
 _name=${pkgname#lib32-}
 pkgver=6.6
-pkgrel=1
+pkgrel=2
 pkgdesc="System V Release 4.0 curses emulation library (32-bit)"
 arch=(x86_64)
 url=https://invisible-island.net/ncurses/ncurses.html
-license=(MIT)
+license=(MIT-open-group)
 depends=(
   lib32-gcc-libs
   lib32-glibc
@@ -28,15 +28,15 @@ provides=(
 source=(
   $_name::git+https://github.com/ThomasDickey/ncurses-snapshots.git?signed#tag=v${pkgver/./_}
   $_name-6.6-libs.patch
-  $_name-6.5-20250118-pkgconfig.patch
+  $_name-6.6-pkgconfig.patch
 
 )
 sha512sums=('cad17bf83ef3ccd71fb7c33933ddbbbef2e8bd050d5e4e4ebb344b5df8292b1cd3c9e1787e88087d73cc96f625ba0c7cd6714d7720af7f8bd50b314e9838d2a7'
-            '46031bb868d4522c751aa15e569213b172ffb48cf708d9f6188d89a4c9f2085c94cab9f601f1ab16a46e760fe7ef3f06bfa9efb308261ed7c1187cc167829a82'
-            '50f18928512b37935d29d463da2013772413752a8718f403d717464e50ea4f8e9b85c0bf6ec1c30c49f2798d2a2814bbb687e254b560faf9543d6142ca27204a')
+            'aa1d2cdc5bce7a99b277f2ecd4a109a337ba39f3ec522c3daf52dba0c1be05c9f0bf695d8bdfdbda1c1f6f3f7214ef0eb4b5b9e1b7e9f05db14419b3bc6ab271'
+            'c74c9393659e1d744995285f270531108320975da8ca39b0e4cdcaa07a51cdd977bcfbf8eb131c6a81ba2e63e92bb185947ce6a1231c8bb8a2e5e6035c385cfa')
 b2sums=('af7f3dd1fd2d471d6b1b144acfbf4f44bdbf040ff8746a48aa9fdcc86f74a004939a31204d22966ef857096ccd7da6ee74769996e082a5a2735b1e6e934319a3'
-        'bcf601da8243e332ace14966fd0f1bb2e11fb1ac11c49260ac711db20efa66f2c7357fcd741eaebf855ce0a205e9b22dd11d2a6523be8e9fb4f1db0d4dfeb482'
-        'e98fcd297be873e0719d73b7d1611a98943d5efc3a2c5c1b61b901f36ebe40dd1a98c65b5605ee5ff6a5288e4217bea4d0dddc4767732f464bd4949270e42ac6')
+        '29f2c29e229687b8539be5147ce35f08b8a8eeead880a8a34189b3a02400fd752ee96314eed3e175503281dc05bf3668f26edeca4540668592d46d4cddc9aef4'
+        'd8c079262332253c758f1c42ff642db0b14a86695dcaa735a73615ab594f65e0d1de3e31732ff7c413078b43f8e71e86b6ce41236e54e049ecf65d8cf7587e0a')
 validpgpkeys=('19882D92DDA4C400C22C0D56CC2AF4472167BE03')  # Thomas Dickey <dickey@invisible-island.net>
 
 prepare() {
@@ -44,7 +44,7 @@ prepare() {
   patch -Np1 -d $_name -i ../$_name-6.6-libs.patch
   # do not leak build-time LDFLAGS into the pkgconfig files:
   # https://bugs.archlinux.org/task/68523
-  patch -Np1 -d $_name  -i ../$_name-6.5-20250118-pkgconfig.patch
+  patch -Np1 -d $_name  -i ../$_name-6.6-pkgconfig.patch
   # NOTE: can't run autoreconf because the autotools setup is custom and ancient
 }
 
@@ -75,9 +75,6 @@ build() {
   export CC="gcc -m32"
   export CXX="g++ -m32"
   export PKG_CONFIG_LIBDIR='/usr/lib32/pkgconfig'
-
-  # allow building with gcc >= 15
-  CFLAGS+=' -std=gnu17'
 
   cd $_name
   ./configure "${configure_options[@]}"
