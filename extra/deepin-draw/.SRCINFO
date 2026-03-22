@@ -1,7 +1,7 @@
 pkgbase = deepin-draw
 	pkgdesc = A lightweight drawing tool for Linux Deepin
 	pkgver = 6.5.24
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/linuxdeepin/deepin-draw
 	arch = x86_64
 	groups = deepin-extra
@@ -16,9 +16,12 @@ pkgbase = deepin-draw
 	depends = dtk6widget
 	depends = qt6-base
 	depends = qt6-svg
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = deepin-picker
 	depends = adobe-source-han-sans-otc-fonts
+	depends = hicolor-icon-theme
 	source = git+https://github.com/linuxdeepin/deepin-draw.git#tag=6.5.24
 	sha512sums = 0f36174506ecbb4178898d2846cf8988808c08bfe9c8c297a4e027b5f56b7a994875354108e8e1a2ebc11c6445a647b765c976fbbb08e1006cf9d0910f3acbf7
 
