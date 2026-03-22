@@ -2,13 +2,13 @@
 
 pkgname=deepin-image-editor
 pkgver=1.0.47
-pkgrel=1
+pkgrel=2
 pkgdesc='Public library for deepin-image-viewer and deepin-album'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/image-editor"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('dtkcore' 'dtkgui' 'dtkwidget' 'qt5-base' 'qt5-svg' 'libtiff' 'ffmpegthumbnailer'
-         'libmediainfo' 'gcc-libs' 'deepin-util-dfm')
+         'libmediainfo' 'glibc' 'libgcc' 'libstdc++' 'deepin-util-dfm')
 makedepends=('git' 'cmake' 'expac' 'ninja' 'qt5-tools')
 source=("git+https://github.com/linuxdeepin/image-editor.git#tag=$pkgver"
         remove-broken-flags.patch)
@@ -19,11 +19,14 @@ prepare() {
   cd image-editor
   patch -p2 < ../remove-broken-flags.patch
   sed -i -e 's/dpkg -s libdtkwidget-dev/expac %v dtkwidget/' -e '/COMMAND grep Version/d' libimageviewer/CMakeLists.txt
+
+  # Fix for newer dtkwidget: don't use the old watermark API
+  sed -i '/add_definitions(-DUSE_SPECIFIC_DTK_WATERMARK)/d' libimageviewer/CMakeLists.txt
 }
 
 build() {
   cd image-editor
-  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr
+  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   ninja
 }
 
