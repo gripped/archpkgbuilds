@@ -3,7 +3,7 @@
 
 pkgname=python-oslo-config
 pkgver=9.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="parsing command line arguments and .ini style configuration files"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.config/$pkgver"
@@ -11,7 +11,7 @@ license=('Apache-2.0')
 depends=('python-debtcollector' 'python-netaddr' 'python-stevedore'
          'python-oslo-i18n' 'python-rfc3986' 'python-yaml' 'python-requests')
 optdepends=('python-sphinx: for rst-generator')
-makedepends=('git' 'python-pbr' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-pbr')
 checkdepends=('python-testscenarios' 'python-stestr' 'python-testtools' 'python-oslotest'
               'python-oslo-log' 'python-requests-mock' 'python-sphinx')
 options=('!emptydirs')
@@ -32,7 +32,7 @@ prepare() {
 
 build() {
   cd oslo.config
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -42,7 +42,7 @@ check() {
 
 package() {
   cd oslo.config
-  python setup.py install --root="$pkgdir/" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
 # vim:set ts=2 sw=2 et:
