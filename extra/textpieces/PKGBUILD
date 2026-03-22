@@ -2,7 +2,7 @@
 
 pkgname=textpieces
 pkgver=4.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Powerful scratchpad with ability to perform a lot of text transformations'
 arch=(x86_64)
 url='https://apps.gnome.org/TextPieces/'
@@ -10,13 +10,13 @@ license=(GPL-3.0-or-later)
 groups=(gnome-circle)
 depends=(
   dconf
-  gcc-libs
   glib2
   glibc
   gtk4
   gtksourceview5
   hicolor-icon-theme
   libadwaita
+  libgcc
   pango
 )
 makedepends=(
@@ -39,7 +39,7 @@ prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # https://gitlab.com/liferooter/textpieces/-/merge_requests/10
   git apply -3 ../textpieces-activate.patch
