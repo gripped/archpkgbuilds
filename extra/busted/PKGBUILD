@@ -1,10 +1,10 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgbase=busted
-pkgname=("$pkgbase" "lua-$pkgbase" "lua53-$pkgbase" "lua52-$pkgbase" "lua51-$pkgbase")
+pkgname=("$pkgbase" "lua-$pkgbase" "lua54-$pkgbase" "lua53-$pkgbase" "lua52-$pkgbase" "lua51-$pkgbase")
 pkgver=2.3.0
 _rockrel=1
-pkgrel=1
+pkgrel=3
 pkgdesc='Elegant Lua unit testing'
 arch=(any)
 url="https://lunarmodules.github.io/$pkgbase/"
@@ -22,6 +22,7 @@ makedepends=(lua
              lua51
              lua52
              lua53
+             lua54
              luarocks)
 _archive="$pkgbase-$pkgver"
 source=("https://github.com/lunarmodules/$pkgbase/archive/v$pkgver/$_archive.tar.gz")
@@ -42,7 +43,7 @@ _package() {
 }
 
 package_busted() {
-	_package 5.4
+	_package 5.5
 	pkgdesc+=' (CLI)'
 	depends=(lua "lua-$pkgname")
 	install -Dm0644 -t "$pkgdir/usr/share/zsh/site-functions/" "completions/zsh/_$pkgname"
@@ -50,7 +51,7 @@ package_busted() {
 }
 
 package_lua-busted() {
-	_package 5.4
+	_package 5.5
 	depends=("${pkgname%-*}" "${_luadeps[@]/#/${pkgname%-*}-}")
 }
 
@@ -66,5 +67,10 @@ package_lua52-busted() {
 
 package_lua53-busted() {
 	_package 5.3
+	depends=("${pkgname%-*}" "${_luadeps[@]/#/${pkgname%-*}-}")
+}
+
+package_lua54-busted() {
+	_package 5.4
 	depends=("${pkgname%-*}" "${_luadeps[@]/#/${pkgname%-*}-}")
 }

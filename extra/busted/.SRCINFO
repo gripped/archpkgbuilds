@@ -1,7 +1,7 @@
 pkgbase = busted
 	pkgdesc = Elegant Lua unit testing
 	pkgver = 2.3.0
-	pkgrel = 1
+	pkgrel = 3
 	url = https://lunarmodules.github.io/busted/
 	arch = any
 	license = MIT
@@ -9,6 +9,7 @@ pkgbase = busted
 	makedepends = lua51
 	makedepends = lua52
 	makedepends = lua53
+	makedepends = lua54
 	makedepends = luarocks
 	source = https://github.com/lunarmodules/busted/archive/v2.3.0/busted-2.3.0.tar.gz
 	sha256sums = 1669a4f59ff9e08ad4b38d4212ad8cdd4519209101e3af5459a596d5ad9a7d24
@@ -29,6 +30,18 @@ pkgname = lua-busted
 	depends = lua-say
 	depends = lua-system
 	depends = lua-term
+
+pkgname = lua54-busted
+	depends = lua54
+	depends = lua54-cliargs
+	depends = lua54-dkjson
+	depends = lua54-filesystem
+	depends = lua54-luassert
+	depends = lua54-mediator
+	depends = lua54-penlight
+	depends = lua54-say
+	depends = lua54-system
+	depends = lua54-term
 
 pkgname = lua53-busted
 	depends = lua53
