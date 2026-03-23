@@ -6,14 +6,15 @@ pkgbase=polkit-qt
 pkgname=(polkit-qt5
          polkit-qt6)
 pkgver=0.200.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A library that allows developers to access PolicyKit API with a nice Qt-style API'
 arch=(x86_64)
 url='https://www.kde.org/'
 license=(BSD-3-Clause
          GPL-2.0-or-later
          LGPL-2.0-or-later)
-depends=(gcc-libs
+depends=(libgcc
+         libstdc++
          glib2
          glibc
          polkit)
