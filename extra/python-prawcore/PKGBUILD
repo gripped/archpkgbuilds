@@ -1,25 +1,25 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-prawcore
-pkgver=2.4.0
-pkgrel=6
+pkgver=3.0.0
+pkgrel=1
 pkgdesc="Low-level communication layer for PRAW 4+."
 arch=('any')
 license=('BSD-2-Clause')
 url="https://github.com/praw-dev/prawcore"
 depends=('python' 'python-requests')
-makedepends=('python-build' 'python-installer' 'python-flit-core')
+makedepends=('git' 'python-build' 'python-installer' 'python-flit-core')
 checkdepends=('python-betamax' 'python-pytest' 'python-urllib3')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/praw-dev/prawcore/archive/v$pkgver.tar.gz")
-sha512sums=('6b7464e80d612de9e9cf118fa21abcca61d160150a422175353895efe89757a3e4d417122af2956c0b5aebc59de855866ea4db6af5162c8ad9ec66971edab80c')
+source=("git+https://github.com/praw-dev/prawcore.git#tag=v$pkgver")
+sha512sums=('4bd9838718c3cbed857fb32782439242050d4dd2c6d068f6620ac7e60493818ddc852fc9635c6f03363552cd35527db055763df0dfd8e0ccb1067d4a7bc4955e')
 
 build() {
-  cd prawcore-$pkgver
+  cd prawcore
   python -m build -nw
 }
 
 check() {
-  cd prawcore-$pkgver
+  cd prawcore
   # Deselect tests failing with urllib3 >= 2, throwing the following
   # exception:
   #   requests.exceptions.ChunkedEncodingError: (
@@ -37,7 +37,7 @@ check() {
 }
 
 package() {
-  cd prawcore-$pkgver
+  cd prawcore
   python -m installer -d "$pkgdir" dist/*.whl
   install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
