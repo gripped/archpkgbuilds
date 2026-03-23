@@ -1,7 +1,7 @@
 pkgbase = deepin-screensaver
 	pkgdesc = Deepin screensaver viewer and tools
 	pkgver = 5.0.19
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/linuxdeepin/deepin-screensaver
 	arch = x86_64
 	groups = deepin
@@ -19,7 +19,9 @@ pkgbase = deepin-screensaver
 	depends = libxcb
 	depends = libxss
 	depends = xscreensaver
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	source = git+https://github.com/linuxdeepin/deepin-screensaver.git#tag=5.0.19
 	sha512sums = e6aec1b62c0322040ee9738818fbe6556a8da089dcd1a0508d592c693f60cd09fa50b16acbc30c1528c3cc3039431a1b519b5b6f1f3866da0c00e4d6b7b4e29e
 
