@@ -3,7 +3,7 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=python-wsproto
-pkgver=1.3.0
+pkgver=1.3.1
 pkgrel=1
 pkgdesc="WebSockets state-machine based protocol implementation"
 url="https://github.com/python-hyper/wsproto"
@@ -13,7 +13,7 @@ depends=('python-h11')
 makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
 source=("git+https://github.com/python-hyper/wsproto.git#tag=$pkgver")
-sha512sums=('61898257468a29c556ea00181b54f04edce0a8524af22b4f7cf93fda74063dbb2cffe66f780ae725d351a34e984e3325c60601fcd63ce1cd3f441fcdb913a4c6')
+sha512sums=('af4ecf4a2ea2f68104b173ddcbae34146dd5b5ee97358f18eddcb712ffa02402d631661308e7f2b0362a676f0729bd08ed59f683e8e31afc46e48412d3e66485')
 
 build() {
   cd wsproto
