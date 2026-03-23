@@ -1,6 +1,6 @@
 pkgbase = crawl
 	pkgdesc = Dungeon Crawl Stone Soup: open-source, single-player, role-playing roguelike game of exploration and treasure-hunting
-	pkgver = 0.33.1
+	pkgver = 0.34.1
 	pkgrel = 1
 	url = https://crawl.develz.org/
 	arch = x86_64
@@ -21,14 +21,15 @@ pkgbase = crawl
 	makedepends = perl
 	makedepends = pngcrush
 	makedepends = python-yaml
-	depends = gcc-libs
 	depends = glibc
 	depends = hicolor-icon-theme
-	depends = lua51
+	depends = libgcc
+	depends = libstdc++
+	depends = lua54
 	depends = sqlite
 	depends = zlib
-	source = git+https://github.com/crawl/crawl#tag=0.33.1
-	b2sums = 6f665559454f51bb7cc78a145ca817f1515adda7b457fb5fd16c876e60a8bbe27ab22b3d58431a50b55689dcc609db5ca2cae8d0ccacdfa3815793f2057d891e
+	source = git+https://github.com/crawl/crawl#tag=0.34.1
+	b2sums = c1bcaf017c5d4b7cd1edea177e5e85d76177ed839389bae70bb620a0f1e2ea25e2106fce102d8550676cedaa5c5907582093b1444e5a14972285d301c8f6db6f
 
 pkgname = crawl-data
 	pkgdesc = Dungeon Crawl Stone Soup: open-source, single-player, role-playing roguelike game of exploration and treasure-hunting - game data
@@ -38,24 +39,26 @@ pkgname = crawl-data
 
 pkgname = crawl-ncurses
 	pkgdesc = Dungeon Crawl Stone Soup: open-source, single-player, role-playing roguelike game of exploration and treasure-hunting - ncurses version (terminal)
-	depends = gcc-libs
 	depends = glibc
 	depends = hicolor-icon-theme
-	depends = lua51
+	depends = libgcc
+	depends = libstdc++
+	depends = lua54
 	depends = sqlite
 	depends = zlib
-	depends = crawl-data=0.33.1-1
+	depends = crawl-data=0.34.1-1
 	depends = ncurses
 
 pkgname = crawl-tiles
 	pkgdesc = Dungeon Crawl Stone Soup: open-source, single-player, role-playing roguelike game of exploration and treasure-hunting - graphical version (SDL)
-	depends = gcc-libs
 	depends = glibc
 	depends = hicolor-icon-theme
-	depends = lua51
+	depends = libgcc
+	depends = libstdc++
+	depends = lua54
 	depends = sqlite
 	depends = zlib
-	depends = crawl-data=0.33.1-1
+	depends = crawl-data=0.34.1-1
 	depends = freetype2
 	depends = glu
 	depends = libglvnd
