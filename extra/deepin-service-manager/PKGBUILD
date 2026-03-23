@@ -3,12 +3,12 @@
 
 pkgname=deepin-service-manager
 pkgver=1.0.21
-pkgrel=1
+pkgrel=2
 pkgdesc='Manage DBus service on Deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-service-manager"
 license=('LGPL-3.0-or-later')
-depends=('dtk6core' 'gcc-libs' 'glibc' 'qt6-base' 'systemd-libs')
+depends=('dtk6core' 'glibc' 'libgcc' 'libstdc++' 'qt6-base' 'systemd-libs')
 makedepends=('git' 'cmake' 'ninja')
 source=("git+https://github.com/linuxdeepin/deepin-service-manager.git#tag=$pkgver")
 sha512sums=('63a06ba0eab30e62cde2e0c11da801ed6ea2161778a946c894209db1f04aca7f649c930d7aa4ff521f16ba7f2ccac3725f5514c078a9f0c77c803a0dc0aa0e86')
