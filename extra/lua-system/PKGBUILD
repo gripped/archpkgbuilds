@@ -2,8 +2,8 @@
 
 pkgbase=lua-system
 _rockname=${pkgbase#lua-}
-pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname")
-pkgver=0.6.3
+pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname" "lua54-$_rockname")
+pkgver=0.7.0
 _rockrel=1
 pkgrel=1
 pkgdesc='Platform independent system calls for Lua'
@@ -14,17 +14,18 @@ makedepends=(lua
              lua51
              lua52
              lua53
+             lua54
              luarocks)
 checkdepends=(busted)
 _archive="${pkgbase/-/}-$pkgver"
 _rock="$_archive-$_rockrel.linux-$CARCH.rock"
 _rockspec="rockspecs/$_archive-$_rockrel.rockspec"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('3a0f22b818d725d6439b0afca93108a2293a1a46d31b2296adf412e6da33651e')
+sha256sums=('f6a617414f5e27c69e2377c7e2b90631b8ee0529c3ef7960d6937e33247d0bbe')
 
 build() {
 	cd "$_archive"
-	for LUAVER in 5.{1,2,3,4}; do
+	for LUAVER in 5.{1,2,3,4,5}; do
 		luarocks --lua-version "$LUAVER" \
 			make --pack-binary-rock --deps-mode none -- "$_rockspec"
 		install -Dm0644 -t "lua-$LUAVER/" "$_rock"
@@ -50,6 +51,10 @@ _package() {
 }
 
 package_lua-system() {
+	_package 5.5
+}
+
+package_lua54-system() {
 	_package 5.4
 }
 
