@@ -5,12 +5,12 @@
 
 pkgname=ncnn
 pkgver=20260113
-pkgrel=2
+pkgrel=3
 pkgdesc='High-performance neural network inference framework optimized for the mobile platform'
 url='https://github.com/Tencent/ncnn'
 arch=('x86_64')
 license=('BSD-3-Clause')
-depends=('gcc-libs' 'glibc' 'vulkan-icd-loader' 'glslang')
+depends=('glibc' 'glslang' 'libgcc' 'libgomp' 'libstdc++' 'vulkan-icd-loader')
 makedepends=('git' 'cmake' 'ninja' 'protobuf' 'vulkan-headers')
 optdepends=('protobuf: for caffe2ncnn')
 source=("git+https://github.com/Tencent/ncnn.git#tag=$pkgver")
