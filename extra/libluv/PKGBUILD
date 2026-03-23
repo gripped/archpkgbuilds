@@ -1,25 +1,25 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Jurica Bradarić <jbradaric@gmail.com>
 # Contributor: jprjr <john@jrjrtech.com>
-pkgname=('libluv' 'lua-luv' 'lua51-luv' 'lua52-luv' 'lua53-luv')
+pkgname=('libluv' 'lua-luv' 'lua51-luv' 'lua52-luv' 'lua53-luv' 'lua54-luv')
 pkgbase=libluv
-pkgver=1.51.0
-_pkgver=1.51.0-1
+pkgver=1.52.1
+_pkgver=1.52.1-0
 pkgrel=1
 pkgdesc='Bare libuv bindings for lua'
 arch=('x86_64')
 url='https://github.com/luvit/luv'
 license=('Apache-2.0')
 depends=('libuv')
-makedepends=('cmake' 'libuv' 'ninja' 'luajit' 'lua>=5.4.0' 'lua<5.5.0' 'lua51' 'lua52' 'lua53')
+makedepends=('cmake' 'libuv' 'ninja' 'luajit' 'lua>=5.5.0' 'lua<5.6.0' 'lua51' 'lua52' 'lua53' 'lua54')
 source=("https://github.com/luvit/luv/releases/download/${_pkgver}/luv-${_pkgver}.tar.gz")
-sha256sums=('dc706d9141c185bdce08b6fc8a9d4df05c3ac3676809ee4e9e37e1553d821237')
+sha256sums=('3e6eb820a3aee034f85f9cce9bd77b5d42f34d128a1ccec877adf28c913577c7')
 
 build() {
   # build per-lua versions
-  for ver in 5.1 5.2 5.3 5.4; do
+  for ver in 5.1 5.2 5.3 5.4 5.5; do
     incdir="/usr/include/lua${ver}"
-    if [ "$ver" = "5.4" ] ; then
+    if [ "$ver" = "5.5" ] ; then
       incdir="/usr/include"
     fi
     cmake -GNinja \
@@ -55,7 +55,7 @@ package_libluv() {
 package_lua-luv() {
   pkgdesc+=' - Lua module'
   depends+=('lua')
-  DESTDIR="${pkgdir}" ninja -C "build-lua54" install
+  DESTDIR="${pkgdir}" ninja -C "build-lua55" install
 }
 
 package_lua51-luv() {
@@ -74,6 +74,12 @@ package_lua53-luv() {
   pkgdesc+=' - Lua 5.3 module'
   depends+=('lua53')
   DESTDIR="${pkgdir}" ninja -C "build-lua53" install
+}
+
+package_lua54-luv() {
+  pkgdesc+=' - Lua 5.4 module'
+  depends+=('lua54')
+  DESTDIR="${pkgdir}" ninja -C "build-lua54" install
 }
 
 # vim:set ts=2 sw=2 et:
