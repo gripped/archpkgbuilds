@@ -4,16 +4,15 @@
 pkgname=markuplinkchecker
 _name=mlc
 pkgver=1.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Check for broken links in markup files"
 arch=('x86_64')
 url='https://github.com/becheran/mlc'
 license=('MIT')
-depends=('gcc-libs')
+depends=('libgcc' 'openssl')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 b2sums=('c09fe7303dfc621c48f69457508cb59d423021b764176b3bf401ad2434b0e0ce3b8356d66890f4f91dac30ef538059cb236b5fe3d86053a53ce459cbde222d8f')
-options=('!lto')
 
 prepare() {
   cd $_name-$pkgver
@@ -22,12 +21,12 @@ prepare() {
 
 build() {
   cd $_name-$pkgver
-  cargo build --frozen --release
+  OPENSSL_NO_VENDOR=true cargo build --frozen --release
 }
 
 check() {
   cd $_name-$pkgver
-  cargo test --frozen -- --skip "link_validator::file_system::test::remove_dot"
+  OPENSSL_NO_VENDOR=true cargo test --frozen -- --skip "link_validator::file_system::test::remove_dot"
 }
 
 package() {
