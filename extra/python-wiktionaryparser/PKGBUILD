@@ -4,35 +4,35 @@
 pkgname=python-wiktionaryparser
 pkgver=0.0.97.20210613
 _commit=71f396ef6e915b3d1461a41e8a7aec35063d30bf
-pkgrel=7
+pkgrel=8
 pkgdesc="A tool to parse word data from wiktionary.com into a JSON object"
 url="https://github.com/Suyash458/WiktionaryParser"
 license=('MIT')
 arch=('any')
 depends=('python-beautifulsoup4' 'python-requests')
-makedepends=('python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 checkdepends=('python-deepdiff' 'python-parameterized' 'python-pytest')
-source=("https://github.com/Suyash458/WiktionaryParser/archive/$_commit/$pkgname-$_commit.tar.gz")
-sha512sums=('533219d357c10e893cfc5504bd96dfbc34c1597afe98c4d20f7d49c1b66a8975636200f7c161ac116464df3a02ca9524aa63763c5dd804b516bf89274d4e94bb')
+source=("git+https://github.com/Suyash458/WiktionaryParser.git#commit=$_commit")
+sha512sums=('e9e6ccd7bb6dce135a9a7a33f27540fe32a39cdf279c1d4af032e4d219d5e45b3c01af36cd49d959a4ac604b7cd6102542674efff045d6b776b1b6a3559f7e56')
 
 prepare() {
-  cd WiktionaryParser-$_commit
+  cd WiktionaryParser
   sed -i 's/import mock/from unittest import mock/' tests/test_core.py
 }
 
 build() {
-  cd WiktionaryParser-$_commit
-  python setup.py build
+  cd WiktionaryParser
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd WiktionaryParser-$_commit
+  cd WiktionaryParser
   pytest
 }
 
 package() {
-  cd WiktionaryParser-$_commit
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  cd WiktionaryParser
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 
