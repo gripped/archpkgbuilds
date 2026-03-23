@@ -3,10 +3,10 @@
 
 _rockname=std-_debug
 pkgbase=lua-std-debug
-pkgname=("$pkgbase" "lua51-${pkgbase#lua-}" "lua52-${pkgbase#lua-}" "lua53-${pkgbase#lua-}")
+pkgname=("$pkgbase" "lua51-${pkgbase#lua-}" "lua52-${pkgbase#lua-}" "lua53-${pkgbase#lua-}" "lua54-${pkgbase#lua-}")
 pkgver=1.0.1
 _rockrel=1
-pkgrel=3
+pkgrel=4
 pkgdesc='Lua-stdlib project’s debug hints library'
 arch=(any)
 url="https://github.com/lua-stdlib/${_rockname#std-}"
@@ -15,6 +15,7 @@ makedepends=(lua
              lua51
              lua52
              lua53
+             lua54
              luarocks)
 # checkdepends=(specl)
 _archive="${_rockname#std-}-$pkgver"
@@ -33,7 +34,7 @@ _package() {
 package_lua-std-debug() {
 	provides=(lua-std-_debug)
 	replaces=(lua-std-_debug)
-	_package 5.4
+	_package 5.5
 }
 
 package_lua51-std-debug() {
@@ -52,4 +53,10 @@ package_lua53-std-debug() {
 	provides=(lua53-std-_debug)
 	replaces=(lua53-std-_debug)
 	_package 5.3
+}
+
+package_lua54-std-debug() {
+	provides=(lua-std-_debug)
+	replaces=(lua-std-_debug)
+	_package 5.4
 }
