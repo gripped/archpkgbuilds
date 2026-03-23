@@ -1,7 +1,7 @@
 pkgbase = lua-fluent
 	pkgdesc = Lua implementation of Project Fluent
 	pkgver = 0.2.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/alerque/fluent-lua
 	arch = any
 	license = MIT
@@ -9,11 +9,18 @@ pkgbase = lua-fluent
 	makedepends = lua51
 	makedepends = lua52
 	makedepends = lua53
+	makedepends = lua54
 	makedepends = luarocks
 	source = https://github.com/alerque/fluent-lua/archive/v0.2.0/fluent-lua-0.2.0.tar.gz
 	sha256sums = 2458b80c8dad59c86de459bb7b4deef285d196b54ab449e73a8b8814f9822633
 
 pkgname = lua-fluent
+	depends = lua
+	depends = lua-cldr
+	depends = lua-luaepnf
+	depends = lua-penlight
+
+pkgname = lua54-fluent
 	depends = lua
 	depends = lua-cldr
 	depends = lua-luaepnf
