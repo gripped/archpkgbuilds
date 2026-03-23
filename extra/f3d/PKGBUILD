@@ -5,7 +5,7 @@
 
 pkgname=f3d
 pkgver=3.4.1
-pkgrel=1
+pkgrel=3
 pkgdesc='A fast and minimalist 3D viewer'
 arch=(x86_64)
 url="https://github.com/${pkgname}-app/${pkgname}"
@@ -15,7 +15,8 @@ depends=(alembic # libAlembic.so
          boost
          draco # libdraco.so
          fmt
-         gcc-libs # libgcc_s.so libstdc++.so
+         libgcc
+         libstdc++
          glew
          glibc # libc.so libm.so
          imath # libImath-3_1.so
