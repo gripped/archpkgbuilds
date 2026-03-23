@@ -4,13 +4,14 @@
 
 pkgname=prison
 pkgver=6.24.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A barcode API to produce QRCode barcodes and DataMatrix barcodes'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(MIT)
-depends=(gcc-libs
+depends=(libgcc
          glibc
+         libstdc++
          libdmtx
          qrencode
          qt6-base
@@ -38,4 +39,5 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 $pkgname-$pkgver/LICENSES/MIT.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
