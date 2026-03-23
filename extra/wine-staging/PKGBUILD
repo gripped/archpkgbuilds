@@ -7,7 +7,7 @@
 
 pkgname=wine-staging
 pkgver=11.5
-pkgrel=1
+pkgrel=2
 
 _pkgbasever=${pkgver/rc/-rc}
 _winever=$_pkgbasever
@@ -36,7 +36,8 @@ depends=(
   desktop-file-utils
   fontconfig
   freetype2
-  gcc-libs
+  glibc
+  libgcc
   gettext
   libpcap
   libunwind
