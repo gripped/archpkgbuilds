@@ -1,18 +1,22 @@
 pkgbase = python-update-checker
 	pkgdesc = A python module that will check for package updates
 	pkgver = 0.18.0
-	pkgrel = 9
+	pkgrel = 10
 	url = https://github.com/bboe/update_checker
 	arch = any
-	license = BSD
+	license = BSD-2-Clause
 	checkdepends = python-pytest
-	makedepends = python-setuptools
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-requests
+	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python-requests
 	provides = python-update_checker
 	conflicts = python-update_checker
 	replaces = python-update_checker
-	source = https://pypi.io/packages/source/u/update_checker/update_checker-0.18.0.tar.gz
-	sha512sums = ab77b4904f27fc3a4f382dda08cf86fceedc6fa1c6a1f2b1d6ea42688f95ea1fbef4168d69233aec4a489d9ff7f93af60e8f1bf62854aa4d2f54136c540d26f1
+	source = git+https://github.com/bboe/update_checker.git#tag=v0.18.0
+	sha512sums = 564a8e5489afbd11b134ad7e37dba5176343b668b85fbc99d294a84eb5affa12c74882e01958599b9421a251c1d2dec83fd3d419f1d58a933c676b39841f1442
 
 pkgname = python-update-checker

@@ -2,32 +2,32 @@
 
 pkgname=python-update-checker
 pkgver=0.18.0
-pkgrel=9
+pkgrel=10
 pkgdesc="A python module that will check for package updates"
 arch=('any')
-license=('BSD')
+license=('BSD-2-Clause')
 url='https://github.com/bboe/update_checker'
 depends=('python-requests')
 provides=('python-update_checker')
 conflicts=('python-update_checker')
 replaces=('python-update_checker')
-makedepends=('python-setuptools' 'python-requests')
+makedepends=('git' 'python-build' 'python-installer' 'python-requests' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
-source=("https://pypi.io/packages/source/u/update_checker/update_checker-$pkgver.tar.gz")
-sha512sums=('ab77b4904f27fc3a4f382dda08cf86fceedc6fa1c6a1f2b1d6ea42688f95ea1fbef4168d69233aec4a489d9ff7f93af60e8f1bf62854aa4d2f54136c540d26f1')
+source=("git+https://github.com/bboe/update_checker.git#tag=v$pkgver")
+sha512sums=('564a8e5489afbd11b134ad7e37dba5176343b668b85fbc99d294a84eb5affa12c74882e01958599b9421a251c1d2dec83fd3d419f1d58a933c676b39841f1442')
 
 build() {
-  cd update_checker-$pkgver
-  python setup.py build
+  cd update_checker
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd update_checker-$pkgver
+  cd update_checker
   pytest
 }
 
 package() {
-  cd update_checker-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
-  install -D -m644 LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
+  cd update_checker
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
