@@ -1,17 +1,17 @@
 pkgbase = lua-cqueues
 	pkgdesc = Continuation Queues: Embeddable asynchronous networking, threading, and notification framework
 	pkgver = 20200726
-	pkgrel = 5
+	pkgrel = 7
 	url = http://25thandclement.com/~william/projects/cqueues.html
 	arch = x86_64
 	license = MIT
 	makedepends = luarocks
-	makedepends = lua
+	makedepends = lua54
 	makedepends = lua51
 	makedepends = lua52
 	makedepends = lua53
 	depends = openssl
-	source = lua-cqueues-20200726.tar.gz::https://github.com/wahern/cqueues/archive/rel-20200726.tar.gz
+	source = lua54-cqueues-20200726.tar.gz::https://github.com/wahern/cqueues/archive/rel-20200726.tar.gz
 	source = https://luarocks.org/manifests/daurnimator/cqueues-20200726.51-0.rockspec
 	source = https://luarocks.org/manifests/daurnimator/cqueues-20200726.52-0.rockspec
 	source = https://luarocks.org/manifests/daurnimator/cqueues-20200726.53-0.rockspec
@@ -22,9 +22,9 @@ pkgbase = lua-cqueues
 	sha256sums = f5bae8418551341d8c17ec302af27269098752e8fbda5f7bd1e610f2cb39fe2e
 	sha256sums = d78cba24427812a711d10a05b410b2afb6a9d4002d51dd2a4f4c55ba1a50d48c
 
-pkgname = lua-cqueues
+pkgname = lua54-cqueues
 	pkgdesc = Continuation Queues: Embeddable asynchronous networking, threading, and notification framework for Lua 5.4
-	optdepends = lua-luaossl: TLS support
+	optdepends = lua54-luaossl: TLS support
 
 pkgname = lua51-cqueues
 	pkgdesc = Continuation Queues: Embeddable asynchronous networking, threading, and notification framework for Lua 5.1
