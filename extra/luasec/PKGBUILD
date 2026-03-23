@@ -1,19 +1,20 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Dwayne Bent <dbb.1@liqd.org>
 # Contributor: Paul-Sebastian Manole <brokenthorn@gmail.com>
 
 pkgbase=luasec
-pkgname=(lua-sec lua51-sec lua52-sec lua53-sec)
+pkgname=(lua-sec lua51-sec lua52-sec lua53-sec lua54-sec)
 epoch=2
 pkgver=1.3.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Lua bindings for OpenSSL library to provide TLS/SSL communication'
 arch=('x86_64')
 url='https://github.com/brunoos/luasec/wiki'
 license=('MIT')
 makedepends=('luarocks'
-             'lua51' 'lua52' 'lua53' 'lua') # https://github.com/luarocks/luarocks/issues/1275
+             'lua51' 'lua52' 'lua53' 'lua54' 'lua') # https://github.com/luarocks/luarocks/issues/1275
 depends=('openssl')
 source=("$pkgbase-v$pkgver.tar.gz"::"https://github.com/brunoos/luasec/archive/v$pkgver.tar.gz")
 sha512sums=('8f0c4b5ff87c024685b23770e1d342467554b8dc19a1704076e184d9e84b966f171091c31d1da135ab009e850275adc2bf2720fc9f32c83ac23f0a42f13d311f')
@@ -21,7 +22,7 @@ sha512sums=('8f0c4b5ff87c024685b23770e1d342467554b8dc19a1704076e184d9e84b966f171
 build() {
   cd "luasec-$pkgver"
 
-  for v in 5.1 5.2 5.3 5.4; do
+  for v in 5.1 5.2 5.3 5.4 5.5; do
     mkdir -p "$v/"
     luarocks make --pack-binary-rock --lua-version="$v" --deps-mode=none \
       CFLAGS="$CPPFLAGS $CFLAGS -fPIC" \
@@ -60,12 +61,21 @@ package_lua53-sec() {
   install -Dm644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 
-package_lua-sec() {
+package_lua54-sec() {
   pkgdesc="$pkgdesc for Lua 5.4"
   depends+=('lua-socket')
 
   cd "luasec-$pkgver"
   luarocks install --lua-version=5.4 --tree="$pkgdir/usr/" --deps-mode=none --no-manifest 5.4/*.rock
+  install -Dm644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
+
+package_lua-sec() {
+  pkgdesc="$pkgdesc for Lua 5.5"
+  depends+=('lua-socket')
+
+  cd "luasec-$pkgver"
+  luarocks install --lua-version=5.5 --tree="$pkgdir/usr/" --deps-mode=none --no-manifest 5.5/*.rock
   install -Dm644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 
