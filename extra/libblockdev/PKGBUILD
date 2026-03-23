@@ -7,7 +7,7 @@ pkgname=(
   python-libblockdev
 )
 pkgver=3.4.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A library for manipulating block devices"
 arch=('x86_64')
 url="https://github.com/storaged-project/libblockdev"
@@ -20,7 +20,6 @@ makedepends=(
   'dosfstools'
   'e2fsprogs'
   'exfatprogs'
-  'gcc-libs'
   'glib2'
   'glibc'
   'gobject-introspection'
@@ -30,6 +29,7 @@ makedepends=(
   'keyutils'
   'libatasmart'
   'libbytesize'
+  'libgcc'
   'libnvme'
   'libyaml'
   'lvm2'
@@ -176,11 +176,11 @@ package_libblockdev-crypto() {
   pkgdesc+=" - crypto support"
   depends=(
     cryptsetup libcryptsetup.so
-    gcc-libs
     glib2 libglib-2.0.so
     glibc
     keyutils libkeyutils.so
     "libblockdev=$pkgver" libbd_utils.so
+    libgcc
     nss
     util-linux-libs libblkid.so
     volume_key
@@ -207,11 +207,11 @@ package_libblockdev-fs() {
   pkgdesc+=" - filesystem support"
   depends=(
     e2fsprogs libext2fs.so libe2p.so
-    gcc-libs
     glib2 libglib-2.0.so
     glibc
     "libblockdev=$pkgver" libbd_utils.so
     libbytesize
+    libgcc
     parted
     util-linux-libs libblkid.so libmount.so libuuid.so
   )
@@ -235,10 +235,10 @@ package_libblockdev-fs() {
 package_libblockdev-loop() {
   pkgdesc+=" - loop device support"
   depends=(
-    gcc-libs
     glib2 libglib-2.0.so
     glibc
     "libblockdev=$pkgver" libbd_utils.so
+    libgcc
   )
   provides=(libbd_loop.so)
 
@@ -249,10 +249,10 @@ package_libblockdev-lvm() {
   pkgdesc+=" - LVM support"
   depends=(
     device-mapper libdevmapper.so
-    gcc-libs
     glib2 libglib-2.0.so
     glibc
     "libblockdev=$pkgver" libbd_utils.so libblockdev.so
+    libgcc
     libyaml
     libbytesize
   )
@@ -275,11 +275,11 @@ package_libblockdev-lvm() {
 package_libblockdev-mdraid() {
   pkgdesc+=" - MDRAID support"
   depends=(
-    gcc-libs
     glib2 libglib-2.0.so
     glibc
     "libblockdev=$pkgver" libbd_utils.so
     libbytesize
+    libgcc
     mdadm  # the libbd_mdraid.so library calls the mdadm executable
   )
   provides=(libbd_mdraid.so)
@@ -363,10 +363,10 @@ package_libblockdev-smart() {
 package_libblockdev-swap() {
   pkgdesc+=" - swap device support"
   depends=(
-    gcc-libs
     glib2 libglib-2.0.so
     glibc
     "libblockdev=$pkgver" libbd_utils.so
+    libgcc
     util-linux-libs libblkid.so
   )
   provides=(libbd_swap.so)
