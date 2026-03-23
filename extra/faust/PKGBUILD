@@ -4,8 +4,8 @@
 # Contributor: bjoern lindig (bjoern _dot_ lindig _at_ google.com)
 
 pkgname=faust
-pkgver=2.83.1
-pkgrel=2
+pkgver=2.85.5
+pkgrel=1
 pkgdesc="A functional programming language for realtime audio signal processing."
 arch=(x86_64)
 url="https://faust.grame.fr/"
@@ -17,9 +17,10 @@ license=(
 groups=(pro-audio)
 depends=(
   bash
-  gcc-libs
   glibc
+  libgcc
   libmicrohttpd
+  libstdc++
   llvm-libs
 )
 makedepends=(
@@ -33,9 +34,8 @@ optdepends=(
   'csound: for faust2csound'
   'gradle: for faust2android'
   'graphviz: for faust2sig{,viewer}'
-#  'gtk2: for faust2{alsa,cagtk,comparator,jack,magtk,pwgtk,rosgtk}'
   'inkscape: for faust2{pdf,png}'
-  'jack: for faust2{api,jack{,console,internal,server,rust},jaqt,netjackqt,nodejs,ros,rosgtk,rpinetjackconsole}'
+  'jack: for faust2{api,jack{console,internal,server,rust},jaqt,netjackqt,nodejs,ros,rpinetjackconsole}'
   'swig: for faust2android'
   'libsndfile: for faust2{dummy,sndfile}'
   'octave: for faust2octave'
@@ -61,20 +61,9 @@ options=(
 )
 source=(
   https://github.com/grame-cncm/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz
-  llvm-22.patch::https://github.com/grame-cncm/faust/commit/cb26e3a4afba8e766611046d5be3075016fe3f1c.patch
-  # faust-2.79.3-add-missing-cstdint-include.patch::https://github.com/grame-cncm/faust/commit/0dd9e72f3b8da3c86421c6bba77b0ea19f2b7b6b.patch
 )
-sha512sums=('b17016dda2395496f688dcb38b1b1c05fe855e0ecb2dd57f2bf55b75204c0ccec48350110f6f9980aff3eb4a353318abac325242760547d9d6166d58dd825224'
-            '4edac74fa996e15eb43793966b9203d81a7badb2e164a851d4a9c6ef7ae4bc3abf3282c75e9573fca4a74453638b9a3809bc83ae548f37cca51f4c9a086068c7')
-b2sums=('9ef28fd3402201293962f584cdfa6a6599179016a54848949ac32d70d97b77745412e545b412850b20a428af1af2cda96db011c92df482186c41b50469f00dc1'
-        'e84b83e5d313157bdfef8038409cf6b772387967e1f524d325baae316d81724ec71bb5a9c43fceaac821eaa11c019327614e8f95e898fc6a5935b14e53015a34')
-
-prepare() {
-  cd $pkgname-$pkgver
-  #patch -Np1 < ../faust-2.79.3-add-missing-cstdint-include.patch
-  # LLVM 22
-  patch -Np1 < ../llvm-22.patch
-}
+sha512sums=('d48af40e105a93b9cd619e4f4617c88310765b6a25429137f015c589bfc16bf1bafe5ab9ddb0648b894b412c6eff63a3c363db0aee7c74cfcfd83e483cff9496')
+b2sums=('32186d5f489944b527d0938d69fef2ccaca7553142b0d7e2dd96ec25f96159fd654fdb23ab925e3da46ed33ef87175933a31c655f999a0b4897855161fe4e044')
 
 build() {
   local cmake_options=(
@@ -140,5 +129,8 @@ package() {
   # remove precompiled shared libraries for android:
   # https://github.com/grame-cncm/faust/issues/370
   rm -rvf "$pkgdir/usr/share/faust/android/app/"{lib,oboe} "$pkgdir/usr/share/faust/smartKeyboard/android/app/oboe"
+
+  # remove scripts relying on gtk2: https://github.com/grame-cncm/faust/issues/563
+  rm -v "$pkgdir/usr/bin/faust2"{alsa,cagtk,comparator,jack,magtk,pwgtk,rosgtk}
 }
 
