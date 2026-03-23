@@ -4,12 +4,12 @@
 
 pkgname=kpty
 pkgver=6.24.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Pty abstraction'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL-2.0-only LGPL-3.0-only)
-depends=(gcc-libs
+depends=(libstdc++
          glibc
          kcoreaddons
          ki18n
