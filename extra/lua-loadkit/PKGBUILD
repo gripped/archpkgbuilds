@@ -2,10 +2,10 @@
 
 pkgbase=lua-loadkit
 _rockname=${pkgbase#lua-}
-pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname")
+pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname" "lua54-$_rockname")
 pkgver=1.1.0
 _rockrel=1
-pkgrel=2
+pkgrel=3
 pkgdesc='allows you to load arbitrary files within the Lua package path'
 arch=(any)
 url="https://github.com/leafo/$_rockname"
@@ -14,6 +14,7 @@ makedepends=(lua
              lua51
              lua52
              lua53
+             lua54
              luarocks)
 # checkdepends=(busted moonscript)
 _archive="$_rockname-$pkgver"
@@ -35,7 +36,7 @@ _package() {
 }
 
 package_lua-loadkit() {
-	_package 5.4
+	_package 5.5
 }
 
 package_lua51-loadkit() {
@@ -48,4 +49,8 @@ package_lua52-loadkit() {
 
 package_lua53-loadkit() {
 	_package 5.3
+}
+
+package_lua54-loadkit() {
+	_package 5.4
 }
