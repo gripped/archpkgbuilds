@@ -6,29 +6,30 @@
 
 pkgname=python-texttable
 pkgver=1.7.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Generate a formatted text table using ASCII characters"
 arch=('any')
 url="https://pypi.python.org/pypi/texttable/"
-license=('LGPL')
+license=('MIT')
 depends=('python')
 optdepends=('python-cjkwrap: for better CJK support')
-makedepends=('python-cjkwrap' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-cjkwrap' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/foutaise/texttable/archive/v$pkgver.tar.gz")
-sha512sums=('30b99abe0448fd4ab7a0ef70f5762a388978c2c09acd843e0a669a7870b6b73df8bc638e94853d77186df104bfa2d689f8b72d11df90b6844355ae0b38f6e549')
+source=("git+https://github.com/foutaise/texttable.git#tag=v$pkgver")
+sha512sums=('5b39841dc7ecdcaa1c50f39519e3e7a55c2bbf95463b7093c59a66f1891fddf147160426fcda08d6638bd243e1136caef47b9e7072abf427b57d127dab782e75')
 
 build() {
-  cd texttable-$pkgver
-  python setup.py build
+  cd texttable
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd texttable-$pkgver
+  cd texttable
   pytest tests.py
 }
 
 package() {
-  cd texttable-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  cd texttable
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
