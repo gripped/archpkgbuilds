@@ -2,8 +2,8 @@
 # Contributor: André Klitzing <aklitzing () gmail () com>
 
 pkgname=clazy
-pkgver=1.17
-pkgrel=2
+pkgver=1.17.1
+pkgrel=1
 pkgdesc='Qt oriented code checker based on clang framework'
 url='https://www.kdab.com/'
 license=(GPL-2.0-or-later)
@@ -18,7 +18,7 @@ makedepends=(cmake
              llvm)
 arch=(x86_64)
 source=(git+https://invent.kde.org/sdk/clazy#tag=v$pkgver)
-sha256sums=('2ac346abd30e45bdf19ec66603e73e8fb9046cfac48b383eb66c000e8c7f683d')
+sha256sums=('24f013d87e147438f67eb17828c88eb7202bc9f141f7623ed955f4908a5f66ef')
 validpgpkeys=(949014B23D24354DFD548E5457416A0ADCEF0EFE  # Sergio Martins <sergio.martins@kdab.com>
               C6D862468611FE7CE74E67E2FB13736123B9CB3C) # Alexander Lohnau <alexander.lohnau@kde.org>
 
