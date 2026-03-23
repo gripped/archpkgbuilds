@@ -4,12 +4,12 @@
 
 pkgname=krunner
 pkgver=6.24.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Framework for providing different actions given a string query'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL-2.0-only LGPL-3.0-only)
-depends=(gcc-libs
+depends=(libstdc++
          glibc
          kconfig
          kcoreaddons
