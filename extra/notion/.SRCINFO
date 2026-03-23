@@ -1,7 +1,7 @@
 pkgbase = notion
 	pkgdesc = Tabbed tiling, window manager. Fork of Ion3
 	pkgver = 4.0.4
-	pkgrel = 1
+	pkgrel = 2
 	epoch = 1
 	url = https://notionwm.net
 	changelog = ChangleLog
@@ -16,7 +16,7 @@ pkgbase = notion
 	makedepends = texlive-latexextra
 	depends = glib2
 	depends = gettext
-	depends = lua
+	depends = lua54
 	depends = libxext
 	depends = libsm
 	depends = freetype2
@@ -67,10 +67,10 @@ pkgbase = notion
 	backup = etc/notion/test_xinerama.lua
 	backup = etc/notion/xkbbell.lua
 	backup = etc/notion/xkbion.lua
-	source = notion::git+https://github.com/raboof/notion#commit=3325aa715dcfe27758db82ddc81f6e0d4af1c1a5
+	source = notion::git+https://github.com/raboof/notion#commit=e41640bc5bf1679e11b3e6587eea18b987115133
 	source = notion-doc::git+https://github.com/raboof/notion-doc.git#commit=746225fb6cfc9109663faaabc73e444ea88815bb
 	source = build-fix.patch
-	sha256sums = fcd80598afc6dac155fb93da014c5c4c96d9206fa89d98efb39267c154d8ab58
+	sha256sums = c5d329edd6ef57ff6037ce8910dc106581525102d3c3789ff7cd9f012626cd19
 	sha256sums = 7492bdfae572de1130857ba7725912efda4a44cbd65e9d6d2dca6de568c40d73
 	sha256sums = 1623e36fb0f86db50194f3e186cfedba690696d83a1cf063e136055e551a2d6d
 

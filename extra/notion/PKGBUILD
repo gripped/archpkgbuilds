@@ -5,14 +5,14 @@
 pkgname=notion
 epoch=1
 pkgver=4.0.4
-pkgrel=1
-_commit=3325aa715dcfe27758db82ddc81f6e0d4af1c1a5
+pkgrel=2
+_commit=e41640bc5bf1679e11b3e6587eea18b987115133
 _commit_doc=746225fb6cfc9109663faaabc73e444ea88815bb
 pkgdesc="Tabbed tiling, window manager. Fork of Ion3"
 url="https://notionwm.net"
 arch=('x86_64')
 license=('LGPL')
-depends=('glib2' 'gettext' 'lua' 'libxext' 'libsm' 'freetype2' 'libxft')
+depends=('glib2' 'gettext' 'lua54' 'libxext' 'libsm' 'freetype2' 'libxft')
 optdepends=('libxinerama' 'libxrandr' 'xorg-xmessage'
             'perl: for contrib/verify_index.pl')
 makedepends=('git' 'pkgconfig' 'libxinerama' 'libxrandr'
@@ -65,29 +65,29 @@ changelog=ChangleLog
 source=("notion::git+https://github.com/raboof/notion#commit=${_commit}"
         "notion-doc::git+https://github.com/raboof/notion-doc.git#commit=${_commit_doc}"
         "build-fix.patch")
-sha256sums=('fcd80598afc6dac155fb93da014c5c4c96d9206fa89d98efb39267c154d8ab58'
+sha256sums=('c5d329edd6ef57ff6037ce8910dc106581525102d3c3789ff7cd9f012626cd19'
             '7492bdfae572de1130857ba7725912efda4a44cbd65e9d6d2dca6de568c40d73'
             '1623e36fb0f86db50194f3e186cfedba690696d83a1cf063e136055e551a2d6d')
 
 prepare() {
   cd "$srcdir"
   cat >notion/build/lua-detect.mk <<EOF
-LUA_VERSION := 5.3
-LUA_LIBS     := $(pkg-config --libs lua)
-LUA_INCLUDES := $(pkg-config --cflags lua)
-LUA          := $(which lua)
-LUAC         := $(which luac)
+LUA_VERSION := 5.4
+LUA_LIBS     := $(pkg-config --libs lua54)
+LUA_INCLUDES := $(pkg-config --cflags lua54)
+LUA          := $(which lua5.4)
+LUAC         := $(which luac5.4)
 EOF
   sed -i '/Skipping dvi and ps because/d' notion-doc/Makefile
   cd notion
-  patch -p1 -i ../build-fix.patch
+#  patch -p1 -i ../build-fix.patch
 }
 
 build() {
   cd "$srcdir"/notion
   make \
-	INCLUDES="-I$srcdir/notion -I/usr/include/freetype2" \
-	LUA_VERSION=5.3 \
+	INCLUDES="-I$srcdir/notion -I/usr/include/freetype2 -I/usr/include/lua5.4" \
+	LUA_VERSION=5.4 \
 	PREFIX=/usr \
 	ETCDIR=/etc/notion \
 	NOTION_RELEASE="$pkgver"
@@ -100,7 +100,7 @@ package() {
   cd "$srcdir"/notion
   make \
 	DESTDIR="$pkgdir" \
-	LUA_VERSION=5.3 \
+	LUA_VERSION=5.4 \
 	PREFIX=/usr \
 	ETCDIR=/etc/notion \
 	install
