@@ -1,22 +1,30 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 
-pkgname=(lua-luaossl lua51-luaossl lua52-luaossl lua53-luaossl)
+pkgname=(lua-luaossl lua51-luaossl lua52-luaossl lua53-luaossl lua54-luaossl)
 pkgver=20250929
-pkgrel=1
+pkgrel=2
 pkgdesc='Most comprehensive OpenSSL module in the Lua universe'
 arch=('x86_64')
 url='http://25thandclement.com/~william/projects/luaossl.html'
 license=('MIT')
-makedepends=('luarocks' 'lua' 'lua51' 'lua52' 'lua53')
+makedepends=('luarocks' 'lua' 'lua51' 'lua52' 'lua53' 'lua54')
 depends=('openssl')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/wahern/luaossl/archive/rel-$pkgver.tar.gz"
-      "https://github.com/wahern/luaossl/releases/download/rel-$pkgver/luaossl-$pkgver-0.rockspec")
+      "https://github.com/wahern/luaossl/releases/download/rel-$pkgver/luaossl-$pkgver-0.rockspec"
+       https://github.com/wahern/luaossl/commit/dc891ba243e6dc7c327e8c63ad404a40314c61e3.patch)
 sha256sums=('2f695aea5f0bc0b9b32d3de56fffc5d41630f30bdd7e15bd68ce1f4bd3e8f61e'
-            'b4a726aa81341b877ca305f45f6386a7056f05019b02418a1e8c33d4f610a886')
+            'b4a726aa81341b877ca305f45f6386a7056f05019b02418a1e8c33d4f610a886'
+            '7236113d06dfc000bc37a63ce7cae880ff0597b54f3d1ec6ae14f6844017245f')
+
+prepare() {
+  cd "luaossl-rel-$pkgver"
+# LUA 5.5 support
+  patch -p1 -i ../dc891ba243e6dc7c327e8c63ad404a40314c61e3.patch
+}
 
 build() {
   cd "luaossl-rel-$pkgver"
-  for v in 5.1 5.2 5.3 5.4; do
+  for v in 5.1 5.2 5.3 5.4 5.5; do
     mkdir -p "$v/"
     luarocks make --pack-binary-rock --lua-version="$v" --deps-mode=none \
       CFLAGS="-std=c17 $CPPFLAGS $CFLAGS -fPIC" \
@@ -27,10 +35,10 @@ build() {
 }
 
 package_lua-luaossl() {
-  pkgdesc="$pkgdesc for Lua 5.4"
+  pkgdesc="$pkgdesc for Lua 5.5"
 
   cd "luaossl-rel-$pkgver"
-  luarocks install --lua-version=5.4 --tree="$pkgdir/usr/" --deps-mode=none 5.4/*.rock --no-manifest
+  luarocks install --lua-version=5.5 --tree="$pkgdir/usr/" --deps-mode=none 5.5/*.rock --no-manifest
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 
@@ -55,5 +63,13 @@ package_lua53-luaossl() {
 
   cd "luaossl-rel-$pkgver"
   luarocks install --lua-version=5.3 --tree="$pkgdir/usr/" --deps-mode=none 5.3/*.rock --no-manifest
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
+
+package_lua54-luaossl() {
+  pkgdesc="$pkgdesc for Lua 5.4"
+
+  cd "luaossl-rel-$pkgver"
+  luarocks install --lua-version=5.4 --tree="$pkgdir/usr/" --deps-mode=none 5.4/*.rock --no-manifest
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
