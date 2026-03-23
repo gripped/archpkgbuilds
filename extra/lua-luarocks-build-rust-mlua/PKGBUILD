@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 _rockname=luarocks-build-rust-mlua
-pkgname=("lua-$_rockname" "lua53-$_rockname" "lua52-$_rockname" "lua51-$_rockname")
-pkgver=0.2.5
+pkgname=("lua-$_rockname" "lua54-$_rockname" "lua53-$_rockname" "lua52-$_rockname" "lua51-$_rockname")
+pkgver=0.2.7
 _rockrel=1
 pkgrel=1
 pkgdesc='A LuaRocks build backend for Lua modules written in Rust using mlua'
@@ -14,10 +14,11 @@ makedepends=(lua
              lua51
              lua52
              lua53
+             lua54
              luarocks)
 _archive="$_rockname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('3631ba11940c1df68caeec27bf303fd0fb23e3c86eeb959d22968aabb42086e0')
+sha256sums=('5677062fdca90757642eaa9c48d95d13f31e8d54af7760f13467d5c8a15ec018')
 
 _package() {
 	cd "$_archive"
@@ -27,7 +28,7 @@ _package() {
 }
 
 package_lua-luarocks-build-rust-mlua() {
-	_package 5.4
+	_package 5.5
 }
 
 package_lua51-luarocks-build-rust-mlua() {
@@ -40,4 +41,8 @@ package_lua52-luarocks-build-rust-mlua() {
 
 package_lua53-luarocks-build-rust-mlua() {
 	_package 5.3
+}
+
+package_lua54-luarocks-build-rust-mlua() {
+	_package 5.4
 }
