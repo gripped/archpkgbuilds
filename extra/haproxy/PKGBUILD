@@ -3,7 +3,7 @@
 
 pkgname=haproxy
 pkgver=3.3.6
-pkgrel=1
+pkgrel=2
 
 # Each release serie has its own repository. This is handled automatically in
 # PKGBUILD, but nvchecker configuration needs to be updated on bump!
