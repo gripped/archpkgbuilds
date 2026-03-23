@@ -8,20 +8,20 @@ pkgname=(
   wireplumber-docs
 )
 pkgver=0.5.13
-pkgrel=1
+pkgrel=2
 pkgdesc="Session / policy manager implementation for PipeWire"
 url="https://pipewire.pages.freedesktop.org/wireplumber/"
 arch=(x86_64)
 license=(MIT)
 makedepends=(
   doxygen
-  gcc-libs
   git
   glib2
   glib2-devel
   glibc
   gobject-introspection
   graphviz
+  libgcc
   libpipewire
   lua
   meson
@@ -72,8 +72,8 @@ _ver=${pkgver:0:3}
 package_wireplumber() {
   depends=(
     "libwireplumber=$pkgver-$pkgrel"
-    gcc-libs
     glibc
+    libgcc
     libg{lib,object,io}-2.0.so
     libpipewire
     libpipewire-0.3.so
@@ -110,8 +110,8 @@ package_wireplumber() {
 package_libwireplumber() {
   pkgdesc+=" - client library"
   depends=(
-    gcc-libs
     glibc
+    libgcc
     libg{lib,module,object,io}-2.0.so
     libpipewire-0.3.so
   )

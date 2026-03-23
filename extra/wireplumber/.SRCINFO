@@ -1,19 +1,19 @@
 pkgbase = wireplumber
 	pkgdesc = Session / policy manager implementation for PipeWire
 	pkgver = 0.5.13
-	pkgrel = 1
+	pkgrel = 2
 	url = https://pipewire.pages.freedesktop.org/wireplumber/
 	arch = x86_64
 	license = MIT
 	checkdepends = pipewire-audio
 	makedepends = doxygen
-	makedepends = gcc-libs
 	makedepends = git
 	makedepends = glib2
 	makedepends = glib2-devel
 	makedepends = glibc
 	makedepends = gobject-introspection
 	makedepends = graphviz
+	makedepends = libgcc
 	makedepends = libpipewire
 	makedepends = lua
 	makedepends = meson
@@ -29,9 +29,9 @@ pkgbase = wireplumber
 
 pkgname = wireplumber
 	install = wireplumber.install
-	depends = libwireplumber=0.5.13-1
-	depends = gcc-libs
+	depends = libwireplumber=0.5.13-2
 	depends = glibc
+	depends = libgcc
 	depends = libglib-2.0.so
 	depends = libgobject-2.0.so
 	depends = libgio-2.0.so
@@ -47,8 +47,8 @@ pkgname = wireplumber
 
 pkgname = libwireplumber
 	pkgdesc = Session / policy manager implementation for PipeWire - client library
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	depends = libglib-2.0.so
 	depends = libgmodule-2.0.so
 	depends = libgobject-2.0.so
