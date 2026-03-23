@@ -4,12 +4,12 @@
 
 pkgname=libgooglepinyin
 pkgver=0.1.2
-pkgrel=6
+pkgrel=7
 pkgdesc="A fork from google pinyin on android"
 arch=('x86_64')
 url="https://code.google.com/archive/p/libgooglepinyin/"
-license=('APACHE')
-depends=('gcc-libs')
+license=('Apache-2.0')
+depends=('glibc' 'libgcc' 'libstdc++')
 makedepends=('cmake')
 source=(https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libgooglepinyin/${pkgname}-${pkgver}.tar.bz2)
 
@@ -18,7 +18,7 @@ build() {
   mkdir build
   cd build
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr . \
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_POLICY_VERSION_MINIMUM=3.5 . \
       -DENABLE_STATIC=Off ../$pkgname-$pkgver
 }
 
