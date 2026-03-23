@@ -5,14 +5,14 @@
 
 pkgname=lite-xl
 pkgver=2.1.8
-pkgrel=2
+pkgrel=3
 pkgdesc='A lightweight text editor written in Lua'
 arch=(x86_64 aarch64)
 url="https://$pkgname.com"
 license=(MIT)
 depends=(freetype2
          glibc # libc.so
-         lua
+         lua54
          pcre2
          sdl3)
 makedepends=(git # used by Meson to fetch submodule, TODO: move to source()
