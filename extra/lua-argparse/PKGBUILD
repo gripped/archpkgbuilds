@@ -1,8 +1,9 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 
-pkgname=('lua-argparse' 'lua51-argparse' 'lua52-argparse' 'lua53-argparse')
+pkgname=('lua-argparse' 'lua51-argparse' 'lua52-argparse' 'lua53-argparse' 'lua54-argparse')
 pkgver=0.7.1
-pkgrel=2
+pkgrel=3
 arch=('any')
 url='https://github.com/luarocks/argparse'
 license=('MIT')
@@ -10,7 +11,7 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/luarocks/argparse/archive/$
 sha512sums=('f192d0c591516a74408a19c0bbf34233be180f63794211a951d19fc8d981749bc71eace16a4680c8f2bb302ab48958c6a9ffc84022a1754275fc1f9113ae32b0')
 
 package_lua-argparse() {
-	pkgdesc='Feature-rich command line parser for Lua 5.4'
+	pkgdesc='Feature-rich command line parser for Lua 5.5'
 
 	cd "argparse-$pkgver"
 	install -Dm644 src/argparse.lua "$pkgdir/usr/share/lua/5.4/argparse.lua"
@@ -38,5 +39,13 @@ package_lua53-argparse() {
 
 	cd "argparse-$pkgver"
 	install -Dm644 src/argparse.lua "$pkgdir/usr/share/lua/5.3/argparse.lua"
+	install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
+
+package_lua54-argparse() {
+	pkgdesc='Feature-rich command line parser for Lua 5.4'
+
+	cd "argparse-$pkgver"
+	install -Dm644 src/argparse.lua "$pkgdir/usr/share/lua/5.4/argparse.lua"
 	install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
