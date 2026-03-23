@@ -1,0 +1,34 @@
+# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+
+pkgbase=ols
+pkgname=(odinfmt ols)
+pkgver=dev_2026_03
+pkgrel=1
+pkgdesc='Language server and source code formatter for Odin'
+arch=(x86_64)
+url='https://github.com/DanielGavin/ols'
+license=(MIT)
+depends=(glibc)
+makedepends=(git odin)
+source=("git+$url#tag=${pkgver//_/-}")
+b2sums=('2dc88076d000f73b29eaccefab238d0ad5246f2ff51ffdbf90ba85200d3e55cfb6197525d13b61b6a3e62da01f6d7f7ea51dcbc923f201747533e0cbd0af6d7a')
+
+build() {
+  cd ols
+  ./build.sh
+  ./odinfmt.sh
+}
+
+package_odinfmt() {
+  pkgdesc='Source code formatter for Odin'
+
+  install -Dm755 ols/$pkgname "$pkgdir/usr/bin/$pkgname"
+  install -Dm644 ols/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
+
+package_ols() {
+  pkgdesc='Language server for Odin'
+
+  install -Dm755 ols/$pkgname "$pkgdir/usr/bin/$pkgname"
+  install -Dm644 ols/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
