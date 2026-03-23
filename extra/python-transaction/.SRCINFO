@@ -1,12 +1,15 @@
 pkgbase = python-transaction
 	pkgdesc = Transaction management for Python
 	pkgver = 5.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/zopefoundation/transaction
 	arch = any
 	license = ZPL-2.1
 	checkdepends = python-zope-testrunner
 	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
 	makedepends = python-setuptools
 	depends = python-zope-interface
 	source = git+https://github.com/zopefoundation/transaction.git#tag=5.1
