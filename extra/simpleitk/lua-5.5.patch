@@ -1,0 +1,19 @@
+--- a/CMake/sitkGenerateFilterSource.cmake
++++ b/CMake/sitkGenerateFilterSource.cmake
+@@ -9,7 +9,7 @@ if ( NOT SimpleITK_LUA_EXECUTABLE )
+
+   if (CMAKE_VERSION VERSION_GREATER 3.19)
+     # support for ranges added in 3.19
+-    find_package( LuaInterp 5.3...<5.5  REQUIRED )
++    find_package( LuaInterp 5.3...<5.6  REQUIRED )
+   else()
+     find_package( LuaInterp 5.3 REQUIRED )
+   endif ()
+@@ -53,7 +53,7 @@ if( SITK_LUA_VERSION_RESULT_VARIABLE
+       OR
+     NOT ${SimpleITK_LUA_EXECUTABLE_VERSION} VERSION_GREATER "5.2"
+       OR
+-    NOT ${SimpleITK_LUA_EXECUTABLE_VERSION} VERSION_LESS "5.5" )
++    NOT ${SimpleITK_LUA_EXECUTABLE_VERSION} VERSION_LESS "5.6" )
+   message(SEND_ERROR "Lua version between 5.3 and 5.4 is required for SimpleITK_LUA_EXECUTABLE_VERSION.")
+ endif()
