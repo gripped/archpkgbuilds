@@ -2,10 +2,10 @@
 
 pkgbase=lua-luarepl
 _rockname=${pkgbase#lua-}
-pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname")
+pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname" "lua54-$_rockname")
 pkgver=0.10
 _rockrel=1
-pkgrel=3
+pkgrel=4
 pkgdesc='A reusable REPL component for Lua, written in Lua'
 arch=(any)
 url="https://github.com/hoelzro/${pkgbase/-lua/-}"
@@ -15,6 +15,7 @@ makedepends=(lua
              lua51
              lua52
              lua53
+             lua54
              luarocks)
 checkdepends=(perl
               lua-testmore)
@@ -44,7 +45,7 @@ _package() {
 }
 
 package_lua-luarepl() {
-	_package 5.4
+	_package 5.5
 }
 
 package_lua51-luarepl() {
@@ -57,4 +58,8 @@ package_lua52-luarepl() {
 
 package_lua53-luarepl() {
 	_package 5.3
+}
+
+package_lua54-luarepl() {
+	_package 5.4
 }
