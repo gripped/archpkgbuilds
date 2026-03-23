@@ -3,9 +3,9 @@
 # Contributor: Anders Bergh <anders1@gmail.com>
 
 pkgbase=luasocket
-pkgname=(lua-socket lua51-socket lua52-socket lua53-socket)
+pkgname=(lua-socket lua51-socket lua52-socket lua53-socket lua54-socket)
 pkgver=3.1.0
-pkgrel=1
+pkgrel=2
 _rockrel=1
 epoch=1
 pkgdesc='Networking support library for the Lua language'
@@ -16,6 +16,7 @@ makedepends=(lua
              lua51
              lua52
              lua53
+             lua54
              luarocks)
 _archive="$pkgbase-$pkgver"
 _rock="$_archive-$_rockrel.linux-$CARCH.rock"
@@ -24,7 +25,7 @@ sha256sums=('bf033aeb9e62bcaa8d007df68c119c966418e8c9ef7e4f2d7e96bddeca9cca6e')
 
 build() {
 	cd "$_archive"
-	for LUAVER in 5.1 5.2 5.3 5.4; do
+	for LUAVER in 5.{1,2,3,4,5}; do
 		luarocks --lua-version "$LUAVER" \
 			make --pack-binary-rock --deps-mode none -- "rockspecs/$_archive-$_rockrel.rockspec"
 		install -Dm0644 -t "lua$LUAVER/" "$_rock"
@@ -40,6 +41,10 @@ _package() {
 }
 
 package_lua-socket() {
+	_package 5.5
+}
+
+package_lua54-socket() {
 	_package 5.4
 }
 
