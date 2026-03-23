@@ -4,13 +4,14 @@
 
 pkgname=deepin-terminal
 pkgver=6.5.28
-pkgrel=1
+pkgrel=2
 pkgdesc='Default terminal emulation application for Deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-terminal"
 license=('GPL-3.0-or-later')
-depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'fontconfig' 'gcc-libs' 'glib2' 'glibc'
-         'hicolor-icon-theme' 'icu' 'qt6-5compat' 'qt6-base' 'libchardet' 'libsecret' 'libxcb')
+depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'fontconfig' 'glib2' 'glibc'
+         'hicolor-icon-theme' 'icu' 'libgcc' 'libstdc++' 'qt6-5compat' 'qt6-base'
+         'libchardet' 'libsecret' 'libxcb' 'uchardet')
 makedepends=('git' 'cmake' 'ninja' 'lxqt-build-tools' 'qt6-tools')
 #checkdepends=('xorg-server-xvfb')
 optdepends=('zssh: for remote management support')
