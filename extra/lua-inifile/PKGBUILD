@@ -3,9 +3,9 @@
 
 pkgbase=lua-inifile
 _rockname=${pkgbase#lua-}
-pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname")
+pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname" "lua54-$_rockname")
 pkgver=1.1
-pkgrel=1
+pkgrel=2
 _rockrel=1
 pkgdesc='a simple, complete ini parser for lua'
 arch=(any)
@@ -15,6 +15,7 @@ makedepends=(lua
              lua51
              lua52
              lua53
+             lua54
              luarocks)
 _archive="$_rockname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
@@ -28,6 +29,10 @@ _package() {
 }
 
 package_lua-inifile() {
+	_package 5.5
+}
+
+package_lua54-inifile() {
 	_package 5.4
 }
 
