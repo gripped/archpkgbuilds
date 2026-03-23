@@ -1,10 +1,10 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgbase=decasify
-pkgname=("$pkgbase" "lua-$pkgbase" "lua53-$pkgbase" "lua52-$pkgbase" "lua51-$pkgbase" "neovim-$pkgbase" "python-$pkgbase" "sile-$pkgbase")
+pkgname=("$pkgbase" "lua-$pkgbase" "lua54-$pkgbase" "lua53-$pkgbase" "lua52-$pkgbase" "lua51-$pkgbase" "neovim-$pkgbase" "python-$pkgbase" "sile-$pkgbase")
 pkgver=0.11.3
 _rockrel=1
-pkgrel=1
+pkgrel=2
 pkgdesc='cast strings to title-case according to locale specific style guides including Turkish'
 arch=(x86_64)
 url="https://github.com/alerque/$pkgbase"
@@ -17,6 +17,7 @@ makedepends=(cargo
              lua51{,-luarocks-build-rust-mlua}
              lua52{,-luarocks-build-rust-mlua}
              lua53{,-luarocks-build-rust-mlua}
+             lua54{,-luarocks-build-rust-mlua}
              luarocks
              python-{build,installer,wheel}
              python-maturin)
@@ -61,6 +62,10 @@ _package() {
 }
 
 package_lua-decasify() {
+	_package 5.5
+}
+
+package_lua54-decasify() {
 	_package 5.4
 }
 
