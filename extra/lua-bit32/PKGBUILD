@@ -4,10 +4,10 @@
 pkgbase=lua-bit32
 _project=lua-compat-5.3
 _rockname=${pkgbase#lua-}
-pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname")
+pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname" "lua54-$_rockname")
 pkgver=0.14
 epoch=1
-pkgrel=1
+pkgrel=2
 _pseudover=5.3.5.1
 _rockrel=1
 pkgdesc='Lua 5.2 bit manipulation library'
@@ -18,6 +18,7 @@ makedepends=(lua
              lua51
              lua52
              lua53
+             lua54
              luarocks)
 _archive="$_project-$pkgver"
 _rockspec="$_rockname-$_pseudover-$_rockrel.rockspec"
@@ -25,9 +26,17 @@ _rock="$_rockname-$_pseudover-$_rockrel.linux-$CARCH.rock"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
 sha256sums=('6a6f2d444aa894b972bc1fac2cb73f5257005f61a513a571d08302b122045047')
 
+prepare() {
+	cd "$_archive"
+	# Monkey patch to allow building on Lua 5.5
+	sed -i -e '/LUA_VERSION_NUM/s/504$/505/' c-api/compat-5.3.h
+}
+
 build() {
 	cd "$_archive"
-	for LUAVER in 5.{1,2,3,4}; do
+	for LUAVER in 5.{1,2,3,4,5}; do
+		# https://github.com/luarocks/luarocks/issues/1852
+		rm -f bit32.so
 		luarocks --lua-version "$LUAVER" \
 			make --pack-binary-rock --deps-mode none -- "rockspecs/$_rockspec"
 		install -Dm0644 -t "lua-$LUAVER/" "$_rock"
@@ -43,7 +52,7 @@ _package() {
 }
 
 package_lua-bit32() {
-	_package 5.4
+	_package 5.5
 }
 
 package_lua51-bit32() {
@@ -56,4 +65,8 @@ package_lua52-bit32() {
 
 package_lua53-bit32() {
 	_package 5.3
+}
+
+package_lua54-bit32() {
+	_package 5.4
 }
