@@ -1,8 +1,8 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 
-pkgname=('lua-lpeg-patterns' 'lua51-lpeg-patterns' 'lua52-lpeg-patterns' 'lua53-lpeg-patterns')
+pkgname=('lua-lpeg-patterns' 'lua51-lpeg-patterns' 'lua52-lpeg-patterns' 'lua53-lpeg-patterns' 'lua54-lpeg-patterns')
 pkgver=0.5
-pkgrel=2
+pkgrel=3
 arch=('any')
 url='https://github.com/daurnimator/lpeg_patterns'
 license=('MIT')
@@ -10,11 +10,11 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/daurnimator/lpeg_patterns/a
 sha256sums=('d1fabf897024822eb2544fd811fc80b85655972804511b9fd8cfea377fb16e0e')
 
 package_lua-lpeg-patterns() {
-	pkgdesc='A collection of LPEG patterns for Lua 5.4'
+	pkgdesc='A collection of LPEG patterns for Lua 5.5'
 	depends=('lua-lpeg')
 
 	cd "lpeg_patterns-$pkgver"
-	install -Dm644 lpeg_patterns/* -t "$pkgdir/usr/share/lua/5.4/lpeg_patterns/"
+	install -Dm644 lpeg_patterns/* -t "$pkgdir/usr/share/lua/5.5/lpeg_patterns/"
 	install -Dm644 LICENSE.md "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 
@@ -43,4 +43,13 @@ package_lua53-lpeg-patterns() {
 	cd "lpeg_patterns-$pkgver"
 	install -Dm644 lpeg_patterns/* -t "$pkgdir/usr/share/lua/5.3/lpeg_patterns/"
 	install -Dm644 LICENSE.md "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
+
+package_lua54-lpeg-patterns() {
+        pkgdesc='A collection of LPEG patterns for Lua 5.4'
+        depends=('lua54-lpeg')
+
+        cd "lpeg_patterns-$pkgver"
+        install -Dm644 lpeg_patterns/* -t "$pkgdir/usr/share/lua/5.4/lpeg_patterns/"
+        install -Dm644 LICENSE.md "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
