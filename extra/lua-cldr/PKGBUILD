@@ -2,10 +2,10 @@
 
 _rockname=cldr
 _project=$_rockname-lua
-pkgname=("lua-$_rockname" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname")
+pkgname=("lua-$_rockname" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname" "lua54-$_rockname")
 pkgver=0.3.0
 _rockrel=0
-pkgrel=2
+pkgrel=3
 pkgdesc='Lua interface to Unicode CLDR data'
 arch=(any)
 url="https://github.com/alerque/$_project"
@@ -15,6 +15,7 @@ makedepends=(lua
              lua51
              lua52
              lua53
+             lua54
              luarocks)
 _archive="$_project-$pkgver"
 source=("$_rockname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
@@ -29,7 +30,7 @@ _package() {
 }
 
 package_lua-cldr() {
-	_package 5.4
+	_package 5.5
 }
 
 package_lua51-cldr() {
@@ -42,4 +43,8 @@ package_lua52-cldr() {
 
 package_lua53-cldr() {
 	_package 5.3
+}
+
+package_lua54-cldr() {
+	_package 5.4
 }
