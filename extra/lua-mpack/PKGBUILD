@@ -2,14 +2,14 @@
 # Contributor: Florian Walch <florian+aur@fwalch.com>
 
 pkgbase=lua-mpack
-pkgname=(lua51-mpack lua52-mpack lua53-mpack lua-mpack)
+pkgname=(lua51-mpack lua52-mpack lua53-mpack lua54-mpack lua-mpack)
 pkgver=1.0.13
 pkgdesc="libmpack lua binding"
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://github.com/libmpack/libmpack-lua'
 depends=('libmpack')
-makedepends=('lua51' 'lua52' 'lua53' 'lua')
+makedepends=('lua51' 'lua52' 'lua53' 'lua54' 'lua')
 license=('MIT')
 source=("libmpack-lua-${pkgver}.tar.gz::https://github.com/libmpack/libmpack-lua/archive/${pkgver}.tar.gz")
 sha256sums=('436a6a3973207403d3f20082002c32e74c25d9149ff2516dc06b0b41514044bf')
@@ -26,8 +26,11 @@ build() {
   gcc -O2 -fPIC -DMPACK_USE_SYSTEM -I/usr/include/lua5.3 -c lmpack.c -o lmpack.o
   gcc -shared -lmpack -o mpack.so.5.3 lmpack.o
 
-  gcc -O2 -fPIC -DMPACK_USE_SYSTEM -I/usr/include -c lmpack.c -o lmpack.o
+  gcc -O2 -fPIC -DMPACK_USE_SYSTEM -I/usr/include/lua5.4 -c lmpack.c -o lmpack.o
   gcc -shared -lmpack -o mpack.so.5.4 lmpack.o
+
+  gcc -O2 -fPIC -DMPACK_USE_SYSTEM -I/usr/include -c lmpack.c -o lmpack.o
+  gcc -shared -lmpack -o mpack.so.5.5 lmpack.o
 }
 
 package_lua51-mpack() {
@@ -57,12 +60,21 @@ package_lua53-mpack() {
   install -Dm644 LICENSE-MIT "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
 
-package_lua-mpack() {
+package_lua54-mpack() {
   pkgdesc='Simple implementation of msgpack in C Lua 5.4'
-  depends+=('lua')
+  depends+=('lua54')
 
   cd "libmpack-lua-${pkgver}"
   install -Dm755 mpack.so.5.4 "${pkgdir}/usr/lib/lua/5.4/mpack.so"
+  install -Dm644 LICENSE-MIT "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
+
+package_lua-mpack() {
+  pkgdesc='Simple implementation of msgpack in C Lua 5.5'
+  depends+=('lua')
+
+  cd "libmpack-lua-${pkgver}"
+  install -Dm755 mpack.so.5.5 "${pkgdir}/usr/lib/lua/5.5/mpack.so"
   install -Dm644 LICENSE-MIT "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
 
