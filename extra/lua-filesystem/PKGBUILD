@@ -8,10 +8,10 @@
 
 pkgbase=lua-filesystem
 _rockname=${pkgbase/-/}
-pkgname=(lua-filesystem lua51-filesystem lua52-filesystem lua53-filesystem)
+pkgname=(lua-filesystem lua51-filesystem lua52-filesystem lua53-filesystem lua54-filesystem)
 pkgver=1.9.0
 _tag=${pkgver//./_}
-pkgrel=1
+pkgrel=3
 _rockrel=1
 pkgdesc='File System Library for the Lua Programming Language'
 arch=(x86_64)
@@ -22,6 +22,7 @@ makedepends=(lua
              lua51
              lua52
              lua53
+             lua54
              luarocks)
 _archive="$_rockname-$_tag"
 _rock="$_rockname-$pkgver-$_rockrel.linux-$CARCH.rock"
@@ -32,7 +33,10 @@ sha256sums=('1142c1876e999b3e28d1c236bf21ffd9b023018e336ac25120fb5373aade1450'
 
 build() {
 	cd "$_archive"
-	for LUAVER in 5.1 5.2 5.3 5.4; do
+	for LUAVER in 5.1 5.2 5.3 5.4 5.5; do
+		# https://github.com/lunarmodules/luafilesystem/issues/183
+		# Luarocks 3.13.0 + Lua 5.5 has issues copying a file on top of an existing one...
+		rm -f lfs.so
 		luarocks --lua-version "$LUAVER" \
 			make --pack-binary-rock --deps-mode none -- "../${source[1]##*/}"
 		install -Dm0644 -t "lua$LUAVER/" "$_rock"
@@ -47,6 +51,10 @@ _package() {
 }
 
 package_lua-filesystem() {
+	_package 5.5
+}
+
+package_lua54-filesystem() {
 	_package 5.4
 }
 
