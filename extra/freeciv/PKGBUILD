@@ -10,21 +10,20 @@ pkgname=(
   freeciv-qt
 )
 pkgver=3.2.2
-pkgrel=4
+pkgrel=6
 pkgdesc="A multiuser clone of the famous Microprose game of Civilization"
 arch=('x86_64')
 url="https://www.freeciv.org/"
 license=('GPL-2.0-or-later')
 depends=(
   'glibc'
-  'lua'
+  'lua54'
   'sqlite'
 )
 makedepends=(
   'bzip2'
   'cairo'
   'curl'
-  'gcc-libs'
   'gdk-pixbuf2'
   'glib2'
   'gtk3'
@@ -156,7 +155,8 @@ package_freeciv-qt() {
   depends+=(
     'freeciv-common'
 
-    'gcc-libs'
+    'libgcc'
+    'libstdc++'
     'qt6-base'
     'readline'
     'sdl2'
