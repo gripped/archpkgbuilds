@@ -2,9 +2,9 @@
 
 pkgbase=lua-cosmo
 _rockname=${pkgbase#lua-}
-pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname")
+pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname" "lua54-$_rockname")
 pkgver=16.06.04
-pkgrel=7
+pkgrel=8
 _rockrel=1
 pkgdesc='Safe templates for Lua'
 arch=(any)
@@ -15,18 +15,22 @@ makedepends=(lua
              lua51
              lua52
              lua53
+             lua54
              luarocks)
 checkdepends=("${_luadeps[@]/#/lua-}")
 _archive="$_rockname-$pkgver"
 _rockspec="$_archive-$_rockrel.rockspec"
-source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('86d17aea5080a90671d965cffeb9b104c19e0e1ea55c08687c0924c4512b52b1')
+source=("$url/archive/v$pkgver/$_archive.tar.gz"
+        "$pkgname-lua55.patch::$url/pull/16.patch")
+sha256sums=('86d17aea5080a90671d965cffeb9b104c19e0e1ea55c08687c0924c4512b52b1'
+            'd77ece98dd0db393ef059b682aa8af76bc8b91d2d5d4c323d2f79c94947de8fd')
 
 prepare() {
 	cd "$_archive"
 	# Lpeg is not needed at *build* time, but `luarocks make` checks for it
 	# and depends=() is set at package time too late for makepkg to install it
 	sed -i -e '/lpeg >=/d' "rockspec/$_rockspec"
+	patch -Np1 -i "../$pkgname-lua55.patch"
 }
 
 check() {
@@ -44,7 +48,7 @@ _package() {
 }
 
 package_lua-cosmo() {
-	_package 5.4
+	_package 5.5
 }
 
 package_lua51-cosmo() {
@@ -57,4 +61,8 @@ package_lua52-cosmo() {
 
 package_lua53-cosmo() {
 	_package 5.3
+}
+
+package_lua54-cosmo() {
+	_package 5.4
 }
