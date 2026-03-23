@@ -1,0 +1,15 @@
+diff --git i/Makefile w/Makefile
+index 7f71a2c..415e0ba 100644
+--- i/Makefile
++++ w/Makefile
+@@ -22,8 +22,8 @@ PKG_CONFIG ?= pkg-config
+ ifeq ($(luasrc),)
+ # compile with installed liblua
+ $(info ++++ NOTE: using installed lua)
+-luaflags = $(shell $(PKG_CONFIG) --cflags lua)
+-lualibs = $(shell $(PKG_CONFIG) --libs lua)
++luaflags = $(shell $(PKG_CONFIG) --cflags lua54)
++lualibs = $(shell $(PKG_CONFIG) --libs lua54)
+ else
+ # compile with Lua submodule
+ $(info ++++ NOTE: using lua submodule)
