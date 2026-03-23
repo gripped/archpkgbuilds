@@ -9,13 +9,13 @@ _luacommit=68f9c364a2d25a04c7d4794981d7c796b05ab627
 _charcodecommit=55e7f563e999802d41a13ba02657c1be4b2011b4
 _protocommit=657a923cd4c333e681dc943e6894e6f6d42d25b4
 _predictcommit=920bd41ebf6f9bf6855d14fbe80212e54e749791
-pkgrel=3
+pkgrel=5
 epoch=1
 pkgdesc="Rime input method engine"
 arch=('x86_64')
 url="https://github.com/rime/librime"
 license=('BSD-3-Clause')
-depends=('boost-libs' 'capnproto' 'gcc-libs' 'glibc' 'opencc' 'yaml-cpp' 'leveldb' 'librime-data' 'lua' 'google-glog' 'marisa')
+depends=('boost-libs' 'capnproto' 'glibc' 'google-glog' 'leveldb' 'libgcc' 'librime-data' 'libstdc++' 'lua' 'marisa' 'opencc' 'yaml-cpp')
 makedepends=('git' 'cmake' 'boost' 'gtest' 'ninja')
 source=("git+https://github.com/rime/librime.git#tag=$pkgver"
         "git+https://github.com/lotem/librime-octagram.git#commit=$_octagramcommit"

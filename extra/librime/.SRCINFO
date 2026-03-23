@@ -1,7 +1,7 @@
 pkgbase = librime
 	pkgdesc = Rime input method engine
 	pkgver = 1.16.1
-	pkgrel = 3
+	pkgrel = 5
 	epoch = 1
 	url = https://github.com/rime/librime
 	arch = x86_64
@@ -13,15 +13,16 @@ pkgbase = librime
 	makedepends = ninja
 	depends = boost-libs
 	depends = capnproto
-	depends = gcc-libs
 	depends = glibc
+	depends = google-glog
+	depends = leveldb
+	depends = libgcc
+	depends = librime-data
+	depends = libstdc++
+	depends = lua
+	depends = marisa
 	depends = opencc
 	depends = yaml-cpp
-	depends = leveldb
-	depends = librime-data
-	depends = lua
-	depends = google-glog
-	depends = marisa
 	source = git+https://github.com/rime/librime.git#tag=1.16.1
 	source = git+https://github.com/lotem/librime-octagram.git#commit=dfcc15115788c828d9dd7b4bff68067d3ce2ffb8
 	source = git+https://github.com/hchunhui/librime-lua.git#commit=68f9c364a2d25a04c7d4794981d7c796b05ab627
