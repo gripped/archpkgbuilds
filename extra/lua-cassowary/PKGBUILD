@@ -3,10 +3,10 @@
 pkgbase=lua-cassowary
 _rockname=${pkgbase#lua-}
 _project=$_rockname.lua
-pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname")
+pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname" "lua54-$_rockname")
 pkgver=2.3.2
 _rockrel=1 # upstream rockrel 2 is only needed for installing with Luarocks 2.x
-pkgrel=2
+pkgrel=3
 pkgdesc='The cassowary constraint solver'
 arch=(any)
 url="https://github.com/sile-typesetter/$_project"
@@ -16,6 +16,7 @@ makedepends=(lua
              lua51
              lua52
              lua53
+             lua54
              luarocks)
 checkdepends=(busted)
 _archive="$_project-$pkgver"
@@ -36,7 +37,7 @@ _package() {
 }
 
 package_lua-cassowary() {
-	_package 5.4
+	_package 5.5
 }
 
 package_lua51-cassowary() {
@@ -49,4 +50,8 @@ package_lua52-cassowary() {
 
 package_lua53-cassowary() {
 	_package 5.3
+}
+
+package_lua54-cassowary() {
+	_package 5.4
 }
