@@ -3,9 +3,9 @@
 # Old Maintainer: Gustavo Alvarez <sl1pkn07@gmail.com>
 # contributor: Cameron Banta <cbanta@gmail.com>
 
-pkgname=(lua-alt-getopt lua51-alt-getopt lua52-alt-getopt lua53-alt-getopt)
+pkgname=(lua-alt-getopt lua51-alt-getopt lua52-alt-getopt lua53-alt-getopt lua54-alt-getopt)
 pkgver=0.8.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Lua module for processing options similar to getopt_long(3)"
 license=('MIT')
 arch=('any')
@@ -37,10 +37,18 @@ package_lua53-alt-getopt() {
   install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
 
-package_lua-alt-getopt() {
+package_lua54-alt-getopt() {
   pkgdesc="$pkgdesc for Lua 5.4"
 
   cd "${pkgbase}-${pkgver}"
   install -Dm644 alt_getopt.lua "${pkgdir}/usr/share/lua/5.4/alt_getopt.lua"
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
+
+package_lua-alt-getopt() {
+  pkgdesc="$pkgdesc for Lua 5.5"
+
+  cd "${pkgbase}-${pkgver}"
+  install -Dm644 alt_getopt.lua "${pkgdir}/usr/share/lua/5.5/alt_getopt.lua"
   install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
