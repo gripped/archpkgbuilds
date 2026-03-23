@@ -3,7 +3,7 @@
 
 pkgname=hamlib
 pkgver=4.6.5
-pkgrel=2
+pkgrel=3
 pkgdesc='Ham radio equipment control libraries'
 arch=('x86_64')
 url='https://hamlib.github.io'
@@ -12,20 +12,21 @@ license=(
   'LGPL-2.0-or-later'
 )
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
   'libindi'
+  'libstdc++'
   'libusb'
   'readline'
 )
 makedepends=(
-  'lua'
+  'lua54'
   'python'
   'swig'
   'tcl'
 )
 optdepends=(
-  'lua: Lua bindings'
+  'lua54: Lua bindings'
   'perl: Perl bindings'
   'python: Python bindings'
   'tcl: Tcl bindings'
