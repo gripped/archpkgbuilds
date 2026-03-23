@@ -2,7 +2,7 @@
 
 pkgname=grilo-plugins
 pkgver=0.3.18
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="A collection of plugins for the Grilo framework"
 url="https://gitlab.gnome.org/GNOME/grilo-plugins"
@@ -26,7 +26,7 @@ depends=(
   liboauth
   librest
   libxml2
-  lua
+  lua54
   sqlite
   tinysparql
   totem-pl-parser
