@@ -5,11 +5,12 @@
 pkgname=libaccounts-qt
 pkgdesc='Qt-based client library for accessing the online accounts database'
 pkgver=1.17
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://gitlab.com/accounts-sso/libaccounts-qt'
 license=(LGPL-2.1-or-later)
-depends=(gcc-libs
+depends=(libgcc
+         libstdc++
          glib2
          glibc
          libaccounts-glib
