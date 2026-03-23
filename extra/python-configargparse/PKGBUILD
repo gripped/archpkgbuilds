@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-configargparse
-pkgver=1.7.2
+pkgver=1.7.3
 pkgrel=1
 pkgdesc='A drop-in replacement for argparse that allows options to also be set via config files and/or environment variables'
 arch=('any')
@@ -12,7 +12,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python
 checkdepends=('python-pytest' 'python-yaml') # HACK: run tests without python-tests as they fail
 optdepends=('python-yaml: for YAML support')
 source=("git+https://github.com/bw2/ConfigArgParse.git#tag=v$pkgver")
-sha512sums=('f65bf12e4db74c3928a09590d348f07ece2af194c4acae8264fba3667fd977577b0c476de97c1b3f7f37f6f29996c2b43d6aef5b3a04cc1fc08f29de61504f92')
+sha512sums=('7b83ef4f5497b5931bcd17b9022e7c45383d74efdcb29daaad58aa27ffe18c4d7179684f0255f58bc9ad5e66710b7555703ea38b4a80623af47abe1b1a8e1144')
 
 build() {
   cd ConfigArgParse
