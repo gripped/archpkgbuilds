@@ -1,9 +1,9 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgbase=lux
-pkgname=(lux-cli lua-lux lua53-lux lua52-lux lua51-lux)
-pkgver=0.25.2
-pkgrel=2
+pkgname=(lux-cli lua-lux lua54-lux lua53-lux lua52-lux lua51-lux)
+pkgver=0.26.1
+pkgrel=1
 pkgdesc='A luxurious package manager for Lua'
 arch=(x86_64 aarch64)
 url=https://lux.lumen-labs.org
@@ -18,11 +18,12 @@ makedepends=(cargo
              lua{,-luarocks-build-rust-mlua}
              lua51{,-luarocks-build-rust-mlua}
              lua52{,-luarocks-build-rust-mlua}
-             lua53{,-luarocks-build-rust-mlua})
+             lua53{,-luarocks-build-rust-mlua}
+             lua54{,-luarocks-build-rust-mlua})
 options=('!lto')
 _archive="$pkgbase-$pkgver"
 source=("$_url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
-sha256sums=('9b9b9ad11f22bf666ec48092126a352d752cd16c579e7713fdcb8da3a215fc5a')
+sha256sums=('6541060d2d739dc218d916d503100ea83c3a92c181b37cc5a3d7ff5bececb449')
 
 prepare() {
 	cd "$_archive"
@@ -37,6 +38,7 @@ build() {
 	cargo run --frozen --release --package xtask -- build-release
 	cargo run --frozen --release --package xtask -- dist-man
 	cargo run --frozen --release --package xtask -- dist-completions
+	cargo run --frozen --release --package xtask-lua --features lua55 -- dist
 	cargo run --frozen --release --package xtask-lua --features lua54 -- dist
 	cargo run --frozen --release --package xtask-lua --features lua53 -- dist
 	cargo run --frozen --release --package xtask-lua --features lua52 -- dist
@@ -51,6 +53,7 @@ package_lux-cli() {
 	optdepends+=(lua51{,-lua}': Lua 5.1 support')
 	optdepends+=(lua52{,-lua}': Lua 5.2 support')
 	optdepends+=(lua53{,-lua}': Lua 5.3 support')
+	optdepends+=(lua54{,-lua}': Lua 5.4 support')
 	cd "$_archive"
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 	pushd target/dist
@@ -69,6 +72,11 @@ _package_rock() {
 }
 
 package_lua-lux() {
+	cd "$_archive"
+	_package_rock 5.5
+}
+
+package_lua54-lux() {
 	cd "$_archive"
 	_package_rock 5.4
 }
