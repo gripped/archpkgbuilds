@@ -3,7 +3,7 @@
 
 pkgname=python-daemonize
 pkgver=2.5.0
-pkgrel=9
+pkgrel=10
 
 pkgdesc='Library to enable your code run as a daemon process on Unix-like systems'
 url='https://pypi.python.org/pypi/daemonize/'
@@ -11,7 +11,7 @@ arch=('any')
 license=('MIT')
 
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 
 source=("https://pypi.org/packages/source/d/daemonize/daemonize-$pkgver.tar.gz")
 
@@ -19,12 +19,12 @@ sha256sums=('dd026e4ff8d22cb016ed2130bc738b7d4b1da597ef93c074d2adb9e4dea08bc3')
 
 build() {
 	cd "$srcdir"/daemonize-$pkgver
-	python setup.py build
+	python -m build --wheel --no-isolation
 }
 
 package() {
 	cd daemonize-$pkgver
-	python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+	python -m installer --destdir="$pkgdir" dist/*.whl
 
 	install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
