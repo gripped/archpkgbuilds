@@ -2,11 +2,11 @@
 
 pkgbase=lua-term
 _rockname=${pkgbase#lua-}
-pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname")
+pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname" "lua54-$_rockname")
 pkgver=0.8
 _pkgver=0.08
 _rockrel=1
-pkgrel=1
+pkgrel=2
 pkgdesc='Terminal functions for Lua'
 arch=(x86_64)
 url="https://github.com/hoelzro/$pkgbase"
@@ -15,6 +15,7 @@ makedepends=(lua
              lua51
              lua52
              lua53
+             lua54
              luarocks)
 _archive="$pkgbase-$_pkgver"
 _rock="$pkgbase-$pkgver-$_rockrel.linux-$CARCH.rock"
@@ -24,7 +25,7 @@ sha256sums=('8ff94f390ea9d98c734699373ca3b0ce500d651b2ab1cb8d7d2336fc5b79cded')
 
 build() {
 	cd "$_archive"
-	for LUAVER in 5.{1,2,3,4}; do
+	for LUAVER in 5.{1,2,3,4,5}; do
 		luarocks --lua-version "$LUAVER" \
 			make --pack-binary-rock --deps-mode none -- "$_rockspec"
 		install -Dm0644 -t "lua-$LUAVER/" "$_rock"
@@ -40,6 +41,10 @@ _package() {
 }
 
 package_lua-term() {
+	_package 5.5
+}
+
+package_lua54-term() {
 	_package 5.4
 }
 
