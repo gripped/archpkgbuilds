@@ -3,7 +3,7 @@
 pkgbase=scotch
 pkgname=(scotch scotch-metis)
 pkgver=7.0.11
-pkgrel=3
+pkgrel=4
 pkgdesc="Package for graph and mesh/hypergraph partitioning, graph clustering, and sparse matrix ordering"
 arch=(x86_64)
 url="https://gitlab.inria.fr/scotch/scotch"
@@ -64,6 +64,11 @@ build() {
     -DCMAKE_INSTALL_INCLUDEDIR=include/scotch
     -DBUILD_SHARED_LIBS=ON
     -DPTHREAD_AFFINITY_LINUX_OK=ON
+    # Explicitly link against internal error libraries to avoid users having to link them manually
+    # (the build skips them because of the "--as-needed" linker flag).
+    # See https://gitlab.archlinux.org/archlinux/packaging/packages/scotch/-/work_items/2
+    -DLIBSCOTCHERR=scotcherr
+    -DLIBPTSCOTCHERR=ptscotcherr
   )
   cmake "${cmake_options[@]}"
   cmake --build build
