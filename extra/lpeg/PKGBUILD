@@ -3,16 +3,27 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgbase=lpeg
-pkgname=(lua-$pkgbase lua51-$pkgbase lua52-$pkgbase lua53-$pkgbase)
+pkgname=(
+  lua-$pkgbase
+  lua51-$pkgbase
+  lua52-$pkgbase
+  lua53-$pkgbase
+  lua54-$pkgbase)
 pkgver=1.1.0
-pkgrel=4
+pkgrel=5
 _rockrel=2
 pkgdesc='Parsing Expression Grammars For Lua'
 arch=(x86_64)
 url="https://www.inf.puc-rio.br/~roberto/$pkgbase/"
 license=(MIT)
 depends=(glibc)
-makedepends=(lua lua51 lua52 lua53 luarocks)
+makedepends=(
+  lua
+  lua51
+  lua52
+  lua53
+  lua54
+  luarocks)
 _archive="$pkgbase-$pkgver"
 source=("https://luarocks.org/manifests/gvvaughan/$_archive-$_rockrel.src.rock"
         LICENSE-upstream)
@@ -27,7 +38,7 @@ _package() {
 }
 
 package_lua-lpeg() {
-	_package 5.4
+	_package 5.5
 }
 
 package_lua51-lpeg() {
@@ -40,4 +51,8 @@ package_lua52-lpeg() {
 
 package_lua53-lpeg() {
 	_package 5.3
+}
+
+package_lua54-lpeg() {
+	_package 5.4
 }
