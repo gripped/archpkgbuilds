@@ -10,7 +10,7 @@ pkgname=(
   python-location
 )
 pkgver=0.9.18
-pkgrel=3
+pkgrel=4
 pkgdesc="IPFire Location Database - Determine the location of someone on the Internet"
 url='https://git.ipfire.org/?p=location/libloc.git;a=summary'
 arch=('x86_64')
@@ -80,9 +80,7 @@ package_lua-location() {
   pkgdesc+=' (Lua bindings)'
   depends=(
     glibc
-    libcrypto.so
     libloc.so
-    libssl.so
     lua
   )
 
@@ -108,10 +106,9 @@ package_python-location() {
   pkgdesc+=' (Python tooling)'
   depends=(
     glibc
-    libcrypto.so
     libloc.so
     python
-    python-psycopg2
+    python-psycopg
   )
 
   cd ${pkgbase}-${pkgver}
