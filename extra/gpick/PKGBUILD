@@ -5,7 +5,7 @@
 
 pkgname=gpick
 pkgver=0.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Advanced color picker written in C++ using GTK+ toolkit"
 arch=('x86_64')
 url="http://www.gpick.org/"
@@ -13,12 +13,13 @@ license=('BSD-3-Clause')
 depends=(
   'cairo'
   'expat'
-  'gcc-libs'
   'gdk-pixbuf2'
   'glib2'
   'glibc'
   'gtk3'
   'hicolor-icon-theme'
+  'libgcc'
+  'libstdc++'
   'lua'
   'pango'
 )
