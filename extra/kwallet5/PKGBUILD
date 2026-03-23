@@ -5,12 +5,12 @@
 _name=kwallet
 pkgname=${_name}5
 pkgver=5.116.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Secure and unified container for user passwords'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
-license=(LGPL)
-depends=(gcc-libs
+license=(LGPL-2.0-or-later LGPL-3.0-or-later)
+depends=(libstdc++
          glibc
          kconfig5
          kwindowsystem5
