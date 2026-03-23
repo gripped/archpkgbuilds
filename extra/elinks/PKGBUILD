@@ -7,7 +7,7 @@
 
 pkgname=elinks
 pkgver=0.19.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Advanced feature-rich text-mode web browser'
 arch=(x86_64)
 url='https://github.com/rkd77/elinks'
@@ -54,7 +54,7 @@ build() {
     -D bzlib=true
     -D brotli=true
     -D lzma=true
-    -D luapkg=lua54
+    -D luapkg=lua55
     -D tre=true
     -D gemini=true
     -D reproducible=true
