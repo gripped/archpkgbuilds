@@ -5,7 +5,7 @@
 
 pkgname=apache
 pkgver=2.4.66
-pkgrel=1
+pkgrel=2
 pkgdesc='A high performance Unix-based HTTP server'
 arch=('x86_64')
 url='https://www.apache.org/dist/httpd'
