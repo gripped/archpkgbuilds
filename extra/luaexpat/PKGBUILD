@@ -4,9 +4,9 @@
 # Contributor: Lucas Hermann Negri <kkndrox@gmail.com>
 
 pkgbase=luaexpat
-pkgname=(lua-expat lua51-expat lua52-expat lua53-expat)
+pkgname=(lua-expat lua51-expat lua52-expat lua53-expat lua54-expat)
 pkgver=1.5.2
-pkgrel=1
+pkgrel=2
 _rockrel=1
 pkgdesc='SAX XML parser based on the Expat library'
 arch=('x86_64')
@@ -17,6 +17,7 @@ makedepends=(lua
              lua51
              lua52
              lua53
+             lua54
              luarocks)
 _archive="$pkgbase-$pkgver"
 _rock="$_archive-$_rockrel.linux-$CARCH.rock"
@@ -26,7 +27,7 @@ sha512sums=('a2a04b2bb76a10a8a0da077b53d22b6e84460f416486a4b006d3df4991cff011dc9
 
 build() {
 	cd "$_archive"
-	for LUAVER in 5.{1,2,3,4}; do
+	for LUAVER in 5.{1,2,3,4,5}; do
 		luarocks --lua-version "$LUAVER" \
 			CFLAGS="$CFLAGS -DLUA_C89_NUMBERS" \
 			make --pack-binary-rock --deps-mode none -- "rockspecs/$_rockspec"
@@ -43,6 +44,10 @@ _package() {
 }
 
 package_lua-expat() {
+	_package 5.5
+}
+
+package_lua54-expat() {
 	_package 5.4
 }
 
