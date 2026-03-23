@@ -1,13 +1,15 @@
 pkgbase = wvdial
 	pkgdesc = A dialer program to connect to the Internet
 	pkgver = 1.61
-	pkgrel = 9
+	pkgrel = 10
 	url = https://web.archive.org/web/20110504183753/http://alumnit.ca:80/wiki/index.php?page=WvDial
 	arch = x86_64
-	license = custom
-	depends = wvstreams
+	license = LGPL-2.0-only
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = ppp
-	depends = gcc-libs
+	depends = wvstreams
 	options = makeflags
 	options = buildflags
 	source = https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/wvstreams/wvdial-1.61.tar.gz
