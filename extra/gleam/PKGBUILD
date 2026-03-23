@@ -3,52 +3,38 @@
 # Contributor: Arnaud Berthomier <arnaud@cyprio.net>
 
 pkgname=gleam
-pkgver=1.15.1
+pkgver=1.15.2
 pkgrel=1
 pkgdesc='Friendly programming language for building type-safe and scalable systems'
 arch=(x86_64)
 url='https://github.com/gleam-lang/gleam'
 license=(Apache-2.0)
-depends=(
-  erlang-core
-  erlang-eunit
-  glibc
-  libgcc
-)
-makedepends=(
-  cargo
-  git
-  rust
-)
-checkdepends=(
-  bun
-  deno
-  nodejs
-)
+depends=(erlang-core erlang-eunit glibc libgcc)
+makedepends=(cargo git rust)
+checkdepends=(bun deno nodejs)
 optdepends=('rebar3: erlang dependency support'
             'erlang: standard erlang distribution')
 provides=(gleam)
-options=(!docs !libtool !staticlibs !lto)
+options=(!docs !libtool !lto !staticlibs)
 source=("git+$url#tag=v$pkgver")
-b2sums=('2e9b90d7429ed7b32ebf7bf417c4e32acf2a0027461891fd349f772ab6e3ea88fefc67311a22748cf2b2a539d76f64baabc8216204e7a642dabdc2ebc77b24be')
+b2sums=('bb8b4c6cd0ac6dea4ea37fd3a06d3d8a9ac7bafbb999cfd0ef7de1d3ed786eef2c9d722e50cb79b643c790e4ef84a493ba6a3f04753e25a74a193fef91a7ad47')
 
 prepare() {
   cd $pkgname
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  RUSTUP_TOOLCHAIN=stable \
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd $pkgname
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
-  cargo build --frozen --release
+  RUSTUP_TOOLCHAIN=stable CARGO_TARGET_DIR=target \
+    cargo build --frozen --release
 }
 
 check() {
   cd $pkgname
-  export RUSTUP_TOOLCHAIN=stable
-  cargo test --frozen --workspace
+  RUSTUP_TOOLCHAIN=stable \
+    cargo test --frozen --workspace
 }
 
 package() {
