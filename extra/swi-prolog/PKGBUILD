@@ -5,7 +5,7 @@
 # Contributor: Juergen Hoetzel <juergen@archlinux.org>
 
 pkgname=swi-prolog
-pkgver=10.0.1
+pkgver=10.0.2
 pkgrel=1
 pkgdesc='Prolog environment'
 arch=(x86_64)
@@ -23,7 +23,7 @@ optdepends=('java-runtime: for using Prolog from Java'
             'python: for using Prolog from Python'
             'unixodbc: for using the odbc4pl library')
 source=("$pkgname-$pkgver.tar.gz::$url/download/stable/src/swipl-$pkgver.tar.gz")
-b2sums=('c6daa8e1015278b58ba5afb16c5d5a0680086163ebc7ad91230e0a282bf8edead5b5960246fa2b8c3ebdcd643fa126903965778028e96ef705e019abe9d70f8b')
+b2sums=('2dd39c14030f88a6450530d46f95c57917a887bb9da9325bc565ab5f460cfc5894425d0ec84fe7a9539a98b449905534d61b0ef7255a95ebadfd047d2a04bcbe')
 
 build() {
   cmake \
