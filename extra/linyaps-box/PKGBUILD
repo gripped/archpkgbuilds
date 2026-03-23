@@ -3,7 +3,7 @@
 
 pkgname=linyaps-box
 pkgver=2.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A simple OCI runtime mainly used by linyaps (linglong)'
 arch=(x86_64)
 url='https://github.com/OpenAtom-Linyaps/linyaps-box'
@@ -12,9 +12,10 @@ provides=(
   linglong-box
 )
 depends=(
-  gcc-libs
   glibc
   libcap
+  libgcc
+  libstdc++
 )
 makedepends=(
   cmake
@@ -41,7 +42,7 @@ build() {
 }
 
 check() {
-  ctest --test-dir linyaps-box/build --output-on-failure
+  ninja -C linyaps-box/build test
 }
 
 package() {
