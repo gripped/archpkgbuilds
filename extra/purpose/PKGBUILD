@@ -2,14 +2,14 @@
 
 pkgname=purpose
 pkgver=6.24.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Framework for providing abstractions to get the developers purposes fulfilled'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL-2.0-only LGPL-3.0-only)
 depends=(accounts-qml-module
-         gcc-libs
          glibc
+         hicolor-icon-theme
          kaccounts-integration
          kcmutils
          kconfig
@@ -21,6 +21,7 @@ depends=(accounts-qml-module
          knotifications
          kservice
          libaccounts-qt
+         libstdc++
          qt6-base
          qt6-declarative)
 makedepends=(extra-cmake-modules
