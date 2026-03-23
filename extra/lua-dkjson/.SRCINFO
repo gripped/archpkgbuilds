@@ -1,7 +1,7 @@
 pkgbase = lua-dkjson
 	pkgdesc = David Kolf’s Pure Lua JSON module with UTF-8 support and no external dependencies
 	pkgver = 2.8
-	pkgrel = 3
+	pkgrel = 4
 	url = http://dkolf.de/dkjson-lua/
 	arch = any
 	license = MIT
@@ -9,6 +9,7 @@ pkgbase = lua-dkjson
 	makedepends = lua51
 	makedepends = lua52
 	makedepends = lua53
+	makedepends = lua54
 	makedepends = lua
 	source = http://dkolf.de/dkjson-lua/dkjson-2.8.tar.gz
 	source = https://luarocks.org/manifests/dhkolf/dkjson-2.8-1.rockspec
@@ -18,6 +19,9 @@ pkgbase = lua-dkjson
 	sha256sums = 695b49734d1244ff236ec8785aa908883deb0f65b2356e36e8739ea06002b03c
 
 pkgname = lua-dkjson
+	optdepends = lua-lpeg: speed up decoding
+
+pkgname = lua54-dkjson
 	optdepends = lua-lpeg: speed up decoding
 
 pkgname = lua53-dkjson

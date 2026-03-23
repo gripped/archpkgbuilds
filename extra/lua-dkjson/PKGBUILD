@@ -2,16 +2,16 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgbase=lua-dkjson
-pkgname=("lua-dkjson" "lua53-dkjson" "lua52-dkjson" "lua51-dkjson")
+pkgname=("lua-dkjson" "lua54-dkjson" "lua53-dkjson" "lua52-dkjson" "lua51-dkjson")
 pkgver=2.8
 _rockrel=1
-pkgrel=3
+pkgrel=4
 pkgdesc='David Kolf’s Pure Lua JSON module with UTF-8 support and no external dependencies'
 arch=('any')
 url="http://dkolf.de/dkjson-lua/"
 license=('MIT')
 makedepends=('luarocks'
-             'lua51' 'lua52' 'lua53' 'lua' # https://github.com/luarocks/luarocks/issues/1275
+             'lua51' 'lua52' 'lua53' 'lua54' 'lua' # https://github.com/luarocks/luarocks/issues/1275
             )
 _archive="${pkgbase#*-}-$pkgver"
 _rock="$_archive-$_rockrel.all.rock"
@@ -25,7 +25,7 @@ sha256sums=('24e8cd3beb91c1c861eb7bb3fbc9bd418bbff9ad4aa5d0471816258236a31532'
 
 build() {
 	cd "$_archive"
-	for LUAVER in 5.{1,2,3,4}; do
+	for LUAVER in 5.{1,2,3,4,5}; do
 		luarocks --lua-version "$LUAVER" \
 			make --pack-binary-rock --deps-mode none -- "$srcdir/$_rockspec"
 		install -Dm0644 -t "lua-$LUAVER/" "$_rock"
@@ -41,6 +41,11 @@ _package() {
 }
 
 package_lua-dkjson() {
+	optdepends=('lua-lpeg: speed up decoding')
+	_package 5.5
+}
+
+package_lua54-dkjson() {
 	optdepends=('lua-lpeg: speed up decoding')
 	_package 5.4
 }
