@@ -2,7 +2,7 @@
 
 pkgname=python-bleach
 pkgver=6.3.0
-pkgrel=2
+pkgrel=3
 
 pkgdesc="An easy whitelist-based HTML-sanitizing tool"
 url="https://pypi.org/project/bleach/"
@@ -11,7 +11,10 @@ license=('Apache-2.0')
 depends=('python-packaging'
          'python-webencodings')
 makedepends=('python'
-             'python-setuptools')
+             'python-build'
+             'python-installer'
+             'python-setuptools'
+             'python-wheel')
 checkdepends=('python-pytest')
 optdepends=('python-tinycss2: for CSS sanitisation')
 
@@ -25,7 +28,7 @@ prepare() {
 
 build() {
 	cd "$srcdir"/bleach-$pkgver
-	python setup.py build
+	python -m build --wheel --no-isolation
 }
 
 # Upstream broke the test suite.
@@ -36,5 +39,5 @@ check() {
 
 package() {
 	cd "$srcdir"/bleach-$pkgver
-	python setup.py install --skip-build --optimize=1 --root="$pkgdir"
+	python -m installer --destdir="$pkgdir" dist/*.whl
 }
