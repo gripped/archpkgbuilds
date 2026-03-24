@@ -30,7 +30,7 @@ pkgname=(
   gstreamer-docs
 )
 pkgver=1.28.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Multimedia graph framework"
 url="https://gstreamer.freedesktop.org/"
 arch=(x86_64)
@@ -248,19 +248,19 @@ build() {
     -D gst-plugins-bad:lcevcencoder=disabled
     -D gst-plugins-bad:magicleap=disabled
     -D gst-plugins-bad:mfx_api=oneVPL
+    -D gst-plugins-bad:mpeghdec=disabled
     -D gst-plugins-bad:nvcomp=disabled
     -D gst-plugins-bad:nvdswrapper=disabled
     -D gst-plugins-bad:openni2=disabled
     -D gst-plugins-bad:opensles=disabled
     -D gst-plugins-bad:qt6d3d11=disabled
     -D gst-plugins-bad:svtjpegxs=disabled
+    -D gst-plugins-bad:tflite=disabled
     -D gst-plugins-bad:tinyalsa=disabled
     -D gst-plugins-bad:voaacenc=disabled
     -D gst-plugins-bad:voamrwbenc=disabled
     -D gst-plugins-bad:wasapi2=disabled
     -D gst-plugins-bad:wasapi=disabled
-    -D gst-plugins-bad:mpeghdec=disabled
-    -D gst-plugins-bad:tflite=disabled
     -D gst-plugins-base:libvisual=disabled
     -D gst-plugins-base:tremor=disabled
     -D gst-plugins-good:rpicamsrc=disabled
