@@ -2,34 +2,35 @@
 
 _pyname=pplpy
 pkgname=python-pplpy
-pkgver=0.8.10
-pkgrel=4
+pkgver=0.9.0
+pkgrel=1
 pkgdesc='Python wrapper to the C++ Parma Polyhedra Library (PPL)'
 arch=(x86_64)
 url='https://gitlab.com/videlec/pplpy/'
 license=(GPL-3.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          gmp
+         libgcc
+         libstdc++
          ppl
          python
          python-cysignals
          python-gmpy2)
 makedepends=(cython
+             meson-python
              python-build
              python-installer
-             python-setuptools
-             python-sphinx
-             python-wheel)
+             python-sphinx)
 source=(https://github.com/sagemath/pplpy/archive/$pkgver/$_pyname-$pkgver.tar.gz)
-sha256sums=('9f01ddd28e0b7de9ca9599d03d00d261e395a161a592aca4ef8fb79a487505e6')
+sha256sums=('bae4d5e3fa8c126ca17d319bdd45c9acef7193eb39f8f56c273b8dc37bfb0b03')
 
 build() {
   cd $_pyname-$pkgver
   python -m build --wheel --no-isolation
 
-  _pythonver=`python -c "from sysconfig import get_python_version; print(get_python_version())"`
-  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-${_pythonver/./}" make -C docs html
+  mkdir -p tmp-dir
+  bsdtar -xf dist/*.whl -C tmp-dir
+  PYTHONPATH="$PWD"/tmp-dir make -C docs html
 }
 
 package() {
