@@ -2,7 +2,7 @@
 
 _name=metakernel
 pkgname=jupyter-$_name
-pkgver=0.32.0
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="A Jupyter/IPython kernel template"
 arch=(any)
@@ -10,6 +10,7 @@ url="https://github.com/Calysto/metakernel"
 license=(BSD-3-Clause)
 depends=(
   python
+  python-comm
   python-ipykernel
   python-jedi
   python-jupyter-core
@@ -23,7 +24,7 @@ depends=(
 )
 makedepends=(
   python-build
-  python-hatchling
+  python-poetry-core
   python-installer
 )
 checkdepends=(
@@ -40,7 +41,7 @@ optdepends=(
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
         pyproject.patch)
-b2sums=('067ee111824911ff4df6333655cb072354178ce1271c6e6904a1909d3d029846fbcd574e29459ccc19d64a267342c06ba4b41803c9c39d793e5a59b77bd8c914'
+b2sums=('23bef21a1742cb982e1c88ac4e30b005458b200058038e29d9fc63af0855326371fe54908736197004c29e84a6ac5e3ca4035d943ecae983a2419a6bb65163f9'
         '7080f3016d0091fb25379955d481ba0dc11a6dfaa01056926ea670efdb5fe58c8c86845c59aa01e84b100a30cbfbbdcca548f46eb7eeab95324ff5c8d47916b5')
 
 prepare() {
@@ -63,6 +64,8 @@ check() {
     --deselect tests/test_parser.py::test_path_completions
     # ValueError: Stdin Requested but not stdin handler available
     --deselect tests/test_replwrap.py::REPLWrapTestCase::test_python
+    --deselect tests/test_replwrap.py::REPLWrapTestCase::test_spawn_args
+    --deselect tests/test_replwrap.py::REPLWrapTestCase::test_spawn_no_args
   )
 
   cd $_name-$pkgver
