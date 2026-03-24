@@ -1,11 +1,14 @@
 pkgbase = python-ovirt-engine-sdk
 	pkgdesc = Python access to the oVirt Engine API
 	pkgver = 4.6.3
-	pkgrel = 2
+	pkgrel = 3
 	url = http://ovirt.org/develop/release-management/features/infra/python-sdk
 	arch = x86_64
-	license = custom
+	license = Apache-2.0
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python-pycurl
 	depends = python-six
 	depends = libxml2
