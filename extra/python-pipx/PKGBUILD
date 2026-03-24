@@ -2,7 +2,7 @@
 
 _pkgname=pipx
 pkgname=python-$_pkgname
-pkgver=1.10.1
+pkgver=1.11.0
 pkgrel=1
 pkgdesc='Install and Run Python Applications in Isolated Environments'
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python' 'python-userpath' 'python-argcomplete' 'python-packaging' 'pyt
 makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-wheel' 'python-hatch-vcs')
 #checkdepends=('python-tox' 'python-pytest')
 source=(git+https://github.com/pypa/pipx.git#tag=${pkgver})
-sha512sums=('7ebf4e527dfdfff292d43bc7d591e784ca4ff49259e771298923f3b24d74f7a248cd0a7b2c8d0c056d64b458f247c77d0305fb93bb2e3127de74f808e29af110')
+sha512sums=('4f6240d2b1185c709444e3257049756192336f3e93a294e761db036d22f0f8f8e704edde655c8d4e9fee33d38e2a57cb27390192b2e5e1e59c10f34745ab45c0')
 
 build() {
   cd $_pkgname
