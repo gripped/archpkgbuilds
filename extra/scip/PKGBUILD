@@ -2,7 +2,7 @@
 
 pkgname=scip
 pkgver=10.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Solving Constraint Integer Programs'
 arch=(x86_64)
 url='https://www.scipopt.org/'
@@ -23,12 +23,18 @@ makedepends=(boost
 source=(git+https://github.com/scipopt/scip#tag=v$pkgver)
 sha256sums=('1ef2db032928e13c4b33c8aee88669cac0dab9e0ba298747e8fb5e9a0be5a120')
 
+prepare() {
+  cd $pkgname
+  git cherry-pick -n cc917e074cd23a1630cb0eb4b7f3ec6ba2777d80 # Fix build with glibc 2.43
+}
+
 build() {
   cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_BUILD_TYPE=Release \
     -DAUTOBUILD=ON \
-    -DSYM=bliss
+    -DSYM=bliss \
+    -DLTO=ON
   cmake --build build
 }
 
