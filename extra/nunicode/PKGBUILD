@@ -1,0 +1,53 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgbase=nunicode
+pkgname=(
+  libnu
+  libnusqlite3
+)
+pkgver=1.11
+pkgrel=3
+pkgdesc='A i18n library implementing Unicode 13.0'
+arch=(x86_64)
+url='https://bitbucket.org/alekseyt/nunicode'
+license=(MIT)
+makedepends=(
+  git
+  cmake
+  sqlite3
+)
+source=("$pkgbase::git+$url#tag=$pkgver")
+sha512sums=('ef4d10a32e15c33733eca8cd965deaef98ed5e46833b36aad3b3ffccd2137d34383ea41f14573e215920ef7398f8c1ac2aa186618de6011b95aca6475ca1b3e9')
+b2sums=('cb70388d77ae40a83df1bffbd7ebe0f65694c9dda7a3636555892da5c005e10ed7ea301b31cbad968a6c89233a50fb28776b3e7dc047dea1fad1ea1f34caea5a')
+
+build() {
+  local cmake_options=(
+    -B build
+    -S "$pkgbase"
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
+  )
+
+  cmake "${cmake_options[@]}"
+
+  cmake --build build
+}
+
+package_libnu() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$pkgbase/LICENSE"
+}
+
+package_libnusqlite3() {
+  pkgdesc+=' - SQLite extension'
+  depends=(glibc)
+
+  install -vDm755 -t "$pkgdir/usr/lib" build/sqlite3/libnusqlite3.so
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$pkgbase/LICENSE"
+}
