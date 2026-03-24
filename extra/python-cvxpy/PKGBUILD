@@ -2,8 +2,8 @@
 
 _pyname=cvxpy
 pkgname=python-$_pyname
-pkgver=1.8.1
-pkgrel=2
+pkgver=1.8.2
+pkgrel=1
 pkgdesc='A Python-embedded modeling language for convex optimization problems'
 url='https://www.cvxpy.org/'
 license=(Apache-2.0)
@@ -33,7 +33,7 @@ checkdepends=(python-cvxopt
               python-pyscipopt
               python-pytest)
 source=(git+https://github.com/cvxpy/cvxpy#tag=v$pkgver)
-sha256sums=('8affa3cf31e254306317a1917744b8a1e87df8d59bc4842925c2679cda9cbdeb')
+sha256sums=('e622e9b2a72087272be360b24b871e53438e298634f0fe7996ca2b09b00d125b')
 
 prepare() {
   sed -e '/oldest-supported-numpy/d' -i $_pyname/pyproject.toml # Drop version constraints
@@ -50,7 +50,10 @@ check() {
   cd $_pyname
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest -v -k 'not test_scipy_mi_lp_2 and not test_oprelcone_1_m1_k3_complex and not test_oprelcone_1_m3_k1_complex and not test_oprelcone_2'
+  test-env/bin/python -m pytest -v \
+    --deselect cvxpy/tests/test_cone2cone.py::TestOpRelConeQuad::test_oprelcone_2 \
+    --deselect cvxpy/tests/test_cone2cone.py::TestOpRelConeQuad::test_oprelcone_1_m1_k3_complex \
+    --deselect cvxpy/tests/test_cone2cone.py::TestOpRelConeQuad::test_oprelcone_1_m3_k1_complex
 }
 
 package() {
