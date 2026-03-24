@@ -24,6 +24,8 @@ VBOX_GCC_WARN =
 
 # fix gsoap missing zlib include and produce errors with --as-needed
 VBOX_GSOAP_CXX_LIBS := gsoapssl++ z
+# fix build with gsoap 2.8.140
+VBOX_WITHOUT_SPLIT_SOAPC = 1
 
 # no update request. update are handled via pacman
 VBOX_WITH_UPDATE_REQUEST := 0
