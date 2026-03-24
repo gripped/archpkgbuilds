@@ -5,34 +5,27 @@
 # Contributor: Geoffroy Carrier <geoffroy@archlinux.org>
 # Contributor: Y <y.archlinux@paritcher.com>
 
-pkgname=luarocks
+pkgbase=luarocks
+pkgname=(luarocks lua-luarocks lua54-luarocks lua53-luarocks lua52-luarocks lua51-luarocks)
 pkgver=3.13.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Deployment and management system for Lua modules'
-backup=(etc/luarocks/config-5.{1,2,3,4,5}.lua)
 arch=('any')
 url='https://luarocks.org/'
 license=('custom')
-replaces=('luarocks5.1' 'luarocks5.2')
-depends=('coreutils' # need chmod, md5sum
-         'curl' # need one of curl or wget
-         'lua'
-         'unzip' # need unzip and zip or lua-zlib
-         'zip')
-optdepends=('cvs: for fetching sources from CVS repositories'
-            'git: for fetching sources from git repositories'
-            'mercurial: for fetching sources from mercurial repositories'
-            'cmake: for building rocks that use the cmake build system'
-            'lua-sec: HTTPS support')
-source=("https://luarocks.org/releases/$pkgname-$pkgver.tar.gz"{,.asc}
+makedepends=(coreutils # need chmod, md5sum
+             curl # need one of curl or wget
+             lua
+             unzip # need unzip and zip or lua-zlib
+             zip)
+source=("https://luarocks.org/releases/$pkgbase-$pkgver.tar.gz"{,.asc}
         luarocks-make-manifest-5.{1,2,3,4,5}.hook
         luarocks.bash
         luarocks.fish
         luarocks.zsh
         luarocks-admin.bash
         luarocks-admin.fish
-        luarocks-admin.zsh
-        )
+        luarocks-admin.zsh)
 install=luarocks.install
 sha512sums=('44381bb7fd3d474f92b0d2d0bf492246907f88ac6d5bdbb30b889222d755681777042195cfbfa136c068e05db78896760d5aea28c2f60a46d2f30c4c28ba704b'
             'SKIP'
@@ -50,13 +43,13 @@ sha512sums=('44381bb7fd3d474f92b0d2d0bf492246907f88ac6d5bdbb30b889222d7556817770
 validpgpkeys=('8460980B2B79786DE0C7FCC83FD8F43C2BB3C478')
 
 prepare() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgbase-$pkgver"
   # https://github.com/luarocks/luarocks/issues/1851
   sed -i -e '/tag = "3.12.2"/d' luarocks-3.13.0-1.rockspec
 }
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgbase-$pkgver"
   ./configure --prefix=/usr
   make ./build/luarocks ./build/luarocks-admin ./build/config-5.5.lua
   make LUA_VERSION=5.1 LUA=/usr/bin/lua5.1 LUA_INCDIR=/usr/include/lua5.1 ./build/config-5.1.lua
@@ -65,7 +58,19 @@ build() {
   make LUA_VERSION=5.4 LUA=/usr/bin/lua5.4 LUA_INCDIR=/usr/include/lua5.4 ./build/config-5.4.lua
 }
 
-package() {
+package_luarocks() {
+  depends+=(lua-luarocks)
+  backup=(etc/luarocks/config-5.{1,2,3,4,5}.lua)
+  depends=(coreutils # need chmod, md5sum
+           curl # need one of curl or wget
+           lua
+           unzip # need unzip and zip or lua-zlib
+           zip)
+  optdepends=('cvs: for fetching sources from CVS repositories'
+              'git: for fetching sources from git repositories'
+              'mercurial: for fetching sources from mercurial repositories'
+              'cmake: for building rocks that use the cmake build system'
+              'lua-sec: HTTPS support')
   install -Dm644 luarocks-make-manifest-5.1.hook "$pkgdir/usr/share/libalpm/hooks/luarocks-make-manifest-5.1.hook"
   install -Dm644 luarocks-make-manifest-5.2.hook "$pkgdir/usr/share/libalpm/hooks/luarocks-make-manifest-5.2.hook"
   install -Dm644 luarocks-make-manifest-5.3.hook "$pkgdir/usr/share/libalpm/hooks/luarocks-make-manifest-5.3.hook"
@@ -79,11 +84,44 @@ package() {
   install -Dm644 luarocks-admin.fish "$pkgdir/usr/share/fish/vendor_completions.d/luarocks-admin.fish"
   install -Dm644 luarocks-admin.zsh "$pkgdir/usr/share/zsh/site-functions/_luarocks-admin"
 
-  cd "$pkgname-$pkgver"
+  cd "$pkgbase-$pkgver"
   make DESTDIR="$pkgdir" install
   make DESTDIR="$pkgdir" LUA_VERSION=5.1 install-config
   make DESTDIR="$pkgdir" LUA_VERSION=5.2 install-config
   make DESTDIR="$pkgdir" LUA_VERSION=5.3 install-config
   make DESTDIR="$pkgdir" LUA_VERSION=5.4 install-config
   install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+  rm -rf "$pkgdir/usr/share/lua/5.5"
+}
+
+package_lua-luarocks() {
+  cd "$pkgbase-$pkgver"
+  make DESTDIR="$pkgdir" install
+  rm -rf "$pkgdir/"{usr/bin,etc}
+}
+
+package_lua54-luarocks() {
+  cd "$pkgbase-$pkgver"
+  make DESTDIR="$pkgdir" LUA_VERSION=5.4 install
+  rm -rf "$pkgdir/"{usr/bin,etc}
+}
+
+package_lua53-luarocks() {
+  cd "$pkgbase-$pkgver"
+  make DESTDIR="$pkgdir" LUA_VERSION=5.3 install
+  rm -rf "$pkgdir/"{usr/bin,etc}
+}
+
+package_lua52-luarocks() {
+  depends+=(lua52-compat53)
+  cd "$pkgbase-$pkgver"
+  make DESTDIR="$pkgdir" LUA_VERSION=5.2 install
+  rm -rf "$pkgdir/"{usr/bin,etc,/usr/share/lua/5.2/compat53}
+}
+
+package_lua51-luarocks() {
+  depends+=(lua51-compat53)
+  cd "$pkgbase-$pkgver"
+  make DESTDIR="$pkgdir" LUA_VERSION=5.1 install
+  rm -rf "$pkgdir/"{usr/bin,etc,/usr/share/lua/5.1/compat53}
 }

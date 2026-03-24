@@ -1,28 +1,16 @@
 pkgbase = luarocks
 	pkgdesc = Deployment and management system for Lua modules
 	pkgver = 3.13.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://luarocks.org/
 	install = luarocks.install
 	arch = any
 	license = custom
-	depends = coreutils
-	depends = curl
-	depends = lua
-	depends = unzip
-	depends = zip
-	optdepends = cvs: for fetching sources from CVS repositories
-	optdepends = git: for fetching sources from git repositories
-	optdepends = mercurial: for fetching sources from mercurial repositories
-	optdepends = cmake: for building rocks that use the cmake build system
-	optdepends = lua-sec: HTTPS support
-	replaces = luarocks5.1
-	replaces = luarocks5.2
-	backup = etc/luarocks/config-5.1.lua
-	backup = etc/luarocks/config-5.2.lua
-	backup = etc/luarocks/config-5.3.lua
-	backup = etc/luarocks/config-5.4.lua
-	backup = etc/luarocks/config-5.5.lua
+	makedepends = coreutils
+	makedepends = curl
+	makedepends = lua
+	makedepends = unzip
+	makedepends = zip
 	source = https://luarocks.org/releases/luarocks-3.13.0.tar.gz
 	source = https://luarocks.org/releases/luarocks-3.13.0.tar.gz.asc
 	source = luarocks-make-manifest-5.1.hook
@@ -52,3 +40,30 @@ pkgbase = luarocks
 	sha512sums = f6ab6c65aaaa2680ce83a3277a2aec4400d234ddfc17c62f44190928a53b7146c38f8a779aedc1c71fed3dd2f1833e1ca924080e98ecf7462274b0d9acb07f90
 
 pkgname = luarocks
+	depends = coreutils
+	depends = curl
+	depends = lua
+	depends = unzip
+	depends = zip
+	optdepends = cvs: for fetching sources from CVS repositories
+	optdepends = git: for fetching sources from git repositories
+	optdepends = mercurial: for fetching sources from mercurial repositories
+	optdepends = cmake: for building rocks that use the cmake build system
+	optdepends = lua-sec: HTTPS support
+	backup = etc/luarocks/config-5.1.lua
+	backup = etc/luarocks/config-5.2.lua
+	backup = etc/luarocks/config-5.3.lua
+	backup = etc/luarocks/config-5.4.lua
+	backup = etc/luarocks/config-5.5.lua
+
+pkgname = lua-luarocks
+
+pkgname = lua54-luarocks
+
+pkgname = lua53-luarocks
+
+pkgname = lua52-luarocks
+	depends = lua52-compat53
+
+pkgname = lua51-luarocks
+	depends = lua51-compat53
