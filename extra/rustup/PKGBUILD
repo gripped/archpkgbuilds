@@ -4,7 +4,7 @@
 # Contributor: Jon Gjengset <jon@tsp.io>
 pkgname=rustup
 pkgver=1.29.0
-pkgrel=1
+pkgrel=2
 pkgdesc="The Rust toolchain installer"
 arch=('x86_64')
 url="https://github.com/rust-lang/rustup.rs"
@@ -21,7 +21,10 @@ makedepends_armv7h=(
   'cmake'
 )
 optdepends=('lldb: rust-lldb script'
-            'gdb: rust-gdb script')
+            'gdb: rust-gdb script'
+            'gcc: build executables for most targets' # x86_64-unknown-linux-* but also most Unix-likes
+            'mingw-w64-gcc: {i686,x86_64}-pc-windows-gnu targets'
+            'aarch64-linux-gnu-gcc: aarch64-unknown-linux-* targets')
 provides=('rust' 'cargo' 'rust-nightly' 'cargo-nightly' 'rustfmt' 'rust-src'
           'lib32-rust-libs' 'rust-musl' 'rust-wasm' 'rust-analyzer')
 conflicts=('rust' 'cargo' 'rustfmt')
