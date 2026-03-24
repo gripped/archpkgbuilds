@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=sip
-pkgver=6.15.2
+pkgver=6.15.3
 pkgrel=1
 arch=(any)
 pkgdesc='A tool that makes it easy to create Python bindings for C and C++ libraries'
@@ -16,7 +16,7 @@ makedepends=(git
              python-setuptools-scm
              python-wheel)
 source=(git+https://github.com/Python-SIP/sip#tag=$pkgver)
-sha256sums=('df13a836b7cda7b881d61102ab0dde4bb425cbad925dd1fb886ec96e80048269')
+sha256sums=('ccb97983ec2cb995259ae60658f04e61bb3766af309c0e3a11d3786b0eb49060')
 
 build() {
   cd $pkgname
