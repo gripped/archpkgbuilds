@@ -1,0 +1,30 @@
+pkgbase = audiobookshelf
+	pkgdesc = Self-hosted audiobook and podcast server
+	pkgver = 2.33.1
+	pkgrel = 1
+	url = https://www.audiobookshelf.org/
+	arch = x86_64
+	license = GPL-3.0-only
+	makedepends = git
+	makedepends = npm
+	depends = libnusqlite3
+	depends = ffmpeg
+	depends = nodejs
+	backup = etc/audiobookshelf.env
+	source = audiobookshelf::git+https://github.com/advplyr/audiobookshelf#tag=v2.33.1
+	source = systemd.service
+	source = sysusers.conf
+	source = tmpfiles.conf
+	source = config.env
+	sha512sums = 2b92662a1163b67a4a84813431a7e434f67ace33f5ff9711deba3faf48e9101aab0a72bb66d590133a576d43c6af497bbb0b2d22c04128e45450e303ac89489c
+	sha512sums = 7867646fa9a84bfcb13d0acb8237432ed0d01c878e710a09894115fa47eb76037fd99e3cf6844c8c53fa5be2fd475706f44b31733453c91765a15896117e2049
+	sha512sums = 486df6f20ed873b20734109774e235a4e9c02d40e5cd8be75eedd9b45ad79747ef0d0c13e26299e4e1fe871593f31e21bdf6754483e15c6e0e1974d2f894c86d
+	sha512sums = 69ebe29f0fd9fd98493a9be2c102ecd5617cd8581ebb634b60c4981954566cb0967c7606ff876a1866f82e4fc96c0f8b3c9f92bf9e089df36432e971f80d3f9a
+	sha512sums = c7453ed1ffb8d617622a004a05d36d9188a5dd6c98e53a4d58af8e8505ba849ad9c089d9ef3794da3df73b0993187aed255eee4dcb6b77faffea8e0634364e07
+	b2sums = caf6fb0460231d91d8770b5edc45eae333465a79236438d16826c7b3e9a228f49b8db0b1408545bc953a7e56c73130a2469f646045e99539f7edbe8866ffad18
+	b2sums = 17b23fd981e86f46436ba6a5cb39085fdccf7319481d8d2c43775dd64ed03048070ecefe38bc8f624b7162d47a05599a63daad3f20ba782b3874e63ab0561e1e
+	b2sums = 2a16dbea57c9971bba24bc027e867990c22f6bd3adc573ee52599f235b19d48df8c36f73e341ed2950c399e50accc781f625b0976ebb96bb1bf56f4c3e24704b
+	b2sums = 9057d9e4e984ba465c7e9fc1271e7c975120a896e3125cd443df25747a6f7ee560a58f95e2c0d0e956c63be09476d0384cdb8915a7d689fb683280f6bd8531a8
+	b2sums = 6f310976b2a8f98b7db5bae1ff92b71c8f31429e6c4ac74fe5dc70321c33222e097ca2a7479f910277cb741333105eae1a5680fdcc8cf61cfbb7fff93082a51c
+
+pkgname = audiobookshelf
