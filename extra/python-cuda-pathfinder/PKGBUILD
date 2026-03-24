@@ -4,7 +4,7 @@
 # but it has different versioning scheme and release frequency
 pkgname=python-cuda-pathfinder
 epoch=1
-pkgver=1.4.3
+pkgver=1.4.4
 pkgrel=1
 pkgdesc="Utilities for locating CUDA components"
 arch=(any)
@@ -28,7 +28,7 @@ checkdepends=(
 source=(
   python-cuda::git+https://github.com/NVIDIA/cuda-python#tag=cuda-pathfinder-v$pkgver
 )
-b2sums=('7c4f530c265543840fe2c374d566cfb55caef1fc81e6517503bf056ebb595d42b3420f4b1e778759b9a7794d080ef15abd69a4a56b5705f2a9a8b157be83dfe0')
+b2sums=('19cc152a654f7214312d370781ebbd066476e3f608422d5511a16cab69384e5d3be536432c45c4e2df21254e5404f45fa7cbd9b3c6920b82dbb660bc0febbcdc')
 
 build() {
   cd python-cuda/cuda_pathfinder
