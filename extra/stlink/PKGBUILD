@@ -2,8 +2,8 @@
 # Contributor: Anatol Pomozov <anatol.pomozov@gmail.com>
 
 pkgname=stlink
-pkgver=1.8.0
-pkgrel=2
+pkgver=1.8.0.r121.g8c34a4e
+pkgrel=1
 pkgdesc='Open source STM32 MCU programming toolset'
 arch=(x86_64)
 url='https://github.com/stlink-org/stlink'
@@ -15,19 +15,30 @@ depends=(
   hicolor-icon-theme
   libusb
 )
-makedepends=(cmake)
-source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('49245a4b0aeb926dd71ec4260b707d900318fe68e3a36e2e5543587fefb4886a9ff0ff42e0e12a8e727a5d4e9c7b4ce13989ca4d963842dbf960065e5fa0c968')
-b2sums=('93977a0f1700b70b7fd8e17ef6ab2d636323665e4f98e5753ced1fce9de79b0cc3a47a5db973c39ce1ec1d1ecb7dbd2bfb91b4e41ee895d65fa4907136eba9dd')
+makedepends=(
+  git
+  cmake
+  ninja
+)
+source=("$pkgname::git+$url#commit=8c34a4ecde7db965f9c1b0ca4e0e23de35918f1c")
+sha512sums=('adf941290fc93ca51a1ec8b10b085735d8b152e896239479e5af147d12d0866df0bdab88cf77a308640ea51531c09b35df1aac211d16fb0e1df083070790369d')
+b2sums=('5eda30729014c58ad8b6e30c3b60ec8df5d6789554a0a7e8d98424f05196977df5b7984a79bcae5778f833af74b173eae2f9aaab1aca10187b04e0752c63b626')
+
+pkgver() {
+  cd "$pkgname"
+
+  git describe --tags | sed -e 's/^v//' -e 's/-/.r/' -e 's/-/./g'
+}
 
 build() {
   local cmake_options=(
     -B build
+    -S "$pkgname"
+    -G Ninja
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
     -D STLINK_MODPROBED_DIR=/usr/lib/modprobe.d
     -D STLINK_UDEV_RULES_DIR=/usr/lib/udev/rules.d
-    -S $pkgname-$pkgver
     -W no-dev
   )
 
@@ -37,5 +48,7 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-  install -Dm644 $pkgname-$pkgver/LICENSE.md -t "$pkgdir/usr/share/licenses/$pkgname/"
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$pkgname/LICENSE.md"
 }
