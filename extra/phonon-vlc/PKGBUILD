@@ -6,11 +6,11 @@ pkgbase=phonon-vlc
 pkgname=(phonon-qt6-vlc)
 pkgdesc='Phonon VLC backend'
 pkgver=0.12.0
-pkgrel=5
+pkgrel=6
 arch=(x86_64)
 url='https://community.kde.org/Phonon'
 license=(LGPL-2.1-or-later)
-depends=(gcc-libs
+depends=(libstdc++
          glibc
          libvlc
          phonon-qt6
