@@ -4,7 +4,7 @@
 
 pkgname=python-pyrate-limiter
 pkgdesc='Python Rate-Limiter using Leaky-Bucket Algorithm'
-pkgver=4.0.2
+pkgver=4.1.0
 pkgrel=1
 arch=(any)
 url=https://github.com/vutran1710/PyrateLimiter
@@ -24,9 +24,9 @@ source=(
   "$pkgname::git+$url#tag=v$pkgver"
   remove-uv-dynamic-versioning.patch
 )
-sha512sums=('01931e940d91222b407ec6cef486ddbaa38cdf5a9dfecdda5c9fbe8e73668162bb44237968230deff52dcef0ac6f8e750fb57b6c1d453664027ebc6415952b48'
+sha512sums=('395c36a30c4282046529e6c7c11099930eb7312def3e1657bfa9b0ae25f7483a722011cd76eb5b04ee88716a4ef09e8ba9d1b3b80991ba02e6a8562b6f2fa916'
             '82022fd57ae79270cf65e33e02be823bb9e5541171e4532650c0c2ca46c70ee7ddcba5cbf9d5e95350702726972136e39644f7f281799e0032c33088a80e5936')
-b2sums=('75b58f952b88374e90205f59f1b30bc4df895814c99b97c0b20bf9ed8274c7cee9e0a2d3718c8b2417f38e9b2a67fadd71a3580c893c12e4b4fd23d20f5da0bb'
+b2sums=('26d8d284d034a549cb44c204d15621e4ad207bab73e8085eb2d4ae56af6dc3bfbf040adbd9dd1a0aed734e8abac2e09d5bcf5b0cebf8d7d08b52d0fdd9765654'
         '36bfc646fb7952c0ca3cd45b6b5892a578844604783c76772d323eaec58de8d7a46b95668ff0b2e0eab3187406979980d7a57b7ace03a12a93843269095bef29')
 
 prepare() {
@@ -42,7 +42,7 @@ prepare() {
 
   sed \
     -e "s/0\.0\.0/$pkgver/" \
-    pyrate_limiter/_version.py
+    -i pyrate_limiter/_version.py
 }
 
 build() {
