@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=wrangler
-pkgver=4.76.0
+pkgver=4.77.0
 pkgrel=1
 _esbuild_ver='0.27.3'
 pkgdesc="The CLI for Cloudflare Workers"
@@ -10,8 +10,7 @@ arch=('x86_64')
 license=('Apache-2.0' 'MIT')
 depends=(
   'glibc'
-  'libgcc'
-  'libstdc++' 'libstdc++.so'
+  'libgcc' 'libgcc_s.so'
   'nodejs'
   'worker-build'
   'workerd'
@@ -28,9 +27,9 @@ makedepends=(
 options=(!lto)
 source=(https://github.com/cloudflare/workers-sdk/archive/refs/tags/wrangler@${pkgver}.tar.gz
         "esbuild-${_esbuild_ver}.tar.gz::https://github.com/evanw/esbuild/archive/v${_esbuild_ver}.tar.gz")
-sha256sums=('6cbce879912088952b32458fe8ddd1fa37736b3ec87b5a80303b0e2f1b4ec619'
+sha256sums=('8eca51bed21d65000e56964f388d89ed09e25310da9f1a9916f9f343161db3bf'
             '05d56070104b46d24c8921bfc4c83209d71cf583eb0396c13d0f359705bb5b61')
-b2sums=('98eed9efc2781e181e8181c5ac6f803f602a8b4e1ffd5cd75d52d001ba6417c1394451f6b5d1cbc5c4e7ab2a1de53a660afbef51cf8a24110dbe3cc9d0a6bce9'
+b2sums=('96ef36a60aa61ba43c147fe2cfebafe68c0da1203e7d405c7ab62fa33ec546617f9c0b8c2e78a4c0c432be6dcb3923627d60ea1b3255d9fef43f761756cdd12d'
         'b9a3f3d5c573e64e983d87d49de4b677aaab3f71d5c3dd32b22956833c407129a82b7caf4b2b5025dae95d56edec42acbf4f8f61c0b6860d0c29ee1e007c448e')
 
 prepare() {
@@ -42,7 +41,10 @@ prepare() {
 
   # verify we're still using the correct esbuild version
   esbuild=$(yq -r .catalogs.default.esbuild.version pnpm-lock.yaml)
-  [[ "$esbuild" == "$_esbuild_ver" ]]
+  if [[ "$esbuild" != "$_esbuild_ver" ]]; then
+    echo "ERROR: update _esbuild_ver from $_esbuild_ver to $esbuild"
+    exit 1
+  fi
 }
 
 build() {
