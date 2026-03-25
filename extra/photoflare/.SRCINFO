@@ -1,16 +1,21 @@
 pkgbase = photoflare
 	pkgdesc = Quick, simple but powerful Qt-based image editor inspired by PhotoFiltre
 	pkgver = 1.6.13
-	pkgrel = 1
+	pkgrel = 2
 	url = https://photoflare.io/
 	arch = x86_64
-	license = GPL3
-	makedepends = qt5-tools
+	license = GPL-3.0-or-later
+	makedepends = git
+	makedepends = qt6-tools
+	depends = glibc
 	depends = graphicsmagick
 	depends = hicolor-icon-theme
-	depends = qt5-base
-	depends = qt5-imageformats
-	source = https://github.com/PhotoFlare/photoflare/archive/v1.6.13/photoflare-1.6.13.tar.gz
-	sha256sums = 3bc96b275b911a0d6cb3b6dbee03f98a73324929fc2728b3b4b02e8d5473eb09
+	depends = libgcc
+	depends = libgomp
+	depends = libstdc++
+	depends = qt6-base
+	depends = qt6-imageformats
+	source = git+https://github.com/PhotoFlare/photoflare.git#tag=v1.6.13
+	b2sums = bbfe16571c10e425ea6fea65f8d36366d2f157c95c75f226c0d6ef05c407fb57dc3d48025fedb39d46b88bfd0d59e08c7e2b09f2243117f97e1755855e70ad59
 
 pkgname = photoflare
