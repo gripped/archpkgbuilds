@@ -1,12 +1,9 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -52,16 +52,8 @@ FetchContent_MakeAvailable(juce-clap-extensions)
+@@ -55,13 +55,8 @@ FetchContent_MakeAvailable(juce-clap-extensions)
+ # If you are building a VST2 or AAX plugin, CMake needs to be told where to find these SDKs.
+ # This setup should be done before calling `juce_add_plugin`.
  
- ### Plugin Project Setup ###
- 
--# If you are building a VST2 or AAX plugin, CMake needs to be told where to find these SDKs.
--# This setup should be done before calling `juce_add_plugin`.
--
 -# do we have vst2 sdk to build it?
 -if(EXISTS "${PROJECT_SOURCE_DIR}/vstsdk2.4")
 -    juce_set_vst2_sdk_path("${PROJECT_SOURCE_DIR}/vstsdk2.4")
@@ -14,7 +11,7 @@
 -else()
 -    set(PLUGIN_FORMATS AU VST3 LV2)
 -endif()
-+# specifically disable VST2/AAX
++# skip VST2 plugin
 +set(PLUGIN_FORMATS VST3 LV2)
  
  # `juce_add_plugin` adds a static library target with the name passed as the first argument.
