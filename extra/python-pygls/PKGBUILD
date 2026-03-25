@@ -3,7 +3,7 @@
 
 pkgname=python-pygls
 _name=${pkgname#python-}
-pkgver=2.0.1
+pkgver=2.1.1
 pkgrel=1
 pkgdesc='Pythonic generic implementation of the Language Server Protocol'
 arch=(any)
@@ -22,7 +22,7 @@ makedepends=(
 )
 checkdepends=(python-pytest-asyncio)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('43eeb437259783cfbfa13ca39dd2e8daee5e630555ea3bc2d7cb0023b5eaa4209c67cd9d52450fcfd9f0ff22d277dac07548030a46dcfccb2ecfe736432824a4')
+b2sums=('f947b2e0cc890f0dff8d15a740ebb5772b68671b406444ac022a6bee5314b03a18c6936b7d03b9e9f432c4ce059f72ab830835916c85d90bef874791ecf419ca')
 
 build() {
   cd "$_name"
