@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-softlayer
-pkgver=6.2.7
-pkgrel=3
+pkgver=6.2.8
+pkgrel=1
 pkgdesc="A library for SoftLayer's API"
 arch=('any')
 url='https://github.com/softlayer/softlayer-python'
@@ -13,7 +13,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python
 checkdepends=('python-pytest' 'python-testtools' 'tk')
 source=("git+https://github.com/softlayer/softlayer-python.git#tag=v$pkgver"
          "$pkgname-click-8.3-compatibility.patch")
-sha512sums=('4b2f5252b80003ad822e861c93b411b3d20caf9e08907e8e2393f4e104dca01c19e05a96fec954cbec87fc5c1db88ff3ff3e6e85310e92a412157a1f0dba6729'
+sha512sums=('626330e52365458c925ef32fccf27367f287edca4b506e5b5091dd2fe3bfcd430d2fa4f16f9e712c44a34c42089c132fb61e0314c6c7c7de39ecc18d356f9102'
             'f2be77d7dda539a9fc8eb63ffbee7f0bba3e1e1bf72768bff674169158502f1f2bf36c44f99e20e98d2e1cc377f1c6a01805a78133ae087b9aa5f8eca0e8b829')
 
 prepare() {
