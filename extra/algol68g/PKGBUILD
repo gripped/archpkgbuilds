@@ -3,7 +3,7 @@
 
 pkgbase=algol68g
 pkgname=(algol68g algol68g-doc)
-pkgver=3.10.12
+pkgver=3.11.0
 pkgrel=1
 pkgdesc='Algol 68 compiler and interpreter'
 arch=(x86_64)
@@ -14,10 +14,10 @@ depends=(gsl mpfr plotutils)
 optdepends=('postgresql-libs: for PostgreSQL support')
 source=("$_host/$pkgbase-$pkgver.tar.gz"
         "$_host/learning-algol-68-genie.pdf")
-sha256sums=('4c8412b1928efdff8e9c35f17b37809c77db3326d76122907acbba797beb18a8'
-            '6fd349b251c292f8bad90024a3faea0fbbb77ef59aae582e1a78cf309620242c')
-b2sums=('400ef9ebdeff5ef52ab3dd8cd239fcb5b0eb0bcc5aa9d168bb4cc5db2ce6e43edc8e48619ec530c6a3c8a05b6d7ab21ec4bf39ea24a07093252a627bf664070f'
-        '325543c64bd61e9a4113749ab5084dc9d6c406a2f595f585e4e8f61244dba1ba19e017be94632c3a79110f25de874a5de0613d0bf83992125c9221bb8573ed2c')
+sha256sums=('2ec25100cd76c620deec2d61876db44091d80910a79bb783ebe336aeaa0eed74'
+            '0b5837ebab4152c32fc36699d02cee4c72758c4e7500977dd427417f09677351')
+b2sums=('dcf5c52641458025a49d4279a3f2c57cfbbf04fd294179e9db0b111fb7e0470cf57a4299b2786beb0980ee89bbd88ad488e55c6e0a99a94b99d07bb29ac0a777'
+        '2d38d4c795262f2bfe6e9561482211f8b7d6d82caa3196c678c33c1120ff6818ff513c78e40190094adde75f454e6dab3088fd598a13925dcc5b996dac6e74d2')
 
 build() {
   cd $pkgname-$pkgver
