@@ -3,7 +3,7 @@
 pkgname=alpm-buildinfo
 _upstream=alpm
 pkgver=0.5.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A CLI for writing and parsing of ALPM BUILDINFO files"
 arch=(x86_64)
 url="https://alpm.archlinux.page/alpm-buildinfo/index.html"
@@ -57,7 +57,7 @@ package() {
   install -vDm 644 output/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
   # NOTE: for now only install the versioned manpages, because pacman also still provides a BUILDINFO.5
   install -vDm 644 output/manpages/*v{1,2}.5 -t "$pkgdir/usr/share/man/man5/"
-  install -vDm 644 output/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completions/completions/$pkgname"
+  install -vDm 644 output/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completion/completions/$pkgname"
   install -vDm 644 output/shell_completions/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
   install -vDm 644 output/shell_completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
   install -vDm 644 LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
