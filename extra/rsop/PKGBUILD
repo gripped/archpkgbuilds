@@ -2,7 +2,7 @@
 
 pkgname=rsop
 pkgver=0.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Stateless OpenPGP (SOP) based on rpgp"
 arch=(x86_64)
 url="https://codeberg.org/heiko/rsop"
@@ -12,8 +12,8 @@ license=(
 )
 groups=(stateless-openpgp)
 depends=(
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(
   rust
@@ -46,7 +46,7 @@ package() {
   install -vDm 0755 "target/release/$pkgname"{,v} -t "$pkgdir/usr/bin/"
   install -vDm 0644 target/$pkgname*.1 -t "$pkgdir/usr/share/man/man1/"
   install -vDm 0644 target/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
-  install -vDm 0644 target/$pkgname.bash "$pkgdir/usr/share/bash-completions/completions/$pkgname"
+  install -vDm 0644 target/$pkgname.bash "$pkgdir/usr/share/bash-completion/completions/$pkgname"
   install -vDm 0644 target/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
   install -vDm 0644 LICENSES/MIT.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
