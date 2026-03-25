@@ -1,17 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=xmonad-extras
-pkgver=0.17.2
-pkgrel=174
+pkgver=0.17.3
+pkgrel=1
 pkgdesc="Third party extensions for xmonad with wacky dependencies"
 url="https://github.com/xmonad/xmonad-extras"
-license=("BSD")
+license=("BSD-3-Clause")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-x11' 'haskell-alsa-mixer' 'haskell-dbus' 'haskell-hint'
          'haskell-libmpd' 'haskell-network' 'haskell-regex-posix' 'xmonad' 'xmonad-contrib')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('280a82eac0dbbddefd961c81c9f6c0d1c630488349f89922bec89e504dab9b65')
+sha256sums=('c1341df919bded92f10e97343c812b4ac841f0849d5671224c41e5fe71fc0849')
 
 prepare() {
   cd $pkgname-$pkgver
