@@ -1,7 +1,7 @@
 pkgbase = python-google-re2
 	pkgdesc = Python bindings for re2
 	pkgver = 1.1.20251105
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/google/re2
 	arch = x86_64
 	license = BSD-3-Clause
@@ -13,7 +13,8 @@ pkgbase = python-google-re2
 	makedepends = python-wheel
 	makedepends = pybind11
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = python
 	depends = re2
 	source = python-google-re2::git+https://github.com/google/re2#tag=2025-11-05

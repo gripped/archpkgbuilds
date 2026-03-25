@@ -3,14 +3,15 @@
 pkgname=python-google-re2
 pkgver=1.1.20251105
 _pkgver=$(date --date=${pkgver#*.*.} +%Y-%m-%d)
-pkgrel=1
+pkgrel=2
 pkgdesc='Python bindings for re2'
 arch=(x86_64)
 url='https://github.com/google/re2'
 license=(BSD-3-Clause)
 depends=(
   glibc
-  gcc-libs
+  libgcc
+  libstdc++
   python
   re2
 )
