@@ -4,14 +4,15 @@
 
 pkgname=python-rtmidi
 pkgver=1.5.8
-pkgrel=5
+pkgrel=6
 pkgdesc='Python bindings for the MIDI I/O library RtMidi'
 arch=(x86_64)
 url='https://github.com/SpotlightKid/python-rtmidi'
 license=(MIT)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   python
 )
 makedepends=(
