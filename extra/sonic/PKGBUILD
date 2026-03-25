@@ -3,20 +3,29 @@
 
 pkgname=sonic
 pkgver=1.4.9
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast, lightweight & schema-less search backend'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/valeriansaliou/sonic'
-license=('MPL-2.0')
-depends=('gcc-libs')
-makedepends=('git' 'rust' 'clang' 'llvm')
-backup=('etc/sonic.cfg')
-options=('!lto')
+license=(MPL-2.0)
+depends=(
+  glibc
+  libgcc
+  libstdc++
+)
+makedepends=(
+  git
+  rust
+  clang
+  llvm
+)
+backup=(etc/sonic.cfg)
+options=(!lto)
 source=(
   "$pkgname::git+$url.git#tag=v$pkgver"
-  'systemd.service'
-  'sysusers.conf'
-  'tmpfiles.conf'
+  systemd.service
+  sysusers.conf
+  tmpfiles.conf
 )
 sha512sums=('f40cf1e29d8e9f4cc26296b1c20c7a89c1d7e0f393c9ad0e6f75a2e54ac3c5f1f8c2901ef8c5cbed4609ce333cf4107e967b1c3deca3a41c5bcf530e4c2db138'
             'f623f4076210f5387d3b3b6e61e0d45323a5d9fbc139a3a658d3f8c317cbf863976e0e9c604eb1f03ca42f2f339d733382961b2b73d33464ec8154d8a9e18475'
@@ -30,8 +39,18 @@ b2sums=('13e2c1480500171f5abb16d8ac61f98eca7d49666312ded07683f5b250f02ea65ff38f8
 prepare() {
   cd "$pkgname"
 
+  # fix ftbfs with gcc >= 15
+  git cherry-pick --no-commit \
+    dd3a0e8a637a5932edd9d41820f5792f2589377a \
+    69f3c0878c0779370ae8ecc422f7b78479c3927c \
+    b0acdc3754505ff862aeba5acb2c170087eda26f \
+    266af2fd88309086c611390fdde6f008ebfcf502 \
+    28e2d2cf7b8999fd32b906a5092ab32f6ad6d738 \
+    e1b7878116f7a63ee33d99c8178c1497a54e4d3b \
+    c50a16c86714eabde17bf1478f0ebc029c6144f8
+
   # download dependencies
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
@@ -56,7 +75,6 @@ package() {
 
   # binary
   install -vDm755 -t "$pkgdir/usr/bin" target/release/sonic
-
 
   # configuration
   install -vDm644  config.cfg "$pkgdir/etc/sonic.cfg"

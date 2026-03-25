@@ -1,7 +1,7 @@
 pkgbase = sonic
 	pkgdesc = Fast, lightweight & schema-less search backend
 	pkgver = 1.4.9
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/valeriansaliou/sonic
 	arch = x86_64
 	license = MPL-2.0
@@ -9,7 +9,9 @@ pkgbase = sonic
 	makedepends = rust
 	makedepends = clang
 	makedepends = llvm
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	options = !lto
 	backup = etc/sonic.cfg
 	source = sonic::git+https://github.com/valeriansaliou/sonic.git#tag=v1.4.9
