@@ -4,16 +4,17 @@
 _pkgname=CGNS
 pkgname=cgns
 pkgver=4.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Standard for recording and recovering computer data associated with the numerical solution of fluid dynamics equations"
 arch=(x86_64)
 url="https://cgns.github.io/"
 license=(Zlib)
 depends=(
-  gcc-libs
   glibc
   glu
   hdf5
+  libgcc
+  libgfortran
   libglvnd
   libx11
   libxmu
@@ -25,7 +26,7 @@ makedepends=(
   gcc-fortran
 )
 source=("https://github.com/$_pkgname/$_pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('c65410a2011aec98b67daf9ec1969a8454c13fc2981afd2cb2a4fa82762320e43db290f203e0a9c4490837b3785850743eb1c578131c3ac5254cd694f4de939a')
+sha512sums=('f0a3f82824d81e2db4c992fc41e91c53158898fbf0b342c0c857e5e3f02d081df3822035b9eb558fe12c48ce36e4123810adc11f9b85e60e76e7de7f35a56162')
 
 build() {
   cmake -B build -S ${_pkgname}-${pkgver} \
