@@ -5,21 +5,22 @@
 
 pkgname=uncrustify
 pkgver=0.82.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A source code beautifier"
 arch=(x86_64)
 url="https://github.com/uncrustify/uncrustify"
 license=(GPL-2.0-only)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
 )
 makedepends=(
   cmake
   python
 )
 source=("$url/archive/$pkgname-$pkgver.tar.gz")
-sha256sums=('e05f8d5ee36aaa1acfa032fe97546b7be46b1f4620e7c38037f8a42e25fe676f')
+b2sums=('40c114c67082bde40439a5a203396a4458e26eeb531dfc6b5f74d8ce239554219d79189a848ff2fd1ad37f7d2c70494c0ce9bbc0b5489bae382e30a6a482696d')
 
 build() {
   cmake -S $pkgname-$pkgname-$pkgver -B build \
@@ -35,7 +36,6 @@ check() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-
   cd $pkgname-$pkgname-$pkgver
   install -vDm644 -t "$pkgdir/usr/share/uncrustify" etc/*.cfg
 }
