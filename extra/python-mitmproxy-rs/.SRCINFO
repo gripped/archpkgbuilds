@@ -1,7 +1,7 @@
 pkgbase = python-mitmproxy-rs
 	pkgdesc = Python bindings for mitmproxy's Rust code
 	pkgver = 0.12.9
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/mitmproxy/mitmproxy_rs
 	arch = x86_64
 	license = MIT
@@ -11,8 +11,8 @@ pkgbase = python-mitmproxy-rs
 	makedepends = maturin
 	makedepends = python-installer
 	makedepends = rust-src
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	depends = python
 	options = !lto
 	source = python-mitmproxy-rs::git+https://github.com/mitmproxy/mitmproxy_rs#tag=v0.12.9

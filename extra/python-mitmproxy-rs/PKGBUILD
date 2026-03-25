@@ -3,14 +3,14 @@
 pkgname=python-mitmproxy-rs
 _pyname=mitmproxy_rs
 pkgver=0.12.9
-pkgrel=1
+pkgrel=2
 pkgdesc="Python bindings for mitmproxy's Rust code"
 arch=(x86_64)
 url='https://github.com/mitmproxy/mitmproxy_rs'
 license=(MIT)
 depends=(
-  gcc-libs
   glibc
+  libgcc
   python
 )
 makedepends=(
