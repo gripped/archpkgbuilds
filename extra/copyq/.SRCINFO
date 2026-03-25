@@ -1,6 +1,6 @@
 pkgbase = copyq
 	pkgdesc = Clipboard manager with searchable and editable history
-	pkgver = 13.0.0
+	pkgver = 14.0.0
 	pkgrel = 1
 	url = https://github.com/hluk/copyq
 	arch = x86_64
@@ -14,9 +14,10 @@ pkgbase = copyq
 	depends = kstatusnotifieritem
 	depends = kguiaddons
 	depends = libxtst
-	source = copyq-13.0.0.tar.gz::https://github.com/hluk/copyq/archive/v13.0.0.tar.gz
-	source = https://github.com/hluk/CopyQ/pull/3268.patch
-	sha256sums = c7e0c9aa95b5653dee547f168d58cf5aae4f66ad5f94856a61741ebe9527ad72
-	sha256sums = efac74b7dabc5b69d72d679bb23ed679feef945576c3ec6a4a46d4d3846e4beb
+	depends = qca-qt6
+	depends = qtkeychain-qt6
+	depends = miniaudio
+	source = copyq-14.0.0.tar.gz::https://github.com/hluk/copyq/archive/v14.0.0.tar.gz
+	sha256sums = 1d659e1bb4fba4aab095290472a73b2d454e2a3a3faa471364329be3982cf73b
 
 pkgname = copyq
