@@ -6,7 +6,7 @@
 # Contributor: Christopher Reimer <vdr4arch at creimer dot net>
 
 pkgname=poco
-pkgver=1.15.0
+pkgver=1.15.1
 _pkgver=${pkgver/_/}
 pkgrel=1
 pkgdesc="C++ class libraries for network-centric, portable applications, complete edition with debug libraries"
@@ -16,7 +16,7 @@ license=('custom:boost')
 depends=('mariadb-libs' 'openssl' 'unixodbc')
 makedepends=('cmake' 'ninja')
 source=("https://pocoproject.org/releases/poco-${_pkgver}/poco-${_pkgver}-all.tar.bz2")
-sha256sums=('4b0f7bbbb1abbd1c06e000635b20530b5a977f702cfd54647926c996d99a1282')
+sha256sums=('4fac8f0faaff69623b742edfe0bdfba1804ddb42286bcd8f5aa83e89b4eb4b4f')
 
 build() {
   cd "poco-${_pkgver}-all"
