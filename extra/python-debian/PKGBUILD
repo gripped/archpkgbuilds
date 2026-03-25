@@ -4,8 +4,8 @@
 # Contributor: Johannes Dewender   arch at JonnyJD dot net
 
 pkgname=python-debian
-pkgver=1.0.1
-pkgrel=2
+pkgver=1.1.0
+pkgrel=1
 pkgdesc='Python module to work with Debian-related data formats'
 arch=(any)
 url='https://salsa.debian.org/python-debian-team/python-debian'
@@ -23,14 +23,14 @@ makedepends=(
   python-setuptools-scm
 )
 checkdepends=(python-pytest)
-source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('012f2ffca71ac79140f309fd2a723e6c68d3c01ac4228ab14258c0d4eeadf36699899f91c5e71f397851e4dd4dae78b1549c8ec1823f396ceeed70caebd0c50c')
-b2sums=('2b9ed525aed0d67ce6028529d5823b584c2d39def09f1bed43fef2b457a6a3b74867d0874273616869f0492b1edad45ec266cec47ee66d98a00204d5c88db4b9')
+source=("$pkgname::git+$url#tag=debian/$pkgver")
+sha512sums=('733a901017cb000a92b1fd0944a96d1f0f04e0a1b1d349fc25f72fe177ebf6be97f7636531e94b095854bcc6783e858777263cecf0bc31ebfc86262c4fb0f93b')
+b2sums=('10ff7a658b1386c80785773ba8d41efac3cfb866319637277992da1203835a513a8078f4cd6528f696af3cc0c7be8df21c6bde6fd83aa651d8e469c674c3dde4')
 
 build() {
   cd "$pkgname"
 
-SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --no-isolation
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --no-isolation
 }
 
 check() {
