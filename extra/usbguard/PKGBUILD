@@ -4,29 +4,25 @@
 
 pkgname=usbguard
 pkgver=1.1.4
-pkgrel=3
+pkgrel=4
 pkgdesc='Software framework for implementing USB device authorization policies'
 url='https://github.com/USBGuard/usbguard'
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
   abseil-cpp
-  audit
-  gcc-libs
+  audit libaudit.so
   glibc
-  libaudit.so
-  libcap-ng
-  libcap-ng.so
+  libcap-ng libcap-ng.so
+  libgcc
   libgio-2.0.so
   libglib-2.0.so
-  libprotobuf.so
-  libqb
-  libqb.so
-  libseccomp
-  libseccomp.so
+  libqb libqb.so
+  libseccomp libseccomp.so
   libsodium
+  libstdc++
   polkit
-  protobuf
+  protobuf libprotobuf.so
 )
 makedepends=(
   asciidoc
@@ -37,16 +33,14 @@ makedepends=(
   pegtl
   systemd
 )
-provides=(
-  libusbguard.so
-)
+provides=(libusbguard.so)
 backup=(
   etc/usbguard/usbguard-daemon.conf
   etc/usbguard/rules.conf
 )
-source=($url/releases/download/usbguard-${pkgver}/usbguard-${pkgver}.tar.gz{,.asc})
-sha512sums=('d4f588ff97cb9529d9f8c7664998fbfc55fc6e5ddeaad8da3a7e4703e5de0c1b74871763d46ef558458258bbda71bbb47ebc9b4daf67bd9a3d1da015ea48fe61'
-            'SKIP')
+source=("$url/releases/download/usbguard-${pkgver}/usbguard-${pkgver}.tar.gz"{,.asc})
+b2sums=('563aa06b332609388d2b3292672409761485eddfa5210231346d794425e061bcd9ab4738fcb2dc5ed128cfe43e9fdd9ae4e4b64c699e820e9f421f0f371d7c54'
+        'SKIP')
 validpgpkeys=(
   'DE78B93EAED8A620F5AA14DF52F7E84653274B59' # Radovan Sroka <rsroka@redhat.com>
   '42363D1C30A574A4EE5D9C87E650CBBFEF3AAC4B' # Attila Lakatos <alakatos@redhat.com>
@@ -95,5 +89,3 @@ package() {
 
   install -vDm 644 CHANGELOG.md README.adoc -t "${pkgdir}/usr/share/doc/${pkgname}"
 }
-
-# vim: ts=2 sw=2 et:
