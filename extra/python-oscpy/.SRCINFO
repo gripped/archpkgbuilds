@@ -1,15 +1,19 @@
 pkgbase = python-oscpy
 	pkgdesc = A modern and efficient OSC Client/Server implementation
 	pkgver = 0.6.0
-	pkgrel = 6
+	pkgrel = 7
 	url = https://github.com/kivy/oscpy
 	arch = any
 	license = MIT
 	checkdepends = python-pytest
 	checkdepends = python-pytest-rerunfailures
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
-	source = https://github.com/kivy/oscpy/archive/v0.6.0/python-oscpy-0.6.0.tar.gz
-	sha512sums = 55f9a4f8aaa15af3944392c375e5153b4a8f0422ee4c20e0de78a7518882886b929813fb475a0c90ec4238185236f5e39bef6abd5662e8f51a6950892d3e2a60
+	source = git+https://github.com/kivy/oscpy.git#tag=v0.6.0
+	sha512sums = a89417fc5017f40fb95325f69165e427e302b0820f122200faacc811e75c7121153f3c6f60940efe787c48d2597f5c34c7411e4fcf7b4c84a9e7fd1308c94233
 
 pkgname = python-oscpy

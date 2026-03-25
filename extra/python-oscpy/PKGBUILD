@@ -2,30 +2,30 @@
 
 pkgname=python-oscpy
 pkgver=0.6.0
-pkgrel=6
+pkgrel=7
 pkgdesc="A modern and efficient OSC Client/Server implementation"
 url="https://github.com/kivy/oscpy"
 license=('MIT')
 arch=('any')
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest' 'python-pytest-rerunfailures')
-source=("https://github.com/kivy/oscpy/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('55f9a4f8aaa15af3944392c375e5153b4a8f0422ee4c20e0de78a7518882886b929813fb475a0c90ec4238185236f5e39bef6abd5662e8f51a6950892d3e2a60')
+source=("git+https://github.com/kivy/oscpy.git#tag=v$pkgver")
+sha512sums=('a89417fc5017f40fb95325f69165e427e302b0820f122200faacc811e75c7121153f3c6f60940efe787c48d2597f5c34c7411e4fcf7b4c84a9e7fd1308c94233')
 
 build() {
-  cd oscpy-$pkgver
-  python setup.py build
+  cd oscpy
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd oscpy-$pkgver
+  cd oscpy
   python -m pytest --reruns=5
 }
 
 package() {
-  cd oscpy-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  cd oscpy
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
