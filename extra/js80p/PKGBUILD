@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=js80p
-pkgver=3.5.0
-pkgrel=2
+pkgver=4.0.0
+pkgrel=1
 pkgdesc='A MIDI driven, performance oriented, versatile synthesizer'
 arch=(x86_64)
 url='https://attilammagyar.github.io/js80p/'
@@ -26,30 +26,24 @@ install=js80p.install
 source=(
   "$pkgname::git+https://github.com/attilammagyar/js80p#tag=v$pkgver"
   do-not-run-cppcheck.patch
-  suppress-deprecated-declarations.patch
 )
-sha512sums=('5dea9a5f28a62e8c8689a5e29d850f17cae2840abb22b638dbe11de96214eef19e027301a196ddcc0f7ebba06f9efa437b3ddf7be9c2816112a2d9e0a36022e0'
-            'e3f6e69f8fd81bd28883a6e74f19e72a887f1c53eb695cd3e6eecd8d15ce457417dbdc635bf8273b4f51490284033112723db288689d80cf39f59b54cfc439f2'
-            'f5795b93060227ccfc3f6a1ad4ad2534848d1fb8ae012e4eda86d0c5cab5894f85c96a362c0e1fcc5dad24d37e4bb7cc924113b0ea469d1835c67a25d69d6410')
-b2sums=('965d139f59a8fddc9de04df54c525871c2c42e3f93cac7cfe73a0ec8413fd63ada4a31be99ac5e72b59f4e97fce3332d352ca0e2040dc03ab5d41a0fdfaee16b'
-        '9042a7bdde673d0a6884b047f9d37362cb4b4a1b00e13129c73ceb233a4235a677c990f872f58d9c3bf79b74786f6ccc96426a742baaf9b9cea27d475a9b931f'
-        'c1050e218c4150261a1efeefd98f3682ad3bd50cbd07231cade9b1b65194e2aea7ac64d56a12824b22a4758065c1e218a4f6f80962d159cf55375879683f043f')
+sha512sums=('0653bb894334e0dedba8d2508c7a00899a1e1dde980eb6c03279920e7562c13409fb4ffaa3a5570896dfd138b71ba96c3d4fbeda3b159ba803b4f90d9c627585'
+            'e3f6e69f8fd81bd28883a6e74f19e72a887f1c53eb695cd3e6eecd8d15ce457417dbdc635bf8273b4f51490284033112723db288689d80cf39f59b54cfc439f2')
+b2sums=('1a5d78d0860b8eb1fe342a0a91bf9139913ca7919699aa289dd88a180a6be6019fe1c76c87022f2baf0a33b115f430227093989cce80c376889e30fc3b5cb6ad'
+        '9042a7bdde673d0a6884b047f9d37362cb4b4a1b00e13129c73ceb233a4235a677c990f872f58d9c3bf79b74786f6ccc96426a742baaf9b9cea27d475a9b931f')
 
 prepare() {
   cd "$pkgname"
 
   # remove cppcheck from makedepends
   patch -p1 -i "$srcdir/do-not-run-cppcheck.patch"
-
-  # suppress deprecated declarations
-  patch -p1 -i "$srcdir/suppress-deprecated-declarations.patch"
 }
 
 build() {
   cd "$pkgname"
-
   # supports AVX, but that's not in x86_64_v1
   make \
+    CXX_WARNINGS='-Wno-error' \
     SYS_LIB_PATH=/usr/lib \
     TARGET_PLATFORM="$CARCH-gpp" \
     INSTRUCTION_SET=sse2 \
@@ -63,7 +57,7 @@ package() {
 
   # vst3
   install -vDm644 \
-    "dist/js80p-dev-linux-$CARCH-sse2-vst3_single_file/js80p.vst3" \
+    "dist/js80p-dev-linux-$CARCH-sse2-vst3_single/js80p.vst3" \
     "$pkgdir/usr/lib/vst3/$pkgname.vst3/Contents/$CARCH-linux/$pkgname.so"
 
   # presets
