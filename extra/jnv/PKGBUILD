@@ -3,22 +3,22 @@
 
 pkgname=jnv
 pkgver=0.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Interactive JSON filter using jq"
 arch=(x86_64)
 url="https://github.com/ynqa/jnv"
 license=(MIT)
 depends=(
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(
   cargo
   clang
 )
 options=(!lto)
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('767226c67378381d1e71ffe0e631a5b5ffc00e957a05780a9b23b6a65023bb44')
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+b2sums=('a7b8b08cb240f10a8068bcb104cb3b2d0bc0ead9261bee8863465c4bf3654f5165cc191921e96e8a14f0be5dd58a0b0ff08dab90cc9ca478404b9a54c078bf43')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -40,5 +40,3 @@ package() {
   install -vDm755 -t "$pkgdir/usr/bin" target/release/$pkgname
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
-
-# vim:set ts=2 sw=2 et:
