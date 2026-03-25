@@ -9,7 +9,7 @@
 
 pkgname=anki
 pkgver=25.09.2
-pkgrel=6
+pkgrel=7
 pkgdesc="A smart spaced repetition flashcard program"
 arch=('x86_64')
 url="https://apps.ankiweb.net/"
@@ -35,6 +35,8 @@ depends=(
   'python-waitress'
   'qt6-multimedia' # plugin loaded at runtime for voice recording
   'qt6-svg'        # plugin loaded at runtime for SVG icon rendering
+  'sqlite'
+  'zstd'
 )
 makedepends=(
   'cargo'
@@ -115,6 +117,9 @@ build() {
   export RELEASE=2       # Optimized build
   export OFFLINE_BUILD=1 # Do not download anything, disables git checks
   export CARGO_TARGET_DIR=$PWD/out/rust
+
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+  export ZSTD_SYS_USE_PKG_CONFIG=1
   cargo build -p runner --release
   ./out/rust/release/runner build -- wheels -v
 }
