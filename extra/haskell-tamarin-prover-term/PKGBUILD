@@ -3,17 +3,17 @@
 
 _hkgname=tamarin-prover-term
 pkgname=haskell-tamarin-prover-term
-pkgver=1.10.0
-pkgrel=142
+pkgver=1.12.0
+pkgrel=1
 pkgdesc="Term manipulation library for the tamarin prover"
 url="http://www.infsec.ethz.ch/research/software/tamarin"
-license=("GPL")
+license=("GPL-3.0-only")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hunit' 'haskell-attoparsec' 'haskell-dlist'
          'haskell-safe' 'haskell-tamarin-prover-utils')
 makedepends=('ghc')
 source=("https://github.com/tamarin-prover/tamarin-prover/archive/$pkgver/tamarin-prover-$pkgver.tar.gz")
-sha512sums=('52ea3e77051208ab2f2b9425988640a2a699adfaaac90d5946d3ce43663ad535f5efb1bf845e0d540eb719e0f26c4d8beec4e231f54f0f393f42c2a392cfd486')
+sha512sums=('b8e79d894fc65fcf046127abc3428f8a61975a598fc231222444cecf47a778410b7b255ed3ef58b932a049bb6d31f3c57d8769a55c653cffe85b71d7da1e3287')
 
 build() {
     cd tamarin-prover-$pkgver/lib/term
