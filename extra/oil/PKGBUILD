@@ -6,18 +6,23 @@
 
 pkgname=oil
 pkgver=0.37.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Oils for Unix: OSH and YSH shells'
-arch=('x86_64')
+arch=(x86_64)
 url='https://oils.pub/'
-license=('Apache-2.0')
-depends=('glibc' 'gcc-libs' 'readline')
-makedepends=('bash')
-provides=('oils-for-unix')
-replaces=('osh')
+license=(Apache-2.0)
+depends=(
+  glibc
+  libgcc
+  libstdc++
+  readline
+)
+makedepends=(bash)
+provides=(oils-for-unix)
+replaces=(osh)
 install=oil.install
 source=("$url/download/oils-for-unix-$pkgver.tar.gz")
-sha256sums=('f4d41d20a0523dbcfbd4ba231f82edf25b08d4965d65bc71fcb56666d6743000')
+sha512sums=('481ba47c8377772e83f3198666cbd7276d29a3501d1f2e40902af38f55831c7a6d6b8765d1bd3d168dfa890a607a64c962b7c7c6928e8fcc852301b9677edd91')
 b2sums=('6cd257bcaee463d4a9d1416d560a67cccd44367461095fc39fd7405c9e348dcb0c83be5d5df2bd92729b92198c34b31a7f47523d82dc24000e0c42bd628c5e0e')
 noextract=("oils-for-unix-$pkgver.tar.gz")
 
