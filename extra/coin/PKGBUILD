@@ -7,47 +7,73 @@
 # Contributor: Marcus Fritzsch <fritschy@googlemail.com>
 
 pkgname=coin
-pkgver=4.0.7
+pkgver=4.0.8
 epoch=1 # downgrade, ref https://gitlab.archlinux.org/archlinux/packaging/packages/freecad/-/issues/23
 pkgrel=1
 pkgdesc='3D graphics library compatible with Open Inventor'
 url='https://github.com/coin3d/coin'
 license=(BSD-3-Clause)
 arch=(x86_64)
-depends=(libgl)
-makedepends=(boost cmake doxygen git glu ninja)
-optdepends=('fontconfig: dynamic linking support'
-            'freetype2: dynamic linking support'
-            'openal: audio/dynamic linking support'
-            'zlib: dynamic linking support')
-source=("git+$url#tag=v$pkgver")
-b2sums=('0dd81537393a765aa6ace075126ce6852ec593ebe4950a5e20f53dac3fba0722df65671a8cfda367feb5e73e2b050d5b2515e2d3f53ecb8555c386301417e4c2')
+depends=(
+  sh
+  libgl
+  libx11
+  libgcc
+  libstdc++
+  glibc
+  expat
+)
+makedepends=(
+  boost
+  cmake
+  doxygen
+  git
+  glu
+  ninja
+)
+optdepends=(
+  'fontconfig: dynamic linking support'
+  'freetype2: dynamic linking support'
+  'openal: audio/dynamic linking support'
+  'zlib: dynamic linking support'
+)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('2c3b1edbc22615c946a2ae551c50b6e0ffb0c9b4cce457352c1a7926a2a4c0c8f308059d227886444ac0795a084329eede696a045a2acaca96bab7c9543391e3')
+b2sums=('cddd9e53df3ab6ded0ad084c3039286a55069ae109411b62201786891009b56bec171f1ccdd4fd2d0ee1a541a0a3f260a113fc33cf6648e34b4ba40a774c4343')
 
 build() {
-  cmake \
-    -B build \
-    -D CMAKE_BUILD_TYPE=Release \
-    -D CMAKE_C_FLAGS="$CFLAGS -fPIC -w" \
-    -D CMAKE_CXX_FLAGS="$CXXFLAGS -fPIC -w" \
-    -D CMAKE_INSTALL_LIBDIR=lib \
-    -D CMAKE_INSTALL_PREFIX=/usr \
-    -D CMAKE_POLICY_VERSION_MINIMUM=3.10 \
-    -D COIN_BUILD_DOCUMENTATION=ON \
-    -D COIN_BUILD_DOCUMENTATION_CHM=OFF \
-    -D COIN_BUILD_DOCUMENTATION_MAN=ON \
-    -D COIN_THREADSAFE=ON \
-    -D USE_EXTERNAL_EXPAT=ON \
-    -G Ninja \
-    -S $pkgname
-  ninja -C build
+  local cmake_options=(
+    -B build
+    -S "$pkgname"
+    -G Ninja
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_C_FLAGS="$CFLAGS -fPIC -w"
+    -D CMAKE_CXX_FLAGS="$CXXFLAGS -fPIC -w"
+    -D CMAKE_INSTALL_LIBDIR=lib
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.10
+    -D COIN_BUILD_DOCUMENTATION=ON
+    -D COIN_BUILD_DOCUMENTATION_CHM=OFF
+    -D COIN_BUILD_DOCUMENTATION_MAN=ON
+    -D COIN_THREADSAFE=ON
+    -D USE_EXTERNAL_EXPAT=ON
+  )
+
+  cmake "${cmake_options[@]}"
+
+  cmake --build build
 }
 
 package() {
-  DESTDIR="$pkgdir" ninja -C build install
+  DESTDIR="$pkgdir" cmake --install build
+
   # Skip the HTML documentation
   rm -rf "$pkgdir/usr/share/doc"
+
   # Remove an empty directory
   rmdir "$pkgdir/usr/share/Coin/profiler"
+
   # Package the BSD-3 license
   install -Dm644 $pkgname/COPYING "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
