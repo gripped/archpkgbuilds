@@ -2,8 +2,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=jnv
-pkgver=0.6.2
-pkgrel=2
+pkgver=0.7.0
+pkgrel=1
 pkgdesc="Interactive JSON filter using jq"
 arch=(x86_64)
 url="https://github.com/ynqa/jnv"
@@ -18,7 +18,7 @@ makedepends=(
 )
 options=(!lto)
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('a7b8b08cb240f10a8068bcb104cb3b2d0bc0ead9261bee8863465c4bf3654f5165cc191921e96e8a14f0be5dd58a0b0ff08dab90cc9ca478404b9a54c078bf43')
+b2sums=('5e25bb3677276b87c271c0db8f33ca943d9ee9ca8c5e83137da97a729603058bf6713600cdeff313ebd1084336bf3c273c2054e2b9d4e0273be449cb94759753')
 
 prepare() {
   cd $pkgname-$pkgver
