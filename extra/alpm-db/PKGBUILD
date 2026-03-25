@@ -3,7 +3,7 @@
 pkgname=alpm-db
 _upstream=alpm
 pkgver=0.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Command line interfaces for the handling of alpm-db structures"
 arch=(x86_64)
 url="https://alpm.archlinux.page/alpm-db/"
@@ -65,8 +65,8 @@ package() {
   install -vDm 644 output/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
   install -vDm 644 output/manpages/*.5 -t "$pkgdir/usr/share/man/man5/"
   install -vDm 644 output/manpages/*.7 -t "$pkgdir/usr/share/man/man7/"
-  install -vDm 644 output/shell_completions/$pkgname-desc.bash "$pkgdir/usr/share/bash-completions/completions/$pkgname-desc"
-  install -vDm 644 output/shell_completions/$pkgname-files.bash "$pkgdir/usr/share/bash-completions/completions/$pkgname-files"
+  install -vDm 644 output/shell_completions/$pkgname-desc.bash "$pkgdir/usr/share/bash-completion/completions/$pkgname-desc"
+  install -vDm 644 output/shell_completions/$pkgname-files.bash "$pkgdir/usr/share/bash-completion/completions/$pkgname-files"
   install -vDm 644 output/shell_completions/$pkgname-{desc,files}.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
   install -vDm 644 output/shell_completions/_$pkgname-{desc,files} -t "$pkgdir/usr/share/zsh/site-functions/"
   install -vDm 644 LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
