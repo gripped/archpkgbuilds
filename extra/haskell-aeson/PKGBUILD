@@ -4,24 +4,25 @@
 
 pkgname=haskell-aeson
 _hkgname=aeson
-pkgver=2.2.0.0
-pkgrel=2
+pkgver=2.2.1.0
+pkgrel=1
 pkgdesc="A JSON parsing and encoding library optimized for ease of use and high performance"
 url="https://github.com/haskell/aeson"
-license=("GPL")
+license=("BSD-3-Clause")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-data-fix' 'haskell-dlist' 'haskell-generically' 'haskell-hashable'
-         'haskell-indexed-traversable' 'haskell-integer-conversion' 'haskell-network-uri' 'haskell-onetuple'
-         'haskell-primitive' 'haskell-quickcheck' 'haskell-scientific' 'haskell-semialign' 'haskell-strict'
-         'haskell-tagged' 'haskell-text-iso8601' 'haskell-text-short' 'haskell-th-abstraction' 'haskell-these'
+         'haskell-indexed-traversable' 'haskell-integer-conversion' 'haskell-integer-logarithms'
+         'haskell-network-uri' 'haskell-onetuple' 'haskell-primitive' 'haskell-quickcheck'
+         'haskell-scientific' 'haskell-semialign' 'haskell-strict' 'haskell-tagged'
+         'haskell-text-iso8601' 'haskell-text-short' 'haskell-th-abstraction' 'haskell-these'
          'haskell-time-compat' 'haskell-unordered-containers' 'haskell-uuid-types' 'haskell-vector'
          'haskell-witherable')
 makedepends=('ghc' 'uusi' 'haskell-base-compat' 'haskell-base-orphans' 'haskell-base16-bytestring'
-             'haskell-diff' 'haskell-generic-deriving' 'haskell-integer-logarithms' 'haskell-nothunks'
+             'haskell-diff' 'haskell-generic-deriving' 'haskell-nothunks'
              'haskell-quickcheck-instances' 'haskell-tasty' 'haskell-tasty-golden'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-${pkgver}.tar.gz")
-sha512sums=('7a190d7c444668cf77a2789d0f339c4b69df464ee71f9c9ef2dd85e6e8ea5bcf1bf55687edd1789fb71017ba4a052e445fc945398585f33820b8da1530ee3592')
+sha512sums=('b405cf1c5a151e3358a92fd546520442311b3bf8cbe17422ce12aaaa17ba616e7170f36ce12afd775ee64cbc02295840147cfeafe5f61f07575feb208774f53f')
 
 prepare() {
   cd $_hkgname-$pkgver
@@ -53,4 +54,5 @@ package() {
   install -D -m744 unregister.sh "$pkgdir"/usr/share/haskell/unregister/$pkgname.sh
   runhaskell Setup copy --destdir="$pkgdir"
   rm -f "$pkgdir"/usr/share/doc/$pkgname/LICENSE
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
