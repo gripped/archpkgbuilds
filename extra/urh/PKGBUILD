@@ -4,14 +4,16 @@
 
 pkgname=urh
 pkgver=2.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Universal Radio Hacker: investigate wireless protocols like a boss'
 arch=('x86_64')
 url='https://github.com/jopohl/urh'
 license=('GPL-3.0-only')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
+  'libgomp'
+  'libstdc++'
   'python'
   'python-numpy'
   'python-psutil'
@@ -53,7 +55,7 @@ optdepends=(
 source=(
   "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
 )
-sha512sums=('0e46c7f74b1108ed32128cb1b3034b62ec03595057e5822c7e27e9340d2b81cc6240376bef3d3ba5b03e47396ccdfd737cb911788a1f36be2be30928e101fc57')
+b2sums=('4d68080279dea9763180a586169b07279fecd9b2df98a509db5e578432f1082a20b94e04fae3f2ed1f32621b4c683bde546e158d9ca369e2bc68c061e473b9ea')
 
 prepare() {
   cd $pkgname-$pkgver
