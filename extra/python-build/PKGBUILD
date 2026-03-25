@@ -5,7 +5,7 @@ _bootstrap=0
 _bootstrap_version=3.14.0
 _pkgname=build
 pkgname=python-$_pkgname
-pkgver=1.4.0
+pkgver=1.4.1
 pkgrel=1
 pkgdesc='A simple, correct Python build frontend'
 arch=(any)
@@ -32,6 +32,7 @@ if (( _bootstrap == 0 )); then
 fi
 checkdepends=(
   python-filelock
+  python-pip
   python-pytest
   python-pytest-mock
   python-pytest-rerunfailures
@@ -47,10 +48,10 @@ optdepends=(
   'python-virtualenv: to use virtualenv for build isolation'
 )
 if (( _bootstrap == 0 )); then
-  source=("$pkgname::git+$url#tag=$pkgver?signed")
+  source=("$pkgname::git+$url#tag=$pkgver")
 else
   source=(
-    python-bootstrap::git+https://gitlab.archlinux.org/archlinux/python-bootstrap.git#tag=$_bootstrap_version
+    "python-bootstrap::git+https://gitlab.archlinux.org/archlinux/python-bootstrap.git#tag=$_bootstrap_version"
     python-build::git+https://github.com/pypa/build.git
     python-flit::git+https://github.com/pypa/flit.git
     python-installer::git+https://github.com/pypa/installer.git
@@ -60,11 +61,11 @@ else
     python-setuptools::git+https://github.com/pypa/setuptools.git
   )
 fi
-validpgpkeys=(
+#validpgpkeys=(
 #  3DCE51D60930EBA47858BA4146F633CBB0EB4BF2 # Filipe Laíns (FFY00) <lains@archlinux.org>
-  2FDEC9863E5E14C7BC429F27B9D0E45146A241E8 # Henry Schreiner <henryschreineriii@gmail.com>
-)
-b2sums=('c8f090c3b22fc3baa339f73805839e66c67996927b538af7d7711d21efac46f822c90ec5cc97e5c98699035222dbee4309c81dfd63b7bc8d6e1c11d1b64480a9')
+#  2FDEC9863E5E14C7BC429F27B9D0E45146A241E8 # Henry Schreiner <henryschreineriii@gmail.com>
+#)
+b2sums=('f83120018772acae2130caa079d7de51960f83af59ecbc4d464711944005b5f00dc3a86cac4ac708538ddd6ec826e5b287583d2100cfb8842744498eb2e0be80')
 
 prepare() {
   if (( _bootstrap == 0 )); then
