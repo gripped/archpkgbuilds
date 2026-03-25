@@ -6,7 +6,7 @@ pkgbase=lib32-freetype2
 pkgname=(
   lib32-freetype2
 )
-pkgver=2.14.2
+pkgver=2.14.3
 pkgrel=1
 epoch=
 pkgdesc="Font rasterization library (32-bit)"
@@ -31,7 +31,7 @@ source=(
   0002-Enable-subpixel-rendering.patch
   0003-Enable-long-PCF-family-names.patch
 )
-b2sums=('2fbd3c70efccff3c3ea6ba204699e338627df52a9c043221678a3cb29d43c37fd734e619fc1c0f645636e2d7da65c1b459fe38566782eb876aa4b4c89dbf1ea0'
+b2sums=('26db1946b099abc73d9d249dc48303e70886e0b1cb7180d5b9538b3934dc677a1572a32573af6adabeeb1c1a2eef81f24399038d3d8e640c29bba77f6c8a3596'
         'SKIP'
         'f45ec7d03193b446d8b46c8d981f330843a1ab2c83a91a5011cb328b26b4fc4c4b5729f32f3270018cf5ba8a162712bd0ebc2cd67f97b906e46ce293aeda466f'
         '95f1117e0c411341c4874520f28c6da6ae40d13fdb39b6bc78912c0a2703d2c4487d0dff2b280a3bd93b7236aacb9c8325c359f0935461aeb54898c4906726c3'
