@@ -4,7 +4,7 @@
 
 _pkgname=qtconsole
 pkgname=python-qtconsole
-pkgver=5.7.1
+pkgver=5.7.2
 pkgrel=1
 pkgdesc='Qt-based console for Jupyter with support for rich media output'
 arch=(any)
@@ -31,7 +31,7 @@ checkdepends=(python-flaky
               python-pytest-qt
               xorg-server-xvfb)
 source=(git+https://github.com/jupyter/$_pkgname#tag=$pkgver)
-sha256sums=('a1281dcf8f093262b9b56eefc6e758ac6c3ca4df8e984a66399b8e19cfe32fd4')
+sha256sums=('62bf164d4428e6d4713458778eda91f0be9088dd383911e1655d7fcbe35ffb2b')
 
 build() {
   cd $_pkgname
