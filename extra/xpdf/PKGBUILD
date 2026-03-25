@@ -8,7 +8,7 @@
 
 pkgname=xpdf
 pkgver=4.06
-pkgrel=1
+pkgrel=2
 pkgdesc='Viewer for Portable Document Format (PDF) files'
 arch=('x86_64')
 url='https://www.xpdfreader.com/'
@@ -16,13 +16,14 @@ license=('GPL-2.0-only OR GPL-3.0-only')
 depends=(
   'fontconfig'
   'freetype2'
-  'gcc-libs'
   'glibc'
   'gsfonts'
   'libcups'
+  'libgcc'
   'libjpeg-turbo'
   'libpaper'
   'libpng'
+  'libstdc++'
   'libtiff'
   'libxt'
   'qt6-base'
@@ -46,11 +47,11 @@ source=(
   "xpdf-4.00-xpdfrc.patch"
   "xpdf.desktop"
 )
-sha512sums=('ace2d2c006411ef40f3510fe34809e6ed5fd4a2367ac11a75e9d4795aa5054e72f12e307165d11a25b12609d33b279b9b99d9c072442e98308a77ad022bc8355'
-            'SKIP'
-            'd7d6530e625979a26ae00403e8a69d064ce430d8f1b7c9d904a6e091990a39a677c00cc5f2f1073e26d4a9f8799ba559b78e48fe007846ef6e42b8d1e5262f12'
-            'c5ce8ef29d9b338fe3623fa52904d4fee5d76a34145614d05abe168108579608f3d16d0d03d34865e43980eb1b2a814f07aa3dbcfc0da06de34bd9b0738eef67'
-            'd6163eb220bd567226c6006bef30c6db1eac1263ae161392db9766dca1ce78014cc555dd9d27febd2b924150053fa01b47c06777b1e760864459574c7614bfc4')
+b2sums=('cd1d6a839bff4b13fb4461466600823f786057bcd782ba518eb788ac5dc1a6c539fd07208ff95718d48153c4d58ada6519c7f830a6c315e82987f3ed4ef9dd34'
+        'SKIP'
+        'cf2b5adcbd306b0fd4dfe1f60d5d93eca26a79c2a7ccf603adb16d6df4ccb2879773254b2078aa618fdd7f49e4c877eafe6f7f01e99616d6bdc60d88bb648ab6'
+        '5f137a967b6631813f16e68025dd58423148faffdfe41bb3b6d4c5cdd5ed6325dca33598c2c9365be423f34a9928f12b5174e27cf47ec8cfe0c8df683a077ebc'
+        'dbdb27ef76a10608aa1d265f947a8be9b20840dbb2c2c4a547883cebe084512dbabf9555b33e0e4689b610078141b501287cc926b1f2bbe14e68925c0459eb4c')
 validpgpkeys=('A56006CA75CF8B13FA2F120DF4825F5397271342') # -Xpdf- <xpdf@xpdfreader.com>
 
 prepare() {
