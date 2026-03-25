@@ -4,14 +4,15 @@
 
 pkgname=python-rapidfuzz
 pkgver=3.14.3
-pkgrel=2
+pkgrel=3
 pkgdesc='Rapid fuzzy string matching in Python using various string metrics'
 arch=(x86_64)
 url='https://github.com/rapidfuzz/RapidFuzz'
 license=(MIT)
 depends=(
   glibc
-  gcc-libs
+  libgcc
+  libstdc++
   python
 )
 makedepends=(
