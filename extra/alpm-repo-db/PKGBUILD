@@ -3,7 +3,7 @@
 pkgname=alpm-repo-db
 _upstream=alpm
 pkgver=0.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Command line interfaces for the handling of alpm-repo-db files"
 arch=(x86_64)
 url="https://alpm.archlinux.page/alpm-repo-db/"
@@ -62,7 +62,7 @@ package() {
   cd $_upstream
   for _bin in "${bins[@]}"; do
     install -vDm 755 target/release/$_bin -t "$pkgdir/usr/bin/"
-    install -vDm 644 output/shell_completions/$_bin.bash "$pkgdir/usr/share/bash-completions/completions/$_bin"
+    install -vDm 644 output/shell_completions/$_bin.bash "$pkgdir/usr/share/bash-completion/completions/$_bin"
     install -vDm 644 output/shell_completions/$_bin.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
     install -vDm 644 output/shell_completions/_$_bin -t "$pkgdir/usr/share/zsh/site-functions/"
   done
