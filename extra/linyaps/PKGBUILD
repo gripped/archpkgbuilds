@@ -2,7 +2,7 @@
 # Contributor: taotieren <admin@taotieren.com>
 
 pkgname=linyaps
-pkgver=1.11.0
+pkgver=1.11.2
 pkgrel=1
 pkgdesc='Next-Gen Universal Package Manager for Linux (linglong)'
 arch=(x86_64)
@@ -18,15 +18,19 @@ depends=(
   bash
   curl
   fmt
-  gcc-libs
   glib2
   glibc
+  hicolor-icon-theme
+  libcap
   libelf
+  libgcc
   libseccomp
+  libstdc++
   linyaps-box
   qt6-base
   systemd-libs
   ostree
+  util-linux-libs
   yaml-cpp
 )
 makedepends=(
@@ -46,7 +50,7 @@ makedepends=(
 source=(
   git+https://github.com/OpenAtom-Linyaps/linyaps.git#tag=$pkgver
 )
-sha256sums=('71ed26be4397c28d739307b42c802f26c3b44b270d11bf0786933f07db9f7330')
+sha256sums=('ace94df43c61786b796d53e951b9cfa535c3be3424484c327d18db17c7822efb')
 
 build() {
   cd linyaps
@@ -60,6 +64,10 @@ build() {
     -G Ninja
 
   ninja -C build
+}
+
+check() {
+  ninja -C linyaps/build test
 }
 
 package() {
