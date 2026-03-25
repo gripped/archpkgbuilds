@@ -2,7 +2,7 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=python-fastparquet
-pkgver=2025.12.0
+pkgver=2026.3.0
 pkgrel=1
 pkgdesc="A Python implementation of the Parquet columnar file format"
 arch=(x86_64)
@@ -28,7 +28,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('198a061edbbe17be5d04bb7a394144645b2c5da3eb5c83a079162a0cc979d5153fd899258561701186588883d2322d1e27970dfb54a9455124847fed18e3ec28')
+b2sums=('b45cbff2bf3f3f09da6105d0c424fdc8ac5de8788b010d54df61eea6d49ad5268135f46e7e9fa71683ebc9b2ae60b74d3c6b975a013c14ea13d8dfa8dd808091')
 
 build() {
   cd ${pkgname#python-}-$pkgver
