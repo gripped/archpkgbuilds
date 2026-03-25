@@ -3,7 +3,7 @@
 # Contributor: GordonGR <ntheo1979@gmail.com>
 
 pkgname=lib32-gtk3
-pkgver=3.24.51
+pkgver=3.24.52
 pkgrel=1
 epoch=1
 pkgdesc="GObject-based multi-platform GUI toolkit (32-bit)"
@@ -37,6 +37,7 @@ depends=(
   lib32-libxrandr
   lib32-pango
   lib32-wayland
+  lib32-zlib
 )
 makedepends=(
   git
@@ -50,7 +51,7 @@ source=(
   gtk-query-immodules-3.0-32.hook
   0001-Allow-disabling-legacy-Tracker-search.patch
 )
-b2sums=('06f5dcfe6cf693d4e0da0964715e7ea07ab8940eea21b7fba28615c6d9ecdd8533e51e061b57e6b4f5b9401041adeb52fd81fc856fa79dc5bf8e5a4058d9fa92'
+b2sums=('b351d0e48b074ea0b6d75dd8b47bd5ff5897dce01b2c69894a5d20fff0205b8cfc4603ce556331fdf3afe4f0380c58212ebac7cd832c9b6d3fd05cbf822250d8'
         'c7136723735c4cbfe654851d0ccc1698142fa8f90b724ed9a970ebd6a74b4f59ea558e134e600736a1041417fc7fd9b3baa8bc561ed9598f2fbf45392dcc9159'
         'f63a30a5823c564861145128a91b6d6ca4f13fd40cf09d1b8897bccaf8664af085b3cbe20ba7da6289439a820440a7af17b6281efea1f84a8c4decd62df00a54')
 
