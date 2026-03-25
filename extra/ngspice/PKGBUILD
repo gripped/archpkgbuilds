@@ -7,7 +7,7 @@
 pkgname=ngspice
 pkgver=45.2
 _manual_pkgver=45 # manual seems to lag a bit behind
-pkgrel=1
+pkgrel=2
 pkgdesc='Mixed-level/Mixed-signal circuit simulator based on Spice3f5, Ciber1b1, and Xspice'
 arch=(x86_64)
 url='https://ngspice.sourceforge.net'
@@ -17,7 +17,9 @@ depends=(
   libxt
   libx11
   ncurses
-  gcc-libs
+  libgcc
+  libstdc++
+  libgomp
   readline
   libxaw
 )
