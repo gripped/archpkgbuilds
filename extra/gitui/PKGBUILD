@@ -4,7 +4,7 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=gitui
-pkgver=0.28.0
+pkgver=0.28.1
 pkgrel=1
 pkgdesc='Blazing fast terminal-ui for git written in Rust'
 url='https://github.com/extrawurst/gitui'
@@ -18,7 +18,7 @@ optdepends=(
   'wl-clipboard: for clipboard support on Wayland'
 )
 source=("git+$url.git#tag=v$pkgver")
-sha256sums=('1cd74ecd2ddda941ada4998abba88d64f8e4283b56f955a97ba3f31a40d65bdf')
+sha256sums=('b0d1ce73db914c752176e9e2c60f350a660c008cfc93186a8b36352717a6bd89')
 
 prepare() {
   cd "$pkgname"
