@@ -1,0 +1,16 @@
+--- a/.nfpm/soft-serve.service
++++ b/.nfpm/soft-serve.service
+@@ -12,7 +12,7 @@ Restart=always
+ RestartSec=1
+ ExecStart=/usr/bin/soft serve
+ Environment=SOFT_SERVE_DATA_PATH=/var/lib/soft-serve
+-EnvironmentFile=-/etc/soft-serve.conf
++EnvironmentFile=-/etc/soft-serve.env
+ WorkingDirectory=/var/lib/soft-serve
+ 
+ # Hardening
+--- a/.nfpm/sysusers.conf
++++ b/.nfpm/sysusers.conf
+@@ -1 +1 @@
+-u soft-serve - "Soft Serve daemon user" /var/lib/soft-serve
++u! soft-serve - "Soft Serve daemon user" /var/lib/soft-serve
