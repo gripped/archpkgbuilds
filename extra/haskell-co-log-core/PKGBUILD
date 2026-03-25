@@ -2,16 +2,16 @@
 
 _hkgname=co-log-core
 pkgname=haskell-co-log-core
-pkgver=0.3.2.5
-pkgrel=78
+pkgver=0.3.2.6
+pkgrel=1
 pkgdesc="Composable Contravariant Comonadic Logging Library"
 url="https://github.com/co-log/co-log-core"
-license=("MPL")
+license=("MPL-2.0")
 arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-glob' 'haskell-doctest')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('f95c9e61f7a02691cc04bb907d9f6e1837ced0baffee0d1886cd8ff08be23f5a')
+sha256sums=('6457e9254d60b861d111da46fed8233b0ac7da1a06d1c5807596d820bf33c213')
 
 prepare() {
   cd $_hkgname-$pkgver
