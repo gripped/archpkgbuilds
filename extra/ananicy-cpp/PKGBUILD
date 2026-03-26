@@ -4,18 +4,19 @@
 
 pkgname=ananicy-cpp
 pkgver=1.1.1
-pkgrel=10
+pkgrel=11
 pkgdesc="Ananicy Cpp is a full rewrite of Ananicy in C++, featuring lower CPU and RAM usage."
 arch=(x86_64)
 url="https://gitlab.com/ananicy-cpp/ananicy-cpp"
 license=('GPL-3.0-or-later')
 depends=(
-  gcc-libs
   glibc
+  libgcc
   libbpf
   libelf
   libfmt.so
   libspdlog.so
+  libstdc++
   systemd
   systemd-libs
   zlib
