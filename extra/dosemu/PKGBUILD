@@ -6,21 +6,24 @@
 
 pkgname=dosemu
 pkgver=1.4.0.8+753+g18f6f5cd
-pkgrel=3
+pkgrel=4
 epoch=1
 pkgdesc='DOS emulator'
 url='http://www.dosemu.org/'
 arch=('x86_64')
-license=('GPL' 'custom')
+license=('GPL-2.0-or-later' 'custom')
 depends=('gpm' 'slang' 'sdl' 'libxxf86vm' 'libsndfile' 'alsa-lib')
 makedepends=('git' 'xorg-mkfontdir' 'xorg-bdftopcf' 'gendesk' 'imagemagick')
+options=('!lto')
 backup=('etc/dosemu/dosemu.conf'
         'etc/dosemu/dosemu.users'
         'etc/dosemu/global.conf')
 source=(${pkgname}::git://git.code.sf.net/p/dosemu/code#commit=18f6f5cdf1beceae8c7532718bfaf423e4a44f6a
-        https://downloads.sourceforge.net/sourceforge/dosemu/dosemu-freedos-1.0-bin.tgz)
-sha512sums=('SKIP'
-            'd0c4235ceac55de63ce5f72e51b7d57a82b8104f4bf2df6f4dc25c9889d3337b40d75665c2dfc98492ec7123e0959a725f5c7579e145895024bd80a07036e3bd')
+        https://downloads.sourceforge.net/sourceforge/dosemu/dosemu-freedos-1.0-bin.tgz
+        '0001-gcc-15.patch')
+sha512sums=('e735a01f9c06a2b8c1c99025a6aa80ddbfde67dd39a6973ad72e4c78264813dfe75f2ac86c84fd6e6a019070eede99f5e17488482fe331bd2cea0b439ae8b77c'
+            'd0c4235ceac55de63ce5f72e51b7d57a82b8104f4bf2df6f4dc25c9889d3337b40d75665c2dfc98492ec7123e0959a725f5c7579e145895024bd80a07036e3bd'
+            '5ef35276a0caab277427818dfd74e4ef6d7023b32e497a1f3e234b85ef60a23e117cc672f97f3022eb5efc7ddc9923b5094519a5c7e0fba1b97bbb14064dde4a')
 
 pkgver() {
   cd ${pkgname}
@@ -29,6 +32,9 @@ pkgver() {
 
 prepare() {
   cd ${pkgname}
+
+  patch -Np1 < ../0001-gcc-15.patch
+  
   gendesk -n \
     --pkgname=${pkgname} \
     --pkgdesc='dos emulator' \
