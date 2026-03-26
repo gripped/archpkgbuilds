@@ -4,12 +4,12 @@
 
 pkgname=bbpager
 pkgver=0.4.7
-pkgrel=10
+pkgrel=11
 pkgdesc="A dockable pager for Blackbox and other window managers"
 arch=('x86_64')
 url="https://sourceforge.net/projects/bbtools/"
-license=('GPL')
-depends=('gcc-libs' 'libxft' 'libxext' 'blackbox')
+license=('GPL-2.0-or-later')
+depends=('blackbox' 'glibc' 'libgcc' 'libstdc++' 'libx11' 'libxext' 'libxft')
 makedepends=('patch')
 source=(https://downloads.sourceforge.net/bbtools/$pkgname-$pkgver.tar.gz
         02_gcc43.dpatch
