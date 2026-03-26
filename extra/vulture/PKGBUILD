@@ -1,7 +1,7 @@
 # Maintainer: Leonidas Spyropoulos <artafinde at archlinux dot org>
 
 pkgname=vulture
-pkgver=2.15
+pkgver=2.16
 pkgrel=1
 pkgdesc="Finds dead code in Python projects"
 arch=('any')
@@ -11,8 +11,8 @@ depends=(python-setuptools)
 makedepends=(python-build python-installer python-wheel)
 checkdepends=(python-pytest python-pint python-pytest-cov)
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('e52debc69cea96e4bcb54505c5bb373a677cb9a8cee5fd9039e5952b27ffc0f2')
-b2sums=('67c6dde0768b2796d9dec60736c0e5d3d7089d27abbf7d6c77b7fda2170a75a2a7bbc9c7c15adbbc5f0ef80eb1a719cd4a2592b0cda77defdcbcd13e746f34e9')
+sha256sums=('2cae8ba67c56c040b930df3cc876cb6c919c8a66826c2e1d0605f5692934ddb0')
+b2sums=('cf2ef06be19860ee0a14283e43b866dcca98660b36ab38523411f88d89596512ee2c013aaf6dd0609c74bdd8eea7a984ececaa6d3e6be92e036d01ca91a1b9bf')
 
 build() {
   cd "${pkgname}"-"${pkgver}"
