@@ -3,12 +3,12 @@
 
 pkgname=cargo-make
 pkgver=0.37.24
-pkgrel=1
+pkgrel=2
 pkgdesc='Rust task runner and build tool'
 arch=('x86_64')
 url='https://github.com/sagiegurari/cargo-make'
 license=('Apache-2.0')
-depends=('cargo' 'gcc-libs' 'openssl' 'bzip2')
+depends=('cargo' 'glibc' 'libgcc' 'openssl' 'bzip2')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
 sha256sums=('a7f6f7332862442e6020e8d8b2568a6fa8eed28156be0dddd61982e1e644cf02')
 options=('!lto')
@@ -17,7 +17,7 @@ prepare() {
   cd "$pkgname-$pkgver"
 
   # download dependencies
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
