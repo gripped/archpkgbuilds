@@ -4,19 +4,20 @@ _name=BShapr
 _plugin_uri="https://www.jahnichen.de/plugins/lv2/BShapr"
 pkgname=bshapr
 pkgver=0.13
-pkgrel=3
+pkgrel=4
 pkgdesc="Beat/ envelope shaper LV2 plugin"
 arch=(x86_64)
 url="https://github.com/sjaehn/BShapr"
-license=(GPL3)
+license=(GPL-3.0-only)
 groups=(
   lv2-plugins
   pro-audio
 )
 depends=(
   cairo
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   libx11
   lv2-host
 )
