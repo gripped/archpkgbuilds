@@ -2,17 +2,17 @@
 
 _hkgname=integer-roots
 pkgname=haskell-integer-roots
-pkgver=1.0.3.0
-pkgrel=68
+pkgver=1.0.4.0
+pkgrel=1
 pkgdesc="Integer roots and perfect powers"
 url="https://github.com/Bodigrim/integer-roots"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'uusi' 'haskell-smallcheck' 'haskell-tasty' 'haskell-tasty-hunit'
-             'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')
+makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-smallcheck' 'haskell-tasty'
+             'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('28debf30df60a58111e83693377c864d742c89c324bb4c86c7801acfd14c664145d774d6edef6562d1e04314e5575a1df6ba4ef292166e931b8b21395b2ffe50')
+sha512sums=('a02a80ebe9ac7b700bc095e54aa78c2bcccfee371563590095c9b5aa6c2dc62039d0789ca39304b5876d68bd95efcda2eadbf91ad7c0c8ca806ad0b0348743f0')
 
 prepare() {
   cd $_hkgname-$pkgver
