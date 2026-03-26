@@ -1,14 +1,15 @@
 pkgbase = biodiff
 	pkgdesc = Hex diff viewer using alignment algorithms from biology
 	pkgver = 1.2.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/8051Enthusiast/biodiff
 	arch = x86_64
 	license = MIT
 	makedepends = cargo
 	makedepends = cmake
 	makedepends = git
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	options = !lto
 	source = biodiff-1.2.1::git+https://github.com/8051Enthusiast/biodiff#commit=48468e9e7493c5bec608035f86459feb2469be14
 	source = biodiff-WFA2-lib::git+https://github.com/smarco/WFA2-lib

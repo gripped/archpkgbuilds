@@ -4,13 +4,13 @@
 
 pkgname=biodiff
 pkgver=1.2.1
-pkgrel=1
+pkgrel=2
 _commit=48468e9e7493c5bec608035f86459feb2469be14
 pkgdesc='Hex diff viewer using alignment algorithms from biology'
 arch=('x86_64')
 url=https://github.com/8051Enthusiast/biodiff
 license=('MIT')
-depends=('gcc-libs')
+depends=('glibc' 'libgcc')
 makedepends=('cargo' 'cmake' 'git')
 source=(
   "$pkgname-$pkgver::git+$url#commit=$_commit"
@@ -24,7 +24,7 @@ prepare() {
   git submodule init
   git config submodule."biodiff-wfa2-sys/WFA2-lib".url "${srcdir}/${pkgname}"-WFA2-lib
   git -c protocol.file.allow=always submodule update --init --recursive
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
   mkdir completions
 }
 
