@@ -4,11 +4,11 @@
 
 pkgname=blackbox
 pkgver=0.77
-pkgrel=2
+pkgrel=3
 pkgdesc="A window manager for X11"
 url="https://github.com/bbidulock/blackboxwm"
 arch=('x86_64')
-depends=('gcc-libs' 'libxft' 'libxext' 'libx11' 'libxt')
+depends=('bash' 'glibc' 'libgcc' 'libstdc++' 'libx11' 'libxext' 'libxft' 'libxt')
 license=('MIT')
 source=($pkgname-$pkgver.tar.gz::"https://github.com/bbidulock/blackboxwm/archive/$pkgver.tar.gz"
         120_include-ctime-header.patch
