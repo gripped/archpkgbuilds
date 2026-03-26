@@ -2,7 +2,7 @@
 
 pkgname=artyfx
 pkgver=1.3.1
-pkgrel=4
+pkgrel=5
 pkgdesc="A plugin bundle of artistic real-time audio effects"
 arch=(x86_64)
 url="https://github.com/openavproductions/openav-artyfx"
@@ -13,8 +13,9 @@ groups=(
 )
 depends=(
   cairo
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   libx11
   lv2-host
 )
@@ -32,6 +33,7 @@ build() {
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -D BUILD_GUI=ON
     -D BUILD_SSE=ON
     -S openAV-ArtyFX-release-$pkgver
