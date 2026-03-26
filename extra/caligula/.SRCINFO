@@ -1,12 +1,13 @@
 pkgbase = caligula
 	pkgdesc = A user-friendly, lightweight TUI for disk imaging
 	pkgver = 0.4.10
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/ifd3f/caligula
 	arch = x86_64
-	license = GPL-3.0
+	license = GPL-3.0-only
 	makedepends = cargo
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	options = !lto
 	source = caligula-0.4.10.tar.gz::https://github.com/ifd3f/caligula/archive/v0.4.10.tar.gz
 	sha512sums = 8aa77fa2a17e6c83cc116fdc075f5ef63358498d75ae62b14570baaf5b73d6f388d4c14ae76e3d8573306a6f7d473dd20c25ac5721da5ad8d00da5c92fc5d0de
