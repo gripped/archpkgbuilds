@@ -1,7 +1,7 @@
 pkgbase = python-hunter
 	pkgdesc = Hunter is a flexible code tracing toolkit
-	pkgver = 3.7.0
-	pkgrel = 3
+	pkgver = 3.8.0
+	pkgrel = 1
 	url = https://github.com/ionelmc/python-hunter
 	arch = x86_64
 	license = BSD-2-Clause
@@ -11,16 +11,18 @@ pkgbase = python-hunter
 	checkdepends = gdb
 	checkdepends = python-process-tests
 	checkdepends = python-aspectlib
-	makedepends = python-setuptools-scm
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-setuptools-scm
 	makedepends = python-wheel
 	makedepends = cython
 	depends = python-colorama
 	depends = python-cymem
 	depends = python-manhole
 	optdepends = gdb: for remote support
-	source = python-hunter-3.7.0.tar.gz::https://github.com/ionelmc/python-hunter/archive/v3.7.0.tar.gz
-	sha512sums = ab5df01864830ef7f99f038eb2ca68ad4022a8daf1f2fa7e48b1ceb86d958452158e2262c0f048b5d2c9af3b86b95314d446187ddb2638c4fe262169cca8b25a
+	source = git+https://github.com/ionelmc/python-hunter.git#tag=v3.8.0
+	sha512sums = 7cfd3d7130b4509afa424b6f35d55a8440f0ea37468c1c850be1e39c431747abccd05a86ebc43cce4e056aff9e604ce8caef5ba6cd97f673fe9de07b4b62a325
 
 pkgname = python-hunter

@@ -1,22 +1,23 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-hunter
-pkgver=3.7.0
-pkgrel=3
+pkgver=3.8.0
+pkgrel=1
 arch=('x86_64')
 pkgdesc='Hunter is a flexible code tracing toolkit'
 license=('BSD-2-Clause')
 url='https://github.com/ionelmc/python-hunter'
 depends=('python-colorama' 'python-cymem' 'python-manhole')
 optdepends=('gdb: for remote support')
-makedepends=('python-setuptools-scm' 'python-build' 'python-installer' 'python-wheel' 'cython')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm'
+             'python-wheel' 'cython')
 checkdepends=('python-pytest-benchmark' 'python-virtualenv' 'python-pytest' 'gdb'
               'python-process-tests' 'python-aspectlib')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/ionelmc/python-hunter/archive/v$pkgver.tar.gz")
-sha512sums=('ab5df01864830ef7f99f038eb2ca68ad4022a8daf1f2fa7e48b1ceb86d958452158e2262c0f048b5d2c9af3b86b95314d446187ddb2638c4fe262169cca8b25a')
+source=("git+https://github.com/ionelmc/python-hunter.git#tag=v$pkgver")
+sha512sums=('7cfd3d7130b4509afa424b6f35d55a8440f0ea37468c1c850be1e39c431747abccd05a86ebc43cce4e056aff9e604ce8caef5ba6cd97f673fe9de07b4b62a325')
 
 prepare() {
-  cd python-hunter-$pkgver
+  cd python-hunter
   rm src/hunter/*.c
   rm -r src/hunter/vendor
   rm tests/eviltracer.*
@@ -26,7 +27,7 @@ prepare() {
 }
 
 build() {
-  cd python-hunter-$pkgver
+  cd python-hunter
   python -m build --wheel --no-isolation
 }
 
@@ -35,7 +36,7 @@ check() {
   # ptrace needed to pass the remote tests
   local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
 
-  cd python-hunter-$pkgver
+  cd python-hunter
   python tests/setup.py build_ext --inplace
   virtualenv "$srcdir/pyvenv" --system-site-packages
   (
@@ -49,7 +50,7 @@ check() {
 }
 
 package() {
-  cd python-hunter-$pkgver
+  cd python-hunter
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
