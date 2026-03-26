@@ -3,7 +3,7 @@
 pkgname=ambix
 pkgname=(ambix ambix-lv2)
 pkgver=0.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Ambisonic plug-ins with variable order for use in Digital Audio Workstations"
 arch=(x86_64)
 url="https://github.com/kronihias/ambix"
@@ -53,6 +53,11 @@ _plugin_names=(
 prepare() {
   # use system provided juce
   patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-0.3.0-system-juce.patch
+  # Use CMake's up-to-date Eigen3 finder instead of the bundled stale copy.
+  rm -f $pkgname-$pkgver/cmake/FindEigen3.cmake
+  # Add Arch's Eigen include root for legacy '#include <Eigen/...>' paths.
+  sed -i '/include_directories(${EIGEN3_INCLUDE_DIR} ${FFTW3_INCLUDE_DIR})/i include_directories(BEFORE /usr/include/eigen3)' \
+    $pkgname-$pkgver/CMakeLists.txt
 }
 
 build() {
@@ -96,11 +101,12 @@ package_ambix-lv2() {
   depends=(
     fftw libfftw3f.so libfftw3f_threads.so
     freetype2 libfreetype.so
-    gcc-libs
     glibc
+    libgcc
     libglvnd
     libjpeg-turbo
     libpng
+    libstdc++
     zlib
   )
   optdepends=(
