@@ -8,14 +8,15 @@
 
 pkgname=botan
 pkgver=3.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Crypto library written in C++'
 arch=(x86_64)
 url='https://botan.randombit.net/'
 license=(BSD-2-Clause)
 depends=(bzip2
-         gcc-libs
          glibc
+         libgcc
+         libstdc++
          sqlite
          xz
          zlib)
