@@ -3,7 +3,7 @@
 
 pkgname=amdsmi
 pkgver=7.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='AMD System Management Interface library'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/amdsmi/en/latest/'
@@ -11,8 +11,9 @@ license=('MIT' 'NCSA')
 depends=(
   'rocm-core' 
   'glibc'
-  'gcc-libs'
+  'libgcc'
   'libdrm'
+  'libstdc++'
   'python'
   'python-yaml'
 )
