@@ -2,12 +2,12 @@
 
 pkgname=alembic
 pkgver=1.8.11
-pkgrel=1
+pkgrel=2
 pkgdesc="An open framework for storing and sharing scene data"
 arch=('x86_64')
 url="http://www.alembic.io/"
 license=('BSD-3-Clause')
-depends=('glibc' 'gcc-libs' 'imath' 'hdf5')
+depends=('glibc' 'libgcc' 'libstdc++' 'imath' 'hdf5')
 makedepends=('cmake' 'ninja')
 source=($pkgname-$pkgver.tar.gz::https://github.com/alembic/alembic/archive/${pkgver}.tar.gz)
 sha512sums=('f2b5c8158b1d43b73bcc1d64e83f299ae42e922b5ee25b61b02acb6cbf58b1ffc57e53485e0ebe736ff1f5a909b5f59e6faa8c639a89662c39b029dda3206619')

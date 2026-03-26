@@ -1,14 +1,15 @@
 pkgbase = alembic
 	pkgdesc = An open framework for storing and sharing scene data
 	pkgver = 1.8.11
-	pkgrel = 1
+	pkgrel = 2
 	url = http://www.alembic.io/
 	arch = x86_64
 	license = BSD-3-Clause
 	makedepends = cmake
 	makedepends = ninja
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = imath
 	depends = hdf5
 	source = alembic-1.8.11.tar.gz::https://github.com/alembic/alembic/archive/1.8.11.tar.gz
