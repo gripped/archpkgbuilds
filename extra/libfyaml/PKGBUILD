@@ -2,7 +2,7 @@
 
 pkgname=libfyaml
 pkgver=0.9.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Fully feature complete YAML parser and emitter'
 arch=(x86_64)
 url='https://pantoniou.github.io/libfyaml/'
@@ -14,6 +14,8 @@ sha256sums=('6e3066fc231e83fe7899c3ccd8ed8931cb46461ffb25e73fcab89a35affaeccd')
 
 prepare() {
   cd $pkgname
+  # https://github.com/pantoniou/libfyaml/pull/267
+  git cherry-pick -n 1026d76850909dc9b1c5f95b8cd94e865a313fd5
   autoreconf -fiv
 }
 
