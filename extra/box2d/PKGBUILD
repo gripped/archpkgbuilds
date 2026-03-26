@@ -1,12 +1,12 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=box2d
 pkgver=3.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="2D rigid body simulation library for games"
 url="http://www.box2d.org/"
 license=('MIT')
 arch=('x86_64')
-depends=('gcc-libs')
+depends=('glibc')
 makedepends=('cmake' 'ninja' 'git' 'wayland'
              'libxinerama' 'libxkbcommon' 'libxkbcommon-x11' 'libxt'
              'xorg-xrandr' 'libxcursor' 'xorg-xinput' 'glfw')
