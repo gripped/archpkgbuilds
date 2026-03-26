@@ -4,13 +4,13 @@
 
 pkgname=singularity
 pkgver=1.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Endgame: Singularity - simulation of true AI"
 arch=('any')
 url="http://emhsoft.com/singularity/index.html"
 license=('GPL-2.0-or-later' 'CC-BY-SA-3.0' 'CC0-1.0')
 depends=('python' 'python-pygame' 'python-numpy' 'python-polib')
-makedepends=('python-setuptools' 'git')
+makedepends=('python-build' 'python-docutils' 'python-installer' 'python-setuptools' 'python-wheel' 'git')
 source=("git+https://github.com/singularity/singularity.git#tag=v${pkgver}"
         https://github.com/singularity/singularity-music/archive/025e2696638bcc3bf7690679c3a17c0b46823bbe.tar.gz
         "singularity.desktop")
@@ -29,13 +29,13 @@ prepare() {
 build() {
   cd "$pkgname"
 
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd "$pkgname"
 
-  python setup.py install --prefix=/usr --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   mv run_singularity.sh "$pkgdir"/usr/bin/singularity
 
   install -Dm644 "$srcdir/singularity.desktop" "$pkgdir/usr/share/applications/singularity.desktop"
