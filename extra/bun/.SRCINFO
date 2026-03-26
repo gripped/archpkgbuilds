@@ -1,6 +1,6 @@
 pkgbase = bun
 	pkgdesc = Incredibly fast JavaScript runtime, bundler, test runner, and package manager – all in one
-	pkgver = 1.3.10
+	pkgver = 1.3.11
 	pkgrel = 1
 	url = https://github.com/oven-sh/bun
 	arch = x86_64
@@ -18,22 +18,25 @@ pkgbase = bun
 	makedepends = python
 	makedepends = ruby
 	makedepends = ruby-getoptlong
-	depends = gcc-libs
+	depends = libgcc
+	depends = libatomic
 	depends = glibc
 	depends = icu
 	depends = sqlite
 	options = !lto
-	source = git+https://github.com/oven-sh/bun.git#tag=bun-v1.3.10
-	source = bun-linux-x64-1.3.10.zip::https://github.com/oven-sh/bun/releases/download/bun-v1.3.10/bun-linux-x64.zip
-	source = bun-WebKit::git+https://github.com/oven-sh/WebKit.git#commit=4a6a32c32c11ffb9f5a94c310b10f50130bfe6de
+	source = git+https://github.com/oven-sh/bun.git#tag=bun-v1.3.11
+	source = bun-linux-x64-1.3.11.zip::https://github.com/oven-sh/bun/releases/download/bun-v1.3.11/bun-linux-x64.zip
+	source = bun-WebKit::git+https://github.com/oven-sh/WebKit.git#commit=00e825523d549a556d75985f486e4954af6ab8c7
 	source = bun-zig::git+https://github.com/oven-sh/zig.git#commit=9a092d3f95a8087c298e847848816cd2d53d2734
 	source = bun-add-cmake-option-zig-local.patch
 	source = bun-sqlite3-lib-path.diff
-	b2sums = cdc2ec7a83bbe569f63ba2fed03b6f053e6be284d8cc51254121931709924c0e10f8f9008f19d319e765fe209281464b8cd1a8a0b53095c8015a0c8db4eea58f
-	b2sums = 6e7f47680cf10b233d3d556c2a8974dd18715fda2ab7ff83ec4690a203de676e49d989e0f963c9d081c2340a204db2372e23e11589b9568f4cf4ac75e010abaa
-	b2sums = 75d5b1a70ffb190018092dd9c936eaa338978476c6b325191699831692e2b9cbac5237ebe969f72a6fd656ba3581c075d4eb724fb3cf5e664f20cf9ed1e51e20
+	source = bun-highway-evex512.patch
+	b2sums = 4fa400f33c50e4eff3e58e07d5aae5864cd1f1c2c48cc9ec587bbc76049eb5f95175130e70f9147bf7a7050c33417e22928d430423069a8d6a9b8aa0ce9fe102
+	b2sums = 7f3c7c63e2f6afa16788e0949b7daa37b8f667a3f99ae1bd64d56a8eef8fbad6b99b4ed01dbf8b11da0d055fc8af8c6dc5396866b37c5e14f6e518d4136ab9c3
+	b2sums = 974e2613510082868d085496bd4673c2ce7636383c9f6bc7d9a998112b7cb0485dbe5f2fdf61bde936df2dd2e7f00e391b63bff522ff19ad4a8862738a3fe3c3
 	b2sums = e274a2cbd7e8df8ca26e5fbd6aa54f84a8c713899a4d4ba6f93e5d05345bcde4b8d58e3dc355fb99c3fdbe236c768336f96c126d688e9fcbddc8d763277d2cb6
 	b2sums = f2f96e38df6844239d65fe22a4a76bcb86c05496bcbb7923f083acd3a41d1d5d812b68733885b89a5456f73c083655fe098a17599611c9e463b7919199d5f38d
 	b2sums = f1ad976393570be7f09e0391d68a4f573735ddc13be577f9d3746f8adb71d66b74d705429a8bd5c3582107971a5ded1931303185dae6763251ad7ce4ce9e2cd5
+	b2sums = 15d118740633a04f3c669b4bbaca9f8d70af87fd64dfaf48fff302f3cfd33a7de3cf85321f33682ac2e88603fced68ac660d8b343bc9988c24fb119f07157d95
 
 pkgname = bun
