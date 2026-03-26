@@ -2,7 +2,7 @@
 
 pkgname=krita-plugin-gmic
 pkgver=3.7.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc='GMic plugin for Krita'
 arch=(x86_64)
 url='https://krita.org/'
@@ -12,14 +12,14 @@ depends=(fftw
          gcc-libs
          glibc
          gmic
-         kcoreaddons5
+         kcoreaddons
          krita
          libx11
-         qt5-base
+         qt6-base
          zlib)
 makedepends=(extra-cmake-modules
              git
-             qt5-tools)
+             qt6-tools)
 source=(gmic-krita::git+https://github.com/vanyossi/gmic#tag=v$pkgver)
 sha256sums=('e0b9c268210b97e9f820667b5471e3e80c456d86693188bba0567a1ea70021c4')
 
@@ -29,9 +29,11 @@ prepare() {
 }
 
 build() {
+  export PATH+=":/usr/lib/qt6/bin"
   cmake -B build -S gmic-krita/gmic-qt \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DENABLE_SYSTEM_GMIC=ON \
+    -DBUILD_WITH_QT6=ON \
     -DGMIC_QT_HOST=krita-plugin
   cmake --build build
 }
