@@ -1,0 +1,70 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=ironbar
+pkgver=0.18.0
+pkgrel=2
+pkgdesc="Customisable Wayland GTK4 bar written in Rust"
+arch=(x86_64)
+url="https://github.com/JakeStanger/ironbar"
+license=(MIT)
+depends=(
+  cairo
+  dbus
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk4
+  gtk4-layer-shell
+  libevdev
+  libgcc
+  libinput
+  libpulse
+  luajit
+  lua51-lgi
+  openssl
+  systemd-libs
+)
+makedepends=(rust)
+optdepends=('ttf-font-nerd: for displaying text-based icons')
+options=(!lto)
+source=(
+  $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
+  $pkgname.service
+)
+sha512sums=('053090910adef44a354022cf9aecffed894a49bec40dd11c7a64a31ef0b3058bd1ff8c2d83684008ff50dec6ca6ee74d66af502b466715aad3ff88259ffc5fe7'
+            'd362a2e650a7c2ad0a1e4da043bbd337702e227ee3e08533a66f86d3ad1a0c3bef00531d4ac844f1e00de705638d05e9e4d10b3b98948195cd7e1c4553db2f17')
+b2sums=('000bfd08470f74c81b345735fad125dffca57e12546f40040d837300a5e40a5e613ac8f1bfaa6d477ac7706464f1e0a2652749fcd0979c1de70a7bb0b82b4102'
+        '01ca0f23187b9b0d73fd2368bb80069d2d276e9a23b04d1e356c1ea2efe7b3f3ab9e8d4661ef8df0a76c7b46727f15b7a00b51385dcefb412eafc1e4ed9f61b6')
+
+prepare() {
+  cd $pkgname-$pkgver
+  cargo fetch --locked --target host-tuple
+}
+
+build() {
+  cd $pkgname-$pkgver
+
+  cargo build --frozen --release
+
+  local _shell
+  for _shell in bash fish zsh; do
+    ./target/release/$pkgname --print-completions "$_shell" > $pkgname.$_shell
+  done
+}
+
+check() {
+  cd $pkgname-$pkgver
+  cargo test --frozen
+}
+
+package() {
+  cd $pkgname-$pkgver
+  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 {README,CHANGELOG}.md -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 $pkgname.bash "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+  install -vDm 644 $pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+  install -vDm 644 $pkgname.zsh "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
+  install -vDm 644 ../$pkgname.service -t "$pkgdir/usr/lib/systemd/user/"
+  cp -rv examples "$pkgdir/usr/share/doc/$pkgname/"
+}
