@@ -2,12 +2,12 @@
 
 pkgname=cargo-msrv
 pkgver=0.19.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Find the minimum supported Rust version (MSRV) for your project"
 arch=('x86_64')
 url="https://github.com/foresterre/cargo-msrv"
 license=('MIT' 'Apache-2.0')
-depends=('gcc-libs' 'openssl' 'rustup')
+depends=('glibc' 'libgcc' 'openssl' 'rustup')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('b5a66ccd44e7f28bae070a730d315b71bbca727b7ea558db9af93ab23e703883')
