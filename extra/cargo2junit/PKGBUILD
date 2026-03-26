@@ -2,12 +2,12 @@
 
 pkgname=cargo2junit
 pkgver=0.1.14
-pkgrel=1
+pkgrel=2
 pkgdesc="Convert Cargo's JSON output to JUnit XML"
 url='https://github.com/johnterickson/cargo2junit'
 license=('MIT')
 arch=('x86_64')
-depends=('gcc-libs')
+depends=('glibc' 'libgcc')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('769d6370fcbeb7f6dfc03c62fbbac8eb8533250a2e270e48f7f54fff6861b415')
