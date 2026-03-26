@@ -1,0 +1,31 @@
+diff --git a/src/filesystem/dcapfsfileengine.cpp b/src/filesystem/dcapfsfileengine.cpp
+index e726b94..4b7f5cb 100644
+--- a/src/filesystem/dcapfsfileengine.cpp
++++ b/src/filesystem/dcapfsfileengine.cpp
+@@ -226,7 +226,7 @@ QStringList DCapFSFileEngine::entryList(QDir::Filters filters, const QStringList
+     D_DC(DCapFSFileEngine);
+     if (!d->canReadWrite(d->file))
+         return {};
+-    return QFSFileEngine::entryList(filters, filterNames);
++    return QDir(d->file).entryList(filterNames, filters);
+ }
+ #if QT_VERSION >= QT_VERSION_CHECK(6, 8, 1)
+ QAbstractFileEngine::IteratorUniquePtr DCapFSFileEngine::beginEntryList(const QString &path, QDirListing::IteratorFlags filters, const QStringList &filterNames)
+diff --git a/src/filesystem/private/dcapfsfileengine_p.h b/src/filesystem/private/dcapfsfileengine_p.h
+index 42e5b8e..1a96144 100644
+--- a/src/filesystem/private/dcapfsfileengine_p.h
++++ b/src/filesystem/private/dcapfsfileengine_p.h
+@@ -56,7 +56,12 @@ public:
+ #endif
+ 
+     bool setSize(qint64 size) override;
+-    QStringList entryList(QDir::Filters filters, const QStringList &filterNames) const override;
++    QStringList entryList(QDir::Filters filters, const QStringList &filterNames) const 
++#if QT_VERSION >= QT_VERSION_CHECK(6, 11, 0)
++;
++#else
++override;
++#endif
+ #if QT_VERSION >= QT_VERSION_CHECK(6, 8, 1)
+     IteratorUniquePtr beginEntryList(const QString &path, QDirListing::IteratorFlags filters, const QStringList &filterNames) override;
+ #elif QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)

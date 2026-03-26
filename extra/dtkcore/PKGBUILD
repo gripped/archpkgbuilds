@@ -5,7 +5,7 @@
 pkgbase=dtkcore
 pkgname=(dtkcore dtk6core)
 pkgver=6.7.32
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='DTK core modules'
 arch=('x86_64')
@@ -15,12 +15,15 @@ groups=('deepin')
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt6-tools' 'gtest' 'doxygen'
              'dbus' 'deepin-desktop-base' 'dtkcommon' 'dtklog' 'dtk6log'
              'gsettings-qt' 'icu' 'lshw' 'qt5-base' 'qt6-base' 'uchardet')
-source=("git+https://github.com/linuxdeepin/dtkcore.git#tag=$pkgver")
-sha512sums=('0577169a31acefc89e8b131d16a74880399952a5cd98587a1be97442b745e0f149ed89a057f2e9a07d55c92e0a7478a81da926ab5f6cc6e1ab27a6e1396f738b')
+source=("git+https://github.com/linuxdeepin/dtkcore.git#tag=$pkgver"
+         qt-6.11.patch)
+sha512sums=('0577169a31acefc89e8b131d16a74880399952a5cd98587a1be97442b745e0f149ed89a057f2e9a07d55c92e0a7478a81da926ab5f6cc6e1ab27a6e1396f738b'
+            'ba1d04026ece37e8979d24f7d7ed64e20f9f1634f94dfa8ee729daa9d6de93cbd999568b1bbf75df78048833163c0715263406f921ce69eb7b0915f528abbe01')
 
 prepare() {
   cd dtkcore
   sed -i 's|/etc/os-version|/etc/uos-version|' src/dsysinfo.cpp
+  patch -p1 < ../qt-6.11.patch
 }
 
 build() {
