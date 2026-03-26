@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-tools
-_pkgver=6.10.2
+_pkgver=6.11.0
 pkgver=${_pkgver/-/}
-pkgrel=3
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -33,7 +33,7 @@ _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
         git+https://code.qt.io/playground/qlitehtml
         llvm22.patch)
-sha256sums=('465dce6589e4944d51d282cafbf46c08e24bd60a4561c70ac36e13ef4dbe0202'
+sha256sums=('d440f3de6e15ae0d90b4de25fbfe6bad4ccb4c6be018d63a95e5cc4e6adcbe11'
             'SKIP'
             '5f5dcc9234a19a2d545698406ee5dd5c3655d8cf3310e446a57d6d0738dc8e2e')
 
@@ -55,13 +55,6 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-
-# Install symlinks for user-facing tools
-  cd "$pkgdir"
-  mkdir usr/bin
-  while read _line; do
-    ln -s $_line
-  done < "$srcdir"/build/user_facing_tool_links.txt
 
   install -d "$pkgdir"/usr/share/licenses
   ln -s /usr/share/licenses/qt6-base "$pkgdir"/usr/share/licenses/$pkgname
