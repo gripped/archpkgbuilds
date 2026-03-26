@@ -6,7 +6,7 @@ pkgname=(
   ultramaster-kr106-lv2
   ultramaster-kr106-clap
 )
-pkgver=2.4.2
+pkgver=2.4.3
 pkgrel=1
 pkgdesc='A virtual analog synthesizer inspired by the classic Roland Juno polysynths'
 arch=(x86_64)
@@ -39,20 +39,17 @@ source=(
   # clap-juce-extensions
   'github.com-free-audio-clap::git+https://github.com/free-audio/clap'
   'github.com-free-audio-clap-helpers::git+https://github.com/free-audio/clap-helpers'
-  no-copy-plugin.patch
 )
-sha512sums=('b05e2cfffd51be79dac833dd0f8b7dd836da8ef82415c3cb4146657bb7905d5c8ec1ae433c61e4fbddb464961a648803d9134f8337bf8edb642b76b31be8f9d4'
+sha512sums=('65c2e0b9aa64746092179721390f3a29a151683d666cab1f92149a3860d6fcfb95639ba3dfc65d85793da87e145b443cdd0e480c77f3354844cb7af42c373a15'
             'SKIP'
             'SKIP'
             'SKIP'
-            'SKIP'
-            '9bdaeaebb3a1a53c1614efb6c11b73992339f529add1784caf3ff88288c41e90774117b094927aac935b150135278294102a883428dd558a424d62cedc55a16c')
-b2sums=('28c73e5b66806f0b2a4b35dd54c9cf7474a2443da1c60a4aa7942a76832123eb01a6ac756daf0a60ab104646958bd8b89418c038ebf785f111e05e4c35a7689d'
+            'SKIP')
+b2sums=('8571554a57dc77410e5d3dacddd06514add7a5ce636a5a4b4c650bef2ecf6684b28ba01262473a12edaa6dc649a327b3a1de3c8c7cfd86b1f942ad2a420bb84b'
         'SKIP'
         'SKIP'
         'SKIP'
-        'SKIP'
-        '59225cca8ed887eec616f0ddb2880b17582fb5b6c2bd0909513c3ca8ef36c53debf8bfb42cd78dd6564f2873a917c77a422e43908c6bf64e7f47c2ff37910a40')
+        'SKIP')
 
 prepare() {
   cd "$pkgbase"
@@ -69,9 +66,6 @@ prepare() {
   git config submodule.clap-libs/clap-helpers.url "$srcdir/github.com-free-audio-clap-helpers"
   git -c protocol.file.allow=always submodule update --init
   popd
-
-  # don't copy plugin after build
-  patch -p1 -i "$srcdir/no-copy-plugin.patch"
 }
 
 build() {
@@ -82,6 +76,7 @@ build() {
     -D CMAKE_BUILD_TYPE=Release
     -D CMAKE_INSTALL_PREFIX=/usr
     -W no-dev
+    -D KR106_COPY_AFTER_BUILD=OFF
   )
   cmake "${cmake_options[@]}"
   cmake --build build
