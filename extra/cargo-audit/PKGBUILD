@@ -3,7 +3,7 @@
 
 pkgname=cargo-audit
 pkgver=0.22.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Audit Cargo.lock for crates with security vulnerabilities"
 url="https://github.com/RustSec/cargo-audit"
 arch=('x86_64')
@@ -30,7 +30,7 @@ build() {
 
 check() {
   cd rustsec-${pkgname}-v${pkgver}/${pkgname}
-  cargo test --release --locked
+  cargo test --release --locked --features fix
 }
 
 package() {
