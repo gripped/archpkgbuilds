@@ -10,7 +10,7 @@
 pkgbase=apt
 pkgname=('apt' 'apt-docs')
 pkgver=3.1.16
-pkgrel=1
+pkgrel=2
 pkgdesc='Command-line package manager used on Debian-based systems'
 arch=('x86_64')
 url='https://salsa.debian.org/apt-team/apt'
@@ -21,8 +21,8 @@ license=(
   'MIT'
 )
 makedepends=('cmake' 'docbook-xsl' 'doxygen' 'git' 'gtest' 'w3m' 'triehash'
-             'po4a' 'xxhash' 'sequoia-sqv' 'db'  'perl-text-wrapi18n' 'perl-locale-gettext'
-             'perl-yaml-tiny' 'perl-syntax-keyword-try' 'dpkg' 'git' 'gnutls'
+             'po4a' 'xxhash' 'sequoia-sqv' 'db' 'openssl' 'perl-text-wrapi18n' 'perl-locale-gettext'
+             'perl-yaml-tiny' 'perl-syntax-keyword-try' 'dpkg' 'git'
              'perl-term-readkey' 'perl-sgmls' 'perl-module-build'
              'perl-unicode-linebreak' 'perl-pod-parser')
 # tests need /etc/os-release
@@ -56,8 +56,8 @@ check() {
 }
 
 package_apt() {
-  depends=('systemd-libs' 'libseccomp' 'perl' 'xxhash' 'dpkg' 'gnutls' 'bzip2' 'sequoia-sqv'
-           'xz' 'gcc-libs' 'lz4' 'bash' 'zlib' 'zstd' 'db' 'libgcrypt' 'glibc')
+  depends=('systemd-libs' 'libseccomp' 'perl' 'xxhash' 'dpkg' 'bzip2' 'sequoia-sqv'
+           'xz' 'libgcc' 'libstdc++' 'lz4' 'bash' 'openssl' 'zlib' 'zstd' 'db' 'libgcrypt' 'glibc')
   pkgdesc='Command-line package manager used on Debian-based systems'
   install=apt.install
   backup=("etc/apt/apt.conf"
