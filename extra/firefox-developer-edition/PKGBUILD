@@ -2,7 +2,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=firefox-developer-edition
-pkgver=149.0b8
+pkgver=150.0b1
 pkgrel=1
 pkgdesc="Fast, Private & Safe Web Browser (Developer Edition)"
 url="https://www.mozilla.org/firefox/developer/"
@@ -83,29 +83,29 @@ source=(
   org.mozilla.$pkgname.metainfo.xml
   0001-Install-under-remoting-name.patch
   0002-Patch-glsl-optimizer-to-build-with-glibc-2.43.patch
-  0003-Fix-sandbox-to-build-with-glibc-2.43.patch
+  0003-Use-wasm32-wasip1-target.patch
 )
 validpgpkeys=(
   # Mozilla Software Releases <release@mozilla.com>
   # https://blog.mozilla.org/security/2025/04/01/updated-gpg-key-for-signing-firefox-releases-2/
   14F26682D0916CDD81E37B6D61B7B526D98F0353
 )
-sha256sums=('4e9334a19e05891b2474c34da56f4bab203ffebc7f5a8852c606907f63a9ae19'
+sha256sums=('41f66f0bc113bfae9bae8da00bb8bdbda394b5fd7cb6b904b9d0f452d5340e86'
             'SKIP'
             'a9b8b4a0a1f4a7b4af77d5fc70c2686d624038909263c795ecc81e0aec7711e9'
             '69bda73277e9a47002a40e18021262b3c3cd88a0ca48237f42a4a5792e839af8'
             '48e33f75f3760387305997ee0a3fcea030a1e7310fc461e92d7b73e6cf600096'
             'ef63a12975f108f30b00bb3290d9ca76f311d8af9c1d5dfc0d8335ad57e8f77c'
             '7e8ee1997aa0c6db7de6fe5da0bca88b5c1c3aa2db0b18950e24e5cbe4df8d84'
-            '8d2182ae8660474ac567482fe6658af77f3b402314e361c846528ae171586245')
-b2sums=('74a660f141a759eac868036b0e518d26278606ce591ab82dab5f0e2946b5858144ba989ecd1e849dd174346a70125db4a9dc168b7506edd905b76e7e632de7d9'
+            'baad79216200df4ea05a0e5ca26e0c56c4d4a3cd2149d32f15dc8b7c724376ba')
+b2sums=('d9ac927ecaf573446f5928f12a54eec2ac5f70ab2091f2798284a9c5c803ef345b1346b812c80d4d95f5cf24e2143505852ba6d46329c6cc5ea6ae90267b9da6'
         'SKIP'
         '63a8dd9d8910f9efb353bed452d8b4b2a2da435857ccee083fc0c557f8c4c1339ca593b463db320f70387a1b63f1a79e709e9d12c69520993e26d85a3d742e34'
         'b3e5b7f4d202eb3bd26eef851c9340c7fe10fbaeb385c3fa989af949e500e9eae6bf67f2ab2e330342cacd71ba40bb02d1840510b7555adbe539615021a5a16e'
         '826db294d078c66e6bf3561c3c6de32d7522251b2ccbd47ab26fb6380988f117d854a726c36f45ddd2e846a1456ca0f6c883733d1c660351430f2d1fbc95b1eb'
         'ff0ba11844e99ab1b1fed91d70c6f45837198ba43e77313c8b9c48a621e40c459953fc35283b6b6eafb5641510a5ce1e18ebda4d7d076f8212810391c0a9234b'
         '3bec47156abaf832b6847e6ec19e06275f3dacd31ebf165c221b57d3e5b6e3a76f32767bd25daf43ecd594b2af279efe15370a5e27ed52809b0afe7f05d146f1'
-        '87e514cb3d5045489176a6d335f23ef82fa7b2805f689d8e4d9090dccf426c432e862a5dd537d91ceab6cc0a531fef9aa31fa2526666926224fcfdbd86c991a9')
+        '975db4df9c970b956b639b20957f6696ed41b8cb07452acc1b66317037430a3042ed34917d4ec0df7d31066b9137df139531c94549ad5c843d09de70e26a667e')
 
 # Google API keys (see https://www.chromium.org/developers/how-tos/api-keys)
 # Note: These are for Arch Linux use ONLY. For your own distribution, please
@@ -122,8 +122,9 @@ prepare() {
   # Fix build with glibc 2.43
   # https://bugzilla.mozilla.org/show_bug.cgi?id=1999625
   patch -Np1 -i ../0002-Patch-glsl-optimizer-to-build-with-glibc-2.43.patch
-  # https://bugzilla.mozilla.org/show_bug.cgi?id=2016618
-  patch -Np1 -i ../0003-Fix-sandbox-to-build-with-glibc-2.43.patch
+
+  # Fix build with Clang 22
+  patch -Np1 -i ../0003-Use-wasm32-wasip1-target.patch
   
   # Don't let the branding override our remoting name
   sed '/^MOZ_APP_REMOTINGNAME=/d' -i browser/branding/aurora/configure.sh
