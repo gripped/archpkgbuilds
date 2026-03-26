@@ -6,7 +6,7 @@
 # Contributor: Brenton Horne
 
 pkgname=hugo
-pkgver=0.158.0
+pkgver=0.159.1
 pkgrel=1
 pkgdesc="Fast and Flexible Static Site Generator in Go"
 arch=('x86_64')
@@ -19,7 +19,7 @@ optdepends=('git: required to use the Hugo modules feature'
             'dart-sass: required to transpile Sass to CSS'
             'python-docutils: required for reStructuredText support')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/gohugoio/${pkgname}/archive/v${pkgver}.tar.gz")
-sha512sums=('80b2415c0b558f516794bc0d9ca72b5dc766876e07d149150d5c7fef1df10c456f73c8bda5b3798c35e45f0634d35b83a16a10a0b8d15b92bc17da73558d94fc')
+sha512sums=('75a1c4446279bf202de844980abf7cc04edccc38c4c281b89a3c4b429f707f6b22eb74e418449cee5ab732fc8a0bc9f8d2906611339018598945c0150441631c')
 
 build() {
   cd "${pkgname}-${pkgver}"
