@@ -2,8 +2,8 @@
 # Contributor: Matthew Sloan matthew@sloan.cc
 
 pkgname=python-pint
-pkgver=0.25.2
-pkgrel=2
+pkgver=0.25.3
+pkgrel=1
 pkgdesc="A unit library for Python"
 arch=('any')
 license=('BSD-3-Clause')
@@ -32,7 +32,7 @@ checkdepends=(
   'python-uncertainties'
 )
 source=("git+https://github.com/hgrecco/pint.git#tag=$pkgver")
-sha512sums=('8d9947c20c0d8761ce3907224be05479cbf7cc7aaf1d2edf384d2d05334a5c6c0fc1addec7bed686374d8cbf7983b0f75cd125ee8c98cc7112d405f7f87c199b')
+sha512sums=('e8debffa0581f5daaca42caf84c72084282066821ed762f047157c295316b80e2b81b13c6b45447bed67e8362188ac71f49a767c2171c0c13ba4e32b3282eb2c')
 
 build() {
   cd pint
