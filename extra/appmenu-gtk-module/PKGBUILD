@@ -4,12 +4,14 @@
 
 pkgname=appmenu-gtk-module
 pkgver=25.04
-pkgrel=2
+pkgrel=3
 pkgdesc="Application Menu GTK Module"
-depends=(gcc-libs
+depends=(bash
+         dconf
          gdk-pixbuf2
          glib2
          glibc
+         libgcc
          gtk3)
 makedepends=(git
              meson)
