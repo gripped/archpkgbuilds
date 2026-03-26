@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-quickeffectmaker
-_pkgver=6.10.2
+_pkgver=6.11.0
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -24,7 +24,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('6242967b9223fee9e16d18ed7863be5eef0d3783091e5a126f936ef9f2d28673')
+sha256sums=('35aacf27e82da288ac6f9e0e24144494009d46e3bba46de6513032296a9906d7')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
@@ -34,13 +34,6 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-
-# Install symlinks for user-facing tools
-  cd "$pkgdir"
-  mkdir usr/bin
-  while read _line; do
-    ln -s $_line
-  done < "$srcdir"/build/user_facing_tool_links.txt
 
   install -d "$pkgdir"/usr/share/licenses
   ln -s /usr/share/licenses/qt6-base "$pkgdir"/usr/share/licenses/$pkgname
