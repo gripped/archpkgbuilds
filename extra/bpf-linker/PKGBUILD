@@ -3,12 +3,12 @@
 
 pkgname=bpf-linker
 pkgver=0.10.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Simple BPF static linker"
 arch=('x86_64')
 url="https://github.com/aya-rs/bpf-linker"
 license=('Apache-2.0' 'MIT')
-depends=('glibc' 'gcc-libs' 'llvm-libs' 'clang')
+depends=('glibc' 'libgcc' 'llvm-libs' 'clang')
 makedepends=('cargo' 'llvm')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/aya-rs/$pkgname/archive/refs/tags/v$pkgver.tar.gz")
 sha256sums=('c4e99d548b6a0d90f6ef35acb348cf4b8944ff4ba62b2795aa688b3178d82141')
