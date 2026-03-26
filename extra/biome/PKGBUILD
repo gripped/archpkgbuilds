@@ -2,14 +2,14 @@
 
 pkgname=biome
 pkgver=2.3.15
-pkgrel=1
+pkgrel=2
 pkgdesc='Formatter, linter, and more for Javascript, Typescript, JSON, and CSS'
 arch=(x86_64)
 url=https://biomejs.dev
 _url="https://github.com/biomejs/$pkgname"
 license=(MIT)
-depends=(gcc-libs
-         glibc)
+depends=(glibc
+         libgcc)
 makedepends=(cargo)
 replaces=(rome
           "$pkgname-bin")
