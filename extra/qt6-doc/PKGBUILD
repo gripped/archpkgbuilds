@@ -4,10 +4,10 @@
 
 pkgbase=qt6-doc
 pkgname=(qt6-doc qt6-examples)
-_pkgver=6.10.2
+_pkgver=6.11.0
 pkgver=${_pkgver/-/}
 # Account for Qt special naming of -rc1 tarballs
-_pkgver=6.10.2
+_pkgver=6.11.0
 pkgrel=1
 arch=('any')
 url='https://www.qt.io'
@@ -37,8 +37,15 @@ makedepends=(alsa-lib
              vulkan-headers)
 groups=(qt6)
 _pkgfn=qt-everywhere-src-$_pkgver
-source=(https://download.qt.io/official_releases/qt/${_pkgver%.*}/${_pkgver}/single/$_pkgfn.tar.xz)
-sha256sums=('c3df0f0e421130cc52ed81cb712358804471ce9bd2a41d97828f9f5b1bf7fed2')
+source=(https://download.qt.io/official_releases/qt/${_pkgver%.*}/${_pkgver}/single/$_pkgfn.tar.xz
+        llvm22.patch)
+sha256sums=('acf3b3db04c9e5d0820e8324b097320388954c297cee83d2bd698789234f68a4'
+            '5f5dcc9234a19a2d545698406ee5dd5c3655d8cf3310e446a57d6d0738dc8e2e')
+
+prepare() {
+# Fix qdoc build with LLVM 22
+  patch -d $_pkgfn/qttools -p1 < llvm22.patch
+}
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
