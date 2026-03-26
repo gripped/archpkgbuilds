@@ -4,13 +4,13 @@
 
 pkgname=arch-audit
 pkgver=0.2.0
-pkgrel=4
+pkgrel=5
 pkgdesc='A utility like pkg-audit based on Arch Security Team data'
 url='https://gitlab.archlinux.org/archlinux/arch-audit'
 depends=(
   'ca-certificates'
-  'gcc-libs'
   'glibc'
+  'libgcc'
   'pacman' 'libalpm.so'
 )
 makedepends=(
