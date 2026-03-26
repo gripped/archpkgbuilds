@@ -1,7 +1,7 @@
 pkgbase = ast-grep
 	pkgdesc = CLI tool for code structural search, lint and rewriting
 	pkgver = 0.41.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://ast-grep.github.io/
 	arch = x86_64
 	license = MIT
@@ -10,7 +10,7 @@ pkgbase = ast-grep
 	makedepends = python-installer
 	makedepends = python-maturin
 	makedepends = python-wheel
-	depends = gcc-libs
+	depends = libgcc
 	depends = glibc
 	options = !lto
 	source = https://github.com/ast-grep/ast-grep/archive/0.41.1/ast-grep-0.41.1.tar.gz
@@ -18,10 +18,10 @@ pkgbase = ast-grep
 	b2sums = 751d357815afb47f1b348a185156a9d002d9e03ecfdafd2d1c3fe4a907ebdfe6672e1b9d69e497a749a13f885dc2deec7ad0a789234426618720515904d81fed
 
 pkgname = ast-grep
-	depends = gcc-libs
+	depends = libgcc
 	depends = glibc
 
 pkgname = python-ast-grep
-	depends = gcc-libs
+	depends = libgcc
 	depends = glibc
 	depends = python

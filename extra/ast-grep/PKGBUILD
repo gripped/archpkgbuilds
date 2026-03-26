@@ -4,13 +4,13 @@ pkgname=(
   python-ast-grep
 )
 pkgver=0.41.1
-pkgrel=1
+pkgrel=2
 pkgdesc='CLI tool for code structural search, lint and rewriting'
 url='https://ast-grep.github.io/'
 arch=(x86_64)
 license=(MIT)
 depends=(
-  gcc-libs
+  libgcc
   glibc
 )
 makedepends=(
@@ -49,7 +49,7 @@ check() {
 
 package_ast-grep() {
   depends=(
-    gcc-libs
+    libgcc
     glibc
   )
 
@@ -65,7 +65,7 @@ package_ast-grep() {
 
 package_python-ast-grep() {
   depends=(
-    gcc-libs
+    libgcc
     glibc
     python
   )
