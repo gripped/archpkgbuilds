@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=libhomfly
-pkgver=1.03
+pkgver=1.04
 pkgrel=1
 pkgdesc='Library to compute the homfly polynomial of a link'
 arch=(x86_64)
@@ -11,7 +11,7 @@ depends=(gc
          glibc)
 makedepends=(git)
 source=(git+https://github.com/miguelmarco/libhomfly#tag=$pkgver)
-sha256sums=('64a8691f3bb4259b42624876ff039b138ee52d4c3024e3c8107d31cec86a5311')
+sha256sums=('7ffd05cd8346db5105f5dd72f9ea4d2273ec3c4bb9eeeee0b564ea0eb55bc0a3')
 
 prepare() {
   cd $pkgname
