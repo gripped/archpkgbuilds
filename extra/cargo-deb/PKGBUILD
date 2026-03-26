@@ -3,15 +3,15 @@
 
 pkgname=cargo-deb
 pkgver=3.6.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Cargo subcommand that generates Debian packages"
 arch=('x86_64')
 url="https://github.com/kornelski/cargo-deb"
 license=('MIT')
 depends=(
   'cargo'
-  'gcc-libs'
   'glibc'
+  'libgcc'
   'xz' 'liblzma.so'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
