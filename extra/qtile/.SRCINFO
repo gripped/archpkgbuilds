@@ -1,6 +1,6 @@
 pkgbase = qtile
 	pkgdesc = A full-featured, pure-Python tiling window manager
-	pkgver = 0.34.1
+	pkgver = 0.35.0
 	pkgrel = 2
 	url = https://qtile.org/
 	install = qtile.install
@@ -50,12 +50,10 @@ pkgbase = qtile
 	depends = wlroots0.19
 	optdepends = alsa-utils: for volume widget
 	optdepends = canto-daemon: for canto widget
-	optdepends = cmus: for cmus widget
 	optdepends = jupyter_console: for interaction with qtile via Jupyter
 	optdepends = khal: for khal_calendar widget
 	optdepends = libpulse: for pulse_volume and pulseaudio_ffi widget
 	optdepends = lm_sensors: for sensors widget
-	optdepends = moc: for moc widget
 	optdepends = python-aiohttp: for generic poll text widget
 	optdepends = python-bowler: for migrating configuration files
 	optdepends = python-dbus-fast: for utils, notifications and several widgets
@@ -70,14 +68,14 @@ pkgbase = qtile
 	optdepends = python-setproctitle: change process name to qtile
 	optdepends = python-xdg: launchbar widget
 	optdepends = xorg-xwayland: for XWayland support
-	source = git+https://github.com/qtile/qtile?signed#tag=v0.34.1
-	source = qtile-fix-test-fd-leak.patch
+	source = git+https://github.com/qtile/qtile?signed#tag=v0.35.0
+	source = qtile-0.35.0-test_identify_output.patch::https://github.com/qtile/qtile/commit/431d2d5e825ccd6e04098fe8842c897796df35c9.patch
 	validpgpkeys = 3CCAB226289DE0160C61BDB418D18F1BC464DCA3
 	validpgpkeys = 35D92E7CC7357A81173EA1C974F9FDD20984FBEC
 	validpgpkeys = A6BAA1E17D2664ADB97B2C6F58A9AA7C86727DF7
-	sha512sums = 62955251b255109f0552ae272ef72d12ea8416c0c4032d7199770c5789b12103417eaf8bf15d25697a79a2898886a2b2ccccf89f995fae2874331020c7d61ca2
-	sha512sums = 76bb61721332066809d503b45aa6c81aea2a89c1bded668913190b8354ae2b4ec06a4cb5c39f7821e942f010609c6566edb24fc86ad6b418d0ff49f307c5f3ae
-	b2sums = 336f9ef541ff5e0a8cbe33474e187d3b428117a06e2459e88085011523b4e960f58339e1184e8b9571c531fa311aaf909567aaf2b49c78092ecab4bc40063fb7
-	b2sums = 81c79fc4f5b9a0ef5f1ec86314f091ff77c830415cee0da44bbee694fe165932642e085280a5de17f87d8d869e8b2d71f72883ef780a221383af7902f892d2c4
+	sha512sums = 302cb5ad8838477f3980fc9bebd89f15999a886adabcab2199e7474d504c3a7c737aea79e954dc1b7e0100c380f9f35add3ab571bd5cc3998864c5ff492af53b
+	sha512sums = adee812c0dc7fd95778c3d785d39f970e34dca7f0ed51155bef0b11600446ae055093ef130da35232aa7772410feace71808494288cff8c3f90753754c99059b
+	b2sums = 740e93df26972a54773c511a0d6002db6e6ca45257d9e92ea87451405b15e67b237541c6ed4cba8550c6030622b4dd3548502cb01056427416e523c149641cb0
+	b2sums = c5156e1ff970bcf8c6918eb324242454a5c94a8ae202ec01146182333f23ae1d35e853f98f45728dfd646a5755ae60a040b2b80e40fed15cd3f01b71c60ac6c0
 
 pkgname = qtile
