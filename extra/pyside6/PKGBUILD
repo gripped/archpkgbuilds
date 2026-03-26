@@ -5,8 +5,8 @@ pkgbase=pyside6
 pkgname=(pyside6
          pyside6-tools
          shiboken6)
-pkgver=6.10.2
-pkgrel=4
+pkgver=6.11.0
+pkgrel=3
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -46,7 +46,7 @@ makedepends=(clang21
              qt6-webview)
 source=(git+https://code.qt.io/pyside/pyside-setup#tag=v$pkgver
         fix-header-install-dir.patch)
-sha256sums=('8eb03468f637e9deddad966ddf00e4a291a9b3880db0e2678af13ad735160ad0'
+sha256sums=('be9ab37fcb968156880ab8c6790ad80ab75fbbdd3519fe693ae9cda3f385f8f2'
             '3bc87409ea3dc41847f1d5d7612fd97931b67f1b40510b465543a8ef5c9764ff')
 
 prepare() {
@@ -71,7 +71,8 @@ build() {
 
 package_shiboken6() {
   pkgdesc='Generates bindings for C++ libraries using CPython source code'
-  depends=(clang21
+  depends=(clang
+           clang21
            gcc-libs
            glibc
            libxml2
@@ -83,6 +84,7 @@ package_shiboken6() {
   optdepends=('python: Python bindings')
 
   DESTDIR="$pkgdir" cmake --install build/sources/shiboken6
+  DESTDIR="$pkgdir" cmake --install build/sources/shiboken6_generator
 
 # Install egg-info
   export PATH="/usr/lib/qt6/bin:$PATH"
