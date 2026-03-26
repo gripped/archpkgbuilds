@@ -11,7 +11,7 @@ pkgname=(
   maelstrom-worker
 )
 pkgver=0.14.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast Rust, Go, and Python test runner that runs every test in its own container"
 arch=(x86_64)
 url="https://maelstrom-software.com/"
@@ -64,14 +64,11 @@ prepare() {
   patch -Np1 -i ../$pkgbase-0.14.0-maelstrom-pytest-broken-tests.patch
   patch -Np1 -i ../$pkgbase-0.14.0-maelstrom-worker-broken-tests.patch
 
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd $pkgbase
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   for pkg in "${pkgname[@]}"; do
     local cargo_build_options=(
       --frozen
@@ -94,7 +91,6 @@ build() {
 check() {
   cd $pkgbase
   export RUST_BACKTRACE=full
-  export RUSTUP_TOOLCHAIN=stable
   # NOTE: cargo-maelstrom tests `empty_cargo_project`, `few_tests` and `failed_test` require a higher open file limit
   ulimit -n 4096
 
@@ -120,8 +116,8 @@ package_cargo-maelstrom() {
   pkgdesc="Cargo test runner for Maelstrom"
   depends=(
     cargo
-    gcc-libs
     glibc
+    libgcc
     openssl libcrypto.so libssl.so
   )
 
