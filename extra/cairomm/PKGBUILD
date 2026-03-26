@@ -8,16 +8,17 @@ pkgname=(
   cairomm-docs
 )
 pkgver=1.14.5
-pkgrel=2
+pkgrel=3
 pkgdesc="C++ bindings for Cairo"
 url="https://www.cairographics.org/cairomm/"
 arch=(x86_64)
 license=(LGPL-2.0-or-later)
 depends=(
   cairo
-  gcc-libs
   glibc
+  libgcc
   libsigc++
+  libstdc++
 )
 makedepends=(
   git
