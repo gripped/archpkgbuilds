@@ -5,13 +5,13 @@
 pkgbase=atuin
 pkgname=(atuin atuin-server)
 pkgver=18.13.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Magical shell history'
 arch=('x86_64')
 url="https://github.com/atuinsh/$pkgbase"
 license=(MIT)
-depends=(gcc-libs
-         glibc)
+depends=(glibc
+         libgcc)
 makedepends=(cargo)
 options=(!lto)
 _archive="$pkgbase-$pkgver"
