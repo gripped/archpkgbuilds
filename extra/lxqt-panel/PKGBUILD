@@ -3,7 +3,7 @@
 
 pkgname=lxqt-panel
 pkgver=2.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc="The LXQt desktop panel"
 arch=("x86_64")
 groups=("lxqt")
