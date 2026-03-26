@@ -5,7 +5,7 @@
 pkgbase=qt6-base
 pkgname=(qt6-base
          qt6-xcb-private-headers)
-_pkgver=6.10.2
+_pkgver=6.11.0
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -36,6 +36,7 @@ depends=(brotli
          libpng
          libproxy
          libsm
+         liburing
          libx11
          libxcb
          libxkbcommon
@@ -89,7 +90,7 @@ _pkgfn=${pkgbase/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
         qt6-base-cflags.patch
         qt6-base-nostrip.patch)
-sha256sums=('568e53ff276e8abe051c62269679886bb9efb56b6ac7949889ebe335e22e760f'
+sha256sums=('2223c075e95d86f8dbf6395b025a74d996c418f094453c903290e3c2663fbed2'
             '5411edbe215c24b30448fac69bd0ba7c882f545e8cf05027b2b6e2227abc5e78'
             '4b93f6a79039e676a56f9d6990a324a64a36f143916065973ded89adc621e094')
 
@@ -100,7 +101,7 @@ prepare() {
 
 build() {
   # Set no_direct_extern_access based on architecture
-  if [[ $CARCH == "aarch64" ]]; then
+  if [[ $CARCH == "aarch64" || $CARCH == "riscv64" ]]; then
     _no_direct_extern_access=OFF
   else
     _no_direct_extern_access=ON
@@ -110,7 +111,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DINSTALL_BINDIR=lib/qt6/bin \
-    -DINSTALL_PUBLICBINDIR=usr/bin \
+    -DINSTALL_PUBLICBINDIR=bin \
     -DINSTALL_LIBEXECDIR=lib/qt6 \
     -DINSTALL_DOCDIR=share/doc/qt6 \
     -DINSTALL_ARCHDATADIR=lib/qt6 \
@@ -135,13 +136,6 @@ package_qt6-base() {
   DESTDIR="$pkgdir" cmake --install build
 
   install -Dm644 $_pkgfn/LICENSES/* -t "$pkgdir"/usr/share/licenses/$pkgbase
-
-# Install symlinks for user-facing tools
-  cd "$pkgdir"
-  mkdir usr/bin
-  while read _line; do
-    ln -s $_line
-  done < "$srcdir"/build/user_facing_tool_links.txt
 }
 
 package_qt6-xcb-private-headers() {
@@ -152,8 +146,7 @@ package_qt6-xcb-private-headers() {
   groups=()
 
   cd $_pkgfn
-  install -d -m755 "$pkgdir"/usr/include/qt6xcb-private/{gl_integrations,nativepainting}
+  install -d -m755 "$pkgdir"/usr/include/qt6xcb-private/gl_integrations
   cp -r src/plugins/platforms/xcb/*.h "$pkgdir"/usr/include/qt6xcb-private/
   cp -r src/plugins/platforms/xcb/gl_integrations/*.h "$pkgdir"/usr/include/qt6xcb-private/gl_integrations/
-  cp -r src/plugins/platforms/xcb/nativepainting/*.h "$pkgdir"/usr/include/qt6xcb-private/nativepainting/
 }
