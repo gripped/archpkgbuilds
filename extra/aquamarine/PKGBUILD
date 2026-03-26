@@ -2,12 +2,13 @@
 
 pkgname=aquamarine
 pkgver=0.10.0
-pkgrel=2
+pkgrel=3
 pkgdesc='a very light linux rendering backend library'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
 license=(BSD-3-Clause)
-depends=(gcc-libs # libstdc++.so libgcc_s.so
+depends=(libgcc
+         libstdc++
          glibc # libc.so libm.so
          hyprutils libhyprutils.so
          hyprwayland-scanner
