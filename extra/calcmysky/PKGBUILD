@@ -4,12 +4,12 @@
 
 pkgname=calcmysky
 pkgver=0.3.5
-pkgrel=2
+pkgrel=3
 pkgdesc="Simulator of light scattering by planetary atmospheres"
 arch=(x86_64)
 url="https://github.com/10110111/CalcMySky"
 license=(GPL-3.0-or-later)
-depends=(gcc-libs qt6-base)
+depends=(glibc libgcc libstdc++ qt6-base)
 makedepends=(cmake eigen git glm vulkan-headers)
 source=(git+$url.git#tag=v$pkgver)
 sha512sums=('74484d4fa92e90490e63802607f2d8bf152037a3d7525415ddcef821f0a088d4fe5f40e4d08922d86a109c25e6fbc649e909f13de7f0f664aac32700cde62f95')
