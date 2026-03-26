@@ -3,18 +3,18 @@
 
 _hkgname=semigroupoids
 pkgname=haskell-semigroupoids
-pkgver=6.0.1
-pkgrel=99
+pkgver=6.0.2
+pkgrel=1
 pkgdesc="Semigroupoids: Category sans id"
 url="https://github.com/ekmett/semigroupoids"
-license=("BSD")
+license=('BSD-2-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-bifunctors' 'haskell-comonad' 'haskell-contravariant'
-         'haskell-distributive' 'haskell-foldable1-classes-compat' 'haskell-hashable' 'haskell-tagged'
+         'haskell-foldable1-classes-compat' 'haskell-hashable' 'haskell-tagged'
          'haskell-transformers-compat' 'haskell-unordered-containers')
 makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-doctest')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('0d0e3b5dca7680b39385b80f6a216696274e617a34d25ab49f2cb4671042024b5cb2f6f0c17c0f03a2e19871a60524b10147174f276d89a8ab3751a899727544')
+sha512sums=('2b1491278276bbccab3b834d64c7f2b3d882224297b45111e1c35360a98f59eb399b3c5ff1061578399b57c3241c7ad849acfcf6c0bf5b00b3a7cc28b9624458')
 
 build() {
     cd $_hkgname-$pkgver
@@ -22,7 +22,7 @@ build() {
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
-            -ftagged -fcomonad -fdoctests -fdistributive -fcontravariant -fcontainers -funordered-containers
+            -ftagged -fcomonad -fdoctests -fcontravariant -fcontainers -funordered-containers
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
