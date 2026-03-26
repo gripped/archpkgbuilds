@@ -3,13 +3,13 @@
 
 pkgname=av1an
 pkgver=0.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Cross-platform command-line encoding framework with per scene quality encoding'
 arch=('x86_64')
 url='https://github.com/rust-av/Av1an'
 license=('GPL-3.0-only')
 makedepends=('rust' 'nasm' 'clang' 'git')
-depends=('gcc-libs' 'glibc' 'ffmpeg' 'aom' 'vapoursynth')
+depends=('libgcc' 'glibc' 'ffmpeg' 'aom' 'vapoursynth')
 optdepends=('svt-av1: SVT-AV1 encoder support'
             'rav1e: rav1e encoder support'
             'libvpx: vpx encoder support'
