@@ -7,7 +7,7 @@ pkgname=(
   aida-x-{clap,lv2,standalone,vst,vst3}
 )
 pkgver=1.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An Amp Model Player leveraging AI"
 arch=(x86_64)
 url="https://github.com/AidaDSP/AIDA-X"
@@ -87,10 +87,11 @@ package_aida-x-clap() {
   )
   depends=(
     dbus
-    gcc-libs
     glibc
+    libgcc
     clap-host
     libglvnd
+    libstdc++
     libx11
     libxext
   )
@@ -107,9 +108,10 @@ package_aida-x-lv2() {
   )
   depends=(
     dbus
-    gcc-libs
     glibc
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
     lv2-host
@@ -125,9 +127,10 @@ package_aida-x-standalone() {
   depends=(
     alsa-lib
     dbus
-    gcc-libs
     glibc
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
   )
@@ -144,9 +147,10 @@ package_aida-x-vst() {
   )
   depends=(
     dbus
-    gcc-libs
     glibc
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
     vst-host
@@ -164,9 +168,10 @@ package_aida-x-vst3() {
   )
   depends=(
     dbus
-    gcc-libs
     glibc
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
     vst3-host
