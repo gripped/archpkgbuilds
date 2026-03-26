@@ -1,10 +1,10 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
-_name=cbor2
 pkgname=python-cbor2
-pkgver=5.8.0
-pkgrel=2
+_name=${pkgname#python-}
+pkgver=5.9.0
+pkgrel=1
 pkgdesc="Pure Python CBOR (de)serializer with extensive tag support"
 arch=(x86_64)
 url="https://github.com/agronholm/cbor2"
@@ -25,8 +25,8 @@ checkdepends=(
   python-pytest
 )
 source=($url/archive/refs/tags/$pkgver/$_name-$pkgver.tar.gz)
-sha512sums=('06de1ad3cf6187776f6e044baa93e267c4fcc55e966a9c062cb3ce94d96016733180443096dc6933f6405ff9867c85280b819737ef4323199b21128536ea1c7b')
-b2sums=('5265c1b771414e20d8014c8a1f15c20199c4f8b40ae7f0177b2ab35018a0ea16b15fa840abc3f961ac611c47a21c5255e7dee1524857f624fbb8ca9620bae2f6')
+sha512sums=('a83145fdabd3bd13f609a46d92b77256a9a8f97763460e2a8e07da6b1a0ad6123274f5688167df87a27c817b22cf7819c6e7e3bfc00d0f56dc704e3da143f3d2')
+b2sums=('5a15afdcd73d422db5f2e8a81907309c4f84a316a1769ee9f815976cb0a9a0730c590c940d7f9f9dc057978f05d2608923e0fddc538c4ff19d6f5efea961365e')
 
 build() {
   cd $_name-$pkgver
