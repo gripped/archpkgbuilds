@@ -1,0 +1,35 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index afe705851e..9fdfc67582 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -520,9 +520,7 @@ find_package(KF${KF_MAJOR} ${MIN_FRAMEWORKS_VERSION} REQUIRED COMPONENTS
+         CoreAddons
+         GuiAddons
+         I18n
+-        ItemModels
+         ItemViews
+-        WindowSystem
+ )
+ 
+ find_package(Qt${QT_MAJOR_VERSION} ${MIN_QT_VERSION}
+@@ -853,7 +851,7 @@ if (NOT WIN32 AND NOT APPLE AND NOT ANDROID AND NOT HAIKU)
+     macro_bool_to_01(Qt${QT_MAJOR_VERSION}DBUS_FOUND HAVE_QT_DBUS)
+ 
+     find_package(KF${KF_MAJOR}Crash ${MIN_FRAMEWORKS_VERSION})
+-    macro_bool_to_01(KF5Crash_FOUND HAVE_KCRASH)
++    macro_bool_to_01(KF${KF_MAJOR}Crash_FOUND HAVE_KCRASH)
+     set_package_properties(KF${KF_MAJOR}Crash PROPERTIES
+         DESCRIPTION "KDE's Crash Handler"
+         URL "https://api.kde.org/kcrash-index.html"
+diff --git a/libs/widgetutils/CMakeLists.txt b/libs/widgetutils/CMakeLists.txt
+index e8f074a1b3..00f3c84d9f 100644
+--- a/libs/widgetutils/CMakeLists.txt
++++ b/libs/widgetutils/CMakeLists.txt
+@@ -166,7 +166,6 @@ target_link_libraries(kritawidgetutils
+         KF${KF_MAJOR}::ConfigGui
+         KF${KF_MAJOR}::GuiAddons
+         KF${KF_MAJOR}::WidgetsAddons
+-        KF${KF_MAJOR}::WindowSystem
+         kritaplugin
+         
+         ${KRITA_WIDGET_UTILS_EXTRA_LIBS}
