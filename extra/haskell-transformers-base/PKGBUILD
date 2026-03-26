@@ -3,16 +3,16 @@
 
 _hkgname=transformers-base
 pkgname=haskell-transformers-base
-pkgver=0.4.6
-pkgrel=270
+pkgver=0.4.6.1
+pkgrel=2
 pkgdesc="Lift computations from the bottom of a transformer stack"
 url="https://github.com/mvv/transformers-base"
-license=("BSD")
+license=("BSD-3-Clause")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-transformers-compat')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('b056b01bd5b3d882cf08bc9977c518ed6231d7da529cee61f2f52de886da4b8ee57e4505c767f59205a75be755870254f7351358bfc2142170fb3f31f25d66b5')
+sha512sums=('c68ec5b7dada7c5cc872d83a42151e817de1cb4afbbf52c5ca29bb53b0ac59347c26a8f171a3b9e0ac2653d9206a80fedc3a66e93681a0b70c336eb713fea54a')
 
 build() {
     cd $_hkgname-$pkgver
