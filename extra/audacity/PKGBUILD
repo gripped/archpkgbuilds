@@ -9,7 +9,7 @@ pkgname=(
   audacity-docs
 )
 pkgver=3.7.7
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=(x86_64)
@@ -114,7 +114,6 @@ package_audacity() {
     alsa-lib libasound.so
     expat
     flac libFLAC.so libFLAC++.so
-    gcc-libs
     glibc
     gdk-pixbuf2 libgdk_pixbuf-2.0.so
     glib2 libglib-2.0.so libgobject-2.0.so
@@ -122,12 +121,14 @@ package_audacity() {
     hicolor-icon-theme
     jack  # likely dlopen'ed
     lame  # likely dlopen'ed
+    libgcc
     libid3tag libid3tag.so
     libmad
     libogg libogg.so
     libsbsms libsbsms.so
     libsndfile libsndfile.so
     libsoxr
+    libstdc++
     libvorbis libvorbis.so libvorbisenc.so libvorbisfile.so
     libx11
     lilv liblilv-0.so
