@@ -1,13 +1,14 @@
 pkgbase = cargo-llvm-cov
 	pkgdesc = Cargo subcommand to easily use LLVM source-based code coverage (-Z instrument-coverage).
 	pkgver = 0.8.5
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/taiki-e/cargo-llvm-cov
 	arch = x86_64
 	license = MIT
 	license = Apache-2.0
 	depends = cargo
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	source = cargo-llvm-cov-0.8.5.tar.gz::https://github.com/taiki-e/cargo-llvm-cov/archive/v0.8.5.tar.gz
 	source = Cargo.lock
 	sha256sums = cc8fd865ad885432e344f1f09d5eabd72321f27e806b460f24008f4320c400a9
