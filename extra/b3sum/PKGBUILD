@@ -6,12 +6,12 @@ pkgname=(
   libblake3
 )
 pkgver=1.8.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Command line implementation of the BLAKE3 hash function'
 arch=(x86_64)
 url=https://github.com/BLAKE3-team/BLAKE3
 license=('CC0-1.0 OR Apache-2.0 OR Apache-2.0 WITH LLVM-exception')
-depends=(gcc-libs)
+depends=(glibc libgcc)
 makedepends=(
   cmake
   git
