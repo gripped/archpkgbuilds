@@ -3,12 +3,12 @@
 pkgname=bugstalker
 _pkgname=BugStalker
 pkgver=0.4.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Rust debugger for Linux x86-64"
 arch=('x86_64')
 url="https://github.com/godzie44/BugStalker"
 license=('MIT')
-depends=('gcc-libs' 'libunwind' 'oniguruma')
+depends=('glibc' 'libgcc' 'libunwind' 'oniguruma')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('b19cb0dc8e045d213366724cbfbb3f080f300bea96a1e301270bf2df6f3431e02cddca049df8050527d83284c02a950ed733b89056c7236b42a854247f65b13a')
