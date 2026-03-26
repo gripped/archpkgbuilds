@@ -4,13 +4,13 @@
 
 pkgname=attica
 pkgver=6.24.0
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 pkgdesc='Qt library that implements the Open Collaboration Services API'
 url='https://community.kde.org/Frameworks'
 license=(LGPL-2.0-only LGPL-3.0-only)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libstdc++
          qt6-base)
 makedepends=(doxygen
              extra-cmake-modules
