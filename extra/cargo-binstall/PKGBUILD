@@ -2,12 +2,12 @@
 
 pkgname=cargo-binstall
 pkgver=1.17.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Binary installation for Rust projects"
 arch=('x86_64')
 url="https://github.com/cargo-bins/cargo-binstall"
-license=('GPL3')
-depends=('cargo' 'gcc-libs')
+license=('GPL-3.0-only')
+depends=('cargo' 'glibc' 'libgcc')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('18dbb56919f3503ccb1133192835ddb809a856c7c99212ef4066ef1cbdf08f9e')
 
