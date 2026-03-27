@@ -2,14 +2,14 @@
 
 pkgname=elf2uf2-rs
 pkgver=2.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Convert ELF files to UF2 for USB Flashing Bootloaders"
 url='https://github.com/JoNil/elf2uf2-rs'
 arch=('x86_64')
 license=('0BSD')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
   'libudev.so'
 )
 makedepends=('cargo')
@@ -19,7 +19,7 @@ b2sums=('3f7f020bae08e7890d683a9675f856694d36e26c31b5c9e96d86456023b8052dfeacb9e
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {

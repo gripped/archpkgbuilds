@@ -1,13 +1,13 @@
 pkgbase = elf2uf2-rs
 	pkgdesc = Convert ELF files to UF2 for USB Flashing Bootloaders
 	pkgver = 2.2.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/JoNil/elf2uf2-rs
 	arch = x86_64
 	license = 0BSD
 	makedepends = cargo
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	depends = libudev.so
 	source = elf2uf2-rs-2.2.0.tar.gz::https://crates.io/api/v1/crates/elf2uf2-rs/2.2.0/download
 	sha256sums = 827c11ccf54519131befb45dacf1a837500a7c82d50056c1561ca5624f48f440
