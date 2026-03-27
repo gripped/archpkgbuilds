@@ -2,16 +2,17 @@
 
 pkgname=freewheeling
 pkgver=0.6.6
-pkgrel=6
+pkgrel=7
 pkgdesc="A live looper"
 arch=(x86_64)
 url="https://github.com/free-wheeling/freewheeling"
-license=(GPL2)
+license=(GPL-2.0-or-later)
 groups=(pro-audio)
 depends=(
-  gcc-libs
   glibc
+  libgcc
   libogg
+  libstdc++
   libx11
   libxml2
   nettle
