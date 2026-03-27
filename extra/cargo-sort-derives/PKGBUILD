@@ -2,15 +2,15 @@
 
 pkgname=cargo-sort-derives
 pkgver=0.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Cargo subcommand to sort derive attributes"
 arch=(x86_64)
 url="https://github.com/lusingander/cargo-sort-derives"
 license=(MIT)
 depends=(
   cargo
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(rust)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
@@ -19,20 +19,16 @@ b2sums=('3b497168d9295dc5443e6b688d044908cafcb9b2e28f7957c978e0de28b5762603d186c
 
 prepare() {
   cd $pkgname-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd $pkgname-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --frozen --release --all-features
 }
 
 check() {
   cd $pkgname-$pkgver
-  export RUSTUP_TOOLCHAIN=stable
   cargo test --frozen --all-features
 }
 
