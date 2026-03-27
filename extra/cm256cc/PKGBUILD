@@ -2,14 +2,15 @@
 
 pkgname=cm256cc
 pkgver=1.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast GF(256) Cauchy MDS Block Erasure Codec in C++'
 arch=(x86_64)
 url="https://github.com/f4exb/cm256cc"
-license=(GPL3)
+license=(GPL-3.0-only)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
 )
 makedepends=(
   cmake
