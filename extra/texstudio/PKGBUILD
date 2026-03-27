@@ -1,14 +1,14 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Clément DEMOULINS <clement@archivel.fr>
 pkgname=texstudio
-pkgver=4.9.2
-pkgrel=1
+pkgver=4.9.3
+pkgrel=2
 pkgdesc="Integrated writing environment for creating LaTeX documents"
 arch=('x86_64')
 url="http://texstudio.sourceforge.net/"
 license=('GPL-3.0-only')
 depends=('poppler-qt6' 'qt6-svg' 'libxkbcommon-x11' 'hicolor-icon-theme' 'hunspell' 'quazip-qt6' 'desktop-file-utils'
-         'qt6-declarative' 'qt6-5compat')
+         'qt6-base' 'qt6-declarative' 'qt6-5compat' 'zlib' 'glibc' 'libstdc++' 'libgcc' 'libx11')
 makedepends=('qt6-tools' 'mercurial' 'imagemagick' 'librsvg' 'ninja' 'cmake')
 optdepends=('evince: pdf reader'
             'languagetool: spelling and grammar checking'
@@ -17,7 +17,7 @@ replaces=('texmakerx')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/texstudio-org/texstudio/archive/${pkgver}.tar.gz"
         fs54269.patch
         fs72345.patch)
-sha512sums=('a76dffe2abdb08e8875819ba22bf24a82a96af0616451b6fc2a870b32828e3029754c623eb3459934244ed2af7f47369ac7fdcfb0787c077508b73534c355cf7'
+sha512sums=('77cab9d783615eb3a1d1ee782f961fd3dfe45120322b9f313c65b78b341f89559acd2cb6148f83b0d151b25cde16417a56a11ff7b48f2b07443376bab726eb73'
             '247e85f668b06c8a2def4e7456f0ddc8d35c7990484c1c037f7cf43fdee91419b5df66e968ef1e0c637fe685722bbad9171bdd79fad7a10912ae329aff088b68'
             'db176ba3e3b07a70c39c858b5edac3c2cec2278e7253d0a47ec7ec027586dae6354bd1114e5aac6857b85c23215af4417c43ca10ffe011ac5b6d92cccef3447b')
 
