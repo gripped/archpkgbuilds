@@ -1,14 +1,15 @@
 pkgbase = gfan
 	pkgdesc = A software package for computing Gröbner fans and tropical varieties
 	pkgver = 0.7
-	pkgrel = 1
+	pkgrel = 2
 	url = https://users-math.au.dk/jensen/software/gfan/gfan.html
 	arch = x86_64
 	license = GPL-2.0-or-later
 	depends = cddlib
-	depends = gcc-libs
 	depends = glibc
 	depends = gmp
+	depends = libgcc
+	depends = libstdc++
 	source = https://users-math.au.dk/jensen/software/gfan/gfan0.7.tar.gz
 	source = gfan-cflags.patch
 	source = gcc-14.patch

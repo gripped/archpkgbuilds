@@ -3,15 +3,16 @@
 
 pkgname=gfan
 pkgver=0.7
-pkgrel=1
+pkgrel=2
 pkgdesc='A software package for computing Gröbner fans and tropical varieties'
 arch=(x86_64)
 url='https://users-math.au.dk/jensen/software/gfan/gfan.html'
 license=(GPL-2.0-or-later)
 depends=(cddlib
-         gcc-libs
          glibc
-         gmp)
+         gmp
+         libgcc
+         libstdc++)
 source=(https://users-math.au.dk/jensen/software/gfan/gfan$pkgver.tar.gz
         gfan-cflags.patch
         gcc-14.patch
