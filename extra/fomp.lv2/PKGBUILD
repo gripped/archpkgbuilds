@@ -3,13 +3,13 @@
 _name=fomp
 pkgname=fomp.lv2
 pkgver=1.2.4
-pkgrel=3
+pkgrel=4
 pkgdesc="An LV2 port of the MCP, VCO, FIL, and WAH plugins by Fons Adriaensen."
 arch=(x86_64)
 url="https://gitlab.com/drobilla/fomp"
-license=(GPL2)
+license=(GPL-2.0-or-later)
 groups=(lv2-plugins pro-audio)
-depends=(gcc-libs glibc lv2-host)
+depends=(glibc libgcc libstdc++ lv2-host)
 makedepends=(lv2 meson)
 checkdepends=(lv2lint)
 source=(https://download.drobilla.net/$_name-$pkgver.tar.xz{,.sig})
