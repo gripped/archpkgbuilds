@@ -3,11 +3,11 @@
 pkgbase=ebumeter
 pkgname=(ebumeter ebumeter-docs)
 pkgver=0.5.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Loudness measurement according to EBU-R128"
 arch=(x86_64)
 url="https://kokkinizita.linuxaudio.org/linuxaudio/ebumeter-doc/quickguide.html"
-license=(GPL3)
+license=(GPL-2.0-or-later)
 makedepends=(clxclient clthreads gendesk jack libsndfile zita-resampler)
 source=(https://kokkinizita.linuxaudio.org/linuxaudio/downloads/$pkgbase-$pkgver.tar.xz)
 sha512sums=('46a5277d60abeb9fcc94f53730a335fdb5c1f6f6a6aa4a4c9df0f5a34019c16cbb58ae23d4631ff24ad0cc8c514c970105e7301962b3918a82a6d994f520a555')
@@ -33,9 +33,12 @@ package_ebumeter() {
   depends=(
     clxclient libclxclient.so
     clthreads libclthreads.so
-    gcc-libs
     glibc
     jack libjack.so
+    libgcc
+    libpng
+    libstdc++
+    libx11
     zita-resampler libzita-resampler.so
   )
   optdepends=(
