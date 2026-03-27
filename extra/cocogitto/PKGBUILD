@@ -4,13 +4,14 @@
 pkgname=cocogitto
 _pkgname=cog
 pkgver=7.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Set of CLI tools for the conventional commit and semver specifications'
 arch=(x86_64)
 url="https://github.com/$pkgname/$pkgname"
 license=(MIT)
-depends=(git # libc.so libm.so
-         gcc-libs # libgcc_s.so
+depends=(git
+         glibc # libc.so libm.so
+         libgcc # libgcc_s.so
          libgit2
          zlib)
 makedepends=(cargo)

@@ -1,13 +1,14 @@
 pkgbase = cocogitto
 	pkgdesc = Set of CLI tools for the conventional commit and semver specifications
 	pkgver = 7.0.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/cocogitto/cocogitto
 	arch = x86_64
 	license = MIT
 	makedepends = cargo
 	depends = git
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	depends = libgit2
 	depends = zlib
 	source = https://github.com/cocogitto/cocogitto/archive/7.0.0/cocogitto-7.0.0.tar.gz
@@ -15,7 +16,8 @@ pkgbase = cocogitto
 
 pkgname = cocogitto
 	depends = git
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	depends = libgit2
 	depends = zlib
 	depends = libgit2.so
