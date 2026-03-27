@@ -4,12 +4,12 @@
 pkgname=cargo-shuttle
 _commit=8b84c4a84d5570e3e6c3462de24a62736ee71963
 pkgver=0.57.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Cargo command for the shuttle platform'
 arch=('x86_64')
 url="https://github.com/shuttle-hq/shuttle"
 license=('Apache-2.0')
-depends=('cargo' 'gcc-libs' 'zlib' 'curl')
+depends=('cargo' 'curl' 'glibc' 'libgcc' 'zlib')
 makedepends=('git')
 source=("$pkgname::git+$url.git#commit=$_commit"
   "$pkgname-examples::git+https://github.com/shuttle-hq/examples.git")
@@ -26,7 +26,7 @@ prepare() {
   mkdir man
 
   cd "$pkgname"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
