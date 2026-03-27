@@ -2,27 +2,32 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=efifs
-pkgver=1.11
+pkgver=1.12
 pkgrel=1
-_commit=cc679906228b76b78d0457cea54f058eb7396ffc
+_commit=bfc6ae29ac15516bddb97928eaf1eda187a6d242
 pkgdesc='Standalone EFI file system drivers'
 arch=('any')
 url='https://efi.akeo.ie/'
 license=('GPL-3.0-or-later')
-makedepends=('git' 'mingw-w64-gcc' 'arm-none-eabi-gcc' 'arm-none-eabi-newlib'
-             'aarch64-linux-gnu-gcc' 'riscv64-linux-gnu-gcc')
+makedepends=(
+    'aarch64-linux-gnu-gcc'
+    'arm-none-eabi-gcc'
+    'arm-none-eabi-newlib'
+    'git'
+    'mingw-w64-gcc'
+    'riscv64-linux-gnu-gcc')
 source=("git+https://github.com/pbatard/EfiFs.git#commit=${_commit}?signed"
-        'git+https://git.savannah.gnu.org/git/grub.git'
+        'git+https://gitlab.freedesktop.org/gnu-grub/grub.git'
         'git+https://github.com/ncroxon/gnu-efi.git'
         '010-efifs-grub-fix-conflicting-parameter-types.patch'
         '020-efifs-grub-fix-incompatible-pointer-types.patch'
         '030-efifs-gnu-efi-remove-werror.patch')
-sha256sums=('51a6af9eb2f9760365dc564c703715b262aaa694d1249706d84dbe2e138bde59'
+sha256sums=('b9ab3f6cb4034c2456d35c030b6409a99dd7d06130be9c57ca909db53cfb9bcb'
             'SKIP'
             'SKIP'
             'f87972064fbde9215ee2c9c9f7085dfc738f79cecd8b5b735cd4ce2916b543f8'
             '5f207623fd37dfc6be89e600e5d54c118d93537c94fb8ec19f9ae5e1473cca6b'
-            'acf342ebe5f88198caefaf50661280c1f873a477f8d8be4bafc8224e303eafd0')
+            'df6810b91da27ca2b8aadc77d7909ff9d6ab1527578371a6f2c9785c0b1b59df')
 validpgpkeys=('E7CDF2A016DDDD53F0B7943838E0CF5E69EDD671') # Pete Batard <pete@akeo.ie>
 
 prepare() {

@@ -1,11 +1,11 @@
 --- a/Make.defaults
 +++ b/Make.defaults
-@@ -260,7 +260,7 @@ CFLAGS  += $(ARCH3264) -g -O2 -Wall -Wextra -Werror \
+@@ -275,7 +275,7 @@ EFI_CFLAGS  += $(ARCH3264) -g -O2 -Wall -Wextra -Wstrict-prototypes -Werror \
             -fno-strict-aliasing \
             -ffreestanding -fno-stack-protector
  else
--CFLAGS  += $(ARCH3264) -g -O2 -Wall -Wextra -Wno-pointer-sign -Werror \
-+CFLAGS  += $(ARCH3264) -g -O2 -Wall -Wextra -Wno-pointer-sign \
+-EFI_CFLAGS  += $(ARCH3264) -g -O2 -Wall -Wextra -Wstrict-prototypes -Werror \
++EFI_CFLAGS  += $(ARCH3264) -g -O2 -Wall -Wextra -Wstrict-prototypes \
             -fno-strict-aliasing \
-            -ffreestanding -fno-stack-protector -fno-stack-check \
-            $(if $(findstring 0,$(USING_CLANG)),-Wno-error=maybe-uninitialized,) \
+            -ffreestanding -fno-stack-protector \
+            $(if $(findstring 0,$(USING_CLANG)),-fno-merge-all-constants,)
