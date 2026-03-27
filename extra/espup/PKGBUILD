@@ -2,16 +2,16 @@
 
 pkgname=espup
 pkgver=0.16.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Tool for installing and maintaining ESP Rust ecosystem"
 url='https://github.com/esp-rs/espup'
 arch=('x86_64')
 license=('MIT' 'Apache-2.0')
 depends=(
-  'gcc-libs'
   'git'
   'glibc'
   'ldproxy'
+  'libgcc'
   'openssl' 'libssl.so'
   'pkg-config'
   'python'
@@ -29,7 +29,7 @@ b2sums=('e5a104ceacbaf1e590b46a39793cae5dba3f3c82bc8fd3969fc3ec441a850173686e213
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
