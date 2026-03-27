@@ -4,12 +4,12 @@
 
 pkgname=gsoap
 pkgver=2.8.140
-pkgrel=1
+pkgrel=2
 pkgdesc="Offers an XML language binding to ease the development of SOAP/XML Web services in C and C/C++"
 url="https://sourceforge.net/projects/gsoap2/"
 arch=('x86_64')
-license=('GPL' 'custom')
-depends=('openssl' 'zlib' 'gcc-libs')
+license=('GPL-2.0-only' 'LicenseRef-gSOAP-Public-License-1.3')
+depends=('glibc' 'libgcc' 'libstdc++' 'openssl' 'zlib')
 makedepends=('autoconf' 'automake')
 options=('staticlibs')
 source=("https://prdownloads.sourceforge.net/gsoap2/${pkgname}_${pkgver}.zip")
