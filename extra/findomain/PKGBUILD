@@ -4,14 +4,14 @@
 pkgname=findomain
 _pkgname=Findomain
 pkgver=10.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='The fastest and cross-platform subdomain enumerator, do not waste your time'
 url='https://github.com/Findomain/Findomain'
 arch=('x86_64')
 license=('GPL-3.0-or-later')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
   'openssl'
 )
 makedepends=('cargo')
@@ -24,7 +24,7 @@ options=(!lto)
 
 prepare() {
   cd $_pkgname-$pkgver
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
