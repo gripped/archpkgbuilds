@@ -3,27 +3,22 @@
 
 _hkgname=vault
 pkgname=haskell-vault
-pkgver=0.3.1.5
-pkgrel=300
+pkgver=0.3.1.6
+pkgrel=1
 pkgdesc="A persistent store for values of arbitrary types"
 url="https://github.com/HeinrichApfelmus/vault"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-unordered-containers')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('f268d192f53594d5be39db807982073591e9bb830411813d6904e5ad1bf10d16eb5f89d9a39b764f92e6e196aeaabeac1b75cd07a70c59a42ce842835758e409')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u base -u hashable $_hkgname.cabal
-}
+sha512sums=('494c516e63d75190e624d15a30b3196cd6e3cb8baec0b1104227a30e34102c6540826b5b71b390007b99d965284ddef2a7558dcc8c188192691e482cd12a262b')
 
 build() {
     cd $_hkgname-$pkgver
-    
+
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fuseghc
     runhaskell Setup build $MAKEFLAGS
@@ -33,9 +28,14 @@ build() {
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
 }
 
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
+}
+
 package() {
     cd $_hkgname-$pkgver
-    
+
     install -D -m744 register.sh "$pkgdir"/usr/share/haskell/register/$pkgname.sh
     install -D -m744 unregister.sh "$pkgdir"/usr/share/haskell/unregister/$pkgname.sh
     runhaskell Setup copy --destdir="$pkgdir"
