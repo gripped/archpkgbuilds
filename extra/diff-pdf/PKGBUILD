@@ -4,15 +4,17 @@
 
 pkgname=diff-pdf
 pkgver=0.5.2
-pkgrel=3
+pkgrel=4
 pkgdesc="A simple tool for visually comparing two PDF files"
 arch=(x86_64)
 url="http://vslavik.github.io/diff-pdf"
 license=(GPL-2.0-only)
 depends=(
   cairo
-  gcc-libs
   glib2
+  glibc
+  libgcc
+  libstdc++
   poppler-glib
   wxwidgets-common
   wxwidgets-gtk3
