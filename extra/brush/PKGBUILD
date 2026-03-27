@@ -2,20 +2,23 @@
 
 pkgname=brush
 pkgver=0.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Bash/POSIX-compatible shell implemented in Rust"
 arch=('x86_64')
 url="https://github.com/reubeno/brush"
 license=('MIT')
-depends=('gcc-libs')
+depends=('glibc' 'libgcc')
 makedepends=('cargo')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgname-shell-v$pkgver.tar.gz")
-sha256sums=('a0dac5cf7e9d8bced9bf28ed400955750ed6b7320d1154522a14f4a74e75a056')
+install=$pkgname.install
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgname}-shell-v${pkgver}.tar.gz"
+"${pkgname}-docs-${pkgver}.tar.gz::${url}/releases/download/${pkgname}-shell-v${pkgver}/${pkgname}-docs.tar.gz")
+sha256sums=('a0dac5cf7e9d8bced9bf28ed400955750ed6b7320d1154522a14f4a74e75a056'
+            '0c91924728e83869947979e61460d4eed619395a6e9514dc5015aa20c785ce10')
 
 prepare() {
   mv "$pkgname-$pkgname-shell-v$pkgver" "$pkgname-$pkgver"
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
@@ -23,17 +26,18 @@ build() {
   cargo build --release --frozen
 }
 
-# check() {
-#   cd "$pkgname-$pkgver"
-# https://github.com/reubeno/brush/issues/429
-# cargo test --frozen
-# }
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --frozen
+}
+unset check # https://github.com/reubeno/brush/issues/429
 
 package() {
   cd "$pkgname-$pkgver"
   install -Dm 755 "target/release/$pkgname" "$pkgdir/usr/bin/$pkgname"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+  install -Dm644 "${srcdir}/man/${pkgname}.1" "$pkgdir/usr/share/man/man1"
 }
 
 # vim: ts=2 sw=2 et:

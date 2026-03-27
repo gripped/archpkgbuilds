@@ -1,0 +1,12 @@
+post_install() {
+  grep -q '^/bin/brush$' etc/shells || echo '/bin/brush' >> etc/shells
+  grep -q '^/usr/bin/brush$' etc/shells || echo '/usr/bin/brush' >> etc/shells
+}
+
+post_upgrade() {
+  post_install
+}
+
+pre_remove() {
+  sed -i -E -e '/^(\/usr)?\/bin\/brush$/d' etc/shells
+}
