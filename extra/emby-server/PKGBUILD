@@ -3,7 +3,7 @@
 
 pkgname=emby-server
 pkgver=4.9.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Bring together your videos, music, photos, and live television'
 arch=(x86_64)
 url=https://emby.media
@@ -13,8 +13,9 @@ depends=(
   bash
   dotnet-runtime-8.0
   emby-ffmpeg
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   libvips
   skia-sharp
   sqlite
