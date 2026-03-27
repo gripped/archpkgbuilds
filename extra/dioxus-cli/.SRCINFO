@@ -1,13 +1,14 @@
 pkgbase = dioxus-cli
 	pkgdesc = CLI tool for developing, testing, and publishing Dioxus apps
 	pkgver = 0.7.3
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/DioxusLabs/dioxus
 	arch = x86_64
 	license = MIT
 	license = Apache-2.0
 	makedepends = cargo
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	depends = bzip2
 	depends = zlib
 	depends = openssl
