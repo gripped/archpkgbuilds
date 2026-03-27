@@ -4,7 +4,7 @@
 _hkgname=free
 pkgname=haskell-free
 pkgver=5.2
-pkgrel=122
+pkgrel=123
 pkgdesc="Monads for free"
 url="https://github.com/ekmett/free/"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('f27a9cd9d2f29c442a8ae036be53cd22cd28279e15f394212713ad12be05e9a35dc
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u semigroupoids
+    uusi -u semigroupoids -u th-abstraction
 }
 
 build() {
