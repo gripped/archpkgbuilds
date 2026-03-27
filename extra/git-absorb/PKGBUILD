@@ -4,12 +4,12 @@
 
 pkgname=git-absorb
 pkgver=0.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="git commit --fixup, but automatic"
 arch=('x86_64')
 url="https://github.com/tummychow/git-absorb"
-license=('BSD')
-depends=('gcc-libs' 'glibc' 'libgit2')
+license=('BSD-3-Clause')
+depends=('glibc' 'libgcc' 'libgit2')
 makedepends=('cargo' 'asciidoc')
 checkdepends=('git')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/tummychow/git-absorb/archive/${pkgver}.tar.gz")
