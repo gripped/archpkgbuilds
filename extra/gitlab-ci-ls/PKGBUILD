@@ -2,13 +2,14 @@
 
 pkgname=gitlab-ci-ls
 pkgver=1.2.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Language server for Gitlab CI'
 arch=(x86_64)
 url=https://github.com/alesbrelih/gitlab-ci-ls
 license=(MIT)
 depends=(
-  gcc-libs
+  glibc
+  libgcc
   openssl
 )
 makedepends=(
