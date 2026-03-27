@@ -2,12 +2,12 @@
 
 pkgname=cargo-docs-rs
 pkgver=1.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Imitate the documentation build that docs.rs would do"
 arch=('x86_64')
 url="https://github.com/dtolnay/cargo-docs-rs"
 license=('MIT' 'Apache-2.0')
-depends=('gcc-libs')
+depends=('glibc' 'libgcc')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
   "Cargo.lock")
