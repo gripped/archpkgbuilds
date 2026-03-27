@@ -2,15 +2,16 @@
 
 pkgname=e-antic
 pkgver=2.1.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Embedded algebraic number fields (on top of antic)'
 arch=(x86_64)
 url='https://github.com/flatsurf/e-antic/'
 license=(LGPL-3.0-or-later)
 depends=(flint
-         gcc-libs
          glibc
-         gmp)
+         gmp
+         libgcc
+         libstdc++)
 makedepends=(boost)
 source=(https://github.com/flatsurf/e-antic/releases/download/$pkgver/$pkgname-$pkgver.tar.gz)
 sha256sums=('e3e78701d054b441f95d83b6fb55cd84bfd931f5d4a61a2822dc977a20c46f80')
