@@ -1,13 +1,14 @@
 pkgbase = graphql-client-cli
 	pkgdesc = CLI for graphql-client
 	pkgver = 0.16.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/graphql-rust/graphql-client
 	arch = x86_64
 	license = Apache-2.0
 	license = MIT
 	makedepends = rust
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	depends = openssl
 	options = !lto
 	source = graphql-client-cli-0.16.0.tar.gz::https://github.com/graphql-rust/graphql-client/archive/refs/tags/0.16.0.tar.gz
