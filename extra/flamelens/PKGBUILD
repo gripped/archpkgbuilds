@@ -2,12 +2,12 @@
 
 pkgname=flamelens
 pkgver=0.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Flamegraph viewer in the terminal "
 arch=('x86_64')
 url="https://github.com/YS-L/flamelens"
 license=('MIT')
-depends=('gcc-libs')
+depends=('glibc' 'libgcc')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('142a945a1f132b533ceaea77409098b63ab01508b2df63d92974611c596ba82f524825e28c56bb335bc2255c6574401ddfc8850b2cfd6ee971f0307894ee08fe')
