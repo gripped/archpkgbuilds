@@ -4,14 +4,13 @@
 
 pkgname=file-roller
 pkgver=44.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Create and modify archives"
 url="https://wiki.gnome.org/Apps/FileRoller"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
   dconf
-  gcc-libs
   glib2
   glibc
   gtk4
@@ -19,6 +18,7 @@ depends=(
   json-glib
   libadwaita
   libarchive
+  libgcc
   libnautilus-extension
   pango
 )
