@@ -1,14 +1,15 @@
 pkgbase = greetd-tuigreet
 	pkgdesc = A console UI greeter for greetd
 	pkgver = 0.9.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/apognu/tuigreet
 	arch = x86_64
 	license = GPL-3.0-only
 	makedepends = cargo
 	makedepends = scdoc
-	depends = gcc-libs
+	depends = glibc
 	depends = greetd
+	depends = libgcc
 	depends = systemd
 	provides = greetd-greeter
 	source = https://github.com/apognu/tuigreet/archive/0.9.1/tuigreet-0.9.1.tar.gz

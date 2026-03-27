@@ -4,13 +4,14 @@
 pkgname=greetd-tuigreet
 _pkgname=${pkgname#*-}
 pkgver=0.9.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A console UI greeter for greetd'
 url="https://github.com/apognu/$_pkgname"
 license=(GPL-3.0-only)
 arch=(x86_64)
-depends=(gcc-libs
+depends=(glibc
          greetd
+         libgcc
          systemd)
 provides=(greetd-greeter)
 makedepends=(cargo
