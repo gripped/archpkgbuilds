@@ -3,12 +3,12 @@
 
 pkgname=countryfetch
 pkgver=0.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A neofetch-like tool for fetching information about your country"
 arch=('x86_64')
 url="https://github.com/nik-rev/countryfetch"
 license=('MIT')
-depends=('openssl' 'gcc-libs')
+depends=('glibc' 'libgcc' 'openssl')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('8c6b17edec106d6e22f184ff338b4df4f649cd831171f1deec211d0b63e3168c944c23824cff72027c1f360d25b655e075e54b802ff9e71a8f905e57dfd683a5')
@@ -17,7 +17,7 @@ prepare() {
   cd "${pkgname}-${pkgver}"
   # use the system-provided openssl
   sed -i 's/openssl = { version = "0.10", features = \["vendored"\] }//' Cargo.toml
-  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --target "$(rustc --print host-tuple)"
 }
 
 build() {
