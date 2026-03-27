@@ -2,18 +2,19 @@
 
 pkgname=communicator
 pkgver=4.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Contacts and dialer application'
 url='https://mauikit.org/'
 arch=(x86_64)
 license=(LGPL-3.0-only)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         hicolor-icon-theme
          kcontacts
          kcoreaddons
          ki18n
          kio
          kpeople
+         libstdc++
          mauikit
          mauikit-filebrowsing
          qt6-base
