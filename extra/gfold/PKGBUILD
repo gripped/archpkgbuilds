@@ -3,12 +3,12 @@
 
 pkgname=gfold
 pkgver=2026.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A CLI tool to help keep track of Git repositories"
 arch=('x86_64')
 url="https://github.com/nickgerace/gfold"
 license=('Apache-2.0')
-depends=('gcc-libs' 'glibc' 'libgit2')
+depends=('glibc' 'libgcc' 'libgit2')
 makedepends=('cargo' 'clang' 'git')
 source=("git+$url.git#tag=$pkgver")
 sha256sums=('ba5e9340fb58da68b0591fb82349bfb09afb4d867f9718d8ed7fb34fadde82e8')
