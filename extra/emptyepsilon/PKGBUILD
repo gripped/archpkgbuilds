@@ -3,16 +3,17 @@
 
 pkgname=emptyepsilon
 pkgver=2024.12.08
-pkgrel=1
+pkgrel=2
 pkgdesc='Open source spaceship bridge simulator'
 url='https://github.com/daid/EmptyEpsilon'
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
-  gcc-libs
   glibc
   hicolor-icon-theme
+  libgcc
   libglvnd
+  libstdc++
   libx11
   libxrandr
   sdl2
