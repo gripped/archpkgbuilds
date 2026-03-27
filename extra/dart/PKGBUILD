@@ -11,7 +11,7 @@
 # Contributor: Jacob Bang <julemand101@archlinux.dk>
 
 pkgname=dart
-pkgver=3.11.3
+pkgver=3.11.4
 pkgrel=1
 pkgdesc='The dart programming language SDK'
 arch=('x86_64')
@@ -29,15 +29,15 @@ makedepends=(
 # https://gitlab.archlinux.org/archlinux/packaging/packages/dart/-/merge_requests/14#note_335643
 #
 # Should be updated with latest commit on origin/main when new version of Dart are released.
-_depotver='145eee02011c02fc25d2ec055b55451661f3a611'  # As of 2026-03-20.
+_depotver='69860df12750599058da2ed7bb69294ae1b99c59'  # As of 2026-03-27.
 source=(
   "git+https://github.com/dart-lang/sdk.git#tag=$pkgver"
   "git+https://chromium.googlesource.com/chromium/tools/depot_tools.git#commit=$_depotver"
   "DEPS.patch"
   "0001-fix-gcc-build-fails-with-msan-enabled.patch"
 )
-sha256sums=('d8f20b38ea2f907d37bb75bfa3016d62eeea9e117d1013b30dc3c830675e3f87'
-            '27dd77d9954c433b623a1c9f41ede140b846a848653106dd49a53eb1682331eb'
+sha256sums=('40f2c441fefe7e565af452d5decf2ad41287b25305284fc80c7a79218a676a43'
+            '9839966301e80847f00f316111e76a48f55c952446e54a9beedf13aa498127cb'
             'a5b1901a606517ffad2dcc51c13da6d479837e9383dbc729710cabf5115b8d78'
             '7bb5dc10de2ef56db5b8e6c322f61318d10e31c3829f6a50ed483c1819a2ae88')
 
