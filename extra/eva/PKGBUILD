@@ -3,12 +3,12 @@
 
 pkgname=eva
 pkgver=0.3.1
-pkgrel=2
+pkgrel=3
 pkgdesc='simple calculator REPL, similar to bc(1)'
 arch=(x86_64)
 url="https://github.com/nerdypepper/$pkgname"
-license=(GPL3)
-depends=(gcc-libs)
+license=(MIT)
+depends=(glibc libgcc)
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
@@ -32,4 +32,5 @@ check() {
 package() {
 	cd "$_archive"
 	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }
