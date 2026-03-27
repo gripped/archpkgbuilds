@@ -3,19 +3,19 @@
 
 pkgname=grex
 pkgver=1.4.6
-pkgrel=1
+pkgrel=2
 pkgdesc="A command-line tool for generating regular expressions from user-provided input strings"
 arch=('x86_64')
 url="https://github.com/pemistahl/grex"
 license=('Apache-2.0')
-depends=('gcc-libs')
+depends=('glibc' 'libgcc')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('a00e1591527350747ce33f6525405cfcfdfa1a25e63a59fb9d9025eac8cc6b5b22fd61e91866770f3d2de34ef5a91c9a43137e3f2178ca1961c46b878952bdf9')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
