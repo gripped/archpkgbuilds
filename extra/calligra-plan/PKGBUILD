@@ -3,13 +3,13 @@
 pkgname=calligra-plan
 pkgdesc='A project management application intended for managing moderately large projects with multiple resources'
 pkgver=4.0.1
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.calligra-suite.org/'
 license=(GPL-2.0-or-later
          LGPL-2.1-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         hicolor-icon-theme
          karchive
          kcalendarcore
          kcompletion
@@ -33,6 +33,8 @@ depends=(gcc-libs
          kwidgetsaddons
          kwindowsystem
          kxmlgui
+         libgcc
+         libstdc++
          plasma-activities
          qca-qt6
          qt6-base)
