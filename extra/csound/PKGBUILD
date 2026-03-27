@@ -7,7 +7,7 @@ pkgbase=csound
 pkgname=(csound csound-doc)
 pkgver=6.18.1
 _manual_pkgver=6.17.0
-pkgrel=8
+pkgrel=9
 pkgdesc="Programming language for sound rendering and signal processing"
 arch=(x86_64)
 url="https://csound.com"
@@ -103,8 +103,9 @@ package_csound() {
   )
   depends=(
     curl libcurl.so
-    gcc-libs
     glibc
+    libgcc
+    libstdc++
     libsamplerate libsamplerate.so
     libsndfile libsndfile.so
   )
