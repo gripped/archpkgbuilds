@@ -1,19 +1,20 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=audaspace
 pkgver=1.5.0
-pkgrel=6
+pkgrel=7
 pkgdesc="A high level and feature rich audio library written in C++ with language bindings"
 arch=(x86_64)
 url="https://audaspace.github.io/"
-license=(Apache)
+license=(Apache-2.0)
 depends=(
   'ffmpeg'
   'fftw'
-  'gcc-libs'
   'glibc'
   'jack'
+  'libgcc'
   'libpulse'
   'libsndfile'
+  'libstdc++'
   'openal'
   'sdl2'
 )
