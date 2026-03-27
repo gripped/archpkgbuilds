@@ -3,14 +3,15 @@
 
 pkgname=ctrtool
 pkgver=1.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A tool to read/extract Nintendo 3DS files"
 arch=(x86_64)
 url=https://github.com/3DSGuy/Project_CTR
 license=(MIT)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
 )
 makedepends=(git)
 _tag=e8f5f529c54ff9b22a2491a480ffa69206bf7b19
