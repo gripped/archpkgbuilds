@@ -4,7 +4,7 @@
 
 pkgname=coin-or-cbc
 pkgver=2.10.13
-pkgrel=1
+pkgrel=2
 pkgdesc='COIN-OR branch-and-cut mixed integer programming solver'
 arch=(x86_64)
 url='https://github.com/coin-or/Cbc'
@@ -16,7 +16,8 @@ depends=(coin-or-asl
          coin-or-coinutils
          coin-or-osi
          glibc
-         gcc-libs
+         libgcc
+         libstdc++
          nauty)
 makedepends=(git)
 source=(git+https://github.com/coin-or/Cbc#tag=releases/$pkgver)
