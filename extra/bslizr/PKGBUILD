@@ -3,19 +3,20 @@
 _name=BSlizr
 pkgname=bslizr
 pkgver=1.2.16
-pkgrel=3
+pkgrel=4
 pkgdesc="LV2 audio effect plugin for sequenced slicing of stereo audio input signals"
 arch=(x86_64)
 url="https://github.com/sjaehn/bslizr"
-license=(GPL3)
+license=(GPL-3.0-only)
 groups=(
   lv2-plugins
   pro-audio
 )
 depends=(
   cairo
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   libx11
   lv2-host
 )
