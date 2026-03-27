@@ -2,12 +2,12 @@
 
 pkgname=halp
 pkgver=0.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A CLI tool to get help with CLI tools"
 arch=('x86_64')
 url="https://github.com/orhun/halp"
 license=('MIT' 'Apache-2.0')
-depends=('gcc-libs')
+depends=('glibc' 'libgcc')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('e4d5a2e15c5169457238ec61dcceffdeb602a2e197a911d32decdb8a55be8f8471165034faa92bca77ac67afe31f873d435e5ed4c7ce8be6240c9d77df9a9125')
@@ -15,7 +15,7 @@ options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
   mkdir completions/
   mkdir man/
 }
