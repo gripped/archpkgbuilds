@@ -3,12 +3,12 @@
 
 pkgname=committed
 pkgver=1.1.11
-pkgrel=1
+pkgrel=2
 pkgdesc="Nitpicking your commit history"
 arch=('x86_64')
 url="https://github.com/crate-ci/committed"
 license=('Apache-2.0' 'MIT')
-depends=('gcc-libs' 'glibc' 'libgit2' 'zlib')
+depends=('glibc' 'libgcc' 'libgit2' 'zlib')
 makedepends=('cargo')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
 sha256sums=('416aab32bf0cc2012259ee3ba264f3db0493164272694c6c4bef15e9258d4244')
