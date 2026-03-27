@@ -4,14 +4,15 @@
 
 pkgname=gmp-ecm
 pkgver=7.0.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Elliptic Curve Method for Integer Factorization'
 url='https://github.com/sethtroisi/gmp-ecm'
 license=(GPL-3.0-or-later
          LGPL-3.0-or-later)
-depends=(gcc-libs
-         glibc
-         gmp)
+depends=(glibc
+         gmp
+         libgcc
+         libgomp)
 makedepends=(git)
 arch=(x86_64)
 source=(git+https://gitlab.inria.fr/zimmerma/ecm#tag=git-$pkgver)
