@@ -3,14 +3,14 @@
 
 pkgname=espflash
 pkgver=4.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Cargo subcommand for flashing Espressif devices over serial"
 url='https://github.com/esp-rs/espflash'
 arch=('x86_64')
 license=('Apache-2.0' 'MIT')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
 )
 makedepends=(
   'cargo'
