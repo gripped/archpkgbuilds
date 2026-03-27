@@ -2,16 +2,15 @@
 
 pkgname=gitg
 pkgver=44
-pkgrel=10
+pkgrel=11
 epoch=2
 pkgdesc="GNOME GUI client to view git repositories"
 url="https://wiki.gnome.org/Apps/Gitg"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-2.0-or-later)
 depends=(
   cairo
   dconf
-  gcc-libs
   gdk-pixbuf2
   glibc
   glib2
@@ -23,6 +22,7 @@ depends=(
   hicolor-icon-theme
   json-glib
   libdazzle
+  libgcc
   libgee
   libgirepository
   libgit2-glib
