@@ -4,7 +4,7 @@
 
 pkgname=coin-or-coinutils
 pkgver=2.11.13
-pkgrel=1
+pkgrel=2
 pkgdesc='COIN-OR collection of utility classes'
 arch=(x86_64)
 url='https://github.com/coin-or/CoinUtils'
@@ -12,10 +12,11 @@ license=(EPL-2.0)
 depends=(blas
          bzip2
          coin-or-data-sample
-         gcc-libs
          glibc
          glpk
          lapack
+         libgcc
+         libstdc++
          zlib)
 makedepends=(doxygen
              gcc-fortran
