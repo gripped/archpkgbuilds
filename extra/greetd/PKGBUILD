@@ -5,13 +5,13 @@
 pkgbase=greetd
 pkgname=($pkgbase $pkgbase-agreety)
 pkgver=0.10.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Generic greeter daemon'
 arch=(x86_64)
 url="https://git.sr.ht/~kennylevinsen/$pkgbase"
 license=(GPL-3.0-only)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
          systemd)
 makedepends=(cargo
              scdoc)
@@ -31,7 +31,7 @@ sha256sums=('ee5cb70e0add4ca9c9fe57e47581ab0002d44c07743fb5492469f3b570db640b'
 prepare() {
 	cd "$_archive"
 	sed -i -e '/feature.doc_cfg/d' greetd_ipc/src/lib.rs
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
@@ -65,7 +65,8 @@ package_greetd() {
 }
 
 package_greetd-agreety() {
-	depends=(gcc-libs
+	depends=(glibc
+	         libgcc
 	         "$pkgbase")
 	provides=("$pkgbase-greeter")
 	cd "$_archive"
