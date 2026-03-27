@@ -3,8 +3,8 @@
 
 _hkgname=scientific
 pkgname=haskell-scientific
-pkgver=0.3.8.0
-pkgrel=158
+pkgver=0.3.8.1
+pkgrel=2
 pkgdesc="Numbers represented using scientific notation"
 url="https://github.com/basvandijk/scientific"
 license=('BSD-3-Clause')
@@ -14,7 +14,7 @@ makedepends=('ghc')
 checkdepends=('haskell-quickcheck' 'haskell-smallcheck' 'haskell-tasty' 'haskell-tasty-hunit'
               'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('7d56ffb6806d2fc8d771bb666dc417a0256b618e2d530f41065cdf94ae7842f4d24bc9323a5bab006dd5d50ffff5fc899b25b7361c51d62aeb73a2a0ac0195d4')
+sha512sums=('04dc817e0844aca809257fccf9013aa40d1695e3068a98c3b5576a913d6bcf2d86ad9999429d52b30786d9aa2c467cf18e360a990bfd9093bdc63f08e9c3c526')
 
 build() {
     cd $_hkgname-$pkgver
