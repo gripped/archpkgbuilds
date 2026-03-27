@@ -3,14 +3,15 @@
 pkgname=clblast
 _name=CLBlast
 pkgver=1.6.3
-pkgrel=2
+pkgrel=3
 pkgdesc='Tuned OpenCL BLAS library'
 url='https://github.com/CNugteren/CLBlast'
 arch=('x86_64')
 license=('Apache-2.0')
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   ocl-icd
 )
 makedepends=(
