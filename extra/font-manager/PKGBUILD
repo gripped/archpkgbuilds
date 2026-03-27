@@ -9,22 +9,24 @@
 
 pkgname=font-manager
 pkgver=0.9.4
-pkgrel=2
+pkgrel=3
 pkgdesc='A simple font management application for GTK+ Desktop Environments'
 url=https://fontmanager.github.io
 _url="https://github.com/FontManager/$pkgname"
 arch=(x86_64 i686)
 license=(GPL-3.0-only)
 depends=(cairo libcairo.so
+         dconf
          fontconfig libfontconfig.so
          freetype2 libfreetype.so
-         gcc-libs # libgcc_s.so
          glibc # libc.so
          glib2 libgio-2.0.so libglib-2.0.so libgobject-2.0.so
          graphene libgraphene-1.0.so
          gtk4
          harfbuzz libharfbuzz.so
+         hicolor-icon-theme
          json-glib
+         libgcc # libgcc_s.so
          libsoup3 libsoup-3.0.so
          libxml2 libxml2.so
          pango libpango-1.0.so libpangoft2-1.0.so
