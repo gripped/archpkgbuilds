@@ -4,17 +4,18 @@
 
 pkgname=drumstick
 pkgver=2.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc="MIDI libraries for Qt6/C++"
 arch=(x86_64)
 url="https://drumstick.sourceforge.io/"
 license=(GPL-3.0-or-later)
 depends=(
-  gcc-libs
   glibc
   hicolor-icon-theme
-  qt6-base
+  libgcc
+  libstdc++
   qt6-5compat
+  qt6-base
 )
 makedepends=(
   alsa-lib
