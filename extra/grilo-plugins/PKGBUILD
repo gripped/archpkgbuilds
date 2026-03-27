@@ -2,7 +2,7 @@
 
 pkgname=grilo-plugins
 pkgver=0.3.18
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc="A collection of plugins for the Grilo framework"
 url="https://gitlab.gnome.org/GNOME/grilo-plugins"
@@ -11,7 +11,6 @@ license=(LGPL-2.1-or-later)
 depends=(
   avahi
   chromaprint
-  gcc-libs
   glib2
   glibc
   gom
@@ -21,6 +20,7 @@ depends=(
   json-glib
   libarchive
   libdmapsharing
+  libgcc
   libgoa
   libmediaart
   liboauth
