@@ -3,12 +3,12 @@
 
 pkgname=cargo-nextest
 pkgver=0.9.132
-pkgrel=1
+pkgrel=2
 pkgdesc="A next-generation test runner for Rust."
 arch=('x86_64')
 url="https://github.com/nextest-rs/nextest"
 license=('Apache-2.0' 'MIT')
-depends=('cargo' 'gcc-libs')
+depends=('cargo' 'glibc' 'libgcc')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/cargo-nextest-$pkgver.tar.gz")
 sha256sums=('5d51ce1d10b90551ed5c56d436cb57b1d671521a7c00f8df209e541f26d9735d')
 b2sums=('1f83424b858273c333b537aed0d74d76ed17cf74bf271842089f546624cb4e37ae0a007498273bcfdf1a8dddc3898929e613eb3c94b0ae3e4972944c75bbc9be')
