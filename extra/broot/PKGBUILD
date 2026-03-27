@@ -5,12 +5,12 @@
 
 pkgname=broot
 pkgver=1.56.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Fuzzy Search + tree + cd'
 arch=('x86_64')
 url=https://github.com/Canop/broot
 license=('MIT')
-depends=('gcc-libs' 'zlib' 'libgit2' 'libxcb')
+depends=('glibc' 'libgcc' 'zlib' 'libgit2' 'libxcb')
 makedepends=('rust')
 source=("https://github.com/Canop/broot/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
 sha256sums=('3e7be4252c76565f6d71b34bd07d26e1444b9ac2e1c8271c724f6e866fe75565')
