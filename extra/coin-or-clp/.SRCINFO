@@ -1,7 +1,7 @@
 pkgbase = coin-or-clp
 	pkgdesc = COIN-OR linear programming solver
 	pkgver = 1.17.11
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/coin-or/Clp
 	arch = x86_64
 	groups = coin-or
@@ -10,8 +10,9 @@ pkgbase = coin-or-clp
 	depends = coin-or-asl
 	depends = coin-or-coinutils
 	depends = coin-or-osi
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = suitesparse
 	source = git+https://github.com/coin-or/Clp#tag=releases/1.17.11
 	source = fix-build.patch

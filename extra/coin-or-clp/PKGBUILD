@@ -4,7 +4,7 @@
 
 pkgname=coin-or-clp
 pkgver=1.17.11
-pkgrel=1
+pkgrel=2
 pkgdesc='COIN-OR linear programming solver'
 arch=(x86_64)
 url='https://github.com/coin-or/Clp'
@@ -13,8 +13,9 @@ groups=(coin-or)
 depends=(coin-or-asl
          coin-or-coinutils
          coin-or-osi
-         gcc-libs
          glibc
+         libgcc
+         libstdc++
          suitesparse)
 makedepends=(git)
 source=(git+https://github.com/coin-or/Clp#tag=releases/$pkgver
