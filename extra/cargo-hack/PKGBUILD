@@ -5,12 +5,12 @@
 pkgname=cargo-hack
 pkgver=0.6.44
 _commit=c910d4d36ade92a734398adfd0125d2aaa80a417
-pkgrel=1
+pkgrel=2
 pkgdesc="A cargo subcommand to provide various options useful for testing and CI"
 arch=('x86_64')
 url="https://github.com/taiki-e/cargo-hack"
 license=('MIT' 'Apache-2.0')
-depends=('gcc-libs')
+depends=('glibc' 'libgcc')
 makedepends=('cargo' 'git')
 source=("$pkgname::git+$url.git#commit=$_commit"
         "Cargo.lock")

@@ -1,19 +1,21 @@
 pkgbase = cargo-hack
 	pkgdesc = A cargo subcommand to provide various options useful for testing and CI
 	pkgver = 0.6.44
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/taiki-e/cargo-hack
 	arch = x86_64
 	license = MIT
 	license = Apache-2.0
 	makedepends = cargo
 	makedepends = git
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	source = cargo-hack::git+https://github.com/taiki-e/cargo-hack.git#commit=c910d4d36ade92a734398adfd0125d2aaa80a417
 	source = Cargo.lock
 	sha512sums = 981dd9b292e15916aa956f183ee3f641d679f60803aaa4aa628230cf81278a514494997ac7ff724cdebe21f84810cbce03b1155a6a838fa7e893fa86cd5f53aa
 	sha512sums = 6ebbcf4195c0cd55c4a35adfa6e93dd5969ede54aab31be4c8c807395d3b2d53a32be507451b4f55d3d54672838ead2fcfe77468b8f614070580147e05ff9dff
 
 pkgname = cargo-hack
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	depends = rustup
