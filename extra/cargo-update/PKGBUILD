@@ -4,12 +4,12 @@
 
 pkgname=cargo-update
 pkgver=18.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A cargo subcommand for checking and applying updates to installed executables"
 arch=('x86_64')
 url="https://github.com/nabijaczleweli/cargo-update"
 license=('MIT')
-depends=('cargo' 'gcc-libs' 'zlib' 'openssl')
+depends=('cargo' 'curl' 'glibc' 'libgcc' 'libgit2' 'openssl' 'zlib')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "Cargo.lock")
 sha256sums=('2ad5fd5247fa6b3eb70202adf90eeb2941a7e1f8cee80b7d374163e484693059'
