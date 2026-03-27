@@ -7,19 +7,20 @@ pkgbase=gnuplot
 pkgname=(gnuplot
          gnuplot-demos)
 pkgver=6.0.4
-pkgrel=2
+pkgrel=3
 pkgdesc='Plotting package which outputs to X11, PostScript, PNG, GIF, and others' 
 arch=(x86_64)
 url='http://www.gnuplot.info'
 license=(LicenseRef-Gnuplot)
 depends=(cairo
-         gcc-libs
          gd
          glib2
          glibc
          gtk3
          libcaca
          libcerf
+         libgcc
+         libstdc++
          libwebp
          libx11
          lua
