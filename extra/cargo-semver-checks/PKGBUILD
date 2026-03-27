@@ -4,12 +4,12 @@
 
 pkgname=cargo-semver-checks
 pkgver=0.47.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Scan your Rust crate for semver violations'
 url='https://github.com/obi1kenobi/cargo-semver-checks'
 license=('Apache-2.0' 'MIT')
 arch=('x86_64')
-depends=('cargo' 'gcc-libs' 'glibc' 'openssl' 'zlib')
+depends=('cargo' 'glibc' 'libgcc' 'openssl' 'zlib')
 makedepends=('git' 'cmake')
 options=('!lto')
 source=("$pkgname-$pkgver::git+$url.git#tag=v$pkgver")
