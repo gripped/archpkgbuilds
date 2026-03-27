@@ -3,16 +3,18 @@
 
 pkgname=drgn
 pkgver=0.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Programmable debugger'
 arch=('x86_64')
 url='https://github.com/osandov/drgn'
 license=('LGPL-2.1-or-later')
 depends=(
-    'gcc-libs'
     'glibc'
     'libelf'
+    'libgcc'
+    'libgomp'
     'libkdumpfile'
+    'pcre2'
     'python'
 )
 makedepends=(
