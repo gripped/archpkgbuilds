@@ -3,12 +3,12 @@
 
 pkgname=gitu
 pkgver=0.41.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A TUI Git client inspired by Magit"
 arch=('x86_64')
 url="https://github.com/altsem/gitu"
 license=('MIT')
-depends=('gcc-libs' 'libgit2')
+depends=('glibc' 'libgcc' 'libgit2')
 makedepends=('cargo')
 checkdepends=('git')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
