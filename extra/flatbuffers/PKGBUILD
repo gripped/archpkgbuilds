@@ -6,12 +6,12 @@ pkgbase=flatbuffers
 pkgname=(flatbuffers python-flatbuffers)
 # https://github.com/google/flatbuffers/blob/master/CHANGELOG.md
 pkgver=25.12.19
-pkgrel=3
+pkgrel=4
 pkgdesc='An efficient cross platform serialization library for C++, with support for Java, C# and Go'
 arch=(x86_64)
 url='https://google.github.io/flatbuffers/'
-license=(Apache)
-depends=(gcc-libs)
+license=(Apache-2.0)
+depends=(glibc libgcc libstdc++)
 makedepends=(cmake
              git
              python-build
