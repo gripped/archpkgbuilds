@@ -2,7 +2,7 @@
 
 pkgname=flatpak-builder
 pkgver=1.4.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Tool to build flatpaks from source"
 url="https://flatpak.org"
 arch=(x86_64)
@@ -18,13 +18,13 @@ depends=(
   elfutils
   flatpak
   fuse3
-  gcc-libs
   git
   glib2
   glibc
   json-glib
   libarchive
   libelf
+  libgcc
   libxml2
   libyaml
   ostree
