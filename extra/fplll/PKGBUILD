@@ -2,14 +2,15 @@
 
 pkgname=fplll
 pkgver=5.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Lattice algorithms using floating-point arithmetic'
 arch=(x86_64)
 url='https://github.com/fplll/fplll'
-license=(LGPL)
-depends=(gcc-libs
-         glibc
+license=(LGPL-2.1-or-later)
+depends=(glibc
          gmp
+         libgcc
+         libstdc++
          mpfr
          qd)
 makedepends=(git)
