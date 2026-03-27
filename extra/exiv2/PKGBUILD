@@ -4,19 +4,20 @@
 
 pkgname=exiv2
 pkgver=0.28.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Exif, Iptc and XMP metadata manipulation library and tools"
 url="https://exiv2.org"
 arch=('x86_64')
-license=('GPL2')
+license=('GPL-2.0-or-later')
 depends=(brotli libbrotlidec.so
          curl
          expat libexpat.so
-         gcc-libs # libgcc_s.so libstdc++.so
          gettext
          glibc # libc.so libm.so
          libcurl.so
+         libgcc # libgcc_s.so
          libinih libINIReader.so
+         libstdc++ # libstdc++.so
          zlib libz.so)
 makedepends=('git' 'cmake' 'gtest' 'ninja')
 checkdepends=('python')
