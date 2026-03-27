@@ -6,7 +6,7 @@
 
 pkgname=clamav
 pkgver=1.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Anti-virus toolkit for Unix'
 url='https://www.clamav.net/'
 license=(GPL-2.0-only)
@@ -15,12 +15,13 @@ depends=(
   bash
   bzip2
   curl
-  gcc-libs
   glibc
   json-c
+  libgcc
   libltdl
   libmspack
   libmilter
+  libstdc++
   libxml2
   ncurses
   openssl
