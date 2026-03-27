@@ -4,13 +4,13 @@
 
 pkgname=cobalt
 pkgver=0.20.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Static site generator written in Rust'
 url='https://cobalt-org.github.io/'
 arch=(x86_64)
 license=(MIT)
 depends=(
-  gcc-libs # libgcc_s.so ld-linux-x86-64.so
+  libgcc # libgcc_s.so
   glibc # libm.so libc.so
 )
 makedepends=(
