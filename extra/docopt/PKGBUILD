@@ -3,12 +3,12 @@
 
 pkgname=docopt
 pkgver=0.6.3
-pkgrel=5
+pkgrel=6
 pkgdesc='Command line arguments parser for C++11 and later'
 arch=(x86_64)
 url='https://github.com/docopt/docopt.cpp/'
 license=(MIT)
-depends=(glibc gcc-libs)
+depends=(glibc libgcc libstdc++)
 makedepends=(cmake git setconf)
 source=("git+$url#tag=v$pkgver"
         docopt.pc)

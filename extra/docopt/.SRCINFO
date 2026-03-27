@@ -1,7 +1,7 @@
 pkgbase = docopt
 	pkgdesc = Command line arguments parser for C++11 and later
 	pkgver = 0.6.3
-	pkgrel = 5
+	pkgrel = 6
 	url = https://github.com/docopt/docopt.cpp/
 	arch = x86_64
 	license = MIT
@@ -9,7 +9,8 @@ pkgbase = docopt
 	makedepends = git
 	makedepends = setconf
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	source = git+https://github.com/docopt/docopt.cpp/#tag=v0.6.3
 	source = docopt.pc
 	b2sums = a4fc14910a5acc6f4728c1911a19265c6a197931cc96d1fa8bdc59d5be98d300b7e83bae2289506e72079b1600f32ad42133b2558f1197adbe65eddfc17d3ae8
