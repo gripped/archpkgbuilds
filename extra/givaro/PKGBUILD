@@ -3,14 +3,15 @@
 
 pkgname=givaro
 pkgver=4.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc='C++ library for arithmetic and algebraic computations'
 arch=(x86_64)
 url='https://casys.gricad-pages.univ-grenoble-alpes.fr/givaro/'
 license=(CECILL-B)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          gmp
+         libgcc
+         libstdc++
          sh)
 makedepends=(git)
 source=(git+https://github.com/linbox-team/givaro#tag=v$pkgver)
