@@ -3,12 +3,12 @@
 
 pkgname=cargo-generate-rpm
 pkgver=0.20.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Cargo helper command to generate a binary RPM package'
 arch=('x86_64')
 url="https://github.com/cat-in-136/cargo-generate-rpm"
 license=('MIT')
-depends=('cargo' 'gcc-libs')
+depends=('cargo' 'glibc' 'libgcc' 'xz')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('299d16279de45d72f51bdb62bd7946d3e294fa5454d39de94f1cfe300ede77eb')
 options=('!lto')
@@ -16,7 +16,7 @@ options=('!lto')
 prepare() {
   cd "$pkgname-$pkgver"
   # https://github.com/cat-in-136/cargo-generate-rpm/issues/60
-  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')" # --locked
+  cargo fetch --target "$(rustc --print host-tuple)" # --locked
 }
 
 build() {
