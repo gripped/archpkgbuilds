@@ -2,7 +2,7 @@
 
 pkgname=endeavour
 pkgver=43.0
-pkgrel=5
+pkgrel=6
 pkgdesc="Personal task manager (Formerly GNOME Todo)"
 url="https://wiki.gnome.org/Apps/Todo"
 arch=(x86_64)
@@ -10,13 +10,13 @@ license=(GPL-3.0-or-later)
 depends=(
   dconf
   evolution-data-server
-  gcc-libs
   glib2
   glibc
   graphene
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
   libgirepository
   libgoa
   libical
