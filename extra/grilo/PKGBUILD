@@ -2,15 +2,15 @@
 
 pkgname=grilo
 pkgver=0.3.19
-pkgrel=1
+pkgrel=2
 pkgdesc="Framework that provides access to various sources of multimedia content"
 url="https://wiki.gnome.org/Projects/Grilo"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
-  gcc-libs
   glib2
   glibc
+  libgcc
   libsoup3
   libxml2
   totem-pl-parser
