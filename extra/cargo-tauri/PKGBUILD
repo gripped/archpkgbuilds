@@ -3,7 +3,7 @@
 pkgname=cargo-tauri
 _pkgname=tauri
 pkgver=2.10.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Command line interface for building Tauri apps"
 arch=('x86_64')
 url="https://github.com/tauri-apps/tauri"
@@ -11,8 +11,8 @@ license=('MIT' 'Apache-2.0')
 depends=(
   'bzip2' 'libbz2.so'
   'cargo'
-  'gcc-libs'
   'glibc'
+  'libgcc'
   'xz' 'liblzma.so'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/tauri-v$pkgver.tar.gz")
