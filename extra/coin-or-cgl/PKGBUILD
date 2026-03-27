@@ -4,7 +4,7 @@
 
 pkgname=coin-or-cgl
 pkgver=0.60.10
-pkgrel=1
+pkgrel=2
 pkgdesc='COIN-OR Cut Generation Library'
 arch=(x86_64)
 url='https://github.com/coin-or/Cgl'
@@ -13,8 +13,9 @@ groups=(coin-or)
 depends=(coin-or-clp
          coin-or-coinutils
          coin-or-osi
-         gcc-libs
-         glibc)
+         glibc
+         libgcc
+         libstdc++)
 makedepends=(git)
 source=(git+https://github.com/coin-or/Cgl#tag=releases/$pkgver)
 sha256sums=('bd3901eee3df06693b652b7431d4d7542dc69125c5ccc835b6def2dae5c6877f')
