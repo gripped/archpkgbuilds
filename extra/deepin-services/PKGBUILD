@@ -1,22 +1,23 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-services
-pkgver=1.0.18
-pkgrel=2
+pkgver=1.0.19
+pkgrel=1
 pkgdesc='Manage DBus service on Deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-services"
 license=('LGPL-3.0-or-later')
-depends=(glibc libgcc libstdc++ systemd-libs qt6-base dtk6core dtk6gui glib2 libpcap libnet libx11 libxcb
+depends=(glibc libgcc libstdc++ systemd-libs qt6-base dtk6core dtk6gui glib2 libx11 libxcb
          deepin-service-manager)
 makedepends=(git cmake ninja)
 groups=(deepin)
 source=(git+https://github.com/linuxdeepin/dde-services.git#tag=$pkgver)
-sha512sums=('1b1f362abd75cfc077775e6cbc5a4e6c34b6f898c0e482771a21caca1d6e60189b34d2d3016910b4f9c26f21a3f2e1a1afb54342adadaf43176f34bfba55bcd5')
+sha512sums=('a469dd88b29fadf61dfda7f93c45faa8798bf72149d1d7027010667cb11afba85abefb7a08f555af2c5c835a78ce567a2286d5eab0b205095b7eb47fd25a198f')
 
 build() {
   cd dde-services
-  cmake -GNinja . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc
+  cmake -GNinja . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc \
+    -DENABLE_PLUGIN_IPWATCHD=OFF
   ninja
 }
 
