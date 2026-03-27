@@ -1,6 +1,6 @@
 pkgbase = gemini-cli
 	pkgdesc = Open-source AI agent that brings the power of Gemini directly into your terminal
-	pkgver = 0.35.1
+	pkgver = 0.35.2
 	pkgrel = 1
 	epoch = 1
 	url = https://github.com/google-gemini/gemini-cli
@@ -9,14 +9,20 @@ pkgbase = gemini-cli
 	checkdepends = vim
 	makedepends = git
 	makedepends = jq
+	makedepends = node-gyp
 	makedepends = npm
-	depends = libgcc
-	depends = libstdc++
+	makedepends = python
 	depends = glib2
 	depends = glibc
+	depends = libgcc
 	depends = libsecret
+	depends = libstdc++
 	depends = nodejs
-	source = git+https://github.com/google-gemini/gemini-cli.git#tag=v0.35.1
-	b2sums = ed72d5eff3a1199e811ad0069fcbd0ed5af317febedfbe3ab9c01b090a1698fac312bccf6174906775edac9b10432772dd048640bd2ba9a4fb0ec5b414c5a377
+	optdepends = ripgrep: file content search
+	optdepends = wl-clipboard: clipboard image pasting on Wayland
+	optdepends = xclip: clipboard image pasting on X11
+	optdepends = xdg-utils: opening URLs in default browser
+	source = git+https://github.com/google-gemini/gemini-cli.git#tag=v0.35.2
+	b2sums = bac6c85264a95ee32e1822f3c3ab5b7614f6e4bd81eae71c534bcc231539252022d792f6c969f6f9166b667ec9179269030f6bcfaf1e3d360a026383b0d9cc6e
 
 pkgname = gemini-cli
