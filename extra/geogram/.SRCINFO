@@ -1,15 +1,18 @@
 pkgbase = geogram
 	pkgdesc = Library of geometric algorithms
 	pkgver = 1.9.8
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/BrunoLevy/geogram
 	arch = x86_64
 	license = BSD-3-Clause
 	makedepends = cmake
 	makedepends = ninja
-	depends = gcc-libs
-	depends = glu
 	depends = glfw-x11
+	depends = glibc
+	depends = glu
+	depends = libgcc
+	depends = libgomp
+	depends = libstdc++
 	source = https://github.com/BrunoLevy/geogram/releases/download/v1.9.8/geogram_1.9.8.tar.gz
 	sha256sums = 6df1186d8e7ed5a7ee02cf486f823cbc74400199822709b2b3faa9b7d6596c96
 

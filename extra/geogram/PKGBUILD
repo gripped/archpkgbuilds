@@ -2,12 +2,12 @@
 # Contributor: bartus <arch-user-repoᘓbartus.33mail.com>
 pkgname=geogram
 pkgver=1.9.8
-pkgrel=2
+pkgrel=3
 pkgdesc="Library of geometric algorithms"
 arch=('x86_64')
 url="https://github.com/BrunoLevy/geogram"
 license=('BSD-3-Clause')
-depends=('gcc-libs' 'glu' 'glfw-x11')
+depends=('glfw-x11' 'glibc' 'glu' 'libgcc' 'libgomp' 'libstdc++')
 makedepends=('cmake' 'ninja')
 source=("https://github.com/BrunoLevy/geogram/releases/download/v${pkgver}/geogram_${pkgver}.tar.gz")
 sha256sums=('6df1186d8e7ed5a7ee02cf486f823cbc74400199822709b2b3faa9b7d6596c96')
