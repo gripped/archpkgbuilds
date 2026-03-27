@@ -3,16 +3,21 @@
 _hkgname=th-desugar
 pkgname=haskell-th-desugar
 pkgver=1.15
-pkgrel=89
+pkgrel=90
 pkgdesc="Functions to desugar Template Haskell"
 url="https://github.com/goldfirere/th-desugar"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-ordered-containers' 'haskell-syb' 'haskell-th-abstraction'
          'haskell-th-orphans' 'haskell-transformers-compat')
-makedepends=('ghc' 'haskell-hunit' 'haskell-hspec')
+makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-hspec')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
 sha512sums=('893b73b341fee047d12a84d7d3a7e1c8e2e718c82d00029b1c00a890358d7045213c70532f770159e0174ce5e5bea3724fe0545df6513f7854e91342ca17d585')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u th-abstraction
+}
 
 build() {
     cd $_hkgname-$pkgver
