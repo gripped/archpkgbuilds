@@ -3,16 +3,16 @@
 
 _hkgname=stm-chans
 pkgname=haskell-stm-chans
-pkgver=3.0.0.9
-pkgrel=4
+pkgver=3.0.0.11
+pkgrel=1
 pkgdesc="Additional types of channels for STM."
 url="https://wrengr.org/software/hackage.html"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('479beba647d05d7a198327a357f7d98f0e81c57a829d90d7c69f88afdf8d623d75b2375d2efe9ea9f9ea4f24a2db0462f4730d39fbf9783d41166eb0c7a02a4b')
+sha512sums=('0dcc81bac526347c7efe657ed37ac97bc8c6d06734c7c67de9088c39277f1596594a126abf622e4b3f9b25f87003fdc71f6bf7d2c939e68bf9105c234b4c8633')
 
 build() {
     cd $_hkgname-$pkgver
