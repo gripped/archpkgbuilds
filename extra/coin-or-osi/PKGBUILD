@@ -2,15 +2,16 @@
 
 pkgname=coin-or-osi
 pkgver=0.108.12
-pkgrel=1
+pkgrel=2
 pkgdesc='COIN-OR Open Solver Interface'
 arch=(x86_64)
 url='https://github.com/coin-or/Osi'
 license=(EPL-2.0)
 groups=(coin-or)
 depends=(coin-or-coinutils
-         gcc-libs
-         glibc)
+         glibc
+         libgcc
+         libstdc++)
 makedepends=(gcc-fortran
              git)
 source=(git+https://github.com/coin-or/Osi#tag=releases/$pkgver)
