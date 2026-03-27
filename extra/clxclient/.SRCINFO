@@ -1,13 +1,14 @@
 pkgbase = clxclient
 	pkgdesc = C++ wrapper library around the X Window System API
 	pkgver = 3.9.2
-	pkgrel = 5
+	pkgrel = 6
 	url = https://kokkinizita.linuxaudio.org/linuxaudio/
 	arch = x86_64
-	license = LGPL2.1
+	license = LGPL-2.1-or-later
 	makedepends = clthreads
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = libx11
 	depends = libxft
 	provides = libclxclient.so
