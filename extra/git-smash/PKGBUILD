@@ -2,16 +2,16 @@
 
 pkgname=git-smash
 pkgver=0.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Smash staged changes into previous commits to support your Git workflow'
 url='https://github.com/anthraxx/git-smash'
 arch=(x86_64)
 license=(MIT)
 depends=(
   fzf
-  gcc-libs
   git
   glibc
+  libgcc
 )
 makedepends=(
   cargo
