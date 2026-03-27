@@ -4,14 +4,14 @@ _name=GxPlugins.lv2
 _othername=gxplugins
 pkgname=gxplugins.lv2
 pkgver=1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A set of extra lv2 plugins from the guitarix project"
 arch=(x86_64)
 url="https://github.com/brummer10/gxplugins.lv2"
-license=(GPL3)
+license=(GPL-3.0-or-later)
 groups=(lv2-plugins)
 # TODO: devendor zita-resampler if possible
-depends=(cairo gcc-libs glibc libx11 lv2-host)
+depends=(cairo glibc libgcc libstdc++ libx11 lv2-host)
 makedepends=(lv2)
 checkdepends=(lv2lint)
 source=($url/releases/download/v$pkgver/${_othername}_${pkgver}_src.tar.bz2)
