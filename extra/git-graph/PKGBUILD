@@ -2,13 +2,13 @@
 
 pkgname=git-graph
 pkgver=0.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='show clear git graphs arranged following different branching model'
 arch=(x86_64)
 url="https://github.com/mlange-42/$pkgname"
 license=(MIT)
-depends=(gcc-libs # libgcc_s.so
-         glibc # libc.so
+depends=(glibc # libc.so
+         libgcc # libgcc_s.so
          libgit2 libgit2.so
          zlib libz.so)
 makedepends=(cargo)
@@ -18,7 +18,7 @@ sha256sums=('105980d19b93324e27ee714abde35cb05b29e21d3c42cd972afe4d4500af05ee')
 
 prepare() {
 	cd "$_archive"
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
