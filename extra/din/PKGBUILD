@@ -3,17 +3,18 @@
 
 pkgname=din
 pkgver=58.1
-pkgrel=2
+pkgrel=3
 pkgdesc="A sound synthesizer and musical instrument."
 arch=(x86_64)
 url="https://dinisnoise.org/"
 license=(GPL-2.0-only)
 groups=(pro-audio)
 depends=(
-  gcc-libs
   glibc
   hicolor-icon-theme
+  libgcc
   libglvnd
+  libstdc++
   sdl
   tcl
 )
