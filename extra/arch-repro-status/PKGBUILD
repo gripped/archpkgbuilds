@@ -2,14 +2,14 @@
 
 pkgname=arch-repro-status
 pkgver=1.4.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Check the reproducibility status of your Arch Linux packages"
 arch=('x86_64')
 url="https://gitlab.archlinux.org/archlinux/arch-repro-status"
 license=('MIT')
 depends=(
-  'gcc-libs'
   'glibc'
+  'libgcc'
   'libalpm.so'
   'libssl.so'
 )
