@@ -5,15 +5,16 @@
 
 pkgname=gigedit
 pkgver=1.2.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Gigasampler instrument editor"
 arch=(x86_64)
 url="https://www.linuxsampler.org/"
 license=(GPL-2.0-or-later)
 groups=(pro-audio)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
 )
 makedepends=(
   atkmm
