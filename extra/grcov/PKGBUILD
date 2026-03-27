@@ -3,12 +3,12 @@
 
 pkgname=grcov
 pkgver=0.10.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Rust tool to collect and aggregate code coverage data for multiple source files"
 arch=('x86_64')
 url="https://github.com/mozilla/grcov"
-license=('MPL2')
-depends=('zlib' 'gcc-libs')
+license=('MPL-2.0')
+depends=('glibc' 'libgcc' 'zlib')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('5c4a236133f6982a4ea6588f0b1a9c0cc5838be50cb533da2023344b198120df')
