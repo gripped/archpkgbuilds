@@ -7,7 +7,7 @@
 
 pkgname=cinnamon-screensaver
 pkgver=6.6.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Screensaver designed to integrate well with the Cinnamon desktop'
 arch=(x86_64)
 url='https://github.com/linuxmint/cinnamon-screensaver'
@@ -16,12 +16,12 @@ depends=(
   accountsservice
   bash
   cinnamon-desktop
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
   gtk3
   hicolor-icon-theme
+  libgcc
   libx11
   libxext
   libxinerama
@@ -45,7 +45,7 @@ makedepends=(
 )
 backup=(etc/pam.d/cinnamon-screensaver)
 source=("git+https://github.com/linuxmint/cinnamon-screensaver.git#tag=$pkgver")
-b2sums=(7ab901979f88f3f60d65a9a8381e96c5ea120abafc6994d4b75e4192c116bbe6778ac84c66800e777055e012c9833c06e74c4ec2c6d95f9b58cf4062742f3aa1)
+b2sums=('7ab901979f88f3f60d65a9a8381e96c5ea120abafc6994d4b75e4192c116bbe6778ac84c66800e777055e012c9833c06e74c4ec2c6d95f9b58cf4062742f3aa1')
 
 build() {
   arch-meson $pkgname build
