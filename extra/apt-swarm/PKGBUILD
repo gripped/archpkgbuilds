@@ -2,13 +2,13 @@
 
 pkgname=apt-swarm
 pkgver=0.5.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Experimental p2p gossip network for OpenPGP signature transparency 🥸"
 url='https://github.com/kpcyrd/apt-swarm'
 arch=('x86_64')
 license=('GPL-3.0-or-later')
 depends=(
-  'gcc-libs'
+  'libgcc'
   'glibc'
 )
 makedepends=(
@@ -22,7 +22,7 @@ b2sums=('6a365dfb414db32c452c918332535c2314e5a38f21d43d76fb71398fae216f29344cf99
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
