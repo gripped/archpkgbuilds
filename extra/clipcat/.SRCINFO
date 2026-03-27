@@ -1,13 +1,14 @@
 pkgbase = clipcat
 	pkgdesc = A clipboard manager
 	pkgver = 0.24.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/xrelkd/clipcat
 	arch = x86_64
 	license = GPL-3.0-only
 	makedepends = cargo
 	makedepends = protobuf
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	depends = libgit2
 	options = !lto
 	source = clipcat-0.24.1.tar.gz::https://github.com/xrelkd/clipcat/archive/refs/tags/v0.24.1.tar.gz

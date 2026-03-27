@@ -5,12 +5,12 @@
 
 pkgname=clipcat
 pkgver=0.24.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A clipboard manager"
 arch=('x86_64')
 url="https://github.com/xrelkd/clipcat"
 license=('GPL-3.0-only')
-depends=('gcc-libs' 'libgit2')
+depends=('glibc' 'libgcc' 'libgit2')
 makedepends=('cargo' 'protobuf')
 source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
