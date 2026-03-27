@@ -2,16 +2,17 @@
 
 pkgname=dvisvgm
 pkgver=3.6
-pkgrel=1
+pkgrel=2
 pkgdesc='A fast DVI, EPS, and PDF to SVG converter'
 arch=(x86_64)
 url='https://dvisvgm.de/'
 license=(GPL-3.0-or-later)
 depends=(brotli
          freetype2
-         gcc-libs
          ghostscript
          glibc
+         libgcc
+         libstdc++
          potrace
          texlive-basic
          texlive-bin
