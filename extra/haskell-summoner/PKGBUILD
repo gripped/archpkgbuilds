@@ -3,29 +3,23 @@
 
 _hkgname=summoner
 pkgname=haskell-summoner
-pkgver=2.0.1.1
-pkgrel=688
+pkgver=2.1.0.0
+pkgrel=1
 pkgdesc="Tool for scaffolding fully configured batteries-included production-level Haskell projects."
 url="https://github.com/kowainik/summoner"
 license=('MPL-2.0')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-aeson' 'haskell-colourista' 'haskell-generic-data' 'haskell-gitrev'
-         'haskell-neat-interpolation' 'haskell-optparse-applicative' 'haskell-relude'
+depends=('ghc-libs' 'haskell-colourista' 'haskell-generic-data' 'haskell-gitrev'
+         'haskell-microaeson' 'haskell-optparse-applicative' 'haskell-relude'
          'haskell-shellmet' 'haskell-tomland' 'haskell-validation-selective')
-makedepends=('ghc' 'uusi' 'haskell-hedgehog' 'haskell-hspec' 'haskell-hspec-hedgehog' 'haskell-tree-diff')
-source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz"
-        "$pkgname-ghc-9.6.patch"
-        "summoner-relude-1.x.patch")
-sha256sums=('5b6eee2848e2fb0b65d34f4a980ecd6e7766629a42394348dc2166e2216fc496'
-            '875f8a70e574051e181f2529d205b01a9a31482daff99010b99ed0fd02255c1f'
-            '2e4a12b8670671b7dac307144760cf9add198e9f479f0e3095e138b91966eea0')
+makedepends=('ghc' 'uusi' 'haskell-hedgehog' 'haskell-hspec' 'haskell-hspec-hedgehog'
+             'haskell-tree-diff')
+source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
+sha256sums=('6d11b687dfe0153f31db1d3eaa2ce384005fe9445ace6f63d46dbf2ccb5506ec')
 
 prepare(){
   cd $_hkgname-$pkgver
-  patch -p2 -i ../summoner-relude-1.x.patch
-  patch -Np2 -i ../$pkgname-ghc-9.6.patch
-  echo -e "import Distribution.Simple\nmain = defaultMain" > Setup.hs
-  uusi $_hkgname.cabal
+  gen-setup
 }
 
 build() {
@@ -46,7 +40,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  runhaskell Setup test || :
+  runhaskell Setup test --show-details=direct || echo "Tests failed"
 }
 
 package() {
