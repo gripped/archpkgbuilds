@@ -3,13 +3,13 @@
 
 pkgname=fil-plugins
 pkgver=0.3.0
-pkgrel=8
+pkgrel=9
 pkgdesc="LADSPA four-band parametric equaliser plugins"
 arch=('x86_64')
 url="https://kokkinizita.linuxaudio.org/linuxaudio/ladspa/"
-license=('GPL2')
+license=(GPL-2.0-or-later)
 groups=('ladspa-plugins' 'pro-audio')
-depends=('gcc-libs')
+depends=('glibc' 'libgcc' 'libstdc++')
 makedepends=('ladspa')
 source=("https://kokkinizita.linuxaudio.org/linuxaudio/downloads/FIL-plugins-$pkgver.tar.bz2")
 sha512sums=('9054d2bdbceb2a55d7772958f3bdcc03fb1bd15109de931bee07f3ab55f437c4076c5a740187252a406142c9438febe269c5b25364eddab3191de75ca56a81b1')
