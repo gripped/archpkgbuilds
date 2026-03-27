@@ -1,19 +1,21 @@
 pkgbase = cargo-public-api
 	pkgdesc = List and diff the public API of Rust library crates
 	pkgver = 0.51.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/cargo-public-api/cargo-public-api
 	arch = x86_64
 	license = MIT
 	makedepends = cargo
 	depends = curl
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	options = !lto
 	source = cargo-public-api-0.51.0.tar.gz::https://github.com/cargo-public-api/cargo-public-api/archive/v0.51.0.tar.gz
 	sha512sums = 153a0b6c824621e62e9633fa38d3ee8ed17e3cd3e25c2b2840f8e40566b591fa6ca2f62f2cdceca1a6f23c9ed014a2e2ae1b60aceaa89e17dd1a2f88d1834b72
 
 pkgname = cargo-public-api
 	depends = curl
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	depends = libcurl.so
 	depends = rustup
