@@ -6,7 +6,7 @@
 pkgbase=cdrdao
 pkgname=('cdrdao' 'gcdmaster')
 pkgver=1.2.6
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 license=('GPL-2.0-or-later')
 url="http://cdrdao.sourceforge.net/"
@@ -36,7 +36,7 @@ build() {
 }
 
 package_cdrdao() {
-  depends=('gcc-libs' 'glibc' 'lame' 'libao' 'libmad' 'libvorbis')
+  depends=('glibc' 'lame' 'libao' 'libgcc' 'libmad' 'libstdc++' 'libvorbis')
 
   cd $pkgbase
   make DESTDIR="${pkgdir}" install
