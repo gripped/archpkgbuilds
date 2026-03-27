@@ -4,7 +4,7 @@
 
 pkgname=cinnamon-session
 pkgver=6.6.3
-pkgrel=1
+pkgrel=2
 pkgdesc='The Cinnamon session handler'
 arch=(x86_64)
 url='https://github.com/linuxmint/cinnamon-session'
@@ -13,12 +13,12 @@ depends=(
   bash
   cinnamon-desktop
   dconf
-  gcc-libs
   glib2
   glibc
   gtk3
   hicolor-icon-theme
   libcanberra
+  libgcc
   libglvnd
   libice
   libsm
