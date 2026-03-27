@@ -8,16 +8,17 @@ pkgname=(
   glibmm-2.68-docs
 )
 pkgver=2.86.0
-pkgrel=1
+pkgrel=2
 pkgdesc="C++ bindings for GLib"
 url="https://www.gtkmm.org/"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
-  gcc-libs
   glib2
   glibc
+  libgcc
   libsigc++-3.0
+  libstdc++
   perl
 )
 makedepends=(
