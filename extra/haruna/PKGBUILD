@@ -5,14 +5,14 @@
 
 pkgname=haruna
 pkgver=1.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Video player built with Qt/QML on top of libmpv'
 arch=(x86_64)
 url='https://apps.kde.org/haruna/'
 license=(GPL-3.0-or-later)
 depends=(ffmpeg
-         gcc-libs
          glibc
+         hicolor-icon-theme
          kcolorscheme
          kconfig
          kcoreaddons
@@ -26,6 +26,7 @@ depends=(ffmpeg
          kitemmodels # QML
          kservice
          kwindowsystem
+         libstdc++
          mpvqt
          qqc2-desktop-style
          qt6-5compat
