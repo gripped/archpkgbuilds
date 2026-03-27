@@ -2,12 +2,12 @@
 
 pkgname=binsider
 pkgver=0.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A TUI for analyzing binaries like a boss"
 arch=('x86_64')
 url="https://github.com/orhun/binsider"
 license=('MIT' 'Apache-2.0')
-depends=('gcc-libs')
+depends=('glibc' 'libgcc')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('db0249dfb1a7e63f9624a12978dd4f7e8840add978867cf31985034a69e35ccbee6339da45156b1675b1f33ea3ef0dc257d35d5728ec0c427bed891b80d0e02e')
