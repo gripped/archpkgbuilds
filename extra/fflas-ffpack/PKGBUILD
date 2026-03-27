@@ -2,15 +2,16 @@
 
 pkgname=fflas-ffpack
 pkgver=2.5.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A library for dense linear algebra over word-size finite fields'
 arch=(x86_64)
 url='https://linbox-team.github.io/fflas-ffpack/'
 license=(LGPL-2.1-or-later)
 depends=(cblas
-         gcc-libs
          givaro
          glibc
+         libgcc
+         libstdc++
          sh)
 makedepends=(git
              lapack)
