@@ -8,15 +8,15 @@ pkgname=(
   check-docs
 )
 pkgver=0.15.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Unit testing framework for C"
 url="https://libcheck.github.io/check/"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
   awk
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(
   cmake
