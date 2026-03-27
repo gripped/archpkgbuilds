@@ -1,14 +1,15 @@
 pkgbase = anari-sdk
 	pkgdesc = ANARI Software Development Kit (SDK)
 	pkgver = 0.13.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/KhronosGroup/ANARI-SDK
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = cmake
 	makedepends = git
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = python
 	source = git+https://github.com/KhronosGroup/ANARI-SDK#tag=v0.13.1
 	sha256sums = cbcbe8a3ead5fb88b9a91d629316d334f284fb7efdf9c83b1b09bfde3738f419

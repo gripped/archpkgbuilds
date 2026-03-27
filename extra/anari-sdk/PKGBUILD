@@ -2,13 +2,14 @@
 
 pkgname=anari-sdk
 pkgver=0.13.1
-pkgrel=1
+pkgrel=2
 pkgdesc='ANARI Software Development Kit (SDK)'
 arch=(x86_64)
 url='https://github.com/KhronosGroup/ANARI-SDK'
 license=(Apache-2.0)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          python)
 makedepends=(cmake
              git)
