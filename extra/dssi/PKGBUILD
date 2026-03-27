@@ -5,7 +5,7 @@
 
 pkgname=dssi
 pkgver=1.1.1
-pkgrel=13
+pkgrel=14
 pkgdesc="An API for audio processing plugins & softsynths with UIs"
 arch=(x86_64)
 url="https://dssi.sourceforge.net/"
@@ -15,10 +15,11 @@ license=(
 )
 depends=(
   alsa-lib
-  gcc-libs
   glibc
-  liblo
   jack
+  libgcc
+  liblo
+  libstdc++
 )
 makedepends=(
   ladspa
