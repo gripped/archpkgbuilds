@@ -8,10 +8,10 @@ pkgname=(
   evince-lib-docs
 )
 pkgver=48.1
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)"
-url="https://apps.gnome.org/Evince"
+url="https://gitlab.gnome.org/GNOME/evince"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
@@ -20,7 +20,6 @@ depends=(
   dconf
   djvulibre
   exempi
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
@@ -34,6 +33,7 @@ depends=(
   gvfs
   hicolor-icon-theme
   libarchive
+  libgcc
   libgxps
   libhandy
   libsecret
