@@ -3,12 +3,12 @@
 
 pkgname=cross
 pkgver=0.2.5
-pkgrel=2
+pkgrel=3
 pkgdesc="'Zero setup' cross compilation and 'cross testing' of Rust crates"
 url="https://github.com/rust-embedded/cross"
 arch=('x86_64')
 license=('Apache-2.0' 'MIT')
-depends=('gcc-libs')
+depends=('glibc' 'libgcc')
 makedepends=('rust')
 optdepends=('docker: provide container'
             'podman: provide container')
