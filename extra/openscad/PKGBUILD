@@ -7,7 +7,7 @@
 
 pkgname=openscad
 pkgver=2021.01
-pkgrel=20
+pkgrel=21
 pkgdesc='The programmers solid 3D CAD modeller'
 arch=(x86_64)
 url='https://openscad.org'
@@ -109,6 +109,8 @@ build() {
 
   # https://github.com/openscad/openscad/commit/426e71260e2ac178289c30eb1a228912d07c5b16
   export LIB3MF_INCLUDEPATH="/usr/include/lib3mf/Bindings/Cpp"
+  # To fix qmake emitting '-L -l3mf' instead of a real lib3mf search path.
+  export LIB3MF_LIBPATH="/usr/lib"
 
   # cmake scripts have no install instructions as of ver 2021.01,
   # so let's wait until using cmake for building
