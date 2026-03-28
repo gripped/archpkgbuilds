@@ -5,8 +5,8 @@ pkgname=(
     libzypp
     libzypp-docs
 )
-pkgver=17.37.18
-pkgrel=2
+pkgver=17.38.5
+pkgrel=1
 pkgdesc="ZYpp Package Management library"
 arch=(x86_64)
 url="https://github.com/openSUSE/libzypp"
@@ -19,11 +19,11 @@ makedepends=(
     curl
     doxygen
     fcgi
-    gcc-libs
     git
     glib2
     glibc
     gpgme
+    libgcc
     libproxy
     libsigc++
     libsolv
@@ -43,7 +43,7 @@ makedepends=(
 #     squid
 # )
 source=("git+https://github.com/openSUSE/libzypp.git#tag=${pkgver}")
-sha256sums=('2523bc75ec277ab63e6f69fb6543509a7f3a491150a1a2e6292d66a2beaac24a')
+sha256sums=('704453b734e98b5711011c9685ee5cb578dac861d0ee8b9a12c5231e072a3819')
 
 build() {
     local cmake_options=(
