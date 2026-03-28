@@ -2,13 +2,12 @@
 
 pkgname=heaptrack
 pkgver=1.5.0
-pkgrel=8
+pkgrel=9
 arch=(x86_64)
 pkgdesc='A heap memory profiler for Linux'
 url='https://apps.kde.org/heaptrack/'
 license=(LGPL-2.1-or-later)
 depends=(boost-libs
-         gcc-libs
          glibc
          kcolorscheme
          kconfig
@@ -20,6 +19,8 @@ depends=(boost-libs
          kio
          kwidgetsaddons
          libelf
+         libgcc
+         libstdc++
          libunwind
          qt6-base
          qt6-svg
@@ -35,10 +36,10 @@ source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz
         https://invent.kde.org/sdk/heaptrack/-/commit/99348321819fe8efb3771b2dcd9aaffbc598b271.patch)
 sha256sums=('a278d9d8f91e8bfb8a1c2f5b73eecab47fd45d0693f5dbea637536413cec2ea5'
             'SKIP'
-            'a077c8aaaa6ce609bc9bef5daa91784647dc4248774a1236a72759af430d972f'
-            '4108dce8193e031b8f90ab6f70e33d0fdc1b9ffd837ccf4871cd9a06392cbb1c'
-            'e472792c6c4966debb0a50ddc1ae564c9dc52a71603cbe98fc5c40266e3b978a'
-            '1f4087c3bed60d80e790540a15beefc58e12725a207579743bda8ad4cd027816')
+            'ccc16118ee25a0ac71d419c7c4176768f162c1c0f6dde3e5238d242e676bc1cf'
+            'c1111a5792c09ffff2c7c1dbfc6c2b95c995277532ccd1178ff38ad66c3db22a'
+            'ba7b9ebfd9eb0ac6ffaae4dc08fa1f2315b7d150c7e4e4c76a12a531305790c7'
+            '308b9cd0bb84aaf51f5a393bdc5a7945ea3d9f8f36e6abb747674b81fb5a40a5')
 validpgpkeys=(3D8568869097C65C98F8D2760C0EB212CD1D1393
               C51B45A532F17FA401D099A0A0C6B72C4F1C5E7C) # Milian Wolff <mail@milianw.de>
 
