@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=collada-dom
 pkgver=2.5.0
-pkgrel=2
+pkgrel=3
 pkgdesc="COLLADA Document Object Model (DOM) C++ Library"
 arch=('x86_64')
 url="https://github.com/rdiankov/collada-dom/"
@@ -20,6 +20,8 @@ prepare() {
 
   patch -Np1 -i "$srcdir/$pkgname-fix-boost1.85.patch"
   patch -p1 -i ../boost-1.89.patch
+  sed -i 's|<unzip.h>|<minizip/unzip.h>|' dom/include/dae/daeZAEUncompressHandler.h
+  sed -i 's|<zip.h>|<minizip/zip.h>|' dom/src/modules/LIBXMLPlugin/daeLIBXMLPlugin.cpp
 }
 
 build() {
