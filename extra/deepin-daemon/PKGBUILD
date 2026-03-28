@@ -4,7 +4,7 @@
 
 pkgname=deepin-daemon
 pkgver=6.1.46
-pkgrel=1
+pkgrel=2
 pkgdesc='Daemon handling the DDE session settings'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-daemon"
@@ -109,4 +109,7 @@ package() {
   make DESTDIR="$pkgdir" PAM_MODULE_DIR=usr/lib/security install
 
   install -Dm644 debian/dde-daemon.sysusers "$pkgdir/usr/lib/sysusers.d/deepin-daemon.conf"
+
+  # Now provided by deepin-services
+  rm "$pkgdir/usr/share/dsg/configs/org.deepin.dde.daemon/org.deepin.XSettings.json"
 }
