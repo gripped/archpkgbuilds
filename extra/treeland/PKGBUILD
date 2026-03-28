@@ -3,7 +3,7 @@
 
 pkgname=treeland
 pkgver=0.8.5
-pkgrel=6
+pkgrel=7
 pkgdesc='New wayland compositer for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/treeland"
@@ -30,6 +30,10 @@ prepare() {
   patch -p1 < ../0001-fix-textinputv2-fatal-error-on-missing-surface.patch
   # Fix WWrapObjectPrivate symbol visibility (upstream PR #772)
   git cherry-pick -n ab189f528880fd1b8a52716ff2dce7902f23bb1c
+
+  # Fix WAYLAND_DISPLAY to use relative path so WebKitGTK's bubblewrap sandbox works
+  sed -i 's|WAYLAND_DISPLAY=%t/treeland.socket|WAYLAND_DISPLAY=treeland.socket|' \
+    misc/systemd/dde-session-pre.target.wants/treeland-sd.service.in
 
   # Fix wallpaper paths
   sed -i 's|/usr/share/backgrounds/default_background.jpg|/usr/share/backgrounds/deepin/desktop.jpg|' misc/dconfig/org.deepin.dde.treeland{,.user}.json
