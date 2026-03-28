@@ -3,7 +3,7 @@
 
 pkgname=ddm
 pkgver=0.3.3
-pkgrel=2
+pkgrel=3
 pkgdesc='New Display Manager for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/ddm"
@@ -44,4 +44,7 @@ build() {
 package() {
   cd ddm
   DESTDIR="$pkgdir" ninja install
+
+  # Provided by lightdm and other display managers implementing the interface
+  rm "$pkgdir/usr/share/dbus-1/system.d/org.freedesktop.DisplayManager.conf"
 }
