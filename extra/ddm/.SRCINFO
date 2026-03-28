@@ -1,7 +1,7 @@
 pkgbase = ddm
 	pkgdesc = New Display Manager for DDE
 	pkgver = 0.3.3
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/linuxdeepin/ddm
 	arch = x86_64
 	groups = deepin
@@ -25,6 +25,8 @@ pkgbase = ddm
 	depends = xorg-server
 	depends = xorg-xauth
 	source = git+https://github.com/linuxdeepin/ddm.git#tag=0.3.3
+	source = 0001-fix-pam-fork-atexit-deadlock.patch
 	sha512sums = 011bd1be647aca6a07c2627fc58aee3d2e993f53033f43b10baaba8577984a1b3179d916510bfb56c01b24e239b97ef7661be5bbf96ff89eec6d860827de8351
+	sha512sums = 5998b86342f3619a5591bdc87da59fab104ce1d56e4668fe0ff5d285f6680bc25f5c41b0bc9a8b1576a3bb52a93eff3bd89622984cde46c4f7cd4fed49f59eca
 
 pkgname = ddm
