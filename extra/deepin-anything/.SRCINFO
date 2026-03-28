@@ -1,29 +1,29 @@
 pkgbase = deepin-anything
 	pkgdesc = Deepin Anything file search tool
-	pkgver = 6.2.11
-	pkgrel = 1
+	pkgver = 7.0.0
+	pkgrel = 2
 	url = https://github.com/linuxdeepin/deepin-anything
 	arch = x86_64
 	license = GPL-3.0-or-later
+	makedepends = git
 	makedepends = cmake
-	makedepends = udisks2-qt5
-	makedepends = glib2
+	makedepends = qt5-base
 	makedepends = libnl
-	makedepends = pcre2
-	makedepends = polkit-qt5
-	source = https://github.com/linuxdeepin/deepin-anything/archive/6.2.11/deepin-anything-6.2.11.tar.gz
+	makedepends = lucene++
+	makedepends = util-linux
+	makedepends = boost
+	source = git+https://github.com/linuxdeepin/deepin-anything.git#tag=7.0.0
 	source = 0001-fix-Rename-init_mnt_ns-to-avoid-symbol-clash-with-ke.patch
-	sha512sums = 4aae4b46d69cad54d1ad891e415b74a8c46c02cf44f54341cfcf3544547b2150df29a4258977f9ce3756f3b0d134b808c0d86d0e258aa1ac6bf1af8bbd14ec8f
+	sha512sums = 91a27321efff94aba778be5903146e10ab2c51b98a9e0121417d212b1828b186e7f65afea93b903164c4c7989c4e012a5b23efc3be3b19bd413e41bcffc6b631
 	sha512sums = 4d41abba018d90f186a6c5f5af24dd4f1f43858c5ce977eba98c20f6c86df86382ed26c13fc04d8b93350a202ceb58946cc316eb8364fd6d6c0f4241eee0c3cd
 
 pkgname = deepin-anything
 	groups = deepin
 	depends = DEEPIN-ANYTHING-MODULE
-	depends = udisks2-qt5
-	depends = glib2
+	depends = qt5-base
 	depends = libnl
-	depends = pcre2
-	depends = polkit-qt5
+	depends = lucene++
+	depends = util-linux-libs
 
 pkgname = deepin-anything-dkms
 	depends = dkms

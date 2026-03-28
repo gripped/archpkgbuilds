@@ -2,24 +2,33 @@
 
 pkgbase=deepin-anything
 pkgname=(deepin-anything deepin-anything-dkms)
-pkgver=6.2.11
+pkgver=7.0.0
 _extramodules=extramodules-ARCH
-pkgrel=1
+pkgrel=2
 pkgdesc="Deepin Anything file search tool"
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-anything"
 license=('GPL-3.0-or-later')
-makedepends=('cmake' 'udisks2-qt5' 'glib2' 'libnl' 'pcre2' 'polkit-qt5')
+makedepends=('git' 'cmake' 'qt5-base' 'libnl' 'lucene++' 'util-linux' 'boost')
 source=(
-  "https://github.com/linuxdeepin/deepin-anything/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+  "git+https://github.com/linuxdeepin/deepin-anything.git#tag=$pkgver"
   0001-fix-Rename-init_mnt_ns-to-avoid-symbol-clash-with-ke.patch
 )
-sha512sums=('4aae4b46d69cad54d1ad891e415b74a8c46c02cf44f54341cfcf3544547b2150df29a4258977f9ce3756f3b0d134b808c0d86d0e258aa1ac6bf1af8bbd14ec8f'
+sha512sums=('91a27321efff94aba778be5903146e10ab2c51b98a9e0121417d212b1828b186e7f65afea93b903164c4c7989c4e012a5b23efc3be3b19bd413e41bcffc6b631'
             '4d41abba018d90f186a6c5f5af24dd4f1f43858c5ce977eba98c20f6c86df86382ed26c13fc04d8b93350a202ceb58946cc316eb8364fd6d6c0f4241eee0c3cd')
 
 prepare() {
+  cd "$pkgbase"
+
+  git cherry-pick -n 88e3f81
+  git cherry-pick -n 2ee1165
+
   # Fix build with kernel 6.18
-  patch -d "$pkgbase-$pkgver" -Np1 < 0001-fix-Rename-init_mnt_ns-to-avoid-symbol-clash-with-ke.patch
+  patch -Np1 < "$srcdir"/0001-fix-Rename-init_mnt_ns-to-avoid-symbol-clash-with-ke.patch
+
+  # Fix configuration with modern CMake
+  sed -i 's/cmake_minimum_required(VERSION 3\.1\.0)/cmake_minimum_required(VERSION 3.5)/' CMakeLists.txt src/kernelmod/CMakeLists.txt
+  sed -i 's/cmake_minimum_required(VERSION 3\.1)/cmake_minimum_required(VERSION 3.5)/' src/server/CMakeLists.txt
 }
 
 _pick() {
@@ -33,7 +42,7 @@ _pick() {
 }
 
 build() {
-  cmake -B build -S "$pkgbase-$pkgver" \
+  cmake -B build -S "$pkgbase" \
     -DCMAKE_BUILD_TYPE='None' \
     -DCMAKE_INSTALL_PREFIX='/usr' \
     -Wno-dev
@@ -41,15 +50,13 @@ build() {
 }
 
 package_deepin-anything() {
-  depends=('DEEPIN-ANYTHING-MODULE' 'udisks2-qt5' 'glib2' 'libnl' 'pcre2' 'polkit-qt5')
+  depends=('DEEPIN-ANYTHING-MODULE' 'qt5-base' 'libnl' 'lucene++' 'util-linux-libs')
   groups=('deepin')
 
   DESTDIR="$pkgdir" cmake --install build
 
   cd "$pkgdir"
   _pick $pkgbase-dkms usr/src/
-
-  mv "$pkgdir"/etc/dbus-1/system.d "$pkgdir"/usr/share/dbus-1/system.d
 }
 
 package_deepin-anything-dkms() {
