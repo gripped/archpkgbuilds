@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-desktop-theme
-pkgver=1.1.16
+pkgver=1.1.17
 pkgrel=1
 pkgdesc='Theme resources for Deepin desktop environment'
 arch=('any')
@@ -11,7 +11,7 @@ makedepends=('git' 'cmake' 'ninja')
 optdepends=('adobe-source-han-sans-otc-fonts: theme standard font')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/deepin-desktop-theme.git#tag=$pkgver")
-sha512sums=('0f93c140b72d59e1750c42820881bb0c2047f87011bee23bf225720cb6681304a7330ffab923aa4ce50960ae0bea945f6f6730a0dbf42d3f0467af5b20456dd5')
+sha512sums=('ac57d3cee2f41c65114a34f5dda9ae91c152b0064415f425b797e1b136c7bebc8486b3b58d4237986181ef94ad7b1b722caf55e42c395e85fc3160908b47a44c')
 
 prepare() {
   cd deepin-desktop-theme
