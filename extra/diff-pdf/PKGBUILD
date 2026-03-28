@@ -3,8 +3,8 @@
 # Contributor: Marcell Meszaros < marcell.meszaros AT runbox.eu >
 
 pkgname=diff-pdf
-pkgver=0.5.2
-pkgrel=4
+pkgver=0.5.3
+pkgrel=1
 pkgdesc="A simple tool for visually comparing two PDF files"
 arch=(x86_64)
 url="http://vslavik.github.io/diff-pdf"
@@ -20,7 +20,7 @@ depends=(
   wxwidgets-gtk3
 )
 source=(https://github.com/vslavik/diff-pdf/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('7d018f05e30050a2b49dee137f084584b43aec87c7f5ee9c3bbd14c333cbfd54')
+sha256sums=('dc4004fe1199eebf381b5e0f2a60b6b59ff73434730e4f0aae1e0d02fa171b98')
 
 prepare() {
   cd $pkgname-$pkgver
