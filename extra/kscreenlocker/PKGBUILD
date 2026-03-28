@@ -3,7 +3,7 @@
 pkgname=kscreenlocker
 pkgver=6.6.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Library and components for secure lock screen architecture'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
