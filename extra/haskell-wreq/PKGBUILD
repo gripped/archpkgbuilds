@@ -2,11 +2,11 @@
 
 _hkgname=wreq
 pkgname=haskell-wreq
-pkgver=0.5.4.3
-pkgrel=225
+pkgver=0.5.4.4
+pkgrel=1
 pkgdesc="An easy-to-use HTTP client library."
 url="https://github.com/bos/wreq"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-authenticate-oauth'
          'haskell-base16-bytestring' 'haskell-case-insensitive' 'haskell-crypton'
@@ -19,7 +19,7 @@ makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-doctest' 'haskell-hunit' 'ha
              'haskell-network-info' 'haskell-temporary' 'haskell-test-framework'
              'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2' 'haskell-vector')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('ea2e601f6a07921e43f355b0d42f025f17ccf5cc69f71919fb79efce2874ec3afc0e165a34eb5ccf5899c6b6815ab5288965533172bea03966edff65dc5d08e9')
+sha512sums=('e2cd3397dcad7df094826c2fe66ff13a540073d2b3a0409992da67d13e512094830d4fc524a62b0d29dbf358c752c4fa1d184e6f54c26470eb27d941b0e72e94')
 
 prepare() {
     cd $_hkgname-$pkgver
