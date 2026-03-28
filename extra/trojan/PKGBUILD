@@ -3,7 +3,7 @@
 
 pkgname=trojan
 pkgver=1.16.0
-pkgrel=15
+pkgrel=16
 pkgdesc="An unidentifiable mechanism that helps you bypass GFW"
 arch=('x86_64')
 url="https://github.com/trojan-gfw/trojan"
