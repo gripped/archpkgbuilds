@@ -3,8 +3,8 @@
 
 _hkgname=psqueues
 pkgname=haskell-psqueues
-pkgver=0.2.8.2
-pkgrel=55
+pkgver=0.2.8.3
+pkgrel=1
 pkgdesc="Pure priority search queues"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD-3-Clause')
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-hashable')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tagged' 'haskell-tasty'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('52ebca058422283c5bb9b4522c9617bc61e7a2dacbcbbf6c9548c2b63aca2396db30fb073f453097f77d8781628ae97b2898bada81c1cf4c320c5dd535aa10f0')
+sha512sums=('922494a01935dd4e95eceae873937fb7c3d3b253376eb37910286f145e8a07bd503c6ead68755c978650df941caabee68ba82829ac7a0be8ca3f73ecd32b724d')
 
 build() {
     cd $_hkgname-$pkgver
