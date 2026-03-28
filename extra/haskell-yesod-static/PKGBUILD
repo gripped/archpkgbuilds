@@ -4,7 +4,7 @@
 _hkgname=yesod-static
 pkgname=haskell-yesod-static
 pkgver=1.6.1.0
-pkgrel=979
+pkgrel=980
 pkgdesc="Static file serving subsite for Yesod Web Framework."
 url="http://www.yesodweb.com/"
 license=("MIT")
@@ -18,6 +18,12 @@ depends=('ghc-libs' 'haskell-async' 'haskell-attoparsec' 'haskell-base64-bytestr
 makedepends=('ghc' 'haskell-hspec' 'haskell-hunit' 'haskell-wai-extra' 'haskell-yesod-test')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('66037ec28eac83e374161c1b306a4d20805ecb35ccfc4878e7894d961daaf30d9936c6e209641ff323d7e3dd5626f5a24a12915d4205417c496e272a2e969f6e')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    # text/javascript is the official MIME type per RFC 9239, application/javascript is obsolete
+    sed -i 's/"application\/javascript"/"text\/javascript"/' test/EmbedProductionTest.hs
+}
 
 build() {
     cd $_hkgname-$pkgver
