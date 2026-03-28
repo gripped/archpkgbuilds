@@ -1,17 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-network-core
-pkgver=2.0.41
-pkgrel=2
+pkgver=2.0.42
+pkgrel=1
 pkgdesc='DDE network library and plugins'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-network-core"
-license=('LGPL-3.0-or-later')
+license=('GPL-3.0-or-later' 'LGPL-3.0-or-later')
 depends=(deepin-control-center glibc libgcc libstdc++ dtk6core dtk6declarative dtk6log qt6-base qt6-declarative networkmanager-qt systemd-libs)
 makedepends=(git cmake deepin-session-shell gtest ninja qt6-tools)
 groups=(deepin)
 source=(git+https://github.com/linuxdeepin/dde-network-core.git#tag=$pkgver)
-sha512sums=('62dfc93a821cf6434c4ede525f39dfdbbc4e15b65b49ed3f8c55a99d1018519302b6081108dd850ea444f804efbe93174b3c3f29a8af236f5b0b1aaa2d29f80b')
+sha512sums=('4d061ad3f2648b592ffb73df2926ebfff300ebba31c6c62236c73df888d3731de5304fa9a9690b7d2d6fe9c0bb3e29334689de6acbcc6d4b55650aab4af3e1ee')
 
 prepare() {
   cd dde-network-core
@@ -19,8 +19,8 @@ prepare() {
   git cherry-pick -n 36db3cdb78af14bde08c4a797a890b8e276794c6
   # disable tests
   git cherry-pick -n e1841f0bf240402ad49c1c595c39cc51a1b9197c
-  # dss_example & dss-network-plugin needs qt6 version of dde-session-shell
-  sed -i '/dss-network-plugin/d;/dss_example/d' CMakeLists.txt
+  # dss_example, dss-network-plugin, and network-service-plugin do not build against our available stack
+  sed -i '/network-service-plugin/d;/dss-network-plugin/d;/dss_example/d' CMakeLists.txt
 }
 
 build() {
