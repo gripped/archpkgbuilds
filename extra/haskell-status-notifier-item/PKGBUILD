@@ -2,18 +2,18 @@
 
 _hkgname=status-notifier-item
 pkgname=haskell-status-notifier-item
-pkgver=0.3.1.0
-pkgrel=320
+pkgver=0.3.2.0
+pkgrel=1
 pkgdesc="A wrapper over the StatusNotifierItem/libappindicator dbus specification"
 url="https://github.com/IvanMalison/status-notifier-item#readme"
-license=("BSD")
+license=("BSD-3-Clause")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-byte-order' 'haskell-bytestring-to-vector' 'haskell-dbus'
          'haskell-dbus-hslogger' 'haskell-hslogger' 'haskell-lens' 'haskell-optparse-applicative'
          'haskell-vector')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('49b5eb5c94e93f5dd7eb9d708d99bbf2904895af4bc0e572ac85eeb484c27ff4')
+sha256sums=('9c38c8975e2ea002ea744fdfeb5e1dd48e9c8df8dae9e68535e757bbac765e42')
 
 build() {
   cd $_hkgname-$pkgver
