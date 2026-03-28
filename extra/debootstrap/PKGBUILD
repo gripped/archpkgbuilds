@@ -1,11 +1,11 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=debootstrap
-pkgver=1.0.142
+pkgver=1.0.143
 pkgrel=1
 pkgdesc="Bootstrap a basic Debian system"
 arch=('any')
-license=('GPL')
+license=('MIT')
 url="https://tracker.debian.org/pkg/debootstrap"
 depends=('distro-info' 'perl' 'wget')
 makedepends=('git')
@@ -15,7 +15,7 @@ optdepends=('gnupg: check release signatures'
             'debian-archive-keyring: check release signatures for Debian'
             'debian-ports-archive-keyring: check release signatures for Debian Ports'
             'ubuntu-keyring: check release signatures for Ubuntu')
-sha512sums=('970c31a165824dab360f34936f491fee1e85b27f596db30058908bc995141faabf5bb8b1165236b45480b71558d046461da93420b746a3d5adfea2834be295d4'
+sha512sums=('677774e83ebac8f128048b4672c39f6994bffdfdf5344fdaa9def20b752cb68fc485e2f2d56b7206a49ba6a5e754a968fd20326158f728b1898467d509ba50b0'
             'b1fdff6142326c2a5075e457181a85cb2a37848c777f128f4c0eb3740980784d25d4f143a76b97c90ef252463cc5d8bd0797b2544c27b6dd8e05a6258a6b0c02')
 
 prepare() {
