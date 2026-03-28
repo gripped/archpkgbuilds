@@ -1,6 +1,6 @@
 pkgbase = ob-xf
 	pkgdesc = Virtual analog synthesizer based on the Oberheim OB-X, OB-Xa and OB-8 synths
-	pkgver = 1.0.2
+	pkgver = 1.0.3
 	pkgrel = 1
 	url = https://github.com/surge-synthesizer/OB-Xf
 	arch = x86_64
@@ -33,7 +33,7 @@ pkgbase = ob-xf
 	makedepends = jack
 	replaces = ob-xd
 	options = !lto
-	source = ob-xf::git+https://github.com/surge-synthesizer/OB-Xf#tag=v1.0.2
+	source = ob-xf::git+https://github.com/surge-synthesizer/OB-Xf#tag=v1.0.3
 	source = devendor-libs.patch
 	source = github.com-juce-framework-JUCE::git+https://github.com/juce-framework/JUCE
 	source = github.com-surge-synthesizer-sst-cmake::git+https://github.com/surge-synthesizer/sst-cmake
@@ -47,7 +47,7 @@ pkgbase = ob-xf
 	source = github.com-free-audio-clap-helpers::git+https://github.com/free-audio/clap-helpers
 	source = github.com-ODDSound-MTS-ESP::git+https://github.com/ODDSound/MTS-ESP
 	source = github.com-gulrak-filesystem::git+https://github.com/gulrak/filesystem
-	sha512sums = e951efa7e0421e28053561cc55ad525c9088871604d05848e29b2203a81953adac00fe76ec18fbb1da7e4a05b2a749e477a3599821f9a9fbf75559f704615114
+	sha512sums = e166379ffec06d23e2bd57798a6e35fe58ef56b17782a9b0c3d3c3edfa2e7f90a7bc64710d87c8ef78e3da65e18e235ed51749a3e9dd344c4018b6e4aa00d089
 	sha512sums = 7cb468b2ff5e7321d793ee9d98b61f42db728bcbac7fd54f77021dc22c9f9145d93e17f121441619fc9d07a074444bb2d1e4f6d97e53425879f75f3d9aa2f6a7
 	sha512sums = SKIP
 	sha512sums = SKIP
@@ -61,7 +61,7 @@ pkgbase = ob-xf
 	sha512sums = SKIP
 	sha512sums = SKIP
 	sha512sums = SKIP
-	b2sums = 8045a6bfd09fb00abd41fe7cc1273ec6c5b879d09fcd9b852ef85f2ec4e65ec36be68ee5679ba6113914199114a916e76bc05158bd49daee8bc21dae84b1f13f
+	b2sums = bfdd018fd92fbc3f4fec9a494f5a51691d7246671f31ad52f10e8f7341973840f2f65046ea98af1e0673aeb59be5eafead8d1b22e6a8d7f9ffa5a8e12ce1b945
 	b2sums = 28f037d8c8db04bd1cadef6072f752d57fa958f19fa565c8a11fae0f647a3ed3371a9b88fa58a139ab42e3ce803296058cdc5a1a5dd544048daaec3053c848cc
 	b2sums = SKIP
 	b2sums = SKIP
@@ -81,7 +81,7 @@ pkgname = ob-xf-common
 
 pkgname = ob-xf-standalone
 	pkgdesc = Virtual analog synthesizer based on the Oberheim OB-X, OB-Xa and OB-8 synths - standalone
-	depends = ob-xf-common=1.0.2
+	depends = ob-xf-common=1.0.3
 	depends = hicolor-icon-theme
 	depends = glibc
 	depends = libgcc
@@ -106,7 +106,7 @@ pkgname = ob-xf-vst3
 	pkgdesc = Virtual analog synthesizer based on the Oberheim OB-X, OB-Xa and OB-8 synths - VST3 plugin
 	groups = pro-audio
 	groups = vst3-plugins
-	depends = ob-xf-common=1.0.2
+	depends = ob-xf-common=1.0.3
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
@@ -129,7 +129,7 @@ pkgname = ob-xf-lv2
 	pkgdesc = Virtual analog synthesizer based on the Oberheim OB-X, OB-Xa and OB-8 synths - LV2 plugin
 	groups = pro-audio
 	groups = lv2-plugins
-	depends = ob-xf-common=1.0.2
+	depends = ob-xf-common=1.0.3
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
@@ -152,7 +152,7 @@ pkgname = ob-xf-clap
 	pkgdesc = Virtual analog synthesizer based on the Oberheim OB-X, OB-Xa and OB-8 synths - CLAP plugin
 	groups = pro-audio
 	groups = clap-plugins
-	depends = ob-xf-common=1.0.2
+	depends = ob-xf-common=1.0.3
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
