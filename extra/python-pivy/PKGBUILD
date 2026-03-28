@@ -3,8 +3,8 @@
 # Contributor: Grey Christoforo
 
 pkgname=python-pivy
-pkgver=0.6.10
-pkgrel=4
+pkgver=0.6.11
+pkgrel=1
 epoch=1
 pkgdesc='Python bindings to Coin3D'
 arch=(x86_64)
@@ -28,8 +28,8 @@ makedepends=(
   swig
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('054dc64126d53095f503377711d0d719cf56f3f9aa770a6c338ba774519f5e1c37410fad46f4caa3e5716a425437a8e734200bf39ce75db83db02bd02eb00724')
-b2sums=('a56b7c91fd28bc568468b2788b06b42d8b41a2b3122d2518e9aaa357f46953a478dde4582d1e131314bd437444503970edffb66e6303800700d44c73cd42cf7c')
+sha512sums=('870157cb85fbac12ba9a2563ca37527047869662e6f3673e63ae653139886991c90cf4181d815713978d67202a33930a1d867076f6289563551c813e5ee3068e')
+b2sums=('e6de880fd52a9ba6795bd3949b8fc89baf4391ba0317e9ec8178121a3eb562c4126ed9eea8a159d351141b332cb17b745c0b0f3092564e6c27f9294de88b61f0')
 
 build() {
   cd "$pkgname"
