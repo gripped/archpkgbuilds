@@ -1,6 +1,7 @@
 [Unit]
 Description=Prometheus style smokeping
-After=network.target
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 ExecStart=/usr/bin/prometheus-smokeping-prober --config.file="/etc/prometheus/smokeping_prober.yml"
