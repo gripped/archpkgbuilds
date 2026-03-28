@@ -4,19 +4,27 @@
 # This must be built against the version of dovecot being used,
 # otherwise it will fail to load and thus work.
 # Specify the version of dovecot to be used here:
-_dcpkgver=2.4.2
+_dcpkgver=2.4.3
 # Make sure to bump pkgrel if changing this.
 
 pkgname=dovecot-fts-xapian
 _pkgname="${pkgname#dovecot-}"
 pkgver=1.9.3
-pkgrel=3
+pkgrel=4
 pkgdesc="Dovecot FTS plugin based on Xapian"
-arch=('x86_64')
+arch=(x86_64)
 url="https://github.com/grosjo/fts-xapian"
-license=('LGPL-2.1-or-later')
-depends=("dovecot=${_dcpkgver}" 'icu' 'xapian-core')
-makedepends=('git')
+license=(LGPL-2.1-or-later)
+depends=(
+  "dovecot=${_dcpkgver}"
+  icu
+  xapian-core
+  glibc
+  libgcc
+  libstdc++
+  sqlite
+)
+makedepends=(git)
 install="$pkgname.install"
 source=("$pkgname::git+$url#tag=$pkgver")
 sha512sums=('48145178b9d95717f688d4dd0c61a6695f98aa12f418e44fc9b3815f2062cda3da1f3421da11b3fe3d7d75da68d906309a801070b39fb6723533d11c036b7301')
