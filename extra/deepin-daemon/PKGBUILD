@@ -4,7 +4,7 @@
 
 pkgname=deepin-daemon
 pkgver=6.1.46
-pkgrel=2
+pkgrel=4
 pkgdesc='Daemon handling the DDE session settings'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-daemon"
@@ -86,9 +86,14 @@ prepare() {
 
   sed -i 's|/usr/share/backgrounds/|/usr/share/backgrounds/deepin/|' accounts1/user.go
   sed -i 's|default_background.jpg|desktop.jpg|' accounts1/user.go
+  sed -i 's|icons/default|icons/animal/raccoon.png|' accounts1/user.go
 
   # Fix unused kernel variable in setPlymouthTheme
   sed -z -i 's/\n\tkernel, err := exec\.Command("uname", "-r")\.CombinedOutput()\n\tif err != nil {\n\t\treturn fmt\.Errorf("failed to get kernel, err: %v", err)\n\t}\n\tout, err = exec\.Command("update-initramfs", "-u", "-k", "all")/\n\tout, err = exec.Command("update-initramfs", "-u", "-k", "all")/' bin/dde-system-daemon/plymouth.go
+
+  # Remove duplicate/wrong SystemdService entry that prevents D-Bus activation
+  # (deepin-accounts1-daemon.service does not exist on Arch)
+  sed -i '/deepin-accounts1-daemon/d' misc/system-services/org.deepin.dde.Accounts1.service
 }
 
 build() {
