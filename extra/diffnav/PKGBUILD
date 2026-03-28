@@ -1,5 +1,5 @@
 pkgname=diffnav
-pkgver=0.10.0
+pkgver=0.11.0
 pkgrel=1
 pkgdesc='git diff pager based on delta but with a file tree, à la GitHub'
 url='https://github.com/dlvhdr/diffnav'
@@ -19,8 +19,8 @@ options=(!lto)
 source=(
   "${url}/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
 )
-sha512sums=('c36cee829baddf85771af387501b9ba8004f9bc0d55c1da2baa28be0d086e3712317981e40ae9e32900b62fca8c7dd88cef016d6f210ccec5d422778be192cc9')
-b2sums=('157d19a23a8fc448222265e7618afaaf39bc0aea6b57afaa63362d0fe19dd78cdba3a080f224fbef94ef76372599a49841b31bcd11f9662122fee8255109f2db')
+sha512sums=('474dc015206f210cff2674b5c823c43cd3c8debec170cf6aef6d5444c753369aa4f7c21be447208dfb1245dcc964d9fd934e18f77964c3c2f814d455a8a76259')
+b2sums=('64ab8a7c86621a950ab882a1945f58ac3330e8803071e7712f87522aff4d89c26580fb8cb0edd49595dbb3f64eefc21bfd9c21d54d9eeef4e9e45616897d6aef')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
