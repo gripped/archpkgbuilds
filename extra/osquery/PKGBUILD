@@ -2,8 +2,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=osquery
-pkgver=5.21.0
-pkgrel=1
+pkgver=5.22.1
+pkgrel=2
 pkgdesc="SQL powered operating system instrumentation, monitoring, and analytics"
 arch=(x86_64)
 url="https://osquery.io"
@@ -34,14 +34,15 @@ depends=(
   dbus
   device-mapper
   file
-  gcc-libs
   gflags
   glibc
   google-glog
   iptables
   libarchive
   libcap
+  libgcc
   librdkafka
+  libstdc++
   openssl
   popt
   rocksdb
@@ -89,7 +90,7 @@ source=(
   "$pkgname-gcc-15.patch"
   "$pkgname-boost-1.89.0-compatibility.patch"
 )
-b2sums=('fed075b3e6b6243f9026c53ec1bfcd683219d21fd2c497078e4100ec24970473d1a214bef64a419dab6e6c70763a119c7711a589b3d47a215db551c3e5f05a93'
+b2sums=('eb568993e97160eb9fe9a80e86e47266b857a9d56c01ed947b0d2613f60eb8a88d131701726d5ba877d7f7dd4add2ac46e0947dda01fb2d4a38d8c09f088c9cd'
         'SKIP'
         'SKIP'
         '928ec1b653f8d06e0dce4d0ce6702060981e02e6033585079b1956e5b6b60030c5346f2eee4fc0cb369610e1bacd636ac7fa89fe00619c0cd58ef3f4e2a13e94'
