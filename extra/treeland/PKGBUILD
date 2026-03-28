@@ -3,7 +3,7 @@
 
 pkgname=treeland
 pkgver=0.8.5
-pkgrel=3
+pkgrel=5
 pkgdesc='New wayland compositer for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/treeland"
@@ -27,6 +27,10 @@ prepare() {
   patch -p1 < ../qt-6.10.2.patch
   # Fix WWrapObjectPrivate symbol visibility (upstream PR #772)
   git cherry-pick -n ab189f528880fd1b8a52716ff2dce7902f23bb1c
+
+  # Fix wallpaper paths
+  sed -i 's|/usr/share/backgrounds/default_background.jpg|/usr/share/backgrounds/deepin/desktop.jpg|' misc/dconfig/org.deepin.dde.treeland{,.user}.json
+  sed -i 's|/usr/share/wallpapers/deepin/deepin-default.jpg|/usr/share/wallpapers/deepin/desktop.jpg|' src/wallpaper/wallpapermanager.cpp
 }
 
 build() {
