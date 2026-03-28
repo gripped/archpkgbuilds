@@ -10,13 +10,14 @@ pkgname=(
   python-uhd
 )
 pkgver=4.9.0.1
-pkgrel=4
+pkgrel=6
 pkgdesc="Universal Software Radio Peripheral (USRP) userspace driver"
 arch=(x86_64)
 url="https://github.com/EttusResearch/uhd"
 license=(GPL-3.0-or-later)
 makedepends=(
   boost
+  boost-libs
   cmake
   doxygen
   dpdk
@@ -49,8 +50,9 @@ package_libuhd() {
   depends=(
     boost-libs
     dpdk
-    gcc-libs
     glibc
+    libgcc
+    libstdc++
     libusb
     python
   )
@@ -76,8 +78,9 @@ package_libuhd-utils() {
   pkgdesc+=" (utilities)"
   depends=(
     boost-libs
-    gcc-libs
     glibc
+    libgcc
+    libstdc++
     libuhd
     ncurses
     python
@@ -91,8 +94,9 @@ package_libuhd-utils() {
 package_python-uhd() {
   pkgdesc+=" (Python API)"
   depends=(
-    gcc-libs
     glibc
+    libgcc
+    libstdc++
     libuhd
     python
     python-mako
