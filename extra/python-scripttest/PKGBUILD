@@ -3,8 +3,8 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=python-scripttest
-pkgver=2.0
-pkgrel=3
+pkgver=2.0.post1
+pkgrel=1
 pkgdesc="Utilities to help with testing command line scripts"
 url="https://github.com/pypa/scripttest"
 license=('MIT')
@@ -13,7 +13,7 @@ depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 checkdepends=('python-pytest')
 source=("git+https://github.com/pypa/scripttest.git#tag=$pkgver")
-sha512sums=('58ea691fdba0adacd929663e4f9dee5c085ca3bf5ae210127a2688745a29847f0e158c7d12e5436e757bf900a561d50661567e97578a580fcba7c663e1aecfbb')
+sha512sums=('78428d7b12172490b75079c8e0b9aa33019b86343f3ca8488375bbec54982cd17e61721369d60bf1b03e23db2ab7d587f05d63c8f97b1819287070593a740ec3')
 
 build() {
   cd scripttest
