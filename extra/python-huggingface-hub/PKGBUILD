@@ -3,7 +3,7 @@
 
 _name=huggingface_hub
 pkgname=python-huggingface-hub
-pkgver=1.7.2
+pkgver=1.8.0
 pkgrel=1
 epoch=1
 pkgdesc='All the open source things related to the Hugging Face Hub'
@@ -64,7 +64,7 @@ optdepends=(
   python-fastai
 )
 source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('147ff0c4bee645f6eae956d14248c137a3974acc172d3c2f2e0a970df9fe0e17e13292095d27122eadebd17f05f281e6390afcc169e4bdd42b1cfafb64abcddf')
+sha512sums=('daf2d07503b899fceca1907421fb84858148e088bfc20b07e4a905fb605fd3d36774f28f08b8f20582db130f445fa4e73c0be46c63eac14f37648378a375f001')
 
 build() {
   cd $_name-$pkgver
