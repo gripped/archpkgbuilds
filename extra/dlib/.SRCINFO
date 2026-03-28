@@ -1,11 +1,13 @@
 pkgbase = dlib
-	pkgdesc = General purpose cross-platform C++ library designed using contract programming and modern C++ techniques
+	pkgdesc = Machine learning library and toolkit
 	pkgver = 20.0
-	pkgrel = 2
+	pkgrel = 3
 	url = http://dlib.net
 	arch = x86_64
-	license = BSDL-1.0
+	license = BSL-1.0
 	makedepends = cmake
+	makedepends = cuda
+	makedepends = cudnn
 	makedepends = git
 	depends = blas
 	depends = cblas
@@ -18,7 +20,28 @@ pkgbase = dlib
 	depends = libwebp
 	depends = libx11
 	depends = sqlite
+	options = !debug
+	options = !emptydirs
+	options = !lto
 	source = git+https://github.com/davisking/dlib#tag=v20.0
 	b2sums = b41813d34b76793dd137ef7194081e71dc3110c5aef8d896705e7586a2a519a211b472faf34b14f2d3fcc7d68f3ff24c39d44eb88e433ab322fdeec670925d3c
 
 pkgname = dlib
+
+pkgname = dlib-cuda
+	pkgdesc = Machine learning library and toolkit (CUDA)
+	depends = blas
+	depends = cblas
+	depends = ffmpeg
+	depends = giflib
+	depends = lapack
+	depends = libjpeg-turbo
+	depends = libjxl
+	depends = libpng
+	depends = libwebp
+	depends = libx11
+	depends = sqlite
+	depends = cuda
+	depends = cudnn
+	conflicts = dlib
+	replaces = dlib
