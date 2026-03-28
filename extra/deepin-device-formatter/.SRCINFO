@@ -1,26 +1,27 @@
 pkgbase = deepin-device-formatter
 	pkgdesc = A simple graphical interface for creating file system in a block device
-	pkgver = 0.0.1.18
-	pkgrel = 2
+	pkgver = 1.5.0
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-device-formatter
 	arch = x86_64
 	groups = deepin-extra
 	license = GPL-3.0-or-later
 	makedepends = git
-	makedepends = deepin-gettext-tools
-	makedepends = qt5-tools
-	depends = deepin-qt5integration
-	depends = dtkcore
-	depends = dtkgui
-	depends = dtkwidget
-	depends = qt5-base
-	depends = qt5-x11extras
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = qt6-tools
+	depends = deepin-qt6platform-plugins
+	depends = deepin-qt6integration
+	depends = dtk6core
+	depends = dtk6gui
+	depends = dtk6widget
+	depends = qt6-base
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
 	depends = libx11
-	depends = udisks2-qt5
-	source = git+https://github.com/linuxdeepin/dde-device-formatter.git#tag=0.0.1.18
-	sha512sums = ce5eef9b674f4bb00a0a1edf370431285a2dc0d10ab3332bd833bfb32ce0114ba7d03de5f5570108ee3adb46523be4e55e4b3cae9888fa7c0cad94af3e64e5dc
+	depends = udisks2-qt6
+	source = git+https://github.com/linuxdeepin/dde-device-formatter.git#tag=1.5.0
+	sha512sums = 4454e4914b73bf8e454ae1261d1fd96c3008e158fb8e4490b6a8699a253f58983d655b1e4f537e178cd3aec61311d733741cff77e604e4e21ffdbe5ddc4c3acc
 
 pkgname = deepin-device-formatter

@@ -1,26 +1,31 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-device-formatter
-pkgver=0.0.1.18
-pkgrel=2
+pkgver=1.5.0
+pkgrel=1
 pkgdesc='A simple graphical interface for creating file system in a block device'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-device-formatter"
 license=('GPL-3.0-or-later')
-depends=('deepin-qt5integration' 'dtkcore' 'dtkgui' 'dtkwidget' 'qt5-base' 'qt5-x11extras'
-         'glibc' 'libgcc' 'libstdc++' 'libx11' 'udisks2-qt5')
-makedepends=('git' 'deepin-gettext-tools' 'qt5-tools')
+depends=('deepin-qt6platform-plugins' 'deepin-qt6integration' 'dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base'
+         'glibc' 'libgcc' 'libstdc++' 'libx11' 'udisks2-qt6')
+makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/dde-device-formatter.git#tag=$pkgver")
-sha512sums=('ce5eef9b674f4bb00a0a1edf370431285a2dc0d10ab3332bd833bfb32ce0114ba7d03de5f5570108ee3adb46523be4e55e4b3cae9888fa7c0cad94af3e64e5dc')
+sha512sums=('4454e4914b73bf8e454ae1261d1fd96c3008e158fb8e4490b6a8699a253f58983d655b1e4f537e178cd3aec61311d733741cff77e604e4e21ffdbe5ddc4c3acc')
+
+prepare() {
+  cd dde-device-formatter
+  sed -i '/find_package(Qt6 COMPONENTS Core Gui Widgets Concurrent Network DBus LinguistTools REQUIRED)/a find_package(Qt6GuiPrivate REQUIRED CONFIG)' CMakeLists.txt
+}
 
 build(){
   cd dde-device-formatter
-  qmake-qt5 PREFIX=/usr
-  make
+  cmake -GNinja . -DCMAKE_INSTALL_PREFIX=/usr
+  ninja
 }
 
 package() {
   cd dde-device-formatter
-  make INSTALL_ROOT="$pkgdir" install
+  DESTDIR="$pkgdir" ninja install
 }
