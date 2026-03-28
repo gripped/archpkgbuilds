@@ -8,7 +8,7 @@ pkgname=(
   libcap-ng
   python-capng
 )
-pkgver=0.9.1
+pkgver=0.9.2
 pkgrel=1
 pkgdesc='A library for Linux that makes using posix capabilities easy'
 arch=(x86_64)
@@ -25,8 +25,8 @@ makedepends=(
 source=(
   https://github.com/stevegrubb/libcap-ng/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
 )
-sha512sums=('69c18e2b85b0e41ff04cdd569d820609546ab7e974500187a7c849ea67aec6513fc352bad4335765be6bf02ea2fecb83e75aa9a0578b0aaa822911b164330a74')
-b2sums=('9b81e9f4d0638547cccab573e8fad3dd6b0de6ffe30b7d2e49f7c551b822a133f95ec24a45af697cdcf2d7dd45e39c240671c111c9499a5343f8b06748f244f3')
+sha512sums=('15730e77ea7b3c8e66cd96f43d5d564189388af70342eabb7a3acc06429bcfbb74cfdb3ff318abea0dc50c4dcf26ac08d757ecf6e42fda7785c75ee563af2d39')
+b2sums=('c9823bd7397e82fcc00a201b275283e8f49597ebeff21bec859bbfd962b55152caf10ede1dc2060634bda2c3c8523f446671aeab55a9a1c5b78d0031047ce13b')
 
 _pick() {
   local p="$1" f d; shift
@@ -49,6 +49,7 @@ build() {
   local configure_options=(
     --enable-static=no
     --prefix=/usr
+    --sysconfdir=/etc
     --with-python3
     --without-python
   )
@@ -69,6 +70,10 @@ package_libcap-ng() {
   )
 
   make DESTDIR="$pkgdir" install -C $pkgbase-$pkgver
+
+  # Move bash-completion to correct location: https://github.com/stevegrubb/libcap-ng/issues/71
+  install -vDm 644 "$pkgdir/etc/bash_completion.d/$pkgname.bash_completion" "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+  rm -rfv "$pkgdir/etc/"
 
   (
     cd "$pkgdir"
