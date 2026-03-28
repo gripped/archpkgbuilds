@@ -1,13 +1,15 @@
 pkgbase = wasmer
 	pkgdesc = Universal Binaries Powered by WebAssembly
-	pkgver = 7.0.1
+	pkgver = 7.1.0
 	pkgrel = 1
 	url = https://github.com/wasmerio/wasmer
 	arch = x86_64
 	license = MIT
+	makedepends = git
 	makedepends = rustup
 	makedepends = cmake
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = zlib
 	depends = ncurses
 	depends = libffi
@@ -16,9 +18,11 @@ pkgbase = wasmer
 	depends = glibc
 	options = staticlibs
 	options = !lto
-	source = wasmer-7.0.1.tar.gz::https://github.com/wasmerio/wasmer/archive/refs/tags/v7.0.1.tar.gz
-	source = reproducible-builds.patch
-	sha512sums = e8cf1c23d9b65d133ff54b6d2ebb73fe415e688f28d6349badd2d5e21334a46c25fc435a34d6c734d442f8605c37307b072f714fa8556f2e3be943f3c957ff14
-	sha512sums = 5e1f26fc8684af4cf53103b1250d986ff0174bddec6eb7107d086c5b82cf1ad9e02bc7b56e47274da444f345b482dea3282de0f5d413fdded84c94f55f59eb6e
+	source = git+https://github.com/wasmerio/wasmer#tag=v7.1.0
+	source = wasmer-napi::git+https://github.com/wasmerio/napi
+	source = wasmer-testsuite::git+https://github.com/WebAssembly/testsuite.git
+	sha512sums = 22c4228f17e2201780a7a30d7abee460841e65e2ee202b8ece55ae63cfd9e666826b4380e9d95f1114873259ce3838fe88e8284de6651655fd587bfeb0cf4587
+	sha512sums = SKIP
+	sha512sums = SKIP
 
 pkgname = wasmer

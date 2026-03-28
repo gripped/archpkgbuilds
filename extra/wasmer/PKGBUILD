@@ -2,37 +2,45 @@
 # Contributor: Julius Michaelis <gitter@liftm.de>
 
 pkgname=wasmer
-pkgver=7.0.1
+pkgver=7.1.0
 pkgrel=1
 pkgdesc="Universal Binaries Powered by WebAssembly"
 arch=('x86_64')
 url="https://github.com/wasmerio/wasmer"
 license=('MIT')
-depends=('gcc-libs' 'zlib' 'ncurses' 'libffi' 'libxkbcommon' 'llvm' 'glibc')
-makedepends=('rustup' 'cmake')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/wasmerio/wasmer/archive/refs/tags/v${pkgver}.tar.gz"
-        reproducible-builds.patch)
-sha512sums=('e8cf1c23d9b65d133ff54b6d2ebb73fe415e688f28d6349badd2d5e21334a46c25fc435a34d6c734d442f8605c37307b072f714fa8556f2e3be943f3c957ff14'
-            '5e1f26fc8684af4cf53103b1250d986ff0174bddec6eb7107d086c5b82cf1ad9e02bc7b56e47274da444f345b482dea3282de0f5d413fdded84c94f55f59eb6e')
+depends=('libgcc' 'libstdc++' 'zlib' 'ncurses' 'libffi' 'libxkbcommon' 'llvm' 'glibc')
+makedepends=('git' 'rustup' 'cmake')
+source=("git+https://github.com/wasmerio/wasmer#tag=v${pkgver}"
+        "${pkgname}-napi::git+https://github.com/wasmerio/napi"
+        "${pkgname}-testsuite::git+https://github.com/WebAssembly/testsuite.git")
+
+sha512sums=('22c4228f17e2201780a7a30d7abee460841e65e2ee202b8ece55ae63cfd9e666826b4380e9d95f1114873259ce3838fe88e8284de6651655fd587bfeb0cf4587'
+            'SKIP'
+            'SKIP')
 options=('staticlibs' '!lto')
 
 prepare() {
-  cd "$pkgname-$pkgver"
-  patch -Np1 -i "$srcdir/reproducible-builds.patch"
+  cd "$pkgname"
+  git submodule init
+
+  git config submodule."lib/napi".url "${srcdir}/${pkgname}"-napi
+  git config submodule."tests/wast/spec".url "${srcdir}/${pkgname}"-testsuite
+
+  git -c protocol.file.allow=always submodule update
 }
 
 build() {
-  cd "$pkgname-$pkgver"
-  make ENABLE_CRANELIFT=1 ENABLE_LLVM=1 WASMER_INSTALL_PREFIX=/usr
+  cd "$pkgname"
+  make ENABLE_CRANELIFT=1 ENABLE_LLVM=1 WASMER_REPRODUCIBLE_BUILD=1 WASMER_INSTALL_PREFIX=/usr
 }
 
 check() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   make test-examples
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   make DESTDIR="$pkgdir"/usr install
 }
 
