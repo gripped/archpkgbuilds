@@ -1,11 +1,12 @@
 pkgbase = hamlib
 	pkgdesc = Ham radio equipment control libraries
-	pkgver = 4.6.5
-	pkgrel = 3
+	pkgver = 4.7.0
+	pkgrel = 1
 	url = https://hamlib.github.io
 	arch = x86_64
 	license = GPL-2.0-or-later
 	license = LGPL-2.0-or-later
+	makedepends = git
 	makedepends = lua54
 	makedepends = python
 	makedepends = swig
@@ -22,8 +23,8 @@ pkgbase = hamlib
 	optdepends = tcl: Tcl bindings
 	provides = libhamlib++.so
 	provides = libhamlib.so
-	source = https://github.com/Hamlib/Hamlib/archive/4.6.5/hamlib-4.6.5.tar.gz
+	source = hamlib::git+https://github.com/Hamlib/Hamlib.git#tag=4.7.0
 	validpgpkeys = 82D64F6B0E67CD41F689BBA6FB2C5130D55A8819
-	sha512sums = 02e626866fa1dba63cc83923938d6632d54bdb10fea1970110fa59f0dbf06c1490142de30b66f4a00fa98cee49eda271b3bbdc114c8a753977655544dccfdb66
+	b2sums = 07bce7b54859aebbf440100eab037a3b8382023c4c18fc444f695a25a0daa225756ff63ef8bd743520a5eb4203bb6795e87ae8b2c5c67c75a42a3f770a88869b
 
 pkgname = hamlib
