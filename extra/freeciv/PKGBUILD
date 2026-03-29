@@ -9,8 +9,8 @@ pkgname=(
   freeciv-gtk4
   freeciv-qt
 )
-pkgver=3.2.2
-pkgrel=6
+pkgver=3.2.4
+pkgrel=1
 pkgdesc="A multiuser clone of the famous Microprose game of Civilization"
 arch=('x86_64')
 url="https://www.freeciv.org/"
@@ -25,6 +25,7 @@ makedepends=(
   'cairo'
   'curl'
   'gdk-pixbuf2'
+  'git'
   'glib2'
   'gtk3'
   'gtk4'
@@ -42,11 +43,11 @@ makedepends=(
   'zstd'
 )
 conflicts=('freeciv<3.2.2-2')
-source=("https://downloads.sourceforge.net/sourceforge/$pkgname/$pkgbase-$pkgver.tar.xz")
-b2sums=('a525ac68dd1649467abafa928b72b8dfc9ed34fd1958a5836f7fdb43de972405b693fb75a7309953ccaae1245f954fb87a3106ff19268d426c96c1b4b2254fe1')
+source=("git+https://github.com/freeciv/freeciv.git#tag=R${pkgver//./_}")
+b2sums=('c5ab32b500d75cc073f6c99d36797504bd9b49ce789adf23adc84baf77194e1b348f5c689f912e0f8542d84d35d23c8e56f6809ce3f0f63b7984e465f9b56aa5')
 
 build() {
-  arch-meson $pkgbase-$pkgver build \
+  arch-meson $pkgbase build \
     -Dsyslua=true \
     -Dclients=gtk4,gtk3.22,qt \
     -Dfcmp=gtk4,gtk3,qt,cli
