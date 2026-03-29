@@ -7,7 +7,7 @@
 pkgbase=steam
 pkgname=(steam steam-devices)
 pkgver=1.0.0.85
-pkgrel=5
+pkgrel=6
 pkgdesc="Valve's digital software delivery system"
 url='https://steampowered.com/'
 arch=('x86_64')
@@ -38,10 +38,10 @@ package_steam() {
     desktop-file-utils
     diffutils
     freetype2
-    gcc-libs
     gdk-pixbuf2
     glibc
     hicolor-icon-theme
+    libgcc
     libxcrypt
     libxcrypt-compat
     libxkbcommon-x11
