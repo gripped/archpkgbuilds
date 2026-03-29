@@ -7,7 +7,7 @@
 
 pkgbase=incus
 pkgname=(incus incus-tools)
-pkgver=6.22.0
+pkgver=6.23.0
 _pkgver="${pkgver/.0/}"
 pkgrel=1
 pkgdesc="Powerful system container and virtual machine manager"
@@ -34,7 +34,7 @@ optdepends=(
     'skopeo: OCI support'
     'umoci: OCI support'
 )
-source=("https://github.com/lxc/incus/releases/download/v$pkgver/incus-$_pkgver.tar.xz"{,.asc}
+source=("https://linuxcontainers.org/downloads/incus/incus-$_pkgver.tar.xz"{,.asc}
         "incus.socket"
         "incus.service"
         "incus-user.socket"
@@ -42,7 +42,7 @@ source=("https://github.com/lxc/incus/releases/download/v$pkgver/incus-$_pkgver.
         "incus.sysusers")
 validpgpkeys=('602F567663E593BCBD14F338C638974D64792D67'  # Stéphane Graber <stgraber@stgraber.org>
              )
-sha256sums=('0ed7f1e720d2bdd243d16ec42ac14d02fef1cc63a2a23336deed8e57c0465514'
+sha256sums=('a84880e138db0e7497bd0ee62806a8c5299566dada5c725e65e86afd7fe71fa6'
             'SKIP'
             '602a8035cc51b8e0c4ca265e31ebf96c7977db4239d384d8f60fed0d2d0317c4'
             '81057039527f852f2b7d2fe25495b09543d3f031e0d83e56b9225014edbbebfb'
