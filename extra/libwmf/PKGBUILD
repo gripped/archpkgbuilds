@@ -1,25 +1,25 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=libwmf
-pkgver=0.2.13
-pkgrel=4
+pkgver=0.2.14
+pkgrel=1
 pkgdesc="A library for reading vector images in Microsoft's native Windows Metafile Format (WMF)"
 arch=('x86_64')
 url="https://github.com/caolanm/libwmf"
 license=('LGPL-2.1-or-later')
 depends=('expat' 'freetype2' 'glibc' 'libjpeg-turbo' 'libpng' 'libx11' 'zlib')
-makedepends=('gdk-pixbuf2')
+makedepends=('gdk-pixbuf2' 'git')
 optdepends=('gdk-pixbuf2: for pixbuf loader')
-source=($pkgname-$pkgver.tar.gz::https://github.com/caolanm/libwmf/archive/v$pkgver.tar.gz)
-sha256sums=('18ba69febd2f515d98a2352de284a8051896062ac9728d2ead07bc39ea75a068')
+source=("git+https://github.com/caolanm/libwmf.git#tag=v$pkgver")
+sha256sums=('f3efa1f98c953d69e2f58872ab3a92faf1b3da90fe0bec241383516112b85a48')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   autoreconf -fi
-} 
+}
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   ./configure --prefix=/usr \
               --with-gsfontmap=/usr/share/ghostscript/Resource/Init/Fontmap.GS \
               --with-gsfontdir=/usr/share/fonts/gsfonts
@@ -28,6 +28,6 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   make DESTDIR="${pkgdir}" install
 }
