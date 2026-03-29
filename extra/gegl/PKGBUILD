@@ -3,7 +3,7 @@
 # Contributor: Daniel Isenmann <daniel@archlinux.org>
 
 pkgname=gegl
-pkgver=0.4.68
+pkgver=0.4.70
 pkgrel=1
 pkgdesc='Graph based image processing framework'
 arch=('x86_64')
@@ -41,7 +41,7 @@ optdepends=('ffmpeg: FFmpeg Frame Loader and FFmpeg Frame Saver plugins'
             'sdl2: SDL2 Display plugin')
 provides=('libgegl-0.4.so' 'libgegl-npd-0.4.so' 'libgegl-sc-0.4.so')
 source=("git+https://gitlab.gnome.org/GNOME/gegl.git#tag=GEGL_${pkgver//./_}")
-sha256sums=('57b84ca002e64f7dc7f321204ff525376436d9d714ada99755df6942c65309ca')
+sha256sums=('2d1d8e77b18be3db417b37247b80e798d51cfc2ac27cc881f30089f9723899df')
 
 pkgver() {
   cd "${pkgname}"
