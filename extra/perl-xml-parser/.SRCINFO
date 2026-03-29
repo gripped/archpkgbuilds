@@ -1,17 +1,19 @@
 pkgbase = perl-xml-parser
 	pkgdesc = Expat-based XML parser module for perl
-	pkgver = 2.48
+	pkgver = 2.49
 	pkgrel = 1
 	url = https://github.com/cpan-authors/XML-Parser
 	arch = x86_64
 	license = GPL-1.0-or-later
 	license = Artistic-1.0-perl
+	makedepends = git
 	makedepends = perl-file-sharedir-install
+	makedepends = perl-devel-checklib
 	depends = perl-file-sharedir
 	depends = perl-libwww
 	depends = expat
 	options = !emptydirs
-	source = https://search.cpan.org/CPAN/authors/id/T/TO/TODDR/XML-Parser-2.48.tar.gz
-	sha512sums = a8d67819e4e9eb278c120b31fdd59d510f71782bf7bc13153dbabbd1dbb24771c71fe59d83fa1c6c550853a5d7639922c9c44eee2cd6f7bdd5cc960161e721e2
+	source = git+https://github.com/cpan-authors/XML-Parser.git#tag=2.49
+	sha512sums = bae8d4b55228abc26052f7ba4c93dd60555b85a4462f292ea7a404eea01677ab646a890ba7b22aedf1b426667c76425ba4307677ea789072180bc2723310c291
 
 pkgname = perl-xml-parser
