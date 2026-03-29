@@ -9,7 +9,7 @@ pkgname=(
   lib32-gst-plugins-good
 )
 pkgver=1.28.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Multimedia graph framework (32-bit)"
 url="https://gstreamer.freedesktop.org/"
 arch=(x86_64)
