@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=haskell-language-server
-pkgver=2.2.0.0
-pkgrel=21
+pkgver=2.3.0.0
+pkgrel=1
 pkgdesc="LSP server for GHC"
 url="https://github.com/haskell/haskell-language-server#readme"
 license=('Apache-2.0')
@@ -32,7 +32,7 @@ makedepends=('ghc' 'uusi' 'haskell-ghcide-test-utils' 'haskell-hls-test-utils'
              'haskell-hspec-expectations' 'haskell-lsp-test' 'haskell-row-types')
 checkdepends=('cabal-install')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('6375338a0d34a5a1f5ab59987b61c000d977ad64f41bcfaee80f5454abaf7fb0520ee95acfc9200602a8eb07fbd7acd439acedf102e02076946f5e5e8ddf589c')
+sha512sums=('49cec135ce5d7c5a34b82af0c9e046a9ba16f895fd3c3f95b2003b0d163b9c9f8f382ff6c332bcf653c21b163ac10d60d6b77703d7219bb5b56d72806dc0af62')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -47,11 +47,11 @@ build() {
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie' \
-    -fignore-plugins-ghc-bounds -fcabal -fclass -fcallHierarchy -f-haddockComments -feval -fimportLens \
+    -fignore-plugins-ghc-bounds -fcabal -fclass -fcallHierarchy -feval -fimportLens \
     -frename -fretrie -fhlint -fmoduleName -fpragmas -fsplice \
     -falternateNumberFormat -fqualifyImportedNames -fcodeRange -fchangeTypeSignature \
-    -fexplicitFields -f-tactic -foverloadedrecorddot \
-    -ffloskell -ffourmolu -formolu -fstylishHaskell -fstan -fgadt -fexplicitFixity \
+    -fexplicitFields -foverloadedrecorddot \
+    -ffloskell -ffourmolu -formolu -fstylishHaskell -fgadt -fexplicitFixity \
     -frefactor -fcabalfmt \
     -fdynamic
 
