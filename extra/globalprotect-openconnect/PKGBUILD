@@ -4,14 +4,13 @@
 
 pkgname=globalprotect-openconnect
 pkgver=2.5.1
-pkgrel=2
+pkgrel=3
 pkgdesc="A GlobalProtect VPN GUI client based on Openconnect and built with Qt5, supports SAML auth mode"
 arch=(x86_64)
 url="https://github.com/yuezk/GlobalProtect-openconnect"
 license=(GPL-3.0-only)
 depends=(
   cairo
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
@@ -19,6 +18,7 @@ depends=(
   gnutls
   gtk3
   hicolor-icon-theme
+  libgcc
   libp11-kit
   libsoup3
   libxml2
