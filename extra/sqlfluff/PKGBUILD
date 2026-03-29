@@ -3,8 +3,8 @@
 # Contributor: Morteza NourelahiAlamdari <m@0t1.me>
 
 pkgname=sqlfluff
-pkgver=4.0.4
-pkgrel=2
+pkgver=4.1.0
+pkgrel=1
 pkgdesc='A dialect-flexible and configurable SQL linter'
 arch=(x86_64)
 url='https://github.com/sqlfluff/sqlfluff'
@@ -40,12 +40,11 @@ checkdepends=(
   python-pytest-xdist
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('ca292c09315fe5f616e57cf039525f8d89094997d659480c39de4746a4daf6e5a701b298f7eff8a1c902e10ed8447cc5d49045c169ad4128fc0ae47a7036866a')
-b2sums=('ec7cbdf1228c10415d1af5f0847ae50f456d9e721a69119d8246dd44784d62f7608171c81c9ca3eb89c2849801070f64d7e4d4ce1a812e76a5efc4a6bb6d8b00')
+sha512sums=('d1ce477f7a8b9fefc22d9544fcf31c109c24b7314e1ac01a34653e6154e69c05179480ae2d582c636ac06782198813f4178eb0c6bf7cb92e0c0a1a8b003faeda')
+b2sums=('031d63f7710c4f256f37cd95863b38cc45fd4915e76abeb107112012d9049577d831ba655c96cc557c70e015a03a26f5f2204637d42675e777598b6eefbf2259')
 
 build() {
   cd "$pkgname"
-
   python -m build --wheel --no-isolation
 
   # temporary install
@@ -63,7 +62,6 @@ build() {
 
 check() {
   cd "$pkgname"
-
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m installer sqlfluffrs/dist/*.whl
@@ -73,12 +71,10 @@ check() {
     --deselect='test/core/plugin_test.py::test__plugin_example_rules_returned[Rule_Example_L001]' \
     --deselect='test/core/plugin_test.py::test__plugin_manager_registers_example_plugin' \
     --deselect='test/core/config/loader_test.py::test__config__get_user_config_dir_path[darwin-False-False-~/Library/Application Support/sqlfluff-paths_checked2]'
-
 }
 
 package() {
   cd "$pkgname"
-
   python -m installer --destdir="$pkgdir" dist/*.whl
   python -m installer --destdir="$pkgdir" sqlfluffrs/dist/*.whl
 
