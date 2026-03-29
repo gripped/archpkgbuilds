@@ -9,7 +9,7 @@ pkgname=(
   evolution-data-server-docs
 )
 pkgver=3.58.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Unified contacts, tasks and calendar backend"
 url="https://gitlab.gnome.org/GNOME/evolution/-/wikis/home"
 arch=(x86_64)
@@ -17,7 +17,6 @@ license=("LGPL-2.0-only AND LGPL-2.1-or-later")
 depends=(
   cairo
   dconf
-  gcc-libs
   glib2
   glibc
   gtk3
@@ -26,6 +25,7 @@ depends=(
   json-glib
   krb5
   libcanberra
+  libgcc
   libgoa
   libgweather-4
   libical
@@ -33,6 +33,7 @@ depends=(
   libphonenumber
   libsecret
   libsoup3
+  libstdc++
   libxml2
   nspr
   nss
@@ -45,6 +46,7 @@ depends=(
 )
 makedepends=(
   boost
+  boost-libs
   cmake
   gi-docgen
   git
