@@ -2,8 +2,8 @@
 
 _hkgname=hls-fourmolu-plugin
 pkgname=haskell-hls-fourmolu-plugin
-pkgver=2.2.0.0
-pkgrel=19
+pkgver=2.3.0.0
+pkgrel=1
 pkgdesc="Integration with the Fourmolu code formatter"
 url="https://hackage.haskell.org/package/hls-fourmolu-plugin"
 license=('Apache-2.0')
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-fourmolu' 'haskell-ghc' 'haskell-ghcide' 'haskell-h
 makedepends=('ghc' 'uusi' 'haskell-aeson' 'haskell-hls-test-utils' 'haskell-lsp-test')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('3297650965fb732c785e1d433a62ffd50d60d555e5e6bb8ff321145a95ae7137dd6d7a5a3e8aa17274c40aa1bed10dfc572e90d529c272d133f7b1cd74a947f4')
+sha512sums=('58a89074924a3e2380a060c81aa9fddafd408bca328b027f7c9863d9f7468bef454126b5502a3d67ac347f5ae023dea29c8458ec0e36c54f0f2a2a03e5cbdb4d')
 
 prepare() {
   cd $_hkgname-$pkgver
