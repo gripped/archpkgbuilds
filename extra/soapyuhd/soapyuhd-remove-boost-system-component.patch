@@ -1,0 +1,12 @@
+diff --git i/CMakeLists.txt w/CMakeLists.txt
+index 153ff88..179ecbd 100644
+--- i/CMakeLists.txt
++++ w/CMakeLists.txt
+@@ -108,7 +108,6 @@ MESSAGE(STATUS "Configuring Boost C++ Libraries...")
+ # Although not required on my system, some users have linking issues without
+ SET(BOOST_REQUIRED_COMPONENTS
+     thread
+-    system
+ )
+ 
+ if(UNIX AND NOT BOOST_ROOT AND EXISTS "/usr/lib64")
