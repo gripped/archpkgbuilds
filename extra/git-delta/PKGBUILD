@@ -4,7 +4,7 @@
 # Contributor: ccorn
 
 pkgname=git-delta
-pkgver=0.19.1
+pkgver=0.19.2
 pkgrel=1
 pkgdesc='Syntax-highlighting pager for git and diff output'
 arch=(x86_64)
@@ -22,8 +22,8 @@ makedepends=(
   rust
 )
 source=("$pkgname::git+https://github.com/dandavison/delta#tag=$pkgver")
-sha512sums=('929412f5d6c3951e7287d2d3b6914ed056f4d879f3ad5cec8ae721c0056aa6e25fe8b0f3909904de9c000610801bc41b8ddbcd9f4e08d5d9898381e095edd585')
-b2sums=('32c35c208ecf6cf6e4ea4e4c691a9bd6f45eafedefcf3a713a09692a6886433afca296e0b146fd9e926b553e93ecf50a19607c68f11f23504a3005fa200ec073')
+sha512sums=('977037b5c4360803278fab48c2202eb6bcc3bed00c16abd44cfc3102fec758562d45c5548af75e83a0f4ed60fb4fa8223b1d6e1bd01c7eddaf6c4bef889d153e')
+b2sums=('51c24db48430423e1f5bda0bffa05b5e469c9ff1e1277af1a754afcf06d31759982b60631dc69a19f59c02d5799a819abbb63d6ecbd2edf40fee8ca2e58132e4')
 
 prepare() {
   cd "$pkgname"
