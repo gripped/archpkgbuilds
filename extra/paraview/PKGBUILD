@@ -6,7 +6,7 @@
 
 pkgname=paraview
 pkgver=6.0.1
-pkgrel=10
+pkgrel=11
 pkgdesc="Parallel Visualization application using VTK"
 arch=(x86_64)
 url="https://www.paraview.org"
@@ -81,6 +81,9 @@ b2sums=('e19a8b56f619fb47630152439af3ac7f3be1138b938db443f579e87a9c403bdd8b38798
 prepare() {
   cd ParaView-v${pkgver/R/-R}
   patch -p1 -i ../qt-6.10.1.patch # Fix build with Qt 6.10.1
+
+  # Fix build
+  sed -i '/find_package(VTK/i find_package(Boost REQUIRED)' CMakeLists.txt
 }
 
 build() {
