@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-eth-hash
-pkgver=0.7.1
+pkgver=0.8.0
 pkgrel=1
 pkgdesc="The Ethereum hashing function, keccak256"
 arch=('any')
@@ -12,7 +12,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python
              'python-sphinx' 'python-sphinx_rtd_theme')
 checkdepends=('python-pytest')
 source=("git+https://github.com/ethereum/eth-hash.git#tag=v$pkgver")
-sha512sums=('da408aae72f29d1c069e564ab65802f89ffa33751adce4e1492e0965638a0b5b4db8505bca27f154ad9b826a5f23afc92e3c0c88f4dc1ac8e53a5569a839c1a4')
+sha512sums=('fc829456fd1499cf4365e95b6e02ff89e837d5492abc24fc6ce13a08522ff2a6ebf4c8d82c3f464b0c5e9077efdbb6d579b722e033a8e157acab4e3ff1fdf830')
 
 build() {
   cd eth-hash
