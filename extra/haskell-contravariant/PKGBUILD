@@ -3,29 +3,34 @@
 
 _hkgname=contravariant
 pkgname=haskell-contravariant
-pkgver=1.5.5
-pkgrel=6
+pkgver=1.5.6
+pkgrel=1
 pkgdesc="Contravariant functors"
 url="https://github.com/ekmett/contravariant/"
-license=("BSD")
+license=("BSD-3-Clause")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-statevar')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('c5e14525cb44fe24ddaa8b1b2b5eb983e602513887119a9fb9eaed3ec1d5af28b9e858a6e461caa8d3793d52ded135459bf95a15b43b2e07e15aea33d3634bc3')
+sha512sums=('f6d6e7216fcbe21c0f7727ff7087e14547d383c8d8d021dc3c0e5898bfd0601d3917cf3d03234ada9737809cb4805508a7c2768881c731e2537e10982cbcf83a')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
-            -fstatevar -fsemigroups -ftagged -f-safe
+            -fstatevar
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
