@@ -8,7 +8,7 @@ pkgname=(
 )
 _name=sfizz
 pkgver=1.2.3
-pkgrel=12
+pkgrel=13
 pkgdesc="SFZ based sampler, providing LV2 / PD / VST3 plugins using the sfizz library"
 arch=(x86_64)
 url="https://github.com/sfztools/sfizz-ui"
@@ -73,6 +73,10 @@ prepare() {
   patch --forward --strip=1 --dir=sfizz-1.2.3/plugins/editor/external/vstgui4/ --input="${srcdir}/sfizz-1_2_3-fix-vendored-sdk.patch"
 
   cp atomic_queue-1.6.5/include/atomic_queue/atomic_queue.h $_name-$pkgver/library/external/atomic_queue/include/atomic_queue/
+
+  # fix build
+  sed -i '0,/^#include/s/^#include/#include <algorithm>\n#include/' \
+    "${_name}-${pkgver}"/plugins/editor/tools/layout-maker/sources/reader.cpp
 }
 
 build() {
