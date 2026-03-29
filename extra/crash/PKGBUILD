@@ -7,18 +7,19 @@
 
 pkgname=crash
 pkgver=9.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Linux kernel crashdump analysis tool'
 url='https://crash-utility.github.io/'
 arch=(x86_64)
 license=(GPL-3.0-only)
 depends=(
   boost # Boost is needed for the GDB with extra compression support
-  gcc-libs
   glibc
   gmp
   guile
   libelf
+  libgcc
+  libstdc++
   lzo
   mpfr
   ncurses
@@ -29,7 +30,7 @@ depends=(
 makedepends=(wget)
 optdepends=('binutils: offline vmcore loading functionality')
 source=("https://github.com/crash-utility/crash/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('73dcdc633ec75ea2fc5329a1c3760407cceb9171428f4d0b885874f943a16797')
+b2sums=('f7f880a928700067780e6533b64aeb3c8c9330ddc15814180f9d3a700cf986f2ebd1b8a445ebd399f32f92c7d3e4e609801a3af6e8bde98c6bac78e540fa6687')
 
 build() {
   cd $pkgname-$pkgver
