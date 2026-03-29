@@ -1,13 +1,15 @@
 pkgbase = deepin-util-dfm
 	pkgdesc = Utilities of deepin file manager
-	pkgver = 1.2.29
-	pkgrel = 1
+	pkgver = 1.2.30
+	pkgrel = 2
 	url = https://github.com/linuxdeepin/util-dfm
 	arch = x86_64
 	license = GPL-3.0-or-later
+	makedepends = boost
 	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
+	depends = dtkcore
 	depends = glib2
 	depends = glibc
 	depends = libgcc
@@ -15,10 +17,11 @@ pkgbase = deepin-util-dfm
 	depends = libmediainfo
 	depends = libsecret
 	depends = libstdc++
+	depends = lucene++
 	depends = qt5-base
 	depends = udisks2
 	depends = util-linux-libs
-	source = git+https://github.com/linuxdeepin/util-dfm.git#tag=1.2.29
-	sha512sums = 7a1fc77365279743d39990039428dfca22c0c62c265009ab43a9380cca269966a4ba81ca2d3860c1a2a9215dafb848b1cf8d2a81d95fd53de1c04fa31bbe63be
+	source = git+https://github.com/linuxdeepin/util-dfm.git#tag=1.2.30
+	sha512sums = 9160901172633173fc1ad24ac800822edde364673e3c0b6f52eeb15ab6e1bdb12186776ee935f94971f74c3a44f4eb499391605cf54749c5e2f6e1eb7e6d8b4b
 
 pkgname = deepin-util-dfm
