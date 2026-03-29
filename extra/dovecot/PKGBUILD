@@ -15,7 +15,7 @@
 
 pkgname=dovecot
 pkgver=2.4.3
-pkgrel=1
+pkgrel=2
 pkgdesc="An IMAP and POP3 server written with security primarily in mind"
 url="https://dovecot.org/"
 arch=('x86_64')
@@ -137,7 +137,9 @@ build() {
     --with-libcap \
     --with-stemmer \
     --with-flatcurve \
-    --with-pcre2
+    --with-pcre2 \
+    --enable-experimental-mail-utf8 \
+    --enable-experimental-imap4rev2
 
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 
