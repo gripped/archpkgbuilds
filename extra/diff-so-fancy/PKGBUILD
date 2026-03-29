@@ -3,7 +3,7 @@
 # Contributor: icasdri <icasdri at gmail dot com>
 
 pkgname=diff-so-fancy
-pkgver=1.4.6
+pkgver=1.4.8
 pkgrel=1
 pkgdesc="Good-looking diffs with diff-highlight and more"
 arch=('any')
@@ -13,11 +13,10 @@ depends=('perl')
 makedepends=('git')
 checkdepends=('bats-assert' 'bats-support')
 source=("git+https://github.com/so-fancy/diff-so-fancy.git#tag=v$pkgver")
-sha384sums=('10ef66df89337eba97b53d34396ed74ca4d2786fce5ef61f9500283056f6df322cf00b0e2857f13af06752a4a41fdab2')
+sha384sums=('9245f23126459e6136822f241678b3afec8f0785c0624cfea2bf73f6af2fdeb93b8269784b695a9442dfbd5e78d0d955')
 
 prepare() {
   cd $pkgname
-  rm -r third_party
 
   sed -e "s|load 'test_helper/bats-support/load'|bats_load_library 'bats-support'|g" \
       -e "s|load 'test_helper/bats-assert/load'|bats_load_library 'bats-assert'|g" \
