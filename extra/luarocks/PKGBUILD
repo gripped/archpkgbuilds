@@ -8,7 +8,7 @@
 pkgbase=luarocks
 pkgname=(luarocks lua-luarocks lua54-luarocks lua53-luarocks lua52-luarocks lua51-luarocks)
 pkgver=3.13.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Deployment and management system for Lua modules'
 arch=('any')
 url='https://luarocks.org/'
@@ -59,11 +59,11 @@ build() {
 }
 
 package_luarocks() {
-  depends+=(lua-luarocks)
   backup=(etc/luarocks/config-5.{1,2,3,4,5}.lua)
   depends=(coreutils # need chmod, md5sum
            curl # need one of curl or wget
            lua
+           lua-luarocks
            unzip # need unzip and zip or lua-zlib
            zip)
   optdepends=('cvs: for fetching sources from CVS repositories'
