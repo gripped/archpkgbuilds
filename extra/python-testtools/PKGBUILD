@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-testtools
-pkgver=2.8.3
-pkgrel=2
+pkgver=2.8.4
+pkgrel=1
 pkgdesc="Extensions to the Python standard library unit testing framework"
 arch=('any')
 license=('MIT')
@@ -11,13 +11,7 @@ depends=('python-setuptools')
 makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-hatch-vcs')
 checkdepends=('python-testscenarios' 'python-testresources' 'python-fixtures' 'python-twisted')
 source=("git+https://github.com/testing-cabal/testtools.git#tag=$pkgver")
-sha512sums=('5f6329ecdac027955a2aa13c07f0a2a63c338ab1bd3f68e497a99a3d76ede0761a8ebdd26ac31556482292d101b6ddf8ca910c3a8a9fc80756b7a58035203f3c')
-
-prepare() {
-  cd testtools
-  # Fix iterate_tests to handle non-TestSuite iterables like lists
-  git cherry-pick -n badf51609d13885274e56f30281bd96dc926d788
-}
+sha512sums=('52cb0000ff7e8caba61ca95c56d4d622acc911c386f5410711acb4f8b1cde65b41486c7af80016c4b18060805aab4646f25773ad30321d06dccf59c9713a30c1')
 
 build() {
   cd testtools
