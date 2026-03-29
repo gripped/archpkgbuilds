@@ -4,7 +4,7 @@
 # Contributor: Daniel Isenmann <daniel@archlinux.org>
 
 pkgname=gimp
-pkgver=3.2.0
+pkgver=3.2.2
 pkgrel=1
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
@@ -37,6 +37,7 @@ depends=(
   'mypaint-brushes1'
   'pango' 'libpango-1.0.so' 'libpangocairo-1.0.so' 'libpangoft2-1.0.so'
   'python-gobject'
+  'python-cairo'
   'zlib' 'libz.so'
 
   # Plugins deps
@@ -97,7 +98,7 @@ source=(
   git+https://gitlab.gnome.org/GNOME/gimp.git#tag=GIMP_${pkgver//./_}
   git+https://gitlab.gnome.org/GNOME/gimp-data.git
 )
-sha256sums=('6554620e3d5f3d482748f3bf6363d9557861e3b8e32c10504ad3e041d6ec1892'
+sha256sums=('a13d96a55a2ca1af0623db06040492b360de3006bdfe150e658b24550ba5ab26'
             'SKIP')
 
 prepare() {

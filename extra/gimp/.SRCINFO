@@ -1,6 +1,6 @@
 pkgbase = gimp
 	pkgdesc = GNU Image Manipulation Program
-	pkgver = 3.2.0
+	pkgver = 3.2.2
 	pkgrel = 1
 	url = https://www.gimp.org/
 	install = gimp.install
@@ -71,6 +71,7 @@ pkgbase = gimp
 	depends = libpangocairo-1.0.so
 	depends = libpangoft2-1.0.so
 	depends = python-gobject
+	depends = python-cairo
 	depends = zlib
 	depends = libz.so
 	depends = aalib
@@ -120,9 +121,9 @@ pkgbase = gimp
 	optdepends = gjs: for JavaScript scripting support
 	optdepends = gutenprint: for sophisticated printing only as gimp has built-in cups print support
 	optdepends = gvfs: for HTTP/S support (and many other schemes)
-	source = git+https://gitlab.gnome.org/GNOME/gimp.git#tag=GIMP_3_2_0
+	source = git+https://gitlab.gnome.org/GNOME/gimp.git#tag=GIMP_3_2_2
 	source = git+https://gitlab.gnome.org/GNOME/gimp-data.git
-	sha256sums = 6554620e3d5f3d482748f3bf6363d9557861e3b8e32c10504ad3e041d6ec1892
+	sha256sums = a13d96a55a2ca1af0623db06040492b360de3006bdfe150e658b24550ba5ab26
 	sha256sums = SKIP
 
 pkgname = gimp
