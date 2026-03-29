@@ -2,18 +2,18 @@
 
 _hkgname=hls-ormolu-plugin
 pkgname=haskell-hls-ormolu-plugin
-pkgver=2.2.0.0
-pkgrel=18
+pkgver=2.3.0.0
+pkgrel=1
 pkgdesc="Integration with the Ormolu code formatter"
 url="https://hackage.haskell.org/package/hls-ormolu-plugin"
 license=('Apache-2.0')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-extra' 'haskell-ghc' 'haskell-ghcide' 'haskell-hls-plugin-api'
-         'haskell-lens' 'haskell-lsp' 'haskell-ormolu')
-makedepends=('ghc' 'uusi' 'haskell-hls-test-utils' 'haskell-lsp-types')
+         'haskell-lens' 'haskell-lsp' 'haskell-ormolu' 'haskell-process-extras')
+makedepends=('ghc' 'uusi' 'haskell-aeson' 'haskell-hls-test-utils' 'haskell-lsp-types')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('09d437a4db5fd2e3d86201ee6877c42ebd189e9bcc51b3de038458388c92b08f21fcd1e8db5e0cb59e53ee45ea4931c5edaaede6636aeb15689a9fbabc174c97')
+sha512sums=('433e2d5539991389d7af6d798880e61493a00851d9c184683b3ed5aa2dd2884a4f661b1ca8d7e53c3b284ae2bc74b877ceea2e7360488f8d80eaab12f2fee877')
 
 prepare() {
   cd $_hkgname-$pkgver
