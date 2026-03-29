@@ -1,7 +1,7 @@
 pkgbase = falcosecurity-libs
 	pkgdesc = libsinsp, libscap, the scap kernel module
-	pkgver = 0.20.0
-	pkgrel = 9
+	pkgver = 0.23.1
+	pkgrel = 1
 	url = https://github.com/falcosecurity/libs
 	arch = x86_64
 	license = Apache-2.0
@@ -28,13 +28,13 @@ pkgbase = falcosecurity-libs
 	makedepends = ninja
 	makedepends = git
 	options = !lto
-	source = git+https://github.com/falcosecurity/libs.git#tag=0.20.0
+	source = git+https://github.com/falcosecurity/libs.git#tag=0.23.1
 	source = https://falco-distribution.s3.eu-west-1.amazonaws.com/fixtures/libs/scap_files/kexec_arm64.scap
 	source = https://falco-distribution.s3.eu-west-1.amazonaws.com/fixtures/libs/scap_files/kexec_x86.scap
 	source = https://falco-distribution.s3.eu-west-1.amazonaws.com/fixtures/libs/scap_files/sample.scap
 	source = https://falco-distribution.s3.eu-west-1.amazonaws.com/fixtures/libs/scap_files/scap_2013.scap
 	source = driver-build-fixes.patch
-	sha256sums = ccd5ccc44c7e1434a1051ac5bbab908efa17f455ed07ef05bbe0df9a9bb26ece
+	sha256sums = 6543dc629cb6412c408a3005a25cd6630bae6e02e7f744de861ae8f5e0951ff2
 	sha256sums = fdb49126fcf318baa9b0f23243c89d4573dc339f8386171a66ba2a46adacbecd
 	sha256sums = e3173873aedbbfab1b078f9ecaa08003a0367d5f46bf1ad88ea5ea35ccb818f6
 	sha256sums = ac88f617b9076087ae204f0342b7d5927bd8361cce8729703ea0b3fc5633120f

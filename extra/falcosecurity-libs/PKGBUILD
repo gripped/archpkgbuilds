@@ -4,9 +4,9 @@
 
 pkgbase=falcosecurity-libs
 pkgname=(falcosecurity-libs scap-dkms)
-pkgver=0.20.0
+pkgver=0.23.1
 _driverver=8.0.0
-pkgrel=9
+pkgrel=1
 
 pkgdesc="libsinsp, libscap, the scap kernel module"
 arch=('x86_64')
@@ -22,7 +22,7 @@ source=("git+https://github.com/falcosecurity/libs.git#tag=$pkgver"
         "https://falco-distribution.s3.eu-west-1.amazonaws.com/fixtures/libs/scap_files/sample.scap"
         "https://falco-distribution.s3.eu-west-1.amazonaws.com/fixtures/libs/scap_files/scap_2013.scap"
         "driver-build-fixes.patch")
-sha256sums=('ccd5ccc44c7e1434a1051ac5bbab908efa17f455ed07ef05bbe0df9a9bb26ece'
+sha256sums=('6543dc629cb6412c408a3005a25cd6630bae6e02e7f744de861ae8f5e0951ff2'
             'fdb49126fcf318baa9b0f23243c89d4573dc339f8386171a66ba2a46adacbecd'
             'e3173873aedbbfab1b078f9ecaa08003a0367d5f46bf1ad88ea5ea35ccb818f6'
             'ac88f617b9076087ae204f0342b7d5927bd8361cce8729703ea0b3fc5633120f'
@@ -31,7 +31,6 @@ sha256sums=('ccd5ccc44c7e1434a1051ac5bbab908efa17f455ed07ef05bbe0df9a9bb26ece'
 
 prepare() {
   cd "$srcdir"/libs
-  patch -p1 -i ../driver-build-fixes.patch
 
   rm -rf build
   mkdir -p build/scap_files
