@@ -3,7 +3,7 @@
 # Contributor: flu
 
 pkgname=sqlcipher
-pkgver=4.13.0
+pkgver=4.14.0
 pkgrel=1
 pkgdesc="SQLite extension that provides transparent 256-bit AES encryption of database files"
 arch=('x86_64')
@@ -17,8 +17,8 @@ depends=(
   'zlib'
 )
 makedepends=('patchelf')
-source=("$url/verify/$pkgver/$pkgname-$pkgver.zip"{,.sig})
-b2sums=('5bd401df93e0703f1613fdaded1f59f6d36f405908e65b5e88f34594ef35c382cecb6b416344b03c8b02edb5edd602a4efb9754d1e56adbc61d07fb5bf236abc'
+source=("https://www.zetetic.net/downloads/sqlcipher/verify/$pkgver/$pkgname-$pkgver.zip"{,.sig})
+b2sums=('cf35d228cd0e726674de51be5ffd55517d625d68174c6af6df068dcc7e076cf812b1822f9fef6b163d883beccd821e5a8dceef0f198cfcbc2ec569ee6ade9e1d'
         'SKIP')
 validpgpkeys=('D83F5F9EB811D6E6B4A0D9C5D1FA3A2A97ED25C2') # Zetetic LLC <support@zetetic.net>
 
@@ -79,8 +79,10 @@ package() {
   mv -v "$pkgdir/usr/include/sqlite3ext.h" "$pkgdir/usr/include/sqlcipher/"
 
   # Fix TCL module: rename to match old package layout and fix soname
-  mv -v "$pkgdir/usr/lib/tcl8.6/sqlite3.51.2" "$pkgdir/usr/lib/tcl8.6/sqlite3"
-  mv -v "$pkgdir/usr/lib/tcl8.6/sqlite3/libsqlite3.51.2.so" \
+  local sqlitever=$(sed -n 's/#define SQLITE_VERSION *"\(.*\)"/\1/p' sqlite3.h)
+  mv -v "$pkgdir/usr/lib/tcl8.6/sqlite$sqlitever" \
+    "$pkgdir/usr/lib/tcl8.6/sqlite3"
+  mv -v "$pkgdir/usr/lib/tcl8.6/sqlite3/libsqlite$sqlitever.so" \
     "$pkgdir/usr/lib/tcl8.6/sqlite3/libtclsqlite3.so"
   patchelf --set-soname libtclsqlite3.so \
     "$pkgdir/usr/lib/tcl8.6/sqlite3/libtclsqlite3.so"
