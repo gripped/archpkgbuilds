@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstackclient
-pkgver=8.0.0
+pkgver=8.1.0
 pkgrel=1
 pkgdesc="OpenStack Command-line Client"
 arch=('any')
@@ -14,10 +14,11 @@ depends=('python-pbr' 'python-cryptography' 'python-cliff' 'python-iso8601' 'pyt
 makedepends=('git')
 checkdepends=('python-requests-mock' 'python-stestr' 'python-testtools' 'python-wrapt' 'python-ddt')
 source=("git+https://github.com/openstack/python-openstackclient.git#tag=$pkgver")
-sha512sums=('9601d9b32a5692c81bedd7cfc19346495e567a5ae40d2409c6e8f7d3c6de1ca4ac694316accaadeb6c6b9ce9179a69d601041b442a41fdf3b35188dcbd4c95d0')
+sha512sums=('ca880fd8cf1a99a0fba0208d4786e26b7d539b10b3f89685dc5adc5417e817c6ad40a2a51a7917f95c217e133d089c6571de7a12bae8d15aa7aa76ef76787297')
 
 prepare() {
   cd python-openstackclient
+  # testtools 2.8 removes assertItemsEqual
   git cherry-pick -n b6af7883b7f493f01142fe6774dab434454a080a
 }
 
@@ -29,7 +30,7 @@ build() {
 check() {
   cd python-openstackclient
   # https://bugs.launchpad.net/python-openstackclient/+bug/2137223
-  # https://bugs.launchpad.net/python-openstackclient/+bug/2137224 (project_endpoints mock issue)
+  # test_endpoint_list_project_with_project_domain has a project_endpoints mock issue
   stestr run --exclude-regex "openstackclient.tests.unit.common.test_module.TestModuleList.test_module_list_all|openstackclient.tests.unit.common.test_module.TestModuleList.test_module_list_no_options|openstackclient.tests.unit.identity.v3.test_endpoint.TestEndpointList.test_endpoint_list_project_with_project_domain|openstackclient.tests.unit.identity.v3.test_endpoint.TestEndpointListServiceWithoutName.test_endpoint_list_project_with_project_domain"
 }
 
