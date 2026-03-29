@@ -4,7 +4,7 @@
 
 pkgname=cherrytree
 pkgver=1.6.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Hierarchical note-taking application"
 arch=('x86_64')
 url="https://www.giuspen.com/cherrytree/"
@@ -16,7 +16,6 @@ depends=(
   'curl'
   'fmt'
   'fribidi'
-  'gcc-libs'
   'glib2'
   'glibc'
   'glibmm'
@@ -25,7 +24,9 @@ depends=(
   'gtkmm3'
   'gtksourceview4'
   'hicolor-icon-theme'
+  'libgcc'
   'libsigc++'
+  'libstdc++'
   'libxml++2.6'
   'libxml2'
   'pango'
@@ -51,9 +52,9 @@ checkdepends=(
 )
 source=("https://github.com/giuspen/cherrytree/releases/download/v${pkgver}/${pkgname}_${pkgver}.tar.xz"{,.asc}
          glycin-2.patch)
-sha512sums=('9ef8727311bc11f3c055911c56467f338ae4822120d8d014da8f776935f0acadf33137544df314d3e1756b8fdb72a2acd58602460b67e11b73d3a349fc8ed782'
-            'SKIP'
-            'ae7d75f08b5f192f25dceb2f7e9402882f7a05fb5a776e653f7e1092432d23896475ca5449e16f8b169e262475406a0cbbc802725a4e2972b9e310a5d611afb3')
+b2sums=('87ca6591e418eb151eaaaaaf21fb1575de012ca4e1b90528210e1980f1af9c3a35928f1a0abea842c6f30873a566ed771dccc22905bb20211fff78334bb60fb1'
+        'SKIP'
+        'fc7d69f1f771feee9ce65cb4bc78a4dd5dfc8cc1575b51d95ab9157126bd6cfa7f679b3367db2c947fbfaf99a8ca2dea11fedb3fcbc0760c8ea7262c301bddee')
 validpgpkeys=('C7BF38CE0BD442C2369AA984049128A20CE0648D') # Giuseppe Penone <giuspen [at] gmail [dot] com>
 
 prepare() {
