@@ -4,8 +4,8 @@
 
 _hkgname=mime-types
 pkgname=haskell-mime-types
-pkgver=0.1.2.0
-pkgrel=4
+pkgver=0.1.2.1
+pkgrel=1
 pkgdesc="Basic mime-type handling types and functions"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('MIT')
@@ -13,7 +13,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('b7660c1f24155afd3479cc9651c4cd89bb82d8be4f2ee165838cfc6562a37cd55081022dfcaacb4ea0d0bd3b8c94fd510b2002a7c554c91c5158e7fc70910a8f')
+sha512sums=('15303cb3fa3e06f7c35166fad96f8d00812bf1b36c9c819bcfc1c0752082f7a577fca59bbd5842326d17586c6f858db88b69f65759fafb74a736d5928cd3af95')
 
 build() {
     cd $_hkgname-$pkgver
