@@ -5,31 +5,33 @@
 # Contributor: Jonas Heinrich <onny@project-insanity.org>
 
 pkgname=azcopy
-_pkgname=azure-storage-azcopy
-pkgver=10.32.1
+pkgver=10.32.2
 pkgrel=1
 pkgdesc="A command-line utility designed for copying data to/from Microsoft Azure"
 arch=('x86_64')
 url="https://github.com/Azure/azure-storage-azcopy"
 license=('MIT')
 depends=('glibc')
-makedepends=('go')
+makedepends=(
+  'go'
+  'git'
+)
 options=('!lto')
-source=("$url/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('6da5018c896fdb762fa462930e902258d8477e1b34bafffee12404bfcb3af67cd30c5df503d9682823a6630047f02470c331a3212b222d9dd1b27322a196372e')
+source=("$pkgname::git+$url#tag=v$pkgver")
+b2sums=('c6d83146f45903bde9d1852f296bfada85b7f8d225f07f26951bf4e68a1c19420b48c5cd4c1e8088ca146811c1703baa913eb38e533823dd181fd4af1b588dd7')
 
 prepare() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
   GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
 build() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
   export CGO_CPPFLAGS="$CPPFLAGS"
   export CGO_CFLAGS="$CFLAGS"
   export CGO_CXXFLAGS="$CXXFLAGS"
   export CGO_LDFLAGS="$LDFLAGS"
-  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw -buildvcs=false"
+  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw"
   export GOPATH="$srcdir"
 
   local ld_flags="-compressdwarf=false -linkmode=external"
@@ -37,7 +39,7 @@ build() {
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
   # Skip packages with tests that require Azure credentials or have upstream bugs:
   # - azcopy: TestValidateProtocolCompatibility has nil pointer dereference bug
   # - cmd, common, ste: require ACCOUNT_NAME/ACCOUNT_KEY env vars for Azure
@@ -55,7 +57,7 @@ check() {
 }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
   # Completions
   ./build/azure-storage-azcopy completion bash \
     | install -vDm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/azcopy"
