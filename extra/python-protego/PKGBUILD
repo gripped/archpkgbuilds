@@ -1,17 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-protego
-pkgver=0.4.0
+pkgver=0.5.0
 pkgrel=1
 pkgdesc="A pure-Python robots.txt parser with support for modern conventions"
 url="https://github.com/scrapy/protego"
 license=('BSD-3-Clause')
 arch=('any')
 depends=('python')
-makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
 checkdepends=('python-pytest')
 source=("git+https://github.com/scrapy/protego.git#tag=$pkgver")
-sha512sums=('bfa33f6a363c03c7249adb03546d107cc49406305bab5070cd4964e18f51fd43d0a1e68e72736f12fd13ca22132b5cbb928ff0417c6247683d2e464fccf3621d')
+sha512sums=('e563c6a72a8e63638bb14f7e8d6fd4130a3cc8d235af6cbf9f5926e0b0ef86b4eb4cad699bedd2e470cb8458d3f9466e7b61c122142c14f630089a79e423f4df')
 
 build() {
   cd protego
