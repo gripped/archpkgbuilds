@@ -1,7 +1,7 @@
 pkgbase = dtkgui
 	pkgdesc = Deepin Toolkit, gui module for DDE look and feel
 	pkgver = 6.7.32
-	pkgrel = 2
+	pkgrel = 3
 	epoch = 1
 	url = https://github.com/linuxdeepin/dtkgui
 	arch = x86_64
@@ -18,6 +18,7 @@ pkgbase = dtkgui
 	makedepends = dtkcore
 	makedepends = dtk6core
 	makedepends = libqt5xdg
+	makedepends = libqtxdg
 	makedepends = librsvg
 	makedepends = qt5-base
 	makedepends = qt6-base
@@ -26,9 +27,7 @@ pkgbase = dtkgui
 	makedepends = libx11
 	makedepends = treeland-protocols
 	source = git+https://github.com/linuxdeepin/dtkgui.git#tag=6.7.32
-	source = fix-dtk5-include-path.patch
 	sha512sums = 259f562420273d45b800660f797e72b8f3a86a93ca127b61ccaf07b40ed6873769fad2d16e77476baa84736566461ec9c14cf610200dbf71f20573aa0fd5ac65
-	sha512sums = 8034b3a4d7298f561df7178d887c92f645d50fb37f76939c5f983f5d4a0e80ffa1ae0a58c41bb5084db8718dbbd8ae4af578440bd18fe4bb4719ccbdb729bac8
 
 pkgname = dtkgui
 	pkgdesc = Deepin Toolkit, gui module for DDE look and feel (Qt5 build)
@@ -51,6 +50,7 @@ pkgname = dtk6gui
 	depends = glibc
 	depends = libgcc
 	depends = libgomp
+	depends = libqtxdg
 	depends = librsvg
 	depends = libstdc++
 	depends = libx11

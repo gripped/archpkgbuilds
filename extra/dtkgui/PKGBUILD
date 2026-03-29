@@ -3,7 +3,7 @@
 pkgbase=dtkgui
 pkgname=(dtkgui dtk6gui)
 pkgver=6.7.32
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc='Deepin Toolkit, gui module for DDE look and feel'
 arch=('x86_64')
@@ -11,19 +11,20 @@ url="https://github.com/linuxdeepin/dtkgui"
 license=('LGPL-3.0-or-later')
 groups=('deepin')
 makedepends=('git' 'cmake' 'ninja' 'extra-cmake-modules' 'qt5-tools' 'qt6-tools' 'gtest' 'doxygen'
-             'dtkcore' 'dtk6core' 'libqt5xdg' 'librsvg' 'qt5-base' 'qt6-base' 'qt5-wayland'
+             'dtkcore' 'dtk6core' 'libqt5xdg' 'libqtxdg' 'librsvg' 'qt5-base' 'qt6-base' 'qt5-wayland'
              'glib2' 'libx11' 'treeland-protocols')
-source=("git+https://github.com/linuxdeepin/dtkgui.git#tag=$pkgver"
-        "fix-dtk5-include-path.patch")
-sha512sums=('259f562420273d45b800660f797e72b8f3a86a93ca127b61ccaf07b40ed6873769fad2d16e77476baa84736566461ec9c14cf610200dbf71f20573aa0fd5ac65'
-            '8034b3a4d7298f561df7178d887c92f645d50fb37f76939c5f983f5d4a0e80ffa1ae0a58c41bb5084db8718dbbd8ae4af578440bd18fe4bb4719ccbdb729bac8')
+source=("git+https://github.com/linuxdeepin/dtkgui.git#tag=$pkgver")
+sha512sums=('259f562420273d45b800660f797e72b8f3a86a93ca127b61ccaf07b40ed6873769fad2d16e77476baa84736566461ec9c14cf610200dbf71f20573aa0fd5ac65')
 
 prepare() {
   cd dtkgui
   # Fix upstream bug: PROJECT_VERSION_MAJOR should be DTK_VERSION_MAJOR
   # This ensures private headers install to correct path (dtk5 vs dtk6)
   # https://github.com/linuxdeepin/dtkgui/pull/368
-  patch -p1 -i "$srcdir/fix-dtk5-include-path.patch"
+  git cherry-pick -n 8dbfc1d9055a2e15a24b3e1253dff797ab2ce76f
+  # Enable Qt6 XdgIconLoader support + use DSvgRenderer for all scalable SVG entries
+  # https://github.com/linuxdeepin/dtkgui/pull/372
+  git cherry-pick -n d796af93e1c6b1870faad058b0e6ac076e0f86fb
 
   cd ..
   # Use separate source directories for Qt5 and Qt6 builds
@@ -82,7 +83,7 @@ package_dtkgui() {
 
 package_dtk6gui() {
   pkgdesc='Deepin Toolkit, gui module for DDE look and feel (Qt6 build)'
-  depends=('dtk6core' 'glib2' 'glibc' 'libgcc' 'libgomp' 'librsvg' 'libstdc++' 'libx11'
+  depends=('dtk6core' 'glib2' 'glibc' 'libgcc' 'libgomp' 'libqtxdg' 'librsvg' 'libstdc++' 'libx11'
            'qt6-base' 'wayland')
 
   cd build-qt6/dtkgui
