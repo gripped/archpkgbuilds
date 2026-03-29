@@ -2,8 +2,8 @@
 
 _hkgname=hls-graph
 pkgname=haskell-hls-graph
-pkgver=2.2.0.0
-pkgrel=14
+pkgver=2.3.0.0
+pkgrel=1
 pkgdesc="Haskell Language Server internal graph API"
 url="https://github.com/haskell/haskell-language-server#readme"
 license=('Apache-2.0')
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-async' 'haskell-extra' 'haskell-foc
 makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-hspec-discover' 'haskell-tasty'
              'haskell-tasty-hspec' 'haskell-tasty-hunit' 'haskell-tasty-rerun')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('8153d9168eec99c089bedfa632bd870871571ca89650f31692d44f5296336030')
+sha256sums=('ef0386a1d0b0d5420c16079967d2ffae65d37c1eb31d633ea8e36834eb6e1f6e')
 
 prepare() {
   cd $_hkgname-$pkgver
