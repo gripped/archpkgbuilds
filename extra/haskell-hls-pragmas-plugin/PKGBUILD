@@ -2,8 +2,8 @@
 
 _hkgname=hls-pragmas-plugin
 pkgname=haskell-hls-pragmas-plugin
-pkgver=2.2.0.0
-pkgrel=18
+pkgver=2.3.0.0
+pkgrel=1
 pkgdesc="Pragmas plugin for Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-pragmas-plugin"
 license=('Apache-2.0')
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-extra' 'haskell-fuzzy' 'haskell-ghc' 'haskell-ghcid
 makedepends=('ghc' 'uusi' 'haskell-aeson' 'haskell-hls-test-utils' 'haskell-lsp-types')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('af82ca055480e7a80884077418d047c80ed20ff9f27fd1373440cea6e5f299561fdc1329b7ffc560f34fc32e12fa8dc2e89259805c89bd856dbd91b2818b838f')
+sha512sums=('119fa3fd6167c4115fc449916fce8778292c8d8ff01bd67fab43c5efcf27bbfd08979fc48283a853d1a047af5f44b5113ac671e45e2e3c40b15e4b5411270df6')
 
 prepare() {
   cd $_hkgname-$pkgver
