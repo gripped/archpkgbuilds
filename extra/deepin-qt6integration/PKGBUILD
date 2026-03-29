@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-qt6integration
-pkgver=6.0.48
-pkgrel=3
+pkgver=6.0.50
+pkgrel=1
 pkgdesc='Qt 6 platform theme integration plugins for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/qt6integration"
@@ -11,7 +11,7 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'glibc' 'libgcc' 'libstdc+
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'xcb-util-renderutil' 'gtest')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/qt6integration.git#tag=$pkgver")
-sha512sums=('10e82a61dd3ae045555281a4bc5e21a4bb54b4fdfccb29ae0c6cdc7228c0e27e7425d3ef00760fcdc354d9c7a62823c6dd42dbcac1fc4a927fd9364ce759b664')
+sha512sums=('5201b89867c94a8b4d100d1995efa1b4c8f486515642d2e8284507f1b38f7a956b55175965dc4b22678381ab0bf9decabdd3995cc542ae25e69ec29fc897e9f0')
 
 build() {
   cd qt6integration
