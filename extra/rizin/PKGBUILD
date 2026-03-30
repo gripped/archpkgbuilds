@@ -1,27 +1,27 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=rizin
-pkgver=0.8.1
-pkgrel=2
+pkgver=0.8.2
+pkgrel=1
 pkgdesc='Open-source tools to disasm, debug, analyze and manipulate binary files'
 url='https://rizin.re'
-arch=('x86_64')
+arch=(x86_64)
 license=(
-  'Apache-2.0'
-  'BSD-2-Clause'
-  'BSD-3-Clause'
-  'CC-PDDC'
-  'CC0-1.0'
-  'GPL-1.0-or-later'
-  'GPL-2.0-only'
-  'GPL-2.0-or-later'
-  'GPL-3.0-only'
-  'GPL-3.0-or-later'
-  'LGPL-2.0-or-later'
-  'LGPL-2.1-only'
-  'LGPL-2.1-or-later'
-  'LGPL-3.0-only'
-  'MIT'
+  Apache-2.0
+  BSD-2-Clause
+  BSD-3-Clause
+  CC-PDDC
+  CC0-1.0
+  GPL-1.0-or-later
+  GPL-2.0-only
+  GPL-2.0-or-later
+  GPL-3.0-only
+  GPL-3.0-or-later
+  LGPL-2.0-or-later
+  LGPL-2.1-only
+  LGPL-2.1-or-later
+  LGPL-3.0-only
+  MIT
 )
 depends=(
   glibc
@@ -45,11 +45,17 @@ makedepends=(
   xxhash
   zstd
 )
-optdepends=('rz-ghidra: ghidra decompiler plugin')
-options=('!emptydirs')
-source=(https://github.com/rizinorg/rizin/releases/download/v${pkgver}/rizin-src-v${pkgver}.tar.xz)
-sha512sums=('da0de01199e0d314fb5023267918d26ae4748547e60c6ce10a81f32a6e6e5453694a5261cb16b48df1412ef405e4835feb9598fafe75787dcacbf0a5fa6225f9')
-b2sums=('52da4a3cb522e540ce03e61691e029fe1e81f5367fc38a32fc32e8a99c00aa91701af8acee8308b8369495f76b0131a65565c11fe9b9bbc04b1f8f6e2c10cbf4')
+optdepends=(
+  'rz-ghidra: ghidra decompiler plugin'
+)
+options=(
+  '!emptydirs'
+)
+source=(
+  https://github.com/rizinorg/rizin/releases/download/v${pkgver}/rizin-src-v${pkgver}.tar.xz
+)
+sha512sums=('cb51091c0e054add9a965596d693eb86f6d0f04147386a24a694f51f39702d4b8762272b094d7b103a9e413a158226b0366d982e46949807fb9c529b66ce8981')
+b2sums=('ca5345e28dbeb7a6dcdf8e76335d92b09f63add04b2022de34c44882bcf7f2adfa73143299fbef4960f0c52e503356d392baa08cc0274c554c7a7df36047e1c5')
 
 build() {
   cd ${pkgname}-v${pkgver}
