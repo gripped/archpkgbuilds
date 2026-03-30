@@ -3,8 +3,8 @@
 
 _hkgname=lua-arbitrary
 pkgname=haskell-lua-arbitrary
-pkgver=1.0.1.1
-pkgrel=135
+pkgver=1.0.1.2
+pkgrel=1
 pkgdesc="Arbitrary instances for Lua types."
 url="https://hslua.org/"
 license=("MIT")
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-lua')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('d5f6143d9c99d44453fff535b912ad0d7ce8cb5500b1d9dc47947952e2637b4d')
+sha256sums=('08a1d79ef8963df1c8f405b0459aee142c3c89b3f8728d410de801a2787cc834')
 
 prepare() {
   cd $_hkgname-$pkgver
