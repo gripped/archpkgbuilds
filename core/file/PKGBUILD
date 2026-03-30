@@ -4,7 +4,7 @@
 
 pkgname=file
 pkgver=5.47
-pkgrel=1
+pkgrel=2
 pkgdesc='File type identification utility'
 arch=('x86_64')
 license=('custom')
@@ -21,9 +21,13 @@ options=('!emptydirs')
 # Warning: Upstream commits update file version and date inside each file!
 #          Remove these changes from patches when cherry-picking to avoid
 #          conflicts!
-source=("git+https://github.com/file/file.git#tag=FILE${pkgver//./_}")
+source=("git+https://github.com/file/file.git#tag=FILE${pkgver//./_}"
+        '0000-dummy.keep'
+        '0001-Revert-PR-679-matches-too-many-unix-stanza-files-lik.patch')
 validpgpkeys=('BE04995BA8F90ED0C0C176C471112AB16CB33B3A') # Christos Zoulas
-sha256sums=('50ff3cce78907b08d1d6fb5a1af5c686c82c4224452e434a768d008e6c651546')
+sha256sums=('50ff3cce78907b08d1d6fb5a1af5c686c82c4224452e434a768d008e6c651546'
+            'd31f32b819c769a94843fa0efa1d2bae0342c5e7975ad422502e24401636c43a'
+            '376d91963745cdf9072b2151cb2a38261eee2189dd60983c578710250cacee6f')
 
 prepare() {
   cd file
