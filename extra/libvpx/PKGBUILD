@@ -4,13 +4,12 @@
 
 pkgname=libvpx
 pkgver=1.16.0
-pkgrel=2
+pkgrel=3
 pkgdesc='VP8 and VP9 codec'
 arch=(x86_64)
 url=https://www.webmproject.org/
 license=(custom:BSD)
 depends=(
-  gcc-libs
   glibc
 )
 makedepends=(
