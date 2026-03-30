@@ -6,7 +6,7 @@
 
 pkgname=python-tox
 _name="${pkgname#python-}"
-pkgver=4.32.0
+pkgver=4.33.0
 pkgrel=1
 pkgdesc='Python virtualenv management and testing tool'
 arch=('any')
@@ -53,7 +53,7 @@ optdepends=(
   'python-re-assert: for pytest plugin to test tox and its plugins'
 )
 source=("git+$_url.git#tag=$pkgver")
-sha512sums=('5432280cdcdfcfffa0820a1d081aad2e9b8dfe581c0025df5070ec3adbab663f36c95ba288bfbf77ef6e8f0c5f800196409ca1758994cc08da50a1f12f872e4f')
+sha512sums=('ec5618040ff5f70da10f8d2b216f178abba950ca09a192ebd40d6c19bf5d1215472ad3e850b5635331f02a2c74cf07c849757c858c10c36c5d0b28a01c058603')
 
 build() {
   cd $_name
