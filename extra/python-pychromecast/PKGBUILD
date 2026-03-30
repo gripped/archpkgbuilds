@@ -8,8 +8,8 @@
 
 pkgname=python-pychromecast
 _pkgname=pychromecast
-pkgver=14.0.9
-pkgrel=4
+pkgver=14.0.10
+pkgrel=1
 pkgdesc="Library for Python to communicate with the Google Chromecast"
 arch=('any')
 url="https://github.com/home-assistant-libs/pychromecast"
@@ -25,7 +25,7 @@ makedepends=(
 	'python-setuptools'
 )
 source=("${_pkgname}-${pkgver}.tar.gz::https://github.com/home-assistant-libs/pychromecast/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('d5494eff226119d9a0c2fd4d9fbc7f1025cedb2e699047cc9a0ba76236bed64d')
+sha256sums=('ce9f966c4d555165a1b30e6c5879794760248535e31498a190ca20111d40a4d8')
 
 build() {
 	cd "${_pkgname}-${pkgver}"
