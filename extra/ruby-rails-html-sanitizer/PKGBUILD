@@ -2,8 +2,8 @@
 
 _gemname='rails-html-sanitizer'
 pkgname="ruby-${_gemname}"
-pkgver=1.6.2
-pkgrel=3
+pkgver=1.7.0
+pkgrel=1
 pkgdesc='HTML sanitization for Rails applications'
 arch=('any')
 url='https://github.com/rails/rails-html-sanitizer'
@@ -13,7 +13,7 @@ depends=('ruby' 'ruby-loofah')
 makedepends=('ruby-bundler' 'ruby-minitest' 'ruby-rake')
 checkdepends=('ruby-rails-dom-testing')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('69a6126d111fc22011a7d2db3f297e352cdf8b21021c9865cf4bf7d0e0375617ddf6ae57f49581ea803879d2dc35b002a3b413248813acd93fab36998ed7106e')
+sha512sums=('a60322e9358d1df6b8485d0dfc5fa34e9918dfdf9b7ffc8a3726c54ab5dd869e24b17fbc260ad5ad7ff30eded082d41bdc2d2c9ca56eade837cca610f9ad892e')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
