@@ -1,51 +1,57 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=r2ghidra
-_ghidra_native=0.5.0
-pkgver=5.9.8
+pkgver=6.1.2
 pkgrel=1
 pkgdesc='Deep ghidra decompiler integration for radare2 and iaito'
-url='https://github.com/radareorg/r2ghidra'
 arch=(x86_64)
+url='https://github.com/radareorg/r2ghidra'
 license=(LGPL-3.0-only)
 depends=(
-  radare2
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
+  radare2
   zlib
 )
 makedepends=(
   git
+  meson
 )
 provides=(radare2-r2ghidra)
 replaces=(r2ghidra-dec)
-source=("git+https://github.com/radareorg/r2ghidra#tag=${pkgver}"
-        "git+https://github.com/radareorg/ghidra-native.git#tag=${_ghidra_native}"
-        git+https://github.com/zeux/pugixml.git)
-sha512sums=('9d34a369d442409b55d7c994a847b5e06c23ca8df0bd213c8f959002b1c7603b60a6ea273b594dcacb0cf4bf8292a4b111fff67086afe15d1acb36ba9e15793a'
-            '1ab76f465e8d8a4ead1d60a18ccd0a533492cf7dc974769641e7891bf4273dea7e1035ac4f104374376a2b00a4675de3153f0fc4c8ac4ee899cadc1b34cffafe'
-            'SKIP')
+_ghidra_native_ver=0.6.4
+_pugixml_ver=v1.15
+source=(
+  "git+https://github.com/radareorg/r2ghidra#tag=$pkgver"
+  "git+https://github.com/radareorg/ghidra-native.git#tag=$_ghidra_native_ver"
+  "git+https://github.com/zeux/pugixml.git#tag=$_pugixml_ver"
+)
+b2sums=('5939fe0e087c59a834853b54c5bdac64b66e5e21a019036848bf1881917a77a0c68917d2a11c94ebc7eaf6edfd16f5388a5a88b9b6bc86c9f78ed1bf3115672c'
+        '664a80d82f041dff08c303a17edf65d6f675d472098254e356c62d09f9175a68bb6ab4624545cb63301a5dafae53d52ff0e59132a4cfc81e8b385d9c40b3774f'
+        'f57c537eb028ce25f81bff48f0001cf134fbed14bd836277f11907f1429c43f8a243e084b92d84bf5529c0fcb18d65e79afd256edb85561591871f62c65cf65b')
 
 prepare() {
-  cd ${pkgname}
-  git submodule init
-  git config submodule."third-party/pugixml".url "${srcdir}/pugixml"
-  git -c protocol.file.allow=always submodule update --recursive
-  ln -sf "${srcdir}/ghidra-native" ghidra-native
+  cd $pkgname
+  for subproject in ghidra-native pugixml; do
+    local ver_var=_${subproject//-/_}_ver
+    local expected_ver=${!ver_var}
+    grep -q "revision = $expected_ver" subprojects/$subproject.wrap \
+      || { echo "Version mismatch in subproject $subproject"; exit 1; }
+  done
 }
 
 build() {
-  cd ${pkgname}
-  make -C ghidra-native patch
-  ./configure PREFIX=/usr
-  make
+  cd $pkgname
+  export MESON_PACKAGE_CACHE_DIR="$srcdir"
+  arch-meson build
+  meson compile -C build
 }
 
 package() {
-  cd ${pkgname}
-  make DESTDIR="$pkgdir" install
-  r2version=$(r2 -v|grep radare2|sed -E 's/radare2 ([0-9\.]+) .*/\1/')
-  ln -s /usr/lib/radare2/${r2version} "${pkgdir}/usr/lib/radare2/last"
+  cd $pkgname
+  meson install -C build --destdir "$pkgdir"
+  local r2version=$(r2 -v|grep radare2|sed -E 's/radare2 ([0-9\.]+) .*/\1/')
+  ln -vs "/usr/lib/radare2/$r2version" "$pkgdir/usr/lib/radare2/last"
 }
-
-# vim: ts=2 sw=2 et:
