@@ -5,7 +5,7 @@
 pkgbase=rubberband
 pkgname=(rubberband rubberband-{ladspa,lv2,vamp})
 pkgver=4.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Time-stretching and pitch-shifting audio library and utility"
 arch=(x86_64)
 url="https://www.breakfastquay.com/rubberband/"
@@ -13,13 +13,14 @@ _url="https://github.com/breakfastquay/rubberband"
 license=(GPL-2.0-or-later)
 makedepends=(
   boost
+  boost-libs
   fftw
   java-environment
   ladspa
-  lv2
-  meson
   libsamplerate
   libsndfile
+  lv2
+  meson
   vamp-plugin-sdk
 )
 source=($pkgbase-$pkgver.tar.gz::$_url/archive/v$pkgver.tar.gz)
@@ -56,8 +57,8 @@ check() {
 package_rubberband() {
   depends=(
     fftw libfftw3.so
-    gcc-libs
     glibc
+    libgcc
     libsamplerate libsamplerate.so
     libsndfile libsndfile.so
   )
@@ -87,10 +88,10 @@ package_rubberband-ladspa() {
   )
   depends=(
     fftw libfftw3.so
-    gcc-libs
     glibc
-    libsamplerate libsamplerate.so
     ladspa-host
+    libgcc
+    libsamplerate libsamplerate.so
   )
 
   mv -v $pkgname/* "$pkgdir"
@@ -104,8 +105,8 @@ package_rubberband-lv2() {
   )
   depends=(
     fftw libfftw3.so
-    gcc-libs
     glibc
+    libgcc
     libsamplerate libsamplerate.so
     lv2-host
   )
@@ -121,8 +122,8 @@ package_rubberband-vamp() {
   )
   depends=(
     fftw libfftw3.so
-    gcc-libs
     glibc
+    libgcc
     libsamplerate libsamplerate.so
     vamp-host
     vamp-plugin-sdk
