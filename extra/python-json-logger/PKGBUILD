@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-json-logger
-pkgver=4.0.0
+pkgver=4.1.0
 pkgrel=1
 pkgdesc='A python library adding a json log formatter'
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=('git'
 checkdepends=('python-freezegun'
               'python-pytest')
 source=("git+https://github.com/nhairs/python-json-logger.git#tag=v$pkgver")
-sha512sums=('1f7106371aec1e508509a52f16fb75446350c83f41942d88bbf9a4b614d862eb14071bbd5d59cc3001b5cb9e6048e9f04532a23353bae53d685702a3f3dbdbc5')
+sha512sums=('d24c1056482164b59cd8fd282ea7721c92a531b969fc5ca57ec423026afc00bb0e4a8919e8c332ee5d040b814dce5e81b25c4baae19c99c5a44d2a0d854b24a0')
 
 build() {
   cd python-json-logger
