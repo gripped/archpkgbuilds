@@ -1,7 +1,7 @@
 pkgbase = deepin-qt5platform-plugins
 	pkgdesc = Qt platform plugins for DDE
-	pkgver = 5.7.30
-	pkgrel = 2
+	pkgver = 6.7.31
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/qt5platform-plugins
 	arch = x86_64
 	groups = deepin
@@ -10,12 +10,22 @@ pkgbase = deepin-qt5platform-plugins
 	makedepends = cmake
 	makedepends = ninja
 	makedepends = qt5-tools
+	makedepends = qt6-tools
 	makedepends = qt5-xcb-private-headers
+	makedepends = qt6-xcb-private-headers
 	makedepends = libglvnd
 	makedepends = gtest
 	makedepends = extra-cmake-modules
 	makedepends = dtkcommon
 	makedepends = cairo
+	makedepends = qt5-base
+	makedepends = qt5-x11extras
+	makedepends = qt6-base
+	source = git+https://github.com/linuxdeepin/qt5platform-plugins.git#tag=6.7.31
+	sha512sums = aa2742bbb553dceaab1df52fcdc17aaac8d7fd65eaf475642d4ce126acb7293107652c10386335282407166edda41c1714eecd1f5d45a6b2da3c8bef518750c2
+
+pkgname = deepin-qt5platform-plugins
+	pkgdesc = Qt 5 platform plugins for DDE
 	depends = qt5-base
 	depends = qt5-x11extras
 	depends = libx11
@@ -25,9 +35,15 @@ pkgbase = deepin-qt5platform-plugins
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
-	depends = libsm
-	depends = libice
-	source = git+https://github.com/linuxdeepin/qt5platform-plugins.git#tag=5.7.30
-	sha512sums = a4f7eac3b6327bb82662203e20cf3989f9dedf0adc066df901ead17f396a01d9be6ed775ee29eaabcb146d28405930f02d32ace9bd7e821949ac8c3a844d7f07
 
-pkgname = deepin-qt5platform-plugins
+pkgname = deepin-qt6platform-plugins
+	pkgdesc = Qt 6 platform plugins for DDE
+	depends = qt6-base
+	depends = libx11
+	depends = libxi
+	depends = libxcb
+	depends = xcb-util-wm
+	depends = xcb-util-cursor
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
