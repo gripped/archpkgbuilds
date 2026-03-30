@@ -4,14 +4,14 @@
 _name=orjson
 pkgname=python-orjson
 pkgver=3.11.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast, correct Python JSON library supporting dataclasses and datetimes"
 arch=(x86_64)
 url="https://github.com/ijl/orjson"
 license=('Apache-2.0 OR MIT')
 depends=(
-  gcc-libs
   glibc
+  libgcc
   python
 )
 makedepends=(
