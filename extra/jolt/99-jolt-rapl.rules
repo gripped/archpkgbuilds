@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2026 Jordon de Hoog
+# Allow reading RAPL energy counters (covers all CPU packages)
+SUBSYSTEM=="powercap", ACTION=="add", RUN+="/bin/sh -c 'chmod o+r /sys/class/powercap/intel-rapl/*/energy_uj /sys/class/powercap/intel-rapl/*/*/energy_uj 2>/dev/null || true'"

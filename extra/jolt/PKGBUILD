@@ -3,7 +3,7 @@
 
 pkgname=jolt
 pkgver=1.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc='TUI-based battery and energy monitor'
 arch=(x86_64 aarch64)
 url="https://github.com/jordond/$pkgname"
@@ -12,8 +12,9 @@ makedepends=(cargo)
 options=(!lto)
 install="$pkgname.install"
 _archive="$pkgname-$pkgver"
-source=("$url/archive/refs/tags/$pkgver/$_archive.tar.gz")
-sha256sums=('c6756b84349a6f253d81eb9ad6074f9b94461043c053b1b7ce5f86c2e1bed04d')
+source=("$url/archive/refs/tags/$pkgver/$_archive.tar.gz" 99-jolt-rapl.rules)
+sha256sums=('c6756b84349a6f253d81eb9ad6074f9b94461043c053b1b7ce5f86c2e1bed04d'
+            '6365284cf1dab98955c1df4074b06af46385dce6602524cd91c37a8fb431fb28')
 
 prepare() {
 	cd "$_archive"
@@ -28,6 +29,7 @@ build() {
 }
 
 package() {
+	install -Dm644 -t "$pkgdir/usr/lib/udev/rules.d/" 99-jolt-rapl.rules
 	cd "$_archive"
 	install -Dm0755 "target/release/$pkgname" "$pkgdir/usr/bin/$pkgname"
 	install -Dm644 -t "${pkgdir}/usr/lib/systemd/user/" "assets/$pkgname.service"
