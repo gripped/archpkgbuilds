@@ -3,7 +3,7 @@
 
 _gemname='sqlite3'
 pkgname="ruby-${_gemname}"
-pkgver=2.9.1
+pkgver=2.9.2
 pkgrel=1
 pkgdesc='Ruby bindings for the SQLite3 embedded database'
 url='https://github.com/luislavena/sqlite3-ruby'
@@ -27,8 +27,8 @@ checkdepends=(
   ruby-minitest
 )
 source=("https://github.com/sparklemotion/sqlite3-ruby/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
-sha512sums=('bb2ba67f0ab7a6b94bd054a017984432500391f0b740fbc932e2e1c4747c5f83822be6cb545a398b84c0a0f16ba1c4d6d7cff86993e1b740912cdddbb490f5ce')
-b2sums=('678bb8327497381b73eacd94cd74b33880569e4a8a6e53e4337f9e5ba12edfe19081ed2889105ba63014bbeeeee02ba7daa3a4f1217c458e080a7dc3c90e0244')
+sha512sums=('135412c42fc0e2ba1f89ff657743e7f9c2a82eafbf76c195d3191f924d563700bd73ee6a25d2e6fddeabf6c2d41694e83c4b5654dd281335020ef67d98282b02')
+b2sums=('890e8f8151741b5149e182d98bfeb3cb26e12e4d63226670977df70101c4dcdcb46b644df888982fea3ba8046b7fb49ca1f066ec4ab485aa8e7741742d91dba1')
 
 prepare() {
   cd "${_gemname}-ruby-${pkgver}"
@@ -62,36 +62,8 @@ build() {
     --local \
     --verbose \
     --ignore-dependencies \
-    --no-user-install \
-    --install-dir "tmp_install${_gemdir}" \
-    --bindir "tmp_install/usr/bin" \
+    --build-root "tmp_install" \
     "pkg/${_gemname}-${pkgver}.gem"
-
-  # remove unreproducible files
-  rm --force --recursive --verbose \
-    "tmp_install${_gemdir}/cache/" \
-    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
-    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
-
-  find "tmp_install${_gemdir}/gems/" \
-    -type f \
-    \( \
-      -iname "*.o" -o \
-      -iname "*.c" -o \
-      -iname "*.so" -o \
-      -iname "*.time" -o \
-      -iname "gem.build_complete" -o \
-      -iname "Makefile" \
-    \) \
-    -delete
-
-  find "tmp_install${_gemdir}/extensions/" \
-    -type f \
-    \( \
-      -iname "mkmf.log" -o \
-      -iname "gem_make.out" \
-    \) \
-    -delete
 }
 
 check() {
