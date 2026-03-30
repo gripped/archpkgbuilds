@@ -5,9 +5,9 @@
 # Contributor: Luis Henrique <lmello.009@gmail.com>
 
 pkgname=ngspice
-pkgver=45.2
-_manual_pkgver=45 # manual seems to lag a bit behind
-pkgrel=2
+pkgver=46
+_manual_pkgver=46 # manual seems to lag a bit behind
+pkgrel=1
 pkgdesc='Mixed-level/Mixed-signal circuit simulator based on Spice3f5, Ciber1b1, and Xspice'
 arch=(x86_64)
 url='https://ngspice.sourceforge.net'
@@ -27,10 +27,10 @@ source=(
   "$pkgname-$pkgver.tar.gz::https://downloads.sourceforge.net/project/$pkgname/ng-spice-rework/$pkgver/$pkgname-$pkgver.tar.gz"
   "https://sourceforge.net/projects/ngspice/files/ng-spice-rework/$pkgver/ngspice-$_manual_pkgver-manual.pdf"
 )
-sha512sums=('4090e9433457c0b49dc1e7561bc630a5c6a340391f26be8142c6bd514ae13b72137589964fe9ae5a01069c9de7d8457bd41b0811a335b2c93a3c6e07044b35b1'
-            '425d9320a01d409c7baab83d111f92643cae7df62a109e06d7e4fd366262441f4fdd62532db63fb4d4af4cb98e478b4f9fca5bd6c63fb89507dba685220f34ab')
-b2sums=('e47a865f16c6d373ae9940317283890cff0b2d7cda0d77ee26ab3615b18a75b1a2a29133d9a03e14f9034c9ff48694edb6bfd89cd9fbc632c3b713948eae4349'
-        'd5163652c6e7e088d3d3a95494a088f394f0c8efd71e80f15ac0f1d3dd238f17b7104be45390de39bf9aa2d41f1677ea7979685471cf9deaafc934c2a531c67a')
+sha512sums=('65262861a9581c2b970abbaf630e7a4471670ac04680bed034a94b3300d16010850a314ea6163c94fcd608b1b91d4629f533c5bfe6b9dd1e60e52234fe4e3cef'
+            '50a24fba5b84677b30477ed60d50c9e39852ecd3f766e4cf58ed35ce3108a25817b02aba3c887b93ce5e0c5cb2c5d72a7a8019dd9fdb32fa8c849cc30b741991')
+b2sums=('5d7a56fb5b4fe6604a5e458a24971935db0ae44a9f11adbde04468fd4bf7262e901b3eb1bed8e0a3afa903dace1770472865dd52f7ab241fc95dc74c06d35620'
+        '071cf9e8311266b58fd0569a1c17e6ea7fb17891cd39c86f069382c3591766c5f2e835ebd13aa9064dfed8ee97ebb995c28adae836ff3ae5e461f75ae88c5f85')
 
 build() {
   cd "$pkgname-$pkgver"
@@ -69,7 +69,7 @@ package() {
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" "$srcdir/ngspice-$_manual_pkgver-manual.pdf"
 
   # shared library
-  local _sover="0.0.13"
+  local _sover="0.0.15"
   install -vDm755 "src/.libs/libngspice.so.$_sover" "$pkgdir/usr/lib/libngspice.so.$_sover"
   ln -s "libngspice.so.$_sover" "$pkgdir/usr/lib/libngspice.so.0"
   ln -s "libngspice.so.$_sover" "$pkgdir/usr/lib/libngspice.so"
