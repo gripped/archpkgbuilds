@@ -2,8 +2,8 @@
 # Contributor:  Vitalii Kuzhdin <vitaliikuzhdin@gmail.com>
 
 pkgname=cyme
-pkgver=2.2.11
-pkgrel=2
+pkgver=2.3.0
+pkgrel=1
 pkgdesc="List system USB buses and devices; a lib and modern cross-platform lsusb"
 arch=('x86_64')
 url="https://github.com/tuna-f1sh/${pkgname}"
@@ -12,7 +12,7 @@ depends=('glibc' 'libgcc' 'libusb')
 makedepends=('cargo')
 _pkgsrc="${pkgname}-${pkgver}"
 source=("${_pkgsrc}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('198afba2fc76792db9f08dfda13840aa98dbbfe0ed66238c15305fe0fdf55cf0')
+sha256sums=('f4aefd2ac447f6ca6040f9d22376a8fdd96d30f1612fca3cfacf5399aef68db0')
 
 prepare() {
   cd "${srcdir}/${_pkgsrc}"
