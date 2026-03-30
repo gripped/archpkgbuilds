@@ -4,14 +4,14 @@
 _pkgname=triton
 pkgname=python-${_pkgname}
 pkgver=3.5.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Language and compiler for writing highly efficient custom Deep-Learning primitives"
 url="https://triton-lang.org/main/index.html"
 license=(MIT)
 arch=(x86_64)
 depends=(
 	glibc
-	gcc-libs
+	libgcc
 	python
 )
 makedepends=(
