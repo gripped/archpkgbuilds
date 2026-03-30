@@ -1,26 +1,25 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=xdg-desktop-portal-dde
-pkgver=1.0.13
-pkgrel=7
+pkgver=1.0.14
+pkgrel=1
 pkgdesc='A backend implementation for xdg-desktop-portal on Deepin desktop environment'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/xdg-desktop-portal-dde"
 license=('LGPL-3.0-or-later')
-depends=('dtk6core' 'dtk6widget' 'qt6-base' 'wayland' 'glibc' 'libgcc' 'libstdc++'
-         'xdg-desktop-portal')
-makedepends=('git' 'cmake' 'ninja' 'wlr-protocols' 'qt6-tools' 'treeland-protocols')
+depends=('dtk6core' 'dtk6declarative' 'dtk6widget' 'qt6-base' 'qt6-declarative' 'wayland'
+         'glibc' 'libgcc' 'libstdc++' 'libdrm' 'libpipewire' 'mesa' 'xdg-desktop-portal')
+makedepends=('git' 'cmake' 'ninja' 'python' 'libdrm' 'libpipewire' 'mesa' 'qt6-declarative' 'qt6-tools'
+             'treeland-protocols' 'wayland-protocols' 'wlr-protocols' 'dtk6declarative')
 provides=(xdg-desktop-portal-impl)
 groups=('deepin')
-source=("git+https://github.com/linuxdeepin/xdg-desktop-portal-dde.git#tag=$pkgver"
-         qt-6.10.patch)
-sha512sums=('430f7ea78b4fefddf533a99f9ad793e9521d8955f5e49b825785f2ece317d0bca0b9978750766d3162146624c5fa5897e343cbba04f9d317f1584f815f2cfa12'
-            '82e94491d2e52f6e0689d8a11763e01b33950e489bf226512228663f7cb8458d1e566ff8ab877500f543f26f6ac68d9f6f83ec2bfc9f62bb70ddec025263c612')
+source=("git+https://github.com/linuxdeepin/xdg-desktop-portal-dde.git#tag=$pkgver")
+sha512sums=('aa62015ca78ec94a1f391201ef587f330ed4c4dd928884b2fe31c6ef82572d55d442ff8dac63d2f7b3da09bdab537983bced3301ccc2e016c0b1fa7ab932b387')
 
 prepare() {
   cd xdg-desktop-portal-dde
   sed -i 's|lrelease|/usr/lib/qt6/bin/lrelease|' misc/translations/translate_generation.sh
-  patch -p1 -i ../qt-6.10.patch
+  sed -i 's/find_package(Qt6 COMPONENTS REQUIRED Core DBus WaylandClient WaylandScannerTools Quick)/find_package(Qt6 COMPONENTS REQUIRED Core DBus GuiPrivate Quick WaylandClient WaylandClientPrivate WaylandScannerTools)/' src/wayland/CMakeLists.txt
 }
 
 build() {
