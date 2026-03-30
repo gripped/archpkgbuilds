@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-deepdiff
-pkgver=8.1.1
+pkgver=8.2.0
 pkgrel=1
 pkgdesc="Deep Difference and Search of any Python object/data."
 url="https://github.com/seperman/deepdiff"
@@ -18,7 +18,7 @@ checkdepends=('python-pytest' 'python-pytest-benchmark' 'python-clevercsv' 'pyth
               'python-jsonpickle' 'python-numpy' 'python-tomli-w' 'python-yaml' 'python-orjson'
 	      'python-pydantic' 'python-pandas' 'python-polars')
 source=("git+https://github.com/seperman/deepdiff.git#tag=$pkgver")
-sha512sums=('5877def03fc845c16dbedbc4123919f02ff3a04ce49fd9fc44356b9de1332c917a5aa57b4aaa8abf6c14ae7d83ff544cb9527f7e0d82b2978b5fd43e7d2b7e9a')
+sha512sums=('85647abf06fe74ac93db4a4866c26409f9ae9b4aa6b948ff2a91a1cc31f883e7df35ae15d95288cf9d46002882cf447b12dc6caa0c2137bbc3cdcd26d3b4456f')
 
 build() {
   cd deepdiff
