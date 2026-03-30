@@ -4,8 +4,8 @@
 
 _hkgname=pandoc
 pkgname=haskell-pandoc
-pkgver=3.5
-pkgrel=16
+pkgver=3.6
+pkgrel=1
 pkgdesc='Conversion between markup formats'
 url='https://pandoc.org'
 license=('GPL-2.0-or-later')
@@ -18,13 +18,13 @@ depends=('ghc-libs' 'haskell-glob' 'haskell-juicypixels' 'haskell-aeson' 'haskel
          'haskell-djot' 'haskell-doclayout' 'haskell-doctemplates' 'haskell-emojis'
          'haskell-file-embed' 'haskell-gridtables' 'haskell-haddock-library' 'haskell-http-client'
          'haskell-http-client-tls' 'haskell-http-types' 'haskell-ipynb' 'haskell-jira-wiki-markup'
-         'haskell-mime-types' 'haskell-network' 'haskell-network-uri' 'haskell-pandoc-types'
-         'haskell-pretty-show' 'haskell-random' 'haskell-safe' 'haskell-scientific'
-         'haskell-skylighting' 'haskell-skylighting-core' 'haskell-split' 'haskell-syb'
-         'haskell-tagsoup' 'haskell-temporary' 'haskell-texmath' 'haskell-text-conversions'
-         'haskell-tls' 'haskell-typst' 'haskell-unicode-collation' 'haskell-unicode-transforms'
-         'haskell-vector' 'haskell-xml' 'haskell-xml-conduit' 'haskell-xml-types' 'haskell-yaml'
-         'haskell-zip-archive' 'haskell-zlib')
+         'haskell-libyaml' 'haskell-mime-types' 'haskell-network' 'haskell-network-uri'
+         'haskell-pandoc-types' 'haskell-pretty-show' 'haskell-random' 'haskell-safe'
+         'haskell-scientific' 'haskell-skylighting' 'haskell-skylighting-core' 'haskell-split'
+         'haskell-syb' 'haskell-tagsoup' 'haskell-temporary' 'haskell-texmath'
+         'haskell-text-conversions' 'haskell-tls' 'haskell-typst' 'haskell-unicode-collation'
+         'haskell-unicode-transforms' 'haskell-vector' 'haskell-xml' 'haskell-xml-conduit'
+         'haskell-xml-types' 'haskell-yaml' 'haskell-zip-archive' 'haskell-zlib')
 optdepends=('pandoc-crossref: for numbering figures, equations, tables and cross-references to them with pandoc-crossref filter'
             'texlive-context: for pdf output using context engine'
             'groff: for pdf output using pdfroff engine'
@@ -37,7 +37,7 @@ optdepends=('pandoc-crossref: for numbering figures, equations, tables and cross
 makedepends=('ghc' 'uusi' 'haskell-diff' 'haskell-tasty' 'haskell-tasty-golden'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('dd55e081dc764d77872e0fd233d5f915b9983365c7f17fd1d643812e4016d45e2d7421951bebd3373561549bac66a984945658d254fea742333a6122dd783f5b')
+sha512sums=('0eaeca892473c14fcb622523fe4d78bb50368ee19746afdace7a6ec28b3b3a826447a7342c09ae020ce772f992895a795350f9066acc0cfa879dbd3ffe381747')
 
 prepare() {
     cd $_hkgname-$pkgver
