@@ -1,5 +1,6 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 # Maintainer: Anatol Pomozov <anatol.pomozov@gmail.com>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: Allan McRae <allan@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
@@ -8,7 +9,7 @@ pkgbase=gdb
 # of gdb (for arm/avr/...)
 pkgname=(gdb gdb-common)
 pkgver=17.1
-pkgrel=2
+pkgrel=3
 pkgdesc='The GNU Debugger'
 arch=(x86_64)
 url='https://www.gnu.org/software/gdb/'
@@ -17,10 +18,10 @@ makedepends=(
   bash
   boost
   expat
-  gcc-libs
   glibc
   gmp
   guile
+  libgcc
   mpfr
   ncurses
   python
