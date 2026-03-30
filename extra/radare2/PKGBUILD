@@ -1,18 +1,19 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Guillermo Ramos <0xwille at gmail dot com>
 
 pkgname=radare2
-pkgver=5.9.8
+pkgver=6.1.2
 pkgrel=1
 pkgdesc='Open-source tools to disasm, debug, analyze and manipulate binary files'
-url='https://radare.org'
 arch=('x86_64')
-license=(GPL-3.0-only LGPL-3.0-only)
+url='https://radare.org'
+license=('GPL-3.0-only AND LGPL-3.0-only')
 depends=(
-  glibc
-  gcc-libs
   capstone
   file
+  glibc
+  libgcc
   libuv
   libzip
   lz4
@@ -21,17 +22,42 @@ depends=(
   zlib
 )
 makedepends=(
+  git
   meson
 )
 optdepends=('r2ghidra: ghidra decompiler plugin')
 options=('!emptydirs')
-source=(https://github.com/radare/radare2/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('d1338bcbd437c7f376a07a9d6870fa56bdab883cc5371ce506bc7f667780e19ce777c2839926d4bedf0578ec9338567b402a678643f36ac84404be55eeadb2da')
-b2sums=('fe03e0aa8d666c3394b0619fc263bb504892d87d79019368aaefa52a47b88c9970363e7dca21413479a658b682830a8f0f9474134b6a325a94eac0328f344d69')
+_sdb_ver=2.4.2
+_qjs_ver=e2b100e8c5fa7131e9fb22b8a0e9ca0f16eb9892
+# The testbins commit is not locked upstream but do it here for
+# reproducibility.
+_testbins_ver=71a65843d445ac412afa7afccace03d55eef4362
+source=(
+  "git+https://github.com/radareorg/radare2.git#tag=$pkgver"
+  "git+https://github.com/radareorg/sdb.git#tag=$_sdb_ver"
+  "qjs::git+https://github.com/quickjs-ng/quickjs.git#commit=$_qjs_ver"
+  "git+https://github.com/radareorg/radare2-testbins.git#commit=$_testbins_ver"
+)
+b2sums=('8c064707ae73ec81b1c1e375b7ccd573c27cc0df076c2c8a742f9ba54e0d71b2bc34be948040e0b2329ee82897859e9aef8e2e03ac84538c1e89b8b0c93dd93b'
+        'ae9db64e0a53fdeea145327c89abf6dc9705c5ed99b239c3ef6ce28cd0b560217398677228d99c86c9adb21771360668c1be1c52f8c4d376a78325f0fff58745'
+        '3d5bfce285421edd98fcb7eb93c22de3b1fa50ba11d251da980d2f0041b37bea8ff35064b5626fac0c6966347b1cd2cead90c3260d1b5c057aaf9a4b94471cba'
+        'f042c23f07188b7ef87b68391188c83d770578ce8422db54c7db48232dc563914c3a1c49bece69a363c2e4f56f76cfb7f64e54eea380d06534bcffe4586fbd17')
+
+prepare() {
+  cd $pkgname
+  for subproject in sdb qjs; do
+    local ver_var=_${subproject//-/_}_ver
+    local expected_ver=${!ver_var}
+    grep -q "revision = $expected_ver" subprojects/$subproject.wrap \
+      || { echo "Version mismatch in subproject $subproject"; exit 1; }
+  done
+
+  cp -a ../radare2-testbins test/bins
+}
 
 build() {
-  cd ${pkgname}-${pkgver}
-  touch libr/config.mk
+  cd $pkgname
+  export MESON_PACKAGE_CACHE_DIR="$srcdir"
   arch-meson build \
     -D use_sys_capstone=true \
     -D use_capstone_version=v5 \
@@ -41,10 +67,14 @@ build() {
     -D use_sys_lz4=true \
     -D use_sys_xxhash=true \
     -D use_libuv=true \
-    -D use_webui=true \
-    -D want_threads=false
+    -D use_webui=true
+  meson compile -C build
+}
 
-  ninja -C build
+check() {
+  cd $pkgname
+  export PATH="$PWD/build/binr/radare2:$PATH"
+  meson test -C build
 }
 
 package() {
@@ -54,12 +84,9 @@ package() {
     libzip.so
   )
 
-  cd ${pkgname}-${pkgver}
-  DESTDIR="${pkgdir}" ninja -C build install
-  cp -r doc/* "${pkgdir}/usr/share/doc/radare2"
-  ln -s /usr/share/man/man1/radare2.1.gz "${pkgdir}/usr/share/man/man1/r2.1.gz"
-# Install missing header
-  install -Dm644 shlr/sdb/include/sdb/rangstr.h -t "$pkgdir"/usr/include/libr/sdb
+  cd $pkgname
+  meson install -C build --destdir "$pkgdir"
+  install -dm755 "$pkgdir/usr/share/doc/$pkgname"
+  cp -va doc/* "$pkgdir/usr/share/doc/$pkgname"
+  ln -vs /usr/share/man/man1/radare2.1.gz "$pkgdir/usr/share/man/man1/r2.1.gz"
 }
-
-# vim: ts=2 sw=2 et:
