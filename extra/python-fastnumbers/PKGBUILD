@@ -4,14 +4,15 @@
 _name=fastnumbers
 pkgname=python-fastnumbers
 pkgver=5.1.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Super-fast and clean conversions to numbers"
 arch=(x86_64)
 url="https://github.com/SethMMorton/fastnumbers"
 license=(MIT)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   python
 )
 makedepends=(
