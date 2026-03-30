@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-widgets
-pkgver=6.0.19
+pkgver=6.0.20
 pkgrel=1
 pkgdesc='Desktop widgets service/implementation for DDE'
 arch=('x86_64')
@@ -12,17 +12,14 @@ depends=('qt5-base' 'dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 'libgcc' 'libstdc++' 
 makedepends=('git' 'cmake' 'ninja' 'gtest' 'qt5-tools')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-widgets.git#tag=$pkgver")
-sha512sums=('a11ef3649646ad4f60b42646b67958524eeca9305b014e49d500a632341d178b1787869b0316a5336f151052d28ca0d01fa4b822cf57b3c749abb91ff53ceb9d')
+sha512sums=('81cff97c8551967fc79159705bd5230731501a7793acf2bac6063425ad16ac7b782ae680f26c23f2053ac4ed1cc858f278867d30de0e33ef6071285073f29f98')
 
 prepare() {
   cd dde-widgets
-  # Fix linking error - cherry-pick from 6.0.25
-  git cherry-pick -n 58604a5180b79741325009c327d5186eae30da79
-  
-  # Fix main app linking to interface library
-  # Use CMake target instead of library file for proper dependency handling
+  # Fix link handling for the app and calendar plugin.
   sed -i '/target_link_directories.*interface/d' app/CMakeLists.txt
   sed -i 's|target_link_libraries(${PROJECT_NAME} PRIVATE dde-widgets)|target_link_libraries(${PROJECT_NAME} PRIVATE interface)|' app/CMakeLists.txt
+  sed -i '/target_link_libraries(${PROJECT_NAME} PUBLIC ${COMMON_LIBS})/a target_link_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/../interface)\ntarget_link_libraries(${PROJECT_NAME} PRIVATE dde-widgets)' calendar/CMakeLists.txt
 }
 
 build() {
