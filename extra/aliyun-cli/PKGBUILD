@@ -3,26 +3,29 @@
 # Contributor: Andreas 'Segaja' Schleifer <archlinux at segaja dot de>
 
 pkgname=aliyun-cli
-_gitcommit=5de5222567331056aeffbf46f55605fa8d5212ca
-pkgver=3.2.9
+pkgver=3.3.3
 pkgrel=1
 pkgdesc='Alibaba Cloud CLI'
-arch=('x86_64')
 url='https://github.com/aliyun/aliyun-cli'
-license=('Apache-2.0')
-depends=('glibc')
-makedepends=('git' 'go')
-source=("git+${url}#commit=${_gitcommit}"
-        git+https://github.com/aliyun/aliyun-openapi-meta)
-sha512sums=('f0dd52aa1ba28ef02f3e7b928a4e73090d1c480f1d8d3d44edf9c9e5d6e3d04855b815617d9452bec8d230f6ebc49d9d214f8d028638bd5add265ced762c5933'
+arch=(x86_64)
+license=(
+  Apache-2.0
+)
+depends=(
+  glibc
+)
+makedepends=(
+  git
+  go
+)
+source=(
+  "git+${url}#tag=v${pkgver}"
+  git+https://github.com/aliyun/aliyun-openapi-meta
+)
+sha512sums=('dff8e9431928566a7db951cf853e996c5072162fc2202a1b7447a2b74f88014af5d928e65ec1926c6ff3a5dcb65d0ea84d03eb19897e51f54327eecbd0a32910'
             'SKIP')
-b2sums=('57509716541f036b1ab5fd0e70911a0359df503bd9dbbf0977baf3284a994ee10567292ef365be47f028c45915fa495ab1c3d56cdcb6147dea933f4beeccc1c6'
+b2sums=('3865fb858f2313e48e8e220c48d8e11994e2dd2cdcadbe0f440d4845048deebf6df813e9c3ab2209f9d4dae3f6b587131afea0c98a6a1b0fadff056f9f7f2800'
         'SKIP')
-
-pkgver() {
-  cd ${pkgname}
-  git describe --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
-}
 
 prepare() {
   cd ${pkgname}
@@ -44,17 +47,16 @@ build() {
     -o ./out/aliyun ./main/main.go
 }
 
-# https://github.com/aliyun/aliyun-cli/issues/736
-# check() {
-#   cd ${pkgname}
-#
-#   # Horrible but needed for the ./cli/ tests
-#   touch "${HOME}/.bashrc"
-#
-#   # for now can't test the `./oss/...` folder, because it needs an env file that is not so easy to have in dev
-#   go test \
-#     ./cli/... ./config/... ./i18n/... ./main/... ./openapi/... ./resource/...
-# }
+check() {
+  cd ${pkgname}
+
+  # Horrible but needed for the ./cli/ tests
+  touch "${HOME}/.bashrc"
+
+  # for now can't test the `./oss/...` folder, because it needs an env file that is not so easy to have in dev
+  go test \
+    ./cli/... ./config/... ./i18n/... ./main/... ./openapi/...
+}
 
 package() {
   cd ${pkgname}
