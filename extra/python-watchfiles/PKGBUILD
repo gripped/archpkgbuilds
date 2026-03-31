@@ -3,14 +3,14 @@
 
 pkgname=python-watchfiles
 pkgver=1.1.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Simple, modern and high performance file watching and code reload in Python'
 arch=(x86_64)
 url='https://github.com/samuelcolvin/watchfiles'
 license=(MIT)
 depends=(
-  gcc-libs
   glibc
+  libgcc
   python
   python-anyio
 )
