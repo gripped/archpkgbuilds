@@ -3,8 +3,8 @@
 # Contributor: killruana <killruana@gmail.com>
 
 pkgname=yosys
-pkgver=0.57
-pkgrel=2
+pkgver=0.58
+pkgrel=1
 pkgdesc='A framework for RTL synthesis'
 arch=('x86_64')
 url='https://yosyshq.net/yosys/'
@@ -21,7 +21,7 @@ options=('!lto') # getting SIGSEGV when running the tests with LTO
 source=(git+https://github.com/YosysHQ/yosys#tag=v$pkgver
         git+https://github.com/jarro2783/cxxopts
         boost-1.89.patch)
-sha512sums=('f734d07c9d8d9174d45bdd71b99e3aea0c7f04428a74fa630ffc2d60679443eaeec47b0d698f009034fba3fe0507050c432acdf57b80d44b79f7d0d19bfd6ca3'
+sha512sums=('263df82171c41e45e27778e39ba06dfc3a777123921fca86bbfa7226df8002a0a3d71894d8f33d56fcdca0edd360d55955397579eafb33507b8cea544a6cf2be'
             'SKIP'
             'f926dd219f6ea13fee0d215e3305e5c9bab8f06ebb715f7cadcc80e199096d87a3dd9acbdc6f2727bd8e6e8c85e4c63b8068212a81c906ba0694af6f2b394a96')
 
@@ -49,7 +49,7 @@ _make() {
         ENABLE_PROTOBUF=1 \
         ENABLE_ZLIB=1 \
         ENABLE_PYOSYS=1 \
-        ABCEXTERNAL=abc \
+        ABCEXTERNAL=/usr/bin/abc \
         BOOST_PYTHON_LIB="-lpython${python_version} -lboost_python${python_version_combined}" $@
 }
 
