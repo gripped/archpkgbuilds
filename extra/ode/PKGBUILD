@@ -6,18 +6,19 @@
 
 pkgname=ode
 pkgver=0.16.6
-pkgrel=1
+pkgrel=2
 pkgdesc='High performance library for simulating rigid body dynamics'
 arch=('x86_64')
 url='https://bitbucket.org/odedevs/ode/'
 license=('LGPL-2.1-or-later OR BSD-3-Clause')
 depends=(
   'bash'
-  'gcc-libs'
   'glibc'
+  'libgcc'
+  'libstdc++'
 )
 source=("$url/downloads/$pkgname-$pkgver.tar.gz")
-sha512sums=('57b4caca0bdd9a577239ba8cdfaeddd3316523a0f0835470caccc31793fb2231f62e3a16e3b8693c8b8a42c336b1c782f6427e60f949a6fba2bfd216b107a946')
+b2sums=('86a324feebe17aa889e3c0b2fa5d79fddb3736fa2b4306dc68ac18a3990d5c70c133f5f337d7b1c2283829e53dd9354791a3df002a59f4429b1f7798cfcbbcf6')
 
 prepare() {
   cd $pkgname-$pkgver
