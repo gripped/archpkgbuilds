@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-draw
-pkgver=6.5.26
+pkgver=6.5.27
 pkgrel=1
 pkgdesc="A lightweight drawing tool for Linux Deepin"
 arch=('x86_64')
@@ -12,12 +12,14 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-svg' 'glibc' 'libgcc'
 makedepends=('git' 'cmake' 'qt6-tools' 'clang' 'qt6-declarative')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-draw.git#tag=$pkgver")
-sha512sums=('735b8265c4fe3e7cab67ad5444536b0697e366b7e2ee57d7f8c1bac0096e7b499cfb2f0d3ef39b73318258b0b486bcb50dc4a37ff68b6d048e3c846c8841ddb6')
+sha512sums=('8310f904626193d0adb972e0962e5bcaf4d89170a45a30cc8e3e7cd9f4b2a668ad9d589577b772d283eb2c6ce12badac24991596a2ea02bb10ad4a7ecac632d4')
 
 prepare() {
   cd deepin-draw
   # respect our LDFLAGS
   sed -e '/SET(CMAKE_EXE_LINKER_FLAGS/d' -i CMakeLists.txt src/CMakeLists.txt
+  # upstream 6.5.27 ships a malformed Lao translation entry that breaks lupdate/lrelease
+  sed -i 's#<message>de e pin#<message>#' translations/deepin-draw_lo.ts
 }
 
 build() {
