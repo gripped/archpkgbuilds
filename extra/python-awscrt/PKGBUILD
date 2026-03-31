@@ -3,8 +3,7 @@
 # Contributor: TheEdgeOfRage on AUR
 
 pkgname=python-awscrt
-_pkgname=aws-crt-python
-pkgver=0.31.3
+pkgver=0.32.0
 pkgrel=1
 pkgdesc='A common runtime for AWS Python projects'
 arch=(x86_64)
@@ -32,29 +31,29 @@ makedepends=(
   python-wheel
 )
 checkdepends=(python-websockets)
-source=("git+$url.git#tag=v$pkgver")
-b2sums=('3f4ef56b9a778dee691be1ce2570f9aa00243857295107c3baae213da18b814fdcce724e270622372f0ee0fff97c69ebb539df39ce1500774c2de8db5ab1eb41')
+source=("$pkgname::git+$url.git#tag=v$pkgver")
+b2sums=('92f33ab9d09b50c9a332ca42a9d122b9a0fe51168ca659d9bc6c88c1e4c7d52da21498d7cadc0ebf4a6bf8909ce7425e8a64a5b28cbb40718cf2d26eceac9c01')
 
 prepare() {
-  cd $_pkgname
+  cd $pkgname
   sed -i "s/^__version__ = .*/__version__ = '$pkgver'/" awscrt/__init__.py
 }
 
 build() {
-  cd $_pkgname
+  cd $pkgname
   export AWS_CRT_BUILD_USE_SYSTEM_LIBS=1
   export AWS_CRT_BUILD_USE_SYSTEM_LIBCRYPTO=1
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_pkgname
+  cd $pkgname
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m unittest discover test
 }
 
 package() {
-  cd $_pkgname
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
