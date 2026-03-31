@@ -1,19 +1,19 @@
 # Maintainer: Remi Gacogne <rgacogne at archlinux dot org>
 pkgname=dnsdist
-pkgver=2.0.2
-pkgrel=2
+pkgver=2.0.3
+pkgrel=1
 pkgdesc='Highly DNS-, DoS- and abuse-aware loadbalancer'
 arch=('x86_64')
 url='https://dnsdist.org/'
 license=('GPL-2.0-only')
 source=(https://downloads.powerdns.com/releases/${pkgname}-${pkgver}.tar.xz{,.asc}
         sysusers.conf)
-sha512sums=('7f53d13bb90b7b70da364341e50473b88be0bc9619e3263e352bed75aa57edbc018824439749956281a2c7a5d32c653e7378fe9d3cbc296042fa8120eee75fae'
+sha512sums=('10922b91c39433414fee61e09894fbe1bc4b860558f3f6b4e729db0c561d33a22a17beff4162432bbc0a479b9edbaece735ae1f566a58b7d2da60b7e97b376b9'
             'SKIP'
             'd55ccd612cbe08b353815027d30a3b0f0ec7bf6b0d74a0a634939be53ce6e6b41d23e54c2328946f00738c03e9f306ce4f2dabe5e4b11d9fb28d0abf49917893')
 validpgpkeys=('D6300CABCBF469BBE392E503A208ED4F8AF58446')  # Remi Gacogne <remi.gacogne@powerdns.com>
-makedepends=('boost' 'cargo' 'clang' 'meson' 'lld' 'python-yaml' 'systemd')
-depends=('fstrm' 'gcc-libs' 'gnutls' 'libbpf' 'libcap' 'libedit' 'libnghttp2' 'libsodium' 'libsystemd' 'libxdp' 'lmdb' 'luajit' 'net-snmp' 'openssl' 'quiche>=0.20.1' 're2' 'tinycdb')
+makedepends=('boost' 'boost-libs' 'cargo' 'clang' 'meson' 'lld' 'python-yaml' 'systemd') # remove 'boost-libs' once https://github.com/mesonbuild/meson/issues/15470 has been fixed
+depends=('fstrm' 'gnutls' 'libbpf' 'libcap' 'libedit' 'libgcc' 'libnghttp2' 'libsodium' 'libstdc++' 'libsystemd' 'libxdp' 'lmdb' 'luajit' 'net-snmp' 'openssl' 'quiche>=0.20.1' 're2' 'tinycdb')
 # We are actually enabling LTO via meson, but the -flto=auto option set up by makepkg conflicts with our -flto=thin
 options=(!lto)
 
