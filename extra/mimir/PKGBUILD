@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=mimir
-pkgver=3.0.4
+pkgver=3.0.5
 pkgrel=1
 pkgdesc='A scalable long-term storage for Prometheus'
 arch=(x86_64)
@@ -10,6 +10,7 @@ license=(AGPL-3.0-only)
 depends=(glibc)
 makedepends=(git go)
 backup=(etc/mimir.yaml)
+options=(!lto)
 source=(
   "$pkgname::git+https://github.com/grafana/mimir.git#tag=mimir-$pkgver"
   systemd.service
@@ -17,12 +18,12 @@ source=(
   tmpfiles.conf
   config.yaml
 )
-sha512sums=('bbe52a58e47a94c171fde6d286db28a19ef509a641dd862b8270ead38ef9124e0a48614214042b3f8958e5b81581b59ae29fe8b7baeec6a4969489beb53e3892'
+sha512sums=('310f4473fbbf7d8bc23f16503f247c5d39b9843ef0e1d532c322dae324ab86a297afcfac4ef18ed165e1d0f532be3c67a21597345e7dba78fe4b606676d31222'
             'fd6694cab7a9b6a6321e2b9b8e354748f9f01192abfd8503cd0dbb8fa795496cf09273ded41aed9c74d0b3ead3d950829c20042149e5efd6a2dfbc81f2b31e51'
             'ab9f134794683a8c8fcfd22e3c5269bcf7f9f9f192c08055340132c0df32c37f7e15454c0f7ec3b66be0ebc15cdca456983e6a366da808bdfebd6adf980a2ee9'
             'db9cd21527bbd2555ef76b635aee46be043b547c96dabdb298cc00036984d419d810206f7cf2dbc0acda3a4c5b0f071f1b353c3da80b56ee414a60ded77988a9'
             '35d3b252273f43eb992c51dc8222d8220526e53da816e6f8a07580de7a50d756b056559f262bcd803c8f19920bc839ebb7abb1430f342e97605dbacbe8dc6a94')
-b2sums=('84584c58685c0b4330d2723eb79dffcf1a4c8cc44e4dbbbd366e6830ab432c7e26c598fbc9a944f5badd5425c48c30602dae7ff95a7fe3bb5b461e1822e2450f'
+b2sums=('255ff83efa0c7c7d2bdb9351bd60a64be0738dc3cc27f2940a7c05a1fbd200aa95b5123b83da2c09c2c803fcb33d9089a792188113e6248f060142b03f7c91ae'
         'b1220c02c9cebbfbc65869a01dac92438ab87df557c67c27489f005b695303591c729a2c172a5e5254bd03276ac4c3d146498b18b6984595db9dc0ebc2a5e814'
         'd883a71514089e153b1e0911f69c514f70f18f33b00776466dd762e906ac8de170890efaf00124419052b087f780f81206bc94559342022950e9abeb1e6f8f5d'
         'edc4e9e301e889dfa47528e411459a970f97feb9ca07a3fcc33b60c16adb988109543bc746689e82ac688caca0c60b75abe7d0cc80662d22de665712ff650bb8'
