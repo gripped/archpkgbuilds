@@ -4,15 +4,16 @@
 
 pkgname=nzbget
 pkgver=26.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Efficient usenet downloader"
 arch=('x86_64')
 url="https://nzbget.com"
 license=('GPL-2.0-or-later')
 depends=(
   'boost-libs'
-  'gcc-libs'
   'glibc'
+  'libgcc'
+  'libstdc++'
   'libxml2'
   'ncurses'
   'openssl'
@@ -43,8 +44,7 @@ prepare() {
 }
 
 build() {
-  cd $pkgname-$pkgver
-  cmake -S . -B build \
+  cmake -S $pkgname-$pkgver -B build \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Wno-dev \
@@ -53,13 +53,12 @@ build() {
 }
 
 check() {
-  cd $pkgname-$pkgver
   ctest --test-dir build --output-on-failure
 }
 
 package() {
-  cd $pkgname-$pkgver
   DESTDIR="$pkgdir" cmake --install build
+  cd $pkgname-$pkgver
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
   install -vDm644 -t "$pkgdir/usr/lib/systemd/system" linux/pkg/$pkgname.service
 }
