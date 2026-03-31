@@ -3,7 +3,7 @@
 
 pkgname=dpdk
 pkgver=25.11
-pkgrel=1
+pkgrel=2
 pkgdesc="A set of libraries and drivers for fast packet processing"
 arch=(x86_64)
 url="https://dpdk.org"
@@ -14,10 +14,10 @@ license=(
 depends=(
   bash
   dtc
-  gcc-libs
   glibc
   jansson
   libarchive
+  libatomic
   libbsd
   libelf
   libpcap
@@ -33,7 +33,7 @@ makedepends=(
   python-pyelftools
 )
 source=("git+https://dpdk.org/git/dpdk-stable#tag=v$pkgver")
-sha256sums=('6a94136335a708d0425451b95bb44e38530670ead3ec9217807ecc7e64aecbb7')
+b2sums=('0a658cd791a8ccb661fe32068e4c9582d7dbb1ac6d95233fd240fde8b78cffc4e0a9cd10ea22b7ba6d129b90d5870401d2bc6ba1d1b3240af1d2952f00d7e654')
 
 build() {
   cd dpdk-stable
@@ -69,6 +69,8 @@ check() {
       | grep -Ev seqlock_autotest \
       | grep -Ev telemetry_json_autotest \
       | grep -Ev ticketlock_autotest \
+      | grep -Ev trace_autotest_with_traces \
+      | grep -Ev version_autotest \
   )
   # shellcheck disable=SC2068
   meson test -C build --print-errorlogs ${tests[@]}

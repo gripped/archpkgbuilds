@@ -1,7 +1,7 @@
 pkgbase = dpdk
 	pkgdesc = A set of libraries and drivers for fast packet processing
 	pkgver = 25.11
-	pkgrel = 1
+	pkgrel = 2
 	url = https://dpdk.org
 	arch = x86_64
 	license = BSD-3-Clause
@@ -13,10 +13,10 @@ pkgbase = dpdk
 	makedepends = python-pyelftools
 	depends = bash
 	depends = dtc
-	depends = gcc-libs
 	depends = glibc
 	depends = jansson
 	depends = libarchive
+	depends = libatomic
 	depends = libbsd
 	depends = libelf
 	depends = libpcap
@@ -24,6 +24,6 @@ pkgbase = dpdk
 	depends = openssl
 	depends = zlib
 	source = git+https://dpdk.org/git/dpdk-stable#tag=v25.11
-	sha256sums = 6a94136335a708d0425451b95bb44e38530670ead3ec9217807ecc7e64aecbb7
+	b2sums = 0a658cd791a8ccb661fe32068e4c9582d7dbb1ac6d95233fd240fde8b78cffc4e0a9cd10ea22b7ba6d129b90d5870401d2bc6ba1d1b3240af1d2952f00d7e654
 
 pkgname = dpdk
