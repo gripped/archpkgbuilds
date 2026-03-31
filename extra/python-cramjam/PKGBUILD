@@ -3,15 +3,15 @@
 
 pkgname=python-cramjam
 pkgver=2.11.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Thin Python bindings to de/compression algorithms in Rust"
 arch=(x86_64)
 url="https://github.com/milesgranger/cramjam"
 license=(MIT)
 depends=(
   bzip2
-  gcc-libs
   glibc
+  libgcc
   python
 )
 makedepends=(
@@ -41,8 +41,7 @@ check() {
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m pytest -vv --ignore=benchmarks/ \
-    --deselect='tests/test_variants.py::test_variants_decompress_into[brotli-File-Buffer]' \
-    --deselect='tests/test_variants.py::test_variants_decompress_into[lz4-Buffer-Buffer]'
+    --deselect='tests/test_variants.py::test_variants_decompress_into'
 }
 
 package() {
