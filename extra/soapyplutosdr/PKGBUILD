@@ -2,37 +2,37 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=soapyplutosdr
-_pkgname=SoapyPlutoSDR
 pkgver=0.2.2
-_gitver=soapy-plutosdr-$pkgver
-pkgrel=1
+pkgrel=2
 pkgdesc='Soapy SDR plugin for PlutoSDR'
 arch=('x86_64')
 url='https://github.com/pothosware/SoapyPlutoSDR'
 license=('LGPL-2.1-only')
 depends=(
-  'gcc-libs'
   'glibc'
   'libad9361'
+  'libgcc'
   'libiio.so'
+  'libstdc++'
   'libusb'
   'soapysdr'
 )
-makedepends=('cmake')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$_gitver.tar.gz")
-sha512sums=('c500346566c2215a65d2ce37f77d3e3317ca1ab8cd59001e7f51b0f3a1bcc703acf634034a55a077ee798376f14b2d96e229d073a1975ff4944314498e537f72')
+makedepends=(
+  'cmake'
+  'git'
+)
+source=("$pkgname::git+$url.git#tag=soapy-plutosdr-$pkgver")
+b2sums=('6c78ac1644ed8bc9eac5c02d3340deba5720440318264c78381e513f4e44f43b583d956c32e7e2727f065f9974ced2e5e13d70ba175472427ea1e585e358d79a')
 
 build() {
-  cd $_pkgname-$_gitver
-  cmake -S . -B build \
-    -DCMAKE_INSTALL_PREFIX=/usr \
+  export CMAKE_POLICY_VERSION_MINIMUM=3.5
+  cmake -S $pkgname -B build \
     -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
     -Wno-dev
   cmake --build build
 }
 
 package() {
-  cd $_pkgname-$_gitver
   DESTDIR="$pkgdir" cmake --install build
 }
-
