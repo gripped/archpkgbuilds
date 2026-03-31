@@ -3,7 +3,7 @@
 
 _gemname=async
 pkgname=ruby-${_gemname}
-pkgver=2.34.0
+pkgver=2.38.1
 pkgrel=1
 pkgdesc='Composable asynchronous I/O'
 url='https://github.com/socketry/async'
@@ -34,8 +34,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("https://github.com/socketry/async/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('f916a4dadf4aee6919757d1f0a71304b94a63b489266d6ba5fcbec86175ddfcd11adde041da8fbeb25d28c09ba46cfcbaeb689058de05150a1a5cbb1b985f251')
-b2sums=('6b289ea262090639229426cffe8eb9d86b1e620b61bb68d621b7cd43cec9d9025637eea560742c33d7e84a2b2d363c9af793f49c3e915640da77ba44edefd4ed')
+sha512sums=('fd1b119425fc92a9b093c6b2d38b078d95e6cea2c4eab960fd07a9c367e9852dabde90a54d4ace5046658ff14250a647ee8a725fa9ef7c7d4c70b23622902375')
+b2sums=('2ea5bf22dd95bd3be349ddb7a38fed5f54935826ec7b514eb22d5d173eec01e224839df55c96d8d2d1450be7a09e3aacf23d095247ce5b94786b8f9339407d55')
 
 prepare() {
   cd ${_gemname}-${pkgver}
@@ -51,6 +51,7 @@ prepare() {
     --expression '/benchmark-ips/d' \
     --expression '/covered/d' \
     --expression '/rubocop/d' \
+    --expression '/openssl/d' \
     gems.rb
   sed --in-place \
     --expression '/benchmark/d' \
