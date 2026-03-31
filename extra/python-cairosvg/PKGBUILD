@@ -2,7 +2,7 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=python-cairosvg
-pkgver=2.8.2
+pkgver=2.9.0
 pkgrel=1
 pkgdesc='SVG converter based on Cairo. It can export SVG files to PDF, PostScript and PNG files'
 arch=('any')
@@ -13,7 +13,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-pytest' 'python-set
 checkdepends=('python-pytest')
 replaces=('cairosvg')
 source=("git+https://github.com/Kozea/CairoSVG.git#tag=$pkgver")
-sha512sums=('82c63420372fa445f6403f45683c5f6bf9bee6b1d756724621de2e4b05ad08005822160b9a7b56d3e9ffe6cc9c0f8f32010f26303f9f90d859fd021cc8e55f75')
+sha512sums=('3313e95647a593b97ff12bd347b7a7ccc321f76ace42d1eaec9a24a18daed6fa58b14acf32563391ef3eed6eb65dc2faeb474b42ac384932a49cbb8eeae901e0')
 
 prepare() {
   cd CairoSVG
