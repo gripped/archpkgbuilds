@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-daemon
-pkgver=6.1.49
+pkgver=6.1.50
 pkgrel=1
 pkgdesc='Daemon handling the DDE session settings'
 arch=('x86_64')
@@ -67,13 +67,10 @@ replaces=('startdde')
 groups=('deepin')
 install="$pkgname.install"
 source=("git+https://github.com/linuxdeepin/dde-daemon.git#tag=$pkgver")
-sha512sums=('7513115f323f2bba06254ee9cbe207b3d039dd9d3cbbd60bbcc3b6cfd8b2e7746e34ff152ba1e5447f6277281538eaed7096964b0670a2a94492926c5bedf1ed')
+sha512sums=('c4dd96805f7ee1ebba375a00fdf98aca089a402d75a6ce38f4437257f1570b4062634af2c00cfb7c1f191d4a463450e69b7574368d33bb78d5f499c8a7cfe155')
 
 prepare() {
   cd dde-daemon
-
-  # TrustedExe does not exist
-  git cherry-pick -n c064dfa6613fbecca1fcf08f5035ef35ea90a374
 
   go get github.com/linuxdeepin/go-gir
   go get github.com/linuxdeepin/go-lib@a1f572ce1442a9064a992a72f8d3bec567379472
