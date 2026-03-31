@@ -5,8 +5,8 @@
 # Contributor: orbisvicis <orbisvicis@gmail.com>
 
 pkgname=mapnik
-pkgver=4.2.1
-pkgrel=2
+pkgver=4.2.2
+pkgrel=1
 pkgdesc="Open source toolkit for developing mapping applications"
 arch=('x86_64')
 url="https://mapnik.org/"
@@ -16,14 +16,15 @@ depends=(
   'boost-libs'
   'cairo'
   'freetype2'
-  'gcc-libs'
   'gdal'
   'glibc'
   'harfbuzz'
   'icu'
   'libavif'
+  'libgcc'
   'libjpeg-turbo'
   'libpng'
+  'libstdc++'
   'libtiff'
   'libwebp'
   'libxml2'
@@ -49,7 +50,7 @@ source=(
   "mapbox-polylabel::git+https://github.com/mapbox/polylabel.git"
   "git+https://github.com/mapnik/mapnik-vector-tile.git"
 )
-b2sums=('30818f54192b4521dc45590be397153e167beb7794aa3a1c84777aa9ca9cf4c4e962e8b09569b870abbe97d986a3f3b3c7eb14d6d290014c353044c97d11a81e'
+b2sums=('e96b1e1e0d39663a4dc8c47b0601fc1e73c977b9859eaa017d92770b29308a61f28f6043a49068065543701c771c01c5d460b63d44caeb37e70fc9850cac3cfe'
         'SKIP'
         'SKIP'
         'SKIP'
