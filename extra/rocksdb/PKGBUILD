@@ -4,16 +4,17 @@
 
 pkgname=rocksdb
 pkgver=10.10.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Embedded key-value store for fast storage'
 arch=(x86_64)
 url="https://rocksdb.org/"
 license=('GPL-2.0-only OR Apache-2.0')
 depends=(
   bzip2
-  gcc-libs
   gflags
   glibc
+  libgcc
+  libstdc++
   liburing
   lz4
   snappy
