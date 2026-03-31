@@ -3,19 +3,18 @@
 # Maintainer: Javier Tiá <javier dot tia at gmail dot com>
 
 pkgname=doctest
-pkgver=2.4.12
+pkgver=2.5.0
 pkgrel=1
 pkgdesc='The lightest feature rich C++ single header testing framework'
 arch=('any')
 url='https://github.com/doctest/doctest'
 license=('MIT')
 makedepends=('cmake')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('73381c7aa4dee704bd935609668cf41880ea7f19fa0504a200e13b74999c2d70')
+source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+b2sums=('fbb51b0ff3a20ee425e2dfc9372741e8a5a53ec9759aa4898af4d3aa6594cdcee0b452eb61794653b48655a7e1b5519701f3a02994dcddb10f6cabc25de9f1c0')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  cmake -S . -B build \
+  cmake -S ${pkgname}-${pkgver} -B build \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Wno-dev
@@ -23,14 +22,11 @@ build() {
 }
 
 check() {
-  cd ${pkgname}-${pkgver}
   ctest --test-dir build --output-on-failure
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
   DESTDIR="${pkgdir}" cmake --install build
+  cd ${pkgname}-${pkgver}
   install -vDm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE.txt
 }
-
-# vim:set ts=2 sw=2 et:
