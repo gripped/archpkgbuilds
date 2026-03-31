@@ -1,16 +1,16 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
-_pkgname=filesystem_spec
 pkgname=python-fsspec
-pkgver=2026.2.0
-pkgrel=2
+pkgver=2026.3.0
+pkgrel=1
 pkgdesc="Specification that python filesystems should adhere to"
 arch=(any)
 url="https://github.com/intake/filesystem_spec"
 license=(BSD-3-Clause)
 depends=(python)
 makedepends=(
+  git
   python-build
   python-hatch-vcs
   python-hatchling
@@ -59,17 +59,17 @@ optdepends=(
   'python-snappy: snappy compression support'
   'python-tqdm: progress bar support'
 )
-source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('ad2fc26545c3f8984a356c489f4c44bd7b96ae09ee38726c38ac7adebe3168a875eff5eea2b3fc3e2fa87d3b609d88bc31aed887969d7154fa1cc22d0861e9bb')
+source=("$pkgname::git+$url.git#tag=$pkgver")
+b2sums=('4b904c69ded3c06eaea79d8af4fdbce305a70f30d5e1ead0f362fd36231128cee39e55dca1b1940665d2fe58afea70511506d72cb18eda13c58f8c7d1f75c310')
 
 build() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
   export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
   # Deselect failing tests - I think the root cause for most of them is the
   # following requirement: "The full fsspec suite requires a system-level
   # docker, docker-compose, and fuse installation". See:
@@ -92,7 +92,7 @@ check() {
 }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
