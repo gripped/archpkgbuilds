@@ -4,7 +4,7 @@
 
 pkgname=sleuthkit
 pkgver=4.14.0
-pkgrel=1
+pkgrel=2
 pkgdesc='File system and media management forensic analysis tools'
 arch=('x86_64')
 url="https://www.sleuthkit.org/sleuthkit"
@@ -14,23 +14,24 @@ license=(
   'IPL-1.0'
 )
 depends=(
-  'gcc-libs'
   'glibc'
   'libewf'
+  'libgcc'
+  'libstdc++'
   'openssl'
   'perl'
   'sqlite'
   'zlib'
 )
 provides=('libtsk.so')
-changelog=$pkgname.changelog
 source=("https://github.com/$pkgname/$pkgname/releases/download/$pkgname-$pkgver/$pkgname-$pkgver.tar.gz"{,.asc})
-sha256sums=('fb6ea1801bcfc4c7d3a283d7592c6bd65add655411749513b5c429b86541e9a9'
-            'SKIP')
+b2sums=('3bf3bb8c399f2597f1dc928e514185cb498dcd4f447815975ec7e6c8f56f5d6cf27c1a056e96b55de829ad205dbf27fab645d91f64995a7099bf8e02322169fb'
+        'SKIP')
 validpgpkeys=('0917A7EE58A9308B13D3963338AD602EC7454C8B') # Brian Carrier <carrier@sleuthkit.org>
 
 build() {
   cd ${pkgname}-${pkgver}
+  export CFLAGS+=" -std=gnu17"
   # From upstream's bootstrap script
   aclocal \
     && (libtoolize --force || glibtoolize --force) \
