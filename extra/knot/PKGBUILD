@@ -7,19 +7,19 @@
 
 pkgname=knot
 pkgver=3.5.3
-pkgrel=2
+pkgrel=3
 pkgdesc="High-performance authoritative-only DNS server"
 arch=(x86_64)
 url="https://www.knot-dns.cz/"
 license=(GPL-3.0-or-later)
 depends=(
   fstrm
-  gcc-libs
   glibc
   gnutls
   libbpf
   libcap-ng
   libedit
+  libgcc
   libidn2
   libmaxminddb
   libmnl
