@@ -8,15 +8,16 @@
 
 pkgname=nut
 pkgver=2.8.4
-pkgrel=3
+pkgrel=4
 pkgdesc='A collection of programs which provide a common interface for monitoring and administering UPS, PDU and SCD hardware'
 arch=(x86_64)
 url=https://networkupstools.org/
 license=('GPL-2.0-or-later AND GPL-3.0-or-later')
 depends=(
-  gcc-libs
   glibc
+  libgcc
   libmodbus
+  libstdc++
   libtool
   libusb
   neon
