@@ -3,13 +3,18 @@
 _pkg=pytest-ordering
 pkgname=python-${_pkg}
 pkgver=0.6
-pkgrel=9
+pkgrel=10
 pkgdesc="pytest plugin to run your tests in a specific order"
 arch=(any)
 url="https://github.com/ftobia/pytest-ordering"
 license=(MIT)
 depends=(python-pytest)
-makedepends=(python-setuptools)
+makedepends=(
+    python-setuptools
+    python-build
+    python-installer
+    python-wheel
+)
 #PyPi does not have tests nor LICENSE
 #source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
@@ -27,7 +32,7 @@ prepare() {
 
 build() {
   cd ${_pkg}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 # All ordering tests are failing
@@ -39,6 +44,6 @@ build() {
 
 package() {
   cd ${_pkg}-${pkgver}
-  python setup.py install --prefix=/usr --root="${pkgdir}" --skip-build --optimize=1
+  python -m installer --destdir="${pkgdir}" dist/*.whl
   install -Dm644 LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}
 }

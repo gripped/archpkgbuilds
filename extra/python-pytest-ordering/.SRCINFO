@@ -1,11 +1,14 @@
 pkgbase = python-pytest-ordering
 	pkgdesc = pytest plugin to run your tests in a specific order
 	pkgver = 0.6
-	pkgrel = 9
+	pkgrel = 10
 	url = https://github.com/ftobia/pytest-ordering
 	arch = any
 	license = MIT
 	makedepends = python-setuptools
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
 	depends = python-pytest
 	source = https://github.com/ftobia/pytest-ordering/archive/0.6/python-pytest-ordering-0.6.tar.gz
 	source = python-pytest-ordering-pre-marks.patch::https://github.com/ftobia/pytest-ordering/commit/6a544f9b614a0701e24edac8b0a4c2a80159120e.patch
