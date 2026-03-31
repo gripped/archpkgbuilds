@@ -3,7 +3,7 @@
 _hkgname=doctest-parallel
 pkgname=haskell-doctest-parallel
 pkgver=0.3.1
-pkgrel=133
+pkgrel=135
 pkgdesc="Test interactive Haskell examples"
 url="https://github.com/martijnbastiaan/doctest-parallel#readme"
 license=("MIT")
@@ -11,9 +11,10 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-glob' 'haskell-base-compat' 'haskell-code-page'
          'haskell-ghc' 'haskell-ghc-paths' 'haskell-random' 'haskell-syb'
          'haskell-unordered-containers')
-makedepends=('ghc' 'uusi' 'expac' 'haskell-hunit' 'haskell-quickcheck' 'haskell-hspec'
-             'haskell-hspec-core' 'haskell-mockery' 'haskell-setenv' 'haskell-silently'
-             'haskell-stringbuilder')
+makedepends=('ghc' 'uusi')
+checkdepends=('expac' 'haskell-hunit' 'haskell-quickcheck' 'haskell-hspec'
+              'haskell-hspec-core' 'haskell-mockery' 'haskell-setenv' 'haskell-silently'
+              'haskell-stringbuilder')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('0dc7dcfe7de99c68e8b91657914d7189c3957986fce93d2144a6192645e47151')
 
@@ -25,8 +26,14 @@ prepare() {
 build() {
   cd $_hkgname-$pkgver
 
+  if (( CHECKFUNC )); then
+    _opts=('--enable-tests')
+  else
+    _opts=('--disable-tests')
+  fi
+
   runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie'
