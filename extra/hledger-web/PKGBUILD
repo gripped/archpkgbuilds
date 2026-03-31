@@ -4,7 +4,7 @@
 
 pkgname=hledger-web
 pkgver=1.52
-pkgrel=16
+pkgrel=17
 pkgdesc="Web-based user interface for the hledger accounting system"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
@@ -19,10 +19,15 @@ depends=('ghc-libs' 'hledger' 'haskell-hledger-lib' 'haskell-aeson' 'haskell-bas
          'haskell-utf8-string' 'haskell-wai' 'haskell-wai-cors' 'haskell-wai-extra'
          'haskell-wai-handler-launch' 'haskell-warp' 'haskell-yesod' 'haskell-yesod-core'
          'haskell-yesod-form' 'haskell-yesod-static' 'haskell-yesod-test')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 replaces=('hledger-api')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
 sha512sums=('c33fe21c1873bbd521deabb478019212e2e117ddaa66087f43462a55000d63583b8ff929d62eead108124db996642f7167b4bd05697344cc548304b591296e7e')
+
+prepare() {
+    cd $pkgname-$pkgver
+    uusi -u yesod-static
+}
 
 build() {
     cd $pkgname-$pkgver
