@@ -4,7 +4,7 @@
 # Contributor: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
 pkgname=python-requests
-pkgver=2.33.0
+pkgver=2.33.1
 pkgrel=1
 pkgdesc='Python HTTP for Humans'
 arch=(any)
@@ -35,8 +35,8 @@ optdepends=(
   'python-pysocks: SOCKS proxy support'
 )
 source=("$pkgname::git+https://github.com/psf/requests#tag=v$pkgver")
-sha512sums=('1faaf80076e9bf466d83a62afaba5163014ddcab292547662ec88b1c6a20f9e2fffbb28e4f8354808868ec272039bb1b40c6bc45b56cf9e0bad8d00a1770f489')
-b2sums=('60fc5f91c9110af440a5a643806beec0fe3176835fdbd0da097d46a71a304c1b023e0988a3a97b0a3ac3e41c43a061500cd2bc2bbf3824f032394157ceff4817')
+sha512sums=('8f6efb24e7267bfe53cb26590b4856009eee49e5a88c45b27c3839b94f408892c912bc36901c7e6a12bb84d522bcab5d8355b04fdcb5e7120867eb209e25548b')
+b2sums=('e8d4496d057a15e9f18c786498de14bc3ed671629fe4d076f28e9fe3eb80a9e4bad9ab38c914e45eb98db59485f5e3b8112b38b870ca05e007c37b2ff8629efb')
 validpgpkeys=(87227E29AD9CFF5CFAC3EA6A44D3FF97B80DC864) # Nathanael Prewitt <nate.prewitt@gmail.com>
 
 build() {
