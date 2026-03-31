@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-s3
-pkgver=0.11.5
+pkgver=0.12.0
 pkgrel=1
 pkgdesc='C99 library implementation for communicating with the S3 service, designed for maximizing throughput on high bandwidth EC2 instances'
 arch=(x86_64)
@@ -19,11 +19,10 @@ depends=(
 )
 makedepends=(cmake)
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('7bb2f13fde6ae794ce63d7c64378c432e4eeb243a5885008300cea6623ae40c8b1a7c56e4b08415a493217c55e3457e1c8833fa9c8b117d2e276d3b5f9d0b3c8')
+b2sums=('698d249c2fe57f3a51ebfacb2c8957b774f3d555503a2bbc47812d356005ea39240cbf1449be0eca64c0a63fac3cadd16fd2eb66f1db0d694c693ee8dc16107b')
 
 build() {
-  cd $pkgname-$pkgver
-  cmake -S . -B build \
+  cmake -S $pkgname-$pkgver -B build \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Wno-dev \
@@ -33,7 +32,6 @@ build() {
 }
 
 check() {
-  cd $pkgname-$pkgver
   local skip_tests=(
     # These requires an AWS account with a specially configure S3 bucket.
     parallel_read_stream_from_file_sanity_test
@@ -51,6 +49,5 @@ check() {
 }
 
 package() {
-  cd $pkgname-$pkgver
   DESTDIR="$pkgdir" cmake --install build
 }
