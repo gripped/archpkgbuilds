@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-http
-pkgver=0.10.11
+pkgver=0.10.13
 pkgrel=1
 pkgdesc='C99 implementation of the HTTP/1.1 and HTTP/2 specifications'
 arch=(x86_64)
@@ -17,11 +17,10 @@ depends=(
 )
 makedepends=(cmake)
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('9ebc091d4b26a72321125e80682d81f6051ca0fb1ee335bdf7cd55f880a398182cad650db8340a53937ac4d5c8c1986b190ace21ddf0197c6ff58c2e431e36db')
+b2sums=('61cbe50fda354df5b66c48cbd7f0a8893977ff71c16f40ae16ae697227f233a4e14328104403b0d67c39905fe25777656c334b30e7c7c9911f374bdb94444df7')
 
 build() {
-  cd $pkgname-$pkgver
-  cmake -S . -B build \
+  cmake -S $pkgname-$pkgver -B build \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Wno-dev \
@@ -30,11 +29,9 @@ build() {
 }
 
 check() {
-  cd $pkgname-$pkgver
   cmake --build build --target test
 }
 
 package() {
-  cd $pkgname-$pkgver
   DESTDIR="$pkgdir" cmake --install build
 }
