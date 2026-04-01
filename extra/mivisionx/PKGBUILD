@@ -4,7 +4,7 @@
 # Contributer: JP-Ellis <josh@jpellis.me>
 
 pkgname=mivisionx
-pkgver=7.2.0
+pkgver=7.2.1
 pkgrel=1
 pkgdesc="Set of comprehensive computer vision and machine intelligence libraries"
 arch=('x86_64')
@@ -26,17 +26,10 @@ makedepends=(
   'rocm-cmake'
 )
 _git='https://github.com/ROCm/MIVisionX'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
-    mivisionx-7.1-fix-include.patch)
-sha256sums=('188dc225d0813f172521e5a2129af5d917ab9e6616488520c0ef27468cc6d89b'
-            'd095e9f73d0d950818a5266ee97204fb0a26f9c27c103a02ddcfdf32675680fb')
+source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
+sha256sums=('cedcb0bcbbe6b8636a36cac0ec3bf9e80da9e24653a8602b6e4f4f3d4d3caff2')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
-
-prepare() {
-  cd "$_dirname"
-  patch -Np1 < "${srcdir}/mivisionx-7.1-fix-include.patch"
-}
 
 build() {
   # -fcf-protection is not supported by HIP, see
