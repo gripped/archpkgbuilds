@@ -3,7 +3,7 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rocr-debug-agent
-pkgver=7.2.0
+pkgver=7.2.1
 pkgrel=1
 pkgdesc="ROCr Debug Agent Library"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=('cmake')
 provides=("rocm-debug-agent=$pkgver")
 _git='https://github.com/ROCm/rocr_debug_agent'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('42b7e7afe16913e67b7af1358ddbe7772bff1ffe61f4d60960062288b6287c2c')
+sha256sums=('7dfd3363e07fcec65fb8f66c442e0cd601621cb5e086f311205ac3e65c9f9b6c')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 build() {
