@@ -1,7 +1,7 @@
 pkgbase = rocsparse
 	pkgdesc = BLAS for sparse computation on top of ROCm
-	pkgver = 7.2.0
-	pkgrel = 1
+	pkgver = 7.2.1
+	pkgrel = 2
 	url = https://rocm.docs.amd.com/projects/rocSPARSE/en/latest/index.html
 	arch = x86_64
 	license = MIT
@@ -11,14 +11,14 @@ pkgbase = rocsparse
 	makedepends = gcc-fortran
 	depends = rocm-core
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
 	depends = hip-runtime-amd
 	depends = rocprim
 	depends = rocblas
 	options = !lto
 	options = !buildflags
 	options = !strip
-	source = rocsparse-7.2.0.tar.gz::https://github.com/ROCm/rocm-libraries/releases/download/rocm-7.2.0/rocsparse.tar.gz
-	sha256sums = 82ac892621ae8dccdda7115aa0c516392f0b531ccc3d5386f92cbbe1c048cea6
+	source = rocsparse-7.2.1.tar.gz::https://github.com/ROCm/rocm-libraries/releases/download/rocm-7.2.1/rocsparse.tar.gz
+	sha256sums = ef168ca552cae6d4394d0a9a9b8a6e0dd866623d768bba897c31e1d4b5207d13
 
 pkgname = rocsparse

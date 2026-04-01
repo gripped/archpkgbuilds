@@ -3,17 +3,17 @@
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 
 pkgname=rocsparse
-pkgver=7.2.0
-pkgrel=1
+pkgver=7.2.1
+pkgrel=2
 pkgdesc='BLAS for sparse computation on top of ROCm'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocSPARSE/en/latest/index.html'
 license=('MIT')
-depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'rocprim' 'rocblas')
+depends=('rocm-core' 'glibc' 'libgcc' 'hip-runtime-amd' 'rocprim' 'rocblas')
 makedepends=('cmake' 'rocm-cmake' 'rocm-toolchain' 'gcc-fortran')
 _git='https://github.com/ROCm/rocm-libraries'
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/releases/download/rocm-$pkgver/$pkgname.tar.gz")
-sha256sums=('82ac892621ae8dccdda7115aa0c516392f0b531ccc3d5386f92cbbe1c048cea6')
+sha256sums=('ef168ca552cae6d4394d0a9a9b8a6e0dd866623d768bba897c31e1d4b5207d13')
 # Disable default build flags and use release mode as otherwise the linker step
 # fails. The symbol offset size reaches the 32 bit integer limits.
 options=(!lto !buildflags !strip)
