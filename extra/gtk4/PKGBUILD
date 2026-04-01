@@ -8,7 +8,7 @@ pkgname=(
   gtk4-docs
   gtk-update-icon-cache
 )
-pkgver=4.20.3
+pkgver=4.20.4
 pkgrel=1
 epoch=1
 pkgdesc="GObject-based multi-platform GUI toolkit"
@@ -25,7 +25,6 @@ depends=(
   desktop-file-utils
   fontconfig
   fribidi
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
@@ -41,6 +40,7 @@ depends=(
   libcups
   libegl
   libepoxy
+  libgcc
   libgl
   libjpeg-turbo
   libpng
@@ -82,21 +82,19 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gtk.git#tag=$pkgver"
   gtk-update-icon-cache.{hook,script}
   gtk4-querymodules.{hook,script}
-  0001-HACK-Don-t-use-objcopy-for-resource-embedding.patch
 )
-b2sums=('db5ed382d39b3e82bd6c54a32110883444c8ebd509057f08f109d0195431aa86b78ae6a2cb2a393731ab83aa36908c38340878c324ebabd9eb89bfa74fb1e577'
+b2sums=('05cc5c58e8c1c1c2737b7c2c5c98203750f33f52582787f0dda0382fbdea5b47e19258f8583b55bf847f3c94c4a3d7de2e0335c1ed286012a0550474da386a75'
         '136bdb410c46daf769175e8e8837286576391797a4762b8cf388217e893dd6c5087c5c91c347cbdf7d3e9dcd2c978c2fb275b5af1f3425c9f7979fbc65a81324'
         '6bcd839ef82296d864587e0cc7acc0145bdea8e5235af304747cf3c0e564c2757cc67c0373dc044bec83dccfc57dc899546c2fccea96cff2bba22f09978a3814'
         'dd589bd1ad2b13f0e06f6899776a083f20a1aac24d4308d666ffd0d1cff38457b8257b8366f92e767b4233b3d86b6b54fa50339faf84c4801a824986366dce30'
-        '4b90eb8d582509b09aab401313d4399cc139ad21b5dd7d45d79860d0764c7494c60714e0794e09823e51d1894ac032a994f27d79d1499abf24ee6f59bdb0c243'
-        '90c1628608b0b9e4e9ab3ba48733509d1f1fa80b22e2911dc9040bf45b6ff02c8a98a197008bf183de7db923cb481174c54b5425bca6a3b19884b092e31e7f4a')
+        '4b90eb8d582509b09aab401313d4399cc139ad21b5dd7d45d79860d0764c7494c60714e0794e09823e51d1894ac032a994f27d79d1499abf24ee6f59bdb0c243')
 
 prepare() {
   cd gtk
 
   # Allow -fcf-protection to work
   # https://gitlab.gnome.org/GNOME/gtk/-/issues/6153
-  git apply -3 ../0001-HACK-Don-t-use-objcopy-for-resource-embedding.patch
+  git cherry-pick -n 75fe7bafa048fe1db1e8f8f314b61967cd5a0002
 }
 
 build() {
