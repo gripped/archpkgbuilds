@@ -4,7 +4,7 @@
 # Contributor: JP-Ellis <josh@jpellis.me>
 
 pkgname=miopen-hip
-pkgver=7.2.0
+pkgver=7.2.1
 pkgrel=1
 # pin frugally-deep version as workaround workaround for https://github.com/ROCm/MIOpen/issues/3588
 _fdeep_ver=0.15.31
@@ -16,11 +16,11 @@ depends=(
   'bzip2'
   'comgr'
   'composable-kernel'
-  'gcc-libs'
   'glibc'
   'hip-runtime-amd'
   'hipblas'
   'hipblaslt'
+  'libgcc'
   'rocblas'
   'rocm-core'
   'rocrand'
@@ -29,6 +29,7 @@ depends=(
 )
 makedepends=(
   'boost'
+  'boost-libs'
   'cmake'
   'eigen'
   'functional-plus'
@@ -51,7 +52,7 @@ source=(
   "${pkgname}-half::git+https://github.com/ROCm/half#tag=rocm-$pkgver"
   "${pkgname}-frugally-deep::git+https://github.com/Dobiasd/frugally-deep#tag=v$_fdeep_ver"
 )
-sha256sums=('e1b1239b5c9025437edd1a3af757fd37cd8fa299bdbbbce6f82392fd2c7df736'
+sha256sums=('b476acbcd0f4017c800e4b05533e6dfb875bde32242729c8df557d4624379623'
             'SKIP'
             '52051d393202b5a72824d788fd245fd81bd12e3a88f95969d65031912127f927'
             'f21d7a04cae40af1d843ad9ca81416bb469f0540607f68b2e35b642362c89b42'
