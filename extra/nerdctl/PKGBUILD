@@ -2,23 +2,25 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=nerdctl
-pkgver=2.2.1
+pkgver=2.2.2
 pkgrel=1
 pkgdesc='Docker-compatible CLI for containerd'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/containerd/nerdctl'
-license=('Apache-2.0')
-depends=('containerd')
-makedepends=('git' 'go')
+license=(Apache-2.0)
+depends=(glibc containerd)
+makedepends=(git go)
 optdepends=(
   'buildkit: to build OCI images'
   'cni-plugins: to run OCI images'
   'rootlesskit: for rootless mode'
   'slirp4netns: for rootless mode'
+  'sh: for rootless setup scripts'
 )
+options=(!lto)
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('eeba27a538c32b46b0c1a3afd570d42186163c3bfbb2769f47928c3dd5b8a22d657bb38030f996e0026c234f599598148d5e5c596037bedc6e7feea9b8d42d57')
-b2sums=('24adf90ec74c4301eaa7337dc18823862e7182d0452f602566415c3ee34ada9c6e1896b537430f83823e2ab18ced78895bd5503c86764bcac5fc9b27470b711a')
+sha512sums=('c847d5a4d23602b6c8ff075621d0f1477b832909f560080a968279ae9a6d7be45dbbc10af74719c75524619b0a2a5c19d864c448adf762e43ce90e50786070c8')
+b2sums=('10f772bbe99a8dbfdfe611dc36a0c44de0bf52cc80586f89cf736b568dff100915e303c67a387590012f797bee721fc788a704c53fda224b6ca4c57b5951e375')
 
 prepare() {
   cd "$pkgname"
