@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=rocwmma
-pkgver=7.2.0
+pkgver=7.2.1
 pkgrel=1
 pkgdesc='Library for accelerating mixed precision matrix multiplication'
 arch=('x86_64')
@@ -22,7 +22,7 @@ makedepends=(
 )
 _git='https://github.com/ROCmSoftwarePlatform/rocWMMA'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('12f056df671c78dad38c38632f7ddf44163387932a092d59bed433b0194da995')
+sha256sums=('78ab1df5180722881980e80272fb9d92403f267ddff232eb413718db750c0452')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
 options=(!lto)
 
