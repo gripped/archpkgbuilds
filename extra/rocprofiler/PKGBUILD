@@ -4,7 +4,7 @@
 # Contributor: Lubosz Sarnecki <lubosz@gmail.com>
 
 pkgname=rocprofiler
-pkgver=7.2.0
+pkgver=7.2.1
 pkgrel=1
 pkgdesc="ROC profiler library. Profiling with perf-counters and derived metrics."
 arch=('x86_64')
@@ -42,7 +42,7 @@ _dir_name='rocm-systems/projects/rocprofiler'
 _dir_name_sdk='rocm-systems/projects/rocprofiler-sdk/'
 source=("rocm-systems::git+$_git#tag=rocm-$pkgver"
         "rocm-systems-perfetto::git+https://github.com/google/perfetto")
-sha256sums=('e411176a9be2af4e6a542061cf2697350a848e769f1e35255c0cd6694c5e1ef6'
+sha256sums=('912710f54b8d3e1403fcaac0cbda7fb40710ad60429031fbb9a131256d807187'
             'SKIP')
 options=(!lto)
 
