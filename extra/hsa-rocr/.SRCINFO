@@ -1,26 +1,26 @@
 pkgbase = hsa-rocr
 	pkgdesc = HSA Runtime API and runtime for ROCm
-	pkgver = 7.2.0
-	pkgrel = 1
+	pkgver = 7.2.1
+	pkgrel = 2
 	url = https://github.com/ROCm/rocm-systems
 	arch = x86_64
 	license = NCSA
 	makedepends = cmake
 	makedepends = rocm-llvm
 	makedepends = xxd
-	depends = rocm-core
 	depends = glibc
-	depends = gcc-libs
+	depends = libdrm
+	depends = libelf
+	depends = libgcc
 	depends = numactl
 	depends = pciutils
-	depends = libelf
-	depends = libdrm
+	depends = rocm-core
 	depends = rocm-device-libs
 	depends = rocprofiler-register
-	provides = hsakmt-roct=7.2.0
+	provides = hsakmt-roct=7.2.1
 	replaces = hsakmt-roct
 	options = !lto
-	source = rocm-7.2.0.tar.gz::https://github.com/ROCm/rocm-systems/archive/rocm-7.2.0.tar.gz
-	sha256sums = 728ea7e9bf16e6ed217a0fd1a8c9afaba2dae2e7908fa4e27201e67c803c5638
+	source = rocm-7.2.1.tar.gz::https://github.com/ROCm/rocm-systems/archive/rocm-7.2.1.tar.gz
+	sha256sums = 201f19174eafbace2f7abf0d1178ebb17db878191276aba6d23f0e1758b0e10f
 
 pkgname = hsa-rocr
