@@ -3,23 +3,21 @@
 # Contributor: Samadi van Koten
 
 pkgname=umoci
-pkgver=0.4.7
-pkgrel=3
+pkgver=0.5.0
+pkgrel=1
 pkgdesc="Umoci Modifies Open Container Images"
 arch=('x86_64')
 url="https://umo.ci/"
-license=('Apache')
+license=('Apache-2.0')
 depends=('glibc')
-makedepends=('go' 'go-md2man')
-source=("https://github.com/opencontainers/$pkgname/releases/download/v$pkgver/umoci.tar.xz")
-sha256sums=('693a3780937c785de8f6dd233786c1ea870bbe8ccba2f6f1e20339329394743b')
-
-_repo_name="github.com/opencontainers/$pkgname"
+makedepends=('git' 'go' 'go-md2man')
+source=("git+https://github.com/opencontainers/$pkgname.git#tag=v$pkgver")
+sha256sums=('60903712a1e93a844d7021cca2b24f0bc33e69bc5b7bea06879b88208c9ffa72')
 
 prepare() {
-  rm -rf "$srcdir/src/$_repo_name"
-  mkdir -p "$srcdir/src/$_repo_name"
-  mv -Tf "$srcdir/$pkgname-$pkgver" "$srcdir/src/$_repo_name"
+  rm -rf "$srcdir/src/github.com/opencontainers/$pkgname"
+  mkdir -p "$srcdir/src/github.com/opencontainers"
+  ln -s "$srcdir/$pkgname" "$srcdir/src/github.com/opencontainers/$pkgname"
 }
 
 build() {
@@ -29,13 +27,13 @@ build() {
   export CGO_LDFLAGS="${LDFLAGS}"
   export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
 
-  cd "$srcdir/src/$_repo_name"
+  cd "$srcdir/src/github.com/opencontainers/$pkgname"
   GOPATH="$srcdir" make
   GOPATH="$srcdir" make docs
 }
 
 package() {
-  cd "$srcdir/src/$_repo_name"
+  cd "$srcdir/src/github.com/opencontainers/$pkgname"
   install -Dm 755 -t "$pkgdir/usr/bin" umoci
   install -Dm 644 -t "$pkgdir/usr/share/man/man1" doc/man/*1
 }
