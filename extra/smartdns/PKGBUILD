@@ -3,12 +3,12 @@
 
 pkgname=smartdns
 pkgver=47.1
-pkgrel=2
+pkgrel=3
 pkgdesc="A local DNS server to obtain the fastest website IP for the best Internet experience"
 arch=('x86_64')
 license=('GPL-3.0-or-later')
 url="https://github.com/pymumu/smartdns"
-backup=("etc/smartdns/smartdns.conf")
+backup=("etc/smartdns/smartdns.conf" "etc/default/smartdns")
 depends=('glibc' 'libgcc' 'openssl')
 makedepends=('git' 'systemd')  # systemd.pc
 checkdepends=('gtest' 'bind')
