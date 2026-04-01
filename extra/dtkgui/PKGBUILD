@@ -2,7 +2,7 @@
 
 pkgbase=dtkgui
 pkgname=(dtkgui dtk6gui)
-pkgver=6.7.33
+pkgver=6.7.34
 pkgrel=1
 epoch=1
 pkgdesc='Deepin Toolkit, gui module for DDE look and feel'
@@ -14,17 +14,18 @@ makedepends=('git' 'cmake' 'ninja' 'extra-cmake-modules' 'qt5-tools' 'qt6-tools'
              'dtkcore' 'dtk6core' 'libqt5xdg' 'libqtxdg' 'librsvg' 'qt5-base' 'qt6-base' 'qt5-wayland'
              'glib2' 'libx11' 'treeland-protocols')
 source=("git+https://github.com/linuxdeepin/dtkgui.git#tag=$pkgver")
-sha512sums=('785fe4624fcc52032fc78f9bd0494b5ad6e1f7f3f4f29ae55fcc5620116f6bca2104f4d0c3598b1667510f556f0967852acd2cd3e2c8f05805f8481d3699480d')
+sha512sums=('39174e3131afd7261e6a1696c28ee3a6c294f68523d4390d0a0475ce32e0d978fe693b375996bde3c988e446afe303f0ac99959681919e2029a03fee0c92a305')
 
 prepare() {
   cd dtkgui
+
   # Fix upstream bug: PROJECT_VERSION_MAJOR should be DTK_VERSION_MAJOR
   # This ensures private headers install to correct path (dtk5 vs dtk6)
   # https://github.com/linuxdeepin/dtkgui/pull/368
-  git cherry-pick -n 8dbfc1d9055a2e15a24b3e1253dff797ab2ce76f
+  git cherry-pick -n f0535ae22d2fffd500aebf5e6ef1da3686d96ff0
   # Enable Qt6 XdgIconLoader support + use DSvgRenderer for all scalable SVG entries
   # https://github.com/linuxdeepin/dtkgui/pull/372
-  git cherry-pick -n d796af93e1c6b1870faad058b0e6ac076e0f86fb
+  git cherry-pick -n 3827bad0748e7c28220bd76df669b4cd592840bf
 
   cd ..
   # Use separate source directories for Qt5 and Qt6 builds
