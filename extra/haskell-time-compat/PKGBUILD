@@ -2,18 +2,18 @@
 
 _hkgname=time-compat
 pkgname=haskell-time-compat
-pkgver=1.9.8
-pkgrel=43
+pkgver=1.9.9
+pkgrel=3
 pkgdesc="Compatibility package for time"
 url="https://github.com/phadej/time-compat"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-hashable')
 makedepends=('ghc' 'uusi')
-checkdepends=('haskell-hunit' 'haskell-quickcheck' 'haskell-tagged' 'haskell-tasty'
-              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
+checkdepends=('haskell-hunit' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
+              'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('148c2eab0edb626b447d63c77c00ce6b38a1a37459f29d7204ed5101031bf8d1675021f59b47ece11899350325c05c1f37116aa76178742e04c5da2519a5b504')
+sha512sums=('cf4926f53448580ec8452ecdf12e31a9dc5f4641ca82690d66a210deef04cc6f3f37482cdc48eb19f06cd35f467c02b955b208b35a2756ccfb4c9e93ccbf072a')
 
 prepare() {
     cd $_hkgname-$pkgver
