@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstacksdk
-pkgver=4.5.0
+pkgver=4.6.0
 pkgrel=1
 pkgdesc="An SDK for building applications to work with OpenStack"
 arch=('any')
@@ -17,13 +17,14 @@ checkdepends=('python-ddt' 'python-fixtures' 'python-hacking' 'python-jsonschema
               'python-oslo-config' 'python-oslotest' 'python-prometheus_client'
               'python-requests-mock' 'python-stestr' 'python-testscenarios' 'python-testtools')
 source=("git+https://github.com/openstack/openstacksdk.git#tag=$pkgver")
-sha512sums=('d69e9df6e95443496cb24b0107cbde71095acbc71f1e22c0bd82e7a795881a6e36a346f19d2b9fae3c48f61c6aa22047691e630ea8bda499a95125b181ed0da0')
+sha512sums=('1a054caebb3c179575a320a57312e27d4874b19e4ae715b731c2d98419a69a68f6c9454958d6a3ed6b8613ce6219f9179630de69dae190f0aa1cbb39876dd1d8')
 
 prepare() {
   cd openstacksdk
 
-  # Fix Python 3.14 annotation introspection on Resource.bulk_create classmethod
+  # Fix Python 3.14 annotation introspection on Resource methods
   sed -i 's/data: list\[dict\[str, ty.Any\]\]/data: "list[dict[str, ty.Any]]"/' openstack/resource.py
+  sed -i 's/) -> dict\[str, ty.Any\] | list\[ty.Any\]:/) -> "dict[str, ty.Any] | list[ty.Any]":/' openstack/resource.py
 }
 
 build() {
