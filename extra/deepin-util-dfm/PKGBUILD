@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-util-dfm
-pkgver=1.2.31
+pkgver=1.2.32
 pkgrel=1
 pkgdesc='Utilities of deepin file manager'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('dtkcore' 'glib2' 'glibc' 'libgcc' 'libisoburn' 'libmediainfo' 'libsecr
          'libstdc++' 'lucene++' 'qt5-base' 'udisks2' 'util-linux-libs')
 makedepends=('boost' 'git' 'cmake' 'ninja')
 source=("git+https://github.com/linuxdeepin/util-dfm.git#tag=$pkgver")
-sha512sums=('72168dea7476ecb0f9422a9a7abe208d0c66e97a4d279d87c5e8ee9ebe37e57eda5c10206c38bb5357e736a1dcaf0753e8a82fc203f148bc3f5d79bdf10b2069')
+sha512sums=('925e32e54689e47abc60d28bd2be58858a812d802c7dae095246aaff18917eac0f326169e714af4cada2b960a94c3acbedd7b1ebeee13d9246c5318d0065b6e3')
 
 prepare() {
   cd util-dfm
@@ -20,8 +20,6 @@ prepare() {
   sed -i '/find_package(Boost REQUIRED COMPONENTS system)/d' src/dfm-search/dfm-search-lib/dfm-search.cmake
   sed -i 's/\s*Boost::system//' src/dfm-search/dfm-search-lib/dfm-search.cmake
 
-  # dfm-search uses std::optional but forgets to include <optional>
-  sed -i '/#include <QObject>/a #include <optional>' include/dfm-search/dfm-search/dsearch_global.h
 }
 
 build() {
