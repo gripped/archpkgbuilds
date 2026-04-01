@@ -3,17 +3,17 @@
 
 pkgname=ibus-sunpinyin
 _pkgname=sunpinyin
-pkgver=3.0.0rc1+32+gf39c195
-pkgrel=3
+pkgver=3.0.0rc2+10+ge4be7e6
+pkgrel=1
 pkgdesc="IBus Wrapper for sunpinyin"
 arch=('x86_64')
 url="https://github.com/sunpinyin/sunpinyin"
-license=('LGPL')
+license=('LGPL-2.1-only' 'CDDL-1.0')
 depends=('sunpinyin' 'sunpinyin-data' 'ibus' 'gtk3' 'python-gobject')
 makedepends=('git' 'scons')
-_commit=f39c195db08661e894017507842991a1ef70bedf  # master
+_commit=e4be7e64e4a168a684b26679b7e076118a2c97f7  # master
 source=("git+https://github.com/sunpinyin/sunpinyin.git#commit=$_commit")
-md5sums=('SKIP')
+sha512sums=('9112623c4928c3fdba65408457c401b4459d294a44950925ab5356e6c802e1e0de2e80668872f291bae2ae13704dbab4d15c3fac22b50cc0833cac9d99ca2e30')
 
 pkgver() {
   cd $_pkgname
