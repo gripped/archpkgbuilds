@@ -1,6 +1,6 @@
 pkgbase = rocsolver
 	pkgdesc = Subset of LAPACK functionality on the ROCm platform
-	pkgver = 7.2.0
+	pkgver = 7.2.1
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/rocSOLVER/en/latest/index.html
 	arch = x86_64
@@ -9,14 +9,14 @@ pkgbase = rocsolver
 	makedepends = python-pyaml
 	makedepends = rocm-cmake
 	makedepends = rocm-toolchain
-	depends = gcc-libs
 	depends = glibc
 	depends = hip-runtime-amd
+	depends = libgcc
 	depends = rocblas
 	depends = rocm-core
 	depends = rocsparse
 	options = !lto
-	source = rocm-libraries-7.2.0.tar.gz::https://github.com/ROCm/rocm-libraries/archive/refs/tags/rocm-7.2.0.tar.gz
-	sha256sums = 8ad5f4a11f1ed8a7b927f2e65f24083ca6ce902a42021a66a815190a91ccb654
+	source = rocm-libraries-7.2.1.tar.gz::https://github.com/ROCm/rocm-libraries/archive/refs/tags/rocm-7.2.1.tar.gz
+	sha256sums = bc5140deec3b1c93c13796a8a6d2cb7e50aa87fd89f60f87c8d801d66f2fd156
 
 pkgname = rocsolver
