@@ -3,16 +3,16 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=roctracer
-pkgver=7.2.0
-pkgrel=3
+pkgver=7.2.1
+pkgrel=1
 pkgdesc='ROCm tracer library for performance tracing'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/roctracer/en/latest'
 license=('MIT')
-depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'hsa-rocr' 'comgr')
+depends=('rocm-core' 'glibc' 'libgcc' 'hip-runtime-amd' 'hsa-rocr' 'comgr')
 makedepends=('cmake' 'python-cppheaderparser' 'python-ply')
 source=("rocm-$pkgver.tar.gz::https://github.com/ROCm/rocm-systems/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('728ea7e9bf16e6ed217a0fd1a8c9afaba2dae2e7908fa4e27201e67c803c5638')
+sha256sums=('201f19174eafbace2f7abf0d1178ebb17db878191276aba6d23f0e1758b0e10f')
 options=('!lto')
 _dirname="rocm-systems-rocm-$pkgver/projects/$pkgname"
 
