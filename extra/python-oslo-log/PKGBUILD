@@ -2,19 +2,19 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-log
-pkgver=7.2.1
+pkgver=8.0.0
 pkgrel=1
 pkgdesc="Oslo Logging Library"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.log/$pkgver"
 license=('Apache-2.0')
 depends=('python-pbr' 'python-oslo-config' 'python-oslo-context' 'python-oslo-i18n'
-         'python-oslo-utils' 'python-oslo-serialization' 'python-debtcollector' 'python-pyinotify'
+         'python-oslo-utils' 'python-oslo-serialization' 'python-debtcollector'
          'python-dateutil')
 makedepends=('git' 'python-build' 'python-installer')
 checkdepends=('python-stestr' 'python-testtools' 'python-oslotest' 'python-eventlet')
 source=("git+https://github.com/openstack/oslo.log.git#tag=$pkgver")
-sha512sums=('43758f0614e162f593f1aeb0711da8ae4e588c1b269a5cb739d4bf73799152ca754d6436914a9b12e6f4351767a6418d80e4670e445c00cf4a9d9cf4a4f01233')
+sha512sums=('5c2409f65e77c361bd515520140863c502c38e3965bcc87663adca7d52af43d9a9330fa9b5e4a22c0ba8cc9fef3e6a3794250039c031cf26ec057fde1b635a56')
 
 build() {
   cd oslo.log
