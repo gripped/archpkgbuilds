@@ -8,7 +8,7 @@
 pkgname=amule
 epoch=1
 pkgver=2.3.3
-pkgrel=10
+pkgrel=11
 pkgdesc='An eMule-like client for ed2k p2p network'
 arch=(x86_64)
 url='http://www.amule.org'
@@ -39,8 +39,12 @@ prepare() {
   git cherry-pick -n 8085232
   git cherry-pick -n f186b3a
   git cherry-pick -n d22e057 # Fix build
+  git cherry-pick -n 212b189 # Boost.Asio API updates (Boost 1.87+)
+  git cherry-pick -n 8ad387d # Boost 1.89 deadline_timer includes
+  git cherry-pick -n 0cd4412 # CMake 4 compatibility in ec abstracts
   git cherry-pick -n 9e1d9eb
   git cherry-pick -n a667c61 # Install icons
+  sed -i 's/const void \*Event/void *Event/' src/UPnPBase.h src/UPnPBase.cpp # libupnp callback signature
   rm -fr .git
 }
 
