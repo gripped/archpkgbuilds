@@ -2,16 +2,16 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=hipfft
-pkgver=7.2.0
+pkgver=7.2.1
 pkgrel=1
 pkgdesc='rocFFT marshalling library.'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/hipFFT/en/latest/index.html'
 license=('MIT')
 depends=(
-  'gcc-libs'
   'glibc'
   'hip-runtime-amd'
+  'libgcc'
   'rocfft'
   'rocm-core'
 )
@@ -22,7 +22,7 @@ makedepends=(
 )
 _git='https://github.com/ROCm/rocm-libraries'
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/releases/download/rocm-$pkgver/$pkgname.tar.gz")
-sha256sums=('cc1a79c2601e98cf88492207ac975a3575eff9f4da4d7d54250de662a9f45da0')
+sha256sums=('2aadd7801852a8baa9333e8370dc04f6737aaf7b85dcc94b4d19a57867780d1a')
 options=(!lto)
 
 build() {
