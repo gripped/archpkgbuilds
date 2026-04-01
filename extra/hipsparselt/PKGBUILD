@@ -3,23 +3,23 @@
 # Contributor: Felix Richter <judge@felixrichter.tech>
 
 pkgname=hipsparselt
-pkgver=7.2.0
+pkgver=7.2.1
 pkgrel=1
 pkgdesc='SPARSE marshalling library with AMD GPU backend'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/hipSPARSELt/en/latest/'
 license=('MIT')
 depends=(
-  'rocm-core'
+  'glibc'
   'hip-runtime-amd'
   'hipsparse'
-  'roctracer'
-  'rocminfo'
-  'rocm-smi-lib'
-  'glibc'
-  'gcc-libs'
-  'msgpack-cxx'
   'lapack'
+  'libgcc'
+  'msgpack-cxx'
+  'rocm-core'
+  'rocm-smi-lib'
+  'rocminfo'
+  'roctracer'
 )
 makedepends=(
   'git'
@@ -41,7 +41,7 @@ _tensilelite='https://github.com/ROCm/hipBLASLt'
 _commit='25c46a44a79d748394622b0b0c7b7acf7574619a'
 source=("rocm-libraries::git+$_git.git#tag=rocm-$pkgver"
         "$pkgname-tensilelite-$pkgver.tar.gz::$_tensilelite/archive/$_commit/hipBLASLt-$_commit.tar.gz")
-sha256sums=('e1b1239b5c9025437edd1a3af757fd37cd8fa299bdbbbce6f82392fd2c7df736'
+sha256sums=('b476acbcd0f4017c800e4b05533e6dfb875bde32242729c8df557d4624379623'
             'e2b3c6b584e12853474315393789d0a4f2a813a2eb003560adbde735ce4140bd')
 _dirname="rocm-libraries/projects/$pkgname"
 

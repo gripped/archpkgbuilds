@@ -1,6 +1,6 @@
 pkgbase = hipsparselt
 	pkgdesc = SPARSE marshalling library with AMD GPU backend
-	pkgver = 7.2.0
+	pkgver = 7.2.1
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/hipSPARSELt/en/latest/
 	arch = x86_64
@@ -17,19 +17,19 @@ pkgbase = hipsparselt
 	makedepends = python-joblib
 	makedepends = python-pyyaml
 	makedepends = python-msgpack
-	depends = rocm-core
+	depends = glibc
 	depends = hip-runtime-amd
 	depends = hipsparse
-	depends = roctracer
-	depends = rocminfo
-	depends = rocm-smi-lib
-	depends = glibc
-	depends = gcc-libs
-	depends = msgpack-cxx
 	depends = lapack
-	source = rocm-libraries::git+https://github.com/ROCm/rocm-libraries.git#tag=rocm-7.2.0
-	source = hipsparselt-tensilelite-7.2.0.tar.gz::https://github.com/ROCm/hipBLASLt/archive/25c46a44a79d748394622b0b0c7b7acf7574619a/hipBLASLt-25c46a44a79d748394622b0b0c7b7acf7574619a.tar.gz
-	sha256sums = e1b1239b5c9025437edd1a3af757fd37cd8fa299bdbbbce6f82392fd2c7df736
+	depends = libgcc
+	depends = msgpack-cxx
+	depends = rocm-core
+	depends = rocm-smi-lib
+	depends = rocminfo
+	depends = roctracer
+	source = rocm-libraries::git+https://github.com/ROCm/rocm-libraries.git#tag=rocm-7.2.1
+	source = hipsparselt-tensilelite-7.2.1.tar.gz::https://github.com/ROCm/hipBLASLt/archive/25c46a44a79d748394622b0b0c7b7acf7574619a/hipBLASLt-25c46a44a79d748394622b0b0c7b7acf7574619a.tar.gz
+	sha256sums = b476acbcd0f4017c800e4b05533e6dfb875bde32242729c8df557d4624379623
 	sha256sums = e2b3c6b584e12853474315393789d0a4f2a813a2eb003560adbde735ce4140bd
 
 pkgname = hipsparselt
