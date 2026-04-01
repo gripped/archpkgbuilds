@@ -6,7 +6,7 @@
 # Contributor: Douglas Soares de Andrade <dsa@aur.archlinux.org>
 
 pkgname=ipython
-pkgver=9.11.0
+pkgver=9.12.0
 pkgrel=1
 pkgdesc='Enhanced Interactive Python shell'
 arch=(any)
@@ -55,12 +55,12 @@ source=(
   "git+https://github.com/ipython/ipython.git#tag=$pkgver"
   'IPython-icon.png::https://www.packal.org/sites/default/files/public/styles/icon_large/public/workflow-files/nkeimipynbworkflow/icon/icon.png'
 )
-b2sums=('5261c8e05fbf0bdb8ca0bb39d863cc15f5cba1d8eaad1e8edbe241a183e44af268ff37c039d47ec8fa7db852c6f4c188a3b33870f77661d28301c4bf7fc91902'
+b2sums=('cf372921dfab2e8a90eb51f3871b26126ab5d21782b4f6f754953673977c6cb73c580d0bfdb4a4583865b1406d2d4cf24a32ada84eafd38d5a052597502c3ed0'
         'd445e2bc7a037db8715ea103611720e965987e155c32e445b0ef783e519fca8a0301b16c5763fd9a5d8d169c3b0d7b4db6c0bd0f9772842258b135dcb1d6d5a2')
-#validpgpkeys=(
-#  99B17F64FD5C94692E9EF8064968B2CC0208DCC8 # Matthias Bussonnier <bussonniermatthias@gmail.com>
-#  4D9D285A538F7C2E16D13ACE57982D11F0EA2247 # Michał Krassowski
-#)
+validpgpkeys=(
+  99B17F64FD5C94692E9EF8064968B2CC0208DCC8 # Matthias Bussonnier <bussonniermatthias@gmail.com>
+  4D9D285A538F7C2E16D13ACE57982D11F0EA2247 # Michał Krassowski
+)
 
 build() {
   cd $pkgname
