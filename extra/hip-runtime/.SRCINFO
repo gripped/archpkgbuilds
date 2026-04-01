@@ -1,6 +1,6 @@
 pkgbase = hip-runtime
-	pkgver = 7.2.0
-	pkgrel = 1
+	pkgver = 7.2.1
+	pkgrel = 2
 	url = https://rocm.docs.amd.com/projects/HIP/en/latest/
 	arch = x86_64
 	license = MIT
@@ -12,7 +12,7 @@ pkgbase = hip-runtime
 	makedepends = bash
 	makedepends = perl
 	makedepends = glibc
-	makedepends = gcc-libs
+	makedepends = libgcc
 	makedepends = numactl
 	makedepends = mesa
 	makedepends = comgr
@@ -22,10 +22,10 @@ pkgbase = hip-runtime
 	makedepends = rocprofiler-register
 	makedepends = cuda
 	options = !lto
-	source = rocm-7.2.0.tar.gz::https://github.com/ROCm/rocm-systems/archive/refs/tags/rocm-7.2.0.tar.gz
-	source = hip-runtime-hipcc::git+https://github.com/ROCm/llvm-project#tag=rocm-7.2.0
-	sha256sums = 728ea7e9bf16e6ed217a0fd1a8c9afaba2dae2e7908fa4e27201e67c803c5638
-	sha256sums = 676db89f6b7b0c954f24ff1eb1c16db769a5c43b826337b9f4fd9f38f7b8af27
+	source = rocm-7.2.1.tar.gz::https://github.com/ROCm/rocm-systems/archive/refs/tags/rocm-7.2.1.tar.gz
+	source = hip-runtime-hipcc::git+https://github.com/ROCm/llvm-project#tag=rocm-7.2.1
+	sha256sums = 201f19174eafbace2f7abf0d1178ebb17db878191276aba6d23f0e1758b0e10f
+	sha256sums = cda215d04dfb6ede38c542d4604711d4a4623267df0f3d678491cd9fbcc32fd9
 
 pkgname = hip-runtime-amd
 	pkgdesc = Heterogeneous Interface for Portability (AMD runtime)
@@ -33,7 +33,7 @@ pkgname = hip-runtime-amd
 	depends = bash
 	depends = perl
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
 	depends = numactl
 	depends = mesa
 	depends = comgr
@@ -43,7 +43,7 @@ pkgname = hip-runtime-amd
 	depends = rocprofiler-register
 	optdepends = inetutils: Print hostname in hipconfig
 	optdepends = cuda: Cross compile for nvidia
-	provides = hip=7.2.0
+	provides = hip=7.2.1
 	replaces = hip
 
 pkgname = hip-runtime-nvidia

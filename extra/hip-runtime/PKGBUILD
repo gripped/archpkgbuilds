@@ -4,13 +4,13 @@
 
 pkgbase=hip-runtime
 pkgname=(hip-runtime-amd hip-runtime-nvidia)
-pkgver=7.2.0
-pkgrel=1
+pkgver=7.2.1
+pkgrel=2
 _pkgdesc="Heterogeneous Interface for Portability"
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/HIP/en/latest/'
 license=('MIT')
-_amd_depends=('rocm-core' 'bash' 'perl' 'glibc' 'gcc-libs' 'numactl'
+_amd_depends=('rocm-core' 'bash' 'perl' 'glibc' 'libgcc' 'numactl'
          'mesa' 'comgr' 'rocminfo' 'rocm-llvm' 'libelf' 'rocprofiler-register')
 _nvidia_depends=('cuda')
 makedepends=('git' 'cmake' 'python' 'python-cppheaderparser'
@@ -20,8 +20,8 @@ _tag="tag=rocm-$pkgver"
 _hipcc='https://github.com/ROCm/llvm-project'
 source=("rocm-$pkgver.tar.gz::https://github.com/ROCm/rocm-systems/archive/refs/tags/rocm-$pkgver.tar.gz"
         "$pkgbase-hipcc::git+$_hipcc#$_tag")
-sha256sums=('728ea7e9bf16e6ed217a0fd1a8c9afaba2dae2e7908fa4e27201e67c803c5638'
-            '676db89f6b7b0c954f24ff1eb1c16db769a5c43b826337b9f4fd9f38f7b8af27')
+sha256sums=('201f19174eafbace2f7abf0d1178ebb17db878191276aba6d23f0e1758b0e10f'
+            'cda215d04dfb6ede38c542d4604711d4a4623267df0f3d678491cd9fbcc32fd9')
 _projectBaseDir="rocm-systems-rocm-$pkgver/projects"
 
 options=(!lto)
