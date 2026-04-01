@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-os-service-types
-pkgver=1.8.1
+pkgver=1.8.2
 pkgrel=1
 pkgdesc="Python library for consuming OpenStack sevice-types-authority data"
 arch=('any')
@@ -14,7 +14,7 @@ checkdepends=('python-stestr' 'python-oslotest' 'python-testscenarios' 'python-r
               'python-keystoneauth1' 'python-six')
 options=('!emptydirs')
 source=("git+https://github.com/openstack/os-service-types.git#tag=$pkgver")
-sha512sums=('869bf5f8018b503f83ca8a1326c8ebf6ebfc95e1b384642faa525022cd2e94cf541fd6088ba85aa7ad0c7133ea8449e6545204d580fdfac4106a2a28fca2fde0')
+sha512sums=('5c50ec356f1af06679630afcf4fc2ba9be22e60bf802d9b8dcaa6e1697530dcb2b646c2016ebc66a3ad9f52f93e97a9c6a705cdd8b806a48d66d434ce083c4cd')
 
 build() {
   cd os-service-types
