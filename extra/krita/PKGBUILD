@@ -1,9 +1,9 @@
 # Maintainer: Antonio Rojas <arojas@archlinux,org>
 
 pkgname=krita
-pkgver=6.0.0
+pkgver=6.0.1
 _pkgver=${pkgver/beta/-beta}
-pkgrel=2
+pkgrel=1
 pkgdesc='Edit and paint images'
 arch=(x86_64)
 url='https://krita.org'
@@ -73,7 +73,7 @@ optdepends=('kimageformats: PSD support'
             'poppler-qt6: PDF filter'
             'python-pyqt6: for the Python plugins')
 source=(https://download.kde.org/stable/krita/$_pkgver/$pkgname-$_pkgver.tar.xz{,.sig})
-sha256sums=('9eb18cee50d10d5f5e63304a1b96c1e1edd685d3ffa337dc19fc30c6280dfdbb'
+sha256sums=('aeaab7959b610eca5025af81eb54db2ce5985f98208d4390b08ee4ceb969c1f5'
             'SKIP')
 validpgpkeys=('05D00A8B73A686789E0A156858B9596C722EA3BD'  # Boudewijn Rempt <foundation@krita.org>
               'E9FB29E74ADEACC5E3035B8AB69EB4CF7468332F'  # Dmitry Kazakov (main key) <dimula73@gmail.com>
