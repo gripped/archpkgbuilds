@@ -1,18 +1,19 @@
 pkgbase = rocm-dbgapi
 	pkgdesc = Support library necessary for a debugger of AMD's GPUs
-	pkgver = 7.2.0
+	pkgver = 7.2.1
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/ROCdbgapi/en/latest/
 	arch = x86_64
 	license = MIT
 	makedepends = cmake
 	makedepends = rocm-cmake
-	depends = rocm-core
-	depends = glibc
-	depends = gcc-libs
 	depends = comgr
+	depends = glibc
 	depends = hsa-rocr
-	source = rocm-dbgapi-7.2.0.tar.gz::https://github.com/ROCm/ROCdbgapi/archive/rocm-7.2.0.tar.gz
-	sha256sums = 3649f1ae9642cdc7f3b172a580388cbe50489dfbea6b245a6a73082a64e06c5b
+	depends = libgcc
+	depends = libstdc++
+	depends = rocm-core
+	source = rocm-dbgapi-7.2.1.tar.gz::https://github.com/ROCm/ROCdbgapi/archive/rocm-7.2.1.tar.gz
+	sha256sums = 29a5f689e03c176ec562634fb22192309fab538fe4245225a66b25ad6de0fab1
 
 pkgname = rocm-dbgapi
