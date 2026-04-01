@@ -5,12 +5,12 @@
 
 pkgname=opensearch-dashboards
 pkgver=3.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Open source visualization dashboards for OpenSearch'
 url='https://docs.opensearch.org/latest/dashboards/'
 arch=('x86_64')
 license=('Apache-2.0')
-depends=('nodejs-lts-iron')
+depends=('nodejs-lts-jod') # https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/package.json#L593
 optdepends=(
   'opensearch'
   'opensearch-dashboards-alerting-plugin'
