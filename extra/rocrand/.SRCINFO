@@ -1,7 +1,7 @@
 pkgbase = rocrand
 	pkgdesc = Pseudo-random and quasi-random number generator on ROCm
-	pkgver = 7.2.0
-	pkgrel = 2
+	pkgver = 7.2.1
+	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/rocRAND/en/latest/index.html
 	arch = x86_64
 	license = MIT
@@ -13,11 +13,11 @@ pkgbase = rocrand
 	depends = rocm-core
 	depends = hip-runtime-amd
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
 	optdepends = gcc-fortran: Use Fortran wrapper
 	options = !lto
 	options = !strip
-	source = rocrand-7.2.0.tar.gz::https://github.com/ROCm/rocm-libraries/releases/download/rocm-7.2.0/rocrand.tar.gz
-	sha256sums = 80342e32511766d96a80aeb93ecd95660420969c53e72019857612a2dd081735
+	source = rocrand-7.2.1.tar.gz::https://github.com/ROCm/rocm-libraries/releases/download/rocm-7.2.1/rocrand.tar.gz
+	sha256sums = c93a345c5b935fb16f947823dcbdcfaea57efcc98427d7f3bee57aa472c2cea8
 
 pkgname = rocrand
