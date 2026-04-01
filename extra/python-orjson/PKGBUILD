@@ -3,8 +3,8 @@
 
 _name=orjson
 pkgname=python-orjson
-pkgver=3.11.7
-pkgrel=2
+pkgver=3.11.8
+pkgrel=1
 pkgdesc="Fast, correct Python JSON library supporting dataclasses and datetimes"
 arch=(x86_64)
 url="https://github.com/ijl/orjson"
@@ -28,8 +28,8 @@ checkdepends=(
   python-xxhash
 )
 source=($url/archive/$pkgver/$_name-$pkgver.tar.gz)
-sha512sums=('92850fa4c68e017c99869eff1e3158e87706e997ec74a8b4f460f8196485b804ee650f9e50b65a8fd694f1262048d0b1770048a0ea11f668e9e21d7ff0e1daaf')
-b2sums=('6b410f8115e27cd8c3d5070b9ee7fd5846cce5ce535319d0072da7bbcb3048dec65edd89921b13e8de84da7500eecd9d05c18fb1827af854f4b606da425dcd31')
+sha512sums=('bd0f68e3961d0a0007faaccf0e64af10655d0bf5a9e0040fa432e90bda81d9dea4548aa79c829e4fbe58f12b9207e4d48b1a446315e5ba5b402de9b7bb531427')
+b2sums=('479288f4058a8bf41903002865f6dea52d06b135197a2eacb1fb156427039e4fce21c847a5915177b80cc47566d76c8093d36f633ccecc9b75bc700c64eab246')
 
 build() {
   # Full LTO removes symbols from the resulting library.
