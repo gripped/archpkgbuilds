@@ -3,7 +3,7 @@
 _hkgname=optics-extra
 pkgname=haskell-optics-extra
 pkgver=0.4.2.1
-pkgrel=254
+pkgrel=255
 pkgdesc="Extra utilities and instances for optics-core"
 url="https://github.com/well-typed/optics"
 license=('BSD')
@@ -17,7 +17,7 @@ sha512sums=('82f481de519cd1e6d086338de001ddcd2185f9ac212a1905cae17d66820b3c77da5
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u vector $_hkgname.cabal
+    uusi -u optics-core -u vector
 }
 
 build() {
