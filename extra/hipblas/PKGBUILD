@@ -3,17 +3,25 @@
 # Contributor: Markus Näther <naether.markus@gmail.com>
 
 pkgname=hipblas
-pkgver=7.2.0
+pkgver=7.2.1
 pkgrel=1
 pkgdesc='ROCm BLAS marshalling library'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/hipBLAS/en/latest/index.html'
 license=('MIT')
-depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'hipblas-common' 'rocblas' 'rocsolver')
+depends=(
+    'glibc'
+    'hip-runtime-amd'
+    'hipblas-common'
+    'libgcc'
+    'rocblas'
+    'rocm-core'
+    'rocsolver'
+)
 makedepends=('rocm-cmake' 'git' 'cmake' 'gcc-fortran')
 _git='https://github.com/ROCm/rocm-libraries'
 source=("rocm-libraries::git+$_git.git#tag=rocm-$pkgver")
-sha256sums=('e1b1239b5c9025437edd1a3af757fd37cd8fa299bdbbbce6f82392fd2c7df736')
+sha256sums=('b476acbcd0f4017c800e4b05533e6dfb875bde32242729c8df557d4624379623')
 _dirname="rocm-libraries/projects/$pkgname"
 
 build() {
