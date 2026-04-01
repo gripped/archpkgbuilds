@@ -1,6 +1,6 @@
 pkgbase = rocm-opencl-runtime
 	pkgdesc = OpenCL implementation for AMD
-	pkgver = 7.2.0
+	pkgver = 7.2.1
 	pkgrel = 1
 	url = https://github.com/ROCm/clr
 	arch = x86_64
@@ -8,7 +8,7 @@ pkgbase = rocm-opencl-runtime
 	makedepends = git
 	makedepends = rocm-cmake
 	depends = comgr
-	depends = gcc-libs
+	depends = libgcc
 	depends = glibc
 	depends = hsa-rocr
 	depends = mesa
@@ -17,7 +17,7 @@ pkgbase = rocm-opencl-runtime
 	depends = opencl-icd-loader
 	depends = rocm-core
 	provides = opencl-driver
-	source = rocm-systems::git+https://github.com/ROCm/rocm-systems#tag=rocm-7.2.0
-	sha256sums = e411176a9be2af4e6a542061cf2697350a848e769f1e35255c0cd6694c5e1ef6
+	source = rocm-systems::git+https://github.com/ROCm/rocm-systems#tag=rocm-7.2.1
+	sha256sums = 912710f54b8d3e1403fcaac0cbda7fb40710ad60429031fbb9a131256d807187
 
 pkgname = rocm-opencl-runtime
