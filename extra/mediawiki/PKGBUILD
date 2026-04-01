@@ -1,9 +1,9 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=mediawiki
-pkgver=1.45.1
+pkgver=1.45.2
 _basever=${pkgver%.*}
-pkgrel=3
+pkgrel=1
 pkgdesc="Free and open-source wiki software system"
 arch=('any')
 url="https://www.mediawiki.org/wiki/MediaWiki"
@@ -34,21 +34,10 @@ validpgpkeys=('41B2ABE817ADD3E52BDA946F72BC1C5D23107F8A'
 source=(
   "https://releases.wikimedia.org/mediawiki/${_basever}/mediawiki-$pkgver.tar.gz"{,.sig}
   apache.example.conf
-  mediawiki-parsoid-php-8.4.patch.zip::https://gerrit.wikimedia.org/r/changes/mediawiki%2Fservices%2Fparsoid~1220366/revisions/4/patch?zip
-  mediawiki-parsoid-php-8.4-2.patch.zip::https://gerrit.wikimedia.org/r/changes/mediawiki%2Fservices%2Fparsoid~1235160/revisions/1/patch?zip
 )
-sha256sums=('e2f126b19aec422051a0a50e0c6ab7e904f33b3988a47b9da8afbfd0c0a252cc'
+sha256sums=('dce33e4448e147407408c9796e0660a17c3509b8361dda0d4a5e717e57927591'
             'SKIP'
-            'cfeff68331e930b6a93f166c12666ac59a84aa24334f94520eff3f988f37ce2b'
-            '9d609403743593afb315cf4f8645723949616bff378711a9c59cf4be3e9bbd6a'
-            '0b52894e299ae564ad3d674fc037e92723c5d19ec01bce83d512d8739783aea4')
-
-prepare() {
-  # Parsoid compatibility for PHP 8.4+ https://phabricator.wikimedia.org/T409283
-  cd $pkgname-$pkgver/vendor/wikimedia/parsoid
-  patch -p1 < "$srcdir"/2db95b1.diff
-  patch -p1 < "$srcdir"/8067aef.diff
-}
+            'cfeff68331e930b6a93f166c12666ac59a84aa24334f94520eff3f988f37ce2b')
 
 package() {
   cd "$srcdir"
