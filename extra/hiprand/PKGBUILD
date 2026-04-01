@@ -2,16 +2,16 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=hiprand
-pkgver=7.2.0
+pkgver=7.2.1
 pkgrel=1
 pkgdesc='rocRAND marshalling library'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/hipRAND/en/latest/'
 license=('MIT')
 depends=(
-  'gcc-libs'
   'glibc'
   'hip-runtime-amd'
+  'libgcc'
   'rocm-core'
   'rocrand'
 )
@@ -25,7 +25,7 @@ optdepends=('gcc-fortran: Use Fortran wrapper')
 _git='https://github.com/ROCm/rocm-libraries'
 source=("rocm-libraries::git+$_git.git#tag=rocm-$pkgver"
         "$pkgname-rocm-bin-path.patch")
-sha256sums=('e1b1239b5c9025437edd1a3af757fd37cd8fa299bdbbbce6f82392fd2c7df736'
+sha256sums=('b476acbcd0f4017c800e4b05533e6dfb875bde32242729c8df557d4624379623'
             '144fb5162222d81559e847d31226f7b56215fa558a549c8be534cfba3fbca241')
 options=(!lto)
 _dirname="rocm-libraries/projects/$pkgname"
