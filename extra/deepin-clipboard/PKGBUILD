@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-clipboard
-pkgver=6.1.8
+pkgver=6.1.9
 pkgrel=1
 pkgdesc='DDE clipboard manager component'
 arch=('x86_64')
@@ -12,12 +12,13 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'gio-qt' 'qt6-base' 'qt6-declarative'
 makedepends=('git' 'cmake' 'ninja' 'gtest' 'qt6-tools' 'extra-cmake-modules')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/dde-clipboard.git#tag=$pkgver")
-sha512sums=('14bca87638d8fa0acad4ace1f6747e02f72e13e4a141b5af3f8f667ac217f1947dc7d4fb379c2bc3f7398d874a416fd9f42e7518b60cce54adfa5eb6cbc3b8d9')
+sha512sums=('087d3146d24e26a7de2aa23eb96f00799493e6caaee14d9c3bc7914ffaf63dac4a985d5d4b455702365da246f04acf17637cd56c8cc54f50a51b62973f1d7aa0')
 
 prepare() {
   mkdir -p build
+
   cd dde-clipboard
-  # Qt 6.10 requires private modules
+  # Qt 6.10+ links Private targets but forgets to find the corresponding components
   sed -i '/find_package(Qt\${QT_VERSION_MAJOR} COMPONENTS Core Gui Widgets DBus WaylandClient Test Concurrent LinguistTools REQUIRED)/a find_package(Qt\${QT_VERSION_MAJOR} COMPONENTS GuiPrivate WaylandClientPrivate REQUIRED)' CMakeLists.txt
 }
 
