@@ -3,7 +3,7 @@
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 
 pkgname=rocprim
-pkgver=7.2.0
+pkgver=7.2.1
 pkgrel=1
 pkgdesc='Header-only library providing HIP parallel primitives'
 arch=('any')
@@ -14,7 +14,7 @@ depends=('rocm-core' 'hip-runtime-amd')
 makedepends=('cmake' 'git' 'rocm-cmake' 'rocm-toolchain')
 _git='https://github.com/ROCm/rocm-libraries'
 source=("rocm-libraries::git+$_git.git#tag=rocm-$pkgver")
-sha256sums=('e1b1239b5c9025437edd1a3af757fd37cd8fa299bdbbbce6f82392fd2c7df736')
+sha256sums=('b476acbcd0f4017c800e4b05533e6dfb875bde32242729c8df557d4624379623')
 _dirname="rocm-libraries/projects/$pkgname"
 
 build() {

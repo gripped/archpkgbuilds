@@ -1,3 +1,6 @@
+// HACK rocprim complains about a missing host implementation of memset.
+// We provide it by first including string.h from the C standard library
+#include <cstring>
 #include <rocprim/rocprim.hpp>
 #include <vector>
 #include <iostream>
