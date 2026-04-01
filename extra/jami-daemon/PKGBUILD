@@ -3,7 +3,7 @@
 
 pkgname=jami-daemon
 pkgver=20260206
-pkgrel=1
+pkgrel=3
 pkgdesc="Free and universal communication platform which preserves the users’ privacy and freedoms (daemon component)"
 arch=(x86_64)
 url="https://jami.net"
@@ -27,7 +27,7 @@ noextract=(pjproject-${_pjprojectver}.tar.gz
            dhtnet-${_dhtnetver}.tar.gz)
 sha512sums=('e544bfac1eb2184f2b3a10d9e98a644068b5d2d5d622822e647d23b4ded21054d0e6e72defe7d74df4d2d44ca246643196228ccda19c41b7fbd4371ebfc36ce7'
             'c5966468225782bedfbed218e58ebe2491ba8fa897edc1590de22ffe513a7b1bf814c5e75761d980d651c9d56e5c4f64b16f68d413062a4a9960d53cdd0ae047'
-            'SKIP'
+            'bc41959ffeba424095067d0bd71ec8de2efc922907d9091ac6f32aeaba66afd090d2615e52784f392d5a827e23a5dd3bc039ed8935764ece1e017ccfc358a5f7'
             '6e927376938e6687a438b4984e37a23a921fb6b3e87f804b6eb9365af18b04bd5b601fd7be95ae326d8e5f15d82552ae7dd5367a1eb834bd0d7d77600e05c82e'
             '8fcfe52808d00b8535dc6d181af0233dc0f3a51e8da69728a04e7f6edc82c54fb11e62ffad05344d9eeb6d203dc323ffa03181c615c7c6f84682f70a02ee4319')
 
@@ -42,6 +42,17 @@ prepare() {
   cp ../pjproject-${_pjprojectver}.tar.gz contrib/tarballs/
   cp ../dhtnet-$_dhtnetver.tar.gz contrib/tarballs/
   mkdir -p contrib/native
+
+  # pjproject is unpacked during contrib build (not during prepare/build bootstrap).
+  # Inject libupnp 1.14 callback signature fix into pjproject build recipe.
+  sed -i '/^\t$(UNPACK)$/a\
+\tsed -i '\''s/static int client_cb(Upnp_EventType event_type, const void \\*event,/static int client_cb(Upnp_EventType event_type, void *event,/'\'' pjproject-$(PJPROJECT_VERSION)/pjnath/src/pjnath/upnp.c' \
+    contrib/src/pjproject/rules.mak
+
+  # dhtnet is also unpacked during contrib build; fix libupnp 1.14 callback signatures.
+  sed -i '/^\t$(UNPACK)$/a\
+\tsed -i '\''s/#if UPNP_VERSION < 10800/#if UPNP_VERSION < 10800 || UPNP_VERSION >= 11400/g'\'' dhtnet-$(DHTNET_VERSION)/src/upnp/protocol/pupnp/pupnp.h' \
+    contrib/src/dhtnet/rules.mak
 
   patch -p1 -i ../ffmpeg-7.patch # Fix build with ffmpeg 7+
   patch -p1 -i ../ffmpeg-8.patch # Fix build with ffmpeg 8
