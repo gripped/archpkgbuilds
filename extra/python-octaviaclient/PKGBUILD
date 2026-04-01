@@ -2,20 +2,25 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-octaviaclient
-pkgver=3.12.0
-pkgrel=2
+pkgver=3.13.0
+pkgrel=1
 pkgdesc="Octavia client for OpenStack Load Balancing"
 arch=('any')
 url="https://docs.openstack.org/python-octaviaclient/latest/"
 license=('Apache-2.0')
-depends=('python-cliff' 'python-keystoneauth1' 'python-neutronclient' 'python-openstackclient'
+depends=('python-cliff' 'python-keystoneauth1' 'python-openstackclient'
          'python-osc-lib' 'python-oslo-serialization' 'python-oslo-utils' 'python-pbr'
          'python-requests')
 makedepends=('git')
 checkdepends=('python-hacking' 'python-requests-mock' 'python-pygments' 'python-oslotest'
               'python-stestr' 'python-testscenarios')
 source=("git+https://github.com/openstack/python-octaviaclient.git#tag=$pkgver")
-sha512sums=('9d4e2468028fbd1fbd22c3db60189b9ac3d967dae22cf0b0ec295eab6b320f7318377a08c6ca04ad4b8515fc30e7bb56a5fd79feed780f8e919c3c36c7967912')
+sha512sums=('d3a73d7c806c108a3a37d980e0bd34c2774ec5e9acaf6818158156ebc9b19d3e2f4da1c4db5de4d57afa9220e4fce182e51cec621890b287b6637be58e3fc4f9')
+
+prepare() {
+  cd python-octaviaclient
+  sed -i '/self.app.client_manager.load_balancer = FakeOctaviaClient(/,/^        )$/ s/^        )$/        )\n        self.app.client_manager.sdk_connection = mock.MagicMock()\n        self.app.client_manager.sdk_connection.network = mock.MagicMock()/' octaviaclient/tests/unit/osc/v2/fakes.py
+}
 
 build() {
   cd python-octaviaclient
