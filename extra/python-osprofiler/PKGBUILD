@@ -1,21 +1,21 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-osprofiler
-pkgver=3.4.3
-_commit=32863011fe90aa283425b6347123c38e5c251ac3
-pkgrel=7
+pkgver=4.0.0
+pkgrel=1
 pkgdesc="OpenStack Profiler Library"
 arch=('any')
 url="https://docs.openstack.org/osprofiler/latest/"
-license=('Apache')
+license=('Apache-2.0')
 depends=('python-netaddr' 'python-oslo-concurrency' 'python-oslo-serialization' 'python-oslo-utils'
          'python-prettytable' 'python-requests' 'python-webob')
-makedepends=('git' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel' 'python-pbr')
 checkdepends=('python-ddt' 'python-stestr' 'python-testtools' 'python-docutils' 'python-pymongo'
-              'python-elasticsearch' 'python-redis')
-source=("git+https://github.com/openstack/osprofiler.git#commit=$_commit"
+              'python-elasticsearch' 'python-redis' 'python-opentelemetry-exporter-otlp'
+              'python-opentelemetry-sdk')
+source=("git+https://github.com/openstack/osprofiler.git#tag=$pkgver"
 	"elasticsearch-url-fix.patch")
-sha512sums=('809bffc0bc3ed560aa1fba32c1bf7d497b7f36c396e9a5f4b15ac64cf40a5e2bb95a6b6000483355dfd0d71fe689ece8782b4bb5661e38958444e31ad5714286'
+sha512sums=('b07a3e315f6daf3541e985abdcf3cee1d7d8a0c6f8a06e18ee7e8082b97efc24022112917bd7b40c921f801c57f3229850adaa7ec65567578abb66daf67d6b71'
             '0c420ff3e5d9a9357d14398e0768c6329277712da9f315c74f594ca8b8394ca34178de14dec7986111999a5d31b20ab2be83fc119481f745a30876311b12eb0d')
 
 prepare() {
@@ -25,15 +25,17 @@ prepare() {
 
 build() {
   cd osprofiler
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
   cd osprofiler
-  stestr run --exclude-regex 'osprofiler.tests.unit.drivers.test_jaeger'
+  # jaeger-client library itself is deprecated upstream.
+  rm -f osprofiler/tests/unit/drivers/test_jaeger.py
+  stestr run
 }
 
 package() {
   cd osprofiler
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }

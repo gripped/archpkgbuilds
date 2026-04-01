@@ -1,10 +1,10 @@
 pkgbase = python-osprofiler
 	pkgdesc = OpenStack Profiler Library
-	pkgver = 3.4.3
-	pkgrel = 7
+	pkgver = 4.0.0
+	pkgrel = 1
 	url = https://docs.openstack.org/osprofiler/latest/
 	arch = any
-	license = Apache
+	license = Apache-2.0
 	checkdepends = python-ddt
 	checkdepends = python-stestr
 	checkdepends = python-testtools
@@ -12,8 +12,14 @@ pkgbase = python-osprofiler
 	checkdepends = python-pymongo
 	checkdepends = python-elasticsearch
 	checkdepends = python-redis
+	checkdepends = python-opentelemetry-exporter-otlp
+	checkdepends = python-opentelemetry-sdk
 	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
+	makedepends = python-pbr
 	depends = python-netaddr
 	depends = python-oslo-concurrency
 	depends = python-oslo-serialization
@@ -21,9 +27,9 @@ pkgbase = python-osprofiler
 	depends = python-prettytable
 	depends = python-requests
 	depends = python-webob
-	source = git+https://github.com/openstack/osprofiler.git#commit=32863011fe90aa283425b6347123c38e5c251ac3
+	source = git+https://github.com/openstack/osprofiler.git#tag=4.0.0
 	source = elasticsearch-url-fix.patch
-	sha512sums = 809bffc0bc3ed560aa1fba32c1bf7d497b7f36c396e9a5f4b15ac64cf40a5e2bb95a6b6000483355dfd0d71fe689ece8782b4bb5661e38958444e31ad5714286
+	sha512sums = b07a3e315f6daf3541e985abdcf3cee1d7d8a0c6f8a06e18ee7e8082b97efc24022112917bd7b40c921f801c57f3229850adaa7ec65567578abb66daf67d6b71
 	sha512sums = 0c420ff3e5d9a9357d14398e0768c6329277712da9f315c74f594ca8b8394ca34178de14dec7986111999a5d31b20ab2be83fc119481f745a30876311b12eb0d
 
 pkgname = python-osprofiler
