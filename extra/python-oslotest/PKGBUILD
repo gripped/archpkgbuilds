@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-oslotest
-pkgver=6.0.0
-pkgrel=2
+pkgver=6.1.0
+pkgrel=1
 pkgdesc="Oslo test framework"
 arch=('any')
 url="https://github.com/openstack/oslotest"
@@ -11,7 +11,7 @@ depends=('python-fixtures' 'python-subunit' 'python-testtools')
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-pbr')
 checkdepends=('python-oslo-config' 'python-stestr')
 source=("git+https://github.com/openstack/oslotest.git#tag=$pkgver")
-sha512sums=('0d33d90bd3bcc034d642f1acc1ace24c64090af61230ef0ec943569affe95ef7654b5caf59ff3811b3d541500fdcb47139a1a726f50bd4000ad2251bf4e042d0')
+sha512sums=('4012f6e6b3cd88fb0e4c8c2b98c3c2975d11d7679bb680695892445c07f78b21f10ef7b7bdb319dccfe9a7f6f35843532fb427c1aacaecd8cafac6ebe39c6aab')
 
 build() {
   cd oslotest
