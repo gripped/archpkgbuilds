@@ -2,8 +2,8 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-config
-pkgver=9.6.1
-pkgrel=2
+pkgver=9.7.0
+pkgrel=1
 pkgdesc="parsing command line arguments and .ini style configuration files"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.config/$pkgver"
@@ -19,13 +19,11 @@ source=(
   "git+https://github.com/openstack/oslo.config.git#tag=$pkgver"
   "$pkgname-python-3.14.patch"
 )
-sha512sums=('213334295aad2ab10e9816677fbf10e38e150558a447cd2f4e07900bda55e6b1719b7e634a73bae3f825a1bda0cfd805ff8cb6dd50a6469e0adad13a7ecfc0e9'
+sha512sums=('85eb31f8d7a0f50bb5b141becdbd797db58187750b8a36e8304fefe019802924f9ee4c5d3fd33c398d5372b3342ca3de8e2997bd91a4c6a73852cc5852fb940f'
             '84c6db3076dcd0190f467313efb3df66925bdf0c3db377bf118564af341304eaae0799aaa746058549b9c6cef4199daf5b8c272d29ffb534432411863dcfb5d5')
 
 prepare() {
   cd oslo.config
-  # Fix test_sub_command_multiple on Python 3.12.5+
-  git cherry-pick -n 972d304bb23baef538ce759004410a20d8109ccb
 
   patch -Np1 < ../$pkgname-python-3.14.patch
 }
