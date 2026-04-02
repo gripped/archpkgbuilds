@@ -1,27 +1,21 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-uncertainties
-pkgver=3.2.3
-pkgrel=3
+pkgver=3.2.4
+pkgrel=1
 pkgdesc="Transparent calculations with uncertainties on the quantities involved (aka error propagation); fast calculation of derivatives."
 arch=('any')
-license=('BSD')
+license=('BSD-2-Clause')
 url="https://github.com/lmfit/uncertainties"
 depends=('python')
 optdepends=('python-numpy: additional support for NumPy arrays and matrices')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm' 'python-wheel')
-checkdepends=('python-pytest' 'python-numpy')
+checkdepends=('python-pytest' 'python-numpy' 'python-scipy')
 source=("git+https://github.com/lmfit/uncertainties.git#tag=$pkgver")
-sha512sums=('85588db20a9a9954bcbc883a39551565821d59c51edee0c41359f9432e9006e5815f53f1d0dbd1576bdfeef7dfb7b80a384c6503cc9ac6daf0c9ae26a5a72a8f')
-
-prepare() {
-  cd uncertainties
-  git cherry-pick -n 633da70494ae6570cc69a910e1f6231538acf374 # Fix test with python 3.14
-}
+sha512sums=('0741d308916392f74798123f031851aef55fb6610ea5365a65b3d96e2bcbe40788bdbcb9bd3b7f7af033f44a9987940056b7bbb96da23774f27f80449f908046')
 
 build() {
   cd uncertainties
-  export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
   python -m build -nw
 }
 
