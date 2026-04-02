@@ -2,16 +2,16 @@
 
 _hkgname=optics-core
 pkgname=haskell-optics-core
-pkgver=0.4.1.1
-pkgrel=171
+pkgver=0.4.2
+pkgrel=1
 pkgdesc="Optics as an abstract interface: core definitions"
 url="https://github.com/well-typed/optics-core"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-indexed-profunctors' 'haskell-indexed-traversable')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('9fd7c265330bdad5d9e5603eb7477f0d22cf9f433cad7a6479f6bfbb5309726ffe030d0c8e564dfadc45a2c2f5eefb5f7e2beb217248b248c996dfdf40465051')
+sha512sums=('71287c07187bbeb971a541f264b08bdaa956b1f43a422eb9705e04a2a3b484981b5c6a7142a4e92cb67ca6592b29e76f463d9d67a85747af4381b4f75eeb972f')
 
 build() {
     cd $_hkgname-$pkgver
