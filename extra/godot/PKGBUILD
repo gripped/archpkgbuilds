@@ -8,22 +8,22 @@
 
 pkgbase=godot
 pkgname=(godot godot-mono)
-pkgver=4.6.1
+pkgver=4.6.2
 pkgrel=1
 pkgdesc='Advanced cross-platform 2D and 3D game engine'
 url='https://godotengine.org/'
 license=(MIT)
 arch=(x86_64)
-makedepends=(alsa-lib dotnet-sdk-8.0 nuget pulse-native-provider scons setconf yasm)
+makedepends=(alsa-lib dotnet-sdk-8.0 git nuget pulse-native-provider scons setconf yasm)
 depends=(brotli ca-certificates embree freetype2 graphite libglvnd libspeechd libsquish libtheora libvorbis
          libwebp libwslay libxcursor libxi libxinerama libxrandr miniupnpc openxr pcre2)
 optdepends=('pipewire-alsa: for audio support'
             'pulse-native-provider: for audio support')
-source=("$pkgname-$pkgver.tar.xz::https://github.com/godotengine/$pkgname/releases/download/$pkgver-stable/$pkgname-$pkgver-stable.tar.xz")
-b2sums=('8cfc477472d224579b525a36df98f5cc7616b66e9ba4fc943753351cc6093bd0c7f542916cc26ddb625bbbbb8de850015b72610af05df443ec8c0a3c2e03ff3f')
+source=("git+https://github.com/godotengine/godot#tag=$pkgver-stable")
+b2sums=('a45a065a731b9a38820c7204002d77d59897ee7d952f39b0040883239ec0d55536535ed37d2cdd4dea39171c09379ad298cb10c5adf5e70de88626470e662d0e')
 
 prepare() {
-  cd $pkgname-$pkgver-stable
+  cd $pkgname
 
   # Patch for miniupnpc
   sed -i 's/addr, 16/addr, 16, nullptr, 0/g' modules/upnp/upnp.cpp
@@ -48,8 +48,9 @@ case $CARCH in
   x86_64*) _CARCH=x86_64;;
   aarch64) _CARCH=arm64;;
 esac
+
 build() {
-  cd $pkgname-$pkgver-stable
+  cd $pkgname
 
   export BUILD_NAME=arch_linux
 
@@ -118,7 +119,7 @@ build() {
 }
 
 package_godot() {
-  cd $pkgbase-$pkgver-stable
+  cd $pkgbase
 
   install -Dm755 bin/godot.linuxbsd.editor.$_CARCH "$pkgdir/usr/bin/godot"
 
@@ -133,7 +134,7 @@ package_godot() {
 package_godot-mono(){
   depends+=(dotnet-sdk-8.0)
 
-  cd $pkgbase-$pkgver-stable
+  cd $pkgbase
 
   install -Dm755 bin/godot.linuxbsd.editor.$_CARCH.mono "$pkgdir/usr/lib/$pkgname/godot.linuxbsd.editor.$_CARCH.mono"
 

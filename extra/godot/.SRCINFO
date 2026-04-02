@@ -1,12 +1,13 @@
 pkgbase = godot
 	pkgdesc = Advanced cross-platform 2D and 3D game engine
-	pkgver = 4.6.1
+	pkgver = 4.6.2
 	pkgrel = 1
 	url = https://godotengine.org/
 	arch = x86_64
 	license = MIT
 	makedepends = alsa-lib
 	makedepends = dotnet-sdk-8.0
+	makedepends = git
 	makedepends = nuget
 	makedepends = pulse-native-provider
 	makedepends = scons
@@ -33,8 +34,8 @@ pkgbase = godot
 	depends = pcre2
 	optdepends = pipewire-alsa: for audio support
 	optdepends = pulse-native-provider: for audio support
-	source = godot-4.6.1.tar.xz::https://github.com/godotengine/godot/releases/download/4.6.1-stable/godot-4.6.1-stable.tar.xz
-	b2sums = 8cfc477472d224579b525a36df98f5cc7616b66e9ba4fc943753351cc6093bd0c7f542916cc26ddb625bbbbb8de850015b72610af05df443ec8c0a3c2e03ff3f
+	source = git+https://github.com/godotengine/godot#tag=4.6.2-stable
+	b2sums = a45a065a731b9a38820c7204002d77d59897ee7d952f39b0040883239ec0d55536535ed37d2cdd4dea39171c09379ad298cb10c5adf5e70de88626470e662d0e
 
 pkgname = godot
 
