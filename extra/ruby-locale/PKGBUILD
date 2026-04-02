@@ -3,8 +3,8 @@
 
 _gemname='locale'
 pkgname="ruby-${_gemname}"
-pkgver=2.1.4
-pkgrel=5
+pkgver=2.1.5
+pkgrel=1
 pkgdesc='A pure ruby library which provides basic and general purpose APIs for localization.'
 arch=('any')
 url="https://github.com/ruby-gettext/locale"
@@ -14,14 +14,10 @@ checkdepends=('ruby-test-unit' 'ruby-test-unit-rr')
 depends=('ruby')
 options=(!emptydirs)
 source=("${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('65f5fde22c4ab4dc404204aea8d87b53d5a2bca01fa860ac7953de3806d4ca69b36bc4fce28d57a6a9d04be5a10c2fdeadbbe10fc48fa0a495b0da4ccfc71626')
+sha512sums=('72e9db211150b0151bb672da63e63f30e9e82bf639b637d52088ff9de916461f985fbbca93f2da128eaa7832ead10d840d199fe56e850b95e3162419fac00544')
 
 build() {
   cd "${_gemname}-${pkgver}"
-  # remove dependencies that aren't actual dependencies
-  sed --in-place '/test\/unit\/notify/d' test/run-test.rb
-  sed --in-place '/s.add_development_dependency("redcarpet")/d' "${_gemname}.gemspec"
-  sed --in-place '/s.add_development_dependency("test-unit-notify")/d' "${_gemname}.gemspec"
   rake build
 }
 
