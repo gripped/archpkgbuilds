@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-hacking
-pkgver=7.0.0
-pkgrel=5
+pkgver=8.0.0
+pkgrel=1
 arch=('any')
 pkgdesc='OpenStack Hacking Guideline Enforcement'
 url='https://docs.openstack.org/developer/hacking'
@@ -12,12 +12,10 @@ makedepends=('git' 'python-build' 'python-installer' 'python-pbr' 'python-setupt
 checkdepends=('python-subunit' 'python-stestr' 'python-testscenarios' 'python-testtools'
               'python-ddt' 'python-eventlet')
 source=("git+https://github.com/openstack/hacking.git#tag=$pkgver")
-sha512sums=('82cdb3099877b9bba72855a9c4a2729f03ea94d6ba3f4fa1c8d31befccd250abec044b9fe8fd7c13e54b579634f6280b9d3e9e8e237ce85453e9fee51d28aa8d')
+sha512sums=('72cf3ff7288ab215b2810ff945b2b10e63d29c19d81851a5e2c29adf00d63a8cb07f14702af41887d939e4449d7c84d7f6578aa54e7c2e66b945fdebb70882e2')
 
 prepare() {
   cd hacking
-  # Remove use of pkg_resources
-  git cherry-pick -n 62e7de42e2f474b1dadfb1918c15182cbd349cda
   sed -i 's/~=/>=/' requirements.txt
 }
 
