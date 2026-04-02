@@ -1,17 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-vcr
-pkgver=6.3.1
+pkgver=6.4.0
 pkgrel=1
 pkgdesc="Record your test suite's HTTP interactions and replay them during future test runs for fast, deterministic, accurate tests."
 arch=(any)
 url='https://benoittgt.github.io/vcr'
 license=('Hippocratic-2.1' 'MIT')
-depends=('ruby' 'ruby-base64')
+depends=('ruby')
 makedepends=('git' 'ruby-rspec' 'ruby-test-unit' 'ruby-rake' 'ruby-pry')
 options=(!emptydirs)
 source=("git+https://github.com/vcr/vcr.git#tag=v$pkgver")
-sha256sums=('897687f343127259723b118aac460526835f8a5b3685966f65df631977ec7cb0')
+sha256sums=('a79f01eebb29ea2bb84eaa03d577f97eaa46e282af111b7941f2b3a7baa5bea0')
 
 prepare() {
   cd vcr
