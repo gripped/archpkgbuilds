@@ -6,17 +6,17 @@
 
 _pkgname=requests-futures
 pkgname=python-requests-futures
-pkgver=1.0.1
-pkgrel=5
+pkgver=1.0.2
+pkgrel=1
 pkgdesc='Asynchronous Python HTTP Requests for Humans using Futures'
 arch=('any')
 url='https://github.com/ross/requests-futures'
 license=('Apache-2.0')
 depends=('python-requests')
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
-checkdepends=('python-pytest' 'pifpaf' 'httpbin')
+checkdepends=('python-pytest' 'python-pytest-httpbin' 'python-werkzeug')
 source=("git+https://github.com/ross/requests-futures.git#tag=v$pkgver")
-sha256sums=('9fb481df169e4e8890adb1c96621eea29cfdf8651753623529df484f55b8abc8')
+sha256sums=('02bff1dc474b1158be47e042c5e03a07996bb046a245e8ce3c0699c87f09dcd1')
 
 build() {
   cd requests-futures
@@ -25,9 +25,7 @@ build() {
 
 check() {
   cd requests-futures
-  eval `pifpaf run httpbin`
-  HTTPBIN_URL="${PIFPAF_URLS}/" pytest
-  pifpaf_stop
+  pytest
 }
 
 package() {
