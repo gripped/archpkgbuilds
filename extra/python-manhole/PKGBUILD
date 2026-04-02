@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-manhole
-pkgver=1.8.0
-pkgrel=8
+pkgver=1.8.1
+pkgrel=1
 arch=('any')
 pkgdesc='Debugging manhole for python applications'
 license=('BSD-2-Clause')
@@ -11,15 +11,7 @@ depends=('python')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-virtualenv' 'python-pytest' 'python-process-tests' 'python-requests' 'uwsgi')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ionelmc/python-manhole/archive/v$pkgver.tar.gz")
-sha512sums=('041452d602895f7ceaafc74ac50713acd470120b022a942946de83f90d2d839ee15b333dfc329f88597b13e0b3fee436af526beae95a3ff94e51376fd2cc27e6')
-
-prepare() {
-  cd python-manhole-$pkgver
-  # Drop imp module, removed from Python 3.12
-  sed -i tests/test_manhole.py \
-    -e 's|^import imp$|import importlib.util|' \
-    -e 's|imp.find_module|importlib.util.find_spec|'
-}
+sha512sums=('f37d4f401e862fe49b6c59025f62fac15a2f1c0ece4c8418c27ce1cef62723aa47506210ef78ddc7c3219ab2f31019d5b1235e496861b9f7b094a3390a3128bb')
 
 build() {
   cd python-manhole-$pkgver
