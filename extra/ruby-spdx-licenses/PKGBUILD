@@ -2,17 +2,17 @@
 
 _gemname='spdx-licenses'
 pkgname="ruby-${_gemname}"
-pkgver=1.3.0
-pkgrel=5
+pkgver=1.4.0
+pkgrel=1
 pkgdesc='Tool to check the validity of Puppet metadata.json files'
 arch=('any')
-url="https://github.com/domcleal/${_gemname}"
+url="https://github.com/voxpupuli/${_gemname}"
 license=('MIT')
 depends=('ruby')
 makedepends=('ruby-rdoc' 'ruby-rake' 'ruby-minitest' 'ruby-mocha')
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${_gemname}-v${pkgver}.tar.gz")
-sha512sums=('f99f83191676a89beeb65f8862e9101647e98ce8f8d8d61e077fb8868683a12e5adcf1d45e0f7581e81a20244fb1085e6f632cda27b5bb304307bf6f870dcda2')
+sha512sums=('43abcf040abca6de3d2c2a94cf2194a8fa110b53dd980644a2d573b9f2df5064214772c471509b149c0237cd3b7cef544b253553502d61d0bd41b2cb80877cb9')
 
 prepare() {
   cd "${srcdir}/${_gemname}-${pkgver}"
