@@ -6,7 +6,7 @@
 # Contributor: Masato TOYOSHIMA <phoepsilonix at phoepsilonix dot love>
 
 ## Mozc compile option
-_mozc_commit=e99761585
+_mozc_commit=21c0f0406
 
 _bcr_commit=d552b400e
 # Following are subject to change if bcr, bazel, and mozc commit changes.
@@ -41,7 +41,7 @@ _bazel_deps=(
 _pkgbase=mozc
 pkgname=fcitx5-mozc
 pkgdesc="Fcitx5 Module of A Japanese Input Method for Chromium OS, Windows, Mac and Linux (the Open Source Edition of Google Japanese Input)"
-pkgver=3.33.6089.2
+pkgver=3.33.6133.2
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/google/mozc"
@@ -70,7 +70,7 @@ for _bazel_dep in "${_bazel_deps[@]}"; do
   fi
 done
 
-sha512sums=('d95e11d947d79a273098c3f2f81c80d16d9035f75b1571266020b3d883cc62fb3b68403a2164cb642e600f126aafd24aaa176f0caeac7769fe281e93fb96b92e'
+sha512sums=('2a79dee93042e7787dbbdb79fa2945d1bde84ed07792434c7fa558442c9b3f57a06bd867da41354b648092a8e6c89b2d3f2a5d90aa042808ae24c967df393502'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -96,8 +96,8 @@ sha512sums=('d95e11d947d79a273098c3f2f81c80d16d9035f75b1571266020b3d883cc62fb3b6
             '384f14574edf22fc7b515ca184b2af3868ea21aac31247a53aa5dab44293ed92dfed13807f1428051d6a539fd40f0fdb7e83ac2c8c8811be9ecdaa9725f044db'
             'd3155ed53b2811e17d3f92f1e1641a09e115c50c8dce686766b138b618925d9e60a1322655394e978fd9e6abc503bbc2601ef1f15ffef63826cb955bd5899554'
             'e2d71432836855192bee9ccf45781aef797d0112a0444684c782a5310cec35ff96793c2d4aba80ad2e71b789839f4fa1c70eb175be09a1c92e747639b0f6ab3e'
-            'ec76f0c9b02a8f0a8633d752ebdb80ac7c4d5c71dfd9916cc9140d446bae8e09755db8d40eca87fbb08d21c31db80ec977f307c497f0d731087c73a1df9ea0c7'
-            '00aef90b785a703d536813616eeec7057eeaf681b83bc35c6c4b597df298ccb6bbd97f97845c7570788e7f063d94b4c62e359ccc698fcaeff17ce472bc1b9225'
+            'a09dfd1bac819991dc22c55ccacd6267ad666d815a1fd371d4ca012418b5b89203c37cd3f83df84bcd3bcc5f0e9ae92c095b6e4a2dc8c586f7c7595751debce1'
+            'fba63e664de490b26956985b823b0264673118df4b400e73e1f0ec7003162de75d018f18f2c062accdbf843d31bec8df8aec4472614ddd215aaac135c5624704'
             '580677aad97093829090d4b605ac81c50327e74a6c2de0b85dd2e8525553f3ddde17556ea46f8f007f89e435493c9a20bc997d1ef1c1c2c23274528e3c46b94f'
             '53ba7921add31048adb7ae0fc442d819bf2e9dae5341163770cfc165795b80b19e81aa281f90757a637929acfff200c50ab1c1d09e8612e7a50cd0c3a6e374ba')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9')  # Weng Xuetian

@@ -1,3 +1,6 @@
 [fcitx5-mozc]
-source = "git"
-git = "https://github.com/fcitx/mozc.git"
+source = "regex"
+url = "https://raw.githubusercontent.com/google/mozc/master/src/version.bzl"
+regex = '(?ms)^MAJOR = \d+.*^MINOR = \d+.*^BUILD_OSS = \d+.*^REVISION = \d+'
+from_pattern = '(?s)MAJOR = (\d+)\s+MINOR = (\d+).*BUILD_OSS = (\d+).*REVISION = (\d+)'
+to_pattern = '\1.\2.\3.2'
