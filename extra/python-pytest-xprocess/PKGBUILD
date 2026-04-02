@@ -4,8 +4,8 @@
 
 _name=pytest-xprocess
 pkgname=python-pytest-xprocess
-pkgver=1.0.1
-pkgrel=3
+pkgver=1.0.2
+pkgrel=1
 pkgdesc='Pytest plugin to manage external processes across test runs.'
 arch=(any)
 url="https://github.com/pytest-dev/pytest-xprocess"
@@ -22,8 +22,8 @@ makedepends=(
   python-wheel
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('44c0c496fd3c52134b4a208c61cae3e8e0620091e356eddc2b5105b85a5ca9201e54a985c9fbef2a486701dcd42616a02a5e0f86cc3c25857b874f04850613b2')
-b2sums=('b38f822ccb1f903d6e9ec4150484537ffbe20116d631a874252c731e3002d01e88e254d4e4ede8965a929b1f46b2c4fcec9a00dafb7ed242e065a70cadbc35fa')
+sha512sums=('e072995a63ac19086268471a708f3576dc588a2a4700d19b53511039f49e3fb3229eadfebba35da21f1d1dd524ea20a4cb79e57844f44d56138d08b486c16690')
+b2sums=('0b7ddbe27eb81614f1af67437e76911e1c383b09af22054f503f2d3bca1be65f767617676f43a0e64dfc24fe08bda0c6c61461931317a827abf65148cca927e5')
 
 build() {
   cd $_name-$pkgver
