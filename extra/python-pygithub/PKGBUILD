@@ -1,30 +1,29 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pygithub
-pkgver=2.8.1
+pkgver=2.9.0
 pkgrel=1
 pkgdesc="Use the full Github API v3"
 arch=('any')
-license=('LGPL')
+license=('LGPL-3.0-or-later')
 url="https://github.com/PyGithub/PyGithub"
 depends=('python-deprecated' 'python-pyjwt' 'python-requests' 'python-pynacl' 'python-typing_extensions')
-makedepends=('python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 checkdepends=('python-pytest' 'python-cryptography' 'python-httpretty' 'python-parameterized' 'python-responses')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/PyGithub/PyGithub/archive/v$pkgver.tar.gz")
-sha512sums=('1670a4d95059e38a05d9e32c48b5e5bab1b41046a83d2698b40e7e9deb56273ee6f8cb9fefd5efe6b7b36ccb8c5c7ac13ba50c79ba1abe22144d7244d56d9a84')
+source=("git+https://github.com/PyGithub/PyGithub.git#tag=v$pkgver")
+sha512sums=('734bacfb4b9017c7d7759ad551db793c424cea797cd466a9fd3f253362abb479f1b6baae99134e58cc5a1daaafc6b37ffd935de14cbc751e3e3fe09627f76ea2')
 
 build() {
-  cd PyGithub-$pkgver
-  SETUPTOOLS_SCM_PRETEND_VERSION=${pkgver} \
+  cd PyGithub
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd PyGithub-$pkgver
+  cd PyGithub
   python -m pytest
 }
 
 package() {
-  cd PyGithub-$pkgver
+  cd PyGithub
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
