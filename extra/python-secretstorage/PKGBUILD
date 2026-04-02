@@ -4,7 +4,7 @@
 # Contributor: JonnyJD <arch@JonnyJD.net>
 
 pkgname=python-secretstorage
-pkgver=3.4.1
+pkgver=3.5.0
 pkgrel=1
 pkgdesc="Securely store passwords and other private data using the SecretService DBus API"
 arch=('any')
@@ -14,7 +14,7 @@ depends=('python-cryptography' 'python-jeepney')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel' 'git')
 checkdepends=('org.freedesktop.secrets' 'xorg-server-xvfb')
 source=("git+https://github.com/mitya57/secretstorage.git#tag=$pkgver")
-sha512sums=('375e9e16d52e9355d21ba8ada05f8f822e68af592fc95cdf18a3c7955f576ed31dba820b6ba1422468e995afab39556d3e574bd076386449c6f7ced2a2b8d142')
+sha512sums=('e37edabee40eab2c3788b3cdb4a5b320ed48eaf77edde25812a2dc99c7e38013b15bfcc3f26405a54c0743a8b982e3c858812a2b517fd6dd0c3dd42f9889b416')
 
 build() {
   cd secretstorage
