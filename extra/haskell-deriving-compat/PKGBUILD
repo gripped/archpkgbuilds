@@ -2,17 +2,16 @@
 
 _hkgname=deriving-compat
 pkgname=haskell-deriving-compat
-pkgver=0.6.7
-pkgrel=72
+pkgver=0.6.8
+pkgrel=1
 pkgdesc="Backports of GHC deriving extensions"
 url="https://github.com/haskell-compat/deriving-compat"
 license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-th-abstraction' 'haskell-transformers-compat')
-makedepends=('ghc' 'haskell-base-orphans' 'haskell-hspec' 'haskell-quickcheck' 'haskell-tagged'
-             'haskell-void')
+depends=('ghc-libs' 'haskell-th-abstraction')
+makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover' 'haskell-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('c2a56a50a8a1f9dd13a645909bbac6739922654d14d649cba04678462304f0fe770ba395ea032a47a0e7715a4ba364b53f7be8f0c35f7dff1e56e7d6e6f2fa33')
+sha512sums=('97c5935a73d438ae811a26960edc6b23874b2ffa81e6761c6d359baf3990c64dbb38d182f87b8ce24c59e16f9836e66fb47c8fa99cb30f7fbfde0fdeec11e152')
 
 build() {
     cd $_hkgname-$pkgver
