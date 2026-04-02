@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-osc-lib
-pkgver=3.2.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc="OpenStackClient Library"
 arch=('any')
@@ -11,15 +11,15 @@ license=('Apache-2.0')
 depends=('python-pbr' 'python-cliff' 'python-keystoneauth1' 'python-openstacksdk' 'python-oslo-i18n'
          'python-oslo-utils' 'python-requests' 'python-stevedore')
 makedepends=('git' 'python-setuptools')
-checkdepends=('python-oslotest' 'python-requests-mock' 'python-stestr' 'python-testrepository'
-              'python-testtools')
+checkdepends=('python-fixtures' 'python-oslotest' 'python-requests-mock' 'python-stestr'
+              'python-testrepository' 'python-testtools')
 source=("git+https://github.com/openstack/osc-lib.git#tag=$pkgver")
-sha512sums=('845cb09806d12ee67fda58d2029235fba4bf6f2af2912efbf90bb060e61ec541b86e130c973940f923db1d77c6d8a9c134e9c21339350e39b3989f22fc5f1b69')
+sha512sums=('f280812df5ba9695bf85009782df01ed333c3a0d5bdf8e2e46ed68fc544b21f839fae7b1dcab324e51070d2cf3913c0452aaff60bab6269803f9162ac5441831')
 
 prepare() {
   cd osc-lib
   # Fix test expectations for program name in argparse usage line
-  sed -i "s/parser = argparse.ArgumentParser()/parser = argparse.ArgumentParser(prog='run.py')/g" \
+  sed -i "s/parser = argparse.ArgumentParser(/parser = argparse.ArgumentParser(prog='run.py', /g" \
     osc_lib/tests/utils/test_tags.py
 }
 
