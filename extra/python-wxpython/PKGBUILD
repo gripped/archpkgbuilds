@@ -4,7 +4,7 @@
 
 pkgname=python-wxpython
 _pkgname=wxPython
-pkgver=4.2.4
+pkgver=4.2.5
 _pkgver="${pkgver%.*}"
 _post="${pkgver##*.}"
 pkgrel=1
@@ -18,10 +18,10 @@ optdepends=('python-pypubsub: Alternative to the deprecated wx.lib.pubsub API')
 makedepends=('mesa' 'glu' 'webkit2gtk-4.1' 'python-requests' 'python-setuptools' 'python-attrdict' 'sip' 'doxygen' 'waf' 'cython')
 checkdepends=('xorg-server-xvfb' 'python-pytest-forked' 'python-numpy')
 source=("https://files.pythonhosted.org/packages/source/w/wxPython/wxpython-$pkgver.tar.gz")
-sha512sums=('4ae124bced8a0d357a34763c981ef370b7c0c978dfba0f941f37e83227816881fee2e65eb7eaa2a114bbaded14afd8e96ad17dba5a9886b38ac35bc75ec82737')
+sha512sums=('a094faab4f901e46c6a771168160b0e3fec336e937507fedab97a0645df55671af046e673344a37d3d6997fadcb83c5490a673c2475c200841ef9eb12bc19763')
 
 build() {
-  cd $_pkgname-$pkgver
+  cd wxpython-$pkgver
 
 #  rm -r sip/{cpp,gen}/* # Recreate sip files with current wxWidgets - broken with doxygen 1.9.7 https://github.com/wxWidgets/Phoenix/issues/2414
   SIP=/usr/bin/sip DOXYGEN=/usr/bin/doxygen WAF=/usr/bin/waf \
@@ -29,14 +29,14 @@ build() {
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd wxpython-$pkgver
 
   # there are segfaulting tests so --forked ensures we get sensible results
   PYTHONPATH=$PWD xvfb-run pytest --forked unittests || echo "==> WARNING: tests usually fail randomly"
 }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd wxpython-$pkgver
 
   python build.py install --destdir="$pkgdir"
 
