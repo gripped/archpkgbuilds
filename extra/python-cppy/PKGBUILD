@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-cppy
-pkgver=1.3.0
+pkgver=1.3.1
 pkgrel=1
 pkgdesc="A collection of C++ headers which make it easier to write Python C extension modules"
 url="https://github.com/nucleic/cppy"
@@ -12,7 +12,7 @@ depends=('python-setuptools')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 checkdepends=('python-pytest')
 source=("git+https://github.com/nucleic/cppy.git#tag=${pkgver}")
-sha512sums=('94be626e32573dbd20ce5f0a61acb5a5db9653d86257c9431851adc4fb487120c90a359dcf5c47cfe7f3646a47a703b133bada33500b658158004927277a22ac')
+sha512sums=('89a0b11953637a3d7490219da7a3798c8a5e6c0fd84224f0793f92b7a6251c9bd116cdcbd23fa6cdd63111cc26028981965ef0599dfefa1b24e620e0f37b15f5')
 
 build() {
   cd cppy
