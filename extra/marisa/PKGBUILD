@@ -3,33 +3,32 @@
 
 pkgbase=marisa
 pkgname=('marisa' 'perl-marisa' 'python-marisa' 'ruby-marisa')
-pkgver=0.2.7
-pkgrel=2
+pkgver=0.3.0
+pkgrel=1
 arch=('x86_64')
 url="https://github.com/s-yata/marisa-trie"
 license=('BSD-2-Clause OR LGPL-2.1-or-later')
-makedepends=('git' 'python' 'ruby' 'perl' 'swig' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+makedepends=('git' 'cmake' 'python' 'ruby' 'perl' 'swig' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("git+https://github.com/s-yata/marisa-trie.git#tag=v$pkgver")
-sha512sums=('b0bd60402c12e52e31e3bba89cf99b3cb4d031c7be7d0e3d28b8189e573a7e069d045ed170b54b9635056ac003e6028d534d697fb5cd4cb9bcde688e6a4311df')
+sha512sums=('156a9a41185655e2707ec459823db5d5ac5703b4a63bf97723a950298288efadb9d82a8320303da3ac2c7b0b38d022d9c9e002f72b7acf6d4ffcb921d6a4ef62')
 
 prepare() {
   cd marisa-trie
-  autoreconf -i
+
+  # Upstream installs targets only for the Release configuration, but Arch
+  # builds with CMAKE_BUILD_TYPE=None.
+  sed -i '/^[[:space:]]*CONFIGURATIONS Release$/d' CMakeLists.txt
 }
 
 build() {
   cd marisa-trie
-  # sse2 is part of amd64
-  ./configure --prefix=/usr --disable-static --enable-sse2
-    # --enable-popcnt
-    # --enable-sse3
-    # --enable-ssse3
-    # --enable-sse4.1
-    # --enable-sse4.2
-    # --enable-sse4
-    # --enable-sse4a
+  cmake -B build -S . \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_SHARED_LIBS=ON \
+    -DBUILD_TESTING=ON
 
-  make
+  cmake --build build
 
   # Regenerate swig bindings
   make -C bindings -j1
@@ -38,28 +37,28 @@ build() {
   cd "$srcdir"/marisa-trie/bindings/perl
   perl Makefile.PL \
     INC=-I"$srcdir"/marisa-trie/include \
-    LIBS=-L"$srcdir"/marisa-trie/lib/marisa/.libs \
+    LIBS=-L"$srcdir"/marisa-trie/build \
     INSTALLDIRS=vendor
   make
 
   # Python bindings
-  cd "$srcdir"/marisa-trie/bindings/python
+  cd "$srcdir"/marisa-trie/bindings/python3
   python -m build --wheel --no-isolation \
     -C="--build-option=build_ext" \
     -C="--build-option=--include-dirs=$srcdir/marisa-trie/include" \
-    -C="--build-option=--library-dirs=$srcdir/marisa-trie/lib/marisa/.libs"
+    -C="--build-option=--library-dirs=$srcdir/marisa-trie/build"
 
   # Ruby bindings
   cd "$srcdir"/marisa-trie/bindings/ruby
   ruby extconf.rb \
     --with-opt-include="$srcdir"/marisa-trie/include \
-    --with-opt-lib="$srcdir"/marisa-trie/lib/marisa/.libs \
+    --with-opt-lib="$srcdir"/marisa-trie/build \
     --vendor
-  make
+  make V=1
 }
 
 check() {
-  make -C marisa-trie check
+  ctest --test-dir marisa-trie/build --output-on-failure
 }
 
 package_marisa() {
@@ -67,7 +66,7 @@ package_marisa() {
   depends=('gcc-libs')
 
   cd marisa-trie
-  make DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
 
   install -d "$pkgdir"/usr/share/doc/$pkgbase-$pkgver
   install -m 644 docs/* "$pkgdir"/usr/share/doc/$pkgbase-$pkgver/
@@ -92,7 +91,7 @@ package_python-marisa() {
   pkgdesc="Python language binding for marisa"
   depends=('python' 'marisa')
 
-  cd marisa-trie/bindings/python
+  cd marisa-trie/bindings/python3
   python -m installer --destdir="$pkgdir" dist/*.whl
 
   cd ../..
