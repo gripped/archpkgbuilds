@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-turbo
-pkgver=0.0.7
+pkgver=0.0.8
 pkgrel=1
 pkgdesc='A daemon that helps to launch applications faster'
 arch=('x86_64')
@@ -11,10 +11,13 @@ depends=('dtkwidget' 'dtkdeclarative' 'qt5-declarative')
 makedepends=('git' 'cmake' 'ninja')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/deepin-turbo.git#tag=$pkgver")
-sha512sums=('3470a47865af661ed634a260ffe3006621708e7af7ba31385f4ddcbce4fafbf98943ba946c2a3f7c0ab1ed451ccdb03278c81d8ec4789e70fc67d58641d09422')
+sha512sums=('8a8bc9570efce1f8be7365e0808b7c9163ba3f6b1082e6f3047aa542c49da660b8047df2a1de505ebb413815abd651b193dcdb63c7267e860d85a62e7990333c')
 
 prepare() {
   cd deepin-turbo
+
+  # Arch ships unversioned DTK CMake package names
+  sed -i 's/DtkWidget5\.5/DtkWidget/g; s/DtkGui5\.5/DtkGui/g; s/DtkWidget5\.5_LIBRARIES/DtkWidget_LIBRARIES/g; s/DtkGui5\.5_LIBRARIES/DtkGui_LIBRARIES/g' src/booster-dtkwidget/CMakeLists.txt
 
   # Fix build with current dtkdeclarative DAppLoader API
   git cherry-pick -n d4eacda0951e4c4b5696e1fd3487b8f286cf4602
