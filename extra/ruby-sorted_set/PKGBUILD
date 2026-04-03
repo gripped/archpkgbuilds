@@ -1,16 +1,14 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-sorted_set
-pkgver=1.0.3
-_commit=3be5eb2c1a33cb78603abbfe423d188d355a240a
-pkgrel=6
+pkgver=1.1.0
+pkgrel=1
 pkgdesc='Implements a variant of Set whose elements are sorted in ascending order'
 arch=(any)
 url='https://github.com/knu/sorted_set'
-license=(BSD)
+license=(BSD-2-Clause)
 depends=(
   ruby-rbtree
-  ruby-set
 )
 makedepends=(
   git
@@ -21,8 +19,8 @@ checkdepends=(
   ruby-test-unit
 )
 options=(!emptydirs)
-source=(git+https://github.com/knu/sorted_set.git#commit=$_commit)
-sha256sums=('SKIP')
+source=(git+https://github.com/knu/sorted_set.git#tag=v$pkgver)
+sha256sums=('0fdb89353abc84846c1ae4d6e27874337dd37103d943c69f8bfd6ce1d7d6fc64')
 
 build() {
   local _gemdir="$(gem env gemdir)"
