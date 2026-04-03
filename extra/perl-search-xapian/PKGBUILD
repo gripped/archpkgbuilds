@@ -3,16 +3,16 @@
 
 _pkg="Search-Xapian"
 pkgname='perl-search-xapian'
-pkgver='1.2.25.5'
-pkgrel=6
+pkgver=1.2.25.6
+pkgrel=1
 pkgdesc="Perl XS frontend to the Xapian C++ search library."
 arch=('x86_64')
 url='https://metacpan.org/release/Search-Xapian'
-license=('PerlArtistic' 'GPL')
+license=('Artistic-1.0-Perl' 'GPL-1.0-or-later')
 options=('!emptydirs')
 depends=('perl' 'perl-devel-leak' 'xapian-core')
 source=("https://search.cpan.org/CPAN/authors/id/O/OL/OLLY/Search-Xapian-$pkgver.tar.gz")
-sha512sums=('3099ba3f8726029d7a5c916f6b05d2d7cea41534b0f364687c7d9e0212340dca2a313a1ac8e0f6531a7c1084c8833a0e6d45bcff8fec32e0a6e5922bc0bcb81f')
+sha512sums=('875e16692ce58c231e236a50c873bd296420981b0b3c56efc5470d28e7ea3ea917b3211adb0a74977cb93dcfad59f22b980e9cb7bf70d699a8339afb2f2eb8bd')
 
 build() {
   cd "$_pkg-${pkgver}"
