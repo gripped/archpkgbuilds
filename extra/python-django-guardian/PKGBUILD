@@ -2,14 +2,14 @@
 
 pkgname=python-django-guardian
 _name="${pkgname#python-}"
-pkgver=3.3.0
+pkgver=3.3.1
 pkgrel=1
 pkgdesc="Per object permissions for Django"
 arch=(any)
 url="https://github.com/django-guardian/django-guardian"
 license=(
   BSD-2-Clause
-  MIT
+  CC-BY-4.0
 )
 depends=(
   python
@@ -27,13 +27,8 @@ checkdepends=(
   python-pytest-django
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('025f30515ff1b1ae2d988edd7a9dbed3e567ed6dc798bdb228694bfa813d955a30df9f84856074eee6d041c25ae7db9a43c1c7d8b694f35ce61f21adcbc7c968')
-b2sums=('cdfcc6504a8b9cd63969b51ed621714d8f70f7c82ca0f42dff0f94b473ca4fd39002376e9fb90a9d8b27a36c5cdfd43245b84f9f8f69faaea73518719a7147f8')
-
-prepare() {
-  sed -n '1,23p' $_name-$pkgver/LICENSE > BSD-2-Clause.txt
-  sed -n '20,50p' $_name-$pkgver/LICENSE > MIT.txt
-}
+sha512sums=('d50bb219af262ea4a8b9421407b0ea8fe1c4267e93c6e20eb272dde60950e11518aef6890fecc58c2ffffd92ec37baabcc42e673882fdb3388d389464c13166d')
+b2sums=('5fd24dd5188a043e0fd2922af90d4cd3f0fcc435b4c1ab3194473a565a8de836329dc97c4fac801a497bc400090a228e806684ce8ec4f44a49948b1c88343d12')
 
 build() {
   cd $_name-$pkgver
@@ -50,5 +45,5 @@ package() {
   cd $_name-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 {README,SECURITY}.md -t "$pkgdir/usr/share/doc/$pkgname/"
-  install -vDm 644 ../*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
