@@ -2,7 +2,7 @@
 # Contributor: huyz
 
 pkgname=gemini-cli
-pkgver=0.35.3
+pkgver=0.36.0
 pkgrel=1
 epoch=1
 pkgdesc="Open-source AI agent that brings the power of Gemini directly into your terminal"
@@ -34,7 +34,7 @@ checkdepends=(
   vim
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('f61ad4878c55aa73707254c1183ae62293460211dc7b489292692a54eaadde0e6aff5fa2cbea6d5db96d4b13b72562fc16153548c44b5b4df9050adbe2c9d6e2')
+b2sums=('9881c3a24fcd0fe04fe485bdd0c8a0cce63cbce57be391dd8c2f115e772d6f96bda640f302d5118c23d372ea935e3f196e6844c5e6715f91538832776cd7ede8')
 
 prepare() {
   cd $pkgname
