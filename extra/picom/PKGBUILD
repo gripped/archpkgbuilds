@@ -6,7 +6,7 @@
 
 pkgname=picom
 pkgver=13
-pkgrel=1
+pkgrel=2
 pkgdesc='Lightweight compositor for X11'
 url='https://picom.app'
 arch=(x86_64)
@@ -19,10 +19,12 @@ optdepends=('dbus: for controlling picom via D-Bus'
             'xorg-xprop: for picom-trans'
             'xorg-xwininfo: for picom-trans')
 backup=(etc/xdg/picom.conf)
-source=("git+https://github.com/yshui/picom.git#tag=v$pkgver")
+source=("git+https://github.com/yshui/picom.git#tag=v$pkgver"
+        "fix_black_screen_with_glx_backend.patch::https://github.com/yshui/picom/commit/676196359c15bb654696b05700330685db914710.patch")
 # Upstream switched to SSH signature
 #validpgpkeys=('A22F5C0F4FCF9C7C89A167462C965E9E5D45D730') # Yuxuan Shui <yshuiv7@gmail.com>
-b2sums=('8a616065ba019583db41e71282e5bd731544d46fd807904e1fc5be3d4b08c23f07d03248a71972d4c1f63da3b95125106d5380e3fde6d379dfc925c7cda229ee')
+b2sums=('8a616065ba019583db41e71282e5bd731544d46fd807904e1fc5be3d4b08c23f07d03248a71972d4c1f63da3b95125106d5380e3fde6d379dfc925c7cda229ee'
+        '660a5b48b7b44c5b3462378fd839f6fd42aff661ec729b11ff3cdba7dd397f6fd2185bc809d0d451243d1b0d86e9ad30c568f8f6292dea0aaf096b25424c5648')
 
 prepare() {
   cd $pkgname
@@ -38,6 +40,11 @@ prepare() {
   setconf picom.desktop 'Name=Picom'
   # Upstream does not appear to provide an icon for picom yet
   setconf picom.desktop 'Icon=compton'
+
+  # Fix black screen with GLX backend
+  # See https://github.com/yshui/picom/issues/1511
+  # and https://github.com/yshui/picom/commit/676196359c15bb654696b05700330685db914710
+  patch -Np1 -i "$srcdir/fix_black_screen_with_glx_backend.patch"
 }
 
 build() {
