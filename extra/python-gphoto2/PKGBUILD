@@ -2,8 +2,8 @@
 # Contributor: Francois Boulogne <fboulogne at april dot org>
 
 pkgname=python-gphoto2
-pkgver=2.5.1
-pkgrel=3
+pkgver=2.6.0
+pkgrel=1
 pkgdesc="Python interface to libgphoto2"
 arch=('x86_64')
 url="https://github.com/jim-easterbrook/python-gphoto2"
@@ -21,7 +21,7 @@ makedepends=(
   'swig'
 )
 source=($pkgname-$pkgver.tar.gz::https://github.com/jim-easterbrook/$pkgname/archive/v$pkgver.tar.gz)
-sha256sums=('2cdfd8ddb676a8041298bee32b7943d0f3a261067a5b0b95e238f1647ebe0316')
+sha256sums=('736eb75ad59afca4e0241e281c34d3167f7ed5c8d1a7d6c5d2ddfb66d6bdbc2e')
 
 build() {
   cd $pkgname-$pkgver
