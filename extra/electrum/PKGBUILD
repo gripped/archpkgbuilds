@@ -5,8 +5,8 @@
 # Contributor: Andy Weidenbaum <archbaum@gmail.com>
 
 pkgname=electrum
-pkgver=4.7.1
-pkgrel=2
+pkgver=4.7.2
+pkgrel=1
 pkgdesc="Lightweight Bitcoin wallet"
 arch=('any')
 url="https://electrum.org"
@@ -61,7 +61,7 @@ source=(
   "git+https://github.com/spesmilo/electrum-http.git"
   "$pkgname-remove-runtime-aiorpcx-version-check.patch"
 )
-b2sums=('bc5a5956ccec16eddb85248a21084643e5de0190b40c455a7404e774d67773d0b03993f6b981f2ddbdc5f961518db0792e1a88d478d8d6f5c0102f3f4e206df6'
+b2sums=('13f8ba10488f220a5e85a4f654d3d6e7f3aa284b985b751e66e933ceb83929cce6c3e622f3893d0f9d06ecaa1dee3f308145162d1a7d5467f0ce329ea061fb27'
         'SKIP'
         'SKIP'
         '9faa19e6442e1f736ec05499f7a66839c9791c5487ac8edd8d3ccb13b6ad070fba7a3625d9aa5040962aa336567409c2720fb933829eedc027cb3ceac5d6e479')
