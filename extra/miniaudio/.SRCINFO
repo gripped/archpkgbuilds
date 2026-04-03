@@ -1,11 +1,14 @@
 pkgbase = miniaudio
 	pkgdesc = Single file audio playback and capture library
 	pkgver = 0.11.25
-	pkgrel = 1
+	pkgrel = 4
 	url = https://github.com/mackron/miniaudio
-	arch = any
+	arch = x86_64
 	license = MIT
-	makedepends = git
+	makedepends = cmake
+	depends = glibc
+	depends = opusfile
+	depends = libvorbis
 	provides = mini_al
 	conflicts = mini_al
 	source = miniaudio-0.11.25.tar.gz::https://github.com/mackron/miniaudio/archive/0.11.25.tar.gz
