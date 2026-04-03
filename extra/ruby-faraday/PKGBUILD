@@ -6,7 +6,7 @@
 
 _gemname='faraday'
 pkgname="ruby-${_gemname}"
-pkgver=2.14.0
+pkgver=2.14.1
 pkgrel=1
 pkgdesc='HTTP/REST API client library.'
 arch=('any')
@@ -29,8 +29,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${_gemname}-v${pkgver}.tar.gz")
-sha512sums=('22b8babd9d880d19c176d429a5eb27fa45e72ab9a92fcf377477dac7a50adba4805fe7014d98c00ab7b04f2c8cb22ee9cfab0da23a9bee157f4b408654d2db02')
-b2sums=('dbb6bc6e3dbd4a9c0bf3329facb5f87f90989a7ba2d8533a4fe03f14cd0a3fa2746315f599c5ef682cf7b301ca5ad35f505b6d1a7f83557500bff15b4cb2d689')
+sha512sums=('9d4df2fa4c7c114f9e65f549971a12e23c8a32b989012d2fb22f6a800e75affe45dac797e4e2158717f5ff10e3011ac32a89326b1a7a3217aa6d2a7ac74307ef')
+b2sums=('0e6bd7ff0784a97a1a2abad9f887eb8b52cd1ede4b5af4da531ab16dc1239125a731d579a7aaf6fea5ce56927bd817148cddfe2e0df561640e76cb208cad462d')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
