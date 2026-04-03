@@ -4,7 +4,7 @@
 # Contributor: Francois Charette <firmicus@gmx.net>
 
 pkgname=perl-ipc-run
-pkgver=20250809.0
+pkgver=20260322.0
 pkgrel=1
 pkgdesc="IPC::Run - system() and background procs w/ piping, redirs, ptys"
 arch=('any')
@@ -13,8 +13,8 @@ license=('GPL' 'PerlArtistic')
 # IPC::Run depends on IO::Pty which is provided by perl-io-tty
 depends=('perl' 'perl-io-tty')
 options=('!emptydirs')
-source=("https://cpan.metacpan.org/authors/id/N/NJ/NJM/IPC-Run-$pkgver.tar.gz")
-sha256sums=('b1e85a30405786ed8378b68dd57159315ad7ddc0a55e432aa9eeca6166ca53fe')
+source=("https://cpan.metacpan.org/authors/id/T/TO/TODDR/IPC-Run-$pkgver.tar.gz")
+sha256sums=('532f580ab598621eb385311c7cef540e72a52ab2f061c2177735823be832aeff')
 
 build() {
   cd "$srcdir"/IPC-Run-$pkgver
@@ -25,6 +25,4 @@ build() {
 package() {
   cd "$srcdir"/IPC-Run-$pkgver
   make install DESTDIR="$pkgdir"
-  find "$pkgdir" -name perllocal.pod -delete
-  find "$pkgdir" -name .packlist -delete
 }
