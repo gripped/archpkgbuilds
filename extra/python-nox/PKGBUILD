@@ -2,8 +2,8 @@
 
 _pkgname=nox
 pkgname=python-$_pkgname
-pkgver=2025.11.12
-pkgrel=2
+pkgver=2026.02.09
+pkgrel=1
 pkgdesc='Flexible test automation for Python'
 arch=(any)
 url='https://github.com/wntrblm/nox'
@@ -35,7 +35,7 @@ optdepends=(
   'uv: uv backend'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('fe660f99263ef950e79ae70bd4beeee88046bf2f838e36e33ac74fba5bdd3d36f898a2d7194716f832222a13061f52ad6c03da7f4e3fc5c296ca6db04a48e13f')
+sha512sums=('3ae5901f7f001e5cc607e99d8360697343dd8c7717f2f5b55937b2a759617d0493b37779672cefa0f18153529f46945b10db6a8352e222b0508bc683fc6fbd3f')
 
 build() {
   cd $_pkgname-$pkgver
