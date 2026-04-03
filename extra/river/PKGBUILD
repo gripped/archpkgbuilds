@@ -2,7 +2,7 @@
 # Contributor: Andrea Feletto <andrea@andreafeletto.com>
 
 pkgname=river
-pkgver=0.4.1
+pkgver=0.4.2
 pkgrel=1
 pkgdesc='a non-monolithic Wayland compositor'
 arch=('x86_64')
@@ -17,7 +17,7 @@ depends=(
     'pixman'
     # 'sh'
     'wayland'
-    'wlroots0.19'
+    'wlroots0.20'
     'xorg-xwayland'
 )
 makedepends=(
@@ -33,15 +33,15 @@ source=(git+https://codeberg.org/river/river.git#tag=v${pkgver}?signed)
 # PACKAGING.md -> build.zig.zon
 source+=(zig-pixman-0.3.0.tar.gz::https://codeberg.org/ifreund/zig-pixman/archive/v0.3.0.tar.gz
          zig-wayland-0.5.0.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.5.0.tar.gz
-         zig-wlroots-0.19.4.tar.gz::https://codeberg.org/ifreund/zig-wlroots/archive/v0.19.4.tar.gz
+         zig-wlroots-0.20.0.tar.gz::https://codeberg.org/ifreund/zig-wlroots/archive/v0.20.0.tar.gz
          zig-xkbcommon-0.4.0.tar.gz::https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.4.0.tar.gz)
 noextract=("${source[@]:1}")
 conflicts=('river-classic')
 validpgpkeys=('5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11') # Isaac Freund <mail@isaacfreund.com>
-sha256sums=('79297f05a14b37abdd7069fb8d03bda4fc6f96c51f83181b0c1307b89f6916b4'
+sha256sums=('def9524ece826e17760264a6196836997e2624f70dd2daafc9f5a30ba8e713e8'
             'cd7fe3415d4d58685a94fdedd308e9994a37f012828940cfb603461de7f2c6ad'
             'fa9705e83613b5555d7117ce5c602f10591d6598e69a73fba2e6039200db4f4b'
-            'ef3f8ef0c6ae516d244248f536290ef647dd10964ff992aa3160e53c06de85cf'
+            '75af3510386c639582693d01788579abde4dca9ce1ae6703c1e877ec8123d106'
             'e6df77d511cf9402f6ac08455c8d1fb727b6c3d66191e246671f62e5db083c49')
 
 prepare() {
