@@ -6,8 +6,8 @@
 # Contributor: Otto Sabart <seberm[at]gmail[dot]com>
 
 pkgname=knot
-pkgver=3.5.3
-pkgrel=3
+pkgver=3.5.4
+pkgrel=1
 pkgdesc="High-performance authoritative-only DNS server"
 arch=(x86_64)
 url="https://www.knot-dns.cz/"
@@ -37,13 +37,13 @@ makedepends=(
 )
 backup=('etc/knot/knot.conf')
 source=("git+https://gitlab.nic.cz/knot/knot-dns.git#tag=v${pkgver}?signed")
-b2sums=('2b821b94e2f00d889f01c78ebb1e816e42efd4e1be150ab12a79379b77e2fd68b4500cc88c833056940d0065e9bbf5b346a2aed48e6087573106fd844d82242f')
+b2sums=('6f8aa3661430d57fcdf62231295b4006a077d3c4b48c74585a441cdf8c83a64bcef8b42adad5e94cb890a55420dab78a6ab80a4a0f3dc31628d27b725d727ed0')
 validpgpkeys=(742FA4E95829B6C5EAC6B85710BB7AF6FEBBD6AB) # Daniel Salzman <daniel.salzman@nic.cz>
 
 prepare() {
   cd ${pkgname}-dns
   # https://archlinux.org/todo/change-sysusers-to-fully-locked-system-accounts/
-  sed -i 's/^u /u! /' distro/pkg/arch/knot.sysusers
+  sed -i 's/^u /u! /' distro/common/knot.sysusers
 
   autoreconf -fiv
 }
@@ -80,6 +80,6 @@ package() {
   mv -v "${pkgdir}"/etc/knot/{knot.sample.conf,knot.conf}
 
   install -vDm644 -t "${pkgdir}/usr/lib/systemd/system" distro/common/knot.service
-  install -vDm644 distro/pkg/arch/knot.tmpfiles.arch "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
-  install -vDm644 distro/pkg/arch/knot.sysusers "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"
+  install -vDm644 distro/common/knot.tmpfiles "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
+  install -vDm644 distro/common/knot.sysusers "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"
 }
