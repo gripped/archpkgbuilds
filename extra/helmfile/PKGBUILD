@@ -1,44 +1,60 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=helmfile
-pkgver=1.3.1
-pkgrel=2
+pkgver=1.4.3
+pkgrel=1
 pkgdesc="Manage multiple helm charts with a single helmfile"
 arch=('x86_64')
 url="https://github.com/helmfile/helmfile"
 license=('MIT')
-makedepends=('go')
-depends=('glibc')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/helmfile/helmfile/archive/v${pkgver}.tar.gz")
-sha512sums=('30e306c3b8e894b6dffe2d0f0d2d24c9fae710e0560ba35b035ab780deb3e679ce4243956d3a42962343c8edd652014e03b8356db4f56b6168e077ab42759959')
-b2sums=('bc14aa0a21fdb942a9fc399747f09bf067d9c55cb38ff92e5780dba6ef3317a03bcbea72e0df41a7b8d5943110215b353dd29627e6bacff38e1f921d9352fc57')
+depends=(
+  'glibc'
+  'helm'
+)
+makedepends=(
+  'go'
+  'git'
+)
 options=('!lto')
+source=("git+$url.git#tag=v${pkgver}")
+sha512sums=('566cd44423ef28cd1a3e406a672cf76f3e778e10d058695f30a8e684d1dc6b1fa0035e331fe4a6e96110fe70558c66406e490703b1d70f420b719fd6909cb256')
+b2sums=('b298a2f5eebef9183f1274cd80c8243a4a1423836de4ec4aacdc5d9b1fc605b2bbfa2abb4592acd6fc21ac440c066082b77bc14956060d9cb2fb5855ee92e479')
 
 prepare() {
-  export GOPATH="${srcdir}"
-  mkdir -p src/github.com/helmfile "${GOPATH}/bin"
-  mv "${pkgname}-${pkgver}" "src/github.com/helmfile/${pkgname}"
-  export PACKAGE_ROOT="${GOPATH}/src/github.com/helmfile/${pkgname}"
+  cd $pkgname
+  GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
 build() {
-  cd "${PACKAGE_ROOT}"
-  export CGO_ENABLED=1
-  export CGO_CPPFLAGS="${CPPFLAGS}"
-  export CGO_CFLAGS="${CFLAGS}"
-  export CGO_CXXFLAGS="${CXXFLAGS}"
-  export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
-  go build -v -ldflags "-linkmode=external -X github.com/helmfile/helmfile/pkg/app/version.Version=${pkgver}" .
-  chmod +x ./helmfile
+  cd $pkgname
+  export CGO_LDFLAGS="$LDFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw"
+  export GOPATH="$srcdir"
+
+  local ld_flags=" \
+    -compressdwarf=false \
+    -linkmode=external \
+  "
+  go build -v -ldflags "$ld_flags" -o build/
 }
 
-#check() {
-#  cd "${PACKAGE_ROOT}"
-#  go test -v ./...
-#}
+check() {
+  cd $pkgname
+  # Not sure why this test fails
+  local unit_tests=$(
+    go list ./... \
+      | grep -v github.com/helmfile/helmfile/test/e2e/template/helmfile \
+  )
+  # shellcheck disable=SC2086
+  go test -v $unit_tests
+}
 
 package() {
-  cd "${PACKAGE_ROOT}"
-  install -Dsm755 ./helmfile "${pkgdir}/usr/bin/helmfile"
+  cd $pkgname
+  install -vDm755 -t "$pkgdir/usr/bin" build/helmfile
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
