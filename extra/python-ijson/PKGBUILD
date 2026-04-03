@@ -2,17 +2,17 @@
 # Contributor: Grey Christoforo <first name [at] last name [dot] net>
 
 pkgname=python-ijson
-pkgver=3.4.0
-pkgrel=2
+pkgver=3.5.0
+pkgrel=1
 pkgdesc="Iterative JSON parser with Pythonic interface"
 arch=(x86_64)
 url="https://github.com/ICRAR/ijson"
-license=('BSD')
+license=('BSD-3-Clause' 'ISC')
 depends=('python' 'yajl')
-makedepends=(python-build python-installer python-wheel python-setuptools)
+makedepends=(python-build python-installer python-setuptools python-wheel)
 checkdepends=('python-pytest')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ICRAR/ijson/archive/v${pkgver}.tar.gz")
-sha256sums=('151ac5a87e7e2c6b0306d5a15d85578065e9fad6c6d87678abd9648f58922300')
+sha256sums=('75b7936a6dd81bdf9207aab23e9d0b70cf1bff751b120502da0181da8fad18ec')
 
 build() {
   cd ijson-$pkgver
