@@ -1,28 +1,30 @@
 pkgbase = sysdig
 	pkgdesc = Open source system-level exploration and troubleshooting tool
-	pkgver = 0.40.1
+	pkgver = 0.41.4
 	pkgrel = 1
 	url = https://www.sysdig.com/
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = cmake
-	makedepends = pandoc
-	makedepends = gtest
-	makedepends = clang
 	makedepends = git
-	makedepends = ninja
-	depends = luajit
-	depends = yaml-cpp
-	depends = nlohmann-json
+	makedepends = nlohmann-json
+	makedepends = pandoc
 	depends = falcosecurity-libs
+	depends = glibc
+	depends = jsoncpp
+	depends = libgcc
+	depends = libstdc++
+	depends = luajit
 	depends = ncurses
 	depends = scap-dkms
-	options = !lto
-	source = git+https://github.com/draios/sysdig.git#tag=0.40.1
-	source = bashcomp-location.patch
-	source = falcosecurity-libs-nodownload.patch
-	sha256sums = 4bfc7db6ad98fecef3ebd28c1068cfbb99d74eadcc0e78d991b661dfb144a5ea
-	sha256sums = 3b659326176c314eee9115adac39a249dc4b9530511b344ea6a2b23236bb8386
-	sha256sums = 3392204c265ef46c2a1378fc2acbb74b2b440585de4c9127a007f97ce10f0cfa
+	depends = yaml-cpp
+	source = git+https://github.com/draios/sysdig.git#tag=0.41.4
+	source = sysdig-bashcomp-location.patch
+	source = sysdig-skip-bundled-zlib-with-system-libs.patch
+	source = sysdig-falcosecurity-libs-0.23-compatibility.patch
+	b2sums = e9ce41d01ca780d84e3cd0199c395ac2b02c836318e3b2a1567fb4c65cf11318e84cc27acd343b89a188342c560dcf4a33894db14b589b898ca637dce918447b
+	b2sums = f65349106d40976bf96dc6692e94c48d6a897c8266915939d4c6ac47eea30f231b43c448c97bc419829347a90918560004d3263e482e44f1db4adbc107aa5554
+	b2sums = ff8ef3b63ee0a591b24cef1db2ab2209c6cb08c99dfa32c05edcc13f42657596836cc9cb48b08dbd204fcb8875783ec2c776f4fc33d7882091f2caabcef01d4d
+	b2sums = 8583f68a4361c9e27fce2894e731071d70c1d88aba8d1a4779ae1c91b1c148ce04a036576942d095db983a7c8ecba72c566dc43b5bfdc49f002bb1fceee05290
 
 pkgname = sysdig

@@ -1,0 +1,350 @@
+From 7b3aaf41ae1cbf4b70eafa1a805437510d159659 Mon Sep 17 00:00:00 2001
+From: Carl Smedstad <carl.smedstad@protonmail.com>
+Date: Tue, 31 Mar 2026 22:25:03 +0200
+Subject: [PATCH] fix: compatibility with falcosecurity-libs 0.23.x
+
+- Use angle-bracket includes for driver_config.h and
+  plugin_manager.h to find system-installed headers
+- Replace private sinsp_evt_param::m_val/m_len with
+  public data()/len() accessors
+- Replace removed sinsp_threadinfo::get_user()/get_group()
+  with direct m_uid/m_gid access and usergroup_manager lookup
+- Replace removed container APIs (get_container_id,
+  s_containers_table_name, old state table API) with new
+  plugin_tables and table_registry API
+
+Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
+---
+ userspace/chisel/chisel_api.cpp         | 103 ++++++------------------
+ userspace/sinspui/cursescomponents.cpp  |  26 +++---
+ userspace/sinspui/cursesui.cpp          |  31 +++----
+ userspace/sysdig/csysdig.cpp            |   4 +-
+ userspace/sysdig/sysdig.cpp             |   6 +-
+ userspace/sysdig/utils/sinsp_opener.cpp |   2 +-
+ userspace/sysdig/utils/sinsp_syslog.cpp |   4 +-
+ 7 files changed, 63 insertions(+), 113 deletions(-)
+
+diff --git a/userspace/chisel/chisel_api.cpp b/userspace/chisel/chisel_api.cpp
+index ee55a8f15..5fab2c1bf 100644
+--- a/userspace/chisel/chisel_api.cpp
++++ b/userspace/chisel/chisel_api.cpp
+@@ -835,10 +835,10 @@ int lua_cbacks::get_thread_table_int(lua_State *ls, bool include_fds, bool bareb
+ 			lua_pushnumber(ls, (uint32_t)tinfo.m_fdlimit);
+ 			lua_settable(ls, -3);
+ 			lua_pushliteral(ls, "uid");
+-			lua_pushnumber(ls, (uint32_t)tinfo.get_user()->uid);
++			lua_pushnumber(ls, (uint32_t)tinfo.m_uid);
+ 			lua_settable(ls, -3);
+ 			lua_pushliteral(ls, "gid");
+-			lua_pushnumber(ls, (uint32_t)tinfo.get_group()->gid);
++			lua_pushnumber(ls, (uint32_t)tinfo.m_gid);
+ 			lua_settable(ls, -3);
+ 			lua_pushliteral(ls, "nchilds");
+ 			lua_pushnumber(ls, (uint32_t)tinfo.get_num_not_leader_threads());
+@@ -866,7 +866,10 @@ int lua_cbacks::get_thread_table_int(lua_State *ls, bool include_fds, bool bareb
+ 			// Extract the user name
+ 			//
+ 			lua_pushliteral(ls, "username");
+-			lua_pushstring(ls, tinfo.get_user()->name);
++			{
++				auto* uinfo = ch->m_inspector->m_usergroup_manager->get_user("", tinfo.m_uid);
++				lua_pushstring(ls, uinfo ? uinfo->name : "");
++			}
+ 			lua_settable(ls, -3);
+ 
+ 			//
+@@ -1102,25 +1105,6 @@ int lua_cbacks::get_thread_table_barebone_nofds(lua_State *ls)
+ 	return get_thread_table_int(ls, false, true);
+ }
+ 
+-enum container_type
+-{
+-    CT_DOCKER = 0,
+-    CT_LXC = 1,
+-    CT_LIBVIRT_LXC = 2,
+-    CT_MESOS = 3, // deprecated
+-    CT_RKT = 4,   // deprecated
+-    CT_CUSTOM = 5,
+-    CT_CRI = 6,
+-    CT_CONTAINERD = 7,
+-    CT_CRIO = 8,
+-    CT_BPM = 9,
+-    CT_STATIC = 10,
+-    CT_PODMAN = 11,
+-
+-    // Default value, may be changed if necessary
+-    CT_HOST = 0xfffe,
+-    CT_UNKNOWN = 0xffff
+-};
+ 
+ int lua_cbacks::get_container_table(lua_State *ls)
+ {
+@@ -1141,28 +1125,28 @@ int lua_cbacks::get_container_table(lua_State *ls)
+ 	ASSERT(ch->m_inspector);
+ 
+ 	//
+-	// Retrieve the container list
++	// Retrieve the container list via table registry
+ 	//
+-	const auto ctable = ch->m_inspector->m_thread_manager
+-		->get_table(sinsp_thread_manager::s_containers_table_name);
++	auto ctable_raw = ch->m_inspector->get_table_registry()
++		->get_table<std::string>("containers");
+ 
+ 	lua_newtable(ls);
+ 
+ 	//
+ 	// Go through the list
+ 	//
+-	if(ctable != nullptr) {
+-		auto fld_id = ctable->get_field<std::string>("id");
+-		auto fld_name = ctable->get_field<std::string>("name");
+-		auto fld_image = ctable->get_field<std::string>("image");
+-		auto fld_type = ctable->get_field<int>("type");
+-		auto it = [&](sinsp_table_entry& e) -> bool {
+-			std::string id, name, image;
+-			int type;
+-			e.read_field(fld_id, id);
+-			e.read_field(fld_name, name);
+-			e.read_field(fld_image, image);
+-			e.read_field(fld_type, type);
++	if(ctable_raw != nullptr) {
++		sinsp_table<std::string> ctable(&ch->m_inspector->m_plugin_tables, ctable_raw);
++		auto fld_id = ctable.get_field<std::string>("id");
++		auto fld_name = ctable.get_field<std::string>("name");
++		auto fld_image = ctable.get_field<std::string>("image");
++		auto fld_type = ctable.get_field<std::string>("type");
++		ctable.foreach_entry([&](sinsp_table_entry& e) -> bool {
++			std::string id, name, image, type;
++			if(fld_id) e.read_field(fld_id, id);
++			if(fld_name) e.read_field(fld_name, name);
++			if(fld_image) e.read_field(fld_image, image);
++			if(fld_type) e.read_field(fld_type, type);
+ 
+ 			lua_newtable(ls);
+ 			lua_pushliteral(ls, "id");
+@@ -1174,48 +1158,8 @@ int lua_cbacks::get_container_table(lua_State *ls)
+ 			lua_pushliteral(ls, "image");
+ 			lua_pushstring(ls, image.c_str());
+ 			lua_settable(ls, -3);
+-
+ 			lua_pushliteral(ls, "type");
+-			switch (type)
+-			{
+-			case container_type::CT_HOST:
+-				lua_pushstring(ls, "");
+-				break;
+-			case container_type::CT_DOCKER:
+-				lua_pushstring(ls, "docker");
+-				break;
+-			case container_type::CT_LXC:
+-				lua_pushstring(ls, "lxc");
+-				break;
+-			case container_type::CT_LIBVIRT_LXC:
+-				lua_pushstring(ls, "libvirt_lxc");
+-				break;
+-			case container_type::CT_MESOS:
+-				lua_pushstring(ls, "mesos");
+-				break;
+-			case container_type::CT_RKT:
+-				lua_pushstring(ls, "rkt");
+-				break;
+-			case container_type::CT_CRI:
+-				lua_pushstring(ls, "cri");
+-				break;
+-			case container_type::CT_CONTAINERD:
+-				lua_pushstring(ls, "containerd");
+-				break;
+-			case container_type::CT_CRIO:
+-				lua_pushstring(ls, "cri-o");
+-				break;
+-			case container_type::CT_BPM:
+-				lua_pushstring(ls, "bpm");
+-				break;
+-			case container_type::CT_PODMAN:
+-				lua_pushstring(ls, "podman");
+-				break;
+-			default:
+-				ASSERT(false);
+-				lua_pushstring(ls, "unknown");
+-				break;
+-			}
++			lua_pushstring(ls, type.c_str());
+ 			lua_settable(ls, -3);
+ 
+ 			//
+@@ -1223,8 +1167,7 @@ int lua_cbacks::get_container_table(lua_State *ls)
+ 			//
+ 			lua_rawseti(ls,-2, (uint32_t)++j);
+ 			return true;
+-		};
+-		ctable->foreach_entry(it);
++		});
+ 	}
+ 
+ #endif
+diff --git a/userspace/sinspui/cursescomponents.cpp b/userspace/sinspui/cursescomponents.cpp
+index a3631be74..7d767ea0b 100644
+--- a/userspace/sinspui/cursescomponents.cpp
++++ b/userspace/sinspui/cursescomponents.cpp
+@@ -135,8 +135,8 @@ const char* spy_text_renderer::process_event_spy(sinsp_evt* evt, int64_t* len)
+     } catch (...) {
+         return NULL;
+     }
+-	ASSERT(parinfo->m_len == sizeof(int64_t));
+-	*len = *(int64_t*)parinfo->m_val;
++	ASSERT(parinfo->len() == sizeof(int64_t));
++	*len = *(int64_t*)parinfo->data();
+ 	if(*len <= 0)
+ 	{
+ 		return NULL;
+@@ -932,17 +932,21 @@ void curses_textbox::process_event_spy(sinsp_evt* evt, int32_t next_res)
+ 	{
+ 		wattrset(m_win, m_parent->m_colors[sinsp_cursesui::LED_COLOR]);
+ 
+-		const auto ctable = m_inspector->m_thread_manager
+-			->get_table(sinsp_thread_manager::s_containers_table_name);
+-
+ 		std::string container_name = "host";
+-		if(!m_tinfo->get_container_id().empty())
++		std::string container_id = m_inspector->m_plugin_tables.get_container_id(*m_tinfo);
++		if(!container_id.empty())
+ 		{
+-			if(ctable != nullptr) {
+-				auto fld_name = ctable->get_field<std::string>("name");
+-
+-				auto container_info = ctable->get_entry(m_tinfo->get_container_id());
+-				container_info.read_field(fld_name, container_name);
++			auto ctable_raw = m_inspector->get_table_registry()
++				->get_table<std::string>("containers");
++			if(ctable_raw != nullptr) {
++				sinsp_table<std::string> ctable(&m_inspector->m_plugin_tables, ctable_raw);
++				auto fld_name = ctable.get_field<std::string>("name");
++				if(fld_name) {
++					try {
++						auto container_info = ctable.get_entry(container_id);
++						container_info.read_field(fld_name, container_name);
++					} catch(...) {}
++				}
+ 			}
+ 		}
+ 		m_ctext->printf(" [%s]", container_name.c_str());
+diff --git a/userspace/sinspui/cursesui.cpp b/userspace/sinspui/cursesui.cpp
+index e9743b4a9..73bee30a3 100644
+--- a/userspace/sinspui/cursesui.cpp
++++ b/userspace/sinspui/cursesui.cpp
+@@ -156,21 +156,24 @@ void json_spy_renderer::process_event_spy(sinsp_evt* evt, int32_t next_res)
+ 
+ 		line["p"] = tinfo->m_comm;
+ 
+-		if(!tinfo->get_container_id().empty())
++		std::string container_id = m_inspector->m_plugin_tables.get_container_id(*tinfo);
++		if(!container_id.empty())
+ 		{
+-			const auto ctable = m_inspector->m_thread_manager
+-				->get_table(sinsp_thread_manager::s_containers_table_name);
+-
+-			if(ctable != nullptr) {
+-				auto fld_name = ctable->get_field<std::string>("name");
+-				std::string container_name;
+-
+-				auto container_info = ctable->get_entry(tinfo->get_container_id());
+-				container_info.read_field(fld_name, container_name);
+-
+-				if(!container_name.empty())
+-				{
+-					line["c"] = container_name;
++			auto ctable_raw = m_inspector->get_table_registry()
++				->get_table<std::string>("containers");
++			if(ctable_raw != nullptr) {
++				sinsp_table<std::string> ctable(&m_inspector->m_plugin_tables, ctable_raw);
++				auto fld_name = ctable.get_field<std::string>("name");
++				if(fld_name) {
++					std::string container_name;
++					try {
++						auto container_info = ctable.get_entry(container_id);
++						container_info.read_field(fld_name, container_name);
++					} catch(...) {}
++					if(!container_name.empty())
++					{
++						line["c"] = container_name;
++					}
+ 				}
+ 			}
+ 		}
+diff --git a/userspace/sysdig/csysdig.cpp b/userspace/sysdig/csysdig.cpp
+index 2a098c9e0..a12bb865d 100644
+--- a/userspace/sysdig/csysdig.cpp
++++ b/userspace/sysdig/csysdig.cpp
+@@ -28,10 +28,10 @@ limitations under the License.
+ #include <assert.h>
+ 
+ #include <libsinsp/sinsp.h>
+-#include "plugin_manager.h"
++#include <libsinsp/plugin_manager.h>
+ #ifdef HAS_CAPTURE
+ #ifndef WIN32
+-#include "driver_config.h"
++#include <driver/driver_config.h>
+ #endif // WIN32
+ #endif // HAS_CAPTURE
+ #include "sysdig.h"
+diff --git a/userspace/sysdig/sysdig.cpp b/userspace/sysdig/sysdig.cpp
+index f02c5c678..f7642a3b3 100644
+--- a/userspace/sysdig/sysdig.cpp
++++ b/userspace/sysdig/sysdig.cpp
+@@ -38,7 +38,7 @@ limitations under the License.
+ #include <chisel/chisel_capture_interrupt_exception.h>
+ #ifdef HAS_CAPTURE
+ #ifndef WIN32
+-#include "driver_config.h"
++#include <driver/driver_config.h>
+ #endif // WIN32
+ #endif // HAS_CAPTURE
+ #include "sysdig.h"
+@@ -857,13 +857,13 @@ captureinfo do_inspect(sinsp *inspector, sinsp_cycledumper *dumper,
+ 				if(etype == PPME_GENERIC_E)
+ 				{
+ 					const sinsp_evt_param *parinfo = ev->get_param(0);
+-					uint16_t id = *(int16_t *)parinfo->m_val;
++					uint16_t id = *(int16_t *)parinfo->data();
+ 					summary_table[PPM_EVENT_MAX + id * 2].m_ncalls++;
+ 				}
+ 				else if(etype == PPME_GENERIC_X)
+ 				{
+ 					const sinsp_evt_param *parinfo = ev->get_param(0);
+-					uint16_t id = *(int16_t *)parinfo->m_val;
++					uint16_t id = *(int16_t *)parinfo->data();
+ 					summary_table[PPM_EVENT_MAX + id * 2 + 1].m_ncalls++;
+ 				}
+ 				else
+diff --git a/userspace/sysdig/utils/sinsp_opener.cpp b/userspace/sysdig/utils/sinsp_opener.cpp
+index e66d9aad3..7fdfa4fc2 100644
+--- a/userspace/sysdig/utils/sinsp_opener.cpp
++++ b/userspace/sysdig/utils/sinsp_opener.cpp
+@@ -25,7 +25,7 @@ limitations under the License.
+ #include <libsinsp/sinsp_exception.h>
+ #ifdef HAS_CAPTURE
+ #ifndef WIN32
+-#include "driver_config.h"
++#include <driver/driver_config.h>
+ #endif // WIN32
+ #endif // HAS_CAPTURE
+ 
+diff --git a/userspace/sysdig/utils/sinsp_syslog.cpp b/userspace/sysdig/utils/sinsp_syslog.cpp
+index b247a3fcc..5ce043301 100644
+--- a/userspace/sysdig/utils/sinsp_syslog.cpp
++++ b/userspace/sysdig/utils/sinsp_syslog.cpp
+@@ -100,7 +100,7 @@ void sinsp_syslog_decoder::parse(sinsp_evt* evt) {
+         parinfo = evt->get_param(1);
+     }
+ 
+-    const char* data = parinfo->m_val;
+-    uint32_t datalen = parinfo->m_len;
++    const char* data = parinfo->data();
++    uint32_t datalen = parinfo->len();
+     parse_data(data, datalen);
+ }
+-- 
+2.53.0
+
