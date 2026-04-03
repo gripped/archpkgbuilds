@@ -3,7 +3,7 @@
 
 pkgname=contour
 pkgver=0.6.2.8008
-pkgrel=3
+pkgrel=4
 pkgdesc="Modern C++ Terminal Emulator"
 arch=(x86_64)
 url="https://github.com/contour-terminal/contour"
@@ -11,11 +11,11 @@ license=('Apache-2.0')
 depends=(
   fontconfig
   freetype2
-  libstdc++
-  libgcc
   glibc
   harfbuzz
+  libgcc
   libssh2
+  libstdc++
   libunicode
   libutempter
   libxcb
@@ -24,8 +24,8 @@ depends=(
   qt6-declarative
   qt6-multimedia
   qt6-shadertools
-  yaml-cpp
   wayland
+  yaml-cpp
 )
 makedepends=(
   boxed-cpp
@@ -41,22 +41,22 @@ makedepends=(
   reflection-cpp
 )
 optdepends=('ncurses: for contour terminfo database')
-source=($pkgname-v$pkgver::"$url/archive/refs/tags/v$pkgver.tar.gz"
-        "libunicode0.8.patch::https://github.com/contour-terminal/contour/commit/0793b4315004dbd71da90e215ae7bfd7b4b38a56.patch")
-sha512sums=('47af0df0ea0754e34ef8daca3526a64f12d19e6544c1f26a3bf3347991e49b2c2ff739a168a56c1163121f8f9a9a30ab2c8bf3941e576f9e5af9ce26efc1dea1'
-            '618ea661c4017986a1abd8f2896e898b04880139a621f6271782276928dbf567aaf3a64f5580d88e721e11e4e96a3f7d740486ddf7f163ef4bf03b4faaf6b891')
-prepare() {
-  cd "${pkgname}-${pkgver}"
-  patch -Np1 < ../libunicode0.8.patch
-}
-build() {
+source=("$pkgname::git+$url.git#tag=v$pkgver")
+sha512sums=('f82c136f7ebc78e68d272d1b338fbb1863744d3a95330a5899e002bfd801062adbaaa9d15e14df863ee4dc89145a8d0b135cac6eb3fb8f45893bad50727f2f22')
 
-  cmake -S"${pkgname}-${pkgver}" -Bbuild \
-        -GNinja \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCONTOUR_QT_VERSION=6 \
-        -DCONTOUR_TESTING=ON
+prepare() {
+  cd $pkgname
+  # libunicode v0.8.0
+  git cherry-pick -n -Xtheirs 0793b4315004dbd71da90e215ae7bfd7b4b38a56
+}
+
+build() {
+  cmake -S $pkgname -Bbuild \
+    -GNinja \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCONTOUR_QT_VERSION=6 \
+    -DCONTOUR_TESTING=ON
   cmake --build build
 }
 
@@ -64,23 +64,20 @@ check() {
   # for running tests, it is (currently) expected to be executed
   # from within the source code's project root directory, in order to
   # access some test files.
-  cd "${srcdir}/${pkgname}-${pkgver}"
-
-  "${srcdir}"/build/src/contour/contour version
-  "${srcdir}"/build/src/crispy/crispy_test
-  "${srcdir}"/build/src/vtparser/vtparser_test
-  "${srcdir}"/build/src/vtbackend/vtbackend_test
+  cd $pkgname
+  ../build/src/contour/contour version
+  ../build/src/crispy/crispy_test
+  ../build/src/vtparser/vtparser_test
+  ../build/src/vtbackend/vtbackend_test
 }
 
 package() {
-  cd "${srcdir}/build"
-  DESTDIR="${pkgdir}" cmake --build . --target install
+  DESTDIR="${pkgdir}" cmake --install build
 
   # provided by ncurses now
   rm -rf "${pkgdir}/usr/share/terminfo"
 
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  install -Dm644 LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" $pkgname/LICENSE.txt
 }
 
 # vim:set sw=2 sts=2 et:
