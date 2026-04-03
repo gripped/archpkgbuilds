@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=ruby-fakefs
-pkgver=3.2.0
+pkgver=3.2.1
 pkgrel=1
 pkgdesc='A fake filesystem. Use it in your tests.'
 arch=(any)
@@ -26,7 +26,7 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('05957a030f93ba90ffae5978e636427d63c620be3ea079ab1956309d30146e1c19af12afcae43012388cf16c60e19c405d240854a4ad56264748a08e6c2cd65d')
+b2sums=('018c198988472990d37b70813e6705b2a6b86d2ef5de61c8f2fa09b0929e2daf48e9706079f12abedbdad293293dddbae3f1ef78d615f481caa56c3c2cb603ea')
 
 prepare() {
   cd ${pkgname#ruby-}
