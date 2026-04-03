@@ -1,8 +1,8 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=python-colorlog
-pkgver=6.9.0
-pkgrel=2
+pkgver=6.10.0
+pkgrel=1
 pkgdesc='A colored formatter for the python logging module'
 arch=('any')
 url='https://github.com/borntyping/python-colorlog'
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('python')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('9959252ae980422b09e5ad2a7e42aac6291a73ad792971aa15a343dd382b7c5b2e12fc9ccf55c16c23e81f6aba37a538d27614819c05b94bb16393bed971868b')
+sha512sums=('64e0865deaef9bf20207fe2030dfe0c3b6008877253b6c9e6c888133fde715e00352d71ac048689a78f56e6aa3873efd8824dc43651daf16dadbf6cf6ebfd4d5')
 
 build() {
   cd $pkgname-$pkgver
