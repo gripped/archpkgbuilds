@@ -5,12 +5,12 @@
 pkgname=android-tools
 pkgver=35.0.2
 _tag=${pkgver} # https://github.com/nmeum/android-tools sometimes carries extra patch version on top of the upstream versioning
-pkgrel=24
+pkgrel=25
 pkgdesc='Android platform tools'
 arch=(x86_64)
-url='http://tools.android.com/'
-license=(Apache MIT)
-depends=(fmt protobuf brotli zstd pcre2)
+url='https://developer.android.com/tools'
+license=('Apache-2.0 AND BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND libselinux-1.0')
+depends=(abseil-cpp brotli fmt glibc libgcc libstdc++ libudev.so lz4 pcre2 protobuf zlib zstd)
 makedepends=(gtest cmake go ninja git)
 optdepends=('python: {mk,unpack_,repack_}bootimg and mkdtboimg support'
 	    'android-udev: optional additional device udev rules')
@@ -48,4 +48,8 @@ package() {
   cd android-tools-$_tag
 
   DESTDIR="${pkgdir}" ninja -C build install
+
+  install -Dm644 vendor/selinux/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/libselinux.txt"
+  install -Dm644 vendor/fmtlib/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/MIT.txt"
+  install -Dm644 vendor/avb/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/BSD-3-Clause.txt"
 }
