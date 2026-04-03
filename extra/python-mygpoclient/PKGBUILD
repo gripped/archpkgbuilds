@@ -7,23 +7,23 @@
 
 _pkgname=mygpoclient
 pkgname=python-mygpoclient
-pkgver=1.9
-pkgrel=5
+pkgver=1.10
+pkgrel=1
 pkgdesc='Python client Library for the gpodder.net web service'
 arch=('any')
 url='https://github.com/gpodder/mygpoclient'
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("https://github.com/gpodder/$_pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('c1e990a6395acd5a5316be1cd9237c2669b9f6389d49f5740595c02049b95496')
+sha256sums=('00e8b9fc990aafd7427411bb7b8e7878cd4e364ccf405691070ff924985c70b5')
 
 build() {
   cd $_pkgname-$pkgver
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd $_pkgname-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
