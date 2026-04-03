@@ -3,8 +3,8 @@
 # Contributor: Cedric Girard <girard.cedric@gmail.com>
 
 pkgname=python-flask-compress
-pkgver=1.23
-pkgrel=3
+pkgver=1.24
+pkgrel=1
 pkgdesc='Compress responses in your Flask app'
 url='https://github.com/colour-science/flask-compress'
 arch=('any')
@@ -26,7 +26,7 @@ checkdepends=(
   'python-pytest'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('54754e6676706e67ffc4fecbb714300b9da47ebe41b461be87800143bc3b35c2ce0d44f719370264296c55d358e1dbb5b58c2c5f5a43cb988793006b82a81df6')
+b2sums=('3ef19bace75e7f53734149fec867076eeafd623c859aad49c7556b51088c493c822112cb02af03926e814b49077bbaa4ada53bd509db926e66ce085d7ba348d4')
 
 build() {
   cd ${pkgname#python-}-$pkgver
@@ -46,5 +46,3 @@ package() {
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
 }
-
-# vim: ts=2 sw=2 et:
