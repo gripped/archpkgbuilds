@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-wand
-pkgver=0.6.13
-pkgrel=2
+pkgver=0.7.0
+pkgrel=1
 pkgdesc="Ctypes-based simple MagickWand API binding for Python"
 url="https://github.com/emcconville/wand"
 license=('MIT')
@@ -12,7 +12,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python
 checkdepends=('python-pytest' 'python-pytest-forked' 'python-pytest-xdist'
               'python-psutil' 'ghostscript' 'librsvg')
 source=("git+https://github.com/emcconville/wand.git#tag=$pkgver")
-sha512sums=('ee4f80ba80ea8390693c7c9dcba9d48a98e553fd8dca22a38020f2fc8d808281db77207d9fe98174d7793d151e188ef7ac6bcd7b1256cad657ae5b7f404b8f51')
+sha512sums=('9205af21a72e02166c98a28223be1afec27da6c92eb59f0cefd1c71f9cebd6c303005220da1ed7924627f9a9eaff2efc4edf970d40d557d06737e652b58ae807')
 
 build() {
   cd wand
