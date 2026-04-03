@@ -9,7 +9,7 @@
 
 pkgname=gedit-plugins
 pkgver=50.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Collection of plugins for the gedit Text Editor'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/gedit/gedit-plugins'
@@ -30,7 +30,7 @@ makedepends=(
   meson
 )
 source=("git+https://gitlab.gnome.org/World/gedit/gedit-plugins.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('beaffaa0e81f1e55204e932eba48497b0d22e365152f7c372a6fd6b5d5a5ff839ef8c6503490b818f02af87cdd5c2c9e894119aac2561e464fc54e045df18eab')
+b2sums=(beaffaa0e81f1e55204e932eba48497b0d22e365152f7c372a6fd6b5d5a5ff839ef8c6503490b818f02af87cdd5c2c9e894119aac2561e464fc54e045df18eab)
 validpgpkeys=(08C0A6B1A08310A45363B328426F014A261FD87F) # Sébastien Wilmet <swilmet@mailfence.com>
 
 build() {
@@ -45,5 +45,3 @@ check() {
 package() {
   meson install -C build --destdir "$pkgdir"
 }
-
-# vim:set sw=2 sts=-1 et:
