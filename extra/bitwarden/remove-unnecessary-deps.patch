@@ -1,5 +1,5 @@
 diff --git a/apps/desktop/desktop_native/napi/package.json b/apps/desktop/desktop_native/napi/package.json
-index d557ccfd25..3d4b046607 100644
+index 1234567890..1234567891 100644
 --- a/apps/desktop/desktop_native/napi/package.json
 +++ b/apps/desktop/desktop_native/napi/package.json
 @@ -8,9 +8,6 @@
@@ -7,33 +7,22 @@ index d557ccfd25..3d4b046607 100644
    "author": "",
    "license": "GPL-3.0",
 -  "devDependencies": {
--    "@napi-rs/cli": "2.18.4"
+-    "@napi-rs/cli": "3.2.0"
 -  },
    "napi": {
-     "name": "desktop_napi",
-     "triples": {
+     "binaryName": "desktop_napi",
+     "targets": [
 diff --git a/apps/desktop/electron-builder.json b/apps/desktop/electron-builder.json
-index 35831dad41..777a772330 100644
+index 1234567890..1234567891 100644
 --- a/apps/desktop/electron-builder.json
 +++ b/apps/desktop/electron-builder.json
-@@ -11,8 +11,6 @@
+@@ -13,9 +13,6 @@
      "output": "dist",
      "app": "build"
    },
 -  "afterSign": "scripts/after-sign.js",
 -  "afterPack": "scripts/after-pack.js",
-   "asarUnpack": ["**/*.node"],
+-  "beforePack": "scripts/before-pack.js",
    "files": [
-     "**/*",
-diff --git a/package.json b/package.json
-index 3304d16825..1158102701 100644
---- a/package.json
-+++ b/package.json
-@@ -13,7 +13,6 @@
-   },
-   "homepage": "https://bitwarden.com",
-   "scripts": {
--    "prepare": "husky",
-     "lint": "eslint . --cache --cache-strategy content && prettier --check .",
-     "lint:fix": "eslint . --cache --cache-strategy content --fix",
-     "lint:clear": "rimraf .eslintcache",
+     "!node_modules/@bitwarden/desktop-napi/scripts",
+     "!node_modules/@bitwarden/desktop-napi/src",
