@@ -2,7 +2,7 @@
 # Contributor: greyltc (AUR)
 
 pkgname=wasm-component-ld
-pkgver=0.5.21
+pkgver=0.5.22
 pkgrel=1
 pkgdesc="Command line linker for creating WebAssembly components"
 url="https://github.com/bytecodealliance/wasm-component-ld"
@@ -22,7 +22,13 @@ checkdepends=(
 )
 options=(!lto)
 source=("git+$url#tag=v$pkgver")
-b2sums=('c6b46e397e6f8046781d08e747a69b0aa3d1db17dedc5679af920737d1447d28ef74f1a14326f5be030301209ca2c1fe972c54ae87745e253215c5ebbe3c47de')
+b2sums=('a77604694cc7e6f33c9c7bcd9855c53942c0cd8457a63f576b622f365c7393b6cb0afbe1cf347ee2f577a1a6629d963522bb8fd7cb5ea2d58574a89a18d9199c')
+
+# Use debug
+export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
+
+# Use LTO
+export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 prepare() {
   cd wasm-component-ld
@@ -31,13 +37,6 @@ prepare() {
 
 build() {
   cd wasm-component-ld
-
-  # Use debug
-  export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
-
-  # Use LTO
-  export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
-
   cargo build --release --frozen
 }
 
