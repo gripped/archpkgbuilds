@@ -1,0 +1,53 @@
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+
+pkgname=forgejo-cli
+pkgver=0.4.1
+pkgrel=2
+pkgdesc='CLI application for interacting with Forgejo'
+url="https://codeberg.org/forgejo-contrib/$pkgname"
+license=('Apache-2.0 OR MIT')
+makedepends=(cargo)
+depends=(glibc # libc.so libm.so ld-linux-x86-64
+         libgcc libgcc_s.so
+         libssh2 libssh2.so
+         libgit2 libgit2.so
+         openssl libcrypto.so libssl.so)
+arch=(x86_64)
+_archive="$pkgname-$pkgver"
+source=("$_archive.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('8f6a93c5f97e45308aead0154d4ec53e672ca90ab0809db543cde6be8078729e')
+
+prepare() {
+	cd "$pkgname"
+	cargo fetch --locked --target host-tuple
+}
+
+_srcenv() {
+	cd "$pkgname"
+	export LIBGIT2_NO_VENDOR=1
+	export LIBSSH2_SYS_USE_PKG_CONFIG=1
+	export OPENSSL_NO_VENDOR=true
+}
+
+build() {
+	_srcenv
+	cargo build --frozen --release --all-features
+}
+
+_compgen() {
+	target/release/fj completion $1
+}
+
+check() {
+	_srcenv
+	cargo test --frozen --release --all-features
+}
+
+package() {
+	cd "$pkgname"
+	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/fj"
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/forgejo-cli/" LICENSE-APACHE LICENSE-MIT
+	install -Dm0644 <(_compgen bash) "$pkgdir/usr/share/bash-completion/completions/fj"
+	install -Dm0644 <(_compgen zsh) "$pkgdir/usr/share/zsh/site-functions/_fj"
+	install -Dm0644 <(_compgen fish) "$pkgdir/usr/share/fish/vendor_completions.d/fj.fish"
+}
