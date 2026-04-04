@@ -3,7 +3,7 @@
 _gemname=octokit
 _archivename=octokit.rb
 pkgname="ruby-${_gemname}"
-pkgver=9.2.0
+pkgver=10.0.0
 pkgrel=1
 pkgdesc='Simple wrapper for the GitHub API'
 arch=(any)
@@ -14,6 +14,7 @@ depends=(
   ruby-faraday
   ruby-sawyer
 )
+makedepends=(git)
 checkdepends=(
   ruby-bundler
   ruby-faraday-http-cache
@@ -33,19 +34,19 @@ checkdepends=(
   ruby-webmock
 )
 options=(!emptydirs)
-source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('2a584531422ebaf4b2e0930480678a690d4393854162139ab774ec34d12a49853bcba873834e7ee94be9283fa4a2329e1957f365ceb990082808d8ef0eb73a89')
-b2sums=('769b1e22d8232967ea90811f77e6f7a98ef7898ee4ec4255cfb944c4583632ffd6120e333a4b2786243f4f9c239cf58c57eb40b12e0e4f4a3d04ccc89f54c790')
+source=("git+https://github.com/octokit/${_archivename}.git#tag=v${pkgver}")
+sha512sums=('27f4e2b5dc0786179f7021a4dea92e3067d14c15984c54f2ffd637519536bfcd5c9e74dcfe4960e7ec3ec17bb7f2bd1e90118bfb6c20a555dab2ff2ea70288c0')
+b2sums=('acf2b999648305d83b24e05c1085f0b97805621e7839910f01499e36e9c3c6bbcd5c8eb34b87933ffece2211cbc4ed56ce6871b23c7776343799b9e8a1a5832a')
 
 prepare() {
-  cd "${_archivename}-${pkgver}"
+  cd "${_archivename}"
 
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended 's|~>|>=|g' "${_gemname}.gemspec"
 }
 
 build() {
-  cd "${_archivename}-${pkgver}"
+  cd "${_archivename}"
 
   local _gemdir="$(gem env gemdir)"
 
@@ -88,7 +89,7 @@ build() {
 }
 
 check() {
-  cd "${_archivename}-${pkgver}"
+  cd "${_archivename}"
 
   local _gemdir="$(gem env gemdir)"
 
@@ -96,7 +97,7 @@ check() {
 }
 
 package() {
-  cd "${_archivename}-${pkgver}"
+  cd "${_archivename}"
 
   cp --archive --verbose tmp_install/* "${pkgdir}"
 
