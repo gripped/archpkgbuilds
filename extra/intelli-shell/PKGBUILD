@@ -2,12 +2,12 @@
 
 pkgname=intelli-shell
 pkgver=3.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Like IntelliSense, but for shells"
 arch=('x86_64')
 url="https://github.com/lasantosr/intelli-shell"
 license=('Apache-2.0')
-depends=('gcc-libs' 'zlib')
+depends=('libgcc' 'libgit2' 'openssl' 'sqlite' 'zlib')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('c164d8e039233ae12503bd7c730fe090daa321969871e781241d5c1468caa0d53a61c009c1e6e0d042fcc9646a2325757dcb5e9ad21c0917e9aebd70b01dd88b')
@@ -20,11 +20,17 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
+  export LIBGIT2_NO_VENDOR=1
+  export OPENSSL_NO_VENDOR=true
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
   cargo build --release --frozen
 }
 
 check() {
   cd "$pkgname-$pkgver"
+  export LIBGIT2_NO_VENDOR=1
+  export OPENSSL_NO_VENDOR=true
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
   cargo test --frozen
 }
 
