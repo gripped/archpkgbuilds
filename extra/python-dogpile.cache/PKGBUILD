@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-dogpile.cache
-pkgver=1.3.4
+pkgver=1.4.0
 pkgrel=1
 pkgdesc="A caching front-end based on the Dogpile lock"
 arch=('any')
@@ -12,7 +12,7 @@ makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python
 checkdepends=('memcached' 'pifpaf' 'valkey' 'python-mako' 'python-redis' 'python-pytest'
               'python-pylibmc')
 source=("git+https://github.com/sqlalchemy/dogpile.cache.git#tag=rel_${pkgver//./_}")
-sha512sums=('47a5de20deaf36dd68aad54aa01af353b964871189ae6401da43ce15edfcdd3e10b1e19a78223ece6ec6b6d06c9c8f70dbf211892b50ba1a8422b178e6cf1cba')
+sha512sums=('b40f59c54da3ddd52333c21fdedda11f950869ae1cbe6d7ec8a8eac2a847e4acad132a910d10c7bf4402be7a87aa9bb309a56c135839e7c867e30f748f693ee4')
 
 build() {
   cd dogpile.cache
