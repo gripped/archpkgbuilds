@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-concurrency
-pkgver=7.3.0
+pkgver=7.4.0
 pkgrel=1
 pkgdesc="OpenStack library for all concurrency-related code"
 arch=('any')
@@ -16,7 +16,7 @@ source=(
   "git+https://github.com/openstack/oslo.concurrency.git#tag=$pkgver"
   "$pkgname-python-3.14.patch"
 )
-sha512sums=('3a1492b9bd71abe45715be5d2bb93813f5fe3c6eeb7cd586796affb09cdefa25b46008553fa39f448d60b753837414dd284ae775f1440d335fb904ca81856c53'
+sha512sums=('6bd9421453bea3193c4c35001bef3c7e576772e6dfa3a0f788ed85a44bc958f6ccb5ca1d348cba3c68a741e9f1b380dea6933f9282b5f8054c85963070814dda'
             '1fc62ee511580e74f167037a0a3cc6f563a54a208c3de4fac067d9c0a10e48600aaf34166cf31249a1236e9fbaa59fc5a6dac09abe6fea9dcee0f31a0c29325f')
 
 prepare() {
