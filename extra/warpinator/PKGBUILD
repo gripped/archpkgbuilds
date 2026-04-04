@@ -3,31 +3,54 @@
 # Contributor: Kyle Laker <kyle@laker.email>
 
 pkgname=warpinator
-pkgver=1.8.8
-pkgrel=2
+pkgver=2.0.3
+pkgrel=1
 pkgdesc='LAN file sender, send and receive files across the network'
-arch=('any')
+arch=(any)
 url='https://github.com/linuxmint/warpinator'
-license=('GPL-3.0-only')
-depends=('gtk3' 'libnm' 'python-cryptography' 'python-gobject' 'python-grpcio'
-         'python-protobuf' 'python-pynacl' 'python-setproctitle' 'python-setuptools' 'python-xapp' 'python-zeroconf'
-         'xapp' 'python-cairo' 'python-qrcode' 'python-pillow' 'python-netifaces')
-makedepends=('meson' 'polkit')
+license=(GPL-3.0-or-later)
+groups=(x-apps)
+depends=(
+  bash
+  dconf
+  gdk-pixbuf2
+  glib2
+  gtk3
+  hicolor-icon-theme
+  polkit
+  python
+  python-cairo
+  python-cryptography
+  python-gobject
+  python-grpcio
+  python-netifaces
+  python-protobuf
+  python-pynacl
+  python-qrcode
+  python-setproctitle
+  python-xapp
+  python-zeroconf
+  xapp
+)
+makedepends=(
+  git
+  meson
+)
 optdepends=('ufw: Open a firewall port for Warpinator')
-source=("https://github.com/linuxmint/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('29989d3e955cccf2efaf8407f38a443469be3a40ed8eee4c0e41fd226dde3a68')
+source=("git+https://github.com/linuxmint/warpinator.git#tag=$pkgver")
+b2sums=(84ceedd334a49bc3875fe64ff1b5bcf5a15676749dd8325e6b24c2c06f821ea2f5e83dd84ceedc1de216ff0c75e24af5fb9d2688d268d0dd688e131f611a560f)
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
 
   # Fix hardcoded libexec dir
-  sed -i 's|libexec/warpinator|lib/warpinator|' \
-    bin/warpinator.in \
-    data/org.x.warpinator.policy.in.in
+  sed -i 's|libexec/warpinator|lib/warpinator|' data/org.x.warpinator.policy.in.in
 }
 
 build() {
-  arch-meson $pkgname-$pkgver build -D bundle-zeroconf=false -D bundle-grpc=false
+  arch-meson $pkgname build \
+    -D bundle-zeroconf=false \
+    -D bundle-grpc=false
   meson compile -C build
 }
 
