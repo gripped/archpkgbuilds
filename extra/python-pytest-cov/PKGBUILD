@@ -3,7 +3,7 @@
 # Contributor: Andrey Mikhaylenko <neithere at gmail dot com>
 
 pkgname=python-pytest-cov
-pkgver=7.0.0
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='py.test plugin for coverage reporting with support for both centralised and distributed testing, including subprocesses and multiprocessing'
 arch=('any')
@@ -13,7 +13,7 @@ depends=('python-coverage' 'python-pluggy' 'python-pytest')
 makedepends=('git' 'python-build' 'python-hatch-fancy-pypi-readme' 'python-hatchling' 'python-installer')
 checkdepends=('python-virtualenv' 'python-process-tests' 'python-pytest-xdist')
 source=("git+https://github.com/pytest-dev/pytest-cov.git#tag=v$pkgver")
-sha512sums=('2dc33f1efea9ed4115c2e3738a0558bee8b62b28ce3135b00a47eeb2a85d18757208c261a47d7b2246067882025c025b79d576c2899a9a2c93f38d13c0fcc469')
+sha512sums=('65b81ea16bdfd938513fb5f13b0312ea321c3a5bd89fce571be25cc7319df275aab143254c98a322d1440986dd462939307d6ebaac6740de2fefd0b9400173da')
 
 build() {
   cd pytest-cov
@@ -24,7 +24,8 @@ check() {
   cd pytest-cov
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  PYTHONPATH="$PWD/tests" test-env/bin/python -m pytest || echo "Tests failed"
+  # Arch does not package python-celery for test_celery.
+  PYTHONPATH="$PWD/tests" test-env/bin/python -m pytest --deselect tests/test_pytest_cov.py::test_celery
 }
 
 package() {
