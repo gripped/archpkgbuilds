@@ -6,7 +6,7 @@
 
 pkgname=qwen-code
 pkgver=0.14.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
 arch=(x86_64)
@@ -36,6 +36,9 @@ build() {
   cd $pkgname
   npm run build
   npm run bundle
+  local bundled=$(jq '.dependencies + .optionalDependencies | keys' package.json)
+  npm pkg set --json bundledDependencies="$bundled"
+  npm pack
 }
 
 check() {
@@ -45,8 +48,8 @@ check() {
 
 package() {
   cd $pkgname
-  install -vDm755 dist/cli.js "$pkgdir/usr/bin/qwen"
-
+  npm install --global --offline --prefix "$pkgdir/usr" \
+    $pkgname-$pkgname-$pkgver.tgz
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
