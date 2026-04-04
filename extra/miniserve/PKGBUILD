@@ -2,7 +2,7 @@
 
 pkgname=miniserve
 pkgver=0.33.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Tool to serve files via HTTP"
 arch=('x86_64')
 url="https://github.com/svenstaro/miniserve"
@@ -36,7 +36,7 @@ package() {
   target/release/miniserve --print-completions fish > "$pkgdir"/usr/share/fish/vendor_completions.d/miniserve.fish
 
   mkdir -p "$pkgdir"/usr/share/man/man1
-  target/release/miniserve --print-manpage | gzip > "$pkgdir"/usr/share/man/man1/$pkgname.1.gz
+  target/release/miniserve --print-manpage > "$pkgdir"/usr/share/man/man1/$pkgname.1
 
   install -Dm644 packaging/miniserve@.service "$pkgdir"/usr/lib/systemd/system/miniserve@.service
 
