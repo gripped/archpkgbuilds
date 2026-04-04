@@ -1,7 +1,7 @@
 # Maintainer: Quentin Michaud <mh4ckt3mh4ckt1c4s@archlinux.org>
 
 pkgname=wasm-tools
-pkgver=1.245.1
+pkgver=1.246.2
 pkgrel=1
 pkgdesc="Low level tooling for WebAssembly in Rust"
 arch=("x86_64")
@@ -15,7 +15,7 @@ source=(
 	"$pkgname-$pkgver.tar.gz::https://github.com/bytecodealliance/$pkgname/archive/refs/tags/v$pkgver.tar.gz"
 	"wasm-testsuite-$_wasm_testsuite_commit.tar.gz::https://github.com/WebAssembly/testsuite/archive/$_wasm_testsuite_commit.tar.gz"
 )
-sha256sums=('f8fc02ceec50f0188e4128159535e6c4195594e74c56ecc1db3113e62feb477d'
+sha256sums=('d5cbfd24286c14817db40a8651771681a9a31a45e3225f9eefa76cfef43489da'
             'e289c03b4586b92f5e59e30078c4ea96d79fbdc59d993e866c694893473c315c')
 
 options_aarch64=(!lto)
