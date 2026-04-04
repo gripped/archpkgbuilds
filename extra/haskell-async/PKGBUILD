@@ -3,17 +3,17 @@
 
 _hkgname=async
 pkgname=haskell-async
-pkgver=2.2.5
-pkgrel=290
+pkgver=2.2.6
+pkgrel=3
 pkgdesc="Run IO operations asynchronously and wait for their results"
 url="https://github.com/simonmar/async"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-hashable')
+depends=('ghc-libs' 'haskell-hashable' 'haskell-unordered-containers')
 makedepends=('ghc')
 checkdepends=('haskell-hunit' 'haskell-test-framework' 'haskell-test-framework-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('bf525cebe9d5f67140f7648683704d0f5ec5d63c78ac9e3b14870652f355d1b4afc3922bd1afce2182d06024ec04b30536407f29d526b05f2ae4a36cba3a518a')
+sha512sums=('eecbb9b44ae2a04716d0e6029637eb01b58c58d29e2e5daefc148f634d202f14c2cb06e68d0e0a4a9b9382bf49be57dcb424e37cd783ee879baa604848bf1ce1')
 
 build() {
     cd $_hkgname-$pkgver
