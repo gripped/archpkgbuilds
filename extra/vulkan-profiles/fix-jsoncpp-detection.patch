@@ -1,0 +1,47 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ee2fd0e..5f2d465 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -39,13 +39,15 @@ add_subdirectory(scripts)
+ set(MERGE_SCRIPT ${PROJECT_SOURCE_DIR}/scripts/gen_profiles_file.py)
+ set(SOLUTION_SCRIPT ${PROJECT_SOURCE_DIR}/scripts/gen_profiles_solution.py)
+ 
++find_package(PkgConfig REQUIRED)
++
+ find_package(VulkanHeaders REQUIRED CONFIG QUIET)
+ 
+ find_package(VulkanUtilityLibraries REQUIRED CONFIG QUIET)
+ 
+ find_package(valijson REQUIRED CONFIG)
+ 
+-find_package(jsoncpp REQUIRED CONFIG)
++pkg_check_modules(jsoncpp REQUIRED jsoncpp)
+ 
+ option(BUILD_TESTS "Build the tests")
+ if (BUILD_TESTS)
+diff --git a/layer/CMakeLists.txt b/layer/CMakeLists.txt
+index 561feb6..f77d0a3 100644
+--- a/layer/CMakeLists.txt
++++ b/layer/CMakeLists.txt
+@@ -144,7 +144,7 @@ target_link_libraries(ProfilesLayer PRIVATE
+     Vulkan::LayerSettings
+     Vulkan::Headers
+     Vulkan::UtilityHeaders
+-    jsoncpp_static
++    jsoncpp
+     valijson
+ )
+ 
+diff --git a/profiles/test/CMakeLists.txt b/profiles/test/CMakeLists.txt
+index 93e036d..f0813f9 100644
+--- a/profiles/test/CMakeLists.txt
++++ b/profiles/test/CMakeLists.txt
+@@ -33,7 +33,7 @@ target_compile_definitions(${TEST_NAME} PRIVATE
+     PROFILE_FILES_PATH="${CMAKE_SOURCE_DIR}/profiles/")
+ add_dependencies(${TEST_NAME} VpGenerated)
+ 
+-target_link_libraries(${TEST_NAME} PRIVATE GTest::gtest GTest::gtest_main jsoncpp_static valijson)
++target_link_libraries(${TEST_NAME} PRIVATE GTest::gtest GTest::gtest_main jsoncpp valijson)
+ add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME} --gtest_catch_exceptions=0)
+ 
+ set_target_properties(${TEST_NAME} PROPERTIES FOLDER "Profiles schema")
