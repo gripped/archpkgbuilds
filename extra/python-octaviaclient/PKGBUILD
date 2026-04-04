@@ -3,7 +3,7 @@
 
 pkgname=python-octaviaclient
 pkgver=3.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Octavia client for OpenStack Load Balancing"
 arch=('any')
 url="https://docs.openstack.org/python-octaviaclient/latest/"
@@ -11,7 +11,7 @@ license=('Apache-2.0')
 depends=('python-cliff' 'python-keystoneauth1' 'python-openstackclient'
          'python-osc-lib' 'python-oslo-serialization' 'python-oslo-utils' 'python-pbr'
          'python-requests')
-makedepends=('git')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-hacking' 'python-requests-mock' 'python-pygments' 'python-oslotest'
               'python-stestr' 'python-testscenarios')
 source=("git+https://github.com/openstack/python-octaviaclient.git#tag=$pkgver")
@@ -24,7 +24,7 @@ prepare() {
 
 build() {
   cd python-octaviaclient
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -34,5 +34,5 @@ check() {
 
 package() {
   cd python-octaviaclient
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
