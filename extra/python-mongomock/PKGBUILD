@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-mongomock
-pkgver=4.1.0
+pkgver=4.1.1
 pkgrel=1
 pkgdesc="Fake pymongo stub for testing simple MongoDB-dependent code"
 url="https://github.com/mongomock/mongomock"
@@ -11,7 +11,7 @@ depends=('python-sentinels' 'python-packaging')
 makedepends=('git' 'python-pbr' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pymongo' 'python-pytest')
 source=("git+https://github.com/mongomock/mongomock.git#tag=$pkgver")
-sha512sums=('35856201d4583ed532e6de1ba7e04251cd691b544ec2c092079034f4f1ac0256feb1217c0547b2b03f79e731931f2fb02991a72c6ae36e19f7b43002982e3765')
+sha512sums=('a83f183779e8df6e464d18b6230f33749cf6b245674d04e9a4722bf5ff7e05a6cc828ece8e9d3947902c799a2872dd61694425b0307840c8578d1c75409d05aa')
 
 build() {
   cd mongomock
