@@ -3,7 +3,7 @@
 
 _name=ansible-compat
 pkgname=python-ansible-compat
-pkgver=25.12.1
+pkgver=26.3.0
 pkgrel=1
 pkgdesc="Functions that help interacting with various versions of Ansible"
 arch=(any)
@@ -32,8 +32,8 @@ checkdepends=(
   python-uv
 )
 source=(git+$url.git#tag=v$pkgver)
-sha256sums=('738c468b77e55bb052b0b1390aec398e2b81a702f8c47f3497d3d5a71d1633af')
-b2sums=('335d295ea1a7b85ac5dfc8ae5f58a753892dd2a4ce2f5272edae2a6c64bec4457b26920eaecc08a29cfde27ca6cf9ccaa7c5ecda79ac11ade81734f0e7270676')
+sha256sums=('ad3fafb7d3f876aba41830a07bc6c9d8ac50100c4eed756465c01638149b9fc0')
+b2sums=('a6e26e2f87c90f024b12e14c8f1a4528751bba92128a64e9035ae9438a9b46ab5c51e06a1f44a64c859f729b084bec860a194cc36df09e2259254ef2712baa44')
 
 build() {
   cd $_name
