@@ -17,14 +17,16 @@ path = [
     "*.timer",
     "*.desktop",
     "*.hook",
+    "*.rules",
+    "iptables-legacy-flush",
+    "iptables-nft-flush",
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
-    "iptables-apply-default-path.patch",
-    "nft-fix-interface-comparisons-in-C-commands.patch",
+    "*.patch",
 ]
 SPDX-FileCopyrightText = "iptables contributors"
 SPDX-License-Identifier = "GPL-2.0-only"
