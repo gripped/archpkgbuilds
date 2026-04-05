@@ -1,7 +1,7 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=openexr
-pkgver=3.4.8
+pkgver=3.4.9
 pkgrel=1
 pkgdesc='A high dynamic-range image file format library'
 url='https://www.openexr.com/'
@@ -17,16 +17,14 @@ makedepends=(cmake
              git
              pybind11)
 optdepends=('python: for python bindings')
-source=(git+https://github.com/openexr/openexr#tag=v$pkgver
-        python-install-dir.patch)
-sha256sums=('166e8f819eea8b031f2236bc3a302faa1f3d7523aff2490078c670c2a35f6d6e'
-            'ea2909df520d08aae5d40bf12db9112ae153a602885fa892818a0e806adc59da')
+source=(git+https://github.com/openexr/openexr#tag=v$pkgver)
+sha256sums=('ebeda794cd7583e4a28b6630de392a9a58a65a4b7229af33de7713f03cbb78cd')
 
 prepare() {
 # unpin scikit-build-core version
   sed 's|scikit-build-core[^"]*|scikit-build-core|' -i openexr/pyproject.toml
 # Fix python module install dir
-  patch -d $pkgname -p1 < python-install-dir.patch
+  git -C $pkgname cherry-pick -n 30345db72944b38926f13b5114b9a01b4b553890
 }
 
 build() {
