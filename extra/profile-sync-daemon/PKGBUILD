@@ -2,19 +2,26 @@
 # Contributor: graysky <graysky AT archlinux DOT us>
 
 pkgname=profile-sync-daemon
-pkgver=6.55
+pkgver=7.02
 pkgrel=1
 epoch=1
 pkgdesc="Symlinks and syncs browser profile dirs to RAM"
 arch=(any)
 url="https://github.com/graysky2/profile-sync-daemon"
 license=(MIT)
-depends=(bash findutils procps-ng rsync systemd)
+depends=(
+  bash
+  findutils
+  fuse-overlayfs
+  procps-ng
+  rsync
+  systemd
+)
 optdepends=('zsh-completions: for completion when using zsh')
 install=$pkgname.install
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('8d885b35900848a905c0c1c77fdb34aca4bf551b59211cd884041658ab97340e34dd86678ecb4dbbeef0325b7dada171c8fef106edf83b5f02b7da5fdc581b95')
-b2sums=('29753477db6dda3ec72b030f0b0a032d5ed42ef594c1b848fc57a2fda73c6e13939100b4ed962e2ff5410ec213693043e9d1cb2d3b9bdd815d4493420727de82')
+sha512sums=('53400439e32fd3acd9c03f6f0b4aba55033e0fdc5235987bf7fbabc088f1d0685560a7d3d56bbea5f5e34140719e69667f568df0eb51ae13fa0847881573f1f3')
+b2sums=('e8db3e8bb8b79314a0313bf91846aae0545b3d0193b9df93af48488a77cee1efa033e9ae49563289f7dbb1e3b1a273864ecf156ba1e136c1381d5bf18394e7bf')
 
 build() {
   make -C $pkgname-$pkgver

@@ -5,6 +5,18 @@
 users=$(loginctl --no-legend list-users | awk '{ print $2 }' | sed ':a;N;$!ba;s/\n/ /g')
 
 pre_upgrade() {
+  if [[ "$(vercmp "$2" 7.0.0)" -lt 0 ]]; then
+    printf 'NOTE: Major changes introduced for mounting and unmounting!\n'
+    printf 'As psd.service will be stopped for all users, make sure to start it again after the upgrade (or reboot).'
+
+    for user in $users; do
+      if _psd_running_for_user "$user"; then
+        _stop_psd_for_user "$user"
+        _diff_recommendation
+      fi
+    done
+  fi
+
   # version 6.00 is a major rebuild
   # yes, I realize that pacman should not stop services but in this case it
   # is required or else browser profiles (user data) can get renamed and confuse
