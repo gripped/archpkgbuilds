@@ -3,7 +3,7 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=maven
-pkgver=3.9.13
+pkgver=3.9.14
 pkgrel=1
 pkgdesc='Java project management and project comprehension tool'
 url='https://maven.apache.org'
@@ -28,11 +28,11 @@ validpgpkeys=(
   '88BE34F94BDB2B5357044E2E3A387D43964143E3' # Tamas Cservenak <tamas@cservenak.net>
   '84789D24DF77A32433CE1F079EB80E92EB2135B1' # Slawomir Jaranowski <sjaranowski@apache.org>
 )
-sha256sums=('cee498c54476283bec67520be20461345215238c777ab67f24a42e7260920396'
+sha256sums=('09cc6ae6fd22c16f3fbb6bf4d730ad02eb53e78a3af35fd45a77cdf369853e7a'
             'SKIP'
-            '7d15a06fdd022809c11e7ae3a50a0e5b8c0d7b8d7c392eb2ffc0be3d8ea507c7'
+            '126ed3233e569bd0add9e889d226139acd3de9005876a01fe6108fbf4246f515'
             'SKIP'
-            '642a6213b193dce415b2e5b74d4a7c2715913a92b73ec39ab15377c712b62d5e'
+            '174779e38239eb7557fc232da152655ef95d83b3b5c8371bb4af0c4eaff3f735'
             '6ec2fef2a5f179f873b180452c72915e639e7b881a6894e13c209816b3518908')
 
 _buildnumber() {
