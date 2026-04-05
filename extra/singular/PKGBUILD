@@ -6,7 +6,7 @@ _majver=4-4-1
 _patchver=p5
 _pkgver=${_majver}${_patchver}
 pkgver=${_majver//-/.}${_patchver/p/.p}
-pkgrel=8
+pkgrel=9
 pkgdesc='Computer Algebra System for polynomial computations'
 arch=(x86_64)
 url='https://www.singular.uni-kl.de/'
@@ -41,7 +41,10 @@ _srcdir=Singular
 prepare() {
   cd $_srcdir
   git cherry-pick -n 56681f1c0a4f6fd9f61fe6241c536aad592c8478 # Fix crashes
-  git cherry-pick -n c7aa4d7a94c42b926c93c08541245421f77e5092 # https://github.com/Singular/Singular/issues/1334
+  git cherry-pick -n c7aa4d7a94c42b926c93c08541245421f77e5092 \
+                     6e92ec8701c497ef08393e963d4ef2d2611ad758 \
+                     9590ad4ec1c4ffb76da0c93cb2c3d0f46d36db91 \
+                     ad2a92f35529b4227e5702417cbe996ff1eb780a # https://github.com/Singular/Singular/issues/1334
   ./autogen.sh
 }
 
