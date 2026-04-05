@@ -1,15 +1,16 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=soplex
-pkgver=8.0.1
-pkgrel=4
+pkgver=8.0.2
+pkgrel=1
 pkgdesc='Sequential object-oriented simPlex'
 arch=(x86_64)
 url='https://www.scipopt.org/'
 license=(Apache-2.0)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          gmp
+         libgcc
+         libstdc++
          mpfr
          onetbb
          zlib)
@@ -19,7 +20,7 @@ makedepends=(boost
              papilo)
 source=(git+https://github.com/scipopt/soplex#tag=v$pkgver
         no-static.patch)
-sha256sums=('e91f51b412e237136c87af3ce04040d85a23077a90ccb9af3adc7c45cd39fd4f'
+sha256sums=('88f42e8bcdefdde4fd9a9aa06dc50a9ad0310ca689bf0e0d64484a77f44f5ade'
             '40ab0ed540fd85bf5c2346ea46ca3302bb24c051f577d7aa91103851519ac328')
 
 prepare() {

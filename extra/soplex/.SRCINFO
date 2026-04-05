@@ -1,7 +1,7 @@
 pkgbase = soplex
 	pkgdesc = Sequential object-oriented simPlex
-	pkgver = 8.0.1
-	pkgrel = 4
+	pkgver = 8.0.2
+	pkgrel = 1
 	url = https://www.scipopt.org/
 	arch = x86_64
 	license = Apache-2.0
@@ -9,15 +9,16 @@ pkgbase = soplex
 	makedepends = cmake
 	makedepends = git
 	makedepends = papilo
-	depends = gcc-libs
 	depends = glibc
 	depends = gmp
+	depends = libgcc
+	depends = libstdc++
 	depends = mpfr
 	depends = onetbb
 	depends = zlib
-	source = git+https://github.com/scipopt/soplex#tag=v8.0.1
+	source = git+https://github.com/scipopt/soplex#tag=v8.0.2
 	source = no-static.patch
-	sha256sums = e91f51b412e237136c87af3ce04040d85a23077a90ccb9af3adc7c45cd39fd4f
+	sha256sums = 88f42e8bcdefdde4fd9a9aa06dc50a9ad0310ca689bf0e0d64484a77f44f5ade
 	sha256sums = 40ab0ed540fd85bf5c2346ea46ca3302bb24c051f577d7aa91103851519ac328
 
 pkgname = soplex
