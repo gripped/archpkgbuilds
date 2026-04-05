@@ -1,7 +1,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=libwmf
-pkgver=0.2.14
+pkgver=0.2.15
 pkgrel=1
 pkgdesc="A library for reading vector images in Microsoft's native Windows Metafile Format (WMF)"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('expat' 'freetype2' 'glibc' 'libjpeg-turbo' 'libpng' 'libx11' 'zlib')
 makedepends=('gdk-pixbuf2' 'git')
 optdepends=('gdk-pixbuf2: for pixbuf loader')
 source=("git+https://github.com/caolanm/libwmf.git#tag=v$pkgver")
-sha256sums=('f3efa1f98c953d69e2f58872ab3a92faf1b3da90fe0bec241383516112b85a48')
+sha256sums=('e4277aa51da5e849b5808c2e10d0a98a43b2c339506764ce775d0aef36d82af1')
 
 prepare() {
   cd ${pkgname}
@@ -25,6 +25,11 @@ build() {
               --with-gsfontdir=/usr/share/fonts/gsfonts
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
+}
+
+check() {
+  cd ${pkgname}
+  make check
 }
 
 package() {
