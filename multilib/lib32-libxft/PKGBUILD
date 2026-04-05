@@ -2,16 +2,16 @@
 
 _pkgbasename=libxft
 pkgname=lib32-$_pkgbasename
-pkgver=2.3.8
-pkgrel=2
+pkgver=2.3.9
+pkgrel=1
 pkgdesc="FreeType-based font drawing library for X (32-bit)"
 arch=('x86_64')
-license=('custom')
+license=('HPND-sell-variant')
 url="https://xorg.freedesktop.org/"
 depends=('lib32-fontconfig' 'lib32-libxrender')
 makedepends=('gcc-multilib')
 source=(${url}/releases/individual/lib/libXft-${pkgver}.tar.xz{,.sig})
-sha512sums=('fc385d73e1acb701942c154ffb5a283d17891f21d3ac598c4a3fb375a7d6082734593062368c15cad67c1a94177dd15deed878ec5ea852188393b52e92c372c8'
+sha512sums=('493e4475c0eeab04a510819446eaa871ba9e1695e42d05bb7791d2ed59f7faff31e910dae95efa4b0ac4a7a2da38614b5740a4ca9388134bea80d348e9ad57e5'
             'SKIP')
 validpgpkeys=('19882D92DDA4C400C22C0D56CC2AF4472167BE03') # Thomas E. Dickey (use for email) <dickey@his.com>
 validpgpkeys+=('3BB639E56F861FA2E86505690FDD682D974CA72A') # Matt Turner <mattst88@gmail.com>
