@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=ponyc
-pkgver=0.62.1
+pkgver=0.63.0
 pkgrel=1
 pkgdesc='An actor model, capabilities, high performance programming language'
 arch=('x86_64')
@@ -25,7 +25,7 @@ source=(
   "git+https://github.com/llvm/llvm-project.git"
   "ponyc-remove-usr-local-refs.patch"
 )
-b2sums=('79acce190814834250247a1f2f34778111a5470bf3fa4996defdc8c9cd2ab781a1fb5b29698e4bf43a9ab0daa66f44aad9b1a20f0cc39192feee66acb1b295b7'
+b2sums=('0a33fa58508af2c86c3bbe8041def637380126d593284e618be79d48912689fab9ddaac61cd40acb6a791ad76272ed77316e709efafd30bef5e6fa8efd62ec50'
         'SKIP'
         'de5e9301abcf937eb754412b730dde359a10d7eaaa1fcab5292f82429d724cdbfa5313aff2eea05c4e479d9d881ae220a80d6ba19b97f9191851f8b48553daaf')
 
@@ -64,7 +64,7 @@ build() {
   cmake --build build/build_release
 
   mkdir docs
-  build/release/ponyc packages/stdlib -rexpr -g -o docs
+  build/Release/pony-doc -o docs packages/stdlib
 }
 
 check() {
