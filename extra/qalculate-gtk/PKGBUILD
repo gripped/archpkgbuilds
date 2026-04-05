@@ -2,25 +2,26 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=qalculate-gtk
-pkgver=5.9.0
+pkgver=5.10.0
 pkgrel=1
 pkgdesc='GTK frontend for libqalculate'
 arch=(x86_64)
 url='https://qalculate.github.io/'
 license=(GPL-2.0-only)
 depends=(cairo
-         gcc-libs
          gdk-pixbuf2
          glib2
          glibc
          gtk3
+         libgcc
          libqalculate
+         libstdc++
          pango)
 makedepends=(intltool
              git
              glib2-devel)
 source=(git+https://github.com/Qalculate/qalculate-gtk#tag=v$pkgver)
-sha256sums=('de076db228c1f900da8ea7a1f7f79839ba5a0ecf963816730f81c934cefee5d5')
+sha256sums=('ed05aafcfd8c15fa558aaf248de0f51da524b7adee596902270a6657471bbf06')
 
 prepare() {
   cd $pkgname
