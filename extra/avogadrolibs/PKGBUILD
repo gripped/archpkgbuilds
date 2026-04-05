@@ -3,8 +3,8 @@
 pkgbase=avogadrolibs
 pkgname=(avogadrolibs
          avogadrolibs-qt)
-pkgver=1.103.0
-pkgrel=2
+pkgver=2.0.0
+pkgrel=1
 pkgdesc='Libraries that provide 3D rendering, visualization, analysis and data processing useful in computational chemistry, molecular modeling, bioinformatics, materials science, and related areas'
 arch=(x86_64)
 url='https://two.avogadro.cc/'
@@ -13,27 +13,25 @@ makedepends=(boost
              cmake
              eigen
              fast_float
-             fmt
              git
-             hdf5
              genxrdpattern
              glew
+             hdf5
              jkqtplotter
              libmsym
              mmtf-cpp
              nlohmann-json
              openmpi
+             pugixml
              pybind11
              python
              qt6-svg
              qt6-tools
              spglib
              tbb
-             utf8cpp
-             verdict
-             vtk)
+             utf8cpp)
 source=(git+https://github.com/OpenChemistry/avogadrolibs#tag=$pkgver)
-sha256sums=('dbb35f1f9c81618ff9a1ffa366bac383b77dbdbae2468a167963d7eea67f3783')
+sha256sums=('5228c4e6b4eef0ffbcff4d974e5737d67f9e03c38f044b9ec5a2d049232124ce')
 
 prepare() {
   mkdir crystals fragments molecules # Dummy dirs to trick cmake, actually provided by avogadro-{crystals,fragments,molecules}
@@ -46,7 +44,6 @@ build() {
     -DCMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects" \
     -DUSE_HDF5=ON \
     -DUSE_PYTHON=ON \
-    -DUSE_VTK=ON \
     -DUSE_SYSTEM_GENXRDPATTERN=ON \
     -DUSE_EXTERNAL_NLOHMANN=ON \
     -DUSE_EXTERNAL_PUGIXML=ON \
@@ -65,16 +62,14 @@ package_avogadrolibs() {
            libglvnd
            libstdc++
            pugixml
-           spglib
-           verdict)
-  optdepends=('avogadrolibs-qt: For the VTK and Qt plugins')
+           spglib)
+  optdepends=('avogadrolibs-qt: For the Qt plugins')
 
   DESTDIR="$pkgdir" cmake --install build
   rm -r "$pkgdir"/usr/lib/libAvogadroQt* \
         "$pkgdir"/usr/lib/libAvogadroMoleQueue* \
-        "$pkgdir"/usr/lib/libAvogadroVtk* \
-        "$pkgdir"/usr/include/avogadro/{molequeue,qt*,vtk} \
-        "$pkgdir"/usr/lib/avogadro2/{scripts,staticplugins}
+        "$pkgdir"/usr/include/avogadro/{molequeue,qt*} \
+        "$pkgdir"/usr/lib/avogadro2/staticplugins
 
   install -Dm644 $pkgname/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
 }
@@ -91,18 +86,14 @@ package_avogadrolibs-qt() {
            libglvnd
            libmsym
            libstdc++
-           libxcursor # needed by VTK dependencies
-           openmpi # needed by VTK dependencies
            qt6-base
-           qt6-svg
-           vtk)
+           qt6-svg)
   conflicts=(avogadrolibs-qt5)
 
   DESTDIR="$pkgdir" cmake --install build/avogadro/molequeue
   DESTDIR="$pkgdir" cmake --install build/avogadro/qtgui
   DESTDIR="$pkgdir" cmake --install build/avogadro/qtopengl
   DESTDIR="$pkgdir" cmake --install build/avogadro/qtplugins
-  DESTDIR="$pkgdir" cmake --install build/avogadro/vtk
 
   install -Dm644 $pkgbase/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
 }
