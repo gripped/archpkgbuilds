@@ -3,8 +3,8 @@
 # Contributor: David Runge <dvzrv@archlinux.org>
 
 pkgname=python-ly
-pkgver=0.9.9
-pkgrel=2
+pkgver=0.9.10
+pkgrel=1
 pkgdesc='Parse, manipulate or create documents in LilyPond format'
 arch=(any)
 url="https://github.com/frescobaldi/$pkgname"
@@ -19,7 +19,7 @@ _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
 # PyPi releases are behind, see https://github.com/frescobaldi/python-ly/issues/163
 # source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$_archive.tar.gz")
-sha256sums=('b64983ab44ec7e580451b8fb929da5d981c3d4a633612239e86ce515c1dd7899')
+sha256sums=('250eae7e1cdfc03f61e135677318130175f15ff76eaa0cd8ed7de3c888ce575e')
 
 build() {
 	cd "$_archive"
