@@ -4,7 +4,7 @@
 # Contributor: minder
 
 pkgname=python-pillow
-pkgver=12.1.1
+pkgver=12.2.0
 pkgrel=1
 pkgdesc='Python Imaging Library (PIL) fork'
 arch=(x86_64)
@@ -49,8 +49,8 @@ optdepends=(
 source=(
   "$pkgname::git+https://github.com/python-pillow/Pillow#tag=$pkgver"
 )
-sha512sums=('f4ccccd436fb1afd8a61091b3b34e87a13dd2b9109f442bd2136107cbcd788ce5fcb3064db7e433e732d0f2f82e7e66e031226c279a34b73c47d53f1f9fdaef9')
-b2sums=('fb76a96aa93793095548e60dfffea8a1a7e0f4eff94a85f3cb344a101cdf38ab28d55f940f4f3f8e312ddf0514969380ef747c76b9032109423ba7bd3ad3b1a8')
+sha512sums=('6aa33974d04826e9ae7fa458e32eb11b6e87b6a1f29aad9542d698a0f08ebf1c4111d5a75189bc93e2959fb24fa525ee672289f928644eaddba76e43cba2f1f5')
+b2sums=('8205207450bf0e5a50e82411bdbd4827e0706893ea2999092e689731ed8506bbb1007e9c76508fceb520582eda3a65080fbc5f5f046ca8575c3f8d78d46f4639')
 
 build() {
   cd "$pkgname"
