@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=ntpd-rs
-pkgver=1.7.1
+pkgver=1.7.2
 pkgrel=1
 pkgdesc="Full-featured implementation of NTP with NTS support"
 arch=(x86_64)
@@ -9,8 +9,8 @@ url="https://docs.ntpd-rs.pendulum-project.org"
 _url="https://github.com/pendulum-project/ntpd-rs"
 license=('Apache-2.0 OR MIT')
 depends=(
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(
   rust
@@ -18,20 +18,17 @@ makedepends=(
 backup=(etc/$pkgname/ntp.toml)
 source=(
   $pkgname-$pkgver.tar.gz::$_url/archive/refs/tags/v$pkgver.tar.gz
-  $pkgname-1.7.1-update_certificates.patch::$_url/commit/1df0cc959248612faf705f2fd69f53057fd0372e.patch
   50-$pkgname.list
   $pkgname.service
   $pkgname-metrics.service
   LICENSE
 )
-sha512sums=('ebe970d98dea6d1b2bea6165909a0286fd7763806e4feb671cac2c32f53419d641a2f60e0ce4e06e5c79c9efe8858b4eef4caa1daf54e88d4181cbf68da6b77f'
-            'fa3d7991b3b481fb44a004959d1ddbbbd4b747cb27d8440ab391debc87dd3b8ff9849caa3fb190dac209ce3f55db42909ed9ed1b4d2b8b6280ad3359aa88ccd7'
+sha512sums=('ecc82081f9af5b3ce73aaafb3a12189d66519b1e02e48949d939112681e62ef6ccbfff176f4da277a35423c812109d682cc9aa1d15121e528c613de0c5c73f3e'
             'e5dae786b999383980dc1d9aaee125ee18c52651abf163a3c38a2fdaa97b9de8940052af5a4e8ce1826444fc3f246740b1a95aa35f96c8484ccb683b0f638783'
             '04e46533dcbeb97ae5e04f0f714ee4a7feae66fa5dc7bc894d7996bcab58ece661abe790ff48416599ddad6dfed4a10e7e895903072d6a70a0b29ec9c98feb63'
             '00ac29201d87e745ff1c46032f32cb21b0c20e7e56cbfad1bc34fb68c26383706a31615e52db4baecb6442687e8921003361f8d8be5eeae4358830c8756bbe17'
             'a33658d9271e5c537ccd41bf540b463ad2a5eca4a060c80486ff42a736f0aa042d10436e7177c34d792177cb11285243dee1f31c4df54fb0bfaabbc306406930')
-b2sums=('417f94fba7c44b7c88effaa67f5b8319c0302e66052603ccdb1489a63ea57f1321931140066cfc552f7c01d4c8e14ca56474aa65e3cceaa8a597c7c9d1b2f8c5'
-        'db01c9f4c13340256ccc85832645e8d26dfd3b4843b20770948e9f6ebd1f18c53a80e5b3f457705d78f232b606fb0118555cf2aa265e67fe5e129cf88470a37d'
+b2sums=('584da621d013db2023391dc48820704913ff4d17df9abf0890b250da0d27d677d4595359bb1d081bb3c939966d173e2a19ca1f4db01fb1c4a0481cb7274d941c'
         '8013fe6de65a093366d79e09b9d5ed9975cf707cfa282b9abe8e5f3be5885ec668c598cba2d2b204388b291fbe2ef249f091bd5a480d1c3d951b1ffe34cae831'
         '5d392c85742722d8850a96122ca380e2b45bda7c958df5f81d8f3f390525f76dbcf2dcb837b2f02624bb51a766ccd78c68c33b379990749b5a298fa9875b4a6c'
         'b409414cb467c9e17d5711f75b528853d193f9a48acf1c9fe2ae47eb4d8e6a69f5223e176267aa1dff33c97c41b2cbcd3d9e12d9d2dd04f3a8d1f07b0f69f679'
@@ -39,7 +36,6 @@ b2sums=('417f94fba7c44b7c88effaa67f5b8319c0302e66052603ccdb1489a63ea57f132193114
 
 prepare() {
   cd $pkgname-$pkgver
-  patch -p1 -i ../$pkgname-1.7.1-update_certificates.patch
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
