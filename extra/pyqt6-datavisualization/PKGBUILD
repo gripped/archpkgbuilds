@@ -2,15 +2,15 @@
 
 pkgbase=pyqt6-datavisualization
 pkgname=(python-pyqt6-datavisualization)
-pkgver=6.10.0
-pkgrel=2
+pkgver=6.11.0
+pkgrel=1
 pkgdesc='Python bindings for QtDataVisualization'
 arch=(x86_64)
 url='https://www.riverbankcomputing.com/software/pyqtdatavisualization/intro'
 license=(GPL3)
 groups=(pyqt6)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libstdc++
          python
          python-pyqt6
          qt6-base
@@ -19,7 +19,7 @@ makedepends=(pyqt-builder
              qt6-declarative
              sip)
 source=(https://pypi.python.org/packages/source/P/PyQt6-DataVisualization/pyqt6_datavisualization-$pkgver.tar.gz)
-sha256sums=('4581c6f6f5e84f6431b01f563ef7b5036204a5f8823b0ea1ce5a083a880c4ee5')
+sha256sums=('866f2f77ce162d296fc6957de30b59476190e8505dfdb42b77288d14e60086ee')
 
 build() {
   cd pyqt6_datavisualization-$pkgver
