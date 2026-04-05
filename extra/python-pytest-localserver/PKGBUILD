@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-localserver
-pkgver=0.9.0.post0
+pkgver=0.10.0
 pkgrel=1
 pkgdesc='py.test plugin to test server connections locally'
 arch=('any')
@@ -13,7 +13,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python
              'python-setuptools-scm')
 checkdepends=('python-requests')
 source=(git+https://github.com/pytest-dev/pytest-localserver.git#tag=v$pkgver)
-sha512sums=('fcf4c2c2fab2fc6a7e51bb2a56b0b0fdeee39a184507536744a6fa521d92a8de7172191bcd94ddff7b288f015e6c131895afcd9271aa03ba705561dfe5f08c33')
+sha512sums=('85a2c4a52e49657145e0ad6b00bd6294aaa9825bf7324b7a9a3d73267d12e672038f1222b89c7f78783cabf548ed56c19b4114abb55c85569abcb78f2e7dd9e1')
 
 build() {
   cd pytest-localserver
