@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=framework-system
-pkgver=0.6.1
+pkgver=0.6.2
 pkgrel=1
 pkgdesc='Tools to interact with the Framework Computer systems'
 url='https://github.com/FrameworkComputer/framework-system'
@@ -20,8 +20,8 @@ makedepends=(
 )
 options=(!lto)
 source=($pkgname::"git+https://github.com/FrameworkComputer/framework-system.git#tag=v${pkgver}")
-sha256sums=('ea3ad2243edd794275e151a441c06792dde606e959396c045a813051838cf37f')
-b2sums=('373af2cc5009fe87554b0378a3bdcbf6a74e17e3f9db34988beca492ff764598b1e1eaa7124d71226eb9a97fe58ace2cb49fbd64ab5609901e14b09d376f92a4')
+sha256sums=('452cfd21471c4e34677ad3666680978ff8851411ebd3976e323e48834f0920b9')
+b2sums=('87b0a733cbc16c166b6da8b042d04e11ccc7807a07e884ef1ac07b300babe7725376b419cbfa5dac0fe784ccb8a832f708936769b06950a5eb87914aec8492c4')
 
 prepare() {
   cd $pkgname
@@ -42,8 +42,8 @@ package() {
   cd $pkgname
   install -Dm 755 target/release/framework_tool -t "${pkgdir}/usr/bin"
   install -Dm 644 -t "${pkgdir}/usr/share/licenses/${pkgname}/" 'LICENSE.md'
-  install -Dm 644 -t "${pkgdir}/usr/share/bash-completion/completions/" completions/bash/framework_tool
-  install -Dm 644 -t "${pkgdir}/usr/share/zsh/site-functions/" completions/zsh/_framework_tool
+  install -Dm 644 -t "${pkgdir}/usr/share/bash-completion/completions/" framework_tool/completions/bash/framework_tool
+  install -Dm 644 -t "${pkgdir}/usr/share/zsh/site-functions/" framework_tool/completions/zsh/_framework_tool
 }
 
 # vim: ts=2 sw=2 et:
