@@ -2,14 +2,23 @@
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=lxqt-config
-pkgver=2.3.1
-pkgrel=2
+pkgver=2.3.2
+pkgrel=1
 pkgdesc="LXQt system configuration."
 arch=("x86_64")
 groups=("lxqt")
 url="https://github.com/lxqt/$pkgname"
-# Upstream licenses are messy and need clarifications... https://github.com/lxqt/lxqt-config/issues/966
-license=("LGPL2.1")
+# Based on https://github.com/lxqt/lxqt-config/blob/2.3.2/AUTHORS and my research
+# See also https://github.com/lxqt/lxqt-config/issues/966
+license=(
+  # most files
+  "GPL-2.0-only OR LGPL-2.1-or-later"
+  # liblxqt-config-cursor
+  "GPL-2.0-only OR GPL-3.0-only"
+  "GPL-2.0-only"
+  "LGPL-2.1-or-later"
+  "WTFPL"
+)
 depends=("glibc" "libstdc++"
          "qt6-base" "qt6-svg" "libkscreen"
          "libQt6Xdg.so" "liblxqt" "lxqt-themes" "lxqt-menu-data"
@@ -23,10 +32,11 @@ source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
 )
-sha256sums=('69e5ca947fda1d2b4242f3021af8c41bd0ec03096e946ca37e50248e44dd8e01'
+sha256sums=('6bfa556fafa27a4e1ea43a76de3b6f89885a39376e2b874d51977515639db0f4'
             'SKIP')
 validpgpkeys=(
 	"19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # https://github.com/tsujan.gpg
+	"48836EB124A1EAAE695EDFEA229CA0A00A17D258"  # the key owned by an email used by https://github.com/stefonarch/, a long-time LXQt contributor, as per keys.openpgp.org
 )
 
 build() {
