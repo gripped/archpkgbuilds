@@ -1,6 +1,6 @@
 pkgbase = deepin-device-formatter
 	pkgdesc = A simple graphical interface for creating file system in a block device
-	pkgver = 1.5.3
+	pkgver = 1.5.4
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-device-formatter
 	arch = x86_64
@@ -21,7 +21,16 @@ pkgbase = deepin-device-formatter
 	depends = libstdc++
 	depends = libx11
 	depends = udisks2-qt6
-	source = git+https://github.com/linuxdeepin/dde-device-formatter.git#tag=1.5.3
-	sha512sums = 976b18b422307a6e714082555ab72a02f906bf8a33e945bf84e1b96d036c08e866eecfd996b8e9d5068978cdd5cc5fbd3e2d874dccbd14b2e813929be566660d
+	optdepends = btrfs-progs: btrfs support
+	optdepends = dosfstools: FAT support
+	optdepends = e2fsprogs: ext2/3/4 support
+	optdepends = exfatprogs: exFAT support
+	optdepends = f2fs-tools: f2fs support
+	optdepends = jfsutils: JFS support
+	optdepends = nilfs-utils: nilfs2 support
+	optdepends = ntfs-3g: NTFS support
+	optdepends = xfsprogs: XFS support
+	source = git+https://github.com/linuxdeepin/dde-device-formatter.git#tag=1.5.4
+	sha512sums = b86766f5bcc6a3bbfad363fd75c2933fc5fa9e5e7bb2d9d803df55bc03ea019f047a1ff3faf9266e0143968bfbb749dc0730db3d747d165ef6824ae570f49063
 
 pkgname = deepin-device-formatter
