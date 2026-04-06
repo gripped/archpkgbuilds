@@ -1,0 +1,46 @@
+pkgbase = stalwart
+	pkgdesc = Stalwart mail and collaboration server
+	pkgver = 0.15.5
+	pkgrel = 2
+	url = https://stalw.art
+	arch = x86_64
+	license = AGPL-3.0-only
+	makedepends = git
+	makedepends = rust
+	makedepends = protobuf
+	makedepends = clang
+	makedepends = llvm
+	makedepends = libgcc
+	makedepends = libstdc++
+	makedepends = rocksdb
+	makedepends = python
+	options = !lto
+	options = !debug
+	source = stalwart::git+https://github.com/stalwartlabs/stalwart#tag=v0.15.5
+	source = systemd.service
+	source = sysusers.conf
+	source = tmpfiles.conf
+	source = config.toml
+	sha512sums = b434b4fecbfb12f2180fc8cfee5585ca1b2d73177eb53c71c8a3c58a24054f93f6f2fcac1b3846b444fa3c2cd3fdbdfcd6f137e4aa8fccc446171f2f22b50113
+	sha512sums = deb2473584577a06d755f3f7396c2c9f7c10414618dd45e00edfc5607f02ea2a98bd87207dd8c1dfcd8f96f356336fe4022a546d6c5b1d759ec9627edf8123f2
+	sha512sums = 5075932d90d22fbf1708814a70b80a2e8d74741e543fb08f477d053ee66cfb65d775b0326df956d8a3733d8606eccd6af5a7c701856f55a087c953caa2fa8c77
+	sha512sums = 877d475a1b579accc4235eb834d3ad68534d3d139a0323c7a198e9e9b5cb257afbe455cc8fa8317026530b74cf91522a57865714014ecf2be411b3741586ba76
+	sha512sums = 667d1ce3ecc3cfa03fd6e7b43f9ba5dc50e97bfd8ae5066d8e6fc4fc4953ef3c25dab2659787573eedaa1017d34d91e415818782ba9a7a76cdece88acca92bf1
+	b2sums = e0f19518084506186546aa735027de0c9facbe2f9c9191c19cb0779bcf1fadc913753f81a23d67349e2c2b7d28218c71864864510156e7da9ad733ee1c51d229
+	b2sums = b709b2c4408af54fa13f9238f62b0fec8614e2b92b69b6ae8869f242b4baa642b5e8f93b41890537a3d3c90ec9753f047da8744684d02c93272e70ba8875d000
+	b2sums = 9200d036f00a9a816184989a569465355eeab8c531d309fe5917f4a9690d847deaffb00fa6998a828bdec8823feab6dd2ff625e6d1eea98aa5aee38ecae187c6
+	b2sums = 7337c56bec9d1ebf863f533442da903a87ee80eeb318fdf1b9a5adcd8a385ae2c875309b59303407f98a2035633f4d03a2b0ab72126a155d7873f7892af3aef8
+	b2sums = afbfb97c6fae5165bb5fc2d4997f4f989735e9b81273a942d82c66cc3e950f20aa1a5af244b2ddef3362b76b568ee94128e9330eff09bed1501b355d9b25df1e
+
+pkgname = stalwart
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
+	depends = rocksdb
+	optdepends = stalwart-cli: management CLI
+	backup = etc/stalwart/config.toml
+
+pkgname = stalwart-cli
+	pkgdesc = Stalwart mail and collaboration server - Management CLI
+	depends = glibc
+	depends = libgcc
