@@ -3,18 +3,23 @@
 
 pkgname=tree-sitter-python
 pkgver=0.25.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Python grammar for tree-sitter'
 arch=(x86_64)
 url=https://github.com/tree-sitter/tree-sitter-python
 license=(MIT)
 groups=(tree-sitter-grammars)
+depends=(
+  glibc
+)
 makedepends=(
   git
   openssh
   tree-sitter-cli
 )
-optdepends=('tree-sitter: core library')
+optdepends=(
+  'tree-sitter: core library'
+)
 provides=("lib$pkgname.so")
 source=(
   "git+$url.git#tag=v$pkgver"

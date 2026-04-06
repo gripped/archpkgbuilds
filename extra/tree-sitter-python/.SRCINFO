@@ -1,7 +1,7 @@
 pkgbase = tree-sitter-python
 	pkgdesc = Python grammar for tree-sitter
 	pkgver = 0.25.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/tree-sitter/tree-sitter-python
 	arch = x86_64
 	groups = tree-sitter-grammars
@@ -9,6 +9,7 @@ pkgbase = tree-sitter-python
 	makedepends = git
 	makedepends = openssh
 	makedepends = tree-sitter-cli
+	depends = glibc
 	optdepends = tree-sitter: core library
 	provides = libtree-sitter-python.so
 	source = git+https://github.com/tree-sitter/tree-sitter-python.git#tag=v0.25.0
