@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-cython-test-exception-raiser
-pkgver=25.11.1
+pkgver=26.4.1
 pkgrel=1
 pkgdesc="A trivial extension that just raises an exception"
 url="https://github.com/twisted/cython-test-exception-raiser"
@@ -10,7 +10,7 @@ arch=('x86_64')
 depends=('python')
 makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel' 'cython')
 source=("git+https://github.com/twisted/cython-test-exception-raiser.git#tag=$pkgver")
-sha512sums=('342fb9adad0d770a034dba2c695aae33f13a4a704a211e735dcac31a519e8ad339682223c965be50d18b2528883559ebcb08d0b2cdd62675e477862374ad4ede')
+sha512sums=('15380ad0f26cf40a9892f1f78f37c4f2dc8a7396839b7bb9040e0c6963ce4d20565ba76781d091a9443fcd7ddb8edfbf65c83afa7667d2b1622255371b112e45')
 
 build() {
   cd cython-test-exception-raiser
