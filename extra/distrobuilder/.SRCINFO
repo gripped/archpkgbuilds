@@ -1,6 +1,6 @@
 pkgbase = distrobuilder
 	pkgdesc = System container image builder for Incus and LXC
-	pkgver = 3.2
+	pkgver = 3.3.1
 	pkgrel = 1
 	url = https://linuxcontainers.org/distrobuilder/
 	arch = x86_64
@@ -19,12 +19,13 @@ pkgbase = distrobuilder
 	optdepends = cdrtools: for repack-windows command
 	optdepends = hivex: for repack-windows command
 	optdepends = wimlib: for repack-windows command
-	source = https://linuxcontainers.org/downloads/distrobuilder/distrobuilder-3.2.tar.gz
-	source = https://linuxcontainers.org/downloads/distrobuilder/distrobuilder-3.2.tar.gz.asc
+	options = !lto
+	source = https://linuxcontainers.org/downloads/distrobuilder/distrobuilder-3.3.1.tar.gz
+	source = https://linuxcontainers.org/downloads/distrobuilder/distrobuilder-3.3.1.tar.gz.asc
 	validpgpkeys = 602F567663E593BCBD14F338C638974D64792D67
-	sha512sums = 9ed62c8c7307d0df4f06d8cf77e936cc4a2c6e7c058441abf675ac86bb387a0fc8e8598ff03df0776b549092ebc8e64e766d32122f79f0e2f8ec9ee595493383
+	sha512sums = b873f8c0754c2b361c326493d23be8f5f6df0a96d51cad6e119bb248964db3ee4a3e8b0531ba8299d7957ee2a556205fe3780fc41c4640953c64f74f8dd21cb0
 	sha512sums = SKIP
-	b2sums = a46048800419d9a6f71957472db984d27f33d2fdb9ae47e758495167673faf02ec0cc384dba83c08a0acf86719121157daaf77b6ddf4722b59aade7391ca0c03
+	b2sums = 020950c033b3856cbb92bc295fac6ebbc644e7b7ba4e396b928aaca971aa322f9097aac862ad917caa2b5bef055c39f6c987ccb5479db0852c6df5af20f6de16
 	b2sums = SKIP
 
 pkgname = distrobuilder
