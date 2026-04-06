@@ -3,7 +3,7 @@
 # Contributor: Justin ! <just1602@riseup.net>
 
 pkgname=tailspin
-pkgver=5.5.0
+pkgver=6.0.0
 pkgrel=1
 pkgdesc='A log file highlighter'
 url="https://github.com/bensadeh/$pkgname"
@@ -12,11 +12,11 @@ license=('MIT')
 makedepends=('cargo')
 _archive="$pkgname-$pkgver"
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('e9d7cefb865585bb048a2ccbfcc1f900ae344134d71132a7c48ee0d5af09cdaf')
+sha256sums=('fb8ed60a4a0e863304034d6f73e115183a9a27811f4a0d2afd76151a547c40d9')
 
 prepare() {
 	cd "$_archive"
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 	mv completions/{tspin.zsh,_tspin}
 	mv completions/{tspin.bash,tspin}
 }
