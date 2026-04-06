@@ -3,7 +3,7 @@
 pkgname=gnome-shell-extension-weather-oclock
 _pkgname=weather-oclock
 _uuid=weatheroclock@CleoMenezesJr.github.io
-pkgver=50.1
+pkgver=50.2
 pkgrel=1
 pkgdesc='GNOME Shell extension that displays the current weather inside the pill next to the clock'
 arch=(any)
@@ -13,7 +13,7 @@ depends=(gnome-shell)
 makedepends=(git)
 optdepends=('gnome-weather: Configure location')
 source=("git+https://github.com/CleoMenezesJr/weather-oclock.git#tag=v$pkgver")
-b2sums=(a7b654bb0d8438411c6788827cb8afd2359dfcccbc479b26b54f53858c48dcb322f40c4f8955e9d8e02f271a637735bec01098195e5a5fc61759852a4a53060d)
+b2sums=(b06527c1f8e8d5bacbd3f16fb0fc9876f98d44f3257ebc7434119d310b3652788f611fdc98d88c43a47dae7eb2ef5cf0ff3e1b83bdbb5322c645345ddfa099e3)
 
 package() {
   install -dm755 "$pkgdir/usr/share/gnome-shell/extensions"
