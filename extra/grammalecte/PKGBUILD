@@ -1,8 +1,8 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=grammalecte
-pkgver=2.1.1
-pkgrel=6
+pkgver=2.3.0
+pkgrel=1
 pkgdesc="Grammar and typographic checker dedicated to the French language – standalone version"
 arch=(any)
 url="https://grammalecte.net/"
@@ -16,7 +16,7 @@ makedepends=(
   unzip)
 options=(!emptydirs)
 source=(https://grammalecte.net/zip/Grammalecte-fr-v${pkgver}.zip)
-sha256sums=('f643eca603652469947d9bd85fb0ec08f8eb0f7b6ab925d2fb18bfc6fdd8d21c')
+sha256sums=('aaa4219704857778038ecc1db18f6a907994c0125b8e762dcecc69130280684f')
 
 build() {
   python -m build --wheel --no-isolation
