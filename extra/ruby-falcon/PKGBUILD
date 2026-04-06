@@ -2,7 +2,7 @@
 
 _gemname='falcon'
 pkgname="ruby-${_gemname}"
-pkgver=0.53.1
+pkgver=0.54.0
 pkgrel=1
 pkgdesc='A fast, asynchronous, rack-compatible web server'
 arch=(any)
@@ -23,6 +23,7 @@ depends=(
   ruby-samovar
 )
 makedepends=(
+  git
   ruby-rdoc
 )
 checkdepends=(
@@ -41,12 +42,12 @@ checkdepends=(
   ruby-sus-fixtures-openssl
 )
 options=(!emptydirs)
-source=("${url}/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('338fc2495185046e8a3f6378138d98ad904d78e71b9b49550b2e577ad025adb626507d6def52e470c25f57e2fce1856f076d55bfd0124c77564b41b68667bffe')
-b2sums=('2183d2040126c4551fc3eef7b52f9fc8d7e225b76e63579538ee056bbd95b6d0626e96f4402b0f9ca56488d045502e4249c76bfb548a08e3adc380a03894772a')
+source=("git+https://github.com/socketry/falcon.git#tag=v$pkgver")
+sha512sums=('b64185bf48d91701b2044aa9ee5237d11f351b1ebac2abb002dddd404c4c87d202a636d0c9eab2da9422c4889d7000335a5fd2dafe61385fa50e5fec9fac494c')
+b2sums=('0df750e050e82c8a6a4bfc6109276c21328f9d4b92756faa9380c7d555fb6cc22076f95e248feef28b11f6c0ee51e33f70eb885c4d85afdd95c7acba12a0b817')
 
 prepare() {
-  cd "${_gemname}-${pkgver}"
+  cd "${_gemname}"
 
   sed --in-place --regexp-extended \
     --expression 's|~>|>=|g' \
@@ -61,7 +62,7 @@ prepare() {
 }
 
 build() {
-  cd "${_gemname}-${pkgver}"
+  cd "${_gemname}"
 
   local _gemdir="$(gem env gemdir)"
 
@@ -105,7 +106,7 @@ build() {
 }
 
 check() {
-  cd "${_gemname}-${pkgver}"
+  cd "${_gemname}"
 
   local _gemdir="$(gem env gemdir)"
 
@@ -115,7 +116,7 @@ check() {
 }
 
 package() {
-  cd "${_gemname}-${pkgver}"
+  cd "${_gemname}"
 
   cp --archive --verbose tmp_install/* "${pkgdir}"
 
