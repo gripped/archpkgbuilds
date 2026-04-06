@@ -2,8 +2,8 @@
 # Contributor: ObserverOfTime <chronobserver@disroot.org>
 
 pkgname=tree-sitter-vimdoc
-pkgver=4.0.0
-pkgrel=1
+pkgver=4.1.0
+pkgrel=2
 pkgdesc='Vim help file grammar for tree-sitter'
 arch=(x86_64)
 url=https://github.com/neovim/tree-sitter-vimdoc
@@ -16,7 +16,7 @@ makedepends=(
 optdepends=('tree-sitter: core library')
 provides=("lib$pkgname.so")
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('a40ef9bb81f25cc63a1d7a2d079bd4b6ee2235882b04a5f74c2574e1fc9d9abb1890efdb5de69f33fcd2212e57cc4cec540599e9b791f79ea2a8234d9326eecb')
+b2sums=('5102cf5a457ec3d6c99e1bfaf5682ad7c976a09b712cf3d7ba5cbcd441f302899157abc64b487e69710546ba9a52e3142e1149d5f35d947db4d399fe77d9efd7')
 
 build() {
   cd $pkgname
