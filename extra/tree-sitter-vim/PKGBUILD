@@ -3,12 +3,15 @@
 
 pkgname=tree-sitter-vim
 pkgver=0.8.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Vimscript grammar for tree-sitter'
 arch=(x86_64)
 url=https://github.com/tree-sitter-grammars/tree-sitter-vim
 license=(MIT)
 groups=(tree-sitter-grammars)
+depends=(
+  glibc
+)
 makedepends=(
   git
   tree-sitter-cli
