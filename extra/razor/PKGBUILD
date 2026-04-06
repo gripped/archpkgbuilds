@@ -3,16 +3,19 @@
 # Contributor: Manolis Tzanidakis
 
 pkgname=razor
-pkgver=2.87
-pkgrel=2
+pkgver=2.88
+pkgrel=1
 pkgdesc="A distributed, collaborative, spam detection and filtering network"
 arch=('x86_64')
 url="https://metacpan.org/dist/Razor2-Client-Agent"
 license=('Artistic-2.0')
-depends=('perl')
+depends=(
+  'perl'
+  'perl-uri'
+)
 options=('!emptydirs')
 source=("https://cpan.metacpan.org/authors/id/T/TO/TODDR/Razor2-Client-Agent-${pkgver}.tar.gz")
-sha256sums=('3ba2105529d28a9086020ed3edd646d09f51f46cc8c8c3f186c046daad9cd756')
+sha256sums=('1586f1ef8759d6d52de9b1cd43056c3866161f8fd0db0048b25d46473658fdaa')
 
 build() {
   cd Razor2-Client-Agent-${pkgver}
