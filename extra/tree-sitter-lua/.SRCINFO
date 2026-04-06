@@ -1,13 +1,14 @@
 pkgbase = tree-sitter-lua
 	pkgdesc = Lua grammar for tree-sitter
 	pkgver = 0.5.0
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/tree-sitter-grammars/tree-sitter-lua
 	arch = x86_64
 	groups = tree-sitter-grammars
 	license = MIT
 	makedepends = git
 	makedepends = tree-sitter-cli
+	depends = glibc
 	optdepends = tree-sitter: core library
 	provides = libtree-sitter-lua.so
 	source = git+https://github.com/tree-sitter-grammars/tree-sitter-lua.git#tag=v0.5.0
