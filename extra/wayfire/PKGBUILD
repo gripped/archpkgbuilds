@@ -1,0 +1,79 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Adrian Perez de Castro <aperez@igalia.com>
+
+pkgname=wayfire
+pkgver=0.10.1
+pkgrel=4
+pkgdesc='3D Wayland compositor, inspired by Compiz and based on wlroots'
+arch=(x86_64)
+url='https://wayfire.org/'
+license=(MIT)
+depends=(
+  cairo
+  glib2
+  glibc
+  libevdev
+  libgcc
+  libglvnd
+  libgomp
+  libinput
+  libjpeg
+  libpng
+  libstdc++
+  libxcb
+  libxkbcommon
+  pango
+  pixman
+  systemd-libs
+  vulkan-icd-loader
+  wayland
+  "wf-config>=${pkgver%.*}.0"
+  wlroots0.19
+  yyjson
+)
+makedepends=(
+  doctest
+  git
+  glm
+  meson
+  vulkan-headers
+  wayland-protocols
+)
+source=(
+  "git+https://github.com/WayfireWM/wayfire.git#tag=v$pkgver"
+  git+https://github.com/WayfireWM/wf-config.git
+  git+https://github.com/WayfireWM/wf-utils.git
+  git+https://github.com/WayfireWM/wf-touch.git
+)
+b2sums=(
+  6c64d6edc5b8226875c9f4adb9a1f0f07f952fb7aa274809d23feb2f3c01f8431ce2a24673b4752aef3a3c45554186995817e1663817b2ef7f0a713c81f2a4b0
+  SKIP
+  SKIP
+  SKIP
+)
+
+prepare() {
+  cd $pkgname
+
+  git submodule init
+  git config submodule.subprojects/wlroots.update none
+  git submodule set-url subprojects/wf-config "$srcdir/wf-config"
+  git submodule set-url subprojects/wf-utils "$srcdir/wf-utils"
+  git submodule set-url subprojects/wf-touch "$srcdir/wf-touch"
+  git -c protocol.file.allow=always submodule update
+}
+
+build() {
+  arch-meson $pkgname build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+  install -Dm644 -t "$pkgdir/usr/share/doc/$pkgname" $pkgname/wayfire.ini
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" $pkgname/LICENSE
+}
