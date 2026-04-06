@@ -10,7 +10,7 @@ pkgbase=qtcreator
 pkgname=(qtcreator
          qtcreator-devel)
 pkgver=19.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Lightweight, cross-platform integrated development environment'
 arch=(x86_64)
 url='https://www.qt.io'
@@ -38,7 +38,8 @@ depends=(clang
          yaml-cpp
          zstd)
 # syntax-highlighting
-makedepends=(cmake
+makedepends=(clang21 # for qdoc
+             cmake
              git
              go
              llvm)
