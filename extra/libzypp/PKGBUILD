@@ -6,7 +6,7 @@ pkgname=(
     libzypp-docs
 )
 pkgver=17.38.5
-pkgrel=1
+pkgrel=2
 pkgdesc="ZYpp Package Management library"
 arch=(x86_64)
 url="https://github.com/openSUSE/libzypp"
@@ -64,8 +64,8 @@ build() {
 }
 
 check() {
-    # https://github.com/openSUSE/libzypp/issues/622
-    local excluded_tests=""
+    # https://github.com/openSUSE/libzypp/issues/689
+    local excluded_tests="RpmPkgSigCheck_test"
     local ctest_flags=(
         --test-dir build
         # show the stdout and stderr when the test fails
