@@ -2,7 +2,7 @@
 
 pkgname=tree-sitter-rust
 pkgver=0.24.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Rust grammar for tree-sitter'
 arch=('x86_64')
 url=https://github.com/tree-sitter/tree-sitter-rust
@@ -16,7 +16,7 @@ b2sums=('f3761d20b4a51b07920671853278d79ff9c03a91bdbdf5cf4a0f38fb5388b0d87074b70
 
 prepare() {
   cd $pkgname
-  tree-sitter generate --no-bindings src/grammar.json
+  tree-sitter generate src/grammar.json
 }
 
 build() {
