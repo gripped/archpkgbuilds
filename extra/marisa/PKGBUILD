@@ -3,17 +3,20 @@
 
 pkgbase=marisa
 pkgname=('marisa' 'perl-marisa' 'python-marisa' 'ruby-marisa')
-pkgver=0.3.0
+pkgver=0.3.1
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/s-yata/marisa-trie"
 license=('BSD-2-Clause OR LGPL-2.1-or-later')
 makedepends=('git' 'cmake' 'python' 'ruby' 'perl' 'swig' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("git+https://github.com/s-yata/marisa-trie.git#tag=v$pkgver")
-sha512sums=('156a9a41185655e2707ec459823db5d5ac5703b4a63bf97723a950298288efadb9d82a8320303da3ac2c7b0b38d022d9c9e002f72b7acf6d4ffcb921d6a4ef62')
+sha512sums=('6d9e2290f6985a6e6232dd586d90c60350edd3bac7f3d145542722862750667ebcee1f69f37d035fb0632f4a111c15ff1f88805c3229eb2c3e79f474e1b589ad')
 
 prepare() {
   cd marisa-trie
+
+  # Fix binding build after upstream exception API changes.
+  git cherry-pick -n cf4602f08df49861d987d122bd85bfdb456fe7a0
 
   # Upstream installs targets only for the Release configuration, but Arch
   # builds with CMAKE_BUILD_TYPE=None.
