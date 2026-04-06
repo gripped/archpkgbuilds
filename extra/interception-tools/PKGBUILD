@@ -3,10 +3,10 @@
 
 pkgname=interception-tools
 pkgver=0.6.8
-pkgrel=8
+pkgrel=9
 pkgdesc='A minimal composable infrastructure on top of libudev and libevdev'
 arch=('x86_64')
-license=('GPL3')
+license=('GPL-3.0-only')
 url='https://gitlab.com/interception/linux/tools'
 depends=(
     'libevdev' 'libevdev.so'
@@ -20,6 +20,7 @@ source=(
 sha256sums=('84ced1c10bef7f00660704685c651c4241096cc9848c31f5a04f166e1450949d')
 
 build() {
+    export CMAKE_POLICY_VERSION_MINIMUM=3.5
     cmake -B build \
           -S "tools-v${pkgver}" \
           -DCMAKE_INSTALL_PREFIX=/usr \
