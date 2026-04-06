@@ -1,33 +1,33 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org> 
 
 pkgname=nsjail
-pkgver=3.4
-pkgrel=23
+pkgver=3.6
+pkgrel=1
 pkgdesc="Light-weight process isolation tool"
 arch=(x86_64)
 url="https://nsjail.com"
 license=(Apache)
-depends=(protobuf libnl)
+depends=(abseil-cpp glibc protobuf libgcc libnl libstdc++)
 makedepends=(git)
-source=(https://github.com/google/nsjail/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
-        git+https://github.com/google/kafel.git#commit=1af0975af45ca4404f357b9a4e1636f53a01bfd3
-        protobuf-23.patch)
-sha256sums=('d4966e92e3246b69abf58c1d336176a7bef0cfa95a5f2f7369fc65cd2a1a8561'
-            'SKIP'
-            '8f7948c24e5d058208c5db0eed49d6fd23b507cd2ae60528e7ae7a11b58f8f4b')
+source=(git+https://github.com/google/nsjail#tag=$pkgver
+        git+https://github.com/google/kafel.git)
+sha256sums=('40992e9ff7a1e4e32ae1bcf44228de652af2221bbd2121083bf2b40237854dd8'
+            'SKIP')
+options=(!lto)
 
 prepare() {
-  mv kafel ${pkgname}-${pkgver}
-  # protobuf 23 requires C++17
-  sed -e 's|-std=c++14|-std=c++17|' -i $pkgname-$pkgver/Makefile
-  sed -e 's|-Werror||' -i $pkgname-$pkgver/Makefile
-  patch -d $pkgname-$pkgver -p1 < protobuf-23.patch
+  cd $pkgname
+  git submodule init
+  git submodule set-url kafel "$srcdir"/kafel
+  git -c protocol.file.allow=always submodule update kafel
+  
+  sed -e 's|-Werror||' -i Makefile
 }
 
 build() {
-  make -C ${pkgname}-${pkgver}
+  make -C ${pkgname}
 }
 
 package() {
-  install -Dm755 ${pkgname}-${pkgver}/nsjail -t "${pkgdir}"/usr/bin/ 
+  install -Dm755 ${pkgname}/nsjail -t "${pkgdir}"/usr/bin/ 
 }
