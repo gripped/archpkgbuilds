@@ -2,13 +2,16 @@
 # Contributor: ObserverOfTime <chronobserver@disroot.org>
 
 pkgname=tree-sitter-markdown
-pkgver=0.5.1
-pkgrel=1
+pkgver=0.5.3
+pkgrel=2
 pkgdesc='Markdown grammar for tree-sitter'
 arch=(x86_64)
 url=https://github.com/tree-sitter-grammars/tree-sitter-markdown
 license=(MIT)
 groups=(tree-sitter-grammars)
+depends=(
+  glibc
+)
 makedepends=(
   cmake
   git
@@ -20,7 +23,7 @@ provides=(
   "lib$pkgname-inline.so"
 )
 source=("git+$url.git#commit=v$pkgver")
-b2sums=('e72cefd58567a1e76356cceaa2f670286dd1f8eab8df79a58ab885d8dc813b61dde55413b1d1bc6bdfb33e1b98e32014d4e33dd7b47d6c5f494950195a4ddb23')
+b2sums=('1252abe04242f577f3279c8b9b7fd9153961fbb1edc4accea0227f82699a216239c3bce80a7ad4cf696e33e09493780c57bdafd4d4db1ca0356adc31d81bf421')
 
 prepare() {
   cd $pkgname/tree-sitter-markdown
@@ -38,6 +41,7 @@ build() {
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
   )
+
   cmake "${cmake_options[@]}"
   cmake --build build
 }
