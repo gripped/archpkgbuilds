@@ -1,8 +1,8 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=hunspell-fr
-pkgver=7.0
-pkgrel=4
+pkgver=7.7
+pkgrel=1
 pkgdesc="French (classic/modern) hunspell dictionaries"
 arch=(any)
 url="https://grammalecte.net/download.php?prj=fr"
@@ -11,7 +11,7 @@ makedepends=(qt6-webengine)
 provides=('hunspell-dictionary')
 optdepends=('hunspell: the spell checking libraries and apps')
 source=(https://grammalecte.net/oxt/lo-oo-ressources-linguistiques-fr-v${pkgver}.oxt)
-sha256sums=('e8a352abd550bfd773b09d6631e96af3dbcfefecc9b50d3b7bb6094e429cc64b')
+sha256sums=('9f679889ff60f787a06e74f271ed1b40d2fa0ee8cdd10ecbe56134cba9c71b05')
 
 package() {
   cd dictionaries
