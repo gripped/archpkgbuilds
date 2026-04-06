@@ -2,13 +2,14 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=lxqt-panel
-pkgver=2.3.2
-pkgrel=2
+pkgver=2.3.3
+pkgrel=1
 pkgdesc="The LXQt desktop panel"
 arch=("x86_64")
 groups=("lxqt")
 url="https://github.com/lxqt/$pkgname"
-license=("LGPL2.1")
+# https://github.com/lxqt/lxqt-panel/blob/2.3.3/AUTHORS#L9
+license=("LGPL-2.1-or-later")
 depends=(
 	"libdbusmenu-lxqt" "lxqt-menu-data" "lxqt-themes" "libxtst"
 	"lxqt-globalkeys" "solid" "libxcb" "libQt6Xdg.so" "layer-shell-qt"
@@ -27,12 +28,11 @@ makedepends=(
 source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
 )
-sha256sums=('f1ab0a2a645765045078621b6a510ec61685fbe4446422f9f9fb1cded62eb2d0'
+sha256sums=('f0c2e004ea7229c73583ceaaec2c600aeb92419c9d0aaa40a71969ee140bc08c'
             'SKIP')
 validpgpkeys=(
-	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
-	"7C733BA5F585AAD669E4D23A42C9C8D3AF5EA5E3"  # Alf Gaida <agaida@siduction.org>
 	"19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # Pedram Pourang <tsujan2000@gmail.com>
+	"48836EB124A1EAAE695EDFEA229CA0A00A17D258"  # the key owned by an email used by https://github.com/stefonarch/, a long-time LXQt contributor, as per keys.openpgp.org
 )
 
 build() {
