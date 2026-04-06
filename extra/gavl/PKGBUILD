@@ -4,7 +4,7 @@
 # Contributor: Mateusz Herych <heniekk@gmail.com>
 
 pkgname=gavl
-pkgver=2.0.0
+pkgver=2.0.1
 pkgrel=1
 pkgdesc='Low level library, upon which multimedia APIs can be built'
 arch=(x86_64)
@@ -13,7 +13,7 @@ license=(GPL-2.0-or-later)
 depends=(glibc nettle gnutls libdrm libgl libva)
 makedepends=(git doxygen libpng)
 source=("git+https://github.com/bplaum/gavl.git#tag=v$pkgver")
-b2sums=('da715487e58cc2bc2d2c49579161f964c1d1151bde589b2a1fad8b00c7a1e40fd582ae643c16f20b522ddc7bec6ebeb6254050dfc0278f8b74d1b37b80023b86')
+b2sums=('c47fa36b64bcf97f6453ec8cdb95a36eda04c2850afb8cd465db0d1c17e3905abe5f5a36e6a00ac5546daedd754238cec1841a09e91aed99ae4209fa0935003c')
 
 prepare() {
   cd $pkgname
