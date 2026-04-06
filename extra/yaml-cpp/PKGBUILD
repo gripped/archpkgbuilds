@@ -4,8 +4,8 @@
 # Contributor: Markus Martin <markus@archwyrm.net>
 
 pkgname=yaml-cpp
-pkgver=0.8.0
-pkgrel=3
+pkgver=0.9.0
+pkgrel=1
 pkgdesc="YAML parser and emitter in C++, written around the YAML 1.2 spec"
 arch=('x86_64')
 url="https://github.com/jbeder/yaml-cpp"
@@ -20,19 +20,11 @@ makedepends=(
   'git'
 )
 provides=('libyaml-cpp.so')
-source=("git+${url}.git#tag=${pkgver}")
-b2sums=('0204d6a76cb41f387e31b5123930eda5e51fef971c99b7e2b65ee26981b7888162f2b59ef167d03a2555ceb7a66c8eaf8c27d6b62b0264941462701b284d1975')
-
-prepare() {
-  # Fix build with GCC 15
-  git -C ${pkgname} cherry-pick -n 7b469b4220f96fb3d036cf68cd7bd30bd39e61d2
-  # Don't install embedded copy of GTest
-  git -C ${pkgname} cherry-pick -n f878043f12a9434a2ef72de3992ec92e6845c889
-}
+source=("git+$url.git#tag=yaml-cpp-$pkgver")
+b2sums=('757d0b3724536b411b6c0e505540e02117c06449ddc5059b24f9a59bbdbd1fab8710dd1746c10d17ad61decc5cd2bd1c081791a06b79af1fe6aa3a50dbe238d5')
 
 build() {
-  export CMAKE_POLICY_VERSION_MINIMUM=3.5
-  cmake -S ${pkgname} -Bbuild \
+  cmake -S $pkgname -Bbuild \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Wno-dev \
@@ -47,8 +39,8 @@ check() {
 }
 
 package() {
-  DESTDIR="${pkgdir}" cmake --install build
-  cd ${pkgname}
-  install -vDm 644 {CONTRIBUTING,README}.md -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -vDm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  DESTDIR="$pkgdir" cmake --install build
+  cd $pkgname
+  install -vDm 644 -t "$pkgdir/usr/share/doc/$pkgname" {CONTRIBUTING,README}.md
+  install -vDm 644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
