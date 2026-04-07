@@ -1,17 +1,17 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -96,6 +96,10 @@ message("Initial BASISU_OPENCL=${BASISU_OPENCL}")
- message("Initial BASISU_SAN=${BASISU_SAN}")
- message("Initial BASISU_EXAMPLES=${BASISU_EXAMPLES}")
+@@ -26,6 +26,10 @@ option(BASISU_EXAMPLES "build examples" TRUE)
+ option(BASISU_WASM_THREADING "Enable WASI threading support" OFF)
+ option(BASISU_BUILD_PYTHON "Build native Python module via pybind11" OFF)
  
 +if(BASISU_SYSTEM_ZSTD)
 +    find_package(zstd CONFIG REQUIRED)
 +endif()
 +
- if ((NOT MSVC) AND BASISU_OPENCL)
-     # With MSVC builds we use the Khronos lib/include files in the project's "OpenCL" directory, to completely avoid requiring fiddly to install vendor SDK's.
-     # Otherwise we use the system's (if any).
-@@ -286,16 +288,19 @@ set(ENCODER_LIB_SRC_LIST
+ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+ 
+ # For MSVC builds default to SSE enabled, and determine if it's a 64-bit (-A x64) vs. 32-bit (-A Win32) build.
+@@ -286,13 +290,8 @@ set(ENCODER_LIB_SRC_LIST
      transcoder/basisu_transcoder.h
      transcoder/basisu_idct.h
      transcoder/basisu.h
@@ -25,6 +25,10 @@
  # Create the static library
  add_library(basisu_encoder STATIC ${ENCODER_LIB_SRC_LIST})
  
+@@ -300,6 +299,14 @@ add_library(basisu_encoder STATIC ${ENCODER_LIB_SRC_LIST})
+ add_executable(basisu basisu_tool.cpp)
+ target_link_libraries(basisu PRIVATE basisu_encoder)
+ 
 +if (BASISU_ZSTD AND BASISU_SYSTEM_ZSTD)
 +    find_package(zstd CONFIG REQUIRED)
 +    target_link_libraries(basisu_encoder PRIVATE zstd::libzstd)
@@ -33,9 +37,9 @@
 +    target_include_directories(basisu_encoder BEFORE PRIVATE zstd)
 +endif()
 +
- # Create the basisu executable and link against the static library
- add_executable(basisu basisu_tool.cpp)
- target_link_libraries(basisu PRIVATE basisu_encoder)
+ # Create the new example executable and link against the static library
+ if(BASISU_EXAMPLES)
+     add_executable(example example/example.cpp)
 --- a/cmake/basisuConfig.cmake.in
 +++ b/cmake/basisuConfig.cmake.in
 @@ -1,5 +1,10 @@
@@ -51,15 +55,15 @@
  
 --- a/encoder/basisu_astc_ldr_encode.cpp
 +++ b/encoder/basisu_astc_ldr_encode.cpp
-@@ -18,7 +18,7 @@
- #include "3rdparty/android_astc_decomp.h"
- #include <queue>
+@@ -27,7 +27,7 @@
+ #endif
  
+ #if BASISD_SUPPORT_KTX2_ZSTD
 -#include "../zstd/zstd.h"
 +#include <zstd.h>
+ #endif
  
  namespace basisu {
- namespace astc_ldr {
 --- a/encoder/basisu_comp.cpp
 +++ b/encoder/basisu_comp.cpp
 @@ -34,7 +34,7 @@
