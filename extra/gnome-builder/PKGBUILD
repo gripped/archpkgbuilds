@@ -2,8 +2,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-builder
-pkgver=49.1
-pkgrel=3
+pkgver=50.0
+pkgrel=1
 pkgdesc="An IDE for writing GNOME-based software"
 url="https://apps.gnome.org/Builder/"
 arch=(x86_64)
@@ -18,7 +18,6 @@ depends=(
   desktop-file-utils
   editorconfig-core-c
   flatpak
-  gcc-libs
   gdk-pixbuf2
   gjs
   glib2
@@ -32,6 +31,7 @@ depends=(
   jsonrpc-glib
   libadwaita
   libdex
+  libgcc
   libgirepository
   libgit2-glib
   libpanel
@@ -64,7 +64,10 @@ makedepends=(
   python-sphinx_rtd_theme
   yelp-tools
 )
-checkdepends=(weston)
+checkdepends=(
+  weston
+  xdg-desktop-portal-gnome
+)
 optdepends=(
   'bash-language-server: Shell code assistance'
   'python-lsp-server: Python code assistance'
@@ -79,7 +82,7 @@ replaces=(
 )
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-builder.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('1ff9e20f8ffaa9b6c0955fc3c02175af06025b87e52777aa1bef10d3488e49bd1b5faa3a3acb323bee08bce7e3fd48b942ed613393d0bcee7a3c28dff2d5833a')
+b2sums=('e0266dbdcc6abcf0e96adb197c62ce525c080924eda64f7a7bc599b83e0d7034595bc8da08cba4478eb2e59c67b4015357a393bcf82aeadcef1320ec3b5d7c6a')
 
 prepare() {
   cd $pkgname

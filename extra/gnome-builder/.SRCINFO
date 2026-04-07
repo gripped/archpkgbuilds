@@ -1,12 +1,13 @@
 pkgbase = gnome-builder
 	pkgdesc = An IDE for writing GNOME-based software
-	pkgver = 49.1
-	pkgrel = 3
+	pkgver = 50.0
+	pkgrel = 1
 	url = https://apps.gnome.org/Builder/
 	arch = x86_64
 	groups = gnome-extra
 	license = GPL-3.0-or-later
 	checkdepends = weston
+	checkdepends = xdg-desktop-portal-gnome
 	makedepends = appstream
 	makedepends = git
 	makedepends = glib2-devel
@@ -25,7 +26,6 @@ pkgbase = gnome-builder
 	depends = desktop-file-utils
 	depends = editorconfig-core-c
 	depends = flatpak
-	depends = gcc-libs
 	depends = gdk-pixbuf2
 	depends = gjs
 	depends = glib2
@@ -39,6 +39,7 @@ pkgbase = gnome-builder
 	depends = jsonrpc-glib
 	depends = libadwaita
 	depends = libdex
+	depends = libgcc
 	depends = libgirepository
 	depends = libgit2-glib
 	depends = libpanel
@@ -65,8 +66,8 @@ pkgbase = gnome-builder
 	conflicts = gnome-builder-flatpak
 	replaces = gnome-builder-clang<=46.1-4
 	replaces = gnome-builder-flatpak<=46.1-4
-	source = git+https://gitlab.gnome.org/GNOME/gnome-builder.git#tag=49.1
-	b2sums = 1ff9e20f8ffaa9b6c0955fc3c02175af06025b87e52777aa1bef10d3488e49bd1b5faa3a3acb323bee08bce7e3fd48b942ed613393d0bcee7a3c28dff2d5833a
+	source = git+https://gitlab.gnome.org/GNOME/gnome-builder.git#tag=50.0
+	b2sums = e0266dbdcc6abcf0e96adb197c62ce525c080924eda64f7a7bc599b83e0d7034595bc8da08cba4478eb2e59c67b4015357a393bcf82aeadcef1320ec3b5d7c6a
 
 pkgname = gnome-builder
 	depends = autoconf-archive
@@ -78,7 +79,6 @@ pkgname = gnome-builder
 	depends = desktop-file-utils
 	depends = editorconfig-core-c
 	depends = flatpak
-	depends = gcc-libs
 	depends = gdk-pixbuf2
 	depends = gjs
 	depends = glib2
@@ -92,6 +92,7 @@ pkgname = gnome-builder
 	depends = jsonrpc-glib
 	depends = libadwaita
 	depends = libdex
+	depends = libgcc
 	depends = libgirepository
 	depends = libgit2-glib
 	depends = libpanel
