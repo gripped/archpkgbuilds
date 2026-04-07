@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-font-viewer
-pkgver=49.0
+pkgver=50.0
 pkgrel=1
 pkgdesc="A font viewer utility for GNOME"
 url="https://apps.gnome.org/FontViewer/"
@@ -13,14 +13,13 @@ depends=(
   fontconfig
   freetype2
   fribidi
-  gcc-libs
   glib2
   glibc
-  graphene
   gtk4
   harfbuzz
   hicolor-icon-theme
   libadwaita
+  libgcc
   pango
 )
 makedepends=(
@@ -29,7 +28,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-font-viewer.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('1652a62ea63a0a7abd68cdc8c04e74d1b75885c43154e7e59b926b15f18455e6a14b0797c5dbbdf4d3e1f2a24d6431a6a15b30fc970305b26067a815566bc012')
+b2sums=('cf1a4439d99880ba5a94c28370a1ebe2d54b6bf8afcec1ecbace701cf69c63f02e0ed3e830c1fd10d85328854bcea78e8afeca6ef1f763705c6e1b37e1901860')
 
 prepare() {
   cd $pkgname
