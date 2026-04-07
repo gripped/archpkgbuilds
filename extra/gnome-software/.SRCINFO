@@ -1,6 +1,6 @@
 pkgbase = gnome-software
 	pkgdesc = Allows you to find and install new apps
-	pkgver = 49.3
+	pkgver = 50.0
 	pkgrel = 1
 	url = https://apps.gnome.org/Software
 	arch = x86_64
@@ -19,7 +19,6 @@ pkgbase = gnome-software
 	makedepends = meson
 	depends = appstream
 	depends = dconf
-	depends = gcc-libs
 	depends = gdk-pixbuf2
 	depends = glib2
 	depends = glibc
@@ -29,7 +28,9 @@ pkgbase = gnome-software
 	depends = hicolor-icon-theme
 	depends = json-glib
 	depends = libadwaita
+	depends = libgcc
 	depends = libgudev
+	depends = libmalcontent
 	depends = libsoup3
 	depends = libsysprof-capture
 	depends = libxmlb
@@ -39,11 +40,11 @@ pkgbase = gnome-software
 	optdepends = flatpak: Flatpak support plugin
 	optdepends = fwupd: fwupd support plugin
 	optdepends = malcontent: Parental control plugin
-	source = git+https://gitlab.gnome.org/GNOME/gnome-software.git?signed#tag=49.3
+	source = git+https://gitlab.gnome.org/GNOME/gnome-software.git?signed#tag=50.0
 	source = git+https://gitlab.gnome.org/mwleeds/gnome-pwa-list.git
 	validpgpkeys = 2AA441054BD2F1715EC11610FB183E7EF3C36A0D
 	validpgpkeys = 923B7025EE03C1C59F42684CF0942E894B2EAFA0
-	b2sums = e7f91ae1f7dcafdb480a2fd97503c3548ac39fd460bceed75b19837f48b3d8b418461249bc3275c639e7b5ab28df0e37f91f297e3890f695e0867f407f027e9b
+	b2sums = 127ec6ae9fdd890072a5149f035c0a9d9a23090a7c3aab52b4bf6eeece24753ba63fde9339036086313e8f879b80c1ef490cd62a13dbada07dc2570a2d94886c
 	b2sums = SKIP
 
 pkgname = gnome-software
