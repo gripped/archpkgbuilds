@@ -3,7 +3,7 @@
 # Contributor: Igor Dyatlov <dyatlov.igor@gmail.com>
 
 pkgname=gnome-console
-pkgver=49.2
+pkgver=50.0
 pkgrel=1
 pkgdesc="A simple user-friendly terminal emulator for the GNOME desktop"
 url="https://apps.gnome.org/Console/"
@@ -11,12 +11,12 @@ arch=(x86_64)
 license=(GPL-3.0-or-later)
 depends=(
   dconf
-  gcc-libs
   gtk4
   glib2
   glibc
   hicolor-icon-theme
   libadwaita
+  libgcc
   libgtop
   pango
   vte4
@@ -34,7 +34,7 @@ checkdepends=(
 )
 groups=(gnome)
 source=("$pkgname::git+https://gitlab.gnome.org/GNOME/console.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('b079240dfc1f47f974899ee64eb46faf4dd47d41e719001dc7098bd3955433df842f1655396757f7097f843b4d4565c8c2d59a26f5497e7bb19a67969fb8efea')
+b2sums=('8041082f14cbf6cb5a77934b5f109870b8c4aa02000b3cc86d27ff91af4fb284f8f1af048f14e9f973e8444e217528e9d9d0d05f87ce09db4e469df76dd53e57')
 
 prepare() {
   cd $pkgname
