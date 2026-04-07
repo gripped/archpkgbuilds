@@ -7,7 +7,7 @@
 
 pkgname='alacritty'
 pkgdesc="A cross-platform, GPU-accelerated terminal emulator"
-pkgver=0.16.1
+pkgver=0.17.0
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/alacritty/alacritty"
@@ -19,11 +19,11 @@ optdepends=('ncurses: for alacritty terminfo database')
 source=("git+$url.git#tag=v$pkgver?signed")
 validpgpkeys=('4DAA67A9EA8B91FCC15B699C85CDAE3C164BA7B4'  # Christian Dürr <contact@christianduerr.com>
               'A56EF308A9F1256C25ACA3807EA8F8B94622A6A9') # Kirill Chibisov <contact@kchibisov.com>
-sha256sums=('e339261179f7edcaf9c28b1646d5a6761e76eae62078f07c308e8efa9ace18bb')
+sha256sums=('fa03da86b110adcaaf9f476ee5de8ce1e59b913b2cf4e5d0374bf70af9c092c7')
 
 prepare() {
   cd "$pkgname"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build(){
