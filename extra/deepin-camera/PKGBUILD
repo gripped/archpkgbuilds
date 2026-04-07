@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-camera
-pkgver=6.0.6
+pkgver=6.0.7
 pkgrel=1
 pkgdesc='Tool to view camera, take photo and video'
 arch=('x86_64')
@@ -17,8 +17,8 @@ optdepends=('deepin-image-viewer: view camera photos'
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-camera.git#tag=$pkgver"
         v4l2_and_ffmpeg_fixes.patch)
-sha512sums=('5ee24055c9d0fb116e7790eb868a29e86726b0e76b3f06e0f44c3224a8aef0b3d9bae65f014246bf38f5eb1231e8e51618b4269fdd063f97e5ee0d3d6cb7c343'
-            '04de25ce98c3ffb9783e76347e5c6e2a115ba9b66b6a715ecb10f04daad26d40a77f87253723eab7e4550b135ce4e3246e93234420c69d69fc35e7dbfe8c4ade')
+sha512sums=('2a0bae46241d85609562196587b0d675ec194a12ea82b97266c9654fd5585feb262e92f34ecc0046f5a40efac0d4bdb02af56a4c32662a04aefdf5954504aaa3'
+            '855ce4a00e91960dfefefcec436bcd2ef59cb8cbc67e10f9bb9732bec4f42dd0b04407fa994cb0a104a28203242bf246a77f04581fd23b768a8fc08580f16ec5')
 
 prepare() {
   cd deepin-camera
