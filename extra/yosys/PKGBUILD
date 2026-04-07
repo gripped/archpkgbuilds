@@ -3,14 +3,14 @@
 # Contributor: killruana <killruana@gmail.com>
 
 pkgname=yosys
-pkgver=0.58
+pkgver=0.59
 pkgrel=1
 pkgdesc='A framework for RTL synthesis'
 arch=('x86_64')
 url='https://yosyshq.net/yosys/'
 license=('ISC')
-depends=('abc' 'bash' 'boost-libs' 'tcl' 'libffi' 'python' 'protobuf')
-makedepends=('boost' 'git')
+depends=('abc' 'bash' 'glibc' 'libffi' 'libgcc' 'python' 'protobuf' 'readline' 'tcl' 'zlib' 'libstdc++')
+makedepends=('boost' 'git' 'pybind11' 'python-cxxheaderparser')
 checkdepends=('iverilog' 'gtkwave')
 optdepends=('graphviz: Schematics display support'
             'xdot: Display netlists'
@@ -19,11 +19,9 @@ optdepends=('graphviz: Schematics display support'
             'z3: alternative solver for yosys-smtbmc')
 options=('!lto') # getting SIGSEGV when running the tests with LTO
 source=(git+https://github.com/YosysHQ/yosys#tag=v$pkgver
-        git+https://github.com/jarro2783/cxxopts
-        boost-1.89.patch)
-sha512sums=('263df82171c41e45e27778e39ba06dfc3a777123921fca86bbfa7226df8002a0a3d71894d8f33d56fcdca0edd360d55955397579eafb33507b8cea544a6cf2be'
-            'SKIP'
-            'f926dd219f6ea13fee0d215e3305e5c9bab8f06ebb715f7cadcc80e199096d87a3dd9acbdc6f2727bd8e6e8c85e4c63b8068212a81c906ba0694af6f2b394a96')
+        git+https://github.com/jarro2783/cxxopts)
+sha512sums=('18cf623ea061786c93b0981a28bd4a2100e78afc610ee78c2476ec2a8019a70e10d14de276fcd194aa8a7048e2aab03b7fdd814593f15bafba0c5d526c2de0f8'
+            'SKIP')
 
 prepare() {
   cd yosys
@@ -31,16 +29,17 @@ prepare() {
   git submodule set-url libs/cxxopts "$srcdir"/cxxopts
   git -c protocol.file.allow=always submodule update libs/cxxopts
 
+  # Fix pyosys wrapper generation with nested SigSpec::Chunks on 0.59.
+  git cherry-pick -n e29328ec99e6b8a3cc5bd60c169ebed47f1b279c
+
   sed -e '/cp yosys-abc/d' -i Makefile # Fix Makefile trying to install yosys-abc even if using system one
-  patch -p1 -i ../boost-1.89.patch
 }
 
 _make() {
-    local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
-    local python_version_combined=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
     make \
         PREFIX="/usr" \
         CONFIG=gcc \
+        LINKFLAGS="$LDFLAGS -rdynamic" \
         ENABLE_TCL=1 \
         ENABLE_ABC=1 \
         ENABLE_GLOB=1 \
@@ -50,7 +49,7 @@ _make() {
         ENABLE_ZLIB=1 \
         ENABLE_PYOSYS=1 \
         ABCEXTERNAL=/usr/bin/abc \
-        BOOST_PYTHON_LIB="-lpython${python_version} -lboost_python${python_version_combined}" $@
+        PYOSYS_USE_UV=0 $@
 }
 
 build() {
