@@ -4,7 +4,7 @@
 
 pkgname=xed
 pkgver=3.8.9
-pkgrel=1
+pkgrel=2
 pkgdesc='A small and lightweight text editor'
 arch=(x86_64)
 url='https://github.com/linuxmint/xed'
@@ -20,7 +20,6 @@ depends=(
   gspell
   gtk3
   gtksourceview4
-  libgirepository
   libpeas
   libx11
   libxml2
@@ -35,6 +34,7 @@ makedepends=(
   gobject-introspection
   intltool
   itstool
+  libgirepository
   meson
 )
 source=("git+https://github.com/linuxmint/xed.git#tag=$pkgver")
@@ -42,10 +42,6 @@ b2sums=('f795208cfc3ce94e4b2e6fc4223f72e8cfe06af64afc5256a61e6c08e4da39083a5a6fb
 
 prepare() {
   cd $pkgname
-
-  # Fix build by reverting commit
-  # https://github.com/linuxmint/xed/pull/711
-  git revert -n 13f55ff3f0db4e4f3b75883260bb56afbad08fd2
 }
 
 build() {
