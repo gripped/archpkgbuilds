@@ -3,10 +3,10 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-terminal
-pkgver=3.58.1
+pkgver=3.60.0
 pkgrel=1
 pkgdesc="The GNOME Terminal Emulator"
-url="https://wiki.gnome.org/Apps/Terminal"
+url="https://gitlab.gnome.org/GNOME/gnome-terminal"
 arch=(x86_64)
 license=(
   # Program
@@ -22,13 +22,14 @@ license=(
 depends=(
   cairo
   dconf
-  gcc-libs
   glib2
   glibc
   gsettings-desktop-schemas
   gtk3
   hicolor-icon-theme
+  libgcc
   libhandy
+  libstdc++
   libx11
   pango
   util-linux-libs
@@ -47,7 +48,7 @@ optdepends=(
   "libnautilus-extension: Nautilus integration"
 )
 source=("git+https://gitlab.gnome.org/GNOME/gnome-terminal.git#tag=$pkgver")
-b2sums=('845ae71284034ddcc3c4e6f8d40183c60fffda3324d432d95c8300342587685bbdd654be427408d49daa070d3c96fc34d4a405337ccca6b6f8b2599040cba6e6')
+b2sums=('aeb2260d36e889fa2cfd5616f1fb61288d60c82a7b0cd5aa0c5002a7994c5e4251e13759f220f4fe32fa9e4bd36f80a810d7ad4907b98b6f0ec0420bdd837980')
 
 prepare() {
   cd $pkgname
