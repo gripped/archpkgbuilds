@@ -5,7 +5,7 @@ pkgname=(
   papers
   papers-lib-docs
 )
-pkgver=49.6
+pkgver=50.0
 pkgrel=1
 pkgdesc='Document viewer for PDF and other document formats aimed at the GNOME desktop'
 arch=(x86_64)
@@ -44,8 +44,16 @@ makedepends=(
   meson
   rust
 )
-source=("git+https://gitlab.gnome.org/GNOME/papers.git#tag=${pkgver/[a-z]/.&}")
-b2sums=(3adf832d7f4597845dfb87bd4310763daa7e6947bac3dd3bee26f0cc265d87f2c09e8502e23de798142a43c9b0d8c5dd7bf188d59607f2b94467639d7c4d9144)
+source=(
+  "git+https://gitlab.gnome.org/GNOME/papers.git#tag=${pkgver/[a-z]/.&}"
+  "git+https://github.com/gtk-rs/gir.git"
+  "git+https://github.com/gtk-rs/gir-files.git"
+  "git+https://gitlab.gnome.org/lbaudin/papers-test-data.git"
+)
+b2sums=('6321df0c218fe38772a3d30043610c3a51581570e5abce277ef06743ab2002ce91b3dbb2f2d651e2f4923fc5e6bea6d235f4f323dce52eea0e4dc3649cd73663'
+        'SKIP'
+        'SKIP'
+        'SKIP')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
@@ -56,8 +64,14 @@ export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 prepare() {
   cd $pkgbase
 
+  git submodule init
+  git submodule set-url rust/gir "$srcdir/gir"
+  git submodule set-url rust/gir-files "$srcdir/gir-files"
+  git submodule set-url test-data "$srcdir/papers-test-data"
+  git -c protocol.file.allow=always -c protocol.allow=never submodule update --checkout
+
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc --print host-tuple)"
+    cargo fetch --locked --target host-tuple
 }
 
 build() {
