@@ -6,11 +6,12 @@ pkgbase=gnome-online-accounts
 pkgname=(
   gnome-online-accounts
   libgoa
+  libgoa-docs
 )
-pkgver=3.56.5
+pkgver=3.58.0
 pkgrel=1
 pkgdesc="Single sign-on framework for GNOME"
-url="https://wiki.gnome.org/Projects/GnomeOnlineAccounts"
+url="https://gitlab.gnome.org/GNOME/gnome-online-accounts/-/wikis/home"
 arch=(x86_64)
 license=(LGPL-2.0-or-later)
 depends=(
@@ -43,7 +44,7 @@ source=(
   # GOA tags use SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/gnome-online-accounts.git#tag=$pkgver"
 )
-b2sums=('669777884ced5f85ecb4c5721314b74826a6a5aaa64756174cf40773d8750053c3caa2ccd3ddb5adc620ae6ee13742e94e86b075a0d682227521e751621006f9')
+b2sums=('a6cdfc0c3e96e30f7f814eb8dc6df46eada389dca6076cb88e90dd771ff4d63bc3ea43e557c472131cc74a1f688bfbc0ef904f2065a0d6675d21dc90b301e8ee')
 
 prepare() {
   cd $pkgname
@@ -94,7 +95,7 @@ package_gnome-online-accounts() {
   _pick goa usr/lib/pkgconfig/goa-1.0.pc
   _pick goa usr/share/gir-1.0/Goa-1.0.gir
   _pick goa usr/share/vala/vapi/goa-1.0.*
-  _pick goa usr/share/doc
+  _pick doc usr/share/doc
 }
 
 package_libgoa() {
@@ -106,6 +107,13 @@ package_libgoa() {
   provides=(libgoa-1.0.so)
 
   mv goa/* "$pkgdir"
+}
+
+package_libgoa-docs() {
+  pkgdesc+=" - client library documentation"
+  depends=()
+
+  mv doc/* "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
