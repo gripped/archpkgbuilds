@@ -2,7 +2,7 @@
 
 _name=streamlit
 pkgname=python-$_name
-pkgver=1.55.0
+pkgver=1.56.0
 pkgrel=1
 pkgdesc="A faster way to build and share data apps"
 arch=(any)
@@ -78,7 +78,7 @@ source=(
   # build requires git in frontend/protobuf/scripts/generate-proto.js
   git+https://github.com/streamlit/streamlit#tag=$pkgver
 )
-b2sums=('e49848f733ae1213bc3b529f374da77cd8d0b04396c8d8d4b72580017a24ae0c37451d19fd65570f17921532957992b33e3f3a4f14dd21c52b57b4fedc8b5251')
+b2sums=('7bf1431d24ba514e4fc061a59c75a86a905e17eaa9c55fdc8367f209c2075217e4cbe3190a94def38f7f3933493cee18c1be36163e75f2ff0d2ce93908b64c2d')
 
 # based on https://github.com/streamlit/streamlit/blob/develop/Makefile
 build() {
@@ -137,11 +137,14 @@ check() {
     --deselect tests/streamlit/dataframe_util_test.py::DataframeUtilTest::test_verify_sqlite3_integration
     # AssertionError: assert 'text/xml' == 'application/xml'
     --deselect tests/streamlit/web/server/app_static_file_handler_test.py::AppStaticFileHandlerTest::test_static_files_with_safe_extensions_200_05_xml
+    --deselect tests/streamlit/web/server/app_static_file_handler_test.py::AppStaticFileHandlerTest::test_static_files_with_common_extensions_200_05_xml
     # AssertionError: assert 'application/octet-stream' == 'font/woff2'  (etc.)
     --deselect tests/streamlit/web/server/app_static_file_handler_test.py::AppStaticFileHandlerTest::test_static_files_with_safe_extensions_200_06_woff2
     --deselect tests/streamlit/web/server/app_static_file_handler_test.py::AppStaticFileHandlerTest::test_static_files_with_safe_extensions_200_07_woff
     --deselect tests/streamlit/web/server/app_static_file_handler_test.py::AppStaticFileHandlerTest::test_static_files_with_safe_extensions_200_08_ttf
     --deselect tests/streamlit/web/server/app_static_file_handler_test.py::AppStaticFileHandlerTest::test_static_files_with_safe_extensions_200_09_otf
+    # AttributeError: 'google._upb._message.FieldDescriptor' object has no attribute 'label'
+    --deselect tests/streamlit/proto_compatibility_test.py
   )
 
   cd $_name/lib
