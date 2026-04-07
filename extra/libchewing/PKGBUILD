@@ -4,7 +4,7 @@
 # Contributor: damir <damir@archlinux.org>
 
 pkgname=libchewing
-_pkgver=0.11.0
+_pkgver=0.12.0
 pkgver=${_pkgver/-rc./rc}
 pkgrel=1
 pkgdesc='Intelligent Chinese phonetic input method'
@@ -13,21 +13,18 @@ arch=('x86_64')
 # See discussions at https://github.com/chewing/libchewing/issues/433
 license=('LGPL-2.1-or-later')
 depends=('sqlite')
-makedepends=('cmake' 'minisign' 'rust' 'corrosion')
+makedepends=('cmake' 'rust' 'corrosion')
 optdepends=(
   'chewing-editor: view and modify libchewing user phrases database'
 )
-source=("https://github.com/chewing/libchewing/releases/download/v${_pkgver}/libchewing-${_pkgver}.tar.zst"{,.minisig})
-sha256sums=('b2dc134f994db524d735c014c7ff41285ab439c3f7a437bb5f0e446a63b7220d'
-            '5eb480f77e63588e97de1e1a30541367a5bea10e1e4cdf1c8a5256319e84d4df')
-# The key is mentioned on https://github.com/chewing/libchewing
-_validminisignkey='RWRzJFnXiLZleAyCIv1talBjyRewelcy9gzYQq9pd3SKSFBPoy57sf5s'
+source=("https://codeberg.org/chewing/libchewing/releases/download/v${_pkgver}/libchewing-${_pkgver}.tar.zst"{,.asc})
+sha256sums=('6a7fae4aaa6e6ce2bd9f70f0016c553585ed5aca1e086476749a03ac5c3f4cb0'
+            'SKIP')
+# The key is mentioned on https://codeberg.org/chewing/libchewing
+validpgpkeys=(
+  '083B3CAB64267E5BAB7159673EF0C673DADCC30C' # Libchewing Signing Key
+)
 
-# XXX: move to verify() when devtools supports it
-# https://gitlab.archlinux.org/archlinux/devtools/-/issues/224
-prepare() {
-  minisign -Vm libchewing-$_pkgver.tar.zst -P $_validminisignkey
-}
 
 build() {
   cd libchewing-$_pkgver
