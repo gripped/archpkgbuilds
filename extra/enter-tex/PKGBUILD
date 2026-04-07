@@ -5,7 +5,7 @@
 
 pkgname=enter-tex
 pkgver=3.49.0
-pkgrel=3
+pkgrel=4
 pkgdesc='TeX/LaTeX text editor'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/gedit/enter-tex'
@@ -54,7 +54,7 @@ prepare() {
   cd $pkgname
 
   # Enable again Wayland
-  git cherry-pick -n bd0be7e6486864ee14104373dce03df0aec9e887
+  git cherry-pick -n 093ea6f998710ecb80086a7765c5e80be81d9ec5
 
   # Set prgname to application ID
   git apply -3 ../enter-tex-prgname.patch
