@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-utils
-pkgver=9.0.0
+pkgver=9.1.0
 pkgrel=1
 pkgdesc="Oslo Utility library"
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-eventlet' 'python-testscenarios' 'python-testtools' 'python-oslotest'
               'python-ddt' 'python-stestr' 'qemu-img')
 source=("git+https://github.com/openstack/oslo.utils.git#tag=$pkgver")
-sha512sums=('f02585283412412aa17677e9e90919c196ae32f34ab60894522c99180602e4dd77995f9d41b93b67dcafba938fb122615a6424ca29c1efaeb9ae9e97eba0bca3')
+sha512sums=('d7138e1ae1e9f12adb56e2990559f7ce33d962404a47270936eb33045fe1e84608da84a66335d3a531c0c7bdbc03b3eb02ac3dd7aa7a69337ae1d83657a16d0a')
 
 prepare() {
   cd oslo.utils
