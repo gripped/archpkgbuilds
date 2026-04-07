@@ -1,6 +1,6 @@
 pkgbase = gnome-settings-daemon
 	pkgdesc = GNOME Settings Daemon
-	pkgver = 49.1
+	pkgver = 50.0
 	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/gnome-settings-daemon
 	arch = x86_64
@@ -20,7 +20,6 @@ pkgbase = gnome-settings-daemon
 	depends = bash
 	depends = dconf
 	depends = fontconfig
-	depends = gcc-libs
 	depends = gcr-4
 	depends = geoclue
 	depends = geocode-glib-2
@@ -32,6 +31,7 @@ pkgbase = gnome-settings-daemon
 	depends = libcanberra-pulse
 	depends = libcolord
 	depends = libcups
+	depends = libgcc
 	depends = libgudev
 	depends = libgweather-4
 	depends = libmm-glib
@@ -47,9 +47,9 @@ pkgbase = gnome-settings-daemon
 	depends = upower
 	optdepends = usbguard: USB protection support
 	backup = etc/xdg/Xwayland-session.d/00-xrdb
-	source = git+https://gitlab.gnome.org/GNOME/gnome-settings-daemon.git#tag=49.1
+	source = git+https://gitlab.gnome.org/GNOME/gnome-settings-daemon.git#tag=50.0
 	source = git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
-	b2sums = c01ce2ae345dd75f6df255e4802ee608b56fbc9554e6f38fb36bda49600d80623fe90cc05b7f77aa810505a28837d3ee6a5718d30a947730f2adf68e0830e39b
+	b2sums = f31d5df36184021580fb5ac7915eeaccad299666b8351567b41ddcc163919d8bae34c493937c3bb32259445198ac5e30c8e02883af8f777db0a4ef4e3a021822
 	b2sums = SKIP
 
 pkgname = gnome-settings-daemon
