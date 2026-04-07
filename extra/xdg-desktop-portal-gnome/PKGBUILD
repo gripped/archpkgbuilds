@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=xdg-desktop-portal-gnome
-pkgver=49.0
+pkgver=50.0
 pkgrel=1
 pkgdesc="Backend implementation for xdg-desktop-portal for the GNOME desktop environment"
 url="https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome"
@@ -12,7 +12,6 @@ depends=(
   cairo
   dconf
   fontconfig
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
@@ -20,6 +19,7 @@ depends=(
   graphene
   gtk4
   libadwaita
+  libgcc
   libx11
   nautilus
   wayland
@@ -38,10 +38,10 @@ replaces=('xdg-desktop-portal-gtk<1.10.0-2')
 groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome.git?signed#tag=${pkgver/[a-z]/.&}"
-  "git+https://gitlab.gnome.org/GNOME/libgxdp.git#commit=e68375c7aced97705953b8e3b30af9f17991153b"
+  "git+https://gitlab.gnome.org/GNOME/libgxdp.git#commit=d5eca997aa2fea5af54fdd286d5c1e1aa7c76389"
 )
-b2sums=('62b628dec8dcef38af914144a5da48d62887eadf0ddf6702200827717f1098aae3fdf692333f4a7f37ad53d5c9e58a0683ab14c9b416cc0da451e43209eb0d4f'
-        '09bd02a627afffa49c11e4baec961878060d7710e852628c0e0d009d5bdc37eaa3cd1d5bbeea316f197197b9d88436ecf157ebaef41e01b66ad102e1f1c69fb2')
+b2sums=('85ef8077172eb7fe181f2b3ab1585e7d8e467cec5acc163c9438364d4f8f127d4c582141a91899c859689b08a7b8c470668f9fd883f1457254b6cf913b75ce2e'
+        'afa272ad0b3f5b417326269ff55cb943a8c811860f13a48867e0673ebcb58df8a4b91756a0aceace9860f8754880b95328d6670fd9c0420f81d859db4631b19c')
 validpgpkeys=(
   8307C0A224BABDA1BABD0EB9A6EEEC9E0136164A # Jonas Ådahl <jadahl@gmail.com>
   9038F70CA72FAC9D10C6327B89AFE307C861D158 # Georges Basile Stavracas Neto (Primary Key) <georges.stavracas@gmail.com>
