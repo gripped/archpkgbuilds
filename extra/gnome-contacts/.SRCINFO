@@ -1,6 +1,6 @@
 pkgbase = gnome-contacts
 	pkgdesc = Contacts Manager for GNOME
-	pkgver = 49.0
+	pkgver = 50.0
 	pkgrel = 1
 	url = https://apps.gnome.org/Contacts
 	arch = x86_64
@@ -12,14 +12,14 @@ pkgbase = gnome-contacts
 	makedepends = gobject-introspection
 	makedepends = meson
 	makedepends = vala
-	depends = cairo
 	depends = dconf
 	depends = evolution-data-server
 	depends = folks
-	depends = gcc-libs
 	depends = gdk-pixbuf2
 	depends = glib2
 	depends = glibc
+	depends = glycin
+	depends = glycin-gtk4
 	depends = gnome-online-accounts
 	depends = gst-plugin-gtk4
 	depends = gst-plugin-pipewire
@@ -28,15 +28,16 @@ pkgbase = gnome-contacts
 	depends = gtk4
 	depends = hicolor-icon-theme
 	depends = libadwaita
+	depends = libgcc
 	depends = libgee
 	depends = libgoa
 	depends = libportal
 	depends = libportal-gtk4
 	depends = pango
 	depends = qrencode
-	source = git+https://gitlab.gnome.org/GNOME/gnome-contacts.git?signed#tag=49.0
+	source = git+https://gitlab.gnome.org/GNOME/gnome-contacts.git?signed#tag=50.0
 	validpgpkeys = A7C626E13F9AD776776BD9CA1D8A57CF2E8D36A3
 	validpgpkeys = 4D0BE12F0E4776D8AACE9696E66C775AEBFE6C7D
-	b2sums = ed78ef124a0b7a55d834b978e525870f5c2f493883e5fd806fb2a29d1064cb83eec2f5b36e2609065d621b56e7037735ed3b8be05c4727f2dfded1ef723b974e
+	b2sums = 00694ea321f1b0268a4ae7e31dfb6745a6eb29f74f74ae2a39d7a20f458c15187048f473bdbc5b3d6e0eb8fe02d4b01a460f2fd9e87e3dc8cd28820e718ec8e7
 
 pkgname = gnome-contacts

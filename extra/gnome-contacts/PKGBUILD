@@ -3,21 +3,21 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-contacts
-pkgver=49.0
+pkgver=50.0
 pkgrel=1
 pkgdesc="Contacts Manager for GNOME"
 url="https://apps.gnome.org/Contacts"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
-  cairo
   dconf
   evolution-data-server
   folks
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
+  glycin
+  glycin-gtk4
   gnome-online-accounts
   gst-plugin-gtk4
   gst-plugin-pipewire
@@ -26,6 +26,7 @@ depends=(
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
   libgee
   libgoa
   libportal
@@ -45,7 +46,7 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-contacts.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('ed78ef124a0b7a55d834b978e525870f5c2f493883e5fd806fb2a29d1064cb83eec2f5b36e2609065d621b56e7037735ed3b8be05c4727f2dfded1ef723b974e')
+b2sums=('00694ea321f1b0268a4ae7e31dfb6745a6eb29f74f74ae2a39d7a20f458c15187048f473bdbc5b3d6e0eb8fe02d4b01a460f2fd9e87e3dc8cd28820e718ec8e7')
 validpgpkeys=(
   A7C626E13F9AD776776BD9CA1D8A57CF2E8D36A3 # Niels De Graef (nielsdg) <nielsdegraef@gmail.com>
   4D0BE12F0E4776D8AACE9696E66C775AEBFE6C7D # Jeremy Bícha <jbicha@ubuntu.com>
