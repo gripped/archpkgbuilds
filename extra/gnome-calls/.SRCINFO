@@ -1,7 +1,7 @@
 pkgbase = gnome-calls
 	pkgdesc = Phone dialer and call handler
-	pkgver = 49.1.1
-	pkgrel = 1
+	pkgver = 50.0
+	pkgrel = 2
 	url = https://gitlab.gnome.org/GNOME/calls
 	arch = x86_64
 	groups = gnome-extra
@@ -17,24 +17,26 @@ pkgbase = gnome-calls
 	depends = evolution-data-server
 	depends = feedbackd
 	depends = folks
-	depends = gcc-libs
 	depends = glib2
 	depends = glibc
 	depends = gom
+	depends = gsound
 	depends = gstreamer
 	depends = gtk4
 	depends = hicolor-icon-theme
 	depends = libadwaita
+	depends = libgcc
 	depends = libgee
 	depends = libmm-glib
 	depends = libpeas-2
 	depends = libsecret
+	depends = mobile-broadband-provider-info
 	depends = sofia-sip
-	source = git+https://gitlab.gnome.org/GNOME/calls.git?signed#tag=v49.1.1
-	source = git+https://gitlab.gnome.org/World/Phosh/libcall-ui.git
+	source = git+https://gitlab.gnome.org/GNOME/calls.git?signed#tag=v50.0
+	source = git+https://gitlab.gnome.org/World/Phosh/libcall-ui.git#commit=3a2044f8e7c45387954ed35d22c6b6309e6751d6
 	validpgpkeys = B9386554B7DD266BCB8E29A990F0C9B18A6B4A19
 	validpgpkeys = 0DB3932762F78E592F6522AFBB5A2C77584122D3
-	b2sums = 111fbd9eeaff172a17cb58a3ab52dfcc48d76bef87192d8d6648f4d039d5968b9326a5e40c86739fa5433bfd7bf6a2e4708059443d711875f8a89158e7277b8c
+	b2sums = dcea8550fc9dede2670355050f4d4733797457be192df22f8e65ee5bd35aec044fa26e143a5d3e7881dfc669a8879dc734b4a9ce64574d716c26843e8fddbde6
 	b2sums = SKIP
 
 pkgname = gnome-calls

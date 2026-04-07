@@ -5,8 +5,8 @@
 # Contributor: GI Jack <GI_Jack@hackermail.com>
 
 pkgname=gnome-calls
-pkgver=49.1.1
-pkgrel=1
+pkgver=50.0
+pkgrel=2
 pkgdesc="Phone dialer and call handler"
 url="https://gitlab.gnome.org/GNOME/calls"
 arch=(x86_64)
@@ -17,18 +17,20 @@ depends=(
   evolution-data-server
   feedbackd
   folks
-  gcc-libs
   glib2
   glibc
   gom
+  gsound
   gstreamer
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
   libgee
   libmm-glib
   libpeas-2
   libsecret
+  mobile-broadband-provider-info
   sofia-sip
 )
 makedepends=(
@@ -42,27 +44,22 @@ makedepends=(
 groups=(gnome-extra)
 source=(
   "git+https://gitlab.gnome.org/GNOME/calls.git?signed#tag=v${pkgver/[a-z]/_&}"
-  "git+https://gitlab.gnome.org/World/Phosh/libcall-ui.git"
+  "git+https://gitlab.gnome.org/World/Phosh/libcall-ui.git#commit=3a2044f8e7c45387954ed35d22c6b6309e6751d6"
 )
-b2sums=('111fbd9eeaff172a17cb58a3ab52dfcc48d76bef87192d8d6648f4d039d5968b9326a5e40c86739fa5433bfd7bf6a2e4708059443d711875f8a89158e7277b8c'
+b2sums=('dcea8550fc9dede2670355050f4d4733797457be192df22f8e65ee5bd35aec044fa26e143a5d3e7881dfc669a8879dc734b4a9ce64574d716c26843e8fddbde6'
         'SKIP')
 validpgpkeys=(
   B9386554B7DD266BCB8E29A990F0C9B18A6B4A19 # Evangelos Ribeiro Tzaras <devrtz@fortysixandtwo.eu>
   0DB3932762F78E592F6522AFBB5A2C77584122D3 # Guido Günther <agx@sigxcpu.org>
 )
 
-prepare() {
-  cd calls
-
-  git submodule init
-  git submodule set-url subprojects/libcall-ui "$srcdir/libcall-ui"
-  git -c protocol.file.allow=always -c protocol.allow=never submodule update
-}
-
 build() {
   local meson_options=(
     -D gtk_doc=true
   )
+
+  # Inject libcall-ui subproject
+  export MESON_PACKAGE_CACHE_DIR="$srcdir"
 
   arch-meson calls build "${meson_options[@]}"
 }
