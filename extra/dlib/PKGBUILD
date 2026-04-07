@@ -6,7 +6,7 @@
 pkgbase=dlib
 pkgname=(dlib dlib-cuda)
 pkgver=20.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Machine learning library and toolkit'
 arch=(x86_64)
 url='http://dlib.net'
@@ -51,6 +51,9 @@ build() {
 }
 
 package_dlib() {
+  provides=(dlib)
+  conflicts=(dlib)
+
   make -C build DESTDIR="$pkgdir" install
   install -Dm644 $pkgbase/LICENSE.txt \
     "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
@@ -61,8 +64,8 @@ package_dlib() {
 package_dlib-cuda() {
   pkgdesc='Machine learning library and toolkit (CUDA)'
   depends+=(cuda cudnn)
+  provides=(dlib)
   conflicts=(dlib)
-  replaces=(dlib)
 
   make -C build-cuda DESTDIR="$pkgdir" install
   install -Dm644 $pkgbase/LICENSE.txt \
