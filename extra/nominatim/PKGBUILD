@@ -9,8 +9,8 @@ pkgname="nominatim"
 pkgdesc="Geocoding tool using OpenStreetmap data"
 url="https://nominatim.org"
 
-pkgver=5.2.0
-pkgrel=3
+pkgver=5.3.0
+pkgrel=1
 
 arch=("any")
 license=("GPL-2.0-only")
@@ -22,6 +22,7 @@ makedepends=(
     "python-hatchling" # build backend
     "python-argparse-manpage"
     "python-psycopg" # manpage only
+    "python-mwparserfromhell"
 )
 #checkdepends=(
 #    "python-behave"
@@ -72,7 +73,7 @@ source=(
     "0002-Set-default-project-directory-to-package-provided-di.patch"
     "0003-Exclude-force-includes-in-wheel-builds-to-fix-duplic.patch"
 )
-sha256sums=('1284cf8a847751f76f69077c16062a65b0a09e296bee5bda47d9573f635dc60b'
+sha256sums=('ae5be359272537b26aaf750e772042741551849cef19dd365680334b4c951840'
             '09d85801a625079b7007fda0f2fb880db62dcea09f17f8e12e5c1b485e60794e'
             '808af34d42bd75afc79130dbb721f97cbd1603eea5f3409bb19ebda6fe5a138d'
             '964e7d8bde044dee0b69002959bcdd5d469f83d85f166ddd5fb178954bc84999'
