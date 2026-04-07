@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-maps
-pkgver=49.5
+pkgver=50.0
 pkgrel=1
 pkgdesc="Find places around the world"
 url="https://apps.gnome.org/Maps"
@@ -31,6 +31,7 @@ depends=(
   pango
 )
 makedepends=(
+  blueprint-compiler
   git
   gobject-introspection
   meson
@@ -40,7 +41,7 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-maps.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('79932235081b9ab531d995d7908167ca6beb694c9954b70994050f221c08e2c2fe68c0cf9105e086380af19e2f9b021341a5ca6e94e5c67d3e7fe71b0ede8336')
+b2sums=('5ef0f100211092bb38f346a5ececb49cbea34876839dddeac598a22284220fe6d6f6ce76ec97c6cc5e5b9f1ce4a374402c7d425ae21c0a882e4948828630f19f')
 validpgpkeys=(
   7448F128A4B18AB2EF87F092FA6624580A420D5D # Marcus Lundblad <ml@update.uu.se>
 )
