@@ -2,10 +2,10 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=folks
-pkgver=0.15.9
-pkgrel=2
+pkgver=0.15.12
+pkgrel=1
 pkgdesc="Library to aggregates people into metacontacts"
-url="https://wiki.gnome.org/Projects/Folks"
+url="https://gitlab.gnome.org/GNOME/folks"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
@@ -33,11 +33,8 @@ provides=(
 options=(
   !lto # LTO copies some GType constructors
 )
-source=("git+https://gitlab.gnome.org/GNOME/folks.git?signed#tag=$pkgver")
-b2sums=('f86c2302139f244f6d8ff3b7207104dc7e81aed6f51fd450f2fdcd6bbcef7866cc8d0d4764c21c06bacc8946714589955e598c79b0d4d50fbc11c0628a7d5410')
-validpgpkeys=(
-  A7C626E13F9AD776776BD9CA1D8A57CF2E8D36A3 # Niels De Graef <ndegraef@redhat.com>
-)
+source=("git+https://gitlab.gnome.org/GNOME/folks.git#tag=$pkgver")
+b2sums=('a65249f40505cdbcfc79e99b97535ce009216f75efedbe780978183c4519792472d603a68cd14ddf3e8eb11fcf623acab9c461d2d7e26bbeb8582f2e6c7d8b9b')
 
 prepare() {
   cd folks
@@ -46,7 +43,7 @@ prepare() {
 
 build() {
   local meson_options=(
-    -D docs=true
+    -D docs=false
     -D profiling=true
     -D telepathy_backend=false
   )
