@@ -1,12 +1,13 @@
 pkgbase = rhythmbox
 	pkgdesc = Music playback and management application
-	pkgver = 3.4.8
-	pkgrel = 4
+	pkgver = 3.4.9
+	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/rhythmbox
 	arch = x86_64
 	license = GPL-2.0-or-later
 	checkdepends = check
 	checkdepends = xorg-server-xvfb
+	makedepends = appstream
 	makedepends = brasero
 	makedepends = git
 	makedepends = gobject-introspection
@@ -20,7 +21,6 @@ pkgbase = rhythmbox
 	depends = at-spi2-core
 	depends = cairo
 	depends = dconf
-	depends = gcc-libs
 	depends = gdk-pixbuf2
 	depends = glib2
 	depends = glibc
@@ -34,7 +34,7 @@ pkgbase = rhythmbox
 	depends = gvfs-mtp
 	depends = hicolor-icon-theme
 	depends = json-glib
-	depends = libgirepository
+	depends = libgcc
 	depends = libgudev
 	depends = libmtp
 	depends = libnotify
@@ -58,7 +58,7 @@ pkgbase = rhythmbox
 	optdepends = libgpod: Portable Players - iPod plugin
 	optdepends = lirc: LIRC plugin
 	optdepends = zeitgeist: Zeitgeist logging plugin
-	source = git+https://gitlab.gnome.org/GNOME/rhythmbox.git#tag=v3.4.8
-	b2sums = b4b8b61e7f6978a06982e9cc00fd49ec1011f94bfe6f696f19f228d651b1e2499f6ce3e53c1641c5120e65897be56e200aa7fccb159e0611079eaaf9e26dae90
+	source = git+https://gitlab.gnome.org/GNOME/rhythmbox.git#tag=3.4.9
+	b2sums = a8fdd32db365d5ba14a56e45098793afb8ee27eda1acd3bcedf901a84104e9256f6e61407af06ac1f6823def523769dc0200831fee5101894a88b3c800179db0
 
 pkgname = rhythmbox

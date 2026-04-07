@@ -3,8 +3,8 @@
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 
 pkgname=rhythmbox
-pkgver=3.4.8
-pkgrel=4
+pkgver=3.4.9
+pkgrel=1
 pkgdesc="Music playback and management application"
 url="https://gitlab.gnome.org/GNOME/rhythmbox"
 arch=(x86_64)
@@ -13,7 +13,6 @@ depends=(
   at-spi2-core
   cairo
   dconf
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
@@ -27,7 +26,7 @@ depends=(
   gvfs-mtp
   hicolor-icon-theme
   json-glib
-  libgirepository
+  libgcc
   libgudev
   libmtp
   libnotify
@@ -44,6 +43,7 @@ depends=(
   totem-plparser
 )
 makedepends=(
+  appstream
   brasero
   git
   gobject-introspection
@@ -70,15 +70,11 @@ optdepends=(
   'lirc: LIRC plugin'
   'zeitgeist: Zeitgeist logging plugin'
 )
-source=("git+https://gitlab.gnome.org/GNOME/rhythmbox.git#tag=v$pkgver")
-b2sums=('b4b8b61e7f6978a06982e9cc00fd49ec1011f94bfe6f696f19f228d651b1e2499f6ce3e53c1641c5120e65897be56e200aa7fccb159e0611079eaaf9e26dae90')
+source=("git+https://gitlab.gnome.org/GNOME/rhythmbox.git#tag=$pkgver")
+b2sums=('a8fdd32db365d5ba14a56e45098793afb8ee27eda1acd3bcedf901a84104e9256f6e61407af06ac1f6823def523769dc0200831fee5101894a88b3c800179db0')
 
 prepare() {
   cd $pkgname
-
-  # Fix window not being matched to application
-  # https://gitlab.gnome.org/GNOME/rhythmbox/-/merge_requests/198
-  git cherry-pick -n 7700cd63fc569abb858a9cb134ced01b9ce0d292
 }
 
 build() {
