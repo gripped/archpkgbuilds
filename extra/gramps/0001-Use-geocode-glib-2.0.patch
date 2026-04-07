@@ -1,0 +1,64 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Sat, 4 Oct 2025 23:50:15 +0200
+Subject: [PATCH] Use geocode-glib-2.0
+
+---
+ README.md                                 | 2 +-
+ debian/control                            | 2 +-
+ gramps/grampsapp.py                       | 2 +-
+ gramps/plugins/lib/maps/placeselection.py | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/README.md b/README.md
+index c52e2fa32d94..4674d0552f3b 100644
+--- a/README.md
++++ b/README.md
+@@ -116,7 +116,7 @@ Python bindings for Oracle Berkeley database. Only needed to upgrade older Gramp
+  to a place name. This is used if you already have osmgpsmap installed.
+  If installed, when you add or link a place from the map, you have a red line
+  at the end of the table for selection.
+- The package name is usually gir1.2-geocodeglib-1.0 or geocode-glib.
++ The package name is usually gir1.2-geocodeglib-2.0 or geocode-glib.
+ 
+ * [**fontconfig**](https://www.freedesktop.org/wiki/Software/fontconfig/)
+ 
+diff --git a/debian/control b/debian/control
+index c9bbda7258f1..378f4bf3dc71 100644
+--- a/debian/control
++++ b/debian/control
+@@ -41,7 +41,7 @@ Recommends:
+  gir1.2-gexiv2-0.10,
+  gir1.2-osmgpsmap-1.0,
+  python3-icu,
+- gir1.2-geocodeglib-1.0,
++ gir1.2-geocodeglib-2.0,
+  python3-fontconfig
+ Suggests:
+  fonts-freefont-ttf,
+diff --git a/gramps/grampsapp.py b/gramps/grampsapp.py
+index d481905661e5..a06ab65c0c2f 100644
+--- a/gramps/grampsapp.py
++++ b/gramps/grampsapp.py
+@@ -457,7 +457,7 @@ def show_settings():
+         rcs_ver = _("not found")
+ 
+     try:
+-        gi.require_version("GeocodeGlib", "1.0")
++        gi.require_version("GeocodeGlib", "2.0")
+         from gi.repository import GeocodeGlib
+ 
+         geocodeglib_ver = str(GeocodeGlib._version)
+diff --git a/gramps/plugins/lib/maps/placeselection.py b/gramps/plugins/lib/maps/placeselection.py
+index aeb01868cfbe..956894cfce24 100644
+--- a/gramps/plugins/lib/maps/placeselection.py
++++ b/gramps/plugins/lib/maps/placeselection.py
+@@ -51,7 +51,7 @@ from .osmgps import OsmGps
+ #
+ # -------------------------------------------------------------------------
+ try:
+-    gi.require_version("GeocodeGlib", "1.0")
++    gi.require_version("GeocodeGlib", "2.0")
+     from gi.repository import GeocodeGlib
+ 
+     GEOCODEGLIB = True

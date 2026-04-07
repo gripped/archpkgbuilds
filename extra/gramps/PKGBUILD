@@ -4,8 +4,8 @@
 # Contributor: Cory Farmer <rbgkofi@ameritech.net>
 
 pkgname=gramps
-pkgver=6.0.5
-pkgrel=2
+pkgver=6.0.7
+pkgrel=1
 epoch=2
 pkgdesc="Genealogy program, which helps you track your family tree"
 arch=('any')
@@ -20,19 +20,15 @@ optdepends=('osm-gps-map: show maps in the geography view'
             'rcs: manage multiple revisions of your family trees'
             'python-pillow: crop and convert images to JPG'
             'libgexiv2: manage Exif metadata embedded in your media'
-            'geocode-glib: associate a geographical position to a place name')
+            'geocode-glib-2: associate a geographical position to a place name')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/gramps-project/$pkgname/archive/v$pkgver.tar.gz"
-        set_SDE_in_gzip.patch)
-sha256sums=('1295fe352669cdf419d762445db1d26ba5492da30c0a78fef278856eda9cc680'
-            'cbeefd3af162b7168a4eb4f118091e3abddb887a2757843c6eaa2dc3f52d2a5a')
+        0001-Use-geocode-glib-2.0.patch)
+sha256sums=('5b1d4d63f2abd072330a26d26db161a3c05f9a7d08bab07f29ef5647beafcb0a'
+            '203458b9955d6942fce797a62f7b0aea4bbe936b145f5bfaf2858e2d938b25a6')
 
 prepare() {
   cd $pkgname-$pkgver
-  # Default to SOURCE_DATE_EPOCH (if set) as timestamps with gzip when compressing man pages
-  # to avoid recording non-deterministic information in gzip metadata across builds.
-  # This is required for reproducible builds.
-  # See https://github.com/gramps-project/gramps/pull/2078
-#  patch -Np1 -i "$srcdir/set_SDE_in_gzip.patch"
+  patch -Np1 -i ../0001-Use-geocode-glib-2.0.patch
 }
 
 build() {
