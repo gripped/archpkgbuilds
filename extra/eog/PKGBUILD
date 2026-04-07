@@ -7,10 +7,10 @@ pkgname=(
   eog
   eog-docs
 )
-pkgver=49.2
+pkgver=50.0
 pkgrel=1
 pkgdesc="Eye of Gnome: An image viewing and cataloging program"
-url="https://wiki.gnome.org/Apps/EyeOfGnome"
+url="https://gitlab.gnome.org/GNOME/eog"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
@@ -26,7 +26,6 @@ depends=(
   lcms2
   libexif
   libgcc
-  libgirepository
   libhandy
   libjpeg-turbo
   libpeas
@@ -46,7 +45,7 @@ makedepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/eog.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('fb0d3379c57ec9ef03827e5cad4c3169a5a187615b9d6e0e86f174df3e0794d15986fb9a83d18d180bb87eb0ff7918285f4f964963b6905ea682b953d0d738cf')
+b2sums=('d0ef4a310b69b40cdb7ef2d4442711d4ae65eb60ec7ae3a00090f9e32624c2cf87fa3a195c6df8357745be1ec0e48d385f7ab182507ef939230ee5c90032dbb1')
 
 prepare() {
   cd $pkgname
