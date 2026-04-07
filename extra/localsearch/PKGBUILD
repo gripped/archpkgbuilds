@@ -6,7 +6,7 @@ pkgname=(
   localsearch
   localsearch-testutils
 )
-pkgver=3.10.2
+pkgver=3.11.0
 pkgrel=1
 pkgdesc="Filesystem indexer and metadata extractor"
 url="https://gnome.pages.gitlab.gnome.org/localsearch/"
@@ -16,7 +16,6 @@ depends=(
   dconf
   exempi
   ffmpeg
-  gcc-libs
   gexiv2
   giflib
   glib2
@@ -27,6 +26,7 @@ depends=(
   icu
   libcue
   libexif
+  libgcc
   libgsf
   libgudev
   libgxps
@@ -38,6 +38,7 @@ depends=(
   libtiff
   libwebp
   libxml2
+  libzip
   poppler-glib
   tinysparql
   totem-plparser
@@ -55,7 +56,7 @@ makedepends=(
   python-gobject
 )
 source=("git+https://gitlab.gnome.org/GNOME/localsearch.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('8a06eb3ee9be2146c04558ebe6ae27089cca15029e9754100bf27c058c84e091b3ae3f77c1ade526c38f08b1c6f6a95edb2bd6fb3770def56b81a39b6a62187e')
+b2sums=('4c7987cd6688e872e088feeb2955815b185d1207f564f9869c011753d205569ff89e7df7f6fe064bd47f9239a0f8400e8080494ee75c75e06883c903bc7f3521')
 
 prepare() {
   cd localsearch

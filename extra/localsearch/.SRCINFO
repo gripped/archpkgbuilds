@@ -1,6 +1,6 @@
 pkgbase = localsearch
 	pkgdesc = Filesystem indexer and metadata extractor
-	pkgver = 3.10.2
+	pkgver = 3.11.0
 	pkgrel = 1
 	url = https://gnome.pages.gitlab.gnome.org/localsearch/
 	arch = x86_64
@@ -17,7 +17,6 @@ pkgbase = localsearch
 	depends = dconf
 	depends = exempi
 	depends = ffmpeg
-	depends = gcc-libs
 	depends = gexiv2
 	depends = giflib
 	depends = glib2
@@ -28,6 +27,7 @@ pkgbase = localsearch
 	depends = icu
 	depends = libcue
 	depends = libexif
+	depends = libgcc
 	depends = libgsf
 	depends = libgudev
 	depends = libgxps
@@ -39,18 +39,18 @@ pkgbase = localsearch
 	depends = libtiff
 	depends = libwebp
 	depends = libxml2
+	depends = libzip
 	depends = poppler-glib
 	depends = tinysparql
 	depends = totem-plparser
 	depends = upower
-	source = git+https://gitlab.gnome.org/GNOME/localsearch.git#tag=3.10.2
-	b2sums = 8a06eb3ee9be2146c04558ebe6ae27089cca15029e9754100bf27c058c84e091b3ae3f77c1ade526c38f08b1c6f6a95edb2bd6fb3770def56b81a39b6a62187e
+	source = git+https://gitlab.gnome.org/GNOME/localsearch.git#tag=3.11.0
+	b2sums = 4c7987cd6688e872e088feeb2955815b185d1207f564f9869c011753d205569ff89e7df7f6fe064bd47f9239a0f8400e8080494ee75c75e06883c903bc7f3521
 
 pkgname = localsearch
 	depends = dconf
 	depends = exempi
 	depends = ffmpeg
-	depends = gcc-libs
 	depends = gexiv2
 	depends = giflib
 	depends = glib2
@@ -61,6 +61,7 @@ pkgname = localsearch
 	depends = icu
 	depends = libcue
 	depends = libexif
+	depends = libgcc
 	depends = libgsf
 	depends = libgudev
 	depends = libgxps
@@ -72,12 +73,13 @@ pkgname = localsearch
 	depends = libtiff
 	depends = libwebp
 	depends = libxml2
+	depends = libzip
 	depends = poppler-glib
 	depends = tinysparql
 	depends = totem-plparser
 	depends = upower
 	depends = libtinysparql-3.0.so
-	provides = tracker3-miners=3.10.2
+	provides = tracker3-miners=3.11.0
 	conflicts = tracker3-miners<=3.7.3-2
 	replaces = tracker3-miners<=3.7.3-2
 
