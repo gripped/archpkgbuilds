@@ -5,7 +5,7 @@
 
 pkgname=geary
 pkgver=46.0
-pkgrel=7
+pkgrel=8
 epoch=1
 pkgdesc='A lightweight email client for the GNOME desktop'
 arch=(x86_64)
@@ -37,7 +37,7 @@ depends=(
   libgee
   libgoa
   libhandy
-  libpeas
+  libpeas-2
   libsecret
   libsoup3
   libstemmer
@@ -58,8 +58,12 @@ makedepends=(
   vala
   yelp-tools
 )
-source=("git+https://gitlab.gnome.org/GNOME/geary.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('7e424cc2f5964390881aefdc6becf527a1e7e05f4edaac373149a73a20b22605d907bb465a0da7456431b2bd6dbb4e1dfe85dccbb5fc8a50e2cee2ea3f335e32')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/geary.git#tag=${pkgver/[a-z]/.&}"
+  0001-Port-plugins-from-libpeas-1-to-libpeas-2.patch
+)
+b2sums=('7e424cc2f5964390881aefdc6becf527a1e7e05f4edaac373149a73a20b22605d907bb465a0da7456431b2bd6dbb4e1dfe85dccbb5fc8a50e2cee2ea3f335e32'
+        'dd7b967cac55b781eaa7476e1dc03136369a16fbb18da7bc8e0bbdd02780dca4b36a2ed8cbab81676ce6a97f99599ce3e0538926700953eacef01bf282a231a5')
 validpgpkeys=(
   3A2EF7F138557A145F2866E99FAB18747A8FC649 # Michael James Gratton <mike@vee.net>
   71BFA565F77720034F44E0B00CF8493F76A7AE36 # Cédric Bellegarde <cedric.bellegarde@adishatz.org>
@@ -71,6 +75,9 @@ prepare() {
   # Set prgname to application ID
   # https://gitlab.gnome.org/GNOME/geary/-/merge_requests/851
   git cherry-pick -n e91606b25b052df747d123be11f9ca90a813e4bf
+
+  # libpeas 2
+  git apply -3 ../0001-Port-plugins-from-libpeas-1-to-libpeas-2.patch
 }
 
 build() {
