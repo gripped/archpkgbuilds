@@ -7,7 +7,7 @@ pkgname=(
   gnome-control-center
   gnome-keybindings
 )
-pkgver=49.6
+pkgver=50.0
 pkgrel=1
 pkgdesc="GNOME's main interface to configure various aspects of the desktop"
 url="https://apps.gnome.org/Settings/"
@@ -86,11 +86,11 @@ checkdepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-control-center.git?signed#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git"
-  "git+https://gitlab.gnome.org/GNOME/libgxdp.git#commit=e68375c7aced97705953b8e3b30af9f17991153b"
+  "git+https://gitlab.gnome.org/GNOME/libgxdp.git#commit=d45e1c572752604a7a8dd8651657342bb6ac0961"
 )
-b2sums=('ccdc13a3b05b1b214419a8c99f8cf1e05b03ead2650c447ffd8027029059aee83ccb4f5c3c7da7efc4d5d4870558dee9a55537f23420fd4c068921294d653bdd'
+b2sums=('e6061a8fff3dfb3ab3c00f3f0847d5eb0871366cbfdb4fc93b18b7a7ad20380b3292a94e75be8c84bc2b503e58834b9985afdb13db32ad978dc6e3fd1c9b9353'
         'SKIP'
-        '09bd02a627afffa49c11e4baec961878060d7710e852628c0e0d009d5bdc37eaa3cd1d5bbeea316f197197b9d88436ecf157ebaef41e01b66ad102e1f1c69fb2')
+        '02f22e6a77c163eb3a450d652362e5206f592f7e74a5bea6946958b7a355294fda01d9e345712470bbb87485bf48a327f26a8df865e3d573d432f75540060f01')
 validpgpkeys=(
   9B60FE7947F0A3C58136817F2C2A218742E016BE # Felipe Borges (GNOME) <felipeborges@gnome.org>
 )
