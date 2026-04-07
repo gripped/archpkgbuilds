@@ -2,8 +2,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-clocks
-pkgver=49.0
-pkgrel=1
+pkgver=50.0
+pkgrel=2
 pkgdesc="Clocks applications for GNOME"
 url="https://apps.gnome.org/Clocks"
 arch=(x86_64)
@@ -18,7 +18,9 @@ depends=(
   gsettings-desktop-schemas
   gtk4
   hicolor-icon-theme
+  icu
   libadwaita
+  libgcc
   libgweather-4
 )
 makedepends=(
@@ -26,11 +28,12 @@ makedepends=(
   gobject-introspection
   meson
   vala
+  vorbis-tools
   yelp-tools
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-clocks.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('50f7488d5a16a26710f59e79664e05e3eab7a68e98fb1c2212f223453ecc5f9d7ea55afb34e25a95025b1cd66b2ec9cc97b632852bc9e030ba2ecbc4c6c09b2c')
+b2sums=('86217d68bf528cef3c77b5b587713a91a76e85653b664488c60ae790106e1728e3e093dec5431bdaabb6c85c5f355ca8f938ae07597d546370bc775a0470bba3')
 validpgpkeys=(
   3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
 )
