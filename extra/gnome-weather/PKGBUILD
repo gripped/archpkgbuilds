@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-weather
-pkgver=49.0
+pkgver=50.0
 pkgrel=1
 pkgdesc="Access current weather conditions and forecasts"
 url="https://apps.gnome.org/Weather"
@@ -32,7 +32,7 @@ source=(
   0002-Various-fixes-for-the-search-provider.patch
   0003-Raise-existing-window-instead-of-opening-new-one-on-.patch
 )
-b2sums=('15830e1b1750167cc2d73760ef30777cc5165201230e916bebfe644a547c17fba5cd2fc04d88ffcacf908ffce1d256d9bd4acbf79590902f89edb2b6d84e6f7d'
+b2sums=('786c02a6afcd74ccf1e4220a4c0c54786e4aed7ea50a502d520199fad15173490100deee148b0da8fedb205e9950abff5446376ed2d7e68bb5541e923756e756'
         'SKIP'
         '14ead85f7b34e71c7cb057f2892644661200325037e1e21cc202c1d962c1e4ba592469f4631a63d7e5db27d3bf7bd5761d62fbfc4618486c7f2ba33218d98961'
         '7781cedc70dc1badfe3b12143f4483b86fef41271e7a8625bf6008c35815c02c70ceef74ee6f8277abaf70492b9713f8450fd34e629e8fe265d3af266e6f77d7'

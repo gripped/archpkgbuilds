@@ -1,6 +1,6 @@
 pkgbase = gnome-weather
 	pkgdesc = Access current weather conditions and forecasts
-	pkgver = 49.0
+	pkgver = 50.0
 	pkgrel = 1
 	url = https://apps.gnome.org/Weather
 	arch = any
@@ -18,15 +18,15 @@ pkgbase = gnome-weather
 	depends = hicolor-icon-theme
 	depends = libadwaita
 	depends = libgweather-4
-	source = git+https://gitlab.gnome.org/GNOME/gnome-weather.git#tag=49.0
+	source = git+https://gitlab.gnome.org/GNOME/gnome-weather.git#tag=50.0
 	source = git+https://gitlab.gnome.org/BrainBlasted/gi-typescript-definitions.git
-	source = gnome-weather-automatic-location.patch
-	source = gnome-weather-search-provider.patch
-	source = gnome-weather-activate.patch
-	b2sums = 15830e1b1750167cc2d73760ef30777cc5165201230e916bebfe644a547c17fba5cd2fc04d88ffcacf908ffce1d256d9bd4acbf79590902f89edb2b6d84e6f7d
+	source = 0001-Allow-to-configure-automatic-location-setting.patch
+	source = 0002-Various-fixes-for-the-search-provider.patch
+	source = 0003-Raise-existing-window-instead-of-opening-new-one-on-.patch
+	b2sums = 786c02a6afcd74ccf1e4220a4c0c54786e4aed7ea50a502d520199fad15173490100deee148b0da8fedb205e9950abff5446376ed2d7e68bb5541e923756e756
 	b2sums = SKIP
-	b2sums = 2b2c11f468ed0ae3fb3fcc4eef011d023bce75a0f95c4a021e0971b0c01a4c87c3662ae2ca090bef84ba7e1a048356bb509a92e7a20c98c61221607c36a8af7d
-	b2sums = 90d42c8aeff409a7f04fe7b5bc1613cd99bd309c70d8f84b3f1e14b8def86475784a63a2128d155fe89d5a8381c328913aeddff2c51214f5eb0fb7a59bda4d3f
-	b2sums = a23bb58ee00fe786b29f5a2178d5a0c33adac3e44932ae42522cef50adb3d3dc7dbea6d65134577d173d0557b0753fc65a2bef1174e3aed9a3ece3d220385f1f
+	b2sums = 14ead85f7b34e71c7cb057f2892644661200325037e1e21cc202c1d962c1e4ba592469f4631a63d7e5db27d3bf7bd5761d62fbfc4618486c7f2ba33218d98961
+	b2sums = 7781cedc70dc1badfe3b12143f4483b86fef41271e7a8625bf6008c35815c02c70ceef74ee6f8277abaf70492b9713f8450fd34e629e8fe265d3af266e6f77d7
+	b2sums = 1c607b5c65fb8dc935054a93986b37cd299a1e1c877a816404c43a7b4410f809ebc2bc276e38525e0e42fc7aadcc3aa0229da9ef5f0b97c66f379741d5f0d804
 
 pkgname = gnome-weather
