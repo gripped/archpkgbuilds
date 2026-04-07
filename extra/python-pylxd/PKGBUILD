@@ -5,8 +5,8 @@
 
 pkgname=python-pylxd
 _pkgname=${pkgname#python-}
-pkgver=2.4.0
-pkgrel=2
+pkgver=2.4.1
+pkgrel=1
 pkgdesc="A library for interacting with the LXD REST API"
 url="https://pylxd.readthedocs.io/en/latest"
 arch=('any')
@@ -16,7 +16,7 @@ makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel
 checkdepends=('python-pytest' 'python-pytest-cov' 'python-ddt' 'python-requests-mock')
 optdepends=('lxd: to use a local LXD server')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/canonical/pylxd/archive/refs/tags/${pkgver}.tar.gz")
-sha512sums=('f119a6739f7bd0b519aed5430253495092e70a225b31e7f23b876010aa48f63d8d09c8424c903439b87c64a981d6f85bf3a34e631e7e22b3b9c0f88e50b8191a')
+sha512sums=('e75aa3916cc28080e48d460d621681a3e3f735d5f6518c3dce10c172829f62e39d056da783b350c5d4e999e4976df57b2106e7f27ec1ea27aa76efd1bfe79ae3')
 
 build() {
 	cd "${_pkgname}-${pkgver}"
