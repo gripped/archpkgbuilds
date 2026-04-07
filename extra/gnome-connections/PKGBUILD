@@ -2,7 +2,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=gnome-connections
-pkgver=49.0
+pkgver=50.0
 pkgrel=1
 pkgdesc='Remote desktop client for the GNOME desktop environment'
 arch=(x86_64)
@@ -38,7 +38,7 @@ source=(
   git+https://gitlab.gnome.org/GNOME/gtk-frdp.git
   0001-Use-GApplication-to-parse-command-line-options.patch
 )
-b2sums=('8c9ed2e842e247f8a9de3cac7acf7234fb9dedfb9f65c6c5d011766eefae88b1dbc8e0213e242b7fa4c689dd88b6f2d16e6ed3e9cdb94509b64b743eb18e9fb6'
+b2sums=('a04bfc97b082008f12f433e0699856b80d4fd5eb39b1094074807cb44af338fff25267970d1213d1899747169ed9bd29a50a871199d062d10aab7439d6f902e7'
         'SKIP'
         '5c4026d67d6f5771b7ace9d2c5b4a73d5f4980dcf8ca1b50f9266fe3c110f53d6d08a32373611eae81f2b3fbfd56a91a47445bccb4700e757ddd852d61f2e8e7')
 validpgpkeys=(F55CDAB508C3ACBCB1C8B930C910F152653B1688) # Marek Kasik <mkasik@redhat.com>
