@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-session
-pkgver=49.2
+pkgver=50.0
 pkgrel=1
 pkgdesc="The GNOME Session Handler"
 url="https://gitlab.gnome.org/GNOME/gnome-session"
@@ -10,13 +10,11 @@ arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
   dconf
-  gcc-libs
   glib2
   glibc
   gnome-desktop-4
   gsettings-desktop-schemas
-  gtk4
-  json-glib
+  libgcc
   systemd-libs
   xdg-desktop-portal-gnome
 )
@@ -28,12 +26,13 @@ makedepends=(
   meson
   xmlto
 )
+optdepends=('gnome-keyring: Secrets service backend')
 conflicts=(gnome-mimeapps)
 replaces=(gnome-mimeapps)
 provides=(gnome-mimeapps)
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-session.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('41a30f04b060adfd05662b7097a6553c6b71977b7dac33e682725ee2431128be91609ce3a266b9c65cbfed352dd6a07ed769981ddd876f0707ba3b12b57051cf')
+b2sums=('255580de8e1a260d7d677049abac79e782e675d979de390209fab824b0fdb6d683916abd85f5e9c3fda33f19a97c9a6fbc5ad3cc171697c9286d418a56f98190')
 
 prepare() {
   cd $pkgname
