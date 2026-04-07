@@ -9,7 +9,7 @@ pkgbase=pyqt5
 pkgname=('python-pyqt5')
 pkgdesc="A set of Python bindings for the Qt5 toolkit"
 pkgver=5.15.11
-pkgrel=6
+pkgrel=7
 arch=('x86_64')
 url="https://riverbankcomputing.com/software/pyqt/intro"
 license=('GPL')
@@ -24,12 +24,11 @@ optdepends=('python-opengl: enable OpenGL 3D graphics in PyQt applications'
             'qt5-declarative: QtQml, qmlplugin'
             'qt5-serialport: QtSerialPort'
             'qt5-x11extras: QtX11Extras'
-            'qt5-speech: QtTextToSpeech'
-            'qt5-sensors: QtSensors')
+            'qt5-speech: QtTextToSpeech')
 provides=(qt5-python-bindings)
 makedepends=('sip' 'pyqt-builder' 'python-opengl' 'python-dbus'
              'qt5-multimedia' 'qt5-tools' 'qt5-serialport' 'qt5-speech' 'qt5-svg'
-             'qt5-x11extras' 'qt5-xmlpatterns' 'qt5-sensors' 'qt5-declarative')
+             'qt5-x11extras' 'qt5-xmlpatterns' 'qt5-declarative')
 conflicts=('pyqt5-common')
 source=("https://pypi.python.org/packages/source/P/PyQt5/PyQt5-$pkgver.tar.gz")
 sha256sums=('fda45743ebb4a27b4b1a51c6d8ef455c4c1b5d610c90d2934c7802b5c1557c52')
