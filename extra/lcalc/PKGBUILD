@@ -1,23 +1,25 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=lcalc
-pkgver=2.1.1
+pkgver=2.2.1
 pkgrel=1
 pkgdesc='C++ L-function class library and command line interface'
 arch=(x86_64)
 url='https://gitlab.com/sagemath/lcalc'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          pari)
 makedepends=(gengetopt
              git)
 source=(git+https://gitlab.com/sagemath/lcalc#tag=$pkgver)
-sha256sums=('f3cf46fa25ed80ed863385ea7c2dd33250a9643a11ad901fb9a73a0bf681049e')
+sha256sums=('3aa2e25ee405aa8a991983b8d6505d0fea3a59044c30e075be46ebf164a040d4')
 
 prepare() {
   cd $pkgname
-  autoreconf -vi
+  sed -e '/ltmain.sh/d' -i configure.ac # Fix build with libtool != 2.5.4
+  autoreconf -fiv
 }
 
 build() {
