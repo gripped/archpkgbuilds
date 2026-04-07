@@ -28,10 +28,10 @@ index f4809732ac1a..ffc6fc296495 100644
                  </child>
                  <child>
 diff --git a/src/gl-application.c b/src/gl-application.c
-index 05a39ac03ae7..59b5f26b9815 100644
+index d7e7d88087a5..1115a215d715 100644
 --- a/src/gl-application.c
 +++ b/src/gl-application.c
-@@ -143,6 +143,14 @@ on_about (GSimpleAction *action,
+@@ -150,6 +150,14 @@ on_about (GSimpleAction *action,
                             NULL);
  }
  
@@ -46,7 +46,7 @@ index 05a39ac03ae7..59b5f26b9815 100644
  static void
  on_sort_order_changed (GSettings *settings,
                         const gchar *key,
-@@ -206,49 +214,53 @@ on_monospace_font_name_changed (GSettings *settings,
+@@ -213,49 +221,53 @@ on_monospace_font_name_changed (GSettings *settings,
  static GActionEntry actions[] = {
      { "new-window", on_new_window },
      { "help", on_help },

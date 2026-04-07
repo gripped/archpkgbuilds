@@ -10,10 +10,10 @@ It needs to be checked before processing it further.
  2 files changed, 36 insertions(+), 11 deletions(-)
 
 diff --git a/src/gl-application.c b/src/gl-application.c
-index 59b5f26b9815..f142e46861f3 100644
+index 1115a215d715..4a6cd6c12b47 100644
 --- a/src/gl-application.c
 +++ b/src/gl-application.c
-@@ -273,7 +273,11 @@ gl_application_activate (GApplication *application)
+@@ -280,7 +280,11 @@ gl_application_activate (GApplication *application)
  
      priv = gl_application_get_instance_private (GL_APPLICATION (application));
      priv->journal = gl_journal_new (NULL);
@@ -26,7 +26,7 @@ index 59b5f26b9815..f142e46861f3 100644
  }
  
  static const GOptionEntry options[] =
-@@ -320,7 +324,11 @@ gl_application_open (GApplication *application,
+@@ -327,7 +331,11 @@ gl_application_open (GApplication *application,
      g_ptr_array_add (array, NULL);
  
      priv->journal = gl_journal_new (array);
