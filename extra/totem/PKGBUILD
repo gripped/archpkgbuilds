@@ -3,7 +3,7 @@
 
 pkgname=totem
 pkgver=43.2
-pkgrel=3
+pkgrel=5
 pkgdesc="Movie player for the GNOME desktop based on GStreamer"
 url="https://gitlab.gnome.org/GNOME/totem"
 arch=(x86_64)
@@ -12,7 +12,6 @@ depends=(
   at-spi2-core
   cairo
   dconf
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
@@ -29,7 +28,7 @@ depends=(
   hicolor-icon-theme
   iso-codes
   libepoxy
-  libgirepository
+  libgcc
   libhandy
   libpeas
   libportal
@@ -61,9 +60,11 @@ replaces=(totem-plugin)
 source=(
   "git+https://gitlab.gnome.org/GNOME/totem.git?signed#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/libgd.git"
+  0001-libpeas-1.38.patch
 )
 b2sums=('c9c3fce36c82b3cc529443b68b37a457d6f07dddb8827042c8e2c3418166f119e8d04be5af895ce71da3a32fd697a6b82a6090a4e7b5220015eeda751d56acdc'
-        'SKIP')
+        'SKIP'
+        '0b5ebc25b831134be116bd60c0f1ee3a52e0323a4c7bc0d4dc117f852c92529c36d26d98c3aa37d9c4bad98b1fda3e22f6460cb0ab9a8299163e908ee7c3abf4')
 validpgpkeys=(
   90B845BA6595B902DDC9D4A62541290C393E86DF # Bastien Nocera <hadess@hadess.net>
 )
@@ -78,6 +79,9 @@ prepare() {
   # Raise window on activation
   # https://gitlab.gnome.org/GNOME/totem/-/merge_requests/450
   git cherry-pick -n 65cffb5535a201d2896ab6b88a545a8b3f8e9a6a
+
+  # Fix build with libpeas 1.38
+  git apply -3 ../0001-libpeas-1.38.patch
 }
 
 build() {
