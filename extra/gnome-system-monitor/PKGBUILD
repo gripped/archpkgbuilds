@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-system-monitor
-pkgver=49.1
+pkgver=50.0
 pkgrel=1
 pkgdesc="View current processes and monitor system state"
 url="https://apps.gnome.org/SystemMonitor"
@@ -12,7 +12,6 @@ license=(GPL-2.0-or-later)
 depends=(
   cairo
   dconf
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
@@ -22,9 +21,11 @@ depends=(
   gtkmm-4.0
   hicolor-icon-theme
   libadwaita
+  libgcc
   libgtop
   librsvg
   libsigc++-3.0
+  libstdc++
   pango
   polkit
   systemd
@@ -40,7 +41,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-system-monitor.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('0efee57b6fb25b2e88ec5cdcf373a898516d94d2c39e84ac2c3c198b604a07510ae3a2e9eb90488732f64b1b05f2aa9981a11b884be91e9361542dad8fef07b0')
+b2sums=('1bd1a881986dabbf48e71dc162f67b03d9704aff322d1f2cc56bb070a3b828e8e9c589293f03111315476db2ea8c678b036f11092b6b6a6805184224f7ccfed2')
 
 prepare() {
   cd $pkgname
