@@ -5,8 +5,8 @@
 # Contributor: Stefano Facchini <stefano.facchini@gmail.com>
 
 pkgname=gnome-boxes
-pkgver=49.1
-pkgrel=2
+pkgver=50.0
+pkgrel=1
 pkgdesc='Simple GNOME application to access virtual systems'
 arch=(x86_64)
 url='https://apps.gnome.org/Boxes/'
@@ -55,7 +55,7 @@ source=(
   0004-Revert-spice-display-Only-downscale-displays.patch
   0005-spice-display-Set-zoom-level-based-on-scale-factor.patch
 )
-b2sums=('c7c313c69fa844f203eaa1e7fe1e6e98b279a8e5e5c541a7c190fdff5072e2ce04c791bd8067ba2e2cd6f92b1f1afbb77e408b948ca836a163de3f513ddc8234'
+b2sums=('3eb61e6c2d7f61a284f1bbeda810bd17536c59d4016c5d427dd569a907a64c5763d193672f70276132d980e4f1d43cd041074850baf48c98fc4ced7861d51596'
         'SKIP'
         '47eed5be1a5e051de69d53db5d00a0f063322ca96b1d9b7a3d4d2c62a07ce1f0a0cce68cee5ce0b5e18a8fb71a9b910c701c0349399435bb9644c9548cbf6128'
         '3a31d169de01e16fbf43857137b74c0b0931dbbd1aec4a91a290bc2983118f3c7167141c686dbc29cddbe799fc2a49f9b7a6f098f4e84ae2698301d8c328442f'
