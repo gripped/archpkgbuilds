@@ -9,7 +9,7 @@
 
 pkgname=gedit-plugins
 pkgver=50.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Collection of plugins for the gedit Text Editor'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/gedit/gedit-plugins'
