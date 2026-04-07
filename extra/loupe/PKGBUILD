@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=loupe
-pkgver=49.2
+pkgver=50.0
 pkgrel=1
 pkgdesc="A simple image viewer for GNOME"
 url="https://apps.gnome.org/Loupe/"
@@ -14,7 +14,6 @@ depends=(
   cairo
   dconf
   fontconfig
-  gcc-libs
   glib2
   glibc
   glycin
@@ -23,6 +22,7 @@ depends=(
   hicolor-icon-theme
   lcms2
   libadwaita
+  libgcc
   libgweather-4
   libseccomp
 )
@@ -35,7 +35,7 @@ makedepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/loupe.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('57b7eea4eb8443101b3bb6365f53b87c7089b69887b0937f05d2673df4e7cb6703ba2b3f59507055bd47c87ff1335e41181202c2689536b9baf8c922ba703c20')
+b2sums=('fb8a6a175409be8a255f0053d822318c657b1d431e38d30303c9094c906505d952fecb5bc3a85e344850d49684814397eb38bd477f58ac3abb0681273da82b9a')
 validpgpkeys=(
   4587A0EE1EE5478AAB82C0A93BA28A5559F08EBD # Sophie Herold <sophieherold@gnome.org>
 )
@@ -51,7 +51,7 @@ prepare() {
 
   # Match CARGO_HOME in src/meson.build
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc --print host-tuple)"
+    cargo fetch --locked --target host-tuple
 }
 
 build() {
