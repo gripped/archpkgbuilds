@@ -6,7 +6,7 @@ pkgname=(pyside6
          pyside6-tools
          shiboken6)
 pkgver=6.11.0
-pkgrel=3
+pkgrel=4
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -64,7 +64,8 @@ build() {
     -DSHIBOKEN_PYTHON_LIBRARIES=`pkgconf python3-embed --libs` \
     -DBUILD_TESTS=OFF \
     -DFORCE_LIMITED_API=no \
-    -DNO_QT_TOOLS=yes
+    -DNO_QT_TOOLS=yes \
+    -DNUMPY_INCLUDE_DIR=$(numpy-config --cflags | sed -e 's|-I||')
   PYTHONPATH="$PWD"/build/sources \
   cmake --build build
 }
