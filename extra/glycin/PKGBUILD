@@ -6,7 +6,7 @@ pkgname=(
   glycin
   glycin-gtk4
 )
-pkgver=2.0.8
+pkgver=2.1.1
 pkgrel=1
 pkgdesc="Sandboxed and extendable image decoding"
 arch=(x86_64)
@@ -16,10 +16,10 @@ depends=(
   bubblewrap
   cairo
   fontconfig
-  gcc-libs
   glib2
   glibc
   lcms2
+  libgcc
   libjxl
   librsvg
   libseccomp
@@ -44,7 +44,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/glycin.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/sophie-h/test-images.git"
 )
-b2sums=('82c04a7bad9d3a30c69b8da760077fc785cebefbc79620274df93e19a7ec954d182e0eb309f86ea2cbe711a47ffee14736912ef919d9b829d0709d4ebbe8ffa0'
+b2sums=('4028b02e02e6e2e19ce76e543461552abcf68da1fd3e3459a31222a52ddd9ace95e3426d24879aae13245b3a2bd20606e3d2b8fa11045f35ad2639d32ff5db33'
         'SKIP')
 
 # Use debug
@@ -108,12 +108,12 @@ package_glycin-gtk4() {
   pkgdesc+=" - GTK4 integration"
   depends=(
     fontconfig
-    gcc-libs
     glib2
     glibc
     glycin
     gtk4
     lcms2
+    libgcc
     libseccomp
   )
   provides=(libglycin-gtk4-2.so)
