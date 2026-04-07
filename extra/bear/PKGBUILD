@@ -3,13 +3,14 @@
 # Contributor: Moritz Lipp <mlq@pwmt.org>
 
 pkgname=bear
-pkgver=4.0.4
+pkgver=4.1.1
 pkgrel=1
 pkgdesc='A tool to generate compilation database for clang tooling'
 arch=(x86_64)
 url='https://github.com/rizsotto/Bear'
 license=(GPL-3.0-or-later)
 depends=(
+  sh
   glibc
   libgcc
 )
@@ -18,31 +19,27 @@ makedepends=(
   rust
 )
 options=(!lto)
-source=(
-  "$pkgname::git+$url.git#tag=$pkgver"
-  fix-wrapper-preload-path.patch
-)
-sha512sums=('3e7707568f9c65dee6ddd332cc727d8a5874c5922201b5d0011a40920de6c2e8f7ab1f13c15cbf6d96b7d9f07d6d456a1579b015df2b3985e4cbc3c14468a228'
-            '0f74102b49da4ca97f4c0c0618a6314a29dd391cda76417bac99eb222fee7cc2d1d3d0fbff6f8b82f9936bb9056f573fc6b036b9af4e6e4636e9eda2c3fb0cff')
-b2sums=('b94d6182188f11176a6e3e871131027cfacb2f5de9e25d9d6d2465e9e622341003912ea014eefdb1ed1b965d64891160781c6c0d2bf868e0e496bceda9ff6ce5'
-        '40962bdd175e26feb3497b412076347022ef3294ff74acf12d415c41e01e2e2e48582077e15c1f4cad05a3f5250613a44ee2683bfa297b634389a9081f49a9bc')
+source=("$pkgname::git+$url.git#tag=$pkgver")
+sha512sums=('c60f917d57e1f3fea720f73b062759a932617b4c6a660de9f067567ef9d737ebdf8178712a7f13a906dc01a16bc5af553fc0f7b8168a7dd43b700fd003c40051')
+b2sums=('85ea6b0a1e039b9c69e3585a55582ac999632d368f9254e401964d35227dc3f37208f4728848a8375a2944108e1e5d9a1af4696acac476813795183d4846845a')
 
 prepare() {
   cd "$pkgname"
 
-  # patch wrapper/preload path
-  # https://github.com/rizsotto/Bear/issues/648
-  patch -p1 -i "$srcdir/fix-wrapper-preload-path.patch"
+  # fix install script
+  git checkout 5badd0912bbede48056fc3ba66d8a28a0b92ead2
 
   # download dependencies
-  cargo fetch --locked --target $(rustc --print host-tuple)
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
   cd "$pkgname"
 
-  local _bear_subprojects=(bear intercept-preload intercept-wrapper)
-  cargo build --frozen --release ${_bear_subprojects[@]/#/--package }
+  cargo build --frozen --release
+
+  # generate shell completions
+  ./target/release/generate-completions target/release/completions
 }
 
 check() {
@@ -54,13 +51,5 @@ check() {
 package() {
   cd "$pkgname"
 
-  # binaries
-  install -vDm755 -t "$pkgdir/usr/bin" target/release/bear
-  install -vDm755 -t "$pkgdir/usr/lib/bear" target/release/{wrapper,libexec.so}
-
-  # man page
-  install -vDm644 -t "$pkgdir/usr/share/man/man1" man/bear.1
-
-  # documentation
-  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
+  DESTDIR="$pkgdir" PREFIX=/usr ./scripts/install.sh
 }
