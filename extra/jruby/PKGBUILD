@@ -2,7 +2,7 @@
 # Contributor: FaziBear <fazibear@gmail.com>
 
 pkgname=jruby
-pkgver=10.0.4.0
+pkgver=10.0.5.0
 pkgrel=1
 pkgdesc="100% pure-Java implementation of the Ruby programming language"
 url="https://www.jruby.org/"
@@ -12,9 +12,9 @@ license=(
 )
 depends=(
   bash
-  gcc-libs
   glibc
   java-runtime-headless
+  libgcc
 )
 options=(
   !debug
@@ -23,18 +23,18 @@ options=(
 source=(
   "https://repo1.maven.org/maven2/org/jruby/jruby-dist/$pkgver/jruby-dist-$pkgver-bin.tar.gz"{,.asc}
 )
-b2sums=('0aed6c3d3cb11cc6841938c2483f520a82f709297ea3d57346f2301300fabcfba5e816defe817478a4f340c53f2505e150fbc353b779c16c1be847a00ce8eb2b'
+b2sums=('48db4f26d5796190c45630b6ce1825d3dccae2f9bb83339da0e5145e1412f7d451b94f08be72b21dcdac5a0f8850ce98a88d4f913f7fcd4c54a6db9a5227d17a'
         'SKIP')
 validpgpkeys=(
   416952B945B78A34C6C7678562EBFC78FE4156D1  # Thomas E. Enebo <tom.enebo@gmail.com>
 )
 
 # https://www.jruby.org/download
-md5sums=('f8b8af79b8d3ce8570a3333811d1c456'
+md5sums=('0484e55c4f7057ce84950083290e7fd0'
          'SKIP')
-sha1sums=('ff98a780785f730e3920efbf560a492ae60457f0'
+sha1sums=('4ee41055d54bf36d8bf88b1b1a733917b0f68840'
           'SKIP')
-sha256sums=('d0260ebc753a5e9ae49be1eec0e4eec907aaf2b7184faaafc879b0ec3253ca24'
+sha256sums=('6b3aa0340bd60a2b131e12490bb498c45359d9c91e477f5760c3aa18e37d1988'
             'SKIP')
 
 prepare() {
