@@ -1,0 +1,57 @@
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+
+pkgname=gst-thumbnailers
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="GStreamer video and audio file thumbnailer"
+url="https://gitlab.gnome.org/GNOME/gst-thumbnailers"
+arch=(x86_64)
+license=(GPL-3.0-or-later)
+groups=(gnome)
+depends=(
+  glib2
+  glibc
+  glycin
+  gst-plugins-base
+  gst-plugins-base-libs
+  gst-plugins-good
+  gstreamer
+  libgcc
+)
+makedepends=(
+  git
+  meson
+  rust
+)
+optdepends=(
+  "gst-libav: Extra media decoders (via FFmpeg)"
+  "gst-plugins-bad: Extra media decoders"
+  "gst-plugins-ugly: Extra media decoders"
+)
+source=("git+https://gitlab.gnome.org/GNOME/gst-thumbnailers.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('f06b0471f7a4ac3a79e2393aaed7dedaa0ccd5d55e9f7333a526316378a01b5d8a0ab3d7b9ec3ec0b4a815d22521cb6cc2eef8a5a0b29b2589e20f4756a5de34')
+
+# Use debug
+export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
+
+# Use LTO
+export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target host-tuple
+}
+
+build() {
+  arch-meson $pkgname build
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+}
+
+# vim:set sw=2 sts=-1 et:
