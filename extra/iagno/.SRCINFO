@@ -1,20 +1,24 @@
 pkgbase = iagno
 	pkgdesc = Dominate the board in a classic version of Reversi
-	pkgver = 3.38.1+r137+g0d01085
+	pkgver = 50.0
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Reversi
 	arch = x86_64
-	license = GPL
-	makedepends = meson
-	makedepends = gobject-introspection
-	makedepends = yelp-tools
+	license = GPL-3.0-or-later
 	makedepends = appstream
-	makedepends = vala
 	makedepends = git
-	depends = gtk3
-	depends = gsound
-	depends = librsvg
-	source = git+https://gitlab.gnome.org/GNOME/iagno.git#commit=0d0108571402e40761f95274cf1fad0b03fda8c9
-	b2sums = 90be43ed4ac67181703f36d0c8c88257f1800c2721abf158c13b6988783f97909e5bf12d4bdc304abf866ddd2a9179275f4a6c662feb6e1ada1555de251a359f
+	makedepends = meson
+	makedepends = vala
+	makedepends = yelp-tools
+	depends = dconf
+	depends = glib2
+	depends = glibc
+	depends = glycin
+	depends = glycin-gtk4
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita
+	source = git+https://gitlab.gnome.org/GNOME/iagno.git#tag=50.0
+	b2sums = e844f4223f15cdd4ac519ac47729a5369be75f841c66557b947d3df4689666614ff65241e8cd9415d86798c613e9467270f151e85ad1d49d08f46df0929c1c85
 
 pkgname = iagno

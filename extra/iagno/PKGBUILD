@@ -2,22 +2,31 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=iagno
-pkgver=3.38.1+r137+g0d01085
+pkgver=50.0
 pkgrel=1
 pkgdesc="Dominate the board in a classic version of Reversi"
 url="https://wiki.gnome.org/Apps/Reversi"
 arch=(x86_64)
-license=(GPL)
-depends=(gtk3 gsound librsvg)
-makedepends=(meson gobject-introspection yelp-tools appstream vala git)
-_commit=0d0108571402e40761f95274cf1fad0b03fda8c9  # master
-source=("git+https://gitlab.gnome.org/GNOME/iagno.git#commit=$_commit")
-b2sums=('90be43ed4ac67181703f36d0c8c88257f1800c2721abf158c13b6988783f97909e5bf12d4bdc304abf866ddd2a9179275f4a6c662feb6e1ada1555de251a359f')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  glib2
+  glibc
+  glycin
+  glycin-gtk4
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+)
+makedepends=(
+  appstream
+  git
+  meson
+  vala
+  yelp-tools
+)
+source=("git+https://gitlab.gnome.org/GNOME/iagno.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('e844f4223f15cdd4ac519ac47729a5369be75f841c66557b947d3df4689666614ff65241e8cd9415d86798c613e9467270f151e85ad1d49d08f46df0929c1c85')
 
 prepare() {
   cd $pkgname
