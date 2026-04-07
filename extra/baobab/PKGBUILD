@@ -3,7 +3,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=baobab
-pkgver=49.1
+pkgver=50.0
 pkgrel=1
 pkgdesc="A graphical directory tree analyzer"
 url="https://apps.gnome.org/Baobab"
@@ -35,7 +35,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/baobab.git?signed#tag=${pkgver/[a-z]/.&}"
   0001-Scanner-Initialize-root-results-as-empty.patch
 )
-b2sums=('e9c981f8ac715e6b4d6849a4a07f32cb87a6947bcfbb0c9d2c209a6e728fb7ab286bf96a707d9e61433bf8434d13dd8b5f7426cbf3325a3ece4def865adaf35f'
+b2sums=('47ecc058384fd7053c46fc0245056a8c2807d28a4bb449b4ca0e202e20e9cfc341e2545b3bdce02ea04cdd9415d9448a6221e87aeead5fc0b57df09c4bc2e503'
         '0235be7b06f3b0d706813c46891927222017dc18e7e6694671e6606f9767865573c99c9239ec8aa33e2238a31f059fa0d8c4433b497a05ae204737c23ba46337')
 validpgpkeys=(3475CBA8D3483594C889B470D64A8D747F6FE706) # Maximiliano Sandoval <msandova@gnome.org>
 
