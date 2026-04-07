@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=foundry
-pkgver=1.0.1
-pkgrel=3
+pkgver=1.1.1
+pkgrel=1
 pkgdesc='Aims to extract much of what makes GNOME Builder an IDE into a library and companion command-line tool'
 arch=(x86_64)
 url='https://gitlab.gnome.org/GNOME/foundry'
@@ -15,13 +15,17 @@ depends=(
   glib2
   glibc
   gom
+  graphene
   gtk4
   gtksourceview5
   json-glib
+  libadwaita
   libdex
   libgcc
   libgit2
+  libpanel
   libpeas-2
+  libsecret
   libsoup3
   libspelling
   libssh2
@@ -40,7 +44,7 @@ makedepends=(
   meson
 )
 source=("git+https://gitlab.gnome.org/GNOME/foundry.git#tag=${pkgver/[a-z]/.&}")
-b2sums=(52cc15ba1e9878f2b9097c5652343caa91632afc99af29b2dbdaf0b1174cbd886dffeaae3a3917c3ce00778466feef50dc249842d1d638b3544a981c6c325cc5)
+b2sums=(6a4ba7513d988789f52adbddec77a5f22a807832433733b0bd76e7cb85863cfa6f9370190513456fdf4f05e7cd5fe7fe3fbe76d8fb4f82d091a9c77caa32540d)
 
 prepare() {
   cd $pkgname
