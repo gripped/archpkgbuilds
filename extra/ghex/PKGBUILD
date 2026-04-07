@@ -7,7 +7,7 @@ pkgname=(
   ghex
   ghex-docs
 )
-pkgver=48.3
+pkgver=50.0
 pkgrel=1
 pkgdesc="Hex editor for the GNOME desktop"
 url="https://wiki.gnome.org/Apps/Ghex"
@@ -32,7 +32,7 @@ makedepends=(
   yelp-tools
 )
 source=("git+https://gitlab.gnome.org/GNOME/ghex.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('3993d0e55e4c486b6ab929fccf034356718f41ace35ba27978b72e93d7a3dc3d91fc6ac2cf1ba86597cb8d96cbdbc7431b2ad45f7e5bacf9c7997e43b6542461')
+b2sums=('7f3c3a8a7ac5ea7674230b3a9e908850266696f93a2799e25c61ce55403f70e73a85cf062aa16f1267d49270acc620585c02481297c5ade28242b89332caf6c9')
 
 prepare() {
   cd ghex
