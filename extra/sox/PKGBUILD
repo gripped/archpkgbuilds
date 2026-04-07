@@ -3,7 +3,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=sox
-pkgver=14.7.1.1
+pkgver=14.7.1.2
 pkgrel=1
 pkgdesc='The Swiss Army knife of sound processing tools'
 arch=(x86_64)
@@ -54,8 +54,8 @@ optdepends=(
 )
 provides=(libsox.so libsox_ng.so)
 source=("$pkgname::git+https://codeberg.org/sox_ng/sox_ng.git#tag=sox_ng-${pkgver}")
-sha512sums=('d3461397dc936a28712444aeaa5a0ca924a06564a25e642a90584530c3c58357124cbe66b4e1e209ce0f91a396d08b3267c7ec43c5e59483ce19203d6c064051')
-b2sums=('3e8132e21e7c00a98a65bbcf627b9210b0be9352d2dddee38a5444feccea33bda36dec03567cc30076ee6fc57893595a87a3ea74c6568eb392c8b49ca4c2a3bb')
+sha512sums=('798ac3f75c4330c7489528bed2ada87856948b1fde0502ecfa9d3a046471f9c12e9a7a5df5a92a5395bf6a1df595e76bd308a252cfa3368ed4db37e88c78f7d8')
+b2sums=('9d05a01eed65b227898d54b6998c907f2a7046f02791ffb644c50beb3ba31b4c76060ad20832f0697023e776c20118515d3e1306627f8e37a2a0c14abbb3906a')
 
 prepare() {
   cd "$pkgname"
