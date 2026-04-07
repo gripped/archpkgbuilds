@@ -2,8 +2,8 @@
 # Contributor: Specter119 <spcter119 AT gmail.com>
 
 pkgname=jupyterlab-lsp
-pkgver=5.2.0
-pkgrel=2
+pkgver=5.3.0
+pkgrel=1
 pkgdesc="Coding assistance for JupyterLab with Language Server Protocol."
 arch=(any)
 url="https://github.com/jupyter-lsp/jupyterlab-lsp"
@@ -22,7 +22,7 @@ makedepends=(
   yarn
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-b2sums=('26cfa09e278847f08cd8451b07b65d8529f9c30e7f0e2d5ca5f31daacdc9fbadbd7256c57f850529df1efcf7435f32d9e561ba2e9cc2542166092c730aa3597f')
+b2sums=('2160aa4f4dfc744f1d20c7d5f1eb7952d390960e4f59a757ca87b9a501bbd38f8c23d9fac517223d520db2db86269bc64950f8e2b691e0c17cfd09611bfe5295')
 
 build() {
   cd $pkgname-$pkgver/python_packages/jupyterlab_lsp
