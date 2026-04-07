@@ -1,6 +1,6 @@
 pkgbase = gnome-calendar
 	pkgdesc = Simple and beautiful calendar application designed to perfectly fit the GNOME desktop
-	pkgver = 49.1
+	pkgver = 50.0
 	pkgrel = 1
 	url = https://apps.gnome.org/Calendar
 	arch = x86_64
@@ -12,7 +12,7 @@ pkgbase = gnome-calendar
 	makedepends = meson
 	depends = dconf
 	depends = evolution-data-server
-	depends = gcc-libs
+	depends = fribidi
 	depends = geoclue
 	depends = glib2
 	depends = glibc
@@ -22,13 +22,13 @@ pkgbase = gnome-calendar
 	depends = hicolor-icon-theme
 	depends = libadwaita
 	depends = libedataserverui4
+	depends = libgcc
 	depends = libgweather-4
 	depends = libical
 	depends = libsoup3
-	depends = pango
 	optdepends = gnome-control-center: Manage online accounts
 	optdepends = xdg-desktop-portal-impl: Various user settings (e.g. 24-hour clock)
-	source = git+https://gitlab.gnome.org/GNOME/gnome-calendar.git#tag=49.1
-	b2sums = 16f89b6e5ba8abb00d65b00fb75c91b0f19dfa780ea4f6e464b687b2897772e310b3fcef6e4e3bea82728fb4b21c0b543330772a55dc195ff6bb0196b2d64c26
+	source = git+https://gitlab.gnome.org/GNOME/gnome-calendar.git#tag=50.0
+	b2sums = d56765b7cd680fc1e3b324b7820dea56f7dc0c32059fc5f6ea3f1dcc735100ef83990f232129f62d992766a923e6fef8dd8c58e3fca531574b922de683f037fd
 
 pkgname = gnome-calendar
