@@ -5,16 +5,16 @@ pkgname=(
   template-glib
   template-glib-docs
 )
-pkgver=3.38.0
-pkgrel=2
+pkgver=3.40.0
+pkgrel=1
 pkgdesc="Templating library for GLib"
 url="https://gitlab.gnome.org/GNOME/template-glib"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
-  gcc-libs
   glib2
   glibc
+  libgcc
 )
 makedepends=(
   gi-docgen
@@ -25,7 +25,7 @@ makedepends=(
   vala
 )
 source=("git+https://gitlab.gnome.org/GNOME/template-glib.git#tag=$pkgver")
-b2sums=('16621a53ba2d07631e371007d897e38f9f0d726d25c039dcbd6a94cc5b7671aec8a2e0ffb0c3109c4af11aab23defb8301cd5fc9498ad6317e2281ebef658cfe')
+b2sums=('196bbc261901ab8b4b74b36e3d5c2fc150f4eeee24d8a816811a32c3b0296b78120df60ce44bf1cdb8ea91c864050caa3165d04f283696b7e93496b0a41df182')
 
 prepare() {
   cd $pkgname
