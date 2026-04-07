@@ -8,8 +8,8 @@ pkgname=(
   libedataserverui4
   evolution-data-server-docs
 )
-pkgver=3.58.3
-pkgrel=2
+pkgver=3.60.0
+pkgrel=1
 pkgdesc="Unified contacts, tasks and calendar backend"
 url="https://gitlab.gnome.org/GNOME/evolution/-/wikis/home"
 arch=(x86_64)
@@ -46,7 +46,6 @@ depends=(
 )
 makedepends=(
   boost
-  boost-libs
   cmake
   gi-docgen
   git
@@ -63,7 +62,7 @@ makedepends=(
 )
 checkdepends=(db)
 source=("git+https://gitlab.gnome.org/GNOME/evolution-data-server.git#tag=$pkgver")
-b2sums=('dced7f3d26d6571fbe86646af49d202f9675c2890aa9ac1db4f1c18ec0c129ccce241e14967bbe8b41ddfc5a74e28b6e670db1692cfac830efcdb2da85852c34')
+b2sums=('85886cfec0976d7d0bb24aafa1c76e2bd15d4878e6aa39b5241855385eab119b2f58acb3019b6bc7564b52acacc20ccc4d5ea336b239cce7439ed8623ad095f3')
 
 prepare() {
   cd $pkgbase
@@ -89,8 +88,7 @@ build() {
 
 check() {
   cd build
-  # Failing tests: #63: test-cal-component-bag
-  ctest --force-new-ctest-process --output-on-failure ||:
+  ctest --force-new-ctest-process --output-on-failure
 }
 
 _pick() {
