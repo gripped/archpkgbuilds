@@ -8,7 +8,7 @@ pkgname=(
   libnautilus-extension
   libnautilus-extension-docs
 )
-pkgver=49.5
+pkgver=50.0
 pkgrel=1
 pkgdesc="Default file manager for GNOME"
 url="https://apps.gnome.org/Nautilus/"
@@ -18,8 +18,11 @@ depends=(
   cairo
   dconf
   gdk-pixbuf2
+  gexiv2
   glib2
   glibc
+  glycin
+  glycin-gtk4
   gnome-autoar
   gnome-desktop-4
   graphene
@@ -32,7 +35,6 @@ depends=(
   libadwaita
   libcloudproviders
   libgcc
-  libgexiv2
   libportal
   libportal-gtk4
   libx11
@@ -44,6 +46,7 @@ depends=(
 )
 makedepends=(
   appstream
+  blueprint-compiler
   gi-docgen
   git
   glib2-devel
@@ -57,7 +60,7 @@ checkdepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/nautilus.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('b016febd72fd94faddc23dcab0a2daf3c41bac7bf07a39d0997d11f9c43f4333c68285315729d3f22edd3539e1e96166aff281c8d015ef2145b435d49ab5dab2')
+b2sums=('cc8fbc751a175bfa8a0e1bb45df219e0ec8cd0245dc28f46dd3e4609262bdd854721f5a4e01c7b7e7fe222d62a54a7278bf0cd32fb97a588abbd1391cded08d9')
 validpgpkeys=(
   6B211753AC950672287226800538577822AE4B17 # António Fernandes <antoniof@gnome.org>
   550660707A6F40376B9B9F8D504A78811E6160CC # Corey Berla <corey@berla.me>
@@ -71,6 +74,7 @@ build() {
   local meson_options=(
     -D docs=true
     -D packagekit=false
+    -D selinux=false
   )
 
   arch-meson nautilus build "${meson_options[@]}"
@@ -86,13 +90,6 @@ check() (
   _w=$!
 
   trap "kill $_w; wait" EXIT
-
-  # Make tests actually notice bwrap is broken
-  install -D /dev/stdin path/bwrap <<END
-#!/bin/sh
-exit 1
-END
-  export PATH="$PWD/path:$PATH"
 
   export NO_AT_BRIDGE=1 GTK_A11Y=none
   meson test -C build --print-errorlogs
