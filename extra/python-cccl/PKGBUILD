@@ -2,8 +2,8 @@
 
 _name=cccl
 pkgname=python-$_name
-pkgver=0.5.1
-pkgrel=2
+pkgver=0.5.2
+pkgrel=1
 pkgdesc="CUDA Core Compute Libraries for Python"
 arch=(x86_64)
 url="https://github.com/NVIDIA/cccl"
@@ -32,7 +32,7 @@ makedepends=(
   python-wheel
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/python-$pkgver.tar.gz)
-b2sums=('16d0d209924ff361f82162c88c4fd1bdad8030d58a8d784f69b92ac460a223ded6d8e564bbbb5adadbb9407399561ade04b17e3b66b08fe1dfb76293c4192035')
+b2sums=('00bfd57979c8cfd471a2f6d828b551461b6e5982af3599798a3848472022126fce5553d7e7f71a38525294c1ee5cf1c3c875ebe4d4978a7c486ebad03f7a259e')
 
 prepare() {
   cd $_name-python-$pkgver
