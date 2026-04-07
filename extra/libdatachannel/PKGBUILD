@@ -2,7 +2,7 @@
 # Contributor: Jay Schmidek <jschmidek at gmail dot com>
 # Contributor: Paul-Louis Ageneau <paul-louis at ageneau dot org>
 pkgname=libdatachannel
-pkgver=0.24.1
+pkgver=0.24.2
 pkgrel=1
 pkgdesc="C/C++ WebRTC network library featuring Data Channels, Media Transport, and WebSockets"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MPL-2.0')
 makedepends=('git' 'cmake')
 depends=('glibc' 'gcc-libs' 'openssl' 'libjuice' 'libsrtp')
 source=("git+https://github.com/paullouisageneau/$pkgname.git#tag=v$pkgver")
-sha512sums=('792864cdee0b95d714005751ce7a0167619b220a581b6ddc3aab4b13a771e0a3cb74a5681320058e3b2788d48b4dba31bc76dce3141b27df54d030323ec6bfd2')
+sha512sums=('2364f2d426e9b293e5ce3c1979664db7f32b41ea85261e0939fd0987fa5b1f329574a1139880e238dc50d6b29931983ca588ee9bf893325e98235caa38d78dad')
 
 prepare() {
   cd $pkgname
