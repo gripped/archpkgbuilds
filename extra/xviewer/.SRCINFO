@@ -1,7 +1,7 @@
 pkgbase = xviewer
 	pkgdesc = Simple image viewer
 	pkgver = 3.4.16
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/linuxmint/xviewer
 	arch = x86_64
 	groups = x-apps
@@ -24,7 +24,6 @@ pkgbase = xviewer
 	depends = hicolor-icon-theme
 	depends = lcms2
 	depends = libexif
-	depends = libgirepository
 	depends = libjpeg-turbo
 	depends = libpeas
 	depends = librsvg
@@ -32,6 +31,8 @@ pkgbase = xviewer
 	depends = xapp
 	depends = zlib
 	source = git+https://github.com/linuxmint/xviewer.git#tag=3.4.16
+	source = 0001-libpeas-1.38.patch
 	b2sums = 805fea1c7e38a73a3f2403c6c0433fac45cf4c78cd5a62950fa4265c1469401377caebe219482bc86d08a641bd131f802561d78997521c060b43f476df09b86a
+	b2sums = 86ef118b38328baec0c28d22dc40be2df3dc3d1b80dcefa4213c8530a9904c830a661cb99241fcfecd4f983ef45de41e83203e80b54366e95ed98750b2dab88f
 
 pkgname = xviewer
