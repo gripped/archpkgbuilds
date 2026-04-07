@@ -2,7 +2,7 @@
 
 pkgname=gitg
 pkgver=44
-pkgrel=11
+pkgrel=12
 epoch=2
 pkgdesc="GNOME GUI client to view git repositories"
 url="https://wiki.gnome.org/Apps/Gitg"
@@ -60,6 +60,9 @@ prepare() {
   # Set icon for the window
   # https://gitlab.gnome.org/GNOME/gitg/-/merge_requests/258
   git cherry-pick -n 71e494c96544c56a379678e8a86754a68cdbfb8b
+
+  # Fix build with libpeas 1.38
+  git cherry-pick -n 0f9148d3ea63a96927b59502bbbbee6d444e8d4b
 }
 
 build() {
