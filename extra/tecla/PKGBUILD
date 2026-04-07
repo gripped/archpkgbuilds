@@ -2,19 +2,19 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=tecla
-pkgver=49.0
+pkgver=50.0
 pkgrel=1
 pkgdesc="Keyboard layout viewer"
 url="https://gitlab.gnome.org/GNOME/tecla"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
-  gcc-libs
   glib2
   glibc
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
   libxkbcommon
   pango
   wayland
@@ -25,7 +25,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/tecla.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('932bfc9d6a8b09efbc41c83ec0dd04832b58117895e55d6a7b2558d288bfeb63954c73f1b24150fb9cd82917eb31a637a145a05e71d2f20ede0b2efdbc40c4a7')
+b2sums=('a01ee02f42a3d3dcdd25632783dbe6fc6591731c6a580e2b2be1fe38c072fe7c5e73cf27fe2093399aa4500ff5d2d7e61cfe91ef058afa970d8ba4566c300c15')
 
 prepare() {
   cd tecla
