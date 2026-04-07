@@ -2,7 +2,7 @@
 
 _name=numba-cuda
 pkgname=python-$_name
-pkgver=0.29.0
+pkgver=0.30.0
 pkgrel=1
 pkgdesc="The CUDA target for Numba"
 url="https://github.com/NVIDIA/numba-cuda"
@@ -33,7 +33,7 @@ optdepends=(
   'python-pygments: syntax highlighting in code dumps'
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('8d182bbc9e21af26f6d26a835e645cb42a662f1a7377c0265512015f2a8f326a395bcade2e4efdf3bcc59eef64216b8be7be3301acfe95db3cd40ad51ea64848')
+b2sums=('56f990e420c9a7cae6eddcbd2d1d9227d2ce29dc81d5e63c812a66d12e7e7cce6360b262ba94a3c29890c1597b21be20155887e1cd37754679341d6d70ab4ad6')
 
 build() {
   cd $_name-$pkgver
