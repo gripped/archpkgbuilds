@@ -1,4 +1,4 @@
-From aa7137c1ef26781e048b6d6c60d9c8d16336b690 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Fri, 8 Mar 2024 22:29:07 +0100
 Subject: [PATCH] sushi-media-bin: Fix llvmpipe detection
@@ -9,10 +9,10 @@ Recent versions of mesa have removed the "Gallium on" prefix from the renderer s
  1 file changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/src/libsushi/sushi-media-bin.c b/src/libsushi/sushi-media-bin.c
-index 585db5d..5f8cbc2 100644
+index 8ba4fe363bf6..7357a357eed7 100644
 --- a/src/libsushi/sushi-media-bin.c
 +++ b/src/libsushi/sushi-media-bin.c
-@@ -510,6 +510,9 @@ sushi_media_bin_gl_check (GtkWidget *widget)
+@@ -512,31 +512,34 @@ sushi_media_bin_gl_check (GtkWidget *widget)
  {
    static gsize gl_works = 0;
  
@@ -22,7 +22,23 @@ index 585db5d..5f8cbc2 100644
    if (g_once_init_enter (&gl_works))
      {
        GError *error = NULL;
-@@ -533,8 +536,8 @@ sushi_media_bin_gl_check (GtkWidget *widget)
+       gsize works = 1;
+       GdkGLContext *context;
+       GdkWindow *window;
+ 
+       if ((window  = gtk_widget_get_window (widget)) &&
+            (context = gdk_window_create_gl_context (window, &error)))
+         {
+           const gchar *vendor, *renderer;
+ 
+           gdk_gl_context_make_current (context);
+ 
+           vendor   = (const gchar *) glGetString (GL_VENDOR);
+           renderer = (const gchar *) glGetString (GL_RENDERER);
+ 
+           GST_INFO ("GL Vendor: %s, renderer: %s", vendor, renderer);
+ 
+           if (g_str_equal (vendor, "nouveau"))
              GST_WARNING ("nouveau is blacklisted, since sharing gl contexts in "
                           "multiple threads is not supported "
                           "and will eventually make it crash.");
@@ -33,6 +49,3 @@ index 585db5d..5f8cbc2 100644
              GST_INFO ("Detected software GL rasterizer, falling back to gtksink");
            else
              works = 2;
--- 
-GitLab
-

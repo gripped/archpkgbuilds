@@ -3,8 +3,8 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=sushi
-pkgver=46.0
-pkgrel=2
+pkgver=50rc.1
+pkgrel=1
 pkgdesc="A quick previewer for Nautilus"
 url="https://gitlab.gnome.org/GNOME/sushi"
 arch=(x86_64)
@@ -13,7 +13,6 @@ depends=(
   cairo
   evince
   freetype2
-  gcc-libs
   gdk-pixbuf2
   gjs
   glib2
@@ -25,6 +24,7 @@ depends=(
   gtksourceview4
   harfbuzz
   libepoxy
+  libgcc
   libsoup3
   pango
 )
@@ -38,16 +38,12 @@ optdepends=(
   'webkit2gtk-4.1: Render HTML files'
 )
 groups=(gnome)
-source=("git+$url.git?signed#tag=${pkgver/[a-z]/.&}"
-        sushi-gst-set-timeout.patch
-        sushi-detect-llvmpipe.patch
-        sushi-audio-position-update.patch
-        sushi-update-mime-types.patch)
-b2sums=('fdc05965a8e4b2de9e406ad12133cc2d54c439e48adb138f5f71b18f4ede706bc67f6e9e48eac3f600819ea49d099bb13102b0628be1aefa155da686884c7aa1'
-        'b49184552620cc35d3132bedd052d73898ffe96d70d764d3142343c9458049dab3b39861f900fe968ccd95949e3581872a3b553edb60623c735f4a2af555d8c6'
-        'bff347d69e11ae64d43310187c1ecd32a55584aecf1cfbb78ebc0d96e7fc9e971866acb38114c68674894a0fc7190954087b5d862038ea58c5fb9d729042e9f9'
-        'b35843f7c9f6f8427add53876d4cab566a450513f2ea749788c31089474a1a1868caec0dc4d1bceee02ba0b5353fc56a175b09124b6cb1aa3acac175f19d5704'
-        'e32cde0a647c83184583ed32198741378a0d11ec0324b6f51e1bff95c0c00b17c842b9aaf53c654f1ebf0199164c1de55db0e3a27b3734ebc3293bc1d8422893')
+source=(
+  "git+$url.git?signed#tag=${pkgver/[a-z]/.&}"
+  0001-sushi-media-bin-Fix-llvmpipe-detection.patch
+)
+b2sums=('db457838b473a074bef4ba38fe5ca715255cc8bba92470b56169e6d97e5136761ddc0d71d1ff3a7372ddfbf73829746d9581b5b268bd58e3ae36e07e955a5a3c'
+        '1c0df7c8674960bfeb480a0f63d7ab33fae5e042e20a20dec53a5791dd1ceee98cc974e439e0c8e7b49d69c3e96431d2857c551f858c41ff709485daae64476c')
 validpgpkeys=(
   550660707A6F40376B9B9F8D504A78811E6160CC # Corey Berla <corey@berla.me>
 )
@@ -55,21 +51,9 @@ validpgpkeys=(
 prepare() {
   cd sushi
 
-  # Set timeout for gst_element_get_state to avoid freeze when switching to fullscreen
-  # https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/55
-  git apply -3 ../sushi-gst-set-timeout.patch
-
   # Fix llvmpipe detection
   # https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/56
-  git apply -3 ../sushi-detect-llvmpipe.patch
-
-  # Fix position update for audio mode
-  # https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/59
-  git apply -3 ../sushi-audio-position-update.patch
-
-  # Update Totem provided mime type lists
-  # https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/60
-  git apply -3 ../sushi-update-mime-types.patch
+  git apply -3 ../0001-sushi-media-bin-Fix-llvmpipe-detection.patch
 }
 
 build() {
