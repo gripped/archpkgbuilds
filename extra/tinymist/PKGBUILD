@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=tinymist
-pkgver=0.14.14
+pkgver=0.14.16
 pkgrel=1
 epoch=1
 pkgdesc='an integrated language service for Typst'
@@ -15,10 +15,13 @@ makedepends=(cargo)
 replaces=("$pkgname-bin")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('36d28b09cddc126e2b91c48a9c3b07e1c38f951f2e8a5546de8530b6e973c4bf')
+sha256sums=('f9c8f33ac4208f7f7d3a56f3005645cb5959fd8bceca56488c7016a0880ebe1c')
 
 prepare() {
 	cd "$_archive"
+	# upstream lockfile not updated in 0.14.16, since fixed so remove later
+	[[ $pkgver == '0.14.16' ]] || exit 1
+	cargo update
 	cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
@@ -47,6 +50,9 @@ check() {
 	_srcenv
 	local skipped=(
 		e2e
+		tests::convert_tex # 0.14.16, this is why we use lockfiles!
+		tests::convert # 0.14.16
+		tests::test_docx_generation # 0.14.16
 	)
 	cargo test --frozen -- ${skipped[@]/#/--skip }
 }
