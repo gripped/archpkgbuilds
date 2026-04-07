@@ -5,7 +5,7 @@
 
 pkgname=gedit
 pkgver=50.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Easy-to-use general-purpose text editor'
 arch=(x86_64)
 url='https://gedit-text-editor.org/'
