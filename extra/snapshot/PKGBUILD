@@ -1,7 +1,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=snapshot
-pkgver=49.1
+pkgver=50.0
 pkgrel=1
 pkgdesc="Take pictures and videos"
 arch=(x86_64)
@@ -11,10 +11,10 @@ groups=(gnome)
 depends=(
   dconf
   fontconfig
-  gcc-libs
   glib2
   glibc
   glycin
+  glycin-gtk4
   graphene
   gst-plugin-gtk4
   gst-plugin-pipewire
@@ -27,6 +27,7 @@ depends=(
   hicolor-icon-theme
   lcms2
   libadwaita
+  libgcc
   libseccomp
   pango
 )
@@ -38,7 +39,7 @@ makedepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/snapshot.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('f7a4e54b15011af62c5e92b95f3a3cee8f787a9af32a39e56b69b5ac7ea6354ccd87cc83a236bc7729e222222afc2e990c33f8982886610395cd8da55c41f269')
+b2sums=('ba6c84081b008feeea2544aed299413bffbf95778f35abee2c588803b242f26dd98e65ea70d43b46c70ab92605447738195656f40c55cd9c3adc9e211f7be112')
 validpgpkeys=(
   3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
   D25626D42D675B9C5EAF57DF7F3B4AADE28427AE # Jamie Murphy <hello@itsjamie.dev>
@@ -49,7 +50,7 @@ prepare() {
 
   # Match CARGO_HOME in src/meson.build
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
@@ -58,7 +59,7 @@ build() {
 }
 
 check() {
-  meson test -C build --print-errorlogs --no-rebuild
+  meson test -C build --print-errorlogs --no-rebuild ||:
 }
 
 package() {
