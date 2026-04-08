@@ -1,16 +1,16 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=libglacierapp
-pkgver=0.9.2
+pkgver=1.0
 pkgrel=1
 pkgdesc="Glacier Application library"
 arch=('x86_64')
 url="https://github.com/nemomobile-ux/libglacierapp"
 license=('LGPL-2.0-or-later')
-depends=('mlite' 'qt5-declarative')
+depends=('glibc' 'libgcc' 'libstdc++' 'mlite' 'qt5-base' 'qt5-declarative')
 makedepends=('git' 'cmake')
 source=("git+https://github.com/nemomobile-ux/libglacierapp.git#tag=$pkgver")
-sha512sums=('7de77a662ab55a57d4a18d86603452fae2d2a6f3418515c260f0f66fb4b369c8a4d9fe1d274c8734f3a76b84061c38ccb90a5c0bced4d44a7228a37e3a452065')
+sha512sums=('15ad76f075e5c7d9ecca7a7f4715c77568ea20625dfa9cb7327f0b10fbfa28871299a4fbbce9e6dee17d927e56b909d07f1b25ee771daa40eb06a30f593e7000')
 
 build(){
   cd $pkgname
