@@ -2,13 +2,14 @@
 
 pkgname=lib2geom
 pkgver=1.4
-pkgrel=2
+pkgrel=3
 pkgdesc='Easy to use 2D geometry library in C++'
 arch=('x86_64')
 url='https://gitlab.com/inkscape/lib2geom'
 license=('GPL')
-depends=('glib2' 'gsl' 'double-conversion' 'cairo' 'ragel')
-makedepends=('cmake' 'boost' 'gtest')
+depends=('glib2' 'gsl' 'double-conversion' 'cairo')
+provides=('lib2geom.so')
+makedepends=('cmake' 'boost' 'gtest' 'ragel')
 source=("https://gitlab.com/inkscape/${pkgname}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.bz2")
 sha256sums=('717a87ce7f2192271a789c1273ae7b432856c522647b9fe33bb4dd662942b3ea')
 
