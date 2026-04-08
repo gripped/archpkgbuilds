@@ -3,7 +3,7 @@
 # Contributor: Bjorn Martensen
 
 pkgname=libisofs
-pkgver=1.5.8
+pkgver=1.5.8.1
 pkgrel=1
 pkgdesc='Library to pack up hard disk files and directories into a ISO 9660 disk image'
 arch=(x86_64)
@@ -12,8 +12,8 @@ license=(GPL-2.0-or-later)
 depends=(glibc acl zlib)
 makedepends=(git)
 source=("$pkgname::git+$url#tag=release-${pkgver//.1/.pl01}")
-sha512sums=('38ca9b38213b1f93ad88b3dc771cd29a821073df454f078a10db7da62d280789f334e497d4042cb3e6a18c619b0a3b91def7476c808f1c768fdb428eb62d27f0')
-b2sums=('271f302c9f2a1d5046a4723dd45abadbaf6a69acc67b19c3aa458f06cf5d58486ff0683ddca29a9a9eb5897286ede37af5402276fd09924cc57d7033b5b54139')
+sha512sums=('6e2444113ddba94647251019dbb297963572b0ee91ec5546372b6eea43ad46290fd763cd65050746334469b09d6992c2c5a60f1f539282b1709ea34740ce580a')
+b2sums=('9a15228e685f229a584187e34e0c06a348817ace60297d0e69d8932e3219702553097aa3a190e3d21fec3091907db0f8ef69010e7c0ad9d4582483e78c4b9ebe')
 
 prepare() {
   cd "$pkgname"
