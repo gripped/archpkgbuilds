@@ -2,7 +2,7 @@
 
 pkgname=polymake
 pkgver=4.15
-pkgrel=5
+pkgrel=8
 _perlver=`perl -e '$v = $^V->{version}; print $v->[0].".".($v->[1]).".".($v->[2]);'`
 pkgdesc='Open source software for research in polyhedral geometry'
 arch=(x86_64)
@@ -12,9 +12,11 @@ depends=(bliss
          cddlib
          e-antic
          flint
-         gcc-libs
          glibc
          gmp
+         libgcc
+         libgomp
+         libstdc++
          lrs
          mongo-c-driver
          mpfr
