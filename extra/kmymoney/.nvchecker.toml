@@ -1,7 +1,5 @@
 [kmymoney]
-source = 'gitlab'
-gitlab = 'office/kmymoney'
-host = 'invent.kde.org'
-use_max_tag = true
+source = 'git'
+git = 'https://invent.kde.org/office/kmymoney.git'
 prefix = 'v'
-exclude_regex = '.*.[89]\d.*'
+include_regex = '^v\d+\.\d+\.\d+$'
