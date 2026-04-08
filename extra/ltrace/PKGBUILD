@@ -1,45 +1,52 @@
-# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Evangelos Foutras <foutrelis@archlinux.org>
 # Contributor: Aaron Griffin <aaron@archlinux.org>
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=ltrace
-pkgver=0.7.3
-pkgrel=6
+pkgver=0.8.1
+pkgrel=1
 pkgdesc="Tracks runtime library calls in dynamically linked programs"
 arch=('x86_64')
 url="https://www.ltrace.org/"
-license=('GPL')
-depends=('elfutils' 'libunwind')
-makedepends=('dejagnu')
-backup=('etc/ltrace.conf')
-source=(https://sources.archlinux.org/other/$pkgname/$pkgname-$pkgver.tar.bz2)
-sha256sums=('0e6f8c077471b544c06def7192d983861ad2f8688dd5504beae62f0c5f5b9503')
+license=('GPL-2.0-or-later')
+depends=(
+  'glibc'
+  'libelf'
+  'libgcc'
+)
+makedepends=(
+  'dejagnu'
+  'git'
+)
+source=("git+https://gitlab.com/cespedes/ltrace.git#tag=$pkgver")
+b2sums=('ca0f1b7ff9c7b0aa19f0f4156f17f9dee6a67c1dc9007e91cae5fcaf2b3797db36cd803d9e42a24161fc6f112dd322ca6265de3675a5a21080e337971d83b0ae')
 
 prepare() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd $pkgname
   autoreconf -fiv
 }
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
-
+  cd $pkgname
   ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
-    --disable-werror
+    --disable-werror \
+    --without-libunwind
   make
 }
 
 check() {
-  cd "$srcdir/$pkgname-$pkgver"
-
+  cd $pkgname
+  # Many test expectations use the old output format from before upstream
+  # commit 6645e9a which changed whitespace/delimiter formatting in struct
+  # and array output (e.g. "{ 1, 2 }" -> "{1, 2}", "[ x ]" -> "[x]").
+  # The test suite was not updated to match.
   make -k check || true
 }
 
 package(){
-  cd "$srcdir/$pkgname-$pkgver"
-
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
-
-# vim:set ts=2 sw=2 et:
