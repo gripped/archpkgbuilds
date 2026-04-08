@@ -5,7 +5,7 @@
 
 pkgname=miopen-hip
 pkgver=7.2.1
-pkgrel=1
+pkgrel=2
 # pin frugally-deep version as workaround workaround for https://github.com/ROCm/MIOpen/issues/3588
 _fdeep_ver=0.15.31
 pkgdesc="AMD's Machine Intelligence Library (HIP backend)"
@@ -39,6 +39,7 @@ makedepends=(
   'ninja'
   'nlohmann-json'
   'rocm-cmake'
+  'rocm-toolchain'
 )
 provides=('miopen')
 conflicts=('miopen')
@@ -135,6 +136,7 @@ build() {
     -D HALF_INCLUDE_DIR="$srcdir/deps/usr/include"
     -D CMAKE_PREFIX_PATH="$srcdir/deps/usr/lib/cmake"
     -D CMAKE_POLICY_VERSION_MINIMUM=3.5
+    -D GPU_TARGETS="$(rocm-supported-gfx -e gfx1010,gfx1012,gfx1153)"
   )
   cmake "${cmake_args[@]}"
   cmake --build build
