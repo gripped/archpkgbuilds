@@ -1,26 +1,50 @@
-# Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Devin Lin <devin@kde.org>
 
 pkgname=plasma-nano
-pkgver=5.27.10
+pkgver=6.6.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
-pkgdesc='A minimal Plasma shell package'
+pkgdesc='A minimal Plasma shell package intended for embedded devices'
 arch=(x86_64)
-url='https://kde.org/plasma-desktop/'
-license=(LGPL)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-depends=(plasma-framework5)
-makedepends=(extra-cmake-modules)
-sha256sums=('4bf61c1bf27e1209584cd0f21ebb450a7eda43cd5c5269eaa028b790dc2e1c9c'
-            'SKIP')
-validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
-              '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
-              'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
-              '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
+url='https://invent.kde.org/plasma/plasma-nano'
+license=(GPL-2.0-or-later)
+depends=(
+  glibc
+  kdeclarative
+  kirigami
+  kitemmodels
+  knewstuff
+  kservice
+  ksvg
+  kwayland
+  kwindowsystem
+  libplasma
+  libstdc++
+  plasma-workspace
+  qt6-5compat
+  qt6-base
+  qt6-declarative
+)
+makedepends=(
+  cmake
+  extra-cmake-modules
+)
+source=("https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz"{,.sig})
+sha256sums=(
+  488fd4b298ed1df478e93f0d7013263ef8d86faff7c2dd783ea21bb0ac9c4d3a
+  SKIP
+)
+validpgpkeys=(
+  E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
+  0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D # Bhushan Shah <bshah@kde.org>
+  D07BD8662C56CB291B316EB2F5675605C74E02CF # David Edmundson <davidedmundson@kde.org>
+  1FA881591C26B276D7A5518EEAAF29B42A678C20 # Marco Martin <notmart@gmail.com>
+)
 
 build() {
-  cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF
+  cmake -B build -S $pkgname-$pkgver
   cmake --build build
 }
 
