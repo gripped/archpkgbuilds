@@ -2,8 +2,8 @@
 # Contributor: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=python-openapi-core
-pkgver=0.23.0
-pkgrel=2
+pkgver=0.23.1
+pkgrel=1
 pkgdesc='Client-side and server-side support for the OpenAPI Specification v3'
 arch=(any)
 url='https://github.com/p1c2u/openapi-core'
@@ -53,7 +53,7 @@ checkdepends=(
   python-starlette
 )
 source=("git+$url#tag=$pkgver")
-b2sums=('1398bfb8ab5e9aadf0f216d5967b0dde8ef11464f4b4a4fab47b102f37f5f6066743c9390e1fcd08736fdb0433544862cc47df71d03db6d58adbf9c19a821407')
+b2sums=('54bf2eea1c57779ea9144bbc56af2cd0ece68a6ef76a9d4057e251947d4a5e1f031949721deb8b2a46e3a7e5b0e9e70de23ddc8bf1256ae2bdfc2bb3c3554a6f')
 
 build() {
   cd "${pkgname#python-}"
