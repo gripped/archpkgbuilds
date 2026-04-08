@@ -2,8 +2,8 @@
 # Contributor: justforlxz <justforlxz@gmail.com>
 
 pkgname=deepin-shell
-pkgver=2.0.31
-pkgrel=2
+pkgver=2.0.32
+pkgrel=1
 pkgdesc='New DDE shell'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-shell"
@@ -17,7 +17,12 @@ groups=('deepin')
 replaces=('deepin-dock')
 conflicts=('deepin-dock')
 source=("git+https://github.com/linuxdeepin/dde-shell.git#tag=$pkgver")
-sha512sums=('620d9d7603b1113e2b9de555a8d2a0b9e8fc22ac7b8590ad5c8f667922938058186fcf1829f03e7752f7fb4adac7c2a4a5aed65a2050517ee77f1c51ae41ed08')
+sha512sums=('bb5f7d9f3072dca785ee986dbe1fc6aad6c816138341f23bc9dbc1aa74210d214e887d9651b87076963142ddf42d1bcc5dc9c62e4dfecde2742e8dad3b32cd61')
+
+prepare() {
+  cd dde-shell
+  sed -i 's/WaylandClientPrivate WaylandCompositorPrivate REQUIRED/QuickTemplates2Private WaylandClientPrivate WaylandCompositorPrivate REQUIRED/' CMakeLists.txt
+}
 
 build() {
   cd dde-shell
