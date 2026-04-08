@@ -1,6 +1,6 @@
 pkgbase = magma
-	pkgver = 2.9.0
-	pkgrel = 6
+	pkgver = 2.10.0
+	pkgrel = 1
 	url = https://icl.utk.edu/magma/
 	arch = x86_64
 	license = BSD-3-Clause
@@ -20,10 +20,10 @@ pkgbase = magma
 	optdepends = python: for examples and tests
 	optdepends = gcc-fortran: Fortran interface
 	options = !lto
-	source = magma::git+https://github.com/icl-utk-edu/magma.git#tag=v2.9.0
-	source = ROCm-use-HIPBLAS_V2-types-and-APIs-ROCm-7-ready.patch
-	sha256sums = bd18fbfd1b36dbcfd604b22f2fdfaf0a18c5dcfbe09fe1f1b2f2fe3e365bc304
-	sha256sums = 1dd10785f143adfd73cfd5c5fae44553ea52c10bd9a8fcd20f97819529a0ead1
+	source = magma::git+https://github.com/icl-utk-edu/magma.git#tag=v2.10.0
+	source = magma-cuda-smaller-cuda-binaries.patch::https://github.com/icl-utk-edu/magma/pull/83.patch
+	sha256sums = 4ce599fec02a871aec6e1c2cea93e596364fddee6790113a552baca75fcb407b
+	sha256sums = bbe40b25601de852389e169335c0ee85a60fa4e634cf246ff74decf3a218cd91
 
 pkgname = magma-cuda
 	pkgdesc = Matrix Algebra on GPU and Multicore Architectures (with CUDA)

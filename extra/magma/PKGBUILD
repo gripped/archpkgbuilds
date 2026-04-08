@@ -9,8 +9,8 @@
 _pkgname=magma
 pkgbase=$_pkgname
 pkgname=(magma-cuda magma-hip)
-pkgver=2.9.0
-pkgrel=6
+pkgver=2.10.0
+pkgrel=1
 _pkgdesc="Matrix Algebra on GPU and Multicore Architectures"
 arch=('x86_64')
 url="https://icl.utk.edu/magma/"
@@ -23,10 +23,10 @@ optdepends=('python: for examples and tests'
             'gcc-fortran: Fortran interface')
 source=(
   "${_pkgname}::git+https://github.com/icl-utk-edu/magma.git#tag=v${pkgver}"
-  ROCm-use-HIPBLAS_V2-types-and-APIs-ROCm-7-ready.patch
+  $pkgname-smaller-cuda-binaries.patch::https://github.com/icl-utk-edu/magma/pull/83.patch
 )
-sha256sums=('bd18fbfd1b36dbcfd604b22f2fdfaf0a18c5dcfbe09fe1f1b2f2fe3e365bc304'
-            '1dd10785f143adfd73cfd5c5fae44553ea52c10bd9a8fcd20f97819529a0ead1')
+sha256sums=('4ce599fec02a871aec6e1c2cea93e596364fddee6790113a552baca75fcb407b'
+            'bbe40b25601de852389e169335c0ee85a60fa4e634cf246ff74decf3a218cd91')
 options=(!lto)
 
 _valid_sm() {
@@ -40,12 +40,9 @@ _valid_gfx() {
 prepare() {
   # NOTE: all patches must be applied before copying the sources for -cuda and -hip and running make generate
   cd "${_pkgname}"
-  # Drop CMP0037 to fix cmake 4.0 build error
-  git cherry-pick -n 2fecaf3f0c811344363f713669c1fe30f6879acd
-  # Fix for CUDA 13
-  git cherry-pick -n 235aefb
-  # Backported fix for ROCm 7.1
-  patch -p1 < ../ROCm-use-HIPBLAS_V2-types-and-APIs-ROCm-7-ready.patch
+
+  # Fix https://github.com/icl-utk-edu/magma/issues/39
+  patch -Np1 -i "$srcdir"/$pkgname-smaller-cuda-binaries.patch
 
   cd "${srcdir}"
 
