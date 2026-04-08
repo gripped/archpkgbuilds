@@ -5,7 +5,7 @@
 # Contributor: PedroHLC <root@pedrohlc.com>
 
 pkgname=gamescope
-pkgver=3.16.22
+pkgver=3.16.23
 pkgrel=1
 pkgdesc='SteamOS session compositing window manager'
 arch=(x86_64)
@@ -71,15 +71,17 @@ source=(
   git+https://github.com/KhronosGroup/SPIRV-Headers.git
   git+https://github.com/Joshua-Ashton/vkroots.git
   git+https://github.com/Joshua-Ashton/wlroots.git
+  wlroots-5261.patch
 )
-b2sums=('5f2a2c394903efe214492c2a4fab809c44823adc87ccf1cd8516eba06aee734a7be7e505108daee2049ecd46d5ec0201176a63d6d48e85a94ff8d3c7cca0a4b8'
+b2sums=('0e4d3953c4d736dcdb1eab69a6b0f91f426d0e7becbdfc3389bf1b12c8ca1487a4a7fbbdcc0657b1e32093c96f9fda09a5a8ca91837d7efff6d26850e4fce5c4'
         'SKIP'
         'SKIP'
         'SKIP'
         'SKIP'
         'SKIP'
         'SKIP'
-        'SKIP')
+        'SKIP'
+        'a46eed11d1f4174f011e8aa58b3d333c81750ceb4846d462ec7cee98e268a1c00fa9699b656abfeec872b025aeb95f87e19267ce1d4722a5521233270a8fa604')
 
 prepare() {
   cd gamescope
@@ -91,6 +93,9 @@ prepare() {
     git config submodule.${submodule}.url ../${submodule##*/}
   done
   git -c protocol.file.allow=always submodule update
+
+  # Fix https://github.com/ValveSoftware/gamescope/issues/2110
+  patch -Np1 -d subprojects/wlroots -i "${srcdir}"/wlroots-5261.patch
 }
 
 build() {

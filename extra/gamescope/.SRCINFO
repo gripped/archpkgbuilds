@@ -1,6 +1,6 @@
 pkgbase = gamescope
 	pkgdesc = SteamOS session compositing window manager
-	pkgver = 3.16.22
+	pkgver = 3.16.23
 	pkgrel = 1
 	url = https://github.com/ValveSoftware/gamescope
 	arch = x86_64
@@ -50,7 +50,7 @@ pkgbase = gamescope
 	depends = xcb-util-errors
 	depends = xcb-util-wm
 	depends = xorg-server-xwayland
-	source = git+https://github.com/ValveSoftware/gamescope.git#commit=3.16.22
+	source = git+https://github.com/ValveSoftware/gamescope.git#commit=3.16.23
 	source = git+https://gitlab.freedesktop.org/emersion/libdisplay-info.git
 	source = git+https://gitlab.freedesktop.org/emersion/libliftoff.git
 	source = git+https://github.com/ValveSoftware/openvr.git
@@ -58,7 +58,8 @@ pkgbase = gamescope
 	source = git+https://github.com/KhronosGroup/SPIRV-Headers.git
 	source = git+https://github.com/Joshua-Ashton/vkroots.git
 	source = git+https://github.com/Joshua-Ashton/wlroots.git
-	b2sums = 5f2a2c394903efe214492c2a4fab809c44823adc87ccf1cd8516eba06aee734a7be7e505108daee2049ecd46d5ec0201176a63d6d48e85a94ff8d3c7cca0a4b8
+	source = wlroots-5261.patch
+	b2sums = 0e4d3953c4d736dcdb1eab69a6b0f91f426d0e7becbdfc3389bf1b12c8ca1487a4a7fbbdcc0657b1e32093c96f9fda09a5a8ca91837d7efff6d26850e4fce5c4
 	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = SKIP
@@ -66,5 +67,6 @@ pkgbase = gamescope
 	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = SKIP
+	b2sums = a46eed11d1f4174f011e8aa58b3d333c81750ceb4846d462ec7cee98e268a1c00fa9699b656abfeec872b025aeb95f87e19267ce1d4722a5521233270a8fa604
 
 pkgname = gamescope
