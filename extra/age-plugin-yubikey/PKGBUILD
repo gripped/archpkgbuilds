@@ -2,8 +2,8 @@
 # Contributor: Daniel Peukert <daniel@peukert.cc>
 
 pkgname=age-plugin-yubikey
-pkgver=0.5.0
-pkgrel=2
+pkgver=0.5.1
+pkgrel=1
 pkgdesc='Yubikey plugin for age'
 arch=(x86_64 i686 arm armv6h armv7h aarch64)
 url="https://github.com/str4d/$pkgname"
@@ -16,7 +16,7 @@ optdepends=('age: for use with age'
             'rage-encryption: for use with rage')
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('65807403f0098569a473ffa76302b205da148a7f46b61fd331b8e323959978ba')
+sha256sums=('51e4680ad7ad7f56535e4f3018531bd0196815659378709979617d4f17102700')
 
 prepare() {
 	cd "$_archive"
