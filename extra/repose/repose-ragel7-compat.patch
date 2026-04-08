@@ -1,0 +1,17 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,12 +1,12 @@
+ DOT = dot
+-RAGEL = ragel
++RAGEL = ragel-c
+ RAGEL_FLAGS := -G2
+
+ COMPILE.rl = $(RAGEL) $(RAGEL_FLAGS)
+ COMPILE.dot = $(DOT) $(DOT_FLAGS)
+
+ %.c: %.rl
+-	$(COMPILE.rl) -C $(OUTPUT_OPTION) $<
++	$(COMPILE.rl) $(OUTPUT_OPTION) $<
+
+ %.dot: %.rl
+ 	$(COMPILE.rl) -Vp $(OUTPUT_OPTION) $<
