@@ -6,7 +6,7 @@ pkgname=(
   ultramaster-kr106-lv2
   ultramaster-kr106-clap
 )
-pkgver=2.4.9
+pkgver=2.4.10
 pkgrel=1
 pkgdesc='A virtual analog synthesizer inspired by the classic Roland Juno polysynths'
 arch=(x86_64)
@@ -34,18 +34,21 @@ makedepends=(
 )
 source=(
   "$pkgbase::git+https://github.com/kayrockscreenprinting/ultramaster_kr106#tag=v$pkgver"
+  ftbfs-non-existent-file.patch
   'github.com-juce-framework-JUCE::git+https://github.com/juce-framework/JUCE'
   'github.com-free-audio-clap-juce-extensions::git+https://github.com/free-audio/clap-juce-extensions'
   # clap-juce-extensions
   'github.com-free-audio-clap::git+https://github.com/free-audio/clap'
   'github.com-free-audio-clap-helpers::git+https://github.com/free-audio/clap-helpers'
 )
-sha512sums=('6fa882da93908fcca91c88ea1638c4e1f7c6779b363fbdccaa5b474573e8784c7691258a887c7fb9e2447c0aa1dc51ba6a6886561d6f683dee0001f37d93b5a9'
+sha512sums=('da48bb33327d3c79cf660918ac948acd2e773acf0ef8f342976b21381be5988fc475d999f8d010fe1dcf96c04a566d62ba96b03bf6fc5341fe2fb783860f954e'
+            'd900e2b46d7e57111f1990598b1cf072e66979c1fa2907f6197f8a6d7976ba4a42995b10e322440824d3a9708f22ea0d4f81bca1c1a777b4bf838cb58e9e6146'
             'SKIP'
             'SKIP'
             'SKIP'
             'SKIP')
-b2sums=('9e63523288e877bff4bc6789f1fdb5b1d5e3c1d31180418f2cce415ce8ac2ec6b498b5c410ec1ed776ec26b646555d4355c38f5e5a77ec5df15ffc5e054ffb30'
+b2sums=('5a642949743044665faeebc5f9d646882066374847a44beea100a662afe0d78c9d782d70ceeeb3b2c61e0aa1f2498269a432ca7145b7d10fc01108f89cc6cce3'
+        'dd2bf1e63d15ca1b1be08d703dcb17a7a6757ed988d2dd5d5bc4881947ae6cc85a85023a4857ad64f9aab28b89a7e2b140f37a609fd4d00b5d5a6244c4d1d745'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -53,6 +56,10 @@ b2sums=('9e63523288e877bff4bc6789f1fdb5b1d5e3c1d31180418f2cce415ce8ac2ec6b498b5c
 
 prepare() {
   cd "$pkgbase"
+
+  # ftbfs: non-existent file introduced in
+  # 5a0a63b2f4d1a5d148b9f9ed562656857dec0ee4
+  patch -p1 -i "$srcdir/ftbfs-non-existent-file.patch"
 
   # prepare git submodule(s)
   git submodule init
