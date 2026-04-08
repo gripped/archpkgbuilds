@@ -1,28 +1,68 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Evert Vorster <evorster@gmail.com>
 # Contributor: Martin Sandsmark <martin.sandsmark@kde.org>
 
 pkgname=movit
-pkgver=1.7.1
-pkgrel=2
+pkgver=1.7.2
+pkgrel=1
 pkgdesc="The modern video toolkit"
 arch=('x86_64')
 url="https://movit.sesse.net/"
-license=('GPL')
-depends=('fftw' 'libepoxy')
-makedepends=('eigen' 'gtest' 'sdl2')
-source=(https://movit.sesse.net/$pkgname-$pkgver.tar.gz)
-sha256sums=('b33073b705f0ccb6ac4942cf51151515407b40bb4e9a2dd0228c1c2cb1fbc11a')
+license=('GPL-2.0-or-later')
+depends=(
+  'eigen'
+  'fftw'
+  'glibc'
+  'libepoxy'
+  'libgcc'
+  'libstdc++'
+)
+makedepends=(
+  'gtest'
+  'sdl2'
+)
+checkdepends=('xorg-server-xvfb')
+source=(
+  "https://movit.sesse.net/$pkgname-$pkgver.tar.gz"
+  "$pkgname-use-system-gtest.patch"
+)
+b2sums=('aca6aa9df52e99b9ce3472a6d7e9d7983624d1da4afad69e222294843be50631d96f07fa2f180d4085046d3ad31a21a4eefd71e65873cef2e0508e349b5fc309'
+        '41ac1518909287c74940429ac2a5ced160fb3315b805988097a4ab152bbd56f780297b721e1501b4434a4d6c963bac6d5ebe0b7e3d48186ff5b326803fe6d254')
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -p1 < ../$pkgname-use-system-gtest.patch
+}
 
 build() {
   cd $pkgname-$pkgver
-
   ./configure --prefix=/usr
-  make GTEST_DIR=/usr/src/googletest -j1
+  make -j1
+}
+
+check() {
+  cd $pkgname-$pkgver
+  # Skip tests that require GPU precision not available with software rendering
+  local skipped_tests=(
+    ColorspaceConversionEffectTest.Rec2020_Primaries
+    ColorspaceConversionEffectTest.Rec601_525_Primaries
+    ColorspaceConversionEffectTest.Rec601_625_Primaries
+    ColorspaceConversionEffectTest.sRGB_Primaries
+    EffectChainTest.Linear10bitIntermediateAccuracy
+    FlatInput.ExternalTextureMipmapState
+    ResampleEffectTest.UpscaleByThreeGetsCorrectPixelCenters
+    WithAndWithoutComputeShaderTest/WithAndWithoutComputeShaderTest.SquareRoot10bitIntermediateAccuracy/*
+    YCbCrConversionEffectTest.TenBitOutput
+  )
+  local skipped_tests_filter="${skipped_tests[0]}$(printf ':%s' "${skipped_tests[@]:1}")"
+  export GTEST_FILTER="-$skipped_tests_filter"
+  # deinterlace_effect_test crashes under llvmpipe during shader compilation
+  sed -i '/TESTED_EFFECTS += deinterlace_effect/d' Makefile
+  xvfb-run make check
 }
 
 package() {
   cd $pkgname-$pkgver
-
   make DESTDIR="$pkgdir" install
 }
