@@ -9,7 +9,7 @@
 
 pkgname=anki
 pkgver=25.09.2
-pkgrel=7
+pkgrel=8
 pkgdesc="A smart spaced repetition flashcard program"
 arch=('x86_64')
 url="https://apps.ankiweb.net/"
@@ -133,5 +133,5 @@ package() {
   install -vDm644 -t "$pkgdir/usr/share/applications" qt/launcher/lin/anki.desktop
   install -vDm644 -t "$pkgdir/usr/share/pixmaps" qt/launcher/lin/anki.png qt/launcher/lin/anki.xpm
   install -vDm644 -t "$pkgdir/usr/share/man/man1" qt/launcher/lin/anki.1
-  install -vDm644 -t "$pkgdir/usr/share/mime/application" qt/launcher/lin/anki.xml
+  install -vDm644 -t "$pkgdir/usr/share/mime/packages" qt/launcher/lin/anki.xml
 }
