@@ -2,7 +2,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=gnome-initial-setup
-pkgver=49.0
+pkgver=50.0
 pkgrel=1
 pkgdesc='Helps you to set up your OS when you boot for the first time'
 url='https://gitlab.gnome.org/GNOME/gnome-initial-setup'
@@ -11,7 +11,6 @@ license=(GPL-2.0-or-later)
 depends=(
   accountsservice
   fontconfig
-  gcc-libs
   gdk-pixbuf2
   gdm
   geoclue
@@ -25,6 +24,7 @@ depends=(
   harfbuzz
   krb5
   libadwaita
+  libgcc
   libgdm
   libgweather-4
   libibus
@@ -46,7 +46,7 @@ makedepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-initial-setup.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('1bc491d65c60735716d91fea8c8c89fc26f5a5a120005b7d6d0d70dbd1b6acf5b220b2a52dad315147de36c9cef586d3d854bc74fbc9f6ce871f29998dcfbd5b')
+b2sums=('0b858aa2c60396f5b99001bb9f91e59afb8d7b0c97dfe727285aec9fb9e76f379a8bc6f25c785f416fabeb171cbbafe893f8bcb3973b6709a5ff29f472832d2d')
 
 prepare() {
   cd $pkgname
