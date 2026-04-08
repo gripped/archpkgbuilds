@@ -2,8 +2,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-eventlet
-pkgver=0.40.4
-pkgrel=2
+pkgver=0.41.0
+pkgrel=1
 pkgdesc='Highly concurrent networking library'
 url='https://eventlet.net'
 arch=('any')
@@ -35,8 +35,8 @@ optdepends=(
   'python-pyzmq: non-blocking ZeroMQ support'
 )
 source=("https://github.com/eventlet/eventlet/archive/$pkgver/${pkgname#python-}-$pkgver.tar.gz")
-sha512sums=('398a7e9a616e215709556e5f897bb3aa0b94116dfa3a5de7297d4208af20ae0922874c2e5076f7671b2f720d9177c548abef4af7f3b1752b997ae77c97ad72c7')
-b2sums=('90e31ecbc8f39883c596cd9a77bbe174cbd87a51126252fbd8548f97756a6d379da192054be89a8396879584deee3b14712e1ac6afca7b7d5762d87643fa3ce7')
+sha512sums=('fc913b05fddb8690b9136fc87777655e4e4398f0fb9156bb8995c2bb5481e88f01451348141196fb0f12371796a410c0e81e5bc2ac81aacc7cc939729c4d6b70')
+b2sums=('165d9cb9ef29cd176618f013e9240bc782bf487dbe63dc732098640d91e39c9524e5ff1955f2bba98faca3941a59f10081cf6a88ad63baa7bfe50b80a8222d8d')
 
 build() {
   cd ${pkgname#python-}-$pkgver
@@ -46,7 +46,7 @@ build() {
   python -m venv --system-site-packages doc-env
   doc-env/bin/python -m installer dist/*.whl
   local site_packages=$(doc-env/bin/python -c "import site; print(site.getsitepackages()[0])")
-  PYTHONPATH="$site_packages" sphinx-build -b text doc/source doc/build/html
+  PYTHONPATH="$site_packages" sphinx-build -d /tmp -b text doc/source doc/build/html
 }
 
 check() {
@@ -64,5 +64,3 @@ package() {
   cp -vr doc/build/html "$pkgdir/usr/share/doc/$pkgname"
   cp -vr examples "$pkgdir/usr/share/doc/$pkgname"
 }
-
-# vim: ts=2 sw=2 et:
