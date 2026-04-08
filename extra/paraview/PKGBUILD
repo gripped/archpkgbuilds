@@ -5,8 +5,8 @@
 # Contributor: <xantares09@hotmail.com>
 
 pkgname=paraview
-pkgver=6.0.1
-pkgrel=11
+pkgver=6.1.0
+pkgrel=1
 pkgdesc="Parallel Visualization application using VTK"
 arch=(x86_64)
 url="https://www.paraview.org"
@@ -15,16 +15,16 @@ depends=(
   cgns
   double-conversion
   fmt libfmt.so
-  gcc-libs
   gdal
   gl2ps
   glibc
   hdf5
   jsoncpp libjsoncpp.so
+  libgcc
   libglvnd libGLX.so libOpenGL.so
+  libgomp
   liblas
-  libx11
-  libxcursor
+  libstdc++
   libxslt # xsltproc executable
   lz4 liblz4.so
   netcdf
@@ -68,23 +68,12 @@ makedepends=(
   mesa
   ninja
   nlohmann-json
-  qt6-svg
   utf8cpp
 )
 source=(
   $url/files/v${pkgver%.*}/ParaView-v${pkgver/R/-R}.tar.xz
-  qt-6.10.1.patch
 )
-b2sums=('e19a8b56f619fb47630152439af3ac7f3be1138b938db443f579e87a9c403bdd8b38798fa591c3607232252ebca49b62762935bb03f0ac416399d9502a24820d'
-        '17b4e616a5fec682ddf7c45e02195a913b231f2bd24debb0b1a32f0ca09b73c2bb9eecfadc548016f8bc88319f8f8324afda259501e5e04243f197de346e8656')
-
-prepare() {
-  cd ParaView-v${pkgver/R/-R}
-  patch -p1 -i ../qt-6.10.1.patch # Fix build with Qt 6.10.1
-
-  # Fix build
-  sed -i '/find_package(VTK/i find_package(Boost REQUIRED)' CMakeLists.txt
-}
+b2sums=('8b9f64029f75c73ef4a1f93104377b70a4b4d02398f78647b46599fc4f22ddff852f54954fbeae14a45ef6fa8cbe527562c6db3d6ff50f8d59f43f5d89fe3d7e')
 
 build() {
   export CFLAGS+=" -ffat-lto-objects"
@@ -117,6 +106,9 @@ build() {
     -DPARAVIEW_VERSIONED_INSTALL=OFF
     -DPARAVIEW_BUILD_WITH_EXTERNAL=ON
     -DPARAVIEW_USE_EXTERNAL_VTK=ON
+    # workaround for https://gitlab.kitware.com/paraview/paraview/-/work_items/23235
+    # (should be fixed in paraview 6.1.1)
+    -DCMAKE_POLICY_DEFAULT_CMP0076=NEW
   )
   cmake "${cmake_options[@]}"
   cmake --build build
