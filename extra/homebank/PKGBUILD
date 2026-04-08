@@ -1,29 +1,37 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=homebank
-pkgver=5.9.7
+pkgver=5.10
 pkgrel=1
 pkgdesc="Free, easy, personal accounting for everyone"
 arch=('x86_64')
 url="https://www.gethomebank.org/"
 license=('GPL-2.0-or-later')
-depends=('desktop-file-utils' 'gtk3' 'hicolor-icon-theme' 'libofx'
-         'librsvg' 'perl-xml-parser' 'shared-mime-info' 'libsoup3')
+depends=(
+  'cairo'
+  'gdk-pixbuf2'
+  'glib2'
+  'glibc'
+  'gtk3'
+  'hicolor-icon-theme'
+  'libgcc'
+  'libofx'
+  'libsoup3'
+  'pango'
+)
 makedepends=('intltool')
-changelog=$pkgname.changelog
-source=(https://www.gethomebank.org/public/sources/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('2b8fdf512429a30ed7a457cf5af476756c0cfddc9fce7600dab95c7f03be26e4')
+source=("https://www.gethomebank.org/public/sources/$pkgname-$pkgver.tar.gz")
+b2sums=('bbb2dbfe3b5e193c11315e568d070d9a31e201739bbad5b3446ec50dfd8d9d14a6d330b2e7de8591d8b997d9a8b41702ac8e3bb67c12c8dbd3de9b8a7a95c77a')
 
 build() {
-  cd "${srcdir}"/$pkgname-$pkgver
-
+  cd "$pkgname-$pkgver.0"
   ./configure --prefix=/usr
   make
 }
 
 package() {
-  cd "${srcdir}"/$pkgname-$pkgver
-
-  make DESTDIR="${pkgdir}" install
+  cd "$pkgname-$pkgver.0"
+  make DESTDIR="$pkgdir" install
 }
