@@ -1,28 +1,35 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
-pkgname=python-google-auth-oauthlib
-pkgver=1.2.4
+_name=google-auth-oauthlib
+pkgname=python-"${_name}"
+pkgver=1.3.1
 pkgrel=1
 pkgdesc="oauthlib integration for Google auth."
 url="http://google-auth-oauthlib.readthedocs.io/en/latest/"
-checkdepends=('python-click' 'python-pytest')
-makedepends=('python-setuptools')
+checkdepends=('python-click' 'python-cryptography' 'python-pytest')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 depends=('python' 'python-google-auth' 'python-requests-oauthlib')
 optdepends=('python-click')
-license=('Apache')
+license=('Apache-2.0')
 arch=('any')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/googleapis/google-auth-library-python-oauthlib/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('69573391dbf165f324ee0aa5be2eafcb6aa63146d1c23b6b3abbb9d790a6d83b')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/googleapis/google-cloud-python/archive/refs/tags/${_name}-v${pkgver}.tar.gz")
+sha256sums=('b3a2d76a60a9b173fb9bc43fc51fb31204fb1b24cf1dfbbc84f62ca040d2f6d4')
 
-# check() {
-#     cd "google-auth-library-python-oauthlib-${pkgver}"
-#     pytest
-# }
+build() {
+    cd "google-cloud-python-${_name}-v${pkgver}/packages/${_name}"
+    python -m build --wheel --no-isolation
+}
+
+check() {
+    cd "google-cloud-python-${_name}-v${pkgver}/packages/${_name}"
+    PYTHONPATH=. pytest
+}
 
 package() {
-    cd "google-auth-library-python-oauthlib-${pkgver}"
-    python setup.py install --root="${pkgdir}" --optimize=1
+    cd "google-cloud-python-${_name}-v${pkgver}/packages/${_name}"
+
+    python -m installer --destdir="$pkgdir" dist/*.whl
     install -Dm644 LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
 
     # Remove conflicting files
