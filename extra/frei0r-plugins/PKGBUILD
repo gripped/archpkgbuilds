@@ -2,8 +2,8 @@
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=frei0r-plugins
-pkgver=2.5.6
-pkgrel=2
+pkgver=3.0.0
+pkgrel=1
 pkgdesc='Collection of video effect plugins'
 arch=(x86_64)
 url='https://frei0r.dyne.org/'
@@ -21,7 +21,7 @@ makedepends=(
   git
 )
 source=("git+https://github.com/dyne/frei0r#tag=v$pkgver")
-b2sums=('246ca3f9e7bbed04e339e343e1ee6ee367ef6ecb8d78f9b5a48f94e1b0088498144b4f2cb503084b8650bd5338e6812564b4bc1adb3c9ccb7e8a50366223eeda')
+b2sums=('4ef72aa8cc09e16d93780e1d71e4bb5d01e9c53393bbc6e1394b399c29f28ed6d9bc53f3dcb5899181075d0cdc22f5fbd287c29e8cde030c465672eef3cad654')
 validpgpkeys=(6113D89CA825C5CEDD02C87273B35DA54ACB7D10) # Denis Roio (Jaromil)
 
 build() {
