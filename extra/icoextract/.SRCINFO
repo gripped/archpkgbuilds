@@ -1,0 +1,24 @@
+pkgbase = icoextract
+	pkgdesc = Extract icons from Windows PE files (.exe/.dll)
+	pkgver = 0.2.0
+	pkgrel = 4
+	url = https://projects.jlu5.com/icoextract.html
+	arch = any
+	license = MIT
+	checkdepends = imagemagick
+	checkdepends = mingw-w64-gcc
+	checkdepends = python-pillow
+	checkdepends = python-pytest
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = python
+	depends = python-pefile
+	optdepends = python-pillow: required for the optional thumbnailer
+	source = git+https://github.com/jlu5/icoextract.git#tag=0.2.0?signed
+	validpgpkeys = D5D568B2D34AB32A337944D22EC3F60DE71C0B9D
+	b2sums = 2ee958754636a0ac685a4cd07dac6eace1277fd0140a13a29040b086d6b1f22432b38ad8750dc28c9699df8baf4e683032e3437520d17b895e009229ff57510c
+
+pkgname = icoextract
