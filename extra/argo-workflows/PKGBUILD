@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=argo-workflows
-pkgver=4.0.3
+pkgver=4.0.4
 pkgrel=1
 pkgdesc='Workflow Engine for Kubernetes'
 arch=(x86_64)
@@ -14,7 +14,7 @@ makedepends=(
 )
 options=('!lto')
 source=("git+$url#tag=v$pkgver")
-b2sums=('c1d4dae32c8c68ad1b0b9928bf9657d8ab2c9ecc6802906eded1efa020494754f147e278540115e839effda2adb4c0947a2f6af81c62ec38b5ab7e83f5f0fba5')
+b2sums=('56cec6e63e7e3356b042e63d4502f6f01e92254c31b5c5740baf2d54c8ac4c0ff9fdeb19ef0e97c6e3ca9f7849d4881ddd92cc298edc4804bfc38efb0c5245a5')
 
 prepare() {
   cd $pkgname
