@@ -1,0 +1,42 @@
+version = 1
+
+[[annotations]]
+path = [
+    "PKGBUILD",
+    "README.md",
+    "keys/**",
+    ".SRCINFO",
+    ".gitignore",
+    ".nvchecker.toml",
+    "*.install",
+    "*.sysusers",
+    "*sysusers.conf",
+    "*.tmpfiles",
+    "*tmpfiles.conf",
+    "*.logrotate",
+    "*.pam",
+    "*.service",
+    "*.socket",
+    "*.timer",
+    "*.desktop",
+    "*.hook",
+]
+SPDX-FileCopyrightText = "Arch Linux contributors"
+SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "cef-no-libxml-visibility-patch.patch",
+    "cef-no-sysroot.patch",
+    "chromium-138-nodejs-version-check.patch",
+    "chromium-145-fix-SYS_SECCOMP.patch",
+    "chromium-146-apply-upstream-libmuck-fix.patch",
+    "chromium-146-build-with-wasm-rollup.patch",
+    "chromium-146-drop-unknown-clang-flag.patch",
+    "chromium-disable-font-tests.patch",
+    "compiler-rt-adjust-paths.patch",
+    "glibc-2.42-baud-rate-fix.patch",
+    "increase-fortify-level.patch",
+]
+SPDX-FileCopyrightText = "cef contributors"
+SPDX-License-Identifier = "BSD-3-Clause"
