@@ -7,7 +7,7 @@ pkgname=(
   gdk-pixbuf2-docs
 )
 pkgver=2.44.6
-pkgrel=1
+pkgrel=2
 pkgdesc="An image loading library"
 url="https://gitlab.gnome.org/GNOME/gdk-pixbuf"
 arch=(x86_64)
@@ -35,6 +35,10 @@ b2sums=('e24fa06f587e81a4b5f5a265a1e449ab0c8d0ae75296cba1bfb8359ae72e3148b16c8b9
 
 prepare() {
   cd gdk-pixbuf
+
+  # Unbreak gdk_pixbuf_new_from_xpm_data
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/gdk-pixbuf2/-/work_items/13
+  git cherry-pick -n 62b8f9fd0bb3b862823cd34afce4b389fbd27569
 }
 
 build() {
@@ -48,6 +52,7 @@ build() {
     -D installed_tests=false
     -D introspection=enabled
     -D jpeg=disabled
+    -D legacy_xpm=enabled
     -D man=true
     -D others=enabled
     -D png=disabled
