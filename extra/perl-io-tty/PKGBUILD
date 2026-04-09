@@ -2,7 +2,7 @@
 # Contributor: Charles Mauch <cmauch@gmail.com>
 
 pkgname=perl-io-tty
-pkgver=1.25
+pkgver=1.27
 pkgrel=1
 pkgdesc="Provide an interface to TTYs and PTYs"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=("GPL-1.0-or-later" "Artistic-1.0-Perl")
 depends=('glibc')
 options=('!emptydirs')
 source=("https://search.cpan.org/CPAN/authors/id/T/TO/TODDR/IO-Tty-$pkgver.tar.gz")
-sha256sums=('e425dd6ec503d1225581085b45a775396d0b221a0ad43647f04f7a10e1f59daf')
+sha256sums=('83459d10a2768df598b58e2ae5946e6c259456cb4eccf85f8652d0c7d8991f2c')
 
 build() {
   cd "$srcdir"/IO-Tty-$pkgver
