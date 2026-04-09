@@ -1,8 +1,8 @@
 # Maintainer: Leonidas Spyropoulos <artafinde@archlinux.org>
 
 pkgname=memray
-pkgver=1.19.1
-pkgrel=2
+pkgver=1.19.3
+pkgrel=1
 pkgdesc="A memory profiler for Python"
 arch=('x86_64')
 url="https://github.com/bloomberg/memray"
@@ -11,8 +11,9 @@ depends=('python' 'libunwind' 'python-rich' 'python-jinja' 'lz4' 'ipython' 'pyth
 makedepends=('git' 'python-setuptools-scm' 'python-build' 'python-installer' 'python-wheel' 'cython' 'npm' 'python-pkgconfig')
 checkdepends=('npm' 'python-pytest' 'python-pytest-textual-snapshot')
 source=("git+$url.git#tag=v${pkgver}?signed")
-sha512sums=('09af79ec326249fa0f163d110300b08fb08d57782703ccbc570bf81d473021f8f48c32ea1cfcc39e50b20b5f3cbe3b16ea31874d77e343ba85f99bd8db44c40b')
-validpgpkeys=('A035C8C19219BA821ECEA86B64E628F8D684696D') # Pablo Galindo Salgado <pablogsal@gmail.com>
+sha512sums=('819fde4aa94b1dcf0c48fc804042a83695834423d37d3219306d5d9b1f49c956d68f1a6ee945d134af7f17fd6103485934c7ba018b2ec055ab09976fa7ae3c11')
+validpgpkeys=('A035C8C19219BA821ECEA86B64E628F8D684696D'   # Pablo Galindo Salgado <pablogsal@gmail.com>
+              'F8C887A85001AA63AAE944BC8AB9921EA97C9108')  # Matt Wozniski <godlygeek@gmail.com>
 
 build() {
   cd "${pkgname}"
@@ -33,13 +34,6 @@ check() {
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m pytest -vvv \
     --log-cli-level=info -s \
-    --deselect 'tests/integration/test_greenlet.py::test_integration_with_greenlet' \
-    --deselect 'tests/integration/test_greenlet.py::test_importing_greenlet_after_tracking_starts' \
-    --deselect 'tests/integration/test_greenlet.py::test_uninstall_profile_in_greenlet' \
-    --deselect 'tests/unit/test_tree_reporter.py::TestTUILooks::test_basic_node_selected_not_leaf' \
-    --deselect 'tests/unit/test_tree_reporter.py::TestTUILooks::test_basic_node_selected_leaf' \
-    --deselect 'tests/unit/test_tree_reporter.py::TestTUILooks::test_two_chains_after_expanding_second' \
-    --deselect 'tests/unit/test_tree_reporter.py::TestTUILooks::test_select_screen' \
     tests
 }
 
