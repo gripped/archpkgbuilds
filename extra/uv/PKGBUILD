@@ -8,7 +8,7 @@
 
 pkgbase=uv
 pkgname=("$pkgbase" "python-$pkgbase"{,-build})
-pkgver=0.11.4
+pkgver=0.11.5
 pkgrel=1
 pkgdesc='An extremely fast Python package installer and resolver written in Rust'
 arch=('x86_64')
@@ -29,7 +29,7 @@ makedepends=(
 )
 options=('!lto')
 source=("git+$url.git#tag=$pkgver")
-sha256sums=('34f985a6c0cdcc1d53bdb84c1fb9b81657d4be869346a400fd5295c49cd46039')
+sha256sums=('785e49e23d1b830834c82efb55cb5735a1320d8a3575d83c6a2bca7ddae924b8')
 
 prepare() {
   cd "$pkgbase"
@@ -42,6 +42,9 @@ prepare() {
 build() {
   cd "$pkgbase"
   local tripple="$(rustc --print host-tuple)"
+
+  # https://github.com/gnzlbg/jemallocator/issues/170
+  [[ $CARCH == "aarch64" ]] && export JEMALLOC_SYS_WITH_LG_PAGE=16
 
   # Note: do not use --all-features as in enables a self-updater
   maturin build --locked --release --target "$tripple" --strip --compatibility linux
