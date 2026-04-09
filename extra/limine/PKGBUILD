@@ -2,31 +2,32 @@
 # Contributor: Mintsuki <mintsuki@protonmail.com>
 
 pkgname=limine
+_pkgname=Limine
 pkgver=11.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="An advanced, portable, multiprotocol bootloader"
 url="https://limine-bootloader.org/"
 arch=('x86_64')
 license=('BSD-2-Clause')
 depends=('glibc')
 makedepends=('git' 'nasm' 'mtools' 'llvm' 'lld' 'clang')
-source=("git+https://codeberg.org/Limine/limine.git#tag=v${pkgver}?signed")
+source=("git+https://github.com/Limine-Bootloader/Limine.git#tag=v${pkgver}?signed")
 sha256sums=('1372b7513f691b9d1f4d9dc25464cee8dea63cdad6a5a798995c0b9c8a3a6019')
 validpgpkeys=('05D29860D0A0668AAEFB9D691F3C021BECA23821') # Mintsuki <mintsuki@protonmail.com>
 
 prepare() {
-	cd "${pkgname}"
+	cd "${_pkgname}"
 	./bootstrap
 }
 
 build() {
-	cd "${pkgname}"
+	cd "${_pkgname}"
 	./configure --prefix=/usr --enable-all
 	make
 }
 
 package() {
-	cd "${pkgname}"
+	cd "${_pkgname}"
   	make DESTDIR="${pkgdir}" install
 	install -Dm 644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
 }
