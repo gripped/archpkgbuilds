@@ -5,7 +5,7 @@
 
 pkgname=tcplay
 pkgver=3.3
-pkgrel=3
+pkgrel=4
 pkgdesc='Free and simple TrueCrypt implementation based on dm-crypt'
 url='https://github.com/bwalex/tc-play'
 arch=('x86_64')
@@ -25,6 +25,7 @@ build() {
   cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX= \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DSBIN_DIR=bin ..
   make VERBOSE=1
 }
