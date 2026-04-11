@@ -3,7 +3,7 @@
 
 pkgname=perl-config-tiny
 pkgver=2.30
-pkgrel=1
+pkgrel=2
 pkgdesc="Read/Write .ini style files with as little code as possible "
 arch=('any')
 url="https://search.cpan.org/dist/Config-Tiny"
@@ -22,6 +22,4 @@ build() {
 package() {
   cd  "$srcdir"/Config-Tiny-$pkgver
   make install DESTDIR="$pkgdir"
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
 }
