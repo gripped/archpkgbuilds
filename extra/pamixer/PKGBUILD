@@ -3,14 +3,14 @@
 
 pkgname=pamixer
 pkgver=1.6
-pkgrel=3
+pkgrel=4
 pkgdesc='Pulseaudio command-line mixer like amixer'
 arch=(x86_64)
 url='https://github.com/cdemoulins/pamixer'
 license=(GPL-3.0-or-later)
 depends=(
-  gcc-libs
   glibc
+  libgcc
   libpulse
 )
 makedepends=(
