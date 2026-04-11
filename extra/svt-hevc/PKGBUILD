@@ -4,7 +4,7 @@
 
 pkgname=svt-hevc
 pkgver=1.5.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Scalable Video Technology HEVC encoder'
 arch=(x86_64)
 url=https://github.com/OpenVisualCloud/SVT-HEVC
