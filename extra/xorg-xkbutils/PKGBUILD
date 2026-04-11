@@ -3,7 +3,7 @@
 
 pkgname=xorg-xkbutils
 pkgver=1.0.6
-pkgrel=1
+pkgrel=2
 pkgdesc="XKB utility demos"
 arch=('x86_64')
 url="https://gitlab.freedesktop.org/xorg/app/xkbutils"
