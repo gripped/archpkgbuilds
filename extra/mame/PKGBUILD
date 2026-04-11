@@ -7,7 +7,7 @@ pkgbase=mame
 pkgname=(mame
          mame-tools)
 pkgver=0.287
-pkgrel=1
+pkgrel=2
 pkgdesc='Port of the popular Multiple Arcade Machine Emulator using SDL with OpenGL support'
 url='https://mamedev.org/'
 license=(BSD-2-Clause
@@ -84,7 +84,7 @@ package_mame() {
   depends=(expat
            flac
            fontconfig
-           gcc-libs
+           libgcc
            glibc
            libglvnd
            libjpeg-turbo
@@ -141,8 +141,8 @@ package_mame() {
 package_mame-tools() {
   pkgdesc='Port of the popular Multiple Arcade Machine Emulator using SDL with OpenGL support (tools)'
   depends=(flac
-           gcc-libs
            glibc
+           libgcc
            libutf8proc
            sdl2
            zlib
