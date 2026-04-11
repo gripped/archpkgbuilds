@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-grand-search
-pkgver=5.5.4
+pkgver=5.5.6
 pkgrel=1
 pkgdesc='System-wide desktop search for DDE'
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=(git cmake deepin-tray-loader ninja qt5-tools boost poppler-qt5)
 groups=(deepin-extra)
 source=("git+https://github.com/linuxdeepin/dde-grand-search.git#tag=$pkgver"
          taglib-2.patch)
-sha512sums=('6b58c776142777a76aa21a1aba1f9900af721cd9a896b0dcfc103e2fd7a4b716bf90e6de4148760b6db344d336d7a63b36f19767352d6af1d72430ebc57e0215'
+sha512sums=('85d05d208e6dd58b33e15ab6bd2aceeb72588af91898d8040b3f1d8f873ab085963447898d2305be2b2c31d5bf9e8f32894ce700b2b83e80e876fe01555250e4'
             '8364cd5aa0350a7d109be7ce10035c6c4e3fd6686205bc880017b1fc93a10cff6e78a8f66daeb25427c416a6dc075482136146c9d8278aee6de71653673d59a0')
 
 prepare() {
@@ -22,6 +22,15 @@ prepare() {
 
   # https://github.com/linuxdeepin/dde-grand-search/pull/65
   sed -i 's/-fPIE -pie//g' src/*/CMakeLists.txt
+
+  if [[ ! -d 3rdparty/antlr4 ]]; then
+    bsdtar -xf 3rdparty/antlr4.tar.gz -C 3rdparty
+  fi
+  sed -i 's/^cmake_minimum_required (VERSION 2\.8)$/cmake_minimum_required (VERSION 3.5)/' \
+    3rdparty/antlr4/antlr4-runtime/CMakeLists.txt
+  sed -i '/CMAKE_POLICY(SET CMP0054 OLD)/d; /CMAKE_POLICY(SET CMP0045 OLD)/d; /CMAKE_POLICY(SET CMP0042 OLD)/d; /CMAKE_POLICY(SET CMP0059 OLD)/d' \
+    3rdparty/antlr4/antlr4-runtime/CMakeLists.txt
+  sed -i '/^if(EXISTS LICENSE.txt)$/,/^endif()$/d' 3rdparty/antlr4/antlr4-runtime/CMakeLists.txt
 
   patch -p1 -i ../taglib-2.patch
 }
