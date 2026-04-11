@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-opentelemetry-sdk
-pkgver=1.40.0
-pkgrel=2
+pkgver=1.41.0
+pkgrel=1
 pkgdesc="OpenTelemetry Python SDK"
 arch=('any')
 url="https://github.com/open-telemetry/opentelemetry-python/tree/main/opentelemetry-sdk"
@@ -20,12 +20,14 @@ makedepends=(
   'python-installer'
 )
 checkdepends=(
+  'python-jsonschema'
   'python-opentelemetry-test-utils'
+  'python-pyyaml'
   'python-pytest'
   'python-pytest-benchmark'
 )
 source=("git+https://github.com/open-telemetry/opentelemetry-python.git#tag=v${pkgver}")
-sha256sums=('3d9018006e564108a40520eb9350c7d3c170c96fc3324e865b9aeee7dada1b05')
+sha256sums=('a557e3e94bd28174f99b98d82c54ccfba94d4d38a7957adffd6bf86b6c215835')
 
 build() {
   cd opentelemetry-python/opentelemetry-sdk
