@@ -5,7 +5,7 @@
 
 pkgname=gl2ps
 pkgver=1.4.2
-pkgrel=3
+pkgrel=4
 pkgdesc="an OpenGL to PostScript printing library"
 arch=('x86_64')
 url='https://geuz.org/gl2ps/'
@@ -25,6 +25,7 @@ build() {
   cmake ../gl2ps-$pkgver \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DCMAKE_EXE_LINKER_FLAGS=-lm
   make
 }
