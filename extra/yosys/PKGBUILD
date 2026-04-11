@@ -3,7 +3,7 @@
 # Contributor: killruana <killruana@gmail.com>
 
 pkgname=yosys
-pkgver=0.59
+pkgver=0.59.1
 pkgrel=1
 pkgdesc='A framework for RTL synthesis'
 arch=('x86_64')
@@ -20,7 +20,7 @@ optdepends=('graphviz: Schematics display support'
 options=('!lto') # getting SIGSEGV when running the tests with LTO
 source=(git+https://github.com/YosysHQ/yosys#tag=v$pkgver
         git+https://github.com/jarro2783/cxxopts)
-sha512sums=('18cf623ea061786c93b0981a28bd4a2100e78afc610ee78c2476ec2a8019a70e10d14de276fcd194aa8a7048e2aab03b7fdd814593f15bafba0c5d526c2de0f8'
+sha512sums=('79e94b42fa09e5291d21e023819007a317910c5808cf778dda2319aa17c4a5530eea9a6bd2ab6ff6e38a86e9b49c8f0edb47d0ce79ef88a681d79e85ac82c583'
             'SKIP')
 
 prepare() {
@@ -28,9 +28,6 @@ prepare() {
   git submodule init
   git submodule set-url libs/cxxopts "$srcdir"/cxxopts
   git -c protocol.file.allow=always submodule update libs/cxxopts
-
-  # Fix pyosys wrapper generation with nested SigSpec::Chunks on 0.59.
-  git cherry-pick -n e29328ec99e6b8a3cc5bd60c169ebed47f1b279c
 
   sed -e '/cp yosys-abc/d' -i Makefile # Fix Makefile trying to install yosys-abc even if using system one
 }
