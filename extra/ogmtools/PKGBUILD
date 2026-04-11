@@ -2,12 +2,17 @@
 
 pkgname=ogmtools
 pkgver=1.5
-pkgrel=10
+pkgrel=12
 pkgdesc="Information, extraction or creation for OGG media streams"
 arch=('x86_64')
 url='https://www.bunkus.org/videotools/ogmtools'
 license=('GPL')
-depends=('libvorbis' 'libdvdread' 'gcc-libs')
+depends=('glibc'
+         'libdvdread' #'libdvdread.so'
+         'libgcc' 'libgcc_s.so'
+         'libogg' 'libogg.so'
+         'libstdc++' 'libstdc++.so'
+         'libvorbis' 'libvorbis.so' 'libvorbisenc.so')
 source=("https://www.bunkus.org/videotools/${pkgname}/${pkgname}-${pkgver}.tar.bz2")
 sha256sums=('c8d61d1dbceb981dc7399c1a85e43b509fd3d071fb8d3ca89ea9385e6e40fdea')
 
