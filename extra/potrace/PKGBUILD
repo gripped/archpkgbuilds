@@ -4,11 +4,11 @@
 
 pkgname=potrace
 pkgver=1.16
-pkgrel=4
+pkgrel=5
 pkgdesc='Utility for tracing a bitmap (input: PBM,PGM,PPM,BMP; output: EPS,PS,PDF,SVG,DXF,PGM,Gimppath,XFig)'
 url='http://potrace.sourceforge.net/'
 arch=(x86_64)
-license=(GPL-2.0-only)
+license=(GPL-2.0-or-later)
 depends=(glibc # libc.so libm.so
          zlib libz.so)
 _archive="$pkgname-$pkgver"
