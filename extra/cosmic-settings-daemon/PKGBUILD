@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-settings-daemon
-pkgver=1.0.8
+pkgver=1.0.9
 pkgrel=1
 epoch=1
 pkgdesc='Cosmic settings daemon'
@@ -15,6 +15,7 @@ depends=(
   acpid
   adw-gtk-theme
   alsa-utils
+  breeze-icons
   libgcc
   geoclue
   glibc
@@ -22,6 +23,7 @@ depends=(
   libpulse
   playerctl
   pop-sound-theme
+  qt6ct
   systemd-libs
   wireplumber
   xdg-utils
@@ -34,13 +36,14 @@ makedepends=(
 )
 optdepends=(
   'pulseaudio-alsa: Media keys support'
+  'qt5ct: Theming support for Qt5 apps'
 )
 source=(
   git+https://github.com/pop-os/cosmic-settings-daemon.git#tag=epoch-${pkgver}
   cosmic-settings-daemon-lto.patch
 )
-b2sums=('7c9f4f33833ccce813af49701c0a6d5a076dbbd1c3d04ab564721a518c1d3ea49e9857799bd443a97032b31ac84c0a4cb747526ef85c2fb531ca9516b48b0384'
-        'd08aacbcc5b98304f9a99bc2d6a0072473f4ccd9175dcd558334179561bb2e68c0c339471f6e85b849087108998fb1b17707be9d3c87bd018c75b45b7774e91e')
+b2sums=('ebd4d02f3ade878e2884b73da7b5770fa0b2783c14a56cb342d61a6d1dde64d7d37b5976f640c9145e32fee98882ed822769d07031ae150bffcf878382a6ef36'
+        '935604b934c6fb805fdef20a716838373c1c9463ddc215af9c9bd162ebacc422181f1c227f37b59bc617496a60b88f8b16132fac001f61a2c777179abd8c634a')
 
 prepare() {
   cd cosmic-settings-daemon
