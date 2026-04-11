@@ -6,13 +6,15 @@
 
 pkgname=ctemplate
 pkgver=2.4
-pkgrel=3
+pkgrel=4
 pkgdesc='A library implementing a simple but powerful template language for C++'
 arch=('x86_64')
 url='https://github.com/olafvdspek/ctemplate'
 license=('BSD')
 makedepends=('python')
-depends=('gcc-libs' 'perl')
+depends=('glibc'
+         'libgcc' 'libgcc_s.so'
+         'libstdc++' 'libstdc++.so')
 source=("https://github.com/OlafvdSpek/${pkgname}/archive/${pkgname}-${pkgver}.tar.gz")
 sha256sums=('ccc4105b3dc51c82b0f194499979be22d5a14504f741115be155bd991ee93cfa')
 
