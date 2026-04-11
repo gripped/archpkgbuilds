@@ -3,7 +3,7 @@
 
 pkgname=xorg-xev
 pkgver=1.2.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Print contents of X events"
 url="https://gitlab.freedesktop.org/xorg/app/xev"
 arch=('x86_64')
