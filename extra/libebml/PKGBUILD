@@ -4,7 +4,7 @@
 
 pkgname=libebml
 pkgver=1.4.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Extensible Binary Meta Language library'
 arch=(x86_64)
 url=https://github.com/Matroska-Org/libebml
@@ -29,6 +29,7 @@ build() {
   cmake -S libebml -B build -G Ninja \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DBUILD_SHARED_LIBS=ON
   cmake --build build
 }
