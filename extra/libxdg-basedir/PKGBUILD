@@ -4,7 +4,7 @@
 
 pkgname=libxdg-basedir
 pkgver=1.2.3
-pkgrel=2
+pkgrel=3
 pkgdesc='An implementation of the XDG Base Directory specification'
 arch=('x86_64')
 url='https://github.com/devnev/libxdg-basedir'
