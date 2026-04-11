@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-benchmark
-pkgver=5.2.0
+pkgver=5.2.1
 pkgrel=1
 pkgdesc='A py.test fixture for benchmarking code'
 arch=('any')
@@ -12,7 +12,7 @@ makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python
 checkdepends=('python-pygal' 'python-pygaljs' 'python-freezegun' 'mercurial' 'python-aspectlib'
               'python-pytest-xdist' 'python-elasticsearch' 'python-sniffio' 'git')
 source=("git+https://github.com/ionelmc/pytest-benchmark.git#tag=v$pkgver")
-sha512sums=('ef1e8f9297fed28fee668e3350e38e37f0bd80503eb5dfd0a4e66777e0bc3f199791b269c093da49c44e3471aa9a7700fc4f269476b4f8c18a79faa7f334591e')
+sha512sums=('5db39f97325c86a68ab5ee25c4a504433d0be292df00025de78450349ce4661e94b8140e81c16967ed416bac452139689bb039f316b5214007ff8f8673073b15')
 
 prepare() {
   cd pytest-benchmark
