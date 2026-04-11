@@ -2,9 +2,9 @@
 # Maintainer: Peter Jung <ptr1337@archlinux.org>
 
 pkgbase=ghostty
-pkgname=(ghostty ghostty-shell-integration ghostty-terminfo)
+pkgname=(ghostty ghostty-shell-integration ghostty-terminfo ghostty-nautilus)
 pkgver=1.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast, native, feature-rich terminal emulator pushing modern features'
 arch=(x86_64 aarch64 i686)
 url="https://github.com/ghostty-org/$pkgbase"
@@ -27,6 +27,7 @@ depends=(bzip2
 makedepends=(blueprint-compiler
              pandoc-cli
              zig)
+optdepends=()
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
 sha256sums=('265837d3026b433f0e6b4e49d43153b915b0a19513f7edd8a8e693c559bd415b')
@@ -54,11 +55,13 @@ build() {
 package_ghostty() {
 	depends+=(ghostty-shell-integration
 	          ghostty-terminfo)
+	optdepends+=("ghostty-nautilus: Open in Ghostty context menu in GNOME Files")
 	cd "$_archive"
 	cp -a build/* "$pkgdir/"
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 	rm -r "$pkgdir"/usr/share/terminfo
 	rm -r "$pkgdir"/usr/share/ghostty/shell-integration
+	rm -r "$pkgdir"/usr/share/nautilus-python/
 }
 
 package_ghostty-shell-integration() {
@@ -75,4 +78,15 @@ package_ghostty-terminfo() {
 	cd "$_archive"
 	mkdir -p "$pkgdir/usr/share/terminfo"
 	cp -r build/usr/share/terminfo/x "$pkgdir/usr/share/terminfo/"
+}
+
+package_ghostty-nautilus() {
+	pkgdesc='Open in Ghostty for GNOME Files'
+	depends=(ghostty nautilus-python)
+	# Unlike the rest of ghostty, the nautilus extension is GPL-2.0-or-later
+	# because nautilus-python itself is GPL-2 as well.
+	license=('GPL-2.0-or-later')
+	cd "$_archive"
+	mkdir -p "$pkgdir"/usr/share/nautilus-python/
+	cp -r build/usr/share/nautilus-python/* "$pkgdir"/usr/share/nautilus-python/
 }
