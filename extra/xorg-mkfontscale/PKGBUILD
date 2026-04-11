@@ -2,7 +2,7 @@
 
 pkgname=xorg-mkfontscale
 pkgver=1.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Create an index of scalable font files for X"
 arch=(x86_64)
 url="https://gitlab.freedesktop.org/xorg/app/mkfontscale"
