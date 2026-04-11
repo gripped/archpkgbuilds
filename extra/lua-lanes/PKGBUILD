@@ -1,12 +1,13 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: osch <oliver at luced de>
+# Contributor: John Regan <john@jrjrtech.com>
 
 pkgbase=lua-lanes
 _rockname=${pkgbase#lua-}
 pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname" "lua54-$_rockname")
 pkgname=lua-lanes
 pkgver=4.0.0
-pkgrel=2
+pkgrel=3
 _rockrel=0
 pkgdesc='a lightweight, native, lazy evaluating multithreading library'
 arch=(x86_64)
@@ -26,9 +27,9 @@ sha256sums=('e680253ce5d64da1fd5c8d44d31dd1eb4fe7e24cfa5ddded10fa34cbee92d179')
 
 build() {
 	cd "$_archive"
-	CFLAGS+=' -std=c++20'
+	CXXFLAGS+=' -std=c++20'
 	for LUAVER in 5.{1,2,3,4,5}; do
-		luarocks --lua-version "$LUAVER" \
+		CC=g++ CFLAGS=$CXXFLAGS luarocks --lua-version "$LUAVER" \
 			make --pack-binary-rock --deps-mode none -- "$_archive-$_rockrel.rockspec"
 		install -Dm0644 -t "lua-$LUAVER/" "$_rock"
 	done
