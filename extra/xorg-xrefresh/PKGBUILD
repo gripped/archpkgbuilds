@@ -3,7 +3,7 @@
 
 pkgname=xorg-xrefresh
 pkgver=1.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Refresh all or part of an X screen"
 arch=('x86_64')
 url="https://gitlab.freedesktop.org/xorg/app/xrefresh"
