@@ -2,7 +2,7 @@
 
 pkgname=perl-text-unidecode
 pkgver=1.30
-pkgrel=4
+pkgrel=5
 pkgdesc='US-ASCII transliterations of Unicode text'
 arch=('x86_64')
 url='https://metacpan.org/pod/Text::Unidecode'
@@ -23,7 +23,5 @@ package() {
   cd  "${srcdir}/Text-Unidecode-${pkgver}"
 
   make install DESTDIR=${pkgdir}
-  find ${pkgdir} -name '.packlist' -delete
-  find ${pkgdir} -name '*.pod' -delete
 }
 
