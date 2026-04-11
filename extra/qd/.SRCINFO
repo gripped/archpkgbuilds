@@ -1,14 +1,19 @@
 pkgbase = qd
 	pkgdesc = C++/Fortran-90 double-double and quad-double library
 	pkgver = 2.3.24
-	pkgrel = 1
-	url = https://crd-legacy.lbl.gov/~dhbailey/mpdist
+	pkgrel = 2
+	url = https://www.davidhbailey.com/dhbsoftware/
 	arch = x86_64
-	license = BSD
+	license = BSD-3-Clause
 	makedepends = gcc-fortran
-	depends = gcc-libs
+	makedepends = git
+	makedepends = texlive-latex
 	depends = glibc
-	source = https://crd-legacy.lbl.gov/~dhbailey/mpdist/qd-2.3.24.tar.gz
-	sha256sums = ad6738e8330928308e10346ff7fd357ed17386408f8fb7a23704cd6f5d52a6c8
+	depends = libgcc
+	depends = libgfortran
+	depends = libstdc++
+	depends = sh
+	source = git+https://github.com/BL-highprecision/QD#tag=v2.3.24
+	sha256sums = e89355c0eb883b2a9aa9584ae82fad061d064dfe0177f7e22a23077725c88e55
 
 pkgname = qd

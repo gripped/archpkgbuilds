@@ -4,19 +4,29 @@
 
 pkgname=qd
 pkgver=2.3.24
-pkgrel=1
+pkgrel=2
 pkgdesc='C++/Fortran-90 double-double and quad-double library'
 arch=(x86_64)
-url='https://crd-legacy.lbl.gov/~dhbailey/mpdist'
-license=(BSD)
-depends=(gcc-libs
-         glibc)
-makedepends=(gcc-fortran)
-source=(https://crd-legacy.lbl.gov/~dhbailey/mpdist/$pkgname-$pkgver.tar.gz)
-sha256sums=('ad6738e8330928308e10346ff7fd357ed17386408f8fb7a23704cd6f5d52a6c8')
+url='https://www.davidhbailey.com/dhbsoftware/'
+license=(BSD-3-Clause)
+depends=(glibc
+         libgcc
+         libgfortran
+         libstdc++
+         sh)
+makedepends=(gcc-fortran
+             git
+             texlive-latex)
+source=(git+https://github.com/BL-highprecision/QD#tag=v$pkgver)
+sha256sums=('e89355c0eb883b2a9aa9584ae82fad061d064dfe0177f7e22a23077725c88e55')
+
+prepare() {
+  cd QD
+  autoreconf -fiv
+}
 
 build() {
-  cd $pkgname-$pkgver
+  cd QD
 
   export FC=gfortran
   ./configure --prefix=/usr --enable-shared
@@ -25,13 +35,13 @@ build() {
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd QD
 
   make check
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd QD
 
   make DESTDIR="$pkgdir" install
   install -Dm644 COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
