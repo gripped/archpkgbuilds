@@ -4,7 +4,7 @@
 # Contributor: loqs <bugs-archlinux@entropy-collector.net>
 
 pkgname=gitlab-gitaly
-pkgver=18.8.4
+pkgver=18.10.3
 pkgrel=1
 pkgdesc='Speed up Git access using caching'
 arch=(x86_64)
@@ -16,14 +16,15 @@ depends=(glibc
          libssh2)
 makedepends=(cmake
              git
-             go)
+             go
+             meson)
 options=(!buildflags)
 backup=("etc/$pkgname/config.toml")
 _archive="gitaly-v$pkgver"
 source=("$url/-/archive/v$pkgver/$_archive.tar.gz"
         "$pkgname-configs.patch"
         "$pkgname.service")
-sha256sums=('10fcd614b4fd951373e0abbbe08b46225e27a58b8802bc79d4e9c7dad833ae03'
+sha256sums=('4b7706f4454177a9929b494eb67666a73687936cfb8c778a515408dfa85487b9'
             '71427bf763a1d5cfaad4803d5978c4636167ffdd8facce4a66f8988bda36b544'
             'a047c82481ccbaa3b00ba1bb769135934fa4fa939eb6506d09c77f3a7aec08cd')
 
