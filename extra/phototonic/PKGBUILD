@@ -5,17 +5,17 @@
 # Contributor: Ofer Kashayov <oferkv at gmail dot com>
 
 pkgname=phototonic
-pkgver=3.1.0
-pkgrel=2
+pkgver=3.2.0
+pkgrel=1
 pkgdesc="Image viewer and organizer built with Qt and Exiv2"
 arch=('x86_64')
 url="https://github.com/luebking/${pkgname}"
 license=('GPL-3.0-or-later')
-depends=('exiv2' 'hicolor-icon-theme' 'qt6-base')
+depends=('exiv2' 'glibc' 'hicolor-icon-theme' 'libgcc' 'libstdc++' 'qt6-base')
 optdepends=('qt6-imageformats: TIFF and TGA support'
             'qt6-svg: SVG support')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('034f6a100b7e4d3755e2d7320bf4685bc1d8e9a84f18737e143b61b29ff57aa3')
+sha256sums=('8351b9fdc3de94a0675068edd1e35d65ee8b73b554716381e5ba4e4938a2d307')
 
 prepare() {
 	sed -i '/INSTALLS +=/ s/ iconPixmaps//' "${pkgname}-${pkgver}/phototonic.pro"
