@@ -1,7 +1,7 @@
 pkgbase = syncthing
 	pkgdesc = Open Source Continuous Replication / Cluster Synchronization Thing
 	pkgver = 2.0.16
-	pkgrel = 1
+	pkgrel = 2
 	url = https://syncthing.net/
 	arch = x86_64
 	license = MPL-2.0
@@ -31,6 +31,9 @@ pkgbase = syncthing
 
 pkgname = syncthing
 	install = syncthing.install
+	depends = glibc
+	depends = sqlite
+	depends = libsqlite3.so
 
 pkgname = syncthing-discosrv
 	pkgdesc = Discovery server for Syncthing
