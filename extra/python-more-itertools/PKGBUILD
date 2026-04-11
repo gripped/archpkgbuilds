@@ -3,7 +3,7 @@
 # Contributor: Germán Osella Massa <gosella@gmail.com>
 
 pkgname=python-more-itertools
-pkgver=11.0.1
+pkgver=11.0.2
 pkgrel=1
 pkgdesc='More routines for operating on iterables, beyond itertools'
 arch=(any)
@@ -18,8 +18,8 @@ makedepends=(
   python-flit-core
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('855f387aad8571f30775597d65a8c134c8664c7366652dc8cb973de741bda5fb61854c132fad947458e4f2e6fbe346c64925cf783e3056b3a853e0a7b61416e1')
-b2sums=('e39db1424a3cb136e7f41b22da41b6be4e3d08850952ee09c9a54b4fa5bbbf9b4d22b56afaf6ae8fd7339f8bdbcc3cb050c5ced991f45fc5b3b9f14d3517de89')
+sha512sums=('62b8c3c0ebc4be4749a7568da830538044c89a4b3d3d9d3eaf649d2d491fd541b687f62eb99c72d4d10f823690b2dbe48c9367eede6f093e63dc721209466920')
+b2sums=('5a5f074a46923a0dc376d9b9312c12e3af4595d26eaefa06067c8a499b4f61c3878697b2535dd4636e5bba1fdfebdc45a4e3ad9beedef00b09438bbf89c2cd48')
 
 build() {
   cd "$pkgname"
