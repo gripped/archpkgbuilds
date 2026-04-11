@@ -2,7 +2,7 @@
 
 pkgname=easyloggingpp
 pkgver=9.97.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Efficient logging library for C++ logging library'
 arch=('any')
 url="https://github.com/amrayn/easyloggingpp"
@@ -20,6 +20,7 @@ build() {
     -S "$pkgname-$pkgver" \
     -DCMAKE_BUILD_TYPE='None' \
     -DCMAKE_INSTALL_PREFIX='/usr' \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -Dtest=ON \
     -Wno-dev
   cmake --build build --verbose
