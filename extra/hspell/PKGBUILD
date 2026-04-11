@@ -3,7 +3,7 @@
 pkgbase=hspell
 pkgname=('hspell' 'hunspell-he')
 pkgver=1.4
-pkgrel=5
+pkgrel=6
 arch=('x86_64')
 license=('GPL')
 url="http://www.ivrix.org.il/projects/spell-checker/"
