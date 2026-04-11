@@ -2,8 +2,8 @@
 # Contributor: Alex Henrie <alexhenrie24@gmail.com>
 
 pkgname=git-cinnabar
-pkgver=0.7.3
-pkgrel=2
+pkgver=0.7.4
+pkgrel=1
 pkgdesc="Git remote helper to interact with Mercurial repositories"
 url="https://github.com/glandium/git-cinnabar"
 arch=(x86_64)
@@ -22,9 +22,9 @@ makedepends=(
 options=(!lto)
 source=(
   "git+$url#tag=$pkgver"
-  "git-for-windows::git+https://github.com/git-for-windows/git"
+  "glandium-git::git+https://github.com/glandium/git"
 )
-b2sums=('492508111eded4d1031d31abd64dfbff1eb288fb83b1d41e60f7767ee73e81904a4d477cd19e2c66e5089b33f0caf682c5c7571a9387f54a2ecce73627fa042f'
+b2sums=('0a77dae0ea2537ba8bcf0830e4959a47485c4f729efaa76001be4d91faa6a949045ab9f1ab447ceed033ecd8f417227cc0ba996b1ffe2ff9eafe2b330629804c'
         'SKIP')
 
 # Use debug
@@ -37,7 +37,7 @@ prepare() {
   cd git-cinnabar
 
   git submodule init
-  git submodule set-url git-core "$srcdir/git-for-windows"
+  git submodule set-url git-core "$srcdir/glandium-git"
   git -c protocol.file.allow=always -c protocol.allow=never submodule update
 
   cargo fetch --locked --target host-tuple
