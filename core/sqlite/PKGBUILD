@@ -3,11 +3,11 @@
 
 pkgbase="sqlite"
 pkgname=('sqlite' 'sqlite-tcl' 'sqlite-analyzer' 'lemon' 'sqlite-doc')
-pkgver=3.52.0
+pkgver=3.53.0
 _srcver=$(echo "$pkgver" | awk -F. '{ printf "%d%02d%02d00", $1, $2, $3 }')
 _docver=${_srcver}
 #_docver=3440000
-pkgrel=1
+pkgrel=2
 pkgdesc="A C library that implements an SQL database engine"
 arch=('x86_64')
 license=('LicenseRef-Sqlite')
@@ -19,8 +19,8 @@ source=(https://www.sqlite.org/2026/sqlite-src-${_srcver}.zip
         sqlite-lemon-system-template.patch
         license.txt)
 # upstream now switched to sha3sums - currently not supported by makepkg
-sha256sums=('652a98ca833ed638809a52bec225a7f37799f71a995778f9ccb68ad03bd1fc11'
-            '6f0d517e0c47e6446c74cf5503c87312181b80f04c95743f99f05af3ccc5e5a6'
+sha256sums=('fbc30cdbfcfa42c78fe7bddd3fd37ab8995369a31d39097a5d0633296c0b6e65'
+            'dbd3454313d3acc2d3703c5dad4d83e5bbd0aa52a1e7b002fe8c4db4c5c625ea'
             'ce0083835e458236c83d4f74ad398816e29859cd2f940c7aad9080835b50dcec'
             '4e57d9ac979f1c9872e69799c2597eeef4c6ce7224f3ede0bf9dc8d217b1e65d')
 prepare() {
@@ -53,6 +53,7 @@ build() {
   cd sqlite-src-$_srcver
   ./configure --prefix=/usr \
     --disable-static \
+    --enable-session \
     --enable-fts3 \
     --fts4 \
     --fts5 \
