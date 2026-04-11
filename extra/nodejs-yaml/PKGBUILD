@@ -2,7 +2,7 @@
 
 _npmname=yaml
 pkgname=nodejs-$_npmname
-pkgver=2.3.4
+pkgver=2.4.0
 pkgrel=1
 pkgdesc="JavaScript parser and stringifier for YAML"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('nodejs')
 makedepends=('npm')
 source=("https://registry.npmjs.org/$_npmname/-/$_npmname-$pkgver.tgz")
 noextract=($_npmname-$pkgver.tgz)
-sha512sums=('f1a02fc155121e97c4a93438c3f28c95fdc771176de74139383210241c357d0e512f7e3169bcf1b549734d756a738ae466c3dbbeb5ca5a7001083ee45929a870')
+sha512sums=('8fd891f20fbfb74940ac5e15e8d13f4027d3f823bb88baab5c01d96c9768f8b7e3a8fd6f47c160e5b4a26aae90da5383d4050456b115220001bc1158a2325561')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$_npmname-$pkgver.tgz
