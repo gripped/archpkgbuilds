@@ -2,7 +2,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=clang
-pkgver=22.1.2
+pkgver=22.1.3
 pkgrel=1
 pkgdesc="C language family frontend for LLVM"
 arch=('x86_64')
@@ -22,7 +22,7 @@ _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkg
 source=($_source_base/llvm-project-$pkgver.src.tar.xz{,.sig}
         0001-Revert-clang-driver-When-fveclib-ArmPL-flag-is-in-us.patch
         enable-fstack-protector-strong-by-default.patch)
-sha256sums=('62f2f13ff25b1bb28ea507888e858212d19aafb65e8e72b4a65ee0629ec4ae0c'
+sha256sums=('2488c33a959eafba1c44f253e5bbe7ac958eb53fa626298a3a5f4b87373767cd'
             'SKIP'
             '6f3cc7a4847e03d16ed90341bb71fec98427763ff2351f5344b2ca2ce62a604c'
             '93713470709ad0fbcf04aad29adb269478027c25e5a45e0ef3ca807dff409c12')
