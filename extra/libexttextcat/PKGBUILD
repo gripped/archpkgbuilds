@@ -3,7 +3,7 @@
 
 pkgname=libexttextcat
 pkgver=3.4.7
-pkgrel=1
+pkgrel=2
 pkgdesc="N-Gram-Based Text Categorization library primarily intended for language guessing"
 arch=('x86_64')
 url="https://wiki.documentfoundation.org/Libexttextcat"
