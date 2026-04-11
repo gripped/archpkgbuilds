@@ -5,7 +5,7 @@
 # Contributor: Jakob Gahde <j5lx@fmail.co.uk>
 
 pkgname=dune
-pkgver=3.22.1
+pkgver=3.22.2
 pkgrel=1
 pkgdesc="A composable build system for OCaml (formerly jbuilder)"
 arch=(x86_64)
@@ -16,7 +16,7 @@ makedepends=('git' 'ocaml-compiler-libs' 'ocaml-findlib')
 optdepends=()
 provides=('dune-configurator')
 source=("https://github.com/ocaml/dune/releases/download/${pkgver}/dune-${pkgver}.tbz")
-sha256sums=('0c0b98396c32ec426886c2c2294024fd687ac5114d4dda0af9dc8a2e584d47fd')
+sha256sums=('c2ccf8bc6b17afa47c450297357496303aa7c8680e329b79d98c68e35013a118')
 
 # Packages to install from the dune release
 _dune_release_pkgs=(
