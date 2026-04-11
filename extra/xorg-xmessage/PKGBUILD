@@ -3,7 +3,7 @@
 
 pkgname=xorg-xmessage
 pkgver=1.0.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Display a message or query in a window"
 arch=(x86_64)
 url="https://gitlab.freedesktop.org/xorg/app/xmessage"
