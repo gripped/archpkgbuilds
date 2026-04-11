@@ -4,7 +4,7 @@
 pkgname=hunspell-ru
 pkgver=20210731
 _commit=9a771d3d10ef796086d8c2d618dd2528ce4245b1
-pkgrel=2
+pkgrel=3
 pkgdesc="Russian dictionary for Hunspell"
 arch=('any')
 url='https://cgit.freedesktop.org/libreoffice/dictionaries/tree/ru_RU'
