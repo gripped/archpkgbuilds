@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=docparser
-pkgver=1.0.10
+pkgver=1.0.12
 pkgrel=1
 pkgdesc='A document parser library ported from document2html'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('poppler' 'libzip' 'pugixml' 'freetype2' 'libxml2' 'util-linux-libs' 't
 makedepends=('git' 'qt5-tools')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/docparser.git#tag=$pkgver")
-b2sums=('136aa366c0b640667a725aafc47f562848491cc19ba00285e45b2ef69ed8ff31413aaf3f1e450dcc3a8f0db14e6be1938e925db9848e9318b7d644a787ce2ffb')
+b2sums=('8bd06c3089705c0ab37e0806cac23db08c0e34a6fa7625c192a9bfc0a73505201c91fe4b4b8961ee01bd2b8023d6bdd536bc21a8e219ffde397dc7c461921ee9')
 
 build() {
   cd docparser
