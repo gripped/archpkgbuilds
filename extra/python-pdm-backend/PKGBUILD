@@ -4,7 +4,7 @@
 _devendored=1
 _name=pdm-backend
 pkgname=python-pdm-backend
-pkgver=2.4.7
+pkgver=2.4.8
 pkgrel=1
 pkgdesc="The build backend used by PDM that supports latest packaging standards"
 arch=(any)
@@ -41,15 +41,16 @@ source=(
   $_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
   $pkgname-2.4.3-devendor.patch
 )
-sha256sums=('faedc13818a447927f307393a64a17529c22c0206e963fd35245126a8e81c271'
+sha256sums=('93055ab50d15c70f00f950deefb53959fdb9cfdf32a3296750140227fec7e81f'
             '2bc1924abc74c66ea3056ddefdcf7a7e9b76c4ca9f87a0bbddc1a5da73a99eaa')
-b2sums=('113e69b1ec8a667331ad17779cea5b32ce04f8d72a4e17a8ff857d45ac64d962e767aaaf50d402fcc57fb274b9b28db1838016638cf39c4ec2165ac88ee8b3e9'
+b2sums=('ddba89eab214262813cbe003f2793a5cd8edf03cf0650b7b4a625d2b6e54233cb63bd06e5f8ed4a47ca061e68d796d509555d53657fbb64b34ceaf2d48cf047c'
         'c65bd035b0caad6b18059de5fec99ee358dc2e5552de9349e9d2c1166f95d6bd9615a0087f0003ff828002eb0ea0a36461db148acb694a0ac6ec469235724aa6')
 
 prepare() {
   if (( _devendored == 1 )); then
     patch -Np1 -d $_name-$pkgver -i ../$pkgname-2.4.3-devendor.patch
     rm -frv $_name-$pkgver/src/pdm/backend/_vendor
+    find $_name-$pkgver -type f -iname "*.orig" -delete
   fi
 }
 
