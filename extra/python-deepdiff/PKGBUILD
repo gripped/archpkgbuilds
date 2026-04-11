@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-deepdiff
-pkgver=8.4.1
+pkgver=8.5.0
 pkgrel=1
 pkgdesc="Deep Difference and Search of any Python object/data."
 url="https://github.com/seperman/deepdiff"
@@ -13,12 +13,12 @@ optdepends=('python-click: for cli'
             'python-yaml: for YAML support'
             'python-clevercsv: for more robust CSV parsing'
             'python-orjson: for speed and memory optimized parsing')
-makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel' 'git')
+makedepends=('python-build' 'python-flit-core' 'python-installer' 'git')
 checkdepends=('python-pytest' 'python-pytest-benchmark' 'python-clevercsv' 'python-click' 'python-dateutil'
               'python-jsonpickle' 'python-numpy' 'python-tomli-w' 'python-yaml' 'python-orjson'
 	      'python-pydantic' 'python-pandas' 'python-polars')
 source=("git+https://github.com/seperman/deepdiff.git#tag=$pkgver")
-sha512sums=('a82681e30b8cfc7bfb5af35dedc33cb251aca0361477a8bce3fc16a8a41087de891a0ac2dec71550c67e716e7251d59e196930bd284cfcedb8a057caae56430f')
+sha512sums=('b261ce7c2452258bfc81a4de0420629530048a1cc6b871cab08a8c2ca0a694afc511522ae9a7eb15f9cecfd67c35eabb3a90fdd4d44d8f2f2dd5bcf510b6542c')
 
 build() {
   cd deepdiff
