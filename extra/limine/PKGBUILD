@@ -3,8 +3,8 @@
 
 pkgname=limine
 _pkgname=Limine
-pkgver=11.2.1
-pkgrel=2
+pkgver=11.3.1
+pkgrel=1
 pkgdesc="An advanced, portable, multiprotocol bootloader"
 url="https://limine-bootloader.org/"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('BSD-2-Clause')
 depends=('glibc')
 makedepends=('git' 'nasm' 'mtools' 'llvm' 'lld' 'clang')
 source=("git+https://github.com/Limine-Bootloader/Limine.git#tag=v${pkgver}?signed")
-sha256sums=('1372b7513f691b9d1f4d9dc25464cee8dea63cdad6a5a798995c0b9c8a3a6019')
+sha256sums=('53b4d959b1d946df1cfaae2cfafddd29af0c8965ed0c01f6b879b4fabb1f01fc')
 validpgpkeys=('05D29860D0A0668AAEFB9D691F3C021BECA23821') # Mintsuki <mintsuki@protonmail.com>
 
 prepare() {
