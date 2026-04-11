@@ -2,9 +2,12 @@
 # Contributor: Fernando Jiménez Solano <fjim@sdfeu.org>
 # Contributor: Sven-Hendrik Haase <svenstaro@archlinux.org>
 
+# TODO follow this PR and related issue(s)
+# https://github.com/beetbox/pyacoustid/pull/90
+
 pkgname=python-pyacoustid
-pkgver=1.3.0
-pkgrel=7
+pkgver=1.3.1
+pkgrel=1
 pkgdesc='Bindings for Chromaprint acoustic fingerprinting and the Acoustid API'
 arch=(any)
 url='https://github.com/beetbox/pyacoustid'
@@ -19,12 +22,11 @@ makedepends=(
   git
   python-build
   python-installer
-  python-setuptools
-  python-wheel
+  python-poetry-core
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('cf2dab12fb7bcdaf5cd47c8fcc57f1d1994cc3bdd0ca506f70da23db33895878c2bc2f366873e7d7feaba623d7cf00744d424c000cf9910d48e2fb81294d100f')
-b2sums=('0b0f01d19e23f8d72c69a3d1b5a833483bf4e7fe366edea9d43d2b073454fd513c2cd512e8c2b346c89e1a927973239bee78d0af4e494cd0cdec9cc8a09c3d0a')
+sha512sums=('bfe9ac4648cb694a9c531a2b90caf9c19f4dd8c0627257935ec264d285590c8b06645cc82943c2519d57ee15383f087e62dfd8d413f81fd79de2c1a063e8ceb9')
+b2sums=('8de868114135d9ed6b9ae070c0af3e8c64a267489ee6dbe6ba746c94032199ab5c53607433d4d459211ff0139ae30bc5dcb26449d1965fd06c9a66603b435752')
 
 build() {
   cd "$pkgname"
