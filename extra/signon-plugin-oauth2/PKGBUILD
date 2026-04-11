@@ -4,13 +4,13 @@
 pkgname=signon-plugin-oauth2
 _pkgname=signon-oauth2
 pkgver=0.25
-pkgrel=3
+pkgrel=4
 pkgdesc='OAuth 2 plugin for signon'
 arch=(x86_64)
 url='https://gitlab.com/accounts-sso/signon-plugin-oauth2'
 license=(LGPL)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
          qt6-base
          signond)
 makedepends=(git)
