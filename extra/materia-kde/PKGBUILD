@@ -4,7 +4,7 @@
 pkgbase=materia-kde
 pkgname=(materia-kde kvantum-theme-materia)
 pkgver=20220823
-pkgrel=3
+pkgrel=4
 pkgdesc="Materia theme for KDE Plasma 5"
 arch=(any)
 url="https://github.com/PapirusDevelopmentTeam/materia-kde"
