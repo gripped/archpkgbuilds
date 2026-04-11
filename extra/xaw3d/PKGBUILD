@@ -3,7 +3,7 @@
 
 pkgname=xaw3d
 pkgver=1.6.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Three-D Athena widgets"
 arch=('x86_64')
 url="https://gitlab.freedesktop.org/xorg/lib/libxaw3d"
@@ -25,7 +25,7 @@ build() {
 package() {
   cd libXaw3d-${pkgver}
   make DESTDIR="${pkgdir}" install
-  
+
   install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
   install -m644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
