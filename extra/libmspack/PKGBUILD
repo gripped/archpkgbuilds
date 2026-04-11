@@ -4,7 +4,7 @@
 pkgname=libmspack
 epoch=1
 pkgver=1.11
-pkgrel=1
+pkgrel=2
 pkgdesc='A library for Microsoft compression formats'
 url='https://www.cabextract.org.uk/libmspack/'
 arch=('x86_64')
