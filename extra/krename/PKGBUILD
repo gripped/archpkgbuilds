@@ -3,7 +3,7 @@
 
 pkgname=krename
 pkgver=5.0.2
-pkgrel=10
+pkgrel=11
 pkgdesc='A very powerful batch file renamer'
 arch=(x86_64)
 url='https://apps.kde.org/krename/'
@@ -52,7 +52,8 @@ prepare() {
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake --build build
 }
 
