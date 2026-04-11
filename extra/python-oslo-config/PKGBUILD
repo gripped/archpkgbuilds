@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-config
-pkgver=10.0.0
+pkgver=10.1.0
 pkgrel=1
 pkgdesc="parsing command line arguments and .ini style configuration files"
 arch=('any')
@@ -19,7 +19,7 @@ source=(
   "git+https://github.com/openstack/oslo.config.git#tag=$pkgver"
   "$pkgname-python-3.14.patch"
 )
-sha512sums=('6024a4d9a529bd1333324ff420d4011cba8e449646287ede3817e72141244ed16b270c6e301b19d6d094efcc828e28a1c33698f6c3475e4ba69734e5b95358c7'
+sha512sums=('18816bdd60fe63a363c5d66aca564c29a5bea8078f6d8761f16947116b81c1f3118323f184de1a53408d15033892a1eb9dd90cc0de5e947a9a4ed4228b389b2e'
             '84c6db3076dcd0190f467313efb3df66925bdf0c3db377bf118564af341304eaae0799aaa746058549b9c6cef4199daf5b8c272d29ffb534432411863dcfb5d5')
 
 prepare() {
