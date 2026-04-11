@@ -3,19 +3,18 @@
 # Contributor: Vlad Frolov <frolvlad@gmail.com>
 
 pkgname=cargo-deny
-pkgver=0.19.0
-pkgrel=1
+pkgver=0.19.1
+pkgrel=2
 pkgdesc='Cargo plugin for linting your dependencies'
 arch=('x86_64')
 url='https://github.com/EmbarkStudios/cargo-deny'
 license=('MIT' 'Apache-2.0')
-depends=('cargo' 'gcc-libs')
-makedepends=('git')
+depends=('cargo' 'git' 'glibc' 'libgcc')
 options=(!lto)
 source=("$pkgname-$pkgver::git+$url.git#tag=$pkgver"
   "$pkgname-advisory-db::git+https://github.com/rustsec/advisory-db"
   "$pkgname-test-advisory-db::git+https://github.com/EmbarkStudios/test-advisory-db")
-sha256sums=('2de4ca6677ca044cda821223b3974ab4ae2b3c256d1c8d55e65e487861f67915'
+sha256sums=('1d277d2c59b1418b9c62f3906c581828da0a707dc00223c1fdf2e1ba9151e229'
             'SKIP'
             'SKIP')
 
