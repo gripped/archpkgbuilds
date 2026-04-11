@@ -3,7 +3,7 @@
 
 pkgname=libxdmcp
 pkgver=1.1.5
-pkgrel=1
+pkgrel=2
 pkgdesc="X11 Display Manager Control Protocol library"
 arch=('x86_64')
 url="https://gitlab.freedesktop.org/xorg/lib/libxdmcp"
