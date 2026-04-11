@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-session
-pkgver=2.0.21
+pkgver=2.0.22
 pkgrel=1
 pkgdesc='New deepin session, based on systemd and existing projects'
 arch=('x86_64')
@@ -11,14 +11,14 @@ license=('GPL-3.0-or-later')
 # deepin-kwin: dde-session@.service
 # deepin-shell: dde-session-initialized.target.wants/dde-shell@DDE.service
 # deepin-qt{5,6} plugins/integrations: enabled by dde-session
-depends=('bash' 'glibc' 'glib2' 'libcap-ng' 'libgcc' 'libstdc++' 'libx11' 'libsecret' 'qt6-base' 'dtk6core'
+depends=('bash' 'glibc' 'glib2' 'libcap-ng' 'libgcc' 'libstdc++' 'libx11' 'libxcb' 'libsecret' 'qt6-base' 'dtk6core'
          'libxcursor' 'libxfixes' 'systemd-libs' 'deepin-session-ui' 'deepin-kwin' 'deepin-shell'
          'deepin-qt5platform-plugins' 'deepin-qt5integration'
          'deepin-qt6platform-plugins' 'deepin-qt6integration')
 makedepends=('git' 'cmake' 'ninja')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-session.git#tag=$pkgver")
-sha512sums=('a7dc27c1f55156345b4dfc661621ac451dcf441ac52f65ff241bc5cf5803ecfeee16f9ae76fc92d24c40ba906df407ebd481bc1f7ee858c7b6856e6c5a48ec07')
+sha512sums=('88f91aa6a3618da0764f90aa349a840c55d7df88c84d551fc41376c0dd48e5fd2ba942166b45884d2f0fdcd065fab8e4cc7847832a63da0892b4cc4a94450521')
 
 prepare(){
   cd dde-session
