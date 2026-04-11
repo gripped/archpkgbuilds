@@ -4,7 +4,7 @@
 
 pkgname=pesign
 pkgver=116
-pkgrel=2
+pkgrel=3
 pkgdesc="Linux tools for signed PE-COFF binaries"
 arch=(x86_64)
 url="https://github.com/rhboot/pesign"
@@ -14,13 +14,13 @@ license=(
 )
 depends=(
   bash
-  gcc-libs
-  glibc
   efivar
-  util-linux-libs
+  glibc
+  libgcc
   nspr
   nss
   popt
+  util-linux-libs
 )
 makedepends=(mandoc)
 options=(debug)
