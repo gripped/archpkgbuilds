@@ -4,7 +4,7 @@
 
 pkgname=libcue
 pkgver=2.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Parses so-called cue sheets and handles the parsed data'
 url='https://github.com/lipnitsk/libcue/'
 arch=('x86_64')
@@ -20,6 +20,7 @@ build() {
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DBUILD_SHARED_LIBS=ON \
+      -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
       -Wno-dev
   cmake --build build
 }
