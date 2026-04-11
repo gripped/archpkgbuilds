@@ -8,7 +8,7 @@ pkgbase=luasec
 pkgname=(lua-sec lua51-sec lua52-sec lua53-sec lua54-sec)
 epoch=2
 pkgver=1.3.2
-pkgrel=3
+pkgrel=5
 pkgdesc='Lua bindings for OpenSSL library to provide TLS/SSL communication'
 arch=('x86_64')
 url='https://github.com/brunoos/luasec/wiki'
@@ -63,7 +63,7 @@ package_lua53-sec() {
 
 package_lua54-sec() {
   pkgdesc="$pkgdesc for Lua 5.4"
-  depends+=('lua-socket')
+  depends+=('lua54-socket')
 
   cd "luasec-$pkgver"
   luarocks install --lua-version=5.4 --tree="$pkgdir/usr/" --deps-mode=none --no-manifest 5.4/*.rock
