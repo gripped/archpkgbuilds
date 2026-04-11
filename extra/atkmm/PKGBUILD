@@ -7,7 +7,7 @@ pkgname=(
   atkmm-docs
 )
 pkgver=2.28.4
-pkgrel=1
+pkgrel=2
 pkgdesc="C++ bindings for ATK"
 url="https://www.gtkmm.org/"
 arch=(x86_64)
