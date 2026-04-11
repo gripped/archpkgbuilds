@@ -4,7 +4,7 @@
 # Contributor: Johannes Dewender   arch at JonnyJD dot net
 
 pkgname=distro-info-data
-pkgver=0.66
+pkgver=0.67
 pkgrel=1
 pkgdesc="Information about all releases of Debian and Ubuntu (data files)"
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=('git')
 checkdepends=('python')
 options=(!emptydirs)
 source=("git+https://salsa.debian.org/debian/distro-info-data.git#tag=debian/$pkgver")
-sha256sums=('dd35eb25a3fa1b1e3c949a205e25f221bf735940f71d4bfbe0f52be1993ba6f1')
+sha256sums=('79d1abaef78de642d71792758f56030f9bc1dfa4b593df8f8c1b553d2174b15a')
 
 check() {
   cd $pkgname
