@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-daemon
-pkgver=6.1.55
+pkgver=6.1.57
 pkgrel=1
 pkgdesc='Daemon handling the DDE session settings'
 arch=('x86_64')
@@ -67,7 +67,7 @@ replaces=('startdde')
 groups=('deepin')
 install="$pkgname.install"
 source=("git+https://github.com/linuxdeepin/dde-daemon.git#tag=$pkgver")
-sha512sums=('14b3172a43a727f9b37e25f83237ac8440829f6bd46f20322fa20b04418e39ae8271d02733bc4da0e6bb881b2723cd9ad9247c48b159ffee67dec7bc3c8e6785')
+sha512sums=('c1c9164353bbe048c3bcf6d4a49d913d5463237ce5e173d767f25557e999257b58942fe627354e018e0deb5ab1d449f40f952e2a0556a62bb1811130dc1c0dd6')
 
 prepare() {
   cd dde-daemon
@@ -85,6 +85,23 @@ prepare() {
   # Remove duplicate/wrong SystemdService entry that prevents D-Bus activation
   # (deepin-accounts1-daemon.service does not exist on Arch)
   sed -i '/deepin-accounts1-daemon/d' misc/system-services/org.deepin.dde.Accounts1.service
+
+  # 6.1.56/6.1.57 need both the older fprintd1 client and the newer controlcenter1
+  # client package from go-dbus-factory. Bump only that module to the upstream
+  # commit that contains both generated interfaces, without changing the rest
+  # of the dependency set.
+  go get github.com/linuxdeepin/go-dbus-factory@c4d1986
+
+  # 6.1.56 adds the LidClosed property in system/power1/manager.go, but the
+  # checked-in generated dbusutil output was not refreshed, so display1 fails
+  # to build against the stale interface. Regenerate the dbusutil outputs.
+  cd system/power1
+  GOPACKAGE=power go run github.com/linuxdeepin/go-lib/dbusutil/_tool/dbusutil-gen \
+    -type Manager,Battery \
+    -import github.com/linuxdeepin/dde-api/powersupply/battery \
+    manager.go battery.go
+  GOPACKAGE=power go run github.com/linuxdeepin/go-lib/dbusutil/_tool/dbusutil-gen \
+    em -type Manager,Battery
 }
 
 build() {
