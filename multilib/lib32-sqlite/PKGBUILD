@@ -6,9 +6,9 @@
 # Contributor: Kaos < gianlucaatlas dot gmail dot com >
 
 pkgname=('lib32-sqlite')
-pkgver=3.52.0
+pkgver=3.53.0
 _srcver=$(echo "$pkgver" | awk -F. '{ printf "%d%02d%02d00", $1, $2, $3 }')
-pkgrel=1
+pkgrel=2
 pkgdesc="A C library that implements an SQL database engine (32-bit)"
 arch=('x86_64')
 license=('LicenseRef-Sqlite')
@@ -18,7 +18,7 @@ options=('!emptydirs')
 source=(https://www.sqlite.org/2026/sqlite-src-${_srcver}.zip
         license.txt)
 # upstream now switched to sha3sums - currently not supported by makepkg
-sha256sums=('652a98ca833ed638809a52bec225a7f37799f71a995778f9ccb68ad03bd1fc11'
+sha256sums=('fbc30cdbfcfa42c78fe7bddd3fd37ab8995369a31d39097a5d0633296c0b6e65'
             '4e57d9ac979f1c9872e69799c2597eeef4c6ce7224f3ede0bf9dc8d217b1e65d')
 
 prepare() {
@@ -33,17 +33,17 @@ build() {
   export CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
 
   export CPPFLAGS="$CPPFLAGS \
-	-DSQLITE_ENABLE_COLUMN_METADATA=1 \
-	-DSQLITE_ENABLE_UNLOCK_NOTIFY \
-	-DSQLITE_ENABLE_DBSTAT_VTAB=1 \
-	-DSQLITE_ENABLE_FTS3_TOKENIZER=1 \
-	-DSQLITE_SECURE_DELETE \
-	-DSQLITE_ENABLE_STMTVTAB \
-	-DSQLITE_ENABLE_STAT4 \
-	-DSQLITE_MAX_VARIABLE_NUMBER=250000 \
-	-DSQLITE_MAX_EXPR_DEPTH=10000 \
-	-DSQLITE_ENABLE_MATH_FUNCTIONS"
-
+        -DSQLITE_ENABLE_COLUMN_METADATA=1 \
+        -DSQLITE_ENABLE_UNLOCK_NOTIFY \
+        -DSQLITE_ENABLE_DBSTAT_VTAB=1 \
+        -DSQLITE_ENABLE_FTS3_PARENTHESIS \
+        -DSQLITE_SECURE_DELETE \
+        -DSQLITE_ENABLE_STMTVTAB \
+        -DSQLITE_ENABLE_STAT4 \
+        -DSQLITE_MAX_VARIABLE_NUMBER=250000 \
+        -DSQLITE_MAX_EXPR_DEPTH=10000 \
+        -DSQLITE_ENABLE_MATH_FUNCTIONS"
+        
   # build sqlite
   cd sqlite-src-$_srcver
 
@@ -54,6 +54,8 @@ build() {
   ./configure --prefix=/usr \
 	--libdir=/usr/lib32 \
 	--disable-static \
+    --enable-session \
+    --enable-fts3 \
 	--fts4 \
 	--fts5 \
 	--rtree \
