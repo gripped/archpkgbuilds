@@ -1,18 +1,19 @@
 pkgbase = python-pytest-httpx
 	pkgdesc = Send responses to httpx
-	pkgver = 0.36.0
+	pkgver = 0.36.1
 	pkgrel = 1
 	url = https://colin-b.github.io/pytest_httpx
 	arch = any
 	license = MIT
 	checkdepends = python-pytest-asyncio
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools-scm
 	makedepends = python-wheel
 	depends = python-httpx
 	depends = python-pytest
-	source = https://github.com/Colin-b/pytest_httpx/archive/v0.36.0/python-pytest-httpx-0.36.0.tar.gz
-	sha512sums = 56f678feac921c1a7ea9817e222dad4aed7bd64fd880470e408329fddde197003970560a9bad5601ce371c1dd421354f8a8136831abe258ce05b39da9363bfd0
+	source = git+https://github.com/Colin-b/pytest_httpx.git#tag=0.36.1
+	sha512sums = 1dc4889825e51df0fec08273d98ecb75f31fdaee03f78f126e86cedec695424c6f5671cbf669ae7514b9d50d80087608fe492af1fc3dc7efab3dc3c1c0c94ee2
 
 pkgname = python-pytest-httpx
