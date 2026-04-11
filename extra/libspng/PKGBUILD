@@ -5,7 +5,7 @@
 
 pkgname=libspng
 pkgver=0.7.4
-pkgrel=2
+pkgrel=4
 pkgdesc='Simple, modern libpng alternative'
 arch=(x86_64)
 url=https://github.com/randy408/libspng
