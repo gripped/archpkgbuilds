@@ -2,13 +2,13 @@
 
 pkgname=ssr
 pkgver=0.6.1
-pkgrel=3
+pkgrel=4
 pkgdesc="A tool for real-time spatial audio reproduction"
 arch=(x86_64)
 url="http://spatialaudio.net/ssr/"
 license=(GPL-3.0-or-later)
 groups=(pro-audio)
-depends=(bash fmt gcc-libs glibc glu hicolor-icon-theme libmysofa libxml2 qt5-base)
+depends=(bash fmt glibc glu hicolor-icon-theme libgcc libmysofa libxml2 qt5-base)
 makedepends=(asio ecasound fftw gendesk help2man jack libglvnd libsndfile qt5-tools websocketpp)
 source=(
   https://github.com/SoundScapeRenderer/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz
