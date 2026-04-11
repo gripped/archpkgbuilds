@@ -2,7 +2,7 @@
 
 pkgbase=deepin-qt5integration
 pkgname=(deepin-qt5integration deepin-qt6integration)
-pkgver=6.7.34
+pkgver=6.7.35
 pkgrel=1
 pkgdesc='Qt platform theme integration plugins for DDE'
 arch=('x86_64')
@@ -13,7 +13,7 @@ makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt6-tools' 'xcb-util-renderutil'
              'dtkcore' 'dtk6core' 'dtkgui' 'dtk6gui' 'dtkwidget' 'dtk6widget'
              'libqt5xdg' 'libqtxdg' 'qt5-base' 'qt5-x11extras' 'qt6-base')
 source=("git+https://github.com/linuxdeepin/qt5integration.git#tag=$pkgver")
-sha512sums=('a155c288378e1349aae4b4cdfe3f3e5298ff52a93aaa85a627bf7ccf07221e52d5e42a164da30a8b5b4ddb59832205f3cd51ba6f48f85e1be95a0e67d21e959b')
+sha512sums=('9dfa4fdb5da83f7248772a95b893ca735fb88e8616dd18bc563159dceec4f35da2afa0eb60f81b252716623fee2b49f8e1f95513b6eb0eb55dc27873d6064a1b')
 
 prepare() {
   # Use separate source directories for Qt5 and Qt6 builds
