@@ -4,7 +4,7 @@
 pkgname=opensmtpd-filter-senderscore
 _pkgname=filter-senderscore
 pkgver=0.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc='OpenSMTPD filter integration for Sender Score'
 arch=(i686 x86_64)
 url=https://github.com/poolpOrg/filter-senderscore
@@ -17,7 +17,14 @@ sha512sums=('92c5e87eb3cd5fdcd1e54e46887ba14e331f665d4edbefc27ce6f0c93f58a60b1e5
 
 build() {
 	cd "$_pkgname-$pkgver"
-	go build -buildmode pie -ldflags "-extldflags $LDFLAGS" -trimpath "$_pkgname.go"
+
+	export CGO_CPPFLAGS="${CPPFLAGS}"
+	export CGO_CFLAGS="${CFLAGS}"
+	export CGO_CXXFLAGS="${CXXFLAGS}"
+	export CGO_LDFLAGS="${LDFLAGS}"
+	export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
+
+	go build "$_pkgname.go"
 }
 
 package() {
