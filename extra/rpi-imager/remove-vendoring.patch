@@ -1,8 +1,8 @@
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 4a24e0c6..8ba95e95 100644
+index 2dd86fcf..74600c1b 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -170,26 +170,22 @@ set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
+@@ -155,26 +155,22 @@ set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
  set(BUILD_STATIC_LIBS ON)
  set(BUILD_SHARED_LIBS OFF)
  
@@ -29,25 +29,34 @@ index 4a24e0c6..8ba95e95 100644
  
  # Bundled libarchive
 -include(dependencies/libarchive.cmake)
-+find_package(LibArchive 3.8.4 REQUIRED)
++find_package(LibArchive 3.8.6 REQUIRED)
  
  # libcurl
  if(APPLE)
-@@ -203,7 +199,7 @@ if(APPLE)
+@@ -188,12 +184,13 @@ if(APPLE)
      # Note: No need to find OpenSSL on macOS - we use native Security.framework
      # for RSA operations and CommonCrypto for hashing
  else()
 -    include(dependencies/curl.cmake)
-+    find_package(CURL 8.17.0 REQUIRED)
++    find_package(CURL 8.19.0 REQUIRED)
  endif()
  
  
-@@ -537,7 +533,7 @@ else()
+ # Bundled libusb (for rpiboot Compute Module support)
+-include(dependencies/libusb.cmake)
++find_package(PkgConfig REQUIRED)
++pkg_check_modules(LIBUSB REQUIRED IMPORTED_TARGET libusb-1.0)
+ 
+ # Add dependencies
+ if (APPLE)
+@@ -551,8 +548,8 @@ else()
      include(linux/PlatformPackaging.cmake)
  endif()
  
--add_dependencies(${PROJECT_NAME} zlibstatic yescrypt)
+-add_dependencies(${PROJECT_NAME} zlibstatic yescrypt usb-1.0-static)
+-include_directories(${CURL_INCLUDE_DIR} ${LibArchive_INCLUDE_DIR} ${LIBLZMA_INCLUDE_DIRS} ${LIBDRM_INCLUDE_DIRS} ${ZLIB_INCLUDE_DIRS} ${ZSTD_INCLUDE_DIR} ${YESCRYPT_INCLUDE_DIR} ${LIBUSB_INCLUDE_DIR})
 +add_dependencies(${PROJECT_NAME} yescrypt)
- include_directories(${CURL_INCLUDE_DIR} ${LibArchive_INCLUDE_DIR} ${LIBLZMA_INCLUDE_DIRS} ${LIBDRM_INCLUDE_DIRS} ${ZLIB_INCLUDE_DIRS} ${ZSTD_INCLUDE_DIR} ${YESCRYPT_INCLUDE_DIR})
++include_directories(${CURL_INCLUDE_DIR} ${LibArchive_INCLUDE_DIR} ${LIBLZMA_INCLUDE_DIRS} ${LIBDRM_INCLUDE_DIRS} ${ZLIB_INCLUDE_DIRS} ${ZSTD_INCLUDE_DIR} ${YESCRYPT_INCLUDE_DIR} ${LIBUSB_INCLUDE_DIRS})
  
  # Link different Qt components based on build type
+ # rpiboot link libraries (libusb)
