@@ -6,7 +6,7 @@
 
 pkgname=libdbi-drivers
 pkgver=0.9.0
-pkgrel=12
+pkgrel=13
 pkgdesc="Database drivers for libdbi (MySQL, PostgreSQL, and SQLite)"
 arch=('x86_64')
 url="http://libdbi-drivers.sourceforge.net/"
@@ -29,15 +29,18 @@ source=(
   "https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
   "$pkgname-fix-bundled-cgreen-build.patch"
   "$pkgname-fix-test-datetime-types.patch"
+  "$pkgname-fix-vla-buffer-overflow-in-getTables.patch"
 )
 b2sums=('2071c0cc21b1b4eeda926d5ce36f6dde03ede206dac91780aabafcb7c5b399f4b9580910e5ede08c9f0bf026f4af2088d1d0e8c1835b86273a7739b2946ed3c3'
         '67914754141c582fa1f4c8826ead829c35390553dce707c2a2429234c044db60ac220d8ac11be68998574175a538e3d000013cc352f6e1220ad36e896c9594bf'
-        'e0a781b36a5a7c60fc89ec911e9de2c7252162e6306178496315615f66bc629a61ce90b8240624dff5a19a3bdfaef17e3627efcf7f0fe27ac30504bc4651b3a5')
+        'e0a781b36a5a7c60fc89ec911e9de2c7252162e6306178496315615f66bc629a61ce90b8240624dff5a19a3bdfaef17e3627efcf7f0fe27ac30504bc4651b3a5'
+        '047d685e1369ffb985554d4bb7dcb0d52af40632de8cdc2f3d88caaabbca45e934d173097bfc2d7999b509a5398f73578f20cf05f6edbded1b2b490e6381de38')
 
 prepare() {
   cd $pkgname-$pkgver
   patch -Np1 < ../$pkgname-fix-bundled-cgreen-build.patch
   patch -Np1 < ../$pkgname-fix-test-datetime-types.patch
+  patch -Np1 < ../$pkgname-fix-vla-buffer-overflow-in-getTables.patch
 }
 
 build() {
