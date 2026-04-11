@@ -1,7 +1,7 @@
 # Maintainer: Johannes Löthberg <johannes@kyriasis.com>
 
 pkgname=python-prometheus_client
-pkgver=0.24.1
+pkgver=0.25.0
 pkgrel=1
 
 pkgdesc="Prometheus instrumentation library for Python applications"
@@ -18,7 +18,7 @@ optdepends=('python-snappy: snappy compression support'
 
 source=(client_python-$pkgver.tar.gz::https://github.com/prometheus/client_python/archive/v${pkgver}.tar.gz)
 
-sha512sums=('5188472d93fe0e2a2ba36431d08dfd3af42dee5f39c32d600f8de4728ba8d9396ca4f3a35fc7370b4f23f9ba733d2c81db9464c9b8e6ce515523470edc8b8001')
+sha512sums=('58658326c58544c3bfafec6d5209c49baea9d3dc43d6bfae6c630dac73d91d7cace9a8740c1a18c65505a7dc5ac84b0feffa93babcd9ca68007ecf3cefb09bad')
 
 prepare() {
   cd client_python-$pkgver
