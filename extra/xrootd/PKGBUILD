@@ -1,10 +1,10 @@
-# Maintainer: Konstantin Gizdov < arch at kge dot pw >
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+# Contributor: Konstantin Gizdov < arch at kge dot pw >
 # Contributor: Jan Kašpar < jan.kaspar at gmail dot com >
 # Contributor: Alex Pearce < alex at alexpearce dot me >
 
 pkgname=xrootd
-pkgver=5.9.2
+pkgver=6.0.0
 pkgrel=1
 pkgdesc="Software framework for fast, low latency, scalable and fault tolerant data access."
 arch=(x86_64)
@@ -13,7 +13,6 @@ license=(LGPL-3.0-or-later)
 depends=(
   bash
   curl
-  davix
   e2fsprogs libcom_err.so
   fuse2
   glibc
@@ -22,12 +21,12 @@ depends=(
   libstdc++
   libxcrypt libcrypt.so
   libxml2 libxml2.so
+  libzip libzip.so
   openssl libssl.so libcrypto.so
   perl
   python
   readline libreadline.so
   systemd-libs libsystemd.so
-  tinyxml
   util-linux-libs libuuid.so
   zlib libz.so
 )
@@ -36,6 +35,7 @@ makedepends=(
   git
   gtest
   ninja
+  nlohmann-json
   python-build
   python-installer
   python-setuptools
@@ -45,7 +45,7 @@ checkdepends=(
   procps-ng  # some tests use ps
 )
 source=("$pkgname::git+https://github.com/$pkgname/$pkgname.git#tag=v$pkgver")
-b2sums=('9c77b1abc16b487dd427be2fbf1d1560c5e0057289c85959cf4a26839a57c0897286eb473383fdc8862672cfce0822bb696a03184a5c4d53e4b1c63a850b3075')
+b2sums=('4455fbcd7ccb70347bcd04a20d6b60757c154e514ab8499df915f3610f2bf86f5d0cb9fc559ace1919c6d4dadbbf78fff96c930da84e633f6623fd2c0092cc2b')
 
 build() {
   local cmake_options=(
@@ -71,7 +71,7 @@ build() {
   cmake --build build
 
   # build the Python wheel separately from CMake to avoid pip warnings
-  python -m build --wheel --no-isolation build/bindings/python
+  python -m build --wheel --no-isolation build/python
 }
 
 check() {
@@ -90,7 +90,7 @@ check() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-  python -m installer --destdir="$pkgdir" build/bindings/python/dist/*.whl
+  python -m installer --destdir="$pkgdir" build/python/dist/*.whl
   install -vDm 644 $pkgname/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 

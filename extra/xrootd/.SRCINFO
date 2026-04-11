@@ -1,6 +1,6 @@
 pkgbase = xrootd
 	pkgdesc = Software framework for fast, low latency, scalable and fault tolerant data access.
-	pkgver = 5.9.2
+	pkgver = 6.0.0
 	pkgrel = 1
 	url = https://xrootd.slac.stanford.edu/
 	arch = x86_64
@@ -10,13 +10,13 @@ pkgbase = xrootd
 	makedepends = git
 	makedepends = gtest
 	makedepends = ninja
+	makedepends = nlohmann-json
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = yasm
 	depends = bash
 	depends = curl
-	depends = davix
 	depends = e2fsprogs
 	depends = libcom_err.so
 	depends = fuse2
@@ -29,6 +29,8 @@ pkgbase = xrootd
 	depends = libcrypt.so
 	depends = libxml2
 	depends = libxml2.so
+	depends = libzip
+	depends = libzip.so
 	depends = openssl
 	depends = libssl.so
 	depends = libcrypto.so
@@ -38,12 +40,11 @@ pkgbase = xrootd
 	depends = libreadline.so
 	depends = systemd-libs
 	depends = libsystemd.so
-	depends = tinyxml
 	depends = util-linux-libs
 	depends = libuuid.so
 	depends = zlib
 	depends = libz.so
-	source = xrootd::git+https://github.com/xrootd/xrootd.git#tag=v5.9.2
-	b2sums = 9c77b1abc16b487dd427be2fbf1d1560c5e0057289c85959cf4a26839a57c0897286eb473383fdc8862672cfce0822bb696a03184a5c4d53e4b1c63a850b3075
+	source = xrootd::git+https://github.com/xrootd/xrootd.git#tag=v6.0.0
+	b2sums = 4455fbcd7ccb70347bcd04a20d6b60757c154e514ab8499df915f3610f2bf86f5d0cb9fc559ace1919c6d4dadbbf78fff96c930da84e633f6623fd2c0092cc2b
 
 pkgname = xrootd
