@@ -5,7 +5,7 @@
 
 pkgbase=ruff
 pkgname=("$pkgbase" "python-$pkgbase")
-pkgver=0.15.9
+pkgver=0.15.10
 pkgrel=1
 pkgdesc='An extremely fast Python linter, written in Rust'
 arch=(x86_64)
@@ -23,8 +23,8 @@ makedepends=(
 )
 options=(!lto)
 source=("git+$url.git#tag=$pkgver")
-sha512sums=('7114030c729f929f7be2b1f0b61866e38aadf68a833b8c1d74039b927b1ab2cfdb2bbd73a82fa0113a0a086a6b7ab6a182459fb5338b97c0afa005a69716552d')
-b2sums=('cf6d9c4d2dfe51372e515266a7576ee98a9acd32415af2fcfba0b0933f62ed2915cfcc1ccc35a6e6f6c45c6f7458fd7d2bd7a3ae2f3dceaad64b9d288bf71515')
+sha512sums=('e6bce3b5d3f790ed3509f2c3bb94a925b48d020de0b3a17faa278f0bf36cdcd6ce0868a2008f6792b2e23090b4698a53576f255f4726b0a50f94f2e7e1af09c1')
+b2sums=('650be9427db4c480c06c9a5537b08771b2025c53d3456e3d909b91a77388b8a79d946a6d047db0b27e1adc282e4b0061a7d4b2a09121801bb6fa2489a5b4cff0')
 
 prepare() {
   cd $pkgbase
@@ -34,6 +34,9 @@ prepare() {
 build() {
   local target=$(rustc --print host-tuple)
   local target_binary=target/$target/release/$pkgbase
+
+  # https://github.com/gnzlbg/jemallocator/issues/170
+  [[ $CARCH == "aarch64" ]] && export JEMALLOC_SYS_WITH_LG_PAGE=16
 
   cd $pkgbase
   maturin build --locked --release --all-features --target "$target" --strip
