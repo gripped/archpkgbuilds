@@ -3,7 +3,7 @@
 
 pkgname=xorg-iceauth
 pkgver=1.0.10
-pkgrel=1
+pkgrel=2
 pkgdesc="ICE authority file utility"
 arch=(x86_64)
 url="https://gitlab.freedesktop.org/xorg/app/iceauth"
