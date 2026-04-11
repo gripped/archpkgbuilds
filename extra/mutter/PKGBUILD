@@ -10,7 +10,7 @@ pkgname=(
   mutter-docs
 )
 pkgver=50.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Window manager and compositor for GNOME"
 url="https://gitlab.gnome.org/GNOME/mutter"
 arch=(x86_64)
@@ -94,6 +94,10 @@ b2sums=('bd33bec1e65648b386f4f8c042097c948ff663034a8f99a3aa483dd9b20c066a1c5e696
 
 prepare() {
   cd mutter
+  # Fix for NVIDIA GPUs
+  # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5018
+  # https://gitlab.gnome.org/GNOME/mutter/-/issues/4724
+  git cherry-pick -n aae0955e6718de9084a6679fcd796cf8bd2cdef7
 }
 
 build() {
