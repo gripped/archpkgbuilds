@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=ty
-pkgver=0.0.27
+pkgver=0.0.29
 pkgrel=1
 pkgdesc='Extremely fast Python type checker and language server, written in Rust'
 arch=(x86_64)
@@ -19,7 +19,7 @@ source=(
   "git+$url.git#tag=$pkgver"
   git+https://github.com/astral-sh/ruff.git
 )
-b2sums=('7238d3fa001ccabd00b1f6f331e13e8579e91120b5f0e6824cdefe6aff491ecaa35bcca54d8464c7c3f6b361cc00a9aecc71c092333f23cde58dbdd76fee91a8'
+b2sums=('c24f92d6a3804a90d721052718dd41dbdf1f78778d4769756920c016c6cdae601f5f8268d33f2aedcbe9918a8dffefd87c1dd3af4b3a653883c10512d7d54701'
         'SKIP')
 
 prepare() {
@@ -44,7 +44,11 @@ build() {
 
 check() {
   cd $pkgname
-  cargo test --manifest-path ruff/crates/$pkgname/Cargo.toml --frozen --all-features
+  local skipped=(
+    # our nspawn chroot *is* virtual, so naturally we don't pass this test
+    python_environment::ty_environment_is_system_not_virtual
+  )
+  cargo test --manifest-path ruff/crates/$pkgname/Cargo.toml --frozen --all-features -- ${skipped[@]/#/--skip }
 }
 
 package() {
