@@ -5,8 +5,8 @@
 
 pkgname=python-icalendar
 _name=${pkgname#python-}
-pkgver=6.3.2
-pkgrel=3
+pkgver=7.0.3
+pkgrel=1
 pkgdesc='A parser/generator of iCalendar files (RFC 2445)'
 arch=(any)
 url=https://github.com/collective/icalendar
@@ -29,15 +29,11 @@ checkdepends=(
 )
 source=(
   "git+$url.git#tag=v$pkgver"
-  tzdata.patch
 )
-b2sums=('c538301b1abb056091f4a230e38ba577c98d48ead6588372315aea2d01056d7f6ca0aee3d78401af7df5a0c6eceafb869f1b1564a4cbfdae0ff4235e443c5dea'
-        '97090020758909ff25acd3eb42a426f6bbf763a4fce3fb798f615c04a4c177dd2d07112818495d3f00db8ad17a3098233211a1f53364f57528a887bd149dd1fa')
+b2sums=('13eb97011499e2655e5a090bcee89de3358eac6bd3685b54be77671fb1503c459638edc32b6b2a9eb0b9fade6d95da92839b1f9d37a917b69a68f76fa408c5b5')
 
 prepare() {
-  cd "$_name"
-  # Remove the use of python-tzdata, as without it the default is to use Python built-in behavior.
-  patch --forward --input=../tzdata.patch
+  sed '/tzdata/d' -i $_name/pyproject.toml
 }
 
 build() {
@@ -58,7 +54,7 @@ package() {
 
   cd "$_name"
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -vDm 644 {CHANGES,CONTRIBUTING,README}.rst -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 {CHANGES,README}.rst CONTRIBUTING.md -t "$pkgdir/usr/share/doc/$pkgname/"
 
   install -d "$pkgdir/usr/share/licenses/$pkgname/"
   ln -s "$site_packages/$_name-$pkgver.dist-info/licenses/LICENSE.rst" "$pkgdir/usr/share/licenses/$pkgname/LICENSE.rst"
