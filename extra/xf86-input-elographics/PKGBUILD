@@ -3,7 +3,7 @@
 
 pkgname=xf86-input-elographics
 pkgver=1.4.4
-pkgrel=1
+pkgrel=2
 pkgdesc="X.org Elographics TouchScreen input driver"
 arch=(x86_64)
 license=('MIT')
