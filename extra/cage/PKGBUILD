@@ -2,7 +2,7 @@
 # Contributor: David Runge <dvzrv@archlinux.org>
 
 pkgname=cage
-pkgver=0.2.1
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="A kiosk compositor for Wayland"
 arch=(x86_64)
@@ -11,7 +11,7 @@ license=(MIT)
 depends=(
   'glibc'
   'wayland'
-  'wlroots0.19'
+  'wlroots0.20'
 )
 makedepends=(
   'git'
@@ -30,7 +30,7 @@ optdepends=(
 # fetching.
 source=("git+https://github.com/cage-kiosk/cage.git#tag=v$pkgver?signed")
 install=cage.install
-sha512sums=('4cda60e4fcdffeefb5ff8c0b50fee4fe3d008f706d3bae1cc4ac899e3cf72f01da2bb806626fc0043521669136a24f839f672a3670f3b992b4e7584a1bbc6fc1')
+sha512sums=('0925e1605ea9afcb3f005d36b2438ddcba67c6966df402a57bb606a6c26269d070887ad742b75e0308ca15091ea9ba22224e3d5f2810bc0ccdbde3432d05cdb7')
 validpgpkeys=(
     '13B6A35E9FD677D02CD68DBE37C445296EBC43B1' # Jente Hidskes <dev@hjdskes.nl>
     '34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48' # Simon Ser <contact@emersion.fr>
@@ -46,7 +46,7 @@ check() {
 }
 
 package() {
-  depends+=(libwlroots-0.19.so libxkbcommon.so)
+  depends+=(libwlroots-0.20.so libxkbcommon.so)
 
   DESTDIR="${pkgdir}" ninja -C build install
   install -vDm 644 "$pkgname/README.md" -t "${pkgdir}/usr/share/doc/${pkgname}"

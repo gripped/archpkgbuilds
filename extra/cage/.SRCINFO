@@ -1,6 +1,6 @@
 pkgbase = cage
 	pkgdesc = A kiosk compositor for Wayland
-	pkgver = 0.2.1
+	pkgver = 0.3.0
 	pkgrel = 1
 	url = https://www.hjdskes.nl/projects/cage/
 	install = cage.install
@@ -14,18 +14,18 @@ pkgbase = cage
 	makedepends = xorg-server-xwayland
 	depends = glibc
 	depends = wayland
-	depends = wlroots0.19
+	depends = wlroots0.20
 	optdepends = polkit: System privilege control. Required if not using seatd service
 	optdepends = xorg-server-xwayland: X11 support
 	provides = wayland-compositor
-	source = git+https://github.com/cage-kiosk/cage.git#tag=v0.2.1?signed
+	source = git+https://github.com/cage-kiosk/cage.git#tag=v0.3.0?signed
 	validpgpkeys = 13B6A35E9FD677D02CD68DBE37C445296EBC43B1
 	validpgpkeys = 34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48
-	sha512sums = 4cda60e4fcdffeefb5ff8c0b50fee4fe3d008f706d3bae1cc4ac899e3cf72f01da2bb806626fc0043521669136a24f839f672a3670f3b992b4e7584a1bbc6fc1
+	sha512sums = 0925e1605ea9afcb3f005d36b2438ddcba67c6966df402a57bb606a6c26269d070887ad742b75e0308ca15091ea9ba22224e3d5f2810bc0ccdbde3432d05cdb7
 
 pkgname = cage
 	depends = glibc
 	depends = wayland
-	depends = wlroots0.19
-	depends = libwlroots-0.19.so
+	depends = wlroots0.20
+	depends = libwlroots-0.20.so
 	depends = libxkbcommon.so
