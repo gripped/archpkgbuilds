@@ -3,14 +3,14 @@
 
 pkgname=zarchive
 pkgver=0.1.2
-pkgrel=5
+pkgrel=6
 pkgdesc='Library for creating and reading zstd-compressed file archives (.zar)'
 arch=(x86_64)
 url=https://github.com/Exzap/ZArchive
 license=(MIT)
 depends=(
-  gcc-libs
   glibc
+  libgcc
   libzstd.so
 )
 makedepends=(
