@@ -2,7 +2,7 @@
 
 pkgname=toastify
 pkgver=0.5.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Commandline tool that shows desktop notifications using notify-rust'
 arch=('x86_64')
 url=https://github.com/hoodie/toastify
@@ -14,7 +14,7 @@ b2sums=('ad477d660217139f3a9e83a38247326ed2dc1f807a9128cb0f83a47e935e96b1d60b35b
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
