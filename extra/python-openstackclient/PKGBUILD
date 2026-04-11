@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstackclient
-pkgver=8.2.0
+pkgver=8.3.0
 pkgrel=1
 pkgdesc="OpenStack Command-line Client"
 arch=('any')
@@ -14,13 +14,7 @@ depends=('python-pbr' 'python-cryptography' 'python-cliff' 'python-iso8601' 'pyt
 makedepends=('git')
 checkdepends=('python-requests-mock' 'python-stestr' 'python-testtools' 'python-wrapt' 'python-ddt')
 source=("git+https://github.com/openstack/python-openstackclient.git#tag=$pkgver")
-sha512sums=('23da94ce9e3ca5181bf0c559bdbc19890c11d273c8cf924b1f1dfd00f0bb32affc28349e0824eac5b66bbd60153f3e1b4c23573d1632ccbce5332dc3a80837b5')
-
-prepare() {
-  cd python-openstackclient
-  # testtools 2.8 removes assertItemsEqual
-  git cherry-pick -n b6af7883b7f493f01142fe6774dab434454a080a
-}
+sha512sums=('74292bd4b4fbf4ec5f6535b46c825a5b528523651d0f2dae6265c9392da32249899545433cee663420386df0729fe76f79b4d7665fa3f9db7431b1e7c96f0c29')
 
 build() {
   cd python-openstackclient
