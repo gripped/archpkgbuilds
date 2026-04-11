@@ -3,15 +3,15 @@
 # Contributor: Camille Moncelier <pix@devlife.org>
 
 pkgname=m17n-db
-pkgver=1.8.10
+pkgver=1.8.11
 pkgrel=1
 pkgdesc='Multilingual text processing library (database)'
 url='https://www.nongnu.org/m17n/'
 arch=('any')
-license=('GPL')
+license=('LGPL-2.1-only')
 depends=('glibc') # not because of compiling, but because of /usr/share/i18n/charmaps/ files that glibc provides
 source=("https://download.savannah.gnu.org/releases/m17n/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('31024e0513533448b9b31ea3294d35a6426e6690eb44628680731aa955c0c16c')
+sha256sums=('b5791f38e66d0a452730331e027ac9b52d5c43c6d8709289db640069f68487f4')
 
 build() {
   cd ${pkgname}-${pkgver}
