@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-testtools
-pkgver=2.8.7
+pkgver=2.9.0
 pkgrel=1
 pkgdesc="Extensions to the Python standard library unit testing framework"
 arch=('any')
@@ -11,7 +11,7 @@ depends=('python-setuptools')
 makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-hatch-vcs')
 checkdepends=('python-testscenarios' 'python-testresources' 'python-fixtures' 'python-twisted')
 source=("git+https://github.com/testing-cabal/testtools.git#tag=$pkgver")
-sha512sums=('5c4af2347da894e4d2be08df17c4d0a81dfde009dde4407e657ad50df743afb8315f5021c0da7f3e605e999297d2ae2ce0e57ca3090254fd1f1dce08a96abf0e')
+sha512sums=('80d94aaaad12e270507ff949ff121fada96c40e17d211c633ec6c77f759119a3b932747d8e55c93337d0ac9d7d99771a62ea54bc0fb95340eddbffa01d1aa8bc')
 
 build() {
   cd testtools
