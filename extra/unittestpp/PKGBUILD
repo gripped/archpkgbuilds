@@ -6,12 +6,12 @@
 
 pkgname=unittestpp
 pkgver=2.0.0
-pkgrel=6
+pkgrel=7
 pkgdesc='Lightweight unit testing framework for C++'
 url='https://github.com/unittest-cpp/unittest-cpp/'
 arch=('x86_64')
 license=('MIT')
-depends=('gcc-libs')
+depends=('libgcc')
 makedepends=('cmake')
 options=('staticlibs')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/unittest-cpp/unittest-cpp/archive/v${pkgver}.tar.gz
@@ -32,6 +32,7 @@ build() {
   cd unittest-cpp-${pkgver}/build
   cmake .. \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DCMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects"
   make all
 }
