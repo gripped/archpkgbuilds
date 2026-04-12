@@ -2,7 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=sentry-native
-pkgver=0.13.5
+pkgver=0.13.6
 pkgrel=1
 pkgdesc="Sentry SDK for C, C++ and native applications"
 arch=(x86_64)
@@ -33,12 +33,12 @@ source=(
   "git+$url.git#tag=$pkgver"
   "$pkgname-libunwindstack-ndk::git+https://github.com/getsentry/libunwindstack-ndk.git"
   "$pkgname-breakpad::git+https://github.com/getsentry/breakpad.git"
-  "$pkgname-linux-syscall-support::git+https://github.com/getsentry/chromium-linux-syscall-support.git"
+  "$pkgname-chromium-linux-syscall-support::git+https://github.com/getsentry/chromium-linux-syscall-support.git"
   "$pkgname-crashpad::git+https://github.com/getsentry/crashpad.git"
   "$pkgname-mini_chromium::git+https://github.com/getsentry/mini_chromium.git"
-  "$pkgname-zlib::git+https://github.com/getsentry/chromium-zlib.git"
+  "$pkgname-chromium-zlib::git+https://github.com/getsentry/chromium-zlib.git"
 )
-b2sums=('58d5ef78261baa2648963481690e4457d2e072703a5bb4911a8401f990f773abc24c23b55f5c3f42ed62a0c632caa3181ddc8d4c428f491701b7640381ba2bd8'
+b2sums=('53c223ceebc0b7a3b21d339f10a66814e4786b9ba39cdee0ab2bf4c8304303abd29cd64093431e0c410b07bdcd8d6172d7399e0ae9ade19cd7ed3e6f04d9e313'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -51,15 +51,15 @@ prepare() {
   git submodule init
   git config submodule.external/libunwindstack-ndk.url "$srcdir/$pkgname-libunwindstack-ndk"
   git config submodule.external/breakpad.url "$srcdir/$pkgname-breakpad"
-  git config submodule.external/third_party/lss.url "$srcdir/$pkgname-linux-syscall-support"
+  git config submodule.external/third_party/lss.url "$srcdir/$pkgname-chromium-linux-syscall-support"
   git config submodule.external/crashpad.url "$srcdir/$pkgname-crashpad"
   git -c protocol.file.allow=always submodule update
 
   cd external/crashpad
   git submodule init
   git config submodule.third_party/mini_chromium/mini_chromium.url "$srcdir/$pkgname-mini_chromium"
-  git config submodule.third_party/zlib/zlib.url "$srcdir/$pkgname-zlib"
-  git config submodule.third_party/lss/lss.url "$srcdir/$pkgname-linux-syscall-support"
+  git config submodule.third_party/zlib/zlib.url "$srcdir/$pkgname-chromium-zlib"
+  git config submodule.third_party/lss/lss.url "$srcdir/$pkgname-chromium-linux-syscall-support"
   git -c protocol.file.allow=always submodule update
 }
 
