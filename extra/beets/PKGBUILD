@@ -4,7 +4,7 @@
 # Contributor: Garrett Figueroa <djspacewhale@4d2.org>
 
 pkgname=beets
-pkgver=2.8.0
+pkgver=2.9.0
 pkgrel=1
 pkgdesc='Flexible music library manager and tagger'
 arch=(any)
@@ -54,6 +54,8 @@ checkdepends=(
   python-titlecase
   python-xdg
   gst-python
+  ffmpeg
+  python-pyacoustid
   #gst-plugins-bad
   #gst-plugins-good
   #gst-plugins-ugly
@@ -86,9 +88,9 @@ source=(
   "$pkgname::git+https://github.com/beetbox/beets.git#tag=v$pkgver"
   beet
 )
-sha512sums=('ec5de5f8a57fbe1776093a90cdcf303b80e103be57985d74f73aee035f70c1fbcae4ed0eefe8a6c96ab0cab17e430f2755ef19134f3fd5dba287ed569f21b3f5'
+sha512sums=('d80fd756ae123ebd85cc5f82f8ba54210d77f07aea3f67f72fb66b05cadb250ffd589dc40c5f535db5db0d1fc5beef2a211607afd814de5ee95c236fd14a289c'
             '8f51ebcc253b0cf698adffae4d2d1a0ff29dcd2d503d0c5d284e9c5cd5981b0ffd190fce154b112ac3cbb419fc0813f2ccbd7e67e3abbdce043c0f6a967274ad')
-b2sums=('2d9ac344d7054ae1bbf71d1e9b01f1f9722ab2ab1bcf62c5d3ac950a63514eb27b2243bc0c51b2d447c9533b5e0d4ca98319c5d8187d13f454a7b98784b93ebc'
+b2sums=('614ea12033eb64be67b8a01abdf82ccce46eb5cc2718fcbdc02ad1c6cfe7c0250312beb75bb3c6cba7ec9f6d1dd6bb407cb2b9607753397146da124d78fc6b7b'
         '1b36ba07d85f0fbcae0a3d8253ce2e5d7ecf8a17c6f0bb946579663de546d53cd4fe5da84ee8d880d7f95f48e66ef6010232a995d86d0c52b52218cd991a7782')
 
 build() {
@@ -114,6 +116,7 @@ check() {
     --deselect=test/plugins/test_replaygain.py::ReplayGainGstCliTest::test_cli_saves_track_gain
     --deselect=test/plugins/test_replaygain.py::ReplayGainGstCliTest::test_cli_skips_calculated_tracks
     --deselect=test/plugins/test_replaygain.py::ReplayGainGstCliTest::test_cli_writes_only_r128_tags
+    --deselect=test/plugins/test_replaygain.py::ReplayGainGstCliTest::test_clears_wrong_tag_type
     --deselect=test/plugins/test_replaygain.py::ReplayGainGstCliTest::test_per_disc
     --deselect=test/plugins/test_replaygain.py::ReplayGainGstCliTest::test_r128_targetlevel_has_effect
     --deselect=test/plugins/test_replaygain.py::ReplayGainGstCliTest::test_targetlevel_has_effect
