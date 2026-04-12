@@ -4,7 +4,7 @@
 # Contributor: Stephen Gregoratto <dev@sgregoratto.me>
 
 pkgname=glow
-pkgver=2.1.1
+pkgver=2.1.2
 pkgrel=1
 pkgdesc="Command-line markdown renderer"
 url="https://github.com/charmbracelet/glow"
@@ -14,7 +14,7 @@ depends=('glibc')
 makedepends=('git' 'go')
 options=('!lto')
 source=("git+${url}.git#tag=v${pkgver}")
-b2sums=('c0fbaa6056ddf5a1c54d770e916346abe9a2ec8d5d12545f6387033e2e1e31a5a60f41699507b3d162f0b77afa9e16f20ad69c707889ddaa04f66f8c52757b66')
+b2sums=('48cf420f30e87e0298912af9efe2cd1b761d9881a3895afc67da45dd5d560ec5cd1f669d1c5f6dd53e534ea11cecdabd21a7b9bf7248d518889b2bfd1fde81b5')
 
 prepare() {
 	cd "${pkgname}"
