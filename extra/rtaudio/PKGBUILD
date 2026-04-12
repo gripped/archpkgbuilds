@@ -10,7 +10,7 @@ pkgname=(
   rtaudio-docs
 )
 pkgver=6.0.1
-pkgrel=3
+pkgrel=4
 pkgdesc="A set of C++ classes that provide a common API for realtime audio input/output."
 arch=(x86_64)
 url="https://github.com/thestk/rtaudio"
@@ -18,11 +18,12 @@ license=(LicenseRef-RtAudio)
 makedepends=(
   alsa-lib
   doxygen
-  gcc-libs
   glibc
   jack
-  meson
+  libgcc
   libpulse
+  libstdc++
+  meson
 )
 source=($url/archive/$pkgver/$pkgname-$pkgver.tar.gz)
 sha512sums=('085feb2673185460717ba45fc87254961e477823759e11281092c1ba13301303de1cd36aa9efeba0710cbf2c70f2e2f7f9e41173cf372ded528c41612b19acd5')
@@ -58,11 +59,12 @@ check() {
 
 package_rtaudio() {
   depends=(
-    gcc-libs
     glibc
     alsa-lib
     jack
+    libgcc
     libpulse
+    libstdc++
   )
   optdepends=('rtaudio-docs: for documentation')
   provides=(librtaudio.so)
