@@ -2,11 +2,11 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-db
-pkgver=14.1.0
+pkgver=14.1.1
 pkgrel=1
 pkgdesc="OpenStack Database Pattern Library"
 arch=('any')
-url="https://pypi.python.org/pypi/oslo.db/$pkgver"
+url="https://pypi.org/project/oslo.db/$pkgver/"
 license=('Apache-2.0')
 depends=('python-pbr' 'python-alembic' 'python-debtcollector' 'python-oslo-i18n'
          'python-oslo-config' 'python-oslo-utils' 'python-sqlalchemy1.4' 'python-stevedore')
@@ -17,7 +17,7 @@ optdepends=('python-testresources: for sqlalchemy test fixtures'
             'python-testscenarios: for sqlalchemy test fixtures')
 options=('!emptydirs')
 source=("git+https://github.com/openstack/oslo.db.git#tag=$pkgver")
-sha512sums=('b59ceb965ea31c14e0da51500365c373206d5086ecf122898a583f396f79821f4f695ddea34c9876c82a9e2d8d6611d1f420233881acafc720659aaa4c0da52d')
+sha512sums=('2a375cfc7d42116dc3a0e20d7406a28f5f16ad4e32620406299f2932b4fd19c7672e0f5e97b0da51d3601d12f277f2ffbfdb5c395a1844df72253cb13776f047')
 
 build() {
   cd oslo.db
