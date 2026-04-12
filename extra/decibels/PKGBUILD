@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=decibels
-pkgver=49.0
+pkgver=49.6.1
 pkgrel=1
 pkgdesc='Audio player for GNOME'
 arch=(any)
@@ -38,7 +38,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/decibels.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/BrainBlasted/gi-typescript-definitions.git"
 )
-b2sums=('330e92db065cdcb78738fe4dd25a6d7efb47274ef4b8590f69c72ad7e0c744fea07b3485949c6b15e1e0b0196b1f977a76ab6b6d28b4a76501c4a55f0c273209'
+b2sums=('1ad0258d85be24d824ea9f12a32041fd133edf3e60a5b90fa551887bcac94b23759dba5fd4055cd5fda07adc9e4d6b1001adc6076742948c20e91bdb1b8ab44b'
         'SKIP')
 
 prepare() {
