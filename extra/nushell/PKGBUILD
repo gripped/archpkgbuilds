@@ -5,7 +5,7 @@
 # Contributor: Bumsik Kim <k.bumsik@gmail.com>
 
 pkgname=nushell
-pkgver=0.111.0
+pkgver=0.112.1
 pkgrel=1
 pkgdesc='A new type of shell'
 arch=(x86_64)
@@ -15,16 +15,15 @@ depends=(
   curl
   glibc
   libgcc
-  libcrypto.so
-  libssl.so
+  openssl
   zlib
 )
 makedepends=(rust git)
 checkdepends=(procps-ng)
 install=nushell.install
 source=("git+https://github.com/nushell/nushell.git#tag=$pkgver")
-sha512sums=('75f35b851125018c22679343f38c8e7c454f89ea55778003aad4c784b9ab097f549d335896cdcb1709e7aaa38b1142bf8c02834cb93bf243203661e9791d2d63')
-b2sums=('aebe33dd446da7fd47670665f9f0195a35a5f13a3d7cf004114f27c2c1bd4ea02f017f7041daa86bf54221528fa98c8c125998ba724e8029de5dc15104168f67')
+sha512sums=('171bf278ea81518938c45d5a0ec78200d789409e9e4324bac253b73d4646a7cbf95eac31c68e29c4b65e6bdb753131c7942c544cdc757843cde3c78b30fcdd2f')
+b2sums=('86548a1627bc5c26778dfd28f41ea6d68e7f07185712da9dd538c7c9a1f37b807a8e5480b3423c3770db0255ae956eb154dcaec2d87481dec6b6efbf35487a50')
 
 prepare() {
   cd "$pkgname"
