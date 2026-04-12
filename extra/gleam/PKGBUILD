@@ -3,7 +3,7 @@
 # Contributor: Arnaud Berthomier <arnaud@cyprio.net>
 
 pkgname=gleam
-pkgver=1.15.2
+pkgver=1.15.4
 pkgrel=1
 pkgdesc='Friendly programming language for building type-safe and scalable systems'
 arch=(x86_64)
@@ -12,12 +12,12 @@ license=(Apache-2.0)
 depends=(erlang-core erlang-eunit glibc libgcc)
 makedepends=(cargo git rust)
 checkdepends=(bun deno nodejs)
-optdepends=('rebar3: erlang dependency support'
-            'erlang: standard erlang distribution')
+optdepends=('erlang: standard erlang distribution'
+            'rebar3: erlang dependency support')
 provides=(gleam)
 options=(!docs !libtool !lto !staticlibs)
 source=("git+$url#tag=v$pkgver")
-b2sums=('bb8b4c6cd0ac6dea4ea37fd3a06d3d8a9ac7bafbb999cfd0ef7de1d3ed786eef2c9d722e50cb79b643c790e4ef84a493ba6a3f04753e25a74a193fef91a7ad47')
+b2sums=('0f5ba108f69e7773229b1678ea38db7f2865f0eca910a1221970603ccceac39d05339f705611088a1733c00d51798090a08ec861170b07c7f4bb5ff5ee02b421')
 
 prepare() {
   cd $pkgname
@@ -27,7 +27,7 @@ prepare() {
 
 build() {
   cd $pkgname
-  RUSTUP_TOOLCHAIN=stable CARGO_TARGET_DIR=target \
+  CARGO_TARGET_DIR=target RUSTUP_TOOLCHAIN=stable \
     cargo build --frozen --release
 }
 
