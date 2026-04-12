@@ -1,7 +1,7 @@
 # Maintainer: Sergej Pupykin <arch+pub@sergej.pp.ru>
 
 pkgname='perl-mail-message'
-pkgver=4.04
+pkgver=4.05
 pkgrel=1
 pkgdesc="container for MIME-encoded message information"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('perl' 'perl-user-identity' 'perl-mailtools' 'perl-mime-types' 'perl-ha
 makedepends=()
 url='https://search.mcpan.org/dist/Mail-Message'
 source=("https://search.cpan.org/CPAN/authors/id/M/MA/MARKOV/Mail-Message-$pkgver.tar.gz")
-sha256sums=('9915db17c3e0deb4ff4c9065dc2eaf1d3833096937a0d46e573f6f2a76158c54')
+sha256sums=('a5bcd238fe95ec158feb7f987968460ac230d2f862f67df3472328302d214905')
 
 build() {
   ( export PERL_MM_USE_DEFAULT=1 PERL5LIB=""                 \
