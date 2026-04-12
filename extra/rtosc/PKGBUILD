@@ -6,7 +6,7 @@ pkgname=(
   rtosc-docs
 )
 pkgver=0.3.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Realtime safe OSC Messaging"
 arch=(x86_64)
 url="https://github.com/fundamental/rtosc"
@@ -26,6 +26,7 @@ build() {
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_LIBDIR=lib
     -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -D PERF_TEST=ON
     -D RTOSC_BUILD_SHARED_LIBS=ON
     -S $pkgbase-$pkgver
@@ -43,8 +44,9 @@ check() {
 
 package_rtosc() {
   depends=(
-    gcc-libs
     glibc
+    libgcc
+    libstdc++
   )
   optdepends=('rtosc-docs: for developer documentation')
   provides=(

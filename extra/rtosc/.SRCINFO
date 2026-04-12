@@ -1,7 +1,7 @@
 pkgbase = rtosc
 	pkgdesc = Realtime safe OSC Messaging
 	pkgver = 0.3.1
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/fundamental/rtosc
 	arch = x86_64
 	license = MIT
@@ -13,8 +13,9 @@ pkgbase = rtosc
 	b2sums = 01744e56daf492579352008b830b8d7bb1cac755573bdc0d7a7788dcd869dc4ecbd65d2bf62829dfdb804e9e6131b76c6744e6a944364908c4313956d05dd9ed
 
 pkgname = rtosc
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	optdepends = rtosc-docs: for developer documentation
 	provides = librtosc.so
 	provides = librtosc-cpp.so
