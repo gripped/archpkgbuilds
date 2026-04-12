@@ -3,7 +3,7 @@
 
 pkgname=libverto
 pkgver=0.3.2
-pkgrel=5
+pkgrel=6
 pkgdesc="Main event loop abstraction library"
 arch=('x86_64')
 url="https://github.com/latchset/libverto"
