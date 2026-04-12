@@ -3,15 +3,15 @@
 
 pkgname=netavark
 pkgver=1.17.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Container network stack"
 arch=(x86_64)
 url="https://github.com/containers/netavark"
 license=(Apache-2.0)
 depends=(
   aardvark-dns
-  gcc-libs
   glibc
+  libgcc
   nftables
 )
 makedepends=(
