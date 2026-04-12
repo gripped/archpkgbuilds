@@ -2,7 +2,7 @@
 
 _name=tifffile
 pkgname=python-$_name
-pkgver=2026.3.3
+pkgver=2026.4.11
 pkgrel=1
 pkgdesc="Read and write TIFF files"
 arch=(any)
@@ -31,7 +31,7 @@ optdepends=(
   'tk: for Tkinter file open dialog'
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('67b6bb348cb911df0f1d9d15d36987feb498a81f7dd5b991c2d51affe0f1416d5a8d96be31a22a724a17cca204a44872257e42916d9a06b06f28ffd1d850bb9e')
+b2sums=('6a0b61f2d00557d67c94a0924b6ca2b5e2098249555ec8b555013bee8d1102af8ae6bf7aac858b899cc615be7c11d946ed495b8bfc432e07eea798acd120a807')
 
 build() {
   cd $_name-$pkgver
