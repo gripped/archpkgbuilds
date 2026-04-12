@@ -2,7 +2,7 @@
 # Contributor: Hao Long <imlonghao@archlinuxcn.org>
 
 pkgname=python-rich
-pkgver=14.3.4
+pkgver=15.0.0
 pkgrel=1
 pkgdesc='Python library for rich text and beautiful formatting in the terminal'
 arch=(any)
@@ -11,8 +11,8 @@ license=(MIT)
 depends=(python python-{markdown-it-py,pygments})
 makedepends=(git python-{build,installer,poetry-core,wheel})
 source=("$pkgname::git+https://github.com/Textualize/rich#tag=v$pkgver")
-sha512sums=('49f7090c3b36491223c4afdc4ee1691f37af6f79a66d4c7497aa43b7599785d7348982343c8ff69e8d587602746ad9cafe45480d88fa36bfb10e88c0a1282853')
-b2sums=('9c276cd18e4c0f6c2f438c5371fb512e99568c89b198eed6dc8fcd3fd58b7f0f249f13057a946417d80ccf33daa30d1a06c5b6e9775efe6608fe26813c8a1b3e')
+sha512sums=('5a1f65176c890b8ccb6ccc5e3657a7f635720826ac9f4472b63e585a155deb47db188a9179ae150a96aff8fdb1779c46e1679d1f39b7d464c80794ac1b76c0aa')
+b2sums=('abfe662f0e1c0d1dbf4957ce55d8f481dbd3e55f38056cdbd77b0cc5fc42b0619f623ee707dfc0e3039c30b727c80ba00d1599a9fb48a3319fba142db4fba74f')
 
 build() {
   cd "$pkgname"
