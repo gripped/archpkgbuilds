@@ -3,7 +3,7 @@
 
 pkgname=gnome-initial-setup
 pkgver=50.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Helps you to set up your OS when you boot for the first time'
 url='https://gitlab.gnome.org/GNOME/gnome-initial-setup'
 arch=(x86_64)
