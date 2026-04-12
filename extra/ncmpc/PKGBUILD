@@ -7,17 +7,17 @@
 
 pkgname=ncmpc
 pkgver=0.52
-pkgrel=2
+pkgrel=3
 pkgdesc="Fully featured MPD client which runs in a terminal"
 arch=(x86_64)
 url=https://www.musicpd.org/clients/ncmpc/
 _url=https://github.com/MusicPlayerDaemon/ncmpc
 license=(GPL-2.0-or-later)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   lirc
-  pcre2
 )
 makedepends=(
   boost
@@ -26,6 +26,7 @@ makedepends=(
   libmpdclient
   meson
   ncurses
+  pcre2
   python-sphinx
 )
 optdepends=(

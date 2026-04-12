@@ -1,7 +1,7 @@
 pkgbase = ncmpc
 	pkgdesc = Fully featured MPD client which runs in a terminal
 	pkgver = 0.52
-	pkgrel = 2
+	pkgrel = 3
 	url = https://www.musicpd.org/clients/ncmpc/
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -11,11 +11,12 @@ pkgbase = ncmpc
 	makedepends = libmpdclient
 	makedepends = meson
 	makedepends = ncurses
+	makedepends = pcre2
 	makedepends = python-sphinx
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = lirc
-	depends = pcre2
 	optdepends = python-beautifulsoup4: for lyrics scripts
 	optdepends = python-requests: for lyrics scripts
 	source = git+https://github.com/MusicPlayerDaemon/ncmpc.git?signed#tag=v0.52
@@ -24,10 +25,10 @@ pkgbase = ncmpc
 	b2sums = 1809cd9f9c24371b225cc4fcaddf08e045bb3d2b2875a9edeb07a1f91e5891289edd5d6eb40404a1a3b81cc29d51f6f58f4fa59e50018d8bc0d48b4bb7b5456c
 
 pkgname = ncmpc
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = lirc
-	depends = pcre2
 	depends = fmt
 	depends = libfmt.so
 	depends = libmpdclient
