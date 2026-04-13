@@ -4,7 +4,7 @@
 
 pkgbase=dtkcore
 pkgname=(dtkcore dtk6core)
-pkgver=6.7.36
+pkgver=6.7.37
 pkgrel=1
 epoch=1
 pkgdesc='DTK core modules'
@@ -17,8 +17,8 @@ makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt6-tools' 'gtest' 'doxygen'
              'gsettings-qt' 'icu' 'lshw' 'qt5-base' 'qt6-base' 'uchardet')
 source=("git+https://github.com/linuxdeepin/dtkcore.git#tag=$pkgver"
          qt-6.11.patch)
-sha512sums=('a4fddd172afd3e9e0cf5255fda4a0aa2d14df0f270c23245121e6e9e950c390e8c60e69ac8c93d859949eae2032c73786ed225505a95adbd6877596293ebb66d'
-            'ba1d04026ece37e8979d24f7d7ed64e20f9f1634f94dfa8ee729daa9d6de93cbd999568b1bbf75df78048833163c0715263406f921ce69eb7b0915f528abbe01')
+sha512sums=('611ba9a8c029a032076f123876b0fe8e00f599e06ef6720e885f1b7c93ba5b209c8fe67c7e22bd94ec4d8f97924130c189df60b85b01208bb060e8fffc56bda4'
+            'de5d38f293b89b02eb158c752b52e3a32976fe88b7b391da085dc95614e7cc8afdde1a355b1ecc2e8f6076aa16640221ad6914178d1abafc77abf08f9e26a874')
 
 prepare() {
   cd dtkcore
