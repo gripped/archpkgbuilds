@@ -7,7 +7,7 @@
 
 _pkgname=poetry
 pkgname=python-poetry
-pkgver=2.3.3
+pkgver=2.3.4
 pkgrel=1
 pkgdesc='Python dependency management and packaging made easy'
 arch=(any)
@@ -55,7 +55,7 @@ optdepends=('python-pip: to use pip with virtual environments')
 provides=(poetry)
 _archive="$_pkgname-$pkgver"
 source=("https://github.com/$pkgname/$_pkgname/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('efa24a68f3748cb853e4a5427f5e32f8136527f16b621d9705f062c8c4cc8f23')
+sha256sums=('b43c5875b583769636f336725aebf8d423c991841546c60c40ef536d468423c8')
 
 build() {
 	local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
