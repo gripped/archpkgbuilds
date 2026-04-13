@@ -4,8 +4,8 @@
 # Contributor: zhuqin <zhuqin83@gmail.com>
 
 pkgname=diffuse
-pkgver=0.10.0
-pkgrel=3
+pkgver=0.11.0
+pkgrel=1
 pkgdesc='Graphical tool for merging and comparing text files'
 arch=(any)
 url='https://github.com/MightyCreak/diffuse'
@@ -13,7 +13,7 @@ license=(GPL)
 depends=(python-cairo python-gobject)
 makedepends=(git meson ninja)
 source=("git+$url#tag=v$pkgver")
-b2sums=('1c1d64438c82fedc70f0b07f2f76d8113e3a5c445779ae80b160667b38dc87c5308506f90974ccc52b421fcf8317a240fbb5fe75abcf02b08ce1798b554565d6')
+b2sums=('ed9eaf929eb1daebb942d992626f3367d924dae6c3337f464efcd1438a26e537792205b83751e3e923ec1ad3d3ae76293e6dddcb0c583309149376910e59dd12')
 
 build() {
   sed -i "s/'appdata'/'metainfo'/g" $pkgname/data/meson.build
