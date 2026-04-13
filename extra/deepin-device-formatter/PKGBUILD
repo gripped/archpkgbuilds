@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-device-formatter
-pkgver=1.5.5
+pkgver=1.5.6
 pkgrel=1
 pkgdesc='A simple graphical interface for creating file system in a block device'
 arch=('x86_64')
@@ -21,7 +21,7 @@ optdepends=('btrfs-progs: btrfs support'
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/dde-device-formatter.git#tag=$pkgver")
-sha512sums=('85f8ec46c9e1d284d74ccd73bcd4e8759828b65a0f0c7f0354f2d40be0bb5f7f6b87551746a20e137b2553cac92104d9f73e309b5a8ade6ae72f0e4204f96336')
+sha512sums=('b2959d1e4b7f4841e70c33ab72c671f25eba71e50ab43caad178ea1d5a87b54b447a3d23fb3ed77fffb225dace9f802fa44b1371b3eb9e399b8b8b9f42a270f9')
 
 prepare() {
   cd dde-device-formatter
