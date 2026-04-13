@@ -2,7 +2,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-crev
-pkgver=0.26.5
+pkgver=0.27.1
 pkgrel=1
 pkgdesc="Scalable, social, Code REView and recommendation system that we desperately need"
 url="https://github.com/crev-dev/cargo-crev"
@@ -12,12 +12,12 @@ arch=('x86_64')
 license=('MPL-2.0' 'Apache-2.0' 'MIT')
 options=('!lto')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/crev-dev/cargo-crev/archive/v${pkgver}.tar.gz")
-sha512sums=('9466562da05f23ca0c8ec6945195effdd93e0186a947f56162fa66587aa14e0be591761db9a27d61644b4887cbf58945969d6f3b86e0569575ab2565c473575b')
-b2sums=('d1921c5ba4027b8711acb9720918e7554ee5395ec91f208ac71397cc8dd04992d7c1453d8212a6bf1da606a5ba110b93c6dea55da6be00d316ddc413505ecaa2')
+sha512sums=('9597520a1b041630137b583baad86898d97ad4acda8661a67af3e6deee86e5a2a7e6a455da6f9cc4d3d1a6711e8498f354308a60ee6677378c4e9086b69dc75e')
+b2sums=('bc9062385a63bc6d6ee615c9b5d67a1ca5f9125b596820880fe307f509e29ade6bd127a60b30a0d09a8c50565f7244c187da225d51acdb1e6f63ddfcf3d78261')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
