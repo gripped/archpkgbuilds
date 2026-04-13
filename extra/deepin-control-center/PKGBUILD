@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-control-center
-pkgver=6.1.23
+pkgver=6.1.24
 pkgrel=1
 pkgdesc='Control panel of Deepin Desktop Environment'
 arch=('x86_64')
@@ -23,7 +23,7 @@ conflicts=('dde-control-center' 'dde-dock-applets')
 replaces=('dde-control-center' 'dde-dock-applets')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-control-center.git#tag=$pkgver")
-sha512sums=('316a25a1eb3090d7489a761079a56fcaeeeaff2cd6aefe4d2cb2742271ddc082793cfb9d1b47147373f5f9ed1176f8b3192a3b8e96d74083ed148b1ed74d2c2b')
+sha512sums=('e366564cf1bb6aba280d41177fbe745a0c98fca1cc4c0968f16993339efe09b59b42abdd3529dabcb14114997a09bb855970600e2e304151f6bb8766c5b22a4a')
 
 prepare() {
   mkdir -p build
@@ -38,8 +38,6 @@ prepare() {
   sed -i '/plugin-authentication/d' CMakeLists.txt
   # privacy plugin won't work
   sed -i '/plugin-privacy/d' CMakeLists.txt
-  # They broke the flag
-  sed -i 's/BUILD_DCC_OLD ON/BUILD_DCC_OLD OFF/' CMakeLists.txt
   # Well, how did they compile like this?
   sed -i '/dde-control-center/d' src/plugin-accounts/CMakeLists.txt
   # Fix build with Qt 6.10 private targets
