@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-widgets
-pkgver=6.0.24
+pkgver=6.0.25
 pkgrel=1
 pkgdesc='Desktop widgets service/implementation for DDE'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('qt5-base' 'dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 'libgcc' 'libstdc++' 
 makedepends=('git' 'cmake' 'ninja' 'gtest' 'qt5-tools')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-widgets.git#tag=$pkgver")
-sha512sums=('fa111ad6b82574a2b4cbd44d7be941cf88d2fc57ec1dfe6f972892549d7fc6e7c8c89c4b4e1fe9d6bed7f71bc4671b514e1ce5079c298925ccbc21f0001c3a0a')
+sha512sums=('b67de555105880e887d67aad6135e32081f61f62e0f03b9fa64de62d259cdd61c9b88c25a37ad76971f68d18653d54c8339ad8ab2c6f5a0759bc83d1d646a178')
 
 prepare() {
   cd dde-widgets
