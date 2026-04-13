@@ -1,6 +1,6 @@
 pkgbase = worker-build
 	pkgdesc = Custom build command for a Cloudflare Workers project
-	pkgver = 0.7.5
+	pkgver = 0.8.0
 	pkgrel = 1
 	url = https://github.com/cloudflare/workers-rs/tree/main/worker-build
 	arch = x86_64
@@ -9,14 +9,15 @@ pkgbase = worker-build
 	depends = esbuild
 	depends = glibc
 	depends = libgcc
+	depends = libgcc_s.so
 	depends = openssl
 	depends = libcrypto.so
 	depends = libssl.so
 	depends = wasm-bindgen
 	depends = wasm-pack
 	options = !lto
-	source = worker-build-0.7.5.tar.gz::https://crates.io/api/v1/crates/worker-build/0.7.5/download
-	sha256sums = 95831ee9a995172acf3b75f7a8fa6fe115e88570329e06974e0aac4221b224ff
-	b2sums = 99021c3cb0b093940cada7352bc8a3a805b10dbf44b74712ad53fc9bd9864da3667e971ac353b54b7e1b8e1a4ee1123333ef941b02b4bb28c0ef9c4719c708b3
+	source = worker-build-0.8.0.tar.gz::https://crates.io/api/v1/crates/worker-build/0.8.0/download
+	sha256sums = ed89601e4980ec75f4edbfd94787552652fed09e3b4b1bc693cf127ce6642de3
+	b2sums = 6ce30e81ff7293ad415f0e9d82ff72edeefb387440cb8dcaa7d85262bc423133aa2058d6d5e940c91956923426e97bd69f2123ac7ce1049029c277bb19b16f83
 
 pkgname = worker-build
