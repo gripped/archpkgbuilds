@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=gaphor
-pkgver=3.2.0
-pkgrel=2
+pkgver=3.3.0
+pkgrel=1
 pkgdesc='Simple UML and SysML modeling tool'
 arch=(any)
 url='https://apps.gnome.org/Gaphor/'
@@ -40,7 +40,7 @@ makedepends=(
   python-wheel
 )
 source=("git+https://github.com/gaphor/gaphor.git#tag=$pkgver")
-b2sums=(71917795b58fe87af7302bb34b1294e5b4efe99196b474954ec9e9da2915a6120252d38b02ffd6883685d5e3cd9ab6a52230ae2d2d65ce0486df637e2faca13c)
+b2sums=(6f15442fb87e7c1fb3d421a34b54d19e4ff71dfbe78ea41eb03a38a91035425767725c4de289d5c37775edcebd180bc6369388423adba0c208d2dcfe1bf95c25)
 
 build() {
   cd $pkgname
