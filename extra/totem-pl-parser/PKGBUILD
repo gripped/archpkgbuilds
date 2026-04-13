@@ -2,17 +2,17 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=totem-pl-parser
-pkgver=3.26.6+r30+g51b8439
-pkgrel=2
+pkgver=3.26.7
+pkgrel=1
 pkgdesc="Simple GObject-based library to parse and save a host of playlist formats"
 url="https://gitlab.gnome.org/GNOME/totem-pl-parser"
 license=(LGPL-2.0-or-later)
 arch=(x86_64)
 depends=(
-  gcc-libs
   glib2
   glibc
   libarchive
+  libgcc
   libgcrypt
   libxml2
   uchardet
@@ -35,14 +35,8 @@ provides=(
 )
 conflicts=(totem-plparser)
 replaces=("totem-plparser<=3.26.3-1")
-_commit=51b843912dc7bc43f371f1d88901a38ff2090b43  # master
-source=("git+https://gitlab.gnome.org/GNOME/totem-pl-parser.git#commit=$_commit")
-b2sums=('2fc81482b159a1dea5dc4b7f7796a4cc251679f9187fa4fd778d00c4307eee241fb66595b679b41beef32922af8337b6bade7775311b4adc957e67c3ab68a529')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/^V_//;s/_/./g;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/totem-pl-parser.git#tag=$pkgver")
+b2sums=('e258bc354dc5d5732dc432c1c4e7ac99f17039d0423d149408d50673858adb8b6428019ec90c0291647c56e6c6f4d4d6e7e3792c1fa9ec117e5c15d19404048b')
 
 prepare() {
   cd $pkgname
@@ -60,10 +54,10 @@ build() {
   meson compile -C build
 }
 
-check() (
-  export GIO_USE_VOLUME_MONITOR=unix
-  dbus-run-session meson test -C build --print-errorlogs
-)
+check() {
+  GIO_USE_VOLUME_MONITOR=unix \
+    dbus-run-session meson test -C build --print-errorlogs
+}
 
 package() {
   meson install -C build --destdir "$pkgdir"
