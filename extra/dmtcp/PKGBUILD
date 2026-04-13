@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dmtcp
-pkgver=3.1.2
+pkgver=3.2.0
 pkgrel=1
 pkgdesc='Distributed MultiThreaded CheckPointing'
 url='https://dmtcp.sourceforge.io'
@@ -10,9 +10,9 @@ license=('LGPL-3.0-or-later')
 depends=('bash' 'glibc' 'libgcc' 'libstdc++')
 makedepends=('git' 'dash' 'emacs' 'gdb' 'java-environment' 'openmpi' 'procps-ng'
 'python' 'screen' 'strace' 'tcsh' 'vim' 'zsh')
-source=("git+https://github.com/dmtcp/dmtcp.git#tag=v$pkgver")
-sha256sums=('bd970f6e3910d56e970c513b0a9769c3b2163ab0e3791c814db7de57f9dc41fe')
-b2sums=('76832e0d40dc62bd7cb638a3c1c4effecf75550af16f9da312c5bc990a3554f6db8edb6f16e097ded043a0be3929586520b6b705e48c47464d4bfc344cedc352')
+source=("git+https://github.com/dmtcp/dmtcp.git#tag=$pkgver")
+sha256sums=('7bd8cf94d1f8454e09a84f2aac52614d4ab6ed2c3d769237f7120129dddda771')
+b2sums=('497232332d9b57002fa26c148a301aba3b154de2eb7697534eaadd9d9891386bf417a8211c4454ffe2e71e4aa9ca09731f81c9ad7a75abf0bbad82de151f7338')
 
 build() {
   cd $pkgname
