@@ -2,8 +2,8 @@
 # Contributor: Adrian Perez de Castro <aperez@igalia.com>
 
 pkgname=mold
-pkgver=2.40.4
-pkgrel=3
+pkgver=2.41.0
+pkgrel=1
 pkgdesc='A Modern Linker'
 arch=('x86_64')
 url='https://github.com/rui314/mold'
@@ -29,8 +29,8 @@ checkdepends=(
   libdwarf
 )
 source=("${pkgname}::git+${url}.git#tag=v${pkgver}")
-sha512sums=('5352c33db45b1a8d796575e978424e097562b52e6fdacacc1a68a0ebbaca45ae68ccdccddfa3bca4fdd711d9de8893a2f1531a3b80d8b43b3e1d915e258040cc')
-b2sums=('35ef221bbe5dd7873f1983b3cf2b3db0fe0224618ba59df99e03eb858e8a24455471e4ea192df09c24170ddc1fe98e93a8e13907e40a1e8bdf83252ab4a3da16')
+sha512sums=('31e144aa8cbee09663fc7ba261a578f9fddcc59baeb64371481bb0e0fb3eddecb9dbfb7286208683b60f94cdd3737d2f47e14c794eb5832eac1eca52b782995b')
+b2sums=('93a584d1e1ce7030c2b6d88f4d9da2786a6d60dc77c11a25350cf5e6d77bd379098c8a3129b281f134d4ea8dd74dd79af1139cdf8373a73a619ba3822754cd7d')
 
 build() {
   local cmake_options=(
@@ -53,7 +53,7 @@ build() {
 }
 
 check() {
-  ctest --test-dir build --output-on-failure
+  ctest --test-dir build --output-on-failure -j$(nproc)
 }
 
 package() {
