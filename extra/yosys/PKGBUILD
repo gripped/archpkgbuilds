@@ -3,7 +3,7 @@
 # Contributor: killruana <killruana@gmail.com>
 
 pkgname=yosys
-pkgver=0.59.1
+pkgver=0.60
 pkgrel=1
 pkgdesc='A framework for RTL synthesis'
 arch=('x86_64')
@@ -20,7 +20,7 @@ optdepends=('graphviz: Schematics display support'
 options=('!lto') # getting SIGSEGV when running the tests with LTO
 source=(git+https://github.com/YosysHQ/yosys#tag=v$pkgver
         git+https://github.com/jarro2783/cxxopts)
-sha512sums=('79e94b42fa09e5291d21e023819007a317910c5808cf778dda2319aa17c4a5530eea9a6bd2ab6ff6e38a86e9b49c8f0edb47d0ce79ef88a681d79e85ac82c583'
+sha512sums=('fd1c2e706b9c488977f0bc1ae0fa47503f56047d7c4345cae46881a409a7de539ebfe53c61cc19a7f12c89459df5d4616ef791a5f53c9480b10994bc036249d3'
             'SKIP')
 
 prepare() {
@@ -41,7 +41,6 @@ _make() {
         ENABLE_ABC=1 \
         ENABLE_GLOB=1 \
         ENABLE_PLUGINS=1 \
-        ENABLE_LIBYOSYS=1 \
         ENABLE_PROTOBUF=1 \
         ENABLE_ZLIB=1 \
         ENABLE_PYOSYS=1 \
