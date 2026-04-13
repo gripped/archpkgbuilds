@@ -3,14 +3,14 @@
 
 pkgname=wild
 pkgver=0.8.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A very fast linker for Linux written in Rust"
 url='https://github.com/davidlattimore/wild'
 arch=('x86_64')
 license=('Apache-2.0' 'MIT')
 depends=(
-  'libgcc'
   'glibc'
+  'libgcc' 'libgcc_s.so'
   'zstd'
 )
 makedepends=(
@@ -33,7 +33,7 @@ b2sums=('fd4bf76a7074e20b8256461d79be0ac72679c6d4432c038997383cf1dd2d38a83fe84c1
 prepare() {
   cd "${pkgname}-${pkgver}"
   cp "${srcdir}/test-config.toml" .
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
@@ -50,6 +50,7 @@ package() {
   cd ${pkgname}-${pkgver}
   install -Dm 755 -t "${pkgdir}/usr/bin" \
     target/release/wild
+  ln -s wild "${pkgdir}/usr/bin/ld.wild"
   install -Dm 644 LICENSE-* -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
 
