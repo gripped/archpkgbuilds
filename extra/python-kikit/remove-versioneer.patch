@@ -5,19 +5,19 @@
  
  import setuptools
 -import versioneer
- import os
- import sys
  
-@@ -42,8 +41,6 @@ with open("README.md", "r") as fh:
+ 
+ with open("README.md", "r") as fh:
+@@ -10,8 +9,6 @@ with open("README.md", "r") as fh:
  setuptools.setup(
-     name="KiKit",
+     name="kikit",
      python_requires='>=3.7',
 -    version=versioneer.get_version(),
 -    cmdclass=versioneer.get_cmdclass(),
      author="Jan Mrázek",
      author_email="email@honzamrazek.cz",
      description="Automation for KiCAD boards",
-@@ -67,7 +64,6 @@ setuptools.setup(
+@@ -34,7 +31,6 @@ setuptools.setup(
          "commentjson>=0.9"
      ],
      setup_requires=[
