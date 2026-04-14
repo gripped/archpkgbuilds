@@ -5,7 +5,7 @@
 
 pkgname=etckeeper
 pkgver=1.18.23
-pkgrel=2
+pkgrel=3
 pkgdesc='Collection of tools to let /etc be stored in a git, hg or bzr repository'
 arch=('any')
 url='https://etckeeper.branchable.com/'
@@ -15,6 +15,7 @@ makedepends=('git' 'mercurial' 'breezy' 'python-setuptools')
 optdepends=('mercurial: use mercurial for version control'
             'breezy: use bazaar for version control')
 backup=('etc/etckeeper/etckeeper.conf')
+install=etckeeper.install
 source=("git+https://git.kitenet.net/git/etckeeper.git#tag=${pkgver}?signed"
         '0001-breezy.patch')
 sha256sums=('04af86bd4da93f877665e14c4d2319708df24609b51917d6a0348dac161b98ee'
