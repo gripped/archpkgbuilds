@@ -3,7 +3,7 @@
 # Contributor: catwell <catwell@archlinux.us>
 
 pkgname=lout
-pkgver=3.43.3
+pkgver=3.43.4
 pkgrel=1
 pkgdesc='A lightweight document formatting system'
 arch=(x86_64)
@@ -13,8 +13,8 @@ depends=(glibc zlib)
 makedepends=(git)
 options=(!emptydirs)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('002725a4bcf5696bf6155be2b7d65be69d313eb319a38f03fc13d167f7858e6ff1945ee41c2854128a3b27b25e6543c3c0bfce8215c3ca893152456ea484b9a0')
-b2sums=('87e76a349c4597aa1331ab9a43e100c609b6cbd0c2035ca5ed2dad8fe405d805b8387c7d45a1cf2403a2717dbcb8f6d8faa59904d0ab5649b08d8b56552d198b')
+sha512sums=('ab359bad42653f9002dcfad3a7ed78ee397de142df7c99fbea93785515e7c8bc0c76b4f109840f781ea0aa6f6744202b172faa64438ae47b8f34244832b699da')
+b2sums=('2f29693543d800c92cfd5554d9fc5813b2ab1bd346abe79593ded6f95bb0556fe028acf7dfe33b8b373213ff16ff7b0523ab0c3ee1e72fc3fb57d95e790e1c96')
 
 prepare() {
   cd "$pkgname"
