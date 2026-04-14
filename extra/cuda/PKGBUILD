@@ -1,13 +1,13 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
-# Maintainer: Konstantin Gizdov <arch@kge.pw>
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+# Contributor: Konstantin Gizdov <arch@kge.pw>
 
 pkgname=(cuda)
 pkgbase=cuda
-pkgver=13.2.0
+pkgver=13.2.1
 # Before upgrading, make sure that we ship at least this version of
 # nvidia-utils as otherwise we'll get stuff such as #7.
-_driverver=595.45.04
+_driverver=595.58.03
 pkgrel=1
 pkgdesc="NVIDIA's GPU programming toolkit"
 arch=(x86_64 aarch64)
@@ -82,8 +82,8 @@ sha512sums=('93a52c9d1272aafc04ba07a74a41c1c3b3722107048cc1b40409406b4c9ba76cda8
             '5df94583c7d082045fffb5c055b163b5242e7975d4de19e334c2d4b2e0e8caf8a930a5ff82b800f54d45ac53d9be0044afd893fb649b461594981693a5256836'
             '200b23fa74c486a3b1d003d3326163a7d2318dd3a02a0fe488fef3c4ae713cd0dac251b751edc723696fb3d04d4e5f2c11d3b68a0b5f4621388ca28a387ba421'
             '0a49ce7972ac24ac1f1bd229a4fad3a37747d3e8123c4c1c4521c19fbc308b85f3ee6bf8fbee420aac2335c57aa6b524c20277c59abd7202590144f7ed79c24a')
-sha512sums_x86_64=('c4a601c333289ff6d0aca2f5ba50c3fa61cbb1a15b86e513d7640142236f5b559a5185af7079fb874fdfb9c0fc328b7cbf7e5a061908fcffce309be6182e900f')
-sha512sums_aarch64=('66c4fdb724324ae619e7f9dcb37c34b07cee468e05c853d54c1ee82e58766103482929ee5338b7ffc4c398a9875d7e31ad0bbca446e451caeb73c2f349e23dbb')
+sha512sums_x86_64=('2746aac0f1843995672409666536471b94d69d127f488693b79b4b0758606267978930533ff832d5e26b698bf1a85e9e19e01424f003630b96866b2cf142b673')
+sha512sums_aarch64=('467316f6b1a539d519a2a1f05fc7d55e829becb0b8615b63c23c93eb602379926fc1e01d55cd4e09619a5043268a96c9579e15fa84bbf3524f37d45edc85bedf')
 
 prepare() {
   sh cuda_${pkgver}_${_driverver}_linux*.run --target "${srcdir}" --noexec
