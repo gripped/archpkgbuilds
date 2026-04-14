@@ -3,18 +3,18 @@
 
 _hkgname=kan-extensions
 pkgname=haskell-kan-extensions
-pkgver=5.2.7
-pkgrel=99
+pkgver=5.2.8
+pkgrel=1
 pkgdesc="Kan extensions, Kan lifts, the Yoneda lemma, and (co)density (co)monads"
 url="https://github.com/ekmett/kan-extensions/"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-adjunctions' 'haskell-comonad' 'haskell-contravariant'
          'haskell-distributive' 'haskell-free' 'haskell-invariant' 'haskell-profunctors'
-         'haskell-semigroupoids' 'haskell-tagged')
+         'haskell-semigroupoids')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('510feba3bc998963376d11cad22151addfd4b93d5be4aa4920145d6104da5aa29ec1c83083d167de3249fece720cf6e5a3ec4648025a8ae62e386f4118e671af')
+sha512sums=('e8a6a9c8a544c2ab40eb89abfaeba83b2cee0f94415c583904ee41d53bbb71aa4d7598c9314c35ae6ef92accee9f656223950bc7c4423aec11069d83ab59f314')
 
 build() {
     cd $_hkgname-$pkgver
