@@ -3,23 +3,28 @@
 _pkgbasename=attr
 pkgname=lib32-$_pkgbasename
 pkgver=2.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Extended attribute support library for ACL support (32-bit)'
 arch=(x86_64)
 url='https://savannah.nongnu.org/projects/attr'
-license=('LGPL')
+license=('LGPL-2.1-or-later AND GPL-2.0-or-later')
 depends=('lib32-glibc' $_pkgbasename)
-makedepends=('gcc-multilib' 'gettext')
+makedepends=('git' 'gcc-multilib' 'gettext')
 provides=('libattr.so')
 validpgpkeys=('600CD204FBCEA418BD2CA74F154343260542DF34'  # Brandon Philips <brandon@ifup.co>
               'B902B5271325F892AC251AD441633B9FE837F581'  # Frysinger <vapier@gentoo.org>
               '259B3792B3D6D319212CC4DCD5BF9FEB0313653A') # Andreas Gruenbacher <andreas.gruenbacher@gmail.com>
-source=("https://download.savannah.gnu.org/releases/attr/attr-${pkgver}.tar.xz"{,.sig})
-sha256sums=('f2e97b0ab7ce293681ab701915766190d607a1dba7fae8a718138150b700a70b'
-            'SKIP')
+source=("git+https://git.savannah.nongnu.org/git/attr.git#tag=v${pkgver}?signed")
+sha256sums=('406ba69eb08ef5a246b0c2f3b247f880ed56136a140343f668285129e699fa7b')
+
+prepare() {
+  cd "${srcdir}"/attr
+
+  ./autogen.sh
+}
 
 build() {
-  cd "${srcdir}"/attr-${pkgver}
+  cd "${srcdir}"/attr
 
   export CC="gcc -m32"
   export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
@@ -33,7 +38,7 @@ build() {
 }
 
 package() {
-  cd "${srcdir}"/attr-${pkgver}
+  cd "${srcdir}"/attr
 
   make DESTDIR="${pkgdir}" install
 
