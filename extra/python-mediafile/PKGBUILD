@@ -3,7 +3,7 @@
 # Contributor: Frederik “Freso” S. Olesen <freso.dk@gmail.com>
 
 pkgname=python-mediafile
-pkgver=0.16.0
+pkgver=0.16.1
 pkgrel=1
 pkgdesc='Elegant audio file tagging'
 arch=(any)
@@ -20,9 +20,10 @@ makedepends=(
   python-poetry-core
   python-installer
 )
+checkdepends=(python-pytest)
 source=("$pkgname::git+https://github.com/beetbox/mediafile#tag=v$pkgver")
-sha512sums=('3ed19ec59f9d1aad3a643c937d41b90a560db5b176e2518c5e1656f264078e32574ce001fe66d78779577dbddbeee8bc17c80364c05a032313a62349e154c225')
-b2sums=('47b3240e64dcf1dc33b32a959aa27a2d2fe9292a2e6fc0bc5263a8702731831ca213bd9e5237e3b5f0f8fb8d56a74e1e4e78ea49e38518c58aab132ce9aeb981')
+sha512sums=('3e1d4dc8dc9a4d393873c3f8905db28c81104d7e150557adcddb34bb7bb52b1689de3a6a87de8cc288846ab1ae86f18002583c7c689f096cbdab254735296d49')
+b2sums=('3bd517294ce5ce51b6b0dd07368fdf82a1afc89fe0245e418a0deb6147eaa1e7b78f464a96196d63845d4bca92ddda9812094b39475b9cac1a449386fb630d14')
 
 build() {
   cd "$pkgname"
@@ -33,7 +34,7 @@ build() {
 check() {
   cd "$pkgname"
 
-  python -m unittest discover -vs .
+  pytest -v
 }
 
 package() {
