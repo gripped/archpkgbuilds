@@ -3,12 +3,16 @@
 
 pkgname=mtxclient
 pkgver=0.10.1
-pkgrel=4
+pkgrel=5
 pkgdesc="Client API library for the Matrix protocol"
 arch=('x86_64')
 url="https://nheko.im/nheko-reborn/mtxclient"
 license=('MIT')
-depends=(gcc-libs glibc)
+depends=(
+  glibc
+  libgcc
+  libstdc++
+  )
 makedepends=(cmake coeurl fmt libolm meson nlohmann-json openssl re2 spdlog git)
 checkdepends=(gmock gtest)
 provides=(libmatrix_client.so)
