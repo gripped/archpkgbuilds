@@ -1,24 +1,23 @@
 pkgbase = libxmlb
 	pkgdesc = Library to help create and query binary XML blobs
-	pkgver = 0.3.25
+	pkgver = 0.3.26
 	pkgrel = 1
 	url = https://github.com/hughsie/libxmlb
 	arch = x86_64
 	license = LGPL-2.1-only
 	checkdepends = shared-mime-info
-	makedepends = meson
+	makedepends = git
 	makedepends = gobject-introspection
 	makedepends = gtk-doc
-	depends = gcc-libs
-	depends = glibc
+	makedepends = meson
 	depends = glib2
+	depends = glibc
+	depends = libgcc
 	depends = libstemmer
 	depends = xz
 	depends = zstd
-	source = https://github.com/hughsie/libxmlb/releases/download/0.3.25/libxmlb-0.3.25.tar.xz
-	source = https://github.com/hughsie/libxmlb/releases/download/0.3.25/libxmlb-0.3.25.tar.xz.asc
+	source = git+https://github.com/hughsie/libxmlb#tag=0.3.26?signed
 	validpgpkeys = 163EB50119225DB3DF8F49EA17ACBA8DFA970E17
-	sha256sums = 77f2768c9debd2e946173cdf9465efd987849805e7c58251c5772ea728a61d9a
-	sha256sums = SKIP
+	sha256sums = 62a8f7ae81fbc0a08a291f49c3d4990644ae793582c7ef4920086d9d5bc74525
 
 pkgname = libxmlb
