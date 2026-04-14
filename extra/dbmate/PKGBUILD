@@ -3,17 +3,16 @@
 
 pkgname=dbmate
 pkgver=2.32.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A lightweight, framework-agnostic database migration tool'
 arch=(x86_64)
 url='https://github.com/amacneil/dbmate'
 license=(MIT)
-depends=(glibc)
+depends=(glibc sqlite)
 makedepends=(git go)
 optdepends=(
   'mariadb: for local MariaDB instance'
   'postgresql: for local PostgreSQL instance'
-  'sqlite: for local SQLite instance'
 )
 options=(!lto)
 source=("$pkgname::git+$url.git#tag=v$pkgver")
@@ -47,6 +46,7 @@ build() {
     -ldflags "-compressdwarf=false \
     -linkmode external \
     -extldflags '${LDFLAGS}'" \
+    -tags "libsqlite3" \
     -o build \
     .
 }
