@@ -1,13 +1,15 @@
 pkgbase = pyflow
 	pkgdesc = An installation and dependency system for Python
 	pkgver = 0.3.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/David-OConnor/pyflow
 	arch = x86_64
 	license = MIT
 	makedepends = cargo
-	depends = gcc-libs
 	depends = bzip2
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = xz
 	options = !lto
 	source = pyflow-0.3.1.tar.gz::https://github.com/David-OConnor/pyflow/archive/refs/tags/0.3.1.tar.gz
