@@ -3,11 +3,11 @@
 _pkgbasename=keyutils
 pkgname=lib32-$_pkgbasename
 pkgver=1.6.3
-pkgrel=2
+pkgrel=4
 pkgdesc='Linux Key Management Utilities (32-bit)'
 arch=('x86_64')
 url='https://www.kernel.org/'
-license=('GPL2' 'LGPL2.1')
+license=('GPL-2.0-or-later' 'LGPL-2.1-or-later')
 depends=('lib32-glibc' 'lib32-krb5' "${_pkgbasename}")
 makedepends=('git' 'gcc-multilib')
 validpgpkeys=('A86E54B0D5E1B4E0AB7C640FFBB7576BA7CB0B6B') # David Howells <dhowells@redhat.com>
