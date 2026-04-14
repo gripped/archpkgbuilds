@@ -3,16 +3,16 @@
 # Contributor: Jose Fernandez <josef@netflix.com>
 
 pkgname=bpftop
-pkgver=0.7.1
-pkgrel=2
+pkgver=0.8.0
+pkgrel=1
 pkgdesc="Dynamic real-time view of running eBPF programs"
-url='https://github.com/Netflix/bpftop'
+url='https://github.com/jfernandez/bpftop'
 license=('Apache-2.0')
 arch=('x86_64')
 depends=('glibc' 'libelf' 'libgcc' 'zlib')
 makedepends=('cargo' 'clang')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.zip")
-sha256sums=('2d9f76f09f8cc03d65300d390f4939b17368e028080d3848613d89024ea4b79d')
+sha256sums=('daa444627e659549f39aac748f040ec61fa083a6bf0775425a60b366d85d62d7')
 options=('!lto')
 
 prepare() {
