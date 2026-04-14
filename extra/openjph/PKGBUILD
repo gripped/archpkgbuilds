@@ -4,8 +4,8 @@ pkgbase=openjph
 pkgname=(
     'openjph'
     'openjph-doc')
-pkgver=0.26.3
-pkgrel=3
+pkgver=0.27.0
+pkgrel=1
 pkgdesc='Open-source implementation of JPEG2000 Part-15'
 arch=('x86_64')
 url='https://github.com/aous72/OpenJPH/'
@@ -19,7 +19,7 @@ makedepends=(
 checkdepends=(
     'expat')
 source=("git+https://github.com/aous72/OpenJPH#tag=$pkgver")
-sha256sums=('546b9495718ca0bd9e554838937361cdecaab12f0a7abb40799fe82b4abc2db9')
+sha256sums=('a6e2cb3a39deb447de472cc0513dce43c3cf819a001f8a732b613456f12eeb21')
 
 build() {
     # https://github.com/aous72/OpenJPH/issues/186 https://github.com/aous72/OpenJPH/issues/186
