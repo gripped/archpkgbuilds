@@ -1,0 +1,69 @@
+diff --git a/scribus/plugins/import/pdf/slaoutput.cpp b/scribus/plugins/import/pdf/slaoutput.cpp
+index 24424e8..3a19879 100644
+--- a/scribus/plugins/import/pdf/slaoutput.cpp
++++ b/scribus/plugins/import/pdf/slaoutput.cpp
+@@ -125,7 +125,10 @@ LinkImportData::LinkImportData(Object *actionObj)
+ 		return;
+ 
+ 	Object obj3 = getFileSpecNameForPlatform(&obj1);
+-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 01, 0)
++#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 04, 0)
++	if (!obj3.isNull())
++		fileName = make_unique<GooString>(obj3.getString());
++#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 01, 0)
+ 	if (!obj3.isNull())
+ 		fileName = obj3.getString()->copy();
+ #else
+@@ -161,7 +164,11 @@ void AnoOutputDev::stroke(GfxState *state)
+ 	currColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &shade);
+ }
+ 
++#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 04, 0)
++void AnoOutputDev::drawString(GfxState* state, const std::string& s)
++#else
+ void AnoOutputDev::drawString(GfxState *state, const GooString *s)
++#endif
+ {
+ 	int shade = 100;
+ 	currColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
+@@ -173,7 +180,9 @@ void AnoOutputDev::drawString(GfxState *state, const GooString *s)
+ 	if (state->getFont())
+ 		fontName.reset(state->getFont()->getName()->copy());
+ #endif
+-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 01, 0)
++#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 04, 0)
++	itemText = std::make_unique<GooString>(s);
++#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 01, 0)
+ 	itemText = s->copy();
+ #else
+ 	itemText.reset(s->copy());
+@@ -3046,8 +3055,13 @@ void SlaOutputDev::beginMarkedContent(const char *name, Dict *properties)
+ 				return;
+ 			QString lName = QString("Layer_%1").arg(m_layerNum + 1);
+ 			Object obj = properties->lookup("Title");
++#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 04, 0)
++			if (obj.isString())
++				lName = QString(obj.getString().c_str());
++#else
+ 			if (obj.isString())
+ 				lName = QString(obj.getString()->c_str());
++#endif
+ 			for (const auto& layer : m_doc->Layers)
+ 			{
+ 				if (layer.Name == lName)
+diff --git a/scribus/plugins/import/pdf/slaoutput.h b/scribus/plugins/import/pdf/slaoutput.h
+index ff90cae..d6add8f 100644
+--- a/scribus/plugins/import/pdf/slaoutput.h
++++ b/scribus/plugins/import/pdf/slaoutput.h
+@@ -142,7 +142,11 @@ public:
+ 	void stroke(GfxState *state) override;
+ 	void eoFill(GfxState *state) override;
+ 	void fill(GfxState *state) override;
++#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 04, 0)
++	void drawString(GfxState* state, const std::string& s) override;
++#else
+ 	void drawString(GfxState *state, const GooString *s) override;
++#endif
+ 
+ 	QString currColorText;
+ 	QString currColorFill;
