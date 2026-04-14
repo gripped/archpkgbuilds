@@ -3,7 +3,7 @@
 # Contributor: qubidt <qubidt at gmail dot com>
 
 pkgname=sniffnet
-pkgver=1.4.2
+pkgver=1.5.0
 pkgrel=1
 pkgdesc="Application to comfortably monitor your network traffic"
 arch=('x86_64')
@@ -13,12 +13,12 @@ depends=('alsa-lib' 'fontconfig' 'libpcap' 'freetype2' 'glibc' 'zenity' 'xdg-des
 makedepends=('cargo')
 install=$pkgname.install
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('af4103183f4e9902796ec38d56e4d8fd1f5998cccb3e2d4f9b34c78c631ab8e522b4eec12395e5071d9173442d0e179ac91d65d41a3fcd706c4cfabb4984bb68')
+sha512sums=('8c8a380fa4419044c765f98bdd28d23cb815b3bcfe52011d7a6200210309675d727e9ac4dceda6f00d2763531aadb22c1568c05615f48d9338dfb4bbf362c833')
 options=('!lto')
 
 prepare() {
 	cd "$pkgname-$pkgver"
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
