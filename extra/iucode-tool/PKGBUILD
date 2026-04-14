@@ -3,28 +3,34 @@
 
 pkgname=iucode-tool
 pkgver=2.3.1
-pkgrel=5
+pkgrel=6
 pkgdesc='Tool to manipulate Intel® IA-32/X86-64 microcode bundles'
 arch=('x86_64')
 url='https://gitlab.com/iucode-tool/iucode-tool/wikis/home'
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('glibc')
+makedepends=('git')
 validpgpkeys=('C467A717507BBAFED3C160920BD9E81139CB4807') # Henrique de Moraes Holschuh <hmh@hmh.eng.br>
-source=("https://gitlab.com/iucode-tool/releases/raw/master/${pkgname}_${pkgver}.tar.xz"{,.asc})
-sha256sums=('12b88efa4d0d95af08db05a50b3dcb217c0eb2bfc67b483779e33d498ddb2f95'
-            'SKIP')
+source=("git+https://gitlab.com/iucode-tool/iucode-tool.git#tag=v${pkgver}?signed")
+sha256sums=('934a3d39c18c6d01e5cfed9675cddb15cc8e02188474f6d82e4922902f899ed1')
+
+prepare() {
+  cd iucode-tool/
+
+  autoreconf -fi
+}
 
 build() {
-	cd "$srcdir/${pkgname}-$pkgver"
+  cd iucode-tool/
 
-	./configure \
-		--prefix=/usr \
-		--sbindir=/usr/bin
-	make
+  ./configure \
+    --prefix=/usr \
+    --sbindir=/usr/bin
+  make
 }
 
 package() {
-	cd "$srcdir/${pkgname}-$pkgver"
+  cd iucode-tool/
 
-	make DESTDIR="$pkgdir/" install
+  make DESTDIR="$pkgdir/" install
 }
