@@ -5,7 +5,7 @@
 # Contributor: fenuks
 
 pkgname=skim
-pkgver=4.5.1
+pkgver=4.6.0
 pkgrel=1
 pkgdesc='Fuzzy Finder in Rust'
 arch=(x86_64)
@@ -26,8 +26,8 @@ optdepends=(
 )
 options=(!lto)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('94ec498eb0e396da7eb539a71715e71fd9462c9cb4195997d384b636a7954ee5f36a863fc98e97f0009854fb2cdacc52a178fde882f8cd20418b30fcdbda60e7')
-b2sums=('4b517370f277f042976fbf9fc12388ecfda61e7e753cfa034e9f23425af5727e27f1d5769f57708ebe02e50444d6daa2296e1aeb1d1e8d54a53913e3952bff00')
+sha512sums=('de1769f1b638aa3d1d9b4c7a519c6d30b4b7f9ccb2ce43909b4154e67e506a167417d9447b6b8f1aa1eee8d7240db09cc0947f7417c66bab42e15c1218ae0bde')
+b2sums=('a89a66180ab2e1b905c10b36b5306ce6f26e84e5b3196b17194c8a3efeba3e472a14b03ee6f47f95542a9d167675670c6b28fcd9c34e61117c0ee412d6a599bc')
 
 prepare() {
   cd "$pkgname"
