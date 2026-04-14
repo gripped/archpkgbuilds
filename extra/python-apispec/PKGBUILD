@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-apispec
-pkgver=6.9.0
+pkgver=6.10.0
 pkgrel=1
 pkgdesc="A pluggable API specification generator. Currently supports the OpenAPI Specification."
 url="https://github.com/marshmallow-code/apispec"
@@ -20,7 +20,7 @@ checkdepends=('python-tornado' 'python-bottle' 'python-marshmallow'
               'python-flask' 'python-yaml'
               'python-openapi-spec-validator' 'python-pytest')
 source=("git+https://github.com/marshmallow-code/apispec.git#tag=$pkgver")
-sha512sums=('261bbab019c5a9cf3ee0bdef9463af8e88ab5bd8ee944a2fac69f0b1468b5675a666c464b9d7741915690e2dd9db68b469bd9f33f40ae3407c935a230daa79a9')
+sha512sums=('b1cb30bc120c5339b32ac349640b22408ef0805850b2a1cdf2076a46705972dbd8f2521b7b57ddcc9e2b4a2ec34a315c0f1bfaeced2e7e8e6b908a78a656eea9')
 
 build() {
   cd apispec
