@@ -2,7 +2,7 @@
 
 pkgbase=duckdb
 pkgname=(duckdb python-duckdb)
-pkgver=1.5.1
+pkgver=1.5.2
 pkgrel=1
 pkgdesc='An analytical in-process SQL database management system'
 arch=(x86_64)
@@ -23,10 +23,10 @@ source=(
   "$pkgbase::git+https://github.com/duckdb/duckdb#tag=v$pkgver"
   "python-duckdb::git+https://github.com/duckdb/duckdb-python#tag=v$pkgver"
 )
-sha512sums=('085b0c1925505ff295b3e23e1253ae7eb1f7adcdc485dbb20b64117e8f78d1b536a05fc3b8354f1061da0763a812aa85966dedd1ed55b09fa00321193432f4ca'
-            'ac3a71ebd94a90b8fc8cbd9c659228ba502ebd78e6f25290f04a967c11ac55067198e7fd570fd02979caf202f431955c9e8d2d366ce56c4c8d5fb6c81ae9a049')
-b2sums=('905c106c8b8842fa831f3d74500431e40b0b11844cf4169d2faa9b6862f57e7c4c1725e097d03eb2ce95b2f01e0d064cf4340d5c4587a72f715beb27865fb7e8'
-        '40f80ad294ea85b221985efcbb13978bf9589714abd807078877669db56be1e8b4afb5b90c142a1e959e30ba8dbc5bf6229319ed76c940b35e0d5c692d2cba09')
+sha512sums=('cd7c016b5e0063fb32da762150f36643e1eb3423cbe00287d7f2da1119041bfa4249da1db8a2a49fdebe19462b590a33b3bb982a8963f9ba99f9e963f5ebc3e4'
+            'b6df3cb35e8009c16567b64416ff2a639e0323115db0f9a2e88a4b797a914989ef88cc53293e6cd4d93e95734fe518a50fba73697303c6b539c70ca6bcc81529')
+b2sums=('2c272f91d046ed563bb6893bceb410a2d8efd26ed5d346fc45d5b367d682845513bc1982fcf1b603eb3893ed58144cb6a376d49b57d21833006c703470efa8c4'
+        '83a762b0479f6e84a259b5031a1b8d331a060ee013dfe37fa1f439237f26e652aeb263be56b469cfdf8a07d1cf68518b5889ff9a80fc334cfe2fe60f28056eb2')
 
 prepare() {
   cd python-duckdb
