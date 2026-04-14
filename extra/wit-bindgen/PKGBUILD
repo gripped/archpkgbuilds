@@ -2,7 +2,7 @@
 # Maintainer: Quentin Michaud <mh4ckt3mh4ckt1c4s@archlinux.org>
 
 pkgname=wit-bindgen
-pkgver=0.55.0
+pkgver=0.56.0
 pkgrel=1
 pkgdesc="A language binding generator for WebAssembly interface types "
 url="https://github.com/bytecodealliance/wit-bindgen"
@@ -18,8 +18,8 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://github.com/bytecodealliance/wit-bindgen.git#tag=v${pkgver}")
-sha256sums=('c52c9d8239173a5343fa13f32aeb3a680a624752a111543d8928cd6b8a243152')
-b2sums=('f047a44a25563506c55b1f4dfeb591e6dbe4a0b604b18ebedec6ba852948f1c450f7a2f6afdcee78697690249958c6ec1e06d4911c19f40873fbeafb808db595')
+sha256sums=('1eab5291acfe356cd29a5a560f157eac9c0f6dca5acb0fe1d9e1a51782d380c0')
+b2sums=('1dfc1ae7b6183094fc4ff23e50671926e7d0875a2714c3070855a4b650617a09fb1421cfbdce584dfe7b8a1257f605ca6a085dc10110596c37089e43ad9d753e')
 
 prepare() {
   cd ${pkgname}
