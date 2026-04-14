@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-keystoneauth1
-pkgver=5.12.0
+pkgver=5.13.0
 pkgrel=1
 pkgdesc="Authentication Library for OpenStack Identity"
 arch=('any')
@@ -21,7 +21,7 @@ checkdepends=('python-hacking' 'python-oslo-config' 'python-oslo-utils' 'python-
               'python-testtools' 'python-yaml' 'python-requests-kerberos' 'python-lxml'
               'python-oauthlib')
 source=("git+https://github.com/openstack/keystoneauth.git#tag=$pkgver")
-sha512sums=('b661b5eadab07b385cbd9ac8dc77751d4f398414302c191cf0cd545a927f620860aa31953a45b7c586d3b757241f6b9469b31616d75aeb0f9bcd878a926e8806')
+sha512sums=('970e833d8d8c39c4119f5c7f1aee2bee5c02dfe2334d137317fcef73e5c40cefa79c85a76e817270da886aa1c47bdcf4386adef51a6085c2cc545e075b99927d')
 
 build() {
   cd keystoneauth
