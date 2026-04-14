@@ -1,17 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-mongomock
-pkgver=4.1.3
+pkgver=4.2.0
 pkgrel=1
 pkgdesc="Fake pymongo stub for testing simple MongoDB-dependent code"
 url="https://github.com/mongomock/mongomock"
-license=('BSD-3-Clause')
+license=('ISC')
 arch=('any')
 depends=('python-sentinels' 'python-packaging' 'python-pytz')
-makedepends=('git' 'python-pbr' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
+makedepends=('git' 'python-build' 'python-hatch-vcs' 'python-hatchling' 'python-installer')
 checkdepends=('python-pymongo' 'python-pytest')
 source=("git+https://github.com/mongomock/mongomock.git#tag=$pkgver")
-sha512sums=('a98566ee7b8566f73362d3856359f576f0af8cc835947c082cdc49ee9e6ac132f75226e49f8b4d628a480c31ba30a6878d36f90eef88a66a59cb68f3bd3d9410')
+sha512sums=('2c251dbe23a1706c87cfcf1ac5f7d1a9dc1bf63bf14e2b2957f2266554de96f341774ebc0acc98852da6447ebcf891d49cf5db0d1e562083ef2541ae8b5435fa')
 
 build() {
   cd mongomock
@@ -20,7 +20,10 @@ build() {
 
 check() {
   cd mongomock
-  NO_LOCAL_MONGO=1 PYTHONPATH="$PWD" pytest -v tests \
+
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  NO_LOCAL_MONGO=1 test-env/bin/python -m pytest -v tests \
     -k 'not (test__codec_options_with_pymongo or test__codec_options or test_insert_bson_invalid_encode_type or test_insert_bson_validation or test__bulk_write_ or test__get_collection_different_codec_options or test__with_options_pymongo or test__with_options_type_registry)'
 }
 
