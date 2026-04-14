@@ -2,11 +2,11 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-config
-pkgver=10.1.0
+pkgver=10.2.0
 pkgrel=1
 pkgdesc="parsing command line arguments and .ini style configuration files"
 arch=('any')
-url="https://pypi.python.org/pypi/oslo.config/$pkgver"
+url="https://pypi.org/project/oslo.config/"
 license=('Apache-2.0')
 depends=('python-netaddr' 'python-stevedore'
          'python-oslo-i18n' 'python-rfc3986' 'python-yaml' 'python-requests')
@@ -19,7 +19,7 @@ source=(
   "git+https://github.com/openstack/oslo.config.git#tag=$pkgver"
   "$pkgname-python-3.14.patch"
 )
-sha512sums=('18816bdd60fe63a363c5d66aca564c29a5bea8078f6d8761f16947116b81c1f3118323f184de1a53408d15033892a1eb9dd90cc0de5e947a9a4ed4228b389b2e'
+sha512sums=('fc893762dc498054e05070019996aa99004735ed9f8d896a679b73fe7741ed46c68f88069fab9dd70ff6cdad782ce5b518a82a222fb6dca0d175f2c138270047'
             '84c6db3076dcd0190f467313efb3df66925bdf0c3db377bf118564af341304eaae0799aaa746058549b9c6cef4199daf5b8c272d29ffb534432411863dcfb5d5')
 
 prepare() {
