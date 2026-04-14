@@ -1,12 +1,13 @@
 pkgbase = rustypaste-cli
 	pkgdesc = A CLI tool for rustypaste
 	pkgver = 0.9.5
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/orhun/rustypaste-cli
 	arch = x86_64
 	license = MIT
 	makedepends = cargo
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	provides = rpaste
 	source = rustypaste-cli-0.9.5.tar.gz::https://github.com/orhun/rustypaste-cli/archive/v0.9.5.tar.gz
 	sha256sums = 409245145c94ba5f0555577e9e3e723d8e10585bb826e5c8b2f88b1b533b0783
