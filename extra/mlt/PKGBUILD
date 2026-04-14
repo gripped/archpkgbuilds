@@ -8,14 +8,15 @@
 
 pkgname=mlt
 pkgver=7.36.1
-pkgrel=4
+pkgrel=5
 pkgdesc='An open source multimedia framework'
 arch=(x86_64)
 url='https://www.mltframework.org'
 license=(LGPL-2.1-only)
-depends=(gcc-libs
-         glibc
-         libebur128)
+depends=(glibc
+         libebur128
+         libgcc
+         libstdc++)
 optdepends=('ffmpeg: ffmpeg plugin'
             'fftw: plus plugin'
             'fontconfig: gdk plugin'
@@ -71,7 +72,7 @@ makedepends=(cmake
              swig
              vid.stab)
 source=(git+https://github.com/mltframework/mlt#tag=v$pkgver
-        git+https://gitlab.com/mattbas/glaxnimate.git)
+        git+https://invent.kde.org/graphics/glaxnimate.git)
 sha256sums=('96c89f203e0e2061f29fa21ab6c5c449cd5ed9b37c29d50779bd2975ef339937'
             'SKIP')
 
