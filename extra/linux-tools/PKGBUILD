@@ -17,7 +17,7 @@ pkgname=(
   'x86_energy_perf_policy'
 )
 pkgver=7.0
-pkgrel=2
+pkgrel=3
 _srcname=linux-${pkgver}
 license=('GPL-2.0-only')
 arch=('x86_64')
@@ -218,7 +218,6 @@ package_cpupower() {
   depends=('glibc' 'bash' 'pciutils')
   conflicts=('cpufrequtils')
   replaces=('cpufrequtils')
-  install=cpupower.install
 
   pushd "$_srcname"/tools/power/cpupower
   make \
