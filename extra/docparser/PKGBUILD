@@ -2,7 +2,7 @@
 
 pkgname=docparser
 pkgver=1.0.13
-pkgrel=1
+pkgrel=2
 pkgdesc='A document parser library ported from document2html'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/docparser"
@@ -16,6 +16,7 @@ b2sums=('c45ce7b93a8a4d4be23675bab3246c2f7006a0cdd8e9b5fd5c981b41ac7d0ff39ddeaa4
 prepare() {
   cd docparser
   sed -i 's/add_link_options(-z noexecstack -pie -fPIC)/add_link_options(-z noexecstack)/' CMakeLists.txt
+  git cherry-pick -n 01f1802e3d60a42c948cf706e5951d09473db82b
 }
 
 build() {
