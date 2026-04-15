@@ -3,8 +3,8 @@
 # Contributor: Judd Vinet <jvinet@zeroflux.org>
 
 pkgname=iproute2
-pkgver=6.19.0
-pkgrel=2
+pkgver=7.0.0
+pkgrel=1
 pkgdesc='IP Routing Utilities'
 arch=('x86_64')
 license=('GPL-2.0-or-later')
@@ -23,7 +23,7 @@ options=('!emptydirs')
 validpgpkeys=('9F6FC345B05BE7E766B83C8F80A77F6095CDE47E') # Stephen Hemminger
 source=("git+https://git.kernel.org/pub/scm/network/${pkgname}/${pkgname}.git#tag=v${pkgver}"
         '0001-make-iproute2-fhs-compliant.patch')
-sha256sums=('bdd732f05d497fd26c1cbefa9db8da974d2cf199fbb10affea984b862ab334d7'
+sha256sums=('9be3e46124773e636799383b71edea4fb5d19283d72ad9847f167beabd71d6fc'
             '758b82bd61ed7512d215efafd5fab5ae7a28fbfa6161b85e2ce7373285e56a5d')
 
 prepare() {
