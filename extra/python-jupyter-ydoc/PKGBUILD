@@ -2,7 +2,7 @@
 
 _pyname=jupyter_ydoc
 pkgname=python-${_pyname//_/-}
-pkgver=3.4.0
+pkgver=3.4.1
 pkgrel=1
 pkgdesc='Document structures for collaborative editing using Ypy'
 arch=(any)
@@ -21,7 +21,7 @@ checkdepends=(hypercorn
               python-websockets
               python-pycrdt-websocket)
 source=(git+https://github.com/jupyter-server/jupyter_ydoc#tag=v$pkgver)
-sha256sums=('17b2ff1f5391072fae86d70ea9831c89a6effd60b1df9f74b3b9fc5c0bb4ca28')
+sha256sums=('dde83692198b971955a3318488d52bd92cc514913150e4c6bbc05a0d591e82af')
 
 build() {
   cd $_pyname
