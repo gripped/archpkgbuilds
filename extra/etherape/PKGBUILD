@@ -4,23 +4,17 @@
 # Contributor: Damir Perisa <damir.perisa@bluewin.ch>
 
 pkgname=etherape
-pkgver=0.9.21
-pkgrel=2
+pkgver=0.9.22
+pkgrel=1
 pkgdesc='Graphical network monitor for various OSI layers and protocols'
-url='http://etherape.sourceforge.net/'
+url='https://etherape.sourceforge.io/'
 arch=('x86_64')
-license=('GPL2')
+license=('GPL-2.0-or-later')
 depends=('glibc' 'glib2' 'libpcap' 'popt' 'cairo' 'gdk-pixbuf2' 'gtk3' libpcap.so)
-makedepends=('yelp-tools')
+makedepends=('itstool' 'yelp-tools')
 source=(https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('0fccf216eff11aae69fa59da810f3c6364e0e94ea8ec538a73a9ba25d7f66d1269bfa7f55b94d5559098a036a4ba85910e373f2815da9f68252536a5e9a783ea')
-b2sums=('840a8ffb7173d85973f9ee42e2433020924682d11d4ad51de5ab90128bece92e3c1b682be90b87c6cf628f72dc41ddc6841e804ae947d0d286679729b26224d8')
-
-prepare() {
-  cd ${pkgname}-${pkgver}
-  sed -i 's/goocanvas-2.0/goocanvas-3.0/' configure.ac
-  autoreconf -fiv
-}
+sha512sums=('3a991d52812db6d0a027f03a4cef8b2e9fef8bb83ae0e63ae1fd106a5710ce74bbf918b027179325ac45bcc07421f3ba8ec7342a4d34393684b599f7a7dd71bc')
+b2sums=('0e4427cf95e0d619c60a5541d1c79dbed5cf36a4402c9c3939057824b8615a0a1b8c0588e9ec538e837b99213c896f7ed09c793a1f41cab715242a630d95efa5')
 
 build() {
   cd ${pkgname}-${pkgver}
