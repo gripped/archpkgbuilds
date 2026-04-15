@@ -1,7 +1,7 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=websvn
-pkgver=2.8.5
+pkgver=2.8.6
 pkgrel=1
 pkgdesc="subversion web interface"
 arch=(any)
@@ -10,7 +10,7 @@ license=('GPL')
 depends=()
 backup=(srv/http/websvn/.htaccess)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/websvnphp/websvn/archive/$pkgver.tar.gz")
-sha256sums=('bc6eeeb873c9e0fdd18f4783b82532b7f6df070f2e027d3b26db271f8aaadbce')
+sha256sums=('d821179fb17f3a82e9de963ee7508baefcfdd4ca743a798c9cc8cdfd30d43214')
 
 package() {
   local _instdir="$pkgdir"/srv/http
