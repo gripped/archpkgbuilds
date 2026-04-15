@@ -4,7 +4,7 @@ _bootstrap=0
 _bootstrap_version=3.14.0
 pkgname=python-packaging
 _name=${pkgname#python-}
-pkgver=26.0
+pkgver=26.1
 pkgrel=1
 pkgdesc="Core utilities for Python packages"
 arch=('any')
@@ -20,7 +20,7 @@ if (( _bootstrap == 0 )); then
 else
   makedepends=('git')
 fi
-checkdepends=('python-pytest' 'python-pretend' 'python-tomli-w')
+checkdepends=('python-pytest' 'python-pretend' 'python-tomli-w' 'python-hypothesis')
 if (( _bootstrap == 0 )); then
   source=("https://github.com/pypa/packaging/archive/$pkgver/$pkgname-$pkgver.tar.gz")
 else
@@ -35,7 +35,7 @@ else
     python-setuptools::git+https://github.com/pypa/setuptools.git
   )
 fi
-sha512sums=('9c96b3f70e483af3812a859de217e58e07cc48210cfb3b7e64fbc3118bd7c53c39e9f5f33d13f532a4e0ce4c208bed58c64ed5ea16390371f3480706d72a9011')
+sha512sums=('811d1fd2302053d6039c4746f6c5ed911f2907e89c56d71a68016a42d488d23ef26f1be4e2dd1e19175d3d0484d12f9cb0b5942d9c31ac388a8ed0f147d15ab0')
 
 prepare() {
   if (( _bootstrap == 0 )); then
