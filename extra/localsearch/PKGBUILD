@@ -6,7 +6,7 @@ pkgname=(
   localsearch
   localsearch-testutils
 )
-pkgver=3.11.0
+pkgver=3.11.1
 pkgrel=1
 pkgdesc="Filesystem indexer and metadata extractor"
 url="https://gnome.pages.gitlab.gnome.org/localsearch/"
@@ -56,7 +56,7 @@ makedepends=(
   python-gobject
 )
 source=("git+https://gitlab.gnome.org/GNOME/localsearch.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('4c7987cd6688e872e088feeb2955815b185d1207f564f9869c011753d205569ff89e7df7f6fe064bd47f9239a0f8400e8080494ee75c75e06883c903bc7f3521')
+b2sums=('031e921741a70456be9ed9160b347e0ab657f2c617bacee8507c7f42b5e75248b7039c46d3146c26c7974830dcf01762e0ecae4c4eef0de9384a0be216998008')
 
 prepare() {
   cd localsearch
