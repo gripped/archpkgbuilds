@@ -2,12 +2,12 @@
 # Contributor: thorsten w. <p@thorsten-wissmann.de>
 
 pkgname=herbstluftwm
-pkgver=0.9.5
-pkgrel=2
+pkgver=0.9.6
+pkgrel=1
 pkgdesc="Manual tiling window manager for X"
 arch=('x86_64')
 url="https://herbstluftwm.org"
-license=('BSD')
+license=('BSD-2-Clause')
 depends=('libxinerama' 'libxrandr' 'libxft' 'libxext' 'libxfixes' 'libxrender' 'freetype2')
 makedepends=('cmake' 'asciidoc')
 optdepends=('xorg-xsetroot: to set wallpaper color in default autostart'
@@ -15,7 +15,7 @@ optdepends=('xorg-xsetroot: to set wallpaper color in default autostart'
             'dzen2: used in the default panel.sh'
             'dmenu: used in some example scripts')
 source=(https://herbstluftwm.org/tarballs/$pkgname-$pkgver.tar.gz{,.sig})
-sha256sums=('b2d4600909e5bece5ad63818dfb30bb19fd2ac9f52847b1a7a74ad4040718105'
+sha256sums=('e38c9721cd5c835ec1d461ab55c9dabcacea8c42eb37aeb782be7b138c91c6eb'
             'SKIP')
 validpgpkeys=('72B6C05CDFF309C6396167D464EF02821CAFF810') # Thorsten Wißmann <edu@thorsten-wissmann.de>
 
