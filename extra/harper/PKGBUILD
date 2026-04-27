@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=harper
-pkgver=2.0.0
+pkgver=2.1.0
 pkgrel=1
 pkgdesc='The Grammar Checker for Developers'
 arch=(x86_64)
@@ -17,13 +17,13 @@ makedepends=(
 )
 options=(!lto)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('2e3ddd195c8afb4f4323fd9bddae186b3069c6f9b89aec3573d6fbcc65d8059448b80a5c02910a7f20c20f9d908a77614ead76b60957e6006615a140e2951063')
-b2sums=('f61e1f1b86397e7da06b2304f17f1f0b4300aa440509637c095aace5ade40cb105de145a3eaf7233fe9da4367bbbfadb56e59f64d00c5b41fd86adb79b25d488')
+sha512sums=('8ad4db828e3c048d2e6c92ffdb99e469d6982a6e138f3d0ea154b33062363290f022921214e0cc6c88caa6f06fb9d1d47d1ca9d837ad0be0affbc9225a9ec921')
+b2sums=('0d1ef37aa37b3181bb323c12cbd3c5d2c71aa0f349deadc31d1011a4ac4340a7fb65a5d51aa6ac67adf5bd753411039b603438413cb2acbd462e9c684f50e98c')
 
 prepare() {
   cd "$pkgname"
 
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
