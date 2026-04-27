@@ -2,7 +2,7 @@
 # Contributor: taotieren <admin@taotieren.com>
 
 pkgname=linyaps
-pkgver=1.12.1
+pkgver=1.12.3
 pkgrel=1
 pkgdesc='Next-Gen Universal Package Manager for Linux (linglong)'
 arch=(x86_64)
@@ -17,6 +17,8 @@ conflicts=(
 depends=(
   bash
   curl
+  erofs-utils
+  erofsfuse
   fmt
   glib2
   glibc
@@ -50,14 +52,14 @@ makedepends=(
 source=(
   git+https://github.com/OpenAtom-Linyaps/linyaps.git#tag=$pkgver
 )
-sha256sums=('1c4651574cd65c2cf0d8e37b1347a2bbed3695b6960b13316fdc0d38ec063f8b')
+sha256sums=('c689e7fd14bcf3f3298585996109489a402b1edf0126dae2979eaf8d0b468c18')
 
 build() {
   cd linyaps
   cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
-    -DCPM_LOCAL_PACKAGES_ONLY=ON \
+    -DENABLE_CPM=OFF \
     -DLINGLONG_VERSION="$pkgver" \
     -Wno-dev \
     -B build \
