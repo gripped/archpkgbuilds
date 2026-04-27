@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=kontact
-pkgver=25.12.3
+pkgver=26.04.0
 pkgrel=1
 pkgdesc='KDE Personal Information Manager'
 arch=(x86_64)
@@ -25,6 +25,7 @@ depends=(gcc-libs
          kmail-account-wizard
          kparts
          kservice
+         ktextaddons
          kwidgetsaddons
          kxmlgui
          libkdepim
@@ -41,7 +42,7 @@ optdepends=(akregator
 groups=(kde-applications
         kde-pim)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('4124c873d26a9047332aeeac8002a5619a1455f19280538f191efbf6edeef604'
+sha256sums=('1de9dcd49d4962156b83a39a0033bbb6bb11ede72dd3843cf9286baf151130dd'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
