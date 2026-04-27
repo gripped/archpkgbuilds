@@ -6,7 +6,7 @@
 
 pkgbase=parallel
 pkgname=(parallel parallel-docs)
-pkgver=20260322
+pkgver=20260422
 pkgrel=1
 pkgdesc='A shell tool for executing jobs in parallel'
 arch=(any)
@@ -26,10 +26,10 @@ source=(
   "$pkgname::git+https://git.savannah.gnu.org/git/parallel.git?signed#tag=${pkgver}"
   0001-Remove-citation-things.patch
 )
-sha512sums=('aff880e11c6185998eada9acac7344af47cbf5ac1b8656777ca4e2354af72197748abac5d85364158e8b54bf144a3535498ca6301256d1000e83d296b52c76db'
-            'a65d4b57bde00b1dead4773dde4b7cfde581ab3ea3690423c07e9c95d622de43c2ca786bac61c1765a97656f03ff79d07c95537ba0102cad3e19630f19b56d57')
-b2sums=('a6d389ae69758432aadffc5eded49384a5a76dcbbe6abfda76c8542618869fdc3c919677ff7fdedc9a4d475e856abd96303d7506d33a87e63ba35a2bb9a5d975'
-        '259d8c67f81ab716e2f01a0bef2f97288ca875701fcaa396b03f0eef07e1e4abde4767fb8314274593e62f96ed5da381adc3a8937719caa6e2d4229aed3c3b79')
+sha512sums=('7f7ce3ac1921695f982c7f3314d913e66fb85ede1fd7e823e1ff7083a84825e5bc288b8b3cec606ccbd8cb0967542dad2f20ad5b18bd66a636762ad96c7ecf9e'
+            '6c2383bbfb039a2d643286c7994573605842abcba9a79e6cefed7e2fe8de452ab258047cec7ad1feff9239b8afb245c8645dca738cd1a6108a96d3ed06c97175')
+b2sums=('5cca04f7cfe429d5c545123ee9e554eb4b643a5bdd250160b1056fffe2172af658ec940b7d6312081ddcd607a76f60d35d3aae220f1dc084db7b87489ea36571'
+        '1d131760052d6b47e101dcc6642faa26c9864c1040615f6b88407819eb43342bd81049bd65c6ef6835a14fd15cd9474db84f0154c1ad8f5739d55f40feda07ee')
 validpgpkeys=('CDA01A4208C4F74506107E7BD1AB451688888888')
 
 prepare() {
