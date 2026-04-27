@@ -2,8 +2,8 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=adios2
-pkgver=2.11.0
-pkgrel=7
+pkgver=2.12.0
+pkgrel=1
 pkgdesc="The Adaptable Input/Output System version 2"
 arch=(x86_64)
 url="https://adios2.readthedocs.io/en/latest/"
@@ -11,11 +11,13 @@ license=(Apache-2.0)
 depends=(
   blosc2
   bzip2 libbz2.so
+  curl libcurl.so
   glibc
   hdf5
   libfabric
   libgcc
   libgfortran
+  libgomp
   libpng libpng16.so
   libsodium libsodium.so
   libstdc++
@@ -27,11 +29,11 @@ depends=(
   pugixml
   python
   sqlite libsqlite3.so
-  sz
   yaml-cpp libyaml-cpp.so
   zeromq libzmq.so
   zfp
   zlib libz.so
+  zstd libzstd.so
 )
 makedepends=(
   cmake
@@ -40,9 +42,9 @@ makedepends=(
   gtest
   ninja
   nlohmann-json
-  pybind11
   python-mpi4py
   python-numpy
+  sz
 )
 optdepends=(
   'python-numpy: for Python bindings'
@@ -52,7 +54,7 @@ optdepends=(
 source=(
   https://github.com/ornladios/ADIOS2/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
 )
-b2sums=('d79d833ee42a6097b15341729892dde119b9e157ec5f3078a2a842f412ceca064b619fb5b7b4f95bf8134298e50251acd88f9981426b10c00070b33ad4abc8d5')
+b2sums=('a08a4ccc55c67485d61f68c8954aa5a7a063672fe5b0b0af400578a0213f0ef3ce856dc21e5a20ffad81e0074532a07fa96018b9adbfd2ef4ec6a02fc1d623b3')
 
 build() {
   # In general, we want to list all real archs (sm_XX) and the latest virtual arch (compute_XX) for future PTX compatibility.
@@ -69,14 +71,15 @@ build() {
     -DCMAKE_CUDA_ARCHITECTURES="$cuda_archs"
     # Compile source code for supported GPU archs in parallel
     -DCMAKE_CUDA_FLAGS="--threads $(nproc)"
-    # CUB requires at least C++17 https://github.com/ornladios/ADIOS2/issues/4620
-    -DCMAKE_CXX_STANDARD=17
     -DADIOS2_USE_CUDA=ON
     -DADIOS2_USE_EXTERNAL_DEPENDENCIES=ON
+    -DADIOS2_USE_EXTERNAL_PERFSTUBS=OFF
+    # external nanobind does not work: https://gitlab.archlinux.org/archlinux/packaging/packages/nanobind/-/merge_requests/3
+    -DADIOS2_USE_EXTERNAL_NANOBIND=OFF
     #-DADIOS2_HAVE_HDF5_VOL needs hdf5-openmpi
     -DADIOS2_HAVE_HDF5_VOL=OFF
     -DADIOS2_BUILD_EXAMPLES=OFF
-    -DADIOS2_USE_Derived_Variables=ON
+    -DADIOS2_USE_Derived_Variable=ON
   )
   cmake "${cmake_options[@]}"
   cmake --build build
