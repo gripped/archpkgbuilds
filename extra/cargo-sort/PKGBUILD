@@ -3,7 +3,7 @@
 # Contributor: Dominic Meiser [git at msrd0 dot de]
 
 pkgname=cargo-sort
-pkgver=2.1.3
+pkgver=2.1.4
 pkgrel=1
 pkgdesc='Check if tables and items in a .toml file are lexically sorted'
 arch=(x86_64)
@@ -12,8 +12,8 @@ license=(Apache-2.0 MIT)
 depends=(glibc libgcc)
 makedepends=(git rust)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('12709fe150b1248139a6dec9b2be4847308b38972d9b9c977357ab20a9c4f2a4c088c8d88ab0a6eceb95f8273180cf5c61ed7fae380a96e60ef0a4e2f4afc1b7')
-b2sums=('2e5fca55b5ee381f6d2f3bee9ac79874637850b7614d75661a38ba4c5a1198594dbbbacd6f937ca66c88bd231ab3455a0b9c7492728855f741a18382ba17d257')
+sha512sums=('4aab805e7694f5c0cb54356a3fee1040d192e2be9b535453a5f65f64bd2e7d86f6000b7f9c4d46e97d840133cc44eeb69dc989a9552414642714db3cb1b5b87f')
+b2sums=('775160b0a2329f18df16dc880f6237931ef230879ce6f87ad0b8d633b403d3364bd6a0ee7006f42f663f838763cd3e98f539dea3bdd749fde750f831b6d886aa')
 
 prepare() {
   cd "$pkgname"
