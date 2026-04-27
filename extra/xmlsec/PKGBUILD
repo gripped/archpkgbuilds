@@ -3,7 +3,7 @@
 # Contributor: Hussam Al-Tayeb <ht990332@gmail.com>
 
 pkgname=xmlsec
-pkgver=1.3.10
+pkgver=1.3.11
 pkgrel=1
 pkgdesc="XML Security Library is a C library based on LibXML2"
 license=(MIT)
@@ -15,7 +15,7 @@ provides=('libxmlsec1.so' 'libxmlsec1-openssl.so' 'libxmlsec1-nss.so' 'libxmlsec
 #source=(https://www.aleksey.com/xmlsec/download/${pkgname}1-${pkgver}.{tar.gz,sig}) # signature file not compatible
 source=(#https://www.aleksey.com/xmlsec/download/${pkgname}1-${pkgver}.tar.gz
         https://github.com/lsh123/xmlsec/releases/download/${pkgver}/${pkgname}1-${pkgver}.tar.gz)
-sha256sums=('5915590780566dae4b5d13d51a42fc0e34b30b26fda6f2c5f744ec31b363ee1a')
+sha256sums=('53675e98fa83b48201d24f7bfbcaeaa1b51496b8b19ff969785856bdeb196af3')
 # https://www.aleksey.com/xmlsec/download/aleksey%40aleksey.com.gpg
 #validpgpkeys=('00FDD6A7DFB81C88F34B9BF0E63ECDEF9E1D829E') # "Aleksey Sanin <aleksey@aleksey.com>"
 
