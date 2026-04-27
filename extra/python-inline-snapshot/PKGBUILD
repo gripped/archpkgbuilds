@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-inline-snapshot
-pkgver=0.32.5
+pkgver=0.32.6
 pkgrel=1
 pkgdesc="Create and update inline snapshots in your python tests"
 arch=(any)
@@ -37,7 +37,7 @@ optdepends=(
   'python-dirty-equals: snapshot comparison using dirty-equals'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('e792b9d8a8602d034d6ae21212151157cad796bb6d8985ff4e77b5dac0169489')
+sha256sums=('7e0c42b3037c25fe237a6f2cb888e970b21ecabe8269731a0c3dd402611e81aa')
 
 build() {
   cd ${pkgname#python-}-$pkgver
