@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=pint
-pkgver=0.79.0
+pkgver=0.80.0
 pkgrel=1
 pkgdesc='Rule linter/validator for Prometheus'
 arch=(x86_64)
@@ -9,9 +9,10 @@ url='https://github.com/cloudflare/pint'
 license=(Apache-2.0)
 depends=(glibc)
 makedepends=(git go)
+options=(!lto)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('4d598f72b927ea984f84a13cb049eb5981d0c5881e0ad98bf65c20336b2d46ed3bdaa661cf974db5b3ec0d9a8221bf58c7b57ee9041e5058b56aaf2c398c9794')
-b2sums=('31dd140b83fb3dc646da0febdcec9790ef0d56aaa4c29196b04ce0fcdf5259cd5d94b43f496a07de937b521737aae72977d35f28bc352c42f0c5f897c5981571')
+sha512sums=('28b7ef4cbddf5f6a4f4f4a2324332f3fca6967c81979e17f9a6e77a79edcd7463ae48ab7a64a68005bca141974f8a762e3863c22dc5e1e29ba8a61ed5c15df80')
+b2sums=('ffda18fde93ddf42e8d32390a6e33f6fe158d22143858fcadccdc2318db49d284200efaffea8b21345b06c06092b2e8f7819dd1c266f9f3d96880fea8bde0564')
 
 prepare() {
   cd "$pkgname"
