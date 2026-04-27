@@ -2,26 +2,29 @@
 # Contributor: Julien Virey <julien.virey@gmail.com>
 
 pkgname=rumdl
-pkgver=0.1.72
+pkgver=0.1.83
 pkgrel=1
 pkgdesc='Markdown Linter and Formatter written in Rust'
 arch=('x86_64')
-options=(!lto)
 url=https://github.com/rvben/rumdl
 license=('MIT')
-depends=(glibc gcc-libs)
+depends=(glibc jemalloc libgcc)
 makedepends=(cargo)
 
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('a8043dcd10dea428897929e345110b7caa7ed6acb60590f00fb11092283f7c7b')
+sha256sums=('b2fe1cc9b921a06d036f7b9849185c0431ab21962ae66352ba6d70c229ddf35c')
 
 prepare() {
   cd $pkgname-$pkgver
+  export JEMALLOC_OVERRIDE=/usr/lib/libjemalloc.so
+  export CARGO_FEATURE_UNPREFIXED_MALLOC_ON_SUPPORTED_PLATFORMS=1
   cargo fetch --locked --target $(rustc --print host-tuple)
 }
 
 build() {
   cd $pkgname-$pkgver
+  export JEMALLOC_OVERRIDE=/usr/lib/libjemalloc.so
+  export CARGO_FEATURE_UNPREFIXED_MALLOC_ON_SUPPORTED_PLATFORMS=1
   cargo build --frozen --release --bin rumdl
 }
 
