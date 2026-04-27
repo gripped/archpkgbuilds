@@ -2,7 +2,7 @@
 # Contributor: graysky <graysky AT archlinux dot us>
 
 pkgname=lostfiles
-pkgver=4.16
+pkgver=4.18
 pkgrel=1
 pkgdesc="Find orphaned files not owned by any Arch packages"
 arch=(any)
@@ -10,7 +10,7 @@ url="https://github.com/graysky2/lostfiles"
 license=(MIT)
 backup=(etc/lostfiles.conf)
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('4cf67503dc214907a88bc226b8f60c0492c771fdacd51bf2590c56d5a95f50bd')
+sha256sums=('c2383a752a11e9723299c732d005de9a556b66eca8bdd9839337249064b0d7fb')
 
 build() {
   cd ${pkgname}-${pkgver}
