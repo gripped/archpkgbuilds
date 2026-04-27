@@ -2,8 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-flask-security-too
-_pkgname=flask-security
-pkgver=5.7.1
+pkgver=5.8.0
 pkgrel=1
 pkgdesc='Quick and simple security for Flask applications'
 arch=(any)
@@ -18,16 +17,14 @@ depends=(
   python-flask-login
   python-flask-principal
   python-flask-wtf
-  python-importlib_resources
   python-itsdangerous
-  python-jinja
   python-markupsafe
   python-passlib
-  python-requests
   python-werkzeug
   python-wtforms
 )
 makedepends=(
+  git
   python-babel
   python-build
   python-flit-core
@@ -36,59 +33,69 @@ makedepends=(
   python-wheel
 )
 checkdepends=(
+  # python-webauthn: not in repos
+  python-argon2-cffi
+  python-asgiref
+  python-authlib
   python-babel
-  python-flask-babel
-
-  python-flask-sqlalchemy
-  python-sqlalchemy
-  python-sqlalchemy-utils
-
-  python-argon2_cffi
   python-bcrypt
-  python-flask-mail
   python-bleach
-
   python-cryptography
-  python-qrcode
-  # phonenumberslite
-  # webauthn
-
-  # python-authlib
+  python-flask-babel
+  python-flask-mail
+  python-flask-sqlalchemy
   python-freezegun
   python-mongoengine
   python-mongomock
   python-peewee
   python-phonenumbers
-
   python-pytest
+  python-qrcode
+  python-requests
+  python-sqlalchemy
+  python-sqlalchemy-utils
   python-zxcvbn
-
-  python-asgiref
 )
-optdepends=('python-bleach: scrub user input')
+optdepends=(
+  'python-argon2-cffi: argon2 password hashing'
+  'python-bcrypt: bcrypt password hashing'
+  'python-bleach: scrub user input'
+  'python-cryptography: encrypt multi-factor auth recovery codes'
+  'python-flask-babel: translations'
+  'python-flask-mail: alternative email backend'
+  'python-flask-mailman: default email backend'
+  'python-flask-sqlalchemy: SQLAlchemy datastore'
+  'python-mongoengine: MongoEngine datastore'
+  'python-peewee: Peewee datastore'
+  'python-phonenumbers: SMS two-factor auth'
+  'python-qrcode: generate QR codes for TOTP'
+  'python-sqlalchemy: SQLAlchemy datastore'
+  'python-zxcvbn: password strength validation'
+)
 provides=('python-flask-security')
 conflicts=('python-flask-security')
-source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('c2de9cc84f6e90e8c5f99d0f64b9a0730c1475777cf9b081e3dbf204de0a6915945705f39dee29da6c339ebf8f9bf81b8e27c91963eab4993737e1e0761d2e80')
-b2sums=('b0cc7099f694becf9a0267885aed951d13c46648bf21abc8456b53a4fff119d541a02699c8a3079c13e3ba346d00639958dab0a13c4aac1f8040486a2e624f5a')
+source=("$pkgname::git+$url.git#tag=$pkgver")
+sha512sums=('d2ec6818ab3b5722f8e2c26d8d167ed7a70bd449e20a7498bded68e647f0a80e9df5bb90fe129ab3d59a2fdc91a6114153e2d61411c8b4e8d8b07ba437df8f72')
+b2sums=('25d8e7a6a53633502d6b21ceaeda7e0a333f167bd0bd2ed14e0255f01bf8647dc86bacf4cd59e2179faac46d43b6fedbea412b7f82a16a125ed0dfbc1c7f950f')
 
 build() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
   python -m build --wheel --no-isolation
   pybabel compile --domain flask_security -d flask_security/translations
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
   # ignore incompatible bcrypt tests
   # https://github.com/pallets-eco/flask-security/commit/568d81219fc8408e39cc19acc57a682ac0bb9136
   pytest -v -W=ignore::DeprecationWarning -W=ignore::UserWarning \
     --deselect=tests/test_hashing.py::test_login_with_bcrypt_enabled \
+    --deselect=tests/test_hashing.py::test_verify_password_double_hash_bcrypt \
     --deselect=tests/test_misc.py::test_password_unicode_password_salt
 }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 -t "$pkgdir/usr/share/doc/$pkgname" README.rst CHANGES.rst
   install -vDm 644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
