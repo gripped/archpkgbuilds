@@ -4,7 +4,7 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=ccache
-pkgver=4.13.2
+pkgver=4.13.4
 pkgrel=1
 pkgdesc='Compiler cache that speeds up recompilation by caching previous compilations'
 url='https://ccache.dev/'
@@ -23,19 +23,18 @@ depends=(
 makedepends=(
   'asciidoctor'
   'cmake'
+  'git'
   'perl'
   'tl-expected'
 )
 checkdepends=('doctest')
-source=("https://github.com/ccache/ccache/releases/download/v$pkgver/ccache-$pkgver.tar.xz"{,.minisig})
-sha512sums=('34d6c34a97a33fe26e9895b164de603bf3cdc62cc84b8b00360077190fa06bdeb9c7caf89a7cb8a6ca675ffc8c118cbfd88875f1c8f5e5be97af1ca9c0e488f0'
-            'fbdb7494a166b7fc308ce0c5fa6e2d5437780aef7600f955dd78fd127ec3fa18bf34ab9bba5a482e9b7762cbd6cd67613f134a22a11e871e5e38d9d5349ac1fe')
-b2sums=('4f6a27153c4aa01a03f7f2df7663f90d049a6cc30e4c4e86829aa8174078396b8647e536ca619be7d020876b0646b13feb3238e70d9bad8494e28169c3eecc0e'
-        'a8c1e659bc2f0221ab95efdda6d684824976c17a61aa9946d76c81ed7c9babff57c3ed934c1c014f9181b0159981157745ae3e281e3f43ccaa70f65a83d71326')
+source=("git+https://github.com/ccache/ccache.git#tag=v$pkgver?signed")
+sha512sums=('a923b8b447e7d60c11e70b8d4ebeb72ad4aa06b0ffbe94cd58adfea373fb8342fd2cf59124ee56ba7c607a9f0d39b8cc916d78f3f2625801608f1b7fb3e3068f')
+b2sums=('639bd93acbfe93cc6086942ed1f1976ac717442ad096df3f2ef4fc4a20603d44e48a9d0a15276581fe9249f917015090aad51815b05ecd893680adb5fe6f5f48')
 validpgpkeys=('5A939A71A46792CF57866A51996DDA075594ADB8') # Joel Rosdahl <joel@rosdahl.net>
 
 build() {
-  cmake -B build -S $pkgname-$pkgver \
+  cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=None \
     -Wno-dev
@@ -61,6 +60,6 @@ package() {
     ln -vs /usr/bin/ccache "$pkgdir/usr/lib/ccache/bin/$prog"
   done
 
-  cd $pkgname-$pkgver
+  cd $pkgname
   install -vDm 644 -t "$pkgdir/usr/share/doc/$pkgname" doc/*.md doc/*.adoc
 }
