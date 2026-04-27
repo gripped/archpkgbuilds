@@ -1,60 +1,59 @@
-# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Maintainer: Jonathan Grotelüschen <tippfehlr@archlinux.org>
+# Contributor: Daniel M. Capella <polyzen@archlinux.org>
 # Contributor: Yufan You <ouuansteve at gmail>
 
 pkgbase=vue-language-tools
 pkgname=vue-language-server
-pkgver=3.0.8
+pkgver=3.2.7
 pkgrel=1
 pkgdesc='Language server for Vue'
 arch=(any)
-url=https://github.com/vuejs/language-tools/tree/master/packages/language-server
+url="https://github.com/vuejs/language-tools/tree/master/packages/language-server"
 license=(MIT)
-depends=(
-  nodejs
-  typescript
-)
-makedepends=(
-  git
-  jq
-  npm
-  pnpm
-)
+depends=(nodejs)
+makedepends=(git pnpm)
+checkdepends=(npm)
+optdepends=('typescript-language-server: provides a typescript lsp')
 provides=(vue-typescript-plugin)
 replaces=(vue-typescript-plugin)
 options=(!emptydirs)
 source=("$pkgbase::git+https://github.com/vuejs/language-tools.git#tag=v$pkgver")
-b2sums=('31fc5de66618cb0d18cec516a2f9161d04da1eeeebc2aa8d7afcca30c5e173a720c66956de1bca2d05d1057f5cf07b356ceeefbf4e6985cbaae99fe549c7029b')
+b2sums=('223e68b1d67acbd003794121bb45fd558580f1bd999498380d10fc6307e17cc9df311e159eaa805cc3a825f76383661212f8171bbc97830ae1365caf0e1ca76d')
 
 prepare() {
-  cd $pkgbase
-  pnpm install --frozen-lockfile
+	cd $pkgbase
+	pnpm install --frozen-lockfile
 }
 
 build() {
-  cd $pkgbase
-  COREPACK_ENABLE_STRICT=0 pnpm build
+	cd $pkgbase
+	COREPACK_ENABLE_STRICT=0 pnpm build
 }
 
 check() {
-  cd $pkgbase
-  COREPACK_ENABLE_STRICT=0 pnpm test
+	cd $pkgbase
+	COREPACK_ENABLE_STRICT=0 pnpm test
 }
 
 package() {
-  local mod_dir=/usr/lib/node_modules/@vue/language-server
+	cd $pkgbase
+	local mod_dir=/usr/lib/node_modules/@vue/language-server
 
-  install -d "$pkgdir"/{/usr/bin,$mod_dir}
-  ln -s $mod_dir/bin/"${pkgname[0]}".js "$pkgdir"/usr/bin/"${pkgname[0]}"
+	install -d \
+		"$pkgdir/usr/bin" \
+		"$pkgdir/usr/share/doc/$pkgname" \
+		"$pkgdir/usr/share/licenses/$pkgname" \
+		"$pkgdir/$mod_dir"
 
-  cd $pkgbase/packages/language-server
-  # Prune unnecessary packages
-  rm -r node_modules
-  npm install --omit=dev --omit=peer
+	pnpm --filter @vue/language-server --prod deploy --legacy "$pkgdir/$mod_dir"
+	# fix broken symlink
+	ln -sfn $mod_dir "$pkgdir/$mod_dir/node_modules/.pnpm/node_modules/@vue/language-server"
+	# Remove $pkgdir prefixes from scripts in node_modules/.bin/
+	find "$pkgdir/$mod_dir/node_modules" -type f -path '*/.bin/*' -exec sed -i "s|$pkgdir||g" {} +
+	# unneeded file that breaks reproducibility
+	rm "$pkgdir/$mod_dir/node_modules/.modules.yaml"
 
-  shopt -s globstar
-  export GLOBIGNORE='node_modules/*'
-  mapfile -t mod_files < <(jq -r '.files[]' package.json)
-  # shellcheck disable=SC2068
-  cp --parents -r ${mod_files[@]} node_modules package.json "$pkgdir"/$mod_dir
-  install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
+	ln -s $mod_dir/bin/$pkgname.js "$pkgdir"/usr/bin/$pkgname
+	ln -s $mod_dir/README.md "$pkgdir/usr/share/doc/$pkgname/"
+	ln -s $mod_dir/LICENSE "$pkgdir/usr/share/licenses/$pkgname/"
 }
