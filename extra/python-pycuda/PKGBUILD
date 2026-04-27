@@ -6,7 +6,7 @@
 _name=pycuda
 pkgname=python-pycuda
 pkgver=2026.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Python wrapper for Nvidia CUDA"
 arch=(x86_64)
 url="https://documen.tician.de/pycuda/"
