@@ -5,12 +5,12 @@
 
 pkgname=fop
 pkgver=2.11
-pkgrel=2
+pkgrel=3
 pkgdesc='XSL-FO to PDF formatter'
 arch=(any)
 url='https://xmlgraphics.apache.org/fop/'
 license=(Apache-2.0)
-depends=(java-avalon-framework 'java-batik=1.17' java-commons-io java-commons-logging java-xmlgraphics-commons)
+depends=(java-avalon-framework 'java-batik=1.19' java-commons-io java-commons-logging java-xmlgraphics-commons)
 makedepends=(apache-ant git jdk8-openjdk maven)
 source=("$pkgname::git+https://github.com/apache/xmlgraphics-fop#tag=${pkgver//./_}"
         fop.conf)
