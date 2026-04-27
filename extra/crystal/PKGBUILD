@@ -2,8 +2,8 @@
 # Contributor: Jonne Haß <me@jhass.eu>
 
 pkgname=crystal
-pkgver=1.19.1
-pkgrel=3
+pkgver=1.20.0
+pkgrel=2
 pkgdesc='The Crystal Programming Language'
 arch=(x86_64)
 url='https://crystal-lang.org'
@@ -15,14 +15,20 @@ optdepends=('shards: crystal language package manager'
             'libyaml: For YAML support'
             'gmp: For BigInt support'
             'libxml2: For XML support')
-source=(crystal-$pkgver.tar.gz::https://github.com/crystal-lang/crystal/archive/$pkgver.tar.gz)
-sha256sums=('2f9cfaa6bdc872f6e89d483cfe474f35232e5dd4a33dcc05ec69e5fadb2b0257')
+source=(
+  "crystal-${pkgver}.tar.gz::https://github.com/crystal-lang/crystal/archive/${pkgver}.tar.gz"
+  "fix_range_sample_randomness.patch::https://patch-diff.githubusercontent.com/raw/crystal-lang/crystal/pull/16853.patch"
+)
+sha256sums=('2eb511167d9545331e472920c1ec89c4ab6807aadc74afddb020b2630843cf2d'
+            'f7e83a493c033d565844ae1c3f8e4a679f8df4d318246687c949a1aa7edadd1e')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  # the helper script uses a hardcoded list of allowed/supported llvm versions
-  # the 1.19.1 release doesn't officially allow llvm 22.1, only up to 22.0
-  sed -i 's/^\(22.0\)/22.1 \1/1' src/llvm/ext/llvm-versions.txt
+
+  # There will probably be a 1.20.1 release soon,
+  # but nevertheless it's better to include this fix sooner
+  # rather than later.
+  patch -Np1 < ../fix_range_sample_randomness.patch
 }
 
 build() {
