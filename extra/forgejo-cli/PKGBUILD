@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=forgejo-cli
-pkgver=0.4.1
-pkgrel=2
+pkgver=0.5.0
+pkgrel=1
 pkgdesc='CLI application for interacting with Forgejo'
 url="https://codeberg.org/forgejo-contrib/$pkgname"
 license=('Apache-2.0 OR MIT')
@@ -15,7 +15,7 @@ depends=(glibc # libc.so libm.so ld-linux-x86-64
 arch=(x86_64)
 _archive="$pkgname-$pkgver"
 source=("$_archive.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('8f6a93c5f97e45308aead0154d4ec53e672ca90ab0809db543cde6be8078729e')
+sha256sums=('028ebcbd744301fbfd144cd9bc5ff0a27e02d99b02c8abafb20742299715c556')
 
 prepare() {
 	cd "$pkgname"
