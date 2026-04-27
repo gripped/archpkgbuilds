@@ -4,7 +4,7 @@
 # Contributor: Alexander Baldeck <alexander@archlinux.org>
 
 pkgname=xterm
-pkgver=407
+pkgver=409
 pkgrel=1
 pkgdesc="X Terminal Emulator"
 arch=('x86_64')
@@ -20,19 +20,18 @@ depends=(
   'libxaw'
   'libxext'
   'libxft'
-  'libxkbfile'
   'libxmu'
   'libxpm'
   'libxt'
-  'luit'
   'ncurses'
-  'xbitmaps'
 )
 makedepends=('git')
-optdepends=('xorg-mkfontscale: font scaling')
+optdepends=(
+  'luit: locale converter for -lc option'
+  'xorg-mkfontscale: font scaling'
+)
 source=("$pkgname::git+https://github.com/ThomasDickey/xterm-snapshots.git?signed#tag=xterm-$pkgver")
-sha256sums=('1b45a9f1f00b5446ff706fbbde78c14dc47e158cc7f42e184f0efb056a90b0b9')
-#validpgpkeys=('C52048C0C0748FEE227D47A2702353E0F7E48EDB') # "Thomas Dickey <dickey@invisible-island.net>"
+b2sums=('9cecae9b1a2211e24ee752d2bf4df268c5c02108ce7f0fd51f22adfadd895862c9dd092b95f351d37594b299e318d7e5a41078937da6e96655c99b2caadf1a5d')
 validpgpkeys=('19882D92DDA4C400C22C0D56CC2AF4472167BE03') # "Thomas E. Dickey (self-signed w/o SHA1) <dickey@invisible-island.net>"
 
 build() {
