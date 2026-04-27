@@ -2,8 +2,8 @@
 # Maintainer: Konstantin Gizdov <arch at kge dot pw>
 
 pkgname=python-xxhash
-pkgver=3.6.0
-pkgrel=2
+pkgver=3.7.0
+pkgrel=1
 pkgdesc='Python binding for xxHash'
 arch=(x86_64)
 url="https://github.com/ifduyue/$pkgname"
@@ -21,7 +21,7 @@ makedepends=(
     python-wheel
 )
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-b2sums=('f91cf51f2acb70d6401de019287fb6f2399ea3bf99520894570800795a0908c954fda3f5cfa0f894c2ce31e9766cee0dc7a5b9d292e22a47a9757e989c8dc113')
+b2sums=('e96b8db35efe2e17468140d0058fbcd7bc845cc25e9c6b133eae8b3f347b99fa0aefe929fceeb5ec94a814374095ad8f481b876dca9721d69ab71d0e77419fab')
 
 build() {
     cd $pkgname
