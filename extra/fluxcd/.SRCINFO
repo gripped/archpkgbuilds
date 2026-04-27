@@ -1,6 +1,6 @@
 pkgbase = fluxcd
 	pkgdesc = Open and extensible continuous delivery solution for Kubernetes
-	pkgver = 2.8.5
+	pkgver = 2.8.6
 	pkgrel = 1
 	url = https://fluxcd.io
 	arch = x86_64
@@ -10,8 +10,9 @@ pkgbase = fluxcd
 	makedepends = kustomize
 	depends = glibc
 	replaces = fluxctl
-	source = fluxcd::git+https://github.com/fluxcd/flux2#tag=v2.8.5
-	sha512sums = 1afa66f2b9919aa3407cc7be75ef60632b30cdfd79376b1fc9055a27de7f8ae14448ab002be7c7a9786621fac4043780d0f2b504a50a352ff18128faf25fa0cd
-	b2sums = 5c09695b1cd7eacdc54b244c5c6de414fd2ab64122ce97b686d7f8919bbbdcff69fbac3ea2ce39493a3d4726c7b900835e72e8424a1d49953f52a52e5202d553
+	options = !lto
+	source = fluxcd::git+https://github.com/fluxcd/flux2#tag=v2.8.6
+	sha512sums = adaac12c447d0ec4baffc6974f49b1e3fbf30e9c7322e72455d7f612ea773a772d9feda48959613ef59a11cdb7a75946bfa8ce4e8aee1a14f35b4a7563f7fe7e
+	b2sums = e2c2aaca28056bf68c27ff97b6f31250ce70c230013041add4d51d1d0698928b383d1130369a81d11d28cd47f284ff479017d69ce67a3b045e79cd3eef02a3d4
 
 pkgname = fluxcd
