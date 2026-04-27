@@ -2,8 +2,8 @@
 # Contributor: John K. Luebs <jkl at johnluebs dot tld>
 
 pkgname=tea
-pkgver=0.13.0
-pkgrel=1
+pkgver=0.14.0
+pkgrel=2
 pkgdesc='A command line tool to interact with Gitea servers'
 arch=(x86_64)
 url='https://gitea.com/gitea/tea'
@@ -13,17 +13,14 @@ makedepends=(git go)
 replaces=(gitea-tea)
 options=(!lto)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('9663e35315b4d3b688cca7d9f7fa7d9ea952fbfb8ae44beebd1996490cbf4d6186b3a1f97f2f02ab7280cda2be551e1de0f77a2bb91514a35416d96fb521d134')
-b2sums=('e84b8fb96ed6f1921f9b2441845321f5e4118b48956d1d9ad4f88d2047dbf3ab1c7dfa220efe4a579378edeb1a0bdc8ebc4e3fb3728def1603de7c3da9f23451')
+sha512sums=('939ddc14c70485851f4d65ac9283f7f502c6031f8bd9ceeabe377c2854f479a1e2440801ef3467e198bbd480214cbfbe258d279992c6d2e6ac1c3e6a0a7e6acd')
+b2sums=('879b0e2a55c43d3548612efb272e07fcdd240e5ae518bd7bfe1e8247b178687f4a6b842d41658d356fc4565e7d43da905077eace2706d8746bdc6b7b28c4d240')
 
 prepare() {
   cd "$pkgname"
 
   # create directory for build output
   mkdir build
-
-  # fix zsh completion
-  sed -i "s/\$PROG/tea/" contrib/autocomplete.zsh
 
   # download dependencies
   export GOPATH="${srcdir}"
@@ -46,10 +43,18 @@ build() {
     -ldflags "-compressdwarf=false \
     -linkmode external \
     -extldflags '${LDFLAGS}' \
-    -X main.Version=${pkgver} \
-    -X main.Tags=${TAGS}" \
+    -X code.gitea.io/tea/modules/version.Version=${pkgver} \
+    -X code.gitea.io/tea/modules/version.Tags=${TAGS}" \
     -o build \
     .
+
+  # generate shell completions
+  for shell in bash fish zsh; do
+    build/tea completion "$shell" > build/"${shell}-completion"
+  done
+
+  # generate man page
+  build/tea man --out build/tea.8
 }
 
 package() {
@@ -61,7 +66,15 @@ package() {
   # license
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 
-  # completions
-  install -vDm644 contrib/autocomplete.sh "$pkgdir/usr/share/bash-completion/completions/$pkgname"
-  install -vDm644 contrib/autocomplete.zsh "$pkgdir/usr/share/zsh/site-functions/_tea"
+  # shell completions
+  install -vDm644 build/bash-completion \
+    "$pkgdir/usr/share/bash-completion/completions/tea"
+  install -vDm644 build/fish-completion \
+    "$pkgdir/usr/share/fish/vendor_completions.d/tea.fish"
+  install -vDm644 build/zsh-completion \
+    "$pkgdir/usr/share/zsh/site-functions/_tea"
+
+  # man page
+  install -vDm644 build/tea.8 \
+    "$pkgdir/usr/share/man/man8/tea.8"
 }
