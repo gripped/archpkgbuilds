@@ -3,8 +3,8 @@
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 
 pkgname=kdevelop
-pkgver=25.12.3
-pkgrel=2
+pkgver=26.04.0
+pkgrel=1
 pkgdesc='C++ IDE using KDE technologies'
 arch=(x86_64)
 url='http://www.kdevelop.org/'
@@ -72,6 +72,7 @@ optdepends=('apr: SVN support'
             'git: Git support'
             'heaptrack: memory profiler'
             'kate: for additional plugins'
+            'kde-cli-tools: shell integration in the embedded terminal'
             'kio-extras: man pages plugin'
             'kirigami: sessions applet'
             'konsole: embedded terminal'
@@ -89,7 +90,7 @@ optdepends=('apr: SVN support'
 groups=(kde-applications
         kdevelop)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('b6e8f6a02b3ab843b2212eda13aadee3f5d7039dc0b90c2070fec56e337dfcd5'
+sha256sums=('4af9c4a2a7d3c9c76caa53556ee756e1179b31e91363a909fcc3dbba64d8e3ca'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
