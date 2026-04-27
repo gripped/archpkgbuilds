@@ -3,7 +3,7 @@
 # Contributor: killruana <killruana@gmail.com>
 
 pkgname=yosys
-pkgver=0.60
+pkgver=0.64
 pkgrel=1
 pkgdesc='A framework for RTL synthesis'
 arch=('x86_64')
@@ -11,7 +11,7 @@ url='https://yosyshq.net/yosys/'
 license=('ISC')
 depends=('abc' 'bash' 'glibc' 'libffi' 'libgcc' 'python' 'protobuf' 'readline' 'tcl' 'zlib' 'libstdc++')
 makedepends=('boost' 'git' 'pybind11' 'python-cxxheaderparser')
-checkdepends=('iverilog' 'gtkwave')
+checkdepends=('gmock' 'iverilog' 'gtkwave')
 optdepends=('graphviz: Schematics display support'
             'xdot: Display netlists'
             'yices: default solver for yosys-smtbmc'
@@ -20,7 +20,7 @@ optdepends=('graphviz: Schematics display support'
 options=('!lto') # getting SIGSEGV when running the tests with LTO
 source=(git+https://github.com/YosysHQ/yosys#tag=v$pkgver
         git+https://github.com/jarro2783/cxxopts)
-sha512sums=('fd1c2e706b9c488977f0bc1ae0fa47503f56047d7c4345cae46881a409a7de539ebfe53c61cc19a7f12c89459df5d4616ef791a5f53c9480b10994bc036249d3'
+sha512sums=('8ccf52d135835dfaf4e79d94ef3d3c5613bf2ef527ad34fa5af7ff5ff1cb1a2b942094dc27ae72a761fc1d3f5c30532a6db3e7eb54d42f456c1828887c0392ef'
             'SKIP')
 
 prepare() {
@@ -30,6 +30,10 @@ prepare() {
   git -c protocol.file.allow=always submodule update libs/cxxopts
 
   sed -e '/cp yosys-abc/d' -i Makefile # Fix Makefile trying to install yosys-abc even if using system one
+  # Unit tests don't inherit Python embed libs correctly and link them before -lyosys.
+  sed -e 's/LIBS="$(LIBS)"/LIBS="$(EXE_LIBS) $(LIBS)"/' -i Makefile
+  sed -e 's/\$(LIBS) \\/\$(GTEST_LDFLAGS) \$(EXTRAFLAGS) \$(LIBS)/' \
+      -e '/\$(GTEST_LDFLAGS) $(EXTRAFLAGS)$/d' -i tests/unit/Makefile
 }
 
 _make() {

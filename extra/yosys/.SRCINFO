@@ -1,10 +1,11 @@
 pkgbase = yosys
 	pkgdesc = A framework for RTL synthesis
-	pkgver = 0.60
+	pkgver = 0.64
 	pkgrel = 1
 	url = https://yosyshq.net/yosys/
 	arch = x86_64
 	license = ISC
+	checkdepends = gmock
 	checkdepends = iverilog
 	checkdepends = gtkwave
 	makedepends = boost
@@ -28,9 +29,9 @@ pkgbase = yosys
 	optdepends = cvc4: alternative solver for yosys-smtbmc
 	optdepends = z3: alternative solver for yosys-smtbmc
 	options = !lto
-	source = git+https://github.com/YosysHQ/yosys#tag=v0.60
+	source = git+https://github.com/YosysHQ/yosys#tag=v0.64
 	source = git+https://github.com/jarro2783/cxxopts
-	sha512sums = fd1c2e706b9c488977f0bc1ae0fa47503f56047d7c4345cae46881a409a7de539ebfe53c61cc19a7f12c89459df5d4616ef791a5f53c9480b10994bc036249d3
+	sha512sums = 8ccf52d135835dfaf4e79d94ef3d3c5613bf2ef527ad34fa5af7ff5ff1cb1a2b942094dc27ae72a761fc1d3f5c30532a6db3e7eb54d42f456c1828887c0392ef
 	sha512sums = SKIP
 
 pkgname = yosys
