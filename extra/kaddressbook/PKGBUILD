@@ -2,13 +2,14 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=kaddressbook
-pkgver=25.12.3
+pkgver=26.04.0
 pkgrel=1
 pkgdesc='KDE contact manager'
 arch=(x86_64)
 url='https://apps.kde.org/kaddressbook/'
 license=(GPL-2.0-or-later)
-depends=(akonadi-contacts
+depends=(akonadi
+         akonadi-contacts
          akonadi-search
          gcc-libs
          glibc
@@ -27,10 +28,10 @@ depends=(akonadi-contacts
          kldap
          kontactinterface
          kparts
+         ktextaddons
          kuserfeedback
          kwidgetsaddons
          kxmlgui
-         libakonadi
          libkdepim
          pimcommon
          qt6-base)
@@ -39,7 +40,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-pim)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('5c3e77aa683eff9a96a5117768e8b1828f171dade1a035443bda37a1c5abcbd4'
+sha256sums=('fe7535b08558835e06bb53dcde67810074d6184bc38f927ae170922f87ead607'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
