@@ -3,7 +3,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=sushi
-pkgver=50rc.1
+pkgver=50.0
 pkgrel=1
 pkgdesc="A quick previewer for Nautilus"
 url="https://gitlab.gnome.org/GNOME/sushi"
@@ -42,10 +42,11 @@ source=(
   "git+$url.git?signed#tag=${pkgver/[a-z]/.&}"
   0001-sushi-media-bin-Fix-llvmpipe-detection.patch
 )
-b2sums=('db457838b473a074bef4ba38fe5ca715255cc8bba92470b56169e6d97e5136761ddc0d71d1ff3a7372ddfbf73829746d9581b5b268bd58e3ae36e07e955a5a3c'
-        '1c0df7c8674960bfeb480a0f63d7ab33fae5e042e20a20dec53a5791dd1ceee98cc974e439e0c8e7b49d69c3e96431d2857c551f858c41ff709485daae64476c')
+b2sums=('6d59a8719ab712f645413021861f8c0a394ddfe2c65fef9f5b8f64950831218e7b620ee3901006bab2aa1e928ff8c132e9217a75a6ec174a541a535ea5957cd2'
+        '1506046e46557d87fabf860cff467682c04226d0bf4d2ecdcde5fba1ac1d608c78cd3e556dbdde72e17d449b9e5ae6e30616ec454d93335dbfd18a4f179afb79')
 validpgpkeys=(
   550660707A6F40376B9B9F8D504A78811E6160CC # Corey Berla <corey@berla.me>
+  3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
 )
 
 prepare() {
