@@ -3,7 +3,7 @@
 
 pkgbase=python-polars
 pkgname=($pkgbase $pkgbase-runtime-{32,64,compat})
-pkgver=1.39.3
+pkgver=1.40.1
 pkgrel=1
 pkgdesc="Blazingly fast DataFrames library using Apache Arrow Columnar Format as memory model"
 arch=("x86_64")
@@ -33,11 +33,13 @@ checkdepends=('python-pytest'
               'python-cloudpickle'
               'python-aiosqlite'
               'python-boto3'
-              'python-orjson')
+              'python-orjson'
+              'python-altair'
+              'python-arrow-adbc-driver-sqlite')
 _name=${pkgname#python-}
 _tag="py-$pkgver"
 source=("https://github.com/pola-rs/polars/archive/refs/tags/$_tag.tar.gz")
-b2sums=('13b1f1bdf8db3f006216d90edb3cd4da33ba44359ccbd16a07aaeffd8b5368bf46600d035e91de11b9b33196861ad2984a5c016787d3b00edf91d2c15c6ebcef')
+b2sums=('f02ca8fea1966da71bd476da53708fa044394e202f9c1ac1882d9faf2a5bec00ad79683f0e76c02a9c2669444823b5c86014199f1392732e6dbdb2c3202eb2cd')
 
 prepare() {
     cd polars-$_tag/py-polars
@@ -62,31 +64,25 @@ check() {
     test-env/bin/python -m installer dist/polars-*.whl
 
 
-    local _pytest_args=(
-        -W ignore::DeprecationWarning
-        # ResourceWarning may come from aiosqlite: https://github.com/omnilib/aiosqlite/commit/1cd60adcab12347577150a6fa6c7d92b7b86d989
-        -W ignore::ResourceWarning
-        -W ignore::pydantic.warnings.PydanticDeprecatedSince211
-        --ignore tests/unit/io/test_delta.py
-        --ignore tests/unit/operations/namespaces/test_plot.py
-        --ignore tests/unit/io/cloud/test_aws.py
-        --ignore tests/unit/functions/range/test_datetime_range.py
-        --ignore tests/unit/io/test_spreadsheet.py
-        --ignore tests/unit/io/test_iceberg.py
-        --ignore tests/unit/io/database
-        --deselect "tests/unit/streaming/test_streaming_categoricals.py::test_streaming_cat_14933"
-        --deselect "tests/unit/dataframe/test_df.py::test_extension"
-        --deselect "tests/unit/streaming/test_streaming_group_by.py::test_streaming_group_by_literal[1]"
-        --deselect tests/unit/io/test_hive.py::test_hive_decode_reserved_ascii_23241
-        --deselect tests/unit/io/test_hive.py::test_hive_decode_utf8_23241
-        # tests failing due to changes in Python 3.14
-        --deselect tests/unit/constructors/test_constructors.py::test_init_structured_objects_nested[_TestFooNT-_TestBarNT-_TestBazNT]
-        --deselect tests/unit/series/test_item.py::test_series_item_out_of_range_date
-        --deselect tests/unit/test_init.py::test_type_aliases_deprecated
-    )
-
     # Ignore several test files as they either use unpackaged dependencies, or
     # contain direct errors
+    local _pytest_args=(
+        # Requires unpackaged python-deltalake
+        --ignore tests/unit/io/test_delta.py
+        --ignore tests/unit/io/test_delta_deletion_vector.py
+        --deselect tests/unit/io/test_hive.py::test_hive_decode_reserved_ascii_23241
+        --deselect tests/unit/io/test_hive.py::test_hive_decode_utf8_23241
+        # Requires three additional deps and tests don't run
+        # https://github.com/pola-rs/polars/issues/16910
+        --ignore tests/unit/io/cloud/test_aws.py
+        # Requires several excel libraries, not all packaged, and annoying to filter individually
+        --ignore tests/unit/io/test_spreadsheet.py
+        # Requires unpackaged python-pyiceberg
+        --ignore tests/unit/io/test_iceberg.py
+        # Requires unpackaged python-connectorx
+        --deselect "tests/unit/io/database/test_read.py::test_read_database_cx_credentials"
+    )
+
     test-env/bin/python -P -m pytest tests/unit "${_pytest_args[@]}"
 }
 
