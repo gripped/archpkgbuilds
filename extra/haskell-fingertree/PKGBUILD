@@ -3,8 +3,8 @@
 
 _hkgname=fingertree
 pkgname=haskell-fingertree
-pkgver=0.1.6.2
-pkgrel=79
+pkgver=0.1.6.3
+pkgrel=2
 pkgdesc="Generic finger-tree structure, with example instances"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD-3-Clause')
@@ -13,7 +13,7 @@ depends=('ghc-libs')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
              'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('807cbfedea76af45537d5df450cade72d0429a45b6a4d7ea36bf493a6cac2466062447e5df4b0dbbd6e4627c477279bd6e657b5b96b3bd49c98bd27eb1dcd0b6')
+sha512sums=('4e58fae2cdec805684c6f4d69d1c22540c7896abe5a9daae0168eb1cdb62d0b5ca19fd2cbb88c3602989c1e34a6f56fa0801bb52d40ec07e96035685d4da5878')
 
 build() {
     cd $_hkgname-$pkgver
