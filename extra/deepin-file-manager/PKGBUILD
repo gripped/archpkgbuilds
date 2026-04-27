@@ -3,8 +3,8 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-file-manager
-pkgver=6.1.0
-pkgrel=6
+pkgver=6.5.1
+pkgrel=1
 epoch=1
 pkgdesc='Deepin File Manager'
 arch=('x86_64')
@@ -32,7 +32,7 @@ replaces=('deepin-desktop')
 options=('!lto')
 source=("git+https://github.com/linuxdeepin/dde-file-manager.git#tag=$pkgver"
          gcc-15.patch)
-sha512sums=('b0752bfeabed96c130bebfa3e1a1b85a02cd282662dc8dcc2cd2e2189f5159f5b8221513057552b02265a77787ea4517702a188d0856a19d239ed772db1b3ec2'
+sha512sums=('a10f071c1378116d08dc010938515116be1cb320e586e43a4c5a4b11f0f4ce7d4b45a8c12dde5c976c25f693c3e3ae2b7ec707b94886c1c669f4b5a42b226c62'
             'b2cda989438b90703a5718ac0daf5972f4d70e21ceef5ad9751445178c4299200f8ac3be112e79682bd37b751e6e3fbd3aaef4189adaaf9abe2506132c16ab41')
 
 prepare() {
@@ -40,16 +40,22 @@ prepare() {
   patch -p1 -i ../gcc-15.patch
 
   # Install dbus config to /usr/share/dbus-1/system.d instead of /etc/dbus-1/system.d
-  sed -i 's|${CMAKE_INSTALL_SYSCONFDIR}/dbus-1/system.d|${CMAKE_INSTALL_PREFIX}/share/dbus-1/system.d|' \
-    src/apps/dde-file-manager-daemon/CMakeLists.txt
+  grep -rl '${CMAKE_INSTALL_SYSCONFDIR}/dbus-1/system.d' src services | xargs sed -i \
+    's|${CMAKE_INSTALL_SYSCONFDIR}/dbus-1/system.d|${CMAKE_INSTALL_PREFIX}/share/dbus-1/system.d|'
 
-  # Fix for newer dtkcore: dconfig_meta_files was renamed to dtk_add_config_meta_files
-  sed -i 's/dconfig_meta_files/dtk_add_config_meta_files/g' install_dconfig.cmake
+  sed -i 's|\<lrelease\>|/usr/bin/lrelease-qt5|' src/translate_generation.sh
+
 }
 
 build() {
   # cmake confused with glob files, see https://github.com/linuxdeepin/developer-center/issues/5158
-  cmake -GNinja -B build -S dde-file-manager -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc
+  cmake -GNinja -B build -S dde-file-manager \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib/dde-file-manager \
+    -DCMAKE_INSTALL_SYSCONFDIR=/etc \
+    -DOPT_ENABLE_QT6=OFF \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   cd build
   ninja
 }
