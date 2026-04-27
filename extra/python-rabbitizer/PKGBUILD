@@ -1,0 +1,38 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-rabbitizer
+pkgver=1.16.0
+pkgrel=1
+pkgdesc='MIPS instruction decoder API'
+arch=(x86_64)
+url='https://github.com/Decompollaborate/rabbitizer'
+license=(MIT)
+depends=(
+  glibc
+  python
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('84a22a60a49ff0259e980fdc0338ee62e1b193c779e14913dffdb3361f8a63310663334598eb0ccf9e098058b986fbb4e7ed4b1a2488ad3022909d186dcc7546')
+b2sums=('0c7f7eb2b67d9327ee3cfaa3e557df792a6618d52502075548afe0a287d13b7a8ca5b5c8e2f567eb0b2c548df88ac5648d4a409a4535d3425642e0da29ffa44a')
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}
