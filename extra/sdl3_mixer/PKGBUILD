@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=sdl3_mixer
 pkgver=3.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple multi-channel audio mixer (Version 3)"
 arch=('x86_64')
 url="https://github.com/libsdl-org/SDL_mixer"
@@ -20,9 +20,9 @@ build() {
     -B build -G Ninja \
     -D CMAKE_BUILD_TYPE=None \
     -D CMAKE_INSTALL_PREFIX=/usr \
-    -D SDL_STATIC=OFF \
-    -D SDL_RPATH=OFF
-  cmake --build build
+    -D SDLMIXER_TESTS_INSTALL=OFF \
+    -D SDLMIXER_EXAMPLES_INSTALL=OFF
+cmake --build build
 }
 
 package() {
