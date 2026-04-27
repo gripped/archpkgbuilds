@@ -3,19 +3,16 @@
 
 pkgname=molecule
 pkgver=26.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Aids in the development and testing of Ansible roles"
 url="https://github.com/ansible-community/molecule"
 arch=('any')
 license=('MIT')
-depends=('python' 'python-ansible-compat' 'python-click' 'python-click-help-colors' 'python-enrich' 'python-jinja' 'python-jsonschema' 'python-packaging' 'python-pluggy' 'python-pyyaml' 'python-rich' 'python-wcmatch')
+depends=('python' 'python-ansible-compat' 'python-click' 'python-click-help-colors' 'python-enrich' 'python-jinja' 'python-jsonschema' 'python-packaging' 'python-pluggy' 'python-yaml' 'python-rich' 'python-wcmatch')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm' 'python-wheel' 'git')
 checkdepends=('ansible' 'ansible-navigator' 'check-jsonschema' 'python-ansi2html' 'python-filelock' 'python-pexpect' 'python-pytest' 'python-pytest-mock' 'python-pytest-testinfra' 'python-pytest-xdist' 'python-regress' 'python-uv' 'yamllint')
 optdepends=('ansible: for the ansible verifier'
             'ansible-navigator: to use navigator as playbook executor'
-            'molecule-docker: for the docker driver'
-            'molecule-podman: for the podman driver'
-            'molecule-vagrant: for the vagrant driver'
             'python-pywinrm: for Windows support'
             'python-pytest-testinfra: for the testinfra verifier')
 source=("git+${url}.git#tag=v${pkgver}")

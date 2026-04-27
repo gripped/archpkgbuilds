@@ -1,7 +1,7 @@
 pkgbase = molecule
 	pkgdesc = Aids in the development and testing of Ansible roles
 	pkgver = 26.4.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/ansible-community/molecule
 	arch = any
 	license = MIT
@@ -33,14 +33,11 @@ pkgbase = molecule
 	depends = python-jsonschema
 	depends = python-packaging
 	depends = python-pluggy
-	depends = python-pyyaml
+	depends = python-yaml
 	depends = python-rich
 	depends = python-wcmatch
 	optdepends = ansible: for the ansible verifier
 	optdepends = ansible-navigator: to use navigator as playbook executor
-	optdepends = molecule-docker: for the docker driver
-	optdepends = molecule-podman: for the podman driver
-	optdepends = molecule-vagrant: for the vagrant driver
 	optdepends = python-pywinrm: for Windows support
 	optdepends = python-pytest-testinfra: for the testinfra verifier
 	source = git+https://github.com/ansible-community/molecule.git#tag=v26.4.0
