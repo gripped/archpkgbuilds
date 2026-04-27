@@ -1,19 +1,20 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kdsingleapplication
-pkgver=1.2.0
+pkgver=1.2.1
 pkgrel=1
 pkgdesc="KDAB's helper class for single-instance policy applications"
 arch=(x86_64)
 url='https://github.com/KDAB/KDSingleApplication'
 license=(MIT)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          qt6-base)
 makedepends=(cmake
              git)
 source=(git+https://github.com/KDAB/KDSingleApplication#tag=v$pkgver)
-sha256sums=('bfd4df2db09cf1dac6e14b38e78f9897925b3eb98272a8962eab7f0b0c6e941e')
+sha256sums=('d810760e42c26f1900ffdb3e3e34de1789025ef6cd538857f10ff5ed9dd7676f')
 
 build() {
   cmake -B build -S KDSingleApplication \
