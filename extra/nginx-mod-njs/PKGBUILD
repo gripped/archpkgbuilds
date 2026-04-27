@@ -2,8 +2,8 @@
 
 pkgbase=nginx-mod-njs
 pkgname=(nginx-mod-njs nginx-mod-njs-stream)
-pkgver=0.9.6
-pkgrel=3
+pkgver=0.9.8
+pkgrel=1
 
 _modname="${pkgname#nginx-mod-}"
 
@@ -15,7 +15,7 @@ url="https://nginx.org/en/docs/njs_about.html"
 license=('BSD-2-Clause')
 
 source=(https://github.com/nginx/njs/archive/refs/tags/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('713e931d1ffcd337f6304dc55e512dcf2099ba4cc3a996c9ea14f22d5d9cdd79')
+sha256sums=('016cea70b70f0abcf894366bd555e34ea839b920fac1b085fb063a2ecccc8672')
 
 prepare() {
   mkdir -p build
