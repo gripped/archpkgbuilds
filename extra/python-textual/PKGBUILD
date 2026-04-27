@@ -5,7 +5,7 @@
 
 _base=textual
 pkgname=python-${_base}
-pkgver=8.2.3
+pkgver=8.2.4
 pkgrel=1
 pkgdesc="Modern Text User Interface framework"
 arch=(any)
@@ -15,7 +15,7 @@ depends=(python python-rich python-markdown-it-py python-linkify-it-py python-ty
 makedepends=(python-build python-installer python-poetry-core)
 checkdepends=(python-pytest-asyncio python-time-machine python-pytest-xdist python-pytest-textual-snapshot)
 source=(${_base}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz)
-sha512sums=('a9949612e58e8e6889c739430c1c15be05c96619bec9386691645e91f6842b422127d4a5b7d5a3dcaf0ed2015864d2338ffde7352b7394c4fdb167f9a129aadd')
+sha512sums=('9e4292a43a3f633831c0b1ba75fac14271ea3bd997d522591a70452aeb2e9f23ef2064598014519c65428c6d5e413d2d97248d1bccbf9237aa3928d05c9722d4')
 
 build() {
   cd ${_base}-${pkgver}
