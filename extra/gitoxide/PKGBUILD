@@ -2,8 +2,8 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=gitoxide
-pkgver=0.51.0
-pkgrel=2
+pkgver=0.52.1
+pkgrel=1
 pkgdesc="An idiomatic, lean, fast & safe pure Rust implementation of Git"
 url='https://github.com/Byron/gitoxide'
 arch=('x86_64')
@@ -18,12 +18,12 @@ makedepends=(
 )
 options=(!lto)
 source=(https://github.com/Byron/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('22da356497d22eabb598233cfba61db3674e234792df1def55212ea7d2793e5d')
-b2sums=('72d8e7e65d5258d15953bdc91c69ef9185c47f2ab94a150ee7d99ed07328ad06addaf0812cf3185b3bbe99bd0c993b816d737fa2282f5043bf4902533db07c47')
+sha256sums=('47eeb05374986e6a3fd174d364ca6699bdc58966f091ff8ab14792a87629c499')
+b2sums=('dccd291fefd25e48ccb82cbe6bbfa1391748fbc1edc2b9fe6fd78631b76527c656ead3b12f45442d6c720fed0f1ff150080323205579350587faf98c61b0ba82')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
