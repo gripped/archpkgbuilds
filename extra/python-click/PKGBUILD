@@ -4,7 +4,7 @@
 # Contributor: Carl George < arch at cgtx dot us >
 
 pkgname=python-click
-pkgver=8.3.2
+pkgver=8.3.3
 pkgrel=1
 pkgdesc="Simple wrapper around optparse for powerful command line utilities"
 arch=('any')
@@ -18,7 +18,7 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("https://github.com/pallets/click/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('da2511a4e25d61b62c1b8be95b4bd39948f8a83fbed6c3ef8ecbe2832128e81d2a356455f8d33aa6c00ff17199c7bcf7d590e85c504feefb26c5a7b4da117d97')
+b2sums=('c2dc5eeb6b7e1ea8a4381fa657b753fdb3afdd5fd348987b8fcac4118a625f2689d19111838295a52916550223682152236530d67cdf5c732e3b22899f66b2bc')
 
 build() {
   cd ${pkgname#python-}-$pkgver
