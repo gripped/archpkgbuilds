@@ -1,13 +1,14 @@
-# Maintainer: Konstantin Gizdov <arch at kge dot pw>
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+# Contributor: Konstantin Gizdov <arch at kge dot pw>
 # Contributor: Baptiste Jonglez <archlinux at bitsofnetworks dot org>
 # Contributor: Angel 'angvp' Velasquez <angvp[at]archlinux.com.ve>
 # Contributor: solsTiCe d'Hiver <solstice.dhiver@gmail.com>
 
 pkgname=lesspipe
-pkgver=2.18
-pkgrel=2
+pkgver=2.24
+pkgrel=1
 pkgdesc='an input filter for the pager less'
-depends=('less' 'perl')
+depends=('less')
 makedepends=('zsh')
 arch=('any')
 license=('GPL-2.0-or-later')
@@ -32,18 +33,20 @@ optdepends=('rpmextract: support for rpm files'
 url="https://www-zeuthen.desy.de/~friebel/unix/lesspipe.html"
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/wofr06/lesspipe/archive/refs/tags/v${pkgver}.tar.gz"
         'lesspipe.sh')
-b2sums=('SKIP'
-        'SKIP')
+b2sums=('822c4a5e989d2c5080916b609a5795529d5c06992d86ae999abf173ada0ced77121db4d36f622e24e0bd764a2ce8139b7a746b1ceaf4891700aaba3bccc064ca'
+        'bf7dfbd8e00257995e1be518e1c46619139635e33dd4f6fbb89340b6a94494f076095efd6351829d390eaf0ed6e119dbc3fba3a7bc39d8e83f093c458df792b2')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  ./configure --prefix=/usr
+  ./configure --prefix=/usr \
+    --bash-completion-dir=/usr/share/bash-completion/completions \
+    --libexecdir=/usr/lib/$pkgname
   PREFIX=/usr make
 }
 
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   mkdir -p "${pkgdir}"/usr/share/man/man1
-  make DESTDIR="${pkgdir}" PREFIX=/usr install
+  make DESTDIR="${pkgdir}" install
   install -Dm644 "${srcdir}"/lesspipe.sh "${pkgdir}"/etc/profile.d/lesspipe.sh
 }
