@@ -7,7 +7,7 @@
 
 pkgname=nim
 _pkgname=Nim
-pkgver=2.2.8
+pkgver=2.2.10
 pkgrel=1
 pkgdesc='Imperative, multi-paradigm, compiled programming language'
 url='https://nim-lang.org/'
@@ -40,10 +40,10 @@ source=(
   build-docs.patch
   'nim-gh-pr-24405.patch::https://patch-diff.githubusercontent.com/raw/nim-lang/Nim/pull/24405.patch'
 )
-sha512sums=('e653db3b66d142b3de73a531ead042e0d5110ed797298b82538eecf8b660c33fdb6eecfe493b5d2a7fd9dd430fdf854ed2b37bcddcfc632c07c9d8931027d421'
+sha512sums=('89154abd8bfa302e201148ea10aa02e0fbd635496620aba74e289b036485f58add0bcdf2a2903d9bce5da5fce3e8448cff118af6c689084d4435b354f58f4d41'
             '73e359917fa721d069bf4c3de63a217624aedc334529161f1976fd9d6b38b8d24c5bfca4e2f0ba34e3e6e0fc3394268c4d785e76ad7d24355bb8394db0f0fbf0'
             '82b63ffded3672ca42ba2185d3c2478989685974ee96d8a791b0f660cd273a79ec8916a2da9f29f1bd31a444377f31aa046f6b6e6974c4bea58e54b2befebf9a')
-b2sums=('d8089400740f18f679417a81eb1e93ae643445e9a00ec1b40b4d646f2717764887388fb301dd95f698003e645ef76de6e6942b8780efefe69f2fc329b63a9e0b'
+b2sums=('c8baeaa0925e002afdfe2e768e93742b49b1b282256cb626a4b6cbba375abc720d519a27afcc2a4d051059bd4461e3d3a7f683ccd4975827423883fbe7459542'
         'adfffe6b6df889e0cf3c1e37f43ba5c147ce50636150f74b2d73d8dd7df7f60b570c835af3d84d8b249852fa00eb180a4c54330d830947c4e829a2c87b22c4d0'
         '1e28435933d66178bf718851d6e93e714434a53ddab28175d20bd89f6327a8bcb451a4178318bc7b13ae30a4617d1a5137031ad7c082f382c868d6ce8a41918b')
 
@@ -77,6 +77,7 @@ build() {
   help2man --name='Nimgrep' "${h2m_args[@]}" -o nimgrep.1 ./bin/nimgrep
   help2man --name='Nimpretty' "${h2m_args[@]}" -o nimpretty.1 ./bin/nimpretty
   help2man --name='Nim Package Installer' "${h2m_args[@]}" -o nimble.1 ./bin/nimble
+  help2man --name='Atlas' "${h2m_args[@]}" -o atlas.1 ./bin/atlas
 
   # generate install.sh
   ./koch distrohelper
@@ -86,6 +87,10 @@ package() {
   cd "$pkgname"
 
   DESTDIR="$pkgdir" ./install.sh /usr/bin
+
+  # install atlas+nimpretty, as they are not in `install.sh`
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/nim/-/work_items/6
+  install -vDm755 -t "$pkgdir/usr/bin" bin/{atlas,nimpretty}
 
   # documentation
   install -vd "$pkgdir/usr/share/doc/$pkgname"
