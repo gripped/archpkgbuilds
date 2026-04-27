@@ -2,7 +2,7 @@
 # Contributor: Arvedui <arvedui@posteo.de>
 
 pkgname=python-retrying
-pkgver=1.4.1
+pkgver=1.4.2
 pkgrel=1
 pkgdesc="A general-purpose retrying library"
 arch=('any')
@@ -11,7 +11,7 @@ license=('Apache-2.0')
 depends=('python')
 makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 source=("git+https://github.com/groodt/retrying.git#tag=v$pkgver")
-sha512sums=('c0f47c9ff5f9fde617466e64602cd2272e6558606cf4c9212d1e1980dcf899cd1c7992426303a4b3a07ed7ff8bfd557245fe614394f5c7782425d9aa12e90461')
+sha512sums=('11dc4402e63c7559d23db816c71f512fa5e624c6e88c9d95b0ded1826772e9d51b9e1720aa7f9c4daa7331efe93787e7a78a75c436c4fc877ddda331ed6ac5c5')
 
 build() {
   cd retrying
