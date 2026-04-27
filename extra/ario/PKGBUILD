@@ -1,34 +1,47 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=ario
 pkgver=1.6
-pkgrel=5
+pkgrel=6
 pkgdesc="A GTK client for MPD inspired by Rhythmbox but much lighter and faster"
 arch=('x86_64')
 url="http://ario-player.sourceforge.net/"
-license=('GPL')
-depends=('avahi' 'curl' 'dbus-glib' 'gnutls' 'gtk3'
-         'libmpdclient' 'libnotify' 'libsoup' 'taglib' 'xdg-utils')
-makedepends=('intltool' 'perl-xml-parser' 'patch')
-changelog=$pkgname.changelog
-source=(https://downloads.sourceforge.net/sourceforge/$pkgname-player/$pkgname-$pkgver.tar.gz)
-sha256sums=('1442ede8eef994384489d72d028d7f7b1a1c81efe737f7147587dd02c772d09a')
+license=('GPL-2.0-or-later')
+depends=(
+  'avahi'
+  'curl'
+  'dbus-glib'
+  'gdk-pixbuf2'
+  'glib2'
+  'glibc'
+  'gtk3'
+  'hicolor-icon-theme'
+  'libmpdclient'
+  'libxml2'
+  'pango'
+  'taglib'
+  'xdg-utils'
+)
+makedepends=('intltool')
+source=("https://downloads.sourceforge.net/sourceforge/ario-player/$pkgname-$pkgver.tar.gz")
+b2sums=('2a9a5d9c9e528f92a198270a4715a225d254a8fd6800004928ef39c4ed792bda2a82eefaa45824d5422598f9fe242b6b621768780655b009043cc3447d8d5643')
 
 prepare() {
-  cd "${srcdir}"/$pkgname-$pkgver
-
-  autoreconf -fi
+  cd $pkgname-$pkgver
+  autoreconf -fiv
 }
 
 build() {
-  cd "${srcdir}"/$pkgname-$pkgver
-
-  ./configure --prefix=/usr --sysconfdir=/etc
+  cd $pkgname-$pkgver
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --disable-static
   make
- }
+}
 
-package () {
-  cd "${srcdir}"/$pkgname-$pkgver
-
-  make DESTDIR="${pkgdir}" install
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
 }
