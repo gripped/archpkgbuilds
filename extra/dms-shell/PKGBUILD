@@ -3,8 +3,8 @@
 pkgbase=dms-shell
 _pkg1=DankMaterialShell
 pkgname=($pkgbase $pkgbase-hyprland $pkgbase-niri)
-pkgver=1.4.4.1
-pkgrel=1
+pkgver=1.4.5
+pkgrel=2
 pkgdesc='A Quickshell-based desktop shell with Material 3 design principles'
 arch=(x86_64 aarch64)
 url="https://github.com/AvengeMedia/$_pkg1"
@@ -27,7 +27,7 @@ makedepends=(go)
 replaces=($pkgname-bin)
 _archive="$_pkg1-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('61c2d1828d7604b69eced61af43db86bd3349dbe3f2e65fd2f4b65cddd449e55')
+sha256sums=('e72ecd397ec967b2b789df06876810369a86052da92636c1c28cbe6676a28920')
 
 build() {
 	cd "$_archive/core"
