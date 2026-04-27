@@ -4,13 +4,12 @@
 # Contributor: Stefan Tatschner <stefan@rumpelsepp.org>
 
 pkgname=xdg-desktop-portal-wlr
-pkgver=0.8.1
+pkgver=0.8.2
 pkgrel=1
 pkgdesc='xdg-desktop-portal backend for wlroots'
-url="https://github.com/emersion/xdg-desktop-portal-wlr"
 arch=('x86_64')
+url="https://github.com/emersion/xdg-desktop-portal-wlr"
 license=('MIT')
-provides=('xdg-desktop-portal-impl')
 depends=(
   'glibc'
   'grim'
@@ -30,24 +29,25 @@ makedepends=(
   'scdoc'
   'wayland-protocols'
 )
+provides=('xdg-desktop-portal-impl')
 source=(
-  "${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+  "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
   wlr-portals.conf
 )
-sha512sums=('58da2a4c530a0ce842d5e6c4847853968e55575a20c87d58c4dd76266875887c0873689aadd6852f407b6339c6e5da61a9222573555f2b508f276ed185d937cd'
+sha512sums=('5ecb38da97dae07424004dfaffa10b88bf826b50559adb22adb4c96f6b28f00354f01b801459bc314dd56ae279f17983ed0d0843068954eccd880fa073b969c1'
             '71f3383c3f62100dc669c519d107614a4566e808deddf66a179dd2bf175dc272a2390965cf38cd11dc4f0db0dc5cc7104712805034b9bced5874d62b03a579c2')
 
 build() {
-  cd "${pkgname}-${pkgver}"
+  cd "$pkgname-$pkgver"
   arch-meson -Dsd-bus-provider=libsystemd build
   ninja -C build
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
-  DESTDIR="${pkgdir}" ninja -C build install
-  install -vDm644 -t "$pkgdir/usr/share/licenses/${pkgname}" LICENSE
+  cd $pkgname-$pkgver
+  DESTDIR="$pkgdir" ninja -C build install
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 
   # fix detection with x-d-p 1.18
-  install -vDm644 -t "${pkgdir}/usr/share/xdg-desktop-portal" "${srcdir}/wlr-portals.conf"
+  install -vDm644 -t "$pkgdir/usr/share/xdg-desktop-portal" "$srcdir/wlr-portals.conf"
 }
