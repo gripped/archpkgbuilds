@@ -3,12 +3,13 @@
 pkgbase=libqaccessibilityclient
 pkgname=(libqaccessibilityclient-qt6)
 pkgver=0.6.0
-pkgrel=3
+pkgrel=4
 arch=(x86_64)
 pkgdesc='Helper library to make writing accessibility tools easier'
 url='https://www.kde.org'
 license=(LGPL2.1)
-depends=(glibc
+depends=(at-spi2-core # Dbus
+         glibc
          libstdc++
          qt6-base)
 makedepends=(extra-cmake-modules)
