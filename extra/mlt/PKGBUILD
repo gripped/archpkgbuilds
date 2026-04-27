@@ -7,8 +7,8 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgname=mlt
-pkgver=7.36.1
-pkgrel=5
+pkgver=7.38.0
+pkgrel=1
 pkgdesc='An open source multimedia framework'
 arch=(x86_64)
 url='https://www.mltframework.org'
@@ -72,8 +72,10 @@ makedepends=(cmake
              swig
              vid.stab)
 source=(git+https://github.com/mltframework/mlt#tag=v$pkgver
-        git+https://invent.kde.org/graphics/glaxnimate.git)
-sha256sums=('96c89f203e0e2061f29fa21ab6c5c449cd5ed9b37c29d50779bd2975ef339937'
+        git+https://invent.kde.org/graphics/glaxnimate.git
+        git+https://github.com/mbasaglia/thorvg.git)
+sha256sums=('3d7ed52001238ec13d858db372fc598219771217baedb3aa38e6efdad4e6dff4'
+            'SKIP'
             'SKIP')
 
 prepare() {
@@ -81,6 +83,11 @@ prepare() {
   git submodule init
   git submodule set-url src/modules/glaxnimate/glaxnimate "$srcdir"/glaxnimate
   git -c protocol.file.allow=always submodule update
+
+  cd src/modules/glaxnimate/glaxnimate
+  git submodule init
+  git submodule set-url external/thorvg/thorvg "$srcdir"/thorvg
+  git -c protocol.file.allow=always submodule update external/thorvg/thorvg
 }
 
 build() {
