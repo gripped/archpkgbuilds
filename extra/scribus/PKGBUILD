@@ -7,39 +7,43 @@
 # Contributor: Ben <ben@benmazer.net>
 
 pkgname=scribus
-pkgver=1.6.5
-pkgrel=7
+pkgver=1.6.6
+pkgrel=2
 pkgdesc="Desktop publishing software"
 arch=(x86_64)
 url="https://www.scribus.net/"
 license=(GPL-2.0-or-later)
-depends=(cairo
-         fontconfig
-         freetype2
-         harfbuzz-icu
-         hunspell
+depends=(cairo libcairo.so
+         fontconfig libfontconfig.so
+         freetype2 libfreetype.so
+         glibc # libc.so libm.so
+         harfbuzz libharfbuzz.so libharfbuzz-subset.so
+         harfbuzz-icu libharfbuzz-icu.so
+         hunspell # libhunspell-1.7.so
          icu libicuuc.so
-         lcms2
-         libcdr
-         libcups
-         libfreehand
+         lcms2 liblcms2.so
+         libcdr # libcdr-0.1.so
+         libcups # libcups.so
+         libfreehand # libfreehand-0.1.so
+         libgcc libgcc_s.so
          libjpeg-turbo libjpeg.so
-         libmspub
-         libpagemaker
-         libpng
-         libqxp
-         librevenge
-         libtiff
-         libvisio
-         libxml2
-         libzmf
-         openscenegraph
+         libmspub # libmspub-0.1.so
+         libpagemaker # libpagemaker-0.0.so
+         libpng libpng16.so
+         libqxp # libqxp-0.0.so
+         librevenge # librevenge-0.0.so librevenge-generators-0.0.so librevenge-stream-0.0.so
+         libstdc++ libstdc++.so
+         libtiff libtiff.so
+         libvisio # libvisio-0.1.so
+         libxml2 libxml2.so
+         libzmf # libzmf-0.0.so
+         openscenegraph # libOpenThreads.so libosgDB.so libosgGA.so libosg.so libosgUtil.so libosgViewer.so
          openssl
-         podofo
-         poppler
-         python3
-         qt5-base
-         zlib) # graphicsmagick
+         podofo libpodofo.so
+         poppler libpoppler.so
+         python # libpython3.14.so
+         qt5-base # libQt5Core.so libQt5Gui.so libQt5Network.so libQt5OpenGL.so libQt5PrintSupport.so libQt5Widgets.so libQt5Xml.so
+         zlib libz.so)
 makedepends=(cmake
              mesa
              qt5-tools)
@@ -48,41 +52,12 @@ optdepends=('gdal: enable gdal plugin'
             'tk: scripts based on tkinter')
 options=(!lto)
 _archive="$pkgname-$pkgver"
-source=("https://downloads.sourceforge.net/${pkgname}/$_archive.tar.xz"{,.asc}
-        'fix_build_with_poppler_26.01.0.patch'
-        'fix_build_with_poppler_26.02.0.patch'
-        'fix_build_with_poppler_26.03.0.patch'
-        'fix_build_with_poppler_26.04.0.patch')
-sha256sums=('09bdb736a8ff8a437191458a36d847cc0adeca0fc059cf696474e0ba6f59ac6a'
-            'SKIP'
-            '6826daa9be333e722e91bd09d5e8c1f2c31317efb1875f2cf6c12a3c8c11f045'
-            '136aba5019f6fcadad44c6615af10546ac32e4b9dd7d1459273ce10a9a553c28'
-            '369b181a4f818057b0cf733a3b83e1419923aa9484fa6962497bb3252f0a1049'
-            '7655f8017e11f0a07018750d0a77588575d8ca8f14815e80edb45d52a3717747')
+source=("https://downloads.sourceforge.net/${pkgname}/$_archive.tar.xz"{,.asc})
+sha256sums=('fdfe3e7cbe84b760b38d0561ed8736f9d25d4923adde6e15e03760d83be6166d'
+            'SKIP')
 validpgpkeys=(5086B8D68E70FDDF4C40045AEF7B95E7F60166DA  # Peter Linnell <plinnell@scribus.net>
               757F5E9B13DD648887AD50092D47C099E782504E  # The Scribus Team (www.scribus.net) <the_scribus_team@scribus.net>
               6558BE84D27273A438A151198BEA48118AEBEE64) # Craig Bradney <cbradney@zipworld.com.au>
-
-prepare() {
-    cd "$_archive"
-    sed -e 's|WANT_CPP17|WANT_CPP20|g' -e 's|CMAKE_CXX_STANDARD 17|CMAKE_CXX_STANDARD 20|g' -i CMakeLists.txt
-
-    # Fix build with poppler 26.01.0
-    # https://github.com/scribusproject/scribus/commit/ef7e975d6ea58c6afdddfdd1edb601a145cd9fd0
-    patch -Np1 -i "$srcdir/fix_build_with_poppler_26.01.0.patch"
-
-    # Fix build with poppler 26.02.0
-    # https://github.com/scribusproject/scribus/commit/28bd3be104c06b9d4532affe150f7b74fe5b3e59
-    patch -Np1 -i "$srcdir/fix_build_with_poppler_26.02.0.patch"
-
-    # Fix build with poppler 26.03.0
-    # https://bugs.scribus.net/view.php?id=17777
-    patch -Np1 -i "$srcdir/fix_build_with_poppler_26.03.0.patch"
-
-    # Fix build with poppler 26.04.0
-    # https://github.com/scribusproject/scribus/commit/36c1f97bc0d07b400f07b32c2ce9788564178b72
-    patch -Np1 -i "$srcdir/fix_build_with_poppler_26.04.0.patch"
-}
 
 pkgver() {
         # People regularly flag this OOD pointing to development releases, avoid mistakenly packaging them
@@ -95,21 +70,23 @@ pkgver() {
 }
 
 build() {
-	cmake -B build -S "$_archive" \
-		-D CMAKE_INSTALL_PREFIX=/usr \
-		-D CMAKE_BUILD_TYPE=None \
-		-D CMAKE_SKIP_RPATH=On \
-		-D WANT_CPP20=On \
-		-D WANT_HUNSPELL=On \
-		-D WITH_PODOFO=On \
+	local cmake_options=(
+		-D CMAKE_INSTALL_PREFIX=/usr
+		-D CMAKE_BUILD_TYPE=None
+		-D CMAKE_SKIP_RPATH=On
+		-D WANT_CPP20=On
+		-D WANT_HUNSPELL=On
+		-D WITH_PODOFO=On
 		-D WANT_GRAPHICSMAGICK=On
+	)
+	cmake -B build -S "$_archive" -W no-dev "${cmake_options[@]}"
 	make -C build
 }
 
 package() {
 	make -C build DESTDIR="${pkgdir}" install
 	cd "$_archive"
-	install -Dm0644 scribus.desktop -t "$pkgdir/usr/share/applications"
+	install -Dm0644 -t "$pkgdir/usr/share/applications/" scribus.desktop
 	pushd resources/iconsets/artwork
 	for i in 16x16 32x32 128x128 256x256 512x512 1024x1024; do
 		install -Dm0644 icon_$i.png "$pkgdir/usr/share/icons/hicolor/$i/apps/scribus.png"
