@@ -1,24 +1,18 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-draw
-pkgver=6.5.32
+pkgver=6.5.37
 pkgrel=1
 pkgdesc="A lightweight drawing tool for Linux Deepin"
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-draw"
 license=('GPL-3.0-or-later')
-depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-svg' 'glibc' 'libgcc' 'libstdc++' 'deepin-picker'
+depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-svg' 'qt6-imageformats' 'glibc' 'libgcc' 'libstdc++' 'deepin-picker'
          'adobe-source-han-sans-otc-fonts' 'hicolor-icon-theme')
-makedepends=('git' 'cmake' 'qt6-tools' 'clang' 'qt6-declarative')
+makedepends=('git' 'cmake' 'qt6-declarative' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-draw.git#tag=$pkgver")
-sha512sums=('559cfa548617141bd454d885a471af85d0731470bf4ad9b9e77ace627c88ac08d9d880e205c6cfa75dd10899bd6843cceeebbe3501a0459349b3ecebc0b0b766')
-
-prepare() {
-  cd deepin-draw
-  # respect our LDFLAGS
-  sed -e '/SET(CMAKE_EXE_LINKER_FLAGS/d' -i CMakeLists.txt src/CMakeLists.txt
-}
+sha512sums=('6c38e15a5af47068e6e9bbf4505756231d2ef97034cefaf7a6bbd68cacf59a04833b16c114f1c2134abb7e9c9aa07f9dfc663a15a62ba7bed20172436ba7e6f5')
 
 build() {
   cd deepin-draw
