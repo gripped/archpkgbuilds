@@ -2,7 +2,7 @@
 # Contributor: Grey Christoforo <first name at last name dot net>
 
 pkgname=python-plotly
-pkgver=6.6.0
+pkgver=6.7.0
 pkgrel=1
 pkgdesc="An open-source, interactive graphing library"
 arch=('any')
@@ -33,8 +33,8 @@ makedepends=(
     npm
     python-wheel
     python-build
+    python-hatchling
     python-installer
-    python-setuptools
     python-jupyter_core
     python-tornado
     jupyterlab
@@ -46,7 +46,7 @@ checkdepends=(
 source=(
      "${pkgname}::git+https://github.com/plotly/plotly.py#tag=v$pkgver"
 )
-sha256sums=('7fb0ec3bc6723744858d957032824c0a5ac0817c7d2fe1db88daae9fe4686cf4')
+sha256sums=('3757e22e322b76808a20100b55635da4dc4e76b27ebb64f9a4d361594ca575e4')
 options=(!strip !debug) # strip and debug aren't useful for python files and take forever
 
 prepare() {
@@ -67,7 +67,10 @@ check() {
     -vv
     -W ignore::DeprecationWarning
   )
-  pytest "${pytest_options[@]}" tests/test_core
+
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest "${pytest_options[@]}" tests/test_core
 }
 
 package() {
