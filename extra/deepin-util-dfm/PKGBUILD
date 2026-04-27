@@ -1,6 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-util-dfm
+epoch=1
 pkgver=1.2.32
 pkgrel=1
 pkgdesc='Utilities of deepin file manager'
@@ -19,7 +20,6 @@ prepare() {
   # Boost.System is header-only in Boost 1.90, so there is no boost_system library/component to find on Arch
   sed -i '/find_package(Boost REQUIRED COMPONENTS system)/d' src/dfm-search/dfm-search-lib/dfm-search.cmake
   sed -i 's/\s*Boost::system//' src/dfm-search/dfm-search-lib/dfm-search.cmake
-
 }
 
 build() {
