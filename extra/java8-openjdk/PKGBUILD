@@ -13,8 +13,8 @@ pkgname=(
 )
 
 _majorver=8
-_minorver=482
-_updatever=08
+_minorver=492
+_updatever=09
 pkgver=${_majorver}.${_minorver}.u${_updatever}
 pkgrel=1
 arch=('x86_64')
@@ -44,11 +44,10 @@ options=(
 source=(
   https://github.com/openjdk/jdk${_majorver}u/archive/refs/tags/jdk${_majorver}u${_minorver}-b${_updatever}.tar.gz
 )
-b2sums=('452b3f52eeb6fd8c3359f3e1a0d41bf7c04edaee39a070c623c44ee55c933e84f906579dc247899b13f4230b4145aa02e037e621e68be201c56abfb6a7e89105')
+b2sums=('baad344bcb29c35f6f01a1af2285cc3e1f0d075b78ae341e8f4d63f001636a96359fcab1aff97abe585ead299b9f65d14f77b8bba8c5cf79c7be4934b5bc6b3d')
 
 case "${CARCH}" in
   'x86_64'  ) _JARCH=amd64   ; _DOC_ARCH=x86_64  ;;
-  'i686'    ) _JARCH=i386    ; _DOC_ARCH=x86     ;;
   'aarch64' ) _JARCH=aarch64 ; _DOC_ARCH=aarch64 ;;
 esac
 
