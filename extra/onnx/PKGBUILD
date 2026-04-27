@@ -3,8 +3,8 @@
 
 pkgbase=onnx
 pkgname=(onnx python-onnx)
-pkgver=1.20.1
-pkgrel=2
+pkgver=1.21.0
+pkgrel=1
 epoch=1
 pkgdesc='Open standard for machine learning interoperability'
 arch=('x86_64')
@@ -25,7 +25,7 @@ makedepends=(
   python-wheel
 )
 source=("${pkgname}::git+https://github.com/onnx/onnx.git#tag=v${pkgver}")
-sha512sums=('aa6fd8c8b38e01ff107385d49f4a4daa1d9ac3f695809de6d8b1cdb8126b9178a04011a7cfb489b71641b351baf5c134a73c58e57afa4ee6e9856abbcdb67b4c')
+sha512sums=('72d1225f0cc622b22dec29e6dad56a97a95bfd55ba3d9f4fe23814b3dd5ae33034785d463c47f011c458220cc19dba6bf795e17620d9237d6eefd8cb949eaf00')
 
 
 prepare() {
