@@ -2,8 +2,8 @@
 
 _name=altair
 pkgname=python-$_name
-pkgver=6.0.0
-pkgrel=2
+pkgver=6.1.0
+pkgrel=1
 pkgdesc="Declarative statistical visualization library for Python"
 arch=(any)
 url="https://altair-viz.github.io/"
@@ -42,7 +42,7 @@ optdepends=(
   'python-vl-convert: PNG and SVG export via Vega-Lite specifications'
 )
 source=($_name-$pkgver.tar.gz::https://github.com/vega/altair/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('5c1fc3364e3901d8cc5fe442510d41fbeb5f161e0e595605ccc22b2d3e0cac6599e1d7f13530ebecda0e1e4edbf246242596ff13ebb94d6a4c20a10bed3a7708')
+b2sums=('31473cfe53f97d990649d1932ebef720a65ea4d916589b626b266f1af0e4644ca36d81f305ac5046bff8ea9d1f16aee88a8f31bb8c5d28b51047c602a26f8e40')
 
 build() {
   cd $_name-$pkgver
@@ -56,6 +56,11 @@ check() {
     -m "not slow"
     # skip dataset tests (remote fetching from vega-datasets)
     --deselect tests/test_datasets.py
+    # examples are out of sync due to pandas 3 migration, causing the test to fail with pandas 2
+    # https://github.com/vega/altair/pull/4010
+    --deselect tests/test_examples.py
+    # ValueError: Unexpected character found when decoding object value
+    --deselect tests/utils/test_schemapi.py::test_chart_validation_errors
   )
 
   cd $_name-$pkgver
