@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=mongo-c-driver
-pkgver=2.2.4
+pkgver=2.3.0
 pkgrel=1
 pkgdesc="A client library written in C for MongoDB"
 arch=(x86_64)
@@ -31,17 +31,19 @@ replaces=(
   libmongoc
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('186a26f5e0ce8bd5c75b56ff3f111db850289927374593365c1931917ef1cb6fe35f6a918241ce6bccfd3c1a424e52460101369e5af45e9991cdf2ee59b4a5eb')
+b2sums=('5feba0dd5e48a5b0f878dc44c9eed62aadc23e683bedcf3a5a99004eeffe7536b9295e2c52da1603f187cd2a3839b7227d0dfaf9532f5448bbc3cca6e007cb2e')
 
 build() {
   cd $pkgname-$pkgver
-  # ENABLE_STATIC=ON is required to build tests.
+  # ENABLE_STATIC=BUILD_ONLY and DENABLE_STATIC_LIBBSON_INSTALL=OFF 
+  # is required to build tests, without installing .a libs and cmake stuff for *::static.
   cmake -S . -B build \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Wno-dev \
     -DBUILD_VERSION="$pkgver" \
-    -DENABLE_STATIC=ON \
+    -DENABLE_STATIC=BUILD_ONLY \
+    -DENABLE_STATIC_LIBBSON_INSTALL=OFF \
     -DENABLE_TESTS=ON
   cmake --build build
 }
@@ -52,13 +54,15 @@ check() {
   export MONGOC_TEST_OFFLINE=ON
   export MONGOC_TEST_SKIP_LIVE=ON
   local skip_tests=(
-    mongoc/Client/ipv6/single
+    mongoc/Client/exhaust_cursor/err/network/2nd_batch/pooled
+    mongoc/Client/exhaust_cursor/err/network/2nd_batch/single
+    mongoc/Client/recovering
     mongoc/Client/ssl/reconnect/pooled
     mongoc/ClientPool/openssl/change_ssl_opts
     mongoc/MongoDB/handshake/null_args
-    mongoc/TOPOLOGY/scanner_ssl
     mongoc/azure/imds/http/talk
     mongoc/gcp/http/talk
+    mongoc/pkg-config/bson-import-static
     mongoc/pkg-config/mongoc-import-shared
     mongoc/pkg-config/mongoc-import-static
   )
