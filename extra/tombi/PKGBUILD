@@ -1,7 +1,8 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=tombi
-pkgver=0.9.17
+pkgver=0.9.25
 pkgrel=1
 pkgdesc='TOML Formatter / Linter / Language Server'
 arch=(x86_64)
@@ -10,11 +11,11 @@ license=(MIT)
 depends=(gcc-libs)
 makedepends=(
   git
-  rust
+  cargo
 )
 options=(!lto)
 source=("git+https://github.com/tombi-toml/tombi.git#tag=v$pkgver")
-b2sums=('e7b5a0d38021577a91f82717752ce698e6ff06a1678c1ee91cf6b17b93ca277221611777d807bcce94544f6fed97092a7aac268a1a73e77b7341982d08ad1405')
+b2sums=('794325d60913ac309b4012e5940925715ce72d70636d2ea89813981523dd89ed341e594cc572a954204de333e5e350bf41e39880c3ada3335a6fd98ada6e42e5')
 
 prepare() {
   cd $pkgname
@@ -23,7 +24,7 @@ prepare() {
 
 build() {
   cd $pkgname
-  cargo build --release --locked --offline
+  cargo build --release --frozen
 }
 
 package() {
