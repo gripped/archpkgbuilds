@@ -2,8 +2,8 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dns-lexicon
-pkgver=3.23.2
-pkgrel=3
+pkgver=3.25.1
+pkgrel=1
 pkgdesc="Manipulate DNS records on various DNS providers in a standardized/agnostic way"
 arch=(any)
 url="https://github.com/dns-lexicon/dns-lexicon"
@@ -13,6 +13,7 @@ depends=(
   python-cryptography
   python-yaml
   python-requests
+  python-requests-unixsocket
   python-tldextract
   python-importlib-metadata
   python-pyotp
@@ -41,8 +42,8 @@ optdepends=(
   # 'python-oci: for Oracle Cloud Infrastructure (OCI) support'
   # 'python-tencentcloud-sdk-python: for QCloud support'
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('2ebf5668926776dccc3928c808b48eb8774e323ed96ffdf3dcf8151343f40c652cd7bd07198a1565ac9c5bf73071a993aebf27ed117459086eedc2daa3715ce1')
-b2sums=('30d3fd2d95d5265a7ad3c25849b07c5b7e84a48d44771679fd0ec94d74d451c81643c7ba4fa26bf20089f6db7d7cfc99be8eb60133641276319b1f58f445c06d')
+sha512sums=('12b31063dd1c4305f45763a1e837a27186d1a0ac59b875cc73dfc34fa2171c23ad1c74a72e2c5b431b0c9e9d981147467fd2bbe9b4b7f994a29a303525456deb')
+b2sums=('e8915a40f0cc6928bc0eb3518bcceaa7c768d596cf6ac307a920dda4d8b032d887003e0fa0fa69ee6022d3249dd8694352ba2b21eab9478a506d43c8b851ec40')
 
 build() {
   cd "$pkgname"
@@ -53,7 +54,7 @@ build() {
 check() {
   cd "$pkgname"
 
-  PYTHONPATH="$PWD/src" pytest --deselect tests/providers/test_oci.py
+  PYTHONPATH="$PWD/src" pytest
 }
 
 package() {
