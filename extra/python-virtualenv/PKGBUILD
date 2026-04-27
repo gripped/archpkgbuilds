@@ -4,7 +4,7 @@
 # Contributor: Daniele Paolella <dp@mcrservice.it>
 
 pkgname=python-virtualenv
-pkgver=21.2.4
+pkgver=21.3.0
 pkgrel=1
 pkgdesc='Virtual Python Environment builder'
 arch=(any)
@@ -51,8 +51,8 @@ replaces=(virtualenv)
 conflicts=(virtualenv)
 options=(!makeflags)
 source=("$pkgname::git+https://github.com/pypa/virtualenv#tag=$pkgver")
-sha512sums=('07d174422ca712edd624fc35d6d4818ad7f8fd6601312ad22c6e2b50de44d3f1886c898a3f8fd1f93952567dfb01e5e39b048542fea356501caa3b417b3318f4')
-b2sums=('f06d3dbdab67c7e99ce421f623e73161b741b6d94668ffc7df53dae4785a010c8280938eeff950daec97feccb75cbf08ef19fe386198c699551f3ad409677ba8')
+sha512sums=('062c55f7e24caca5fcca190d5cf87f1e4429f22b541de71c34483d1386df53435a1079429d6fc52fa0ade28012b5426db2ad077438081a7fcea03f8751d62c13')
+b2sums=('868f2e31403e58c767ea6a38abd0102bed4d06a315d9c912eb0574175226f864672fb85904e7877d49317129c610823fd15296512730453175c4b11502c5e900')
 
 build() {
   cd "$pkgname"
