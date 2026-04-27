@@ -6,7 +6,7 @@ pkgname=(
   maturin
   python-maturin
 )
-pkgver=1.12.6
+pkgver=1.13.1
 pkgrel=1
 pkgdesc="Build and publish crates with pyo3, rust-cpython and cffi bindings"
 url="https://github.com/PyO3/maturin"
@@ -33,8 +33,8 @@ checkdepends=(
 # https://github.com/briansmith/ring/issues/1444
 options=(!lto)
 source=("git+$url.git#tag=v$pkgver")
-sha512sums=('48b6883b4b06a6796699421386429d8b0778fa85a4083e12812fd98c7a5437d82ff88b450cc9ce8e8b710832b4e72397782a30b239d71a8e7189338e064980cd')
-b2sums=('5db672830e07cd8c776d20e8f385a94d4af743a562c9154769330925e273f11f84adaee238a47d2f0f3e8c25214224f14fc28be9d675da39416dc24dcf6fb469')
+sha512sums=('3cea18fa340e1139b4e9a7427c04b1fe314641c2c6663132fe0bfbff7bdd3fc160f665f73655497fc6ca1b10b520837bd58b4db0041342c61a915f4a79e484ad')
+b2sums=('0893a417b780a70a671e96f98d06dc2b47d145e85cb1bc0298b12f688255a8115573c37791382a5a6a7b06e2da806ca6e79a6b8dc9ec9e213408589a4c2e4ba9')
 
 prepare() {
   cd $pkgbase
@@ -52,6 +52,10 @@ check() {
   local cargo_skip_args=(
     # Requires wasm32-wasip1 target
     --skip=integration_wasm_hello_world
+    # https://github.com/PyO3/maturin/issues/3127
+    --skip=write_dist_info_uses_license_file_sources
+    # https://github.com/PyO3/maturin/issues/3128
+    --skip=lib_with_target_path_dep_sdist
   )
   # Using --all-features here causes test failures due to:
   #   Cause: unsupported Zip archive: Unsupported compression level
