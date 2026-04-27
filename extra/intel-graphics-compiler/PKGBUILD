@@ -3,14 +3,14 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=2.30.1
+pkgver=2.32.7
 _llvmmaj=16
 _llvmver="${_llvmmaj}.0.6"
 _vciver=0.25.0
 _spirv_tools_commit=28a883ba4c67f58a9540fb0651c647bb02883622
 _spirv_headers_commit=9268f3057354a2cb65991ba5f38b16d81e803692
-_spirv_llvm_commit=de396f26ade6b0ac1f0f367b741dd5c78a76a2d9
-_opencl_clang_commit=7161d7c6d97da80f12739cebad9bf508555bbfd9
+_spirv_llvm_commit=5ce79a51725fdca7f12045a51c01956663b4cec8
+_opencl_clang_commit=897ba7f885fe34c9ae9818f205e67f7b0a8628c0
 pkgrel=1
 epoch=1
 pkgdesc='Intel Graphics Compiler for OpenCL'
@@ -32,6 +32,8 @@ makedepends=(
 provides=("intel-opencl-clang=${_llvmmaj}")
 conflicts=('intel-opencl-clang')
 replaces=('intel-opencl-clang')
+# upstream do not support LTO
+# https://github.com/intel/intel-graphics-compiler/issues/362#issuecomment-4089628783
 options=('!emptydirs' '!lto')
 source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "git+https://github.com/intel/vc-intrinsics.git#tag=v${_vciver}"
@@ -41,14 +43,14 @@ source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${p
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}"
         '010-intel-graphics-compiler-disable-werror.patch')
-sha256sums=('4e5f46b20ec5c055f3cbfed16cfa9739b67f0d05786d736f3d10b09b11b171a3'
+sha256sums=('6309d5d00711fcdb712049c0a56546369ace316f9547b4715747cc687ebcada2'
             'af6abe889504fc5f0cc61758aa306211ec2be086858e9e39ee96d289a6c0117c'
-            '6c17ba902563c8cdc9f85fa8c0d8ccc87978a840080650aa9a127bf86f02b9fe'
+            '031e02a6fcc21679e7d268961c234702ebfab8aa6b6559c7f5f8dcf45a8bc784'
             'e028a800c43945d94fc100aa25427d360a21c00b1154fb239ec2fce0c06ea85d'
             '8f5d1dd2d4281d135bc632c97c1a96ccb4ba79edcdad337de87f3510c9798638'
-            '7a2c3c9c66aac0b3319ad0cf0cce10f973d8db4bc01f162a02d6369774f03195'
+            '21da3969358bbda63072b887e1ee8b371ed95dadf724870a9e987f07ab71f222'
             'b47ada280614670a467f80e9f8c67542050983f238f2f4b3fa17682855faf9bf'
-            '698707f39531b2655624158e456bfa698891f6a765bf207399c4438cc4cf9cd5')
+            '1683e5366d6a0125a40af405b69b684efdfd829fef23b10c1d382f6e57627ce7')
 
 prepare() {
     # rename to prevent SPIRV-LLVM-Translator from being included
