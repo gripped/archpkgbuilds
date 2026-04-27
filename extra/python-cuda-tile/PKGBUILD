@@ -1,7 +1,7 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=python-cuda-tile
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 pkgdesc="A Python-based DSL and parallel programming model for NVIDIA GPUs"
 arch=(x86_64)
@@ -25,7 +25,7 @@ makedepends=(
 source=(
   $pkgname-$pkgver.tar.gz::https://github.com/NVIDIA/cutile-python/archive/refs/tags/v$pkgver.tar.gz
 )
-b2sums=('80c66b3b8a0c051aa0e226934a1ebdd85fab2b69f0d70326b79c96d8b513ade338afca2c917b66ad59120a747bcc9e44dbff51fa24d0110949b9eb6332e969db')
+b2sums=('d03f5f9167f40d5e12cedf9d1105b556a292fae591cb98bbeb889cdb24426a39740d80096f93bedc0a18b21578650e73c9d55b37464c09cb7d64745c713b54df')
 
 prepare() {
   cd cutile-python-$pkgver
@@ -45,7 +45,7 @@ prepare() {
   sed -i 's|dry_run=self.dry_run||' setup.py
 
   # allow compiler warnings as a workaround for https://gitlab.archlinux.org/archlinux/packaging/packages/python/-/merge_requests/8
-  sed -i 's|add_compile_options(-Werror)||' CMakeLists.txt
+  sed -i 's|add_compile_options(-Wall -Werror)||' CMakeLists.txt
 }
 
 build() {
