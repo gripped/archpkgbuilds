@@ -1,8 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=espup
-pkgver=0.16.0
-pkgrel=2
+pkgver=0.17.1
+pkgrel=1
 pkgdesc="Tool for installing and maintaining ESP Rust ecosystem"
 url='https://github.com/esp-rs/espup'
 arch=('x86_64')
@@ -12,7 +12,6 @@ depends=(
   'glibc'
   'ldproxy'
   'libgcc'
-  'openssl' 'libssl.so'
   'pkg-config'
   'python'
   'python-pip'
@@ -24,22 +23,22 @@ options=(!lto)
 source=(
   https://github.com/esp-rs/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
 )
-sha256sums=('9e1e9c1effa860e41dc12a1cb1a2a5974c0849bc8cf330a3f7c5eb892d845e5e')
-b2sums=('e5a104ceacbaf1e590b46a39793cae5dba3f3c82bc8fd3969fc3ec441a850173686e21335fbf26d5e2ac0ed2846c6aaf77c085b97ebf88524c4cdbf308ba1555')
+sha256sums=('34f6bf490debca8979ef16cde7ec0cb7608478f6af784120e7fc660b755c7a08')
+b2sums=('e3d3a072bb28cdf8ffbaca228f043b898485eada19a43cac69fbacaa9b09e2395c40d4f219cbd0ca66e6191791e514064a8ce15f1338d46b36607a6995971a5b')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
   cd ${pkgname}-${pkgver}
-  OPENSSL_NO_VENDOR=1 cargo build --frozen --release
+  cargo build --frozen --release
 }
 
 check() {
   cd ${pkgname}-${pkgver}
-  OPENSSL_NO_VENDOR=1 cargo test --frozen
+  cargo test --frozen
   target/release/${pkgname} --help
 }
 
