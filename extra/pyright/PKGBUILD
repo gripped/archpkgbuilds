@@ -2,7 +2,7 @@
 # Contributor: Kaizhao Zhang <zhangkaizhao@gmail.com>
 
 pkgname=pyright
-pkgver=1.1.407
+pkgver=1.1.409
 pkgrel=1
 pkgdesc='Type checker for the Python language'
 arch=(any)
@@ -14,11 +14,11 @@ makedepends=(
   npm
 )
 source=("git+https://github.com/microsoft/pyright.git#tag=$pkgver")
-b2sums=('7f188c48b02e605b69e91a3ffb5aa5ef763fc355f233be2d1e96c52823c9a0ea9fe547f72daeeebee2ea2156b196ce59e94e1aafcc55caa264d4be597731669d')
+b2sums=('5829ce0681f391e716157fcb3cb22605b52755ffd3d50d52ce33cb6771e19525e8739bba59726ecbfa84806c5ae4161cfece5be892bbfa8beffaff9bb225603b')
 
 prepare() {
   cd $pkgname
-  npm ci
+  npm install
 }
 
 build() {
@@ -28,7 +28,9 @@ build() {
 
 check() {
   cd $pkgname/packages/$pkgname-internal
-  npm test
+  npm install jest-util # HACK: 
+  # Don't allow jest to OOM the build machine
+  npm test -- --maxWorkers=25%
 }
 
 package() {
