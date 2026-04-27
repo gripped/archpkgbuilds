@@ -4,7 +4,7 @@
 
 pkgbase=dtkwidget
 pkgname=(dtkwidget dtk6widget)
-pkgver=6.7.37
+pkgver=6.7.40
 pkgrel=1
 epoch=1
 pkgdesc='Deepin base graphical widgets library'
@@ -19,13 +19,7 @@ makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt6-tools' 'gtest' 'doxygen'
              'qt6-base' 'qt6-imageformats' 'qt6-svg'
              'libx11' 'libxcb' 'libxext' 'libxi' 'startup-notification' 'xcb-util')
 source=("git+https://github.com/linuxdeepin/dtkwidget.git#tag=$pkgver")
-sha512sums=('fb5f3fc7a3c0772f0b71e991b1fdbd8d50ee0c6ab04b7e62bf2eabe6236f3cc60d0bfe2f2f971f4ec33b141da21db49273538aab4c2ac3afbeda63c1779b36ea')
-
-prepare() {
-  cd dtkwidget
-  # Qt 6.11 needs the full QCompleter definition here.
-  sed -i '/#include <QLayout>/a #include <QCompleter>' src/widgets/dsearchcombobox.cpp
-}
+sha512sums=('c8a749addf6a35cc5e34631410630aa92a200d7bda179549283cb263d7d246bc367b58e38327572577a887fdb5468a361836e9603b38b63fef86d0b0e487d892')
 
 build() {
   cd dtkwidget
