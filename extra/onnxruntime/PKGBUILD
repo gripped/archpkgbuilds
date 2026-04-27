@@ -17,7 +17,7 @@ pkgname=(
 )
 pkgver=1.24.4
 _pkgdesc='Cross-platform, high performance scoring engine for ML models'
-pkgrel=4
+pkgrel=6
 arch=('x86_64')
 url='https://github.com/microsoft/onnxruntime'
 license=('MIT')
@@ -164,9 +164,6 @@ build() {
   cmake "${_cmake_args[@]}"
   cmake --build build
 
-  # Manually fix https://github.com/microsoft/onnxruntime/issues/24570
-  mkdir onnxruntime/capi
-  python setup.py --help # We have to call it like this once to generate the file we need.
   cp -r build/onnxruntime/* onnxruntime
   python -m build --wheel --no-isolation
 
@@ -177,9 +174,6 @@ build() {
   cmake "${_cmake_cuda_args[@]}"
   cmake --build build
 
-  # Manually fix https://github.com/microsoft/onnxruntime/issues/24570
-  mkdir onnxruntime/capi
-  python setup.py --help # We have to call it like this once to generate the file we need.
   cp -r build/onnxruntime/* onnxruntime
   python -m build --wheel --no-isolation
 
@@ -195,9 +189,6 @@ build() {
   cmake "${_cmake_cuda_args[@]}"
   cmake --build build
 
-  # Manually fix https://github.com/microsoft/onnxruntime/issues/24570
-  mkdir onnxruntime/capi
-  python setup.py --help # We have to call it like this once to generate the file we need.
   cp -r build/onnxruntime/* onnxruntime
   python -m build --wheel --no-isolation
 
@@ -209,10 +200,8 @@ build() {
   cmake "${_cmake_rocm_args[@]}"
   cmake --build build
 
-  # Manually fix https://github.com/microsoft/onnxruntime/issues/24570
-  mkdir onnxruntime/capi
-  python setup.py --help # We have to call it like this once to generate the file we need.
   cp -r build/onnxruntime/* onnxruntime
+  sed -i 's/is_migraphx = False/is_migraphx = True/g' setup.py
   python -m build --wheel --no-isolation
 
 
@@ -227,10 +216,8 @@ build() {
   cmake "${_cmake_rocm_args[@]}"
   cmake --build build
 
-  # Manually fix https://github.com/microsoft/onnxruntime/issues/24570
-  mkdir onnxruntime/capi
-  python setup.py --help # We have to call it like this once to generate the file we need.
   cp -r build/onnxruntime/* onnxruntime
+  sed -i 's/is_migraphx = False/is_migraphx = True/g' setup.py
   python -m build --wheel --no-isolation
 }
 
@@ -300,7 +287,7 @@ package_onnxruntime-opt-rocm() {
 
 package_python-onnxruntime-cpu() {
   pkgdesc="$_pkgdesc (CPU only)"
-  depends+=("${pkgbase}-cpu" "${_pydepends[@]}")
+  depends+=("${_pydepends[@]}")
   provides=("python-${pkgbase}=${pkgver}")
   conflicts=("python-${pkgbase}")
 
@@ -312,7 +299,8 @@ package_python-onnxruntime-cpu() {
 
 package_python-onnxruntime-cuda() {
   pkgdesc="$_pkgdesc (with CUDA)"
-  depends+=("${pkgbase}-cuda" "${_pydepends[@]}")
+  depends+=('cuda' 'cudnn' 'nccl' 'onednn')
+  depends+=("${_pydepends[@]}")
   provides=("python-${pkgbase}=${pkgver}")
   conflicts=("python-${pkgbase}")
   replaces=("python-${pkgbase}")
@@ -325,7 +313,8 @@ package_python-onnxruntime-cuda() {
 
 package_python-onnxruntime-opt-cuda() {
   pkgdesc="$_pkgdesc (with CUDA and AVX2 CPU optimizations)"
-  depends+=("${pkgbase}-opt-cuda" "${_pydepends[@]}")
+  depends+=('cuda' 'cudnn' 'nccl' 'onednn')
+  depends+=("${_pydepends[@]}")
   provides=("python-${pkgbase}=${pkgver}")
   conflicts=("python-${pkgbase}")
   replaces=("python-${pkgbase}-opt")
@@ -338,7 +327,8 @@ package_python-onnxruntime-opt-cuda() {
 
 package_python-onnxruntime-rocm() {
   pkgdesc="$_pkgdesc (with ROCm)"
-  depends+=("${pkgbase}-rocm" "${_pydepends[@]}")
+  depends+=('rocm-hip-sdk' 'roctracer' 'rccl' 'migraphx')
+  depends+=("${_pydepends[@]}")
   provides=("python-${pkgbase}=${pkgver}")
   conflicts=("python-${pkgbase}")
 
@@ -350,7 +340,8 @@ package_python-onnxruntime-rocm() {
 
 package_python-onnxruntime-opt-rocm() {
   pkgdesc="$_pkgdesc (with ROCm and AVX2 CPU optimizations)"
-  depends+=("${pkgbase}-opt-rocm" "${_pydepends[@]}")
+  depends+=('rocm-hip-sdk' 'roctracer' 'rccl' 'migraphx')
+  depends+=("${_pydepends[@]}")
   provides=("python-${pkgbase}=${pkgver}")
   conflicts=("python-${pkgbase}")
 
