@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-json_pure
-pkgver=2.7.2
+pkgver=2.7.4
 pkgrel=1
 pkgdesc='A JSON implementation in pure Ruby'
 arch=(any)
@@ -22,7 +22,13 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/flori/json.git#tag=v$pkgver)
-sha256sums=('185b3a79a1aa1372a6dee3b56fc917468bf3c07f46439c28128f496f81825a66')
+sha256sums=('9e560923223e0e5147cf00873d06c71626b9543be3b702515fc10baf89a64954')
+
+prepare() {
+  cd json
+  # Upstream forgot to bump the gem version for the v2.7.4 tag.
+  sed -i "s/VERSION = '2.7.3'/VERSION = '$pkgver'/" lib/json/version.rb
+}
 
 build() {
   local _gemdir="$(gem env gemdir)"
