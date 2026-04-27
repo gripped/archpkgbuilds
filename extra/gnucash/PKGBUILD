@@ -10,7 +10,7 @@ pkgname=(
   gnucash-docs
 )
 pkgver=5.15
-pkgrel=2
+pkgrel=4
 pkgdesc='Personal and small-business financial-accounting application'
 arch=(x86_64)
 url='https://code.gnucash.org/website/'
@@ -68,12 +68,14 @@ prepare() {
 }
 
 build() {
+  export BUILDING_FROM_VCS=no
   cmake -B build -S $pkgbase \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Wno-dev \
     -DWITH_PYTHON=ON \
-    -DCOMPILE_GSCHEMAS=OFF
+    -DCOMPILE_GSCHEMAS=OFF \
+    -DGNUCASH_BUILD_ID="$pkgver-$(git -C $pkgbase rev-parse HEAD)"
   cmake --build build
 
   cmake -B build-docs -S $pkgbase-docs \
@@ -81,6 +83,11 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Wno-dev
   cmake --build build-docs
+
+  # ChangeLog not built when setting BUILDING_FROM_VCS=no but is a hard
+  # requirement for installing.
+  cd $pkgbase
+  git log --format="%ad %aN %n%n%x09* %s%d%n" --date=short --since=2024-01-01 > ChangeLog
 }
 
 check() {
