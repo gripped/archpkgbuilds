@@ -4,7 +4,7 @@
 # Contributor: Daniel Isenmann <daniel@archlinux.org>
 
 pkgname=gimp
-pkgver=3.2.2
+pkgver=3.2.4
 pkgrel=1
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
@@ -98,7 +98,7 @@ source=(
   git+https://gitlab.gnome.org/GNOME/gimp.git#tag=GIMP_${pkgver//./_}
   git+https://gitlab.gnome.org/GNOME/gimp-data.git
 )
-sha256sums=('a13d96a55a2ca1af0623db06040492b360de3006bdfe150e658b24550ba5ab26'
+sha256sums=('34416c191513b8887650522b6d8b41e45ba6dd751bd2635ca3fb86de2b2611f2'
             'SKIP')
 
 prepare() {
