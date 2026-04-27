@@ -2,27 +2,31 @@
 
 _target=aarch64-linux-gnu
 pkgname=$_target-binutils
-pkgver=2.44
-pkgrel=3
+pkgver=2.46
+_pkgver="${pkgver}.0"
+pkgrel=2
 pkgdesc='A set of programs to assemble and manipulate binary and object files for the ARM64 target'
 arch=(x86_64)
 url='https://www.gnu.org/software/binutils/'
 license=(GPL)
 depends=(zlib libelf)
-source=(https://ftp.gnu.org/gnu/binutils/binutils-$pkgver.tar.bz2{,.sig})
-sha1sums=('8657069418bb4b198dddca6ff38cd355c2d5a04c'
+source=(https://ftpmirror.gnu.org/gnu/binutils/binutils-$_pkgver.tar.bz2{,.sig})
+sha1sums=('0a64618bb1d511a9ebe9eba12b54cdd9847b329d'
           'SKIP')
-sha256sums=('f66390a661faa117d00fab2e79cf2dc9d097b42cc296bf3f8677d1e7b452dc3a'
+sha256sums=('0f3152632a2a9ce066f20963e9bb40af7cf85b9b6c409ed892fd0676e84ecd12'
             'SKIP')
 validpgpkeys=('3A24BC1E8FB409FA9F14371813FCEF89DD9E3C4F') # Nick Clifton (Chief Binutils Maintainer) <nickc@redhat.com>
 
 prepare() {
-  cd binutils-$pkgver
+  cd binutils-$_pkgver
   sed -i "/ac_cpp=/s/\$CPPFLAGS/\$CPPFLAGS -O2/" libiberty/configure
+  # Turn off development mode (-Werror, gas run-time checks, date in sonames)
+  sed -i '/^development=/s/true/false/' bfd/development.sh
+
 }
 
 build() {
-  cd binutils-$pkgver
+  cd binutils-$_pkgver
 
   ./configure --target=$_target \
               --with-sysroot=/usr/$_target \
@@ -42,7 +46,7 @@ build() {
 }
 
 check() {
-  cd binutils-$pkgver
+  cd binutils-$_pkgver
 
   # unset LDFLAGS as testsuite makes assumptions about which ones are active
   # do not abort on errors - manually check log files
@@ -50,7 +54,7 @@ check() {
 }
 
 package() {
-  cd binutils-$pkgver
+  cd binutils-$_pkgver
 
   make DESTDIR="$pkgdir" install
 
