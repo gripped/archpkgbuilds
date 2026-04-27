@@ -4,7 +4,7 @@
 # Contributor: Garrett Figueroa <djspacewhale@4d2.org>
 
 pkgname=beets
-pkgver=2.9.0
+pkgver=2.10.0
 pkgrel=1
 pkgdesc='Flexible music library manager and tagger'
 arch=(any)
@@ -39,6 +39,7 @@ checkdepends=(
   imagemagick
   python-beautifulsoup4
   python-discogs-client
+  python-factory-boy
   python-flask
   python-langdetect
   python-librosa
@@ -88,9 +89,9 @@ source=(
   "$pkgname::git+https://github.com/beetbox/beets.git#tag=v$pkgver"
   beet
 )
-sha512sums=('d80fd756ae123ebd85cc5f82f8ba54210d77f07aea3f67f72fb66b05cadb250ffd589dc40c5f535db5db0d1fc5beef2a211607afd814de5ee95c236fd14a289c'
+sha512sums=('20594e09ba8efc6e84477c1749f10e4582e37917dd5564bce3baa4f40d3a619ded172cb88a1a9321b33b038c3e4fd68fefa508f0a3cefa2546dfb6f72b3cae65'
             '8f51ebcc253b0cf698adffae4d2d1a0ff29dcd2d503d0c5d284e9c5cd5981b0ffd190fce154b112ac3cbb419fc0813f2ccbd7e67e3abbdce043c0f6a967274ad')
-b2sums=('614ea12033eb64be67b8a01abdf82ccce46eb5cc2718fcbdc02ad1c6cfe7c0250312beb75bb3c6cba7ec9f6d1dd6bb407cb2b9607753397146da124d78fc6b7b'
+b2sums=('0af5718f37332d2b2c64a8b8e81f96200885c0941f5c90fee7c48c85a6ca6a90c30bbf43cf329fde02f88cc38931b3ab30b48ba954a12fde46ea761f5652827d'
         '1b36ba07d85f0fbcae0a3d8253ce2e5d7ecf8a17c6f0bb946579663de546d53cd4fe5da84ee8d880d7f95f48e66ef6010232a995d86d0c52b52218cd991a7782')
 
 build() {
