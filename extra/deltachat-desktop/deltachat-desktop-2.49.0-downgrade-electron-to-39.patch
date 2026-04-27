@@ -1,5 +1,5 @@
 diff --git i/packages/target-electron/package.json w/packages/target-electron/package.json
-index 7ad839eb0..d54887ece 100644
+index 665524a9b..00ee01da9 100644
 --- i/packages/target-electron/package.json
 +++ w/packages/target-electron/package.json
 @@ -24,7 +24,7 @@
@@ -15,7 +15,7 @@ index 7ad839eb0..d54887ece 100644
      "application-config": "^3.0.0",
      "chai": "^5.1.1",
      "debounce": "^1.2.0",
--    "electron": "^41.1.0",
+-    "electron": "^41.2.0",
 -    "electron-builder": "^26.7.0",
 +    "electron": ">=39.2.6 <40",
 +    "electron-builder": ">=24.13.3 <25",
@@ -23,15 +23,15 @@ index 7ad839eb0..d54887ece 100644
      "mocha": "^10.7.0",
      "rc": "^1.2.8",
 diff --git i/pnpm-lock.yaml w/pnpm-lock.yaml
-index b951c3e0c..56a551f08 100644
+index 0335d753e..7aa3b2bfe 100644
 --- i/pnpm-lock.yaml
 +++ w/pnpm-lock.yaml
 @@ -444,11 +444,11 @@ importers:
          specifier: ^1.2.0
          version: 1.2.1
        electron:
--        specifier: ^41.1.0
--        version: 41.1.0
+-        specifier: ^41.2.0
+-        version: 41.2.0
 +        specifier: '>=39.2.6 <40'
 +        version: 39.8.7
        electron-builder:
@@ -477,8 +477,8 @@ index b951c3e0c..56a551f08 100644
 -    resolution: {integrity: sha512-bO3y10YikuUwUuDUQRM4KfwNkKhnpVO7IPdbsrejwN9/AABJzzTQ4GeHwyzNSrVO+tEH3/Np255a3sVZpZDjvg==}
 -    engines: {node: '>=8.0.0'}
 -
--  electron@41.1.0:
--    resolution: {integrity: sha512-0XRFyxRqetmqtkkBvV++wGbHYJ7bD++f6EgJW8y9kX4pPRagwlmKDtzqXZhKiu0DIQppm3sXxzHWK9GYP91OKQ==}
+-  electron@41.2.0:
+-    resolution: {integrity: sha512-0OKLiymqfV0WK68RBXqAm3Myad2TpI5wwxLCBEUcH5Nugo3YfSk7p1Js/AL9266qTz5xZioUnxt9hG8FFwax0g==}
 +  electron@39.8.7:
 +    resolution: {integrity: sha512-B3TmzbUEeIvrhJ0QcoFp8/tgnVA3vsm0wkdYWzC22hsk9zTVqkzyrrz40cjd0nMTTIrGWxxfDO2tdQTCMe9Bjw==}
      engines: {node: '>= 12.20.55'}
@@ -1195,24 +1195,6 @@ index b951c3e0c..56a551f08 100644
    '@tsconfig/node10@1.0.11': {}
  
    '@tsconfig/node12@1.0.11': {}
-@@ -5042,7 +4848,7 @@ snapshots:
-   '@types/body-parser@1.19.5':
-     dependencies:
-       '@types/connect': 3.4.38
--      '@types/node': 20.17.50
-+      '@types/node': 22.19.3
- 
-   '@types/cacheable-request@6.0.3':
-     dependencies:
-@@ -5073,7 +4879,7 @@ snapshots:
- 
-   '@types/express-serve-static-core@4.19.5':
-     dependencies:
--      '@types/node': 20.17.50
-+      '@types/node': 22.19.3
-       '@types/qs': 6.9.15
-       '@types/range-parser': 1.2.7
-       '@types/send': 0.17.4
 @@ -5137,10 +4943,6 @@ snapshots:
      dependencies:
        undici-types: 6.21.0
@@ -1224,15 +1206,6 @@ index b951c3e0c..56a551f08 100644
    '@types/plist@3.0.5':
      dependencies:
        '@types/node': 22.19.3
-@@ -5194,7 +4996,7 @@ snapshots:
-   '@types/serve-static@1.15.7':
-     dependencies:
-       '@types/http-errors': 2.0.4
--      '@types/node': 20.17.50
-+      '@types/node': 22.19.3
-       '@types/send': 0.17.4
- 
-   '@types/verror@1.10.11':
 @@ -5304,8 +5106,6 @@ snapshots:
  
    '@xmldom/xmldom@0.8.11': {}
@@ -1683,7 +1656,7 @@ index b951c3e0c..56a551f08 100644
 -    transitivePeerDependencies:
 -      - supports-color
 -
--  electron@41.1.0:
+-  electron@41.2.0:
 +  electron@39.8.7:
      dependencies:
        '@electron/get': 2.0.3
