@@ -7,4 +7,4 @@ An [upstream ticket was opened](https://trac.filezilla-project.org/ticket/13186)
 
 ## Soname changes on new releases
 
-`libfilezilla` has soname changes on new releases, requiring `filezilla` to be rebuilt against said new releases.
+`libfilezilla` has soname changes on new releases, requiring `fzssh` and `filezilla` to be rebuilt against said new releases.
