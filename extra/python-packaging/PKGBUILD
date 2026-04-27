@@ -4,12 +4,12 @@ _bootstrap=0
 _bootstrap_version=3.14.0
 pkgname=python-packaging
 _name=${pkgname#python-}
-pkgver=26.1
+pkgver=26.2
 pkgrel=1
 pkgdesc="Core utilities for Python packages"
 arch=('any')
 url="https://github.com/pypa/packaging"
-license=('Apache-2.0')
+license=('Apache-2.0' 'BSD-2-Clause')
 depends=('python')
 if (( _bootstrap == 0 )); then
   makedepends=(
@@ -35,7 +35,7 @@ else
     python-setuptools::git+https://github.com/pypa/setuptools.git
   )
 fi
-sha512sums=('811d1fd2302053d6039c4746f6c5ed911f2907e89c56d71a68016a42d488d23ef26f1be4e2dd1e19175d3d0484d12f9cb0b5942d9c31ac388a8ed0f147d15ab0')
+sha512sums=('28a93b2c3ff099eb4ebe82ac09d3c7e7260de37918558d495e2d84a1a8f67603b4b9adb87633ee3d00d953fc0ed50f8b54f573c97ece134fa9b3f5eb636bf05f')
 
 prepare() {
   if (( _bootstrap == 0 )); then
