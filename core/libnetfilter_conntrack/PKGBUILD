@@ -4,16 +4,16 @@
 # Contributor: Kevin Edmonds <edmondskevin@hotmail.com>
 
 pkgname=libnetfilter_conntrack
-pkgver=1.0.9
-pkgrel=2
+pkgver=1.1.1
+pkgrel=1
 pkgdesc='Library providing an API to the in-kernel connection tracking state table'
 arch=('x86_64')
-depends=('libnfnetlink' 'libmnl')
+depends=('glibc' 'libnfnetlink' 'libmnl')
 url='https://www.netfilter.org/projects/libnetfilter_conntrack/'
-license=('GPL')
-validpgpkeys=('37D964ACC04981C75500FB9BD55D978A8A1420E4') # Netfilter Core Team
-source=("https://www.netfilter.org/projects/$pkgname/files/$pkgname-$pkgver.tar.bz2"{,.sig})
-sha256sums=('67bd9df49fe34e8b82144f6dfb93b320f384a8ea59727e92ff8d18b5f4b579a8'
+license=('GPL-2.0-or-later')
+validpgpkeys=('8C5F7146A1757A65E2422A94D70D1A666ACF2B21') # Netfilter Core Team
+source=("https://www.netfilter.org/projects/$pkgname/files/$pkgname-$pkgver.tar.xz"{,.sig})
+sha256sums=('769d3eaf57fa4fbdb05dd12873b6cb9a5be7844d8937e222b647381d44284820'
             'SKIP')
 
 build() {
