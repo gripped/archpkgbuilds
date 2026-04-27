@@ -2,7 +2,7 @@
 # Contributor: Nikita Almakov <nikita.almakov@gmail.com>
 
 pkgname=rate-mirrors
-pkgver=0.28.2
+pkgver=0.28.3
 pkgrel=1
 pkgdesc="Everyday-use client-side map-aware mirror ranking tool"
 arch=('x86_64')
@@ -11,10 +11,11 @@ license=('CC-BY-NC-SA-3.0')
 depends=(
   'glibc'
   'libgcc'
+  'openssl'
 )
 makedepends=('cargo')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('3080c6e3f86a509a10dc9f81c1de102573dc3a2b94b9d1ab6cf3fc1e960df74018932bf9a50651a48f975d64e0fda73a98ddb32a13e57d8a2f4cb2983dcd070b')
+b2sums=('52a73cc7ab74f075e32a40be601312c79c293b3e29b1433ef1e86d900976ae83ce8f1bb38638efc2783b8dd4f86fbf1b9560160bde039e76d700cc7972017e10')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -23,13 +24,12 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
-  export CFLAGS+=' -ffat-lto-objects'
-  cargo build --frozen --release
+  OPENSSL_NO_VENDOR=true cargo build --frozen --release
 }
 
 check() {
   cd $pkgname-$pkgver
-  cargo test --frozen
+  OPENSSL_NO_VENDOR=true cargo test --frozen
 }
 
 package() {
