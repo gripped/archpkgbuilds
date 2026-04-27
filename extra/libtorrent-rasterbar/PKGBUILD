@@ -5,7 +5,7 @@
 
 pkgname=libtorrent-rasterbar
 pkgver=2.0.12
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc='An efficient and feature complete C++ BitTorrent library implementation'
 url='https://www.rasterbar.com/products/libtorrent/'
