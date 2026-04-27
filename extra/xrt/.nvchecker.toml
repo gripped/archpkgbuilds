@@ -1,4 +1,5 @@
 [xrt]
-source = "github"
-github = "Xilinx/XRT"
-use_latest_release = true
+source = "git"
+git = "https://github.com/Xilinx/XRT.git"
+# exclude date based releases i.e. 202520.2.20.197
+exclude_regex = '\d{3,}\..*'
