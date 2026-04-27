@@ -3,7 +3,7 @@
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 
 pkgname=hipcub
-pkgver=7.2.1
+pkgver=7.2.2
 pkgrel=1
 pkgdesc='Header-only library on top of rocPRIM or CUB'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('rocm-core' 'rocprim' 'hip-runtime-amd')
 makedepends=('git' 'cmake' 'rocm-cmake' 'rocm-toolchain' 'rocm-llvm')
 _git='https://github.com/ROCm/rocm-libraries'
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/releases/download/rocm-$pkgver/hipcub.tar.gz")
-sha256sums=('87e78242615cd1c773b7443bb51c8fc2307a7ef903cecfa34cf42a5944d6162d')
+sha256sums=('b8c20fa03a4b84781bf9d1d779e6908ac76a960fd506945f4da7c23a31a14c66')
 
 build() {
   # -fcf-protection is not supported by HIP, see
