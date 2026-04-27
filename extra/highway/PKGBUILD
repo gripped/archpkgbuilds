@@ -1,12 +1,12 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=highway
-pkgver=1.3.0
-pkgrel=2
+pkgver=1.4.0
+pkgrel=1
 pkgdesc='A C++ library that provides portable SIMD/vector intrinsics'
 arch=('x86_64')
 url='https://github.com/google/highway/'
-license=('Apache-2.0 AND BSD-3-Clause')
+license=('Apache-2.0 OR BSD-3-Clause')
 depends=(
     'glibc'
     'gtest'
@@ -15,7 +15,7 @@ depends=(
 makedepends=(
     'cmake')
 source=("https://github.com/google/highway/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('07b3c1ba2c1096878a85a31a5b9b3757427af963b1141ca904db2f9f4afe0bc2')
+sha256sums=('e72241ac9524bb653ae52ced768b508045d4438726a303f10181a38f764a453c')
 
 build() {
     cmake -B build -S "${pkgname}-${pkgver}" \
@@ -34,5 +34,5 @@ check() {
 
 package() {
     DESTDIR="$pkgdir" cmake --install build
-    install -D -m644 "${pkgname}-${pkgver}/LICENSE-BSD3" -t "${pkgdir}/usr/share/licenses/${pkgname}"
+    install -D -m644 "${pkgname}-${pkgver}/LICENSE" -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
