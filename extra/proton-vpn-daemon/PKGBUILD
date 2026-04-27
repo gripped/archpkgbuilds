@@ -2,7 +2,7 @@
 
 pkgname=proton-vpn-daemon
 pkgver=0.13.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Daemons for Proton VPN Linux client (split tunneling service)"
 arch=('any')
 url="https://github.com/ProtonVPN/proton-vpn-daemon"
@@ -32,16 +32,19 @@ source=(
   "dbus.service::https://raw.githubusercontent.com/ProtonVPN/${pkgname}/stable/rpmbuild/SOURCES/dbus.service"
   "systemd.service::https://raw.githubusercontent.com/ProtonVPN/${pkgname}/stable/rpmbuild/SOURCES/systemd.service"
   "split-tunneling.patch"
+  "kernel-7.0.patch"
 )
 sha256sums=('58b190674f310746ce80d85b0a1b24526a3da068e94a9ab03b042cce473ae211'
             '87ed0dcd92d9ec1f90f1012013acfbb7a78b19521fd89fb8857f97f39941943c'
             '49c2a78014c6e33103991a218a20d17f5ea95ddc9fda4d78ac26e2799bd8300d'
             'e5bdae949524e86958b8cdf00b3a78d17dddaeacf6de3290917de71cfc31a029'
-            '8d3107bd22fb7267e07ad4faa3a50054a77833de6d2da582262141a6e48aea47')
+            '8d3107bd22fb7267e07ad4faa3a50054a77833de6d2da582262141a6e48aea47'
+            '8fc7f12decfe9d39aaa00d55dc84f422f36ad16ac03e52674591a89f944fbee7')
 
 prepare() {
   cd $pkgname
   patch -Np1 < ../split-tunneling.patch
+  patch -Np1 < ../kernel-7.0.patch
 }
 build() {
   cd "$pkgname"
