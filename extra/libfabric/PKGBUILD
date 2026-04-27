@@ -2,7 +2,7 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=libfabric
-pkgver=2.5.0
+pkgver=2.5.1
 pkgrel=1
 pkgdesc="User-space API for OpenFabrics Interfaces (OFI)"
 arch=(x86_64)
@@ -11,7 +11,7 @@ license=('BSD-2-Clause OR GPL-2.0-or-later')
 depends=(glibc numactl)
 options=(!lto)
 source=(https://github.com/ofiwg/libfabric/releases/download/v${pkgver}/libfabric-${pkgver}.tar.bz2)
-sha512sums=('fcc4c6d22880ac7781b737ae853c6f72d637e0fdfcc336a0131972fb33f5ccf25b2df3c7af55f1ce35e05058c65d07035b66d385f792deaabfac1d7a16e29487')
+sha512sums=('67c448a1143ebd5ab306e14b177800ef3950f2c40e0ecb2c3329a129b741b84051e70eceee7bf45609e1337fbcc4a687c6add08c4b4f2811774db0f02531267a')
 
 prepare() {
   cd ${pkgname}-${pkgver}
