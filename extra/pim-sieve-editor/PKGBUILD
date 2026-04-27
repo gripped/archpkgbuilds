@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=pim-sieve-editor
-pkgver=25.12.3
+pkgver=26.04.0
 pkgrel=1
 pkgdesc='Mail sieve editor'
 arch=(x86_64)
@@ -20,6 +20,7 @@ depends=(gcc-libs
          ki18n
          kiconthemes
          kmailtransport
+         ktextaddons
          kuserfeedback
          kwidgetsaddons
          kwindowsystem
@@ -33,7 +34,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-pim)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('eae7f687f76950b8e490420747076087bf3fb04da15df6b04b663586b2550f81'
+sha256sums=('e666c3d2bf8dfdcc8a8310ad0d6b4afbc1ae1b558574bee3b7fe93336af457cd'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
