@@ -20,7 +20,7 @@
 pkgbase=kodi
 pkgname=('kodi' 'kodi-gles' 'kodi-eventclients' 'kodi-tools-texturepacker' 'kodi-dev')
 pkgver=21.3
-pkgrel=4
+pkgrel=5
 arch=('x86_64')
 url="https://kodi.tv"
 license=('GPL-2.0-or-later')
@@ -82,6 +82,7 @@ source=(
   "$pkgbase-fstrcmp-$_fstrcmp_version.tar.gz::https://mirrors.kodi.tv/build-deps/sources/fstrcmp-$_fstrcmp_version.tar.gz"
   "$pkgbase-flatbuffers-$_flatbuffers_version.tar.gz::https://mirrors.kodi.tv/build-deps/sources/flatbuffers-$_flatbuffers_version.tar.gz"
   "$pkgbase-libudfread-$_libudfread_version.tar.gz::https://mirrors.kodi.tv/build-deps/sources/libudfread-$_libudfread_version.tar.gz"
+  "https://github.com/xbmc/xbmc/pull/28016.patch"
 )
 noextract=(
   "$pkgbase-libdvdcss-$_libdvdcss_version.tar.gz"
@@ -101,7 +102,8 @@ sha512sums=('4e344f7de95e7f47da413f7aeeef0656837befa89ef8924edf5409ac1c0c8c49e40
             'f0a80d8e99b10473bcfdfde3d1c5fd7b766959819f0d1c0595ac84ce46db9007a5fbfde9a55aca60530c46cb7f8ef4c7e472c6191559ded92f868589c141ccaf'
             'aaeb0227afd5ada5955cbe6a565254ff88d2028d677d199c00e03b7cb5de1f2c69b18e6e8b032e452350a8eda7081807b01765adbeb8476eaf803d9de6e5509c'
             '4066c94f2473c7ea16917d29a613e16f840a329089c88e0bdbdb999aef3442ba00abfd2aa92266fa9c067e399dc88e6f0ccac40dc151378857e665638e78bbf0'
-            '3069feb5db40288beb5b112b285186162a704f0fdd3cf67a17fd4eeea015f2cfcfbb455b7aa7c3d79d00fd095a3fd11cffc7b121dce94d99c3b06a509a8977d2')
+            '3069feb5db40288beb5b112b285186162a704f0fdd3cf67a17fd4eeea015f2cfcfbb455b7aa7c3d79d00fd095a3fd11cffc7b121dce94d99c3b06a509a8977d2'
+            'cd7870f9afdaf9e24149082348022b2f257768bbaad9ac6bf2bdb3738f237368ca44a944c87cba9203f7d74c983123b9b446df631c778636a42964de14666cc5')
 
 prepare() {
   [[ -d "$srcdir/kodi-build" ]] && rm -rf "$srcdir/kodi-build"
@@ -110,6 +112,9 @@ prepare() {
   mkdir "$srcdir/kodi-build-gles"
 
   cd "xbmc-$pkgver-$_codename"
+  # TexturePacker will not build with giflib-6.1.2
+  # https://github.com/xbmc/xbmc/pull/28016
+  patch -p1 -i "$srcdir/28016.patch"
 
   rm -rf system/certs # remove not needed cacert
 }
@@ -122,14 +127,6 @@ build() {
     -DCMAKE_BUILD_TYPE=Release
     -DCMAKE_INSTALL_PREFIX=/usr
     -DCMAKE_INSTALL_LIBDIR=/usr/lib
-    -DENABLE_SSE=ON
-    -DENABLE_SSE2=ON
-    -DENABLE_SSE3=ON
-    -DENABLE_SSSE3=ON
-    -DENABLE_SSE4_1=ON
-    -DENABLE_SSE4_2=ON
-    -DENABLE_AVX=ON
-    -DENABLE_AVX2=ON
     -DUSE_LTO=ON
     -DENABLE_LDGOLD=OFF
     -DENABLE_AIRTUNES=OFF
@@ -167,6 +164,15 @@ build() {
     -DFLATBUFFERS_URL="$srcdir/$pkgbase-flatbuffers-$_flatbuffers_version.tar.gz"
     -DUDFREAD_URL="$srcdir/$pkgbase-libudfread-$_libudfread_version.tar.gz"
   )
+
+  # Architecture-specific SIMD flags
+  # x86-only SIMD flags
+  if [[ $CARCH == "x86_64" ]]; then
+    _cmake_common_args+=(
+      -DENABLE_SSE=ON -DENABLE_SSE2=ON -DENABLE_SSE3=ON -DENABLE_SSSE3=ON
+      -DENABLE_SSE4_1=ON -DENABLE_SSE4_2=ON -DENABLE_AVX=ON -DENABLE_AVX2=ON
+    )
+  fi
 
   echo "building kodi"
   cd "$srcdir/kodi-build"
