@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-screensaver
-pkgver=6.5.3
+pkgver=6.5.8
 pkgrel=1
 pkgdesc='Deepin screensaver viewer and tools'
 arch=('x86_64')
@@ -13,10 +13,14 @@ depends=('deepin-qt-dbus-factory' 'dtkcore' 'dtkwidget' 'qt5-base' 'qt5-declarat
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'deepin-desktop-base')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/deepin-screensaver.git#tag=$pkgver")
-sha512sums=('db172098c75746a25525d34b6ace97f45e9e5fc68a09d47f46cdb46c4014600654adbbce7dc2763f1b84d2012fbdf1c8e700902bd566c407b0c206cb88825ed8')
+sha512sums=('09f4ec57a345648f3f10791a97560e488fd8d226cc6ac1eb2b74724456d0da98daa3b3ec474f95b38af44e86de17a2face7d309f10a72c2e4a0b5fba93d08da9')
 
 prepare() {
   cd deepin-screensaver
+
+  # Upstream uses QEvent::Type in dbusscreensaver.h without including QEvent.
+  sed -i '/^#include <QObject>$/a #include <QEvent>' src/dbusscreensaver.h
+
   sed -i 's|/etc/os-version|/etc/deepin-version|' common.pri
 }
 
