@@ -2,15 +2,15 @@
 # Contributor: Wilhem Barbier <wilhem.b@free.fr>
 
 pkgname=raylib
-pkgver=5.5
+pkgver=6.0
 pkgrel=1
 pkgdesc='Simple and easy-to-use game programming library'
 arch=(x86_64)
 url='https://www.raylib.com'
 license=(Zlib)
-makedepends=(cmake git libx11 libxcursor libxinerama libxrandr ninja vulkan-headers xorg-server-devel xorg-xinput)
+makedepends=(cmake git libx11 libxcursor libxinerama libxrandr vulkan-headers xorg-server-devel xorg-xinput)
 source=("git+https://github.com/raysan5/raylib#tag=$pkgver")
-b2sums=('7b03b06de247420d621fc75b317c83c9405f09bae3855dc369e0fcba9b395d318739ea284b98f3588a76c4f90f638878aba481b5296e39d72f81bf22c142b817')
+b2sums=('4a6bfc4e88900e600ec10f4b42bbdede3f9ea758cf5925fa7193a304360e3b4b92c5ec52e04a3d33f4b624253ee08be92af8442e9217ab2df23e8fa831a5c395')
 
 build() {
   cmake \
@@ -25,14 +25,13 @@ build() {
     -D PLATFORM=Desktop \
     -D USE_EXTERNAL_GLFW=OFF \
     -D WITH_PIC=ON \
-    -G Ninja \
     -S $pkgname \
     -W no-dev
-  ninja -C build
+  make -C build
 }
 
 package() {
-  DESTDIR="$pkgdir" ninja -C build install
+  DESTDIR="$pkgdir" make -C build install
   # Include files that are used in the raylib examples
   for f in rcamera rgestures; do
     install -Dm644 $pkgname/src/$f.h "$pkgdir/usr/include/$f.h"
