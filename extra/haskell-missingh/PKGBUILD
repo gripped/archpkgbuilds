@@ -2,17 +2,17 @@
 
 _hkgname=MissingH
 pkgname=haskell-missingh
-pkgver=1.6.0.2
-pkgrel=87
+pkgver=1.6.0.3
+pkgrel=2
 pkgdesc="Large utility library"
 url="https://github.com/haskell-hvr/missingh"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hslogger' 'haskell-network' 'haskell-network-bsd' 'haskell-old-locale'
          'haskell-old-time' 'haskell-regex-compat')
 makedepends=('ghc' 'uusi' 'haskell-hunit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('3a8a41d4b7e54d5a6bab8539bcc10df534c0540fd229d1714ecfa6c96061939d')
+sha256sums=('1a93d86c9c33fbf8c5dafdf0d5d32ddc12bb5206a0f56a931d204328716ca4a8')
 
 prepare() {
   cd $_hkgname-$pkgver
