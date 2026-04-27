@@ -2,8 +2,8 @@
 
 _hkgname=pantry
 pkgname=haskell-pantry
-pkgver=0.8.2.2
-pkgrel=49
+pkgver=0.8.3
+pkgrel=4
 pkgdesc="Content addressable Haskell package management"
 url="https://github.com/commercialhaskell/pantry"
 license=('BSD-3-Clause')
@@ -22,7 +22,7 @@ makedepends=('ghc' 'uusi' 'haskell-hedgehog' 'haskell-hspec' 'haskell-quickcheck
              'haskell-raw-strings-qq')
 checkdepends=('git' 'mercurial')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('e23ec321a230d2f2e0d66e63c97a9c58c3073dc9949108cc51ba0d2078b3b357361a8459a8e18b9f2d86faba73bf7bf2e4f5dc75c23fa5c0f14322f696691c7b')
+sha512sums=('d3934bf761f4354f08fdc20cbc320b21c37b83114170ad3a006133122202312f34134ae6d470baef9ea552b2bad2ca2a73af08380ceee108108e395e21728ac5')
 
 prepare() {
     cd $_hkgname-$pkgver
