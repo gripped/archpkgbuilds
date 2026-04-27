@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-gdstk
-pkgver=0.9.52
+pkgver=0.9.57
 pkgrel=1
 pkgdesc="Python module for creating GDSII stream files, usually CAD layouts"
 url="https://github.com/heitzmann/gdstk"
@@ -11,13 +11,7 @@ depends=('python-numpy' 'qhull')
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-scikit-build-core' 'cmake')
 checkdepends=('python-pytest')
 source=("git+https://github.com/heitzmann/gdstk.git#tag=v$pkgver")
-sha512sums=('6a8ea042b8ef4c271ebf18693fe699cb326fe4fb29f623340e13c2446853cc10928bc8c7d95b8fd655e7bbc683a6b0d264ec7ff52af04e8075cc1ce3db9fc486')
-
-prepare() {
-  cd gdstk
-  # Upstream wants to test CI :/
-  sed -i 's/oldest-supported-numpy/numpy/' pyproject.toml
-}
+sha512sums=('b30eeedec5665abdaded5c3b1fa10801312808368fed6409cceff72d3d26f2b7f06a2334b69908874c5cf0d8241502b4e4fac6249c2ba9f6dcc44717161818c1')
 
 build() {
   cd gdstk
