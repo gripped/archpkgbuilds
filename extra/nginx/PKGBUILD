@@ -19,7 +19,7 @@ pkgname=(
 )
 # IMPORTANT: When bumping $pkgver, remember to rebuild NGINX modules nginx-mod-*.
 pkgver=1.30.0
-pkgrel=1
+pkgrel=2
 _tests_commit=cf90a22921652731302e8a4dc2a88049c723377d
 arch=(x86_64)
 pkgdesc='Lightweight HTTP server and IMAP/POP3 proxy server'
@@ -209,8 +209,7 @@ package_nginx() {
   mv "$srcdir"/install/* "$pkgdir/"
 
   sed -e 's|\<user\s\+\w\+;|user http;|g' \
-    -e '44s|html|/usr/share/nginx/html|' \
-    -e '54s|html|/usr/share/nginx/html|' \
+    -e '/^\s\+root/s|html|/usr/share/nginx/html|' \
     -e '/^events {/ i # Load all installed modules\ninclude modules.d/*.conf;\n' \
     -i "$pkgdir"/etc/nginx/nginx.conf
 
