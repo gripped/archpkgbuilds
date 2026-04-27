@@ -1,0 +1,12 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -76,8 +76,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+   # Any Clang or any GCC
+   add_compile_options(
+     -Wno-multichar
+-    # Targeting Windows with GCC/Clang is experimental
+-    $<$<NOT:$<OR:$<BOOL:${WIN32}>,$<BOOL:${SURGE_SKIP_WERROR}>>>:-Werror>
++    -Wno-error
+ 
+     # PE/COFF doesn't support visibility
+     $<$<NOT:$<BOOL:${WIN32}>>:-fvisibility=hidden>
