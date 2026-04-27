@@ -5,10 +5,10 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=mysql-workbench
-pkgver=8.0.46
-pkgrel=1
-_mysql_version=8.4.8
-_connector_version=9.6.0
+pkgver=8.0.47
+pkgrel=2
+_mysql_version=8.4.9
+_connector_version=9.7.0
 _boost_version=1.87.0
 # bump the antlr4 version as required, this is to match the jar file name
 _antlr4_version=4.13.2
@@ -21,28 +21,30 @@ depends=('antlr4-runtime' 'libantlr4-runtime.so'
          'at-spi2-core' 'libatk-1.0.so'
          'cairo' 'libcairo.so'
          'desktop-file-utils'
-         'freetype2'
-         'gcc-libs'
-         'gdal'
+         'gdal' #'libgdal.so'
          'gdk-pixbuf2' 'libgdk_pixbuf-2.0.so'
          'glib2' 'libgio-2.0.so' 'libglib-2.0.so' 'libgmodule-2.0.so' 'libgobject-2.0.so'
          'glibc'
+         'glibmm' 'libglibmm-2.4.so'
          'gtk3' 'libgdk-3.so' 'libgtk-3.so'
-         'gtkmm3' 'libgtkmm-3.0.so' #'libgdkmm-3.0.so'
+         'gtkmm3' 'libgdkmm-3.0.so' 'libgtkmm-3.0.so'
          'hicolor-icon-theme'
-         'libaio'
+         'libgcc' 'libgcc_s.so'
          'libgl' 'libGLX.so' 'libOpenGL.so'
          'libsecret' 'libsecret-1.so'
+         'libsigc++' 'libsigc-2.0.so'
          'libssh' 'libssh.so'
-         'libx11'
+         'libstdc++' 'libstdc++.so'
+         'libx11' #'libX11.so'
          'libxml2' 'libxml2.so'
          'libzip' 'libzip.so'
          'ncurses' 'libncursesw.so'
          'openssl' 'libcrypto.so' 'libssl.so'
          'pango' 'libpango-1.0.so' 'libpangocairo-1.0.so'
          'proj' #'libproj.so'
-         'python'
+         'python' #'libpython3.14.so'
          'unixodbc' 'libodbc.so'
+         'util-linux-libs' 'libuuid.so'
          'vsqlite++' 'libvsqlitepp.so')
 makedepends=("antlr4=${_antlr4_version}"
              "antlr4-runtime=${_antlr4_version}"
@@ -50,6 +52,7 @@ makedepends=("antlr4=${_antlr4_version}"
              'cmake'
              'imagemagick'
              'java-runtime'
+             'libaio'
              'mesa'
              'rapidjson'
              'swig')
@@ -64,11 +67,11 @@ source=("https://cdn.mysql.com/Downloads/MySQLGUITools/mysql-workbench-community
 	'0004-replace-deprecated-python-modules-pipes-with-shlex.patch'
         '0005-gcc-15.patch'
 	'arch_linux_profile.xml')
-sha256sums=('b0fec66126a03e9701866742ca7bd0b3125ec5ee78060bba448edaa4249bf531'
+sha256sums=('c4e9629d6d29355eef75467e1afdc48bd7286cb432225f8af97833eb4b6bb896'
             'SKIP'
-            'be9d96cdf87f276952a2cdd960f106b960a8860e46c115ed39c1b5f2e0387a20'
+            'e4aa8b39e42d1fe078f33bbd73695fac2b54dbc7bb137f0bdbe63f7be1a02d6b'
             'SKIP'
-            'b25a9a139855da9713c863b5a64c7f10c52eded76b2c04a2fb2deb9aab456b3d'
+            '9a3dd4fe441a8191f761192ecdc717c18a58a1cbb6e39623debb7196c3075b0e'
             'SKIP'
             'af57be25cb4c4f4b413ed692fe378affb4352ea50fbe294a11ef548f4d527d89'
             'cdf687f23bc6e8d52dbee9fa02b23d755e80f88476f0fc2e7c4c71cdfed3792f'
