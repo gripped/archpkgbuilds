@@ -3,7 +3,7 @@
 pkgbase=lua-system
 _rockname=${pkgbase#lua-}
 pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname" "lua54-$_rockname")
-pkgver=0.7.0
+pkgver=0.7.1
 _rockrel=1
 pkgrel=1
 pkgdesc='Platform independent system calls for Lua'
@@ -21,7 +21,7 @@ _archive="${pkgbase/-/}-$pkgver"
 _rock="$_archive-$_rockrel.linux-$CARCH.rock"
 _rockspec="rockspecs/$_archive-$_rockrel.rockspec"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('f6a617414f5e27c69e2377c7e2b90631b8ee0529c3ef7960d6937e33247d0bbe')
+sha256sums=('c85fb1e05ba5059a767ee0f6c8db8b9a30b86760224085b687ffbdf4892895cd')
 
 build() {
 	cd "$_archive"
