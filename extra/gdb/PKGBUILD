@@ -9,7 +9,7 @@ pkgbase=gdb
 # of gdb (for arm/avr/...)
 pkgname=(gdb gdb-common)
 pkgver=17.1
-pkgrel=3
+pkgrel=5
 pkgdesc='The GNU Debugger'
 arch=(x86_64)
 url='https://www.gnu.org/software/gdb/'
@@ -68,6 +68,7 @@ package_gdb-common() {
 package_gdb() {
   depends=(
     bash
+    boost-libs
     expat
     gcc-libs
     gdb-common=$pkgver
