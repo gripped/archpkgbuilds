@@ -2,7 +2,7 @@
 # Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-aiobotocore
-pkgver=3.3.0
+pkgver=3.4.0
 pkgrel=1
 pkgdesc='asyncio support for botocore library using aiohttp'
 arch=(any)
@@ -43,7 +43,7 @@ source=(
   "git+$url.git#tag=$pkgver"
   "$pkgname-fix-duplicate-server-header.patch"
 )
-b2sums=('4e165a74a30deef0551aa24bf8a9d42fa6ed64e2a17321139338dd3244f72a751ab6eaeaabe617695c86542deb1f55b1c2625fb37fc9ac655f3de1520ac2eef2'
+b2sums=('4e484acf1a48ad25e705064de7cdfc0bfb85c9e4b8b76c8bf4633e8bb01758e882c460f9b7ce590658bce9abb55cbf9b5c2b34092fe6d3a156b9e59286df697c'
         'e0b6a254b92f61cd0c1bb6a2930373bdd8a513afb594f9ec0001a0fdf244439d305e887a7cddcdfb4a8775ffcf609606e128959547506576f2174ccc85afdd18')
 
 prepare() {
