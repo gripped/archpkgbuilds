@@ -5,7 +5,6 @@ After=containerd.service crio.service docker.service
 
 [Service]
 ConfigurationDirectory=kubernetes
-CPUAccounting=true
 IPAccounting=true
 EnvironmentFile=-/etc/kubernetes/kubelet.env
 ExecStart=/usr/bin/kubelet $KUBELET_ARGS
