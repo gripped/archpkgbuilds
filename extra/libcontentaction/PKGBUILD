@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=libcontentaction
-pkgver=0.4.8
+pkgver=0.4.12
 pkgrel=1
 pkgdesc="Library for associating content with actions"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('LGPL-2.1-only')
 depends=('mlite' 'qt5-declarative')
 makedepends=('git' 'python' 'qt5-tools')
 source=("git+https://github.com/sailfishos/libcontentaction.git#tag=$pkgver")
-sha512sums=('9308081e0e3758c1bedf8b4e910575d04eea9ed803472934c410a720e2dc873e55ef7244f6572e743a08432ea86a5976c7d1c162c70d011fc161fb110c34d347')
+sha512sums=('a667a0886cb98dc02f1f1ed7934d5664a01f937b2e87d888c7d35450cf56e7d7e54337eeef8963e33c1063907ff9747b1ff7cbbd2595e694dbb2b3c9dc4f65d7')
 
 build() {
   cd libcontentaction
