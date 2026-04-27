@@ -4,18 +4,18 @@
 
 pkgname=cython
 pkgver=3.2.4
-pkgrel=3
+pkgrel=4
 pkgdesc='C-Extensions for Python'
 arch=(x86_64)
 url='https://cython.org'
 license=(Apache-2.0)
 depends=(glibc
-         python)
+         python
+         python-setuptools)
 replaces=(cython-dev)
 makedepends=(git
              python-build
              python-installer
-             python-setuptools
              python-wheel)
 checkdepends=(gdb
               python-interpreters-pep-734
@@ -28,6 +28,7 @@ sha256sums=('345fc5424c0ade49510997398c47f33ad3d1f349610b8a328b53795c716b3c92')
 prepare() {
   cd cython
   git cherry-pick -n d344f9b284549362dee39af7a74a9c669bb65ce8 # Do not embed absolute paths of source files (breaks packaging)
+  git cherry-pick -n fd847477a47855f9c0d036f35c8865196d5267cc # Drop pkg_resources usage
 }
 
 build() {
