@@ -3,13 +3,14 @@
 # Contributor: Dale Blount <dale@archlinux.org>
 
 pkgname=ulogd
-pkgver=2.0.8
-pkgrel=2
+pkgver=2.0.9
+pkgrel=1
 pkgdesc='Userspace Packet Logging for netfilter'
 arch=('x86_64')
 url='https://www.netfilter.org/projects/ulogd/'
-license=('GPL2')
-depends=('libmnl'
+license=('GPL-2.0-or-later')
+depends=('glibc'
+         'libmnl'
          'libnetfilter_acct'
          'libnetfilter_conntrack'
          'libnetfilter_log'
@@ -27,12 +28,12 @@ optdepends=('mariadb-libs: MySQL databases support'
             'libdbi: DBI abstraction databases support'
             'libpcap: PCAP output support'
             'jansson: JSON output support')
-validpgpkeys=('37D964ACC04981C75500FB9BD55D978A8A1420E4') # Netfilter Core Team
-source=("https://www.netfilter.org/projects/ulogd/files/$pkgname-$pkgver.tar.bz2"{,.sig}
+validpgpkeys=('8C5F7146A1757A65E2422A94D70D1A666ACF2B21') # Netfilter Core Team
+source=("https://www.netfilter.org/projects/ulogd/files/$pkgname-$pkgver.tar.xz"{,.sig}
         "$pkgname.logrotate"
         "$pkgname.conf"
         "$pkgname.service")
-sha256sums=('4ead6c3970c3f57fa1e89fe2d7cc483ba6fe2bd1b08701521e0b3afd667df291'
+sha256sums=('523a651fe0a9f25b0cd87d5d35fc37d9382e7eecfcf61e48d5505ff3cf80eda5'
             'SKIP'
             'de7626ea6355691cb89e7f119097ba62c7519546f2c5f1b6c1afc56efd4429ae'
             '72c4f7b468a5ed39038074c757fe5d34a3e364192536b0a3659ae7fdb4789d2c'
@@ -44,7 +45,7 @@ prepare() {
   local filename
   for filename in "${source[@]}"; do
     if [[ "$filename" =~ \.patch$ ]]; then
-      msg2 "Applying patch ${filename##*/}"
+      echo "Applying patch ${filename##*/}"
       patch -p1 -N -i "$srcdir/${filename##*/}"
     fi
   done
