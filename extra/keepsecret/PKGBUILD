@@ -1,31 +1,32 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=keepsecret
-pkgver=1.0.0
-pkgrel=2
+pkgver=1.1.0
+pkgrel=1
 pkgdesc='Password manager'
 arch=(x86_64)
 url='https://apps.kde.org/keepsecret/'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glib2
+depends=(glib2
          glibc
          kconfig
          kcoreaddons
+         kcrash
          kdbusaddons
          ki18n
          kitemmodels
          kirigami
          kirigami-addons
          libsecret
+         libstdc++
          org.freedesktop.secrets
          qqc2-desktop-style
          qt6-base
          qt6-declarative
          qt6-svg)
 makedepends=(extra-cmake-modules)
-source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('d3360caaa527af41f49f2758a93edd83b932a1de2d0993572c958b1eec6f0fe9'
+source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('d27a9925cd6b47de16fd29a7e18984e7a1524084eb614be110abdf279a0b57d1'
             'SKIP')
 validpgpkeys=('1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
 
