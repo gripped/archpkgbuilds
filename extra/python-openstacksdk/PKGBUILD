@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstacksdk
-pkgver=4.10.0
+pkgver=4.11.0
 pkgrel=1
 pkgdesc="An SDK for building applications to work with OpenStack"
 arch=('any')
@@ -11,21 +11,14 @@ license=('Apache-2.0')
 depends=('python-cryptography' 'python-decorator' 'python-dogpile.cache' 'python-iso8601'
          'python-jmespath' 'python-jsonpatch' 'python-keystoneauth1' 'python-os-service-types'
          'python-pbr' 'python-platformdirs' 'python-psutil' 'python-typing_extensions'
-         'python-yaml' 'python-requestsexceptions')
+         'python-yaml')
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-ddt' 'python-fixtures' 'python-hacking' 'python-jsonschema'
               'python-oslo-config' 'python-oslotest' 'python-prometheus_client'
-              'python-requests-mock' 'python-stestr' 'python-testscenarios' 'python-testtools')
+              'python-requests-mock' 'python-stestr' 'python-testscenarios' 'python-testtools'
+              'python-keyring')
 source=("git+https://github.com/openstack/openstacksdk.git#tag=$pkgver")
-sha512sums=('4c155454f2e1352041caabbc90a6780f39c218bc06c0840e155a96f0abece7ff46d7811ebda68fe320ae871b83fec04a70fb6cea9beaa051863ffe95eb3f0b27')
-
-prepare() {
-  cd openstacksdk
-
-  # Fix Python 3.14 annotation introspection on Resource methods
-  sed -i 's/data: list\[dict\[str, ty.Any\]\]/data: "list[dict[str, ty.Any]]"/' openstack/resource.py
-  sed -i 's/) -> dict\[str, ty.Any\] | list\[ty.Any\]:/) -> "dict[str, ty.Any] | list[ty.Any]":/' openstack/resource.py
-}
+sha512sums=('eefc2137f047ffe0f0ecd336b449de4bf46d6fa7916a612c4c34273af7bfa6c7a98524b1ce331bdebce527196d4f3b03da3f122b16cf2f5670df82b8c7c18b9c')
 
 build() {
   cd openstacksdk
