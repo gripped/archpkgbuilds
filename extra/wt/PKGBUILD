@@ -3,7 +3,7 @@
 # Contributor: Denis Martinez <deuns.martinez@gmail.com>
 
 pkgname=wt
-pkgver=4.12.6
+pkgver=4.13.1
 pkgrel=2
 pkgdesc="a C++ library and application server for developing and deploying web applications"
 arch=('x86_64')
@@ -21,7 +21,7 @@ optdepends=('openssl: for SSL support in built-in webserver'
 	    'mysql++: for the hangman example')
 backup=('etc/wt/wt_config.xml')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/emweb/wt/archive/${pkgver}.tar.gz")
-sha512sums=('2c2b746a8253d2a27efed18d908fa8e41ad1014c369b54a7cbe26f6a8a5dbd43902eb2aba99410ee63b858a8c752239f0f1a5d90bfb166e77796e7b6fc0aa960')
+sha512sums=('9ae7b09986cdcacb2018b94874a35965201fd0e08e0e92d384041b6ee1b31d57e152789c7c48235424e19291a1059aa12296c5071c0e3ecee639ea3f4caaedb7')
 
 build() {
   cd ${pkgname}-${pkgver}
