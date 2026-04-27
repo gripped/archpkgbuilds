@@ -12,7 +12,7 @@
 # _commit=61a7c75e225e3035390be32d635545e40d8c5faf
 
 pkgname=nawk
-pkgver=20251225
+pkgver=20260426
 pkgrel=1
 pkgdesc='The one, true implementation of AWK'
 url="https://github.com/onetrueawk/awk"
@@ -23,7 +23,7 @@ depends=(glibc)
 makedepends=(git)
 source=("git+$url.git#commit=${_commit:-$pkgver}"
         'manpage-naming.patch')
-sha256sums=('a6ab93f9c748343f0469f8bd0ccf45a1429489f32b087272806011bb086fb9c3'
+sha256sums=('5be22ab310c2809046c999b9052b1c75896e51098897cf64363f6a6709c9b3e1'
             'fa1bade363896033a50fbdadc8fa2f490f85a044d11afcd537f317067c70d3b5')
 
 # This pkgver function is not necessary for tagged releases but if _commit is
