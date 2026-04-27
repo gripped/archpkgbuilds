@@ -4,7 +4,7 @@
 
 pkgbase=armadillo
 pkgname=(armadillo armadillo-intel)
-pkgver=15.2.4
+pkgver=15.2.5
 pkgrel=1
 pkgdesc='Linear algebra library for C++'
 arch=(x86_64)
@@ -12,7 +12,7 @@ url='https://arma.sourceforge.net/'
 license=(Apache-2.0)
 makedepends=(arpack blas cmake intel-oneapi-mkl lapack superlu)
 source=("https://downloads.sourceforge.net/sourceforge/arma/$pkgbase-$pkgver.tar.xz")
-b2sums=('9b266d6497d442b228d7609908e244047d174cec00d9e9408bf3397fa42af33708870dbe0fe82f19b4a79790bde5141171d133ce6e64153b0a7be3f46d794bac')
+b2sums=('ae57057b28cb1614631fa8bd789fc0d82d939b2062c9b2dada00927fa5c80fe402a2d800f42cb78b17e1de25c0fb9d359f88064e5ee8381045e16abd1fd015fd')
 
 build() {
   # Regular build
@@ -32,7 +32,7 @@ build() {
     -B build-intel \
     -D BUILD_SHARED_LIBS=ON \
     -D CMAKE_BUILD_TYPE=Release \
-    -D CMAKE_INSTALL_PREFIX=/usre \
+    -D CMAKE_INSTALL_PREFIX=/usr \
     -D INSTALL_LIB_DIR:PATH=/usr/lib \
     -S "$pkgbase-$pkgver" \
     -W no-dev
