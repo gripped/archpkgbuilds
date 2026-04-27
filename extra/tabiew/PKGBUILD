@@ -3,12 +3,12 @@
 
 pkgname=tabiew
 pkgver=0.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A lightweight TUI to view and query CSV files"
 arch=('x86_64')
 url="https://github.com/shshemi/tabiew"
 license=('MIT')
-depends=('gcc-libs' 'glibc')
+depends=('glibc' 'libgcc' 'openssl' 'sqlcipher' 'zstd')
 makedepends=('cargo')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
 sha512sums=('5ef5c9a5454c5d1c50776e84ca6c7e6fc8ec57c11e5519b9296ab053816244851fec469e5e708f2e220df91beffb1643f9efe6903ea0517e8de58912b0870ed3')
@@ -21,11 +21,17 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
+  export OPENSSL_NO_VENDOR=true
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+  export ZSTD_SYS_USE_PKG_CONFIG=1
   cargo build --release --frozen
 }
 
 check() {
   cd "$pkgname-$pkgver"
+  export OPENSSL_NO_VENDOR=true
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+  export ZSTD_SYS_USE_PKG_CONFIG=1
   cargo test --frozen
 }
 
