@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-benchmark
-pkgver=5.2.2
+pkgver=5.2.3
 pkgrel=1
 pkgdesc='A py.test fixture for benchmarking code'
 arch=('any')
@@ -12,12 +12,10 @@ makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python
 checkdepends=('python-pygal' 'python-pygaljs' 'python-freezegun' 'mercurial' 'python-aspectlib'
               'python-pytest-xdist' 'python-elasticsearch' 'python-sniffio' 'git')
 source=("git+https://github.com/ionelmc/pytest-benchmark.git#tag=v$pkgver")
-sha512sums=('a4eb6acb2d9c0b354ecb59a4b2c386b1c0169c43d2a52fa6cb34f1de42f327f3b3eafaa692e3003f58a1e8e4a89948a6f9f23899b9d3ea140ba1d4faa6fde52f')
+sha512sums=('dd8ef74167629ba60ce3e9afa3b392c6fa3b4c65f99aab9a7ebed883789e0b426495e0e51d908ea31b6c58ce1bfec8fb5f9f34041888950ca280a5e464da55f8')
 
 prepare() {
   cd pytest-benchmark
-  # Fix pytest 9 compatibility in the CLI.
-  git cherry-pick -n -X ours d5c2f7ef9d0bbd67d8bafac1e2a454c8aa95af10
   # Do not treat warnings as errors
   sed -i '/^    error$/d' pytest.ini
   # Remove --nbmake option (nbmake plugin not packaged in Arch)
@@ -30,13 +28,10 @@ build() {
 }
 
 check() {
-  # Hack entry points by installing it
-
   cd pytest-benchmark
-  python setup.py install --root="$PWD/tmp_install" --optimize=1
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  PYTHONPATH="$PWD/tmp_install/$site_packages:$PYTHONPATH" PATH="$PWD/tmp_install/usr/bin:$PATH" \
-    python -m pytest tests --deselect tests/test_cli.py::test_help
+  python -m venv tmpenv --system-site-packages
+  tmpenv/bin/python -m installer dist/*.whl
+  PATH="$PWD/tmpenv/bin:$PATH" tmpenv/bin/python -m pytest tests
 }
 
 package() {
