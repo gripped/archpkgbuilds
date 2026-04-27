@@ -2,7 +2,7 @@
 
 pkgname=oo7
 pkgver=0.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Secret Service provider'
 arch=(x86_64)
 url='https://linux-credentials.github.io/oo7/oo7/'
@@ -31,6 +31,9 @@ build() {
 
   meson build-portal portal --prefix=/usr --libexecdir=lib
   meson compile -C build-portal
+
+  meson build-pam pam --prefix=/usr --libexecdir=lib
+  meson compile -C build-pam
 }
 
 package() {
@@ -42,6 +45,7 @@ package() {
 
   meson install -C build-server --destdir="$pkgdir"
   meson install -C build-portal --destdir="$pkgdir"
+  meson install -C build-pam --destdir="$pkgdir"
 
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
   rm "$pkgdir"/usr/.crates*
