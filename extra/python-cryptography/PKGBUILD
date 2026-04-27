@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-cryptography
-pkgver=46.0.7
+pkgver=47.0.0
 pkgrel=1
 pkgdesc="A package designed to expose cryptographic recipes and primitives to Python developers"
 arch=('x86_64')
@@ -34,14 +34,11 @@ checkdepends=(
 )
 source=(
   "git+https://github.com/pyca/cryptography.git#tag=$pkgver"
-  "$pkgname-sdist-only-includes.patch"
 )
-b2sums=('43166cc3be26a5feaa1ccd0ca872c022b9744db54b96b408c4b2deed6249ba5986ea3596f20fb4c8e81643459cf672bb5d630c78662937be9f275e29a1e0c22b'
-        'b2778db329fb43c9e7e81a894fa1a25db8001e83a1e0edb6f0e5a0a0ef8f4c2a7f4867c63a46c89376da3a2301ee39dc13e21e19536b4b458efa727f83346ca8')
+b2sums=('d578c37ba59013dcec06887ad233bc7b76fd0ad9f7ba23cbaada74b20ab53cd5a61b963eb2f892622be2d9b5f3e63395de5416bcd6b9777ee952656ab5fc4d19')
 
 prepare() {
   cd cryptography
-  patch -Np1 < ../$pkgname-sdist-only-includes.patch
   # Drop all benchmark tests, this means we don't have to checkdepends on
   # pytest-benchmark nor are benchmark tests interesting for a distribution.
   rm -rf tests/bench
