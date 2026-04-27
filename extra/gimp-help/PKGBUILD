@@ -2,17 +2,18 @@
 # Contributor: Piotr Rogoża <rogoza dot piotr at gmail dot com>
 
 pkgbase=gimp-help
-pkgver=3.0.0
+pkgver=3.0.2
 pkgrel=1
 arch=('any')
 url='https://docs.gimp.org/'
-license=('GPL' 'LGPL')
+license=('GFDL-1.2-or-later')
 makedepends=('python' 'docbook-xsl')
 options=(!strip !zipman)
 source=("https://download.gimp.org/gimp/help/${pkgbase}-${pkgver}.tar.bz2")
-sha256sums=('9adf5aa0f1fa424a9cc2d3c30e40154cb37ccc2602f66c7ec7141a7b7ee87342')
+sha256sums=('1dbfe008e5f42dacc15d587d8f2c837833e7a0247d52335320046a60d4499a24')
 
 _languages=(
+  'bg     "Bulgarian"'
   'ca     "Catalan"'
   'cs     "Czech"'
   'da     "Danish"'
@@ -20,6 +21,7 @@ _languages=(
   'el     "Greek"'
   'en     "English"'
   'en_GB  "English (United Kingdom)"'
+  'eo     "Esperanto"'
   'es     "Spanish"'
   'fa     "Faroese (Persian)"'
   'fi     "Finnish"'
@@ -32,12 +34,15 @@ _languages=(
   'lt     "Lithuanian"'
   'nl     "Dutch"'
   'nn     "Norwegian"'
+  'pl     "Polish"'
   'pt     "Portuguese"'
   'pt_BR  "Brazilian Portuguese"'
   'ro     "Romanian"'
   'ru     "Russian"'
-  'sl     "Slovak"'
+  'sk     "Slovak"'
+  'sl     "Slovenian"'
   'sv     "Swedish"'
+  'tr     "Turkish"'
   'uk     "Ukrainian"'
   'zh_CN  "Chinese (simplified)"'
 )
