@@ -1,7 +1,7 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
 
 pkgname=algernon
-pkgver=1.17.5
+pkgver=1.17.6
 pkgrel=1
 pkgdesc='Web server with Lua, Markdown, QUIC, Redis and PostgreSQL support'
 arch=(x86_64)
@@ -11,9 +11,10 @@ makedepends=(git go)
 optdepends=('mariadb: For using the MariaDB/MySQL database backend'
             'ollama: For using Ollama from Lua or .prompt files'
             'postgresql: For using the PostgreSQL database backend'
+            'redis: For using the Redis database backend'
             'valkey: For using the Redis database backend')
 source=("git+https://github.com/xyproto/algernon#tag=v$pkgver")
-b2sums=('bd8c35f7d3bdbf87f697919357809c26a226a65d5053338a4e432f2117e2d462f2e91062e4f6223cddfc6dbf5d09fba4c6fb3987f099de67ad535e28de95215c')
+b2sums=('6b50043705173852d0998b1b15e5d9fe8831475dd7398ccd3184acfa582e068aaeef7a9f08964c63dadba8d31605ea66de4c088df4c861507a98c9bee2d92785')
 
 prepare() {
   cd $pkgname
@@ -30,7 +31,8 @@ package() {
   cd system
   install -Dm644 logrotate "$pkgdir/etc/logrotate.d/algernon"
   install -Dm644 serverconf.lua "$pkgdir/etc/algernon/serverconf.lua"
-  install -Dm644 algernon_dev.service "$pkgdir/usr/share/doc/$pkgname/algernon.service.example"
+  install -Dm644 algernon.service "$pkgdir/usr/share/doc/$pkgname/algernon.service.example"
+  install -Dm644 algernon_dev.service "$pkgdir/usr/share/doc/$pkgname/algernon_dev.service.example"
 
   cd ../desktop
   install -Dm755 mdview "$pkgdir/usr/bin/mdview"
