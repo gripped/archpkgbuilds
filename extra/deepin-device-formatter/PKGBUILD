@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-device-formatter
-pkgver=1.5.6
+pkgver=1.5.11
 pkgrel=1
 pkgdesc='A simple graphical interface for creating file system in a block device'
 arch=('x86_64')
@@ -21,11 +21,11 @@ optdepends=('btrfs-progs: btrfs support'
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/dde-device-formatter.git#tag=$pkgver")
-sha512sums=('b2959d1e4b7f4841e70c33ab72c671f25eba71e50ab43caad178ea1d5a87b54b447a3d23fb3ed77fffb225dace9f802fa44b1371b3eb9e399b8b8b9f42a270f9')
+sha512sums=('97ac14da176aeb396adc39bed7dea91301730e01314b8b29d9cec8725ecac46e12d3ec4d08a5e596dbd27e7d36483a74928c3a651542d3c462ed695eb3dfeafe')
 
 prepare() {
   cd dde-device-formatter
-  sed -i '/find_package(Qt6 COMPONENTS Core Gui Widgets Concurrent Network DBus LinguistTools REQUIRED)/a find_package(Qt6GuiPrivate REQUIRED CONFIG)' CMakeLists.txt
+  sed -i '/find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${QT_COMPONENTS} REQUIRED)/a find_package(Qt6GuiPrivate REQUIRED CONFIG)' CMakeLists.txt
 }
 
 build(){
