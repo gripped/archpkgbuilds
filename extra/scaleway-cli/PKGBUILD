@@ -3,7 +3,7 @@
 # Contributor: Mikkel Oscar Lyderik <mikkeloscar at gmail dot com>
 
 pkgname=scaleway-cli
-pkgver=2.48.0
+pkgver=2.55.0
 pkgrel=1
 pkgdesc='Command line interface for Scaleway Cloud'
 arch=('x86_64')
@@ -14,7 +14,7 @@ options=(!debug)
 makedepends=('go' 'git')
 source=("git+https://github.com/scaleway/scaleway-cli.git#tag=v$pkgver"
         '0001-Disable-version-check-and-error-reporting.patch')
-sha256sums=('d0dd72d77435056459217aeac66e9ab9a96bc53c45caadc0349b809ede23fd4e'
+sha256sums=('b222024fd37c9e220bd020cbdada4a6891bdb2b726aeef12d8052c9a1112a098'
             '6bbf4ef56bafe74ea53d3116436cd872eea81d6fc07e6a8b955b52405f959502')
 
 prepare() {
