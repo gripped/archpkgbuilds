@@ -6,7 +6,7 @@
 pkgbase=scheherazade-new-font
 _fname=ScheherazadeNew
 pkgname=ttf-${pkgbase%-font}
-pkgver=4.400
+pkgver=4.500
 pkgrel=1
 pkgdesc='An Arabic Naskh-style Unicode typeface'
 arch=(any)
@@ -16,7 +16,7 @@ provides=(ttf-sil-scheherazade)
 replaces=(ttf-sil-scheherazade)
 _archive="$_fname-$pkgver"
 source=("https://software.sil.org/downloads/r/${pkgbase%%-*}/$_archive.zip")
-sha256sums=('da1311c65de1eaedcf7be1ceab0356e78d12a97e3809b25cc69184bd3916e24b')
+sha256sums=('49c789c21305bed13d90d7500877b50d62db1e8e4d6f7715178e556319ddbda9')
 
 package_ttf-scheherazade-new() {
 	cd "$_archive"
