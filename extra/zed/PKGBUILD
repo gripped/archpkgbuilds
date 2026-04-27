@@ -2,7 +2,7 @@
 # Contributor: Marcell Pardavi <marcell.pardavi@gmail.com>
 
 pkgname=zed
-pkgver=0.231.2
+pkgver=0.233.10
 pkgrel=1
 pkgdesc='A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter'
 arch=(x86_64)
@@ -10,22 +10,21 @@ url=https://zed.dev
 _url="https://github.com/zed-industries/$pkgname"
 license=(GPL-3.0-or-later AGPL-3.0-or-later Apache-2.0)
 depends=(alsa-lib libasound.so
-         curl libcurl.so
+         curl
          fontconfig
-         glibc # libc.so libm.so libresolv.so
+         glib2 libgio-2.0.so libglib-2.0.so libgobject-2.0.so
+         glibc # libc.so libm.so ld-linux-x86_64.so
          libgcc libgcc_s.so
-         # libgit2 libgit2.so
+         libgit2 libgit2.so
          libstdc++ libstdc++.so
-         # libxau libXau.so
          libxcb # libxcb.so libxcb-xkb.so
-         # libxdmcp libXdmcp.so
-         libxkbcommon # libxkbcommon.so
-         libxkbcommon-x11 # libxkbcommon-x11.so
-         'nodejs>=18'
+         libx11 # libX11-xcb.so
+         libxkbcommon libxkbcommon.so
+         libxkbcommon-x11 libxkbcommon-x11.so
          netcat
+         'nodejs>=18'
          npm
-         openssl libcrypto.so libssl.so
-         sqlite
+         sqlite libsqlite3.so
          vulkan-driver
          vulkan-icd-loader
          vulkan-tools
@@ -47,7 +46,7 @@ optdepends=('clang: improved C/C++ language support'
 replaces=(zed-editor)
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('f99e05b97fd8bc715707ad08e9178a090114caab622370a45ade8e77fd106a39')
+sha256sums=('e540560744ed8b3142781accaefe43d808e17c9b614cd3ece6babbb12f62f450')
 
 _binname=zeditor
 _appid=dev.zed.Zed
@@ -70,6 +69,9 @@ _srcenv() {
 	CFLAGS+=' -ffat-lto-objects'
 	CXXFLAGS+=' -ffat-lto-objects'
 	RUSTFLAGS+=" --remap-path-prefix $PWD=/"
+	export LIBGIT2_NO_VENDOR=1
+	export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+	export ZSTD_SYS_USE_PKG_CONFIG=1
 }
 
 build() {
