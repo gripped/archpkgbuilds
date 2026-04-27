@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-msgspec
-pkgver=0.21.0
+pkgver=0.21.1
 pkgrel=1
 pkgdesc='A fast serialization and validation library, with builtin support for JSON, MessagePack, YAML, and TOML'
 arch=(x86_64)
@@ -30,7 +30,7 @@ optdepends=(
   'python-yaml: for YAML support'
 )
 source=("$pkgname::git+$url.git#tag=$pkgver")
-b2sums=('b5bc836fdf3f4cdda51c2b09b56333ea9e8051b7189e75db4e6465015bc985614369dbfcbdd7e9c16b45524ad611d491b6598c26ff9b7b601926992f097afdf9')
+b2sums=('8df0228126f6fc5a8e0954e3b59513304096111d3906a29fdef7eb04a3f10c8ead935181204fcf4e5a8a0bdd463df19c0d8eaa9c6fffac89a0674cf09d0e8f14')
 
 build() {
   cd $pkgname
