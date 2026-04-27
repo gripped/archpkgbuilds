@@ -1,0 +1,20 @@
+pkgbase = hiptensor
+	pkgdesc = AMD’s C++ library for accelerating tensor primitives
+	pkgver = 7.2.2
+	pkgrel = 1
+	url = https://rocm.docs.amd.com/projects/hipTensor/en/latest/
+	arch = x86_64
+	license = MIT
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = rocm-cmake
+	makedepends = rocm-toolchain
+	depends = rocm-core
+	depends = hip-runtime-amd
+	depends = composable-kernel
+	depends = glibc
+	depends = gcc-libs
+	source = hiptensor-7.2.2.tar.gz::https://github.com/ROCm/rocm-libraries/releases/download/rocm-7.2.2/hiptensor.tar.gz
+	sha256sums = f695db27539c3035755306830c769b7dcc42d100137efdcd7737408f12ffe8b7
+
+pkgname = hiptensor
