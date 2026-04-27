@@ -1,0 +1,25 @@
+pkgbase = vkcheck
+	pkgdesc = Display extensions supported by Vulkan implementations
+	pkgver = 0.1
+	pkgrel = 2
+	url = https://codeberg.org/serebit/vkcheck
+	arch = x86_64
+	license = Apache-2.0
+	makedepends = git
+	makedepends = cmake
+	makedepends = meson
+	makedepends = vulkan-headers
+	makedepends = vulkan-profiles
+	depends = glfw
+	depends = glibc
+	depends = hicolor-icon-theme
+	depends = libgcc
+	depends = libstdc++
+	depends = vulkan-driver
+	depends = vulkan-icd-loader
+	source = git+https://codeberg.org/serebit/vkcheck.git#tag=v0.1
+	source = imgui::git+https://github.com/ocornut/imgui.git#tag=v1.92.7
+	b2sums = 081aa9f8890a572e3de1573a650dea8319cb417ef6d38455a40a496700604a8c17d86abe80f5535dfce22a63eb9f8ba9321edc5584cc6b1c0a6478540396057c
+	b2sums = 1e166c71e269418226f88eb29688b987f665ff3cebb5172a66ff0fc43924872122e7f0a4d7945e4a33d8d3b7a62ec9a70745cbfa477fe57d252e3d28fdb1c897
+
+pkgname = vkcheck

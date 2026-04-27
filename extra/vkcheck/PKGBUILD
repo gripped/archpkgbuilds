@@ -1,0 +1,47 @@
+# Maintainer: Campbell Jones <serebit at archlinux dot org>
+
+pkgname=vkcheck
+pkgver=0.1
+pkgrel=2
+pkgdesc='Display extensions supported by Vulkan implementations'
+arch=('x86_64')
+url="https://codeberg.org/serebit/$pkgname"
+license=('Apache-2.0')
+depends=(
+    'glfw'
+    'glibc'
+    'hicolor-icon-theme'
+    'libgcc'
+    'libstdc++'
+    'vulkan-driver'
+    'vulkan-icd-loader'
+)
+makedepends=(
+    'git'
+    'cmake'
+    'meson'
+    'vulkan-headers'
+    'vulkan-profiles'
+)
+source=("git+https://codeberg.org/serebit/$pkgname.git#tag=v$pkgver"
+        "imgui::git+https://github.com/ocornut/imgui.git#tag=v1.92.7")
+b2sums=('081aa9f8890a572e3de1573a650dea8319cb417ef6d38455a40a496700604a8c17d86abe80f5535dfce22a63eb9f8ba9321edc5584cc6b1c0a6478540396057c'
+        '1e166c71e269418226f88eb29688b987f665ff3cebb5172a66ff0fc43924872122e7f0a4d7945e4a33d8d3b7a62ec9a70745cbfa477fe57d252e3d28fdb1c897')
+
+prepare() {
+	cd "$pkgname"
+
+	# don't install imgui
+	git cherry-pick -n '350d78e04df6391fc730a57af1249b30ed60ba7d45f16540f209a91ae29fa241'
+}
+
+build() {
+	export MESON_PACKAGE_CACHE_DIR="$srcdir"
+	arch-meson "$pkgname" build
+
+	meson compile -C build
+}
+
+package() {
+	meson install -C build --destdir "$pkgdir"
+}
