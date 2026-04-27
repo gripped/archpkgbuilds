@@ -3,17 +3,16 @@
 
 _hkgname=test-framework-quickcheck2
 pkgname=haskell-test-framework-quickcheck2
-pkgver=0.3.0.6
-pkgrel=469
+pkgver=0.3.0.7
+pkgrel=10
 pkgdesc="QuickCheck-2 support for the test-framework package"
 url="https://github.com/haskell/test-framework"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-test-framework' 'haskell-quickcheck' 'haskell-extensible-exceptions'
-         'haskell-random')
+depends=('ghc-libs' 'haskell-test-framework' 'haskell-quickcheck' 'haskell-random')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('6d394e335078a4d619bca7d8f0867d46cbf585ea096994039755bdbe86c2d2eddf9f4af6f4c45c749d4226224680dc538d9702d5ced67d77632d319ec06739a8')
+sha512sums=('cf9906d2a73a30f5bc7a03e5798ff14942a3f874a69593ae039b6794478c9598c9b2b6c2774f82750d38e15c19b709fca00f245890f9277bd1646dca6b1080a7')
 
 prepare() {
     cd $_hkgname-$pkgver
