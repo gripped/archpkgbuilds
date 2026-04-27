@@ -2,13 +2,12 @@
 
 pkgname=marknote
 pkgver=1.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A simple markdown note management app'
 url='https://apps.kde.org/marknote/'
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(breeze-icons
-         gcc-libs
          glibc
          kcolorscheme
          kconfig
@@ -20,6 +19,7 @@ depends=(breeze-icons
          kmime
          knotifications # QML
          kwindowsystem
+         libstdc++
          md4c
          qqc2-desktop-style
          qt6-base
