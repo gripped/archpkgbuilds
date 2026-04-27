@@ -1,13 +1,14 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=mailimporter
-pkgver=25.12.3
+pkgver=26.04.0
 pkgrel=1
 pkgdesc='Mail importer library'
 arch=(x86_64)
 url='https://kontact.kde.org'
 license=(LGPL-2.0-or-later)
-depends=(akonadi-mime
+depends=(akonadi
+         akonadi-mime
          gcc-libs
          glibc
          karchive
@@ -15,12 +16,11 @@ depends=(akonadi-mime
          kcoreaddons
          ki18n
          kmime
-         libakonadi
          pimcommon
          qt6-base)
 makedepends=(extra-cmake-modules)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('eb99de68d8f5febe3d9eef8e6a793f9bdf62f54ad016fabe78f564d90e7a2db4'
+sha256sums=('8e8034f9ebf2dec9b88662dd43c0ff367e250140e90803fa1e87072abe2333b1'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
