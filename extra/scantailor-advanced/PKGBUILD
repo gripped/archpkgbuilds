@@ -2,18 +2,18 @@
 # Previous maintainer: Martin Hasoň <martin.hason@gmail.com>
 
 pkgname=scantailor-advanced
-pkgver=1.0.19
-pkgrel=2
+pkgver=1.1.1
+pkgrel=1
 pkgdesc="An interactive post-processing tool for scanned pages."
 arch=("x86_64")
 url="https://github.com/ScanTailor-Advanced/scantailor-advanced"
 license=("GPL3")
-depends=("qt6-base" "qt6-svg" "hicolor-icon-theme" "libpng>=1.0.0" "libtiff>=4.0.0")
-makedepends=("cmake>=3.9.0" "qt6-tools" "boost>=1.0.0")
+depends=("qt6-base" "qt6-svg" "hicolor-icon-theme" "libpng>=1.0.0" "libtiff>=4.0.0" "boost-libs")
+makedepends=("cmake>=3.9.0" "qt6-tools" "boost>=1.0.0" "vulkan-headers")
 conflicts=("scantailor")
 replaces=("scantailor")
 source=("https://github.com/ScanTailor-Advanced/scantailor-advanced/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('db41c3a1ba0ecfc00a40a4efe2bcc9d2abb71ecb77fdc873ae6553b07a228370')
+sha256sums=('02026900c5af268ffbc7e518dca55529d212bb971d6b0afd3a2e7a5cc6df26d4')
 
 prepare() {
 # Don't build with march=native
@@ -28,6 +28,4 @@ build() {
 
 package() {
     DESTDIR="$pkgdir/" cmake --install build
-    install -Dm0644 "$pkgname-$pkgver/src/resources/appicon.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/scantailor-advanced.svg"
-    install -Dm0644 "$pkgname-$pkgver/src/resources/unix/scantailor.desktop" "$pkgdir/usr/share/applications/scantailor.desktop"
 }
