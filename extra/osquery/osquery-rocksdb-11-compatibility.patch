@@ -1,0 +1,46 @@
+diff --git i/plugins/database/rocksdb.cpp w/plugins/database/rocksdb.cpp
+index 1f5419cd6..72e8e371a 100644
+--- i/plugins/database/rocksdb.cpp
++++ w/plugins/database/rocksdb.cpp
+@@ -246,10 +246,7 @@ void RocksDBDatabasePlugin::close() {
+   }
+   handles_.clear();
+ 
+-  if (db_ != nullptr) {
+-    delete db_;
+-    db_ = nullptr;
+-  }
++  db_.reset();
+ 
+   if (isCorrupted()) {
+     repairDB();
+@@ -289,7 +286,7 @@ void RocksDBDatabasePlugin::repairDB() {
+ }
+ 
+ rocksdb::DB* RocksDBDatabasePlugin::getDB() const {
+-  return db_;
++  return db_.get();
+ }
+ 
+ rocksdb::ColumnFamilyHandle* RocksDBDatabasePlugin::getHandleForColumnFamily(
+diff --git i/plugins/database/rocksdb.h w/plugins/database/rocksdb.h
+index dbf15cc7c..ca2a8c2e9 100644
+--- i/plugins/database/rocksdb.h
++++ w/plugins/database/rocksdb.h
+@@ -8,6 +8,7 @@
+  */
+ 
+ #include <atomic>
++#include <memory>
+ 
+ #include <rocksdb/db.h>
+ 
+@@ -131,7 +132,7 @@ class RocksDBDatabasePlugin : public DatabasePlugin {
+   bool initialized_{false};
+ 
+   /// The database handle
+-  rocksdb::DB* db_{nullptr};
++  std::unique_ptr<rocksdb::DB> db_;
+ 
+   /// RocksDB logger instance.
+   std::shared_ptr<GlogRocksDBLogger> logger_{nullptr};

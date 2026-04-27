@@ -3,7 +3,7 @@
 
 pkgname=osquery
 pkgver=5.22.1
-pkgrel=2
+pkgrel=4
 pkgdesc="SQL powered operating system instrumentation, monitoring, and analytics"
 arch=(x86_64)
 url="https://osquery.io"
@@ -81,7 +81,6 @@ source=(
   # https://github.com/carlsmedstad/osquery/tree/build-on-archlinux
   "$pkgname-0001-Use-system-libraries-where-possible.patch::$_url/commit/cfba4b8acdbb4ed805bcd07e473d5cccefa8e3e6.patch"
   "$pkgname-0002-Disable-submodule-fetching.patch::$_url/commit/1613c65e69bdc69cff1aa6121f46200e533eba68.patch"
-  "$pkgname-0003-Remove-include-of-non-existing-header-xlocale.h.patch::$_url/commit/3f963b910767aff9b8e8ed180ff5ed8ccba7f163.patch"
   "$pkgname-0004-Fix-remaining-compilation-issues.patch::$_url/commit/fb198049d765f228f06f0feaa491e531bf1c0905.patch"
   "$pkgname-0005-Do-not-build-system_controls-tables.patch::$_url/commit/db441c2c031dc61afcba1e903ed9a7f7161e7d64.patch"
   "$pkgname-0007-Do-not-build-utils-requiring-libdpkg.patch::$_url/commit/4aae30a46a4a3744e308ab0a82653dba79ad79ff.patch"
@@ -89,20 +88,21 @@ source=(
   "$pkgname-0009-Adapt-installation-to-using-system-packages.patch::$_url/commit/0777b63c0c2c2cee13f78ab2b6e3100ee1399dd3.patch"
   "$pkgname-gcc-15.patch"
   "$pkgname-boost-1.89.0-compatibility.patch"
+  "$pkgname-rocksdb-11-compatibility.patch"
 )
 b2sums=('eb568993e97160eb9fe9a80e86e47266b857a9d56c01ed947b0d2613f60eb8a88d131701726d5ba877d7f7dd4add2ac46e0947dda01fb2d4a38d8c09f088c9cd'
         'SKIP'
         'SKIP'
         '928ec1b653f8d06e0dce4d0ce6702060981e02e6033585079b1956e5b6b60030c5346f2eee4fc0cb369610e1bacd636ac7fa89fe00619c0cd58ef3f4e2a13e94'
         'bf550d3383630af0ffd944b84b5229d9dfb51624e5c524cbb9e51947fe65e5bcfdb2af8a010e78d8b0b1ffc8dfb43ce7f2592188ab0a47e386b71a9a45ee20ac'
-        '14d67ffb3f5187ab61b38df3c29e032a5a1aa508975212c7c41a11256cf44a41de4c6b3758bd8fc3825eef606527e9dd9161c94ed863c80f0b947428bdbe8464'
         '58341793101eefff97a0f90bce023794d5a605eeac3d0a59e4dd3117e6429bc70610f9a2ea93d42ee49f2e69a24915fe5900de3bd1af8d9d13bd34e3890e834f'
         '51407e82870f430e983a829648db57c003a1f10ba3a1227241f8ff0d37827a4a9b916359c5592002174bc0313da5b4b392f645b04251c8ae4182a5a8f9c74c90'
         'ef0968652a14f721606de48551b79a7eaa322b6a9a328e080c96c5f18e1cd2ea6d561fbbd27a6df9e081105791d8caa08a3d42be4820cc6ed7b44d6f4d96816b'
         '3152e03b97f92c09cd108abea0e67418d0f0f2ab280143f7acbfa0d1c579ea0875908cc98c1a752a9d7539ea118277aeaf5c6fbd17f9ff98bbe2719389743dba'
         '0ba26d44e5927e42ac6e576f2efbdd1357d8afa110223681cdab12fa262430c15a5619a6d456eea01ab202a753e5538c53665c331e7efa758a8ecf14ba90f1d4'
         'a62e3dc663d80080a2452a08547a6f7e925c14554dccf4aab78ff582127fb65378d87ed6ec49e409be61791205ce709cf8fc5e204b1b9aa5c5cd756eabdcd748'
-        '6388f0dafa87cf54cb2b82662196424042af354b4eded070a6f0be33f4e701f8049c6671497b6663b26ef8a5782dd8477e21f742678ada14c6762cd83f32f522')
+        '6388f0dafa87cf54cb2b82662196424042af354b4eded070a6f0be33f4e701f8049c6671497b6663b26ef8a5782dd8477e21f742678ada14c6762cd83f32f522'
+        '00637b29831f9bf64ae93f2f93e6f133f75e7e1d9be3643d420a7882aec3bba98e8372be20db790cb2a741de5fd263cb3066c971535661d3b03451d39923b380')
 
 prepare() {
   cd $pkgname
