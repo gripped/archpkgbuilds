@@ -2,10 +2,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-mako
-_pkgname=${pkgname#python-}
-pkgver=1.3.10
-_pkgver=rel_${pkgver//./_}
-pkgrel=4
+pkgver=1.3.11
+pkgrel=1
 pkgdesc="A template library written in Python"
 arch=(any)
 url="https://github.com/sqlalchemy/mako"
@@ -15,6 +13,7 @@ depends=(
   python-markupsafe
 )
 makedepends=(
+  git
   python-build
   python-installer
   python-setuptools
@@ -35,21 +34,21 @@ optdepends=(
   'python-pygments: for syntax highlighting'
   'python-pytest: for testing utilities'
 )
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$_pkgver.tar.gz")
-sha512sums=('3052ea29570b28e249cd73fa29c27606f285895e22393c4974db0f391908c0bba747ecfe92aca660e8b7f3806ac4abbad9576bad94f149f18462eaaa90f1044e')
+source=("$pkgname::git+$url.git#tag=rel_${pkgver//./_}")
+sha512sums=('be4f5be938f1d8f8572110cf9cef47582a94843cebbf2bb6e675e21ed98f5bfdf1209f83f49f00c61f43aee56b798e3ec1c2de2696a85ec9a2aedbb6cfc5fc86')
 
 build() {
-  cd "$_pkgname-$_pkgver"
+  cd $pkgname
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_pkgname-$_pkgver"
+  cd $pkgname
   pytest
 }
 
 package() {
-  cd "$_pkgname-$_pkgver"
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
