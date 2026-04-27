@@ -2,7 +2,7 @@
 # Author: Achilleas Koutsou <achilleas@koutsou.net>
 
 pkgname=rpm-sequoia
-pkgver=1.10.1
+pkgver=1.10.2
 pkgrel=1
 pkgdesc="An OpenPGP backend for rpm using Sequoia PGP"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=(nettle)
 makedepends=(cargo rust clang pkg-config)
 
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/rpm-software-management/rpm-sequoia/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('539705430ab061358c943d1a2f8140057756877a6acb074fd6fd7c4698f9f59f')
+sha256sums=('ba740c16657498bb1a5a2b04472728089992e93a83d3584f00854b112dfd45df')
 
 prepare() {
   cd "rpm-sequoia-${pkgver}"
