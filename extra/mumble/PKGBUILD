@@ -8,7 +8,7 @@
 pkgbase=mumble
 pkgname=(mumble mumble-server)
 pkgver=1.5.857
-pkgrel=6
+pkgrel=7
 pkgdesc="An Open Source, low-latency, high quality voice chat software"
 arch=(x86_64)
 url="https://www.mumble.info/"
@@ -16,7 +16,8 @@ license=(BSD-3-Clause)
 # shared depends
 depends=(
   abseil-cpp
-  gcc-libs
+  libgcc
+  libstdc++
   glibc
   qt5-base
 )
