@@ -4,8 +4,8 @@
 
 pkgbase=podman
 pkgname=(podman podman-docker)
-pkgver=5.8.1
-pkgrel=2
+pkgver=5.8.2
+pkgrel=1
 pkgdesc='Tool and library for running OCI-based containers in pods'
 arch=(x86_64)
 url='https://github.com/containers/podman'
@@ -36,8 +36,8 @@ validpgpkeys=(
   7CE1E6F8C90CB53E7E4D8F2D502E08DB0BBF8EEE  # Ashley Cui <acui@redhat.com>
   9E33DD8704CC03E2DEB84D9A1C1EDD7CC7C3A0DD  # Lokesh Mandvekar <lsm5@redhat.com>
 )
-sha512sums=('387bde3fe0056c24c3af1d0c67f531d35df475973b3d778efed054affbdb8bd55d46da6e294bc69d130a66b30bbee2c3c1c64add9f1b280e47c0ebaa5e83707e')
-b2sums=('563c1c3d076662f52c814b141a560911b3ee2d437361d57434bf67d33dee8073431f527ec56c11bbab65f56d8586fc923109fe9029ab44e8fa7f75facd17a1be')
+sha512sums=('006438b79649229f10b3e46531f38cc23a29923140a9ffb6a73b929fef6c5d77759009dc9c2d573fa7ff9973b212a7256c3e49d834aafa9c67474c753d0c4136')
+b2sums=('0b97afcdbf6d3416926111d674a6082e3545f50cac992c67e990275362d0675307c1c5a520d5cca993b6da941df05e4fec649c1db6c54eaa55b2de26f2438bae')
 
 build() {
   export CGO_CPPFLAGS="${CPPFLAGS}"
@@ -57,10 +57,10 @@ package_podman() {
     conmon
     containers-common
     oci-runtime
-    gcc-libs
     glibc
     iptables
     gpgme libgpgme.so
+    libgcc
     libseccomp libseccomp.so
     passt
     shadow
