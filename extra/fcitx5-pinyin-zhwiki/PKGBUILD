@@ -3,10 +3,10 @@
 pkgbase=fcitx5-pinyin-zhwiki
 pkgname=(fcitx5-pinyin-zhwiki rime-pinyin-zhwiki)
 _converterver=0.3.0
-_zhwikiver=20251220
-_webslangver=20251223
+_zhwikiver=20260401
+_webslangver=20260416
 pkgver=$_converterver.$_webslangver
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Fcitx 5 Pinyin Dictionary from zh.wikipedia.org"
 arch=('any')
@@ -19,10 +19,10 @@ source=(git+https://github.com/felixonmars/fcitx5-pinyin-zhwiki.git#tag=$_conver
         https://dumps.wikimedia.org/zhwikisource/$_zhwikiver/zhwikisource-$_zhwikiver-all-titles-in-ns0.gz
         https://dumps.wikimedia.org/zhwiktionary/$_zhwikiver/zhwiktionary-$_zhwikiver-all-titles-in-ns0.gz)
 sha512sums=('99631877e69714df40662c99727e4534164e54e46dcfaad678a31ba6fa1850978c656a8d1184f3081f32cab739758d8b78846ae86aeb8ddec4f21bd2d3599365'
-            'f3a492f14cac07e4ca5cfd7a5e768200941745b95bd42fd858358bd05bc302c083d7a1a2d230ebdeeb24c41e4bf759349036b23c2bebfa129c482cbca584d260'
-            'a1b2afe484b651957177f085082527d8132c8eac4c1aa4f52bc3974336176518e8b6c35a780b871d4d9943ffaf7d78468d66fe4159a7a031271f931fb51f689d'
-            'e27e017bf7c0e5cb91b74ce5e179d1110b478a23389045cbc266fad62648c71e209603f58439d109cb4cf18ab8f7177685bef0b42add61ee947a2a158e37ce61'
-            '34a3abf6059dbd620be09e2bd6bf5ad59f2b4b293c7b48c81a13010c64810639e6ff0e6cc2de1c98e715311311d13b44a166218c14d9618e15edf511445b8d4b')
+            '291f39db4665844e72a1818ca7411e822f72be300aa571d72f88c1fecff9e807a6acc3482353f9e995e8113ae3fbd768cbf133ff3eafacefdb05d9b41e5d079b'
+            'f6fb1550afa5022dc7f484662aa1d99571d7493e454aba3d08315f3f77a974708ff761c686c2ad346674b0b5886f48892cd6abdc78676c2bf9d6b7ba50352de8'
+            'ec585b814d134df11039cd7e14e4c7825c859055875da11b3b01f78549bfad76b5229bda6036cba63c6410ee9241d634229187825cc4dfc10f99880ff42d5a0c'
+            'faddde53ffc7f6ca69230c6d4eda29d6eb919b1b4148f87bf95818f8d05f1a89dea2c5b99f2534364d88eae2117b85d06b9f57f079931a9e3f5fc8756f46c667')
 
 _make="make -L VERSION=$_zhwikiver WEB_SLANG_VERSION=$_webslangver"
 
