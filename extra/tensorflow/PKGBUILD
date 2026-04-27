@@ -5,42 +5,44 @@
 
 pkgbase=tensorflow
 pkgname=(tensorflow tensorflow-opt tensorflow-cuda tensorflow-opt-cuda python-tensorflow python-tensorflow-opt python-tensorflow-cuda python-tensorflow-opt-cuda)
-pkgver=2.20.0
-_pkgver=2.20.0
-pkgrel=5
+pkgver=2.21.0
+_pkgver=2.21.0
+_bazelver=7.7.0
+pkgrel=1
 # The following are hermetic versions of CUDA, CUDNN and NVSHMEM. Use the latest versions
-# that tensorflow currently supports. See https://github.com/tensorflow/tensorflow/blob/v2.20.0/third_party/xla/workspace0.bzl#L144
+# that tensorflow currently supports. See https://github.com/tensorflow/tensorflow/blob/v2.21.0/third_party/xla/workspace0.bzl#L146
 # to find the commit to use in the link below
-# https://github.com/google-ml-infra/rules_ml_toolchain/blob/$commit/third_party/gpus/cuda/hermetic/cuda_redist_versions.bzl
+# https://github.com/google-ml-infra/rules_ml_toolchain/blob/<commit>/gpu/cuda/cuda_redist_versions.bzl
 _cuda_ver=12.8.1
 _cudnn_ver=9.8.0
 _nvshmem_ver=3.2.5
+_ncclver=2.29.2
 pkgdesc="Library for computation using data flow graphs for scalable machine learning"
 url="https://www.tensorflow.org/"
 license=(Apache-2.0)
 arch=('x86_64')
 depends=('c-ares' 'pybind11' 'openssl' 'libpng' 'curl' 'giflib' 'icu' 'libjpeg-turbo' 'intel-oneapi-openmp'
          'intel-oneapi-compiler-shared-runtime-libs')
-makedepends=('bazel' 'git' 'openmp'
+makedepends=('bazel' 'git' 'openmp' 'tinyxxd'
              'python-installer' 'patchelf' 'libxcrypt-compat' 'clang20' 'lld')
 optdepends=('tensorboard: Tensorflow visualization toolkit')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/tensorflow/tensorflow/archive/v${_pkgver}.tar.gz"
-        https://github.com/bazelbuild/bazel/releases/download/7.4.1/bazel_nojdk-7.4.1-linux-x86_64
+        https://github.com/bazelbuild/bazel/releases/download/${_bazelver}/bazel_nojdk-${_bazelver}-linux-x86_64
         tensorflow-2.19.0-tf-runtime-workspace.patch
         tf-runtime-forward-decls.patch
         tensorflow-2.19.0-matmul-it-unused-result.patch
         protobuf-deps.patch
         tensorflow-2.20.0-python-3.14.patch
-        tensorflow-2.20.0-StructuredTensor.patch
+        tensorflow-2.21.0-include-executor-bazel.patch
 )
-sha512sums=('e1e27c84491a28dc5b7deb181de0fbad27ddd58cdd7ee2f6815bebd26d7ff400a94efea52eb7da344702adcd9181a474a76dc9e94d2ad7d6511d261deffa0cf5'
-            'ca01422266ed741a7d2ec1fdaba8fed8aa1d1ca4d53e45345225403cb132dc56266fd799351e80aeb50df6f2f4e29e6e0dc9430aef882d749425e8521ba0a806'
+sha512sums=('0bf30434cf0aa72f9ceda444e51cae76bd8af9b1cc38538060b5cae9365424e5610ee95a1c7ea225c6db6e461525b800d8302839a31fd034541863603001ffcf'
+            '206d9a1c98deba75435fe69597ce47dedfe3bb73b0af145245870516d9b2a534e49a8ece765cea5fe80cec57e254bc6655cdab0b194717a89976ed67d9330cf6'
             '27a07c1f5ab3898e049717e3f56498577c62840416b425e582a308d22112c0341b26a69d419daa0f80fac5be53cee122122b1b8200fc885ae5f7346b8e3ecb10'
             'b3ac22ede074decdb751adbc8f0324f4b729ffb4927fddcc67250e2f2a2812d2ed6ff515ed98cb3eaf5c1e4b755d6b780f5515181b6f10f046dbaa91e0eb1964'
             'e5856d277edcef6ab655e8b641f1ec8fe9823264221d687c9938bb00d5acee626a2a05b46cfd97fbad8551f270332ed09b73848bf9784137317fee47ad64c80e'
-            '5a90a66ea6b78196aaa8852f90ac2af82cfac12b4f7eefa9b1e04ff0fbefd4fdc82f9705f77634efe76c55d5e1804cdfd736dd8ceb875d7ce2757552467a04dd'
+            'f4a16944bafc4f75df745163f09612aed12d6353eb5564c734197ae33b7b4e27ace77c50610f147a7ed623612b335385176c9c3f654db2011bbeeeedc63c0203'
             'cfb1eced1f4b4534deddf14b73d45ae4f8104264ccada1a8854e0dbf7ef2a2f28e67930348211541630a102994ad258d55804359448d225863c4bd5c8762fff1'
-            'eb64f0dddabf505f7ce4efd852187d8b5a1be3dc797dbe26f21f1c4ece50d20f48d90434929212eb32d2c93668aec56a180cbb0331d88f0dc9ba4b0081060a2c')
+            'f8358d53ec77d73809435b2352eecf69889362c561c2c4edebd0411cbf17c3d262b28749ab7c253b93a533cfe7e95ee82d329de41bd88a612640d1590b1d1c9d')
 
 # consolidate common dependencies to prevent mishaps
 _common_py_depends=(python-termcolor python-astor python-gast python-numpy python-protobuf absl-py
@@ -81,16 +83,12 @@ check_dir() {
 prepare() {
   # Since Tensorflow is currently incompatible with our version of Bazel, we're going to use
   # their exact version of Bazel to fix that. Stupid problems call for stupid solutions.
-  install -Dm755 "${srcdir}"/bazel_nojdk-7.4.1-linux-x86_64 bazel/bazel
+  install -Dm755 "${srcdir}"/bazel_nojdk-${_bazelver}-linux-x86_64 bazel/bazel
   export PATH="${srcdir}/bazel:$PATH"
   bazel --version
 
   # Custom patch for python 3.14 support
   patch -Np1 -i ../tensorflow-2.20.0-python-3.14.patch -d tensorflow-${_pkgver}
-
-  # Define StructuredTensor.FieldName outside the class
-  # https://github.com/tensorflow/tensorflow/pull/104620
-  patch -Np1 -i ../tensorflow-2.20.0-StructuredTensor.patch -d tensorflow-${_pkgver}
 
   # Custom patch for the @tf_runtime external dependency
   patch -Np1 -i ../tensorflow-2.19.0-tf-runtime-workspace.patch -d tensorflow-${_pkgver}
@@ -121,11 +119,13 @@ prepare() {
   # https://gitlab.archlinux.org/archlinux/packaging/packages/tensorflow/-/issues/25
 
   # Disable PYWRAP_RULES to let the libtensorflow.so etc. targets be found
-  sed -i '/build --repo_env=USE_PYWRAP_RULES=True/d' tensorflow-${_pkgver}/.bazelrc tensorflow-${_pkgver}/third_party/xla/tensorflow.bazelrc
+  sed -i '/common --repo_env=USE_PYWRAP_RULES=True/d' tensorflow-${_pkgver}/.bazelrc tensorflow-${_pkgver}/third_party/xla/tensorflow.bazelrc
 
   # Patch protobuf dependencies in bazel
   # https://gitlab.archlinux.org/archlinux/packaging/packages/tensorflow/-/issues/24#note_334439
   patch -Np1 -i ../protobuf-deps.patch -d tensorflow-${_pkgver}
+
+  patch -Np1 -i ../tensorflow-2.21.0-include-executor-bazel.patch -d tensorflow-${_pkgver}
 
   cp -r tensorflow-${_pkgver} tensorflow-${_pkgver}-opt
   cp -r tensorflow-${_pkgver} tensorflow-${_pkgver}-cuda
@@ -173,6 +173,7 @@ prepare() {
   export HERMETIC_CUDA_VERSION=$_cuda_ver
   export HERMETIC_CUDNN_VERSION=$_cudnn_ver
   export HERMETIC_NVSHMEM_VERSION=$_nvshmem_ver
+  export HERMETIC_NCCL_VERSION=$_ncclver
   # https://github.com/tensorflow/tensorflow/blob/1ba2eb7b313c0c5001ee1683a3ec4fbae01105fd/third_party/gpus/cuda_configure.bzl#L411-L446
   # according to the above, we should be specifying CUDA compute capabilities as 'sm_XX' or 'compute_XX' from now on
   # add latest PTX for future compatibility
@@ -188,6 +189,11 @@ prepare() {
 }
 
 build() {
+  # Note: It's often a good idea to have a look at https://github.com/tensorflow/tensorflow/tree/master/tensorflow/tools/ci_build
+  # to see how upstream is supposedly building tensorflow.
+  # Specifically this: https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/ci_build/builds/libtensorflow.sh
+  # Explore all bazel targets with `bazel query '//tensorflow:all'`
+
   echo "Building with Python and with cuda and without non-x86-64 optimizations"
   cd "${srcdir}"/python-tensorflow-${_pkgver}-cuda
   export CC_OPT_FLAGS="-march=x86-64"
@@ -282,7 +288,6 @@ build() {
       //tensorflow:libtensorflow_cc.so \
       //tensorflow:libtensorflow_framework.so
 #      //tensorflow:install_headers \
-
 }
 
 _package() {
@@ -332,11 +337,6 @@ _package() {
 _python_package() {
   local wheel_package=$(find -L bazel-out -name "tensor*.whl")
   python -m installer --destdir="$pkgdir" $wheel_package
-
-  # tensorboard has been separated from upstream but they still install it with
-  # tensorflow. I don't know what kind of sense that makes but we have to clean
-  # it out from this package.
-  rm -r "${pkgdir}"/usr/bin/tensorboard
 
   install -Dm644 LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
 }

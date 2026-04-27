@@ -6,7 +6,7 @@ index 864bdcfc74a..d675c247d0e 100644
      visibility = ["//visibility:public"],
      deps = [
          ":c_api_macros_hdrs",
-+        "@local_tsl//tsl/platform:protobuf",
++        "@tsl//tsl/platform:protobuf",
      ] + select({
          "//tensorflow:android": [
              "//tensorflow/core:portable_tensorflow_lib_lite",  # TODO(annarev): exclude runtime srcs
@@ -19,7 +19,7 @@ index 011ac8baee7..b774f7bddc5 100644
          "//tensorflow/core:portable_tensorflow_lib_lite",
      ]) + [
 -        "//tensorflow/core/protobuf:for_core_protos_cc",
-+        "@local_tsl//tsl/platform:protobuf",
++        "@tsl//tsl/platform:protobuf",
          "@com_google_absl//absl/status",
          "@com_google_absl//absl/status:statusor",
          "@com_google_absl//absl/strings",
@@ -31,7 +31,7 @@ index 69a2c5fcaad..9a1d4a694ff 100644
          "@com_google_absl//absl/strings",
          "@com_google_absl//absl/strings:cord",
          "@com_google_absl//absl/types:optional",
-+        "@local_tsl//tsl/platform:protobuf",
++        "@tsl//tsl/platform:protobuf",
      ],
  )
  
@@ -43,7 +43,7 @@ index de70fa1548e..ac6a9f7c2de 100644
          "//tensorflow/core:lib_internal",
          "@com_google_absl//absl/memory",
          "@eigen_archive//:eigen3",
-+        "@local_tsl//tsl/platform:protobuf",
++        "@tsl//tsl/platform:protobuf",
      ],
  )
  
@@ -55,7 +55,7 @@ index 188c78a2059..c79446080bc 100644
          "//tensorflow/core/platform:numbers",
          "@com_google_absl//absl/status:statusor",
          "@com_google_absl//absl/strings",
-+        "@local_tsl//tsl/platform:protobuf",
++        "@tsl//tsl/platform:protobuf",
      ],
  )
  
@@ -67,7 +67,7 @@ index 8b26a517b4b..332e6a42231 100644
          "@com_google_absl//absl/status",
          "@com_google_absl//absl/strings",
          "@com_google_absl//absl/strings:str_format",
-+        "@local_tsl//tsl/platform:protobuf",
++        "@tsl//tsl/platform:protobuf",
      ],
  )
  
@@ -79,7 +79,7 @@ index 5e199cd9e59..c4a86024c05 100644
          "@com_google_absl//absl/status",
          "@com_google_absl//absl/status:statusor",
          "@com_google_absl//absl/strings",
-+        "@local_tsl//tsl/platform:protobuf",
++        "@tsl//tsl/platform:protobuf",
      ] + if_mobile([
          "//tensorflow/core:portable_tensorflow_lib_lite",
      ]) + if_not_mobile([
@@ -92,7 +92,7 @@ index 7c710576b00..2e06c6ea119 100644
              "//tensorflow/python:tensorflow_common_framework",
          ],
 -    ) + ["@com_google_protobuf//:protobuf_headers"],
-+    ) + ["@local_tsl//tsl/platform:protobuf"],
++    ) + ["@tsl//tsl/platform:protobuf"],
  )
  
  tf_py_strict_test(
@@ -100,7 +100,7 @@ index 7c710576b00..2e06c6ea119 100644
      deps = [
          "//tensorflow/core:framework_headers_lib",
          "//tensorflow/core:protos_all_cc",
-+        "@local_tsl//tsl/platform:protobuf",
++        "@tsl//tsl/platform:protobuf",
          "@eigen_archive//:eigen3",
          "@pybind11",
      ],
@@ -108,7 +108,7 @@ index 7c710576b00..2e06c6ea119 100644
          ":_op_def_registry",
          "//tensorflow/core:protos_all_py",
          "//tensorflow/python:pywrap_tensorflow",
-+        "@local_tsl//tsl/platform:protobuf",
++        "@tsl//tsl/platform:protobuf",
      ],
  )
  
