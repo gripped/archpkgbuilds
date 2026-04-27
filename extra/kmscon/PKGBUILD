@@ -6,7 +6,7 @@
 # Contributor: David Herrmann <dh.herrmann@googlemail dot com>
 
 pkgname=kmscon
-pkgver=9.3.3
+pkgver=9.3.5
 pkgrel=1
 pkgdesc='Kernel Mode Setting (KMS) and DRM based virtual Console Emulator'
 arch=('x86_64')
@@ -21,6 +21,7 @@ depends=(
   libtsm
   libxkbcommon
   systemd-libs
+  zlib
 )
 makedepends=(
   check
@@ -42,7 +43,12 @@ optdepends=(
 source=(
   git+${url}.git#tag=v${pkgver}
 )
-b2sums=('6dc7f3df6512b8ce1f3d02087ff70dab2ad14056c336183bdbbe05763f87e104c5d82836bb0f345811854997a2ac66520628ac1241ac0c9a85d3948c577b0154')
+b2sums=('f153b1e978f54e65dd7be1e21a2acd198b51f849a684891e861c86b3539ffe5944fea47dc43f4354b1cd313a099f2e019b22012e0d2fee3582e9dc4fff669cf9')
+
+#prepare() {
+#  cd "$pkgname"
+#  git pull origin pull/366/head         
+#}
 
 build() {
   arch-meson "$pkgname" build
