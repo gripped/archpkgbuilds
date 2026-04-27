@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-db
-pkgver=14.1.1
+pkgver=17.0.0
 pkgrel=1
 pkgdesc="OpenStack Database Pattern Library"
 arch=('any')
@@ -17,7 +17,7 @@ optdepends=('python-testresources: for sqlalchemy test fixtures'
             'python-testscenarios: for sqlalchemy test fixtures')
 options=('!emptydirs')
 source=("git+https://github.com/openstack/oslo.db.git#tag=$pkgver")
-sha512sums=('2a375cfc7d42116dc3a0e20d7406a28f5f16ad4e32620406299f2932b4fd19c7672e0f5e97b0da51d3601d12f277f2ffbfdb5c395a1844df72253cb13776f047')
+sha512sums=('bbefc19c6a162a0a1e1769b00c7d4da52674732741e26ef44b99796d3045f1f068c9e5cc95b2a3297492cda6d488a170c9cb093f2a4dfb359d4602cd57dc55e6')
 
 build() {
   cd oslo.db
@@ -26,7 +26,7 @@ build() {
 
 check() {
   cd oslo.db
-  stestr run
+  SQLALCHEMY_SILENCE_UBER_WARNING=1 stestr run
 }
 
 package() {
