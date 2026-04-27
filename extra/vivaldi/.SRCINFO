@@ -1,9 +1,10 @@
 pkgbase = vivaldi
 	pkgdesc = An advanced browser made with the power user in mind.
-	pkgver = 7.9.3970.50
-	pkgrel = 1
+	pkgver = 7.9.3970.59
+	pkgrel = 2
 	url = https://vivaldi.com
 	arch = x86_64
+	arch = aarch64
 	license = custom
 	makedepends = w3m
 	makedepends = imagemagick
@@ -35,9 +36,11 @@ pkgbase = vivaldi
 	provides = vivaldi-stable
 	options = !strip
 	options = !zipman
-	source = https://downloads.vivaldi.com/stable/vivaldi-stable-7.9.3970.50-1.x86_64.rpm
 	source = 0001-add-support-for-user-flags.patch
-	sha512sums = 58b8bbf7ad42d9e98bce39f0d335bd6475be8fc3bb40a10c874bbcaa9dfc515ea21404c1074cd4aca9c21da8a351534dd346b1e4a84b6559101b652a586ad93a
 	sha512sums = a9bdab0fb0f394af17d1b126bae2d0cdc55e63eaa6eaf36eb994735047d3d7bc5000d75ab930f74b76b283c5addefbd4e4e63c5e4f2908bd53c270e73641c19d
+	source_x86_64 = https://downloads.vivaldi.com/stable/vivaldi-stable-7.9.3970.59-1.x86_64.rpm
+	sha512sums_x86_64 = 609b20c34655911ee69faea175f3d5064bd0c38740afbad83b64e62e8c2ca6ae14187d0739bd7bfaf0885cac855aa27cbd0a37aecbcc595736a29ca6e1e3dc9f
+	source_aarch64 = https://downloads.vivaldi.com/stable/vivaldi-stable-7.9.3970.59-1.aarch64.rpm
+	sha512sums_aarch64 = 9a7124ca1d8adc8e17d2ab4f094b0adbf9823fb04c2edb152a9cb49d6514f549c8f5abe0da6d055e21224e725d721f9df3ffc3ad6883d5e1d4b3e61d6b29c17e
 
 pkgname = vivaldi
