@@ -1,0 +1,41 @@
+diff --git a/src/launcher/apps-common.c b/src/launcher/apps-common.c
+index 3508eac..8fdee19 100644
+--- a/src/launcher/apps-common.c
++++ b/src/launcher/apps-common.c
+@@ -81,31 +81,25 @@ void expand_exec(DesktopEntry *entry, const char *path)
+                 p++;
+                 if (!*p)
+                     break;
++                size_t remaining = buf_size - (size_t)(q - exec2);
+                 if (*p == 'i' && entry->icon != NULL) {
+-                    snprintf(q, buf_size, "--icon '%s'", entry->icon);
+-                    char *old = q;
++                    snprintf(q, remaining, "--icon '%s'", entry->icon);
+                     q += strlen("--icon ''");
+                     q += strlen(entry->icon);
+-                    buf_size -= (size_t)(q - old);
+                     q--; // To balance the q++ in the for
+                 } else if (*p == 'c' && entry->name != NULL) {
+-                    snprintf(q, buf_size, "'%s'", entry->name);
+-                    char *old = q;
++                    snprintf(q, remaining, "'%s'", entry->name);
+                     q += strlen("''");
+                     q += strlen(entry->name);
+-                    buf_size -= (size_t)(q - old);
+                     q--; // To balance the q++ in the for
+                 } else if (*p == 'c') {
+-                    snprintf(q, buf_size, "'%s'", path);
+-                    char *old = q;
++                    snprintf(q, remaining, "'%s'", path);
+                     q += strlen("''");
+                     q += strlen(path);
+-                    buf_size -= (size_t)(q - old);
+                     q--; // To balance the q++ in the for
+                 } else if (*p == 'f' || *p == 'F') {
+-                    snprintf(q, buf_size, "%c%c", '%', *p);
++                    snprintf(q, remaining, "%c%c", '%', *p);
+                     q += 2;
+-                    buf_size -= 2;
+                     q--; // To balance the q++ in the for
+                 } else {
+                     // We don't care about other expansions
