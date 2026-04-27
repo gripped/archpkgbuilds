@@ -6,8 +6,8 @@
 # Contributor: CReimer
 
 pkgname=cinnamon
-pkgver=6.6.7
-pkgrel=2
+pkgver=6.6.8
+pkgrel=1
 pkgdesc='Desktop environment which provides advanced innovative features and a traditional user experience'
 arch=(x86_64)
 url='https://github.com/linuxmint/cinnamon'
@@ -97,7 +97,7 @@ source=(
   cinnamon-set-wheel.patch
   30_org.archlinux.cinnamon.gschema.override
 )
-b2sums=('2c3bf9b07578c9eedd6a4f2fb71c2b74431b64058b91bd0a410f7f9582c05b8920233749a15fefb33c2f1ca5ec2418312c13a03477a55dbc2d4ba34db5ee2e75'
+b2sums=('d562486ac3ec43a6e3fe30e46151ab1a4d5b4d620b2e499f7345134bd55c99a88f9fdaa3adbf10452213c01e44c58c50947f5c34e9346ab425bb50601ea695e9'
         '716095bf9b74fad22714040dfd3d7b115eb950a81b4ec809f8541d81102bc276532948d1e70c2d022b061cc8e939276b9f51f4fedb01c6ef2940d1232253460d'
         '3becf1f40068fc629109e6e7d464c3c484296afacc9ab6328b2ccbb3c9735bcbfa9550f9f73b430ede178ae668e37c660ce322b5b4d1873526de3d3d41185160'
         'c071ce664c5189883c409d65b1d054ef4526c0283484e936b10500cec13efdaf3e3792459e648817e1c48e0505bc1154950ce3080cd9aafe0f5de8da5b16bafd')
