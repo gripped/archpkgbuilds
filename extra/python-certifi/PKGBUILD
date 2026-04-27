@@ -5,7 +5,7 @@
 # Contributor: William J Bowman <bluephoenix47@gmail.com>
 
 pkgname=python-certifi
-pkgver=2026.02.25
+pkgver=2026.04.22
 pkgrel=1
 pkgdesc="Python package for providing Mozilla's CA Bundle (using system CA store)"
 arch=(any)
@@ -23,8 +23,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('8109e9d647680f58f536f037e776e36701556e80c45750da296a77fa3218b57d9c51144c0bf70eb79908d15fbaea61c87f80a26f10f6341474ebd1fe7fbf7dad')
-b2sums=('399a659e5e49a4e286b9d4cc9305f1d2789d3b823b199466da7ca9b7c5615b0cd63f8d73f98a2c2a9169d2931f754189c803d960f3f304f955b7bb31569eaf26')
+sha512sums=('c4dcc0b585458beb53fb85242feb5bda60a94855f58938c7bf213404fdec559099fe3ebc7707fd88ac834558d8901532594238fe25ec405c22b580e73cd22250')
+b2sums=('bcfc5769d0a93333c25c9348fc624df023486b32073376bb48b2012d6fb9f9177dddbaf3ff20caab14f72e840acc0c7407d99bfeedc26e144cd79fa2e350a125')
 
 prepare() {
   cd $pkgname-$pkgver
