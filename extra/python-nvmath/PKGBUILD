@@ -2,8 +2,8 @@
 
 _name=nvmath
 pkgname=python-$_name
-pkgver=0.8.0
-pkgrel=2
+pkgver=0.9.0
+pkgrel=1
 pkgdesc="NVIDIA Math Libraries for Python"
 arch=(x86_64)
 url="https://github.com/NVIDIA/nvmath-python"
@@ -34,8 +34,8 @@ source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
   pyproject.patch
 )
-b2sums=('d2dbab6752162380b6615aed3a4bb1d8e8eb30966eb9687ce43fbddf43c4d5dc8c2ffb8b8ce150733a003ea2d6f5a3f380bbba747594619c881127710be918c7'
-        'e80cb7fbbc5c5265eccecab42502044249d53401468b7c36f4a5fdc19262c6d271e206bd42717913c718f36765b27a8df35da0be0d8067ca80c541d2694c637b')
+b2sums=('52cb5e67809cdd6419b3ceea1bd0fa5e19eee3316684b7673181d771271724db8371d5d40566a1b3978cc1d2bd175baa6f902a60bbc335a843f815731c4bf0a0'
+        '9af6e9e661675b1d2e9bcfa087b4d6f49e95ed86cfbc61f27c606021a30f5092466b7d21db9e31677a09b9c116f57bdc3001b60421c9db1554769e92a53c1284')
 
 prepare() {
   cd $_name-python-$pkgver
