@@ -1,8 +1,9 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
 # Maintainer: Morgan Adamiec <morganamilo@archlinux.org>
 # Contributor: icxes <dev.null@need.moe>
 
 pkgname=copyparty
-pkgver=1.20.13
+pkgver=1.20.14
 pkgrel=1
 pkgdesc='File server with accelerated resumable uploads, dedup, WebDAV, FTP, TFTP, zeroconf, media indexer, thumbnails++'
 arch=(any)
@@ -38,9 +39,9 @@ source=(
   "$pkgname-$pkgver.tar.gz::https://github.com/9001/copyparty/releases/download/v$pkgver/copyparty-$pkgver.tar.gz"
   remove-pkg_resources.patch
 )
-sha512sums=('72324c6806d336daff21858821111ddcadd64ba0edbc715ffa56e21a76277de887f11b322a60cfc72aeed539b2e85a05f14f22ef78915f52c8c724596cf65b47'
+sha512sums=('5ebb07fdfcb80318b66544b4cd3da48d910ba3096d288efd471438bbccb7bdfd6264d2c773ef154b162ebe14e16f5e2752b5fe3441fc768ebfeef9974f4bb8fe'
             '25b9e6c79f68c1dbef047a4019a1b40a9e0dc71f4839cd9fb18b0ed4fc9b509aef92a575de58bbf748523b4f8522800c01608b59da09f6f5b19ec28f380f2b33')
-b2sums=('b9349a1e849eb72eec61130eeb7ca1b4b7f2e6b0e5991030c3583cba5e62274f4cbbd84c9771f97d9b05c82bdf179e56a6f396596c322d417336744f5a53a727'
+b2sums=('2f5e7f19c6830f77845fd4dd48e331d29635a90a64a6e07cde106ae38a08f55cf9b22c97c9be44902bf4c9958caaf27969f94758b8d3216f364000be9e77b459'
         '9ebfab21c3a7a800bdaa653bebad81d5aa7126519fd2c9323ce09cea81a387f9cef241b38a7245fde19e3bdc1eccf0a41dbf9e316aa4f02a09f3eec13a0c89e4')
 
 prepare() {
