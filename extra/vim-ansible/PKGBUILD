@@ -3,7 +3,7 @@
 
 _name=ansible-vim
 pkgname=vim-ansible
-pkgver=4.0
+pkgver=5.0
 pkgrel=1
 pkgdesc="A vim plugin for syntax highlighting Ansible's common filetypes"
 arch=(any)
@@ -23,8 +23,8 @@ makedepends=(
 )
 optdepends=('vim-ultisnips: for ansible snippets')
 source=($url/archive/$pkgver/$_name-$pkgver.tar.gz)
-sha512sums=('1946f5b61ebb8c9fb26df3934e5b230202174de8065dfdec0949202f83ecfa23bddf5f52eab863549b6ca42bbc30c1578400933f9be0913b1ec3b8a49f25a26f')
-b2sums=('d24310b91ca1efb4ab410782721567b1add5debb085b11ca17646a4d31d8f6ac401e2bac3c7b69fa8c1d8302609f423a2f008b96e0b00c2a3e97fa82cbe9abb9')
+sha512sums=('aa818109c5647300d1efa7271de2089f734e4a0c3b4da8dcb07c163e16bd96cdb11c425cd99c8331b603ea5d3f60f5f58994a368b99d0657d54122a20abc44c5')
+b2sums=('c751c902f3f1c1beb666b973801dc436e040d4cf925d5b226451449f1c4e620fa73f5d8d3b46eac4c8a9e272b571285f4f84aa4e99538b3959d17ffb6122eba6')
 
 build() {
   cd $_name-$pkgver
