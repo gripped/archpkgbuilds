@@ -4,7 +4,7 @@
 # Contributor: K. Piche <kpiche@rogers.com>
 
 pkgname=r
-pkgver=4.5.3
+pkgver=4.6.0
 pkgrel=1
 pkgdesc='Language and environment for statistical computing and graphics'
 arch=(x86_64)
@@ -15,12 +15,13 @@ depends=(bash
          bzip2
          cairo
          curl
-         gcc-libs
          glib2
          glibc
          icu
          lapack
          libdeflate
+         libgcc
+         libgomp
          libjpeg-turbo
          libpng
          libtiff
@@ -56,7 +57,7 @@ source=(https://cran.r-project.org/src/base/R-${pkgver%%.*}/R-$pkgver.tar.gz
 	r.desktop
 	r.png
 	R.conf)
-sha256sums=('aa5c1ed4293c7271ac513d654670356ac0e8a6ad5e42be014365d11150b5b8f2'
+sha256sums=('b8dc9b4543660c7b596b87938df532394350360976527d344228ee0ed12e45ec'
             '25b01ea93fa704884b65ba002d44d4e99725bd826997e8c73b6467df9f23c798'
             '1580d06a737951f4f3c903cbd514247d9071fc6868eb9c2de94bb999cc195cb1'
             'b7833166041b06f716b6a79095d27d4abd83549816dc53193213827139eae6ef')
