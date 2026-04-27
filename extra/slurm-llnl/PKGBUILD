@@ -5,11 +5,11 @@
 # Contributor: Fredrik Tegenfeldt <fredrik.tegenfeldt@unige.ch>
 
 pkgname=slurm-llnl
-pkgver=25.11.4.1
+pkgver=25.11.5.1
 # Hyphens (-) are prohibited however they are used by the package author
 # therefore it is necessary to invoke ${pkgver} like ${pkgver//./-}
 # this will substitute any full stops (.) with hyphens
-pkgrel=2
+pkgrel=1
 pkgdesc="Simple Linux Utility for Resource Management"
 arch=('x86_64')
 url="https://www.schedmd.com"
@@ -27,6 +27,7 @@ depends=(
 )
 makedepends=(
   freeipmi
+  git
   hdf5
   json-c
   level-zero-headers
@@ -51,16 +52,16 @@ optdepends=(
   "libyaml: YAML serializer support"
 )
 backup=('etc/default/slurmd' 'etc/default/slurmctld' 'etc/default/slurmdbd')
-source=("https://github.com/SchedMD/slurm/archive/slurm-${pkgver//./-}.tar.gz"
-        "slurm-llnl.sysusers"
-        "slurm-llnl.tmpfiles")
-sha512sums=('2002b2e7bc3663bae90c460217961f712691e56b8841635b897997b8d51f74ce324f4aec861dcdcab12243d2b00789146484234e9452b5776d6e4c754df83e56'
+source=("git+https://github.com/SchedMD/slurm#tag=slurm-${pkgver//./-}"
+         "slurm-llnl.sysusers"
+         "slurm-llnl.tmpfiles")
+sha512sums=('5e11636babc1428b50a75ef17c16040614699e20011cc710ea30db683a73ad55bc8985856a8e035406d32827d28edfdd68cfbfc0cd0b9993b62460bcf5a3ac0c'
             'c93f383f7e7ec959a3d4375b1d1a14521757c0c2bb034d3dea5604e5b6332f4d5e6f9024f0f650729931055868b80b0d7b5bd6aaea6429a70c63a2b86b53e549'
             '4f7d1e36abc2ca5aa38b40403292b68f769238766ecdd44ea5d29f8106bd9b7c3e0d2236208f92e00818e37dd24c9520b6e9fe06e01b6e552ac485a1df682edd')
 
 
 build() {
-  cd slurm-slurm-${pkgver//./-}
+  cd slurm
 
   # If required libraries or header files are in non-standard locations,
   # set CFLAGS and LDFLAGS environment variables accordingly.
@@ -98,7 +99,7 @@ build() {
 }
 
 package() {
-  cd slurm-slurm-${pkgver//./-}
+  cd slurm
 
   make DESTDIR="$pkgdir" install
 
