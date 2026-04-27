@@ -1,23 +1,24 @@
 {
-    "description": "ARM UEFI for armv7",
+    "description": "RISCV64 UEFI for riscv64",
     "interface-types": [
         "uefi"
     ],
     "mapping": {
         "device": "flash",
         "executable": {
-            "filename": "/usr/share/edk2/arm/QEMU_CODE.fd",
+            "filename": "/usr/share/edk2/riscv64/RISCV_VIRT_CODE.fd",
             "format": "raw"
         },
         "nvram-template": {
-            "filename": "/usr/share/edk2/arm/QEMU_VARS.fd",
+            "filename": "/usr/share/edk2/riscv64/RISCV_VIRT_VARS.fd",
             "format": "raw"
         }
     },
     "targets": [
         {
-            "architecture": "arm",
+            "architecture": "riscv64",
             "machines": [
+                "virt",
                 "virt-*"
             ]
         }
@@ -25,7 +26,6 @@
     "features": [
         "verbose-static"
     ],
-    "tags": [
-
-    ]
+    "tags": []
 }
+
