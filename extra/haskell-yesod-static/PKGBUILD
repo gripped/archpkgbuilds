@@ -3,8 +3,8 @@
 
 _hkgname=yesod-static
 pkgname=haskell-yesod-static
-pkgver=1.6.1.1
-pkgrel=12
+pkgver=1.6.1.2
+pkgrel=3
 pkgdesc="Static file serving subsite for Yesod Web Framework."
 url="http://www.yesodweb.com/"
 license=("MIT")
@@ -17,7 +17,7 @@ depends=('ghc-libs' 'haskell-async' 'haskell-attoparsec' 'haskell-base64-bytestr
          'haskell-yesod-core')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hunit' 'haskell-wai-extra' 'haskell-yesod-test')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('297055f8b0f7754526b853b1a5905236230f92e9623509c42aea5515aabdeff5536de9a7d8ae99df0dcb2db3368b9b10034b952a77ee43c4cb03a2efc449504c')
+sha512sums=('94f5c8deae10a53a468553bfba940f77ee2849b6d7266922bd5005e0727420ef4a00aac97bc4790175a3b112edb28504e554ad83754f4386e9b4e15770932ebb')
 
 prepare() {
     cd $_hkgname-$pkgver
