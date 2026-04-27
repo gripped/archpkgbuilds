@@ -1,6 +1,6 @@
 pkgbase = deepin-compressor
 	pkgdesc = A fast and lightweight application for creating and extracting archives
-	pkgver = 6.5.18
+	pkgver = 6.5.22
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-compressor
 	arch = x86_64
@@ -9,24 +9,28 @@ pkgbase = deepin-compressor
 	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
-	makedepends = qt5-tools
-	depends = dtkcore
-	depends = dtkgui
-	depends = dtkwidget
+	makedepends = qt6-declarative
+	makedepends = qt6-tools
+	depends = dtk6core
+	depends = dtk6gui
+	depends = dtk6widget
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
-	depends = qt5-base
-	depends = qt5-svg
+	depends = qt6-base
+	depends = qt6-svg
+	depends = qt6-5compat
 	depends = glib2
-	depends = karchive5
-	depends = kcodecs5
+	depends = karchive
+	depends = kcodecs
 	depends = libarchive
 	depends = libzip
 	depends = minizip
 	depends = util-linux-libs
 	depends = hicolor-icon-theme
-	source = git+https://github.com/linuxdeepin/deepin-compressor.git#tag=6.5.18
-	sha512sums = 59b4dc6666912f6f15accc1377ecabf13934efd4f886d83bd741a0795a4dad9e715b8f067812c97ea9245c8e64925b028c4e8c936802ef27fcc72eec9c4d1234
+	depends = deepin-picker
+	depends = deepin-shortcut-viewer
+	source = git+https://github.com/linuxdeepin/deepin-compressor.git#tag=6.5.22
+	sha512sums = a6b34dfff947fe578f13bbf6847ff84ac3b51b41105a754b1fb364b98fc7070f5bd16c4a878fc865a29b68e7d20643363de303a91ac0cf9fcd5a00ca32318e30
 
 pkgname = deepin-compressor
