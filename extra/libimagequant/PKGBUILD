@@ -2,12 +2,12 @@
 
 pkgname=libimagequant
 pkgver=4.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for high-quality conversion of RGBA images to 8-bit indexed-color (palette) images"
 arch=('x86_64')
 url="https://pngquant.org/lib/"
-license=('BSD')
-depends=('gcc-libs')
+license=('GPL-3.0-or-later' 'ISC' 'BSD-2-Clause')
+depends=('libgcc')
 makedepends=('cargo' 'cargo-c')
 source=("https://github.com/ImageOptim/libimagequant/archive/$pkgver/libimagequant-$pkgver.tar.gz")
 sha256sums=('2464a3e922b5a220b633d674062b82f0670114f8f3dd30d1935a621c95965f1b')
