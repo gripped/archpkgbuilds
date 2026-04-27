@@ -6,7 +6,7 @@ _bootstrap=0
 _bootstrap_version=3.14.0
 pkgname=python-wheel
 _name=${pkgname#python-}
-pkgver=0.46.3
+pkgver=0.47.0
 pkgrel=1
 pkgdesc="A built-package format for Python"
 arch=(any)
@@ -42,7 +42,7 @@ else
     python-setuptools::git+https://github.com/pypa/setuptools.git
   )
 fi
-sha512sums=('8f92313cc26b55dd5d9720b95a7dce81493ac26f988c261c7eb2591bc0ac204df1c2ec5a58ab3c069bbdb59b13b27f807be29edec996c02d0b09e3ac2ad4aebc')
+sha512sums=('c07fa4a4e9efa28680f5ee7601058d71d9de3f005771eb452029a3866d0734a5a341d51b73f90f94773e9bb39a1438755aa1f9a34a24929c253047b7f7e65708')
 
 prepare() {
   if (( _bootstrap == 0 )); then
