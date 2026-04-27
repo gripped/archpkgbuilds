@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=scmpuff
-pkgver=0.6.3
+pkgver=0.7.0
 pkgrel=1
 pkgdesc="Numeric file shortcuts for common git commands"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('glibc')
 makedepends=('go' 'git')
 source=("git+https://github.com/mroth/scmpuff.git#tag=v$pkgver")
-sha512sums=('fd9304f45e67bd1087731480b49f5fca2576685bdc5a2a0f9b7826f10d9bcce9ffde0fe54e6fb7cbbb0d2f314e08a703cefdcba135292d8b9bee1b0839002f25')
+sha512sums=('fa1ddaed6b68f9f2f2fb248d304f9dc5a5a370ceea874879c0e5d605fd1c490990759a040fd3ad582ce28747f409dd1efdff7291814ceb0ac2d9032dd17cf3ae')
 
 build() {
   cd scmpuff
