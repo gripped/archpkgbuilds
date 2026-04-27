@@ -3,7 +3,7 @@
 
 pkgname=python-pathspec
 _name=${pkgname#python-}
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc='Utility library for gitignore style pattern matching of file paths'
 arch=('any')
@@ -21,7 +21,7 @@ optdepends=(
   'python-google-re2: re2 backend'
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('e3e015081ef77966297b5e2676bf46f7c2f952252d01616583beb85a98cafe9d03c80ea265d875cc168bc68e65603b313d6c2281a0a7ff7bb909fe18b5bf1e2f')
+b2sums=('f241c1db613c03a48764db57fd5da435e9a0a525a2c90e6ed85ca3e1ce7cfe8aafcb900a6041512d9050a5210e7b2818fbd003d1b047aeb35aa214f7fd15e782')
 
 build() {
   cd $pkgname
