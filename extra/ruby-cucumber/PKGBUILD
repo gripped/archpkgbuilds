@@ -2,7 +2,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=ruby-cucumber
-pkgver=10.2.0
+pkgver=11.0.0
 pkgrel=1
 pkgdesc="Behaviour Driven Development with elegance and joy"
 arch=(any)
@@ -22,6 +22,7 @@ depends=(
   ruby-mime-types
   ruby-mini_mime
   ruby-multi_test
+  ruby-sys-uname
   ruby-rake
 )
 makedepends=(
@@ -36,17 +37,12 @@ checkdepends=(
 options=(!emptydirs)
 source=(
   "https://github.com/cucumber/cucumber-ruby/archive/v$pkgver/cucumber-cucumber-ruby-$pkgver.tar.gz"
-  "${pkgname}_remove-sys-uname.patch"
 )
-sha512sums=('d52d89b2940c799dc6e32e859c8de89b1821ae5790c66ab81f98c19d907efc802e56f3c62c6eb8eb48caf9d098adf12eef8d86e84baa28f164169e970155ed51'
-            '7a93b2d3dfd9866b83ee6b21fb86f601309ccbdd744e8162fb5d47dd636eb3c472ec76f5ec43820040f2fd58e8c3de6d9b3cf89f0962be22d3731dcde7cdedf1')
-b2sums=('9813bf8f08c99f423f517875d8f2daf5af9f2081e33a191c8bef78ee4fa6e2ce00e7ff8a41c0f0ded400bd9207c3d180b7eb4a4f61dba84f75bc4e45b118b7a0'
-        '975fbbb90686f3b9b97d3226608303b2776898f3614486a928cc12eb7cd13615c2ea472e134403948d6a4f8bfd79e999cf8dd48bedffa5f0d539ba108e34ffe1')
+sha512sums=('1f0bd9108fda58e7f020fbcf0fadf89695155af993f08c06095509ecb6e1c0ac3419d6a27d80c52990bf247975ff57027fa09e118687b83603c54a87cc62bea3')
+b2sums=('adf5ba73b7ed42eabc5da1576ff0b1bb1de4646242744e8ea0e34dd6a525f4ed39880b1dc74e9a0e64de48686db33301d6257e16481372bd05094039eb13204b')
 
 prepare() {
   cd cucumber-ruby-$pkgver
-
-  patch --verbose --strip=1 --input="../${pkgname}_remove-sys-uname.patch"
 
   sed -i \
     -e '/capybara/d' \
