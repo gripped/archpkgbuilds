@@ -4,7 +4,7 @@
 # Contributor: Pierre Schmitz <pierre@archlinux.de>
 
 pkgname=dolphin
-pkgver=25.12.3
+pkgver=26.04.0
 pkgrel=1
 pkgdesc='KDE File Manager'
 arch=(x86_64)
@@ -59,7 +59,7 @@ optdepends=('dolphin-plugins: extra plugins'
 groups=(kde-applications
         kde-system)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('9961de7cc076d9d7d598bb7f53afdebcfba20567093231f42ba72e031e089a3b'
+sha256sums=('5c5e5024835fddbcd9dfaa9c16ab2bcff2475645b0e28d1b269de42e412ec543'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
