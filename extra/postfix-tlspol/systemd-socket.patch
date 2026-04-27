@@ -1,0 +1,14 @@
+diff --git a/init/postfix-tlspol.socket b/init/postfix-tlspol.socket
+index fc91fa4..45e2b12 100644
+--- a/init/postfix-tlspol.socket
++++ b/init/postfix-tlspol.socket
+@@ -6,7 +6,8 @@ Description=postfix-tlspol socket
+ # set "ListenStream=" first to clear this default TCP listener before adding
+ # your custom Unix socket ListenStream path.
+ ListenStream=127.0.0.1:8642
+-SocketMode=0666
++SocketMode=0660
++SocketGroup=postfix
+ DirectoryMode=0755
+ Accept=no
+ 
