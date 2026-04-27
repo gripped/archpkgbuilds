@@ -4,7 +4,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-hypothesis
-pkgver=6.151.11
+pkgver=6.152.1
 pkgrel=1
 pkgdesc="Advanced Quickcheck style testing library for Python"
 arch=(any)
@@ -38,6 +38,7 @@ checkdepends=(
   python-pytest
   python-pytest-xdist
   python-pytz
+  python-syrupy
   python-watchdog
 )
 optdepends=(
@@ -58,8 +59,8 @@ optdepends=(
   'python-watchdog: for tracking file system events'
 )
 source=("$pkgname::git+$_url#tag=hypothesis-python-$pkgver")
-sha512sums=('cc28f0c3bcd166e7e4d99312bbfdfcf6a254cf0980cb98cc5b74e7a1a74762edeb5c2362dddcd994419cec85c9e5070959a0dfc617a9953ef9709481c266b7bc')
-b2sums=('04cb6a45d77dfe657a9189b5ba80b4a572141c7a781ca70d05600746e84f0fe8e814e3b63e51cc2eeb35bb77ebfbcbded49aa4c3bb434c5fb620e6fd5d907d94')
+sha512sums=('c6fc285860b815d5638fe06246a4375ad4bc6b0c4cd8c193e777f508d994d88933382c0d9487cdbc0f07ef3d100b770df76aa5e4a115325834b84cad2a40e3b8')
+b2sums=('d351640aba48337166a5c87394f469fabb761fdbb61a105a6bbdc3b9a650ee72b6a3861301862a5d2bf6038b546242cd2fc82ced25f514bbca694ae5d5cb4287')
 
 prepare() {
   cd $pkgname/hypothesis-python
@@ -80,6 +81,8 @@ check() {
     -vv
     # Run tests in parallel, takes forever otherwise
     -n auto
+    # Keep rootdir at hypothesis-python/ so --deselect node ids resolve
+    --rootdir=.
     # Depends on python-hypothesis-crosshair which is not packaged,
     # for some reason --deselect does not work, so ignoring whole file
     --ignore=tests/crosshair/test_conformance.py
@@ -95,6 +98,11 @@ check() {
 
     # Fails due to health check too slow for some reason
     --deselect=tests/nocover/test_stateful.py::test_unrelated_rule_does_not_use_var_reference_repr
+
+    # Flaky: Phase.explain's scrutineer traces syrupy lines once the
+    # plugin is loaded, diverging from the expected output
+    --deselect=tests/cover/test_custom_reprs.py::test_reprs_as_created
+    --deselect=tests/conjecture/test_inquisitor.py::test_inquisitor_doesnt_break_on_varying_forced_nodes
 
     -W=ignore::DeprecationWarning
 
