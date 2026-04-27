@@ -1,0 +1,951 @@
+From cff92953d1e27e6dafd96efc9cf7fe88ddbf0328 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Wolthera=20van=20H=C3=B6vell=20tot=20Westerflier?=
+ <griffinvalley@gmail.com>
+Date: Fri, 31 Oct 2025 14:49:08 +0100
+Subject: [PATCH] Create a qquickwidget based popup for handling popups with
+ qquickwidgets.
+
+Regular QML popups don't work properly with qquickwidget. Even qt6' popup-type
+crashes when used with qquickwidget, so this is a workaround that falls back
+to a regular popup when not in qquickwidget.
+---
+ .../qml/FontResourceDropdown.qml              |   2 +-
+ qmlmodules/components/CMakeLists.txt          |  12 +
+ .../components/KisQmlPopupWidgetManager.cpp   | 213 ++++++++++++++++++
+ .../components/KisQmlPopupWidgetManager.h     | 102 +++++++++
+ .../components/KritaQmlComponentsPlugin.cpp   |   2 +
+ .../qml/+qquickwidget/PopupBase.qml           |  95 ++++++++
+ qmlmodules/components/qml/PopupBase.qml       |  15 ++
+ qmlmodules/components/qml/ResourcePopup.qml   |  58 +++--
+ qmlmodules/components/qml/ResourceView.qml    |   7 +
+ .../resourceDelegates/FontFamilyDelegate.qml  |   3 +
+ qmlmodules/widgets/CMakeLists.txt             |   3 +
+ qmlmodules/widgets/KisQQuickPopupWidget.cpp   |  88 ++++++++
+ qmlmodules/widgets/KisQQuickPopupWidget.h     |  58 +++++
+ qmlmodules/widgets/KisQQuickPopupWidget.qml   |  10 +
+ qmlmodules/widgets/KisQQuickWidget.cpp        |   6 +
+ qmlmodules/widgets/kisquickwidgets.qrc        |   5 +
+ 16 files changed, 664 insertions(+), 15 deletions(-)
+ create mode 100644 qmlmodules/components/KisQmlPopupWidgetManager.cpp
+ create mode 100644 qmlmodules/components/KisQmlPopupWidgetManager.h
+ create mode 100644 qmlmodules/components/qml/+qquickwidget/PopupBase.qml
+ create mode 100644 qmlmodules/components/qml/PopupBase.qml
+ create mode 100644 qmlmodules/widgets/KisQQuickPopupWidget.cpp
+ create mode 100644 qmlmodules/widgets/KisQQuickPopupWidget.h
+ create mode 100644 qmlmodules/widgets/KisQQuickPopupWidget.qml
+ create mode 100644 qmlmodules/widgets/kisquickwidgets.qrc
+
+diff --git a/plugins/dockers/textproperties/qml/FontResourceDropdown.qml b/plugins/dockers/textproperties/qml/FontResourceDropdown.qml
+index a8355e2e4a4..d25a5893482 100644
+--- a/plugins/dockers/textproperties/qml/FontResourceDropdown.qml
++++ b/plugins/dockers/textproperties/qml/FontResourceDropdown.qml
+@@ -19,5 +19,5 @@ Kis.ResourcePopup {
+             resourceCmb.activated();
+         }
+     }
+-    view.preferredHeight: 200; // roughly 3.5 times the font delegate size;
++    view.preferredHeight: 300; // roughly 3.5 times the font delegate size;
+ }
+diff --git a/qmlmodules/components/CMakeLists.txt b/qmlmodules/components/CMakeLists.txt
+index 2811efa6f93..b51c00babd7 100644
+--- a/qmlmodules/components/CMakeLists.txt
++++ b/qmlmodules/components/CMakeLists.txt
+@@ -25,6 +25,9 @@ if (QT_MAJOR_VERSION STREQUAL "6")
+             KoShapeQtQuickLabel.h
+             TagFilterProxyModelQmlWrapper.cpp
+             TagFilterProxyModelQmlWrapper.h
++            KisQmlPopupWidgetManager.cpp
++            KisQmlPopupWidgetManager.h
++
+     )
+ 
+ else ()
+@@ -52,6 +55,8 @@ else ()
+             KoShapeQtQuickLabel.h
+             TagFilterProxyModelQmlWrapper.cpp
+             TagFilterProxyModelQmlWrapper.h
++            KisQmlPopupWidgetManager.cpp
++            KisQmlPopupWidgetManager.h
+     )
+ 
+ endif ()
+@@ -90,6 +95,10 @@ ecm_target_qml_sources(kritaqmlcomponents PRIVATE PATH +qt5 SOURCES
+     qml/+qt5/WindowFocusChecker.qml
+ )
+ 
++ecm_target_qml_sources(kritaqmlcomponents PRIVATE PATH +qquickwidget SOURCES
++    qml/+qquickwidget/PopupBase.qml
++)
++
+ ecm_target_qml_sources(kritaqmlcomponents SOURCES
+     qml/button/GroupButton.qml
+     qml/button/OptionButtonStrip.qml
+@@ -117,6 +126,7 @@ ecm_target_qml_sources(kritaqmlcomponents SOURCES
+     qml/ResourcePopup.qml
+     qml/resourceDelegates/ResourceDelegateBase.qml
+     qml/resourceDelegates/FontFamilyDelegate.qml
++    qml/PopupBase.qml
+     qml/resourceDelegates/CssStylePresetDelegate.qml
+ 
+ )
+@@ -124,6 +134,7 @@ if (QT_MAJOR_VERSION STREQUAL "6")
+     target_link_libraries(kritaqmlcomponents
+         PRIVATE
+         kritaui
++        kritaqmlwidgets
+         Qt::Qml
+         Qt::Quick
+         Qt::QuickControls2
+@@ -133,6 +144,7 @@ else ()
+     target_link_libraries(kritaqmlcomponents
+         PRIVATE
+         kritaui
++        kritaqmlwidgets
+         Qt::Qml
+         Qt::Quick
+         Qt::QuickControls2
+diff --git a/qmlmodules/components/KisQmlPopupWidgetManager.cpp b/qmlmodules/components/KisQmlPopupWidgetManager.cpp
+new file mode 100644
+index 00000000000..b6bea83f2fa
+--- /dev/null
++++ b/qmlmodules/components/KisQmlPopupWidgetManager.cpp
+@@ -0,0 +1,213 @@
++/*
++ * SPDX-FileCopyrightText: 2025 Wolthera van Hovell tot Westerflier <griffinvalley@gmail.com>
++ *
++ *  SPDX-License-Identifier: GPL-2.0-or-later
++ */
++#include "KisQmlPopupWidgetManager.h"
++#include <KisQQuickPopupWidget.h>
++#include <QApplication>
++
++#include <optional>
++
++struct KisQmlPopupWidgetManager::Private {
++    KisQQuickPopupWidget *popup;
++
++    qreal x;
++    qreal y;
++
++    qreal margins = 0;
++    std::optional<qreal> topMargin = std::nullopt;
++    std::optional<qreal> bottomMargin = std::nullopt;
++    std::optional<qreal> leftMargin = std::nullopt;
++    std::optional<qreal> rightMargin = std::nullopt;
++
++    QQuickItem *itemParent;
++};
++
++KisQmlPopupWidgetManager::KisQmlPopupWidgetManager(QObject *parent)
++    : QObject(parent)
++    , d(new Private)
++{
++    d->popup = new KisQQuickPopupWidget(qApp->activeWindow());
++
++    connect(this, SIGNAL(marginsChanged()), this, SLOT(updateMargins()));
++    connect(this, SIGNAL(topMarginChanged()), this, SLOT(updateMargins()));
++    connect(this, SIGNAL(leftMarginChanged()), this, SLOT(updateMargins()));
++    connect(this, SIGNAL(rightMarginChanged()), this, SLOT(updateMargins()));
++    connect(this, SIGNAL(bottomMarginChanged()), this, SLOT(updateMargins()));
++    connect(d->popup, SIGNAL(signalRootObjectReady()), this, SIGNAL(rootControlChanged()));
++}
++
++KisQmlPopupWidgetManager::~KisQmlPopupWidgetManager()
++{
++
++}
++
++qreal KisQmlPopupWidgetManager::x() const
++{
++    return d->x;
++}
++
++void KisQmlPopupWidgetManager::setX(const qreal value)
++{
++    if (qFuzzyCompare(d->x, value)) return;
++    d->x = value;
++    Q_EMIT xChanged();
++}
++
++qreal KisQmlPopupWidgetManager::y() const
++{
++    return d->y;
++}
++
++void KisQmlPopupWidgetManager::setY(const qreal value)
++{
++    if (qFuzzyCompare(d->y, value)) return;
++    d->y = value;
++    Q_EMIT yChanged();
++}
++
++QQuickItem *KisQmlPopupWidgetManager::itemParent() const
++{
++    return d->itemParent;
++}
++
++void KisQmlPopupWidgetManager::setItemParent(QQuickItem *item)
++{
++    if(d->itemParent == item) return;
++    d->itemParent = item;
++    Q_EMIT itemParentChanged();
++}
++
++QQuickItem *KisQmlPopupWidgetManager::rootControl() const
++{
++    return d->popup->rootObject();
++}
++
++qreal KisQmlPopupWidgetManager::margins() const
++{
++    return d->margins;
++}
++
++void KisQmlPopupWidgetManager::setMargins(const qreal value)
++{
++    if (qFuzzyCompare(d->margins, value)) return;
++    d->margins = value;
++    Q_EMIT marginsChanged();
++}
++
++qreal KisQmlPopupWidgetManager::topMargin() const
++{
++    return (d->topMargin)? d->topMargin.value(): d->margins;
++}
++
++qreal KisQmlPopupWidgetManager::bottomMargin() const
++{
++    return (d->bottomMargin)? d->bottomMargin.value(): d->margins;
++}
++
++qreal KisQmlPopupWidgetManager::leftMargin() const
++{
++    return (d->leftMargin)? d->leftMargin.value(): d->margins;
++}
++
++qreal KisQmlPopupWidgetManager::rightMargin() const
++{
++    return (d->rightMargin)? d->rightMargin.value(): d->margins;
++}
++
++void KisQmlPopupWidgetManager::setTopMargin(const qreal value)
++{
++    if (d->topMargin) {
++        if (qFuzzyCompare(d->topMargin.value(), value)) return;
++    }
++    d->topMargin = std::make_optional(value);
++    Q_EMIT topMarginChanged();
++}
++
++void KisQmlPopupWidgetManager::setRightMargin(const qreal value)
++{
++    if (d->rightMargin) {
++        if (qFuzzyCompare(d->rightMargin.value(), value)) return;
++    }
++    d->rightMargin = std::make_optional(value);
++    Q_EMIT rightMarginChanged();
++}
++
++void KisQmlPopupWidgetManager::setLeftMargin(const qreal value)
++{
++    if (d->leftMargin) {
++        if (qFuzzyCompare(d->leftMargin.value(), value)) return;
++    }
++    d->leftMargin = std::make_optional(value);
++    Q_EMIT leftMarginChanged();
++}
++
++void KisQmlPopupWidgetManager::setBottomMargin(const qreal value)
++{
++    if (d->bottomMargin) {
++        if (qFuzzyCompare(d->bottomMargin.value(), value)) return;
++    }
++    d->bottomMargin = std::make_optional(value);
++    Q_EMIT bottomMarginChanged();
++}
++
++void KisQmlPopupWidgetManager::resetTopMargin()
++{
++    d->topMargin = std::nullopt;
++}
++
++void KisQmlPopupWidgetManager::resetLeftMargin()
++{
++    d->leftMargin = std::nullopt;
++}
++
++void KisQmlPopupWidgetManager::resetRightMargin()
++{
++    d->rightMargin = std::nullopt;
++}
++
++void KisQmlPopupWidgetManager::resetBottomMargin()
++{
++    d->bottomMargin = std::nullopt;
++}
++
++bool KisQmlPopupWidgetManager::visible() const
++{
++    return d->popup->isVisible();
++}
++
++void KisQmlPopupWidgetManager::open()
++{
++    if (!d->itemParent) {
++        qWarning() << "Parent not set! PopupWidget requires parent to be explicitely set!";
++        return;
++    }
++    d->popup->raise();
++    d->popup->show();
++    d->popup->move(d->itemParent->mapToGlobal(QPointF(d->x, d->y)).toPoint());
++    // The following is probably causing issues with keyboard focus :(
++    d->popup->activateWindow();
++    Q_EMIT visibleChanged();
++}
++
++void KisQmlPopupWidgetManager::close()
++{
++    d->popup->hide();
++    Q_EMIT visibleChanged();
++}
++
++void KisQmlPopupWidgetManager::releaseKeyboard()
++{
++    d->popup->releaseKeyboard();
++}
++
++void KisQmlPopupWidgetManager::updateMargins()
++{
++    QMargins margins;
++    margins.setTop(qRound(topMargin()));
++    margins.setLeft(qRound(leftMargin()));
++    margins.setRight(qRound(rightMargin()));
++    margins.setBottom(qRound(bottomMargin()));
++    d->popup->setLayoutMargins(margins);
++}
+diff --git a/qmlmodules/components/KisQmlPopupWidgetManager.h b/qmlmodules/components/KisQmlPopupWidgetManager.h
+new file mode 100644
+index 00000000000..0965a5dad0f
+--- /dev/null
++++ b/qmlmodules/components/KisQmlPopupWidgetManager.h
+@@ -0,0 +1,102 @@
++/*
++ * SPDX-FileCopyrightText: 2025 Wolthera van Hovell tot Westerflier <griffinvalley@gmail.com>
++ *
++ *  SPDX-License-Identifier: GPL-2.0-or-later
++ */
++#ifndef KISQMLPOPUP_H
++#define KISQMLPOPUP_H
++
++#include <QObject>
++#include <QQmlEngine>
++#include <QQuickItem>
++
++/**
++ * @brief The KisQmlPopupWidgetManager class
++ * This encapsulates a KisQQuickPopupWidget.h class, so it can be used from QML.
++ *
++ * QQuickWidgets don't allow popups to go outside their bounds, so this class is
++ * essentially working around that by using a KisQQuickPopupWidget to wrap the
++ * content item in.
++ */
++class KisQmlPopupWidgetManager : public QObject
++{
++    Q_OBJECT
++
++    Q_PROPERTY(qreal x READ x WRITE setX NOTIFY xChanged)
++    Q_PROPERTY(qreal y READ y WRITE setY NOTIFY yChanged)
++
++    Q_PROPERTY(QQuickItem* parent READ itemParent WRITE setItemParent NOTIFY itemParentChanged)
++    Q_PROPERTY(QQuickItem* rootControl READ rootControl NOTIFY rootControlChanged)
++
++    Q_PROPERTY(qreal margins READ margins WRITE setMargins NOTIFY marginsChanged)
++    Q_PROPERTY(qreal topMargin READ topMargin WRITE setTopMargin RESET resetTopMargin NOTIFY topMarginChanged)
++    Q_PROPERTY(qreal leftMargin READ leftMargin WRITE setLeftMargin RESET resetLeftMargin NOTIFY leftMarginChanged)
++    Q_PROPERTY(qreal rightMargin READ rightMargin WRITE setRightMargin RESET resetRightMargin NOTIFY rightMarginChanged)
++    Q_PROPERTY(qreal bottomMargin READ bottomMargin WRITE setBottomMargin RESET resetBottomMargin NOTIFY bottomMarginChanged)
++
++    Q_PROPERTY(bool visible READ visible NOTIFY visibleChanged)
++
++    QML_NAMED_ELEMENT(PopupWidget)
++public:
++    explicit KisQmlPopupWidgetManager(QObject *parent = nullptr);
++    ~KisQmlPopupWidgetManager();
++
++    qreal x() const;
++    void setX(const qreal value);
++
++    qreal y() const;
++    void setY(const qreal value);
++
++    QQuickItem *itemParent() const;
++    void setItemParent(QQuickItem *item);
++
++    QQuickItem *rootControl() const;
++
++    /**
++     * @brief margins
++     * Popup qml component has margins, so we implement those in here too.
++     */
++    qreal margins() const;
++    void setMargins(const qreal value);
++
++    qreal topMargin() const;
++    qreal bottomMargin() const;
++    qreal leftMargin() const;
++    qreal rightMargin() const;
++
++    void setTopMargin(const qreal value);
++    void setLeftMargin(const qreal value);
++    void setRightMargin(const qreal value);
++    void setBottomMargin(const qreal value);
++
++    void resetTopMargin();
++    void resetLeftMargin();
++    void resetRightMargin();
++    void resetBottomMargin();
++
++    bool visible() const;
++
++    Q_INVOKABLE void open();
++    Q_INVOKABLE void close();
++    Q_INVOKABLE void releaseKeyboard();
++Q_SIGNALS:
++    void xChanged();
++    void yChanged();
++
++    void itemParentChanged();
++    void rootControlChanged();
++
++    void visibleChanged();
++    void marginsChanged();
++    void topMarginChanged();
++    void rightMarginChanged();
++    void leftMarginChanged();
++    void bottomMarginChanged();
++private Q_SLOTS:
++    void updateMargins();
++private:
++    struct Private;
++    QScopedPointer<Private> d;
++};
++
++#endif // KISQMLPOPUP_H
+diff --git a/qmlmodules/components/KritaQmlComponentsPlugin.cpp b/qmlmodules/components/KritaQmlComponentsPlugin.cpp
+index 55cd97d06ec..f0ef3da5967 100644
+--- a/qmlmodules/components/KritaQmlComponentsPlugin.cpp
++++ b/qmlmodules/components/KritaQmlComponentsPlugin.cpp
+@@ -16,6 +16,7 @@
+ #include <KisFontFunctions.h>
+ #include <KoShapeQtQuickLabel.h>
+ #include <TagFilterProxyModelQmlWrapper.h>
++#include <KisQmlPopupWidgetManager.h>
+ 
+ #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+ #error "This plugin implementation is to be used with Qt5 only!\n"
+@@ -47,6 +48,7 @@ void KritaQmlComponentsPlugin::registerTypes(const char *uri)
+     qmlRegisterType<KisFontFunctions>(uri, 1, 0, "FontFunctions");
+     qmlRegisterType<KoShapeQtQuickLabel>(uri, 1, 0, "KoShapeQtQuickLabel");
+     qmlRegisterType<TagFilterProxyModelQmlWrapper>(uri, 1, 0, "TagFilterProxyModelQmlWrapper");
++    qmlRegisterType<KisQmlPopupWidgetManager>(uri, 1, 0, "PopupWidget");
+ 
+ }
+ 
+diff --git a/qmlmodules/components/qml/+qquickwidget/PopupBase.qml b/qmlmodules/components/qml/+qquickwidget/PopupBase.qml
+new file mode 100644
+index 00000000000..d25492ddbbf
+--- /dev/null
++++ b/qmlmodules/components/qml/+qquickwidget/PopupBase.qml
+@@ -0,0 +1,95 @@
++/*
++ *  SPDX-FileCopyrightText: 2025 Wolthera van Hövell tot Westerflier <griffinvalley@gmail.com>
++ *
++ *  SPDX-License-Identifier: GPL-2.0-or-later
++ */
++import QtQuick 2.15
++import org.krita.components 1.0 as Kis
++
++/*
++  \qmltype PopupBase
++  Workaround to allow us to use a PopupWidget when we're inside a QQuickWidget,
++  and otherwise a regular QtQuickControls Popup.
++
++  Note: you'll have to manually implement/forward popup properties as necessary.
++  Unfortunately we cannot assign an id to rootControl at runtime, so we cannot
++  use Connections or alias properties.
++  */
++Kis.PopupWidget {
++    id: control;
++
++    property double width;
++    property double height;
++    property double padding;
++    property Item contentItem;
++    property var palette;
++
++    property double contentWidth;
++    property double contentHeight;
++    property double implicitWidth;
++    property double implicitHeight;
++
++    property Item dummy: Item {
++        id: dummyItem;
++
++        Connections {
++            target: control;
++            function onWidthChanged() {
++                if (control.rootControl) {
++                    control.rootControl.width = control.width;
++                }
++            }
++
++            function onHeightChanged() {
++                if (control.rootControl) {
++                    control.rootControl.height = control.height;
++                }
++            }
++        }
++
++        Binding {
++            target: control;
++            property: "contentWidth";
++            value: control.contentItem.width;
++        }
++        Binding {
++            target: control;
++            property: "contentHeight";
++            value: control.contentItem.height;
++        }
++        Binding {
++            target: control;
++            property: "implicitWidth";
++            when: typeof control.rootControl != 'undefined';
++            value: control.rootControl.implicitWidth;
++        }
++        Binding {
++            target: control;
++            property: "implicitHeight";
++            when: typeof control.rootControl != 'undefined';
++            value: control.rootControl.implicitHeight;
++        }
++
++        Binding {
++            target: control.rootControl;
++            when: typeof control.rootControl != 'undefined';
++            property: "padding";
++            value: control.padding;
++        }
++        Binding {
++            target: control.rootControl;
++            when: typeof control.rootControl != 'undefined';
++            property: "contentItem";
++            value: control.contentItem;
++        }
++        Binding {
++            target: control.rootControl;
++            when: typeof control.rootControl != 'undefined';
++            property: "palette";
++            value: control.palette;
++        }
++    }
++
++    property var closePolicy; // Dummy to avoid warnings.
++
++}
+diff --git a/qmlmodules/components/qml/PopupBase.qml b/qmlmodules/components/qml/PopupBase.qml
+new file mode 100644
+index 00000000000..d6d4cffc115
+--- /dev/null
++++ b/qmlmodules/components/qml/PopupBase.qml
+@@ -0,0 +1,15 @@
++/*
++ *  SPDX-FileCopyrightText: 2025 Wolthera van Hövell tot Westerflier <griffinvalley@gmail.com>
++ *
++ *  SPDX-License-Identifier: GPL-2.0-or-later
++ */
++import QtQuick 2.15
++import QtQuick.Controls 2.15
++
++/*
++  \qmltype PopupBase
++  Workaround to allow us to use a PopupWidget when we're inside a QQuickWidget,
++  and otherwise a regular QtQuickControls Popup.
++  */
++Popup {
++}
+diff --git a/qmlmodules/components/qml/ResourcePopup.qml b/qmlmodules/components/qml/ResourcePopup.qml
+index 321b2c746e4..a611de5bdd6 100644
+--- a/qmlmodules/components/qml/ResourcePopup.qml
++++ b/qmlmodules/components/qml/ResourcePopup.qml
+@@ -88,7 +88,7 @@ Button {
+     /// Ideally we'd have the max popup height be Window-height - y-pos-of-item-to-window.
+     /// But that's pretty hard to calculate (map to global is screen relative, but there's
+     /// no way to get window.y relative to screen), so we'll just use 300 as the maximum.
+-    property int maxPopupHeight: Math.min(Window.height, 500) - height*3;
++    property int maxPopupHeight: 500;
+ 
+     contentItem: Kis.InformingTextInput {
+         id: textInput;
+@@ -98,8 +98,8 @@ Button {
+         readOnly: !resourceCmb.enabled;
+ 
+         onEditingFinished: {
+-            if (resourceCmbPopup.visible) {
+-                resourceView.applyHighlightedIndex();
++            if (completerPopup.visible) {
++                completerView.applyHighlightedIndex();
+             }
+ 
+             testInput();
+@@ -112,9 +112,8 @@ Button {
+         onTextEdited: {
+             stopWarning();
+             modelWrapper.searchText = text;
+-            resourceView.showTagging = false;
+-            resourceView.showSearch = false;
+-            resourceCmbPopup.open();
++            completerView.highlightedIndex = 0;
++            completerPopup.open();
+         }
+ 
+         onActiveFocusChanged: {
+@@ -145,10 +143,18 @@ Button {
+         }
+ 
+         Keys.onDownPressed: {
+-            resourceView.downPress();
++            if (completerPopup.opened) {
++                completerView.downPress();
++            } else {
++                resourceView.downPress();
++            }
+         }
+         Keys.onUpPressed: {
+-            resourceView.upPress();
++            if (completerPopup.opened) {
++                completerView.upPress();
++            } else {
++                resourceView.upPress();
++            }
+         }
+     }
+ 
+@@ -170,27 +176,27 @@ Button {
+         if (resourceCmbPopup.opened) {
+             resourceCmbPopup.close();
+         } else {
+-            resourceView.showTagging = true;
+-            resourceView.showSearch = true;
+             resourceCmbPopup.open();
+         }
+     }
+     signal activated();
+     onActivated: {
+         resourceCmbPopup.close();
++        completerPopup.close();
+         modelWrapper.searchText = "";
+     }
+ 
+     //--- Pop up setup ---//
+-    Popup {
++    Kis.PopupBase {
+         id: resourceCmbPopup;
+         y: resourceCmb.height - 1;
+         x: resourceCmb.width - width;
+-        width: Math.max(contentWidth, Math.max(resourceCmb.width, 200));
+-        height: Math.min(contentItem.implicitHeight, resourceCmb.maxPopupHeight - topMargin - bottomMargin)
++        width: Math.max(implicitWidth, Math.max(resourceCmb.width, 200));
++        height: (resourceCmb.maxPopupHeight - topMargin - bottomMargin);
+         padding: 2;
+ 
+         palette: resourceCmb.palette;
++        parent: resourceCmb;
+ 
+         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent;
+ 
+@@ -199,4 +205,28 @@ Button {
+             palette: resourceCmbPopup.palette;
+         }
+     }
++
++    Popup {
++        id: completerPopup;
++        y: resourceCmb.height - 1;
++        x: resourceCmb.width - width;
++        width: Math.max(implicitWidth, Math.max(resourceCmb.width, 200));
++        property int windowMaximum: Window.height > 0? Math.min(Window.height, resourceCmb.maxPopupHeight) - resourceCmb.height*3: resourceCmb.maxPopupHeight;
++        height: Math.min(contentItem.implicitHeight, windowMaximum - (topMargin + bottomMargin));
++        padding: 2;
++
++        palette: resourceCmb.palette;
++        parent: resourceCmb;
++
++        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent;
++        contentItem: Kis.ResourceView {
++            id: completerView;
++            palette: resourceCmbPopup.palette;
++            modelWrapper: resourceCmb.modelWrapper;
++            resourceDelegate: resourceCmb.resourceDelegate;
++            showTagging: false;
++            showSearch: false;
++            addResourceRowVisible: resourceCmb.addResourceRowVisible;
++        }
++    }
+ }
+diff --git a/qmlmodules/components/qml/ResourceView.qml b/qmlmodules/components/qml/ResourceView.qml
+index f6f161bb716..0e8b2b155e3 100644
+--- a/qmlmodules/components/qml/ResourceView.qml
++++ b/qmlmodules/components/qml/ResourceView.qml
+@@ -17,6 +17,7 @@ Control {
+     id: control;
+     property Kis.TagFilterProxyModelQmlWrapper modelWrapper: Kis.TagFilterProxyModelQmlWrapper {
+         resourceType: control.resourceType;
++
+     };
+ 
+     Connections {
+@@ -80,6 +81,12 @@ Control {
+      */
+     property alias showSearch: searchBar.visible;
+ 
++    /*
++      \qmlProperty resourceCount
++      amount of items in the listview.
++     */
++    property alias resourceCount: view.count;
++
+     /*
+       \qmlProperty viewPreferredHeight
+         Preferred height of the resource list view.
+diff --git a/qmlmodules/components/qml/resourceDelegates/FontFamilyDelegate.qml b/qmlmodules/components/qml/resourceDelegates/FontFamilyDelegate.qml
+index 9fb22ceee2a..ae31bfb341e 100644
+--- a/qmlmodules/components/qml/resourceDelegates/FontFamilyDelegate.qml
++++ b/qmlmodules/components/qml/resourceDelegates/FontFamilyDelegate.qml
+@@ -74,6 +74,9 @@ ResourceDelegateBase {
+     }
+ 
+     width: ListView.view.width;
++    // We need to set the implicit width, because otherwise the label's implicit width will decide,
++    // and the label can be a little too big.
++    implicitWidth: 250;
+ 
+     contentItem: Control {
+         id: delegateControl;
+diff --git a/qmlmodules/widgets/CMakeLists.txt b/qmlmodules/widgets/CMakeLists.txt
+index 4a7d7b26a75..37b9c7a6e33 100644
+--- a/qmlmodules/widgets/CMakeLists.txt
++++ b/qmlmodules/widgets/CMakeLists.txt
+@@ -1,5 +1,8 @@
+ set(kritaqmlwidgets_SRCS
+     KisQQuickWidget.cpp
++    KisQQuickPopupWidget.cpp
++    kisquickwidgets.qrc
++
+ )
+ 
+ kis_add_library(kritaqmlwidgets SHARED ${kritaqmlwidgets_SRCS})
+diff --git a/qmlmodules/widgets/KisQQuickPopupWidget.cpp b/qmlmodules/widgets/KisQQuickPopupWidget.cpp
+new file mode 100644
+index 00000000000..35e3352c023
+--- /dev/null
++++ b/qmlmodules/widgets/KisQQuickPopupWidget.cpp
+@@ -0,0 +1,88 @@
++/*
++ * SPDX-FileCopyrightText: 2025 Wolthera van Hovell tot Westerflier <griffinvalley@gmail.com>
++ *
++ *  SPDX-License-Identifier: GPL-2.0-or-later
++ */
++#include "KisQQuickPopupWidget.h"
++
++#include <KisQQuickWidget.h>
++#include <QQmlComponent>
++#include <QQmlError>
++#include <QHBoxLayout>
++
++struct KisQQuickPopupWidget::Private {
++    Private(QWidget *parent) : quickWidget(new KisQQuickWidget(parent)) {}
++    KisQQuickWidget *quickWidget;
++
++};
++
++KisQQuickPopupWidget::KisQQuickPopupWidget(QWidget *parent)
++    : QFrame(parent)
++    , d(new Private(this))
++{
++    setWindowFlags(Qt::Popup);
++    setFrameStyle(QFrame::StyledPanel | QFrame::Plain);
++    QHBoxLayout *layout = new QHBoxLayout(this);
++    d->quickWidget->setSource(QUrl("qrc:/KisQQuickPopupWidget.qml"));
++    connect(d->quickWidget, SIGNAL(statusChanged(QQuickWidget::Status)), this, SLOT(emitRootObjectReady()));
++
++    if (!d->quickWidget->errors().empty()) {
++        qWarning() << "Errors in Popup:" << d->quickWidget->errors();
++    }
++
++    d->quickWidget->setResizeMode(QQuickWidget::SizeViewToRootObject);
++
++    layout->addWidget(d->quickWidget);
++    layout->setContentsMargins(0, 0, 0, 0);
++}
++
++KisQQuickPopupWidget::~KisQQuickPopupWidget()
++{
++
++}
++
++QQuickItem *KisQQuickPopupWidget::rootObject() const
++{
++    if (d->quickWidget->rootObject()) {
++        return d->quickWidget->rootObject();
++    }
++    qWarning() << "No Root Object!";
++    return nullptr;
++}
++
++QMargins KisQQuickPopupWidget::layoutContentMargins() const
++{
++    return this->layout()->contentsMargins();
++}
++
++void KisQQuickPopupWidget::setLayoutMargins(const QMargins margins)
++{
++    this->layout()->setContentsMargins(margins);
++}
++
++void KisQQuickPopupWidget::keyPressEvent(QKeyEvent *event)
++{
++    if (event->matches(QKeySequence::Cancel)) {
++        event->accept();
++        hide();
++    } else {
++        QFrame::keyPressEvent(event);
++    }
++}
++
++bool KisQQuickPopupWidget::event(QEvent *e)
++{
++    if (e->type() == QEvent::Close) {
++        e->ignore();
++        hide();
++        return true;
++    }
++    return QFrame::event(e);
++}
++
++void KisQQuickPopupWidget::emitRootObjectReady()
++{
++    if (d->quickWidget->status() == QQuickWidget::Ready) {
++        Q_EMIT signalRootObjectReady();
++    }
++}
+diff --git a/qmlmodules/widgets/KisQQuickPopupWidget.h b/qmlmodules/widgets/KisQQuickPopupWidget.h
+new file mode 100644
+index 00000000000..e6d27c34bd5
+--- /dev/null
++++ b/qmlmodules/widgets/KisQQuickPopupWidget.h
+@@ -0,0 +1,58 @@
++/*
++ * SPDX-FileCopyrightText: 2025 Wolthera van Hovell tot Westerflier <griffinvalley@gmail.com>
++ *
++ *  SPDX-License-Identifier: GPL-2.0-or-later
++ */
++#ifndef KISQUICKPOPUPWIDGET_H
++#define KISQUICKPOPUPWIDGET_H
++
++#include <QFrame>
++#include <QQuickItem>
++
++#include <kritaqmlwidgets_export.h>
++
++/**
++ * @brief The KisQQuickPopupWidget class
++ *
++ * This is a wrapper of a QFrame with Popup window flag, and a KisQQuickWidget
++ * inside. This is used by KisQmlPopupWidgetManager to work around some
++ * limitations with QML popups inside a QQuickWidget.
++ */
++class KRITAQMLWIDGETS_EXPORT KisQQuickPopupWidget: public QFrame
++{
++    Q_OBJECT
++public:
++    KisQQuickPopupWidget(QWidget *parent = nullptr);
++    ~KisQQuickPopupWidget();
++
++    /**
++     * @brief rootObject
++     * @return QQuickWidget::rootObject().
++     */
++    QQuickItem *rootObject() const;
++
++    /**
++     * @brief layoutContentMargins
++     * @return layout()->contentMargins()
++     */
++    QMargins layoutContentMargins() const;
++    /**
++     * @brief setLayoutMargins
++     * calls layout()->setContentMargins(margins);
++     */
++    void setLayoutMargins(const QMargins margins);
++Q_SIGNALS:
++    void signalRootObjectReady();
++protected:
++    ///Copied from KisPopupButton.cpp
++    void keyPressEvent(QKeyEvent *event) override;
++
++    bool event(QEvent *e) override;
++private Q_SLOTS:
++    void emitRootObjectReady();
++private:
++    struct Private;
++    QScopedPointer<Private> d;
++};
++
++#endif // KISQUICKPOPUPWIDGET_H
+diff --git a/qmlmodules/widgets/KisQQuickPopupWidget.qml b/qmlmodules/widgets/KisQQuickPopupWidget.qml
+new file mode 100644
+index 00000000000..3387285596e
+--- /dev/null
++++ b/qmlmodules/widgets/KisQQuickPopupWidget.qml
+@@ -0,0 +1,10 @@
++/*
++ * SPDX-FileCopyrightText: 2025 Wolthera van Hovell tot Westerflier <griffinvalley@gmail.com>
++ *
++ *  SPDX-License-Identifier: GPL-2.0-or-later
++ */
++import QtQuick.Controls 2.15
++
++Control {
++    id: control;
++}
+diff --git a/qmlmodules/widgets/KisQQuickWidget.cpp b/qmlmodules/widgets/KisQQuickWidget.cpp
+index 2d220fbd718..140a0809bdb 100644
+--- a/qmlmodules/widgets/KisQQuickWidget.cpp
++++ b/qmlmodules/widgets/KisQQuickWidget.cpp
+@@ -71,6 +71,12 @@ KisQQuickWidget::KisQQuickWidget(QWidget *parent): QQuickWidget(parent)
+ #elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+     extraSelectors << "qt5";
+ #endif
++    /**
++     * WARNING: The following selector is *only* for KisQQuickWidget. Do not
++     * copy it to other engines.
++     */
++    extraSelectors << "qquickwidget";
++
+     selector->setExtraSelectors(extraSelectors);
+ 
+ 
+diff --git a/qmlmodules/widgets/kisquickwidgets.qrc b/qmlmodules/widgets/kisquickwidgets.qrc
+new file mode 100644
+index 00000000000..2743bc1c979
+--- /dev/null
++++ b/qmlmodules/widgets/kisquickwidgets.qrc
+@@ -0,0 +1,5 @@
++<RCC>
++    <qresource prefix="/">
++        <file>KisQQuickPopupWidget.qml</file>
++    </qresource>
++</RCC>
+-- 
+GitLab
+
