@@ -6,30 +6,30 @@
 
 pkgname=offlineimap
 _pkgname=${pkgname}3
-pkgver=8.0.1
+pkgver=8.0.2
 pkgrel=1
 pkgdesc='Synchronizes emails between two repositories'
 arch=('any')
 url='http://offlineimap.org/'
 license=('GPL-2.0-or-later')
 depends=('python-imaplib2' 'python-distro' 'python-rfc6555')
-makedepends=('asciidoc' 'python-setuptools')
+makedepends=('asciidoc' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 optdepends=(
     "python-gssapi: for Kerberos authentication"
     "python-pysocks: for SOCKS5 proxy functionality")
 source=($pkgname-$pkgver.tar.gz::https://github.com/OfflineIMAP/offlineimap3/archive/v${pkgver}.tar.gz)
-sha256sums=('82ce54136465ea1cce62f4e961e8c155ac3eee2149fa812763629448902d7d69')
+sha256sums=('c299cbbab92d48215ea37ec06ec68699d17e59ab97a1b98e792f75e0a507b306')
 
 build() {
   cd ${_pkgname}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
   make -C docs man
 }
 
 package() {
   cd ${_pkgname}-${pkgver}
 
-  python setup.py install --root="${pkgdir}" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 docs/offlineimap.1 "${pkgdir}"/usr/share/man/man1/offlineimap.1
   install -Dm644 docs/offlineimapui.7 "${pkgdir}"/usr/share/man/man7/offlineimapui.7
   install -Dm644 offlineimap.conf "${pkgdir}"/usr/share/offlineimap/offlineimap.conf
