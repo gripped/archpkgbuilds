@@ -2,13 +2,14 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=korganizer
-pkgver=25.12.3
+pkgver=26.04.0
 pkgrel=1
 pkgdesc='Calendar and scheduling Program'
 arch=(x86_64)
 url='https://apps.kde.org/korganizer/'
 license=(GPL-2.0-or-later)
-depends=(akonadi-calendar
+depends=(akonadi
+         akonadi-calendar
          akonadi-contacts
          calendarsupport
          eventviews
@@ -37,11 +38,11 @@ depends=(akonadi-calendar
          kmime
          kontactinterface
          kparts
+         ktextaddons
          kuserfeedback
          kwidgetsaddons
          kwindowsystem
          kxmlgui
-         libakonadi
          libkdepim
          pimcommon
          qt6-base)
@@ -52,7 +53,7 @@ optdepends=('kdepim-addons: additional plugins')
 groups=(kde-applications
         kde-pim)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('9bb837f1a1f9aedbf35f3254a526cc6f5c7591b4c27e649817db6b563ad698c3'
+sha256sums=('b890069f4397c7c0905a947dd3f0abc735363bb12e1422a8225b4f6befa06d4b'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
