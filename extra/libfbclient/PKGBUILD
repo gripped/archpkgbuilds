@@ -4,8 +4,8 @@
 # Contributor: Douglas Soares de Andrade <dsa@aur.archlinux.org>
 
 pkgname=libfbclient
-pkgver=5.0.3
-pkgrel=2
+pkgver=5.0.4
+pkgrel=1
 pkgdesc='Client library for Firebird'
 arch=(x86_64)
 url='https://www.firebirdsql.org'
@@ -25,8 +25,8 @@ makedepends=(
 )
 options=(!lto) # segfaults with LTO
 source=("$pkgname::git+https://github.com/FirebirdSQL/firebird#tag=v$pkgver")
-sha512sums=('c96a9c384f12b92a2ab07aabc031ce697e608683c978a6a68c0fa0235593a93809bbc80a636914fea830224207c336c839eeb985759d24658cef9c15329aa1c6')
-b2sums=('f16119b11063de5a64157c8ed2d51cda15437739072e202a4408ac26ffd6be57c80381e99cb9d5353de7fe5bdd25dcec4149da91ead0671491019dc3de110ae1')
+sha512sums=('cd9093b0f3fc4120ac9cfcef1647c0c49bdba6fae73ea22ad0827460a5d5f3296c5ca51934ea351727a228f28558062bc0f3974c9c776dabddfda0db93f0a95d')
+b2sums=('6fe5b3cb50d58a493c88f53ce68aab6d65bd0afbbdf829f89a405b4b9c423abe9e2ae8e677f66c0fbf4c41a10d617b4ef0359b72e9c7fcebeb6f45e6b0a362cf')
 
 
 prepare() {
