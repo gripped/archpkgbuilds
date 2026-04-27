@@ -1,8 +1,8 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 pkgname=hsa-amd-aqlprofile
-pkgver=7.2.1
-pkgrel=2
+pkgver=7.2.2
+pkgrel=1
 pkgdesc='Architected Queuing Language Profiling Library'
 arch=('x86_64')
 url='https://github.com/ROCm/rocprofiler-register'
@@ -16,7 +16,7 @@ depends=(
 )
 makedepends=('cmake')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ROCm/rocm-systems/releases/download/rocm-$pkgver/aqlprofile.tar.gz")
-sha256sums=('1e3801517826b92a9c114edece6a1e098a14902c0b87298c0f18c03de90aac73')
+sha256sums=('adea82694ff33f9fe5a45366307ca6ad180b5265f0f2659088453a3f679ef8dd')
 replaces=(hsa-amd-aqlprofile-bin)
 
 build() {
