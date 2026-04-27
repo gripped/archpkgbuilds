@@ -2,17 +2,19 @@
 # Maintainer: Jonathan Grotelüschen <tippfehlr@archlinux.org>
 # Contributor: Sven-Hendrik Haase <svenstaro@archlinux.org>
 
+# Note: This PKGBUILD and the chromium PKGBUILD are loosely kept in sync to ease maintenance.
+# As such care should be taken to minimize the differences between these PKGBUILDs.
 pkgname=cef
 # pkgver is updated automatically.
 # To update this package, update the _cef_commit and _chromium_ver variables.
 # For the CEF versioning scheme, see
 # https://chromiumembedded.github.io/cef/branches_and_building#version-number-format
-pkgver=146.0.10+chromium146.0.7680.179
+pkgver=147.0.10
 # See https://github.com/chromiumembedded/cef/tree/<release branch>
 # Also see https://chromiumembedded.github.io/cef/branches_and_building
-_cef_commit=82195616d8405e6081a0d90924707b82aa9e4141
+_cef_commit=d58e84d17dd3f646c906ac633156cd0ec46638e9
 # the chromium version must match CHROMIUM_BUILD_COMPATIBILITY.txt in the CEF repo
-_chromium_ver=146.0.7680.179
+_chromium_ver=147.0.7727.118
 _system_clang=1
 pkgrel=1
 pkgdesc="Chromium Embedded Framework (CEF), simple framework for embedding Chromium-based browsers in other applications"
@@ -61,28 +63,32 @@ source=("chromium-$_chromium_ver-lite.tar.xz::https://commondatastorage.googleap
         chromium-138-nodejs-version-check.patch
         chromium-145-fix-SYS_SECCOMP.patch
         chromium-146-drop-unknown-clang-flag.patch
-        chromium-146-apply-upstream-libmuck-fix.patch
         chromium-146-build-with-wasm-rollup.patch
+        chromium-147-revert-clang-no-lifetime-dse-flag.patch
+        chromium-147-rust-1.95-bytemuck.patch
         compiler-rt-adjust-paths.patch
         increase-fortify-level.patch
         glibc-2.42-baud-rate-fix.patch
         cef-no-sysroot.patch
         cef-no-libxml-visibility-patch.patch
         chromium-disable-font-tests.patch
+        FindCEF.cmake
 )
-sha256sums=('16800d0b92057f0014cbfb91c88bd66206c7624e3a8634a90dd6c87f37f20f58'
-            '0f75deb6baf8a3446a9c1e1d4234875736c6a3cd262e7266a77088400fede0a0'
+sha256sums=('713eb46feccf03417a06bb26768d0ffb6ec635b13eeffaacfe570e7ce55c5da7'
+            '752d63b546d78146a3c3618eaefb0eccb22343abd7d26d76de264d52029e5638'
             '11a96ffa21448ec4c63dd5c8d6795a1998d8e5cd5a689d91aea4d2bdd13fb06e'
             '4fc040a0656a0a524dd8ad090cd129fc5b6cb21adcc66be82080165789e8c13e'
             '24535c314c7e70c52bcf409aaf604728bfc5b5c97e60087e630e1f7233b9e12d'
-            '06299959918481caf2c27bcb1841088967d9855acc22970ffcaa75e0cb218f0e'
             '45fa20cc27ef0aa00d654d0bac84bfaa8d8090b5f8aec49cc2e8d7249d3cd7ba'
+            'c382830318c5b37826ecf44f3ba9def6be8affdad1bce819ecb83f3222ff4b3a'
+            'b9e6339221efe03540ffb360c161d93604a1fc93a5a1c53e5e9849066f987d05'
             'ec8e49b7114e2fa2d359155c9ef722ff1ba5fe2c518fa48e30863d71d3b82863'
             'd634d2ce1fc63da7ac41f432b1e84c59b7cceabf19d510848a7cff40c8025342'
             '1c1898f263eaacbc069a8e1a3e732852350350d1dad4cb1a6bba430e3b796cd0'
             'cdc046c3da5a57dae8fba0de49cadbe65d4f8fbfffb172f7a768222232595faa'
             '6695d7bcac489f74b8290a05dac540c2b5c5fed997ee119ae05419d36509445d'
-            '44dcc0da55a8c6c6af875addcfb9c552c722b56a31479eb7d99f16d0a27f4ebb')
+            '44dcc0da55a8c6c6af875addcfb9c552c722b56a31479eb7d99f16d0a27f4ebb'
+            'e576250c4d0f3dd307bd22c6d4f9f7aba54fdf4d5899520c0bd1c3527aec65ed')
 
 # Possible replacements are listed in build/linux/unbundle/replace_gn_files.py
 # Keys are the names in the above script; values are the dependencies in Arch
@@ -145,13 +151,15 @@ prepare() {
   # clang++: error: unknown argument: '-fsanitize-ignore-for-ubsan-feature=array-bounds'
   patch -Np1 -i ../chromium-146-drop-unknown-clang-flag.patch
 
-  # https://chromium-review.googlesource.com/c/chromium/src/+/7487414
-  patch -Np1 -i ../chromium-146-apply-upstream-libmuck-fix.patch
+  # Causes a build failure with our clang version
+  patch -Np1 -i ../chromium-147-revert-clang-no-lifetime-dse-flag.patch
 
   # https://crbug.com/456218403
   patch -Np1 -i ../chromium-145-fix-SYS_SECCOMP.patch
 
   patch -Np1 -i ../chromium-146-build-with-wasm-rollup.patch
+
+  patch -Np1 -i ../chromium-147-rust-1.95-bytemuck.patch
 
   patch -Np1 -i ../chromium-disable-font-tests.patch
 
@@ -208,10 +216,10 @@ prepare() {
 pkgver() {
   cd chromium-$_chromium_ver
 
-  # python tool to get the full CEF version. For the full version.h, look at
+  # python tool to get the full CEF version. For the full output, look at
   # /usr/include/cef/include/cef_version.h in the built package.
-  python cef/tools/make_version_header.py version.h
-  grep -oP 'CEF_VERSION "\K[^"]+' version.h | sed -E 's/\+g[0-9a-f]+\+chromium-/+chromium/'
+  python cef/tools/make_version_header.py cef_version_header
+  grep -oP 'CEF_VERSION "\K[^"]+' cef_version_header | sed -E 's/\+.*//'
 }
 
 build() {
@@ -230,19 +238,14 @@ build() {
     export NM=$_clang_path/llvm-nm
   fi
 
-  local _clang_version=$(clang --version | grep -m1 version | sed 's/.* \([0-9]\+\).*/\1/')
-
-  # Allow the use of nightly features with stable Rust compiler
-  export RUSTC_BOOTSTRAP=1
-
   # Add depot_tools to PATH (needed by CEF's gclient_hook.py)
   export PATH="$PATH:$PWD/third_party/depot_tools"
 
   # Use system ninja, remove the wrapper which only supports x86_64
-  rm -f third_party/depot_tools/ninja
+  rm third_party/depot_tools/ninja
 
   # GN defines passed to CEF's gclient_hook.py via GN_DEFINES env var
-  local _gn_defines=(
+  local _flags=(
     'custom_toolchain="//build/toolchain/linux/unbundle:default"'
     'host_toolchain="//build/toolchain/linux/unbundle:default"'
     'is_official_build=true' # implies is_cfi=true on x86_64
@@ -270,17 +273,36 @@ build() {
     'enable_remoting=false'
     'use_vaapi=false'
     'use_clang_modules=false'
-    "clang_base_path=\"/usr\""
-    'clang_use_chrome_plugins=false'
-    "clang_version=\"$_clang_version\""
-    'chrome_pgo_phase=0'
-    "rust_sysroot_absolute=\"/usr\""
-    "rust_bindgen_root=\"/usr\""
-    "rustc_version=\"$(rustc --version | awk '{ print $2 ;}')\""
     'devtools_bundle=false'
   )
 
-  export GN_DEFINES="${_gn_defines[*]}"
+  if [[ -n ${_system_libs[icu]+set} ]]; then
+    _flags+=('icu_use_data_file=false')
+  fi
+
+  if (( _system_clang )); then
+     local _clang_version=$(
+       clang --version | grep -m1 version | sed 's/.* \([0-9]\+\).*/\1/')
+
+    _flags+=(
+      'clang_base_path="/usr"'
+      'clang_use_chrome_plugins=false'
+      "clang_version=\"$_clang_version\""
+      'chrome_pgo_phase=0' # needs newer clang to read the bundled PGO profile
+    )
+
+    # Allow the use of nightly features with stable Rust compiler
+    # https://github.com/ungoogled-software/ungoogled-chromium/pull/2696#issuecomment-1918173198
+    export RUSTC_BOOTSTRAP=1
+
+    _flags+=(
+      'rust_sysroot_absolute="/usr"'
+      'rust_bindgen_root="/usr"'
+      "rustc_version=\"$(rustc --version | awk '{ print $2 ;}')\""
+    )
+  fi
+
+  export GN_DEFINES="${_flags[*]}"
   # Only build Release config
   export GN_OUT_CONFIGS="Release_GN_x64"
 
@@ -326,59 +348,31 @@ build() {
 }
 
 package() {
-  cd chromium-$_chromium_ver
+  cd distrib_minimal
 
-  local _distrib_dir="$srcdir/distrib_minimal"
-
-  # Install CEF shared library and sandbox
-  install -d "$pkgdir/usr/lib/cef"
-
-  # Resources
-  install -Dm644 "$_distrib_dir"/Resources/*.pak -t "$pkgdir/usr/lib/cef/"
-  install -d "$pkgdir/usr/lib/cef/locales"
-  install -Dm644 "$_distrib_dir"/Resources/locales/*.pak -t "$pkgdir/usr/lib/cef/locales/"
-  if [[ -f "$_distrib_dir/Resources/icudtl.dat" ]]; then
-    install -Dm644 "$_distrib_dir/Resources/icudtl.dat" "$pkgdir/usr/lib/cef/"
-  fi
-
-  # Release binaries
-  install -Dm755 "$_distrib_dir/Release/libcef.so" "$pkgdir/usr/lib/cef/"
-  install -Dm4755 "$_distrib_dir/Release/chrome-sandbox" "$pkgdir/usr/lib/cef/"
-  install -Dm644 "$_distrib_dir/Release/v8_context_snapshot.bin" "$pkgdir/usr/lib/cef/"
-
-  # ANGLE
-  for lib in libEGL.so libGLESv2.so; do
-    if [[ -f "$_distrib_dir/Release/$lib" ]]; then
-      install -Dm755 "$_distrib_dir/Release/$lib" "$pkgdir/usr/lib/cef/"
-    fi
-  done
-
-  # SwiftShader / Vulkan
-  for lib in libvk_swiftshader.so libvulkan.so.1; do
-    if [[ -f "$_distrib_dir/Release/$lib" ]]; then
-      install -Dm755 "$_distrib_dir/Release/$lib" "$pkgdir/usr/lib/cef/"
-    fi
-  done
-  if [[ -f "$_distrib_dir/Release/vk_swiftshader_icd.json" ]]; then
-    install -Dm644 "$_distrib_dir/Release/vk_swiftshader_icd.json" "$pkgdir/usr/lib/cef/"
-  fi
+  install -d "$pkgdir/usr/lib/cef/"
+  cp -r Release/* "$pkgdir/usr/lib/cef/"
+  install -Dvm4755 Release/chrome-sandbox "$pkgdir/usr/lib/cef/chrome-sandbox"
+  cp -r Resources/* "$pkgdir/usr/lib/cef/"
 
   # Headers
   install -d "$pkgdir/usr/include/cef"
-  cp -a "$_distrib_dir/include" "$pkgdir/usr/include/cef/"
+  cp -a "include" "$pkgdir/usr/include/cef/"
 
-  # libcef_dll wrapper source (needed to build CEF applications)
+  # libcef_dll wrapper source
   install -d "$pkgdir/usr/src/cef"
-  cp -a "$_distrib_dir/libcef_dll" "$pkgdir/usr/src/cef/"
+  cp -a "libcef_dll" "$pkgdir/usr/src/cef/"
 
-  # CMake support
-  if [[ -f "$_distrib_dir/cmake/FindCEF.cmake" ]]; then
-    install -Dm644 "$_distrib_dir/cmake/FindCEF.cmake" "$pkgdir/usr/share/cmake/Modules/FindCEF.cmake"
-  fi
+  # Remove include file targets, since includes are in a different path
+  sed -i -e '/\.\.\/include/d' "$pkgdir/usr/src/cef/libcef_dll/CMakeLists.txt"
 
-  # License
-  install -Dm644 cef/LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE-CEF"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE-CHROMIUM"
+  # The FindCEF.cmake from CEF expects one unified directory.
+  # We provide a custom FindCEF.cmake that looks in the right places.
+  # Copied from https://src.fedoraproject.org/rpms/cef/blob/rawhide/f/FindCEF.cmake (thanks Fedora!)
+  install -Dm644 "$srcdir/FindCEF.cmake" -t "$pkgdir/usr/share/cmake/Modules/"
+
+  install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE-CEF"
+  install -Dm644 ../chromium-$_chromium_ver/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE-CHROMIUM"
 }
 
 # vim:set ts=2 sw=2 et:

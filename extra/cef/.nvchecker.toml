@@ -1,0 +1,10 @@
+[cef]
+source = "jq"
+url = "https://cef-builds.spotifycdn.com/index.json"
+filter = '''
+.linux64.versions
+| map(select(.channel == "stable" and (.cef_version | contains("+"))))
+| max_by(.cef_version | split("+")[0] | split(".") | map(tonumber))
+| .cef_version
+| split("+")[0]
+'''
