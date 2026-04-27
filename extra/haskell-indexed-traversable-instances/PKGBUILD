@@ -2,23 +2,22 @@
 
 _hkgname=indexed-traversable-instances
 pkgname=haskell-indexed-traversable-instances
-pkgver=0.1.2
-pkgrel=139
+pkgver=0.1.2.1
+pkgrel=4
 pkgdesc="More instances of FunctorWithIndex, FoldableWithIndex, TraversableWithIndex"
 url="https://github.com/haskellari/indexed-traversable"
-license=("BSD")
+license=('BSD-2-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-indexed-traversable' 'haskell-onetuple' 'haskell-tagged'
          'haskell-unordered-containers' 'haskell-vector')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-tasty'
              'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('3c2bb62fba141d6696177070d63b88bc56b194bc60f6b73d2263b0244e2fc7c1')
+sha256sums=('e69d41f23a95463c2e03aee03374a4f489c72f7bf235be251499c4cca9411fec')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u QuickCheck -u tasty-quickcheck
 }
 
 build() {
