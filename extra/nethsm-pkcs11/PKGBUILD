@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=nethsm-pkcs11
-pkgver=2.1.0
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="PKCS#11 driver for NetHSM"
 arch=(x86_64)
@@ -13,8 +13,8 @@ options=(!lto)  # NOTE: as ring is used we can not use LTO
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
 )
-sha512sums=('1d1b2cfbabf4f3b6cf0396802429f8ee0fa46224073e9fbfc80339c0e45392d2435dee86c2f9ac9c09b15bbb7bdc1012f5e1af0404f06680aca64c904d78278e')
-b2sums=('aca60b70a31b5a263b222c99a48ec1baea74f368664c66f674abafb6daef20b372bd7e419b40aafe5bfbacba57ca31f7aedaeabad2b48e51953fac48f4bece9b')
+sha512sums=('1cb260381ab118f7f72aa5e22ff0b63530d2671f2b6872dbb978d38577012c67a24f78a953cc61e7750cc3e2ee121c6e76cbaa539d43d0480761a99cc49258fb')
+b2sums=('a68da681bd7a4de76e108f837e7a24ebf1abc7223fe57450b5091271ab5e440695d428909ce95e2f11ef88e938a2a2de7b7ce7dfe2afcb05b84ac145fde4a664')
 
 prepare() {
   cd $pkgname-$pkgver
