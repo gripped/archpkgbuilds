@@ -4,8 +4,8 @@
 
 pkgname=python-pywebview
 _name=${pkgname#python-}
-pkgver=6.1
-pkgrel=2
+pkgver=6.2.1
+pkgrel=1
 pkgdesc='Build GUI for your Python program with JavaScript, HTML, and CSS'
 arch=(any)
 url='https://github.com/r0x0r/pywebview'
@@ -18,7 +18,7 @@ optdepends=('pyside6: use with QtPy, PySide6'
             'python-qtpy: use with Qt'
             'webkit2gtk-4.1: use with GTK')
 source=("git+$url.git#tag=$pkgver")
-b2sums=('b7c748edacbefb1111ce5a10f38a95644e255b12ad68df637466b82f433bd8b5158acc3d20a9fd64a945815e6963b8eca47e961ea03b2de6e741a1c0c427824c')
+b2sums=('7958abe330107357815ead5270d1efd0c696dca590733130b8ea47b7b6c40bbc7ee9f2aea118f029b75aac6d8cf1a2f4e65e9e301639c6ac414bde0987d59b56')
 
 build() {
   cd $_name
