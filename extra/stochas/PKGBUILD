@@ -1,81 +1,87 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 _name=Stochas
 pkgbase=stochas
 pkgname=(stochas stochas-{clap,standalone,vst3})
 pkgver=1.3.13
-pkgrel=1
+pkgrel=2
 pkgdesc="A probabilistic polyrhythmic sequencer"
 arch=(x86_64)
 url="https://surge-synth-team.org/stochas"
 license=(GPL-3.0-only)
-depends=(
-  gcc-libs
+_common_depends=(
   glibc
+  libgcc libgcc_s.so
+  libstdc++ libstdc++.so
+  freetype2 libfreetype.so
+  libjpeg-turbo libjpeg.so
+  libpng libpng16.so
+  zlib libz.so
   ttf-liberation
 )
 makedepends=(
+  "${_common_depends[@]}"
   alsa-lib
   cmake
   flac
-  freetype2
   gendesk
   git
   jack
   juce
-  libjpeg-turbo
   libogg
-  libpng
   libvorbis
   libx11
   libxcursor
   libxinerama
   libxrandr
-  zlib
 )
 source=(
-  git+https://github.com/surge-synthesizer/$pkgname.git#tag=v$pkgver
-  git+https://github.com/free-audio/clap-juce-extensions.git
-  git+https://github.com/free-audio/clap.git
-  git+https://github.com/free-audio/clap-helpers.git
+  "$pkgname::git+https://github.com/surge-synthesizer/$pkgname.git#tag=v$pkgver"
+  'github.com-free-audio-clap-juce-extensions::git+https://github.com/free-audio/clap-juce-extensions.git'
+  'github.com-free-audio-clap::git+https://github.com/free-audio/clap.git'
+  'github.com-free-audio-clap-helpers::git+https://github.com/free-audio/clap-helpers.git'
   $pkgname-1.3.10-devendor_juce.patch
 )
 sha512sums=('fb6e32b9e2b31f7f73889c92be65f97bc3677942ddcfc9275ab67e589c5b8d612f041f26dece2d43a1a416d1f9b801db2c820ecbcf33a1eda65241b26d11aaa5'
             'SKIP'
             'SKIP'
             'SKIP'
-            'db06c3662932cd2d64ea991979021220164e9c45d677bd61f6d40632fd774c6021e7a554c19f94c827370af2bc4dbcfad31dde8dea6733e8027a87bf92c9ccb5')
+            '217388273d479e7683f74c4c94a66cc35fef292d11eec364f90943528993d85fdd802df9d65c3f40ccd36591b2370c66108d92d13dd00ada45bf4af214c55013')
 b2sums=('4e0ecf3c3de7263fd5226ce1ceb133a481715f48b8e862312c6ab452a970e59f9308c820bc9905f7fb64064424bcaf87506401bc612ca8a62ff907bf78f5855d'
         'SKIP'
         'SKIP'
         'SKIP'
-        '3acfa843d49a47b8f0fd05a56eba26a37c28a7e3317e8d18aba5984f20a1bf93b6e7b49a2d8967ba6430b8a6f0b25510067e790a61005fe4e0722c6dd4ac64d7')
+        '72e375350b0fb1c4d71d9c8d15a9537f248c6d7f8bfd21dea24505db769c08403f4475389df5daf19fef1591f2fb67a5eb30622780ffaf08cb1a2f2c7f249929')
 
 prepare() {
   (
     cd $pkgname
     git submodule init
     git submodule deinit lib/JUCE  # devendor juce
-    git config submodule.lib/clap-juce-extensions.url "$srcdir/clap-juce-extensions"
+    git config submodule.lib/clap-juce-extensions.url "$srcdir/github.com-free-audio-clap-juce-extensions"
     git -c protocol.file.allow=always submodule update
 
     cd lib/clap-juce-extensions
     git submodule init
-    git config submodule.clap-libs/clap.url "$srcdir/clap"
-    git config submodule.clap-libs/clap-helpers.url "$srcdir/clap-helpers"
+    git config submodule.clap-libs/clap.url "$srcdir/github.com-free-audio-clap"
+    git config submodule.clap-libs/clap-helpers.url "$srcdir/github.com-free-audio-clap-helpers"
     git -c protocol.file.allow=always submodule update
   )
 
   patch -Np1 -d $pkgname -i ../$pkgname-1.3.10-devendor_juce.patch
 
-  gendesk -n \
-          --pkgname org.surge-synth-team.$_name \
-          --pkgdesc "$pkgdesc" \
-          --exec "$_name" \
-          --name "$_name" \
-          --icon org.surge-synth-team.$_name \
-          --genericname "Audio Sequencer" \
-          --categories "AudioVideo;Audio"
+  local gendesk_args=(
+    -n
+    --pkgname "org.surge-synth-team.$_name"
+    --pkgdesc "$pkgdesc"
+    --exec "$_name"
+    --name "$_name"
+    --icon "org.surge-synth-team.$_name"
+    --genericname "Audio Sequencer"
+    --categories "AudioVideo;Audio"
+  )
+  gendesk "${gendesk_args[@]}"
 }
 
 build() {
@@ -106,11 +112,8 @@ package_stochas-clap() {
     pro-audio
   )
   depends+=(
+    "${_common_depends[@]}"
     clap-host
-    freetype2 libfreetype.so
-    libjpeg-turbo libjpeg.so
-    libpng libpng16.so
-    zlib libz.so
   )
 
   install -vDm 755 build/${pkgbase}_artefacts/None/CLAP/$_name.clap -t "$pkgdir/usr/lib/clap/"
@@ -122,12 +125,9 @@ package_stochas-standalone() {
     pro-audio
   )
   depends+=(
+    "${_common_depends[@]}"
     alsa-lib libasound.so
-    freetype2 libfreetype.so
     hicolor-icon-theme
-    libjpeg-turbo libjpeg.so
-    libpng libpng16.so
-    zlib libz.so
   )
 
   install -vDm 755 build/${pkgbase}_artefacts/None/Standalone/$_name -t "$pkgdir/usr/bin/"
@@ -142,13 +142,8 @@ package_stochas-vst3() {
     vst3-plugins
   )
   depends+=(
-    freetype2 libfreetype.so
-    gcc-libs
-    glibc
-    libjpeg-turbo libjpeg.so
-    libpng libpng16.so
+    "${_common_depends[@]}"
     vst3-host
-    zlib libz.so
   )
 
   install -vDm 755 build/${pkgbase}_artefacts/None/VST3/$_name.vst3/Contents/Resources/*.json -t "$pkgdir/usr/lib/vst3/$_name.vst3/Contents/Resources/"
