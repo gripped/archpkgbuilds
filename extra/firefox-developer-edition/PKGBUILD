@@ -2,7 +2,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=firefox-developer-edition
-pkgver=151.0b1
+pkgver=151.0b3
 pkgrel=1
 pkgdesc="Fast, Private & Safe Web Browser (Developer Edition)"
 url="https://www.mozilla.org/firefox/developer/"
@@ -82,29 +82,26 @@ source=(
   $pkgname.desktop
   org.mozilla.$pkgname.metainfo.xml
   0001-Install-under-remoting-name.patch
-  0002-Bug-2033279-Make-enable-rust-simd-work-with-Rust-1.9.patch
-  0003-Patch-glsl-optimizer-to-build-with-glibc-2.43.patch
+  0002-Patch-glsl-optimizer-to-build-with-glibc-2.43.patch
 )
 validpgpkeys=(
   # Mozilla Software Releases <release@mozilla.com>
   # https://blog.mozilla.org/security/2025/04/01/updated-gpg-key-for-signing-firefox-releases-2/
   14F26682D0916CDD81E37B6D61B7B526D98F0353
 )
-sha256sums=('78e7edd51764e68f8b7872e522ffd03379b2e10c469c91c16ae18f4c8d1f66c0'
+sha256sums=('adef9125bc7509c93a368e1d2132cc7559dc04b773785ffe4989d652086eaa95'
             'SKIP'
             'a9b8b4a0a1f4a7b4af77d5fc70c2686d624038909263c795ecc81e0aec7711e9'
             '69bda73277e9a47002a40e18021262b3c3cd88a0ca48237f42a4a5792e839af8'
             '48e33f75f3760387305997ee0a3fcea030a1e7310fc461e92d7b73e6cf600096'
             'ef63a12975f108f30b00bb3290d9ca76f311d8af9c1d5dfc0d8335ad57e8f77c'
-            '9f10d9bfcaa3a8dd86a8654431f820716a45a72a885c29fd6359bccc7bcdaefa'
             '1abd3681b739ca11573b225bba299154b7ae9fda9fec79f9ca0831eb4f806240')
-b2sums=('16a1c348a006e3caf10b3aa66aeaef1e0813f4cbb3a1777e670b0422ab81cfd985a62eb6cad4fd5d2e0688d515ab67fef1dfa825d72bbd36d9dd4233acc44f39'
+b2sums=('a6254fd1123f84f052f16629c2122f0eac41dcae3f2d69e8065493f11e8bfd385912de77cc8ff36072c27429c3d8aabe1b5fc49e976dbaeae08b109d8798ff80'
         'SKIP'
         '63a8dd9d8910f9efb353bed452d8b4b2a2da435857ccee083fc0c557f8c4c1339ca593b463db320f70387a1b63f1a79e709e9d12c69520993e26d85a3d742e34'
         'b3e5b7f4d202eb3bd26eef851c9340c7fe10fbaeb385c3fa989af949e500e9eae6bf67f2ab2e330342cacd71ba40bb02d1840510b7555adbe539615021a5a16e'
         '826db294d078c66e6bf3561c3c6de32d7522251b2ccbd47ab26fb6380988f117d854a726c36f45ddd2e846a1456ca0f6c883733d1c660351430f2d1fbc95b1eb'
         'ff0ba11844e99ab1b1fed91d70c6f45837198ba43e77313c8b9c48a621e40c459953fc35283b6b6eafb5641510a5ce1e18ebda4d7d076f8212810391c0a9234b'
-        '29772ea097f9f07abec2d79371885c1f9861b0655cdf03bcfb66517cb6433196f41791918bb36ccda3dceff30e46c0937d010ec43911a79e1cb025f014499660'
         'f507ea62439734286cb1bbbfe3ea9f87a46eaffd393aba3d44259f0021b26a8735b99638418965bd2e2fa29095821adcad1aa2968abeda9efd17b6da9ba665a8')
 
 # Google API keys (see https://www.chromium.org/developers/how-tos/api-keys)
@@ -119,13 +116,9 @@ prepare() {
   # Make different channels installable in parallel
   patch -Np1 -i ../0001-Install-under-remoting-name.patch
 
-  # Fix build with Rust 1.95.0
-  # https://bugzilla.mozilla.org/show_bug.cgi?id=2033279
-  patch -Np1 -i ../0002-Bug-2033279-Make-enable-rust-simd-work-with-Rust-1.9.patch
-
   # Fix build with glibc 2.43
   # https://bugzilla.mozilla.org/show_bug.cgi?id=1999625
-  patch -Np1 -i ../0003-Patch-glsl-optimizer-to-build-with-glibc-2.43.patch
+  patch -Np1 -i ../0002-Patch-glsl-optimizer-to-build-with-glibc-2.43.patch
 
   # Don't let the branding override our remoting name
   sed '/^MOZ_APP_REMOTINGNAME=/d' -i browser/branding/aurora/configure.sh
