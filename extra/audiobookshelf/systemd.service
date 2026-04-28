@@ -11,6 +11,7 @@ WorkingDirectory=/var/lib/audiobookshelf
 ExecStart=/usr/bin/node /usr/lib/audiobookshelf/index.js
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
+SyslogIdentifier=audiobookshelf
 
 # environment variables that should not be changed
 Environment=NODE_ENV=production
