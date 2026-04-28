@@ -6,7 +6,7 @@
 
 pkgname=discord
 _pkgname=Discord
-pkgver=0.0.134
+pkgver=0.0.135
 pkgrel=1
 epoch=1
 pkgdesc="All-in-one voice and text chat for gamers"
@@ -20,9 +20,9 @@ optdepends=('libpulse: PulseAudio support'
 source=("https://dl.discordapp.net/apps/linux/$pkgver/$pkgname-$pkgver.tar.gz"
         "LICENSE-$pkgver.html::https://discordapp.com/terms"
         "OSS-LICENSES-$pkgver.html::https://discordapp.com/licenses")
-sha512sums=('ae902a313acd8b98bd4689b39fb2105d07b04f9922afa166e28935528298ba2aa801eec61114319c4fd8d56059533ec6d2fcc00fd10406af29b6e961703eb7b0'
-            '3040fcc5dfbf3772ff8e286ba9a2df541d536ab33487f789ae585abd5d2ff06d3a7ea8b0f9dfcf29068befc0affd65a1e062fdacd76d4883515af25b793f9ad9'
-            'dda7e2ba10ac5c6e39352688f31cf31570403b97227fa884c18960a9027bec73401f9c05ea451215b93b35c7f7857a8b946ee4c91e374fef7ad2ab576eae1a7d')
+sha512sums=('7be159b69fe322939fccfbe82c2c15b0dffb2ee2106a19824d7cc1ccb6b5f87b90446ba1915dfb81bbc59dab56561c104645d969acca5e9a95ac5b4c7afbd2ba'
+            'be4826aeb85a2d8903e78892b173e5a4b00fef6c9937ef2175ee7c23ad5ff7f6c672483c9b21ac7e92e9324d739b3ee54a0a2c35bb3a38809570c8f0adf47083'
+            'a4dc0d5c9e618f94d0d133f06573be4764a7489b9f691fb7b2c7885ba6dc42c59263dad416398bb7073475f4c722f7b3170db13925aceee1840eb8cab8ce5a3a')
 
 # Skip license hashes as they are unstable (discord#2)
 # Since "updpkgsums"/"pkgctl version upgrade" overwrite the checksum array with
@@ -38,7 +38,7 @@ prepare() {
 }
 
 package() {
-  depends=('libnotify' 'libxss' 'nspr' 'nss' 'gtk3' 'unzip')
+  depends=('libnotify' 'libxss' 'nspr' 'nss' 'gtk3')
   install -d "$pkgdir"/opt/$pkgname
   cp -a $_pkgname/. "$pkgdir"/opt/$pkgname
 
