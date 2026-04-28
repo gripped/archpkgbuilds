@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-daemon
-pkgver=6.1.65
+pkgver=6.1.66
 pkgrel=1
 pkgdesc='Daemon handling the DDE session settings'
 arch=('x86_64')
@@ -67,7 +67,7 @@ replaces=('startdde')
 groups=('deepin')
 install="$pkgname.install"
 source=("git+https://github.com/linuxdeepin/dde-daemon.git#tag=$pkgver")
-sha512sums=('604c1bb80859bee33d2cc2ba498cf2e982e094017bd9d5f08e79459a21fe3ce792f209f810621d9523541dd3c24e22f0d2adea26e9c0420215c2b13f9a3cf0b6')
+sha512sums=('75ff70b0f66002e419a0f875b1ef223a7bb93ee6ef2c88d1d4e41815f4555a425ec20a3fc9bdcbb4748bf921f6d470c7542e506eaaae2bcd42ef2165ce4e2d3e')
 
 prepare() {
   cd dde-daemon
@@ -106,7 +106,4 @@ package() {
   make DESTDIR="$pkgdir" PAM_MODULE_DIR=usr/lib/security install
 
   install -Dm644 debian/dde-daemon.sysusers "$pkgdir/usr/lib/sysusers.d/deepin-daemon.conf"
-
-  # Now provided by deepin-services
-  rm "$pkgdir/usr/share/dsg/configs/org.deepin.dde.daemon/org.deepin.XSettings.json"
 }
