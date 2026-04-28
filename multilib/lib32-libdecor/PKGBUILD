@@ -2,15 +2,15 @@
 
 pkgdesc='Client-side decorations library for Wayland clients'
 pkgname=lib32-libdecor
-pkgver=0.2.2
+pkgver=0.2.5
 pkgrel=1
 url="https://gitlab.gnome.org/jadahl/libdecor"
 license=(MIT)
 arch=(x86_64)
-depends=(libdecor lib32-wayland lib32-pango lib32-dbus lib32-gtk3)
+depends=(libdecor lib32-{wayland,pango,dbus,gtk3,glibc,cairo,glib2})
 makedepends=(cmake ninja meson wayland-protocols)
 source=("https://gitlab.freedesktop.org/libdecor/libdecor/-/archive/${pkgver}/libdecor-${pkgver}.tar.gz")
-sha512sums=('ddaaa75f1dc983e6d59e168896f8044cf6ac761675db6af410c6d2186bdc66942c98f36eb7a6e2836ce02dbb98189a80db30b7cef3dbaf49c7aae47c3eee22cc')
+sha512sums=('c696ed38a80256e1db68fcc0fd8a8c18439c4a1c4bf4d7e4068a741b0e2642d99dc07ae92e209c15f2387ea9330f9b3281ab9114b5d8989e085165f3eae6abed')
 
 build() {
   export CC='gcc -m32'
