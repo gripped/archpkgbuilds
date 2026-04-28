@@ -2,13 +2,14 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=kmail
-pkgver=25.12.3
+pkgver=26.04.0
 pkgrel=1
 pkgdesc='KDE mail client'
 arch=(x86_64)
 url='https://apps.kde.org/kmail2/'
 license=(GPL-2.0-or-later)
-depends=(akonadi-contacts
+depends=(akonadi
+         akonadi-contacts
          akonadi-import-wizard
          akonadi-mime
          akonadi-search
@@ -54,7 +55,6 @@ depends=(akonadi-contacts
          kwidgetsaddons
          kwindowsystem
          kxmlgui
-         libakonadi
          libgpg-error
          libgravatar
          libkdepim
@@ -78,7 +78,7 @@ optdepends=('kdepim-addons: additional plugins'
 groups=(kde-applications
         kde-pim)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('e1ed980945ea3428100e01b5fccbb4e98b109c1d8503340c23b97238d36821c1'
+sha256sums=('755c6fc51f64301c8c225f000e7e0cb9b63da5db4e8bc701335180a1d60898c3'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
