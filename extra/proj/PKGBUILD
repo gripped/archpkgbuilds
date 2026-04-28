@@ -5,7 +5,7 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=proj
-pkgver=9.8.0
+pkgver=9.8.1
 pkgrel=1
 pkgdesc="Cartographic Projections and Coordinate Transformations Library"
 arch=(x86_64)
@@ -14,8 +14,12 @@ license=(MIT)
 depends=(curl libtiff sqlite)
 makedepends=(cmake gmock gtest git)
 changelog=$pkgname.changelog
-source=(git+https://github.com/OSGeo/PROJ#tag=$pkgver-1)
-sha256sums=('8b727e9469fa1fb1be4d8db31e5a7d290265e359b9fcf33a8fcdbce13b8e47e1')
+source=(git+https://github.com/OSGeo/PROJ#tag=$pkgver)
+sha256sums=('3fc7a0ea4d8dfef4f28d71f8bdccd80a22c79da8040eb35dea9aab3fdcd0ce27')
+
+prepare() {
+  git -C PROJ cherry-pick -n 5393c8e80e2a20bad624ef357cbfb53e80008237 # Fix tests with sqlite 3.53
+}
 
 build() {
   cmake -B build -S PROJ \
