@@ -1,13 +1,14 @@
 pkgbase = coxeter
 	pkgdesc = A library for the study of combinatorial aspects of Coxeter group theory
 	pkgver = git.20180226
-	pkgrel = 4
+	pkgrel = 5
 	url = https://github.com/tscrim/coxeter
 	arch = x86_64
 	license = GPL-3.0-only
 	makedepends = git
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	source = git+https://github.com/tscrim/coxeter#commit=7b5a1f0039511326aeb616afb132a5065886b9d8
 	source = coxeter-makefile.patch
 	source = coxeter-sage.patch

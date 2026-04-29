@@ -2,14 +2,15 @@
 
 pkgname=coxeter
 pkgver=git.20180226
-pkgrel=4
+pkgrel=5
 _commit=7b5a1f0039511326aeb616afb132a5065886b9d8
 pkgdesc='A library for the study of combinatorial aspects of Coxeter group theory'
 arch=(x86_64)
 url='https://github.com/tscrim/coxeter'
 license=(GPL-3.0-only)
-depends=(gcc-libs
-         glibc)
+depends=(glibc
+         libgcc
+         libstdc++)
 makedepends=(git)
 source=(git+https://github.com/tscrim/coxeter#commit=$_commit
         coxeter-makefile.patch
