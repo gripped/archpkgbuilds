@@ -1,0 +1,19 @@
+[Unit]
+Description=OpenObserve server
+After=syslog.target network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/openobserve
+Type=simple
+LimitNOFILE=65535
+EnvironmentFile=/etc/conf.d/openobserve
+User=openobserve
+Group=openobserve
+Restart=on-failure
+PrivateTmp=yes
+ProtectSystem=full
+ProtectHome=yes
+
+[Install]
+WantedBy=multi-user.target
