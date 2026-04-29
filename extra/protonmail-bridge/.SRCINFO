@@ -1,7 +1,7 @@
 pkgbase = protonmail-bridge
 	pkgdesc = Integrate ProtonMail paid account with any program that supports IMAP and SMTP
 	pkgver = 3.24.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/ProtonMail/proton-bridge
 	arch = x86_64
 	license = GPL-3.0-only
@@ -21,6 +21,7 @@ pkgbase = protonmail-bridge
 	makedepends = qt6-declarative
 	makedepends = qt6-svg
 	makedepends = sentry-native
+	makedepends = sqlite
 	options = !lto
 	source = git+https://github.com/ProtonMail/proton-bridge#tag=v3.24.2
 	source = protonmail-bridge.service
@@ -37,6 +38,7 @@ pkgname = protonmail-bridge-core
 	depends = glibc
 	depends = libfido2
 	depends = libsecret
+	depends = sqlite
 	optdepends = gnome-keyring: gnome-keyring support
 	optdepends = org.freedesktop.secrets: Applications that support Freedesktop secrets api
 	optdepends = pass: pass support
