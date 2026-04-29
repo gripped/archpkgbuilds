@@ -3,17 +3,16 @@
 
 _hkgname=comonad
 pkgname=haskell-comonad
-pkgver=5.0.9
-pkgrel=138
+pkgver=5.0.10
+pkgrel=1
 pkgdesc="Comonads"
 url="https://github.com/ekmett/comonad/"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-distributive' 'haskell-indexed-traversable' 'haskell-tagged'
-         'haskell-transformers-compat')
+depends=('ghc-libs' 'haskell-distributive' 'haskell-indexed-traversable' 'haskell-tagged')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('c974a7a34db4a9374afebd28d34a5a9975c71e742583f8917c07e7feeaef4ca343df580ef022a28d0091ea0dc604aa0cdcd1b5b3a5fec99ad5747a9931634a71')
+sha512sums=('0d9cfbf05cda5952cae159bc60ca74a4e29a3b152fc1eace4e6c1e18cd9f2d83731eb175a72bf655ef084568ef7a9a909beab4349b87373f1e179ff9ead3332a')
 
 build() {
     cd $_hkgname-$pkgver
