@@ -1,15 +1,18 @@
 pkgbase = verdict
 	pkgdesc = Compute quality functions of 2 and 3-dimensional regions
-	pkgver = 1.4.4
-	pkgrel = 1
+	pkgver = 1.4.5
+	pkgrel = 2
 	url = https://github.com/sandialabs/verdict
 	arch = x86_64
 	license = BSD-3-Clause
 	makedepends = git
 	makedepends = cmake
 	depends = glibc
-	source = verdict::git+https://github.com/sandialabs/verdict#tag=1.4.4
-	sha512sums = 45213ecf7f73cfcd343dac74a46114ea4b2770d925c648318f30cf76b55d3be6635a92f28ce415827565af55268059db4e9fca47b88f1cb3302bc3dbf528f813
-	b2sums = 7f9592e12c1cc7f1a85729f7c7ccad4a01eb59b0b7173ecfcbc19a44f9db0c586677ba7472be5fadcb197600f94718aade0c172336890d85d3f45d6e8228455e
+	source = verdict::git+https://github.com/sandialabs/verdict#tag=1.4.5
+	source = update-version.patch
+	sha512sums = caa6b3e52acb6ea797ab74180b6f51f9535ec5ad1de8322f0888244c6fc2dab2169a3e0365e5e41881cda2f457680d392c88b515ecd533a3e2b2387eeb25f649
+	sha512sums = d752b0db101d31362c3de45423fe4f72d7a1bcac9645019a835a88a317ab3558578d5696c44a0885d26f3304ec708bc295e7b1899c99ff080c822ccca760c803
+	b2sums = c58f6be83a31cebf54da6a400d8a7c9a17ecfa7a5f3d507de487e9bd5bb8ab7314b92a70b9d17f600a0f88a462ebff832442e87247976ffc80373536f177447a
+	b2sums = 1c7f511d93552452c84e4142651ca11b37af37bf66a3669cb26b9bc35ed661176d63042f7aca3c1760eaabbd6d48ec8b574d3c7931680b296a35be294185faa9
 
 pkgname = verdict
