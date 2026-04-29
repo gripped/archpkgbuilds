@@ -1,21 +1,21 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=unicode-character-database
-pkgver=17.0.0
+pkgver=18.0.0
 pkgrel=1
 pkgdesc="Unicode Character Database"
 url="https://www.unicode.org/versions/Unicode$pkgver/"
 arch=(any)
-license=(Unicode-TOU)
+license=(Unicode-3.0)
 source=(
   "UCD-$pkgver.zip::https://www.unicode.org/Public/$pkgver/ucd/UCD.zip"
   "Unihan-$pkgver.zip::https://www.unicode.org/Public/$pkgver/ucd/Unihan.zip"
   "unicode-license-$pkgver.txt::https://www.unicode.org/license.txt"
 )
 noextract=({UCD,Unihan}-$pkgver.zip)
-b2sums=('0392cc9d42159bc42152751f6eff9a30115b64097669f03a0eb7eb14ca4dabbf3f0ac4d07189364ef108ef37da34849e5e040c0c214a10e8390bb12a4421432d'
-        '9a3c9335e7a36c000d9d6db892479036403c0f00c620bb5e6c6832a4385f4f5459f5ac9147e076b15f54bf8016f067aa73ac905777403e6de5f27697e56733a4'
-        'a8b9125190e22b02f532a3cccba286342b0bbf30321e442e7050f032ecb5e85ec032eef33dd4faa7467a66cd1c24f716db7450685a1d12f44c8623c0bfa0f1dd')
+b2sums=('679f90c246ab8eb94ba7a9a281a3cbe49cabcbeb6cf93775f7fe511a66e36cdea82db63d0ea2af34e2b57d804d13c4174cff13d288b4376089d5b97af4860a4a'
+        '0d1ab2907fd399fdc7f8aae9ecd63df90407ece1ba81ce37467b33689a4ef20ae5d5bcfc6a1a7ec5b0a94f32608540cfa80f0afc3a558ff1b4df4490754081e8'
+        '8e0ac44b557e3966f28c5ce443086f6cbf3ef7b7cc01f45fa9c081d186e0b6700a3155f6aa67cf7b3a13eeb25e7016fabb366e11942e4574f09c5321fff6c521')
 
 package() {
   local x
