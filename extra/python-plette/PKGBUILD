@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-plette
-pkgver=2.1.0
-pkgrel=3
+pkgver=2.2.0
+pkgrel=1
 pkgdesc="Structured Pipfile and Pipfile.lock models"
 url="https://github.com/sarugaku/plette"
 license=('ISC')
@@ -11,7 +11,7 @@ depends=('python-tomlkit')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest' 'python-cerberus')
 source=("git+https://github.com/sarugaku/plette.git#tag=v$pkgver")
-sha512sums=('fd1c0663721a402da493f841b0d6ffb8bdcc8b1d4ccb9ebc3cf82965535c98788d33aa637e4aee107192d66d9d1065f865e3e834d3427a908d596022dfb5e2e3')
+sha512sums=('b0d3763941757b7dcc7bfdc56051da0c16596834ef3ddb10c796352c128a47706f6daeb02699c3999518a394b4e0b0588bfacbb9d20e1e95eaef7c0cf3e53a9d')
 
 build() {
   cd plette
