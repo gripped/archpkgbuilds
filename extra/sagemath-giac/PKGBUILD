@@ -2,14 +2,15 @@
 
 pkgname=sagemath-giac
 pkgver=0.1.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Support for using Giac within SageMath'
 arch=(x86_64)
 url='https://github.com/sagemath/sagemath-giac'
 license=(GPL-3.0-or-later)
-depends=(gcc-libs
-         giac
+depends=(giac
          glibc
+         libgcc
+         libstdc++
          python
          sagemath)
 makedepends=(cython
