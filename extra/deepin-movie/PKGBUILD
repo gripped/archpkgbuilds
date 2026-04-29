@@ -2,7 +2,7 @@
 
 pkgname=deepin-movie
 epoch=1
-pkgver=5.15.4
+pkgver=5.15.5
 pkgrel=1
 pkgdesc='Movie player based on mpv'
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('dtkcore' 'dtkgui' 'dtkwidget' 'qt5-base' 'qt5-svg' 'ffmpegthumbnailer'
 makedepends=('git' 'cmake' 'gtest' 'ninja' 'qt5-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-movie-reborn.git#tag=$pkgver")
-sha512sums=('c98aa467ecee6c9e36a49f07ca0b4ad451b33c020d252956011d6992d2f0a614fdcf796af5af0f79888f6ea49b63d874a4f761e83a6032fae5c776c8e6d695ee')
+sha512sums=('04ac8e43c2015594cb6c6f6d3ebe4b24772f3596f968fae0f4fe7ec0e6e3b7ef72e9febe4bceaadf25dedf67a8bae1acd074e4a6b40e3df70b50d355c8f36506')
 
 prepare() {
   cd deepin-movie-reborn
@@ -24,6 +24,7 @@ prepare() {
   git cherry-pick -n 649fc5ebc0b80d8b7b530ae640a2e42280d1cdd6
   sed -i 's/dconfig_meta_files/dtk_add_config_meta_files/g' src/CMakeLists.txt
   sed -i 's|QGSettings/QGSettings|qt5/QGSettings/QGSettings|' src/libdmr/compositing_manager.h
+  sed -i 's|/usr/bin/ll-cli run org.deepin.movie --exec deepin-movie|/usr/bin/deepin-movie|' com.deepin.movie.service
 }
 
 build() {
