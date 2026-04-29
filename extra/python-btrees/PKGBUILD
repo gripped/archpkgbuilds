@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-btrees
-pkgver=6.3
+pkgver=6.4
 pkgrel=1
 pkgdesc='Scalable persistent object containers'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('python-persistent' 'python-zope-interface')
 makedepends=('git' 'python-setuptools' 'python-build' 'python-wheel' 'python-installer')
 checkdepends=('python-transaction' 'python-zope-testrunner')
 source=("git+https://github.com/zopefoundation/btrees.git#tag=$pkgver")
-sha512sums=('ff8ef06d35b5183af6ea963052ee6719b8b50594a3ba1133ee0db014756513d0c7d5f22dcf1ef22758754465c9e39e017f65a5704b9ca173a9dde53e93b64633')
+sha512sums=('3f13bd40cab213e5fd57d2e9933112145cb8f6d0e2d180c52158c03661868a7e492a15fa91713882f28bf81cf9edffdbc749996afa4de1d45380d7c2d6e9496c')
 
 build() {
   cd btrees
