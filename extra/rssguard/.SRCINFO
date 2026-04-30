@@ -1,6 +1,6 @@
 pkgbase = rssguard
 	pkgdesc = Simple (yet powerful) Qt feed reader
-	pkgver = 5.0.4
+	pkgver = 5.1.0
 	pkgrel = 1
 	url = https://github.com/martinrotter/rssguard
 	arch = x86_64
@@ -17,14 +17,15 @@ pkgbase = rssguard
 	depends = qt6-base
 	depends = qt6-declarative
 	depends = qt6-multimedia
+	depends = qt6-webengine
 	optdepends = clang: Support for beautification of message filter scripts
 	optdepends = mariadb-libs: Support for MariaDB-based data storage
 	conflicts = rssguard-lite
 	replaces = rssguard-lite
-	source = git+https://github.com/martinrotter/rssguard#tag=5.0.4
-	source = git+https://github.com/litehtml/litehtml.git
+	source = git+https://github.com/martinrotter/rssguard#tag=5.1.0
 	source = git+https://github.com/martinrotter/qtlinq
-	sha256sums = 5ece6e4d5504d4b5255ebcee8947db600da96cf25cda90dcb92566ababb2be7b
+	source = git+https://codeberg.org/gumbo-parser/gumbo-parser
+	sha256sums = d38b75b2fdaca3ac689b0c9250d20364a9e37bc6f129c8f3e578306cfcde9f02
 	sha256sums = SKIP
 	sha256sums = SKIP
 

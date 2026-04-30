@@ -5,7 +5,7 @@
 # Contributor: speps <speps dot aur dot archlinux dot org>
 
 pkgname=rssguard
-pkgver=5.0.4
+pkgver=5.1.0
 pkgrel=1
 pkgdesc='Simple (yet powerful) Qt feed reader'
 arch=(x86_64)
@@ -18,7 +18,8 @@ depends=(glibc
          mpv
          qt6-base
          qt6-declarative
-         qt6-multimedia)
+         qt6-multimedia
+         qt6-webengine)
 makedepends=(cmake
              git
              go
@@ -28,24 +29,23 @@ optdepends=('clang: Support for beautification of message filter scripts'
 conflicts=(rssguard-lite)
 replaces=(rssguard-lite)
 source=(git+https://github.com/martinrotter/rssguard#tag=$pkgver
-        git+https://github.com/litehtml/litehtml.git
-        git+https://github.com/martinrotter/qtlinq)
-sha256sums=('5ece6e4d5504d4b5255ebcee8947db600da96cf25cda90dcb92566ababb2be7b'
+        git+https://github.com/martinrotter/qtlinq
+        git+https://codeberg.org/gumbo-parser/gumbo-parser)
+sha256sums=('d38b75b2fdaca3ac689b0c9250d20364a9e37bc6f129c8f3e578306cfcde9f02'
             'SKIP'
             'SKIP')
 
 prepare() {
   cd $pkgname
   git submodule init
+  git submodule set-url src/librssguard/3rd-party/gumbo "$srcdir"/gumbo-parser
   git submodule set-url src/librssguard/3rd-party/qtlinq "$srcdir"/qtlinq
-  git submodule set-url src/librssguard/3rd-party/litehtml "$srcdir"/litehtml
-  git -c protocol.file.allow=always submodule update src/librssguard/3rd-party/qtlinq src/librssguard/3rd-party/litehtml
+  git -c protocol.file.allow=always submodule update src/librssguard/3rd-party/qtlinq src/librssguard/3rd-party/gumbo
 }
 
 build() {
   cmake -B build -S $pkgname \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_CXX_FLAGS="$CXXFLAGS -I /usr/include/litehtml"
+    -DCMAKE_INSTALL_PREFIX=/usr
   cmake --build build
 }
 
