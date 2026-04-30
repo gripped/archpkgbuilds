@@ -4,7 +4,7 @@
 # Contributor: Pieter Goetschalckx <3.14.e.ter <at> gmail <dot> com>
 
 pkgname=apprise
-pkgver=1.9.9
+pkgver=1.10.0
 pkgrel=1
 pkgdesc='Push Notifications that work with just about every platform'
 arch=(any)
@@ -36,7 +36,7 @@ optdepends=(
   'python-paho-mqtt: for MQTT support'
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('78468313de60bf323cb574c8988af1c6a99f0834fb17ca03445154e0df5cb9d19045e4a8cfe4312fde5f4cb09cf965ec9ffe49cd87e0c370c49f57fcd982cdff')
+b2sums=('9e1d5be12a17ec76c9a984943bc3d0456d96e4f964baf41250ba8ce9120464d9c8b499b616bcd464c6c3a809f94c01bd59dbcaf9b325a400af6d85c3f8a1752f')
 
 build(){
   cd $pkgname
