@@ -2,7 +2,7 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=adios2
-pkgver=2.12.0
+pkgver=2.12.1
 pkgrel=1
 pkgdesc="The Adaptable Input/Output System version 2"
 arch=(x86_64)
@@ -54,7 +54,7 @@ optdepends=(
 source=(
   https://github.com/ornladios/ADIOS2/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
 )
-b2sums=('a08a4ccc55c67485d61f68c8954aa5a7a063672fe5b0b0af400578a0213f0ef3ce856dc21e5a20ffad81e0074532a07fa96018b9adbfd2ef4ec6a02fc1d623b3')
+b2sums=('4b62124d733fdadcbbf6a6e4209b202ea3f71af620e62f7cc3ad06ecc7ff1d3732406cd789e9c6a7838ba5bf08ca38622a83438a1d79665016c6fd344bdb9a1d')
 
 build() {
   # In general, we want to list all real archs (sm_XX) and the latest virtual arch (compute_XX) for future PTX compatibility.
