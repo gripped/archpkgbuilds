@@ -12,9 +12,11 @@
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 # Contributor: sidereus <francesco.serafin.3@gmail.com>
 
+
 pkgname=stumpwm
 pkgver=24.11
-pkgrel=11
+_sbclver=2.6.4
+pkgrel=12
 pkgdesc='Tiling, keyboard-driven window manager written in Common Lisp'
 arch=(x86_64)
 url='https://stumpwm.github.io/'
@@ -22,7 +24,7 @@ license=(GPL-2.0-only)
 depends=(
   glibc
   zstd
-  sbcl
+  "sbcl=$_sbclver"
   cl-ppcre
   cl-clx
   cl-alexandria
