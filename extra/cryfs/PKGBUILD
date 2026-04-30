@@ -5,14 +5,16 @@
 
 pkgname=cryfs
 pkgver=1.0.3
-pkgrel=4
+pkgrel=5
 pkgdesc='Cryptographic filesystem for the cloud'
 arch=(x86_64)
 depends=(boost-libs
          fmt
          fuse2
-         gcc-libs
          glibc
+         libgcc
+         libgomp
+         libstdc++
          spdlog)
 makedepends=(boost
              cmake
