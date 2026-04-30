@@ -2,8 +2,8 @@
 # Contributor: ThatOneCalculator <kainoa@t1c.dev>
 
 pkgname=hyprpaper
-pkgver=0.8.3
-pkgrel=5
+pkgver=0.8.4
+pkgrel=1
 pkgdesc='a blazing fast wayland wallpaper utility with IPC controls'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
@@ -26,7 +26,7 @@ makedepends=(cmake
              xorgproto)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('bfede471179adca93ed6d10e0132838c16dae364d828bd44f67819afc1a15594')
+sha256sums=('4912c7aede303918f38a3fc6b294429e2d541b639ebba67bcab58d1d367ea360')
 
 build() {
 	cd "$_archive"
