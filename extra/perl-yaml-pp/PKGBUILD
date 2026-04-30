@@ -1,7 +1,7 @@
 # Maintainer: Ash Berlin-Taylor <ash_archlinux@firemirror.com>
 pkgname='perl-yaml-pp'
-pkgver=0.39.0
-pkgrel=3
+pkgver=0.40.0
+pkgrel=1
 _distdir="YAML-PP-v$pkgver"
 pkgdesc="Simple configuration automation"
 arch=('any')
@@ -11,7 +11,7 @@ depends=('perl>=0')
 makedepends=('perl-test-deep>=0' 'perl-test-warn>=0')
 url='https://search.cpan.org/dist/YAML-PP'
 source=("https://cpan.metacpan.org/authors/id/T/TI/TINITA/YAML-PP-v$pkgver.tar.gz")
-sha512sums=('348a4c2e7efdaa407fb46d2a632c381d3655fe9b1eb4e557cc66eea8346e2e24013d2ff94601f25b47dfdd96b14b7f3fe7338f74668230a82f87495a756adf3c')
+sha512sums=('7fdc2f704f9b5feb2600f83dd46098ca52f162da8c01a416859fa74126e3f90c9d063496446f74f4e1dbc322b3ce6eb8ed55b9ea6ddfb10a3b13f16447e21065')
 
 build() {
   ( export PERL_MM_USE_DEFAULT=1 PERL5LIB=""                 \
@@ -37,5 +37,4 @@ package() {
   cd "$srcdir/$_distdir"
   make install
 
-  find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
 }
