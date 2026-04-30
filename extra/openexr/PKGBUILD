@@ -1,7 +1,7 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=openexr
-pkgver=3.4.10
+pkgver=3.4.11
 pkgrel=1
 pkgdesc='A high dynamic-range image file format library'
 url='https://www.openexr.com/'
@@ -18,7 +18,7 @@ makedepends=(cmake
              pybind11)
 optdepends=('python: for python bindings')
 source=(git+https://github.com/openexr/openexr#tag=v$pkgver)
-sha256sums=('b4a9e7f0541b504e9ccaf9965b4cc2661c37248468f07c194e4525d0b223ebec')
+sha256sums=('6cb04f471f8455906ada1641654f284d47892fc59d57c72d043a5da129ec0a92')
 
 prepare() {
 # unpin scikit-build-core version
