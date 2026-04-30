@@ -4,17 +4,17 @@
 # Contributor: Angel 'angvp' Velasquez <angvp[at]archlinux.com.ve>
 
 pkgname=python-pycurl
-pkgver=7.45.7
-pkgrel=3
+pkgver=7.46.0
+pkgrel=1
 pkgdesc="A Python 3.x interface to libcurl"
 arch=('x86_64')
 url="https://github.com/pycurl/pycurl"
-license=('LGPL-2.1-only OR MIT')
+license=('LGPL-2.1-only' 'MIT')
 depends=('curl' 'glibc' 'openssl' 'python')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-checkdepends=('python-flask' 'python-pytest' 'vsftpd' 'python-flaky' 'python-pyflakes')
+checkdepends=('python-flaky' 'python-flask' 'python-numpy' 'python-pyflakes' 'python-pytest' 'python-websockets' 'vsftpd')
 source=("git+https://github.com/pycurl/pycurl.git#tag=REL_${pkgver//./_}")
-sha512sums=('765a74b426015729c1deb87156d9d2f13b0766f2db925705263e5f5634123ad32a20bf062053df5375286bc95a0ff301dd0b1d2cbf3cd62fb6c4ceeef4f811c9')
+sha512sums=('4df5eaa4fa81c5e1b04fa7d7c35e4d195be0a0b5c5fb3d3c40e24a9b1ccc0966717956de09804624c38f50c56ddb7f5588674a7fb69067def5a08554473f4400')
 
 build() {
   cd pycurl
