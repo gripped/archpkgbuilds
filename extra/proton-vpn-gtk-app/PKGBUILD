@@ -2,7 +2,7 @@
 # Contributor: Ali Molaei <ali dot molaei at protonmail dot com>
 
 pkgname=proton-vpn-gtk-app
-pkgver=4.15.2
+pkgver=4.15.3
 pkgrel=1
 pkgdesc="ProtonVPN GTK app, Maintained by Community"
 arch=(any)
@@ -39,7 +39,7 @@ optdepends=(
 )
 source=("git+https://github.com/ProtonVPN/proton-vpn-gtk-app.git#tag=v${pkgver}"
         "fix-gear-icon.patch")
-sha256sums=('7c00bbbc9423f49ab0796d051be438330432088deb88bd09f1f5c053db1bd003'
+sha256sums=('06bc5a5f6cb1614d9d83518ac4c4cab58af027d19e694efd762b4f3a5d01d46d'
             'd1b2db3f3ef1b80d0b1f3972d0a17f5c329953b8951d3b2fbc9d3ecce2b6c4c4')
 prepare() {
   cd "$pkgname"
