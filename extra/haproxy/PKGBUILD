@@ -2,7 +2,7 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 
 pkgname=haproxy
-pkgver=3.3.7
+pkgver=3.3.8
 pkgrel=1
 
 # Each release serie has its own repository. This is handled automatically in
@@ -28,7 +28,7 @@ source=("git+https://git.haproxy.org/git/haproxy-${pkgver%.*}.git#tag=v${pkgver}
         'haproxy.sysusers'
         '0001-Use-CFLAGS-and-LDFLAGS-when-building-admin.patch')
 
-sha256sums=('ac12de604be845b17c3a5bf08710d73cf9c2830d73d8290b59f5a749606ca37b'
+sha256sums=('0333c403989704b19736b3c6820ec003e9ccf44ca542c0c7842c0a1bd90598f4'
             'f6babef513b99a3fa0e50f2b144c73c980f1b78b119874ffa2580af1e651e7a9'
             'c6e716ea59272a8e871af53703726dd2a75b56c82dacf097d4bf08ac5e841a0d'
             'a1e3a1c2923465081383eb431bae55ff9841d89909469311cdba4b394ec4a998')
