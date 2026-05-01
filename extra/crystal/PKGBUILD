@@ -2,8 +2,8 @@
 # Contributor: Jonne Haß <me@jhass.eu>
 
 pkgname=crystal
-pkgver=1.20.0
-pkgrel=2
+pkgver=1.20.1
+pkgrel=1
 pkgdesc='The Crystal Programming Language'
 arch=(x86_64)
 url='https://crystal-lang.org'
@@ -19,7 +19,7 @@ source=(
   "crystal-${pkgver}.tar.gz::https://github.com/crystal-lang/crystal/archive/${pkgver}.tar.gz"
   "fix_range_sample_randomness.patch::https://patch-diff.githubusercontent.com/raw/crystal-lang/crystal/pull/16853.patch"
 )
-sha256sums=('2eb511167d9545331e472920c1ec89c4ab6807aadc74afddb020b2630843cf2d'
+sha256sums=('2fdc7eaefed34755383db15f8787e3a7c2f04069e93871d353f95fa083ed7d8d'
             'f7e83a493c033d565844ae1c3f8e4a679f8df4d318246687c949a1aa7edadd1e')
 
 prepare() {
