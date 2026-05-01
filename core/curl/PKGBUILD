@@ -6,8 +6,8 @@
 
 pkgbase=curl
 pkgname=(curl libcurl-compat libcurl-gnutls)
-pkgver=8.19.0
-pkgrel=1
+pkgver=8.20.0
+pkgrel=3
 pkgdesc='command line tool and library for transferring data with URLs'
 arch=('x86_64')
 url='https://curl.se/'
@@ -33,7 +33,7 @@ makedepends=(
 checkdepends=('valgrind')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
 source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
-sha512sums=('a10e4408f1e89462880646a29b4f947d6b8eaf81d323a86046fe5eb8622005e4499684609f7c352729f5f88933275b650e7285cf2e8299ff966df03f70a33637')
+sha512sums=('e97541789fb3f5e00ecb41c867f8440e651fdb7be922cddfea70e9462b40ed33d7ca4d29039025584afb11ade8ce389ae25fc41200e3a38706a6fc265cd0c29b')
 
 _backports=(
 )
@@ -74,8 +74,8 @@ build() {
     --disable-ldap
     --disable-ldaps
     --disable-manual
+    --disable-threaded-resolver
     --enable-ipv6
-    --enable-threaded-resolver
     --enable-websockets
     --with-gssapi
     --with-libssh2
