@@ -4,7 +4,7 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=difftastic
-pkgver=0.68.0
+pkgver=0.69.0
 pkgrel=1
 pkgdesc='An experimental diff tool that compares files based on their syntax'
 arch=(x86_64)
@@ -23,12 +23,9 @@ makedepends=(
 )
 source=(
   "git+https://github.com/Wilfred/difftastic.git#tag=$pkgver"
-  remove-makedepends-jq.patch
 )
-sha512sums=('04aff0cc650746436e3e4c7d2151dfb0b41a78a1fd84c76cc275b255dc9abcba071e797f5360daee488a4c30278af58c1a2d2cbd743267ef5562379ec328b6c4'
-            '641ad5c9edeaca58b70c1929c7a31df8a1ef666e9810465954a41cb5bed949cd5d50771407d3f1ef5e0fbee63cd4678fe2c3eefcae765e37a97eea7e3777b2de')
-b2sums=('1015a8858fed80b95d7a34a3d8a2460a1a8cb57dff4cd5f217a0c35a9b3d2336bbaeb82f089e2690ff94a6c48538e7c69f71b8a8316baf7f8f713e98e6a1b187'
-        '467d5fc634b3f1d8fa7fe0c8de843e615b6bbfed340ad5d4167d6d5d374185bcb8d54f31f43995beb43966f8d49497956d4a30186ccb974b2cadc01357c9c2bc')
+sha512sums=('623cca98d11bac4fc07e36838a1b5c10cba312a60e23e70f5890d4a5b424e69c8619834309369456b96b4737989029d1ef12ef830d3684adbded4e7623fc9bc4')
+b2sums=('8e01e7bb44394be8cd470b2b3575b7bd5122c7ae28ffd0c20b04e092d564749e0a037090eadaa6a75a49ae4ec069e3e258b63fa18d9ced0c2ceb3c905a002de3')
 #LTO cause undefined symbols
 options=(!lto)
 
@@ -37,9 +34,6 @@ prepare() {
 
   # download dependencies
   cargo fetch --locked --target host-tuple
-
-  # remove makedepends on jq
-  patch -p1 -i "$srcdir/remove-makedepends-jq.patch"
 }
 
 build() {
