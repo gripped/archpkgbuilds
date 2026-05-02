@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=srt
-pkgver=1.5.4
+pkgver=1.5.5
 pkgrel=1
 pkgdesc="Secure Reliable Transport library"
 url="https://www.srtalliance.org/"
@@ -9,8 +9,9 @@ arch=(x86_64)
 license=(MPL-2.0)
 depends=(
   bash
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   openssl
 )
 makedepends=(
@@ -19,7 +20,7 @@ makedepends=(
   ninja
 )
 source=("git+https://github.com/Haivision/srt#tag=v$pkgver")
-b2sums=('d0d7be25c29a3ce8ada61d721813a8a5235751dfc0e2fa28072e3b9fb5bc9131da405db0cc5163339ba14bf05ddec1a861ceee749a31c171d61555885921ea39')
+b2sums=('5f40bc6bbe461e71062efc59d30aef394ba1eb10dc78b276d14f23e982f89ecf73f364bd345ecde86a9f586ed779b2b6bf651b79d5ddaa396e37cadaf9b78164')
 
 prepare() {
   cd srt
