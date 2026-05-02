@@ -3,7 +3,7 @@
 # Contributor: Bruno Pagani <archange@archlinux.org>
 
 pkgname=lib32-spirv-llvm-translator
-pkgver=22.1.1
+pkgver=22.1.2
 pkgrel=1
 pkgdesc="LLVM <-> SPIR-V converter for compilers targeting SPIR-V (32-bit)"
 url="https://www.khronos.org/spirv/"
@@ -30,7 +30,7 @@ checkdepends=(
 source=(
   git+https://github.com/KhronosGroup/SPIRV-LLVM-Translator#tag=v$pkgver
 )
-b2sums=('b01e8c577814ea0b0a80fb4ec3d9d0b5fef21278a22ed6cc702f10186a132c1fda70ad3c8a4236d5116f7334ed209645c97cc7259818d8b79fa27fb027536a66')
+b2sums=('f39f5248a7a66b4cc27f03bbfab9a94fbf93b55c7154f6151deef89e55622e7c25463ba1d9e71e2f3ca337811eba699c7a79c51efac8d3ece45ab28f69dadf6b')
 
 prepare() {
   cd SPIRV-LLVM-Translator
