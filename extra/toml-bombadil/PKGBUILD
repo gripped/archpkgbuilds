@@ -2,20 +2,21 @@
 
 pkgname=toml-bombadil
 pkgver=4.2.0
-pkgrel=1
-pkgdesc="Adotfile manager with templating"
+pkgrel=2
+pkgdesc="A dotfile manager with templating"
 arch=('x86_64')
 url="https://github.com/oknozor/toml-bombadil"
 license=('MIT')
-depends=('gcc-libs' 'zlib')
+depends=('glibc' 'libgcc' 'libgit2' 'libssh2' 'openssl')
 makedepends=('rust')
-options=(!lto)
 source=($pkgname-$pkgver.tar.gz::https://github.com/oknozor/toml-bombadil/archive/${pkgver}.tar.gz)
 sha512sums=('293abacdb413c98cf9979b58bea2da8df11eee77c45b4268e8e26828ccd464534a390dd3382684b0e202d458a6bb68f840f802aefbc4141d0926dc7ea23c556a')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
-
+  export LIBGIT2_NO_VENDOR=1
+  export LIBSSH2_SYS_USE_PKG_CONFIG=1
+  export OPENSSL_NO_VENDOR=true
   cargo build --release --locked
 }
 
