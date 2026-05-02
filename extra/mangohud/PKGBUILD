@@ -4,8 +4,8 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 _pkgname=MangoHud
 pkgname=mangohud
-pkgver=0.8.2
-pkgrel=3
+pkgver=0.8.3
+pkgrel=2
 pkgdesc="A Vulkan overlay layer for monitoring FPS, temperatures, CPU/GPU load and more."
 arch=('x86_64')
 url="https://github.com/flightlessmango/MangoHud"
@@ -17,14 +17,14 @@ optdepends=('gamescope: Use MangoApp as an overlay within gamescope'
 replaces=("$pkgname-common" "$pkgname-common-wayland" "$pkgname-common-x11" "mangoapp" "$pkgname-x11" "$pkgname-wayland")
 conflicts=("$pkgname-common" "$pkgname-common-wayland" "$pkgname-common-x11" "mangoapp" "$pkgname-x11" "$pkgname-wayland")
 source=("$pkgname-$pkgver.tar.xz::https://github.com/flightlessmango/MangoHud/releases/download/v$pkgver/$_pkgname-v$pkgver-Source.tar.xz")
-b2sums=('c6db1fa344638da38969d5bb2fdd1d9c2aa8fced88229efda2e2a3f39a504810fea9ecddefee8364b44666485ab10e05d3f7cf3f5a6450fade28a270653d7918')
+b2sums=('38b375b6d338fd3d4cd4b2177e43af1fe200db8376df018f988b3eb0f43c2544a082731266c5508bc053c6a9846b1dd95999b11e6aec40632dca5bbbb3e440e5')
 
 prepare() {
     cd "$_pkgname-v$pkgver"
 
     # Use system cmocka instead of subproject
-    sed -i "s/  cmocka = subproject('cmocka')//g" meson.build
-    sed -i "s/cmocka_dep = cmocka.get_variable('cmocka_dep')/cmocka_dep = dependency('cmocka')/g" meson.build
+    sed --in-place "s/  cmocka = subproject('cmocka')//g" meson.build
+    sed --in-place "s/cmocka_dep = cmocka.get_variable('cmocka_dep')/cmocka_dep = dependency('cmocka')/g" meson.build
 }
 
 build() {
@@ -39,6 +39,7 @@ package() {
     meson install -C build --destdir "$pkgdir"
 
     install -Dm 0644 "$srcdir/$_pkgname-v$pkgver/LICENSE" -t "$pkgdir/usr/share/licenses/$pkgname/"
+    rm --force "$pkgdir/usr/lib/libimgui.a"
 }
 
 check() {
