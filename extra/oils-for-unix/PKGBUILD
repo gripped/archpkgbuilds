@@ -1,0 +1,60 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Yigit Sever <yigit at yigitsever dot com>
+# Contributor: Qontinuum <qontinuum@artixlinux.org>
+# Contributor: timetoplatypus <timetoplatypus@protonmail.com>
+# Contributor: andychu <andy@oilshell.org>
+
+pkgname=oils-for-unix
+pkgver=0.37.0
+pkgrel=3
+pkgdesc='Oils for Unix: OSH and YSH shells'
+arch=(x86_64)
+url='https://oils.pub/'
+license=(Apache-2.0)
+depends=(
+  glibc
+  libgcc libgcc_s.so
+  libstdc++ libstdc++.so
+  readline libreadline.so
+)
+makedepends=(bash)
+replaces=(osh oil)
+install=oil.install
+source=("$url/download/oils-for-unix-$pkgver.tar.gz")
+sha512sums=('481ba47c8377772e83f3198666cbd7276d29a3501d1f2e40902af38f55831c7a6d6b8765d1bd3d168dfa890a607a64c962b7c7c6928e8fcc852301b9677edd91')
+b2sums=('6cd257bcaee463d4a9d1416d560a67cccd44367461095fc39fd7405c9e348dcb0c83be5d5df2bd92729b92198c34b31a7f47523d82dc24000e0c42bd628c5e0e')
+noextract=("oils-for-unix-$pkgver.tar.gz")
+
+prepare() {
+  # fix: LTO + strip
+  mkdir -p path
+  cat >path/c++ <<END
+#!/bin/sh
+exec g++ \$CXXFLAGS \$LDFLAGS -fPIC "\$@"
+END
+  cat >path/strip <<END
+#!/bin/sh
+exec cp -p "\$3" "\$2"
+END
+  chmod +x path/*
+
+  # fix: bsdtar choking on hardlinked files pointing to self, e.g.:
+  # _gen/frontend/option.asdl.h: Skipping hardlink pointing to itself: _gen/frontend/option.asdl.h: No such file or directory
+  tar -xf "oils-for-unix-$pkgver.tar.gz"
+}
+
+build() {
+  cd "oils-for-unix-$pkgver"
+
+  ./configure \
+    --prefix=/usr \
+    --datarootdir=/usr/share
+
+  PATH="$srcdir/path:$PATH" _build/oils.sh
+}
+
+package() {
+  cd "oils-for-unix-$pkgver"
+
+  DESTDIR="$pkgdir" ./install
+}
