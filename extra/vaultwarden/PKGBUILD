@@ -5,7 +5,7 @@
 
 pkgname=vaultwarden
 pkgver=1.35.8
-pkgrel=1
+pkgrel=2
 pkgdesc='Unofficial Bitwarden compatible server written in Rust'
 arch=(x86_64)
 url=https://github.com/dani-garcia/vaultwarden
@@ -57,6 +57,10 @@ prepare() {
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   patch --forward --strip=1 --input=../env-overrides.patch
+
+  # add new /identity/accounts/prelogin/password
+  # https://github.com/dani-garcia/vaultwarden/pull/7156
+  git cherry-pick --no-commit fd2b6528a9f47f730bad223076a1ee90da5806f9
 }
 
 build() {
