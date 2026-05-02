@@ -5,12 +5,12 @@
 pkgbase=public-inbox
 pkgname=(lei perl-publicinbox)
 pkgver=2.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='An "archives first" approach to mailing lists'
 arch=('any')
 url="https://public-inbox.org"
 license=('AGPL')
-depends=(perl perl-inline-c perl-dbd-sqlite perl-uri perl-search-xapian)
+depends=(perl perl-inline-c perl-dbd-sqlite perl-uri perl-xapian)
 makedepends=('git')
 source=("https://public-inbox.org/public-inbox.git/snapshot/public-inbox-${pkgver}.tar.gz")
 sha256sums=('03da8788e62e24e5230eabb8ea0a7206e95ee3716c810107d05ee66995236deb')
