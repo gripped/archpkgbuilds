@@ -3,7 +3,7 @@
 # Contributor: dalto <dalto at fastmail dot com>
 
 pkgname=joe
-pkgver=4.7
+pkgver=4.8
 pkgrel=1
 pkgdesc='Classic text editor' # Joe's Own Editor, since 1988
 arch=(x86_64 aarch64)
@@ -15,7 +15,7 @@ optdepends=('gpm: console mouse support')
 backup=('etc/joe/ftyperc' 'etc/joe/jicerc.ru' 'etc/joe/jmacsrc'
         'etc/joe/joerc' 'etc/joe/jpicorc' 'etc/joe/jstarrc' 'etc/joe/rjoerc')
 source=("git+https://github.com/joe-editor/joe#tag=releases/joe-$pkgver")
-b2sums=('79fc673fa868fcc6c0bf941bde0d4e4a28a634cf1f5906b9da1308c099d871521bc20ebbc1d847ad2b49b9fd6193cb53adf592f51e339ddef75bf8440e8ce861')
+b2sums=('fb6e6ce5867dad323464b72f555b45a65c374bb64f178fe9d4de8963ff1b783811b81383151da482e3b6a942bbd1a66485c03774bd0a6edffa463d6c39b1d702')
 
 build() {
   cd $pkgname
