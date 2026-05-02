@@ -7,8 +7,8 @@
 # Contributor: Bogdan Burlacu <bogdan.burlacu AT pm.me>
 
 pkgname=onetbb
-pkgver=2022.3.0
-pkgrel=4
+pkgver=2023.0.0
+pkgrel=1
 pkgdesc='oneAPI Threading Building Blocks - a high level abstract threading library'
 arch=('x86_64')
 url='https://uxlfoundation.github.io/oneTBB/'
@@ -23,6 +23,7 @@ optdepends=(
 makedepends=(
     'cmake'
     'python'
+    'python-pip'
     'python-setuptools'
     'swig')
 conflicts=('intel-tbb' 'tbb')
@@ -30,8 +31,8 @@ provides=("intel-tbb=${pkgver}" "tbb=${pkgver}")
 replaces=('intel-tbb' 'tbb')
 source=("https://github.com/uxlfoundation/oneTBB/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
         '010-onetbb-fix-linkage-of-test-malloc-pure-c.patch')
-sha512sums=('fdc50589785b1949ca1dd4429bbcedb180be4b8966da5243ddd1f8e9f97310dd603681e0bb83c1d6c2d3e27932f577ef6739e4e82f3c54af147f4d6d906b39f1'
-            '155dca8391571f8790e77de4f6b76491e07c982b87826fbca8ab084a3f8786e55bf1fb64331fa3e9704dbf8c9c6f94547533b47845bdb50bf7f33a0294a3cd2b')
+sha512sums=('7db4a41e3b0e34a559299451f7eef633190e7e4be1819f609f773ac6b7f3d31ff5e45f3cfabd3606e280adb930d47a77a31377e5ef72c85dcb37a354d8b87e55'
+            '358f2753df4a4d94246941d9f13b84eae7b290520a20757a527cb7edd78fc68836a8141af0f6dc1b713f037002452ef788231ddc29ab914fd36ba270fd1fcec0')
 
 prepare() {
     # https://github.com/uxlfoundation/oneTBB/issues/1735
