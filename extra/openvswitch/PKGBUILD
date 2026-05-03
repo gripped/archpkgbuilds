@@ -4,7 +4,7 @@
 
 pkgname=openvswitch
 pkgver=3.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Production Quality, Multilayer Open Virtual Switch"
 url="http://openvswitch.org"
 license=('Apache-2.0')
@@ -39,6 +39,7 @@ build() {
     --localstatedir=/var \
     --with-rundir=/run/openvswitch \
     --sbindir=/usr/bin \
+    --with-dpdk=shared \
     PYTHON=/usr/bin/python3
   make
 }
