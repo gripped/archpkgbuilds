@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -17,7 +20,14 @@ path = [
     "*.timer",
     "*.desktop",
     "*.hook",
-    "fix-compile.patch",
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "01_all_treesit-0.26.patch",
+    "02_all_ts-query-pred.patch",
+]
+SPDX-FileCopyrightText = "emacs contributors"
+SPDX-License-Identifier = "GPL-3.0-or-later"
