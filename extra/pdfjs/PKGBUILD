@@ -4,7 +4,7 @@
 # Contributor: Florian Bruhin (The Compiler) <archlinux.org@the-compiler.org>
 
 pkgname=pdfjs
-pkgver=5.6.205
+pkgver=5.7.284
 pkgrel=1
 pkgdesc="PDF reader in javascript"
 conflicts=(pdfjs-legacy)
@@ -12,7 +12,7 @@ arch=('any')
 url="https://mozilla.github.io/pdf.js/"
 license=('Apache-2.0')
 source=("https://github.com/mozilla/pdf.js/releases/download/v${pkgver}/pdfjs-${pkgver}-dist.zip")
-sha256sums=('0555ef47464e456125dcd0b9742cfa2aaed6d282e804e4dd1f1b99316b46ac00')
+sha256sums=('6d1b81252d76358df5831567d7d551f40ebae0cd8e0a554694bc4df0d3db8715')
 
 package() {
   mkdir -p "$pkgdir/usr/share/pdf.js"
