@@ -1,20 +1,41 @@
 # Maintainer: Anatol Pomozov <anatol.pomozov@gmail.com>
 # Contributor: Jonne Haß <me@jhass.eu>
 
-pkgname=crystal
+pkgbase='crystal'
+pkgname=(
+  'crystal'
+  'crystal-docs'
+)
 pkgver=1.20.1
-pkgrel=1
+pkgrel=2
 pkgdesc='The Crystal Programming Language'
 arch=(x86_64)
 url='https://crystal-lang.org'
 license=(Apache-2.0)
-depends=(gc pcre2 libevent llvm-libs)
-makedepends=(libxml2 llvm crystal) # to compile version N we need crystal compiler of N-1 version
-checkdepends=(libyaml libxml2 gmp inetutils git)
-optdepends=('shards: crystal language package manager'
-            'libyaml: For YAML support'
-            'gmp: For BigInt support'
-            'libxml2: For XML support')
+depends=(
+  'gc'
+  'pcre2'
+  'libevent'
+  'llvm-libs'
+)
+makedepends=(
+  'libxml2'
+  'llvm'
+  'crystal'  # to compile version N we need crystal compiler of N-1 version
+)
+checkdepends=(
+  'libyaml'
+  'libxml2'
+  'gmp'
+  'inetutils'
+  'git'
+)
+optdepends=(
+  'shards: crystal language package manager'
+  'libyaml: For YAML support'
+  'gmp: For BigInt support'
+  'libxml2: For XML support'
+)
 source=(
   "crystal-${pkgver}.tar.gz::https://github.com/crystal-lang/crystal/archive/${pkgver}.tar.gz"
   "fix_range_sample_randomness.patch::https://patch-diff.githubusercontent.com/raw/crystal-lang/crystal/pull/16853.patch"
@@ -23,7 +44,7 @@ sha256sums=('2fdc7eaefed34755383db15f8787e3a7c2f04069e93871d353f95fa083ed7d8d'
             'f7e83a493c033d565844ae1c3f8e4a679f8df4d318246687c949a1aa7edadd1e')
 
 prepare() {
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgbase}-${pkgver}"
 
   # There will probably be a 1.20.1 release soon,
   # but nevertheless it's better to include this fix sooner
@@ -32,44 +53,55 @@ prepare() {
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd "${pkgbase}-${pkgver}"
 
   make release=1 interpreter=1 progress=1 \
        FLAGS="--release --no-debug -Dpreview_mt" \
        CRYSTAL_CONFIG_PATH="lib:/usr/lib/crystal" \
        CRYSTAL_CACHE_DIR="/tmp/crystal"
+
   make docs CRYSTAL_CACHE_DIR="/tmp/crystal"
 }
 
 check() {
-  cd $pkgname-$pkgver
-  return # tests require too much RAM, disable it temporary
+  cd "${pkgbase}-${pkgver}"
+
+  return  # tests require too much RAM, disable it temporary
 
   make spec CRYSTAL_CACHE_DIR="/tmp/crystal"
 }
 
-package() {
-  cd $pkgname-$pkgver
 
-  # /usr/bin/crystal                compiled executable
-  # /usr/lib/crystal/               compiler src & core libs
-  # /usr/share/doc/crystal/api      api docs
-  # /usr/share/doc/crystal/samples/ samples
+# /usr/bin/crystal                compiled executable
+# /usr/lib/crystal/               compiler src & core libs
+# /usr/share/doc/crystal/api      api docs
+# /usr/share/doc/crystal/samples/ samples
 
-  install -Dm755 ".build/crystal" "$pkgdir/usr/bin/crystal"
+package_crystal() {
+  cd "${pkgbase}-${pkgver}"
 
-  install -dm755 "$pkgdir/usr/lib" "$pkgdir/usr/share/man/man1"
-  cp -r src "$pkgdir/usr/lib/crystal"
+  install -Dm755 ".build/crystal" "${pkgdir}/usr/bin/crystal"
 
-  install -dm755 "$pkgdir/usr/share/doc/crystal"
-  cp -r docs "$pkgdir/usr/share/doc/crystal/api"
-  cp -r samples "$pkgdir/usr/share/doc/crystal/"
+  install -dm755 "${pkgdir}/usr/lib" "${pkgdir}/usr/share/man/man1"
+  cp -r src "${pkgdir}/usr/lib/crystal"
 
-  install -Dm644 man/crystal.1 "$pkgdir/usr/share/man/man1/"
+  install -Dm644 man/crystal.1 "${pkgdir}/usr/share/man/man1/"
 
-  install -Dm644 etc/completion.bash "$pkgdir/usr/share/bash-completion/completions/crystal"
-  install -Dm644 etc/completion.zsh "$pkgdir/usr/share/zsh/site-functions/_crystal"
-  install -Dm644 etc/completion.fish "$pkgdir/usr/share/fish/vendor_completions.d/crystal.fish"
+  install -Dm644 etc/completion.bash "${pkgdir}/usr/share/bash-completion/completions/crystal"
+  install -Dm644 etc/completion.zsh "${pkgdir}/usr/share/zsh/site-functions/_crystal"
+  install -Dm644 etc/completion.fish "${pkgdir}/usr/share/fish/vendor_completions.d/crystal.fish"
 
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
+
+package_crystal-docs() {
+  pkgdesc+=' (documentation)'
+  depends=()
+  optdepends=()
+
+  cd "${pkgbase}-${pkgver}"
+
+  install -dm755 "${pkgdir}/usr/share/doc/crystal"
+  cp -r docs "${pkgdir}/usr/share/doc/crystal/api"
+  cp -r samples "${pkgdir}/usr/share/doc/crystal/"
 }
