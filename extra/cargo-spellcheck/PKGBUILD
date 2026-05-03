@@ -2,27 +2,27 @@
 # Contributor: Sanpi <sanpi+aur@homecomputing.fr>
 
 pkgname=cargo-spellcheck
-pkgver=0.15.5
+pkgver=0.15.7
 pkgrel=1
 pkgdesc="Checks all your documentation for spelling and grammar mistakes"
 arch=('x86_64')
 url="https://github.com/drahnr/cargo-spellcheck"
 license=('MIT' 'Apache-2.0')
-depends=('cargo' 'hunspell')
+depends=('cargo' 'hunspell' 'oniguruma')
 makedepends=('clang' 'hunspell-en_US')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('ab4027dea18ac252b1a3ad733f47899daa50dde3c90aa34f5f22534745f853d7')
+sha256sums=('e1516cdf8fbd8596c96d15c19ab04349a69d03a249fd73287685ac30c08f764e')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
   mkdir -p completions
 }
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --frozen
+  RUSTONIG_DYNAMIC_LIBONIG=1 cargo build --release --frozen
   local _completion="target/release/$pkgname completions"
   $_completion --shell bash > "completions/$pkgbase"
   $_completion --shell fish > "completions/$pkgbase.fish"
@@ -31,7 +31,7 @@ build() {
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --frozen
+  RUSTONIG_DYNAMIC_LIBONIG=1 cargo test --frozen
 }
 
 package() {
