@@ -3,7 +3,7 @@
 
 pkgname=dae
 pkgver=1.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A high-performance transparent proxy solution based on eBPF"
 arch=('x86_64')
 url="https://github.com/daeuniverse/${pkgname}"
@@ -25,6 +25,7 @@ build() {
 	shopt -s extglob
 	CFLAGS=${CFLAGS/-march=+([^[:space:]])/}
 	CFLAGS=${CFLAGS/-mtune=+([^[:space:]])/}
+	CFLAGS=${CFLAGS/-mabi=+([^[:space:]])/}
 	CFLAGS=${CFLAGS/-fno-plt/}
 	CFLAGS=${CFLAGS/-fstack-clash-protection/}
 	CFLAGS=${CFLAGS/-fcf-protection/}
