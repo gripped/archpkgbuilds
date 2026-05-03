@@ -5,7 +5,7 @@
 
 pkgname=gummi
 pkgver=0.8.3
-pkgrel=2
+pkgrel=3
 epoch=2
 pkgdesc='Simple LaTeX editor'
 arch=(x86_64)
@@ -13,8 +13,8 @@ url='https://github.com/alexandervdm/gummi'
 license=(MIT)
 depends=(gtksourceview3 gtkspell3 poppler-glib texlive-basic)
 makedepends=(git intltool setconf)
-source=("git+$url#commit=0b204f0f50723dd8ff12dbee2b2129491178fab6") # tag: 0.8.3
-b2sums=(SKIP)
+source=("git+$url#tag=$pkgver")
+b2sums=('6a0f90a007b2b10f84ccb5ae1c765640d104573479f6dc501865ed2c5d055bfd2e08c95e5af628e579e6e13a9051f8097795cb0f18118b029e4d9f40b90ecb5d')
 
 prepare() {
   cd $pkgname
@@ -30,6 +30,7 @@ prepare() {
 
 build() {
   cd $pkgname
+  export CFLAGS+=" -std=c11 -w"
   ./configure --prefix=/usr
   make
 }
