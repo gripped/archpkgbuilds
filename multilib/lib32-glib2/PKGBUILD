@@ -7,7 +7,7 @@ pkgbase=lib32-glib2
 pkgname=(
   lib32-glib2
 )
-pkgver=2.88.0
+pkgver=2.88.1
 pkgrel=1
 pkgdesc="Low level core library - 32-bit"
 url="https://gitlab.gnome.org/GNOME/glib"
@@ -44,10 +44,10 @@ source=(
   0002-gdesktopappinfo-Add-more-known-terminals.patch
   gio-querymodules-32.hook
 )
-b2sums=('357e025eb04e4ea433434cd346cdb3fc4e064eda2c29d0e41f7a9f25693f6e2aee20446d2fff647f7ca8148fdba7c4eef10263a4960c26a19a7c7637b30b1587'
+b2sums=('43f41e38f492d1a65b2015e5e92d5b313771b5c9a8bcef9afc182f0311c5362518031a9a94dd74d19cb7d0e406e89bc4b14152fddd0783fc1bb6bdc9c6a9d069'
         'SKIP'
         '4ddbd31f5f466fce99d82890292ff922555a9ab379d22202aeea5127f58798668f871dea0485cc0f458069276ad512412285ede6c8f3e36bea899358f49e931a'
-        'cc39621757253c9f9e11da4ae40dc16d24f2898a7ee34fbfe5b7709c4f0139c04fab6c1138402c16859b2421c45d55bdde522aa1a1b2c6c3544d87b7c2d10dff'
+        'f749220228e18f49c38a03d9b42ebbd2c8723c0f668eedf966339176ad946a82e0f0c605e6cb8f4a0d0ccc1777fc12dece36f4e9015c24879d48889a9e944c91'
         '678ea2d010fd64b6c55106510096363c54c357d65615c666e9cc3a0e280c0878257a45e646dd88f6bdd0623f7268c4afd2d4f98f82a5489bbfc028c5864252f1')
 validpgpkeys=(
   53EF3DC3B63E2899271BD26322E8091EEA11BBB7 # Emmanuele Bassi <ebassi@gnome.org>
