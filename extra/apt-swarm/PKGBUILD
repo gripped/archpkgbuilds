@@ -1,8 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=apt-swarm
-pkgver=0.5.1
-pkgrel=3
+pkgver=0.6.0
+pkgrel=1
 pkgdesc="Experimental p2p gossip network for OpenPGP signature transparency 🥸"
 url='https://github.com/kpcyrd/apt-swarm'
 arch=('x86_64')
@@ -17,12 +17,12 @@ makedepends=(
 backup=("etc/$pkgname.conf")
 options=(!lto)
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('46850dd26a2f26e2029f78c47f78fe657c53a42f8d59adb1af93aeaf276b33c2')
-b2sums=('6a365dfb414db32c452c918332535c2314e5a38f21d43d76fb71398fae216f29344cf99c43db65d43c3b65dd2c13e030132b79217705b45e6ceb2aecaea12dc4')
+sha256sums=('cc273b9f23a0b950544eae53135cb3ea9472351038b33c8eb274be46a145edb2')
+b2sums=('4df912ac533bfc3a98d98288489aed7062fb4aef10d2da13f62d0b8240bb21114ac0c09b5469f86fe8c061b54680df1882cdbd0cb1f609b27d48c9de24d0c781')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
