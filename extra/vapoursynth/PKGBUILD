@@ -3,7 +3,7 @@
 # Contributor: jackoneill <cantabile.desu@gmail.com>
 
 pkgname=vapoursynth
-pkgver=73
+pkgver=75
 pkgrel=2
 pkgdesc='A video processing framework with the future in mind'
 arch=(x86_64)
@@ -19,14 +19,16 @@ depends=(
 makedepends=(
   cython
   git
-  python-sphinx
+  meson-python
+  python-build
+  python-installer
 )
-_tag=76762f6a07d5169c21903972f67827fc108020ba
+_tag=c05906995662bacd5bddf853d8e68f19286987db
 source=(
   git+https://github.com/vapoursynth/vapoursynth.git#tag=${_tag}
   vapoursynth.xml
 )
-b2sums=('4fb5b185c5b8192fbe7df974837409afb4b8748db4d439689852e79a195561d5ab4714bee879dee2a3be21e52c8c3455418ac327f307d069794a6a0b6b05399e'
+b2sums=('78e5acdb175c878ad72b06b9ef73bb689762adf5578753a61cba389cd29fa9786868abf751f5b88ee393dddbb7788d176d227c538b9458ba593f8302153cb5d3'
         'feae23a22f8589177f30c36bdf21bab93d55a786194d3e0e958537016630d075b82178f60ac840f30ae316a8f87d3fb01f371211f62d1fee9850ee5063561747')
 
 pkgver() {
@@ -34,27 +36,28 @@ pkgver() {
   git describe --tags | sed 's/^R//'
 }
 
-prepare() {
-  cd vapoursynth
-  ./autogen.sh
-}
-
 build() {
   cd vapoursynth
-  ./configure \
-    --prefix=/usr \
-    --disable-static
-  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-  make
+  python -m build --wheel --no-isolation
 }
 
 package() {
-  cd vapoursynth
+  python -m installer --destdir="$pkgdir" vapoursynth/dist/*.whl
 
-  make DESTDIR="${pkgdir}" install
+  _sitepkgs="$(python -c 'import site; print(site.getsitepackages()[0])')"
+  ln -sr "${pkgdir}${_sitepkgs}/vapoursynth/libvapoursynth.so.4" "${pkgdir}/usr/lib/libvapoursynth.so.4"
+  ln -sr "${pkgdir}/usr/lib/libvapoursynth.so.4" "${pkgdir}/usr/lib/libvapoursynth.so"
+  ln -sr "${pkgdir}${_sitepkgs}/vapoursynth/libvsscript.so" "${pkgdir}/usr/lib/libvapoursynth-script.so.0"
+  ln -sr "${pkgdir}/usr/lib/libvapoursynth-script.so.0" "${pkgdir}/usr/lib/libvapoursynth-script.so"
 
-  install -Dm 644 src/core/ter-116n.ofl.txt -t "${pkgdir}"/usr/share/licenses/vapoursynth/
-  install -Dm 644 ../vapoursynth.xml -t "${pkgdir}"/usr/share/mime/packages/
+  install -d -m755 "${pkgdir}/usr"/{include,lib/pkgconfig}
+  ln -sr "${pkgdir}${_sitepkgs}/vapoursynth/include" "${pkgdir}/usr/include/vapoursynth"
+  ln -sr "${pkgdir}${_sitepkgs}/vapoursynth/pkgconfig/vapoursynth.pc" "${pkgdir}/usr/lib/pkgconfig/vapoursynth.pc"
+
+  install -d -m755 "${pkgdir}${_sitepkgs}/vapoursynth/plugins"
+
+  install -Dm 644 vapoursynth/src/core/ter-116n.ofl.txt -t "${pkgdir}"/usr/share/licenses/vapoursynth/
+  install -Dm 644 vapoursynth.xml -t "${pkgdir}"/usr/share/mime/packages/
 }
 
 # vim: ts=2 sw=2 et:

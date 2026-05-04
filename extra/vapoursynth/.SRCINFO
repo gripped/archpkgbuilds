@@ -1,6 +1,6 @@
 pkgbase = vapoursynth
 	pkgdesc = A video processing framework with the future in mind
-	pkgver = 73
+	pkgver = 75
 	pkgrel = 2
 	url = http://www.vapoursynth.com/
 	arch = x86_64
@@ -8,12 +8,14 @@ pkgbase = vapoursynth
 	license = custom:OFL
 	makedepends = cython
 	makedepends = git
-	makedepends = python-sphinx
+	makedepends = meson-python
+	makedepends = python-build
+	makedepends = python-installer
 	depends = libzimg.so
 	depends = python
-	source = git+https://github.com/vapoursynth/vapoursynth.git#tag=76762f6a07d5169c21903972f67827fc108020ba
+	source = git+https://github.com/vapoursynth/vapoursynth.git#tag=c05906995662bacd5bddf853d8e68f19286987db
 	source = vapoursynth.xml
-	b2sums = 4fb5b185c5b8192fbe7df974837409afb4b8748db4d439689852e79a195561d5ab4714bee879dee2a3be21e52c8c3455418ac327f307d069794a6a0b6b05399e
+	b2sums = 78e5acdb175c878ad72b06b9ef73bb689762adf5578753a61cba389cd29fa9786868abf751f5b88ee393dddbb7788d176d227c538b9458ba593f8302153cb5d3
 	b2sums = feae23a22f8589177f30c36bdf21bab93d55a786194d3e0e958537016630d075b82178f60ac840f30ae316a8f87d3fb01f371211f62d1fee9850ee5063561747
 
 pkgname = vapoursynth
