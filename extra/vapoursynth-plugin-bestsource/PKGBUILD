@@ -2,8 +2,8 @@
 # Contributor: witchymary
 
 pkgname=vapoursynth-plugin-bestsource
-pkgver=R16
-pkgrel=1
+pkgver=R17
+pkgrel=2
 epoch=1
 pkgdesc='BestSource plugin for VapourSynth'
 arch=(x86_64)
@@ -19,15 +19,17 @@ depends=(
 )
 makedepends=(
   git
-  meson
+  meson-python
+  python-build
+  python-installer
 )
-_tag=cbdfd1e215d9a23323fb830c09e45e47b0864bc8
+_tag=b026135190bdee175417310fa783e8383077193f
 source=(
   git+https://github.com/vapoursynth/bestsource.git#tag=${_tag}
   git+https://github.com/AviSynth/AviSynthPlus.git
-  git+https://bitbucket.org/the-sekrit-twc/libp2p.git
+  git+https://github.com/sekrit-twc/libp2p.git
 )
-b2sums=('98e4d23f09bcf40a0c57133a124f89d463bf8e1e4b3846f0fd419a9f4b36197a2a633a7816859e9558a30194a6dfcded9bd4118edfe2f951ab642cc70bc4e346'
+b2sums=('bfb97a39314045478fa6737e3fdf8bd14616f43018a9261b64bf23fc54d9ad5c1622d6e255c391047c781ae6e230bbcffc2a3d97cb1efe17f3a3f0d51b386925'
         'SKIP'
         'SKIP')
 
@@ -38,6 +40,7 @@ prepare() {
     git config submodule.${submodule}.url ../${submodule}
     git -c protocol.file.allow=always submodule update ${submodule}
   done
+  sed 's|vapoursynth/include|/usr/include/vapoursynth|g' -i meson.build
 }
 
 pkgver() {
@@ -46,12 +49,12 @@ pkgver() {
 }
 
 build() {
-  arch-meson bestsource build
-  ninja -C build
+  cd bestsource
+  python -m build --wheel --no-isolation
 }
 
 package(){
-  DESTDIR="${pkgdir}" ninja -C build install
+  python -m installer --destdir="$pkgdir" bestsource/dist/*.whl
   install -Dm 644 bestsource/LICENSE -t "${pkgdir}"/usr/share/licenses/vapoursynth-plugin-bestsource/
 }
 
