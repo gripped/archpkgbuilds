@@ -1,22 +1,29 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=progpick
-pkgver=0.2.0
-pkgrel=2
+pkgver=0.3.0
+pkgrel=1
 pkgdesc='Bruteforce with a stream of permutations of a specific pattern'
 url='https://github.com/kpcyrd/progpick'
 arch=('x86_64')
-license=('GPL3')
-makedepends=('cargo' 'scdoc')
+license=('GPL-3.0-or-later')
+depends=(
+  'glibc'
+  'libgcc' 'libgcc_s.so'
+)
+makedepends=(
+  'cargo'
+  'scdoc'
+)
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
-b2sums=('7b45f66a8ef297ce2f20e561bd8689cda0c38bfdfcb909c0fd2e0643dfac5933fca59b33327d7135d7eb255bd66f7e49bacfd30ed1d2a7aa1ab79aa37e95fb89'
+b2sums=('66bdddcb7fd7d20b69039ca2833094b2fc8cc86e971bc475efaea6ee7c9e8d1e9b8797391f1c9c78a25e801a23fcbf610d6428d674a19f824cefcd38a2dde37e'
         'SKIP')
 validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
@@ -27,7 +34,7 @@ build() {
 
 check() {
   cd ${pkgname}-${pkgver}
-  cargo test --frozen --release
+  cargo test --frozen
 }
 
 package() {
