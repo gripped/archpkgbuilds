@@ -39,4 +39,33 @@ EOF
 ===> if you need it.
 EOF
   fi
+
+  # Migrate local components to the new location
+  if [ "$(vercmp $2 2:r12836.f058febba)" -le 0 ]; then
+    echo "===> Migrating local plugins, templates, and themes to /var/lib/tt-rss/..."
+    migrated=0
+    for dir in plugins.local templates.local themes.local; do
+      src="/usr/share/webapps/tt-rss/$dir"
+      dst="/var/lib/tt-rss/$dir"
+      if [ -d "$src" ]; then
+        while IFS= read -r -d '' item; do
+          dst_item="$dst/${item##*/}"
+          # Don't overwrite existing files
+          if [ ! -e "$dst_item" ]; then
+            mv -v "$item" "$dst/" && migrated=1
+          else
+            echo "===> Skip: $item exists at $dst_item"
+          fi
+        done < <(find "$src" -mindepth 1 -maxdepth 1 -print0)
+        rmdir "$src" 2>/dev/null || true
+      fi
+    done
+
+    if [ "$migrated" -eq 1 ]; then
+      cat << EOF
+===> Local components (plugins, templates, and/or themes) have been migrated to /var/lib/tt-rss/.
+===> Please verify that your custom components are working correctly.
+EOF
+    fi
+  fi
 }
