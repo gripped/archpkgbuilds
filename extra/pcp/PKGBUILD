@@ -2,10 +2,10 @@
 # Contributor: Iwan Timmer <irtimmer@gmail.com>
 
 pkgbase=pcp
-pkgname=(pcp pcp-gui pcp-pmda-activemq pcp-pmda-bcc pcp-pmda-bind2 pcp-pmda-bpftrace pcp-pmda-libvirt
+pkgname=(pcp pcp-gui pcp-pmda-activemq pcp-pmda-bind2 pcp-pmda-bpftrace pcp-pmda-libvirt
          pcp-pmda-mysql pcp-pmda-nginx pcp-pmda-nutcracker pcp-pmda-openmetrics
          pcp-pmda-podman pcp-pmda-postgresql pcp-pmda-snmp pcp-pmda-json)
-pkgver=7.1.0
+pkgver=7.1.2
 pkgrel=1
 arch=('x86_64')
 url="https://pcp.io"
@@ -18,7 +18,7 @@ makedepends=('avahi' 'procps-ng' 'which' 'libuv'
              'libvirt-python' # libvirt
              'python-lxml' # libvirt
              'python-requests' # influxdb
-             'bpftrace' 'python-bcc' # bcc
+             'bpftrace'
              'perl-net-snmp' # snmp
              'perl-libwww' # nginx, activemq, bind2
              'perl-xml-libxml' # bind2
@@ -34,7 +34,7 @@ source=("https://github.com/performancecopilot/pcp/archive/$pkgver/$pkgname-$pkg
         "tmpfile.conf"
         "check-lto.patch"
         "setuptools.patch")
-sha256sums=('39c8394b1019137614fb28013234a47b317e4e00b1cdb74db40631e9d84b0754'
+sha256sums=('8c028a91b37a7ffec5bd032f5e84d04ef426fcdab60678b112ee90a3fb672a51'
             '85fe78e3c481d89017a0ab6e7925308b6649d0356a7ebaa017240901e039fb9d'
             '0166ffea180527de5a48a8e8f145cc80860b93e8f44bc5f96836c3d1cb4b01a2'
             'd0de05ebb577c5ee67ebd583ea8a0febcfad6a74b33afd9aa5b8a7a38a8096bf'
@@ -364,7 +364,6 @@ package_pcp() {
     etc/pcp/pmlogger/rc
     etc/pcp/pmlogredact/network
     etc/pcp/pmlogredact/usernames
-    etc/pcp/pmlogrewrite/bcc_migrate.conf
     etc/pcp/pmlogrewrite/cgroup_units.conf
     etc/pcp/pmlogrewrite/jbd2_kernel_ulong.conf
     etc/pcp/pmlogrewrite/kvm_fixups.conf
@@ -426,8 +425,8 @@ package_pcp() {
 
   cd "$pkgbase-$pkgver"
   rsync -vaHAX --exclude-from=../gui.list --exclude-from=<(echo \
-    {/etc/pcp,/var/lib/pcp/config/pmlogconf,/{usr,var}/lib/pcp/pmdas}/{activemq,bcc,bind2,bpftrace,libvirt,json,mysql,nginx,nutcracker,openmetrics,podman,postgresql,snmp} \
-    /usr/share/man/man1/pmda{activemq,bcc,bind2,bpftrace,libvirt,json,mysql,nginx,nutcracker,openmetrics,podman,postgresql,snmp}.1.gz \
+    {/etc/pcp,/var/lib/pcp/config/pmlogconf,/{usr,var}/lib/pcp/pmdas}/{activemq,bind2,bpftrace,libvirt,json,mysql,nginx,nutcracker,openmetrics,podman,postgresql,snmp} \
+    /usr/share/man/man1/pmda{activemq,bind2,bpftrace,libvirt,json,mysql,nginx,nutcracker,openmetrics,podman,postgresql,snmp}.1.gz \
     /usr/lib/sysusers.d/pcp-testsuite.conf \
       | sed -r 's/ +/\n/g' \
   ) "$srcdir"/installskel/ "$pkgdir"/
@@ -495,19 +494,6 @@ package_pcp-pmda-activemq() {
   depends=('pcp' 'perl-libwww')
 
   _package_module activemq
-}
-
-package_pcp-pmda-bcc() {
-  pkgdesc='PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from eBPF/BCC modules'
-  depends=('pcp' 'python-bcc')
-  backup=(
-    etc/pcp/bcc/bcc-tracepoint.conf
-    etc/pcp/bcc/bcc-uprobe.conf
-    etc/pcp/bcc/bcc-usdt.conf
-    etc/pcp/bcc/bcc.conf
-  )
-
-  _package_module bcc
 }
 
 package_pcp-pmda-bind2() {
