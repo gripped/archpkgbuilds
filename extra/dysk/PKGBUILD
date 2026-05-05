@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=dysk
-pkgver=3.6.0b
+pkgver=3.6.1
 pkgrel=1
 epoch=1
 pkgdesc="Get information on your mounted filesystems"
@@ -12,7 +12,7 @@ depends=('libgcc')
 makedepends=('cargo')
 replaces=('lfs')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('37c8ec3eac4b8304583a9961543223a6609dd7ab892348af42832ff113b7ec457fcbab8784d300ff3401718e31ad1597f4c9d3cab1655ddbc7be7fbe788897ba')
+sha512sums=('86cb32fa8a48ce0befbd0063bbfda177dce58e69e64e39e252336d3dd5a13148f4cee897ba80b124cda7c77050198a70017a9675f61e29a9a02c5d18d5a769ae')
 
 prepare() {
   cd "$pkgname-$pkgver"
