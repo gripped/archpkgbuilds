@@ -2,7 +2,7 @@
 # Contributor: Aaron DeVore <aaron.devore@gmail.com>
 
 pkgname=python-parse
-pkgver=1.21.1
+pkgver=1.22.0
 pkgrel=1
 
 pkgdesc='Parse strings using a specification based on the Python format() syntax.'
@@ -15,12 +15,10 @@ makedepends=(python-setuptools python-build python-installer python-wheel)
 checkdepends=(python-pytest)
 
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/r1chardj0n3s/parse/archive/refs/tags/${pkgver}.tar.gz)
-sha256sums=('e163e8549098a46b9f6eb897a6dfb20930a146253dc83be74e1d8924eb3f924c')
+sha256sums=('edc2acca17ed0f9e7ce41bd98eb20b5b1c16783f175b5d788e985aa11170ebf4')
 
 prepare() {
   cd parse-$pkgver
-  # Drop pytest configuration file so we don't need to add pytest-coverage to checkdepends
-  rm .pytest.ini
 }
 
 build() {
@@ -30,7 +28,7 @@ build() {
 
 check() {
   cd "$srcdir"/parse-$pkgver
-  PYTHONPATH=build/lib pytest
+  PYTHONPATH=build/lib pytest -o addopts=""
 }
 
 
