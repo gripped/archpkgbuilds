@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=framework-system
-pkgver=0.6.2
+pkgver=0.6.3
 pkgrel=1
 pkgdesc='Tools to interact with the Framework Computer systems'
 url='https://github.com/FrameworkComputer/framework-system'
@@ -20,8 +20,8 @@ makedepends=(
 )
 options=(!lto)
 source=($pkgname::"git+https://github.com/FrameworkComputer/framework-system.git#tag=v${pkgver}")
-sha256sums=('452cfd21471c4e34677ad3666680978ff8851411ebd3976e323e48834f0920b9')
-b2sums=('87b0a733cbc16c166b6da8b042d04e11ccc7807a07e884ef1ac07b300babe7725376b419cbfa5dac0fe784ccb8a832f708936769b06950a5eb87914aec8492c4')
+sha256sums=('a8669ee6105fd6363aa3a5e03b47098c1822e3920475397724e5d10b9dac252d')
+b2sums=('5e8a683d083fe417e58e517b6ad85ca95410d3291189faca1761d9e30cc49a38da434d5df131615b8277daa20dcb9a6ea10be627c9c18dc601cb62482f590451')
 
 prepare() {
   cd $pkgname
