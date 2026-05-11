@@ -2,8 +2,8 @@
 
 pkgname=cargo-tauri
 _pkgname=tauri
-pkgver=2.10.1
-pkgrel=2
+pkgver=2.11.1
+pkgrel=1
 pkgdesc="Command line interface for building Tauri apps"
 arch=('x86_64')
 url="https://github.com/tauri-apps/tauri"
@@ -16,7 +16,7 @@ depends=(
   'xz' 'liblzma.so'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/tauri-v$pkgver.tar.gz")
-sha512sums=('3521599657eb4d0d5c6cec9ffd51ba3cca6836a8085da88286687cd4cc7a2cca4ed23c1243c77204598c7b096cea9c7c8c0ddda1226f2ee60001eb21f0eeb174')
+sha512sums=('81cdb0e1c0e6c87aae8e249384295c2ae8b783d83a2e0c42354f6db56bf48c6c8ddd398a735391776deb8c3d447ef16fe079c5e14069bbbc78e70e8b4ba00633')
 options=('!lto')
 
 prepare() {
