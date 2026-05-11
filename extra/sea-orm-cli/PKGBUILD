@@ -1,10 +1,14 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+#
 pkgname=sea-orm-cli
-pkgver=1.1.14
+pkgver=1.1.20
 pkgrel=1
 pkgdesc='An async & dynamic ORM for Rust'
 url='https://www.sea-ql.org/SeaORM/'
-license=(MIT Apache-2.0)
+license=(
+  Apache-2.0
+  MIT
+)
 arch=(x86_64)
 makedepends=(
   cargo
@@ -20,26 +24,22 @@ source=(
   "git+https://github.com/SeaQL/sea-orm.git#tag=${pkgver}"
   Cargo.lock
 )
-sha256sums=('b2ceb19ea270c1af1b84bb9c2693f702fd18c27732e0945369431941d88742b5'
-            '9a498ad1a429cb6b0d90182bb4be8e9633674967a75088f2679df6b0fe68a235')
+sha256sums=('2b52922ea7bbef4e56202dbd3a1044deb0f428a937be4e5e7716335aa47410ff'
+            '6ff6f96439abc9b9a2155966fe11ba9fa9ec52c8d4f3685bb279edc172abdc7e')
 
 prepare() {
     cd sea-orm/sea-orm-cli
-    export RUSTUP_TOOLCHAIN=stable
     cp "${srcdir}/Cargo.lock" .
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
     cd sea-orm/sea-orm-cli
-    export RUSTUP_TOOLCHAIN=stable
-    export CARGO_TARGET_DIR=target
     cargo build --frozen --release --all-features
 }
 
 check() {
     cd sea-orm/sea-orm-cli
-    export RUSTUP_TOOLCHAIN=stable
     cargo test --frozen --all-features
 }
 
