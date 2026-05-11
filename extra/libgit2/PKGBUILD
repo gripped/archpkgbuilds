@@ -6,8 +6,8 @@
 pkgname=libgit2
 # NOTE: add the following packages to rebuild TODOs on soname change (although they do not link against libgit2.so):
 # julia
-pkgver=1.9.2
-pkgrel=3
+pkgver=1.9.3
+pkgrel=1
 epoch=1
 pkgdesc="A linkable library for Git"
 arch=(x86_64)
@@ -28,8 +28,8 @@ makedepends=(
 )
 provides=(libgit2.so)
 source=($url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('b9ac2d0a7cc92a31057fbf066e47145cdda89ebf0489d712d4452c709c3de9923a93a3c37128fdcfd8fbb5498f513a519a7f2a77ad6ef4efafe865323d481f18')
-b2sums=('6e5be4aee7ebe959a23ec24952eaff3ad66bbc740e0fd3ef66bc61b57c3228b71ad9b01808494782a90d362692d2cfabbfc24946543bbc109ec66df9c03cf26d')
+sha512sums=('5359d07b85b691b92784d5ef52825be2c1f1616bab8e969e51177bf8f5e767edbaf267943296407f62df1f3d7fa08e48c802374289046b71da2cc1ac7d43a15f')
+b2sums=('9f968cede042cc494c53c12f36ebee64a25637a40570373bd46c0c278436851a7a62c433e62d977919892ff4035fea5fef0d6468074cdff960ec6b4d3d160f83')
 
 build() {
   local cmake_options=(
