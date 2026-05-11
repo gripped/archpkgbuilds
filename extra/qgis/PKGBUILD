@@ -10,7 +10,7 @@
 # Contributor: Eric Forgeot < http://esclinux.tk >
 
 pkgname=qgis
-pkgver=4.0.1
+pkgver=4.0.2
 pkgrel=2
 pkgdesc='Geographic Information System (GIS) that supports vector, raster & database formats'
 arch=(x86_64)
@@ -80,7 +80,7 @@ optdepends=(
   'gpsbabel: GPS Tools plugin'
 )
 source=("https://qgis.org/downloads/$pkgname-$pkgver.tar.bz2")
-sha256sums=('b827501c58c0c271e7ef3cffcb2204adfeef3eaf9ff7a0ab607f0873de2b7eaf')
+sha256sums=('e1f017c3bc1881a5f534d89188e4d16d4d1bb1413278ea27aef4604ff35b090a')
 
 build() {
   cmake -S $pkgname-$pkgver -B build -G Ninja \
