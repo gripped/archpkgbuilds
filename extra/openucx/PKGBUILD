@@ -2,8 +2,8 @@
 
 _name=ucx
 pkgname=openucx
-pkgver=1.20.0
-pkgrel=3
+pkgver=1.20.1
+pkgrel=1
 pkgdesc="Communication framework for data-centric and high-performance applications"
 arch=(x86_64)
 url="https://openucx.org/"
@@ -35,22 +35,17 @@ provides=(
   libuct.so
 )
 source=(
-  $pkgname-$pkgver.tar.gz::https://github.com/openucx/$_name/archive/refs/tags/$pkgver.tar.gz
+  $pkgname-$pkgver.tar.gz::https://github.com/openucx/$_name/archive/refs/tags/v$pkgver.tar.gz
   ucx-conf.patch
-  c-gnu23.patch
 )
-b2sums=('c0f28a2a62801be866fa98775ec4a1b46f97d1e6bafea462306265d620541c7f84c8275419337102be2444c4ff2343e354b99aabc1e242c6ef75d76872d3d59c'
-        '2b3b4575ce64b947ecc42c9055934bcd7e5feb30031c6504f8cc3057cfc138b28c2826a6cc55be56d186e09e20c6201dacfc308647d9b62a5d33688348d15a68'
-        '3af500ee1a51ff9d2d1a2ae7896d87da5f274d54251ad816ca5143b220a9c8a7f1bea5236a7f826943187686fe9130fecd5f9271889d51a59cc80f0c2665ede6')
+b2sums=('f6fd229ebd2984cefc7742fc7cc2ddb1022815ed00efb528e94454493cd734642ae7bf6315abfdc37187649836fa8ddc06087a8fdb51fa9f2b5bd136eb97a694'
+        '2b3b4575ce64b947ecc42c9055934bcd7e5feb30031c6504f8cc3057cfc138b28c2826a6cc55be56d186e09e20c6201dacfc308647d9b62a5d33688348d15a68')
 
 prepare() {
   cd $_name-$pkgver
 
   # Do not hijack SIGHUP https://gitlab.archlinux.org/archlinux/packaging/packages/openucx/-/issues/3
   patch -Np1 -i ../ucx-conf.patch
-
-  # Fix building with -std=gnu23 https://github.com/openucx/ucx/issues/11185
-  patch -p1 -i ../c-gnu23.patch
 }
 
 build() {
@@ -71,7 +66,7 @@ build() {
   export CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
   export CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
 
-  export CFLAGS="${CFLAGS} -Wno-error=discarded-qualifiers"
+  export CFLAGS="${CFLAGS} -Wno-error=discarded-qualifiers -Wno-error=deprecated-openmp"
 
   cd $_name-$pkgver
   ./autogen.sh
