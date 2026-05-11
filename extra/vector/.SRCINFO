@@ -1,12 +1,12 @@
 pkgbase = vector
 	pkgdesc = A high-performance observability data pipeline
-	pkgver = 0.53.0
-	pkgrel = 1
+	pkgver = 0.55.0
+	pkgrel = 2
 	url = https://vector.dev
 	arch = x86_64
 	license = MPL-2.0
 	checkdepends = cargo-nextest
-	makedepends = rustup
+	makedepends = rust
 	makedepends = protobuf
 	makedepends = python
 	makedepends = perl
@@ -16,14 +16,15 @@ pkgbase = vector
 	depends = gcc-libs
 	depends = zlib
 	options = !lto
-	backup = etc/vector/vector.toml
 	backup = etc/vector/vector.yaml
 	backup = etc/default/vector
-	source = git+https://github.com/vectordotdev/vector#tag=v0.53.0
+	source = git+https://github.com/vectordotdev/vector#tag=v0.55.0
 	source = vector.sysusers
 	source = vector.tmpfiles
-	sha512sums = b72f096a10aafe831dce470d79a067b9d5ee24df9751521ab608f2db9526d473b012cd8e3ab4d217ee2338a7a33d0b540f01a217e76e67bcb5aab70817740c0d
+	source = mergeable-merge-unstable-name-collision.patch::https://github.com/hashworks/vector/commit/334d975c35c5395bfc79fa09e24b7e31a4a0b18e.patch
+	sha512sums = e8d2eb4a18e12dcc32f416e6cf48db09e3e909b37603c4d320946eb5c5534a2ce5c67951a62d5027f60b1714379b329b68c0dd44168a52cb073fb366c9bab3db
 	sha512sums = 9179cf571762819773d8f14ce457d20a54e5a7dcaf24ea88a11723af63c31775a3b59fc17fca41de547fc0cc3a72bf7501a8abfb4a95558f1e8789b12b951733
 	sha512sums = c192492df09d131f9174d2acbb7f265c280eb6d678589b8c93bacc47ae55c51573a5477d715897f8580ced420730992fb68bee78b374f1cc042888ea6b5512fd
+	sha512sums = 83694137c9db63e95bdcca86fbfc1856f1ae0bbfb05c7d35a18ba758ab62366a0b6b7558e19708af4f6c41b55b5d912240943210b3ca6581b0170a13d1ef9e7a
 
 pkgname = vector

@@ -1,23 +1,21 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=vector
-pkgver=0.53.0
-pkgrel=1
+pkgver=0.55.0
+pkgrel=2
 pkgdesc="A high-performance observability data pipeline"
 arch=("x86_64")
-_target="x86_64-unknown-linux-gnu"
 url="https://vector.dev"
 license=("MPL-2.0")
 options=(!lto) # TODO: Build with LTO
 backup=(
-    "etc/vector/vector.toml" # Versions <0.35.0
     "etc/vector/vector.yaml"
     "etc/default/vector"
 )
 depends=("gcc-libs" "zlib")
 # https://github.com/vectordotdev/vector/blob/master/docs/DEVELOPING.md#bring-your-own-toolbox
 makedepends=(
-    "rustup"
+    "rust"
     "protobuf"
     "python"
     "perl"
@@ -32,18 +30,22 @@ source=(
     "git+https://github.com/vectordotdev/vector#tag=v${pkgver}"
     "${pkgname}.sysusers"
     "${pkgname}.tmpfiles"
+    "mergeable-merge-unstable-name-collision.patch::https://github.com/hashworks/vector/commit/334d975c35c5395bfc79fa09e24b7e31a4a0b18e.patch"
 )
-sha512sums=('b72f096a10aafe831dce470d79a067b9d5ee24df9751521ab608f2db9526d473b012cd8e3ab4d217ee2338a7a33d0b540f01a217e76e67bcb5aab70817740c0d'
+sha512sums=('e8d2eb4a18e12dcc32f416e6cf48db09e3e909b37603c4d320946eb5c5534a2ce5c67951a62d5027f60b1714379b329b68c0dd44168a52cb073fb366c9bab3db'
             '9179cf571762819773d8f14ce457d20a54e5a7dcaf24ea88a11723af63c31775a3b59fc17fca41de547fc0cc3a72bf7501a8abfb4a95558f1e8789b12b951733'
-            'c192492df09d131f9174d2acbb7f265c280eb6d678589b8c93bacc47ae55c51573a5477d715897f8580ced420730992fb68bee78b374f1cc042888ea6b5512fd')
+            'c192492df09d131f9174d2acbb7f265c280eb6d678589b8c93bacc47ae55c51573a5477d715897f8580ced420730992fb68bee78b374f1cc042888ea6b5512fd'
+            '83694137c9db63e95bdcca86fbfc1856f1ae0bbfb05c7d35a18ba758ab62366a0b6b7558e19708af4f6c41b55b5d912240943210b3ca6581b0170a13d1ef9e7a')
 
 pkgver() {
-  cd "${pkgname}"
-  git describe --tags --match 'v*' | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+    cd "${pkgname}"
+    git describe --tags --match 'v*' | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 prepare() {
     cd "${pkgname}"
+
+    patch -Np1 < "$srcdir/mergeable-merge-unstable-name-collision.patch"
 
     cargo fetch \
         --locked
@@ -62,10 +64,10 @@ build() {
         --frozen \
         --release \
         --locked \
-        --target "${_target}"
+        --target host-tuple
 
     # Since cargo nextest drops our release build, we need to back it up
-    cp -r target/${_target}/release releasebuild
+    cp -r target/*/release releasebuild
 }
 
 check() {
@@ -83,8 +85,8 @@ check() {
         --release \
         --locked \
         --no-default-features \
-        --features "target-${_target}" \
-        --target "${_target}" \
+        --features "target-unix" \
+        --target host-tuple \
         -- \
         --skip sources::socket::test::multicast_udp_message \
         --skip sources::socket::test::multicast_and_unicast_udp_message \
