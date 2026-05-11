@@ -2,17 +2,17 @@
 
 pkgname=sequoia-sqv
 pkgver=1.3.0
-pkgrel=1
+pkgrel=3
 pkgdesc='Simple OpenPGP signature verification program'
 url='https://sequoia-pgp.org/'
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 groups=(sequoia)
 depends=(
-  gcc-libs
   glibc
   gmp
-  nettle
+  libgcc
+  nettle3
 )
 makedepends=(
   cargo
@@ -31,20 +31,22 @@ validpgpkeys=(
 
 prepare() {
   cd sequoia-sqv
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+# Update nettle-sys to fix build with clang 22
+  cargo update -p nettle-sys --precise 2.3.2
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd sequoia-sqv
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
+  PKG_CONFIG_PATH=/usr/lib/nettle3/pkgconfig \
+  RUSTFLAGS+=" -L/usr/lib/nettle3" \
   cargo build --frozen --release --features 'crypto-nettle'
 }
 
 check() {
   cd sequoia-sqv
-  export RUSTUP_TOOLCHAIN=stable
+  PKG_CONFIG_PATH=/usr/lib/nettle3/pkgconfig \
+  RUSTFLAGS+=" -L/usr/lib/nettle3" \
   cargo test --frozen --features 'crypto-nettle'
 }
 
