@@ -3,7 +3,7 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=roctracer
-pkgver=7.2.2
+pkgver=7.2.3
 pkgrel=1
 pkgdesc='ROCm tracer library for performance tracing'
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('MIT')
 depends=('rocm-core' 'glibc' 'libgcc' 'hip-runtime-amd' 'hsa-rocr' 'comgr')
 makedepends=('cmake' 'python-cppheaderparser' 'python-ply')
 source=("rocm-$pkgver.tar.gz::https://github.com/ROCm/rocm-systems/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('72bc9d97c537b77dc19bf51fe377db11eb029a6adf4fbd95190bc8ead0b83063')
+sha256sums=('e90cfd8694af28a56433c8827a581ee12a4ba835f0d952436741d9e0f3f8685b')
 options=('!lto')
 _dirname="rocm-systems-rocm-$pkgver/projects/$pkgname"
 
@@ -25,6 +25,8 @@ build() {
     -D CMAKE_BUILD_TYPE=Release
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D HIP_ROOT_DIR=/opt/rocm
+    # GCC 16 triggers -Werror=array-bounds= in libstdc++ internals via std::promise
+    -D CMAKE_CXX_FLAGS="-Wno-array-bounds"
   )
   cmake "${cmake_args[@]}"
   cmake --build build
