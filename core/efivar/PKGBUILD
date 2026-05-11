@@ -5,8 +5,7 @@
 pkgname=efivar
 pkgdesc="Tools and libraries to work with EFI variables"
 pkgver=39
-_commit=a77a4ffec000ad5dfc5d6394d208784672acda82  # refs/tags/39
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url="https://github.com/rhboot/efivar"
 license=(LGPL-2.1-or-later)
@@ -21,17 +20,10 @@ provides=(
   libefisec.so
   libefivar.so
 )
-source=(
-  "git+$url#tag=$_commit?signed"
-)
+source=("git+$url?signed#tag=$pkgver")
 sha512sums=('SKIP')
 b2sums=('SKIP')
 validpgpkeys=('B00B48BC731AA8840FED9FB0EED266B70F4FEF10') # Peter Jones <pjones@redhat.com>
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
-}
 
 build() {
   # disable -Werror by default by setting ERRORS to empty string
