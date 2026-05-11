@@ -2,7 +2,7 @@
 
 pkgname=postorius
 pkgver=1.3.13
-pkgrel=5
+pkgrel=6
 pkgdesc="The New Mailman Web UI"
 arch=(any)
 url="https://gitlab.com/mailman/postorius"
@@ -71,6 +71,8 @@ pkgver() {
 }
 
 prepare() {
+  # Fix XSS issue: https://www.openwall.com/lists/oss-security/2026/05/07/3
+  git -C $pkgname cherry-pick -n 8d00a3c317729f37435bdbd27170f630e341f29e
   # become FHS compliant and disable the use of debug
   patch -d $pkgname -p1 -i ../$pkgname-1.3.10-settings.patch
 
