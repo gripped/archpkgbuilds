@@ -1,7 +1,7 @@
 # Maintainer: Eric Bélanger <eric@archlinux.org>
 
 pkgname=lcms2
-pkgver=2.19
+pkgver=2.19.1
 pkgrel=1
 pkgdesc='Small-footprint color management engine, version 2'
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('glibc' 'libjpeg-turbo' 'libtiff')
 provides=('liblcms2.so')
 source=("https://github.com/mm2/Little-CMS/releases/download/lcms${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('49e7e134e4299733dd0eda434fa468997a28ab3d33fa397c642b03644f552216')
+sha256sums=('bfc54f7bab59fbc921012014a8032e4cba4abd46db47d46b76416a8c0b2815c8')
 
 build() {
   cd "${pkgname}-${pkgver}"
