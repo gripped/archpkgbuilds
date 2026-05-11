@@ -2,7 +2,7 @@
 
 pkgname=oo7
 pkgver=0.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A Secret Service provider'
 arch=(x86_64)
 url='https://linux-credentials.github.io/oo7/oo7/'
@@ -12,6 +12,8 @@ depends=(glibc
 makedepends=(git
              meson
              rust)
+conflicts=(gnome-keyring)
+provides=(org.freedesktop.secrets)
 source=(git+https://github.com/linux-credentials/oo7#tag=$pkgver)
 sha256sums=('83ba6e03392471f1381d756a10af20915ecab99cea8533bbd42aac995c5fc118')
 
