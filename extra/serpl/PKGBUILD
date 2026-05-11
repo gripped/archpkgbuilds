@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=serpl
-pkgver=0.3.4
+pkgver=0.3.5
 pkgrel=1
 pkgdesc="A simple TUI for search and replace, ala VS Code"
 arch=('x86_64')
@@ -10,11 +10,11 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('fee29119c2e16502c2cc0ef710ef426183677cebdb9591996658d7e61be2b7e82c11b0c4fce5cb1e58c5dfcbe44305c355cbfbc302dfdfcc42ce05e9463562ce')
+sha512sums=('43a969ec95de7feb6bd42f9b9fb4560a084597f3a9fd7f4c3d30c6c458b1ceb27f0f3546401eae0fd17cb45c68d954cd12edb9fc03ec390f2023fc7315ba668e')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
