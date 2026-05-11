@@ -17,7 +17,7 @@ pkgname=('php'
          'php-sqlite'
          'php-tidy'
          'php-xsl')
-pkgver=8.5.5
+pkgver=8.5.6
 pkgrel=1
 arch=('x86_64')
 license=('PHP-3.01')
@@ -28,7 +28,7 @@ makedepends=('apache' 'enchant' 'gd' 'gmp' 'icu' 'libsodium' 'libxslt' 'libzip' 
 checkdepends=('procps-ng')
 source=("https://php.net/distributions/${pkgbase}-${pkgver}.tar.xz"{,.asc}
         'apache.patch' 'apache.conf' 'php-fpm.patch' 'php-fpm.tmpfiles' 'php.ini.patch')
-sha256sums=('95bec382f4bd00570a8ef52a58ec04d8d9b9a90494781f1c106d1b274a3902f2'
+sha256sums=('826c600b7c6f956bd335558ca3bdbcab23b22126c1cc8d9348be2280a2204bb7'
             'SKIP'
             '74d33ad3e9fa2f0aaf6ceeddd59ec78d35e66673db74b1053cc3e6105478ba8a'
             '4a2add00d93fa991ccdf6356090264c1059c79935642afff6e8d4a2107fa037e'
