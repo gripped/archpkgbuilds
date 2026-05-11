@@ -4,7 +4,7 @@
 # Contributor: soloturn <soloturn@gmail.com>
 
 pkgname=cosmic-notifications
-pkgver=1.0.11
+pkgver=1.0.12
 pkgrel=1
 epoch=1
 pkgdesc='Layer Shell notifications daemon which integrates with COSMIC'
@@ -28,7 +28,7 @@ makedepends=(
 source=(
   git+https://github.com/pop-os/cosmic-notifications.git#tag=epoch-${pkgver}
 )
-b2sums=('37480f82466fcbb80b17e82366c514989c995ac4dde3670c028cd6599dd149fbec0626ea042fc721238dd15e790e045d5ec5355e5437592958a0447268072623')
+b2sums=('b8f683e8116aed69103d0bc600fec484a6b2880512ff90fd2c1a91f42f8304e15264dce7b717a0d56b56a86b6998b397be244bf51249b5284a26214ed1163276')
 
 prepare() {
   cd cosmic-notifications
