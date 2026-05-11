@@ -2,17 +2,17 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=release-plz
-pkgver=0.3.157
+pkgver=0.3.158
 pkgrel=1
 pkgdesc="Release Rust packages without using the command line"
 arch=('x86_64')
 url="https://github.com/MarcoIeni/release-plz"
 license=('MIT' 'Apache-2.0')
-depends=('gcc-libs' 'curl' 'libgit2' 'openssl')
+depends=('curl' 'libgcc' 'libgit2' 'openssl' 'sqlite' 'zstd')
 makedepends=('cargo' 'git')
 optdepends=('cargo-semver-checks: check for API breaking changes')
 source=("$pkgname-$pkgver::git+$url.git#tag=$pkgname-v$pkgver")
-sha512sums=('324700bfb89d335cd626ee95c956e96de16917790a7b34618bb15be42ac33d39e84878fd3d0a6086a2a77ecfc083ec299d3e1ef59b89d0a00b7339df6f2f2c44')
+sha512sums=('18f6b2e45a25913432f6a4fcc800a639faec021dfe83f8af164eb038823629fcd828c7e5e8cafe35d75cd4351e0ec96532a5c0b9d230d4470124a1b3a70dc850')
 options=('!lto')
 
 prepare() {
@@ -24,6 +24,8 @@ prepare() {
 build() {
   cd "$pkgname-$pkgver"
   export LIBGIT2_NO_VENDOR=1
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+  export ZSTD_SYS_USE_PKG_CONFIG=1
   cargo build --release --frozen --no-default-features
   local compgen="target/release/$pkgname generate-completions"
   $compgen bash >"completions/$pkgname"
@@ -34,6 +36,8 @@ build() {
 check() {
   cd "$pkgname-$pkgver"
   export LIBGIT2_NO_VENDOR=1
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+  export ZSTD_SYS_USE_PKG_CONFIG=1
   cargo test --frozen --no-default-features -- --skip "next_ver"
 }
 
