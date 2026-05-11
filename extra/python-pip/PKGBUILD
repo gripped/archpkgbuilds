@@ -7,7 +7,7 @@
 
 _name=pip
 pkgname=python-pip
-pkgver=26.1
+pkgver=26.1.1
 pkgrel=1
 pkgdesc="The PyPA recommended tool for installing Python packages"
 url="https://pip.pypa.io/"
@@ -43,15 +43,22 @@ checkdepends=(
   python-werkzeug
   subversion
 )
-source=(https://github.com/pypa/$_name/archive/$pkgver/$_name-$pkgver.tar.gz
+source=(
+  https://github.com/pypa/$_name/archive/$pkgver/$_name-$pkgver.tar.gz
+  remove-version-constraint.patch
         )
-sha512sums=('cb3dde18f1b16ffeb36a0eeec02b64a0a363e1ef50070126fdbb152ba03749830095f85a98267e552169b7953b5839558be2c3ee8f78802cb56dd4f139b72762')
-b2sums=('55773ba9ead364dcb8b900fb2f196dd768f688f54ae2ef190ae1739fec3fcc22f260c25df6ffb097e3b14ad321c51535cb71a921eafe4430a3eb30b94e38cc1e')
+sha512sums=('777fab14b5e7e7edeffbc7ae86f4e6061e9f7cf43adcaebcb4d099c184c4f2ad6a63019a70d95b98b631821c3472713c9545fb8d65b684da67cfc31ee9293054'
+            'c6d3a3819540c93417ad650d4e4fe87b811b4698bc0d9faf2628c8afbde6bbba65e489c9db4393b01f143724173a81c2e2d754f813b124a2a6d47a1d6c54abf0')
+b2sums=('7623f0d584baf05d46f29f662ecbbb2299d82aba0204c522326e1fb7350e31e32dff660b8360bfe8505f56f38d50d0b874e84118dff95a64e9f60510a2965dc7'
+        'e2ab7e085e0dae925b93711fac7a0460e14ff6b92d079c6b93da9eb0afc6890654fb2a10d4828e96c0695d1a0435cb697702eb274f9b1dd51b37c2a24e4ec543')
 
 prepare() {
   # pip is moving towards a separate sphinx config without towncrier https://github.com/pypa/pip/issues/12881
   # since python-sphinxcontrib-towncrier is broken, we remove its use (as it is not needed for manpages)
   sed '/towncrier/d' -i $_name-$pkgver/docs/html/conf.py
+
+  # remove version constraint on flit-core
+  patch -d "$_name-$pkgver" -p1 -i "$srcdir/remove-version-constraint.patch"
 
   # patch out need for pytest-subket
   sed -i '/--allow-hosts=localhost/d' "$_name-$pkgver/pyproject.toml"
