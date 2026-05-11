@@ -3,7 +3,7 @@
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 
 pkgname=hipcub
-pkgver=7.2.2
+pkgver=7.2.3
 pkgrel=1
 pkgdesc='Header-only library on top of rocPRIM or CUB'
 arch=('x86_64')
@@ -12,8 +12,9 @@ license=('NCSA')
 depends=('rocm-core' 'rocprim' 'hip-runtime-amd')
 makedepends=('git' 'cmake' 'rocm-cmake' 'rocm-toolchain' 'rocm-llvm')
 _git='https://github.com/ROCm/rocm-libraries'
-source=("$pkgname-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/releases/download/rocm-$pkgver/hipcub.tar.gz")
-sha256sums=('b8c20fa03a4b84781bf9d1d779e6908ac76a960fd506945f4da7c23a31a14c66')
+source=("rocm-libraries-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/archive/refs/tags/rocm-$pkgver.tar.gz")
+sha256sums=('300cc50720d40bad7c7ed1f6d67e8c5ebecaba62c07a6ea1cc5813c0ea2e41b5')
+_dirname="rocm-libraries-rocm-$pkgver/projects/$pkgname"
 
 build() {
   # -fcf-protection is not supported by HIP, see
@@ -23,11 +24,11 @@ build() {
   CXXFLAGS+=" -fcf-protection=none"
   local cmake_args=(
     -Wno-dev
-    -S "$pkgname"
+    -S "$_dirname"
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
-    -D CMAKE_TOOLCHAIN_FILE="$srcdir/$pkgname"/toolchain-linux.cmake
+    -D CMAKE_TOOLCHAIN_FILE="$srcdir/$_dirname/toolchain-linux.cmake"
     -D GPU_TARGETS=$(rocm-supported-gfx)
   )
   cmake "${cmake_args[@]}"
@@ -36,5 +37,5 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-  install -Dm644 "$pkgname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$_dirname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
