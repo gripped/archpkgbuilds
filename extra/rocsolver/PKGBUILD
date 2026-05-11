@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=rocsolver
-pkgver=7.2.2
+pkgver=7.2.3
 pkgrel=1
 pkgdesc='Subset of LAPACK functionality on the ROCm platform'
 arch=('x86_64')
@@ -24,7 +24,7 @@ makedepends=(
 )
 _git='https://github.com/ROCm/rocm-libraries'
 source=("rocm-libraries-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('4dbdeb5241b12becb379f58dafce685028824fca191ad2a54c3d8d671ca38f63')
+sha256sums=('300cc50720d40bad7c7ed1f6d67e8c5ebecaba62c07a6ea1cc5813c0ea2e41b5')
 options=(!lto)
 _dirname="rocm-libraries-rocm-$pkgver/projects/$pkgname"
 
