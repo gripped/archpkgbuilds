@@ -6,20 +6,20 @@ pkgname=(
   openpgp-ca-restd
 )
 pkgver=0.14.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Tool to handle OpenPGP keys in groups or organizations"
 arch=(x86_64)
 url="https://openpgp-ca.org/"
 license=(GPL-3.0-or-later)
 depends=(
-  gcc-libs
   glibc
   gmp
+  libgcc
 )
 makedepends=(
   bzip2
   clang
-  nettle
+  nettle3
   openssl
   pcsclite
   rust
@@ -49,18 +49,21 @@ b2sums=('62da529bbb813f213101f9e290e6469c5e0ca2b4af64189a65e2b818e6f2f632145ada8
 
 prepare() {
   cd $pkgbase-$pkgbase-v$pkgver
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+# Update nettle-sys to fix build with clang 22
+  cargo update -p nettle-sys --precise 2.3.2
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd $pkgbase-$pkgbase-v$pkgver
+  PKG_CONFIG_PATH=/usr/lib/nettle3/pkgconfig \
+  RUSTFLAGS+=" -L/usr/lib/nettle3" \
   cargo build --frozen --release
 }
 
 # tests are unfortunately broken in our packaging environment
 # check() {
 #   cd $pkgbase-$pkgbase-v$pkgver
-#   export RUSTUP_TOOLCHAIN=stable
 #   cargo test --frozen --all-features
 # }
 
@@ -68,7 +71,7 @@ package_openpgp-ca() {
   depends+=(
     bzip2 libbz2.so
     openssl libcrypto.so libssl.so
-    nettle libhogweed.so libnettle.so
+    nettle3 libhogweed.so libnettle.so
     pcsclite libpcsclite.so
     sqlite libsqlite3.so
   )
@@ -83,7 +86,7 @@ package_openpgp-ca-restd() {
   license+=(0BSD)
   depends+=(
     bzip2 libbz2.so
-    nettle libhogweed.so libnettle.so
+    nettle3 libhogweed.so libnettle.so
     pcsclite libpcsclite.so
     sqlite libsqlite3.so
   )
