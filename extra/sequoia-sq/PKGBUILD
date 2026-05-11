@@ -3,7 +3,7 @@
 
 pkgname=sequoia-sq
 pkgver=1.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Command-line frontends for Sequoia'
 url='https://sequoia-pgp.org/'
 arch=(x86_64)
@@ -23,7 +23,7 @@ makedepends=(
   cargo
   clang
   git
-  nettle
+  nettle3
 )
 options=(!lto)
 source=(git+https://gitlab.com/sequoia-pgp/sequoia-sq.git?signed#tag=v$pkgver)
@@ -41,16 +41,18 @@ pkgver() {
 
 prepare() {
   cd $pkgname
-  export RUSTUP_TOOLCHAIN=stable
+# Update nettle-sys to fix build with clang 22
+  cargo update -p nettle-sys --precise 2.3.2
   cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {
   cd $pkgname
   export CARGO_TARGET_DIR=../target
-  export RUSTUP_TOOLCHAIN=stable
   export ASSET_OUT_DIR=../target
   # NOTE: we select specific (default) features, as there are multiple crypto backends
+  PKG_CONFIG_PATH=/usr/lib/nettle3/pkgconfig \
+  RUSTFLAGS+=" -L/usr/lib/nettle3" \
   cargo build --release --frozen --features default
 }
 
@@ -59,14 +61,15 @@ check() {
   # NOTE: we use a different target dir, as otherwise cargo test --release alters the sq binary
   # https://gitlab.com/sequoia-pgp/sequoia-sq/-/issues/96
   export CARGO_TARGET_DIR=../target-test
-  export RUSTUP_TOOLCHAIN=stable
+  PKG_CONFIG_PATH=/usr/lib/nettle3/pkgconfig \
+  RUSTFLAGS+=" -L/usr/lib/nettle3" \
   cargo test --release --frozen --features default
 }
 
 package() {
   depends+=(
     bzip2 libbz2.so
-    nettle libnettle.so libhogweed.so
+    nettle3 libnettle.so libhogweed.so
   )
 
   install -vDm 755 target/release/sq -t "$pkgdir/usr/bin"
