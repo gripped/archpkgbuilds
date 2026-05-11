@@ -2,7 +2,7 @@
 # Contributor: François Charette <firmicus ατ gmx δοτ net>
 
 pkgname=perl-datetime-timezone
-pkgver=2.67
+pkgver=2.68
 pkgrel=1
 pkgdesc="Time zone object base class and factory "
 arch=(any)
@@ -12,7 +12,7 @@ depends=('perl-class-singleton>=1.03' 'perl-params-validate>=0.72' 'perl-class-l
 	 'perl-list-allutils')
 options=('!emptydirs')
 source=(https://www.cpan.org/CPAN/authors/id/D/DR/DROLSKY/DateTime-TimeZone-$pkgver.tar.gz)
-sha256sums=('15df7c1decf2779fded1dda8ad9c3541fe858a7b276b362afb269579fc3d6b84')
+sha256sums=('1c1285d911027d276f235b32a888ee7425c9ab356ee62cd126c4b3ee3ea659b3')
 
 build() {
   cd  "$srcdir"/DateTime-TimeZone-$pkgver
