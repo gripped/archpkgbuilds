@@ -9,7 +9,7 @@
 
 pkgname=blender
 pkgver=5.1.1
-pkgrel=7
+pkgrel=8
 epoch=17
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
@@ -115,6 +115,11 @@ makedepends=(
   'wayland-protocols'
   'vulkan-headers'
 )
+
+makedepends_aarch64=(
+  'sse2neon'
+)
+
 optdepends=('cuda: Cycles renderer CUDA support'
             'intel-compute-runtime: Cycles renderer Intel OneAPI support'
             'intel-level-zero-raytracing-support: Cycles renderer Intel OneAPI Raytracing Support'
@@ -183,9 +188,6 @@ build() {
     -D OCLOC_INSTALL_DIR=/usr
     -D OPTIX_ROOT_DIR="$srcdir"
     -D PYTHON_VERSION="$(_get_pyver)"
-    -D SYCL_CPP_FLAGS="--verbose"  # for debugging
-    -D SYCL_ROOT_DIR=/opt/intel/oneapi/compiler/latest
-    -D SYCL_OFFLINE_COMPILER_PARALLEL_JOBS=8
     -D USD_ROOT_DIR=/usr
     -D WITH_CYCLES_OSL=ON
     -D WITH_CYCLES_PARALLEL_DEVICE_KERNEL_BUILD=ON
@@ -197,6 +199,22 @@ build() {
     -S "$pkgname"
     -W no-dev
   )
+
+  if [[ $CARCH == "x86_64" ]]; then
+    cmake_options+=(
+      -D SYCL_ROOT_DIR=/opt/intel/oneapi/compiler/latest
+      -D SYCL_CPP_FLAGS="--verbose"  # for debugging
+      -D SYCL_OFFLINE_COMPILER_PARALLEL_JOBS=8
+    )
+  fi
+
+  if [[ $CARCH == "aarch64" ]]; then
+    cmake_options+=(
+      -D WITH_CYCLES_HIP_BINARIES=OFF
+      -D WITH_CYCLES_HIPRT_BINARIES=OFF
+      -D WITH_CYCLES_ONEAPI_BINARIES=OFF
+    )
+  fi
 
   cmake "${cmake_options[@]}"
   cmake --build build
@@ -213,8 +231,10 @@ package() {
   install -Dm644 release/freedesktop/org.blender.Blender.metainfo.xml "${pkgdir}/usr/share/metainfo/org.blender.Blender.metainfo.xml"
 
   # Move OneAPI AOT lib to proper place
-  mkdir "${pkgdir}"/usr/lib/
-  mv "${pkgdir}"/usr/share/blender/lib/libcycles_kernel_oneapi_aot.so "${pkgdir}"/usr/lib/
+  mkdir -p "${pkgdir}"/usr/lib/
+  if [[ -f "${pkgdir}"/usr/share/blender/lib/libcycles_kernel_oneapi_aot.so ]]; then
+    mv "${pkgdir}"/usr/share/blender/lib/libcycles_kernel_oneapi_aot.so "${pkgdir}"/usr/lib/
+  fi
 
   install -vDm 644 doc/license/{BSD-{2,3}-Clause,MIT,Zlib}-license.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
