@@ -3,14 +3,14 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=maven
-pkgver=3.9.14
+pkgver=3.9.15
 pkgrel=1
 pkgdesc='Java project management and project comprehension tool'
 url='https://maven.apache.org'
 arch=('any')
 license=('Apache-2.0')
 depends=('java-environment>=8' 'bash' 'procps-ng')
-makedepends=('maven' 'java-environment=21')
+makedepends=('maven' 'java-environment=25')
 backup=('usr/share/java/maven/conf/settings.xml')
 source=(https://downloads.apache.org/maven/maven-3/${pkgver}/source/apache-maven-${pkgver}-src.tar.gz{,.asc}
         # both bin artifacts are only used for reproducible builds from source
@@ -28,11 +28,11 @@ validpgpkeys=(
   '88BE34F94BDB2B5357044E2E3A387D43964143E3' # Tamas Cservenak <tamas@cservenak.net>
   '84789D24DF77A32433CE1F079EB80E92EB2135B1' # Slawomir Jaranowski <sjaranowski@apache.org>
 )
-sha256sums=('09cc6ae6fd22c16f3fbb6bf4d730ad02eb53e78a3af35fd45a77cdf369853e7a'
+sha256sums=('1a6dcd849a3eefdd975ca0ce8f00f2778b892136352680e78573a0a1280728da'
             'SKIP'
-            '126ed3233e569bd0add9e889d226139acd3de9005876a01fe6108fbf4246f515'
+            '36182f85e91128cd5c4608462ac92194e7a30638f65034de66f4e1b00600a6fc'
             'SKIP'
-            '174779e38239eb7557fc232da152655ef95d83b3b5c8371bb4af0c4eaff3f735'
+            'a503f1d570725f6c043c2aa14535c5916bf1c63f5a5b6f73977492bbb4f9c3e0'
             '6ec2fef2a5f179f873b180452c72915e639e7b881a6894e13c209816b3518908')
 
 _buildnumber() {
@@ -45,8 +45,8 @@ _buildnumber() {
 build() {
   cd apache-maven-${pkgver}
 
-  export JAVA_HOME="/usr/lib/jvm/java-21-openjdk"
-  export PATH="/usr/lib/jvm/java-21-openjdk/bin:$PATH"
+  export JAVA_HOME="/usr/lib/jvm/java-25-openjdk"
+  export PATH="/usr/lib/jvm/java-25-openjdk/bin:$PATH"
   # Consult the link for JDK and line separator of buildpec for reproducible
   # https://github.com/jvm-repo-rebuild/reproducible-central/blob/master/content/org/apache/maven/maven/README.md
   mvn package \
@@ -68,8 +68,8 @@ build() {
 check() {
   cd apache-maven-${pkgver}
 
-  export JAVA_HOME="/usr/lib/jvm/java-21-openjdk"
-  export PATH="/usr/lib/jvm/java-21-openjdk/bin:$PATH"
+  export JAVA_HOME="/usr/lib/jvm/java-25-openjdk"
+  export PATH="/usr/lib/jvm/java-25-openjdk/bin:$PATH"
   mvn test \
     -Dmaven.repo.local="${srcdir}/repo"
 }
