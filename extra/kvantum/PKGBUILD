@@ -4,14 +4,15 @@
 pkgbase=kvantum
 pkgname=(kvantum
          kvantum-qt5)
-pkgver=1.1.6
+pkgver=1.1.7
 pkgrel=1
 pkgdesc='SVG-based theme engine for Qt6 (including config tool and extra themes)'
 arch=(x86_64)
 url='https://github.com/tsujan/Kvantum'
 license=(GPL-3.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          libx11)
 makedepends=(cmake
              git
@@ -22,7 +23,7 @@ makedepends=(cmake
              qt6-svg
              qt6-tools)
 source=(git+https://github.com/tsujan/Kvantum#tag=V$pkgver?signed)
-sha256sums=('f582c937e4c4f0e75b1a14829a73b1f26172ffca27ff95eac081b9fec20aaf9a')
+sha256sums=('e0adf177337d285a26bac46a80afd7271d0392cb3caf092ab2c5fcc93e60bb64')
 validpgpkeys=(19DFDF3A579BD509DBB572D8BE793007AD22DF7E) # Pedram Pourang <tsujan2000@gmail.com>
 
 build() {

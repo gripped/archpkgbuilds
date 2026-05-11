@@ -1,6 +1,6 @@
 pkgbase = kvantum
 	pkgdesc = SVG-based theme engine for Qt6 (including config tool and extra themes)
-	pkgver = 1.1.6
+	pkgver = 1.1.7
 	pkgrel = 1
 	url = https://github.com/tsujan/Kvantum
 	arch = x86_64
@@ -13,16 +13,18 @@ pkgbase = kvantum
 	makedepends = kwindowsystem
 	makedepends = qt6-svg
 	makedepends = qt6-tools
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = libx11
-	source = git+https://github.com/tsujan/Kvantum#tag=V1.1.6?signed
+	source = git+https://github.com/tsujan/Kvantum#tag=V1.1.7?signed
 	validpgpkeys = 19DFDF3A579BD509DBB572D8BE793007AD22DF7E
-	sha256sums = f582c937e4c4f0e75b1a14829a73b1f26172ffca27ff95eac081b9fec20aaf9a
+	sha256sums = e0adf177337d285a26bac46a80afd7271d0392cb3caf092ab2c5fcc93e60bb64
 
 pkgname = kvantum
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = libx11
 	depends = kwindowsystem
 	depends = qt6-base
@@ -31,8 +33,9 @@ pkgname = kvantum
 
 pkgname = kvantum-qt5
 	pkgdesc = SVG-based theme engine for Qt5
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = libx11
 	depends = kvantum
 	depends = qt5-base
