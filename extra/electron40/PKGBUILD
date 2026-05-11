@@ -8,7 +8,7 @@
 # Note: source array can be synced with an Electron release after updating $pkgver with:
 # bash -c 'source PKGBUILD; _update_sources'
 
-pkgver=40.9.3
+pkgver=40.10.0
 _gcc_patches=144
 pkgrel=1
 _major_ver=${pkgver%%.*}
@@ -47,15 +47,13 @@ makedepends=(clang
              pipewire
              python
              python-requests
-             qt5-base
              rsync
              rustup
              rust-bindgen
              wget
              yarn)
-optdepends=('kde-cli-tools: file deletion support (kioclient5)'
+optdepends=('kde-cli-tools: file deletion support (kioclient)'
             'pipewire: WebRTC desktop sharing under Wayland'
-            'qt5-base: enable Qt5 with --enable-features=AllowQt'
             'gtk4: for --gtk-version=4 (GTK4 IME might work better on Wayland)'
             'trash-cli: file deletion support (trash-put)'
             'xdg-utils: open URLs with desktop’s default (xdg-email, xdg-open)')
@@ -77,7 +75,7 @@ source=("git+https://github.com/electron/electron.git#tag=v$pkgver"
         # BEGIN managed sources
         chromium-mirror::git+https://github.com/chromium/chromium.git#tag=144.0.7559.236
         chromium-mirror_third_party_nan::git+https://github.com/nodejs/nan.git#commit=675cefebca42410733da8a454c8d9391fcebfbc2
-        chromium-mirror_third_party_electron_node::git+https://github.com/nodejs/node.git#tag=v24.14.1
+        chromium-mirror_third_party_electron_node::git+https://github.com/nodejs/node.git#tag=v24.15.0
         chromium-mirror_third_party_engflow-reclient-configs::git+https://github.com/EngFlow/reclient-configs.git#commit=955335c30a752e9ef7bff375baab5e0819b6c00d
         chromium-mirror_third_party_clang-format_script::git+https://chromium.googlesource.com/external/github.com/llvm/llvm-project/clang/tools/clang-format.git#commit=c2725e0622e1a86d55f14514f2177a39efea4a0e
         chromium-mirror_third_party_compiler-rt_src::git+https://chromium.googlesource.com/external/github.com/llvm/llvm-project/compiler-rt.git#commit=cb2de163a470f2e9d56ec8a4f912f644378b7191
@@ -233,7 +231,7 @@ source=("git+https://github.com/electron/electron.git#tag=v$pkgver"
         chromium-mirror_third_party_openscreen_src_third_party_tinycbor_src::git+https://chromium.googlesource.com/external/github.com/intel/tinycbor.git#commit=d393c16f3eb30d0c47e6f9d92db62272f0ec4dc7
         # END managed sources
         )
-sha256sums=('97697ac68e8330a442c229c06e6f3e8a4a4066ea192d380048865376e2ad367c'
+sha256sums=('67d87b4a646be87eca65b1754db3ebbea8161bb79a8614f8344d62ef4b1918d6'
             '6ae8622ea5d7e95e6bfcd5da5d7695056841254646616268875b99288cbf3433'
             '11a96ffa21448ec4c63dd5c8d6795a1998d8e5cd5a689d91aea4d2bdd13fb06e'
             '5abc8611463b3097fc5ce58017ef918af8b70d616ad093b8b486d017d021bbdf'
@@ -247,7 +245,7 @@ sha256sums=('97697ac68e8330a442c229c06e6f3e8a4a4066ea192d380048865376e2ad367c'
             'da228d1bbe2e078acf33f0f1123f5eaf82fbd3af6f93e67315390a6cd685c1df'
             '1092b8a3f3b4ad045f700f9ce8f2f3286874f23ce26414d3f6ba2481b251400a'
             '609bc1e61871d917be64ed793584119e0414761a5d577af21abaf4e4f1474f09'
-            '42ae26ac34286f58b3d892ad967cf7de5b3a27cafeeabb46e73364ab7d89a596'
+            '2cc8605656aa3ac86b3821ea8dee8cd44e942f1bfb5a336a76fac6f756d431a2'
             '3522166c3ca75316a172b7cc4fe12bba9367e30fed16df8193ede2e236dca8c5'
             'ede5c3e8ef1e0ccab5a67a8ae65bfd1980afcabe9f112d3ba68b0fdcde5e0f4d'
             'b2eaae7e366f425302b7728922db51fa66a5e06429fcbd77c47fd76c5c37e00e'
