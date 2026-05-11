@@ -4,30 +4,25 @@
 
 pkgname=haskell-aeson
 _hkgname=aeson
-pkgver=2.2.1.0
-pkgrel=26
+pkgver=2.2.2.0
+pkgrel=4
 pkgdesc="A JSON parsing and encoding library optimized for ease of use and high performance"
 url="https://github.com/haskell/aeson"
-license=("BSD-3-Clause")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-data-fix' 'haskell-dlist' 'haskell-generically' 'haskell-hashable'
-         'haskell-indexed-traversable' 'haskell-integer-conversion' 'haskell-integer-logarithms'
-         'haskell-network-uri' 'haskell-onetuple' 'haskell-primitive' 'haskell-quickcheck'
-         'haskell-scientific' 'haskell-semialign' 'haskell-strict' 'haskell-tagged'
-         'haskell-text-iso8601' 'haskell-text-short' 'haskell-th-abstraction' 'haskell-these'
-         'haskell-time-compat' 'haskell-unordered-containers' 'haskell-uuid-types' 'haskell-vector'
-         'haskell-witherable')
-makedepends=('ghc' 'uusi' 'haskell-base-compat' 'haskell-base-orphans' 'haskell-base16-bytestring'
+depends=('ghc-libs' 'haskell-character-ps' 'haskell-data-fix' 'haskell-dlist' 'haskell-generically'
+         'haskell-hashable' 'haskell-indexed-traversable' 'haskell-integer-conversion'
+         'haskell-integer-logarithms' 'haskell-network-uri' 'haskell-onetuple' 'haskell-primitive'
+         'haskell-quickcheck' 'haskell-scientific' 'haskell-semialign' 'haskell-strict'
+         'haskell-tagged' 'haskell-text-iso8601' 'haskell-text-short' 'haskell-th-abstraction'
+         'haskell-these' 'haskell-time-compat' 'haskell-unordered-containers' 'haskell-uuid-types'
+         'haskell-vector' 'haskell-witherable')
+makedepends=('ghc' 'haskell-base-compat' 'haskell-base-orphans' 'haskell-base16-bytestring'
              'haskell-diff' 'haskell-generic-deriving' 'haskell-nothunks'
              'haskell-quickcheck-instances' 'haskell-tasty' 'haskell-tasty-golden'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-${pkgver}.tar.gz")
-sha512sums=('b405cf1c5a151e3358a92fd546520442311b3bf8cbe17422ce12aaaa17ba616e7170f36ce12afd775ee64cbc02295840147cfeafe5f61f07575feb208774f53f')
-
-prepare() {
-  cd $_hkgname-$pkgver
-  uusi -u Diff -u QuickCheck -u ghc-prim -u nothunks -u primitive
-}
+sha512sums=('ef97f121d4e1304ee336df6be4c562184f04c306099efafede5240d670a6b8435e0fb336512127317752da9e7ba7f4e1c309eca2d3ff6c1534d3fc63d501486e')
 
 build() {
   cd $_hkgname-$pkgver
