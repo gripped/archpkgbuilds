@@ -8,8 +8,8 @@
 
 pkgbase=kicad
 pkgname=('kicad' 'kicad-demos')
-pkgver=10.0.1
-pkgrel=2
+pkgver=10.0.2
+pkgrel=1
 pkgdesc='Electronic schematic and printed circuit board (PCB) design tools'
 arch=(x86_64)
 url='http://kicad.org/'
@@ -61,9 +61,9 @@ source=(
   "$pkgname::git+https://gitlab.com/kicad/code/kicad.git#tag=$pkgver"
   fix-version-string.patch
 )
-sha512sums=('292fb262d7c526f7e9efc41f75f2119f71d98aeaf8eea9f7d01ee5a123035ef6463e0b21f9f271d55f2cadcd3038210c460ceccb68c66f22b0481711e5e67c03'
+sha512sums=('125d2db6a29d19abd600784bb063732586fb4216ed649e84c9ffd9aeb08ff8b6a4538d7beb875d9f4ead64759aca1470bd52210a283f6e0735b3f4caf51bb39e'
             '17100967610c85ce2e8a860dcf703a87dc0c20f52d3f056cdb5d16323160e8594698bd51e095aea63c00a75ce8b121be681e93cec1bab72a8d1d4eb8065a91f5')
-b2sums=('2f7c58dc03c2b351ef92a3afeb7a1bcfe53adbdf3f07b51a9fda7194e9da611e62a55c696c8c56f98b8f150b8ab1f1692612a77a3101b914829d12491a1eba4c'
+b2sums=('7e9cc4b7c982fc31ecd71b8a98f2d11916cb473e7b7af16688a110c59e21623bb27a8fd8df35fc647edd85e5feb1f028d21c9cb7340f7564be69771dc72b5fb1'
         '7e09300161b2a1d7af56580a195e3b132d7b6ad82f1c9c381e02a25cd2fabd7ed0cd33b99b87ca14f9f77dad26eee1e5ea962b6eca49bacb40567ecfc24c21ff')
 
 
