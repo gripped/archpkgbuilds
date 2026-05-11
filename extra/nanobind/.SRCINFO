@@ -1,7 +1,7 @@
 pkgbase = nanobind
 	pkgdesc = Tiny and efficient C++/Python bindings
 	pkgver = 2.12.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/wjakob/nanobind
 	arch = any
 	license = BSD-3-Clause
@@ -20,7 +20,9 @@ pkgbase = nanobind
 	depends = python
 	source = git+https://github.com/wjakob/nanobind.git#tag=v2.12.0
 	source = git+https://github.com/Tessil/robin-map.git
+	source = nanobind-fix-cmake-config-path.patch::https://patch-diff.githubusercontent.com/raw/wjakob/nanobind/pull/1312.patch
 	b2sums = 2969a55e912aed4026b44a72c06846d1f1635bfdf45dc9a10bc4137799492c0ef5c9f7c6186e30d6bdf415afac12e801cbb66e899b42dfe080369a70e5455de6
 	b2sums = SKIP
+	b2sums = 040a13be67a923fe6d8ea9461b16aa352dcee4da955d64c626b1e142d5e1835e75475fefe97dd9e0bc2922b8e4861dacab397d7c0f4bc79d6885b96235e85d3b
 
 pkgname = nanobind
