@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=js140
-pkgver=140.10.1
+pkgver=140.10.2
 pkgrel=1
 pkgdesc="JavaScript interpreter and libraries - Version 140"
 url="https://spidermonkey.dev/"
@@ -46,7 +46,7 @@ validpgpkeys=(
   # https://blog.mozilla.org/security/2025/04/01/updated-gpg-key-for-signing-firefox-releases-2/
   14F26682D0916CDD81E37B6D61B7B526D98F0353
 )
-sha256sums=('4e75c0c3e2c5530de9364de388272bf81b2b32209d98fa4a7eb50d268a17a5bb'
+sha256sums=('796bf65372e702c13277e6f38e9276ded9dceea81e8934c29a06568016f24e77'
             'SKIP'
             'b5178a7b8a603b645cbae61467f3fa1fef6e9f34c90e4a22faf4ea2152a50fba'
             '941db682a37888582eb1608b936d57c73d7ce4377f4831c73cabb56745734013'
@@ -54,7 +54,7 @@ sha256sums=('4e75c0c3e2c5530de9364de388272bf81b2b32209d98fa4a7eb50d268a17a5bb'
             '5173051257f4fd8ed7c0811f01126a6a0f17c9ab6e561b4e0a89cc67509ccdc5'
             'ab43fa4fc086926e03bb0fcd2e7a0fac16a9f498461661951d043dc2ba41ca33'
             '10bff009c020366b0f17eb02619260f2167dc719b0f5c40f2baf40d7aa13921f')
-b2sums=('6d02a4c4cfb0736d748b09306cac59af109d1098240e75870b5388a4983c3e286c7c93cafae34db2fc88233e067d319d9cea1098add4de2caeb56888831d75ba'
+b2sums=('513de9c3c73ddd3eca355d369f2dd40a6e3b3f73cb399b83a79b8a2a0851b72339ee3e8570738339e5c3fcd2bb6f8ff23ad9e0ffeceeed95fb8c234505a74070'
         'SKIP'
         '89f39bd3ef2ca4894d98f860c2296b2afa58e4fe8c68ddb816a0684cc0db3a8e0deec71af5d214fb3ae40f6ad963aefef02d6b71071c41b9b55752c7cf791a9c'
         'dac1b03aadcde42f9ebdfc91e2806a35a2ab78e0c7f1b15bbfb5970700f4d9db34ee1b561470baee4ac1cb3f42a946a01f5afabb53d8ce92a497382b90e21552'
