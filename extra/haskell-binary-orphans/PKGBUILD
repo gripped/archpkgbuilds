@@ -3,22 +3,21 @@
 
 _hkgname=binary-orphans
 pkgname=haskell-binary-orphans
-pkgver=1.0.5
-pkgrel=128
+pkgver=1.0.5.1
+pkgrel=3
 pkgdesc="Orphan instances for binary"
 url="https://github.com/phadej/binary-orphans"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'uusi' 'haskell-onetuple' 'haskell-quickcheck' 'haskell-quickcheck-instances'
-             'haskell-tagged' 'haskell-tasty' 'haskell-tasty-quickcheck')
+makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-tasty'
+             'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('95917874e026de052c2129c108f872b000515a21e6a9078afd73d0784464ee862851ad7b43f16fdca2e3fcf0d7cf097a678a41f3a8f74ec745827842303e4984')
+sha512sums=('692dacf42e201108eba9b83fdd5d702336c05e6b6ce6f4d9bb555efbfff4ed7e4df0ad9da2c16647bcfd6adbf6ac31fa9fd37cfb84b37006a10fadc4d2fdb28d')
 
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
-    uusi -u tasty-quickcheck
 }
 
 build() {
