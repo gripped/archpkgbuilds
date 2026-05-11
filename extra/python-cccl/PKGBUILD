@@ -2,7 +2,7 @@
 
 _name=cccl
 pkgname=python-$_name
-pkgver=0.6.0
+pkgver=0.7.0
 pkgrel=1
 pkgdesc="CUDA Core Compute Libraries for Python"
 arch=(x86_64)
@@ -32,7 +32,7 @@ makedepends=(
   python-wheel
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/python-$pkgver.tar.gz)
-b2sums=('ef9ef3a99037fe0753c6047eacbb400462e6a6c98ede0b37c7cff7eef563a9a6d5a34f083f9da4efeb5a584e34b0c8a0f46c5329efeb7e931e70171474256914')
+b2sums=('6af849a73f8aef3a345336a6dcfbbe4d970830acf315a24a3d97b951bfd3a7a611810027f0cdf26dec40a7e43f7c08eb58a19606714eea3679b59fa2f09bb9f7')
 
 prepare() {
   cd $_name-python-$pkgver
@@ -42,6 +42,8 @@ prepare() {
 
 build() {
   cd $_name-python-$pkgver/python/cuda_cccl
+  # cccl requires CXX compiler to match CUDA host compiler
+  SKBUILD_CMAKE_ARGS="-DCMAKE_CXX_COMPILER=$NVCC_CCBIN" \
   SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver \
   python -m build --wheel --no-isolation
 }
