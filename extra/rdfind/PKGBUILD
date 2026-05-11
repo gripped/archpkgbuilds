@@ -4,7 +4,7 @@
 # Contributor: Alex 'AdUser' Z <ad_user@mail.ru>
 pkgname=rdfind
 pkgver=1.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Redundant data find - a program that finds duplicate files'
 arch=('x86_64')
 url='https://rdfind.pauldreik.se'
