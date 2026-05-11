@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-spimdisasm
-pkgver=1.40.2
+pkgver=1.40.3
 pkgrel=1
 pkgdesc='A matching MIPS disassembler API and front-ends with built-in instruction analysis'
 arch=(any)
@@ -22,9 +22,9 @@ source=(
   "$pkgname::git+$url#tag=$pkgver"
   remove-twine.patch
 )
-sha512sums=('31038d1ce4dda56086d8fd08bd49c78797468e52fdd765436ea7f51d53db1b114327a535c66ff59d92f852dd80edc3599d8a601528c56c1f800aaab6c4ccfd9d'
+sha512sums=('f0a90bb7a3834e74169cf4a80b14f00c198f017c87702cf9689fad45631a86fa6c21ce3b4a60c1273ba7903823d18ec5ee1f27d1dc8c8bef206b8b3fc03d5810'
             'f6d0090433d7c91d857086eb8298ced06d1754e9fd4834e512f0d15f9f2ebe7a1f7414fa591adde8b89c08358e35fd057a592c448e2e728f4285f1a29523e388')
-b2sums=('bdefb131fb68767f6a9425f06d80670cf5ebd6a1bdcd153c516c13ef20ffd86f49cc8e45e9a4eac910cdbcbd1afabe453f59b57b9246181ed0b56f54f7d301ff'
+b2sums=('ed3ebe1328f1efd6797e49863e7a6b464c3292738e621432d33670e8a2b5caa0f2dcd732a8b10187bbbc253d41f3c6a1772a73d4ad523d4a324ddf8e51efb5df'
         '81f8f913b9d489d037352760d1e625d6f43813ab76253ec583cbbe54f85907d9c879871ab9a81dae1b741d551ae8f7560443d89766116c43e6b1c54b60f4d7e2')
 
 prepare() {
