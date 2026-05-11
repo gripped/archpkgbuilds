@@ -1,0 +1,28 @@
+diff --git a/src/jwe.c b/src/jwe.c
+index 432ec33..a6777b6 100644
+--- a/src/jwe.c
++++ b/src/jwe.c
+@@ -89,7 +89,11 @@ pkcs1_eme_oaep_decode (size_t key_size,
+   // lHash = Hash(L)
+   hash_init(ctx);
+   hash_update(ctx, label_length, label);
++#if NETTLE_VERSION_MAJOR > 3
++  hash_digest(ctx, lHash);
++#else
+   hash_digest(ctx, hlen, lHash);
++#endif
+ 
+   nettle_mpz_get_str_256(key_size, em, m);
+ 
+@@ -230,7 +234,11 @@ pkcs1_eme_oaep_encode (size_t key_size,
+   // lHash = Hash(L)
+   hash_init(ctx);
+   hash_update(ctx, label_length, label);
++#if NETTLE_VERSION_MAJOR > 3
++  hash_digest(ctx, lHash);
++#else
+   hash_digest(ctx, hlen, lHash);
++#endif
+ 
+   // DB = lHash || PS || 0x01 || M.
+ 
