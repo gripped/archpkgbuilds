@@ -4,8 +4,8 @@
 # Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=engrampa
-pkgver=1.28.2
-pkgrel=2
+pkgver=1.28.3
+pkgrel=1
 pkgdesc="A file archiver for MATE"
 url="https://mate-desktop.org"
 arch=('x86_64')
@@ -24,7 +24,7 @@ conflicts=("engrampa-gtk3")
 replaces=("engrampa-gtk3")
 source=("git+https://github.com/mate-desktop/engrampa.git#tag=v${pkgver}"
         git+https://github.com/mate-desktop/mate-submodules.git)
-sha256sums=('0b17b1bd00b1df0c3b60ded7570ea809aa7fb68934c8d9b823e161a90a752299'
+sha256sums=('4b8dc4b73dd080a7e13cb168f8de4fb7278b25b3bdd18a1b2b943a305ddb4853'
             'SKIP')
 
 prepare() {
