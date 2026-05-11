@@ -1,21 +1,22 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-latex2mathml
-pkgver=3.79.0
+pkgver=3.81.0
 pkgrel=1
 pkgdesc="Pure Python library for LaTeX to MathML conversion"
 url="https://github.com/roniemartinez/latex2mathml"
 license=('MIT')
 arch=('any')
 depends=('python')
-makedepends=('git' 'python-build' 'python-installer' 'python-hatchling')
-checkdepends=('python-pytest' 'python-multidict' 'python-xmljson')
+makedepends=('git' 'python-build' 'python-installer' 'python-uv-build')
+checkdepends=('python-pytest' 'python-syrupy')
 source=("git+https://github.com/roniemartinez/latex2mathml.git#tag=$pkgver")
-sha512sums=('f2f3dd15a32fc5f7061e4c6d1226203d0a3f98a962ed804c2c3f1dea83ec278d25d1c806e87a4bcc7420068a8938101884e01685f1ddd62ce7ff8f89be6c48a2')
+sha512sums=('624cfd72c3a21eeeb26ab3020fc56137a1f0deb7debf23b65adb1f06ea715eea3d5a129a674b16a4d684efaaed631b0b8673ad2799d2406e77f8ea9edf3f34e0')
 
 prepare() {
   cd latex2mathml
   sed -i '/--cov/d' pyproject.toml
+  sed -i 's/uv_build>=0.10.11,<0.11.0/uv_build/' pyproject.toml
 }
 
 build() {
