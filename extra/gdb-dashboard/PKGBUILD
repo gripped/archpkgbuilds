@@ -2,16 +2,31 @@
 
 pkgname=gdb-dashboard
 pkgver=0.17.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Modular visual interface for GDB in Python'
 url='https://github.com/cyrus-and/gdb-dashboard'
-arch=('any')
-license=('MIT')
-depends=('gdb' 'binutils')
-optdepends=('python-pygments: syntax highlighting support')
-source=(https://github.com/cyrus-and/gdb-dashboard/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('9cce63be926d21aace0833b52b36266f115599fbbf426dcd7d8090a6861c1c9db26fe7d953bedcbec0b96b75c9b2b9af59666c0e80f5cdf55bd6d44523459dbd')
-b2sums=('cf05fea4c3d722d1bafbc6ef4a26df88be555be6adf8dca313ef9b8b28cad533931d3d2da0cb2660c1233c3b3e744a518893698ecbb1e573e12812cebfc3e7c8')
+arch=(any)
+license=(MIT)
+depends=(
+  gdb
+  binutils
+)
+optdepends=(
+  'python-pygments: syntax highlighting support'
+)
+source=(
+  https://github.com/cyrus-and/gdb-dashboard/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
+  gdb-dashboard-0.17.4-fix-buffer-overflow-term-size.patch::https://github.com/cyrus-and/gdb-dashboard/commit/c429e144eabf7a2c4c33ffbd617f54f752a7e614.patch
+)
+sha512sums=('9cce63be926d21aace0833b52b36266f115599fbbf426dcd7d8090a6861c1c9db26fe7d953bedcbec0b96b75c9b2b9af59666c0e80f5cdf55bd6d44523459dbd'
+            '0927d69acdaae202593db48f7ac04a9f5f6217955fa66e07abdbf9836be25d25760ac83817a25fc0a9ca8f8d5a0985018526894b2a0d78c82e2009d704c00f95')
+b2sums=('cf05fea4c3d722d1bafbc6ef4a26df88be555be6adf8dca313ef9b8b28cad533931d3d2da0cb2660c1233c3b3e744a518893698ecbb1e573e12812cebfc3e7c8'
+        '961cf9ca136fb342ebe7d70a5a7d58a5f66958eea87a6449aeeb7f94cb3753d302bc62f00a8f7f9c44a9b63ca8d87d30c1d6405a98670eb03f6d83d16f87966a')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  patch -Np1 < ../gdb-dashboard-0.17.4-fix-buffer-overflow-term-size.patch
+}
 
 package() {
   cd ${pkgname}-${pkgver}
