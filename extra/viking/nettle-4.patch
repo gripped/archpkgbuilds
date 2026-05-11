@@ -1,0 +1,38 @@
+diff -ru viking-1.11.orig/src/md5_hash.c viking-1.11/src/md5_hash.c
+--- viking-1.11.orig/src/md5_hash.c	2026-05-01 14:54:29.552293667 +0200
++++ viking-1.11/src/md5_hash.c	2026-05-01 21:19:59.305935791 +0200
+@@ -26,7 +26,7 @@
+ #include "config.h"
+ #endif
+ #ifdef HAVE_LIBNETTLE
+-#include <nettle/md5-compat.h>
++#include <nettle/md5.h>
+ #endif
+ 
+ /**
+@@ -37,10 +37,10 @@
+ 	char *answer = NULL;
+ #ifdef HAVE_LIBNETTLE
+ 	unsigned char result[16];
+-	MD5_CTX ctx;
+-	MD5Init ( &ctx );
+-	MD5Update ( &ctx, (const unsigned char*)message, strlen(message) );
+-	MD5Final ( &result[0], &ctx );
++	struct md5_ctx ctx;
++	md5_init(&ctx);
++	md5_update(&ctx, strlen(message), (const unsigned char*)message);
++	md5_digest(&ctx, &result[0]);
+ 	/*
+ 	g_printf ( "%s: of string '%s' is: ", __FUNCTION__, message );
+ 	for(int i = 0; i < 16; i++)
+--- viking-1.11.orig/configure.ac	2026-05-01 14:54:29.549215765 +0200
++++ viking-1.11/configure.ac	2026-05-01 21:15:14.350393359 +0200
+@@ -512,7 +512,7 @@
+                [ac_cv_enable_nettle], [ac_cv_enable_nettle=yes])
+ case $ac_cv_enable_nettle in
+   yes)
+-    AC_CHECK_HEADER([nettle/md5-compat.h],[],[AC_MSG_ERROR([nettle/md5-compat.h is needed but not found - you will need to install package 'nettle-dev' or similar. The feature can be disabled with --disable-nettle])])
++    AC_CHECK_HEADER([nettle/md5.h],[],[AC_MSG_ERROR([nettle/md5.h is needed but not found - you will need to install package 'nettle-dev' or similar. The feature can be disabled with --disable-nettle])])
+     AC_CHECK_LIB([nettle], [main], [],
+       if test "$ac_mingw32" = "yes"; then
+         [LIBS="-lnettle $LIBS"
