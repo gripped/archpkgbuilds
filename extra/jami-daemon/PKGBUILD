@@ -3,7 +3,7 @@
 
 pkgname=jami-daemon
 pkgver=20260206
-pkgrel=5
+pkgrel=6
 pkgdesc="Free and universal communication platform which preserves the users’ privacy and freedoms (daemon component)"
 arch=(x86_64)
 url="https://jami.net"
@@ -22,14 +22,16 @@ source=(git+https://git.jami.net/savoirfairelinux/${pkgname}.git#commit=${_commi
         https://github.com/savoirfairelinux/pjproject/archive/${_pjprojectver}/pjproject-${_pjprojectver}.tar.gz
         dhtnet-$_dhtnetver.tar.gz::https://git.jami.net/savoirfairelinux/dhtnet/-/archive/$_dhtnetver/dhtnet-$_dhtnetver.tar.gz
         ffmpeg-7.patch
-        ffmpeg-8.patch)
+        ffmpeg-8.patch
+        nettle-4.patch)
 noextract=(pjproject-${_pjprojectver}.tar.gz
            dhtnet-${_dhtnetver}.tar.gz)
 sha512sums=('e544bfac1eb2184f2b3a10d9e98a644068b5d2d5d622822e647d23b4ded21054d0e6e72defe7d74df4d2d44ca246643196228ccda19c41b7fbd4371ebfc36ce7'
             'c5966468225782bedfbed218e58ebe2491ba8fa897edc1590de22ffe513a7b1bf814c5e75761d980d651c9d56e5c4f64b16f68d413062a4a9960d53cdd0ae047'
             'bc41959ffeba424095067d0bd71ec8de2efc922907d9091ac6f32aeaba66afd090d2615e52784f392d5a827e23a5dd3bc039ed8935764ece1e017ccfc358a5f7'
             '6e927376938e6687a438b4984e37a23a921fb6b3e87f804b6eb9365af18b04bd5b601fd7be95ae326d8e5f15d82552ae7dd5367a1eb834bd0d7d77600e05c82e'
-            '8fcfe52808d00b8535dc6d181af0233dc0f3a51e8da69728a04e7f6edc82c54fb11e62ffad05344d9eeb6d203dc323ffa03181c615c7c6f84682f70a02ee4319')
+            '8fcfe52808d00b8535dc6d181af0233dc0f3a51e8da69728a04e7f6edc82c54fb11e62ffad05344d9eeb6d203dc323ffa03181c615c7c6f84682f70a02ee4319'
+            'f3939766a25d33a36d4a49642305bd62b4d3ddae717e9e117ca28be1f9a06adc70eac392e8b8eb9167768d0087421ed5816b5af00742c3f7cdcb17d7547c02bc')
 
 pkgver() {
   cd ${pkgname}
@@ -56,6 +58,7 @@ prepare() {
 
   patch -p1 -i ../ffmpeg-7.patch # Fix build with ffmpeg 7+
   patch -p1 -i ../ffmpeg-8.patch # Fix build with ffmpeg 8
+  patch -p1 -i ../nettle-4.patch
 }
 
 build() {
