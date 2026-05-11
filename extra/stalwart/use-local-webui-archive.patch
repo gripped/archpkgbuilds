@@ -1,0 +1,13 @@
+--- a/crates/common/src/manager/defaults.rs
++++ b/crates/common/src/manager/defaults.rs
+@@ -61,9 +61,7 @@ async fn insert_safe_defaults(bp: &mut Bootstrap) -> trc::Result<()> {
+                     description: "Stalwart Web Interface".to_string(),
+                     enabled: true,
+                     #[cfg(not(feature = "dev_mode"))]
+-                    resource_url:
+-                        "https://github.com/stalwartlabs/webui/releases/latest/download/webui.zip"
+-                            .into(),
++                    resource_url: "file:///usr/share/stalwart/webui.zip".into(),
+                     #[cfg(feature = "dev_mode")]
+                     resource_url: "file:///Users/me/code/webui/.ignore/webui.zip".into(),
+                     unpack_directory: None,

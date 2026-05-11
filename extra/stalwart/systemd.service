@@ -1,7 +1,7 @@
 [Unit]
 Description=Stalwart Mail Server
 Conflicts=postfix.service sendmail.service exim4.service
-ConditionPathExists=/etc/stalwart/config.toml
+ConditionPathExists=/etc/stalwart/config.json
 After=network-online.target
 
 [Service]
@@ -10,15 +10,16 @@ KillMode=process
 KillSignal=SIGINT
 Restart=on-failure
 RestartSec=5
-ExecStart=/usr/bin/stalwart --config=/etc/stalwart/config.toml
+ExecStart=/usr/bin/stalwart --config=/etc/stalwart/config.json
 SyslogIdentifier=stalwart
 User=stalwart
 Group=stalwart
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 CapabilityBoundingSet=CAP_NET_BIND_SERVICE
 
-ReadWritePaths=/var/lib/stalwart /etc/stalwart/config.toml
-ReadOnlyPaths=/usr/share/stalwart-webadmin/webadmin.zip
+EnvironmentFile=/etc/stalwart/config.env
+ReadWritePaths=/var/lib/stalwart /etc/stalwart/config.json
+ReadOnlyPaths=/usr/share/stalwart/webui.zip /etc/stalwart/config.env
 
 NoNewPrivileges=true
 LimitNOFILE=1048576

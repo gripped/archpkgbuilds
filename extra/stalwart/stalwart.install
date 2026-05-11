@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+post_upgrade() {
+  if [ $(vercmp $2 0.16.0) -lt 0 ]; then
+    cat << EOF
+Stalwart 0.16.x is incompatible with older versions and requires manual intervention.
+
+Refer to the following urls for upgrade instructions:
+
+  https://github.com/stalwartlabs/stalwart/blob/main/UPGRADING/v0_16.md
+
+  https://github.com/stalwartlabs/stalwart/discussions/3004
+
+EOF
+  fi
+}
+
+# vim:set ts=2 sw=2 ft=sh et:
