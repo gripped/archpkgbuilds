@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=rocdecode
-pkgver=7.2.2
+pkgver=7.2.3
 pkgrel=1
 pkgdesc='High performance video decode SDK for AMD hardware'
 arch=('x86_64')
@@ -23,7 +23,7 @@ makedepends=(
 )
 _git='https://github.com/ROCm/rocDecode'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('ab8fab91672e3e53cd57b29e3e70f2dfdde0e326848ce43f964572cffefcf71f')
+sha256sums=('058ad6046a2c24e2610a87c4eefaebf62e4f94e5fcd10c42fd6d1863835fe593')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 prepare() {
