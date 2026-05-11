@@ -1,11 +1,12 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Maintainer: Christian Heusel <gromit@archlinux.org>
+
 pkgname=hsa-amd-aqlprofile
-pkgver=7.2.2
+pkgver=7.2.3
 pkgrel=1
 pkgdesc='Architected Queuing Language Profiling Library'
 arch=('x86_64')
-url='https://github.com/ROCm/rocprofiler-register'
+url='https://github.com/ROCm/rocm-systems'
 license=('MIT')
 depends=(
     'glibc'
@@ -15,14 +16,15 @@ depends=(
     'rocm-core'
 )
 makedepends=('cmake')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/ROCm/rocm-systems/releases/download/rocm-$pkgver/aqlprofile.tar.gz")
-sha256sums=('adea82694ff33f9fe5a45366307ca6ad180b5265f0f2659088453a3f679ef8dd')
+source=("rocm-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
+sha256sums=('e90cfd8694af28a56433c8827a581ee12a4ba835f0d952436741d9e0f3f8685b')
 replaces=(hsa-amd-aqlprofile-bin)
+_dirname="$(basename "$url")-rocm-$pkgver"/projects/aqlprofile/
 
 build() {
   local cmake_args=(
     -Wno-dev
-    -S aqlprofile
+    -S "$_dirname"
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
@@ -34,5 +36,5 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -Dm644 aqlprofile/LICENSE.md "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$_dirname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
