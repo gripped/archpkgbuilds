@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-osprofiler
-pkgver=4.3.0
+pkgver=4.4.0
 pkgrel=1
 pkgdesc="OpenStack Profiler Library"
 arch=('any')
@@ -15,8 +15,8 @@ checkdepends=('python-ddt' 'python-stestr' 'python-testtools' 'python-docutils' 
               'python-opentelemetry-sdk')
 source=("git+https://github.com/openstack/osprofiler.git#tag=$pkgver"
 	"elasticsearch-url-fix.patch")
-sha512sums=('6a897db40721e66143281387117368a5f4cdf6624b2952658d785e548453ecbc024c7ba850aa218cf69ca9939135bdf95688e87c713305aca4b55f1bfed5c575'
-            '0c420ff3e5d9a9357d14398e0768c6329277712da9f315c74f594ca8b8394ca34178de14dec7986111999a5d31b20ab2be83fc119481f745a30876311b12eb0d')
+sha512sums=('ea059f92694caf2146f3daaeecd90b66d75976caf5cc926e427eb624104fc6ff7a7c9ecdbd00753e32759b8bbadb917b4e35e057250ae12feb1ac5eb2d66439b'
+            'bed308388885765bd4f4cdea2835a045436c7bff70e78f66add21b5c46b4899a10fe6c5ef91dd6a807002c4994ed33a5e01f3c1f358bcf001926bcec2070ea59')
 
 prepare() {
   cd osprofiler
@@ -30,8 +30,6 @@ build() {
 
 check() {
   cd osprofiler
-  # jaeger-client library itself is deprecated upstream.
-  rm -f osprofiler/tests/unit/drivers/test_jaeger.py
   stestr run
 }
 
