@@ -1,0 +1,16 @@
+[Unit]
+Description=Official runner for Gitea
+Documentation=https://gitea.com/gitea/runner
+After=docker.service
+
+[Service]
+ExecStart=/usr/bin/gitea-runner daemon --config /etc/gitea-runner/config.yaml
+ExecReload=/usr/bin/kill -s HUP $MAINPID
+WorkingDirectory=/var/lib/gitea-runner
+TimeoutSec=0
+RestartSec=10
+Restart=always
+User=gitea-runner
+
+[Install]
+WantedBy=multi-user.target
