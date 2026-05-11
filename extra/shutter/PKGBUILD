@@ -7,7 +7,7 @@
 # Contributor: TDY <tdy@gmx.com>
 
 pkgname=shutter
-pkgver=0.99.6
+pkgver=0.99.7
 pkgrel=2
 pkgdesc="The feature-rich screenshot tool"
 arch=('any')
@@ -47,7 +47,7 @@ optdepends=('bc: 3D Rotate and 3D Reflection plugins support'
             'perl-net-oauth: Imgur upload support'
             'perl-path-class: Imgur upload support')
 source=("${pkgname}-${pkgver}.tar.gz"::"https://github.com/shutter-project/${pkgname}/archive/v${pkgver}.tar.gz")
-sha512sums=('3c75d7cd7f472411eccb7d0e1e4f67412842463923f83d979b57d1e3ebe05b36792d5e5bb54f59dbc22ffedb8e18b569f3fbab5006fb6d31490c4805d4856439')
+sha512sums=('77d2d872c0bf354af998a07ae549fa17fd0a15b48d260b318c38aba81b4993768190b554e6bc4147c9cde491909c447ca799273171d1b658a63aa75baba70cfb')
 
 package() {
   cd "${pkgname}-${pkgver}"
