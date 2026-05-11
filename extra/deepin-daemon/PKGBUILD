@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-daemon
-pkgver=6.1.67
+pkgver=6.1.70
 pkgrel=1
 pkgdesc='Daemon handling the DDE session settings'
 arch=('x86_64')
@@ -67,7 +67,7 @@ replaces=('startdde')
 groups=('deepin')
 install="$pkgname.install"
 source=("git+https://github.com/linuxdeepin/dde-daemon.git#tag=$pkgver")
-sha512sums=('f582bd6edd0baca924ffaab5ea012b3dcb27f34a19831d19d31f4604d548af23a1cc00f2d0e0a331a960fc752446e57a3b4cb61e83c9386f2cb319dc5f05eb4d')
+sha512sums=('805f353f5d8497df0291b983ab18bd8808d9d17b501d5513484b3731fbf7e9f84d3f056ad50a3a414c5f79247db8fb7403cef96c98fb0394030ea74dd6d8402d')
 
 prepare() {
   cd dde-daemon
@@ -105,9 +105,10 @@ package() {
   cd dde-daemon
   make DESTDIR="$pkgdir" PAM_MODULE_DIR=usr/lib/security install
 
-  # Provided by deepin-services via WallpaperCache now; avoid file conflicts.
+  # Provided by deepin-services now; avoid file conflicts.
   rm "$pkgdir"/usr/share/dbus-1/system-services/org.deepin.dde.ImageEffect1.service \
-     "$pkgdir"/usr/share/dbus-1/system.d/org.deepin.dde.ImageEffect1.conf
+     "$pkgdir"/usr/share/dbus-1/system.d/org.deepin.dde.ImageEffect1.conf \
+     "$pkgdir"/usr/share/dbus-1/system.d/org.deepin.dde.ImageBlur1.conf
 
   install -Dm644 debian/dde-daemon.sysusers "$pkgdir/usr/lib/sysusers.d/deepin-daemon.conf"
 }
