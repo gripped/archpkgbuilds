@@ -2,21 +2,16 @@
 
 _hkgname=algebraic-graphs
 pkgname=haskell-algebraic-graphs
-pkgver=0.7
-pkgrel=256
+pkgver=0.8
+pkgrel=3
 pkgdesc="A library for algebraic graph construction and transformation"
 url="https://github.com/snowleopard/alga"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'uusi' 'haskell-extra' 'haskell-inspection-testing' 'haskell-quickcheck')
+makedepends=('ghc' 'haskell-extra' 'haskell-inspection-testing' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('51159a0d18690ab51e6709e3c576275402f96f57d901f87d734da6854582e568')
-
-prepare() {
-  cd $_hkgname-$pkgver
-  uusi -u QuickCheck -u inspection-testing -u transformers
-}
+sha256sums=('a4a68993245f9d3b59738f0091c0ec5b4261e2dbb3c9342c73ea1a5a203a381c')
 
 build() {
   cd $_hkgname-$pkgver
