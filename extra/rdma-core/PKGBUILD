@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=rdma-core
-pkgver=62.0
+pkgver=63.0
 pkgrel=1
 pkgdesc="RDMA core userspace libraries and daemons"
 arch=(x86_64)
@@ -63,7 +63,7 @@ conflicts=("${_provides[@]}")
 replaces=("${_provides[@]}")
 backup=(etc/rdma/{rdma.conf,mlx4.conf})
 source=("https://github.com/linux-rdma/rdma-core/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('0251340e2b3b90562f903bcc26d489516c6efba3179423932c6b9c2e8dd2c6ef934fa476d9963db26544ddb5232e0da94574774e578ea6c0268c57961a0aeb47')
+sha512sums=('087bd1829a5ce551bf4c7f2dc48f384f3f5df5e1ee687f2f3b41d4e94e7abaa1817e0ad38080921928207c9fcb379e540488e91b7b10a8f6afa9f0a46d4aa23f')
 
 prepare() {
     cd $pkgname-$pkgver
