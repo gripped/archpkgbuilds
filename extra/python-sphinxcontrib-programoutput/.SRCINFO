@@ -1,11 +1,12 @@
 pkgbase = python-sphinxcontrib-programoutput
 	pkgdesc = Sphinx extension for capturing program output
-	pkgver = 0.18
-	pkgrel = 2
+	pkgver = 0.19
+	pkgrel = 1
 	url = https://github.com/OpenNTI/sphinxcontrib-programoutput/
 	arch = any
 	license = BSD-3-Clause
 	checkdepends = python-pytest
+	checkdepends = python-erbsland-sphinx-ansi
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -13,8 +14,9 @@ pkgbase = python-sphinxcontrib-programoutput
 	depends = python
 	depends = python-docutils
 	depends = python-sphinx
-	source = python-sphinxcontrib-programoutput-0.18.tar.gz::https://github.com/OpenNTI/sphinxcontrib-programoutput//archive/refs/tags/0.18.tar.gz
-	sha512sums = a4d5d146c8f83b4f72c4359b8980866134720288f13d4fe6f029b8fddac1d05c9f9fe777d0bef1aa0bebc17b540b2e19bef21ddc3e08af373d204fe8b50ec904
-	b2sums = 2afba65e7d3be13585372ff7cb3eff68fa5161383e48b55c153844fb88d63f0578a3f4b98835f4a0df2acdcba3565e793c51428d23f44199652deaaacdbaca68
+	optdepends = python-erbsland-sphinx-ansi: for rendering ANSI output
+	source = python-sphinxcontrib-programoutput-0.19.tar.gz::https://github.com/OpenNTI/sphinxcontrib-programoutput//archive/refs/tags/0.19.tar.gz
+	sha512sums = 74d183f292f685c02b3145e2fdca9c1c2f55eb0fbea207f627e7db2b1d47f3c1612ee357d84b9802329efd1acc34f1f448405398bc0bd855616e0ffbd6e97fde
+	b2sums = b957e3104b2745c945250d7bcc6dc4b1e12b9bf3ea93cb98b0da336f3b7920142407f7690521eb75759558c8d9576537cab0b22c6608529153ab3fd4e3a3cfe8
 
 pkgname = python-sphinxcontrib-programoutput
