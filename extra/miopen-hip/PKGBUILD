@@ -4,7 +4,7 @@
 # Contributor: JP-Ellis <josh@jpellis.me>
 
 pkgname=miopen-hip
-pkgver=7.2.2
+pkgver=7.2.3
 pkgrel=1
 # pin frugally-deep version as workaround workaround for https://github.com/ROCm/MIOpen/issues/3588
 _fdeep_ver=0.15.31
@@ -44,7 +44,7 @@ makedepends=(
 provides=('miopen')
 conflicts=('miopen')
 _mlir='https://github.com/ROCm/rocMLIR'
-_mlir_ver=7.1
+_mlir_ver=7.2.2
 _git='https://github.com/ROCm/rocm-libraries'
 source=(
   "rocm-libraries::git+$_git.git#tag=rocm-$pkgver"
@@ -55,7 +55,7 @@ source=(
 )
 sha256sums=('b476acbcd0f4017c800e4b05533e6dfb875bde32242729c8df557d4624379623'
             'SKIP'
-            '52051d393202b5a72824d788fd245fd81bd12e3a88f95969d65031912127f927'
+            '674cf03c6d5d0fb65e7b57c71cb0671cc29e1672446f4abb39c13cd9296aa9ef'
             'f21d7a04cae40af1d843ad9ca81416bb469f0540607f68b2e35b642362c89b42'
             'd1e1d55945eded7219c50f59f55967327118d6792df5a283c01131b18a3f061f')
 options=(!lto)
@@ -71,6 +71,11 @@ prepare() {
 
   # Disable tests as they require an AMD GPU at build time
   sed -i '/add_subdirectory(test)/d' CMakeLists.txt
+
+  # All 'return {var};' patterns that cause Boost::optional errors and fix them
+  sed -i 's/return {ovr_rec};/return ovr_rec;/g' src/include/miopen/sqlite_db.hpp
+  sed -i 's/return {rec};/return rec;/g' src/include/miopen/sqlite_db.hpp
+  sed -i 's/return {res};/return res;/g' src/find_controls.cpp
 }
 
 build() {
