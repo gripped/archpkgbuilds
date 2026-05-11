@@ -2,7 +2,7 @@
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=xonsh
-pkgver=0.23.4
+pkgver=0.23.5
 pkgrel=1
 pkgdesc='A python-powered shell. Full-featured and cross-platform.'
 url='https://xon.sh/'
@@ -10,6 +10,7 @@ arch=('any')
 license=('BSD-2-Clause')
 depends=(
     'python'
+    'python-click'
     'python-distro'
     'python-packaging'
     'python-ply'
@@ -17,7 +18,8 @@ depends=(
 optdepends=(
     'python-prompt_toolkit: for SHELL_TYPE=prompt_toolkit'
     'python-pygments: for syntax highlighting and colorization'
-    'python-setproctitle: for updating process title to match Xonsh arguments')
+    'python-setproctitle: for updating process title to match Xonsh arguments'
+    'python-wcwidth: for unicode symbols and emoji completer')
 makedepends=(
     'python-build'
     'python-installer'
@@ -26,10 +28,11 @@ makedepends=(
     # for satisfying namcap:
     'python-prompt_toolkit'
     'python-pygments'
-    'python-setproctitle')
+    'python-setproctitle'
+    'python-wcwidth')
 install=xonsh.install
 source=("https://github.com/xonsh/xonsh/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('8e6c5ef5b5bf844d2748c3d27350bcee9ac6dc00f16086caa5533fbe8b49aab5')
+sha256sums=('4b4103c8d6e65dcd61cfc71aff9eb95c5b7d1b9c2d21c333a0bb764f81f6e6f5')
 
 build() {
     cd "${pkgname}-${pkgver}"

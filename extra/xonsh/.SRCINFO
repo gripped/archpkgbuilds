@@ -1,6 +1,6 @@
 pkgbase = xonsh
 	pkgdesc = A python-powered shell. Full-featured and cross-platform.
-	pkgver = 0.23.4
+	pkgver = 0.23.5
 	pkgrel = 1
 	url = https://xon.sh/
 	install = xonsh.install
@@ -13,7 +13,9 @@ pkgbase = xonsh
 	makedepends = python-prompt_toolkit
 	makedepends = python-pygments
 	makedepends = python-setproctitle
+	makedepends = python-wcwidth
 	depends = python
+	depends = python-click
 	depends = python-distro
 	depends = python-packaging
 	depends = python-ply
@@ -21,7 +23,8 @@ pkgbase = xonsh
 	optdepends = python-prompt_toolkit: for SHELL_TYPE=prompt_toolkit
 	optdepends = python-pygments: for syntax highlighting and colorization
 	optdepends = python-setproctitle: for updating process title to match Xonsh arguments
-	source = https://github.com/xonsh/xonsh/archive/0.23.4/xonsh-0.23.4.tar.gz
-	sha256sums = 8e6c5ef5b5bf844d2748c3d27350bcee9ac6dc00f16086caa5533fbe8b49aab5
+	optdepends = python-wcwidth: for unicode symbols and emoji completer
+	source = https://github.com/xonsh/xonsh/archive/0.23.5/xonsh-0.23.5.tar.gz
+	sha256sums = 4b4103c8d6e65dcd61cfc71aff9eb95c5b7d1b9c2d21c333a0bb764f81f6e6f5
 
 pkgname = xonsh
