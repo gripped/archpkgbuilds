@@ -1,0 +1,21 @@
+diff -ru freewheeling-0.6.6.orig/src/fweelin_core.cc freewheeling-0.6.6/src/fweelin_core.cc
+--- freewheeling-0.6.6.orig/src/fweelin_core.cc	2026-04-30 23:33:02.301014044 +0200
++++ freewheeling-0.6.6/src/fweelin_core.cc	2026-04-30 23:33:06.881468843 +0200
+@@ -967,7 +967,7 @@
+       }
+     
+     // Done- compute our final hash
+-    md5_digest(&md5gen,SAVEABLE_HASH_LENGTH,GetSaveHash());
++    md5_digest(&md5gen,GetSaveHash());
+   }
+   
+   SetSaveStatus(SAVE_DONE);
+@@ -1198,7 +1198,7 @@
+     } while (go);
+     
+     // Done- compute final hash
+-    md5_digest(&md5gen,SAVEABLE_HASH_LENGTH,l->GetSaveHash());
++    md5_digest(&md5gen,l->GetSaveHash());
+     l->SetSaveStatus(SAVE_DONE);
+     delete hashi;
+ 
