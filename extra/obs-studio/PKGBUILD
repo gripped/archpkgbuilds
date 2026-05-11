@@ -4,28 +4,20 @@
 # Contributor: Benjamin Klettbach <b.klettbach@gmail.com>
 # Contributor: Maciek Marciniak <mm2pl at kotmisia.pl>
 
-pkgname=obs-studio
+pkgbase=obs-studio
+pkgname=('obs-studio' 'obs-studio-plugin-browser')
 pkgver=32.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Free, open source software for live streaming and recording"
 arch=('x86_64')
 url="https://obsproject.com"
 license=('GPL-2.0-only')
 depends=('ffmpeg' 'jansson' 'libxinerama' 'libxkbcommon-x11' 'mbedtls' 'rnnoise' 'pciutils'
          'qt6-svg' 'curl' 'jack' 'gtk-update-icon-cache' 'pipewire' 'libxcomposite'
-         'libdatachannel' 'uthash' 'simde' 'qrcodegencpp-cmake' 'python' 'cef')
-makedepends=('cmake' 'libfdk-aac' 'x264' 'swig' 'luajit' 'sndio' 'nlohmann-json'
+         'libdatachannel' 'uthash' 'simde' 'qrcodegencpp-cmake' 'python')
+makedepends=('cef' 'cmake' 'libfdk-aac' 'x264' 'swig' 'luajit' 'sndio' 'nlohmann-json'
              'ffnvcodec-headers' 'websocketpp' 'asio' 'extra-cmake-modules'
              'git')
-optdepends=('libfdk-aac: FDK AAC codec support'
-            'libva-intel-driver: hardware encoding for older Intel GPUs'
-            'intel-media-driver: hardware encoding for recent Intel GPUs'
-            'libva-mesa-driver: hardware encoding'
-            'luajit: scripting support'
-            'sndio: Sndio input client'
-            'v4l2loopback-dkms: virtual camera support'
-            'xdg-desktop-portal-impl: Wayland window/screen capture'
-            )
 source=(
   "$pkgname::git+https://github.com/obsproject/obs-studio#tag=$pkgver"
   "${pkgname}-libdshowcapture::git+https://github.com/obsproject/libdshowcapture.git"
@@ -88,6 +80,29 @@ build() {
   cmake --build build
 }
 
-package() {
+package_obs-studio() {
+  optdepends=('libfdk-aac: FDK AAC codec support'
+              'libva-intel-driver: hardware encoding for older Intel GPUs'
+              'intel-media-driver: hardware encoding for recent Intel GPUs'
+              'libva-mesa-driver: hardware encoding'
+              'luajit: scripting support'
+              'sndio: Sndio input client'
+              'v4l2loopback-dkms: virtual camera support'
+              'xdg-desktop-portal-impl: Wayland window/screen capture'
+              'obs-studio-plugin-browser: CEF-based browser plugin'
+              )
+
   DESTDIR="$pkgdir" cmake --install build
+  mv $pkgdir/usr/lib/obs-plugins/{obs-browser-page,obs-browser.so} .
+  mv $pkgdir/usr/share/obs/obs-plugins/obs-browser .
+}
+
+package_obs-studio-plugin-browser() {
+  pkgdesc="CEF-based OBS Studio browser plugin"
+  url="https://obsproject.com/kb/browser-source"
+  depends=('cef' 'glibc' 'libgcc' 'libstdc++' 'libx11' 'obs-studio' 'qt6-base')
+
+  install -Dm755 obs-browser-page obs-browser.so -t $pkgdir/usr/lib/obs-plugins/
+  install -d $pkgdir/usr/share/obs/obs-plugins/
+  mv obs-browser $pkgdir/usr/share/obs/obs-plugins/
 }
