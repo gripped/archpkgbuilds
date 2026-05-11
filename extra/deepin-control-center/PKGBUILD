@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-control-center
-pkgver=6.1.31
+pkgver=6.1.34
 pkgrel=1
 pkgdesc='Control panel of Deepin Desktop Environment'
 arch=('x86_64')
@@ -23,26 +23,21 @@ conflicts=('dde-control-center' 'dde-dock-applets')
 replaces=('dde-control-center' 'dde-dock-applets')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-control-center.git#tag=$pkgver")
-sha512sums=('c36b026f967de9360e268b39c08e1057a3829b7bec5a218cc5f5f58340a703800be4d27ceab789b08981e009a299b34756610dd9ce7e057281e728108757ac40')
+sha512sums=('30a8ff89990f8ea973b59c88a48066bd0b13019ed5a7fc9a3a77434c744ed7de922a9af1e6b6ca23a05528d7221e488f2b8293fdd59fe7ce6fff5eec6f0b5703')
 
 prepare() {
   mkdir -p build
 
   cd dde-control-center
 
-  # Upstream 6.1.21 strips only -D_FORTIFY_SOURCE and leaves Arch's
-  # '-Wp,' prefix behind from '-Wp,-D_FORTIFY_SOURCE=3', which breaks cc1plus.
-  sed -i 's|-D_FORTIFY_SOURCE=\[0-9\]\*|-Wp,-D_FORTIFY_SOURCE=[0-9]*|' CMakeLists.txt
-
   # authentication plugin needs dareader
   sed -i '/plugin-authentication/d' CMakeLists.txt
   # privacy plugin won't work
   sed -i '/plugin-privacy/d' CMakeLists.txt
-  # Fix build with Qt 6.10 private targets
-  sed -i '/find_package(${QT_NS} COMPONENTS Core Quick Gui Network DBus Concurrent Test LinguistTools Multimedia REQUIRED)/a if(${QT_NS}_VERSION VERSION_GREATER_EQUAL 6.10)\n  find_package(${QT_NS} COMPONENTS GuiPrivate REQUIRED)\nendif()' CMakeLists.txt
-  sed -i '/find_package(${QT_NS} COMPONENTS QmlModels REQUIRED)/a if(${QT_NS}_VERSION VERSION_GREATER_EQUAL 6.10)\n  find_package(${QT_NS} COMPONENTS QmlModelsPrivate REQUIRED)\nendif()' src/dde-control-center/CMakeLists.txt
-  sed -i '/find_package(Qt6 REQUIRED COMPONENTS WaylandClient)/a if(Qt6_VERSION VERSION_GREATER_EQUAL 6.10)\n  find_package(Qt6 COMPONENTS WaylandClientPrivate REQUIRED)\nendif()' src/plugin-personalization/CMakeLists.txt
-  sed -i '/${QT_NS}::Gui$/a\    ${QT_NS}::GuiPrivate' src/plugin-display/CMakeLists.txt
+  sed -i '/find_package(${QT_NS} COMPONENTS QmlModels REQUIRED)/a find_package(${QT_NS} COMPONENTS QmlModelsPrivate REQUIRED)' src/dde-control-center/CMakeLists.txt
+  sed -i '/find_package(Qt6 REQUIRED COMPONENTS WaylandClient)/a find_package(Qt6 COMPONENTS WaylandClientPrivate REQUIRED)' src/plugin-personalization/CMakeLists.txt
+  sed -i '/find_package(PkgConfig REQUIRED)/a find_package(${QT_NS} COMPONENTS GuiPrivate REQUIRED)' src/plugin-display/CMakeLists.txt
+  sed -i '0,/${QT_NS}::Gui$/s//${QT_NS}::Gui\n    ${QT_NS}::GuiPrivate/' src/plugin-display/CMakeLists.txt
 }
 
 build() {
