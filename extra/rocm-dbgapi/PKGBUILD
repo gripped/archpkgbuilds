@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=rocm-dbgapi
-pkgver=7.2.2
+pkgver=7.2.3
 pkgrel=1
 pkgdesc="Support library necessary for a debugger of AMD's GPUs"
 arch=('x86_64')
@@ -19,7 +19,7 @@ depends=(
 makedepends=('cmake' 'rocm-cmake')
 _git='https://github.com/ROCm/ROCdbgapi'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('5773790634cf8a06309f238415c0c96ce0ac2156c1411b0ebe003f3a1800faad')
+sha256sums=('746c3c5d0e64fcdad5ec99a47d2be719656c2f24e79f1dc22d29e4ce4f9fb832')
 _dirname=$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")
 
 build() {
@@ -29,6 +29,8 @@ build() {
         -S "$_dirname"
         -D CMAKE_BUILD_TYPE=None
         -D CMAKE_INSTALL_PREFIX=/opt/rocm
+        # GCC 16 added -Wsfinae-incomplete and upstream hasn't fixed this yet
+        -D CMAKE_CXX_FLAGS="${CXXFLAGS} -Wno-error=sfinae-incomplete"
     )
     cmake "${cmake_args[@]}"
     cmake --build build
