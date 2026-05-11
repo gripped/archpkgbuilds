@@ -2,18 +2,18 @@
 # Maintainer: Campbell Jones <serebit at archlinux dot org>
 # Contributor: VCalV
 pkgname=mergiraf
-pkgver=0.16.3
-pkgrel=2
+pkgver=0.17.0
+pkgrel=1
 pkgdesc="A syntax-aware git merge driver for a growing collection of programming languages and file formats"
 arch=('x86_64')
 url="https://mergiraf.org/"
 license=('GPL-3.0-or-later')
 makedepends=('rust')
 checkdepends=('git')
-depends=('glibc')
+depends=('glibc' 'libgcc')
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::https://codeberg.org/mergiraf/mergiraf/archive/v$pkgver.tar.gz")
-sha512sums=('48d46e8968a9c1bd0c9078caea84862b3876f36fef4471d93cdf93b8f33758cbeb47adcbeb61e8d0245020735d316177f50f1a95ebb33e8fd5ef9188155407f4')
+sha512sums=('71d995078014348a4ba31b6c661f28cc2bc157da323be3dd58fef31bb99037005e31ba3aaade993c61bf2a2c613dcda086eff23d6820e2ec56a264c42ee4273c')
 
 prepare() {
     cd "$pkgname"
@@ -29,6 +29,9 @@ build() {
 
 check() {
     cd "$pkgname"
+
+    # See https://codeberg.org/mergiraf/mergiraf/issues/761
+    export CFLAGS="${CFLAGS/-O2}"
 
     cargo test --all-features
 }
