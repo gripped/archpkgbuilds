@@ -3,8 +3,8 @@
 # Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=variety
-pkgver=0.8.13
-pkgrel=5
+pkgver=0.9.0
+pkgrel=1
 pkgdesc='Changes the wallpaper on a regular interval using user-specified or automatically downloaded images.'
 arch=('any')
 url="https://peterlevi.com/variety/"
@@ -12,18 +12,12 @@ license=('GPL-3.0-only')
 depends=('gtk3' 'imagemagick' 'libgexiv2' 'libnotify' 'python-beautifulsoup4' 'python-cairo'
          'python-configobj' 'dbus-python' 'python-gobject' 'python-httplib2' 'python-pillow'
          'python-lxml' 'python-pycurl' 'python-requests')
-makedepends=('python-distutils-extra' 'python-build' 'python-installer' 'python-wheel')
+makedepends=('python-distutils-extra' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools-gettext')
 optdepends=('xdg-user-dirs: set wallpaper for KDE Plasma'
             'qt5-tools: set wallpaper for KDE Plasma')
 source=($pkgname-$pkgver.tar.gz::https://github.com/varietywalls/variety/archive/$pkgver.tar.gz
-    'variety-0.8.13-fix-pep-517.patch')
-sha256sums=('3d41acc60922e6b03d8bdddaa05c8b1bb1b6b0316e7bb068663c502c487d45d9'
-            '75a697924c692e4c0240e48066e82af4ed557ef035be20ed2e754efab2573c17')
-
-prepare() {
-  cd "${srcdir}"/$pkgname-$pkgver
-  patch -Np1 < ../variety-0.8.13-fix-pep-517.patch
-}
+    )
+sha256sums=('cfd3927d01d0415116a03886d0f54c3a8d5133360c1aef14a693cf76e97927de')
 
 build() {
   cd "${srcdir}"/$pkgname-$pkgver
