@@ -2,7 +2,7 @@
 
 pkgname=lxqt-wayland-session
 pkgver=0.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Files needed for the LXQt Wayland Session'
 arch=('any')
 url='https://github.com/lxqt/lxqt-wayland-session'
@@ -46,6 +46,7 @@ validpgpkeys=(
   "19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # https://github.com/tsujan
   "48836EB124A1EAAE695EDFEA229CA0A00A17D258"  # the key owned by standreas@riseup.net as per keys.openpgp.org. That email is used by https://github.com/stefonarch/, a long-time LXQt contributor
 )
+install=lxqt-wayland-session.install
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
