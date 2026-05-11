@@ -4,7 +4,7 @@
 
 pkgname=hefur
 pkgver=1.0
-pkgrel=36
+pkgrel=38
 _protobuf_ver=34.1
 pkgdesc='A standalone and lightweight BitTorrent tracker'
 arch=('x86_64')
@@ -45,9 +45,9 @@ prepare() {
 	git -C hefur config --local submodule.mimosa.url "${srcdir}/mimosa"
 	git -C hefur -c protocol.file.allow='always' submodule update
 	
-	# add fixes for recent protobuf versions
+	# add fixes for recent protobuf versions and nettle 4.0
 	git -C hefur/mimosa config --local advice.detachedHead false
-	git -C hefur/mimosa checkout 075e75a069abc6756c738a5835bbb9ec29e08259
+	git -C hefur/mimosa checkout 38a5cbab7239eeed6631ea5029d7d2b33446f88a
 	
 	patch -d hefur -Np1 -i "${srcdir}/010-hefur-fix-install.patch"
 	patch -d hefur -Np1 -i "${srcdir}/020-hefur-fix-invalid-port-set-for-https.patch"
