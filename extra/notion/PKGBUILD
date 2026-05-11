@@ -4,20 +4,21 @@
 
 pkgname=notion
 epoch=1
-pkgver=4.0.4
-pkgrel=2
-_commit=e41640bc5bf1679e11b3e6587eea18b987115133
+pkgver=4.0.5
+pkgrel=1
+_commit=8c384b53b4705b6936297a164746da6de762ac78
 _commit_doc=746225fb6cfc9109663faaabc73e444ea88815bb
 pkgdesc="Tabbed tiling, window manager. Fork of Ion3"
 url="https://notionwm.net"
 arch=('x86_64')
-license=('LGPL')
-depends=('glib2' 'gettext' 'lua54' 'libxext' 'libsm' 'freetype2' 'libxft')
-optdepends=('libxinerama' 'libxrandr' 'xorg-xmessage'
-            'perl: for contrib/verify_index.pl')
-makedepends=('git' 'pkgconfig' 'libxinerama' 'libxrandr'
-	     'rubber' 'latex2html' 'texlive-latexextra')
-optdepends=('xorg-fonts-100dpi' 'xorg-fonts-75dpi')
+license=('LGPL-2.1-or-later')
+depends=('glib2' 'gettext' 'lua54' 'libxext' 'libsm' 'freetype2' 'libxft'
+         'libxinerama' 'libxrandr' 'readline' 'libx11' 'libice')
+makedepends=('git' 'pkgconfig' 'rubber' 'latex2html' 'texlive-latexextra')
+optdepends=('xorg-xmessage: dialog messages'
+            'perl: contrib scripts (verify_index.pl, notionmount.pl)'
+            'zsh: contrib notion_rofi.sh'
+            'xorg-fonts-100dpi' 'xorg-fonts-75dpi')
 backup=("etc/notion/cfg_bindings.lua"
 	"etc/notion/cfg_defaults.lua"
 	"etc/notion/cfg_dock.lua"
@@ -61,13 +62,10 @@ backup=("etc/notion/cfg_bindings.lua"
 	"etc/notion/xkbbell.lua"
 	"etc/notion/xkbion.lua")
 provides=('libtu' 'libextl')
-changelog=ChangleLog
 source=("notion::git+https://github.com/raboof/notion#commit=${_commit}"
-        "notion-doc::git+https://github.com/raboof/notion-doc.git#commit=${_commit_doc}"
-        "build-fix.patch")
-sha256sums=('c5d329edd6ef57ff6037ce8910dc106581525102d3c3789ff7cd9f012626cd19'
-            '7492bdfae572de1130857ba7725912efda4a44cbd65e9d6d2dca6de568c40d73'
-            '1623e36fb0f86db50194f3e186cfedba690696d83a1cf063e136055e551a2d6d')
+	"notion-doc::git+https://github.com/raboof/notion-doc.git#commit=${_commit_doc}")
+sha256sums=('0c5bd90415417123026f2450d20744cc362c5ca4cce900ab46f5371ae3c5a353'
+            '7492bdfae572de1130857ba7725912efda4a44cbd65e9d6d2dca6de568c40d73')
 
 prepare() {
   cd "$srcdir"
@@ -80,7 +78,6 @@ LUAC         := $(which luac5.4)
 EOF
   sed -i '/Skipping dvi and ps because/d' notion-doc/Makefile
   cd notion
-#  patch -p1 -i ../build-fix.patch
 }
 
 build() {

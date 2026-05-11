@@ -1,16 +1,13 @@
 pkgbase = notion
 	pkgdesc = Tabbed tiling, window manager. Fork of Ion3
-	pkgver = 4.0.4
-	pkgrel = 2
+	pkgver = 4.0.5
+	pkgrel = 1
 	epoch = 1
 	url = https://notionwm.net
-	changelog = ChangleLog
 	arch = x86_64
-	license = LGPL
+	license = LGPL-2.1-or-later
 	makedepends = git
 	makedepends = pkgconfig
-	makedepends = libxinerama
-	makedepends = libxrandr
 	makedepends = rubber
 	makedepends = latex2html
 	makedepends = texlive-latexextra
@@ -21,6 +18,14 @@ pkgbase = notion
 	depends = libsm
 	depends = freetype2
 	depends = libxft
+	depends = libxinerama
+	depends = libxrandr
+	depends = readline
+	depends = libx11
+	depends = libice
+	optdepends = xorg-xmessage: dialog messages
+	optdepends = perl: contrib scripts (verify_index.pl, notionmount.pl)
+	optdepends = zsh: contrib notion_rofi.sh
 	optdepends = xorg-fonts-100dpi
 	optdepends = xorg-fonts-75dpi
 	provides = libtu
@@ -67,11 +72,9 @@ pkgbase = notion
 	backup = etc/notion/test_xinerama.lua
 	backup = etc/notion/xkbbell.lua
 	backup = etc/notion/xkbion.lua
-	source = notion::git+https://github.com/raboof/notion#commit=e41640bc5bf1679e11b3e6587eea18b987115133
+	source = notion::git+https://github.com/raboof/notion#commit=8c384b53b4705b6936297a164746da6de762ac78
 	source = notion-doc::git+https://github.com/raboof/notion-doc.git#commit=746225fb6cfc9109663faaabc73e444ea88815bb
-	source = build-fix.patch
-	sha256sums = c5d329edd6ef57ff6037ce8910dc106581525102d3c3789ff7cd9f012626cd19
+	sha256sums = 0c5bd90415417123026f2450d20744cc362c5ca4cce900ab46f5371ae3c5a353
 	sha256sums = 7492bdfae572de1130857ba7725912efda4a44cbd65e9d6d2dca6de568c40d73
-	sha256sums = 1623e36fb0f86db50194f3e186cfedba690696d83a1cf063e136055e551a2d6d
 
 pkgname = notion
