@@ -1,7 +1,7 @@
 pkgbase = sequoia-sop
 	pkgdesc = Implementation of the Stateless OpenPGP Interface using Sequoia
 	pkgver = 0.37.3
-	pkgrel = 1
+	pkgrel = 3
 	url = https://gitlab.com/sequoia-pgp/sequoia-sop
 	arch = x86_64
 	groups = sequoia
@@ -10,10 +10,10 @@ pkgbase = sequoia-sop
 	makedepends = git
 	makedepends = cargo
 	makedepends = clang
-	makedepends = nettle
-	depends = gcc-libs
 	depends = glibc
 	depends = gmp
+	depends = libgcc
+	depends = nettle3
 	depends = sqlite
 	source = sequoia-sop::git+https://gitlab.com/sequoia-pgp/sequoia-sop#tag=v0.37.3?signed
 	validpgpkeys = CBCD8F030588653EEDD7E2659B7DD433F254904A
@@ -22,10 +22,11 @@ pkgbase = sequoia-sop
 	b2sums = 7f95534da2ad0cc9b35282f097b04c77e865928324d19bcdc984768a94706dcf62142372e6626a027b4096b0d38f001013785d4db49517817ce490c2d819985b
 
 pkgname = sequoia-sop
-	depends = gcc-libs
 	depends = glibc
 	depends = gmp
+	depends = libgcc
+	depends = nettle3
 	depends = sqlite
-	depends = nettle
+	depends = nettle3
 	depends = libnettle.so
 	depends = libhogweed.so

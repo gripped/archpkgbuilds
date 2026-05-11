@@ -2,7 +2,7 @@
 
 pkgname=sequoia-sop
 pkgver=0.37.3
-pkgrel=1
+pkgrel=3
 pkgdesc='Implementation of the Stateless OpenPGP Interface using Sequoia'
 url='https://gitlab.com/sequoia-pgp/sequoia-sop'
 arch=(x86_64)
@@ -12,9 +12,10 @@ groups=(
   stateless-openpgp
 )
 depends=(
-  gcc-libs
   glibc
   gmp
+  libgcc
+  nettle3
   # this dependency is due to overlinking, but even though it's technically unused the linker is going to expect this .so to be present
   sqlite
 )
@@ -22,7 +23,6 @@ makedepends=(
   git
   cargo
   clang
-  nettle
 )
 source=(sequoia-sop::"git+$url#tag=v$pkgver?signed")
 sha512sums=('255d83511d43ef782d82b756cf444dfb65a4d403e8bfec5c1049e76096f37cebc4136d92c0bff473d05f9711242aa287ab95beaa97d70260074f9d24177c680d')
@@ -34,27 +34,27 @@ validpgpkeys=(
 
 prepare() {
   cd ${pkgname}
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+# Update nettle-sys to fix build with clang 22
+  cargo update -p nettle-sys --precise 2.3.2
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cd ${pkgname}
   export ASSET_OUT_DIR="$srcdir/${pkgname}"
+  PKG_CONFIG_LIBDIR=/usr/lib/nettle3/pkgconfig \
   cargo build --release --frozen --features crypto-nettle,cli,cliv
 }
 
 check() {
-  export RUSTUP_TOOLCHAIN=stable
   cd ${pkgname}
+  PKG_CONFIG_LIBDIR=/usr/lib/nettle3/pkgconfig \
   cargo test --frozen --features crypto-nettle,cli,cliv
 }
 
 package() {
   depends+=(
-    nettle libnettle.so libhogweed.so
+    nettle3 libnettle.so libhogweed.so
   )
 
   cd ${pkgname}
