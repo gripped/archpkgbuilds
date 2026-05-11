@@ -18,8 +18,8 @@ pkgname=('php-legacy'
          'php-legacy-sqlite'
          'php-legacy-tidy'
          'php-legacy-xsl')
-pkgver=8.3.30
-pkgrel=2
+pkgver=8.3.31
+pkgrel=1
 arch=('x86_64')
 license=('PHP-3.01')
 url='https://www.php.net/'
@@ -30,7 +30,7 @@ checkdepends=('procps-ng')
 source=("https://php.net/distributions/php-${pkgver}.tar.xz"{,.asc}
         'apache.conf' 'php-fpm.tmpfiles' 'apache.patch' 'php-fpm.patch' 'php.ini.patch' 'php-legacy.patch')
 
-sha256sums=('67f084d36852daab6809561a7c8023d130ca07fc6af8fb040684dd1414934d48'
+sha256sums=('66410cee07f4b2baeb0843140bb2a2b52ef930b5cf9b3d6e6d158b33aae8fa37'
             'SKIP'
             '4a2add00d93fa991ccdf6356090264c1059c79935642afff6e8d4a2107fa037e'
             'f3236ca866095d5e42e51e3fa600082ccd0afcfb7f1aecbeb286ef9d4f0dd564'
