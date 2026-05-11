@@ -10,7 +10,7 @@
 
 pkgname=chrony
 pkgver=4.8
-pkgrel=2
+pkgrel=3
 pkgdesc='Lightweight NTP client and server'
 url=https://chrony-project.org/
 arch=('x86_64')
@@ -45,6 +45,7 @@ validpgpkeys=(
 
 prepare() {
   cd $pkgname
+  git cherry-pick -n fee12ec914cce805cc704a4c2804d75b4933ad2f # Fix build with nettle 4.0
   sed -i \
     -e 's|pool pool.ntp.org|pool 2.arch.pool.ntp.org|g' \
     -e 's|server ntp1.example.net|server 0.arch.pool.ntp.org|g' \
