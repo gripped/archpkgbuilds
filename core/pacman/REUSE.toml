@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -24,3 +27,10 @@ path = [
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "0001-libalpm-invalidate-curl-data-in-child.patch",
+]
+SPDX-FileCopyrightText = "pacman contributors"
+SPDX-License-Identifier = "GPL-2.0-or-later"
