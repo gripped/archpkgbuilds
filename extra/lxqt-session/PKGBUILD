@@ -3,7 +3,7 @@
 
 pkgname=lxqt-session
 pkgver=2.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="The LXQt session manager"
 arch=("x86_64")
 groups=("lxqt")
@@ -33,6 +33,7 @@ validpgpkeys=(
 	"19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # Pedram Pourang <tsujan2000@gmail.com>
 	"48836EB124A1EAAE695EDFEA229CA0A00A17D258"  # the key owned by an email used by https://github.com/stefonarch/, a long-time LXQt contributor, as per keys.openpgp.org
 )
+install=lxqt-session.install
 
 prepare() {
 	cd "$srcdir/$pkgname-$pkgver"
