@@ -6,7 +6,7 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=feh
-pkgver=3.12.1
+pkgver=3.12.2
 pkgrel=1
 pkgdesc='Fast and light imlib2-based image viewer'
 url='https://feh.finalrewind.org/'
@@ -28,20 +28,20 @@ validpgpkeys=('429AF7B8E9EC9C0709D32F7F5333FB7712E24FE8'  # Birte Kristina Fries
               '781BB7071C6BF648EAEB08A1100D5BFB5166E005'  # Daniel Friesel <derf@finalrewind.org> 
               '64FE6EC055560F9EF13A304419E6E524EBB177BA') # Derf Null <derf@ccc.de>
 source=("git+https://git.finalrewind.org/feh.git#tag=${pkgver}?signed")
-sha256sums=('eaba7ce634a26b1ce6fc4e1789ac99638ddd91d637a28b5144fb39108430b9d4')
+sha256sums=('4ebb9b856d2ffb2dc3f938e68733d5dbefa4a720021acac329c8b36f43e25582')
 
 build() {
-	cd "${srcdir}/${pkgname}"
-	make PREFIX=/usr \
-		exif=1 \
-		help=1 \
-		inotify=1 \
-		magic=1 \
-		stat64=1
+  cd "${srcdir}/${pkgname}"
+  make PREFIX=/usr \
+    exif=1 \
+    help=1 \
+    inotify=1 \
+    magic=1 \
+    stat64=1
 }
 
 package() {
-	cd "${srcdir}/${pkgname}"
-	make PREFIX=/usr DESTDIR="${pkgdir}" install
-	install -D -m0644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cd "${srcdir}/${pkgname}"
+  make PREFIX=/usr DESTDIR="${pkgdir}" install
+  install -D -m0644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
