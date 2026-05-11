@@ -2,27 +2,27 @@
 # Contributor: Marc Tiehuis <marctiehuis@gmail.com>
 
 pkgname=zig
-pkgver=0.15.2
-pkgrel=3
+pkgver=0.16.0
+pkgrel=1
 pkgdesc='a general-purpose programming language and toolchain for maintaining robust, optimal, and reusable software'
 arch=('x86_64')
 url='https://ziglang.org/'
 license=('MIT')
 options=('!lto')
-depends=('clang20' 'lld20' 'llvm20-libs')
-makedepends=('cmake' 'llvm20')
+depends=('clang21' 'lld21' 'llvm21-libs')
+makedepends=('cmake' 'llvm21')
 checkdepends=('lib32-glibc')
 source=("https://ziglang.org/download/$pkgver/zig-$pkgver.tar.xz"
-        "skip-localhost-test.patch"
+        "https://codeberg.org/ziglang/zig/commit/9df02121d0d87c17173f79d55692bed9cb65722c.patch"
         "skip-futex2-test.patch")
-sha256sums=('d9b30c7aa983fcff5eed2084d54ae83eaafe7ff3a84d8fb754d854165a6e521c'
-            'eeb5f0f72035c52bf558ffc77a171a3ddf93eac7d663ef0c82826007763717a8'
+sha256sums=('43186959edc87d5c7a1be7b7d2a25efffd22ce5807c7af99067f86f99641bfdf'
+            'cc513105cd250a107fcdefa6fed1147040f3cac4d377d545617840bd830da8d3'
             'eb30e0eb00e6ced4c99383f0658a0351f42882e303300ed1828d162d27171cd0')
 
 prepare() {
     cd "$pkgname-$pkgver"
 
-    patch -p1 -i ../skip-localhost-test.patch
+    patch -p1 -i ../9df02121d0d87c17173f79d55692bed9cb65722c.patch
     patch -p1 -i ../skip-futex2-test.patch
 }
 
