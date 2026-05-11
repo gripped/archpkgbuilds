@@ -2,58 +2,54 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=bun
-pkgver=1.3.11
-_webkitver=00e825523d549a556d75985f486e4954af6ab8c7
-_zigver=9a092d3f95a8087c298e847848816cd2d53d2734
-pkgrel=3
+pkgver=1.3.13
+# From https://github.com/oven-sh/bun/blob/main/scripts/build/deps/webkit.ts#L6
+_webkitver=4d5e75ebd84a14edbc7ae264245dcd77fe597c10
+# From https://github.com/oven-sh/bun/blob/main/scripts/build/zig.ts#L36
+_zigver=365343af4fc5a1a632e6b54aadd0b87be30edd81
+pkgrel=1
 pkgdesc="Incredibly fast JavaScript runtime, bundler, test runner, and package manager – all in one"
-arch=(x86_64)
+arch=(x86_64 aarch64)
 url="https://github.com/oven-sh/bun"
 license=('MIT')
 depends=(
-  libgcc
-  libatomic
   glibc
   icu
-  sqlite
 )
 makedepends=(
-  cargo   # bun
-  clang   # bun, webkit
-  clang20 # zig
+  cargo           # bun
+  clang21         # bun, webkit
   cmake
   git
-  lld    # bun, webkit
-  lld20  # zig
-  llvm   # bun
-  llvm20 # zig
+  lld21           # bun, webkit
+  llvm21          # bun, webkit
   ninja
   python          # webkit
   ruby            # webkit
   ruby-getoptlong # webkit
+  unzip
 )
 options=('!lto')
 source=(
   "git+$url.git#tag=bun-v$pkgver"
   "$pkgname-WebKit::git+https://github.com/oven-sh/WebKit.git#commit=$_webkitver"
-  "$pkgname-zig::git+https://github.com/oven-sh/zig.git#commit=$_zigver"
-  "$pkgname-add-cmake-option-zig-local.patch"
-  "$pkgname-sqlite3-lib-path.diff"
-  "$pkgname-highway-evex512.patch"
   "$pkgname-webkit-typed-array-int32-conversion.patch"
 )
-# Prebuilt bun binary for code generation (per-architecture)
-source_x86_64=("$pkgname-bootstrap-$pkgver.zip::https://github.com/oven-sh/bun/releases/download/bun-v$pkgver/bun-linux-x64.zip")
-source_aarch64=("$pkgname-bootstrap-$pkgver.zip::https://github.com/oven-sh/bun/releases/download/bun-v$pkgver/bun-linux-aarch64.zip")
-b2sums=('4fa400f33c50e4eff3e58e07d5aae5864cd1f1c2c48cc9ec587bbc76049eb5f95175130e70f9147bf7a7050c33417e22928d430423069a8d6a9b8aa0ce9fe102'
-        '974e2613510082868d085496bd4673c2ce7636383c9f6bc7d9a998112b7cb0485dbe5f2fdf61bde936df2dd2e7f00e391b63bff522ff19ad4a8862738a3fe3c3'
-        'e274a2cbd7e8df8ca26e5fbd6aa54f84a8c713899a4d4ba6f93e5d05345bcde4b8d58e3dc355fb99c3fdbe236c768336f96c126d688e9fcbddc8d763277d2cb6'
-        'f2f96e38df6844239d65fe22a4a76bcb86c05496bcbb7923f083acd3a41d1d5d812b68733885b89a5456f73c083655fe098a17599611c9e463b7919199d5f38d'
-        'f1ad976393570be7f09e0391d68a4f573735ddc13be577f9d3746f8adb71d66b74d705429a8bd5c3582107971a5ded1931303185dae6763251ad7ce4ce9e2cd5'
-        '15d118740633a04f3c669b4bbaca9f8d70af87fd64dfaf48fff302f3cfd33a7de3cf85321f33682ac2e88603fced68ac660d8b343bc9988c24fb119f07157d95'
+source_x86_64=(
+  "$pkgname-bootstrap-$pkgver.zip::https://github.com/oven-sh/bun/releases/download/bun-v$pkgver/bun-linux-x64.zip"
+  "$pkgname-zig-$_zigver-x86_64.zip::https://github.com/oven-sh/zig/releases/download/autobuild-$_zigver/bootstrap-x86_64-linux-musl.zip"
+)
+source_aarch64=(
+  "$pkgname-bootstrap-$pkgver.zip::https://github.com/oven-sh/bun/releases/download/bun-v$pkgver/bun-linux-aarch64.zip"
+  "$pkgname-zig-$_zigver-aarch64.zip::https://github.com/oven-sh/zig/releases/download/autobuild-$_zigver/bootstrap-aarch64-linux-musl.zip"
+)
+b2sums=('0a300c8df9a5e40e72acdf23ba0319ebbea3ea1b09e4c367377a13fc6829429081aa35b8428734d988b87ff2590475505c038b694bd97f45d9fd6e5a50f5c8ea'
+        'd1f67be7b083c61087e782be26456374d287231a731ef8f68ae7219667bc72c432b29f38070380b65078f77c76afa348a8b770e3ff3aa6ce2adf627b0ea8b57e'
         '36a5af756df6aacb5e80dc19d76201f953a5e6fc0bdb700731421f03b0d44147f56d967eac307f9f41f85beb26aa4b23b6e67e87f500f1c400808a3caa43e2f1')
-b2sums_x86_64=('7f3c7c63e2f6afa16788e0949b7daa37b8f667a3f99ae1bd64d56a8eef8fbad6b99b4ed01dbf8b11da0d055fc8af8c6dc5396866b37c5e14f6e518d4136ab9c3')
-b2sums_aarch64=('2fdea01af8e2b47938fbde89061645efd88c89f41665128a5082f6082ae373a11b95168b79a4a05c313349e8b81dd6046b6527b0a17ed8d8bc98f8458fcf36e1')
+b2sums_x86_64=('27d373ddff381e2cba9b8ba6c58ef0bcc6f002e8b814b6ea1252dd587c04381228f6dadfb03ffd9d7910dd935370c5017afd34d9075de12804463b7fe9baa638'
+               'e9cde161c5da43d21ae3f99b3753223a2d26b7ed60a6ad0da0f15d5f3d3637d2304278b7e18a65d6fdea65460fc504ad8d809e35eebe403994ba4706c969087c')
+b2sums_aarch64=('27d373ddff381e2cba9b8ba6c58ef0bcc6f002e8b814b6ea1252dd587c04381228f6dadfb03ffd9d7910dd935370c5017afd34d9075de12804463b7fe9baa638'
+                'f997355c7e49aae3e519cc243b646f21f21a99d183a4cef7b9ee00a711b89d9a8547fe549494dccfe9a456376f1c26ba653202e5dae913504acbe4aa962dc941')
 
 prepare() {
   # Fix UB in JSC typed array int32 conversion that causes wrong values
@@ -61,101 +57,58 @@ prepare() {
   patch -Np1 -d $pkgname-WebKit < $pkgname-webkit-typed-array-int32-conversion.patch
 
   cd $pkgname
-  grep -q "WEBKIT_VERSION $_webkitver" cmake/tools/SetupWebKit.cmake \
+
+  grep -q "WEBKIT_VERSION = \"$_webkitver\"" scripts/build/deps/webkit.ts \
     || (echo "WebKit version mismatch"; exit 1)
-  # The actual commit that is referenced is not in-tree. I picked an equivalent
-  # commit that was actually merged. I'm not sure how they could release that
-  # but they did.
-  # TODO: This check should probably be re-enabled with the next bun release.
-  # grep -q "ZIG_COMMIT \"$_zigver\"" cmake/tools/SetupZig.cmake \
-  #   || (echo "Zig version mismatch"; exit 1)
-  patch -Np1 < ../$pkgname-add-cmake-option-zig-local.patch
-  patch -Np1 < ../$pkgname-sqlite3-lib-path.diff
-  # Add highway evex512 patch for clang 20+ compatibility
-  cp ../$pkgname-highway-evex512.patch patches/highway/
+  grep -q "ZIG_COMMIT = \"$_zigver\"" scripts/build/zig.ts \
+    || (echo "Zig version mismatch"; exit 1)
+
+  # Place the WebKit checkout where bun's build system expects local WebKit sources
+  # See also https://bun.sh/docs/project/contributing#building-webkit-locally-+-debug-mode-of-jsc
+  mkdir -p vendor
+  cp -r "$srcdir/$pkgname-WebKit" vendor/WebKit
+
+  case "$CARCH" in
+    x86_64)  _zigzip="$srcdir/$pkgname-zig-$_zigver-x86_64.zip" ;;
+    aarch64) _zigzip="$srcdir/$pkgname-zig-$_zigver-aarch64.zip" ;;
+  esac
+  # unzip can't strip dirs but we want to get rid of the first contained dir so we have to do a little dance
+  mkdir -p vendor/zig.extract
+  unzip -q "$_zigzip" -d vendor/zig.extract
+  mv vendor/zig.extract/* vendor/zig
+  printf '%s\n' "$_zigver" > vendor/zig/.zig-commit
 }
 
 build() {
-  local cmake_args_common=(
-    -DCMAKE_INSTALL_PREFIX=/usr
-    -Wno-dev
-    -GNinja
-  )
-
-  export PATH="/usr/lib/llvm/bin:$PATH"
-
-  CC=clang CXX=clang++ \
-    cmake -S bun-WebKit -B build-WebKit \
-    "${cmake_args_common[@]}" \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DPORT=JSCOnly \
-    -DENABLE_STATIC_JSC=ON \
-    -DUSE_BUN_JSC_ADDITIONS=ON \
-    -DUSE_BUN_EVENT_LOOP=ON \
-    -DENABLE_FTL_JIT=ON \
-    -DALLOW_LINE_AND_COLUMN_NUMBER_IN_BUILTINS=ON \
-    -DENABLE_REMOTE_INSPECTOR=ON
-  cmake --build build-WebKit --target jsc
-
-  PATH="/usr/lib/llvm20/bin:$PATH" \
-    cmake -S bun-zig -B build-zig \
-    "${cmake_args_common[@]}" \
-    -DCMAKE_BUILD_TYPE=None \
-    -DZIG_PIE=ON \
-    -DZIG_SHARED_LLVM=ON \
-    -DZIG_USE_LLVM_CONFIG=ON \
-    -DZIG_TARGET_TRIPLE=native-linux.6.6-gnu.2.40 \
-    -DZIG_TARGET_MCPU=baseline
-  cmake --build build-zig
-
-  rm build-WebKit/JavaScriptCore/DerivedSources/inspector/InspectorProtocolObjects.h
-
-  mkdir -vp bun/vendor/zig
-  ln -vsf "$PWD/build-zig/stage3/bin/zig" bun/vendor/zig/zig
-  ln -vsf "$PWD/build-zig/stage3/lib/zig" bun/vendor/zig/lib
-  ln -vsf "$PWD/bun-WebKit" bun/vendor/WebKit
-
-  # Link system ICU libs - bun expects .a but works with .so
-  ln -vs /usr/lib/libicudata.so build-WebKit/lib/libicudata.a
-  ln -vs /usr/lib/libicui18n.so build-WebKit/lib/libicui18n.a
-  ln -vs /usr/lib/libicuuc.so build-WebKit/lib/libicuuc.a
+  export PATH="/usr/lib/llvm21/bin:$PATH"
 
   case "$CARCH" in
     x86_64)  _bundir="bun-linux-x64" ;;
     aarch64) _bundir="bun-linux-aarch64" ;;
   esac
 
-  export PATH="$PWD/$_bundir:$PATH"
-  bun run --cwd=$pkgname scripts/glob-sources.mjs
+  export PATH="$srcdir/$_bundir:$PATH"
 
-  local llvmver=$(clang --version | head -1 | awk '{print $3}')
-  cmake -S bun -B build-bun \
-    "${cmake_args_common[@]}" \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DENABLE_CANARY=OFF \
-    -DLLVM_VERSION="$llvmver" \
-    -DENABLE_LTO=ON \
-    -DENABLE_ASAN=OFF \
-    -DUSE_STATIC_SQLITE=OFF \
-    -DUSE_STATIC_LIBATOMIC=OFF \
-    -DWEBKIT_LOCAL=ON \
-    -DWEBKIT_PATH="$PWD/build-WebKit" \
-    -DZIG_LOCAL=ON
-  cmake --build build-bun
+  cd $pkgname
+  bun scripts/build.ts \
+    --profile=release-local \
+    --build-dir=build/release \
+    --cache-dir="$srcdir/build-cache"
 }
 
 check() {
-  # Smoke test
-  ./build-bun/bun --version
-  echo 'console.log("ok")' | ./build-bun/bun run -
+  cd $pkgname
+  ./build/release/bun --version
+  echo 'console.log("ok")' | ./build/release/bun run -
 }
 
 package() {
-  install -vDm755 build-bun/bun "$pkgdir/usr/bin/bun"
+  cd $pkgname
+  install -vDm755 build/release/bun "$pkgdir/usr/bin/bun"
   ln -vs /usr/bin/bun "$pkgdir/usr/bin/bunx"
-  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" bun/LICENSE.md
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.md
 
-  install -vDm644 bun/completions/bun.bash "$pkgdir/usr/share/bash-completion/completions/bun"
-  install -vDm644 bun/completions/bun.fish "$pkgdir/usr/share/fish/vendor_completions.d/bun.fish"
-  install -vDm644 bun/completions/bun.zsh "$pkgdir/usr/share/zsh/site-functions/_bun"
+  install -vDm644 completions/bun.bash "$pkgdir/usr/share/bash-completion/completions/bun"
+  install -vDm644 completions/bun.fish "$pkgdir/usr/share/fish/vendor_completions.d/bun.fish"
+  install -vDm644 completions/bun.zsh "$pkgdir/usr/share/zsh/site-functions/_bun"
 }
