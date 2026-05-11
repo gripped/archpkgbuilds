@@ -3,7 +3,7 @@
 # Contributor: Greg Land <landjgregory at gmail dot com>
 
 pkgname=rocm-core
-pkgver=7.2.2
+pkgver=7.2.3
 pkgrel=1
 pkgdesc='AMD ROCm core package (version files)'
 license=('MIT')
@@ -21,7 +21,7 @@ source=("rocm-$pkgver.tar.gz::https://github.com/ROCm/rocm-systems/archive/refs/
         'rocm-ld.conf'
         'rocm-profile.sh'
         'rocm.fish')
-b2sums=('a985e87b1e0cea78cecefcef830b31622cdda4b44df262970c950eb8e2a2ba82a29626ff67bef257456481825b4cf4230f491023fd0ee3582378ed407d2447f5'
+b2sums=('d6a870d40b8d4fe15784606af25b7fc0deb71f733cddf1cab99cc936d3c0b5b629c39628c57d10136538c747f9aea6196616b4a90efc689dcbe3cf56c55146b1'
         'd045c357d8e7e8a4840ab137404f12cd08419444ffc478046c13ed3bd13a5d33358c1443bf76ee571a7a062454e2bdda1a5507a70edbd001bce004f18775e4b2'
         '4372bcbe97d7c95d4918ad4beacc4fe9bfc8bfb8cafcf08d9ebbcba7df3e3bf535ff51f90c2d0f653858b0ae03b108ac3cb32b61b4ecac3abb609acc06be3ee3'
         '16bae84aeb429a298d548945860102be13b80b06f823abae13fd37a9d3b571de732f2e304fe67625520b414595fd070944dd29855b0405883d713b5a966c66b9')
