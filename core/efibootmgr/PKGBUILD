@@ -4,9 +4,8 @@
 # Contributor: Keshav Amburay <(the ddoott ridikulus ddoott rat) (aatt) (gemmaeiil) (ddoott) (ccoomm)>
 
 pkgname=efibootmgr
-_commit=712aeb81311de28a3fcfea7465dcb93743f07a53  # refs/tags/18
 pkgver=18
-pkgrel=3
+pkgrel=4
 pkgdesc="Linux user-space application to modify the EFI Boot Manager"
 arch=(x86_64)
 url="https://github.com/rhboot/efibootmgr"
@@ -19,7 +18,7 @@ makedepends=(
   efivar
   git
 )
-source=($pkgname::git+$url#tag=$_commit?signed)
+source=($pkgname::git+$url?signed#tag=$pkgver)
 sha512sums=('SKIP')
 validpgpkeys=(
   'B00B48BC731AA8840FED9FB0EED266B70F4FEF10'  # Peter Jones <pjones@redhat.com>
