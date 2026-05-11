@@ -3,7 +3,7 @@
 
 _name=google-auth-oauthlib
 pkgname=python-"${_name}"
-pkgver=1.3.1
+pkgver=1.4.0
 pkgrel=1
 pkgdesc="oauthlib integration for Google auth."
 url="http://google-auth-oauthlib.readthedocs.io/en/latest/"
@@ -14,7 +14,7 @@ optdepends=('python-click')
 license=('Apache-2.0')
 arch=('any')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/googleapis/google-cloud-python/archive/refs/tags/${_name}-v${pkgver}.tar.gz")
-sha256sums=('b3a2d76a60a9b173fb9bc43fc51fb31204fb1b24cf1dfbbc84f62ca040d2f6d4')
+sha256sums=('2cc838fb4b6c9f084aa116fb1da9a9cef57004e820e6e61139144212ca16f4cc')
 
 build() {
     cd "google-cloud-python-${_name}-v${pkgver}/packages/${_name}"
