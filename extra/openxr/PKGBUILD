@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=openxr
-pkgver=1.1.58
-pkgrel=2
+pkgver=1.1.59.1
+pkgrel=1
 pkgdesc='An open standard for virtual reality and augmented reality platforms and devices'
 arch=('x86_64')
 url='https://www.khronos.org/openxr/'
@@ -11,7 +11,7 @@ makedepends=('cmake' 'vulkan-headers' 'python' 'ninja' 'wayland' 'mesa')
 license=('Apache-2.0')
 source=("https://github.com/KhronosGroup/OpenXR-SDK-Source/releases/download/release-${pkgver}/OpenXR-SDK-Source-release-${pkgver}.tar.gz"{,.asc})
 validpgpkeys=(45207B2B1E53E1F2755FF63CC5A2D593A61DBC9D)
-sha512sums=('df3f3617e174636a59995a2260846381929f1131d5bca600b83c3cb92f1f5a04fe4ab86b8d7b305110e9234de3f5319e26a278faa219fadc6741553a4a63bd27'
+sha512sums=('3d9a0c2b340f2ad56dd488aebf50e22d229570fc4957fb59090d35672b7454371f736b6160b484a494ad20f82a03bb522614501bd1e775be5ca750b7de33c001'
             'SKIP')
 
 build() {
