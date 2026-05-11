@@ -4,7 +4,7 @@
 pkgname=jupyter-nbconvert
 _name=nbconvert
 pkgver=7.17.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Jupyter Notebook Conversion'
 arch=(any)
 url='https://pypi.python.org/pypi/nbconvert'
@@ -26,6 +26,7 @@ depends=(ipython
          python-packaging
          python-pandocfilters
          python-pygments
+         python-tinycss2 # for bleach
          python-tornado
          python-traitlets)
 makedepends=(git
