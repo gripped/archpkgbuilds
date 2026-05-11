@@ -3,7 +3,7 @@
 # Contributor: Evgeniy Filimonov <evgfilim1@gmail.com>
 
 pkgname=python-aiogram
-pkgver=3.27.0
+pkgver=3.28.1
 pkgrel=1
 pkgdesc="A modern and fully asynchronous framework for Telegram Bot API"
 arch=('any')
@@ -14,11 +14,12 @@ depends=(
   'python-aiofiles'
   'python-aiohttp'
   'python-certifi'
-  'python-cryptography'
   'python-magic-filter'
   'python-pydantic'
+  'python-typing_extensions'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-hatchling'
   'python-installer'
@@ -29,6 +30,7 @@ checkdepends=(
   'python-aiohttp-socks'
   'python-aresponses'
   'python-babel'
+  'python-cryptography'
   'python-motor'
   'python-pycryptodomex'
   'python-pymongo'
@@ -48,23 +50,24 @@ optdepends=(
   'python-aiohttp-socks: SOCKS4(a) and SOCKS5 proxy support'
   'python-motor: MongoDB storage support'
   'python-babel: i18n support'
+  'python-cryptography: webhook signature verification support'
 )
-source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('b5e0b4c214ed517d375ab061d366705c646577aea20c8d8531f0e37855e9ad35bceae204bd34a7c1b0d547fe466df74133f0d1ab1b64fc2be048a55a83d0c74b')
+source=("git+$url.git#tag=v$pkgver")
+b2sums=('6645904a4d2d6f0244e9105cf5fd7dfd5b772564587938a9d12d8d0ec22bc73d4833c0135db337a495f8258f7794a2b73d8d515ee884135caa8f18e624c52754')
 
 build() {
-  cd ${pkgname#python-}-$pkgver
+  cd aiogram
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd ${pkgname#python-}-$pkgver
+  cd aiogram
   # shellcheck disable=2016
   pifpaf run redis -- bash -c 'python -m pytest --redis $PIFPAF_REDIS_URL'
 }
 
 package() {
-  cd ${pkgname#python-}-$pkgver
+  cd aiogram
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.rst
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
