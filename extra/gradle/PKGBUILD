@@ -5,7 +5,7 @@
 
 pkgbase=gradle
 pkgname=('gradle' 'gradle-doc' 'gradle-src')
-pkgver=9.4.1
+pkgver=9.5.0
 pkgrel=1
 pkgdesc='Powerful build system for the JVM'
 url='https://gradle.org/'
@@ -31,11 +31,11 @@ makedepends=(
 source=(https://services.gradle.org/distributions/${pkgbase}-${pkgver}-src.zip
         https://services.gradle.org/distributions/${pkgbase}-${pkgver}-all.zip
         ${pkgbase}.sh)
-sha256sums=('e07d5ab9a5ee05064d2cea472ad2d8b46144c75d598080e5f77660d18c0e3020'
-            '708d2c6ecc97ca9a11838ef64a6c2301151b8dd10387e22dc1a12c30557cab5b'
+sha256sums=('01224207a274ac35f45880f641c8fec496906fd2d51ffcb38389ee4c7c56e2c3'
+            'a3c4ba4aca8f0075688b9c5b18939fd28e8cb4357c227da5c1d9f38343791439'
             '4728dbdbe9fe416b82977cb7e456457e3ff0b88129291ee28e0d874ce8cc4891')
-sha512sums=('56b005bb5ed470934d34ea0af72600eb81dd1fda2ca99dd1a1a521ec0be28220b7bf49702bd819121cd3c428ab465db71fc10b3642c01666d5a203102889f8fb'
-            '53a844f29b18dce24acf1fb1d5509a6fb219664489d66e6d7dde2021509b7c32f6f539bab0aec21245718f999050fd044af884d4eb43d5988ea779c2dc28b6b7'
+sha512sums=('19c8917a00cf7da433838571c95d25f6b75a9848c059c3eafdc3a740c4109094e07cb880e75d0e5402f385d5a2b8417495da2fea8f2cb718b14a72dd31f77aca'
+            '60eb5c644a2fd2c756b7efe47020dcdcda98f9cc531522da18254beda85f969e734359cae15a058a40486777ad8e4c307be8d68a8fbd18566c93dc3ff309b979'
             '9054a13f13a0d04bffefb2e5c1bcabfcd7b11e4d83d9180f65e0a09eeb8fea407d8c4e1e1e9b79191ba99e4eb372dbbb3189dd30833170c64cdb4484ca559441')
 
 prepare() {
@@ -46,6 +46,10 @@ prepare() {
   # inhibit automatic download of binary gradle
   sed -i "s#distributionUrl=.*#distributionUrl=file\:${srcdir}/${pkgbase}-${pkgver}-all.zip#" \
     gradle/wrapper/gradle-wrapper.properties
+
+  # isolated projects requires configuration cache; disable both so we can build without it
+  sed -i '/org\.gradle\.unsafe\.isolated-projects/d' gradle.properties
+  sed -i '/org\.gradle\.configuration-cache/d' gradle.properties
 }
 
 build() {
