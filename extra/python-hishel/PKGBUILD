@@ -2,7 +2,7 @@
 
 pkgname=python-hishel
 _name="${pkgname#python-}"
-pkgver=1.1.10
+pkgver=1.2.1
 pkgrel=1
 pkgdesc="An elegant HTTP Cache implementation for HTTPX and HTTP Core"
 arch=(any)
@@ -26,6 +26,7 @@ makedepends=(
 checkdepends=(
   python-anyio
   python-anysqlite
+  python-fakeredis
   python-inline-snapshot
   python-pytest
   python-pyyaml
@@ -42,8 +43,8 @@ optdepends=(
   'python-requests: for requests support'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('9aa2a797152f0b23160f91f505999508d1507b08da576405c0bf4c1dbfa3ab7dbe8863b9c01727b74a3dec29ad82a5d953bb0ef094f12de6b637fa5a654ef3d9')
-b2sums=('5757ad0f64711fb2616f4c6b209f78ded5049d186acaea41ae4f9d0c254ca3bf1c0f6b745b8d6720068c6ad925968b2fa2fa0f16fb0cb66c605dc6ebf3640de8')
+sha512sums=('52571a8e4ec44e45fddc432491e6c8fcdada42cf7bf07b11c3f95f0e96414e271057bdd1ea8aa0a50a2087aa171792b932a3e24cacbd05f117e50769aaef59d7')
+b2sums=('71057e49836c406b703fcba2e8a839cc401abb1a584466b3943044529fd9ac5591c239bc7a34c00b5919eb064d5cbc19efa36a66a91112b3bfc90dfa88a2ef2c')
 
 build() {
   cd $_name-$pkgver
@@ -53,13 +54,6 @@ build() {
 check() {
   local pytest_options=(
     -vvv
-    # we don't care about testing redis
-    --deselect 'tests/_async/test_storages.py::test_redisstorage'
-    --deselect 'tests/_async/test_storages.py::test_redisstorage_expired'
-    --deselect 'tests/_async/test_storages.py::test_redis_ttl_after_hits'
-    --deselect 'tests/_sync/test_storages.py::test_redisstorage'
-    --deselect 'tests/_sync/test_storages.py::test_redisstorage_expired'
-    --deselect 'tests/_sync/test_storages.py::test_redis_ttl_after_hits'
   )
 
   cd $_name-$pkgver
