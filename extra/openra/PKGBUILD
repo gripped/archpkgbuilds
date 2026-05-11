@@ -2,14 +2,14 @@
 # Contributor: Matthew Bowra-Dean <matthew@ijw.co.nz>
 pkgname=openra
 pkgver=20250330
-pkgrel=1
+pkgrel=3
 pkgdesc="An open-source implementation of the Red Alert engine using .NET/Mono and OpenGL"
-arch=('any')
+arch=('x86_64')
 url="https://www.openra.net"
 license=('GPL3')
 install=openra.install
-depends=('ttf-dejavu' 'openal' 'libgl' 'freetype2' 'sdl2' 'lua51' 'hicolor-icon-theme'
-         'gtk-update-icon-cache' 'desktop-file-utils' 'xdg-utils' 'zenity' 'dotnet-runtime-6.0')
+depends=('openal' 'libgl' 'freetype2' 'sdl2' 'lua51' 'hicolor-icon-theme' 'gtk-update-icon-cache'
+         'desktop-file-utils' 'xdg-utils' 'zenity' 'dotnet-runtime-6.0')
 makedepends=('git' 'dotnet-sdk-6.0')
 options=(!debug)
 source=("git+https://github.com/OpenRA/OpenRA.git#tag=release-${pkgver}")
