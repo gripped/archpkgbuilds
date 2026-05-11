@@ -3,8 +3,8 @@
 # Contributor: tobias <tobias@archlinux.org>
 
 pkgname=inkscape
-pkgver=1.4.3
-pkgrel=9
+pkgver=1.4.4
+pkgrel=1
 pkgdesc='Professional vector graphics editor'
 url='https://inkscape.org/'
 license=('GPL' 'LGPL')
@@ -98,9 +98,8 @@ source=("git+https://gitlab.com/inkscape/inkscape.git#tag=INKSCAPE_${pkgver//./_
         'inkscape-extras-inkscape-import-clipart::git+https://gitlab.com/inkscape/extras/inkscape-import-clipart.git'
         'inkscape-extras-extension-xaml::git+https://gitlab.com/inkscape/extras/extension-xaml.git'
         'inkscape-extras-extension-afdesign::git+https://gitlab.com/inkscape/extras/extension-afdesign.git'
-        'inkscape-extras-extension-curve::git+https://gitlab.com/inkscape/extras/extension-curve.git'
-        'fix_build_with_poppler_26.04.0.patch')
-sha256sums=('312548aa33fff38c1a54bd4093c494051c55ed8b20cf8650499620236c1d3471'
+        'inkscape-extras-extension-curve::git+https://gitlab.com/inkscape/extras/extension-curve.git')
+sha256sums=('591b78df3a26a9129d526439a34fa1619a3d79ea70f5ac46d1e982c0c42e9544'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -109,19 +108,9 @@ sha256sums=('312548aa33fff38c1a54bd4093c494051c55ed8b20cf8650499620236c1d3471'
             'SKIP'
             'SKIP'
             'SKIP'
-            'SKIP'
-            '534cfff729ce39fc95ff92ed6d3ecb3411d7dbbfd8e0d4d0be6a34b4f8d89be7')
+            'SKIP')
 
 _backports=(
-  # Fix build with poppler 26.01.0
-  # https://gitlab.com/inkscape/inkscape/-/commit/3a528728ebe33e10bb44d152f47cfedfddbfe18a
-  '3a528728ebe33e10bb44d152f47cfedfddbfe18a'
-  # Fix build with Poppler 26.02.0
-  # https://gitlab.com/inkscape/inkscape/-/commit/47e20c0503ab1464d528f2cc7dd5e6a6a85b70dc
-  '47e20c0503ab1464d528f2cc7dd5e6a6a85b70dc'
-  # Fix build with Poppler 26.03.0
-  # https://gitlab.com/inkscape/inkscape/-/commit/754a866b878623554ade26d53496eeb8687c4685
-  '754a866b878623554ade26d53496eeb8687c4685'
 )
 
 _reverts=(
@@ -156,12 +145,6 @@ prepare() {
     git log --oneline "${_l}" "${_c}"
     git revert --mainline 1 --no-commit "${_c}"
   done
-
-  # Fix build with poppler 26.04.0
-  # See https://gitlab.com/KrIr17/inkscape/-/commit/977b5fa8b413d9a181c964ca3c1fd048cd93f062
-  # Local patch file rather than `git cherry-pick` because the original commit in master (9fcd1ec79652e8092b4838ddafd1802f52c0642b)
-  # doesn't apply cleanly as-is on top of 1.4.x. The above commit is a rebase for 1.4.x made on a dedicated branch.
-  patch -Np1 -i "$srcdir"/fix_build_with_poppler_26.04.0.patch
 }
 
 build() {
