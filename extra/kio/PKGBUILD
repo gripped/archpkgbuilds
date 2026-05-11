@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kio
-pkgver=6.25.0
+pkgver=6.26.0
 pkgrel=1
 pkgdesc='Resource and network access abstraction'
 arch=(x86_64)
@@ -46,7 +46,7 @@ optdepends=('audiocd-kio: for accessing audio CDs'
             'switcheroo-control: hybrid GPU support')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('bf71b2227016df6566665cead6cb468726d7cc708059e812daee7ea54f405378'
+sha256sums=('567f64db9766986b5535d884a5db30203685c33e67f56892bceff30e1bd5cc8a'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
