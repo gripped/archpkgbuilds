@@ -4,7 +4,7 @@
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=python-pyopenssl
-pkgver=26.1.0
+pkgver=26.2.0
 pkgrel=1
 pkgdesc='Python wrapper around the OpenSSL library'
 arch=(any)
@@ -24,8 +24,8 @@ checkdepends=(
   python-pretend
 )
 source=("$pkgname::git+https://github.com/pyca/pyopenssl#tag=$pkgver")
-sha512sums=('48843dfef257cd9232c456f84233c3610e12cce76e0c41b8a21e3546520ace66838d0973319f74e46c88b176490976c5f616fb46037cff9e4cd5ebfa6bb0beb9')
-b2sums=('5f07c8cee3330319a93d7b9f9345134b29b06b6af0c7be74ce4551470b32563754b452edf4491b3d63757b3548d1fd6dd3231582bd6d80aff96d70da36176688')
+sha512sums=('512eff36b40350a9e919e88b752f80fd4f42bd126d3c47ec0a7867d75f1e1018e559d212241d3271b19ec04e8be2cacf26894347211c97d27a0367d1ade1902a')
+b2sums=('3ad945fc5e5330c4666fd71df651f0fbf98000cb635d373783847719f2c0d735ebb387968e3e5e0a9c7ae1a27fdcea2f82e4534efd3eef1bf9bb61e590fcd7fa')
 
 build() {
   cd "$pkgname"
