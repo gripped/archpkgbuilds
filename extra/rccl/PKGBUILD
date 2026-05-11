@@ -4,7 +4,7 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rccl
-pkgver=7.2.2
+pkgver=7.2.3
 pkgrel=1
 pkgdesc="ROCm Communication Collectives Library"
 arch=('x86_64')
