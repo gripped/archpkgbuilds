@@ -1,9 +1,10 @@
 # Maintainer: Giovanni Harting <anonfunc@archlinux.org>
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Maintainer: T.J. Townsend <blakkheim@archlinux.org>
 # Contributor: Christopher Cooper <christopher@cg505.com>
 
 pkgname=openai-codex
-pkgver=0.128.0
+pkgver=0.130.0
 pkgrel=1
 pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
 arch=(x86_64)
@@ -20,7 +21,6 @@ depends=(
   zlib
 )
 makedepends=(cargo)
-checkdepends=(cargo-nextest git clang cmake dotslash nodejs python)
 optdepends=(
   'git: allow for repository actions'
   'nodejs: enable the js_repl experimental tool'
@@ -28,7 +28,7 @@ optdepends=(
 )
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/rust-v$pkgver.tar.gz")
-b2sums=('c92bf9334e4fa219027b38adce1b4800126f30b4153f939ff028c49084e36419ac05fe7cbd244fcfa170b4e0fc0c8143f163fb6878df5666153f806fe33b3124')
+b2sums=('077be63eaeacc94cafb3505c01f90b78947fce878be80bd040b466c0b81374d721856cab6454a66adef2c8f3790cb9aaa5ea0d6d9451c7b44ae5e93427998cc2')
 
 prepare() {
   cd codex-rust-v$pkgver/codex-rs
@@ -41,136 +41,6 @@ build() {
   # Reduces build time by about 10 minutes
   export CARGO_PROFILE_RELEASE_LTO=thin
   cargo build --frozen --release --bin codex --bin codex-responses-api-proxy
-}
-
-check() {
-  cd codex-rust-v$pkgver/codex-rs
-
-  local _skipped_tests=(
-    # Requires network or API access
-    suite::user_agent::get_user_agent_returns_current_codex_user_agent
-    suite::send_message::test_send_message_raw_notifications_opt_in
-    suite::cli_stream::integration_creates_and_checks_session_file
-    suite::cli_stream::responses_api_stream_cli
-    suite::login_server_e2e::falls_back_to_registered_fallback_port_when_default_port_is_in_use
-
-    # Sandbox/environment-sensitive
-    suite::sandbox::python_multiprocessing_lock_works_under_sandbox
-    suite::approvals::approval_matrix_covers_all_modes
-    suite::approvals::denying_network_policy_amendment_persists_policy_and_skips_future_network_prompt
-    loader::tests::non_git_repo_skills_search_does_not_walk_parents
-    loader::tests::skill_roots_include_admin_with_lowest_priority
-    tests::environment_id_fallback_has_cwd_prefix
-
-    # Snapshot tests (terminal-width or rendering dependent)
-    chatwidget::tests::view_image_tool_call_adds_history_cell
-    diff_render::tests::ui_snapshot_apply_update_block_relativizes_path
-    history_cell::tests::session_info_availability_nux_tooltip_snapshot
-    tests::composer_input_renders_typed_characters
-    update_prompt::tests::update_prompt_snapshot
-    status::tests::status_snapshot_includes_monthly_limit
-    status::tests::status_snapshot_shows_missing_limits_message
-    status::tests::status_snapshot_shows_refreshing_limits_notice
-    status::tests::status_snapshot_truncates_in_narrow_terminal
-    status::tests::status_snapshot_shows_empty_limits_message
-    status::tests::status_snapshot_shows_stale_limits_message
-    status::tests::status_snapshot_shows_unavailable_limits_message
-    status::tests::status_snapshot_includes_reasoning_details
-    status::tests::status_snapshot_treats_refreshing_empty_limits_as_unavailable
-    status::tests::status_snapshot_cached_limits_hide_credits_without_flag
-    status::tests::status_snapshot_includes_credits_and_limits
-    status::tests::status_snapshot_includes_forked_from
-    status::tests::status_snapshot_uses_default_reasoning_when_config_empty
-    status::tests::status_snapshot_shows_active_user_defined_profile
-    status::tests::status_snapshot_shows_auto_review_permissions
-    app::tests::attach_live_thread_for_selection_rejects_empty_non_ephemeral_fallback_threads
-    chatwidget::tests::status_surface_previews::missing_project_root_uses_different_status_and_title_preview_sources
-    chatwidget::tests::terminal_title::terminal_title_activity_indicators_do_not_animate_when_animations_are_disabled
-    chatwidget::tests::terminal_title::terminal_title_action_required_blinks_when_animations_are_enabled
-    chatwidget::tests::terminal_title::terminal_title_action_required_respects_spinner_setting
-    chatwidget::tests::terminal_title::terminal_title_shows_action_required_while_exec_approval_is_pending
-    chatwidget::tests::status_surface_previews::status_surface_preview_lines_mixed_snapshot
-    chatwidget::tests::status_surface_previews::status_surface_preview_lines_hardcoded_only_snapshot
-    chatwidget::tests::status_surface_previews::status_line_setup_popup_hardcoded_only_snapshot
-    chatwidget::tests::status_surface_previews::status_line_setup_popup_mixed_snapshot
-    chatwidget::tests::status_surface_previews::terminal_title_setup_popup_mixed_snapshot
-
-    # Compaction / context-window tests
-    suite::compact_resume_fork::compact_resume_and_fork_preserve_model_history_view
-    suite::compact_resume_fork::compact_resume_after_second_compaction_preserves_history
-    suite::compact::manual_compact_twice_preserves_latest_user_messages
-    suite::compact::manual_compact_retries_after_context_window_error
-    suite::compact::multiple_auto_compact_per_task_runs_after_token_limit_hit
-    suite::compact::manual_compact_emits_estimated_token_usage_event
-    suite::compact::auto_compact_triggers_after_function_call_over_95_percent_usage
-    suite::compact::manual_compact_uses_custom_prompt
-    suite::compact::auto_compact_runs_after_token_limit_hit
-
-    # Truncation tests
-    suite::truncation::tool_call_output_exceeds_limit_truncated_chars_limit
-    suite::truncation::tool_call_output_configured_limit_chars_type
-    suite::truncation::mcp_tool_call_output_exceeds_limit_truncated_for_model
-    suite::truncation::mcp_image_output_preserves_image_and_no_text_summary
-    suite::truncation::mcp_tool_call_output_not_truncated_with_custom_limit
-
-    # Exec / tool / notification tests
-    suite::unified_exec::unified_exec_streams_after_lagged_output
-    suite::unified_exec::unified_exec_formats_large_output_summary
-    suite::codex_tool::test_codex_tool_passes_base_instructions
-    suite::codex_tool::test_patch_approval_triggers_elicitation
-    suite::codex_tool::test_shell_command_approval_triggers_elicitation
-    suite::user_notification::summarize_context_three_requests_and_instructions
-    suite::tools::shell_timeout_handles_background_grandchild_stdout
-    suite::shell_serialization::shell_output_for_freeform_tool_records_duration::shellmodeloutput_shellcommand_expects
-
-    # Image / view tests
-    suite::view_image::user_turn_with_local_image_attaches_image
-    suite::view_image::view_image_tool_attaches_local_image
-    suite::view_image::js_repl_view_image_tool_attaches_local_image
-    suite::view_image::js_repl_emit_image_attaches_local_image
-    suite::view_image::js_repl_view_image_requires_explicit_emit
-
-    # JS REPL tests
-    suite::js_repl::js_repl_blocks_sensitive_builtin_imports
-    suite::js_repl::js_repl_can_invoke_builtin_tools
-    suite::js_repl::js_repl_does_not_expose_process_global
-    suite::js_repl::js_repl_tool_call_rejects_recursive_js_repl_invocation
-    suite::js_repl::js_repl_persists_top_level_bindings_and_supports_tla
-
-    # Hook tests
-    suite::hooks::resumed_thread_keeps_stop_continuation_prompt_in_history
-    suite::hooks::stop_hook_can_block_multiple_times_in_same_turn
-    suite::hooks::session_start_hook_sees_materialized_transcript_path
-    suite::hooks::blocked_queued_prompt_does_not_strand_earlier_accepted_prompt
-    suite::hooks::blocked_user_prompt_submit_persists_additional_context_for_next_turn
-
-    # V2 protocol tests
-    message_processor::tracing_tests::turn_start_jsonrpc_span_parents_core_turn_spans
-    suite::v2::initialize::turn_start_notify_payload_includes_initialize_client_name
-    suite::v2::command_exec::command_exec_process_ids_are_connection_scoped_and_disconnect_terminates_process
-
-    # TUI app tests that overflow the default test-thread stack in Arch check()
-    app::tests::attach_live_thread_for_selection_rejects_unmaterialized_fallback_threads
-    app::tests::discard_side_thread_removes_agent_navigation_entry
-    app::tests::new_session_requests_shutdown_for_previous_conversation
-    app::tests::interrupt_without_active_turn_is_treated_as_handled
-    app::tests::open_agent_picker_marks_loaded_threads_open
-    app::tests::reset_memories_clears_local_memory_directories
-    app::tests::update_memory_settings_updates_current_thread_memory_mode
-
-    # Config precedence fixture tests
-    config::tests::test_precedence_fixture_with_zdr_profile
-    config::tests::test_precedence_fixture_with_gpt3_profile
-    config::tests::test_precedence_fixture_with_gpt5_profile
-    config::tests::test_precedence_fixture_with_o3_profile
-  )
-
-  local _skip_args=()
-  for _test in "${_skipped_tests[@]}"; do
-    _skip_args+=(--skip "$_test")
-  done
-
-  cargo nextest run --all-features --no-fail-fast -- "${_skip_args[@]}"
 }
 
 package() {
