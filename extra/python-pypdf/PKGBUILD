@@ -6,7 +6,7 @@
 
 _pyname=pypdf
 pkgname=python-$_pyname
-pkgver=6.10.2
+pkgver=6.11.0
 pkgrel=1
 pkgdesc='Python library for manipulating pages of PDF files'
 arch=(any)
@@ -19,7 +19,13 @@ optdepends=(python-cryptography
             python-pillow)
 _archive="$_pyname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('966482a98ac1638189496556d8970a592765f5e31c121c9945d95f260f570e5b')
+sha256sums=('e8e900bc7345b0acc7277365f1e2c986165a4fb36f0879b685af39f175e5c1e4')
+
+prepare() {
+	cd "$_archive"
+	# Unpun upper bound on flit
+	sed -i -e '/flit_core/s/,<4//' pyproject.toml
+}
 
 build() {
 	cd "$_archive"
