@@ -3,12 +3,12 @@
 
 pkgname=rpm-sequoia
 pkgver=1.10.2
-pkgrel=1
+pkgrel=2
 pkgdesc="An OpenPGP backend for rpm using Sequoia PGP"
 arch=('x86_64')
 url='https://github.com/rpm-software-management/rpm-sequoia'
 license=('LGPL-2.0-or-later')
-depends=(nettle)
+depends=(nettle3)
 makedepends=(cargo rust clang pkg-config)
 
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/rpm-software-management/rpm-sequoia/archive/refs/tags/v$pkgver.tar.gz)
@@ -16,19 +16,25 @@ sha256sums=('ba740c16657498bb1a5a2b04472728089992e93a83d3584f00854b112dfd45df')
 
 prepare() {
   cd "rpm-sequoia-${pkgver}"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+# Update nettle-sys to fix build with clang 22
+  cargo update -p nettle-sys --precise 2.3.2
 
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd "rpm-sequoia-${pkgver}"
 
+  PKG_CONFIG_PATH=/usr/lib/nettle3/pkgconfig \
+  RUSTFLAGS+=" -L/usr/lib/nettle3" \
   cargo build --frozen --release
 }
 
 check() {
   cd "rpm-sequoia-${pkgver}"
 
+  export PKG_CONFIG_PATH=/usr/lib/nettle3/pkgconfig
+  export RUSTFLAGS+=" -L/usr/lib/nettle3"
   PREFIX=/usr LIBDIR="\${prefix}/lib" cargo build --frozen --release
   cargo test --release
 }
