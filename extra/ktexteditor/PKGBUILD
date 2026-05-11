@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=ktexteditor
-pkgver=6.25.0
+pkgver=6.26.0
 pkgrel=1
 pkgdesc='Advanced embeddable text editor'
 arch=(x86_64)
@@ -39,7 +39,7 @@ makedepends=(doxygen
 optdepends=('git: git integration')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('77e815edcdf572397f5eb750d7232b366f6cc6274bb34246ab88f2f2179733b4'
+sha256sums=('ec7bc094f93d514b5f675ae95c274dd24acc47769d971606d8708cc88f811341'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
