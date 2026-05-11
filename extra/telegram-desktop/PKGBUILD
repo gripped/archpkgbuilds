@@ -2,8 +2,8 @@
 # Contributor: hexchain <i@hexchain.org>
 
 pkgname=telegram-desktop
-pkgver=6.7.8
-_td_commit=51743dfd01dff6179e2d8f7095729caa4e2222e9
+pkgver=6.8.1
+_td_commit=49b3bcbb6bfebf2ed44dd9f25102d2e1a94a58c4
 pkgrel=1
 pkgdesc='Official Telegram Desktop client'
 arch=('x86_64')
@@ -76,12 +76,19 @@ source=(
   "git+https://github.com/tdlib/td.git#tag=${_td_commit}"
   tdesktop-fix-minizip-includes.patch
 )
-sha512sums=('19a9f5076597217d96acd566a5dbff5004ee128b69c7616ae6e593da3bc8ee813daed5566540602f108fad22edefa5c3f6ad782d196f86255333f50677e6b050'
-            'd622b8f3580ee49415546d025c4ba45f5b2de50b315fc379dc57c0427c5f815c7cc3820cca937c12182ee461641bb61f87ebc99b6c74a1a666cea9a08f0f41a0'
+sha512sums=('543adee7c95ea3c1173ba5aa7beb6d305134eb25cb7ad369fed91fca4a6515c38770b05bf8e774d0ae64cf67fa6ffd10822f73bfd0813435df763c1d04bf30f0'
+            'f8f98b02b1c7d1ca9162c4867461605fa7a5ab449ac53701877f49ba393ff4a495a58984538fe3960c7090ab5b3749666b4d169058f5e40f8d35ea4c15aea8d5'
             'd9765588e92f154d83b95dc2840207bf22b26b6ca37b4d5cdfdb5e27a00c9e1ebcc9cd475a96bbcc5b02c24f6892320e009f843aa6b172a1820814b952a772eb')
 
 prepare() {
   patch -Np1 -d tdesktop-$pkgver-full/Telegram/lib_base -i "$srcdir"/tdesktop-fix-minizip-includes.patch
+
+  # Fix missing cstdint includes in tgcalls headers
+  sed -i '/#include <memory>/a #include <cstdint>' tdesktop-$pkgver-full/Telegram/ThirdParty/tgcalls/tgcalls/DirectConnectionChannel.h
+  sed -i '/#include <map>/a #include <cstdint>' tdesktop-$pkgver-full/Telegram/ThirdParty/tgcalls/tgcalls/Instance.h
+  sed -i '/#include <vector>/a #include <cstdint>' tdesktop-$pkgver-full/Telegram/ThirdParty/tgcalls/tgcalls/v2/SignalingConnection.h
+  sed -i '/#include "SignalingConnection.h"/a #include <cstdint>' tdesktop-$pkgver-full/Telegram/ThirdParty/tgcalls/tgcalls/v2/ExternalSignalingConnection.h
+  sed -i '/#include <cstdlib>/a #include <cstdint>' tdesktop-$pkgver-full/Telegram/ThirdParty/tgcalls/tgcalls/third-party/json11.cpp
 }
 
 build() {
