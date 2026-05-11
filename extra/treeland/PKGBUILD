@@ -2,8 +2,8 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=treeland
-pkgver=0.8.5
-pkgrel=7
+pkgver=0.8.6
+pkgrel=1
 pkgdesc='New wayland compositer for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/treeland"
@@ -17,27 +17,18 @@ makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'wayland-protocols' 'wlr-protocol
 groups=('deepin')
 replaces=('waylib' 'qwlroots')
 conflicts=('waylib' 'qwlroots')
-source=("git+https://github.com/linuxdeepin/treeland.git#tag=$pkgver"
-         qt-6.10.2.patch
-         0001-fix-textinputv2-fatal-error-on-missing-surface.patch)
-sha256sums=('5c61e7072ba2cfdefe0e5784980e7b178267e46def83d3cd6433a451e6443080'
-            'cf02865c8cc0371c48d8a074d0f8fb7f8e87e67ac7c4b7ce61ace2df46b6b985'
-            'b197d2e4b5eefecfe92724896413028de084b470cf404ca0fcaebff83827b693')
+source=("git+https://github.com/linuxdeepin/treeland.git#tag=$pkgver")
+sha256sums=('70ce0f9ea7a2804e244b94a641ba12bf19d03b7800c36d093515e8c4ca42fbc6')
 
 prepare() {
   cd treeland
-  patch -p1 < ../qt-6.10.2.patch
-  patch -p1 < ../0001-fix-textinputv2-fatal-error-on-missing-surface.patch
-  # Fix WWrapObjectPrivate symbol visibility (upstream PR #772)
-  git cherry-pick -n ab189f528880fd1b8a52716ff2dce7902f23bb1c
-
-  # Fix WAYLAND_DISPLAY to use relative path so WebKitGTK's bubblewrap sandbox works
-  sed -i 's|WAYLAND_DISPLAY=%t/treeland.socket|WAYLAND_DISPLAY=treeland.socket|' \
-    misc/systemd/dde-session-pre.target.wants/treeland-sd.service.in
 
   # Fix wallpaper paths
   sed -i 's|/usr/share/backgrounds/default_background.jpg|/usr/share/backgrounds/deepin/desktop.jpg|' misc/dconfig/org.deepin.dde.treeland{,.user}.json
   sed -i 's|/usr/share/wallpapers/deepin/deepin-default.jpg|/usr/share/wallpapers/deepin/desktop.jpg|' src/wallpaper/wallpapermanager.cpp
+
+  # Fix missing headers for gcc 16 compatibility
+  git cherry-pick -n 6ce956eaee0b4406b308943229f38da703569b17
 }
 
 build() {
