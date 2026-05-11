@@ -6,7 +6,7 @@
 # Contributor: tardo <tardo@nagi-fanboi.net>
 
 pkgname=astyle
-pkgver=3.6.14
+pkgver=3.6.15
 pkgrel=1
 pkgdesc='A free, fast and small automatic formatter for C, C++, C#, and Java source code'
 arch=(x86_64)
@@ -26,9 +26,9 @@ source=(
   "$pkgname::git+https://gitlab.com/saalen/astyle.git#tag=$pkgver"
   simplify-makefile.patch
 )
-sha512sums=('1e8fce59a186c088c4340fc1c91b131817d8a2922ae6b1b4c01da9ec16e8bbb9bb0702d4f24c5fa75b6737a14a80c9bb1652009446f83e6a208a72cb5c69922b'
+sha512sums=('1e462e1ecbe73f652ca6e6d87138ac42e1f2f659273ef296af1fb3be3b2befeedca467ce26e8d977e8229e1570540011d99c573f50f2c69a6d4ed665a0c4fd23'
             '4a533c6b073a55206ea2c8351d6631ba6e056d59823c8988eae63a47a762e920ad852442b57ed1860a648199c34fbc08c31bb553f0dc3f1ed145c2c702ad0290')
-b2sums=('d62981fa11bc4fbab979567c196400ed57c7a3a6f2552c62501a2a2435664788e098065c306d328310f9be451bdc53e1053427ca5dd7d6d8e8d4c1eadfeba6fc'
+b2sums=('4d49879a99140766ffb2ff9c2da46afa3a9601270bd1acb59beccfe99755c22dff980697e1da0eaf1ba43a7c066886de7ac303235e56485ab8f35c64ed5295b0'
         '155dca3520e1669713efbf42431e4ba2c9c05006dcd2a14f58252d9e6913aab799af7b64c9040201e99ff8d12f953918124c83845fcf64ec025fc131e7acdf1f')
 
 prepare() {
