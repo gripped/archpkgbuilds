@@ -8,15 +8,16 @@ pkgver=13.2.1
 # Before upgrading, make sure that we ship at least this version of
 # nvidia-utils as otherwise we'll get stuff such as #7.
 _driverver=595.58.03
-pkgrel=1
+pkgrel=3
 pkgdesc="NVIDIA's GPU programming toolkit"
 arch=(x86_64 aarch64)
 url="https://developer.nvidia.com/cuda-zone"
 license=(LicenseRef-NVIDIA-CUDA)
 depends=(
+  cccl
   opencl-nvidia
   python
-  gcc
+  gcc15
 )
 options=(!strip !debug staticlibs)
 install=cuda.install
@@ -53,7 +54,7 @@ source=(
         nvjpeg.pc
         nvrtc.pc
 )
-sha512sums=('93a52c9d1272aafc04ba07a74a41c1c3b3722107048cc1b40409406b4c9ba76cda8a8dc83c30d4a77996ef398732d5fb9615a4d47e3225d4a7ba6af82915b926'
+sha512sums=('ff6ee01a6838e51804911c50f817c8e1545d71aa1b34cd937a546d42642097f81d5990f2956f130bbce9b47ff269f96d687293592906f07cd9424a101db89e44'
             '3ef1d31adef59aaac464441aa1b8d92e706323492347e8ffec4ba1419576d3889791c8c13e8903dd79ceefc164cf473aef650105d1927cdb6676c936b66b2e45'
             '183ec13594c4c380a5691bdb11f080f6a2f5d9bd9f360989be4a97506d6c4e079964db7b09ebed4b35d19030aedfe0c5565a9d77ebee2eea5c4e9fab7d9a6208'
             '64c7532b3808a09b816da516e3336900b02514b462ba04edceb0065e47e5affaddc2123c4a7807c82452219a95a0de1c05426a89938e10b7a53f8efef6b2413e'
@@ -123,6 +124,16 @@ build() {
     cp -alr --force "$lib"/* "${_prepdir}"/opt/cuda/
     rm -r "$lib"
   done
+
+  # no cccl for aarch64
+  if [[ $CARCH == "x86_64*" ]]; then
+    # Replace CCCL headers with symlinks to the cccl package
+    rm -r "${_prepdir}"/opt/cuda/targets/x86_64-linux/include/cccl/
+    ln -s /usr/include/cccl "${_prepdir}"/opt/cuda/targets/x86_64-linux/include/cccl
+    rm -r "${_prepdir}"/opt/cuda/targets/x86_64-linux/lib/cmake/{cccl,cub,libcudacxx,thrust}
+    rmdir "${_prepdir}"/opt/cuda/targets/x86_64-linux/lib/cmake/
+    ln -s /usr/lib/cmake "${_prepdir}"/opt/cuda/targets/x86_64-linux/lib/cmake
+  fi
 
   # Fix location of CUPTI headers and libs, otherwise some software fails to build
   # https://gitlab.archlinux.org/archlinux/packaging/packages/tensorflow/-/work_items/19#note_273055
