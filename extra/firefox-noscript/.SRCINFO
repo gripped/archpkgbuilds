@@ -1,16 +1,21 @@
 pkgbase = firefox-noscript
 	pkgdesc = Extension for firefox which disables javascript
-	pkgver = 13.6.6
+	pkgver = 13.6.19
 	pkgrel = 1
 	url = https://noscript.net/
 	arch = any
 	groups = firefox-addons
 	license = GPL2
 	checkdepends = jq
-	noextract = noscript-13.6.6.xpi
-	source = noscript-13.6.6.xpi::https://noscript.net/download/releases/noscript-13.6.6.xpi
-	sha256sums = 2059e638f3944cc323e76a3c0d727af530192bd5e425f0f6ea740c0b2e7054b1
-	b2sums = debb2dfdb69476e79f4fd7b5eb723ce2409748f42e19c2e61c4186232c0b813b2939a113acfdf205f516b9eef110b661d51f456a0c8b9d5be661bca35ba90a30
+	makedepends = nodejs
+	makedepends = git
+	makedepends = npm
+	source = git+https://github.com/hackademix/noscript.git#tag=13.6.19
+	source = nscl.git::git+https://github.com/hackademix/nscl.git
+	sha256sums = b02bb681523a05984bad921cca6ca8a9fd91c1b52c1f99213b720386c59453f0
+	sha256sums = SKIP
+	b2sums = e634e1517212b28152aec1bdc0e9b26d7ea08a12899f6a196d5d413b945e28dbc9f3fdb5dfc7eb9172e005251b3818e1d82c3a8f454c8fc3cc49fef02ca080bb
+	b2sums = SKIP
 
 pkgname = firefox-noscript
 	depends = firefox
