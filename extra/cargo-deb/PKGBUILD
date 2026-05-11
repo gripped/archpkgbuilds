@@ -1,9 +1,9 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 # Contributor: Sematre <sematre at gmx dot de>
-
+ 
 pkgname=cargo-deb
-pkgver=3.6.3
-pkgrel=2
+pkgver=3.7.0
+pkgrel=1
 pkgdesc="Cargo subcommand that generates Debian packages"
 arch=('x86_64')
 url="https://github.com/kornelski/cargo-deb"
@@ -15,7 +15,7 @@ depends=(
   'xz' 'liblzma.so'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('2a0356b772179259a6597039e25006aef26508259d83e6ebf80bf5c1442d1304')
+sha256sums=('92144d0805743582fcab64fe53b154ed1a97995830587bd7ab78ad29618211ca')
 
 prepare() {
   cd "$pkgname-$pkgver"
