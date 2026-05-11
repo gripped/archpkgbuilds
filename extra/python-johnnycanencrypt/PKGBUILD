@@ -3,17 +3,17 @@
 pkgname=python-johnnycanencrypt
 _name="${pkgname#python-}"
 pkgver=0.18.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Python module for OpenPGP written in Rust"
 arch=(x86_64)
 url="https://github.com/kushaldas/johnnycanencrypt"
 license=(LGPL-3.0-or-later)
 depends=(
   bzip2
-  gcc-libs
   glibc
   gmp
-  nettle
+  libgcc
+  nettle3
   pcsclite
   python
   python-httpx
@@ -35,8 +35,16 @@ sha512sums=('8ecdac8631a8dea77d12fe1a69546b01856d5be9b17f7538258b7a3268d071b27f3
 b2sums=('7aa94e573615568dfe4ead0244c0723d292b9b1b42be7ad110d260064a414ce6282b17ed4aeb12f8c127281dec9804fc352e1a3be6e0ad1051d33639ed5b12cb')
 validpgpkeys=(A85FF376759C994A8A1168D8D8219C8C43F6C5E1)  # Kushal Das <kushal@freedom.press>
 
+prepare() {
+  cd $_name
+# Update nettle-sys to fix build with clang 22
+  cargo update -p nettle-sys --precise 2.3.2
+}
+
 build() {
   cd $_name
+  PKG_CONFIG_PATH=/usr/lib/nettle3/pkgconfig \
+  RUSTFLAGS+=" -L/usr/lib/nettle3" \
   python -m build --wheel --no-isolation
 }
 
