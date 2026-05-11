@@ -4,11 +4,11 @@
 # Contributor: fnord0 <fnord0 AT riseup DOT net>
 
 pkgname=yara
-pkgver=4.5.5
+pkgver=4.5.6
 pkgrel=1
 pkgdesc='Tool aimed at helping malware researchers to identify and classify malware samples'
-arch=(x86_64)
 url='https://github.com/VirusTotal/yara'
+arch=(x86_64)
 license=(BSD-3-Clause)
 depends=(
   glibc
@@ -16,10 +16,14 @@ depends=(
   file
   libmagic.so
 )
-provides=(libyara.so)
-source=("https://github.com/VirusTotal/yara/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('e71d6e435cb2ad7b5875ccabcfe3abe42e2f37187a22e778867c5c5762134961369c2cbd4bea8da9193d5381af4569e39a50156d4077dc3a23b9a2240b741b60')
-b2sums=('c990d2a1ae24cabb9e873b369dc5803157663c996ba8cf327cb12059cb704998f7bc437df2eb8ac9973a163163352cbb19ec5edc0a508a3ee8c25a2733b9a39c')
+provides=(
+  libyara.so
+)
+source=(
+  "https://github.com/VirusTotal/yara/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+)
+sha512sums=('5da10d8f7c25cc80b159de33e65f310ebbb139621e53181900f31e564bf3d0998785a7f8dd9bfddb1fd97582d733b0230ff281e776266b31ba04ced197fe4b34')
+b2sums=('b5d2ac8b8bd1322948ad9ec5da72cedc7c85a53d0c0c5c3dc78e10a6c6e548af9625eb6493614c991e0253f6ca35e8fc04791ce1d708005dd90f2ab93fb8ce94')
 
 prepare() {
   cd $pkgname-$pkgver
