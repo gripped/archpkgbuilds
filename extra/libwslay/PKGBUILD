@@ -4,7 +4,7 @@
 
 pkgname=libwslay
 pkgver=1.1.1
-pkgrel=6
+pkgrel=7
 pkgdesc='WebSocket library'
 arch=(x86_64)
 provides=(wslay)
@@ -15,13 +15,16 @@ optdepends=('nettle: needed for wslay_testclient')
 url='https://github.com/tatsuhiro-t/wslay'
 license=(MIT)
 source=("$pkgname-$pkgver.tar.bz2::https://github.com/tatsuhiro-t/wslay/releases/download/release-$pkgver/wslay-$pkgver.tar.bz2"
-        sphinx-4.patch)
+        sphinx-4.patch
+        nettle-4.patch)
 b2sums=('e5b5e7435e1e3a82cef4407f2a5fbcf4168f2814546074d8ee5aa70f36acabc648bc58f14aaee53bc6be7ab7e18c39a4f8e16fba507dc85f19ee4f79a827be6e'
-        '12dc00c3dfcf29a0263b93638164ab9e99a9672962714392cf8f28421498d138a83779a267f59892b579f66dfc4b7fca8c8b1a3662040d9dc29d1841ebe42ea9')
+        '12dc00c3dfcf29a0263b93638164ab9e99a9672962714392cf8f28421498d138a83779a267f59892b579f66dfc4b7fca8c8b1a3662040d9dc29d1841ebe42ea9'
+        '6614e65ec577193980a44107acb6cdf5c2c22677a1fa22c3570f5b2ec2a56b34b401370da9197dbbd31cd9c8c903525a7aa6b38de24fbb61fe9e66e6ac912033')
 
 prepare() {
   cd wslay-$pkgver
   patch -Np1 -i ../sphinx-4.patch
+  patch -p1 -i ../nettle-4.patch
 }
 
 build() {

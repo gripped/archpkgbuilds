@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -23,6 +26,7 @@ SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
+    "nettle-4.patch",
     "sphinx-4.patch",
 ]
 SPDX-FileCopyrightText = "libwslay contributors"
