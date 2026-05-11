@@ -1,0 +1,50 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
+pkgname=ratty
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="A GPU-rendered terminal emulator with inline 3D graphics"
+arch=('x86_64')
+url="https://github.com/orhun/ratty"
+license=('MIT')
+depends=(
+  fontconfig
+  gcc-libs
+  glibc
+  libx11
+  libxcb
+  libxkbcommon
+  libxkbcommon-x11
+  systemd-libs
+  wayland
+  zlib
+)
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('581e3337a0e93e6fd1d7adbc86df1292f9cb14f698c2cc05e17eb7508ab79025fc62ed25e8890b4a2a569be282d04b0d841589702dcb47d906d525481a80ceb6')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --frozen
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+  install -Dm644 config/ratty.toml "$pkgdir/usr/share/doc/$pkgname/ratty.toml"
+  install -Dm644 protocols/graphics.md "$pkgdir/usr/share/doc/$pkgname/graphics.md"
+}
+
+# vim: ts=2 sw=2 et:
