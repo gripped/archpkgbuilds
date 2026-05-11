@@ -1,6 +1,6 @@
 pkgbase = freerdp
 	pkgdesc = Free implementation of the Remote Desktop Protocol (RDP)
-	pkgver = 3.25.0
+	pkgver = 3.26.0
 	pkgrel = 1
 	epoch = 2
 	url = https://www.freerdp.com/
@@ -12,6 +12,8 @@ pkgbase = freerdp
 	makedepends = git
 	makedepends = icu
 	makedepends = krb5
+	makedepends = libcbor
+	makedepends = libfido2
 	makedepends = libjpeg-turbo
 	makedepends = libp11
 	makedepends = libpng
@@ -53,9 +55,9 @@ pkgbase = freerdp
 	provides = libfreerdp3.so
 	provides = libwinpr-tools3.so
 	provides = libwinpr3.so
-	source = git+https://github.com/freerdp/freerdp#tag=3.25.0
-	sha512sums = 766a843f8a8379c122f9ee4943bfe154608b5f445c9472e2416024767af68dc738aaaed890063d71f2ce7fb96f21267b3f7d300437a594b45ab278d0887a8c88
-	b2sums = 6e7a4e2bcf55ee929f0b625f7341f95f694d1fd518331e6d7fdd38b04440add6d1c68e963fa1d19b65a69d48b0242aedb61977e2d1a9783998d2d513d8aa6672
+	source = git+https://github.com/freerdp/freerdp#tag=3.26.0
+	sha512sums = 6dae1b55b7f40338436efbb6e3f8d9fc45842dc3c785e05310281b90b65cc12cf58d94dc9eb12a479aa0ca486ebdfaa4e40dda1542513980c0b65debc16def74
+	b2sums = 52a0fb554e97a2557d7d07aeef62cb0b853f7e68a89a4f3b2df5ef2a727c95943a6685ce26a4f4f0e565989aac87fdb097225224e086871aae411c112dc8e897
 
 pkgname = freerdp
 	depends = fuse3
@@ -91,6 +93,10 @@ pkgname = freerdp
 	depends = krb5
 	depends = libk5crypto.so
 	depends = libkrb5.so
+	depends = libcbor
+	depends = libcbor.so
+	depends = libfido2
+	depends = libfido2.so
 	depends = libjpeg-turbo
 	depends = libjpeg.so
 	depends = libpng

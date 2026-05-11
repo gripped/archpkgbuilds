@@ -3,7 +3,7 @@
 # Contributor: Stijn Segers <francesco dot borromini at gmail dot com>
 
 pkgname=freerdp
-pkgver=3.25.0
+pkgver=3.26.0
 _libver=${pkgver/.*/}
 pkgrel=1
 epoch=2
@@ -41,6 +41,8 @@ makedepends=(
   git
   icu
   krb5
+  libcbor
+  libfido2
   libjpeg-turbo
   libp11
   libpng
@@ -67,8 +69,8 @@ provides=(
 source=(
   "git+https://github.com/$pkgname/$pkgname#tag=$pkgver"
 )
-sha512sums=('766a843f8a8379c122f9ee4943bfe154608b5f445c9472e2416024767af68dc738aaaed890063d71f2ce7fb96f21267b3f7d300437a594b45ab278d0887a8c88')
-b2sums=('6e7a4e2bcf55ee929f0b625f7341f95f694d1fd518331e6d7fdd38b04440add6d1c68e963fa1d19b65a69d48b0242aedb61977e2d1a9783998d2d513d8aa6672')
+sha512sums=('6dae1b55b7f40338436efbb6e3f8d9fc45842dc3c785e05310281b90b65cc12cf58d94dc9eb12a479aa0ca486ebdfaa4e40dda1542513980c0b65debc16def74')
+b2sums=('52a0fb554e97a2557d7d07aeef62cb0b853f7e68a89a4f3b2df5ef2a727c95943a6685ce26a4f4f0e565989aac87fdb097225224e086871aae411c112dc8e897')
 
 build() {
   # gcc14 buildfix
@@ -78,6 +80,8 @@ build() {
   local cmake_options=(
     -B build
     -D CHANNEL_RDPECAM_CLIENT=ON
+    -D CHANNEL_RDPEWA=ON
+    -D CHANNEL_RDPEWA_CLIENT=ON
     -D CHANNEL_URBDRC_CLIENT=ON
     -D CMAKE_BUILD_TYPE=Release
     -D CMAKE_INSTALL_LIBDIR=lib
@@ -131,6 +135,8 @@ package() {
     ffmpeg libavcodec.so libavutil.so libswresample.so libswscale.so
     icu libicuuc.so
     krb5 libk5crypto.so libkrb5.so
+    libcbor libcbor.so
+    libfido2 libfido2.so
     libjpeg-turbo libjpeg.so
     libpng libpng16.so
     libpulse libpulse.so
