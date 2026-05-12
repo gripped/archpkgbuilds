@@ -2,8 +2,8 @@
 
 _hkgname=irc-core
 pkgname=haskell-irc-core
-pkgver=2.12
-pkgrel=116
+pkgver=2.13
+pkgrel=1
 pkgdesc="IRC core library for glirc"
 url="https://github.com/glguy/irc-core"
 license=("ISC")
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-attoparsec' 'haskell-base64-bytestring' 'haskell-ha
          'haskell-primitive' 'haskell-vector')
 makedepends=('ghc' 'haskell-hunit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('42772aaa72ee72297587f0c7b4bd9823ce34399cc9194f0d1788ea7f9c888427')
+sha256sums=('7d9a3828ade1a118a0f975f50d7921a68802587f7f09627efdf09b771165257d')
 
 build() {
   cd $_hkgname-$pkgver
