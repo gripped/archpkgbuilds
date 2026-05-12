@@ -4,7 +4,7 @@
 
 pkgname=ruby-mixlib-config
 _pkgname="${pkgname#ruby-}"
-pkgver=3.1.4
+pkgver=3.1.5
 pkgrel=1
 pkgdesc='A class based configuration library'
 arch=(any)
@@ -14,8 +14,8 @@ depends=(ruby-tomlrb)
 makedepends=(git ruby-rdoc ruby-rake ruby-bundler ruby-rspec)
 options=(!emptydirs)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('2391796ee286bcef743582d1fcf03213b5f6df7a02b82965a3b17d2603f309be43f287577da37de5fa7b17b8dd55a5cc748782d3a037a438bd02e1a365c356d8')
-b2sums=('6879b8ab75e3613811681575fa10303aecced728934859af6fd46fbd366e721feae1211ab09f942f355fe9bbb7547ba8b174ee6c78deed1749bc460fd8b3652e')
+sha512sums=('28e6c93c15e3acd544c1ec18d9fdca5f1787ddd55fb99ae95140df64e8a4ccf0e8c58ab0eb5ecbd50555cfd57bdff8bf6eed9137100e7af78df6e83ccb774b42')
+b2sums=('637074f198cebba6b4884aa4e3b06e60cd6b8257f0069fb7c7f37dac82b629f2f989e1b9f0ae83ae03055ef475fff88c516fd689bdb0b934dd38d846d7efc321')
 
 build() {
   cd "$pkgname"
