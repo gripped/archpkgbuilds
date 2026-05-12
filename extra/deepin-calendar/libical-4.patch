@@ -1,0 +1,499 @@
+diff --git a/3rdparty/kcalendarcore/src/icalformat.cpp b/3rdparty/kcalendarcore/src/icalformat.cpp
+index c35d4a09..717128a8 100644
+--- a/3rdparty/kcalendarcore/src/icalformat.cpp
++++ b/3rdparty/kcalendarcore/src/icalformat.cpp
+@@ -300,7 +300,7 @@ QString ICalFormat::toString(const Calendar::Ptr &cal, const QString &notebook,
+             if (!tz) {
+                 qCritical() << "bad time zone";
+             } else {
+-                component = icalcomponent_new_clone(icaltimezone_get_component(tz));
++                component = icalcomponent_clone(icaltimezone_get_component(tz));
+                 icalcomponent_add_component(calendar, component);
+                 icaltimezone_free(tz, 1);
+             }
+@@ -366,7 +366,11 @@ QByteArray ICalFormat::toRawString(const Incidence::Ptr &incidence)
+ 
+ QString ICalFormat::toString(RecurrenceRule *recurrence)
+ {
+-    icalproperty *property = icalproperty_new_rrule(d->mImpl->writeRecurrenceRule(recurrence));
++    struct icalrecurrencetype *recur = d->mImpl->writeRecurrenceRule(recurrence);
++    if (!recur) {
++        return QString();
++    }
++    icalproperty *property = icalproperty_new_rrule(recur);
+     QString text = QString::fromUtf8(icalproperty_as_ical_string(property));
+     icalproperty_free(property);
+     return text;
+@@ -379,14 +383,14 @@ bool ICalFormat::fromString(RecurrenceRule *recurrence, const QString &rrule)
+     }
+     bool success = true;
+     icalerror_clear_errno();
+-    struct icalrecurrencetype recur = icalrecurrencetype_from_string(rrule.toLatin1().constData());
++    struct icalrecurrencetype *recur = icalrecurrencetype_new_from_string(rrule.toLatin1().constData());
+     if (icalerrno != ICAL_NO_ERROR) {
+         qDebug() << "Recurrence parsing error:" << icalerror_strerror(icalerrno);
+         success = false;
+     }
+ 
+     if (success) {
+-        d->mImpl->readRecurrence(recur, recurrence);
++        d->mImpl->readRecurrence(*recur, recurrence);
+     }
+ 
+     return success;
+diff --git a/3rdparty/kcalendarcore/src/icalformat_p.cpp b/3rdparty/kcalendarcore/src/icalformat_p.cpp
+index 6e04af30..18bec8c3 100644
+--- a/3rdparty/kcalendarcore/src/icalformat_p.cpp
++++ b/3rdparty/kcalendarcore/src/icalformat_p.cpp
+@@ -522,8 +522,9 @@ void ICalFormatImpl::writeIncidence(icalcomponent *parent, const Incidence::Ptr
+     // geo
+     if (incidence->hasGeo()) {
+         icalgeotype geo;
+-        geo.lat = incidence->geoLatitude();
+-        geo.lon = incidence->geoLongitude();
++        QString foo;
++        strncpy(geo.lat, foo.setNum(incidence->geoLatitude(), 'g').toLocal8Bit().data(), ICAL_GEO_LEN - 1);
++        strncpy(geo.lat, foo.setNum(incidence->geoLongitude(), 'g').toLocal8Bit().data(), ICAL_GEO_LEN - 1);
+         icalcomponent_add_property(parent, icalproperty_new_geo(geo));
+     }
+ 
+@@ -555,13 +556,21 @@ void ICalFormatImpl::writeIncidence(icalcomponent *parent, const Incidence::Ptr
+     RecurrenceRule::List rrules(incidence->recurrence()->rRules());
+     RecurrenceRule::List::ConstIterator rit;
+     for (rit = rrules.constBegin(); rit != rrules.constEnd(); ++rit) {
+-        icalcomponent_add_property(parent, icalproperty_new_rrule(writeRecurrenceRule((*rit))));
++        struct icalrecurrencetype *recur = writeRecurrenceRule(*rit);
++        if (!recur) {
++            break;
++        }
++        icalcomponent_add_property(parent, icalproperty_new_rrule(recur));
+     }
+ 
+     RecurrenceRule::List exrules(incidence->recurrence()->exRules());
+     RecurrenceRule::List::ConstIterator exit;
+     for (exit = exrules.constBegin(); exit != exrules.constEnd(); ++exit) {
+-        icalcomponent_add_property(parent, icalproperty_new_exrule(writeRecurrenceRule((*exit))));
++        struct icalrecurrencetype *recur = writeRecurrenceRule(*exit);
++        if (!recur) {
++            break;
++        }
++        icalcomponent_add_property(parent, icalproperty_new_exrule(recur));
+     }
+ 
+     DateList dateList = incidence->recurrence()->exDates();
+@@ -874,35 +883,37 @@ icalproperty *ICalFormatImpl::writeAttachment(const Attachment &att)
+     return p;
+ }
+ 
+-icalrecurrencetype ICalFormatImpl::writeRecurrenceRule(RecurrenceRule *recur)
++icalrecurrencetype *ICalFormatImpl::writeRecurrenceRule(RecurrenceRule *recur)
+ {
+-    icalrecurrencetype r;
+-    icalrecurrencetype_clear(&r);
++    icalrecurrencetype *r = icalrecurrencetype_new();
++    if (!r) {
++        return r;
++    }
+ 
+     switch (recur->recurrenceType()) {
+     case RecurrenceRule::rSecondly:
+-        r.freq = ICAL_SECONDLY_RECURRENCE;
++        r->freq = ICAL_SECONDLY_RECURRENCE;
+         break;
+     case RecurrenceRule::rMinutely:
+-        r.freq = ICAL_MINUTELY_RECURRENCE;
++        r->freq = ICAL_MINUTELY_RECURRENCE;
+         break;
+     case RecurrenceRule::rHourly:
+-        r.freq = ICAL_HOURLY_RECURRENCE;
++        r->freq = ICAL_HOURLY_RECURRENCE;
+         break;
+     case RecurrenceRule::rDaily:
+-        r.freq = ICAL_DAILY_RECURRENCE;
++        r->freq = ICAL_DAILY_RECURRENCE;
+         break;
+     case RecurrenceRule::rWeekly:
+-        r.freq = ICAL_WEEKLY_RECURRENCE;
++        r->freq = ICAL_WEEKLY_RECURRENCE;
+         break;
+     case RecurrenceRule::rMonthly:
+-        r.freq = ICAL_MONTHLY_RECURRENCE;
++        r->freq = ICAL_MONTHLY_RECURRENCE;
+         break;
+     case RecurrenceRule::rYearly:
+-        r.freq = ICAL_YEARLY_RECURRENCE;
++        r->freq = ICAL_YEARLY_RECURRENCE;
+         break;
+     default:
+-        r.freq = ICAL_NO_RECURRENCE;
++        r->freq = ICAL_NO_RECURRENCE;
+         qDebug() << "no recurrence";
+         break;
+     }
+@@ -913,90 +924,117 @@ icalrecurrencetype ICalFormatImpl::writeRecurrenceRule(RecurrenceRule *recur)
+ 
+     // Now write out the BY* parts:
+     bys = recur->bySeconds();
+-    index = 0;
+-    for (it = bys.constBegin(); it != bys.constEnd(); ++it) {
+-        r.by_second[index++] = *it;
+-        r.by_second[index++] = static_cast<short>(*it);
++    if (!bys.isEmpty()) {
++        index = 0;
++        icalrecur_resize_by(&r->by[ICAL_BY_SECOND], 2 * bys.count());
++        for (auto it = bys.constBegin(); it != bys.constEnd(); ++it) {
++            r->by[ICAL_BY_SECOND].data[index++] = *it;
++            r->by[ICAL_BY_SECOND].data[index++] = static_cast<short>(*it);
++        }
+     }
+ 
+     bys = recur->byMinutes();
+-    index = 0;
+-    for (it = bys.constBegin(); it != bys.constEnd(); ++it) {
+-        r.by_minute[index++] = *it;
+-        r.by_minute[index++] = static_cast<short>(*it);
++    if (!bys.isEmpty()) {
++        index = 0;
++        icalrecur_resize_by(&r->by[ICAL_BY_MINUTE], 2 * bys.count());
++        for (auto it = bys.constBegin(); it != bys.constEnd(); ++it) {
++            r->by[ICAL_BY_MINUTE].data[index++] = *it;
++            r->by[ICAL_BY_MINUTE].data[index++] = static_cast<short>(*it);
++        }
+     }
+ 
+     bys = recur->byHours();
+-    index = 0;
+-    for (it = bys.constBegin(); it != bys.constEnd(); ++it) {
+-        r.by_hour[index++] = *it;
+-        r.by_hour[index++] = static_cast<short>(*it);
++    if (!bys.isEmpty()) {
++        index = 0;
++        icalrecur_resize_by(&r->by[ICAL_BY_HOUR], 2 * bys.count());
++        for (auto it = bys.constBegin(); it != bys.constEnd(); ++it) {
++            r->by[ICAL_BY_HOUR].data[index++] = *it;
++            r->by[ICAL_BY_HOUR].data[index++] = static_cast<short>(*it);
++        }
+     }
+ 
+     bys = recur->byMonthDays();
+-    index = 0;
+-    for (it = bys.constBegin(); it != bys.constEnd(); ++it) {
+-        short dShort = static_cast<short>((*it) * 8);
+-        r.by_month_day[index++] = static_cast<short>(icalrecurrencetype_day_position(dShort));
++    if (!bys.isEmpty()) {
++        index = 0;
++        icalrecur_resize_by(&r->by[ICAL_BY_MONTH_DAY], bys.count());
++        for (auto it = bys.constBegin(); it != bys.constEnd(); ++it) {
++            short dShort = static_cast<short>((*it) * 8);
++            r->by[ICAL_BY_MONTH_DAY].data[index++] = static_cast<short>(icalrecurrencetype_day_position(dShort));
++        }
+     }
+ 
+     bys = recur->byYearDays();
+-    index = 0;
+-    for (it = bys.constBegin(); it != bys.constEnd(); ++it) {
+-        r.by_year_day[index++] = static_cast<short>(*it);
++    if (!bys.isEmpty()) {
++        index = 0;
++        icalrecur_resize_by(&r->by[ICAL_BY_YEAR_DAY], bys.count());
++        for (auto it = bys.constBegin(); it != bys.constEnd(); ++it) {
++            r->by[ICAL_BY_YEAR_DAY].data[index++] = static_cast<short>(*it);
++        }
+     }
+ 
+     bys = recur->byWeekNumbers();
+-    index = 0;
+-    for (it = bys.constBegin(); it != bys.constEnd(); ++it) {
+-        r.by_week_no[index++] = static_cast<short>(*it);
++    if (!bys.isEmpty()) {
++        index = 0;
++        icalrecur_resize_by(&r->by[ICAL_BY_WEEK_NO], bys.count());
++        for (auto it = bys.constBegin(); it != bys.constEnd(); ++it) {
++            r->by[ICAL_BY_WEEK_NO].data[index++] = static_cast<short>(*it);
++        }
+     }
+ 
+     bys = recur->byMonths();
+-    index = 0;
+-    for (it = bys.constBegin(); it != bys.constEnd(); ++it) {
+-        r.by_month[index++] = static_cast<short>(*it);
++    if (!bys.isEmpty()) {
++        index = 0;
++        icalrecur_resize_by(&r->by[ICAL_BY_MONTH], bys.count());
++        for (auto it = bys.constBegin(); it != bys.constEnd(); ++it) {
++            r->by[ICAL_BY_MONTH].data[index++] = static_cast<short>(*it);
++        }
+     }
+ 
+     bys = recur->bySetPos();
+-    index = 0;
+-    for (it = bys.constBegin(); it != bys.constEnd(); ++it) {
+-        r.by_set_pos[index++] = static_cast<short>(*it);
++    if (!bys.isEmpty()) {
++        index = 0;
++        icalrecur_resize_by(&r->by[ICAL_BY_SET_POS], bys.count());
++        for (auto it = bys.constBegin(); it != bys.constEnd(); ++it) {
++            r->by[ICAL_BY_SET_POS].data[index++] = static_cast<short>(*it);
++        }
+     }
+ 
+     const QList<RecurrenceRule::WDayPos> &byd = recur->byDays();
+-    int day;
+-    index = 0;
+-    for (QList<RecurrenceRule::WDayPos>::ConstIterator dit = byd.constBegin(); dit != byd.constEnd(); ++dit) {
+-        day = (*dit).day() % 7 + 1; // convert from Monday=1 to Sunday=1
+-        if ((*dit).pos() < 0) {
+-            day += (-(*dit).pos()) * 8;
+-            day = -day;
+-        } else {
+-            day += (*dit).pos() * 8;
++    if (!byd.isEmpty()) {
++        int day;
++        index = 0;
++        icalrecur_resize_by(&r->by[ICAL_BY_DAY], byd.count());
++        for (auto it = byd.cbegin(); it != byd.cend(); ++it) {
++            const auto &reRule = *it;
++            day = (reRule.day() % 7) + 1; // convert from Monday=1 to Sunday=1
++            if (reRule.pos() < 0) {
++                day += (-reRule.pos()) * 8;
++                day = -day;
++            } else {
++                day += reRule.pos() * 8;
++            }
++            r->by[ICAL_BY_DAY].data[index++] = static_cast<short>(day);
+         }
+-        r.by_day[index++] = static_cast<short>(day);
+     }
+ 
+-    r.week_start = static_cast<icalrecurrencetype_weekday>(recur->weekStart() % 7 + 1);
++    r->week_start = static_cast<icalrecurrencetype_weekday>(recur->weekStart() % 7 + 1);
+ 
+     if (recur->frequency() > 1) {
+         // Don't write out INTERVAL=1, because that's the default anyway
+-        r.interval = static_cast<short>(recur->frequency());
++        r->interval = static_cast<short>(recur->frequency());
+     }
+ 
+     if (recur->duration() > 0) {
+-        r.count = recur->duration();
++        r->count = recur->duration();
+     } else if (recur->duration() == -1) {
+-        r.count = 0;
++        r->count = 0;
+     } else {
+         if (recur->allDay()) {
+-            r.until = writeICalDate(recur->endDt().date());
++            r->until = writeICalDate(recur->endDt().date());
+         } else {
+-            r.until = writeICalDateTime(recur->endDt());
++            r->until = writeICalUtcDateTime(recur->endDt());
+         }
+     }
+-
+     return r;
+ }
+ 
+@@ -1494,12 +1532,12 @@ Attendee ICalFormatImpl::readAttendee(icalproperty *attendee)
+ 
+     p = icalproperty_get_first_parameter(attendee, ICAL_DELEGATEDTO_PARAMETER);
+     if (p) {
+-        a.setDelegate(QLatin1String(icalparameter_get_delegatedto(p)));
++        a.setDelegate(QLatin1String(icalparameter_get_delegatedto_nth(p, 0)));
+     }
+ 
+     p = icalproperty_get_first_parameter(attendee, ICAL_DELEGATEDFROM_PARAMETER);
+     if (p) {
+-        a.setDelegator(QLatin1String(icalparameter_get_delegatedfrom(p)));
++        a.setDelegator(QLatin1String(icalparameter_get_delegatedfrom_nth(p, 0)));
+     }
+ 
+     return a;
+@@ -1727,8 +1765,11 @@ void ICalFormatImpl::readIncidence(icalcomponent *parent, const Incidence::Ptr &
+ 
+         case ICAL_GEO_PROPERTY: { // geo
+             icalgeotype geo = icalproperty_get_geo(p);
+-            incidence->setGeoLatitude(geo.lat);
+-            incidence->setGeoLongitude(geo.lon);
++            double geoval;
++            sscanf(geo.lat, "%lf", &geoval);
++            incidence->setGeoLatitude(geoval);
++            sscanf(geo.lon, "%lf", &geoval);
++            incidence->setGeoLongitude(geoval);
+             incidence->setHasGeo(true);
+             break;
+         }
+@@ -1987,23 +2028,23 @@ void ICalFormatImpl::readRecurrenceRule(icalproperty *rrule, const Incidence::Pt
+ {
+     Recurrence *recur = incidence->recurrence();
+ 
+-    struct icalrecurrencetype r = icalproperty_get_rrule(rrule);
++    struct icalrecurrencetype *r = icalproperty_get_rrule(rrule);
+     // dumpIcalRecurrence(r);
+ 
+     RecurrenceRule *recurrule = new RecurrenceRule(/*incidence*/);
+     recurrule->setStartDt(incidence->dtStart());
+-    readRecurrence(r, recurrule);
++    readRecurrence(*r, recurrule);
+     recur->addRRule(recurrule);
+ }
+ 
+ void ICalFormatImpl::readExceptionRule(icalproperty *rrule, const Incidence::Ptr &incidence)
+ {
+-    struct icalrecurrencetype r = icalproperty_get_exrule(rrule);
++    struct icalrecurrencetype *r = icalproperty_get_exrule(rrule);
+     // dumpIcalRecurrence(r);
+ 
+     RecurrenceRule *recurrule = new RecurrenceRule(/*incidence*/);
+     recurrule->setStartDt(incidence->dtStart());
+-    readRecurrence(r, recurrule);
++    readRecurrence(*r, recurrule);
+ 
+     Recurrence *recur = incidence->recurrence();
+     recur->addExRule(recurrule);
+@@ -2062,19 +2103,18 @@ void ICalFormatImpl::readRecurrence(const struct icalrecurrencetype &r, Recurren
+ 
+     // And now all BY*
+     QList<int> lst;
+-    int i;
+     int index = 0;
+ 
+ // clang-format off
+ //@cond PRIVATE
+-#define readSetByList( rrulecomp, setfunc )                             \
+-    index = 0;                                                            \
+-    lst.clear();                                                          \
+-    while ( ( i = r.rrulecomp[index++] ) != ICAL_RECURRENCE_ARRAY_MAX ) { \
+-        lst.append( i );                                                    \
+-    }                                                                     \
+-    if ( !lst.isEmpty() ) {                                               \
+-        recur->setfunc( lst );                                              \
++#define readSetByList(rrulecomp, setfunc)                                \
++    lst.clear();                                                         \
++    index = 0;                                                           \
++    while (index < r.by[rrulecomp].size) {                                         \
++        lst.append(r.by[rrulecomp].data[index++]);                       \
++    }                                                                    \
++    if (!lst.isEmpty()) {                                                \
++        recur->setfunc(lst );                                            \
+     }
+ //@endcond
+     // clang-format on
+@@ -2082,21 +2122,22 @@ void ICalFormatImpl::readRecurrence(const struct icalrecurrencetype &r, Recurren
+     // BYSECOND, MINUTE and HOUR, MONTHDAY, YEARDAY, WEEKNUMBER, MONTH
+     // and SETPOS are standard int lists, so we can treat them with the
+     // same macro
+-    readSetByList(by_second, setBySeconds);
+-    readSetByList(by_minute, setByMinutes);
+-    readSetByList(by_hour, setByHours);
+-    readSetByList(by_month_day, setByMonthDays);
+-    readSetByList(by_year_day, setByYearDays);
+-    readSetByList(by_week_no, setByWeekNumbers);
+-    readSetByList(by_month, setByMonths);
+-    readSetByList(by_set_pos, setBySetPos);
++    readSetByList(ICAL_BY_SECOND, setBySeconds);
++    readSetByList(ICAL_BY_MINUTE, setByMinutes);
++    readSetByList(ICAL_BY_HOUR, setByHours);
++    readSetByList(ICAL_BY_MONTH_DAY, setByMonthDays);
++    readSetByList(ICAL_BY_YEAR_DAY, setByYearDays);
++    readSetByList(ICAL_BY_WEEK_NO, setByWeekNumbers);
++    readSetByList(ICAL_BY_MONTH, setByMonths);
++    readSetByList(ICAL_BY_SET_POS, setBySetPos);
+ #undef readSetByList
+ 
+     // BYDAY is a special case, since it's not an int list
+     QList<RecurrenceRule::WDayPos> wdlst;
+     short day;
+     index = 0;
+-    while ((day = r.by_day[index++]) != ICAL_RECURRENCE_ARRAY_MAX) {
++    while (index < r.by[ICAL_BY_DAY].size) {
++        day = r.by[ICAL_BY_DAY].data[index++];
+         RecurrenceRule::WDayPos pos;
+         pos.setDay(static_cast<short>((icalrecurrencetype_day_day_of_week(day) + 5) % 7 + 1));
+         pos.setPos(icalrecurrencetype_day_position(day));
+@@ -2943,7 +2984,7 @@ icalcomponent *ICalFormatImpl::createScheduleComponent(const IncidenceBase::Ptr
+             if (!icaltz) {
+                 qCritical() << "bad time zone";
+             } else {
+-                icalcomponent *tz = icalcomponent_new_clone(icaltimezone_get_component(icaltz));
++                icalcomponent *tz = icalcomponent_clone(icaltimezone_get_component(icaltz));
+                 icalcomponent_add_component(message, tz);
+                 icaltimezone_free(icaltz, 1);
+             }
+diff --git a/3rdparty/kcalendarcore/src/icalformat_p.h b/3rdparty/kcalendarcore/src/icalformat_p.h
+index f06cfb08..77c602c9 100644
+--- a/3rdparty/kcalendarcore/src/icalformat_p.h
++++ b/3rdparty/kcalendarcore/src/icalformat_p.h
+@@ -115,7 +115,7 @@ public:
+     icalproperty *writeOrganizer(const Person &organizer);
+     icalproperty *writeAttachment(const Attachment &attach);
+     icalproperty *writeRecurrenceRule(Recurrence *);
+-    icalrecurrencetype writeRecurrenceRule(RecurrenceRule *recur);
++    icalrecurrencetype *writeRecurrenceRule(RecurrenceRule *recur);
+     icalcomponent *writeAlarm(const Alarm::Ptr &alarm);
+     icalproperty *writeConference(const Conference &conference);
+ 
+diff --git a/3rdparty/kcalendarcore/src/icaltimezones.cpp b/3rdparty/kcalendarcore/src/icaltimezones.cpp
+index f7d73948..07d23f50 100644
+--- a/3rdparty/kcalendarcore/src/icaltimezones.cpp
++++ b/3rdparty/kcalendarcore/src/icaltimezones.cpp
+@@ -239,7 +239,7 @@ icalcomponent *ICalTimeZoneParser::icalcomponentFromQTimeZone(const QTimeZone &t
+         icalcomponent_add_property(phaseComp, icalproperty_new_tzoffsetfrom(preOffset));
+         icalcomponent_add_property(phaseComp, icalproperty_new_tzoffsetto(transit.offsetFromUtc));
+         // Create a component to hold initial RRULE if any, plus all RDATEs
+-        icalcomponent *phaseComp1 = icalcomponent_new_clone(phaseComp);
++        icalcomponent *phaseComp1 = icalcomponent_clone(phaseComp);
+         icalcomponent_add_property(phaseComp1, icalproperty_new_dtstart(writeLocalICalDateTime(transits.at(i).atUtc, preOffset)));
+         bool useNewRRULE = false;
+ 
+@@ -336,23 +336,29 @@ icalcomponent *ICalTimeZoneParser::icalcomponentFromQTimeZone(const QTimeZone &t
+                 }
+                 if (times.count() > (useNewRRULE ? minPhaseCount : minRuleCount)) {
+                     // There are enough dates to combine into an RRULE
+-                    icalrecurrencetype r;
+-                    icalrecurrencetype_clear(&r);
+-                    r.freq = ICAL_YEARLY_RECURRENCE;
+-                    r.by_month[0] = month;
++                    icalrecurrencetype *r = icalrecurrencetype_new();
++                    if (!r) {
++                        break;
++                    }
++                    r->freq = ICAL_YEARLY_RECURRENCE;
++                    icalrecur_resize_by(&r->by[ICAL_BY_MONTH], 1);
++                    r->by[ICAL_BY_MONTH].data[0] = month;
+                     if (rule & DAY_OF_MONTH) {
+-                        r.by_month_day[0] = dayOfMonth;
++                        icalrecur_resize_by(&r->by[ICAL_BY_MONTH], 1);
++                        r->by[ICAL_BY_MONTH].data[0] = dayOfMonth;
+                     } else if (rule & WEEKDAY_OF_MONTH) {
+-                        r.by_day[0] = (dayOfWeek % 7 + 1) + (nthFromStart * 8); // Sunday = 1
++                        icalrecur_resize_by(&r->by[ICAL_BY_DAY], 1);
++                        r->by[ICAL_BY_DAY].data[0] = (dayOfWeek % 7 + 1) + (nthFromStart * 8); // Sunday = 1
+                     } else if (rule & LAST_WEEKDAY_OF_MONTH) {
+-                        r.by_day[0] = -(dayOfWeek % 7 + 1) - (nthFromEnd * 8); // Sunday = 1
++                        icalrecur_resize_by(&r->by[ICAL_BY_DAY], 1);
++                        r->by[ICAL_BY_DAY].data[0] = -(dayOfWeek % 7 + 1) - (nthFromEnd * 8); // Sunday = 1
+                     }
+-                    r.until = writeLocalICalDateTime(times.takeAt(times.size() - 1), preOffset);
++                    r->until = writeLocalICalDateTime(times.takeAt(times.size() - 1), preOffset);
+                     icalproperty *prop = icalproperty_new_rrule(r);
+                     if (useNewRRULE) {
+                         // This RRULE doesn't start from the phase start date, so set it into
+                         // a new STANDARD/DAYLIGHT component in the VTIMEZONE.
+-                        icalcomponent *c = icalcomponent_new_clone(phaseComp);
++                        icalcomponent *c = icalcomponent_clone(phaseComp);
+                         icalcomponent_add_property(c, icalproperty_new_dtstart(writeLocalICalDateTime(times[0], preOffset)));
+                         icalcomponent_add_property(c, prop);
+                         icalcomponent_add_component(tzcomp, c);
+@@ -622,7 +628,11 @@ bool ICalTimeZoneParser::parsePhase(icalcomponent *c, bool daylight, ICalTimeZon
+                 RecurrenceRule r;
+                 ICalFormat icf;
+                 ICalFormatImpl impl(&icf);
+-                impl.readRecurrence(icalproperty_get_rrule(p), &r);
++                struct icalrecurrencetype *rrule = icalproperty_get_rrule(p);
++                if (!rrule) {
++                    break;
++                }
++                impl.readRecurrence(*rrule, &r);
+                 r.setStartDt(utcStart);
+                 // The end date time specified in an RRULE must be in UTC.
+                 // We can not guarantee correctness if this is not the case.
