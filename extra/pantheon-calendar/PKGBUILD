@@ -2,7 +2,7 @@
 
 pkgname=pantheon-calendar
 pkgver=8.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc='The Pantheon Calendar'
 arch=(x86_64)
 url=https://github.com/elementary/calendar
@@ -33,8 +33,10 @@ makedepends=(
   vala
 )
 _tag=e7e03d69c4388c28685d4ea03a736b9fe701dfcd
-source=(pantheon-calendar::git+https://github.com/elementary/calendar.git#tag=${_tag})
-sha256sums=('fdaaa06bf25d2e77fbfce2510311d44bc6b6ebc9a382379cfdc0ca3f4a362c76')
+source=(pantheon-calendar::git+https://github.com/elementary/calendar.git#tag=${_tag}
+        libical-4.patch)
+sha256sums=('fdaaa06bf25d2e77fbfce2510311d44bc6b6ebc9a382379cfdc0ca3f4a362c76'
+            '306a1eea5716bcc09e677821350c420b576ee688596ec4b2232fa670b48127e6')
 
 pkgver() {
   cd pantheon-calendar
@@ -50,6 +52,9 @@ prepare() {
   sed -i '/gclue_dep/d' meson.build src/meson.build
   sed -i '/GtkClutter/d' src/Application.vala
   sed -i -e '/LocationPanel/d' -e '/location_panel/d' src/meson.build src/EventEdition/EventDialog.vala
+
+  # Fix build with libical 4
+  patch -p1 -i ../libical-4.patch
 }
 
 build() {
