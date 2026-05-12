@@ -2,7 +2,7 @@
 
 pkgbase=deepin-anything
 pkgname=(deepin-anything deepin-anything-dkms)
-pkgver=7.0.3
+pkgver=7.0.4
 _extramodules=extramodules-ARCH
 pkgrel=1
 pkgdesc="Deepin Anything file search tool"
@@ -14,7 +14,7 @@ source=(
   "git+https://github.com/linuxdeepin/deepin-anything.git#tag=$pkgver"
   0001-fix-Rename-init_mnt_ns-to-avoid-symbol-clash-with-ke.patch
 )
-sha512sums=('45214a8d431672df6f6450b97dd54ee4f819bc748b7f2f815551feeda585c5b2d2f6c16eee408b18e7d8ded77e1cf8e49f0cdfef68a1517a59497c059d9e5349'
+sha512sums=('00081ecfc3cbd0a78b6a98bb4fe59281320fe4f1423b7a92c0c893ce2b5100854ce8412eee6826936149aae655da3e9191b3c5938012b99e00024a4cd8b776c6'
             '4d41abba018d90f186a6c5f5af24dd4f1f43858c5ce977eba98c20f6c86df86382ed26c13fc04d8b93350a202ceb58946cc316eb8364fd6d6c0f4241eee0c3cd')
 
 prepare() {
@@ -28,6 +28,9 @@ prepare() {
   # Fix configuration with modern CMake
   sed -i 's/cmake_minimum_required(VERSION 3\.1\.0)/cmake_minimum_required(VERSION 3.5)/' CMakeLists.txt src/kernelmod/CMakeLists.txt
   sed -i 's/cmake_minimum_required(VERSION 3\.1)/cmake_minimum_required(VERSION 3.5)/' src/server/CMakeLists.txt
+
+  # Boost.System is header-only in modern Boost.
+  sed -i 's/find_package(Boost REQUIRED COMPONENTS system)/find_package(Boost REQUIRED)/' src/server/CMakeLists.txt
 }
 
 _pick() {
