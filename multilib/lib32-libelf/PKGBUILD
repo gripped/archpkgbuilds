@@ -4,7 +4,7 @@
 
 _name=elfutils
 pkgname=lib32-libelf
-pkgver=0.194
+pkgver=0.195
 pkgrel=1
 pkgdesc="Handle ELF object files and DWARF debugging information (libraries, 32-bit)"
 arch=(x86_64)
@@ -27,9 +27,12 @@ makedepends=(
   lib32-gcc-libs
 )
 # NOTE: the shared objects can not be added to provides as they are not versioned
-source=(git+$_url?signed#tag=$_name-$pkgver)
-sha512sums=('b8b031e1e99466af969792ea9fb2b1c2b0f39425b2eb5bed986fa72189410a4bc5bb8e0e48a57d41fb6bcedba0a5f3c56a4d0c8b66c606feac98c46a303ba379')
-b2sums=('a2e84bfaa316f2de5aff212bd91f15bed66f1881e4622fbfc19d671d09be68d2203813743570044de2a1c29c3db18d069db7481ad8cfe71104878cfc9e6f2191')
+source=(git+$_url?signed#tag=$_name-$pkgver
+        "remove-comment.patch")
+sha512sums=('7bbc1db55939e999683ccff41f287433ed926e255b4a35048812bc85505a1b3339828691691c769c4d79347f513792356c2d6b1727eabe0fd720722f7076643e'
+            'e33fe8d3fc9347fc9839c3958e51f8dbb7fbe4670b44ede503f5e8237998c80c4d53dfb7a6f36bc33d552ee35aaa955f7323a60476f315afd4fbee052a6551a1')
+b2sums=('6be17af5c5d015e028f1658f63a5a635c00952c98fa76be4f5a56c27366681a56f8e288261db876c51bc884a8a3fc4d03ecdf965e0e0fc98a2ebb3d4351d2d1c'
+        'c48aba30e2890744700982a49fef69bae94e1db0036fb25c0168c18ebbe8baf2f7ab49e46c384506ef7d35d4bebb028241112103f2be474c717f292d9a4c003b')
 validpgpkeys=(
   'EC3CFE88F6CA0788774F5C1D1AA44BE649DE760A'  # Mark Wielaard <mjw@gnu.org>
   '6C2B631563B8D330578D3CB474FD3FA2779E7073'  # Aaron Merey <amerey@redhat.com>
@@ -40,6 +43,9 @@ prepare() {
 
   # remove failing test due to missing glibc debug package during test: https://bugs.archlinux.org/task/74875
   sed -e 's/run-backtrace-native.sh//g' -i tests/Makefile.am
+
+  # Accidental comment in the AWK file. Removing it.
+  patch -Np1 < "$srcdir/remove-comment.patch"
 
   autoreconf -fiv
 }
