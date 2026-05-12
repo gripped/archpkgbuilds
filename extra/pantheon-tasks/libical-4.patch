@@ -1,0 +1,45 @@
+diff --git a/src/TaskModel.vala b/src/TaskModel.vala
+index 2f64f1e51..1ee93adc4 100644
+--- a/src/TaskModel.vala
++++ b/src/TaskModel.vala
+@@ -795,7 +795,7 @@ public class Tasks.TaskModel : Object {
+             if (today.compare (start) > 0) {
+                 start = today;
+             }
+-            var end = start.add (duration);
++            var end = ICal.Duration.extend (start, duration);
+ 
+             ECal.RecurInstanceCb recur_instance_callback = (instance_comp, instance_start_timet, instance_end_timet, cancellable) => {
+ 
+diff --git a/src/Util.vala b/src/Util.vala
+index d16e39ea2..6375e1287 100644
+--- a/src/Util.vala
++++ b/src/Util.vala
+@@ -323,7 +323,7 @@ namespace Tasks.Util {
+     * order of tasks like we have on iOS devices.
+     */
+     public ICal.Duration get_apple_sortorder_default_value (ECal.Component ecalcomponent) {
+-        return ecalcomponent.get_created ().subtract (new ICal.Time.from_string ("20010101T000000Z"));
++        return ICal.Duration.from_times (ecalcomponent.get_created (), new ICal.Time.from_string ("20010101T000000Z"));
+     }
+ 
+ 
+diff --git a/src/Views/ListView.vala b/src/Views/ListView.vala
+index b677bc067..4696b3185 100644
+--- a/src/Views/ListView.vala
++++ b/src/Views/ListView.vala
+@@ -252,12 +252,12 @@ public class Tasks.ListView : Granite.Bin {
+             } else {
+                 var apple_sortorder_a = Util.get_apple_sortorder_property_value (row_a.task);
+                 if (apple_sortorder_a == null) {
+-                    apple_sortorder_a = Util.get_apple_sortorder_default_value (row_a.task).as_int ().to_string ();
++                    apple_sortorder_a = Util.get_apple_sortorder_default_value (row_a.task).as_utc_seconds ().to_string ();
+                 }
+ 
+                 var apple_sortorder_b = Util.get_apple_sortorder_property_value (row_b.task);
+                 if (apple_sortorder_b == null) {
+-                    apple_sortorder_b = Util.get_apple_sortorder_default_value (row_b.task).as_int ().to_string ();
++                    apple_sortorder_b = Util.get_apple_sortorder_default_value (row_b.task).as_utc_seconds ().to_string ();
+                 }
+ 
+                 return apple_sortorder_a.collate (apple_sortorder_b);
