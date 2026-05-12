@@ -2,17 +2,17 @@
 
 _hkgname=bin
 pkgname=haskell-bin
-pkgver=0.1.4
-pkgrel=89
+pkgver=0.1.4.1
+pkgrel=1
 pkgdesc="Bin: binary natural numbers."
 url="https://github.com/phadej/vec"
 license=('GPL-2.0-or-later')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-quickcheck' 'haskell-boring' 'haskell-dec' 'haskell-fin'
-         'haskell-hashable' 'haskell-some')
+depends=('ghc-libs' 'haskell-quickcheck' 'haskell-boring' 'haskell-fin' 'haskell-hashable'
+         'haskell-some')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('3c9f4add88fb7dc73dca1348d66686466a90bf112f4e3c79d373d18d6aa28c826aaf90afc01949e4fe2d43cdb484958a14efd986f257972b8ab44fa002384ca7')
+sha512sums=('d9b2c5344a4f68a12f99ee7bd8623aa4183ba76b005a7bf3ad7a251f386aac9cb2952485563730e872381d691a3ad1b0b8a108b0c0f1b4c34bc271717315f4cb')
 
 prepare() {
   cd $_hkgname-$pkgver
