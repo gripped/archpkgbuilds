@@ -6,14 +6,15 @@ _cuda_ver=13.1
 _hpcx_ver=2.25
 _rel_year=2026
 pkgver=26.3
-pkgrel=1
+pkgrel=3
 pkgdesc="NVIDIA HPC SDK"
-arch=(x86_64)
+arch=(x86_64 aarch64)
 url="https://docs.nvidia.com/hpc-sdk/index.html"
 license=(LicenseRef-NVIDIA-HPC-SDK)
 makedepends=(
   cuda
   gcc-fortran
+  gcc15
   nsight-compute
   nsight-systems
   nccl
@@ -21,21 +22,24 @@ makedepends=(
 )
 options=(!strip !debug staticlibs)
 install=nvhpc.install
-_archive=nvhpc_${_rel_year}_${pkgver//.}_Linux_${arch}_cuda_${_cuda_ver}
+_archive=nvhpc_${_rel_year}_${pkgver//.}_Linux_${CARCH}_cuda_${_cuda_ver}
+_platform=Linux_${CARCH}
 source=(
-  https://developer.download.nvidia.com/hpc-sdk/$pkgver/$_archive.tar.gz
   $pkgname-$pkgver-EULA.pdf::https://docs.nvidia.com/hpc-sdk/archive/$pkgver/pdf/EULA.pdf
   EULA.txt
   activate.in
   nvhpc-compilers.conf.in
   nvhpc-compilers.sh.in
 )
-b2sums=('5a92a925d1a85f58fe8c5a0707a80d538a8203bf9d976ac6098f9e470de70f14b1aacdbdaa82c9f736f91ebe0883aa9f8002ba788606ee3ee68ea50a02e8f144'
-        'f52dc0a49bedad1a9b08e9ebb9e48c5ea1ff16a064486714d785b7b7f65bd0b7059f059a6ac9aa126c94575c80c8a004ed788341dbbc711421a6654fbafeac2d'
+source_x86_64=(https://developer.download.nvidia.com/hpc-sdk/$pkgver/nvhpc_${_rel_year}_${pkgver//.}_Linux_x86_64_cuda_${_cuda_ver}.tar.gz)
+source_aarch64=(https://developer.download.nvidia.com/hpc-sdk/$pkgver/nvhpc_${_rel_year}_${pkgver//.}_Linux_aarch64_cuda_${_cuda_ver}.tar.gz)
+b2sums=('f52dc0a49bedad1a9b08e9ebb9e48c5ea1ff16a064486714d785b7b7f65bd0b7059f059a6ac9aa126c94575c80c8a004ed788341dbbc711421a6654fbafeac2d'
         '83dbff1adbb72c10300038e816445abbad7d826ffd28c7e61ec3069e2ceb8858e6e180416c268731ea0b7a98bbba26ccd177f0b40d9d131763a7dfa68286e95f'
         '40546862e00688b8d1e1428260a79b9e6eda38be461db3cab1b30b62abdc1875a332b7d3557b7eb94bfddc79849b95c9e7bd43ad93a20f93548331ec1bb5111c'
         '4bd2ac804d6d344823078435e30b3a75989db0c752d021de326d972f3efb95d7f3ea02728ae0a4f7f1875ddec7b934ddd0574105c7afe37c1d5372120863a2ca'
         '246209a817521a0faab024fd601fed97e29e60b925a346d3a6e2d7d235bc9f7339e06f6f622a182bd74269f3b24d1ae4526f8592e58eb51ae3a781618fa7b9b1')
+b2sums_x86_64=('5a92a925d1a85f58fe8c5a0707a80d538a8203bf9d976ac6098f9e470de70f14b1aacdbdaa82c9f736f91ebe0883aa9f8002ba788606ee3ee68ea50a02e8f144')
+b2sums_aarch64=('33f16e95bf67e08b35c56674015f380892c46f23c5e32d9bf2b7cd457339ab6a9bf199f2a43e10c305ce45fe8e83fbd2223061f7f3f5d23bd46e3ade0e4902b7')
 
 _pick() {
   local p="$1" f d; shift
@@ -79,7 +83,7 @@ _replace_with_symlink() {
 }
 
 prepare() {
-  sed -i "s/en_US\.UTF\-8/C.UTF-8/g" $_archive/install_components/Linux_x86_64/$pkgver/compilers/bin/makelocalrc
+  sed -i "s/en_US\.UTF\-8/C.UTF-8/g" $_archive/install_components/$_platform/$pkgver/compilers/bin/makelocalrc
 }
 
 build() {
@@ -97,17 +101,18 @@ build() {
   install -vdm 755 "$prepdir"/usr/share/
   mv "$prepdir"/opt/nvidia/hpc_sdk/modulefiles "$prepdir"/usr/share/
 
-  # Rewrite localrc to use gcc-14 as default compiler
-  #"$prepdir"/opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/compilers/bin/makelocalrc -x -gcc gcc-14
+  # Rewrite localrc to use gcc-15 as default compiler
+  "$prepdir"/opt/nvidia/hpc_sdk/$_platform/$pkgver/compilers/bin/makelocalrc -x -gcc gcc-15
 
   # Fix permissions of static library files from 755 to 644
   find "$prepdir" \( -path '*/lib/*.a' -o -path '*/lib64/*.a' \) -type f -executable -exec chmod 644 {} \;
 
   # Clean up compilers bindir
-  local compdir="$prepdir"/opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/compilers
+  local compdir="$prepdir"/opt/nvidia/hpc_sdk/$_platform/$pkgver/compilers
   local f
   for f in compute-sanitizer cuda-gdb cuda-memcheck cuobjdump ncu nsys nvcc nvprof; do
-    rm $compdir/bin/$f $compdir/bin/.${f}rc
+    # nvprof and .nvprofrc do not exists on aarch64
+    rm -f $compdir/bin/$f $compdir/bin/.${f}rc
   done
   for f in ncu-ui nsys-ui nv-nsight-cu-cli; do
     rm $compdir/bin/$f
@@ -116,23 +121,23 @@ build() {
   cd "$prepdir"
 
   # Replace nccl and nvshmem with symlinks
-  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/comm_libs/$_cuda_ver/nccl /usr
-  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/comm_libs/$_cuda_ver/nvshmem /usr
+  _replace_with_symlink opt/nvidia/hpc_sdk/$_platform/$pkgver/comm_libs/$_cuda_ver/nccl /usr
+  _replace_with_symlink opt/nvidia/hpc_sdk/$_platform/$pkgver/comm_libs/$_cuda_ver/nvshmem /usr
 
   # Move components for split packages
-  _pick $pkgbase-comm-libs opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/comm_libs
-  _pick $pkgbase-compilers opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/compilers
+  _pick $pkgbase-comm-libs opt/nvidia/hpc_sdk/$_platform/$pkgver/comm_libs
+  _pick $pkgbase-compilers opt/nvidia/hpc_sdk/$_platform/$pkgver/compilers
 
   # Replace components provided by cuda, nsight-compute and nsight-systems with symlinks
-  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/cuda/$_cuda_ver /opt/cuda
-  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/math_libs/$_cuda_ver /opt/cuda
-  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/profilers/$_cuda_ver/Nsight_Compute /usr/lib/nsight-compute
-  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/profilers/$_cuda_ver/Nsight_Systems /usr/lib/nsight-systems
+  _replace_with_symlink opt/nvidia/hpc_sdk/$_platform/$pkgver/cuda/$_cuda_ver /opt/cuda
+  _replace_with_symlink opt/nvidia/hpc_sdk/$_platform/$pkgver/math_libs/$_cuda_ver /opt/cuda
+  _replace_with_symlink opt/nvidia/hpc_sdk/$_platform/$pkgver/profilers/$_cuda_ver/Nsight_Compute /usr/lib/nsight-compute
+  _replace_with_symlink opt/nvidia/hpc_sdk/$_platform/$pkgver/profilers/$_cuda_ver/Nsight_Systems /usr/lib/nsight-systems
 
   # Remove the REDIST directory which is not useful (AFAICT)
   # (it contains only a subtree of symlinks under the comm_libs/, cuda/ and math_libs/ subtrees,
   # moreover with a hardcoded CUDA version in the paths)
-  rm -r opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/REDIST/
+  rm -r opt/nvidia/hpc_sdk/$_platform/$pkgver/REDIST/
 }
 
 package_nvhpc() {
@@ -174,7 +179,7 @@ package_nvhpc-comm-libs() {
   mv -v $pkgname/* "$pkgdir"
 
   # Install licenses
-  local comm_libs_dir=/opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/comm_libs/$_cuda_ver/
+  local comm_libs_dir=/opt/nvidia/hpc_sdk/$_platform/$pkgver/comm_libs/$_cuda_ver/
   install -vdm 755 "$pkgdir"/usr/share/licenses/$pkgname/
   ln -vs --no-target-directory "$comm_libs_dir"/hpcx/hpcx-$_hpcx_ver/sharp/share/doc/sharp/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE_hpcx
 }
@@ -183,6 +188,7 @@ package_nvhpc-compilers() {
   pkgdesc+=" - compilers"
   depends=(
     gcc-fortran
+    gcc15
     glibc
     libatomic
     libgcc
@@ -196,7 +202,7 @@ package_nvhpc-compilers() {
 
   # Install licenses
   install -vdm 755 "$pkgdir"/usr/share/licenses/
-  ln -vs --no-target-directory /opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/compilers/license "$pkgdir"/usr/share/licenses/$pkgname
+  ln -vs --no-target-directory /opt/nvidia/hpc_sdk/$_platform/$pkgver/compilers/license "$pkgdir"/usr/share/licenses/$pkgname
 
   # Install profile and ld.so.config files
   install -vDm 644 <(sed "s/@version@/$pkgver/" $pkgname.sh.in) "$pkgdir"/etc/profile.d/$pkgname.sh
