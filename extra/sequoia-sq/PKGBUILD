@@ -3,7 +3,7 @@
 
 pkgname=sequoia-sq
 pkgver=1.3.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Command-line frontends for Sequoia'
 url='https://sequoia-pgp.org/'
 arch=(x86_64)
@@ -11,9 +11,9 @@ license=(LGPL-2.0-or-later)
 groups=(sequoia)
 replaces=(sequoia)
 depends=(
-  gcc-libs
   glibc
   gmp
+  libgcc
   openssl
   sqlite
 )
@@ -43,6 +43,9 @@ prepare() {
   cd $pkgname
 # Update nettle-sys to fix build with clang 22
   cargo update -p nettle-sys --precise 2.3.2
+  # Fix various issues in sequoia-openpgp: https://gitlab.com/sequoia-pgp/sequoia-sq/-/work_items/653
+  cargo update -p sequoia-openpgp --precise 2.3.0
+  cargo update -p sequoia-policy-config --precise 0.8.1
   cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
