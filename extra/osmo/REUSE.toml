@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -17,13 +20,16 @@ path = [
     "*.timer",
     "*.desktop",
     "*.hook",
+    "*.changelog",
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
+    "fix-incompatible-pointer-types.patch",
+    "libical-4.patch",
     "osmo-0.4.4-webkit2-4.1.patch",
 ]
 SPDX-FileCopyrightText = "osmo contributors"
-SPDX-License-Identifier = "TODO-Choose-a-license"
+SPDX-License-Identifier = "GPL-2.0-or-later"
