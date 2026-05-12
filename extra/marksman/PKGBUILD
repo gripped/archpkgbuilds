@@ -2,7 +2,7 @@
 
 pkgname=marksman
 pkgver=20260208
-pkgrel=2
+pkgrel=3
 pkgdesc="Write Markdown with code assist and intelligence in the comfort of your favourite editor."
 arch=('x86_64')
 url="https://github.com/artempyanykh/marksman"
@@ -25,5 +25,6 @@ build() {
 
 package() {
   cd "marksman"
-  install -Dm755 Marksman/bin/Release/net*/linux-x64/publish/marksman $pkgdir/usr/bin/marksman
+  install -Dm755 Marksman/bin/Release/net*/linux-*/publish/marksman $pkgdir/usr/bin/marksman
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
