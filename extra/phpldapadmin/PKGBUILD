@@ -1,18 +1,18 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=phpldapadmin
-pkgver=2.3.9
+pkgver=2.3.10
 pkgrel=1
 pkgdesc="A PHP and hence web-based tool to administrate LDAP over the WWW"
 arch=('any')
 url="https://github.com/leenooks/phpLDAPadmin"
 license=('GPL')
 depends=('libldap' 'php')
-makedepends=('optipng' 'git' 'npm' 'composer')
+makedepends=('optipng' 'git' 'npm' 'composer' 'nodejs-lts-krypton')
 backup=("etc/phpldapadmin/env")
 source=("$pkgname-$pkgver.tar.gz::https://github.com/leenooks/phpLDAPadmin/archive/refs/tags/$pkgver.tar.gz"
 	"phpldapadmin.service")
-sha256sums=('8cb57f49b5449e2a142d92a3284ff7814594d15f0e6a7d4ec65ad4779efabb53'
+sha256sums=('a70dd1ae805e99e75b767b30afe09426c034e94edf0248fca312b9e5002ae16d'
             '0887bf62f9b1b59133b12110150e4e9de22253cc3fa0c2a7c3d47b577b866b85')
 
 prepare() {
