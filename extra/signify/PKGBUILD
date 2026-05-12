@@ -3,18 +3,16 @@
 # Contributor: Adrian Perez de Castro <aperez@igalia.com>
 
 pkgname=signify
-pkgver=32
-pkgrel=3
+pkgver=33
+pkgrel=1
 pkgdesc='OpenBSD tool to cryptographically sign and verify files'
-url='https://github.com/aperezdc/signify'
+url='https://codeberg.org/aperezdc/signify'
 arch=('x86_64')
 license=('BSD')
 makedepends=('git')
 depends=('glibc' 'libbsd>=0.8')
-source=(git+https://github.com/aperezdc/signify.git?signed#tag=v${pkgver}
-        ${pkgname}-LICENSE-${pkgver}::https://raw.githubusercontent.com/aperezdc/signify/v${pkgver}/COPYING)
-sha512sums=('d179fe2b7deb6f579782959e365e65dcfa5b66bf44515ffe27af3ddc58111d554c39b50c86308bbcf4cf2f9b3f9343dee6f294d0f8916179e618d3fb0277afce'
-            '5de1345ef929058040975f1106318ac9443fc107d19a12bfbc919a152ddd4dde11c76201722bc5847bad579e5dc4ba467f0947b6f0fce5cc3eccc68d5f4e9dfe')
+source=(git+https://codeberg.org/aperezdc/signify.git?signed#tag=v${pkgver})
+sha512sums=('04b667ba0cd356a5b31278ce0aa6ba8b9bd0c6667d8bff86d919f2018a9637d8c50ee84db2b93a63e6b6bf101c3200254ba192d74997887855249606db8af07f')
 validpgpkeys=(
   '5AA3BC334FD7E3369E7C77B291C559DBE4C9123B' # Adrián Pérez de Castro <aperez@igalia.com>
 )
@@ -42,7 +40,7 @@ package () {
     DESTDIR="${pkgdir}" \
     GIT_TAG='' install
   install -Dm644 README.md CHANGELOG.md -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -Dm644 ../${pkgname}-LICENSE-${pkgver} "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
 
 # vim: ts=2 sw=2 et:
