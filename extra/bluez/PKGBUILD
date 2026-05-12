@@ -7,7 +7,7 @@
 pkgbase=bluez
 pkgname=('bluez' 'bluez-utils' 'bluez-libs' 'bluez-cups' 'bluez-deprecated-tools' 'bluez-hid2hci' 'bluez-mesh' 'bluez-obex')
 pkgver=5.86
-pkgrel=5
+pkgrel=6
 url="http://www.bluez.org/"
 arch=('x86_64')
 license=('GPL-2.0-only')
@@ -48,6 +48,7 @@ prepare() {
 
 build() {
   cd "${pkgname}"-${pkgver}
+  ICAL_LIBS="-lical -licalvcal" \
   ./configure \
           --prefix=/usr \
           --mandir=/usr/share/man \
