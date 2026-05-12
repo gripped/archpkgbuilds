@@ -4,7 +4,7 @@
 
 pkgname=gnome-calendar
 pkgver=50.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Simple and beautiful calendar application designed to perfectly fit the GNOME desktop"
 url="https://apps.gnome.org/Calendar"
 arch=(x86_64)
@@ -38,11 +38,19 @@ optdepends=(
   'xdg-desktop-portal-impl: Various user settings (e.g. 24-hour clock)'
 )
 groups=(gnome)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-calendar.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('d56765b7cd680fc1e3b324b7820dea56f7dc0c32059fc5f6ea3f1dcc735100ef83990f232129f62d992766a923e6fef8dd8c58e3fca531574b922de683f037fd')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-calendar.git#tag=${pkgver/[a-z]/.&}"
+  0001-Support-libical-4.0.0.patch
+)
+b2sums=('d56765b7cd680fc1e3b324b7820dea56f7dc0c32059fc5f6ea3f1dcc735100ef83990f232129f62d992766a923e6fef8dd8c58e3fca531574b922de683f037fd'
+        'b7ad326e6e8a90dbaed4adaa9a885392fff01ef32c29497c5880d29c7a318734420c24d5b3a51ca1c98568c45e527dd4da664894c4d4cc017a2781f641f699d6')
 
 prepare() {
   cd $pkgname
+
+  # Fix build with libical 4.0
+  # https://gitlab.gnome.org/GNOME/gnome-calendar/-/merge_requests/763
+  git apply -3 ../0001-Support-libical-4.0.0.patch
 }
 
 build() {
