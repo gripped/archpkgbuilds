@@ -8,7 +8,7 @@
 
 pkgname=scribus
 pkgver=1.6.6
-pkgrel=3
+pkgrel=4
 pkgdesc="Desktop publishing software"
 arch=(x86_64)
 url="https://www.scribus.net/"
@@ -52,9 +52,11 @@ optdepends=('gdal: enable gdal plugin'
             'tk: scripts based on tkinter')
 options=(!lto)
 _archive="$pkgname-$pkgver"
-source=("https://downloads.sourceforge.net/${pkgname}/$_archive.tar.xz"{,.asc})
+source=("https://downloads.sourceforge.net/${pkgname}/$_archive.tar.xz"{,.asc}
+        "fix_build_with_poppler_26.05.patch::https://github.com/scribusproject/scribus/commit/14a287fc1db2a44abfe1743260554447b31b4adf.patch?full_index=1")
 sha256sums=('fdfe3e7cbe84b760b38d0561ed8736f9d25d4923adde6e15e03760d83be6166d'
-            'SKIP')
+            'SKIP'
+            'e84b3f12333cac812c942b85f06403669ad3792bdae821a7e95fa9a3258e1cda')
 validpgpkeys=(5086B8D68E70FDDF4C40045AEF7B95E7F60166DA  # Peter Linnell <plinnell@scribus.net>
               757F5E9B13DD648887AD50092D47C099E782504E  # The Scribus Team (www.scribus.net) <the_scribus_team@scribus.net>
               6558BE84D27273A438A151198BEA48118AEBEE64) # Craig Bradney <cbradney@zipworld.com.au>
@@ -67,6 +69,11 @@ pkgver() {
 	else
 		echo "$pkgver"
 	fi
+}
+
+prepare() {
+	cd "$_archive"
+	patch -Np1 -i "$srcdir/fix_build_with_poppler_26.05.patch"
 }
 
 build() {
