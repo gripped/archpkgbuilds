@@ -2,7 +2,7 @@
 
 pkgname=sequoia-sop
 pkgver=0.37.3
-pkgrel=3
+pkgrel=4
 pkgdesc='Implementation of the Stateless OpenPGP Interface using Sequoia'
 url='https://gitlab.com/sequoia-pgp/sequoia-sop'
 arch=(x86_64)
@@ -36,6 +36,8 @@ prepare() {
   cd ${pkgname}
 # Update nettle-sys to fix build with clang 22
   cargo update -p nettle-sys --precise 2.3.2
+  # Update sequoia-openpgp to fix various vulnerabilities.
+  cargo update -p sequoia-openpgp --precise 2.3.0
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
