@@ -11,25 +11,11 @@ migrate to pcre2
  Conflicts:
 	src/services/textindex/CMakeLists.txt
 ---
- debian/control                                |  2 +-
  .../3rdparty/fsearch/database_search.c        | 53 ++++++++++---------
  .../dfmplugin-search/CMakeLists.txt           |  2 +-
  .../dfmplugin-search/CMakeLists.txt           |  2 +-
- 4 files changed, 32 insertions(+), 27 deletions(-)
+ 3 files changed, 31 insertions(+), 26 deletions(-)
 
-diff --git a/debian/control b/debian/control
-index c0f225685d..dbaea443ce 100644
---- a/debian/control
-+++ b/debian/control
-@@ -43,7 +43,7 @@ Build-Depends:
-  libkf5codecs-dev,
-  libpoppler-cpp-dev,
-  libcryptsetup-dev,
-- libpcre3-dev,
-+ libpcre2-dev,
-  libdde-shell-dev (>= 0.0.10),
-  deepin-desktop-base | deepin-desktop-server | deepin-desktop-device,
-  qt6-base-dev | hello,
 diff --git a/src/plugins/filemanager/dfmplugin-search/3rdparty/fsearch/database_search.c b/src/plugins/filemanager/dfmplugin-search/3rdparty/fsearch/database_search.c
 index e4a7e5d074..446702799f 100644
 --- a/src/plugins/filemanager/dfmplugin-search/3rdparty/fsearch/database_search.c
@@ -141,4 +127,3 @@ index cf7445e542..75612f1ca7 100644
  file(GLOB_RECURSE UT_CXX_FILE
 -- 
 2.51.0
-
