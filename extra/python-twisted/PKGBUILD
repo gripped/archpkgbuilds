@@ -4,7 +4,7 @@
 # Contributor: Douglas Soares de Andrade <douglas@archlinux.org>
 
 pkgname=python-twisted
-pkgver=25.5.0
+pkgver=26.4.0
 pkgrel=1
 pkgdesc="Asynchronous networking framework written in Python"
 arch=('any')
@@ -21,6 +21,7 @@ depends=(
   'python-zope-interface'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-hatch-fancy-pypi-readme'
   'python-hatchling'
@@ -69,11 +70,11 @@ checkdepends=(
   'tk'
   'xorg-server-xvfb'
 )
-source=("https://github.com/twisted/twisted/archive/twisted-$pkgver.tar.gz")
-sha512sums=('2cc54ace787b986a1682a500e41b64f2c17cc1c608b054e64ad932f6bf42ec19979cbdc3a6121e879e1b1d4578ea1f4a66b992489ee00a3a85e601d0f29b711a')
+source=("git+https://github.com/twisted/twisted.git#tag=twisted-$pkgver")
+sha512sums=('a878ddd6b30257d91fde780975d4acd24216f90955583f76f088413fc12c0df2380627a0cac2c453ba1edd74098dca40f54a9c60ecf501c60dfe04d9e488e28a')
 
 build() {
-  cd twisted-twisted-$pkgver
+  cd twisted
   python -m build --wheel --no-isolation
 }
 
@@ -81,11 +82,11 @@ check() {
   export LC_CTYPE=en_US.UTF-8
 
   # tests use the underlying function from the 'python -m twisted.trial' module, to prevent loading system entry points
-  PYTHONPATH="$srcdir/twisted-twisted-$pkgver/src" xvfb-run python -c 'from twisted.scripts.trial import run; run()' twisted || echo "Tests failed"
+  PYTHONPATH="$srcdir/twisted/src" xvfb-run python -c 'from twisted.scripts.trial import run; run()' twisted || echo "Tests failed"
 }
 
 package() {
-  cd twisted-twisted-$pkgver
+  cd twisted
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }

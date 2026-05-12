@@ -1,6 +1,6 @@
 pkgbase = python-twisted
 	pkgdesc = Asynchronous networking framework written in Python
-	pkgver = 25.5.0
+	pkgver = 26.4.0
 	pkgrel = 1
 	url = https://twistedmatrix.com/
 	arch = any
@@ -30,6 +30,7 @@ pkgbase = python-twisted
 	checkdepends = subversion
 	checkdepends = tk
 	checkdepends = xorg-server-xvfb
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-hatch-fancy-pypi-readme
 	makedepends = python-hatchling
@@ -56,7 +57,7 @@ pkgbase = python-twisted
 	optdepends = python-service-identity: for TLS client hostname verification
 	optdepends = python-wsproto: for websocket support
 	optdepends = tk: for using tkconch
-	source = https://github.com/twisted/twisted/archive/twisted-25.5.0.tar.gz
-	sha512sums = 2cc54ace787b986a1682a500e41b64f2c17cc1c608b054e64ad932f6bf42ec19979cbdc3a6121e879e1b1d4578ea1f4a66b992489ee00a3a85e601d0f29b711a
+	source = git+https://github.com/twisted/twisted.git#tag=twisted-26.4.0
+	sha512sums = a878ddd6b30257d91fde780975d4acd24216f90955583f76f088413fc12c0df2380627a0cac2c453ba1edd74098dca40f54a9c60ecf501c60dfe04d9e488e28a
 
 pkgname = python-twisted
