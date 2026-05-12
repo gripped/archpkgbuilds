@@ -2,7 +2,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=wcslib
-pkgver=8.6
+pkgver=8.7
 pkgrel=1
 pkgdesc="A C library that implements the 'World Coordinate System' (WCS) standard in FITS"
 arch=(x86_64)
@@ -12,7 +12,7 @@ depends=(cfitsio
          glibc)
 makedepends=(gcc-fortran)
 source=(https://www.atnf.csiro.au/computing/software/wcs/wcslib-releases/$pkgname-$pkgver.tar.bz2)
-sha256sums=('e030423605a199ef090fe742bc901a82d9e6b3a77e010e211cdd6d2cd067cd5a')
+sha256sums=('792fe05c09544433a9a4ea5480facdbec2da6d28058275b5e9006a1f28c56465')
 
 build() {
   cd $pkgname-$pkgver
