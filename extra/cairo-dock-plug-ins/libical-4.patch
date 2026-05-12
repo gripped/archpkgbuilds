@@ -1,0 +1,31 @@
+diff -ru cairo-dock-plug-ins-3.6.2.orig/clock/src/applet-backend-ical.c cairo-dock-plug-ins-3.6.2/clock/src/applet-backend-ical.c
+--- cairo-dock-plug-ins-3.6.2.orig/clock/src/applet-backend-ical.c	2026-05-08 20:30:40.887631489 +0200
++++ cairo-dock-plug-ins-3.6.2/clock/src/applet-backend-ical.c	2026-05-08 20:43:11.404420293 +0200
+@@ -203,7 +203,7 @@
+ 		icalproperty *rrule = NULL;
+ 		struct icalrecurrencetype recur;
+ 		rrule = icalcomponent_get_first_property(piCalComponent,ICAL_RRULE_PROPERTY);
+-		recur = icalproperty_get_rrule(rrule);
++		recur = *icalproperty_get_rrule(rrule);
+ 		switch( recur.freq )
+ 		{
+ 			case ICAL_MONTHLY_RECURRENCE:pTask->iFrequency = CD_TASK_EACH_MONTH; break;
+@@ -266,15 +266,15 @@
+ 	icalcomponent_set_dtstart(piCalComponent, liCalStartDate);
+ 	
+ 	icalproperty *rrule = NULL;
+-	struct icalrecurrencetype recur;
++	struct icalrecurrencetype* recur;
+ 	switch( pTask->iFrequency )
+ 	{
+ 		case CD_TASK_EACH_MONTH:
+-			recur = icalrecurrencetype_from_string("FREQ=MONTHLY");
++			recur = icalrecurrencetype_new_from_string("FREQ=MONTHLY");
+ 			rrule = icalproperty_new_rrule(recur);
+ 			break;
+ 		case CD_TASK_EACH_YEAR:
+-			recur = icalrecurrencetype_from_string("FREQ=YEARLY");
++			recur = icalrecurrencetype_new_from_string("FREQ=YEARLY");
+ 			rrule = icalproperty_new_rrule(recur);
+ 			break;
+ 		default: break;
