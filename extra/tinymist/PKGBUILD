@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=tinymist
-pkgver=0.14.16
+pkgver=0.14.18
 pkgrel=1
 epoch=1
 pkgdesc='an integrated language service for Typst'
@@ -15,14 +15,11 @@ makedepends=(cargo)
 replaces=("$pkgname-bin")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('f9c8f33ac4208f7f7d3a56f3005645cb5959fd8bceca56488c7016a0880ebe1c')
+sha256sums=('92491d5bcd7ba2a5fe66c3c5e4c3728c2dce19a01a7f755010a905d31ccd0d04')
 
 prepare() {
 	cd "$_archive"
-	# upstream lockfile not updated in 0.14.16, since fixed so remove later
-	[[ $pkgver == '0.14.16' ]] || exit 1
-	cargo update
-	cargo fetch --locked --target "$(rustc --print host-tuple)"
+	cargo fetch --locked --target host-tuple
 }
 
 pkgver() {
