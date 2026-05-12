@@ -5,7 +5,7 @@
 
 pkgname=phosh
 pkgver=0.54.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Wayland shell for GNOME on mobile devices'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/Phosh/phosh'
@@ -73,17 +73,20 @@ source=(
   git+https://gitlab.gnome.org/World/Phosh/libcall-ui.git
   git+https://gitlab.gnome.org/guidog/libgnome-volume-control.git
   phosh.pam
+  libical-4.patch
 )
 b2sums=('d840d2c2c3b5aca5b3dfc1127808f6ecc24aaef9eb5c0245953e79d90484b079a4a425f68b64a8426db6645b55a9962f6d1688d119dd2469934dc37e1464cddd'
         'SKIP'
         'SKIP'
-        'd89e16605e2e8e29834f9537bd09ef3f76f1cf6420cdd99346a760cab8c7217f86898be66c24b206b464239fc8b5277150abd19bae81af72187a435bd8c2f869')
+        'd89e16605e2e8e29834f9537bd09ef3f76f1cf6420cdd99346a760cab8c7217f86898be66c24b206b464239fc8b5277150abd19bae81af72187a435bd8c2f869'
+        '1e852c5f5d26689d0deebade2aa1ee59a92625c159829f185d132967a95b8e00481eebeffeab61c435053d4e152ea616fca7178d68bb72e0dbc8a61a854f0b98')
 validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
 
 prepare() {
   ln -s "$srcdir/libcall-ui" "$pkgname/subprojects/libcall-ui"
   ln -s "$srcdir/libgnome-volume-control" "$pkgname/subprojects/gvc"
   meson subprojects checkout --sourcedir $pkgname
+  patch -d $pkgname -p1 < libical-4.patch # Fix build with libical 4
 }
 
 build() {
