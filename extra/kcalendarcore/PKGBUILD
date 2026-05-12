@@ -2,7 +2,7 @@
 
 pkgname=kcalendarcore
 pkgver=6.26.0
-pkgrel=1
+pkgrel=3
 pkgdesc='The KDE calendar access library'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -13,12 +13,13 @@ depends=(glibc
          qt6-base)
 makedepends=(doxygen
              extra-cmake-modules
-             qt6-declarative
-             qt6-tools
              pyside6
              python-build
-             python-setuptools)
-optdepends=('qt6-declarative: QML bindings')
+             python-setuptools
+             qt6-declarative
+             qt6-tools)
+optdepends=('pyside6: Python bindings'
+            'qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('386be0eee392d8432b6b7fafd3dead95dd1fc74f81790928c580f81e6222a17c'
