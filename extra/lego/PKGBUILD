@@ -2,7 +2,7 @@
 # Contributor: Fernandez Ludovic <lfernandez dot dev at gmail dot com>
 
 pkgname=lego
-pkgver=4.35.2
+pkgver=5.0.0
 pkgrel=1
 pkgdesc='Lets Encrypt client and ACME library'
 arch=(x86_64)
@@ -12,8 +12,8 @@ depends=(glibc)
 makedepends=(git go)
 options=(!lto)
 source=("$pkgname::git+https://github.com/go-acme/lego.git#tag=v$pkgver")
-sha512sums=('fc19c9ef070b8117575cc827d87979cee728f2de127b844f080fcf85a3d94866520f8eee69e1a2a08a4cb490eacdcd65b7cbcd28e67d3ee08187afaf5a590991')
-b2sums=('d81f36af95da35389ed4fec3aaf7b99591dd8bd49c55fff8a1842cbe079e8e5a4c57c291a7493210fb51c49b81cd54cd168ec6f20ca13cd4874f715c8cdf99ac')
+sha512sums=('6fd19645d7fe8b01bb699dd0be4a6960afaca696c5418e3cb190341ae005871f600f5f10ec342b6d5e9134381b15ed1ca3b1743ab1eb66e56c320a04a553d46b')
+b2sums=('a1d45a8e4f5476c9ced4552f916eed3601b91679b26ccff544b3abcb6cae74c7f9d96801eb134241b342d1a846f588c6b7f1ea1f4df572ec9a576649e6cd9eb3')
 
 prepare() {
   cd "$pkgname"
@@ -43,8 +43,7 @@ build() {
     -linkmode external \
     -extldflags \"${LDFLAGS}\" \
     -X main.version=v$pkgver" \
-    -o build \
-    ./cmd/...
+    -o build/lego
 }
 
 package() {
