@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-osd
-pkgver=1.0.11
+pkgver=1.0.12
 pkgrel=1
 epoch=1
 pkgdesc='COSMIC On-Screen Display'
@@ -33,7 +33,7 @@ source=(
   git+https://github.com/pop-os/cosmic-osd.git#tag=epoch-${pkgver}
   suid-polkit-agent-helper.rs
 )
-b2sums=('b84cd451a7c118f6ad6d1428987bf94737a64290a1c92e1f0c6a03f93ed1cc1bc6426cac76fa0a43517cf914d6f26ff97b849b79151b486e7f0d8c07c8b7259f'
+b2sums=('542d67437994c3ef5586ea7761f5ce92187c2132d0431be6961f0e60e3cdffac7b75d847e8f55ad7f766abdde35443ea1878e25320314bebe1f2b9f0ce2fdb32'
         'b2c1f956aad81b17fa82f0663e4b67265d904af04f67c003f39614f0338ee1ad0cd32e0ed9d7437800ef4b9f82f105533acd14c3b479ce289db4cee1c1309d92')
 
 prepare() {
