@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=glirc
-pkgver=2.40.1
-pkgrel=100
+pkgver=2.41
+pkgrel=1
 pkgdesc="Console IRC client"
 url="https://github.com/glguy/irc-core"
 license=("ISC")
@@ -14,14 +14,9 @@ depends=('ghc-libs' 'haskell-hsopenssl' 'haskell-async' 'haskell-attoparsec'
          'haskell-psqueues' 'haskell-random' 'haskell-regex-tdfa' 'haskell-semigroupoids'
          'haskell-split' 'haskell-typed-process' 'haskell-unordered-containers' 'haskell-vector'
          'haskell-vty' 'haskell-vty-unix')
-makedepends=('ghc' 'uusi' 'haskell-hunit')
+makedepends=('ghc' 'haskell-hunit')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('907d805165c1eed804fc913ed0ef1e95de4d9f89b3186589247f467f89c92488')
-
-prepare() {
-  cd $pkgname-$pkgver
-  uusi -u lens -u vty
-}
+sha256sums=('cba798f1352731913351676798267e152829d71f5513f9b58eba4b5242822fea')
 
 build() {
   cd $pkgname-$pkgver
