@@ -6,7 +6,7 @@
 # Contributor: kpcyrd <git@rxv.cc>
 
 pkgname=libressl
-pkgver=4.2.1
+pkgver=4.3.1
 pkgrel=1
 pkgdesc="Free version of the TLS/crypto stack forked from OpenSSL"
 arch=(x86_64)
@@ -16,7 +16,7 @@ depends=(glibc)
 optdepends=(ca-certificates)
 backup=(etc/libressl/openssl.cnf)
 source=(https://cdn.openbsd.org/pub/OpenBSD/LibreSSL/libressl-${pkgver}.tar.gz{,.asc})
-sha256sums=('6d5c2f58583588ea791f4c8645004071d00dfa554a5bf788a006ca1eb5abd70b'
+sha256sums=('c2db42ace14e7d5419826fab35a742ec6e4d12725a051a51d0cea3c10ba0fa50'
             'SKIP')
 validpgpkeys=(A1EB079B8D3EB92B4EBD3139663AF51BD5E4D8D5) # Brent Cook <bcook@openbsd.org>
 
