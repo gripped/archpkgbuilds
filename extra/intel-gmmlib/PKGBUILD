@@ -2,8 +2,8 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=intel-gmmlib
-pkgver=22.9.0
-pkgrel=2
+pkgver=22.10.0
+pkgrel=1
 pkgdesc='Intel Graphics Memory Management Library'
 arch=('x86_64')
 url='https://github.com/intel/gmmlib/'
@@ -19,7 +19,7 @@ conflicts=('gmmlib')
 replaces=('gmmlib')
 options=('!emptydirs')
 source=("https://github.com/intel/gmmlib/archive/intel-gmmlib-${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('6ae262b95540681ad5478c63affb880135f772c95410b092009a6f7dfc04a5ba')
+sha256sums=('893e3c5a24b408ac312a0318b70f38f427f297646e323f31e79d3a06a92c1543')
 
 build() {
     cmake -B build -S "gmmlib-${pkgname}-${pkgver}" \
