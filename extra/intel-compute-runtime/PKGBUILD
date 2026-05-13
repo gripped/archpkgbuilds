@@ -3,7 +3,7 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-compute-runtime
-pkgver=26.14.37833.4
+pkgver=26.18.38308.1
 pkgrel=1
 pkgdesc='Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver'
 arch=('x86_64')
@@ -17,20 +17,25 @@ depends=(
     'libstdc++')
 makedepends=(
     'cmake'
-    'igsc'
+    'igsc<1.0.0'
     'level-zero-headers'
-    'libva')
+    'libnl>=3.0.0'
+    'libnl<4.0.0'
+    'libva'
+    'systemd-libs')
 optdepends=(
-    'igsc: for discrete GPU firmware enumeration through Level Zero'
     'libdrm: for cl_intel_va_api_media_sharing OpenCL extension'
+    'libigsc.so=0: for discrete GPU firmware enumeration through Level Zero'
+    'libnl-genl-3.so=200: for using Fabric related APIs in Level Zero'
+    'libudev.so: for using Sysman events API in Level Zero'
     'libva: for cl_intel_va_api_media_sharing OpenCL extension')
 provides=(
     'level-zero-driver'
     'opencl-driver')
 source=("https://github.com/intel/compute-runtime/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         '010-intel-compute-runtime-disable-werror.patch')
-sha256sums=('cf28219ae5ee1b2b13f62b9a12a38cf6000b2dbe79e121c810b0d88f6d402b1a'
-            'c742a0dcf3404b3c0ec116887c148b21f9f09f7131c6372a44b21dfd4b7fb67b')
+sha256sums=('a192110226b98fc6fa640ed5f948c7b88fbed7e86536c61a4633b690a84b9792'
+            '40d2639392958b9104b5294305054415d6a718ba183064a65892204aa17bc9ef')
 
 prepare() {
     patch -d "compute-runtime-${pkgver}" -Np1 -i "${srcdir}/010-intel-compute-runtime-disable-werror.patch"
