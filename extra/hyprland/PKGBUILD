@@ -5,7 +5,7 @@
 
 pkgname=hyprland
 pkgver=0.55.0
-pkgrel=3
+pkgrel=4
 pkgdesc='a highly customizable dynamic tiling Wayland compositor'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/${pkgname^}"
@@ -64,6 +64,7 @@ optdepends=('cmake: to build and install plugins using hyprpm'
             'cpio: to build and install plugins using hyprpm'
             'glaze: to build and install plugins using hyprpm'
             'hyprland-protocols: to build and install plugins using hyprpm'
+            'hyprshutdown: clean logout and shutdown helper'
             'meson: to build and install plugins using hyprpm'
             'uwsm: an advanced way to start desktop compositors as systemd units'
             'xdg-desktop-portal-hyprland: xdg-desktop-portal backend for hyprland')
