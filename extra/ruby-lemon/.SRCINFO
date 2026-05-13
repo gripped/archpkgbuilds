@@ -1,19 +1,20 @@
 pkgbase = ruby-lemon
 	pkgdesc = Pucker-Strength Unit Testing
-	pkgver = 0.9.1
-	pkgrel = 6
+	pkgver = 0.9.2
+	pkgrel = 1
 	url = https://github.com/rubyworks/lemon
 	arch = any
-	license = BSD
+	license = BSD-2-Clause
 	checkdepends = ruby-erb
 	checkdepends = ruby-qed
+	makedepends = git
 	makedepends = ruby-rdoc
 	depends = ruby
 	depends = ruby-ae
 	depends = ruby-ansi
 	depends = ruby-rubytest-cli
 	options = !emptydirs
-	source = https://github.com/rubyworks/lemon/archive/182f6cb0202fcd267ef296fcc19d46efa68ab091/ruby-lemon-182f6cb0202fcd267ef296fcc19d46efa68ab091.tar.gz
-	sha256sums = 7b5ca2e61a6000cf4b96e03bcf1b12dac453568adfb2e3606378711b680c8242
+	source = git+https://github.com/rubyworks/lemon.git#tag=v0.9.2
+	sha256sums = 948ea86ffb807b5dc2dd5de6dc9feaee44aec5cf3c7b9941af0d3964b1b63ef5
 
 pkgname = ruby-lemon

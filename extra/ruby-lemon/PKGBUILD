@@ -1,14 +1,12 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-lemon
-pkgver=0.9.1
-# https://github.com/rubyworks/lemon/issues/16
-_commit=182f6cb0202fcd267ef296fcc19d46efa68ab091
-pkgrel=6
+pkgver=0.9.2
+pkgrel=1
 pkgdesc='Pucker-Strength Unit Testing'
 arch=(any)
 url='https://github.com/rubyworks/lemon'
-license=(BSD)
+license=(BSD-2-Clause)
 depends=(
   ruby
   ruby-ae
@@ -16,6 +14,7 @@ depends=(
   ruby-rubytest-cli
 )
 makedepends=(
+  git
   ruby-rdoc
 )
 checkdepends=(
@@ -23,18 +22,18 @@ checkdepends=(
   ruby-qed
 )
 options=(!emptydirs)
-source=(https://github.com/rubyworks/lemon/archive/$_commit/$pkgname-$_commit.tar.gz)
-sha256sums=('7b5ca2e61a6000cf4b96e03bcf1b12dac453568adfb2e3606378711b680c8242')
+source=(git+https://github.com/rubyworks/lemon.git#tag=v$pkgver)
+sha256sums=('948ea86ffb807b5dc2dd5de6dc9feaee44aec5cf3c7b9941af0d3964b1b63ef5')
 
 prepare() {
-  cd lemon-$_commit
+  cd lemon
   sed -i -e 's/rubytest/rubytest-cli/' -e 's/Test::Runner.cli(\*ARGV)/Test::CLI.run(ARGV)/' lib/lemon/cli.rb
 }
 
 build() {
   local _gemdir="$(gem env gemdir)"
-  cd lemon-$_commit
-  gem build pkg/lemon.gemspec
+  cd lemon
+  gem build lemon.gemspec
   gem install \
     --local \
     --verbose \
@@ -59,13 +58,12 @@ build() {
 
 check() {
   local _gemdir="$(gem env gemdir)"
-  cd lemon-$_commit
-  PATH="$PWD/tmp_install/usr/bin:$PATH" GEM_HOME="tmp_install/$_gemdir" lemons test -Ilib -Itest/fixtures test/*.rb
+  cd lemon
   PATH="$PWD/tmp_install/usr/bin:$PATH" GEM_HOME="tmp_install/$_gemdir" qed
 }
 
 package() {
-  cd lemon-$_commit
+  cd lemon
   cp -a tmp_install/* "$pkgdir"/
   install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
