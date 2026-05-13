@@ -3,11 +3,11 @@
 
 _hkgname=jose
 pkgname=haskell-jose
-pkgver=0.10
-pkgrel=284
+pkgver=0.10.0.1
+pkgrel=1
 pkgdesc="JSON Object Signing and Encryption (JOSE) and JSON Web Token (JWT) library"
 url="https://github.com/frasertweedale/hs-jose"
-license=("Apache")
+license=('Apache-2.0')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-base64-bytestring' 'haskell-concise'
          'haskell-cryptonite' 'haskell-lens' 'haskell-memory' 'haskell-monad-time'
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-base64-bytestring' 'haskell-concise
 makedepends=('ghc' 'haskell-hedgehog' 'haskell-hspec' 'haskell-pem' 'haskell-tasty'
              'haskell-tasty-hspec' 'haskell-tasty-hedgehog')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('fda1a9f7f856ad03e83771f490108f59629fab53a8ad9b582938ff5a766e8752b5f137348b4d2dd3744a7592268b8516a2a4789dbcc2e1a32e417bcf5c626d76')
+sha512sums=('76964ce59bea83b993cc05ba866730b0326994328077a8fdc48cf00f40b3c87cc44bf8fac89182e731b551bc8feaf98a3494e9ae70e241eff105feaff14ea596')
 
 build() {
     cd $_hkgname-$pkgver
