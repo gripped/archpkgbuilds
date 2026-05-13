@@ -5,7 +5,7 @@
 
 pkgname=python-icalendar
 _name=${pkgname#python-}
-pkgver=7.0.3
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='A parser/generator of iCalendar files (RFC 2445)'
 arch=(any)
@@ -30,7 +30,7 @@ checkdepends=(
 source=(
   "git+$url.git#tag=v$pkgver"
 )
-b2sums=('13eb97011499e2655e5a090bcee89de3358eac6bd3685b54be77671fb1503c459638edc32b6b2a9eb0b9fade6d95da92839b1f9d37a917b69a68f76fa408c5b5')
+b2sums=('8a94c4d850f5c61d9fca9c42ecc80acaa71640b5c903dcfa3c1994ae9d3bfa839e6b93e6e4c2cc350fbde2c05e294a509d4c2037c9f0a26f96c047ce6196e468')
 
 prepare() {
   sed '/tzdata/d' -i $_name/pyproject.toml
