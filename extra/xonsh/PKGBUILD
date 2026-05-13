@@ -2,7 +2,7 @@
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=xonsh
-pkgver=0.23.5
+pkgver=0.23.6
 pkgrel=1
 pkgdesc='A python-powered shell. Full-featured and cross-platform.'
 url='https://xon.sh/'
@@ -32,7 +32,7 @@ makedepends=(
     'python-wcwidth')
 install=xonsh.install
 source=("https://github.com/xonsh/xonsh/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('4b4103c8d6e65dcd61cfc71aff9eb95c5b7d1b9c2d21c333a0bb764f81f6e6f5')
+sha256sums=('73d636195adb030b25f349e9c12566991cdc15c614171977c5dfce92d820d3fd')
 
 build() {
     cd "${pkgname}-${pkgver}"
