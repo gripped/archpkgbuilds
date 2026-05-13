@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma-keyboard
-pkgver=6.6.4
+pkgver=6.6.5
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 arch=(x86_64)
@@ -26,7 +26,7 @@ makedepends=(extra-cmake-modules
              wayland-protocols)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('0c0ec31bf62c012855cb69d1374b9b5d1b9cc2638a1b3006036e34a829302e6d'
+sha256sums=('3bb8be109cc449af54d03f28cc1c1a9e4d4150cb01b9af916a5516ed64740671'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
