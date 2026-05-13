@@ -3,14 +3,14 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=2.32.7
+pkgver=2.34.4
 _llvmmaj=16
 _llvmver="${_llvmmaj}.0.6"
 _vciver=0.25.0
 _spirv_tools_commit=28a883ba4c67f58a9540fb0651c647bb02883622
 _spirv_headers_commit=9268f3057354a2cb65991ba5f38b16d81e803692
-_spirv_llvm_commit=5ce79a51725fdca7f12045a51c01956663b4cec8
-_opencl_clang_commit=897ba7f885fe34c9ae9818f205e67f7b0a8628c0
+_spirv_llvm_commit=308a0d7acfd7330e64d72a1cd23d272deafb113b
+_opencl_clang_commit=07e7c931d8bdb38549a907cf04fd06a278f7cdce
 pkgrel=1
 epoch=1
 pkgdesc='Intel Graphics Compiler for OpenCL'
@@ -43,12 +43,12 @@ source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${p
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}"
         '010-intel-graphics-compiler-disable-werror.patch')
-sha256sums=('6309d5d00711fcdb712049c0a56546369ace316f9547b4715747cc687ebcada2'
+sha256sums=('6d96812589094ff24249e9a3a580befb2ce934c39aa19dd5f6d66aff979ed7eb'
             'af6abe889504fc5f0cc61758aa306211ec2be086858e9e39ee96d289a6c0117c'
-            '031e02a6fcc21679e7d268961c234702ebfab8aa6b6559c7f5f8dcf45a8bc784'
+            'ba98efbd3995db57c016395a15b225c4956e535c8d52320a8719733f4b70b347'
             'e028a800c43945d94fc100aa25427d360a21c00b1154fb239ec2fce0c06ea85d'
             '8f5d1dd2d4281d135bc632c97c1a96ccb4ba79edcdad337de87f3510c9798638'
-            '21da3969358bbda63072b887e1ee8b371ed95dadf724870a9e987f07ab71f222'
+            'f18188392b9f3c904bd29a81e30700b968ead812abe6b64136f09d1a4c574be5'
             'b47ada280614670a467f80e9f8c67542050983f238f2f4b3fa17682855faf9bf'
             '1683e5366d6a0125a40af405b69b684efdfd829fef23b10c1d382f6e57627ce7')
 
