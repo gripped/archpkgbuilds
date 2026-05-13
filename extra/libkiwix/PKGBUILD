@@ -1,8 +1,8 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=libkiwix
-pkgver=14.2.0
-pkgrel=2
+pkgver=14.2.1
+pkgrel=1
 pkgdesc="Library providing the Kiwix software core"
 license=('GPL-3.0-or-later')
 arch=('x86_64')
@@ -12,16 +12,11 @@ replaces=('kiwix-lib')
 depends=('libzim>=9.7.0' 'pugixml' 'xapian-core' 'aria2' 'libmicrohttpd' 'python' 'curl')
 makedepends=('meson' 'gtest' 'mustache')
 url='https://github.com/kiwix/libkiwix'
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-	"tmp-drop-bad-404-urls.patch")
-sha256sums=('244b69120d132de3079774ee439f9adfb7b556e88b9ef6ce5300f37dfc3737bc'
-            '9c10505fd55ba4da3c4c5a7bc4d46a7992f92638b3cd6d3735c665ccced41267')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('cff1eb06d62ab42e1720a49f473b7d9364f02ee77a8a455c9adb26db419e0fff')
 
 build() {
 	cd "${pkgname}-${pkgver}"
-
-	# Upstream issue pending
-	patch -Np1 < "$srcdir/tmp-drop-bad-404-urls.patch"
 
 	# We want to ignore xapian ABI version mismatches
 	# https://github.com/openzim/libzim/issues/757
