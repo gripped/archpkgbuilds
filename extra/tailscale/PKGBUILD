@@ -4,7 +4,7 @@
 
 pkgname=tailscale
 pkgver=1.96.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A mesh VPN that makes it easy to connect your devices, wherever they are."
 arch=("x86_64")
 url="https://tailscale.com"
@@ -53,6 +53,8 @@ package() {
     install -Dm755 tailscale tailscaled -t "$pkgdir/usr/bin"
     install -Dm644 cmd/tailscaled/tailscaled.defaults "$pkgdir/etc/default/tailscaled"
     install -Dm644 cmd/tailscaled/tailscaled.service -t "$pkgdir/usr/lib/systemd/system"
+    install -Dm644 cmd/tailscaled/tailscale-wait-online.service -t "$pkgdir/usr/lib/systemd/system"
+    install -Dm644 cmd/tailscaled/tailscale-online.target -t "$pkgdir/usr/lib/systemd/system"
     install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
 
     "$pkgdir/usr/bin/tailscale" completion bash | install -Dm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/tailscale"
