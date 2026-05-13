@@ -2,11 +2,11 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-keystoneauth1
-pkgver=5.13.1
+pkgver=5.14.0
 pkgrel=1
 pkgdesc="Authentication Library for OpenStack Identity"
 arch=('any')
-url="https://docs.openstack.org/developer/keystoneauth"
+url="https://docs.openstack.org/keystoneauth/latest/"
 license=('Apache-2.0')
 depends=('python-pbr' 'python-iso8601' 'python-stevedore' 'python-os-service-types' 'python-requests' 'python-typing_extensions')
 optdepends=('python-requests-kerberos: for kerberos support'
@@ -17,11 +17,11 @@ optdepends=('python-requests-kerberos: for kerberos support'
             'python-yaml: for betamax support')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-hacking' 'python-oslo-config' 'python-oslo-utils' 'python-oslotest'
-              'python-betamax' 'python-requests-mock' 'python-stestr' 'python-testresources'
-              'python-testtools' 'python-yaml' 'python-requests-kerberos' 'python-lxml'
-              'python-oauthlib')
+              'python-betamax' 'python-fixtures' 'python-requests-mock' 'python-stestr'
+              'python-testresources' 'python-testtools' 'python-yaml'
+              'python-requests-kerberos' 'python-lxml' 'python-oauthlib')
 source=("git+https://github.com/openstack/keystoneauth.git#tag=$pkgver")
-sha512sums=('93a1c75bdfa93ed64b4e8f2f315f4f3f6d6a61fe1825851b8eb47aa3dafb57b2460f6a8feaa7993636f0c1769bac6120fd42a08f3df064afe3a6ad4641a4e62a')
+sha512sums=('41beb6f7bd70122b7f9b9b32e9c09e6f5225720f480e40fe875507a39d379cf2aca70f41f051aa9a288f8ed5b70308666bafd3865d5b42d696c4d42b3c0feb00')
 
 build() {
   cd keystoneauth
