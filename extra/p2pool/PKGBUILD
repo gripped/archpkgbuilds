@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=p2pool
-pkgver=4.15
+pkgver=4.15.1
 pkgrel=1
 pkgdesc='Decentralized pool for Monero mining'
 arch=('x86_64')
@@ -10,6 +10,7 @@ url="https://github.com/SChernykh/p2pool"
 depends=(
   'curl' 'libcurl.so'
   'glibc'
+  'libgcc' 'libgcc_s.so'
   'libuv'
   'systemd-libs' 'libsystemd.so'
   'zeromq' 'libzmq.so'
@@ -50,7 +51,7 @@ source=(
   "${pkgname}-xds::git+https://github.com/cncf/xds.git"
   "${pkgname}-zlib::git+https://github.com/madler/zlib"
 )
-b2sums=('4f5083d75af39d756f8ab93a3f2a195217e0be8bed17f7a8742f63c1fb6e48789e5fad6a917b4251bed07737c4b56af8ea4dae24b0acac828a36858f8579601c'
+b2sums=('7b4d8de7092988de93958d876e2323e5224e664fa7bca9f08d8acd6b74aef384cd166632df89e9f232f6d75c61a6923992477b56410aeabb2da2f9d949649071'
         'SKIP'
         'SKIP'
         'SKIP'
