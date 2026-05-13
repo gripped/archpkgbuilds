@@ -4,8 +4,8 @@
 # Contributor: Martin Brodbeck <martin@brodbeck-online.de>
 
 pkgname=qmapshack
-pkgver=1.20.1
-pkgrel=2
+pkgver=1.20.2
+pkgrel=1
 pkgdesc='Consumer grade GIS software'
 arch=('x86_64')
 url='https://github.com/Maproom/qmapshack'
@@ -32,7 +32,7 @@ makedepends=(
   'cmake'
 )
 source=("$url/archive/V_$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('3c8723196254e28e9d32ea0726fc9df85fb29b63b71bfcf89fc6474a6c5ca18d3e3cf290bb175d8296c12fdf18a38f59a0ab7a0b9dffec1b910bb93360747079')
+b2sums=('2dd6b862e6b0699502bb010daa959207aae3131f5e48382bd4bfb75d2f86ce88db8c05083b3513e9443dae25db59174aeda5e08161b2f6a58b8d4ecade2a1ea1')
 
 build() {
   cmake -B build -S $pkgname-V_$pkgver \
