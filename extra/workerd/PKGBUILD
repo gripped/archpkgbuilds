@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=workerd
-pkgver=1.20260414.1
+pkgver=1.20260511.1
 pkgrel=1
 pkgdesc="The JavaScript / Wasm runtime that powers Cloudflare Workers"
 url='https://github.com/cloudflare/workerd'
@@ -23,8 +23,8 @@ makedepends=(
 )
 options=(!lto)
 source=(https://github.com/cloudflare/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('97152f451de2121210b9b7ac05dd9190af5adc6ee2321011382c84b476eb38b2')
-b2sums=('7f2c6227498592e512db1cefd24e9de199ab45b3951dd1f4c0d2b17e293fe862076a28628a4a8ed81387f9675e2a99d1a67b354ecc27e0c91b7b2b101fe02307')
+sha256sums=('eb2cdd7e3e0c1dd8fdb3609ff6ad793050a2c2bea6257ea0163e3da337ed0fb5')
+b2sums=('85678cf1cba10df10a08f6b535fdbc5bd596b4b7609f5e97dbb13b0aa8ade3fe4c78d1d7ac23eedd2120fc316cfa1ee81e2da06d0c3bba81ddad919d9937b810')
 
 build() {
   cd ${pkgname}-${pkgver}
