@@ -2,7 +2,7 @@
 
 pkgname=python-fiona
 pkgver=1.10.1
-pkgrel=6
+pkgrel=7
 pkgdesc='Read and write geographic data files'
 arch=(x86_64)
 url='https://github.com/Toblerity/Fiona'
