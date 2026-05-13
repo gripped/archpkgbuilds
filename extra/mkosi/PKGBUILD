@@ -1,12 +1,13 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 # Maintainer: David Runge <dvzrv@archlinux.org>
 # Maintainer: Christian Heusel <gromit@archlinux.org>
+# Maintainer: Anton Hvornum <torxed@archlinux.org>
 # Contributor: Lucas Werkmeister <mail@lucaswerkmeister.de>
 # Contributor: Dave Reisner <dreisner@archlinux.org>
 
 pkgname=mkosi
 pkgver=26
-pkgrel=4
+pkgrel=5
 pkgdesc="Build Legacy-Free OS Images"
 arch=(any)
 url="https://github.com/systemd/mkosi"
@@ -72,6 +73,9 @@ prepare() {
   # Cherry-pick fixes for pacman 7.1, see
   # https://gitlab.archlinux.org/archlinux/packaging/packages/mkosi/-/issues/7
   git cherry-pick --no-commit c4c3d793d0f6f0a2f26895de5ed9382396f36bb5
+  # Cherry-pick fixes to work with Qemu 11.0.0 and edk2 202602
+  # https://github.com/systemd/mkosi/issues/4292
+  git cherry-pick --no-commit fa8e53881c426bbbd6b0dec6b52583fdd768b12c
 }
 
 build() {
