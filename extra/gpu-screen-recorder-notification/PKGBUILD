@@ -2,7 +2,7 @@
 # Contributor: dec05eba <dec05eba@protonmail.com>
 
 pkgname=gpu-screen-recorder-notification
-pkgver=1.2.3
+pkgver=1.3.0
 pkgrel=1
 pkgdesc='Notification in the style of ShadowPlay'
 arch=(x86_64)
@@ -17,6 +17,7 @@ depends=(
   gcc-libs
   libglvnd
   libx11
+  libxkbcommon
   libxrandr
   libxrender
   libxext
@@ -25,7 +26,7 @@ depends=(
   freetype2
 )
 source=(git+https://repo.dec05eba.com/gpu-screen-recorder-notification#tag=${pkgver})
-sha512sums=('f78ac048f7a3c44b8e5597bdc5644361aa21684926d07e16921156a6cba223599204bc88d64a21c4f145697b9b9adbae48eeb448ed75d469600d9fefcf866d47')
+sha512sums=('c26c36dd09b21c89e7b2177959136f719fcc00dba4570d6c0489a5e9433fb31bee058f4d446312057a8dcd45931ee423b0c8090a2759782d39e911a0079bd16b')
 
 build() {
   cd "$srcdir"/$pkgname
