@@ -9,7 +9,7 @@ pkgname=(
   evolution-data-server-docs
 )
 pkgver=3.60.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Unified contacts, tasks and calendar backend"
 url="https://gitlab.gnome.org/GNOME/evolution/-/wikis/home"
 arch=(x86_64)
@@ -67,6 +67,8 @@ b2sums=('0b72d38a967dfdaaf32e7921e92d5a4424ce91bd3fa84444ecfb482740ef65637141e0f
 
 prepare() {
   cd $pkgbase
+# Fix libical 4 porting https://gitlab.gnome.org/GNOME/evolution-data-server/-/work_items/640
+  git cherry-pick -n 9adf3d290ed3e9550b6a417638c36ab6cb4cf86b
 }
 
 build() {
