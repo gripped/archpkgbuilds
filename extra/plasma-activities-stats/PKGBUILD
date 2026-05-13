@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=plasma-activities-stats
-pkgver=6.6.4
+pkgver=6.6.5
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='A library for accessing the usage data collected by the activities system'
@@ -21,7 +21,7 @@ conflicts=(kactivities-stats)
 replaces=(kactivities-stats)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('8b1a6a93afee6876d5050d874927912f32e52c60ff3c67bcded477f4f7c9cd45'
+sha256sums=('93af76f5c4171d089cd9a4f502bba63a65f2a371aa1a83c0c6cfb0021a5efba6'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
