@@ -6,7 +6,7 @@ pkgname=(
   maturin
   python-maturin
 )
-pkgver=1.13.2
+pkgver=1.13.3
 pkgrel=1
 pkgdesc="Build and publish crates with pyo3, rust-cpython and cffi bindings"
 url="https://github.com/PyO3/maturin"
@@ -33,11 +33,13 @@ checkdepends=(
 # https://github.com/briansmith/ring/issues/1444
 options=(!lto)
 source=("git+$url.git#tag=v$pkgver")
-sha512sums=('18408875e5fba853ce09f20a372e47999e011e93f815c58d6f15bafcfca6d817e1b040698106abbe30d92a96a56745d62a77201eb96255b8cccbf4fb57deef63')
-b2sums=('30429bc922bf7462e3d8a89b31f1bb4fa8623afd987446a50e046b7ceaafd479da3a4d805d16212943fcdc041970a4f4dfb7898c30ac145ed00152260a3f2556')
+sha512sums=('2f18e5b56d3b47ff6171a5759da247e779859d46c055a230bd29ef50058f593f0f79e658ecf9cc0f1b3cecb4fc23c8fcf62a96133c3f81db356ff96d4cc81e71')
+b2sums=('ed7d1ab08d82686a50de4b34e1a8999a380badb9bf2c91365f16297b050eb1c1b45eb4bed727267e88a8750d0c850563d6bb6907fcf6d24dbce84090bb65a8b5')
 
 prepare() {
   cd $pkgbase
+  # Fix issue with non-serialised test: https://github.com/PyO3/maturin/issues/3184
+  git cherry-pick -n ea48b34e94e6d905339e6ffd2fc4ab7d3b96eaeb
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
