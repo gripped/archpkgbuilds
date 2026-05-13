@@ -7,7 +7,7 @@ pkgname=(
   python-libblockdev
 )
 pkgver=3.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A library for manipulating block devices"
 arch=('x86_64')
 url="https://github.com/storaged-project/libblockdev"
@@ -221,7 +221,7 @@ package_libblockdev-fs() {
     'exfatprogs: for exFAT filesystem support'
     'f2fs-tools: for F2FS filesystem support'
     'nilfs-utils: for nilfs filesystem support'
-    'ntfs-3g: for NTFS filesystem support'
+    'ntfsprogs: for NTFS filesystem support'
     'udftools: for UDF filesystem support'
     'xfsprogs: for XFS filesystem support'
   )
