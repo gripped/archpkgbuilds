@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=knighttime
-pkgver=6.6.4
+pkgver=6.6.5
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Helpers for scheduling the dark-light cycle'
@@ -21,7 +21,7 @@ makedepends=(extra-cmake-modules
              qt6-tools)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('96d43cedad1f1d4819a7c7418a4eb8ed26cc20b47a17ada865ffb0f25722ee7b'
+sha256sums=('5f26692a864540b993351106f5469fd17939bd55e79f931c8f97395d9c5a809d'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
