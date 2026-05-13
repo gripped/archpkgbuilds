@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kwin
-pkgver=6.6.4
+pkgver=6.6.5
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='An easy to use, but flexible, Wayland compositor'
@@ -80,7 +80,7 @@ makedepends=(extra-cmake-modules
 optdepends=('plasma-keyboard: virtual keyboard')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('3f9439760580a977d018daf4b35b62e5a1700def7b21c8dfbfc789d21378d7ad'
+sha256sums=('6c187ce7a5506090b438ef900103836fa0537674dde8b31e5b497ef321643cb4'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
