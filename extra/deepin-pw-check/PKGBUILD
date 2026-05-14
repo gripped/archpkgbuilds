@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-pw-check
-pkgver=6.0.8
+pkgver=6.0.9
 pkgrel=1
 pkgdesc='Tool to verify the validity of the password'
 arch=('x86_64')
@@ -11,14 +11,12 @@ depends=('cracklib' 'gtk3' 'iniparser')
 makedepends=('deepin-gettext-tools' 'git' 'go')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/deepin-pw-check.git#tag=$pkgver")
-sha512sums=('a6c3bf13d1f18d3faffa694f7ec2455bcab3afeed145a7d1863d867019c225916ca8af251e40a3a90213916859529ab5f605ef1ab2b145e6c5f91f42d9567312')
+sha512sums=('fb192065c31a4825bf0fb1e6ff401d6efd20556a5f7c64fa234c6c13ccd11dd466f8f74553e4165b5cbceedfac8c5c0eac27ce0246ea1faf089cc3c446b0690d')
 
 prepare() {
   cd deepin-pw-check
   patch -p1 -i rpm/0001-Mangle-Suit-Cracklib2.9.6.patch
   sed -i 's|gcc |gcc ${CFLAGS} ${LDFLAGS} |;/export GOPATH/d' Makefile
-
-  go get github.com/linuxdeepin/go-gir
 }
 
 build() {
