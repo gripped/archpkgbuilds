@@ -3,7 +3,7 @@
 # Contributor: Evgeniy Filimonov <evgfilim1@gmail.com>
 
 pkgname=python-aiogram
-pkgver=3.28.1
+pkgver=3.28.2
 pkgrel=1
 pkgdesc="A modern and fully asynchronous framework for Telegram Bot API"
 arch=('any')
@@ -53,7 +53,7 @@ optdepends=(
   'python-cryptography: webhook signature verification support'
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('6645904a4d2d6f0244e9105cf5fd7dfd5b772564587938a9d12d8d0ec22bc73d4833c0135db337a495f8258f7794a2b73d8d515ee884135caa8f18e624c52754')
+b2sums=('4e25d2734b079eea2d72308a4eb7b9964673e0528b2c44f185991f00528d0c05f605b47090ccc579fa96662d0b195c503550bd889f37576ce0f534c21331e44d')
 
 build() {
   cd aiogram
