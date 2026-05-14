@@ -3,23 +3,28 @@
 # Contributor: Joaquim Monteiro <joaquim.monteiro@protonmail.com>
 
 pkgname=mvt
-pkgver=2.5.4
-pkgrel=3
+pkgver=2026.5.12
+pkgrel=1
 pkgdesc="Mobile Verification Toolkit, a forensics tool looking for signs of device compromise"
 arch=(any)
 url="https://github.com/mvt-project/mvt"
-license=(custom:MVT)
+license=(MVT-1.1)
 depends=(
+  'androidqf'
   'libusb'
   'python'
   'python-adb-shell'
   'python-appdirs'
+  'python-betterproto2'
   'python-click'
   'python-cryptography'
+  'python-dateutil'
   'python-iosbackup'
   'python-libusb1'
   'python-packaging'
   'python-pyahocorasick'
+  'python-pydantic'
+  'python-pydantic-settings'
   'python-requests'
   'python-rich'
   'python-simplejson'
@@ -34,8 +39,8 @@ makedepends=(
   'python-wheel'
 )
 source=("mvt-${pkgver}.tar.gz::https://github.com/mvt-project/mvt/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('193fcdd8071c949a8f0d9da92b0a96f356b197889e0533b5421e87641231ff7e95d6b8c05324ec73ca8839a0eef9baf911f7d62e2e5c87fcd6f7657965d39129')
-b2sums=('0242b2ff08bd9652ca7248c244c6f999f6ddf0802488b9a8d96d94c03cf471b6d8cb6ee5ebd31fdad72cbc345f68e599244bacd695326c2ec895ea12b2e89750')
+sha512sums=('afdebfc9d7944fad1cfdc38d3ee87f42da78cbc3d9590160efb750c75a5942c510fe811018dc5bf9ac3102ea7f491cf5b6f9a296eae037b14850b3be87db2340')
+b2sums=('76213b68293fdabaab17801bec12679b62e7c466c2dffc9b3dfadcccaff5abaace2ba4608bf1e00c166d060d17dd928006efd7f506ecfd909355c4c89a36dda4')
 
 build() {
   cd "mvt-${pkgver}"
@@ -43,9 +48,13 @@ build() {
 }
 
 check() {
+  local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
   cd "mvt-${pkgver}"
-  dev/mvt-android --help
-  dev/mvt-ios --help
+  python -m installer --destdir=test_dir dist/*.whl
+
+  PATH="test_dir/usr/bin:$PATH" PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH" mvt-android --help
+  PATH="test_dir/usr/bin:$PATH" PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH" mvt-ios --help
 }
 
 package() {
