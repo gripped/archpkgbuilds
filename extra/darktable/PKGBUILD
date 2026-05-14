@@ -8,7 +8,7 @@
 pkgname=darktable
 epoch=2
 pkgver=5.4.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Utility to organize and develop raw images'
 arch=(x86_64)
 url='https://darktable.org'
@@ -27,7 +27,7 @@ depends=(colord-gtk
          libjpeg-turbo
          libjxl
          libsecret
-         lua
+         lua54
          openexr
          openjpeg2
          openmp
