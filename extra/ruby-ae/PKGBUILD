@@ -1,30 +1,31 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-ae
-pkgver=1.8.2
-pkgrel=9
+pkgver=1.9.0
+pkgrel=1
 pkgdesc='Assertive Expressive is an assertions library specifically designed for reuse by other test frameworks'
 arch=(any)
 url='https://github.com/rubyworks/ae'
-license=(BSD custom)
+license=(BSD-2-Clause LicenseRef-BlankSlate)
 depends=(
   ruby
   ruby-ansi
 )
 makedepends=(
+  git
   ruby-rdoc
 )
 checkdepends=(
   ruby-qed
 )
 options=(!emptydirs)
-source=(https://github.com/rubyworks/ae/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('3467a71b1b1e0c10d5e7d05eaa1ee90d120761f68d54d484d7ea7452faacf290')
+source=(git+https://github.com/rubyworks/ae.git#tag=v$pkgver)
+sha256sums=('d3cc2b666b5435ba05fc0c6f55f5c6d6c5d34d4ae753c6aae05ccd8ab1737b18')
 
 build() {
   local _gemdir="$(gem env gemdir)"
-  cd ae-$pkgver
-  gem build .gemspec
+  cd ae
+  gem build ae.gemspec
   gem install \
     --local \
     --verbose \
@@ -49,12 +50,12 @@ build() {
 
 check() {
   local _gemdir="$(gem env gemdir)"
-  cd ae-$pkgver
+  cd ae
   GEM_HOME="tmp_install/$_gemdir" qed
 }
 
 package() {
-  cd ae-$pkgver
+  cd ae
   cp -a tmp_install/* "$pkgdir"/
-  install -Dm644 NOTICE.md -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -Dm644 LICENSE.txt NOTICE.md -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
