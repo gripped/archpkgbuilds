@@ -1,19 +1,20 @@
 pkgbase = ruby-facets
 	pkgdesc = Premiere collection of general purpose method extensions and standard additions for the Ruby programming language
-	pkgver = 3.1.0
-	pkgrel = 7
+	pkgver = 3.2.0
+	pkgrel = 1
 	url = https://github.com/rubyworks/facets
 	arch = any
-	license = BSD
+	license = BSD-2-Clause
 	checkdepends = ruby-lemon
 	checkdepends = ruby-qed
 	checkdepends = ruby-rake
 	checkdepends = ruby-rubytest-cli
 	checkdepends = ruby-simplecov
+	makedepends = git
 	makedepends = ruby-rdoc
 	depends = ruby
 	options = !emptydirs
-	source = https://github.com/rubyworks/facets/archive/3.1.0/ruby-facets-3.1.0.tar.gz
-	sha256sums = a432b57dd3999fd83b239d675cc97f28c626e1b2d1d91702de4fbaf951ae1fad
+	source = git+https://github.com/rubyworks/facets.git#tag=v3.2.0
+	sha256sums = 26b3069f390983c1c719db73cd593a8865b3b56a02d9436ff4263edbbca51353
 
 pkgname = ruby-facets
