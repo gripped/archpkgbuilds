@@ -5,7 +5,7 @@ pkgname=(
   libxml++-5.0
   libxml++-5.0-docs
 )
-pkgver=5.6.0
+pkgver=5.6.1
 pkgrel=1
 pkgdesc="C++ bindings to libxml2"
 url="https://libxmlplusplus.github.io/libxmlplusplus/"
@@ -24,7 +24,7 @@ makedepends=(
 )
 options=(!emptydirs)
 source=("git+https://github.com/libxmlplusplus/libxmlplusplus#tag=$pkgver")
-b2sums=('92990c75fc22bfe282c155303f74b7374364a3d5a38e5f239e26d0d295447f8b2bc8589c7f9f7f514de408c08edc430e8d89804e8eaa6169245b3dbccc140312')
+b2sums=('8eed52144369028971a7e01b9e3dddc0091fc3068282fadb49ce383e2821ef9a6db4deaa83b217d5abde2fbaf31786c6d74978e56a4675347c54870b1f0bdf25')
 
 prepare() {
   cd libxmlplusplus
