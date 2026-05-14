@@ -2,7 +2,7 @@
 # Contributor: justforlxz <justforlxz@gmail.com>
 
 pkgname=deepin-tray-loader
-pkgver=2.0.31
+pkgver=2.0.32
 pkgrel=1
 pkgdesc='A set of tray plugins that integrated into task bar and the tool loader which can load the plugins'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('dconf' 'deepin-api' 'deepin-daemon' 'deepin-qt6platform-plugins' 'dtk6
          'qt6-base' 'qt6-svg' 'wayland' 'xcb-util' 'xcb-util-image' 'xcb-util-wm')
 makedepends=('git' 'cmake' 'extra-cmake-modules' 'ninja' 'qt6-tools')
 source=("git+https://github.com/linuxdeepin/dde-tray-loader.git#tag=$pkgver")
-sha512sums=('558ba4b66a79141f1f1fd1707857f3459049b1cbb00f259f680df26192cf036153d184fcec3f18f34549c1febb8a4ec3e462fc780cd466684cbda9533e244399')
+sha512sums=('40e211d1bd24d2df77a9cf9d8c54b48c22178f7f47467d24316b9c0022dafff12a060855cb2b81121f263b35c0868e3fb97e44170538f3da7f9ec177544a238b')
 
 prepare() {
   cd dde-tray-loader
