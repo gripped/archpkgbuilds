@@ -5,7 +5,7 @@
 # Contributor: Anton Leontiev <bunder@t-25.ru>
 
 pkgname=graphicsmagick
-pkgver=1.3.46
+pkgver=1.3.47
 pkgrel=1
 pkgdesc='Image processing system'
 url='http://www.graphicsmagick.org/'
@@ -39,7 +39,7 @@ provides=(libGraphicsMagickWand.so
           libGraphicsMagick++-Q16.so)
 _archive="GraphicsMagick-$pkgver"
 source=("https://downloads.sourceforge.net/project/$pkgname/$pkgname/$pkgver/$_archive.tar.xz")
-sha256sums=('c7c706a505e9c6c3764156bb94a0c9644d79131785df15a89c9f8721d1abd061')
+sha256sums=('95fb682dab0206a9db168d065963f4ffdf5a60b0b2a375aca1f4492fb18d0627')
 
 options=('!emptydirs' 'libtool')
 
@@ -74,7 +74,5 @@ package() {
 	sed -i -e "s/LDLOADLIBS =/LDLOADLIBS = -lGraphicsMagick/" Makefile
 	make
 	make install
-	# Remove perllocal.pod and .packlist
 	rm -r "$pkgdir"/usr/lib/perl5/*/core_perl
-	rm "$pkgdir"/usr/lib/perl5/*/vendor_perl/auto/Graphics/Magick/.packlist
 }
