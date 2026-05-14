@@ -6,8 +6,8 @@
 _electron=electron41
 pkgbase=element.io
 pkgname=(element-web element-desktop)
-pkgver=1.12.15
-pkgrel=2
+pkgver=1.12.18
+pkgrel=3
 pkgdesc="Glossy Matrix collaboration client — "
 arch=(x86_64)
 url="https://element.io"
@@ -31,7 +31,7 @@ source=(git+https://github.com/element-hq/element-web.git#tag=v${pkgver}?signed
         io.element.Element.desktop
         element-desktop.sh
         autolaunch.patch)
-sha256sums=('8372d34d15870a4499352429c5790a62a79d6926f2f7176c69d6b39ecd43ca8b'
+sha256sums=('477c74c3712450fa412fea2b3880b2c2be2abc7f7d1da8dee6ffb20d96fd912e'
             '16a21cd4ad144641e0f4cbe18ed1b665565ed6f3f3e67d5bccba2806491674a9'
             '324c80ee48cb6bcf048874c833e5cd8f36ee2a0e848d4eb70dcf751352452bee'
             '978a6bd3becc6dbd0886a8d1b2a3b6b247c1f5867465bfebfcb7374dca79ed79')
@@ -97,7 +97,7 @@ package_element-desktop() {
   install -d "${pkgdir}"{/usr/lib/element/,/etc/webapps/element}
 
   # Install the app content, replace the webapp with a symlink to the system package
-  cp -r dist/linux-unpacked/resources/* "${pkgdir}"/usr/lib/element/
+  cp -r dist/linux-*/resources/* "${pkgdir}"/usr/lib/element/
   ln -s /usr/share/webapps/element "${pkgdir}"/usr/lib/element/webapp
 
   # Config file
