@@ -2,16 +2,16 @@
 
 _hkgname=generic-lens
 pkgname=haskell-generic-lens
-pkgver=2.2.2.0
-pkgrel=224
+pkgver=2.3.0.0
+pkgrel=1
 pkgdesc="Generically derive traversals, lenses and prisms"
 url="https://github.com/kcsongor/generic-lens"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-generic-lens-core' 'haskell-profunctors')
 makedepends=('ghc' 'haskell-doctest' 'haskell-hunit' 'haskell-inspection-testing' 'haskell-lens')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('90d364ee0844342d8f2e68f5072e8d58575427b964b2394b86a3c73ea123d7698205fc87fdc6af579cc5384fa8f024f7bc87967000a86a4a8f9e2246dbd12ecc')
+sha512sums=('1cbe509e7aad5b7ac0dea6c69b1d7cab6f7a4f01a915b3e0945ed85f9db9fcac4103992ac95555ed76eec54dcddfb217ce7f98f9dd6c9f720cf3b1b6fc0c5fb9')
 
 build() {
     cd $_hkgname-$pkgver
@@ -28,7 +28,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test --show-details=direct || echo "Tests failed"
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
