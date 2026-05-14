@@ -4,7 +4,7 @@
 
 pkgbase=vulkan-docs
 pkgname=(vulkan-html-docs)
-pkgver=1.4.341
+pkgver=1.4.350
 pkgrel=1
 epoch=1
 pkgdesc="Vulkan and Vulkan SC API Documentation"
@@ -33,7 +33,7 @@ makedepends=(
 )
 groups=(vulkan-devel)
 source=("git+https://github.com/KhronosGroup/Vulkan-Docs#tag=v$pkgver")
-b2sums=('e1c0b941f47132b49dafda3b62d777aeca655a0a7a5bdc4d717407df483367d174d2e1c085bce816bcaff6f54402058cd44be49705fbf0ce18bbf5a9b4f97667')
+b2sums=('f472e00591f81a4218c498edf7bae62820b04cfe667606979b6a351add933c77bade5db607a9dce587310ae0582f162604d3686438094807189a481ddea8c01f')
 
 prepare() {
   local gems=(
