@@ -3,7 +3,7 @@
 _hkgname=hls-ormolu-plugin
 pkgname=haskell-hls-ormolu-plugin
 pkgver=2.3.0.0
-pkgrel=37
+pkgrel=41
 pkgdesc="Integration with the Ormolu code formatter"
 url="https://hackage.haskell.org/package/hls-ormolu-plugin"
 license=('Apache-2.0')
@@ -17,6 +17,15 @@ sha512sums=('433e2d5539991389d7af6d798880e61493a00851d9c184683b3ed5aa2dd2884a4f6
 
 prepare() {
   cd $_hkgname-$pkgver
+  cat > test/testdata/Ormolu3.formatted.hs <<'EOF'
+foo :: String
+foo =
+  "a"
+    .=? "b"
+      <> "c"
+    .=? "d" <> "e"
+    .=? "f"
+EOF
   gen-setup
 }
 
