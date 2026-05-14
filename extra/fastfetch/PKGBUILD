@@ -2,15 +2,15 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=fastfetch
-pkgver=2.62.1
+pkgver=2.63.1
 pkgrel=1
 pkgdesc="A feature-rich and performance oriented neofetch like system information tool"
 url="https://github.com/fastfetch-cli/fastfetch"
 arch=('x86_64')
 license=('MIT')
 depends=('glibc' 'yyjson')
-makedepends=('chafa' 'cmake' 'dbus' 'dconf' 'ddcutil' 'imagemagick' 'libglvnd' 'libpulse' 'libxcb'
-             'libxrandr' 'ocl-icd' 'opencl-headers' 'sqlite' 'vulkan-headers' 'vulkan-icd-loader' 'wayland' 'xfconf' 'zlib')
+makedepends=('chafa' 'cmake' 'dbus' 'dconf' 'ddcutil' 'efl' 'imagemagick' 'libglvnd' 'libpulse' 'libxcb' 'libxrandr'
+             'ocl-icd' 'opencl-headers' 'sqlite' 'vulkan-headers' 'vulkan-icd-loader' 'wayland' 'xfconf' 'zlib')
 optdepends=('chafa: Image output as ascii art'
             'dbus: Bluetooth, Player & Media detection'
             'dconf: Needed for values that are only stored in DConf + Fallback for GSettings'
@@ -29,7 +29,7 @@ optdepends=('chafa: Image output as ascii art'
             'vulkan-icd-loader: Vulkan module & fallback for GPU output'
             'zlib: Faster image output when using kitty graphics protocol')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('8c4833e55b8b445a32c7cb7570007b5e10a9ee4cee74a494004ba61e88b12b26')
+sha256sums=('6e124699ea20fb02c5bc402c0012543303ee75ca55ad664f96bc6cd414d7e6b3')
 
 build() {
 	cmake -B build -S "${pkgname}-${pkgver}" \
