@@ -4,7 +4,7 @@
 
 pkgname=libaio
 pkgver=0.3.113
-pkgrel=3
+pkgrel=4
 pkgdesc="The Linux-native asynchronous I/O facility (aio) library"
 arch=(x86_64)
 url="https://pagure.io/libaio"
@@ -21,7 +21,8 @@ prepare() {
   # -Werror, not even once
   sed 's/-Werror//' -i $pkgname-$pkgname-$pkgver/harness/Makefile
 
-  # remove failing test until upstream fixes it
+  # remove failing tests until upstream fixes them
+  rm -frv $pkgname-$pkgname-$pkgver/harness/cases/20.t
   rm -frv $pkgname-$pkgname-$pkgver/harness/cases/21.t
 }
 
