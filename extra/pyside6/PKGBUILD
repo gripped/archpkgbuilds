@@ -5,22 +5,23 @@ pkgbase=pyside6
 pkgname=(pyside6
          pyside6-tools
          shiboken6)
-pkgver=6.11.0
-pkgrel=4
+pkgver=6.11.1
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
          LGPL-3.0-only
          LicenseRef-Qt-Commercial
          Qt-GPL-exception-1.0)
-makedepends=(clang21
+makedepends=(clang
              cmake
              git
-             llvm21
+             llvm
              ninja
              python-numpy
              python-setuptools
              qt6-3d
+             qt6-canvaspainter
              qt6-charts
              qt6-connectivity
              qt6-datavis3d
@@ -44,20 +45,15 @@ makedepends=(clang21
              qt6-webengine
              qt6-websockets
              qt6-webview)
-source=(git+https://code.qt.io/pyside/pyside-setup#tag=v$pkgver
-        fix-header-install-dir.patch)
-sha256sums=('be9ab37fcb968156880ab8c6790ad80ab75fbbdd3519fe693ae9cda3f385f8f2'
-            '3bc87409ea3dc41847f1d5d7612fd97931b67f1b40510b465543a8ef5c9764ff')
+source=(git+https://code.qt.io/pyside/pyside-setup#tag=v$pkgver)
+sha256sums=('4f8c8416ceceaca24d7b75d0007d5c1979c5b40827743b7b734a4674be9a1b70')
 
 prepare() {
   cd pyside-setup
-  git revert -n c9d602ab4afa5c9834c4674a742dc9bab7f4b326 05e328476f2d6ef8a0f3f44aca1e5b1cdb7499fc # Revert broken cmake files
-  patch -p1 -i ../fix-header-install-dir.patch # Revert broken header install dir
+  git cherry-pick -n d252378a3980c99e23340e6b722631182814d8bb 71c4d1750463c99ab9cbff7e1d7162210506f225 # Fix header install dir
 }
 
 build() {
-  export CLANG_INSTALL_DIR=/usr/lib/llvm21
-  export LLVM_INSTALL_DIR=/usr/lib/llvm21
   cmake -B build -S pyside-setup -G Ninja \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=None \
@@ -73,13 +69,12 @@ build() {
 package_shiboken6() {
   pkgdesc='Generates bindings for C++ libraries using CPython source code'
   depends=(clang
-           clang21
-           gcc-libs
            glibc
+           libgcc
+           libstdc++
            libxml2
            libxslt
            llvm
-           llvm21
            python
            qt6-base)
   optdepends=('python: Python bindings')
@@ -98,13 +93,15 @@ package_shiboken6() {
 
 package_pyside6() {
   pkgdesc='Enables the use of Qt6 APIs in Python applications'
-  depends=(gcc-libs
-           glibc
+  depends=(glibc
+           libgcc
+           libstdc++
            python
            qt6-base
            qt6-declarative
            shiboken6)
   optdepends=('qt6-3d: Qt3D bindings'
+              'qt6-canvaspainter: QtCanvasPainter bindings'
               'qt6-charts: QtCharts bindings'
               'qt6-connectivity: QtBluetooth and QtNfc bindings'
               'qt6-datavis3d: QtDataVisualization bindings'
