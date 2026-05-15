@@ -4,10 +4,10 @@
 
 pkgbase=qt6-doc
 pkgname=(qt6-doc qt6-examples)
-_pkgver=6.11.0
+_pkgver=6.11.1
 pkgver=${_pkgver/-/}
 # Account for Qt special naming of -rc1 tarballs
-_pkgver=6.11.0
+_pkgver=6.11.1
 pkgrel=1
 arch=('any')
 url='https://www.qt.io'
@@ -39,7 +39,7 @@ groups=(qt6)
 _pkgfn=qt-everywhere-src-$_pkgver
 source=(https://download.qt.io/official_releases/qt/${_pkgver%.*}/${_pkgver}/single/$_pkgfn.tar.xz
         llvm22.patch)
-sha256sums=('acf3b3db04c9e5d0820e8324b097320388954c297cee83d2bd698789234f68a4'
+sha256sums=('252acef8c5ae68074d91cadba2ee4a83465051bbb970dd26e8f0daa0f3904e03'
             '5f5dcc9234a19a2d545698406ee5dd5c3655d8cf3310e446a57d6d0738dc8e2e')
 
 prepare() {
