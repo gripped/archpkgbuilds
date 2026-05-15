@@ -1,5 +1,5 @@
 pkgname=worktrunk
-pkgver=0.34.2
+pkgver=0.50.0
 pkgrel=1
 pkgdesc='CLI for Git worktree management, designed for parallel AI agent workflows'
 url='https://github.com/max-sixty/worktrunk'
@@ -17,7 +17,7 @@ makedepends=(
 )
 options=('!lto')
 source=("${url}/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-b2sums=('e7b8934e0376827a3c5f4d5f1bfad4622e96d95d0da7076055a4372f62984be14e2f985b1c8a443d2cc37ba0f0eaa2a8317a40fa416c0fa4566065c1dba5b545')
+b2sums=('ce881ea9ca9a1867f9648a7399c23e035c503ae0bc3f99331dfec13518b820a3e3fbdd9d4086b3c4054abbb5279aa56ac00c6360b6d531c47484bb35c0306ff0')
 
 prepare() {
   cd ${pkgname}-${pkgver}
