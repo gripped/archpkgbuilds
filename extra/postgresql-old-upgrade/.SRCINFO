@@ -1,7 +1,7 @@
 pkgbase = postgresql-old-upgrade
 	pkgdesc = Older PostgreSQL for migrating major versions with pg_upgrade
-	pkgver = 17.9
-	pkgrel = 2
+	pkgver = 17.10
+	pkgrel = 1
 	url = https://www.postgresql.org/
 	arch = x86_64
 	license = PostgreSQL
@@ -40,10 +40,10 @@ pkgbase = postgresql-old-upgrade
 	depends = libz.so
 	depends = zstd
 	depends = libzstd.so
-	source = https://ftp.postgresql.org/pub/source/v17.9/postgresql-17.9.tar.bz2
-	md5sums = e443d2b4a7edb8dbcbbe7a05a712d881
-	sha256sums = 3b9a62538a8da151e807a3ddb1198e8605f2032544d78f403ae883d27ecf1ee4
-	b2sums = e5deeed82f710b38ed959a2f873e8ac0c27fc68b2ced22f70e9e89a34e473e1368231328351d300e617e61554cce68a8cec3731e6d3b31c620f93a2b2672470d
+	source = https://ftp.postgresql.org/pub/source/v17.10/postgresql-17.10.tar.bz2
+	md5sums = c3b03cf52632c13b067647115d1f0dbc
+	sha256sums = 078a03516dcdbdb705fecaf415ea3d13a956c589e46f09fed68a06fb00598c90
+	b2sums = dd45179a902941c3f8244904e9c0c6a8a90149b96a31ff7df85665ed15bcd952a71497a549a11b79bbe53d2dfd0d0652d5b59d1213958d9ba5e60b6149a938b3
 
 pkgname = postgresql-old-upgrade
 	depends = glibc
@@ -74,7 +74,7 @@ pkgname = postgresql-old-upgrade
 	depends = libz.so
 	depends = zstd
 	depends = libzstd.so
-	depends = postgresql-libs>=17.9
+	depends = postgresql-libs>=17.10
 	optdepends = perl: for PL/Perl support
 	optdepends = python: for PL/Python 3 support
 	optdepends = tcl: for PL/Tcl support
