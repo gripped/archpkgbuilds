@@ -1,16 +1,18 @@
 pkgbase = ibus-skk
 	pkgdesc = Japanese input method SKK engine for IBus
-	pkgver = 1.4.3
-	pkgrel = 3
+	pkgver = 1.4.4
+	pkgrel = 1
 	url = https://github.com/ueno/ibus-skk
 	arch = x86_64
-	license = GPL
+	license = GPL-2.0-or-later
+	makedepends = git
 	makedepends = intltool
 	makedepends = gnome-common
 	makedepends = vala
 	depends = ibus
+	depends = libgee
 	depends = libskk
-	source = https://github.com/ueno/ibus-skk/archive/ibus-skk-1.4.3.tar.gz
-	sha512sums = 729de81ffd01b142fb29dbde8af4f9561e2481b68ba5853ae8425c75ff02fb5b911fc24910246b5b01a976fc9d5e70ce847150fb500901a8b7ccaf6b87de42b9
+	source = git+https://github.com/ueno/ibus-skk.git#tag=ibus-skk-1.4.4
+	sha512sums = 8ed7bb8c536c0ae315e4c1fd49e44f5a09f07c30bb80e721d07ebba8da06c40c3d4fe57521a39aeb98837175ee7afebe39462fd1169e01d4d79c3670ca42916b
 
 pkgname = ibus-skk
