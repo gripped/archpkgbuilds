@@ -4,7 +4,7 @@
 pkgbase=foot
 pkgdesc='Fast, lightweight, and minimalistic Wayland terminal emulator'
 pkgname=($pkgbase $pkgbase-terminfo)
-pkgver=1.26.1
+pkgver=1.27.0
 pkgrel=1
 url="https://codeberg.org/dnkl/$pkgbase"
 arch=(x86_64)
@@ -27,7 +27,7 @@ makedepends=(fcft
 optdepends=('libutempter: utmp logging')
 backup=(etc/xdg/foot/foot.ini)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('2213a78b773c1f87bc503fcc2914d1f3474e9aaa2cb7fc92ec5dba4867ab71e0')
+sha256sums=('4e6131cc859ec6a36569f1978cf3617cc3836a681d13d228ded1b4885dab7770')
 
 build() {
 	cd "$pkgbase"
