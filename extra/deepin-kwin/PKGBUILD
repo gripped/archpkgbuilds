@@ -4,7 +4,7 @@
 
 pkgname=deepin-kwin
 pkgver=6.0.8
-pkgrel=8
+pkgrel=9
 pkgdesc='DDE window manager forked from KWin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-kwin"
@@ -24,12 +24,14 @@ source=("git+https://github.com/linuxdeepin/deepin-kwin.git#tag=$pkgver"
         "git+https://github.com/linuxdeepin/dde-kwin.git#tag=$pkgver"
         qt-6.10.patch
         qt-6.10.2.patch
-        disable-kglobalaccel.patch)
+        disable-kglobalaccel.patch
+        gcc-16.patch)
 sha512sums=('295451187c76e690af0bf3ae87ad1a03cc323efbf9971ba76c9fbaf9ec5590a0bbcdeed4331f106462c5c44519a8a44ed3272ed3bf63fecb1e6042275b557f4d'
             '96f034c2c1a8a83fc643bfd1dd7a5ffde9325895e3adad5f49aed3a90bd4aa59b02e7482d4af08818873beb8424c3a3c9a0c29d14dfae001681b1ae9a8821429'
             'e2d18def480dc62cdd7d0a0e2d6b313501701616a01983ad2f7fe092ad044b1882e9cd39f7bb47564743e6b2b63fee2585369b319e41021db2f3aa0e1f7466c8'
             'a561fed7fe5922128cc85f0014034555ffd12a56b6edf55ed8e2f10d6bc64cc93fdd2b36d95d3dbb726fba3bbdfdd3addb72a141e8488be26a0cc1d79aa55bd9'
-            '18f4ef2cce61fe8e6b6a0ec35fd942ad631e37cfbf2688ef9dbc7767d93a27d27603fcd5b2df4383b2a3a7449402a933751f7b2ebe90edb3ae7110c849e766fa')
+            '18f4ef2cce61fe8e6b6a0ec35fd942ad631e37cfbf2688ef9dbc7767d93a27d27603fcd5b2df4383b2a3a7449402a933751f7b2ebe90edb3ae7110c849e766fa'
+            '84da5bdb4f84540e68fd4fc042f5e0c458abdebdfeb545d03febd744e7155bfc381577ba50f2833ab43b7d0187778fd065e5de7820ca05325ce227f6a0f8499f')
 
 prepare() {
   cd deepin-kwin
@@ -39,6 +41,7 @@ prepare() {
 
   patch -p1 -i ../qt-6.10.patch
   patch -p1 -i ../qt-6.10.2.patch
+  patch -p1 -i ../gcc-16.patch
 # Disable kglobalaccel, doesn't build with Plasma 6.5
   patch -p1 -i ../disable-kglobalaccel.patch
 }
