@@ -7,7 +7,7 @@
 pkgbase=curl
 pkgname=(curl libcurl-compat libcurl-gnutls)
 pkgver=8.20.0
-pkgrel=6
+pkgrel=7
 pkgdesc='command line tool and library for transferring data with URLs'
 arch=('x86_64')
 url='https://curl.se/'
@@ -32,12 +32,16 @@ makedepends=(
   'zstd')
 checkdepends=('valgrind')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
-source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed"
-         nettle-4.patch)
-sha512sums=('e97541789fb3f5e00ecb41c867f8440e651fdb7be922cddfea70e9462b40ed33d7ca4d29039025584afb11ade8ce389ae25fc41200e3a38706a6fc265cd0c29b'
-            '66641075efeb6a4ed3df4dfabe28b7ec9e2c445f5f841d7e424bb40da969646adb6d2401b2507bf06d17f71ceacea66e3300083d0de70b0469b34240dad4c90d')
+source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
+sha512sums=('e97541789fb3f5e00ecb41c867f8440e651fdb7be922cddfea70e9462b40ed33d7ca4d29039025584afb11ade8ce389ae25fc41200e3a38706a6fc265cd0c29b')
 
 _backports=(
+  # gnutls: allow building with nettle 4.0
+  'cfadbaa133504d47ece989486fde944d076e0222'
+  # asyn-thrdd: fix result processing without wakeup socketpair https://github.com/curl/curl/pull/21476
+  'c29278cc83f31a3e5113eb5c68604fc48ce22fcb'
+  # event: fix wakeup consumption https://github.com/curl/curl/pull/21549
+  '2a2104f3cff44bb28bb570a093be52bbeeed8f23'
 )
 
 _reverts=(
@@ -66,7 +70,6 @@ prepare() {
     -e "/\WLIBCURL_TIMESTAMP\W/c #define LIBCURL_TIMESTAMP \"$(git log -1 --format=%cs "curl-${pkgver//./_}")\"" \
     include/curl/curlver.h
 
-  patch -p1 -i ../nettle-4.patch # Fix build with nettle 4
   autoreconf -fi
 }
 
