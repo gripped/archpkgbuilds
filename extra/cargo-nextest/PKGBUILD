@@ -2,17 +2,16 @@
 # Contributor: KokaKiwi <kokakiwi+aur at kokakiwi dot net>
 
 pkgname=cargo-nextest
-pkgver=0.9.133
+pkgver=0.9.135
 pkgrel=1
 pkgdesc="A next-generation test runner for Rust."
 arch=('x86_64')
 url="https://github.com/nextest-rs/nextest"
 license=('Apache-2.0' 'MIT')
-depends=('cargo' 'glibc' 'libgcc')
+depends=('cargo' 'glibc' 'libgcc' 'zstd')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/cargo-nextest-$pkgver.tar.gz")
-sha256sums=('7854bfc381ca2d5b1e28f7328e784e81611c599ea1c18d38aebf68c380b6eba7')
-b2sums=('9d75d41195fd65636eb1cb86a91f081d7a3014ca7a4e978fa584f5d3f773bbda502c98d85e160167f1fe841dc295ff2e423948dcb3e1c25f980e459e44bb0f71')
-options=('!lto')
+sha256sums=('b1c7f67c783c538a43a37743c60b3486f8707561d2acfe31a256317ba58b6831')
+b2sums=('af190141a6711bd484bfbfd2ebd70d63759421df9324c88f87e7260edb45e06e3334156d33948183175f5d402b2717cc4a7a6cf55974d083cb7eb2ca8e36e5dc')
 
 prepare() {
   mv "nextest-$pkgname-$pkgver" "$pkgname-$pkgver"
@@ -22,11 +21,14 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
+  export ZSTD_SYS_USE_PKG_CONFIG=1
   cargo build --release --frozen --package "$pkgname" --no-default-features --features default-no-update
 }
 
 check() {
   cd "$pkgname-$pkgver"
+  export CFLAGS+=" -ffat-lto-objects"
+  export ZSTD_SYS_USE_PKG_CONFIG=1
   cargo run --package cargo-nextest -- nextest run -- --skip test_version_info
 }
 
