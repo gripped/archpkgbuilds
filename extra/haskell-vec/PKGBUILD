@@ -2,8 +2,8 @@
 
 _hkgname=vec
 pkgname=haskell-vec
-pkgver=0.5.1
-pkgrel=75
+pkgver=0.5.1.1
+pkgrel=2
 pkgdesc="Vec: length-indexed (sized) list"
 url="https://github.com/phadej/vec"
 license=('BSD-3-Clause')
@@ -11,14 +11,13 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-adjunctions' 'haskell-boring'
          'haskell-distributive' 'haskell-fin' 'haskell-hashable' 'haskell-indexed-traversable'
          'haskell-semigroupoids')
-makedepends=('ghc' 'uusi' 'haskell-inspection-testing' 'haskell-tagged')
+makedepends=('ghc' 'uusi' 'haskell-inspection-testing')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('a8d97752f8307e4788fdfd92db122f7b4672883814ad2fb9c5fb57a4084dbcd92eee9c22481962d35f03fa29a6df566e97c51ac4ac77f4773f764ef8437fc046')
+sha512sums=('b06bc56ce8f25ea74c8f64819ca73d015787892a4a93cc4addda1e4d61e22387f8afc682625ae0e9d276f2fda5f5af6eb179526455f70824f76a4cfd03360472')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u inspection-testing
 }
 
 build() {
