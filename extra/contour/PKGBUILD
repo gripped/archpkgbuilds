@@ -3,7 +3,7 @@
 
 pkgname=contour
 pkgver=0.6.3.8249
-pkgrel=1
+pkgrel=2
 pkgdesc="Modern C++ Terminal Emulator"
 arch=(x86_64)
 url="https://github.com/contour-terminal/contour"
@@ -41,11 +41,18 @@ makedepends=(
   reflection-cpp
 )
 optdepends=('ncurses: for contour terminfo database')
-source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('a6646e16653fde3b89dddf3206cacebeaf4dbea405c2cce7121419e43c34b88b213afa0e3c0adc794ad4fe8e285ebc0975e02cf0e51aac871454b415fbc43c26')
+source=(
+  "$pkgname::git+$url.git#tag=v$pkgver"
+   gcc16-simd-ts.patch
+)
+sha512sums=(
+  'a6646e16653fde3b89dddf3206cacebeaf4dbea405c2cce7121419e43c34b88b213afa0e3c0adc794ad4fe8e285ebc0975e02cf0e51aac871454b415fbc43c26'
+  '3141b0f03e41218fa7bfc9b055711483b0bb582730f628d72dda2f35e2aa7ca4d53ce90f3225e424caf9f144ddab2efc9045fb8c6a3b0579a4f0ab9a1f0cfcfb'
+)
 
 prepare() {
   cd $pkgname
+  patch -Np1 -i ../gcc16-simd-ts.patch
 }
 
 build() {
