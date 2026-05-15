@@ -2,10 +2,10 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-webengine
-_pkgver=6.11.0
+_pkgver=6.11.1
 pkgver=${_pkgver/-/}
-pkgrel=6
-_chromium=663790a97fdc826ab74a54fea71af228c0439fd6
+pkgrel=1
+_chromium=
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -80,7 +80,7 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
         git+https://code.qt.io/qt/qtwebengine-chromium)
-sha256sums=('b0c490850019c6ff4351e27c3635f3a0057cb5d45f5dacc6ff09dcedeeff6e3c'
+sha256sums=('7f6596c1e8b54043ac29ec2d188d6257d28928cc157a45e3630a8a7692d6615d'
             'SKIP')
 
 prepare() {
@@ -89,7 +89,6 @@ prepare() {
   git submodule set-url src/3rdparty "$srcdir"/qtwebengine-chromium
   git -c protocol.file.allow=always submodule update
 
-  git cherry-pick -n 692e6b11a92d80954f80b27109d9738732591a20 # Fix using system openh264
   git cherry-pick -n 313960be3a586969c3af27f1845ab47d9b40ac34 ae6991d950bb343accad96b96047fe605c17bcc3 # Fix flickering
 
   # Bump chromium to head of stable branch
@@ -115,6 +114,4 @@ package() {
   DESTDIR="$pkgdir" cmake --install build
 
   install -Dm644 "$srcdir"/${_pkgfn}/src/3rdparty/chromium/LICENSE "$pkgdir"/usr/share/licenses/${pkgname}/LICENSE.chromium
-# Remove cmake module that breaks corrosion
-  rm "$pkgdir"/usr/lib/cmake/Qt6/FindRust.cmake
 }
