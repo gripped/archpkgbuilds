@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-workspaces
-pkgver=1.0.12
+pkgver=1.0.13
 pkgrel=1
 epoch=2
 pkgdesc='Cosmic workspaces'
@@ -29,7 +29,7 @@ source=(
   git+https://github.com/pop-os/cosmic-workspaces-epoch.git#tag=epoch-${pkgver}
   cosmic-workspaces-lto.patch
 )
-b2sums=('08f93bc40d2c86f9efb2711b000cd669a3a265187407a2863f50bedb51975f4e703f6645037dac953e28f961f6a31ef34094cad902f4299f93284e820e805dd5'
+b2sums=('31da77b01d55b4fcd5fc9eaf0d50071c171051ba19a66fb944bf5ed50a79e5be666ca1122e31e377424f71b66fc36e450d8eee0d2a9d4d84c20c69c56908a5d5'
         '05d93d371d529e1fb6ce7a35bac8fe409fe53ca0c9413fc4d47a46f8897792be9b7ed5178bce51d557210358f9cc1a0b08c1d4b29dc57928c30eb454733684f2')
 
 prepare() {
