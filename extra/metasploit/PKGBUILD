@@ -4,7 +4,7 @@
 # Contributor: Tobias Veit - nIcE <m.on.key.tobi[at]gmail[dot]com>
 
 pkgname=metasploit
-pkgver=6.4.129
+pkgver=6.4.133
 pkgrel=1
 pkgdesc='Advanced open-source platform for developing, testing, and using exploit code'
 url='https://www.metasploit.com/'
@@ -24,23 +24,24 @@ depends=(
 )
 options=('!strip' '!debug' '!emptydirs')
 source=(git+https://github.com/rapid7/metasploit-framework.git#tag=${pkgver})
-sha256sums=('76fc772e2d4c851468591ac26348b528fa5ec2a1771ca9f5976b8869708940b1')
-b2sums=('8bd47919279219e58e7256ee326db70baba121298e15f4966bda39cb83893e1045ddeb370c5ab438cd06d2d1daf41677e25d2b374d3ab3033efdef037efa4438')
+sha256sums=('d151c43bba14fd1aa5c7f7daab9796373406ede051b51a0e064ebcbc9aa238e4')
+b2sums=('191955defe43e973ca3fed388a6783e7f49b03829f5c20377e86fa30a8872de2d3afa1017d4f91ebf282ccee5dd9aae9a512df6fa2a103f16295e21ef9fb10c3')
 
 prepare() {
   cd ${pkgname}-framework
 
-  # https://github.com/undler/bundler/issues/6882
+  # https://github.com/bundler/bundler/issues/6882
   sed -e '/BUNDLED WITH/,+1d' -i Gemfile.lock
 
   bundle config set --local deployment 'true'
+  bundle config set --local no-cache 'true'
   sed 's|git ls-files|find -type f|' -i metasploit-framework.gemspec
 }
 
 build() {
   cd ${pkgname}-framework
   CFLAGS+=" -I/usr/include/libxml2"
-  bundle install -j"$(nproc)" --no-cache
+  bundle install -j"$(nproc)"
   find vendor/bundle/ruby -exec chmod o+r '{}' \;
   find vendor/bundle/ruby \( -name gem_make.out -or -name mkmf.log \) -delete
 }
@@ -69,7 +70,7 @@ package() {
   install -Dm 644 external/zsh/_* -t "${pkgdir}/usr/share/zsh/site-functions"
   install -Dm 644 LICENSE COPYING -t "${pkgdir}/usr/share/licenses/${pkgname}"
   install -d "${pkgdir}/usr/share/doc"
-  mv "${pkgdir}/opt/${pkgname}/documentation" "${pkgdir}/usr/share/doc/${pkgname}"
+  ln -s "/opt/${pkgname}/documentation" "${pkgdir}/usr/share/doc/${pkgname}"
   rm "${pkgdir}/usr/bin/msfupdate"
   rm -r "${pkgdir}"/opt/metasploit/vendor/bundle/ruby/*/cache
   sed -e '/^BUNDLE_JOBS/d' -i "${pkgdir}/opt/metasploit/.bundle/config"
