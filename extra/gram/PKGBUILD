@@ -4,10 +4,10 @@
 
 pkgname=gram
 pkgver=2.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A code editor for humanoid apes and grumpy toads'
 arch=(x86_64)
-url=https://gram.liten.app
+url=https://gram-editor.com
 _url="https://codeberg.org/GramEditor/$pkgname"
 license=(GPL-3.0-or-later AGPL-3.0-or-later Apache-2.0)
 depends=(fontconfig
@@ -37,22 +37,6 @@ makedepends=(cargo
              protobuf
              vulkan-headers
              vulkan-validation-layers)
-optdepends=('bash-language-server: improved bash language support'
-            'clang: improved C/C++ language support'
-            'eslint: improved Javascript language support'
-            'gopls: improved gopls language support'
-            'lua-language-server: improved Lua language support'
-            'pyright: improved Python language support'
-            'python-lsp-server: improved Python language support'
-            'ruff: provides Python linting'
-            'rust-analyzer: improved Rust language support'
-            'rustup: permits installing rust-based extensions'
-            'tailwindcss-language-server: improved CSS language support'
-            'ty: improved Python language support'
-            'typescript-language-server: improved TypeScript language support'
-            'vscode-html-languageserver: improved HTML language support'
-            'yaml-language-server: improved YAML language support'
-            'zls: improved Zig language support')
 replaces=(gram-bin gram-editor-bin)
 _archive="$pkgname-$pkgver"
 source=("$_archive.tar.gz::$_url/archive/$pkgver.tar.gz")
