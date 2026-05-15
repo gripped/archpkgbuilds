@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-launcher
-pkgver=1.0.12
+pkgver=1.0.13
 pkgrel=1
 epoch=1
 pkgdesc='Layer Shell frontend for Pop Launcher'
@@ -31,7 +31,7 @@ source=(
   git+https://github.com/pop-os/cosmic-launcher.git#tag=epoch-${pkgver}
   cosmic-launcher-lto.patch
 )
-b2sums=('401311b19a86725acd06bf81cde30585612ae6aca94304b1e25647e92d8b4b8655d6c3151c3b59d74e871a4c461cf250307551d6fe1ff8a3819f91dd1d2ce8b2'
+b2sums=('56a48cf5f9ab1172c28fe57a218f9cb2ddf6905228f2021369f63e036062a547f54e022880ecf9421c7d096c01f88bb1683152fc704a3ab86143c66155a73e3b'
         'a83c9394a6975f848e6786b3760f762351dd95f6fcd6dcb51c1beb5fae65f46f4d1e218fae00b854e592639bbe7c086e7d9a78ae2e6b0a26702e33c9140553c5')
 
 prepare() {
