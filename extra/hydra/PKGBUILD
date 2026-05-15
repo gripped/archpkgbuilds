@@ -8,8 +8,8 @@
 # Contributor: Timothée Ravier <tim@siosm.fr>
 
 pkgname=hydra
-pkgver=9.6
-pkgrel=2
+pkgver=9.7
+pkgrel=1
 pkgdesc='Very fast network logon cracker which support many different services'
 url='https://github.com/vanhauser-thc/thc-hydra'
 arch=('x86_64')
@@ -37,8 +37,8 @@ makedepends=(
   postgresql-libs
 )
 source=(${url}/archive/v${pkgver}/thc-hydra-v${pkgver}.tar.gz)
-sha512sums=('588f33b818dd475f19ab538644d54a3a08fa16fd2c119b8baf25ff9de8f15140d24438d2105e3cc1096fe5a6d12c51879992664409e97102c83ba1422b8b5e05')
-b2sums=('c55401fe5c7a18789c131739951b2bb43442beb13e2f5ff9f0d83bd3d6a70272a7f97b444c290ec0a9ecc6959793b1aa70faabc1f6b28496ada19469230b0f89')
+sha512sums=('daec8101ed5bd0889280cbb5ceeb6278fc704fa0c82a22da68d2b5ab3150e0eceffc16c4f5fcb929de849446616bb508309e6a917a410e57cc528371927feae3')
+b2sums=('1c806770947e8ddd693300754d647677f551c70f2a0b4b185bc004fbe7d4e8675bf29f35b9a9e1c3e9245e87065f01480f6c97a6af581f302be322f5b7d3fa7a')
 
 build() {
   cd thc-hydra-${pkgver}
