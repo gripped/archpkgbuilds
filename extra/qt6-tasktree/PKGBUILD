@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-tasktree
-_pkgver=6.11.0
+_pkgver=6.11.1
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -21,7 +21,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('430778ca8f47ce915bd93f7c869512f7def72689f124a203d45fbdfd5157a707')
+sha256sums=('0128b86818a7497b4902dc1394d1c659392c983e6163fa6dd2ac48a112fb0bfe')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
