@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=mdfried
-pkgver=0.20.0
+pkgver=0.20.1
 pkgrel=1
 pkgdesc="A markdown viewer for the terminal that renders images and big headers"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('GPL-3.0-only')
 depends=('gcc-libs' 'chafa')
 makedepends=('cargo' 'cmake')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('1b854b24366d82ff48e7a01cd881ea85e020f8f73ee9e102dd20571eb29d2095c4d2e68b770610bd9f702dd326f04502ad7ef26680eeaaf0aa3f7c51d878520b')
+sha512sums=('deab35c07bf45699ba4665c4867ac9bd49c89008db5c180a3b18aca376aea5dc5c11545b65d39bf65b7b078d712a29f2b903361a1e3b5272404d87082669d59d')
 options=('!lto')
 
 prepare() {
