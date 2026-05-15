@@ -2,7 +2,7 @@
 
 pkgbase=ols
 pkgname=(odinfmt ols)
-pkgver=dev_2026_04
+pkgver=dev_2026_05
 pkgrel=1
 pkgdesc='Language server and source code formatter for Odin'
 arch=(x86_64)
@@ -11,7 +11,7 @@ license=(MIT)
 depends=(glibc)
 makedepends=(git odin)
 source=("git+$url#tag=${pkgver//_/-}")
-b2sums=('0acfa5a78dbccffce492ad9a5aadda1aac8d2c3a77bc1cd62e89a068561b55b86d504c6087d2c1a1ec0a01a7e56926857c0f64513c4e58f1c0673cb7437b7f26')
+b2sums=('39c5bebbff89a49250bbad5a21ec24f8c28e74e702ad8c9cbcb838d2c53fa8c6758dd3c61254250cfe3600d1c6f85c9e12861c6fca22952138d52a68e5242394')
 
 build() {
   cd ols
