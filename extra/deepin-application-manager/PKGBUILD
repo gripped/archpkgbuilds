@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-application-manager
-pkgver=1.2.52
+pkgver=1.2.53
 pkgrel=1
 pkgdesc='App manager of Deepin Desktop Environment'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('dtk6core' 'qt6-base' 'qt6-wayland' 'glibc' 'libgcc' 'libstdc++' 'syste
 makedepends=('git' 'cmake' 'ninja' 'gtest' 'treeland-protocols')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-application-manager.git#tag=$pkgver")
-sha512sums=('2eb741d740684a9395bacde91c40132b95904ff9b346bee82fc677f4de902e7576b1e8c27f2d8f531c8c4b850ae0f8985872cd6f95934069e87ae2afd2d9a1dd')
+sha512sums=('6ba4903034ba42953ce0c20686a6f612d57c9e6189fd2b13e7200fe35c6ad67269f714af60512cf77050c66024b6278ef0dd407a6713ac8ac7eec3751e63c79e')
 
 build() {
   cd dde-application-manager
