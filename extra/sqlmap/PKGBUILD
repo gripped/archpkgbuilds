@@ -3,7 +3,7 @@
 # Contributor: fxbru <frxbru[at]gmail>
 
 pkgname=sqlmap
-pkgver=1.10.4
+pkgver=1.10.5
 pkgrel=1
 pkgdesc='Automatic SQL injection and database takeover tool'
 url='https://sqlmap.org'
@@ -21,8 +21,8 @@ backup=(
   'etc/sqlmap.conf'
 )
 source=(https://github.com/sqlmapproject/sqlmap/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('4d3f819e241f7361d30c2e21f05b960b0e2ced18869ee7af08460c6306ca74e5')
-b2sums=('1cdb3da2e5baa22d672bedf9659b58c0d1deb07cc9a0bc254376ef13c0369df2082883d1c9aa9a83d1cdd4b1adc8f1f62640d7ff874c1b7ab57df24a5a0a7035')
+sha256sums=('76af2dfcf548d245471080a7efa3e1f0a3537f5beea2c764e93557919f36f744')
+b2sums=('95a150b93fc55032b57dbe5ffffd54cb53325e89bbbb7e22476fed755dadc0c366ad1dd7c60db338c7e25bb8e1d2c9d9c97dbd128770d6d40e51efbfb22c1274')
 
 build() {
   cd ${pkgname}-${pkgver}
