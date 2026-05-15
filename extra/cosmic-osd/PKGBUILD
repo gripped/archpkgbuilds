@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-osd
-pkgver=1.0.12
+pkgver=1.0.13
 pkgrel=1
 epoch=1
 pkgdesc='COSMIC On-Screen Display'
@@ -31,10 +31,8 @@ makedepends=(
 )
 source=(
   git+https://github.com/pop-os/cosmic-osd.git#tag=epoch-${pkgver}
-  suid-polkit-agent-helper.rs
 )
-b2sums=('542d67437994c3ef5586ea7761f5ce92187c2132d0431be6961f0e60e3cdffac7b75d847e8f55ad7f766abdde35443ea1878e25320314bebe1f2b9f0ce2fdb32'
-        'b2c1f956aad81b17fa82f0663e4b67265d904af04f67c003f39614f0338ee1ad0cd32e0ed9d7437800ef4b9f82f105533acd14c3b479ce289db4cee1c1309d92')
+b2sums=('526865fe1055227f7c16d3af204d97ccceccdd31d00aed575239114ebf01640cb9b331564c1e4d13e4c26e70e6de8e0c5e9658916238c0cfd9b0eebe8a9be403')
 
 prepare() {
   cd cosmic-osd
@@ -43,15 +41,11 @@ prepare() {
 
 build() (
   export RUSTFLAGS+=" -C link-arg=-fuse-ld=lld"
-  rustc $RUSTFLAGS -O --edition 2024 suid-polkit-agent-helper.rs
-
   cd cosmic-osd
-  just polkit-agent-helper-1="/usr/lib/${pkgname}/suid-polkit-agent-helper" build-release
+  just build-release
 )
 
 package() {
-  install -Dm4755 suid-polkit-agent-helper -t "${pkgdir}/usr/lib/${pkgname}"
-
   cd cosmic-osd
   just rootdir="${pkgdir}" install
 }
