@@ -2,8 +2,8 @@
 # Contributor: Marcell Pardavi <marcell.pardavi@gmail.com>
 
 pkgname=zed
-pkgver=1.2.3
-pkgrel=1
+pkgver=1.2.5
+pkgrel=2
 pkgdesc='A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter'
 arch=(x86_64)
 url=https://zed.dev
@@ -38,15 +38,11 @@ makedepends=(cargo
              protobuf
              vulkan-headers
              vulkan-validation-layers)
-optdepends=('clang: improved C/C++ language support'
-            'eslint: improved Javascript language support'
-            'pyright: improved Python language support'
-            'rust-analyzer: improved Rust language support'
-            'org.freedesktop.secrets: to keep you logged into your Zed account')
+optdepends=('org.freedesktop.secrets: to keep you logged into your Zed account')
 replaces=(zed-editor)
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('c397c39495239a7a5a774bd91164a6e17d6a07f224c2f5038fcd776d25ed04d1')
+sha256sums=('6912554b03f4c6286bbc7e1adb89b95105540151ec3b361d5ef26efd4e35901a')
 
 _binname=zeditor
 _appid=dev.zed.Zed
