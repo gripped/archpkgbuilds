@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=parla
-pkgver=0.2.4
+pkgver=0.2.6
 pkgrel=1
 pkgdesc="Native Gnome DeltaChat client"
 arch=(x86_64)
@@ -23,8 +23,8 @@ makedepends=(
   vala
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('453d8bf55c29aaa72440748721eed68e432fa6cc2fb82da410c7ade6561969a33d9045f39e4aa55db799378d28675b9da0f093616056d65a3bff2a5b442a85d7')
-b2sums=('7b575a8b8bbdec905c9563a78cdb73df35258ec72ff5082708db779f3a0f5d3a517c459e45c83340e65b7b3dc0fa954f164928afa28f82d0da4015a2fb3a7198')
+sha512sums=('3b6d1770b38142acdd238205529adf0491bacaa6b908e7f4c065de6b4c1c36e76b731bfd27945e08e8fc97594132bb4288666ae50a41b07725c275900050c3cb')
+b2sums=('0bd0ba97a71594d8f7778ccd39a566fe307118b32b7bd56b91ef6281840dce242746c1bd20b997265cadff2967fa2003268699cc37535c0b6eb77d88f1063fc5')
 
 build() {
   arch-meson build $pkgname-$pkgver
