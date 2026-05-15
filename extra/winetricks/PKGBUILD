@@ -6,11 +6,11 @@
 
 pkgname=winetricks
 pkgver=20260125
-pkgrel=1
+pkgrel=2
 pkgdesc='Script to install various redistributable runtime libraries in Wine.'
 url='https://wiki.winehq.org/winetricks'
 license=('LGPL-2.1-or-later')
-arch=('x86_64')
+arch=('any')
 depends=('bash' 'cabextract' 'perl' 'unzip')
 optdepends=('zenity: GUI for GNOME desktop'
             'kdialog: GUI for KDE desktop')
