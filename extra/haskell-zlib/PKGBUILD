@@ -2,8 +2,8 @@
 # Maintainer: Colin Woodbury <colingw@gmail.com>
 
 pkgname=haskell-zlib
-pkgver=0.7.0.0
-pkgrel=89
+pkgver=0.7.1.0
+pkgrel=2
 pkgdesc="Compression and decompression in the gzip and zlib formats"
 url="https://hackage.haskell.org/package/zlib"
 license=('BSD-3-Clause')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'zlib')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/zlib/${pkgver}/zlib-${pkgver}.tar.gz)
-sha512sums=('1271ae35457a0a30c254bb7c4c043bd51c65cb31a0610cbe3114fc237aa6c9058e5008edf80dbe5883736a731fc312e10b40ce50114f1023ddfc5a779d628879')
+sha512sums=('cc83b1550092ba45595873cb66ce4bd65b4ca372bf0461f2337de9fe1765d95dd8e27e2696ee1fdfd6dc58f0f81c499002492e461f00fc928b11ede98a928c81')
 
 prepare() {
     cd zlib-$pkgver
