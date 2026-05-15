@@ -5,7 +5,7 @@
 
 pkgbase=profanity
 pkgname=('profanity' 'profanity-gtk')
-pkgver=0.18.0
+pkgver=0.18.1
 pkgrel=1
 epoch=1
 pkgdesc='Console based XMPP client'
@@ -25,9 +25,9 @@ makedepends=(
   )
 checkdepends=('cmocka')
 source=(https://github.com/profanity-im/profanity/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz)
-sha256sums=('6d5571ba15968bbc010c43d4f31a2274718cbfe431cc309f3838c8012c1c54d7')
-sha512sums=('f7f9ecb62acf31acfb415804022be1667cff55afbe47764b8fe828feef3521f231fd6a1a5182fa7a2ee1dacbab61c9069579984a5efd55688681763a4bde2810')
-b2sums=('1c97975dda361d18df529165899221e2e1a1fc99d41a015a100064f114d879927d8eef055f8c512d583fb6680fcdf5fb2d95f5d8942485f8180e6ae7dc632fdc')
+sha256sums=('c6cd7d4497d4c63ce44e6d26afbb227e23a1ac299a1851ce7fdb232209b06e4b')
+sha512sums=('de3237a67b0fd9446d100b962139367344fd4d6fc33e6ef4ec61f8e82af3298f0562e7e5dfc1313a02d5c8eb2455313ae6b1fe55025814620ffb709891ca4351')
+b2sums=('3bc7dff6efd26132d9d6eb9243a14f92031d2b7bdf20f9a4637fc58961f0e7e0bcdb370aa52bb994f15880ddd2bc8c185574cb4aac1a34f4e7bbaa9562936243')
 
 prepare() {
   cp -a "${srcdir}"/${pkgname}-${pkgver}{,-gtk}
