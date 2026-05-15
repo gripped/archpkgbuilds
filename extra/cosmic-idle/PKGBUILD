@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-idle
-pkgver=1.0.12
+pkgver=1.0.13
 pkgrel=1
 epoch=1
 pkgdesc='Cosmic idle daemon'
