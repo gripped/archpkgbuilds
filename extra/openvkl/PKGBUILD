@@ -1,8 +1,8 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=openvkl
-pkgver=2.0.1
-pkgrel=5
+pkgver=2.0.2
+pkgrel=1
 pkgdesc="Intel® Open Volume Kernel Library"
 arch=(x86_64)
 url="https://www.openvkl.org/"
@@ -12,7 +12,7 @@ makedepends=(boost cmake ispc)
 source=(
   https://github.com/openvkl/openvkl/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
 )
-sha256sums=('0c7faa9582a93e93767afdb15a6c9c9ba154af7ee83a6b553705797be5f8af62')
+sha256sums=('c5c6dd9984ee527e08d726770034a9bb7f52e06e65ec0a78368a5d930a53d122')
 
 build() {
   export CMAKE_POLICY_VERSION_MINIMUM=3.5
