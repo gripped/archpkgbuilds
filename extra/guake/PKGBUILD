@@ -5,8 +5,8 @@
 # Contributor: Attila Bukor <r1pp3rj4ck@w4it.eu>
 
 pkgname=guake
-pkgver=3.10
-pkgrel=6
+pkgver=3.10.1
+pkgrel=1
 pkgdesc='Drop-down terminal for GNOME'
 arch=('any')
 url="https://guake.github.io/"
@@ -14,9 +14,8 @@ license=('GPL-2.0-or-later')
 depends=('libkeybinder3' 'libnotify' 'libutempter' 'libwnck3' 'python-cairo'
          'python-dbus' 'python-gobject' 'python-pbr' 'vte3' 'python-yaml')
 makedepends=('git' 'python-pip')
-_commit=a011f8afad5f2519f489d10cf4277bdea28f0ec9
-source=("git+https://github.com/Guake/guake#commit=$_commit")
-sha256sums=('SKIP')
+source=("git+https://github.com/Guake/guake#tag=$pkgver")
+sha256sums=('3ce605e838ddbb178c7e9909633447a793654137ef7631914addb76d49df9882')
 
 pkgver() {
   cd $pkgname
