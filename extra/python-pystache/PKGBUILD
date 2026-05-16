@@ -3,8 +3,8 @@
 
 pkgname=python-pystache
 _pkgname=pystache
-pkgver=0.6.5
-pkgrel=4
+pkgver=0.6.8
+pkgrel=1
 pkgdesc='The mustache template engine written in python'
 arch=(any)
 url='https://github.com/PennyDreadfulMTG/pystache'
@@ -12,7 +12,7 @@ license=('MIT')
 depends=('python')
 makedepends=('python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 source=("https://github.com/PennyDreadfulMTG/$_pkgname/archive/v$pkgver/$_pkgname-$pkgver.tar.gz")
-sha512sums=('e3054e0bff5c3bc6679bf22555dd3cfb2f31b241484c7e6201d37b7767a22f2f842912e3f61d8e2e2858615a4f99ef4192d885b60f84dfeffa1408370ccfba75')
+sha512sums=('b2eecabdc39f86713b4f3387b4a80afaa0a80ecc0a34482e3d9341467660666a7bdcd83d21fc9fd3b61a764a1c840a5ba8041f9a66a3b130c849e8bd8cf1f9b5')
 
 build() {
   cd "$_pkgname-$pkgver"
