@@ -2,8 +2,8 @@
 
 _pyname=sphinx-intl
 pkgname=python-$_pyname
-pkgver=2.3.1
-pkgrel=2
+pkgver=2.3.2
+pkgrel=1
 pkgdesc='A Sphinx utility that make it easy to translate and to apply translations'
 arch=(any)
 url='https://github.com/sphinx-doc/sphinx-intl'
@@ -15,9 +15,10 @@ depends=(python
 makedepends=(git
              python-build
              python-installer
-             python-setuptools)
+             python-setuptools
+             python-setuptools-scm)
 source=(git+https://github.com/sphinx-doc/sphinx-intl#tag=$pkgver)
-sha512sums=('d0727602aaf2a66f980dc8ac6da3a52d483620529d7b6bdf8eede66687c65b5ec18bd2230b279818ba03d6d6cfdfe026fdda24819266ea00a402669a4cbd0058')
+sha512sums=('1bce6b1af6f87b8cb8e885822547131f59e8a382591b17c0afa914b2edd5b8b724d86b90b713481c35ceb4be9baa6d10e43360ad85f602fa919938f3cdf9cb35')
 
 build() {
   cd $_pyname
