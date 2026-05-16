@@ -2,8 +2,8 @@
 # Contributor: Josip Ponjavic <josipponjavic at gmail dot com>
 
 pkgname=photoflare
-pkgver=1.6.13
-pkgrel=2
+pkgver=1.7.0
+pkgrel=1
 pkgdesc='Quick, simple but powerful Qt-based image editor inspired by PhotoFiltre'
 arch=(x86_64)
 url='https://photoflare.io/'
@@ -23,18 +23,12 @@ makedepends=(
   qt6-tools
 )
 source=("git+https://github.com/PhotoFlare/photoflare.git#tag=v$pkgver")
-b2sums=(bbfe16571c10e425ea6fea65f8d36366d2f157c95c75f226c0d6ef05c407fb57dc3d48025fedb39d46b88bfd0d59e08c7e2b09f2243117f97e1755855e70ad59)
+b2sums=('4303191e13802a30c9e0a05206ee85ac637ba58870f36f68f2341edcda92a73d2c7ab2ded77965b20f877b3aea2e7f3bf06df42013a75503ac5e77955aab0215')
 
 prepare() {
   cd $pkgname
 
-  # Port to Qt6
-  # https://github.com/PhotoFlare/photoflare/pull/490
-  git cherry-pick -n -m 1 v1.6.13..11de5e05fe3bdcc9b914808d70e3c71242931661
-  git cherry-pick -n -m 1 f88dc1ba29d139637723e9e1fd2cb367d8f27646
-  git revert -n 24ebbb899e66c3ec0098e7ab620444ffd8d49471
-  sed -i "s/1.6.12/$pkgver/" src/main.cpp
-
+  git cherry-pick -n fd5bc2f028c2ba382a1260cb3200e7f340b1b59b # Fix installing translations
   sed -i '/pixmaps \\/d' Photoflare.pro
 }
 
