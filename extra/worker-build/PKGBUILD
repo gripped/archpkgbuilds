@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=worker-build
-pkgver=0.8.1
+pkgver=0.8.3
 pkgrel=1
 pkgdesc="Custom build command for a Cloudflare Workers project"
 url='https://github.com/cloudflare/workers-rs/tree/main/worker-build'
@@ -18,8 +18,8 @@ depends=(
 makedepends=('cargo')
 options=('!lto')
 source=("${pkgname}-${pkgver}.tar.gz::https://crates.io/api/v1/crates/${pkgname}/${pkgver}/download")
-sha256sums=('43ea99f35a23baf0218008edfa42c4a39f2d9d708ac112757fdda365df861829')
-b2sums=('71ef8666b9720e8c5721957d76b5130b2a2176d6b3de159bfb740af3bed4ca5014d665ce46715514449943ae24b0937f39ebf8d8917a278ea525a014c5f1d4c3')
+sha256sums=('494ffb7a96173148e54faa948d360eb3876bf6e346ed53eb0bf170f4153827ce')
+b2sums=('55da0d107db3de2a979db4ab932c290fad41a35700ee71f3e2b125bfe1df19cfcacc822d9d4ddb3bf905bbb3bfaa08f344c555c3eb95244e3c07ca13c11d5036')
 
 prepare() {
   cd ${pkgname}-${pkgver}
