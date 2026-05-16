@@ -3,7 +3,7 @@
 
 pkgname=adios2
 pkgver=2.12.1
-pkgrel=1
+pkgrel=2
 pkgdesc="The Adaptable Input/Output System version 2"
 arch=(x86_64)
 url="https://adios2.readthedocs.io/en/latest/"
@@ -40,6 +40,7 @@ makedepends=(
   cuda
   gcc-fortran
   gtest
+  nanobind
   ninja
   nlohmann-json
   python-mpi4py
@@ -74,8 +75,7 @@ build() {
     -DADIOS2_USE_CUDA=ON
     -DADIOS2_USE_EXTERNAL_DEPENDENCIES=ON
     -DADIOS2_USE_EXTERNAL_PERFSTUBS=OFF
-    # external nanobind does not work: https://gitlab.archlinux.org/archlinux/packaging/packages/nanobind/-/merge_requests/3
-    -DADIOS2_USE_EXTERNAL_NANOBIND=OFF
+    -DADIOS2_USE_EXTERNAL_NANOBIND=ON
     #-DADIOS2_HAVE_HDF5_VOL needs hdf5-openmpi
     -DADIOS2_HAVE_HDF5_VOL=OFF
     -DADIOS2_BUILD_EXAMPLES=OFF
