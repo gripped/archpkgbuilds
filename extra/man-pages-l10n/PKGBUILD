@@ -4,7 +4,8 @@
 # Contributor: Rafael Fontenelle <rafaelff@gnome.org>
 
 pkgbase=man-pages-l10n
-pkgname=('man-pages-cs'
+pkgname=('man-pages-ar'
+         'man-pages-cs'
          'man-pages-da'
          'man-pages-de'
          'man-pages-el'
@@ -25,7 +26,7 @@ pkgname=('man-pages-cs'
          'man-pages-sr'
          'man-pages-uk'
          'man-pages-vi')
-pkgver=4.30.0
+pkgver=4.30.2
 pkgrel=1
 pkgdesc="Translation of man pages"
 arch=('any')
@@ -36,13 +37,13 @@ makedepends=('po4a')
 changelog=$pkgbase.changelog
 options=('!emptydirs')
 source=("$url/-/archive/$pkgver/manpages-l10n-$pkgver.tar.bz2")
-sha256sums=('8e720754d859de77d7aab827f8f8920d30d8c283ffb3879ca7a797862aaae17b')
+sha256sums=('76ca506b6ac548b3649cb9d95f15384d0698c0881f547ae3c771e5048c1a3311')
 
 build() {
   cd manpages-l10n-$pkgver
   ./configure --prefix=/usr --enable-distribution=archlinux --enable-compression=none
 
-  for _lang in cs da de el es fi fr hu id it mk nb nl pl pt_BR ro ru sr sv uk vi; do
+  for _lang in ar cs da de el es fi fr hu id it mk nb nl pl pt_BR ro ru sr sv uk vi; do
     make -C po/"${_lang}"
   done
 }
@@ -55,6 +56,14 @@ check() {
   done
 }
 
+package_man-pages-ar() {
+  pkgdesc="Arabic man pages"
+  depends=('man')
+
+  cd manpages-l10n-$pkgver/po/ar
+  make DESTDIR="${pkgdir}" install
+}
+ 
 package_man-pages-cs() {
   pkgdesc="Czech man pages"
   depends=('man')
