@@ -109,7 +109,7 @@ index d5ad44ff6..38c414bae 100644
  
 -    if pixbuf:
 -        cover_path = Path(Gio.File.new_tmp("XXXXXX.tiff")[0].get_path())
--        pixbuf.savev(str(cover_path), "tiff", ["compression"], ["1"])
+-        pixbuf.savev(str(cover_path), "tiff")
 -
      try:
          with Image.open(cover_path) as image:
@@ -136,7 +136,7 @@ index d5ad44ff6..38c414bae 100644
 +        return
 +
 +    if pixbuf:
-+        pixbuf.savev(str(static_path), "tiff", ["compression"], ["1"])
++        pixbuf.savev(str(static_path), "tiff")
 +
 +        if game_id in shared.win.game_covers:
 +            shared.win.game_covers[game_id].new_cover(static_path)
