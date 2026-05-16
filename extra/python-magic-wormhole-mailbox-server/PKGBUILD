@@ -3,7 +3,7 @@
 # Contributor: Dian M Fay <dian.m.fay@gmail.com>
 
 pkgname=python-magic-wormhole-mailbox-server
-pkgver=0.7.0
+pkgver=0.8.0
 pkgrel=1
 pkgdesc="the rendezvous/mailbox server for magic-wormhole clients "
 arch=(any)
@@ -17,8 +17,8 @@ makedepends=(python-{build,installer,wheel}
 checkdepends=(python-pytest
               python-treq)
 source=(${pkgname}-${pkgver}.tar.gz::"${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha512sums=('064ea622ccdb35e1a6bcb0efbbcd5bda30f4b87f865277c192fbf697ee33baf653cbc3ef51fad169a5ea8f7867dd76b62b5a94887f1a2798858cbb093ffa9f71')
-b2sums=('4b56c88c0eca3d74a1f61022d826b04307ffe810d5fffda413e200815db04ab979f240b09acc978dd7a6c1b0d6dd5d405b54b850966513de2c775d6f5e8e440f')
+sha512sums=('2ee48c6d7d98a6dad9107cda6dd59b2ef7865436dce29433c3cd790c311527e807a9b4e8de879a1bb990521afec7a47077e1f0cc9006f7e7389597072bfd90d8')
+b2sums=('5b67f9a8d1389b6735f29a627b16b0e41899c979abde6b4fdd637c87ffaa8ca312a8b4b1ba601a4ce1dd6f2b74d6cc4763974f8c2d5dac2204a58721536ea997')
 
 prepare() {
 	cd "${pkgname#python-}-$pkgver"
