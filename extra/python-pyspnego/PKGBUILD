@@ -2,7 +2,7 @@
 
 _pkg=pyspnego
 pkgname=python-${_pkg}
-pkgver=0.11.0
+pkgver=0.12.1
 pkgrel=1
 pkgdesc="SPNEGO Authentication library"
 arch=(any)
@@ -17,7 +17,7 @@ optdepends=('python-gssapi: Kerberos support'
 # No tests in pypi tarball
 #source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('6f92ae401a3515e41b40a7cff9bffd837ba8b4567f4a078335df8d24a1187bd9')
+sha256sums=('b55b31ebd4a35e638936b53f17b8a67b905cb94d8f2f0d55e17399cb9453951a')
 
 build() {
   cd ${_pkg}-${pkgver}
