@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=python-recurring-ical-events
-pkgver=3.8.1
+pkgver=3.9.0
 pkgrel=1
 pkgdesc='Python library to calculate recurrence times of events, todos and journals based on icalendar RFC5545'
 arch=(any)
@@ -27,7 +27,7 @@ checkdepends=(
   python-tzdata
 )
 source=("git+https://github.com/niccokunzmann/python-recurring-ical-events.git#tag=v$pkgver")
-b2sums=(f190f6a01ee4ea8d0c89a89e6e5e68d782029790c8f484f6b3036c8ace90c40f0adde47b01a2a0af5bbb5590cf93d05f152c18932013713c21488fb6d2b9f5ca)
+b2sums=('3aa444a2bea5a6a91a86449795637da9d68c5cc9e98bbdc811561b2a5cb70eaca0e5154e3e323ddb82853312f289fb4c5b0a14c4592d4be0246d104d242eb20c')
 
 build() {
   cd $pkgname
