@@ -4,8 +4,8 @@
 # Contributor: mgushee
 
 pkgname=djvulibre
-pkgver=3.5.29
-pkgrel=2
+pkgver=3.5.30
+pkgrel=1
 pkgdesc='Library and utilities to create, manipulate and view DjVu (déjà vu) documents'
 arch=(x86_64)
 url='https://djvu.sourceforge.net/'
@@ -21,11 +21,11 @@ depends=(
 )
 makedepends=(git)
 source=("$pkgname::git+https://git.code.sf.net/p/djvu/djvulibre-git#tag=release.$pkgver")
-b2sums=(971076a3ba16b3250e23590263346eb27b4b39b431cb8649a88e3ad7f42ba2b327dbae7949f18cba755acdb088b699a8c49dc97db67d0628ccc30db801eb8bdb)
+b2sums=('112a4b597ea497b67cbaf97890e7336ba328824b4e4e544064207928fb5f84ef545af7d086e179a11a01af99d4773416b379811a75ba0fae625876cd09327a6e')
 
 prepare() {
   cd $pkgname
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
