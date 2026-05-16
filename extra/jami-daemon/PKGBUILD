@@ -3,17 +3,50 @@
 
 pkgname=jami-daemon
 pkgver=20260206
-pkgrel=6
+pkgrel=7
 pkgdesc="Free and universal communication platform which preserves the users’ privacy and freedoms (daemon component)"
 arch=(x86_64)
 url="https://jami.net"
 license=(GPL-3.0-or-later)
 groups=(jami)
-depends=(glibc opendht gnutls nettle libgit2 libsecp256k1 libsecp256k1.so ffmpeg speexdsp
-         fmt yaml-cpp jsoncpp zlib alsa-lib libpulse jack libupnp libnatpmp
-         openssl webrtc-audio-processing-0.3 systemd-libs libarchive)
+depends=(
+  alsa-lib
+  ffmpeg
+  fmt
+  glibc
+  gnutls
+  jack
+  jsoncpp
+  libarchive
+  libgcc
+  libgit2
+  libnatpmp
+  libpulse
+  libsecp256k1
+  libupnp
+  libstdc++
+  nettle
+  opendht
+  openssl
+  speexdsp
+  systemd-libs
+  util-linux-libs
+  webrtc-audio-processing-0.3
+  yaml-cpp
+  zlib
+)
 # portaudio needs a not-yet-upstream patch https://git.jami.net/savoirfairelinux/jami-daemon/-/issues/650
-makedepends=(git cmake perl asio msgpack-c msgpack-cxx restinio systemd meson)
+makedepends=(
+  asio
+  cmake
+  git
+  meson
+  msgpack-c
+  msgpack-cxx
+  perl
+  restinio
+  systemd
+)
 checkdepends=(cppunit)
 _commit=55dd53736b9e6cd7204cc17e01d10d8a9276618f
 _pjprojectver=59d9e1355686cf4f3f3d81d45560058354f42802
@@ -44,17 +77,6 @@ prepare() {
   cp ../pjproject-${_pjprojectver}.tar.gz contrib/tarballs/
   cp ../dhtnet-$_dhtnetver.tar.gz contrib/tarballs/
   mkdir -p contrib/native
-
-  # pjproject is unpacked during contrib build (not during prepare/build bootstrap).
-  # Inject libupnp 1.14 callback signature fix into pjproject build recipe.
-  sed -i '/^\t$(UNPACK)$/a\
-\tsed -i '\''s/static int client_cb(Upnp_EventType event_type, const void \\*event,/static int client_cb(Upnp_EventType event_type, void *event,/'\'' pjproject-$(PJPROJECT_VERSION)/pjnath/src/pjnath/upnp.c' \
-    contrib/src/pjproject/rules.mak
-
-  # dhtnet is also unpacked during contrib build; fix libupnp 1.14 callback signatures.
-  sed -i '/^\t$(UNPACK)$/a\
-\tsed -i '\''s/#if UPNP_VERSION < 10800/#if UPNP_VERSION < 10800 || UPNP_VERSION >= 11400/g'\'' dhtnet-$(DHTNET_VERSION)/src/upnp/protocol/pupnp/pupnp.h' \
-    contrib/src/dhtnet/rules.mak
 
   patch -p1 -i ../ffmpeg-7.patch # Fix build with ffmpeg 7+
   patch -p1 -i ../ffmpeg-8.patch # Fix build with ffmpeg 8
