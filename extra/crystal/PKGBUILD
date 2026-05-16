@@ -6,8 +6,8 @@ pkgname=(
   'crystal'
   'crystal-docs'
 )
-pkgver=1.20.1
-pkgrel=2
+pkgver=1.20.2
+pkgrel=1
 pkgdesc='The Crystal Programming Language'
 arch=(x86_64)
 url='https://crystal-lang.org'
@@ -38,18 +38,11 @@ optdepends=(
 )
 source=(
   "crystal-${pkgver}.tar.gz::https://github.com/crystal-lang/crystal/archive/${pkgver}.tar.gz"
-  "fix_range_sample_randomness.patch::https://patch-diff.githubusercontent.com/raw/crystal-lang/crystal/pull/16853.patch"
 )
-sha256sums=('2fdc7eaefed34755383db15f8787e3a7c2f04069e93871d353f95fa083ed7d8d'
-            'f7e83a493c033d565844ae1c3f8e4a679f8df4d318246687c949a1aa7edadd1e')
+sha256sums=('68b69b844bf3bf9990cb7befb06520fc477bb6c3f42de833c6b6a80dd5d0b17c')
 
 prepare() {
   cd "${pkgbase}-${pkgver}"
-
-  # There will probably be a 1.20.1 release soon,
-  # but nevertheless it's better to include this fix sooner
-  # rather than later.
-  patch -Np1 < ../fix_range_sample_randomness.patch
 }
 
 build() {
