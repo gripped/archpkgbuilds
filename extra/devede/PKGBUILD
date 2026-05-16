@@ -6,8 +6,8 @@
 
 pkgname=devede
 _pkgname=devedeng
-pkgver=4.21.0
-pkgrel=2
+pkgver=4.21.3.1
+pkgrel=1
 pkgdesc='Program to create Video DVDs and CDs'
 arch=('any')
 url='https://rastersoft.com/programas/devede.html'
@@ -34,7 +34,7 @@ makedepends=(
   'python-wheel'
 )
 source=("git+https://gitlab.com/rastersoft/$_pkgname.git#tag=$pkgver")
-b2sums=('a161641b7814f90f32b8ea103f7faa6b109487132bb2d9a07d6deae80f887548db8101a94a2a1ca90d9e971a133d4b0a616465c9d6dab46ccc804d8fd755e6f4')
+b2sums=('230fb468886ac95927ecf3e8d4357560a206ed6a8a53ab21368eaee4c67134ea2e7bda689e95a195ead8b335159d7370e9dd48e9ab3ceb75e1fbfd77f7899233')
 
 prepare() {
   cd $_pkgname
