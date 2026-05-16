@@ -1,9 +1,9 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
-_name=pytest-qt
+_name=pytest_qt
 pkgname=python-pytest-qt
-pkgver=4.4.0
-pkgrel=6
+pkgver=4.5.0
+pkgrel=1
 pkgdesc='pytest support for PyQt and PySide applications'
 arch=(any)
 license=('MIT')
@@ -12,7 +12,7 @@ depends=('python-pytest')
 makedepends=('python-setuptools-scm' 'python-build' 'python-installer')
 checkdepends=('python-pyqt6')
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('57c6a1866c7685db5301faa42298f11ef3d3a030cbc72fb109a8d6166621625fac89365671f781e5c3d652a190567bec3bae6f12cdab20812f43c7ef8e4518fa')
+sha512sums=('84b4789e3017dfbbc0c36658bb36d175055cf2354612833aae91441e803457142d412edbe74823f916ac1cccb73efc87ed73b776a8b18cf71d66497514edc5cd')
 
 build() {
   cd ${_name}-$pkgver
