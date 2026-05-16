@@ -9,8 +9,8 @@
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 
 pkgname=rednotebook
-pkgver=2.39
-pkgrel=2
+pkgver=2.42
+pkgrel=1
 pkgdesc='Modern desktop diary and personal journaling tool that lets you format, tag and search your entries'
 arch=('any')
 url='https://rednotebook.sourceforge.io/'
@@ -18,7 +18,7 @@ license=('GPL')
 depends=('gtksourceview3' 'python-gobject' 'python-pyenchant' 'python-yaml' 'webkit2gtk-4.1')
 makedepends=('python-build' 'python-installer' 'python-setuptools')
 source=("https://github.com/jendrikseipp/rednotebook/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('c84a25af4cbbb9db7971fbb0ba0120452f7d779a5cbfd2bcd4dee7e8dcc306ee')
+sha256sums=('f0eddb338a74c5819000a6be16ef24b2821f9e60f86b3505f93f9a5bd2e3e9b2')
 
 build() {
   cd $pkgname-$pkgver
