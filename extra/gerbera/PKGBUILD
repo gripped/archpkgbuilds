@@ -4,15 +4,14 @@
 
 pkgname=gerbera
 pkgver=3.2.1
-pkgrel=2
+pkgrel=3
 pkgdesc="UPnP Media Server (Based on MediaTomb)"
 arch=(x86_64)
 url="https://github.com/gerbera/gerbera"
 license=('GPL-2.0-or-later')
 depends=('curl' 'duktape' 'exiv2' 'ffmpeg' 'ffmpegthumbnailer' 'file' 'fmt' 'glibc' 'icu' 'jsoncpp' 'libebml'
-	'libexif' 'libgcc' 'libgexiv2' 'libmatroska' 'libstdc++' 'libupnp' 'pugixml' 'spdlog' 'sqlite' 'systemd-libs'
+	'libexif' 'libgcc' 'libmatroska' 'libstdc++' 'libupnp' 'pugixml' 'spdlog' 'sqlite' 'systemd-libs'
 	'taglib' 'util-linux-libs')
-optdepends=('libmariadbclient')
 makedepends=('cmake')
 install=gerbera.install
 options=('emptydirs')
@@ -24,21 +23,26 @@ sha256sums=('6b89d0c416b6d98e34634e5b1121f340315d60b088e9e6b2fca423488760030f'
             '452f5d4b5661e0262cb4a48d62a54f5f26d53c6d3aebf502cde072214a8b30d8')
 
 build() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
-	# Gerbera build options can be found here: https://github.com/gerbera/gerbera/blob/master/CMakeLists.txt
-	# use sqlite backend
-	cmake -DCMAKE_INSTALL_PREFIX=/usr -DWITH_AVCODEC=1 -DWITH_FFMPEGTHUMBNAILER=1 -DWITH_ZIP=OFF .
-	# use mysql backend - requires libmariadbclient
-	#cmake -DCMAKE_INSTALL_PREFIX=/usr -DWITH_AVCODEC=1 -DWITH_FFMPEGTHUMBNAILER=1 -DWITH_MYSQL=1 .
-	make
+	local cmake_options=(
+		-B build
+		-D CMAKE_BUILD_TYPE=None
+		-D CMAKE_INSTALL_PREFIX=/usr
+		-D WITH_AVCODEC=ON
+		-D WITH_FFMPEGTHUMBNAILER=ON
+		-D WITH_ZIP=OFF
+		-S $pkgname-$pkgver
+		-W no-dev
+	)
+
+	cmake "${cmake_options[@]}"
+	cmake --build build
 }
 
 package() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
-	make DESTDIR="${pkgdir}/" install
+	DESTDIR="$pkgdir" cmake --install build
 
 	install -dm0755 "${pkgdir}"/var/lib/gerbera
 	install -dm0755 "${pkgdir}"/etc/gerbera
-	install -Dm0644 "${srcdir}/${pkgname}".tmpfiles "${pkgdir}"/usr/lib/tmpfiles.d/${pkgname}.conf
-	install -Dm0644 "${srcdir}/${pkgname}".sysusers "${pkgdir}"/usr/lib/sysusers.d/gerbera.conf
+	install -Dm0644 "${pkgname}".tmpfiles "${pkgdir}"/usr/lib/tmpfiles.d/${pkgname}.conf
+	install -Dm0644 "${pkgname}".sysusers "${pkgdir}"/usr/lib/sysusers.d/${pkgname}.conf
 }
