@@ -5,8 +5,8 @@
 
 pkgbase=java-atk-wrapper
 pkgname=(java-atk-wrapper-common java-atk-wrapper-openjdk)
-pkgver=0.40.0
-pkgrel=3
+pkgver=0.44.0
+pkgrel=1
 _jvmvers=(8 11 17 21 25)
 pkgdesc='ATK wrapper for screen reader access to Java Swing applications'
 url='https://gitlab.gnome.org/GNOME/java-atk-wrapper/'
@@ -15,8 +15,8 @@ license=('LGPL')
 makedepends=('gobject-introspection' 'gnome-common' 'gtk3' 'xorg-xprop' 'at-spi2-atk')
 options=(!emptydirs)
 source=(https://gitlab.gnome.org/GNOME/java-atk-wrapper/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.bz2)
-sha256sums=('4c64dda3f0b37dcb3230d10e78bea44af44aefd2ee3702a898e2176a6604ebea')
-sha512sums=('abbca7893b085dc034093e1de75ebd77bf6018ecb9836008efb19948f4b87eecb2e569d1f7af7aefaa61b86a83f3be2f35bb1b83e183f4f4b225f0a831243c8b')
+sha256sums=('6d2a063226258ac45664281a057fc267f743a6ea9193342a647a270858c206d6')
+sha512sums=('e016001a230d903589321035008016ca3556ece20338a577e1f90d679d8f620549824051f3be7f9510af258aac0016315115cc392bfea2fbf7668fc818469d9d')
 
 for _jvmver in "${_jvmvers[@]}"; do
   makedepends+=("java-environment=${_jvmver}")
