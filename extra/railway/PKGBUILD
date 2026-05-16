@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=railway
-pkgver=2.9.4
-pkgrel=2
+pkgver=2.10.0
+pkgrel=1
 pkgdesc='Look up travel information for many different railways'
 arch=(x86_64)
 url='https://apps.gnome.org/DieBahn/'
@@ -28,7 +28,7 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://gitlab.com/schmiddi-on-mobile/railway.git#tag=$pkgver")
-b2sums=(7470c32a638113c41f85db72a0295af06b925e1b575ff3277b50150765a66045372ec182e0c49be3266faf1552e0ebf0b94a97d44dd3c671909684316edc27bf)
+b2sums=('36fe2dab09334f674d2d3863c02882f340bfb2885584b7feb1aabf3f281a83a0e45daab342604e665f3c8100fdbae2398bbb00f6bd6d4b1ca09bd2f24a49b855')
 
 prepare() {
   cd $pkgname
