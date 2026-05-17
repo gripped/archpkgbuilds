@@ -1,21 +1,26 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-syrupy
-pkgver=5.1.0
+pkgver=5.2.0
 pkgrel=1
 pkgdesc="Pytest Snapshot Test Utility"
 arch=('any')
 license=('MIT')
 url="https://github.com/tophat/syrupy"
 depends=('python-pytest')
-makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
-checkdepends=('python-attrs' 'python-pydantic' 'python-pytest-xdist')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=('python-attrs' 'python-hypothesis' 'python-pydantic' 'python-pytest-xdist')
 optdepends=(
   'python-attrs: attrs serializer plugin'
   'python-pydantic: Pydantic serializer plugin'
 )
 source=("git+https://github.com/tophat/syrupy.git#tag=v$pkgver")
-sha512sums=('b5f82ff3b6e15ecfbad99902e844ec1c4d94aafd2e6cd3832851369202690c39785714a68b951bde3be1a40d7ea90a4966e7ce3b54982909a08a7b26d3282a5b')
+sha512sums=('61552460b151ae5d7305446bc5f40152d9e2cd291acd874db85dcad58a576b072394f92997ba5cedfd36abc4b922f18120faf043e21d770df936a1d6a1e3935d')
+
+prepare() {
+  cd syrupy
+  sed -i "s/^version = .*/version = \"$pkgver\"/" pyproject.toml
+}
 
 build() {
   cd syrupy
