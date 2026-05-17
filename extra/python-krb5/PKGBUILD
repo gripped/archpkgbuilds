@@ -2,8 +2,8 @@
 
 _pkg=krb5
 pkgname=python-${_pkg}
-pkgver=0.5.1
-pkgrel=5
+pkgver=0.9.0
+pkgrel=1
 pkgdesc="krb5 API interface"
 arch=(x86_64)
 url="https://github.com/jborean93/pykrb5"
@@ -14,7 +14,12 @@ checkdepends=(python-pytest python-k5test)
 # No tests in pypi tarball
 #source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('76a2f700d3a6e5ad332167ba0946172b8899dff2fbd61110bca8b1ebfa033f58')
+sha256sums=('b60226a9346eb8c42f6164b81fdd59cd1b0fb8a29d3e008266c52938f5344a8f')
+
+prepare() {
+  cd py${_pkg}-${pkgver}
+  sed -e '/Cython ==/d' -i pyproject.toml # Drop pinned cython dependency
+}
 
 build() {
   cd py${_pkg}-${pkgver}
