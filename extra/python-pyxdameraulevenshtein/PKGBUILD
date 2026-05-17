@@ -2,8 +2,8 @@
 
 _pkg=pyxDamerauLevenshtein
 pkgname=python-${_pkg,,}
-pkgver=1.8.0
-pkgrel=3
+pkgver=1.10.1
+pkgrel=1
 pkgdesc="Implements the Damerau-Levenshtein (DL) edit distance algorithm"
 arch=(x86_64)
 url="https://github.com/gfairchild/pyxDamerauLevenshtein"
@@ -18,12 +18,13 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 # No tests in PyPi tarballs
-#source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-source=(${url}/archive/v${pkgver}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('d23d3458c87aead9e82eff5b7d3954c5cad64a0023527785e1dda01144b26ca4')
+#source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg,,}/${_pkg,,}-${pkgver}.tar.gz)
+source=(${url}/archive/${pkgver}/${_pkg}-${pkgver}.tar.gz)
+sha256sums=('9c506ab945610933558f6991cbf7675115119e8b7d8549fa5f899e3dd1ac9cc4')
 
 prepare() {
   cd ${_pkg}-${pkgver}
+  sed -e '/--cov/d' -i pyproject.toml
   cythonize3 pyxdameraulevenshtein/*.pyx
 }
 
