@@ -3,7 +3,7 @@
 
 _pyname=claripy
 pkgname=python-${_pyname}
-pkgver=9.2.197
+pkgver=9.2.215
 pkgrel=1
 pkgdesc='Abstraction layer for constraint solvers'
 url='https://github.com/angr/claripy'
@@ -26,8 +26,8 @@ checkdepends=(
   python-pytest-xdist
 )
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('1c2605b1f6a6cc84fd63ded5f60b18be0ca55d25e7788596e94ee0466cc8a4db8e141ecbac25755edc625a7ffe4e0ac5a8799df6a2bd2ada652a1bb1fdcbb44d')
-b2sums=('541e815665c3339c7f8556e7424b3ca6ba68fe3a12ccac52432ba9e5fcbe6022d622c4686ed94c22e8db1f2972ef9d3e65fd1276d338556df29154750b9f1d6f')
+sha512sums=('231da5163ca4453559942fd39d8c8d3409e81a97bd2644c1e12df757c48f4fed0ae0058b10903060b889bd4f93b4607e179eb062e227c8059bf7b94cb21d7437')
+b2sums=('2b8893312af9060621f1f06811deb3c2bec6b6bec298c446526b48ac057ff0ce2b15b0d46eeb719ab2129fb1fccc2df77e2e4aa6a883548c301656a78c9458e7')
 
 build() {
   cd ${_pyname}-${pkgver}
