@@ -3,7 +3,7 @@
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 
 pkgname=ejabberd
-pkgver=26.02
+pkgver=26.04
 pkgrel=1
 pkgdesc="Jabber server written in Erlang"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('expat' 'openssl' 'zlib' 'erlang-core' 'pam' 'iproute2'
 	 'libyaml' 'sqlite' 'gd' 'elixir'
 	 'erlang-mnesia' 'erlang-os_mon' 'erlang-odbc' 'erlang-syntax_tools' 'erlang-xmerl')
 makedepends=('erlang-compiler' 'erlang-asn1' 'erlang-public_key' 'erlang-ssl' 'erlang-parsetools'
-	     'erlang-erl_interface' 'erlang-eunit' 'erlang-eldap'
+	     'erlang-erl_interface' 'erlang-eunit' 'erlang-eldap' 'unzip'
 	     'git' 'rebar3' 'hevea' 'texlive-bin' 'texlive-basic' 'texlive-latexextra' 'elixir')
 optdepends=('gsfonts: for captcha'
 	    'imagemagick: for captcha')
@@ -53,7 +53,7 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/processone/ejabberd/archive
 	"eredis2::git+https://github.com/wooga/eredis/"
 	"$pkgname.logrotate"
 	"$pkgname.sysusers")
-sha256sums=('676feea9ee8aeb3c1bc3c1844308a783941548d9befc3b252cd1ff0b7532842f'
+sha256sums=('77deb1053978ae9790f909b7b573ac61c6b94d7c465a84c5b56568292d49e47d'
             'a8e1be2d9daf8dd2dfedc11736a9677f3ed5c520c0f2ddf183689d2182b9151a'
             'SKIP'
             'SKIP'
