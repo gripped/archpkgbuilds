@@ -3,8 +3,8 @@
 
 _pkg=extension-helpers
 pkgname=python-${_pkg}
-pkgver=1.2.0
-pkgrel=3
+pkgver=1.4.0
+pkgrel=1
 pkgdesc="Utilities for building and installing packages with compiled extensions"
 arch=(any)
 url="https://github.com/astropy/extension-helpers"
@@ -13,7 +13,7 @@ depends=(python-setuptools)
 makedepends=(python-build python-installer python-setuptools-scm python-wheel git)
 checkdepends=(python-pytest)
 source=(git+https://github.com/astropy/extension-helpers#tag=v$pkgver)
-sha256sums=('56b16a128fbaa933d02503ea302754b94b4c1b6c5b7ffcc335812ab614b57433')
+sha256sums=('0b6ebaa3312287f29a589cb2ed087397c18cc140a52febf125caeced872f2a43')
 
 build() {
   cd ${_pkg}
