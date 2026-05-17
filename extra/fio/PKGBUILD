@@ -3,7 +3,7 @@
 # Contributor: John Williams <jwilliams4200 liamg reverse&remove moc>
 
 pkgname=fio
-pkgver=3.41
+pkgver=3.42
 pkgrel=1
 pkgdesc='Scriptable I/O tool for storage benchmarks and drive testing'
 arch=(x86_64)
@@ -13,7 +13,7 @@ license=(GPL2)
 depends=(bash curl libaio python numactl glusterfs gperftools)
 optdepends=('gnuplot: generating plots using fio_generate_plots')
 source=(https://github.com/axboe/fio/archive/fio-$pkgver.zip)
-sha256sums=('4d01043e35ed4f6c8e98073630c1b7e9d1567b2f693056a075f593080dccaff0')
+sha256sums=('d8778af585ec6d10fc546df8fc73c1646c9e5b40fada7f175cb020d2dbb0fcf3')
 
 prepare() {
   cd fio-fio-$pkgver
