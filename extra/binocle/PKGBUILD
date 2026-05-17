@@ -3,7 +3,7 @@
 
 pkgname=binocle
 pkgver=0.3.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A graphical tool to visualize binary data"
 arch=('x86_64')
 url="https://github.com/sharkdp/binocle"
@@ -15,7 +15,7 @@ sha512sums=('d4d2e225723e72d991eac9dc91c0056c902eeabbe046161447c4a8a4e3200515b5d
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
