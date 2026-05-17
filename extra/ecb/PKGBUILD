@@ -1,9 +1,8 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=ecb
-pkgver=2.40.1pre
-pkgrel=12
-_commit=1330a44cf3c171781083b0b926ab7622f64e6e81
+pkgver=2.52
+pkgrel=1
 pkgdesc="Emacs Code Browser"
 arch=('any')
 url="https://github.com/ecb-home/ecb"
@@ -11,8 +10,8 @@ depends=('emacs')
 makedepends=('git')
 license=('GPL')
 install=ecb.install
-source=("git+https://github.com/ecb-home/ecb.git#commit=${_commit}")
-sha256sums=('SKIP')
+source=("git+https://github.com/ecb-home/ecb.git#tag=v${pkgver}")
+sha256sums=('3fa23d1d8ce76026459eeb63d435cedfaebadadef20eca6f910066d5f4915f18')
 
 build() {
   cd "$srcdir"/$pkgname
