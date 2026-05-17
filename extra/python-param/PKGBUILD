@@ -2,8 +2,8 @@
 
 _pkg=param
 pkgname=python-${_pkg}
-pkgver=2.1.1
-pkgrel=4
+pkgver=2.3.3
+pkgrel=1
 pkgdesc="Make your Python code clearer and more reliable by declaring Parameters"
 arch=(any)
 url="https://param.holoviz.org/"
@@ -14,7 +14,7 @@ checkdepends=(python-pytest python-pytest-asyncio python-jsonschema python-numpy
 # No tests in Pypi tarballs
 #source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
 source=(git+https://github.com/holoviz/param#tag=v$pkgver)
-sha256sums=('57025f9dc79bea9b9aabf47be2a5ee384a2839f4ffe58d2d9106e2157ab33f82')
+sha256sums=('249ff256fc082c2025182d20dd65a2591cd00a7222d6a6d232e344129f71acc5')
 
 build() {
   cd ${_pkg}
