@@ -10,7 +10,7 @@ pkgname=(
   mullvad-vpn
   mullvad-vpn-daemon
 )
-pkgver=2026.1
+pkgver=2026.2
 pkgrel=1
 pkgdesc="Mullvad VPN client"
 arch=('x86_64')
@@ -38,12 +38,12 @@ source=(
   "$pkgbase.desktop"
   "electron-builder.yml"
 )
-b2sums=('97ef78aad925546e955814856d929215022a962893bfab34c1a734df5216b1d03e05540a516e9ad00245d0a770cce9d935fbce83aaed5d5efbb8153b8e162a18'
+b2sums=('1bf806c45958ab036d655de09ea972723a9b42fbe762b93ac3f0bb2bc9333c10461e2afc3c7cdc69c4639bf26b3f91e1f9aece923d6a9794b4446ecf1d6a0606'
         'SKIP'
         'SKIP'
         'c3534bf98bc9c5977e14865a8b4e41bb509a42cb006f8ada3f11bdff704e347d132797425b95ca3f709308703ade5f3aa46e7e7c4ef5e73911f9de78df14b1a9'
         '1aaf1403601110fee9a5d56ff363c790403e16e316231c084ef1ea90399750bd9b2781d63e5f0e00ded3bfd9b44621dfef1f1920aebe457ea69641418ca97030'
-        '23fd106bbe2d01b3095625bebc97f65f0154095f4e7d19c54f0f2b2a5cf91865585ec29007a2eaca9d8fea8d336c9c33cd1bad1856c5ca5df13f692d4c175252')
+        'a2fc04186ab66c9fb348dbd6c83958bf58389c7b0a94a29f9d1adf8fdf3aa9071a71239302aa8f98015e0120917241de265d671eec428ca59b843128ae18aabb')
 validpgpkeys=(
   '225E40C8F1C8DEB7977ABF59F293063FECE2E8ED' # Linus Färnstrand <linus@mullvad.net>
   '7ED98188F8F9AFF15D49E41BEB8D8AD83E8DA7BC' # David Lönnhager <david.l@mullvad.net>
@@ -78,8 +78,7 @@ prepare() {
   (
     cd desktop
     npm clean-install --ignore-scripts
-    npm rebuild grpc-tools
-    npm run build -w management-interface
+    npm run build-typescript -w nseventforwarder
     npm run build-typescript -w windows-utils
   )
   (
