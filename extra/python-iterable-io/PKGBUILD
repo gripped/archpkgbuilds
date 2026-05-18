@@ -2,19 +2,19 @@
 
 _pyname=iterable-io
 pkgname=python-$_pyname
-pkgver=1.0.1
-pkgrel=2
+pkgver=1.0.4
+pkgrel=1
 pkgdesc='Adapt generators and other iterables to a file-like interface'
 arch=(any)
 url='https://github.com/pR0Ps/iterable-io'
 license=(LGPL-3.0-only)
 depends=(python)
 makedepends=(python-{build,installer,wheel}
-             python-setuptools)
+             python-hatchling)
 checkdepends=(python-pytest)
 _archive="${_pyname/-/_}-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
-sha256sums=('55db222c5914097a8508dc722f8db6112f636a04a8acb94ee6589d9b14bd4bb7')
+sha256sums=('63b5b394aedbc61b4409a0d213130a4d153c602d1eac9dcff860a43ae0340405')
 
 build() {
 	cd "$_archive"
@@ -23,7 +23,7 @@ build() {
 
 check() {
 	cd "$_archive"
-	export PYTHONPATH="$PWD"
+	export PYTHONPATH=src
 	pytest
 }
 
