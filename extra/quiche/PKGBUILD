@@ -3,7 +3,7 @@
 # Previous Maintainer: Kasei Wang <kasei@kasei.im>
 
 pkgname=quiche
-pkgver=0.28.0
+pkgver=0.29.0
 pkgrel=1
 pkgdesc='An implementation of the QUIC transport protocol and HTTP/3 as specified by the IETF'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('libgcc')
 makedepends=('cmake' 'rust' 'git' 'clang')
 options=(!'lto')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/cloudflare/$pkgname/archive/$pkgver.tar.gz")
-sha256sums=('2adb185e8557b3057cee76ba73d8afb20c25e3143a6296a5891ddc9b1fd81192')
+sha256sums=('8233461c23a037ea9a5c8dfca84c0a26cac7ad400a08a6189f522fb4647e1252')
 validpgpkeys=('8657ABB260F056B1E5190839D9C4D26D0E604491')
 
 prepare() {
