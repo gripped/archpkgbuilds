@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=ratty
-pkgver=0.3.0
+pkgver=0.4.0
 pkgrel=1
 pkgdesc="A GPU-rendered terminal emulator with inline 3D graphics"
 arch=('x86_64')
@@ -21,7 +21,7 @@ depends=(
 )
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('6beecb3ab6d117842da1f6c2583c71132dba11b3bc48275f246d1d579bf5b88f14ff5dbdadd53f393bcf3861476b0c888931d209be0e0faf5dcc203a8ea89732')
+sha512sums=('6f28734ab2b75a7d6d0afee5eae82e9164373ebe90b235ce4f12aba117dfeb4122661b8780dcbb130be9a8bd1eb90a565719620b0ba695692916ebfc6f72752d')
 
 prepare() {
   cd "$pkgname-$pkgver"
