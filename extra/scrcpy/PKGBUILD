@@ -3,18 +3,18 @@
 # Contributor: Andrew Rabert <ar@nullsum.net>
 
 pkgname=scrcpy
-pkgver=3.3.4
+pkgver=4.0
 pkgrel=1
 pkgdesc='Display and control your Android device'
 arch=(x86_64)
 url='https://github.com/Genymobile/scrcpy'
 license=(Apache-2.0)
-depends=(android-tools ffmpeg sdl2 glibc libusb)
+depends=(android-tools ffmpeg sdl3 glibc libusb)
 makedepends=(git meson)
 source=("git+$url#tag=v$pkgver"
         "$pkgname-server-$pkgver.apk::$url/releases/download/v$pkgver/$pkgname-server-v$pkgver")
-b2sums=('dbfacd40a97ec6020ed537c1a4117023a5be813a862da819e86bd1a7bf3fddb7169c92f5f3af4697e50ced13767d94b3f73c7fffa0a61d5a218be2f5e273ffe7'
-        '3a0f1ef92e222a3f691d4e110e5477af9b512f1e51668356250b047d3ea14d7c1ee21f6c8075226ea3ec74f439923b67214108f01244abd87b8d858740383d0f')
+b2sums=('91db0a30421685e44a1501564608cf55f5dc017de7e816663af2e4d7289f0615b0884b05e5a2302220700a7692ebed1e5f11088c4e36091d95075804d50c9cf5'
+        '3896c93fe893985485500937e05127016987954ead6e0d5fe057dd9cb5a20f20eeb81af29f074a07aaeaaae6235eafd8e568eef5a6a91c94ab92bf3e12723d88')
 
 build() {
   mkdir -p build
