@@ -4,13 +4,12 @@
 pkgname=tauon-music-box
 _pkgname=tauonmb
 _gitname=Tauon
-pkgver=9.1.3
-pkgrel=2
+pkgver=10.0.0
+pkgrel=1
 pkgdesc="A modern music player"
 arch=("x86_64") # "aarch64"
 url="https://tauonmusicbox.rocks"
 license=("GPL-3.0-or-later")
-
 depends=(
 	"python-pillow"
 	"python-pylast"
@@ -40,6 +39,7 @@ depends=(
 	"libvorbis"
 	"libayatana-appindicator"
 	"libopenmpt"
+	"libprojectm"
 	"libsamplerate"
 	"opencc"
 	"libgme"
@@ -48,8 +48,8 @@ depends=(
 )
 
 makedepends=(
+	"cargo"
 	"miniaudio"
-	"git"
 	"pkgconf"
 	"python-build"
 	"python-installer")
@@ -63,25 +63,39 @@ optdepends=(
 	"python-pypresence: Discord status support"
 	"python-pychromecast: Chromecast stream support"
 	"python-jxlpy: JPEG XL image support"
-	"python-tekore: Spotify feature support"
 	"python-tidalapi: Tidal feature support"
-	"librespot: Spotify audio playback"
 )
 
-source=("${_gitname}-${pkgver}.tar.gz::https://github.com/Taiko2k/Tauon/archive/v${pkgver}.tar.gz")
+source=(
+	"${_gitname}-${pkgver}.tar.gz::https://github.com/Taiko2k/Tauon/archive/v${pkgver}.tar.gz"
+	"lrclib-cargo.lock::https://raw.githubusercontent.com/Taiko2k/Tauon/0dd22337c0152d62e4a2539396b88c00eac8c573/src/lrclib-solver/Cargo.lock")
 
-sha256sums=('9d765986a71a849fe6005d8a153556f5c97f0bb986959d5b16455a258fac7da6')
+sha256sums=('0ea9d4730888d80c8f650cea2ba72e288a41b8b6300c57c49a2a319d0e80d281'
+            '7ac61e60e82e9761aa16ffa39d9afe30d6330e35a97e1dcf68cf094da7393740')
 
 prepare() {
 	# Use system kissfft instead of the expected cloned repository
 	cd "${_gitname}-${pkgver}"
 	sed -i 's|"src/phazor/kissfft/kiss_fftr.c", "src/phazor/kissfft/kiss_fft.c", ||g' pyproject.toml
 	sed -i 's|"samplerate"|"kissfft-float", "samplerate"|g' pyproject.toml
+
+	# TODO(Martin): Delete this .lock hack and above source file after updating from 10.0.0
+	mv "${srcdir}/lrclib-cargo.lock" src/lrclib-solver/Cargo.lock
+	cd src/lrclib-solver
+	export RUSTUP_TOOLCHAIN=stable
+	cargo fetch --locked --target host-tuple
 }
 
 build() {
 	cd "${_gitname}-${pkgver}"
 	python -m build --wheel
+
+	# Tiny Rust binary that calculates LRCLIB challenges
+	cd src/lrclib-solver
+	export RUSTUP_TOOLCHAIN=stable
+	export CARGO_TARGET_DIR=target
+	# LTO disabled due to https://github.com/briansmith/ring/issues/1444
+	CFLAGS="$CFLAGS -fno-lto" cargo build --frozen --release --all-features
 }
 
 package() {
@@ -99,4 +113,7 @@ package() {
 	install -Dm644 "extra/${_pkgname}.svg" -t "${pkgdir}/usr/share/icons/hicolor/scalable/apps"
 	install -Dm755 "extra/tauonmb.sh" "${pkgdir}/opt/${pkgname}/tauonmb.sh"
 	install -Dm755 "extra/tauonmb.sh" "${pkgdir}/usr/bin/tauon"
+
+	local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+	install -Dm755 "src/lrclib-solver/target/release/lrclib-solver" "${pkgdir}${site_packages}/tauon/lrclib-solver"
 }
