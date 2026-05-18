@@ -1,7 +1,7 @@
 pkgbase = mitmproxy
 	pkgdesc = SSL-capable man-in-the-middle HTTP proxy
-	pkgver = 12.2.1
-	pkgrel = 2
+	pkgver = 12.2.3
+	pkgrel = 1
 	url = https://mitmproxy.org
 	arch = any
 	license = MIT
@@ -9,6 +9,7 @@ pkgbase = mitmproxy
 	checkdepends = python-parver
 	checkdepends = python-pytest-asyncio
 	checkdepends = python-pytest-timeout
+	checkdepends = python-pytest-xdist
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
@@ -45,8 +46,11 @@ pkgbase = mitmproxy
 	provides = pathod
 	conflicts = pathod
 	replaces = pathod
-	source = mitmproxy::git+https://github.com/mitmproxy/mitmproxy#tag=v12.2.1
-	sha512sums = d16d6dfc28396b52b44b90b3958a38dea072dee7b7d50dde821412237eeb7a15d61e355fea6f573f6a73d549a749e4fb6e1aba58d7075724e3a84adf1bb6b047
-	b2sums = 44e98809d27cb1b97632fa5ca5fb24086c1f6c33856036b88d475fbf51231a6460acdd17f2460e19415e71e7deb3801af366d145ed38685c55acc6bfd854cf99
+	source = mitmproxy::git+https://github.com/mitmproxy/mitmproxy#tag=v12.2.3
+	source = fix-pytest-opts.patch
+	sha512sums = 6432a61b6d500714f9a7007824d3f426080b2ea4be5d4151c6c315788159bd6128b7688e6b9716ccb4836e752946b9f9547a8e797775d31482643c5ac67ba7b5
+	sha512sums = ededd8c815f2d69089111c86436f2b2a3607feb2aa82694b2a772fb952ddd77d52a6cb37af914ac38d628ff4dda5e2c50b9672edb2b52560ff5446fde348d842
+	b2sums = 6c588d736a42c5008dcae2634d18cc4713b4fd495c08d97c0d1cc415fc00164866f22640f4d5e3b58ed33f046ee1e72202548459c810d3d00277ca2b203286aa
+	b2sums = b225be51896f8b42ce88ee19e09bbe8cd56bd6455c1ecbb6c914f35ed8c47e5242bfe6af665e3ca783e5a6362be3610929a2baff7e6f0c0a3cf804adf0e50660
 
 pkgname = mitmproxy
