@@ -1,0 +1,29 @@
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -78,7 +78,7 @@ pydantic-v2 = [
+ ]
+ 
+ [build-system]
+-requires = ["hatchling==1.26.3", "hatch-fancy-pypi-readme"]
++requires = ["hatchling"]
+ build-backend = "hatchling.build"
+ 
+ [tool.hatch.build]
+@@ -104,17 +104,6 @@ include = [
+   "tests/*",
+ ]
+ 
+-[tool.hatch.metadata.hooks.fancy-pypi-readme]
+-content-type = "text/markdown"
+-
+-[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
+-path = "README.md"
+-
+-[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+-# replace relative links with absolute links
+-pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
+-replacement = '[\1](https://github.com/cloudflare/cloudflare-python/tree/main/\g<2>)'
+-
+ [tool.pytest.ini_options]
+ testpaths = ["tests"]
+ addopts = "--tb=short -n auto"
