@@ -5,7 +5,8 @@
 
 pkgname=dnsmasq
 pkgver=2.92.rel2
-pkgrel=1
+_pkgver=${pkgver/.rel/rel}
+pkgrel=2
 pkgdesc='Lightweight, easy to configure DNS forwarder and DHCP server'
 url='http://www.thekelleys.org.uk/dnsmasq/doc.html'
 arch=('x86_64')
@@ -14,7 +15,7 @@ depends=('glibc' 'gmp' 'libidn2' 'libidn2.so' 'libdbus' 'libdbus-1.so' 'nftables
          'libnetfilter_conntrack' 'nettle' 'libnettle.so' 'libhogweed.so')
 backup=('etc/dnsmasq.conf')
 validpgpkeys=('D6EACBD6EE46B834248D111215CDDA6AE19135A2') # Simon Kelley <simon@thekelleys.org.uk>
-source=("http://www.thekelleys.org.uk/${pkgname}/${pkgname}-${pkgver/.rel/rel}.tar.xz"{,.asc}
+source=("http://www.thekelleys.org.uk/${pkgname}/${pkgname}-${_pkgver}.tar.xz"{,.asc}
         '0001-nettle-4-0.patch'
         'dnsmasq.service'
         'dnsmasq.sysusers')
@@ -27,13 +28,13 @@ sha256sums=('43d72b8c129bdf33d17bafedc98823f63e46b5005128066bf0d2a472a32ce06a'
 _build_copts='-DHAVE_CONNTRACK -DHAVE_DBUS -DHAVE_DNSSEC -DHAVE_LIBIDN2 -DHAVE_NFTSET'
 
 prepare() {
-  cd "${pkgname}-${pkgver/.rel/rel}"
+  cd "${pkgname}-${_pkgver}"
 
   patch -Np1 < ../0001-nettle-4-0.patch
 }
 
 build() {
-  cd "${pkgname}-${pkgver/.rel/rel}"
+  cd "${pkgname}-${_pkgver}"
 
   make \
     CFLAGS="${CPPFLAGS} ${CFLAGS}" \
@@ -53,10 +54,12 @@ build() {
 }
 
 package() {
-  cd "${pkgname}-${pkgver/.rel/rel}"
+  cd "${pkgname}-${_pkgver}"
 
-  # need to pass COPTS here to avoid rebuilding the binary.
+  # need to pass CFLAGS, LDFLAGS & COPTS here to avoid rebuilding the binary
   make \
+    CFLAGS="${CPPFLAGS} ${CFLAGS}" \
+    LDFLAGS="${LDFLAGS}" \
     COPTS="${_build_copts}" \
     PREFIX=/usr \
     BINDIR=/usr/bin \
@@ -75,5 +78,3 @@ package() {
   install -Dm0755 -t "${pkgdir}"/usr/bin/ 'contrib/lease-tools/dhcp_'{release{,6},lease_time}
   install -Dm0644 -t "${pkgdir}"/usr/share/man/man1 'contrib/lease-tools/dhcp_'{release{,6},lease_time}.1
 }
-
-# vim: ts=2 sw=2 et ft=sh
