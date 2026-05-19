@@ -7,7 +7,7 @@ pkgbase=plasma-workspace
 pkgname=(plasma-workspace plasma-x11-session)
 pkgver=6.6.5
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Plasma Workspace'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -117,13 +117,19 @@ makedepends=(baloo
              plasma-wayland-protocols
              qcoro)
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/plasma/plasma-workspace/-/commit/faf0e944.patch)
 sha256sums=('64d753cadcb9cde6ac09eeedf6b02ec5ccdfbd01722c5e9f2533fd0993b0d854'
-            'SKIP')
+            'SKIP'
+            'd1ef01a5677e6a941ec45dd5c61ca525fad31a1218e74eb6cf42e50bf287e8a9')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < faf0e944.patch # Fix job notifications not closing with Qt 6.11.1
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
