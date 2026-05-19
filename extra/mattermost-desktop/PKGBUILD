@@ -8,27 +8,27 @@
 # Contributor: Matthias Mailänder <matthias@mailaender.name>
 
 pkgname=mattermost-desktop
-pkgver=6.1.2
+pkgver=6.2.0
 pkgrel=1
 pkgdesc='Mattermost Desktop application'
 arch=(x86_64)
 url="https://github.com/${pkgname/-//}"
 license=(Apache-2.0)
-_electron=electron40
+_electron=electron41
 depends=($_electron
          libxcrypt-compat)
 makedepends=(git
              jq
              python-setuptools
              moreutils
-             nodejs-lts-iron
+             nodejs-lts-jod
              node-gyp
              npm)
 _archive="${pkgname#*-}-$pkgver"
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "$pkgname.sh"
         "$pkgname.desktop")
-sha256sums=('6949eb0dcc450eadd9541fe1beb3efebb766060eaa12bf6ef148c0f23e614959'
+sha256sums=('a22b9b43366266187a34aecfe2dc3f37b2674525b0feead6245a7a852e81ef05'
             '1c2bf48b6397d04a5a536c5c9f4960db53249c838c380f03f808c612b00ba4c6'
             '27c798af15d6aefbd41da5aacb9f9b15438349c649e9c05658387981760fd3b7')
 
@@ -40,7 +40,10 @@ prepare() {
 	sed -e "s/@ELECTRON@/$_electron/" "../$pkgname.sh" > "$pkgname.sh"
 	# Make sure we are using the same major version of Electron as upstream
 	local _origElectron="electron$(jq -r '.devDependencies.electron | split(".")[0]' package.json)"
-	test "$_electron" == "$_origElectron" || exit 1
+	if [ "$_electron" != "$_origElectron" ]; then
+		echo "Electron version mismatch: $_electron vs $_origElectron"
+		exit 1
+	fi
 	# Substitute our exact distro packaged version of Electron
 	local _electronVersion="$(< "/usr/lib/$_electron/version")"
 	jq '	.devDependencies["electron"] = $electronVersion |
@@ -52,17 +55,15 @@ prepare() {
 			package.json |
 		sponge package.json
 	# Change the build type so it doesn't try to bundle Electron
-	jq '	.linux["target"] = [ "dir" ]' electron-builder.json |
-		sponge electron-builder.json
-	sed -i 's/ && cross-env CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-g++ electron-builder --linux tar.gz --arm64 --publish=never//g' package.json
+	sed '/module.exports/i config.linux.target = ["dir"];' -i electron-builder.ts
 	npm $_npmargs install
 }
 
 build() {
 	cd "$_archive"
 	export NODE_ENV=production
-	npm $_npmargs --offline run build
-	npm $_npmargs --offline run package:linux-tar
+	npm $_npmargs --offline run build-prod
+	npm $_npmargs --offline run package:linux:arch-x64 -- tar.gz --x64 --publish=never
 }
 
 package() {
