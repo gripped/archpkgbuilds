@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-heatclient
-pkgver=5.1.0
+pkgver=5.2.0
 pkgrel=1
 pkgdesc="OpenStack Orchestration API Client Library"
 arch=('any')
@@ -13,17 +13,8 @@ depends=('python-pbr' 'python-cliff' 'python-iso8601' 'python-osc-lib' 'python-p
          'python-swiftclient' 'python-yaml' 'python-requests' 'python-openstackclient')
 makedepends=('git' 'python-build' 'python-installer')
 checkdepends=('python-stestr' 'python-testscenarios' 'python-requests-mock')
-source=(
-  "git+https://github.com/openstack/python-heatclient.git#tag=$pkgver"
-  "$pkgname-python-3.14.patch"
-)
-sha512sums=('a4670cfbe8a841b3c26ef93ec4e786742c8f11b77d4488cdcebd2756619e322689af85c9a7d2435e8d12b3174991ef9caf8362bd24961511f6fb0204183d6064'
-            'a87ed82b0708a35c348729553d4a5ee43f5b88f35a55932152f5059c61bc8bd0be0384259474f05cd58248c03102df885f21ebc8acf532d59d35d6fa80adc7c3')
-
-prepare() {
-  cd python-heatclient
-  patch -Np1 < ../$pkgname-python-3.14.patch
-}
+source=("git+https://github.com/openstack/python-heatclient.git#tag=$pkgver")
+sha512sums=('560219e0f5e9871e79cfa0b363cf425166f837533f969aa23b9060791751b8ccc689789ddb0f83477f84a6b3406bf293be90e22309a4db2e9746db57a95d7b00')
 
 build() {
   cd python-heatclient
