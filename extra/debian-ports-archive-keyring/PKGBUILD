@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=debian-ports-archive-keyring
-pkgver=2025.04.05
+pkgver=2025.12.30
 pkgrel=1
 pkgdesc="OpenPGP archive certificates of the debian-ports archive"
 arch=('any')
@@ -10,7 +10,7 @@ license=('GPL-2.0-or-later')
 depends=('gnupg')
 makedepends=('git')
 source=("git+https://salsa.debian.org/aurel32/debian-ports-archive-keyring.git#tag=debian/$pkgver")
-sha512sums=('45d542d6c185be7e7e3c2a3dfae9dff2ec87211c2818a772bfb512cd575e585f3bbe14a6218861d1321589e4f1e7ac445d97495a84f87d7ce330355891bde765')
+sha512sums=('5717c2b8c3da9f9a0e1d65fa115e19cea76cf1e1563d4198df3ef26b10ff9a6770e7b0e7652713d5f3afcca1065d3ffb6b7968f3ba5b71461ae68e53f9e38181')
 
 build() {
   cd $pkgname
