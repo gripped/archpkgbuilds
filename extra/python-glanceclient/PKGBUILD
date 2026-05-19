@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-glanceclient
-pkgver=4.11.0
+pkgver=4.12.0
 pkgrel=1
 pkgdesc="OpenStack Image API Client Library"
 arch=('any')
@@ -13,16 +13,8 @@ depends=('python-pbr' 'python-prettytable' 'python-keystoneauth1' 'python-reques
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-stestr' 'python-ddt' 'python-requests-mock' 'python-testscenarios')
 options=('!emptydirs')
-source=("git+https://github.com/openstack/python-glanceclient.git#tag=$pkgver"
-         0001-Fix-bytes-related-test-failures-with-urllib-3.patch)
-sha512sums=('e351414494e5699b1bec584e78057ae9b8087ed68994917c0eb0093f3d22457513319faf8272a8de841f0fbd9aa9110a3aab2300ee8e2bb68ddeb1b199f12926'
-            '7d97c196adbd5ca5de6dbee12f25abd8e22394e81594180103fc0bd3e4a968f2d76b4943400f28805c4dbef5c2e0147953da699308b8997a50bc92643ae6416e')
-
-prepare() {
-  cd python-glanceclient
-  # https://review.opendev.org/c/openstack/python-glanceclient/+/922179/2
-  patch -p1 -i ../0001-Fix-bytes-related-test-failures-with-urllib-3.patch
-}
+source=("git+https://github.com/openstack/python-glanceclient.git#tag=$pkgver")
+sha512sums=('0efa51eb0267e94c80b12f49796612abf6679bde1b95c89694881ef783adb01ab04a42c3da53b9c6cfe81e4d1139f664fff03f341904cdcd2455da750e367a37')
 
 build() {
   cd python-glanceclient
@@ -31,8 +23,7 @@ build() {
 
 check() {
   cd python-glanceclient
-  # TODO: Failing ssl tests starting 3.12, needs further investigation
-  stestr run --exclude-regex 'glanceclient.tests.unit.test_ssl'
+  stestr run
 }
 
 package() {
