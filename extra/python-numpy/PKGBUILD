@@ -4,7 +4,7 @@
 # Contributor: Angel 'angvp' Velasquez <angvp[at]archlinux.com.ve>
 
 pkgname=python-numpy
-pkgver=2.4.5
+pkgver=2.4.6
 pkgrel=1
 pkgdesc="Scientific tools for Python"
 arch=('x86_64')
@@ -21,7 +21,7 @@ source=(git+https://github.com/numpy/numpy#tag=v$pkgver
         numpy-pocketfft::git+https://github.com/mreineck/pocketfft
         numpy-svml::git+https://github.com/numpy/SVML.git
         numpy-pythoncapi-compat::git+https://github.com/python/pythoncapi-compat)
-sha512sums=('ba9d24c61403a7db94cdd78b752c82c52b1718771d4843a755db6f7e6382c7d2649fb4dd9a03f44e8c28abbf556822652e4ed3b067fb620205417e4eff4bcca3'
+sha512sums=('a2ade66e9bb508863e2d50d7e40e6389da1193719bcb7665f928b87c87c988b1db034cee788eb424e090610a2e4104a98ecb4f7d496d66bd0e8cf73f1fa33a48'
             'SKIP'
             'SKIP'
             'SKIP'
