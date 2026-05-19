@@ -7,7 +7,7 @@
 # https://tracker.debian.org/pkg/praat
 
 pkgname=praat
-pkgver=6.4.65
+pkgver=6.4.66
 pkgrel=1
 pkgdesc='A speech analysis tool used for doing phonetics by computer'
 arch=(x86_64 i686 aarch64)
@@ -27,7 +27,7 @@ source=("$_url/archive/v$pkgver/$_archive.tar.gz"
         "$pkgname.desktop"
         "$pkgname.svg"
         "$pkgname.xpm")
-sha256sums=('bb3f9c520f93f4786903d59d7f64acdc4704d40ed88b4bbfd52ec75f07be6182'
+sha256sums=('b91d1eeec67fc5db2176cb18381898169c00fc98354309ad8a8cc30588977bed'
             '21ee03cae45be634c57c167c2dfbdfd9d9b7feadb98e0124413d9426c199e81c'
             '94720aedc8e9c9e9d53b3230d79ccaae551b5bc5e6986528664311d55f3cce5a'
             'db6c7568f6e13b4ce7c37bd9fcf289832867f79ba7d7fc48c4f13f0045ad98f1'
@@ -35,7 +35,7 @@ sha256sums=('bb3f9c520f93f4786903d59d7f64acdc4704d40ed88b4bbfd52ec75f07be6182'
 
 prepare() {
 	cd "$_archive"
-	cp makefiles/makefile.defs.linux.pulse-gcc makefile.defs
+	cp makefiles/makefile.defs.linux.pulse-native-gcc makefile.defs
 }
 
 build() {
