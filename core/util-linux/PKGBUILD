@@ -12,7 +12,7 @@
 
 pkgbase=util-linux
 pkgname=(util-linux util-linux-libs)
-pkgver=2.42
+pkgver=2.42.1
 pkgrel=1
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/util-linux/util-linux'
@@ -47,7 +47,7 @@ source=("git+https://github.com/util-linux/util-linux#tag=v${pkgver/rc/-rc}?sign
         '60-rfkill.rules'
         'rfkill-unblock_.service'
         'rfkill-block_.service')
-sha256sums=('fb18631f240fce145e1dca75fe9b587bb206ffd463f433ae0eaa8a808ecb24ec'
+sha256sums=('02c15bd250c371d4864c43c7fc61c794b83e5e2eff264a88469001cb03299c3e'
             '6ffedbc0f7878612d2b23589f1ff2ab15633e1df7963a5d9fc750ec5500c7e7a'
             'ee917d55042f78b8bb03f5467e5233e3e2ddc2fe01e302bc53b218003fe22275'
             '57e057758944f4557762c6def939410c04ca5803cbdd2bfa2153ce47ffe7a4af'
@@ -79,9 +79,6 @@ prepare() {
     git log --oneline "${_l}" "${_c}"
     git revert --mainline 1 --no-commit "${_c}"
   done
-
-  # create fully locked system accout
-  sed -i '/^u /s|u|u!|' misc-utils/uuidd-sysusers.conf.in
 
   # do not mark dirty
   sed -i '/dirty=/c dirty=' tools/git-version-gen
@@ -124,6 +121,7 @@ package_util-linux() {
            'file' 'libmagic.so'
            'glibc'
            'libcap-ng'
+           'libgcc' 'libgcc_s.so'
            'libxcrypt' 'libcrypt.so'
            'ncurses' 'libncursesw.so'
            'pam'
