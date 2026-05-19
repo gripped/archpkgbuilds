@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=ironbar
-pkgver=0.18.0
+pkgver=0.19.0
 pkgrel=2
 pkgdesc="Customisable Wayland GTK4 bar written in Rust"
 arch=(x86_64)
@@ -21,20 +21,21 @@ depends=(
   libpulse
   luajit
   lua51-lgi
-  openssl
+  pango
   systemd-libs
 )
 makedepends=(rust)
-optdepends=('ttf-font-nerd: for displaying text-based icons')
+optdepends=(
+  'networkmanager: for network_manager module'
+  'swaync: for notifications module'
+  'ttf-font-nerd: for displaying text-based icons'
+)
 options=(!lto)
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
-  $pkgname.service
 )
-sha512sums=('053090910adef44a354022cf9aecffed894a49bec40dd11c7a64a31ef0b3058bd1ff8c2d83684008ff50dec6ca6ee74d66af502b466715aad3ff88259ffc5fe7'
-            'd362a2e650a7c2ad0a1e4da043bbd337702e227ee3e08533a66f86d3ad1a0c3bef00531d4ac844f1e00de705638d05e9e4d10b3b98948195cd7e1c4553db2f17')
-b2sums=('000bfd08470f74c81b345735fad125dffca57e12546f40040d837300a5e40a5e613ac8f1bfaa6d477ac7706464f1e0a2652749fcd0979c1de70a7bb0b82b4102'
-        '01ca0f23187b9b0d73fd2368bb80069d2d276e9a23b04d1e356c1ea2efe7b3f3ab9e8d4661ef8df0a76c7b46727f15b7a00b51385dcefb412eafc1e4ed9f61b6')
+sha512sums=('7bd0c81470acbf5987df260ca587b9aee45de4d95853a2244c673f9a00679de0d2b6597c24f7cb5b355c57b7cba4cb9322d81aa5109a41bc6368b3dbfdcf3d52')
+b2sums=('a3091ca4f50a581bedac0cd7136aabb09410a5f36f39f05597b8dae37bcb84195c8be7a291c24f8dcb5f83dfbd3c8f0b61873040c46ca5b0df7b44e120c62523')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -65,6 +66,6 @@ package() {
   install -vDm 644 $pkgname.bash "$pkgdir/usr/share/bash-completion/completions/$pkgname"
   install -vDm 644 $pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
   install -vDm 644 $pkgname.zsh "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
-  install -vDm 644 ../$pkgname.service -t "$pkgdir/usr/lib/systemd/user/"
+  install -vDm 644 $pkgname.service -t "$pkgdir/usr/lib/systemd/user/"
   cp -rv examples "$pkgdir/usr/share/doc/$pkgname/"
 }
