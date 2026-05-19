@@ -5,7 +5,7 @@
 
 pkgbase=python-lxml
 pkgname=('python-lxml' 'python-lxml-docs')
-pkgver=6.1.0
+pkgver=6.1.1
 pkgrel=1
 pkgdesc="Python binding for the libxml2 and libxslt libraries"
 arch=('x86_64')
@@ -49,8 +49,8 @@ checkdepends=(
   'python-lxml-html-clean'
 )
 source=("$pkgbase::git+https://github.com/lxml/lxml#tag=lxml-$pkgver")
-sha512sums=('9d73cd3270b11124412c2e651aa9a36b1241ccf4040ab8e6b7c351364c001a39138bd5cbc8620d645e42ebc2bd141a81526986ccd7c3d877e95a6d5831fd2f5b')
-b2sums=('fc2739e7ef11c0088eb90a2b627dbf0ceb502a40d2d8e87a0e3e0842f47f9ee35c37d176407862fb86fa5c3c76331345a647e1f83c53eed1daf9500a2ecf6d01')
+sha512sums=('c6e0ca62c69a01534deb5704bfc3a0d322aa747a33a08999b58a98cdd7d3fb7f2cf2f9bfb66cfe0f522f33268ed80c1435d31a6093c25f1502f87137c4752c68')
+b2sums=('9cdd117b81a4b84545131aa59cdbd653fd27c458aadfb5c9c03247fc05ce034a97a3e0b70e38be9cc685748ac39b17000c31c0fb915ff741971a2a7fefe46d82')
 
 prepare() {
   cd "$pkgbase"
@@ -75,9 +75,6 @@ prepare() {
     > RNG2Schtrn.xsl.license
   sed -n '/^<!--/,/^-->/p' src/lxml/isoschematron/resources/xsl/XSD2Schtrn.xsl \
     > XSD2Schtrn.xsl.license
-
-  # https://github.com/lxml/lxml/pull/470
-  git cherry-pick --no-commit a0a1dfe8e37836074f65f6f889bb102145951172
 }
 
 build() {
