@@ -4,8 +4,8 @@
 
 _name=TypeScript
 pkgname=typescript
-pkgver=5.9.3
-pkgrel=2
+pkgver=6.0.3
+pkgrel=1
 pkgdesc='JavaScript with syntax for types'
 arch=(any)
 url=http://www.typescriptlang.org
@@ -17,7 +17,7 @@ makedepends=(
   rsync
 )
 source=("git+https://github.com/microsoft/$_name.git#tag=v$pkgver")
-b2sums=('802e1cb3ac75be62726e4e40e211a743c9ab7b5db37799d254b48cb4ce2b725a613693fb5406fe94ac35a9eb300cca723021c961fc17c8cb97daf2dea314db6e')
+b2sums=('88d24a857f85e695e32b5d4b1bdff74cdbe6f3e46c12c00cebdf927412d9446e2592b34b9d05bd089c89ab9a0d4fd76ec77845be1b69b78fadc32dedffd06e74')
 
 prepare() {
   cd $_name
