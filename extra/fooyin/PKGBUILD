@@ -1,0 +1,74 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=fooyin
+pkgver=0.10.7
+pkgrel=2
+pkgdesc='A customisable music player'
+arch=(x86_64)
+url='https://fooyin.org/'
+license=(GPL-3.0-only)
+depends=(
+  glibc
+  icu
+  libstdc++
+  libgcc
+  qt6-base
+  alsa-lib
+  taglib
+  ffmpeg
+  kdsingleapplication
+  qcoro
+  hicolor-icon-theme
+)
+makedepends=(
+  git
+  qt6-svg
+  qt6-tools
+  ninja
+  cmake
+  sdl2-compat
+  libpipewire
+  libopenmpt
+  libgme
+  libsndfile
+  libarchive
+  libebur128
+  libsoxr
+  soundtouch
+  vulkan-headers
+)
+optdepends=(
+    'sdl2: For the SDL2 audio output plugin'
+    'libpipewire: For the PipeWire audio output plugin'
+    'libopenmpt: For the OpenMPT audio input plugin'
+    'libgme: For the GME audio input plugin'
+    'libsndfile: For the GME audio input plugin'
+    'libarchive: For the libarchive archive plugin'
+    'libebur128: For the ReplayGain scanner plugin'
+    'libsoxr: For the SoX-based DSP plugin'
+    'soundtouch: For the SoundTouch-based DSP plugin'
+)
+source=("$pkgname::git+https://github.com/fooyin/fooyin#tag=v$pkgver")
+sha512sums=('3c036f3df7b9d6cbbed6702c85cca4c07f87e1ad5d79797c80e77d7808e14aa5e183268407c9d83e9a9e3afc9c9a0fd21399838281da37c1549e398a7afbbb5f')
+b2sums=('f6f6ad8c7214aaf1f439e03e87bb4ec325c4e82ec90b81ea0ab095bf402e53437aee82fc762e62b89dab91287e53d3adba4d6226e7b223547d32ccf30d1e5643')
+
+build() {
+  local cmake_options=(
+    -B build
+    -S "$pkgname"
+    -W no-dev
+    -G Ninja
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D BUILD_PCH=ON
+    -D INSTALL_HEADERS=ON
+  )
+
+  cmake "${cmake_options[@]}"
+
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
