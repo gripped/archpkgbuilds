@@ -2,26 +2,36 @@
 # Contributor:  Joakim Hernberg <jbh@alchemy.lu>
 
 pkgbase=linux-rt
-pkgver=6.14.0.rt3.arch1
-pkgrel=8
+pkgver=7.0.9.rt2.arch1
+pkgrel=1
 pkgdesc='Linux RT'
 arch=(x86_64)
-url="https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt"
+url='https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt'
 makedepends=(
   bc
+  binutils
   cpio
   gettext
-  graphviz
-  imagemagick
+  glibc
+  graphviz  # docs
+  imagemagick  # docs
   libelf
+  libgcc
+  openssl
   pahole
   perl
   python
-  python-sphinx
-  python-yaml
+  python-sphinx  # docs
+  python-yaml  # docs
+  rust
+  rust-bindgen
+  rust-src
   tar
-  texlive-latexextra
+  texlive-latexextra  # docs
+  xxhash
   xz
+  zlib
+  zstd
 )
 options=(
   !debug
@@ -45,58 +55,24 @@ _distro_patch_ver="${_version_parts[0]}.${_version_parts[1]}.${_version_parts[2]
 _srcname=linux-${_upstream_ver}
 source=(
   https://cdn.kernel.org/pub/linux/kernel/v${_major}.x/${_srcname}.tar.{xz,sign}
-  https://cdn.kernel.org/pub/linux/kernel/projects/rt/${_major}.${_minor}/patch-${_rt_patch_ver}.patch.{xz,sign}
-  $url/-/releases/v${_distro_patch_ver}/downloads/$pkgbase-v${_distro_patch_ver}.patch{,.sig}
-  config
-  fix-sphinx-error.patch::https://github.com/archlinux/linux/commit/c7dd449e808fbd0a2a070bde516450f92a0790fe.patch # Sphinx error
-  0001-docs-sphinx-kernel_abi-adjust-coding-style.patch # Sphinx error 2
-  c23.patch::https://github.com/archlinux/linux/commit/ab21cf885fb2af179c44d8beeabd716133b9385d.patch
-  # CVE-2026-31431 
-  0001-crypto-scatterwalk-Backport-memcpy_sglist.patch
-  0002-crypto-algif_aead-use-memcpy_sglist-instead-of-null-.patch
-  0003-crypto-algif_aead-Revert-to-operating-out-of-place.patch
-  0004-crypto-algif_aead-snapshot-IV-for-async-AEAD-request.patch
-  0005-crypto-authenc-use-memcpy_sglist-instead-of-null-skc.patch
-  0006-crypto-authencesn-Do-not-place-hiseq-at-end-of-dst-f.patch
-  0007-crypto-authencesn-Fix-src-offset-when-decrypting-in-.patch
-  0008-crypto-af_alg-Fix-page-reassignment-overflow-in-af_a.patch
+  $url/-/releases/v${_distro_patch_ver}/downloads/$pkgbase-v${_rt_patch_ver}.patch.{sig,zst}
+  $url/-/releases/v${_distro_patch_ver}/downloads/$pkgbase-v${_distro_patch_ver}.patch.{sig,zst}
 )
-sha512sums=('71dcaa3772d8d9797c3ae30cae9c582b11a7047a3bbcb8dfd479a4dffb40ff0da74cf3d45175f50cc9992e338bcadd46c9c570f54054ca3bde6661768d3d22eb'
+source_x86_64=(config.x86_64)
+sha512sums=('326dd0a936aeb4fc9e333a017fa8427835700be3110f16d08659c17557bd63548e06dcb27bdcfe282ddae26ed9489d9ebefd1257f3a785407619907abc369d2f'
             'SKIP'
-            '1e190c043fbf8e29e1d125a73a0943057c77c95981af4baf1888e0c599cb12d01ee6df8d3120fb2a483463faf082808a8a5dfd421bb13f900c0604d61677f109'
             'SKIP'
-            'c8c920a4e2c7b126ae0c1948eacb3f1e798cbd6be31aa08492c5ce6a9287be9d6012db573b88486c77f72e64240cd3918ac8e626a281b8034e73baca81e1aff7'
+            '4a3ee5146add4fb5003612ea6ec009a91f39c66b06f61154ec5e3fe7a68099e4c63c56f14c07e2fc687b354a26c884099283ddf564d26005d90776119fd2d2d3'
             'SKIP'
-            'f2b7f67ef1f3c7340c0690969cd59c49239f085fe9ce23d65e1cfa4887ba9f6d93865f052c85e9987d7e6b9e946774c0c407c8195f331da4157727c90e24127d'
-            'ba5eab321a2f9771685fa7389e492c21a040a2ba9e6f950fcce1e6459fc67a9d4f75f41e36034ae62e9d1977a10e8950536115a7679a7bf95a9a5973898c8baf'
-            'cffe2bac5ca4f79cbd78f51c0d9b8f65f95df8b195824d265d3a0e72345ff33439b4e6a5ddd46593c4cbf6c7ed125546de6946a5671d6b53555954657ff82ba0'
-            '7ea1cea31f2644feaee2d8533bdc0c224c0f7709e64a05941ddc30625136b15668aa54af8ab049ad3ee0e0eef93755a94865e7cadb88bdb8596f50661cc42879'
-            '5a447d8f7d9119a854ec9712de6d1445829c901f658a8c0e277799bc5e7afd97fa3e4d3b2a78c17bdc814b499046ba339ac879df203ead44386a086d1431783e'
-            '2b0569f55134a9b330397296251e115cad0394449f9042693554df935aaa18ae092a19cdc5f46b8341bc59054f83fe237f1f716ea75842b1d8447f1cfc12ccba'
-            'efe81448f0fac799825ef548f1f7150939da40ada422ac258db3e04e0b18c7a4e0abff05b1124f0af9cdd5e6d3e840dc38da416e0e6ab3ba7be66259844acffd'
-            '36325d88ec9e4b9114f3746ef4c5756ffbb54ee540cc7270ec0e1d3a1eda800fd4a0308fd283259e87977c3926ea48922dfb169926762060aa43a84bcd3334d1'
-            '02dceaab324bbddc12ee01e055fe7e84d1ca5ca672995531b70759e1e4fd94a87afa6ff1615a250bcab90362886540c0762ae0844b389a47407d90c749d2e245'
-            'fc659fe46024814d5c2b9e46436deb204002be816cba1da658d400abe2c216bee37d782fb12ed2face02f821e5d62d1b9051cffbb285d9f0c087a5d92d291f71'
-            '83c18af4c7ae3d10bca8c23b43848f2df4c178538c2fb40c6b389b286b58d20f9796180e132ec0a9f1ccd76a40816fb0b2b7516a1bbfb4cb61e93704119e44e2'
-            '86d15cb06ef3138ff41f79d58d970121e1c38718b1a8ff8f061f99bb8b9728722f5d4ce061d53b039ca4da13bf910aa4dc4880be17678d7a7c95e1bd03458812')
-b2sums=('11835719804b406fe281ea1c276a84dc0cbaa808552ddcca9233d3eaeb1c001d0455c7205379b02de8e8db758c1bae6fe7ceb6697e63e3cf9ae7187dc7a9715e'
+            '8abdbba9f333b77f1f357a329a59e1c272956dd20b420918c5d84b61775fb2c88f4c79b4fe582206cab3f229d69d16a033076d584cb61c158ffac2e6ebcb5f10')
+sha512sums_x86_64=('623faff8bee6dbba764794681c2ce647d839a085a706a82b25fa8aa77fb12363a67ebce0f9f4fcb758c2678d201a9949222efc6b8eb016ad1fd9bb9ac92ec51d')
+b2sums=('ab7b2f892fb20a54afaf3bfe7d6951a2ebd88742332fb0c516d8041e9989fe20bef39fd21818be71a1fa984aa1122a6496d0ab919b07e646e0ef82a55dae3070'
         'SKIP'
-        '3b0959d446f3ba321183310271fa61bde64e03a06183be857e61d15fdbcb73354f50128d0cd7bd7970e9cb0771b3889ae23fecb32a0686058989fd816816e706'
         'SKIP'
-        'd7ab9cf9dfa966d986369b77fd4d75f44fac474a07b11ba326734f8dbdffa2f50a316a4863ecf3f974b12a9b70b2e5e821df3d3fbffdb63152b9c56226d89186'
+        '9b88472319eff458bf70b1b4041dca96cb5543835c687814310895198b8b681789364a59076bf70dae660e4674cfdeaca25c2a07171b88e32a89170bae4c99a1'
         'SKIP'
-        '839f8485c6d2e139b6f0711c35f274f7644f28801aae2ca21c61acad7e9f58e382b746363cc6acac49adf8d353871444002c956cffb7c16300257d679513d4bd'
-        'b3539217b05686fd7062cbde174593b9b14a640594590ecbdaea37f59a85aeccd2d6d0f3ac37f25a3ed3a87e9f36bf70f1becea28781f1b445c6d79fb7c64698'
-        'c547bbe0a581542d598b698ee8020aa7151f8998cbbbac958c4a312abb89ad0e0ad043bae563201318abba0dfd7fc90930bbab375618159dc69e14d464f85463'
-        '10e4909361b26c9fa0a024e223785726b0dcab6444222c70a1dbea5c149a47291159d9b5fc8ccbf03ad285e6ca5801d913e7bd20e2ddd5024dcadb1c0d1a199b'
-        '9fd2294f35a3062e3edd1a1285e18fee9c4ba77c9de32a0c0925069adfdc2a190a499519e99b60d7163e47a1dc80d209577769697458bdae503c338eb17a0b02'
-        '8abf422c9062aac28d40524f7c20d25ad805bdc8896845fc651cdf2174c0821c146a59342d68b2d0e51aa5ecfa1e1aca63d0e44e9e8f715089470a64e8c0e06d'
-        '2a28a9f357cfe719c9633d1a52acb48f098578ff4463757ef6a3befe2843006b49ee010af60ac50a8a52e5ff575c46defaa3600cc630b57526c501189332619f'
-        'e2d51dc91fa2b6736f449091186c8e29be3670991424ac44dc11fdb10a7f071f84f4a4bfcd6434d1d411d9e6aa03d81636f7336e6734e5760e93b7c1993874fc'
-        '26cc0cdba70836a1a027e1e7c46abd879ac074ee5eaddede3349ad168fff9faa3a1a7a8ef59278f6e3dfc296c8fa38313597a0b7ad3c12f2ce4fa4140d49b340'
-        'bbf4cfeecb2071839b8ca6fcc61f85c449dc2c6de4dc23487bdd9979cc5d454ca6c07773ec969517e92d05993e4ccea44ca309d8fe843f03dba53a067cc30d22'
-        '07269ce356fe4311210ac79b2ba2601b1a641ba09cdcf243b210ece5db7a06f88d0337045fd8c0c9f2810acbc8faba9ad4a250aae52d00cc720d54ca06383fd9'
-        '0f82a35841799e9872b1fe42f5d5c21ddbde2077cd0a1576bd0ca06e0ed0455518ba605af18d0cabfb6eec80b1eeb253dc38c3b2bc8fe6f3967957a4449d21cf')
+        '35cd9e9e3bc86e17db0ae47ce31b2616b6536c799e835d813f8c7b2e64f98dd7d1c0a50bd0a9482f0a6954431482bd9587e35db4d539ac30cb610f51ce6f522c')
+b2sums_x86_64=('5a23db7e0bf50b014ecc57840b6853f1351bc7e525f44352addfa78bd17c9da3b01d1d952f8e2ea22e3cf86d990db5121573d14498c15dc298c959a340f802a4')
 validpgpkeys=(
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman <gregkh@kernel.org>
   64254695FFF0AA4466CC19E67B96E8162A8CF5D1  # Sebastian Andrzej Siewior
@@ -118,7 +94,6 @@ prepare() {
   for src in "${source[@]}"; do
     src="${src%%::*}"
     src="${src##*/}"
-    src="${src%.xz}"
     src="${src%.zst}"
     [[ $src = *.patch ]] || continue
     echo "Applying patch $src..."
@@ -126,10 +101,10 @@ prepare() {
   done
 
   echo "Setting config..."
-  cp ../config .config
+  cp ../config.$CARCH .config
   make olddefconfig
   # make nconfig
-  diff -u ../config .config || :
+  diff -u ../config.$CARCH .config || :
 
   make -s kernelrelease > version
   echo "Prepared $pkgbase version $(<version)"
@@ -139,7 +114,7 @@ build() {
   cd $_srcname
   make all
   make -C tools/bpf/bpftool vmlinux.h feature-clang-bpf-co-re=1
-  make htmldocs
+  make htmldocs SPHINXOPTS=-QT
 }
 
 _package() {
@@ -185,6 +160,7 @@ _package() {
     kmod
   )
   optdepends=(
+    "$pkgbase-headers: headers and scripts for building modules"
     'linux-firmware: firmware images needed for some devices'
     'scx-scheds: to use sched-ext schedulers'
     'wireless-regdb: to set the correct wireless channels of your country'
@@ -266,30 +242,48 @@ _package-headers() {
     MIT
     Zlib
   )
-  depends=(pahole)
+  depends=(
+    binutils
+    glibc
+    libelf
+    libgcc
+    openssl
+    pahole
+    xxhash
+    zlib
+    zstd
+  )
   provides=(LINUX-HEADERS)
 
   cd $_srcname
   local builddir="$pkgdir/usr/lib/modules/$(<version)/build"
 
+  local karch
+  case $CARCH in
+    x86_64) karch=x86 ;;
+    *) echo "Unknown CARCH $CARCH"; exit 1 ;;
+  esac
+
   echo "Installing build files..."
   install -Dt "$builddir" -m644 .config Makefile Module.symvers System.map \
     localversion.* version vmlinux tools/bpf/bpftool/vmlinux.h
   install -Dt "$builddir/kernel" -m644 kernel/Makefile
-  install -Dt "$builddir/arch/x86" -m644 arch/x86/Makefile
+  install -Dt "$builddir/arch/$karch" -m644 arch/$karch/Makefile
   cp -t "$builddir" -a scripts
   ln -srt "$builddir" "$builddir/scripts/gdb/vmlinux-gdb.py"
 
-  # required when STACK_VALIDATION is enabled
-  install -Dt "$builddir/tools/objtool" tools/objtool/objtool
+  if [[ $(scripts/config -s CONFIG_HAVE_STACK_VALIDATION) = y ]]; then
+    install -Dt "$builddir/tools/objtool" tools/objtool/objtool
+  fi
 
-  # required when DEBUG_INFO_BTF_MODULES is enabled
-  install -Dt "$builddir/tools/bpf/resolve_btfids" tools/bpf/resolve_btfids/resolve_btfids
+  if [[ $(scripts/config -s CONFIG_DEBUG_INFO_BTF_MODULES) = y ]]; then
+    install -Dt "$builddir/tools/bpf/resolve_btfids" tools/bpf/resolve_btfids/resolve_btfids
+  fi
 
   echo "Installing headers..."
   cp -t "$builddir" -a include
-  cp -t "$builddir/arch/x86" -a arch/x86/include
-  install -Dt "$builddir/arch/x86/kernel" -m644 arch/x86/kernel/asm-offsets.s
+  cp -t "$builddir/arch/$karch" -a arch/$karch/include
+  install -Dt "$builddir/arch/$karch/kernel" -m644 arch/$karch/kernel/asm-offsets.s
 
   install -Dt "$builddir/drivers/md" -m644 drivers/md/*.h
   install -Dt "$builddir/net/mac80211" -m644 net/mac80211/*.h
@@ -308,6 +302,12 @@ _package-headers() {
   echo "Installing KConfig files..."
   find . -name 'Kconfig*' -exec install -Dm644 {} "$builddir/{}" \;
 
+  echo "Installing Rust files..."
+  if [[ $(scripts/config -s CONFIG_RUST) = y ]]; then
+    install -Dt "$builddir/rust" -m644 rust/*.rmeta
+    install -Dt "$builddir/rust" rust/*.so
+  fi
+
   echo "Installing unstripped VDSO..."
   make INSTALL_MOD_PATH="$pkgdir/usr" vdso_install \
     link=  # Suppress build-id symlinks
@@ -315,7 +315,7 @@ _package-headers() {
   echo "Removing unneeded architectures..."
   local arch
   for arch in "$builddir"/arch/*/; do
-    [[ $arch = */x86/ ]] && continue
+    [[ $arch = */$karch/ ]] && continue
     echo "Removing $(basename "$arch")"
     rm -r "$arch"
   done
