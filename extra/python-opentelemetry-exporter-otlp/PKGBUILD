@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-opentelemetry-exporter-otlp
-pkgver=1.41.1
+pkgver=1.42.0
 pkgrel=1
 pkgdesc="OpenTelemetry Collector Exporters"
 arch=('any')
@@ -23,7 +23,7 @@ checkdepends=(
   'python-pytest'
 )
 source=("git+https://github.com/open-telemetry/opentelemetry-python.git#tag=v${pkgver}")
-sha256sums=('4d57b35484af9e702304ff9cdb611b43ef3511bca3eaf7df09ef9914b25b4421')
+sha256sums=('cd6a3eea37fc554d81025901d9bc7fc4fdf4914ad60f38af34a2ca62be91f81d')
 
 build() {
   cd opentelemetry-python/exporter/opentelemetry-exporter-otlp
