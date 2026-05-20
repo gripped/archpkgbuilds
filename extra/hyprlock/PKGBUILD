@@ -2,7 +2,7 @@
 
 pkgname=hyprlock
 pkgver=0.9.5
-pkgrel=2
+pkgrel=3
 pkgdesc='hyprland’s GPU-accelerated screen locking utility'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
