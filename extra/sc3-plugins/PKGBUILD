@@ -1,16 +1,18 @@
+# Maintainer: Brett Cornwall <ainola@archlinux.org>
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sc3-plugins
-pkgver=3.13.0
-pkgrel=3
+pkgver=3.14.0
+pkgrel=1
 pkgdesc="Extension plugins for the SuperCollider3 audio synthesis server."
 arch=(x86_64)
 url="https://github.com/supercollider/sc3-plugins"
 license=(GPL-2.0-or-later)
 groups=(pro-audio)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   supercollider
 )
 makedepends=(
@@ -19,9 +21,9 @@ makedepends=(
   stk
 )
 source=($url/releases/download/Version-$pkgver/$pkgname-$pkgver-Source.tar.bz2{,.asc})
-sha512sums=('4a89bb7d76d60983a8c5ea6560dc9993f585e7dc47593adc2686b772cdb7649423e2cf2c170340c0c7ee16d4a6348877a6572faacfc593a9075da60b9a06988f'
+sha512sums=('111e4fd1f505b28e65645225a8b6adbc268570435fabdd8c2b3a1b804212ce1fe0f975b63dbc3e09a657e93fe959280f0da12318b648811a3bbbbebe2c133161'
             'SKIP')
-b2sums=('55e34ff7cdae5ef48199c529e2a55c72fcb4c462d5e6f0001513e0b0d9b9e902f3e117e10fe9063b1e0f22d8d950e087059f2ca8bf1d4d794302d6dda22326bd'
+b2sums=('532b95bf78adb62410034932167b70f52df591e40d75c64db6e8da58acaf10c8462fbd08f851d1ec157f9690b6aa099aaaaf0a131d2a5de290463a7c60610e4d'
         'SKIP')
 validpgpkeys=(
     '0B7D1EA4E32B5C3C4275D3C70796CC538BEFF177' # Brian Heim <self@brianlheim.com>
