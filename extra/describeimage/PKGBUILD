@@ -1,7 +1,7 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
 
 pkgname=describeimage
-pkgver=1.3.2
+pkgver=1.4.0
 pkgrel=1
 pkgdesc='Describe images using Ollama'
 arch=(x86_64)
@@ -10,7 +10,7 @@ license=(BSD-3-Clause)
 depends=(ollama-environment)
 makedepends=(git go)
 source=("git+$url#tag=v$pkgver")
-b2sums=('a75c137a14046a118871a22c5ddaae1eeb417fff9c5a33762136e328750ce2fc50daf4650ddf2b1b4cbcf1478efafe18759e9cf6b06ddf65b916d9466e24ab06')
+b2sums=('d333fb7f471c4a3975631039c448f1e3d3ff26c8aab4ec97e2ca57002d8851802a4e96928bd16150ef55b439efa648a6ef3e7a7854e484f8c2c7bfd71e00cae1')
 
 build() {
   cd $pkgname
