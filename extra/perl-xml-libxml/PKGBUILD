@@ -4,12 +4,12 @@
 # Contributor: François Charette <francois.archlinux.org>
 
 pkgname=perl-xml-libxml
-pkgver=2.0210
-pkgrel=4
+pkgver=2.0211
+pkgrel=1
 pkgdesc="Interface to the libxml library"
 arch=('x86_64')
 url="https://search.cpan.org/dist/XML-LibXML"
-license=('GPL')
+license=('Artistic-1.0-Perl' 'GPL-1.0-or-later')
 depends=('perl-alien-libxml2' 'perl-xml-sax' 'perl-xml-namespacesupport')
 checkdepends=('perl-test-pod' 'perl-test-leaktrace' 'perl-cpan-changes' 'perl-uri')
 provides=('perl-libxml' 'perl-xml-libxml-common')
@@ -17,21 +17,9 @@ replaces=('perl-libxml' 'perl-xml-libxml-common')
 options=('!emptydirs')
 install=perl-xml-libxml.install
 source=(
-  https://www.cpan.org/authors/id/S/SH/SHLOMIF/XML-LibXML-$pkgver.tar.gz
-  0001-Fix-test-suite-with-libxml2-2.13.0.patch
-  0002-Fix-test-suite-with-libxml2-2.14.0.patch
+  https://www.cpan.org/authors/id/T/TO/TODDR/XML-LibXML-$pkgver.tar.gz
 )
-sha512sums=('ae72b25ac6362152fa85ec9fed03fad694382bde29f459e1bd95b3ca4d1b0dffb76d2f8319bc6fbc6e291583696c3b95b41a23cc2bb509ce6f3fd7d74666fd77'
-            '11baa05f8a5b9ef2ce8c5f8816579202dfc2aa646cabf88e58305e6ec6cb3cab89b5461e63349a04dd73255c183071348bfcfdc69ad8a80ef101c158ea44b15d'
-            'a54e15c555a28578c9d9ca7ba99b1a7d6d49f19702f2bf80e733f4704da233a3faba544ce758915a2e388fb2209403992fb951ce8d1dcb1cdeb0233e86c47d7b')
-
-prepare() {
-  cd XML-LibXML-$pkgver
-
-  # https://github.com/shlomif/perl-XML-LibXML/pull/87
-  patch -Np1 -i ../0001-Fix-test-suite-with-libxml2-2.13.0.patch
-  patch -Np1 -i ../0002-Fix-test-suite-with-libxml2-2.14.0.patch
-}
+sha512sums=('5a585a78be6567440ead410fb5a0e2383aab0c6855b6c0312754acfc27a9bae744915e7cdee132ed87ceedf7e18f9dd3ca1251cc80db3a6ee854a2441e74ff82')
 
 build() {
   cd XML-LibXML-$pkgver
