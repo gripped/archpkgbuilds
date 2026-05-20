@@ -3,7 +3,7 @@
 # Contributor: Philipp A. <flying-sheep@web.de>
 
 pkgname=cargo-generate
-pkgver=0.23.8
+pkgver=0.23.9
 pkgrel=1
 pkgdesc="Use pre-existing git repositories as templates"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('MIT' 'Apache-2.0')
 depends=('cargo' 'curl' 'libgit2' 'libssh2' 'openssl')
 makedepends=('cargo-edit')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('52455036c3ec98567de0d2529621b93d5811de48e67c2e0a25798578f85ad3f7')
+sha256sums=('c02da6b831aa5b80eb7b3b23589664db41037dbf487aaef989db6e8a2044af26')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -21,7 +21,6 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  CFLAGS+=" -ffat-lto-objects"
   export LIBGIT2_NO_VENDOR=1
   export LIBSSH2_SYS_USE_PKG_CONFIG=1
   cargo build --release --frozen --no-default-features
@@ -31,7 +30,7 @@ check() {
   cd "$pkgname-$pkgver"
   export LIBGIT2_NO_VENDOR=1
   export LIBSSH2_SYS_USE_PKG_CONFIG=1
-  cargo test --frozen --lib --no-default-features
+  RUST_TEST_THREADS=1 cargo test --frozen --lib --no-default-features
 }
 
 package() {
