@@ -3,7 +3,7 @@
 # Contributor: Daniel Nagy <danielnagy at gmx de>
 
 pkgname=libde265
-pkgver=1.0.18
+pkgver=1.0.19
 pkgrel=1
 pkgdesc='Open h.265 video codec implementation'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(cmake
              sdl2-compat)
 optdepends=('sdl2-compat: for the decoder tool')
 source=(git+https://github.com/strukturag/libde265#tag=v$pkgver)
-sha256sums=('4794e574bde26e8e1dbe7e08bc1176e714056ba134e0987e2cc84d9a882b6e15')
+sha256sums=('4bf9e8620ac4c7613deecdb31c7d416fa5d817392a52e5a22cfe0c39038fb6da')
 
 build() {
   cmake -B build -S $pkgname \
