@@ -1,19 +1,19 @@
 pkgbase = legba
 	pkgdesc = A multiprotocol credentials bruteforcer / password sprayer and enumerator
-	pkgver = 1.2.0
+	pkgver = 1.3.0
 	pkgrel = 1
 	url = https://github.com/evilsocket/legba
 	arch = x86_64
-	license = AGPL-3.0-only
 	license = GPL-3.0-only
 	makedepends = cargo
 	makedepends = clang
 	makedepends = cmake
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libgcc_s.so
 	options = !lto
-	source = https://github.com/evilsocket/legba/archive/1.2.0/legba-1.2.0.tar.gz
-	sha256sums = d618c59060b76fcff26c066c1a2385c85f8c808bc07e2a1f30c777255de2a400
-	b2sums = f849e1dd1ffd713e08f274ded5b7c7b50bd844118df73ee0a6438ae74037f38f792691fa3b14844eb18c39898f53457af4e1eecf58cc01bdc565fe72907be77d
+	source = https://github.com/evilsocket/legba/archive/1.3.0/legba-1.3.0.tar.gz
+	sha256sums = 92707c3dfd809480714c2b5347d2f6506c8848466986597787671b9ffa8bc461
+	b2sums = 29e5f109ab6cc4de48ff71ed2875df35a03809e6b833dc1d8f9f0f3f70b904cf3829a2e9243d1dcbdff1e24109b0cef998888bbb646205cb4ed27c943880951f
 
 pkgname = legba
