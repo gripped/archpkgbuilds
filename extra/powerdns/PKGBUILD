@@ -6,8 +6,8 @@
 # Contributor: Pieter Lexis <pieter[dot]lexis[at]powerdns[dot]com>
 
 pkgname=powerdns
-pkgver=5.0.4
-pkgrel=2
+pkgver=5.0.5
+pkgrel=1
 pkgdesc='Authoritative DNS server'
 url='https://www.powerdns.com/'
 arch=('x86_64')
@@ -29,7 +29,7 @@ conflicts=('pdns')
 backup=('etc/powerdns/pdns.conf')
 source=(https://downloads.powerdns.com/releases/pdns-${pkgver}.tar.bz2{,.asc}
         sysusers.conf)
-sha512sums=('0839a6fcbca6c807aa62c9d5e06fff2e8bceb78825b3c7b4e9ccf80a3e0848123403bc5604a2092ba313df0e711df176d93af1e0d1e26478cb6ed0d0dcab601a'
+sha512sums=('25c04c41d6148ec80cf4eaf729f73d83b950af82a908c15a826c654097ec814629f46ee7edb17e8ac2e73c46fc507bdbfb908fbf544fe8391118788d4f1311ed'
             'SKIP'
             'c18fc317082b93d52e59526af2df0f1b45cc37622526cc727cac9e6d73dc343ab3d33ad6b5365b30e079650f1c220096f7baf2f750bf1a558d89c144fbc583ac')
 validpgpkeys=('16E12866B7738C73976A57436FFC33439B0D04DF'   # Winkels, Erik <erik.winkels@open-xchange.com>
