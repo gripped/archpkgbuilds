@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-rabbitizer
-pkgver=1.16.0
+pkgver=1.16.1
 pkgrel=1
 pkgdesc='MIPS instruction decoder API'
 arch=(x86_64)
@@ -19,8 +19,8 @@ makedepends=(
   python-wheel
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('84a22a60a49ff0259e980fdc0338ee62e1b193c779e14913dffdb3361f8a63310663334598eb0ccf9e098058b986fbb4e7ed4b1a2488ad3022909d186dcc7546')
-b2sums=('0c7f7eb2b67d9327ee3cfaa3e557df792a6618d52502075548afe0a287d13b7a8ca5b5c8e2f567eb0b2c548df88ac5648d4a409a4535d3425642e0da29ffa44a')
+sha512sums=('dbfa9c535f15e494546b0543c45bdb66e9ba586f4b780d766ae85869fe8ae68cf02311d100362064ed1fc8ace94b4498e36c6768dc2016d2d2c88854e8831fb4')
+b2sums=('14e04eb85911136099b1eecdadc6a9eaa769578e86ef3966cb7f4d88362dbd7f8042942a5ddfe42a13a4ce1a4825271934a277d0a331a371a79dc8f883515e46')
 
 build() {
   cd "$pkgname"
