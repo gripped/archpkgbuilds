@@ -1,0 +1,23 @@
+From 905ed1e4104b8719e03a44a99c514c4744939f8a Mon Sep 17 00:00:00 2001
+From: Christian Hesse <mail@eworm.de>
+Date: Mon, 18 May 2026 10:02:25 +0200
+Subject: [PATCH 1/1] libdm/Makefile: add an empty target install_lvm2
+
+This is required to make a top-level `make install_lvm2` succeed.
+---
+ libdm/Makefile.in | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/libdm/Makefile.in b/libdm/Makefile.in
+index 34e17a3f7..866c3e230 100644
+--- a/libdm/Makefile.in
++++ b/libdm/Makefile.in
+@@ -102,6 +102,8 @@ endif
+ install: $(INSTALL_TYPE) install_include
+ 
+ install_device-mapper: install
++
++install_lvm2:
+ 
+ install_include: $(srcdir)/libdevmapper.h
+ 	$(SHOW) "    [INSTALL] $<"
