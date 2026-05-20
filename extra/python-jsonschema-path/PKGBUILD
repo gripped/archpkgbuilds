@@ -3,17 +3,18 @@
 
 pkgname=python-jsonschema-path
 # https://github.com/p1c2u/jsonschema-path/releases
-pkgver=0.4.6
+pkgver=0.5.0
 pkgrel=1
 pkgdesc="JSONSchema Spec with object-oriented paths"
 url="https://github.com/p1c2u/jsonschema-path"
 license=('Apache-2.0')
 arch=('any')
-depends=('python' 'python-pathable' 'python-yaml' 'python-requests' 'python-referencing')
+depends=('python' 'python-attrs' 'python-pathable' 'python-yaml' 'python-requests'
+         'python-referencing')
 makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
 checkdepends=('python-pytest' 'python-responses')
 source=("git+https://github.com/p1c2u/jsonschema-path.git#tag=$pkgver")
-sha512sums=('a2afe55faba38adb11f45f3ca0e899f836253e37a5c77f985d09005b290332fdb5400d4efae1a971eb0087446f3d588c703a0cdcc77c1e9e6b48a357d2b74a8b')
+sha512sums=('344624043ce9fa94e0e7cc7678d8c060559812bfc0b13a07e59daa1deccbe7eb3425ac134e8f3f4c8d702588a2a1ef7a71a721cf60ff1792b51d6c8cb2a9c092')
 
 prepare() {
   cd jsonschema-path
