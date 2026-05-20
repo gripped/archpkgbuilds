@@ -1,0 +1,8 @@
+#!/usr/bin/sh
+
+# Make the app work for nvidia users, but laggy
+if lspci | grep -i nvidia >/dev/null; then
+	export WEBKIT_DISABLE_DMABUF_RENDERER=1
+fi
+
+env MODRINTH_EXTERNAL_UPDATE_PROVIDER=1 /usr/lib/modrinth-app "$@"
