@@ -2,7 +2,7 @@
 
 pkgname=basis-universal
 pkgver=2.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Basis Universal GPU Texture Codec'
 arch=(x86_64)
 url='https://github.com/BinomialLLC/basis_universal'
@@ -52,6 +52,8 @@ build() {
     -D BASISU_SSE=ON
     -D BASISU_ZSTD=ON
     -D BASISU_SYSTEM_ZSTD=ON
+    -D CMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects"
+    -D CMAKE_C_FLAGS="$CFLAGS -ffat-lto-objects"
     -W no-dev
   )
 
