@@ -3,12 +3,12 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-control-center
-pkgver=6.1.36
+pkgver=6.1.37
 pkgrel=1
 pkgdesc='Control panel of Deepin Desktop Environment'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-control-center"
-license=('GPL-3.0-or-later')
+license=('GPL-3.0-or-later' 'LGPL-3.0-or-later' 'MIT')
 # startdde: org.deepin.dde.Display1
 depends=('dtk6core' 'dtk6declarative' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-declarative'
          'qt6-multimedia' 'qt6-svg' 'deepin-account-faces' 'deepin-api' 'libpwquality'
@@ -23,17 +23,13 @@ conflicts=('dde-control-center' 'dde-dock-applets')
 replaces=('dde-control-center' 'dde-dock-applets')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-control-center.git#tag=$pkgver")
-sha512sums=('64c88da07ea466b36c90b16ece2b70542a00d83a3ef6b9f95aec53d05d6781c6a940c47bf28c3b9987ed35e18fbac7c1450b2cd0e46cc46969801e31040ea473')
+sha512sums=('0f7a4b8aba757deff292b447ecc6938c8cf331b576dd3078c63550bc0c272b40ff0df595dec5d7535a023343547cdb9cfc7649050913322422df9b821178cf20')
 
 prepare() {
   mkdir -p build
 
   cd dde-control-center
 
-  # authentication plugin needs dareader
-  sed -i '/plugin-authentication/d' CMakeLists.txt
-  # privacy plugin won't work
-  sed -i '/plugin-privacy/d' CMakeLists.txt
   # Fix CMake errors for missing Qt6 private targets during configure.
   sed -i '/find_package(${QT_NS} COMPONENTS QmlModels REQUIRED)/a find_package(${QT_NS} COMPONENTS QmlModelsPrivate REQUIRED)' src/dde-control-center/CMakeLists.txt
   sed -i '/find_package(Qt6 REQUIRED COMPONENTS WaylandClient)/a find_package(Qt6 COMPONENTS WaylandClientPrivate REQUIRED)' src/plugin-personalization/CMakeLists.txt
@@ -46,6 +42,7 @@ build() {
   cmake \
     -GNinja \
     -DDISABLE_AUTHENTICATION=YES \
+    -DDISABLE_PRIVACY_PLUGIN=YES \
     -DDISABLE_LANGUAGE=YES \
     -DDISABLE_UPDATE=YES \
     -DCMAKE_INSTALL_PREFIX=/usr \
