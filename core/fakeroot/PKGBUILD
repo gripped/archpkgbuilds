@@ -4,7 +4,7 @@
 
 pkgname=fakeroot
 pkgver=1.38
-pkgrel=1
+pkgrel=3
 pkgdesc='Tool for simulating superuser privileges'
 arch=('x86_64')
 license=('GPL-3.0-or-later')
@@ -14,7 +14,7 @@ depends=('glibc' 'filesystem' 'sed' 'util-linux' 'sh')
 makedepends=('git' 'systemd' 'po4a')
 checkdepends=('sharutils')
 source=("git+https://salsa.debian.org/clint/fakeroot.git#tag=upstream/${pkgver}")
-sha256sums=('1b139597fa3f348247db13df6c118e1b9929adf49e361c91bab1cb2058b5485b')
+sha256sums=('45ec81aa9b9987176a3c3ddeec61470a936b7424f395b422e168abf6144ee175')
 
 prepare() {
   cd "${pkgname}"
