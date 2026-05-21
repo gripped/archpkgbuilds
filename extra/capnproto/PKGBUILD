@@ -5,8 +5,8 @@
 # Contributor: Severen Redwood <severen@shrike.me>
 
 pkgname=capnproto
-pkgver=1.2.0
-pkgrel=2
+pkgver=1.4.0
+pkgrel=1
 pkgdesc="Cap'n Proto serialization/RPC system"
 arch=(x86_64)
 url="https://capnproto.org/"
@@ -32,8 +32,8 @@ provides=(
   libkj.so
 )
 source=($pkgname-$pkgver.tar.gz::https://github.com/$pkgname/$pkgname/archive/v$pkgver.tar.gz)
-sha512sums=('342f08683e60b8346f7d119242781835889d7804d54fca00348f14abe9f76bcb4572678dd4d3471c638cabe94e5a77aaf7c19b6edf297cb25a319ac544c659e4')
-b2sums=('4d95c0bbf602238c5bf01b0ac5929ee87b25becbe4dcab64992fa843122dac990f267babe09048add7c9825aec62b16ca78e75356362bd2a0da343bf2168f8e7')
+sha512sums=('6f31294ffe613b28ee891a7e7465d35781697dc7ed51f806b7c707c8fc94ead01099ab356041646e382320ff922f40c393b4b58f3106bbc3fb547386d7c0ed1a')
+b2sums=('7194f5cce53fa0e4e24a724da019c31b536860388417e2500fcb23c4a7c9e933d88b626b5f3632b050b33172217652cd890f328a87f331eeb409ef665aaf7167')
 
 build() {
   local cmake_options=(
