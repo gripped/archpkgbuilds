@@ -1,22 +1,23 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-launchpad
-pkgver=2.0.36
-pkgrel=2
+pkgver=2.0.37
+pkgrel=1
 pkgdesc='The "launcher" or "start menu" component for DDE - next generation'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-launchpad"
-license=('GPL-3.0-or-later')
+license=('BSL-1.0' 'CC-BY-4.0' 'CC0-1.0' 'GPL-3.0-or-later' 'LGPL-2.0-or-later' 'MIT')
 groups=('deepin')
 # dtk6declarative: qml: org.deepin.dtk
 depends=('qt6-base' 'qt6-declarative' 'qt6-svg' 'dtk6core' 'dtk6gui' 'dtk6declarative'
-         'glib2' 'appstream-qt' 'deepin-application-manager' 'deepin-shell' 'glibc' 'libgcc' 'libstdc++' 'wayland')
-makedepends=('git' 'cmake' 'ninja' 'gtest' 'qt6-tools' 'qt6-wayland' 'clang')
+         'glib2' 'appstream-qt' 'deepin-application-manager' 'deepin-shell' 'glibc' 'libgcc' 'libstdc++'
+         'qt6-wayland' 'wayland')
+makedepends=('git' 'cmake' 'ninja' 'gtest' 'qt6-tools' 'clang' 'wayland-protocols')
 provides=('deepin-launcher')
 conflicts=('deepin-launcher')
 replaces=('deepin-launcher')
 source=("git+https://github.com/linuxdeepin/dde-launchpad.git#tag=$pkgver")
-sha512sums=('d9ee382c5600683cae3d96be55a1572208caabec29082dbc9d88d41e089548955492e7ddb6b8bee377e8cb1998ba0728e54cf95b86eae67017592820627ce33e')
+sha512sums=('0b2475a80b0eeeb6667815285d71253f3895c2cc1de4a73fd85b96a9a890c5e80cb39bb214c8c7ec62c1e66ab29a5df8dec3d889fa5b850226e66064a731908d')
 
 build() {
   cd dde-launchpad
