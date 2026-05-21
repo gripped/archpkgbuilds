@@ -3,12 +3,12 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-api
-pkgver=6.0.42
+pkgver=6.0.43
 pkgrel=1
 pkgdesc='Dbus interfaces for miscellaneous desktop services'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-api"
-license=('GPL-3.0-or-later')
+license=('GPL-3.0-or-later' 'LGPL-3.0-or-later')
 # alsa-utils: alsactl used in sound-theme-player
 # bc: used in adjust-grub-theme
 # fontconfig: fc-match used in adjust-grub-theme
@@ -22,7 +22,7 @@ depends=('alsa-utils' 'bc' 'fontconfig' 'glib2' 'gdk-pixbuf-xlib' 'gtk3' 'libcan
 makedepends=('git' 'deepin-gettext-tools' 'go')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-api#tag=$pkgver")
-sha512sums=('648284cef212dee3d41d8e7797ed1a02637ac99f3bf0b90011617fa8e0116293e9599a263bc22855905ea5f18ff598bb0e366026345dde07ab7410d0d3b0b4ae')
+sha512sums=('4ea43568385bdcd4ccb9ba1e6f36438ac68128473e271c4acd67bcb24f113e81334ef9add6c8935a87f1ee202c8fa8bf8a029cbe4da3a17e4a199ba6a178e33e')
 
 prepare() {
   cd dde-api
