@@ -2,93 +2,77 @@
 # Contributor:  Joakim Hernberg <jbh@alchemy.lu>
 
 pkgbase=linux-rt-lts
-pkgver=6.6.87.rt54.arch1
-pkgrel=7
+pkgver=6.12.90.rt18.arch2
+pkgrel=1
 pkgdesc='Linux RT LTS'
 arch=(x86_64)
-url="https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt-lts"
+url='https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt-lts'
 makedepends=(
   bc
+  binutils
   cpio
   gettext
-  graphviz
-  imagemagick
+  glibc
+  graphviz  # docs
+  imagemagick  # docs
   libelf
+  libgcc
+  openssl
   pahole
   perl
   python
-  python-sphinx
-  python-yaml
+  python-sphinx  # docs
+  python-yaml  # docs
+  rust
+  rust-bindgen
+  rust-src
   tar
-  texlive-latexextra
+  texlive-latexextra  # docs
+  xxhash
   xz
+  zlib
+  zstd
 )
 options=(
   !debug
   !strip
 )
-_pre_rt_ver=${pkgver%.*}
-_upstream_ver=${_pre_rt_ver%.*}
-_rt_ver=${_pre_rt_ver%.*}-${_pre_rt_ver##*.}
+# Extract the version parts from pkgver and assemble them as needed.
+IFS='.' read -r -a _version_parts <<< "$pkgver"
+_major="${_version_parts[0]}"
+_minor="${_version_parts[1]}"
+# Depending on whether patch level is 0, assemble the upstream version to use.
+if (( _version_parts[2] == 0 )); then
+  _upstream_ver="${_version_parts[0]}.${_version_parts[1]}"
+else
+  _upstream_ver="${_version_parts[0]}.${_version_parts[1]}.${_version_parts[2]}"
+fi
+# Based on upstream version, assemble the RT patch version.
+_rt_patch_ver="${_upstream_ver}-${_version_parts[3]}"
+# Assemble the distribution patch version.
+_distro_patch_ver="${_version_parts[0]}.${_version_parts[1]}.${_version_parts[2]}-${_version_parts[3]}-${_version_parts[4]}"
+# Add a convenience abstraction for the source directory.
 _srcname=linux-${_upstream_ver}
-_srctag=v${_rt_ver}-${pkgver##*.}
 source=(
-  https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/${_srcname}.tar.{xz,sign}
-  https://cdn.kernel.org/pub/linux/kernel/projects/rt/${_upstream_ver%.*}/older/patch-${_rt_ver}.patch.{xz,sign}
-  $url/-/releases/${_srctag}/downloads/$pkgbase-${_srctag}.patch{,.sig}
-  gcc15-x86.patch
-  config
-  fix-sphinx-error.patch::https://github.com/archlinux/linux/commit/c7dd449e808fbd0a2a070bde516450f92a0790fe.patch # Sphinx error
-  0001-docs-sphinx-kernel_abi-adjust-coding-style.patch # Sphinx error 2
-  c23.patch
-  # CVE-2026-31431 
-  0001-crypto-scatterwalk-Backport-memcpy_sglist.patch
-  0002-crypto-algif_aead-use-memcpy_sglist-instead-of-null-.patch
-  0003-crypto-algif_aead-Revert-to-operating-out-of-place.patch
-  0004-crypto-algif_aead-snapshot-IV-for-async-AEAD-request.patch
-  0005-crypto-authenc-use-memcpy_sglist-instead-of-null-skc.patch
-  0006-crypto-authencesn-Do-not-place-hiseq-at-end-of-dst-f.patch
-  0007-crypto-authencesn-Fix-src-offset-when-decrypting-in-.patch
-  0008-crypto-af_alg-Fix-page-reassignment-overflow-in-af_a.patch
- )
-sha512sums=('613005605b2358c4d8e844a2e59e5a06b973671bed68c3754d7541cf4ac4b45da03f07bf37b23a019cc9717d4bf0f1d3e21e9b64595b32496d3d7351e232d494'
+  https://cdn.kernel.org/pub/linux/kernel/v${_major}.x/${_srcname}.tar.{xz,sign}
+  $url/-/releases/v${_distro_patch_ver}/downloads/$pkgbase-v${_rt_patch_ver}.patch.{sig,zst}
+  $url/-/releases/v${_distro_patch_ver}/downloads/$pkgbase-v${_distro_patch_ver}.patch.{sig,zst}
+)
+source_x86_64=(config.x86_64)
+sha512sums=('8b909649740677cebb8876f61c6dcfe5646f5d4acd1a8141830a1ec21e5eedf8b0c678f37df13a5733f21c2ef137faf81ed09407d7bdc1dca35b134233f71317'
             'SKIP'
-            '00586696169129ecd8028676fbb22e89188ca211f92f727461e9218f8480264800c98454537d17abda704184fc7f592e9e0e2e1f074b7b6f5727116145410be0'
             'SKIP'
-            '6f634cea87cfdfd371b37736e39d0c318fb97c50f288ff9702b14960c56222e3b20156ca16598dbc242995b3266d27022e7d50f34ef19909f601ee62a3c2c7af'
+            'd29892de6883f6ac37e055a61cac1ecd9c9939afe52196c2726fa5873dccb45efd5ee42b2fa5d4f11cd63f8c464411367f7b4e5a67663f64195494dc3cb4501c'
             'SKIP'
-            'b7d85508e3eb7f269977e972550e5d0975c8566a85d48b4b1667e5fc580734ef55e8576aa3cbaffcdbc5686965058e8eaecfee623918336a255b6ff3cc85640d'
-            '8b2a0e4d8f466623e37b13e98d2dc24c2d9c5f535c50a5bb32e6701214dc87907672190596df5bc8339073c14bcd0dd9d671095127e25103d47b676c87173673'
-            'ba5eab321a2f9771685fa7389e492c21a040a2ba9e6f950fcce1e6459fc67a9d4f75f41e36034ae62e9d1977a10e8950536115a7679a7bf95a9a5973898c8baf'
-            'cffe2bac5ca4f79cbd78f51c0d9b8f65f95df8b195824d265d3a0e72345ff33439b4e6a5ddd46593c4cbf6c7ed125546de6946a5671d6b53555954657ff82ba0'
-            '9db779cdc1adbe6e20645aaff73d341aafea7aadaa2038d53a79d4e141d9c144bc99098f3c5a74dc9f78368c037150631a89d02cddbc78e5bc5e99f33b3e39f1'
-            'edd4ba46e117caf16f760bf668052cffdde537fe1863c88e99125c5be0def4348ec956f08ed9452b4f230e32871edbf00258d3d2790d8bbff02cca9ed02b258c'
-            '7e7b871a96d0e0e17d2f6af2312ba54d8c681f4ba3c1f7f53a8c5d426b66d26fda54cbc6e8602e9dc89149ef672b85fda498ea1511f03b2b955b36a99c1ca05e'
-            '3608aa38b494adb69ef60a0bd05b552c27b16d5e0dbf8fcb8e8558c8999b0150807cf381e009f38578726a3ec31913558a85b0b87ca9c10b11fe8a4d82c708c5'
-            '735d6e1ed70a72df0ff5a150593e22a6bfb9fef587d6f1585ab6a1def1d1ae856ccd1cd6a78d7d0e679e88402dcfe0ed575a2bddfea985c3be73792f2a8bb763'
-            'cdf67c99e79b0863426d2edd549ca183f3ea50d29c493c544596213b4547a3107fcf6ade2772e0b7a50542babe1cc99a37eefe2a36fbc91a11dbb322851d95fe'
-            '4db18f777a5a667ca84a6c1837d70233f9c53b81c9428528b43c2e4897fd469be24353989e162652e72f154672045c774d37f9e975ac119f65d54cc38132f562'
-            '439e724e1bc5429a57e52a4d7629c2f445e83b09342bbd5672e5c17aa0fdd5b7d55ed4e9c02c26d21ea7afacf8be0ee82b6893ca028223ef1ce0b82d9262b0f1'
-            'bdcfeb3390f9a61fe0e322b10eb590ac09a2ee6e4375618028cd926083b5099652b27431d93037b7d5b5df2c49699e83a7886b0bd5e351b77eb102cf4c351f95')
-b2sums=('37af97ec6e188f53803fcbb714530cdb4259b71cd3cfafb6ed6210fe47acf9e0ce6a59daa18c1269421d013532fca8713ce63e7861f2138c2c2980c40f4062a2'
+            '49c4cb56e739aec02887823187d45b1d4144cc1372d62ad3305b3b921d97f6a57a27d7f880123c698ab9698049a3c7f27dec06e45005afc506c917ce44aafb38')
+sha512sums_x86_64=('fd56594204afa63f65a224c0803d60cb8e43f5b87af945b97442b2d15d8fc07f3288967cd9dfaa643003c1c8c9fbf172220542cdb02840d326ce4eb303efa913')
+b2sums=('277866782fc6b98d2d452103ace11730e5365981b365d42cbe9e668df2934e59cc0a3f609a9204cc6f177e4ef8d3fdc230060a34e22fc0b139f6c169b2c48a02'
         'SKIP'
-        '999a605fff617cb746eafea257408c5f2abe6716c7e83aa6fbd9c2587cb5faa9e3380c9bed7b375a6dec2e50658cd92e4ba111a1b77a73d60de58cb9469d3c6f'
         'SKIP'
-        '6b16388b5710a81dd02289fdca55a20ba39805f0adc7689d58d08eeb92050e750f521ac3f39158dd2a9ac6621e35e2e5d7c3fd6daf8e6a6e4272d7bb707c2826'
+        '9b9c33f052207c24446f340b32150715e5c7f72f59d93b737ddb967a7175a57408fc3ebb41a02f21ce80492f399f164fe7f3fe423004b0c2bfe25733802d76dd'
         'SKIP'
-        'af0bc4eedb77a7d1d7605c15d040e606ce0534fb56887ba1361d303705b97415a9c38d76a7a87585f41020ffacbe07ef7de1c3a3f3ef7bedacbe6989cd078fe3'
-        'a53ece79b57ba70890a3f445543ad8b0e50b7ce8fcd1be9c47cdab564d64214329753c3cd3a5e8893abd34bd1727b127143371add5d2dab3ca093596ada9f049'
-        'b3539217b05686fd7062cbde174593b9b14a640594590ecbdaea37f59a85aeccd2d6d0f3ac37f25a3ed3a87e9f36bf70f1becea28781f1b445c6d79fb7c64698'
-        'c547bbe0a581542d598b698ee8020aa7151f8998cbbbac958c4a312abb89ad0e0ad043bae563201318abba0dfd7fc90930bbab375618159dc69e14d464f85463'
-        'ee60fde18f84a371de08369504fe76cd7aea1bfcd128c7bdd33b579309b8031a7a7f83a9957637905fc4ce0f2a4e03a0d2f9f4526e8fbacb1d01ba2cacc5e48f'
-        'eb17bfacb0ca62ddf83641ed3b07902751706756d7bb8a9907719327cc6e6d5074fb92bbf9b9e790093fedf80090d2d00319f50a520ab3caa09f1f24c92ca477'
-        '0f44480dd86a83260b5621848628f17564e420947894129ec34922b134a55deb1948590bf0fddb645be0f67a18cfac95f98b8253a8b38950e604543379ccd9cb'
-        '2fd1188b4a2cbb79ee08dda9f2a73677d38a0724bffb369eec3c3b3d3dd5fdb534a23fc725c15c3d7a7d40dbca9d77379d1e989bdea5b150bbab21d7860dd07c'
-        '8c1b3d52c211d1e5755b18aa3b8a5968257b1f4d8be43daec0f271a6424db6e6d050143d20d8ba1253974820212b002df1087dc16f3c2e9ba2c232352e73743c'
-        'ab42d65259e19c585c173689a1e7a1285e71a8d6ec9ffe377725b57474cb68b5f8f0e63ceb3243fcd08fc7d6eab67e0647ed86fc1bdf3f51e6413a84377e3883'
-        '23e3fd20e9564aba93e0a5eb4618ffd44a262eb07cf9629c016b53c5da8895dd3679d70bc3323fcd3ac8f6d1afe616d27a81462e03cceff46bbf483ea151aea8'
-        'cfc427bfaa598b9c68f8f85275d87d2def936b115cb21048d6c44f3778e19f28b55738501abb6b66b7c81d19d42bcda9324edd30d9ba5dfdf3e393ee167f23f9'
-        'be2d3bd05d0c572fea6bc674b7244418675c65f53ce23f92d08b2abc980c6c3a733dcaa2885521323427318f43b16cf9b7010dc6605f42c6fc6f8050c2bb2bb3')
+        '7db362d59b8dabe8045cec4259dca3e16de3a689364cdf0be39552e59fe99e3faf761d0c8df2d4cf6aa1dab26209503ecae97a6a9030f90a1809ba65415522fa')
+b2sums_x86_64=('2a91385a7a1b93ada414b61ccc8854b119fcfa3049ac444996a2eeab113b59c7b35f25013db8345cd3b4e0ae2d681f0c13d69324db7fde8e822c70dea3fa7591')
 validpgpkeys=(
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman <gregkh@linuxfoundation.org>
   D5653EA39C8675DA4BD5971C13B55DD07C53B851  # Clark Williams (Kernel Correspondence) <clrkwllms@kernel.org>
@@ -110,7 +94,6 @@ prepare() {
   for src in "${source[@]}"; do
     src="${src%%::*}"
     src="${src##*/}"
-    src="${src%.xz}"
     src="${src%.zst}"
     [[ $src = *.patch ]] || continue
     echo "Applying patch $src..."
@@ -118,10 +101,10 @@ prepare() {
   done
 
   echo "Setting config..."
-  cp ../config .config
+  cp ../config.$CARCH .config
   make olddefconfig
   # make nconfig
-  diff -u ../config .config || :
+  diff -u ../config.$CARCH .config || :
 
   make -s kernelrelease > version
   echo "Prepared $pkgbase version $(<version)"
@@ -131,7 +114,7 @@ build() {
   cd $_srcname
   make all
   make -C tools/bpf/bpftool vmlinux.h feature-clang-bpf-co-re=1
-  make htmldocs
+  make htmldocs SPHINXOPTS=-QT
 }
 
 _package() {
@@ -177,8 +160,10 @@ _package() {
     kmod
   )
   optdepends=(
-    'wireless-regdb: to set the correct wireless channels of your country'
+    "$pkgbase-headers: headers and scripts for building modules"
     'linux-firmware: firmware images needed for some devices'
+    'scx-scheds: to use sched-ext schedulers'
+    'wireless-regdb: to set the correct wireless channels of your country'
   )
   provides=(
     KSMBD-MODULE
@@ -256,29 +241,48 @@ _package-headers() {
     MIT
     Zlib
   )
-  depends=(pahole)
+  depends=(
+    binutils
+    glibc
+    libelf
+    libgcc
+    openssl
+    pahole
+    xxhash
+    zlib
+    zstd
+  )
   provides=(LINUX-HEADERS)
 
   cd $_srcname
   local builddir="$pkgdir/usr/lib/modules/$(<version)/build"
 
+  local karch
+  case $CARCH in
+    x86_64) karch=x86 ;;
+    *) echo "Unknown CARCH $CARCH"; exit 1 ;;
+  esac
+
   echo "Installing build files..."
   install -Dt "$builddir" -m644 .config Makefile Module.symvers System.map \
     localversion.* version vmlinux tools/bpf/bpftool/vmlinux.h
   install -Dt "$builddir/kernel" -m644 kernel/Makefile
-  install -Dt "$builddir/arch/x86" -m644 arch/x86/Makefile
+  install -Dt "$builddir/arch/$karch" -m644 arch/$karch/Makefile
   cp -t "$builddir" -a scripts
+  ln -srt "$builddir" "$builddir/scripts/gdb/vmlinux-gdb.py"
 
-  # required when STACK_VALIDATION is enabled
-  install -Dt "$builddir/tools/objtool" tools/objtool/objtool
+  if [[ $(scripts/config -s CONFIG_HAVE_STACK_VALIDATION) = y ]]; then
+    install -Dt "$builddir/tools/objtool" tools/objtool/objtool
+  fi
 
-  # required when DEBUG_INFO_BTF_MODULES is enabled
-  install -Dt "$builddir/tools/bpf/resolve_btfids" tools/bpf/resolve_btfids/resolve_btfids
+  if [[ $(scripts/config -s CONFIG_DEBUG_INFO_BTF_MODULES) = y ]]; then
+    install -Dt "$builddir/tools/bpf/resolve_btfids" tools/bpf/resolve_btfids/resolve_btfids
+  fi
 
   echo "Installing headers..."
   cp -t "$builddir" -a include
-  cp -t "$builddir/arch/x86" -a arch/x86/include
-  install -Dt "$builddir/arch/x86/kernel" -m644 arch/x86/kernel/asm-offsets.s
+  cp -t "$builddir/arch/$karch" -a arch/$karch/include
+  install -Dt "$builddir/arch/$karch/kernel" -m644 arch/$karch/kernel/asm-offsets.s
 
   install -Dt "$builddir/drivers/md" -m644 drivers/md/*.h
   install -Dt "$builddir/net/mac80211" -m644 net/mac80211/*.h
@@ -297,10 +301,20 @@ _package-headers() {
   echo "Installing KConfig files..."
   find . -name 'Kconfig*' -exec install -Dm644 {} "$builddir/{}" \;
 
+  echo "Installing Rust files..."
+  if [[ $(scripts/config -s CONFIG_RUST) = y ]]; then
+    install -Dt "$builddir/rust" -m644 rust/*.rmeta
+    install -Dt "$builddir/rust" rust/*.so
+  fi
+
+  echo "Installing unstripped VDSO..."
+  make INSTALL_MOD_PATH="$pkgdir/usr" vdso_install \
+    link=  # Suppress build-id symlinks
+
   echo "Removing unneeded architectures..."
   local arch
   for arch in "$builddir"/arch/*/; do
-    [[ $arch = */x86/ ]] && continue
+    [[ $arch = */$karch/ ]] && continue
     echo "Removing $(basename "$arch")"
     rm -r "$arch"
   done
