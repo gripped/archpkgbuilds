@@ -6,7 +6,7 @@
 _pkgbasename=nettle
 pkgname=lib32-$_pkgbasename
 pkgver=4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A low-level cryptographic library (32-bit)"
 arch=('x86_64')
 url="https://www.lysator.liu.se/~nisse/nettle/"
@@ -22,12 +22,15 @@ validpgpkeys=('343C2FF0FBEE5EC2EDBEF399F3599FF828C67298') # Niels Möller <nisse
 build() {
   cd $_pkgbasename-$pkgver
 
-  export CC="gcc -m32"
-  export CXX="g++ -m32"
+  export CFLAGS+=" -m32"
+  export CXXFLAGS+=" -m32"
+  export CPPFLAGS+=" -m32 -I/usr/lib32/gmp"
+  export LDFLAGS+=" -m32 -L/usr/lib32 -lgmp"
   export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 
-  ./configure --prefix=/usr --libdir=/usr/lib32 \
-    --enable-shared --with-include-path=/usr/lib32/gmp
+  ./configure --prefix=/usr \
+    --libdir=/usr/lib32 \
+    --enable-shared
   make
 }
 
