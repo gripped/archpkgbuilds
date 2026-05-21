@@ -1,6 +1,6 @@
 pkgbase = musescore
 	pkgdesc = Create, play and print beautiful sheet music
-	pkgver = 4.6.5
+	pkgver = 4.7.1
 	pkgrel = 1
 	url = https://musescore.org/
 	arch = x86_64
@@ -24,6 +24,7 @@ pkgbase = musescore
 	depends = libsndfile.so
 	depends = libgcc
 	depends = libstdc++
+	depends = mnxdom
 	depends = opus
 	depends = qt6-5compat
 	depends = qt6-base
@@ -32,12 +33,22 @@ pkgbase = musescore
 	depends = qt6-scxml
 	depends = qt6-svg
 	depends = tinyxml2
+	depends = xorg-xprop
 	depends = zlib
 	depends = zstd
 	optdepends = lame: MP3 export
 	options = !lto
-	source = musescore::git+https://github.com/musescore/MuseScore.git#tag=v4.6.5
-	sha512sums = 4f1fa2fc8684662bfafbefbbf63519a3f8077c077e063f2144e95a1eeedf5c54a97013c01461f55474379a8d0bcffc71e54a6ab994c6f61cc48aee7b97e64352
-	b2sums = d8d43fe137d76b84caf36d9be81f11caeb1f925c4e81286b1f5b1b950ab4fceb8d91c8ae3380efd5cf906c898a41664f3985eebe092fe63280d1369b6d52cf9b
+	source = musescore::git+https://github.com/musescore/MuseScore.git#tag=v4.7.1
+	source = wrapper.sh
+	source = fix-qt-qml-null-bindings.patch
+	source = fix-mnxdom-linking.patch
+	sha512sums = 5279e1b4d41a6e73545585df002831fd2251c1359620a04f9732f5fbee5e95356405efd355b731dae8e586a763ea6fa1656125a048b47a4d11c229b5cdc49571
+	sha512sums = 6857c50bf56226fbff27a81b0102ad1623878330993aaf15d3551e8c31a36cbe8afdc1437898e70494e8b6742d97931c471932aa9aaded5fdeeacccf2beb4e05
+	sha512sums = e2d235895640c64ba7222761fd2baff37a1239cac3d845a0f23690f35ce6885e44109d16f3582c0b06a7d8391880bd976abfa2dd06c3a5d1a7fa6db511eb0588
+	sha512sums = 2e7f09a8ad576ca00dd10d5b660ca8fc519bd323f2d9504dfde7ef287380a00e4e9551a526643aa376be9cca4b097408d1ed2d42a1a1b105081a4b1df88050df
+	b2sums = d98c98342124c44fc553734dd69cba7e97e5e9eeb7ddbf4d6d776a61b190d8941a02dcb9c4bd7767e4ecab858d1acaff0dff89b37d3530755a90afac9ac816ca
+	b2sums = 312bb237dcf70c712dfbd1aad06cd673b2e50cca45470f94876ead6e901ac663be4c490051855622a09c682a80c0f8c5dc4cf7e55b292c56a2f389f50d29a0ea
+	b2sums = 2d943853893f819bcc766406ecce8d9aafa17ba37baea204e1b426fa5548d6b18a768039c715f16b0b369ed83f234f8eebafecbca1af89f56a34d2627df5e3f4
+	b2sums = fc7ff90cdc43ddeb37b8a31536bd8b23fff742817bcab5da7e023bc86f8a363f7abaa114cec88d55f29a0b2972d2893a57868c2c7bb3ef71508666e79865d9c9
 
 pkgname = musescore
