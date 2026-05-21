@@ -1,18 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-wand
-pkgver=0.7.0
+pkgver=0.7.1
 pkgrel=1
 pkgdesc="Ctypes-based simple MagickWand API binding for Python"
 url="https://github.com/emcconville/wand"
 license=('MIT')
 arch=('any')
-depends=('imagemagick' 'libxml2' 'python')
+depends=('imagemagick' 'python')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-checkdepends=('python-pytest' 'python-pytest-forked' 'python-pytest-xdist'
-              'python-psutil' 'ghostscript' 'librsvg')
+checkdepends=('libjpeg-turbo' 'python-pytest')
 source=("git+https://github.com/emcconville/wand.git#tag=$pkgver")
-sha512sums=('9205af21a72e02166c98a28223be1afec27da6c92eb59f0cefd1c71f9cebd6c303005220da1ed7924627f9a9eaff2efc4edf970d40d557d06737e652b58ae807')
+sha512sums=('08178ed9e7fac2d8f8e71d85ea8db0a0fc807c549e70fb2cba76f1275ca5186425a19926f4d0a6e63f46bea5f0fe0139eeb3b78feedd7457b978b32f74cec37e')
 
 build() {
   cd wand
@@ -21,8 +20,7 @@ build() {
 
 check() {
   cd wand
-  pytest --deselect tests/image_methods_test.py::test_forward_fourier_transform \
-         --deselect tests/image_methods_test.py::test_inverse_fourier_transform
+  pytest
 }
 
 package() {
