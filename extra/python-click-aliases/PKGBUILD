@@ -2,8 +2,8 @@
 
 _name=click-aliases
 pkgname=python-click-aliases
-pkgver=1.0.5
-pkgrel=3
+pkgver=1.0.6
+pkgrel=1
 pkgdesc="Enable aliases for click"
 arch=(any)
 url="https://github.com/click-contrib/click-aliases"
@@ -23,8 +23,8 @@ checkdepends=(
   python-pytest
 )
 source=(git+https://github.com/click-contrib/click-aliases.git#tag=v$pkgver)
-sha512sums=('389246e5cb8d07af6b6379d8d585cfdf127dc4aeba67882cfe30b338459296a2d943be09c2d0bcdf3a0a7658391b6b07724a37e46f71f30c0871873e889a6486')
-b2sums=('47ece35e62a391996a9847abe3cf4cd225fd999a610802aff96e8e4dad7b5a4c28f4e93b7f6dd60597f854c536968d354839e69306745008c302ae2ccca3a7cd')
+sha512sums=('080672d89e749243cfdf808c6415de4158f3ff05d8259ccc4f6ca8302677fa67aa8eea23fbdbca91d4fb8713da72be60f21409487868d0b67be1b86e00517218')
+b2sums=('d29b93e0b66e434009de1c91019f17bd3c3563a6957cbfb86a3889d2d5580b07e155c5e76fb4f19e53bb79ee3ee0b6e628af6a6b992f1d510d3dbb8b4bec779f')
 
 build() {
   cd $_name
