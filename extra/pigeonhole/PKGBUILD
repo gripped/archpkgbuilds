@@ -8,14 +8,14 @@
 # This must be built against the version of dovecot being used,
 # else mail delivery will fail.
 # Specify the version of dovecot to be used here:
-_dcpkgver=2.4.3
+_dcpkgver=2.4.4
 # Make sure to bump pkgrel if changing this.
 
 _dcmajor="$(awk -F'.' '{printf "%d.%d", $1, $2}' <<< "${_dcpkgver}")"
 
 pkgname=pigeonhole
-pkgver=2.4.3
-pkgrel=2
+pkgver=2.4.4
+pkgrel=1
 
 pkgdesc='Sieve implementation for Dovecot'
 url='https://pigeonhole.dovecot.org/'
@@ -29,7 +29,7 @@ conflicts=('dovecot-sieve' 'pigeonhole-hg')
 
 source=("https://pigeonhole.dovecot.org/releases/${_dcmajor}/dovecot-pigeonhole-${pkgver}.tar.gz"{,.sig})
 
-sha256sums=('219c472a5fa3e6f7a6cb76ff5118bcbead73e14cd4157d3701425245756cb5f8'
+sha256sums=('73c54f75359bf613c5c78e570ae98419f9295fe4451db6493e28ecb995bcd214'
             'SKIP')
 validpgpkeys=(
   '42F3CD50D4F25A41833BEE3704D62B1E3DFBB4F4' # Stephan Bosch <stephan@rename-it.nl>
