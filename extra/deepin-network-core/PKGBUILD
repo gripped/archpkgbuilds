@@ -1,21 +1,21 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-network-core
-pkgver=2.0.61
+pkgver=2.0.64
 pkgrel=1
 pkgdesc='DDE network library and plugins'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-network-core"
-license=('GPL-3.0-or-later' 'LGPL-3.0-or-later')
+license=('CC-BY-4.0' 'CC0-1.0' 'GPL-3.0-or-later' 'LGPL-3.0-or-later')
 depends=(deepin-control-center glibc libgcc libstdc++ dtk6core dtk6declarative dtk6log dtk6widget qt6-base qt6-declarative networkmanager-qt systemd-libs)
-makedepends=(git cmake deepin-session-shell gtest ninja qt6-tools)
+makedepends=(git cmake gtest ninja qt6-tools)
 groups=(deepin)
 source=(git+https://github.com/linuxdeepin/dde-network-core.git#tag=$pkgver)
-sha512sums=('17e10cf9004027056d2c3ab8b4db1c58ff5c7f5e99e32b80368c423ad97c7f587efd984849cc0ceb3ef008933e4b045eeb9aaac839e8a540e6f6d292eebfc3ae')
+sha512sums=('5793f725144264c31eefee94e27c8da06c87b045838794fbd0c3ef7af04940cb8ccaa491ed626a711ec636b15a5e5eff8242a4a1eb278be68bb49b80cb1aad7f')
 
 prepare() {
   cd dde-network-core
-  # several legacy subdirs still require unavailable Qt5/KF5 components on Arch
+  # Only ship the core library and control-center module in this package.
   sed -Ei '/add_subdirectory\("(dock-network-plugin|dss-network-plugin|network-service-plugin)"\)/d' CMakeLists.txt
 }
 
