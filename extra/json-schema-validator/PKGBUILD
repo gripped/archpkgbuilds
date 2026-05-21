@@ -1,0 +1,61 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=json-schema-validator
+pkgver=2.4.0
+pkgrel=2
+pkgdesc='JSON schema validator for JSON for Modern C++'
+arch=(x86_64)
+url='https://github.com/pboettch/json-schema-validator'
+license=(MIT)
+depends=(
+  glibc
+  libstdc++.so
+  libgcc_s.so
+)
+makedepends=(
+  git
+  cmake
+  ninja
+  nlohmann-json
+)
+provides=(libnlohmann_json_schema_validator.so)
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('dff9aea7ca86831e89485cefc460291788d6d8bbe387b9896ee5049269717e998ab34b152be04bf007c5364184a37d6f32b8485f0b43c2ec800c83b96ba622fd')
+b2sums=('cfdb7fcd87fad1ecaabc97dd650389902fc29e36bb0b187883ad969fcd4ba6f0f878c30b1808315d44b61d47490407374a774d374b9473cb31164b03b995cc03')
+
+build() {
+  local cmake_options=(
+    -B build
+    -S "$pkgname"
+    -W no-dev
+    -G Ninja
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D BUILD_SHARED_LIBS=ON
+  )
+
+  cmake "${cmake_options[@]}"
+
+  cmake --build build
+}
+
+check() {
+  local excluded_tests=""
+  local ctest_flags=(
+    --test-dir build
+    # show the stdout and stderr when the test fails
+    --output-on-failure
+    # execute tests in parallel
+    --parallel $(nproc)
+    # exclude problematic tests
+    --exclude-regex "$excluded_tests"
+  )
+  ctest "${ctest_flags[@]}"
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$pkgname/LICENSE"
+}
