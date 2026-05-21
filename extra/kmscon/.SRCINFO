@@ -1,6 +1,6 @@
 pkgbase = kmscon
 	pkgdesc = Kernel Mode Setting (KMS) and DRM based virtual Console Emulator
-	pkgver = 9.3.5
+	pkgver = 10.0.0
 	pkgrel = 1
 	url = https://github.com/kmscon/kmscon
 	arch = x86_64
@@ -20,6 +20,7 @@ pkgbase = kmscon
 	depends = libdrm
 	depends = libtsm
 	depends = libxkbcommon
+	depends = seatd
 	depends = systemd-libs
 	depends = zlib
 	optdepends = fontconfig: for freetype font rendering
@@ -27,7 +28,7 @@ pkgbase = kmscon
 	optdepends = libglvnd: for accelerated video output
 	optdepends = pango: for pango font rendering
 	backup = etc/kmscon/kmscon.conf
-	source = git+https://github.com/kmscon/kmscon.git#tag=v9.3.5
-	b2sums = f153b1e978f54e65dd7be1e21a2acd198b51f849a684891e861c86b3539ffe5944fea47dc43f4354b1cd313a099f2e019b22012e0d2fee3582e9dc4fff669cf9
+	source = git+https://github.com/kmscon/kmscon.git#tag=v10.0.0
+	b2sums = 8c7dda6abfd15646a832bc10da3655f42e6ae0faebe1ca3bb72e8d8da60fd3d42bafab4037a0e048d798d9e86743a0e5f02097ba9bfcc0fee51c097a61332002
 
 pkgname = kmscon
