@@ -101,24 +101,25 @@ Note: The workflow for releasing new versions of this package is somewhat involv
 
 ---
 
-### Apply a local patch file
+### Rebase real-time patches on top of later version of the kernel
 
 ---
-Note: As the [PREEMPT_RT patches] are often only made available for an initial version of a kernel release series, it is necessary to create commits from the verifiable patch files that are created as part of our own release process.
+Note: The [PREEMPT_RT patches] are often only made available for an initial version and/or a few intermediate patch-level releases of a kernel release series.
+      To stay up-to-date and be able to rely on security patches and general fixes of the upstream kernel, it is necessary to rebase the patch set on top of more current kernel releases.
+      Due to the size of the patch set, rebasing happens on a best effort basis.
 
 ---
 
-To apply the upstream patch file for the [PREEMPT_RT patches] locally on top of kernel version `X.Y.Z`:
+To checkout the [PREEMPT_RT patches] of an earlier kernel release and rebase them on top of a newer kernel release, use the following:
 
 ```bash
-just git checkout vX.Y.Z
-just git apply /path/to/rt.patch
-just git commit -s
+just git checkout vX.Y.1-rtR-rebase
+just git rebase -S -i vX.Y.2
 ```
 
 ### Tag a custom real-time version
 
-After successfully applying a local patch file containing the [PREEMPT_RT patches] on top of a kernel version, for which no specific patch set exists, we have to tag our own version (which does not conflict with the versioning scheme of upstream):
+After successfully rebasing the [PREEMPT_RT patches] on top of a newer kernel version, we have to tag our own version (which does not conflict with the versioning scheme of upstream):
 
 ```bash
 just tag-rt
@@ -139,6 +140,16 @@ Note: The default kernel patch adjusting `EXTRAVERSION` in the kernel `Makefile`
       Instead, cherry-pick the relevant commit from a previous [source repository] release of this package and adjust it.
 
 ---
+
+### Rebasing distribution patches
+
+If the distribution patches did not change between kernels releases it is faster to rebase them, instead of cherry-picking them (see above).
+For this go to the previous release tag and rebase it on top of the new project tag, e.g.:
+
+```bash
+just git checkout vX.Y.2-rtR-archA
+just git rebase -S -i vX.Y.3-rt3-archA
+```
 
 ### Creating a release
 

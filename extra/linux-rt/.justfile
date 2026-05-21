@@ -37,17 +37,17 @@ source_dir := "$HOME/.local/state/packaging/linux-rt"
 [private]
 create-diff-patch-between-tags tag1 tag2 dir name:
     printf 'Creating patch for commits between tags "%s" and "%s"...\n' "{{ tag1 }}" "{{ tag2 }}"
-    just git diff "{{ tag1 }}".."{{ tag2 }}" > "{{ dir }}/{{ name }}-{{ tag2 }}.patch"
+    just git diff "{{ tag1 }}".."{{ tag2 }}" > "{{ dir }}/{{ name }}-{{ replace(tag2, '-rebase', '') }}.patch"
 
-    just sign-and-compress-file "{{ dir }}/{{ name }}-{{ tag2 }}.patch"
+    just sign-and-compress-file "{{ dir }}/{{ name }}-{{ replace(tag2, '-rebase', '') }}.patch"
 
 # Creates a patch between the two tags `tag1` and `tag2` in a directory `dir` for the project `name`.
 [private]
 create-format-patch-between-tags tag1 tag2 dir name:
     printf 'Creating patch for commits between tags "%s" and "%s"...\n' "{{ tag1 }}" "{{ tag2 }}"
-    just git format-patch --find-renames --stdout "{{ tag1 }}".."{{ tag2 }}" > "{{ dir }}/{{ name }}-{{ tag2 }}.patch"
+    just git format-patch --find-renames --stdout "{{ tag1 }}".."{{ tag2 }}" > "{{ dir }}/{{ name }}-{{ replace(tag2, '-rebase', '') }}.patch"
 
-    just sign-and-compress-file "{{ dir }}/{{ name }}-{{ tag2 }}.patch"
+    just sign-and-compress-file "{{ dir }}/{{ name }}-{{ replace(tag2, '-rebase', '') }}.patch"
 
 # Creates a detached OpenPGP signature for `file` using `gpg`, then compresses it using `zstd`.
 [private]
@@ -255,7 +255,7 @@ tag-rt:
 
     just ensure-command git
 
-    tag="$(just derive-project-tag-from-makefile-and-localversion)"
+    tag="$(just derive-project-tag-from-makefile-and-localversion)-rebase"
     just ensure-tag-does-not-exist "$tag"
 
     printf "Creating tag %s\n" "$tag"
@@ -286,7 +286,7 @@ release:
     printf 'Targeting distribution tag "%s", ' "$distribution_tag"
 
     # The project tag (e.g. `v7.0-rt2` or `v7.0.1-rt2`).
-    project_tag="$(just derive-project-tag-from-distribution-tag "$distribution_tag")"
+    project_tag="$(just derive-project-tag-from-distribution-tag "$distribution_tag")-rebase"
     just ensure-tag-exists "$project_tag"
     printf 'project tag "%s", ' "$project_tag"
 
@@ -311,11 +311,13 @@ release:
 
     trap cleanup EXIT
 
+    # Create the (zstd compressed and signed) project patch file.
+    just create-format-patch-between-tags "$upstream_tag" "$project_tag" "$tmpdir" "$project_name"
+
     printf 'Creating distribution tag "%s"...\n' "$distribution_tag"
     just git tag --sign "$distribution_tag" --message "$distribution_tag"
 
-    # Create the patch files (zstd compressed and signed).
-    just create-diff-patch-between-tags "$upstream_tag" "$project_tag" "$tmpdir" "$project_name"
+    # Create the (zstd compressed and signed) distribution patch file.
     just create-format-patch-between-tags "$project_tag" "$distribution_tag" "$tmpdir" "$project_name"
 
     printf 'Pushing tag "%s"...\n' "$distribution_tag"
