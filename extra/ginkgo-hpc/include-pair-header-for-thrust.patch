@@ -1,0 +1,56 @@
+From 1622b55e1346886a68a3b8a2f570f7d13cec7934 Mon Sep 17 00:00:00 2001
+From: "Yu-Hsiang M. Tsai" <yhmtsai@gmail.com>
+Date: Fri, 10 Apr 2026 13:46:26 +0200
+Subject: [PATCH] include pair header for thrust
+
+---
+ common/cuda_hip/matrix/csr_kernels.template.cpp   | 1 +
+ common/cuda_hip/matrix/fbcsr_kernels.template.cpp | 1 +
+ common/cuda_hip/reorder/rcm_kernels.cpp           | 3 ++-
+ 3 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/common/cuda_hip/matrix/csr_kernels.template.cpp b/common/cuda_hip/matrix/csr_kernels.template.cpp
+index 4772812b9..7d0d9fd4f 100644
+--- a/common/cuda_hip/matrix/csr_kernels.template.cpp
++++ b/common/cuda_hip/matrix/csr_kernels.template.cpp
+@@ -13,6 +13,7 @@
+ #include <thrust/iterator/counting_iterator.h>
+ #include <thrust/iterator/transform_output_iterator.h>
+ #include <thrust/iterator/zip_iterator.h>
++#include <thrust/pair.h>
+ #include <thrust/sort.h>
+ 
+ #include <ginkgo/core/base/array.hpp>
+diff --git a/common/cuda_hip/matrix/fbcsr_kernels.template.cpp b/common/cuda_hip/matrix/fbcsr_kernels.template.cpp
+index e9b182148..f8c322ee5 100644
+--- a/common/cuda_hip/matrix/fbcsr_kernels.template.cpp
++++ b/common/cuda_hip/matrix/fbcsr_kernels.template.cpp
+@@ -12,6 +12,7 @@
+ #include <thrust/iterator/counting_iterator.h>
+ #include <thrust/iterator/transform_output_iterator.h>
+ #include <thrust/iterator/zip_iterator.h>
++#include <thrust/pair.h>
+ #include <thrust/sort.h>
+ 
+ #include <ginkgo/core/base/array.hpp>
+diff --git a/common/cuda_hip/reorder/rcm_kernels.cpp b/common/cuda_hip/reorder/rcm_kernels.cpp
+index 963706477..2c8052a8d 100644
+--- a/common/cuda_hip/reorder/rcm_kernels.cpp
++++ b/common/cuda_hip/reorder/rcm_kernels.cpp
+@@ -1,4 +1,4 @@
+-// SPDX-FileCopyrightText: 2017 - 2025 The Ginkgo authors
++// SPDX-FileCopyrightText: 2017 - 2026 The Ginkgo authors
+ //
+ // SPDX-License-Identifier: BSD-3-Clause
+ 
+@@ -10,6 +10,7 @@
+ #include <thrust/iterator/discard_iterator.h>
+ #include <thrust/iterator/permutation_iterator.h>
+ #include <thrust/iterator/zip_iterator.h>
++#include <thrust/pair.h>
+ #include <thrust/reduce.h>
+ #include <thrust/sequence.h>
+ #include <thrust/sort.h>
+-- 
+2.54.0
+

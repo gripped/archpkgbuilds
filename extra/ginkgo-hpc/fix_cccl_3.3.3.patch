@@ -1,0 +1,96 @@
+diff --git a/common/cuda_hip/distributed/index_map_kernels.cpp b/common/cuda_hip/distributed/index_map_kernels.cpp
+index d5eb480ff..479d48b37 100644
+--- a/common/cuda_hip/distributed/index_map_kernels.cpp
++++ b/common/cuda_hip/distributed/index_map_kernels.cpp
+@@ -15,6 +15,7 @@
+ #include <thrust/sequence.h>
+ #include <thrust/sort.h>
+ #include <thrust/transform_reduce.h>
++#include <thrust/tuple.h>
+ #include <thrust/unique.h>
+ 
+ #include <ginkgo/core/base/exception_helpers.hpp>
+diff --git a/common/cuda_hip/distributed/matrix_kernels.cpp b/common/cuda_hip/distributed/matrix_kernels.cpp
+index 6e3a99765..3eba82f14 100644
+--- a/common/cuda_hip/distributed/matrix_kernels.cpp
++++ b/common/cuda_hip/distributed/matrix_kernels.cpp
+@@ -14,6 +14,7 @@
+ #include <thrust/sequence.h>
+ #include <thrust/sort.h>
+ #include <thrust/transform_reduce.h>
++#include <thrust/tuple.h>
+ #include <thrust/unique.h>
+ 
+ #include <ginkgo/core/base/exception_helpers.hpp>
+diff --git a/common/cuda_hip/distributed/partition_helpers_kernels.cpp b/common/cuda_hip/distributed/partition_helpers_kernels.cpp
+index e733c9217..5bfba46a4 100644
+--- a/common/cuda_hip/distributed/partition_helpers_kernels.cpp
++++ b/common/cuda_hip/distributed/partition_helpers_kernels.cpp
+@@ -8,6 +8,7 @@
+ #include <thrust/execution_policy.h>
+ #include <thrust/iterator/zip_iterator.h>
+ #include <thrust/sort.h>
++#include <thrust/tuple.h>
+ 
+ #include "common/cuda_hip/base/thrust.hpp"
+ 
+diff --git a/common/cuda_hip/distributed/partition_kernels.cpp b/common/cuda_hip/distributed/partition_kernels.cpp
+index f9dbde0c8..7ecce809d 100644
+--- a/common/cuda_hip/distributed/partition_kernels.cpp
++++ b/common/cuda_hip/distributed/partition_kernels.cpp
+@@ -12,6 +12,7 @@
+ #include <thrust/scan.h>
+ #include <thrust/sequence.h>
+ #include <thrust/sort.h>
++#include <thrust/tuple.h>
+ 
+ #include "common/cuda_hip/base/thrust.hpp"
+ #include "common/cuda_hip/components/atomic.hpp"
+diff --git a/common/cuda_hip/factorization/lu_kernels.cpp b/common/cuda_hip/factorization/lu_kernels.cpp
+index 778c5002c..971b96b2b 100644
+--- a/common/cuda_hip/factorization/lu_kernels.cpp
++++ b/common/cuda_hip/factorization/lu_kernels.cpp
+@@ -10,6 +10,7 @@
+ #include <thrust/copy.h>
+ #include <thrust/iterator/transform_output_iterator.h>
+ #include <thrust/iterator/zip_iterator.h>
++#include <thrust/tuple.h>
+ 
+ #include <ginkgo/core/matrix/csr.hpp>
+ 
+diff --git a/common/cuda_hip/matrix/csr_kernels.template.cpp b/common/cuda_hip/matrix/csr_kernels.template.cpp
+index 7d0d9fd4f..220caabf2 100644
+--- a/common/cuda_hip/matrix/csr_kernels.template.cpp
++++ b/common/cuda_hip/matrix/csr_kernels.template.cpp
+@@ -15,6 +15,7 @@
+ #include <thrust/iterator/zip_iterator.h>
+ #include <thrust/pair.h>
+ #include <thrust/sort.h>
++#include <thrust/tuple.h>
+ 
+ #include <ginkgo/core/base/array.hpp>
+ #include <ginkgo/core/base/exception_helpers.hpp>
+diff --git a/common/cuda_hip/matrix/fbcsr_kernels.template.cpp b/common/cuda_hip/matrix/fbcsr_kernels.template.cpp
+index f8c322ee5..369ebf734 100644
+--- a/common/cuda_hip/matrix/fbcsr_kernels.template.cpp
++++ b/common/cuda_hip/matrix/fbcsr_kernels.template.cpp
+@@ -14,6 +14,7 @@
+ #include <thrust/iterator/zip_iterator.h>
+ #include <thrust/pair.h>
+ #include <thrust/sort.h>
++#include <thrust/tuple.h>
+ 
+ #include <ginkgo/core/base/array.hpp>
+ #include <ginkgo/core/base/exception_helpers.hpp>
+diff --git a/common/cuda_hip/reorder/rcm_kernels.cpp b/common/cuda_hip/reorder/rcm_kernels.cpp
+index 2c8052a8d..46ea96757 100644
+--- a/common/cuda_hip/reorder/rcm_kernels.cpp
++++ b/common/cuda_hip/reorder/rcm_kernels.cpp
+@@ -15,6 +15,7 @@
+ #include <thrust/sequence.h>
+ #include <thrust/sort.h>
+ #include <thrust/transform.h>
++#include <thrust/tuple.h>
+ 
+ #include <ginkgo/core/base/array.hpp>
+ #include <ginkgo/core/base/types.hpp>
