@@ -4,7 +4,7 @@
 
 pkgname=vapoursynth
 pkgver=75
-pkgrel=2
+pkgrel=3
 pkgdesc='A video processing framework with the future in mind'
 arch=(x86_64)
 url=http://www.vapoursynth.com/
@@ -30,6 +30,11 @@ source=(
 )
 b2sums=('78e5acdb175c878ad72b06b9ef73bb689762adf5578753a61cba389cd29fa9786868abf751f5b88ee393dddbb7788d176d227c538b9458ba593f8302153cb5d3'
         'feae23a22f8589177f30c36bdf21bab93d55a786194d3e0e958537016630d075b82178f60ac840f30ae316a8f87d3fb01f371211f62d1fee9850ee5063561747')
+
+prepare() {
+  cd vapoursynth
+  git cherry-pick -n d398f465154ef141d447af78b2e65a025de28522 # Prevent statically linking libstdc++
+}
 
 pkgver() {
   cd vapoursynth
