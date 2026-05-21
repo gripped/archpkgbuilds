@@ -4,7 +4,7 @@
 # Contributor: Ralf Schmitt <ralf@systemexit.de>
 
 pkgname=python-gevent
-pkgver=26.4.0
+pkgver=26.5.0
 pkgrel=1
 pkgdesc='Python network library that uses greenlet and libenv for easy and scalable concurrency'
 arch=(x86_64)
@@ -37,8 +37,8 @@ checkdepends=(
   python-requests
 )
 source=("$pkgname::git+https://github.com/gevent/gevent#tag=$pkgver")
-sha512sums=('fe91ad5c231a251f3e52b882ca9fd4a3e89a6a7ebb7a2fc707b709fae882f5696bfcebbcc422f15b6e789007b0b7fa3ddeb2c14ec0426268dcda6a93728633ce')
-b2sums=('c57e47d1110bd938c0772931517c7e7e2eeb359d57391a6ec822d28782612193a85aa69a853e599740f1797581936dcad45171ce8de4a379ee72a198fc8eeabb')
+sha512sums=('fce672ba27aef6d30615f9033e36a51f55451127f2211f31d7b36c274f85f41d91562db4d35e487aa248d7905718912265d014b0301c6ae010f57444182fe61e')
+b2sums=('20ab30b2efdaeafcf918aeb9b4adee1e03cd7710bf616ff4061b20733161d59d44bce672f01e98179596145d0a8cc8226a05d9117cd89df244da5bfafcebc7f6')
 
 build() {
   cd "$pkgname"
