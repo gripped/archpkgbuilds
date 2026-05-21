@@ -3,7 +3,7 @@
 
 pkgname=tmux
 pkgver=3.6_b
-pkgrel=1
+pkgrel=2
 pkgdesc='Terminal multiplexer'
 url='https://github.com/tmux/tmux/wiki'
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('libevent' 'libevent_core-2.1.so'
          'systemd-libs' 'libsystemd.so')
 makedepends=('git' 'systemd')
 source=("git+https://github.com/tmux/tmux.git#tag=${pkgver/_/}")
-sha256sums=('21082e6362c674c7e1e808c45dc9978fa58482da5cfbdafbd4e06db36ac965d2')
+sha256sums=('ab7fbfcb827a93eb7da177d45b50af4710f913f7b2db34037527e8235cda1e97')
 
 prepare() {
 	cd "$pkgname"
