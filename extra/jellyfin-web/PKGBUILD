@@ -2,7 +2,7 @@
 # Maintainer: Giovanni Harting <anonfunc@archlinux.org>
 
 pkgname=jellyfin-web
-pkgver=10.11.8
+pkgver=10.11.9
 pkgrel=1
 pkgdesc='Web client for Jellyfin'
 arch=(any)
@@ -17,9 +17,9 @@ source=(
   "$pkgname::git+https://github.com/jellyfin/jellyfin-web#tag=v$pkgver"
   remove-npm-version-constraint.patch
 )
-sha512sums=('1abc0547f6b16ce34407648a4835302c024a1e3b5b0e905b790fe749dcf95b38520ac46402aadff4ab241667717354bc5ac8acfb9dd7b160c054678fe48ad966'
+sha512sums=('109e1da41a60516b8b73dbefc1c652b798d64680680c2053a59b28abf02d6bfbacb6eb81911444265a7dc5b9e5fa1e457ca78c225ed42a95b031849dd44bb48c'
             '63b57be505e31bb91469db84b96d6bb2d363324c4a4cde7a1e5f476a5aa6a6fb4d962871a307317ea81dce7cbac6864982a39aeb470dc632492d332a9e8dbd11')
-b2sums=('22df9e079d9e7ec25b97fb1626492c46a16916e7a26db57430d6cb28ed91458c5c306c4c4db0dc9c07f6991d2c447f6f36ae48ec21b2b456bab296100a2adc01'
+b2sums=('dc7751e51479ad9f63039731ff87e3cf57ffd0c312d9e19bc3aa1d21c325cc8a6b6b973462012fd7f5612598be46acac8042dce7966822fc1facd781cd7f77cf'
         'f7c3d837a0d33b9d6ef4a52d43111258795dd411627d5fad050d06247ea29d08625fb13bf1953063ba46e56f85d097b1edea316510c7b0a564f90f1d66d1a3cc')
 
 prepare() {
