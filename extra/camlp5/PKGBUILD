@@ -8,17 +8,17 @@
 # Contributor: Tej Chajed <tchajed at mit dot edu>
 
 pkgname=camlp5
-pkgver=8.05.00
-_relname=8.04.00
+pkgver=8.05.01
+_relname=8.05.01
 pkgrel=1
 arch=('x86_64')
 pkgdesc='A preprocessor-pretty-printer of OCaml.'
 url='https://camlp5.github.io/'
-license=('BSD')
+license=('BSD-3-Clause')
 depends=('ocaml' 'camlp-streams' 'ocaml-rresult' 'ocaml-bos' 'ocaml-pcre2')
 makedepends=('ocaml-compiler-libs' 'ocaml-findlib')
 source=("camlp5-${_relname}.tar.gz::https://github.com/camlp5/camlp5/archive/$_relname.tar.gz")
-sha256sums=('eb8c5bc0f47ce4b9518d37bcbf8be05ee80243c38e7019f8c3808456be8f15a8')
+sha256sums=('7aa71c393cf4f24860051a5aa78da8925d73cb79ba045df442dff2343b1283d7')
 options=('!strip' 'staticlibs' '!debug')
 
 build() {
@@ -26,6 +26,7 @@ build() {
 
   ./configure \
     -prefix '/usr' \
+    -libdir '/usr/lib/ocaml' \
     -mandir '/usr/share/man' \
     -strict
 
@@ -40,4 +41,3 @@ package() {
   install -D -m644 etc/META "${pkgdir}/usr/lib/ocaml/camlp5"
   install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/camlp5/LICENSE"
 }
-
