@@ -2,8 +2,8 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=treeland
-pkgver=0.8.6
-pkgrel=2
+pkgver=0.8.7
+pkgrel=1
 pkgdesc='New wayland compositer for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/treeland"
@@ -18,7 +18,7 @@ groups=('deepin')
 replaces=('waylib' 'qwlroots')
 conflicts=('waylib' 'qwlroots')
 source=("git+https://github.com/linuxdeepin/treeland.git#tag=$pkgver")
-sha256sums=('70ce0f9ea7a2804e244b94a641ba12bf19d03b7800c36d093515e8c4ca42fbc6')
+sha256sums=('0fa8435f4b775d099950f44960a5570339da45ae56edef737c998138a0a825c7')
 
 prepare() {
   cd treeland
@@ -26,24 +26,21 @@ prepare() {
   # Fix wallpaper paths
   sed -i 's|/usr/share/backgrounds/default_background.jpg|/usr/share/backgrounds/deepin/desktop.jpg|' misc/dconfig/org.deepin.dde.treeland{,.user}.json
   sed -i 's|/usr/share/wallpapers/deepin/deepin-default.jpg|/usr/share/wallpapers/deepin/desktop.jpg|' src/wallpaper/wallpapermanager.cpp
-
-  # Fix missing headers for gcc 16 compatibility
-  git cherry-pick -n 6ce956eaee0b4406b308943229f38da703569b17
 }
 
 build() {
-	cd treeland
-    # TODO: Fix RUNPATH issue
-	cmake . -Bbuild -GNinja \
-		-DCMAKE_INSTALL_LIBDIR=lib \
-        -DCMAKE_INSTALL_LIBEXECDIR=lib \
-        -DCMAKE_INSTALL_SYSCONFDIR=/etc \
-		-DCMAKE_INSTALL_PREFIX=/usr
-        # -DCMAKE_SKIP_RPATH=ON
-	cmake --build build
+  cd treeland
+  # TODO: Fix RUNPATH issue
+  cmake . -B build -G Ninja \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib \
+    -DCMAKE_INSTALL_SYSCONFDIR=/etc \
+    -DCMAKE_INSTALL_PREFIX=/usr
+    # -DCMAKE_SKIP_RPATH=ON
+  cmake --build build
 }
 
 package() {
-	cd treeland
-	DESTDIR="$pkgdir" ninja -C build install
+  cd treeland
+  DESTDIR="$pkgdir" ninja -C build install
 }
