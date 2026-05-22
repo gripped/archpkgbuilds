@@ -3,7 +3,7 @@
 # Contributor: Ralf Schmitt <ralf@systemexit.de>
 
 pkgname=python-greenlet
-pkgver=3.5.0
+pkgver=3.5.1
 pkgrel=1
 pkgdesc="Lightweight in-process concurrent programming"
 license=("MIT")
@@ -14,7 +14,7 @@ makedepends=('python-build' 'python-installer' 'python-setuptools'
              'python-wheel')
 checkdepends=('python-objgraph' 'python-psutil')
 source=("https://files.pythonhosted.org/packages/source/g/greenlet/greenlet-${pkgver}.tar.gz")
-sha512sums=('472b09d9f08d60ba1a4885ac678fd448b8e612d3553d712646e92b7e12cbe238ca6162c8809fedbb8a702603713d6f60650786e4db6ccabdbe454d067604c990')
+sha512sums=('b81fd3a55655457356c5087a5cb109fb5ef3d0ea7daf0a1bdfcb24772fecca50932c8c548d5edf6f36e5d980d9dfeb3ae1323aaa05d19d781b2b47021806d930')
 
 build() {
     cd greenlet-$pkgver
