@@ -1,15 +1,15 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=treeland-protocols
-pkgver=0.5.6
+pkgver=0.5.7
 pkgrel=1
 pkgdesc='Wayland protocols of treeland'
 arch=('any')
 url="https://github.com/linuxdeepin/treeland-protocols"
-license=('MIT')
+license=('MIT' 'GPL-2.0-only')
 makedepends=('git' 'cmake' 'ninja')
 source=("git+https://github.com/linuxdeepin/treeland-protocols.git#tag=$pkgver")
-sha512sums=('bf7002bb41e929a08312cb2f4378a37e2a29016f0101e35daf56b04e14c154995d4b5fba72456969bb61b95f26744057e7cea6f52abbda1b06e2064e5ae8c21f')
+sha512sums=('b2e5eab3607f209e3de3f2bb07d0b187417770c55eab2795f50297de64a48f5d519dff5bab975a29802d8de36bf0fd1f585468528c1639462ba0044f91b889f0')
 
 build() {
   cd treeland-protocols
