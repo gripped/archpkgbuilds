@@ -4,7 +4,7 @@
 
 pkgname=cppcheck
 pkgver=2.20.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A tool for static C/C++ code analysis'
 arch=(x86_64)
 url='http://cppcheck.sourceforge.net/'
@@ -16,7 +16,6 @@ depends=(
   python
   python-pygments
   tinyxml2
-  pcre
 )
 makedepends=(
   git
@@ -70,7 +69,7 @@ build() {
     -D CMAKE_INSTALL_PREFIX=/usr
     -D CMAKE_BUILD_TYPE=RelWithDebInfo
     -D USE_MATCHCOMPILER=ON
-    -D HAVE_RULES=ON
+    -D HAVE_RULES=OFF
     -D BUILD_GUI=ON
     -D BUILD_SHARED_LIBS=OFF
     -D BUILD_TESTS=ON
