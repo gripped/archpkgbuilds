@@ -5,7 +5,7 @@
 pkgname=qt6-declarative
 _pkgver=6.11.1
 pkgver=${_pkgver/-/}
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -29,6 +29,11 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
 sha256sums=('0ff7324d48ad2f6472136fe2638553b07f3111d88e0ab385cf09966fc0476019')
+
+prepare() {
+  cd $_pkgfn
+  git cherry-pick -n 8a2c82be6ad90e3f2a0760d8bab1e3a8cdb2473a # Fix QML TableView regression
+}
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
