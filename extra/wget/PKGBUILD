@@ -5,7 +5,7 @@
 
 pkgname=wget
 pkgver=1.25.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Network utility to retrieve files from the web'
 url='https://www.gnu.org/software/wget/wget.html'
 arch=('x86_64')
@@ -46,6 +46,9 @@ prepare() {
   # The $SKIP_PO environment variable is only honored by
   # the gnulib submodule if using its "sh" implementation
   export GNULIB_TOOL_IMPL="sh"
+  # Keep git-version-gen from appending "-dirty" after prepare() patches the
+  # checkout; this value is used for VERSION and the default User-Agent
+  echo "${pkgver}" > .tarball-version
 
   git submodule init
   git config submodule.gnulib.url "${srcdir}/gnulib"
