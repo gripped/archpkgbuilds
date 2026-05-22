@@ -5,7 +5,7 @@
 
 pkgname=ripgrep
 pkgver=15.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A search tool that combines the usability of ag with the raw speed of grep"
 arch=('x86_64')
 url="https://github.com/BurntSushi/ripgrep"
@@ -22,31 +22,31 @@ sha512sums=('3e54683ceaaa79e6e1b52f7e1b92aefaf0b8f721daf2ab6433e1f45931878904ca2
 build() {
   cd "$pkgname-$pkgver"
 
-  cargo build --release --locked --features 'pcre2'
+  cargo build --profile release-lto --locked --features 'pcre2'
 }
 
 check() {
   cd "$pkgname-$pkgver"
 
-  cargo test --release --locked --features 'pcre2'
+  cargo test --locked --features 'pcre2'
 }
 
 package() {
   cd "$pkgname-$pkgver"
 
-  install -vDm755 -t "$pkgdir/usr/bin" target/release/rg
+  install -vDm755 -t "$pkgdir/usr/bin" target/release-lto/rg
 
   mkdir -vp "$pkgdir/usr/share/zsh/site-functions"
-  target/release/rg --generate complete-zsh > "$pkgdir/usr/share/zsh/site-functions/_rg"
+  target/release-lto/rg --generate complete-zsh > "$pkgdir/usr/share/zsh/site-functions/_rg"
 
   mkdir -vp "$pkgdir/usr/share/bash-completion/completions"
-  target/release/rg --generate complete-bash > "$pkgdir/usr/share/bash-completion/completions/rg"
+  target/release-lto/rg --generate complete-bash > "$pkgdir/usr/share/bash-completion/completions/rg"
 
   mkdir -vp "$pkgdir/usr/share/fish/vendor_completions.d"
-  target/release/rg --generate complete-fish > "$pkgdir/usr/share/fish/vendor_completions.d/rg.fish"
+  target/release-lto/rg --generate complete-fish > "$pkgdir/usr/share/fish/vendor_completions.d/rg.fish"
 
   mkdir -vp "$pkgdir/usr/share/man/man1"
-  target/release/rg --generate man > "$pkgdir/usr/share/man/man1/rg.1"
+  target/release-lto/rg --generate man > "$pkgdir/usr/share/man/man1/rg.1"
 
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" COPYING
