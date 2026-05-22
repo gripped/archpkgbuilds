@@ -1,12 +1,12 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-camera
-pkgver=6.5.8
+pkgver=6.5.9
 pkgrel=1
 pkgdesc='Tool to view camera, take photo and video'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-camera"
-license=('GPL-3.0-or-later')
+license=('BSD-3-Clause' 'CC-BY-4.0' 'CC0-1.0' 'GPL-3.0-or-later' 'LGPL-3.0-or-later')
 depends=('dtkcore' 'dtkgui' 'dtkwidget' 'qt5-base' 'qt5-svg' 'glib2' 'glibc' 'libgcc' 'libstdc++'
          'deepin-image-editor' 'ffmpeg' 'ffmpegthumbnailer' 'libpciaccess' 'portaudio'
          'pulse-native-provider' 'qt5-multimedia' 'dwayland' 'hicolor-icon-theme')
@@ -17,7 +17,7 @@ optdepends=('deepin-image-viewer: view camera photos'
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-camera.git#tag=$pkgver"
         v4l2_and_ffmpeg_fixes.patch)
-sha512sums=('2b617c558b0d7c1acf79098bc85df0f587fade581b6bba35456e50938d374d47db1e0d4df76155192d47dcace17f905eccd01682bd7c434cfb18c69b0c397a23'
+sha512sums=('c63552ceabf3b0c3cf7b4dbc046e05aa124f916cb8bfa0f06b8eb9901a17b3743ee684448d391a3e11b2a868991b20a09c0a74dbf6912fa3a9c5bd380be82f30'
             '855ce4a00e91960dfefefcec436bcd2ef59cb8cbc67e10f9bb9732bec4f42dd0b04407fa994cb0a104a28203242bf246a77f04581fd23b768a8fc08580f16ec5')
 
 prepare() {
