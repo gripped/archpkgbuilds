@@ -4,8 +4,8 @@
 
 pkgbase=dtkwidget
 pkgname=(dtkwidget dtk6widget)
-pkgver=6.7.41
-pkgrel=4
+pkgver=6.7.42
+pkgrel=1
 epoch=1
 pkgdesc='Deepin base graphical widgets library'
 arch=('x86_64')
@@ -19,7 +19,7 @@ makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt6-tools' 'gtest' 'doxygen'
              'qt6-base' 'qt6-imageformats' 'qt6-svg'
              'libx11' 'libxcb' 'libxext' 'libxi' 'startup-notification' 'xcb-util')
 source=("git+https://github.com/linuxdeepin/dtkwidget.git#tag=$pkgver")
-sha512sums=('75c0a98d9ff3be09288a3a2429fcbe244ed12e248cd1e189a73a05ef4d3b5a1094ed1c6865202edcb3ebd5ab96bbebbc766dc971c7e4ea67cd6df431fd911e62')
+sha512sums=('b025355a7eca1ddf646c807addffe1e3df493dce069ea41521596d8fae94b49faf610dea9e39bf24413236c0f5aca62284cf5b23d6996aac44cd52a4bafcf70d')
 
 build() {
   cd dtkwidget
