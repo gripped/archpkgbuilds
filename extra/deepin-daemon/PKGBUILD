@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-daemon
-pkgver=6.1.72
+pkgver=6.1.73
 pkgrel=1
 pkgdesc='Daemon handling the DDE session settings'
 arch=('x86_64')
@@ -67,7 +67,7 @@ replaces=('startdde')
 groups=('deepin')
 install="$pkgname.install"
 source=("git+https://github.com/linuxdeepin/dde-daemon.git#tag=$pkgver")
-sha512sums=('a864c81bae94af143130540a2821778e6a089ef2348052ed5835d8d8da3455a45a8caaa928c71ccae7d73f5a9d7082e86243e2c4e2faf66ecc0d7ddfe26c8b61')
+sha512sums=('2c3adaea26a765be6f6cd7e3855ef56e2cd3f17cd6fed82d0e60bb950cafc0e37b236444871537d2d853b4dd05c44582f4f489ad2796738daa03d9887c4b3852')
 
 prepare() {
   cd dde-daemon
@@ -81,11 +81,6 @@ prepare() {
   sed -i 's|/usr/share/backgrounds/|/usr/share/backgrounds/deepin/|' accounts1/user.go
   sed -i 's|default_background.jpg|desktop.jpg|' accounts1/user.go
   sed -i 's|icons/default|icons/animal/raccoon.png|' accounts1/user.go
-
-  # Remove duplicate/wrong SystemdService entry that prevents D-Bus activation
-  # (deepin-accounts1-daemon.service does not exist on Arch)
-  sed -i '/deepin-accounts1-daemon/d' misc/system-services/org.deepin.dde.Accounts1.service
-
 }
 
 build() {
