@@ -2,95 +2,114 @@
 # Contributor: Carlos Galindo < arch -at - cgj.es >
 
 pkgname=nextcloud-app-notify_push
+_pkgname="${pkgname##*-}"
 pkgver=1.3.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Update notifications for nextcloud clients'
 arch=(x86_64)
-url="https://github.com/nextcloud/${pkgname##*-}"
-license=(AGPL3)
-makedepends=(cargo
-             nextcloud
-             rsync
-             yq)
+url='https://github.com/nextcloud/notify_push'
+license=(AGPL-3.0-or-later)
+groups=(nextcloud-apps)
+depends=(
+  glibc
+  libgcc_s.so
+)
+makedepends=(
+  git
+  rust
+  nextcloud
+  rsync
+  yq
+)
 optdepends=('valkey: use a local valkey instance')
 install="$pkgname.install"
-groups=(nextcloud-apps)
-_archive="${pkgname##*-}-$pkgver"
-source=("$url/archive/v$pkgver/$_archive.tar.gz"
-        "$pkgname.service")
-sha256sums=('235b6cb9f9746038b37aabb74c151d2bbb3684c760f1ec3a1b066f05903237c4'
-            'b22b470f9e02d2bbe0c266431948daaadd7e7f007c27a989bdfcb063ee58fac6')
+source=(
+  "$pkgname::git+$url#tag=v$pkgver"
+  systemd.service
+)
+sha512sums=('a7fb542ae7b1721131306a081861d600196be5dc1df764a9f331f4035d319fa9485ee916609efc690505af869c59fca907d2b7edf9459fb43bbbf7f5cbafcdcd'
+            '52bcde17885c52419cbcbe88176614284dbc991642130080661ef560467df7b02bcdec9d6eca373cfea0b385e7aed5eacb72d9cde4274bf71660a112683ed5bf')
+b2sums=('13cd794318323eca4df6cc0043e257d4ac364b74fb9f33d45d2379b81a2919c5a23589d61fefd7aafe8a1b4636546ecf9e61bd3f8ec5641aae2302c23d4c9174'
+        '0aedfdb4b78e278a45fc1e30efc36725daf5bbbab0b083df85ccd57a78a060fc3fcd5527e9a018a079ea20780518396225ce8e6b01d56f479fc071b6d38427a3')
 
 # BEGIN boilerplate nextcloud app version clamping, see also other packages in group
 # 1. Call respective function helpers in check() and package() *after* cd'ing to the source directory
 # 2. Add makedepends+=(nextcloud yq)
 _phps=(php-legacy php)
 _get_supported_ranges() {
-	_app_min_nextcloud="$(< appinfo/info.xml xq -r '.info.dependencies.nextcloud["@min-version"] | values')"
-	_app_max_nextcloud="$(< appinfo/info.xml xq -r '.info.dependencies.nextcloud["@max-version"] | values | tonumber | .+1')"
-	_app_min_php="$(< appinfo/info.xml xq -r '.info.dependencies.php["@min-version"] | values')"
-	_app_max_php="$(< appinfo/info.xml xq -r '.info.dependencies.php["@max-version"] | values | tonumber | .+0.1')"
+  _app_min_nextcloud="$(< appinfo/info.xml xq -r '.info.dependencies.nextcloud["@min-version"] | values')"
+  _app_max_nextcloud="$(< appinfo/info.xml xq -r '.info.dependencies.nextcloud["@max-version"] | values | tonumber | .+1')"
+  _app_min_php="$(< appinfo/info.xml xq -r '.info.dependencies.php["@min-version"] | values')"
+  _app_max_php="$(< appinfo/info.xml xq -r '.info.dependencies.php["@max-version"] | values | tonumber | .+0.1')"
 }
 _unsupported_range() {
-	printf "%s requires %s %s, but %s %s is provided.\n" "$pkgname" "$1" "$2" "$1" "$3"
-	exit 1
+  printf "%s requires %s %s, but %s %s is provided.\n" "$pkgname" "$1" "$2" "$1" "$3"
+  exit 1
 }
 _nextcloud_app_check() {
-	_get_supported_ranges
-	for _php in "${_phps[@]}"; do command -v "$_php" > /dev/null && break; done
-	local _nextcloud_ver="$("$_php" <(cat /usr/share/webapps/nextcloud/version.php; echo 'print($OC_VersionString);'))"
-	local _php_ver="$("$_php" -r 'print(phpversion());')"
-	[[ "$(vercmp "${_app_min_nextcloud:-0}" "$_nextcloud_ver")" -le 0 ]] || \
-		_unsupported_range nextcloud "=> $_app_min_nextcloud" "$_nextcloud_ver"
-	[[ "$(vercmp "${_app_max_nextcloud:-999}" "$_nextcloud_ver")" -gt 0 ]] || \
-		_unsupported_range nextcloud "< $_app_max_nextcloud" "$_nextcloud_ver"
-	[[ "$(vercmp "${_app_min_php:-0}" "$_php_ver")" -le 0 ]] || \
-		_unsupported_range php ">= $_app_min_php" "$_php_ver"
-	[[ "$(vercmp "${_app_max_php:-999}" "$_php_ver")" -gt 0 ]] || \
-		_unsupported_range php "< $_app_max_php" "$_php_ver"
+  _get_supported_ranges
+  for _php in "${_phps[@]}"; do command -v "$_php" > /dev/null && break; done
+  local _nextcloud_ver="$("$_php" <(cat /usr/share/webapps/nextcloud/version.php; echo 'print($OC_VersionString);'))"
+  local _php_ver="$("$_php" -r 'print(phpversion());')"
+  [[ "$(vercmp "${_app_min_nextcloud:-0}" "$_nextcloud_ver")" -le 0 ]] || \
+    _unsupported_range nextcloud "=> $_app_min_nextcloud" "$_nextcloud_ver"
+  [[ "$(vercmp "${_app_max_nextcloud:-999}" "$_nextcloud_ver")" -gt 0 ]] || \
+    _unsupported_range nextcloud "< $_app_max_nextcloud" "$_nextcloud_ver"
+  [[ "$(vercmp "${_app_min_php:-0}" "$_php_ver")" -le 0 ]] || \
+    _unsupported_range php ">= $_app_min_php" "$_php_ver"
+  [[ "$(vercmp "${_app_max_php:-999}" "$_php_ver")" -gt 0 ]] || \
+    _unsupported_range php "< $_app_max_php" "$_php_ver"
 }
 _nextcloud_app_package() {
-	_get_supported_ranges
-	depends+=("nextcloud>=${_app_min_nextcloud:-0}" "nextcloud<${_app_max_nextcloud:-999}")
-	depends+=("php-interpreter${_app_min_php:+>=$_app_min_php}" ${_app_max_php:+"php-interpreter<$_app_max_php"})
+  _get_supported_ranges
+  depends+=("nextcloud>=${_app_min_nextcloud:-0}" "nextcloud<${_app_max_nextcloud:-999}")
+  depends+=("php-interpreter${_app_min_php:+>=$_app_min_php}" ${_app_max_php:+"php-interpreter<$_app_max_php"})
 }
 # END boilerplate nextcloud app version clamping
 
 prepare() {
-	cd "$_archive"
-	cargo fetch --locked --target "$(rustc --print host-tuple)"
-	sed -i -e "s/@ARCH@/$CARCH/" "../$pkgname.service"
+  cd "$pkgname"
+
+  # update ARCH
+  sed -e "s/@ARCH@/$CARCH/" -i "$srcdir/systemd.service"
+
+  # download dependencies
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
-	cd "$_archive"
-	export CFLAGS+=" -ffat-lto-objects"
-	cargo build --frozen --release --all-features
+  cd "$pkgname"
+  export CFLAGS+=" -ffat-lto-objects"
+  cargo build --frozen --release --all-features
 }
 
 check() {
-	cd "$_archive"
-	_nextcloud_app_check
-	cargo test --frozen --all-features
+  cd "$pkgname"
+  _nextcloud_app_check
+  cargo test --frozen --all-features
 }
 
 package() {
-	cd "$_archive"
-	_nextcloud_app_package
-	_appdir="$pkgdir/usr/share/webapps/nextcloud/apps/${pkgname##*-}"
-	rsync -a --mkpath \
-		--include='appinfo/***' \
-		--include='js/***' \
-		--include='lib/***' \
-		--include='templates/***' \
-		--include='vendor/***' \
-		--include=.php_cs.dist \
-		--include=webpack.common.js \
-		--include=webpack.prod.js \
-		--exclude='*' \
-		./ $_appdir/
-	install -Dm0755 -t "$_appdir/bin/$CARCH/" "target/release/${pkgname##*-}"
-	install -Dm0644 -t "$pkgdir/usr/lib/systemd/system/" "$srcdir/$pkgname.service"
+  cd "$pkgname"
+  _nextcloud_app_package
+  _appdir="$pkgdir/usr/share/webapps/nextcloud/apps/${_pkgname}"
+  rsync -a --mkpath \
+    --include='appinfo/***' \
+    --include='js/***' \
+    --include='lib/***' \
+    --include='templates/***' \
+    --include='vendor/***' \
+    --include=.php_cs.dist \
+    --include=webpack.common.js \
+    --include=webpack.prod.js \
+    --exclude='*' \
+    ./ $_appdir/
+
+  # binary
+  install -Dm0755 -t "$_appdir/bin/$CARCH/" "target/release/${_pkgname}"
+
+  # systemd integration
+  install -Dm0644 "$srcdir/systemd.service" "$pkgdir/usr/lib/systemd/system/$pkgname.service"
 
   # documentation
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md

@@ -1,20 +1,25 @@
 pkgbase = nextcloud-app-notify_push
 	pkgdesc = Update notifications for nextcloud clients
 	pkgver = 1.3.3
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/nextcloud/notify_push
 	install = nextcloud-app-notify_push.install
 	arch = x86_64
 	groups = nextcloud-apps
-	license = AGPL3
-	makedepends = cargo
+	license = AGPL-3.0-or-later
+	makedepends = git
+	makedepends = rust
 	makedepends = nextcloud
 	makedepends = rsync
 	makedepends = yq
+	depends = glibc
+	depends = libgcc_s.so
 	optdepends = valkey: use a local valkey instance
-	source = https://github.com/nextcloud/notify_push/archive/v1.3.3/notify_push-1.3.3.tar.gz
-	source = nextcloud-app-notify_push.service
-	sha256sums = 235b6cb9f9746038b37aabb74c151d2bbb3684c760f1ec3a1b066f05903237c4
-	sha256sums = b22b470f9e02d2bbe0c266431948daaadd7e7f007c27a989bdfcb063ee58fac6
+	source = nextcloud-app-notify_push::git+https://github.com/nextcloud/notify_push#tag=v1.3.3
+	source = systemd.service
+	sha512sums = a7fb542ae7b1721131306a081861d600196be5dc1df764a9f331f4035d319fa9485ee916609efc690505af869c59fca907d2b7edf9459fb43bbbf7f5cbafcdcd
+	sha512sums = 52bcde17885c52419cbcbe88176614284dbc991642130080661ef560467df7b02bcdec9d6eca373cfea0b385e7aed5eacb72d9cde4274bf71660a112683ed5bf
+	b2sums = 13cd794318323eca4df6cc0043e257d4ac364b74fb9f33d45d2379b81a2919c5a23589d61fefd7aafe8a1b4636546ecf9e61bd3f8ec5641aae2302c23d4c9174
+	b2sums = 0aedfdb4b78e278a45fc1e30efc36725daf5bbbab0b083df85ccd57a78a060fc3fcd5527e9a018a079ea20780518396225ce8e6b01d56f479fc071b6d38427a3
 
 pkgname = nextcloud-app-notify_push

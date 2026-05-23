@@ -1,10 +1,15 @@
 [Unit]
+After=network.target mariadb.service nginx.service postgresql.service redis.service
 Description = Push daemon for Nextcloud clients
+Documentation = https://github.com/nextcloud/notify_push
 
 [Service]
 Environment = PORT=7867 BIND=127.0.0.1
 ExecStart = /usr/share/webapps/nextcloud/apps/notify_push/bin/@ARCH@/notify_push /etc/webapps/nextcloud/config/config.php
+Type = notify
 User = nextcloud
+Restart = always
+RestartSec = 60
 
 [Install]
 WantedBy = multi-user.target
