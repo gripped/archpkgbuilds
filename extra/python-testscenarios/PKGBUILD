@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-testscenarios
-pkgver=0.6.1
+pkgver=0.6.2
 pkgrel=1
 pkgdesc="Testscenarios, a pyunit extension for dependency injection"
 arch=('any')
@@ -10,7 +10,7 @@ url="https://github.com/testing-cabal/testscenarios"
 depends=('python-testtools')
 makedepends=('git' 'python-build' 'python-hatchling' 'python-hatch-vcs' 'python-installer' 'python-wheel')
 source=("git+https://github.com/testing-cabal/testscenarios.git#tag=${pkgver}")
-sha512sums=('e94d6c44330ca9c1f4cb5c7b3bb2483f70a49bd5cb19b1d2f27a1cc147bd1ab28f99fed7d4e1e90bc372c161575ed4825514115c6b57276c0166fd09efb21b6c')
+sha512sums=('b49e350af67ae3b198d0463c2bc8f7a473073abc0684d4e39066f7cec152aebcabb2e0c4ccd8b217e4271565c8b9f5e3e47b7a9be66242e5bb58371ac8e500a1')
 
 build() {
   cd testscenarios
