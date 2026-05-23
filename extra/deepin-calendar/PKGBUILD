@@ -3,23 +3,24 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-calendar
-pkgver=6.5.35
+pkgver=6.5.36
 pkgrel=1
 pkgdesc='Calendar for Deepin Desktop Environment'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-calendar"
-license=('GPL-3.0-or-later')
+license=('GPL-3.0-or-later' 'LGPL-2.0-or-later' 'LGPL-3.0-or-later' 'CC-BY-4.0' 'CC0-1.0')
 depends=('dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 'libgcc' 'libstdc++' 'libical' 'qt5-base' 'qt5-svg')
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt5-declarative')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-calendar.git#tag=$pkgver"
          libical-4.patch)
-sha512sums=('6817ad6c7335c163b8198f00edc958e6b039ad111d613553306a77cbb67b7c4ad56721bc92c35d80c1aaa146e68fe22f4589f0dbd0469235c7b0269cd18e8e4d'
+sha512sums=('e98c9c7caa4b6e32b9ded8ee8d4405b70f91e568720cc333f02e03c18cdaa15b2679c0a55f8f2e52f21522cde0ea33f3d66220cddac362a7da4e3c53568c73d9'
             'd7f494f1ddbbe3afb733790de115fab8fb9c14fd36fc836d06e7c538e134cbb28ea3e61b33500234f05e00f8d02cf5b7c4c4007f2a6cb70d9052945b09f2c89b')
 
 # Tests available in tests/ but disabled upstream (not maintained)
 prepare() {
   patch -d dde-calendar -p1 < libical-4.patch # Port to libical 4
+  sed -i 's/set(CMAKE_CXX_STANDARD 11)/set(CMAKE_CXX_STANDARD 14)/' dde-calendar/calendar-client/CMakeLists.txt # C++14 generic lambda
 }
 
 build() {
