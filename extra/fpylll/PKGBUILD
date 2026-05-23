@@ -3,15 +3,16 @@
 pkgbase=fpylll
 pkgname=python-fpylll
 pkgver=0.6.4
-pkgrel=2
+pkgrel=3
 pkgdesc='A Python interface for fplll'
 arch=(x86_64)
 url='https://github.com/fplll/fpylll'
 license=(GPL-2.0-only)
 depends=(fplll
-         gcc-libs
          glibc
          gmp
+         libgcc
+         libstdc++
          mpfr
          python
          python-cysignals
