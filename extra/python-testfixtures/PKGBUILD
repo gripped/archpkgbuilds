@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-testfixtures
-pkgver=11.0.0
+pkgver=12.0.0
 pkgrel=1
 pkgdesc="A collection of helpers and mock objects that are useful when writing unit tests or doc tests"
 arch=('any')
@@ -9,10 +9,11 @@ license=('MIT')
 url="https://github.com/Simplistix/testfixtures"
 depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-hatchling')
-checkdepends=('python-pytest' 'python-zope-component' 'python-sybil'
-              'python-pytest-django' 'python-django' 'python-twisted')
+checkdepends=('python-pytest' 'python-sybil' 'python-pytest-django' 'python-django'
+              'python-loguru' 'python-pandas' 'python-polars' 'python-structlog'
+              'python-twisted')
 source=("git+https://github.com/Simplistix/testfixtures.git#tag=$pkgver")
-sha512sums=('1af257192af44de7196e55deded514663f5f00e26c4305c1b7ff47f7de126825f256a60a8690bd4c7d48758bf19eb50e653475cf9dfe2037399f22a7a601befb')
+sha512sums=('a0f07531c4bada6875df476e46b9f3fdb3d8be7e71b967a86df19333612958a80a866bb463876a2b2c9d8e87ddeee889d413ddd49420243508c4ae7aa0df254e')
 
 build() {
   cd testfixtures
