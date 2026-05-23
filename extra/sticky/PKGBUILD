@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=sticky
-pkgver=1.30
-pkgrel=3
+pkgver=1.31
+pkgrel=1
 pkgdesc='Sticky notes app for the Linux desktop'
 arch=(any)
 url='https://github.com/linuxmint/sticky'
@@ -26,7 +26,7 @@ makedepends=(
   meson
 )
 source=("git+https://github.com/linuxmint/sticky.git#tag=$pkgver")
-b2sums=(2f794ecfb30e826f16f954b5caf8b8e6ee36907df18a1228e6b1032f4ce9d89db9c29c66b69429040d3655180d468c04b297ecf3e55bd36b01dcf54ffceb93a8)
+b2sums=(0f6d81067e791d56286eb0193b9e204f909d68453fe4c1654287811029e5f6fc2a8141be1b61205ee39a6d07fe7f5fe475875f416a906b6cb8b7f09ec97c31cf)
 
 prepare() {
   cd $pkgname
