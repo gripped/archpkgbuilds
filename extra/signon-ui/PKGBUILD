@@ -4,18 +4,19 @@
 
 pkgname=signon-ui
 pkgver=0.17+20231016
-pkgrel=3
+pkgrel=4
 _commit=eef943f0edf3beee8ecb85d4a9dae3656002fc24
 pkgdesc='UI component responsible for handling the user interactions which can happen during the login process of an online account'
 arch=(x86_64)
 url='https://launchpad.net/online-accounts-signon-ui'
 license=(GPL-3.0-only)
-depends=(gcc-libs
-         glib2
+depends=(glib2
          glibc
          libaccounts-qt
+         libgcc
          libnotify
          libproxy
+         libstdc++
          qt6-base
          qt6-declarative
          qt6-webengine
