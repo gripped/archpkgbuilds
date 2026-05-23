@@ -3,13 +3,12 @@
 _pyname=primecountpy
 pkgname=python-$_pyname
 pkgver=0.2.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Cython interface to the C++ library primecount'
 arch=(x86_64)
 url='https://github.com/dimpase/primecountpy'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          primecount
          python
          python-cysignals)
