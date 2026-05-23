@@ -4,8 +4,8 @@
 # Contributor: Paolo Giangrandi <peoro.noob@gmail.com>
 
 pkgname=impacket
-pkgver=0.13.0
-pkgrel=2
+pkgver=0.13.1
+pkgrel=1
 pkgdesc='Collection of classes for working with network protocols'
 url='https://github.com/CoreSecurity/impacket'
 arch=(any)
@@ -34,8 +34,10 @@ checkdepends=(
   python-cryptography
   python-pytest
 )
-source=("${url}/archive/impacket_${pkgver//./_}.tar.gz")
-sha512sums=('733e1403d7307739a08174918badbe0094204303f5d90ffa930789b1acd23397365230e0932c669c1a58f3853ca40c4c5d5386ec9418b2996336ca7e73084568')
+source=(
+  "${url}/archive/impacket_${pkgver//./_}.tar.gz"
+)
+sha512sums=('94a7b742250115266c25a753b37fad7eadc5cafbf3c2528a901d34cc03dc3716232b82b30c5bee136e85fb6f0180110ccc129a9f6ce2e269b15bfb5f2113afd1')
 
 build() {
   cd ${pkgname}-${pkgname}_${pkgver//./_}
