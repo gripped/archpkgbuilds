@@ -3,7 +3,7 @@
 # Contributor: Ian Beringer <ian@ianberinger.com>
 
 pkgname=python-kubernetes
-pkgver=35.0.0
+pkgver=36.0.0
 pkgrel=1
 license=('Apache-2.0')
 pkgdesc='Python client for the kubernetes API'
@@ -12,6 +12,7 @@ url='https://github.com/kubernetes-client/python'
 depends=(
   'python'
   'python-adal'
+  'python-aiohttp'
   'python-certifi'
   'python-dateutil'
   'python-durationpy'
@@ -36,7 +37,7 @@ checkdepends=(
   'python-pytest'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('009537e806dc43b9efaa628bf83a9a8e6287b6d718586c2f9fc79797bb771ad16159cf8479fb3c2754677936871c2294edfa5d4e2992b2bf424a2dbb2efa3a33')
+b2sums=('259ce6b3d55cf3f82df2510c707c62a32955f6b847d5dc4fac84aee674677191fb94ab6f725964e0335fd40d74242a10eb5236a414df78c36519dc836889ece9')
 
 build() {
   cd python-$pkgver
