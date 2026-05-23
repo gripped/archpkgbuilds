@@ -2,13 +2,14 @@
 
 pkgname=libxisf
 pkgver=0.2.13
-pkgrel=1
+pkgrel=2
 pkgdesc='Library to load and write XISF format from PixInsight'
 url='https://gitea.nouspiro.space/nou/libXISF'
 license=(GPL-3.0-only)
 arch=(x86_64)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          lz4
          pugixml
          zlib
