@@ -1,41 +1,35 @@
 # Maintainer: Eric Bélanger <eric@archlinux.org>
 
 pkgname=rrdtool
-pkgver=1.9.0
-pkgrel=9
+pkgver=1.10.0
+pkgrel=1
 pkgdesc="Data logging and graphing application"
 arch=('x86_64')
 url="https://www.rrdtool.org"
 license=('GPL-2.0-or-later')
 depends=('libxml2' 'pango' 'ttf-dejavu')
-makedepends=('intltool' 'ruby' 'python-setuptools' 'tcl' 'lua51' 'systemd')
+makedepends=('git' 'intltool' 'ruby' 'python-setuptools' 'tcl' 'lua51' 'systemd')
 optdepends=('perl: to use corresponding binding'
             'tcl: to use corresponding binding'
             'python: to use corresponding binding'
             'ruby: to use corresponding binding'
             'lua51: to use corresponding binding')
 options=('!emptydirs' '!makeflags')
-source=(https://github.com/oetiker/rrdtool-1.x/releases/download/v$pkgver/rrdtool-$pkgver.tar.gz
-            'link_ruby_bindings.patch'
-)
-sha256sums=('5e65385e51f4a7c4b42aa09566396c20e7e1a0a30c272d569ed029a81656e56b'
-            '1b5c63d0dc1e2db68dc36d6e462c8544c34c0d7dabcf537731c24871282e8af9')
+source=("git+https://github.com/oetiker/rrdtool-1.x.git#tag=v$pkgver")
+sha256sums=('ee7c33f112deac491682dff2b6523a536ce220b8d930dc34dd47263a1e1b6bcf')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd rrdtool-1.x
 
   # fix FS#28521 make ruby install to vendor_ruby instead of site_ruby
   sed -e 's/$(RUBY) ${abs_srcdir}\/ruby\/extconf.rb/& --vendor/' -i bindings/Makefile.am
-
-  # https://github.com/oetiker/rrdtool-1.x/pull/1280
-  patch -Np1 -i ../link_ruby_bindings.patch
 
   # https://github.com/oetiker/rrdtool-1.x/issues/1135
   autoreconf -vi
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd rrdtool-1.x
   LUA=/usr/bin/lua5.1 \
     LUA_CFLAGS="-I/usr/include/lua5.1 -llua5.1" LUA_INSTALL_CMOD="/usr/lib/lua/5.1" \
     CFLAGS+=" -Wno-incompatible-pointer-types" \
@@ -47,7 +41,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd rrdtool-1.x
   make DESTDIR="${pkgdir}" includedir=/usr/include install
   install -D -m644 COPYRIGHT "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
