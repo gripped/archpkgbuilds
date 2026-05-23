@@ -1,25 +1,18 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pystemmer
-pkgver=3.0.0
-pkgrel=3
+pkgver=3.1.0
+pkgrel=1
 pkgdesc="Snowball stemming algorithms, for information retrieval"
 arch=('x86_64')
 license=('BSD-3-Clause' 'MIT')
 url="http://snowball.tartarus.org"
 depends=('python' 'libstemmer')
 makedepends=('cython' 'git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-source=("git+https://github.com/snowballstem/pystemmer.git#tag=v${pkgver}"
-	0001-Update-algorithm-list-for-snowball-3.0.0.patch)
-sha512sums=('448307548007b5bba036541c593091c69fa9c0022e4f7fd1bde36d9442fff18bd4912f373f3e80d1c2b1876866c724a4191edfa8fbd59368c431a821d75fff9c'
-            '61e12f623f02c0d5831144d5cd2649ab417cef4c09d206841f1cfee82ee7815334398718791788b47e1d4045e4ce89e85b249687dd1ccce7aef4452c36b83aef')
+source=("git+https://github.com/snowballstem/pystemmer.git#tag=v${pkgver}")
+sha512sums=('7e36cb0aae5b2367530a7561a015da7e8dab29e0e278e6bfce1834d2d7faea501f80f5e86ce5c08fad971f2c15b5d8c05080e22052e7a2f3abd03a7ab0bac0f4')
 
 export PYSTEMMER_SYSTEM_LIBSTEMMER=1
-
-prepare() {
-  cd pystemmer
-  patch -Np1 -i "$srcdir"/0001-Update-algorithm-list-for-snowball-3.0.0.patch
-}
 
 build() {
   cd pystemmer
@@ -30,7 +23,7 @@ check() {
   cd pystemmer
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python runtests.py
+  test-env/bin/python runtests.py -v
 }
 
 package() {
