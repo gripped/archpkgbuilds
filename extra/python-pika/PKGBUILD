@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=python-pika
-pkgver=1.4.0
+pkgver=1.4.1
 pkgrel=1
 pkgdesc="Pure Python RabbitMQ/AMQP 0-9-1 client library"
 arch=(any)
@@ -14,7 +14,7 @@ optdepends=('python-tornado: use with Tornado I/O loop'
             'python-twisted: use with Twisted I/O loop'
             'python-gevent: use with Gevent I/O loop')
 source=("git+https://github.com/pika/pika.git#tag=${pkgver}")
-sha256sums=('d070711cda828f885af8f9a8318e4bc5e741514cc3f3dd4817001eeef9c7a03a')
+sha256sums=('cbd6b3fa8626c8b012a845f5d2a57a1bc123277559b00d18a9bbc3d4a996179b')
 
 build() {
   cd pika
