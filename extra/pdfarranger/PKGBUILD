@@ -2,7 +2,7 @@
 # Contributor: Alois Nespor <alium at artixlinux.org>
 
 pkgname=pdfarranger
-pkgver=1.13.0
+pkgver=1.14.0
 pkgrel=1
 pkgdesc='Helps merge or split PDF documents and rotate, crop and rearrange pages'
 arch=(any)
@@ -26,7 +26,7 @@ makedepends=(git
              python-setuptools
              python-wheel)
 source=(git+https://github.com/pdfarranger/pdfarranger#tag=$pkgver)
-sha256sums=('6bae02c6b4d105afcac744e2eebb407cac79bcdc4ee6f50d79d2978c57da6fb0')
+sha256sums=('3779445338100628636731f91a156b9ffdad81be0b88e7c47788316abae47079')
 
 build () {
   cd $pkgname
