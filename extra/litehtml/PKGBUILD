@@ -2,14 +2,15 @@
 
 pkgname=litehtml
 pkgver=0.9
-pkgrel=2
+pkgrel=3
 pkgdesc='Fast and lightweight HTML/CSS rendering engine'
 url='http://www.litehtml.com/'
 arch=(x86_64)
 license=(BSD-3-Clause)
-depends=(gcc-libs
-         glibc
-         gumbo-parser)
+depends=(glibc
+         gumbo-parser
+         libgcc
+         libstdc++)
 makedepends=(cmake)
 source=(https://github.com/litehtml/litehtml/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
 sha256sums=('ef957307da15b1258a70961942840bcf54225a8d75315dcbc156186eba35b1a7')
