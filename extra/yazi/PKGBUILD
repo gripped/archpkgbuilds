@@ -5,12 +5,12 @@
 
 pkgname=yazi
 pkgver=26.5.6
-pkgrel=2
+pkgrel=3
 pkgdesc="Blazing fast terminal file manager written in Rust, based on async I/O"
 url="https://github.com/sxyazi/yazi"
 arch=("x86_64")
 license=('MIT')
-depends=('glibc' 'hicolor-icon-theme' 'jemalloc' 'libgcc' 'lua' 'oniguruma' 'ttf-nerd-fonts-symbols')
+depends=('glibc' 'hicolor-icon-theme' 'jemalloc' 'libgcc' 'lua' 'oniguruma' 'ttf-font-nerd')
 optdepends=(
 	'ffmpeg: for video thumbnails'
 	'7zip: for archive extraction and preview'
