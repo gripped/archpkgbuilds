@@ -3,7 +3,7 @@
 # Contributor: Germán Osella Massa <gosella@gmail.com>
 
 pkgname=python-more-itertools
-pkgver=11.0.2
+pkgver=11.1.0
 pkgrel=1
 pkgdesc='More routines for operating on iterables, beyond itertools'
 arch=(any)
@@ -17,9 +17,20 @@ makedepends=(
   python-wheel
   python-flit-core
 )
-source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('62b8c3c0ebc4be4749a7568da830538044c89a4b3d3d9d3eaf649d2d491fd541b687f62eb99c72d4d10f823690b2dbe48c9367eede6f093e63dc721209466920')
-b2sums=('5a5f074a46923a0dc376d9b9312c12e3af4595d26eaefa06067c8a499b4f61c3878697b2535dd4636e5bba1fdfebdc45a4e3ad9beedef00b09438bbf89c2cd48')
+source=(
+  "$pkgname::git+$url#tag=v$pkgver"
+  remove-version-constraint.patch
+)
+sha512sums=('000cd77996af1c30f37762f52ca06ce45722f360764cd5f84c4b7323c535d15ce994de5df062da843472c624790d3539a1ca53d7fa9dc938784afa3d8f5df450'
+            '5ccad7d2c98cde1df637869746e3194fd6c00d4f5706fefb009c02233e9e58728d2365a9827800c7ac3dc57c3d80d70bf3c78707f28cb4b5ca2396d90ed63ac7')
+b2sums=('30f6cfa77c619a2b88a1fb6c4a8b98ec9caa981d33f85cdc59a0abfc4d7ba4ac91a4e7ce34d6714c5c9a34ab8e07948b77a1bea550e55577b298620bfa3066d3'
+        'eaad9317f05b8708d137aef262ed33baf1e79ae3fe4affe1f5cf80e8a4813fe11d4f3376524663d2b0280ea912a406fab51e63b065548333a44a36c0b1910732')
+
+prepare() {
+  cd "$pkgname"
+
+  patch -p1 -i "$srcdir/remove-version-constraint.patch"
+}
 
 build() {
   cd "$pkgname"
