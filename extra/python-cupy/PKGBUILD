@@ -4,8 +4,8 @@
 
 pkgbase=python-cupy
 pkgname=(python-cupy python-cupy-rocm-gfx9 python-cupy-rocm-gfx10 python-cupy-rocm-gfx11 python-cupy-rocm-gfx12)
-pkgver=14.0.1
-pkgrel=2
+pkgver=14.1.0
+pkgrel=1
 pkgdesc="NumPy/SciPy-compatible array library for GPU-accelerated computing with Python"
 arch=(x86_64)
 url="https://github.com/cupy/cupy"
@@ -53,15 +53,13 @@ source=(
   "$pkgbase-dlpack::git+https://github.com/dmlc/dlpack.git"
   "$pkgbase-jitify::git+https://github.com/NVIDIA/jitify.git"
   "$pkgbase-xsf::git+https://github.com/scipy/xsf.git"
-  hipcc-include-dirs.patch
 )
 
-b2sums=('f9b2952891d8d4eebb99b45f65b2ec391841e06bb421ca92bc02b883dc52ca094a7987012bc5cfe3ec93eafde3acec48a565bfd63969cf1b47d1a19577b5a851'
+b2sums=('0c3d155c71f8a7bbdc5f268be5f1cac38c715d8890e869b5bdd3d0db5e75adccb99e2dfc708ab14876fbe79bea78b71dfa7be86426cdf5662af73ea49bef8101'
         'SKIP'
         'SKIP'
         'SKIP'
-        'SKIP'
-        'd14e0d4b49d19d259f86ebc03a0ac4248bee1257092f14ce968c885731807c1f4bf7d0b3ac6fd745769809cd8dac4f96f9c633d63af5288623ffcddf36b99032')
+        'SKIP')
 
 # Building with over 16 arches fails in linking. Split them to separate packages.
 _rocm_gfx9_targets="gfx900,gfx906:xnack-,gfx908:xnack-,gfx90a:xnack+,gfx90a:xnack-,gfx942,gfx950"
@@ -77,7 +75,7 @@ _rocm_depends=(
   hipfft
   hiprand
   hipsparse
-  rccl
+  rcclin
   rocblas
   rocsolver
   roctracer
@@ -99,10 +97,6 @@ prepare() {
 
   # release version constraints for Cython
   sed -i 's|Cython>=[0-9.]\+,<[0-9.]\+|Cython|' pyproject.toml
-
-  # Always query hipcc for include directories in hiprtc
-  # https://github.com/cupy/cupy/pull/9622
-  patch -p1 < ../hipcc-include-dirs.patch
 
   # copy the source tree for the ROCm build
   # (most artifacts end up in the build/ directory but .cpp files get generated
