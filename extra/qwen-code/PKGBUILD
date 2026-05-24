@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.16.0
+pkgver=0.16.1
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -24,11 +24,13 @@ makedepends=(
   npm
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}")
-sha256sums=('d1bcb08d21890bf5494fda9722b9c99ff3268ea8e6b94d669520c792d87f7eda')
-b2sums=('c9f6d1e377c5ff21236b72c33fa0c83a399f0b6ce42a6aa397ecb219793466d6896e8e7774f4e7f9499b1f1035e578f8af70bfd0dc7f791f10f2cab54b7feaae')
+sha256sums=('978e12735da33a4d12f362fa9e42709e1ed1d8ac2dfcea78546d3e6c067443fe')
+b2sums=('836018a361f7db3f6398cc93e4babfd0812e80dbffd9206e230e42a65c4194adc2aa3280676b4bc2d19b055029fc078afce4e37020e3e5d18283c1dff71deaf6')
 
 prepare() {
   cd $pkgname
+  # Upstream's ranged override currently resolves newer than package-lock.json.
+  npm pkg set 'overrides.@types/react=19.2.10'
   npm clean-install --ignore-scripts
 }
 
