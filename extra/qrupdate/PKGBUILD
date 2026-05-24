@@ -4,13 +4,14 @@
 
 pkgname=qrupdate
 pkgver=1.1.5
-pkgrel=2
+pkgrel=3
 pkgdesc='Fortran library for fast updates of QR and Cholesky decompositions'
 url='https://sourceforge.net/projects/qrupdate'
 depends=(blas
-         gcc-libs
          glibc
-         lapack)
+         lapack
+         libgcc
+         libgfortran)
 makedepends=(cmake
              gcc-fortran
              git)
@@ -21,7 +22,8 @@ sha256sums=('d9bbba56747aef0da896fa2ae5ff670e7eecfba49857681a8a242af1bcd6e7d9')
 
 build() {
   cmake -B build -S $pkgname-ng \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake --build build --verbose
 }
 
