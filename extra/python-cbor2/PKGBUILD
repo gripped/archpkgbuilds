@@ -3,7 +3,7 @@
 
 pkgname=python-cbor2
 _name=${pkgname#python-}
-pkgver=5.9.0
+pkgver=6.1.1
 pkgrel=1
 pkgdesc="Pure Python CBOR (de)serializer with extensive tag support"
 arch=(x86_64)
@@ -11,11 +11,14 @@ url="https://github.com/agronholm/cbor2"
 license=(MIT)
 depends=(
   glibc
+  libgcc
   python
 )
 makedepends=(
   python-build
   python-installer
+  python-setuptools
+  python-setuptools-rust
   python-setuptools-scm
   python-toml
   python-wheel
@@ -25,8 +28,8 @@ checkdepends=(
   python-pytest
 )
 source=($url/archive/refs/tags/$pkgver/$_name-$pkgver.tar.gz)
-sha512sums=('a83145fdabd3bd13f609a46d92b77256a9a8f97763460e2a8e07da6b1a0ad6123274f5688167df87a27c817b22cf7819c6e7e3bfc00d0f56dc704e3da143f3d2')
-b2sums=('5a15afdcd73d422db5f2e8a81907309c4f84a316a1769ee9f815976cb0a9a0730c590c940d7f9f9dc057978f05d2608923e0fddc538c4ff19d6f5efea961365e')
+sha512sums=('c8516781176dbe78c10f2449fe31b46b5b7b1e2e50177211ce7990843ae783e8fd63f3b5d37ef6c5754b0997cec8a7a46512e6274657c30a16e340ad14c9ec8a')
+b2sums=('6aa1f11561735277b9efe659c6cd5268c58056c0be9941121bce85aebc906189c687a51107d10767033fca801205f1b03d4b73037d343a2172a5c9210c2ad29e')
 
 build() {
   cd $_name-$pkgver
@@ -34,9 +37,10 @@ build() {
 }
 
 check() {
+  local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
+
   cd $_name-$pkgver
-  export PYTHONPATH="build:${PYTHONPATH}"
-  pytest -v -c /dev/null tests
+  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$python_version:${PYTHONPATH}" pytest -vvv -c /dev/null tests
 }
 
 package() {
