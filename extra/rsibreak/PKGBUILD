@@ -2,13 +2,12 @@
 
 pkgname=rsibreak
 pkgver=0.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Takes care of your health and regularly breaks your work to avoid repetitive strain injury (RSI)'
 url='https://apps.kde.org/rsibreak/'
 arch=(x86_64)
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kcolorscheme
          kconfig
          kcoreaddons
@@ -23,6 +22,7 @@ depends=(gcc-libs
          kwidgetsaddons
          kwindowsystem
          kxmlgui
+         libstdc++
          qt6-base)
 makedepends=(extra-cmake-modules
              kdoctools)
