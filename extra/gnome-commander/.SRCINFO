@@ -1,16 +1,19 @@
 pkgbase = gnome-commander
 	pkgdesc = Graphical two-pane filemanager for GNOME
-	pkgver = 1.18.5
+	pkgver = 2.0.0
 	pkgrel = 1
-	url = https://gcmd.github.io/
+	url = https://gnome.pages.gitlab.gnome.org/gnome-commander/
 	arch = x86_64
-	license = GPL-2.0-or-later
+	license = GPL-3.0-or-later
 	makedepends = appstream
+	makedepends = gi-docgen
 	makedepends = git
 	makedepends = glib2-devel
+	makedepends = gobject-introspection
 	makedepends = gtest
 	makedepends = itstool
 	makedepends = meson
+	makedepends = rust
 	makedepends = smbclient
 	depends = cairo
 	depends = dconf
@@ -18,7 +21,8 @@ pkgbase = gnome-commander
 	depends = gdk-pixbuf2
 	depends = glib2
 	depends = glibc
-	depends = gtk3
+	depends = graphene
+	depends = gtk4
 	depends = hicolor-icon-theme
 	depends = libgcc
 	depends = libgsf
@@ -26,8 +30,11 @@ pkgbase = gnome-commander
 	depends = pango
 	depends = poppler-glib
 	depends = taglib
-	source = git+https://gitlab.gnome.org/GNOME/gnome-commander.git?signed#tag=1.18.5
+	depends = vte4
+	source = git+https://gitlab.gnome.org/GNOME/gnome-commander.git?signed#tag=2.0.0
+	source = gnome-commander-fix-build.patch
 	validpgpkeys = 7627E6FCECF4FC066A03B673F50A89A3ADE4C6E8
-	b2sums = 9cece07d48952673d2b907eb78b536db2228366d66c79a376a7050e3f5a03bdaa49e2f6e65aaa9ced149ab63c10268a51195ef4cce1bfb7a7f45c87fc891a73c
+	b2sums = 0176ddeee208c3335c55235ba525a1585c005ff6e4c704e34879c897fd7c84820f68370fbc7bceaa67a8a7606ca8b27992b850884fc502d7b53ebc78fae1ab3d
+	b2sums = e652b5be89dd32d8b3dc83ccbf765a982f04df34b65d1bb7972bd89b4bb4b8bde446126e87aa8c09e5cc125a8819766fd4e862da64c34c4fb07a555b1a8d5939
 
 pkgname = gnome-commander

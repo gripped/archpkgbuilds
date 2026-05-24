@@ -6,12 +6,12 @@
 # Contributor: Johannes Sjolund <j.sjolund@gmail.com>
 
 pkgname=gnome-commander
-pkgver=1.18.5
+pkgver=2.0.0
 pkgrel=1
 pkgdesc='Graphical two-pane filemanager for GNOME'
 arch=(x86_64)
-url='https://gcmd.github.io/'
-license=(GPL-2.0-or-later)
+url='https://gnome.pages.gitlab.gnome.org/gnome-commander/'
+license=(GPL-3.0-or-later)
 depends=(
   cairo
   dconf
@@ -19,7 +19,8 @@ depends=(
   gdk-pixbuf2
   glib2
   glibc
-  gtk3
+  graphene
+  gtk4
   hicolor-icon-theme
   libgcc
   libgsf
@@ -27,37 +28,46 @@ depends=(
   pango
   poppler-glib
   taglib
+  vte4
 )
 makedepends=(
   appstream
+  gi-docgen
   git
   glib2-devel
+  gobject-introspection
   gtest
   itstool
   meson
+  rust
   smbclient
 )
-source=("git+https://gitlab.gnome.org/GNOME/gnome-commander.git?signed#tag=$pkgver")
-b2sums=(9cece07d48952673d2b907eb78b536db2228366d66c79a376a7050e3f5a03bdaa49e2f6e65aaa9ced149ab63c10268a51195ef4cce1bfb7a7f45c87fc891a73c)
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-commander.git?signed#tag=$pkgver"
+  gnome-commander-fix-build.patch
+)
+b2sums=(
+  0176ddeee208c3335c55235ba525a1585c005ff6e4c704e34879c897fd7c84820f68370fbc7bceaa67a8a7606ca8b27992b850884fc502d7b53ebc78fae1ab3d
+  e652b5be89dd32d8b3dc83ccbf765a982f04df34b65d1bb7972bd89b4bb4b8bde446126e87aa8c09e5cc125a8819766fd4e862da64c34c4fb07a555b1a8d5939
+)
 validpgpkeys=(7627E6FCECF4FC066A03B673F50A89A3ADE4C6E8) # Uwe Scholz <u.scholz83@gmx.de>
 
 prepare() {
   cd $pkgname
 
-  # Don't check for pixbufloader-xpm; we build gdk-pixbuf2 with xpm support
-  git revert -n 9077d4423f0ca0b02fc6000b8ff95d7fac1d4b74
+  # Fix build
+  # https://gitlab.gnome.org/GNOME/gnome-commander/-/merge_requests/516
+  git apply -3 ../gnome-commander-fix-build.patch
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
-  arch-meson $pkgname build \
-    -D tests=disabled
+  arch-meson $pkgname build
   meson compile -C build
 }
 
-check() {
-  meson test -C build --print-errorlogs
-}
-
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --destdir "$pkgdir" --no-rebuild
 }

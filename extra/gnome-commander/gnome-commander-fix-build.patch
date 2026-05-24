@@ -1,0 +1,25 @@
+From 9fdb7b17ce0bc74bc85bdf813713520fc4ee2075 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 23 May 2026 23:30:47 +0000
+Subject: [PATCH] Add libgcmd as dependency for commander
+
+This fixes a build failure.
+---
+ src/meson.build | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/meson.build b/src/meson.build
+index b55839e90..a81a72326 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -53,6 +53,7 @@ commander = custom_target(
+   console: true,
+   install: true,
+   install_dir: bindir,
++  depends: [libgcmd],
+   command: [
+     'env',
+     cargo_env,
+-- 
+GitLab
+
