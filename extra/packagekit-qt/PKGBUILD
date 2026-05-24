@@ -5,12 +5,13 @@ pkgbase=packagekit-qt
 pkgname=(packagekit-qt6)
 pkgdesc='Qt bindings for PackageKit'
 pkgver=1.1.4
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
-url='http://www.packagekit.org/'
+url='https://www.freedesktop.org/software/PackageKit/'
 license=(LGPL-2.1-only)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          packagekit
          qt6-base)
 makedepends=(cmake
