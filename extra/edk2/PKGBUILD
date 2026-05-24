@@ -3,8 +3,8 @@
 
 pkgbase=edk2
 pkgname=(edk2-aarch64 edk2-riscv64 edk2-shell edk2-ovmf)
-pkgver=202602
-pkgrel=3
+pkgver=202605
+pkgrel=1
 pkgdesc="Modern, feature-rich firmware development environment for the UEFI specifications"
 arch=(any)
 url="https://github.com/tianocore/edk2"
@@ -25,7 +25,6 @@ makedepends=(
 options=(!makeflags)
 source=(
   git+$url#tag=$pkgbase-stable$pkgver
-  $pkgname-202602-secure-boot-default-keys.patch::https://github.com/tianocore/edk2/commit/a1abc3032cd271671ee3aa488725305e45a17724.patch
   openssl::git+https://github.com/openssl/openssl.git  # also submodule for libspdm
   pyca-cryptography::git+https://github.com/pyca/cryptography.git  # submodule for openssl
   krb5::git+https://github.com/krb5/krb5.git  # submodule for openssl
@@ -53,8 +52,7 @@ source=(
   80-edk2-ovmf-ia32-on-x86_64-secure-4m.json
   81-edk2-ovmf-ia32-on-x86_64-4m.json
 )
-sha512sums=('0b007aad451faf4aec14da1eaf5451772f31dfdf79d669e0bae7271bf6f4d338026314d860478c8a18ea06585607fa2b080a7eb0179e5857adcbc36deb684963'
-            'b6bb27c9c0f7ec9d38b10904143c7db9568700bd713d44aebb36a68ff6034ca315fb6d974a77d74cb216dd4718fcdba980920fee05008a25c69341f1f78d4e80'
+sha512sums=('44c6beba8431b458cacbb4689b1ee454754667f0a2397ec5ab92e69a71e171b46f15cff8e850d7beebb50a34f86b1e9569a2c9aa26a86f65c4935ecd43d434cd'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -81,8 +79,7 @@ sha512sums=('0b007aad451faf4aec14da1eaf5451772f31dfdf79d669e0bae7271bf6f4d338026
             'b40c2f5f0aff50d7e8d95c956d5e25fb5b0817e00d3da3f0e1230c2acdf6074c670be382d36d74836cf00f95866e8b162fde355d549c6c9001d41139c7d09706'
             '95661c2182112a76652507de84b7d0f9bb0d21f6b3b62134952bd7aada8df5cfc727658d11b71a7780a22049d9cafc4361d9a1d515b68d1463e7082465fd4f7e'
             'c9dbe7b2b6b8c18b7b8fdfef5bc329d9142c442f2f3dbae3ca4919255dcaf2ab576cd305648228d5dd48040ca3b14f44ee33b05cb6ca13b49e2836947b78ea53')
-b2sums=('7fabdf343b861fd81554021d43aed79d0a96ee3dd76ddc225c4c1212ee2d89736a4cad1ec692efb2b11d570cca2674d0d62169ece849431fc8ce91ad6668783f'
-        'bf131e36ba2ca9abd4d80f57fb2f6009a12873e46afa80b45819c6a575b4fe11de26b2a186c3fbdeef691d1f2dba01e6497d01473d58044d97c77825a6f3c4c6'
+b2sums=('b4da81b8c1b813bbe4a50ffad5557f63b4c06a7a161d743135d4aaf44c60ede4b81e6fc669a77c9e98c6b2a27b3c159ea5f752531b5d9ff8bf4c26bca33cb6f2'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -163,10 +160,6 @@ prepare() {
   git -C $submodule config submodule.os_stub/mbedtlslib/mbedtls.url "$srcdir/mbedtls"
   git -C $submodule config submodule.unit_test/cmockalib/cmocka.url "$srcdir/cmocka"
   git -C $submodule -c protocol.file.allow=always submodule update
-
-  # Allow building secure boot support for riscv64 without default keys
-  # Backport of https://github.com/tianocore/edk2/commit/a1abc3032cd271671ee3aa488725305e45a17724
-  patch -Np1 -d . -i ../$pkgname-202602-secure-boot-default-keys.patch
 
   # -Werror, not even once
   sed -e 's/ -Werror//g' -i BaseTools/Conf/*.template BaseTools/Source/C/Makefiles/*.makefile
