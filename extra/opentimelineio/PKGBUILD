@@ -2,13 +2,14 @@
 
 pkgname=opentimelineio
 pkgver=0.18.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Open Source API and interchange format for editorial timeline information'
 url='http://opentimeline.io/'
 license=(Apache-2.0)
 arch=(x86_64)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          python
          python-aaf2)
 makedepends=(cmake
