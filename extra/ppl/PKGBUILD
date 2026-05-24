@@ -4,15 +4,16 @@
 
 pkgname=ppl
 pkgver=1.2
-pkgrel=6
+pkgrel=7
 pkgdesc='A modern library for convex polyhedra and other numerical abstractions'
 arch=(x86_64)
 url='https://bugseng.com/products/ppl'
 license=(GPL-3.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          glpk
-         gmp)
+         gmp
+         libgcc
+         libstdc++)
 makedepends=(swi-prolog)
 optdepends=('swi-prolog: SWI Prolog interface')
 options=(!docs)
