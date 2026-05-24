@@ -1,0 +1,135 @@
+#! /bin/python
+
+import re
+import os
+from playwright.sync_api import sync_playwright
+
+
+def get_gtpin_download_link():
+    target_url = (
+        "https://www.intel.com/content/www/us/en/download/730596/gtpin.html"
+    )
+    final_download_url = None
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+
+        def handle_download(download):
+            nonlocal final_download_url
+            final_download_url = download.url
+            download.cancel()
+
+        page.on("download", handle_download)
+        page.goto(target_url, wait_until="networkidle")
+
+        try:
+            cookie_btn = (
+                page.locator("button:visible")
+                .filter(has_text=re.compile(r"Accept All", re.IGNORECASE))
+                .first
+            )
+            cookie_btn.wait_for(state="visible", timeout=3000)
+            cookie_btn.click()
+        except:
+            pass
+
+        try:
+            dropdown_select = (
+                page.locator("select:visible")
+                .filter(has_text=re.compile(r"\(Latest\)", re.IGNORECASE))
+                .first
+            )
+            if dropdown_select.count() > 0:
+                options = dropdown_select.locator("option").all_text_contents()
+                latest_opt = next(
+                    (opt for opt in options if "(Latest)" in opt), None
+                )
+                if latest_opt:
+                    dropdown_select.select_option(label=latest_opt)
+                    page.wait_for_timeout(2000)
+        except:
+            pass
+
+        try:
+            download_btn = (
+                page.locator("button, a, div[role='button']")
+                .filter(has_text=re.compile(r"linux\.tar\.xz", re.IGNORECASE))
+                .first
+            )
+            download_btn.scroll_into_view_if_needed()
+            download_btn.click(force=True)
+            page.wait_for_timeout(2000)
+        except Exception:
+            browser.close()
+            return None
+
+        if not final_download_url:
+            try:
+                eula_btn = (
+                    page.locator("button:visible")
+                    .filter(
+                        has_text=re.compile(
+                            r"I accept the terms", re.IGNORECASE
+                        )
+                    )
+                    .first
+                )
+                eula_btn.wait_for(state="visible", timeout=3000)
+                eula_btn.click(force=True)
+            except Exception:
+                pass
+
+        for _ in range(10):
+            if final_download_url:
+                break
+            page.wait_for_timeout(1000)
+
+        browser.close()
+        return final_download_url
+
+
+def update_pkgbuild(url, pkgbuild_path="PKGBUILD"):
+    match = re.search(
+        r"downloadmirror\.intel\.com/(\d+)/.*-gtpin-([\d\.]+)-linux\.tar\.xz",
+        url,
+    )
+
+    if not match:
+        print(
+            "Error: Could not parse BUILDID and VERSION from the extracted URL."
+        )
+        return False
+
+    buildid = match.group(1)
+    version = match.group(2)
+    new_pkgver = f"{version}+{buildid}"
+
+    if not os.path.exists(pkgbuild_path):
+        print(f"Error: {pkgbuild_path} not found in the current directory.")
+        return False
+
+    with open(pkgbuild_path, "r") as file:
+        content = file.read()
+
+    # Replace the existing pkgver line with the new formatted string
+    new_content = re.sub(
+        r"^pkgver=.*", f"pkgver={new_pkgver}", content, flags=re.MULTILINE
+    )
+
+    with open(pkgbuild_path, "w") as file:
+        file.write(new_content)
+
+    print(f"Successfully updated {pkgbuild_path} with pkgver={new_pkgver}")
+    return True
+
+
+if __name__ == "__main__":
+    print("Extracting URL...")
+    link = get_gtpin_download_link()
+
+    if link:
+        print(f"Resolved URL: {link}")
+        update_pkgbuild(link, "PKGBUILD")
+    else:
+        print("Failed to extract the download link.")
