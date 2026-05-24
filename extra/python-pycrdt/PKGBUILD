@@ -3,13 +3,13 @@
 _pyname=pycrdt
 pkgname=python-$_pyname
 pkgver=0.13.1
-pkgrel=1
+pkgrel=2
 pkgdesc='CRDTs based on Yrs'
 arch=(x86_64)
 url='https://github.com/jupyter-server/pycrdt'
 license=(MIT)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
          python
          python-anyio)
 makedepends=(git
