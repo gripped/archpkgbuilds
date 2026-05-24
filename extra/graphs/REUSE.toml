@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -20,13 +23,3 @@ path = [
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
-
-[[annotations]]
-path = [
-    "graphs-activate.patch",
-    "graphs-dbus-activatable.patch",
-    "graphs-gschema-install.patch",
-    "graphs-metainfo.patch",
-]
-SPDX-FileCopyrightText = "graphs contributors"
-SPDX-License-Identifier = "GPL-3.0-or-later"
