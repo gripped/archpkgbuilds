@@ -2,14 +2,13 @@
 
 pkgname=optiimage
 pkgver=1.0.0
-pkgrel=3
+pkgrel=4
 pkgdesc='A useful image compressor that supports PNG, JPEG, WebP and SVG file types'
 arch=(x86_64)
 license=(LGPL-2.1-only
          LGPL-3.0-only)
 url='https://apps.kde.org/optiimage/'
-depends=(gcc-libs
-         glibc
+depends=(glibc
          jpegoptim
          kconfig
          kcoreaddons
@@ -19,6 +18,7 @@ depends=(gcc-libs
          kio
          kirigami
          kirigami-addons
+         libstdc++
          libwebp-utils # cwebp
          oxipng
          qcoro
