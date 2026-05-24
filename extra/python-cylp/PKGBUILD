@@ -4,7 +4,7 @@
 _pyname=cylp
 pkgname=python-$_pyname
 pkgver=0.94.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A Python interface to CLP, CBC, and CGL to solve LPs and MIPs'
 arch=(x86_64)
 url='https://github.com/coin-or/CyLP'
@@ -14,8 +14,9 @@ depends=(coin-or-cbc
          coin-or-clp
          coin-or-coinutils
          coin-or-osi
-         gcc-libs
          glibc
+         libgcc
+         libstdc++
          python
          python-numpy
          python-scipy)
