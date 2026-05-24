@@ -1,16 +1,16 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=stalonetray
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 pkgdesc="STAnd-aLONE sysTRAY. It has minimal build and run-time dependencies: the Xlib only."
 arch=('x86_64')
 url="https://github.com/d3adb5/stalonetray"
 license=('GPL')
-depends=('libx11' 'libxpm' 'libxinerama')
+depends=('libx11' 'libxpm' 'libxinerama' 'libxrandr')
 makedepends=('libxslt' 'docbook-xsl' 'meson')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/d3adb5/stalonetray/archive/$pkgver.tar.gz")
-sha512sums=('ad03983505449186bd15da323d98227c84866dc80d9fb47bef348a13906ce625825eb5bff1aed1dc17cb7a93be367ee9d6a3be3b026e4814659ac1f4a5b55bf5')
+sha512sums=('5d64912e92bf7808d3d589cd0ecab6a0c765899eb6561ba16ad3f87046845705546adca58bb788ad383fa783ea0b1678cf221182761a0207b40000d4eb41c112')
 
 build() {
   cd "$srcdir"/$pkgname-$pkgver
