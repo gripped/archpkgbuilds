@@ -7,7 +7,7 @@
 
 pkgname=kmscon
 pkgver=10.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Kernel Mode Setting (KMS) and DRM based virtual Console Emulator'
 arch=('x86_64')
 url='https://github.com/kmscon/kmscon'
@@ -39,6 +39,7 @@ optdepends=(
   'fontconfig: for freetype font rendering'
   'inotify-tools: for kmscon-launch-gui waiting mechanism'
   'libglvnd: for accelerated video output'
+  'libx11: for XKB compose support'
   'pango: for pango font rendering'
 )
 source=(
