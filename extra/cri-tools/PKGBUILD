@@ -7,7 +7,7 @@ pkgname=(
   crictl
   critest
 )
-pkgver=1.35.0
+pkgver=1.36.0
 pkgrel=1
 pkgdesc="CLI and validation tools for Kubelet Container Runtime Interface (CRI)"
 arch=(x86_64)
@@ -19,8 +19,8 @@ makedepends=(go)
 # with LTO the packages are not reproducible (we want full RELRO and PIE)
 options=(!lto)
 source=($url/archive/v$pkgver/$pkgbase-v$pkgver.tar.gz)
-sha512sums=('ea34e736b457f851b610e8091ebbb608ac0f790c80156ad3e1a7080c76df4ea759091300b7ee6b5812a42ec93e165d71b6fa06f12424f46b4b181f5059b100bb')
-b2sums=('a91dcfc326857e0dc43867189f0c2fac2a12ce112a4439eba61cfe655fba1dec455a3070bd5068cf4934487bf94255cd60197c3f7fd4aa20465ebb1bd4f63b7c')
+sha512sums=('5daa05ad977c85c5656c0fd1a6d4dd0b4596bf9d05038229fa522941e51793fff4272bb7c403b6bff6b6dde80d6f45f161e979861547bf5fb91095a096726967')
+b2sums=('57711c75ee1f54a99e087afa67d20e9b1f0a38e9a5da5e5c85724e84a95cb4d0b32b0e0b2ffa6d8aad60218684fe95d6445b6b57f253447cc7c09ddca43a5835')
 
 build() {
   local common_ldflags=(
@@ -39,15 +39,15 @@ build() {
   make VERSION=$pkgver GO_LDFLAGS="${common_ldflags[*]}" -C $pkgbase-$pkgver
 
   mkdir -vp completions
-  $pkgbase-$pkgver/build/bin/linux/amd64/crictl completion bash > completions/crictl
-  $pkgbase-$pkgver/build/bin/linux/amd64/crictl completion zsh > completions/_crictl
-  $pkgbase-$pkgver/build/bin/linux/amd64/crictl completion fish > completions/crictl.fish
+  $pkgbase-$pkgver/build/bin/linux/*/crictl completion bash > completions/crictl
+  $pkgbase-$pkgver/build/bin/linux/*/crictl completion zsh > completions/_crictl
+  $pkgbase-$pkgver/build/bin/linux/*/crictl completion fish > completions/crictl.fish
 }
 
 package_crictl() {
   pkgdesc="A CLI for CRI-compatible container runtimes"
 
-  install -vDm 755 $pkgbase-$pkgver/build/bin/linux/amd64/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 755 $pkgbase-$pkgver/build/bin/linux/*/$pkgname -t "$pkgdir/usr/bin/"
   # shell completion
   install -vDm 644 completions/$pkgname -t "$pkgdir/usr/share/bash-completion/completions/"
   install -vDm 644 completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
@@ -63,7 +63,7 @@ package_crictl() {
 package_critest() {
   pkgdesc="A benchmarking CLI for CRI-compatible container runtimes"
 
-  install -vDm 755 $pkgbase-$pkgver/build/bin/linux/amd64/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 755 $pkgbase-$pkgver/build/bin/linux/*/$pkgname -t "$pkgdir/usr/bin/"
   # docs
   install -vDm 644 -t "$pkgdir/usr/share/doc/$pkgname/" \
     $pkgbase-$pkgver/docs/{benchmark,validation}.md
