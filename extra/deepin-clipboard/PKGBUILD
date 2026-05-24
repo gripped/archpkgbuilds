@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-clipboard
-pkgver=6.1.27
+pkgver=6.1.28
 pkgrel=1
 pkgdesc='DDE clipboard manager component'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'gio-qt' 'qt6-base' 'qt6-declarative'
 makedepends=('git' 'cmake' 'ninja' 'gtest' 'qt6-tools' 'extra-cmake-modules')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/dde-clipboard.git#tag=$pkgver")
-sha512sums=('2fd73dee83656842a5f2399d6dc46080d31f47f107e6da06471239cc61588a46e8440155f42cb5bd0a286f02b178bc2e670bdc25ee5df2c60ec348896a78b125')
+sha512sums=('d250ecee3d093d145d976352d49d1fdf661b896395e7990e39c6e83b902ce55c3449fa569259b6889059e0f6de244170e545065d8e04887a2432ff36ccab26e2')
 
 prepare() {
   mkdir -p build
