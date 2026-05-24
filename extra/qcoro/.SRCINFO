@@ -1,14 +1,15 @@
 pkgbase = qcoro
 	pkgdesc = C++ Coroutines for Qt
 	pkgver = 0.13.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/danvratil/qcoro
 	arch = x86_64
 	license = MIT
 	makedepends = cmake
 	makedepends = git
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = qt6-base
 	depends = qt6-declarative
 	depends = qt6-websockets

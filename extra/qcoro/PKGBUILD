@@ -2,13 +2,14 @@
 
 pkgname=qcoro
 pkgver=0.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc='C++ Coroutines for Qt'
 arch=(x86_64)
 url='https://github.com/danvratil/qcoro'
 license=(MIT)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          qt6-base
          qt6-declarative
          qt6-websockets)
