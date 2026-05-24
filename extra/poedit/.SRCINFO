@@ -1,24 +1,27 @@
 pkgbase = poedit
 	pkgdesc = Cross-platform gettext catalogs (.po files) editor
-	pkgver = 3.8
-	pkgrel = 4
+	pkgver = 3.9
+	pkgrel = 1
 	epoch = 1
 	url = https://www.poedit.net/
 	arch = x86_64
 	license = MIT
 	makedepends = boost
-	depends = gcc-libs
+	makedepends = git
+	makedepends = nlohmann-json
+	depends = boost-libs
 	depends = glib2
 	depends = glibc
 	depends = gtk3
 	depends = gtkspell3
 	depends = icu
+	depends = libgcc
+	depends = libstdc++
 	depends = lucene++
+	depends = pugixml
 	depends = webkit2gtk-4.1
 	depends = wxwidgets-gtk3
-	source = https://github.com/vslavik/poedit/releases/download/v3.8-oss/poedit-3.8.tar.gz
-	source = wxwidgets-3.3.patch
-	sha256sums = 69dea397b12a74e143b10f80412830dff39b4e1afd9397c3597070b5dff0d71f
-	sha256sums = ffc24ca06fc993b33ee277baa261e7e958486398f524366f51c6d670b2100aeb
+	source = git+https://github.com/vslavik/poedit#tag=v3.9-oss
+	sha256sums = 64006234308cce59ea240cf4c44306cfd1a0ddcc219bcde3030b0abfcb99040d
 
 pkgname = poedit

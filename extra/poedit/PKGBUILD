@@ -7,44 +7,48 @@
 
 pkgname=poedit
 epoch=1
-pkgver=3.8
-pkgrel=4
+pkgver=3.9
+pkgrel=1
 pkgdesc="Cross-platform gettext catalogs (.po files) editor"
 arch=('x86_64')
 url="https://www.poedit.net/"
 license=('MIT')
 depends=(
-  'gcc-libs'
+  'boost-libs'
   'glib2'
   'glibc'
   'gtk3'
   'gtkspell3'
   'icu'
+  'libgcc'
+  'libstdc++'
   'lucene++'
+  'pugixml'
   'webkit2gtk-4.1'
   'wxwidgets-gtk3'
 )
-makedepends=('boost')
-source=(https://github.com/vslavik/poedit/releases/download/v$pkgver-oss/poedit-${pkgver}.tar.gz
-        wxwidgets-3.3.patch)
-sha256sums=('69dea397b12a74e143b10f80412830dff39b4e1afd9397c3597070b5dff0d71f'
-            'ffc24ca06fc993b33ee277baa261e7e958486398f524366f51c6d670b2100aeb')
+makedepends=('boost'
+             'git'
+             'nlohmann-json')
+source=(git+https://github.com/vslavik/poedit#tag=v${pkgver}-oss)
+sha256sums=('64006234308cce59ea240cf4c44306cfd1a0ddcc219bcde3030b0abfcb99040d')
 
 prepare() {
-  cd $pkgname-$pkgver
-  patch -p1 < ../wxwidgets-3.3.patch
+  cd $pkgname
+  git cherry-pick -n 96bc3fe075d369ab953379a8418052c2d79ac250 # Fix spell checking
   autoreconf -fiv
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
 
   ./configure --prefix=/usr --libexecdir=/usr/lib/poedit
-  make CPPFLAGS+=' -DUCHAR_TYPE=uint16_t'
+  make
+  make -C locales allmo
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
 
   make DESTDIR="${pkgdir}" install
   install -Dm644 COPYING "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
