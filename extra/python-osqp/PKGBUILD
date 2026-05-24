@@ -3,13 +3,14 @@
 _pyname=osqp
 pkgname=python-$_pyname
 pkgver=1.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Python wrapper for OSQP: the Operator Splitting QP Solver'
 url='https://osqp.org/'
 license=(Apache-2.0)
 arch=(x86_64)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          osqp
          python
          python-jinja
