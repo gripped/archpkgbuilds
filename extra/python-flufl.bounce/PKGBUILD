@@ -2,8 +2,8 @@
 
 pkgname=python-flufl.bounce
 _name="${pkgname#python-}"
-pkgver=4.0
-pkgrel=7
+pkgver=5.0
+pkgrel=1
 pkgdesc="Email bounce detectors"
 arch=(any)
 url="https://gitlab.com/warsaw/flufl.bounce"
@@ -11,20 +11,21 @@ license=(Apache-2.0)
 depends=(
   python
   python-atpublic
-  python-zope-interface
 )
 makedepends=(
   python-build
   python-installer
-  python-setuptools
-  python-wheel
+  python-hatchling
 )
-checkdepends=(python-pytest)
+checkdepends=(
+  python-pytest
+  python-sybil
+)
 provides=(python-flufl-bounce)
 replaces=(python-flufl-bounce)
 source=($url/-/archive/$pkgver/$_name-$pkgver.tar.gz)
-sha512sums=('573356a6a450e59e22c2db581e04e4be41600dfa6097d8b353d1ace175ffe5506f032c8be8ef6f3b0e60fb479ae7824d096278c2852df1a06c4c73a269b1c342')
-b2sums=('a6faa174ef5ce97338577601aea3781b2860c41983d6eb8d866896eff6d6d9b80603c95fad9116dab4cb38dec643c15befe2c227c946238b1bc47f0ada8540e3')
+sha512sums=('9ff6afd043c1abad05acb3bafa65fbeee86a06a32a738979775fe38b01ad8792073754bd865f0007c96f3d7b91eb43de554b9dec5c04bbee0903b972b67eb36b')
+b2sums=('51865ee46f4486dba4653aed5b7676fe8870aac53f05769e67893a9861e292f62aafd173aec18324fbb74fdbf9261baba78cb9b68d52e57e2b54351af3204c44')
 
 build() {
   cd $_name-$pkgver
@@ -34,15 +35,10 @@ build() {
 check() {
   local pytest_options=(
     -vv
-    # # failing tests with Python 3.12: https://gitlab.com/warsaw/flufl.bounce/-/issues/14
-    --deselect flufl/bounce/tests/test_detectors.py::TestOtherBounces::test_SMTP32_failure
-    --deselect flufl/bounce/tests/test_detectors.py::TestOtherBounces::test_caiwireless
-    --deselect flufl/bounce/tests/test_detectors.py::TestOtherBounces::test_microsoft
   )
 
   cd $_name-$pkgver
-  export PYTHONPATH="build:$PYTHONPATH"
-  pytest "${pytest_options[@]}"
+  PYTHONPATH="$PWD/src:$PYTHONPATH" pytest "${pytest_options[@]}"
 }
 
 package() {
