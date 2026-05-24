@@ -2,14 +2,13 @@
 
 pkgname=kaidan
 pkgver=0.15.0
-pkgrel=3
+pkgrel=4
 pkgdesc='A user-friendly XMPP client for every device'
 arch=(x86_64)
 url='https://www.kaidan.im/'
 license=(GPL-3.0-or-later
          MIT)
-depends=(gcc-libs
-         glib2
+depends=(glib2
          glibc
          gst-plugin-qml6
          gstreamer
@@ -23,7 +22,9 @@ depends=(gcc-libs
          knotifications
          kquickimageeditor
          kwindowsystem
+         libgcc
          libomemo-c
+         libstdc++
          prison
          qqc2-desktop-style
          qt6-base
