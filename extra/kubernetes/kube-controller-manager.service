@@ -1,6 +1,7 @@
 [Unit]
 Description=Kubernetes Controller Manager
 Documentation=man:kube-controller-manager(1)
+After=kube-apiserver.service
 
 [Service]
 EnvironmentFile=-/etc/kubernetes/kube-controller-manager.env
