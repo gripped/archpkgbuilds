@@ -3,13 +3,14 @@
 
 pkgname=qt6ct
 pkgver=0.11
-pkgrel=6
+pkgrel=7
 pkgdesc='Qt 6 Configuration Utility'
 arch=(x86_64)
 url='https://www.opencode.net/trialuser/qt6ct'
 license=(BSD-2-Clause)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          qt6-base
          qt6-svg)
 makedepends=(cmake
