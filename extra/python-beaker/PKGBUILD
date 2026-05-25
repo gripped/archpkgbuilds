@@ -4,8 +4,8 @@
 
 _name=beaker
 pkgname=python-beaker
-pkgver=1.13.0
-pkgrel=6
+pkgver=1.14.0
+pkgrel=1
 arch=('any')
 license=('BSD-3-Clause')
 pkgdesc="Caching and sessions WSGI middleware for use with web applications and stand-alone Python scripts and applications"
@@ -14,16 +14,13 @@ depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest' 'python-sqlalchemy'
               'python-pycryptodome' 'python-coverage' 'python-webtest' 'python-redis'
-              'python-pymongo' 'python-pylibmc' 'valkey' 'python-cryptography'
+              'python-pymongo' 'valkey' 'python-cryptography'
               'python-memcached' 'memcached' 'pifpaf' 'python-mongomock')
 source=("git+https://github.com/bbangert/beaker.git#tag=$pkgver")
-sha512sums=('146454c163ad10c23e7594a5258e2d9b216f14d38871ed55bd2021bd6ad63be8d5e185a6a9d58286d0591cd92e9046a1d93ccfabfcba74fca28aa845f93def3c')
+sha512sums=('dab7a899cbab35f7326fd366ca31ecf008b58e111abc538ce4267c098f889908286b85891efc8cfd7d9d56c0eb2ba0c8659ab08536f9fbea8ec610c6a09ae3a0')
 
 prepare() {
   cd beaker
-
-  # remove pkg_resources use (cherry-pick from 96283fe, excluding CHANGELOG)
-  git show 96283fe89240040bf979e8555ba73571876e837c -- beaker/cache.py | git apply
 
   # Use a fake MongoDB for tests
   sed -e '/class TestMongoDB/i import mongomock' \
@@ -32,8 +29,6 @@ prepare() {
 
   # Drop tests which require a redis cluster
   rm tests/test_managers/test_ext_rediscluster.py
-
-  sed -i "s#/usr/bin/python#/usr/bin/python3#" beaker/crypto/pbkdf2.py
 }
 
 build() {
