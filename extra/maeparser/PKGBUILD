@@ -2,14 +2,15 @@
 
 pkgname=maeparser
 pkgver=1.3.3
-pkgrel=5
+pkgrel=6
 pkgdesc='Maestro file parser'
 arch=(x86_64)
 url='https://github.com/schrodinger/maeparser'
 license=(MIT)
 depends=(boost-libs
-         gcc-libs
-         glibc)
+         glibc
+         libgcc
+         libstdc++)
 makedepends=(boost
              cmake
              git)
