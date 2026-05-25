@@ -2,7 +2,7 @@
 # Contributor: xantares
 
 pkgname=python-snowballstemmer
-pkgver=3.0.1
+pkgver=3.1.0
 pkgrel=1
 arch=('any')
 pkgdesc="Snowball stemming library collection for Python"
@@ -12,7 +12,7 @@ depends=('python')
 optdepends=('python-pystemmer: for improved performance')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("https://pypi.python.org/packages/source/s/snowballstemmer/snowballstemmer-$pkgver.tar.gz")
-sha512sums=('a9590da2b0be4b93a7500b337a63cf2039ff01a6da309ddb9462961c309b4763d4dfc925965a62376a9f3b41a05bb634d6472f1e2ee07e53b38f8542e7eada82')
+sha512sums=('02d3022c76c3e6da37c599b9a58855e538ce5bddf0533c4b32ffeb44e426cbf998f20746c9563a5e05956c3118ce985a5129573f4342bdc94ed2dc1d1d62214d')
 
 build() {
   cd snowballstemmer-$pkgver
