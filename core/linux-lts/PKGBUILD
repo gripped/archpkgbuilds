@@ -1,8 +1,8 @@
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
 
 pkgbase=linux-lts
-pkgver=6.18.32
-pkgrel=2
+pkgver=6.18.33
+pkgrel=1
 pkgdesc='LTS Linux'
 url='https://www.kernel.org'
 arch=(x86_64)
@@ -38,10 +38,6 @@ source=(
   0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch
   0002-drm-amdgpu-avoid-memory-allocation-in-the-critical-code-path-v3.patch
   0003-drm-amdgpu-use-GFP_ATOMIC-instead-of-NOWAIT-in-the-critical-path.patch
-  0004-net_skbuff_preserve_shared-frag_marker_during_coalescing.patch
-  0005-net_skbuff_propagate_shared-frag_marker_through_frag-transfer_helpers.patch
-  0006_net_rds_reset_op_nents_when_zerocopy_page_pin_fails.patch
-  0007-Bluetooth_btmtk_accept_too_short_WMT_FUNC_CTRL_events.patch
   config  # the main kernel config file
 )
 validpgpkeys=(
@@ -49,25 +45,17 @@ validpgpkeys=(
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('067dadd445578284ea6158f312f7970d8940fed3e094dbe49cff66d188d3bda4'
+sha256sums=('6f16ff302599f6fe34742890322cf0775703105fbd8767449682fca6af0fb782'
             'SKIP'
             'e5bda61fa4405571a0267cd8812329bb8a432a37efb50459461628d371849906'
             'c31b8c0ace123f5c1a0012a1254272eea9ac9cdd0d3e5d538ca6b11830dd01b0'
             '0f482368b62c3cece941e2d3ba497bf322db59315df5c2f72500fc1318e4768e'
-            'a4b6854548cb9d3ee4f7e037c70195b997c3b9f8b8fcb1ab22dd52159826523b'
-            '4b69d7b8f75f0db29b9510c693ee9ee73460c9b2cf2036cac8a33c6cb3a1a898'
-            '7d7e2b4ea945ef1bc45162fc40dad837d3132f3787737c5a54daccc106b739aa'
-            '34bacfe7d70a574c235154f2597847721492dae2f01787c0a3096d6784f6e6b8'
             'e3de2a71fd5c9af863e9f651a424c2a084b8fa6db113c5769fd6a674b4e8699a')
-b2sums=('f292fd58cf61b23dbe40e4a1124d2e310712b2b3826195f348b9c5ab7773de9b4eed48e9abc524c5c2d5a05adab13fd305bab7ebfa0a829217e265ff4cdc69f5'
+b2sums=('94a5e7b4821fa1ee0c48fb14f0bc9aff1a6ac31ea1fb860b9c806fda17341d0c5fb0650c220530463170d936fb737d16eef956323368305c77b77e5e2f587f84'
         'SKIP'
         '5b3597cab8b174ff41b3f17aae6d1376a155356f781542e2e176d66c5a6dee53f7a1db8e2b9540ce8246efac4e27476c882fc8cc8063f0f514ae09230b5aef0a'
         'a71f78bea42d158fc9383f2bbb985dafa71274d2032876b67f84602c8085b1c53f3d36965e54e5fdbab5c0d7537c98d917bd7743d3cf373c1dcb6da3bc19f4e7'
         'c9d4ec8fac86a9b6f0567c57f6d5be04d56f8efbc9dc1b183981dad38387d750b53c17fcdd295cb68a874bf50f81d117cfe94bd3a8d9e08e1918644ae8daa3e5'
-        '5a5d41e58145d084ea14d93deccc3a093e3a3a84fd12bc1bde2145bc60c933dded8ae82e94cfa089c934229d5eee80602899805779d6cc0e379b48de67f9d1c3'
-        '5f9c69cd8f3ce4e39e7d393b09db27d96cb515845f37088d2a24263c674f14b4de292ded31a0b62dafd6679d5b7c431e0f8fde9561749a7f19e848b4850bb184'
-        'e07081dd195636854a6f38b334cdfa1bdf0ae64fbcf0f9f239df292840c703045b0630e7255ea2a0f6369feef6ca3c445e6351fbcafe197ff0244a90c230e2d8'
-        'c2ed7c05dffdf1a96d94651966a95470b7da520a8910c7de263efb60d9be94331fe615e2cc58ab158ecd86ecb43106aa691502acd54e2cb0d505819dd12e5a6c'
         'e4274f278857cedeed8d1d8b45189ba557cd1f6a45770dda7df6d9f85018339e6e7d4b3deb5e69b6e4a93d73584096c16c0b4043366ecf9ba93dec9d79ccbfa2')
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
