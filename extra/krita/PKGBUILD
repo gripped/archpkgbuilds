@@ -1,9 +1,9 @@
 # Maintainer: Antonio Rojas <arojas@archlinux,org>
 
 pkgname=krita
-pkgver=6.0.1
+pkgver=6.0.2
 _pkgver=${pkgver/beta/-beta}
-pkgrel=5
+pkgrel=1
 pkgdesc='Edit and paint images'
 arch=(x86_64)
 url='https://krita.org'
@@ -14,7 +14,6 @@ depends=(exiv2
          fontconfig
          freetype2
          fribidi
-         gcc-libs
          giflib
          glibc
          gsl
@@ -30,9 +29,11 @@ depends=(exiv2
          kitemviews
          kwidgetsaddons
          lcms2
+         libgcc
          libjpeg-turbo
          libkdcraw
          libpng
+         libstdc++
          libtiff
          libunibreak
          libwebp
@@ -72,20 +73,14 @@ optdepends=('kimageformats: PSD support'
             'libmypaint: support for MyPaint brushes'
             'poppler-qt6: PDF filter'
             'python-pyqt6: for the Python plugins')
-source=(https://download.kde.org/stable/krita/$_pkgver/$pkgname-$_pkgver.tar.xz{,.sig}
-        https://invent.kde.org/graphics/krita/-/commit/f6d70406.patch
-        cff92953.patch)
-sha256sums=('aeaab7959b610eca5025af81eb54db2ce5985f98208d4390b08ee4ceb969c1f5'
-            'SKIP'
-            '0302ae282067be11d255113c9b9d7fe834f26359a857fcad095e627c186c7999'
-            '3ad5f165aeb1ede42953a93bff0ec3beb79d1951fa3f6bc236f07411857d39e7')
+source=(https://download.kde.org/stable/krita/$_pkgver/$pkgname-$_pkgver.tar.xz{,.sig})
+sha256sums=('1910d68a52b812314f2ebcea1d4ef494882dad6b02225fdec40d4b81fa691766'
+            'SKIP')
 validpgpkeys=('05D00A8B73A686789E0A156858B9596C722EA3BD'  # Boudewijn Rempt <foundation@krita.org>
               'E9FB29E74ADEACC5E3035B8AB69EB4CF7468332F'  # Dmitry Kazakov (main key) <dimula73@gmail.com>
               '064182440C674D9F8D0F6F8B4DA79EDA231C852B') # Stichting Krita Foundation <foundation@krita.org>
 
 prepare() {
-  patch -d $pkgname-$_pkgver -p1 < f6d70406.patch # Fix loading Python plugins
-  patch -d $pkgname-$_pkgver -p1 < cff92953.patch # Fix fonts popups
   sed -e 's|13.0|13.8|' -i $pkgname-$_pkgver/cmake/modules/SIPMacros.cmake # Update SIP ABI version
 }
 
