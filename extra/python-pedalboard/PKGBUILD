@@ -1,0 +1,83 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-pedalboard
+pkgver=0.9.23
+pkgrel=1
+pkgdesc='A Python library for adding effects to audio'
+arch=(x86_64)
+url='https://spotify.github.io/pedalboard/'
+license=(GPL-3.0-only)
+depends=(
+  libasound.so # alsa-lib
+  libfreetype.so # freetype2
+  glibc
+  libgcc_s.so # libgcc
+  libstdc++.so # libstdc++
+  python
+  python-numpy
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-scikit-build-core
+  pybind11
+  libsndfile
+  libx11
+  libxrandr
+  libxinerama
+  libxrender
+  libxcomposite
+  libxcursor
+)
+source=(
+  "$pkgname::git+https://github.com/spotify/pedalboard#tag=v$pkgver"
+  use-anonymous-git.patch
+  'github.com-juce-framework-JUCE::git+https://github.com/juce-framework/JUCE'
+  'github.com-BreakfastQuay-Rubberband::git+https://github.com/BreakfastQuay/Rubberband'
+  'github.com-lameproject-lame::git+https://github.com/lameproject/lame'
+  'github.com-timothytylee-libgsm::git+https://github.com/timothytylee/libgsm'
+  'github.com-pybind-pybind11::git+https://github.com/pybind/pybind11'
+)
+sha512sums=('8b10251e7a0687c81c08c95533bd33799b601f73186c9f75689a1e8532e162a21e8f6a4cdaf1bd68c2d0e1e67923b24b6aaf50c64afad2e553b8e0570e711717'
+            '5f35bed9ffab92de957404ea5312f72dce84c8eaa09074debeb9ad33eff940c0683495712e570c1bbc410e699226a2a4523954b95dc4b98e4970db04ab50eb5b'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP')
+b2sums=('6af1ef64c53d4554e7fa563f9200c91bb19722fc42e722aa11d32450f45be0b77846e1e479485e1d1177a388be0a1e08572179cb7e251d39932f9bbb7be302ec'
+        '72cd382af54de31b91aac154574fdcfecb07239cea7c00331f44f6d59902b1b0f19d343114a83b16900402a8eb275ca7d909df051384c533008d6be33d69bac6'
+        'SKIP'
+        'SKIP'
+        'SKIP'
+        'SKIP'
+        'SKIP')
+
+prepare() {
+  cd "$pkgname"
+
+  # use anonymous git
+  patch -p1 -i "$srcdir/use-anonymous-git.patch"
+
+  # setup git submodules
+  git submodule init
+  git config submodule.JUCE.url "$srcdir/github.com-juce-framework-JUCE"
+  git config submodule.vendors/rubberband.url "$srcdir/github.com-BreakfastQuay-Rubberband"
+  git config submodule.vendors/lame.url "$srcdir/github.com-lameproject-lame"
+  git config submodule.vendors/libgsm.url "$srcdir/github.com-timothytylee-libgsm"
+  git config submodule.vendors/pybind11.url "$srcdir/github.com-pybind-pybind11"
+  git -c protocol.file.allow=always submodule update
+}
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
