@@ -2,8 +2,8 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=libxfce4windowing
-pkgver=4.20.5
-pkgrel=3
+pkgver=4.20.6
+pkgrel=1
 pkgdesc="Windowing concept abstraction library for X11 and Wayland"
 arch=('x86_64')
 url="https://docs.xfce.org/xfce/libxfce4windowing/start"
@@ -11,11 +11,9 @@ license=('LGPL-2.1-only')
 depends=('gdk-pixbuf2' 'glib2' 'gtk3' 'libwnck3' 'libdisplay-info' 'libx11' 'wayland')
 makedepends=('git' 'glib2-devel' 'gobject-introspection' 'gtk-doc' 'meson' 'vala' 'wayland-protocols' 'xfce4-dev-tools')
 source=("git+https://gitlab.xfce.org/xfce/libxfce4windowing.git#tag=$pkgname-$pkgver"
-        git+https://gitlab.freedesktop.org/wlroots/wlr-protocols.git
-        libxfce4windowing-protocols-dep.patch)
-sha256sums=('d5398e111c02a6896fefdf5d732abff14ba4396d540fcaa706723819056fa9d0'
-            'SKIP'
-            'a7696a2e9bb39ddfcff017505a831b2866a25be67ec4e891485ba907e1348bf5')
+        git+https://gitlab.freedesktop.org/wlroots/wlr-protocols.git)
+sha256sums=('68c3cf1e5d184cc06cc4ba5cce6e08df34e2b078b0fa8c11e10f66d4ce94339f'
+            'SKIP')
 
 prepare() {
   cd $pkgname
@@ -26,7 +24,7 @@ prepare() {
 
   # Don't depend on wayland-scanner and wayland-protocols
   # https://gitlab.xfce.org/xfce/libxfce4windowing/-/merge_requests/96
-  git apply -3 ../libxfce4windowing-protocols-dep.patch
+  git cherry-pick -n 9b1e7e18343f927f9946960977804230f3fbc16d
 }
 
 build() {
