@@ -4,7 +4,7 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=orca
-pkgver=50.1.2
+pkgver=50.2
 pkgrel=1
 pkgdesc="Screen reader for individuals who are blind or visually impaired"
 url="https://orca.gnome.org/"
@@ -50,10 +50,8 @@ makedepends=(
 groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/orca.git?signed#tag=${pkgver/[a-z]/.&}"
-  0001-Fix-tests.patch
 )
-b2sums=('b3a976524307dbd529df30320006ecf5fb3e7393f05f81423e4b890112e825e763e1445192ca5a18c49092a6b9342dfbc101ee0003bb151b694a4ceabbbc12a9'
-        'dfad5061040f9caa202e35647632697a7876a013c9803db057b9b28807d3f7b800e09b492d5baf7555c565bdad1b8e1a3386360c25c2c9bca31354da0cfdb519')
+b2sums=('4c5832ad5e14f254a50eebb3aaa0dd8537480a08af5c6317dafbe9dbbaf652bd9aeb70493e976c0a6238f883a4c4956c70c338e31e6529c039adc0e91054b872')
 validpgpkeys=(
   DBDB67681333AA61BBCB97140A042BFD3DA3816C # Joanmarie Diggs <jdiggs@igalia.com>, older
   85D0D0B3FB02946101A46295E7A697B5609D4701 # Joanmarie Diggs <jdiggs@igalia.com>, newer
@@ -61,7 +59,6 @@ validpgpkeys=(
 
 prepare() {
   cd orca
-  git apply -3 ../0001-Fix-tests.patch
 }
 
 build() {
