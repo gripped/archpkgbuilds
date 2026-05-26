@@ -2,7 +2,7 @@
 # Contributor: Ner0 <darkelfdarkelf666@yahoo.co.uk>
 
 pkgname=pantheon-code
-pkgver=8.1.2
+pkgver=8.3.0
 pkgrel=1
 pkgdesc='The Pantheon Text Editor'
 arch=(x86_64)
@@ -24,29 +24,20 @@ depends=(
   vala
 )
 makedepends=(
-  cmake
   git
   gobject-introspection
   gtkspell3
-  intltool
-  libsoup
+  libsoup3
   meson
   vte3
 )
 optdepends=(
   'gtkspell3: Spell Check plugin'
-  'libsoup: Pastebin plugin'
-  'vala: Outline plugin'
+  'libsoup3: Pastebin plugin'
   'vte3: Terminal plugin'
 )
-_tag=1293fb3f478fe39381ecdf916903819a57665bb7
-source=(pantheon-code::git+https://github.com/elementary/code.git#tag=${_tag})
-b2sums=('da1e55c94745237451981b09f7057a40e95f1dca0ea7b37e6fccb257ccec6bbc36aa698439e3294ec5aaaed524b5b13f164ce9ca9396b1b7eb25e9b31d9e6053')
-
-pkgver() {
-  cd pantheon-code
-  git describe --tags
-}
+source=(pantheon-code::git+https://github.com/elementary/code.git#tag=${pkgver})
+b2sums=('17b4f6e639ba52d9b126e4b2cc16eb57432d771c044a95ed2fc12b175fd321768bfcc2f1b37dc5271ec2dae5ef13e770b9e94407fd3a53bf57d1aeeb5b258d58')
 
 build() {
   arch-meson pantheon-code build
