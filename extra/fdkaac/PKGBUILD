@@ -2,7 +2,7 @@
 # Contributor: PelPix <kylebloss@pelpix.info>
 
 pkgname=fdkaac
-pkgver=1.0.6
+pkgver=1.0.7
 pkgrel=1
 pkgdesc='Command line encoder frontend for libfdk-aac'
 arch=(x86_64)
@@ -13,9 +13,9 @@ depends=(
   libfdk-aac.so
 )
 makedepends=(git)
-_tag=35527e4041f30107f02519af920bcb3e91787329
+_tag=057f83220a14a1297559b01e7884d7693a3fce29
 source=(git+https://github.com/nu774/fdkaac.git#tag=${_tag})
-sha256sums=('f596ce9d6076a494581277302973c128e8760fde8f028fe9a73716396365fd86')
+sha256sums=('9b6f518d50460c641d0c6db7d50b8b656c046660d626d817cb8b4edf6bbea354')
 
 prepare() {
   cd fdkaac
