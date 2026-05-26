@@ -2,7 +2,7 @@
 # Contributor: Roman Kyrylych <roman@archlinux.org>
 
 pkgname=gnome-user-share
-pkgver=48.2
+pkgver=48.3
 pkgrel=1
 pkgdesc="Easy to use user-level file sharing for GNOME"
 url="https://gitlab.gnome.org/GNOME/gnome-user-share"
@@ -14,6 +14,7 @@ depends=(
   gcc-libs
   glib2
   glibc
+  libgcc
   mod_dnssd
 )
 makedepends=(
@@ -27,7 +28,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-user-share.git#tag=${pkgver/[a-z]/.&}"
   0001-build-Use-cargo-release-for-all-buildtypes-except-de.patch
 )
-b2sums=('2c9bb8ed201f31ffb0832c90ce0ee690f391a2b63856142dc73b6c4ffd004e6441c17f02964c72598523defe0849bb035ca52de9e28cf6f01b4728fbea747a39'
+b2sums=('c8d63b3cc43be52de43f35ee129ba287b6f041cca004f1fb4b45350301a81393fe7b2c65e7259c0a5674f50aeb09c138fbccc5fa3d81297a8640b11cfd55c717'
         '936f92722d7d189b36c47dad2f0c70c0771923b7c0e9c141006f94a26fe9f41bc7faed529ca2df869bfbad0f8379847bd2d96b2bcbaf2c2c4bd8681ef5aef9e6')
 
 # Use LTO
@@ -43,7 +44,7 @@ prepare() {
   git apply -3 ../0001-build-Use-cargo-release-for-all-buildtypes-except-de.patch
 
   CARGO_HOME="$srcdir/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
