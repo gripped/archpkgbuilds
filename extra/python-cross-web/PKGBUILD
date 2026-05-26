@@ -3,7 +3,7 @@
 
 pkgname=python-cross-web
 _pkgname=cross-web
-pkgver=0.6.0
+pkgver=0.7.0
 pkgrel=1
 pkgdesc="A universal web framework adapter for Python that lets you write code once and use it across multiple web frameworks"
 url="https://github.com/usecross/cross-web"
@@ -13,7 +13,7 @@ depends=('python' 'python-typing_extensions' 'python-fastapi' 'python-starlette'
 makedepends=('python-build' 'python-installer' 'python-hatchling' 'python-wheel')
 checkdepends=('python-pytest' 'python-pytest-asyncio' 'python-pytest-django' 'python-httpx' 'python-python-multipart')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('3351a83db39791d79b21c97b1bac3c97ce222b5eca545489c03362a6230bdb76')
+sha256sums=('df296d87baa3a3c388ffe47397c7b12494568f9069790a66ed55e9bfbea9d796')
 
 build() {
 	cd "${_pkgname}-${pkgver}"
