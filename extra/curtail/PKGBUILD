@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark dot wagie at tutanota dot com>
 
 pkgname=curtail
-pkgver=1.16.1
+pkgver=1.16.2
 pkgrel=1
 pkgdesc='Image compressor GUI, supporting PNG, JPEG, WebP and SVG file types, both lossless and lossy compression mode'
 arch=(any)
@@ -17,7 +17,7 @@ depends=(
   hicolor-icon-theme
   jpegoptim
   libadwaita
-  libwebp
+  libwebp-utils
   oxipng
   pngquant
   python
@@ -31,7 +31,7 @@ makedepends=(
   meson
 )
 source=("git+https://github.com/Huluti/Curtail.git#tag=$pkgver")
-b2sums=('00d36571d8035d44d5d3a9d6d1ebd7f06fcbed06fe501afc89d29277aacb634ca971d7aba52a7f999386fced970acea0b89fb2691a195439bbdef6d29e845b22')
+b2sums=(bb4faf196f8c4d8828615cf601d603de1995fdc5e22b24d09d29f422de7708ac42bfb832017534fdf6c713eaca6d668da45d8475a7b15387bd9810ede14566e9)
 
 prepare() {
   cd Curtail
