@@ -3,7 +3,8 @@
 # Contributor: Bjorn Martensen
 
 pkgname=libisofs
-pkgver=1.5.8.1
+pkgver=1.5.8.2
+_pkgver=$(echo $pkgver | sed -e 's/\.\([0-9]*.\)$/.pl0\1/')
 pkgrel=1
 pkgdesc='Library to pack up hard disk files and directories into a ISO 9660 disk image'
 arch=(x86_64)
@@ -11,9 +12,9 @@ url='https://dev.lovelyhq.com/libburnia/libisofs'
 license=(GPL-2.0-or-later)
 depends=(glibc acl zlib)
 makedepends=(git)
-source=("$pkgname::git+$url#tag=release-${pkgver//.1/.pl01}")
-sha512sums=('6e2444113ddba94647251019dbb297963572b0ee91ec5546372b6eea43ad46290fd763cd65050746334469b09d6992c2c5a60f1f539282b1709ea34740ce580a')
-b2sums=('9a15228e685f229a584187e34e0c06a348817ace60297d0e69d8932e3219702553097aa3a190e3d21fec3091907db0f8ef69010e7c0ad9d4582483e78c4b9ebe')
+source=("$pkgname::git+$url#tag=release-${_pkgver}")
+sha512sums=('c942c7d327889d3e4c6cd414e6fdf2509ee10305d7afdaccb733a0301163fa6ad4dcd14776e6575de324dd7b362c1a62b8270604aca6d3999077d6112f2d2d49')
+b2sums=('897e2b0a9231bfe42081cf9780d62c63148d63e0d97523deb4867ce83ebd3896754a28aec2f50f5d8312570346e978f6cdeccf8209800f2e5971e5d1196e1b37')
 
 prepare() {
   cd "$pkgname"
