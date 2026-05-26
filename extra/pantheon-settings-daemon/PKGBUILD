@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=pantheon-settings-daemon
-pkgver=8.4.0
+pkgver=8.5.0
 pkgrel=1
 pkgdesc='Default settings for Pantheon'
 arch=(x86_64)
@@ -27,14 +27,7 @@ makedepends=(
   meson
   vala
 )
-_tag=6c5bb6fa1c095ed184f03721e065131dcda7e41a
-source=(pantheon-settings-daemon::git+https://github.com/elementary/settings-daemon.git#tag=${_tag})
-b2sums=('4cb8f9698764a6ecb3a37bc83109a033723e524174f9a782745fe66d62fc45cfa8242568479130f3ea34bf7465e8a9a176514908f78fa877cfa632029eadc6bf')
-
-pkgver() {
-  cd pantheon-settings-daemon
-  git describe --tags
-}
+source=(pantheon-settings-daemon::git+https://github.com/elementary/settings-daemon.git#tag=${pkgver})
 
 build() {
   arch-meson pantheon-settings-daemon build
@@ -46,3 +39,4 @@ package() {
 }
 
 # vim: ts=2 sw=2 et:
+b2sums=('e63cac04468851603d1df74c7c2cd206495195c2e92cbb2d1c64f1460b40baccdf8a0892ce712ca3e3a025d052834e74d610369a3b61dcd63474bf295ff806af')
