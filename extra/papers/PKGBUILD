@@ -5,7 +5,7 @@ pkgname=(
   papers
   papers-lib-docs
 )
-pkgver=50.1
+pkgver=50.2
 pkgrel=1
 pkgdesc='Document viewer for PDF and other document formats aimed at the GNOME desktop'
 arch=(x86_64)
@@ -50,7 +50,7 @@ source=(
   "git+https://github.com/gtk-rs/gir-files.git"
   "git+https://gitlab.gnome.org/lbaudin/papers-test-data.git"
 )
-b2sums=('06c62a335a1cde7a74b9dcfe634dd3be00d80b164ef1dd13aa5a7b4dde4e9e6043c92b1d9be1ba810c424f1d5c9b9d64ec0a568b1fdf61f775e559a87bc5d706'
+b2sums=('8be598627467e2c82f59d5f79a3dd11c8aa3f5841b997dea58aa179719805a415ad5964e8e02ead8755cfcccf5f8b393791fa68ca6fc5772158b715bcdb8468b'
         'SKIP'
         'SKIP'
         'SKIP')
