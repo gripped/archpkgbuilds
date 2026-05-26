@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=decoder
-pkgver=0.9.0
+pkgver=0.9.1
 pkgrel=1
 pkgdesc='QR code scanner and generator'
 arch=(x86_64)
@@ -32,24 +32,14 @@ makedepends=(
   rust
 )
 options=(!lto)
-source=(
-  "git+https://gitlab.gnome.org/World/decoder.git#tag=$pkgver"
-  decoder-out-of-tree-test.patch
-)
-b2sums=(
-  16d5a66d5de912704a311fbae7f9e8a11796604da46210b0140a59c96c797951321e72d9ccc42a5928fd32b8e54f0c4b8ca8de55cb68b04eddbca3f337956d50
-  bddd44a4296a42fd21407ecea73aa904cf335b4d48c4e6ae4cf2098e74dd7a55af402c4f17806f2370ed931a9ff118f95a37ea5c14aaf3831381107eae30cc9b
-)
+source=("git+https://gitlab.gnome.org/World/decoder.git#tag=$pkgver")
+b2sums=(5d512f4dc2d0b7d4790d04c17f3d21ac6feac663bd76ff7a5970dbcb0cc34a83b32f3d21441c8c46192f1de5e8ccc338f7031bcceccc8ae0565cabe4f7145a39)
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc --print host-tuple)"
-
-  # Fix running test out of tree
-  # https://gitlab.gnome.org/World/decoder/-/merge_requests/183
-  git apply -3 ../decoder-out-of-tree-test.patch
 }
 
 build() {
