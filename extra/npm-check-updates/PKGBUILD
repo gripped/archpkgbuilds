@@ -2,7 +2,7 @@
 
 pkgname=npm-check-updates
 pkgdesc='Find newer versions of dependencies than what your package.json or bower.json allows'
-pkgver=22.2.0
+pkgver=22.2.1
 pkgrel=1
 arch=('any')
 url='https://github.com/raineorshine/npm-check-updates'
@@ -10,7 +10,7 @@ license=('Apache-2.0')
 depends=('npm')
 source=(https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz)
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('91ac606e41a408eb684abb145d28607048847eb44faa638693a61ec9afb9868369b5b96ef6fb84f3f3cb001512273f8878d80a241171702dd4ac16262ac07c88')
+sha512sums=('98674825f86d83eab407385b3a96ce2fbdf384c66580140c1b8c270703cc303e64f7ad36f140ae574ef9dd8792624f6876887b1d62bafdc63af5b5b14fba3eca')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
