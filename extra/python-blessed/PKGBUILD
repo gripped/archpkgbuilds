@@ -2,14 +2,15 @@
 # Contributor: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>
 
 pkgname=python-blessed
-pkgver=1.33
-pkgrel=1
+pkgver=1.43
+pkgrel=2
 pkgdesc='A thin, practical wrapper around terminal styling, screen positioning, and keyboard input'
 arch=(any)
 url=https://github.com/jquast/blessed
 license=(MIT)
 depends=(
   python
+  python-jinxed
   python-wcwidth
 )
 makedepends=(
@@ -24,13 +25,13 @@ checkdepends=(
   python-pytest-rerunfailures
   python-pytest-xdist
 )
-_tag=405113b7643f513f1625b1860301b3fa08430aef
-source=(git+https://github.com/jquast/blessed.git#tag=${_tag})
-b2sums=('7a799b7f509c7b02be311b3a0a9207d5e6a24f5efa5bb18b8d7bc7154d0054f4d2c1f0cb158c1660472ac6ff31ccea7ce7ef6045ecd1c859c968085c613e3dab')
+source=(git+https://github.com/jquast/blessed.git#tag=${pkgver})
+b2sums=('43a3f5aa1075de5b0834fbca3f8df1caed794db7af562003d02e661b93e3b80132288db025441510067021f5972c862d87d8489d7ce890676871c630e9f459cc')
 
-pkgver() {
+prepare() {
   cd blessed
-  git describe --tags
+  # flit-core 4 dropped compatibility; bump upper bound so we can build
+  sed -i 's/flit_core >=3.11,<4/flit_core >=3.11/' pyproject.toml
 }
 
 build() {
