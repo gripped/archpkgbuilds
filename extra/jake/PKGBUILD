@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=jake
-pkgver=12.9.7
+pkgver=12.10.1
 pkgrel=1
 pkgdesc="JavaScript build tool, similar to Make or Rake"
 arch=('any')
@@ -11,7 +11,7 @@ depends=('nodejs')
 makedepends=('npm')
 source=("https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz")
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('b4f33c7a595cecbd8f6471332265c642ca84d22cf70151ac532db623cc6130a31a23bf2197312ae6e8c836a1073bcd2d56277502afd545ee81b00e1de8115a30')
+sha512sums=('5ad8a1eda5604d9acb3840ba4e6489547a3af5a383b145b20be35bb4d63e672a7c85eb2ea53c3d1e5d6590288ef1b3cf5099a52e7371bd15cd3df1c8909d6b9d')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
