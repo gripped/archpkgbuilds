@@ -2,22 +2,26 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=putty
-pkgver=0.83
+pkgver=0.84
 pkgrel=1
 pkgdesc='A terminal integrated SSH/Telnet client'
 arch=('x86_64')
-url='https://www.chiark.greenend.org.uk/~sgtatham/putty/'
+url='https://putty.software/'
 license=('MIT')
-depends=('gtk3')
-makedepends=('cmake')
+depends=(
+  'glibc'
+  'gtk3' 'libgdk-3.so' 'libgtk-3.so'
+  'glib2' 'libglib-2.0.so' 'libgobject-2.0.so'
+  'cairo' 'libcairo.so' 'libpangocairo-1.0.so' 'libpango-1.0.so'
+  'gdk-pixbuf2' 'libgdk_pixbuf-2.0.so'
+  'pango' 'libpangocairo-1.0.so' 'libpango-1.0.so')
+makedepends=('cmake' 'git' 'halibut')
 validpgpkeys=('F412BA3AA30FDC0E77B4E3871993D21BCAD1AA77') # PuTTY Releases <putty@projects.tartarus.org>
-source=("https://the.earth.li/~sgtatham/putty/${pkgver}/${pkgname}-${pkgver}.tar.gz"
-        "putty-${pkgver}.tar.gz.sig::https://the.earth.li/~sgtatham/putty/${pkgver}/putty-${pkgver}.tar.gz.gpg"
+source=("git+https://git.tartarus.org/simon/putty.git#tag=${pkgver}"
         'putty.desktop'
         'putty.png'
         'putty.xpm')
-sha256sums=('718777c13d63d0dff91fe03162bc2a05b4dfc8b0827634cd60b51cefdff631c6'
-            'SKIP'
+sha256sums=('9cd9a84497535baa5df5a675c367bfe2bdbf0cbcec54f24993e2110bf66f94ab'
             '4a8af81fe8ac702ad298606076088f237b83beed82cc089a32f314888b67cf2c'
             '93ba8ea8abf942f4de1c6cd167d4b5c2d6246fb1aa39dc49571cc18d167460c1'
             'd65139883171ed0119d9778ff4a89e6a8151a5ae97fcf8dc7cafb59df424377f')
@@ -29,17 +33,18 @@ build() {
 
   cmake \
     -B build \
-    -S ${pkgname}-${pkgver} \
-    -DCMAKE_BUILD_TYPE=None \
-    -DCMAKE_INSTALL_PREFIX=/usr \
+    -S "${pkgname}" \
+    -DCMAKE_BUILD_TYPE='None' \
+    -DCMAKE_INSTALL_PREFIX='/usr' \
     -Wno-dev
-  cmake --build build
+  cmake \
+    --build build
 }
 
 package() {
   DESTDIR="${pkgdir}" cmake --install build
   
-  install -D -m0644 "${srcdir}"/${pkgname}-${pkgver}/LICENCE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+  install -D -m0644 "${srcdir}/${pkgname}"/LICENCE "${pkgdir}"/usr/share/licenses/"${pkgname}"/LICENSE
   install -D -m0644 "${srcdir}"/putty.desktop "${pkgdir}"/usr/share/applications/putty.desktop
   install -D -m0644 "${srcdir}"/putty.png "${pkgdir}"/usr/share/pixmaps/putty.png
   install -D -m0644 "${srcdir}"/putty.xpm "${pkgdir}"/usr/share/pixmaps/putty.xpm
