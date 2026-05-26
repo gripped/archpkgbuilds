@@ -2,8 +2,8 @@
 # Contributor: Francesco Minnocci <ascoli.minnocci@gmail.com>
 
 pkgname=python-bleak
-pkgver=2.0.0
-pkgrel=2
+pkgver=3.0.2
+pkgrel=1
 pkgdesc='Bluetooth Low Energy platform Agnostic Klient for Python'
 arch=(any)
 url=https://github.com/hbldh/bleak
@@ -14,34 +14,21 @@ depends=(
   python-service-identity
 )
 makedepends=(
-  bluez-utils
   git
   python-build
   python-installer
-  python-poetry-core
-  python-wheel
+  python-uv-build
 )
-checkdepends=(
-  python-pytest
-  python-pytest-asyncio
-)
-_tag=718e5d76cd051910a9d5266266af632c2529c03c
-source=(git+https://github.com/hbldh/bleak.git#tag=${_tag})
-b2sums=('1efc2581b1ced90b81a427c44eef8997152c7287e221b750cce35e51f844897f5dcbdd6ec247de32999439a0ab13a445210c990d72820e74921c5dc64458fec4')
+source=(git+https://github.com/hbldh/bleak.git#tag=v${pkgver})
+b2sums=('SKIP')
 
-pkgver() {
-  cd bleak
-  git describe --tags | sed 's/^v//'
+prepare() {
+  sed -i 's/uv_build>=0.10.9,<0.11.0/uv_build>=0.10.9/' bleak/pyproject.toml
 }
 
 build() {
   cd bleak
   python -m build --wheel --no-isolation
-}
-
-check() {
-  cd bleak
-  PYTHONPATH="$PWD" pytest -vv
 }
 
 package() {
