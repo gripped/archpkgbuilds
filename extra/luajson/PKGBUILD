@@ -5,8 +5,8 @@ pkgbase=luajson
 pkgname=(
   lua52-luajson
 )
-pkgver=1.3.4
-pkgrel=4
+pkgver=1.3.5
+pkgrel=1
 pkgdesc="JSON parser/encoder for Lua"
 url="https://github.com/harningt/luajson"
 arch=(any)
@@ -16,7 +16,7 @@ makedepends=(
   lua52-lpeg
 )
 source=("git+$url#tag=$pkgver")
-b2sums=('844d8314f8bb8ac7c1c6ff718da81c274987f7e217e6f2ff9e39d0c959c617e63beccf625718a1ae30440732cb2a2011e4fcb25217047b3d5b5e179cbc1877da')
+b2sums=('56870424eb2cb1aa79068625bb120cbb13f80446299f97e65fb13fd3a251920335ae17b756d908cce03b3cc193ceb613d0302f4a3a8f677fe44a7858b7f71a54')
 
 package_lua52-luajson() {
   pkgdesc+=" 5.2"
