@@ -6,28 +6,37 @@
 
 pkgname=minicom
 pkgver=2.11.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A serial communication program'
 arch=('x86_64')
 url='https://salsa.debian.org/minicom-team/minicom'
 license=('GPL-2.0-or-later')
-depends=('bash')
+depends=(
+  'bash'
+  'glibc'
+  'ncurses' 'libncursesw.so')
 optdepends=('lrzsz: for xmodem, ymodem and zmodem file transfer protocols')
 backup=('etc/minirc.dfl')
 source=("${pkgname}-${pkgver}.tar.gz::https://salsa.debian.org/minicom-team/minicom/-/archive/${pkgver}/minicom-${pkgver}.tar.gz"
-        "minicom-2.9-lrzsz-rename.patch")
+        '0001-minicom-2.9-lrzsz-rename.patch'
+        '0002-dial-Fix-use-of-check_io_frontend.patch')
 sha256sums=('b296b0e5795ca143fb1ffa78f46fd294daddfccd720faf9909a842d2f70c564e'
-            '4b00e97cadeb51e2cacba7114d2572dbe671b00f0f6695df96aa0ea0dab68c15')
+            '4b00e97cadeb51e2cacba7114d2572dbe671b00f0f6695df96aa0ea0dab68c15'
+            '329d949e938aa519948ad66c0b680d3af0fbbed8fd392c7fe4dad254fafab804')
 
 prepare() {
-  patch -Np1 -i ../minicom-2.9-lrzsz-rename.patch -d "${pkgname}-${pkgver}"
+  cd "${pkgname}-${pkgver}"
+
+  patch -Np1 -i ../0001-minicom-2.9-lrzsz-rename.patch
+  patch -Np1 -i ../0002-dial-Fix-use-of-check_io_frontend.patch
 }
 
 build() {
   cd "${pkgname}-${pkgver}"
 
-  ./configure --prefix=/usr \
-              --sysconfdir=/etc
+  ./configure \
+     --prefix=/usr \
+     --sysconfdir=/etc
   make
 }
 
