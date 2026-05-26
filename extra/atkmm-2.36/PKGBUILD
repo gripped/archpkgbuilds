@@ -6,15 +6,19 @@ pkgname=(
   atkmm-2.36
   atkmm-2.36-docs
 )
-pkgver=2.36.3
-pkgrel=2
+pkgver=2.36.4
+pkgrel=1
 pkgdesc="C++ bindings for ATK"
 url="https://www.gtkmm.org/"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
   atk
+  glib2
+  glibc
   glibmm-2.68
+  libgcc
+  libstdc++
 )
 makedepends=(
   git
@@ -23,14 +27,8 @@ makedepends=(
   mm-common
 )
 options=(!emptydirs)
-_commit=75f79502f700614a3c35d9c4eaa4c395ac6c7d66  # tags/2.36.3^0
-source=("git+https://gitlab.gnome.org/GNOME/atkmm.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd atkmm
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/atkmm.git#tag=$pkgver")
+b2sums=('2b9cfe54dbb33e1d50831448ec18576dc0a9658db4c71b2555d330496d1879247b2064ca8bd9735c8c3e5b88785aec3233f7496080c91b39661d7b1f5e614543')
 
 prepare() {
   cd atkmm
