@@ -4,13 +4,14 @@
 
 pkgname=qt5ct
 pkgver=1.9
-pkgrel=1
+pkgrel=2
 pkgdesc='Qt5 Configuration Utility'
 arch=(x86_64)
 url='https://qt5ct.sourceforge.io/'
 license=(BSD-3-Clause)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          qt5-base
          qt5-svg)
 makedepends=(cmake
