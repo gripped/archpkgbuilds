@@ -5,13 +5,12 @@
 pkgname=kbibtex
 epoch=1
 pkgver=0.10.0
-pkgrel=10
+pkgrel=11
 pkgdesc='A BibTeX editor for KDE'
 arch=(x86_64)
 url='https://apps.kde.org/kbibtex/'
 license=(GPL)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          icu
          kcompletion5
          kconfig5
@@ -30,6 +29,7 @@ depends=(gcc-libs
          kwallet5
          kwidgetsaddons5
          kxmlgui5
+         libstdc++
          poppler-qt5
          qt5-base
          qt5-networkauth
