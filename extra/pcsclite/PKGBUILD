@@ -4,7 +4,7 @@
 # Contributor: Daniel Plaza <daniel.plaza.espi@gmail.com>
 
 pkgname=pcsclite
-pkgver=2.4.1
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="PC/SC Architecture smartcard middleware library"
 arch=('x86_64')
@@ -43,7 +43,7 @@ validpgpkeys=('F5E11B9FFE911146F41D953D78A1B4DFE8F9C57E') # Ludovic Rousseau <ro
 source=(
   "git+https://github.com/LudovicRousseau/PCSC.git#tag=${pkgver}?signed"
 )
-sha256sums=('0347f8dbc250f465dfaf2a9c58779f47fd193fbcf73e6ef64bdc3b47bd069f7a')
+sha256sums=('ab0abdbb1ae253b2cb070c039cbe198effaab0d509e0c5ad5b99d3c2f793a48e')
 
 build() {
   local meson_options=(
