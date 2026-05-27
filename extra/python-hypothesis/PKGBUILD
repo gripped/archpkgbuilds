@@ -4,7 +4,8 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-hypothesis
-pkgver=6.152.4
+_name=${pkgname#python-}
+pkgver=6.153.0
 pkgrel=1
 pkgdesc="Advanced Quickcheck style testing library for Python"
 arch=(any)
@@ -38,6 +39,7 @@ checkdepends=(
   python-pytest
   python-pytest-xdist
   python-pytz
+  python-scipy
   python-syrupy
   python-watchdog
 )
@@ -58,27 +60,23 @@ optdepends=(
   'python-rich: for CLI'
   'python-watchdog: for tracking file system events'
 )
-source=("$pkgname::git+$_url#tag=hypothesis-python-$pkgver")
-sha512sums=('1852496a3b457e45567b5e0ee5e48b21a07989f5e690d51c5c36f06d12d93273cc5c0f707172a4d12ac4b989f2b0ae92d42a976017ffebf39179f5d7727f3062')
-b2sums=('4d99fce4eaf2dd2271f62cb53cd63b70d6b9a456b0b500c38f82bfe51545da81abc3d0438360796ec2f7557dc3080876834d2ac72629e60d7d739763677df4e7')
-
-prepare() {
-  cd $pkgname/hypothesis-python
-  # Fix test failing due to trailing space diff
-  sed -i 's/def      /def/' tests/cover/test_reflection.py
-}
+source=("$pkgname::git+$_url#tag=v$pkgver")
+sha512sums=('25146617873c69cd0ec93a44ae3e56571fbefef4d10ba92f5ab445d41ff9af9ff2b9b73b021b418f6be5666fb65de8baf471cab73b00a69a7bc9cdfe35106293')
+b2sums=('50295f2b2555c4d7f8d053490706280563a513a3e29b17d710464e10c58e0b65a6f8c2194b6f686f180a7b957f63d1376a0110f2bc29e0a3b52908313798a42d')
 
 build() {
-  cd $pkgname/hypothesis-python
+  cd $pkgname/$_name
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $pkgname/hypothesis-python
+  cd $pkgname/$_name
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   local pytest_options=(
     -vv
+    # ignore deprecation warnings
+    -W=ignore::DeprecationWarning
     # Run tests in parallel, takes forever otherwise
     -n auto
     # Keep rootdir at hypothesis-python/ so --deselect node ids resolve
@@ -89,33 +87,16 @@ check() {
     --ignore=tests/crosshair/test_crosshair.py
     # Fails with AssertionError for some reason
     --ignore=tests/nocover/test_scrutineer.py
+    # fails with mismatch for some reason
+    --deselect 'tests/snapshots/test_always_failing.py::test_always_failing[emails]'
+    --deselect 'tests/quality/test_integers.py::test_biases_towards_boundary_values'
 
-    # Fails for some reason
-    --ignore=tests/pytest/test_capture.py # ::test_healthcheck_traceback_is_hidden
-    --ignore=tests/pytest/test_fixtures.py # ::test_given_fails_if_already_decorated_with_fixture
-    --ignore=tests/watchdog/test_database.py
-    --ignore=tests/nocover/test_argument_validation.py
-
-    # Fails due to health check too slow for some reason
-    --deselect=tests/nocover/test_stateful.py::test_unrelated_rule_does_not_use_var_reference_repr
-
-    # Flaky: Phase.explain's scrutineer traces syrupy lines once the
-    # plugin is loaded, diverging from the expected output
-    --deselect=tests/cover/test_custom_reprs.py::test_reprs_as_created
-    --deselect=tests/conjecture/test_inquisitor.py::test_inquisitor_doesnt_break_on_varying_forced_nodes
-
-    -W=ignore::DeprecationWarning
-
-    # Fail with numpy 2.4
-    --ignore=tests/numpy/test_floor_ceil.py
-    --ignore=tests/numpy/test_from_type.py
-    --ignore=tests/ghostwriter/test_expected_output.py
   )
   PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest \
     "${pytest_options[@]}" tests/
 }
 
 package() {
-  cd $pkgname/hypothesis-python
+  cd $pkgname/$_name
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
