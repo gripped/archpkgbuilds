@@ -9,15 +9,17 @@
 _name=scipy
 pkgname=python-scipy
 pkgver=1.17.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Open-source software for mathematics, science, and engineering'
 arch=(x86_64)
 url='https://www.scipy.org/'
 license=(BSD-3-Clause)
 depends=(blas
-         gcc-libs
          glibc
          lapack
+         libgcc
+         libgfortran
+         libstdc++
          python
          python-numpy
          python-platformdirs
