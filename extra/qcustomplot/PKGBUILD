@@ -4,14 +4,14 @@ _name=QCustomPlot
 pkgbase=qcustomplot
 pkgname=('qcustomplot' 'qcustomplot-doc')
 pkgver=2.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Qt C++ widget for plotting and data visualization"
 arch=('x86_64')
 url="https://www.qcustomplot.com/"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 makedepends=('doxygen' 'graphviz' 'qt5-tools')
 source=(
-  "${pkgname}-${pkgver}.tar.bz2::https://gitlab.com/DerManu/${_name}/-/archive/v${pkgver}/${_name}-v${pkgver}.tar.bz2"
+  "${pkgname}-${pkgver}.tar.bz2::https://gitlab.com/ecme2/${_name}/-/archive/v${pkgver}/${_name}-v${pkgver}.tar.bz2"
   "${pkgname}-${pkgver}-source.tar.gz::https://www.qcustomplot.com/release/${pkgver}/${_name}-source.tar.gz"
 )
 sha512sums=('a9c0fe0c2393858b5de66e78606ef96e57b00e405e0417df7d59d5e93a89f706a1d4767316bf015c76514aedd69553229fd347569b9d68e387103486ee29988f'
@@ -39,7 +39,7 @@ build() {
 }
 
 package_qcustomplot() {
-  depends=('qt5-base')
+  depends=('glibc' 'libgcc' 'libstdc++' 'qt5-base')
   provides=('libqcustomplot.so')
   replaces=('qcustomplot-qt5')
 
