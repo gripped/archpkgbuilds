@@ -3,14 +3,16 @@
 
 pkgname=noise-suppression-for-voice
 pkgver=1.10
-pkgrel=1
+pkgrel=2
 pkgdesc='A real-time noise suppression plugin for voice'
 arch=(x86_64)
 url='https://github.com/werman/noise-suppression-for-voice'
 license=(GPL-3.0-only)
 depends=(freetype2
-         gcc-libs
-         glibc)
+         glibc
+         libatomic
+         libgcc
+         libstdc++)
 makedepends=(cmake
              git
              libx11
@@ -18,7 +20,7 @@ makedepends=(cmake
              libxinerama
              libxrandr)
 source=(git+https://github.com/werman/noise-suppression-for-voice#tag=v$pkgver)
-sha256sums=('bf7eb24d7e049a2df4d01be189d8dc82cf4f8ec8a0499d275167415d4889b4c9')
+sha256sums=('554cac88c863cda91eb3b128893b8e509650b8e334e59f5968b108048a5424b4')
 
 build() {
   cmake -B build -S $pkgname \
