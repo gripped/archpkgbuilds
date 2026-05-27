@@ -2,7 +2,7 @@
 
 pkgname=python-flufl.bounce
 _name="${pkgname#python-}"
-pkgver=5.0
+pkgver=5.0.1
 pkgrel=1
 pkgdesc="Email bounce detectors"
 arch=(any)
@@ -24,8 +24,8 @@ checkdepends=(
 provides=(python-flufl-bounce)
 replaces=(python-flufl-bounce)
 source=($url/-/archive/$pkgver/$_name-$pkgver.tar.gz)
-sha512sums=('9ff6afd043c1abad05acb3bafa65fbeee86a06a32a738979775fe38b01ad8792073754bd865f0007c96f3d7b91eb43de554b9dec5c04bbee0903b972b67eb36b')
-b2sums=('51865ee46f4486dba4653aed5b7676fe8870aac53f05769e67893a9861e292f62aafd173aec18324fbb74fdbf9261baba78cb9b68d52e57e2b54351af3204c44')
+sha512sums=('ce000455ff39a6b95bc84cf8ecf02948f734ea3f8d1c468d4fb8cdd841d7ec4388a95c6f354589382e6256e7ec14b9981e63a54fb690686bbbfb4e1c88784837')
+b2sums=('012ef3e2243b8b364966716a231c52b331fa8622d6873ad37f19365dad8c6be62dd4e5316d597e2d8865304e6d43defd0a7e883f655f33d757e913b86c4135d8')
 
 build() {
   cd $_name-$pkgver
