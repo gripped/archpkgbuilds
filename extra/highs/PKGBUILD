@@ -4,13 +4,14 @@ pkgbase=highs
 pkgname=(highs
          python-highspy)
 pkgver=1.14.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Linear optimization software'
 arch=(x86_64)
 url='https://highs.dev/'
 license=(MIT)
-depends=(gcc-libs
-         glibc)
+depends=(glibc
+         libgcc
+         libstdc++)
 makedepends=(cmake
              git
              pybind11

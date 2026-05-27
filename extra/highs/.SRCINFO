@@ -1,7 +1,7 @@
 pkgbase = highs
 	pkgdesc = Linear optimization software
 	pkgver = 1.14.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://highs.dev/
 	arch = x86_64
 	license = MIT
@@ -12,18 +12,21 @@ pkgbase = highs
 	makedepends = python-installer
 	makedepends = python-numpy
 	makedepends = python-scikit-build-core
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	source = git+https://github.com/ERGO-Code/HiGHS#tag=v1.14.0
 	sha256sums = 9c4c356da62a38c31bbedcb5d8549eefd8d0c409864f70e769a33301bcdb587e
 
 pkgname = highs
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = zlib
 
 pkgname = python-highspy
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = python
 	depends = python-numpy
