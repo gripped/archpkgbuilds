@@ -4,7 +4,8 @@
 
 pkgname=dtc
 pkgver=1.7.2
-pkgrel=5
+pkgrel=1
+epoch=1
 pkgdesc='Device Tree Compiler'
 url='https://www.devicetree.org/'
 arch=(x86_64)
@@ -32,6 +33,9 @@ prepare() {
 
   # pylibfdt/libfdt.i: fix backwards compatibility of return values
   git cherry-pick 9a969f3b70b07bbf1c9df44a38d7f8d1d3a6e2a5
+
+  # fix discarded const qualifiers
+  git cherry-pick 9a1c801a1a3c102bf95c5339c9e985b26b823a21
 }
 
 build() {
