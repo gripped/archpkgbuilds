@@ -2,13 +2,12 @@
 
 pkgname=kommit
 pkgver=1.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Git gui client'
 arch=(x86_64)
 url='https://apps.kde.org/kommit'
 license=(GPL-3.0-only)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kconfig
          kconfigwidgets
          kcoreaddons
@@ -21,6 +20,7 @@ depends=(gcc-libs
          kwidgetsaddons
          kxmlgui
          libgit2
+         libstdc++
          openssl
          qt6-base
          qt6-charts
