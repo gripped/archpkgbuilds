@@ -1,7 +1,7 @@
 pkgbase = python-django-modeltranslation
 	pkgdesc = Translates Django models using a registration approach
-	pkgver = 0.19.18
-	pkgrel = 2
+	pkgver = 0.20.3
+	pkgrel = 1
 	url = https://github.com/deschler/django-modeltranslation
 	arch = any
 	license = BSD-3-Clause
@@ -10,10 +10,10 @@ pkgbase = python-django-modeltranslation
 	makedepends = python-hatchling
 	makedepends = python-hatch-vcs
 	makedepends = python-installer
-	makedepends = python-setuptools
 	makedepends = python-wheel
 	depends = python-django
-	source = git+https://github.com/deschler/django-modeltranslation.git#tag=eaf426f249f3f7cd42c374f01e55cca1d10580ab
-	sha256sums = 4956a52ea57093db3dc3ded5892718abcccfced023b34b6ed4a3c758c9714661
+	depends = python-typing_extensions
+	source = django-modeltranslation::git+https://github.com/deschler/django-modeltranslation.git#tag=v0.20.3
+	b2sums = 3f989e9a6fc9f976d1a28d18fdf751e9d9e9dc95807ecfecb6f0ec81f75dd0decf95a3c108dbf7d6bdb2a14e3077bd8c690d4650cd3569b3a1b4a20cf86bff77
 
 pkgname = python-django-modeltranslation
