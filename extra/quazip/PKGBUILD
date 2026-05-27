@@ -6,8 +6,8 @@
 
 pkgbase=quazip
 pkgname=(quazip-qt6)
-pkgver=1.5
-pkgrel=2
+pkgver=1.6
+pkgrel=1
 pkgdesc='C++ wrapper for the ZIP/UNZIP C package'
 url='https://stachenov.github.io/quazip/'
 license=(LGPL-2.1-or-later)
@@ -22,7 +22,7 @@ depends=(bzip2
 makedepends=(cmake
              git)
 source=(git+https://github.com/stachenov/quazip#tag=v$pkgver)
-sha256sums=('2929e71afe9535b7b6c6c3203534c258d6abe5d43627a5e33e68ca75ad883695')
+sha256sums=('14d37474ced858799ff3dfd040c535b710a9378df5f8511a71a1dd94868584d5')
 
 build() {
   cmake -B build -S $pkgbase \
