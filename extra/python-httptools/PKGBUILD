@@ -2,8 +2,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-httptools
-pkgver=0.7.1
-pkgrel=3
+pkgver=0.8.0
+pkgrel=1
 pkgdesc='Fast HTTP parser'
 arch=(x86_64)
 url=https://github.com/MagicStack/httptools
@@ -18,10 +18,9 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-_tag=26461dae5a108d8e8b1e6cc206779055999f7905
-source=(git+https://github.com/MagicStack/httptools#tag=${_tag}
+source=(git+https://github.com/MagicStack/httptools#tag=v${pkgver}
         git+https://github.com/nodejs/http-parser.git)
-b2sums=('908380c38f33ce08c42c85ed605d8faf3c870bf3380a228745024f936282a4e345a67a1bea64db9e849b236ac892de2a2b60a1b122fb799d98cb5edd08b449c3'
+b2sums=('7d90b76b7482c48ccd0e29e7ea11eb59956bb0b7dc4e1b9185f21ac32954ad1d5563e175ab897c5a2dc13b901426a0cd3bf41a20b52101b0cf491b704c3aeeea'
         'SKIP')
 
 prepare() {
@@ -31,11 +30,6 @@ prepare() {
   git submodule init
   git config submodule.vendor/http-parser.url "$srcdir"/http-parser
   git -c protocol.file.allow=always submodule update
-}
-
-pkgver() {
-  cd httptools
-  git describe --tags | sed 's/^v//'
 }
 
 build() {
