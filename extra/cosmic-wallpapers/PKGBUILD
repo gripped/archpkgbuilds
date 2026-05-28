@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-wallpapers
-pkgver=1.0.13
+pkgver=1.0.14
 pkgrel=1
 epoch=2
 pkgdesc='Wallpapers for the COSMIC Desktop Environment'
