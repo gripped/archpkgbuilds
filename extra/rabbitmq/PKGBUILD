@@ -8,17 +8,29 @@
 # Contributor: Christopher Grebs <cg@webshox.org>
 # Contributor: mutantmonkey
 
-pkgbase=rabbitmq
-pkgname=(
-  rabbitmq
-  rabbitmqadmin
-)
-pkgver=4.2.5
+pkgname=rabbitmq
+pkgver=4.3.1
 pkgrel=1
 pkgdesc='Highly reliable and performant enterprise messaging implementation of AMQP written in Erlang/OTP'
 url='https://rabbitmq.com'
 arch=('any')
 license=('MPL-2.0')
+depends=(
+  'erlang-eldap'
+  'erlang-erts'
+  'erlang-kernel'
+  'erlang-mnesia'
+  'erlang-os_mon'
+  'erlang-public_key'
+  'erlang-sasl'
+  'erlang-ssl'
+  'erlang-stdlib'
+  'erlang-syntax_tools'
+  'erlang-tools'
+  'erlang-xmerl'
+  'socat'
+  'util-linux'
+)
 makedepends=(
   '7zip'
   'elixir'
@@ -48,8 +60,14 @@ makedepends=(
   'util-linux'
   'xmlto'
 )
+optdepends=(
+  'rabbitmqadmin: CLI management tool'
+  'logrotate: rotate log files'
+)
+backup=('etc/rabbitmq/rabbitmq-env.conf')
+install=rabbitmq.install
 source=(
-  "git+https://github.com/rabbitmq/rabbitmq-server.git#tag=v$pkgver"
+  "$pkgname::git+https://github.com/rabbitmq/rabbitmq-server.git#tag=v$pkgver"
   rabbitmq-customize-systemd-service.patch
   rabbitmq-devendor-rebar3.patch
   rabbitmq-env.conf
@@ -57,7 +75,7 @@ source=(
   rabbitmq.tmpfiles
   rabbitmq.logrotate
 )
-sha512sums=('80ff847af427e30110df122890e0ef04f5193e382a8613a8e2ecef26939c6f207eef8d4e897466aadfa834511e5109c7543257b8008ce0cfd34bf315954e6ab0'
+sha512sums=('206c1c05b3986d32afa84838d9f2259fbc8742a99211936aa0b065704c3e1a9f2fa865bf473ce2f245feddca9816163284e967d2089482d86c24f4fbb1f3008a'
             '81d74e006dcf6641b5fd00aba098423809b3d0e36fcfaa2467b54ed08ebd2b666b4cfb06a3e41c31fe41bf8e51df3581ef6b5e0a0bdf9f90b6ef60d5ba913e6a'
             'a13f9c9d6fbff3b5356a2bf10f85cc9d44f991c8f145b57825f39119e65db7e06341d52f19f209d4968c33bed37b193996b321a0727364b79e7127fb70c74bd5'
             '8b841e28fa0a1424dd9e57c0988e015f3cd4cccef0f73ccdb7c7b66d11ca62ba8ef3a59c7ca5e5f0c9c9d8003ac72bf53785985d98aae867961787003286e179'
@@ -72,7 +90,7 @@ validpgpkeys=(
 )
 
 prepare() {
-  cd $pkgbase-server
+  cd $pkgname
   sed -E 's|^(SYS_PREFIX=).*$|\1""|' -i deps/rabbit/scripts/rabbitmq-defaults
   sed -E 's|@RABBITMQ_USER@|rabbitmq|g' -i scripts/rabbitmq-script-wrapper
   sed -E 's|@RABBITMQ_GROUP@|rabbitmq|g' -i scripts/rabbitmq-script-wrapper
@@ -82,12 +100,12 @@ prepare() {
 }
 
 build() {
-  cd $pkgbase-server
+  cd $pkgname
   make -j1 dist manpages RABBITMQ_VERSION=$pkgver
 }
 
 check() {
-  cd $pkgbase-server
+  cd $pkgname
   # The test suite starts epmd but doesn't kill it afterwards.
   export ERL_EPMD_PORT=5369
   trap 'epmd -port $ERL_EPMD_PORT -kill' EXIT
@@ -103,7 +121,6 @@ check() {
     feature_flags_v2
     lqueue
     mc_unit
-    metadata_store_phase1
     peer_discovery_dns
     peer_discovery_tmp_hidden_node
     rabbit_confirms
@@ -134,39 +151,13 @@ check() {
   make -C deps/rabbit ct CT_SUITES="${ct_suites[*]}"
 }
 
-package_rabbitmq() {
-  depends=(
-    'erlang-eldap'
-    'erlang-erts'
-    'erlang-kernel'
-    'erlang-mnesia'
-    'erlang-os_mon'
-    'erlang-public_key'
-    'erlang-sasl'
-    'erlang-ssl'
-    'erlang-stdlib'
-    'erlang-syntax_tools'
-    'erlang-tools'
-    'erlang-xmerl'
-    'socat'
-    'util-linux'
-  )
-  optdepends=(
-    'rabbitmqadmin: CLI management tool'
-    'logrotate: rotate log files'
-  )
-  backup=('etc/rabbitmq/rabbitmq-env.conf')
-  install=rabbitmq.install
-
-  cd $pkgbase-server
+package() {
+  cd $pkgname
   make install install-man install-bin \
     DESTDIR="$pkgdir" \
     PREFIX=/usr \
     RMQ_ROOTDIR=/usr/lib/rabbitmq \
     PROJECT_VERSION=$pkgver
-
-  # Remove rabbitmqadmin, packaged separately.
-  rm "$pkgdir/usr/lib/rabbitmq/lib/rabbitmq_server-$pkgver/plugins/rabbitmq_management-$pkgver/priv/www/cli/rabbitmqadmin"
 
   # Using script wrapper for better bin handling.
   install -vdm 755 "$pkgdir/usr/bin"
@@ -196,11 +187,3 @@ package_rabbitmq() {
   chown -vR 197:0 "$pkgdir/etc/rabbitmq"
 }
 
-package_rabbitmqadmin() {
-  pkgdesc='Command-line tool for managing RabbitMQ server (requires "management" plugin)'
-  url='https://www.rabbitmq.com/docs/management-cli'
-  depends=('python')
-
-  cd $pkgbase-server/deps/rabbitmq_management
-  install -vDm 755 -t "$pkgdir/usr/bin" bin/rabbitmqadmin
-}
