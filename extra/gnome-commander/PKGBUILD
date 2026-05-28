@@ -6,7 +6,7 @@
 # Contributor: Johannes Sjolund <j.sjolund@gmail.com>
 
 pkgname=gnome-commander
-pkgver=2.0.0
+pkgver=2.0.1
 pkgrel=1
 pkgdesc='Graphical two-pane filemanager for GNOME'
 arch=(x86_64)
@@ -42,14 +42,8 @@ makedepends=(
   rust
   smbclient
 )
-source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-commander.git?signed#tag=$pkgver"
-  gnome-commander-fix-build.patch
-)
-b2sums=(
-  0176ddeee208c3335c55235ba525a1585c005ff6e4c704e34879c897fd7c84820f68370fbc7bceaa67a8a7606ca8b27992b850884fc502d7b53ebc78fae1ab3d
-  e652b5be89dd32d8b3dc83ccbf765a982f04df34b65d1bb7972bd89b4bb4b8bde446126e87aa8c09e5cc125a8819766fd4e862da64c34c4fb07a555b1a8d5939
-)
+source=("git+https://gitlab.gnome.org/GNOME/gnome-commander.git#tag=$pkgver")
+b2sums=(dfcd75ae1ea3c7d82b45f677b65595e716ba264a994e221622fdfc32920cb1b447e2e28fc676294e22b359b8e9de0641eb86e5a10ae58e9510dfd519131707b7)
 validpgpkeys=(7627E6FCECF4FC066A03B673F50A89A3ADE4C6E8) # Uwe Scholz <u.scholz83@gmx.de>
 
 prepare() {
@@ -57,7 +51,7 @@ prepare() {
 
   # Fix build
   # https://gitlab.gnome.org/GNOME/gnome-commander/-/merge_requests/516
-  git apply -3 ../gnome-commander-fix-build.patch
+  git cherry-pick -n 9fdb7b17ce0bc74bc85bdf813713520fc4ee2075
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc --print host-tuple)"
@@ -65,7 +59,12 @@ prepare() {
 
 build() {
   arch-meson $pkgname build
-  meson compile -C build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
+    meson compile -C build
 }
 
 package() {
