@@ -6,7 +6,7 @@
 # Contributor: Stefan Cocora <stefan dot cocora at gmail dot com>
 
 pkgname=skaffold
-pkgver=2.18.3
+pkgver=2.21.0
 pkgrel=1
 pkgdesc="A command line tool that facilitates continuous development for Kubernetes applications"
 arch=("x86_64")
@@ -29,8 +29,8 @@ optdepends=(
 )
 options=(!lto)
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('e8a9fddff261215fb46bdefe4eda324dc718f54e43a17002e71e134c56e87c2c253dbb0f36d50346345778b84fad55b59ee79a8d0c1eef76f81455013b0c0a71')
-b2sums=('f730033c70d1c3ebc6e976825d1f78c54c7388aff63892a4d81a155032574d64cfbc8b22c97bd89357ac89c97876248e9c8d775c1145598e48fb7db0b02d5d4d')
+sha512sums=('69181262ffe50ab8f17ef3dcb2270d0618805b10b39204005eab44e86f1bc00f6c796842bce08a5403155588cab3883afc7a00967d79693c89eb29c83029f561')
+b2sums=('71352a1cfac7c31cf8ab6960a7397038ca81654b4aa77c7cff55378e5962597769f9741b6d2879810769f387e3571f05750c8fb9ece11415cf7cd8e61a50696c')
 
 prepare() {
   cd "${pkgname}"
