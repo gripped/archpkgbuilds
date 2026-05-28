@@ -5,7 +5,7 @@
 pkgname=kwin
 pkgver=6.6.5
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=2
+pkgrel=3
 pkgdesc='An easy to use, but flexible, Wayland compositor'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -79,14 +79,21 @@ makedepends=(extra-cmake-modules
              xorg-xwayland)
 optdepends=('plasma-keyboard: virtual keyboard')
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/plasma/kwin/-/merge_requests/9278.patch)
 sha256sums=('6c187ce7a5506090b438ef900103836fa0537674dde8b31e5b497ef321643cb4'
-            'SKIP')
+            'SKIP'
+            '0e050917c4ecdab0da7ee4ac1a18e477b2de7a8c9736e492b7750b0b3ce1922c')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1'  # Nicolas Fella <nicolas.fella@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -Np1 -i ../9278.patch
+}
 
 build() {
   cmake -B build  -S $pkgname-$pkgver \
