@@ -2,13 +2,14 @@
 
 pkgname=sirocco
 pkgver=2.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='C++ library that allows to compute piecewise linear approximations of the path followed by the root of a complex polynomial'
 arch=(x86_64)
 url='https://github.com/miguelmarco/SIROCCO2'
 license=(GPL-3.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          mpfr)
 makedepends=(git)
 source=(git+https://github.com/miguelmarco/SIROCCO2#tag=$pkgver)
