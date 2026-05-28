@@ -2,7 +2,7 @@
 # Contributor: Grzegorz Koperwas <admin@grzegorzkoperwas.site>
 
 pkgname=awww
-pkgver=0.12.0
+pkgver=0.12.1
 pkgrel=1
 pkgdesc="An Answer to your Wayland Wallpaper Woes"
 arch=(x86_64)
@@ -24,7 +24,7 @@ provides=(swww)
 replaces=(swww)
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-b2sums=('c2e914a2b75421ba4abe7755bf9bdfaabd27a6bbb955120894eb7d74d5cbe66fcc6eedd67c89295328be40cc38ef6a0c7ccf2c0c19422451d860bb8501fc7ae7')
+b2sums=('496a0893a6f6d73d0f01c7d8ca7a44f0fd659f75d752f755b089230a020c925880d9bc008a0c198f2d0deb2edba9c2663c3226348540d885def925c17ac675b5')
 
 prepare() {
   cd $pkgname
