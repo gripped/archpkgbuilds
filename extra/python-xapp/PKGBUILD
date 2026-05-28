@@ -3,7 +3,7 @@
 
 pkgname=python-xapp
 _pkgname=python3-xapp
-pkgver=3.0.2
+pkgver=3.0.3
 pkgrel=1
 pkgdesc='Python Xapp Library'
 arch=(any)
@@ -23,7 +23,7 @@ makedepends=(
   meson
 )
 source=("git+https://github.com/linuxmint/python3-xapp.git#tag=$pkgver")
-b2sums=('f9c916accc2d41ce408b2d4a90a68696cf7bef3b3a346f6c4f176a61db04c65601819bc42109e33db7c842a91dfd66421005747adb2dd39312c44edd71ebf73f')
+b2sums=('521a20ae5c488aaeca60fac5671b08aa025b3f43fe73b296689c7def6345431ecd324f5350493f818c871a3643f237f291e419e912112cb01de541684549f241')
 
 build(){
   arch-meson $_pkgname build
