@@ -4,7 +4,7 @@ pkgbase=zint
 pkgname=(zint
          zint-qt)
 pkgver=2.16.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Barcode encoding library supporting over 50 symbologies'
 arch=(x86_64)
 url='https://zint.org.uk/'
@@ -35,7 +35,8 @@ package_zint() {
 
 package_zint-qt() {
   pkgdesc='Zint Barcode Studio GUI'
-  depends+=(gcc-libs
+  depends+=(libgcc
+            libstdc++
             qt6-base
             qt6-svg
             qt6-tools
