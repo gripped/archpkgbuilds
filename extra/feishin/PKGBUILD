@@ -4,7 +4,7 @@
 # Contributor: Dlani
 
 pkgname=feishin
-pkgver=1.12.0
+pkgver=1.12.1
 pkgrel=1
 pkgdesc='A modern self-hosted music player.'
 arch=('any')
@@ -18,12 +18,10 @@ source=(
 	"git+$url.git#tag=v$pkgver"
 	"$pkgname.sh"
 	"add-support-for-pnpm-v11.patch"
-	"fix-asset-path.patch"
 )
-sha256sums=('fd23874bf1725e44d8dee3d98454e0c342918f27495e9c110b5839a7bbdcd534'
+sha256sums=('bf016028148d2a4d4bc917a62e990358a585127ecb4815ebad1500ea8c5d4b22'
             '4ac240aa9678f6a9c638e6e9d03bbdb77507c936c4594a20cdf223e15072697d'
-            '7047a40ed4fde94e7456886179e1fcd536a7e21cf3c55d37eca48776ada8df38'
-            '9896c5d72d810924ced28e557098eea23c891706030b55e386cf2cefbb4c4022')
+            '7047a40ed4fde94e7456886179e1fcd536a7e21cf3c55d37eca48776ada8df38')
 
 prepare() {
 	sed -i "s|@ELECTRON@|$_electron|" $pkgname.sh
@@ -35,10 +33,6 @@ prepare() {
 	# add support for pnpm v11
 	# https://github.com/jeffvli/feishin/pull/2056
 	patch -p1 -i ../add-support-for-pnpm-v11.patch
-
-	# fix asset path for system electron
-	# https://github.com/jeffvli/feishin/pull/2064
-	patch -p1 -i ../fix-asset-path.patch
 
 	export ELECTRON_SKIP_BINARY_DOWNLOAD=1
 	pnpm install
