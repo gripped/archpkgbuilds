@@ -9,10 +9,10 @@ Subject: [PATCH] Use fusermount3
  2 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/src/builder-context.c b/src/builder-context.c
-index 4458a229cb28..973c8cf65e21 100644
+index 1467cc7c3a68..ed8b1fc90f36 100644
 --- a/src/builder-context.c
 +++ b/src/builder-context.c
-@@ -854,7 +854,7 @@ static char *rofiles_unmount_path = NULL;
+@@ -855,7 +855,7 @@ static char *rofiles_unmount_path = NULL;
  static void
  rofiles_umount_handler (int signum)
  {
@@ -21,7 +21,7 @@ index 4458a229cb28..973c8cf65e21 100644
                       NULL };
  
    argv[2] = rofiles_unmount_path;
-@@ -994,7 +994,7 @@ gboolean
+@@ -995,7 +995,7 @@ gboolean
  builder_context_disable_rofiles (BuilderContext *self,
                                   GError        **error)
  {
