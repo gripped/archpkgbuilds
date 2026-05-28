@@ -5,7 +5,7 @@
 # Contributor: Jonas Heinrich <onny@project-insanity.org>
 
 pkgname=azcopy
-pkgver=10.32.3
+pkgver=10.32.4
 pkgrel=1
 pkgdesc="A command-line utility designed for copying data to/from Microsoft Azure"
 arch=('x86_64')
@@ -18,7 +18,7 @@ makedepends=(
 )
 options=('!lto')
 source=("$pkgname::git+$url#tag=v$pkgver")
-b2sums=('00499fd18894514bc10f041b6d4239259b1e63079f6fa6ea7b901ac45bbaafa841aca88f239c843176a00797493457b5f1e37ca3b6e742352abef7a3d9aa96eb')
+b2sums=('fe9b3b4ddd46a8eb572f0679f1861b70978363e0950f14a800cdf9be433c4ab541bb1fc95be5a3245dc68943bba7d3cae059af7ed925fb8387d3fa1dfb39d41e')
 
 prepare() {
   cd $pkgname
