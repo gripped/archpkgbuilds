@@ -3,13 +3,14 @@
 pkgbase=pynormaliz
 pkgname=(python-pynormaliz)
 pkgver=2.24
-pkgrel=1
+pkgrel=2
 pkgdesc='A Python interface to Normaliz'
 arch=(x86_64)
 url='https://github.com/Normaliz/PyNormaliz'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          normaliz
          python)
 makedepends=(boost
