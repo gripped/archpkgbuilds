@@ -1,0 +1,63 @@
+pkgbase = dotnet-core-10.0
+	pkgver = 10.0.8.sdk108
+	pkgrel = 1
+	url = https://dotnet.microsoft.com
+	arch = x86_64
+	license = MIT
+	makedepends = bash
+	makedepends = clang20
+	makedepends = cmake
+	makedepends = dotnet-sdk-10.0
+	makedepends = dotnet-source-built-artifacts-10.0
+	makedepends = git
+	makedepends = icu
+	makedepends = krb5
+	makedepends = libgit2
+	makedepends = libunwind
+	makedepends = libxml2
+	makedepends = lldb
+	makedepends = llvm20
+	makedepends = lttng-ust2.12
+	makedepends = nodejs
+	makedepends = openssl
+	makedepends = systemd
+	makedepends = zlib
+	optdepends = bash-completion: Bash completion support
+	options = !lto
+	options = staticlibs
+	source = git+https://github.com/dotnet/dotnet.git#tag=v10.0.108
+	b2sums = 0eb4a3d96e400231b94b7905e19f95e00c6890e31a849078f08ea500b2275634beb7546e916d719120cb0988e44d81a7b1c6d509164962f38c49e4b550e6d434
+
+pkgname = dotnet-runtime-10.0
+	pkgdesc = The .NET Core runtime
+	depends = dotnet-host
+	depends = gcc-libs
+	depends = glibc
+	depends = icu
+	depends = krb5
+	depends = libunwind
+	depends = zlib
+	depends = openssl
+	optdepends = lttng-ust2.12: CoreCLR tracing
+
+pkgname = aspnet-runtime-10.0
+	pkgdesc = The ASP.NET Core runtime
+	depends = dotnet-runtime-10.0
+
+pkgname = dotnet-sdk-10.0
+	pkgdesc = The .NET Core SDK
+	depends = dotnet-runtime-10.0
+	depends = dotnet-targeting-pack-10.0
+	depends = glibc
+	depends = gcc-libs
+	optdepends = aspnet-targeting-pack: Build ASP.NET Core applications
+
+pkgname = dotnet-targeting-pack-10.0
+	pkgdesc = The .NET Core targeting pack
+
+pkgname = aspnet-targeting-pack-10.0
+	pkgdesc = The ASP.NET Core targeting pack
+	depends = dotnet-targeting-pack-10.0
+
+pkgname = dotnet-source-built-artifacts-10.0
+	pkgdesc = Internal package for building the .NET Core SDK
