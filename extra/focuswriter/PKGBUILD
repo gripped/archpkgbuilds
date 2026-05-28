@@ -3,21 +3,34 @@
 
 pkgname=focuswriter
 pkgver=1.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple, distraction-free word processor'
-arch=('x86_64')
+arch=(x86_64)
 url='https://gottcode.org/focuswriter/'
-license=('GPL3')
-depends=('hicolor-icon-theme' 'hunspell' 'kdsingleapplication' 'qt6-multimedia')
-makedepends=('cmake' 'qt6-tools')
-source=("https://gottcode.org/$pkgname/$pkgname-$pkgver.tar.bz2"{,.asc})
-sha256sums=('d6e4a332f5e87365b5f5c14807f66f328ba6c7330ea21a0c8bef7c1268347314'
-            'SKIP')
-validpgpkeys=('57E4D43C10CD7EDB8360C84774FFC7F02C4F6B37')
+license=(GPL-3.0-or-later)
+depends=(
+  glibc
+  hicolor-icon-theme
+  hunspell
+  kdsingleapplication
+  libgcc
+  libstdc++
+  qt6-base
+  qt6-multimedia
+  zlib
+)
+makedepends=(
+  cmake
+  git
+  qt6-tools
+)
+source=("git+https://github.com/gottcode/focuswriter.git?signed#tag=v$pkgver")
+b2sums=(78e711a938a0cac803779ee784efb37ab62bf364a2a7cc84dae1159380ec5255f119b049a1a20a252d6fd4e3903ac991e201f7a06f4cad75b0ede262418b2329)
+validpgpkeys=(57E4D43C10CD7EDB8360C84774FFC7F02C4F6B37) # Graeme Gott <graeme@gottcode.org>
 
 build() {
-  cmake -B build -S $pkgname-$pkgver \
-    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake -B build -S $pkgname \
+    -D CMAKE_INSTALL_PREFIX=/usr
   cmake --build build
 }
 

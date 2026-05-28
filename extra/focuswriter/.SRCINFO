@@ -1,20 +1,24 @@
 pkgbase = focuswriter
 	pkgdesc = Simple, distraction-free word processor
 	pkgver = 1.9.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gottcode.org/focuswriter/
 	arch = x86_64
-	license = GPL3
+	license = GPL-3.0-or-later
 	makedepends = cmake
+	makedepends = git
 	makedepends = qt6-tools
+	depends = glibc
 	depends = hicolor-icon-theme
 	depends = hunspell
 	depends = kdsingleapplication
+	depends = libgcc
+	depends = libstdc++
+	depends = qt6-base
 	depends = qt6-multimedia
-	source = https://gottcode.org/focuswriter/focuswriter-1.9.0.tar.bz2
-	source = https://gottcode.org/focuswriter/focuswriter-1.9.0.tar.bz2.asc
+	depends = zlib
+	source = git+https://github.com/gottcode/focuswriter.git?signed#tag=v1.9.0
 	validpgpkeys = 57E4D43C10CD7EDB8360C84774FFC7F02C4F6B37
-	sha256sums = d6e4a332f5e87365b5f5c14807f66f328ba6c7330ea21a0c8bef7c1268347314
-	sha256sums = SKIP
+	b2sums = 78e711a938a0cac803779ee784efb37ab62bf364a2a7cc84dae1159380ec5255f119b049a1a20a252d6fd4e3903ac991e201f7a06f4cad75b0ede262418b2329
 
 pkgname = focuswriter
