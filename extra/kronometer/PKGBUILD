@@ -3,13 +3,12 @@
 
 pkgname=kronometer
 pkgver=2.3.0
-pkgrel=3
+pkgrel=4
 pkgdesc='A simple chronometer application'
 arch=(x86_64)
 url='https://apps.kde.org/kronometer/'
-license=(GPL2)
-depends=(gcc-libs
-         glibc
+license=(GPL-2.0-or-later)
+depends=(glibc
          kconfig5
          kconfigwidgets5
          kcoreaddons5
@@ -17,6 +16,7 @@ depends=(gcc-libs
          ki18n5
          kwidgetsaddons5
          kxmlgui5
+         libstdc++
          qt5-base)
 makedepends=(extra-cmake-modules)
 source=(https://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
