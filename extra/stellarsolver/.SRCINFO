@@ -1,16 +1,17 @@
 pkgbase = stellarsolver
 	pkgdesc = The cross platform Sextractor and Astrometry.net-Based internal astrometric solver
 	pkgver = 2.7
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/rlancaste/stellarsolver
 	arch = x86_64
 	license = GPL-3.0-or-later
 	makedepends = cmake
 	makedepends = git
 	depends = cfitsio
-	depends = gcc-libs
 	depends = glibc
 	depends = gsl
+	depends = libgcc
+	depends = libstdc++
 	depends = qt6-base
 	depends = wcslib
 	source = git+https://github.com/rlancaste/stellarsolver#tag=2.7
