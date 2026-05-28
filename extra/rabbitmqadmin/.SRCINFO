@@ -1,0 +1,17 @@
+pkgbase = rabbitmqadmin
+	pkgdesc = A command line tool for RabbitMQ that uses the HTTP API
+	pkgver = 2.30.0
+	pkgrel = 1
+	epoch = 1
+	url = https://github.com/rabbitmq/rabbitmqadmin-ng
+	arch = x86_64
+	license = Apache-2.0 OR MIT
+	makedepends = cargo
+	makedepends = git
+	depends = glibc
+	depends = libgcc
+	options = !lto
+	source = rabbitmqadmin::git+https://github.com/rabbitmq/rabbitmqadmin-ng.git#tag=v2.30.0
+	b2sums = 21fdd8de0baa0523b95ab76c0672f5157dcbdee349821e1d1e854b871e2b88bfbfde04598f4d3ebb79c84c982f075126f21f1c7a7c38634607883b69dd1d6771
+
+pkgname = rabbitmqadmin
