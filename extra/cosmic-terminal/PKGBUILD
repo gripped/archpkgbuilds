@@ -3,7 +3,7 @@
 # Contributor: Kyuzial <kyuzial@protonmail.com>
 
 pkgname=cosmic-terminal
-pkgver=1.0.13
+pkgver=1.0.14
 pkgrel=1
 epoch=1
 pkgdesc='Cosmic Terminal Emulator'
@@ -28,7 +28,7 @@ source=(
   git+https://github.com/pop-os/cosmic-term.git#tag=epoch-${pkgver}
   cosmic-terminal-lto.patch
 )
-b2sums=('e666621a15510d94d72323e01d66c2db163c496af319af527b1f0160286aadfdfe4904bd4134f7d5b42091a5c6b65c6252bc60b62396f5595c2dbbdffc94f539'
+b2sums=('6f9ec8e4edc779538c25f4bc3dd287cf0fbb1520dab4bb42d0ea42c2cb1f1aa54742b8100bd21c540d45d726c41212a93d39ee74809ca7a4841989fabf9f4109'
         '4e28ab726f474f064a99dbb4dc75faa7ddfe00d7f5e238f57ba80ac75e44a2f6ed00ae2f3499fac94d40ec4dd773fc9eeb93c4543f8e63699ba437ba45f8783b')
 
 prepare() {
