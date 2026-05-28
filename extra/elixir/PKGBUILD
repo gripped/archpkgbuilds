@@ -5,7 +5,7 @@
 
 pkgname=elixir
 pkgver=1.19.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A dynamic, functional language for building scalable and maintainable applications"
 url="https://elixir-lang.org"
 license=('Apache-2.0')
@@ -37,6 +37,8 @@ prepare() {
   cd ${pkgname}
   # Fix regex position test for newer PCRE2
   sed -i 's/position 0\$/position [01]$/' lib/elixir/test/elixir/regex_test.exs
+
+  git cherry-pick -n 07e6e1a985c6a5791446066ac92c0c5feadad87d # otp 29 compat
 }
 
 build() {
