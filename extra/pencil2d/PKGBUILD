@@ -2,16 +2,28 @@
 # Contributor: Jakob Gahde <j5lx@fmail.co.uk>
 
 pkgname=pencil2d
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=1
 pkgdesc='Easy, intuitive tool to make 2D hand-drawn animations'
-arch=('x86_64')
+arch=(x86_64)
 url='https://www.pencil2d.org/'
-license=('GPL-2.0-or-later')
-depends=('ffmpeg' 'hicolor-icon-theme' 'qt6-multimedia' 'qt6-svg')
-makedepends=('git' 'qt6-tools')
+license=(GPL-2.0-only)
+depends=(
+  ffmpeg
+  glibc
+  hicolor-icon-theme
+  libgcc
+  libstdc++
+  qt6-base
+  qt6-multimedia
+  qt6-svg
+)
+makedepends=(
+  git
+  qt6-tools
+)
 source=("git+https://github.com/pencil2d/pencil.git#tag=v$pkgver")
-sha256sums=('f366accde210d0815ddcd2c6f05ca6ffe80c8d46de0da0bc36e91c33fdbba986')
+b2sums=(d93f02eaa592b98356d693be4932bbfbcd7670b36d1b67d046d6dfc1d2a7cdd5385a099571f82a75733f09192396923f0c281205a033e580beb728545ed8a0d3)
 
 build() {
   cd pencil
