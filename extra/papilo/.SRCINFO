@@ -1,7 +1,7 @@
 pkgbase = papilo
 	pkgdesc = Parallel Presolve for Integer and Linear Optimization
 	pkgver = 3.0.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://www.scipopt.org/
 	arch = x86_64
 	license = LGPL-3.0-only
@@ -9,9 +9,11 @@ pkgbase = papilo
 	makedepends = cmake
 	makedepends = git
 	depends = boost-libs
-	depends = gcc-libs
 	depends = glibc
 	depends = gmp
+	depends = libgcc
+	depends = libquadmath
+	depends = libstdc++
 	depends = tbb
 	source = git+https://github.com/scipopt/papilo#tag=v3.0.0
 	sha256sums = 2f7d368964ef6f8d9970ed2fb67715c8082a5904b01f6dc5de6a8f4eab2fb2da
