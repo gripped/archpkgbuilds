@@ -3,14 +3,15 @@
 pkgname=lidia
 pkgver=2.3.0
 _patchver=2019-05-02
-pkgrel=6
+pkgrel=7
 pkgdesc='A library for computational number theory'
 arch=(x86_64)
 url='https://www.math.ucdavis.edu/~latte/'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
-         gmp)
+depends=(glibc
+         gmp
+         libgcc
+         libstdc++)
 makedepends=(git)
 source=(git+https://github.com/mkoeppe/LiDIA#tag=v$pkgver+latte-patches-$_patchver)
 sha256sums=('19588fa4bbe51d683c093817a8620926ea8439408bc01f7a109d8ebd54d895c1')
