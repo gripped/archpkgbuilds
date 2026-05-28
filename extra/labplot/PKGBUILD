@@ -2,7 +2,7 @@
 
 pkgname=labplot
 pkgver=2.12.1
-pkgrel=8
+pkgrel=9
 arch=(x86_64)
 pkgdesc='KDE Application for interactive graphing and analysis of scientific data'
 url='https://labplot.kde.org/'
@@ -12,7 +12,6 @@ depends=(cantor
          cfitsio
          discount
          fftw
-         gcc-libs
          glibc
          gsl
          hdf5
@@ -32,10 +31,12 @@ depends=(cantor
          kwidgetsaddons
          kxmlgui
          libcerf
+         libgcc
          libixion
          libmatio
          liborcus
          liborigin
+         libstdc++
          lz4
          netcdf
          poppler-qt6
