@@ -3,13 +3,12 @@
 
 pkgname=krusader
 pkgver=2.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Advanced twin panel (commander style) file manager'
 arch=(x86_64)
 url='https://krusader.org/'
 license=(GPL-2.0-or-later)
 depends=(acl
-         gcc-libs
          glibc
          karchive
          kbookmarks
@@ -35,6 +34,7 @@ depends=(acl
          kwidgetsaddons
          kwindowsystem
          kxmlgui
+         libstdc++
          qt6-5compat
          qt6-base
          solid
