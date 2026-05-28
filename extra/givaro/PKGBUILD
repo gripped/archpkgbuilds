@@ -2,8 +2,8 @@
 # Contributor: Rémy Oudompheng <oudomphe@phare.normalesup.org>
 
 pkgname=givaro
-pkgver=4.2.1
-pkgrel=2
+pkgver=4.2.2
+pkgrel=1
 pkgdesc='C++ library for arithmetic and algebraic computations'
 arch=(x86_64)
 url='https://casys.gricad-pages.univ-grenoble-alpes.fr/givaro/'
@@ -15,7 +15,7 @@ depends=(glibc
          sh)
 makedepends=(git)
 source=(git+https://github.com/linbox-team/givaro#tag=v$pkgver)
-sha256sums=('ea51fe102ba4ff5e267e1c524873ad313dc985d480de3317bdf0b9cd87f4dc5b')
+sha256sums=('58e2c41787558564ac447633b6da29a786c37325da369f2a6af50b4c216f9293')
 
 prepare() {
   cd $pkgname
