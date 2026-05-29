@@ -5,7 +5,7 @@
 
 pkgbase=ruff
 pkgname=("$pkgbase" "python-$pkgbase")
-pkgver=0.15.14
+pkgver=0.15.15
 pkgrel=1
 pkgdesc='An extremely fast Python linter, written in Rust'
 arch=(x86_64)
@@ -23,8 +23,8 @@ makedepends=(
 )
 options=(!lto)
 source=("git+$url.git#tag=$pkgver")
-sha512sums=('21b92ab8d64bc106d0ae865c9eea1786ebf629ce8b469d5cb82ae15d3aa20c6631ce224836ba7cefc5eb6ca1245ea1cb5c27d33bcdccd713e19ab56a09311baa')
-b2sums=('16546ffc12f333ab7217900a9e571af08eaef88038342674a26fb3d0e6b69c31c61a4f6165be7a3ae72068cb5dd620073895ebb81f061d813e85ab044d013dd6')
+sha512sums=('1b6992138e4878e67486a9ad4880568b08f94f2b920b4a869088c4190013b61030ae02690801d44f8e0c3bdefcb24f7f3776dd0f1dccfc0ed7875bc5dd1e6196')
+b2sums=('6d558f9946e55e2c044f5d99c9afb531cf9ed94e56d1865ba0542b72f864b40245ed79d7cc8476f02ecf10ecd2c3480451496a7498aead050e3bd56f8c2e20c5')
 
 prepare() {
   cd $pkgbase
@@ -60,7 +60,7 @@ package_ruff() {
   cd $pkgbase
   _package_common
   install -Dm0755 -t "$pkgdir/usr/bin/" "target/$(rustc --print host-tuple)/release/ruff"
-  install -Dm0644 bash-completions "$pkgdir/usr/share/bash-completion/completions/$pkgbase.bash"
+  install -Dm0644 bash-completions "$pkgdir/usr/share/bash-completion/completions/$pkgbase"
   install -Dm0644 elvish-completions "$pkgdir/usr/share/elvish/lib/$pkgbase.elv"
   install -Dm0644 fish-completions "$pkgdir/usr/share/fish/vendor_completions.d/$pkgbase.fish"
   install -Dm0644 nushell-completions "$pkgdir/usr/share/nushell/vendor/autoload/$pkgbase.nu"
