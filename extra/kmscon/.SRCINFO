@@ -1,7 +1,7 @@
 pkgbase = kmscon
 	pkgdesc = Kernel Mode Setting (KMS) and DRM based virtual Console Emulator
 	pkgver = 10.0.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/kmscon/kmscon
 	arch = x86_64
 	license = MIT
@@ -33,3 +33,17 @@ pkgbase = kmscon
 	b2sums = 8c7dda6abfd15646a832bc10da3655f42e6ae0faebe1ca3bb72e8d8da60fd3d42bafab4037a0e048d798d9e86743a0e5f02097ba9bfcc0fee51c097a61332002
 
 pkgname = kmscon
+	depends = bash
+	depends = glib2
+	depends = glibc
+	depends = libdrm
+	depends = libtsm
+	depends = libxkbcommon
+	depends = seatd
+	depends = systemd-libs
+	depends = zlib
+	depends = kmscon-terminfo
+
+pkgname = kmscon-terminfo
+	pkgdesc = Terminfo for kmscon
+	depends = 

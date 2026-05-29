@@ -5,9 +5,13 @@
 # Contributor: Daniel Micay <danielmicay at gmail dotcom>
 # Contributor: David Herrmann <dh.herrmann@googlemail dot com>
 
-pkgname=kmscon
+pkgbase=kmscon
+pkgname=(
+  kmscon
+  kmscon-terminfo
+)
 pkgver=10.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Kernel Mode Setting (KMS) and DRM based virtual Console Emulator'
 arch=('x86_64')
 url='https://github.com/kmscon/kmscon'
@@ -57,7 +61,16 @@ build() {
   meson compile -C build
 }
 
-package() {
+package_kmscon() {
+  depends+=(kmscon-terminfo)
   meson install -C build --destdir="$pkgdir"
   install -Dm644 $pkgname/COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+  rm -r "$pkgdir"/usr/share/terminfo
+}
+
+package_kmscon-terminfo() {
+    pkgdesc='Terminfo for kmscon'
+    depends=()
+    mkdir -p "$pkgdir/usr/share/terminfo/k"
+    tic -x kmscon/scripts/terminfo/kmscon.ti -o "$pkgdir/usr/share/terminfo/k"
 }
