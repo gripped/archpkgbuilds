@@ -3,7 +3,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-edit
-pkgver=0.13.10
+pkgver=0.13.11
 pkgrel=1
 pkgdesc='Managing cargo dependencies from the command line'
 url='https://github.com/killercup/cargo-edit/releases'
@@ -11,8 +11,8 @@ arch=('x86_64')
 license=('MIT' 'Apache-2.0')
 depends=('cargo' 'libssh2' 'openssl')
 source=(https://github.com/killercup/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('e744bb0b3123e560e4a3ca8993fb8b3d74442f13ca9bc283a0d40bf06fe73e328c402bcc50acb661ce08784d794a3e525d9fc285d8971969ba3f48c80325ac9b')
-b2sums=('d507886dabd2462b68d083343285b2343e5e77b45b1aee592bd7c1ebd40328580ba944c5a36147523521ac9926bf6d2c4e791efb8d6687831af2fd39d75dfa05')
+sha512sums=('d9dd13164c353bc0c7694c0e74805be02f4d3abfbb13b846f3434aef8262531923790cc2fbafe9df6193ee50c344318f5e2fcc315f667f2558afc8f2650f41cb')
+b2sums=('50839a4a86a74ed4df7cf89222d080a4cf45231a5e961adfe3273f44b94e0be1e8237af61f502ea7b4b5551bcf53ac76b1245768e8098cbd26cc6f20300a7f81')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
