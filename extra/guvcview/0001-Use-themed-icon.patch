@@ -1,0 +1,93 @@
+From 9a46393d582ad1f7ce0f6cea1d28de0ae5d9720e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 28 May 2026 22:12:55 +0200
+Subject: [PATCH] Use themed icon
+
+This allows to load the icon using the Icon Theme Specification.
+---
+ data/CMakeLists.txt      | 2 +-
+ data/guvcview.desktop.in | 2 +-
+ data/guvcview.in         | 2 +-
+ guvcview/gui_gtk3.c      | 6 +-----
+ guvcview/gui_qt6.cpp     | 8 ++------
+ 5 files changed, 6 insertions(+), 14 deletions(-)
+
+diff --git a/data/CMakeLists.txt b/data/CMakeLists.txt
+index fae6c32..425b68a 100644
+--- a/data/CMakeLists.txt
++++ b/data/CMakeLists.txt
+@@ -19,4 +19,4 @@ endif()
+ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/guvcview.appdata.xml DESTINATION ${DATADIR}/appdata)
+ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/guvcview.desktop DESTINATION ${DATADIR}/applications)
+ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/guvcview.1.gz DESTINATION ${DATADIR}/man/man1)
+-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/icons/guvcview.png DESTINATION ${DATADIR}/pixmaps)
++install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/icons/guvcview.png DESTINATION ${DATADIR}/icons/hicolor/128x128/apps)
+diff --git a/data/guvcview.desktop.in b/data/guvcview.desktop.in
+index ca02856..87104f6 100644
+--- a/data/guvcview.desktop.in
++++ b/data/guvcview.desktop.in
+@@ -61,7 +61,7 @@ Comment[sr]=Приказивач и снимач видеа за линуксо
+ Comment[tr]=Linux uvc sürücüsü için video görüntüleyici ve yakalayıcı
+ TryExec=guvcview
+ Exec=guvcview
+-Icon=@DATADIR@/pixmaps/guvcview.png
++Icon=guvcview
+ Terminal=false
+ Type=Application
+ Categories=Video;AudioVideo;
+diff --git a/data/guvcview.in b/data/guvcview.in
+index c846ad2..43983c7 100644
+--- a/data/guvcview.in
++++ b/data/guvcview.in
+@@ -4,4 +4,4 @@
+ 	title="guvcview"\
+ 	longtitle="GTK UVC Viewer - uvc video viewer and capturer"\
+ 	command="guvcview"\
+-	icon="@DATADIR@/pixmaps/guvcview.png"
++	icon="guvcview"
+diff --git a/guvcview/gui_gtk3.c b/guvcview/gui_gtk3.c
+index eb50fcc..53964dc 100644
+--- a/guvcview/gui_gtk3.c
++++ b/guvcview/gui_gtk3.c
+@@ -612,11 +612,7 @@ int gui_attach_gtk3(int width, int height) {
+                    G_CALLBACK(delete_event), NULL);
+ 
+   /*window icon*/
+-  char *icon1path =
+-      g_strconcat(PACKAGE_DATA_DIR, "/pixmaps/guvcview/guvcview.png", NULL);
+-  if (g_file_test(icon1path, G_FILE_TEST_EXISTS))
+-    gtk_window_set_icon_from_file(GTK_WINDOW(main_window), icon1path, NULL);
+-  g_free(icon1path);
++  gtk_window_set_icon_name(GTK_WINDOW(main_window), "guvcview");
+ 
+   /*---------------------------- Main table ---------------------------------*/
+   GtkWidget *maintable = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
+diff --git a/guvcview/gui_qt6.cpp b/guvcview/gui_qt6.cpp
+index 5743567..0a2aa10 100644
+--- a/guvcview/gui_qt6.cpp
++++ b/guvcview/gui_qt6.cpp
+@@ -288,9 +288,7 @@ void gui_error_qt(const char *title, const char *message, int fatal) {
+ 
+     my_app->setOrganizationName("Guvcview Video Capture");
+     my_app->setApplicationName("Guvcview");
+-    // QIcon app_icon = QIcon::fromTheme("camera-web");
+-    QIcon app_icon(
+-        QString(PACKAGE_DATA_DIR).append("/pixmaps/guvcview/guvcview.png"));
++    QIcon app_icon = QIcon::fromTheme("guvcview");
+     my_app->setWindowIcon(app_icon);
+   }
+ 
+@@ -377,9 +375,7 @@ int gui_attach_qt(int width, int height) {
+ 
+     my_app->setOrganizationName("Guvcview Video Capture");
+     my_app->setApplicationName("Guvcview");
+-    // QIcon app_icon = QIcon::fromTheme("camera-web");
+-    QIcon app_icon(
+-        QString(PACKAGE_DATA_DIR).append("/pixmaps/guvcview/guvcview.png"));
++    QIcon app_icon = QIcon::fromTheme("guvcview");
+     my_app->setWindowIcon(app_icon);
+   }
+ 
+-- 
+2.54.0
+
