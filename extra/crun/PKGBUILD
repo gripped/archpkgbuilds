@@ -3,17 +3,38 @@
 
 pkgbase=crun
 pkgname=(crun krun)
-pkgver=1.27.1
+pkgver=1.28
 pkgrel=1
 pkgdesc="A fast and lightweight fully featured OCI runtime and C library for running containers"
 url="https://github.com/containers/crun"
 license=('LGPL-2.1-or-later')
 arch=('x86_64')
 provides=('oci-runtime')
-makedepends=('libtool' 'python' 'go-md2man' 'systemd' 'git' 'yajl' 'libcap' 'libseccomp' 'criu' 'libkrun')
-source=("git+https://github.com/containers/crun.git#tag=$pkgver?signed")
+makedepends=(
+  'criu'
+  'git'
+  'go-md2man'
+  'json-c'
+  'libblake3'
+  'libcap'
+  'libkrun'
+  'libseccomp'
+  'libtool'
+  'python'
+  'systemd'
+)
+source=(
+  "git+https://github.com/containers/crun.git#tag=$pkgver?signed"
+  0001-fix-missing-json-c-symbols-in-build.patch
+)
 validpgpkeys=('AC404C1C0BF735C63FF4D562263D6DF2E163E1EA')
-sha256sums=('0d6a1c945e1bf73371196c5625a15cdfa9dde0c0e6a7dd696964d3fd906ac74c')
+sha256sums=('0d01636b19653202e5de7fe94beacdb7099e333a41d7bb6dec63c127364422f1'
+            '8d487cb316b802961d53620eac4b2c8742e14b68cee04511d36a070227635510')
+
+prepare() {
+    cd "$pkgname"
+    patch -Np1 < ../0001-fix-missing-json-c-symbols-in-build.patch
+}
 
 build() {
     cd "$pkgname"
@@ -28,7 +49,14 @@ build() {
 }
 
 package_crun() {
-    depends=('yajl' 'systemd-libs' 'libcap' 'libseccomp' 'criu')
+    depends=(
+      'criu'
+      'json-c'
+      'libblake3'
+      'libcap'
+      'libseccomp'
+      'systemd-libs'
+    )
 
     make -C "$pkgname" DESTDIR="$pkgdir" install
     rm -v "$pkgdir/usr/bin/krun"
@@ -38,8 +66,11 @@ package_crun() {
 }
 
 package_krun() {
-    depends=('crun' 'libkrun')
     pkgdesc="crun based OCI runtime using libkrun to run containerized programs in isolated KVM environments"
+    depends=(
+      'crun'
+      'libkrun'
+    )
 
     mkdir -pv "$pkgdir/usr/bin"
     ln -sv crun "$pkgdir/usr/bin/krun"
