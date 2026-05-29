@@ -5,20 +5,42 @@
 
 pkgname=gpsbabel
 pkgver=1.10.0
-pkgrel=2
-pkgdesc="Read, write and manipulate GPS waypoints in a variety of formats"
+pkgrel=4
+pkgdesc='Read, write and manipulate GPS waypoints in a variety of formats'
 arch=(x86_64)
-url="https://www.gpsbabel.org/"
-license=('GPL-2.0-or-later')
-depends=(hicolor-icon-theme libusb shapelib qt6-serialport qt6-5compat)
-makedepends=(cmake libicns qt6-tools)
-source=(https://github.com/gpsbabel/$pkgname/archive/${pkgname}_${pkgver//./_}.tar.gz
-        gpsbabel.appdata.xml)
-sha256sums=('a89756fb988a54f5c5f371413845b9aecb66628a594cd83bd529c0f18382c968'
-            '7b4759c49316203fce76650312b4aa8c8d570471ccff1e8fcf258a2aa656c8e2')
+url='https://www.gpsbabel.org/'
+license=(GPL-2.0-or-later)
+depends=(
+  glibc
+  hicolor-icon-theme
+  libgcc
+  libstdc++
+  libusb
+  qt6-5compat
+  qt6-base
+  qt6-serialport
+  shapelib
+  zlib
+)
+makedepends=(
+  cmake
+  git
+  libicns
+  qt6-tools
+)
+source=(
+  "git+https://github.com/GPSBabel/gpsbabel.git#tag=${pkgname}_${pkgver//./_}"
+)
+b2sums=(
+  0afde01c3edf1b5960566a8b923d836f89fd5a63261dcf54caa69d2a4362c45b7c6543dcd288ea41575c92420489be4164cc6bd85d1199cf202135a7ae06bd50
+)
 
 prepare() {
-  cd $pkgname-${pkgname}_${pkgver//./_}
+  cd $pkgname
+
+  # Added AppStream metadata XML
+  # https://github.com/GPSBabel/gpsbabel/pull/1399
+  git cherry-pick -n fd37f27ea6e7253f865e3d7cf7d38010a49d17b1
 
   # Disable version check on startup
   # Disable usage data reporting
@@ -32,12 +54,11 @@ prepare() {
 }
 
 build() {
-  cmake -B build -S $pkgname-${pkgname}_${pkgver//./_} \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DGPSBABEL_WITH_ZLIB=pkgconfig \
-    -DGPSBABEL_WITH_SHAPELIB=pkgconfig \
-    -DGPSBABEL_WITH_LIBUSB=pkgconfig \
-    -DGPSBABEL_MAPPREVIEW=OFF
+  cmake -B build -S $pkgname \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D GPSBABEL_WITH_LIBUSB=pkgconfig \
+    -D GPSBABEL_WITH_SHAPELIB=pkgconfig \
+    -D GPSBABEL_WITH_ZLIB=pkgconfig
   cmake --build build
 }
 
@@ -46,12 +67,12 @@ check() {
 }
 
 package() {
-  install -Dm755 build/gpsbabel build/gui/GPSBabelFE/gpsbabelfe -t "$pkgdir"/usr/bin
-  install -Dm644 $pkgname-${pkgname}_${pkgver//./_}/gui/gpsbabel.desktop -t "$pkgdir"/usr/share/applications
-  install -Dm644 $pkgname.appdata.xml -t "$pkgdir/usr/share/metainfo"
+  install -Dm755 -t "$pkgdir/usr/bin" build/gpsbabel build/gui/GPSBabelFE/gpsbabelfe
+  install -Dm644 -t "$pkgdir/usr/share/applications" $pkgname/gui/gpsbabel.desktop
+  install -Dm644 -t "$pkgdir/usr/share/metainfo" $pkgname/org.gpsbabel.cli.metainfo.xml $pkgname/gui/org.gpsbabel.gui.metainfo.xml
 
   for res in 16 32 128 256 512; do
-    install -Dm644 $pkgname-${pkgname}_${pkgver//./_}/appicon_${res}x${res}x32.png \
+    install -Dm644 $pkgname/appicon_${res}x${res}x32.png \
       "$pkgdir/usr/share/icons/hicolor/${res}x${res}/apps/$pkgname.png"
   done
 }
