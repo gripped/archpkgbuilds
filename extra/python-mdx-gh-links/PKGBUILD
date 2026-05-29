@@ -2,8 +2,8 @@
 # Contributor: D. Can Celasun <can[at]dcc[dot]im>
 
 pkgname=python-mdx-gh-links
-pkgver=0.3
-pkgrel=3
+pkgver=0.4
+pkgrel=1
 pkgdesc='Python-Markdown GitHub Links Extension'
 arch=(any)
 url=https://github.com/Python-Markdown/github-links
@@ -19,8 +19,7 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-_tag=8175031e051d4580b74a4c5db6e3186cfd96902d
-source=(git+https://github.com/Python-Markdown/github-links.git#tag=${_tag})
+source=(git+https://github.com/Python-Markdown/github-links.git#tag=${pkgver})
 b2sums=('bc257250deee2477c8e3e18e162c23595a8ef96f577c110863441c551199c0d9327aa4bb4facf84a3900506ff0898da0cce91b0157e7da744c099e820f2ba68c')
 
 build() {
