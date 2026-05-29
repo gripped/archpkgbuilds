@@ -6,7 +6,7 @@
 # Contributor: Gerson E. Ruotolo <gersonruotolo@globo.com>
 
 pkgname=dos2unix
-pkgver=7.5.5
+pkgver=7.5.6
 pkgrel=1
 pkgdesc='Text file format converter'
 arch=('x86_64')
@@ -16,7 +16,7 @@ depends=('glibc')
 makedepends=('git' 'perl' 'perl-pod-parser' 'po4a')
 conflicts=('hd2u')
 source=(git+https://git.code.sf.net/p/dos2unix/dos2unix.git#tag=${pkgname}-${pkgver})
-sha256sums=('8acb99908d09a934d8b02a845d57121dcdfdc24705144031b727029c085bf4dc')
+sha256sums=('7ee592bb6ce6d287e849b4dc307b1960cf0e741dcfe92da71b227863f85b7e1d')
 #validpgpkeys=('F8F1BEA490496A09CCA328CC38C1F572B12725BE')
 
 build() {
