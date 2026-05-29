@@ -1,7 +1,7 @@
 pkgbase = python-quart-cors
 	pkgdesc = A Quart extension to provide Cross Origin Resource Sharing, access control, support
-	pkgver = 0.7.0
-	pkgrel = 7
+	pkgver = 0.8.0
+	pkgrel = 1
 	url = https://github.com/pgjones/quart-cors
 	arch = any
 	license = MIT
@@ -12,10 +12,12 @@ pkgbase = python-quart-cors
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
+	makedepends = python-pdm-backend
 	makedepends = python-poetry-core
 	depends = python
 	depends = python-quart
-	source = git+https://github.com/pgjones/quart-cors.git#tag=e998af02d7a40b2dfd2acb656e0a981faef5e782
-	sha256sums = SKIP
+	depends = python-typing_extensions
+	source = git+https://github.com/pgjones/quart-cors.git#tag=0.8.0
+	b2sums = SKIP
 
 pkgname = python-quart-cors
