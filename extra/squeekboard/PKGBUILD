@@ -1,10 +1,11 @@
-# Maintainer: Jelle van der Waa <jelle@archlinux.org>
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Jelle van der Waa <jelle@archlinux.org>
 # Contributor: Ghassan Alduraibi <git@ghassan.dev>
 # Contributor: Philip Goto <philip.goto@gmail.com>
 
 pkgname=squeekboard
 pkgver=1.43.1
-pkgrel=4
+pkgrel=5
 pkgdesc='An on-screen-keyboard input method for Wayland'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/Phosh/squeekboard'
@@ -13,12 +14,12 @@ depends=(
   cairo
   dconf
   feedbackd
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
   gnome-desktop
   gtk3
+  libgcc
   libxkbcommon
   pango
   wayland
@@ -35,24 +36,33 @@ makedepends=(
 optdepends=('python-gobject: squeekboard-entry command')
 conflicts=(stevia)
 provides=(phosh-osk-provider)
-source=("git+https://gitlab.gnome.org/World/Phosh/squeekboard.git#tag=v$pkgver")
-b2sums=(2af3a0d790f71b04b682152fadc8fc6ffe8798da951936d84fa40362d3ccb38213239228b778428f5e01fd26cb9bde20ff8cc27550a2bfc565cd8657d58f489e)
+source=(
+  "git+https://gitlab.gnome.org/World/Phosh/squeekboard.git#tag=v$pkgver"
+  squeekboard-systemd-unit.patch
+)
+b2sums=(
+  2af3a0d790f71b04b682152fadc8fc6ffe8798da951936d84fa40362d3ccb38213239228b778428f5e01fd26cb9bde20ff8cc27550a2bfc565cd8657d58f489e
+  86321efc870002d61e3c75b7f4f1b1e0d6256427a217e4c6f7a71ce7de04d1714db62ffb83713c6679d39e0f8467026b7a5b8fb900cd8bb16360355242fc639a
+)
 
 prepare() {
   cd $pkgname
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   # Add systemd unit file for compatibility with GNOME 49
   # https://gitlab.gnome.org/World/Phosh/squeekboard/-/merge_requests/712
-  git cherry-pick -n 65a2e657ce7340744d81fc1ca15519031c205d9d
+  git apply -3 ../squeekboard-systemd-unit.patch
 }
 
 build() {
-  arch-meson $pkgname build
-  meson compile -C build
-}
+  arch-meson $pkgname build --buildtype=release
 
-check() {
-  meson test -C build --print-errorlogs --no-rebuild
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
+    CARGO_NET_OFFLINE=true \
+    meson compile -C build
 }
 
 package() {
