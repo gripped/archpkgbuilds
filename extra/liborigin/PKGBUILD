@@ -2,13 +2,14 @@
 
 pkgname=liborigin
 pkgver=3.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A library for reading OriginLab OPJ project files'
 arch=(x86_64)
 license=(GPL-3.0-or-later)
 url='https://sourceforge.net/projects/liborigin/'
-depends=(gcc-libs
-         glibc)
+depends=(glibc
+         libgcc
+         libstdc++)
 makedepends=(cmake)
 source=(https://downloads.sourceforge.net/project/liborigin/liborigin/${pkgver%.*}/liborigin-$pkgver.tar.gz)
 sha256sums=('b394e3bf633888f9f4a3e1449d7c7eb39b778a2e657424177a04cde4afe6965a')
