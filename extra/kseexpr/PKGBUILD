@@ -1,22 +1,25 @@
 # Maintainer: Antonio Rojas <arojas@archlinux,org>
 
 pkgname=kseexpr
-pkgver=4.0.4.0
+pkgver=6.0.0.0
 pkgrel=2
 pkgdesc='An embeddable expression evaluation engine (Krita fork)'
 arch=(x86_64)
 url='https://krita.org'
 license=(GPL-3.0-or-later)
-depends=(gcc-libs
-         glibc
-         qt5-base)
+depends=(glibc
+         ki18n
+         libgcc
+         libstdc++
+         qt6-base)
 makedepends=(extra-cmake-modules
-             qt5-tools)
-source=(https://download.kde.org/stable/kseexpr/${pkgver%.*}/$pkgname-$pkgver.tar.gz)
-sha256sums=('ea4f6a8e820e6cc12d2a1e6977e96ea5457f37729fe0bc4ee8cc62d4c26c36ae')
+             git
+             qt6-tools)
+source=(git+https://invent.kde.org/graphics/kseexpr#tag=v$pkgver)
+sha256sums=('ce8cc507a0784e04fad30630e3a955c29d7c120645a16ea67df7819fd74ce764')
 
 build() {
-  cmake -B build -S $pkgname-$pkgver \
+  cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_DEMOS=OFF \
     -DBUILD_TESTS=OFF
