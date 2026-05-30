@@ -2,25 +2,20 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-utils
-pkgver=10.0.1
+pkgver=10.1.0
 pkgrel=1
 pkgdesc="Oslo Utility library"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.utils/$pkgver"
 license=('Apache-2.0')
 depends=('python-pbr' 'python-iso8601' 'python-oslo-i18n' 'python-netaddr'
-         'python-debtcollector' 'python-pyparsing' 'python-packaging' 'python-yaml' 'python-psutil')
+         'python-pyparsing' 'python-packaging' 'python-yaml' 'python-psutil')
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-eventlet' 'python-testscenarios' 'python-testtools' 'python-oslotest'
-              'python-ddt' 'python-stestr' 'qemu-img')
+              'python-ddt' 'python-stestr' 'python-cryptography' 'qemu-img')
+optdepends=('python-cryptography: LUKS image inspection support')
 source=("git+https://github.com/openstack/oslo.utils.git#tag=$pkgver")
-sha512sums=('720107f99af518ca18defd10952da44f7248b374b55c087916b79b9e125c382a8ebb4b762252ebe0c2cadc5337293e2f2044f3aa8d4d9b62721f1ee179d26bd1')
-
-prepare() {
-  cd oslo.utils
-  # We have system tzdata
-  sed -i '/tzdata/d' requirements.txt
-}
+sha512sums=('70ec0aac63a7ee5a7ea35a04a4e5faaa8fc1395a3b1f7260bc768aea1b956a03cc06109f57add6d2b04a7c70c8cbaf3831e75291315e4180ed7df2bc06589a9d')
 
 build() {
   cd oslo.utils

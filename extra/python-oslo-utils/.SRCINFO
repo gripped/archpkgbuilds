@@ -1,8 +1,8 @@
 pkgbase = python-oslo-utils
 	pkgdesc = Oslo Utility library
-	pkgver = 10.0.1
+	pkgver = 10.1.0
 	pkgrel = 1
-	url = https://pypi.python.org/pypi/oslo.utils/10.0.1
+	url = https://pypi.python.org/pypi/oslo.utils/10.1.0
 	arch = any
 	license = Apache-2.0
 	checkdepends = python-eventlet
@@ -11,6 +11,7 @@ pkgbase = python-oslo-utils
 	checkdepends = python-oslotest
 	checkdepends = python-ddt
 	checkdepends = python-stestr
+	checkdepends = python-cryptography
 	checkdepends = qemu-img
 	makedepends = git
 	makedepends = python-build
@@ -20,12 +21,12 @@ pkgbase = python-oslo-utils
 	depends = python-iso8601
 	depends = python-oslo-i18n
 	depends = python-netaddr
-	depends = python-debtcollector
 	depends = python-pyparsing
 	depends = python-packaging
 	depends = python-yaml
 	depends = python-psutil
-	source = git+https://github.com/openstack/oslo.utils.git#tag=10.0.1
-	sha512sums = 720107f99af518ca18defd10952da44f7248b374b55c087916b79b9e125c382a8ebb4b762252ebe0c2cadc5337293e2f2044f3aa8d4d9b62721f1ee179d26bd1
+	optdepends = python-cryptography: LUKS image inspection support
+	source = git+https://github.com/openstack/oslo.utils.git#tag=10.1.0
+	sha512sums = 70ec0aac63a7ee5a7ea35a04a4e5faaa8fc1395a3b1f7260bc768aea1b956a03cc06109f57add6d2b04a7c70c8cbaf3831e75291315e4180ed7df2bc06589a9d
 
 pkgname = python-oslo-utils
