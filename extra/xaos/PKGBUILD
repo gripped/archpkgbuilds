@@ -3,7 +3,7 @@
 
 pkgname=xaos
 pkgver=4.3.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Interactive fractal zoomer'
 arch=(x86_64)
 url='https://xaos-project.github.io/'
@@ -17,7 +17,7 @@ prepare() {
   # Desktop shortcut
   gendesk -f -n \
     --categories='Application;Graphics' \
-    --exec='xaos -threads $(nproc)' \
+    --exec='bash -c "xaos -threads $(nproc)"' \
     --icon=xaos \
     --pkgdesc="$pkgdesc" \
     --pkgname=XaoS
