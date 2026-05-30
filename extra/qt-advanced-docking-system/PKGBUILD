@@ -2,13 +2,14 @@
 
 pkgname=qt-advanced-docking-system
 pkgver=4.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Advanced Docking System for Qt'
 arch=(x86_64)
 url='https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System/'
 license=(LGPL-2.1-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          libxcb
          qt6-base)
 makedepends=(cmake
