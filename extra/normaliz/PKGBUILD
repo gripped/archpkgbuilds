@@ -3,16 +3,18 @@
 
 pkgname=normaliz
 pkgver=3.11.1
-pkgrel=2
+pkgrel=3
 pkgdesc='A tool for computations in affine monoids, vector configurations, lattice polytopes, and rational cones'
 arch=(x86_64)
 url='https://www.normaliz.uni-osnabrueck.de/'
 license=(GPL-3.0-or-later)
 depends=(e-antic
          flint
-         gcc-libs
          glibc
          gmp
+         libgcc
+         libgomp
+         libstdc++
          nauty)
 makedepends=(boost
              git)
