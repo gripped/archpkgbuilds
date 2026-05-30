@@ -1,14 +1,15 @@
 pkgbase = qbs
 	pkgdesc = Cross platform build tool
 	pkgver = 3.2.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://wiki.qt.io/Qbs
 	arch = x86_64
 	license = LGPL-2.1-only
 	makedepends = cmake
 	makedepends = git
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = qt6-base
 	depends = qt6-5compat
 	source = git+https://code.qt.io/qbs/qbs#tag=v3.2.0

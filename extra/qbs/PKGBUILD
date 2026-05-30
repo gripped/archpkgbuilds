@@ -5,13 +5,14 @@
 
 pkgname=qbs
 pkgver=3.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Cross platform build tool'
 arch=(x86_64)
 url='https://wiki.qt.io/Qbs'
 license=(LGPL-2.1-only)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          qt6-base
          qt6-5compat)
 makedepends=(cmake
