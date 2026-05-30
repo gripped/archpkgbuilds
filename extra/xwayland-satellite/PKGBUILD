@@ -2,14 +2,14 @@
 
 pkgname=xwayland-satellite
 pkgver=0.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Xwayland outside your Wayland"
 arch=(x86_64)
 url="https://github.com/Supreeeme/xwayland-satellite"
 license=(MPL-2.0)
 depends=(
-  gcc-libs
   glibc
+  libgcc
   libxcb
   xcb-util-cursor
   xorg-xwayland
