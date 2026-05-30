@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-rpds-py
-pkgver=0.30.0
-pkgrel=3
+pkgver=2026.5.1
+pkgrel=1
 pkgdesc='Python bindings to the Rust rpds crate for persistent data structures'
 arch=(x86_64)
 url='https://github.com/crate-py/rpds'
@@ -19,14 +19,14 @@ makedepends=(
   python-installer
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('72c235574bfbbb1559aa97f228e87ba11c9d165bfabe690d27e59086d4d4b428fca18d858d258aee7f4835fc77f04a587765f7f1c605d1b4557c9a3ac304c816')
-b2sums=('a0c2b8438f4dd5feaf5eb75101216d12bea91ccf85e1ae07a6e8e5918b35b07aefd8517241d4cfe7a808655ecffb8a52c8071d4da7f72c610657828526b3a88f')
+sha512sums=('5c9c01a2d09da474036cd9dfddba6fed47f67f86f5d04273bbfaa21b5cdcf816f0ac4c5c12786b864377ba6f5b15dcd533a88a7bae3689de8170f5ee2e3b6ce9')
+b2sums=('9bd400c289fcd915047905c06be588d85dc27e4e65e57dad3b8499dece23f3ece59c88aad28c6a018d78a6e06d8a5bc3ff67735908d0bf325f2d397cd49925ce')
 
 prepare() {
   cd "$pkgname"
 
   # download dependencies
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
