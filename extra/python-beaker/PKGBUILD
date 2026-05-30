@@ -4,7 +4,7 @@
 
 _name=beaker
 pkgname=python-beaker
-pkgver=1.14.0
+pkgver=1.14.1
 pkgrel=1
 arch=('any')
 license=('BSD-3-Clause')
@@ -17,7 +17,7 @@ checkdepends=('python-pytest' 'python-sqlalchemy'
               'python-pymongo' 'valkey' 'python-cryptography'
               'python-memcached' 'memcached' 'pifpaf' 'python-mongomock')
 source=("git+https://github.com/bbangert/beaker.git#tag=$pkgver")
-sha512sums=('dab7a899cbab35f7326fd366ca31ecf008b58e111abc538ce4267c098f889908286b85891efc8cfd7d9d56c0eb2ba0c8659ab08536f9fbea8ec610c6a09ae3a0')
+sha512sums=('135e5f702285199fa3884cc82a49d2d0ce953fddbb7560cf58252f60765a4eee44806326491d65611f6e7bfd133d612b8025caf6a64a1f2d175492a61998d887')
 
 prepare() {
   cd beaker
