@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=marknote
-pkgver=1.5.2
-pkgrel=2
+pkgver=1.6.0
+pkgrel=1
 pkgdesc='A simple markdown note management app'
 url='https://apps.kde.org/marknote/'
 arch=(x86_64)
@@ -13,7 +13,6 @@ depends=(breeze-icons
          kconfig
          kcoreaddons
          ki18n
-         kiconthemes
          kirigami
          kirigami-addons
          kmime
@@ -23,10 +22,11 @@ depends=(breeze-icons
          md4c
          qqc2-desktop-style
          qt6-base
-         qt6-declarative)
+         qt6-declarative
+         syntax-highlighting) # QML
 makedepends=(extra-cmake-modules)
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('bc5a0a82be7a24cdbcfb8b28e41c4a2003e0254d6a898296b74347b476e3eeb7'
+sha256sums=('d3bb39614e22fd1a8ddd74bcfb4c384cbffe25685ec01116f694e470816284a9'
             'SKIP')
 validpgpkeys=(39FFA93CAE9C6AFC212AD00202325448204E452A) # Carl Schwan <carl@carlschwan.eu>
 
