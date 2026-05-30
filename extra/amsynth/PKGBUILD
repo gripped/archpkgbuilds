@@ -5,7 +5,7 @@
 pkgbase=amsynth
 pkgname=(amsynth amsynth-{common,dssi,lv2,standalone,vst})
 pkgver=1.13.4+r202+gc83787a
-pkgrel=1
+pkgrel=2
 pkgdesc="Analogue Modeling SYNTHesizer"
 arch=(x86_64)
 url="https://amsynth.github.io/"
@@ -21,15 +21,17 @@ makedepends=(
   dssi
   fontconfig
   freetype2
-  gcc-libs
   git
   glibc
   harfbuzz
   intltool
   jack
   ladspa
+  libgcc
   liblo
   libpng
+  libgcc
+  libstdc++
   libxcursor
   libxinerama
   libxrandr
@@ -141,10 +143,11 @@ package_amsynth-dssi() {
     amsynth-common
     dssi-host
     freetype2 libfreetype.so
-    gcc-libs
     glibc
+    libgcc
     liblo liblo.so
     libpng libpng16.so
+    libstdc++
     zlib libz.so
   )
 
@@ -156,9 +159,10 @@ package_amsynth-lv2() {
   depends=(
     amsynth-common
     freetype2 libfreetype.so
-    gcc-libs
     glibc
+    libgcc
     libpng libpng16.so
+    libstdc++
     lv2-host
     zlib libz.so
   )
@@ -172,12 +176,13 @@ package_amsynth-standalone() {
     amsynth-common
     alsa-lib libasound.so
     freetype2 libfreetype.so
-    gcc-libs
     glibc
     hicolor-icon-theme
     jack libjack.so
+    libgcc
     liblo liblo.so
     libpng libpng16.so
+    libstdc++
     zlib libz.so
   )
   optdepends=(
@@ -192,9 +197,10 @@ package_amsynth-vst() {
   depends=(
     amsynth-common
     freetype2 libfreetype.so
-    gcc-libs
     glibc
+    libgcc
     libpng libpng16.so
+    libstdc++
     vst-host
     zlib libz.so
   )
