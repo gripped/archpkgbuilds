@@ -2,7 +2,7 @@
 # Contributor: Josip Ponjavic <josipponjavic at gmail dot com>
 
 pkgname=photoflare
-pkgver=1.7.0
+pkgver=1.7.1
 pkgrel=1
 pkgdesc='Quick, simple but powerful Qt-based image editor inspired by PhotoFiltre'
 arch=(x86_64)
@@ -23,12 +23,10 @@ makedepends=(
   qt6-tools
 )
 source=("git+https://github.com/PhotoFlare/photoflare.git#tag=v$pkgver")
-b2sums=('4303191e13802a30c9e0a05206ee85ac637ba58870f36f68f2341edcda92a73d2c7ab2ded77965b20f877b3aea2e7f3bf06df42013a75503ac5e77955aab0215')
+b2sums=(16d05d807ebe9bd32bdc7734d8a8c80b05e9a5790fa1e012df15e712995c3742de5f7bb8eacdf2098069990e2dde4ecb9751ac8d9ccd29979a60da7a95e12109)
 
 prepare() {
   cd $pkgname
-
-  git cherry-pick -n fd5bc2f028c2ba382a1260cb3200e7f340b1b59b # Fix installing translations
   sed -i '/pixmaps \\/d' Photoflare.pro
 }
 
