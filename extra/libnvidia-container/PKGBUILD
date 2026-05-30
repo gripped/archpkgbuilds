@@ -4,7 +4,7 @@
 # Contributor: Kien Dang <mail at kien dot ai>
 
 pkgname=libnvidia-container
-pkgver=1.19.0
+pkgver=1.19.1
 pkgrel=1
 _nvmodver=550.54.14  # check the VERSION in libnvidia-container/mk/nvidia-modprobe.mk
 pkgdesc="NVIDIA container runtime library"
@@ -32,7 +32,7 @@ source=(
   "$pkgname-nvidia-modprobe-$_nvmodver.tar.gz::https://github.com/NVIDIA/nvidia-modprobe/archive/$_nvmodver.tar.gz"
   fix-makefile.patch
 )
-b2sums=('159074dc894c83f5fd9b23ece2c6c40eb1e540f1ed8a4af4c51400ae2745dbca49d5874a40a2abf24cb3dd61b60c83fcf0f63843145aaa42f47020e36513c89c'
+b2sums=('a8ae77c9af8f12fb2f7dc3ec700f8c09c85ab2a9d560194b3862a295472c38b9587ba6f8569c98bb1f28e1c3e62bfaddd7022fcf68c3da07c99659d6d6fe5dcc'
         '7b334877d98d0c75d5750192dea868436938852443ced14e74e59076ed4d8be9e361cdefbe48295d87bb91ac4565152ec3f3233479b3da19bb8baf8e7ef53cd6'
         'f1b16cbafe82c6ee8599a937fcd86638ed36a1b41989169ebc1ad53c18776a3e0052444bf1ae2a90f547ddd10bb2229e35e33ce44782c60251811941ccf6ce57')
 
