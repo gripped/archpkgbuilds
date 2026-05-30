@@ -11,7 +11,7 @@ pkgname=(
   kmscon-terminfo
 )
 pkgver=10.0.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Kernel Mode Setting (KMS) and DRM based virtual Console Emulator'
 arch=('x86_64')
 url='https://github.com/kmscon/kmscon'
@@ -72,5 +72,5 @@ package_kmscon-terminfo() {
     pkgdesc='Terminfo for kmscon'
     depends=()
     mkdir -p "$pkgdir/usr/share/terminfo/k"
-    tic -x kmscon/scripts/terminfo/kmscon.ti -o "$pkgdir/usr/share/terminfo/k"
+    tic -x kmscon/scripts/terminfo/kmscon.ti -o "$pkgdir/usr/share/terminfo/"
 }
