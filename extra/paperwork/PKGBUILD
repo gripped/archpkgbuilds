@@ -2,7 +2,7 @@
 
 pkgname=paperwork
 pkgver=2.2.5
-pkgrel=4
+pkgrel=5
 pkgdesc='Personal document manager to manage scanned documents and PDFs'
 arch=(any)
 url='https://openpaper.work/'
@@ -33,7 +33,6 @@ depends=(
   python-rich
   python-scikit-learn
   python-scipy
-  python-setuptools
   python-whoosh
 )
 makedepends=(
@@ -43,26 +42,24 @@ makedepends=(
   python-setuptools-scm
   python-wheel
 )
-source=(
-  "git+https://gitlab.gnome.org/World/OpenPaperwork/paperwork.git#tag=$pkgver"
-  paperwork-l10n-compile.patch
-  paperwork-check-path.patch
-)
-b2sums=(
-  f2a01e06382aee7d9dd4f1b2d53e4b5ad0ec5e29d074078c84a7fdbcccf8c33d8b4e51caea2cfea8b222fd93bb709b77ed495307c51c182c59bea73f94974e90
-  2489e31ea97f971dd89218f0b2496d3ea1ea9ac6114532e30022cbdcc194fad2091047731538352f53f4a81680e561e91b74953381ad2e0904434dcb071e9c5d
-  91256d006e850cb4405d3a6934177242f708c491200bcec69fa91387deb581a4913ed84e1bdb5545a9ccba915a185ec6a8c25bbfe068bfc6e144e2f0bffd54ad
-)
+source=("git+https://gitlab.gnome.org/World/OpenPaperwork/paperwork.git#tag=$pkgver")
+b2sums=(f2a01e06382aee7d9dd4f1b2d53e4b5ad0ec5e29d074078c84a7fdbcccf8c33d8b4e51caea2cfea8b222fd93bb709b77ed495307c51c182c59bea73f94974e90)
 
 prepare() {
   cd $pkgname
   curl -s "https://download.openpaper.work/data/paperwork/master_$(git rev-parse --short HEAD)/data.tar.gz" | tar -xvz
 
+  # Add back l10n_compile targets
   # https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/merge_requests/862
-  git apply -3 ../paperwork-l10n-compile.patch
+  git cherry-pick -n b8e2633ace0f3d9d57e68c27db8f594b8a5ddd7e
 
+  # Fix fallback to the English help files
   # https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/merge_requests/867
-  git apply -3 ../paperwork-check-path.patch
+  git cherry-pick -n eff17cb90e74149b1536ba5e2acfa6b5c2c6619e
+
+  # Replace pkg_resources with importlib.resources
+  # https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/merge_requests/871
+  git cherry-pick -n ab244d9c483b23f53e2548b73236d7fe4b94cb3f
 }
 
 build() {
