@@ -3,15 +3,16 @@
 
 pkgname=mediaelch
 pkgver=2.12.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Media Manager for handling Movies, TV Shows and Concerts/Music Videos for Kodi'
 url='https://www.mediaelch.de/mediaelch/'
 arch=('x86_64')
 license=(LGPL-3.0-only)
 depends=(
-  gcc-libs
   glibc
+  libgcc
   libmediainfo
+  libstdc++
   qt6-base
   qt6-multimedia
   qt6-svg
@@ -23,9 +24,17 @@ makedepends=(
   qt6-tools
   qt6-declarative
 )
-source=(https://github.com/Komet/MediaElch/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('ffa6f19dbc7760cb3762d02c24392d5e2015dfa8890fc3c69d172b0930dbbb89')
-b2sums=('6847290c64eeba74cdf2d60e8cc2ccb0c819bdee11aaaf7477a914f5ca1526dd303be50593191b77d6130bbe3b0f07d54c9f4c5d9e848628574bcfc9fb850af1')
+source=(https://github.com/Komet/MediaElch/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
+        https://github.com/Komet/MediaElch/commit/dbea12fbf2c1fe603819392aa2a181cffa168548.patch)
+sha256sums=('ffa6f19dbc7760cb3762d02c24392d5e2015dfa8890fc3c69d172b0930dbbb89'
+            'f23c3292fb0afab2fa056a1d5f8363f19148db2fad14532a1e5060097830dc3f')
+b2sums=('6847290c64eeba74cdf2d60e8cc2ccb0c819bdee11aaaf7477a914f5ca1526dd303be50593191b77d6130bbe3b0f07d54c9f4c5d9e848628574bcfc9fb850af1'
+        '41a4d7e75f7779ce8732c52dad016350805f9cac99bc782c914f289600294661cc2ee0dc7b6e58e716e32ab95ffef21282f646db5bf56ca12f57710d6280db61')
+
+prepare() {
+  cd MediaElch-$pkgver
+  patch -p1 -i ../dbea12fbf2c1fe603819392aa2a181cffa168548.patch # Fix build with Qt 6.9
+}
 
 build() {
   cd MediaElch-${pkgver}
