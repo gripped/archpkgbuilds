@@ -3,7 +3,7 @@
 # Contributor: Pierre Schmitz <pierre@archlinux.de>
 
 pkgname=libical
-pkgver=4.0.1
+pkgver=4.0.2
 pkgrel=1
 pkgdesc="An open source reference implementation of the icalendar data type and serialization format"
 arch=(x86_64)
@@ -24,7 +24,7 @@ makedepends=(cmake
              vala)
 checkdepends=(python-gobject)
 source=(git+https://github.com/libical/libical#tag=v$pkgver)
-sha512sums=('e11bf8825a4f061660da44af56e97e7f5bf489d1c8bcad9e01c067572d62b83de27ea287a86c13e529b3dfd228059a33d46ee2f0713a3ff849b7721d79c56a73')
+sha512sums=('e4fbeb3fbcb5e016fa812fd8b6ea5f955a4c01ed0a028a7a7f2b3c06808335524c433fa064dc300909dbc3d6fd4c11f53d5f94fe3248d12fb55268a4f4077f7b')
 
 build() {
   cmake -S $pkgname -B build \
