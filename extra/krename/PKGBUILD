@@ -3,14 +3,13 @@
 
 pkgname=krename
 pkgver=5.0.2
-pkgrel=12
+pkgrel=13
 pkgdesc='A very powerful batch file renamer'
 arch=(x86_64)
 url='https://apps.kde.org/krename/'
 license=(GPL-2.0-or-later)
 depends=(exiv2
          freetype2
-         gcc-libs
          glibc
          kcompletion5
          kconfig5
@@ -23,6 +22,8 @@ depends=(exiv2
          kjobwidgets5
          kwidgetsaddons5
          kxmlgui5
+         libgcc
+         libstdc++
          podofo
          qt5-base
          qt5-declarative
