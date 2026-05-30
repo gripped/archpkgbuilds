@@ -3,18 +3,19 @@
 
 pkgname=ams
 pkgver=2.2.1
-pkgrel=2
+pkgrel=3
 pkgdesc="A real-time modular synthesizer and effect processor"
 arch=('x86_64')
 url="http://alsamodular.sourceforge.net/"
-license=(GPL2)
+license=(GPL-2.0-only)
 groups=(pro-audio)
 depends=(
   cmt
-  gcc-libs
   glibc
-  qt5-base
+  libgcc
+  libstdc++
   mcp-plugins
+  qt5-base
   rev-plugins
   swh-plugins
   vco-plugins
