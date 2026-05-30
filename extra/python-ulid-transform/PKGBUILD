@@ -2,15 +2,16 @@
 # Contributor: Lukasz Pozarlik <lpozarlik@gmail.com>
 
 pkgname=python-ulid-transform
-pkgver=1.5.3
-pkgrel=1
+pkgver=2.2.9
+pkgrel=3
 pkgdesc='Create and transform ULIDs'
 arch=(x86_64)
 url=https://github.com/bdraco/ulid-transform
 license=(MIT)
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   python
 )
 makedepends=(
@@ -22,14 +23,9 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-_tag=85efb7a6aa3956ec60996b5aaf74fe246b78853c
-source=(git+https://github.com/bdraco/ulid-transform.git#tag=${_tag})
-b2sums=('8f1300a4f8d1d30a48ce8d5b87efd17a40393d6f164c86fccff716a7afec194fdf89f270007e45410dc60ae2433300f8356febbd591778247631ad69d11eaf84')
+source=(git+https://github.com/bdraco/ulid-transform.git#tag=v${pkgver})
+b2sums=('478386edeb4986eb2cda2b63745f6d9715371f7dd845b27ecd2662212a4706fbd0a571c20c4cc97275a2d52234c6ba84a1f97665edc17615f0074ea944319ed1')
 
-pkgver() {
-  cd ulid-transform
-  git describe --tags | sed 's/^v//'
-}
 
 build() {
   cd ulid-transform

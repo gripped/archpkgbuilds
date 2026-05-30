@@ -1,7 +1,7 @@
 pkgbase = python-ulid-transform
 	pkgdesc = Create and transform ULIDs
-	pkgver = 1.5.3
-	pkgrel = 1
+	pkgver = 2.2.9
+	pkgrel = 3
 	url = https://github.com/bdraco/ulid-transform
 	arch = x86_64
 	license = MIT
@@ -12,10 +12,11 @@ pkgbase = python-ulid-transform
 	makedepends = python-poetry-core
 	makedepends = python-setuptools
 	makedepends = python-wheel
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	depends = python
-	source = git+https://github.com/bdraco/ulid-transform.git#tag=85efb7a6aa3956ec60996b5aaf74fe246b78853c
-	b2sums = 8f1300a4f8d1d30a48ce8d5b87efd17a40393d6f164c86fccff716a7afec194fdf89f270007e45410dc60ae2433300f8356febbd591778247631ad69d11eaf84
+	source = git+https://github.com/bdraco/ulid-transform.git#tag=v2.2.9
+	b2sums = 478386edeb4986eb2cda2b63745f6d9715371f7dd845b27ecd2662212a4706fbd0a571c20c4cc97275a2d52234c6ba84a1f97665edc17615f0074ea944319ed1
 
 pkgname = python-ulid-transform
