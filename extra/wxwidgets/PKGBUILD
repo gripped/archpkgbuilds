@@ -7,7 +7,7 @@ pkgname=(wxwidgets-common
 #        wxwidgets-gtk4
          wxwidgets-qt5)
 pkgver=3.2.10
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://wxwidgets.org'
 license=(custom:wxWindows)
@@ -99,11 +99,12 @@ build() {
 package_wxwidgets-common() {
   pkgdesc='Common libraries and headers for wxwidgets'
   depends=(curl
-           gcc-libs
            glib2
            glibc
            expat
+           libgcc
            libsecret
+           libstdc++
            pcre2
            xz
            zlib)
@@ -126,19 +127,20 @@ package_wxwidgets-gtk3() {
   depends=(bash
            cairo
            fontconfig
-           gcc-libs
            gdk-pixbuf2
            glib2
            glibc
            gst-plugins-bad-libs
            gstreamer
            gtk3
+           libgcc
            libglvnd
            libjpeg-turbo
            libnotify
            libmspack
            libpng
            libsm # cmake target
+           libstdc++
            libtiff
            libx11
            libxkbcommon
@@ -160,17 +162,18 @@ package_wxwidgets-gtk3() {
 #   depends=(bash
 #            cairo
 #            fontconfig
-#            gcc-libs
 #            gdk-pixbuf2
 #            glib2
 #            glibc
 #            gtk4
+#            libgcc
 #            libglvnd
 #            libjpeg-turbo
 #            libnotify
 #            libmspack
 #            libpng
 #            libsm # cmake target
+#            libstdc++
 #            libtiff
 #            libx11
 #            libxkbcommon
@@ -191,12 +194,13 @@ package_wxwidgets-gtk3() {
 package_wxwidgets-qt5() {
   pkgdesc='Qt5 implementation of wxWidgets API for GUI'
   depends=(bash
-           gcc-libs
            glibc
+           libgcc
            libglvnd
            libjpeg-turbo
            libmspack
            libpng
+           libstdc++
            libtiff
            qt5-base
            sdl2
