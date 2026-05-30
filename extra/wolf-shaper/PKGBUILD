@@ -3,25 +3,27 @@
 pkgbase=wolf-shaper
 pkgname=(wolf-shaper{,-{clap,dssi,lv2,standalone,vst,vst3}})
 pkgver=1.0.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A waveshaper plugin with a graph editor"
 arch=(x86_64)
 url="https://github.com/pdesaulniers/wolf-shaper"
-license=(GPL3)
+license=(GPL-3.0-or-later)
 _common_depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   libx11
   libxext
 )
 makedepends=(
   alsa-lib
   dssi
-  gcc-libs
   gendesk
   glibc
   jack
+  libgcc
   libglvnd
+  libstdc++
   libx11
   libxext
   lv2
