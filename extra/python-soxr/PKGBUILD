@@ -2,16 +2,17 @@
 # Contributor: Claudia Pellegrino <aur@cpellegrino.de>
 
 pkgname=python-soxr
-pkgver=0.5.0.post1
-pkgrel=4
+pkgver=1.1.0
+pkgrel=2
 pkgdesc='High quality, one-dimensional sample-rate conversion library for Python'
 arch=(x86_64)
 url=https://github.com/dofuuz/python-soxr
 license=(LGPL-2.1-or-later)
 depends=(
-  gcc-libs
   glibc
+  libgcc
   libsoxr
+  libstdc++
   python
   python-numpy
 )
@@ -25,18 +26,12 @@ makedepends=(
   python-setuptools
   python-setuptools-scm
 )
-_tag=ebe422ceaf44c240bfc8e43a7e1dc023d9d584ba
-source=(git+https://github.com/dofuuz/python-soxr.git#tag=${_tag})
-b2sums=('efb1ad624bc79e6f51ade5bd043758d27ab0326a5a4ae95f24e616f5b83cd65221defde8d534700203653e2ac3fdca655833cd04925998a568ed2e1b96e65b2c')
+source=(git+https://github.com/dofuuz/python-soxr.git#tag=v${pkgver})
+b2sums=('659816db3ad6cff01d7d6be2b29cef2a1ce7060875e1345dbd21e91b40d3307f441f659ccfecf74c742f68eb407a70c216b9c688853d1bc82768f7a132bc542c')
 
 prepare() {
   cd python-soxr
   rm -rf libsoxr
-}
-
-pkgver() {
-  cd python-soxr
-  git describe --tags | sed 's/^v//'
 }
 
 build() {
