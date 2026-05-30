@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=halloy
-pkgver=2026.6
-pkgrel=1
+pkgver=2026.7
+pkgrel=2
 pkgdesc='An open-source IRC client'
 arch=(x86_64)
 url='https://halloy.chat'
@@ -22,8 +22,8 @@ makedepends=(
 )
 options=(!lto)
 source=("$pkgname::git+https://github.com/squidowl/halloy#tag=$pkgver")
-sha512sums=('bda1f3668eb221938864b42755956b889f6cf3f008a8b2f906e064ae50ea6fd7c430fedad7e60bbb2f6358a89d7f1d15326650af8b6e86f7e8b09e12544bcd29')
-b2sums=('ef59545f1ae403c4f1c8e5ba647dbe568bf7d59618a97f5f12f7f3b49e47fce07747600d719e1f94fb92197c28af912ced825bd9d2400a0e08b4caebd9f0d1de')
+sha512sums=('9c7387b0e946811f7e0566041b37dc19b4c0e46ef5ca22da6b5a115e37e952186ccb0ab6d24f402f8b11dd302dcc276bc86050cef0a619cf579fe44e71104e3e')
+b2sums=('c2fb549753310245fe85ec3c2a249ca35c18898448caa28029f352986a5c7dfb991602a9002e1f2527404104c747b1bff4bdae0bc3bbab95459faecfa20d8f2e')
 
 prepare() {
   cd "$pkgname"
@@ -35,13 +35,13 @@ prepare() {
 build() {
   cd "$pkgname"
 
-  LIBSQLITE3_SYS_USE_PKG_CONFIG=1 cargo build --locked --profile packaging
+  LIBSQLITE3_SYS_USE_PKG_CONFIG=1 cargo build --locked --profile packaging --all-features
 }
 
 check() {
   cd "$pkgname"
 
-  LIBSQLITE3_SYS_USE_PKG_CONFIG=1 cargo test --locked --profile packaging
+  LIBSQLITE3_SYS_USE_PKG_CONFIG=1 cargo test --locked --profile packaging --all-features
 }
 
 package() {
