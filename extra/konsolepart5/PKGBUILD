@@ -2,13 +2,12 @@
 
 pkgname=konsolepart5
 pkgver=23.08.5
-pkgrel=4
+pkgrel=5
 arch=(x86_64)
 url='https://apps.kde.org/konsole/'
 pkgdesc='KDE terminal emulator'
 license=(GPL LGPL FDL)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          icu
          kbookmarks5
          kconfig5
@@ -31,6 +30,7 @@ depends=(gcc-libs
          kwidgetsaddons5
          kwindowsystem5
          kxmlgui5
+         libstdc++
          qt5-base
          qt5-multimedia)
 makedepends=(extra-cmake-modules)
