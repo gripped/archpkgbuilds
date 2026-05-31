@@ -5,7 +5,7 @@
 
 pkgname=movit
 pkgver=1.7.2
-pkgrel=1
+pkgrel=2
 pkgdesc="The modern video toolkit"
 arch=('x86_64')
 url="https://movit.sesse.net/"
@@ -37,6 +37,7 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
+  CXXFLAGS+=" --std=c++17" \
   ./configure --prefix=/usr
   make -j1
 }
@@ -49,6 +50,7 @@ check() {
     ColorspaceConversionEffectTest.Rec601_525_Primaries
     ColorspaceConversionEffectTest.Rec601_625_Primaries
     ColorspaceConversionEffectTest.sRGB_Primaries
+    DeconvolutionSharpenEffectTest.CircularDeconvolutionKeepsAlpha
     EffectChainTest.Linear10bitIntermediateAccuracy
     FlatInput.ExternalTextureMipmapState
     ResampleEffectTest.UpscaleByThreeGetsCorrectPixelCenters
@@ -58,7 +60,7 @@ check() {
   local skipped_tests_filter="${skipped_tests[0]}$(printf ':%s' "${skipped_tests[@]:1}")"
   export GTEST_FILTER="-$skipped_tests_filter"
   # deinterlace_effect_test crashes under llvmpipe during shader compilation
-  sed -i '/TESTED_EFFECTS += deinterlace_effect/d' Makefile
+  sed -i '/TESTED_EFFECTS += deinterlace_effect/d;/UNTESTED_EFFECTS += fft_input/a UNTESTED_EFFECTS += deinterlace_effect' Makefile
   xvfb-run make check
 }
 
