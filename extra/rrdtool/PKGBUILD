@@ -1,8 +1,8 @@
 # Maintainer: Eric Bélanger <eric@archlinux.org>
 
 pkgname=rrdtool
-pkgver=1.10.0
-pkgrel=1
+pkgver=1.10.1
+pkgrel=2
 pkgdesc="Data logging and graphing application"
 arch=('x86_64')
 url="https://www.rrdtool.org"
@@ -16,10 +16,13 @@ optdepends=('perl: to use corresponding binding'
             'lua51: to use corresponding binding')
 options=('!emptydirs' '!makeflags')
 source=("git+https://github.com/oetiker/rrdtool-1.x.git#tag=v$pkgver")
-sha256sums=('ee7c33f112deac491682dff2b6523a536ce220b8d930dc34dd47263a1e1b6bcf')
+sha256sums=('1b2adec00d1bb12726c7cbae046be2dc6fae63e4c0bb89cd48b511e16a0bceda')
 
 prepare() {
   cd rrdtool-1.x
+
+  # https://github.com/oetiker/rrdtool-1.x/pull/1332
+  git show --format= bbb85a157261e896a4964ff826674dd2035632c5 -- src/rrd_graph_helper.c | git apply
 
   # fix FS#28521 make ruby install to vendor_ruby instead of site_ruby
   sed -e 's/$(RUBY) ${abs_srcdir}\/ruby\/extconf.rb/& --vendor/' -i bindings/Makefile.am
