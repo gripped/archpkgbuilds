@@ -2,13 +2,12 @@
 
 pkgname=ktimetracker
 pkgver=6.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Todo management and time tracker'
 url='https://apps.kde.org/ktimetracker/'
 license=(GPL-2.0-or-later)
 arch=(x86_64)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kcalendarcore
          kcmutils
          kconfig
@@ -25,6 +24,7 @@ depends=(gcc-libs
          kwidgetsaddons
          kwindowsystem
          kxmlgui
+         libstdc++
          qt6-5compat
          qt6-base)
 makedepends=(extra-cmake-modules
