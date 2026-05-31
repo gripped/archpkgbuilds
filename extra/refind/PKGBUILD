@@ -3,7 +3,7 @@
 pkgbase=refind
 pkgname=(refind refind-docs)
 pkgver=0.14.2
-pkgrel=2
+pkgrel=3
 pkgdesc="An EFI boot manager"
 arch=(x86_64)  # we build architecture-specific EFI binaries
 url="https://www.rodsbooks.com/refind/"
@@ -19,10 +19,10 @@ source=(
     "$srcdir/fix-target-option.patch"
 )
 sha512sums=('76a52ed422ab3d431e6530fae4d13a51e8ed100568d4290207aaee87a84700b077bb79c4f4917027f5286de422954e1872fca288252ec756072d6c075b102e1e'
-            '38eeeb282be8bf5d0073e80546c094acf91c84cf0fa2286b0ff3a51609bdb31c7bc10cbcaefbbc6fa52683ca6f6a1a0acae8579a596a438394e09fffa1a8880e'
+            '8d472401fb0b91aa0ea2ae0c386d02a8b923dabfc58b70bb7fea770b7d54702f4fa8c931d70ec3770484bd414ddd32631e0aeae4c0125e8624d53f01f7e979dd'
             '20b48d5f5c6499ca361f05316f0b4a8d3a5c4b3339c99947cb9933a27e86cc250942b223fd9b5fb14134dc91f1dc11385749501b7702feb620cb1237138c8575')
 b2sums=('987acb29d4d81c01db245cd8e1c9761072e34cf3dfaa3e4fa77e549ee2c1dc4c3f8cbd9218f42e4eb77478df3453095dba8b36324c289c6a10b81f1ecb202743'
-        '871a5abf8a5aefc421e083da9f351b71b7989b8727093ac9ed00051be9dbda71dc057e4dad4fb8819d1581eae9e7c44c3a0d157d7eab1247424e66c50a6bbbf4'
+        '00fec4f15d41c8eaa2c5cc5d36d4364cedcc81adaefbe76b4bced9cf4314f6787959fd71be8e200c95a1cf9dd5333b981cb5be284283433dbbe82ca5a71ab439'
         'de56b51bb80e29b684775530a4b33d61b17c219cf77bce0ffa82b8500aaa19ae8b5144d683d189cc6dcb17fb7255a818bd1bb1282b19c9864f3280d21aa33205')
 _arch='x64'
 
@@ -46,7 +46,6 @@ prepare() {
 build() {
   cd $pkgname-$pkgver
   make
-  make gptsync
   make fs
 }
 
