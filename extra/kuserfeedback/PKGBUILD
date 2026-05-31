@@ -2,13 +2,13 @@
 
 pkgname=kuserfeedback
 pkgver=6.26.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Framework for collecting user feedback for applications via telemetry and surveys'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL-2.0-only LGPL-3.0-only)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libstdc++
          qt6-base)
 makedepends=(clang
              extra-cmake-modules
