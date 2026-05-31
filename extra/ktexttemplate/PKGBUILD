@@ -2,13 +2,14 @@
 
 pkgname=ktexttemplate
 pkgver=6.26.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Library to allow application developers to separate the structure of documents from the data they contain'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL-2.1-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          qt6-base
          qt6-declarative)
 makedepends=(doxygen
