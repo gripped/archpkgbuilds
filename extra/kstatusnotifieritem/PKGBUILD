@@ -2,14 +2,14 @@
 
 pkgname=kstatusnotifieritem
 pkgver=6.26.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Implementation of Status Notifier Items'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kwindowsystem
+         libstdc++
          qt6-base)
 makedepends=(doxygen
              extra-cmake-modules
