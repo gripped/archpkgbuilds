@@ -5,13 +5,12 @@
 
 pkgname=kshutdown
 pkgver=6.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Shutdown Utility'
 arch=(x86_64)
 url='https://kshutdown.sourceforge.io/'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kconfig
          kconfigwidgets
          kcoreaddons
@@ -25,6 +24,7 @@ depends=(gcc-libs
          kstatusnotifieritem
          kwidgetsaddons
          kxmlgui
+         libstdc++
          qt6-base)
 makedepends=(extra-cmake-modules)
 source=(https://downloads.sourceforge.net/$pkgname/KShutdown/$pkgver/$pkgname-source-$pkgver.zip)
