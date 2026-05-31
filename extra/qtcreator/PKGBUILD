@@ -10,18 +10,19 @@ pkgbase=qtcreator
 pkgname=(qtcreator
          qtcreator-devel)
 pkgver=19.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Lightweight, cross-platform integrated development environment'
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only)
 depends=(clang
          clazy
-         gcc-libs
          glib2
          glibc
          libarchive
          libelf
+         libgcc
+         libstdc++
          litehtml
          llvm-libs
          python
