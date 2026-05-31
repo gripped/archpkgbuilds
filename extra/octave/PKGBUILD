@@ -4,12 +4,12 @@
 # Contributor: cyberdune <cyberdune@gmail.com>
 
 pkgname=octave
-pkgver=11.1.0
+pkgver=11.2.0
 pkgrel=1
 pkgdesc='A high-level language, primarily intended for numerical computations'
 arch=(x86_64)
 url='https://www.gnu.org/software/octave/'
-license=(GPL)
+license=(GPL-3.0-or-later)
 depends=(
   fftw
   curl
@@ -50,7 +50,7 @@ optdepends=(
 source=("https://ftp.gnu.org/gnu/octave/octave-$pkgver.tar.gz"{,.sig})
 options=(!emptydirs)
 validpgpkeys=('DBD9C84E39FE1AAE99F04446B05F05B75D36644B')  # John W. Eaton
-sha512sums=('394db743e1f0591d6332bc4721a484f9219633b56a131586c7fe332c7341563824332be9ee10f0f5e513c75a9ec716da672d442a1ef96c7c24b0028eff7cccb3'
+sha512sums=('acceb222cef4ceb18ef8dd0f03ae64cabb40373561b507be511dbe66e791981fd0757a15c3d5ea963464a25c9fb947039b47a87d8d06a2fbb9f62fdd97ad90e6'
             'SKIP')
 
 build() {
