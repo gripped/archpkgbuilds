@@ -4,17 +4,17 @@
 # Contributor: FJ <joostef@gmail.com>
 
 pkgname=perl-template-toolkit
-pkgver=3.103
+pkgver=3.106
 pkgrel=1
 pkgdesc="Perl template processing system"
 arch=('x86_64')
 url="https://metacpan.org/release/Template-Toolkit"
 license=('Artistic-1.0-Perl' 'GPL-1.0-or-later')
 depends=('perl-appconfig' 'perl')
-checkdepends=('perl-cgi' 'perl-image-info' 'perl-test-leaktrace')
+checkdepends=('perl-image-info' 'perl-test-leaktrace')
 options=('!emptydirs')
 source=(https://cpan.metacpan.org/authors/id/T/TO/TODDR/Template-Toolkit-$pkgver.tar.gz)
-sha512sums=('50413fbe962a0063f24a7118e397471b2c0a73add9677921d924573e3746279c8d7f078b1a7d96af24d507b99682d4d84d0b27c047d34b93c0f901fde6c2c98c')
+sha512sums=('a94bd16aa20050096d3828779dbe9329e5949f516c90cb486ad96024d0b9bc35b97e7fb9206e19ad64a4ccb71485607308fede3fb5e1da2180a55d66cdbc7ca8')
 
 build() {
   cd Template-Toolkit-$pkgver
