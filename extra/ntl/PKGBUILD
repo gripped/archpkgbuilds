@@ -3,15 +3,16 @@
 
 pkgname=ntl
 pkgver=11.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Library for doing Number Theory'
 arch=(x86_64)
 url='https://www.shoup.net/ntl/'
 license=(LGPL-2.1-or-later)
-depends=(gcc-libs
-         gf2x
+depends=(gf2x
          glibc
-         gmp)
+         gmp
+         libgcc
+         libstdc++)
 source=(https://www.shoup.net/$pkgname/$pkgname-$pkgver.tar.gz)
 sha256sums=('bc0ef9aceb075a6a0673ac8d8f47d5f8458c72fe806e4468fbd5d3daff056182')
 
