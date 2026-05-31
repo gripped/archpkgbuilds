@@ -1,0 +1,12 @@
+diff -ru texmaker-6.0.1.orig/CMakeLists.txt texmaker-6.0.1/CMakeLists.txt
+--- texmaker-6.0.1.orig/CMakeLists.txt	2026-05-30 19:08:17.199739766 +0200
++++ texmaker-6.0.1/CMakeLists.txt	2026-05-30 19:08:40.604650266 +0200
+@@ -386,7 +386,7 @@
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+ set(CMAKE_AUTORCC ON)
+ 
+-find_package(Qt6 REQUIRED COMPONENTS Gui Concurrent Core Core5Compat Network PrintSupport Qml Widgets Xml LinguistTools)
++find_package(Qt6 REQUIRED COMPONENTS Gui Concurrent Core CorePrivate Core5Compat Network PrintSupport Qml Widgets Xml LinguistTools)
+ 
+ qt_standard_project_setup()
+ 
