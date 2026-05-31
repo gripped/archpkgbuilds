@@ -5,7 +5,7 @@
 
 _pkgname=coreutils
 pkgname=uutils-$_pkgname
-pkgver=0.8.0
+pkgver=0.9.0
 pkgrel=1
 pkgdesc='Cross-platform Rust rewrite of the GNU coreutils'
 arch=('x86_64')
@@ -24,7 +24,7 @@ makedepends=(
 source=(
   $pkgname::git+$_url.git#tag=${pkgver}
 )
-b2sums=('ec178d0c5fce7ed8d466cc41d03bae99617fadcb79390c9fb1aa073e0bfc1054360f21c3cdfafce8f8737c1c0b7e1b21d1bd281485c5d4d2f5a5311a2fb8098d')
+b2sums=('e0d21fa46c8eb34b58ebf20a73207c8f239ee84c9233d783fe462d0e0fff1a2d2fc43a1cdecb6c7ca65e0fc325904cbb10816a3dcc7324a502aa6f48fe535466')
 
 # This line inside prepare does not work without chean build
 export RUSTONIG_DYNAMIC_LIBONIG=1
