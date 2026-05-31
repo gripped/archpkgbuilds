@@ -7,12 +7,13 @@ pkgname=(llvm-julia
 pkgver=18.1.7.4
 _pkgver=${pkgver%.*}-${pkgver##*.}
 _majver=${pkgver%.*.*.*}
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url='https://julialang.org/'
 license=('custom:Apache 2.0 with LLVM Exception')
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          zlib
          zstd)
 makedepends=(cmake
