@@ -2,14 +2,15 @@
 
 pkgname=kirigami
 pkgver=6.26.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A QtQuick based components set'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL-2.0-only
          LGPL-3.0-only)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgomp
+         libstdc++
          qt6-base
          qt6-declarative
          qt6-svg)
