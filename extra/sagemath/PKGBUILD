@@ -7,7 +7,7 @@
 
 pkgname=sagemath
 pkgver=10.9
-pkgrel=2
+pkgrel=3
 pkgdesc='Open Source Mathematics Software, free alternative to Magma, Maple, Mathematica, and Matlab'
 arch=(x86_64)
 url='http://www.sagemath.org'
@@ -20,7 +20,6 @@ depends=(brial
          fflas-ffpack
          flint
          gap
-         gcc-libs
          gd
          gfan
          givaro
@@ -33,8 +32,10 @@ depends=(brial
          ipython
          lcalc
          libbraiding
+         libgcc
          libhomfly
          libmpc
+         libstdc++
          linbox
          lrcalc
          m4ri
