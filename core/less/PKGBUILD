@@ -3,7 +3,7 @@
 # Contributor: judd <jvinet@zeroflux.org>
 
 pkgname=less
-pkgver=692
+pkgver=702
 pkgrel=1
 epoch=1
 pkgdesc='A terminal based program for viewing text files'
@@ -23,7 +23,7 @@ source=(
   https://www.greenwoodsoftware.com/$pkgname/$pkgname-$pkgver.tar.gz
   $pkgname-$pkgver.tar.gz.sig::https://www.greenwoodsoftware.com/$pkgname/$pkgname-$pkgver.sig
 )
-b2sums=('379d7738894f16fed1b429c9e26c2e46fd27c790be2b0b8b6c0f6744913845ea6003d5b50db4186847c4daf430fb5a23d2c9f35780577a0fb1c1a3b603bfbb41'
+b2sums=('89d52e986a4bf62f6bb8fccf80a7e256e91a1a8e8935e6a4e0bf6ca02080008494b31e5f6d91a4ac5fb7eadb8d49d5289f1020b174bfc344534130baf00b0a39'
         'SKIP')
 
 prepare() {
@@ -42,7 +42,7 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
-  sh configure --prefix=/usr --sysconfdir=/etc --with-regex=pcre2
+  sh configure --prefix=/usr --libexecdir=/usr/lib --sysconfdir=/etc --with-regex=pcre2
   make
 }
 
