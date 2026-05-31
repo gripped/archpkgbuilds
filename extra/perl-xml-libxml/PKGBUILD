@@ -4,7 +4,7 @@
 # Contributor: François Charette <francois.archlinux.org>
 
 pkgname=perl-xml-libxml
-pkgver=2.0212
+pkgver=2.0213
 pkgrel=1
 pkgdesc="Interface to the libxml library"
 arch=('x86_64')
@@ -19,7 +19,7 @@ install=perl-xml-libxml.install
 source=(
   https://www.cpan.org/authors/id/T/TO/TODDR/XML-LibXML-$pkgver.tar.gz
 )
-sha512sums=('91d6438742b0f907c3b0c69bf2348adf7a18df38d2452e7b9eb426b4855af1f99ca9098ba71b9824d29c391ba9b49981f2553da635f0a8795adc309cc54fd1b2')
+sha512sums=('669446176a90f784017576436bee4952c110953b5198e8ad043af9507e97e93bacfc0b29c201bff03322dba77336e4680156052d356c7026c1b804c3f310d8ce')
 
 build() {
   cd XML-LibXML-$pkgver
