@@ -1,7 +1,7 @@
 # Maintainer: Quentin Michaud <mh4ckt3mh4ckt1c4s@archlinux.org>
 
 pkgname=wasm-tools
-pkgver=1.246.2
+pkgver=1.251.0
 pkgrel=1
 pkgdesc="Low level tooling for WebAssembly in Rust"
 arch=("x86_64")
@@ -9,14 +9,14 @@ url="https://github.com/bytecodealliance/wasm-tools"
 license=("Apache-2.0")
 depends=("glibc" "gcc-libs")
 # Update using ./retrieve-testsuite-commit.sh <pkgver>
-_wasm_testsuite_commit=e999a1051925895022ab06abc25b23ca300ab0d0
+_wasm_testsuite_commit=51279a9d02cbba193cb25142d115388d7b83299c
 makedepends=("cargo")
 source=(
 	"$pkgname-$pkgver.tar.gz::https://github.com/bytecodealliance/$pkgname/archive/refs/tags/v$pkgver.tar.gz"
 	"wasm-testsuite-$_wasm_testsuite_commit.tar.gz::https://github.com/WebAssembly/testsuite/archive/$_wasm_testsuite_commit.tar.gz"
 )
-sha256sums=('d5cbfd24286c14817db40a8651771681a9a31a45e3225f9eefa76cfef43489da'
-            'e289c03b4586b92f5e59e30078c4ea96d79fbdc59d993e866c694893473c315c')
+sha256sums=('111f529d3cb72d378cd7c162e3e707997c53275ac9abd3b355dbd518f3905bff'
+            '1b3caa3fab5259b1e1cda8c66d14ee8c81f5e0dc6322f518964c0c6f6590d945')
 
 options_aarch64=(!lto)
 
