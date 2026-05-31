@@ -6,7 +6,7 @@
 
 pkgname=zynaddsubfx
 pkgver=3.0.6
-pkgrel=6
+pkgrel=7
 _mruby_zest_commit='dd3d45ba333011f2359e86f9a758d9836e53fe5f'  # refs/tags/3.0.6
 pkgdesc="Opensource software synthesizer capable of making a countless number of instruments."
 arch=(x86_64)
@@ -19,7 +19,8 @@ groups=(
 )
 depends=(
   fftw  # NOTE: fftw is dlopen()'ed
-  gcc-libs
+  libgcc_s.so
+  libstdc++.so
   glibc
   hicolor-icon-theme
   libglvnd
@@ -185,6 +186,7 @@ build() {
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -D DefaultInput=jack
     -D DefaultOutput=jack
     -D GuiModule=zest
@@ -201,7 +203,7 @@ build() {
 }
 
 check() {
-  make -k test ARGS='-VVd' -C build
+  make -k test -C build
 }
 
 package() {
