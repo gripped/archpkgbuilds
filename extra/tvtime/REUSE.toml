@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -24,8 +27,7 @@ SPDX-License-Identifier = "0BSD"
 [[annotations]]
 path = [
     "0001-Fix-AppStream-metadata-validation.patch",
-    "0001-Fix-warning-implicit-declaration-of-function-minor-m.patch",
-    "freetype.patch",
+    "no-termio.patch",
 ]
 SPDX-FileCopyrightText = "tvtime contributors"
-SPDX-License-Identifier = "TODO-Choose-a-license"
+SPDX-License-Identifier = "GPL-2.0-or-later"
