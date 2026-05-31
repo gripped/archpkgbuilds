@@ -4,7 +4,7 @@
 # Contributor: Ranieri Althoff <ranisalt+aur at gmail dot com>
 _pkgname=MangoHud
 pkgname=lib32-mangohud
-pkgver=0.8.3
+pkgver=0.8.4
 pkgrel=1
 pkgdesc="32-bit libraries for MangoHud and MangoApp"
 arch=('x86_64')
@@ -15,7 +15,7 @@ depends=('lib32-dbus' 'lib32-gcc-libs' 'lib32-glew' 'lib32-libx11' 'lib32-libxkb
 conflicts=('lib32-mangoapp')
 replaces=('lib32-mangoapp')
 source=("$pkgname-$pkgver.tar.xz::https://github.com/flightlessmango/MangoHud/releases/download/v$pkgver/$_pkgname-v$pkgver-Source.tar.xz")
-b2sums=('38b375b6d338fd3d4cd4b2177e43af1fe200db8376df018f988b3eb0f43c2544a082731266c5508bc053c6a9846b1dd95999b11e6aec40632dca5bbbb3e440e5')
+b2sums=('06bdfcd26e14ff544e4dea4e39b8f7da6119d87fc7e14f381cf8c47bba69508a4768b8584600424adb8ca2a2f6f4c2d84d63683addeb83bd0dd9a1e055febdb8')
 
 prepare() {
     cd "$_pkgname-v$pkgver"
