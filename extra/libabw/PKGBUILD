@@ -1,8 +1,8 @@
 # Maintainer: AndyRTR <andyrtr@archlinux.org>
 
 pkgname=libabw
-pkgver=0.1.3
-pkgrel=6
+pkgver=0.1.4
+pkgrel=1
 pkgdesc="a library that parses the file format of AbiWord documents"
 arch=('x86_64')
 url="https://wiki.documentfoundation.org/DLP/Libraries/libabw"
@@ -10,7 +10,7 @@ license=('MPL-2.0')
 depends=('librevenge' 'libxml2' 'zlib' 'glibc' 'libstdc++' 'libgcc')
 makedepends=('doxygen' 'gperf' 'boost')
 source=(https://dev-www.libreoffice.org/src/$pkgname/$pkgname-$pkgver.tar.xz)
-sha256sums=('e763a9dc21c3d2667402d66e202e3f8ef4db51b34b79ef41f56cacb86dcd6eed')
+sha256sums=('fa2685a3440da6e03a66a778480d93cb95f6064e4541e58e37397680760fd6a0')
 
 prepare() {
   cd "$pkgname-$pkgver"
