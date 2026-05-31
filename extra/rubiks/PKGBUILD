@@ -2,13 +2,14 @@
 
 pkgname=rubiks
 pkgver=20070912
-pkgrel=5
+pkgrel=6
 pkgdesc="Several programs for working with Rubik's cubes"
 arch=(x86_64)
 url='https://www.sagemath.org'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc)
+depends=(glibc
+         libgcc
+         libstdc++)
 source=(https://github.com/sagemath/sage-package/releases/download/tars/$pkgname-$pkgver-unix.tar.bz2
         dietz-mcube-Makefile
         dietz-cu2-Makefile
