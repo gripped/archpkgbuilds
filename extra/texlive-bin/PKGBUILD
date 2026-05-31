@@ -5,7 +5,7 @@
 
 pkgname=(texlive-bin libsynctex)
 pkgver=2026.0
-pkgrel=1
+pkgrel=2
 license=(GPL-2.0-or-later)
 arch=(x86_64)
 makedepends=(bash
@@ -14,7 +14,6 @@ makedepends=(bash
              ffcall
              fontconfig
              freetype2
-             gcc-libs
              gd
              git
              glibc
@@ -29,7 +28,6 @@ makedepends=(bash
              libunistring
              libx11
              libxaw
-             libxcrypt
              libxmu
              libxpm
              libxt
@@ -46,10 +44,12 @@ url='https://tug.org/texlive/'
 _commit=f26cc5ed05a1f784d1e694fe5b9cfc3ce992c03d
 source=(git+https://github.com/Tex-Live/texlive-source.git#commit=$_commit
         ptex-debug-print.patch
-        lua-root.patch)
+        lua-root.patch
+        b50e042b.patch)
 sha256sums=('f598cebd38804428d1ec6435d898cb3b7602f8430519540ce2f7925fab63f185'
             'aa838f09003c62c2efb5770a8de66f99b409df049fbd65098d80fd1957d06c50'
-            'c2d6a8b14dd8197874c1d894e70df80ad076f28ee4d1cff81e3b7811d9264fb9')
+            'c2d6a8b14dd8197874c1d894e70df80ad076f28ee4d1cff81e3b7811d9264fb9'
+            '9ada4d69072d6a432fa4e0bd50928909cf5884e939b6c8ce2b158dadd9b5d326')
 
 prepare() {
   cd texlive-source
@@ -63,6 +63,8 @@ prepare() {
   patch -p1 -i ../ptex-debug-print.patch
 # Fix LUA_ROOT define
   patch -p1 -i ../lua-root.patch
+# Fix build with GCC 16
+  patch -p1 -i ../b50e042b.patch
 }
 
 build() {
@@ -71,7 +73,6 @@ build() {
   mkdir -p build
   cd build
   CFLAGS=${CFLAGS/FORTIFY_SOURCE=3/FORTIFY_SOURCE=2} # https://gitlab.archlinux.org/archlinux/packaging/packages/texlive-bin/-/issues/3 
-  CFLAGS+=" -Wno-incompatible-pointer-types -std=gnu17" \
   ax_cv_c_float_words_bigendian=no \
   ../configure --prefix=/usr -C \
     --sysconfdir=/etc \
@@ -137,21 +138,21 @@ package_texlive-bin() {
            ffcall
            fontconfig
            freetype2
-           gcc-libs
            gd
            glibc
            gmp
            graphite
            harfbuzz
            icu
+           libgcc
            libpaper
            libpng
            libsigsegv
+           libstdc++
            libsynctex
            libunistring
            libx11
            libxaw
-           libxcrypt
            libxmu
            libxpm
            libxt
