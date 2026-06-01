@@ -1,0 +1,32 @@
+From 5fb73cb309b708003e32ab878f41447e29e97c38 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 31 May 2026 20:03:11 +0200
+Subject: [PATCH] Use standard fallback paths
+
+If $XDG_DATA_HOME is either not set or empty, a default equal to $HOME/.local/share should be used.
+---
+ src/simutrans/sys/simsys.cc | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/simutrans/sys/simsys.cc b/src/simutrans/sys/simsys.cc
+index 5e1f66d41..467c8688f 100644
+--- a/src/simutrans/sys/simsys.cc
++++ b/src/simutrans/sys/simsys.cc
+@@ -610,7 +610,7 @@ char const *dr_query_homedir()
+ 	int maxlen = PATH_MAX + 22;
+ 	int n;
+ 	if( getenv("XDG_DATA_HOME") == NULL ) {
+-		n = snprintf(buffer, maxlen, "%s/simutrans", getenv("HOME"));
++		n = snprintf(buffer, maxlen, "%s/.local/share/simutrans", getenv("HOME"));
+ 	}
+ 	else {
+ 		n = snprintf(buffer, maxlen, "%s/simutrans", getenv("XDG_DATA_HOME"));
+@@ -662,7 +662,7 @@ char const *dr_query_installdir()
+ 	int maxlen = PATH_MAX + 22;
+ 	int n;
+ 	if( getenv("XDG_DATA_HOME") == NULL ) {
+-		n = snprintf(buffer, maxlen, "%s/simutrans/paksets", getenv("HOME"));
++		n = snprintf(buffer, maxlen, "%s/.local/share/simutrans/paksets", getenv("HOME"));
+ 	}
+ 	else {
+ 		n = snprintf(buffer, maxlen, "%s/simutrans/paksets", getenv("XDG_DATA_HOME"));
