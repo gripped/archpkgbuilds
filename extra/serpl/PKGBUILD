@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=serpl
-pkgver=0.3.5
+pkgver=0.3.6
 pkgrel=1
 pkgdesc="A simple TUI for search and replace, ala VS Code"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('43a969ec95de7feb6bd42f9b9fb4560a084597f3a9fd7f4c3d30c6c458b1ceb27f0f3546401eae0fd17cb45c68d954cd12edb9fc03ec390f2023fc7315ba668e')
+sha512sums=('296609260aa18a8b84e2c9e9650fa476cbd4a260a082c042a66340229d4528a23ace9d3b0767fb24570ed9dc6accf0dc73598c8c43d5825dd2fe30f2cd170601')
 
 prepare() {
   cd "$pkgname-$pkgver"
