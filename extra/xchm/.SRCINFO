@@ -1,13 +1,19 @@
 pkgbase = xchm
 	pkgdesc = Viewer for CHM files (GUI front-end to chmlib)
 	pkgver = 1.39
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/rzvncj/xCHM
 	arch = x86_64
-	license = GPL-2.0-only
+	license = GPL-2.0-or-later
+	makedepends = git
 	depends = chmlib
+	depends = glibc
+	depends = hicolor-icon-theme
+	depends = libgcc
+	depends = libstdc++
+	depends = wxwidgets-common
 	depends = wxwidgets-gtk3
-	source = https://github.com/rzvncj/xCHM/releases/download/1.39/xchm-1.39.tar.gz
-	sha256sums = 43e5ae640e1c33b95439b99e1a3d1e14aaef851b668cf2643fb8ba3363a5e795
+	source = git+https://github.com/rzvncj/xCHM.git#tag=1.39
+	b2sums = 05d7775a9bd2f64d3e21657250c5223587182c6e9663540f4595e2283a4a215cb9daa307b4cbf12fe9b6099ea109f60cf5dfcbd8bb6651418575f498ce751554
 
 pkgname = xchm
