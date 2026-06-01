@@ -1,53 +1,42 @@
-# Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Jaroslav Lichtblau <svetlemodry@archlinux.org>
 # Contributor: Muflone http://www.muflone.com/contacts/english/
 # Contributor: Michele Schäuble <mschaeuble@swissonline.ch>
 
 pkgname=josm
 pkgver=19555
-pkgrel=1
-pkgdesc="An editor for OpenStreetMap written in Java"
-arch=('any')
-url="https://josm.openstreetmap.de/"
-license=('GPL-2.0-or-later')
-depends=('desktop-file-utils' 'hicolor-icon-theme' 'java-runtime>=11' 'libxtst' 'ttf-font')
-makedepends=('subversion')
-changelog=$pkgname.changelog
-backup=('etc/conf.d/josm')
-source=(https://josm.openstreetmap.de/download/$pkgname-snapshot-$pkgver.jar
-        $pkgname.conf.d
-        $pkgname::svn+https://josm.openstreetmap.de/svn/trunk#revision=$pkgver)
-noextract=($pkgname-snapshot-$pkgver.jar)
-sha512sums=('eb65c6b3dc014e10764b5dc8cd3abeb8fb32bd27141a15aeb1fc18876ab2c579271490b9ed0c658f4dbb907e219a43d2951c7a0b5a113a7b3b77ec99ed5691e5'
-            'd69e681a679378915f980ebafe204c548e0d76778962e4aa33afe8f83a1e6fe4438c7729a92634e02b195349a52a388f8933959c6b81c01ecc602d061ff7c8df'
-            'SKIP')
+pkgrel=2
+pkgdesc='Editor for OpenStreetMap written in Java'
+arch=(any)
+url='https://josm.openstreetmap.de/'
+license=(GPL-2.0-or-later)
+depends=(
+  hicolor-icon-theme
+  'java-runtime>=11'
+  libxtst
+  ttf-font
+)
+makedepends=(
+  ant
+  subversion
+)
+options=(!emptydirs)
+backup=(etc/default/josm)
+source=("$pkgname::svn+https://josm.openstreetmap.de/svn/trunk#revision=$pkgver")
+b2sums=(SKIP)
+
+prepare() {
+  cd $pkgname
+  sed -i 's|/usr/share/|/usr/share/java/|' native/linux/tested/usr/bin/josm
+}
+
+build() {
+  cd $pkgname
+  ant
+}
 
 package() {
-  cd "${srcdir}"
-
-  install -Dm644 $pkgname-snapshot-$pkgver.jar "${pkgdir}"/usr/share/java/$pkgname/$pkgname.jar
-
-  install -Dm644 $pkgname/native/linux/tested/usr/share/applications/org.openstreetmap.josm.desktop \
-        "${pkgdir}"/usr/share/applications/org.openstreetmap.josm.desktop
-  install -Dm644 $pkgname/native/linux/tested/usr/share/man/man1/josm.1 \
-        "${pkgdir}"/usr/share/man/man1/josm.1
-  install -Dm644 $pkgname/native/linux/tested/usr/share/metainfo/org.openstreetmap.josm.appdata.xml \
-        "${pkgdir}"/usr/share/metainfo/org.openstreetmap.josm.appdata.xml
-  install -Dm644 $pkgname/native/linux/tested/usr/share/icons/hicolor/scalable/apps/org.openstreetmap.josm.svg \
-        "${pkgdir}"/usr/share/icons/hicolor/scalable/apps/org.openstreetmap.josm.svg
-
-  for _icon in 8 16 22 24 32 36 40 42 48 64 72 80 96 128 192 256 512; do
-      install -Dm644 $pkgname/native/linux/tested/usr/share/icons/hicolor/${_icon}x${_icon}/apps/org.openstreetmap.josm.png \
-        "${pkgdir}"/usr/share/icons/hicolor/${_icon}x${_icon}/apps/org.openstreetmap.josm.png
-  done
-
-  install -Dm644 "${srcdir}"/$pkgname.conf.d "${pkgdir}"/etc/conf.d/$pkgname
-  install -Dm755 "${pkgname}/native/linux/tested/usr/bin/josm" "${pkgdir}/usr/bin/josm"
-  install -Dm644 "${pkgname}/native/linux/tested/etc/default/josm" "${pkgdir}/etc/default/josm"
-
-  # Load our custom josm config at /etc/conf.d/josm (will append this to line 4 of the start script)
-  sed -i '4 a[ -f /etc/conf.d/josm ] && . /etc/conf.d/josm' "${pkgdir}/usr/bin/josm"
-
-  # Add arch env vars to top of josm script
-  # We do this to have a sane default in case the config file gets deleted.
-  sed -i '4 aJOSM_PATH="/usr/share/java/josm/josm.jar"' "${pkgdir}/usr/bin/josm"
+  cd $pkgname
+  cp -r native/linux/tested/{etc,usr} "$pkgdir"
+  install -Dm644 dist/josm-custom.jar "$pkgdir/usr/share/java/$pkgname/$pkgname.jar"
 }
