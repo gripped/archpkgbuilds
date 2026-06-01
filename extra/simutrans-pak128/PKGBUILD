@@ -2,20 +2,23 @@
 # Contributor: JD Steffen <jd at steffennet dot org>
 
 pkgname=simutrans-pak128
-pkgver=2.10.0
-_pkgver='2-10-for124-3up'
-pkgrel=2
-pkgdesc="High resolution graphics set for Simutrans"
-arch=('any')
-url="https://128.simutrans.com/"
-license=('Artistic2.0')
-provides=('simutrans-pak64')
-options=('!strip' '!debug')
-source=("https://downloads.sourceforge.net/project/simutrans/pak128/pak128%20for%20ST%20124.3up%20%282.10.0%29/simupak128-$_pkgver.zip")
-sha256sums=('8e6a32a3a8b7a9df96aaaf6ace888e9e501445ceca67810059fb797d82468ad2')
+pkgver=2.10.1
+_stver=124.4
+pkgrel=1
+pkgdesc='High resolution graphics set for Simutrans'
+arch=(any)
+url='https://www.simutrans.com/'
+license=(Artistic-2.0)
+provides=(simutrans-pak)
+options=(
+  !strip
+  !debug
+)
+source=("https://downloads.sourceforge.net/simutrans/simupak128-${pkgver//./-}-for${_stver//./-}up.zip")
+b2sums=(aa545faa9bd889cb637063fe521bf9702ef463139e397578b486dca7e7650e106efc01a95a3559be13804bd64430c4b2c66b8a289e397d6dc2f28eebe413c88a)
 
 package() {
   #data
-  mkdir -p "$pkgdir/usr/share"
-  cp -r simutrans "$pkgdir/usr/share"
+  mkdir -p "$pkgdir/usr/share/games"
+  cp -r simutrans "$pkgdir/usr/share/games"
 }
