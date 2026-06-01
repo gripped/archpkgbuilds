@@ -1,15 +1,19 @@
 pkgbase = osm-gps-map
-	pkgdesc = Gtk+ Widget for Displaying OpenStreetMap tiles
+	pkgdesc = Gtk Widget for Displaying OpenStreetMap tiles
 	pkgver = 1.2.0
-	pkgrel = 2
-	url = https://nzjrs.github.com/osm-gps-map/
+	pkgrel = 3
+	url = https://github.com/nzjrs/osm-gps-map
 	arch = x86_64
-	license = GPL2
+	license = GPL-2.0-or-later
 	makedepends = gtk-doc
 	makedepends = gobject-introspection
 	depends = gtk3
-	depends = libsoup
+	depends = libsoup3
 	source = https://github.com/nzjrs/osm-gps-map/releases/download/1.2.0/osm-gps-map-1.2.0.tar.gz
+	source = 0001-Drop-support-for-libsoup-older-than-2.42.patch
+	source = 0001-Port-to-libsoup3.patch
 	sha256sums = ddec11449f37b5dffb4bca134d024623897c6140af1f9981a8acc512dbf6a7a5
+	sha256sums = f9a2b97b8a00d98844747fdad288c74c07779ec941ea9f3f036be28ff5c5a4d0
+	sha256sums = fe5d9bcf4c00f970788878528d59995ba744dcf0baaeedfc24929233a41544e4
 
 pkgname = osm-gps-map
