@@ -1,13 +1,13 @@
-# Maintainer: Jonathan Steel <jsteel at archlinux.org>
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 # Maintainer: Jonathan Grotelüschen <tippfehlr@archlinux.org>
+# Contributor: Jonathan Steel <jsteel at archlinux.org>
 # Contributor: Benjamin Klettbach <b.klettbach@gmail.com>
 # Contributor: Maciek Marciniak <mm2pl at kotmisia.pl>
 
 pkgbase=obs-studio
 pkgname=('obs-studio' 'obs-studio-plugin-browser')
 pkgver=32.1.2
-pkgrel=4
+pkgrel=5
 pkgdesc="Free, open source software for live streaming and recording"
 arch=('x86_64')
 url="https://obsproject.com"
@@ -23,13 +23,15 @@ source=(
   "${pkgname}-libdshowcapture::git+https://github.com/obsproject/libdshowcapture.git"
   "${pkgname}-obs-browser::git+https://github.com/obsproject/obs-browser.git"
   "${pkgname}-obs-websocket::git+https://github.com/obsproject/obs-websocket.git"
-  obs-browser-Update-to-C-20.patch
+  "obs-browser-Update-to-C-20.patch"
+  "obs-browser-enable-support-for-CEF-6613+.patch"
 )
 sha256sums=('5d515107c68006319c91d24a3a661f6fc4c1a619ebbac85a567fb6f5fec1e2c4'
             'SKIP'
             'SKIP'
             'SKIP'
-            '474832a156d29224eabc77bc78ca33b0e6116cb00dc2786b5869744bae8f72c3')
+            '474832a156d29224eabc77bc78ca33b0e6116cb00dc2786b5869744bae8f72c3'
+            '6ae679a3dfc3ab36ed03dcbc89de02f8075de26a0f01ea0176aa5aa8fbf499cd')
 
 prepare() {
   cd $pkgname
@@ -51,13 +53,17 @@ prepare() {
   # current CEF requires C++20
   # https://github.com/obsproject/obs-browser/pull/517
   patch -d plugins/obs-browser -Np1 -i "$srcdir/obs-browser-Update-to-C-20.patch"
+
+  # Enable support for CEF 6613+ (Chrome 128 to 147) and Chrome Runtime
+  # https://github.com/obsproject/obs-browser/pull/523
+  patch -d plugins/obs-browser -Np1 -i "$srcdir/obs-browser-enable-support-for-CEF-6613+.patch"
 }
 
 build() {
   local _cef_api_version=$(grep -oP 'CEF_API_VERSION_LAST CEF_API_VERSION\_\K[0-9]+' /usr/include/cef/include/cef_api_versions.h)
   echo Setting CEF_API_VERSION to $_cef_api_version
 
-  export CXXFLAGS+=" -Wno-error=deprecated-declarations"
+  export CXXFLAGS+=" -Wno-error=deprecated-declarations -Wno-error=ignored-qualifiers -Wno-error=unused-parameter"
   local cmake_options=(
     -B build
     -S $pkgname

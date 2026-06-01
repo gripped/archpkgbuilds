@@ -1,7 +1,7 @@
 pkgbase = obs-studio
 	pkgdesc = Free, open source software for live streaming and recording
 	pkgver = 32.1.2
-	pkgrel = 4
+	pkgrel = 5
 	url = https://obsproject.com
 	arch = x86_64
 	license = GPL-2.0-only
@@ -41,11 +41,13 @@ pkgbase = obs-studio
 	source = obs-studio-obs-browser::git+https://github.com/obsproject/obs-browser.git
 	source = obs-studio-obs-websocket::git+https://github.com/obsproject/obs-websocket.git
 	source = obs-browser-Update-to-C-20.patch
+	source = obs-browser-enable-support-for-CEF-6613+.patch
 	sha256sums = 5d515107c68006319c91d24a3a661f6fc4c1a619ebbac85a567fb6f5fec1e2c4
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = 474832a156d29224eabc77bc78ca33b0e6116cb00dc2786b5869744bae8f72c3
+	sha256sums = 6ae679a3dfc3ab36ed03dcbc89de02f8075de26a0f01ea0176aa5aa8fbf499cd
 
 pkgname = obs-studio
 	optdepends = libfdk-aac: FDK AAC codec support
