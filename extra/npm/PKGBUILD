@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=npm
-pkgver=11.14.1
+pkgver=11.16.0
 pkgrel=1
 pkgdesc='JavaScript package manager'
 arch=(any)
@@ -21,7 +21,7 @@ makedepends=(
 options=(!zipman)
 optdepends=("git: for dependencies using Git URL's")
 source=("npm-cli::git+https://github.com/npm/cli.git#tag=v$pkgver")
-b2sums=('02e5f178c65a9d65a9527f67c40e3f3cbddcf6d2192be7b58ff28f867c55eea35a88758bbc596d61bf64e68cfa1abe2a609ac2eaf821d98208869ea3f562006c')
+b2sums=('d058d395ca4652e0cc81824dbcd3d5d3faeba7878cbd3497b001ae5633431ef39f50771b035777549c8c5dfab745157f73ae3a6bb4ad65fc53e39c39a1a84e55')
 
 build() {
   cd npm-cli
