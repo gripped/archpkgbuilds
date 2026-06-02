@@ -4,7 +4,7 @@
 # Contributer: JP-Ellis <josh@jpellis.me>
 
 pkgname=mivisionx
-pkgver=7.2.3
+pkgver=7.2.4
 pkgrel=1
 pkgdesc="Set of comprehensive computer vision and machine intelligence libraries"
 arch=('x86_64')
@@ -24,10 +24,11 @@ makedepends=(
   'cmake'
   'half'
   'rocm-cmake'
+  'rocm-llvm'
 )
 _git='https://github.com/ROCm/MIVisionX'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('91d0cccdd5d9590dabfdfd60e4e5704359594c392d7bc6bcfb2ff2a7321269cf')
+sha256sums=('2e2c979275651bd848e4d2a9d50ef71a8c435c2c73605896936770d9992edfca')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
