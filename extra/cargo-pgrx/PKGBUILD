@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=cargo-pgrx
-pkgver=0.18.0
+pkgver=0.18.1
 pkgrel=1
 pkgdesc='Build PostgreSQL extensions with Rust'
 arch=(x86_64)
@@ -24,8 +24,8 @@ optdepends=('postgresql: to compile with system postgresql')
 replaces=(cargo-pgx)
 options=(!lto)
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('9481a12e9c84396c1beb7a1a8fb7d4ead409f3ebca9aed6c2af35f20f186cf7a0cf5c238c8fcb0026ce11b386464d5f5a404d230d6a1b85a930180257a693c68')
-b2sums=('32847d22218425be272fcc4507ee3f8bc5cd0c063f78fc7e447ebad64d3115354103ac88b4cf87c411c9203cb939962991331e7916025f1a4e1eb65960631980')
+sha512sums=('0087c53a5743d09edb66b7f65c9c7909b6cb05c43193f29d349590ce8bdec0b78d7f4968da7fa026ce7b99fcdbfdf512ef2fe1e99ead4d02073ff20cbee1e9b7')
+b2sums=('0c578137492370ba624cfd0b7eaa6e446c1807c35cae283c61dbf83075f6962b0dd23531d63c5c56104297161401b6c121b7cb01c75cba9e60379e57383b3b1d')
 
 prepare() {
   cd "$pkgname"
