@@ -3,7 +3,7 @@
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 
 pkgname=rocalution
-pkgver=7.2.3
+pkgver=7.2.4
 pkgrel=1
 pkgdesc='Next generation library for iterative sparse solvers for ROCm platform'
 arch=('x86_64')
@@ -22,10 +22,10 @@ depends=(
   'rocsolver'
   'rocsparse'
 )
-makedepends=('rocm-cmake' 'rocm-toolchain' 'openmp' 'openmpi')
+makedepends=('cmake' 'rocm-cmake' 'rocm-toolchain' 'rocm-llvm' 'openmp' 'openmpi')
 _git='https://github.com/ROCm/rocALUTION'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('6092bf6f59435b573f6d44fd4e78aa515f2e1f0c1b516f2d9f4e76a5a0fbd049')
+sha256sums=('2f769d84b2de2ee3b3faaa5128cd9bab29f3ee1ac792ece64fbb9e593f5f1fb1')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
