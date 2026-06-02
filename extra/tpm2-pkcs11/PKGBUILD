@@ -1,8 +1,8 @@
 # Maintainer: Jonas Witschel <diabonas@archlinux.org>
 
 pkgname=tpm2-pkcs11
-pkgver=1.9.2
-pkgrel=2
+pkgver=1.10.0
+pkgrel=1
 pkgdesc='PKCS#11 interface for Trusted Platform Module 2.0 hardware'
 arch=('x86_64')
 url='https://github.com/tpm2-software/tpm2-pkcs11'
@@ -15,9 +15,9 @@ checkdepends=('expect' 'iproute2' 'java-hamcrest' 'junit' 'libp11' 'opensc' 'ope
               'python-python-pkcs11' 'swtpm' 'tpm2-abrmd' 'tpm2-openssl' 'wget' 'xxd')
 source=("$url/releases/download/$pkgver/$pkgname-$pkgver.tar.gz"{,.asc}
         'p11kit-module-install.patch')
-sha512sums=('b997c45041acecdcbd2d2cee2d41d4b641a6eb735e5cbb34be368c5aff9e4517b83e02ccebd4775d10e78d129b315611465b46a52139fb3feb11d19c2a7ed58a'
+sha512sums=('1b95906faffd3125894efd7bf9d5fc9aa67399c7d659a52f1b71c55f8687d5c062a61663e73df8cdaca1d11489df7e0bb8fcee29a4987c29679167d5d08d005a'
             'SKIP'
-            'SKIP')
+            'fbf06fd21792d9890f865875144abca785fd4fa0e3dcce1cd0b0a427d119591639415d8b710e8e8d9f02ec7ab80f09a26b6c94db5b5e06c58d1eb79e5248f99a')
 validpgpkeys=('5B482B8E3E19DA7C978E1D016DE2E9078E1F50C1' # William Roberts (Bill Roberts) <william.c.roberts@intel.com>
               'D91A82DB310E8E07519C298A9877C26A3CD36409') # Bill Roberts (Bills Personal Dev Key) <bill.c.roberts@gmail.com>
 
