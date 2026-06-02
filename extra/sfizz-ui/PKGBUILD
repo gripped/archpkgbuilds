@@ -8,7 +8,7 @@ pkgname=(
 )
 _name=sfizz
 pkgver=1.2.3
-pkgrel=13
+pkgrel=14
 pkgdesc="SFZ based sampler, providing LV2 / PD / VST3 plugins using the sfizz library"
 arch=(x86_64)
 url="https://github.com/sfztools/sfizz-ui"
@@ -19,10 +19,11 @@ makedepends=(
   cmake
   cxxopts
   clang
-  gcc-libs
   ghc-filesystem
   glibc
   freetype2
+  libgcc
+  libstdc++
   libx11
   libxkbcommon
   libxkbcommon-x11
@@ -144,8 +145,9 @@ package_pd-sfizz() {
   )
   depends=(
     abseil-cpp
-    gcc-libs
     glibc
+    libgcc
+    libstdc++
     pd
     pugixml
   )
@@ -165,9 +167,10 @@ package_sfizz-lv2() {
     abseil-cpp
     cairo
     fontconfig
-    gcc-libs
     glib2
     glibc
+    libgcc
+    libstdc++
     libxcb
     libxkbcommon
     libxkbcommon-x11
@@ -197,9 +200,10 @@ package_sfizz-vst3() {
     abseil-cpp
     cairo
     fontconfig
-    gcc-libs
     glib2
     glibc
+    libgcc
+    libstdc++
     libxcb
     libxkbcommon
     libxkbcommon-x11
