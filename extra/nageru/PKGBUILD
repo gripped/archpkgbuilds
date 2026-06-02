@@ -2,7 +2,7 @@
 
 pkgname=nageru
 pkgver=2.3.2
-pkgrel=3
+pkgrel=4
 pkgdesc="live video mixer, based around the standard M/E workflow."
 arch=(x86_64)
 url="https://nageru.sesse.net/"
@@ -15,6 +15,7 @@ source=("https://nageru.sesse.net/nageru-${pkgver}.tar.gz")
 sha256sums=('89fd0b67052d08262f59b25739ea5d0ea5fff7a46180603a93cd4f9037226b08')
 
 build() {
+  CXXFLAGS+=" -std=c++17" # Fix build with GCC 16
   arch-meson $pkgname-$pkgver build
   meson compile -C build -v
 }
