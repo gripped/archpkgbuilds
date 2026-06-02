@@ -8,7 +8,7 @@
 # Contributor: Alexandru M Stan <alex@hypertriangle.com>
 
 pkgname=hsa-rocr
-pkgver=7.2.3
+pkgver=7.2.4
 pkgrel=1
 pkgdesc='HSA Runtime API and runtime for ROCm'
 arch=('x86_64')
@@ -29,7 +29,7 @@ provides=("hsakmt-roct=$pkgver")
 replaces=('hsakmt-roct')
 makedepends=('cmake' 'rocm-llvm' 'xxd')
 source=("rocm-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('e90cfd8694af28a56433c8827a581ee12a4ba835f0d952436741d9e0f3f8685b')
+sha256sums=('817f9c136125b8d162757a18cdc25b18b1efeb8ef36a948c85e4a672fd149de5')
 _dirname="$(basename "$url")-rocm-$pkgver"/projects/rocr-runtime/
 options=(!lto)
 
