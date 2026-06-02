@@ -2,7 +2,7 @@
 
 pkgname=python-erbsland-sphinx-ansi
 _name=${pkgname#python-}
-pkgver=1.1.6
+pkgver=1.2.2
 pkgrel=1
 pkgdesc="A Sphinx extension to format ANSI colored/formated terminal output"
 arch=(any)
@@ -10,8 +10,8 @@ url="https://github.com/erbsland-dev/erbsland-sphinx-ansi"
 license=(Apache-2.0)
 depends=(
   python
-  python-docutils  # undeclared runtime dependency: https://github.com/erbsland-dev/erbsland-sphinx-ansi/issues/3
-  python-sphinx  # undeclared implicit runtime dependency: https://github.com/erbsland-dev/erbsland-sphinx-ansi/issues/4
+  python-docutils
+  python-sphinx
 )
 makedepends=(
   python-build
@@ -23,8 +23,8 @@ checkdepends=(
   python-pytest
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('b0725a644fa45a83913281d5f1623cba3d10b7e80a9e6e39b6173c072efbf5ae5375315f428b3b65a82dd1fe925fc99af0e68031d69cd2b5d8c2a50c4354e997')
-b2sums=('187ffb9ab5bd05ab291cb2c0889d80ebd5455898f8efd81ef9b302201936a2e5c63575cfa4f7f0c47ece786e9436c7ccd59113da790ab9a8b85df0ae2115d1c4')
+sha512sums=('b3369fea17d307fefb1115a666d30bcd77db0445fa3b6179fdafdb714bf3aee65b2358175e5a5a7531137b873b3b0026bb53376e1e615b7ce0dd08806d80fc22')
+b2sums=('f481780d47b54b6a32d3574dae331b013cb9d3d56f9789e60f251978367f0854c66e6b972a26abb4d3e6036951433d0f0a198c417dcb0e6448c3adbab09c5762')
 
 build() {
   cd $_name-$pkgver
