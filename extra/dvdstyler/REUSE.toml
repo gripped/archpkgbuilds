@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -20,3 +23,13 @@ path = [
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "0001-fixed-encoding-of-silent-audio-file.patch",
+    "0002-added-support-of-ffmpeg5.patch",
+    "0003-added-support-of-ffmpeg-7.0.patch",
+    "0004-added-support-of-ffmpeg-8.0.patch",
+]
+SPDX-FileCopyrightText = "dvdstyler contributors"
+SPDX-License-Identifier = "GPL-2.0-only"

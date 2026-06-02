@@ -7,27 +7,73 @@
 
 pkgname=dvdstyler
 pkgver=3.2.1
-pkgrel=4
+pkgrel=5
 pkgdesc='DVD authoring application for the creation of professional-looking DVDs'
-arch=('x86_64')
+arch=(x86_64)
 url='https://www.dvdstyler.org/'
-license=('GPL2')
-depends=('cdrtools' 'dvdauthor' 'dvd+rw-tools' 'ffmpeg4.4' 'wxsvg')
-makedepends=('docbook-xsl' 'xmlto' 'zip' 'ffmpeg' 'strip-nondeterminism')
-source=("https://downloads.sourceforge.net/$pkgname/DVDStyler-$pkgver.tar.bz2"
-        'dvdstyler.appdata.xml')
-sha256sums=('0bb3348739f4c93097454b814ecb3a58f6bace8f030f41619a9feeafb4747558'
-            '7c0abb349664e9a179e68feb2c614c4f9f5480b7fcd74040d043864b80cecd4a')
+license=(GPL-2.0-only)
+depends=(
+  cdrtools
+  dbus
+  dvd+rw-tools
+  dvdauthor
+  ffmpeg
+  fontconfig
+  glibc
+  hicolor-icon-theme
+  libgcc
+  libstdc++
+  systemd-libs
+  wxsvg
+  wxwidgets-common
+  wxwidgets-gtk3
+)
+makedepends=(
+  docbook-xsl
+  strip-nondeterminism
+  xmlto
+  zip
+)
+source=(
+  "https://downloads.sourceforge.net/$pkgname/DVDStyler-$pkgver.tar.bz2"
+  0001-fixed-encoding-of-silent-audio-file.patch
+  0002-added-support-of-ffmpeg5.patch
+  0003-added-support-of-ffmpeg-7.0.patch
+  0004-added-support-of-ffmpeg-8.0.patch
+)
+b2sums=(
+  f6c3ec5d6595b650ead167ae6532a0849cc6545e1531f10483a7dd2f9962ea6cd4494b7eb8224bbc6e70588b1054fc13a13a5e2f5d977b5b80692c7cc2553d53
+  3a6695f92f77d0638b5e0e8c9b0a65376430cd99a84cc1b2b51f52f3650ad1762d729a08ab675cfa8b6501db6805da06d9201949f55bc8fa6f4832e5eee428b4
+  8a5267f9f4de6544e1124b0c81f7318ffe1d9a2f8bcdf6be0065d279cb22a6bd5df698c04538eb0e6923fcff70e06b67d4462558de9e402d2b0b86334868448b
+  491a9b9771e8ad401433784366d61250a33dbdd8f0c050fc9632e1a28cf9c0b881b29bbbacff3396d8601f63cf465e57e2b5f61343cef32032d4263f53458c18
+  71b00525ddfc238eb95bb866755efe9ad667d890b0cbfa78adfe50644f0ab666dc53230609ab2f836613871b7cf50f218f698249c7b1fcc7663e3e2058909506
+)
 
 prepare() {
   cd DVDStyler-$pkgver
-  sed -i 's|/pixmaps|/icons/hicolor/48x48/apps|' data/Makefile.{am,in}
+
+  # Fix build with recent ffmpeg versions
+  patch -Np1 -i ../0001-fixed-encoding-of-silent-audio-file.patch
+  patch -Np1 -i ../0002-added-support-of-ffmpeg5.patch
+  patch -Np1 -i ../0003-added-support-of-ffmpeg-7.0.patch
+  patch -Np1 -i ../0004-added-support-of-ffmpeg-8.0.patch
+
+  # Fix build with wxWidgets 3.2
+  sed -i '/colrdlgg.h/d' wxVillaLib/PropDlg.cpp
+
+  # Install icon into hicolor directory
+  sed -i 's|/pixmaps|/icons/hicolor/48x48/apps|' data/Makefile.am
+
+  touch NEWS
+  autoreconf -fiv
 }
 
 build() {
   cd DVDStyler-$pkgver
-  export PKG_CONFIG_PATH='/usr/lib/ffmpeg4.4/pkgconfig'
-  ./configure --prefix=/usr
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
   make
 
   # Strip non-deterministic information from zip files (e.g. timestamps)
@@ -38,5 +84,4 @@ build() {
 package() {
   cd DVDStyler-$pkgver
   make DESTDIR="$pkgdir" install
-  install -Dm644 ../$pkgname.appdata.xml "$pkgdir/usr/share/metainfo/$pkgname.appdata.xml"
 }
