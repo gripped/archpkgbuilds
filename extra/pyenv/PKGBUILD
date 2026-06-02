@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=pyenv
-pkgver=2.6.31
+pkgver=2.6.32
 pkgrel=1
 epoch=1
 pkgdesc="Easily switch between multiple versions of Python"
@@ -15,9 +15,9 @@ source=(
   "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
   "pyenv.zsh"
 )
-sha512sums=('ea2abab34d7aead2226a599f733b081cd06aad18311c2298ca9ffb1fc3414984a6a2d12a626853a4a26f09dd1633f48f6857d6e7ad115efd9db78b1d6c609e95'
+sha512sums=('50fa057cf2e645104a86c9b605acdd24a39c41afeacf5a856b03b3155b0850059e94752070ff6b71076de2f5dd77944a40a8fcf58b8f590ae1a9502ee0dfbb24'
             '0db4e464d3f79a3402fca8457ef5fe66078c360596c8d899f1fe2759700171299100421ebcaa12ab6a96ec4c4450fa9245879f3d0058632b10c8acff2ceeb106')
-b2sums=('e8e8b60f74ee3fb24ba3f2b6df588a2fd2e2f5daf19cf3e0eeeae73d7c4df34f05bad7e90eea9018d5620a54d292c8a97253556dffd04846bd100dddd47a59c9'
+b2sums=('e4fe6df2c08b0d5de86c3b6e6236f730aa49aef57b3ca7f569046d8d6424efa2d833e1069a8eb50fc0b7c10af1bc5b1a47f497f9f3af8cd0057d7e451063ae76'
         '853a2e62a3d1c1963bf32e297a086d74e3142784f32b16df0738e5694587719954e868744d66e4a265aa6197a1fa1ae74b0b1300bda5b924feb6854bcb1f4aaf')
 
 package() {
@@ -36,7 +36,7 @@ package() {
   # plugin
   install -vDm 755 plugins/python-build/bin/* -t "$pkgdir/usr/share/$pkgname/plugins/python-build/bin"
   for bin in {${pkgname}-{install,uninstall},python-build}; do
-    ln -sv /usr/share/$pkgname/plugins/python-build/bin/$bin "$pkgdir/usr/bin/$bin"
+    ln -sv "/usr/share/$pkgname/plugins/python-build/bin/$bin" "$pkgdir/usr/bin/$bin"
   done
   cp -av plugins/python-build/share "$pkgdir/usr/share/$pkgname/plugins/python-build"
   # licenses
