@@ -1,7 +1,7 @@
 pkgbase = android-tools
 	pkgdesc = Android platform tools
 	pkgver = 35.0.2
-	pkgrel = 25
+	pkgrel = 26
 	url = https://developer.android.com/tools
 	arch = x86_64
 	license = Apache-2.0 AND BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND libselinux-1.0
@@ -26,7 +26,9 @@ pkgbase = android-tools
 	optdepends = android-udev: optional additional device udev rules
 	source = https://github.com/nmeum/android-tools/releases/download/35.0.2/android-tools-35.0.2.tar.xz
 	source = android-tools-35.0.2-fix-protobuf-30.0-compilation.patch
+	source = gcc-16.patch
 	sha256sums = d2c3222280315f36d8bfa5c02d7632b47e365bfe2e77e99a3564fb6576f04097
 	sha256sums = cd2034ca35c3b5ca82f095106cd099abdbc5a682b7b9892eb0ebead616370e96
+	sha256sums = c6d130d15ad96c751a477e68f1e4f14ec3b946d0581ea23ceefd82f6e50a9f0c
 
 pkgname = android-tools
