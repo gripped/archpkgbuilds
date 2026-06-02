@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=hipblas-common
-pkgver=7.2.3
+pkgver=7.2.4
 pkgrel=1
 pkgdesc='Common files shared by hipBLAS and hipBLASLt'
 arch=('any')
