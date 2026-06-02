@@ -3,7 +3,7 @@
 # Contributor: damir <damir@archlinux.org>
 
 pkgname=qsynth
-pkgver=1.0.5
+pkgver=1.0.6
 pkgrel=1
 pkgdesc="Qt GUI for FluidSynth"
 arch=(x86_64)
@@ -25,8 +25,8 @@ makedepends=(
   qt6-tools
 )
 source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
-sha512sums=('06cc53bc10d7219e1ea351c3e93a946a05b57ef6d495e70b1da30632f009d30d62e02cd40413894d2cd39626ce61db3f75cbd4ea2beb340806786ca6b1d9d5e2')
-b2sums=('f7a59130f4cba6fe50641c43f40047883b5c64216b143ec58cf264affc6aaede7d31b74bb9dec5fe27c9e120c9f22eca00eb3abc528be039076d3b4ee1e81294')
+sha512sums=('028bd9f61d6a949020bc9f41684670d6f2086dfacf9f6c12615a51efeb72205a32dd53f8b1614feeaabd056648057517cab6ccc70511faedd9a599bfa0c2f007')
+b2sums=('fd3d44ce79ec479ef38129f9d35a880c26719cd34431ca85a0b6ee9433c73ff1be23d9d687126523c05bddf3225b50acec0b3da4822f28f46fea4589d3ec06db')
 
 build() {
   local cmake_options=(
