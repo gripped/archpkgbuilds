@@ -1,16 +1,16 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: bartus <arch-user-repoᘓbartus.33mail.com>
 pkgname=geogram
-pkgver=1.9.9
+pkgver=1.10.0
 pkgrel=1
 pkgdesc="Library of geometric algorithms"
 arch=('x86_64')
 url="https://github.com/BrunoLevy/geogram"
 license=('BSD-3-Clause')
-depends=('glfw-x11' 'glibc' 'glu' 'libgcc' 'libgomp' 'libstdc++' 'libxrandr')
+depends=('glfw-x11' 'glibc' 'glu' 'libgcc' 'libgomp' 'libstdc++' 'libxrandr' 'onetbb')
 makedepends=('cmake' 'ninja')
 source=("https://github.com/BrunoLevy/geogram/releases/download/v${pkgver}/geogram_${pkgver}.tar.gz")
-sha256sums=('65402f3ce4b40efab178874c4ec1a8852f0ca1ab4567d72000d53efcaff52214')
+sha256sums=('2ef9f4fd992c6f0b4fc7075145d5d9c735208c6d844ff456271c4ab968423a5b')
 
 build() {
   cd ${pkgname}_${pkgver}
