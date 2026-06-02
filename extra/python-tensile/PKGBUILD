@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=python-tensile
-pkgver=7.2.3
+pkgver=7.2.4
 pkgrel=1
 pkgdesc="benchmark-driven backend libraries for general matrix-matrix multiplications"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python' 'python-msgpack' 'python-pyaml' 'python-joblib')
 makedepends=('cmake' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 _git='https://github.com/ROCm/Tensile'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('3bb419564c6c61cc0663c6cab3c46c45459be16bb2c15f055852de954dc8a3cf')
+sha256sums=('a514e11ea6a53ab41d68e335c1dd730d1a480c74d49084450fbeef09f2df2b39')
 
 prepare() {
 	cd "Tensile-rocm-$pkgver"
