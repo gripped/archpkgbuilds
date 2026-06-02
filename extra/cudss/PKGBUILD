@@ -1,9 +1,9 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=cudss
-pkgver=0.7.1.4
+pkgver=0.8.0.10
 _cudaver=13
-pkgrel=2
+pkgrel=1
 pkgdesc="A high-performance CUDA library for Direct Sparse Solvers"
 arch=(x86_64)
 url="https://docs.nvidia.com/cuda/cudss/"
@@ -21,7 +21,7 @@ optdepends=(
 )
 options=(!strip)
 source=(https://developer.download.nvidia.com/compute/$pkgname/redist/lib$pkgname/linux-x86_64/lib$pkgname-linux-x86_64-${pkgver}_cuda$_cudaver-archive.tar.xz)
-b2sums=('ebefc3133becb22145b8f86acee33e8279060f2c3d69f913f8f262fdf5d2ede56e12958b83865bc7bf99ab77da35f40f3e0d2e37d5848a8f1279a7908477cd2c')
+b2sums=('eaf2a46a2fe853dc546c4f4e61c20b2a6d50302d0b3538bc696993a56da1d6d00b61a636045627dae966b84827a3277d5c5bdcf34653c57e15835acd14b190bf')
 
 package() {
   cd lib$pkgname-linux-x86_64-${pkgver}_cuda${_cudaver}-archive
