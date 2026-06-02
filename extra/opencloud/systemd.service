@@ -1,0 +1,40 @@
+[Unit]
+Description=Opencloud server daemon
+Documentation=https://docs.opencloud.eu/
+After=syslog.target network.target
+
+[Service]
+User=opencloud
+Group=opencloud
+Type=simple
+EnvironmentFile=/etc/opencloud/config.env
+ExecStart=/usr/bin/opencloud server
+WorkingDirectory=/var/lib/opencloud
+
+# Sandboxing
+ProtectProc=invisible
+#ProtectSystem=strict
+ReadWritePaths=/var/lib/opencloud
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateIPC=yes
+PrivateUsers=yes
+ProtectHostname=yes
+ProtectClock=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+RestrictNamespaces=yes
+LockPersonality=yes
+RestrictSUIDSGID=yes
+RemoveIPC=yes
+NoNewPrivileges=yes
+SystemCallArchitectures=native
+
+TimeoutStopSec=120
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
