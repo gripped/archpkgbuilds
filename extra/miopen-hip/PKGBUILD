@@ -4,7 +4,7 @@
 # Contributor: JP-Ellis <josh@jpellis.me>
 
 pkgname=miopen-hip
-pkgver=7.2.3
+pkgver=7.2.4
 pkgrel=1
 # pin frugally-deep version as workaround workaround for https://github.com/ROCm/MIOpen/issues/3588
 _fdeep_ver=0.15.31
@@ -40,6 +40,7 @@ makedepends=(
   'nlohmann-json'
   'rocm-cmake'
   'rocm-toolchain'
+  'rocm-llvm'
 )
 provides=('miopen')
 conflicts=('miopen')
