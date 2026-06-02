@@ -2,7 +2,7 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=tinyssh
-pkgver=20260401
+pkgver=20260601
 pkgrel=1
 pkgdesc="Small SSH server using NaCl / TweetNaCl"
 arch=(x86_64)
@@ -16,7 +16,7 @@ optdepends=('python: for tinyssh-convert/converting OpenSSH keys')
 source=(https://github.com/janmojzis/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         tinyssh@.socket tinyssh@.service tinysshgenkeys.service
         ${pkgname}-${pkgver}.tar.gz.asc::https://github.com/janmojzis/${pkgname}/releases/download/${pkgver}/${pkgver}.tar.gz.asc)
-sha512sums=('be8d2fc6b5c660eb4ab5113dbb81199204f754dd654f1943d79bc71f1169cd6e8654094522df9f25c70c7506aa31cb601694d2e8564f6f12392931c9a21ce7d3'
+sha512sums=('1d468b3c5324c4ccdd8c6f3027ad16bba052275227c06e22516759d30935c2a4fd8e487d22f38d197734520fc83ef84b2c02926d31ee9ca3b7070ea9259940bb'
             '9fbc5ae3b6d1df6d78eedf812fdd8fe115e81fc0811f4799d541e37239d53db22203e691026ed479a38c9f17043e52d43b44054be51ae03c2f12f3f235c5b83a'
             '9c9ba78c5b61f64f42f59cfe556519d9ab2c3e4d45f36d6f78c5e7728b050c494673239630dae66398006f3f20fb3a26f22899cd0728ed17e61c655b372236b3'
             '415cdfe649eedcbb11a263938c0a66bef42432210baa2e2c9e428d5e8e486fb4dedad53b9fdb9086bf97ca506909d3b3054aaca56f02c063e0b8d5fab4e56198'
