@@ -4,7 +4,7 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rocm-opencl-runtime
-pkgver=7.2.3
+pkgver=7.2.4
 pkgrel=1
 pkgdesc='OpenCL implementation for AMD'
 arch=('x86_64')
@@ -25,7 +25,7 @@ makedepends=('git' 'rocm-cmake')
 provides=('opencl-driver')
 _git='https://github.com/ROCm/rocm-systems'
 source=("rocm-systems::git+$_git#tag=rocm-$pkgver")
-sha256sums=('8c9e9119fbe8509984a0fe058471882bd6387c855b1b3e11bb03ba5667fab251')
+sha256sums=('a619465777d59fd484a1e37cb975c738e0122b37804296598130ac3fb6d93314')
 _dir_name='rocm-systems/projects/clr'
 
 build() {
