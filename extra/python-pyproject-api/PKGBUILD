@@ -3,8 +3,8 @@
 
 _name=pyproject-api
 pkgname=python-pyproject-api
-pkgver=1.10.0
-pkgrel=2
+pkgver=1.10.1
+pkgrel=1
 pkgdesc="API to interact with the python pyproject.toml based projects"
 arch=(any)
 url="https://github.com/tox-dev/pyproject-api"
@@ -26,8 +26,8 @@ checkdepends=(
   python-virtualenv
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('930c32fbbc32724df30b9212c3b7c58839f83bf82502d4c10dca50f8c4a0bd9ee067c6f78865f46919a06514f58f4fac594d6dae7f501efd9398cce4f89d8969')
-b2sums=('10243c16f5cf16d1538c4a6d1939d9108e6a34ba153b2c76a1c4663cf0f80affd6c0840d85e47ec10ce43a00f76d50a0caf211097fa5e363ff1e9a39dbd187bc')
+sha512sums=('6a9037698f3845d2fb5743db9e5123e91861d436336c47dcb09443b3ea14f0c63997adeb8e285d3add051ce57025b1fd8753528cc33f996a3a755a19f26795f0')
+b2sums=('384d2c03e63ec75bd87ca5576c8240730ea39ce427c8504f85f05d50e236b0e2afb9fff4d1ea5f209262a788899fc8e248fdb26e95db9286cdf86806535750ac')
 
 build() {
   cd $_name-$pkgver
@@ -39,10 +39,6 @@ check() {
     -vv
     # unclear why that fails
     --deselect tests/test_frontend.py::test_missing_backend
-    # probably some setuptools weirdness
-    --deselect tests/test_frontend_setuptools.py::test_setuptools_get_requires_for_build_wheel
-    # metadata tests for setuptools fail: https://github.com/tox-dev/pyproject-api/issues/153
-    --deselect tests/test_frontend_setuptools.py::test_setuptools_prepare_metadata_for_build_wheel
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
