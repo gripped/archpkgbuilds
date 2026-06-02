@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <christian@heusel.eu>
 
 pkgname=rocjpeg
-pkgver=7.2.3
+pkgver=7.2.4
 pkgrel=1
 pkgdesc='A high-performance jpeg decode library for AMD’s GPUs'
 arch=('x86_64')
@@ -21,10 +21,11 @@ depends=(
 makedepends=(
   'cmake'
   'rocm-cmake'
+  'rocm-llvm'
 )
 _git='https://github.com/ROCm/rocJPEG'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('0aafd0468bc79575ad3bb5f51c02a1dd1a696db87c8ce4151eeaf8573cb35ade')
+sha256sums=('be739859bcbb0d678b22af4b4bee4aad37cbee8c838198bbe71b49cf43640ccf')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 prepare() {
