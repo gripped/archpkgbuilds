@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-sequel
-pkgver=5.104.0
+pkgver=5.105.0
 pkgrel=1
 pkgdesc='Sequel: The Database Toolkit for Ruby'
 arch=(any)
@@ -24,8 +24,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/jeremyevans/sequel.git#tag=$pkgver)
-sha512sums=('59f340dd98a61683376579cc82df8212978a72e5543f8118065d0f856d358ca731c382ea9b9fc5bc01e91ddacb23266980bba9aa99bd89600272c5404040a546')
-b2sums=('4ae382912aca44cb12d06ad63bd6d0cf231724d6b612419da490e4a45712caa1d3a2d828a4a4cc3e7c62497c96f48a5f89f582666ec487da63efc240c575c078')
+sha512sums=('cef125d6eba4d28aac88f916bdca23b06065455720b2e46a3da0d63e49a2d382e7741b90e92711679b943aec2eec0e8f227c398383e7337487f0970d5287e1a6')
+b2sums=('e0c1a6f4a3a45c7aad7a904b9dbe3a89b250acba5a234b15c062fb4ee4a7510d53166a47017246c512dbd8dc93ebfbe1df881aa0fe91b8b868bab6287b7c39b5')
 
 prepare() {
   cd sequel
