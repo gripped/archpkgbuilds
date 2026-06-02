@@ -3,8 +3,8 @@
 
 _pipname=debugpy
 pkgname=python-$_pipname
-pkgver=1.8.20
-pkgrel=2
+pkgver=1.8.21
+pkgrel=1
 pkgdesc='An implementation of the Debug Adapter Protocol for Python'
 arch=(x86_64)
 url='https://aka.ms/debugpy'
@@ -20,7 +20,7 @@ makedepends=(cython
              python-setuptools
              python-wheel)
 source=(git+https://github.com/microsoft/debugpy#tag=v$pkgver)
-sha256sums=('975069defb5092f6e0203c044ddb2923233ed19bd1fdc5bff5ae03ca064457e0')
+sha256sums=('aaf818ada9ddbaa3f290bbadb0bc2b8d59236b4485d3df60ddd4691d1094fa7e')
 
 # https://github.com/microsoft/debugpy/blob/v1.8.19/src/debugpy/_vendored/pydevd/pydevd_tracing.py#L161
 # Special handling for x86 and x86_64
