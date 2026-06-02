@@ -1,6 +1,6 @@
 pkgbase = cryptominisat
 	pkgdesc = A modern, multi-threaded, feature-rich, simplifying SAT solver
-	pkgver = 5.13.0
+	pkgver = 5.14.5
 	pkgrel = 1
 	url = https://github.com/msoos/cryptominisat/
 	arch = x86_64
@@ -10,9 +10,7 @@ pkgbase = cryptominisat
 	makedepends = help2man
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = python-setuptools
-	makedepends = python-tomli
-	makedepends = python-wheel
+	makedepends = python-scikit-build-core
 	makedepends = vim
 	depends = glibc
 	depends = gmp
@@ -21,17 +19,13 @@ pkgbase = cryptominisat
 	depends = zlib
 	optdepends = python: python module
 	options = !lto
-	source = git+https://github.com/msoos/cryptominisat#tag=release/5.13.0
-	source = git+https://github.com/meelgroup/cadiback#commit=09c1e99a2ff8f583d479639d879f3a815d0d8189
-	source = git+https://github.com/meelgroup/cadical#commit=d3a78bc5ba014771e975d1ccf2a00e239048068d
-	source = python-system-libs.patch
-	source = link-private.patch
-	source = python-3.13.patch
-	sha256sums = de03a2b0fc407949d9b4e511e13d8683cd5bd4e8b8ca95408272c0cb78e3ad8c
-	sha256sums = a450499060efe3a5518cdad4c487bc172c5a79182cc24320d222d069a0a73ced
-	sha256sums = c3498e1f57e9bddc843b9fc724fc55ae58c0668280880e4fe2c4ec8cc7d29840
-	sha256sums = d643fd09b201b5d6d6cf18b2f91fe91b85b2d72322452f9b764ceab26ff906ae
-	sha256sums = a5006f49e8adf1474725d2a3e4205cdd65beb2f100f5538b2f89e14de0613e0f
-	sha256sums = 369e1e31936c0fce8960eb9130a03ec2550f5f379af2a31164c2b4234503e81c
+	source = git+https://github.com/msoos/cryptominisat#tag=release/v5.14.5
+	source = git+https://github.com/meelgroup/cadiback#commit=35f027383abf3b4b52bbc8af789c8f1aa3d84ad2
+	source = git+https://github.com/meelgroup/cadical#commit=ade472d3dba145fd53c19d486f5916b6259449c6
+	source = python-build-cmake.patch
+	sha256sums = d87ecee4b55f844303df1ed4e30eff008736acfc52f5cb72ecb365d9fdbd2882
+	sha256sums = b9baf02d07f1e302e2bf67212041c14b8e43d6c2edf480f982f47dd8a7ea4bd4
+	sha256sums = 2005f05dd48ca5616a22dda2945c41b613ecf808a98fd6ea503df13b5a400119
+	sha256sums = aeedc706439cdeb162bedac5dbe90d1a639fa3d378ee833cb59565bc2b97d418
 
 pkgname = cryptominisat
