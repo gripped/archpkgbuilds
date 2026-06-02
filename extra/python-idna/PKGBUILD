@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-idna
-pkgver=3.17
+pkgver=3.18
 pkgrel=1
 pkgdesc="Internationalized Domain Names in Applications (IDNA)"
 arch=('any')
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-flit-core')
 checkdepends=('python-pytest')
 source=("git+https://github.com/kjd/idna.git#tag=v$pkgver")
-sha512sums=('1730c1d85eeb0e8df5bafaba9c922af14302ecc47f1168f4ca8bfca44bba0e5f70a3c1796c9605d14c83436e1904566059cf3a9b6647a166a1a4ba62d4fd9ab2')
+sha512sums=('f546bb2ac3d1391e2b9fd900bc9c70a1bd6e51e12c28cdfa5a4d90dab4d05fee0d52c4c064ce142ca8f64beab8d54bbc083d823a4c09992b341b68745e88497f')
 
 build() {
    cd idna
