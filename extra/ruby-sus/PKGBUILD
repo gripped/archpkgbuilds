@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-sus
-pkgver=0.36.0
+pkgver=0.37.0
 pkgrel=1
 pkgdesc='A fast and scalable test runner'
 arch=(any)
@@ -23,8 +23,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/socketry/sus.git#tag=v$pkgver)
-sha512sums=('a3c7cea321f222f4b6552fb1665482746cc3a2abdabf0f76a44512810bfbf636fce3e0bd3b7add78f180c1f7fb43631e2a97f7ef0132131ddc97cb84153a337c')
-b2sums=('b3d633967c06132fa2ef9655629c9ced4348e84fb9a7a0862d9ffc2aee13f13def851193d18238244c9b669fa1bdfb3ec682b8df2637e0ce14b20ec8a936ff4f')
+sha512sums=('9a7df32de281dc5e40ca8e539a351474e97a47056dce466f994bc086a418c34eecc575e2cab9e32b8781307729130bce349020dfa3237ea4b930813831cdeb75')
+b2sums=('5c7852ac2be7b001ed704284e598f9d08cfec32c830a2013b9a5d80b2c5e4ae6c70a387fee3b97fdfedca88de8a77d62ef7db5790ad8d8df1b28e8aa07135cf8')
 
 prepare() {
   cd sus
