@@ -6,7 +6,7 @@
 
 pkgname=minicom
 pkgver=2.11.1
-pkgrel=2
+pkgrel=3
 pkgdesc='A serial communication program'
 arch=('x86_64')
 url='https://salsa.debian.org/minicom-team/minicom'
@@ -19,16 +19,19 @@ optdepends=('lrzsz: for xmodem, ymodem and zmodem file transfer protocols')
 backup=('etc/minirc.dfl')
 source=("${pkgname}-${pkgver}.tar.gz::https://salsa.debian.org/minicom-team/minicom/-/archive/${pkgver}/minicom-${pkgver}.tar.gz"
         '0001-minicom-2.9-lrzsz-rename.patch'
-        '0002-dial-Fix-use-of-check_io_frontend.patch')
+        '0002-dial-Fix-use-of-check_io_frontend.patch'
+        '0003-window-Consider-that-wcwidth-can-return-1-on-invalid.patch')
 sha256sums=('b296b0e5795ca143fb1ffa78f46fd294daddfccd720faf9909a842d2f70c564e'
             '4b00e97cadeb51e2cacba7114d2572dbe671b00f0f6695df96aa0ea0dab68c15'
-            '329d949e938aa519948ad66c0b680d3af0fbbed8fd392c7fe4dad254fafab804')
+            '329d949e938aa519948ad66c0b680d3af0fbbed8fd392c7fe4dad254fafab804'
+            '9210031ead31058cfa73c3b09687b8e05d933a9a3b70fe215ff9b38c1dce87f8')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
 
   patch -Np1 -i ../0001-minicom-2.9-lrzsz-rename.patch
   patch -Np1 -i ../0002-dial-Fix-use-of-check_io_frontend.patch
+  patch -Np1 -i ../0003-window-Consider-that-wcwidth-can-return-1-on-invalid.patch
 }
 
 build() {
