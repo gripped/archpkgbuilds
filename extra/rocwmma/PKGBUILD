@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=rocwmma
-pkgver=7.2.3
+pkgver=7.2.4
 pkgrel=1
 pkgdesc='Library for accelerating mixed precision matrix multiplication'
 arch=('x86_64')
@@ -16,13 +16,15 @@ depends=(
 )
 makedepends=(
     'doxygen'
+    'ninja'
+    'cmake'
     'rocm-cmake'
     'rocm-llvm'
     'rocm-toolchain'
 )
 _git='https://github.com/ROCmSoftwarePlatform/rocWMMA'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('217956429e0096d935045a6f5dd6491e82cdab937d30c40a4a2e0155758fcb8b')
+sha256sums=('5e2cd91647ece7ccdfe4d0f3b801f174a218d2bcb3d4537ea6ab650da09d6096')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
 options=(!lto)
 
@@ -30,6 +32,7 @@ build() {
     local cmake_args=(
         -Wno-dev
         -B build
+        -G Ninja
         -S "$_dirname"
         -D CMAKE_POLICY_VERSION_MINIMUM=3.5
         -D CMAKE_BUILD_TYPE=None
