@@ -4,7 +4,7 @@
 
 pkgbase=hip-runtime
 pkgname=(hip-runtime-amd hip-runtime-nvidia)
-pkgver=7.2.3
+pkgver=7.2.4
 pkgrel=1
 _pkgdesc="Heterogeneous Interface for Portability"
 arch=('x86_64')
@@ -20,7 +20,7 @@ _tag="tag=rocm-$pkgver"
 _hipcc='https://github.com/ROCm/llvm-project'
 source=("rocm-$pkgver.tar.gz::https://github.com/ROCm/rocm-systems/archive/refs/tags/rocm-$pkgver.tar.gz"
         "$pkgbase-hipcc::git+$_hipcc#$_tag")
-sha256sums=('e90cfd8694af28a56433c8827a581ee12a4ba835f0d952436741d9e0f3f8685b'
+sha256sums=('817f9c136125b8d162757a18cdc25b18b1efeb8ef36a948c85e4a672fd149de5'
             'cda215d04dfb6ede38c542d4604711d4a4623267df0f3d678491cd9fbcc32fd9')
 _projectBaseDir="rocm-systems-rocm-$pkgver/projects"
 
