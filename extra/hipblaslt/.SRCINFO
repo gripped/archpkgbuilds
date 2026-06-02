@@ -1,6 +1,6 @@
 pkgbase = hipblaslt
 	pkgdesc = General matrix-matrix operations beyond a traditional BLAS library
-	pkgver = 7.2.3
+	pkgver = 7.2.4
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/hipBLASLt/en/latest/index.html
 	arch = x86_64
@@ -24,6 +24,7 @@ pkgbase = hipblaslt
 	makedepends = python-ujson
 	makedepends = rocm-cmake
 	makedepends = rocm-toolchain
+	makedepends = rocm-llvm
 	makedepends = spdlog
 	depends = glibc
 	depends = hip-runtime-amd
@@ -35,7 +36,7 @@ pkgbase = hipblaslt
 	depends = rocm-smi-lib
 	depends = yaml-cpp
 	options = !strip
-	source = rocm-libraries::git+https://github.com/ROCm/rocm-libraries.git#tag=rocm-7.2.3
+	source = rocm-libraries::git+https://github.com/ROCm/rocm-libraries.git#tag=rocm-7.2.4
 	source = hipblaslt-Don-t-fetch-deps-for-rocroller.patch
 	source = rocroller-Always-fetch-libdivide-if-it-s-not-install.patch
 	source = hipblaslt-7.2.3-cstdint-include.patch
