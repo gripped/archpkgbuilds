@@ -7,25 +7,38 @@
 
 pkgname=wxsvg
 pkgver=1.5.25
-pkgrel=5
+pkgrel=6
 pkgdesc='C++ library to create, manipulate and render SVG files'
-arch=('x86_64')
+arch=(x86_64)
 url='http://wxsvg.sourceforge.net/'
-license=('custom:wxWindows')
-depends=('ffmpeg' 'libexif' 'wxwidgets-gtk3')
+license=('LGPL-2.0-or-later WITH WxWindows-exception-3.1')
+depends=(
+  cairo
+  expat
+  ffmpeg
+  glib2
+  glibc
+  libexif
+  libgcc
+  libstdc++
+  pango
+  wxwidgets-common
+  wxwidgets-gtk3
+)
 source=("https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2")
-sha256sums=('5bf6ac6831b54bd19aef48cde8fa0572dbb63f30aee9d5323f6be6b3f326534b')
+b2sums=(5efdda5e5e546f0d191f615b1699b88ec3dc9dfd5c4d3a618fa7bbc70416ddb8e9df870a96814ed788662bc2e7d9ba2e00744b53880df14d8c15baf46af0377c)
 
 prepare() {
   cd $pkgname-$pkgver
-  sed -i 's/libwxsvg_la_LDFLAGS = /libwxsvg_la_LDFLAGS = $(LDFLAGS) /' src/Makefile.am
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
   cd $pkgname-$pkgver
-  ./configure --prefix=/usr
-  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
   make
 }
 
