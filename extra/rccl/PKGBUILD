@@ -4,14 +4,14 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rccl
-pkgver=7.2.3
+pkgver=7.2.4
 pkgrel=1
 pkgdesc="ROCm Communication Collectives Library"
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rccl/en/latest/index.html'
 license=('BSD-3-Clause')
 depends=('rocm-core' 'glibc' 'libgcc' 'hip-runtime-amd' 'rocm-smi-lib')
-makedepends=('git' 'cmake' 'rocm-cmake' 'hipify-clang' 'python')
+makedepends=('git' 'cmake' 'rocm-cmake' 'rocm-llvm' 'hipify-clang' 'python')
 source=(
   "${pkgname}::git+https://github.com/ROCm/rccl#tag=rocm-$pkgver"
   "${pkgname}-json::git+https://github.com/nlohmann/json.git"
