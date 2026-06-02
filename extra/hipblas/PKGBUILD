@@ -3,7 +3,7 @@
 # Contributor: Markus Näther <naether.markus@gmail.com>
 
 pkgname=hipblas
-pkgver=7.2.3
+pkgver=7.2.4
 pkgrel=1
 pkgdesc='ROCm BLAS marshalling library'
 arch=('x86_64')
