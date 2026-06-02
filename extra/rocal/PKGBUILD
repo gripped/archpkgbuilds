@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=rocal
-pkgver=7.2.3
+pkgver=7.2.4
 pkgrel=1
 pkgdesc='A high-performance jpeg decode library for AMD’s GPUs'
 arch=('x86_64')
@@ -32,6 +32,7 @@ makedepends=(
   'half'
   'pybind11'
   'rocm-cmake'
+  'rocm-llvm'
 )
 _git='https://github.com/ROCm/rocAL'
 _rapidjson='https://github.com/Tencent/rapidjson'
@@ -39,7 +40,7 @@ _rapidjson='https://github.com/Tencent/rapidjson'
 _commit=24b5e7a8b27f42fa16b96fc70aade9106cf7102f
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz"
         "$pkgname-rapidjson-$_commit.tar.gz::$_rapidjson/archive/$_commit.tar.gz")
-sha256sums=('3998d8dfe979fc23243c26a0953e95211fb384ad0de223c063148440c634b8f7'
+sha256sums=('ff97ee78a2b4419f0bfa54dfbb3807e416d57375263d6ab116705bd3b01204d0'
             '2d2601a82d2d3b7e143a3c8d43ef616671391034bc46891a9816b79cf2d3e7a8')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 _rapidjsondir="$(basename "$_rapidjson")-$(basename "${source[1]}" ".tar.gz")"
