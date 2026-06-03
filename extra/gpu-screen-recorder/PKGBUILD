@@ -3,11 +3,12 @@
 
 pkgname=gpu-screen-recorder
 pkgver=5.13.9
-pkgrel=1
+pkgrel=2
 pkgdesc='A shadowplay-like screen recorder for Linux. The fastest screen recorder for Linux'
 arch=('x86_64')
 url="https://git.dec05eba.com/gpu-screen-recorder"
 license=('GPL-3.0-only')
+install=gpu-screen-recorder.install
 makedepends=(
   meson
   vulkan-headers
@@ -55,5 +56,4 @@ build() {
 package() {
   cd "$srcdir"/$pkgname
   meson install -C build --destdir "$pkgdir"
-  setcap CAP_SYS_ADMIN=+ep "$pkgdir"/usr/bin/gsr-kms-server
 }
