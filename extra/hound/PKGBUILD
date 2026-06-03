@@ -5,25 +5,25 @@
 
 pkgname=hound
 pkgver=0.7.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Lightning fast code searching made easy'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/hound-search/hound'
-license=('MIT')
-depends=('glibc' 'git')
-makedepends=('go') # no need for npm as the UI is pre-compiled
+license=(MIT)
+depends=(glibc git)
+makedepends=(go) # no need for npm as the UI is pre-compiled
 optdepends=(
   'breezy: for bazaar repositories'
   'mercurial: for mercurial repositories'
   'svn: for subversion repositories'
 )
-options=('!lto')
+options=(!lto)
 install=hound.install
 source=(
   "$pkgname::git+$url#tag=v$pkgver"
-  'systemd.service'
-  'sysusers.conf'
-  'tmpfiles.conf'
+  systemd.service
+  sysusers.conf
+  tmpfiles.conf
 )
 sha512sums=('6f06e0349f29d1ba690041ecd197317a82671ad7b637cae86520817744b49cd75bb7c6b510e1762b4d3141928d1bb89f018692c6db2582bda20d509f2fb14a6f'
             '341e423b1572dea500e9f914ef9bb9dfba7fc19a1cdba0d92e0ba5cf021150bda4322981920902f1ffcade222f26df808fafd681d29841b4892e43af1bd2ec1f'
@@ -60,7 +60,7 @@ build() {
     -modcacherw \
     -ldflags "-compressdwarf=false \
     -linkmode external \
-    -extldflags ${LDFLAGS}" \
+    -extldflags '${LDFLAGS}'" \
     -o build \
     ./cmds/...
 }
