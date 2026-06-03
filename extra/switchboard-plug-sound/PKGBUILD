@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=switchboard-plug-sound
-pkgver=8.0.2
+pkgver=8.0.3
 pkgrel=1
 pkgdesc='Switchboard Sound Plug'
 arch=(x86_64)
@@ -25,14 +25,8 @@ makedepends=(
   meson
   vala
 )
-_tag=1870054cfea66932cefa05bad5a89e829ac56cbd
-source=(git+https://github.com/elementary/switchboard-plug-sound.git#tag=${_tag})
-b2sums=('a2d8a6307b69c36178f6ffb2ee0b018999039ada37375f6ba02e0fe9d4b6d4a5147ed9c2df041e7a76c31e4ea6002230d6d550ba7c3d907901c3fd33e3d2ea93')
-
-pkgver() {
-  cd switchboard-plug-sound
-  git describe --tags
-}
+source=(git+https://github.com/elementary/switchboard-plug-sound.git#tag=${pkgver})
+b2sums=('f1678ad329997edfaf46dc3acb108f72730a041c911cd2215e081c09fe6cb7cac3cf3006b4baf9de7cccef3a6824f9b905caed6a9fd13042dd9443bab515c86f')
 
 build() {
   arch-meson switchboard-plug-sound build
