@@ -2,7 +2,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=ruby-cucumber
-pkgver=11.0.0
+pkgver=11.1.0
 pkgrel=1
 pkgdesc="Behaviour Driven Development with elegance and joy"
 arch=(any)
@@ -19,6 +19,7 @@ depends=(
   ruby-cucumber-html-formatter
   ruby-cucumber-messages
   ruby-diff-lcs
+  ruby-logger
   ruby-mime-types
   ruby-mini_mime
   ruby-multi_test
@@ -38,8 +39,8 @@ options=(!emptydirs)
 source=(
   "https://github.com/cucumber/cucumber-ruby/archive/v$pkgver/cucumber-cucumber-ruby-$pkgver.tar.gz"
 )
-sha512sums=('1f0bd9108fda58e7f020fbcf0fadf89695155af993f08c06095509ecb6e1c0ac3419d6a27d80c52990bf247975ff57027fa09e118687b83603c54a87cc62bea3')
-b2sums=('adf5ba73b7ed42eabc5da1576ff0b1bb1de4646242744e8ea0e34dd6a525f4ed39880b1dc74e9a0e64de48686db33301d6257e16481372bd05094039eb13204b')
+sha512sums=('7ce0216fdec343da2fa837aed3937285e3555b6b5fbaf9b778f4cdc7a013ad4a501647b1f6964d601f4150f0dd8a1cf6d5a9d5043cfc5b96c4086556a676b5c2')
+b2sums=('4085e4fd2ea22c45c4b93186da1b53aa9e363c9eb6a501ec0e390be8dd3dfa43eb4c723792d9862eda1f780a9d08641172b324c8c04bac026b232980a03b5b88')
 
 prepare() {
   cd cucumber-ruby-$pkgver
@@ -54,15 +55,6 @@ prepare() {
   rm Gemfile
 
   sed -i -e 's/bundle exec //' gem_tasks/cck.rake compatibility/cck_spec.rb
-  sed -i \
-    -e "s/Cucumber::Messages::TimeConversion/Cucumber::Messages::Helpers::TimeConversion/" \
-    -e "s/Cucumber::Messages::IdGenerator::Incrementing/Cucumber::Messages::Helpers::IdGenerator::Incrementing/" \
-    -e "s/Cucumber::Messages::IdGenerator::UUID/Cucumber::Messages::Helpers::IdGenerator::UUID/" \
-    -e "s/require 'cucumber\/messages\/id_generator'/require 'cucumber\/messages\/helpers\/id_generator'/" \
-    lib/cucumber/configuration.rb \
-    lib/cucumber/formatter/message_builder.rb \
-    spec/cucumber/formatter/message_spec.rb \
-    spec/cucumber/runtime/hooks_examples.rb
 }
 
 build() {
