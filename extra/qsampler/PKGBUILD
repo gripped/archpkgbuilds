@@ -4,17 +4,18 @@
 # Contributor: Shinlun Hsieh <yngwiexx@yahoo.com.tw>
 
 pkgname=qsampler
-pkgver=1.0.1
-pkgrel=3
+pkgver=1.0.2
+pkgrel=1
 pkgdesc="A LinuxSampler Qt GUI Interface"
 arch=(x86_64)
 url="https://qsampler.sourceforge.io/"
 license=(GPL-2.0-or-later)
 groups=(pro-audio)
 depends=(
-  gcc-libs
   glibc
   hicolor-icon-theme
+  libgcc
+  libstdc++
   linuxsampler
   qt6-base
   qt6-svg
@@ -26,8 +27,8 @@ makedepends=(
   qt6-tools
 )
 source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
-sha512sums=('4c5a053b1208a4c53535dbe81de8f4c9497074d3ed1b2485e916e737fe5719e8ac93508c1827fa973dd9953edf7fba5a75f1de9c27b6174cee99251ab506a150')
-b2sums=('87bfc25fb23795c512eb12ec1c87ab30e5e873a388ca3a11aa592e578513812107dbb08b5b736530cc2afacbcdd1ec3d55f80f8dce96fb917d732486aba3641c')
+sha512sums=('448a100f434c869691cef2cdfc56d9a0e84dea1c3ba4bd06b06d92ab4ce65ea6e07be3f7c3225143b0183faa23b99448f9f8dce8a5fbfbf8eedef2c20dc43c69')
+b2sums=('d623a1cbdab01e5340c92b96daadab36b854f8d3721735308f1f38eacc882a84d91b8086192d1a8c9e288773f3bccc840a7169f5fa877dcfc023df3ea18d74fe')
 
 build() {
   local cmake_options=(
