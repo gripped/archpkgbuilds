@@ -4,7 +4,7 @@
 
 pkgname=gparted
 pkgver=1.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A Partition Magic clone, frontend to GNU Parted'
 arch=('x86_64')
 url='https://gparted.org/'
@@ -37,7 +37,7 @@ optdepends=(
   'jfsutils: for jfs partitions'
   'mtools: utilities to access MS-DOS disks'
   'nilfs-utils: for nilfs2 support'
-  'ntfs-3g: for ntfs partitions'
+  'ntfsprogs: for ntfs partitions'
   'polkit: to run gparted from application menu'
   'udftools: for UDF file system support'
   'xfsprogs: for xfs partitions'
