@@ -1,6 +1,6 @@
 pkgbase = system76-firmware
 	pkgdesc = System76 Firmware Tool and Daemon
-	pkgver = 1.0.74
+	pkgver = 1.0.76
 	pkgrel = 2
 	url = https://github.com/pop-os/system76-firmware
 	arch = x86_64
@@ -10,14 +10,15 @@ pkgbase = system76-firmware
 	depends = ca-certificates
 	depends = dbus
 	depends = dfu-programmer
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = glibc
 	depends = efibootmgr
 	depends = openssl
 	depends = xz
 	provides = system76-firmware-daemon
 	conflicts = system76-firmware-daemon
-	source = git+https://github.com/pop-os/system76-firmware.git#tag=c3e2bec4c00c90963a571cb4cda6a7462facfbe6
-	b2sums = 7504c90fb535896d1492724f37259462472d92874fa37fc4a9c0240f7bcfab425d3a575b1d2dfd9b6c22e179554eb41338d00af882fe6fcb09a702b40839b5ed
+	source = git+https://github.com/pop-os/system76-firmware.git#tag=1.0.76
+	b2sums = d3c0f62ca7a267126f5b9fd81737fc827c6e40f0cad6cbc145368bec864ea0cbfce2e271401d0c5b72c9d385eb818be9c843ea65ae3fdc3c0b040ccc107cd9a2
 
 pkgname = system76-firmware

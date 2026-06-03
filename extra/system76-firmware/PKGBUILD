@@ -3,7 +3,7 @@
 # Contributor: Corey Hinshaw <corey@electrickite.org>
 
 pkgname=system76-firmware
-pkgver=1.0.74
+pkgver=1.0.76
 pkgrel=2
 pkgdesc='System76 Firmware Tool and Daemon'
 arch=(x86_64)
@@ -13,7 +13,8 @@ depends=(
   ca-certificates
   dbus
   dfu-programmer
-  gcc-libs
+  libgcc
+  libstdc++
   glibc
   efibootmgr
   openssl
@@ -25,13 +26,13 @@ makedepends=(
 )
 provides=(system76-firmware-daemon)
 conflicts=(system76-firmware-daemon)
-_tag=c3e2bec4c00c90963a571cb4cda6a7462facfbe6
-source=(git+https://github.com/pop-os/system76-firmware.git#tag=${_tag})
-b2sums=('7504c90fb535896d1492724f37259462472d92874fa37fc4a9c0240f7bcfab425d3a575b1d2dfd9b6c22e179554eb41338d00af882fe6fcb09a702b40839b5ed')
+source=(git+https://github.com/pop-os/system76-firmware.git#tag=${pkgver})
+b2sums=('d3c0f62ca7a267126f5b9fd81737fc827c6e40f0cad6cbc145368bec864ea0cbfce2e271401d0c5b72c9d385eb818be9c843ea65ae3fdc3c0b040ccc107cd9a2')
 
-pkgver() {
+prepare() {
   cd system76-firmware
-  git describe --tags
+  sed -i 's|\$(sysconfdir)/dbus-1/system.d/|\$(datarootdir)/dbus-1/system.d/|g' Makefile
+  sed -i 's|\$(sysconfdir)/systemd/system/|\$(libdir)/systemd/system/|g' Makefile
 }
 
 build() {
@@ -42,7 +43,6 @@ build() {
 package() {
   cd system76-firmware
   make DESTDIR="${pkgdir}" install
-  mv "${pkgdir}"/etc/systemd "${pkgdir}"/usr/lib/
 }
 
 # vim: ts=2 sw=2 et:
