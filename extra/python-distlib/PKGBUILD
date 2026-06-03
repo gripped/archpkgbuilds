@@ -2,8 +2,8 @@
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=python-distlib
-pkgver=0.4.0
-pkgrel=2
+pkgver=0.4.1
+pkgrel=1
 pkgdesc='Low-level functions that relate to packaging and distribution of Python software'
 arch=(any)
 url='https://distlib.readthedocs.io'
@@ -17,12 +17,14 @@ makedepends=(
   python-wheel
 )
 checkdepends=(python-tests)
-source=("$pkgname::git+https://github.com/pypa/distlib.git#tag=$pkgver"
-	"fix-test-scripts.patch")
-sha512sums=('90b3116dc80f925bf12680c18ced465fab01a20f59977cdb1fe14ea57e90722794a671b30ae394796ec4d418055f3a5156ef8078299fb184bbbe9c96e5e40acd'
-            'fcf04bddbc6a68e7ae777a5d19c5d95259c615207d91fcaa9c1bfb022ec5a411a85ebaef0633710dce7912584ce4635a81c4350d775ccbe9194ebe991930d0c9')
-b2sums=('c33d9a20a947daf9ee4ed55c9c8e4785dfc246e8626bba23c3aa36fc2f7c3c342be32d8157131a6e381c12bfa69cf34e8ec2124b1ff3b5d1155b62fecdf5361e'
-        '832c1a521f1e915ef7abc5494e754a3c04d7d773afa217f3002d7d2a85fbec197f9c99a0532dcf73ec3ea6505595e9dc36ceed3d259a1795abb17820f3b5fd5d')
+source=(
+  "$pkgname::git+https://github.com/pypa/distlib.git#tag=$pkgver"
+  remove-version-constraint.patch
+)
+sha512sums=('a54072326ec132ffce85434f784567a387069ccf9e26b01a4f277f406998f603aed07e14107c4510aae2468bdff5dc1854d75f31a3bb7323d9aa3519a29cd55a'
+            '3d73106d55fbb8ad200f183decd5eb817e0f67c422ce41759ecc0e55d1387e2dae405a9872781215e965c5f87957111d6dd84dff9f36056d2b4c812b78b2d0cd')
+b2sums=('4c21a63fcb02ff9ab12b76da4d168bb5cd38e7887e24cecd5d61f81bd7c34942828dc518664e13f12263e98a42eb4947ee46faef9ee8d0838ab36d357f5c62f1'
+        '39032bd60d316254ead198f33c0295bd61c661dc6cc7fe4610f84063d182fbf3b6ccb019e8ffcdec89ea395c47fed36dc78dc7a646dd0f36b0b8fd4ad3e3cbfc')
 
 prepare() {
   cd "$pkgname"
@@ -30,9 +32,7 @@ prepare() {
   # do not bundle executables of unknown provenance
   rm distlib/*.exe
 
-  # Compatibility with python 3.14
-  # https://github.com/pypa/distlib/commit/6286442857de9f734686d08f0e59ca8048ee357a
-  patch -Np1 -i ${srcdir}/fix-test-scripts.patch
+  patch -p1 -i "$srcdir/remove-version-constraint.patch"
 }
 
 build() {
