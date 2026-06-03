@@ -1,10 +1,10 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
-# Maintainer: Konstantin Gizdov <arch at kge dot pw>
+# Contributor: Konstantin Gizdov <arch at kge dot pw>
 
 pkgbase=python-cuda
 # NOTE: python-cuda-pathfinder and python-cuda-core are packaged separately
 pkgname=(python-cuda python-cuda-bindings)
-pkgver=13.2.0
+pkgver=13.3.1
 pkgrel=1
 pkgdesc="Python interface for CUDA provided by NVIDIA"
 arch=(x86_64)
@@ -32,7 +32,7 @@ options=(!emptydirs)
 source=(
   $pkgbase::git+https://github.com/NVIDIA/cuda-python#tag=v$pkgver
 )
-b2sums=('9dab71d373b82299ce9b1e6f94319df0d5c980989c9a260c360777c74dc3bed07213b04a753c9a74371c47d4d96ec29de99be258b23b4338ef43409a0b4f3c90')
+b2sums=('477bb6e2a25e6ce843fcae8d27f36eca7fa68de4fbe3bd8c35b16d06b0d36e1f9bc8ca0ba4beddeffd9c1d54bc8877ab20f3251871ab497cfce3cbb8f9fecd68')
 
 prepare() {
   cd $pkgbase
