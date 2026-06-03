@@ -3,7 +3,7 @@
 # Contributor: Moritz Lipp <mlq@pwmt.org>
 
 pkgname=bear
-pkgver=4.1.3
+pkgver=4.1.4
 pkgrel=1
 pkgdesc='A tool to generate compilation database for clang tooling'
 arch=(x86_64)
@@ -23,9 +23,9 @@ source=(
   "$pkgname::git+$url.git#tag=$pkgver"
   avoid-libexec.patch
 )
-sha512sums=('09d7161a92efb5fefe08ba4bbcb3f1ee1e48b3e73441be3bcb1495b2a6146bc3be646ac4a9d571551ce15db07d6cc56f2d212ad57a7fdf6910e59ffc7854f4cc'
+sha512sums=('9a5e3b7308d1f3bba8dd1491618a1e017377ba2677c5faa3f6824e3cd75fe40f61071cb4fb1054969cb1d9866e5e62c8906c1d0e5022f677be733f7ae87d9ecb'
             '1ce060b89a48502be9c688d4cdf5668649bf56f573d4c789004c9dc881b31073c38d8941131c360a1c26d306ae502cf037112bd31a9f74af01a7d2971346fb50')
-b2sums=('316a8d09326bd82db98a0e2a2e3644be2db9c408a75bf9f68e0001de30726e68ef36fface1eb0d1c4c8f5255246433f734983ae8470676f263af3fbcd722aa95'
+b2sums=('fc834205932036a7c048f5f6e78c28eba73b193618676f7be9ca92a485fa0e1f5504d9953a6509e326f26bd45ac14d28ef016925d3cbc3fbc3fc36b82ce141ec'
         'eb1a1d8b6b034d0141b7d6f030ffc825745e1f04bfed83950d860a28e6720df6bdc97b81f01986e27de39b6be188fc858d4e060d31d1f55ba3634696fe8c1dba')
 
 prepare() {
