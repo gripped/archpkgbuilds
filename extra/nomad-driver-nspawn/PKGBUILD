@@ -2,23 +2,17 @@
 
 pkgname=nomad-driver-nspawn
 pkgver=0.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A nomad taskdriver for systemd-nspawn'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/JanMa/nomad-driver-nspawn'
-license=('MIT')
-depends=('glibc' 'nomad' 'systemd')
-makedepends=('git' 'go')
-options=('!lto')
-_commit='3d7877c1212ff3f340e0e9c42c82357b7fd31444'
-source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+license=(MIT)
+depends=(glibc nomad systemd)
+makedepends=(git go)
+options=(!lto)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('d7aed46a7ec3e0890211d0c8dffc3a7fc264e1bb4ddcac167d550e9540635029b764bba08963c43679ac805c44c9e49d0ea2ed76ca28d1029c349bf0c798048e')
+b2sums=('6c8016dc800683bbdf634a9d212d3d075e022a42b0b84f94383df389eaae1a491993c3b7c88c84028743634cdbf19114bc43102bc93a2be98f9b8720f68098dd')
 
 prepare() {
 	cd "$pkgname"
@@ -45,7 +39,7 @@ build() {
     -modcacherw \
     -ldflags "-compressdwarf=false \
     -linkmode external \
-    -extldflags ${LDFLAGS} \
+    -extldflags '${LDFLAGS}' \
     -X "github.com/JanMa/nomad-driver-nspawn/nspawn.pluginVersion=${pkgver}"" \
     -o build \
     .
