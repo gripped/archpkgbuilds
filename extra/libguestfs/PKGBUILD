@@ -5,9 +5,20 @@
 # Contributor: Xiao-Long Chen <chenxiaolong@cxl.epac.to>
 # Contributor: Nikos Skalkotos <skalkoto (at) Gmail.com>
 
-pkgname=libguestfs
-pkgver=1.56.2
-pkgrel=5
+pkgbase=libguestfs
+pkgname=(
+  libguestfs
+  erlang-libguestfs
+  java-libguestfs
+  lua-libguestfs
+  ocaml-libguestfs
+  perl-libguestfs
+  php-libguestfs
+  python-libguestfs
+  ruby-libguestfs
+)
+pkgver=1.58.1
+pkgrel=3
 pkgdesc="Access and modify virtual machine disk images"
 arch=(x86_64)
 url="https://libguestfs.org/"
@@ -36,6 +47,7 @@ _appliancedeps=(
   mtools
   nilfs-utils
   ntfs-3g
+  ntfsprogs
   openssh
   pciutils
   procps-ng
@@ -49,11 +61,11 @@ _appliancedeps=(
   xfsprogs
   yara
 )
-depends=(
+_libguest_deps=(
   augeas
   bash
   fuse2
-  gcc-libs
+  libgcc
   glib2
   glibc
   hivex
@@ -65,7 +77,6 @@ depends=(
   libxml2
   ncurses
   pcre2
-  perl-libintl-perl
   qemu
   readline
   supermin
@@ -84,6 +95,7 @@ makedepends=(
   ocaml-augeas
   ocaml-compiler-libs
   ocaml-findlib
+  perl-libintl-perl
   perl-module-build
   python
   java-environment
@@ -94,40 +106,34 @@ makedepends=(
   ruby-rdoc
   rust
   vala
+  "${_libguest_deps[@]}"
 )
 checkdepends=(
   linux-lts  # test against LTS kernel: https://github.com/libguestfs/libguestfs/issues/139
   ruby-test-unit
   ruby-minitest
 )
-optdepends=(
-  'gobject-introspection: GObject-Introspection Bindings'
-  'java-runtime: for Java bindings'
-  'ocaml: OCaml Bindings'
-  'php: for PHP module'
-  'python: Python Bindings'
-  'ruby: for Ruby bindings'
-)
-provides=(
-  libguestfs.so
-  libguestfs-gobject-1.0.so
-)
-backup=(etc/libguestfs-tools.conf)
 source=(
   https://download.libguestfs.org/${pkgver%.*}-stable/$pkgname-$pkgver.tar.gz{,.sig}
   $pkgname-1.48.1-disable_php_tests.patch
+  $pkgname-1.58.1-ocaml.patch::https://github.com/libguestfs/libguestfs/commit/07ea5915766d829b62255fb2a94239a28f433159.patch
 )
-sha512sums=('80d99319bc6d13f0f4252c21250d4191a9dec94c6d10b572806043f3ecc36581c2169ddac4ebf7c7c7a1a560c6e85c5ce366baea2e63efcaa093f601d1031c62'
+sha512sums=('56e8f21592b4c63a14cfaa3255180c3d83bea7d3cc1a404befb121513b7287dd09ae96477b80b3f8794b2cde49febb1909b9716c3b896a313e4445f7f2a5072a'
             'SKIP'
-            'd59cad07e275f1fa5e82448993db5b3a6dc8cdd1fc97a8839ef0403ad3f1753a5d13df27b184d6c73fa8dda8bd75e63ad68aaad26001986682d5bc7eeb58273a')
-b2sums=('0da837826673b75faac3bc05c6eddf7df60fbac50fcb5dedbe877777f450344217b6fd58892695efcb241cfb3c1fb19d251a8fef9ba5e015b250afb6aad17143'
+            'd59cad07e275f1fa5e82448993db5b3a6dc8cdd1fc97a8839ef0403ad3f1753a5d13df27b184d6c73fa8dda8bd75e63ad68aaad26001986682d5bc7eeb58273a'
+            '38abc2fec1ae9cac6da15760b95e2c40d2552d1a9b296c80fc6cf18ffbe78c720ad8a39c3f557e3135b833df9e3f419afa41d13c250d96df8e2ef2d88ea4087b')
+b2sums=('53899808635e281ed85b01a0faf2b8053c7f1c46c2a5d73f8ec060e9ea74f95ca88e0a41f3d5c4dfafa2419e65ec5975ac6fbda0480c7d2f5929c65a82d4e392'
         'SKIP'
-        '2f7c429875d80b2b3a70286f83764ce6ed8be86055232fc059ab55ebf8393f9d29a2241401c7ab55af7ba9180ea85909647fe06ca51880f93bc66b488bcec78c')
+        '2f7c429875d80b2b3a70286f83764ce6ed8be86055232fc059ab55ebf8393f9d29a2241401c7ab55af7ba9180ea85909647fe06ca51880f93bc66b488bcec78c'
+        '636bb27aab2302762166cf55e029fde590afee07bc5dc2e50e73b2ba6568344757d11b8d26464f5cc56ec0e7952b685fe41fcf1d7e6be957154549b3e6760489')
 validpgpkeys=('F7774FB1AD074A7E8C8767EA91738F73E1B768A0') # Richard W.M. Jones <rjones@redhat.com>
 
 prepare() {
   # disable php tests, as missing arginfo definition makes them fail: https://github.com/libguestfs/libguestfs/issues/78
   patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-1.48.1-disable_php_tests.patch
+
+  # Fix OCaml macro issues: https://github.com/libguestfs/libguestfs/issues/290
+  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-1.58.1-ocaml.patch
 
   cd $pkgname-$pkgver
   autoreconf -fiv -I /usr/share/gettext/m4
@@ -140,7 +146,9 @@ build() {
     --prefix=/usr
     --sbindir=/usr/bin
     --sysconfdir=/etc
-    --with-extra-packages="libldm systemd-sysvcompat openssh"
+    # NOTE: ntfsprogs only needed because it is not yet added to appliance/packagelist.in
+    # https://github.com/libguestfs/libguestfs/issues/362
+    --with-extra-packages="libldm systemd-sysvcompat openssh ntfsprogs"
     --with-guestfs-path=/usr/lib/guestfs
   )
 
@@ -155,9 +163,163 @@ check() {
   export SKIP_TEST_EXPAND_GPT_PL=1  # https://github.com/libguestfs/libguestfs/issues/155
   export SKIP_RHBZ1011907_1165785_SH=1 # Prevent: 'umount: /sysroot: target is busy.', unrelated to ocaml rebuild: Need to investigate
   export SKIP_TEST_SYSLINUX_PL=1  # https://github.com/libguestfs/libguestfs/issues/291
+  export SKIP_TEST_CHARSET_FIDELITY=1  # https://github.com/libguestfs/libguestfs/issues/357
   LIBGUESTFS_DEBUG=1 LIBGUESTFS_TRACE=1 make -k check -C $pkgname-$pkgver
 }
 
-package() {
+_pick() {
+  local p="$1" f d; shift
+  for f; do
+    d="$srcdir/$p/${f#$pkgdir/}"
+    mkdir -p "$(dirname "$d")"
+    mv "$f" "$d"
+    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+  done
+}
+
+package_libguestfs() {
+  depends=(
+    "${_libguest_deps[@]}"
+  )
+  optdepends=(
+    'erlang-libguestfs: for Erlang support'
+    'java-libguestfs: for Java support'
+    'lua-libguestfs: for Lua support'
+    'ocaml-libguestfs: for OCaml support'
+    'perl-libguestfs: for Perl support'
+    'php-libguestfs: for PHP support'
+    'python-libguestfs: for Python support'
+    'ruby-libguestfs: for Ruby support'
+  )
+  provides=(
+    libguestfs.so
+    libguestfs-gobject-1.0.so
+  )
+  backup=(etc/libguestfs-tools.conf)
+
   make INSTALLDIRS=vendor DESTDIR="$pkgdir" install -C $pkgname-$pkgver
+
+  (
+    cd "$pkgdir"
+
+    _pick erlang-libguestfs usr/bin/erl-guestfs
+    _pick erlang-libguestfs usr/lib/erlang/
+    _pick erlang-libguestfs usr/share/man/man3/guestfs-erlang.3*
+
+    _pick java-libguestfs usr/lib/libguestfs_jni.so*
+    _pick java-libguestfs usr/share/java*/
+    _pick java-libguestfs usr/share/man/man3/guestfs-java.3*
+
+    _pick lua-libguestfs usr/lib/lua/
+    _pick lua-libguestfs usr/share/man/man3/guestfs-lua.3*
+
+    _pick ocaml-libguestfs usr/lib/ocaml/
+    _pick ocaml-libguestfs usr/share/man/man3/guestfs-ocaml.3*
+
+    _pick perl-libguestfs usr/lib/perl5/
+    _pick perl-libguestfs usr/share/man/man3/guestfs-perl.3*
+
+    _pick php-libguestfs etc/php.d/
+    _pick php-libguestfs usr/lib/php/
+
+    _pick python-libguestfs usr/lib/python*/
+    _pick python-libguestfs usr/share/man/man3/guestfs-python.3*
+
+    _pick ruby-libguestfs usr/lib/ruby/
+    _pick ruby-libguestfs usr/share/man/man3/guestfs-ruby.3*
+
+    _pick vala-libguestfs usr/share/vala/
+  )
+}
+
+package_erlang-libguestfs() {
+  pkgdesc+=" - Erlang support"
+  depends=(
+    glibc
+    libgcc
+    libguestfs=$pkgver libguestfs.so
+  )
+
+  mv -v $pkgname/* "$pkgdir"
+}
+
+package_java-libguestfs() {
+  pkgdesc+=" - Java support"
+  depends=(
+    glibc
+    java-runtime
+    libgcc
+    libguestfs=$pkgver libguestfs.so
+  )
+
+  mv -v $pkgname/* "$pkgdir"
+}
+
+package_lua-libguestfs() {
+  pkgdesc+=" - Lua support"
+  depends=(
+    glibc
+    libxml2 libxml2.so  # NOTE: potentially not required: https://github.com/libguestfs/libguestfs/issues/359
+    libguestfs=$pkgver libguestfs.so
+    lua
+  )
+
+  mv -v $pkgname/* "$pkgdir"
+}
+
+package_ocaml-libguestfs() {
+  pkgdesc+=" - OCaml support"
+  depends=(
+    glibc
+    libguestfs=$pkgver libguestfs.so
+    ocaml
+  )
+
+  mv -v $pkgname/* "$pkgdir"
+}
+
+package_perl-libguestfs() {
+  pkgdesc+=" - Perl support"
+  depends=(
+    glibc
+    libguestfs=$pkgver libguestfs.so
+    perl
+  )
+
+  mv -v $pkgname/* "$pkgdir"
+  # NOTE: Ensure that the shared object is stripped: https://github.com/libguestfs/libguestfs/issues/358
+  find "$pkgdir" -type f -iname "*.so" -exec chmod 755 {} \;
+}
+
+package_php-libguestfs() {
+  pkgdesc+=" - PHP support"
+  depends=(
+    glibc
+    libguestfs=$pkgver libguestfs.so
+    php
+  )
+
+  mv -v $pkgname/* "$pkgdir"
+}
+
+package_python-libguestfs() {
+  pkgdesc+=" - Python support"
+  depends=(
+    glibc
+    libguestfs=$pkgver libguestfs.so
+    python
+  )
+
+  mv -v $pkgname/* "$pkgdir"
+}
+
+package_ruby-libguestfs() {
+  pkgdesc+=" - Ruby support"
+  depends=(
+    glibc
+    libguestfs=$pkgver libguestfs.so
+    ruby libruby.so
+  )
+
+  mv -v $pkgname/* "$pkgdir"
 }
