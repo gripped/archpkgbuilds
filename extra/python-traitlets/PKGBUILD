@@ -3,7 +3,7 @@
 
 _pyname=traitlets
 pkgname=python-$_pyname
-pkgver=5.15.0
+pkgver=5.15.1
 pkgrel=1
 pkgdesc='A configuration system for Python applications'
 arch=(any)
@@ -18,7 +18,7 @@ makedepends=(git
              python-installer)
 checkdepends=(python-pytest-mock)
 source=(git+https://github.com/ipython/traitlets#tag=v$pkgver)
-sha256sums=('1747aea32dccb0358b9b3ca3b604797f94b2a354f4c5b1f8d425dba31dbc1033')
+sha256sums=('5b05c0adfbd1a46e94f25c9935cfa301de2a32a801c1d4d222255e008a8fe94f')
 
 prepare() {
   cd $_pyname
