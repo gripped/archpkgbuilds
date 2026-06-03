@@ -3,8 +3,8 @@
 pkgbase=python-tensorflow-serving-api
 pkgname=("${pkgbase}" "${pkgbase}"-gpu)
 _pkgname=tensorflow_serving_api
-pkgver=2.19.1
-pkgrel=2
+pkgver=2.20.0
+pkgrel=1
 pkgdesc="Serving system for machine learning models, designed for production environments"
 arch=(any)
 url="https://www.tensorflow.org/serving/"
@@ -12,15 +12,15 @@ license=('Apache-2.0')
 depends=('python' 'python-grpcio' 'python-tensorflow' 'python-protobuf')
 makedepends=('bazel' 'git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/tensorflow/serving/archive/${pkgver}.tar.gz"
-        https://github.com/bazelbuild/bazel/releases/download/6.5.0/bazel_nojdk-6.5.0-linux-x86_64
+        https://github.com/bazelbuild/bazel/releases/download/7.4.1/bazel_nojdk-7.4.1-linux-x86_64
   )
-b2sums=('15fd42aba47bb49235a23bd1a7b4de00b94e011abce8edfdc42c937bd39d5f628d11737cd15ab0ee85505627a63e3e96c85ec86307a789b69dd76db1a0f2acad'
-        'a1e2bfcb40f82fff24ec7f0c0adfc79b67b1ca035a5badb461040a2ef030b207e099ecef65b40c338c52a42cde362602b46189dffa37256aedb1544e6b009aea')
+b2sums=('974d943f9cc0b0766e03ad16155ebe60fac24cc6252fc4479344d2ae1abd946c1142eb346b4f823859f70527e8f0c60a779fa495ef92bd82bece3b143cbfa809'
+        '9308abbc484943d0f28b76ef00a8d22f3e59d6aa21330f21449069b71371c452f109963afaf783a9dccafc4cf2fc1ef91b634aebbda06f418fb7293c5b1eefcb')
 
 prepare() {
-  # Since tensorboard is currently imcompatible with Bazel 6, we're going to use
-  # a local Bazel 5 to fix that. Stupid problems call for stupid solutions.
-  install -Dm755 "${srcdir}"/bazel_nojdk-6.5.0-linux-x86_64 bazel/bazel
+  # Since tensorboard is currently imcompatible with Bazel 9, we're going to use
+  # a local Bazel 7 to fix that. Stupid problems call for stupid solutions.
+  install -Dm755 "${srcdir}"/bazel_nojdk-7.4.1-linux-x86_64 bazel/bazel
   export PATH="${srcdir}/bazel:$PATH"
   bazel --version
 }
