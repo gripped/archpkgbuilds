@@ -1,8 +1,9 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Maintainer: Jonathan Grotelüschen <tippfehlr@archlinux.org>
 
 _name=svelte-language-tools
 pkgname=typescript-svelte-plugin
-pkgver=0.3.51
+pkgver=0.3.52
 pkgrel=1
 pkgdesc='TypeScript plugin for Svelte intellisense'
 url=https://github.com/sveltejs/language-tools/tree/master/packages/typescript-plugin
@@ -18,7 +19,7 @@ makedepends=(
   pnpm
 )
 source=("$_name::git+https://github.com/sveltejs/language-tools.git#tag=$pkgname@$pkgver")
-b2sums=('af2ed7d4907133c7ba5c6dd41221f28aeded32eaffa74c62cd26f30b5b826a26c5b93ca37c6665c938e19519321ca2fa78d77fe3008c7112a0dec07a7ce3db95')
+b2sums=('3511651d37e5b1f55f7f2670781194fe27ac31c667583aec1668e3bca152a071a453ddc4ae07195581d6f9601880287873c0d60f6b61cd09b8f0cd0d96f2bf5e')
 
 prepare() {
   cd $_name
