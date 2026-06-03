@@ -3,7 +3,7 @@
 # Contributor: Florijan Hamzic <florijanh at gmail dot com>
 
 pkgname=python-weasyprint
-pkgver=68.1
+pkgver=69.0
 pkgrel=1
 pkgdesc='Utility to render HTML and CSS to PDF'
 arch=(any)
@@ -37,15 +37,19 @@ checkdepends=(
   ghostscript
   ttf-dejavu
 )
-source=("$pkgname::git+https://github.com/Kozea/WeasyPrint.git#tag=v$pkgver")
-sha512sums=('3acb07fd38b22d145067afe4dadd2144685205294530b3d13dcfb9c62787900835334b793313dd340068e1fb9e6f7745356822b82baef354878c18a8f1453f68')
-b2sums=('bd5676c12281be6a6282980a1d852eccf798758a9a949e8c7335933d409812be7e484348f41f62a3d8c80c03521d12e1e66b0987b15fee67ade130fbf81f6866')
+source=(
+  "$pkgname::git+https://github.com/Kozea/WeasyPrint.git#tag=v$pkgver"
+  remove-version-constraint.patch
+)
+sha512sums=('bab8ff2ae2d62a3e3b6a36c1d947e2025a017cab6794f992e462ede5174c771f29a332bd35627978b545fecd59c15f5b15acc45d79749c2140a4e374f36959e8'
+            '5685d1bcb9c51ab1295f1f4a566e2d9140141bda3bb420db0d851c3f983f8bac5e0513bbc7a40d4df1aee1a07fcd8c367fa7b7e7e6e0bcdc4e7ce311923ee86c')
+b2sums=('b74cea2ba78dd584cbd1ff97a6de4c244a523456fa149e4f1423298442b4c985a269bcf6aece863ff8fc707ba2038f5d72269b5e6fd566e41591925cc422b957'
+        'c5cb824ed16177ba61e321d894c5c5f38be09a39fc7f1f15fbda2152df7b7c179655d54d48deb0cb0232e0e1d01e68881ac9e4b1ba2070e2088c6f2e2aeaef81')
 
 prepare() {
   cd "$pkgname"
 
-  # thou shalt not lint coding style in integration tests
-  sed -i '/^addopts/d' pyproject.toml
+  patch -p1 -i "$srcdir/remove-version-constraint.patch"
 }
 
 build(){
@@ -68,6 +72,8 @@ check() {
     tests/draw/test_visibility.py::test_visibility_1
     tests/draw/test_visibility.py::test_visibility_3
     tests/draw/test_visibility.py::test_visibility_4
+    tests/draw/svg/test_text.py::test_emoji_text_svg
+
   )
 
   pytest ${deselected[@]/#/--deselect }
