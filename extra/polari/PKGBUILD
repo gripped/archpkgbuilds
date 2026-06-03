@@ -1,15 +1,14 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=polari
-pkgver=49.0
-pkgrel=2
+pkgver=50.0
+pkgrel=1
 pkgdesc="An IRC Client for GNOME"
 url="https://apps.gnome.org/Polari/"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
   dconf
-  gcc-libs
   gdk-pixbuf2
   gjs
   glib2
@@ -18,6 +17,7 @@ depends=(
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
   libgirepository
   libsecret
   libsoup3
@@ -35,7 +35,7 @@ makedepends=(
   meson
   yelp-tools
 )
-optdepends=('webkit2gtk-4.1: URL preview feature')
+optdepends=('webkitgtk-6.0: URL preview feature')
 groups=(gnome-circle)
 source=(
   # Polari tags use SSH signatures which makepkg doesn't understand
@@ -44,10 +44,10 @@ source=(
   0002-mainWindow-Disconnect-event-handler-on-destroy.patch
   0003-Add-option-to-disable-URL-preview-feature.patch
 )
-b2sums=('d210c0e21096bc12924a0f0b34f5ba0f04ce77eeeaad90575b1af52205fa5462b8a8bd43ff9dce02b4ac6edf5a7c703c8ad819955644dff72754bfb1a4efb447'
+b2sums=('5318887907a01d0594424159c7af046ffb358f2f29063dfe7832ad9d74755a1c8e9444167fa9e9724fb8dc1af0b69e0db69dd0bca0802edf74c61d556de2968f'
         'bc1e8802e74c0fb1c2436998440a885cf3b717b3000af81be73f330a734b925ed48a9f9cb7afd1a3024bfe00862e8ec90b43e5a0f3ab1539ae3548f46554a474'
         'f97c86ca46a443a57f8a03849e8d45e8d6fc56403bac26f6cdc74bf55407ecd3ea9177d8763e9e15c0c3cca93c75355f84abbfaee9ab8fc7f23291cca5276191'
-        '1c317c21f9742b4d48110637871f8fc8b1e8adb92f283446bb945ac0da28fd71d7f14a79d763cafc68c7444f86b169ba1e7f4979405ccee99bc9cb2bb836fc89')
+        'ad7ec19ee761a753734846e066d084035f6f5e0378fd5120e611acb5bda58ea72cd6ec0c4360ec6f570490aced2aad4828ca75637552946f4df0f01aeec14529')
 
 prepare() {
   cd polari

@@ -58,10 +58,10 @@ index 6a297646e39f..9a06fbd1081b 100644
          action = this.lookup_action('user-list');
          action.connect('notify::enabled', () => {
 diff --git a/src/chatView.js b/src/chatView.js
-index fcb373687327..de13a80e2e44 100644
+index 76eeec549cd0..0c6d37e45e14 100644
 --- a/src/chatView.js
 +++ b/src/chatView.js
-@@ -1305,7 +1305,8 @@ class ChatView extends Gtk.ScrolledWindow {
+@@ -1304,7 +1304,8 @@ class ChatView extends Gtk.ScrolledWindow {
              this._insertWithTags(iter,
                  url.name, tags.concat(this._lookupTag('url'), tag));
  
