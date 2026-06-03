@@ -3,20 +3,13 @@ version = 1
 [[annotations]]
 path = [
     "PKGBUILD",
-    "README.md",
     "keys/**",
     ".SRCINFO",
     ".nvchecker.toml",
-    "*.install",
-    "*.sysusers",
-    "*.tmpfiles",
-    "*.logrotate",
-    "*.pam",
-    "*.service",
-    "*.socket",
-    "*.timer",
-    "*.desktop",
-    "*.hook",
+    "vsftpd.service",
+    "vsftpd@.service",
+    "vsftpd.socket",
+    "ftpusers",
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
@@ -33,6 +26,7 @@ path = [
     "fix-make-to-respect-distro-flags.patch",
     "fix-seccomp-rules.patch",
     "fix-ssl_tlsv-documentation-and-config-tunables.patch",
+    "fix-setup_bio_callbacks-definition.patch",
 ]
 SPDX-FileCopyrightText = "vsftpd contributors"
 SPDX-License-Identifier = "GPL-2.0-only"
