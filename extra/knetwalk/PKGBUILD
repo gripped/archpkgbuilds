@@ -3,14 +3,13 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=knetwalk
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='Connect all the terminals to the server, in as few turns as possible'
 url='https://apps.kde.org/knetwalk/'
 arch=(x86_64)
 license=(GPL-2.0-or-later LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kconfig
          kconfigwidgets
          kcoreaddons
@@ -22,6 +21,7 @@ depends=(gcc-libs
          kwidgetsaddons
          kxmlgui
          libkdegames
+         libstdc++
          qt6-base
          qt6-declarative)
 makedepends=(extra-cmake-modules
@@ -29,7 +29,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('bc5c95305c864f6c05e23541af89fb41cda773274caf8d433ed64cd3379313d9'
+sha256sums=('42228f9d40b0346d7b4288530c0c859df817e6431668d5fc906e7539e31a5eb6'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
