@@ -3,14 +3,13 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=ksystemlog
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='System log viewer tool'
 url='https://apps.kde.org/ksystemlog/'
 arch=(x86_64)
 license=(GPL-2.0-or-later LGPL-2.0-or-later)
 depends=(audit
-         gcc-libs
          glibc
          karchive
          kcolorscheme
@@ -25,6 +24,7 @@ depends=(audit
          ktextwidgets
          kwidgetsaddons
          kxmlgui
+         libstdc++
          qt6-base
          systemd-libs)
 makedepends=(extra-cmake-modules
@@ -32,7 +32,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-system)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('74d0f4cd8ed289a09bbd326135ff0b20c204dd948f229e3231b137d00d5a5c8e'
+sha256sums=('00815b5318b916ba733d6e8305b6618bfe4c9fb3736140df8ee024dac485009f'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
