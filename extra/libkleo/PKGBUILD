@@ -1,14 +1,13 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=libkleo
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='KDE PIM cryptographic library'
 arch=(x86_64)
 url='https://kontact.kde.org'
 license=(LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          gpgmepp
          kcolorscheme
          kcodecs
@@ -18,12 +17,14 @@ depends=(gcc-libs
          ki18n
          kitemmodels
          kwidgetsaddons
+         libgcc
+         libstdc++
          qgpgme
          qt6-base)
 makedepends=(boost
              extra-cmake-modules)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('6346fef90598d21034edaabe3221d6aba5e2fbc358eeb757d84c97357d2ccedc'
+sha256sums=('fa2ee37491410508db5eb05bbd2f657be081271b8e0e7183849e9657249ac49f'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
