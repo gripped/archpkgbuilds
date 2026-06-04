@@ -2,35 +2,41 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=uvicorn
-pkgver=0.38.0
-pkgrel=2
+pkgver=0.49.0
+pkgrel=1
 pkgdesc='The lightning-fast ASGI server'
 arch=(any)
 url=https://github.com/encode/uvicorn
 license=(BSD-3-Clause)
 depends=(
   python
-  python-asgiref
   python-click
   python-h11
-  python-httptools
-  python-uvloop
-  python-websockets
+  python-typing_extensions
 )
+
+optdepends=(
+  'python-a2wsgi: for WSGI support'
+  'python-dotenv: for --env-file support'
+  'python-gunicorn: for Gunicorn workers'
+  'python-httptools: for faster HTTP protocol handling'
+  'python-pyyaml: for --log-config with YAML'
+  'python-uvloop: for faster event loop'
+  'python-watchfiles: for --reload support'
+  'python-websockets: for WebSocket support'
+  'python-wsproto: for WebSocket support'
+)
+
 makedepends=(
   git
   python-build
   python-hatchling
   python-installer
 )
-_tag=3850ad6520cafb290bd4174fa9c4ca5d33440c82
-source=(git+https://github.com/encode/uvicorn#tag=${_tag})
-b2sums=('ef48b2d21922769fd1e1979ef87378999ecd9b43622d6f59ebd1eaf1a00f65f2e99e181f002637b959c09ebdc9d7af097a60a1b575559a9852ec81568dcd2a15')
+source=(git+https://github.com/encode/uvicorn#tag=${pkgver})
+b2sums=('bd94e6512ff88b6114c93ba898c77e9282aeec1b743f0503de81cf55f0ae650a73f5a3fbd87ae75a59e8906add5cc1eac1be35e850847e6b27b30cda2f18959a')
 
-pkgver() {
-  cd uvicorn
-  git describe --tags
-}
+
 
 build() {
   cd uvicorn
