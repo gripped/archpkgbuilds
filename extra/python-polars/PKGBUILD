@@ -3,7 +3,7 @@
 
 pkgbase=python-polars
 pkgname=($pkgbase $pkgbase-runtime-{32,64,compat})
-pkgver=1.40.1
+pkgver=1.41.2
 pkgrel=1
 pkgdesc="Blazingly fast DataFrames library using Apache Arrow Columnar Format as memory model"
 arch=("x86_64")
@@ -39,7 +39,7 @@ checkdepends=('python-pytest'
 _name=${pkgname#python-}
 _tag="py-$pkgver"
 source=("https://github.com/pola-rs/polars/archive/refs/tags/$_tag.tar.gz")
-b2sums=('f02ca8fea1966da71bd476da53708fa044394e202f9c1ac1882d9faf2a5bec00ad79683f0e76c02a9c2669444823b5c86014199f1392732e6dbdb2c3202eb2cd')
+b2sums=('1cf79e4e5eeb4838c8e5f22f926fe5a15b5a85d1027763d35a9632d6815503d1d9231bed9ea70554ce7c15c686292cc0f92a315f335234b84803419048a907a4')
 
 prepare() {
     cd polars-$_tag/py-polars
@@ -67,6 +67,8 @@ check() {
     # Ignore several test files as they either use unpackaged dependencies, or
     # contain direct errors
     local _pytest_args=(
+        # Add 'not may_fail_auto' to the default markers because it may in fact fail
+        -m "not slow and not write_disk and not release and not docs and not hypothesis and not benchmark and not ci_only and not may_fail_auto_streaming"
         # Requires unpackaged python-deltalake
         --ignore tests/unit/io/test_delta.py
         --ignore tests/unit/io/test_delta_deletion_vector.py
