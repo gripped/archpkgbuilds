@@ -7,7 +7,7 @@ pkgname=(
   gtkmm3-docs
 )
 pkgver=3.24.10
-pkgrel=1
+pkgrel=2
 pkgdesc="C++ bindings for GTK+ 3"
 url="https://www.gtkmm.org/"
 arch=(x86_64)
@@ -15,13 +15,14 @@ license=(LGPL-2.1-or-later)
 depends=(
   atkmm
   cairomm
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
   glibmm
   gtk3
+  libgcc
   libsigc++
+  libstdc++
   pangomm
 )
 makedepends=(
