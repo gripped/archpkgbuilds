@@ -2,14 +2,13 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kdevelop-python
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='Python language and documentation plugin for KDevelop'
 arch=(x86_64)
 url='https://www.kdevelop.org/'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kconfig
          kcoreaddons
          kdevelop
@@ -18,6 +17,7 @@ depends=(gcc-libs
          ktexteditor
          kwidgetsaddons
          kxmlgui
+         libstdc++
          python
          qt6-base
          threadweaver)
@@ -26,7 +26,7 @@ optdepends=('python-pycodestyle: for Python style checking')
 groups=(kde-applications
         kdevelop)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/kdev-python-$pkgver.tar.xz{,.sig})
-sha256sums=('fad514d7081d24c8f6d4b2673c1d6121676657d40bb496cc181452cb05226910'
+sha256sums=('002d538d62067891e7ba84c8d22eadbe2e769df3f9a3205be917c0681d5d55e0'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
