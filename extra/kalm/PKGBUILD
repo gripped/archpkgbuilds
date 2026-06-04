@@ -1,21 +1,21 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kalm
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='Kalm can teach you different breathing techniques'
 url='https://apps.kde.org/kalm/'
 arch=(x86_64)
 license=(GPL-2.0-or-later
          LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kconfig
          kcoreaddons
          kcrash
          ki18n
          kirigami
          kirigami-addons
+         libstdc++
          qqc2-desktop-style
          qt6-base
          qt6-declarative)
@@ -23,7 +23,7 @@ makedepends=(extra-cmake-modules)
 groups=(kde-applications
         kde-utilities)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('9727f8f3010b2b0c8e901beb04c188f7d1f836efea09607c74701b1d4c5e0b03'
+sha256sums=('0f1541121a87ddd5182a577545508b0886a2fc7d73302e39fbdba9fbfa8823a4'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
