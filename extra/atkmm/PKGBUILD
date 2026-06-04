@@ -7,7 +7,7 @@ pkgname=(
   atkmm-docs
 )
 pkgver=2.28.5
-pkgrel=1
+pkgrel=2
 pkgdesc="C++ bindings for ATK"
 url="https://www.gtkmm.org/"
 arch=(x86_64)
@@ -18,11 +18,13 @@ depends=(
   glibc
   glibmm
   libgcc
+  libsigc++
   libstdc++
 )
 makedepends=(
   git
   glibmm-docs
+  libsigc++-docs
   meson
   mm-common
 )
