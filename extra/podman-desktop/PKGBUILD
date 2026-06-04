@@ -4,7 +4,7 @@
 
 pkgname=podman-desktop
 pkgver=1.27.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Manage Podman and other container engines from a single UI and tray."
 arch=("x86_64")
 url="https://podman-desktop.io"
@@ -48,7 +48,7 @@ package(){
     mkdir -p "${pkgdir}"/usr/{lib/${pkgname},bin}
     cp -r --reflink=auto dist/linux-unpacked/resources "${pkgdir}/usr/lib/${pkgname}/resources"
     install -Dm644 ./.flatpak-appdata.xml \
-        "${pkgdir}/usr/share/metainfo/io.podman_desktop.PodmanDesktop.xml"
+        "${pkgdir}/usr/share/metainfo/io.podman_desktop.PodmanDesktop.metainfo.xml"
     install -Dm644 ./.flatpak.desktop \
         "${pkgdir}/usr/share/applications/io.podman_desktop.PodmanDesktop.desktop"
     install -Dm644 ./buildResources/icon.svg \
