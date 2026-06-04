@@ -2,7 +2,7 @@
 # Contributor: Stéphane Gaudreault <stephane@archlinux.org>
 
 pkgname=python-pytools
-pkgver=2026.1
+pkgver=2026.1.1
 pkgrel=1
 pkgdesc="A collection of tools for Python"
 arch=(any)
@@ -27,7 +27,7 @@ checkdepends=(
   python-pytest
 )
 source=("git+https://github.com/inducer/pytools.git#tag=v$pkgver")
-sha512sums=('019a09ef775c6c2f907734173dfd8688057ad0a400f7bf1e08ed8a20e163b282e2bd86855d7690a36d852221c448eef654ea49bd46db05a424a484748ae0ec9c')
+sha512sums=('5e227aadffc2794c7f2f2ea580f2ee36b04595fc34140a2ee22c7bc699e37f1ddd7823fd35b6bc994a1063ceaada6180802f02c2c98550e2a55b44279900b0aa')
 
 build() {
   cd pytools
