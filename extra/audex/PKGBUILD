@@ -5,14 +5,13 @@
 # Contributor: moostik <mooostik_at_gmail.com>
 
 pkgname=audex
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='Tool for ripping compact discs'
 arch=(x86_64)
 url='https://apps.kde.org/audex/'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kcmutils
          kcolorscheme
          kcompletion
@@ -29,6 +28,7 @@ depends=(gcc-libs
          libcdio
          libcdio-paranoia
          libkcddb
+         libstdc++
          qt6-base
          solid)
 makedepends=(extra-cmake-modules)
@@ -39,7 +39,7 @@ optdepends=('faac: MP4/M4A/AAC encoder'
 groups=(kde-applications
         kde-multimedia)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('c44c85ae986582bff9cb84b5b204baa06e17d33a5d5f5c53d276f5310219a1df'
+sha256sums=('2739891c16a78f23c610673f90e0f3aeb70a18bf337b01f3dec9ca6e35a4df10'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
