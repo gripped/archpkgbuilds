@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ffmpegthumbs
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='FFmpeg-based thumbnail creator for video files'
 url='https://apps.kde.org/ffmpegthumbs/'
@@ -10,17 +10,17 @@ arch=(x86_64)
 license=(GPL-2.0-or-later
          LGPL-2.0-or-later)
 depends=(ffmpeg
-         gcc-libs
          glibc
          kconfig
          kcoreaddons
          kio
+         libstdc++
          qt6-base)
 makedepends=(extra-cmake-modules)
 groups=(kde-applications
         kde-multimedia)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('df38f6782f02f4a941c25bee7edee22f48865109e27419c599b71d155a57f4fe'
+sha256sums=('865a1904b1f664c7118976603e38ffcb0a5873782d40eb684268767a303d8d48'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
