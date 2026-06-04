@@ -1,14 +1,13 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kalk
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='A powerful cross-platform calculator application built with the Kirigami framework'
 url='https://apps.kde.org/kalk/'
 arch=(x86_64)
 license=(GPL-2.0-or-later LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kconfig
          kcoreaddons
          ki18n
@@ -16,6 +15,7 @@ depends=(gcc-libs
          kirigami-addons
          kunitconversion
          libqalculate
+         libstdc++
          qqc2-desktop-style
          qt6-base
          qt6-declarative)
@@ -23,7 +23,7 @@ makedepends=(extra-cmake-modules)
 groups=(kde-applications
         kde-utilities)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('a44c7c66cd8f4bc280e5c2317587cf38feb794fffeed0d1f57923693361a17e5'
+sha256sums=('678215a033bc13a30075304a4c344f259d5c072d15af579fa0aa74496e7a9f63'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
