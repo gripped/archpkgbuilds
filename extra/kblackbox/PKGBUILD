@@ -3,14 +3,13 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kblackbox
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='A game of hide and seek played on a grid of boxes'
 url='https://apps.kde.org/kblackbox/'
 arch=(x86_64)
 license=(GPL-2.0-or-later LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          karchive
          kconfig
          kconfigwidgets
@@ -23,6 +22,7 @@ depends=(gcc-libs
          kwidgetsaddons
          kxmlgui
          libkdegames
+         libstdc++
          qt6-base
          qt6-svg)
 makedepends=(extra-cmake-modules
@@ -30,7 +30,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('ec06fa259dee2e18eab3116d890c186df2db9c459dc8c1eb3116a2c362d62b7f'
+sha256sums=('0af802fb83af4857ed8480640e5a4bc9600df3ca90a688f9582263856ec82de6'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
