@@ -1,14 +1,13 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org> 
 
 pkgname=kaccounts-integration
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='Online account management system and its Plasma integration components'
 arch=(x86_64)
 url='https://www.kde.org/'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kcmutils
          kconfig
          kcoreaddons
@@ -18,6 +17,7 @@ depends=(gcc-libs
          kirigami
          kwallet
          libaccounts-qt
+         libstdc++
          qt6-base
          signon-kwallet-extension
          signon-plugin-oauth2
@@ -28,7 +28,7 @@ makedepends=(extra-cmake-modules
              kdoctools
              qcoro)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('014a079cead78292dc830fb85a4e6bf539dca4e5d7f67498d6ea2e0048c6c352'
+sha256sums=('7fbbb5b8b009588b114b84f4c5913b3e429fb004f9ad7ce1bbd8564530df9e96'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
