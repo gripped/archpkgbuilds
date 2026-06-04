@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=audiotube
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='Client for YouTube Music'
 url='https://apps.kde.org/audiotube/'
@@ -9,7 +9,6 @@ arch=(x86_64)
 license=(GPL-2.0-or-later
          LGPL-2.0-or-later)
 depends=(futuresql
-         gcc-libs
          glibc
          gst-plugins-bad # OPUS codec
          gst-plugins-good
@@ -21,6 +20,8 @@ depends=(futuresql
          kirigami
          kirigami-addons
          kwindowsystem
+         libgcc
+         libstdc++
          purpose
          python
          python-ytmusicapi
@@ -37,7 +38,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-multimedia)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('78952113ae9b553a64f1fde1ed532f33871046b1dd40f62688638c1f14bb2216'
+sha256sums=('af049214826346351215c8604e74ab74409cc9bf3005565b2a280fcd5afed393'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
