@@ -5,7 +5,7 @@
 pkgname=qt6-declarative
 _pkgver=6.11.1
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -13,8 +13,9 @@ license=(GPL-3.0-only
          LicenseRef-Qt-Commercial
          Qt-GPL-exception-1.0)
 pkgdesc='Classes for QML and JavaScript languages'
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
+         libstdc++
          qt6-base)
 makedepends=(cmake
              git
@@ -33,6 +34,7 @@ sha256sums=('0ff7324d48ad2f6472136fe2638553b07f3111d88e0ab385cf09966fc0476019')
 prepare() {
   cd $_pkgfn
   git cherry-pick -n 8a2c82be6ad90e3f2a0760d8bab1e3a8cdb2473a # Fix QML TableView regression
+  git cherry-pick -n 9d4d376726a6ce15c429128dc65b927e411e40da # Fix crash in musescore
 }
 
 build() {
