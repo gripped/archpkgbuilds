@@ -6,7 +6,7 @@ pkgname=(
   libinput
   libinput-tools
 )
-pkgver=1.31.2
+pkgver=1.31.3
 pkgrel=1
 pkgdesc="Input device management and event handling library"
 url="https://wayland.freedesktop.org/libinput/doc/latest/"
@@ -40,7 +40,7 @@ checkdepends=(python-pytest)
 source=(
   "git+https://gitlab.freedesktop.org/libinput/libinput.git?signed#tag=$pkgver"
 )
-b2sums=('8b0a76d3765e06283000745a91c95fecc8d2bfc7da36222ad0def041282f237ebd56006d11efd87c845a936631fea527666fee99b6e9e1e2f176681ff083ac9a')
+b2sums=('197f8c4d6be126e8b8a4825109dd37405a1205f80b25595c259d42606e317525aae5def846f4bb3c3cfad09ccd9d65b53d39d34127623ea6c47db6e8cfaf3188')
 validpgpkeys=(
   3C2C43D9447D5938EF4551EBE23B7E70B467F0BF # Peter Hutterer (Who-T) <office@who-t.net>
 )
