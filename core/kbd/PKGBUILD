@@ -1,7 +1,7 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=kbd
-pkgver=2.9.0
+pkgver=2.10.0
 pkgrel=1
 pkgdesc="Keytable files and keyboard utilities"
 arch=('x86_64')
@@ -17,7 +17,7 @@ makedepends=(
   git
 )
 source=(
-  git+https://git.kernel.org/pub/scm/linux/kernel/git/legion/kbd.git#tag=v$pkgver?signed
+  git+https://git.kernel.org/pub/scm/linux/kernel/git/legion/kbd.git?signed#tag=v$pkgver
   fix-euro2.patch
   vlock.pam
 )
@@ -25,7 +25,7 @@ backup=('etc/pam.d/vlock')
 provides=('vlock')
 conflicts=('vlock')
 replaces=('vlock')
-b2sums=('08c9b775b3e5f0a7918755dfb90610c61b592defd439dd38a48bff579fc8ccac56d9cfa02dbac13141eb7f0f6e91bd78a8ee1c75cd96405719a17f969d1c1963'
+b2sums=('e98958b6bd29c1ffe9a22ad2e466db50edebf6f8fbe403b59e70f3a5c44adc11e3948d43a59859b13558107bcc1e63153be2b784bcd8616268fb08bf3f3a5e1d'
         'd122ddb1a86e7a282df8e438903f94d697e3d18a24154d976334e6b54b8f1cf1df432cf8dbcd98daa55014ada462f284d0319fbf015554266e91f4d2a8bf812b'
         '104543e72331a633572a26059e6dce1f25c3c8d6deabb855dd94bfffb72edf8a53a58c6ea7ef6806dd80bcd6ab0aa47cc1a45cc0cd90330be6514ff7591b5140')
 validpgpkeys=(
