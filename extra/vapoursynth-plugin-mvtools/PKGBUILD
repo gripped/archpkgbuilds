@@ -2,12 +2,12 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgname=vapoursynth-plugin-mvtools
-pkgver=26
+pkgver=28
 pkgrel=1
 pkgdesc='MVTools plugin for VapourSynth'
 arch=(x86_64)
 url=https://github.com/dubhater/vapoursynth-mvtools
-license=(GPL2)
+license=(GPL-2.0-only)
 depends=(
   fftw
   vapoursynth
@@ -19,9 +19,8 @@ makedepends=(
   python-build
   python-installer
 )
-_tag=c8d83aa3a385c1d60accf9e1cc2b1e7940b865b6
-source=(git+https://github.com/dubhater/vapoursynth-mvtools.git#tag=${_tag})
-sha256sums=('00a0d5d60c7214ddc98710824041cf617940695ca720448ebd5bd284639a2b35')
+source=(git+https://github.com/dubhater/vapoursynth-mvtools.git#tag=v${pkgver})
+sha256sums=('65e6d2279ae83af03c0200a3e0014e3ce3fd4a5313308e91ffce29b2a03c7039')
 
 prepare() {
   cd vapoursynth-mvtools
@@ -29,10 +28,7 @@ prepare() {
   sed 's/VSHelper.h/VSHelper4.h/g; s/vs_bitblt/vsh::bitblt/g' -i src/MVFrame.cpp -i src/SimpleResize.cpp
 }
 
-pkgver() {
-  cd vapoursynth-mvtools
-  git describe --tags | sed 's/^v//'
-}
+
 
 build() {
   cd vapoursynth-mvtools
