@@ -2,14 +2,13 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kdevelop-php
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='PHP language and documentation plugin for KDevelop'
 arch=(x86_64)
 url='http://www.kdevelop.org/'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kconfig
          kcoreaddons
          kdevelop
@@ -18,6 +17,7 @@ depends=(gcc-libs
          ktexteditor
          kwidgetsaddons
          kxmlgui
+         libstdc++
          qt6-5compat
          qt6-base
          threadweaver)
@@ -27,7 +27,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kdevelop)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/kdev-php-$pkgver.tar.xz{,.sig})
-sha256sums=('26c660e0e27b23460e9400a4b91fe730fb2ee8dc8ac300dcae2374a190614d8b'
+sha256sums=('ad336937b6e148a848d5794ea300e7f28426cf35d0cea63f5a728c2b96ad98b9'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
