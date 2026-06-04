@@ -8,7 +8,7 @@ pkgname=(
   glibmm-2.68-docs
 )
 pkgver=2.88.0
-pkgrel=1
+pkgrel=2
 pkgdesc="C++ bindings for GLib"
 url="https://www.gtkmm.org/"
 arch=(x86_64)
@@ -24,6 +24,7 @@ depends=(
 makedepends=(
   clang
   git
+  libsigc++-3.0-docs
   meson
   mm-common
   perl-xml-parser
@@ -52,7 +53,7 @@ check() {
 
 package_glibmm-2.68() {
   depends+=(libsigc-3.0.so)
-  provides=(libglibmm-2.68.so)
+  provides=(libg{lib,io}mm-2.68.so)
 
   meson install -C build --destdir "$pkgdir"
 
