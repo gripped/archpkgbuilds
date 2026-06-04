@@ -3,14 +3,13 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=parley
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='Vocabulary Trainer'
 url='https://apps.kde.org/parley/'
 arch=(x86_64)
 license=(GPL-2.0-or-later LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kcolorscheme
          kcompletion
          kconfig
@@ -25,6 +24,7 @@ depends=(gcc-libs
          kwidgetsaddons
          kxmlgui
          libkeduvocdocument
+         libstdc++
          qt6-base
          qt6-multimedia
          qt6-svg
@@ -36,7 +36,7 @@ optdepends=('translate-shell: Google Translate integration')
 groups=(kde-applications
         kde-education)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('2eb0e21d5ad97eb01fe5dc0c7f1309771fa5d93b6a8615f9fd986e97a7d0c3b2'
+sha256sums=('1207690ca4aaf5cc7fe299b12173a3d2eeeb558826b81544da5280472fdd00fc'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
