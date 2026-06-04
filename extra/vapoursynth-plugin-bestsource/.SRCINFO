@@ -1,7 +1,7 @@
 pkgbase = vapoursynth-plugin-bestsource
 	pkgdesc = BestSource plugin for VapourSynth
-	pkgver = R17
-	pkgrel = 2
+	pkgver = R18
+	pkgrel = 1
 	epoch = 1
 	url = https://github.com/vapoursynth/bestsource
 	arch = x86_64
@@ -10,16 +10,17 @@ pkgbase = vapoursynth-plugin-bestsource
 	makedepends = meson-python
 	makedepends = python-build
 	makedepends = python-installer
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = glibc
 	depends = libavcodec.so
 	depends = libavformat.so
 	depends = libxxhash.so
 	depends = vapoursynth
-	source = git+https://github.com/vapoursynth/bestsource.git#tag=b026135190bdee175417310fa783e8383077193f
+	source = git+https://github.com/vapoursynth/bestsource.git#tag=R18
 	source = git+https://github.com/AviSynth/AviSynthPlus.git
 	source = git+https://github.com/sekrit-twc/libp2p.git
-	b2sums = bfb97a39314045478fa6737e3fdf8bd14616f43018a9261b64bf23fc54d9ad5c1622d6e255c391047c781ae6e230bbcffc2a3d97cb1efe17f3a3f0d51b386925
+	b2sums = 32a9aa7298ea01678c123083c8d688308b3aae2bce6decc7f19aa47c3a0a5d8ada6100421d1de8e6dff98213c1fd1508355120da8946ce9a17c3cdd326f8bc6b
 	b2sums = SKIP
 	b2sums = SKIP
 
