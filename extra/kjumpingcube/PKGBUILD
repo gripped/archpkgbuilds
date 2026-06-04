@@ -3,14 +3,13 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kjumpingcube
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='A simple tactical game'
 url='https://apps.kde.org/kjumpingcube/'
 arch=(x86_64)
 license=(GPL-2.0-or-later LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kconfig
          kconfigwidgets
          kcoreaddons
@@ -22,6 +21,7 @@ depends=(gcc-libs
          kwidgetsaddons
          kxmlgui
          libkdegames
+         libstdc++
          qt6-base
          qt6-svg)
 makedepends=(extra-cmake-modules
@@ -29,7 +29,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('4d9c3b14a3ef6cd1b98331435f707ba6f6f599822cc299378c2026b8f0420964'
+sha256sums=('1048d0d36322591513b621191bf09e2cff7adabb08bd66a5dc7a55e0b7ad5775'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
