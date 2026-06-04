@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kdepim-addons
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='Addons for KDE PIM applications'
 arch=(x86_64)
@@ -14,7 +14,6 @@ depends=(akonadi
          akonadi-mime
          calendarsupport
          discount
-         gcc-libs
          glibc
          gpgmepp
          grantleetheme
@@ -52,9 +51,11 @@ depends=(akonadi
          ktnef
          kwidgetsaddons
          kxmlgui
+         libgcc
          libgravatar
          libkleo
          libksieve
+         libstdc++
          mailcommon
          mailimporter
          messagelib
@@ -73,7 +74,7 @@ makedepends=(corrosion
 groups=(kde-applications
         kde-pim)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('1cebe640b990e9d25509f4cb94ec8e4d5fdba9aa919fc53ae872c18b0c888da9'
+sha256sums=('ee69400cebd2ee4b2e19f5a571bbcaf1285e5717215756852154c0809c81c03e'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
