@@ -7,32 +7,32 @@ pkgname=(
   pangomm-docs
 )
 pkgver=2.46.4
-pkgrel=2
+pkgrel=3
 pkgdesc="C++ bindings for Pango"
 url="https://www.gtkmm.org/"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
   cairomm
+  glib2
+  glibc
   glibmm
+  libgcc
+  libsigc++
+  libstdc++
   pango
 )
 makedepends=(
   cairomm-docs
   git
   glibmm-docs
+  libsigc++-docs
   meson
   mm-common
 )
 options=(!emptydirs)
-_commit=13629c78e2b3ed106bd3b3fbee3522e11bafd559  # tags/2.46.4^0
-source=("git+https://gitlab.gnome.org/GNOME/pangomm.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd pangomm
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/pangomm.git#tag=$pkgver")
+b2sums=('a7a4c39978da04a3974e452bfa63922f2151c231f170f26cab256adcea06bd01d2a123f75a4a792f50622ad70df295765057c245cf10d50913a2036bff62333d')
 
 prepare() {
   cd pangomm
