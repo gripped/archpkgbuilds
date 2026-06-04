@@ -1,12 +1,12 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-session
-pkgver=2.0.24
+pkgver=2.0.25
 pkgrel=1
 pkgdesc='New deepin session, based on systemd and existing projects'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-session"
-license=('GPL-3.0-or-later')
+license=('GPL-3.0-or-later' 'LGPL-3.0-or-later' 'CC0-1.0')
 # deepin-session-ui: org.deepin.dde.Osd1
 # deepin-kwin: dde-session@.service
 # deepin-shell: dde-session-initialized.target.wants/dde-shell@DDE.service
@@ -18,7 +18,7 @@ depends=('bash' 'glibc' 'glib2' 'libcap-ng' 'libgcc' 'libstdc++' 'libx11' 'libxc
 makedepends=('git' 'cmake' 'ninja')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-session.git#tag=$pkgver")
-sha512sums=('63a031fd5f4b9a954199b3c3c81207c1c29d712ccbb25cad182a720e15312be3f6e8bc14121b0d9fbca6539a3fdbfd758255f6be9ef3b4dd026e5b93efe9d14f')
+sha512sums=('d6f109c6a6104159c1f4e8a6f4e9ad8e4dc548938172e4afccd525f6dc29e1fa6e9882f0f7d2cc6d1d1277897700691a3fb69584b8a4c0802c8cdfc03ed41832')
 
 prepare(){
   cd dde-session
