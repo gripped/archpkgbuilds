@@ -6,18 +6,18 @@
 # Contributor: Philipp 'TamCore' B. <philipp [at] tamcore [dot] eu>
 
 pkgname=ghostwriter
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='Aesthetic, distraction-free Markdown editor'
 arch=(x86_64)
 url='https://ghostwriter.kde.org/'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kconfigwidgets
          kcoreaddons
          kwidgetsaddons
          kxmlgui
+         libstdc++
          qt6-base
          qt6-webchannel
          qt6-webengine
@@ -31,7 +31,7 @@ optdepends=('cmark: processing and rendering CommonMark'
 groups=(kde-applications
         kde-office)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('fbe2ba851cd71ed64bd2f86fc544c02bc06547ddc4c9cec9a1d658c5de15e1a3'
+sha256sums=('4d3b6e57579843a1dd50d09d344667c07b1511f4dcf82764dbd661d28889d5dc'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
