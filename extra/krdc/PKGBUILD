@@ -3,15 +3,14 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=krdc
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='Remote Desktop Client'
 url='https://apps.kde.org/krdc/'
 arch=(x86_64)
 license=(GPL-2.0-or-later
          LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kbookmarks
          kcmutils
          kcompletion
@@ -28,6 +27,7 @@ depends=(gcc-libs
          kwidgetsaddons
          kxmlgui
          libssh
+         libstdc++
          qt6-base
          qtkeychain-qt6
          wayland)
@@ -41,7 +41,7 @@ optdepends=('libvncserver: VNC support'
 groups=(kde-applications
         kde-network)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('212b2c2aaa71c1d29f4356ae64785ccca600a565cfe0e03349afcb95d1444a98'
+sha256sums=('21cea1b78978b017290e9df71823149da534e97f6f964ca9d62de767fa1e01f3'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
