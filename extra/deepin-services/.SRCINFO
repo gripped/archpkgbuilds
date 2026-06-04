@@ -1,26 +1,36 @@
 pkgbase = deepin-services
 	pkgdesc = Manage DBus service on Deepin
-	pkgver = 1.0.25
+	pkgver = 1.0.26
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-services
 	arch = x86_64
 	groups = deepin
 	license = LGPL-3.0-or-later
+	license = GPL-3.0-or-later
+	license = CC0-1.0
 	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
+	makedepends = qt6-tools
+	makedepends = treeland-protocols
+	makedepends = wayland-protocols
+	makedepends = wlr-protocols
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
 	depends = systemd-libs
 	depends = qt6-base
+	depends = qt6-wayland
 	depends = dtk6core
 	depends = dtk6gui
 	depends = glib2
 	depends = libx11
 	depends = libxcb
+	depends = python
+	depends = wayland
+	depends = xcb-util-keysyms
 	depends = deepin-service-manager
-	source = git+https://github.com/linuxdeepin/dde-services.git#tag=1.0.25
-	sha512sums = b9e8b5fc7685061a4268cdd2ffaa30454bded77bb4cc7421c370427f1b8d8622135dcc2ae60a76b622cd2bfb0d024a3b2517140355540b1a5ecf3c92b1ef9468
+	source = git+https://github.com/linuxdeepin/dde-services.git#tag=1.0.26
+	sha512sums = 98048b5eb93997c7f512e6abd596276453eb53a8ff503724b2390415dffd90c8b83a11be2be58dbaa32ddc2173434a42bd62a3d5c99f53a3807b98858a849a0a
 
 pkgname = deepin-services

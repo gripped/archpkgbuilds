@@ -1,23 +1,25 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-services
-pkgver=1.0.25
+pkgver=1.0.26
 pkgrel=1
 pkgdesc='Manage DBus service on Deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-services"
-license=('LGPL-3.0-or-later')
-depends=(glibc libgcc libstdc++ systemd-libs qt6-base dtk6core dtk6gui glib2 libx11 libxcb
+license=('LGPL-3.0-or-later' 'GPL-3.0-or-later' 'CC0-1.0')
+depends=(glibc libgcc libstdc++ systemd-libs qt6-base qt6-wayland dtk6core dtk6gui glib2
+         libx11 libxcb python wayland xcb-util-keysyms
          deepin-service-manager)
-makedepends=(git cmake ninja)
+makedepends=(git cmake ninja qt6-tools treeland-protocols wayland-protocols wlr-protocols)
 groups=(deepin)
 source=(git+https://github.com/linuxdeepin/dde-services.git#tag=$pkgver)
-sha512sums=('b9e8b5fc7685061a4268cdd2ffaa30454bded77bb4cc7421c370427f1b8d8622135dcc2ae60a76b622cd2bfb0d024a3b2517140355540b1a5ecf3c92b1ef9468')
+sha512sums=('98048b5eb93997c7f512e6abd596276453eb53a8ff503724b2390415dffd90c8b83a11be2be58dbaa32ddc2173434a42bd62a3d5c99f53a3807b98858a849a0a')
 
 build() {
   cd dde-services
   cmake -GNinja . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc \
-    -DENABLE_PLUGIN_IPWATCHD=OFF
+    -DENABLE_PLUGIN_IPWATCHD=OFF \
+    -DBUILD_SHORTCUT_DEBUG_BINARY=OFF
   ninja
 }
 
