@@ -2,9 +2,9 @@
 
 pkgbase=vis
 pkgname=(vis vis-lexers)
-_commit='6efb844b79c78cf20af033591c461c3cbb907ded'
-pkgver=0.9.r420.g6efb844b
-pkgrel=2
+_commit='9fba58af14b78b5054082e3c7bfaa40d279e4834'
+pkgver=0.9.r453.g9fba58af
+pkgrel=1
 pkgdesc='modern, legacy free, simple yet efficient vim-like editor'
 arch=('x86_64')
 url='https://github.com/martanne/vis#vis-a-vim-like-text-editor'
@@ -13,7 +13,6 @@ depends=(
   'bash'
   'file'
   'glibc'
-  'libtermkey' 'libtermkey.so'
   'lua' #'liblua.so'
   'ncurses' 'libncursesw.so'
   'tre' #'libtre.so'
@@ -24,7 +23,7 @@ license=('custom:ISC')
 validpgpkeys=('54A47F12462D26A7D078A932C83A52CD1962562C') # Marc André Tanner <mat@brain-dump.org>
 # TODO: can we have signed tag back?
 source=("git+https://github.com/martanne/vis.git#commit=${_commit}")
-sha256sums=('d3bcddf87f980e9e0a52b57e01fd3b4c6e1eec002700ea9248469e3f69565a6a')
+sha256sums=('bca8a8d2d4b116e561af49d9f45b4fd4dbb1cd696ee3ec1d6adbfcae35110da5')
 
 _backports=(
 )
@@ -52,6 +51,8 @@ prepare() {
     git log --oneline "${_l}" "${_c}"
     git revert --mainline 1 --no-commit "${_c}"
   done
+
+  sed -i '/^.PHONY/d' Makefile
 }
 
 build() {
