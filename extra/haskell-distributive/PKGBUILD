@@ -3,22 +3,17 @@
 
 _hkgname=distributive
 pkgname=haskell-distributive
-pkgver=0.6.2.1
-pkgrel=476
+pkgver=0.6.3
+pkgrel=2
 pkgdesc="Distributive functors -- Dual to Traversable"
 url="https://github.com/ekmett/distributive/"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-base-orphans' 'haskell-tagged')
-makedepends=('ghc' 'uusi')
+depends=('ghc-libs' 'haskell-tagged')
+makedepends=('ghc')
 checkdepends=('haskell-generic-deriving' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('387c7b6e0b2f917fd68d52ffbc79b9db21e488629309bfaf0dc77450bfd37c0f7f8a29458532616b5395552f84f3727b462cb2876e5aca79101e2c752b26e0a7')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u transformers
-}
+sha512sums=('59cbdfd873746be57ba947b3e19999f274374734e2ab23ac40705d34bf7d877d08a8682635074d6bb5b68f1051578f6f08a70329f8cd249c3e7a4390f102be2a')
 
 build() {
     cd $_hkgname-$pkgver
@@ -32,7 +27,7 @@ build() {
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
-            -ftagged -f-semigroups
+            -ftagged
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
