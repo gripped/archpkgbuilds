@@ -4,7 +4,7 @@ _pkgname=ginkgo
 pkgbase=ginkgo-hpc
 pkgname=(ginkgo-hpc ginkgo-hpc-docs ginkgo-hpc-cuda ginkgo-hpc-hip ginkgo-hpc-sycl)
 pkgver=1.11.0
-pkgrel=5
+pkgrel=6
 pkgdesc="Numerical linear algebra software package"
 arch=(x86_64)
 url=https://ginkgo-project.github.io/
@@ -54,12 +54,14 @@ source=(
   split_hip_library.patch
   fix_cccl_3.3.3.patch
   include-pair-header-for-thrust.patch
+  fix_nvcc_typename.patch
 )
 b2sums=('a17728e527d40f8c5593a95b467badc58edd89ece01e3418549909f06cb1eee57e626c31c36dee5ad11379b6fb28b1b6452a3e99bd1dfa2f353703bdf601ff2a'
         '1e5edafb792c9e2cb0602673cc0394d50c0d87bc22590a649c04337070c1a6585f915fcea94660323581df566a3fb777b9a9114ad811cb641dccf7dca33029d6'
         '7992eab1a9c0ed69ce6fc2d86be0374b006bb100600a25556143b53c8d4b4af80fb95614edf0c8dea13a693e94326176364274bf250e6851f57446af736ae715'
         'f5719a51ca6c4f79baaaa544fad1b73832fc966c1e2c92d446fbab87dde401ca06e1f8a45c0bc68dcab26905196717add9cf41c6d948f07b97446d0155c01591'
-        'ca903ebd1295ae015f74c1194395d60633f42b72a9af30f623ba5bc670e784dbbd754ba4cd036fc6f92449574e51c09b8019e56f1b271d34955c29dc0d803d98')
+        'ca903ebd1295ae015f74c1194395d60633f42b72a9af30f623ba5bc670e784dbbd754ba4cd036fc6f92449574e51c09b8019e56f1b271d34955c29dc0d803d98'
+        'c904acd641aa7f83f09e56f3d5325307d4ac95976c38e53c714611af016faf88656af4eec6499e80217c580ac41f52c5c26cdcb244bca394d4b17d6af5bbf98e')
 
 prepare() {
   # Ginkgo is too big to build all CUDA archs into a single library, we need to split it
@@ -73,6 +75,11 @@ prepare() {
   # fix build with CCCL 3.3.3
   patch --directory=$_pkgname-$pkgver -p1 < fix_cccl_3.3.3.patch
   patch --directory=$_pkgname-$pkgver -p1 < include-pair-header-for-thrust.patch
+
+  # fix build with nvcc V13.3.33 - regression in CUDA 13.3
+  # (typename decltype(criteria)::value_type::element_type should be well-formed but nvcc rejects it)
+  patch --directory=$_pkgname-$pkgver -p1 < fix_nvcc_typename.patch
+
   # fsycl-device-lib flag was removed in the 2026.0 release of oneAPI
   sed -i '/-fsycl-device-lib=all/d' $_pkgname-$pkgver/dpcpp/CMakeLists.txt
   sed -i 's/-fsycl-device-lib=all//' $_pkgname-$pkgver/cmake/create_test.cmake
