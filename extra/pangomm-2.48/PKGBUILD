@@ -7,23 +7,26 @@ pkgname=(
   pangomm-2.48-docs
 )
 pkgver=2.56.1
-pkgrel=1
+pkgrel=2
 pkgdesc="C++ bindings for Pango"
 url="https://www.gtkmm.org/"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
   cairomm-1.16
-  gcc-libs
   glib2
   glibc
   glibmm-2.68
+  libgcc
+  libsigc++-3.0
+  libstdc++
   pango
 )
 makedepends=(
   cairomm-1.16-docs
   git
   glibmm-2.68-docs
+  libsigc++-3.0-docs
   meson
   mm-common
 )
