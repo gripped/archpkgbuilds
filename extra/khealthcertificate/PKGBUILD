@@ -1,17 +1,17 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=khealthcertificate
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='Handling of digital vaccination, test and recovery certificates'
 arch=(x86_64)
 url='https://www.kde.org'
 license=(LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          karchive
          kcodecs
          ki18n
+         libstdc++
          openssl
          qt6-base
          zlib)
@@ -19,7 +19,7 @@ makedepends=(extra-cmake-modules
              qt6-declarative)
 optdepends=('qt6-declarative: QML bindings')
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('8d2b3bef90e78d35a99019466cfc8856d1775881925a2836b2fb9efb297b33c1'
+sha256sums=('6061c8eef460ff7555a1f15e69c5c03e009ab907069a183be960b1807f5576c3'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
