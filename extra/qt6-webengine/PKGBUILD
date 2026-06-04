@@ -4,8 +4,8 @@
 pkgname=qt6-webengine
 _pkgver=6.11.1
 pkgver=${_pkgver/-/}
-pkgrel=1
-_chromium=
+pkgrel=3
+_chromium=03b27c14186b88d821551a0cc312b5455a7202e5
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -19,15 +19,16 @@ depends=(alsa-lib
          ffmpeg
          fontconfig
          freetype2
-         gcc-libs
          glib2
          glibc
          harfbuzz
          icu
          lcms2
+         libgcc
          libglvnd
          libjpeg-turbo
          libpng
+         libstdc++
          libtiff
          libwebp
          libx11
@@ -94,6 +95,8 @@ prepare() {
   # Bump chromium to head of stable branch
   cd src/3rdparty
   [[ -n $_chromium ]] && git checkout $_chromium || true
+
+  git revert -n d3f726be3023f698a01ba4f74533524bd81df8d6 # Revert commit that causes crashes
 }
 
 build() {
