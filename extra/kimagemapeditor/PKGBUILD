@@ -4,15 +4,14 @@
 # Contributor: Pierre Schmitz <pierre@archlinux.de>
 
 pkgname=kimagemapeditor
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 arch=(x86_64)
 pkgdesc='HTML Image Map Editor'
 url='https://apps.kde.org/kimagemapeditor/'
 license=(GPL-2.0-or-later
          LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kconfig
          kconfigwidgets
          kcoreaddons
@@ -21,6 +20,7 @@ depends=(gcc-libs
          kparts
          kwidgetsaddons
          kxmlgui
+         libstdc++
          qt6-base
          qt6-webengine)
 makedepends=(extra-cmake-modules
@@ -28,7 +28,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-graphics)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('861d233710e333b86310016a2d5e06bdc77e435874daa0229dc3223009863ad8'
+sha256sums=('5e9b4baa78c0799cf810695332ae0740deeacc0c55c1880910bf94512607567e'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
