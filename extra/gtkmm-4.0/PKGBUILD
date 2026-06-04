@@ -7,7 +7,7 @@ pkgname=(
   gtkmm-4.0-docs
 )
 pkgver=4.22.0
-pkgrel=1
+pkgrel=2
 pkgdesc="C++ bindings for GTK 4"
 url="https://www.gtkmm.org/"
 arch=(x86_64)
