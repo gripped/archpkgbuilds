@@ -2,8 +2,8 @@
 # Contributor: justforlxz <justforlxz@gmail.com>
 
 pkgname=deepin-service-manager
-pkgver=1.0.21
-pkgrel=2
+pkgver=1.0.22
+pkgrel=1
 pkgdesc='Manage DBus service on Deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-service-manager"
@@ -11,7 +11,7 @@ license=('LGPL-3.0-or-later')
 depends=('dtk6core' 'glibc' 'libgcc' 'libstdc++' 'qt6-base' 'systemd-libs')
 makedepends=('git' 'cmake' 'ninja')
 source=("git+https://github.com/linuxdeepin/deepin-service-manager.git#tag=$pkgver")
-sha512sums=('63a06ba0eab30e62cde2e0c11da801ed6ea2161778a946c894209db1f04aca7f649c930d7aa4ff521f16ba7f2ccac3725f5514c078a9f0c77c803a0dc0aa0e86')
+sha512sums=('c865c20dc9a63ddba58ead7589d566f93170ce3983bf993fb3c3aa6d2dbccb2f07a1a578e7f712327ae534cd4fe97a5224fc91347f2b3412111c66c58c16d87c')
 
 build() {
   cmake -GNinja -B build -S $pkgname -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc
