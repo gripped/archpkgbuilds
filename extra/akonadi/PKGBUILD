@@ -4,14 +4,13 @@
 # Contributor: Pierre Schmitz <pierre@archlinux.de>
 
 pkgname=akonadi
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='PIM layer, which provides an asynchronous API to access all kind of PIM data'
 arch=(x86_64)
 url='https://kontact.kde.org'
 license=(LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kcolorscheme
          kconfig
          kconfigwidgets
@@ -22,6 +21,8 @@ depends=(gcc-libs
          kitemmodels
          kwidgetsaddons
          kxmlgui
+         libgcc
+         libstdc++
          libxml2
          qt6-base
          xz)
@@ -36,7 +37,7 @@ conflicts=(libakonadi)
 provides=(libakonadi)
 replaces=(libakonadi)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('135e671bfbf4209f4aa7f019738ccbb7d46745096ac833c042b502f1e5b5453a'
+sha256sums=('cc666e4152cc82a3b0734bc34c9a70efbe173fe43a6582e9058b25a740afa866'
             'SKIP')
 install=$pkgname.install
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
