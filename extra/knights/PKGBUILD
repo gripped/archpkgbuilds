@@ -1,14 +1,13 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=knights
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='Chess board by KDE with XBoard protocol support'
 arch=(x86_64)
 url='https://apps.kde.org/knights/'
 license=(GPL-2.0-or-later LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kcompletion
          kconfig
          kconfigwidgets
@@ -23,6 +22,7 @@ depends=(gcc-libs
          kxmlgui
          libkdegames
          libplasma
+         libstdc++
          qt6-base
          qt6-speech)
 optdepends=('gnuchess: for playing against the computer')
@@ -31,7 +31,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('41ba896a61045a8246bfdbc8a1f26b330a96a330d07686a04360cb77c69f433f'
+sha256sums=('12e468394ce066c473db4475e417665e4a52ae0d19995ffb2c8359417f635801'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
