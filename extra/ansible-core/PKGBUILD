@@ -10,7 +10,7 @@
 pkgname=ansible-core
 _pkgname=ansible
 pkgver=2.21.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Radically simple IT automation platform'
 arch=('any')
 url='https://www.ansible.com'
@@ -23,7 +23,6 @@ depends=(
   'python-pyyaml'
   'python-resolvelib'
   # not directly required, but either convenient or indirectly required
-  'python-paramiko'
   'python-typing_extensions'
 )
 makedepends=(
