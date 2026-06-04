@@ -1,25 +1,25 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kio-admin
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='Manage files as administrator using the admin:// KIO protocol'
 url='https://invent.kde.org/system/kio-admin'
 arch=(x86_64)
 license=(GPL-2.0-or-later LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kcoreaddons
          ki18n
          kio
          libatomic
+         libstdc++
          polkit-qt6
          qt6-base)
 makedepends=(extra-cmake-modules)
 groups=(kde-applications
         kde-system)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('0332e53e7bebcea4f76d88478aad4d51a72ba23c32184cce88e4e1bcf7d4e7f8'
+sha256sums=('d8e5260c29490e07df04c1772ed1782dfc25d3dc2650acfd8f8e04c536a7c036'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
