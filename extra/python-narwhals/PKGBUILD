@@ -2,14 +2,14 @@
 
 pkgname=python-narwhals
 _name=${pkgname#python-}
-pkgver=2.21.2
+pkgver=2.22.0
 pkgrel=1
 pkgdesc="Extremely lightweight and extensible compatibility layer between dataframe libraries"
 arch=('any')
 url="https://narwhals-dev.github.io/narwhals/"
 license=('MIT')
 depends=(python)
-makedepends=(python-build python-installer python-wheel python-hatchling)
+makedepends=(python-build python-installer python-wheel python-uv-build)
 # Not included, as it's not currently packaged for [extra]: duckdb
 optdepends=('python-pandas: for Pandas support'
             'python-pyarrow: for PyArrows support'
@@ -22,7 +22,7 @@ checkdepends=(
 	python-polars
 )
 source=($pkgname-$pkgver.tar.gz::https://github.com/narwhals-dev/narwhals/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('0b77980360863ca4b19c21e8487ed02eab220efc52b811e97e8a6c198f224686')
+sha256sums=('ae3e01e53d0d1c839a39f64df46c922caad702dcd056990b33f55985bf55749b')
 
 build() {
   cd "$_name-$pkgver"
