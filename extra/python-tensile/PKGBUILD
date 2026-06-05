@@ -3,19 +3,27 @@
 
 pkgname=python-tensile
 pkgver=7.2.4
-pkgrel=1
+pkgrel=2
 pkgdesc="benchmark-driven backend libraries for general matrix-matrix multiplications"
 arch=('any')
 url='https://rocm.docs.amd.com/projects/Tensile/en/latest/'
 license=('MIT')
 depends=('python' 'python-msgpack' 'python-pyaml' 'python-joblib')
-makedepends=('cmake' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
-_git='https://github.com/ROCm/Tensile'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('a514e11ea6a53ab41d68e335c1dd730d1a480c74d49084450fbeef09f2df2b39')
+makedepends=('git' 'cmake' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
+_git='https://github.com/ROCm/rocm-libraries'
+source=("rocm-libraries::git+$_git.git#tag=rocm-$pkgver")
+sha256sums=('b476acbcd0f4017c800e4b05533e6dfb875bde32242729c8df557d4624379623')
+_dirname="rocm-libraries/shared/tensile"
 
 prepare() {
-	cd "Tensile-rocm-$pkgver"
+	cd ${_dirname}
+
+	# Add support for gfx103X
+	git cherry-pick -n 43a79e3aee2319377f2e69fe943b52a0c29215e8
+
+	# Add support for gfx115X
+	git cherry-pick -n 7bc1152aeaeaf9b6c0c7d3450be3d8afc571503b
+
 	# https://src.fedoraproject.org/rpms/python-tensile/blob/rawhide/f/python-tensile.spec#_85
 	sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g' Tensile/cmake/TensileConfig.cmake
 	sed -i -e 's@opt/rocm@usr@g' Tensile/Common.py
@@ -26,12 +34,12 @@ prepare() {
 }
 
 build() {
-	cd "Tensile-rocm-$pkgver"
+	cd ${_dirname}
 	python -m build --wheel --no-isolation
 }
 
 package() {
-	cd "Tensile-rocm-$pkgver"
+	cd ${_dirname}
 	python -m installer --destdir="$pkgdir" dist/*.whl
 	# cmake files are installed to the wrong location, /usr/cmake.
 	# Move them to the right directory.

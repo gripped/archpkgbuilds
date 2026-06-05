@@ -1,10 +1,11 @@
 pkgbase = python-tensile
 	pkgdesc = benchmark-driven backend libraries for general matrix-matrix multiplications
 	pkgver = 7.2.4
-	pkgrel = 1
+	pkgrel = 2
 	url = https://rocm.docs.amd.com/projects/Tensile/en/latest/
 	arch = any
 	license = MIT
+	makedepends = git
 	makedepends = cmake
 	makedepends = python-build
 	makedepends = python-installer
@@ -14,7 +15,7 @@ pkgbase = python-tensile
 	depends = python-msgpack
 	depends = python-pyaml
 	depends = python-joblib
-	source = python-tensile-7.2.4.tar.gz::https://github.com/ROCm/Tensile/archive/refs/tags/rocm-7.2.4.tar.gz
-	sha256sums = a514e11ea6a53ab41d68e335c1dd730d1a480c74d49084450fbeef09f2df2b39
+	source = rocm-libraries::git+https://github.com/ROCm/rocm-libraries.git#tag=rocm-7.2.4
+	sha256sums = b476acbcd0f4017c800e4b05533e6dfb875bde32242729c8df557d4624379623
 
 pkgname = python-tensile
