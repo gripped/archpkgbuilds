@@ -3,15 +3,13 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kdiamond
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='A single player puzzle game'
 url='https://apps.kde.org/kdiamond/'
 arch=(x86_64)
 license=(GPL-2.0-or-later LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
-         libkdegames
+depends=(glibc
          kconfig
          kconfigwidgets
          kcoreaddons
@@ -23,13 +21,15 @@ depends=(gcc-libs
          knotifyconfig
          kwidgetsaddons
          kxmlgui
+         libkdegames
+         libstdc++
          qt6-base)
 makedepends=(extra-cmake-modules
              kdoctools)
 groups=(kde-applications
         kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('894329bf72ad3cb1872cd50549586654c75945b3f025d9dd6819ed4057a49ce0'
+sha256sums=('c80855502162b8567fa46f5b6683bd73eaa625fb8a9beb86a524ae4095a6b18e'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
