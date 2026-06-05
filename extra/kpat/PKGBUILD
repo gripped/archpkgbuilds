@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kpat
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='Offers a selection of solitaire card games'
 url='https://apps.kde.org/kpat/'
@@ -11,7 +11,6 @@ arch=(x86_64)
 license=(GPL-2.0-or-later LGPL-2.0-or-later)
 depends=(black-hole-solver
          freecell-solver
-         gcc-libs
          glibc
          kcompletion
          kconfig
@@ -26,6 +25,7 @@ depends=(black-hole-solver
          kwidgetsaddons
          kxmlgui
          libkdegames
+         libstdc++
          qt6-base
          qt6-svg)
 makedepends=(extra-cmake-modules
@@ -33,7 +33,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('35a95123cc98563970f854a73acf063c139670f592bd0076d997230c4c86b27a'
+sha256sums=('c0ae10f2c10e2413351ea79cbc83d9a56ec1c37c57065dc3d5e481d37c76afd7'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
