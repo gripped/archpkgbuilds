@@ -2,14 +2,13 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=konqueror
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='KDE File Manager & Web Browser'
 arch=(x86_64)
 url='https://apps.kde.org/konqueror/'
 license=(LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          karchive
          kbookmarks
          kcmutils
@@ -34,6 +33,7 @@ depends=(gcc-libs
          kwidgetsaddons
          kwindowsystem
          kxmlgui
+         libstdc++
          plasma-activities
          qt6-base
          qt6-webengine
@@ -47,7 +47,7 @@ optdepends=('kdesu: shell command plugin')
 groups=(kde-applications
         kde-network)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('0049726058e323d46fd1eb6271b30cae6289d828baa4508db60ab0b2f477a4f9'
+sha256sums=('aa9a35f81fa1f30aac1d77b9008d074fb041b2a7c12319d1f8c9b194137e57de'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
