@@ -1,0 +1,15 @@
+diff --git i/routersploit/core/ssh/ssh_client.py w/routersploit/core/ssh/ssh_client.py
+index 4c4250a..161290d 100644
+--- i/routersploit/core/ssh/ssh_client.py
++++ w/routersploit/core/ssh/ssh_client.py
+@@ -83,7 +83,9 @@ class SSHCli:
+         """
+ 
+         if "DSA PRIVATE KEY" in priv_key:
+-            priv_key = paramiko.DSSKey.from_private_key(io.StringIO(priv_key))
++            # paramiko removed DSSKey as DSA is obsolete and unsupported by
++            # modern OpenSSH, so DSA private keys can no longer be used.
++            return False
+         elif "RSA PRIVATE KEY" in priv_key:
+             priv_key = paramiko.RSAKey.from_private_key(io.StringIO(priv_key))
+         else:

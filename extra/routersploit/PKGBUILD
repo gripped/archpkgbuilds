@@ -4,7 +4,7 @@
 
 pkgname=routersploit
 pkgver=3.4.7
-pkgrel=2
+pkgrel=3
 pkgdesc='Open-source exploitation framework dedicated to embedded devices'
 arch=(any)
 url='https://github.com/threat9/routersploit'
@@ -21,6 +21,7 @@ depends=(
   python-urllib3
 )
 makedepends=(
+  git
   python-build
   python-installer
   python-wheel
@@ -32,26 +33,30 @@ checkdepends=(
   python-threat9-test-bed
 )
 source=(
-  "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+  "git+$url#tag=v$pkgver"
   "$pkgname-python-3.13-compat-remove-telnet-support.patch"
+  "$pkgname-paramiko-remove-dsa-support.patch"
 )
-sha512sums=('e2a649b9c49b9eb564f93d0525b5221bff931571e5add7ff8ef2f30bd2c34f1bba5285b073d807671b6ff527da1bbfdb7887d1b785bba729b984b8be62628e5e'
-            'a8d777e2a97205ce4ed7ab36541db4648bb5c3bc43a46806a76eceb98b1a158da0dd0647cdeb2ae2e7a1041c31102ff22cb46af6ab4ab4256ff9e2bc72db8230')
-b2sums=('289afca5403ba0e1b9361a613034bfd0bb9e248e0d2ce18d005579fcdc74e783de252ae69dfbf4ae042fc82ec7d9202f86dbc7dcde0b17ec994b8dc87fd464c1'
-        'cb806ef3235d61f4cd98a7979bffe192e232fd1127a05bf6acc49d435bd01290c5fcddc066fc336f6e5e8f4cf076156bf58253f3e76406ae3e4941488f74b9e8')
+sha512sums=('7d9bb5a97da2011329285a8d711dbb0e804ff4c7e7fd5e48a139a2c28cad2a12f51b4fd87b6bba495cf36dc311e9b78d867aa3b2e4828ee64d17ed5271d89989'
+            'a8d777e2a97205ce4ed7ab36541db4648bb5c3bc43a46806a76eceb98b1a158da0dd0647cdeb2ae2e7a1041c31102ff22cb46af6ab4ab4256ff9e2bc72db8230'
+            '4de0630a3480849704b3ef6272c2e9b6c2b56cc69b8e69921a68be92e204ddbde62e48913d214a4203c1246bf102cfa9302baf25fb7fb65dc751060a52ecfd31')
+b2sums=('9cfd9e879999a8cb66f2e3ecdd2f5ee7b16e3399fa56001e01c9455d902713174160670c60997c7de63b59c4fb1fe186663f42afaa9b26d5b033712de28e73fc'
+        'cb806ef3235d61f4cd98a7979bffe192e232fd1127a05bf6acc49d435bd01290c5fcddc066fc336f6e5e8f4cf076156bf58253f3e76406ae3e4941488f74b9e8'
+        'a3a7f3ba4364ffb5d4642e306952ca34dafcf92144b2531cf41b6bcc67ac8fddf5cea5fdec16a6f8cd000ae877cc5b079b36204a0d00689eeb0fd49ed0a3880c')
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   patch -p1 < ../$pkgname-python-3.13-compat-remove-telnet-support.patch
+  patch -p1 < ../$pkgname-paramiko-remove-dsa-support.patch
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   local pytest_args=(
     -n auto
     -k 'not telnet'
@@ -59,14 +64,6 @@ check() {
     # python-threat9-test-bed uses deprecated asyncio.get_event_loop() which
     # raises RuntimeError in Python 3.14.
     --ignore=tests/creds/
-
-    # ssh_auth_keys uses paramiko.DSSKey which was removed (DSA is obsolete).
-    --deselect=tests/test_exploit_scenarios.py::test_exploit_trash_response[Exploit23]
-    --deselect=tests/test_exploit_scenarios.py::test_exploit_empty_response[Exploit23]
-    --deselect=tests/test_exploit_scenarios.py::test_exploit_not_found_response[Exploit23]
-    --deselect=tests/test_exploit_scenarios.py::test_exploit_error_response[Exploit23]
-    --deselect=tests/test_exploit_scenarios.py::test_exploit_redirect_response[Exploit23]
-    --deselect=tests/test_exploit_scenarios.py::test_exploit_timeout_response[Exploit23]
 
     # Flaky tests.
     --deselect=tests/exploits/cameras/multi/test_cctv_dvr_rce.py::test_check_success
@@ -81,7 +78,7 @@ check() {
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
   rm -vrf "$pkgdir"/usr/lib/python*/site-packages/tests
   mv -v "$pkgdir/usr/bin/rsf"{.py,}
