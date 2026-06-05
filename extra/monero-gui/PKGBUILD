@@ -2,7 +2,7 @@
 
 pkgname=monero-gui
 pkgver=0.18.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Qt GUI wallet for Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
 arch=('x86_64')
@@ -47,7 +47,6 @@ source=(
   "git+https://github.com/trezor/trezor-common.git"
   "git+https://github.com/tevador/RandomX.git"
   "git+https://github.com/monero-project/supercop.git"
-  "monero-gui.desktop"
 )
 sha512sums=('b0717d68266e303e3325d2c8a81384d31e95180661dfb4bbc91b543a9ec18aad23b8e2ca7394d7da125277a39f7ad447a6e5c10eb3128006703743e9837594c9'
             'SKIP'
@@ -56,8 +55,7 @@ sha512sums=('b0717d68266e303e3325d2c8a81384d31e95180661dfb4bbc91b543a9ec18aad23b
             'SKIP'
             'SKIP'
             'SKIP'
-            'SKIP'
-            '98b67aec60e492f0a220a156a110baf96862343d3802ec34347c70c7af671a1ae49ccaec218f2e8f81e153c433e9145ad2f55b8613ce6999fc2c87fbd81fd8e1')
+            'SKIP')
 validpgpkeys=(
   '8777AB8F778EE89487A2F8E7F4ACA0183641E010' # luigi1111 <luigi1111w@gmail.com>
   '487277A8BD0A209C16B700F3C64552D877C32479' # Alexander Blair (Snipa / Snipa22) <snipa@jagtech.io>
@@ -97,9 +95,10 @@ package() {
   install -Dm755 build/bin/monero-wallet-gui -t "${pkgdir}/usr/bin"
   install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
 
-  install -Dm644 ../monero-gui.desktop -t "${pkgdir}/usr/share/applications"
+  install -Dm644 share/org.getmonero.Monero.desktop -t "${pkgdir}/usr/share/applications"
+  install -Dm644 share/org.getmonero.Monero.metainfo.xml -t "${pkgdir}/usr/share/metainfo"
   for x in 16 24 32 48 64 96 128 256; do
-    install -Dm644 "images/appicons/${x}x${x}.png" "${pkgdir}/usr/share/icons/hicolor/${x}x${x}/apps/monero-gui.png"
+    install -Dm644 "images/appicons/${x}x${x}.png" "${pkgdir}/usr/share/icons/hicolor/${x}x${x}/apps/org.getmonero.Monero.png"
   done
 }
 
