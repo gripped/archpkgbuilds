@@ -3,14 +3,13 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kollision
-pkgver=26.04.1
+pkgver=26.04.2
 pkgrel=1
 pkgdesc='A simple ball dodging game'
 url='https://apps.kde.org/kollision/'
 arch=(x86_64)
 license=(GPL-2.0-or-later LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kconfig
          kconfigwidgets
          kcoreaddons
@@ -21,13 +20,14 @@ depends=(gcc-libs
          kwidgetsaddons
          kxmlgui
          libkdegames
+         libstdc++
          qt6-base)
 makedepends=(extra-cmake-modules
              kdoctools)
 groups=(kde-applications
         kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('e7d7005d36ee985a8b8c9005d4a49a1a0392e92944ba65aa7d0e4728de1b354e'
+sha256sums=('2621bbb7d34bee9dc3d6ccd1bc90e315eed5e2eb7ee73cb6635b83b4b2ea9327'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
