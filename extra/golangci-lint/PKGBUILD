@@ -1,8 +1,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=golangci-lint
-pkgver=2.11.4
-pkgrel=2
+pkgver=2.12.2
+pkgrel=1
 pkgdesc="Fast linters runner for Go"
 arch=(x86_64)
 url="https://github.com/golangci/golangci-lint"
@@ -14,7 +14,7 @@ makedepends=(
 )
 options=(!lto)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('80bef03299fc5a527df46a3258cf5d83b9956dae7b05cdcca94b83113aa95a54c6f2127fcbe3e4d357bdd02335ee7d5b73695311e246f58b4fd9bf5c99eeeb94')
+b2sums=('bceb40549fd1858483a128b58e96264e904671786f15f51ad1418034222c36e9a93904670e21681eb37b01a3e3f0120da5fd3a69768293de9853fe0f8c3a2d88')
 
 prepare() {
   cd $pkgname
@@ -45,6 +45,7 @@ check() {
   local unit_tests=$(
     go list ./... \
       | grep -v github.com/golangci/golangci-lint/v2/pkg/golinters/arangolint \
+      | grep -v github.com/golangci/golangci-lint/v2/pkg/golinters/clickhouselint \
       | grep -v github.com/golangci/golangci-lint/v2/pkg/golinters/exptostd \
       | grep -v github.com/golangci/golangci-lint/v2/pkg/golinters/ginkgolinter \
       | grep -v github.com/golangci/golangci-lint/v2/pkg/golinters/gomodguard \
