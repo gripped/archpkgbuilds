@@ -2,7 +2,7 @@
 # Contributor: Marcell Pardavi <marcell.pardavi@gmail.com>
 
 pkgname=zed
-pkgver=1.4.4
+pkgver=1.5.3
 pkgrel=1
 pkgdesc='A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter'
 arch=(x86_64)
@@ -42,7 +42,7 @@ optdepends=('org.freedesktop.secrets: to keep you logged into your Zed account')
 replaces=(zed-editor)
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('9f074bf56d088804a458747c833c4e85a7afe9a8856c8c30b20159ac51a314b3')
+sha256sums=('7c5e5b7445f9fb02155275efe5c8f86d0b7b2f833a0a4a470b344fa44ddef640')
 
 _binname=zeditor
 _appid=dev.zed.Zed
@@ -56,7 +56,11 @@ prepare() {
 	export APP_CLI="$_binname"
 	export APP_ID="$_appid"
 	export APP_ARGS="%U"
+	export BRANDING_LIGHT="#99c1f1"
+	export BRANDING_DARK="#1a5fb4"
 	envsubst < "crates/zed/resources/zed.desktop.in" > $_appid.desktop
+	envsubst < "crates/zed/resources/flatpak/zed.metainfo.xml.in" > $_appid.metainfo.xml
+	sed -i '/@release_info@/d' $_appid.metainfo.xml
 	./script/generate-licenses
 }
 
@@ -92,5 +96,6 @@ package() {
 	install -Dm0755 target/release/cli "$pkgdir/usr/bin/$_binname"
 	install -Dm0755 target/release/zed "$pkgdir/usr/lib/$pkgname/zed-editor"
 	install -Dm0644 -t "$pkgdir/usr/share/applications/" "$_appid.desktop"
+	install -Dm0644 -t "$pkgdir/usr/share/metainfo/" "$_appid.metainfo.xml"
 	install -Dm0644 crates/zed/resources/app-icon.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/$pkgname.png"
 }
