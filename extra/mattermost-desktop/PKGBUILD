@@ -9,7 +9,7 @@
 
 pkgname=mattermost-desktop
 pkgver=6.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Mattermost Desktop application'
 arch=(x86_64)
 url="https://github.com/${pkgname/-//}"
@@ -30,7 +30,7 @@ source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "$pkgname.desktop")
 sha256sums=('a22b9b43366266187a34aecfe2dc3f37b2674525b0feead6245a7a852e81ef05'
             '1c2bf48b6397d04a5a536c5c9f4960db53249c838c380f03f808c612b00ba4c6'
-            '27c798af15d6aefbd41da5aacb9f9b15438349c649e9c05658387981760fd3b7')
+            'dd34024e4853b6e3b763f4b4dc683ff018a50888ab7da9ba8057a7dc3c357be5')
 
 _npmargs="--cache '$srcdir/npm-cache' --no-audit --no-fund"
 
