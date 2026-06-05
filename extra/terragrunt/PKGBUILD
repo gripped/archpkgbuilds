@@ -4,7 +4,7 @@
 # Contributor: Andreas 'Segaja' Schleifer <archlinux at segaja dot de>
 
 pkgname=terragrunt
-pkgver=1.0.5
+pkgver=1.0.6
 pkgrel=1
 pkgdesc='Thin wrapper for Terraform and OpenTofu for working with multiple modules'
 arch=(x86_64)
@@ -20,8 +20,8 @@ makedepends=(
 )
 options=('!lto')
 source=("git+$url.git#tag=v$pkgver")
-sha512sums=('503f721f2810a1b2d0d6a6de3a5f85dad5c6493e365ed3905770e315e1c5136b2000fbda0502e3d62bf416ed510b84b2c44b99bab81480eee0e646b31bb2a80a')
-b2sums=('fa71c0ace4c982480fc6a36c606963b5327678d824638dd66546fe1beb55d6975cf0216fffc29e0f2d9f1e571f5b02f711f87d1aeb94d1863574b2411447c11a')
+sha512sums=('7e5053ff0b71f13f950ee1e6da377d04e069967c5679d42342b158c93c737225162ac78658a4f246002d9f8cabbed767b03c1a6b3d4272e9ee04738b4ea271f4')
+b2sums=('693c25e090b093669b8daf6967e870b6c584329e7dca2ef8e3435ca6731c1dbb2549e487172c40ac228a82f1f3604fe034db42d2639a35c6272c382a53673d17')
 
 prepare() {
   cd $pkgname
