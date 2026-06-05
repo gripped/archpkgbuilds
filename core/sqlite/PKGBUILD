@@ -3,7 +3,7 @@
 
 pkgbase="sqlite"
 pkgname=('sqlite' 'sqlite-tcl' 'sqlite-analyzer' 'lemon' 'sqlite-doc')
-pkgver=3.53.1
+pkgver=3.53.2
 _srcver=$(echo "$pkgver" | awk -F. '{ printf "%d%02d%02d00", $1, $2, $3 }')
 _docver=${_srcver}
 #_docver=3440000
@@ -19,8 +19,8 @@ source=(https://www.sqlite.org/2026/sqlite-src-${_srcver}.zip
         sqlite-lemon-system-template.patch
         license.txt)
 # upstream now switched to sha3sums - currently not supported by makepkg
-sha256sums=('1b2b5755d9064c4d5d1b0bf5307b48b089963e291c40cc7351318aa1b61c460e'
-            '9fd060bf7dd8c2c78e7411d06fb81dc8aaa059eb61eec80c65e0658a8545b433'
+sha256sums=('cafff764c03f6d720968f746e2f47a986bbf12bf4c18904f1eb131c0b0b592d3'
+            '30c5488926e72a0b958d64377c91c975a35a8f16d285cbb83cfad31f4af71c6d'
             'ce0083835e458236c83d4f74ad398816e29859cd2f940c7aad9080835b50dcec'
             '4e57d9ac979f1c9872e69799c2597eeef4c6ce7224f3ede0bf9dc8d217b1e65d')
 
@@ -63,7 +63,7 @@ build() {
   sed -i -e 's/$(LDFLAGS.libsqlite3)/ -Wl,-O1,--as-needed \0/g' main.mk
   make
   # build additional tools - broken build: changeset rbu
-  make dbdump dbhash dbtotxt index_usage scrub showdb showjournal showshm \
+  make dbdump dbhash dbtotxt index_usage showdb showjournal showshm \
        showstat4 showwal sqldiff sqlite3_analyzer \
        sqlite3_expert sqlite3_rsync sqltclsh
 }
@@ -78,11 +78,8 @@ package_sqlite() {
   cd sqlite-src-$_srcver
   make DESTDIR="${pkgdir}" install
 
-  install -m755 dbdump dbhash dbtotxt index_usage scrub showdb showjournal showshm \
+  install -m755 dbdump dbhash dbtotxt index_usage  showdb showjournal showshm \
          showstat4 showwal sqldiff sqlite3_expert sqlite3_rsync "${pkgdir}"/usr/bin/
-
-  # rename to avoid file conflicts
-  mv "${pkgdir}"/usr/bin/scrub "${pkgdir}"/usr/bin/sqlite3_scrub
 
   # install manpage
   install -m755 -d "${pkgdir}"/usr/share/man/man1
