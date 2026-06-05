@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=rabbitmqadmin
-pkgver=2.30.0
+pkgver=2.31.0
 pkgrel=1
 epoch=1
 pkgdesc="A command line tool for RabbitMQ that uses the HTTP API"
@@ -18,7 +18,7 @@ makedepends=(
 )
 options=(!lto)
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-b2sums=('21fdd8de0baa0523b95ab76c0672f5157dcbdee349821e1d1e854b871e2b88bfbfde04598f4d3ebb79c84c982f075126f21f1c7a7c38634607883b69dd1d6771')
+b2sums=('64cdeb295d6c57186cd7191e1ae53a3801c1306e6800225f35e302e2ddd5853238fe55180e9f7bce477a26a4af5732a52b79da260b03dc7499fc52f428a43866')
 
 prepare() {
   cd $pkgname
