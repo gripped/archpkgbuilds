@@ -1,7 +1,7 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=librist
-pkgver=0.2.14
+pkgver=0.2.17
 pkgrel=1
 pkgdesc='A library that can be used to add the RIST protocol to applications'
 arch=('x86_64')
@@ -17,12 +17,17 @@ makedepends=(
     'cmocka'
     'meson')
 source=("https://code.videolan.org/rist/librist/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.bz2"
-        '010-librist-disable-multicast-tests.patch')
-sha256sums=('26644679254849469c6dc8cd8af785242ff0002839668161aec2603513f8e208'
-            '1556f75a2c5f02cf7792421225d3e0bf2f07d0f71a91f9736fe1575a25a73097')
+        '010-librist-disable-multicast-tests.patch'
+        '020-librist-fix-srp_unit_test.patch'::'https://code.videolan.org/rist/librist/-/commit/f8d31daefe93a900b6b04614819d18564173401c.patch')
+sha256sums=('853e659635fbed4caf31d8fa20274e6357b9493945dbc30358346fcbf4b31880'
+            '610c8247cdc0c251c6de46a8bd27a013eeef6d2547483ef96e426638f2eb2edb'
+            'bafe4524d9482390cb7590bd72e12cc282e03148c4c85f80b25bbb6f0650bd57')
 
 prepare() {
     patch -d "${pkgname}-v${pkgver}" -Np1 -i "${srcdir}/010-librist-disable-multicast-tests.patch"
+    
+    # https://code.videolan.org/rist/librist/-/work_items/215
+    patch -d "${pkgname}-v${pkgver}" -Np1 -i "${srcdir}/020-librist-fix-srp_unit_test.patch"
 }
 
 build() {
