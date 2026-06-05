@@ -10,26 +10,30 @@
 # Contributor: John Cheetham <https://gitlab.com/johncheetham>
 
 pkgname=griffith
-pkgver=0.25
+pkgver=0.26
 pkgrel=1
 pkgdesc='Movie collection manager application'
 arch=('any')
 url='https://gitlab.com/Strit/griffith'
 license=('GPL-2.0-or-later')
 depends=(
+        'gdk-pixbuf2'
+        'glib2'
+        'gtk3'
         'gtkspell3'
+        'hicolor-icon-theme'
+        'python'
+        'python-beautifulsoup4'
         'python-chardet'
         'python-gobject'
         'python-pillow'
         'python-reportlab'
-        'python'
-        'gtk3'
-        'gdk-pixbuf2'
+        'python-requests'
         'python-sqlalchemy'
 )
 optdepends=('python-tmdbsimple: For TMDB plugin support')
 source=("https://gitlab.com/Strit/$pkgname/-/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('c7558e760727df195d75273737b539d9b0a9ef556ef7a6ab605cdb7e508ebcec')
+sha256sums=('9b6878012bd37167c078ec14a6bd0da0f3ed6800a5e090595fd28fb06809204f')
 
 package() {
   cd $pkgname-$pkgver
