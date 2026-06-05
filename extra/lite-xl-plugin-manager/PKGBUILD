@@ -2,13 +2,12 @@
 
 pkgname=lite-xl-plugin-manager
 pkgver=1.4.7
-pkgrel=1
+pkgrel=3
 pkgdesc='Lite XL Plugin Manager'
 arch=(x86_64 aarch64)
 url='https://github.com/lite-xl/lite-xl-plugin-manager'
-license=(custom:LPM)
-depends=(freetype2
-         glibc # libc.so
+license=(MIT)
+depends=(glibc # libc.so
          libgit2 libgit2.so
          libzip libzip.so
          lite-xl
@@ -17,6 +16,7 @@ depends=(freetype2
          xz liblzma.so
          zlib libz.so)
 makedepends=(meson)
+replaces=(lpm)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
 sha256sums=('0df5649c703c7e4ed675f58c16ab13a3f52b5530c0e5388dc8d2cf7e37fd1b7f')
@@ -26,6 +26,8 @@ build() {
 		install_plugin=true
 		static=true
 	)
+	# https://github.com/lite-xl/lite-xl-plugin-manager/issues/185
+	CFLAGS+=" -DLPM_VERSION='\"$pkgver\"' -DLPM_DEFAULT_RELEASE=''"
 	arch-meson "$_archive" build ${meson_opts[@]/#/-D }
 	meson compile -C build
 }
