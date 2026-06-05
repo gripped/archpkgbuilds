@@ -3,7 +3,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=rclone
-pkgver=1.74.2
+pkgver=1.74.3
 pkgrel=1
 pkgdesc="rsync for cloud storage"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('glibc')
 optdepends=('fuse3: for rclone mount')
 makedepends=('python' 'go' 'git' 'fuse3')
 source=("git+https://github.com/rclone/rclone.git#tag=v${pkgver}?signed")
-sha512sums=('4fdc13204dd4b565dd107a5274fdf2a88308e39da51e29b91f9ce6b7cac2dd5f54edb242450ec2646a12e45e4efa553642ee89f429000400212242b0aa44fa69')
+sha512sums=('4acafabb86b7a59d2239dc4c48c6a11ce196628f251a876e358844724bf717a9782e01a7d4093e1a3c25e595740a014fdd43266d12e0acb9a352e8a0763ac3e0')
 validpgpkeys=(E3B358DC858FB307F48170B9CB0DBEBC5F32C81D) # Nick Craig-Wood
 options=(!lto)
 
