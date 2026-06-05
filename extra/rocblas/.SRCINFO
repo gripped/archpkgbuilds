@@ -1,11 +1,12 @@
 pkgbase = rocblas
 	pkgdesc = Next generation BLAS implementation for ROCm platform
 	pkgver = 7.2.4
-	pkgrel = 1
+	pkgrel = 2
 	url = https://rocm.docs.amd.com/projects/rocBLAS/en/latest/index.html
 	arch = x86_64
 	license = MIT
 	makedepends = cmake
+	makedepends = ninja
 	makedepends = gcc-fortran
 	makedepends = git
 	makedepends = msgpack-cxx
@@ -33,7 +34,7 @@ pkgbase = rocblas
 	optdepends = gtest: for rocblas-bench and rocblas-gemm-tune
 	optdepends = rocm-smi-lib: for rocblas-bench and rocblas-gemm-tune
 	options = !strip
-	source = rocm-libraries-7.2.4.tar.gz::https://github.com/ROCm/rocm-libraries/archive/refs/tags/rocm-7.2.4.tar.gz
-	sha256sums = 50a4090b4ad18b34c375f666e5f71816cf55f89bc2175dc3eba9a7b80f65a15d
+	source = rocm-libraries::git+https://github.com/ROCm/rocm-libraries#tag=rocm-7.2.4
+	sha256sums = b476acbcd0f4017c800e4b05533e6dfb875bde32242729c8df557d4624379623
 
 pkgname = rocblas
