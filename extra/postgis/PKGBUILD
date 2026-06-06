@@ -4,8 +4,8 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=postgis
-pkgver=3.6.2
-pkgrel=3
+pkgver=3.6.3
+pkgrel=1
 pkgdesc="A spatial database extender for PostgreSQL"
 arch=(x86_64)
 url="https://postgis.net/"
@@ -30,16 +30,12 @@ makedepends=(
   llvm
 )
 changelog=$pkgname.changelog
-source=(https://download.osgeo.org/postgis/source/${pkgname}-${pkgver}.tar.gz
-        gdal-3.13.patch)
-sha256sums=('d488089a64ee4060bce7dbba0291fcca358e7f7ac5230e2ee5b344e7485729c4'
-            '55a9e65f97268ff0e6e0add937a25305a4834e991f6c7708a97e9f8058376be6')
-b2sums=('66a998b1495bd4c03943fa718f08dee5abcd7ee9f16c3eec87574672f785359456f3d1913b1d26882968ce812bda8db86b5fc42c241ed82b1eb75a227034280c'
-        '75636435fc476df4ccbf3420605a1eb1234048b831ec0f20e0886bdf73b49fd62f7221dd3ddb36277fabd0464399656c955a2929cddd407fc71ef3345a1fd766')
+source=(https://download.osgeo.org/postgis/source/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('58ff19ae133e470280efb4949ef92e0364d4c2a66bef8c57e69477348d815ea3')
+b2sums=('2d80c164dbcbdd462d0dfdf4890f372dda25eeeea370c9d8edf1c838ea07867bdc1456fb8f9e33f67ef9b10f45b0a32a541b0dfe2cbf91e1618d11ed7a7b40b3')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  patch -p1 -i ../gdal-3.13.patch
   autoreconf -vfi
 }
 
