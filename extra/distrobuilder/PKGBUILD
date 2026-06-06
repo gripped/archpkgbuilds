@@ -4,12 +4,13 @@
 
 pkgname=distrobuilder
 pkgver=3.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='System container image builder for Incus and LXC'
 arch=(x86_64)
 url='https://linuxcontainers.org/distrobuilder/'
 license=(Apache-2.0)
 depends=(
+  glibc
   rsync
   squashfs-tools
   gnupg
@@ -19,6 +20,7 @@ depends=(
   qemu-img
   e2fsprogs
   btrfs-progs
+  sqlite
 )
 makedepends=(go git)
 optdepends=(
@@ -60,7 +62,7 @@ build() {
     -ldflags "-compressdwarf=false \
     -linkmode external \
     -extldflags '${LDFLAGS}'" \
-    -tags=containers_image_storage_stub,containers_image_docker_daemon_stub,containers_image_openpgp \
+    -tags=containers_image_storage_stub,containers_image_docker_daemon_stub,containers_image_openpgp,libsqlite3 \
     -o build \
     ./...
 }
