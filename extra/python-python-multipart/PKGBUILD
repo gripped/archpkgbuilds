@@ -3,7 +3,7 @@
 
 _pkgname=python-multipart
 pkgname=python-$_pkgname
-pkgver=0.0.31
+pkgver=0.0.32
 pkgrel=1
 pkgdesc='streaming multipart parser for Python'
 arch=('any')
@@ -13,7 +13,7 @@ depends=('python')
 makedepends=('python-build' 'python-installer' 'python-hatchling')
 checkdepends=('python-pytest' 'python-yaml')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/kludex/python-multipart/archive/$pkgver.tar.gz")
-sha512sums=('dcd7848b931214ac52b5ae90cc32c0b7b6a41ab8077c12d2f690f41bf7a1134ac76a7721b7fea9a9cb069a131417b75cb27b9afdb36cadfe445964777c6f3925')
+sha512sums=('58bdfabec8a6840fccdfc759cf57f88dabf9e2cec06499ba23c8690a1a73a308e8789b17a9559a9e0a0eda2c09c5b5755e4336b65ff9d173d68dbab649476ba1')
 
 build() {
   cd $_pkgname-$pkgver
