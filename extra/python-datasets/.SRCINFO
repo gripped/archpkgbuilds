@@ -1,6 +1,6 @@
 pkgbase = python-datasets
 	pkgdesc = Ready-to-use datasets for ML models with fast, easy-to-use and efficient data manipulation tools
-	pkgver = 4.8.5
+	pkgver = 5.0.0
 	pkgrel = 1
 	url = https://github.com/huggingface/datasets
 	arch = any
@@ -17,6 +17,7 @@ pkgbase = python-datasets
 	checkdepends = python-soxr
 	checkdepends = python-sqlalchemy
 	checkdepends = python-torchcodec
+	checkdepends = python-trimesh
 	checkdepends = python-zstandard
 	makedepends = python-build
 	makedepends = python-installer
@@ -45,7 +46,8 @@ pkgbase = python-datasets
 	optdepends = python-pillow: Vision datasets
 	optdepends = python-tensorflow: TensorFlow support
 	optdepends = python-pytorch: PyTorch support
-	source = python-datasets-4.8.5.tar.gz::https://github.com/huggingface/datasets/archive/refs/tags/4.8.5.tar.gz
-	b2sums = 3ab237f44f852d5b6ec6b482b6f21332583ab3136991fb361ef4f64f5f23be39c38c0f6af4c1f4db43104adb1f7636a3f6fcb14f637bd73460067e3a19ebd7e4
+	optdepends = python-trimesh: for decoding meshes
+	source = python-datasets-5.0.0.tar.gz::https://github.com/huggingface/datasets/archive/refs/tags/5.0.0.tar.gz
+	b2sums = 1dab53d140996dc344d12b4ddffdeebd3b70fd14e6068ccef00f5f237e0090cfe58a3069c1120e747899f815847cc607e1e47243c03e1d6fa6b3cea9386d8a39
 
 pkgname = python-datasets
