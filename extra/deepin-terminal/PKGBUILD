@@ -3,12 +3,12 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-terminal
-pkgver=6.5.35
-pkgrel=2
+pkgver=6.5.36
+pkgrel=1
 pkgdesc='Default terminal emulation application for Deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-terminal"
-license=('GPL-3.0-or-later')
+license=('BSD-3-Clause' 'CC-BY-4.0' 'CC0-1.0' 'GPL-2.0-or-later' 'GPL-3.0-or-later' 'LGPL-3.0-or-later')
 depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'fontconfig' 'glib2' 'glibc'
          'hicolor-icon-theme' 'icu' 'libgcc' 'libstdc++' 'qt6-5compat' 'qt6-base'
          'libchardet' 'libsecret' 'libxcb' 'uchardet')
@@ -17,7 +17,7 @@ makedepends=('git' 'cmake' 'ninja' 'lxqt-build-tools' 'qt6-tools')
 optdepends=('zssh: for remote management support')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-terminal.git#tag=$pkgver")
-sha512sums=('e4e97fb0a5504864e76606c0b49b1a71bb96f12bf201f597667ccaf155aa0d216893f76ea07ed680efba6f511eba1f5951e582511df4874bde6be2b824e4eea1')
+sha512sums=('eb4bc32fb1ed307b048f02fbfbdcca469908979c27f4400c3a3d49ad30351369ef47a65ce976be921153d1c45f46f8568faedc78db173f0e3df8480752157da5')
 
 build(){
   cd deepin-terminal
