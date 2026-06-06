@@ -3,7 +3,7 @@
 # Contributor: Clar Fon <them@lightdark.xyz>
 
 pkgname=abuild
-pkgver=3.16.0
+pkgver=3.17.0
 pkgrel=1
 pkgdesc="Alpine build tools"
 url="https://gitlab.alpinelinux.org/alpine/abuild"
@@ -23,17 +23,13 @@ backup=("etc/${pkgname}.conf")
 install="${pkgname}.install"
 source=("${url}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "${pkgname}.sysusers"
-        "${pkgname}.tmpfiles"
-        'allow_running_abuild_rootbld.patch')
-sha512sums=('1a889ac88715ef988d3970163122d603329c5b02e85b0329b497c1b940a2dc25d852f25320af79415d6b2050184d9ff14ccfcc14f286d3b2dabad19634861026'
+        "${pkgname}.tmpfiles")
+sha512sums=('9112b64fa9ecb51c7dd34da08cae77c2334a2cc1e84a16c2071731b0688c6c6c2d584481ea8d516c3355c7d6ed4febd8109444ca1a3d3a0a410f3d3c4593933f'
             'b6099d7dd0ce1128e1e5263c2fc95bfb8d0e26e02b4f7255f066f65ce405c19bf519fce90420e796a510b51c228a515415bdb021d32814271b11f9306b1ff62b'
-            'f070f0dfb0b4c0ba443851f7e1115e42f76b0d1c6f866101df9dd3dda5ba2280065e50d459e7eda6262a42d10c2460f2ad0f88f02faf69a2188c02773bbbe423'
-            '88a972802934f2d3e8440ff3de0ce9c3d2a4b4215244cea0508ff453c48fe1064749339ee1d24f196cec96ae2a9a396b8587adabeceeec155f10ed101d3b7677')
+            'f070f0dfb0b4c0ba443851f7e1115e42f76b0d1c6f866101df9dd3dda5ba2280065e50d459e7eda6262a42d10c2460f2ad0f88f02faf69a2188c02773bbbe423')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
-	patch -Np1 -i "${srcdir}/allow_running_abuild_rootbld.patch"
-
 	find -type f | while read file; do
 		sed -E -i "${file}" \
 			-e '1s|#!/usr/bin/env ash$|#!/bin/busybox ash|' \
@@ -50,7 +46,6 @@ build() {
 package() {
 	cd "${pkgname}-${pkgver}"
 	make install VERSION="${pkgver}" DESTDIR="${pkgdir}"
-
 	install -Dm 644 "${pkgname}.conf" "${pkgdir}/etc/${pkgname}.conf"
 	install -Dm 644 "${srcdir}/${pkgname}.sysusers" "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"
 	install -Dm 644 "${srcdir}/${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
