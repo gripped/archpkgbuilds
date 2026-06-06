@@ -2,8 +2,8 @@
 # Contributor: muzhed <chustokes@126.com>
 
 pkgname=din
-pkgver=58.1
-pkgrel=3
+pkgver=64.2
+pkgrel=1
 pkgdesc="A sound synthesizer and musical instrument."
 arch=(x86_64)
 url="https://dinisnoise.org/"
@@ -25,17 +25,17 @@ makedepends=(
   rtmidi
 )
 source=(
-  https://archive.org/download/dinisnoise_source_code/$pkgname-$pkgver.tar.gz
-  $pkgname-58.1-devendor_rtaudio_rtmidi.patch
+  $url/files/$pkgname-$pkgver.tar.gz
+  $pkgname-devendor_rtaudio_rtmidi.patch
 )
-sha512sums=('ee2d63309347167af3b4e41a0ad3ce1faad727a4e079cd9e63d402b680144aed81dbee9d38bc517acbb30a1c9af18b726841d0c94d96cbfb2b1581da98af21c1'
-            '70ab82005f97bee92554db8e5effadce361cb8bd3e0c0dbdf379f4a8632c9718b0552bf9c84168aeaabe4a5cb655dedd0ac3988c01e1cf8b09cf911e83abb96e')
-b2sums=('2ccb48fed8aa16edb53cf6643b63a842c28cd700621d2273a94913ab7a6ae8b50da72c3509a8b9b6189fcd4beaa5afbfa3a92430acb18c4cc9a7cfb057209c29'
-        '8dab458e1524d71e91760eac2cd98d6cd3f7cfd44c2d6694220215cb6fce5b51c4d0533d4934637d7d602db81ca85ba5aedf9fe1f5375e3f8af0e6444d84888e')
+sha512sums=('e340388f7dc3131c7f3d188e5a05084e5e34331e4572843537e8656aa3db0d750799f2283afc4d62d807f35a7a5c401967c8b3f852f2a5b60a2de7e0d5fbafbc'
+            'f3afe964a52c4d8e216aca0dea999917f7980cbb88643d5d3d3ba206f0e893374b4749f6c9a9d63452244e668e05bcc6191edea26b7a5176704782f65c1c0464')
+b2sums=('28747a621471a7f88307affa1fd453358f3aa14dd561bd4c0690874301d439cf581a6473b864a84a6f134929602838f37575ccf937eaf1984a92d5e9bfb18b4a'
+        '672024a9a559e0c0ec34c57edcd7de84a6fbe3cdfb50999650463fefe8d105cb618795d61d7d4b97ab0559832f8037a57ba2d6d29f0a338430288628e07daac9')
 
 prepare() {
   # use system rtaudio/rtmidi, instead of vendored versions
-  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-58.1-devendor_rtaudio_rtmidi.patch
+  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-devendor_rtaudio_rtmidi.patch
 
   cd $pkgname-$pkgver
   rm -fv src/{RtAudio,RtMidi}.*
@@ -44,7 +44,7 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
-  export CXXFLAGS+=" -D__UNIX_JACK__ $(pkg-config --cflags rtaudio rtmidi)"
+  export CXXFLAGS+=" -D__UNIX_JACK__ $(pkg-config --cflags rtaudio rtmidi) -std=c++11"
   export CFLAGS+=" -D__UNIX_JACK__ $(pkg-config --cflags rtaudio rtmidi)"
   export LIBS+=" $(pkg-config --libs rtaudio rtmidi)"
   ./configure --prefix='/usr'
