@@ -1,7 +1,7 @@
 # Maintainer: Konstantin Gizdov <arch at kge dot pw>
 # Maintainer: Baptiste Jonglez <baptiste--aur at jonglez dot org>
 pkgname='radcli'
-pkgver=1.5.1
+pkgver=1.5.2
 pkgrel=1
 pkgdesc='Client library for writing Radius clients in C or C++'
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('BSD')
 depends=('nettle' 'gnutls')
 source=("https://github.com/${pkgname}/${pkgname}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz"{,.sig}
          nettle-4.patch)
-sha512sums=('16563b2e86b3d9f8828e225b245d3f35820318673192eb96b2c4915989a6aaabaec7e56a1a1c2ada3be9c54be552b67c25ce7be0f7143110a80cf99c3b63e4b2'
+sha512sums=('7f5f9a0f925e021511e3b1cb7e7d78d7ef42477cae8536096bd08745c485040fa095b7be4a7ba6eba8d65a8a4834cf41610d60cfeade6c7d6e5c0977f8ae09c5'
             'SKIP'
             '1d963ea7a96754f06a8998ce96206e9a6e16915142b18ac883b646e8573be46fb63901a22f698de00c062cf5049ea8f9e8741e78a5d1007e32d507069ee918b0')
 validpgpkeys=('1F42418905D8206AA754CCDC29EE58B996865171'  # Nikos Mavrogiannopoulos <nmav@gnutls.org>
