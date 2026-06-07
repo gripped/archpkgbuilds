@@ -6,7 +6,7 @@
 
 pkgname=librecad
 pkgver=2.2.1.5
-pkgrel=1
+pkgrel=2
 pkgdesc='A 2D CAD drawing tool based on the community edition of QCad'
 arch=('x86_64')
 url='https://www.librecad.org/'
@@ -42,6 +42,7 @@ package() {
 
 	# desktop file and man pages
 	install -D -m0644 desktop/librecad.desktop "${pkgdir}/usr/share/applications/librecad.desktop"
+	install -D -m0644 desktop/org.librecad.librecad.appdata.xml "${pkgdir}/usr/share/metainfo/org.librecad.librecad.appdata.xml"
 	install -D -m0644 desktop/librecad.1 "${pkgdir}/usr/share/man/man1/librecad.1"
 
 	# documentation
