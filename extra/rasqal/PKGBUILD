@@ -5,7 +5,7 @@
 
 pkgname=rasqal
 pkgver=0.9.33
-pkgrel=8
+pkgrel=9
 epoch=1
 pkgdesc="A library handling RDF query syntaxes, construction and execution"
 license=('Apache-2.0 OR GPL-2.0-or-later OR LGPL-2.1-or-later')
@@ -13,7 +13,6 @@ url="https://librdf.org/rasqal"
 arch=(x86_64)
 depends=(
   glibc
-  libgcrypt
   mpfr
   pcre2
   sh
@@ -63,7 +62,6 @@ check() {
 package() {
   depends+=(
     raptor libraptor2.so
-    util-linux-libs libuuid.so
   )
 
   make DESTDIR="$pkgdir" install -C $pkgname-$pkgver
