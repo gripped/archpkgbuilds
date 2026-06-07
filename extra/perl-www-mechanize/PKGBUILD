@@ -3,13 +3,12 @@
 
 pkgname=perl-www-mechanize
 pkgver=2.20
-pkgrel=1
+pkgrel=2
 pkgdesc="Automates web page form & link interaction"
 arch=(any)
 url="https://search.cpan.org/dist/WWW-Mechanize"
 license=('GPL' 'PerlArtistic')
-depends=('perl-libwww' 'perl-html-parser' 'perl-uri' 'perl-http-response-encoding'
-	 'perl-http-server-simple' 'perl-test-warn' 'perl-html-form')
+depends=('perl-libwww' 'perl-html-parser' 'perl-uri' 'perl-html-form' 'perl-html-tree')
 options=('!emptydirs')
 source=("https://cpan.metacpan.org/authors/id/O/OA/OALDERS/WWW-Mechanize-$pkgver.tar.gz")
 sha256sums=('5adce695f3968565d3c8e597b988525ee4c89f40ecb1a21ecee7a16532dbb668')
@@ -23,6 +22,4 @@ build() {
 package() {
   cd  "$srcdir"/WWW-Mechanize-$pkgver
   make install DESTDIR="$pkgdir"
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
 }
