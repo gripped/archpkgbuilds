@@ -5,36 +5,33 @@ _name=Stochas
 pkgbase=stochas
 pkgname=(stochas stochas-{clap,standalone,vst3})
 pkgver=1.3.13
-pkgrel=2
+pkgrel=3
 pkgdesc="A probabilistic polyrhythmic sequencer"
 arch=(x86_64)
 url="https://surge-synth-team.org/stochas"
 license=(GPL-3.0-only)
-_common_depends=(
-  glibc
-  libgcc libgcc_s.so
-  libstdc++ libstdc++.so
-  freetype2 libfreetype.so
-  libjpeg-turbo libjpeg.so
-  libpng libpng16.so
-  zlib libz.so
-  ttf-liberation
-)
 makedepends=(
-  "${_common_depends[@]}"
   alsa-lib
   cmake
   flac
+  freetype2
   gendesk
   git
+  glibc
   jack
   juce
+  libgcc
+  libjpeg-turbo
   libogg
+  libpng
+  libstdc++
   libvorbis
   libx11
   libxcursor
   libxinerama
   libxrandr
+  ttf-liberation
+  zlib
 )
 source=(
   "$pkgname::git+https://github.com/surge-synthesizer/$pkgname.git#tag=v$pkgver"
@@ -112,8 +109,15 @@ package_stochas-clap() {
     pro-audio
   )
   depends+=(
-    "${_common_depends[@]}"
     clap-host
+    freetype2 libfreetype.so
+    glibc
+    libgcc libgcc_s.so
+    libjpeg-turbo libjpeg.so
+    libpng libpng16.so
+    libstdc++ libstdc++.so
+    ttf-liberation
+    zlib libz.so
   )
 
   install -vDm 755 build/${pkgbase}_artefacts/None/CLAP/$_name.clap -t "$pkgdir/usr/lib/clap/"
@@ -125,9 +129,16 @@ package_stochas-standalone() {
     pro-audio
   )
   depends+=(
-    "${_common_depends[@]}"
     alsa-lib libasound.so
+    freetype2 libfreetype.so
+    glibc
     hicolor-icon-theme
+    libgcc libgcc_s.so
+    libjpeg-turbo libjpeg.so
+    libpng libpng16.so
+    libstdc++ libstdc++.so
+    ttf-liberation
+    zlib libz.so
   )
 
   install -vDm 755 build/${pkgbase}_artefacts/None/Standalone/$_name -t "$pkgdir/usr/bin/"
@@ -142,8 +153,15 @@ package_stochas-vst3() {
     vst3-plugins
   )
   depends+=(
-    "${_common_depends[@]}"
+    freetype2 libfreetype.so
+    glibc
+    libgcc libgcc_s.so
+    libjpeg-turbo libjpeg.so
+    libpng libpng16.so
+    libstdc++ libstdc++.so
+    ttf-liberation
     vst3-host
+    zlib libz.so
   )
 
   install -vDm 755 build/${pkgbase}_artefacts/None/VST3/$_name.vst3/Contents/Resources/*.json -t "$pkgdir/usr/lib/vst3/$_name.vst3/Contents/Resources/"
