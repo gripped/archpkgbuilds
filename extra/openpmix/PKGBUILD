@@ -9,7 +9,7 @@ pkgname=(
 )
 # NOTE: keep in sync with openmpi major versions
 pkgver=5.0.10
-pkgrel=1
+pkgrel=2
 pkgdesc="Extended version of the PMI standard"
 arch=(x86_64)
 url="https://github.com/openpmix/openpmix"
@@ -19,7 +19,6 @@ makedepends=(
   hwloc
   perl
   libevent
-  libevent_{core,pthreads}-2.1.so
   python
   zlib
 )
