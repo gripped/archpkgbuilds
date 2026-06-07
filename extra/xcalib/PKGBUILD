@@ -7,30 +7,28 @@
 # Contributor: mOLOk
 
 pkgname=xcalib
-pkgver=0.10
-pkgrel=5
+pkgver=0.11
+pkgrel=1
 pkgdesc="Load 'vcgt'-tag profiles to X-server on the calibration stage"
 arch=('x86_64')
-url="https://github.com/OpenICC/xcalib"
+url="https://codeberg.org/OpenICC/xcalib"
 license=('GPL2' 'custom:postcardware')
 depends=('libxxf86vm' 'libxrandr')
-makedepends=('git')
-source=(git+https://github.com/OpenICC/xcalib.git#tag=${pkgver}?signed)
+makedepends=('cmake' 'git')
+source=(git+https://codeberg.org/OpenICC/xcalib.git#tag=${pkgver}?signed)
 validpgpkeys=('9A81DA0F2F18F096BE94577051F5D211EB7A04C8') # Kai-Uwe Behrmann
-sha256sums=('caaa7605b66d7b8e4313f83bd1b0a6361275471e234500ad3917605868e8e92e')
+sha256sums=('d7467c9f0d2ac8d6f66a6227dd9795e52af1c8e77d3094ea6621b14757ce2ecb')
 
 build() {
-	cd "$pkgname"
-	make
+  cmake -B build -S "$pkgname" \
+      -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+      -DCMAKE_BUILD_TYPE=None \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -Wno-dev
+  cmake --build build
 }
 
 package() {
-	cd "$pkgname"
-    install -m755 -Dt "${pkgdir}/usr/bin" "xcalib" 
-    install -m644 -Dt "${pkgdir}/usr/share/man/man1/" "xcalib.1" 
-    install -m644 -Dt "${pkgdir}/usr/share/xcalib" *.icc
-    install -m644 -Dt "${pkgdir}/usr/share/pixmaps/${pkgname}.ico" "icon.ico"
-
-    # postcardware license stuff :)
-    install -m644 -Dt "${pkgdir}/usr/share/licenses/xcalib/" "README.md"
+    DESTDIR="$pkgdir" cmake --install build
+    install -m644 -Dt "${pkgdir}/usr/share/licenses/xcalib/" ${pkgname}/README.md
 }
