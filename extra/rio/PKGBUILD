@@ -4,7 +4,7 @@
 # Contributor: Raphael Amorim <rapha850@gmail.com>
 
 pkgname=rio
-pkgver=0.4.5
+pkgver=0.4.6
 pkgrel=1
 pkgdesc="A hardware-accelerated GPU terminal emulator powered by WebGPU"
 arch=('x86_64')
@@ -20,6 +20,7 @@ depends=(
   'hicolor-icon-theme'
   'libgcc'
   'libstdc++'
+  'oniguruma'
   'vulkan-driver'
 )
 makedepends=(
@@ -32,7 +33,7 @@ makedepends=(
   'scdoc'
 )
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('1e0ce733a4d027f1c4f7a6a6ffcfe5504d072aa1af9b1e0c392633401dcfa75424e6b816f34ea1fa5bef31331c70b8358d8f4159b29e67e520a54cc4620df707')
+sha512sums=('298a802234e800a3d8a08fe38b57f90167b813a201f3d58367b15e0401c5c69c8db0d55bbfa659b1f5b48c0c81d0dd2d21f161a6c1e5f20bbf3881ab2bd55b20')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
@@ -41,13 +42,13 @@ prepare() {
 
 build() {
   cd "${pkgname}-${pkgver}"
-  cargo build --frozen --release --all-features
+  RUSTONIG_DYNAMIC_LIBONIG=1 cargo build --frozen --release --all-features
   make -C extra/man
 }
 
 check() {
   cd "${pkgname}-${pkgver}"
-  cargo test --frozen --workspace
+  RUSTONIG_DYNAMIC_LIBONIG=1 cargo test --frozen --workspace
 }
 
 package() {
