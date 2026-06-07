@@ -1,7 +1,7 @@
 pkgbase = intel-compute-runtime
 	pkgdesc = Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver
 	pkgver = 26.18.38308.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/intel/compute-runtime/
 	arch = x86_64
 	license = MIT
@@ -17,11 +17,12 @@ pkgbase = intel-compute-runtime
 	depends = intel-graphics-compiler
 	depends = libgcc
 	depends = libstdc++
+	optdepends = igsc<1.0.0: for discrete GPU firmware enumeration through Level Zero
 	optdepends = libdrm: for cl_intel_va_api_media_sharing OpenCL extension
-	optdepends = libigsc.so=0: for discrete GPU firmware enumeration through Level Zero
-	optdepends = libnl-genl-3.so=200: for using Fabric related APIs in Level Zero
-	optdepends = libudev.so: for using Sysman events API in Level Zero
+	optdepends = libnl>=3.0.0: for using Fabric related APIs in Level Zero
+	optdepends = libnl<4.0.0: for using Fabric related APIs in Level Zero
 	optdepends = libva: for cl_intel_va_api_media_sharing OpenCL extension
+	optdepends = systemd-libs: for using Sysman events API in Level Zero
 	provides = level-zero-driver
 	provides = opencl-driver
 	source = https://github.com/intel/compute-runtime/archive/26.18.38308.1/intel-compute-runtime-26.18.38308.1.tar.gz
