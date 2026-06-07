@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=archlinux-appstream-data
-pkgver=20260421
+pkgver=20260606
 pkgrel=1
 pkgdesc='Arch Linux application database for AppStream-based software centers'
 arch=(any)
@@ -18,18 +18,18 @@ for _repo in core extra multilib; do
           $_repo-icons-128x128-$pkgver.tar.gz::https://sources.archlinux.org/other/packages/$pkgname/$pkgver/$_repo/icons-128x128.tar.gz)
  noextract+=($_repo.xml.gz-$pkgver $_repo-icons-{48x48,64x64,128x128}-$pkgver.tar.gz)
 done
-sha256sums=('689e5297bdfa93a6009c842ac5f50eb7cb974c8401f5818bcaec563fc291c658'
+sha256sums=('a0b48b59bc8174474c73c4009f8c0dcf2752932de18831f83b1e113d80505d8a'
             '7989bb311baa38ef545250282aa065d23281c46dfb8faabe4c653487bdbded5c'
-            '433a496d93175f79c9b764230e4a044a420e0bc8b46beb7177ff40910dfea362'
+            'e12344158ef1e590ce469ff5a66a5126f5fb961ae91f5b9047005091f1cd277f'
             '7989bb311baa38ef545250282aa065d23281c46dfb8faabe4c653487bdbded5c'
-            '858c5e727fcf16dfa2f439b25b048dbfdecfaabed93b5bdc381bc4121d45a156'
-            'fb80256e45fcc8405610bcaa68a9df288d48bdf8a6d09d7bec4c05a3074403d2'
-            'd678e7df9b6acad056825857d5434a1467521e55e46a8c14c58d4f491e7098f1'
-            '21f573a7c3dcbb16bad22036ca7819bfc74cef69218f15ce3fabcb05483af9e5'
-            '874363634b0d454386fcadd577fcbdc902aec4a8552d215bc5abb7184c863ea8'
-            '680873c91a2f79e3c7ada01ac546825f4dad64461f5d84810ccddbed11fa9f80'
-            'f1fdea743aa74faa5bfd94b377fb48d14cae90dc3105326dc2af33dde56d7628'
-            '1b3ae021ff2e6fad9fa938a5eb50916b8a9726a880ad66dcd99b730e0d7d27bf')
+            '881f75cc4f817983f948def5ae497f33d35eb125ec676610e926ff992144e854'
+            'e5e124e312298f9da7bced4297e9b32168f1f2a8028d0f0907b1a4fb99e1021f'
+            'eaeb275329ce74450a45c0c861933f7447d2f18008f1a137492141b2b2d9341f'
+            'b9ceeab0212362373adc748acc445b5d99d3bab4cb5c5b963be4e3ed433b5045'
+            '92114ac7db3281da907b491a8400797b5d7f8deff4c478b8f552fb92f0240f64'
+            '8cf1169623d87cf0a5616ff210e6b7090becf45a0f1f39f0419d5db5413938f3'
+            '0dc4938ead5681cac7e3a87c2c0274cbb2de58cbf72557cd94c164915da370ab'
+            '39df8b1133ee86b46a16e688054ffd332fb46fcba2de50f86e5f59ababdcc415')
 
 package() {
   mkdir -p "$pkgdir"/usr/share/swcatalog/{icons/archlinux-arch-{core,extra,multilib}/{48x48,64x64,128x128},xml}
