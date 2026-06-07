@@ -1,7 +1,9 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=python-capstone6pwndbg
-pkgver=6.0.0Alpha7
+# NOTE: this needs to be kept in compatibility sync with pwndbg
+# https://github.com/pwndbg/pwndbg/blob/dev/pyproject.toml
+pkgver=6.0.0Alpha9
 pkgrel=1
 pkgdesc='Lightweight multi-platform, multi-architecture disassembly framework (pwndbg only)'
 url='https://www.capstone-engine.org/index.html'
@@ -21,9 +23,9 @@ source=(
   "git+https://github.com/pwndbg/capstone6pwndbg.git#tag=v${pkgver/Alpha/-Alpha}"
   git+https://github.com/capstone-engine/capstone.git
 )
-sha512sums=('9c9c03605addd0c0f33a010411c7a41598f53a8d4300f2d8e3a85ab90d34b2bf6ac31e6a0eaf2f464567a49c2ebfa6ab7c7cd1525efb0b4f86386894f97a1912'
+sha512sums=('2a7205ee4834e203b11cf1e3916a8440dfe0287392b40f7983443d92cff23e980b670db7cc95b938d2fdc8197715bfd35bda8c9a0392086ef93f3d1a6bc4a362'
             'SKIP')
-b2sums=('c898e0f0a2afd63cde02ccba55e621cbf494887e1963a0619d03c65e7023ac923f573193e810796504d4a1d17d68b4bfb5a770d75f2cdfa4a0b1f497af3f3a23'
+b2sums=('0ba0b8bcea3ac36614ee62ca9b970122d2c7cbac19138e4e78535a84e3f7ccd72b959249693505fd617575e127d3f6b32fc208e04e85ddac333516840f8224ec'
         'SKIP')
 
 prepare() {
