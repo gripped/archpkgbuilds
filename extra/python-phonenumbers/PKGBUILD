@@ -2,7 +2,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-phonenumbers
-pkgver=9.0.31
+pkgver=9.0.32
 pkgrel=1
 pkgdesc='Python library for parsing, formatting, storing and validating phone numbers'
 arch=(any)
@@ -17,8 +17,8 @@ makedepends=(git
 )
 checkdepends=(python-protobuf)
 source=("git+https://github.com/daviddrysdale/python-phonenumbers.git#tag=v$pkgver")
-sha512sums=('9f7573b45c1c2c8ecf720f9afb9e5698b64e0c599d5a6b4c668a33378c09b01906233ec81e292943808ea809b8dea775d50cbfbafbe1ab462dfbe19e1ffdb6da')
-b2sums=('8154b4a02abfd41102fca17272ffba252bcf27e0395172969a89ca3e31a267db731e4d21425991ac5c1dc9f00d718bae8c9431f28bf0535379eadc47aa23e5ed')
+sha512sums=('ba85242d10e316c438c7295497b7af6d7c7e73c1182a25538a011b6a725c593231c51eed0ef59fea70e94ae00e25227048d0ebfa894a113bc9b5e8c59794efe5')
+b2sums=('30c26c963eea42c8e336abc59fbe29db2be659a2efabd7e158d5f26e1223c025bce7f8eba0f167d45ef12601bd3d00779c46303c6afdca7b84af73d65fb74d3e')
 
 build() {
   cd "$pkgname"
