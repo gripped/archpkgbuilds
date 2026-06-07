@@ -1,0 +1,36 @@
+pkgbase = cudnn-frontend
+	pkgdesc = Modern, open-source entry point to the cuDNN library
+	pkgver = 1.24.0
+	pkgrel = 1
+	url = https://docs.nvidia.com/deeplearning/cudnn/latest/
+	arch = x86_64
+	license = MIT
+	makedepends = git
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = cuda
+	makedepends = cudnn
+	makedepends = pybind11
+	makedepends = catch2
+	makedepends = python
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	makedepends = python-setuptools
+	source = cudnn-frontend-1.24.0.tar.gz::https://github.com/NVIDIA/cudnn-frontend/archive/refs/tags/v1.24.0.tar.gz
+	sha256sums = f70eab5b87cd2e5f30e249f14a2c99453d74505e314295dd88ceb36285d8a5d6
+
+pkgname = cudnn-frontend
+	depends = glibc
+	depends = libstdc++
+	depends = libgcc
+	depends = cuda
+	depends = cudnn
+
+pkgname = python-cudnn-frontend
+	depends = glibc
+	depends = libstdc++
+	depends = libgcc
+	depends = python
+	depends = cuda
+	depends = cudnn

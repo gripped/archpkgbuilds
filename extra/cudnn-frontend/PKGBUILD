@@ -1,0 +1,76 @@
+# Maintainer: Torsten Keßler <tpkessler@archlinux.org>
+pkgbase=cudnn-frontend
+pkgname=(${pkgbase} python-${pkgbase})
+pkgver=1.24.0
+pkgrel=1
+pkgdesc="Modern, open-source entry point to the cuDNN library"
+arch=("x86_64")
+url="https://docs.nvidia.com/deeplearning/cudnn/latest/"
+license=("MIT")
+makedepends=(
+	git
+	cmake
+	ninja
+	cuda
+	cudnn
+	pybind11
+	catch2
+	python
+	python-build
+	python-installer
+	python-wheel
+	python-setuptools
+)
+source=("$pkgname-$pkgver.tar.gz::https://github.com/NVIDIA/cudnn-frontend/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('f70eab5b87cd2e5f30e249f14a2c99453d74505e314295dd88ceb36285d8a5d6')
+
+prepare() {
+	cd ${pkgname}-${pkgver}
+	# We bring our own packages
+	sed -i -E 's/,? *" *(cmake|ninja|pybind11)[^"]*"//g' pyproject.toml
+}
+
+build() {
+	local cmake_args=(
+		-Wno-dev
+		-G Ninja
+		-B build
+		-S ${pkgbase}-${pkgver}
+		-D CMAKE_BUILD_TYPE=None
+		-D CMAKE_INSTALL_PREFIX=/usr
+	)
+	echo "Build C++ library"
+	cmake "${cmake_args[@]}"
+	cmake --build build
+
+	echo "Build python wrapper"
+	cd ${pkgbase}-${pkgver}
+	python -m build --wheel --no-isolation
+}
+
+package_cudnn-frontend() {
+	depends+=(
+		glibc
+		libstdc++
+		libgcc
+		cuda
+		cudnn
+	)
+	DESTDIR="${pkgdir}" cmake --install build
+	cd ${pkgbase}-${pkgver}
+	install -Dm644 LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+}
+
+package_python-cudnn-frontend() {
+	depends+=(
+		glibc
+		libstdc++
+		libgcc
+		python
+		cuda
+		cudnn
+	)
+	cd ${pkgbase}-${pkgver}
+	python -m installer --destdir="${pkgdir}" dist/*.whl
+	install -Dm644 LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+}
