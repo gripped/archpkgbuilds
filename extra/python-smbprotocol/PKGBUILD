@@ -2,8 +2,8 @@
 
 _pkg=smbprotocol
 pkgname=python-${_pkg}
-pkgver=1.15.0
-pkgrel=3
+pkgver=1.16.1
+pkgrel=1
 pkgdesc="SMBv2 and v3 client"
 arch=(any)
 url="https://github.com/jborean93/smbprotocol"
