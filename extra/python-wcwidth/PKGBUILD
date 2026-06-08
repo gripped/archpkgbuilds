@@ -3,7 +3,7 @@
 # Contributor: wenLiangcan <boxeed at gmail dot com>
 
 pkgname=python-wcwidth
-pkgver=0.8.0
+pkgver=0.8.1
 pkgrel=1
 pkgdesc='Python library that measures the width of unicode strings rendered to a terminal'
 arch=(any)
@@ -18,8 +18,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('604c531c7e65aa70f22e2db8319750abd8f641f04bb7e737f3ba40855c2770585d67554e453c82e8b28850c9fc8057322bd2203e0ce1cd49c9ccf41e8699d818')
-b2sums=('a365489dc020c70a899cd715d2bd3e98ba1a31aa8f4617cb07857baa92044f221366e19f38cf5b8c700c6b4decfa55818a3f684875bb19a4b963a0e80b01e766')
+sha512sums=('04d7e4f6246e55370fc2e8d7febd305e8ae1707cbba9d2b425e120ae1e5b4e552b3aca4c7c802f6a09e3d85db624f7edea0443b53bb4fc471236053dc0c20a28')
+b2sums=('dccefda9aee5f7ef34b7c6c318278307dca5e5902831a92068c4d03824d9e27a0341562afa4b2bcdbac243484effc7c95713c2d56cd4c5ed93cac692741f8b29')
 
 build() {
   cd "$pkgname"
