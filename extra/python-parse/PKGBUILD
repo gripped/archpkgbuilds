@@ -2,7 +2,7 @@
 # Contributor: Aaron DeVore <aaron.devore@gmail.com>
 
 pkgname=python-parse
-pkgver=1.22.0
+pkgver=1.22.1
 pkgrel=1
 
 pkgdesc='Parse strings using a specification based on the Python format() syntax.'
@@ -15,7 +15,7 @@ makedepends=(python-setuptools python-build python-installer python-wheel)
 checkdepends=(python-pytest)
 
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/r1chardj0n3s/parse/archive/refs/tags/${pkgver}.tar.gz)
-sha256sums=('edc2acca17ed0f9e7ce41bd98eb20b5b1c16783f175b5d788e985aa11170ebf4')
+sha256sums=('78622bdbeaebe3f832067d597dfee410f54c85f5cf9ffbb04dc5c2bc2dab4154')
 
 prepare() {
   cd parse-$pkgver
