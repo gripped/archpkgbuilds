@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Matteo Giordano <mail@matteogiordano.me>
 pkgname=superfile
-pkgver=1.5.0
+pkgver=1.6.0
 pkgrel=1
 pkgdesc='Pretty fancy and modern terminal file manager'
 arch=('x86_64')
@@ -13,7 +13,7 @@ optdepends=(
   'exiftool: metadata plugin'
 )
 source=("https://github.com/yorukot/superfile/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('bb394f73817d164b9756613ccd850fb3dd5fd5ee898defd86b27eecd4cec48bf')
+sha256sums=('7340ce9e3e7db401164310dd5d2d1dfa3ccf76118ac49d192b0fac2a292c5b0d')
 
 build() {
     cd "${pkgname}-${pkgver}"
