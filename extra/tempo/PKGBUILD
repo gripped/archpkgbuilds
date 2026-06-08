@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=tempo
 pkgver=3.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A high volume, minimal dependency distributed tracing backend'
 arch=('x86_64')
 url='https://grafana.com/oss/tempo'
@@ -28,16 +28,19 @@ build() {
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
 
-  go build \
-      -mod vendor \
-      -ldflags "-linkmode external -compressdwarf=false -extldflags \"${LDFLAGS}\" -X main.Branch=main -X main.Revision=$(git rev-parse --short HEAD) -X main.Version=${pkgver}" \
-      -o ./bin/linux/tempo-amd64 \
-      ./cmd/tempo
+  for binary in tempo{,-query,-cli,-vulture}; do
+      echo "Building '$binary' binary ..."
+      go build \
+          -mod vendor \
+          -ldflags "-linkmode external -compressdwarf=false -extldflags \"${LDFLAGS}\" -X main.Branch=main -X main.Revision=$(git rev-parse --short HEAD) -X main.Version=${pkgver}" \
+          -o ./bin/linux/$binary \
+          ./cmd/$binary
+  done
 }
 
 package() {
   cd tempo
-  install -Dm755 bin/linux/tempo-amd64 "${pkgdir}/usr/bin/tempo"
+  install -Dm755 -t "${pkgdir}/usr/bin" bin/linux/tempo{,-query,-cli,-vulture}
   install -Dm644 "${srcdir}/tempo.yaml" "${pkgdir}/etc/tempo/config.yml"
   install -Dm644 tools/packaging/tempo.service "${pkgdir}/usr/lib/systemd/system/tempo.service"
   install -Dm644 "${srcdir}/tempo.sysusers" "${pkgdir}/usr/lib/sysusers.d/tempo.conf"
