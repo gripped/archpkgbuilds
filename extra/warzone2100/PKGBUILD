@@ -4,7 +4,7 @@
 
 pkgname=warzone2100
 pkgver=4.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='3D realtime strategy game on a future Earth'
 arch=(x86_64)
 url='https://wz2100.net'
@@ -76,7 +76,7 @@ source=(
   'git+https://github.com/Warzone2100/win_installer_resources.git'
   'git+https://github.com/Warzone2100/blender-pie-addon.git'
 )
-sha512sums=('6567279e954b0ce479a2ec41dd1c66cb4a9978b500c3783235b0cc4f175f7e39fe363078c1b982597acb5ebd426d5c0989f405949f0a821dd87d8cae9c94e754'
+sha512sums=('400cbdc60b2ad8e1be973d18f7acca23a6f0b9951de116f23a815de35a965185c0c6484c5af1d3d47552e13d4c2cf1d5973ea04563230a7c46a61b81fe4f9256'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -106,7 +106,7 @@ sha512sums=('6567279e954b0ce479a2ec41dd1c66cb4a9978b500c3783235b0cc4f175f7e39fe3
             'SKIP'
             'SKIP'
             'SKIP')
-b2sums=('a7ae4c80d07499f00dff7ecda563ea72b935f72866903add83d1f8ece092e39578ba73706c56bd3ab6cffa31570ef4f8a2b2a5414cd4b89d594113a2c973df90'
+b2sums=('3e8e34b649f44fe14f06ce150a7045435ef9799104b3eb8d7ddb69579b655680f3fafa1ac796ad15aba5313e049740e10e64fd64f78febce6b46a4522aa7c50b'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -171,6 +171,10 @@ prepare() {
   git config submodule.pkg/win_installer/resources.url "$srcdir/win_installer_resources"
   git config submodule.tools/blender/pie-addon.url "$srcdir/blender-pie-addon"
   git -c protocol.file.allow=always submodule update
+
+  # https://github.com/Warzone2100/warzone2100/pull/4918
+  # ftbfs: deprecated vulkan api
+  git cherry-pick --no-commit 8701c62ae68ca70da43ec915cbf6776c492e6656
 }
 
 build() {
