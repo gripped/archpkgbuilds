@@ -4,7 +4,7 @@
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 
 pkgname=python-sh
-pkgver=2.2.3
+pkgver=2.2.4
 pkgrel=1
 pkgdesc='Subprocess interface that allows you to call any program as if it were a function'
 arch=('any')
@@ -15,8 +15,8 @@ makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python
              'python-poetry-core')
 checkdepends=('lsof' 'python-pytest')
 source=("git+https://github.com/amoffat/sh.git#tag=$pkgver")
-sha512sums=('cb75988da40fa9dc9948fe0ec71bb8d0153d68b035205da293fe3463f8ccb954644a1b02e79cf4a292c20c39d12bc4538ff9bca6cb05c67caec45fc55642f62d')
-b2sums=('f133c75e0009afd728081a128193ae04f6f5918543c80cce10957a88fecdbaf8e570e39bd541af6d587295b901fea061cfbbd584a276fa125e8b77a5282323ff')
+sha512sums=('26b1f7c4ba3b19c9960daea293ed72aee8b717bfc55e239dc98109cbb952cb47b85c133e5eef234da6b6b551042642aef9c047aabc7bfe7da5addb12d0087d51')
+b2sums=('6512b4bc0f80b5e3772298b3c07e3c94f316d1a55cc84e1fb303580419084e8648df2edfb4b76952be368cf0f39815e342ef5104d8faa42567e1f09c5d806baa')
 
 build() {
   cd sh
