@@ -4,7 +4,7 @@
 # Contributor: Charles Lindsay <charles@chaoslizard.org>
 
 pkgname=cdemu-daemon
-pkgver=3.3.0
+pkgver=3.3.1
 pkgrel=1
 pkgdesc="CD/DVD-ROM device emulator daemon"
 url="https://cdemu.sourceforge.io/"
@@ -31,7 +31,7 @@ optdepends=(
 )
 install=cdemu-daemon.install
 source=("cdemu-code::git+https://git.code.sf.net/p/cdemu/code#tag=$pkgname-$pkgver")
-b2sums=('2efad5bc2d914ed92953a131d66f5ef8c0afe664a8679c9ff6658d9f0f2c9f0b7bdecbbf348a99035cfbda7ce734686d3875e273901cb38e95f4fd46206423d2')
+b2sums=('1d5e5f44025144161fa31d71991150091ab989327360bba47309eaadc855b18116d8bde56e28c9d3eb8339f919a71d5795045dc9a4eae15c0cace0ef86ad72ac')
 
 prepare() {
   cd cdemu-code/$pkgname
