@@ -6,26 +6,18 @@
 # Contributor: vonpupp
 
 pkgname=xiphos
-pkgver=4.3.2
-pkgrel=3
+pkgver=4.4.0
+pkgrel=1
 pkgdesc='A Bible study tool for GTK3'
 arch=(x86_64)
 url='https://xiphos.org'
 license=(GPL-2.0-only)
 depends=('biblesync' 'dbus-glib' 'icu' 'libbiblesync.so' 'libicui18n.so'
          'minizip' 'sword' 'webkit2gtk-4.1')
-makedepends=('appstream-glib' 'cmake' 'git' 'glib2-devel' 'gnome-common'
-             'intltool' 'libffi' 'libxml2' 'python' 'zlib' 'zip')
-source=("git+https://github.com/crosswire/xiphos.git#tag=$pkgver"
-        https-by-default.patch)
-sha256sums=('54178bb7e645423f50db2d48c10c98c5f1a00d85bcc4cd62b4ae401b4f15db03'
-            '3630dee5f9f05600e1a726b91a89e2eb17615a73d30548de303e7b29ec2286d2')
-
-prepare() {
-  cd "$pkgname"
-  # avoid fetching modules over plaintext ftp
-  patch -Np1 -i ../https-by-default.patch
-}
+makedepends=('appstream' 'appstream-glib' 'cmake' 'git' 'glib2-devel' 'gnome-common'
+             'intltool' 'libffi' 'libspeechd' 'libxml2' 'python' 'zlib' 'zip')
+source=("git+https://github.com/crosswire/xiphos.git#tag=$pkgver")
+sha256sums=('a418b106ba38e947c12445efb63ddd4cb50fcace9b2ab0cefb5a2a6b5515e495')
 
 build() {
   cmake -B build -S "$pkgname" \
