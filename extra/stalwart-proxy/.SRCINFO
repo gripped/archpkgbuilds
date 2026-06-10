@@ -1,0 +1,37 @@
+pkgbase = stalwart-proxy
+	pkgdesc = Multi-protocol e-mail migration proxy for Stalwart
+	pkgver = 1.0.0
+	pkgrel = 1
+	url = https://stalw.art/docs/migration/proxy
+	install = package.install
+	arch = x86_64
+	license = AGPL-3.0-only AND LicenseRef-SELv1
+	makedepends = git
+	makedepends = rust
+	depends = glibc
+	depends = libgcc
+	depends = sqlite
+	options = !lto
+	backup = etc/stalwart/proxy/config.toml
+	backup = etc/stalwart/proxy/config.env
+	backup = etc/stalwart/proxy/mappings.tsv
+	source = stalwart-proxy::git+https://github.com/stalwartlabs/proxy#tag=v1.0.0
+	source = systemd.service
+	source = sysusers.conf
+	source = tmpfiles.conf
+	source = config.env
+	source = mappings.tsv
+	sha512sums = 4480f91c967c76f2b87226c2b8140cbd2aec471b65a635845b0a90fd827b1839a511b5fb0f07caadbc264228962aee05f52033de6dd5fe63c355359cf623b50e
+	sha512sums = 24a5d238e9f476c8bdd5f6e43a1d66fa2e257dd6ae8191a17aed3f8a5c1374a329fc924165bd63072284bdc1824a1e54da13a41842214c23761f70263828f301
+	sha512sums = 830b5b2496bebcdf4294cd522030bd65a53acb06fc089e0bae4f9ff9dd412de99bd7a5909dda6cb743fd904bc679011c48918f62259376981bf163ae7875de90
+	sha512sums = 70364d975b7a1e8c4b1b78bb842edf528cacb4ae802bc360e31439d1adf5a9d7dcbe2519cb52fe6324ed524bd08a20f899cf3badc2a71a3c44f2138ba6c12dc8
+	sha512sums = 5a107a5f8ce462abf3da3df8dd2b3be1ebf8523449e0dcfd1deeeb6f9baa5b4f2f31e4befb62ff77c44aca7c45e44b9d6306d0f3336a8b66a90c864a71226b42
+	sha512sums = ff1545e3d5812b76828ce32e7b85ff992348dd3ebc736ab96920e56be444b88267b511a2998ce7783d4bd6f712c2f49c571e7c103235b518e8e2faf5d6d08c6f
+	b2sums = aeb24e3ff5feecd6b5493932e7bb90379ba0a063a304021ef6f7544d46dd9e1739d9ae286a7d4cd45511c3eacec895d3232f9533b53dc54c1a088047c2f652bf
+	b2sums = dcb53124ff703fff83df07739bb5c4bb85961fd72abdefeefd91f2b328c3b957a2fb78cc4e946160d35edef7cf34d33322500cc073945ce4389efac99655d466
+	b2sums = 5c0b1bfb9e6835854a6c2b58786a3a81af43f0151ef2995be1383377998e3922b710a39915f98bac358f6a269aebe6144a7e5a6a627a0939f27fa74e8612c519
+	b2sums = f9c79bb6642568c5b1a417b5c97e506e7d3656abf660415ccfe32db270fc7fce85c847cd97d55958011b91f799b4fbafb53519b877b42499413ab2a1c6a072fb
+	b2sums = 0c9261b1152b30897fe9a7182640c9d265d9e1c17e4cfbfd2cea5968754e8f46e194de5c920c8a5091bd02172a365c86d4a071d31e33bbb9dc00209605c69309
+	b2sums = a7bad82ebf8ee61aaf79d679630ed3ea27a0b40fa7ad326515cbdcca8fafc80076c1f37792d9312b5387632aaacec2ed8eef695f3f523ad1348798fd56628d40
+
+pkgname = stalwart-proxy

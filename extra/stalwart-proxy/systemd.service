@@ -1,0 +1,21 @@
+[Unit]
+Description=Stalwart migration proxy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+LimitNOFILE=65536
+KillMode=process
+KillSignal=SIGINT
+Restart=on-failure
+RestartSec=5
+EnvironmentFile=-/etc/stalwart/proxy/config.env
+ExecStart=/usr/bin/stalwart-proxy /etc/stalwart/proxy/config.toml
+SyslogIdentifier=stalwart-proxy
+User=stalwart-proxy
+Group=stalwart-proxy
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target

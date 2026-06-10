@@ -1,0 +1,123 @@
+# Migration proxy configuration. Edit this template for your deployment.
+# The proxy refuses to boot until every referenced destination, certificate
+# and credential path is valid (see SPEC section 8.4).
+
+[server]
+threads = 0
+hostname = "proxy.example.com"
+shutdown_grace = "30s"
+log_level = "info"
+
+[tls.certificate.default]
+cert = "/etc/proxy/tls/fullchain.pem"
+key = "/etc/proxy/tls/privkey.pem"
+default = true
+
+[tls.protocols]
+min_version = "1.2"
+
+[routing]
+default_destination = "legacy"
+# smtp_passthrough_destination = "stalwart"
+
+[mapping]
+source = "file"
+normalize = "lowercase"
+negative_ttl = "30s"
+positive_ttl = "10m"
+
+[mapping.file]
+path = "/etc/proxy/mappings.tsv"
+
+[destination.legacy]
+host = "10.0.1.10"
+tls_server_name = "mail.legacy.example.com"
+proxy_protocol = true
+[destination.legacy.protocol.imap]
+port = 993
+tls = "implicit"
+[destination.legacy.protocol.pop3]
+port = 995
+tls = "implicit"
+[destination.legacy.protocol.submission]
+port = 587
+tls = "starttls"
+[destination.legacy.protocol.managesieve]
+port = 4190
+tls = "starttls"
+[destination.legacy.protocol.http]
+port = 443
+tls = "implicit"
+
+[destination.stalwart]
+host = "10.0.1.20"
+tls_server_name = "mail.new.example.com"
+proxy_protocol = true
+[destination.stalwart.protocol.imap]
+port = 993
+tls = "implicit"
+[destination.stalwart.protocol.pop3]
+port = 995
+tls = "implicit"
+[destination.stalwart.protocol.submission]
+port = 587
+tls = "starttls"
+[destination.stalwart.protocol.managesieve]
+port = 4190
+tls = "starttls"
+[destination.stalwart.protocol.http]
+port = 443
+tls = "implicit"
+
+[listener.imap]
+protocol = "imap"
+bind = ["0.0.0.0:993", "[::]:993"]
+tls = "implicit"
+
+[listener.imap-starttls]
+protocol = "imap"
+bind = ["0.0.0.0:143", "[::]:143"]
+tls = "starttls"
+
+[listener.pop3]
+protocol = "pop3"
+bind = ["0.0.0.0:995", "[::]:995"]
+tls = "implicit"
+
+[listener.submission]
+protocol = "submission"
+bind = ["0.0.0.0:587", "[::]:587"]
+tls = "starttls"
+
+[listener.submissions]
+protocol = "submission"
+bind = ["0.0.0.0:465", "[::]:465"]
+tls = "implicit"
+
+[listener.managesieve]
+protocol = "managesieve"
+bind = ["0.0.0.0:4190", "[::]:4190"]
+tls = "starttls"
+
+[listener.https]
+protocol = "http"
+bind = ["0.0.0.0:443", "[::]:443"]
+tls = "implicit"
+forwarded = "off"
+
+[[http.route]]
+match = "/.well-known/**"
+destination = "legacy"
+
+[[http.route]]
+match = "/**"
+extract = { from = "authorization" }
+fallback = "default"
+
+[admin]
+bind = "127.0.0.1:9443"
+tls = "implicit"
+bearer_token_file = "/etc/proxy/admin.token"
+min_token_len = 32
+lockout_threshold = 5
+lockout_duration = "5m"

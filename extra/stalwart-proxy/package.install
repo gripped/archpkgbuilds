@@ -1,0 +1,19 @@
+post_install() {
+  cat << EOF
+
+Before the proxy can start, you must:
+
+  1. Edit /etc/stalwart/proxy/config.toml (destinations, listeners, routing).
+  2. Install the inbound TLS certificate and key under /etc/stalwart/proxy/tls/.
+  3. Populate /etc/stalwart/proxy/mappings.tsv with '<identifier><TAB><destination-id>' lines.
+
+EOF
+
+  local token_file=/etc/stalwart/proxy/admin.token
+  if [ ! -f "$token_file" ]; then
+    printf 'Generating admin token at %s\n' "$token_file"
+    local token="$(LC_ALL=C tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 48)"
+    printf '%s\n' "$token" > "$token_file"
+  fi
+
+}
