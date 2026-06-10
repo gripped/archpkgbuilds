@@ -2,7 +2,7 @@
 # Contributor: Christopher Arndt <aur@chrisarndt.de>
 
 pkgname=python-soundfile
-pkgver=0.13.1
+pkgver=0.14.0
 pkgrel=1
 pkgdesc='A Python library to read and write audio files using libsndfile, CFFI and NumPy'
 url=https://github.com/bastibe/python-soundfile
@@ -13,6 +13,7 @@ depends=(
   python
   python-cffi
   python-numpy
+  python-typing_extensions
 )
 makedepends=(
   git
@@ -21,14 +22,8 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-_tag=1aee0c3cbbbb3f2ef8947b19e713b019fc7291f6
-source=(git+https://github.com/bastibe/python-soundfile.git#tag=${_tag})
-b2sums=('2c31af30a454e4ed9d0e7643134876a4f5dbcd2666e915e18f84e3972da83d1681784c9038658680198e143bc2a9b7fadccad3ae7a2cf26b4958d77846492c8c')
-
-pkgver() {
-  cd python-soundfile
-  git describe --tags | sed 's/^v//'
-}
+source=(git+https://github.com/bastibe/python-soundfile.git#tag=${pkgver})
+b2sums=('deb74cc48aba514efd6e4287e85b2f0de4df480265db904ce53cd2a555c86f1955a9467199cd0ede0983218a17e8a1caf3b182de3b457a80f929e8834a8a4f73')
 
 build() {
   cd python-soundfile
