@@ -3,7 +3,7 @@
 
 _gemname=msgpack
 pkgname="ruby-${_gemname}"
-pkgver=1.8.1
+pkgver=1.8.2
 pkgrel=1
 pkgdesc='MessagePack implementation for Ruby'
 url='https://github.com/msgpack/msgpack-ruby'
@@ -13,8 +13,8 @@ depends=('ruby')
 makedepends=('ruby-rdoc' 'ruby-rake' 'ruby-rake-compiler' 'ruby-yard' 'ruby-rspec' 'ruby-bundler' 'ruby-webrick' 'ruby-ruby_memcheck')
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
-sha512sums=('69346feecc4808e3da09ab5c63ad4f8011a7e90e985dc51ca2080d614bff5a18ef95535277fe9cc0f427bdfa8a3ecae393929a8de85dcc86065613a4f5cdb832')
-b2sums=('d88ecd7659d825fe29cf76f090ca81205756cab714495c9eb993ab69300554edd6557da656dd2ecfcd8588083c663960690484baba7fa4d0fe283b7c12e96f63')
+sha512sums=('8aafefa3779c70925f82a4933235288eef3e31a285c31015067812d216a2e528c180ee36fd44a98ccd0c6776d68c8aaca2a53b5d7eff71bbadec3572d1b82c0a')
+b2sums=('0870775bf4afa9dd51f7c1a08e3e720b9440f13e96cc2cc9792b99a41e69c21178fb548736b8f688b2bf65ef3ac8f2c31b5bb4fef1e7de5a00fc238409e989c0')
 
 prepare() {
   cd "${_gemname}-ruby-${pkgver}"
