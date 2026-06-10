@@ -2,7 +2,7 @@
 
 pkgname=vali
 pkgver=0.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A C library and code generator for Varlink'
 arch=(x86_64)
 url="https://gitlab.freedesktop.org/emersion/vali"
