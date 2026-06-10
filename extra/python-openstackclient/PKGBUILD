@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstackclient
-pkgver=10.0.0
+pkgver=10.1.0
 pkgrel=1
 pkgdesc="OpenStack Command-line Client"
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-pbr'
 checkdepends=('python-ddt' 'python-fixtures' 'python-hacking' 'python-requests-mock'
               'python-stestr' 'python-testtools' 'python-wrapt')
 source=("git+https://github.com/openstack/python-openstackclient.git#tag=$pkgver")
-sha512sums=('ea54a9aad64b3fe739f12e3d8427c63fb99b9c0fca6a40a3abfa8e3911f2f3ccc056b529e8b815eee0112a8915d4822c870a6b22b3e4e59046e2c1db97446e5b')
+sha512sums=('bc390e1a6f69dab9ea8046885f417f9f8106191c2d7f409671c13ff1de41cdf1f35af3eddda44ef5d6e974aa909c5f31ca1cb8daf32e772d8de753402a7f7e2e')
 
 build() {
   cd python-openstackclient
@@ -26,7 +26,7 @@ check() {
   cd python-openstackclient
   # https://bugs.launchpad.net/python-openstackclient/+bug/2137223
   # test_endpoint_list_project_with_project_domain has a project_endpoints mock issue
-  stestr run --exclude-regex "openstackclient.tests.unit.common.test_module.TestModuleList.test_module_list_all|openstackclient.tests.unit.common.test_module.TestModuleList.test_module_list_no_options|openstackclient.tests.unit.identity.v3.test_endpoint.TestEndpointList.test_endpoint_list_project_with_project_domain|openstackclient.tests.unit.identity.v3.test_endpoint.TestEndpointListServiceWithoutName.test_endpoint_list_project_with_project_domain"
+  stestr run --exclude-regex "openstackclient.tests.unit.identity.v3.test_endpoint.TestEndpointList.test_endpoint_list_project_with_project_domain|openstackclient.tests.unit.identity.v3.test_endpoint.TestEndpointListServiceWithoutName.test_endpoint_list_project_with_project_domain"
 }
 
 package() {
