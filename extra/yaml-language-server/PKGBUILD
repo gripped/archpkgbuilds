@@ -2,7 +2,7 @@
 # Contributor: hexchain <i at hexchain dot org>
 
 pkgname=yaml-language-server
-pkgver=1.22.0
+pkgver=1.23.0
 pkgrel=1
 pkgdesc='YAML Language Server'
 url=https://github.com/redhat-developer/yaml-language-server
@@ -15,7 +15,7 @@ makedepends=(
 )
 options=(!emptydirs)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('a5c2c5ff1855eebcd33781ef72f1a70d205af92e6fc252bc2128af6871a5febb4917ea2b81c888a696bb0148d284a29746c90d8e6a2ea7eb20caeda72e3b251e')
+b2sums=('b0784f7df6fa11dbb70d9e2d1bccd424d5000cd49658c5c8d9374474295acd9ea21c6938716e69c92fc7db699b73e9e6a38ce1ebfb98cfa9e2cadc331d242cb3')
 
 prepare() {
   cd $pkgname
