@@ -3,7 +3,7 @@
 _pkgbasename=openssl
 pkgname=lib32-$_pkgbasename
 epoch=1
-pkgver=3.6.2
+pkgver=3.6.3
 pkgrel=1
 pkgdesc='The Open Source toolkit for Secure Sockets Layer and Transport Layer Security (32-bit)'
 arch=('x86_64')
@@ -14,7 +14,7 @@ optdepends=('ca-certificates')
 provides=('libcrypto.so' 'libssl.so')
 source=("https://github.com/${_pkgbasename}/${_pkgbasename}/releases/download/${_pkgbasename}-${pkgver}/${_pkgbasename}-${pkgver}.tar.gz"{,.asc}
         'ca-dir.patch')
-sha256sums=('aaf51a1fe064384f811daeaeb4ec4dce7340ec8bd893027eee676af31e83a04f'
+sha256sums=('243a86649cf6f23eeb6a2ff2456e09e5d77dd9018a54d3d96b0c6bdd6ba6c7f1'
             'SKIP'
             '0a32d9ca68e8d985ce0bfef6a4c20b46675e06178cc2d0bf6d91bd6865d648b7')
 validpgpkeys=('EFC0A467D613CB83C7ED6D30D894E2CE8B3D79F5'
