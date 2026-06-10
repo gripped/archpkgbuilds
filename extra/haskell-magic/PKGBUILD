@@ -3,28 +3,33 @@
 
 _hkgname=magic
 pkgname=haskell-magic
-pkgver=1.1
-pkgrel=27
+pkgver=1.1.1
+pkgrel=1
 pkgdesc="Interface to C file/magic library"
-url="https://hackage.haskell.org/package/magic"
-license=("BSD")
+url="https://github.com/philippedev101/magic-haskell"
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' "file")
-makedepends=('ghc')
+depends=('ghc-libs' 'file')
+makedepends=('ghc' 'haskell-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('f400396b0f82f9655376ac72e721badcf60c356c8594b4b67922890f55bac8e15b7aa856fdf61942c40b2622bdc231914994968af3b98d353bf50aed09ebbef5')
+sha512sums=('2de75912bf7ae5a84bbd6d6d7315b3e6bd3efedf4103d9ef0a94b1e9f0897c8c0646866166a2284b3803a4c40c1b409889a7cfceb5832e9875a7d348fec27d91')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
