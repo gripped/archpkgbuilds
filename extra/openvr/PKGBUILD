@@ -2,7 +2,7 @@
 # Contributor: Christoph Haag <christoph.haag@collabora.com>
 
 pkgname=openvr
-pkgver=2.12.14
+pkgver=2.15.6
 pkgrel=1
 pkgdesc="API and runtime that allows access to VR hardware from multiple vendors"
 arch=(x86_64)
@@ -13,7 +13,7 @@ makedepends=(cmake)
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         openvr-fix-vsprintf_s.patch::${url}/pull/594.patch
         openvr-use-system-jsoncpp-1.23.7.patch::${url}/pull/1716.patch)
-sha256sums=('becc2e6b956d1b98d66e2cc75fd8b20db94eb5af584ec360a4dad7e8adec3176'
+sha256sums=('e184cb625010fab7043a9d5e1e000fdeb3067a152bb3169ef53f64dfac37164c'
             '1d954060f27b16485e398654d6730105abc251d372da03fbba38496db17885ae'
             'f79c6edf25efa1aac42b60db48d72f4e3c771039c9cd0fc0870fd51f17712229')
 
