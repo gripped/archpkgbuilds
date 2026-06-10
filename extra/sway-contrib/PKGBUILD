@@ -3,7 +3,7 @@
 
 pkgname=sway-contrib
 pkgver=1.11
-pkgrel=1
+pkgrel=2
 pkgdesc="A collection of user-contributed scripts for sway"
 arch=('any')
 url="https://github.com/OctopusET/sway-contrib"
@@ -48,7 +48,7 @@ package() {
     done
 
     install -dm755 "$pkgdir/usr/lib/systemd/user/"
-    install sway-session.target -t "$pkgdir/usr/lib/systemd/user/"
+    install -Dm644 sway-session.target -t "$pkgdir/usr/lib/systemd/user/"
 
     install -dm755 "$pkgdir/usr/share/doc/$pkgname"
     install -Dm644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
