@@ -3,7 +3,7 @@
 
 pkgname=radicle
 pkgver=1.9.1
-pkgrel=1
+pkgrel=3
 pkgdesc="open source, peer-to-peer code collaboration stack built on Git"
 url="https://radicle.dev"
 arch=('x86_64')
@@ -18,6 +18,9 @@ makedepends=(
   'cargo'
   'asciidoctor'
 )
+provides=('radicle-node' 'radicle-cli')
+conflicts=('radicle-node' 'radicle-cli')
+replaces=('radicle-node' 'radicle-cli')
 source=(
   "radicle::git+https://seed.radicle.dev/z3gqcJUoA1n9HaHKufZs5FCSGazv5.git#tag=releases/${pkgver}"
 )
