@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-rss
-pkgver=0.3.2
+pkgver=0.3.3
 pkgrel=1
 pkgdesc='Family of libraries that support various formats of XML "feeds"'
 arch=(any)
@@ -21,7 +21,7 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/ruby/rss.git#tag=$pkgver)
-sha256sums=('d9c660f42fc90dc37d9088557258b1cb716ae312ceda9143af0f47ae4ebea0f8')
+sha256sums=('9c026bc244cd4f59fac15b14412e439411f6d860b763d2c1bf99fc7d1716e227')
 
 build() {
   local _gemdir="$(gem env gemdir)"
