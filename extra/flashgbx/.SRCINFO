@@ -1,18 +1,22 @@
 pkgbase = flashgbx
 	pkgdesc = Reads and writes Game Boy and Game Boy Advance cartridge data
-	pkgver = 4.6
+	pkgver = 5.0.1
 	pkgrel = 1
 	url = https://github.com/lesserkuma/FlashGBX
 	arch = any
-	license = GPL3
+	license = GPL-3.0-or-later
 	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
 	depends = pyside6
+	depends = python
 	depends = python-dateutil
+	depends = python-packaging
 	depends = python-pillow
 	depends = python-pyserial
 	depends = python-requests
-	depends = python-setuptools
-	source = git+https://github.com/lesserkuma/FlashGBX.git#tag=d42b7e74a7a53abd7ec7030fe3a8c2c65e50bff3
-	sha256sums = 999650367ea08e4ec90e9cfd465cdaeee6a8a2dda1ad446bcb56ebf8622aa4a2
+	source = git+https://github.com/lesserkuma/FlashGBX.git#tag=5.0.1
+	b2sums = 9907de4d70672754aede7ce15454c823de3ac90e88ba3762c68d905de4c46bd77ed1d891aa4964881c3538ca6439bc8fa7dc29052b15ec5f9cc07953eac5442d
 
 pkgname = flashgbx
