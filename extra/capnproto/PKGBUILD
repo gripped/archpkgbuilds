@@ -6,7 +6,7 @@
 
 pkgname=capnproto
 pkgver=1.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Cap'n Proto serialization/RPC system"
 arch=(x86_64)
 url="https://capnproto.org/"
@@ -36,9 +36,13 @@ sha512sums=('6f31294ffe613b28ee891a7e7465d35781697dc7ed51f806b7c707c8fc94ead0109
 b2sums=('7194f5cce53fa0e4e24a724da019c31b536860388417e2500fcb23c4a7c9e933d88b626b5f3632b050b33172217652cd890f328a87f331eeb409ef665aaf7167')
 
 build() {
+  # Coroutine support requires C++20
+  CXXFLAGS+=" -std=c++20"
+
   local cmake_options=(
       -B build
       -D BUILD_SHARED_LIBS=ON
+      -D WITH_FIBERS=ON
       -D CMAKE_BUILD_TYPE=None
       -D CMAKE_INSTALL_PREFIX=/usr
       -S $pkgname-$pkgver
