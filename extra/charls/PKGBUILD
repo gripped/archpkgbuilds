@@ -1,7 +1,7 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=charls
-pkgver=2.4.3
+pkgver=2.4.4
 pkgrel=1
 pkgdesc="A C++ JPEG-LS library implementation"
 arch=(x86_64)
@@ -20,7 +20,7 @@ provides=(
   libcharls.so
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-b2sums=('a2655be530771457838bb7757077679b22fbc85b87aea4d479dc9ffd4440644c913b1f8f3e78ab2a37e4c8d37259a93bda5d63cae04d09ec60ab686251171690')
+b2sums=('e8ac2db2fada81c2fca975784ee7f79776439e632291184a5455276e523eb69778d6cb0d66b5543897e90978d7d98b7476b4c6ca73790b6ce208387339895a15')
 
 build() {
   local cmake_options=(
