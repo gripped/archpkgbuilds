@@ -6,7 +6,7 @@
 _pkgname=DisplayCAL
 pkgname=displaycal
 pkgver=3.9.17
-pkgrel=3
+pkgrel=4
 pkgdesc="Open Source Display Calibration and Characterization powered by Argyll CMS (Formerly known as dispcalGUI)"
 arch=(x86_64)
 url="https://github.com/eoyilmaz/displaycal-py3"
@@ -26,12 +26,13 @@ sha256sums=('715f31d47c7e29052138eceac3ff3d420a19f7ef36be1c06ae11b5dcaa44f55c'
 prepare() {
   cd $pkgname-$pkgver
   patch -p1 -i ../python-3.14.patch
+
+  # hack to force creating dist/net.displaycal... (missed due pyproject)
+  sed -i -e 's|create_appdata = |create_appdata = True or |' setup.py
 }
 
 build() {
   cd ${pkgname}-${pkgver}
-# Workaround broken install
-  install -Dm644 misc/*.appdata.xml -t dist
   python -m build --wheel --no-isolation
 }
 
