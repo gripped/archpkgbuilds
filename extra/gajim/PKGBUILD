@@ -4,7 +4,7 @@
 
 pkgname=gajim
 pkgver=2.4.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Full featured and easy to use XMPP (Jabber) client"
 url="https://gajim.org/"
 arch=('any')
@@ -26,7 +26,7 @@ optdepends=('python-dbus: to have gajim-remote working'
             'gst-libav: for video and audio calls'
             'gst-plugin-gtk4: for video and audio calls'
             'libxss: for idle time checking on X11'
-            'python-gnupg: encrypting chat messages with OpenPGP')
+            'python-gpgme: encrypting chat messages with OpenPGP')
 source=("https://dev.gajim.org/gajim/gajim/-/archive/${pkgver}/gajim-${pkgver}.tar.gz")
 sha512sums=('5f39a1fc9f07c03e2d8d2686bcd5b20f905fd7346138e72b14f43eb6775807d85277aab835bc94262a2fdabd4ac175c8311f29640bb5a3cb319f65771ae72ab0')
 b2sums=('2958c56d51647235a015550d7e40495a10b23ba5fb276c833c2d525302fd70d269c832215a1edc53ebc3a622b4b709206587b17bb32937539105199f4d4ddeb5')
