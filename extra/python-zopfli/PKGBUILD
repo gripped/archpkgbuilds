@@ -2,7 +2,7 @@
 
 pkgname=python-zopfli
 _name="${pkgname/thon/}"
-pkgver=0.4.2
+pkgver=0.4.3
 pkgrel=1
 pkgdesc="Python bindings to zopfli"
 arch=(x86_64)
@@ -22,8 +22,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('ed409c13b7c9aa5f0daf5ce3eb87d8ffdf5399dcf4c1d341d6f2b5a7f3927b6cfa41055b59f89251c03fb9e3d990ec69f80fa59d11b617433c792e0478bfa530')
-b2sums=('3c6b514464d019563048923e78fb1f42a5b5133f014296288b9b4e01f103645e8d29ea0acc51d09ee42ed34f980f5273370e6c0f6242c4f0b56afe3ae8c0e885')
+sha512sums=('b61204b769df4bb67cbc9993fee7b0a135559a01154ff68e82294b2aa66bff433bb388f230b68ab762f59ea19fc6dfaa110acb04a10cab6c325c01f367060274')
+b2sums=('dc1c8c476f1a0cf8655703b102d843707c3800b2f9490975d81697c91d39b1393658842cbaee11bc552f814f35632d97e8fa27f86175e0bee96fc06325aca763')
 
 build() {
   cd $_name-$pkgver
