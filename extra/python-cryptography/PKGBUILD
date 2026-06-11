@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-cryptography
-pkgver=48.0.0
+pkgver=48.0.1
 pkgrel=1
 pkgdesc="A package designed to expose cryptographic recipes and primitives to Python developers"
 arch=('x86_64')
@@ -35,7 +35,7 @@ checkdepends=(
 source=(
   "git+https://github.com/pyca/cryptography.git#tag=$pkgver"
 )
-b2sums=('990caa67c55147ea282d841a58bf5e6d7f245f36b619bc38e9bec606f53ba0a1c0563a913f0a0a3eb6e796bec16398c18cdfce63371283d3e6808611d194f6c5')
+b2sums=('bf635fa150affc871b7b7a91d98ff09da292168b7cff7f10decfd726cef089be866aacaa80c652d0acf510c2908a22227347a62bbe3d5040f2a0606bae4d0589')
 
 prepare() {
   cd cryptography
