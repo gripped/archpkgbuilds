@@ -2,7 +2,7 @@
 
 pkgname=monero-gui
 pkgver=0.18.5.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Qt GUI wallet for Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
 arch=('x86_64')
@@ -67,6 +67,9 @@ prepare() {
   git config submodule.monero.url "$srcdir/monero"
   git config submodule.external/quirc.url "$srcdir/quirc"
   git -c protocol.file.allow=always submodule update
+
+  sed -i '/<releases>/,/<\/releases>/d' share/org.getmonero.Monero.metainfo.xml
+
   cd monero
   git config submodule.external/miniupnp.url "$srcdir/miniupnp"
   git config submodule.external/rapidjson.url "$srcdir/rapidjson"
