@@ -1,40 +1,47 @@
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-readme-renderer
-pkgver=44.0
-pkgrel=3
-pkgdesc="Safely render long_description/README files in Warehouse"
-url="https://github.com/pypa/readme_renderer"
-license=('Apache')
-arch=('any')
-depends=('python-docutils' 'python-pygments' 'python-nh3')
-optdepends=('python-cmarkgfm: for Markdown support')
-makedepends=('python-cmarkgfm' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
-checkdepends=('python-pytest')
-source=(https://github.com/pypa/readme_renderer/archive/$pkgver/$pkgname-$pkgver.tar.gz
-        https://github.com/pypa/readme_renderer/commit/04d5cfe7.patch
-        https://github.com/pypa/readme_renderer/commit/d047a297.patch)
-sha512sums=('d5c0bcfeff30d3460ac7dc7ad6a5a487c1b3d8c3621e929ddc37493f400903471d2b3b017c176414e63c0919c70de2a9fafbf99357f45d0e92198748de772d92'
-            'af3babca7c134f8fbde489e0fb22a7f9ea291f39e3519149bc9acc5b46fa2c37998b2f695f6b61e3b9c6338da03289c5dd6c190a801f9def16f5ae57bde6663a'
-            '5c64ffad855382a5b5e9c9894c91c992d57bcd0a52e7cc8ae52895dc0e3191ab205c2755c14c5aceb2ca881844e7af6d5517b325b73de64420a7f24f1eae44e5')
-
-prepare() {
-  cd readme_renderer-$pkgver
-  patch -p1 -i ../d047a297.patch # Fix tests with docutils 0.22
-  patch -p1 -i ../04d5cfe7.patch # Fix tests
-}
+pkgver=45.0
+pkgrel=1
+pkgdesc='A library that will safely render arbitrary README files into HTML'
+arch=(any)
+url='https://github.com/pypa/readme_renderer'
+license=(Apache-2.0)
+depends=(
+  python
+  python-docutils
+  python-pygments
+  python-nh3
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+  python-comrak
+)
+checkdepends=(python-pytest)
+optdepends=('python-comrak: for Markdown support')
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('92c1b60ec379a7039bb35ccd05e09ef33115b3f9c2e01e2b8737b3a99d24eb58d247fe602e911be348b3240a5d7e49756ca17997a97c8b116672ea1ca7394a89')
+b2sums=('58a29e6b00fe48a2f31baf3c2c8b5f3b5760ebf9c207c14db8327eaef5bd954889e1a1c2ff727caf4124b97226a72e499b41ffcc55a60aaf37643e299e384631')
 
 build() {
-  cd readme_renderer-$pkgver
+  cd "$pkgname"
+
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd readme_renderer-$pkgver
+  cd "$pkgname"
+
   pytest -v
 }
 
 package() {
-  cd readme_renderer-$pkgver
+  cd "$pkgname"
+
   python -m installer --destdir="$pkgdir" dist/*.whl
 }

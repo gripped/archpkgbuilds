@@ -1,25 +1,24 @@
 pkgbase = python-readme-renderer
-	pkgdesc = Safely render long_description/README files in Warehouse
-	pkgver = 44.0
-	pkgrel = 3
+	pkgdesc = A library that will safely render arbitrary README files into HTML
+	pkgver = 45.0
+	pkgrel = 1
 	url = https://github.com/pypa/readme_renderer
 	arch = any
-	license = Apache
+	license = Apache-2.0
 	checkdepends = python-pytest
-	makedepends = python-cmarkgfm
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = python-wheel
 	makedepends = python-setuptools
+	makedepends = python-wheel
+	makedepends = python-comrak
+	depends = python
 	depends = python-docutils
 	depends = python-pygments
 	depends = python-nh3
-	optdepends = python-cmarkgfm: for Markdown support
-	source = https://github.com/pypa/readme_renderer/archive/44.0/python-readme-renderer-44.0.tar.gz
-	source = https://github.com/pypa/readme_renderer/commit/04d5cfe7.patch
-	source = https://github.com/pypa/readme_renderer/commit/d047a297.patch
-	sha512sums = d5c0bcfeff30d3460ac7dc7ad6a5a487c1b3d8c3621e929ddc37493f400903471d2b3b017c176414e63c0919c70de2a9fafbf99357f45d0e92198748de772d92
-	sha512sums = af3babca7c134f8fbde489e0fb22a7f9ea291f39e3519149bc9acc5b46fa2c37998b2f695f6b61e3b9c6338da03289c5dd6c190a801f9def16f5ae57bde6663a
-	sha512sums = 5c64ffad855382a5b5e9c9894c91c992d57bcd0a52e7cc8ae52895dc0e3191ab205c2755c14c5aceb2ca881844e7af6d5517b325b73de64420a7f24f1eae44e5
+	optdepends = python-comrak: for Markdown support
+	source = python-readme-renderer::git+https://github.com/pypa/readme_renderer#tag=45.0
+	sha512sums = 92c1b60ec379a7039bb35ccd05e09ef33115b3f9c2e01e2b8737b3a99d24eb58d247fe602e911be348b3240a5d7e49756ca17997a97c8b116672ea1ca7394a89
+	b2sums = 58a29e6b00fe48a2f31baf3c2c8b5f3b5760ebf9c207c14db8327eaef5bd954889e1a1c2ff727caf4124b97226a72e499b41ffcc55a60aaf37643e299e384631
 
 pkgname = python-readme-renderer
