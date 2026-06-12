@@ -3,18 +3,18 @@
 pkgname=containers-common
 _upstream=container-libs
 pkgver=0.67.1
-pkgrel=1
+pkgrel=2
 epoch=1
-_podman_pkgver=5.8.0
+_buildah_pkgver=1.43.2
+_podman_pkgver=5.8.2
 _shortnames_pkgver=2025.03.19
-_skopeo_pkgver=1.22.0
+_skopeo_pkgver=1.22.2
 pkgdesc="Configuration files and manpages for containers"
 arch=(any)
-url="https://github.com/containers/container-libs"
+url="https://github.com/podman-container-tools/container-libs"
 license=(Apache-2.0)
 depends=('container-network-stack>1')
 makedepends=(go-md2man)
-checkdepends=(ripgrep)
 backup=(
   etc/containers/containers.conf
   etc/containers/mounts.conf
@@ -27,9 +27,10 @@ backup=(
 options=(emptydirs)
 _src_dir="$_upstream-common-v$pkgver"
 source=(
-  $_src_dir.tar.gz::https://github.com/containers/container-libs/archive/refs/tags/common/v$pkgver.tar.gz
-  podman-$_podman_pkgver.tar.gz::https://github.com/containers/podman/archive/v$_podman_pkgver.tar.gz
-  skopeo-$_skopeo_pkgver.tar.gz::https://github.com/containers/skopeo/archive/v$_skopeo_pkgver.tar.gz
+  $_src_dir.tar.gz::https://github.com/podman-container-tools/container-libs/archive/refs/tags/common/v$pkgver.tar.gz
+  buildah-$_buildah_pkgver.tar.gz::https://github.com/podman-container-tools/buildah/archive/refs/tags/v$_buildah_pkgver.tar.gz
+  podman-$_podman_pkgver.tar.gz::https://github.com/podman-container-tools/podman/archive/v$_podman_pkgver.tar.gz
+  skopeo-$_skopeo_pkgver.tar.gz::https://github.com/podman-container-tools/skopeo/archive/v$_skopeo_pkgver.tar.gz
   shortnames-$_shortnames_pkgver.tar.gz::https://github.com/containers/shortnames/archive/refs/tags/v$_shortnames_pkgver.tar.gz
   mounts.conf
   tmpfiles.conf
@@ -37,16 +38,18 @@ source=(
   $pkgname-0.66.1-containers.conf-firewall-defaults.patch
 )
 sha512sums=('65b2592f4384bcdad55a934bb9be2a01fae19ec5b40006a18481b3c7e4ae4bcd77ea20a51df892e8e72f92f03c853b66b06f99cc6cb5c08db0b045eda9877f70'
-            '021438ba3b9060c5a3ef10f4220bfb9ceae43999dbd715be51f0e3b9d20e17c2f17f70110e9527e58242cb2a9ccc38135bb30ddeeae1c24e3d060db16d22ded4'
-            'd4030c4dca7288e8a80a31fadd37532990bdf16ad5ff7c5e8e2ef922cc1a3185f1a6c32ac9906bd07a826cc6968a68dfd6df4d7e10e8ee22d87dba3ac5bfd3b9'
+            '17009c78c713eb397cc7d791edb7e0470a3c2d6032fc0706af8aabf81a7849ed4abd420b3afbc67ce2c9464ae5ddccccd7a52bc9426a73e1d72884403d4a14d4'
+            '4fb26b278aaaa64799c7cc27e168c6fd836a1ed95653c757db5de9873e774a4650353ad4aadad6a7968dd82db8e2833f871ba41304512825b706d4919ee333a7'
+            'd65134f568bf49cabc1ec7564bc98a5debb9e6b16a6e5351cebc583534a56b6a16c0eb69356f8466681e68df5445172c34c9d34bcb362bc2a89bfe9288002066'
             'edadadda8920ac4880f2c44f396e5d4c844bf15c964d7ef5d14c68637ac43e0df91f4efd2be747bca74bd0da959ea21cc3200ab14b2b57aba5975cff8f2fbefa'
             '11fa515bbb0686d2b49c4fd2ab35348cb19f9c6780d6eb951a33b07ed7b7c72a676627f36e8c74e1a2d15e306d4537178f0e127fd3490f6131d078e56b46d5e1'
             '2b187c119db95cda439f36509545fd0f45530c69d9139823387f9aa68ea2e9c4b3dee8ee21a517daa73a88ac63cc694e0e170061bfc1503425c21868b2ccf7dd'
             '4a6526d01f192f0eb4dcbd28c019a2b0db6dc2128af644e8e89992e5dcfa45a02c739b06ee01e22606b5cb847213c002f8ab5f87a576846ac73f73eed9b2b469'
             '07bd289e1889a9426d30e9c4b538904b48eaf1b3fc481b44cca94a4f9cd8fc873621943cfaee7272a328946f7490942342fa8212f6cad49e74ecc4cd328d782c')
 b2sums=('a5eaf86d9bcf7e5652ba9694df07ccc44da60edd1c39d0e36652ae831947848a41abe215ed7857c9c610ea248f4022df505f0f62ed9b3dbbe07f22683c32040d'
-        'c8c4d7e5069caadedb6dbf421defb22533d45a7e8a0fddfb4fd01c3cb9c2a396bd6282845c5c6ea031e5ac2f4d96b983d229e3a164ae9478e4290cb918ad6fea'
-        'f763954cd209c5d3770da1bfd71ab3be485920326ada83770b4b190149b712e67c2d200ca4af442f317cf19f8048e90f7c7b4b03761d3e43b57b4e68e6e8d006'
+        'a0169a0d4194764be2f389da3403ca53a61f5282408a2e6dcd2f3cdf8f2fc2471207a314bb79bdc7d242c171f86aeb8dd103b52488c2378bbee866ea83021fd7'
+        'daa2eefbd5014926825225f60ac46f42857d630e3b215631bc14305779b45efa28bd876c92c8c3fbd030b78f862d2738ae71d1a4a57a38a6e285ad518250a8f9'
+        'f3c6d5eafe98c54b0e8f4b69d75472cfe4367152a915ed4daf16dc8d0604547863d62acaf3ef3c50d82a7ab4996d9ee9c25b87300aefccbebc74c664de4ee515'
         'a72160f65aa13316c33b984173e151f0519720ec9617395980f0d7c5f25dc14b400aafbcb2fa8769eace9c1e51d4f1ddbe783e68fc0e40280743f90fbce30aa9'
         '2f4b0af3271103362a898e7fcc3ec05f06755902ad664ac3107bb8debb8b2ac0d50de311d5fc651279a817a56e3ff05864a7e77c0d8fc628ff7411bfb98c9b69'
         '1cd6884f06269c3e6cbdfa542bdf8e178574062ec11252defc48187b60a98d0193353cc8a12ba186d338ce7da6b879a1e9dc249d2f40c28fe997c433c91e8e0e'
@@ -92,17 +95,25 @@ build() {
 }
 
 check() {
-  local _podman_common_ver
-  _podman_common_ver="$(rg "go.podman.io/common" podman-$_podman_pkgver/go.mod | cut -d ' ' -f2 | sed 's/v//')"
+  local name project_common_version project_version
+  declare -A project_versions=(
+    ["buildah"]="$_buildah_pkgver"
+    ["podman"]="$_podman_pkgver"
+    ["skopeo"]="$_skopeo_pkgver"
+  )
 
-  printf "Common version in podman: %s\n" "$_podman_common_ver"
-
-  # NOTE: we are comparing the major.minor version of containers/common required by podman with the one of containers/common that we are trying to build
+  # NOTE: We check whether the major.minor version requirements of containers-common dependents match its current version.
   # https://github.com/containers/common/issues/923
-  if (( $(vercmp "${_podman_common_ver%.*}" "${pkgver%.*}") != 0 )); then
-    printf "The podman package in version %s requires container-libs/common in version %s but we are trying to build version %s\n" "$_podman_pkgver" "${_podman_common_ver%.*}" "${pkgver%.*}"
-    exit 1
-  fi
+  for name in "${!project_versions[@]}"; do
+    project_version="${project_versions["$name"]}"
+    project_common_version="$(sed --regexp-extended --quiet 's|.*go.podman.io/common v(.*)|\1|p' "$name-$project_version/go.mod")"
+    printf '%s %s uses containers-common %s\n' "$name" "$project_version" "$project_common_version"
+
+    if (( $(vercmp "${project_common_version%.*}" "${pkgver%.*}") != 0 )); then
+      printf 'The %s package in version %s requires container-libs/common in version %s but we are trying to build version %s\n' "$name" "$project_version" "${project_common_version%.*}" "${pkgver%.*}"
+      exit 1
+    fi
+  done
 }
 
 package() {
@@ -115,6 +126,9 @@ package() {
 
   # configs
   install -vDm 644 mounts.conf -t "$pkgdir/etc/containers/"
+
+  # Persist the version, so that consumers can rely on it.
+  printf '%s\n' "$pkgver" > "$pkgdir/usr/share/containers/container-libs.version"
 
   (
     cd $_src_dir/common
