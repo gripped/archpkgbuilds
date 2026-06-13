@@ -3,7 +3,7 @@
 # Contributor: 網軍總司令
 
 pkgname=ibus-rime
-pkgver=1.6.0
+pkgver=1.6.1
 pkgrel=1
 pkgdesc="Rime input method engine for ibus"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('ibus' 'libnotify' 'librime')
 makedepends=('git' 'cmake')
 install='ibus-rime.install'
 source=("git+https://github.com/lotem/ibus-rime.git#tag=$pkgver")
-sha512sums=('924ad8b9c1f9adeb12e7772fdb9c41e3970d2f2e5503b89bd515e871a213d49eee2bf09dd78a633dcd52ec3e454c1a28888f8caf58e1d28dee4536d90cd92721')
+sha512sums=('bfe1c3f4e78063086349b7a4b5dafb4a60a69a1c42d53573485406d20ccd75e9408dc3effcc75816fc4d803289ec7f39a9e181b305c909bc272071eda679d131')
 
 build() {
   cd $pkgname
