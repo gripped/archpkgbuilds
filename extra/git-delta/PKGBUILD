@@ -5,23 +5,23 @@
 
 pkgname=git-delta
 pkgver=0.19.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Syntax-highlighting pager for git and diff output'
 arch=(x86_64)
 url='https://dandavison.github.io/delta/'
+_url='https://github.com/dandavison/delta'
 license=(MIT)
 depends=(
-  glibc
-  libgcc
-  libgit2
-  oniguruma
-  zlib
+  glibc # libc.so libm.so ld-linux-x86-64.so
+  libgcc libgcc_s.so
+  libgit2 libgit2.so
+  oniguruma # libonig.so
 )
 makedepends=(
   git
   rust
 )
-source=("$pkgname::git+https://github.com/dandavison/delta#tag=$pkgver")
+source=("$pkgname::git+$_url#tag=$pkgver")
 sha512sums=('977037b5c4360803278fab48c2202eb6bcc3bed00c16abd44cfc3102fec758562d45c5548af75e83a0f4ed60fb4fa8223b1d6e1bd01c7eddaf6c4bef889d153e')
 b2sums=('51c24db48430423e1f5bda0bffa05b5e469c9ff1e1277af1a754afcf06d31759982b60631dc69a19f59c02d5799a819abbb63d6ecbd2edf40fee8ca2e58132e4')
 
@@ -35,10 +35,18 @@ prepare() {
 build() {
   cd "$pkgname"
 
-  # https://archlinux.org/todo/lto-fat-objects/
-  CFLAGS+=' -ffat-lto-objects'
-
+  # Devendor (has trouble with LTO anyway)
   export RUSTONIG_DYNAMIC_LIBONIG=1
+
+  # Avoid fallback to vendoring if our version isn't accepted
+  export LIBGIT2_NO_VENDOR=1
+
+  # https://github.com/dandavison/delta/issues/2122
+  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
+  # Build with debug symbols, will be stripped to debug package
+  export CARGO_PROFILE_RELEASE_DEBUG=2
 
   # binary
   cargo build --frozen --release --all-features
@@ -51,6 +59,7 @@ build() {
 
 check() {
   cd "$pkgname"
+
   # some tests hang for 60+ seconds, find out why
   # took my machine ~ 470 seconds
   cargo test --frozen --all-features
