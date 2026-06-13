@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kguiaddons
-pkgver=6.26.0
-pkgrel=2
+pkgver=6.27.0
+pkgrel=1
 pkgdesc='Addons to QtGui'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -27,7 +27,7 @@ optdepends=('pyside6: Python bindings'
             'qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('8375342f852104f36fd72a6870eb9795183af4516592cd6fa73445ea6b813172'
+sha256sums=('29b043480c45d3e51c57cac74fd83589cc7729c907a6585b72880cbf07feaf82'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D  # Jonathan Esk-Riddell <jr@jriddell.org>
