@@ -2,7 +2,7 @@
 # Contributor: Daniel Plaza <daniel.plaza.espi@gmail.com>
 
 pkgname=ccid
-pkgver=1.8.1
+pkgver=1.8.2
 pkgrel=1
 pkgdesc='A generic USB Chip/Smart Card Interface Devices driver'
 arch=('x86_64')
@@ -13,7 +13,7 @@ makedepends=('meson')
 backup=('etc/reader.conf.d/libccidtwin')
 validpgpkeys=('F5E11B9FFE911146F41D953D78A1B4DFE8F9C57E') # Ludovic Rousseau <ludovic.rousseau@free.fr>
 source=("https://ccid.apdu.fr/files/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha256sums=('1de8a1a6e25e18cc7462f29dc50353d66cc59e413760bdfca37ce6fc6ca1dbf1'
+sha256sums=('d74294e23d436546c3e719c95a4da180b17f5e7ffdd36efca53f75351cb0de75'
             'SKIP')
 
 build() {
