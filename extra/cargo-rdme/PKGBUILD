@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-rdme
-pkgver=1.5.0
+pkgver=1.5.1
 pkgrel=1
 pkgdesc="Cargo command to create the README.md from your crate's documentation"
 arch=('x86_64')
@@ -9,12 +9,12 @@ url="https://github.com/orium/cargo-rdme"
 license=('MPL-2.0')
 depends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('d8f6be23b8e15a8d027422e0ed4d47a995af136e20758434782da885cc6ed4df')
+sha256sums=('956aa5fdea7525b114aaed1ee7e2dfddb1672145f1d02761be9eb54af7ee904b')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
