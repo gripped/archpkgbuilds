@@ -2,7 +2,7 @@
 
 pkgname=reaper
 pkgver=7.74
-pkgrel=1
+pkgrel=2
 pkgdesc="A complete digital audio production application for computers"
 arch=(
   aarch64
@@ -12,7 +12,6 @@ url="https://reaper.fm"
 license=(LicenseRef-EULA)
 groups=(pro-audio)
 depends=(
-  aribb24
   alsa-lib libasound.so
   fontconfig
   libgcc
@@ -27,7 +26,7 @@ makedepends=(
   xdg-utils
 )
 optdepends=(
-  'ffmpeg4.4: for video rendering'
+  'ffmpeg: for video rendering'
   'jack: for JACK support'
   'pulseaudio: for PulseAudio support'
   'python: for Python plugins'
