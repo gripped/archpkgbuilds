@@ -3,7 +3,7 @@
 # Contributor: Kevin Piche <kevin@archlinux.org>
 
 pkgname=bigloo
-pkgver=4.6a
+pkgver=4.7a
 _src_ver=${pkgver/_/-}
 pkgrel=1
 pkgdesc="Fast scheme compiler"
@@ -14,16 +14,13 @@ depends=('gmp' 'openssl' 'libunistring' 'libnsl' 'gc' 'libuv')
 makedepends=('emacs' 'zip' 'sqlite' 'alsa-lib' 'flac' 'avahi' 'libpulse')
 optdepends=('emacs' 'zip' 'sqlite' 'alsa-lib' 'flac' 'avahi')
 options=('!makeflags' '!lto')
-source=("https://www-sop.inria.fr/indes/fp/Bigloo/download/${pkgname}-${_src_ver}.tar.gz" "bigloo-gcc15.patch")
-sha256sums=('9705ec3de00cc1c51ee7699894841a3770c06a874215b45635b8844ae6daf0a6'
-            'dfaa8c0709c5274b7805080856f8a4abcff20cd6ca22d77aeafbebd252a56c68')
+source=("https://github.com/manuel-serrano/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('74c264ae49ede64154e5983a92e6fec676f1c9717edbca20348213d88ed87bc7')
 
 
 elisp_dir=/usr/share/emacs/site-lisp/bigloo
 
 prepare() {
-  sed -i 's/$(GCLIB)/c/' "${srcdir}/${pkgname}-${_src_ver}/configure"
-  patch -p0 -d "${srcdir}/${pkgname}-${_src_ver}"  -i "${srcdir}/${pkgname}-gcc15.patch"
   # The sources are not ready for C23
   export CFLAGS+=" -std=gnu17 -D_GNU_SOURCE=1 -fwrapv -Wno-unused"
   sed -i 's/TLS=thread_local/TLS=_Thread_local/;s/"thread_local"/"_Thread_local"/' "${srcdir}/${pkgname}-${_src_ver}/autoconf/pthreadlocalstorage"
