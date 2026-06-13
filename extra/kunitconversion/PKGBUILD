@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kunitconversion
-pkgver=6.26.0
+pkgver=6.27.0
 pkgrel=1
 pkgdesc='Support for unit conversion'
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(doxygen
 optdepends=('pyside6: Python bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('94404453011eec373f858ef4a58091d24fbadbb90f96bbbf470c098646d9675e'
+sha256sums=('404e064114c95eca0ef759b96ca4e0ba5f9b8bc563138574358270963f3f5554'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D  # Jonathan Esk-Riddell <jr@jriddell.org>
