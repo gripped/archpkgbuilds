@@ -1,20 +1,18 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=perl-net-dns
-pkgver=1.54
+pkgver=1.55
 pkgrel=1
 pkgdesc="Perl Module: Interface to the DNS resolver"
 arch=('any')
-license=('PerlArtistic')
+license=('MIT')
 url="https://search.cpan.org/dist/Net-DNS/"
-depends=('perl-digest-hmac' 'perl-net-ip')
-checkdepends=('perl-test-pod' 'perl-mime-base32' 'perl-net-dns-sec' 'perl-net-libidn2')
-optdepends=('perl-io-socket-inet6: IPv6 support'
-            'perl-socket6: IPv6 support'
-            'perl-net-libidn2: non-ASCII domain support')
+depends=('perl-digest-hmac')
+checkdepends=('perl-test-pod' 'perl-net-libidn2')
+optdepends=('perl-net-libidn2: non-ASCII domain support')
 options=('!emptydirs')
 source=("https://cpan.metacpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-$pkgver.tar.gz")
-sha512sums=('ec938dd39f2221ee3bb69ca4b98c91f3238ff044872d9df7fcdf8e07dc1e89109e99c3ff892a2bd23834c0554d0234c3036aeefbf772b8754ce80e1b78b38421')
+sha512sums=('ec48f4c3ea675822a59faa280763571ff2f0c3b4997a558eca15de9856ebf4753e249a8d8243ad91372386afdcc00a4a1330d6700febb8a75933452553299db1')
 
 build() {
   cd Net-DNS-$pkgver
