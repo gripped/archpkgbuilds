@@ -4,7 +4,7 @@
 
 pkgbase=podman
 pkgname=(podman podman-docker)
-pkgver=5.8.2
+pkgver=5.8.3
 pkgrel=1
 pkgdesc='Tool and library for running OCI-based containers in pods'
 arch=(x86_64)
@@ -14,6 +14,7 @@ makedepends=(
   apparmor
   btrfs-progs
   catatonit
+  containers-common
   git
   go
   go-md2man
@@ -36,8 +37,8 @@ validpgpkeys=(
   7CE1E6F8C90CB53E7E4D8F2D502E08DB0BBF8EEE  # Ashley Cui <acui@redhat.com>
   9E33DD8704CC03E2DEB84D9A1C1EDD7CC7C3A0DD  # Lokesh Mandvekar <lsm5@redhat.com>
 )
-sha512sums=('006438b79649229f10b3e46531f38cc23a29923140a9ffb6a73b929fef6c5d77759009dc9c2d573fa7ff9973b212a7256c3e49d834aafa9c67474c753d0c4136')
-b2sums=('0b97afcdbf6d3416926111d674a6082e3545f50cac992c67e990275362d0675307c1c5a520d5cca993b6da941df05e4fec649c1db6c54eaa55b2de26f2438bae')
+sha512sums=('294f91005d1a7f52f8696ed7fb613862e0c526749289f6257e82b7df0bf74267c2857ab0b94e5cfa58ac153517e175c1fed87860f249fafea1de395d296cebac')
+b2sums=('c2cdeb522557855d19d8a6a90b644372acc25a1cc1c7f8b5939ec0f2facc847cc43363e01a149f24ad725d6bb7065340cb5c116830cf36e2e347aa1cdd73d018')
 
 build() {
   export CGO_CPPFLAGS="${CPPFLAGS}"
@@ -49,6 +50,18 @@ build() {
 
   make EXTRA_LDFLAGS='-compressdwarf=false -linkmode=external' PREFIX=/usr -C $pkgbase
   make docker-docs -C $pkgbase
+}
+
+check() {
+  local container_libs_version="$(</usr/share/containers/container-libs.version)"
+  local project_container_libs_version="$(sed --regexp-extended --quiet 's|.*go.podman.io/common v(.*)|\1|p' "$pkgbase/go.mod")"
+
+  printf '%s %s (container-libs %s) - system container-libs %s\n' "$pkgbase" "$pkgver" "${project_container_libs_version%.*}" "${container_libs_version%.*}"
+
+  if (( $(vercmp "${container_libs_version%.*}" "${project_container_libs_version%.*}") != 0 )); then
+    printf '%s %s requires container-libs/common in version %s but we have version %s\n' "$pkgbase" "$pkgver" "${project_container_libs_version%.*}" "${container_libs_version%.*}"
+    exit 1
+  fi
 }
 
 package_podman() {

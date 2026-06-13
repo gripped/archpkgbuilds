@@ -1,6 +1,6 @@
 pkgbase = podman
 	pkgdesc = Tool and library for running OCI-based containers in pods
-	pkgver = 5.8.2
+	pkgver = 5.8.3
 	pkgrel = 1
 	url = https://github.com/containers/podman
 	arch = x86_64
@@ -8,6 +8,7 @@ pkgbase = podman
 	makedepends = apparmor
 	makedepends = btrfs-progs
 	makedepends = catatonit
+	makedepends = containers-common
 	makedepends = git
 	makedepends = go
 	makedepends = go-md2man
@@ -18,12 +19,12 @@ pkgbase = podman
 	makedepends = sqlite
 	makedepends = systemd
 	options = !lto
-	source = git+https://github.com/containers/podman?signed#tag=v5.8.2
+	source = git+https://github.com/containers/podman?signed#tag=v5.8.3
 	validpgpkeys = B7DBDCA456F7335E91F1C25CD3624C551D0515C4
 	validpgpkeys = 7CE1E6F8C90CB53E7E4D8F2D502E08DB0BBF8EEE
 	validpgpkeys = 9E33DD8704CC03E2DEB84D9A1C1EDD7CC7C3A0DD
-	sha512sums = 006438b79649229f10b3e46531f38cc23a29923140a9ffb6a73b929fef6c5d77759009dc9c2d573fa7ff9973b212a7256c3e49d834aafa9c67474c753d0c4136
-	b2sums = 0b97afcdbf6d3416926111d674a6082e3545f50cac992c67e990275362d0675307c1c5a520d5cca993b6da941df05e4fec649c1db6c54eaa55b2de26f2438bae
+	sha512sums = 294f91005d1a7f52f8696ed7fb613862e0c526749289f6257e82b7df0bf74267c2857ab0b94e5cfa58ac153517e175c1fed87860f249fafea1de395d296cebac
+	b2sums = c2cdeb522557855d19d8a6a90b644372acc25a1cc1c7f8b5939ec0f2facc847cc43363e01a149f24ad725d6bb7065340cb5c116830cf36e2e347aa1cdd73d018
 
 pkgname = podman
 	depends = catatonit
