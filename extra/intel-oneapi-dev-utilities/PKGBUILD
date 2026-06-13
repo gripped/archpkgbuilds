@@ -2,7 +2,7 @@
 # Contributor: Jingbei Li <i@jingbei.li>
 
 pkgname=intel-oneapi-dev-utilities
-pkgver=2026.0.0_230
+pkgver=2026.0.1_16
 _pkgver=$(echo $pkgver | sed 's/_/-/')
 _majmin=$(echo $pkgver | cut -d. -f1,2)
 pkgrel=1
@@ -12,8 +12,8 @@ url='https://software.intel.com/content/www/us/en/develop/tools/oneapi.html'
 license=("LicenseRef-Intel-EULA-Developer-Tools")
 source=("https://apt.repos.intel.com/oneapi/pool/main/${pkgname}-${_pkgver}_amd64.deb"
         "https://apt.repos.intel.com/oneapi/pool/main/${pkgname}-eclipse-cfg-${_majmin}-${_pkgver}_all.deb")
-b2sums=('ab8d4f5fabb834dd84679111291352c483e7d9c7425241e45be390e09ebc8dbcacabb0929bcfd2f488bc16ca39e2f81ab7a1dad401460ebb73430c6e7928c959'
-        '4bb7afb5c330bfbb0da97d5e559e0bfac2edb09ead69fb9054b6e938a9423e9e5165a085640ef1ba9d840d56d12432127fcfc59489049e5e9b77dae20405184f')
+b2sums=('df29769e4128086ab0892582b66a62b99d04b31c2810ce0b46e86f239f9bc150f41310d2e0c3892c9c2ccf28e8b8c2b281b24479fbee3624f6b3b9287ae6acdb'
+        '12edb7f532fda600528bc652aa22f0c2cf14973a38efb596057ac899a953fc8b3e74eff4ba3436d98a9baafe008c9a016cb598184dc5d3ae222290c833f04e25')
 depends=('intel-oneapi-common')
 provides=("${pkgname}-eclipse-cfg")
 conflicts=('intel-oneapi-basekit')
