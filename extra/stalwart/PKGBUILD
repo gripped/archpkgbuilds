@@ -3,13 +3,12 @@
 
 pkgname=stalwart
 pkgver=0.16.8
-pkgrel=1
+pkgrel=2
 pkgdesc='Stalwart mail and collaboration server'
 arch=(x86_64)
 url='https://stalw.art'
 license=(AGPL-3.0-only)
 depends=(
-  glibc
   rocksdb
   stalwart-webadmin
 )
@@ -21,7 +20,11 @@ makedepends=(
   llvm
   python
 )
-optdepends=('stalwart-cli: management CLI')
+optdepends=(
+  'stalwart-cli: management CLI'
+  'stalwart-proxy: migration proxy'
+  'vandelay: JMAP import/export & backup'
+)
 backup=(etc/stalwart/config.env)
 options=(!lto !debug) # LTO causes FTBFS with rocksdb crate
 install=stalwart.install
@@ -76,6 +79,7 @@ build() {
 
 package() {
   depends+=(
+    glibc
     libgcc libgcc_s.so
     libstdc++ libstdc++.so
   )
