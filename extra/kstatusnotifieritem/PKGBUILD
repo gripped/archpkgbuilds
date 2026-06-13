@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kstatusnotifieritem
-pkgver=6.26.0
-pkgrel=2
+pkgver=6.27.0
+pkgrel=1
 pkgdesc='Implementation of Status Notifier Items'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -20,7 +20,7 @@ makedepends=(doxygen
 optdepends=('pyside6: Python bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('898914c94820f99889d879f33cabbb5fbe7b9f4e24a6a1d9a9b4439489bc3266'
+sha256sums=('a2eec2a981ed9da6cffc955cc21a50dcbc77141cbb840d915f92d1897442d239'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
