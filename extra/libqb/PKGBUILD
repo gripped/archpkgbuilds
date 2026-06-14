@@ -4,7 +4,7 @@
 # Contributor: ovi chis <ovi@ovios.org>
 
 pkgname=libqb
-pkgver=2.0.9
+pkgver=2.0.10
 pkgrel=1
 pkgdesc='Library for providing high performance, reusable features for client-server architecture'
 arch=('x86_64')
@@ -13,7 +13,6 @@ license=('LGPL-2.1-or-later')
 depends=(
   'glibc'
   'libxml2'
-  'systemd-libs'
 )
 makedepends=(
   'doxygen'
@@ -22,7 +21,7 @@ makedepends=(
 checkdepends=('check')
 provides=('libqb.so')
 source=(https://github.com/ClusterLabs/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz{,.asc})
-sha512sums=('9eb762023017b2e5f5dd23d801b868f3e149d66a2969c5aa15facbfd82b68426d2d1cda804a6e25a11c14a998b7d55a688e8d09475e265300ca3fb2414555515'
+sha512sums=('c7e833c3bffbd40bd095c0866b870f7357d2960ff1a668bfd6251e46f6914db05c285574316518886ff7fe17c1a3dc990a023a538e521540782d84f011884543'
             'SKIP')
 validpgpkeys=(
   'C5E29348A2B634E9F71B2014791890532CB5CDDE' # libqb Release Signing Key <users@clusterlabs.org>
