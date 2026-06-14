@@ -10,7 +10,7 @@ pkgbase=qtcreator
 pkgname=(qtcreator
          qtcreator-devel)
 pkgver=19.0.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Lightweight, cross-platform integrated development environment'
 arch=(x86_64)
 url='https://www.qt.io'
@@ -23,7 +23,7 @@ depends=(clang
          libelf
          libgcc
          libstdc++
-         litehtml
+         litehtml0.9
          llvm-libs
          python
          qt6-base
@@ -82,7 +82,8 @@ build() {
     -DBUILD_DEVELOPER_DOCS=ON \
     -DQTC_CLANG_BUILDMODE_MATCH=ON \
     -DCLANGTOOLING_LINK_CLANG_DYLIB=ON \
-    -DQLITEHTML_USE_SYSTEM_LITEHTML=ON
+    -DQLITEHTML_USE_SYSTEM_LITEHTML=ON \
+    -Dlitehtml_DIR=/usr/lib/cmake/litehtml0.9
   cmake --build build
   cmake --build build --target docs
 }
