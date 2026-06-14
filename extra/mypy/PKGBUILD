@@ -5,14 +5,15 @@
 # Contributor: hexchain <i@hexchain.org>
 
 pkgname=mypy
-pkgver=1.20.2
-pkgrel=1
+pkgver=2.1.0
+pkgrel=2
 pkgdesc='Optional static typing for Python (PEP484)'
 arch=('any')
 url="http://www.mypy-lang.org/"
 license=('MIT')
 depends=(
   'python'
+  'python-ast-serialize'
   'python-librt'
   'python-mypy_extensions'
   'python-orjson'
@@ -43,7 +44,7 @@ source=(
   "$pkgname-$pkgver.tar.gz::https://github.com/python/mypy/archive/v$pkgver.tar.gz"
   "$pkgname-exclude-tests.patch"
 )
-b2sums=('cc28ad8a145d27dd4f6f395496e44ed80859df634e89fe7d584975107534cf063db97817b5b94665e2b7629ca1fa67c75c0ed2978237f10d68606c33bc6e79d3'
+b2sums=('37bf2f6d79377ebde68537119c0b58ae9cf6868421329b1d5b814e48788749e53cd34053bb5472385881b167cc8af7fdd85cef3c63792868668286516fe27462'
         '83b6d12dac919b917ba13c6a5b6da6e4cd6dc517f85b4f8e81d793d9c0e871af5a48708c4a5a54c45c7be89c5ed394b2f77007be89420fea4a1f3ca1efb04c0d')
 
 prepare() {
@@ -68,7 +69,9 @@ check() {
   #   mypyc/test/test_run.py::TestRun::run-i64.test::testI64DefaultArgValues
   #   mypyc/test/test_run.py::TestRun::run-i64.test::testI64ErrorValuesAndUndefined
   unset CFLAGS
-  pytest -vv
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest -vv
 }
 
 package() {
