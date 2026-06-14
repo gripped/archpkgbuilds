@@ -5,13 +5,11 @@
 
 pkgname=rio
 pkgver=0.4.7
-pkgrel=1
+pkgrel=3
 pkgdesc="A hardware-accelerated GPU terminal emulator powered by WebGPU"
 arch=('x86_64')
 url="https://github.com/raphamorim/rio"
 license=('MIT')
-# https://raphamorim.io/rio/install/#arch-linux
-options=('!lto')
 depends=(
   'alsa-lib'
   'fontconfig'
@@ -32,23 +30,30 @@ makedepends=(
   'glslang'
   'scdoc'
 )
+options=(!lto)
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
 sha512sums=('3bef09a44bf00e0f5ce361d6d5b1d7fe2d694b12f47b121ee378f9fd4c100015833c4681cf962aa7e56db54c9abba8d776a6bccd8c75cd52cb28bb7dd867ea65')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
+
+  # Fix launchable ID in metainfo file
+  sed -i "s/com.rioterm.Rio.desktop/rio.desktop/" "misc/com.rioterm.Rio.metainfo.xml"
 }
 
 build() {
   cd "${pkgname}-${pkgver}"
-  RUSTONIG_DYNAMIC_LIBONIG=1 cargo build --frozen --release --all-features
+  export CARGO_PROFILE_RELEASE_DEBUG=2
+  export RUSTONIG_DYNAMIC_LIBONIG=1
+  cargo build --frozen --release --all-features
   make -C extra/man
 }
 
 check() {
   cd "${pkgname}-${pkgver}"
-  RUSTONIG_DYNAMIC_LIBONIG=1 cargo test --frozen --workspace
+  export RUSTONIG_DYNAMIC_LIBONIG=1
+  cargo test --frozen --workspace
 }
 
 package() {
