@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-voice-note
-pkgver=6.5.39
+pkgver=6.5.40
 pkgrel=1
 pkgdesc='A lightweight memo tool to make text notes and voice recordings'
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-multimedia' 'qt6-decl
 makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja' 'qt6-tools' 'vlc')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-voice-note.git#tag=$pkgver")
-sha512sums=('a7b0c84de89d8f23a6816484a40ab6c9141395f64330d0d9df2a118cb5a6c98dcc1ff72223b8e8b3c44603c96c8243762391112213d98edee32c8a44abd19c74')
+sha512sums=('09cc2ca2bcc6eab00a816b0e1ace6608fdeeeb4ccaeae1dd22227981da96375824e1d5587c1efc351fbacca6ebf7bee5ecfd6daeba4a3f93714f0b9bb8b0565c')
 
 prepare() {
   cd deepin-voice-note
@@ -23,7 +23,7 @@ prepare() {
 
 build() {
   cd deepin-voice-note
-  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr .
+  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DVERSION=$pkgver .
   ninja
 }
 
