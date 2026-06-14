@@ -6,7 +6,7 @@
 # Contributor: sh__
 
 pkgname=libtorrent
-pkgver=0.16.13
+pkgver=0.16.14
 pkgrel=1
 pkgdesc='BitTorrent library with a focus on high performance'
 url='https://rakshasa.github.io/rtorrent/'
@@ -15,7 +15,7 @@ license=('GPL-2.0-or-later')
 makedepends=('git')
 depends=('openssl')
 source=("git+https://github.com/rakshasa/libtorrent.git#tag=v${pkgver}")
-sha256sums=('6bed6c77df2c2c76e874440be66ad770d319f6b1342f45068cf969ff0990d655')
+sha256sums=('c04787128a4e0b5639e443a18d94a7f7270a669ebf47bed9a995b8b51fa7b76a')
 
 prepare() {
   cd ${pkgname}
