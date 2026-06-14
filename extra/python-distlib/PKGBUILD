@@ -2,7 +2,7 @@
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=python-distlib
-pkgver=0.4.2
+pkgver=0.4.3
 pkgrel=1
 pkgdesc='Low-level functions that relate to packaging and distribution of Python software'
 arch=(any)
@@ -18,8 +18,8 @@ makedepends=(
 )
 checkdepends=(python-tests)
 source=("$pkgname::git+https://github.com/pypa/distlib.git#tag=$pkgver")
-sha512sums=('a0e65d959094a71f14b2ef3976462f9e490cc8cde8dd8d8655671e1a1de301febd548ea73f9685b3a70c5d8dc636289f8d1fa2e9be34a2730a969c2346f30885')
-b2sums=('4b317f8b98b60f6242db358af77e496b1b6e0cfe6d3792f04dc36b76f4ab0ed259d7d0b7e68969ea5020114e6574e0badabcf36b27948c5182c8735e66b5a751')
+sha512sums=('00ae23e0636d917eb0a912574fcc343db0429755659467f1168c07f679a40386734350dcce464a6e47c9dc031854d2bdee05b258c8809a122d774a8e783a341c')
+b2sums=('b8f6d2cc71396cae29f33d0450d7cd39b45ce20ea2e2a850af46786849a29aff20f541579293e9d7db76e8c746f0b3b2079a9c577e06d56bf953ce214e431fbc')
 
 prepare() {
   cd "$pkgname"
