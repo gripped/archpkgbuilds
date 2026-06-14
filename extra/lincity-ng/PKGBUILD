@@ -3,8 +3,8 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=lincity-ng
-pkgver=2.14.2
-pkgrel=3
+pkgver=2.15.0
+pkgrel=1
 pkgdesc="A city simulation game"
 arch=('x86_64')
 url="https://github.com/lincity-ng/lincity-ng"
@@ -22,10 +22,10 @@ depends=(
   'libstdc++'
   'libxml++-5.0'
   'libxml2'
-  'sdl2'
-  'sdl2_image'
-  'sdl2_mixer'
-  'sdl2_ttf'
+  'sdl3'
+  'sdl3_image'
+  'sdl3_mixer'
+  'sdl3_ttf'
   'zlib'
 )
 makedepends=(
@@ -34,7 +34,7 @@ makedepends=(
   'libxslt'
 )
 source=("git+$url.git#tag=lincity-ng-$pkgver")
-b2sums=('58cc1c1db1a6fb4601f3863af3190803684df930816dcc417b1a7b3c5bf7f95664d2495c2ade7ec34e7fee464d4957ebb1bfd0a90c7de00b924a2ff1cf1c600c')
+b2sums=('7f78d1e48a8833c74c474b12eec3c2df28a7b92e28ceea4a40b14271765a79d1dc658eb244d400ed099224f4208fd8346849a95f3a4debfe9e042df376a62507')
 
 build() {
   cmake -S $pkgname -B build \
