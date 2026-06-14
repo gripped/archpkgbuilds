@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-mako
-pkgver=1.3.11
+pkgver=1.3.12
 pkgrel=1
 pkgdesc="A template library written in Python"
 arch=(any)
@@ -35,7 +35,7 @@ optdepends=(
   'python-pytest: for testing utilities'
 )
 source=("$pkgname::git+$url.git#tag=rel_${pkgver//./_}")
-sha512sums=('be4f5be938f1d8f8572110cf9cef47582a94843cebbf2bb6e675e21ed98f5bfdf1209f83f49f00c61f43aee56b798e3ec1c2de2696a85ec9a2aedbb6cfc5fc86')
+sha512sums=('af0695c90fcbc51380f1c550cfe8e068e4aa3bbaf8760f974644242fbb4ecedcf5e9c367f283be491c68c042b89d3e0da0ed1dc02f402fb0991b43142f3b81bc')
 
 build() {
   cd $pkgname
