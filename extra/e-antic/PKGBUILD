@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=e-antic
-pkgver=2.1.0
-pkgrel=5
+pkgver=2.1.1
+pkgrel=1
 pkgdesc='Embedded algebraic number fields (on top of antic)'
 arch=(x86_64)
 url='https://github.com/flatsurf/e-antic/'
@@ -15,7 +15,7 @@ depends=(flint
 makedepends=(boost
              python-setuptools)
 source=(https://github.com/flatsurf/e-antic/releases/download/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('e3e78701d054b441f95d83b6fb55cd84bfd931f5d4a61a2822dc977a20c46f80')
+sha256sums=('e3287fa603b44d9a43c4cac5d883e65e90aedc35821061c1dc5b8d9c94a01cd8')
 
 build() {
   cd $pkgname-$pkgver
