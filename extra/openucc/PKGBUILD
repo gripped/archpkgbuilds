@@ -2,7 +2,7 @@
 
 _name=ucc
 pkgname=openucc
-pkgver=1.7.0
+pkgver=1.8.0
 pkgrel=1
 pkgdesc="Unified Collective Communication Library"
 arch=(x86_64)
@@ -16,6 +16,7 @@ depends=(
 makedepends=(
   cuda
   hip-runtime-amd
+  rocm-llvm
   nccl
   rccl
   rdma-core
@@ -36,7 +37,7 @@ provides=(
 source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
 )
-b2sums=('f3bf5bcaed9d461013531e9e816c8cf5060d0cd88e7eb66d2f983df0182849218a6bd1f2cd15603121d860602b9b8892e159bc85ff2edd0baca23b3f5733c8fe')
+b2sums=('9fc537aae7f7daafa821ac5d1938f8af332579cdd78ed472f68d2083d1e053cc05034d7c3036fc5e9298b276329a1e935e8877bf9a510af6541eb35f8848823c')
 
 prepare() {
   cd $_name-$pkgver

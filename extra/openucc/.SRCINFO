@@ -1,6 +1,6 @@
 pkgbase = openucc
 	pkgdesc = Unified Collective Communication Library
-	pkgver = 1.7.0
+	pkgver = 1.8.0
 	pkgrel = 1
 	url = https://github.com/openucx/ucc
 	arch = x86_64
@@ -8,6 +8,7 @@ pkgbase = openucc
 	checkdepends = gtest
 	makedepends = cuda
 	makedepends = hip-runtime-amd
+	makedepends = rocm-llvm
 	makedepends = nccl
 	makedepends = rccl
 	makedepends = rdma-core
@@ -20,7 +21,7 @@ pkgbase = openucc
 	optdepends = rccl: for RCCL transport layer
 	optdepends = rdma-core: for InfiniBand transport layer
 	provides = libucc.so
-	source = openucc-1.7.0.tar.gz::https://github.com/openucx/ucc/archive/refs/tags/v1.7.0.tar.gz
-	b2sums = f3bf5bcaed9d461013531e9e816c8cf5060d0cd88e7eb66d2f983df0182849218a6bd1f2cd15603121d860602b9b8892e159bc85ff2edd0baca23b3f5733c8fe
+	source = openucc-1.8.0.tar.gz::https://github.com/openucx/ucc/archive/refs/tags/v1.8.0.tar.gz
+	b2sums = 9fc537aae7f7daafa821ac5d1938f8af332579cdd78ed472f68d2083d1e053cc05034d7c3036fc5e9298b276329a1e935e8877bf9a510af6541eb35f8848823c
 
 pkgname = openucc
