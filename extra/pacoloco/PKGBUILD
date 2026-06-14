@@ -1,8 +1,8 @@
 # Maintainer: Anatol Pomozov <anatol.pomozov@gmail.com>
 
 pkgname=pacoloco
-pkgver=1.7
-pkgrel=2
+pkgver=1.8
+pkgrel=1
 pkgdesc='Pacman caching proxy server'
 arch=(x86_64)
 url='https://github.com/anatol/pacoloco'
@@ -11,7 +11,7 @@ license=(MIT)
 depends=(glibc)
 makedepends=(go)
 source=(pacoloco-$pkgver.tar.gz::https://github.com/anatol/pacoloco/archive/$pkgver.tar.gz)
-sha256sums=('7d8628d3b93de0ff5047fe3d61e12da0afca895d822e446235b1056639f088b2')
+sha256sums=('1ab3ceb7fe730026f09edb59c2cd2f49c47790ba035d1ed94ae2fc934210d02c')
 
 build() {
   cd pacoloco-$pkgver
