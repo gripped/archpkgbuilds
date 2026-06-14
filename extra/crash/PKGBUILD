@@ -6,14 +6,13 @@
 # Contributor: Qu Wenruo <wqu@suse.com>
 
 pkgname=crash
-pkgver=9.0.1
-pkgrel=2
+pkgver=9.0.2
+pkgrel=1
 pkgdesc='Linux kernel crashdump analysis tool'
 url='https://crash-utility.github.io/'
 arch=(x86_64)
 license=(GPL-3.0-only)
 depends=(
-  boost # Boost is needed for the GDB with extra compression support
   glibc
   gmp
   guile
@@ -23,6 +22,7 @@ depends=(
   lzo
   mpfr
   ncurses
+  source-highlight # Provides syntax highlighting in the bundled GDB
   xxhash
   xz
   zstd
@@ -30,7 +30,7 @@ depends=(
 makedepends=(wget)
 optdepends=('binutils: offline vmcore loading functionality')
 source=("https://github.com/crash-utility/crash/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('f7f880a928700067780e6533b64aeb3c8c9330ddc15814180f9d3a700cf986f2ebd1b8a445ebd399f32f92c7d3e4e609801a3af6e8bde98c6bac78e540fa6687')
+b2sums=('c29a4f2f57f9a48cc11d17fea7815c58a87242734dee6d2a992c3e47def7c2c007123d714d9f0d4731f33e14abd7d53c468d714083b55f038732c2b6144c76e0')
 
 build() {
   cd $pkgname-$pkgver
