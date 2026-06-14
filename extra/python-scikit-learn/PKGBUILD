@@ -4,13 +4,14 @@
 
 pkgname=python-scikit-learn
 pkgver=1.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A set of python modules for machine learning and data mining'
 arch=(x86_64)
 url='https://scikit-learn.org'
 _url='https://github.com/scikit-learn/scikit-learn'
 license=(BSD-3-Clause)
 depends=(python-joblib
+         python-narwhals
          python-numpy
          python-scipy
          python-threadpoolctl)
@@ -27,7 +28,7 @@ sha256sums=('f2abcab8a4c510714e23f96f122ba74c6f73f927aeee7753b0bbeb7dc43998ab')
 prepare() {
 	cd $_archive
 	sed -i -E \
-		-e '/meson-python/s/,<0.19.0//' \
+		-e '/meson-python/s/,<0.20.0//' \
 		-e '/numpy/s/,<2.3.0//' \
 		-e '/scipy/s/,<1.16.0//' \
 		-e '/Cython/s/,<3.2.0//' \
