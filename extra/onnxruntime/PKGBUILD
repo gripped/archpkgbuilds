@@ -17,7 +17,7 @@ pkgname=(
 )
 pkgver=1.24.4
 _pkgdesc='Cross-platform, high performance scoring engine for ML models'
-pkgrel=7
+pkgrel=8
 arch=('x86_64')
 url='https://github.com/microsoft/onnxruntime'
 license=('MIT')
@@ -36,13 +36,15 @@ source=("git+https://github.com/microsoft/onnxruntime#tag=v${pkgver}"
         "${pkgbase}-system-dnnl.patch"
         "${pkgbase}-system-flatbuffers.patch"
         "${pkgbase}-remove-pkg_resources.patch"
-        fix-thrust-api.patch)
+        fix-thrust-api.patch
+        "${pkgbase}-cuda-moe-no-tensor-dumper.patch")
 b2sums=('4edead573c6b080e01e9afbcc13692b3016b757f761d48aaf10e0148bc371333e2e14d605158495bb84dca99359db0d7b3c98795816cdacc63d9d8487f194c93'
         'af5a5524dd9b5fe0052d2d0da232de7f219d4abffb37a7a321145b428d06fcb2901ab4e76b6754440146c223fc761bcbdfeee230167d33aa4434b82a1ebad5c0'
         '57c79382537f5bd25a891de3a99415a6dd8f490676df213016e897040c88e28fb5f5a5c3a8a98057e3f6630edb3ddcaeae36dcc47d5354abaafafc36e579f731'
         '207f020f310a7b447b4dc2fac74819f80099f088fdad6e42d67d0f01aa35bb5b9475bd006d9bec318127ae2db3d7ae3df33382fa16339d936c1dfb3832010837'
         'dfa9e70fdcd0f2c2fafec7f1961e66fa9661a03b8dba08c7d2329d018d8ebd4481337c0ddc6de393d7f4a032bd6011ccfad28d89aa0142ce9e01ead0bafcf079'
-        'b0b58e2eb42a38956ef9e86b853d413c2fd002737d37721962dd9e1fc5c39c1ef4594325c6f6081f2b4cdce39a14907dbebc156645fa25ff3f2bbbce6417cd14')
+        'b0b58e2eb42a38956ef9e86b853d413c2fd002737d37721962dd9e1fc5c39c1ef4594325c6f6081f2b4cdce39a14907dbebc156645fa25ff3f2bbbce6417cd14'
+        '12f95b2a5b6a5414ee23f8ee6a3d433b3ab648801c6974d265a3d554d6f9f8c5f71aec810b2d83f0a2f75bdfe8d2aecbaa5d3197c26f95c1a59c6ef2bb5a8279')
 
 _valid_sm() {
   # Check PKGBUILDs of python-pytorch and tensorflow for CUDA architectures built by official packages
@@ -90,6 +92,9 @@ prepare() {
   # Remove pkg_resources use
   patch -p1 -i "${srcdir}/${pkgbase}-remove-pkg_resources.patch"
 
+  # Fix gcc 16 "instantiating erroneous template" error
+  patch -p1 -i "${srcdir}/${pkgbase}-cuda-moe-no-tensor-dumper.patch"
+
   cd "${srcdir}"
   cp -r "${pkgbase}" "${pkgbase}-cpu"
   cp -r "${pkgbase}" "${pkgbase}-cuda"
@@ -126,6 +131,8 @@ build() {
     -Donnxruntime_USE_FULL_PROTOBUF=OFF)
 
   CXXFLAGS+=" -I/opt/cuda/targets/x86_64-linux/include"
+  # Fix gcc 16 with absl 20260526
+  export CUDAFLAGS+=" -Xcompiler -Wno-error=template-body"
   local _cmake_cuda_args=("${_cmake_args[@]}"
     -DCMAKE_CUDA_ARCHITECTURES="$(_valid_sm)"
     -DCMAKE_CUDA_STANDARD_REQUIRED=ON
