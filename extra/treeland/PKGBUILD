@@ -2,7 +2,7 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=treeland
-pkgver=0.8.7
+pkgver=0.8.8
 pkgrel=1
 pkgdesc='New wayland compositer for DDE'
 arch=('x86_64')
@@ -11,14 +11,14 @@ license=('Apache-2.0' 'LGPL-3.0-only' 'GPL-2.0-only' 'GPL-3.0-only')
 # xwayland is needed for XWayland support (not optional)
 depends=('bash' 'ddm' 'dtk6core' 'dtk6declarative' 'dtk6systemsettings' 'glibc' 'libgcc' 'libstdc++'
          'libdrm' 'libgl' 'libinput' 'libxau' 'libxcb' 'mpv' 'pam' 'pixman' 'qt6-base' 'qt6-declarative'
-         'systemd-libs' 'wayland' 'wlroots0.19' 'xorg-xwayland' 'deepin-session')
+         'qt6-remoteobjects' 'systemd-libs' 'wayland' 'wlroots0.19' 'xorg-xwayland' 'deepin-session')
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'wayland-protocols' 'wlr-protocols'
              'treeland-protocols' 'vulkan-headers')
 groups=('deepin')
 replaces=('waylib' 'qwlroots')
 conflicts=('waylib' 'qwlroots')
 source=("git+https://github.com/linuxdeepin/treeland.git#tag=$pkgver")
-sha256sums=('0fa8435f4b775d099950f44960a5570339da45ae56edef737c998138a0a825c7')
+sha256sums=('aae5add917e9b215e49bdfa8090e09dbdc12229ff98e89d2a5300c1279513684')
 
 prepare() {
   cd treeland
