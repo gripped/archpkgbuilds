@@ -1,8 +1,8 @@
 # Maintainer: Anatol Pomozov <anatol.pomozov@gmail.com>
 
 pkgname=tinygo
-pkgver=0.37.0
-pkgrel=2
+pkgver=0.41.1
+pkgrel=1
 pkgdesc='Go compiler for small places. Microcontrollers, WebAssembly, and command-line tools. Based on LLVM.'
 arch=(x86_64)
 url='https://github.com/tinygo-org/tinygo'
@@ -25,10 +25,10 @@ source=(git+https://github.com/tinygo-org/tinygo#tag=v$pkgver
         git://git.musl-libc.org/musl
         git+https://github.com/mingw-w64/mingw-w64.git
         git+https://github.com/aykevl/macos-minimal-sdk.git
-        git+https://github.com/tinygo-org/net.git#branch=dev
+        git+https://github.com/tinygo-org/net.git
         git+https://github.com/WebAssembly/wasi-cli
-        git+https://github.com/espressif/llvm-project#branch=xtensa_release_19.1.2)
-sha256sums=('cbe98abbead38571e9ce7b088cc7e26e2db3a0ab20353c9f1138699b9257e1d1'
+        git+https://github.com/tinygo-org/llvm-project#branch=tinygo_20.x)
+sha256sums=('8cb3be007cf61a2fe6045b36f07f200de8b5f258526cd169b9dc89823524e32b'
             'SKIP'
             'SKIP'
             'SKIP'
