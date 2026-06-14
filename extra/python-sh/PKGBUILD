@@ -4,19 +4,19 @@
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 
 pkgname=python-sh
-pkgver=2.2.4
+pkgver=2.2.5
 pkgrel=1
 pkgdesc='Subprocess interface that allows you to call any program as if it were a function'
 arch=('any')
 url='https://github.com/amoffat/sh'
 license=('MIT')
 depends=('python')
-makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel'
-             'python-poetry-core')
-checkdepends=('lsof' 'python-pytest')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer'
+             'python-wheel')
+checkdepends=('python-pytest')
 source=("git+https://github.com/amoffat/sh.git#tag=$pkgver")
-sha512sums=('26b1f7c4ba3b19c9960daea293ed72aee8b717bfc55e239dc98109cbb952cb47b85c133e5eef234da6b6b551042642aef9c047aabc7bfe7da5addb12d0087d51')
-b2sums=('6512b4bc0f80b5e3772298b3c07e3c94f316d1a55cc84e1fb303580419084e8648df2edfb4b76952be368cf0f39815e342ef5104d8faa42567e1f09c5d806baa')
+sha512sums=('ddf624cbcd2a5eb6318570d5faf09e7d0fd42648065db4d2abcfc794e7af22b759da60b2a33fe1d547388fe7eaf7dbc26d851bf33eb49bccef422f35ce0949bc')
+b2sums=('d4c1fc6ce99d7bc92cdff1e3da18958f1e586970b2924572ce6fce44ee97207f89daaad4c822eceb91bc0a3b26b5ea67ac674e3b9db1fcdc460f35d3c426d849')
 
 build() {
   cd sh
