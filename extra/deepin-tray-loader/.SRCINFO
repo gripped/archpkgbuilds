@@ -1,6 +1,6 @@
 pkgbase = deepin-tray-loader
 	pkgdesc = A set of tray plugins that integrated into task bar and the tool loader which can load the plugins
-	pkgver = 2.0.33
+	pkgver = 2.0.34
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-tray-loader
 	arch = x86_64
@@ -13,6 +13,7 @@ pkgbase = deepin-tray-loader
 	makedepends = extra-cmake-modules
 	makedepends = ninja
 	makedepends = qt6-tools
+	makedepends = wayland-protocols
 	depends = dconf
 	depends = deepin-api
 	depends = deepin-daemon
@@ -30,11 +31,12 @@ pkgbase = deepin-tray-loader
 	depends = libxtst
 	depends = qt6-base
 	depends = qt6-svg
+	depends = qt6-wayland
 	depends = wayland
 	depends = xcb-util
 	depends = xcb-util-image
 	depends = xcb-util-wm
-	source = git+https://github.com/linuxdeepin/dde-tray-loader.git#tag=2.0.33
-	sha512sums = 5ababc2f157640031ec42de2ba0336d2323662f8baef5d971cd79b268ef2b5fea5071b7d490daaef1fb82a8370f9c91f26a74c9efcd9b8047af5b2556d10193b
+	source = git+https://github.com/linuxdeepin/dde-tray-loader.git#tag=2.0.34
+	sha512sums = e82e3a255b0c94a7e7bf5ef4b39551d54ae9335cab83d98a6729b02c21c2996070c649a6e5d6b12c22a7d68ed3786a8d633bd516adb98fa3c256b490a914d74f
 
 pkgname = deepin-tray-loader
