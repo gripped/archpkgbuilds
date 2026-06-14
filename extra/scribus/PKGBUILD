@@ -8,7 +8,7 @@
 
 pkgname=scribus
 pkgver=1.6.6
-pkgrel=4
+pkgrel=5
 pkgdesc="Desktop publishing software"
 arch=(x86_64)
 url="https://www.scribus.net/"
@@ -53,10 +53,12 @@ optdepends=('gdal: enable gdal plugin'
 options=(!lto)
 _archive="$pkgname-$pkgver"
 source=("https://downloads.sourceforge.net/${pkgname}/$_archive.tar.xz"{,.asc}
-        "fix_build_with_poppler_26.05.patch::https://github.com/scribusproject/scribus/commit/14a287fc1db2a44abfe1743260554447b31b4adf.patch?full_index=1")
+        "fix_build_with_poppler_26.05.patch::https://github.com/scribusproject/scribus/commit/14a287fc1db2a44abfe1743260554447b31b4adf.patch?full_index=1"
+         2b9405a00a96a09e0183190ddc9f83d44963d4e0.patch)
 sha256sums=('fdfe3e7cbe84b760b38d0561ed8736f9d25d4923adde6e15e03760d83be6166d'
             'SKIP'
-            'e84b3f12333cac812c942b85f06403669ad3792bdae821a7e95fa9a3258e1cda')
+            'e84b3f12333cac812c942b85f06403669ad3792bdae821a7e95fa9a3258e1cda'
+            'dffd5d9aabd1ae3c8c95832ceb4f3113c5d320ce185770fb961584bbe7bf4bc2')
 validpgpkeys=(5086B8D68E70FDDF4C40045AEF7B95E7F60166DA  # Peter Linnell <plinnell@scribus.net>
               757F5E9B13DD648887AD50092D47C099E782504E  # The Scribus Team (www.scribus.net) <the_scribus_team@scribus.net>
               6558BE84D27273A438A151198BEA48118AEBEE64) # Craig Bradney <cbradney@zipworld.com.au>
@@ -74,6 +76,7 @@ pkgver() {
 prepare() {
 	cd "$_archive"
 	patch -Np1 -i "$srcdir/fix_build_with_poppler_26.05.patch"
+	patch -Np1 --binary -i ../2b9405a00a96a09e0183190ddc9f83d44963d4e0.patch # Fix build with poppler 26.06
 }
 
 build() {
