@@ -2,7 +2,7 @@
 # Contributor: Thomas Dziedzic < gostrc at gmail >
 
 pkgname=python-tornado
-pkgver=6.5.6
+pkgver=6.5.7
 pkgrel=1
 pkgdesc='open source version of the scalable, non-blocking web server and tools'
 arch=('x86_64')
@@ -14,7 +14,7 @@ optdepends=('python-pycurl: for tornado.curl_httpclient'
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pycares' 'python-pycurl' 'python-twisted')
 source=("git+https://github.com/tornadoweb/tornado.git#tag=v$pkgver")
-sha512sums=('1938da97401c385ebcc61252d8f0b58a04f7b1c8973a8a6dfdee357a68d023ce808ae2f631c0fe11d432c2aec3401d9e784a348c0e184f71e627f811c75b4084')
+sha512sums=('7279050e3ec904aa25087537753d8bca8a60549d8499b7fb9d9d646957398348d41dd7dcba392c11aaa462d29967280befc4bab98ca2fd84ccfc39deeb0b842c')
 
 export TORNADO_EXTENSION=1
 
