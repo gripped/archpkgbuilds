@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-session
-pkgver=1.0.15
+pkgver=1.0.16
 pkgrel=1
 epoch=1
 pkgdesc='Session manager for the COSMIC desktop environment'
