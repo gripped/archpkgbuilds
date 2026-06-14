@@ -1,7 +1,7 @@
 pkgbase = flawz
 	pkgdesc = A Terminal UI for browsing security vulnerabilities (CVEs)
-	pkgver = 0.3.0
-	pkgrel = 2
+	pkgver = 0.4.1
+	pkgrel = 1
 	url = https://github.com/orhun/flawz
 	arch = x86_64
 	license = MIT
@@ -11,7 +11,8 @@ pkgbase = flawz
 	depends = libgcc
 	depends = openssl
 	depends = sqlite
-	source = flawz-0.3.0.tar.gz::https://github.com/orhun/flawz/archive/v0.3.0.tar.gz
-	sha512sums = 9ab9ffc2d9ba805ac9568a761565f335f81c2ffb00357f586e0015edc28c5ce369237d87b41e464cee85fc8d8d65ad976f5c720bb905ad3b0d626d99ae517163
+	options = !lto
+	source = flawz-0.4.1.tar.gz::https://github.com/orhun/flawz/archive/v0.4.1.tar.gz
+	sha512sums = 0aa74a024034d67e828a5fe8d2ecf9447d6405bf4f45adf1dfdb9059787d82903f056dd7a7c0cea4220342682cd1107289eb3208b89255f6a854871876d28812
 
 pkgname = flawz
