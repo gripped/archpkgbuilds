@@ -4,7 +4,7 @@
 # Contributor: Phillip A. (flying-sheep)
 
 pkgname=python-hatch
-pkgver=1.16.5
+pkgver=1.17.0
 pkgrel=1
 pkgdesc="A modern project, package, and virtual env manager"
 arch=('any')
@@ -13,13 +13,15 @@ license=('MIT')
 depends=(
   'python'
   'python-click'
+  'python-distro'
   'python-hatchling'
-  'python-httpx'
+  'python-httpx2'
   'python-hyperlink'
   'python-keyring'
   'python-packaging'
   'python-pexpect'
   'python-platformdirs'
+  'python-python-discovery'
   'python-rich'
   'python-shellingham'
   'python-tomli-w'
@@ -44,7 +46,7 @@ checkdepends=(
   'rust'
 )
 source=("$url/archive/hatch-v$pkgver.tar.gz")
-b2sums=('29093273d38024bbac9f9d6fc24ca41cf8ec942eecf9096a2385ea59c3cba403e3ad0d393a6edf68b4e116c28877f7b0a64b5cf594dd049f8547a21ffbf79a6a')
+b2sums=('2d687ac7401eb38036c45386080bbf65dad01625f4dec60bca0c1ee9569c984240589e7b4541cac1502c197811d60960a37b9be16f85cfa3ddd3e9a2f16a4cc9')
 
 build() {
   cd hatch-hatch-v$pkgver
@@ -84,6 +86,10 @@ check() {
     --deselect=tests/cli/new/test_new.py::test_default_no_license_cache
     --deselect=tests/env/plugin/test_interface.py::TestDependencies::test_context_formatting
     --deselect=tests/env/plugin/test_interface.py::TestDependencies::test_project_dependencies_context_formatting
+
+    # Broken, likely because newer flit-core in repos not compatible
+    --deselect="tests/project/test_frontend.py::TestPrepareMetadata::test_wheel[flit-core]"
+    --deselect="tests/project/test_frontend.py::TestPrepareMetadata::test_editable[flit-core]"
   )
   test-env/bin/python -m pytest --ignore=tests/backend "${pytest_args[@]}"
 }
