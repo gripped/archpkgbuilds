@@ -3,24 +3,26 @@
 
 pkgname=tracexec
 pkgver=0.17.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A small utility for tracing execve{,at} and pre-exec behavior"
 arch=('x86_64')
 url="https://github.com/kxxt/tracexec"
 license=('GPL-2.0-or-later')
-depends=('gcc-libs' 'libseccomp' 'libbpf')
+depends=('libgcc' 'libseccomp' 'libbpf')
 makedepends=('cargo' 'cargo-about' 'git' 'clang')
-source=("$pkgname-$pkgver::git+https://github.com/kxxt/tracexec.git#tag=v$pkgver")
+validpgpkeys=('17AADD6726DDC58B8EE5881757670CCFA42CCF0A')
+source=("git+https://github.com/kxxt/tracexec.git?signed#tag=v$pkgver")
 b2sums=('21a26c0374731283abbc87b642591ea8698b35dc4d581147a5397580b999caba76fc971b226c9dbd6bafd85761f93c0c53dded66d1a276546a0418b84fdebdb5')
 
 prepare() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   cargo fetch --locked --target "$(rustc --print host-tuple)"
   mkdir completions/
 }
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
   # --bins: needed for test
   cargo build --bins --frozen --release --no-default-features -F ebpf
   cargo about generate -o THIRD_PARTY_LICENSES.HTML about.hbs
@@ -32,12 +34,12 @@ build() {
 }
 
 check() {
-  cd "$pkgname-$pkgver"
-  RUST_TEST_THREADS=1 cargo test --frozen --release --no-default-features -F ebpf
+  cd "$pkgname"
+  cargo test --frozen --no-default-features -F ebpf
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   install -Dm755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
   install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
