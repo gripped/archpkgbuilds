@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=litehtml
-pkgver=0.9
-pkgrel=3
+pkgver=0.10
+pkgrel=1
 pkgdesc='Fast and lightweight HTML/CSS rendering engine'
 url='http://www.litehtml.com/'
 arch=(x86_64)
@@ -13,7 +13,7 @@ depends=(glibc
          libstdc++)
 makedepends=(cmake)
 source=(https://github.com/litehtml/litehtml/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('ef957307da15b1258a70961942840bcf54225a8d75315dcbc156186eba35b1a7')
+sha256sums=('7700eced92847d34ad9846b138cf195a9c974b519be70de58797880ae9da649e')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
