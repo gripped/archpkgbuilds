@@ -2,7 +2,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=ruby-cucumber-cucumber-expressions
-pkgver=19.0.1
+pkgver=20.0.0
 pkgrel=1
 pkgdesc="Cucumber Expressions - a simpler alternative to Regular Expressions"
 arch=(any)
@@ -19,7 +19,7 @@ makedepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/cucumber/cucumber-expressions.git#tag=v$pkgver)
-sha256sums=('835ac97b6da212d568e8c63d41c61b30ccf6c6fb7319b92405ab866a2360a883')
+sha256sums=('d5d21da78de571f3d5d5a8a6e2bc3049f6afa9b8c7948e22d0f542b571846e30')
 
 build() {
   local _gemdir="$(gem env gemdir)"
