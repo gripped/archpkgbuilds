@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname='ruby-faraday-http-cache'
-pkgver=2.6.1
+pkgver=2.7.0
 pkgrel=1
 pkgdesc='Middleware to handle HTTP caching'
 arch=('any')
@@ -25,14 +25,15 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("git+${url}.git#tag=v${pkgver}")
-sha512sums=('b9b9e9719231f9824f4e0e2a0b6d5f1efebc556a53230014f459b5f624a83e07c29bc0fe4078c7112fe0f66f2bc0197b0b3d4ec42f8ba49a2be0e506a4880faf')
-b2sums=('ab2007b48b2fb18957c712d57e461d70236c30631c933885f5cf487f9714aaa4127c99de1e170e793b7ca6e682a4139ba971588e242bed90f2a3a5fec90ad48c')
+sha512sums=('b015169a72dcd978f338dc15138269b9ac2aa0a449cb02da61c129bd8d88d214efd224c7c2f1715d0f9067a9595793e903fcb27417474cb616715c8f27535d1d')
+b2sums=('19be84221cee4b477b74f7528c104d00fe678c7c2f14838c100781c9ad1eea58c277c945f7ce7256c43c981b5d010645101557cb58ed5611c9bafc148d4db5c6')
 
 prepare() {
   cd faraday-http-cache
 
-  # update gemspec/Gemfile to allow newer version of the dependencies
-  sed --in-place --regexp-extended 's|~>|>=|g' faraday-http-cache.gemspec
+  # v2.7.0 was tagged with the old version in this file.
+  # Fixed upstream by 4fd5dd3400740b8ca8bfbf040cd570171b18bc8b.
+  sed --in-place "s|VERSION = '[^']*'|VERSION = '${pkgver}'|" lib/faraday/http_cache/version.rb
 }
 
 build() {
