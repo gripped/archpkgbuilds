@@ -1,6 +1,6 @@
 pkgbase = nvshmem
 	pkgdesc = NVIDIA parallel programming interface based on OpenSHMEM
-	pkgver = 3.6.5
+	pkgver = 3.7.0
 	pkgrel = 1
 	url = https://developer.nvidia.com/nvshmem
 	arch = x86_64
@@ -19,8 +19,9 @@ pkgbase = nvshmem
 	makedepends = python-installer
 	makedepends = python-setuptools-scm
 	makedepends = python-wheel
-	source = nvshmem-3.6.5.tar.gz::https://github.com/NVIDIA/nvshmem/archive/refs/tags/v3.6.5-0.tar.gz
-	b2sums = 0adc83433c41841e231e14c2dec8cd0529bc4e38e1fc4e2bb58dffb217ea64f5635cebf92634beb76cbada8c67932abf862b716359c55148d3c26b84dcd786b7
+	options = !lto
+	source = nvshmem-3.7.0.tar.gz::https://github.com/NVIDIA/nvshmem/archive/refs/tags/v3.7.0-0.tar.gz
+	b2sums = c1cf5f1fadb46567b10d715a93129514f1fd1ec3f3428bfae9df76fd91c0f93fb5e3b76e1697d6ac0b97e1534c67b05ae76c3eb64b98bb8a2edd27cb64d7fa67
 
 pkgname = nvshmem
 	depends = cuda
