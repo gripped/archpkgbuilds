@@ -1,0 +1,74 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-langsmith
+pkgver=0.8.15
+pkgrel=1
+pkgdesc="Client library to connect to the LangSmith Observability and Evaluation Platform"
+arch=('any')
+url="https://github.com/langchain-ai/langsmith-sdk"
+license=('MIT')
+depends=(
+  'python'
+  'python-httpx'
+  'python-orjson'
+  'python-packaging'
+  'python-pydantic'
+  'python-requests'
+  'python-requests-toolbelt'
+  'python-typing_extensions'
+  'python-uuid-utils'
+  'python-websockets'
+  'python-xxhash'
+  'python-zstandard'
+)
+makedepends=(
+  'git'
+  'python-build'
+  'python-hatchling'
+  'python-installer'
+  'python-wheel'
+)
+checkdepends=(
+  'python-attrs'
+  'python-dataclasses-json'
+  'python-multipart'
+  'python-opentelemetry-api'
+  'python-opentelemetry-exporter-otlp-proto-http'
+  'python-opentelemetry-sdk'
+  'python-pytest'
+  'python-pytest-asyncio'
+  'python-pytest-httpx'
+  'python-vcrpy'
+)
+optdepends=(
+  'python-pytest: LangSmith pytest plugin support'
+  'python-rich: enhanced pytest output support'
+  'python-vcrpy: VCR support'
+  'python-opentelemetry-api: OpenTelemetry tracing support'
+  'python-opentelemetry-sdk: OpenTelemetry tracing support'
+  'python-opentelemetry-exporter-otlp-proto-http: OpenTelemetry export support'
+)
+source=("git+https://github.com/langchain-ai/langsmith-sdk.git#tag=v$pkgver")
+sha512sums=('beebfe91d227807f68f43a1a3f1591f31584e958b24912cb736e21286a68846dd96970b18ec35dbf299ed2a4d11d275384d6a371ec41c6c3f52f4226d5ef4b08')
+
+build() {
+  cd langsmith-sdk/python
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd langsmith-sdk/python
+
+  # Excluded tests need unpackaged optional integration stacks.
+  pytest tests/unit_tests \
+    --ignore=tests/unit_tests/evaluation/test_runner.py \
+    --ignore=tests/unit_tests/wrappers/test_google_adk.py \
+    --ignore=tests/unit_tests/wrappers/test_strands_agents.py \
+    -k 'not test_pull_and_push_prompt and not test_as_runnable'
+}
+
+package() {
+  cd langsmith-sdk/python
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 ../LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
