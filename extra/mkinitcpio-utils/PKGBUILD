@@ -1,7 +1,7 @@
 # Maintainer: Giancarlo Razzolini <grazzolini@archlinux.org>
 pkgname=mkinitcpio-utils
-pkgver=0.0.5
-pkgrel=2
+pkgver=0.0.6
+pkgrel=1
 pkgdesc="Collection of Archlinux mkinitcpio utilities performing various tasks"
 arch=('any')
 url="https://github.com/grazzolini/mkinitcpio-utils"
@@ -11,7 +11,7 @@ optdepends=('mkinitcpio-dropbear: Allow the encryptssh hook to unlock a root con
             'mkinitcpio-tinyssh: Allow the encryptssh hook to unlock a root container remotely using tinyssh')
 changelog='ChangeLog'
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('987fa4e2a944d415a5cc336010c33fdbb04e8a49793309a36762b5d5f9ba421eac8f7d403c856ca24f42e3a091726298dadad624c25fcb53d041d24020152bd1')
+sha512sums=('cdc82fc034a781e603716540b34ec325c3835ce0ad797f3f352bbe87165325bdfed3129bbc10187d8592be162b63350aba774e5664de78bd9e38639cc95dbfff')
 
 package() {
   install -Dm755 "$srcdir/$pkgname-$pkgver/utils/shells/cryptsetup_shell"       "$pkgdir/usr/share/$pkgname/utils/shells/cryptsetup_shell"
