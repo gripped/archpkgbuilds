@@ -1,9 +1,9 @@
-# Maintainer:
+# Maintainer: Jonathan Grotelüschen <tippfehlr@archlinux.org>
 # Contributor: Robert Tari <robert at tari dot in>
 
 pkgname=libayatana-indicator
-pkgver=0.9.4
-pkgrel=2
+pkgver=0.9.5
+pkgrel=1
 pkgdesc='Ayatana Indicators shared library'
 arch=(x86_64)
 url='https://github.com/AyatanaIndicators/libayatana-indicator'
@@ -11,15 +11,15 @@ license=(GPL-3.0-or-later)
 depends=(ayatana-ido gdk-pixbuf2 glib2 glibc gtk3)
 makedepends=(cmake gobject-introspection vala git glib2-devel)
 source=("git+$url#tag=$pkgver")
-sha256sums=('d96f57213a8b4fb165ef99b1f537dca294b79f0fda1431652141813a0fd36aae')
+sha256sums=('606eafd8e6e6b50a9f294b9ed114f8a28728b4cf97fc4de9d3eea1047e4a69ca')
 
 build() {
-  cmake -B build -S $pkgname \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBEXECDIR=lib
-  cmake --build build
+	cmake -B build -S $pkgname \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBEXECDIR=lib
+	cmake --build build
 }
 
 package() {
-  DESTDIR="$pkgdir" cmake --install build
+	DESTDIR="$pkgdir" cmake --install build
 }
