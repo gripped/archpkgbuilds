@@ -2,15 +2,15 @@
 # Contributor: Knut Ahlers <knut at ahlers dot me>
 
 pkgname=gofumpt
-pkgver=0.7.0
-pkgrel=2
+pkgver=0.10.0
+pkgrel=1
 pkgdesc="A strict formatter for Go language"
 arch=('x86_64')
 url="https://github.com/mvdan/gofumpt"
 license=('BSD-3-Clause')
 makedepends=('go')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mvdan/gofumpt/archive/v${pkgver}.tar.gz")
-sha512sums=('98fd56046c6f93af1ecb4f488e476090836853b9de85dc092814778a58ddfd55655f5696c4b7b549274f3e21d6442d02ddaf2472f481f94183093002c3990130')
+sha512sums=('71921ee84159d008038a5ab80f4752fdc0ea0d23a1eeb05b016d7dc41fc6bc334570ad866f36226e3cfa6ca352b4c6074f61d8d927d997c178fbcd1fd7e21586')
 
 build() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
