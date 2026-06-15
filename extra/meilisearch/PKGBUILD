@@ -4,7 +4,7 @@
 pkgname=meilisearch
 epoch=1
 pkgver=1.46.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Lightning Fast, Ultra Relevant, and Typo-Tolerant Search Engine"
 arch=(x86_64)
 url="https://docs.meilisearch.com/"
@@ -12,6 +12,7 @@ license=('MIT')
 depends=(glibc libgcc)
 makedepends=(rust)
 options=(!lto)
+backup=(etc/meilisearch.conf)
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/meilisearch/MeiliSearch/archive/v${pkgver}.tar.gz
         ${pkgname}.service ${pkgname}.tmpfiles ${pkgname}.sysusers ${pkgname}.conf)
 sha512sums=('17d6c7208a5250d06ec65eef5ebf3e0833ebaa70d68af3210e1f3ed8680a4b0252aae13a9ac1b99e5339ead223895e7c91cfdee1bf7cc78c7a4e61b269bee189'
@@ -44,5 +45,5 @@ package() {
   install -D -m644 "${srcdir}/meilisearch.service"  "${pkgdir}/usr/lib/systemd/system/meilisearch.service"
   install -D -m644 "${srcdir}/meilisearch.sysusers" "${pkgdir}/usr/lib/sysusers.d/meilisearch.conf"
   install -D -m644 "${srcdir}/meilisearch.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/meilisearch.conf"
-  install -D -m644 "${srcdir}/meilisearch.conf" "${pkgdir}/etc//meilisearch.conf"
+  install -D -m644 "${srcdir}/meilisearch.conf" "${pkgdir}/etc/meilisearch.conf"
 }

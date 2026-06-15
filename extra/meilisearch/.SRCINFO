@@ -1,7 +1,7 @@
 pkgbase = meilisearch
 	pkgdesc = Lightning Fast, Ultra Relevant, and Typo-Tolerant Search Engine
 	pkgver = 1.46.1
-	pkgrel = 1
+	pkgrel = 2
 	epoch = 1
 	url = https://docs.meilisearch.com/
 	arch = x86_64
@@ -10,6 +10,7 @@ pkgbase = meilisearch
 	depends = glibc
 	depends = libgcc
 	options = !lto
+	backup = etc/meilisearch.conf
 	source = meilisearch-1.46.1.tar.gz::https://github.com/meilisearch/MeiliSearch/archive/v1.46.1.tar.gz
 	source = meilisearch.service
 	source = meilisearch.tmpfiles
