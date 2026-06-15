@@ -1,0 +1,34 @@
+# Maintainer: Jonathan Grotelüschen <tippfehlr@archlinux.org>
+# Contributor: A. Klitzing <aklitzing@gmail.com>
+
+pkgname=ausweisapp
+pkgver=2.5.1
+pkgrel=3
+pkgdesc="official client for using the German electronic ID card (eID)"
+arch=('x86_64')
+license=('EUPL-1.2')
+url="https://www.ausweisapp.bund.de/"
+depends=('qt6-declarative' 'qt6-svg' 'qt6-websockets' 'qt6-scxml' 'pcsclite' 'llhttp')
+makedepends=('cmake' 'qt6-tools' 'ninja' 'pkgconf')
+optdepends=('ccid' 'acsccid' 'pcsc-cyberjack')
+source=("https://github.com/Governikus/AusweisApp2/releases/download/${pkgver}/AusweisApp-${pkgver}.tar.gz"{,.asc})
+validpgpkeys=('699BF3055B0A49224EFDE7C72D7479A531451088')
+sha256sums=('03d5efe29f710a2ce1e0897d53c9e2f6315dc7f4c3449a48483188ca676ebc68'
+            'SKIP')
+
+build() {
+	local cmake_options=(
+		-B build
+		-S AusweisApp-$pkgver
+		-G Ninja
+		-DCMAKE_BUILD_TYPE=MinSizeRel # "None" is not supported
+		-DCMAKE_INSTALL_PREFIX=/usr
+	)
+	cmake "${cmake_options[@]}"
+	cmake --build build
+}
+
+package() {
+	DESTDIR="$pkgdir" cmake --install build
+	install -Dm644 AusweisApp-${pkgver}/LICENSE.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
