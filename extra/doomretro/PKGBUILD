@@ -2,7 +2,7 @@
 # Contributor: Michael Straube <straubem@gmx.de>
 
 pkgname=doomretro
-pkgver=6.1
+pkgver=6.1.1
 pkgrel=1
 pkgdesc='The classic, refined DOOM source port'
 arch=(x86_64)
@@ -18,8 +18,8 @@ depends=(
 makedepends=(git cmake icoutils)
 optdepends=('timidity++: for music playback')
 source=("$pkgname::git+https://github.com/bradharding/doomretro.git#tag=v$pkgver")
-sha512sums=('486eb6f6cc7b8f7329922cf6557934a4532aaf01c1e820c0022cd59ce481deced4a54a6285d93275ddbb841ca6741465ed28f91d7ca6b8fc5644262385efc966')
-b2sums=('f45cb66ab3177d011a2b9fbaffe2a3c11460532b3da80c5633be3b472bbe1244b221873e1113e070016ef72292d94745e992f29008af0e6937b5188d894e5b11')
+sha512sums=('cfd397239e7e2b199443322a8ee327a997600a51e6868d7b0695bd683117b9fb8a4cf8896da516ee49b642a806bf7f02c896a04b9e3121c6538c257c2dad7696')
+b2sums=('74bde1313a78f5036fd93bc1a1808843cfb30daa751659fecca88d21e6f989e07ee9652f96eb925e99678d469478d421bd4ab26c5423aa42e6bdb5980599f189')
 
 prepare() {
   cd "$pkgname"
