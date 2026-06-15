@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-editor
-pkgver=6.5.54
+pkgver=6.5.55
 pkgrel=1
 pkgdesc='Simple editor for Deepin'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'dtk6declarative' 'glibc' 'libgcc' 'l
 makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-editor.git#tag=$pkgver")
-sha512sums=('4fe6b8fb6a33326b0ecb12519613c6cd7e71260c3018d4c5789e828f6950447eb3ba756cf0ff8dc70277d68f4c00a9b5459f8de6b041f5faad68acd7cb727e20')
+sha512sums=('de3418ea87a942848cfc65600afda8ba2c04cb8d90b99c6889668b943f32ccbdc6216e6ce52f03e269dba5222942d2c339d71d1e9f3cd41aa7c1677ebe4cb02f')
 
 build() {
   cd deepin-editor
