@@ -5,12 +5,12 @@
 
 pkgname=yazi
 pkgver=26.5.6
-pkgrel=3
+pkgrel=4
 pkgdesc="Blazing fast terminal file manager written in Rust, based on async I/O"
 url="https://github.com/sxyazi/yazi"
 arch=("x86_64")
 license=('MIT')
-depends=('glibc' 'hicolor-icon-theme' 'jemalloc' 'libgcc' 'lua' 'oniguruma' 'ttf-font-nerd')
+depends=('glibc' 'hicolor-icon-theme' 'libgcc' 'lua' 'oniguruma' 'ttf-font-nerd')
 optdepends=(
 	'ffmpeg: for video thumbnails'
 	'7zip: for archive extraction and preview'
@@ -48,16 +48,12 @@ build() {
   export VERGEN_GIT_SHA="Arch Linux"
   export YAZI_GEN_COMPLETIONS=true
   export RUSTONIG_DYNAMIC_LIBONIG=1
-  export JEMALLOC_OVERRIDE=/usr/lib/libjemalloc.so
-  export CARGO_FEATURE_UNPREFIXED_MALLOC_ON_SUPPORTED_PLATFORMS=1
   cargo build --release --frozen --no-default-features
 }
 
 check() {
   cd "$pkgname-$pkgver"
   export RUSTONIG_DYNAMIC_LIBONIG=1
-  export JEMALLOC_OVERRIDE=/usr/lib/libjemalloc.so
-  export CARGO_FEATURE_UNPREFIXED_MALLOC_ON_SUPPORTED_PLATFORMS=1
   cargo test --frozen --workspace --no-default-features
 }
 
