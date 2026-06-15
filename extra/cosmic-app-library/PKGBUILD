@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-app-library
-pkgver=1.0.15
+pkgver=1.0.16
 pkgrel=1
 epoch=1
 pkgdesc='Cosmic App Library'
@@ -25,7 +25,7 @@ makedepends=(
   lld
 )
 source=(git+https://github.com/pop-os/cosmic-applibrary.git#tag=epoch-${pkgver})
-b2sums=('db3911d70da5b1de10d2b379aa07e0183c648283e9f011b6c64e1c26aac6391f2eb4b5944bdcbc1bd56c6d102c21de3fc354c11052d4062b4890a44b0a84e5b6')
+b2sums=('b81c782fae4728a4abea5cefd8e1ab07b92dde7ba21015b0511dd0be15a648ab55461b654a587b6bf506167a6462b5948133cf4706567f5a7426a06510a33d46')
 
 prepare() {
   cd cosmic-applibrary
