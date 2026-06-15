@@ -37,10 +37,15 @@ index 1ec38b56..b74ee562 100644
    out->writeBytes(msg, 2 + length + 16);
    out->flush();
 diff --git a/common/rfb/CSecurityDH.cxx b/common/rfb/CSecurityDH.cxx
-index 93cf6b26..a230f5d1 100644
+index 93cf6b26..a39484a3 100644
 --- a/common/rfb/CSecurityDH.cxx
 +++ b/common/rfb/CSecurityDH.cxx
-@@ -125,7 +125,7 @@ void CSecurityDH::writeCredentials()
+@@ -121,11 +121,11 @@ void CSecurityDH::writeCredentials()
+   std::vector<uint8_t> BBytes(keyLength);
+   nettle_mpz_get_str_256(sharedSecret.size(), sharedSecret.data(), k);
+   nettle_mpz_get_str_256(BBytes.size(), BBytes.data(), B);
+-  uint8_t key[16];
++  uint8_t key[MD5_DIGEST_SIZE];
    struct md5_ctx md5Ctx;
    md5_init(&md5Ctx);
    md5_update(&md5Ctx, sharedSecret.size(), sharedSecret.data());
@@ -50,10 +55,17 @@ index 93cf6b26..a230f5d1 100644
    aes128_set_encrypt_key(&aesCtx, key);
  
 diff --git a/common/rfb/CSecurityRSAAES.cxx b/common/rfb/CSecurityRSAAES.cxx
-index 513d5605..cda659f1 100644
+index 513d5605..3dbfaad5 100644
 --- a/common/rfb/CSecurityRSAAES.cxx
 +++ b/common/rfb/CSecurityRSAAES.cxx
-@@ -227,7 +227,7 @@ void CSecurityRSAAES::verifyServer()
+@@ -221,13 +221,13 @@ void CSecurityRSAAES::verifyServer()
+     (uint8_t)((serverKeyLength & 0xff00) >> 8),
+     (uint8_t)(serverKeyLength & 0xff)
+   };
+-  uint8_t f[8];
++  uint8_t f[SHA1_DIGEST_SIZE];
+   struct sha1_ctx ctx;
+   sha1_init(&ctx);
    sha1_update(&ctx, 4, lenServerKey);
    sha1_update(&ctx, serverKey.size, serverKeyN);
    sha1_update(&ctx, serverKey.size, serverKeyE);
@@ -62,7 +74,14 @@ index 513d5605..cda659f1 100644
    const char *title = "Server key fingerprint";
    std::string text = core::format(
      "The server has provided the following identifying information:\n"
-@@ -305,24 +305,24 @@ void CSecurityRSAAES::setCipher()
+@@ -299,30 +299,30 @@ void CSecurityRSAAES::setCipher()
+ {
+   rawis = cc->getInStream();
+   rawos = cc->getOutStream();
+-  uint8_t key[32];
++  uint8_t key[SHA256_DIGEST_SIZE];
+   if (keySize == 128) {
+     struct sha1_ctx ctx;
      sha1_init(&ctx);
      sha1_update(&ctx, 16, clientRandom);
      sha1_update(&ctx, 16, serverRandom);
@@ -91,15 +110,36 @@ index 513d5605..cda659f1 100644
      raos = new rdr::AESOutStream(rawos, key, 256);
    }
    if (isAllEncrypted)
-@@ -357,7 +357,7 @@ void CSecurityRSAAES::writeHash()
+@@ -331,7 +331,7 @@ void CSecurityRSAAES::setCipher()
+ 
+ void CSecurityRSAAES::writeHash()
+ {
+-  uint8_t hash[32];
++  uint8_t hash[SHA256_DIGEST_SIZE];
+   size_t len = serverKeyLength;
+   uint8_t lenServerKey[4] = {
+     (uint8_t)((len & 0xff000000) >> 24),
+@@ -348,7 +348,7 @@ void CSecurityRSAAES::writeHash()
+   };
+   int hashSize;
+   if (keySize == 128) {
+-    hashSize = 20;
++    hashSize = SHA1_DIGEST_SIZE;
+     struct sha1_ctx ctx;
+     sha1_init(&ctx);
+     sha1_update(&ctx, 4, lenClientKey);
+@@ -357,9 +357,9 @@ void CSecurityRSAAES::writeHash()
      sha1_update(&ctx, 4, lenServerKey);
      sha1_update(&ctx, serverKey.size, serverKeyN);
      sha1_update(&ctx, serverKey.size, serverKeyE);
 -    sha1_digest(&ctx, hashSize, hash);
 +    sha1_digest(&ctx, hash);
    } else {
-     hashSize = 32;
+-    hashSize = 32;
++    hashSize = SHA256_DIGEST_SIZE;
      struct sha256_ctx ctx;
+     sha256_init(&ctx);
+     sha256_update(&ctx, 4, lenClientKey);
 @@ -368,7 +368,7 @@ void CSecurityRSAAES::writeHash()
      sha256_update(&ctx, 4, lenServerKey);
      sha256_update(&ctx, serverKey.size, serverKeyN);
@@ -109,6 +149,19 @@ index 513d5605..cda659f1 100644
    }
    raos->writeBytes(hash, hashSize);
    raos->flush();
+@@ -376,9 +376,9 @@ void CSecurityRSAAES::writeHash()
+ 
+ bool CSecurityRSAAES::readHash()
+ {
+-  uint8_t hash[32];
+-  uint8_t realHash[32];
+-  int hashSize = keySize == 128 ? 20 : 32;
++  uint8_t hash[SHA256_DIGEST_SIZE];
++  uint8_t realHash[SHA256_DIGEST_SIZE];
++  int hashSize = keySize == 128 ? SHA1_DIGEST_SIZE : SHA256_DIGEST_SIZE;
+   if (!rais->hasData(hashSize))
+     return false;
+   rais->readBytes(hash, hashSize);
 @@ -405,7 +405,7 @@ bool CSecurityRSAAES::readHash()
      sha1_update(&ctx, 4, lenClientKey);
      sha1_update(&ctx, clientKey.size, clientKeyN);
@@ -128,10 +181,17 @@ index 513d5605..cda659f1 100644
    if (memcmp(hash, realHash, hashSize) != 0)
      throw protocol_error("Hash doesn't match");
 diff --git a/common/rfb/SSecurityRSAAES.cxx b/common/rfb/SSecurityRSAAES.cxx
-index 405005ab..63dc6188 100644
+index 405005ab..7862a5b3 100644
 --- a/common/rfb/SSecurityRSAAES.cxx
 +++ b/common/rfb/SSecurityRSAAES.cxx
-@@ -412,24 +412,24 @@ void SSecurityRSAAES::setCipher()
+@@ -406,30 +406,30 @@ void SSecurityRSAAES::setCipher()
+ {
+   rawis = sc->getInStream();
+   rawos = sc->getOutStream();
+-  uint8_t key[32];
++  uint8_t key[SHA256_DIGEST_SIZE];
+   if (keySize == 128) {
+     struct sha1_ctx ctx;
      sha1_init(&ctx);
      sha1_update(&ctx, 16, serverRandom);
      sha1_update(&ctx, 16, clientRandom);
@@ -160,15 +220,27 @@ index 405005ab..63dc6188 100644
      raos = new rdr::AESOutStream(rawos, key, 256);
    }
    if (isAllEncrypted)
-@@ -464,7 +464,7 @@ void SSecurityRSAAES::writeHash()
+@@ -455,7 +455,7 @@ void SSecurityRSAAES::writeHash()
+   };
+   int hashSize;
+   if (keySize == 128) {
+-    hashSize = 20;
++    hashSize = SHA1_DIGEST_SIZE;
+     struct sha1_ctx ctx;
+     sha1_init(&ctx);
+     sha1_update(&ctx, 4, lenServerKey);
+@@ -464,9 +464,9 @@ void SSecurityRSAAES::writeHash()
      sha1_update(&ctx, 4, lenClientKey);
      sha1_update(&ctx, clientKey.size, clientKeyN);
      sha1_update(&ctx, clientKey.size, clientKeyE);
 -    sha1_digest(&ctx, hashSize, hash);
 +    sha1_digest(&ctx, hash);
    } else {
-     hashSize = 32;
+-    hashSize = 32;
++    hashSize = SHA256_DIGEST_SIZE;
      struct sha256_ctx ctx;
+     sha256_init(&ctx);
+     sha256_update(&ctx, 4, lenServerKey);
 @@ -475,7 +475,7 @@ void SSecurityRSAAES::writeHash()
      sha256_update(&ctx, 4, lenClientKey);
      sha256_update(&ctx, clientKey.size, clientKeyN);
@@ -178,6 +250,19 @@ index 405005ab..63dc6188 100644
    }
    raos->writeBytes(hash, hashSize);
    raos->flush();
+@@ -483,9 +483,9 @@ void SSecurityRSAAES::writeHash()
+ 
+ bool SSecurityRSAAES::readHash()
+ {
+-  uint8_t hash[32];
+-  uint8_t realHash[32];
+-  int hashSize = keySize == 128 ? 20 : 32;
++  uint8_t hash[SHA256_DIGEST_SIZE];
++  uint8_t realHash[SHA256_DIGEST_SIZE];
++  int hashSize = keySize == 128 ? SHA1_DIGEST_SIZE : SHA256_DIGEST_SIZE;
+   if (!rais->hasData(hashSize))
+     return false;
+   rais->readBytes(hash, hashSize);
 @@ -512,7 +512,7 @@ bool SSecurityRSAAES::readHash()
      sha1_update(&ctx, 4, lenServerKey);
      sha1_update(&ctx, serverKey.size, serverKeyN);
