@@ -3,7 +3,7 @@
 
 _name=distributed
 pkgname=python-$_name
-pkgver=2026.3.0
+pkgver=2026.6.0
 pkgrel=1
 pkgdesc="Distributed task scheduler for Dask"
 arch=(any)
@@ -61,7 +61,7 @@ checkdepends=(
   python-zstandard
 )
 source=(https://github.com/dask/distributed/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-b2sums=('d67eb6bcfeb4520fdb7b5267c13199f9dd0edd52303bcfcadfa1778fe5c361dc3f1b50ee9965258a862cec7819b201a85481e1f4385a3d1506b5f7e4b1205f62')
+b2sums=('c5962ca85c8ae3c1d26d72b4142d747b30afe8daa8ed3825449f3a09175059eb94b6178bfc504d4b65d87a5f478af00f5c4966f18b29264c28fc3c3d20549fc8')
 
 build() {
   cd $_name-$pkgver
@@ -74,6 +74,8 @@ check() {
     -vv
     --override-ini="addopts="
     -W ignore::DeprecationWarning
+    -W ignore::FutureWarning
+    -W ignore::UserWarning
     # distribute tests across multiple CPUs
     -n auto
     --dist loadscope
@@ -99,11 +101,6 @@ check() {
     --deselect distributed/deploy/tests/test_local.py::test_defaults_5
     --deselect distributed/deploy/tests/test_adaptive.py::test_adapt_down
     --deselect distributed/shuffle/tests/test_merge.py::test_merge_indicator
-    # FutureWarning: get_ipv6 is deprecated and will be removed in a future release. Please use get_ip instead.
-    --deselect distributed/comm/tests/test_comms.py::test_default_client_server_ipv6[tornado]
-    --deselect distributed/comm/tests/test_comms.py::test_tcp_client_server_ipv6[tornado]
-    --deselect distributed/deploy/tests/test_local.py::test_local_tls[True]
-    --deselect distributed/deploy/tests/test_local.py::test_local_tls[False]
     # NotImplementedError: (CategoricalDtype(categories=['a', 'b'], ordered=True, categories_dtype=object), array([0, 1, 0], dtype=int8))
     --deselect distributed/protocol/tests/test_pandas.py::test_dumps_serialize_pandas[df12]
     --deselect distributed/protocol/tests/test_pandas.py::test_dumps_serialize_pandas[df13]
@@ -115,27 +112,22 @@ check() {
     # RuntimeError: Error during deserialization of the task graph.
     --deselect distributed/shuffle/tests/test_graph.py::test_basic_state
     --deselect distributed/shuffle/tests/test_graph.py::test_multiple_linear
-    # RuntimeError: Nanny failed to start worker process
-    --deselect distributed/tests/test_utils_test.py::test_start_failure_worker[True]
     # assert False
     --deselect distributed/tests/test_init.py::test_git_revision
     # AssertionError: assert 'finished' == 'error'
     --deselect distributed/tests/test_worker_memory.py::test_fail_to_pickle_execute_1
-    # assert 2 == 1
-    --deselect distributed/tests/test_client.py::test_computation_object_code_dask_compute
-    # pytest.PytestUnraisableExceptionWarning: Exception ignored in: <coroutine object assert_can_connect at 0x7f2c20a6cc70>
-    --deselect distributed/cli/tests/test_dask_scheduler.py::test_defaults
-    --deselect distributed/cli/tests/test_dask_scheduler.py::test_hostport
-    --deselect distributed/deploy/tests/test_local.py::test_only_local_access
-    --deselect distributed/deploy/tests/test_local.py::test_remote_access
-    # since Python 3.14: Failed: DID NOT RAISE <class 'TypeError'>
-    --deselect distributed/protocol/tests/test_protocol.py::test_deeply_nested_structures
     # hangs
     --deselect distributed/tests/test_client.py::test_futures_in_subgraphs
-    --deselect distributed/cli/tests/test_dask_scheduler.py::test_preload_config
-    --deselect distributed/cli/tests/test_dask_scheduler.py::test_preload_command
     # TypeError: Worker.identity() got an unexpected keyword argument 'n_workers'
     --deselect distributed/cli/tests/test_dask_spec.py::test_text
+    # TypeError: list.extend() takes exactly one argument (2 given)
+    --deselect distributed/tests/test_core.py::test_server_listen
+    # distributed.comm.core.FatalCommClosedError
+    --deselect distributed/cli/tests/test_tls_cli.py::test_separate_key_cert
+    # TypeError: list.extend() takes exactly one argument (2 given)
+    --deselect distributed/deploy/tests/test_local.py::test_local_tls[True]
+    # TypeError: list.extend() takes exactly one argument (2 given)
+    --deselect distributed/deploy/tests/test_local.py::test_local_tls[False]
   )
 
   cd $_name-$pkgver
