@@ -2,20 +2,23 @@
 
 _target=aarch64-linux-gnu
 pkgname=$_target-binutils
-pkgver=2.46
-_pkgver="${pkgver}.0"
-pkgrel=2
+pkgver=2.46.1
+_pkgver="${pkgver}"
+pkgrel=1
 pkgdesc='A set of programs to assemble and manipulate binary and object files for the ARM64 target'
 arch=(x86_64)
 url='https://www.gnu.org/software/binutils/'
 license=(GPL)
 depends=(zlib libelf)
 source=(https://ftpmirror.gnu.org/gnu/binutils/binutils-$_pkgver.tar.bz2{,.sig})
-sha1sums=('0a64618bb1d511a9ebe9eba12b54cdd9847b329d'
+sha1sums=('bf552a22c05c452734a9007f3c833f35961b6f69'
           'SKIP')
-sha256sums=('0f3152632a2a9ce066f20963e9bb40af7cf85b9b6c409ed892fd0676e84ecd12'
+sha256sums=('324ed40ada2633a28eaa5d104ca5db165fd3cc3162cc1d48a7b7fa9c932da439'
             'SKIP')
-validpgpkeys=('3A24BC1E8FB409FA9F14371813FCEF89DD9E3C4F') # Nick Clifton (Chief Binutils Maintainer) <nickc@redhat.com>
+validpgpkeys=(
+	'3A24BC1E8FB409FA9F14371813FCEF89DD9E3C4F' # Nick Clifton (Chief Binutils Maintainer) <nickc@redhat.com>
+	'5EF3A41171BB77E6110ED2D01F3D03348DB1A3E2' # "Sam James <sam@cmpct.info>"
+)
 
 prepare() {
   cd binutils-$_pkgver
