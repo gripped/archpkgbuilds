@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-facets
-pkgver=3.2.0
+pkgver=3.2.1
 pkgrel=1
 pkgdesc='Premiere collection of general purpose method extensions and standard additions for the Ruby programming language'
 arch=(any)
@@ -22,8 +22,8 @@ checkdepends=(
   ruby-simplecov
 )
 options=(!emptydirs)
-source=(git+https://github.com/rubyworks/facets.git#tag=v$pkgver)
-sha256sums=('26b3069f390983c1c719db73cd593a8865b3b56a02d9436ff4263edbbca51353')
+source=(git+https://github.com/rubyworks/facets.git#tag=$pkgver)
+sha256sums=('560e50d48ae58b5b086e3c99c46af8c5b8102f98d995c0cc163ec332c92ea773')
 
 build() {
   local _gemdir="$(gem env gemdir)"
