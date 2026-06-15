@@ -2,20 +2,26 @@
 # Contributor: zlowly <zlowly@gmail.com>
 
 pkgname=smartdns
-pkgver=48
+pkgver=48.1
 pkgrel=1
 pkgdesc="A local DNS server to obtain the fastest website IP for the best Internet experience"
 arch=('x86_64')
 license=('GPL-3.0-or-later')
 url="https://github.com/pymumu/smartdns"
 backup=("etc/smartdns/smartdns.conf" "etc/default/smartdns")
-depends=('glibc' 'libgcc' 'openssl')
+depends=('glibc' 'libgcc' 'openssl' 'zlib')
 makedepends=('git' 'systemd')  # systemd.pc
 checkdepends=('gtest' 'bind')
 source=("git+https://github.com/pymumu/smartdns.git#tag=Release$pkgver")
-sha512sums=('b3d1b882d40b9c2098627e3461ab577e8ee0ebfddf36de8a16c70ada66ff356cb5cfeb21f35a146554f7a48b534f15f7394a5f71047caac38ee17b4e96c77056')
+sha512sums=('7ea081ec87ca5da876f712238d4c5f27017d91ae12667621eb560fe2526578ac31e46c8385dff6dedfd314c35b4f29e073811bcc39995e67e9e3e4d7f634a31d')
 
 prepare() {
+  cd smartdns
+  # The first HTTP/2 high-concurrency attempt may complete without retries.
+  # Upstream removed this assertion in ae598906806d.
+  sed -i '/EXPECT_GT(retry_count, 0);/d' test/cases/test-http2.cc
+  cd ..
+
   # Unfortunately upstream does not provide a way to reuse .o files
   cp -a smartdns smartdns-test
 }
