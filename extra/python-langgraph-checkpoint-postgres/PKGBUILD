@@ -1,0 +1,59 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-langgraph-checkpoint-postgres
+pkgver=3.1.0
+pkgrel=1
+pkgdesc="Library with a Postgres implementation of LangGraph checkpoint saver"
+arch=('any')
+url="https://github.com/langchain-ai/langgraph/tree/main/libs/checkpoint-postgres"
+license=('MIT')
+depends=(
+  'python'
+  'python-langgraph-checkpoint'
+  'python-orjson'
+  'python-psycopg'
+  'python-psycopg-pool'
+)
+makedepends=(
+  'git'
+  'python-build'
+  'python-hatchling'
+  'python-installer'
+  'python-wheel'
+)
+checkdepends=(
+  'pgvector'
+  'pifpaf'
+  'python-anyio'
+  'python-langchain-core'
+  # Add python-langgraph when packaged to cover the optional DeltaChannel test.
+  'python-pytest'
+  'python-pytest-asyncio'
+  'python-pytest-mock'
+)
+source=("git+https://github.com/langchain-ai/langgraph.git")
+sha512sums=('SKIP')
+
+prepare() {
+  cd langgraph
+
+  # makepkg's git fragment parser treats "=" inside tag values as separators.
+  git checkout -q "checkpointpostgres==$pkgver"
+}
+
+build() {
+  cd langgraph/libs/checkpoint-postgres
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd langgraph/libs/checkpoint-postgres
+  pifpaf run postgresql --port 5441 --host 127.0.0.1 -- \
+    bash -c 'createuser --superuser postgres && python -m pytest'
+}
+
+package() {
+  cd langgraph/libs/checkpoint-postgres
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
