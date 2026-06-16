@@ -5,7 +5,7 @@
 
 pkgname=ripgrep
 pkgver=15.1.0
-pkgrel=3
+pkgrel=4
 pkgdesc="A search tool that combines the usability of ag with the raw speed of grep"
 arch=('x86_64')
 url="https://github.com/BurntSushi/ripgrep"
@@ -19,34 +19,46 @@ makedepends=('rust')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
 sha512sums=('3e54683ceaaa79e6e1b52f7e1b92aefaf0b8f721daf2ab6433e1f45931878904ca20379cfb9b13770bf79d06a21ce896d471e80f557c6614417b836aabb6b803')
 
+# Use debug
+export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
+
+# Use LTO
+export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
+prepare() {
+  cd "$pkgname-$pkgver"
+
+  cargo fetch --locked --target host-tuple
+}
+
 build() {
   cd "$pkgname-$pkgver"
 
-  cargo build --profile release-lto --locked --features 'pcre2'
+  cargo build --release --frozen --features pcre2
 }
 
 check() {
   cd "$pkgname-$pkgver"
 
-  cargo test --locked --features 'pcre2'
+  cargo test --frozen --features 'pcre2'
 }
 
 package() {
   cd "$pkgname-$pkgver"
 
-  install -vDm755 -t "$pkgdir/usr/bin" target/release-lto/rg
+  install -vDm755 -t "$pkgdir/usr/bin" target/release/rg
 
   mkdir -vp "$pkgdir/usr/share/zsh/site-functions"
-  target/release-lto/rg --generate complete-zsh > "$pkgdir/usr/share/zsh/site-functions/_rg"
+  target/release/rg --generate complete-zsh > "$pkgdir/usr/share/zsh/site-functions/_rg"
 
   mkdir -vp "$pkgdir/usr/share/bash-completion/completions"
-  target/release-lto/rg --generate complete-bash > "$pkgdir/usr/share/bash-completion/completions/rg"
+  target/release/rg --generate complete-bash > "$pkgdir/usr/share/bash-completion/completions/rg"
 
   mkdir -vp "$pkgdir/usr/share/fish/vendor_completions.d"
-  target/release-lto/rg --generate complete-fish > "$pkgdir/usr/share/fish/vendor_completions.d/rg.fish"
+  target/release/rg --generate complete-fish > "$pkgdir/usr/share/fish/vendor_completions.d/rg.fish"
 
   mkdir -vp "$pkgdir/usr/share/man/man1"
-  target/release-lto/rg --generate man > "$pkgdir/usr/share/man/man1/rg.1"
+  target/release/rg --generate man > "$pkgdir/usr/share/man/man1/rg.1"
 
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" COPYING
