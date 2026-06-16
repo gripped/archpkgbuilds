@@ -2,21 +2,16 @@
 
 _hkgname=QuickCheck-safe
 pkgname=haskell-quickcheck-safe
-pkgver=0.1.0.6
-pkgrel=173
+pkgver=0.1.0.7
+pkgrel=1
 pkgdesc="Safe reimplementation of QuickCheck's core"
 url="https://github.com/int-e/QuickCheck-safe"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-quickcheck')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('7786a89eca0ccc8fa9ece6ef0995fafb1bc25d1d3df7024625d5181c8d4606b9')
-
-prepare() {
-  cd $_hkgname-$pkgver
-  uusi -u QuickCheck $_hkgname.cabal
-}
+sha256sums=('21ace60d66f71a515e550147c1ea85cb65b0d6dc87ce5b25683eeac6a93b6fdf')
 
 build() {
   cd $_hkgname-$pkgver
