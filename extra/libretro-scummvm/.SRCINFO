@@ -1,14 +1,18 @@
 pkgbase = libretro-scummvm
 	pkgdesc = ScummVM core
-	pkgver = 161421
+	pkgver = 20260504.232922.g660e13b0764f
 	pkgrel = 1
 	url = https://github.com/libretro/scummvm
 	arch = x86_64
 	groups = libretro
-	license = GPL
+	license = GPL-3.0-only
 	makedepends = git
+	depends = glibc
+	depends = libgcc
 	depends = libretro-core-info
-	source = libretro-scummvm::git+https://github.com/libretro/scummvm.git#commit=9d31b31c179fd4a43f7cfc383a3435a9070c6aa8
-	sha256sums = c2872d64dff334487cee0eff4ec92821e10e05d419d7ea6fd768c7b1345715a5
+	depends = libstdc++
+	options = !lto
+	source = libretro-scummvm::git+https://github.com/libretro/scummvm.git#commit=660e13b0764f
+	b2sums = 3d89abc55a7a58173c2e59891fc59342ad81d87cd840e7cc6d2d46d9e40ef4e1fda92b501edf739b869e36db6782348f38e4ccb83eeff2e1ec3be7c82d46df18
 
 pkgname = libretro-scummvm
