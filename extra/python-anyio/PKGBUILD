@@ -2,7 +2,7 @@
 
 pkgname=python-anyio
 # https://github.com/agronholm/anyio/blob/master/docs/versionhistory.rst
-pkgver=4.13.0
+pkgver=4.14.0
 pkgrel=1
 pkgdesc='High level compatibility layer for multiple asynchronous event loop implementations'
 arch=(any)
@@ -12,7 +12,7 @@ depends=(python python-idna)
 makedepends=(git python-build python-installer python-setuptools python-setuptools-scm python-wheel
              python-uvloop python-trio)
 checkdepends=(python-pytest python-trustme python-hypothesis python-pytest-mock python-psutil
-              python-truststore)
+              python-truststore python-pytest-timeout)
 optdepends=(
   'python-trio: trio backend'
   'python-outcome: trio backend'
@@ -20,7 +20,7 @@ optdepends=(
   'python-pytest: pytest plugin'
 )
 source=("git+https://github.com/agronholm/anyio.git#tag=$pkgver")
-sha256sums=('2e999993a6562b11f86ca3b7d5d35a8f7744b98714acdd1214db969c41e3a089')
+sha256sums=('9d8a5371494904952514935f44df9fc10de3cea61c58610944dfc85e1b187b1d')
 
 export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 
