@@ -3,7 +3,7 @@
 
 pkgname=python-ujson
 _pkgname=ultrajson
-pkgver=5.12.1
+pkgver=5.13.0
 pkgrel=1
 pkgdesc="Ultra fast JSON encoder and decoder for Python"
 url="https://github.com/ultrajson/ultrajson"
@@ -13,8 +13,8 @@ depends=('python')
 makedepends=(python-setuptools-scm python-wheel python-build python-installer)
 checkdepends=('python-pytest')
 source=(https://github.com/ultrajson/ultrajson/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('2cc096d767d2aebab36da95a5c2cbf9fe78f19e9ab231d40c9bf65ccef9d29ce9bf25377b47a2b4974bf9be8acf06f76e144c45c7eda7e23ce750cca4242f345')
-b2sums=('8e9c1dfed99f417ebfd34d277c84f0eb406a31c811ff0f263b93cdd7b02d5ca9b8f1ff150b8c8c9cdaaa9745fe3df16ce7ff106e0d32e4ec538df1b21846540a')
+sha512sums=('d5cdb7f01d1f57490039c73098b53a09cf6aa3f325035da4a1476cc7b258276f42a3e5f140a3a0d592e7df2bcf2d38245b07bf6ee56a06994eeeffe344a20488')
+b2sums=('b5bc4e4571eed6d7dc45e0fe417da9e383c0eb7562eb55ebec95d99fa16197675874904364e4ac992463b01fa8b863002365522ccab9ebe1551fd638c74e7803')
 
 export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 
