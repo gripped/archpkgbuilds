@@ -3,7 +3,7 @@
 
 pkgname=ausweisapp
 pkgver=2.5.1
-pkgrel=3
+pkgrel=2
 pkgdesc="official client for using the German electronic ID card (eID)"
 arch=('x86_64')
 license=('EUPL-1.2')
@@ -20,8 +20,7 @@ build() {
 	local cmake_options=(
 		-B build
 		-S AusweisApp-$pkgver
-		-G Ninja
-		-DCMAKE_BUILD_TYPE=MinSizeRel # "None" is not supported
+		-DCMAKE_BUILD_TYPE=None
 		-DCMAKE_INSTALL_PREFIX=/usr
 	)
 	cmake "${cmake_options[@]}"
