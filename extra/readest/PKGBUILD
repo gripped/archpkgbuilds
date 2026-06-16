@@ -4,7 +4,7 @@
 pkgname=readest
 _Packagename=Readest
 pkgver=0.11.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Modern, feature-rich ebook reader"
 arch=('x86_64')
 url='https://github.com/readest/readest'
@@ -36,5 +36,8 @@ build() {
 }
 
 package() {
-  cp -a $pkgname/target/release/bundle/deb/$_Packagename_*/data/* "${pkgdir}"
+  cd $pkgname
+  cp -a target/release/bundle/deb/$_Packagename_*/data/* "${pkgdir}"
+  mv "$pkgdir"/usr/share/applications/{$_Packagename,com.bilingify.readest}.desktop
+  install -Dm644 data/metainfo/appdata.xml "$pkgdir"/usr/share/metainfo/com.bilingify.readest.appdata.xml
 }
