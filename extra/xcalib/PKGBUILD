@@ -7,7 +7,7 @@
 # Contributor: mOLOk
 
 pkgname=xcalib
-pkgver=0.11
+pkgver=0.12
 pkgrel=1
 pkgdesc="Load 'vcgt'-tag profiles to X-server on the calibration stage"
 arch=('x86_64')
@@ -17,7 +17,7 @@ depends=('libxxf86vm' 'libxrandr')
 makedepends=('cmake' 'git')
 source=(git+https://codeberg.org/OpenICC/xcalib.git#tag=${pkgver}?signed)
 validpgpkeys=('9A81DA0F2F18F096BE94577051F5D211EB7A04C8') # Kai-Uwe Behrmann
-sha256sums=('d7467c9f0d2ac8d6f66a6227dd9795e52af1c8e77d3094ea6621b14757ce2ecb')
+sha256sums=('c0b0e441fb5c07e75bed20830c9740521cfb4661286a11cbdbde2a3b4a5f290c')
 
 build() {
   cmake -B build -S "$pkgname" \
