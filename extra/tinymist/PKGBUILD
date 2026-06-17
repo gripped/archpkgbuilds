@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=tinymist
-pkgver=0.14.18
+pkgver=0.14.20
 pkgrel=1
 epoch=1
 pkgdesc='an integrated language service for Typst'
@@ -15,7 +15,7 @@ makedepends=(cargo)
 replaces=("$pkgname-bin")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('92491d5bcd7ba2a5fe66c3c5e4c3728c2dce19a01a7f755010a905d31ccd0d04')
+sha256sums=('8b5aec9598102b0130a7b27ef8cc5e213670f528474183a42bed0d4549b86c5e')
 
 prepare() {
 	cd "$_archive"
@@ -50,6 +50,14 @@ check() {
 		tests::convert_tex # 0.14.16, this is why we use lockfiles!
 		tests::convert # 0.14.16
 		tests::test_docx_generation # 0.14.16
+		doc::tests::diff_v1_preview_frame_paints_generated_page # 0.14.20, typst 0.15.0
+		doc::tests::full_current_preview_frame_paints_generated_page_after_reset # 0.14.20, typst 0.15.0
+		doc::tests::page_canvas_exposes_synthetic_accesskit_link_nodes # 0.14.20, typst 0.15.0
+		doc::tests::page_canvas_exposes_synthetic_accesskit_text_runs # 0.14.20, typst 0.15.0
+		doc::tests::page_canvas_paints_selection_overlay_above_scene # 0.14.20, typst 0.15.0
+		doc::tests::page_canvas_paints_supplied_white_background # 0.14.20, typst 0.15.0
+		doc::tests::page_canvas_selects_and_copies_text # 0.14.20, typst 0.15.0
+		doc::tests::page_canvas_uses_pointer_cursor_over_links # 0.14.20, typst 0.15.0
 	)
 	cargo test --frozen -- ${skipped[@]/#/--skip }
 }
