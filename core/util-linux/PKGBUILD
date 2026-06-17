@@ -12,7 +12,7 @@
 
 pkgbase=util-linux
 pkgname=(util-linux util-linux-libs)
-pkgver=2.42.1
+pkgver=2.42.2
 pkgrel=1
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/util-linux/util-linux'
@@ -40,14 +40,14 @@ license=(
 )
 options=('strip')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
-source=("git+https://github.com/util-linux/util-linux#tag=v${pkgver/rc/-rc}?signed"
+source=("git+https://github.com/util-linux/util-linux?signed#tag=v${pkgver/rc/-rc}"
         $pkgbase-BSD-2-Clause.txt::https://raw.githubusercontent.com/Cyan4973/xxHash/f035303b8a86c1db9be70cbb638678ef6ef4cb2d/LICENSE
         {login,common,remote,runuser,su}.pam
         'util-linux.sysusers'
         '60-rfkill.rules'
         'rfkill-unblock_.service'
         'rfkill-block_.service')
-sha256sums=('02c15bd250c371d4864c43c7fc61c794b83e5e2eff264a88469001cb03299c3e'
+sha256sums=('b12ee0ba37ccaf6c88f767637a4519d5fdf76ddd1acbf7e6fc29e9eeeea30d8f'
             '6ffedbc0f7878612d2b23589f1ff2ab15633e1df7963a5d9fc750ec5500c7e7a'
             'ee917d55042f78b8bb03f5467e5233e3e2ddc2fe01e302bc53b218003fe22275'
             '57e057758944f4557762c6def939410c04ca5803cbdd2bfa2153ce47ffe7a4af'
