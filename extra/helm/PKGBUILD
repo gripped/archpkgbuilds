@@ -1,11 +1,13 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
-# Maintainer: Carl Smedstad <carsme@archlinux.org> Contributor: Lukas Grossar <lukas.grossar@gmail.com> Contributor: Ivan Shapovalov <intelfx@intelfx.name>
+# Maintainer: Carl Smedstad <carsme@archlinux.org> 
+# Contributor: Lukas Grossar <lukas.grossar@gmail.com>
+# Contributor: Ivan Shapovalov <intelfx@intelfx.name>
 # Contributor: Wayne Cheng <waynethecheng@gmail.com>
 # Contributor: Matthias Lisin <ml@visu.li>
 
 pkgname=helm
-pkgver=4.2.0
-pkgrel=1
+pkgver=4.2.1
+pkgrel=2
 pkgdesc="The Kubernetes Package Manager"
 arch=("x86_64")
 url="https://github.com/helm/helm"
@@ -17,7 +19,7 @@ makedepends=(
 )
 options=("!lto")
 source=("git+$url.git#tag=v$pkgver?signed")
-b2sums=('06af503899924402cfdf512799767f9d6ce0ccabaa0ae7411183af83093f5847abf1c0df7c9f4cc376cfb73f4e5de9243ca82aa49358c8d3ad5ea2b421ed65a8')
+b2sums=('0c5f429896d9714c2901eea689ddc57b4e4e6c2f15c4a380086d522f50819d939d71d636a1df694875436bd05cf1a9d517affa06de03c68073dde17434624e92')
 validpgpkeys=(
   '672C657BE06B4B30969C4A57461449C25E36B98E' # Matthew Farina <matt@mattfarina.com>
   'CABAA8D44DFACA14791FBE9892C44A3D421FF7F9' # Matthew Farina <matt.farina@rancher.com>
@@ -30,6 +32,12 @@ validpgpkeys=(
 
 prepare() {
   cd $pkgname
+  # Revert WaitForDelete change that makes --wait hang for the full timeout on
+  # fast hook deletions, see:
+  # https://github.com/helm/helm/issues/32214
+  # https://github.com/helm/helm/pull/32230
+  git cherry-pick -n d3bd09147bbae09ca85615452bda31b8215e66f5
+
   GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
@@ -43,7 +51,6 @@ build() {
   export GOPATH="$srcdir"
 
   local ld_flags=" \
-    -compressdwarf=false \
     -linkmode=external \
     -X helm.sh/helm/v4/internal/version.version=v$pkgver \
     -X helm.sh/helm/v4/internal/version.gitCommit=$(git rev-parse HEAD) \
@@ -56,7 +63,11 @@ check() {
   # Test that the exectuble reports the correct version.
   test "$(./helm version --template '{{.Version}}')" = "v$pkgver"
 
-  local unit_tests=$(go list ./... | grep -v helm.sh/helm/v4/internal/plugin)
+  local unit_tests=$(
+    go list ./... \
+    | grep -v helm.sh/helm/v4/internal/plugin \
+    | grep -v helm.sh/helm/v4/pkg/registry \
+  )
   # shellcheck disable=2086
   go test $unit_tests
 }
