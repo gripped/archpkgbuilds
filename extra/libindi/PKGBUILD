@@ -3,7 +3,7 @@
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=libindi
-pkgver=2.2.3
+pkgver=2.2.3.1
 pkgrel=1
 pkgdesc='A distributed control protocol designed to operate astronomical instrumentation'
 url='https://www.indilib.org/index.php?title=Main_Page'
@@ -32,7 +32,11 @@ makedepends=(cmake
              qt6-base)
 optdepends=('qt6-base: Qt client library')
 source=(git+https://github.com/indilib/indi#tag=v$pkgver)
-sha256sums=('b7343a92aa242b31683e7d72e53b8ea7c0ba2b3e234fbca29569d8d31b51d940')
+sha256sums=('0f35ffeedacbade9a0aec9a9bf0397692e22f9c2684c9bb4e0e3741418544f2c')
+
+prepare() {
+  git -C indi cherry-pick -n bf77bd1c26c268e5973cace1dc21807b42148539 # Fix build
+}
 
 build() {
   cmake -B build -S indi \
