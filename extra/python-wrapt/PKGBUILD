@@ -2,7 +2,7 @@
 # Contributor: Troy C < rstrox -ta yahoo -tod com >
 
 pkgname=python-wrapt
-pkgver=2.1.2
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="A Python module for decorators, wrappers and monkey patching"
 arch=("x86_64")
@@ -12,7 +12,7 @@ depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
 source=("git+https://github.com/GrahamDumpleton/wrapt.git#tag=$pkgver")
-sha512sums=('ad9bab39af92455637fca3651ca47540de56bbbaae3c8f221a568dcfac8270564dbadc87774e06cd18c7cc95f5a4b225e210d8ecdaeafaf37d649ccc7c03fb7d')
+sha512sums=('da699910c842e37d8f972689c4c06b089862f1b5c65fd75d153874ff2a8295b62b5c8799e0729f9a712e604641663cbf1b683e74697e4fd8ecf539452d1b777d')
 
 build() {
   cd wrapt
