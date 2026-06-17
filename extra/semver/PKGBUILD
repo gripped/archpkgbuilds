@@ -2,7 +2,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=semver
-pkgver=7.8.2
+pkgver=7.8.3
 pkgrel=1
 pkgdesc='The semantic version parser used by npm'
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=(
   'npm'
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('86cc970a632574211e153e770404f3922f32ca7a7cef197261fe3fbb355a78d239463726a3d2f84a7b962c996bfc79b1df00a88ae60dd7d613da2e9a49944376')
+b2sums=('b6010c674c0910a64c2a9ca19f83027bbc65083b65dcf0558ef7dcf9987ac32161807a54d319c19402b949d840483749f12730f0213634fb72a86ff278bb1e8b')
 
 prepare() {
   cd node-$pkgname
