@@ -1,10 +1,10 @@
 pkgbase = metasploit
 	pkgdesc = Advanced open-source platform for developing, testing, and using exploit code
-	pkgver = 6.4.136
+	pkgver = 6.4.138
 	pkgrel = 1
 	url = https://www.metasploit.com/
 	arch = x86_64
-	license = BSD
+	license = BSD-3-Clause
 	depends = git
 	depends = inetutils
 	depends = libpcap
@@ -15,11 +15,11 @@ pkgbase = metasploit
 	depends = ruby-bundler
 	depends = ruby-erb
 	depends = sqlite
-	options = !strip
 	options = !debug
 	options = !emptydirs
-	source = git+https://github.com/rapid7/metasploit-framework.git#tag=6.4.136
-	sha256sums = a05497875c7a05d15cc28a6295acd2651c66acdf63155ee77309c152f46c3732
-	b2sums = 02f292ce753a80de8eb6c124f4ae5033ee464118ac008afbfab0b3a0dac716a988504a868dedc4b990bd611a5e72cb0a2bc004a4b64c866bbb08a0c293f69fe4
+	options = !strip
+	source = git+https://github.com/rapid7/metasploit-framework.git#tag=6.4.138
+	sha256sums = 12e9245105418f48c07bfe526df671bbdf909354a00f7ed19dbf098d9501d38d
+	b2sums = 6fd8078e51a7f7b43460e977b3050984fa066b1b8de451150222fa17efd2a404ad79c983dab907eed0ad438d91f677fd8f7cb5e2572c5163c4e5e440f1265bae
 
 pkgname = metasploit
