@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-control-center
-pkgver=6.1.44
+pkgver=6.1.45
 pkgrel=1
 pkgdesc='Control panel of Deepin Desktop Environment'
 arch=('x86_64')
@@ -23,12 +23,19 @@ conflicts=('dde-control-center' 'dde-dock-applets')
 replaces=('dde-control-center' 'dde-dock-applets')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-control-center.git#tag=$pkgver")
-sha512sums=('d2752907797e8b7eb452537c1682a460ba9a63d78c9a41fc7728a805750f29bbe32d0af3d39dfbdf0a3ae6aa22a06d740fa4d093152e2785f68b311abf36b198')
+sha512sums=('72f838309c208b78c7c37392a213dc4124e9071fa8980dacf754ca358940eb1f3942c4f28ef7ac7eeef3f5babde5395685a8accb87376c3b44df09d72561f575')
 
 prepare() {
   mkdir -p build
 
   cd dde-control-center
+
+  # Backport upstream f791e7f3 for treeland-protocols 0.5.8's wallpaper-manager XML.
+  git cherry-pick -n f791e7f374212364de9e08320886651614640da7
+  # Remove stale PersonalizationWallpaperContext references from upstream f0e7e406.
+  git diff f0e7e4067a90e1a5a2a80c7a96f76354423e6f8f^ f0e7e4067a90e1a5a2a80c7a96f76354423e6f8f -- \
+    src/plugin-personalization/operation/treelandworker.cpp \
+    src/plugin-personalization/operation/treelandworker.h | git apply
 
   # Fix CMake errors for missing Qt6 private targets during configure.
   sed -i '/find_package(${QT_NS} COMPONENTS QmlModels REQUIRED)/a find_package(${QT_NS} COMPONENTS QmlModelsPrivate REQUIRED)' src/dde-control-center/CMakeLists.txt
