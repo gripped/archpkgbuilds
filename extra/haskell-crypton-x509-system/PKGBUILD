@@ -2,16 +2,16 @@
 
 _hkgname=crypton-x509-system
 pkgname=haskell-crypton-x509-system
-pkgver=1.6.7
-pkgrel=165
+pkgver=1.6.8
+pkgrel=1
 pkgdesc="Handle per-operating-system X.509 accessors and storage"
 url="https://github.com/kazu-yamamoto/crypton-certificate"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-crypton-x509' 'haskell-crypton-x509-store' 'haskell-pem')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('a436261e5f5e83d85080f57a5509c8224c9e75a6e56d0c43a7d2967052b634ca')
+sha256sums=('e80b133d708ffee6db6fd21b13a430e6b27a8ae2c47a848d0cdd5bd006a01b8e')
 
 build() {
   cd $_hkgname-$pkgver
