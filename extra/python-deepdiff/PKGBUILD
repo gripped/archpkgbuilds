@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-deepdiff
-pkgver=8.5.0
+pkgver=8.6.0
 pkgrel=1
 pkgdesc="Deep Difference and Search of any Python object/data."
 url="https://github.com/seperman/deepdiff"
@@ -16,9 +16,14 @@ optdepends=('python-click: for cli'
 makedepends=('python-build' 'python-flit-core' 'python-installer' 'git')
 checkdepends=('python-pytest' 'python-pytest-benchmark' 'python-clevercsv' 'python-click' 'python-dateutil'
               'python-jsonpickle' 'python-numpy' 'python-tomli-w' 'python-yaml' 'python-orjson'
-	      'python-pydantic' 'python-pandas' 'python-polars')
+              'python-pydantic' 'python-pandas' 'python-polars' 'python-uuid6')
 source=("git+https://github.com/seperman/deepdiff.git#tag=$pkgver")
-sha512sums=('b261ce7c2452258bfc81a4de0420629530048a1cc6b871cab08a8c2ca0a694afc511522ae9a7eb15f9cecfd67c35eabb3a90fdd4d44d8f2f2dd5bcf510b6542c')
+sha512sums=('c2572a6a6d6ae6817c652122e7e13b5116abd237bf4a7f1bfd36ed4b1f59196d42e4153843823d3b0b8bcc38689038f3c84066c5e83eaf3296e54ef007bd783a')
+
+prepare() {
+  cd deepdiff
+  sed -i 's/flit_core >=3.11,<4/flit_core/' pyproject.toml
+}
 
 build() {
   cd deepdiff
@@ -27,10 +32,7 @@ build() {
 
 check() {
   cd deepdiff
-  # json.decoder.JSONDecodeError: Illegal trailing comma before end of object: line 3 column 21 (char 45)
-  pytest tests \
-    --deselect "tests/test_command.py::TestCommands::test_diff_command[t1_corrupt.json-t2.json-Expecting property name enclosed in double quotes-1]" \
-    --deselect "tests/test_delta.py::TestBasicsOfDelta::test_simple_set_elem_value"
+  pytest
 }
 
 package() {
