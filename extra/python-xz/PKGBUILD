@@ -1,0 +1,60 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-xz
+pkgver=0.6.0
+pkgrel=1
+pkgdesc='Python implementation of the XZ file format with random access support'
+arch=(any)
+url='https://github.com/Rogdham/python-xz'
+license=(MIT)
+depends=(python)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-hatchling
+  python-hatch-vcs
+)
+checkdepends=(python-pytest)
+source=(
+  "$pkgname::git+$url#tag=v$pkgver"
+  skip-pytest-cov.patch
+)
+sha512sums=('325529d9d4e71aed85158b2cf93af089bf9a8637a5eedbd1edf804bffd152e155d6fbc09321f772e0cf666239813373800aa672f9ae9fd6b5f8e9b7c5e7a7368'
+            'd6448b15e4a96d241f6c3e63b070b5dc8d8512bb781a1906b8ec33ba6d836713e9bfefa2b32414badea95cef3c399ea1a991b2aa835f61950c4ad601b699d09f')
+b2sums=('a0718ece093f155e83aefdee6ccfc89b6ed0143c68af7aae553e722f55e54b4f0c607174fbeaf49ac3df979c21a11a51d7195025dcf35d370652d83dc49d94be'
+        '7848be47acdabd8d61c166ddf4b790d3161c1d88a6a7decdc471fa86a9b11fbde718fe28ec089cf6f6e1ab4662b8840442c7917ebfec5fac197d69f1970ee1bd')
+
+prepare() {
+  cd "$pkgname"
+
+  patch -p1 -i "$srcdir/skip-pytest-cov.patch"
+}
+
+build() {
+  cd "$pkgname"
+
+  export SETUPTOOLS_SCM_PRETEND_VERSION="$pkgver"
+
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "$pkgname"
+
+  # temporary install
+  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$(pwd)/tmp/$site_packages"
+
+  pytest -v
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
+}
