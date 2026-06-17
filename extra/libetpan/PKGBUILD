@@ -1,7 +1,7 @@
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
 
 pkgname=libetpan
-pkgver=1.10
+pkgver=1.10.1
 pkgrel=1
 pkgdesc="A portable middleware for email access"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('gnutls' 'libsasl' 'zlib' 'glibc')
 makedepends=('expat')
 provides=('libetpan.so')
 source=($pkgname-$pkgver.tar.gz::https://github.com/dinhvh/${pkgname}/archive/${pkgver}.tar.gz)
-sha256sums=('0ca9a79f66155e12156727856a40031030f5760f7bc88b29119e851b9c96e9eb')
+sha256sums=('87bacdc62661a2a7aa5fe9f1f28d2f7c7a53256633ac5129903916c59f80c4c2')
 
 prepare() {
   cd "${pkgname}"-${pkgver}
