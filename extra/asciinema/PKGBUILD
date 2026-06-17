@@ -3,7 +3,7 @@
 # Contributor: Marcin Kulik <marcin@asciinema.org>
 
 pkgname=asciinema
-pkgver=3.2.0
+pkgver=3.2.1
 pkgrel=1
 pkgdesc='Record and share terminal sessions'
 arch=(x86_64)
@@ -13,7 +13,7 @@ makedepends=(cargo git)
 depends=(glibc libgcc)
 options=(!lto)
 source=("git+https://github.com/$pkgname/$pkgname#tag=v$pkgver")
-b2sums=('b75e03f66e433012679e9449a1d2beaa92fec7ecc1b2c20ac2b5f1f19efc6571ab8ab0224ceb413aad2d55baeed7775f1bf6dad2bf53ad709a02bd3e4129436e')
+b2sums=('0b6889a027a88a64bc807f712f74995a9e9e4536290663279d60e6b8f427228d2a64bd93a5fe953ce5954b721300023b47c740b977b2e600689f6ec6f57681c5')
 
 prepare() {
   cd $pkgname
