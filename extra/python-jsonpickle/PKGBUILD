@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-jsonpickle
-pkgver=4.1.1
+pkgver=4.1.2
 pkgrel=1
 arch=('any')
 pkgdesc="Python library for serializing any arbitrary object graph into JSON"
@@ -14,13 +14,7 @@ makedepends=('git' 'python-setuptools-scm' 'python-setuptools' 'python-build' 'p
 checkdepends=('python-numpy' 'python-feedparser' 'python-simplejson' 'python-gmpy2'
               'python-pymongo' 'python-ujson' 'python-pandas' 'python-pytest')
 source=("git+https://github.com/jsonpickle/jsonpickle.git#tag=v$pkgver")
-sha512sums=('4da4c54ac570d54e1967709c015620a708a161a954c91fc0c0c72c10d39879fe1591bdc465379e70ae33ee6657378808dca05800c6c504f43d1e2c746fd62e29')
-
-prepare() {
-  cd jsonpickle
-  # do not run coverage in an integration test
-  sed -i 's/--cov//' pytest.ini
-}
+sha512sums=('a9f116386a1a4620fb97ac7d22f3aa5abb73cb1f0ea41e5b066b818575595a4f3b15a61c9e1fcbcc782fd6a5d3622310dd86f446634687de8982177cf809c2fb')
 
 build() {
   cd jsonpickle
@@ -29,7 +23,7 @@ build() {
 
 check() {
   cd jsonpickle
-  pytest tests
+  pytest -W "ignore:keys will default to True in jsonpickle 5.0.0:DeprecationWarning" tests
 }
 
 package() {
