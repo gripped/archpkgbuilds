@@ -4,7 +4,7 @@
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 
 pkgname=python-sh
-pkgver=2.2.5
+pkgver=2.2.6
 pkgrel=1
 pkgdesc='Subprocess interface that allows you to call any program as if it were a function'
 arch=('any')
@@ -15,8 +15,8 @@ makedepends=('git' 'python-build' 'python-hatchling' 'python-installer'
              'python-wheel')
 checkdepends=('python-pytest')
 source=("git+https://github.com/amoffat/sh.git#tag=$pkgver")
-sha512sums=('ddf624cbcd2a5eb6318570d5faf09e7d0fd42648065db4d2abcfc794e7af22b759da60b2a33fe1d547388fe7eaf7dbc26d851bf33eb49bccef422f35ce0949bc')
-b2sums=('d4c1fc6ce99d7bc92cdff1e3da18958f1e586970b2924572ce6fce44ee97207f89daaad4c822eceb91bc0a3b26b5ea67ac674e3b9db1fcdc460f35d3c426d849')
+sha512sums=('4da55c2118a9c89bfb9133f4ff2a09b1d73a1c66f690f4b1176872bbe7e378030f670a6401ef8bfcc2d21c4ac4b6413e4fc5dfea860141555cef9dc0c14fb3df')
+b2sums=('4f53c64bcfbe83f52069c2d03b24d975f8346db5ce072c2bf6c8cce32d0bef4fb9d4c8f142f3d1bb56563872ae6e972eba3f08891a1efa046d4fdb382d95e077')
 
 build() {
   cd sh
