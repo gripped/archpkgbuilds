@@ -9,8 +9,8 @@
 pkgbase=qtcreator
 pkgname=(qtcreator
          qtcreator-devel)
-pkgver=19.0.2
-pkgrel=3
+pkgver=20.0.0
+pkgrel=1
 pkgdesc='Lightweight, cross-platform integrated development environment'
 arch=(x86_64)
 url='https://www.qt.io'
@@ -57,7 +57,7 @@ optdepends=('qt6-doc: integrated Qt documentation'
 source=(git+https://code.qt.io/qt-creator/qt-creator#tag=v$pkgver
         git+https://code.qt.io/qt-creator/perfparser
         git+https://code.qt.io/playground/qlitehtml)
-sha256sums=('31fe9aa9e9706b76ba42cfd1a160e3974c78bd4d4a385fe92aeb6ebbbbc532fa'
+sha256sums=('22c9cb5ee0d2a17b3aa536bf16f83d199b5084625447bb40a46e41786ecb660c'
             'SKIP'
             'SKIP')
 options=(docs)
@@ -70,8 +70,8 @@ prepare() {
 
 # Fix doc build with system litehtml
   rm src/libs/qlitehtml/src/3rdparty/qt_attribution.json
-# Fix build with Qt 6.10
-  git cherry-pick -n 5a4c700ccefc76c7c531c834734e6fefa14b5364
+# Drop unneeded litehtml include
+  sed -e '/litehtml\/types.h/d' -i src/libs/qlitehtml/src/container_qpainter_p.h
 }
 
 build() {
