@@ -3,7 +3,7 @@
 
 pkgname=gpodder
 pkgver=3.11.5
-pkgrel=3
+pkgrel=4
 pkgdesc='Podcast client written in Python using GTK'
 arch=('any')
 url='https://gpodder.github.io/'
@@ -26,6 +26,9 @@ prepare() {
   patch -Np1 -i ../Try-importing-WebKit2-4.1-first-then-4.0.patch
   # Use gio open directly instead of xdg-open
   sed -i "s/\['xdg-open', filename\]/['gio', 'open', filename]/" src/gpodder/util.py
+
+  # Fix launchable ID in metainfo file
+  sed -i 's/org.gpodder.gpodder.desktop/gpodder.desktop/' share/metainfo/org.gpodder.gpodder.appdata.xml
 }
 
 build() {
