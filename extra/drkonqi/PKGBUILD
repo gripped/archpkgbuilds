@@ -1,9 +1,9 @@
 # Maintainer:Antonio Rojas <arojas@archlinux.org>
 
 pkgname=drkonqi
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=2
+pkgrel=1
 pkgdesc='The KDE crash handler'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -39,19 +39,13 @@ depends=(elfutils
          systemd-libs)
 makedepends=(extra-cmake-modules)
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/plasma/drkonqi/-/commit/8f02653e.patch)
-sha256sums=('b2b104d5f30224bca88280246ca990ac314d81cb1bf0d3857613ff683db92d82'
-            'SKIP'
-            'e7ffbd97f6be546caea277ff37056c777223d0f0d74f9f39dfc87d568a8c038b')
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('55e6626ebc5008998a22755c8cd271f2335872a50cddf65f158fdd5cd237d7d3'
+            'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < 8f02653e.patch # Fix crashes
-}
 
 build() {
   cmake -B build  -S $pkgname-$pkgver \
