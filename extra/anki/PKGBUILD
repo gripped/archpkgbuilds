@@ -1,5 +1,6 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Maintainer: Jonathan Grotelüschen <tippfehlr@archlinux.org>
+# Maintainer: DeepChirp <deepchirp@archlinux.org>
 # Contributor: Alexander Bocken <alexander@bocken.org>
 # Contributor: Posi <posi1981@gmail.com>
 # Contributor: Johannes Löthberg <johannes@kyriasis.com>
@@ -9,7 +10,7 @@
 # Contributor: Dave Pretty <david dot pretty at gmail dot com>
 
 pkgname=anki
-pkgver=25.09.4
+pkgver=26.05
 pkgrel=1
 pkgdesc="A smart spaced repetition flashcard program"
 arch=('x86_64')
@@ -63,18 +64,16 @@ source=(
   "no-update.patch"
   "strip-formatter-deps.patch"
   "strip-type-checking-deps.patch"
-  "strip-python-pip-system-certs.patch"
   "no-corepack.patch"
   "reproducible-sveltekit.patch"
 )
-b2sums=('60f857bb212d15f3b8b24d848f69b9a7cbdf27b1b3b216b9a5d8515e8387f48e447bd3244a70fec73b8b64ca0c79458907e4939d149abc05b3c71fd4b8e8d060'
+b2sums=('eb3845c02014d408823a76e4316ff7c7bc6251f8b6f111e4dce2a850c0f2752b2a1370588545a7a6c0c4033cdd71007bd644bac7c1f67931cf97cb9d3624499e'
         'SKIP'
         'SKIP'
         '0f3ce855e9eaea67ef461668c296ae08cad0d31a7a2bf9ea7006220b44c2cb2e132dfb656140828141fbf21dde2b686a4a3248b92bb3fa46217f1a987425ffa3'
         '18a8fefd5995ba83ebdb3e0c7d9a5c821a19b51616f6eebd7980e30bab4ab3c12573f5a8e59d7db03492a9df22245275da74a4594c2b652d772fbbb17984ff96'
         '4ea648cec8b784b7586605ddc97633b9471ab8e1f75b5f38c0459f839625cdc3e28419cf34f8d8e453283707a17a090a48287140573c96599d83baa56d114a4a'
-        '903e22a623f058215d50cb2574ac0beeea784c7b7d07aaa207ebcfcd5a0795be70341845bc4fd20bf296e6c389e98d481a6e0a0b3ad550e88adf5aeb0d401fc6'
-        'e1a05314e4d4118cd1f23de1da6c6561db6cc322a0fd1507f4fd72bdf16352cbab4e7150da5788a52a988e923d339555e4923079459c4fa55dff9c695c4117bb'
+        '551a6585356989ced5f32a62e34f8446273b7648458afbc79e0fd21d4038c2c3d28175b679399b27ae22ce505f5b909adac448482bd7f2a234f8b44a05627f4e'
         '1dede904fbc5c0b499251d3d11a39ad2f467d644ad742d6d162dc4cd60a120f445e0b5f0fb9758ace1d95372ad48a86bbd6cad3200d97f19f4c62bb0620dc8c4')
 
 prepare() {
@@ -82,7 +81,6 @@ prepare() {
   patch -Np1 < ../no-update.patch
   patch -Np1 < ../strip-formatter-deps.patch
   patch -Np1 < ../strip-type-checking-deps.patch
-  patch -Np1 < ../strip-python-pip-system-certs.patch
   patch -Np1 < ../no-corepack.patch
   patch -Np1 < ../reproducible-sveltekit.patch
 
@@ -91,7 +89,7 @@ prepare() {
   git config submodule.ftl/qt-repo.url ../anki-desktop-ftl
   git -c protocol.file.allow=always submodule update ftl/core-repo ftl/qt-repo
 
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 
   rm yarn.lock # Lock-file not compatible with system yarn
 
