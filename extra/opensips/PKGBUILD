@@ -1,11 +1,11 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=opensips
-pkgver=3.6.6
+pkgver=3.6.7
 pkgrel=1
 pkgdesc="An Open Source SIP Server able to act as a SIP proxy, registrar, location server, redirect server ..."
 url="https://www.opensips.org"
-depends=('gcc-libs')
+depends=()
 makedepends=('libldap' 'libmariadbclient' 'libmicrohttpd' 'libxml2' 'libxslt'
              'lynx' 'openssl' 'postgresql-libs' 'unixodbc')
 optdepends=('curl: db_http module'
@@ -20,11 +20,11 @@ backup=("etc/opensips/opensips.cfg"
 	"etc/opensips/osipsconsolerc"
 	"etc/opensips/opensipsctlrc")
 arch=('x86_64')
-license=('GPL')
+license=('GPL-2.0-only')
 options=('!emptydirs' '!makeflags')
 source=(https://opensips.org/pub/opensips/${pkgver}/opensips-${pkgver}.tar.gz
 	opensips.service)
-sha256sums=('bdb921f50838d7227668eb329171e50bc61e5e4fc3c2d623647734cabaa17429'
+sha256sums=('1dcc60d73bee3c5bc9878752965b45dbed800222e5b5d09ca905040d38edf25c'
             'c2fec4be085b108db10834fa9832e98d696c2de6408f85f96cf89c13bf6be819')
 
 _modules="db_http db_mysql db_postgres db_unixodbc h350 httpd ldap presence presence_xml proto_tls tls_mgm tls_openssl tm rr"
