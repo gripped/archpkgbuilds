@@ -1,15 +1,15 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kscreenlocker
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Library and components for secure lock screen architecture'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         kcmutils
          kconfig
          kcoreaddons
          kcrash
@@ -26,6 +26,7 @@ depends=(gcc-libs
          kxmlgui
          layer-shell-qt
          libkscreen
+         libstdc++
          libx11
          libxcb
          libxi
@@ -36,15 +37,13 @@ depends=(gcc-libs
          wayland
          xcb-util-keysyms)
 makedepends=(extra-cmake-modules
-             kcmutils
              kdoctools)
-optdepends=('kcmutils: configuration module')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
         kde.pam
         kde-fingerprint.pam 
         kde-smartcard.pam)
-sha256sums=('9ba0aee32364051eeb213d48dd3c208ae0ce7062190a30f855735ba4efe389cc'
+sha256sums=('c3154b68a885ed55d4cd577f813f5553ea0b31dbdd31b32b3744905550fec3d1'
             'SKIP'
             'adba7bb7c27eb3a572e5e9d3cea0dbeebe59d3634472d1863d14fe892cb13b2b'
             '32734b4e1ec8b7f7e32b6cb2d68285c5c4f15f53736bba085096e76095181241'
