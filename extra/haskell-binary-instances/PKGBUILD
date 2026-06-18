@@ -2,24 +2,24 @@
 
 _hkgname=binary-instances
 pkgname=haskell-binary-instances
-pkgver=1.0.4
-pkgrel=194
+pkgver=1.0.5
+pkgrel=2
 pkgdesc="Orphan instances for binary"
 url="https://github.com/phadej/binary-instances"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-binary-orphans' 'haskell-case-insensitive'
          'haskell-hashable' 'haskell-primitive' 'haskell-scientific' 'haskell-tagged'
-         'haskell-text-binary' 'haskell-time-compat' 'haskell-unordered-containers'
+         'haskell-time-compat' 'haskell-unordered-containers'
          'haskell-vector' 'haskell-vector-binary-instances')
-makedepends=('ghc' 'uusi' 'haskell-quickcheck'
-             'haskell-quickcheck-instances' 'haskell-tasty' 'haskell-tasty-quickcheck')
+makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-tasty'
+             'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('b6fcf34f3b9580cdfda91465483a88e2d7210527bcab0f450b32c022d4f5fcd4b92962dadc7009e0b25e911a7740a1b622245050ff074077f74e29f9bdf27d58')
+sha512sums=('dbf9b53a92743ac177980ea603abadf1e3614f32e2b334f1f13b592b3d7df4c7222f5c37171efa35a2c5d158c37a6c51bf5563d5a4cfb3ebbab437ff8550ac8f')
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u aeson -u base -u QuickCheck -u primitive -u tagged -u tasty -u tasty-quickcheck
+    uusi -u tagged -u tasty-quickcheck
 }
 
 build() {
