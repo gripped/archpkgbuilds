@@ -6,7 +6,7 @@
 
 pkgname=offlineimap
 _pkgname=${pkgname}3
-pkgver=8.0.2
+pkgver=8.0.3
 pkgrel=1
 pkgdesc='Synchronizes emails between two repositories'
 arch=('any')
@@ -18,7 +18,7 @@ optdepends=(
     "python-gssapi: for Kerberos authentication"
     "python-pysocks: for SOCKS5 proxy functionality")
 source=($pkgname-$pkgver.tar.gz::https://github.com/OfflineIMAP/offlineimap3/archive/v${pkgver}.tar.gz)
-sha256sums=('c299cbbab92d48215ea37ec06ec68699d17e59ab97a1b98e792f75e0a507b306')
+sha256sums=('967a8ca24e5f665cd22941ba1173db10cbd908085ec22ab9b0e4a64c94007d85')
 
 build() {
   cd ${_pkgname}-${pkgver}
