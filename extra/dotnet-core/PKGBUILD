@@ -13,7 +13,7 @@ pkgname=(
  aspnet-targeting-pack
  dotnet-source-built-artifacts
 )
-pkgver=10.0.8.sdk108
+pkgver=10.0.9.sdk109
 pkgrel=1
 arch=(x86_64)
 url=https://dotnet.microsoft.com
@@ -43,9 +43,8 @@ options=(
   !lto
   staticlibs
 )
-_tag=94ea82652cdd4e0f8046b5bd5becbd11461482ca
-source=(git+https://github.com/dotnet/dotnet.git#tag=${_tag})
-b2sums=('0eb4a3d96e400231b94b7905e19f95e00c6890e31a849078f08ea500b2275634beb7546e916d719120cb0988e44d81a7b1c6d509164962f38c49e4b550e6d434')
+source=(git+https://github.com/dotnet/dotnet.git#tag=v${pkgver/.*.sdk/.0.})
+b2sums=('78b70986ac532d4ab22feae5f4ca31b1c39b5e7b283be8962b964ddeb1a93fac0e2ef79220f69e2e07ec965291ea18126785aaca08623f028be536118696c953')
 
 prepare() {
   cd dotnet
@@ -61,30 +60,6 @@ prepare() {
     ln -sf /usr/share/dotnet/source-built-artifacts/Private.SourceBuilt.Artifacts.*.tar.gz prereqs/packages/archive/
   fi
   ./prep-source-build.sh
-}
-
-pkgver() {
-  cd dotnet
-
-  if [[ $(git describe --tags) != v10.0.* ]]; then
-    msg "Invalid SDK version"
-    exit 1
-  fi
-
-  local _standardver=$(xmllint --xpath "//*[local-name()='NETStandardLibraryRefPackageVersion']/text()" src/sdk/eng/Version.Details.props)
-
-  if [[ $_standardver != 2.1.0 ]]; then
-    msg "Invalid Standard version"
-    exit 1
-  fi
-
-  local _runtimemajorver=$(xmllint --xpath "//*[local-name()='MajorVersion']/text()" src/runtime/eng/Versions.props)
-  local _runtimeminorver=$(xmllint --xpath "//*[local-name()='MinorVersion']/text()" src/runtime/eng/Versions.props)
-  local _runtimepatchver=$(xmllint --xpath "//*[local-name()='PatchVersion']/text()" src/runtime/eng/Versions.props)
-  local _sdkminorver=$(xmllint --xpath "//*[local-name()='VersionSDKMinor']/text()" src/sdk/eng/Versions.props)
-  local _sdkminorpatchver=$(xmllint --xpath "//*[local-name()='VersionSDKMinorPatch']/text()" src/sdk/eng/Versions.props)
-
-  echo "${_runtimemajorver}.${_runtimeminorver}.${_runtimepatchver}.sdk${_sdkminorver}$(printf %02d ${_sdkminorpatchver})"
 }
 
 build() {
