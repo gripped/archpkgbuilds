@@ -8,8 +8,8 @@
 # Contributor: Matthias Mailänder <matthias@mailaender.name>
 
 pkgname=mattermost-desktop
-pkgver=6.2.0
-pkgrel=2
+pkgver=6.2.1
+pkgrel=1
 pkgdesc='Mattermost Desktop application'
 arch=(x86_64)
 url="https://github.com/${pkgname/-//}"
@@ -28,7 +28,7 @@ _archive="${pkgname#*-}-$pkgver"
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "$pkgname.sh"
         "$pkgname.desktop")
-sha256sums=('a22b9b43366266187a34aecfe2dc3f37b2674525b0feead6245a7a852e81ef05'
+sha256sums=('3ca67ef6469e6ed9937e18b06e4d1c5bb944ff7781a6408041b58ba6527d97ff'
             '1c2bf48b6397d04a5a536c5c9f4960db53249c838c380f03f808c612b00ba4c6'
             'dd34024e4853b6e3b763f4b4dc683ff018a50888ab7da9ba8057a7dc3c357be5')
 
@@ -63,13 +63,13 @@ build() {
 	cd "$_archive"
 	export NODE_ENV=production
 	npm $_npmargs --offline run build-prod
-	npm $_npmargs --offline run package:linux:arch-x64 -- tar.gz --x64 --publish=never
+	npx electron-builder --linux dir --publish=never
 }
 
 package() {
 	cd "$_archive"
-	install -Dm0644 -t "$pkgdir/usr/lib/$pkgname/" release/linux-unpacked/resources/app.asar
-	cp -a release/linux-unpacked/resources/app.asar.unpacked "$pkgdir/usr/lib/$pkgname/"
+	install -Dm0644 -t "$pkgdir/usr/lib/$pkgname/" release/linux-*unpacked/resources/app.asar
+	cp -a release/linux-*unpacked/resources/app.asar.unpacked "$pkgdir/usr/lib/$pkgname/"
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE.txt
 	install -Dm0644 src/assets/linux/app_icon.png "$pkgdir/usr/share/icons/$pkgname.png"
 	install -Dm0755 "$pkgname.sh" "$pkgdir/usr/bin/$pkgname"
