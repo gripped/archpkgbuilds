@@ -3,15 +3,14 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=sddm-kcm
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE Config Module for SDDM'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          karchive
          kauth
          kcmutils
@@ -23,6 +22,7 @@ depends=(gcc-libs
          knewstuff
          kservice
          kwidgetsaddons
+         libstdc++
          qt6-base
          qt6-declarative
          sddm)
@@ -30,7 +30,7 @@ makedepends=(extra-cmake-modules
              kdoctools)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('449811823f1f68add9642eae2127e2aa1f0761cf8ce3c37db7c27e616e8bffd8'
+sha256sums=('03b1dea3a738048a064633b9edb802716004f4630b3f6a7f068fd074d719ef4d'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
