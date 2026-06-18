@@ -2,7 +2,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-cloudflare
-pkgver=5.3.0
+pkgver=5.4.0
 pkgrel=1
 pkgdesc='The official Python library for the Cloudflare API'
 arch=(any)
@@ -41,9 +41,9 @@ source=(
   "$pkgname::git+$url#tag=v$pkgver"
   remove-unnecessary-dependency.patch
 )
-sha512sums=('05101f8f6cd422a480cfc4da8341dd9e862caa38daa1256e971b4089e6003ff6d994012bd0190c7f9ca5024b4f39486f90a5fad579a0778ca0a9ca6f02f2ad79'
+sha512sums=('deed72f665efc63da07416422e3ea696ccd519b8ab549ad8b5639d33b581ab1cc86a53eec0a9567e06d8a61efdc488a5e5141c3617c5df72f2dc338ad6f130b3'
             '7d9ba9c4638b3c185c2be27485aafe24edc3c1ba76d2ab6addf3c8bef8dba892e5bec58f1f4262d2618c25517edaaca2ce5062b1cff6066acf59098533c6d74a')
-b2sums=('fed702a56f56909d7e20a5b7b63dde99ccf89d604c2be49372c5341f2498bfd728c6ff8d3948f05064af8908f30c4bf0443d189592bab8a326ac7ed42a174177'
+b2sums=('472fb545c8342c6b21a333731c5f13a68c3427518c544f9b3c04c2262183a2916561377e55a70f73764a62e6de371d029785112267345f63040aceea48e785d5'
         '7157d2d353966d08fdfc602d4bc5c16b8da257c840572fcfa568736865cf8e92bc749e9bd3ada10f45a2f6d230a5f2b0c7b0a49d383fef4bf2574df78f67f334')
 
 prepare() {
