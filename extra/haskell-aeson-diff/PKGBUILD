@@ -2,23 +2,18 @@
 
 _hkgname=aeson-diff
 pkgname=haskell-aeson-diff
-pkgver=1.1.0.13
-pkgrel=299
+pkgver=1.1.0.14
+pkgrel=2
 pkgdesc="Extract and apply patches to JSON documents"
 url="https://github.com/ysangkok/aeson-diff"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-edit-distance-vector' 'haskell-scientific'
          'haskell-vector' 'haskell-optparse-applicative' 'haskell-yaml')
-makedepends=('ghc' 'uusi' 'haskell-glob' 'haskell-quickcheck' 'haskell-cabal-doctest' 'haskell-doctest'
+makedepends=('ghc' 'haskell-glob' 'haskell-quickcheck' 'haskell-cabal-doctest' 'haskell-doctest'
              'hlint')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('78ae5da41f4962871bc3dd0a2cc79abf4964e639eb7cdb5b5cb65f5a4dfabeddd9c3fc9fe4446f2ae1b3dde1fe888091205540a852da451e76743efee07febe2')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u base
-}
+sha512sums=('576ac82c8ce0155a88f5203af7d0ae7a596ad2eee620be26d29d724020f46eb9ee845abc549d4d777a4eb2309180fb06606142876d8449d815d87d28cb53596e')
 
 build() {
     cd $_hkgname-$pkgver
