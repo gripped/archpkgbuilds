@@ -4,7 +4,7 @@
 # Contributor: Christopher Cooper <christopher@cg505.com>
 
 pkgname=openai-codex
-pkgver=0.140.0
+pkgver=0.141.0
 pkgrel=1
 pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
 arch=(x86_64)
@@ -16,6 +16,7 @@ depends=(
   glibc
   libcap
   libgcc
+  oniguruma
   openssl
   sqlite
   xz
@@ -30,7 +31,7 @@ optdepends=(
 )
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/rust-v$pkgver.tar.gz")
-b2sums=('5527cfc20feb2051e6534f8666011c09603974971490713dd64a024a7355efc7febd3232b1cbe461a16d97a46e837c175c19746e0e0d6a5cf74c8c7999e216a5')
+b2sums=('4f5f3fd1f402127ea13d821ce25b91c45631365d697637e371f44e8a674bdce53577e9d56c24520a86f67e36cf6d231da9ef64700204364b89de4f55767f3af8')
 
 prepare() {
   cd codex-rust-v$pkgver/codex-rs
@@ -42,6 +43,7 @@ build() {
   cd codex-rust-v$pkgver/codex-rs
   # Used for dynamic linking
   export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+  export RUSTONIG_DYNAMIC_LIBONIG=1
   export ZSTD_SYS_USE_PKG_CONFIG=1
   # Reduces build time by about 10 minutes
   export CARGO_PROFILE_RELEASE_LTO=thin
