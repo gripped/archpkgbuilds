@@ -3,24 +3,19 @@
 
 _hkgname=HTTP
 pkgname=haskell-http
-pkgver=4000.4.1
-pkgrel=435
+pkgver=4000.5.0
+pkgrel=3
 pkgdesc="A library for client-side HTTP"
 url="https://hackage.haskell.org/package/${_hkgname}"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-network' 'haskell-network-uri')
-makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-httpd-shed' 'haskell-puremd5' 'haskell-split'
+makedepends=('ghc' 'haskell-hunit' 'haskell-httpd-shed' 'haskell-puremd5' 'haskell-split'
              'haskell-test-framework' 'haskell-test-framework-hunit' 'haskell-case-insensitive'
              'haskell-http-types' 'haskell-wai' 'haskell-warp' 'haskell-conduit'
              'haskell-conduit-extra')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('c1edc529032013391263bcc0f8abd9534fc53a617b5033dfdc478318465cd988732b2644c7144979156c62bd1a08b1ace507b4fb4e2806f22ec7696cbdfd0147')
-
-prepare(){
-  cd $_hkgname-$pkgver
-  uusi -u base -u warp
-}
+sha512sums=('a2bf4c2da0f5472d936c7fe51abbbd2bb95dfe9a8fb1aa36e2d687cb7944b901a3f7cea0bdcdbff701c27543f07148575d6db9a3121b4a01a89fa00de423f1a9')
 
 build() {
     cd $_hkgname-$pkgver
@@ -34,7 +29,7 @@ build() {
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
-            -f-mtl1 -f-warn-as-error -f-conduit10 -fwarp-tests -fnetwork-uri
+            -f-warn-as-error -f-conduit10 -fwarp-tests
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
