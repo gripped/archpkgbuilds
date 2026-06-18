@@ -4,18 +4,18 @@
 # Contributor: schuay <jakob.gruber@gmail.com>
 
 pkgname=ksshaskpass
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='ssh-add helper that uses kwallet and kpassworddialog'
 url='https://kde.org/plasma-desktop/'
 license=(GPL-2.0-or-later)
 arch=(x86_64)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kcoreaddons
          ki18n
          kwidgetsaddons
+         libstdc++
          qt6-base
          qtkeychain-qt6)
 makedepends=(extra-cmake-modules
@@ -24,7 +24,7 @@ provides=(x11-ssh-askpass)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
 install=$pkgname.install
-sha256sums=('b0e88a2546a39a269578eedef5ea28149a719a7ac9757019e9ff3f9254d75a42'
+sha256sums=('4d8ee561dbfae318e2978411db3d7fdf092663f5d45d369f1e3a9234d872cee0'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
