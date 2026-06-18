@@ -6,7 +6,7 @@ pkgbase=breeze
 pkgname=(breeze
          breeze5
          breeze-cursors)
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 arch=(x86_64)
@@ -15,7 +15,6 @@ url='https://kde.org/plasma-desktop/'
 license=(LGPL-2.0-or-later)
 depends=(breeze-icons
          frameworkintegration
-         gcc-libs
          glibc
          kcmutils
          kcolorscheme
@@ -28,6 +27,7 @@ depends=(breeze-icons
          kirigami
          kwidgetsaddons
          kwindowsystem
+         libstdc++
          qt6-base
          qt6-declarative
          qt6-svg)
@@ -41,7 +41,7 @@ optdepends=('breeze-gtk: Breeze widget style for GTK applications'
             'breeze5: Breeze widget style for Qt5 applications')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('06c4c3e466cd03a8c1e411a38b04756b6e145879a560534b2fc44666d41330f4'
+sha256sums=('cf375bbaaa45f5ba1b3df036bf0c40b7edfd789eb26f6e46f9dd1d325769cbd5'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
@@ -72,7 +72,6 @@ package_breeze5() {
   pkgdesc='Qt5 Breeze style'
   depends=(breeze
            breeze-icons
-           gcc-libs
            glibc
            frameworkintegration5
            kconfig5
@@ -81,6 +80,7 @@ package_breeze5() {
            kiconthemes5
            kirigami2
            kwindowsystem5
+           libstdc++
            qt5-base
            qt5-declarative)
   conflicts=('breeze<5.27.80')
