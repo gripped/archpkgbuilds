@@ -1,32 +1,35 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma-keyboard
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 arch=(x86_64)
 pkgdesc='Virtual Keyboard for Qt based desktops'
 url='https://kde.org/plasma-desktop/'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kcmutils
          kconfig
          kcoreaddons
+         kcrash
          ki18n
          kirigami
          kirigami-addons
          kitemmodels
+         libplasma
+         libstdc++
          libxkbcommon
          qt6-base
          qt6-declarative
          qt6-virtualkeyboard
          wayland)
 makedepends=(extra-cmake-modules
+             qt6-wayland
              wayland-protocols)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('3bb8be109cc449af54d03f28cc1c1a9e4d4150cb01b9af916a5516ed64740671'
+sha256sums=('831195f308d0811b8d78b4c845815dca1648bb3fec83c9ec637d1be25b53ab74'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
