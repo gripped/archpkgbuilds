@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=spectacle
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 epoch=1
@@ -9,8 +9,7 @@ pkgdesc='KDE screenshot capture utility'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kconfig
          kconfigwidgets
          kcoreaddons
@@ -31,6 +30,8 @@ depends=(gcc-libs
          kwindowsystem
          kxmlgui
          layer-shell-qt
+         libgcc
+         libstdc++
          libxcb
          opencv
          prison
@@ -39,6 +40,7 @@ depends=(gcc-libs
          qt6-declarative
          qt6-imageformats
          qt6-multimedia
+         tesseract
          wayland
          xcb-util
          xcb-util-cursor
@@ -46,10 +48,9 @@ depends=(gcc-libs
 makedepends=(extra-cmake-modules
              kdoctools
              plasma-wayland-protocols)
-optdepends=('tesseract: OCR text extraction')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('a37df7731a6bc89bc23ac08ad1f995ce9f1efb330f3ebad9bf926dca6ebb5fc7'
+sha256sums=('4b0e49de21b218ff5f1302d0cde6e06720bc4524396c8500d36cd644c9d50c64'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
