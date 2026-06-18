@@ -2,16 +2,18 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=gpac
-pkgver=2.4.0
+pkgver=26.02.0
 pkgrel=1
 epoch=1
 pkgdesc='A multimedia framework based on the MPEG-4 Systems standard'
 arch=(x86_64)
 url=https://gpac.wp.imt.fr/
-license=(LGPL)
+license=(LGPL-2.1-only)
 depends=(
+  curl
   glibc
-  libnghttp2
+  hicolor-icon-theme
+  libnghttp3
   openssl
   xz
   zlib
@@ -19,14 +21,8 @@ depends=(
 makedepends=(git)
 optdepends=('python: python bindings')
 provides=(libgpac.so)
-_tag=5d70253ac94e5840be7b86054131dd753af63cc7
-source=(git+https://github.com/gpac/gpac.git#tag=${_tag})
-b2sums=('5f39b777284d3d51947f466d35f884b68869637f4fae9b4f5aaddbc8d7ef6b12afddf1c00aaa5b3b6c59e5f5221f207c1e40c950a323a1d3d2e48b67637c4fc6')
-
-pkgver() {
-  cd gpac
-  git describe --tags | sed 's/^v//'
-}
+source=(git+https://github.com/gpac/gpac.git#tag=v${pkgver})
+b2sums=('b99568781f2ae5ef25e5ebed5372dcfe8896d10673d5e7e9ecb6a8ae39e69a15c9677841f3dbd8a7899051758b9e188a8741e8c3f7b0e4d3bc81f9bf9f6fb410')
 
 build() {
   export CFLAGS+=" -ffat-lto-objects"

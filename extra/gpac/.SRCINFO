@@ -1,20 +1,22 @@
 pkgbase = gpac
 	pkgdesc = A multimedia framework based on the MPEG-4 Systems standard
-	pkgver = 2.4.0
+	pkgver = 26.02.0
 	pkgrel = 1
 	epoch = 1
 	url = https://gpac.wp.imt.fr/
 	arch = x86_64
-	license = LGPL
+	license = LGPL-2.1-only
 	makedepends = git
+	depends = curl
 	depends = glibc
-	depends = libnghttp2
+	depends = hicolor-icon-theme
+	depends = libnghttp3
 	depends = openssl
 	depends = xz
 	depends = zlib
 	optdepends = python: python bindings
 	provides = libgpac.so
-	source = git+https://github.com/gpac/gpac.git#tag=5d70253ac94e5840be7b86054131dd753af63cc7
-	b2sums = 5f39b777284d3d51947f466d35f884b68869637f4fae9b4f5aaddbc8d7ef6b12afddf1c00aaa5b3b6c59e5f5221f207c1e40c950a323a1d3d2e48b67637c4fc6
+	source = git+https://github.com/gpac/gpac.git#tag=v26.02.0
+	b2sums = b99568781f2ae5ef25e5ebed5372dcfe8896d10673d5e7e9ecb6a8ae39e69a15c9677841f3dbd8a7899051758b9e188a8741e8c3f7b0e4d3bc81f9bf9f6fb410
 
 pkgname = gpac
