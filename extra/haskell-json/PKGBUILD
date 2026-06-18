@@ -3,22 +3,22 @@
 
 _hkgname=json
 pkgname=haskell-json
-pkgver=0.10
-pkgrel=279
+pkgver=0.11
+pkgrel=1
 pkgdesc="Support for serialising Haskell to and from JSON"
 url="https://hackage.haskell.org/package/${_hkgname}"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' "haskell-syb")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('4015693c363810701114a222207083ab9610ebd1196d24f0eb8dcad35af54e9067259ca412b131eaa986b8dbfbf0ce62058ca4c31aeeff29fdf21f17e8d86e90')
+sha512sums=('4b31b45d12d37a84b76f1934183583c9950803dce2026b6d0689818830462e939006854c244b0d7135d724a5a30c31b9f949057908dfff60e29fa054a1e706c7')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-mapdict -fgeneric -fpretty -f-parsec -fsplit-base
     runhaskell Setup build $MAKEFLAGS
@@ -26,6 +26,11 @@ build() {
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
