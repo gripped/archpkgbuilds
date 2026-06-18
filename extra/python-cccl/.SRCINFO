@@ -1,10 +1,11 @@
 pkgbase = python-cccl
 	pkgdesc = CUDA Core Compute Libraries for Python
-	pkgver = 1.0.1
+	pkgver = 1.0.2
 	pkgrel = 1
 	url = https://github.com/NVIDIA/cccl
 	arch = x86_64
 	license = Apache-2.0 WITH LLVM-exception
+	makedepends = cmake
 	makedepends = cython
 	makedepends = nlohmann-json
 	makedepends = python-build
@@ -24,7 +25,9 @@ pkgbase = python-cccl
 	depends = python-numba-cuda
 	depends = python-numpy
 	depends = python-typing_extensions
-	source = python-cccl-1.0.1.tar.gz::https://github.com/NVIDIA/cccl/archive/refs/tags/python-1.0.1.tar.gz
-	b2sums = cf24faa8a137f7ed7889413eba64123556f3191f61f95c89b417c84129292e6576f8f85f6a2b7dae1fcee4a0e399cc2723e6cc850228547c9554b7856d7f6f3b
+	source = python-cccl-1.0.2.tar.gz::https://github.com/NVIDIA/cccl/archive/refs/tags/python-1.0.2.tar.gz
+	source = pyproject.patch
+	b2sums = f32dc9bdeb8f7ccd1cd48ebafd5ba489275d32ad390411c4a58864cd1a51fd4217ef77779002a36e1c62dbd29ae1638978fa0909c1b1c45ffbc4005693131412
+	b2sums = f29697b4e6528421957949142df74fba814d0f37354b9c373df61a695f1ab4382080b3c6c6a376e999bf7ef2cc4c1b5f740c2599406a120fcf730e188b0d62c2
 
 pkgname = python-cccl

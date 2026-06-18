@@ -2,7 +2,7 @@
 
 _name=cccl
 pkgname=python-$_name
-pkgver=1.0.1
+pkgver=1.0.2
 pkgrel=1
 pkgdesc="CUDA Core Compute Libraries for Python"
 arch=(x86_64)
@@ -23,6 +23,7 @@ depends=(
   python-typing_extensions
 )
 makedepends=(
+  cmake
   cython
   nlohmann-json
   python-build
@@ -31,13 +32,19 @@ makedepends=(
   python-setuptools-scm
   python-wheel
 )
-source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/python-$pkgver.tar.gz)
-b2sums=('cf24faa8a137f7ed7889413eba64123556f3191f61f95c89b417c84129292e6576f8f85f6a2b7dae1fcee4a0e399cc2723e6cc850228547c9554b7856d7f6f3b')
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/python-$pkgver.tar.gz
+        pyproject.patch)
+b2sums=('f32dc9bdeb8f7ccd1cd48ebafd5ba489275d32ad390411c4a58864cd1a51fd4217ef77779002a36e1c62dbd29ae1638978fa0909c1b1c45ffbc4005693131412'
+        'f29697b4e6528421957949142df74fba814d0f37354b9c373df61a695f1ab4382080b3c6c6a376e999bf7ef2cc4c1b5f740c2599406a120fcf730e188b0d62c2')
 
 prepare() {
   cd $_name-python-$pkgver
   # disable CPM dependency
   sed -i 's|CPMAddPackage("gh:nlohmann/json@3.12.0")|find_package(nlohmann_json REQUIRED)|' cmake/CCCLGetDependencies.cmake
+
+  # drop cmake dependency from pyproject.toml
+  cd python/cuda_cccl
+  patch -p1 < "$srcdir"/pyproject.patch
 }
 
 build() {
