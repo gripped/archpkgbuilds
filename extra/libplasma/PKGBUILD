@@ -3,15 +3,14 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=libplasma
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Plasma library and runtime components'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          plasma-activities
          kcolorscheme
          kconfig
@@ -27,7 +26,9 @@ depends=(gcc-libs
          ksvg
          kwidgetsaddons
          kwindowsystem
+         libgcc
          libglvnd
+         libstdc++
          libx11
          libxcb
          qt6-5compat
@@ -36,12 +37,13 @@ depends=(gcc-libs
          wayland)
 makedepends=(extra-cmake-modules
              kdoctools
-             plasma-wayland-protocols)
+             plasma-wayland-protocols
+             wayland-protocols)
 conflicts=(plasma-framework)
 replaces=(plasma-framework)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('82e02b2098f4bac90f28cdd4f9d3a4da4557440ec8347220d8fee293c1f98d8b'
+sha256sums=('8a85e4c9eb2c3c00b5683cce3aa2c949d06b956c88789c1b1c110b6abae20312'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
