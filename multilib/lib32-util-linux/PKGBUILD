@@ -3,7 +3,7 @@
 
 _pkgbasename=util-linux
 pkgname=lib32-${_pkgbasename}
-pkgver=2.42.1
+pkgver=2.42.2
 pkgrel=1
 pkgdesc='Miscellaneous system utilities for Linux (32-bit)'
 url='https://github.com/util-linux/util-linux'
@@ -24,8 +24,8 @@ license=(
 )
 options=('!emptydirs')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
-source=("git+https://github.com/util-linux/util-linux#tag=v${pkgver/rc/-rc}?signed")
-sha256sums=('02c15bd250c371d4864c43c7fc61c794b83e5e2eff264a88469001cb03299c3e')
+source=("git+https://github.com/util-linux/util-linux?signed#tag=v${pkgver/rc/-rc}")
+sha256sums=('b12ee0ba37ccaf6c88f767637a4519d5fdf76ddd1acbf7e6fc29e9eeeea30d8f')
 
 _backports=(
 )
