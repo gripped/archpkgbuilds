@@ -3,16 +3,15 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kwin
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=4
+pkgrel=1
 pkgdesc='An easy to use, but flexible, Wayland compositor'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL-2.0-or-later)
 depends=(aurorae
          breeze
-         gcc-libs
          glibc
          iio-sensor-proxy
          plasma-activities
@@ -51,9 +50,11 @@ depends=(aurorae
          libei
          libepoxy
          libevdev
+         libgcc
          libinput
          libpipewire
          libqaccessibilityclient-qt6
+         libstdc++
          libxcb
          libxcvt
          libxkbcommon
@@ -67,6 +68,7 @@ depends=(aurorae
          qt6-svg
          qt6-tools
          systemd-libs
+         vulkan-icd-loader
          wayland
          xcb-util-keysyms
          xcb-util-wm)
@@ -75,25 +77,19 @@ makedepends=(extra-cmake-modules
              krunner
              plasma-wayland-protocols
              python
+             vulkan-headers
              wayland-protocols
              xorg-xwayland)
 optdepends=('plasma-keyboard: virtual keyboard')
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/plasma/kwin/-/merge_requests/9278.patch)
-sha256sums=('6c187ce7a5506090b438ef900103836fa0537674dde8b31e5b497ef321643cb4'
-            'SKIP'
-            '0e050917c4ecdab0da7ee4ac1a18e477b2de7a8c9736e492b7750b0b3ce1922c')
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('d20b798094a9f58e57de55eca3d58b1cdcb7db2939eb8bf73918c4fab6d9aec5'
+            'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1'  # Nicolas Fella <nicolas.fella@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
-
-prepare() {
-  cd $pkgname-$pkgver
-  patch -Np1 -i ../9278.patch
-}
 
 build() {
   cmake -B build  -S $pkgname-$pkgver \
