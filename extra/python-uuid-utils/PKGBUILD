@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-uuid-utils
-pkgver=0.16.1
+pkgver=0.16.2
 pkgrel=1
 pkgdesc="Fast, drop-in replacement for Python's uuid module, powered by Rust"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('glibc' 'libgcc' 'python')
 makedepends=('cargo' 'git' 'python-build' 'python-installer' 'python-maturin' 'python-wheel')
 checkdepends=('python-pytest' 'python-pytest-codspeed')
 source=("git+https://github.com/aminalaee/uuid-utils.git#tag=$pkgver")
-sha512sums=('69bb6378c928c0c760bb90a0349f584da38e93555c36019a4c154c9d498d198c3468d7b792b6a99f637c352013830de9367b742377e3f47f103aa2f47593dfae')
+sha512sums=('1c627c86fd4df5f34c838144f57a4e06fe77cc5e294a6670ee7c28cd47af4878be66be387b6cb6b60e34b7235fce74aef7564a1749732c5538a90ac7435fcc32')
 
 prepare() {
   cd uuid-utils
