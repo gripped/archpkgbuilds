@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-bsnes
-pkgver=3212
+pkgver=20260420.172703.gd62d219ac22f
 pkgrel=1
 epoch=1
 pkgdesc='Super Nintendo Entertainment System cores'
@@ -10,22 +10,19 @@ url=https://github.com/libretro/bsnes-libretro
 license=(GPL-3.0-only)
 groups=(libretro)
 depends=(
-  gcc-libs
+  glibc
+  libgcc
+  libgomp
   libretro-core-info
+  libstdc++
 )
 makedepends=(git)
-_commit=c11dd1f8551ad9b6668ebfcbb5833cfc034b7205
 source=(
-  libretro-bsnes::git+https://github.com/libretro/bsnes-libretro.git#commit=${_commit}
+  libretro-bsnes::git+https://github.com/libretro/bsnes-libretro.git#commit=${pkgver##*.g}
   libretro-bsnes-flags.patch
 )
-b2sums=('af0ec20775e2f9de86a2f4d603ee0b15d71793062c9fe65a39b9acd59994493c1c45b8c05da965fdfc520352b6153df4efd9fc19469b849e704b8efaa1832801'
+b2sums=('6dba399ce35fdb24596f9dcf630f58d15d4e662aa861acab31f39a4cce7601dba5170ef031efda73574ad7778cbb8e8a5d9b511351a4755a356aaffe93d4c0cd'
         'd8d87b92fc0f6d4020333230580bb0e63c73e6833365868f8c71fced923dbbf9df4842d1e7b7fb6bd493ba1e22e53757ae6656a3bcc3408220a18b06f41ea81f')
-
-pkgver() {
-  cd libretro-bsnes
-  git rev-list --count HEAD
-}
 
 prepare() {
   cd libretro-bsnes
