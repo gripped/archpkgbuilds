@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kpipewire
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Components relating to pipewire use in Plasma'
@@ -9,13 +9,14 @@ arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL-2.0-or-later)
 depends=(ffmpeg
-         gcc-libs
          glibc
          kcoreaddons
          ki18n
          libdrm
          libepoxy
+         libgcc
          libpipewire
+         libstdc++
          libva
          mesa
          qt6-base
@@ -23,7 +24,7 @@ depends=(ffmpeg
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('7aed7f721c5ba05f20812ea8cde047dcc6e3375ba521bbddd82c25915abf334d'
+sha256sums=('dbf839b779c508c2020bdf9d642762387cba85059291deab38e8a0c15223badb'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
