@@ -3,21 +3,17 @@
 
 _hkgname=hspec-wai-json
 pkgname=haskell-hspec-wai-json
-pkgver=0.11.0
-pkgrel=749
+pkgver=0.12.0
+pkgrel=3
 pkgdesc="Testing JSON APIs with hspec-wai"
 url="https://github.com/hspec/hspec-wai"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-qq' 'haskell-case-insensitive'
          'haskell-hspec-wai')
-makedepends=('ghc' 'uusi' 'haskell-hspec')
+makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('db14622fd95bfb9f52a48da4e8fa345c9fdd7014aeec1cb10d75573738f8020f36d97f7085373b9b2e865a9874f377d5532e29c1f31e27f41bf5c6c89fe68546')
-
-prepare() {
-    uusi -u hspec-wai $_hkgname-$pkgver/$_hkgname.cabal
-}
+sha512sums=('cd2154c68971e6b21cbd42dcf284da9922a117f2740277db3122468733d247b85f9fff194140b2090ad1044ea99e1f0d1fc4dcf3ae63b8f9cec917c1639e47dd')
 
 build() {
     cd $_hkgname-$pkgver
