@@ -1,29 +1,26 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-bsnes2014
-pkgver=577
-pkgrel=3
+pkgver=20260420.173107.g7ed320dcbebb
+pkgrel=1
 epoch=1
 pkgdesc='Super Nintendo Entertainment System cores'
 arch=(x86_64)
 url=https://github.com/libretro/bsnes2014.git
-license=(GPL3)
+license=(GPL-3.0-only)
 groups=(libretro)
-depends=(libretro-core-info)
+depends=(
+  glibc
+  libretro-core-info
+)
 makedepends=(git)
-_commit=cffc626a7814050320cee9e59ad43fe10bbcb6ab
-source=(libretro-bsnes2014::git+https://github.com/libretro/bsnes2014.git#commit=${_commit})
-b2sums=(SKIP)
+source=(libretro-bsnes2014::git+https://github.com/libretro/bsnes2014.git#commit=${pkgver##*.g})
+b2sums=('050002ca5d2dc94e1ed72d38428596146f0395436a4721c964cbb0a88cc043a4c647832d96a0254b2687bbd8b8529c7c33f6cec84cebe9a8f5462ad294254567')
 
 prepare() {
   for p in accuracy balanced performance; do
     cp -r libretro-bsnes2014 libretro-bsnes2014-${p}
   done
-}
-
-pkgver() {
-  cd libretro-bsnes2014
-  git rev-list --count HEAD
 }
 
 build() {
