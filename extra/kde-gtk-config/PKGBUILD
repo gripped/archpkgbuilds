@@ -3,15 +3,14 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kde-gtk-config
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Syncs KDE settings to GTK applications'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL-2.0-or-later)
-depends=(gcc-libs
-         glib2
+depends=(glib2
          glibc
          kcolorscheme
          kconfig
@@ -20,6 +19,7 @@ depends=(gcc-libs
          kdecoration
          kguiaddons
          kwindowsystem
+         libstdc++
          qt6-base
          qt6-svg
          sh
@@ -31,7 +31,7 @@ makedepends=(extra-cmake-modules
 optdepends=('gtk3: GTK3 apps support')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('2902a012ba85d2d201f879d17f0b4f51910e43a1cb0d761788b063b0c17d7b10'
+sha256sums=('d96e58214c6632b491d32caa4aeb15ae284f83e8a75d3bb9485978f42af4abd9'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
