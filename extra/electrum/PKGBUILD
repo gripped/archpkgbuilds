@@ -6,7 +6,7 @@
 
 pkgname=electrum
 pkgver=4.7.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Lightweight Bitcoin wallet"
 arch=('any')
 url="https://electrum.org"
@@ -102,6 +102,7 @@ package() {
     "$pkgdir/$site_packages/electrum/locale"
 
   install -vDm644 -t "$pkgdir/usr/share/applications" "electrum.desktop"
+  install -vDm644 -t "$pkgdir/usr/share/metainfo" "org.electrum.electrum.metainfo.xml"
   install -vDm644 -t "$pkgdir/usr/share/pixmaps" "electrum/gui/icons/electrum.png"
   install -vDm644 -t "$pkgdir/usr/share/icons/hicolor/128x128/apps" \
    "electrum/gui/icons/electrum.png"
