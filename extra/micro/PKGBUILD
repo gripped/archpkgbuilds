@@ -8,7 +8,7 @@
 
 pkgname=micro
 pkgver=2.0.15
-pkgrel=2
+pkgrel=3
 # manually set date instead of "go run tools/build-date.go", for reproducible builds
 _build_date='January 28, 2026'
 pkgdesc='Modern and intuitive terminal-based text editor'
@@ -43,6 +43,7 @@ package() {
   install -Dm755 $pkgname "$pkgdir/usr/bin/$pkgname"
   install -Dm644 assets/packaging/micro.1 -t "$pkgdir/usr/share/man/man1"
   install -Dm644 assets/packaging/micro.desktop -t "$pkgdir/usr/share/applications"
+  install -Dm644 data/io.github.zyedidia.micro.metainfo.xml -t "$pkgdir/usr/share/metainfo"
   install -Dm644 assets/micro-logo-mark.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/$pkgname.svg"
   install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE LICENSE-THIRD-PARTY
 }
