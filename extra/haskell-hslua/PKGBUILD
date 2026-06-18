@@ -4,11 +4,11 @@
 
 _hkgname=hslua
 pkgname=haskell-hslua
-pkgver=2.3.0
-pkgrel=237
+pkgver=2.3.1
+pkgrel=2
 pkgdesc="A Lua language interpreter embedding in Haskell"
 url="https://hslua.org"
-license=("MIT")
+license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hslua-aeson' 'haskell-hslua-classes' 'haskell-hslua-core'
          'haskell-hslua-marshalling' 'haskell-hslua-objectorientation' 'haskell-hslua-packaging'
@@ -17,7 +17,7 @@ makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-lua' 'haskell-lua-arbitr
              'haskell-quickcheck-instances' 'haskell-tasty' 'haskell-tasty-hslua'
              'haskell-tasty-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('a3e4bd970d0a55465aafff91f6b03d29443599d819a48dc9f3296bcac5807c9cb2920cb5c6c5e3bda854403a5bea219b9a626305d932f8c452ff9cc09572d060')
+sha512sums=('f99a7efff7b3faf58291d6f9d892e4dfdaa09c268b8721f17f1aa6c7fc944ceb0f74b86edd40575689a5d0b0c350ec4403efd08ce95eadcc92449829eae76169')
 
 prepare() {
     cd $_hkgname-$pkgver
