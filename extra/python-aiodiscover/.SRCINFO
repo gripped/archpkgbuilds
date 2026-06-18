@@ -1,6 +1,6 @@
 pkgbase = python-aiodiscover
 	pkgdesc = Discover Hosts via ARP and PTR lookup
-	pkgver = 3.3.1
+	pkgver = 3.3.2
 	pkgrel = 1
 	url = https://github.com/bdraco/aiodiscover
 	arch = any
@@ -11,9 +11,12 @@ pkgbase = python-aiodiscover
 	makedepends = python-poetry-core
 	makedepends = python-wheel
 	depends = python
+	depends = python-cached-ipaddress
 	depends = python-ifaddr
 	depends = python-pyroute2
-	source = git+https://github.com/bdraco/aiodiscover.git#tag=v3.3.1
-	b2sums = e4ae5f229856feb391c4ad04d4974ba47c1635cf1db6ce32cff6d0b30e19cb323b69d17673da7042d1b50e14bc04348f3034f7dfb700438c7e6d945921785769
+	depends = python-aiodns
+	depends = python-pycares
+	source = git+https://github.com/bdraco/aiodiscover.git#tag=v3.3.2
+	b2sums = 350f4a09d5c10952707352199b7a9c20db8691ce5bf048ef389956cb5f716aa7fba33498f3d4e211c86f0c9afde5eac7a0a0018fd5111e071eba8621be7572b3
 
 pkgname = python-aiodiscover
