@@ -3,43 +3,45 @@
 
 pkgname=wasmtime
 pkgver=45.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Standalone JIT-style runtime for WebAssembly, using Cranelift'
 arch=('x86_64')
 url='https://github.com/bytecodealliance/wasmtime'
 license=('Apache-2.0')
-depends=('libgcc')
+depends=('glibc' 'libgcc')
 makedepends=('cargo' 'cmake' 'git')
 options=('!lto')
-source=("git+https://github.com/bytecodealliance/wasmtime.git#commit=v${pkgver}"
-        git+https://github.com/WebAssembly/testsuite.git
-        git+https://github.com/WebAssembly/wasm-c-api.git
-        git+https://github.com/WebAssembly/WASI.git
-        git+https://github.com/WebAssembly/wasi-nn.git
-        git+https://github.com/WebAssembly/wasi-crypto.git)
+source=("git+https://github.com/bytecodealliance/wasmtime#commit=v${pkgver}"
+        wasm-component-model::git+https://github.com/WebAssembly/component-model
+        wasm-testsuite::git+https://github.com/WebAssembly/testsuite
+        git+https://github.com/WebAssembly/wasi-testsuite
+        git+https://github.com/WebAssembly/wasi-threads)
 b2sums=('c1651f32e6e157533fd3bc7a0a449da8c621fa442bdd116af79d3bb0c23cc711648de34617c82437ea6647c7eaa97e39600a35f2b369d7fff4568b7ccb3338a9'
-        'SKIP'
         'SKIP'
         'SKIP'
         'SKIP'
         'SKIP')
 
+# Use debug
+export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
+
+# Use LTO
+export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
 prepare() {
   cd ${pkgname}
   git submodule init
-  git config submodule.spec_testsuite.src "${srcdir}"/testsuite
-  git config submodule.crates/c-api/examples/wasm-c-api.src "${srcdir}"/wasm-c-api
-  git config submodule.WASI.src "${srcdir}"/WASI
-  git config submodule.crates/wasi-nn/spec.src "${srcdir}"/wasi-nn
-  git config submodule.crates/wasi-crypto/spec.src "${srcdir}"/wasi-crypto
-  git submodule update
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  git submodule set-url tests/component-model "${srcdir}"/wasm-component-model
+  git submodule set-url tests/spec_testsuite "${srcdir}"/wasm-testsuite
+  git submodule set-url tests/wasi_testsuite/wasi-common "${srcdir}"/wasi-testsuite
+  git submodule set-url tests/wasi_testsuite/wasi-threads "${srcdir}"/wasi-threads
+  git -c protocol.file.allow=always -c protocol.allow=never submodule update
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
   cd ${pkgname}
-  cargo build --locked --release
-  cargo build --locked --release --manifest-path crates/c-api/Cargo.toml
+  cargo build --release --frozen
 }
 
 package() {
