@@ -3,15 +3,14 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=systemsettings
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE system manager for hardware, software, and workspaces'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          plasma-activities
          kauth
          kcmutils
@@ -32,13 +31,14 @@ depends=(gcc-libs
          kwidgetsaddons
          kwindowsystem
          kxmlgui
+         libstdc++
          qt6-base
          qt6-declarative)
 makedepends=(extra-cmake-modules
              kdoctools)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('61334eff64567ad209e279f60c6d1ab13b670f9a300fde9480fe93596232a986'
+sha256sums=('59f24a45046b669d1ac16f80ee78323eb6f172130abac31c6d65cf61f05fa79f'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
