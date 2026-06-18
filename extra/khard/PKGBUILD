@@ -1,9 +1,9 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
-# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Contributor: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=khard
-pkgver=0.20.1
-pkgrel=2
+pkgver=0.21.0
+pkgrel=1
 pkgdesc='Console address book manager'
 arch=(any)
 url=https://github.com/lucc/khard
@@ -22,7 +22,6 @@ makedepends=(
 #  python-sphinx
 #  python-sphinx-argparse
 #  python-sphinx-autoapi
-#  python-sphinx-autodoc-typehints
   python-wheel
 )
 checkdepends=('python-pytest')
@@ -32,21 +31,16 @@ optdepends=(
 )
 source=(
   "git+$url.git#tag=v$pkgver"
-  "$pkgname-disable-deprecationwarning.patch"
 )
-b2sums=('523746369a89743b3a30f9c8f18a122c49adeb0ce54a2bb597a075c21de48817e2a638a8895b0846c304a70a09ad571a2aadd8d5be72ef4816daea44eb208542'
-        '048fc62d868a4da4e7c712af4f570be797a09a4d0ef58491ecbbfc98ed3c7b403fbd5f6536e13962ecafc21faec6556958b284f28d2814846b7ef2f7e0748616')
-
-prepare() {
-  cd $pkgname
-  # disable DeprecationWarning as it breaks core functionality: https://github.com/lucc/khard/issues/335
-  patch -Np1 -i ../$pkgname-disable-deprecationwarning.patch
-}
+b2sums=('01c74061e46b93de2c7d862f525d7c4f7d8993d5b27e35999957241b85bbe942aeae89068a20c0e00689e853d5b473d3392b524b40c618efae351f74e68d34d5')
 
 build() {
   cd $pkgname
   SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --skip-dependency-check --no-isolation
-  # https://github.com/sphinx-doc/sphinx/issues/14206
+  # Disable the man page creation, as it is broken due to sphinx and/or sphinx-argparse
+  # https://github.com/lucc/khard/issues/356
+  # https://github.com/sphinx-doc/sphinx-argparse/issues/96
+  # https://github.com/sphinx-doc/sphinx/issues/14333
   #make -C doc man
 }
 
