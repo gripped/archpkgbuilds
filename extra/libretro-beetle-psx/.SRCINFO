@@ -1,23 +1,27 @@
 pkgbase = libretro-beetle-psx
 	pkgdesc = Sony PlayStation core
-	pkgver = 2785
+	pkgver = 20260614.062305.gd460f8342060
 	pkgrel = 1
 	url = https://github.com/libretro/beetle-psx-libretro
 	arch = x86_64
 	groups = libretro
-	license = GPL2
+	license = GPL-2.0-only
 	makedepends = git
 	makedepends = libglvnd
 	makedepends = mesa
 	makedepends = vulkan-icd-loader
+	depends = libgcc
 	depends = libretro-core-info
+	depends = libstdc++
 	depends = zlib
-	source = libretro-beetle-psx::git+https://github.com/libretro/beetle-psx-libretro.git#commit=1420c90299b1d9f4ef59373b3e5fa538a1e17a65
-	sha256sums = 26ddb6cef7c8ecc07b1e1b2b9f41457af2e82ef3a047565ada3e835e864204ff
+	source = libretro-beetle-psx::git+https://github.com/libretro/beetle-psx-libretro.git#commit=d460f8342060
+	b2sums = d9a181380349d9709afb90b2ed5c98e0101e31f3074fcdab0b83d341a222c33dc3671bc1580d98d1f30a0397e40a3899e6dcba2e015a7bc51c5a63444418450e
 
 pkgname = libretro-beetle-psx
 
 pkgname = libretro-beetle-psx-hw
+	depends = libgcc
 	depends = libretro-core-info
+	depends = libstdc++
 	depends = zlib
 	depends = libgl
