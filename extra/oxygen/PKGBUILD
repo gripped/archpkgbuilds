@@ -7,14 +7,13 @@ pkgname=(oxygen
          oxygen5
          oxygen-cursors)
 pkgdesc='KDE Oxygen style'
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL-2.0-or-later)
 depends=(frameworkintegration
-         gcc-libs
          glibc
          kcmutils
          kcolorscheme
@@ -27,6 +26,7 @@ depends=(frameworkintegration
          ki18n
          kwidgetsaddons
          kwindowsystem
+         libstdc++
          libxcb
          oxygen-icons
          qt6-base
@@ -43,7 +43,7 @@ makedepends=(extra-cmake-modules
 optdepends=('oxygen5: Oxygen widget style for Qt5 applications')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('40348c7beb911ec61cb96c4cbb5ea2e611e189faf4e4c9d2b29813bc28f72b4a'
+sha256sums=('111fb62bc3d9f3a959e77fd35fe5562ca34ad783cbcdc0c164587f56495cff0c'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
@@ -73,7 +73,6 @@ package_oxygen() {
 package_oxygen5() {
   pkgdesc='Qt5 Oxygen style'
   depends=(oxygen
-           gcc-libs
            glibc
            frameworkintegration5
            kcompletion5
@@ -83,6 +82,7 @@ package_oxygen5() {
            ki18n5
            kwidgetsaddons5
            kwindowsystem5
+           libstdc++
            libxcb
            qt5-base
            qt5-declarative
