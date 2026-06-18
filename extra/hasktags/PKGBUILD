@@ -4,16 +4,21 @@
 
 pkgname=hasktags
 pkgver=0.73.0
-pkgrel=164
+pkgrel=166
 pkgdesc="Produces ctags \"tags\" and etags \"TAGS\" files for Haskell programs"
 url="https://github.com/MarcWeber/hasktags"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-json' 'haskell-microlens-platform' 'haskell-optparse-applicative'
          'haskell-utf8-string')
-makedepends=('ghc' 'haskell-hunit')
+makedepends=('ghc' 'uusi' 'haskell-hunit')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
 sha512sums=('8ba694803c89da7d7a15bc8162b557cc7a8529f1602022010b22152ee4c66f5431f80bd988f0d114b22414ab8276384bb4c902b0a709ccb48b349e03483758ea')
+
+prepare() {
+    cd $pkgname-$pkgver
+    uusi -u json
+}
 
 build() {
     cd $pkgname-$pkgver
