@@ -1,22 +1,20 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=perl-dbi
-pkgver=1.647
-pkgrel=2
+pkgver=1.648
+pkgrel=1
 pkgdesc="Database independent interface for Perl"
 arch=('x86_64')
-url="http://search.cpan.org/dist/DBI/"
+url="https://metacpan.org/release/DBI"
 license=('GPL' 'PerlArtistic')
 depends=('perl')
-checkdepends=('perl-test-pod' 'perl-test-pod-coverage')
 options=('!emptydirs')
 source=("https://cpan.metacpan.org/authors/id/H/HM/HMBRAND/DBI-$pkgver.tgz")
-sha512sums=('365b9d51d3c17bb3d8ce6941ef5141512e5aaf4886a62297cb4b56f8bfce9d49d45163ba3841cef59040ff649c752136407c6e8355f8f5a3b2244efd8ef6b0d7')
+sha512sums=('ac4d6cf3fafd0e0f3f73c71242ac431b2a6273b28d8ff69704805dae5a1690a6b2cd66df3b91085286ccc3fdbe97bb7c533d66e3fe7b4d705e5fca5a9601dab9')
 
 build() {
   cd DBI-$pkgver
   perl Makefile.PL INSTALLDIRS=vendor
-  sed -E 's|(^OPTIMIZE.*)|\1 -Wno-incompatible-pointer-types|' -i Makefile
   make
 }
 
