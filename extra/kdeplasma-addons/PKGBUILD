@@ -3,15 +3,14 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kdeplasma-addons
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='All kind of addons to improve your Plasma experience'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          icu
          kauth
          kcmutils
@@ -20,6 +19,7 @@ depends=(gcc-libs
          kdbusaddons
          kdeclarative
          kglobalaccel
+         kguiaddons
          kholidays
          ki18n
          kiconthemes
@@ -39,14 +39,18 @@ depends=(gcc-libs
          kwin
          kwindowsystem
          kxmlgui
+         libgcc
          libplasma
+         libstdc++
          plasma-workspace
          qt6-5compat
          qt6-base
          qt6-declarative
          qt6-quick3d
-         sonnet)
-makedepends=(extra-cmake-modules
+         sonnet
+         systemd-libs)
+makedepends=(corrosion
+             extra-cmake-modules
              networkmanager-qt
              qt6-webengine)
 optdepends=('networkmanager-qt: POTD wallpaper'
@@ -54,12 +58,13 @@ optdepends=('networkmanager-qt: POTD wallpaper'
             'quota-tools: disk quota applet')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('48fdae7cfaa26042a59027fbe8df83789b172458bc2af0a23a015a04b8071af9'
+sha256sums=('8b86b0b79b0af2da097d81dce099913d43574e08c4428a7925870692178b4298'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
+options=(!lto)
 
 build() {
   cmake -B build  -S $pkgname-$pkgver \
