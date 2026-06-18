@@ -3,7 +3,7 @@
 
 pkgname=bamf
 pkgver=0.5.6
-pkgrel=2
+pkgrel=3
 pkgdesc='Application matching framework'
 arch=(x86_64)
 url=https://launchpad.net/bamf
@@ -30,10 +30,9 @@ makedepends=(
   gobject-introspection
   vala
 )
-_tag=17aef81f0500cbc4333f1f327126adf653826466
-source=(git+https://git.launchpad.net/bamf?signed#tag=${_tag})
+source=(git+https://git.launchpad.net/bamf?signed#tag=${pkgver})
 validpgpkeys=(D4C501DA48EB797A081750939449C2F50996635F) # Marco Trevisan (Treviño) <mail@3v1n0.net>
-b2sums=(SKIP)
+b2sums=('54a4aeb5a06efec8e8209a8456d873880694f2a6001ab7124763a20509cbbcc585dc6e732d5fac925acff29a878ccdc4adcacde9fa303eb994dfc2a94c6c5217')
 
 pkgver() {
   cd bamf
