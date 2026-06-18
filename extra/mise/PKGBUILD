@@ -1,7 +1,7 @@
 # Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
 pkgname='mise'
-pkgver=2026.5.15
+pkgver=2026.6.11
 pkgrel=1
 pkgdesc='The front-end to your dev env'
 arch=('x86_64')
@@ -11,7 +11,9 @@ depends=(
   bzip2
   libgcc
   glibc
+  lua51
   openssl
+  zstd
 )
 makedepends=(
   cargo
@@ -36,8 +38,8 @@ options=(
   '!lto'
 )
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('02221c94b2718142d3f0eac8b04220a4f189c28ab11c93a21625ab07b87149e8ce86345164ee1eb3a4bed0ba3682ef130e2885f17fd7a1b738d15c9a24770b44')
-b2sums=('94ed5f955632f2b863214ba905e5a7f132f724278862a909187353055d021a2cd89396703c3b2491e6774bbd2ad2f5822034ae16f5838fda9b9878408ea906e9')
+sha512sums=('3a9a8ae1b3ea0f433127b29d75ea4aae630bc637049159ce3cea105a2c82e79a39e4521a8aaddb32b7902747c94b6743a1c342ca5803ea99e7e4b848d52239e2')
+b2sums=('19e1d18cb630b17f4326005381e5eeb6dc57596eb911b1d1cb2aff18502074b69f7503bfd2d532c7b9af93c0934454a2bccd6202d6724f058eee06372d4ac14d')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
@@ -49,17 +51,21 @@ build() {
   cd "${pkgname}-${pkgver}"
 
   export OPENSSL_NO_VENDOR=true
+  export ZSTD_SYS_USE_PKG_CONFIG=1
 
-  cargo build --frozen --release --all-features
+  # use serious profile: https://github.com/jdx/mise/commit/44fc03b2f10d1d9d7e8242c965a957b3b0d42865
+  # no need to enable `vendored-lua` and `self_update`
+  cargo build --frozen --profile=serious --no-default-features --features native-tls
 }
 
 check() {
   cd "${pkgname}-${pkgver}"
 
   export OPENSSL_NO_VENDOR=true
+  export ZSTD_SYS_USE_PKG_CONFIG=1
   export MISE_EXPERIMENTAL=1
 
-  cargo test --frozen --all-features
+  cargo test --frozen --no-default-features --features native-tls
 
   unset MISE_EXPERIMENTAL
 }
@@ -68,10 +74,7 @@ package() {
   cd "${pkgname}-${pkgver}"
 
   # package
-  install --verbose -D --mode=0755 "target/release/${pkgname}" --target-directory "${pkgdir}/usr/bin"
-
-  # disable self-update
-  install --verbose -D --mode=0644 /dev/null "${pkgdir}/usr/lib/mise/.disable-self-update"
+  install --verbose -D --mode=0755 "target/serious/${pkgname}" --target-directory "${pkgdir}/usr/bin"
 
   # license
   install --verbose -D --mode=0644 LICENSE --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
