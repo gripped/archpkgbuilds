@@ -1,31 +1,32 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=rainfrog
-pkgver=0.3.18
+pkgver=0.3.19
 pkgrel=1
 pkgdesc="A database management TUI for Postgres"
 arch=('x86_64')
 url="https://github.com/achristmascarl/rainfrog"
 license=('MIT')
-depends=('gcc-libs')
-makedepends=('cargo')
+depends=('duckdb' 'libgcc' 'sqlite')
+makedepends=('cargo' 'clang')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('08fb3357f199245ab3ff49e2a1fc075fa36b2535e3351fa1cd2e89e4242d510d92d0d32ec43c2a715ebe2080d8bce9f78b71546277533c09cbacd8d3039c142e')
+sha512sums=('2dc285cb30c7a5c124852257eb025d6a1fb71260330daa7eb203bd3dee8c19617f0fca0ad8023376260faa7c3571b635c031ea84fa097f0fdb8082bdda4dcc8f')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  sed -i '/^duckdb =/s/"bundled"/"buildtime_bindgen"/' Cargo.toml
+  cargo fetch --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --frozen
+  LIBSQLITE3_SYS_USE_PKG_CONFIG=1 cargo build --release --frozen
 }
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --frozen
+  LIBSQLITE3_SYS_USE_PKG_CONFIG=1 cargo test --frozen
 }
 
 package() {
