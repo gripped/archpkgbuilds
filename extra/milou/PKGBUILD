@@ -3,28 +3,28 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=milou
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='A dedicated search application built on top of Baloo'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL-2.0-or-later)
-depends=(gcc-libs
-         glibc
+depends=(glibc
          kconfig
          kcoreaddons
          kirigami
          krunner
          ksvg
          libplasma
+         libstdc++
          qt6-base
          qt6-declarative)
 makedepends=(extra-cmake-modules
              kdoctools)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('3f6285e5fb6a9dc7634352bb3aff802dc391040e92cd3c7f1b9601dd9d5c54d0'
+sha256sums=('8c94a4c3cef9bc625b541cb3d4c2f0a95bfa13d31f3c180633f7ef9d2701db1e'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
