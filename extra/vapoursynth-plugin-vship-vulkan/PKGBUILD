@@ -3,13 +3,15 @@
 
 pkgname=vapoursynth-plugin-vship-vulkan
 pkgrel=1
-pkgver=5.0.1
+pkgver=5.0.2
 pkgdesc='Vship Vapoursynth Plugin'
 arch=(x86_64)
 url=https://codeberg.org/Line-fr/Vship
 license=(MIT)
 depends=(
   glibc
+  libgcc
+  libstdc++
   vapoursynth
   vulkan-icd-loader
 )
@@ -20,14 +22,8 @@ makedepends=(
 )
 provides=(vapoursynth-plugin-vship)
 conflicts=(vapoursynth-plugin-vship)
-_tag=1ee5614a5d76469da5c0469f996d40739b2e19a9
-source=(git+https://codeberg.org/Line-fr/Vship.git#tag=${_tag})
-b2sums=('ad965d243314d5e264cbfa022a506459c9961519cdd4dd116d32ee3bd4656ccdfcc3736027d4e5e35909e0fc7997f0cec532010dac0d646d638b3b513c5b1668')
-
-pkgver() {
-  cd Vship
-  git describe --tags | sed 's/^v//'
-}
+source=(git+https://codeberg.org/Line-fr/Vship.git#tag=v${pkgver})
+b2sums=('956947f48bf86e6f011b24eb7f12d2bcf78715e1a81eafe311357e41e1bf34c70cf478d3c2fcbb428e04fbe0b0060785bbeb84979e354423f9918c1e83c1a2ae')
 
 build() {
   cd Vship
