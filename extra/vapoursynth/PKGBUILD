@@ -3,7 +3,7 @@
 # Contributor: jackoneill <cantabile.desu@gmail.com>
 
 pkgname=vapoursynth
-pkgver=76
+pkgver=77
 pkgrel=1
 pkgdesc='A video processing framework with the future in mind'
 arch=(x86_64)
@@ -27,7 +27,7 @@ source=(
   git+https://github.com/vapoursynth/vapoursynth.git#tag=R${pkgver}
   vapoursynth.xml
 )
-b2sums=('db068a30993838acbff2601444856344ead5c6709294a7b167b4a6a727c2151733c1769b3537624b432039ae92ece4145906b17f90b73f9408417f7ad1a1a753'
+b2sums=('ae5d05679969783d4fd400c6fce88646ca935b176699595050a1beb2adbc10aaf1c8e5a7dba771f0e81205d8e60f6de3e0e63346745adcfb076589ee253d193e'
         'feae23a22f8589177f30c36bdf21bab93d55a786194d3e0e958537016630d075b82178f60ac840f30ae316a8f87d3fb01f371211f62d1fee9850ee5063561747')
 
 prepare() {
