@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=bluedevil
-pkgver=6.6.5
+pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 epoch=1
@@ -12,7 +12,6 @@ arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(GPL-2.0-or-later)
 depends=(bluez-qt
-         gcc-libs
          glibc
          kcmutils
          kconfig
@@ -29,6 +28,7 @@ depends=(bluez-qt
          kwidgetsaddons
          kwindowsystem
          libplasma
+         libstdc++
          qt6-base
          qt6-declarative)
 makedepends=(extra-cmake-modules
@@ -37,7 +37,7 @@ optdepends=('bluez-obex: file transfer'
             'pulseaudio-bluetooth: to connect to A2DP profile')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('4396447a83b5dab5c4867690824180c36f4f3922107463722fed42202d8a45ff'
+sha256sums=('3fdab4a724ba246a10f2637076ca5332788fff5c3c6193ccf34eb031e8973e9d'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
