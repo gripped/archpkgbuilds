@@ -5,7 +5,7 @@
 # Contributor: Phillip Fynan <pfynan@gmail.com>
 
 pkgname=abcmidi
-pkgver=2026_06_06
+pkgver=2026_06_16
 pkgrel=1
 pkgdesc='Tools for ABC and MIDI files'
 groups=(pro-audio)
@@ -15,7 +15,7 @@ license=(GPL-2.0-or-later)
 makedepends=(git)
 depends=(glibc)
 source=("git+$url#tag=${pkgver//_/.}")
-b2sums=('4c4c3721931d5ce4878dcb6dc7ac3f55249cccf83580c04a36aa7f7d1590ca4ca7f0d6120267bca343458fe879a105ceb37f9cd8dcc795ea759b1849f88ee3c8')
+b2sums=('a20b3cf700795b4be0b33e967edb9ef45ed0187edad3c6e3e76d1fc1695c9b4f6db41a7007c36364e2862fcbe7df4dc18d508a4d0140ebae842f9d658806f0c1')
 
 build() {
   cd $pkgname
