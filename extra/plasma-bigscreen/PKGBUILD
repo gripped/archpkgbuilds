@@ -3,7 +3,7 @@
 pkgname=plasma-bigscreen
 pkgver=6.7.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Plasma shell for TVs'
 arch=(x86_64)
 url='https://plasma-bigscreen.org/'
@@ -15,6 +15,7 @@ depends=(bluez-qt
          kcoreaddons
          kdbusaddons
          kdeclarative
+         kdeconnect
          kglobalaccel
          ki18n
          kiconthemes
