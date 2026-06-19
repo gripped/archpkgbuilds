@@ -5,7 +5,7 @@
 # Contributor: Philip Nilsson <pnilsson@nullref.se>
 
 pkgname=alex
-pkgver=3.5.3.0
+pkgver=3.5.4.0
 pkgrel=1
 pkgdesc='Lexical analyser generator for Haskell'
 arch=(x86_64)
@@ -14,7 +14,7 @@ license=(BSD-3-Clause)
 depends=(ghc-libs)
 makedepends=(ghc happy)
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('3d7ea919e739f88dea93a2b9d62281c64b570fa042773c095078fd12b34fd0397f8ee9f4a8a6b9391aff370926c99127242a26465c7f1d613741fe3386948710')
+sha512sums=('a2f31537cd295858630d2d2e3d55c9fb0a4c565ca0c1833a003ba975faa2c81693773b6fc29f526cf0535e5db81952f22d45efa48df1bf6ff02d5afe462bfaa6')
 
 build() {
   cd $pkgname-$pkgver
@@ -34,10 +34,8 @@ check() {
 package() {
   cd $pkgname-$pkgver
   runhaskell Setup copy --destdir="$pkgdir"
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/alex/
-
-  # Doc only contains the license
-  rm -rf "$pkgdir/usr/share/doc"
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  rm -f "$pkgdir"/usr/share/doc/$pkgname/LICENSE
 }
 
 # getver: hackage.haskell.org/package/alex/changelog
