@@ -2,8 +2,8 @@
 
 _hkgname=criterion-measurement
 pkgname=haskell-criterion-measurement
-pkgver=0.2.3.0
-pkgrel=90
+pkgver=0.2.4.0
+pkgrel=4
 pkgdesc="Criterion measurement functionality and associated types"
 url="https://github.com/haskell/criterion"
 license=('BSD-3-Clause')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-base-compat' 'haskell-vector')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('2cf6ff81a77b38098c9e797c99a2b72e4b837973f4e601f53a155eaaa07cc76b0c8c409225f958b760fac6671beff065ffd7115b09160de70fd967e012183174')
+sha512sums=('583e87ce4c10eea5b2737f084c4ef2e48a25172f0f453a8ede2cbeec04141b882dd6d8658b6b0d4a28f2090cba94ac4ddfec04401cfa3f3378f8e80ae1d8ee76')
 
 build() {
     cd $_hkgname-$pkgver
