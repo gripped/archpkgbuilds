@@ -7,7 +7,7 @@
 
 pkgname=sagemath
 pkgver=10.9
-pkgrel=4
+pkgrel=5
 pkgdesc='Open Source Mathematics Software, free alternative to Magma, Maple, Mathematica, and Matlab'
 arch=(x86_64)
 url='http://www.sagemath.org'
@@ -141,10 +141,12 @@ makedepends=(bliss
 checkdepends=(python-pytest)
 source=(git+https://github.com/sagemath/sage#tag=$pkgver
         latte-count.patch
-        maxima-5.48.patch)
+        maxima-5.48.patch
+        planarity-5.patch)
 sha256sums=('62fed909146a7cec5809c954a06a0932b8fe3e6bbde2a2dab305083cd98d0a91'
             'c3aa0243de70fe9c58772c83e748510b7af6950f98d01b3a819e6f8d1232c797'
-            'a2d0663fe563bd131d47687086e36b1cbd9af158993226f69fecba8344cedb8a')
+            'a2d0663fe563bd131d47687086e36b1cbd9af158993226f69fecba8344cedb8a'
+            '755e7042704f5c18b49dc9330a1d2a999ef187c331aa96d0367ed093fb2676c6')
 
 prepare(){
   cd sage
@@ -153,6 +155,8 @@ prepare(){
   patch -p1 -i ../latte-count.patch
 # adapt to maxima 5.48 changes
   patch -p1 -i ../maxima-5.48.patch
+# fix build with planarity 5
+  patch -p1 -i ../planarity-5.patch
 }
 
 build() {
