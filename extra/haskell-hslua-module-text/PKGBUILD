@@ -4,8 +4,8 @@
 
 _hkgname=hslua-module-text
 pkgname=haskell-hslua-module-text
-pkgver=1.1.0.1
-pkgrel=195
+pkgver=1.1.1
+pkgrel=1
 pkgdesc="Lua module for text"
 url="https://github.com/hslua/hslua-module-text"
 license=("MIT")
@@ -13,7 +13,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-hslua-core' 'haskell-hslua-marshalling' 'haskell-hslua-packaging')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-lua')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('7f2ecc5efd0eb5b3cef42f570407df4bcea04d7e3b3b96d80823f7c33301cafd5da8f0b99216f4ddd955dcdf9c21a1b2b02891216694b877eb2371d5cd5602fb')
+sha512sums=('5626aab60aa91bc00550728880ccafe2057f322f00d263e3d9fe54b403e78184b96863eb3fcda00960dd6cdd72bde2c36d0db761eec21d8f77aee6173c7d5dd8')
 
 build() {
     cd $_hkgname-$pkgver
