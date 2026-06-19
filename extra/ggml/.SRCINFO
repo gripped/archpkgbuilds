@@ -1,0 +1,37 @@
+pkgbase = ggml
+	pkgdesc = Tensor library for machine learning
+	pkgver = 0.15.2
+	pkgrel = 2
+	url = https://github.com/ggerganov/ggml
+	arch = x86_64
+	license = MIT
+	makedepends = cmake
+	makedepends = git
+	makedepends = ninja
+	makedepends = rocm-hip-sdk
+	makedepends = rocm-toolchain
+	makedepends = shaderc
+	makedepends = spirv-headers
+	makedepends = vulkan-headers
+	makedepends = vulkan-icd-loader
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
+	provides = ggml
+	conflicts = ggml
+	source = git+https://github.com/ggml-org/ggml.git#tag=v0.15.2
+	b2sums = b52659d43f3b6ffd7da4dccbc2419865efb8f3ace867b0493f319cb4b161b73162e55067ed920274987cff04b231b1bbde9b054f682b1d3de9c9ada1703455d7
+
+pkgname = ggml-rocm
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
+	depends = hipblas
+	depends = rocblas
+	depends = rocm-hip-runtime
+
+pkgname = ggml-vulkan
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
+	depends = vulkan-icd-loader
