@@ -2,7 +2,7 @@
 # Contributor: Carlos Aznarán <caznaranl@uni.pe>
 
 pkgname=qxlsx
-pkgver=1.5.1
+pkgver=1.5.1.1
 pkgrel=1
 pkgdesc='Excel file reader/writer library using Qt'
 arch=(x86_64)
@@ -16,14 +16,8 @@ makedepends=(cmake
              git)
 conflicts=(qxlsx-qt6)
 replaces=(qxlsx-qt6)
-source=(git+https://github.com/QtExcel/QXlsx#tag=v$pkgver
-        fix-install-dir.patch)
-sha256sums=('ba3ccabf06cf6bbd83938a21a4232b9ce0da9e6b5d0b2bd7a83248b86ce970d1'
-            '684d6d913a23e86116150edca3f3772e41cf95d20d5e5c734705d5ecf2afc760')
-
-prepare() {
-  patch -d QXlsx -p1 < fix-install-dir.patch
-}
+source=(git+https://github.com/QtExcel/QXlsx#tag=v$pkgver)
+sha256sums=('58234679d7550b5e40b16a339c321272104ec29ff37e41e189ead1fc7ab4e2d8')
 
 build() {
   cmake -B build -S QXlsx/QXlsx \
