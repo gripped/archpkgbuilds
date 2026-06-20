@@ -4,7 +4,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=spirv-tools
-pkgver=1.4.350.0
+pkgver=1.4.350.1
 pkgrel=1
 epoch=1
 pkgdesc="API and commands for processing SPIR-V modules"
