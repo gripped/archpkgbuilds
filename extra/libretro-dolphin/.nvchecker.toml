@@ -1,0 +1,4 @@
+[libretro-dolphin]
+source = "jq"
+url = "https://api.github.com/repos/libretro/dolphin/commits/master"
+filter = '(.commit.committer.date | fromdateiso8601 | strftime("%Y%m%d.%H%M%S")) + ".g" + (.sha[0:12])'
