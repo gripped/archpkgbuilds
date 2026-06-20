@@ -4,7 +4,7 @@
 
 pkgname=resvg
 pkgver=0.47.0
-pkgrel=2
+pkgrel=4
 pkgdesc='SVG rendering library and CLI'
 arch=('x86_64')
 url="https://github.com/linebender/resvg"
@@ -14,7 +14,7 @@ optdepends=(
 	'qt5-base: For the Qt backend'
 	'cairo: For the cairo backend'
 )
-makedepends=(cargo clang qt5-base qt5-tools cairo pango)
+makedepends=(cargo cargo-c clang qt5-base qt5-tools cairo pango)
 source=("$url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
 sha256sums=('7869119fd822983b0a0bc2469bc94d59e7908fc12165fa67a105a4fa25087f9a')
 
@@ -35,6 +35,7 @@ build() {
 		make
 	)
 
+	cargo cbuild --frozen --release --all-features -p resvg-capi
 	cargo doc --release --no-deps -p resvg-capi
 }
 
@@ -48,8 +49,7 @@ package() {
 	cd "$pkgname-$pkgver"
 
 	install -Dm755 -t "$pkgdir/usr/bin/" target/release/{resvg,usvg} tools/viewsvg/viewsvg
-	install -Dm755 -t "$pkgdir/usr/lib/" target/release/libresvg.so
-	install -Dm644 -t "$pkgdir/usr/include/" crates/c-api/*.h
+	cargo cinstall --frozen --release --all-features -p resvg-capi --destdir="$pkgdir" --prefix=/usr
 	install -d "$pkgdir/usr/share/doc/resvg"
 	cp -r target/doc/* "$pkgdir/usr/share/doc/resvg"
 }
