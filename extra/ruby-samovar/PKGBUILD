@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-samovar
-pkgver=2.5.0
+pkgver=2.5.1
 pkgrel=1
 pkgdesc='A flexible option parser excellent support for sub-commands and help documentation'
 arch=(any)
@@ -26,8 +26,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/ioquatix/samovar.git#tag=v$pkgver)
-sha512sums=('422d35c83665c499c69b52974ffb335ba02e2548c0fc70d927dc9675d40eba374de81ac8a4d12350214b65e01541bc9ddfeea2e2c35b94d8c6db5de919fdad4a')
-b2sums=('a642cb16df49856b1407d150e6af2ed318504c6f88f3c2533de2d3c1ce462461bc2a9e262ae98fb1de4f3fedd946497f7d50e6a4ac63de89c064ea834e650c1f')
+sha512sums=('51dc9cca5867e569834612e57ec66678a5bb75ec2c9f2229af7263ffbddfd892c3a6312743445ce923aad121f1c42c472ab8adbd8f7553fde0199541967c7bd7')
+b2sums=('5cf3f7ba53021fd2408505909250555a7475a482412ea9b978b24f4eddf3b86d8a029e55de486925a7ef511ad45541d3595ebe4ef80033011aeada08d4c166e8')
 
 prepare() {
   cd samovar
