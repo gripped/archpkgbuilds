@@ -2,24 +2,20 @@
 # Contributor: Duck Hunt <vaporeon@tfwno.gf>
 
 pkgname=libretro-mgba
-pkgver=9840
+pkgver=20260403.212340.g6dce57eef127
 pkgrel=1
 pkgdesc='Nintendo Game Boy Advance core'
 arch=(x86_64)
 url=https://github.com/libretro/mgba
-license=(custom:MPL2)
+license=(MPL-2.0)
 groups=(libretro)
-depends=(libretro-core-info)
+depends=(
+  glibc
+  libretro-core-info
+)
 makedepends=(git)
-_commit=c758314a639aa0066e7b65a8341448181b73c804
-source=(libretro-mgba::git+https://github.com/libretro/mgba.git#commit=${_commit})
-sha256sums=('41ce87efecad60f9d5a40f71751b241dfa10414cef048f91b106f77f053318fb')
-
-pkgver() {
-  cd libretro-mgba
-
-  git rev-list --count HEAD
-}
+source=(libretro-mgba::git+https://github.com/libretro/mgba.git#commit=${pkgver##*.g})
+b2sums=('a142f0e7793055b925f0ac998765b09141902fc4a0da15e439fbe81778b26ccabf0d564c8338c3d7a74c650fc18b5d40168a6d111bc3bdc8dff53442f123e433')
 
 build() {
   make -C libretro-mgba -f Makefile.libretro
@@ -27,7 +23,4 @@ build() {
 
 package() {
   install -Dm 644 libretro-mgba/mgba_libretro.so -t "${pkgdir}"/usr/lib/libretro/
-  install -Dm 644 libretro-mgba/LICENSE -t "${pkgdir}"/usr/share/licenses/libretro-mgba/
 }
-
-# vim: ts=2 sw=2 et:
