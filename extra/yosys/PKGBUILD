@@ -3,7 +3,7 @@
 # Contributor: killruana <killruana@gmail.com>
 
 pkgname=yosys
-pkgver=0.64
+pkgver=0.65
 pkgrel=1
 pkgdesc='A framework for RTL synthesis'
 arch=('x86_64')
@@ -20,7 +20,7 @@ optdepends=('graphviz: Schematics display support'
 options=('!lto') # getting SIGSEGV when running the tests with LTO
 source=(git+https://github.com/YosysHQ/yosys#tag=v$pkgver
         git+https://github.com/jarro2783/cxxopts)
-sha512sums=('8ccf52d135835dfaf4e79d94ef3d3c5613bf2ef527ad34fa5af7ff5ff1cb1a2b942094dc27ae72a761fc1d3f5c30532a6db3e7eb54d42f456c1828887c0392ef'
+sha512sums=('8e19971bdb8260baefc83f9cf6387ca6236244fbf54e590159f3f8d4a9e47836fbcbf2a04b2486ad2fc2423327f496e4742b86544649baf05dbae58cd3e1fa16'
             'SKIP')
 
 prepare() {
@@ -29,7 +29,9 @@ prepare() {
   git submodule set-url libs/cxxopts "$srcdir"/cxxopts
   git -c protocol.file.allow=always submodule update libs/cxxopts
 
-  sed -e '/cp yosys-abc/d' -i Makefile # Fix Makefile trying to install yosys-abc even if using system one
+  # Fix AIGER tests with ABCEXTERNAL: https://github.com/YosysHQ/yosys/pull/5890
+  git cherry-pick -n 59c1bc35cbad3b50ef29ec48e443ddffafa6a931
+
   # Unit tests don't inherit Python embed libs correctly and link them before -lyosys.
   sed -e 's/LIBS="$(LIBS)"/LIBS="$(EXE_LIBS) $(LIBS)"/' -i Makefile
   sed -e 's/\$(LIBS) \\/\$(GTEST_LDFLAGS) \$(EXTRAFLAGS) \$(LIBS)/' \
