@@ -5,7 +5,7 @@
 # Contributor: Jakob Gahde <j5lx@fmail.co.uk>
 
 pkgname=dune
-pkgver=3.22.2
+pkgver=3.23.0
 pkgrel=1
 pkgdesc="A composable build system for OCaml (formerly jbuilder)"
 arch=(x86_64)
@@ -16,7 +16,7 @@ makedepends=('git' 'ocaml-compiler-libs' 'ocaml-findlib')
 optdepends=()
 provides=('dune-configurator')
 source=("https://github.com/ocaml/dune/releases/download/${pkgver}/dune-${pkgver}.tbz")
-sha256sums=('c2ccf8bc6b17afa47c450297357496303aa7c8680e329b79d98c68e35013a118')
+sha256sums=('e92987ffe4bc7956b18b2251b0f9844d55dfa387035ce60a3f0fd5ac4e2617d4')
 
 # Packages to install from the dune release
 _dune_release_pkgs=(
@@ -37,11 +37,14 @@ _dune_release_pkgs=(
     'top-closure'
     'ocamlc-loc'
 )
+
 build() {
     cd "${srcdir}/dune-${pkgver}"
+    local IFS=,
+
     ./configure --prefix=/usr --libdir=/usr/lib/ocaml
     make ./_boot/dune.exe
-    ./_boot/dune.exe build @install -p $(printf '%s,' "${_dune_release_pkgs[@]}" | sed 's/,$//') --profile dune-bootstrap
+    ./_boot/dune.exe build "${_dune_release_pkgs[@]/%/.install}" -p "${_dune_release_pkgs[*]}" --profile dune-bootstrap
 }
 
 # Tests require a bunch of (currently) unpackaged dependencies
@@ -52,12 +55,13 @@ build() {
 
 package() {
     cd "${srcdir}/dune-${pkgver}"
+    local IFS=,
 
     # Install main dune
     make install DESTDIR="${pkgdir}"
 
     # Install additional packages
-    ./dune.exe install -p $(printf '%s,' "${_dune_release_pkgs[@]}" | sed 's/,$//') --destdir="${pkgdir}" --prefix=/usr --libdir=/usr/lib/ocaml
+    ./dune.exe install -p "${_dune_release_pkgs[*]}" --destdir="${pkgdir}" --prefix=/usr --libdir=/usr/lib/ocaml
 
     # Fix doc and man install
     install -d "${pkgdir}"/usr/share
