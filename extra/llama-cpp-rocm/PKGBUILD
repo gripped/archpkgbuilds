@@ -1,0 +1,49 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+
+pkgname=llama-cpp-rocm
+pkgver=b9727
+pkgrel=1
+pkgdesc='LLM inference in C/C++'
+arch=(x86_64)
+url=https://github.com/ggerganov/llama.cpp
+license=(MIT)
+depends=(
+  ggml-rocm
+  glibc
+  libgcc
+  libstdc++
+  openssl
+  rocm-hip-runtime
+)
+conflicts=(llama-cpp)
+provides=(llama-cpp)
+makedepends=(
+  cmake
+  git
+  ninja
+  rocm-hip-sdk
+)
+source=(git+https://github.com/ggml-org/llama.cpp.git#tag=${pkgver})
+b2sums=('a978530f4a7a02e53ed4f9b3db6effb4d88fe561b646048b45d25da08a01ea00fba44bd6d209ead1ae9cf15a6614bad0dee8cb1e72c7d50784202e7fd7e63395')
+
+build() {
+  cmake -S llama.cpp -B build -G Ninja \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DLLAMA_BUILD_APP=OFF \
+      -DLLAMA_BUILD_EXAMPLES=ON \
+      -DLLAMA_BUILD_SERVER=ON \
+      -DLLAMA_BUILD_TESTS=OFF \
+      -DLLAMA_BUILD_TOOLS=ON \
+      -DLLAMA_BUILD_UI=OFF \
+      -DLLAMA_USE_SYSTEM_GGML=ON \
+      -DGGML_HIP=ON
+  cmake --build build
+}
+
+package() {
+  DESTDIR="${pkgdir}" cmake --install build
+  install -Dm 644 llama.cpp/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}
+}
+
+# vim: ts=2 sw=2 et:
