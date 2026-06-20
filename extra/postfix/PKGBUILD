@@ -9,7 +9,7 @@ pkgname=(
   postfix
   postfix-{cdb,ldap,lmdb,mongodb,mysql,pcre,pgsql,sqlite}
 )
-pkgver=3.11.3
+pkgver=3.11.4
 pkgrel=1
 pkgdesc="Fast, easy to administer, secure mail server"
 arch=(x86_64)
@@ -36,20 +36,20 @@ makedepends=(
 )
 source=(
   https://www.artfiles.org/postfix.org/postfix-release/official/$pkgbase-$pkgver.tar.gz
-  $pkgbase-$pkgver.tar.gz.sig::https://www.artfiles.org/postfix.org/postfix-release/official/$pkgbase-$pkgver.tar.gz.gpg2
+  https://www.artfiles.org/postfix.org/postfix-release/official/$pkgbase-$pkgver.tar.gz.gpg2
   $pkgbase-3.5.8-main_defaults.patch
   $pkgbase.service
   $pkgbase.sysusers
   $pkgbase.tmpfiles
 )
-sha512sums=('d1293c209a7033309975308991a2efa4f077bc7eb93b50a560ea714ea6280ada3726f5266c6b58926a326fda5a0fa68b486b543de092432ac9025dd424d24dd3'
-            'SKIP'
+sha512sums=('0ff931861ab250bccff6a9592115b8991980c33574db14af9e5d1e1e42d896be41a5b1a38e41ce4f6b5cec236df37581ae52bd37a2810443e1ba17bbeb2bfaab'
+            'ab683d67ee0d776432547d640b2ae6339cecf4976e0b44eab068da619f5f8c532df5ec1b1676aa030ea98e882bbcbd43be13923f709b1f2938d54d5d0a292f52'
             '4630bb84206e0534723f50e4fb0e6f83a47cfd33187801eede052962d332b2754af8761a8d2b81f52cba9d07a7a0335eef06e22347ec7bc69b86f561685bd575'
             '27f54747ad480d65b560c9dbc97e12c6353e4bceca0ffe3e358e31de56db0ad79928164c9f8790c73a9f791daa378253d2ee29b5a766661778553ec889b2cf97'
             '4094996d0bc9820feaae098524c6b45bd39a71b0ad9342afb301339a176efe1f5b205829be43f9b10bdf220371450fe1db0461e19e7f6edb8ed9c9ed15ae8572'
             'd08574a6acd595fc146513c92dc1bb341c3432d67de1e93ab73a7ce60e385dd34f3a55e3d3d7aec5f358ac4aae260f028599ac47650ebc663cea3043a760a7bc')
-b2sums=('f88dd4e4b607ef729892ba3843c08b9d54864a2cc6605d9578eee85291be9918bf7f0d69cb2cff0b7e756de540c63c6ede1244557eb0027ca978484460085f6b'
-        'SKIP'
+b2sums=('7c41d43987949076d45507372cce748b6bd1a8a1407fa032ecaf91ab1ad086068e7920d43df0c8b8c47f415c8ccbeaeb7862470aa322f51176e197fbe941ca4f'
+        '8b7d008a5e068b0d6a08453cae3059d70ac5f16763102108f0c152acaed859a544e8ae152d0e3bae4bbe3fbba686174c0b4c21a37be3ea49deda7560ec2f4c45'
         'e101c31ff9b68ec025183cbb199109d5bc94135d247c06fa903b97ccea6d3255b39b2780f3d1e3848ea68109ba91cdde5886d0a18d547b2f41d9643d2ac5bf5f'
         '02dd441cf6e4a7c2bc0de876f020b0784d811f77a5c6102dd075d67b07158dbc53c8b4d62bc8035283d4f349008574b1c3fac03f4519d56ffd809cb5bcfb7bea'
         'd2605f8720a4cb9b666ac70f1f060840d66c848ae2f884ac5288aed0c80b69f22a799d187fd899c2064cc24cf33c1baf94ceb13192eb3c6fc932d3128111da4d'
