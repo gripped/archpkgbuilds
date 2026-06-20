@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=nerdctl
-pkgver=2.3.1
+pkgver=2.3.3
 pkgrel=1
 pkgdesc='Docker-compatible CLI for containerd'
 arch=(x86_64)
@@ -19,8 +19,8 @@ optdepends=(
 )
 options=(!lto)
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('70dad9ac59ce7dbad02551a9971aa553e545c2b38068b7d048e747e5d9af45c5101eec98489fcba9ad3fa631ff4b7d07d151f0c0124ab5c7cfad7daa3d8ad476')
-b2sums=('6840c5bec5292f4b27932c36d1a6b8f7fc4635dfde9807e15dcf3856787ed589fc8c9b88e23aabfd1555b9638b4019b2359a8261cdd129e0d525a4631ee0aeae')
+sha512sums=('fc2bcf29765b082691cff741435699e050a0001bfd59643c55f4b37dd68cdc1b3bcc3026c63d94043f7534eb2e3aa317fe4deab72272fcc0fb6328d489e11e34')
+b2sums=('011ffd75b52c3410eba177a1284b79d671d9d7e82e19825c51296d90ec9d93a959cee5c394abc9c678d721660aeb209dd845a2ca7790302802c36f09fae22135')
 
 prepare() {
   cd "$pkgname"
