@@ -5,8 +5,8 @@
 # Contributor: Paul Mattal <paul@archlinux.org>
 
 pkgname=ffmpeg4.4
-pkgver=4.4.6
-pkgrel=5
+pkgver=4.4.7
+pkgrel=1
 pkgdesc='Complete solution to record, convert and stream audio and video'
 arch=(x86_64)
 url=https://ffmpeg.org/
@@ -93,18 +93,12 @@ provides=(
   libswresample.so
   libswscale.so
 )
-_tag=9bcede27c26b2f7cd469ab6b5c8b9694c30cfca3
 source=(
   git+https://git.ffmpeg.org/ffmpeg.git#tag=n${pkgver}
   binutils-2.41.patch
 )
-b2sums=('399a78790cdb985f1d23e09790360c273845a70cc2b5e7590c5aaa972fc48d5c11955cb1f881aeb62553d0745cdd26bc0880db461ab67e939b16b2c226dd790e'
+b2sums=('cf28451c85dad348694432a2d0510ccaafead19c699a3c01b402d7efc44755f4e6a1d81c0bd6349341e032539b9c638ed321c9fdeb64a7810e81b3c90d50057b'
         'b656a17dd3996c6871d322ba1fcf25410ed580d9600348cda087d705660601d06070492300d31c12d54b0e9914cb92bb9d997e51462c0577e1a90539bf0b76ee')
-
-pkgver() {
-  cd ffmpeg
-  git describe --tags | sed 's/^n//'
-}
 
 prepare() {
   cd ffmpeg
