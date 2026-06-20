@@ -1,17 +1,15 @@
 pkgbase = ruby-http-form_data
 	pkgdesc = Utility-belt to build form data request bodies
-	pkgver = 2.3.0
-	pkgrel = 5
+	pkgver = 3.0.0
+	pkgrel = 1
 	url = https://github.com/httprb/form_data
 	arch = any
 	license = MIT
-	checkdepends = ruby-bundler
-	checkdepends = ruby-simplecov
-	makedepends = ruby-rake
-	makedepends = ruby-rspec
+	checkdepends = ruby-minitest
+	makedepends = git
 	depends = ruby
 	options = !emptydirs
-	source = https://github.com/httprb/form_data/archive/v2.3.0/ruby-http-form_data-2.3.0.tar.gz
-	sha256sums = 744904b3570478ebc9d5bb08e62e6c78023c736275fe1ae89bd3c172b5cb0a26
+	source = git+https://github.com/httprb/form_data.git#tag=v3.0.0
+	sha256sums = 4752c3489008ef98b39e02c3373bda29a8f4ed2cf6ccc27f736c444ce3fcd807
 
 pkgname = ruby-http-form_data
