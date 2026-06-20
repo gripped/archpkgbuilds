@@ -2,23 +2,18 @@
 
 _hkgname=text-show
 pkgname=haskell-text-show
-pkgver=3.10.5
-pkgrel=68
+pkgver=3.11
+pkgrel=2
 pkgdesc="Efficient conversion of values into Text"
 url="https://github.com/RyanGlScott/text-show"
 license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-base-compat-batteries' 'haskell-bifunctors' 'haskell-generic-deriving'
-         'haskell-th-abstraction' 'haskell-th-lift' 'haskell-transformers-compat')
-makedepends=('ghc' 'uusi' 'haskell-base-orphans' 'haskell-deriving-compat' 'haskell-hspec'
-             'haskell-quickcheck' 'haskell-quickcheck-instances')
+depends=('ghc-libs' 'haskell-base-compat-batteries' 'haskell-bifunctors' 'haskell-th-abstraction'
+         'haskell-transformers-compat')
+makedepends=('ghc' 'haskell-base-orphans' 'haskell-deriving-compat' 'haskell-hspec'
+             'haskell-generic-deriving' 'haskell-quickcheck' 'haskell-quickcheck-instances')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('ea7bf8d8eff697e21fa0c4e83d27073ad3c91e817d20c33ec010d9df0a1f53af4a193c9534d9e91dd88f7c1bb4a92c3e9f98f4eb5d2cf149c4733455763b0a6d')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -d bytestring-builder -u QuickCheck -u base-compat-batteries
-}
+sha512sums=('45b86b17991b82c74d537cc03227c396c5aa4a44b1f28a3b2238f7e8d7a90e36d02e16066bdc3a21b33e0cb0688e736cc63b94048c998b8138c9a013ada3c97e')
 
 build() {
     cd $_hkgname-$pkgver
