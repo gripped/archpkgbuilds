@@ -4,7 +4,7 @@
 pkgname=nextcloud-app-tasks
 _name=tasks
 pkgver=0.17.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Enhanced task app for NextCloud"
 arch=(any)
 url="https://github.com/nextcloud/tasks"
@@ -52,6 +52,12 @@ _nextcloud_app_package() {
   depends+=("php-interpreter${_app_min_php:+>=$_app_min_php}" ${_app_max_php:+"php-interpreter<$_app_max_php"})
 }
 # END boilerplate nextcloud app version clamping
+
+prepare() {
+  cd $_name
+  # fix NC version until this gets released: https://github.com/nextcloud/tasks/commit/98ef0b8fdcc33e11e7a1fa98eea156a26d1cda73
+  sed -i 's:<nextcloud min-version="31" max-version="33"/>:<nextcloud min-version="31" max-version="34"/>:' appinfo/info.xml
+}
 
 check() {
   cd $_name
