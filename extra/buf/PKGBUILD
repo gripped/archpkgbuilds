@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=buf
-pkgver=1.70.0
+pkgver=1.71.0
 pkgrel=1
 pkgdesc='A tool for working with Protocol Buffers'
 arch=(x86_64)
@@ -10,8 +10,8 @@ license=(Apache-2.0)
 depends=(glibc)
 makedepends=(git go)
 source=("$pkgname::git+https://github.com/bufbuild/buf#tag=v$pkgver")
-sha512sums=('936f30f5f96f51fbe82db40a6c79c7fddf5193754c72ad1be51d80a8345ff09e14da734ba3ba55f9f3ee4adf180a65df4e7ec3a555ceb9c3ca5fbef68505ef6c')
-b2sums=('c6c54f678d9f0721569af888d4ef97a42f2b18f4d82470154602a3c91b94386cf533936cc31af877f65692c4bd514a899d581753538088ae517fe36da7ae2881')
+sha512sums=('60873a36c330e7a92967aa3d8efce8a67bc569d4fa5198a16ab974029128bc8ab24def1a5e34147d2b9aaa744abe36566ff23ba8f41ccba9a6326dcab5374eaf')
+b2sums=('0dd1e660e26779b42142f4c023d067056e18f374ce09246010970587d8310782a36600cb21a9e2791365a5fa9f13fe53594eb15cc9834a34463f5f4cd0056009')
 
 prepare() {
   cd "$pkgname"
