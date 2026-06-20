@@ -2,9 +2,11 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 # Contributor: Pierre Schmitz <pierre@archlinux.de>
 
-pkgname=libical
+pkgbase=libical
+pkgname=(libical
+         libical-docs)
 pkgver=4.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="An open source reference implementation of the icalendar data type and serialization format"
 arch=(x86_64)
 url='https://github.com/libical/libical'
@@ -31,6 +33,7 @@ build() {
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
+    -DLIBICAL_BUILD_TESTING=true \
     -DLIBICAL_GOBJECT_INTROSPECTION=true \
     -DLIBICAL_GLIB_VAPI=true \
     -DCMAKE_DISABLE_FIND_PACKAGE_BerkeleyDB=true
@@ -38,9 +41,21 @@ build() {
 }
 
 check() {
-  cmake --build build --target test
+  ctest --test-dir build --output-on-failure --stop-on-failure -j$(nproc)
 }
 
-package() {
+package_libical() {
+  provides=(libical{,-glib,_cxx,ss,ss_cxx,vcal,vcard}.so)
+
   DESTDIR="${pkgdir}" cmake --install build
+
+  mkdir -p doc/usr/share
+  mv {"$pkgdir",doc}/usr/share/doc
+}
+
+package_libical-docs() {
+  pkgdesc+=" (documentation)"
+  depends=()
+
+  mv doc/* "$pkgdir"
 }
