@@ -1,6 +1,6 @@
 pkgbase = python-py7zr
-	pkgdesc = Pure python 7-zip library
-	pkgver = 1.1.2
+	pkgdesc = Pure Python 7-zip library
+	pkgver = 1.1.3
 	pkgrel = 1
 	url = https://github.com/miurahr/py7zr
 	arch = any
@@ -8,14 +8,16 @@ pkgbase = python-py7zr
 	checkdepends = p7zip
 	checkdepends = python-requests
 	checkdepends = python-py-cpuinfo
+	checkdepends = python-pytest
 	checkdepends = python-pytest-benchmark
 	checkdepends = python-pytest-httpserver
 	checkdepends = python-pytest-timeout
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = python-wheel
+	makedepends = python-setuptools
 	makedepends = python-setuptools-scm
+	makedepends = python-wheel
 	depends = python
 	depends = python-brotli
 	depends = python-brotlicffi
@@ -26,7 +28,9 @@ pkgbase = python-py7zr
 	depends = python-pyppmd
 	depends = python-texttable
 	depends = python-inflate64
-	source = git+https://github.com/miurahr/py7zr.git#tag=v1.1.2
-	sha256sums = a1b6eba3150284112ba9eeb370e8580bd459514d6cd863aeb4bc7497532b4937
+	options = !lto
+	source = python-py7zr::git+https://github.com/miurahr/py7zr#tag=v1.1.3
+	sha512sums = c61ce14c89918a18c282005b0383ecf703aeca78c165a671579a713662b7b9f1d94fcd74af3038ee8e371c35b9f6231440697fe9ec31ca568dfd03a96b8441c4
+	b2sums = 7160ad1149d1933cad397c7ae46ed82075272108b268455e72ff00ad6727ac69c679df087bbdbc40cd6245e2f5543d3c8e5c5b7ade4468d8ab138ee5e41c0fe1
 
 pkgname = python-py7zr
