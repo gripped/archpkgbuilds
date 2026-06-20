@@ -2,7 +2,7 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-gtk
-pkgver=5.1.6
+pkgver=5.1.7
 pkgrel=1
 pkgdesc="Fcitx5 gtk im module and glib based dbus client library"
 arch=('x86_64')
@@ -12,7 +12,7 @@ groups=('fcitx5-im')
 depends=('glib2')
 makedepends=('git' 'extra-cmake-modules' 'glib2-devel' 'gobject-introspection' 'gtk3' 'gtk4' 'ninja' 'vulkan-headers')
 source=("git+https://github.com/fcitx/fcitx5-gtk.git#tag=$pkgver?signed")
-sha512sums=('550fe4bf267fd4ef8a3e44c6500505b2f15ddca177441a3f088953f576f6af10557affd9120ade9b00081fbfa17f1205ad606cd3af22050699565990931dd656')
+sha512sums=('905e64c79ebde16e3f54f8dc5ea38fa32be7810a0c219f70a298698c8186676b2144775ddb64709c4f59c05eec9ea7a2e1185e9b21f9a4d25c70bc05a064e1f5')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
 build(){
