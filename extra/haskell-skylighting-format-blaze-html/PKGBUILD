@@ -2,16 +2,16 @@
 
 _hkgname=skylighting-format-blaze-html
 pkgname=haskell-skylighting-format-blaze-html
-pkgver=0.1.1.3
-pkgrel=184
+pkgver=0.1.2
+pkgrel=1
 pkgdesc="HTML formatter for skylighting syntax highlighting library"
 url="https://github.com/jgm/skylighting"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-blaze-html' 'haskell-skylighting-core')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('44e82ceaebb240f22882e7640633d747453887f74384dd5ffd258d802d7352e6')
+sha256sums=('b11ec0e6acfd039cb3939c6636806a89cc4101fc2cc2c7a7e02c89a8db954c8e')
 
 prepare() {
   cd $_hkgname-$pkgver
