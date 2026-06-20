@@ -3,7 +3,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=vulkan-icd-loader
-pkgver=1.4.350.0
+pkgver=1.4.350.1
 pkgrel=1
 pkgdesc="Vulkan Installable Client Driver (ICD) Loader"
 url="https://www.vulkan.org/"
