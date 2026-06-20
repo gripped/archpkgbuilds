@@ -3,8 +3,8 @@
 
 _hkgname=base-orphans
 pkgname=haskell-base-orphans
-pkgver=0.9.3
-pkgrel=141
+pkgver=0.9.4
+pkgrel=4
 pkgdesc="Backwards-compatible orphan instances for base"
 url="https://github.com/haskell-compat/base-orphans#readme"
 license=("MIT")
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('cdafbf6734234d18c1a81852691172ea3e274e5c3c3a27a22a21bbfd3e0a16a3b57099f5a80371e5103f407622575bebbfbba351292dfafd4ced939e557bc75e')
+sha512sums=('32af9cf55fd126621bea6d704ab4be8b6b09625e3b47e9e669bdc6fbe968390927e5d32926a72dee66d7e99c546f9795b873fd866af7ad6fa648e1947088ec97')
 
 build() {
     cd $_hkgname-$pkgver
