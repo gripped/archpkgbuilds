@@ -1,0 +1,4 @@
+[libretro-gambatte]
+source = "jq"
+url = "https://api.github.com/repos/libretro/gambatte-libretro/commits/master"
+filter = '(.commit.committer.date | fromdateiso8601 | strftime("%Y%m%d.%H%M%S")) + ".g" + (.sha[0:12])'
