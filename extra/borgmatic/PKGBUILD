@@ -7,7 +7,7 @@
 # Contributor: stef204 <https://aur.archlinux.org/account/stef204>
 
 pkgname=borgmatic
-pkgver=2.1.5
+pkgver=2.1.6
 pkgrel=1
 pkgdesc='Simple, configuration-driven backup software for servers and workstations'
 arch=(any)
@@ -16,10 +16,13 @@ license=(GPL-3.0-or-later)
 depends=(
   borg
   python
+  python-binaryornot
   python-jsonschema
   python-packaging
   python-requests
+  python-rich
   python-ruamel-yaml
+  python-textual
 )
 makedepends=(
   git
@@ -32,13 +35,14 @@ checkdepends=(
   apprise
   python-flexmock
   python-pytest
+  python-pytest-asyncio
 )
 optdepends=(
   'apprise: for Apprise notifications'
   'python-pyfuse3: for mount action'
 )
 source=("git+https://projects.torsion.org/borgmatic-collective/borgmatic.git#tag=$pkgver")
-b2sums=('53065f8b7e5e7d224a8feb612b9a00a15faeff8bd81664577d39f616813158345c56c93653b71a45c9ad825a729ca8c0cffe937354ccbef1e4e5d2960d21bbb9')
+b2sums=('8296fdd9e0afec931b9fca4491b16b37f3b1a303a4e7077ad34a7a71957bfe2de05d3660a8f0aac7d622e2a13fa27b4c44560506a15fcf313031764c7ea9a814')
 
 prepare() {
   cd $pkgname
@@ -61,7 +65,7 @@ check() {
   cd $pkgname
   # Override addopts as they invoke coverage testing
   PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest \
-    --override-ini="addopts=" --ignore=tests/end-to-end
+    --override-ini="addopts=--asyncio-mode=auto" --ignore=tests/end-to-end
 }
 
 package() {
