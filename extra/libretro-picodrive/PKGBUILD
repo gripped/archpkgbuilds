@@ -1,28 +1,27 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-picodrive
-pkgver=2805
+pkgver=20260402.125053.gf0d4a0118a97
 pkgrel=1
 pkgdesc='Sega MS/MD/CD/32X core'
 arch=(x86_64)
 url=https://github.com/libretro/picodrive
-license=(BSD)
+license=(BSD-3-Clause)
 groups=(libretro)
 depends=(
   glibc
   libretro-core-info
 )
 makedepends=(git)
-_commit=3365b1774bc8680be9899968fe45b224ad2f11c1
 source=(
-  libretro-picodrive::git+https://github.com/libretro/picodrive.git#commit=${_commit}
+  libretro-picodrive::git+https://github.com/libretro/picodrive.git#commit=${pkgver##*.g}
   picodrive-cyclone::git+https://github.com/irixxxx/cyclone68000.git
   git+https://github.com/mackron/dr_libs.git
   git+https://github.com/digital-sound-antiques/emu2413.git
   picodrive-libchdr::git+https://github.com/irixxxx/libchdr.git
   git+https://github.com/irixxxx/libpicofe.git
 )
-b2sums=('17ddb80e73b3cf8d02d01705895bf21a6214e52e6f9f34d8d9843c88cc567708ffdb0869e09538ec9ab399a63fafe8a33afb27750d6644ac98b82f6d7373f941'
+b2sums=('fafac5fbb5aac06181b3b6662ba155637d24bd3fe4882a99fe14c789d63a46fed4cca7e9732aa1701d5ebf9518c303f0631bb1b82b29029dc31defd091bd2263'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -43,11 +42,6 @@ prepare() {
   done
 }
 
-pkgver() {
-  cd libretro-picodrive
-  git rev-list --count HEAD
-}
-
 build() {
   cd libretro-picodrive
   make -f Makefile.libretro
@@ -57,5 +51,3 @@ package() {
   install -Dm 644 libretro-picodrive/picodrive_libretro.so -t "${pkgdir}"/usr/lib/libretro/
   install -Dm 644 libretro-picodrive/COPYING -t "${pkgdir}"/usr/share/licenses/libretro-picodrive/
 }
-
-# vim: ts=2 sw=2 et:
