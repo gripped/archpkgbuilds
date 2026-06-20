@@ -2,14 +2,14 @@
 # Contributor: HurricanePootis <hurricanepootis@protonmail.com>
 
 pkgname=goverlay
-pkgver=1.8.2
+pkgver=1.8.3
 _pkgver=${pkgver//_/-}
 pkgrel=1
 pkgdesc="A GUI to help manage Vulkan/OpenGL overlays"
 url="https://github.com/benjamimgois/goverlay"
 arch=('x86_64')
 license=('GPL-3.0-or-later')
-depends=('glu' 'qt6pas' 'mangohud' '7zip' 'wget')
+depends=('glu' 'qt6pas' 'mangohud' '7zip' 'wget' 'fontconfig' 'sdl2-compat')
 makedepends=('git' 'lazarus')
 checkdepends=('appstream' 'desktop-file-utils')
 optdepends=('mesa-utils: OpenGL preview'
@@ -17,7 +17,7 @@ optdepends=('mesa-utils: OpenGL preview'
             'vkbasalt: Configure vkBasalt'
             'git: Clone reshade repository')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${_pkgver}.tar.gz")
-sha256sums=('e5663202f22dfa57310fd86d3ba8fe7e497e3859ef630318424f982a02cdc05f')
+sha256sums=('ce268bca7ef0e41c50a38ac0aaab7d299a354b3de9a371b079b5d2ff15ddc593')
 
 build() {
 	cd "${pkgname}-${_pkgver}"
@@ -32,4 +32,5 @@ check() {
 package() {
 	cd "${pkgname}-${_pkgver}"
 	make prefix=/usr libexecdir=/lib DESTDIR="${pkgdir}" install
+	ln -s /usr/lib/pascube "${pkgdir}/usr/bin/"
 }
