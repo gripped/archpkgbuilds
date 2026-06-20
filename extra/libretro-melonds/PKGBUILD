@@ -1,30 +1,26 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-melonds
-pkgver=2016
+pkgver=20260420.172846.g634e51477364
 pkgrel=1
 pkgdesc='Nintendo DS core'
 arch=(x86_64)
 url=https://github.com/libretro/melonDS
-license=(GPL2)
+license=(GPL-2.0-only)
 groups=(libretro)
 depends=(
+  glibc
+  libgcc
   libgl
+  libstdc++
   libretro-core-info
 )
 makedepends=(
   git
   libglvnd
 )
-_commit=7a3c11ff970cd36ca806961fae6db94b30dd5401
-source=(libretro-melonds::git+https://github.com/libretro/melonDS.git#commit=${_commit})
-sha256sums=('b3a7f9cb0a4626b2f9ecd9bf50e814373e82ce14f6c0cf4a4b9a0c7e47c4e170')
-
-pkgver() {
-  cd libretro-melonds
-
-  git rev-list --count HEAD
-}
+source=(libretro-melonds::git+https://github.com/libretro/melonDS.git#commit=${pkgver##*.g})
+b2sums=('3215aa8b4098ad1f2ecd2909dc61cc3dc75597f55c04f1bfd12302e21e3c0ad81b492b368bd379ef419aa3f52bf08658c6721caa5e80ff146cae0b2dcbc6b5d5')
 
 build() {
   export LDFLAGS="$LDFLAGS -lpthread"
@@ -35,5 +31,3 @@ build() {
 package() {
   install -Dm 644 libretro-melonds/melonds_libretro.so -t "${pkgdir}"/usr/lib/libretro/
 }
-
-# vim: ts=2 sw=2 et:

@@ -1,16 +1,19 @@
 pkgbase = libretro-melonds
 	pkgdesc = Nintendo DS core
-	pkgver = 2016
+	pkgver = 20260420.172846.g634e51477364
 	pkgrel = 1
 	url = https://github.com/libretro/melonDS
 	arch = x86_64
 	groups = libretro
-	license = GPL2
+	license = GPL-2.0-only
 	makedepends = git
 	makedepends = libglvnd
+	depends = glibc
+	depends = libgcc
 	depends = libgl
+	depends = libstdc++
 	depends = libretro-core-info
-	source = libretro-melonds::git+https://github.com/libretro/melonDS.git#commit=7a3c11ff970cd36ca806961fae6db94b30dd5401
-	sha256sums = b3a7f9cb0a4626b2f9ecd9bf50e814373e82ce14f6c0cf4a4b9a0c7e47c4e170
+	source = libretro-melonds::git+https://github.com/libretro/melonDS.git#commit=634e51477364
+	b2sums = 3215aa8b4098ad1f2ecd2909dc61cc3dc75597f55c04f1bfd12302e21e3c0ad81b492b368bd379ef419aa3f52bf08658c6721caa5e80ff146cae0b2dcbc6b5d5
 
 pkgname = libretro-melonds
