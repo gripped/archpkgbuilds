@@ -4,7 +4,7 @@
 
 _name=starlette
 pkgname=python-$_name
-pkgver=1.1.0
+pkgver=1.3.1
 pkgrel=1
 pkgdesc='The little ASGI framework that shines'
 arch=(any)
@@ -30,7 +30,7 @@ checkdepends=(
   python-jinja
   python-python-multipart
   python-pyyaml
-  python-httpx
+  python-httpx2
 
   # not specified,but required
   python-sqlalchemy
@@ -40,11 +40,11 @@ optdepends=(
   'python-jinja: for jinja templates'
   'python-python-multipart: for form parsing'
   'python-pyyaml: for schema generator'
-  'python-httpx: for test client'
+  'python-httpx2: for test client'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('a351b971ee4ed3d2c305c3811e1fd0649f7039d4a72ed70ddbd3054a68ca3ccb89dea444647b31abf15057db7c03fa05fd92a488871febdd2b9bf7c421aad72f')
-b2sums=('be2256692c7cd286e6b414504aa71d10187b1bd245c73030b57f1919aaadaaf665bb5253eae4adfd1183ea6ac9282670a6f3a98d09bedf4412f48804ca99e6cd')
+sha512sums=('962d46da98e5c198056462cd9b847849f639029f331bed4d516a7437fdc7dcf6f9977cc6c83a4474f291d8b78453ed88ce555fa2a386f0a98e1d5ceb22f34d7c')
+b2sums=('c2d8834dd477072d9f02f3cf0bb1b106331eae98f281a471d123d19d0054165b9d68066df323828b7b5bbd4525da9603509d8fffc25074c95f345a015ff973c4')
 
 prepare() {
   cd $_name-$pkgver
