@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-pry
-pkgver=0.15.2
-pkgrel=2
+pkgver=0.16.0
+pkgrel=1
 pkgdesc='A runtime developer console and IRB alternative with powerful introspection capabilities'
 arch=(any)
 url='https://pry.github.io/'
@@ -11,6 +11,7 @@ depends=(
   ruby
   ruby-coderay
   ruby-method_source
+  ruby-reline
 )
 makedepends=(
   git
@@ -24,8 +25,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/pry/pry.git#tag=v$pkgver)
-sha512sums=('98ce5ba3e6ee720d5d38c95af8f4c211ec6cf97c48383993e1acb9339e1577f8591a4b464a6a46a9425e2fa5aa11a6e8bd28b453786d6d2f8519a885cc0b975a')
-b2sums=('85d84e5fb9feb99b0cf41c5b58846f4d3c4b883a29c57df0896a5688c35d3b17fe20171f878c0792f85193ae18d8ac75a32d17fdff6c7c702b4e7dc3650b3f2e')
+sha512sums=('05d3d27a4e69fb6708b4319bcb120be06aedaf50175bf880b9c4c3f527139dfa251b06d277181bedf5ba06d5e99075ec49658064f16bb0be17cff46180c5ce31')
+b2sums=('c9400f37fa0af300a9dc28eaf25f0fa575796bdfc9e5ccf4a3d312b4649f26c1e9e05787f2517f70757dd5d35e968ef6e60db4478e027d723e7c0a7345203aec')
 
 prepare() {
   cd pry
