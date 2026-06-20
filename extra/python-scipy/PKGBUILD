@@ -8,8 +8,8 @@
 
 _name=scipy
 pkgname=python-scipy
-pkgver=1.17.1
-pkgrel=2
+pkgver=1.18.0
+pkgrel=1
 pkgdesc='Open-source software for mathematics, science, and engineering'
 arch=(x86_64)
 url='https://www.scipy.org/'
@@ -41,10 +41,8 @@ source=(git+https://github.com/scipy/scipy#tag=v$pkgver
         git+https://github.com/data-apis/array-api-compat
         git+https://github.com/boostorg/math
         git+https://github.com/cobyqa/cobyqa
-        git+https://github.com/scipy/pocketfft
         git+https://github.com/scipy/unuran)
-sha256sums=('e0957a754501c236d44648a4298045bce2b72c6dff342adf2eb9ede52f17751c'
-            'SKIP'
+sha256sums=('e0cb8bffbaa2567c2f37c84a14f2d97937ef913b21e3ca4e2dc29f2eea787f0d'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -54,11 +52,10 @@ options=(!lto) # crashes with numpy 2.0
 prepare() {
   cd $_name
   git submodule init
-  git submodule set-url scipy/_lib/array_api_compat "$srcdir"/array-api-compat
+  git submodule set-url subprojects/array_api_compat/array_api_compat "$srcdir"/array-api-compat
   git submodule set-url subprojects/boost_math/math "$srcdir"/math
-  git submodule set-url scipy/_lib/cobyqa "$srcdir"/cobyqa
-  git submodule set-url scipy/_lib/pocketfft "$srcdir"/pocketfft
-  git submodule set-url scipy/_lib/unuran "$srcdir"/unuran
+  git submodule set-url subprojects/cobyqa "$srcdir"/cobyqa
+  git submodule set-url subprojects/unuran "$srcdir"/unuran
   git -c protocol.file.allow=always submodule update
 }
 
