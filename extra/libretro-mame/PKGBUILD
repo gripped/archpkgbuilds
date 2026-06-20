@@ -2,7 +2,7 @@
 # Contributor: Oliver Jaksch <arch-aur@com-in.de>
 
 pkgname=libretro-mame
-pkgver=97151
+pkgver=20260616.143603.g0108c5ef3a22
 pkgrel=1
 arch=(x86_64)
 pkgdesc='MAME Arcade core'
@@ -21,18 +21,12 @@ makedepends=(
   libglvnd
   python
 )
-_commit=872488e6f457edd449bc3eb7554ed1198abcaad8
-source=(libretro-mame::git+https://github.com/libretro/mame.git#commit=${_commit})
-b2sums=('adf2f0ea6985e1bb5db7ad66e0770807cd0b3c9935199b848c4e1ee9b460a173fd175387240f9b2c11fa94a5d1aa66190e1113dd00a58225034d9a8e12e84843')
-
-pkgver() {
-  cd libretro-mame
-  git rev-list --count HEAD
-}
+source=(libretro-mame::git+https://github.com/libretro/mame.git#commit=${pkgver##*.g})
+b2sums=('6fed26d043dd9f9fc9bd75639cd82f398aeb37761fd53bf305208402bf980b70960fec13be27a070a865bb04649c15b7101273c64ad3cd9592e4f7d93aaeb281')
 
 build() {
   cd libretro-mame
-  make -f Makefile.libretro
+  make PTR64=1 -f Makefile.libretro
 }
 
 package() {
@@ -40,4 +34,3 @@ package() {
   install -Dm 644 libretro-mame/docs/LICENSE -t "${pkgdir}"/usr/share/licenses/libretro-mame/
 }
 
-# vim: ts=2 sw=2 et:
