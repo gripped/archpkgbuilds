@@ -5,7 +5,7 @@
 # Contributor: Iwan Timmer <irtimmer@gmail.com>
 
 pkgname=containerd
-pkgver=2.3.1
+pkgver=2.3.2
 pkgrel=1
 pkgdesc='An open and reliable container runtime'
 url='https://containerd.io/'
@@ -18,7 +18,7 @@ license=("Apache-2.0")
 source=("git+https://github.com/containerd/containerd.git#tag=v${pkgver}?signed")
 validpgpkeys=("8C7A111C21105794B0E8A27BF58C5D0A4405ACDB" # Derek McGowan
               "910C28608D33DDE689C03290997C5A3CD3167CB5") # Samuel Karp
-sha256sums=('27ce2f74ff289f85dbd23683d377aa8adc17783f828d801897728fb570fd62e4')
+sha256sums=('573733d8e4d1d92e6ffa452d9201099c479186ece8946bc0f3da24e9833b8387')
 
 prepare() {
   # fix paths in service
