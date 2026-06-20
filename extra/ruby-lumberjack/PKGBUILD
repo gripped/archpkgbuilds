@@ -1,9 +1,9 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-lumberjack
-pkgver=1.4.2
+pkgver=2.0.0
 pkgrel=1
-pkgdesc='A simple, powerful, and fast logging utility with excellent structured logging support that can be a drop in replacement for the standard library Logger'
+pkgdesc="Extension of Ruby's standard Logger for advanced, structured logging"
 arch=(any)
 url='https://github.com/bdurand/lumberjack'
 license=(MIT)
@@ -12,7 +12,7 @@ makedepends=(git)
 checkdepends=(ruby-rspec ruby-timecop)
 options=(!emptydirs)
 source=(git+https://github.com/bdurand/lumberjack.git#tag=v$pkgver)
-sha256sums=('d87e812b61d7725125b421c1b81c9b4a9c72c922dfe877ed9838975cefba8a2f')
+sha256sums=('b1303a74fd48c40f20e59021987c1a02834a045dd21690fc4a15be940a65c93a')
 
 build() {
   local _gemdir="$(gem env gemdir)"
