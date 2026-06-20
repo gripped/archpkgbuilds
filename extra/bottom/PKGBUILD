@@ -3,8 +3,8 @@
 # Contributor: Clement Tsang (xoronth) <cjhtsang@uwaterloo.ca>
 
 pkgname=bottom
-pkgver=0.12.3
-pkgrel=2
+pkgver=0.14.0
+pkgrel=1
 pkgdesc='A graphical process/system monitor'
 arch=(x86_64)
 url='https://github.com/ClementTsang/bottom'
@@ -14,8 +14,8 @@ depends=(glibc # libc.so libm.so
 makedepends=(git
              rust)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('6ba81fb711a86db6df60f0472c104e4d4d7f5fc3bbf81d7e7058dc56425aa559b8b7e2a384c21f5f2ccee34ec15dd101405e5bac7edd9286b9c3698fb0950bc9')
-b2sums=('ca6b0cdf7be8dd7b22409f9db867dfd19da04d9e84c0bc82b8d0be92259f805250693e7e867e258c545daa555b06272261790688ab6ee0eef692b803ad73cc67')
+sha512sums=('58bf67ae3ff2bfdae54e9a4a2a87a7689f31e7241c0b7cf9195263f2e5c6401eacf79128538ecc1649d69ced84ca53028f97d83e9d38d264a566ff70639fdb36')
+b2sums=('ad00da433e17789e6048ddb9938ca5d8be56cfadcc6b88847b37279f26c565edeebf6ed95faa1d3a7952b73c3455d490e2509060877a82e9330832b158ff0f04')
 
 prepare() {
   cd "$pkgname"
