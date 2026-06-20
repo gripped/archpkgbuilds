@@ -3,7 +3,7 @@
 
 pkgname=python-pygal
 epoch=1
-pkgver=3.1.1
+pkgver=3.1.2
 pkgrel=1
 pkgdesc='A Python SVG graph plotting library'
 arch=('any')
@@ -15,7 +15,7 @@ optdepends=('python-lxml: for XML output through lxml instead of xml.etree'
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest' 'python-lxml' 'python-pyquery' 'python-cairosvg' 'python-flask')
 source=("git+https://github.com/Kozea/pygal.git#tag=$pkgver")
-sha256sums=('7f5add47056fe27b7a5e7fb416636f6711147b04229f14a90492a1e1845aeaa7')
+sha256sums=('697b31f8509dd876c7b600e14fe041981d937bdf9fdc01614bb2c0ae3fab6d61')
 
 prepare() {
   sed -ri "s/'pytest-runner'(, )?//" pygal/setup.py
