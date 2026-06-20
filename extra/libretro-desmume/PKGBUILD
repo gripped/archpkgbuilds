@@ -4,12 +4,12 @@
 # Contributor: almostalive <almostalive2003@gmail.com>
 
 pkgname=libretro-desmume
-pkgver=6361
+pkgver=20260516.000420.gae0f7f51f96d
 pkgrel=1
 pkgdesc='Nintendo DS core'
 arch=(x86_64)
 url=https://github.com/libretro/desmume
-license=(GPL2)
+license=(GPL-2.0-only)
 groups=(libretro)
 depends=(
   libgl
@@ -20,15 +20,8 @@ makedepends=(
   libpcap
   mesa
 )
-_commit=7f05a8d447b00acd9e0798aee97b4f72eb505ef9
-source=(libretro-desmume::git+https://github.com/libretro/desmume.git#commit=${_commit})
-sha256sums=('9b3e33569e3943b01f441fbcc3ca45e29c8d49b5893985479ae8868d425bceb2')
-
-pkgver() {
-  cd libretro-desmume
-
-  git rev-list --count HEAD
-}
+source=(libretro-desmume::git+https://github.com/libretro/desmume.git#commit=${pkgver##*.g})
+b2sums=('94722bd1adad0b0d966d4f506d1bc341f9e729f2fefa5235aef78a875314247657c8196a3c81069c4cdd7c57004af42fb04f1f03f133a9e01c3d8b2fd70b11a6')
 
 build() {
   make -C libretro-desmume/desmume/src/frontend/libretro -f Makefile.libretro
