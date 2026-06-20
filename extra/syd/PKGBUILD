@@ -2,8 +2,8 @@
 
 pkgname=syd
 _pkgname=sydbox
-pkgver=3.54.1
-pkgrel=2
+pkgver=3.56.0
+pkgrel=1
 pkgdesc="Seccomp and landlock based application sandbox with support for namespaces"
 url="https://gitlab.exherbo.org/sydbox/sydbox"
 arch=('x86_64')
@@ -14,7 +14,7 @@ optdepends=("syd-tui: Syd's Terminal User Interface"
             "pandora_box: Syd's log inspector & profile writer")
 provides=("${_pkgname}")
 source=("git+${url}.git#tag=v${pkgver}?signed")
-sha256sums=('2545973524469ce240214425f88b4cc7972f7ab771caa171735b3972effb9f41')
+sha256sums=('9308e60e2ae1130dd7e2346a8f22b3aa24f3b9d6a985113c0d9d2d2ccdb00005')
 validpgpkeys=('5DF763560390A149AC6C14C7D076A377FB27DE70')
 options=('!lto')
 
