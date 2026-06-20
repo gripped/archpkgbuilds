@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-ladybug-core
-pkgver=0.44.49
+pkgver=0.44.52
 pkgrel=1
 pkgdesc='Python library to load, analyze and modify EnergyPlus Weather files (epw)'
 arch=(any)
@@ -22,8 +22,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('a9ae03387a13577fdb1d8fab1f948bd00be09dc61a78c46a2b9bd7d1dfe691d5c90996c050796d1270b06e2134345b5381958562b548716e2640eb7888bd2f1e')
-b2sums=('c02fc0d9110d46d9a3c96d88c006fdebd693fcfa32940c0dc94a137055cd4f0648657157c6a88b230065a82fe597368e9fae7a26df98c16e79327457139f376b')
+sha512sums=('2b0d87f73a09d1a6d324048e92f31c2b265e217df80e413cdc3e923a046a2dc0193130859a6498bf5da605b1f6184aebf558714632f1d52226462a06ca8bb47c')
+b2sums=('07829a6e17805b2d6bccd6441c26b0c1dc9d53d10c23a7786a817e17d665c112756de6bb68d81a8c3808019d0bb581af2d36dc84d6b278ff63ad24d51749164a')
 
 build() {
   cd "$pkgname"
