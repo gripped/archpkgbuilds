@@ -2,7 +2,7 @@
 # Contributor: Bruce Zhang <zttt183525594@gmail.com>
 
 pkgname=feeluown
-pkgver=5.0
+pkgver=5.0.2
 pkgrel=1
 pkgdesc="A robust, user-friendly and hackable music player"
 arch=('any')
@@ -34,18 +34,12 @@ source=(
   "$pkgname::git+https://github.com/feeluown/FeelUOwn.git#tag=v$pkgver"
   "FeelUOwn.desktop"
 )
-sha512sums=('2287d104242b309149b975b3a5ffc8b00d56fcc1c50a7c640abd2eeba51127ee594cc465f0f6250b9ddad29c4659804aba3a36e7fce4f388e4943a6d1e12af2f'
+sha512sums=('430075bdb9dfa6092a0c546bfc7c4155613224edf409057a4c17b1977101500cab75e0c23a1ac26d0d99064b79e1455cfcf44efbf4be3880948d47208f5c26f4'
             '48882f7469c22e5db332663bc1aa8b398b0a10a0c929d4d7e3d7b8b91205d7d3070c5fa295cb9a14f8c352bff57978bfaad167343e0ddc51c92417eda07c8087')
 
 prepare() {
   cd $pkgname
 
-  # Match upstream PR #996: TableMetaWidget expects a parent in this test.
-  sed -i \
-    -e '/^import pytest/a from PyQt6.QtWidgets import QWidget' \
-    -e 's/widget = TableMetaWidget(app_mock)/p_widget = QWidget()\n    widget = TableMetaWidget(app_mock, p_widget)/' \
-    -e 's/qtbot.addWidget(widget)/qtbot.addWidget(p_widget)/' \
-    tests/gui/widgets/test_meta.py
   # Backport cfe565b's Python 3.14 task-callback wait for this test.
   sed -i '/await task_spec\._task  # this is a little bit tricky/a\
     # On Python 3.14, done-callback execution can lag behind the awaited\
