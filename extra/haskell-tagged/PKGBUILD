@@ -3,29 +3,34 @@
 
 _hkgname=tagged
 pkgname=haskell-tagged
-pkgver=0.8.9
-pkgrel=3
+pkgver=0.8.10
+pkgrel=1
 pkgdesc="Haskell 98 phantom types to avoid unsafely passing dummy arguments"
 url="https://github.com/ekmett/tagged"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('b763a95c84242197af4bd215213c74acbe6108d4a295afe5d179def1f92639df25a78cd8a339a80d8e03628362889b77e65ab666ce61bd617eb8b1517bfd3d98')
+sha512sums=('6c3dbfe6fa1a7a4b8987d320cea0d59922da2036ffdb7fc43331ca8dfd7a8b078f4600eda85bf84ab6c4b229b889b0fa6368f5dbdb57bbe16836fc6d6378159e')
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
-            -fdeepseq -ftransformers
+            -fdeepseq -ftemplate-haskell
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
