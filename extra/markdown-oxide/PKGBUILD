@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=markdown-oxide
-pkgver=0.25.10
+pkgver=0.25.11
 pkgrel=1
 pkgdesc='PKM oriented Markdown Language Server with Obsidian syntax support'
 arch=(x86_64)
@@ -12,11 +12,11 @@ depends=(gcc-libs
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('67217dc2f460a21bf64493d2ebe860cb93563a62aa5eecc28c24cf38ee7100ed')
+sha256sums=('274446b861ebbf3098dcb7e0a5d3135df88df34b16a2c128288f900391dfbf75')
 
 prepare() {
 	cd "$_archive"
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
