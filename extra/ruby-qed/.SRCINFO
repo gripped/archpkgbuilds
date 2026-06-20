@@ -1,18 +1,18 @@
 pkgbase = ruby-qed
 	pkgdesc = Quality Ensured Documentation
-	pkgver = 2.9.1
-	pkgrel = 6
+	pkgver = 2.9.2
+	pkgrel = 1
 	url = https://github.com/rubyworks/qed
 	arch = any
-	license = BSD
+	license = BSD-2-Clause
 	checkdepends = ruby-ae
+	makedepends = git
 	makedepends = ruby-rdoc
 	depends = ruby
 	depends = ruby-ansi
 	depends = ruby-brass
-	depends = ruby-facets
 	options = !emptydirs
-	source = https://github.com/rubyworks/qed/archive/2.9.1/ruby-qed-2.9.1.tar.gz
-	sha256sums = 2eab436b4b419b36aa67fa007eb59c2cb81ab7f2376c8124a18cace77b3811a8
+	source = git+https://github.com/rubyworks/qed.git#commit=ff8cf7fd8572d675c7e4a1c1db3e0a9727283d60
+	sha256sums = a87772cf2f6972118b1a1ea2e475f116733e3b64336672b0c7818c6053e7abf4
 
 pkgname = ruby-qed
