@@ -1,12 +1,12 @@
 # Maintainer: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
-_setmiscver=0.33
+_setmiscver=0.34
 _ndkver=0.3.4
 
 pkgbase=nginx-mod-ndk-set-misc
 pkgname=(nginx-mod-ndk nginx-mod-set-misc)
 pkgver=$_setmiscver+$_ndkver
-pkgrel=12
+pkgrel=1
 
 pkgdesc="Nginx module that adds additional generic tools that module developers can use in their own modules"
 arch=('x86_64')
@@ -18,7 +18,7 @@ source=(
 	https://github.com/openresty/set-misc-nginx-module/archive/v$_setmiscver/set-misc-$_setmiscver.tar.gz
 	https://github.com/simpl/ngx_devel_kit/archive/v$_ndkver/ngx_devel_kit-$_ndkver.tar.gz
 )
-sha256sums=('cd5e2cc834bcfa30149e7511f2b5a2183baf0b70dc091af717a89a64e44a2985'
+sha256sums=('f083e6a68520a9dfa09f0afbeb88ab7539f479cc5af91d8607ae2ab1874f9898'
             '14a28063294f645d457b1eb10e3c23bbba44398f1c5f021421b58b6f8ab31662')
 
 prepare() {
