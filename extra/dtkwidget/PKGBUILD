@@ -4,13 +4,13 @@
 
 pkgbase=dtkwidget
 pkgname=(dtkwidget dtk6widget)
-pkgver=6.7.43
+pkgver=6.7.44
 pkgrel=1
 epoch=1
 pkgdesc='Deepin base graphical widgets library'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtkwidget"
-license=('LGPL-3.0-or-later')
+license=('CC-BY-4.0' 'CC0-1.0' 'LGPL-3.0-or-later')
 groups=('deepin')
 # qt5-imageformats/qt6-imageformats is needed for webp (dci) icons
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt6-tools' 'gtest' 'doxygen'
@@ -19,7 +19,7 @@ makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt6-tools' 'gtest' 'doxygen'
              'qt6-base' 'qt6-imageformats' 'qt6-svg'
              'libx11' 'libxcb' 'libxext' 'libxi' 'startup-notification' 'xcb-util')
 source=("git+https://github.com/linuxdeepin/dtkwidget.git#tag=$pkgver")
-sha512sums=('08940ccf925cb9c5bd1e3fcf23ae3dddd9f11721bb01687d664840874569c7506deab7ac45ea0e4b634f19522b7fa2fd94785e73a4ce188b2c1c35f391279b62')
+sha512sums=('3405f44b52a2115b7222c689e4b143f6101b23cfc330c857352fdf272bc8069d09228feb68d9281d4aedfa81d15e54fdf34967ff785ccd799588326b6475e21f')
 
 build() {
   cd dtkwidget
