@@ -8,7 +8,7 @@
 
 pkgbase=godot
 pkgname=(godot godot-mono)
-pkgver=4.6.3
+pkgver=4.7
 pkgrel=1
 pkgdesc='Advanced cross-platform 2D and 3D game engine'
 url='https://godotengine.org/'
@@ -20,7 +20,7 @@ depends=(brotli ca-certificates embree freetype2 graphite libglvnd libspeechd li
 optdepends=('pipewire-alsa: for audio support'
             'pulse-native-provider: for audio support')
 source=("git+https://github.com/godotengine/godot#tag=$pkgver-stable")
-b2sums=('de441c3f056022f4063e284ac98b76e25cb6dbccd393707800d039c0e7231e8a939337b0c48c292a3f7345d500c5f752661fe179ceccc180f32cfde78a1e4ac5')
+b2sums=('d778a58d2d0b357bac463e7e4bbf0fd916a6688dd2516893dd7342e6a2bc368df356b4ab0087e786c173222246f6a5b33a540001aac0246d09b3f4be17f5d0d0')
 
 prepare() {
   cd $pkgname
@@ -123,7 +123,7 @@ package_godot() {
 
   install -Dm755 bin/godot.linuxbsd.editor.$_CARCH "$pkgdir/usr/bin/godot"
 
-  install -Dm644 icon.svg "$pkgdir/usr/share/pixmaps/$pkgname.svg"
+  install -Dm644 misc/logo/icon.svg "$pkgdir/usr/share/pixmaps/$pkgname.svg"
   install -Dm644 misc/dist/linux/org.godotengine.Godot.desktop "$pkgdir/usr/share/applications/org.godotengine.Godot.desktop"
   install -Dm644 misc/dist/linux/org.godotengine.Godot.xml "$pkgdir/usr/share/mime/packages/org.godotengine.Godot.xml"
 
@@ -142,7 +142,7 @@ package_godot-mono(){
   install -d "$pkgdir/usr/bin"
   ln -s /usr/lib/$pkgname/godot.linuxbsd.editor.$_CARCH.mono "$pkgdir/usr/bin/$pkgname"
 
-  install -Dm644 icon.svg "$pkgdir/usr/share/pixmaps/$pkgname.svg"
+  install -Dm644 misc/logo/icon.svg "$pkgdir/usr/share/pixmaps/$pkgname.svg"
   install -Dm644 misc/dist/linux/org.godotengine.Godot-mono.desktop "$pkgdir/usr/share/applications/org.godotengine.Godot-mono.desktop"
   install -Dm644 misc/dist/linux/org.godotengine.Godot-mono.xml "$pkgdir/usr/share/mime/packages/org.godotengine.Godot-mono.xml"
 
