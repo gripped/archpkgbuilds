@@ -1,12 +1,12 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-kronos
-pkgver=7016
-pkgrel=3
+pkgver=20250312.072602.g6709c1dd0e26
+pkgrel=1
 pkgdesc='Sega Saturn core'
 arch=(x86_64)
 url=https://github.com/libretro/yabause
-license=(GPL2)
+license=(GPL-2.0-only)
 groups=(libretro)
 depends=(
   glibc
@@ -17,15 +17,8 @@ makedepends=(
   git
   libglvnd
 )
-_commit=146f4295eb7f5f76a2e6e6c84518c9bdf6a8398f
-source=(libretro-yabause::git+https://github.com/libretro/yabause.git#commit=${_commit})
-sha256sums=(SKIP)
-
-pkgver() {
-  cd libretro-yabause
-
-  git rev-list --count HEAD
-}
+source=(libretro-yabause::git+https://github.com/libretro/yabause.git#commit=${pkgver##*.g})
+b2sums=('d36d90ce48bcaadd386b7691b2f86223aa23b40dd34ecef363643b8404ffa4f6539b423d7039e03179272a872f389fe9545b753daf6ea11011994e05f486630a')
 
 build() {
   make -C libretro-yabause/yabause/src/libretro
@@ -35,4 +28,3 @@ package() {
   install -Dm 644 libretro-yabause/yabause/src/libretro/kronos_libretro.so -t "${pkgdir}"/usr/lib/libretro/
 }
 
-# vim: ts=2 sw=2 et:
