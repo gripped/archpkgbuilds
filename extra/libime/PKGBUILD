@@ -2,9 +2,9 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=libime
-pkgver=1.1.14
-_lmver=20250113
-_dictver=20250327
+pkgver=1.1.15
+_lmver=20260606
+_dictver=20260430
 _tablever=20240108
 pkgrel=1
 pkgdesc="A library to support generic input method implementation"
@@ -21,10 +21,10 @@ source=("git+https://github.com/fcitx/libime.git#tag=$pkgver?signed"
 noextract=("lm_sc.arpa-$_lmver.tar.zst"
            "dict-$_dictver.tar.zst"
            "table-$_tablever.tar.zst")
-sha512sums=('f0bc6afa07fdb6f1cf6a3e8a3faa457cb405bd7da9ec0bd7c5205fd9943ae3b424f42c1bde88822d8f570efab306017f3bdc0171248fc5a7bf613f50a9bebefa'
+sha512sums=('a691aa9e0ac697a90d6d0df9bb6306a9a7adf2b296f9bc8b4396cc2400ac135ba5a83ffc318307e71fa1a665d51070c3a5f78f0aa6830ccd281e5811b7b6993a'
             'SKIP'
-            'c30f9f3be426489c70fb88dd94b332691aff582f72edcf45b917127d9aaadd069e3d9c28f260695ec7a466cefdb07fc9679c9401ad1e41c3aebde97aee718f7e'
-            '63011cc493dbbe04097264a2a52bee5d3addfe6e0a3173e15a81884d065aada9cafe29f0405828b98da2946d917e16ef980ae1a59719f40672558ce00caf06aa'
+            '5e34f20a1645921891cef58fe36e381ba528eb48054c6f6b9e3d297bc2d24d6228c2a5c297b647fa8a2a7b687aa03fe0627448351d7c90b8cac902e0a51dcdf6'
+            'c5ba44ba86aefcc56166de01e93432da25daa9629791ba4e844f1181926b4916ba67a6ce20ec7b5183de43e365a6d6ac9fe2d7d53997f548ea562c0c92f31e56'
             '0d1642ff84e5da2c5b95710e17439bda11b39d3f65d53426bdc03a775dbe592ae64bff8f9191ce27c57b92db8cfed8284a3b6a4f7f02f8ab7fcc8f28cfa0c0ff')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
