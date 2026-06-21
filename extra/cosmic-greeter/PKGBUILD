@@ -4,7 +4,7 @@
 
 pkgname=cosmic-greeter
 pkgver=1.0.16
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='COSMIC greeter for greetd'
 arch=(x86_64)
@@ -29,6 +29,7 @@ makedepends=(
   just
   lld
 )
+backup=(etc/greetd/cosmic-greeter.toml)
 source=(
   git+https://github.com/pop-os/cosmic-greeter.git#tag=epoch-${pkgver}
   cosmic-greeter-display-manager.patch
