@@ -1,7 +1,7 @@
 pkgbase = pantheon-code
 	pkgdesc = The Pantheon Text Editor
-	pkgver = 8.3.0
-	pkgrel = 2
+	pkgver = 8.3.1
+	pkgrel = 1
 	url = https://github.com/elementary/code
 	arch = x86_64
 	groups = pantheon
@@ -11,8 +11,9 @@ pkgbase = pantheon-code
 	makedepends = gtkspell3
 	makedepends = libsoup3
 	makedepends = meson
-	makedepends = vte3
 	depends = editorconfig-core-c
+	depends = dconf
+	depends = fontconfig
 	depends = glib2
 	depends = gtk3
 	depends = gtksourceview4
@@ -24,10 +25,10 @@ pkgbase = pantheon-code
 	depends = pango
 	depends = polkit
 	depends = vala
+	depends = vte3
 	optdepends = gtkspell3: Spell Check plugin
 	optdepends = libsoup3: Pastebin plugin
-	optdepends = vte3: Terminal plugin
-	source = pantheon-code::git+https://github.com/elementary/code.git#tag=8.3.0
-	b2sums = 17b4f6e639ba52d9b126e4b2cc16eb57432d771c044a95ed2fc12b175fd321768bfcc2f1b37dc5271ec2dae5ef13e770b9e94407fd3a53bf57d1aeeb5b258d58
+	source = pantheon-code::git+https://github.com/elementary/code.git#tag=8.3.1
+	b2sums = bb630baa0c7e8f529567a25db7b92de155316d0889ce5c8c5a12e1e648fdab090ecba827fd16fd9eb902b985482b85ae014040dd3c2d67e59dd1f942a8b8654c
 
 pkgname = pantheon-code
