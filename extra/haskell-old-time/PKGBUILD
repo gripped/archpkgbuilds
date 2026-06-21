@@ -3,22 +3,29 @@
 _hkgname=old-time
 pkgname=haskell-old-time
 pkgver=1.1.1.0
-pkgrel=1
+pkgrel=5
 pkgdesc="This package provides the ability to adapt to locale conventions such as date and time formats."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-old-locale')
-makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit')
+makedepends=('ghc')
+checkdepends=('haskell-tasty' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/package/${_hkgname}-${pkgver}/${_hkgname}-${pkgver}.tar.gz)
 sha512sums=('0b302b9ed45060ecca69f72533e2407b2c5609f206ba3c36f0fd8718f04adc892f6b4f9e67b19d2c32d207ce462df23bd13edbd0e38be05ee1a6ef0abde549d4')
 
 build() {
     cd $_hkgname-$pkgver
 
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
+
     LDFLAGS="${LDFLAGS/-Wl,-z,pack-relative-relocs/}" \
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-debug
     runhaskell Setup build $MAKEFLAGS
