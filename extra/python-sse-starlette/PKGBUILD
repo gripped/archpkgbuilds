@@ -1,0 +1,51 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-sse-starlette
+pkgver=3.4.5
+pkgrel=1
+pkgdesc="SSE plugin for Starlette"
+arch=(any)
+url="https://github.com/sysid/sse-starlette"
+license=(BSD-3-Clause)
+depends=(
+  python
+  python-anyio
+  python-starlette
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-asgi-lifespan
+  python-httpx
+  python-portend
+  python-psutil
+  python-pytest
+  python-pytest-asyncio
+  python-tenacity
+  uvicorn
+)
+source=("git+https://github.com/sysid/sse-starlette.git#tag=v$pkgver")
+b2sums=('e0ccabe11d80f799a4bb17d15c4cd5e15868bce4a9139dd68e87220d6e809dadfd2f17ffa4a2846f8dfc9e429e98ae038f40e0ef538ccc9dadd65ec5f249b86b')
+
+build() {
+  cd sse-starlette
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd sse-starlette
+  # Integration tests need Docker/testcontainers.
+  python -m pytest \
+    --ignore tests/integration
+}
+
+package() {
+  cd sse-starlette
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
