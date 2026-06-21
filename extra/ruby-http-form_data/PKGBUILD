@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-http-form_data
-pkgver=3.0.0
+pkgver=3.0.1
 pkgrel=1
 pkgdesc='Utility-belt to build form data request bodies'
 arch=(any)
@@ -18,11 +18,11 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+$url.git#tag=v$pkgver)
-sha256sums=('4752c3489008ef98b39e02c3373bda29a8f4ed2cf6ccc27f736c444ce3fcd807')
+sha256sums=('b2e48895ecd5aef4190078553205f22febad35ff1624856cfa1aeea09d13f3cd')
 
 prepare() {
   cd form_data
-  # v3.0.0 references Pathname unguarded but does not require the stdlib.
+  # v3.0.x references Pathname unguarded but does not require the stdlib.
   sed -i '/# frozen_string_literal/a require "pathname"' lib/http/form_data/file.rb
 }
 
