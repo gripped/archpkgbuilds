@@ -4,7 +4,7 @@
 
 pkgname=vapoursynth
 pkgver=77
-pkgrel=1
+pkgrel=2
 pkgdesc='A video processing framework with the future in mind'
 arch=(x86_64)
 url=http://www.vapoursynth.com/
@@ -13,6 +13,9 @@ license=(
   OFL-1.1
 )
 depends=(
+  glibc
+  libgcc
+  libstdc++
   libzimg.so
   python
 )
@@ -25,9 +28,11 @@ makedepends=(
 )
 source=(
   git+https://github.com/vapoursynth/vapoursynth.git#tag=R${pkgver}
+  vapoursynth.sh
   vapoursynth.xml
 )
 b2sums=('ae5d05679969783d4fd400c6fce88646ca935b176699595050a1beb2adbc10aaf1c8e5a7dba771f0e81205d8e60f6de3e0e63346745adcfb076589ee253d193e'
+        'ad7eb96f7bdb170ad6452739c0ea2a93841d81d63fd180889ee87460575da21314bef28083483db49a858a82106d447b213464afd48d8e2b74bc1c1bb6964445'
         'feae23a22f8589177f30c36bdf21bab93d55a786194d3e0e958537016630d075b82178f60ac840f30ae316a8f87d3fb01f371211f62d1fee9850ee5063561747')
 
 prepare() {
@@ -55,6 +60,7 @@ package() {
 
   install -d -m755 "${pkgdir}${_sitepkgs}/vapoursynth/plugins"
   install -Dm 644 vapoursynth/src/core/ter-116n.ofl.txt -t "${pkgdir}/usr/share/licenses/vapoursynth/"
+  install -Dm 644 vapoursynth.sh -t "${pkgdir}/etc/profile.d/"
   install -Dm 644 vapoursynth.xml -t "${pkgdir}/usr/share/mime/packages/"
 }
 
