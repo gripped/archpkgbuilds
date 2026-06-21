@@ -2,8 +2,8 @@
 
 _hkgname=ghc-typelits-knownnat
 pkgname=haskell-ghc-typelits-knownnat
-pkgver=0.7.12
-pkgrel=77
+pkgver=0.7.13
+pkgrel=2
 pkgdesc="Derive KnownNat constraints from other KnownNat constraints"
 url="https://github.com/clash-lang/ghc-typelits-knownnat"
 license=('BSD-2-Clause')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-ghc' 'haskell-ghc-tcplugins-extra' 'haskell-ghc-typelits-natnormalise')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('ee2d5f9e25e5656693d1037ec80f5d2b6527253a39ff051392da3efa92489d61a7889bff2e5600b7b4120f52f2e6f16e467c3e4937d4ec532e99bc60696e9e27')
+sha512sums=('a269439042bb45e52428368d456d81e0984d3d620ad78f21ba4d117dc2c192a51a3f83ddd84c9e02deacc44b4eb1ede7eeba53713e6eba7f41ea8cf5a7e511c4')
 
 build() {
     cd $_hkgname-$pkgver
