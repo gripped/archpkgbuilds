@@ -3,7 +3,7 @@
 _hkgname=fourmolu
 pkgname=haskell-fourmolu
 pkgver=0.14.0.0
-pkgrel=38
+pkgrel=41
 pkgdesc="A formatter for Haskell source code"
 url="https://github.com/parsonsmatt/fourmolu"
 license=('BSD-3-Clause')
@@ -13,11 +13,14 @@ depends=('ghc-libs' 'haskell-diff' 'haskell-aeson' 'haskell-ansi-terminal' 'hask
          'haskell-scientific' 'haskell-syb' 'haskell-th-env' 'haskell-yaml')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover'
              'haskell-hspec-megaparsec' 'haskell-path' 'haskell-path-io' 'haskell-temporary')
-source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('dae73c2dfa5039d1a3ad06e85c7836a2b45fe5d41d90fb98ac7b4c4507ffdad6')
+source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz"
+        "$_hkgname-diff-1.patch::https://github.com/fourmolu/fourmolu/commit/cf577c07f3cc46a5b4c2dcf22c25cbd39d444c2c.patch")
+sha256sums=('dae73c2dfa5039d1a3ad06e85c7836a2b45fe5d41d90fb98ac7b4c4507ffdad6'
+            '561fc8633129c798ac15e0d7ee1fb14def89a86bb7209d3c27ad3d2c242ca0c5')
 
 prepare() {
   cd $_hkgname-$pkgver
+  sed -n '/^diff --git a\/tests\/Ormolu\/Config\/PrinterOptsSpec.hs /,$p' ../$_hkgname-diff-1.patch | patch -Np1
   uusi -u Diff -u ansi-terminal
 }
 
