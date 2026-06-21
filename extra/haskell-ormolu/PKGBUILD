@@ -3,7 +3,7 @@
 _hkgname=ormolu
 pkgname=haskell-ormolu
 pkgver=0.7.0.0
-pkgrel=11
+pkgrel=14
 pkgdesc="A formatter for Haskell source code"
 url="https://github.com/tweag/ormolu"
 license=('BSD-3-Clause')
@@ -18,7 +18,7 @@ sha512sums=('ac5cb15e15036fa834165c527dd9a973db25080d945b81bce25b9bb6e5be7f16e95
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u ansi-terminal -u optparse-applicative
+  uusi -u Diff -u ansi-terminal -u optparse-applicative
 }
 
 build() {
