@@ -2,14 +2,14 @@
 
 pkgbase=jsregexp
 pkgname=(lua-jsregexp lua51-jsregexp lua52-jsregexp lua53-jsregexp lua54-jsregexp)
-pkgver=0.1.0
-pkgrel=3
+pkgver=0.2.0
+pkgrel=1
 arch=('x86_64')
 url='https://github.com/kmarius/jsregexp'
 license=('MIT')
 makedepends=('lua' 'lua51' 'lua52' 'lua53' 'lua54')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/kmarius/jsregexp/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('4fa5c2c96ab2945bd85dfa550905c7b7748bee5a73facdf16056167a813ee30b')
+sha256sums=('019a0024d03c31511fe9f490a9c262b70ac40c9ea1d93738e8a8aa63714a4f8f')
 
 prepare() {
   sed 's/^CFLAGS =/CFLAGS +=/' -i "${pkgbase}-${pkgver}"/Makefile
