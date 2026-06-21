@@ -3,7 +3,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=lib32-vulkan-validation-layers
-pkgver=1.4.350.0
+pkgver=1.4.350.1
 pkgrel=1
 pkgdesc="Vulkan Validation Layers (32-bit)"
 url="https://www.vulkan.org/"
