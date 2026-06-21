@@ -1,0 +1,25 @@
+pkgbase = python-curl-adapter
+	pkgdesc = A curl HTTP adapter switch for requests library — make browser-like requests with custom TLS fingerprints
+	pkgver = 1.2.1
+	pkgrel = 2
+	url = https://github.com/el1s7/curl-adapter
+	arch = any
+	license = MIT
+	checkdepends = python-pytest
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = python
+	depends = python-brotli
+	depends = python-curl_cffi
+	depends = python-eventlet
+	depends = python-pycurl
+	depends = python-requests
+	depends = python-urllib3
+	optdepends = python-gevent: gevent support
+	source = git+https://github.com/el1s7/curl-adapter.git#tag=v1.2.1
+	b2sums = e9ce0b8d1e55c059a69482ba8d3430df6f1d5f409f960ac6eecb0331f612ab841d9ffd4cfed351d50403fe9bb8fa3fa9e0e29b796f350f93bf92a74b72d7dd63
+
+pkgname = python-curl-adapter
