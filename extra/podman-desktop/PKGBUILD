@@ -4,7 +4,7 @@
 
 pkgname=podman-desktop
 pkgver=1.27.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Manage Podman and other container engines from a single UI and tray."
 arch=("x86_64")
 url="https://podman-desktop.io"
@@ -27,6 +27,7 @@ b2sums=('571407c191ca6061d346c0bf4970e008896ec44e1eff75dbca1d25988d45717f520f957
 prepare(){
     cd "${srcdir}/podman-desktop-$pkgver"
     sed -i 's/run.sh/podman-desktop/' '.flatpak.desktop'
+    npm pkg set desktopName='io.podman_desktop.PodmanDesktop'
     _elver=$(cat /usr/lib/${_electron}/version)
     echo -n Replacing $(cat package.json|grep '"electron":')
     npm pkg set devDependencies.electron=${_elver}
