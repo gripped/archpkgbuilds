@@ -1,7 +1,7 @@
 pkgbase = wayvnc
 	pkgdesc = VNC server for wlroots-based Wayland compositors
 	pkgver = 0.10.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/any1/wayvnc
 	arch = x86_64
 	license = ISC
@@ -17,11 +17,10 @@ pkgbase = wayvnc
 	depends = libneatvnc.so
 	depends = libpixman-1.so
 	depends = libxkbcommon.so
+	depends = mesa
 	depends = wayland
 	optdepends = pam: PAM authentication
-	source = git+https://github.com/any1/wayvnc.git#tag=23fa174e3832841b5730789ded7fe38caf6bce88
-	source = wayvnc.service
+	source = git+https://github.com/any1/wayvnc.git#tag=v0.10.0
 	b2sums = cf572306cc49e8c881c88ba4ff082189f4f99e163ff9db96257eebb37a5d529a55655251d1fb2388b6849916d0440f73e5c4db27c61cb2cd5adac236cff741d0
-	b2sums = 083d7ddbf353d06126b76152e51807ed7572684e0c995b71802fcf36ca133c48401126907fcac657271bf9590b4a304a103f7bf9104b73e0699af98f7388f65c
 
 pkgname = wayvnc
