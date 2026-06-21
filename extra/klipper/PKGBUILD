@@ -2,12 +2,15 @@
 
 pkgname=klipper
 pkgver=0.13.0
-pkgrel=2
+pkgrel=3
 pkgdesc='3D printer firmware with motion planning on the host'
 arch=(x86_64)
 url=https://www.klipper3d.org/
-license=(GPL3)
+license=(GPL-3.0-only)
 depends=(
+  bash
+  glibc
+  python
   python-can
   python-cffi
   python-greenlet
@@ -30,25 +33,19 @@ optdepends=(
   'arm-none-eabi-newlib: for RPi firmware compilation'
 )
 makedepends=(git)
-_tag=61c0c8d2ef40340781835dd53fb04cc7a454e37a
 source=(
-  git+https://github.com/Klipper3d/klipper.git#tag=${_tag}
+  git+https://github.com/Klipper3d/klipper.git#tag=v${pkgver}
   klipper.service
   klipper.sysusers
   klipper.tmpfiles
   # data dictionary from https://github.com/Klipper3d/klipper/issues/1438
-  https://github.com/user-attachments/files/20556385/klipper-dict-20250602.tar.gz
+  klipper-dict-20260523.tar.gz
 )
 b2sums=('06718519b209bb3a8ae91e123c181a0e4b81991487e18a66170b6943fab518911c09810ec838003746b16f1c55ce703705aa115101b38f2a3888bc22c2debed4'
         '6163736c66e8f8711bf004d3b8b3a072269dd1a2959b5b32cd092c904af778c75b280c8dfb0fce44fd20f6b4beb8e95bb96c8daa49658bf654794fa1e77fe8c4'
         '418e30a46010385166a7ca190381c7a9a8d24e36b2663bef3754ad70fa930a91baec4c0f1b1d5c18f5c9ca0045e68b8410f65134c75f504541bc8567350cb9d7'
         'c41b0d0f0d473684aabc55ce76944473e1edf272d05a301f07e2a1978b7d3e7f8bad05e87295eee489163158fb6809b0ce9be62feee7399cc08451825cb85b81'
-        'e90e735db1c97a8fdbdac1345d5d703c0620f6c9de91fecd29b6d37f514fdd91ff2707324efce08822b86987b53040f2eb96546d9a9aecbe6dce21cd2d803c30')
-
-pkgver() {
-  cd klipper
-  git describe --tags | sed 's/^v//'
-}
+        '39f692064bfdff2289797ebad648f78dd2dfc72c8f7942c7bb32b773962d79386a40587330920baddd0eb472893931df031a800e6d82ff1232f2560798898c4b')
 
 build() {
   cd klipper
@@ -70,5 +67,3 @@ package() {
   install -Dm 644 klipper.sysusers "${pkgdir}"/usr/lib/sysusers.d/klipper.conf
   install -Dm 644 klipper.tmpfiles "${pkgdir}"/usr/lib/tmpfiles.d/klipper.conf
 }
-
-# vim: ts=2 sw=2 et:
