@@ -3,16 +3,16 @@
 
 _hkgname=Diff
 pkgname=haskell-diff
-pkgver=0.5
-pkgrel=66
-pkgdesc="O(ND) diff algorithm in haskell"
+pkgver=1.0
+pkgrel=1
+pkgdesc="Diff algorithm in pure Haskell"
 url="https://github.com/seereason/Diff"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-test-framework' 'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('61c55aad6ac91c38e3105dbf209255e376c67850c92e8f4ee546252b25b0d056c534e1cc57fdc0c7be3b0b8cc06abe516e63ce1c4e7c2d3182b59e43338fb205')
+sha512sums=('3383443b91a47d594b9dcd1c311f68c774c28858b5df0fad9bc5c1f0067ca3cb0a464ea5cf16f904959b299f08ee76a187860efe1420fc3f11e4c71eb623a24a')
 
 build() {
     cd $_hkgname-$pkgver
