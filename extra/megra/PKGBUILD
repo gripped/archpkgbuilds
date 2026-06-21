@@ -2,7 +2,7 @@
 
 pkgname=megra
 _name=${pkgname}.rs
-pkgver=0.0.16
+pkgver=0.0.18
 pkgrel=1
 pkgdesc="The Mégra Live Coding Language"
 arch=(x86_64)
@@ -22,16 +22,12 @@ makedepends=(
 )
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz
-  Cargo.lock  # upstream currently does not yet track a Cargo.lock file: https://codeberg.org/parkellipsen/megra.rs/issues/8
 )
-sha512sums=('05e77038a7eb6ec1f87054a138819ad16a3d84288ee4f766c589a6b29a8fdef11c4bc5f6f0dfa5d9c529f1ecb944131045c810f4d43a6b85941d243c99458e53'
-            'a837f4378ab3219c4c02317b73bce586eee14541dfc54153f0ea1103c8d7af14ab4d98bb6b422da491a6d3634ee9da93266a253e720ef04864488499b3a9f406')
-b2sums=('461c7d9a4a57fd3062ba8167f3ddcf841d558db6774bc55391b2a61e6d2b752319fc0a99daf9b689aa0276f9196db9574014bb87767a545d07ea3eb0ecd22c94'
-        'e6489b589802ffbc1d8749f6e9601f145a4d8daf860bad9fcd3c88f0170ecc72d0030fbc5c80a4e4302322123e4fb559f0354cea0e79e339de5a85d4f4103410')
+sha512sums=('1271ec7e63a3b6a53e3d0e5b048034924737c13c2eeb548a5c567a00b8d4392cb7b0e888b51444538b53cc3d746e88f90ac64827d76fa0220d1e5c72b0f3aba1')
+b2sums=('aee443e9c9af293ddf38dc7547f9cd474e15c7e75489825e2819b89d987b45cb6aeb8c93f3c90b53665aa3674f78b9b6d24da184a99ce8aa2c775626233b6372')
 
 prepare() {
   cd $_name
-  ln -sv ../Cargo.lock .
   cargo fetch --locked --target host-tuple
 }
 
