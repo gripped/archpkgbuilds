@@ -3,7 +3,7 @@
 # Contributor: killruana <killruana@gmail.com>
 
 pkgname=yosys
-pkgver=0.65
+pkgver=0.66
 pkgrel=1
 pkgdesc='A framework for RTL synthesis'
 arch=('x86_64')
@@ -20,7 +20,7 @@ optdepends=('graphviz: Schematics display support'
 options=('!lto') # getting SIGSEGV when running the tests with LTO
 source=(git+https://github.com/YosysHQ/yosys#tag=v$pkgver
         git+https://github.com/jarro2783/cxxopts)
-sha512sums=('8e19971bdb8260baefc83f9cf6387ca6236244fbf54e590159f3f8d4a9e47836fbcbf2a04b2486ad2fc2423327f496e4742b86544649baf05dbae58cd3e1fa16'
+sha512sums=('bedfe50db1e51b3c385df4a243590c558dffae124ef0625ea73ef908000a9271febee5ddeef0523e8d7eba49bdf25bc5a4e005535f483ed240d8e62a4477797e'
             'SKIP')
 
 prepare() {
@@ -29,8 +29,10 @@ prepare() {
   git submodule set-url libs/cxxopts "$srcdir"/cxxopts
   git -c protocol.file.allow=always submodule update libs/cxxopts
 
-  # Fix AIGER tests with ABCEXTERNAL: https://github.com/YosysHQ/yosys/pull/5890
-  git cherry-pick -n 59c1bc35cbad3b50ef29ec48e443ddffafa6a931
+  # Fix pybind11 unused-parameter failures with -Werror=unused without taking
+  # the broader CMake migration commit: https://github.com/YosysHQ/yosys/commit/afc0e78d1161480824f867f3aa8d87349519a5da
+  git show --format= afc0e78d1161480824f867f3aa8d87349519a5da -- kernel/yosys.cc pyosys/hashlib.h |
+    git apply -3
 
   # Unit tests don't inherit Python embed libs correctly and link them before -lyosys.
   sed -e 's/LIBS="$(LIBS)"/LIBS="$(EXE_LIBS) $(LIBS)"/' -i Makefile
