@@ -6,29 +6,22 @@ pkgname=(
   retroarch-assets-ozone
   retroarch-assets-xmb
 )
-pkgver=538
+pkgver=20260411.201626.gcd17f64cff4e
 pkgrel=1
 epoch=1
-pkgdesc='XMB menu assets for RetroArch'
+pkgdesc='UI/UX assets for RetroArch'
 arch=(any)
 url=http://www.libretro.com/
-license=(GPL)
+license=(CC-BY-4.0)
 groups=(libretro)
 depends=(retroarch)
 makedepends=(git)
-_commit=a7b711dfd74871e9985ba3b2fe2c15048a928aaf
-source=(git+https://github.com/libretro/retroarch-assets.git#commit=${_commit})
-sha256sums=('6faecf1b60a1af34daadc2cceb294a5180d64320f15161537f12ade0d6807b7c')
-
-pkgver() {
-  cd retroarch-assets
-
-  git rev-list --count HEAD
-}
+source=(git+https://github.com/libretro/retroarch-assets.git#commit=${pkgver##*.g})
+b2sums=('6ba368af18b4d5f7ff3870412b3153f67549747ffb2528748e411fb98395c8fd60bf199e7582fc92e4f9396b41fa21c15937f3e267f8b730917abd556b20cc2c')
 
 package_retroarch-assets-glui() {
   depends+=(retroarch-assets-xmb)
-
+  pkgdesc="GLUI ${pkgdesc}"
   cd retroarch-assets
 
   install -dm 755 "${pkgdir}"/usr/share/retroarch/assets
@@ -37,7 +30,7 @@ package_retroarch-assets-glui() {
 
 package_retroarch-assets-ozone() {
   depends+=(retroarch-assets-xmb)
-
+  pkgdesc="Ozone ${pkgdesc}"
   cd retroarch-assets
 
   install -dm 755 "${pkgdir}"/usr/share/retroarch/assets
@@ -46,9 +39,7 @@ package_retroarch-assets-ozone() {
 
 package_retroarch-assets-xmb() {
   cd retroarch-assets
-
+  pkgdesc="XMB ${pkgdesc}"
   install -dm 755 "${pkgdir}"/usr/share/retroarch/assets
   cp -dr --no-preserve=ownership xmb "${pkgdir}"/usr/share/retroarch/assets/
 }
-
-# vim: ts=2 sw=2 et:

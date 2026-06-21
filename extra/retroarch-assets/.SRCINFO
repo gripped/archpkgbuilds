@@ -1,23 +1,26 @@
 pkgbase = retroarch-assets
-	pkgdesc = XMB menu assets for RetroArch
-	pkgver = 538
+	pkgdesc = UI/UX assets for RetroArch
+	pkgver = 20260411.201626.gcd17f64cff4e
 	pkgrel = 1
 	epoch = 1
 	url = http://www.libretro.com/
 	arch = any
 	groups = libretro
-	license = GPL
+	license = CC-BY-4.0
 	makedepends = git
 	depends = retroarch
-	source = git+https://github.com/libretro/retroarch-assets.git#commit=a7b711dfd74871e9985ba3b2fe2c15048a928aaf
-	sha256sums = 6faecf1b60a1af34daadc2cceb294a5180d64320f15161537f12ade0d6807b7c
+	source = git+https://github.com/libretro/retroarch-assets.git#commit=cd17f64cff4e
+	b2sums = 6ba368af18b4d5f7ff3870412b3153f67549747ffb2528748e411fb98395c8fd60bf199e7582fc92e4f9396b41fa21c15937f3e267f8b730917abd556b20cc2c
 
 pkgname = retroarch-assets-glui
+	pkgdesc = GLUI UI/UX assets for RetroArch
 	depends = retroarch
 	depends = retroarch-assets-xmb
 
 pkgname = retroarch-assets-ozone
+	pkgdesc = Ozone UI/UX assets for RetroArch
 	depends = retroarch
 	depends = retroarch-assets-xmb
 
 pkgname = retroarch-assets-xmb
+	pkgdesc = XMB UI/UX assets for RetroArch

@@ -1,4 +1,4 @@
 [retroarch-assets]
-source = "git"
-git = "https://github.com/libretro/retroarch-assets.git"
-prefix = "v"
+source = "jq"
+url = "https://api.github.com/repos/libretro/retroarch-assets/commits/master"
+filter = '(.commit.committer.date | fromdateiso8601 | strftime("%Y%m%d.%H%M%S")) + ".g" + (.sha[0:12])'
