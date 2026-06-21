@@ -3,7 +3,7 @@
 
 pkgname=drawio-desktop
 pkgver=30.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Official Electron build of draw.io"
 arch=(any)
 url="https://www.drawio.com"
@@ -30,7 +30,7 @@ source=(
 )
 b2sums=('e8c2436c897cb44177272615130c00ab06c7add7bc55d20f1fd436af7a529416d591622a51a638414d9e767fb1f154506066a2ea4be2647601716ae728205365'
         '071cd850d63ee61aa75d6c1e836a536adcb43f8b4d4a3b37be372fafe0e886bfecd0a2814f0ec921f39d02b43d9d35b35f42235f9c94a37cded3d56fb94bdfbd'
-        '70363d4ebb7f8bf07f3259afac895f475fc3f08ff173a97e6606b227f76005b8428e71b0b33b490cc24c6f34a24b2bfd7ab9347dcc9041847d79babc81fe18d9'
+        '7a73131f7fe8e482401227b75a75561c4236acc032e92eb494008f0399400b6b1dd57a64e2c075c55a3f8c6f6d9efd1091804ecb341d20357056855ff2312451'
         '591be619e4519bc1e12dfa5db57743145652c2e0e61886ccda57fbce20cba92c77e0cf88aae86c3f5cd6faef72457b94238f79a75812da2fa4ebcf8e3d0545ef'
         'a029032c7e723d2622329f6a70c6b6a40e11ec285c782194f2cdd2fa184201c6746a7f4f747e22585fe934f3ea082b8bd797d38498e7eab2ec8db8180a7bb24f')
 
@@ -48,6 +48,9 @@ prepare() {
     || ( echo "Electron version mismatch in package.json"; exit 1 )
   grep -q "\"node\": \">=$_nodever.*\"" package.json \
     || ( echo "Node version mismatch in package.json"; exit 1 )
+
+  # Set desktop name to match with the desktop file
+  npm pkg set desktopName='drawio'
 
   # Disable auto-updates
   sed -i 's/return false;/return true;/' src/main/disableUpdate.js
