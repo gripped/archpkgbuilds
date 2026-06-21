@@ -4,7 +4,7 @@
 _hkgname=citeproc
 pkgname=haskell-citeproc
 pkgver=0.8.1.1
-pkgrel=126
+pkgrel=129
 pkgdesc="Generates citations and bibliography from CSL styles."
 url="https://github.com/jgm/citeproc"
 license=('BSD-2-Clause')
@@ -14,11 +14,14 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-attoparsec'
          'haskell-pandoc-types' 'haskell-safe' 'haskell-scientific' 'haskell-text-icu'
          'haskell-unicode-collation' 'haskell-uniplate' 'haskell-vector' 'haskell-xml-conduit')
 makedepends=('ghc' 'uusi' 'haskell-diff' 'haskell-timeit')
-source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('6af14a19bcbfdd2c6ab0da3e6cdbc31c40aa8a8bb1cb1bf6324ab155f610d442eb4a7e349ed48a488f600e3d1fff5841b2da7d5bafd364e412c4c05303da9c62')
+source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz"
+        "$_hkgname-diff-1.0.patch::https://github.com/jgm/citeproc/commit/273f76c51f8bdc7b8c0db804ba9ad71d2158711d.patch")
+sha512sums=('6af14a19bcbfdd2c6ab0da3e6cdbc31c40aa8a8bb1cb1bf6324ab155f610d442eb4a7e349ed48a488f600e3d1fff5841b2da7d5bafd364e412c4c05303da9c62'
+            'c25ba53b21cfff1834a58ec28263d85aa500d710a6505f8f214c2ff27c6275069a10bb571540cc4a09db8ea15b20d34f2a2fc1b1dbe80b41c1879b9c7ac1b27d')
 
 prepare() {
   cd $_hkgname-$pkgver
+  patch -Np1 -i ../$_hkgname-diff-1.0.patch
   gen-setup
 }
 
