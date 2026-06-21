@@ -1,7 +1,7 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=vmaf
-pkgver=3.1.0
+pkgver=3.2.0
 pkgrel=1
 pkgdesc='Perceptual video quality assessment algorithm based on multi-method fusion'
 arch=('x86_64')
@@ -17,7 +17,7 @@ makedepends=(
 checkdepends=(
     'vim')
 source=("https://github.com/Netflix/vmaf/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('80090e29d7fd0db472ddc663513f5be89bc936815e62b767e630c1d627279fe2')
+sha256sums=('a28f93f3b4fa65601be324587072e32a6a704a304ba7b1aec9b70b3f709bc1dc')
 
 build() {
     local _jobs
@@ -26,9 +26,10 @@ build() {
     _jobs="$(nproc)"
     
     # may fail to compile on a high core count system
-    if [ "$_jobs" > "$_max_jobs" ]
+    # https://github.com/Netflix/vmaf/issues/1541
+    if [ "$_jobs" -ge "$_max_jobs" ]
     then
-        local _jobs="$_max_jobs"
+        _jobs="$_max_jobs"
         printf '%s\n' "limiting the compilation jobs to ${_jobs}"
     fi
     
