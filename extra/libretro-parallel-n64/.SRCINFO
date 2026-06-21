@@ -1,18 +1,21 @@
 pkgbase = libretro-parallel-n64
 	pkgdesc = Nintendo 64 core
-	pkgver = 5265
+	pkgver = 20260619.180922.g525ffacb68d7
 	pkgrel = 1
 	url = https://github.com/libretro/parallel-n64
 	arch = x86_64
 	groups = libretro
-	license = GPL2
-	makedepends = clang
+	license = GPL-2.0-only
 	makedepends = git
 	makedepends = mesa
+	makedepends = nasm
+	depends = glibc
+	depends = libgcc
 	depends = libgl
 	depends = libretro-core-info
+	depends = libstdc++
 	options = !lto
-	source = libretro-parallel-n64::git+https://github.com/libretro/parallel-n64.git#commit=1da824e13e725a7144f3245324f43d59623974f8
-	sha256sums = ca144d367674a1f72405223b8ec23a86a5dc675535e185d3e2fe849fb2b577f2
+	source = libretro-parallel-n64::git+https://github.com/libretro/parallel-n64.git#commit=525ffacb68d7
+	b2sums = 73e82b326521fa28561f62f518d299f17a47c8201449825ed245a295a0a9ee2f5a3f28a84f3cc11f0962b1359a6d804e3e7f1f188dfb12252dfd49ca83406c92
 
 pkgname = libretro-parallel-n64

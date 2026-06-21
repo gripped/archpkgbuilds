@@ -2,35 +2,33 @@
 # Contributor: Thomas Schneider <maxmusterm@gmail.com>
 
 pkgname=libretro-parallel-n64
-pkgver=5265
+pkgver=20260619.180922.g525ffacb68d7
 pkgrel=1
 pkgdesc='Nintendo 64 core'
 arch=(x86_64)
 url=https://github.com/libretro/parallel-n64
-license=(GPL2)
+license=(GPL-2.0-only)
 groups=(libretro)
 depends=(
+  glibc
+  libgcc
   libgl
   libretro-core-info
+  libstdc++
 )
 makedepends=(
-  clang
   git
   mesa
+  nasm
 )
-_commit=1da824e13e725a7144f3245324f43d59623974f8
-source=(libretro-parallel-n64::git+https://github.com/libretro/parallel-n64.git#commit=${_commit})
-sha256sums=('ca144d367674a1f72405223b8ec23a86a5dc675535e185d3e2fe849fb2b577f2')
+source=(libretro-parallel-n64::git+https://github.com/libretro/parallel-n64.git#commit=${pkgver##*.g})
+b2sums=('73e82b326521fa28561f62f518d299f17a47c8201449825ed245a295a0a9ee2f5a3f28a84f3cc11f0962b1359a6d804e3e7f1f188dfb12252dfd49ca83406c92')
 options=(!lto)
 
-pkgver() {
-  cd libretro-parallel-n64
-  git rev-list --count HEAD
-}
-
 build() {
+  export CFLAGS+=' -Wno-implicit-function-declaration'
+  export CXXFLAGS+=' -Wno-implicit-function-declaration'
   make -C libretro-parallel-n64 \
-    CC=clang \
     WITH_DYNAREC=x86_64 \
     HAVE_PARALLEL=1 \
     HAVE_PARALLEL_RSP=1 \
@@ -40,5 +38,3 @@ build() {
 package() {
   install -Dm 644 libretro-parallel-n64/parallel_n64_libretro.so -t "${pkgdir}"/usr/lib/libretro/
 }
-
-# vim: ts=2 sw=2 et:
