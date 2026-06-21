@@ -2,17 +2,17 @@
 
 _hkgname=text-builder
 pkgname=haskell-text-builder
-pkgver=0.6.7
-pkgrel=319
-pkgdesc="An efficient strict text builder"
+pkgver=0.6.7.1
+pkgrel=2
+pkgdesc="Efficient strict text builder"
 url="https://github.com/nikita-volkov/text-builder"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-text-builder-dev')
-makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-rerebase'
-             'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
+makedepends=('ghc' 'uusi' 'haskell-rerebase' 'haskell-tasty' 'haskell-tasty-hunit'
+             'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('36e08771dc353af6674da49714e2b6ede888636317b68638a77e439945b8046a50cf2c9fb70fe08fe8f99d38e9d0bf0b165c70397a1e7f900d2a87db80e46d96')
+sha512sums=('8b37e2b194f2b7bd4c706203610578283e71376e5322aa538190bab33fa70f3ae487a53435b5399739c7f1d555d74d96d0b32910dafac691f0856fcd3d40a172')
 
 prepare() {
     cd $_hkgname-$pkgver
