@@ -2,7 +2,7 @@
 # Contributor: Bruce Zhang <zttt183525594@gmail.com>
 
 pkgname=feeluown
-pkgver=5.0.2
+pkgver=5.1
 pkgrel=1
 pkgdesc="A robust, user-friendly and hackable music player"
 arch=('any')
@@ -10,17 +10,19 @@ url="https://github.com/feeluown/FeelUOwn"
 license=('GPL-3.0-or-later')
 depends=('python' 'python-qasync' 'python-pyqt6' 'mpv' 'python-janus'
          'python-requests' 'python-tomlkit' 'python-packaging' 'python-pydantic'
-         'python-mutagen' 'qt6-svg' 'xdg-user-dirs')
+         'python-mutagen' 'python-fluent.runtime' 'python-langcodes' 'qt6-svg'
+         'xdg-user-dirs')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-langchain' 'python-langchain-openai' 'python-langgraph'
               'python-pytest' 'python-pytest-asyncio' 'python-pytest-benchmark'
               'python-pytest-cov' 'python-pytest-mock' 'python-pytest-qt'
-              'python-json-rpc' 'xorg-server-xvfb' 'yt-dlp')
+              'python-json-rpc' 'python-mcp' 'xorg-server-xvfb' 'yt-dlp')
 optdepends=('yt-dlp: browser cookie extraction support'
             'dbus-python: mpris2 server support'
             'python-langchain: AI copilot support'
             'python-langchain-openai: OpenAI-compatible models for AI copilot support'
             'python-langgraph: AI copilot support'
+            'python-mcp: MCP server support'
             'python-pyqt6-webengine: web login support'
             'python-sanic: webserver support'
             'python-json-rpc: webserver support'
@@ -34,20 +36,12 @@ source=(
   "$pkgname::git+https://github.com/feeluown/FeelUOwn.git#tag=v$pkgver"
   "FeelUOwn.desktop"
 )
-sha512sums=('430075bdb9dfa6092a0c546bfc7c4155613224edf409057a4c17b1977101500cab75e0c23a1ac26d0d99064b79e1455cfcf44efbf4be3880948d47208f5c26f4'
+sha512sums=('0586d0e6af36330abe03962fa6521a97d4c7e2b764a3e9223da87a2145dfdcf02d87b7479af42e1fc4baa8ccef43762f403221a7d51460882de8a73c6486f062'
             '48882f7469c22e5db332663bc1aa8b398b0a10a0c929d4d7e3d7b8b91205d7d3070c5fa295cb9a14f8c352bff57978bfaad167343e0ddc51c92417eda07c8087')
 
 prepare() {
   cd $pkgname
 
-  # Backport cfe565b's Python 3.14 task-callback wait for this test.
-  sed -i '/await task_spec\._task  # this is a little bit tricky/a\
-    # On Python 3.14, done-callback execution can lag behind the awaited\
-    # executor future, so poll briefly for side effects from _on_songs_fetched.\
-    for _ in range(20):\
-        if mock_fm_add.called:\
-            break\
-        await asyncio.sleep(0.01)' tests/player/test_fm.py
   # TODO: figure out how to use virtual audio output
   sed -i 's/cannot_play_audio = is_travis_env/cannot_play_audio = os.environ.get("CANNOT_PLAY_AUDIO") == "1"/' tests/helpers.py
 }
