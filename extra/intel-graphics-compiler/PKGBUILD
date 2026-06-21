@@ -3,14 +3,14 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=2.34.4
-_llvmmaj=16
+pkgver=2.36.3
+_llvmmaj=17
 _llvmver="${_llvmmaj}.0.6"
 _vciver=0.25.0
 _spirv_tools_commit=28a883ba4c67f58a9540fb0651c647bb02883622
-_spirv_headers_commit=9268f3057354a2cb65991ba5f38b16d81e803692
-_spirv_llvm_commit=308a0d7acfd7330e64d72a1cd23d272deafb113b
-_opencl_clang_commit=07e7c931d8bdb38549a907cf04fd06a278f7cdce
+_spirv_headers_commit=b8a32968473ce852a809b9de5f04f02a5a9dfa78
+_spirv_llvm_commit=112b565bc334d937b8ac8f99c81178e6657bc155
+_opencl_clang_commit=54ed27657aab5324f2102a8bfa3fe4ad37ec7345
 pkgrel=1
 epoch=1
 pkgdesc='Intel Graphics Compiler for OpenCL'
@@ -43,14 +43,14 @@ source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${p
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}"
         '010-intel-graphics-compiler-disable-werror.patch')
-sha256sums=('6d96812589094ff24249e9a3a580befb2ce934c39aa19dd5f6d66aff979ed7eb'
+sha256sums=('10ad6588806a1d75a9953d5fa48273f1d129ea63246f4cb51993fd95086cad77'
             'af6abe889504fc5f0cc61758aa306211ec2be086858e9e39ee96d289a6c0117c'
-            'ba98efbd3995db57c016395a15b225c4956e535c8d52320a8719733f4b70b347'
+            '948e2e28c28e1bc5aea772aed7305d02408706b42140dae5bcb34290015ae48c'
             'e028a800c43945d94fc100aa25427d360a21c00b1154fb239ec2fce0c06ea85d'
-            '8f5d1dd2d4281d135bc632c97c1a96ccb4ba79edcdad337de87f3510c9798638'
-            'f18188392b9f3c904bd29a81e30700b968ead812abe6b64136f09d1a4c574be5'
-            'b47ada280614670a467f80e9f8c67542050983f238f2f4b3fa17682855faf9bf'
-            '1683e5366d6a0125a40af405b69b684efdfd829fef23b10c1d382f6e57627ce7')
+            'b6e24e13903d09a8a5d75a457a8bd3e0c676d1b08a81e8ffb6293d25f915024b'
+            '17c37e63ab8f0d9381c3fa4f2dc8cf7051ed258397936aaac5cde0c16edbdfd1'
+            '5cba4bf5388b65e4883908519ec087b5cca23ef3c747fa01e382802c1c62b1da'
+            'bfea004c51e40e25a3e12058ffa0903b577c80092eefc37be33f748fd2dd3920')
 
 prepare() {
     # rename to prevent SPIRV-LLVM-Translator from being included
@@ -64,7 +64,7 @@ prepare() {
 }
 
 build() {
-    # Prevent IGC to load LLVM 17+ symbols
+    # Prevent IGC to load LLVM 18+ symbols
     export CFLAGS+=' -fno-semantic-interposition'
     export CXXFLAGS+=' -fno-semantic-interposition'
     export LDFLAGS+=' -Wl,-Bsymbolic'
