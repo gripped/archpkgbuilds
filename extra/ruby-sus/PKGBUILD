@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-sus
-pkgver=0.37.1
+pkgver=0.37.2
 pkgrel=1
 pkgdesc='A fast and scalable test runner'
 arch=(any)
@@ -19,12 +19,11 @@ checkdepends=(
   ruby-bake-test-external
   ruby-bundler
   ruby-covered
-  ruby-decode
 )
 options=(!emptydirs)
 source=(git+https://github.com/socketry/sus.git#tag=v$pkgver)
-sha512sums=('41c2df51f73bd4fa749d2c70a202e0bb31b005fedc2a6af91f0f5cd37cfc3f75a99edd6b3097f693887daa9add95dfd6ae27f8482964e198b2d3d4bd18f83092')
-b2sums=('cb2730b1610d6cc310db7b4dabddc9d8e4abf0d917dd95c8d10922fbe8d2d1be6ba628286f2d7c9aded950d0fbb9640c1f360e023ba09ed9aa46ac51a3172e3e')
+sha512sums=('96a92dc16c5ec27aa52e86de5dd2d99d5921a7cdb2e25c4dd8d201289f47e561dde126a227af30553271a075e761719488c5901be46209ab454f85345168b551')
+b2sums=('12ecbd71000eb123a72076dd1ed9ed24c504a76fa9f3fc9e24fd0ed36fb7eae9638e5e9786e100e6b13251d668ec331d182bc74e6cf10eb287db80bba6deeb4f')
 
 prepare() {
   cd sus
