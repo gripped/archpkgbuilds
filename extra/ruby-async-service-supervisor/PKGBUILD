@@ -1,0 +1,94 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=ruby-async-service-supervisor
+pkgver=0.17.0
+pkgrel=1
+pkgdesc='A supervisor for managing multiple container processes'
+arch=(any)
+url='https://github.com/socketry/async-service-supervisor'
+license=(MIT)
+depends=(
+  ruby
+  ruby-async
+  ruby-async-bus
+  ruby-async-service
+  ruby-async-utilization
+  ruby-io-endpoint
+  ruby-memory
+  ruby-memory-leak
+  ruby-process-metrics
+)
+makedepends=(
+  git
+  ruby-rdoc
+)
+checkdepends=(
+  ruby-bake
+  ruby-bake-test
+  ruby-bake-test-external
+  ruby-bundler
+  ruby-covered
+  ruby-decode
+  ruby-sus
+  ruby-sus-fixtures-async
+  ruby-sus-fixtures-console
+)
+options=(!emptydirs)
+source=("git+https://github.com/socketry/async-service-supervisor.git#tag=v$pkgver")
+sha512sums=('f44384059d16349743ef070cabeb4f1aec1ec1a6330b6408687963d866fe86e6dd256085f05a428b193154923ebe3a24eb1efec11400803ddf8fd6c66935897d')
+b2sums=('c91028fdc6439057d7652563ec3a2445ef241e786cd200c89e8b5a08f47d52e5bf1d1822f073f65d4427f4efbcf1e16e5cc6bb2f403ac9890ab4026a7f10da04')
+
+prepare() {
+  cd async-service-supervisor
+
+  sed -r -e 's|~>|>=|g' -e '/signing_key/d' -i async-service-supervisor.gemspec
+  sed -i \
+    -e '/gem "falcon"/d' \
+    -e '/group :maintenance/,/end/d' \
+    -e '/rubocop/d' \
+    gems.rb
+}
+
+build() {
+  local _gemdir="$(gem env gemdir)"
+  cd async-service-supervisor
+
+  gem build async-service-supervisor.gemspec
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --no-user-install \
+    --install-dir "tmp_install/$_gemdir" \
+    --bindir "tmp_install/usr/bin" \
+    async-service-supervisor-$pkgver.gem
+
+  find "tmp_install/$_gemdir/gems/" \
+    -type f \
+    \( \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
+    \) \
+    -delete
+
+  rm -r "tmp_install/$_gemdir/cache"
+}
+
+check() {
+  local _gemdir="$(gem env gemdir)"
+  cd async-service-supervisor
+
+  GEM_HOME="tmp_install/$_gemdir" bake test
+}
+
+package() {
+  cd async-service-supervisor
+
+  cp -a tmp_install/* "$pkgdir"/
+  install -vDm 644 readme.md -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 license.md -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
