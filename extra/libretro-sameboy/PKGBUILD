@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-sameboy
-pkgver=1720
-pkgrel=3
+pkgver=20260420.173536.g06c184f0b186
+pkgrel=1
 pkgdesc='Nintendo Game Boy/Game Boy Color core'
 arch=(x86_64)
 url=https://github.com/libretro/SameBoy
@@ -20,14 +20,8 @@ makedepends=(
   rgbds
   sdl2
 )
-_commit=68f67b3db7747ba7aac84c5c253bc71d5a906525
-source=(libretro-sameboy::git+https://github.com/libretro/SameBoy.git#commit=${_commit})
-sha256sums=(SKIP)
-
-pkgver() {
-  cd libretro-sameboy
-  git rev-list --count HEAD
-}
+source=(libretro-sameboy::git+https://github.com/libretro/SameBoy.git#commit=${pkgver##*.g})
+b2sums=('a7c346b4e2e0fe55202374efa80c9289ece491039724e45641947fd6c06bcded10d3268c43bd80fb6d45c34d8d55d8f9e7655aef4f76d1cecc2ca69af06e501e')
 
 build() {
   export CC=clang
@@ -38,5 +32,3 @@ package() {
   install -Dm 644 libretro-sameboy/libretro/sameboy_libretro.so -t "${pkgdir}"/usr/lib/libretro/
   install -Dm 644 libretro-sameboy/LICENSE -t "${pkgdir}"/usr/share/licenses/libretro-sameboy/
 }
-
-# vim: ts=2 sw=2 et:

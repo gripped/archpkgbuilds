@@ -1,0 +1,4 @@
+[libretro-sameboy]
+source = "jq"
+url = "https://api.github.com/repos/libretro/SameBoy/commits/buildbot"
+filter = '(.commit.committer.date | fromdateiso8601 | strftime("%Y%m%d.%H%M%S")) + ".g" + (.sha[0:12])'
