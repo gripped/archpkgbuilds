@@ -1,0 +1,11 @@
+--- a/python/rapidgzip/pyproject.toml
++++ b/python/rapidgzip/pyproject.toml
+@@ -19,7 +19,7 @@
+ # CPython 3.14t requires Cython:
+ #   Cyton >= 3, <3.1 resulted in this on macos-14: unknown type name '__pyx_vectorcallfunc'
+ #   https://github.com/cython/cython/issues/6443
+-requires = ["setuptools >= 61.2, < 72", "wheel", "cython ~= 3.0"]
++requires = ["setuptools", "wheel", "cython"]
+ build-backend = "setuptools.build_meta"
+ 
+ [project]

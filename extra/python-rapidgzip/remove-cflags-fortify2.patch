@@ -1,0 +1,11 @@
+--- a/python/rapidgzip/setup.py
++++ b/python/rapidgzip/setup.py
+@@ -424,8 +424,6 @@ class Build(build_ext):
+                 ext.extra_compile_args += ['-flto']
+                 ext.extra_link_args += ['-flto']
+ 
+-            if supportsFlag(self.compiler, '-D_FORTIFY_SOURCE=2'):
+-                ext.extra_compile_args += ['-D_FORTIFY_SOURCE=2']
+             if withRpmalloc != 'disable':
+                 ext.extra_compile_args.append('-DLIBRAPIDARCHIVE_WITH_RPMALLOC')
+             if withIsal != 'disable':
