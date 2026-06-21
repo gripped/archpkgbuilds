@@ -3,8 +3,8 @@
 
 _hkgname=aws
 pkgname=haskell-aws
-pkgver=0.24.2
-pkgrel=53
+pkgver=0.24.3
+pkgrel=2
 pkgdesc="Amazon Web Services (AWS) for Haskell"
 url="https://github.com/aristidb/aws"
 license=('BSD-3-Clause')
@@ -21,7 +21,7 @@ makedepends=('ghc' 'haskell-quickcheck' 'haskell-errors' 'haskell-http-client'
              'haskell-http-client-tls' 'haskell-quickcheck-instances' 'haskell-tasty'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'haskell-transformers-base')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('f169deb9faac2d7a33e96065a9ee10c7373a8cb2c4a1a5745aa9d86abdf882051a4c0884c26f8174161151c13e612309163cde3c32eebc2692d16e9b93362aa6')
+sha512sums=('2d45effad2a45c88e73e68da58d344b5e6b53b7d2b5f5932162267ddcbcbedee2b69e82649d60d6c0010dfe4fe66feada7808b8fcd11e2ae7daf2c5a3c07e5c9')
 
 build() {
     cd $_hkgname-$pkgver
