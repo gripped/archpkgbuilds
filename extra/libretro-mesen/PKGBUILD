@@ -1,27 +1,22 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-mesen
-pkgver=2904
+pkgver=20241218.081837.ge1180957b319
 pkgrel=1
 pkgdesc='Nintendo Entertainment System core'
 arch=(x86_64)
 url=https://github.com/SourMesen/Mesen
-license=(GPL3)
+license=(GPL-3.0-only)
 groups=(libretro)
 depends=(
-  gcc-libs
+  glibc
+  libgcc
   libretro-core-info
+  libstdc++
 )
 makedepends=(git)
-_commit=e1180957b31979d4b82d613af9263fcb9442a685
-source=(git+https://github.com/SourMesen/Mesen.git#commit=${_commit})
-sha256sums=('5070dacee307d6840529e679243f986eb5675e8a6557ad9d4d8b19f19747c665')
-
-pkgver() {
-  cd Mesen
-
-  git rev-list --count HEAD
-}
+source=(git+https://github.com/SourMesen/Mesen.git#commit=${pkgver##*.g})
+b2sums=('a1e49c62f41f52e753d87b59e51112b7c14d1bc2234e9f8b8dcc335a068fc82a424e5c8228b60f4fd695948d4dce18908d8a7f591c58a782b7bb81d1d79ea0fd')
 
 build() {
   make -C Mesen/Libretro
@@ -30,5 +25,3 @@ build() {
 package() {
   install -Dm 644 Mesen/Libretro/mesen_libretro.so -t "${pkgdir}"/usr/lib/libretro/
 }
-
-# vim: ts=2 sw=2 et:

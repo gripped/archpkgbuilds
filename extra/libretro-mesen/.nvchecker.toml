@@ -1,0 +1,4 @@
+[libretro-mesen]
+source = "jq"
+url = "https://api.github.com/repos/SourMesen/Mesen/commits/master"
+filter = '(.commit.committer.date | fromdateiso8601 | strftime("%Y%m%d.%H%M%S")) + ".g" + (.sha[0:12])'

@@ -1,15 +1,17 @@
 pkgbase = libretro-mesen
 	pkgdesc = Nintendo Entertainment System core
-	pkgver = 2904
+	pkgver = 20241218.081837.ge1180957b319
 	pkgrel = 1
 	url = https://github.com/SourMesen/Mesen
 	arch = x86_64
 	groups = libretro
-	license = GPL3
+	license = GPL-3.0-only
 	makedepends = git
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
 	depends = libretro-core-info
-	source = git+https://github.com/SourMesen/Mesen.git#commit=e1180957b31979d4b82d613af9263fcb9442a685
-	sha256sums = 5070dacee307d6840529e679243f986eb5675e8a6557ad9d4d8b19f19747c665
+	depends = libstdc++
+	source = git+https://github.com/SourMesen/Mesen.git#commit=e1180957b319
+	b2sums = a1e49c62f41f52e753d87b59e51112b7c14d1bc2234e9f8b8dcc335a068fc82a424e5c8228b60f4fd695948d4dce18908d8a7f591c58a782b7bb81d1d79ea0fd
 
 pkgname = libretro-mesen
