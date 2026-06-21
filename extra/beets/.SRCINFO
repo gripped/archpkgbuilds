@@ -1,6 +1,6 @@
 pkgbase = beets
 	pkgdesc = Flexible music library manager and tagger
-	pkgver = 2.11.0
+	pkgver = 2.12.0
 	pkgrel = 1
 	url = https://beets.io/
 	arch = any
@@ -25,6 +25,10 @@ pkgbase = beets
 	checkdepends = python-titlecase
 	checkdepends = python-xdg
 	checkdepends = gst-python
+	checkdepends = gst-plugins-bad
+	checkdepends = gst-plugins-good
+	checkdepends = gst-plugins-ugly
+	checkdepends = gst-libav
 	checkdepends = ffmpeg
 	checkdepends = python-pyacoustid
 	makedepends = git
@@ -68,11 +72,11 @@ pkgbase = beets
 	optdepends = python-requests-oauthlib: Beatport plugin
 	optdepends = python-xdg: Thumbnails plugin
 	optdepends = python-titlecase: Titlecase plugin
-	source = beets::git+https://github.com/beetbox/beets.git#tag=v2.11.0
+	source = beets::git+https://github.com/beetbox/beets.git#tag=v2.12.0
 	source = beet
-	sha512sums = 3159e2e0148a4aa2115f9495ea55b536ef69e0a2982608ebd1d4c43eeaa3306770494ac86ff2d799056778475c1ceb3e5d1d3abff20ba9c80b6408a255617d4a
+	sha512sums = 065c5c2dc3858c4dfa019891be5f6e6bfecba718f184aae565d5f9509338d4c71a72b30a761ff398095928883eee7f5389b7e727e8aa50c8ef5bc6393fb9192b
 	sha512sums = 8f51ebcc253b0cf698adffae4d2d1a0ff29dcd2d503d0c5d284e9c5cd5981b0ffd190fce154b112ac3cbb419fc0813f2ccbd7e67e3abbdce043c0f6a967274ad
-	b2sums = 0c0d26f32c5ae5b1e644b8d2b450de7ff11ca9b614bf29589bd6ccb18d2960abb9354332a0a567bf8927eb45b47733b77a7e89ff4dd686937ca46ee591701c7b
+	b2sums = 8657a34126870edad26bf1f3c5b58d8cc3f4a009f653c09ac8b477788b4058be7b9fb9bb91fcf78d29e2280c122b2f333d9442a682f39d8980ad6a22c8f4cc6f
 	b2sums = 1b36ba07d85f0fbcae0a3d8253ce2e5d7ecf8a17c6f0bb946579663de546d53cd4fe5da84ee8d880d7f95f48e66ef6010232a995d86d0c52b52218cd991a7782
 
 pkgname = beets
