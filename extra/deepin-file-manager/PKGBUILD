@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-file-manager
-pkgver=6.5.12
+pkgver=6.5.13
 pkgrel=1
 epoch=1
 pkgdesc='Deepin File Manager'
@@ -11,7 +11,8 @@ arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-file-manager"
 license=('CC-BY-4.0' 'CC0-1.0' 'GPL-3.0-or-later' 'LGPL-3.0-or-later' 'MIT')
 # deepin-appearance: org.deepin.dde.Appearance1
-depends=('dtkcore' 'dtkgui' 'dtkwidget' 'deepin-anything' 'deepin-util-dfm' 'qt5-base' 'qt5-svg'
+depends=('dtkcore' 'dtkgui' 'dtkwidget' 'dtk6core' 'dtk6gui' 'dtk6widget'
+         'deepin-anything' 'deepin-util-dfm' 'qt5-base' 'qt5-svg' 'qt6-base'
          'qt5-x11extras' 'deepin-pdfium' 'docparser' 'libsecret' 'zlib' 'dconf' 'openssl' 'glib2'
          'libxcb' 'libx11' 'qt5-multimedia' 'cryptsetup' 'lucene++' 'avfs' 'gsettings-qt5'
          'polkit-qt5' 'poppler' 'kcodecs5' 'taglib' 'util-linux-libs' 'icu' 'pcre2' 'glibc' 'libgcc' 'libstdc++'
@@ -21,6 +22,7 @@ makedepends=('git' 'boost' 'cmake' 'ninja' 'qt5-tools' 'deepin-tray-loader' 'dee
 optdepends=('deepin-manual: for help menual'
             'deepin-shortcut-viewer: for shortcut display'
             'deepin-screensaver: for screensaver chooser'
+            'deepin-device-formatter: for disk formatting'
             'deepin-movie: for video preview'
             'deepin-terminal: for opening in terminal'
             'deepin-compressor: for compress/decompress')
@@ -32,7 +34,7 @@ replaces=('deepin-desktop')
 options=('!lto')
 source=("git+https://github.com/linuxdeepin/dde-file-manager.git#tag=$pkgver"
          gcc-15.patch)
-sha512sums=('92236142458e80c15266acc58dd118200ced93f1aa5004317a4cc116d587ba209e3ccb0b792038eb72b1a520f05d19bd18da49712d29856c59140e40140aa223'
+sha512sums=('f7fbc31746b542a0e77425eda4426960ddee895ec0e6ee9f05cdaf16b50d391675142377e5dbd97fc6d87c4ce4521e46c54598f8983180bbb247b391f7c78516'
             'b2cda989438b90703a5718ac0daf5972f4d70e21ceef5ad9751445178c4299200f8ac3be112e79682bd37b751e6e3fbd3aaef4189adaaf9abe2506132c16ab41')
 
 prepare() {
@@ -43,9 +45,9 @@ prepare() {
   # https://github.com/linuxdeepin/dde-file-manager/commit/682dffd359abdf42329f03a1cb0ca666eb3a328d
   git cherry-pick -n 682dffd359abdf42329f03a1cb0ca666eb3a328d
 
-  # Fix an extra quote in an include that breaks workspaceeventreceiver.cpp.
+  # Fix the extra quote in the moved workspace plugin include.
   sed -i 's|"utils/filedatamanager.h""|"utils/filedatamanager.h"|' \
-    src/plugins/filemanager/core/dfmplugin-workspace/events/workspaceeventreceiver.cpp
+    src/plugins/filemanager/dfmplugin-workspace/events/workspaceeventreceiver.cpp
 
   # Qualify DConfig path constants after upstream moved them out of dfmbase.
   sed -i \
@@ -56,10 +58,15 @@ prepare() {
   # Upstream regenerates checked-in DBus XML files while other targets consume them,
   # which creates Ninja dependency cycles with globbed sources.
   sed -i '/qt5_generate_dbus_interface/,/)/d' \
-    src/plugins/daemon/core/daemonplugin-core/CMakeLists.txt \
+    src/plugins/daemon/daemonplugin-core/CMakeLists.txt \
     src/plugins/daemon/daemonplugin-tag/CMakeLists.txt \
     src/plugins/daemon/daemonplugin-vault/CMakeLists.txt
 
+  # Build against Qt5, whose translation tools are shipped as versioned binaries.
+  sed -i \
+    -e 's|COMMAND lupdate|COMMAND /usr/bin/lupdate-qt5|g' \
+    -e 's|COMMAND lrelease|COMMAND /usr/bin/lrelease-qt5|g' \
+    src/plugins/filemanager/dfmplugin-disk-encrypt-entry/CMakeLists.txt
   sed -i 's|\<lrelease\>|/usr/bin/lrelease-qt5|' src/translate_generation.sh
 
 }
