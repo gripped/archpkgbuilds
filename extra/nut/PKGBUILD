@@ -8,12 +8,16 @@
 
 pkgname=nut
 pkgver=2.8.5
-pkgrel=1
+pkgrel=2
 pkgdesc='A collection of programs which provide a common interface for monitoring and administering UPS, PDU and SCD hardware'
 arch=(x86_64)
 url=https://networkupstools.org/
-license=('GPL-2.0-or-later AND GPL-3.0-or-later')
+license=(
+  GPL-2.0-or-later
+  GPL-3.0-or-later
+)
 depends=(
+  glib2
   glibc
   libgcc
   libmodbus
@@ -52,9 +56,8 @@ backup=(
   etc/nut/upsstats.html
   etc/nut/upsstats-single.html
 )
-_tag=0e051f9f6853e9ae0087b388b70840c9651a5eed
 source=(
-  git+https://github.com/networkupstools/nut.git#tag=${_tag}
+  git+https://github.com/networkupstools/nut.git#tag=v${pkgver}
   nut.sysusers
   nut.tmpfiles
   nut-lowspeed-buffer-size.patch
@@ -63,25 +66,20 @@ source=(
   nut-snmp-usb-order.patch
 )
 b2sums=('bf2e9b70693f941a52c8499018a825d01bae4e642bf70fedb75b96ebc7204fdf6061419b8849fb15a317b62d9a2ad493014c5c8e67d03ff291d8a2710d641d2c'
-        '7f953900fc567b7076f05acddd442889c89898c1729fecead712a2aa85e091d8f4a474476dd477804b54d72a51a8e7a973e4bf4726106e3c1c85cce1b18a7e1c'
+        'f2c2d8f401977668919465af818ceed4ac79deecf2f92be85edb9b5549b03b07630e41bcb61cb3fa16a038d4b6a56aca0208773be3f8dca5f036c1fa0a7fd644'
         'f03e8fefbbf029ce484519bda8c770295acbcece403e2166cd6fe67d9191048fa315c62a1f1db610b0b8e2d98c5d05c78203c8d8a1d2859f2b4a792e4b5ca471'
         'cdd11335a8d60b2cada25a2cd9be2d0f1c911029a46e3adf8eda7d8687c1b2caf0fd66cd92c41ecbd660d44bc2606e92aa81d4a2c9746b2ef9e15c4048679487'
         '0314fe2358fab9d49a8bc5b939c2855151c4f35b2b51e6d1accf25469c9d55831960cd5f9b53ee151fb5a45ae7068c9bfcc91c84a7623b783f6c3c5d5da75d65'
         '17877276e46372aa17d357efc0851b9cdb33b14ac0c40913b47ea513a8ecaa6eebe3241ae8b324583070d76b6c12d3cf18c043778754b5774af846fb8a33b4d7'
         'e39f049413cb3d393befe5795c895128271f4ca2791b5723eba5c5f20be0b770369ee6144a1e5d6793727709b1ba578d8ace6cbf91695a2771453047827e5334')
 
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/^v//'
-}
-
 prepare() {
-  cd $pkgname
+  cd nut
   ./autogen.sh
 }
 
 build() {
-  cd $pkgname
+  cd nut
   ./configure \
     --prefix=/usr \
     --datadir=/usr/share/nut \
@@ -119,15 +117,13 @@ build() {
 }
 
 check() {
-  cd $pkgname
+  cd nut
   make -C tests check
 }
 
 package() {
-  make DESTDIR="${pkgdir}" -C $pkgname -j1 install
+  make DESTDIR="${pkgdir}" -C nut -j1 install
   find "${pkgdir}/etc/nut" -name '*.sample' -exec rename '.sample' '' {} \;
   install -vDm 644 nut.sysusers "${pkgdir}/usr/lib/sysusers.d/nut.conf"
   install -vDm 644 nut.tmpfiles "${pkgdir}/usr/lib/tmpfiles.d/nut.conf"
 }
-
-# vim: ts=2 sw=2 et:
