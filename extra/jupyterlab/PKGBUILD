@@ -3,7 +3,7 @@
 pkgname=jupyterlab
 _pipname=jupyterlab
 pkgver=4.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc='JupyterLab computational environment'
 arch=(any)
 url='https://github.com/jupyterlab/jupyterlab'
@@ -13,8 +13,8 @@ depends=(jupyter-notebook-shim
          python
          python-async-lru
          python-httpx
-         python-importlib-metadata
          python-ipykernel
+         python-jupyter-builder
          python-jupyter-core
          python-jupyterlab-server
          python-packaging
@@ -23,8 +23,7 @@ depends=(jupyter-notebook-shim
 makedepends=(git
              python-build
              python-hatch-jupyter-builder
-             python-installer
-             python-jupyter-builder)
+             python-installer)
 optdepends=('jupyter-collaboration: collaborative mode'
             'jupyterlab-lsp: LSP extension'
             'jupyterlab-widgets: ipywidgets support'
