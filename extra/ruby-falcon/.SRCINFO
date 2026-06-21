@@ -1,6 +1,6 @@
 pkgbase = ruby-falcon
 	pkgdesc = A fast, asynchronous, rack-compatible web server
-	pkgver = 0.54.3
+	pkgver = 0.55.0
 	pkgrel = 1
 	url = https://github.com/socketry/falcon
 	arch = any
@@ -23,18 +23,19 @@ pkgbase = ruby-falcon
 	depends = ruby
 	depends = ruby-async
 	depends = ruby-async-container
-	depends = ruby-async-container-supervisor
 	depends = ruby-async-http
 	depends = ruby-async-http-cache
 	depends = ruby-async-service
+	depends = ruby-async-service-supervisor
+	depends = ruby-async-utilization
 	depends = ruby-bundler
 	depends = ruby-localhost
 	depends = ruby-protocol-http
 	depends = ruby-protocol-rack
 	depends = ruby-samovar
 	options = !emptydirs
-	source = git+https://github.com/socketry/falcon.git#tag=v0.54.3
-	sha512sums = 8264fe8b8003a45431315ec1a04cb3c07046a7a35de1942ff66e1ef24bdf269bf170606c585c007e46a3f0ea94e755554652ff4e887bf0f459a50168dbecfd87
-	b2sums = 8583fcccf81d4e2e6d23a5b98db94b2b18e69bdcd3deb855c173b039c7e9e8f7feb38b79d41fdcfdb0ae976c6643de39dde3c6bbc1a4a1a75684a863e6e20867
+	source = git+https://github.com/socketry/falcon.git#tag=v0.55.0
+	sha512sums = bb1b892b94c4aba50be7bb0c23e88e0d4b1d61b2ecc9d4b08a91dc0ff951b9c840376313616e63c13a52e66d52e76de8abb6313ae13974660022016d1b80d3d3
+	b2sums = a9c9e449d10b686c3a1be95469f9b31162abb3a52ab7c59e07b9df1a2d6184c77b0cbf98c8a63d78f9c6e9ccb53cf15f98bbd9b35b5ccf7dbf264d11672c2620
 
 pkgname = ruby-falcon
