@@ -3,14 +3,15 @@
 # Contributor: Jean Lucas <jean@4ray.co>
 
 pkgname=sccache
-pkgver=0.15.0
+pkgver=0.16.0
 pkgrel=1
 pkgdesc='Shared compilation cache'
 arch=(x86_64)
 url=https://github.com/mozilla/sccache
 license=(Apache-2.0)
 depends=(
-  gcc-libs
+  libgcc
+  libstdc++
   glibc
   openssl
 )
@@ -24,7 +25,7 @@ optdepends=(
 )
 options=(!lto)
 source=(git+https://github.com/mozilla/sccache.git#tag=v${pkgver})
-b2sums=('483f161d1e96ad993e82fbd0868b23d28c901c2d31992fa3b6ea8422ac268e7cecded2e5d293e9bc2979bcae255ab8586214db0fef22ce308a3ad97f95795618')
+b2sums=('e2813c1f1bff2d62ba76a68d732622f43bfceea5b24240c8de4f46b2f7ced0654b9fd6a085d9ba39bbceeedbe96dedfaebd7864b4ea99b96c12a0e4d7a400cae')
 
 prepare() {
   cd sccache
@@ -43,15 +44,8 @@ build() {
   cargo build --release --frozen --features all,dist-server
 }
 
-#check() {
-#  cd sccache
-#  cargo test --frozen --features all,dist-server
-#}
-
 package() {
   cd sccache
   install -Dt "$pkgdir/usr/bin" target/release/sccache{,-dist}
   install -Dt "$pkgdir/usr/share/doc/$pkgname" -m644 README.md docs/*
 }
-
-# vim:set sw=2 sts=-1 et:
