@@ -2,7 +2,7 @@
 
 pkgbase=deepin-anything
 pkgname=(deepin-anything deepin-anything-dkms)
-pkgver=7.0.6
+pkgver=7.0.7
 _extramodules=extramodules-ARCH
 pkgrel=1
 pkgdesc="Deepin Anything file search tool"
@@ -14,12 +14,13 @@ source=(
   "git+https://github.com/linuxdeepin/deepin-anything.git#tag=$pkgver"
   0001-fix-Rename-init_mnt_ns-to-avoid-symbol-clash-with-ke.patch
 )
-sha512sums=('525ac6df11097bc79aaea4f25fec6bba93553215593d18f1c891d6fd1da4acb68d24e1ed064f21b277440d904f4dc4b7c9d803cc62500852dd12e776764952bc'
+sha512sums=('b7e2c80df9704e2f56374e26d665751edcc77c4055f6be523305903f57a67fc3aa2720ba6d318afc3f18730b241a14d5542067582e22fec6d0c4baccfa551e34'
             '4d41abba018d90f186a6c5f5af24dd4f1f43858c5ce977eba98c20f6c86df86382ed26c13fc04d8b93350a202ceb58946cc316eb8364fd6d6c0f4241eee0c3cd')
 
 prepare() {
   cd "$pkgbase"
 
+  # Fix build with kernel 6.15: https://github.com/linuxdeepin/deepin-anything/commit/2ee1165
   git cherry-pick -n 2ee1165
 
   # Fix build with kernel 6.18
@@ -31,6 +32,13 @@ prepare() {
 
   # Boost.System is header-only in modern Boost.
   sed -i 's/find_package(Boost REQUIRED COMPONENTS system)/find_package(Boost REQUIRED)/' src/server/CMakeLists.txt
+
+  # Fix GCC 16 build failures from upstream's Werror and stale search refactor code.
+  sed -i 's/ -Werror//' src/server/CMakeLists.txt
+  sed -i \
+    -e '/HighlighterPtr highlighter = nullptr;/,/^        }$/d' \
+    -e '/More results may exist; continue searching/,+7d' \
+    src/server/src/core/file_index_manager.cpp
 }
 
 _pick() {
