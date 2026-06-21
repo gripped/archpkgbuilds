@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-play
-pkgver=8625
-pkgrel=3
+pkgver=20260606.165008.gee1334610cb2
+pkgrel=1
 pkgdesc='Sony PlayStation 2 core'
 arch=(x86_64)
 url=https://github.com/jpd002/Play-
@@ -23,9 +23,8 @@ makedepends=(
   git
   libglvnd
 )
-_commit=63a35e28d102e482daaa5454a68c07192b4d3210
 source=(
-  libretro-play::git+https://github.com/jpd002/Play-.git#commit=${_commit}
+  libretro-play::git+https://github.com/jpd002/Play-.git#commit=${pkgver##*.g}
   play-CodeGen::git+https://github.com/jpd002/Play--CodeGen.git
   play-Dependencies::git+https://github.com/jpd002/Play-Dependencies.git
   git+https://github.com/gulrak/filesystem.git
@@ -36,7 +35,7 @@ source=(
   git+https://github.com/Cyan4973/xxHash.git
   git+https://github.com/facebook/zstd.git
 )
-b2sums=('0ae6517de500da0f3e7c7a20cc84034ebdacd9b0757fdda6c5b8d405807d3403aa9e45df679733edb00003640c5b34a00f1c66f7526f91243a8613bd3ae02fc6'
+b2sums=('f3e7be4590b67f53314e0f53f66fb5c6f8d02fc6ff427be0318666637fca50bfbe0bafb11e472e77c5f0ca9374988623d26b05d25fff70c9c8fa684d4ae3c8f6'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -47,20 +46,13 @@ b2sums=('0ae6517de500da0f3e7c7a20cc84034ebdacd9b0757fdda6c5b8d405807d3403aa9e45d
         'SKIP'
         'SKIP')
 
-pkgver() {
-  cd libretro-play
-  git rev-list --count HEAD
-}
-
 prepare() {
   cd libretro-play
-  export GIT_CONFIG_GLOBAL="$HOME/.gitconfig"
-  git config --global protocol.file.allow always
   for submodule in deps/{CodeGen,Dependencies,Framework,Nuanceur,libchdr}; do
     git submodule init ${submodule}
     git config submodule.${submodule}.url ../play-${submodule#*/}
   done
-  git submodule update
+  git -c protocol.file.allow=always submodule update
   cd deps/Dependencies
   git submodule init SDWebImage
   git config submodule.SDWebImage.url ../../../SDWebImage
@@ -70,7 +62,7 @@ prepare() {
   git config submodule.xxHash.url ../../../xxHash
   git submodule init zstd
   git config submodule.zstd.url ../../../zstd
-  git submodule update
+  git -c protocol.file.allow=always submodule update
 }
 
 build() {

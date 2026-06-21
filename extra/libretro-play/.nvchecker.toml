@@ -1,3 +1,4 @@
 [libretro-play]
-source = "git"
-git = "https://github.com/jpd002/Play-.git"
+source = "jq"
+url = "https://api.github.com/repos/jpd002/Play-/commits/master"
+filter = '(.commit.committer.date | fromdateiso8601 | strftime("%Y%m%d.%H%M%S")) + ".g" + (.sha[0:12])'
