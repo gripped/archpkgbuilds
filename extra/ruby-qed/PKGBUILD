@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-qed
-pkgver=2.9.2
+pkgver=3.0.0
 pkgrel=1
 pkgdesc='Quality Ensured Documentation'
 arch=(any)
@@ -11,6 +11,7 @@ depends=(
   ruby
   ruby-ansi
   ruby-brass
+  ruby-kramdown
 )
 makedepends=(
   git
@@ -20,17 +21,13 @@ checkdepends=(
   ruby-ae
 )
 options=(!emptydirs)
-_commit=ff8cf7fd8572d675c7e4a1c1db3e0a9727283d60
-source=(
-  # Upstream did not tag 2.9.2: https://github.com/rubyworks/qed/issues/27
-  git+https://github.com/rubyworks/qed.git#commit=$_commit
-)
-sha256sums=('a87772cf2f6972118b1a1ea2e475f116733e3b64336672b0c7818c6053e7abf4')
+source=(git+https://github.com/rubyworks/qed.git#tag=v$pkgver)
+sha256sums=('2ed2c4f3e6ec7565c8bba6ca6e83c0fc8ee27801cbc9c49fabb7ad6e457dac8a')
 
 build() {
   local _gemdir="$(gem env gemdir)"
   cd qed
-  gem build .gemspec
+  gem build qed.gemspec
   gem install \
     --local \
     --verbose \
