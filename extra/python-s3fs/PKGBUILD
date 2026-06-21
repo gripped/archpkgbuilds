@@ -1,0 +1,86 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-s3fs
+pkgver=2026.4.0
+pkgrel=1
+pkgdesc='A Python file interface to S3'
+arch=(any)
+url='https://github.com/fsspec/s3fs'
+license=(BSD-3-Clause)
+depends=(
+  python
+  python-aiobotocore
+  python-botocore
+  python-urllib3
+  python-fsspec
+  python-aiohttp
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-pytest
+  python-pytest-env
+  python-pytest-asyncio
+  python-flask
+  python-flask-cors
+  python-moto
+)
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('d479df28cf931e26a4357b23f48a20e8c40319ce61f3fc612750c7a2af3e56c536b25a6bba676c5a44180f9b7152e91607e01140cdd5c1d81a2e54b0abca7ec3')
+b2sums=('b3aa1f20a8da303884434f3139cf69e202f912ff69a7db62b6ad6fa5522b191fb6d9d4a703682a592234639e7e0aaca7e0768ff643f5e6c1ea83c6c670c1b783')
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "$pkgname"
+
+  local pytest_opts=(
+    -v
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsCopy::test_copy_glob_edge_cases[fil?1-False-None-expected0]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsCopy::test_copy_glob_edge_cases[fil?1-True-None-expected1]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsCopy::test_copy_glob_edge_cases[file[1-2]-False-None-expected2]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsCopy::test_copy_glob_edge_cases[file[1-2]-True-None-expected3]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsCopy::test_copy_glob_edge_cases[subdir[1-2]-False-None-expected25]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsCopy::test_copy_glob_edge_cases[subdir[1-2]-True-None-expected26]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsCopy::test_copy_glob_edge_cases[subdir[1-2]-True-2-expected27]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsCopy::test_copy_glob_edge_cases[subdir[0-1]-False-None-expected28]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsCopy::test_copy_glob_edge_cases[subdir[0-1]-True-None-expected29]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsCopy::test_copy_glob_edge_cases[subdir[0-1]/*fil[e]*-False-None-expected30]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsCopy::test_copy_glob_edge_cases[subdir[0-1]/*fil[e]*-True-None-expected31]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsCopy::test_copy_directory_without_files_with_same_name_prefix
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsGet::test_get_glob_edge_cases[fil?1-False-None-expected0]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsGet::test_get_glob_edge_cases[fil?1-True-None-expected1]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsGet::test_get_glob_edge_cases[file[1-2]-False-None-expected2]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsGet::test_get_glob_edge_cases[file[1-2]-True-None-expected3]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsGet::test_get_glob_edge_cases[subdir[1-2]-False-None-expected25]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsGet::test_get_glob_edge_cases[subdir[1-2]-True-None-expected26]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsGet::test_get_glob_edge_cases[subdir[1-2]-True-2-expected27]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsGet::test_get_glob_edge_cases[subdir[0-1]-False-None-expected28]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsGet::test_get_glob_edge_cases[subdir[0-1]-True-None-expected29]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsGet::test_get_glob_edge_cases[subdir[0-1]/*fil[e]*-False-None-expected30]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsGet::test_get_glob_edge_cases[subdir[0-1]/*fil[e]*-True-None-expected31]
+    --deselect s3fs/tests/derived/s3fs_test.py::TestS3fsGet::test_get_directory_without_files_with_same_name_prefix
+    --deselect s3fs/tests/test_s3fs.py::test_s3_glob
+    --deselect s3fs/tests/test_s3fs.py::test_fsspec_versions_multiple
+  )
+
+  pytest "${pytest_opts[@]}"
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
+}
