@@ -9,7 +9,7 @@
 
 pkgname=mattermost-desktop
 pkgver=6.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Mattermost Desktop application'
 arch=(x86_64)
 url="https://github.com/${pkgname/-//}"
@@ -30,7 +30,7 @@ source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "$pkgname.desktop")
 sha256sums=('3ca67ef6469e6ed9937e18b06e4d1c5bb944ff7781a6408041b58ba6527d97ff'
             '1c2bf48b6397d04a5a536c5c9f4960db53249c838c380f03f808c612b00ba4c6'
-            'dd34024e4853b6e3b763f4b4dc683ff018a50888ab7da9ba8057a7dc3c357be5')
+            '13df5ad4c7813986403658f5f88d723907db507703942f3facfb37ceaca657ef')
 
 _npmargs="--cache '$srcdir/npm-cache' --no-audit --no-fund"
 
@@ -56,6 +56,10 @@ prepare() {
 		sponge package.json
 	# Change the build type so it doesn't try to bundle Electron
 	sed '/module.exports/i config.linux.target = ["dir"];' -i electron-builder.ts
+	# Set desktop name to match with the desktop file
+	npm pkg set desktopName="$pkgname"
+	# Set path for autostart
+	sed -i "/new AutoLaunch({/a\            path: '/usr/bin/mattermost-desktop'," src/main/AutoLauncher.ts
 	npm $_npmargs install
 }
 
