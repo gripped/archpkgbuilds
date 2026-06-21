@@ -2,14 +2,14 @@
 
 pkgname=python-graphql-relay
 pkgver=3.2.0
-pkgrel=7
+pkgrel=8
 pkgdesc='A library to help construct a graphql-py server supporting react-relay'
 url=https://github.com/graphql-python/graphql-relay-py
 arch=(any)
 license=(MIT)
 depends=(
+  python
   python-graphql-core
-  python-promise
   python-typing_extensions
 )
 makedepends=(
