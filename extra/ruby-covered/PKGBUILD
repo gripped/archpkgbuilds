@@ -2,7 +2,7 @@
 
 _gemname='covered'
 pkgname="ruby-${_gemname}"
-pkgver=0.28.5
+pkgver=0.29.0
 pkgrel=1
 pkgdesc='A modern approach to code coverage'
 arch=(any)
@@ -12,6 +12,7 @@ depends=(
   ruby
   ruby-console
   ruby-msgpack
+  ruby-ruby-coverage
 )
 makedepends=(
   git
@@ -30,8 +31,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("git+https://github.com/socketry/covered.git#tag=v$pkgver")
-sha512sums=('6120dd66b3def5b6e6a18f9514a9403128fe6a307d43310ca48996555da95d7adf1237882bc19b8a68a2bcdb09204c70521a83c433b019e29ffc9307842432f6')
-b2sums=('39a70e460ff6739d437a8abc8180285eec2e3f623b36f97cfe72d0e14b2d60cf41214038cd699f68421a5371b7ba3b146d7b19239413c09b9b1dffbd3da48f22')
+sha512sums=('94b87c50394397684060b809244ad0ebc7f732516f95a29b5e76cf185b754b9d72099836bbe0e46c492d1bb19696ae33e512e771bd92b36103879fed9c77cca6')
+b2sums=('beb5067ecf70fea6e1e7a9258d0c609aeed7745177061b0fd36578c6a4b33632da1d213cf5deba50587131f4f824968cbea2d0ae16d968112545399bcf37e014')
 
 prepare() {
   cd covered
