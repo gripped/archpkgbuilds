@@ -3,23 +3,44 @@
 
 pkgname=gpac
 pkgver=26.02.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='A multimedia framework based on the MPEG-4 Systems standard'
 arch=(x86_64)
 url=https://gpac.wp.imt.fr/
 license=(LGPL-2.1-only)
 depends=(
+  alsa-lib
   curl
+  ffmpeg
+  freetype2
   glibc
+  jack2
   hicolor-icon-theme
+  libjpeg-turbo
+  libnghttp2
   libnghttp3
+  libogg
+  libpng
+  libpulse
+  libtheora
+  libvorbis
+  libx11
+  libxext
+  libxv
+  openjpeg2
   openssl
+  sdl2-compat
+  xvidcore
   xz
   zlib
 )
 makedepends=(git)
-optdepends=('python: python bindings')
+optdepends=(
+  'python: python bindings'
+  'python-numpy: python bindings'
+  'python-setuptools: python bindings'
+)
 provides=(libgpac.so)
 source=(git+https://github.com/gpac/gpac.git#tag=v${pkgver})
 b2sums=('b99568781f2ae5ef25e5ebed5372dcfe8896d10673d5e7e9ecb6a8ae39e69a15c9677841f3dbd8a7899051758b9e188a8741e8c3f7b0e4d3bc81f9bf9f6fb410')
