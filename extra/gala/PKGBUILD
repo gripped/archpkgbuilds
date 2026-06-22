@@ -2,30 +2,32 @@
 
 pkgname=gala
 pkgver=8.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc='The Pantheon Window Manager'
 arch=(x86_64)
 url=https://github.com/elementary/gala
 license=(GPL-3.0-only)
 groups=(pantheon)
 depends=(
+  at-spi2-core
   cairo
   dconf
   gdk-pixbuf2
   glib2
   glibc
-  gnome-desktop
+  gnome-desktop-4
   graphene
   gtk3
   gtk4
-  libcanberra
   libgee
   libgl
   libgranite.so
   libgranite-7.so
   libhandy-1.so
+  libxext
   libxfixes
-  mutter46
+  mutter
+  pango
   sqlite
   systemd-libs
   wayland
@@ -39,14 +41,8 @@ makedepends=(
   vala
 )
 provides=(libgala.so)
-_tag=414f523cc791290b7e1d0c609027c9620b872a39
-source=(git+https://github.com/elementary/gala.git#tag=${_tag})
+source=(git+https://github.com/elementary/gala.git#tag=${pkgver})
 b2sums=('6b7e96aa372f2db2d49b53085718937ac5f43f0c467aa6a3341908dd54a5fae78a6b7db2cf68661c40e2f4f31a84e46136ca8bfe7c314f21a7fa2a0e9d8eacd0')
-
-pkgver() {
-  cd gala
-  git describe --tags
-}
 
 build() {
   arch-meson gala build
@@ -56,5 +52,3 @@ build() {
 package() {
   meson install -C build --destdir "${pkgdir}"
 }
-
-# vim:set sw=2 sts=-1 et:
