@@ -3,13 +3,14 @@
 
 pkgname=neatvnc
 pkgver=1.0.0
-pkgrel=1
+pkgrel=3
 pkgdesc='Fast and neat VNC server library'
 arch=(x86_64)
 url=https://github.com/any1/neatvnc
-license=(custom:ISC)
+license=(ISC)
 depends=(
   glibc
+  gmp
   gnutls
   libaml.so
   libavcodec.so
@@ -17,6 +18,7 @@ depends=(
   libpixman-1.so
   libturbojpeg.so
   mesa
+  nettle
   zlib
 )
 makedepends=(
@@ -25,20 +27,13 @@ makedepends=(
   ninja
 )
 provides=(libneatvnc.so)
-_tag=57cc64b3871c429800e25ed5724b1b2c7a04e134
-source=(git+https://github.com/any1/neatvnc.git#tag=${_tag}
-        nettle-4.patch)
-b2sums=('0f6bfdccec2f7cc9617161c04c4b8dbddab577598c048d300492c3972e3fe5ac5309965d400e00f9c066b28e9c50003ebe0a78cadcd9259c822f25de0f7c38b1'
-        'ca18df1a0b648bee2c5ceebd94e0f0922ac7602f6f8fddb0bbe8c04bfaa548593f5bb0dbdf7968d1eaba0ea60a1c51577db538f1ad8848aa1f561c6130e4a6a3')
-
-pkgver() {
-  cd neatvnc
-  git describe --tags | sed 's/^v//'
-}
+source=(git+https://github.com/any1/neatvnc.git#tag=v${pkgver})
+b2sums=('0f6bfdccec2f7cc9617161c04c4b8dbddab577598c048d300492c3972e3fe5ac5309965d400e00f9c066b28e9c50003ebe0a78cadcd9259c822f25de0f7c38b1')
 
 prepare() {
   cd neatvnc
-  patch -p1 -i ../nettle-4.patch
+  git cherry-pick -n 5b190f0fd9e6b0bfd32752a9115242f87ec36c59
+  git cherry-pick -n f97805deaaea489a1c8c851324163a92a3125195
 }
 
 build() {
