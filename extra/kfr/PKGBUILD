@@ -1,0 +1,46 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=kfr
+pkgver=7.0.1
+pkgrel=3
+pkgdesc="Fast, modern C++ DSP framework, FFT, Sample Rate Conversion, FIR/IIR/Biquad Filters"
+arch=(x86_64)
+url="https://github.com/kfrlib/kfr/"
+license=(GPL-2.0-or-later)
+depends=(
+  glibc
+)
+makedepends=(
+  boost
+  clang
+  cmake
+)
+source=("$pkgname-$pkgver.tar.gz::${url}archive/refs/tags/$pkgver.tar.gz")
+sha512sums=('5cd65ee75a0526d4be6923e25cf3adcf91083192f4e81248205c6822e230c36590a281bf65a1421f21bb842548b7522093dc8e36a375ee7b74aac11170dbc55a')
+b2sums=('6f9ffa8b28cd84d8b316516d109c95ff66b0cc5e10b979632e67d53a44c1e95aa46b8f37acd682eb6e969fd2e2f7871d8bb2b5a4fe4f7f7d65b1247e9e230957')
+
+build() {
+  local cmake_options=(
+    -B build
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_CXX_COMPILER=clang++
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_POSITION_INDEPENDENT_CODE=ON
+    -D KFR_ENABLE_CAPI_BUILD=ON
+    -D KFR_ENABLE_DFT=ON
+    -D KFR_ENABLE_MULTIARCH=ON
+    -D KFR_USE_BOOST=ON
+    -S "$pkgname-$pkgver"
+    -W no-dev
+  )
+
+  CFLAGS+=" -ffat-lto-objects"
+  cmake "${cmake_options[@]}"
+  cmake --build build --verbose
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm 644 "$pkgname-$pkgver/LICENSE.txt" -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 "$pkgname-$pkgver/"{CHANGELOG,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
+}
