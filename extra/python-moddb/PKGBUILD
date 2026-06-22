@@ -2,31 +2,30 @@
 # Contributor: Mark Wagie <mark.wagie@tutanota.com>
 
 pkgname=python-moddb
-pkgver=0.14.0
-pkgrel=2
+pkgver=0.15.0
+pkgrel=1
 pkgdesc='A Python scraper to access ModDB mods, games and more as objects'
 arch=(any)
 url=https://github.com/ClementJ18/moddb
-license=('MIT')
+license=(MIT)
 depends=(
+  python
   python-beautifulsoup4
+  python-curl-adapter
   python-requests
+  python-typing_extensions
 )
 makedepends=(
   git
   python-build
   python-installer
+  python-packaging
   python-setuptools
   python-wheel
 )
-_tag=00827d38571ca0f7569f839e3096aa33468fd51b
-source=(git+https://github.com/ClementJ18/moddb.git#tag=${_tag})
-b2sums=('c5dd9e41d702092e05fa9ea18c9a21b78314f46b597740127549dcd1bcb71ff0b29402296b390a420ca93355b6cb071db45cd8a237db94d5f20fea27fdbe4eca')
-
-pkgver() {
-  cd moddb
-  git describe --tags | sed 's/^v//'
-}
+#source=(git+https://github.com/ClementJ18/moddb.git#tag=v${pkgver})
+source=(git+https://github.com/ClementJ18/moddb.git#commit=c94f7d826532eebd9b3d479552f8be0f3cb80b57)
+b2sums=('c23d9aa3933b51438c41929750fcdbf0d3bdcc7557789fbdcfe83cbfc7e0baca6f748ac95a3a1b417a231ad45766c9a5f8fa33e4760381737c2b09dafb998be9')
 
 build() {
   cd moddb
