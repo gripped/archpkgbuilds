@@ -1,17 +1,20 @@
 pkgbase = libretro-snes9x
 	pkgdesc = Super Nintendo Entertainment System core
-	pkgver = 2651
+	pkgver = 20260420.172910.g185488cd83aa
 	pkgrel = 1
 	epoch = 1
 	url = https://github.com/libretro/snes9x
 	arch = x86_64
 	groups = libretro
-	license = custom
-	license = GPL2
-	license = LGPL2.1
+	license = GPL-2.0-or-later
+	license = LGPL-2.1-only
+	license = LicenseRef-custom
 	makedepends = git
+	depends = glibc
 	depends = libretro-core-info
-	source = libretro-snes9x::git+https://github.com/libretro/snes9x.git#commit=49f484569ff2aec7ff08e7598a97d6c9e6eae72d
-	sha256sums = 22d3e98bb7839ca94a2c84c2afb20afda61f4d56af6d77419417b95f4fe70d8b
+	depends = libstdc++
+	depends = zlib
+	source = libretro-snes9x::git+https://github.com/libretro/snes9x.git#commit=185488cd83aa
+	b2sums = 2f03a92df5b835bb5b9fcdc62c8652845701b2c68279bc9f96286510c00a7d61e868bf57a6597bcbfa374f9699e1fbab57fdeac1cd10319d757ac54478d7bc45
 
 pkgname = libretro-snes9x
