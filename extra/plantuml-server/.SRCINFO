@@ -1,7 +1,7 @@
 pkgbase = plantuml-server
 	pkgdesc = PlantUML Online Server
-	pkgver = 1.2024.6
-	pkgrel = 2
+	pkgver = 1.2026.6
+	pkgrel = 1
 	url = https://plantuml.com/
 	arch = any
 	license = GPL-3.0-only
@@ -14,14 +14,16 @@ pkgbase = plantuml-server
 	optdepends = ditaa: ditaa notation
 	optdepends = graphviz: Graphviz/DOT notation
 	backup = etc/conf.d/plantuml-server
-	source = plantuml-server-1.2024.6.tar.gz::https://github.com/plantuml/plantuml-server/archive/refs/tags/v1.2024.6.tar.gz
+	source = plantuml-server-1.2026.6.tar.gz::https://github.com/plantuml/plantuml-server/archive/refs/tags/v1.2026.6.tar.gz
 	source = plantuml-server.run
 	source = plantuml-server.conf
 	source = plantuml-server.service
-	sha256sums = 8ca322fccd9950e06b02a349d9e9842ff67a93bcbf6304d967a57e24fdb64063
+	source = jetty-runner.patch
+	sha256sums = 46b2ca33a827cd9570e4668f2b4709402e5b6eb0725f37d606cf2a19fa1da402
 	sha256sums = 510711e73aa9bd2d42b4f1f2144fed90dfac011187bd540a9c4d01ee5588e052
 	sha256sums = 96f26a243bf6d9945b4784d3ab73d861f6c4dc613157e51d1bcbcc55db0a2763
 	sha256sums = 73b75e53fff8d4de5192d7a76cef0b4382420790c561763a8a2eec38520f748d
+	sha256sums = 87f1aa871c53b6a9b98d1b53363c89a405677da55697e420bdec462a97afdb32
 
 pkgname = plantuml-server
 	depends = java-runtime>=11

@@ -1,0 +1,36 @@
+diff --git a/pom.parent.xml b/pom.parent.xml
+index 8574837..4094f62 100644
+--- a/pom.parent.xml
++++ b/pom.parent.xml
+@@ -111,6 +111,7 @@
+ 
+     <!-- plugins -->
+     <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
++    <jetty-runner.version>11.0.26</jetty-runner.version>
+     <jetty-maven-plugin.version>${jetty.version}</jetty-maven-plugin.version>
+     <duplicate-finder-maven-plugin.version>1.5.1</duplicate-finder-maven-plugin.version>
+     <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
+@@ -464,6 +465,23 @@
+               </artifactItems>
+             </configuration>
+           </execution>
++          <!-- provide jetty-runner -->
++          <execution>
++            <phase>package</phase>
++            <goals>
++              <goal>copy</goal>
++            </goals>
++            <configuration>
++              <artifactItems>
++                <artifactItem>
++                  <groupId>org.eclipse.jetty</groupId>
++                  <artifactId>jetty-runner</artifactId>
++                  <version>${jetty-runner.version}</version>
++                  <destFileName>jetty-runner.jar</destFileName>
++                </artifactItem>
++              </artifactItems>
++            </configuration>
++          </execution>
+         </executions>
+       </plugin>
+       <!-- configure eclipse web tools platform (WTP) -->
