@@ -5,7 +5,7 @@
 
 pkgname=feishin
 pkgver=1.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A modern self-hosted music player.'
 arch=('any')
 url='https://github.com/jeffvli/feishin'
@@ -29,6 +29,7 @@ prepare() {
 	sed -i 's|Exec=.*|Exec=/usr/bin/feishin %U|' feishin.desktop.tmpl
 	sed -i 's|TryExec=.*|TryExec=/usr/bin/feishin|' feishin.desktop.tmpl
 	sed -i 's|Icon=.*|Icon=feishin|' feishin.desktop.tmpl
+	sed -i 's|org.jeffvli.feishin.desktop|feishin.desktop|' org.jeffvli.feishin.metainfo.xml
 
 	# add support for pnpm v11
 	# https://github.com/jeffvli/feishin/pull/2056
@@ -63,6 +64,7 @@ package() {
 	install -Dm644 dist/linux-unpacked/resources/app.asar -t "$pkgdir/usr/lib/$pkgname"
 	cp -r dist/linux-unpacked/resources/assets "$pkgdir/usr/lib/$pkgname/"
 	install -Dm644 feishin.desktop.tmpl "$pkgdir/usr/share/applications/$pkgname.desktop"
+	install -Dm644 org.jeffvli.feishin.metainfo.xml -t "$pkgdir/usr/share/metainfo/"
 
 	for size in 16 24 32 48 64 72 96 128 256 512; do
 		install -d "$pkgdir/usr/share/icons/hicolor/${size}x${size}/apps"
