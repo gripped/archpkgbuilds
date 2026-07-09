@@ -2,8 +2,8 @@
 
 _hkgname=rio-prettyprint
 pkgname=haskell-rio-prettyprint
-pkgver=0.1.8.0
-pkgrel=109
+pkgver=0.1.9.0
+pkgrel=4
 pkgdesc="Pretty-printing for RIO"
 url="https://github.com/commercialhaskell/rio-prettyprint"
 license=('MIT')
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-annotated-wl-pprint' 'haskell-ansi-
          'haskell-colour' 'haskell-path' 'haskell-rio')
 makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('fcbf527be422e0721bce571c1eaff51566d8d8dd874ddb2bd0d429e163238b4c3eac78edede1e966f8336baf6c2784e32d12e90d917e55a42806f37738dc3ec9')
+sha512sums=('21bdf8bb3245335c89093e9f153f8a5025ac528949d4708cea80a1abf536ff0b3605c091024600dc77c2a3b11c67fd7d57bc78442cfdb248c8aa906fccf2d1a5')
 
 prepare() {
     cd $_hkgname-$pkgver
