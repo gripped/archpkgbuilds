@@ -2,38 +2,33 @@
 
 pkgname=python-promise
 pkgver=2.3.0
-pkgrel=9
+pkgrel=10
 pkgdesc='Ultra-performant Promise implementation in Python'
 url=https://github.com/syrusakbary/promise
 arch=(any)
 license=(MIT)
 depends=(
+  python
+  python-gevent
   python-six
 )
 makedepends=(
   git
+  python-build
+  python-installer
   python-setuptools
+  python-wheel
 )
-source=(git+https://github.com/syrusakbary/promise.git#tag=ad8ebe68cd9c9686793e3449457f175a0fe43226)
-sha256sums=(SKIP)
-
-pkgver() {
-  cd promise
-
-  git describe --tags | sed 's/^v//'
-}
+source=(git+https://github.com/syrusakbary/promise.git#tag=v${pkgver})
+b2sums=('9497a3787d2c12bb6882378d9f7f5b72926b365ae20a2d96b728973728e47fdc48ede437f5cfeea23faa335f74dc4045aa07794a81c2ec442a73e205233c34a8')
 
 build() {
   cd promise
-
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd promise
-
-  python setup.py install --prefix=/usr --root="${pkgdir}" --optimize=1
+  python -m installer --destdir="${pkgdir}" dist/*.whl
   install -Dm 644 LICENSE -t "${pkgdir}"/usr/share/licenses/python-promise/
 }
-
-# vim: ts=2 sw=2 et:
