@@ -1,8 +1,11 @@
 --- a/pyproject.toml
 +++ b/pyproject.toml
-@@ -116,4 +116,4 @@ timeout = 5
+@@ -114,7 +114,7 @@ timeout = 5
  log_level = "DEBUG"
  python_files = ["test_*.py"]
  testpaths = ["tests"]
 -addopts = "-v --tb=short -rxs -W=error --durations=0 --cov=shtab --cov-report=term-missing --cov-report=xml"
 +addopts = "-v --tb=short -rxs -W=error --durations=0"
+ 
+ [tool.coverage.run]
+ branch = true

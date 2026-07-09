@@ -2,32 +2,32 @@
 # Contributor: SZanko, szanko at protonmail dot com
 
 pkgname=python-shtab
-pkgver=1.8.0
-pkgrel=2
+pkgver=1.8.1
+pkgrel=1
 pkgdesc='Automagic shell tab completion for Python CLI applications'
-arch=('any')
+arch=(any)
 url='https://github.com/iterative/shtab'
-license=('Apache-2.0')
-depends=('python')
+license=(Apache-2.0)
+depends=(python)
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-wheel'
-  'python-setuptools-scm'
+  git
+  python-build
+  python-installer
+  python-wheel
+  python-setuptools-scm
 )
 checkdepends=(
-  'python-pytest'
-  'python-pytest-timeout'
+  python-pytest
+  python-pytest-timeout
 )
 source=(
   "$pkgname::git+$url#tag=v$pkgver"
-  'remove-cov.patch'
+  remove-cov.patch
 )
-sha512sums=('163371b7985cf08b048c1156b102036e05a3cae84e37dd5e84fdaf53e1a8717d1cbb1d5ab28313b425e9722fa113d32b7aed6051639dc64c92b290f3ff215b13'
-            'c1390c0c1140ed701a56394b44bc5a0497901811cfbc7b6185f964b773db7851a13c745fe8122705ee74bbcdb3ce7ff5e19a5b8cfcf20df6e32b28f0887cb18a')
-b2sums=('1d75e2b9a7f70d46375339997254594afce9db467c8c1c249b7f37c8252e71f8b57d3be26f3fbaa63555b2cb9c82f16abbd1f07a59f8507275b946d21dc26faf'
-        '3d265e70111506165beddf031af0efb01ca62bd2d0b41af04e74f175db8b9fec6e1b31ad5dbba5d001d53d48313e581b3bbfa4d2ba7d1094cb983521a5b3c1d2')
+sha512sums=('fdaaefc105e60a0c4d9f6dc1236fb4d5765f6c5b60595a4d0484e73383028f8e7d922c230efbc063c45900f8690a489b7f5a87317f45cacf5f8d2fe171815e76'
+            '3882aa428baf71962a07a78b7f4093bd72f132ac925c9df1b762a2c9039f897a9351f0ee63e0d7c3a5dbb483eeea3061f4eae40c81f61968d03cf1717e9cbd95')
+b2sums=('c0d31b2aff2035afbb404dab619004fc526058ff93353c8495c64f1b8dfd44fdf8da55601af5b67adf78167b6a48938283cbb19190b7bf6d892b805755bc9dcf'
+        '34be5c86be092fbdf124f011f8179b637c815af89b21d0ea5bab72fbddffe907dc30f91435c5f1d889dea4ea13c3554e7d63bcd73e36eab6cf205f6815e214c0')
 
 prepare() {
   cd "$pkgname"
@@ -40,12 +40,10 @@ build() {
 
   SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --no-isolation
 
+  # temporary install
+  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-
-  # install to temporary directory
-  python -m installer --destdir="$PWD/tmp_install" dist/*.whl
-
-  export PYTHONPATH="$PWD/tmp_install$site_packages"
+  export PYTHONPATH="$(pwd)/tmp/$site_packages"
 
   # generate shell completions
   for shell in bash zsh; do
