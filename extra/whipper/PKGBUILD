@@ -10,61 +10,101 @@
 
 pkgname=whipper
 pkgver=0.10.0
-pkgrel=8
-pkgdesc="Python CD-DA ripper preferring accuracy over speed"
+pkgrel=9
+pkgdesc='Python CD-DA ripper preferring accuracy over speed'
 arch=(x86_64)
-url="https://github.com/whipper-team/whipper"
-license=("GPL-3.0-or-later")
+url='https://github.com/whipper-team/whipper'
+license=(GPL-3.0-or-later)
 depends=(
   cdrdao
   flac
   libcdio-paranoia
   libsndfile
+  python
   python-discid
-  python-gobject
   python-musicbrainzngs
   python-mutagen
   python-pycdio
   python-ruamel-yaml
-  python-setuptools
+  python-packaging
   sox
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-setuptools-scm
+  python-wheel
+  python-docutils
 )
 checkdepends=(
   python-twisted
 )
-makedepends=(python-setuptools-scm python-docutils)
 optdepends=('python-pillow: cover art support')
 conflicts=(accuraterip-checksum)
 provides=(accuraterip-checksum)
-source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
-        whipper-ruamel.yaml-0.17.patch::https://github.com/whipper-team/whipper/pull/543.patch
-	test-fixup.patch)
-sha512sums=('728ad98185aa2d29f4fb215a597136691bb2c3590b3cac4f659238f90a3b4328c377fafe830a725b655f050538739f404b3eca853db4c39001d1b9d721dc7fd8'
-            '893e2f23717633971410e0f9917345eaec5af313d83702b36a2693b51eaf54d755d58db864de82e13e8506dc98ab548334d7ba6d02fd6c200bd0670e4bca73bf'
-            '64892c0ff09a933d88a58ff626bb784bfe672f1f99d5260b6c7a9de423ad09f9c2bd9c1d980ad4eb4c6957dae9b7876a11065d984a7b4adf2ea8cd4ef57108da')
+source=(
+  "$pkgname::git+$url#tag=v$pkgver"
+  test-fixup.patch
+)
+sha512sums=('2f24852cbc98dd3656a171e568f109c4d99e452833bf0e5e391ee49ce0fee580709d90f34d17a08d63eed09b00be5b095e8005f8191734a4a9cc052d4b7e9ef4'
+            'cbc76738dae1df98cb9a030ed32219208cf8d9ce0fc2b6fd082d44b5dc0343b05512d9f710d7eb37a4d5a8e54e8591e05543e99568f49aae06fff94cccc11eea')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
-  patch -p1 -i ../whipper-ruamel.yaml-0.17.patch
-  patch -p1 -i ../test-fixup.patch # tests depend on an external service... which can change test data
+  cd "$pkgname"
+
+  # Fixes a DeprecationWarning for ruamel_yaml>=0.17
+  #https://github.com/whipper-team/whipper/pull/543
+  git cherry-pick --no-commit e0942417a1c267781a8b676789730457dcb2e6fa
+
+  # tests depend on an external service... which can change test data
+  patch -p1 -i "$srcdir/test-fixup.patch"
+
+  # add man page for accuraterip-checksum
+  # https://github.com/whipper-team/whipper/pull/557
+  git cherry-pick --no-commit 9f7edca6b08ed532729670b13c30f36c97a3d58e
+
+  # remove dependency on gobject
+  # https://github.com/whipper-team/whipper/pull/561
+  git cherry-pick --no-commit \
+    1b1301378209a4cf46430e75e0897f7302d09e1a \
+    3c9fa49f30ec380502bf9bbdf44c356ca8345d41
+
+  # remove dependency on pkg_resources
+  #https://github.com/whipper-team/whipper/pull/659
+  git cherry-pick --no-commit adab25986f38d1bf5e8766f6b0f301c1acf2ec49
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
-  echo "Version: ${pkgver}" > PKG-INFO
-  python setup.py build
-  cd man
-  make
+  cd "$pkgname"
+
+  export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
+
+  python -m build --wheel --no-isolation
+
+  # generate man pages
+  make -C man
 }
 
 check() {
-  cd ${pkgname}-${pkgver}
-  local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
-  PYTHONPATH="build/lib.linux-${CARCH}-cpython-${python_version}/" python -m unittest discover
+  cd "$pkgname"
+
+  # temporary install
+  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$(pwd)/tmp/$site_packages"
+
+  python -m unittest discover
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
-  install -Dm644 -t "${pkgdir}"/usr/share/man/man1/ man/*.1
+  depends+=(glibc)
+
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # install man pages
+  install -Dm644 -t "${pkgdir}/usr/share/man/man1" man/*.1
 }
