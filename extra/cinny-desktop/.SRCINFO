@@ -1,14 +1,13 @@
 pkgbase = cinny-desktop
 	pkgdesc = Matrix client focusing primarily on a simple, elegant and secure interface.
-	pkgver = 4.12.2
-	pkgrel = 2
+	pkgver = 4.12.5
+	pkgrel = 1
 	url = https://cinny.in/
 	arch = x86_64
 	license = AGPL-3.0-only
 	makedepends = nodejs
 	makedepends = npm
 	makedepends = rust
-	makedepends = git
 	depends = dbus
 	depends = glibc
 	depends = gst-plugins-good
@@ -24,13 +23,10 @@ pkgbase = cinny-desktop
 	depends = libsoup3
 	depends = pango
 	depends = webkit2gtk-4.1
-	source = git+https://github.com/cinnyapp/cinny-desktop.git#tag=v4.12.2
-	source = git+https://github.com/cinnyapp/cinny.git#tag=v4.12.2
+	options = !lto
+	source = https://github.com/cinnyapp/cinny-desktop/releases/download/v4.12.5/cinny-desktop-v4.12.5.zip
 	source = disable-updater.patch
-	source = update-cargo-lock.patch
-	sha256sums = 538e09709f9f750707c259441225597624e99c0b1dc1399f15bff8d837a8a3b2
-	sha256sums = ae32fd9d80b30a8c631554a2e9e9c4fbd6b05c1cf721d763ada21fd00746e457
-	sha256sums = d3487cf020ab86bb97dba5b767bb998516acafe15935be57c91f427ecd12b522
-	sha256sums = 0efc7f458d14d7925e2cccace9c6ba374a1121f55e47f2fa550c04629d29314e
+	sha256sums = 1eac5c62619ad424d48ba8a72928c5858ebc7dc3293aa861b0f2a789672f3555
+	sha256sums = 6e22ff3aeb9ccb9f9a68511187ea2d461060d3d2772715905fed6d0c102839ae
 
 pkgname = cinny-desktop

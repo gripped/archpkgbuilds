@@ -3,8 +3,8 @@
 # Contributor: Jef Roosens
 
 pkgname=cinny-desktop
-pkgver=4.12.2
-pkgrel=2
+pkgver=4.12.5
+pkgrel=1
 pkgdesc='Matrix client focusing primarily on a simple, elegant and secure interface.'
 arch=('x86_64')
 url='https://cinny.in/'
@@ -16,31 +16,20 @@ depends=(
 	'cairo' 'desktop-file-utils' 'gdk-pixbuf2' 'glib2' 'gtk3'
 	'hicolor-icon-theme' 'libsoup3' 'pango' 'webkit2gtk-4.1'
 )
-makedepends=('nodejs' 'npm' 'rust' 'git')
+makedepends=('nodejs' 'npm' 'rust')
 source=(
-	"git+https://github.com/cinnyapp/$pkgname.git#tag=v$pkgver"
-	"git+https://github.com/cinnyapp/cinny.git#tag=v$pkgver"
+	"https://github.com/cinnyapp/$pkgname/releases/download/v$pkgver/$pkgname-v$pkgver.zip"
 	"disable-updater.patch"
-	"update-cargo-lock.patch"
 )
-sha256sums=('538e09709f9f750707c259441225597624e99c0b1dc1399f15bff8d837a8a3b2'
-            'ae32fd9d80b30a8c631554a2e9e9c4fbd6b05c1cf721d763ada21fd00746e457'
-            'd3487cf020ab86bb97dba5b767bb998516acafe15935be57c91f427ecd12b522'
-            '0efc7f458d14d7925e2cccace9c6ba374a1121f55e47f2fa550c04629d29314e')
+sha256sums=('1eac5c62619ad424d48ba8a72928c5858ebc7dc3293aa861b0f2a789672f3555'
+	'6e22ff3aeb9ccb9f9a68511187ea2d461060d3d2772715905fed6d0c102839ae')
+options=('!lto') # 'ring' crate does not compile with LTO enabled
 
 prepare() {
 	cd $pkgname
 
-	git submodule init
-	git config submodule.cinny.url "$srcdir/cinny"
-	git -c protocol.file.allow=always submodule update --init --recursive
-
-	# disable the auto-updater
-	patch -p1 -i ../disable-updater.patch
-
-	# The Cargo.lock does not match the Cargo.toml
-	# https://github.com/cinnyapp/cinny-desktop/pull/588
-	patch -p1 -i ../update-cargo-lock.patch
+	# Don’t try to sign the Appimage that we don’t build.
+	patch -Np1 -i ../disable-updater.patch
 
 	npm ci
 
@@ -53,12 +42,12 @@ prepare() {
 
 build() {
 	cd $pkgname
-	npm run tauri build -- --bundles deb
+	npm run tauri build -- --bundles deb -- --frozen --no-default-features --features custom-protocol
 }
 
 package() {
 	cd $pkgname
-	
+
 	case "$CARCH" in
 	aarch64) pkgarch="arm64" ;;
 	x86_64) pkgarch="amd64" ;;
