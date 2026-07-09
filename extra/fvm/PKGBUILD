@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=fvm
-pkgver=4.1.0
+pkgver=4.1.2
 pkgrel=1
 pkgdesc="Flutter Version Management: A simple CLI to manage Flutter SDK versions."
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('git' 'glibc' 'unzip')
 makedepends=('dart')
 source=("git+https://github.com/leoafarias/${pkgname}.git#tag=${pkgver}")
-sha256sums=('ecea063bfb8797f98b5dbe661b656d648a41e13ce2f4bad10a6aa7eeaf574423')
+sha256sums=('8cb343888ca05404cbe74d8b91b3648fde4cc264013878bdf55bbb9a805100f5')
 options=('!strip' '!debug')
 
 prepare() {
@@ -29,10 +29,10 @@ build() {
 	dart compile exe main.dart -o "${pkgname}"
 }
 
-# check() {
-# 	cd "${pkgname}/"
-# 	dart test
-# }
+check() {
+	cd "${pkgname}/"
+	dart test
+}
 
 package() {
 	cd "${pkgname}/"
