@@ -4,13 +4,13 @@
 
 pkgname=libfprint
 pkgver=1.94.10
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for fingerprint readers"
 url="https://fprint.freedesktop.org/"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
-  gcc-libs
+  libgcc
   glib2
   glibc
   libgudev
@@ -42,6 +42,9 @@ validpgpkeys=(
 
 prepare() {
   cd $pkgname
+
+  # backport https://gitlab.freedesktop.org/libfprint/libfprint/-/merge_requests/566
+  git cherry-pick -n 2c7842c905147a2d127c1b168b2e9d432b8c91a4
 }
 
 build() {
