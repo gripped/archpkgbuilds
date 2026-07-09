@@ -7,7 +7,7 @@ pkgname=(
   eog
   eog-docs
 )
-pkgver=50.1
+pkgver=50.2
 pkgrel=1
 pkgdesc="Eye of Gnome: An image viewing and cataloging program"
 url="https://gitlab.gnome.org/GNOME/eog"
@@ -45,7 +45,7 @@ makedepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/eog.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('25bc003422f201c96a9238103b807fc14c82ff5ac79149235ea279a870d16b2b13f3c3f864420ed758a0774a12a68fa140a2f4463460287a186a49bdc6c7af2a')
+b2sums=('575a1bf3a69d706cd633a9dc7f56634d86dd415928a41928f2a01a41a80c1f0b99b76ee0e30d8f190cc74d12ad63d2407c3a7f5e674df0e1667034e83e63a660')
 
 prepare() {
   cd $pkgname
