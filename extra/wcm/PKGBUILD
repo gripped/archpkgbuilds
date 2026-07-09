@@ -3,7 +3,7 @@
 
 pkgname=wcm
 pkgver=0.10.0
-pkgrel=3
+pkgrel=4
 pkgdesc='GTK application to configure Wayfire'
 arch=(x86_64)
 url='https://github.com/WayfireWM/wcm'
@@ -35,6 +35,14 @@ makedepends=(
 optdepends=('wdisplays: Display configuration tool')
 source=("git+https://github.com/WayfireWM/wcm.git#tag=v$pkgver")
 b2sums=(b76e5467d02cc5926ae7efe300c6d017aa9a0410b2c720e16ebb53fce03560c111ab9e664f4e164881bee2c1237d45e14c5b8ab18ddc0265e319f718867985a5)
+
+prepare() {
+  cd $pkgname
+
+  # Install wcm.svg to the expected location
+  # https://github.com/WayfireWM/wcm/pull/118
+  sed -i "s/join_paths(share_dir, 'icons')/join_paths(share_dir, 'icons', 'hicolor', 'scalable', 'apps')/" icons/desktop/meson.build
+}
 
 build() {
   arch-meson $pkgname build
