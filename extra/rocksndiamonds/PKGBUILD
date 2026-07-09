@@ -2,8 +2,8 @@
 # Contributor: Jacek Poplawski <jacekpoplawski@gmail.com>
 
 pkgname=rocksndiamonds
-pkgver=4.4.2.1
-pkgrel=1
+pkgver=4.4.2.3
+pkgrel=2
 pkgdesc="game similiar to Boulderdash with lots of levels"
 arch=(x86_64)
 url="https://www.artsoft.org/rocksndiamonds/"
@@ -11,7 +11,7 @@ license=('GPL-2.0-only')
 depends=('sdl2' 'sdl2_image' 'sdl2_mixer' 'sdl2_net')
 source=(https://www.artsoft.org/RELEASES/linux/rocksndiamonds/rocksndiamonds-$pkgver-linux.tar.gz
 	rocksndiamonds.desktop)
-sha256sums=('6e921aab593ef70279403337ed63fc5ed7d30df3b5bce217bf051bc7dae02e9c'
+sha256sums=('138e48374e4fa9e323d75e729261e4aad8fc2a9536359c7c0210b80b518c766a'
             'f92b604abeeda66aa28d06ae2d8b0ea89aedfd7686d3f8c73d8c0b05ad039439')
 
 build() {
@@ -35,6 +35,6 @@ package() {
   install -d "$pkgdir"/usr/share/doc/$pkgname/
   cp -a docs/elements "$pkgdir"/usr/share/doc/$pkgname/
 
-  install -Dm0644 build-projects/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png "$pkgdir"/usr/share/pixmaps/$pkgname.png
+  install -Dm0644 graphics/gfx_classic/icons/icon.png "$pkgdir"/usr/share/icons/hicolor/128x128/apps/$pkgname.png
   install -Dm0644 "$srcdir"/rocksndiamonds.desktop "$pkgdir"/usr/share/applications/rocksndiamonds.desktop
 }
