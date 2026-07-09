@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=minizip-ng
-pkgver=4.2.1
+pkgver=4.2.2
 pkgrel=1
 pkgdesc='Fork of the popular zip manipulation library found in the zlib distribution'
 arch=(x86_64)
@@ -16,7 +16,7 @@ depends=(bzip2
 makedepends=(cmake
              git)
 source=(git+https://github.com/zlib-ng/minizip-ng#tag=$pkgver)
-sha256sums=('da20601295d9401bf13e44c12f79d71185c08023b113818c5d348aea33405081')
+sha256sums=('3564e2aa171fb6556607d5c08c753c78e488c8e9342c166901f445f5415ed05b')
 
 build() {
   cmake -B build -S $pkgname \
