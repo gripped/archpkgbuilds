@@ -1,0 +1,13 @@
+diff --git a/numba_cuda/numba/cuda/np/arrayobj.py b/numba_cuda/numba/cuda/np/arrayobj.py
+index 299810d..3587683 100644
+--- a/numba_cuda/numba/cuda/np/arrayobj.py
++++ b/numba_cuda/numba/cuda/np/arrayobj.py
+@@ -6856,7 +6856,7 @@ def impl_np_vstack(tup):
+         return impl
+ 
+ 
+-if numpy_version >= (2, 0):
++if numpy_version >= (2, 0) and numpy_version < (2, 5):
+     overload(np.row_stack)(impl_np_vstack)
+ 
+ 

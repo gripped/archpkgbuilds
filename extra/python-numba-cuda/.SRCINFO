@@ -1,7 +1,7 @@
 pkgbase = python-numba-cuda
 	pkgdesc = The CUDA target for Numba
-	pkgver = 0.30.2
-	pkgrel = 1
+	pkgver = 0.30.4
+	pkgrel = 2
 	url = https://github.com/NVIDIA/numba-cuda
 	arch = x86_64
 	license = BSD-2-Clause
@@ -23,7 +23,9 @@ pkgbase = python-numba-cuda
 	depends = python-yaml
 	optdepends = python-colorama: colors in error messages
 	optdepends = python-pygments: syntax highlighting in code dumps
-	source = python-numba-cuda-0.30.2.tar.gz::https://github.com/NVIDIA/numba-cuda/archive/refs/tags/v0.30.2.tar.gz
-	b2sums = ee16160ab96070c6156ef34f04b5a73e13e4e1ba3a94a13e1bb4c61cc7399155f1dbd61ee5a1068ed053e325550ae7f8c7a616d51c348baee4bb78ca76a5ec14
+	source = python-numba-cuda-0.30.4.tar.gz::https://github.com/NVIDIA/numba-cuda/archive/refs/tags/v0.30.4.tar.gz
+	source = numpy-2.5.patch
+	b2sums = ded684c78233d7e2ab33f64601f25ddc37527896034eec0b6429e89afecc13ea2d2b05ffa6abbad343ccaa34406ee3b2672b72ad2793b894d3704e6277a2eafc
+	b2sums = cf7cd4d1a36c12fb0ae845438b455353723fc1caf0e9f449463e938d1cfeeda851a66510fec5f03e4d36b888b9f427f92f8038a3843553b0c2a0e59805ba2fca
 
 pkgname = python-numba-cuda
