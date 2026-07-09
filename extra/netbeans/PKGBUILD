@@ -5,7 +5,7 @@
 # Contributor: Alexander F. Rødseth <xyproto@archlinux.org>
 
 pkgname=netbeans
-pkgver=26
+pkgver=30
 pkgrel=1
 pkgdesc='IDE for Java, HTML5, PHP, Groovy, C and C++'
 arch=('any')
@@ -13,7 +13,7 @@ url='https://netbeans.apache.org/'
 license=('Apache')
 # classpath is not needed, see FS#38567 (Oracle JDK does not need atk either)
 # check project readme for JDK requirements (build and run is usually the same)
-depends=('ttf-font' 'which' 'java-environment>=17')
+depends=('ttf-font' 'which' 'java-environment>=21')
 makedepends=('ant' 'git')
 optdepends=('php: for developing programs in php'
             'groovy: for developing programs in groovy'
@@ -23,7 +23,7 @@ source=("netbeans.desktop"
         "https://archive.apache.org/dist/netbeans/netbeans/${pkgver}/netbeans-${pkgver}-source.zip"{,.asc}
         "netbeans")
 sha256sums=('2b0e1624f3578e47a4357b038832eafa333139654448d931dbc3febd2730befe'
-            '84bd3dbc477ef3c1c01da33f0140dd8b11855d5b0188ea8b650877138782276b'
+            '707422e8b60835ea832a9630da85d508e77f8115f4f17491301965e2b43a1586'
             'SKIP'
             'bf66bbc99d5af44f9ce940332260416042fec7378a3f18c80c4dc144a9cf4d0a')
 # See also https://downloads.apache.org/netbeans/KEYS
@@ -78,8 +78,14 @@ package() {
 
   # Desktop shortcut and icon
   install -Dm644 "${srcdir}/$pkgname.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
-  install -Dm644 "nb/ide.branding/release/apache-netbeans256.png" "${pkgdir}/usr/share/pixmaps/${pkgname}.png"
-  install -Dm644 "nb/ide.branding/release/apache-netbeans.svg" "${pkgdir}/usr/share/pixmaps/${pkgname}.svg"
+  install -Dm644 "nb/ide.branding/release/apache-netbeans.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/${pkgname}.svg"
+
+  for _size in 48 256 512; do
+    install -Dm644 "nb/ide.branding/release/apache-netbeans${_size}.png" "${pkgdir}/usr/share/icons/hicolor/${_size}x${_size}/apps/${pkgname}.png"
+  done
+
+  # Set StartupWMClass to match the main window with the desktop file
+  echo "StartupWMClass=Apache NetBeans IDE $pkgver" >> "${pkgdir}/usr/share/applications/${pkgname}.desktop"
 
   # I'm leaving these as they seem to be necessary for building native
   # executables (see bug #66706). I'd like to ideally build them with our
