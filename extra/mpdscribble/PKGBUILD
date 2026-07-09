@@ -6,17 +6,17 @@
 # Contributor: Luiz Ribeiro <luizribeiro@gmail.com>
 
 pkgname=mpdscribble
-pkgver=0.25
-pkgrel=2
+pkgver=0.26
+pkgrel=1
 pkgdesc='MPD client which submits track info to {Libre,Last}.fm'
 url='https://www.musicpd.org/clients/mpdscribble/'
 arch=('x86_64')
 license=('GPL-2.0-only')
-depends=('curl' 'libmpdclient')
+depends=('curl' 'fmt' 'libmpdclient')
 makedepends=('boost' 'git' 'systemd' 'meson' 'ninja')
 install=mpdscribble.install
 source=(git+https://github.com/MusicPlayerDaemon/mpdscribble.git?signed#tag=v${pkgver})
-sha256sums=('4c8b28ca0250f4ff86c1231bdf6486f7ec06ab91b3d0adefb10e25acac595ed6')
+sha256sums=('8f1fc828d0e1f1a3468237536373658eb2faae99f64494bc42727c8099e54e04')
 validpgpkeys=('0392335A78083894A4301C43236E8A58C6DB4512') # Max Kellermann <max@musicpd.org>
 
 build() {
