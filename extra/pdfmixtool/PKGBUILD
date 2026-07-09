@@ -4,7 +4,7 @@
 
 pkgname=pdfmixtool
 pkgver=1.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Application to split, merge, rotate and mix PDF files"
 arch=('x86_64')
 url="https://scarpetta.eu/${pkgname}"
