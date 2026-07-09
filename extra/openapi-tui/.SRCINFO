@@ -1,13 +1,14 @@
 pkgbase = openapi-tui
 	pkgdesc = Terminal UI to list, browse and run APIs defined with OpenAPI spec
 	pkgver = 0.10.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/zaghaghi/openapi-tui
 	arch = x86_64
 	license = MIT
 	makedepends = cargo
-	depends = gcc-libs
-	options = !lto
+	depends = libgcc
+	depends = oniguruma
+	depends = openssl
 	source = openapi-tui-0.10.2.tar.gz::https://github.com/zaghaghi/openapi-tui/archive/0.10.2.tar.gz
 	sha256sums = e9ca7bc160ca6fdf50f7534318589fcb725564c05b81f40742e37a422f35a191
 
