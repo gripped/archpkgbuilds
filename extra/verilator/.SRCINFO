@@ -1,6 +1,6 @@
 pkgbase = verilator
 	pkgdesc = The fastest free Verilog HDL simulator
-	pkgver = 5.048
+	pkgver = 5.050
 	pkgrel = 1
 	url = https://www.veripool.org/verilator/
 	arch = x86_64
@@ -12,8 +12,10 @@ pkgbase = verilator
 	makedepends = systemc
 	depends = perl
 	depends = python
+	depends = lz4
+	depends = zlib
 	optdepends = systemc
-	source = git+https://github.com/verilator/verilator.git#tag=v5.048
-	sha512sums = 80be8e9bbac921d4a8e04cd10299af19852da8e6ec4b46009deba071a010d5561a86552fb1bb06d02037255ab5f1d11a4ac6e108b37cd8504c142e852e26d271
+	source = git+https://github.com/verilator/verilator.git#tag=v5.050
+	sha512sums = 714a09997697938221f7e0bbaef058b28b43224412c18991d8cca7507f86004a6ac1a3ec3bfac750f30c5c636fe78bdfaa17b298246ab2d539db0dde77f4bcc1
 
 pkgname = verilator

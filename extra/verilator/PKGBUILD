@@ -3,18 +3,18 @@
 # Contributor: Jeffrey Tolar <tolar.jeffrey at gmail dot com>
 
 pkgname=verilator
-pkgver=5.048
+pkgver=5.050
 pkgrel=1
 pkgdesc='The fastest free Verilog HDL simulator'
 url='https://www.veripool.org/verilator/'
 arch=('x86_64')
 license=('LGPL-3.0-only' 'Artistic-2.0')
-depends=('perl' 'python')
+depends=('perl' 'python' 'lz4' 'zlib')
 optdepends=('systemc')
 makedepends=('git' 'help2man' 'systemc')
 checkdepends=('python-distro')
 source=("git+https://github.com/verilator/verilator.git#tag=v$pkgver")
-sha512sums=('80be8e9bbac921d4a8e04cd10299af19852da8e6ec4b46009deba071a010d5561a86552fb1bb06d02037255ab5f1d11a4ac6e108b37cd8504c142e852e26d271')
+sha512sums=('714a09997697938221f7e0bbaef058b28b43224412c18991d8cca7507f86004a6ac1a3ec3bfac750f30c5c636fe78bdfaa17b298246ab2d539db0dde77f4bcc1')
 
 prepare() {
   cd verilator
