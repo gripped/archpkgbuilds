@@ -2,16 +2,16 @@
 
 _hkgname=vector-space
 pkgname=haskell-vector-space
-pkgver=0.16
-pkgrel=182
+pkgver=0.19
+pkgrel=9
 pkgdesc="Vector & affine spaces, linear maps, and derivatives"
 url="https://github.com/conal/vector-space.git"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-boolean' 'haskell-memotrie' 'haskell-numinstances')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('0c0b2f1209f95045865b968c7aa0a25e155410b3e08cf98a6c8544e48436c79c')
+sha256sums=('8917d1041232165f090c9200af07dd98e793fb89e2e0bc0a83ea900f309feb25')
 
 build() {
   cd $_hkgname-$pkgver
