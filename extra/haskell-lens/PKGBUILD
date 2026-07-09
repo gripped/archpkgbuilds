@@ -3,8 +3,8 @@
 
 _hkgname=lens
 pkgname=haskell-lens
-pkgver=5.3.4
-pkgrel=38
+pkgver=5.3.5
+pkgrel=12
 pkgdesc="Lenses, Folds and Traversals"
 url="https://github.com/ekmett/lens/"
 license=('BSD-2-Clause')
@@ -16,11 +16,15 @@ depends=('ghc-libs' 'haskell-assoc' 'haskell-base-orphans' 'haskell-bifunctors'
          'haskell-profunctors' 'haskell-reflection' 'haskell-semigroupoids' 'haskell-strict'
          'haskell-tagged' 'haskell-th-abstraction' 'haskell-these'
          'haskell-transformers-compat' 'haskell-unordered-containers' 'haskell-vector')
-makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-simple-reflect'
-             'haskell-test-framework' 'haskell-test-framework-hunit'
-             'haskell-test-framework-quickcheck2')
+makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-simple-reflect' 'haskell-tasty'
+             'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('d12802e728a0ee86eb33b08cf29bffd8abe0aee1ba60f82b1ba6ea6f5ee0c0c9b58f716f9095515deaf0b45ecc02df660e6e0aec6cdaffa690fd6d95ff91f9db')
+sha512sums=('d5c683861db5543fca53f631a5c4bb9cfc6964f34240a4b4d34eaa345e38f1b0007cde92bacca4158d48529c44940b7d227d3b0acb2452378342238fd82c4adc')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u parallel
+}
 
 build() {
     cd $_hkgname-$pkgver
