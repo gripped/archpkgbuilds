@@ -2,11 +2,11 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-fsspec
-pkgver=2026.4.0
+pkgver=2026.6.0
 pkgrel=1
-pkgdesc="Specification that python filesystems should adhere to"
+pkgdesc='Specification that python filesystems should adhere to'
 arch=(any)
-url="https://github.com/intake/filesystem_spec"
+url='https://github.com/intake/filesystem_spec'
 license=(BSD-3-Clause)
 depends=(python)
 makedepends=(
@@ -60,7 +60,8 @@ optdepends=(
   'python-tqdm: progress bar support'
 )
 source=("$pkgname::git+$url.git#tag=$pkgver")
-b2sums=('7b42e43fcb05f5783780aa3d104e0d3a698097af8a5b7a91aab2a3c26f19ac6e298606cdd7251ec1004b8ca4dce5270f95518c3c1d31d9ab4dae0925e7bffc9b')
+sha512sums=('e34cbdf86d5d5281dd534c09326e1ed714b652685259c505ca9158708725ad1bbe89065679033676a288b1726c2aa1ab21c8420313c690d392694242f0ce2a95')
+b2sums=('8690f796c3a7b59f88ca1fd4ad3733abc643398723daa9ab4a97dce551556942d4e4b0392f9d85559fccc40a6e5ed36aef27e991781064aa8f0e1facb30bcf56')
 
 build() {
   cd $pkgname
