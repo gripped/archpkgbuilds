@@ -4,7 +4,7 @@
 
 pkgname=lapce
 pkgver=0.4.6
-pkgrel=2
+pkgrel=3
 pkgdesc='Lightning-fast and Powerful Code Editor'
 arch=(x86_64)
 url=https://lapce.dev
@@ -14,7 +14,6 @@ depends=(expat
          fontconfig
          freetype2
          glibc # libc.so libm.so
-         gtk3
          libgcc libgcc_s.so
          libgit2 libgit2.so
          libxcb
@@ -49,5 +48,6 @@ package() {
 	local lname=dev.lapce.lapce
 	install -Dm0644 -t "$pkgdir/usr/share/applications/" extra/linux/$lname.desktop
 	install -Dm0644 -t "$pkgdir/usr/share/metainfo/" extra/linux/$lname.metainfo.xml
+	install -Dm0644 extra/images/logo_color.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/$lname.svg"
 	install -Dm0644 extra/images/logo.png "$pkgdir/usr/share/pixmaps/$lname.png"
 }
