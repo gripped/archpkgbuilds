@@ -1,7 +1,7 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=markdownlint-sentences-per-line
-pkgver=0.1.3
+pkgver=0.1.4
 pkgrel=1
 pkgdesc='Markdownlint rule for limiting sentences per line'
 arch=(any)
@@ -18,7 +18,7 @@ optdepends=(
 )
 options=(!emptydirs)
 source=($url/archive/refs/tags/$pkgname@v$pkgver.tar.gz)
-b2sums=('1a312bd348dab1f20ae695a952151e2fd849240fd3e0ad5bee3593d6febd261b299702031dbf6a6c019f96a31729216ef1028889764632ce6abeee884f493a20')
+b2sums=('07b6a1f9b0787f839926c6fad9d9d8a0eb606723ae77f8e7724b90de25f9034409c1087d3cf3de616afc4c8385d0098525f09a129abd2055512751da0d327b05')
 
 prepare() {
   cd sentences-per-line-$pkgname-v$pkgver
