@@ -2,7 +2,7 @@
 
 pkgname=sugar-datastore
 pkgver=0.121
-pkgrel=4
+pkgrel=5
 pkgdesc='Sugar datastore service'
 arch=(x86_64)
 url='https://github.com/sugarlabs/sugar-datastore'
@@ -21,7 +21,12 @@ b2sums=(d740a4e0c3a1b9e0149e64cbbe60c78e5dde4ac492bd717a16cad09cf8d387e739955799
 
 prepare() {
   cd $pkgname
-  autoreconf -fi
+
+  # Fix compatibility with Xapian 2.0
+  # https://github.com/sugarlabs/sugar-datastore/pull/29
+  sed -i 's/self._database.flush()/self._database.commit()/' src/carquinyol/indexstore.py
+
+  autoreconf -fiv
 }
 
 build() {
