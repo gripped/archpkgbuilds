@@ -4,7 +4,7 @@
 
 pkgname=kstars
 pkgver=3.8.3
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='Desktop Planetarium'
 url='https://kstars.kde.org/'
@@ -46,14 +46,18 @@ makedepends=(eigen
              extra-cmake-modules
              kdoctools)
 optdepends=('xplanet: XPlanet support')
-source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig}
+        opencv-5.patch)
 sha256sums=('c5ecfef89587710231e4c93e4d4781ae17276d0344e2da97df54fd6ed86a19d5'
-            'SKIP')
+            'SKIP'
+            '19e6faac8ca7a108846b414009c95bdfb5b35627ea01827524625bf69e5c948a')
 validpgpkeys=(259D9FCEE9175351965633696D9CE2AEE028C4F3) # Jasem Mutlaq <mutlaqja@ikarustech.com>
 
 prepare() {
 # Fix data install dir
   sed -e 's|DATA_INSTALL_DIR|CMAKE_INSTALL_DATADIR|g' -i $pkgname-$pkgver/kstars/data/*/CMakeLists.txt
+# support OpenCV 5
+  patch -d $pkgname-$pkgver -p1 < opencv-5.patch
 }
 
 build() {
