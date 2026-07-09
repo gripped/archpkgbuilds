@@ -2,27 +2,28 @@
 
 _pkgname=cmdliner
 pkgname=ocaml-${_pkgname}
-pkgver=2.1.0
-pkgrel=2
+pkgver=2.1.1
+pkgrel=1
 pkgdesc="Declarative definition of command line interfaces for OCaml"
 arch=('x86_64')
 url="https://erratique.ch/software/cmdliner"
 license=('ISC')
 depends=('ocaml')
-makedepends=('ocaml-findlib' 'ocamlbuild' 'ocaml-topkg' 'dune')
+makedepends=('ocaml-findlib')
 options=('!strip')
 source=("https://erratique.ch/software/${_pkgname}/releases/${_pkgname}-${pkgver}.tbz")
-sha256sums=('8814c614cd43d52fd1ebc8af5a31d9125c214c498fa605660e4ed195ff8434e9')
+sha256sums=('05b938d1def4f54c478178f1982822834510431ed98f2ac67cb4d90aa120d6b6')
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
-  dune build --profile release
+  make all
 }
 
 package() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
-  DESTDIR="${pkgdir}" dune install --prefix "/usr" --libdir "/usr/lib/ocaml" --docdir "/usr/share/doc"
+  make install PREFIX=/usr DESTDIR="${pkgdir}"
+  make install-doc PREFIX=/usr DESTDIR="${pkgdir}"
 
   install -dm755 "${pkgdir}/usr/share/licenses/${pkgname}"
-  mv "${pkgdir}/usr/share/doc/$_pkgname/LICENSE.md" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md"
+  mv "${pkgdir}/usr/share/doc/${_pkgname}/LICENSE.md" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md"
 }
