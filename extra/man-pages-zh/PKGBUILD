@@ -4,7 +4,7 @@
 
 pkgbase=man-pages-zh
 pkgname=(man-pages-zh_cn man-pages-zh_tw)
-pkgver=1.6.4.3
+pkgver=1.6.4.4
 pkgrel=1
 arch=('any')
 url='https://github.com/man-pages-zh/manpages-zh'
@@ -12,7 +12,7 @@ license=('GFDL-1.2-or-later')
 depends=('man')
 makedepends=('cmake' 'opencc' 'python' 'git')
 source=("git+https://github.com/man-pages-zh/manpages-zh.git#tag=v$pkgver")
-sha512sums=('71f3aaa654ab0f9b570198dbb7df1e9e41540e79ef5a25f81956dabd65481bfe4a54caa42921e85cbc36b4d80ad9730e87a16ef672a916272776a476ce122d3d')
+sha512sums=('22dae8acc4af3942e795987baf437d551bed724c299ce0ec2fae5a72c17885d5191438c7c5745ca132071479d21ff4cd440f9cf9864a11f84c2bd024b3a36c58')
 
 build() {
   cmake -B build-cn -S manpages-zh \
