@@ -7,13 +7,13 @@
 
 pkgname=sweethome3d
 pkgver=7.5
-pkgrel=1
+pkgrel=2
 pkgdesc="An interior design application to draw the plan of your house in a 3D environment"
 arch=('x86_64')
 url="http://www.sweethome3d.com/"
 license=('GPL-2.0-or-later' 'LicenseRef-ThirdyParty')
 depends=('java-runtime' 'shared-mime-info' 'desktop-file-utils' 'libxext' 'libgl' 'libxrender' 'libnsl')
-makedepends=('java-environment<20' 'ant' 'strip-nondeterminism')
+makedepends=('java-environment<=25' 'ant' 'strip-nondeterminism')
 source=("SweetHome3D-${pkgver}-src.zip"::"https://downloads.sourceforge.net/${pkgname}/SweetHome3D-${pkgver}-src.zip"
         "${pkgname}.sh"
         "${pkgname}.desktop"
@@ -25,8 +25,15 @@ sha256sums=('735ce7c7b7291873432397b97ac341ef60499c1a47a108d64212c1ab91712c6d'
 install="${pkgname}.install"
 
 prepare() {
-  # Avoid the use of any Java 20-21, actually incompatible with the build
-  export JAVA_HOME="/usr/lib/jvm/$(archlinux-java status | tail -n +2 | sort | cut -d ' ' -f 3 | sort -nr -k 2 -t '-' | grep -vE '20-|21-' -m 1)"
+  # Avoid the use Java>=25, actually incompatible with the build
+  export JAVA_HOME="/usr/lib/jvm/$(
+    archlinux-java status |
+    tail -n +2 |
+    cut -d' ' -f3 |
+    awk -F'-' '$2 <= 25' |
+    sort -t'-' -k2,2nr |
+    head -n1
+  )"
 }
 
 build() {
@@ -45,8 +52,9 @@ package() {
   cd "SweetHome3D-${pkgver}-src"
   install -m 755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
   install -m 755 -t "${pkgdir}/usr/share/licenses/${pkgname}" THIRDPARTY-LICENSE-*
-  # Install icon
-  install -m 644 -D "deploy/SweetHome3DIcon48x48.png" "${pkgdir}/usr/share/pixmaps/${pkgname}.png"
+  # Install icons
+  install -m 644 -D "deploy/SweetHome3DIcon32x32.png" "${pkgdir}/usr/share/icons/hicolor/32x32/apps/${pkgname}.png"
+  install -m 644 -D "deploy/SweetHome3DIcon48x48.png" "${pkgdir}/usr/share/icons/hicolor/48x48/apps/${pkgname}.png"
   # Install main program and libraries
   install -m 755 -d "${pkgdir}/usr/share/java/${pkgname}"
   install -m 644 -t "${pkgdir}/usr/share/java/${pkgname}" build/*.jar
