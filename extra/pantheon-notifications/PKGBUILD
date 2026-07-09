@@ -2,20 +2,24 @@
 
 pkgname=pantheon-notifications
 pkgver=8.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Gtk Notifications Server'
 arch=(x86_64)
 url=https://github.com/elementary/notifications
-license=(GPL3)
+license=(GPL-3.0-only)
 groups=(pantheon)
 depends=(
+  dconf
+  gdk-pixbuf2
   glib2
-  gtk3
-  libadwaita-1.so
-  libcanberra.so
-  libcanberra-gtk3.so
-  libgranite-7.so
-  libhandy-1.so
+  glibc
+  granite7
+  gtk4
+  libadwaita
+  libcanberra
+  libgee
+  libx11
+  wayland
 )
 makedepends=(
   git
@@ -23,14 +27,8 @@ makedepends=(
   meson
   vala
 )
-_tag=0fbd2fb200dfac6489df8af1ca5b174abfe831cd
-source=(pantheon-notifications::git+https://github.com/elementary/notifications.git#tag=${_tag})
+source=(pantheon-notifications::git+https://github.com/elementary/notifications.git#tag=${pkgver})
 b2sums=('07c467754d292223d09d9f100b7f476f56942e7dcdca30f7f666847b29f12a64c7fe3e8799ebbf97332e4a4d86298dba705ae0d3d9744ee07c341d9a0107e541')
-
-pkgver() {
-  cd pantheon-notifications
-  git describe --tags
-}
 
 build() {
   arch-meson pantheon-notifications build
@@ -40,5 +38,3 @@ build() {
 package() {
   DESTDIR="${pkgdir}" ninja -C build install
 }
-
-# vim: ts=2 sw=2 et:
