@@ -3,8 +3,8 @@
 # Contributor: Frederik “Freso” S. Olesen <archlinux@freso.dk>
 
 pkgname=calcmysky
-pkgver=0.3.5
-pkgrel=3
+pkgver=0.4.0
+pkgrel=1
 pkgdesc="Simulator of light scattering by planetary atmospheres"
 arch=(x86_64)
 url="https://github.com/10110111/CalcMySky"
@@ -12,7 +12,7 @@ license=(GPL-3.0-or-later)
 depends=(glibc libgcc libstdc++ qt6-base)
 makedepends=(cmake eigen git glm vulkan-headers)
 source=(git+$url.git#tag=v$pkgver)
-sha512sums=('74484d4fa92e90490e63802607f2d8bf152037a3d7525415ddcef821f0a088d4fe5f40e4d08922d86a109c25e6fbc649e909f13de7f0f664aac32700cde62f95')
+sha512sums=('7eaba7ac45d6e1feb4da2bef878706c5115b40ea2ab890629ff12acaf05cfd859f9b52ff56f23bc58a8a7f35fe0a552959361bb12c80eff90aa825d85b77e412')
 
 build() {
   local cmake_options=(
