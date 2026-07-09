@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=flatpak-builder
-pkgver=1.4.9
+pkgver=1.4.10
 pkgrel=1
 pkgdesc="Tool to build flatpaks from source"
 url="https://flatpak.org"
@@ -43,17 +43,17 @@ replaces=('flatpak<0.9.10')
 source=(
   "git+https://github.com/flatpak/flatpak-builder#tag=$pkgver"
   "git+https://gitlab.gnome.org/GNOME/libglnx.git"
-  0001-Use-fusermount3.patch
+  0001-Support-versioned-fusermount.patch
 )
-b2sums=('4d8704691c85d0217332053d7e3f710a6b25816531784739ebf644218f499bc175453ff18ecfd89692b273886ce3b868f6e3e26c2f7d3afa2007c56a806cdfcf'
+b2sums=('98b7f80a8695f1643b50301bc774aefa981c18025ca8b34d34dcbf5235c4a9bef1c8ff8f27209418eb0e1d8265d5c14c7aae8d09273edaeea466b8c0ecbd9586'
         'SKIP'
-        'ed9714b1dabfdc637b88aebe67592d242bc57c63f7a7ce31203e9f92493adbc7abd475a3bab9f1600fefc27189b8299de5c5ec9143e5f802450b9abeb1c92c84')
+        '69fb620a631de9d9444b7a3fbc91f838b3b335dd55a0c9539ac881f3159e766d46866031ed43bffd7740417e8354dbd2753e4c46775fd57edad036f4865103b8')
 
 prepare() {
   cd $pkgname
 
   # https://bugs.archlinux.org/task/75649
-  git apply -3 ../0001-Use-fusermount3.patch
+  git apply -3 ../0001-Support-versioned-fusermount.patch
 
   git submodule init subprojects/libglnx
   git submodule set-url subprojects/libglnx "$srcdir/libglnx"
