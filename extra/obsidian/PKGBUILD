@@ -4,7 +4,7 @@
 
 pkgname=obsidian
 pkgver=1.12.7
-pkgrel=2
+pkgrel=3
 pkgdesc="A powerful knowledge base that works on top of a local folder of plain text Markdown files"
 arch=('x86_64' 'aarch64')
 url="https://obsidian.md"
@@ -41,7 +41,7 @@ package() {
     cd "${pkgname}-${pkgver}${_arch}"/resources/
     install -dm0755 "$pkgdir"/usr/lib/obsidian
     # install icon
-    install -Dm644 icon.png "$pkgdir"/usr/share/pixmaps/obsidian.png
+    install -Dm644 icon.png "$pkgdir"/usr/share/icons/hicolor/512x512/apps/obsidian.png
     find . -type d -exec install -d {,"$pkgdir"/usr/lib/obsidian/}{} \;
     find . -type f -exec install -D {,"$pkgdir"/usr/lib/obsidian/}{} \;
 
