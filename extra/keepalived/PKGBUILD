@@ -2,8 +2,8 @@
 # Contributor: Andrea Zucchelli <zukka77@gmail.com>
 
 pkgname=keepalived
-pkgver=2.3.4
-pkgrel=3
+pkgver=2.4.1
+pkgrel=1
 pkgdesc='Failover and monitoring daemon for LVS clusters'
 arch=('x86_64')
 url='https://www.keepalived.org/'
@@ -15,7 +15,7 @@ optdepends=('ipset: ipset support')
 makedepends=('git' 'ipset')
 options=('!emptydirs')
 source=("git+https://github.com/acassen/keepalived.git#tag=v${pkgver}")
-sha256sums=('60d7893465a698c7bc791b1bd6a5c818e6602c3381d04525102f6c941c4e24c8')
+sha256sums=('6e8b92d192a827674ee36d81d9d000e10ab6b6d7c7fc7d3e0738f84d7555b567')
 
 prepare() {
   cd "${pkgname}"
