@@ -4,7 +4,7 @@
 _hkgname=Agda
 pkgname=agda
 pkgver=2.6.4.3
-pkgrel=161
+pkgrel=174
 pkgdesc="A dependently typed functional programming language and proof assistant"
 url="https://wiki.portal.chalmers.se/agda/"
 license=("custom")
@@ -18,12 +18,13 @@ depends=('ghc-libs' 'ghc' 'haskell-stmonadtrans' 'haskell-aeson' 'haskell-ansi-t
          'haskell-uri-encode' 'haskell-vector' 'haskell-vector-hashtables' 'haskell-zlib'
          'haskell-text-icu')
 optdepends=('agda-stdlib: for standard library')
-makedepends=('alex' 'happy' 'ghc')
+makedepends=('alex' 'happy' 'ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha512sums=('d6246d1550b535a3f299cbbf8e38b5b44ee469cce089bbec1d6a62a2518bca2d2900a456d6df10a179d7064982ccdc5f38a1ffc53e327c0c4c060c09f8280488')
 
 prepare() {
     cd $_hkgname-$pkgver
+    uusi -u parallel
     sed -i '/fno-warn-overlapping-patterns/a \        , "-dynamic"' src/full/Agda/Compiler/MAlonzo/Compiler.hs
 }
 
