@@ -3,18 +3,19 @@
 
 _hkgname=doctest
 pkgname=haskell-doctest
-pkgver=0.22.4
-pkgrel=38
+pkgver=0.22.5
+pkgrel=29
 pkgdesc="Test interactive Haskell examples"
 url="https://github.com/sol/doctest"
 license=("MIT")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-ghc' 'haskell-syb' 'haskell-code-page' 'haskell-ghc-paths')
+depends=('ghc-libs' 'haskell-code-page' 'haskell-ghc' 'haskell-ghc-paths' 'haskell-syb'
+         'haskell-temporary')
 makedepends=('ghc')
 checkdepends=('haskell-hunit' 'haskell-hspec' 'haskell-hspec-core' 'haskell-hspec-discover'
               'haskell-quickcheck' 'haskell-stringbuilder' 'haskell-silently' 'haskell-mockery')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('9660216c9e09f6def96521b40546e151725ffdf77cf86cde26757b0949ef92c0ba431f18ff29dc54afffefc6eed24d400b44e82070b0495ad7c0a1876c7e9183')
+sha512sums=('40b9a2811a837a79ff26f84e9e05bf63c009aa25385fd5f32f6e56c82f553bf276ed815ef6aced3f98159da7e5576c82d97501d2f8c27d4c6c2dfc17e9666ffe')
 
 prepare() {
     # Add -dynamic flag
@@ -33,7 +34,8 @@ build() {
 
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
+        -fcabal-doctest
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
