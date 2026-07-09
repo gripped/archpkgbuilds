@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=element
-pkgver=1.0.0
-pkgrel=2
+pkgver=1.1.1
+pkgrel=1
 pkgdesc="A modular audio plugin host"
 arch=(x86_64)
 url="https://github.com/kushview/element"
@@ -34,7 +34,7 @@ makedepends=(
   libxinerama
   lv2
   ttf-roboto
-  webkit2gtk
+  webkit2gtk-4.1
   xorg-xrandr
 )
 # TODO: package sol2 for lua support
@@ -50,11 +50,11 @@ source=(
   git+https://github.com/free-audio/clap.git  # submodule of clap-juce-extensions
   git+https://github.com/free-audio/clap-helpers.git  # submodule of clap-juce-extensions
 )
-sha512sums=('288ecdfffe85edbfd5841e6323c347a574ebcba4f5c454f4825c7f249f4895487bedbca8093f67f6b187fe52f0120b3cd7eee22e978f224a7c163fe475e2babc'
+sha512sums=('fe81086ba158f833fac3ea979a9202fa733a81a2b75c114063237661715ca6b391624f84f259438f248a3ad5a319e739b5969abcef9438c235d424be1f24879d'
             'SKIP'
             'SKIP'
             'SKIP')
-b2sums=('78b7839e1274898775a3268a5b87b5e90f3cfe0ef59e1d31d0d94599d7633e030277c4e9d91da33bd7d6cb583e5f383fbc44569cb042c5052487ffa32a1444d7'
+b2sums=('50e17a0034a6ae64f618b1d947c7ca67535c06606643346dbda82ceae858234c427a6fb1c7d3432a388bc72d566c5766f9da0d9c5f625a040cb02bf3894875fd'
         'SKIP'
         'SKIP'
         'SKIP')
