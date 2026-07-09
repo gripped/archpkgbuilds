@@ -1,8 +1,9 @@
-# Maintainer: Konstantin Gizdov <arch at kge dot pw>
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+# Contributor: Konstantin Gizdov <arch at kge dot pw>
 
 _name=llvmlite
 pkgname=python-$_name
-pkgver=0.47.0
+pkgver=0.48.0
 pkgrel=1
 pkgdesc="A lightweight LLVM Python binding for writing JIT compilers"
 arch=(x86_64)
@@ -12,13 +13,13 @@ depends=(
     glibc
     libgcc
     libstdc++
-    llvm20-libs
+    llvm-libs
     python
 )
 makedepends=(
     cmake
     git
-    llvm20
+    llvm
     python-build
     python-installer
     python-setuptools-scm
@@ -28,11 +29,10 @@ checkdepends=(
     python-pytest
 )
 source=(git+https://github.com/numba/llvmlite.git#tag=v$pkgver)
-b2sums=('7d39be636d74e6c249d4983bf7be888fcf79bb046aae3305dc4bacf646735ab69783d79bc397b22067c0a78dacc48d4c3c7f80796ebbf2d3c8cdb273e43e58b9')
+b2sums=('9ef3a3ae9781d97109eefcf87a58739383adaefc157b8fa44672da583e4c747ea5d86312ec7cb119562dbc344bd6a145a0b18b26dd29a83b2e3b7bead44e3ea8')
 
 build() {
     cd $_name
-    export PATH="/usr/lib/llvm20/bin:$PATH"
     LLVMLITE_SHARED=ON python -m build --wheel --no-isolation
 }
 
