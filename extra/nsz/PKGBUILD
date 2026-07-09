@@ -2,39 +2,36 @@
 # Contributor: Michael Armbruster <michael@armbrust.me>
 
 pkgname=nsz
-pkgrel=4
 pkgver=4.6.1
+pkgrel=5
 pkgdesc='Nintendo Switch homebrew compatible NSP/XCI compressor/decompressor'
 arch=(any)
 url=https://github.com/nicoboss/nsz
 license=(MIT)
 depends=(
+  python
   python-enlighten
   python-pycryptodome
   python-zstandard
 )
 makedepends=(
   git
+  python-build
+  python-installer
   python-setuptools
+  python-wheel
 )
 optdepends=('python-kivy: GUI support')
-_tag=d84f7c813c3fe278104ff8877803f22028e57452
-source=(git+https://github.com/nicoboss/nsz.git#tag=${_tag})
+source=(git+https://github.com/nicoboss/nsz.git#tag=${pkgver})
 b2sums=(SKIP)
-
-pkgver() {
-  cd nsz
-  git describe --tags
-}
 
 build() {
   cd nsz
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd nsz
-  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+  install -Dm644 LICENSE -t "${pkgdir}"/usr/share/licenses/$pkgname
 }
-
-# vim: ts=2 sw=2 et:
