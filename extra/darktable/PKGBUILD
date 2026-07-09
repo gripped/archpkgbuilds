@@ -7,7 +7,7 @@
 
 pkgname=darktable
 epoch=2
-pkgver=5.4.1
+pkgver=5.6.0
 pkgrel=3
 pkgdesc='Utility to organize and develop raw images'
 arch=(x86_64)
@@ -32,14 +32,16 @@ depends=(colord-gtk
          openjpeg2
          openmp
          osm-gps-map
+         potrace
          pugixml
          zlib)
 optdepends=('dcraw: base curve script'
-            'perl-image-exiftool: base curve script'
-            'imagemagick: base curve and noise profile scripts'
             'ghostscript: noise profile script'
-            'portmidi: game and midi controller input devices'
-            'gnuplot: noise profile script')
+            'gnuplot: noise profile script'
+            'imagemagick: base curve and noise profile scripts'
+            'opencl-driver: hardware accelerated image processing'
+            'perl-image-exiftool: base curve script'
+            'portmidi: game and midi controller input devices')
 makedepends=(clang
              cmake
              desktop-file-utils
@@ -50,25 +52,28 @@ makedepends=(clang
              python-jsonschema)
 _archive="$pkgname-$pkgver"
 source=("$_url/releases/download/release-$pkgver/$_archive.tar.xz"{,.asc})
-sha256sums=('afdc7c88a338a8cd2fac31c8450d076edbf73e956e4307260c83ebc195f845e4'
+sha256sums=('157d6d3847af8afcabe78944454786f73a886e08a504b4bd6114c2065fe006e4'
             'SKIP')
 validpgpkeys=(C4CBC150699956E2A3268EF5BB5CC8295B1779C9  # darktable releases <release@darktable.org>
               F10F9686652B0E949FCD94C318DCA123F949BD3B) # Pascal Obry <pascal@obry.net>
 
 build() {
-    cmake -B build -S "$_archive" \
-        -D CMAKE_INSTALL_PREFIX=/usr \
-        -D CMAKE_INSTALL_LIBEXECDIR=/usr/lib \
-        -D CMAKE_BUILD_TYPE=Release \
-        -D BINARY_PACKAGE_BUILD=1 \
-        -D BUILD_USERMANUAL=False \
-        -D USE_LIBSECRET=ON \
-        -D USE_LUA=ON \
-        -D USE_COLORD=ON \
-        -D BUILD_CURVE_TOOLS=ON \
-        -D BUILD_NOISE_TOOLS=ON \
-        -D RAWSPEED_ENABLE_LTO=ON \
-        -D PROJECT_VERSION="$pkgver"
+    local cmake_flags=(
+        PROJECT_VERSION="$pkgver"
+        CMAKE_INSTALL_PREFIX=/usr
+        CMAKE_INSTALL_LIBEXECDIR=/usr/lib
+        CMAKE_BUILD_TYPE=Release
+        BINARY_PACKAGE_BUILD=1
+        USE_AI=On
+        USE_COLORD=On
+        USE_LIBSECRET=On
+        USE_LUA=On
+        BUILD_CURVE_TOOLS=On
+        BUILD_NOISE_TOOLS=On
+        BUILD_USERMANUAL=Off
+        RAWSPEED_ENABLE_LTO=On
+    )
+    cmake -B build -S "$_archive" ${cmake_flags[@]/#/-D }
     make -C build
 }
 
