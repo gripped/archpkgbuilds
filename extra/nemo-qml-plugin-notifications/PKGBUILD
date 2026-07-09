@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=nemo-qml-plugin-notifications
-pkgver=1.2.13
+pkgver=1.2.18
 pkgrel=1
 pkgdesc="Notifications plugin for Nemo Mobile"
 arch=('x86_64')
@@ -10,7 +10,13 @@ license=('BSD-3-Clause')
 depends=('qt5-declarative')
 makedepends=('git')
 source=("git+https://github.com/sailfishos/nemo-qml-plugin-notifications.git#tag=$pkgver")
-sha512sums=('15af61a63be5692876095883c0df6e8865c6c81ecd24373fefb0eb9d853b9c78b1bbf2f3d0d8319411c5e955d90aa07e9d31b1a1fae8e6ffa63503d70169a0df')
+sha512sums=('6c634326d714892aa3d54bb0c3356af6cfa8b6100e1cf6c630aa375b7914c4c713fc0839279e16cdaf072f60b157eea365fe873cda39bdd092ee62bfec6910e0')
+
+prepare() {
+  cd nemo-qml-plugin-notifications
+  # Arch does not package generated qdoc output; avoid Sailfish-only qmake feature.
+  sed -i 's/ doc$//' notifications.pro
+}
 
 build() {
   cd nemo-qml-plugin-notifications
