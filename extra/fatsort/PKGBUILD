@@ -5,17 +5,18 @@
 # Contributor: Simon Morgan <simon@16hz.net>
 
 pkgname=fatsort
-pkgver=1.7.679
+pkgver=1.7.1.683
+epoch=2
 pkgrel=1
-pkgdesc='Sorts directory structures of FAT16 and FAT32 file systems'
+pkgdesc='Sorts directory structures of FAT12/FAT16/FAT32/exFAT file systems'
 arch=(x86_64)
 url='http://fatsort.sourceforge.net'
-license=(GPL)
+license=(GPL-2.0-or-later)
 depends=(glibc)
 makedepends=(help2man)
 #checkdepends=(dosfstools bbe)
 source=(https://downloads.sourceforge.net/project/$pkgname/$pkgname-$pkgver.tar.xz)
-sha256sums=('1012f551382639d69e194eabfbe99342ede7c856b1cd6788287f9dfd4bd8d122')
+sha256sums=('58d93e3a1096d2219202379ff1cacdf0abc0b3d9edb5fbd6deabdd954dc3ec68')
 
 build() {
   cd $pkgname-$pkgver
