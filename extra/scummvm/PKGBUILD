@@ -3,7 +3,7 @@
 # Contributor: Manolis Tzanidakis, Petter Gundersen
 
 pkgname=scummvm
-pkgver=2026.2.0
+pkgver=2026.3.0
 pkgrel=1
 pkgdesc="A 'virtual machine' for several classic graphical point-and-click adventure games."
 arch=('x86_64')
@@ -13,9 +13,17 @@ depends=('libpng' 'libtheora' 'sdl2' 'sdl2_net' 'fluidsynth' 'flac' 'faad2' 'lib
          'libgl' 'glu' 'libjpeg-turbo' 'libmpeg2' 'curl' 'a52dec' 'giflib' 'glew' 'libspeechd' 'gtk3' 'sndio'
          'glib2' 'libstdc++' 'zlib' 'hicolor-icon-theme')
 makedepends=('mesa')
-source=("https://downloads.scummvm.org/frs/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha512sums=('093369a5e3d849e9d4fb12a247fa8af68314d7bba59bdc2e5270d0e01fdd711761fa9707e8b61acac1967e223f2db12aa208a397000ee6630f5b2adf365d490d')
-b2sums=('f6627dd4c517338cae58ddf3cec923b702e76e665b3047cbc0be53a09eb005ae33ca611ccf3397cf911388be45aaeb0dc469f7c8136c953bb8ffacfc0611404b')
+source=("https://downloads.scummvm.org/frs/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        https://github.com/scummvm/scummvm/commit/e2ef63e84123c199ab55de445e406aa626147e10.patch)
+sha512sums=('32542906f33a3937833ff3fe29d90fbaa042c803ddaa305779999a49888427d9028edd10694cad71dadb6add917ffa9e7d342c061e60dcfe21eb459419b49c63'
+            '41a90c1280ff75313b66e530918e43c6f81a2ade7711fbcfd2bf6beb784795dface3058fbfddc59297a08d125804b2d67bc63099b3a3d1b41ed87eb36f311d8a')
+b2sums=('93e1fb51a2b12997eed54ea71b558b75e670c24e08d3e889a7c2d80d86cd2174eea5a60db8035187857f22e684fff4628aea8f07650c3b0a2a4e9798ac566190'
+        '7358e2a76d7d92a1186de617db351872833ad6b9e94bea0515a9eb9b4067842a41ec841fe39ca8949e04a4c5ff28190cd5e59f16f7e28fa6685c3f408bb78dd8')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  patch -Np1 -i "${srcdir}"/e2ef63e84123c199ab55de445e406aa626147e10.patch
+}
 
 build() {
   cd ${pkgname}-${pkgver}
