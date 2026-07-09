@@ -1,6 +1,6 @@
 pkgbase = voa
 	pkgdesc = CLI for interacting with the File Hierarchy for the Verification of OS Artifacts (VOA)
-	pkgver = 0.7.3
+	pkgver = 0.7.5
 	pkgrel = 1
 	url = https://voa.archlinux.page
 	arch = x86_64
@@ -11,11 +11,11 @@ pkgbase = voa
 	makedepends = lowdown
 	makedepends = rust
 	makedepends = rust-script
-	depends = gcc-libs
 	depends = glibc
-	source = voa::git+https://gitlab.archlinux.org/archlinux/alpm/voa.git?signed#tag=voa/0.7.3
+	depends = libgcc
+	source = voa::git+https://gitlab.archlinux.org/archlinux/alpm/voa.git?signed#tag=voa/0.7.5
 	validpgpkeys = 991F6E3F0765CF6295888586139B09DA5BF0D338
-	sha512sums = 0ba74ce4c1c883840474b03c9d9b3735d7e388cc85649382c6a96ff2c096865dd612b1a476cdff78d263353b143982e19c675e90d6207c2748c4e3a4fb58e8bc
-	b2sums = 1fad1804dd33e8cecf3b9b7e9b822f27f91cd1f7ae0b8eff8b7c48e169fa9dc45a6c65d478d01ed0e1ffbfaa81ffc7703f32edd12957fe2a7feee2a4aba61cfc
+	sha512sums = c1e95ec42a058efb3f8adc8825a84d8603510686c4a066d077d38116ea2a4ecceb2f6e4c68efcad1101043850a0a2d8239733562fce2054a5ceb920bfcb072f6
+	b2sums = 1149c8a2fa781768a4cd1941768c7b47036fd1814d07f186530bfe5ec7fd9b7a79000165de0183d3abe043743ba4d37736dea1ca90922fbbe2c76be9a4c95afc
 
 pkgname = voa
