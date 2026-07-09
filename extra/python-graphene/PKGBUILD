@@ -3,38 +3,35 @@
 
 pkgname=python-graphene
 pkgver=3.4.3
-pkgrel=3
+pkgrel=4
 pkgdesc='GraphQL framework for Python'
 arch=(any)
 url=https://graphene-python.org/
 license=(MIT)
 depends=(
-  python-aniso8601
+  python
+  python-dateutil
   python-graphql-core
   python-graphql-relay
+  python-typing_extensions
 )
 makedepends=(
   git
+  python-build
+  python-installer
   python-setuptools
+  python-wheel
 )
-_tag=82903263080b3b7f22c2ad84319584d7a3b1a1f6
-source=(python-graphene::git+https://github.com/graphql-python/graphene.git#tag=${_tag})
-sha512sums=('6aca82c74222f0c70f1bbecb6781405e756456a6a1dbf63b21adebdafef2db93f3774662339b66d5cbe41d0f394b5d4289f5436a14bd75ee4fbc4bc997d195bf')
-
-pkgver() {
-  cd python-graphene
-  git describe --tags | sed 's/^v//'
-}
+source=(python-graphene::git+https://github.com/graphql-python/graphene.git#tag=v${pkgver})
+b2sums=('7a117ab9dec1b011f5828e448fcebe8c2ff18d0f4793edf62d6d3aae9342b717b441913ca372eab7d3b317d1a8de43b5c8cd9a4c90ab61f8cdefeecf94909f85')
 
 build() {
   cd python-graphene
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd python-graphene
-  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  python -m installer --destdir="${pkgdir}" dist/*.whl
   install -Dm 644 LICENSE -t "${pkgdir}"/usr/share/licenses/python-graphene
 }
-
-# vim: ts=2 sw=2 et:
