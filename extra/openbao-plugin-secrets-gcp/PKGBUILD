@@ -5,7 +5,7 @@ _plugin_name=gcp
 
 pkgname="openbao-plugin-${_plugin_type}-${_plugin_name}"
 pkgdesc="OpenBao Plugin - Generate GCP service account keys and OAuth tokens based on IAM policies"
-pkgver="0.23.0"
+pkgver=0.23.1
 pkgrel=1
 arch=("x86_64")
 url="https://openbao.org/docs/plugins/"
@@ -16,7 +16,7 @@ install=openbao-plugin.install
 source=(
     "openbao-plugin-${_plugin_type}-${_plugin_name}::git+https://github.com/openbao/openbao-plugins.git#tag=${_plugin_type}-${_plugin_name}-v${pkgver}"
 )
-sha256sums=('03a739a163755456ebb31a3a8a879b1f4ab5a04851bf13d2989552604dee1594')
+sha256sums=('85a87eb752b48a7c9e38f45fc62a84469eea588442b50703e2086d904dd212e2')
 
 prepare() {
   cd "${pkgname}"
