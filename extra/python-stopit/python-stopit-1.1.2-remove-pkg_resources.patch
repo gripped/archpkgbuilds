@@ -1,0 +1,25 @@
+diff --git a/src/stopit/__init__.py b/src/stopit/__init__.py
+index 6ca0180..4bf9555 100644
+--- a/src/stopit/__init__.py
++++ b/src/stopit/__init__.py
+@@ -7,7 +7,7 @@ stopit
+ Public resources from ``stopit``
+ """
+ 
+-import pkg_resources
++from importlib.metadata import version
+ 
+ from .utils import LOG, TimeoutException
+ from .threadstop import ThreadingTimeout, async_raise, threading_timeoutable
+@@ -15,9 +15,9 @@ from .signalstop import SignalTimeout, signal_timeoutable
+ 
+ # PEP 396 style version marker
+ try:
+-    __version__ = pkg_resources.get_distribution(__name__).version
++    __version__ = version(__name__)
+ except:
+-    LOG.warning("Could not get the package version from pkg_resources")
++    LOG.warning("Could not get the package version from importlib.metadata")
+     __version__ = 'unknown'
+ 
+ __all__ = (
