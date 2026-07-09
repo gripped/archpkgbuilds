@@ -3,26 +3,29 @@
 
 pkgname=neovide
 pkgver=0.16.2
-pkgrel=1
+pkgrel=2
 pkgdesc='No Nonsense Neovim Client in Rust'
 arch=(x86_64)
 url="https://github.com/$pkgname/$pkgname"
 license=(MIT)
-depends=(gcc-libs
+depends=(
+         libgcc
+         libstdc++
          fontconfig libfontconfig.so
          freetype2 libfreetype.so
          glibc
          hicolor-icon-theme
          libglvnd
-         libjpeg-turbo libjpeg.so
+         libjpeg-turbo
          libxkbcommon
          neovim
          sndio
-         libpng libpng16.so
+         libpng
          harfbuzz libharfbuzz.so
          icu libicuuc.so
-         expat libexpat.so
-         zlib libz.so)
+         expat
+         zlib
+)
 makedepends=(cargo
              cmake
              python
@@ -61,6 +64,7 @@ package() {
 	cd "$_archive"
 	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
 	install -Dm0644 -t "$pkgdir/usr/share/applications/" "assets/$pkgname.desktop"
+	install -Dm0644 -t "$pkgdir/usr/share/icons/hicolor/scalable/apps/" "assets/neovide.svg"
 	for px in 16 32 48 256; do
 		install -Dm0644 "assets/$pkgname-${px}x${px}.png" \
 			"$pkgdir/usr/share/icons/hicolor/${px}x${px}/apps/$pkgname.png"
