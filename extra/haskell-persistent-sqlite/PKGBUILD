@@ -3,8 +3,8 @@
 
 _hkgname=persistent-sqlite
 pkgname=haskell-persistent-sqlite
-pkgver=2.13.2.0
-pkgrel=38
+pkgver=2.13.3.0
+pkgrel=7
 pkgdesc="Backend for the persistent library using sqlite3"
 url="https://www.yesodweb.com/book/persistent"
 license=("MIT")
@@ -16,7 +16,7 @@ makedepends=('ghc' 'haskell-fast-logger' 'haskell-hspec' 'haskell-hunit' 'haskel
              'haskell-persistent-test' 'haskell-quickcheck' 'haskell-system-fileio'
              'haskell-system-filepath' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('e247bf0c6281e21ff060e6a2c87515d04612e9644440f88002ab50e4cc9306afa640ba44d8e91cd69e278d83bfbeff3be4e6111010538a86bfd62e994951ec62')
+sha512sums=('7de3f62a20cbd415109f52fdeac67b2f60daf647a0aac1f25917b23fad8f9bccc9afdf839c0a74567d713291054fb6a4609442b062ac8b0ab6ac7386beba457d')
 
 build() {
     cd $_hkgname-$pkgver
