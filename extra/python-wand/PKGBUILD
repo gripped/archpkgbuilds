@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-wand
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=1
 pkgdesc="Ctypes-based simple MagickWand API binding for Python"
 url="https://github.com/emcconville/wand"
@@ -11,7 +11,7 @@ depends=('imagemagick' 'python')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('libjpeg-turbo' 'python-pytest')
 source=("git+https://github.com/emcconville/wand.git#tag=$pkgver")
-sha512sums=('08178ed9e7fac2d8f8e71d85ea8db0a0fc807c549e70fb2cba76f1275ca5186425a19926f4d0a6e63f46bea5f0fe0139eeb3b78feedd7457b978b32f74cec37e')
+sha512sums=('acf7adfb6104f90d3e56b0e22bbcc6d9c09c40e0c95b62dee3e9dba4633b24d66cd655716f0641bbafbd394a8ab8fb35027c69a713ec4c0e5d3231da9aa222a9')
 
 build() {
   cd wand
