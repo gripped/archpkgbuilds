@@ -10,7 +10,7 @@ pkgname=(
   mullvad-vpn
   mullvad-vpn-daemon
 )
-pkgver=2026.2
+pkgver=2026.3
 pkgrel=1
 pkgdesc="Mullvad VPN client"
 arch=('x86_64')
@@ -38,7 +38,7 @@ source=(
   "$pkgbase.desktop"
   "electron-builder.yml"
 )
-b2sums=('1bf806c45958ab036d655de09ea972723a9b42fbe762b93ac3f0bb2bc9333c10461e2afc3c7cdc69c4639bf26b3f91e1f9aece923d6a9794b4446ecf1d6a0606'
+b2sums=('2844535b99a50d0b53f173db8b4c88a46a383d64a6a65c0f72676ecc94005f9315b0c8b18d402e39ddd77ef3e5f44aa4d11eddea762082ef86060e73c97d3eba'
         'SKIP'
         'SKIP'
         'c3534bf98bc9c5977e14865a8b4e41bb509a42cb006f8ada3f11bdff704e347d132797425b95ca3f709308703ade5f3aa46e7e7c4ef5e73911f9de78df14b1a9'
