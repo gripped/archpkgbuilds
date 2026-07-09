@@ -9,8 +9,8 @@ pkgname=(
   mutter-devkit
   mutter-docs
 )
-pkgver=50.2
-pkgrel=2
+pkgver=50.3
+pkgrel=1
 pkgdesc="Window manager and compositor for GNOME"
 url="https://gitlab.gnome.org/GNOME/mutter"
 arch=(x86_64)
@@ -88,19 +88,12 @@ source=(
   # Mutter tags use SSH signatures which makepkg doesn't understand
   "git+$url.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/gvdb.git#commit=b54bc5da25127ef416858a3ad92e57159ff565b3"
-  0001-wayland-Only-schedule-a-single-cursor-location-updat.patch
 )
-b2sums=('2987b5e207f0a12e94b035d5b913b8a76bc291be41a71669e977ead0f93cfbb3219c97aeb2475a97906e989353eb309abb2b80f683cc41074a042b81467e3a8c'
-        'f989bc2ceb52aad3c6a23c439df3bbc672bc11d561a247d19971d30cc85ed5d42295de40f8e55b13404ed32aa44f12307c9f5b470f2e288d1c9c8329255c43bf'
-        '57ff8454c7e33249a54cbc257b62cf9b2ddd49309c9616e815d4b7310cac2b0ca1a8a6c0dd191b36766c1cad2831848ea7e9880879010b9427138b8800fc506b')
+b2sums=('5d9b28db0fc461560378adaec354a1cdeb86108541ea8d1bd68c91f1ddc6ebba02d0c5c01d46e808456df8d151251bbcfa25b5aec30be8349ed9e0912c7606d4'
+        'f989bc2ceb52aad3c6a23c439df3bbc672bc11d561a247d19971d30cc85ed5d42295de40f8e55b13404ed32aa44f12307c9f5b470f2e288d1c9c8329255c43bf')
 
 prepare() {
   cd mutter
-
-  # Fix log spam
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/mutter/-/work_items/27
-  # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5096
-  git apply -3 ../0001-wayland-Only-schedule-a-single-cursor-location-updat.patch
 }
 
 build() {
