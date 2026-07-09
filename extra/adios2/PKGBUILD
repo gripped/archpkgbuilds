@@ -3,7 +3,7 @@
 
 pkgname=adios2
 pkgver=2.12.1
-pkgrel=2
+pkgrel=5
 pkgdesc="The Adaptable Input/Output System version 2"
 arch=(x86_64)
 url="https://adios2.readthedocs.io/en/latest/"
@@ -54,8 +54,17 @@ optdepends=(
 )
 source=(
   https://github.com/ornladios/ADIOS2/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
+  InlineWriter.patch
 )
-b2sums=('4b62124d733fdadcbbf6a6e4209b202ea3f71af620e62f7cc3ad06ecc7ff1d3732406cd789e9c6a7838ba5bf08ca38622a83438a1d79665016c6fd344bdb9a1d')
+b2sums=('4b62124d733fdadcbbf6a6e4209b202ea3f71af620e62f7cc3ad06ecc7ff1d3732406cd789e9c6a7838ba5bf08ca38622a83438a1d79665016c6fd344bdb9a1d'
+        '184f413ac2921fb5eb5be7f8e0bd1c2fb6ba20106964facb84f6e88a702cd892ccdcc73b34f4948993cb89b9d09560841c58f885e8619ae9aff62d103ac9da81')
+
+prepare() {
+  cd ${pkgname^^}-${pkgver}
+  # Workaround for a bug in ParaViewFidesEngine plugin that was introduced in https://github.com/ornladios/ADIOS2/pull/4922
+  # See https://github.com/ornladios/ADIOS2/pull/5111
+  patch -p1 < ../InlineWriter.patch
+}
 
 build() {
   # In general, we want to list all real archs (sm_XX) and the latest virtual arch (compute_XX) for future PTX compatibility.
