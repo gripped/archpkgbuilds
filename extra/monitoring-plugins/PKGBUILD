@@ -4,12 +4,14 @@
 
 pkgname=monitoring-plugins
 pkgver=3.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Plugins for Icinga, Naemon, Nagios, Shinken, Sensu and other monitoring applications"
 arch=('x86_64')
 url="https://github.com/monitoring-plugins/monitoring-plugins/"
 license=('GPL-3.0-or-later')
-depends=('perl')
+depends=(
+	'libcap'
+	'perl')
 makedepends=(
 	'net-snmp' 'postgresql-libs' 'libdbi' 'mariadb-libs'
 	'procps-ng' 'iputils' 'fping' 'dnsutils' 'rpcbind' 'smbclient' 'openssh'
@@ -25,13 +27,16 @@ optdepends=(
 provides=('nagios-plugins')
 conflicts=('nagios-plugins')
 replaces=('nagios-plugins')
+install=${pkgname}.install
 source=("https://www.monitoring-plugins.org/download/${pkgname}-${pkgver}.tar.gz")
 sha256sums=('29fc9692a66c10519f5f98fc251fc216fcd13271b4fccb42eb012893baec5949')
 
 build() {
 	cd ${pkgname}-${pkgver}
 
-	./configure --prefix=/usr --libexecdir=/usr/lib/monitoring-plugins \
+	./configure \
+		--prefix=/usr \
+		--libexecdir=/usr/lib/monitoring-plugins \
 		--with-ping-command='/usr/bin/ping -4 -n -U -w %d -c %d %s' \
 		--with-ping6-command='/usr/bin/ping -6 -n -U -w %d -c %d %s'
 
@@ -42,6 +47,13 @@ package() {
 	cd ${pkgname}-${pkgver}
 
 	make DESTDIR="${pkgdir}" install
+
+	# Upstream heavily discourages against setuid, which their current build system
+	# currently uses, as it is apparently nontrivial to replace it for all
+	# platforms with setcap in the Makefile
+
+	# Remove setuid bit from the two files, replaced by setcap via .install
+	chmod 755 "${pkgdir}"/usr/lib/monitoring-plugins/check_{dhcp,icmp}
 
 	install -Dm644 COPYING "${pkgdir}"/usr/share/licenses/${pkgname}/COPYING
 
