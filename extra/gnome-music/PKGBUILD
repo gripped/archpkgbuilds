@@ -3,8 +3,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-music
-pkgver=49.1
-pkgrel=2
+pkgver=50.0
+pkgrel=1
 epoch=1
 pkgdesc="Music player and management application"
 url="https://apps.gnome.org/Music/"
@@ -48,7 +48,7 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-music.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('d3e7a6d5dc4b8b0549bacbb9ecb63df64d1f8c077c3190756a071e2229420dc671646013bf90e4d4c3a26978f9d2a5861e26ef3fc384c6e77029b1c5684c239d')
+b2sums=('8aba3ed22b235d29660e8849787f8349ddac82ff1cb1785e7fc2a1301ab674fb49711efdc9040c569335dd3305d2f9c278a08721f169f2c6a56f45b749ee23a7')
 
 prepare() {
   cd $pkgname
