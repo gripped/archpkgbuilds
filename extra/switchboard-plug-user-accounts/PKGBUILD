@@ -2,7 +2,7 @@
 
 pkgname=switchboard-plug-user-accounts
 pkgver=8.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Switchboard User Accounts Plug'
 arch=(x86_64)
 url=https://github.com/elementary/switchboard-plug-useraccounts
@@ -11,18 +11,18 @@ groups=(pantheon)
 depends=(
   accountsservice
   cairo
-  gcc-libs
   gdk-pixbuf2
   glib2
   glibc
   gnome-desktop-4
+  granite7
   gtk4
-  libadwaita-1.so
+  libadwaita
+  libgcc
   libgee
-  libgranite-7.so
   libpwquality
-  libswitchboard-3.so
   polkit
+  switchboard
 )
 makedepends=(
   git
@@ -30,14 +30,8 @@ makedepends=(
   meson
   vala
 )
-_tag=49a4032a761885599e7309b0fd76d55bf1a0c773
-source=(switchboard-plug-user-accounts::git+https://github.com/elementary/switchboard-plug-useraccounts.git#tag=${_tag})
+source=(switchboard-plug-user-accounts::git+https://github.com/elementary/switchboard-plug-useraccounts.git#tag=${pkgver})
 b2sums=('6cfe06b47c8c077b613252c4847e4019b6910389af9aafea46e2ac61b250c66ecb7d58cb4b70e3240e37c32f5ce452d0ddffce88803b4406a0bbdb93f01a6e32')
-
-pkgver() {
-  cd switchboard-plug-user-accounts
-  git describe --tags
-}
 
 build() {
   arch-meson switchboard-plug-user-accounts build
@@ -47,5 +41,3 @@ build() {
 package() {
   meson install -C build --destdir "${pkgdir}"
 }
-
-# vim: ts=2 sw=2 et:
