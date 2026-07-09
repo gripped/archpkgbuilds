@@ -1,6 +1,6 @@
 pkgbase = opensips
 	pkgdesc = An Open Source SIP Server able to act as a SIP proxy, registrar, location server, redirect server ...
-	pkgver = 3.6.7
+	pkgver = 4.0.0
 	pkgrel = 1
 	url = https://www.opensips.org
 	arch = x86_64
@@ -14,6 +14,7 @@ pkgbase = opensips
 	makedepends = openssl
 	makedepends = postgresql-libs
 	makedepends = unixodbc
+	makedepends = git
 	optdepends = curl: db_http module
 	optdepends = libldap: ldap module
 	optdepends = libmicrohttpd: httpd module
@@ -27,9 +28,9 @@ pkgbase = opensips
 	backup = etc/opensips/opensips.cfg
 	backup = etc/opensips/osipsconsolerc
 	backup = etc/opensips/opensipsctlrc
-	source = https://opensips.org/pub/opensips/3.6.7/opensips-3.6.7.tar.gz
+	source = git+https://github.com/OpenSIPS/opensips.git#tag=4.0.0
 	source = opensips.service
-	sha256sums = 1dcc60d73bee3c5bc9878752965b45dbed800222e5b5d09ca905040d38edf25c
+	sha256sums = f6fcc950e6e0b486e6c1617dcd380bad7bfc2488cd00053df6ecadb386869483
 	sha256sums = c2fec4be085b108db10834fa9832e98d696c2de6408f85f96cf89c13bf6be819
 
 pkgname = opensips
