@@ -3,8 +3,8 @@
 
 _pkg=astropy
 pkgname=python-${_pkg}
-pkgver=7.2.0
-pkgrel=2
+pkgver=8.0.1
+pkgrel=1
 pkgdesc="Common core package for Astronomy"
 arch=(x86_64)
 url="https://www.astropy.org/"
@@ -32,7 +32,7 @@ optdepends=('python-matplotlib: plotting functionality astropy.visualization'
             'python-fsspec: opening remote and cloud-hosted FITS files')
 #checkdepends=(python-pytest python-pytest-xdist python-hypothesis)
 source=(https://files.pythonhosted.org/packages/source/a/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('ae48bc26b1feaeb603cd94bd1fa1aa39137a115fe931b7f13787ab420e8c3070')
+sha256sums=('45ca31d5b91fa294cd590a4791a32db94de7f9c8a343155f4d5877baa82351da')
 
 build() {
   cd ${_pkg}-${pkgver}
