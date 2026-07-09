@@ -2,16 +2,18 @@
 
 _pkgname=mdt
 pkgname=md-tui
-pkgver=0.10.1
+pkgver=0.10.3
 pkgrel=1
 pkgdesc="Markdown renderer in the terminal"
 arch=('x86_64')
 url="https://github.com/henriklovhaug/$pkgname"
 license=('AGPL-3.0-only')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('24ebda2ed5bf630068f4a8a8fb07eb0c7f3ce0303a27cd311684fbcddc7d4499')
+sha256sums=('7da5abe698227bb1b0accaa9a9586586966dc9faefda179daa36ebb25163caaa')
 options=('!lto')
 install="$pkgname.install"
 
