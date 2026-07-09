@@ -1,7 +1,7 @@
 # Maintainer:  Jürgen Hötzel <juergen@archlinux.org>
 pkgname=ocaml-topkg
-pkgver=1.1.0
-pkgrel=2
+pkgver=1.1.1
+pkgrel=1
 pkgdesc="A packager for distributing OCaml software"
 arch=('x86_64')
 url="https://erratique.ch/software/topkg"
@@ -9,7 +9,7 @@ license=('BSD')
 depends=('ocaml' 'ocaml-result')
 makedepends=('ocaml-findlib' 'ocamlbuild' 'opam' 'ocaml-compiler-libs')
 source=("https://erratique.ch/software/topkg/releases/topkg-${pkgver}.tbz")
-sha512sums=('34d22ae5b6bd166dd4a601a7d12d89c336684b3c56d7c7f481b40837eab263616cc3a6e6f63602f3d4a7d53c911967bf261de6c1ac205341b98a9838e5ea7aeb')
+sha512sums=('c36c549a362ddf5b7fe3f6ff91c79b7ab531c43633bb9737576370bcbd69db7e1625d247c278a869b503d45a175e9753231ccf595e5bfa4e3b7e2602ac3d3b42')
 
 build() {
   cd "${srcdir}/topkg-${pkgver}"
