@@ -3,8 +3,8 @@
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 
 pkgname=gotosocial
-pkgver=0.21.2
-pkgrel=3
+pkgver=0.22.0
+pkgrel=1
 pkgdesc='ActivityPub social network server written in Golang'
 arch=(x86_64)
 url='https://gotosocial.org'
@@ -15,12 +15,12 @@ options=(!lto)
 backup=(
   etc/gotosocial/config.yaml
   etc/gotosocial/template/2fa.tmpl
-  etc/gotosocial/template/404.tmpl
   etc/gotosocial/template/about.tmpl
   etc/gotosocial/template/authorize-interaction.tmpl
   etc/gotosocial/template/authorize.tmpl
   etc/gotosocial/template/confirm-email.tmpl
   etc/gotosocial/template/confirmed-email.tmpl
+  etc/gotosocial/template/directory.tmpl
   etc/gotosocial/template/domain-allowlist.tmpl
   etc/gotosocial/template/domain-blocklist.tmpl
   etc/gotosocial/template/email_confirm.tmpl
@@ -36,6 +36,8 @@ backup=(
   etc/gotosocial/template/index.tmpl
   etc/gotosocial/template/index_register.tmpl
   etc/gotosocial/template/index_what_is_this.tmpl
+  etc/gotosocial/template/item_deleted.tmpl
+  etc/gotosocial/template/item_not_visible.tmpl
   etc/gotosocial/template/login-info.tmpl
   etc/gotosocial/template/login_button.tmpl
   etc/gotosocial/template/maintenance.tmpl
@@ -69,11 +71,11 @@ source=(
   tmpfiles.conf
   use-fhs-directories.patch
 )
-sha512sums=('ec78c9456193ed764a9cc77d006d7b2f76a27f86bc4e448bd14772a668f09023a2f3246aa810c55ef977b9d1867d177ac52153973cac09a06110cd146529f3ae'
+sha512sums=('165f8c8f8b20cac2674e11b6a9e5fc3158220c9976f8314a3f4182cd9eb8376a329054b364be6211ee4c937eabf8dc398d412fff92b69069c403d69f01d1ff4a'
             '2ff5499a31e12733cb20a9261942ed135fbac327d5a836b8955f3e86c009a603cf965440d9dbe6db64b80d0f652ba56faddb0ef398393b72474d8cf6c438ab80'
             'e9580cadf8cfcb4837d932866ba4f11c21309d3e6707e51ef9e8a0fef17510ac6b9e8f2fb77a973dd450e4ff82b324c6a4ad7f6c8ff5adb7aa089bdd788ff6ae'
             '87edf6e6acee86a621c838a7db32f1c9aab70bc5640f8eae099c5133a2be77ec2f711261d716a6821e4c0414436592170b1ae7a5f652bc8aeab49c8dbd0fedde')
-b2sums=('8861be165f1852d44fde73c6b9d5da8e18c40a21501e665f4ec9a7fb37e0a12303afd970b4f3e605def5858ba100b933ba454c17d195a77e2538910574ac911d'
+b2sums=('eca750f56cd6f0a3239944ca1bcd4847286b37cf16f8a592d05ba3e12633db35f4ae1b17df257ea9277c1f11214094690e18caf7d5da3e4f77b759541ccec6c7'
         'ccf672731b88fc6700b0b81737790365e1eea0066bad1bbf6b13dac1e5b42af69063838efca47a6d9c16ee3f6308e2e23b92cf79d4226cd88f8551fb7361649b'
         '6cfdcf5c8814bf1aa20d1f08d89d57e78866142e2d36b7bfc9527a80da163b0765ccc6c78e311c30f47230a680d404b167971ffd1b03ace7314e2284295c55d9'
         '3671911545d15cc21045b37fbe6983c05499e66b8a6a1e1b3eccbb5c2686914c88b090dec0bfe8e2919d8787e5b4c59bfb1e2c292cad30a8b552ab57e91d5fdf')
