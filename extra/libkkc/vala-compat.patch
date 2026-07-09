@@ -1,0 +1,91 @@
+diff --git a/libkkc/key-event.vala b/libkkc/key-event.vala
+index 0baa85c..6e28aa6 100644
+--- a/libkkc/key-event.vala
++++ b/libkkc/key-event.vala
+@@ -148,7 +148,7 @@ namespace Kkc {
+                     throw new KeyEventFormatError.PARSE_FAILED (
+                         "unknown keyval %s", _name);
+             }
+-            from_x_event (_keyval, 0, _modifiers);
++            this.from_x_event (_keyval, 0, _modifiers);
+         }
+ 
+         /**
+diff --git a/libkkc/language-model.vala b/libkkc/language-model.vala
+index 967746a..19860aa 100644
+--- a/libkkc/language-model.vala
++++ b/libkkc/language-model.vala
+@@ -101,7 +101,7 @@ namespace Kkc {
+         public abstract new LanguageModelEntry? @get (string input,
+                                                       string output);
+ 
+-        public LanguageModel (LanguageModelMetadata metadata) throws Error {
++        protected LanguageModel (LanguageModelMetadata metadata) throws Error {
+             Object (metadata: metadata);
+             init (null);
+         }
+diff --git a/libkkc/metadata-file.vala b/libkkc/metadata-file.vala
+index 62b84a3..f52235b 100644
+--- a/libkkc/metadata-file.vala
++++ b/libkkc/metadata-file.vala
+@@ -43,7 +43,7 @@ namespace Kkc {
+          */
+         public string filename { get; construct set; }
+ 
+-        public MetadataFile (string name, string filename) throws Error {
++        protected MetadataFile (string name, string filename) throws Error {
+             Object (name: name, filename: filename);
+             init (null);
+         }
+diff --git a/libkkc/system-segment-dictionary.vala b/libkkc/system-segment-dictionary.vala
+index 4195e50..b2eff9a 100644
+--- a/libkkc/system-segment-dictionary.vala
++++ b/libkkc/system-segment-dictionary.vala
+@@ -70,7 +70,7 @@ namespace Kkc {
+         // Skip until the first occurrence of line.  This moves offset
+         // at the beginning of the next line.
+         bool read_until (ref long offset, string line) {
+-            return_val_if_fail (offset < mmap.get_length (), null);
++            return_val_if_fail (offset < mmap.get_length (), false);
+             while (offset + line.length < mmap.get_length ()) {
+                 char *p = ((char *)mmap.get_contents () + offset);
+                 if (*p == '\n' &&
+diff --git a/marisa-glib/Makefile.am b/marisa-glib/Makefile.am
+index 6d9c9d0..63860b1 100644
+--- a/marisa-glib/Makefile.am
++++ b/marisa-glib/Makefile.am
+@@ -37,7 +37,7 @@ INTROSPECTION_SCANNER_ARGS = --add-include-path=$(builddir)
+ INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
+ 
+ Marisa.gir: libmarisa-glib.la
+-Marisa_gir_SCANNERFLAGS = --pkg-export=marisa-glib --pkg=marisa --namespace=Marisa $(MARISA_GLIB_STATIC_DEPENDENCIES)
++Marisa_gir_SCANNERFLAGS = --pkg-export=marisa-glib --pkg=marisa --namespace=Marisa $(filter-out -latomic_asneeded,$(MARISA_GLIB_STATIC_DEPENDENCIES))
+ Marisa_gir_INCLUDES = GLib-2.0 GObject-2.0 Gio-2.0
+ Marisa_gir_CFLAGS = $(libmarisa_glib_la_CFLAGS)
+ Marisa_gir_LIBS = libmarisa-glib.la
+diff --git a/marisa-glib/Makefile.in b/marisa-glib/Makefile.in
+index b5256cc..dfa1555 100644
+--- a/marisa-glib/Makefile.in
++++ b/marisa-glib/Makefile.in
+@@ -399,7 +399,7 @@ MAINTAINERCLEANFILES =
+ @HAVE_INTROSPECTION_TRUE@INTROSPECTION_GIRS = Marisa.gir
+ @HAVE_INTROSPECTION_TRUE@INTROSPECTION_SCANNER_ARGS = --add-include-path=$(builddir)
+ @HAVE_INTROSPECTION_TRUE@INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
+-@HAVE_INTROSPECTION_TRUE@Marisa_gir_SCANNERFLAGS = --pkg-export=marisa-glib --pkg=marisa --namespace=Marisa $(MARISA_GLIB_STATIC_DEPENDENCIES)
++@HAVE_INTROSPECTION_TRUE@Marisa_gir_SCANNERFLAGS = --pkg-export=marisa-glib --pkg=marisa --namespace=Marisa $(filter-out -latomic_asneeded,$(MARISA_GLIB_STATIC_DEPENDENCIES))
+ @HAVE_INTROSPECTION_TRUE@Marisa_gir_INCLUDES = GLib-2.0 GObject-2.0 Gio-2.0
+ @HAVE_INTROSPECTION_TRUE@Marisa_gir_CFLAGS = $(libmarisa_glib_la_CFLAGS)
+ @HAVE_INTROSPECTION_TRUE@Marisa_gir_LIBS = libmarisa-glib.la
+diff --git a/tests/lib/test-case.vala b/tests/lib/test-case.vala
+index da74f7e..116a57b 100644
+--- a/tests/lib/test-case.vala
++++ b/tests/lib/test-case.vala
+@@ -29,7 +29,7 @@ public abstract class Kkc.TestCase : Object
+ 
+   public delegate void TestMethod ();
+ 
+-  public TestCase (string name)
++  protected TestCase (string name)
+     {
+       this._suite = new GLib.TestSuite (name);
+     }
