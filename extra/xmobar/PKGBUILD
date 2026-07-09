@@ -4,11 +4,11 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=xmobar
-pkgver=0.50
-pkgrel=189
+pkgver=0.51
+pkgrel=4
 pkgdesc='Minimalistic Text Based Status Bar'
 url='https://codeberg.org/xmobar/xmobar'
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=(
   alsa-lib
@@ -21,7 +21,6 @@ depends=(
   haskell-cereal
   haskell-colour
   haskell-dbus
-  haskell-extensible-exceptions
   haskell-extra
   haskell-hinotify
   haskell-http
@@ -38,6 +37,7 @@ depends=(
   haskell-timezone-olson
   haskell-timezone-series
   haskell-utf8-string
+  haskell-vector
   haskell-x11
   haskell-x11-xft
   libxft
@@ -49,10 +49,11 @@ depends=(
 makedepends=(
   ghc
   haskell-hspec
+  haskell-regex-tdfa
   haskell-temporary
 )
 source=(${pkgname}-${pkgver}.tar.gz::https://codeberg.org/xmobar/xmobar/archive/${pkgver}.tar.gz)
-sha512sums=('c2379fe3ca1d50eee6120b1ad2d39a445944aedc28f42f0be87d8f5693a1672b3efe4e5a88dd9118d33ee39e4ab9f6a58a60afa8439e7802913d685e4d1c019f')
+sha512sums=('26442672addc17b260c68ced9da9b33fb3c7f14a00d42066a07eb832dacbabc9b715422c124e80d76ed3e6d7f260baf670f62ba4e8a5155927df9f9ce627dc0d')
 
 build() {
   cd xmobar
