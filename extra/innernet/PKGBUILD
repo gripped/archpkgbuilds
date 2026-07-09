@@ -3,7 +3,7 @@
 # Contributor: Jake McGinty <jake@tonari.no>
 
 pkgname=innernet
-pkgver=1.7.1
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="A private network system that uses WireGuard under the hood"
 arch=('x86_64')
@@ -12,12 +12,11 @@ license=('MIT')
 depends=('sqlite')
 makedepends=('rust' 'git' 'clang' 'llvm')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('aed18003c3bbdf621ef204acbf6b939a18ec4943dd219be328b2400d77cddb47')
-options=('!lto')
+sha256sums=('1429e8546dcafe508c2f9f94a51d65aea64c8049619fef971997ae9e0fdbc79a')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
