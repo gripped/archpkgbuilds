@@ -3,38 +3,53 @@
 
 pkgbase=ethersync
 pkgname=teamtype
-pkgver=0.9.1
-pkgrel=2
+pkgver=0.9.2
+pkgrel=4
 pkgdesc='Peer-to-peer, editor-agnostic collaborative editing of local text files'
-arch=('x86_64')
+arch=(x86_64)
 url="https://github.com/$pkgname/$pkgname"
-license=('AGPL-3.0-only')
-makedepends=(rust)
+license=(AGPL-3.0-only)
+depends=(glibc # libc.so libm.so
+         libgcc libgcc_s.so
+         libgit2 libgit2.so
+         zlib)
+makedepends=(cargo
+             git)
 provides=($pkgbase)
 replaces=($pkgbase)
 conflicts=($pkgbase)
-depends=(glibc libgcc zlib)
-options=('!lto')
-source=("$url/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('8caeeb57f74095671dff946860be252cc392452f80c414ebfcf06a63e2b63e45e6c3ff0bd92a7ab095cdc882b39c141b375314a74f1851006a07f4afe26c20a9')
+source=("git+$url.git#tag=v$pkgver")
+sha256sums=('79b030b1eaf0ae100a40980cad84c154ab920ddb69b48ca803c9c52fcd128321')
+
+_srcenv() {
+    cd "$pkgname"
+    export CARGO_HOME="$srcdir"
+    export CARGO_PROFILE_RELEASE_DEBUG=2
+    export CARGO_PROFILE_RELEASE_STRIP=false
+    export CARGO_PROFILE_RELEASE_LTO=true
+    export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+    export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+    CFLAGS+=' -ffat-lto-objects'
+    export LIBGIT2_NO_VENDOR=1
+}
 
 prepare() {
-    cd "$pkgname-$pkgver/daemon"
-    cargo fetch --locked --target "$(rustc --print host-tuple)"
+    _srcenv
+    cargo fetch --locked --target host-tuple
 }
 
 build() {
-    cd "$pkgname-$pkgver/daemon"
+    _srcenv
     cargo build --frozen --release
 }
 
 check() {
-    cd "$pkgname-$pkgver/daemon"
-    cargo test --frozen
+    _srcenv
+    cargo test --frozen -p $pkgname
 }
 
 package() {
-    cd "$pkgname-$pkgver/daemon/target"
+    cd "$pkgname/target"
     install -Dm755 -t "$pkgdir/usr/bin/" "release/$pkgname"
     pushd completions
     install -Dm0644 -t "$pkgdir/usr/share/bash-completion/completions/" "$pkgname.bash"

@@ -1,19 +1,22 @@
 pkgbase = ethersync
 	pkgdesc = Peer-to-peer, editor-agnostic collaborative editing of local text files
-	pkgver = 0.9.1
-	pkgrel = 2
+	pkgver = 0.9.2
+	pkgrel = 4
 	url = https://github.com/teamtype/teamtype
 	arch = x86_64
 	license = AGPL-3.0-only
-	makedepends = rust
+	makedepends = cargo
+	makedepends = git
 	depends = glibc
 	depends = libgcc
+	depends = libgcc_s.so
+	depends = libgit2
+	depends = libgit2.so
 	depends = zlib
 	provides = ethersync
 	conflicts = ethersync
 	replaces = ethersync
-	options = !lto
-	source = https://github.com/teamtype/teamtype/archive/refs/tags/v0.9.1/teamtype-0.9.1.tar.gz
-	sha512sums = 8caeeb57f74095671dff946860be252cc392452f80c414ebfcf06a63e2b63e45e6c3ff0bd92a7ab095cdc882b39c141b375314a74f1851006a07f4afe26c20a9
+	source = git+https://github.com/teamtype/teamtype.git#tag=v0.9.2
+	sha256sums = 79b030b1eaf0ae100a40980cad84c154ab920ddb69b48ca803c9c52fcd128321
 
 pkgname = teamtype
