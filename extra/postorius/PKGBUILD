@@ -2,14 +2,14 @@
 
 pkgname=postorius
 pkgver=1.3.13
-pkgrel=6
+pkgrel=7
 pkgdesc="The New Mailman Web UI"
 arch=(any)
 url="https://gitlab.com/mailman/postorius"
 license=(GPL-3.0-or-later)
 depends=(
   python
-  python-cmarkgfm
+  python-comrak  # via readme_renderer[md]
   python-django
   python-django-allauth  # via python-django-mailman3
   python-django-mailman3
