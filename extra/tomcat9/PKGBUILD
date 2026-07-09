@@ -2,7 +2,7 @@
 # Contributor: Olli <olli@suruatoel.xyz>
 
 pkgname=tomcat9
-pkgver=9.0.119
+pkgver=9.0.120
 pkgrel=1
 pkgdesc='Open source implementation of the Java Servlet 4.0 and JavaServer Pages 2.3 technologies'
 arch=(any)
@@ -36,9 +36,9 @@ source=(
   tomcat9.sysusers
   tomcat9.tmpfiles
 )
-b2sums=('bb06f5ba054f39b6f14169048153450a8a95849014949d6d4c7a040188e2b1736a4342e4c85a84a9d436e20ab6a1db32797b7ef6ea60e36bec8bec3cd8cd82ae'
+b2sums=('12b1c9e57d659f5e999d3af14d96ad494cfa8a615830ad6698f9bc02685a8a90d5542f609cd35e25c1fe4c4cc867b62e35fdb793d056ea0ef09b3fd73fc3e85c'
         '54b745cefdb9dbe5993b0b2ca08fae8d453a7610ffdeb2795b766d3ce321c267d570f6a1f5bd197f4c8053df3ab46ff68363f9d5ea1d96ddf96d19b84c075d21'
-        'b5206f649229ed67e8f9bfbd942d2fcdeb4056633e47b6a0cbbd813220c74a708a418fb09fe2e5a3c6fb17e271f268e2326bc3d26cdfd0e54c4f0eb9eeba3413'
+        'e0b44b4c818815d0cef0041930ad1bed4dbaa1000a94fb9fc4eaf8fe30c7202288f98be678d758f69fcd6218bb81b0f9f74fa754db4b1befe7abefb5702290aa'
         '85a0dc807d3398856046e1450578e8f3a81ee34435eba119a883231ecd0e09ed32c97bf1747b20a253270df8a6e918d3823e6273ec52c01afd9a34a042e9dfcf')
 
 _gid_log=19
@@ -105,5 +105,3 @@ package() {
   install -Dm 644 ../../../tomcat9.sysusers "${pkgdir}"/usr/lib/sysusers.d/tomcat9.conf
   install -Dm 644 ../../../tomcat9.tmpfiles "${pkgdir}"/usr/lib/tmpfiles.d/tomcat9.conf
 }
-
-# vim: ts=2 sw=2 et:
