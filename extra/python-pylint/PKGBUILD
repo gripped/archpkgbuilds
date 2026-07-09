@@ -7,7 +7,7 @@
 
 _pyname=pylint
 pkgname=python-$_pyname
-pkgver=4.0.5
+pkgver=4.0.6
 pkgrel=1
 pkgdesc='Analyzes Python code looking for bugs and signs of poor quality'
 arch=(any)
@@ -34,7 +34,7 @@ checkdepends=(mpdecimal
 optdepends=('graphviz: Enable output formats other than dot or vcg')
 _archive="$_pyname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('9493ebe07fff5e05f1efc954183f9d046600f3fba37e0f4397417a632965d393')
+sha256sums=('98c45036284407e3e08b262fa3d3c7451c0d0e9a07a713d92bc8927ee143d7e7')
 
 prepare() {
 	cd "$_archive"
@@ -57,6 +57,7 @@ check() {
 		tests/benchmark/test_baseline_benchmarks.py
 		tests/checkers/unittest_imports.py::TestImportsChecker
 		tests/checkers/unittest_variables.py::TestMissingSubmodule
+		tests/lint/unittest_lint.py::test_enable_message_block
 		tests/test_functional.py::test_functional
 		tests/test_regr.py::test_package
 		tests/test_self.py::TestRunTC::test_do_not_import_files_from_local_directory
