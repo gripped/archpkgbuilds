@@ -3,22 +3,32 @@
 
 _hkgname=swagger2
 pkgname=haskell-swagger2
-pkgver=2.8.10
-pkgrel=142
+pkgver=2.9
+pkgrel=14
 pkgdesc="Swagger 2.0 data model"
 url="https://github.com/GetShopTV/swagger2"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-base-compat-batteries'
          'haskell-cookie' 'haskell-hashable' 'haskell-generics-sop' 'haskell-http-media'
          'haskell-insert-ordered-containers' 'haskell-lens' 'haskell-network' 'haskell-optics-core'
          'haskell-optics-th' 'haskell-quickcheck' 'haskell-scientific'
          'haskell-unordered-containers' 'haskell-vector' 'haskell-uuid-types')
-makedepends=('ghc' 'haskell-hspec' 'haskell-hunit' 'haskell-quickcheck-instances'
-             'haskell-hspec-discover' 'haskell-doctest' 'haskell-cabal-doctest' 'haskell-glob'
-             'haskell-utf8-string')
+makedepends=('ghc' 'haskell-glob' 'haskell-hunit' 'haskell-cabal-doctest'
+             'haskell-doctest' 'haskell-hspec' 'haskell-hspec-discover'
+             'haskell-quickcheck-instances' 'haskell-utf8-string')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('d1ae931802ca12af4116df4be30ee43801ffd76a9eb22b000a73b071fbbcac8e5425db1f25ccc6e12a0a7d6f102db1d7617ec2ac0589153956c2bbafeb21b7c7')
+sha512sums=('bfa830ddcb8bc7b498f0e0458595a41152dbe61837d4d30478d9fddba1f71a04255dcbe8ee298f8b1ee8d9ec046f4004478aaf16b7807c747664a0cd75ca84b7')
+
+prepare() {
+    cd $_hkgname-$pkgver
+
+    # Fix build with insert-ordered-containers < 0.3.
+    # https://github.com/GetShopTV/swagger2/issues/265
+    sed -i \
+        "/^import Data.HashMap.Strict.InsOrd$/i import Prelude hiding (filter, foldl', foldr, lookup, map, null)" \
+        src/Data/HashMap/Strict/InsOrd/Compat.hs
+}
 
 build() {
     cd $_hkgname-$pkgver
