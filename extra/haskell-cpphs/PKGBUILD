@@ -3,33 +3,33 @@
 
 _hkgname=cpphs
 pkgname=haskell-cpphs
-pkgver=1.20.9.1
-pkgrel=16
+pkgver=1.20.10
+pkgrel=1
 pkgdesc="A liberalised re-implementation of cpp, the C pre-processor."
-url="https://projects.haskell.org/cpphs/"
-license=("LGPL")
+url="https://github.com/haskell-pkg-janitors/cpphs"
+license=('LicenseRef-LGPL')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-polyparse')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('bc5cd86c1e42061ae5c940612542dbea420344fb8596495d71ff2dc724bc1a3785f830e51c3ae99394488a122deabacd6433a5c919e3682c4129f3b296b7931f')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u time $_hkgname.cabal
-}
+sha512sums=('f8896fe8a2e77939e3a570859d303a80813f73d254601d55e0e66e169f48aa1f7724aecb3e88cc86cc9323c1d208f18c4e6b07d2b5796a64207993b3b0620a54')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
