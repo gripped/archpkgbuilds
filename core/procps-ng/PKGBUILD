@@ -6,7 +6,7 @@
 
 pkgname=procps-ng
 pkgver=4.0.6
-pkgrel=2
+pkgrel=3
 pkgdesc='Utilities for monitoring your system and its processes'
 url='https://gitlab.com/procps-ng/procps'
 license=(GPL LGPL)
@@ -28,6 +28,8 @@ _backports=(
   'd089943ab4e1ce1f5e3d44847416a89ceab75147'
   # watch: Handle resizing better
   '389ded19680a7a792c943d5552dd8803851778be'
+  # watch: Restore LINES and COLUMNS env
+  '0f77d5b06f7ce2b743a0c4ef3fd61c3b4bd6101a'
 )
 
 _reverts=(
