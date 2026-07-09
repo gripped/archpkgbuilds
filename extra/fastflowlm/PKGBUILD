@@ -2,7 +2,7 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=fastflowlm
-pkgver=0.9.43
+pkgver=0.9.44
 pkgrel=1
 pkgdesc='Run LLMs on AMD Ryzen AI NPUs'
 arch=('x86_64')
@@ -37,7 +37,7 @@ source=(
   "${pkgname}::git+https://github.com/FastFlowLM/FastFlowLM.git#tag=v${pkgver}"
   "${pkgname}-tokenizers-cpp::git+https://github.com/mlc-ai/tokenizers-cpp"
 )
-sha256sums=('1fd3ef94a144f71f42b58d6758c62b705aa7ccce555b211166b330730949eaef'
+sha256sums=('f356b12be770c70c9a9ae36650e8baf217664a8ade3c41c778082a9db37f2594'
             'SKIP')
 
 prepare() {
@@ -73,7 +73,7 @@ package() {
   DESTDIR="$pkgdir" cmake --install build
 
   install -Dm644 "$pkgname/LICENSE_RUNTIME.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE_RUNTIME.txt"
-  install -Dm644 "$pkgname/LICENSE_BINARY.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE_BINARY.txt"
+  install -Dm644 "$pkgname/TERMS.md" "$pkgdir/usr/share/licenses/$pkgname/TERMS.md"
 
   # Remove vendored msgpack-cxx
   rm -rvf $pkgdir/usr/include/ $pkgdir/usr/lib/cmake/
