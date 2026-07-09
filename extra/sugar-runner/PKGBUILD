@@ -2,7 +2,7 @@
 
 pkgname=sugar-runner
 pkgver=0.121
-pkgrel=2
+pkgrel=3
 pkgdesc='Scripts to run Sugar'
 arch=(x86_64)
 url='https://github.com/sugarlabs/sugar-runner'
@@ -34,10 +34,11 @@ prepare() {
   # https://github.com/sugarlabs/sugar-runner/pull/9
   sed -i 's/"wb") as f:/"w") as f:/' scripts/sugar-runner.in
 
-  # Fix launch from the application menu
+  # Add comment to the desktop file and fix launch by setting it as a terminal app
+  echo 'Comment=Run Sugar as application' >>data/sugar-runner.desktop
   echo 'Terminal=true' >>data/sugar-runner.desktop
 
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
