@@ -1,7 +1,7 @@
 # Maintainer: Leonidas Spyropoulos <artafinde@archlinux.org>
 
 pkgname=kafka
-pkgver=4.3.0
+pkgver=4.3.1
 pkgrel=1
 _scalaver=2.13
 pkgdesc="An open-source distributed event streaming platform"
@@ -38,13 +38,13 @@ source=(
     $pkgname.tmpfiles
     set-base_dir.patch
 )
-sha512sums=('5bf1d24a14be7c51e1b3f38adbf8fd71f1345ba87134b9ef769560f8f60eff9764ceacef368d793ea2a2ba31b1ceb8f6851484dd6accce5f05816ecc278f4180'
+sha512sums=('e9d1ed5f47901bf0229a97f464d863ea44dd1af455937fb906dd624e9fcb814c89f76d507253620948adae17922ccbb4304865db2797b24959a2471d1af7c9ef'
             'SKIP'
             '715da8728e5245f14e4924b6056b8df911ee7c9f1838651677af8b7b82ed801d90eaf743e153d6784e5b233128cf010990b7c7efc0761c376f700d909e288414'
             '796eb295cddff842d94e5f10d6a2065b1f397873fd1baf3a85b91fa41d3e67364b105ef199f264b7f28d6536a0448d5fa2512339a085bfd72432844820bb59bf'
             'e555db26b8247ddefdb1c81fb1a6f89d7e8fba39ba19b9ce1608e989e957f6c550bd482e4ccbe1f2f288e00d851741c6a9a53c91754696907d72233f56fad8c6'
             '3739ec988aada505a0eccee6ae27a9ca620547b3117a034d9eec7cae5bc2af26f41aa8bd066945946c19c05e8529034b7a1b1f49ea03a6574760bb6c1a64a7ad')
-b2sums=('8769b0aa5a62a106a20d76a3425eb469e8f4f97a31f4b23e05e5d0e2ac9fd46ef3dc69dbc97da238b9088d6a0e99da294018db219da3bcbe68a32aaa7bab1873'
+b2sums=('be1969b9eedd595218ed337ccc9bbb36df03644dc8c7686c4a02bc74c415ed90ec348338e9abe0cc4ef5a3126967f1cb894622098c198022091f7cad7541cb35'
         'SKIP'
         '208c343dbd79042916880ef35a38bed8b5a7a3496237cbf7ab04fc43b2008bc2f091b03f3e25bb77035ccacb9e686f9406d3401274fd4903a5b5563614e5b66f'
         'fea3464ddc8e058394153385a7031f71c6a85872062a381a807e9a11eebcf0771da82ae8d5d194fff15ca6c5e0dadf72a94061f8d76789227d2b1d9abb4cc774'
@@ -65,6 +65,7 @@ validpgpkeys=(
     '880BD93BF75EDE553B6A9918B4CC1061B61737F9' # David Jacot (CODE SIGNING KEY) <dajac@apache.org>
     'C3568F5D91E53F9D7FBA7FEF1E8A9F4B368638A9' # Lianet Magrans (CODE SIGNING KEY) <lianetm@apache.org>
     'C9767A35335EC1DFC74919E63F66597F0116FD68' # Christo Lolov (CODE SIGNING KEY) <clolov@apache.org>
+    '365454B8BAF2D52CCCE65EB471650CBCEA26F8A4' # Bill Bejeck (CODE SIGNING KEY) <bbejeck@apache.org>
 )
 
 prepare() {
