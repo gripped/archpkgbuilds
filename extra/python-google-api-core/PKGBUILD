@@ -3,17 +3,17 @@
 # Contributor: Kaizhao Zhang <zhangkaizhao@gmail.com>
 
 pkgname=python-google-api-core
-pkgver=2.19.2
+pkgver=2.31.0
 pkgrel=1
 pkgdesc="Google API client core library"
 arch=('any')
-url="https://github.com/googleapis/googleapis"
+url="https://github.com/googleapis/google-cloud-python/tree/main/packages/google-api-core"
 license=('Apache-2.0')
 depends=('python-pytz' 'python-requests' 'python-googleapis-common-protos' 'python-google-auth')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 optdepends=('python-grpcio: for grpc support')
 source=("https://pypi.org/packages/source/g/google-api-core/google_api_core-${pkgver}.tar.gz")
-sha256sums=('ca07de7e8aa1c98a8bfca9321890ad2340ef7f2eb136e558cee68f24b94b0a8f')
+sha256sums=('2be84ee0f584c48e6bde1b36766e23348b361fb7e55e56135fc76ce1c397f9c2')
 
 build() {
   cd "google_api_core-${pkgver}"
