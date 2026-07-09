@@ -5,7 +5,7 @@
 pkgname=haskell-aeson
 _hkgname=aeson
 pkgver=2.2.2.0
-pkgrel=18
+pkgrel=29
 pkgdesc="A JSON parsing and encoding library optimized for ease of use and high performance"
 url="https://github.com/haskell/aeson"
 license=('BSD-3-Clause')
@@ -26,7 +26,7 @@ sha512sums=('ef97f121d4e1304ee336df6be4c562184f04c306099efafede5240d670a6b8435e0
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u Diff
+  uusi -u Diff -u witherable
 }
 
 build() {
