@@ -3,7 +3,7 @@
 
 pkgname=wayfire
 pkgver=0.10.1
-pkgrel=4
+pkgrel=5
 pkgdesc='3D Wayland compositor, inspired by Compiz and based on wlroots'
 arch=(x86_64)
 url='https://wayfire.org/'
@@ -17,7 +17,7 @@ depends=(
   libglvnd
   libgomp
   libinput
-  libjpeg
+  libjpeg-turbo
   libpng
   libstdc++
   libxcb
