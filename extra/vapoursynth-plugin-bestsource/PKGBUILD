@@ -2,7 +2,7 @@
 # Contributor: witchymary
 
 pkgname=vapoursynth-plugin-bestsource
-pkgver=R18
+pkgver=R19
 pkgrel=1
 epoch=1
 pkgdesc='BestSource plugin for VapourSynth'
@@ -12,11 +12,10 @@ license=(MIT)
 depends=(
   libgcc
   libstdc++
+  ffmpeg
   glibc
-  libavcodec.so
-  libavformat.so
-  libxxhash.so
   vapoursynth
+  xxhash
 )
 makedepends=(
   git
@@ -26,33 +25,23 @@ makedepends=(
 )
 source=(
   git+https://github.com/vapoursynth/bestsource.git#tag=${pkgver}
-  git+https://github.com/AviSynth/AviSynthPlus.git
-  git+https://github.com/sekrit-twc/libp2p.git
+  #git+https://github.com/AviSynth/AviSynthPlus.git
+  #git+https://github.com/sekrit-twc/libp2p.git
 )
-b2sums=('32a9aa7298ea01678c123083c8d688308b3aae2bce6decc7f19aa47c3a0a5d8ada6100421d1de8e6dff98213c1fd1508355120da8946ce9a17c3cdd326f8bc6b'
-        'SKIP'
-        'SKIP')
+b2sums=('4669da5c5a304c5ce71d76d67c4310f7572cc26e8d7a6b7d58c3a78e13c0723b051fc866c44279bdbc475749bd97d15de4968ebd1a310643ffaa2098db233344')
 
 prepare() {
   cd bestsource
-  for submodule in AviSynthPlus libp2p; do
-    git submodule init ${submodule}
-    git config submodule.${submodule}.url ../${submodule}
-    git -c protocol.file.allow=always submodule update ${submodule}
-  done
+  meson subprojects download
   sed 's|vapoursynth/include|/usr/include/vapoursynth|g' -i meson.build
 }
 
-
-
 build() {
   cd bestsource
-  python -m build --wheel --no-isolation
+  python -m build --wheel --no-isolation -Csetup-args="--wrap-mode=nodownload"
 }
 
 package(){
   python -m installer --destdir="$pkgdir" bestsource/dist/*.whl
   install -Dm 644 bestsource/LICENSE -t "${pkgdir}"/usr/share/licenses/vapoursynth-plugin-bestsource/
 }
-
-# vim: ts=2 sw=2 et:

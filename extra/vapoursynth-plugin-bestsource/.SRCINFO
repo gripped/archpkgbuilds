@@ -1,6 +1,6 @@
 pkgbase = vapoursynth-plugin-bestsource
 	pkgdesc = BestSource plugin for VapourSynth
-	pkgver = R18
+	pkgver = R19
 	pkgrel = 1
 	epoch = 1
 	url = https://github.com/vapoursynth/bestsource
@@ -12,16 +12,11 @@ pkgbase = vapoursynth-plugin-bestsource
 	makedepends = python-installer
 	depends = libgcc
 	depends = libstdc++
+	depends = ffmpeg
 	depends = glibc
-	depends = libavcodec.so
-	depends = libavformat.so
-	depends = libxxhash.so
 	depends = vapoursynth
-	source = git+https://github.com/vapoursynth/bestsource.git#tag=R18
-	source = git+https://github.com/AviSynth/AviSynthPlus.git
-	source = git+https://github.com/sekrit-twc/libp2p.git
-	b2sums = 32a9aa7298ea01678c123083c8d688308b3aae2bce6decc7f19aa47c3a0a5d8ada6100421d1de8e6dff98213c1fd1508355120da8946ce9a17c3cdd326f8bc6b
-	b2sums = SKIP
-	b2sums = SKIP
+	depends = xxhash
+	source = git+https://github.com/vapoursynth/bestsource.git#tag=R19
+	b2sums = 4669da5c5a304c5ce71d76d67c4310f7572cc26e8d7a6b7d58c3a78e13c0723b051fc866c44279bdbc475749bd97d15de4968ebd1a310643ffaa2098db233344
 
 pkgname = vapoursynth-plugin-bestsource
