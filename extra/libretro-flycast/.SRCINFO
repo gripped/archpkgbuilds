@@ -1,6 +1,6 @@
 pkgbase = libretro-flycast
 	pkgdesc = Sega Dreamcast core
-	pkgver = 20260619.223320.gc6fe11017c61
+	pkgver = 20260624.072048.g1251a53aed36
 	pkgrel = 1
 	url = https://github.com/flyinghead/flycast
 	arch = x86_64
@@ -10,10 +10,13 @@ pkgbase = libretro-flycast
 	makedepends = git
 	makedepends = mesa
 	makedepends = ninja
+	depends = glibc
+	depends = libgcc
 	depends = libgl
+	depends = libgomp
 	depends = libretro-core-info
-	depends = zlib
-	source = git+https://github.com/flyinghead/flycast.git#commit=c6fe11017c61
+	depends = libstdc++
+	source = git+https://github.com/flyinghead/flycast.git#commit=1251a53aed36
 	source = flycast-asio::git+https://github.com/flyinghead/asio.git
 	source = git+https://github.com/KhronosGroup/glslang.git
 	source = flycast-libchdr::git+https://github.com/flyinghead/libchdr.git
@@ -22,7 +25,7 @@ pkgbase = libretro-flycast
 	source = git+https://github.com/KhronosGroup/Vulkan-Headers.git
 	source = git+https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git
 	source = git+https://github.com/herumi/xbyak.git
-	b2sums = 3623b08896601f4f860ca88e6a851e5729376bc653eed55adfc58a3712516b753c3e956f721ce62b60f1f4504d8b3c1f177c8ff374dfbe3a52f6d869e88fac08
+	b2sums = 9622c685f293603ffdda2841d29432d078d9dc6dad74fcfc2ffb205c64c3437cc54d964f5e41918b9aa627a0052076b1bed88334e4601e9bca1bdcb89ed70451
 	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = SKIP
