@@ -2,7 +2,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=fvwm3
-pkgver=1.1.4
+pkgver=1.1.5
 pkgrel=1
 pkgdesc='Virtual window manager for the X windows system, originally derived from twm'
 arch=(x86_64)
@@ -46,7 +46,7 @@ optdepends=(
   'xterm: Default terminal emulator'
 )
 source=("git+https://github.com/fvwmorg/fvwm3.git#tag=$pkgver")
-b2sums=(8878d4636d0fc683a80bff7521a5fa82b2e6c001f5032ebc811763dd45187fad45c84db10031f3a09a3cfb11e4e5157031f2f610ceea70c1dd475ed42d2362bb)
+b2sums=(4e8689a512a8b0346f484f3a4fc84dfc30685632b9def1a6065c000333ea06d9b42f867c0d566697b5dedbc7be06f3b5ea8613ba749635d9c53dbf3249d757fc)
 
 prepare() {
   cd $pkgname/bin/FvwmPrompt
