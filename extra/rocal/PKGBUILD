@@ -3,7 +3,7 @@
 
 pkgname=rocal
 pkgver=7.2.4
-pkgrel=1
+pkgrel=3
 pkgdesc='A high-performance jpeg decode library for AMD’s GPUs'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocAL/en/latest/'
@@ -39,11 +39,17 @@ _rapidjson='https://github.com/Tencent/rapidjson'
 # rocAL uses some unreleased features of rapidjson
 _commit=24b5e7a8b27f42fa16b96fc70aade9106cf7102f
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz"
-        "$pkgname-rapidjson-$_commit.tar.gz::$_rapidjson/archive/$_commit.tar.gz")
+        "$pkgname-rapidjson-$_commit.tar.gz::$_rapidjson/archive/$_commit.tar.gz"
+         opencv-5.patch)
 sha256sums=('ff97ee78a2b4419f0bfa54dfbb3807e416d57375263d6ab116705bd3b01204d0'
-            '2d2601a82d2d3b7e143a3c8d43ef616671391034bc46891a9816b79cf2d3e7a8')
+            '2d2601a82d2d3b7e143a3c8d43ef616671391034bc46891a9816b79cf2d3e7a8'
+            '7bd05d420f3a1b2b5cf0900bdd7ab7b095fe7d4723ed3b6231f59150c4d4cdf3')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 _rapidjsondir="$(basename "$_rapidjson")-$(basename "${source[1]}" ".tar.gz")"
+
+prepare() {
+  patch -d $_dirname -p1 < opencv-5.patch
+}
 
 build() {
   local rapidjson_args=(

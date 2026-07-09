@@ -1,0 +1,12 @@
+diff -ru rocAL-rocm-7.2.4.orig/rocAL/CMakeLists.txt rocAL-rocm-7.2.4/rocAL/CMakeLists.txt
+--- rocAL-rocm-7.2.4.orig/rocAL/CMakeLists.txt	2026-07-03 21:37:46.707723195 +0200
++++ rocAL-rocm-7.2.4/rocAL/CMakeLists.txt	2026-07-03 21:37:49.045844847 +0200
+@@ -288,7 +288,7 @@
+         target_compile_definitions(${PROJECT_NAME} PUBLIC ENABLE_OPENCV=1)
+         include_directories(${OpenCV_INCLUDE_DIRS})
+         set(LINK_LIBRARY_LIST ${LINK_LIBRARY_LIST} ${OpenCV_LIBRARIES})
+-        if(${OpenCV_VERSION_MAJOR} EQUAL 4)
++        if(${OpenCV_VERSION_MAJOR} GREATER_EQUAL 4)
+             target_compile_definitions(${PROJECT_NAME} PUBLIC USE_OPENCV_4=1)
+         else()
+             target_compile_definitions(${PROJECT_NAME} PUBLIC USE_OPENCV_4=0)
