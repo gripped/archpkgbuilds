@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=go-task
-pkgver=3.51.1
+pkgver=3.52.0
 pkgrel=1
 pkgdesc='A task runner written in Go'
 arch=(x86_64)
@@ -12,14 +12,11 @@ makedepends=(git go)
 install=go-task.install
 source=(
   "$pkgname::git+https://github.com/go-task/task#tag=v$pkgver"
-  rename-completions.patch
   fix-version.patch
 )
-sha512sums=('e5b5937ba092ea410ca273128340866be1daca85e6eb8e46d824c4de3097bd6fb2c7e6d5ff299a4331a14f0dcfe2087c45123c2c867314c7e0b92619a0bd350b'
-            '9ec311337ed98441fa68d1bf8eb27557555fb4adcf07129d584c8c6f3d8ccbb3a96aef047a8bc731bcc1c484117c8057057c86315854d01e2a5c9d76b9bd999a'
+sha512sums=('0da17f5ac3e33573d0952a61e7ff17eb9e93593f837882abb1779d6579f04842d18600a770ef13dc6a59dfc32fb429843e4569f489a4f539e2d5b53dca973e18'
             '5ca079e3d2875d1efe8bba390ae8960445f42b53f309b50cff8a8c13dc3d5ca06065a0bd9ea4504817bbdccc36f7ff39f937817f4feb28fd1d3006dbf382636a')
-b2sums=('b839746762315a55b77fa7075ab154dc9817216346121001a50b1b7bfbefd24d28764cad8915988a6b14d5943eafe871cea2905ce7e96a575895e54581200416'
-        '6d173e5e9b27b7b25aac5d0eb7d4dbb469f96792fa4577cf92a150252a7dc9fa679ab0b9d2209d76d42625226cfcdc9ba1ad71a1eb6e4ed152ac5cdbcbd08631'
+b2sums=('b791f10f100c0532f634f8225ce93bb084e5cfd1cc63a2d84d2d7ae23a3dae9e516283960430dee380ca10b5d5bc870221dc058d587bbe034cd775757b3c8c8c'
         '99f5fd755334a9c5b0a0375d4cdda6e640444d7550d1c105d41f4b94da9f25f74331465b90bc2f79ab0daa5e3d95d9d27d62cce86646f5c22b6c95947c919a0c')
 
 prepare() {
@@ -28,11 +25,6 @@ prepare() {
   # download dependencies
   export GOPATH="${srcdir}"
   go mod download
-
-  # rename completions from `task` to `go-task`
-  # TODO: set env var? see upstream ref:
-  # https://github.com/go-task/task/pull/2495
-  patch -p1 -i "$srcdir/rename-completions.patch"
 
   # fix version
   patch -p1 -i "$srcdir/fix-version.patch"
@@ -73,11 +65,6 @@ package() {
 
   # binary
   install -vDm755 -t "$pkgdir/usr/bin" go-task
-
-  # shell completions
-  install -vDm644 completion/bash/task.bash "$pkgdir/usr/share/bash-completion/completions/go-task"
-  install -vDm644 completion/fish/task.fish "$pkgdir/usr/share/fish/vendor_completions.d/go-task.fish"
-  install -vDm644 completion/zsh/_task "$pkgdir/usr/share/zsh/site-functions/_go-task"
 
   # license
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
