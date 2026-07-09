@@ -2,7 +2,7 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5
-pkgver=5.1.20
+pkgver=5.1.21
 _dictver=20121020
 pkgrel=1
 pkgdesc="Next generation of fcitx, cross-platform input method framework"
@@ -17,7 +17,7 @@ makedepends=('git' 'extra-cmake-modules' 'ninja' 'nlohmann-json' 'plasma-wayland
 source=("git+https://github.com/fcitx/fcitx5.git#tag=$pkgver?signed"
         "https://download.fcitx-im.org/data/en_dict-$_dictver.tar.gz")
 noextract=("en_dict-$_dictver.tar.gz")
-sha512sums=('981a067a83a9aa9aba789c60ff11b88603d12c203c9f6ec86e08f3c9cafd088882faac3082c595762a804b537bafee0f51cde635f7597b312cf89d417c5b89a6'
+sha512sums=('7c692ce6bfc7c6cc27ebc6040e8a2ee8be496cce99575e64b6e1ba3b9eb066dfa4288032568d54b8c8f4b26219b39295ef2b49c0579e20d088b9c875bf801b80'
             '8418bd02492bfd786c0fab93be4400ef027ec8e9fac02220cc1f653f5eb67f54573a6a84a15baba19bb34ab892745c87df16499d6304ea75009131e2ab3b97f2')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
