@@ -5,22 +5,24 @@
 # Contributor: Moritz Schönherr <moritz.schoenherr@gmail.com>
 
 pkgname=mdbook
-pkgver=0.5.3
+pkgver=0.5.4
 pkgrel=1
 pkgdesc="Create book from markdown files, like Gitbook but implemented in Rust"
 url="https://github.com/rust-lang/mdBook"
 arch=('x86_64')
 license=('MPL2')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/rust-lang/mdBook/archive/v${pkgver}.tar.gz")
-sha256sums=('7c3e2907c0482fc9721a46ac42d7954600d795ce2152bed418553999ec1ee8f1')
+sha256sums=('107614330c35c77d53b6f6ce7826c50eed087650efe5646a4d0a16ca6bf5544b')
 # https://github.com/rust-lang/mdBook/blob/master/CHANGELOG.md
 
 prepare() {
   cd "mdBook-${pkgver}"
   mkdir -p completions
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
