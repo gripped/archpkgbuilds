@@ -2,13 +2,14 @@
 
 pkgname=git-branchless
 pkgver=0.11.1
-pkgrel=1
+pkgrel=2
 pkgdesc='High-velocity monorepo-scale workflow for Git'
 url="https://github.com/arxanas/$pkgname"
 arch=(x86_64)
 license=(Apache-2.0 MIT)
 depends=(git
-         libgit2)
+         libgit2
+         sqlite)
 makedepends=(cargo)
 checkdepends=(git)
 _archive="$pkgname-$pkgver"
@@ -22,7 +23,7 @@ prepare() {
 
 build() {
 	cd "$_archive"
-	CFLAGS+=" -ffat-lto-objects"
+	export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
 	cargo build --frozen --release --all-features
 }
 
