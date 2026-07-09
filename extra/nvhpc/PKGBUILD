@@ -2,11 +2,11 @@
 
 pkgbase=nvhpc
 pkgname=(nvhpc nvhpc-comm-libs nvhpc-compilers)
-_cuda_ver=13.1
-_hpcx_ver=2.25
+_cuda_ver=13.2
+_hpcx_ver=2.50
 _rel_year=2026
-pkgver=26.3
-pkgrel=4
+pkgver=26.5
+pkgrel=1
 pkgdesc="NVIDIA HPC SDK"
 arch=(x86_64 aarch64)
 url="https://docs.nvidia.com/hpc-sdk/index.html"
@@ -33,13 +33,13 @@ source=(
 )
 source_x86_64=(https://developer.download.nvidia.com/hpc-sdk/$pkgver/nvhpc_${_rel_year}_${pkgver//.}_Linux_x86_64_cuda_${_cuda_ver}.tar.gz)
 source_aarch64=(https://developer.download.nvidia.com/hpc-sdk/$pkgver/nvhpc_${_rel_year}_${pkgver//.}_Linux_aarch64_cuda_${_cuda_ver}.tar.gz)
-b2sums=('f52dc0a49bedad1a9b08e9ebb9e48c5ea1ff16a064486714d785b7b7f65bd0b7059f059a6ac9aa126c94575c80c8a004ed788341dbbc711421a6654fbafeac2d'
+b2sums=('7b2c2e32239e67d45b1e5f72cdbde3b636de9dafa8478eee38e612ecea39a740282f1952f13e84455a6c4e85417aaee14f73a1c05cfc04ca95a9cbede9bfbe3e'
         '83dbff1adbb72c10300038e816445abbad7d826ffd28c7e61ec3069e2ceb8858e6e180416c268731ea0b7a98bbba26ccd177f0b40d9d131763a7dfa68286e95f'
         '40546862e00688b8d1e1428260a79b9e6eda38be461db3cab1b30b62abdc1875a332b7d3557b7eb94bfddc79849b95c9e7bd43ad93a20f93548331ec1bb5111c'
         '4bd2ac804d6d344823078435e30b3a75989db0c752d021de326d972f3efb95d7f3ea02728ae0a4f7f1875ddec7b934ddd0574105c7afe37c1d5372120863a2ca'
         '246209a817521a0faab024fd601fed97e29e60b925a346d3a6e2d7d235bc9f7339e06f6f622a182bd74269f3b24d1ae4526f8592e58eb51ae3a781618fa7b9b1')
-b2sums_x86_64=('5a92a925d1a85f58fe8c5a0707a80d538a8203bf9d976ac6098f9e470de70f14b1aacdbdaa82c9f736f91ebe0883aa9f8002ba788606ee3ee68ea50a02e8f144')
-b2sums_aarch64=('33f16e95bf67e08b35c56674015f380892c46f23c5e32d9bf2b7cd457339ab6a9bf199f2a43e10c305ce45fe8e83fbd2223061f7f3f5d23bd46e3ade0e4902b7')
+b2sums_x86_64=('181b2c493f5132d0bfb56375e60ab7b8cf0368b4d3d54addb1a66ee88c13b22e7e44c84ff63cf515c3fe458326e6be882f284a0b406a32bc5cfb10d35094c2b3')
+b2sums_aarch64=('29a6362cdee632e7cc4671d850fd664342bedc1ac7a95c432eca988a237af90f20263440598ed63d412a6a97a3e9e41f279d79f37aa93357cf12e5346ce5c1ff')
 
 _pick() {
   local p="$1" f d; shift
