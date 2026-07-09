@@ -5,7 +5,7 @@
 
 pkgname=armagetronad
 pkgver=0.2.9.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A Tron Clone in 3D'
 arch=('x86_64')
 url='http://armagetronad.net/'
@@ -15,6 +15,13 @@ options=('!buildflags')
 depends=('sdl_image' 'libxml2' 'sdl_mixer' 'ftgl' 'hicolor-icon-theme')
 source=("https://launchpad.net/armagetronad/0.2.9/${pkgver}/+download/armagetronad-${pkgver}.tbz")
 sha256sums=('9e0d27048ecfc963c8b07dc31177040561f221ca37e80af832b946b6e0a23fe0')
+
+prepare() {
+  cd "$srcdir/armagetronad-$pkgver"
+  # Fix AppStream metadata
+  # https://gitlab.com/armagetronad/armagetronad/-/merge_requests/197
+  sed -i 's/x-flatpak-//g' desktop/armagetronad.appdata.xml.in
+}
 
 build() {
   cd "$srcdir/armagetronad-$pkgver"
