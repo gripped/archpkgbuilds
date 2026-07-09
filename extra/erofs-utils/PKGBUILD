@@ -2,7 +2,7 @@
 
 pkgbase=erofs-utils
 pkgname=(erofs-utils erofsfuse)
-pkgver=1.9.1
+pkgver=1.9.2
 pkgrel=1
 pkgdesc="Userspace utilities for linux-erofs file system"
 arch=(x86_64)
@@ -25,8 +25,8 @@ makedepends=(
   zstd
 )
 source=($url/snapshot/$pkgname-$pkgver.tar.gz)
-sha512sums=('c66ac253e319886fc41e96813de2edb4281317df6477a8ea71a4af49d5750991964347d533a9be825daf2320370141859e3643c52abbac6bfabdd477f7365ebf')
-b2sums=('0e3d827e28751f22aa10d32c925debe064cb58cabb68d81d0c9825fd4d0b142cbc8da3bf5c6cda1d68b2a61c216a81f1a2bfa6cdae8e4cbb32abd5489f57c4ec')
+sha512sums=('53e30341013ec50f30ea39630482bd3f2e80304f3cb4db16bccf90432c2c9ac9e5bd59d01fc5d34042e62270cb15aadf7c2637fab2959ee27844290d9f33b5b9')
+b2sums=('ce4caa3ea622f1122c076b71265570bc0b43aae4388efaa2c1b0f3b678e00b0b50e7de81c3339458a8722ac938ed37ebe5d2f258dc5ca92e81668279cc5cdaf5')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -71,7 +71,7 @@ package_erofs-utils() {
     libdeflate libdeflate.so
     lz4 liblz4.so
     openssl libcrypto.so
-    util-linux libuuid.so
+    util-linux-libs libuuid.so
     xxhash libxxhash.so
     xz liblzma.so
     zstd libzstd.so
