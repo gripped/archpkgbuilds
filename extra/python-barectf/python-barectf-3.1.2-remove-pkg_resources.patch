@@ -1,0 +1,100 @@
+diff --git a/barectf/config_parse_common.py b/barectf/config_parse_common.py
+index 61fff44..3787a79 100644
+--- a/barectf/config_parse_common.py
++++ b/barectf/config_parse_common.py
+@@ -21,7 +21,9 @@
+ # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ 
+-import pkg_resources
++from importlib.resources import as_file, files
++from importlib.resources.abc import Traversable
++from contextlib import nullcontext
+ import collections
+ import jsonschema  # type: ignore
+ import os.path
+@@ -126,18 +128,17 @@ _MapNode = MutableMapping[str, Any]
+ # validate as well as a schema short ID.
+ class _SchemaValidator:
+     def __init__(self, subdirs: Iterable[str]):
+-        schemas_dir = pkg_resources.resource_filename(__name__, 'schemas')
++        schemas_dir = files('barectf').joinpath('schemas')
+         self._store: Dict[str, str] = {}
+ 
+         for subdir in subdirs:
+-            dir = os.path.join(schemas_dir, subdir)
++            subdir_path = schemas_dir.joinpath(subdir)
+ 
+-            for file_name in os.listdir(dir):
+-                if not file_name.endswith('.yaml'):
++            for file_path in subdir_path.iterdir():
++                if not file_path.name.endswith('.yaml'):
+                     continue
+ 
+-                with open(os.path.join(dir, file_name)) as f:
+-                    schema = yaml.load(f, Loader=yaml.SafeLoader)
++                schema = yaml.load(file_path.read_text(), Loader=yaml.SafeLoader)
+ 
+                 assert '$id' in schema
+                 schema_id = schema['$id']
+@@ -350,7 +351,7 @@ class _Parser:
+         self._include_dirs = copy.copy(include_dirs)
+ 
+         if with_pkg_include_dir:
+-            self._include_dirs.append(pkg_resources.resource_filename(__name__, f'include/{major_version}'))
++            self._include_dirs.append(files('barectf').joinpath('include', str(major_version)))
+ 
+         self._ignore_include_not_found = ignore_include_not_found
+         self._include_stack: List[str] = []
+@@ -389,27 +390,32 @@ class _Parser:
+             #
+             # Note: os.path.join() only takes the last argument if it's
+             # absolute.
+-            inc_path = os.path.join(inc_dir, yaml_path)
++            if isinstance(inc_dir, Traversable):
++                file_path = inc_dir.joinpath(yaml_path)
++                if not file_path.is_file():
++                    continue
++                cm = as_file(file_path)
++            else:
++                inc_path = os.path.join(inc_dir, yaml_path)
++                if not os.path.isfile(inc_path):
++                    continue
++                cm = nullcontext(inc_path)
++            with cm as resolved_path:
++                # real path (symbolic links resolved)
++                real_path = os.path.realpath(resolved_path)
++                # normalized path (weird stuff removed!)
++                norm_path = os.path.normpath(real_path)
++                if norm_path in self._include_stack:
++                    base_path = self._get_last_include_file()
++                    raise _ConfigurationParseError(
++                        f'File `{base_path}`',
++                        f'Cannot recursively include file `{norm_path}`'
++                    )
+ 
+-            # real path (symbolic links resolved)
+-            real_path = os.path.realpath(inc_path)
++                self._include_stack.append(norm_path)
+ 
+-            # normalized path (weird stuff removed!)
+-            norm_path = os.path.normpath(real_path)
+-
+-            if not os.path.isfile(norm_path):
+-                # file doesn't exist: skip
+-                continue
+-
+-            if norm_path in self._include_stack:
+-                base_path = self._get_last_include_file()
+-                raise _ConfigurationParseError(f'File `{base_path}`',
+-                                               f'Cannot recursively include file `{norm_path}`')
+-
+-            self._include_stack.append(norm_path)
+-
+-            # load raw content
+-            return typing.cast(_MapNode, _yaml_load_path(norm_path))
++                # load raw content
++                return typing.cast(_MapNode, _yaml_load_path(norm_path))
+ 
+         if not self._ignore_include_not_found:
+             base_path = self._get_last_include_file()

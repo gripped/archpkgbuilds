@@ -3,19 +3,33 @@
 _pkgname=barectf
 pkgname=python-barectf
 pkgver=3.1.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Generator of ANSI C tracers which output CTF'
 arch=('any')
 url='http://barectf.org'
 license=('MIT')
-depends=('python-termcolor' 'python-yaml' 'python-jsonschema' 'python-jinja' 'python-setuptools')
+depends=('python-termcolor' 'python-yaml' 'python-jsonschema' 'python-jinja')
 makedepends=('python-poetry-core' 'python-build' 'python-installer' 'python-wheel')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/efficios/barectf/archive/v$pkgver.tar.gz")
-sha256sums=('bad30bee4370408a101e6cca7af325cf9875e1a1a0fd712219603f44ac2e7ec8')
+checkdepends=('python-pytest')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/efficios/barectf/archive/v$pkgver.tar.gz"
+        "python-barectf-3.1.2-remove-pkg_resources.patch")
+sha256sums=('bad30bee4370408a101e6cca7af325cf9875e1a1a0fd712219603f44ac2e7ec8'
+            '6bb7ca95e64d34e11a629779e16b4e30ba4089bde73f55c2f52e9b503f94a041')
+
+prepare() {
+    cd "$_pkgname-$pkgver"
+    patch -Np1 -i ../python-barectf-3.1.2-remove-pkg_resources.patch
+}
 
 build() {
     cd "$_pkgname-$pkgver"
     python -m build --wheel --no-isolation
+}
+
+check() {
+    cd "$_pkgname-$pkgver"
+    # TODO remove ignore with next release
+    python -m pytest -W ignore::pytest.PytestRemovedIn9Warning
 }
 
 package() {
