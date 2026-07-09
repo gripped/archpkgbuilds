@@ -2,8 +2,8 @@
 
 _pkgbasename=attr
 pkgname=lib32-$_pkgbasename
-pkgver=2.5.2
-pkgrel=2
+pkgver=2.6.0
+pkgrel=1
 pkgdesc='Extended attribute support library for ACL support (32-bit)'
 arch=(x86_64)
 url='https://savannah.nongnu.org/projects/attr'
@@ -14,8 +14,8 @@ provides=('libattr.so')
 validpgpkeys=('600CD204FBCEA418BD2CA74F154343260542DF34'  # Brandon Philips <brandon@ifup.co>
               'B902B5271325F892AC251AD441633B9FE837F581'  # Frysinger <vapier@gentoo.org>
               '259B3792B3D6D319212CC4DCD5BF9FEB0313653A') # Andreas Gruenbacher <andreas.gruenbacher@gmail.com>
-source=("git+https://git.savannah.nongnu.org/git/attr.git#tag=v${pkgver}?signed")
-sha256sums=('406ba69eb08ef5a246b0c2f3b247f880ed56136a140343f668285129e699fa7b')
+source=("git+https://git.savannah.nongnu.org/git/attr.git?signed#tag=v${pkgver}")
+sha256sums=('ccd84181352d72d01efd1eb72ec99c539f23eb483406100a10747509477cf644')
 
 prepare() {
   cd "${srcdir}"/attr
