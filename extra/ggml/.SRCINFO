@@ -1,13 +1,18 @@
 pkgbase = ggml
 	pkgdesc = Tensor library for machine learning
-	pkgver = 0.15.2
-	pkgrel = 2
+	pkgver = 0.15.3
+	pkgrel = 3
 	url = https://github.com/ggerganov/ggml
 	arch = x86_64
 	license = MIT
 	makedepends = cmake
+	makedepends = cuda
 	makedepends = git
+	makedepends = intel-oneapi-toolkit
+	makedepends = level-zero-headers
 	makedepends = ninja
+	makedepends = openblas
+	makedepends = procps-ng
 	makedepends = rocm-hip-sdk
 	makedepends = rocm-toolchain
 	makedepends = shaderc
@@ -16,22 +21,44 @@ pkgbase = ggml
 	makedepends = vulkan-icd-loader
 	depends = glibc
 	depends = libgcc
+	depends = libgomp
 	depends = libstdc++
 	provides = ggml
 	conflicts = ggml
-	source = git+https://github.com/ggml-org/ggml.git#tag=v0.15.2
-	b2sums = b52659d43f3b6ffd7da4dccbc2419865efb8f3ace867b0493f319cb4b161b73162e55067ed920274987cff04b231b1bbde9b054f682b1d3de9c9ada1703455d7
+	source = git+https://github.com/ggml-org/ggml.git#tag=v0.15.3
+	b2sums = 5b794b40ad52c9a2eeacd7e5a6c68440d8d0cef2b3669db69f773b3ef83a7de21248158c89a17a98a170b8609c28438e30d31180fead315a203c5982700dab73
+
+pkgname = ggml-cpu
+	depends = glibc
+	depends = libgcc
+	depends = libgomp
+	depends = libstdc++
+	depends = openblas
 
 pkgname = ggml-rocm
 	depends = glibc
 	depends = libgcc
+	depends = libgomp
 	depends = libstdc++
 	depends = hipblas
 	depends = rocblas
 	depends = rocm-hip-runtime
 
+pkgname = ggml-sycl
+	depends = glibc
+	depends = libgcc
+	depends = libgomp
+	depends = libstdc++
+	depends = intel-oneapi-compiler-dpcpp-cpp-runtime-libs
+	depends = intel-oneapi-dnnl
+	depends = intel-oneapi-mkl
+	depends = intel-oneapi-mkl-sycl
+	depends = intel-oneapi-openmp
+	depends = level-zero-loader
+
 pkgname = ggml-vulkan
 	depends = glibc
 	depends = libgcc
+	depends = libgomp
 	depends = libstdc++
 	depends = vulkan-icd-loader
