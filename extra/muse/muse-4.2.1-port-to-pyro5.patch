@@ -1,0 +1,156 @@
+--- a/src/share/pybridge/examples/addpartexample.py
++++ b/src/share/pybridge/examples/addpartexample.py
+@@ -21,7 +21,7 @@
+ //=========================================================
+ """
+ 
+-import Pyro4.core
++from Pyro5.compatibility import Pyro4
+ 
+ muse=Pyro4.core.Proxy('PYRONAME:muse')
+ 
+--- a/src/share/pybridge/examples/addtrack.py
++++ b/src/share/pybridge/examples/addtrack.py
+@@ -21,7 +21,7 @@
+ //=========================================================
+ """
+ 
+-import Pyro4.core
++from Pyro5.compatibility import Pyro4
+ import time
+ 
+ muse=Pyro4.core.Proxy("PYRONAME:muse")
+--- a/src/share/pybridge/examples/ctrlexample.py
++++ b/src/share/pybridge/examples/ctrlexample.py
+@@ -21,7 +21,7 @@
+ //=========================================================
+ """
+ 
+-import Pyro4.core
++from Pyro5.compatibility import Pyro4
+ import time
+ 
+ muse=Pyro4.core.Proxy('PYRONAME:muse')
+--- a/src/share/pybridge/examples/effecttoggle.py
++++ b/src/share/pybridge/examples/effecttoggle.py
+@@ -21,7 +21,7 @@
+ //=========================================================
+ """
+ 
+-import Pyro4.core
++from Pyro5.compatibility import Pyro4
+ import time
+ 
+ muse=Pyro4.core.Proxy('PYRONAME:muse')
+--- a/src/share/pybridge/examples/mute.py
++++ b/src/share/pybridge/examples/mute.py
+@@ -21,7 +21,7 @@
+ //=========================================================
+ """
+ 
+-import Pyro4.core
++from Pyro5.compatibility import Pyro4
+ import time
+ 
+ muse=Pyro4.core.Proxy('PYRONAME:muse')
+--- a/src/share/pybridge/examples/repeatpart.py
++++ b/src/share/pybridge/examples/repeatpart.py
+@@ -21,7 +21,7 @@
+ //=========================================================
+ """
+ 
+-import Pyro4.core
++from Pyro5.compatibility import Pyro4
+ import sys
+ import time
+ 
+--- a/src/share/pybridge/examples/setpositionexample.py
++++ b/src/share/pybridge/examples/setpositionexample.py
+@@ -21,7 +21,7 @@
+ //=========================================================
+ """
+ 
+-import Pyro4.core
++from Pyro5.compatibility import Pyro4
+ import time
+ muse=Pyro4.core.Proxy('PYRONAME:muse')
+ parts = muse.getParts("Track 1")
+--- a/src/share/pybridge/examples/tempoexample.py
++++ b/src/share/pybridge/examples/tempoexample.py
+@@ -21,7 +21,7 @@
+ #  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ #=============================================================================
+ 
+-import Pyro4.core
++from Pyro5.compatibility import Pyro4
+ 
+ muse=Pyro4.core.Proxy('PYRONAME:muse')
+ 
+--- a/src/share/pybridge/examples/trackparamchangeexample.py
++++ b/src/share/pybridge/examples/trackparamchangeexample.py
+@@ -20,7 +20,7 @@
+ #  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ //=========================================================
+ """
+-import Pyro4.core
++from Pyro5.compatibility import Pyro4
+ import time
+ 
+ muse=Pyro4.core.Proxy('PYRONAME:muse')
+--- a/src/share/pybridge/musepclient.py
++++ b/src/share/pybridge/musepclient.py
+@@ -24,7 +24,7 @@
+ #
+ # Example client for MusE Pyro bridge (Python Remote Object)
+ #
+-import Pyro4.core
++from Pyro5.compatibility import Pyro4
+ import time
+ 
+ muse=Pyro4.core.Proxy('PYRONAME:muse')
+--- a/src/share/pybridge/museplauncher.py
++++ b/src/share/pybridge/museplauncher.py
+@@ -25,9 +25,7 @@ This file is used by MusE for launching a Pyro name service and connecting a rem
+ """
+ 
+ from __future__ import print_function
+-import Pyro4.core
+-import Pyro4.naming
+-from Pyro4.errors import PyroError,NamingError
++from Pyro5.compatibility import Pyro4
+ import socket
+ import select
+ import time
+--- a/src/share/pybridge/musepstopserver.py
++++ b/src/share/pybridge/musepstopserver.py
+@@ -24,7 +24,7 @@
+ This file stops the muse Pyro server
+ """
+ 
+-import Pyro4.core
++from Pyro5.compatibility import Pyro4
+ 
+ muse=Pyro4.core.Proxy('PYRONAME:muse')
+ 
+--- a/src/share/pybridge/parter/main.py
++++ b/src/share/pybridge/parter/main.py
+@@ -26,7 +26,7 @@ from PyQt5.QtWidgets import QApplication
+ 
+ from parter import ParterMainwidget
+ import sys, os
+-import Pyro4.core
++from Pyro5.compatibility import Pyro4
+ 
+ #import musemock
+ #muse = musemock.MusEMock()
+--- a/src/share/pybridge/robert.py
++++ b/src/share/pybridge/robert.py
+@@ -24,7 +24,7 @@
+ #
+ # Example client for MusE Pyro bridge (Python Remote Object)
+ #
+-import Pyro4.core
++from Pyro5.compatibility import Pyro4
+ import time
+ 
+ muse=Pyro4.core.Proxy('PYRONAME:muse')
