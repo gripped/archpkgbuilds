@@ -4,9 +4,10 @@
 pkgbase=pyside6
 pkgname=(pyside6
          pyside6-tools
-         shiboken6)
+         shiboken6
+         shiboken6-generator)
 pkgver=6.11.1
-pkgrel=1
+pkgrel=4
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -67,7 +68,24 @@ build() {
 }
 
 package_shiboken6() {
-  pkgdesc='Generates bindings for C++ libraries using CPython source code'
+  pkgdesc='Python/C++ bindings helper module'
+  depends=(glibc
+           libgcc
+           libstdc++
+           python)
+
+  DESTDIR="$pkgdir" cmake --install build/sources/shiboken6
+
+# Install egg-info
+  export PATH="/usr/lib/qt6/bin:$PATH"
+  cd pyside-setup
+  python setup.py egg_info --build-type=shiboken6
+  _pythonpath=`python -c "from sysconfig import get_path; print(get_path('platlib'))"`
+  cp -r shiboken6.egg-info "$pkgdir"/$_pythonpath
+}
+
+package_shiboken6-generator() {
+  pkgdesc='Python/C++ bindings generator'
   depends=(clang
            glibc
            libgcc
@@ -77,18 +95,15 @@ package_shiboken6() {
            llvm
            python
            qt6-base)
-  optdepends=('python: Python bindings')
 
-  DESTDIR="$pkgdir" cmake --install build/sources/shiboken6
   DESTDIR="$pkgdir" cmake --install build/sources/shiboken6_generator
-
+           
 # Install egg-info
   export PATH="/usr/lib/qt6/bin:$PATH"
   cd pyside-setup
-  python setup.py egg_info --build-type=shiboken6
   python setup.py egg_info --build-type=shiboken6-generator
   _pythonpath=`python -c "from sysconfig import get_path; print(get_path('platlib'))"`
-  cp -r shiboken6*.egg-info "$pkgdir"/$_pythonpath
+  cp -r shiboken6_generator.egg-info "$pkgdir"/$_pythonpath
 }
 
 package_pyside6() {

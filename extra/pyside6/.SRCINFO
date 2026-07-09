@@ -1,6 +1,6 @@
 pkgbase = pyside6
 	pkgver = 6.11.1
-	pkgrel = 1
+	pkgrel = 4
 	url = https://www.qt.io
 	arch = x86_64
 	license = GPL-3.0-only
@@ -83,7 +83,14 @@ pkgname = pyside6-tools
 	depends = python
 
 pkgname = shiboken6
-	pkgdesc = Generates bindings for C++ libraries using CPython source code
+	pkgdesc = Python/C++ bindings helper module
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
+	depends = python
+
+pkgname = shiboken6-generator
+	pkgdesc = Python/C++ bindings generator
 	depends = clang
 	depends = glibc
 	depends = libgcc
@@ -93,4 +100,3 @@ pkgname = shiboken6
 	depends = llvm
 	depends = python
 	depends = qt6-base
-	optdepends = python: Python bindings
