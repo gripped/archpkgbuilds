@@ -2,8 +2,8 @@
 
 _hkgname=tree-diff
 pkgname=haskell-tree-diff
-pkgver=0.3.1
-pkgrel=43
+pkgver=0.3.2
+pkgrel=10
 pkgdesc="Diffing of (expression) trees"
 url="https://github.com/phadej/tree-diff"
 license=('GPL-2.0-or-later')
@@ -15,12 +15,11 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-wl-pprint' 'haskell-ansi-termi
 makedepends=('ghc' 'uusi' 'haskell-trifecta' 'haskell-tasty' 'haskell-tasty-golden'
              'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('b8681c59886460719adee802f826032428847b00098f37a3fc532ab167826da6aa270c17ddc45aab98ece72298093698fee2ad67a278acd307c85037a2ffd9eb')
+sha512sums=('dd4d8146173b4f38957c05b990e979d9a835da3c7a34cf9432f6ade841b5550b23ba2b3618d42a9ce283c0e3a8092f58ab14a6ca6cf1b02cf866ed5e4510eed0')
 
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
-    uusi -u tasty-quickcheck
 }
 
 build() {
