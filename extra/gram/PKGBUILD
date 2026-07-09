@@ -3,7 +3,7 @@
 # Contributor: nerdyslacker <karyan40024@gmail.com>
 
 pkgname=gram
-pkgver=2.2.0
+pkgver=3.0.1
 pkgrel=1
 pkgdesc='A code editor for humanoid apes and grumpy toads'
 arch=(x86_64)
@@ -11,9 +11,9 @@ url=https://gram-editor.com
 _url="https://codeberg.org/GramEditor/$pkgname"
 license=(GPL-3.0-or-later AGPL-3.0-or-later Apache-2.0)
 depends=(fontconfig
+         git
          glibc # libc.so libm.so
          libgcc libgcc_s.so
-         libgit2 libgit2.so
          libssh2 libssh2.so
          libstdc++ libstdc++.so
          libxcb # libxcb.so libxcb-xkb.so
@@ -28,7 +28,6 @@ depends=(fontconfig
          vulkan-icd-loader
          vulkan-tools
          wayland
-         zlib libz.so
          zstd libzstd.so)
 makedepends=(cargo
              cargo-about
@@ -40,7 +39,7 @@ makedepends=(cargo
 replaces=(gram-bin gram-editor-bin)
 _archive="$pkgname-$pkgver"
 source=("$_archive.tar.gz::$_url/archive/$pkgver.tar.gz")
-sha256sums=('b360d7598e7e9d3a0f5476e5491f2f5af32c0819f637bbc3fc4717ed548b8e19')
+sha256sums=('4fc7521b417e56a990920f985656be0f72f16a957405d299cfbe6ea9c5e7fa94')
 
 _binname=gram
 _appid=app.liten.Gram
@@ -63,8 +62,6 @@ _srcenv() {
 	CFLAGS+=' -ffat-lto-objects'
 	CXXFLAGS+=' -ffat-lto-objects'
 	RUSTFLAGS+=" --remap-path-prefix $PWD=/"
-	# Temporarily disable devendoring, c.f. https://codeberg.org/GramEditor/gram/issues/331
-	# export LIBGIT2_NO_VENDOR=1
 	export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
 	export LIBSSH2_SYS_USE_PKG_CONFIG=1
 	export OPENSSL_NO_VENDOR=true
@@ -74,7 +71,7 @@ _srcenv() {
 
 build() {
 	_srcenv
-	export GRAM_UPDATE_EXPLANATION='Updates are handled by pacman'
+	export GRAM_NO_BUNDLED_UNINSTALL='Use pacman to uninstall'
 	export RELEASE_VERSION="$pkgver"
 	export PROTOC=/usr/bin/protoc
 	export PROTOC_INCLUDE=/usr/include
