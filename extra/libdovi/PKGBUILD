@@ -3,14 +3,14 @@
 
 pkgname=libdovi
 pkgver=3.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Library to read and write Dolby Vision metadata'
 arch=(x86_64)
 url=https://github.com/quietvoid/dovi_tool/tree/main/dolby_vision
 license=(MIT)
 depends=(
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(
   cargo-c
@@ -18,8 +18,7 @@ makedepends=(
   rust
 )
 provides=(libdovi.so)
-_tag=4fd2b2235c9f93582dd4a00e65ee34a07800afd7
-source=(git+https://github.com/quietvoid/dovi_tool.git#tag=${_tag})
+source=(git+https://github.com/quietvoid/dovi_tool.git#tag=libdovi-${pkgver})
 b2sums=('40aefc4476b3fb674d2f2fe241de1e8e8b91658c8d5c9d7c729d371bbbb5b70955210d23b3cd088ae2001963f9aa15c29ceb4fa3abf15762f66d44efd6c3ae0e')
 
 prepare() {
@@ -27,12 +26,9 @@ prepare() {
     --manifest-path dovi_tool/dolby_vision/Cargo.toml
 }
 
-#pkgver() {
-#  cd dovi_tool
-#  git describe --tags | sed 's/^libdovi-//'
-#}
-
 build() {
+  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
   cargo cbuild \
     --release \
     --frozen \
@@ -57,5 +53,3 @@ package() {
     --destdir "${pkgdir}"
   install -Dm 644 LICENSE -t "${pkgdir}"/usr/share/licenses/libdovi/
 }
-
-# vim: ts=2 sw=2 et:
