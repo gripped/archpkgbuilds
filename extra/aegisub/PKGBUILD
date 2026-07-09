@@ -4,7 +4,7 @@
 
 pkgname=aegisub
 pkgver=3.4.2
-pkgrel=8
+pkgrel=9
 pkgdesc='A general-purpose subtitle editor with ASS/SSA support'
 arch=(x86_64)
 url=http://www.aegisub.org
@@ -15,15 +15,16 @@ depends=(
   curl
   fftw
   fontconfig
-  gcc-libs
   glibc
   hicolor-icon-theme
   hunspell
   icu
   libass.so
   libffms2.so
+  libgcc
   libgl
   libpulse
+  libstdc++
   uchardet
   wxwidgets-common
   wxwidgets-gtk3
@@ -36,8 +37,7 @@ makedepends=(
   mesa
   meson
 )
-_tag=f437ba4f547fdb0e02432f1c45a4da25e51035f8
-source=(git+https://github.com/TypesettingTools/Aegisub.git#tag=${_tag})
+source=(git+https://github.com/TypesettingTools/Aegisub.git#tag=v${pkgver})
 #validpgpkeys=(6DD9508BCB1CE31AF295FF9B6A889F50A8B00C08) # Thomas Goyne <plorkyeran@aegisub.org>
 b2sums=('9d46d4c296e1d52ffb1abbd2e3ac48b3329618706fad4e76928e733b15d61e3d352b50d0514426b0ab62dadc5ceaf234028a31dec65e10e5b41b0086882ca25b')
 
@@ -51,11 +51,6 @@ prepare() {
   echo '#define TAGGED_RELEASE 0' >> git_version.h
   echo '#define INSTALLER_VERSION "0.0.0"' >> git_version.h
   echo '#define RESOURCE_BASE_VERSION 0, 0, 0' >> git_version.h
-}
-
-pkgver() {
-  cd Aegisub
-  git describe --tags | sed 's/^v//'
 }
 
 build() {
@@ -73,5 +68,3 @@ package() {
   cp -dr --no-preserve=ownership Aegisub/automation/include/{aegisub,*.lua} "${pkgdir}"/usr/share/aegisub/automation/include/
   install -Dm 644 Aegisub/LICENCE -t "${pkgdir}"/usr/share/licenses/aegisub/
 }
-
-# vim: ts=2 sw=2 et:
