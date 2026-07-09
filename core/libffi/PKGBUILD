@@ -5,7 +5,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=libffi
-pkgver=3.5.2
+pkgver=3.6.0
 pkgrel=1
 pkgdesc='Portable foreign function interface library'
 arch=(x86_64)
@@ -16,8 +16,8 @@ depends=(glibc)
 checkdepends=(dejagnu)
 provides=(libffi.so)
 source=($pkgname-$pkgver.tar.gz::$_url/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('dd19253d3007f366319a51d248a40c9e5fcace4498cbea990b566291844e4e30')
-b2sums=('4aa7ecdbb7abc862f876cc0b0484f944fe6c49633071d36a964ad94f06d02ee08c76dceed5d6897da02c357515033f084a9a4da3a22bdd559316a5dca736332d')
+sha256sums=('5ad876a153a6ad0d706fcb5a53af1e43efe3be88668f78d833b49353bd51a939')
+b2sums=('f76b0caa8972feade8da43a1a2e057785f02d034ae3fdf646b564c0d084b9a6a36909eda5b525ba7d45be0686cdb51d1c984a3a514425c8cfadd300d45794105')
 
 prepare() {
   cd $pkgname-$pkgver
