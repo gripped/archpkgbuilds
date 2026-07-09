@@ -8,7 +8,7 @@ pkgname=(
   deluge-gtk
 )
 pkgver=2.2.0
-pkgrel=3
+pkgrel=4
 epoch=1
 pkgdesc="BitTorrent client with multiple user interfaces in a client/server model"
 url="https://deluge-torrent.org/"
@@ -69,8 +69,26 @@ validpgpkeys=(
   EA01185D0E8AA00D6323A30890597A687B836BA3 # Calum Lind <calumlind@gmail.com>
 )
 
+_backports=(
+  # tests(plugins): new tests for plugin discovery and loading
+  '319eaf53995afd729dd9001a04811c669a540871'
+  # feat(ui): use importlib in entrypoint instead of pkg_resources
+  '1a031d00094d4613667bcaadae57b548b7e1413b'
+  # feat(pluginmanager): new plugin finder using stdlib without pkg_resources
+  'dab761f3b857327ca87c18e56f723849bd8baeef'
+  # feat(plugins): replace common.py pkg_resources with importlib
+  '959d5b83e37ce8ef497685634984909367702fe9'
+)
+
+
 prepare() {
   cd deluge
+
+  local _c
+  for _c in "${_backports[@]}"; do
+    git log --oneline --max-count=1 "${_c}"
+    git cherry-pick --no-commit "${_c}"
+  done
 
   # Installation fixes
   git apply -3 ../0001-Fix-data-installation-when-building-wheel.patch
