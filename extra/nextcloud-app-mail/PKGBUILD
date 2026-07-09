@@ -3,7 +3,7 @@
 
 pkgname=nextcloud-app-mail
 _name=mail
-pkgver=5.10.1
+pkgver=5.10.7
 pkgrel=1
 pkgdesc="An email app for NextCloud"
 arch=(any)
@@ -17,8 +17,8 @@ optdepends=('kitinerary: for kitinerary-extractor')
 groups=(nextcloud-apps)
 options=(!strip)
 source=($_name-$pkgver.tar.gz::https://github.com/nextcloud-releases/mail/releases/download/v$pkgver/${_name}-v${pkgver}.tar.gz)
-sha512sums=('fb979eb9916c84fcb5d234d6f13c0f9da28658e5fe348f27b76eecb91dc24ebbcf5d6fd337c46c89b18946558d295cdf258adb0e0769acb30e25b3cd56ebeb00')
-b2sums=('997507d4f105997b5eb1b8b26ca8297684f5ec0537b6f9e895e77229721927b67dd5a1183167068b9cb6e0bba332688a50e70c5ccadc7e9e73843cdacdc8dbd0')
+sha512sums=('86f2f4d30c090ec49c26ef678a96b9616d58354dec85f1b909dfc667ce6b684aff250647af22e8493e51ea6d3960d3da7b42af1c866c636097bd7502f26292c4')
+b2sums=('b4003658cc877426644962e965dd4c3718f7c94fb4f9e4736c1bef2549a4b4619b24cbc7f56ee8aa018c7a25a17297a90adadbafc2b6f4a38c9aa0c1f95e1d6c')
 
 # BEGIN boilerplate nextcloud app version clamping, see also other packages in group
 # 1. Call respective function helpers in check() and package() *after* cd'ing to the source directory
