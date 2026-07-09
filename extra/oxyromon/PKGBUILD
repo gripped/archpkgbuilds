@@ -2,14 +2,14 @@
 
 pkgname=oxyromon
 pkgver=0.21.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Rusty ROM OrgaNizer'
 arch=(x86_64)
 url=https://github.com/alucryd/oxyromon
 license=(GPL-3.0-only)
 depends=(
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(
   bchunk
@@ -51,6 +51,8 @@ prepare() {
 
 build() {
   cd oxyromon
+  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
   yarn build
   cargo build \
     --features server \
@@ -73,7 +75,5 @@ package() {
     --offline \
     --no-track \
     --path oxyromon \
-    --root "${pkgdir}"/usr
+    --root "${pkgdir}/usr"
 }
-
-# vim: ts=2 sw=2 et:
