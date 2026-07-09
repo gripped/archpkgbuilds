@@ -6,8 +6,8 @@ pkgname=(
   pangomm-2.48
   pangomm-2.48-docs
 )
-pkgver=2.56.1
-pkgrel=2
+pkgver=2.56.2
+pkgrel=1
 pkgdesc="C++ bindings for Pango"
 url="https://www.gtkmm.org/"
 arch=(x86_64)
@@ -32,7 +32,7 @@ makedepends=(
 )
 options=(!emptydirs)
 source=("git+https://gitlab.gnome.org/GNOME/pangomm.git#tag=$pkgver")
-b2sums=('f2670239c2c0773539becfd4f80d5c0fbe1a1d88d1ae4d72dfa16f617bc60effc93f5399067b8120af1d08d28b3db97266354a91bb9054f2ff4b0d6536e29846')
+b2sums=('aeab846dfbed78e6d9c50586bf6bc5b34b111e0bc95fc0c3d3aecc557ec663f8e2f01b28ea76c9222c7d5362decd26582e45a2f5c84b464bd3b394b4149fd9e5')
 
 prepare() {
   cd pangomm
