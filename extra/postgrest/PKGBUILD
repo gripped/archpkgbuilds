@@ -3,7 +3,7 @@
 
 pkgname=postgrest
 pkgver=10.1.0
-pkgrel=58
+pkgrel=86
 pkgdesc="REST API for any Postgres database"
 url="https://github.com/begriffs/postgrest"
 license=("MIT")
@@ -29,7 +29,7 @@ sha512sums=('d642cfc23e3f11d166f4304beccc4f2b93f4d5f9b8c28ea684e45bf9181bf237edd
 
 prepare() {
     cd $pkgname-$pkgver
-    uusi -u Ranged-sets -u aeson -u cookie -u hspec -u hspec-wai -u hspec-wai-json -u HTTP -u lens -u lens-aeson -u optparse-applicative -u warp
+    uusi -u Ranged-sets -u aeson -u cookie -u hspec -u hspec-wai -u hspec-wai-json -u HTTP -u jose -u lens -u lens-aeson -u optparse-applicative -u swagger2 -u warp
     # GHC 9.4+
     uusi -u base -u mtl -u text -u time
     # hspec-wai 0.12 re-exports SResponse's accessors, so keep only instances.
