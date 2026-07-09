@@ -2,8 +2,8 @@
 
 _hkgname=indexed-traversable
 pkgname=haskell-indexed-traversable
-pkgver=0.1.4
-pkgrel=195
+pkgver=0.1.5
+pkgrel=1
 pkgdesc="FunctorWithIndex, FoldableWithIndex, TraversableWithIndex"
 url="https://github.com/haskellari/indexed-traversable"
 license=('BSD-2-Clause')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('ade5a8a02d397f29623157caaacbe5053414f8a6fe82368dd27a5ba6e178b477d18aabdefe0a6099f72654d4abffe1c198393ba5828ccbe09cb61799130b15d1')
+sha512sums=('54354f819258fe547e7857f6f0d7332f513eb29cce6f13e906495f4efbbd4a4ac4a7467629d7a2cc1cd8f77fb0012eb33997c505afac4d9d35955d17a31ba6ba')
 
 prepare() {
   cd $_hkgname-$pkgver
@@ -32,6 +32,11 @@ build() {
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
   sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+  cd $_hkgname-$pkgver
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
