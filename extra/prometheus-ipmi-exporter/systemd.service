@@ -14,7 +14,6 @@ ExecStart=/usr/bin/prometheus-ipmi-exporter --config.file=/etc/prometheus/ipmi-e
 User=prometheus-ipmi-exporter
 Group=prometheus-ipmi-exporter
 ExecReload=/bin/kill -HUP $MAINPID
-NoNewPrivileges=true
 ProtectHome=true
 ProtectSystem=full
 ProtectHostname=true
@@ -25,9 +24,11 @@ LockPersonality=true
 RestrictRealtime=yes
 RestrictNamespaces=yes
 MemoryDenyWriteExecute=yes
-PrivateDevices=yes
+DeviceAllow=/dev/ipmi0 rw
+DeviceAllow=/dev/bmc rw
+DeviceAllow=/dev/dcmi rw
 PrivateTmp=true
-CapabilityBoundingSet=
+CapabilityBoundingSet=CAP_SETUID CAP_SETGID CAP_DAC_OVERRIDE
 
 [Install]
 WantedBy=multi-user.target
