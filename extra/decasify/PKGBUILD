@@ -4,13 +4,15 @@ pkgbase=decasify
 pkgname=("$pkgbase" "lua-$pkgbase" "lua54-$pkgbase" "lua53-$pkgbase" "lua52-$pkgbase" "lua51-$pkgbase" "neovim-$pkgbase" "python-$pkgbase" "sile-$pkgbase")
 pkgver=0.11.3
 _rockrel=1
-pkgrel=2
+pkgrel=3
 pkgdesc='cast strings to title-case according to locale specific style guides including Turkish'
 arch=(x86_64)
 url="https://github.com/alerque/$pkgbase"
 license=(LGPL-3.0-only)
-depends=(gcc-libs
-         glibc)
+depends=(
+  libgcc
+  glibc
+)
 makedepends=(cargo
              jq
              lua{,-luarocks-build-rust-mlua}
@@ -27,13 +29,24 @@ sha256sums=('2404c9f1c163b4290aeb93694d3ad49181c0a389c3aea7ed6abab22489d14e93'
             'SKIP')
 validpgpkeys=('9F377DDB6D3153A48EB3EB1E63CC496475267693') # Caleb Maclennan <caleb@alerque.com> (@alerque)
 
+_env() {
+	export CARGO_PROFILE_RELEASE_DEBUG=2
+	export CARGO_PROFILE_RELEASE_STRIP=false
+	export CARGO_HOME="$srcdir"
+	export CARGO_PROFILE_RELEASE_LTO=true
+	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+}
+
 prepare() {
 	cd "$_archive"
-	cargo fetch --locked --target "$(rustc --print host-tuple)"
+	_env
+	cargo fetch --locked --target host-tuple
 }
 
 build() {
 	cd "$_archive"
+	_env
 	export CARGO_FEATURE_FLAGS==--offline
 	./configure --prefix /usr
 	make
@@ -43,8 +56,9 @@ build() {
 check() {
 	cd "$_archive"
 	./$pkgbase -l tr -c title 'ılIk ilkİ' | grep -Fx 'Ilık İlki'
-	# export CARGO_FEATURE_FLAGS==--offline
 	# check requires lua & python developer tooling, needs to be reworked for a simple selfcheck
+	# _env
+	# export CARGO_FEATURE_FLAGS==--offline
 	# make check
 }
 
@@ -57,6 +71,7 @@ package_decasify() {
 _package() {
 	cd "$_archive"
 	pkgdesc+=" (Rock for Lua $1)"
+	_env
 	luarocks --lua-version "$1" --tree "$pkgdir/usr/" \
 		make --deps-mode none --no-manifest "rockspecs/$_archive-$_rockrel.rockspec"
 }
