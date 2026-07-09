@@ -2,19 +2,19 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-treq
-pkgver=25.5.0
+pkgver=26.7.0
 pkgrel=1
 pkgdesc="A requests-like API built on top of twisted.web's Agent"
 arch=('any')
 license=('MIT')
 url='https://github.com/twisted/treq'
-depends=('python' 'python-incremental' 'python-requests' 'python-hyperlink'
+depends=('python' 'python-incremental' 'python-hyperlink'
          'python-pyopenssl' 'python-service-identity' 'python-idna' 'python-twisted'
          'python-attrs' 'python-typing_extensions' 'python-multipart'
          'python-zope-interface')
 makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-wheel' 'httpbin')
 source=("git+https://github.com/twisted/treq.git#tag=treq-$pkgver")
-sha512sums=('6c0f6e25019805504fcdedaad3bcb708a2a00b28ec9e7cb9c66322456bf03b78a91cb180edf7fec3969977cae9b8f54dfe802ebaf0f5adf2580d6209861115af')
+sha512sums=('bfe3bf0aef5077ae338fd86586530a409538f3d1613a27a13e9b4339e301d12ca4f47aca320a3c6d914cc4d8da797748afaed66655be2dc3e44c84e21128b6af')
 
 build() {
   cd treq
