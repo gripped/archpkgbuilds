@@ -2,7 +2,7 @@
 # Contributor: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=cargo-tarpaulin
-pkgver=0.35.4
+pkgver=0.37.0
 pkgrel=1
 pkgdesc="Tool to analyse test coverage of cargo projects"
 arch=('x86_64')
@@ -20,7 +20,7 @@ depends=(
 )
 makedepends=('git')
 source=("$pkgname-$pkgver::git+$url.git#tag=$pkgver")
-b2sums=('5c94cd00277bf582adbc01d8ebfe34aa6cf8713e813093daf863a4392169e4707560080dbe6b12ade40ddf997641afd73bfd6719901bc6f7de6870f55f2fc258')
+b2sums=('830a4e08bbcb715c37ea8dcde4d4db9b7450dc7afdf14af2995510087c0f2e1aa6fc477cf1e20d5bce2a18d19e205e6c9646117c0e3acdde2a7e1a8c6d7e67cf')
 
 prepare() {
   cd "$pkgname-$pkgver"
