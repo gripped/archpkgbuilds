@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-alerting-plugin
-pkgver=3.6.0.0
+pkgver=3.7.0.0
 pkgrel=1
-_opensearchver=3.6.0
+_opensearchver=3.7.0
 _jdkver=21
 pkgdesc="OpenSearch Alerting Plugin"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=("java-environment-openjdk=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/alerting/archive/${pkgver}.tar.gz"
 )
-sha256sums=('59f323dffd6f487409878b86177487b0a7dedbb2ddf16fc0c7c956f51d1f1784')
+sha256sums=('01fd5000df2990a48a0826423b35d4dc3e86c29ad3c361a239be97981346cdb1')
 
 build() {
   cd "alerting-${pkgver}"
