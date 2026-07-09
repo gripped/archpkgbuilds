@@ -5,15 +5,24 @@
 
 pkgname=cgal
 pkgver=6.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Computational Geometry Algorithms Library"
 arch=(any)
 url="https://www.cgal.org"
 license=(GPL-3.0-or-later LGPL-3.0-or-later)
 depends=(boost eigen gmp mpfr)
 makedepends=(cmake)
-source=(https://github.com/CGAL/cgal/releases/download/v$pkgver/CGAL-$pkgver.tar.xz)
-sha256sums=('fbc32816745e871a5cbdeb6245317e9dbf10ae1a957b0ab1edb00b4fde00ba8d')
+source=(https://github.com/CGAL/cgal/releases/download/v$pkgver/CGAL-$pkgver.tar.xz
+        $pkgname-fix-gdb-autoload.patch::https://github.com/CGAL/cgal/commit/eb2257df4da4c52c75fe384e803d9a6376057b8a.patch)
+sha256sums=('fbc32816745e871a5cbdeb6245317e9dbf10ae1a957b0ab1edb00b4fde00ba8d'
+            '3321616d255a434e4b32866fcb35817981e3357bafd41239f6560eae0b92a7a5')
+
+prepare() {
+  cd CGAL-$pkgver
+  # fix <CGAL/gdb_autoload.h>: end the section with a null byte
+  # https://github.com/CGAL/cgal/commit/eb2257df4da4c52c75fe384e803d9a6376057b8a
+  patch -p2 < ../$pkgname-fix-gdb-autoload.patch
+}
 
 build() {
   local cmake_options=(

@@ -1,7 +1,7 @@
 pkgbase = cgal
 	pkgdesc = Computational Geometry Algorithms Library
 	pkgver = 6.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.cgal.org
 	arch = any
 	license = GPL-3.0-or-later
@@ -12,6 +12,8 @@ pkgbase = cgal
 	depends = gmp
 	depends = mpfr
 	source = https://github.com/CGAL/cgal/releases/download/v6.2/CGAL-6.2.tar.xz
+	source = cgal-fix-gdb-autoload.patch::https://github.com/CGAL/cgal/commit/eb2257df4da4c52c75fe384e803d9a6376057b8a.patch
 	sha256sums = fbc32816745e871a5cbdeb6245317e9dbf10ae1a957b0ab1edb00b4fde00ba8d
+	sha256sums = 3321616d255a434e4b32866fcb35817981e3357bafd41239f6560eae0b92a7a5
 
 pkgname = cgal
