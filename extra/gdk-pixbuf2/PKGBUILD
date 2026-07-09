@@ -6,8 +6,8 @@ pkgname=(
   gdk-pixbuf2
   gdk-pixbuf2-docs
 )
-pkgver=2.44.6
-pkgrel=2
+pkgver=2.44.7
+pkgrel=1
 pkgdesc="An image loading library"
 url="https://gitlab.gnome.org/GNOME/gdk-pixbuf"
 arch=(x86_64)
@@ -30,15 +30,11 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gdk-pixbuf.git#tag=$pkgver"
   gdk-pixbuf-query-loaders.hook
 )
-b2sums=('e24fa06f587e81a4b5f5a265a1e449ab0c8d0ae75296cba1bfb8359ae72e3148b16c8b94767ae4ab20dd4017559e18133e43084a63557fa2af7f9deafec6cc28'
+b2sums=('0a0c801939c6cc6f647714962491bc0d4673349899fb99c4760782c99f56ca3cc16c1159a2de389372f5b6eab12ad9eb7c9f6521ee9b983a4c8435a70da22639'
         '5a00d34888e207d70d02369015d029f4c0450fc5a02b4b257de8e5df04380dc550723f351433859224c96c3c6390896f2166673af65e8a09eb57024f5a34301b')
 
 prepare() {
   cd gdk-pixbuf
-
-  # Unbreak gdk_pixbuf_new_from_xpm_data
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/gdk-pixbuf2/-/work_items/13
-  git cherry-pick -n 62b8f9fd0bb3b862823cd34afce4b389fbd27569
 }
 
 build() {
