@@ -6,8 +6,8 @@
 # Contributor: Matthias Lisin <ml@visu.li>
 
 pkgname=helm
-pkgver=4.2.1
-pkgrel=2
+pkgver=4.2.2
+pkgrel=1
 pkgdesc="The Kubernetes Package Manager"
 arch=("x86_64")
 url="https://github.com/helm/helm"
@@ -19,7 +19,7 @@ makedepends=(
 )
 options=("!lto")
 source=("git+$url.git#tag=v$pkgver?signed")
-b2sums=('0c5f429896d9714c2901eea689ddc57b4e4e6c2f15c4a380086d522f50819d939d71d636a1df694875436bd05cf1a9d517affa06de03c68073dde17434624e92')
+b2sums=('03a73609b2efe06a476fabb66a532e8ce1bc2f661bdc063f174cdf00bc2db50f41c5a98747d428ca0d18cbf144e80e36dfd92da1a50c2b0ff4c012da815fd15f')
 validpgpkeys=(
   '672C657BE06B4B30969C4A57461449C25E36B98E' # Matthew Farina <matt@mattfarina.com>
   'CABAA8D44DFACA14791FBE9892C44A3D421FF7F9' # Matthew Farina <matt.farina@rancher.com>
@@ -32,12 +32,6 @@ validpgpkeys=(
 
 prepare() {
   cd $pkgname
-  # Revert WaitForDelete change that makes --wait hang for the full timeout on
-  # fast hook deletions, see:
-  # https://github.com/helm/helm/issues/32214
-  # https://github.com/helm/helm/pull/32230
-  git cherry-pick -n d3bd09147bbae09ca85615452bda31b8215e66f5
-
   GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
