@@ -1,8 +1,8 @@
 # Maintainer: Thomas Bächler <thomas@archlinux.org>
 
 pkgname=lib32-acl
-pkgver=2.3.2
-pkgrel=2
+pkgver=2.4.0
+pkgrel=1
 pkgdesc='Access control list libraries (32-bit)'
 arch=('x86_64')
 url='https://savannah.nongnu.org/projects/acl'
@@ -13,8 +13,8 @@ provides=('libacl.so')
 validpgpkeys=('600CD204FBCEA418BD2CA74F154343260542DF34'  # Brandon Philips <brandon@ifup.co>
               'B902B5271325F892AC251AD441633B9FE837F581'  # Frysinger <vapier@gentoo.org>
               '259B3792B3D6D319212CC4DCD5BF9FEB0313653A') # Andreas Gruenbacher <andreas.gruenbacher@gmail.com>
-source=("git+https://git.savannah.nongnu.org/git/acl.git#tag=v${pkgver}?signed")
-sha256sums=('1b4ad9a0d4a04275f5710184dd7a6fa7ffccadc33a3a4b4af43a8b7f9771a7da')
+source=("git+https://git.savannah.nongnu.org/git/acl.git?signed#tag=v${pkgver}")
+sha256sums=('0637d58b5a2c1c595f679f297bd521f2b730a7315c6bc42ab30e2601c0fd2ba7')
 
 prepare() {
   cd "${srcdir}"/acl
