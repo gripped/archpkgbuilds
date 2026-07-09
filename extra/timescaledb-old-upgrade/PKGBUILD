@@ -6,13 +6,13 @@ _current_pg_version=18
 _old_pg_version=$(( _current_pg_version - 1 ))
 # limit to last 5 releases
 declare -gA _commits=(
-  [2.26.4]=b69fa27838e21c3401ee431a730837bfa28f16e0
-  [2.27.0]=536eeebeadabf0d72d246cb92032d1378920323d
   [2.27.1]=b01ae9bada940694e85edafdaf5bdb9424bb5bdb
   [2.27.2]=3c4a725ba6ee206c6039516ca25d05114861f71a
   [2.28.0]=8cd71aeb412062338c007cf02e9e859e422377e6
+  [2.28.1]=b5b8e9b8f362d1559dc3de5eb32e4f309e891046
+  [2.28.2]=558291fad04a71f255bdc0c67f1fa83385ff33a2
 )
-pkgver=2.28.0
+pkgver=2.28.2
 pkgrel=1
 pkgdesc='TimescaleDB build for migrating between major versions of PostgreSQL'
 arch=(x86_64)
@@ -27,8 +27,8 @@ depends=(
 )
 makedepends=(gcc cmake git)
 source=("$_pkgname::git+https://github.com/timescale/timescaledb#commit=${_commits[$pkgver]}")
-sha512sums=('a2c15227ee42b0b03b2b69a559357a487c78699ed1f889219b87d2b140d61fbc8c78d25c836380a7674f4c549e3949c3d93ef89cbcb56ae71fcc5bd8f1ababd4')
-b2sums=('deaf5174308dd4fa8a7679c215863b343002457b4edc60ae9f7722056c749e81923a779ad859697004daf7f77d926e3af12df5a72a75bf9b03f64bf48f7db120')
+sha512sums=('5462160a87a887c51eb26662c52802a0a9736bb423af896c4154b53ce7089cb938b4b0ce0185865b6ee530596f1a47f037d33a22f61b7321153851bb199a43e0')
+b2sums=('7d7055c3eb3f1573f118806522e5faf8802954048822fc0b9e36b77e5881b94634a74782c1511469c7e6e712225cfa331c309a799c8dc61f7e32d81b671794d9')
 
 prepare() {
   mkdir -p build
