@@ -2,20 +2,25 @@
 
 _hkgname=mmark
 pkgname=haskell-mmark
-pkgver=0.0.7.6
-pkgrel=386
+pkgver=0.0.8.0
+pkgrel=13
 pkgdesc="Strict markdown processor for writers"
 url="https://github.com/mmark-md/mmark"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-case-insensitive' 'haskell-dlist'
          'haskell-email-validate' 'haskell-foldl' 'haskell-hashable' 'haskell-html-entity-map'
          'haskell-lucid' 'haskell-megaparsec' 'haskell-microlens' 'haskell-microlens-th'
          'haskell-modern-uri' 'haskell-parser-combinators' 'haskell-text-metrics'
          'haskell-unordered-containers' 'haskell-yaml')
-makedepends=('ghc' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-megaparsec')
+makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-megaparsec')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('8c78a5aa7a1806c315bf8c0aa68321f04f508d72e4cac412ea401371fc7c50fd')
+sha256sums=('f9499eb3caca7410fb706a95d7d176447e4ca0cc98413abc78051802b1979f17')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  gen-setup
+}
 
 build() {
   cd $_hkgname-$pkgver
@@ -35,7 +40,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  runhaskell Setup test --show-details=direct || echo "Tests failed with new hashable"
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
