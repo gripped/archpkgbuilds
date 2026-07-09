@@ -1,0 +1,60 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=loadtracker
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='A modernised fork of GoatTracker2'
+arch=(x86_64)
+url='https://github.com/libsidplayfp/loadtracker'
+license=(GPL-2.0-only)
+makedepends=(
+  git
+  sdl3
+  jack
+  alsa-lib
+  libexsid
+  libresidfp
+  cmake
+  ninja
+)
+optdepends=(
+  'alsa-lib: ALSA audio driver'
+  'jack: JACK audio driver'
+)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('d0c4ceefdbe49156cddc0a73105d656b071f4d91e353198252f086c7a162d507d5727d131d04befb0047b6378908197110f434b0c38d5fe6766a95d18a3386cd')
+b2sums=('e10e331c81cb131fb351eb34b58f2e9d3f7a8691246a3bec3a24511c8c51179767593e906755cae83bbe1855a3acf7c26550c20717f9a5327b41665ca422da2d')
+
+build() {
+  local cmake_options=(
+    -B build
+    -S "$pkgname"
+    -G Ninja
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+  )
+  
+  cmake "${cmake_options[@]}"
+  
+  cmake --build build
+}
+
+package() {
+  depends+=(
+    glibc
+    libgcc libgcc_s.so
+    libstdc++ libstdc++.so
+    libexsid libexsid.so
+    libresidfp libresidfp.so
+    sdl3
+  )
+
+  DESTDIR="$pkgdir" cmake --install build
+
+  cd "$pkgname"
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+  cp -vr src "$pkgdir/usr/share/doc/$pkgname"
+}
