@@ -4,11 +4,11 @@
 
 pkgbase=podman
 pkgname=(podman podman-docker)
-pkgver=5.8.3
+pkgver=6.0.0
 pkgrel=1
-pkgdesc='Tool and library for running OCI-based containers in pods'
+pkgdesc='A tool for managing OCI containers and pods.'
 arch=(x86_64)
-url='https://github.com/containers/podman'
+url='https://github.com/podman-container-tools/podman'
 license=(Apache-2.0)
 makedepends=(
   apparmor
@@ -37,8 +37,8 @@ validpgpkeys=(
   7CE1E6F8C90CB53E7E4D8F2D502E08DB0BBF8EEE  # Ashley Cui <acui@redhat.com>
   9E33DD8704CC03E2DEB84D9A1C1EDD7CC7C3A0DD  # Lokesh Mandvekar <lsm5@redhat.com>
 )
-sha512sums=('294f91005d1a7f52f8696ed7fb613862e0c526749289f6257e82b7df0bf74267c2857ab0b94e5cfa58ac153517e175c1fed87860f249fafea1de395d296cebac')
-b2sums=('c2cdeb522557855d19d8a6a90b644372acc25a1cc1c7f8b5939ec0f2facc847cc43363e01a149f24ad725d6bb7065340cb5c116830cf36e2e347aa1cdd73d018')
+sha512sums=('9a3265f6ecc6423bb097c534e739f3c31692dfa03db14b9cdb0c8226da0493c1b12762b2f9b5d639880cd91d9172581bd2d05f407f0defdb4d5b02218a17d83d')
+b2sums=('4c6eda2b287ecc32ba6a4c2b12b393cda29fccd14fc5f666f4610fe116ef44f19c9342f51add410a4d7cd602cb55dc53cb9fb5250c3ab4f6f47f0e97a5905515')
 
 build() {
   export CGO_CPPFLAGS="${CPPFLAGS}"
@@ -48,7 +48,7 @@ build() {
   export GOFLAGS="-buildmode=pie"
   export GOPATH="${srcdir}"
 
-  make EXTRA_LDFLAGS='-compressdwarf=false -linkmode=external' PREFIX=/usr -C $pkgbase
+  make EXTRA_LDFLAGS='-linkmode=external' PREFIX=/usr -C $pkgbase
   make docker-docs -C $pkgbase
 }
 
@@ -71,7 +71,7 @@ package_podman() {
     containers-common
     oci-runtime
     glibc
-    iptables
+    nftables
     gpgme libgpgme.so
     libgcc
     libseccomp libseccomp.so
@@ -87,7 +87,6 @@ package_podman() {
     'podman-compose: for docker-compose compatibility'
     'podman-desktop: GUI and tray to manage Podman containers (and Kubernetes pods)'
     'podman-docker: for Docker-compatible CLI'
-    'slirp4netns: for alternative rootless network support'
   )
 
   make install install.completions DESTDIR="$pkgdir" PREFIX=/usr LIBEXECDIR=/usr/lib -C $pkgbase
