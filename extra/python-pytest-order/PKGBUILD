@@ -2,7 +2,7 @@
 
 _pkg=pytest-order
 pkgname=python-${_pkg}
-pkgver=1.4.0
+pkgver=1.5.0
 pkgrel=1
 pkgdesc="pytest plugin that allows to customize the test execution order"
 arch=(any)
@@ -18,7 +18,7 @@ checkdepends=(
     python-pytest-xdist
 )
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('6b612442351703100abc113ba5797e583132b12d92d120b2546f124bbc9c1792')
+sha256sums=('7cfecc01621bff0736f15de825c15eb9a7f7b1cec86bec2ed70e4741e59bc826')
 
 build() {
   cd ${_pkg}-${pkgver}
