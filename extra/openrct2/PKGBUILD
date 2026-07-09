@@ -2,7 +2,7 @@
 # Contributor: Graham Edgecombe <graham@grahamedgecombe.com>
 
 pkgname=openrct2
-pkgver=0.5.2
+pkgver=0.5.3
 pkgrel=1
 pkgdesc='Open source re-implementation of Roller Coaster Tycoon 2 (requires full copy of the game)'
 arch=('x86_64')
@@ -19,7 +19,7 @@ optdepends=('zenity: System dialog box support (GNOME/GTK)'
             'libpulse: PulseAudio audio driver')
 source=($pkgname-$pkgver.tar.gz::https://github.com/OpenRCT2/OpenRCT2/archive/v$pkgver.tar.gz
         googletest-fix-maybe-uninitialized.patch)
-sha256sums=('02cfd1ee83e02fe8293e17c248ecd3f4945deb87b74b441869909b43f0865648'
+sha256sums=('cde0192b50cddaffc32c28b066afa81943563850c295f201e9f4be396b7b6be8'
             '6c4becab25ec1824883a4c1946d4aa4b45534b9a6199b782db7879b78178ff84')
 
 prepare() {
