@@ -3,17 +3,17 @@
 # Contributor: Juliette Cordor 
 
 pkgname=podman-desktop
-pkgver=1.27.2
-pkgrel=3
+pkgver=1.28.2
+pkgrel=2
 pkgdesc="Manage Podman and other container engines from a single UI and tray."
 arch=("x86_64")
 url="https://podman-desktop.io"
 license=('Apache-2.0')
-_electron=electron41
+_electron=electron42
 depends=(${_electron} "hicolor-icon-theme")
 makedepends=(
     'pnpm' 'node-gyp' 'npm' 'nodejs-lts-krypton' 'libvips' 'lcms2'
-    'openjpeg2' 'glib2' 'python-setuptools'
+    'openjpeg2' 'glib2' 'python-setuptools' 'jq'
 )
 optdepends=(
     "podman: podman plugin"
@@ -21,17 +21,23 @@ optdepends=(
 )
 source=(${pkgname}-${pkgver}.tar.gz"::https://github.com/${pkgname}/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz"
 "run.sh.in")
-b2sums=('571407c191ca6061d346c0bf4970e008896ec44e1eff75dbca1d25988d45717f520f957ff7395849332c1caf8ce087bb0ba43861d3452ad77992dd19e4ae1ea3'
+b2sums=('f5643bc9d346c05217f5defc7f5f99d6dcaf0f624df8a3f08efb305d1d88db9b7f15e6f00410540a9589a2bcbbe25a1c9f5dc5be4fcca1444ac80d2e1948f369'
         '962868734a928753a0855a701fe356511f5066057e642677328ac522429a47d5091a8849d138fb29e06b100e4fe5762eee1f6feab1d9c95b2935794ca31f0016')
 
 prepare(){
     cd "${srcdir}/podman-desktop-$pkgver"
     sed -i 's/run.sh/podman-desktop/' '.flatpak.desktop'
     npm pkg set desktopName='io.podman_desktop.PodmanDesktop'
+    
+    # Checking electron version
+    _required_electron=$(jq -r '.devDependencies.electron // .dependencies.electron' package.json | cut -d. -f1)
+    if [[ "electron$_required_electron" != "$_electron" ]]; then
+      echo "Wrong electron dependency. Change _electron to electron$_required_electron"
+      exit 1
+    fi
+
     _elver=$(cat /usr/lib/${_electron}/version)
-    echo -n Replacing $(cat package.json|grep '"electron":')
     npm pkg set devDependencies.electron=${_elver}
-    echo with $(cat package.json|grep '"electron":')
     export ELECTRON_SKIP_BINARY_DOWNLOAD=1
     export ELECTRON_OVERRIDE_DIST_PATH="/usr/lib/${_electron}"
     pnpm install --ignore-scripts --no-frozen-lockfile
