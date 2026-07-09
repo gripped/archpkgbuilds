@@ -5,8 +5,8 @@
 _upstream=deltachat-core-rust
 _name=core
 pkgname=deltachat-rpc-server
-pkgver=2.52.0
-pkgrel=1
+pkgver=2.53.0
+pkgrel=2
 pkgdesc="A JSON-RPC 2.0 interface to DeltaChat over standard I/O"
 arch=(x86_64)
 url="https://github.com/deltachat/deltachat-core-rust/tree/main/deltachat-rpc-server"
@@ -15,28 +15,35 @@ license=(MPL-2.0)
 depends=(
   glibc
   libgcc
+  openssl
+  sqlcipher
 )
 makedepends=(
   rust
 )
 source=("$_url/archive/v$pkgver/$_upstream-$pkgver.tar.gz")
-sha512sums=('ca10447626f80022dbf942e7b2c3076da3e345c4863a4c6d530c286cad8ab9a3392198cecd9e3105ce69df35a6cd362da0fe67316205d49515007f22df9c0ea1')
-b2sums=('a0b8e30d025318a404cede3da465852fe52308a8af2e3092ea68551fe6cedee506cc74207feeda3cf98acfb99c666841db4896baf566ba54e5c8e3058133788c')
+sha512sums=('485ba262a1612576a7380022257af52ce058cb1d9e495188954e050fcb94e327359ae8fb88dba2c0da045afbba612fce5865a27c80dc9c8032d650f86fcf3892')
+b2sums=('cd4b35b5903749e5d4280d47f1d2be7628e1bf4bc615001882da467fe629fb571cf0a1fdcb9fa5f8e691a7d5e4ddb8f030b038f88e41ac1c53b8e04932b6b08e')
 
 prepare() {
   cd $_name-$pkgver
   cargo fetch --locked --target "$(rustc --print host-tuple)"
-
 }
 
 build() {
   cd $_name-$pkgver
-  CFLAGS+=" -ffat-lto-objects" cargo build --frozen --release --package $pkgname
+  export CFLAGS+=" -ffat-lto-objects"
+  export OPENSSL_NO_VENDOR=1
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+  cargo build --frozen --release --package $pkgname
 }
 
 check() {
   cd $_name-$pkgver
-  CFLAGS+=" -ffat-lto-objects" cargo test --frozen --package $pkgname
+  export CFLAGS+=" -ffat-lto-objects"
+  export OPENSSL_NO_VENDOR=1
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+  cargo test --frozen --package $pkgname
 }
 
 package() {
