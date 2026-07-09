@@ -5,7 +5,7 @@
 pkgname=zettlr
 _pkgname=${pkgname^}
 pkgver=4.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A Markdown Editor for the 21st century'
 arch=(x86_64)
 url=https://www.zettlr.com
@@ -21,6 +21,7 @@ makedepends=(gendesk
              git
              nodejs-lts-jod # grep NODE_VERSION: .github/workflows/build.yml
              node-gyp
+             npm
              patchutils
              yarn
              jq)
@@ -40,8 +41,7 @@ prepare() {
 		--pkgdesc "$pkgdesc" \
 		--name "$_pkgname" \
 		--categories 'Office' \
-		--mimetypes 'text/markdown' \
-		--custom StartupWMClass="$_pkgname"
+		--mimetypes 'text/markdown'
 	cd "$_archive"
 	local _electronVersion="$(cat /usr/lib/$_electron/version)"
 	readarray -t _oldElectron <  <(yarn info --cache --json 'electron' | jq -r '.children | .Version,.Cache.Checksum')
@@ -49,6 +49,7 @@ prepare() {
 	sed -i "/${_oldElectron[1]:3}/d" yarn.lock
 	sed -i "s/\([\^ :]\)${_oldElectron[0]}/\1$_electronVersion/" package.json yarn.lock
 	sed -e "s/@ELECTRON@/$_electron/" "../${source[1]}" > $pkgname.sh
+	npm pkg set desktopName="$pkgname"
 	yarn install --immutable # postinstall script installs electron-builder deps
 }
 
