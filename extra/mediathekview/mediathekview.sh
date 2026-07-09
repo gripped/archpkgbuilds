@@ -16,7 +16,7 @@ java_options=(
   -XX:+UseShenandoahGC
   -XX:ShenandoahGCHeuristics=compact
   -XX:+UseStringDeduplication
-  -XX:MaxRAMPercentage=25  # use the default 25%
+  -XX:MaxRAMPercentage=50
   --add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED
   --add-exports=java.desktop/sun.swing=ALL-UNNAMED
   --enable-native-access=ALL-UNNAMED
