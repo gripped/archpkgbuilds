@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-file-manager
-pkgver=6.5.13
+pkgver=6.5.19
 pkgrel=1
 epoch=1
 pkgdesc='Deepin File Manager'
@@ -14,7 +14,7 @@ license=('CC-BY-4.0' 'CC0-1.0' 'GPL-3.0-or-later' 'LGPL-3.0-or-later' 'MIT')
 depends=('dtkcore' 'dtkgui' 'dtkwidget' 'dtk6core' 'dtk6gui' 'dtk6widget'
          'deepin-anything' 'deepin-util-dfm' 'qt5-base' 'qt5-svg' 'qt6-base'
          'qt5-x11extras' 'deepin-pdfium' 'docparser' 'libsecret' 'zlib' 'dconf' 'openssl' 'glib2'
-         'libxcb' 'libx11' 'qt5-multimedia' 'cryptsetup' 'lucene++' 'avfs' 'gsettings-qt5'
+         'libxcb' 'libx11' 'libqtxdg' 'qt5-multimedia' 'cryptsetup' 'lucene++' 'avfs' 'gsettings-qt5'
          'polkit-qt5' 'poppler' 'kcodecs5' 'taglib' 'util-linux-libs' 'icu' 'pcre2' 'glibc' 'libgcc' 'libstdc++'
          'deepin-appearance' 'deepin-qt-dbus-factory' 'cryfs' 'socat' 'dtklog' 'deepin-service-manager')
 makedepends=('git' 'boost' 'cmake' 'ninja' 'qt5-tools' 'deepin-tray-loader' 'deepin-movie'
@@ -34,7 +34,7 @@ replaces=('deepin-desktop')
 options=('!lto')
 source=("git+https://github.com/linuxdeepin/dde-file-manager.git#tag=$pkgver"
          gcc-15.patch)
-sha512sums=('f7fbc31746b542a0e77425eda4426960ddee895ec0e6ee9f05cdaf16b50d391675142377e5dbd97fc6d87c4ce4521e46c54598f8983180bbb247b391f7c78516'
+sha512sums=('b0cbf375766d5d3660b2452ef5162ba7970455f90deb195c480185817c515fbe4205f85ef08c4448f17d24a6b5045db03fe9030fcb8a95296e67624f45b78048'
             'b2cda989438b90703a5718ac0daf5972f4d70e21ceef5ad9751445178c4299200f8ac3be112e79682bd37b751e6e3fbd3aaef4189adaaf9abe2506132c16ab41')
 
 prepare() {
