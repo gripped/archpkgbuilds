@@ -5,7 +5,7 @@
 pkgbase='python-webob'
 pkgname=('python-webob' 'python-webob-docs')
 pkgver=1.8.10
-pkgrel=1
+pkgrel=2
 pkgdesc="WSGI request and response object"
 arch=('any')
 url="https://webob.org/"
@@ -19,7 +19,8 @@ sha512sums=('a37333d95763b24cd6d435e4dd59a18a8cb3c10c23075d6c79114654c84f38b9e41
 
 prepare() {
   cp -a webob-$pkgver webob-docs
-  sed -i "s/pkg_resources.get_distribution('webob').version/'$pkgver'/" webob-docs/docs/conf.py
+  sed -i -e "s/pkg_resources.get_distribution('webob').version/'$pkgver'/" \
+    -e '/import pkg_resources/d' webob-docs/docs/conf.py
 }
 
 build() {
