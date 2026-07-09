@@ -3,12 +3,12 @@
 
 pkgname=skopeo
 pkgver=1.23.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A command line utility for various operations on container images and image repositories.'
 arch=(x86_64)
 url='https://github.com/containers/skopeo'
 license=(Apache-2.0)
-depends=(gpgme device-mapper containers-common)
+depends=(gpgme device-mapper containers-common sqlite)
 makedepends=(go go-md2man btrfs-progs git systemd)
 source=(git+$url#tag=v$pkgver)
 sha256sums=('56862a15770c55457ecd31164bdf264d1cb66aa181d144cbdaf976543c949e6c')
@@ -25,8 +25,20 @@ build() {
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
-  make bin/skopeo GO_DYN_FLAGS="-buildmode=pie -trimpath" BUILDTAGS='containers_image_ostree_stub'
+  make bin/skopeo GO_DYN_FLAGS="-buildmode=pie -trimpath" BUILDTAGS='containers_image_ostree_stub libsqlite3'
   make docs
+}
+
+check() {
+  local container_libs_version="$(</usr/share/containers/container-libs.version)"
+  local project_container_libs_version="$(sed --regexp-extended --quiet 's|.*go.podman.io/common v(.*)|\1|p' "$pkgbase/go.mod")"
+
+  printf '%s %s (container-libs %s) - system container-libs %s\n' "$pkgname" "$pkgver" "${project_container_libs_version%.*}" "${container_libs_version%.*}"
+
+  if (( $(vercmp "${container_libs_version%.*}" "${project_container_libs_version%.*}") != 0 )); then
+    printf '%s %s requires container-libs/common in version %s but we have version %s\n' "$pkgname" "$pkgver" "${project_container_libs_version%.*}" "${container_libs_version%.*}"
+    exit 1
+  fi
 }
 
 package() {
