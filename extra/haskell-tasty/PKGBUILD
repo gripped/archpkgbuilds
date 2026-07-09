@@ -4,8 +4,8 @@
 
 _hkgname=tasty
 pkgname=haskell-tasty
-pkgver=1.5.3
-pkgrel=22
+pkgver=1.5.4
+pkgrel=4
 pkgdesc="Modern and extensible testing framework"
 url="https://github.com/UnkindPartition/tasty"
 license=('MIT')
@@ -13,7 +13,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-optparse-applicative' 'haskell-tagged')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('c551d3a9a1d73993931b8d710f7e4ce2ae8b3b90b85a0ec8ee87943f5309df1915901dee6f9a493e0428262c15c277a927893a574f630d0819be1511741a2b73')
+sha512sums=('bc4b48cd3157c7c216b42e079633d762e33075bb94d2bfbda2988a9badc348684e5ef0019fc7cbf46bf0f245e5412d6d638f9218ef7a50178fc53f4d317bdb31')
 
 build() {
     cd $_hkgname-$pkgver
