@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-overlays
-pkgver=20260615.014545.gcb16af00ef70
+pkgver=20260624.142726.gd89fb7f05d65
 pkgrel=1
 pkgdesc='Collection of overlays for libretro'
 arch=(any)
@@ -10,7 +10,7 @@ license=(CC-BY-4.0)
 groups=(libretro)
 makedepends=(git)
 source=(libretro-overlays::git+https://github.com/libretro/common-overlays.git#commit=${pkgver##*.g})
-b2sums=('ce9ae656b8d4e251251d9f40e4f62305a7d2ab04490b061829a6be11aa764abd11bf928a67ed07a88a0394ed058a5ad4054d9052e2819ace828dcb3316c34d45')
+b2sums=('f1016d8a4d11fbb096aa6d204af265ffb7eb98e6371b0d35e08c25f044a28750920817680303a74b49ac4f2ae3648213949740d94d2234d16e073659c00d7853')
 
 package() {
   make DESTDIR="${pkgdir}" install -C libretro-overlays
