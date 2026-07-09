@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-magnumclient
-pkgver=4.10.0
+pkgver=4.11.0
 pkgrel=1
 pkgdesc="Client library for Magnum API"
 arch=('any')
@@ -13,11 +13,11 @@ depends=('python' 'python-pbr' 'python-keystoneauth1' 'python-stevedore' 'python
          'python-openstacksdk' 'python-osc-lib' 'python-prettytable' 'python-cryptography'
          'python-decorator')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-checkdepends=('python-openstackclient' 'python-oslotest' 'python-osprofiler' 'python-stestr'
+checkdepends=('python-openstackclient' 'python-oslotest' 'python-osprofiler' 'python-requests-mock' 'python-stestr'
               'python-testscenarios' 'python-testtools')
 source=("git+https://github.com/openstack/python-magnumclient.git#tag=$pkgver")
-sha512sums=('acfff650aa4629bcdef9ce51c5f64485967411e22a4a481568b9bcc4c3e4b3a5ef8ff3e725582552813f73c98b9526d9dda670dd6877a740e397f93f5bffd696')
-b2sums=('e48bcbc0827d2f0127623662720fd5bc59a1ee9c842d98c07ed0cbe7c5a2b0b3c13a07eb36d313fb3ffea1703181e3adfb91e78ad8b4a4b7230da1ca97160550')
+sha512sums=('6e51d80f56981ec334e0502b63d605cb44cac6571f5be7c4837cee5b7142617f56e197ff8463864535ff5ca5090be1cb09db1c5495e7e788989789b687c0491b')
+b2sums=('e36a3f42a4a4e5af242026546ed344af3bdb69180e3f2900faf03524ab8c0e7143cb26bf1e8e4c37e07d435315f588cc5e40ad5c223cf1fc2915360f5227093a')
 
 build() {
   cd python-magnumclient
