@@ -2,24 +2,25 @@
 
 _hkgname=bz2
 pkgname=haskell-bz2
-pkgver=1.0.1.1
-pkgrel=139
+pkgver=1.0.1.2
+pkgrel=5
 pkgdesc="Bindings to libbz2"
 url="https://hub.darcs.net/vmchale/bz2"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'bzip2')
 makedepends=('ghc' 'uusi' 'c2hs' 'haskell-tasty' 'haskell-tasty-golden' 'haskell-tasty-hunit')
-source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('ba4222f1ab2a718ecc3f0d84111561f37436a904d4d4ec6f750403c24cb5e55855dc8092eb06efdc831ab4bde8ecadd7a3b9a5af3d1409a8fc97588f8413555d')
+source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz
+        system-bzip2.patch)
+sha512sums=('f7bba41e78ac69360cbeadda974d229b151eafb69c7bf9772484dff8996affc519704374e872c721c26bdb2422984ecce867d8c4a443ef3eb9aa44b84634eb32'
+            '64af5c1530b955e1f2007b58d5a3c608d58277bef2489fbb5507bd28af4282b078715e0f94293f97591f417b4829751cf4faec339155a60a66f1833ff2708142')
 
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
-    uusi -d bzip2-clib
 
     # Use system libbz2
-    sed -i -e '/hs-source-dirs/i \    extra-libraries: bz2' $_hkgname.cabal
+    patch -p1 -i ../system-bzip2.patch
 }
 
 build() {
