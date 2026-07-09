@@ -2,8 +2,8 @@
 # Contributor: A. Klitzing <aklitzing@gmail.com>
 
 pkgname=ausweisapp
-pkgver=2.5.1
-pkgrel=4
+pkgver=2.5.3
+pkgrel=1
 pkgdesc="official client for using the German electronic ID card (eID)"
 arch=('x86_64')
 license=('EUPL-1.2')
@@ -17,7 +17,7 @@ optdepends=(
 )
 source=("https://github.com/Governikus/AusweisApp2/releases/download/${pkgver}/AusweisApp-${pkgver}.tar.gz"{,.asc})
 validpgpkeys=('699BF3055B0A49224EFDE7C72D7479A531451088')
-sha256sums=('03d5efe29f710a2ce1e0897d53c9e2f6315dc7f4c3449a48483188ca676ebc68'
+sha256sums=('d71a540ee33cfe9baf28d0c21a216050bd4ea3bcba64a2140807b1469c6f0d53'
             'SKIP')
 
 build() {
