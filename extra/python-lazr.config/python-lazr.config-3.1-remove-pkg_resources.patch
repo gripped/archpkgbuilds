@@ -1,0 +1,217 @@
+diff --git a/setup.py b/setup.py
+index 13a3d8e..8f45393 100755
+--- a/setup.py
++++ b/setup.py
+@@ -14,7 +14,7 @@
+ # You should have received a copy of the GNU Lesser General Public License
+ # along with lazr.config.  If not, see <http://www.gnu.org/licenses/>.
+ 
+-from setuptools import find_packages, setup
++from setuptools import find_namespace_packages, setup
+ 
+ with open("src/lazr/config/_version.py") as version_file:
+     exec(version_file.read())  # sets __version__
+@@ -22,8 +22,7 @@ with open("src/lazr/config/_version.py") as version_file:
+ setup(
+     name="lazr.config",
+     version=__version__,  # noqa: F821
+-    namespace_packages=["lazr"],
+-    packages=find_packages("src"),
++    packages=find_namespace_packages(where="src"),
+     package_dir={"": "src"},
+     include_package_data=True,
+     zip_safe=False,
+@@ -44,7 +43,6 @@ files. The format supports schema validation.
+ """,
+     license="LGPL v3",
+     install_requires=[
+-        "setuptools",
+         "zope.interface",
+         "lazr.delegates",
+     ],
+diff --git a/src/lazr/__init__.py b/src/lazr/__init__.py
+deleted file mode 100644
+index 91ac6ff..0000000
+--- a/src/lazr/__init__.py
++++ /dev/null
+@@ -1,23 +0,0 @@
+-# Copyright 2008-2015 Canonical Ltd.  All rights reserved.
+-#
+-# This file is part of lazr.config.
+-#
+-# lazr.config is free software: you can redistribute it and/or modify it
+-# under the terms of the GNU Lesser General Public License as published by
+-# the Free Software Foundation, version 3 of the License.
+-#
+-# lazr.config is distributed in the hope that it will be useful, but WITHOUT
+-# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+-# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+-# License for more details.
+-#
+-# You should have received a copy of the GNU Lesser General Public License
+-# along with lazr.config.  If not, see <http://www.gnu.org/licenses/>.
+-
+-# This is a namespace package.
+-try:
+-    import pkg_resources
+-    pkg_resources.declare_namespace(__name__)
+-except ImportError:
+-    import pkgutil
+-    __path__ = pkgutil.extend_path(__path__, __name__)
+diff --git a/src/lazr/config/docs/index.rst b/src/lazr/config/docs/index.rst
+index fc0df3b..a87c19d 100644
+--- a/src/lazr/config/docs/index.rst
++++ b/src/lazr/config/docs/index.rst
+@@ -18,8 +18,8 @@ A schema is loaded by instantiating the ConfigSchema class with the path to a
+ configuration file. The schema is explicitly derived from the information in
+ the configuration file.
+ 
+-    >>> from pkg_resources import resource_string
+-    >>> raw_schema = resource_string('lazr.config.tests.testdata', 'base.conf')
++    >>> from importlib.resources import files
++    >>> base_conf = str(files('lazr.config.tests.testdata').joinpath('base.conf'))
+ 
+ The config file contains sections enclosed in square brackets
+ (e.g. ``[section]``).  The section name may be divided into major and minor
+@@ -32,8 +32,8 @@ another section that appends the ``.template`` suffix to the category name.
+ A section with ``.optional`` suffix is not required.  Lines that start with a
+ hash (``#``) are comments.
+ 
+-    >>> from pkg_resources import resource_string
+-    >>> raw_schema = resource_string('lazr.config.tests.testdata', 'base.conf')
++    >>> from importlib.resources import files
++    >>> raw_schema = files('lazr.config.tests.testdata').joinpath('base.conf').read_bytes()
+     >>> print(raw_schema.decode('utf-8'))
+     # This section defines required keys and default values.
+     [section_1]
+@@ -70,10 +70,10 @@ To create the schema, provide a file name.
+ 
+     >>> from lazr.config import ConfigSchema
+     >>> from lazr.config.interfaces import IConfigSchema
+-    >>> from pkg_resources import resource_filename
++    >>> from importlib.resources import files
+     >>> from zope.interface.verify import verifyObject
+-    >>> base_conf = resource_filename(
+-    ...     'lazr.config.tests.testdata', 'base.conf')
++    >>> base_conf = str(files(
++    ...     'lazr.config.tests.testdata').joinpath('base.conf'))
+     >>> schema = ConfigSchema(base_conf)
+     >>> verifyObject(IConfigSchema, schema)
+     True
+@@ -279,8 +279,8 @@ methods to return a Config instance.
+ 
+ The ``load()`` method accepts a filename.
+ 
+-    >>> local_conf = resource_filename(
+-    ...     'lazr.config.tests.testdata', 'local.conf')
++    >>> local_conf = str(files(
++    ...     'lazr.config.tests.testdata').joinpath('local.conf'))
+     >>> config = schema.load(local_conf)
+ 
+ The ``loadFile()`` method accepts a file-like object and an optional filename
+@@ -350,10 +350,10 @@ then the conf file can contain sections that extend the ``.master`` section.
+ These are like categories with templates except that the section names
+ extending ``.master`` need not be named in the schema file.
+ 
+-    >>> master_schema_conf = resource_filename(
+-    ...     'lazr.config.tests.testdata', 'master.conf')
+-    >>> master_local_conf = resource_filename(
+-    ...     'lazr.config.tests.testdata', 'master-local.conf')
++    >>> master_schema_conf = str(files(
++    ...     'lazr.config.tests.testdata').joinpath('master.conf'))
++    >>> master_local_conf = str(files(
++    ...     'lazr.config.tests.testdata').joinpath('master-local.conf'))
+     >>> master_schema = ConfigSchema(master_schema_conf)
+     >>> sections = master_schema.getByCategory('thing')
+     >>> for name in sorted(section.name for section in sections):
+@@ -376,8 +376,8 @@ The ``shared.conf`` file derives the keys and default values from the schema.
+ This config was loaded before ``local.conf`` because its sections and values
+ are required to be in place before ``local.conf`` applies its changes.
+ 
+-    >>> shared_config = resource_filename(
+-    ...     'lazr.config.tests.testdata', 'shared.conf')
++    >>> shared_config = str(files(
++    ...     'lazr.config.tests.testdata').joinpath('shared.conf'))
+     >>> with open(shared_config, 'rt') as shared_file:
+     ...     raw_conf = shared_file.read()
+     >>> print(raw_conf)
+@@ -722,8 +722,8 @@ A config file may state that it extends its schema (to clearly connect the
+ config to the schema).  The schema can also be pushed to reset the values in
+ the config to the schema's default values.
+ 
+-    >>> extender_conf_name = resource_filename(
+-    ...     'lazr.config.tests.testdata', 'extender.conf')
++    >>> extender_conf_name = str(files(
++    ...     'lazr.config.tests.testdata').joinpath('extender.conf'))
+     >>> extender_conf_data = ("""
+     ...     [meta]
+     ...     extends: base.conf""")
+diff --git a/src/lazr/config/tests/test_config.py b/src/lazr/config/tests/test_config.py
+index 8817325..4a44f46 100644
+--- a/src/lazr/config/tests/test_config.py
++++ b/src/lazr/config/tests/test_config.py
+@@ -23,7 +23,7 @@ __all__ = [
+ 
+ import unittest
+ 
+-import pkg_resources
++from importlib.resources import files
+ 
+ try:
+     from configparser import MissingSectionHeaderError, NoSectionError
+@@ -56,8 +56,8 @@ from lazr.config.interfaces import (
+ 
+ class TestConfig(unittest.TestCase):
+     def _testfile(self, conf_file):
+-        return pkg_resources.resource_filename(
+-            "lazr.config.tests.testdata", conf_file
++        return str(
++            files("lazr.config.tests.testdata").joinpath(conf_file)
+         )
+ 
+     def test_missing_category(self):
+diff --git a/src/lazr/config/tests/test_docs.py b/src/lazr/config/tests/test_docs.py
+index 698a94d..06f28c7 100644
+--- a/src/lazr/config/tests/test_docs.py
++++ b/src/lazr/config/tests/test_docs.py
+@@ -18,16 +18,10 @@
+ 
+ __all__ = []
+ 
+-import atexit
+ import doctest
+ import os
+ 
+-from pkg_resources import (
+-    cleanup_resources,
+-    resource_exists,
+-    resource_filename,
+-    resource_listdir,
+-)
++from importlib.resources import files
+ 
+ DOCTEST_FLAGS = (
+     doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE | doctest.REPORT_NDIFF
+@@ -36,16 +30,13 @@ DOCTEST_FLAGS = (
+ 
+ def load_tests(loader, tests, pattern):
+     """Load the doc tests (docs/*, if any exist)."""
++    docs_path = files("lazr.config").joinpath("docs")
++    if not docs_path.is_dir():
++        return tests
+     doctest_files = []
+-    if resource_exists("lazr.config", "docs"):
+-        for name in resource_listdir("lazr.config", "docs"):
+-            if name.endswith(".rst"):
+-                doctest_files.append(
+-                    os.path.abspath(
+-                        resource_filename("lazr.config", "docs/%s" % name)
+-                    )
+-                )
+-    atexit.register(cleanup_resources)
++    for resource in docs_path.iterdir():
++        if resource.name.endswith(".rst") and resource.is_file():
++            doctest_files.append(str(resource))
+     tests.addTest(
+         doctest.DocFileSuite(
+             *doctest_files,
