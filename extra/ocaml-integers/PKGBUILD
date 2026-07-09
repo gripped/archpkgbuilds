@@ -1,8 +1,8 @@
 # Maintainer: Jürgen Hötzel <juergen@archlinux.org>
 
 pkgname=ocaml-integers
-pkgver=0.7.0
-pkgrel=11
+pkgver=0.8.0
+pkgrel=1
 pkgdesc='Various signed and unsigned integer types for OCaml'
 arch=('x86_64')
 url=https://github.com/ocamllabs/ocaml-integers
@@ -11,7 +11,7 @@ options=('!strip' '!debug')
 depends=('ocaml-stdlib-shims')
 makedepends=('dune' 'ocaml-topkg' 'ocaml-findlib' 'ocaml-compiler-libs' 'ocamlbuild' 'opam')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ocamllabs/$pkgname/archive/$pkgver.tar.gz")
-sha256sums=('8bb517fa9a1818246eb8c4ce34ee1489fbebb4b92defa3a25d13cab8d23ec685')
+sha256sums=('04a1a6d5cc1ecfd3f354a83caed27e59995bb26adec64d88193ccc36268929fa')
 
 
 build() {
