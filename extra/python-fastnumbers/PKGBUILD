@@ -3,8 +3,8 @@
 
 _name=fastnumbers
 pkgname=python-fastnumbers
-pkgver=5.1.1
-pkgrel=3
+pkgver=5.2.0
+pkgrel=1
 pkgdesc="Super-fast and clean conversions to numbers"
 arch=(x86_64)
 url="https://github.com/SethMMorton/fastnumbers"
@@ -32,8 +32,8 @@ optdepends=(
   'python-numpy: for conversion to numpy arrays'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('ba84a0a03c9ddce24c6aac195d98ca1dd4e68b8d37cb0dd27fe81fd954d00f4763ac51c2a31645ce374cdfee3a185fece86a2e88753a9e5f556ec75a9012165c')
-b2sums=('909dac4205587f575ebed12d8d8ab8f235eb40bde1d581674f8e30d297632411e56fac13b81f25a9a4c8a0d94b8ddf98004b8e41c77ea09810e2bfebb69aaafa')
+sha512sums=('f2a0c60c421d73b45208526ac2794093e8c97942815d9c551aed4b692e7b4f5501bb92ce67670684fb7c14f89fe602704c73491a9b8bed2fab928e26f36cb392')
+b2sums=('94a53d1e57d3b9b21060866f9712878361296c5a40295b94a5914ae68a7d7b21c17f9360839696b5e99d6933c73eb16da366549cc5f11580350b2f027693b0af')
 
 build() {
   cd $_name-$pkgver
