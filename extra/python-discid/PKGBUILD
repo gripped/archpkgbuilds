@@ -3,7 +3,7 @@
 # Contributor: Johannes Dewender   arch at JonnyJD dot net
 
 pkgname=python-discid
-pkgver=1.4.0
+pkgver=1.4.1
 pkgrel=1
 pkgdesc="Python binding of MusicBrainz libdiscid"
 url="https://github.com/JonnyJD/python-discid"
@@ -21,8 +21,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('1ab0110dd8bf4f33d13354822791538417b42862577084a22050d862ec4320e2212d286be63e7168972e89d4a72842387da46a65a063d52acd231b29ce14937b')
-b2sums=('4964d461cbd3e6067761b41c356c75bb475a3f3aecc14965f68e2b5b160573b9ba04277c74173bdca929699709a184b098dcb168b25651d1f708d48919cd4039')
+sha512sums=('363f7c1b4a07bd895e0d9631b258796a5d87207be7bba5f37ff12e63858cc33533b0dfe90214b5b5802ce549af4eb658828b6bd9b6eb990a177cfcf1b5624fc5')
+b2sums=('c4d36b5f60149abd8238a1abccf843c00ef00fe8a7d539c1df01d112d496782fde950f21de4d6ffe05f1ef57fbff5cfd067032551173398a47ae61be5765b210')
 
 build() {
   cd $pkgname-$pkgver
