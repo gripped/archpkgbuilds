@@ -3,18 +3,18 @@
 
 _hkgname=aeson-pretty
 pkgname=haskell-aeson-pretty
-pkgver=0.8.10
-pkgrel=191
+pkgver=0.8.11
+pkgrel=13
 pkgdesc="JSON pretty-printing library and command-line tool."
 url="https://github.com/informatikr/aeson-pretty"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' "haskell-aeson" "haskell-attoparsec" "haskell-attoparsec-aeson"
          "haskell-base-compat" "haskell-cmdargs" "haskell-scientific"
          "haskell-unordered-containers" "haskell-vector")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('9eb39f5d70fe841d10c4e9fcacc3b380aa2a377590e8165f11c11318f7cdacb26757713efbb2b8324b57d1d5d89a1b210094ac6ab385a4dd32a9f6591847c4ac')
+sha512sums=('bb8ac1ae06e3f3f6f5cb99602d69aca82be9f5808e9d75f92f15734701c0ff3b149e9b1a22abbe8938c9e971e71a7a4ed06d0f767ba9d15329ae76137a8ab691')
 
 build() {
     cd $_hkgname-$pkgver
