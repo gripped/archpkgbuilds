@@ -1,7 +1,7 @@
 pkgbase = qt6-openapi
 	pkgdesc = OpenAPI Generator for the cpp-qt6-client library
 	pkgver = 6.11.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.qt.io
 	arch = x86_64
 	groups = qt6
@@ -13,13 +13,15 @@ pkgbase = qt6-openapi
 	makedepends = git
 	makedepends = maven
 	makedepends = ninja
-	makedepends = openapi-generator
-	depends = gcc-libs
 	depends = glibc
 	depends = java-runtime
+	depends = libstdc++
 	depends = qt6-base
+	depends = openapi-generator
 	depends = zlib
 	source = git+https://code.qt.io/qt/qtopenapi#tag=v6.11.1
+	source = openapi-generator-jar-path.patch
 	sha256sums = 7f99ec0d6b69aba419031af9f9f2d2491b5ae8089d4ddaa808dec14bf018461c
+	sha256sums = aebff149fa25d8d5db7f7d8191d7efd1d18abad2d2fb757972802cfb9940343d
 
 pkgname = qt6-openapi

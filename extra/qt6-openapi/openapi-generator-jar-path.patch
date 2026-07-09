@@ -1,0 +1,12 @@
+--- a/cmake/FindWrapOpenAPIGenerator.cmake
++++ b/cmake/FindWrapOpenAPIGenerator.cmake
+@@ -18,6 +18,9 @@
+         # These are the paths that find_jar would search by default
+         /usr/share/java
+         /usr/local/share/java
++        # Arch's openapi-generator package installs into a subdirectory of
++        # /usr/share/java rather than directly in it.
++        /usr/share/java/openapi-generator
+         ${Java_JAR_PATHS}
+ )
+ 
