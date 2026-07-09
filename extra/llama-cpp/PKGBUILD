@@ -1,0 +1,54 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+
+pkgname=llama-cpp
+pkgver=b9859
+pkgrel=1
+pkgdesc='LLM inference in C/C++'
+arch=(x86_64)
+url=https://github.com/ggerganov/llama.cpp
+license=(MIT)
+depends=(
+  ggml
+  glibc
+  libgcc
+  libstdc++
+  openssl
+)
+conflicts=(llama-cpp)
+provides=(llama-cpp)
+replaces=(
+  llama-cpp-rocm
+  llama-cpp-vulkan
+)
+makedepends=(
+  cmake
+  git
+  ninja
+  npm
+)
+source=(git+https://github.com/ggml-org/llama.cpp.git#tag=${pkgver})
+b2sums=('e582fd4d98ed9ee4446507e83753380dea5347837cad69d7e760fe969eb6c54c0d0d396af0db6caab4d586ed0f568998c0bb22d219a700a0d3920d0de661f0e4')
+
+build() {
+  pushd "./llama.cpp/tools/ui"
+  npm ci --ignore-scripts
+  npm run build
+  popd
+
+  cmake -S llama.cpp -B build -G Ninja \
+      -DCMAKE_BUILD_TYPE=None \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DLLAMA_BUILD_APP=OFF \
+      -DLLAMA_BUILD_EXAMPLES=ON \
+      -DLLAMA_BUILD_SERVER=ON \
+      -DLLAMA_BUILD_TESTS=OFF \
+      -DLLAMA_BUILD_TOOLS=ON \
+      -DLLAMA_BUILD_UI=ON \
+      -DLLAMA_USE_SYSTEM_GGML=ON
+  cmake --build build
+}
+
+package() {
+  DESTDIR="${pkgdir}" cmake --install build
+  install -Dm 644 llama.cpp/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}
+}

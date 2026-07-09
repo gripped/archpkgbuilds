@@ -1,0 +1,24 @@
+pkgbase = llama-cpp
+	pkgdesc = LLM inference in C/C++
+	pkgver = b9859
+	pkgrel = 1
+	url = https://github.com/ggerganov/llama.cpp
+	arch = x86_64
+	license = MIT
+	makedepends = cmake
+	makedepends = git
+	makedepends = ninja
+	makedepends = npm
+	depends = ggml
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
+	depends = openssl
+	provides = llama-cpp
+	conflicts = llama-cpp
+	replaces = llama-cpp-rocm
+	replaces = llama-cpp-vulkan
+	source = git+https://github.com/ggml-org/llama.cpp.git#tag=b9859
+	b2sums = e582fd4d98ed9ee4446507e83753380dea5347837cad69d7e760fe969eb6c54c0d0d396af0db6caab4d586ed0f568998c0bb22d219a700a0d3920d0de661f0e4
+
+pkgname = llama-cpp
