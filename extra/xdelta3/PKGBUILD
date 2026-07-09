@@ -4,45 +4,57 @@
 # Contributor: Henning Garus <henning.garus@gmail.com>
 
 pkgname=xdelta3
-pkgver=3.1.0
-pkgrel=9
+pkgver=3.2.0
+pkgrel=1
 pkgdesc='Diff utility for binary files'
 arch=(x86_64)
 url='https://github.com/jmacd/xdelta'
-license=(Apache)
-depends=(ncompress)
-makedepends=(git python python-fissix)
-source=("git+$url#tag=v$pkgver")
-b2sums=('290bc609fb6631ab73d2739452fd6f4b5378ff50e6cdcd0f719dc4955fea7520ea1d1228cb3e419ada4a76c72850ec850e06d94ebccba52e7d624e0c70070dbc')
+license=(Apache-2.0)
+depends=(xz)
+makedepends=(git cmake ninja)
+provides=(libxdelta3.so)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('b304d9fbfa893fbc01026e51695c2cf24ce74e35dbda994ab8c0c916faa6d0ce3c772ba0492d03c7309e10bf37bc27c752fd5127bd2c026b6f959168f7fe7127')
+b2sums=('72e2a7b837d54cd87aa3324a417451374a7ffd842b1bf43f262097c51cafd9717ced9f5e2f9b075bc6ecdcbe408accf00fa1dbdf46b4f5c67ef7fa0a6147fe67')
 
 build() {
-  cd xdelta/xdelta3
+  cd "$pkgname"
 
-  export CFLAGS="$CFLAGS -w"
-  export CXXFLAGS="$CFLAGS -w"
+  local cmake_options=(
+    -B build
+    -S xdelta3
+    -G Ninja
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D BUILD_SHARED_LIBS=ON
+    -D XD3_ARMOR=OFF
+  )
 
-  aclocal
-  autoreconf --install
-  libtoolize
-  autoconf
-  autoheader
-  automake --add-missing
-  automake
+  cmake "${cmake_options[@]}"
 
-  ./configure --disable-dependency-tracking --prefix=/usr --with-liblzma
-  make
+  cmake --build build
 }
 
 check() {
-  cd xdelta/xdelta3/testing
+  cd "$pkgname"
 
-  # Thanks Gentoo <3
-  python -m fissix -w -n --no-diffs *.py
-  sed -i -e '/python/s:2.6:2:' xdelta3-regtest.py
-  sed -i -e '/python/s:2.7:2:' xdelta3-test.py
-  ../xdelta3regtest
+  local excluded_tests="test_armor"
+  local ctest_flags=(
+    --test-dir build
+    # show the stdout and stderr when the test fails
+    --output-on-failure
+    # execute tests in parallel
+    --parallel $(nproc)
+    # exclude problematic tests
+    --exclude-regex "$excluded_tests"
+  )
+  ctest "${ctest_flags[@]}"
 }
-
 package() {
-  DESTDIR="$pkgdir" make -C xdelta/xdelta3 install
+  depends+=(glibc)
+
+  cd "$pkgname"
+
+  DESTDIR="$pkgdir" cmake --install build
 }
