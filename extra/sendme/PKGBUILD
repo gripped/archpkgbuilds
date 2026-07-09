@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sendme
-pkgver=0.35.0
+pkgver=0.36.0
 pkgrel=1
 pkgdesc="A tool to send files and directories, based on iroh"
 arch=(x86_64)
@@ -15,8 +15,8 @@ makedepends=(
   rust
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('001c633817d9bd036facec140bc11cfe2271ed63f2c3c2eae8a9437ba7265cb21003e12cd43bb860553e09c51817aea1a9850e2fb77a66a15f7cf6f3df117231')
-b2sums=('b953eb34c7af3e0a846926383b66b9a7109b8321f85306e8286b330d5af93f79aff08a88def5b98057ba76e0adbfc5fbd551f9c31635f62f8a4b3560d65b9c03')
+sha512sums=('aa98555782d5464c28daa1da5331cc238d2d271eb5f3ecf7e4ccb9c0a686f7ff387ff610d55f7422ee64844beb9972ac74661ef2eeace5019da4f44a27bd8ff3')
+b2sums=('51c0ef089042d753b424f71d20d25128336219fc706691f35d2a4043d2603eae72f84b46efac964112aaa00ca188cc8e7b260a4110f839a0ca74d937695cde6e')
 
 prepare() {
   cd $pkgname-$pkgver
