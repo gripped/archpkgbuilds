@@ -7,7 +7,7 @@
 
 pkgname=auto-multiple-choice
 pkgver=1.7.0
-pkgrel=6
+pkgrel=7
 pkgdesc="Create and manage multiple choice questionnaires (MCQ), with automated marking."
 arch=(x86_64)
 url='https://www.auto-multiple-choice.net/'
@@ -52,9 +52,11 @@ makedepends=(
     netpbm
     xorgproto
 )
-source=("https://download.auto-multiple-choice.net/auto-multiple-choice_${pkgver}_dist.tar.gz"{,.sig})
+source=("https://download.auto-multiple-choice.net/auto-multiple-choice_${pkgver}_dist.tar.gz"{,.sig}
+         opencv-5.patch)
 sha256sums=('dfb916aa076f668a6f35253a2c0fc5998db07d2273deb45295a405d8749b7660'
-            'SKIP')
+            'SKIP'
+            '310c06abe94dcfbd1144ff6741e72d8b495f315e07694f9b0f88323c64b9fbba')
 validpgpkeys=('1F0FAB7CC69ACAD8374DB119D3F94059A398971E') # Alexis Bienvenüe <palnch@passoire.fr>
 
 prepare() {
@@ -63,13 +65,15 @@ prepare() {
   # We can't edit Makefile.conf because it triggers a rebuild of precompiled doc targets.
   # So just overwrite PERLDIR after Makefile.Conf is included in the main Makefile.
   sed -i -e '/^include Makefile-all.conf/aPERLDIR="/usr/share/perl5/vendor_perl"' Makefile
+
+  patch -p1 -i ../opencv-5.patch
 }
 
 build() {
   cd $pkgbase-$pkgver
   make all_precomp \
-    GCC_OPENCV="$(pkg-config --cflags opencv4)" \
-    GCC_OPENCV_LIBS="$(pkg-config --libs opencv4)"
+    GCC_OPENCV="$(pkg-config --cflags opencv5)" \
+    GCC_OPENCV_LIBS="$(pkg-config --libs opencv5)"
 }
 
 package() {

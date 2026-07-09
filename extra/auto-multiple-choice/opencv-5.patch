@@ -1,0 +1,11 @@
+diff -ru auto-multiple-choice-1.7.0.orig/AMC-detect.cc auto-multiple-choice-1.7.0/AMC-detect.cc
+--- auto-multiple-choice-1.7.0.orig/AMC-detect.cc	2026-07-03 16:05:04.330896956 +0200
++++ auto-multiple-choice-1.7.0/AMC-detect.cc	2026-07-03 16:06:35.358824829 +0200
+@@ -63,6 +63,7 @@
+ #endif
+ 
+ #include "opencv2/imgproc/imgproc.hpp"
++#include "opencv2/geometry/2d.hpp"
+ #ifdef OPENCV_30
+   #include "opencv2/imgcodecs/imgcodecs.hpp"
+   #ifdef AMC_DETECT_HIGHGUI
