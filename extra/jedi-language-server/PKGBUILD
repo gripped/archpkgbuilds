@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=jedi-language-server
-pkgver=0.46.0
+pkgver=0.47.0
 pkgrel=1
 pkgdesc='Language server for Jedi'
 arch=(any)
@@ -16,7 +16,7 @@ makedepends=(
   git
   python-build
   python-installer
-  python-poetry-core
+  python-hatchling
 )
 checkdepends=(
   python-lsp-jsonrpc
@@ -24,7 +24,7 @@ checkdepends=(
   python-pytest
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('214344f72a30f41e18d225217b4973bdada147f944711e0cae46c20576e0744af320fddd15c2e44e0ba8646ba91c4a544e662dc785179b080dced087fbe3a33e')
+b2sums=('1371d9c2ff015c17a6a117b6fdd98b49c633d79c1656dc1015cc3edce4618cf88c69ef6778c31ad64e8d6d6d38c1adbcae870be40b6a62608eae047012c8c897')
 
 build() {
   cd $pkgname
