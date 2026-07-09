@@ -1,6 +1,6 @@
 pkgbase = maturin
 	pkgdesc = Build and publish crates with pyo3, rust-cpython and cffi bindings
-	pkgver = 1.13.3
+	pkgver = 1.14.1
 	pkgrel = 1
 	url = https://github.com/PyO3/maturin
 	arch = x86_64
@@ -19,9 +19,9 @@ pkgbase = maturin
 	makedepends = rust
 	makedepends = xz
 	options = !lto
-	source = git+https://github.com/PyO3/maturin.git#tag=v1.13.3
-	sha512sums = 2f18e5b56d3b47ff6171a5759da247e779859d46c055a230bd29ef50058f593f0f79e658ecf9cc0f1b3cecb4fc23c8fcf62a96133c3f81db356ff96d4cc81e71
-	b2sums = ed7d1ab08d82686a50de4b34e1a8999a380badb9bf2c91365f16297b050eb1c1b45eb4bed727267e88a8750d0c850563d6bb6907fcf6d24dbce84090bb65a8b5
+	source = git+https://github.com/PyO3/maturin.git#tag=v1.14.1
+	sha512sums = 876ccdf29df94b39eaf4631d1317fb2cf4d2f39f7ed5193c1570fe07067c9d51af6221444b636bc3e728311b8b37ddcc02167a46329be21335a8146ef76887bc
+	b2sums = 45e6d60b92bcce3ac715c28fad27aee9df126c166cd5b7fbe53d05458d85715ba6507ab4d0d945c87d6251794a35300887919570fa6c326103edbe799968d48e
 
 pkgname = maturin
 	depends = libgcc
@@ -32,5 +32,5 @@ pkgname = maturin
 pkgname = python-maturin
 	pkgdesc = Build and publish crates with pyo3, rust-cpython and cffi bindings - Python bindings
 	groups = python-build-backend
-	depends = maturin=1.13.3
+	depends = maturin=1.14.1
 	depends = python
