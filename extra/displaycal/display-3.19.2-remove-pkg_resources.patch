@@ -1,0 +1,18 @@
+diff --git a/DisplayCAL/chromecast_patterngenerator.py b/DisplayCAL/chromecast_patterngenerator.py
+index 546f86d0..6757cde3 100644
+--- a/DisplayCAL/chromecast_patterngenerator.py
++++ b/DisplayCAL/chromecast_patterngenerator.py
+@@ -16,13 +16,8 @@ if not getattr(sys, "frozen", False):
+         ):
+             if "google" in sys.modules:
+                 del sys.modules["google"]
+-            try:
+-                import pkg_resources
+-            except ImportError:
+-                import pkgutil
+             syspath = sys.path[:]
+             sys.path[:] = [pth]
+-            import google.protobuf
+ 
+             sys.path[:] = syspath
+             break
