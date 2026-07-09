@@ -3,7 +3,7 @@
 
 pkgname=jellyfin-mpv-shim
 pkgver=2.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Cast media from Jellyfin Mobile and Web apps to MPV'
 arch=(any)
 url='https://github.com/jellyfin/jellyfin-mpv-shim'
@@ -51,7 +51,8 @@ package() {
     install -Dvm644 jellyfin_mpv_shim/integration/jellyfin-$i.png "$pkgdir"/usr/share/icons/hicolor/${i}x${i}/apps/com.github.iwalton3.jellyfin-mpv-shim.png
   done
 
-  install -Dm644 jellyfin_mpv_shim/integration/com.github.iwalton3.jellyfin-mpv-shim.desktop "$pkgdir"/usr/share/applications/$pkgname.desktop
+  install -Dm644 jellyfin_mpv_shim/integration/com.github.iwalton3.jellyfin-mpv-shim.desktop -t "$pkgdir"/usr/share/applications/
+  install -Dm644 jellyfin_mpv_shim/integration/com.github.iwalton3.jellyfin-mpv-shim.appdata.xml -t "$pkgdir"/usr/share/metainfo/
 
   cd "$pkgdir"
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
