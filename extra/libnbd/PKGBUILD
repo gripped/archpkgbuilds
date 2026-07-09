@@ -2,7 +2,7 @@
 # Contributor: Thomas Weißschuh <thomas t-8ch de>
 pkgname=libnbd
 pkgver=1.24.2
-pkgrel=2
+pkgrel=3
 pkgdesc="NBD client library in userspace"
 arch=('x86_64')
 url="https://gitlab.com/nbdkit/libnbd"
