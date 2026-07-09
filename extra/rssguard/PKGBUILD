@@ -5,7 +5,7 @@
 # Contributor: speps <speps dot aur dot archlinux dot org>
 
 pkgname=rssguard
-pkgver=5.1.2
+pkgver=5.2.2
 pkgrel=1
 pkgdesc='Simple (yet powerful) Qt feed reader'
 arch=(x86_64)
@@ -30,8 +30,10 @@ conflicts=(rssguard-lite)
 replaces=(rssguard-lite)
 source=(git+https://github.com/martinrotter/rssguard#tag=$pkgver
         git+https://github.com/martinrotter/qtlinq
-        git+https://codeberg.org/gumbo-parser/gumbo-parser)
-sha256sums=('e2bf17c7452fe9600f06c3529c8b0db57f90eaf8cbd66864843d4c51bcf9af71'
+        git+https://codeberg.org/gumbo-parser/gumbo-parser
+        git+https://github.com/martinrotter/qt-publicsuffix)
+sha256sums=('38f894c457c1a049bc61c00f2258a6aa6913507d6d1dc88425de9bc656829b66'
+            'SKIP'
             'SKIP'
             'SKIP')
 
@@ -40,7 +42,8 @@ prepare() {
   git submodule init
   git submodule set-url src/librssguard/3rd-party/gumbo "$srcdir"/gumbo-parser
   git submodule set-url src/librssguard/3rd-party/qtlinq "$srcdir"/qtlinq
-  git -c protocol.file.allow=always submodule update src/librssguard/3rd-party/qtlinq src/librssguard/3rd-party/gumbo
+  git submodule set-url src/librssguard/3rd-party/qt-publicsuffix "$srcdir"/qt-publicsuffix
+  git -c protocol.file.allow=always submodule update src/librssguard/3rd-party/qtlinq src/librssguard/3rd-party/gumbo src/librssguard/3rd-party/qt-publicsuffix
 }
 
 build() {
