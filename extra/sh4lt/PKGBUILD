@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sh4lt
-pkgver=0.3.2
+pkgver=0.3.4
 pkgrel=1
 pkgdesc="Library to share streams of framed data between applications"
 arch=(x86_64)
@@ -18,41 +18,31 @@ depends=(
 makedepends=(
   cmake
   doxygen
-  git
   graphviz
+  pybind11
 )
 source=(
-  git+${url}#tag=$pkgver
-  "${pkgname}-pybind11::git+https://github.com/pybind/pybind11"  # NOTE: currently still requires vendored pybind11: https://gitlab.com/sh4lt/sh4lt/-/work_items/10
+  "${url}-/archive/$pkgver/$pkgname-$pkgver.tar.gz"
 )
-sha512sums=('09bc6d743f0817e36096f17b727efeaa1cad5bcc07a3c097b4742acd7620362a00d4eaf41d5d878ed5b0cb8082b8a9d17e2765578d38215c1352c7735d1944dd'
-            'SKIP')
-b2sums=('79eabac28484f9e95f50f6dd50b1db4cf1b825edde0e792ba016eced1c3ee084bcc9e0ab710959c77e3a8461e4c6d32bb555a03ffb147d5dcc805a4740cebecb'
-        'SKIP')
-
-prepare() {
-  cd "$pkgname"
-  git submodule init
-
-  git config submodule."wrappers/python/pybind11".url "${srcdir}/${pkgname}"-pybind11
-
-  git -c protocol.file.allow=always submodule update
-}
+sha512sums=('06247ab282b07605a012525457fd2f0d8f45148adb6b49f55002347519aa77fd1f7f85c9565280bb8620e04505d23c9f67deb8fbe4876cbd6483539638f7e413')
+b2sums=('dca80ac5b011badc098c1413b536581c5a823f1e3bc65bd22f8f0962bba378b8cfff54dd1865c71230a12422449a4bb536353c929b4a275d129dc91a3f6b40bd')
 
 build() {
   local cmake_options=(
     -B build
-    -S "$pkgname"
+    -S "$pkgname-$pkgver"
     -W no-dev
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
+    -D SH4LT_USE_SYSTEM_PYBIND11=ON
   )
+
   cmake "${cmake_options[@]}"
-  cmake --build build
+  cmake --build build --verbose
 }
 
 check() {
-  local excluded_tests="check-sh4lt-flow|pysh4lt_writer_follower"
+  local excluded_tests="pysh4lt_writer_follower"
   local ctest_flags=(
     --test-dir build
     # show the stdout and stderr when the test fails
