@@ -9,8 +9,8 @@ pkgname=(
   guvcview-qt
 )
 pkgver=2.2.2
-pkgrel=2
-pkgdesc='Simple interface for capturing and viewing video from v4l2 devices'
+pkgrel=3
+pkgdesc='Simple interface for capturing and viewing video from V4L2 devices'
 arch=(x86_64)
 url='https://guvcview.sourceforge.net/'
 license=(GPL-2.0-or-later)
@@ -52,7 +52,8 @@ prepare() {
   # https://sourceforge.net/p/guvcview/tickets/81/
   git apply -3 ../0001-Use-themed-icon.patch
 
-  # Fix appdata install dir
+  # Fix metainfo file
+  sed -i 's|<\([/]*\)_|<\1|g' data/guvcview.appdata.xml.in
   sed -i 's|\/appdata|\/metainfo|' data/CMakeLists.txt
 
   # Rename binary name for Qt
@@ -96,7 +97,7 @@ package_guvcview-common() {
 }
 
 package_guvcview() {
-  pkgdesc='Simple GTK interface for capturing and viewing video from v4l2 devices'
+  pkgdesc='Simple GTK interface for capturing and viewing video from V4L2 devices'
   depends=(
     glib2
     glibc
@@ -109,7 +110,7 @@ package_guvcview() {
 }
 
 package_guvcview-qt() {
-  pkgdesc='Simple Qt interface for capturing and viewing video from v4l2 devices'
+  pkgdesc='Simple Qt interface for capturing and viewing video from V4L2 devices'
   depends=(
     glibc
     guvcview-common
