@@ -7,8 +7,8 @@ pkgname=(
   glibmm-2.68
   glibmm-2.68-docs
 )
-pkgver=2.88.0
-pkgrel=2
+pkgver=2.88.1
+pkgrel=1
 pkgdesc="C++ bindings for GLib"
 url="https://www.gtkmm.org/"
 arch=(x86_64)
@@ -32,7 +32,7 @@ makedepends=(
 checkdepends=(glib-networking)
 options=(!emptydirs)
 source=("git+https://gitlab.gnome.org/GNOME/glibmm.git#tag=$pkgver")
-b2sums=('5d14ddc6ca064d8352d0a9691f83946af223eeb74b7fff327f5c3d5838626dae1f314022622bd528e67c3f2ef7983e705e0f3fbd5e4e33d377ba94210f2919a7')
+b2sums=('039b2ab8b0163e286e6482e874a87ce78a4e1513f907ba1317f51c835b29e6868577b29ee371a95158111387dd4b1bb94d08cf026ec723c9e88e8699339cbadf')
 
 prepare() {
   cd glibmm
