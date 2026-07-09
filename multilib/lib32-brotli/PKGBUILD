@@ -5,8 +5,8 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=lib32-brotli
-pkgver=1.1.0
-pkgrel=1
+pkgver=1.2.0
+pkgrel=2
 pkgdesc='Generic-purpose lossless compression algorithm (32-bit)'
 arch=(x86_64)
 license=(MIT)
@@ -22,14 +22,8 @@ makedepends=(
 provides=(
   libbrotli{common,dec,enc}.so
 )
-_tag=ed738e842d2fbdf2d6459e39267a633c4a9b2f5d
-source=(git+https://github.com/google/brotli#tag=${_tag})
-sha512sums=('SKIP')
-
-pkgver() {
-  cd brotli
-  git describe --tags --match 'v*' | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
-}
+source=(git+https://github.com/google/brotli#tag=v$pkgver)
+sha512sums=('36b8fadb3e5de540746eea19c758234095fafc0a4a687bd70fc70b0f74036c03cf9c70a7339aa1626f1197b5ac707bf5b01e393f6cd26c90b78519529724871a')
 
 build() {
   export CC='gcc -m32'
@@ -40,7 +34,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_SHARED_LIBS=True \
     -DCMAKE_C_FLAGS="$CFLAGS -ffat-lto-objects" \
-    -DCMAKE_INSTALL_LIBDIR=/usr/lib32
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib32 \
+    -DBROTLI_BUILD_TOOLS=OFF
   cmake --build build -v
 }
 
@@ -51,7 +46,7 @@ check() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-  rm -rf "${pkgdir}"/usr/{bin,include,lib32/*.a}
+  rm -rf "${pkgdir}"/usr/{bin,include,lib32/*.a,share}
   install -dm 755 "${pkgdir}"/usr/share/licenses
   ln -s brotli "${pkgdir}"/usr/share/licenses/lib32-brotli
 }
