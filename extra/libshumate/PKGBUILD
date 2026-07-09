@@ -6,7 +6,7 @@ pkgname=(
   libshumate
   libshumate-docs
 )
-pkgver=1.6.1
+pkgver=1.6.2
 pkgrel=1
 pkgdesc="Map widget for GTK 4"
 url="https://gitlab.gnome.org/GNOME/libshumate"
@@ -40,7 +40,7 @@ checkdepends=(xorg-server-xvfb)
 source=(
   "git+https://gitlab.gnome.org/GNOME/libshumate.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('7813cab6c4baf6a5f02b013a71da1f452194b08d58fee3c5b3316d7e33ebc5f8013daa0b82c1d0c66f856e2c71c4507ed174c04f62cddfdf2f6802fb8907b6ca')
+b2sums=('2321eeb61d579eac2846ae2425abe8b0a92224cf4727b8e3fbd1992eae7810c83c5fdf1c07ab281972152439bd4f6ffaec9fbb5e30424a05dc01322614f9b884')
 validpgpkeys=(
   7448F128A4B18AB2EF87F092FA6624580A420D5D # Marcus Lundblad <ml@update.uu.se>
 )
