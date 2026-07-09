@@ -3,44 +3,48 @@
 
 pkgname=python-pykeepass
 pkgver=4.1.1.post1
-pkgrel=2
-pkgdesc="Python library to interact with keepass databases"
-arch=('any')
-url="https://github.com/libkeepass/pykeepass"
-license=('GPL-3.0-only')
+pkgrel=3
+pkgdesc='Python library to interact with keepass databases'
+arch=(any)
+url='https://github.com/libkeepass/pykeepass'
+license=(GPL-3.0-only)
 depends=(
   python
   python-argon2_cffi
   python-construct
   python-lxml
   python-pycryptodomex
-  python-setuptools
 )
 makedepends=(
   git
   python-build
   python-installer
+  python-setuptools
   python-wheel
 )
 checkdepends=(python-pyotp)
-source=("git+https://github.com/libkeepass/pykeepass.git#tag=v${pkgver}")
+source=("$pkgname::git+https://github.com/libkeepass/pykeepass.git#tag=v${pkgver}")
 b2sums=('efc366773af80eb31d23d95231b0c01f51558ffa9b88c1d5c7564519e181d29a42549b95a470416c2f6b17650035e9d0c8846a15d0a6d8dccc10a792f513913e')
 
 prepare() {
-  cd pykeepass
+  cd "$pkgname"
+
+  # drop pkg_resources module
+  # https://github.com/libkeepass/pykeepass/pull/428
+  git cherry-pick --no-commit a3ad4f94edd5d682262ec85502779c68f0feb01e
 }
 
 build() {
-  cd pykeepass
+  cd "$pkgname"
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd pykeepass
+  cd "$pkgname"
   python -m unittest tests.tests
 }
 
 package() {
-  cd pykeepass
+  cd "$pkgname"
   python3 -m installer --destdir="$pkgdir" dist/*.whl
 }

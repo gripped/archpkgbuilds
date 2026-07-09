@@ -1,7 +1,7 @@
 pkgbase = python-pykeepass
 	pkgdesc = Python library to interact with keepass databases
 	pkgver = 4.1.1.post1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/libkeepass/pykeepass
 	arch = any
 	license = GPL-3.0-only
@@ -9,14 +9,14 @@ pkgbase = python-pykeepass
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
+	makedepends = python-setuptools
 	makedepends = python-wheel
 	depends = python
 	depends = python-argon2_cffi
 	depends = python-construct
 	depends = python-lxml
 	depends = python-pycryptodomex
-	depends = python-setuptools
-	source = git+https://github.com/libkeepass/pykeepass.git#tag=v4.1.1.post1
+	source = python-pykeepass::git+https://github.com/libkeepass/pykeepass.git#tag=v4.1.1.post1
 	b2sums = efc366773af80eb31d23d95231b0c01f51558ffa9b88c1d5c7564519e181d29a42549b95a470416c2f6b17650035e9d0c8846a15d0a6d8dccc10a792f513913e
 
 pkgname = python-pykeepass
