@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=scip
-pkgver=10.0.2
+pkgver=10.0.3
 pkgrel=1
 pkgdesc='Solving Constraint Integer Programs'
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(boost
              git
              papilo)
 source=(git+https://github.com/scipopt/scip#tag=v$pkgver)
-sha256sums=('962d8add7a8609b79a6c3057064dda3484249e420d0a24a3c3e6f02ef3adb045')
+sha256sums=('67828d8e73ebe8d87443c2f8f8ad6206f338d422b636dd7f923facd463d6a97d')
 
 prepare() {
   cd $pkgname
