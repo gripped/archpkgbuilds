@@ -7,9 +7,9 @@
 
 pkgbase=incus
 pkgname=(incus incus-tools)
-pkgver=7.1.0
+pkgver=7.2.0
 _pkgver="${pkgver/.0/}"
-pkgrel=2
+pkgrel=1
 pkgdesc="Powerful system container and virtual machine manager"
 arch=('x86_64')
 url="https://linuxcontainers.org/incus/"
@@ -35,7 +35,6 @@ optdepends=(
     'umoci: OCI support'
 )
 source=("https://linuxcontainers.org/downloads/incus/incus-$_pkgver.tar.xz"{,.asc}
-        "patch-environment-quotes.patch::https://github.com/lxc/incus/commit/a1276cdb57297245496ac8c1db76b90d1fcebd3b.patch"
         "incus.socket"
         "incus.service"
         "incus-user.socket"
@@ -43,9 +42,8 @@ source=("https://linuxcontainers.org/downloads/incus/incus-$_pkgver.tar.xz"{,.as
         "incus.sysusers")
 validpgpkeys=('602F567663E593BCBD14F338C638974D64792D67'  # Stéphane Graber <stgraber@stgraber.org>
              )
-sha256sums=('c684c7e9447df1e2b66cdd37c8cc602c4e995459a6c7e848b5ef0526ac7aeb6c'
+sha256sums=('806230f72ac4dc3cb584de76763428218d4005c2184c391f701048182ee9e982'
             'SKIP'
-            '3ae91e8342f7560e9896ff401ca99280b39ecb971cdafb01e7954dda041b3e26'
             '602a8035cc51b8e0c4ca265e31ebf96c7977db4239d384d8f60fed0d2d0317c4'
             '81057039527f852f2b7d2fe25495b09543d3f031e0d83e56b9225014edbbebfb'
             '50288528ea910d186157a2515c5200b3b073f645922fb581d1913f236f14667d'
@@ -57,8 +55,6 @@ prepare() {
 
   mkdir bin
   go mod verify
-
-  patch -Np1 < "$srcdir/patch-environment-quotes.patch"
 }
 
 build() {
@@ -83,7 +79,7 @@ build() {
 
   export GOFLAGS="-buildmode=pie -modcacherw"
   go build -v -ldflags "${GO_LDFLAGS}" -tags "netgo" -o bin/ ./cmd/incus-migrate/...
-  for tool in fuidshift incus lxc-to-incus lxd-to-incus incusd incus-benchmark incus-simplestreams incus-user; do
+  for tool in fuidshift incus lxc-to-incus incusd incus-benchmark incus-simplestreams incus-user; do
     go build -v -ldflags "${GO_LDFLAGS}" -tags "libsqlite3" -o bin/ ./cmd/$tool
   done
 }
@@ -91,7 +87,7 @@ build() {
 package_incus() {
   cd "$pkgbase-${_pkgver}"
 
-  for tool in incus lxd-to-incus incus-migrate; do
+  for tool in incus incus-migrate; do
     install -v -p -Dm755 "bin/$tool" "${pkgdir}/usr/bin/$tool"
   done
 
