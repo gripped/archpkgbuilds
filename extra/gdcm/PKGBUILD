@@ -2,7 +2,7 @@
 
 pkgbase=gdcm
 pkgname=(gdcm gdcm-docs)
-pkgver=3.2.7
+pkgver=3.2.10
 pkgrel=1
 pkgdesc="C++ library for DICOM medical files"
 arch=(x86_64)
@@ -29,7 +29,7 @@ makedepends=(
   zlib
 )
 source=($pkgbase-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-b2sums=('a26433da5e30503918837cdc7c709957717dbd4f273c2b6a4cf7d62b5071d108d6491be23c73c92f4566ec204c6fa11f7039e8dc7e7148323266d2e1b2b7acf9')
+b2sums=('a4340aa1c7029b70ec1e7166228aaf941b119b40cf11086eefac0c813f7fd6fde350d36f0cc9a69c80728d742ccedfb85c4896d5372078934fcb2223a52f9954')
 
 _pick() {
   local p="$1" f d; shift
