@@ -5,7 +5,7 @@
 
 pkgbase=firewalld
 pkgname=('firewalld' 'python-firewall' 'firewall-config' 'firewall-applet' 'firewalld-test')
-pkgver=2.4.2
+pkgver=2.4.3
 pkgrel=1
 url="https://firewalld.org"
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=('docbook-xsl' 'git' 'intltool' 'python' 'iptables')
 source=("git+https://github.com/firewalld/firewalld.git#tag=v${pkgver}"
         'firewalld-sysconfigdir.patch'
         'fix_gettext_macros_path.patch')
-sha256sums=('48b564a466f1673aeb65a6265ce9e8af257cf3286b0d64aa045745be39ed5d3b'
+sha256sums=('46a355a484930bb4372307530c44d2f8b1e9ae70c468231712eb47298dc6fd2c'
             '3b2e00f67680c2e620804eb28620d7370b4096851bcb5f6fec22460a21941ad9'
             '49f793aeaf2e87c834c734b37dc926c9579cc2ec0782e5fe297ee286df6c7ef6')
 
