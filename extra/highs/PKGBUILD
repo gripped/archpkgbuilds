@@ -3,8 +3,8 @@
 pkgbase=highs
 pkgname=(highs
          python-highspy)
-pkgver=1.14.0
-pkgrel=2
+pkgver=1.15.1
+pkgrel=1
 pkgdesc='Linear optimization software'
 arch=(x86_64)
 url='https://highs.dev/'
@@ -20,7 +20,7 @@ makedepends=(cmake
              python-numpy
              python-scikit-build-core)
 source=(git+https://github.com/ERGO-Code/HiGHS#tag=v$pkgver)
-sha256sums=('9c4c356da62a38c31bbedcb5d8549eefd8d0c409864f70e769a33301bcdb587e')
+sha256sums=('03a6b22649295016efc4f5016cda76c6673d0bcc752306affce455a2fe442e14')
 
 build() {
   cmake -B build -S HiGHS \
@@ -44,5 +44,6 @@ package_python-highspy() {
 
   cd HiGHS
   python -m installer --destdir "$pkgdir" dist/*.whl
+  rm "$pkgdir"/usr/lib/python3.*/site-packages/highspy/libhighs.so.* # Use system lib
   install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname
 }
