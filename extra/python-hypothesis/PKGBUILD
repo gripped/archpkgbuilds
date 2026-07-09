@@ -5,7 +5,7 @@
 
 pkgname=python-hypothesis
 _name=${pkgname#python-}
-pkgver=6.155.3
+pkgver=6.155.7
 pkgrel=1
 pkgdesc="Advanced Quickcheck style testing library for Python"
 arch=(any)
@@ -61,8 +61,8 @@ optdepends=(
   'python-watchdog: for tracking file system events'
 )
 source=("$pkgname::git+$_url#tag=v$pkgver")
-sha512sums=('a74a306312e5c1f6a883a2533978c2f2a92377443448bcfa3823f0bf6847fd5c394e00fa0685162973b598ccd32e2972776875cffba46a3b0f441951c65c0a8b')
-b2sums=('3915828140f70136156c9668b48242475af72432eb9ba4d80e3f6c2b71cd877b8fe97ee17570a674e8f00b4565987e86ec876ccde0354aabbbe6b01499765a8f')
+sha512sums=('f0c5d3376765813cff9cee403e3f4aada33e2350ffb738e6289029c77c36ef569bcd05da104b0203eb25c8d5e03ab4e34d9b60418939227ec3bd0281d7a59a24')
+b2sums=('5ac80e0b74272a079ccc6efbdc3965e9a348a936d7c8bc46bcdca8eedcaf014d5909b8f98c83f75ccde183cd79df76fcc9fb4432495a8d982c743d2db0006791')
 
 build() {
   cd $pkgname/$_name
