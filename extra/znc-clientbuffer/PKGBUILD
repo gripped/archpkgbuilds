@@ -2,8 +2,8 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=znc-clientbuffer
-pkgver=1.0.48
-pkgrel=8
+pkgver=1.0.53
+pkgrel=1
 pkgdesc='ZNC module for client specific buffers'
 arch=('x86_64')
 url='https://github.com/CyberShadow/znc-clientbuffer/'
@@ -17,7 +17,7 @@ makedepends=(
     'cmake'
     'python')
 source=("https://github.com/CyberShadow/znc-clientbuffer/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('eac4d748b670a8e3563a424fcb5c9c411af6c9b1f9965f065936ddfcfbff946783e34e0d6b32de18fb3b87fb27db129ff58bedfb179473c804750a9b770897f6')
+sha512sums=('36997059dddd1ccf6a8ab7b9ddcd950f0bd049a285bd6bd62e1212fc7bf0a6c903ae8b9e1bfb90b994bbd39537f79664c20b8643e56bad5e028dea5b4871972c')
 
 build() {
     make -C "${pkgname}-${pkgver}" PREFIX='/usr'
