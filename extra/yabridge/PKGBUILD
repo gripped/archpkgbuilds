@@ -9,7 +9,7 @@ pkgname=(
 _vst3sdk_commit=3ff02a8fb91f8e14f61c4e26130841b51d601575  # refs/tags/v3.7.7_build_19-patched
 _bundled_vst3sdk=1  # whether to use bundled vst3sdk (1) or not (0)
 pkgver=5.1.1
-pkgrel=7
+pkgrel=8
 pkgdesc="A modern and transparent way to use Windows VST2 and VST3 plugins on Linux"
 arch=(x86_64)
 url="https://github.com/robbert-vdh/yabridge"
@@ -122,6 +122,7 @@ package_yabridge() {
   depends=(
     glibc
     libgcc
+    libstdc++
     libxcb
     sh
     wine
@@ -138,8 +139,8 @@ package_yabridge() {
 
 package_yabridgectl() {
   depends=(
-    gcc-libs
     glibc
+    libgcc
   )
   pkgdesc="Optional utility to help set up and manage yabridge"
 
