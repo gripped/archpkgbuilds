@@ -4,7 +4,7 @@
 # Contributor: David Herrmann <dh.herrmann@gmail.com>
 
 pkgname=libtsm
-pkgver=4.5.0
+pkgver=4.6.0
 pkgrel=1
 pkgdesc='Terminal-emulator State Machine'
 arch=('x86_64')
@@ -19,7 +19,7 @@ makedepends=(
 )
 options=(!libtool)
 source=(git+${url}.git#tag=v$pkgver)
-b2sums=('907d94f7277aeebedfab1787aa28c66dbab4dbb366ceb429898ecc738c41570ff51c9d9cb09007a782c705bec188239fbc97c5c148d2edd22781dee6e92167aa')
+b2sums=('863793ce1d3c81b960c5ba6cbc668ce6f1df0e82dfaa729cb1306c870a5ff496b538c6cb6c80cca7778c0eff363bbb54ed5657a6706c22495e52af48e54512eb')
 
 build() {
   arch-meson "$pkgname" build
