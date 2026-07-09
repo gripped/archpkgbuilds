@@ -2,7 +2,7 @@
 # Contributor: andy123 < ajs [at] online [dot] de >
 pkgname=mari0
 pkgver=1.6.2
-pkgrel=6
+pkgrel=7
 pkgdesc="The Mario game with Portal gun mechanics"
 arch=('any')
 url="http://stabyourself.net/mari0/"
@@ -19,7 +19,7 @@ sha512sums=('7f5247d5d11ab64eb6aff96232be42e8f57aabfc075b9a36cd4fc3ed43f5289488f
 package() {
   # Make love package
   cd "${srcdir}"/${pkgname}-${pkgver}
-  zip -r9 "${srcdir}"/${pkgname}.love *
+  zip -Xr9 "${srcdir}"/${pkgname}.love *
 
   # Install Data
   install -Dm755 "${srcdir}/${pkgname}.love" "${pkgdir}/usr/share/${pkgname}/${pkgname}.love"
