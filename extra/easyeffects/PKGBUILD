@@ -5,7 +5,7 @@
 # Contributor: robertfoster
 
 pkgname=easyeffects
-pkgver=8.2.4
+pkgver=8.2.7
 pkgrel=1
 pkgdesc='Audio Effects for Pipewire applications'
 arch=('x86_64')
@@ -46,16 +46,17 @@ makedepends=(
 optdepends=(
   'calf: limiter, exciter, bass enhancer and others'
   'lsp-plugins-lv2: equalizer, compressor, delay, loudness'
-  'zam-plugins-lv2: maximizer'
   'mda.lv2: bass loudness plugin'
+  'x42-plugins-lv2: autotune plugin'
   'yelp: in-app help'
+  'zam-plugins-lv2: maximizer'
 )
 install="${pkgname}.install"
 source=(
   "${url}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
   "${pkgname}.install"
 )
-sha512sums=('927db02edac7459c02497e8cc6ab6083809a2c1388cc8881fab6a3c1d0b0a883e92fda97ebd438839aca8222e9dc7b56945b2f2374eb927a483214f3125d8e88'
+sha512sums=('32068d91cea277ba8b6b15b117250b91b9828c350c94dbc297eac3c85cbab70bd464374dae15337df03c28ab648304c655161ea7256f25568f316353f54ab357'
             'ed1a19b500c8a969d5c4ddc86ff6d7c3de1d7b7cd133de5801427bdb0eb45340f982e562cd9f85593cf87576defda1593c4bb1f09f653c3169b3d7e7ed034c79')
 
 build() {
