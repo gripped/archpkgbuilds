@@ -4,8 +4,8 @@
 # Contributor: Aaron Schaefer <aaron@elasticdog.com>
 
 pkgname=duplicity
-pkgver=3.0.7
-pkgrel=2
+pkgver=3.1.0
+pkgrel=1
 pkgdesc='A utility for encrypted, bandwidth-efficient backups using the rsync algorithm'
 arch=(x86_64)
 url='https://duplicity.gitlab.io/'
@@ -44,10 +44,10 @@ source=(
   fix-documentation-directory.patch
   no-pip.patch
 )
-sha512sums=('90878388259e9141e9583da1ec6ca65b1f116122da1ed16a5cd9a5a11d5b212ec46413739d9c0845f033f7344e18c0d9bf51a46e1513bc2481eae7e0441bdc79'
+sha512sums=('07f11709fa59c720a60c423912a8cf692f44a1abda30a4f73a3a115c8e0595b5dfe36a1475a2fa9db3c0d60c4d0da0ef15a75f27fee6fa2ce7f076011f5c0cd3'
             'fac5f64001f91f65f4b7d8edd5b3dd667ffaf73ceb06102a93f7c4c4bcf898695d62d143ebaf5173fe2a1a797109ecde9cfc8b3779ad1d234d3abb0f1334644e'
             'c7b94e6c9a5d9ffe57c69ff2db90a278936c6187c0342762c0589616ee35745495bce14bc4b8da903f1ef1baf329a71f6839e826f25a813cfa8eb91a87fecafc')
-b2sums=('b414d7727f45a8d64f0699f488c5f714f3e02f8f920e850b13a77579afe5b58754657ece03bc1e5d39635b9c6836d2c8c5df01bd8c73f61769660b69b44e22a4'
+b2sums=('24c39f4c46ec49e2b1d64c6a19e6a9565dbda0b622889c1204946dec394f4df000b7e5a2755675e7de63b8424e958fa1ddd0ff0dc795d1eb2c72b00249c1f726'
         '04dad8ce369f4fb78e2b3239e30d63410d8e8c33b5e05717b5b62ba54c624c2e931220b950bad507deab60a07086c434949f0766bc3ae2eb771d62e1919cbecd'
         'cc40b852f4546b945fdc7687d900a49187597f8eaf5a843e0ac1556039f9e9daba83443297aca47eb8dce95b54d0e052b07cec31cc0e9982324ce892af3f0c20')
 
