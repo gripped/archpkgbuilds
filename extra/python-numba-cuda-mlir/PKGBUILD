@@ -1,0 +1,79 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+_name=numba-cuda-mlir
+pkgname=python-$_name
+pkgver=0.4.1
+# https://github.com/NVIDIA/numba-cuda-mlir/blob/main/ci/llvm-version.env
+_llvm_commit=3cbe75b1433a90a28db068d700b7effd2de8f401
+_llvm7_tag=llvmorg-7.1.0
+pkgrel=2
+pkgdesc="Evolution of Numba-CUDA that improves upon its technical foundation and performance"
+url="https://github.com/NVIDIA/numba-cuda-mlir"
+arch=(x86_64)
+license=(Apache-2.0)
+depends=(
+  glibc
+  libstdc++
+  python
+  python-cuda-bindings
+  python-cuda-core
+  python-cuda-pathfinder
+  python-numpy
+  python-yaml
+)
+makedepends=(
+  cmake
+  git
+  nanobind
+  ninja
+  pybind11
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+  sccache
+)
+optdepends=(
+  'python-colorama: colors in error messages'
+  'python-pygments: syntax highlighting in code dumps'
+)
+source=(
+  $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
+  "git+https://github.com/llvm/llvm-project.git#commit=$_llvm_commit"
+  pyproject.patch
+)
+b2sums=('5ae13f285f3b54e3a52cf212ebe50d41b5e3e70a24db05f604b04d324fd89ecc52ff2d3f106ecbe302fe7d1837c7a38c04f95eca72d3f2a33c759d13d1f1926d'
+        'f03eeff96feac6a47e904bac188d57b003bbe9e66671b1f01bca3d7a2cc9dd836b9762fec3ff8749e15bb607365f8d63f09ee7c02a04216809a42fa315af92c6'
+        'c06f7b34dcf5e8400320f3fd249a5c32135111d5695b68db5c327453d7081e4ae18d5458d35bdf6900c08f86d63817403df2cea2310138a4d2babfe783a0ad8b')
+
+prepare() {
+  # make a worktree for LLVM 7 tag
+  git -C llvm-project worktree add $_name-llvm7 $_llvm7_tag
+
+  cd $_name-$pkgver
+  # drop cmake and ninja dependencies from pyproject.toml
+  patch -p1 < ../pyproject.patch
+}
+
+build() {
+  cd $_name-$pkgver
+
+  # Based on https://github.com/NVIDIA/numba-cuda-mlir/blob/main/INSTALL.md
+  # Build modern LLVM + MLIR (uses ci/llvm-version.env for the commit)
+  LLVM_MODERN_SRC="$srcdir"/llvm-project ci/build-llvm-modern.sh  # produces llvm-modern-install/
+
+  # Build LLVM 7 shared library
+  LLVM7_SRC="$srcdir"/$_name-llvm7 ci/build-llvm7.sh  # produces llvm7-install/
+
+  # Build numba-cuda-mlir
+  MLIR_DIR="$PWD"/llvm-modern-install/lib/cmake/mlir \
+  LIBLLVM7="$PWD"/llvm7-install/lib/libLLVM-7.so \
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  # Remove tests
+  rm -rv "$pkgdir"$(python -c "import site; print(site.getsitepackages()[0])")/numba_cuda_mlir/{testing/,numba_cuda/tests/,numba_cuda/testing.py}
+}
