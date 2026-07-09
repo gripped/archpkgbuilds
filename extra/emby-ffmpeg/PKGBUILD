@@ -2,7 +2,7 @@
 
 pkgname=emby-ffmpeg
 pkgver=2023_06_25
-pkgrel=10
+pkgrel=11
 pkgdesc='Emby fork of ffmpeg'
 arch=(x86_64)
 url=https://emby.media
@@ -121,7 +121,8 @@ build() {
     --enable-nvenc \
     --enable-static \
     --enable-vaapi \
-    --enable-version3
+    --enable-version3 \
+    --disable-decoder=magicyuv # pixelsmash
   make
 }
 
