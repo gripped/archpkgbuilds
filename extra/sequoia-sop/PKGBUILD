@@ -1,8 +1,8 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=sequoia-sop
-pkgver=0.37.3
-pkgrel=4
+pkgver=0.38.0
+pkgrel=1
 pkgdesc='Implementation of the Stateless OpenPGP Interface using Sequoia'
 url='https://gitlab.com/sequoia-pgp/sequoia-sop'
 arch=(x86_64)
@@ -16,8 +16,6 @@ depends=(
   gmp
   libgcc
   nettle3
-  # this dependency is due to overlinking, but even though it's technically unused the linker is going to expect this .so to be present
-  sqlite
 )
 makedepends=(
   git
@@ -25,8 +23,8 @@ makedepends=(
   clang
 )
 source=(sequoia-sop::"git+$url#tag=v$pkgver?signed")
-sha512sums=('255d83511d43ef782d82b756cf444dfb65a4d403e8bfec5c1049e76096f37cebc4136d92c0bff473d05f9711242aa287ab95beaa97d70260074f9d24177c680d')
-b2sums=('7f95534da2ad0cc9b35282f097b04c77e865928324d19bcdc984768a94706dcf62142372e6626a027b4096b0d38f001013785d4db49517817ce490c2d819985b')
+sha512sums=('33d05dfc546b0e9c4dae4521977ccd72a5bd2eda59653cc575d31f6098823e7627611d440224d44e2b150f1f49b4c09606fa2acd3899b88c723197cd524dfc01')
+b2sums=('0bf0c1aa889d439b403166e5d5af5769936734c55ae2885909ef333450ebf1577479a9283d91961dd18345b696e7fbd4dfbf195fa0127d7bcaf0f20393f6098d')
 validpgpkeys=(
   CBCD8F030588653EEDD7E2659B7DD433F254904A  # Justus Winter <justus@sequoia-pgp.org>
   8F17777118A33DDA9BA48E62AACB3243630052D9  # Neal H. Walfield <neal@walfield.org>
@@ -34,10 +32,6 @@ validpgpkeys=(
 
 prepare() {
   cd ${pkgname}
-# Update nettle-sys to fix build with clang 22
-  cargo update -p nettle-sys --precise 2.3.2
-  # Update sequoia-openpgp to fix various vulnerabilities.
-  cargo update -p sequoia-openpgp --precise 2.3.0
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
