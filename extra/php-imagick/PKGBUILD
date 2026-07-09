@@ -7,7 +7,7 @@ pkgname=(
   php-legacy-imagick
 )
 pkgver=3.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc="PHP extension to create and modify images using the ImageMagick library"
 arch=(x86_64)
 url="https://github.com/imagick/imagick"
