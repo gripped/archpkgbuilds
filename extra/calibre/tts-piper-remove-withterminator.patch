@@ -1,0 +1,25 @@
+diff '--color=auto' -ura calibre-9.8.0.orig/src/calibre/utils/tts/piper.cpp calibre-9.8.0/src/calibre/utils/tts/piper.cpp
+--- calibre-9.8.0.orig/src/calibre/utils/tts/piper.cpp	2026-05-18 14:50:09.402579297 +0200
++++ calibre-9.8.0/src/calibre/utils/tts/piper.cpp	2026-05-18 14:50:18.213287815 +0200
+@@ -189,8 +189,8 @@
+         int terminator = 0;
+         const char *phonemes;
+         Py_BEGIN_ALLOW_THREADS;
+-        phonemes = espeak_TextToPhonemesWithTerminator(
+-            (const void **)&text, espeakCHARS_UTF8, espeakPHONEMES_IPA, &terminator);
++        phonemes = espeak_TextToPhonemes(
++            (const void **)&text, espeakCHARS_UTF8, espeakPHONEMES_IPA);
+         Py_END_ALLOW_THREADS;
+         // Categorize terminator
+         const char *terminator_str = categorize_terminator(terminator);
+@@ -312,8 +312,8 @@
+     const void *text_ptr = text;
+     while (text_ptr != nullptr) {
+         int terminator = 0;
+-        const char *phonemes = espeak_TextToPhonemesWithTerminator(
+-                &text_ptr, espeakCHARS_UTF8, espeakPHONEMES_IPA, &terminator);
++        const char *phonemes = espeak_TextToPhonemes(
++                &text_ptr, espeakCHARS_UTF8, espeakPHONEMES_IPA);
+         if (phonemes) sentence_phonemes[current_idx] += phonemes;
+         const char *terminator_str = categorize_terminator(terminator);
+         sentence_phonemes[current_idx] += terminator_str;

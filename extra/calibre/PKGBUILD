@@ -1,4 +1,5 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Maintainer: Jonathan Grotelüschen <tippfehlr@archlinux.org>
 # Contributor: Jelle van der Waa <jelle@vdwaa.nl>
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
@@ -8,8 +9,8 @@
 # Contributor: Larry Hajali <larryhaja@gmail.com>
 
 pkgname=calibre
-pkgver=8.7.0
-pkgrel=12
+pkgver=9.11.0
+pkgrel=2
 pkgdesc='Ebook management application'
 arch=(x86_64)
 url=https://calibre-ebook.com
@@ -28,6 +29,7 @@ _pydeps=(apsw
          lxml
          lxml-html-clean
          markdown
+         html5lib
          mechanize
          msgpack
          netifaces
@@ -42,23 +44,32 @@ _pydeps=(apsw
          pyqt6
          pyqt6-webengine
          regex
+         tzlocal
+         tzdata
          unrardll
          xxhash
          zeroconf
          zstandard)
-depends=(hunspell
+depends=(espeak-ng
+         ffmpeg
+         hicolor-icon-theme
+         hunspell
          hyphen
          icu
          jxrlib
          libmtp
+         libstdc++
          libstemmer
          libusb
          libwmf
 #        mathjax
          mtdev
+         openssl
          optipng
          podofo
+         protobuf
          "${_pydeps[@]/#/python-}"
+         python
          qt6-imageformats
          qt6-multimedia
          qt6-speech
@@ -69,6 +80,7 @@ depends=(hunspell
          udisks2
          zstd)
 makedepends=(cmake
+             onnxruntime
              pyqt-builder
              rapydscript-ng
              sip
@@ -78,7 +90,8 @@ checkdepends=(poppler
               python-pyzstd
               speech-dispatcher
               tk)
-optdepends=('poppler: required for converting pdf to html'
+optdepends=('onnxruntime: required for text-to-speech'
+            'poppler: required for converting pdf to html'
             'python-fonttools: required for font subset feature in epub editor'
             'speech-dispatcher: TTS support in the viewer')
 conflicts=(calibre-common
@@ -87,10 +100,10 @@ replaces=("${conflicts[@]}")
 _archive="$pkgname-$pkgver"
 source=("https://download.calibre-ebook.com/$pkgver/$_archive.tar.xz"
         "$url/signatures/$_archive.tar.xz.sig"
-         qt-6.10.patch)
-sha256sums=('2cfe587e3773d8607fe8bbefbcd77b5cfb816124cac89e491353deb8f2fa9324'
+        "tts-piper-remove-withterminator.patch")
+sha256sums=('50d42e3b32ec5116f6b1df099537f4becaf36bfedecf9f581b743f11d8b6cb36'
             'SKIP'
-            '5b1b0b0d60400727136e929b941bac0b32125c9636600c2f9ec1a1d7fd74db64')
+            '128dad5dda9175ee9d8a798cdac0514e228821dca11b746b54682a9cc787d3da')
 validpgpkeys=('3CE1780F78DD88DF45194FD706BC317B515ACE7C') # Kovid Goyal (New longer key) <kovid@kovidgoyal.net>
 
 prepare(){
@@ -101,10 +114,12 @@ prepare(){
 		-e "s/'ctc-posml'/'text' not in mt and 'pdf' not in mt and 'xhtml'/" \
 		-e "s/^Name=calibre/Name=Calibre/g" \
 		-i  src/calibre/linux.py
+
 	# Remove unneeded files
 	rm -f resources/$pkgname-portable.*
 
-        patch -p1 -i ../qt-6.10.patch
+	# espeak-ng headers do not provide espeak_TextToPhonemesWithTerminator
+	patch -Np1 -i ../tts-piper-remove-withterminator.patch
 }
 
 build() {
@@ -115,8 +130,8 @@ build() {
 	python setup.py iso3166
         # the liberation fonts directory is deleted later, but this step is necessary to prevent the setup from downloading them
 	python setup.py liberation_fonts --system-liberation_fonts --path-to-liberation_fonts /usr/share/fonts/liberation
-#	MathJax 4 not supported
-#	python setup.py mathjax --system-mathjax --path-to-mathjax /usr/share/mathjax
+	# MathJax 4 not supported
+	# python setup.py mathjax --system-mathjax --path-to-mathjax /usr/share/mathjax
 	python setup.py mathjax
 	python setup.py gui
 }
