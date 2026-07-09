@@ -3,7 +3,7 @@
 
 pkgname=dpdk
 pkgver=25.11.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A set of libraries and drivers for fast packet processing"
 arch=(x86_64)
 url="https://dpdk.org"
