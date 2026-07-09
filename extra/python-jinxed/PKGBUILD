@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-jinxed
-pkgver=2.0.4
+pkgver=2.1.0
 pkgrel=1
 pkgdesc='A curses replacement for Windows and Unix-like systems'
 arch=(any)
@@ -16,7 +16,7 @@ makedepends=(
   python-wheel
 )
 source=(git+https://github.com/Rockhopper-Technologies/jinxed.git#tag=${pkgver})
-b2sums=('a5e10c52224935739a01510116f24bacb422c7339293a38f64d5fed27dd6bc9b5365c71aa2ee72bb156c651202b2d5954b7b5b88221d9c9cbeb4fac39e6bad56')
+b2sums=('ceda8826c6bf917be33672bccf05b899f2964636cdc4f78d91b6f8064795ee1abe015e04d5cd2c7e2a35869f7181503c3695013fa9f76f6ce0d507d5f4c79eab')
 
 build() {
   cd jinxed
