@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=netpbm
-pkgver=10.86.49
-pkgrel=3
+pkgver=10.86.50
+pkgrel=1
 pkgdesc='A toolkit for manipulation of graphic images'
 arch=(x86_64)
 license=(Artistic-1.0 GPL-2.0-only LGPL-2.0-only MIT)
@@ -26,7 +26,7 @@ source=(https://downloads.sourceforge.net/project/netpbm/super_stable/$pkgver/ne
         netpbm-security-scripts.patch
         netpbm-build-manpages.patch
         reproducible-man-gzip.patch)
-sha256sums=('98c1abdad8e593a20e36b597c6b5b4427c80349544d466eed7761ecec69f6daf'
+sha256sums=('9d9f0b08505961e7bff43b93bf7b00310f1b0e7315bc32a0321116e6bedd95c8'
             '74bcf840ee643c6917330c382484010cb99c004a3fcf05391bebcac63815acb3'
             'SKIP'
             '7348274b72b8285add042d0f45d124c9833206ee3440bd1846cfc792b9b4d5e5'
