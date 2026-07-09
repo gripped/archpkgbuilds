@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=perl-test-mockmodule
-pkgver=0.185.0
+pkgver=0.185.3
 pkgrel=1
 pkgdesc="Override subroutines in a module for unit testing"
 arch=('any')
@@ -13,7 +13,7 @@ checkdepends=('perl-class-load' 'perl-moose' 'perl-mouse' 'perl-test-exception' 
               'perl-test-pod-coverage' 'perl-test-warnings')
 url='https://search.cpan.org/dist/Test-MockModule'
 source=("https://search.cpan.org/CPAN/authors/id/G/GF/GFRANKS/Test-MockModule-v$pkgver.tar.gz")
-sha512sums=('8f8eaa1fd815f7831ad9a39c845cb65c1e02acc3be8bd0be3b4973693fa8fd0c2be577a2e679d647d567b40c81cb45ee017d7149a6dbdc5d3faea0fc54045a56')
+sha512sums=('646f0d1d5bc06d095e7ef5488d25aa3489ba69c81d19e490dd238935f2e5389c36132ab82a80802e71d027c17aa0ebb416beef30a0a0a091d20c822d19a58a5d')
 
 build() {
   cd "$srcdir/Test-MockModule-v$pkgver"
