@@ -2,7 +2,7 @@
 
 pkgname=python-anyio
 # https://github.com/agronholm/anyio/blob/master/docs/versionhistory.rst
-pkgver=4.14.0
+pkgver=4.14.1
 pkgrel=1
 pkgdesc='High level compatibility layer for multiple asynchronous event loop implementations'
 arch=(any)
@@ -20,7 +20,7 @@ optdepends=(
   'python-pytest: pytest plugin'
 )
 source=("git+https://github.com/agronholm/anyio.git#tag=$pkgver")
-sha256sums=('9d8a5371494904952514935f44df9fc10de3cea61c58610944dfc85e1b187b1d')
+sha256sums=('c8651ad95fe907c8481cd5a5a3693986f878902badd919f42188d4731fd9aa49')
 
 export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 
