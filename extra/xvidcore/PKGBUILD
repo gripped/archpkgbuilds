@@ -6,20 +6,25 @@
 
 pkgname=xvidcore
 pkgver=1.3.7
-pkgrel=3
+pkgrel=4
 pkgdesc='XviD is an open source MPEG-4 video codec'
 arch=(x86_64)
 url=https://www.xvid.com/
-license=(GPL)
+license=(GPL-2.0-only)
 depends=(glibc)
 makedepends=(nasm)
 provides=(libxvidcore.so)
 source=(https://downloads.xvid.com/downloads/xvidcore-${pkgver}.tar.gz)
-sha256sums=('abbdcbd39555691dd1c9b4d08f0a031376a3b211652c0d8b3b8aa9be1303ce2d')
+b2sums=('26b2dce1456fd49a5afb4d2edc718c70b86240843e267cae4d267e6dd38ee37b6f6beabbb8bb3f7e2237a1ac6d2d34f2431df50c98a785fa4a45f591f021ac24')
+
+prepare() {
+  cd xvidcore/build/generic
+  autoreconf -fiv
+}
 
 build() {
+  export CFLAGS+=' -std=gnu17'
   cd xvidcore/build/generic
-
   ./configure \
     --prefix=/usr
   make
@@ -27,8 +32,5 @@ build() {
 
 package() {
   cd xvidcore/build/generic
-
   make DESTDIR="${pkgdir}" install
 }
-
-# vim: ts=2 sw=2 et:
