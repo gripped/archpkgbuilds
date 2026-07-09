@@ -6,11 +6,11 @@
 
 pkgname=dvdauthor
 pkgver=0.7.2
-pkgrel=13
+pkgrel=14
 pkgdesc='DVD authoring tools'
 arch=('x86_64')
 url='http://dvdauthor.sourceforge.net/'
-license=('GPL2')
+license=('GPL-2.0-or-later')
 depends=('libdvdread' 'imagemagick' 'libxml2')
 source=("https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
         'dvdauthor-0.7.2-imagemagick7.patch'
@@ -29,7 +29,7 @@ prepare() {
   # don't search for obsolete freetype-config
   patch -p1 -i ../dvdauthor-0.7.2-freetype-pkgconfig.patch 
 
-  autoreconf -vi
+  autoreconf -vif
 }
 
 build() {
