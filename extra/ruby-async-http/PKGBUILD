@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-async-http
-pkgver=0.94.3
+pkgver=0.95.1
 pkgrel=1
 pkgdesc='A HTTP client and server library'
 arch=(any)
@@ -42,15 +42,11 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/socketry/async-http.git#tag=v$pkgver)
-sha512sums=('a932f9ae0124c31738ce6f99dc8d9d765c38460bf52df5c4891042673a2619753c81eea21b193c49ecca25b07b2ec499536659b465f84f8fb7fa62366143f224')
-b2sums=('9886e52ec6756bb5d90aa5a9724e6ea34c44b308ab075c0a63ec862df59f3fd99929b7ab7eb7f064dfaf903e9558e8e8ae37badb8df9566a42e4875acdc658f6')
+sha512sums=('d2a79f5a3f961c3bf9124787e0a373e4c106301dd077a6872ffa17e3466dadbf5ee212bd1a6a1b828006e488d4d2b3dd2e5dea6a5eeaca49cec4704af6647297')
+b2sums=('6cfe962685fcaebbac7639bbba454747355b9535a4d4fa8f0ecb585a24dd8a178a27964fc8d11618e3de2b5ca9b477217de9a4ea6da6d02bcb2d4e4432a0b0d3')
 
 prepare() {
   cd async-http
-
-  # Fix the HTTP/1.1 body-write test with protocol-http1 >= 0.37.1:
-  # https://github.com/socketry/async-http/commit/7a8850e6fb081af1c672a537828fc3b596f6e8f5
-  git cherry-pick -n 7a8850e6fb081af1c672a537828fc3b596f6e8f5
 
   sed -r \
     -e 's|~>|>=|g' \
