@@ -7,8 +7,7 @@ pkgname=(
   dolphin-emu
   dolphin-emu-tool
 )
-pkgver=2603.1
-_gittag=2603a
+pkgver=2606
 pkgrel=2
 epoch=1
 pkgdesc='A Gamecube and Wii emulator'
@@ -18,32 +17,28 @@ license=(GPL-2.0-or-later)
 depends=(
   bluez-libs
   bzip2
+  curl
   enet
+  ffmpeg
   glibc
   glslang
   hidapi
-  libavcodec.so
-  libavformat.so
-  libavutil.so
-  libcurl.so
-  #libfmt.so
+  #fmt
   libgcc
   libgl
-  libsfml-network.so
-  libsfml-system.so
-  libspng.so
+  libspng
   libstdc++
-  libswscale.so
-  libusb-1.0.so
+  libusb
   libx11
   libxi
   libxrandr
   lz4
   lzo
-  mbedtls2
   pugixml
   sdl3
+  sfml
   speexdsp
+  systemd-libs
   xxhash
   xz
   zlib
@@ -55,20 +50,21 @@ makedepends=(
   cmake
   git
   libevdev
-  libminiupnpc.so
+  miniupnpc
   libpulse
-  libudev.so
   ninja
   python
   qt6-base
   qt6-svg
-  sfml
   vulkan-headers
 )
 optdepends=('pulseaudio: PulseAudio backend')
-options=(!emptydirs !lto)
+options=(
+  !emptydirs
+  !lto
+)
 source=(
-  dolphin-emu::git+https://github.com/dolphin-emu/dolphin.git#tag=${_gittag}
+  dolphin-emu::git+https://github.com/dolphin-emu/dolphin.git#tag=${pkgver}
   git+https://github.com/mutouyun/cpp-ipc.git
   git+https://github.com/weisslj/cpp-optparse.git
   git+https://github.com/mozilla/cubeb.git
@@ -85,7 +81,7 @@ source=(
   git+https://github.com/e-dant/watcher.git
   git+https://github.com/zlib-ng/zlib-ng.git
 )
-b2sums=('8e43c8c34c355a36fea357307a01423a549ce43d2dadf4b782166fe9c62faa9de49798f59d386a599ce964cb8b063a0e5977c218124cfc2345b33776324dcfdb'
+b2sums=('58cafa4be711983441462b5565131b889152a6e8fc40a478da415eaacd21d6780281339657d7564969417e360b3f080ae94a104793967ba5ded0b8ac66067a8e'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -104,7 +100,7 @@ b2sums=('8e43c8c34c355a36fea357307a01423a549ce43d2dadf4b782166fe9c62faa9de49798f
 
 prepare() {
   cd dolphin-emu
-  for submodule in Externals/{cpp-ipc/cpp-ipc,cpp-optparse/cpp-optparse,cubeb/cubeb,imgui/imgui,implot/implot,fmt/fmt,mGBA/mgba,minizip-ng/minizip-ng,rcheevos/rcheevos,spirv_cross/SPIRV-Cross,tinygltf/tinygltf,VulkanMemoryAllocator,watcher,zlib-ng/zlib-ng}; do
+  for submodule in Externals/{cpp-ipc/cpp-ipc,cpp-optparse/cpp-optparse,cubeb/cubeb,fmt/fmt,imgui/imgui,implot/implot,mGBA/mgba,minizip-ng/minizip-ng,rcheevos/rcheevos,spirv_cross/SPIRV-Cross,tinygltf/tinygltf,VulkanMemoryAllocator,watcher,zlib-ng/zlib-ng}; do
     git submodule init ${submodule}
     git config submodule.${submodule}.url ../${submodule##*/}
     git -c protocol.file.allow=always submodule update ${submodule}
@@ -136,9 +132,8 @@ package_dolphin-emu() {
     alsa-lib
     hicolor-icon-theme
     libevdev
-    libminiupnpc.so
+    miniupnpc
     libpulse
-    libudev.so
     qt6-base
     qt6-svg
   )
@@ -154,10 +149,7 @@ package_dolphin-emu-tool() {
     alsa-lib
     libevdev
     libpulse
-    libudev.so
     qt6-base
   )
   install -Dm 755 build/Binaries/dolphin-tool -t "${pkgdir}"/usr/bin/
 }
-
-# vim: ts=2 sw=2 et:
