@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-control-center
-pkgver=6.1.48
+pkgver=6.1.57
 pkgrel=1
 pkgdesc='Control panel of Deepin Desktop Environment'
 arch=('x86_64')
@@ -23,7 +23,7 @@ conflicts=('dde-control-center' 'dde-dock-applets')
 replaces=('dde-control-center' 'dde-dock-applets')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-control-center.git#tag=$pkgver")
-sha512sums=('88d8623d0b1a44a3a2402b8812b83a33261abddaf44cb34ebda87ee52b992f15eca52dcba331e05851401464e1a4d1d3967eaa0358557bcaa2e42f65ff1a60ba')
+sha512sums=('68c6ca08ab6a78879b2d8c27684d7d45e64e25418859b70c7ccf56a790edb1d333f2361ebc2434e7dec60b65d49cffb0fa9db7631b8ac70b620b1240b22bc300')
 
 prepare() {
   mkdir -p build
@@ -36,12 +36,6 @@ prepare() {
   git diff f0e7e4067a90e1a5a2a80c7a96f76354423e6f8f^ f0e7e4067a90e1a5a2a80c7a96f76354423e6f8f -- \
     src/plugin-personalization/operation/treelandworker.cpp \
     src/plugin-personalization/operation/treelandworker.h | git apply
-
-  # Fix CMake errors for missing Qt6 private targets during configure.
-  sed -i '/find_package(${QT_NS} COMPONENTS QmlModels REQUIRED)/a find_package(${QT_NS} COMPONENTS QmlModelsPrivate REQUIRED)' src/dde-control-center/CMakeLists.txt
-  sed -i '/find_package(Qt6 REQUIRED COMPONENTS WaylandClient)/a find_package(Qt6 COMPONENTS WaylandClientPrivate REQUIRED)' src/plugin-personalization/CMakeLists.txt
-  sed -i '/find_package(PkgConfig REQUIRED)/a find_package(${QT_NS} COMPONENTS GuiPrivate REQUIRED)' src/plugin-display/CMakeLists.txt
-  sed -i '0,/${QT_NS}::Gui$/s//${QT_NS}::Gui\n    ${QT_NS}::GuiPrivate/' src/plugin-display/CMakeLists.txt
 }
 
 build() {
