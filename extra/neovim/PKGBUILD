@@ -5,7 +5,7 @@
 # Contributor: Florian Hahn <flo@fhahn.com>
 
 pkgname=neovim
-pkgver=0.12.3
+pkgver=0.12.4
 pkgrel=1
 pkgdesc='Fork of Vim aiming to improve user experience, plugins, and GUIs'
 arch=(x86_64)
@@ -56,7 +56,7 @@ source=(
   "git+https://github.com/neovim/neovim.git#tag=v$pkgver"
   nvimdoc{,.hook}
 )
-sha512sums=('d856ad95f4d598245a8c93ed7704dd8deff371859600fb4ace9523bd972bb3088f30a2e40b46c99d2934e68d6fdc0ffed65f7222d41fa4911b293709c2a0f2de'
+sha512sums=('9cc84bf31ccf598cb09d942e1bec879f4335295a11e6715c8433ab71ceb23712cd2f003b012e82198b14ea4ccc39a30af90d043c8c0e055a49bc34e878a36f58'
             '22662462c823de243599cdd3483e46ade4ab59b219e907468d34c18e584fe7477548e357ee2ce56bb098cf54b770b108a3511703dd486f0774a65c84af78f6aa'
             '3c6ee1e4646d09c164a2212f9e4d2f53158ff32911b0972e060a395a8d4685334574a7ede995a81680dcc0750cd3327a78beb7904a4bb326b2399d79a8b12d5e')
 
