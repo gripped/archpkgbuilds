@@ -1,0 +1,19 @@
+pkgbase = libresidfp
+	pkgdesc = Cycle exact SID emulation
+	pkgver = 1.1.1
+	pkgrel = 1
+	url = https://github.com/libsidplayfp/libresidfp
+	arch = x86_64
+	license = GPL-2.0-only
+	makedepends = git
+	provides = libresidfp.so
+	source = libresidfp::git+https://github.com/libsidplayfp/libresidfp#tag=v1.1.1
+	sha512sums = 50546c1115728aa63544f2ee1685928923a145fa05de2b364bc1cc3630845bb27d64daf3d6b9e9f5d9261b2d8ecc6eab1f429a6815bde40c41ae2468b242350f
+	b2sums = 2fe6edd1fd6ceffa92fd007cb22af5d9df88710a6075a2e0f86fb19edbb44af7edebcea3083ca120dc0ff9a28dc876c6e6ecd7055c8911b57d5a2a9d0f4a7063
+
+pkgname = libresidfp
+	depends = glibc
+	depends = libgcc
+	depends = libgcc_s.so
+	depends = libstdc++
+	depends = libstdc++.so
