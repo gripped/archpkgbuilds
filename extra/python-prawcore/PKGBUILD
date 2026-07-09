@@ -1,22 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-prawcore
-pkgver=3.2.1
+pkgver=4.0.0
 pkgrel=1
 pkgdesc="Low-level communication layer for PRAW 4+."
 arch=('any')
 license=('BSD-2-Clause')
 url="https://github.com/praw-dev/prawcore"
 depends=('python' 'python-requests')
-makedepends=('git' 'python-build' 'python-installer' 'python-flit-core')
+makedepends=('git' 'python-build' 'python-installer' 'python-hatchling')
 checkdepends=('python-pytest' 'python-vcrpy')
 source=("git+https://github.com/praw-dev/prawcore.git#tag=v$pkgver")
-sha512sums=('3ee4fe1e56057e13c21fb8325cfb2ea3f98eb03457233aae3ce21c231493e8051443cb4abcf3b29e72b25783dd0aad699a836bcbf7f11eab815c151c64877b63')
-
-prepare() {
-  cd prawcore
-  sed -i 's/flit_core>=3.12.0,<4/flit_core/' pyproject.toml
-}
+sha512sums=('8ff448c32fad66b3b17bea3292331935fba6101f67ba07aa1cdb1607381d3d8f0df42349cccec8d125900bc1f75bfc995d4e44347e9ef6db27ce6852da3caa40')
 
 build() {
   cd prawcore
