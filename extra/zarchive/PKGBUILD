@@ -3,7 +3,7 @@
 
 pkgname=zarchive
 pkgver=0.1.2
-pkgrel=6
+pkgrel=7
 pkgdesc='Library for creating and reading zstd-compressed file archives (.zar)'
 arch=(x86_64)
 url=https://github.com/Exzap/ZArchive
@@ -11,7 +11,7 @@ license=(MIT)
 depends=(
   glibc
   libgcc
-  libzstd.so
+  zstd
 )
 makedepends=(
   cmake
@@ -19,9 +19,8 @@ makedepends=(
   ninja
 )
 provides=(libzarchive.so)
-_tag=d2c717730092c7bf8cbb033b12fd4001b7c4d932
-source=(git+https://github.com/Exzap/ZArchive.git#tag=${_tag})
-b2sums=(SKIP)
+source=(git+https://github.com/Exzap/ZArchive.git#tag=v${pkgver})
+b2sums=('b437886cc0e7c60595e1f3a9875c33994e42e22e4019c82ccc7b36276582133a5d7a31b197817e00580adde62850398bd1032f858cfc70cd14e3c4cc9df0b0f4')
 
 build() {
   cmake -S ZArchive -B build -G Ninja \
@@ -36,5 +35,3 @@ package() {
   DESTDIR="${pkgdir}" cmake --install build
   install -Dm 664 ZArchive/LICENSE -t "${pkgdir}"/usr/share/licenses/zarchive/
 }
-
-#vim: ts=2 sw=2 et:
