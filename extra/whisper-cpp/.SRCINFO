@@ -1,0 +1,23 @@
+pkgbase = whisper-cpp
+	pkgdesc = Port of OpenAI's Whisper model in C/C++
+	pkgver = 1.9.1
+	pkgrel = 1
+	url = https://github.com/ggerganov/whisper.cpp
+	arch = x86_64
+	license = MIT
+	makedepends = cmake
+	makedepends = git
+	makedepends = ninja
+	depends = ffmpeg
+	depends = ggml
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
+	provides = whisper-cpp
+	conflicts = whisper-cpp
+	replaces = whisper-cpp-rocm
+	replaces = whisper-cpp-vulkan
+	source = git+https://github.com/ggml-org/whisper.cpp.git#tag=v1.9.1
+	b2sums = ec3a6e2a60485e0eb78fbec2ea133f821a180542fbac98e3e63098436cf3a6b012c35e3e660dd2ec016dcd8fc033937a17092757f5d625c6bd83817d9c27a40b
+
+pkgname = whisper-cpp
