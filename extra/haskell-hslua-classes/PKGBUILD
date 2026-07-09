@@ -2,8 +2,8 @@
 
 _hkgname=hslua-classes
 pkgname=haskell-hslua-classes
-pkgver=2.3.1
-pkgrel=63
+pkgver=2.3.2
+pkgrel=4
 pkgdesc="Type classes for HsLua"
 url="https://hslua.org/"
 license=("MIT")
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-hslua-core' 'haskell-hslua-marshalling')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-lua-arbitrary' 'haskell-quickcheck-instances'
              'haskell-tasty' 'haskell-tasty-hslua' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('781a33f3e919ebff68e30698a74751f39ca75097002d43061a3e7c1bb3f5b4a0')
+sha256sums=('fbb0449a9fededd73e48c01088bd76e9cdebfe438511576c0e5cfc17ebd6867a')
 
 prepare() {
   cd $_hkgname-$pkgver
