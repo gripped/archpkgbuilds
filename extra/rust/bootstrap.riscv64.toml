@@ -48,7 +48,7 @@ docs = false
 prefix = "/usr"
 
 [rust]
-codegen-units = 1
+codegen-units = 16
 codegen-units-std = 1
 debuginfo-level = 2
 debuginfo-level-std = 2
@@ -61,7 +61,7 @@ llvm-bitcode-linker = false
 deny-warnings = false
 backtrace-on-ice = true
 remap-debuginfo = false
-lto = "fat"
+lto = "thin"
 parallel-frontend-threads = 0
 
 [dist]
@@ -70,22 +70,11 @@ compression-profile = "fast"
 
 [target.riscv64gc-unknown-linux-gnu]
 llvm-config = "/usr/bin/llvm-config"
-cc = "riscv64-linux-gnu-gcc"
-cxx = "riscv64-linux-gnu-g++"
-ar = "riscv64-linux-gnu-gcc-ar"
-ranlib = "riscv64-linux-gnu-ranlib"
-linker = "riscv64-linux-gnu-gcc"
-default-linker = "riscv64-linux-gnu-gcc"
 optimized-compiler-builtins = "%clangdir%/lib/linux/libclang_rt.builtins-riscv64.a"
 
 [target.riscv64gc-unknown-linux-musl]
 musl-root = "/usr/lib/musl"
-cc = "riscv64-linux-musl-gcc"
-cxx = "riscv64-linux-gnu-g++"
-ar = "riscv64-linux-gnu-gcc-ar"
-ranlib = "riscv64-linux-gnu-ranlib"
-linker = "riscv64-linux-gnu-gcc"
-default-linker = "riscv64-linux-gnu-gcc"
+cc = "musl-gcc"
 sanitizers = false
 
 [target.aarch64-unknown-linux-gnu]
@@ -93,8 +82,6 @@ cc = "aarch64-linux-gnu-gcc"
 cxx = "aarch64-linux-gnu-g++"
 ar = "aarch64-linux-gnu-gcc-ar"
 ranlib = "aarch64-linux-gnu-gcc-ranlib"
-linker = "aarch64-linux-gnu-gcc"
-default-linker = "aarch64-linux-gnu-gcc"
 sanitizers = false
 
 [target.aarch64-unknown-linux-musl]
@@ -103,8 +90,6 @@ cc = "aarch64-linux-musl-gcc"
 cxx = "aarch64-linux-gnu-g++"
 ar = "aarch64-linux-gnu-gcc-ar"
 ranlib = "aarch64-linux-gnu-gcc-ranlib"
-linker = "aarch64-linux-gnu-gcc"
-default-linker = "aarch64-linux-gnu-gcc"
 sanitizers = false
 
 [target.wasm32-unknown-unknown]
@@ -112,8 +97,6 @@ cc = "clang"
 cxx = "clang++"
 ar = "llvm-ar"
 ranlib = "llvm-ranlib"
-linker = "wasm-ld"
-default-linker = "wasm-ld"
 sanitizers = false
 profiler = false
 
@@ -122,8 +105,6 @@ cc = "clang"
 cxx = "clang++"
 ar = "llvm-ar"
 ranlib = "llvm-ranlib"
-linker = "wasm-ld"
-default-linker = "wasm-ld"
 sanitizers = false
 profiler = false
 
@@ -133,8 +114,6 @@ cc = "clang"
 cxx = "clang++"
 ar = "llvm-ar"
 ranlib = "llvm-ranlib"
-linker = "wasm-ld"
-default-linker = "wasm-ld"
 sanitizers = false
 profiler = false
 
@@ -144,8 +123,6 @@ cc = "clang"
 cxx = "clang++"
 ar = "llvm-ar"
 ranlib = "llvm-ranlib"
-linker = "wasm-ld"
-default-linker = "wasm-ld"
 sanitizers = false
 profiler = false
 
@@ -155,7 +132,5 @@ cc = "clang"
 cxx = "clang++"
 ar = "llvm-ar"
 ranlib = "llvm-ranlib"
-linker = "wasm-ld"
-default-linker = "wasm-ld"
 sanitizers = false
 profiler = false
