@@ -6,7 +6,7 @@ pkgname=(
   glycin
   glycin-gtk4
 )
-pkgver=2.1.1
+pkgver=2.1.5
 pkgrel=1
 pkgdesc="Sandboxed and extendable image decoding"
 arch=(x86_64)
@@ -44,7 +44,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/glycin.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/sophie-h/test-images.git"
 )
-b2sums=('4028b02e02e6e2e19ce76e543461552abcf68da1fd3e3459a31222a52ddd9ace95e3426d24879aae13245b3a2bd20606e3d2b8fa11045f35ad2639d32ff5db33'
+b2sums=('d3e6740c617fbf33339ec0118e0d6cb9a2bf6ab782d46d9de8f77ffb8b0f4d2132dc09b4decab13c94db341e4aa25ad6a3f47184918f6df732e097944905f848'
         'SKIP')
 
 # Use debug
