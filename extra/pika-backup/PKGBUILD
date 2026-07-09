@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=pika-backup
-pkgver=0.8.2
+pkgver=0.8.3
 pkgrel=1
 pkgdesc='Easy to use backup tool to keep your data safe'
 arch=(x86_64)
@@ -31,7 +31,7 @@ makedepends=(
 )
 checkdepends=(xorg-server-xvfb)
 source=("git+https://gitlab.gnome.org/World/pika-backup.git#tag=$pkgver")
-b2sums=(df3b70e8592995293478642261ff338d94b6722827e29bca80e85fc750787b0a77b2c94e072aa03fe53097eb0e1237118e19e99fa9200ab5fd0dc6ef7f2004e6)
+b2sums=(9445773b1338400ac3661d8adcbc37479173ffbad477858fc195a9160e802506daab47a935189e39837cdb85f8d93d06df0a4e6b090f1276f16a3625bdd7f014)
 
 prepare() {
   cd $pkgname
