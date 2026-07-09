@@ -1,9 +1,9 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
-# Congributor: Butui Hu <hot123tea123@gmail.com>
+# Contributor: Butui Hu <hot123tea123@gmail.com>
 
 _name=huggingface_hub
 pkgname=python-huggingface-hub
-pkgver=1.16.0
+pkgver=1.22.0
 pkgrel=1
 epoch=1
 pkgdesc='All the open source things related to the Hugging Face Hub'
@@ -13,6 +13,7 @@ license=(Apache-2.0)
 groups=(huggingface)
 depends=(
   python
+  python-click
   python-filelock
   python-fsspec
   python-hf-xet
@@ -21,7 +22,6 @@ depends=(
   python-packaging
   python-pydantic
   python-tqdm
-  python-typer
   python-typing_extensions
   python-urllib3
   python-yaml
@@ -66,7 +66,7 @@ optdepends=(
   python-fastai
 )
 source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('4b978125d01df37271df651a703b6a3df369c76d4eef4e1d5ae44b2b666f69bc489b40d27f3ac4eb74c2de959433b495b4d654feaf424597d05f594fdf42cbc9')
+sha512sums=('39d11be09546e2cc46f62d3e9a41ad5f8f6dcf3dd2db51f79be5f39a2bcaf97ae02fdc4280567a2c7d94a729174e09bbdff7c2b6c00219c1d4eede23070042c4')
 
 build() {
   cd $_name-$pkgver
@@ -114,9 +114,9 @@ check() {
     # subprocess.CalledProcessError: Command '['git', 'config', '--global', 'credential.helper', 'store']' returned non-zero exit status 255.
     --deselect tests/test_login_utils.py::TestSetGlobalStore::test_set_store_as_git_credential_helper_globally
     # Failed: Timeout (>300.0s) from pytest-timeout.
-    --deselect tests/test_xet_upload.py::TestXetLargeUpload::test_upload_large_folder_batch_size_greater_than_one
-    # CLIError('Cannot use both `--local-dir` and `--cache-dir` at the same time. Use `--cache-dir` (or set the HF_HOME environment variable) for shared caching, or `--local-dir` for a one-off download to a specific directory.')
-    --deselect tests/test_cli.py::TestDownloadCommand::test_download_with_all_options
+    --deselect tests/test_xet_upload.py::TestXetLargeUpload
+    # causes internal error in pytest
+    --deselect tests/test_cli_output.py
   )
 
   cd $_name-$pkgver
