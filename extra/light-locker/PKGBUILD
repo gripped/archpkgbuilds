@@ -2,14 +2,15 @@
 
 pkgname=light-locker
 pkgver=1.9.0
-pkgrel=5
+pkgrel=6
 pkgdesc='A simple session locker for LightDM'
 arch=(x86_64)
 url=https://github.com/the-cavalry/light-locker
-license=(GPL2)
+license=(GPL-2.0-only)
 depends=(
   cairo
   dbus-glib
+  dconf
   glibc
   libdbus-1.so
   libgdk-3.so
@@ -26,6 +27,7 @@ depends=(
 )
 makedepends=(
   git
+  glib2-devel
   gnome-common
   intltool
   meson
@@ -33,19 +35,11 @@ makedepends=(
   xorgproto
 )
 optdepends=('upower: Power management support')
-_tag=7a96e9f87dc95c794cd45fd0378a62f45308ea87
-source=(git+https://github.com/the-cavalry/light-locker.git#tag=${_tag})
-sha256sums=(SKIP)
-
-pkgver() {
-  cd light-locker
-
-  git describe --tags | sed 's/^v//'
-}
+source=(git+https://github.com/the-cavalry/light-locker.git#tag=v${pkgver})
+b2sums=('3dbb10c1121160a004a27b679d8cd7437a6a594ef8543599f840df94317f13604896b04f15d3c018610dd5c1e7dbdb92fe8a2831909dbcae3c77e9d688fc6021')
 
 prepare() {
   cd light-locker
-
   git cherry-pick -n d3ea262b336cf66ec41d25a8ea021d759c2c3a1d
   git cherry-pick -n 366fdbfe284efacf39d887a0512d38030af7ff16
   git cherry-pick -n 6224184e2677d76c7904d488b0e9295886fa9ee3
@@ -60,5 +54,3 @@ build () {
 package() {
   DESTDIR="${pkgdir}" ninja -C build install
 }
-
-# vim: ts=2 sw=2 et:

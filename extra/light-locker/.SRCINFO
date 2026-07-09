@@ -1,11 +1,12 @@
 pkgbase = light-locker
 	pkgdesc = A simple session locker for LightDM
 	pkgver = 1.9.0
-	pkgrel = 5
+	pkgrel = 6
 	url = https://github.com/the-cavalry/light-locker
 	arch = x86_64
-	license = GPL2
+	license = GPL-2.0-only
 	makedepends = git
+	makedepends = glib2-devel
 	makedepends = gnome-common
 	makedepends = intltool
 	makedepends = meson
@@ -13,6 +14,7 @@ pkgbase = light-locker
 	makedepends = xorgproto
 	depends = cairo
 	depends = dbus-glib
+	depends = dconf
 	depends = glibc
 	depends = libdbus-1.so
 	depends = libgdk-3.so
@@ -27,7 +29,7 @@ pkgbase = light-locker
 	depends = libxext
 	depends = libxss
 	optdepends = upower: Power management support
-	source = git+https://github.com/the-cavalry/light-locker.git#tag=7a96e9f87dc95c794cd45fd0378a62f45308ea87
-	sha256sums = SKIP
+	source = git+https://github.com/the-cavalry/light-locker.git#tag=v1.9.0
+	b2sums = 3dbb10c1121160a004a27b679d8cd7437a6a594ef8543599f840df94317f13604896b04f15d3c018610dd5c1e7dbdb92fe8a2831909dbcae3c77e9d688fc6021
 
 pkgname = light-locker
