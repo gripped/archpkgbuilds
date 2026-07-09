@@ -148,7 +148,7 @@ For this go to the previous release tag and rebase it on top of the new project 
 
 ```bash
 just git checkout vX.Y.2-rtR-archA
-just git rebase -S -i vX.Y.3-rt3-archA
+just git rebase -S -i vX.Y.3-rtR-rebase
 ```
 
 ### Creating a release
