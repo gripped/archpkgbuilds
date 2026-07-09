@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.18.3
+pkgver=0.19.2
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -24,26 +24,30 @@ makedepends=(
   npm
 )
 optdepends=(
+  'alsa-utils: voice dictation recording via arecord'
   'npm: optional computer-use tools via npx'
+  'sox: voice dictation recording'
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}")
-sha256sums=('2bae8a8c76d9bcd886d010111074700d610b96f69491f84d8e755a2458386eef')
-b2sums=('b0740d361535fc8a01220c9feb6e000e7cea5bb2ce435d1978d04f610a0cc30c0b9862a7e1789fa24ff93022a5ec6891ac0eb689d5f25af6706d6ab99758f88c')
+sha256sums=('4124e26bc96d3571f11193884deeeb7ebdd0ec3bbe4c8391e4464b57e85d1aa3')
+b2sums=('45286c4515d985a2b81cea2dc64dc3c316b78fe58ea9ea775cf54f6733a5a88423bbd9ab7def6534ef603fa01e0590947f333d634764f90c7c25771b89f0ff60')
 
 prepare() {
   cd $pkgname
   # Upstream's ranged override currently resolves newer than package-lock.json.
   npm pkg set 'overrides.@types/react=19.2.10'
   npm clean-install --ignore-scripts
+  # Upstream applies this Ink export patch from postinstall; install scripts are disabled above.
+  ./node_modules/.bin/patch-package
 }
 
 build() {
   cd $pkgname
-  npm run build -- --cli-only
+  npm run build
   npm run bundle
   local bundled=$(jq '.dependencies + .optionalDependencies | keys' package.json)
   npm pkg set --json bundledDependencies="$bundled"
-  npm pack
+  npm pack --ignore-scripts
 }
 
 check() {
