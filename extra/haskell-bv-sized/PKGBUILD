@@ -2,8 +2,8 @@
 
 _hkgname=bv-sized
 pkgname=haskell-bv-sized
-pkgver=1.0.6
-pkgrel=140
+pkgver=1.0.7
+pkgrel=7
 pkgdesc="A bitvector datatype that is parameterized by the vector width"
 url="https://github.com/GaloisInc/bv-sized"
 license=('BSD-3-Clause')
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-bitwise' 'haskell-panic' 'haskell-parameterized-uti
 makedepends=('ghc' 'uusi' 'haskell-hedgehog' 'haskell-monadrandom' 'haskell-tasty'
              'haskell-tasty-hedgehog')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('79e85710a79a736756edf528048be037aa89bac5519107b6a9849b23daa6cf37e0776ed6a699cab5c7d5694caea0b6a7e7bad3d5d3437aa00c1b25135e4d46d1')
+sha512sums=('d07eff2535e5f7e7f4c8873e8aa50c40c33505f5881ef9b06360be7ff8edba2d7e061650bac00ec52debad2cb5f0c64dba9fa0986662c899b55eaca584c88e9e')
 
 prepare() {
     cd $_hkgname-$pkgver
