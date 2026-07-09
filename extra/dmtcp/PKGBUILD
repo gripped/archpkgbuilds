@@ -2,7 +2,7 @@
 
 pkgname=dmtcp
 pkgver=4.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Distributed MultiThreaded CheckPointing'
 url='https://dmtcp.sourceforge.io'
 arch=('x86_64')
@@ -13,6 +13,14 @@ makedepends=('git' 'dash' 'emacs' 'gdb' 'java-environment' 'openmpi' 'procps-ng'
 source=("git+https://github.com/dmtcp/dmtcp.git#tag=$pkgver")
 sha256sums=('b79793765a005410782b740e3a452442556236726ff0f7f3fe04e1c0c3cfa9b7')
 b2sums=('01038363961c2d4689492d1d59a5d1c7e2cdd656d6111c3f319e77e36b9d4368c9de6741d1dca4fffe4029697ecd70ba3b8afef0825893cabc3a5fbde8e97be5')
+
+prepare() {
+  cd $pkgname
+  # Install version.h under /usr/include/dmtcp instead of /usr/include.
+  # https://github.com/dmtcp/dmtcp/pull/1269
+  git cherry-pick -n b7c5f2ffda84df9c849c83bd079e44513f581988
+  ./autogen.sh
+}
 
 build() {
   cd $pkgname
