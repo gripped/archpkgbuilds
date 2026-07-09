@@ -5,7 +5,7 @@
 
 pkgname=gnome-shell-extension-desktop-icons-ng
 _pkgname=desktop-icons-ng
-pkgver=50.2.0
+pkgver=50.3.0
 pkgrel=1
 pkgdesc='Desktop icons extension for GNOME Shell'
 arch=(any)
@@ -31,12 +31,10 @@ makedepends=(
 source=(
   "git+https://gitlab.com/rastersoft/$_pkgname.git#tag=$pkgver"
   gnome-shell-extension-desktop-icons-ng-fix-dialogs.patch
-  gnome-shell-extension-desktop-icons-ng-fix-detecting-extensions.patch
 )
 b2sums=(
-  6431178643cc88424ded16b80922766aeae82a1276d6cd89a6c00f493d7dac0b7e8f5f514b914711c6d8c712d7ff5641fb630f4d748cfc115f48fd3c867ba5ae
+  8b5378eb42304b7a26c2d323ee4822ed840f04a9f50b5ec8b3e4f39bbc2e4bfac344da379ea514d568db0decb55d1b6f6a2a3989e01600d7a06e29afabde10ab
   147bd1977d74898a7bd98d89ad386faecc7cdafacc29baa2dddcef494328e95f4566b61e504afc69d4a6403bda58ac97a63b07fd992d172fd0ebbb311dd93199
-  447211264c402181ccb0cde479f3388729c8b02db95b31f7c47906a2bcb6c8aa5963a37cf3d4aff73f65762b991849fbdc660ea0272581fbdd5e489f550786ea
 )
 
 prepare() {
@@ -44,9 +42,6 @@ prepare() {
 
   # https://gitlab.com/rastersoft/desktop-icons-ng/-/merge_requests/423
   git apply -3 ../gnome-shell-extension-desktop-icons-ng-fix-dialogs.patch
-
-  # https://gitlab.com/rastersoft/desktop-icons-ng/-/merge_requests/499
-  git apply -3 ../gnome-shell-extension-desktop-icons-ng-fix-detecting-extensions.patch
 }
 
 build() {
