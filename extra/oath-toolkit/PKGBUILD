@@ -4,7 +4,7 @@
 
 pkgname=oath-toolkit
 pkgver=2.6.14
-pkgrel=3
+pkgrel=4
 pkgdesc='OATH one-time password toolkit'
 arch=('x86_64')
 url='https://oath-toolkit.codeberg.page/'
