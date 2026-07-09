@@ -6,7 +6,7 @@ pkgname=(wxwidgets-common
          wxwidgets-gtk3
 #        wxwidgets-gtk4
          wxwidgets-qt5)
-pkgver=3.2.10
+pkgver=3.2.11
 pkgrel=2
 arch=(x86_64)
 url='https://wxwidgets.org'
@@ -23,7 +23,7 @@ makedepends=(cmake
              sdl2
              webkit2gtk-4.1)
 source=(git+https://github.com/wxWidgets/wxWidgets#tag=v$pkgver)
-sha256sums=('4ec9800d4c75987b2efed3919da771e14890084dac2bfca715fd1402bdfb0d03')
+sha256sums=('c693bc1b8369f564568f69813d2057586d04d2216b3acd2e5a1988df661bfce6')
 
 build() {
   cmake -B build-base -S wxWidgets \
@@ -57,7 +57,8 @@ build() {
     -DwxUSE_NANOSVG=sys \
     -DwxUSE_LIBMSPACK=ON \
     -DwxUSE_PRIVATE_FONTS=ON \
-    -DwxUSE_GTKPRINT=ON
+    -DwxUSE_GTKPRINT=ON \
+    -DwxUSE_HOTKEY=ON
   cmake --build build-gtk3
 
 #   cmake -B build-gtk4 -S wxWidgets \
@@ -92,7 +93,8 @@ build() {
     -DwxUSE_LIBLZMA=sys \
     -DwxUSE_NANOSVG=sys \
     -DwxUSE_LIBMSPACK=ON \
-    -DwxUSE_PRIVATE_FONTS=ON
+    -DwxUSE_PRIVATE_FONTS=ON \
+    -DwxUSE_HOTKEY=ON
   cmake --build build-qt5
 }
 
