@@ -3,7 +3,7 @@
 
 pkgname=ares-emu
 pkgver=148
-pkgrel=1
+pkgrel=2
 pkgdesc='Multi-system emulator, focusing on accuracy and preservation'
 arch=(x86_64)
 url='https://ares-emu.net'
@@ -51,6 +51,7 @@ build() {
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
     -D ARES_BUILD_LOCAL=OFF
+    -D ARES_ENABLE_MINIMUM_CPU=OFF
     -D ARES_BUNDLE_SHADERS=OFF
     -D ARES_SKIP_DEPS=ON
     -D ARES_BUILD_OFFICIAL=YES
