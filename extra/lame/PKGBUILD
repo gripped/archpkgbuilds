@@ -5,7 +5,7 @@
 
 pkgname=lame
 pkgver=3.101.r6531
-pkgrel=1
+pkgrel=2
 pkgdesc='A high quality MPEG Audio Layer III (MP3) encoder'
 arch=(x86_64)
 url=http://lame.sourceforge.net/
@@ -34,6 +34,8 @@ prepare() {
   cd lame
   patch -Np1 -i ../lame-symbols.patch
   patch -Np1 -i ../lame-cbr-abr-quality-settings-clamp.patch
+  autoreconf -fiv -I /usr/share/gettext/m4
+
 }
 
 pkgver() {
