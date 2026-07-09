@@ -1,6 +1,6 @@
 pkgbase = python-polars
 	pkgdesc = Blazingly fast DataFrames library using Apache Arrow Columnar Format as memory model
-	pkgver = 1.41.2
+	pkgver = 1.42.1
 	pkgrel = 1
 	url = https://www.pola.rs/
 	arch = x86_64
@@ -21,6 +21,7 @@ pkgbase = python-polars
 	checkdepends = python-orjson
 	checkdepends = python-altair
 	checkdepends = python-arrow-adbc-driver-sqlite
+	makedepends = zstd
 	makedepends = maturin
 	makedepends = rustup
 	makedepends = python-installer
@@ -28,8 +29,8 @@ pkgbase = python-polars
 	makedepends = python-wheel
 	makedepends = python-setuptools
 	options = !lto
-	source = https://github.com/pola-rs/polars/archive/refs/tags/py-1.41.2.tar.gz
-	b2sums = 1cf79e4e5eeb4838c8e5f22f926fe5a15b5a85d1027763d35a9632d6815503d1d9231bed9ea70554ce7c15c686292cc0f92a315f335234b84803419048a907a4
+	source = https://github.com/pola-rs/polars/archive/refs/tags/py-1.42.1.tar.gz
+	b2sums = 8eb91480d4e3e692472b07f2f692ee677c9cead47090011b5bc791ed0c6754b2b5104c50316c0c2f357eb1fd546b1e4326ec351ec1599e14c3b6b1834df1895d
 
 pkgname = python-polars
 	depends = python
