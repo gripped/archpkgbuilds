@@ -3,8 +3,8 @@
 
 _hkgname=yesod
 pkgname=haskell-yesod
-pkgver=1.6.2.1
-pkgrel=511
+pkgver=1.6.2.3
+pkgrel=10
 pkgdesc="Creation of type-safe, RESTful web applications."
 url="http://www.yesodweb.com/"
 license=("MIT")
@@ -16,7 +16,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-conduit' 'haskell-data-default-clas
          'haskell-yesod-core' 'haskell-yesod-form' 'haskell-yesod-persistent')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('ef61044b329b0c6e122bc5ca0203735264f6cb85a4fe728819146b390a8b813a56cad7bd2ef928eb3b3f1ed4618b7f41e856c0f97be1030e50510a14820fd866')
+sha512sums=('b3cf6b365df16b2cf2153b1fe3d5f92e8f10fa1d9ff2290a98afc0379420f53ec878ccb015c6c971bc509fc8658059f3897038d4fb275f3a64f7f073aaa16bca')
 
 build() {
     cd $_hkgname-$pkgver
