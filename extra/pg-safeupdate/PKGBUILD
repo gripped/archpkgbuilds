@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=pg-safeupdate
-pkgver=1.5
-pkgrel=2
+pkgver=1.6
+pkgrel=1
 pkgdesc="A simple extension to PostgreSQL that requires criteria for UPDATE and DELETE"
 arch=('x86_64')
 url="https://github.com/eradman/pg-safeupdate"
@@ -11,7 +11,7 @@ depends=('postgresql')
 makedepends=('git')
 checkdepends=('pifpaf' 'ruby')
 source=("git+https://github.com/eradman/pg-safeupdate#tag=$pkgver")
-sha512sums=('daa6d60a3d72d27d5e00383dcf23c220155ef2452eae7b8f00a093828d5d989c364670d48af70c70485b489a6ec07d3e5d770ece908712394d8264e8b46c16f5')
+sha512sums=('ceb443da7221744e91564fbd5e5598a730d66de9b236fbc74341767e42f9dfd0261ac5399b1f61961443cec9e948f833c333d64d0a74a12cbbd1b85bebb0248d')
 
 build() {
   cd $pkgname
@@ -20,7 +20,7 @@ build() {
 
 check() {
   cd $pkgname
-  sed -i 's|^\$url = .*$|\$url = ENV["PIFPAF_URL"]|' test.rb
+  sed -i 's|^@url = .*$|@url = ENV["PIFPAF_URL"]|' test.rb
   eval $(pifpaf run postgresql)
   psql -c "set dynamic_library_path = '$PWD'; load 'safeupdate';"
   # TODO: extension still not loaded, why?
