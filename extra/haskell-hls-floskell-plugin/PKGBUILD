@@ -3,7 +3,7 @@
 _hkgname=hls-floskell-plugin
 pkgname=haskell-hls-floskell-plugin
 pkgver=2.3.0.0
-pkgrel=57
+pkgrel=88
 pkgdesc="Integration with the Floskell code formatter"
 url="https://hackage.haskell.org/package/hls-floskell-plugin"
 license=('Apache-2.0')
@@ -11,13 +11,20 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-floskell' 'haskell-ghcide' 'haskell-hls-plugin-api' 'haskell-lsp-types')
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils')
 checkdepends=('git')
-source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('867b9e3aac4e4b3d425e4981d7232fcf5e74cd4a2201859071840760ea8c3474288ec6e5c0fe0b9c77312e77c98903ecf3abafc33c7551b3217bc390515d7ebb')
+source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz"
+        "$_hkgname-floskell-0.11.patch::https://github.com/haskell/haskell-language-server/commit/92d3ba98161f8b6f7e1b8abec70df9ee6af16216.patch")
+sha512sums=('867b9e3aac4e4b3d425e4981d7232fcf5e74cd4a2201859071840760ea8c3474288ec6e5c0fe0b9c77312e77c98903ecf3abafc33c7551b3217bc390515d7ebb'
+            '794b9ed98bd9a6b1b11ae64469afda0d2ccacc07f3c86e453c0268de429eb7dce9a0f301a0592357c6196cc94bdeda1f261547155d74faff0705beb03e00f499')
 
 prepare() {
   cd $_hkgname-$pkgver
   sed -i 's/ghc >= 9.5/ghc >= 9.7/' $_hkgname.cabal
   gen-setup
+  uusi -u floskell
+  # Upstream #3933 adapts the plugin to floskell 0.11's Text API.
+  # Apply only the plugin source hunk from the monorepo patch.
+  awk '/^diff --git a\/plugins\/hls-floskell-plugin\/src\/Ide\/Plugin\/Floskell.hs / {copy=1} copy && /^diff --git / && !/^diff --git a\/plugins\/hls-floskell-plugin\/src\/Ide\/Plugin\/Floskell.hs / {exit} copy {print}' \
+    ../$_hkgname-floskell-0.11.patch | patch -Np3
 }
 
 build() {
