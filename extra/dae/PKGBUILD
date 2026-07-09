@@ -3,7 +3,7 @@
 
 pkgname=dae
 pkgver=1.1.0
-pkgrel=3
+pkgrel=4
 pkgdesc="A high-performance transparent proxy solution based on eBPF"
 arch=('x86_64')
 url="https://github.com/daeuniverse/${pkgname}"
@@ -18,6 +18,12 @@ options=('!lto')
 
 prepare() {
 	sed -i '/^BUILD_ARGS :=/d' Makefile
+
+	# Fix utls v1.8.2 compatibility
+	export GOMODCACHE="${PWD}/go-mod"
+	go get github.com/daeuniverse/outbound@cfd9e39fd5e024fe62c7ad68ffd09bb452b10df4
+	go mod tidy
+	go mod download -modcacherw
 }
 
 build() {
@@ -54,6 +60,5 @@ package() {
 	install -Dm644 "example.${pkgname}" "${pkgdir}/etc/${pkgname}/config.${pkgname}.example"
 
 	install -d "${pkgdir}/usr/share/${pkgname}/"
-	ln -vs /usr/share/v2ray/geoip.dat "${pkgdir}/usr/share/${pkgname}/geoip.dat"
-	ln -vs /usr/share/v2ray/geosite.dat "${pkgdir}/usr/share/${pkgname}/geosite.dat"
+	ln -vs /usr/share/v2ray/geo{ip,site}.dat "${pkgdir}/usr/share/${pkgname}/"
 }
