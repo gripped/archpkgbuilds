@@ -7,32 +7,37 @@
 
 pkgname=luakit
 pkgver=2.4.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Fast, small, webkit based browser framework extensible by Lua'
 arch=(x86_64)
 url=https://luakit.github.io/
 license=(GPL-3.0-or-later)
 depends=(
+  cairo
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  libgcc
+  libsoup3
   lua51-filesystem
+  lua51-socket
   luajit
+  pango
+  sqlite
   webkit2gtk-4.1
 )
 makedepends=(
   git
   help2man
 )
+optdepends=('gstreamer: video playback')
 backup=(
   etc/xdg/luakit/rc.lua
   etc/xdg/luakit/theme.lua
 )
-_tag=636637cdbe734c615dbbf2fd9c5533295d0a79c1
-source=(git+https://github.com/luakit/luakit.git#tag=${_tag})
+source=(git+https://github.com/luakit/luakit.git#tag=${pkgver})
 b2sums=('2f0ae6fc1987f4a238126f9f122ae67ea7844dda67a74b098e95ef9e3f0ab8a1ff6da63b1fe468d1920b522c2658ac3817f9ffa15183043d64e98678c89ebb79')
-
-pkgver() {
-  cd luakit
-  git describe --tags
-}
 
 build() {
   make DEVELOPMENT_PATHS=0 PREFIX=/usr USE_LUAJIT=1 -C luakit
@@ -41,5 +46,3 @@ build() {
 package() {
   make DESTDIR="${pkgdir}" PREFIX=/usr -C luakit install
 }
-
-# vim: ts=2 sw=2 et:
