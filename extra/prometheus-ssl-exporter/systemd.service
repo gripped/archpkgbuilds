@@ -1,25 +1,33 @@
 [Unit]
 Description=Prometheus exporter for SSL metrics
-Documentation=https://github.com/ribbybibby/ssl_exporter
-After=network.target network-online.target basic.target
-Wants=network-online.target
+Documentation=https://github.com/piotrkochan/ssl_exporter
+After=network.target network-online.target nss-lookup.target basic.target
+Wants=network-online.target nss-lookup.target
 StartLimitIntervalSec=30
 StartLimitBurst=3
 
 [Service]
-EnvironmentFile=-/etc/prometheus/ssl-exporter.env
-ExecStart=/usr/bin/prometheus-ssl-exporter --config.file=/etc/prometheus/ssl-exporter.yml $OPTIONS
-ExecReload=/bin/kill -HUP $MAINPID
-User=prometheus-ssl-exporter
-Group=prometheus-ssl-exporter
-Type=simple
 Restart=on-failure
 RestartSec=30
-PrivateTmp=yes
+EnvironmentFile=-/etc/prometheus/ssl-exporter.env
+ExecStart=/usr/bin/prometheus-ssl-exporter --config.file=/etc/prometheus/ssl-exporter.yml $SSL_EXPORTER_ARGS
+User=prometheus-ssl-exporter
+Group=prometheus-ssl-exporter
+ExecReload=/bin/kill -HUP $MAINPID
 NoNewPrivileges=true
-ProtectHome=read-only
+ProtectHome=true
 ProtectSystem=strict
-PrivateTmp=yes
+ProtectHostname=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+LockPersonality=true
+RestrictRealtime=yes
+RestrictNamespaces=yes
+MemoryDenyWriteExecute=yes
+PrivateDevices=yes
+PrivateTmp=true
+CapabilityBoundingSet=
 
 [Install]
 WantedBy=multi-user.target
