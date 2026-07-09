@@ -2,7 +2,7 @@
 
 _name=PyAV
 pkgname=python-av
-pkgver=17.1.0
+pkgver=18.0.0
 pkgrel=1
 pkgdesc="Pythonic bindings for FFmpeg"
 arch=(x86_64)
@@ -26,7 +26,7 @@ checkdepends=(
   python-pytest
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('e9a3db5092911d77559a9de7d9b1d93f9b67e749973920a8358648baab29a5e2b0a9f02b276255bdf1da9baea8cb7ed968ee3fb0b5f098f5d882bd5602000663')
+b2sums=('86353a1f62dfaea36b5c04c8b1df49a061625035ba4e7b79853cecb9bdee09b8df975562c402605b8923517366f174cf81db7bcc6f79a7fa4c62e5c58ac1fb71')
 
 build() {
   cd $_name-$pkgver
