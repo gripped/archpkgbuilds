@@ -8,26 +8,26 @@ Subject: [PATCH] Writing to /etc from data_files is not allowed anymore
  1 file changed, 23 deletions(-)
 
 diff --git a/setup.py b/setup.py
-index 1151a35f..2bd7546a 100644
+index 2cbba59..20b504d 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -28,15 +28,11 @@
+@@ -29,15 +29,11 @@ OTHER DEALINGS IN THE SOFTWARE.
  
  import os
  import sys
 -import distro
  import subprocess
- from distutils.core import setup
+ from setuptools import setup
  
  SHARE = "share"
  
 -# detect linux distribution
--distro = distro.linux_distribution()[0]
+-distro = distro.name()
 -
  
  def file_list(path):
      files = []
-@@ -74,25 +70,6 @@ def create_mo_files():
+@@ -75,25 +71,6 @@ for root, dirs, files in os.walk(SHARE):
      if files:
          datafiles.append((root, [os.path.join(root, f) for f in files]))
  
