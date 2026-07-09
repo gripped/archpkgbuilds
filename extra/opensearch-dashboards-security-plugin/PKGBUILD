@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-security-plugin'
 _pluginname='security-dashboards-plugin'
-pkgver=3.6.0.0
-_dashboardsver=3.6.0
+pkgver=3.7.0.0
+_dashboardsver=3.7.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Security Plugin'
 url='https://opensearch.org/docs/latest/security-plugin'
@@ -16,8 +16,8 @@ source=(
   "git+https://github.com/opensearch-project/${_pluginname}.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
 )
-sha256sums=('d70622491cfe7a53a494a1a83b4693acc7d856ed5abdb34cd6e10d81241556ef'
-            '83beda5288a6053aa370cce5e1a84b6ea19f9286541e117679678630427afce0')
+sha256sums=('28564e484d7b43b7d14b170bbbae3917854356ea5d78b6a3c7fe60583517ecc9'
+            '7ad18adaf50e0e6339689b5c503967c9c6b305b25c1b1d33d1ac3e3be6a3aa1e')
 
 prepare() {
   nodeVersion="$(node -v)"
@@ -39,7 +39,11 @@ prepare() {
 build() {
   mv "${_pluginname}" "OpenSearch-Dashboards/plugins"
   cd "OpenSearch-Dashboards/plugins/${_pluginname}"
-  yarn osd bootstrap
+  # The plugin pins @hapi/wreck ^18.1.1 (CVE fix) while OpenSearch-Dashboards
+  # declares ^18.0.0 making `single_version_dependencies` abort on the differing
+  # range strings. 
+  # Adding `--single-version loose` works and use 18.1.1.
+  yarn osd bootstrap --single-version loose
   yarn plugin-helpers build --skip-archive # `yarn build` will always create the ZIP
 }
 
