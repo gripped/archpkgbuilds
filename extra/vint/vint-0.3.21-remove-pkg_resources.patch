@@ -1,0 +1,34 @@
+diff --git a/vint/linting/cli.py b/vint/linting/cli.py
+index 55db52e..e4510a7 100644
+--- a/vint/linting/cli.py
++++ b/vint/linting/cli.py
+@@ -1,7 +1,13 @@
+ import sys
+ from argparse import ArgumentParser
+ from pathlib import PosixPath
+-import pkg_resources
++try:
++    from importlib.metadata import version as get_version, PackageNotFoundError
++except ImportError:
++    import pkg_resources
++    def get_version(package_name):
++        return pkg_resources.get_distribution(package_name).version
++    PackageNotFoundError = pkg_resources.DistributionNotFound
+ import logging
+ 
+ from vint.linting.linter import Linter
+@@ -150,11 +156,11 @@ class CLI(object):
+ 
+ 
+     def _get_version(self):
+-        # In unit tests, pkg_resources cannot find vim-vint.
++        # In unit tests, the package may not be installed.
+         # So, I decided to return dummy version
+         try:
+-            version = pkg_resources.require('vim-vint')[0].version
+-        except pkg_resources.DistributionNotFound:
++            version = get_version('vim-vint')
++        except PackageNotFoundError:
+             version = 'test_mode'
+ 
+         return version
