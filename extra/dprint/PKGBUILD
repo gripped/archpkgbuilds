@@ -4,8 +4,8 @@
 # Contributor: Hoàng Văn Khải <hvksmr1996@gmail.com>
 
 pkgname=dprint
-pkgver=0.54.0
-pkgrel=2
+pkgver=0.55.1
+pkgrel=1
 pkgdesc='Pluggable and configurable code formatting platform'
 arch=('x86_64')
 url='https://github.com/dprint/dprint'
@@ -14,7 +14,7 @@ depends=('bzip2' 'xz' 'libgcc' 'glibc')
 makedepends=('cargo' 'git')
 options=('!lto') # interferes with compiling
 source=("git+$url#tag=$pkgver")
-sha256sums=('066ad384489c2b8adb0252fa22a662f2e11fd1859a580854674f9d70a2a8ed91')
+sha256sums=('69a1711b72b685a6f92fe9c582ee33bad56597515f83fd3cc9ca24322c0107e1')
 
 prepare() {
 	cd $pkgname
