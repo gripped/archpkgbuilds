@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-requests-cache
-pkgver=1.3.2
+pkgver=1.3.3
 pkgrel=1
 pkgdesc='Persistent HTTP cache for python requests'
 arch=(any)
@@ -38,8 +38,8 @@ optdepends=(
   'python-redis: Redis support'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('671603bb6a4648e91a442a463c552d7a95e0d532a0c8f6b60c4af974693523e8182c971a62987d2dd9a053c368481f0787a4673d7e4532414cc4ede2ee32cf47')
-b2sums=('92b03cf765026e143cb008ef6333955bc7ce41ffd723a61368a0215aa88a0d83b3e75fd03bb43cd815e6f6483ecfde47fa4e03a0492f8f865749fc67193d82bd')
+sha512sums=('576538f8803699d94ac2c154224015562c975a23485904363f2e796138caa7c7a8ef19f2a2298a41e9b9e94e8ab61988e76e7823147dc7e2529fda360ebf9216')
+b2sums=('7043cec976c0cfe969d687cb60e33b4cbd597d9d20e88ebfb122104a88c4d6be2102437acd44addd68bbd1033f18a0633234ab6d5644ff975a9f8cf38df77dab')
 
 build() {
   cd "$pkgname"
