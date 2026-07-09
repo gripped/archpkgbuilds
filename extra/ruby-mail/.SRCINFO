@@ -1,6 +1,6 @@
 pkgbase = ruby-mail
 	pkgdesc = A really Ruby Mail handler
-	pkgver = 2.9.0
+	pkgver = 2.9.1
 	pkgrel = 1
 	url = https://github.com/mikel/mail
 	arch = any
@@ -16,8 +16,11 @@ pkgbase = ruby-mail
 	depends = ruby-net-pop
 	depends = ruby-net-smtp
 	options = !emptydirs
-	source = ruby-mail::git+https://github.com/mikel/mail#tag=2.9.0
-	sha512sums = bfb04ecdc2464301460847ef6b839f82d065f1cafb90f21643d20e6f4034cf5169ac4010360fa1945ea275d8d0d4e6bae71e9b3a90f015442d3648bb8b0f0800
-	b2sums = 4abfcda5b905bf6e7472f8d938543e930a9cfbe077d1cc0dd288d18c4cd38e77328c4ce7deb515fd6f92095d6edd367946fec739e4960335638c678c568efc32
+	source = ruby-mail::git+https://github.com/mikel/mail#tag=2.9.1
+	source = remove-build-tag.patch
+	sha512sums = 315176413fac13365e08feb85d8b4d10a1175ed32f3a4c0b89f7c1e5e93426259e53c775382b93bc288f475cad40678dee75cf2cc05259e6959b2a27c8bb195c
+	sha512sums = 98ce1d8b126c9aa7b9803cad6bd0268869939dae879741400ee494e2b96048483a6417cfeb0ee035dc5f42cebea2e4b13aa81e8301045a29f112215aa731c363
+	b2sums = 5829694f5e10601079db76c5942f7db67e9d8fb5fd5a0754d033719de4e9d2294ae097b7b4e69516033ebe1335f96c8896035938560c43e3603f3aa5e9b71d6a
+	b2sums = 7abe569c6a0ef9ad0792d15561805bd7a65108008bfa7dc40095a33749fd75919d6684369d4d1d1b662aac441efd04f96adefb276216d721cf2c52152d03b368
 
 pkgname = ruby-mail
