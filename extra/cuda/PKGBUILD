@@ -4,7 +4,7 @@
 
 pkgname=(cuda)
 pkgbase=cuda
-pkgver=13.3.0
+pkgver=13.3.1
 # Before upgrading, make sure that we ship at least this version of
 # nvidia-utils as otherwise we'll get stuff such as #7.
 _driverver=610.43.02
@@ -83,8 +83,8 @@ sha512sums=('ff6ee01a6838e51804911c50f817c8e1545d71aa1b34cd937a546d42642097f81d5
             '5df94583c7d082045fffb5c055b163b5242e7975d4de19e334c2d4b2e0e8caf8a930a5ff82b800f54d45ac53d9be0044afd893fb649b461594981693a5256836'
             '200b23fa74c486a3b1d003d3326163a7d2318dd3a02a0fe488fef3c4ae713cd0dac251b751edc723696fb3d04d4e5f2c11d3b68a0b5f4621388ca28a387ba421'
             '0a49ce7972ac24ac1f1bd229a4fad3a37747d3e8123c4c1c4521c19fbc308b85f3ee6bf8fbee420aac2335c57aa6b524c20277c59abd7202590144f7ed79c24a')
-sha512sums_x86_64=('9e882eba72b4a986f9ab25afb9566d54f8d73c88aa0634a6e3cd986f05c4c90fd6c4a8cc55f87fb4cedc0bda3a560079f9856a075c5c61b3b773787cc89792fe')
-sha512sums_aarch64=('14dfc609f987177ea4bab2b66468d17cf75c8f340392151352c03843ed17d62d98e416e5b642df21ae6d31a6ef48002f1fda515024d5f70905f44307896fd02b')
+sha512sums_x86_64=('76a8297a127d643284e03cabcba075f02b570a6406bbaece303d2c10b09be351ed6794e07c1170e587444576f4809f01ce9d8677972f3477d5255a1f7275b04c')
+sha512sums_aarch64=('07f8904b9cf94e62260f363f43a3ea12011e5b8715c967be39f3655fef54ed3675b2673c18e4529ac6cfa64c8ae461ad8125979ef265004aceca0d0a435397b6')
 
 prepare() {
   sh cuda_${pkgver}_${_driverver}_linux*.run --target "${srcdir}" --noexec
@@ -125,15 +125,12 @@ build() {
     rm -r "$lib"
   done
 
-  # no cccl for aarch64
-  if [[ $CARCH == "x86_64"* ]]; then
-    # Replace CCCL headers with symlinks to the cccl package
-    rm -r "${_prepdir}"/opt/cuda/targets/x86_64-linux/include/cccl/
-    ln -s /usr/include/cccl "${_prepdir}"/opt/cuda/targets/x86_64-linux/include/cccl
-    rm -r "${_prepdir}"/opt/cuda/targets/x86_64-linux/lib/cmake/{cccl,cub,libcudacxx,thrust}
-    rmdir "${_prepdir}"/opt/cuda/targets/x86_64-linux/lib/cmake/
-    ln -s /usr/lib/cmake "${_prepdir}"/opt/cuda/targets/x86_64-linux/lib/cmake
-  fi
+  # Replace CCCL headers with symlinks to the cccl package
+  rm -r "${_prepdir}"/opt/cuda/targets/x86_64-linux/include/cccl/
+  ln -s /usr/include/cccl "${_prepdir}"/opt/cuda/targets/x86_64-linux/include/cccl
+  rm -r "${_prepdir}"/opt/cuda/targets/x86_64-linux/lib/cmake/{cccl,cub,libcudacxx,thrust}
+  rmdir "${_prepdir}"/opt/cuda/targets/x86_64-linux/lib/cmake/
+  ln -s /usr/lib/cmake "${_prepdir}"/opt/cuda/targets/x86_64-linux/lib/cmake
 
   # Fix location of CUPTI headers and libs, otherwise some software fails to build
   # https://gitlab.archlinux.org/archlinux/packaging/packages/tensorflow/-/work_items/19#note_273055
