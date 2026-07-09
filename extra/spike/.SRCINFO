@@ -1,7 +1,7 @@
 pkgbase = spike
 	pkgdesc = Spike, a RISC-V ISA Simulator
 	pkgver = 1.1.0
-	pkgrel = 5
+	pkgrel = 6
 	url = https://github.com/riscv/riscv-isa-sim
 	arch = x86_64
 	groups = risc-v
@@ -14,3 +14,9 @@ pkgbase = spike
 	b2sums = 196531f27dc6ee60d16676888aa4c4ca32bc6e34d4c8d4fcd8bb0619b1ba6d968b0ff3c3e1eade9a344f6424c3d53cee0150e2ca029ac09f090c0f8a43481186
 
 pkgname = spike
+	depends = dtc
+	depends = glibc
+	depends = libgcc
+	depends = libgcc_s.so
+	depends = libstdc++
+	depends = libstdc++.so

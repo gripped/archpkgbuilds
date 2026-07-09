@@ -5,7 +5,7 @@
 
 pkgname=spike
 pkgver=1.1.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Spike, a RISC-V ISA Simulator'
 arch=(x86_64)
 url='https://github.com/riscv/riscv-isa-sim'
@@ -32,6 +32,11 @@ build() {
 }
 
 package() {
+  depends+=(
+    glibc
+    libgcc libgcc_s.so
+    libstdc++ libstdc++.so
+  )
   cd riscv-isa-sim
   make DESTDIR="$pkgdir" install
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
