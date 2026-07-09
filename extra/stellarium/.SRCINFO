@@ -1,6 +1,6 @@
 pkgbase = stellarium
 	pkgdesc = Software which renders realistic skies in real time with OpenGL
-	pkgver = 26.1
+	pkgver = 26.2
 	pkgrel = 1
 	url = https://stellarium.org
 	arch = x86_64
@@ -12,7 +12,8 @@ pkgbase = stellarium
 	makedepends = qt6-tools
 	makedepends = vulkan-headers
 	depends = exiv2
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = gpsd
 	depends = libindi
 	depends = md4c
@@ -29,10 +30,10 @@ pkgbase = stellarium
 	depends = zlib
 	optdepends = calcmysky: alternative atmosphere renderer
 	optdepends = man-db: manual pages for stellarium
-	source = git+https://github.com/Stellarium/stellarium?signed#tag=v26.1
+	source = git+https://github.com/Stellarium/stellarium?signed#tag=v26.2
 	source = qt-6.10.patch
 	validpgpkeys = 79151C2E6351E7278DA1A730BF38D4D02A328DFF
-	sha256sums = 88694294b6e740318457385a72c93d57ceda1af9d7537897eec2472b2ee01413
+	sha256sums = 3d90527a873983510ac002f9d39577d753c3abff247619fe8e8ce213b7c62fcd
 	sha256sums = ddef4435490c1aac4de5892386e93967b945c8e88f18fbe465c0c166c8a9d514
 
 pkgname = stellarium
