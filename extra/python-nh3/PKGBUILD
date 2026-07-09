@@ -2,7 +2,7 @@
 # Contributor: Marcus Hoffmann <bubu@bubu1.eu>
 
 pkgname=python-nh3
-pkgver=0.3.5
+pkgver=0.3.6
 pkgrel=1
 pkgdesc='Ammonia HTML sanitizer Python binding'
 arch=(x86_64)
@@ -21,8 +21,8 @@ makedepends=(
   python-maturin
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('f041f8a1f701252fb8e0ced9c1479ee192612b9b1617ca1f0ffc70601d1c4ce9e7bcb3ea527411915491da4a17202eac43021b2ae1e5f9a078fc67dc25fd1fb9')
-b2sums=('3ce84a205ff118f1178d7764e2353028461d45387a225e12a83b10003978d76f24f5c1969ca69f111ad3cb666aa40f03231c44c647a2c729de67affe2f448376')
+sha512sums=('72c50455c2622f07ad69095dc25a107958a35405d0fa5d56dc06ca3d304aaf5df7419ed3b33543497ad4aa052aca5c5bdfeefd9ba97c80d09637d7f6c7dd5a81')
+b2sums=('993a183e5e7b0e57fff1f448eb0310193c46124106360cc8135bed82a7661aed41ad89a5caf05285ab5928e4a681cffb723670ce78dbd90abb5c3b8a1349aef8')
 
 build() {
   cd "$pkgname"
