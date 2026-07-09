@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-geospatial-plugin
-pkgver=3.6.0.0
+pkgver=3.7.0.0
 pkgrel=1
-_opensearchver=3.6.0
+_opensearchver=3.7.0
 _jdkver=21
 pkgdesc="OpenSearch Geospatial Plugin"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/geospatial/archive/${pkgver}.tar.gz"
 )
-sha256sums=('4aa854f0b8fe80068965e21c5de1c40ca428ec111bfad3fd85549884bd62039b')
+sha256sums=('c8c77b03913fe6c1080dc04e906d76e6520605ecbf228a9398994d719490d5e1')
 
 build() {
   cd "geospatial-${pkgver}"
