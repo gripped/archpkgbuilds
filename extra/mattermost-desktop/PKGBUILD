@@ -8,8 +8,8 @@
 # Contributor: Matthias Mailänder <matthias@mailaender.name>
 
 pkgname=mattermost-desktop
-pkgver=6.2.1
-pkgrel=2
+pkgver=6.2.2
+pkgrel=1
 pkgdesc='Mattermost Desktop application'
 arch=(x86_64)
 url="https://github.com/${pkgname/-//}"
@@ -28,7 +28,7 @@ _archive="${pkgname#*-}-$pkgver"
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "$pkgname.sh"
         "$pkgname.desktop")
-sha256sums=('3ca67ef6469e6ed9937e18b06e4d1c5bb944ff7781a6408041b58ba6527d97ff'
+sha256sums=('4a28927eb711c33fc6cd917ad9b644c11a8862c2db0e070744edbcad37bfdf8a'
             '1c2bf48b6397d04a5a536c5c9f4960db53249c838c380f03f808c612b00ba4c6'
             '13df5ad4c7813986403658f5f88d723907db507703942f3facfb37ceaca657ef')
 
@@ -75,7 +75,8 @@ package() {
 	install -Dm0644 -t "$pkgdir/usr/lib/$pkgname/" release/linux-*unpacked/resources/app.asar
 	cp -a release/linux-*unpacked/resources/app.asar.unpacked "$pkgdir/usr/lib/$pkgname/"
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE.txt
-	install -Dm0644 src/assets/linux/app_icon.png "$pkgdir/usr/share/icons/$pkgname.png"
+	install -Dm0644 src/assets/appicon_48.png "$pkgdir/usr/share/icons/hicolor/48x48/apps/$pkgname.png"
+	install -Dm0644 src/assets/linux/app_icon.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/$pkgname.png"
 	install -Dm0755 "$pkgname.sh" "$pkgdir/usr/bin/$pkgname"
 	install -Dm0644 -t "$pkgdir/usr/share/applications/" "$srcdir/$pkgname.desktop"
 }
