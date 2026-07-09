@@ -4,14 +4,13 @@
 
 pkgname=shadowsocks-rust
 pkgver=1.24.0
-pkgrel=3
+pkgrel=4
 pkgdesc='A Rust port of shadowsocks'
 arch=(x86_64)
 url='https://github.com/shadowsocks/shadowsocks-rust'
 license=('MIT')
 depends=('glibc' 'libgcc' 'libstdc++' 'openssl' 'rocksdb' 'zstd')
 makedepends=('git' 'cargo' 'clang')
-options=(!lto)
 source=("git+https://github.com/shadowsocks/shadowsocks-rust.git#tag=v$pkgver"
         'shadowsocks-rust@.service'
         'shadowsocks-rust-server@.service')
@@ -21,12 +20,21 @@ sha512sums=('7f4ccc814a4c2268ac1a105c3711e27f87c2831fe77653900eae00ad45ef097a96c
 
 prepare() {
   cd shadowsocks-rust
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  export CARGO_HOME="$srcdir"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
   cd shadowsocks-rust
-  ROCKSDB_LIB_DIR=/usr/lib ZSTD_SYS_USE_PKG_CONFIG=1 cargo build --release --frozen --features full-extra
+  CFLAGS+=' -ffat-lto-objects'
+  export CARGO_HOME="$srcdir"
+  export CARGO_PROFILE_RELEASE_DEBUG=2
+  export CARGO_PROFILE_RELEASE_STRIP=false
+  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+  export ZSTD_SYS_USE_PKG_CONFIG=1
+  export ROCKSDB_LIB_DIR=/usr/lib
+  cargo build --release --frozen --features full-extra
 }
 
 package() {
