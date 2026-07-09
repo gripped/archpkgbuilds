@@ -6,7 +6,7 @@
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 
 pkgname=wine-staging
-pkgver=11.11
+pkgver=11.12
 pkgrel=1
 
 _pkgbasever=${pkgver/rc/-rc}
@@ -18,8 +18,8 @@ source=("git+https://gitlab.winehq.org/wine/wine.git?signed#tag=wine-$_pkgbaseve
         30-win32-aliases.conf
         wine-binfmt.conf
         ntsync.conf)
-sha512sums=('11e3eca73c8e7f4cb0b0034ac1790d3d8fde567e4e711c58603683f940e8277f099e75145acb19ef5f8ce47d7cb8c75415b06f6de977e49dc76e59e96ca7e192'
-            '7102a67d1a552ab0603b4bd214f0013b429ddc98a9be5341eb4cb5ce34eb93e7dfda0b246f2ed399202e9937696763bd4dc2897b11787c8e676cf9c210bb0129'
+sha512sums=('1bfe62f77a3f2a38f6036e6c1e3954bdeccac4f0a031b2afe86900996e2ac958a2129f8c61a0559ce744c560f80da6f9bf8993ff9e283f36dbea95a7a3fa434e'
+            '54bf54ed7800f1c80831143242d587d7e25832ec672a34f4e15fc5e29bd9ea7d1f643e4ae5b7f616a0aca13c6e7a949eb7eb7e3065e6ea2e381da0b7705aac79'
             '6e54ece7ec7022b3c9d94ad64bdf1017338da16c618966e8baf398e6f18f80f7b0576edf1d1da47ed77b96d577e4cbb2bb0156b0b11c183a0accf22654b0a2bb'
             'bdde7ae015d8a98ba55e84b86dc05aca1d4f8de85be7e4bd6187054bfe4ac83b5a20538945b63fb073caab78022141e9545685e4e3698c97ff173cf30859e285'
             'ac2bd634838ffe6b90f2637e229013f0993fc1013271dbeefd216dc262a8bb79e4a5ce15a75cbfcb0c3b521d32f4ebe1ed25a6b066b99cc327b60bd6d7212e6f')
