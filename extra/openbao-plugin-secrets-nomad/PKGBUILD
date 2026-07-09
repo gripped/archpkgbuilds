@@ -5,7 +5,7 @@ _plugin_name=nomad
 
 pkgname="openbao-plugin-${_plugin_type}-${_plugin_name}"
 pkgdesc="OpenBao Plugin - Generate Nomad ACL tokens"
-pkgver="0.1.5"
+pkgver=0.1.6
 pkgrel=1
 arch=("x86_64")
 url="https://openbao.org/docs/plugins/"
@@ -16,7 +16,7 @@ install=openbao-plugin.install
 source=(
     "openbao-plugin-${_plugin_type}-${_plugin_name}::git+https://github.com/openbao/openbao-plugins.git#tag=${_plugin_type}-${_plugin_name}-v${pkgver}"
 )
-sha256sums=('71baf4ec35dd37b213e47a1bccc7d91b951bd054f339ebe19cefbaaa0f7bb283')
+sha256sums=('85a87eb752b48a7c9e38f45fc62a84469eea588442b50703e2086d904dd212e2')
 
 prepare() {
   cd "${pkgname}"
