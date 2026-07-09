@@ -12,8 +12,8 @@
 # nltk_data repo is not versioned, pkgver refers to nltk repo instead
 
 pkgname=nltk-data
-pkgver=3.9.2
-pkgrel=2
+pkgver=3.10.0
+pkgrel=1
 pkgdesc='Corpora, grammars and other linguistic data for NLTK'
 arch=(any)
 url='https://www.nltk.org/data.html'
@@ -81,6 +81,7 @@ https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/nonbr
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/nps_chat.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/omw.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/omw-1.4.zip
+https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/omw-2.0.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/opinion_lexicon.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/panlex_swadesh.zip
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/paradigms.zip
@@ -172,7 +173,7 @@ b2sums=('ba28be6f7d5fcd1840af11bae1e669233a151f9d6a5ae1a958ab5b5b8bf33eaac03a517
         '2f5103c9801b965ce5d893b690dedc5f8524b1266e32a01251834c80cf291963657b3c1366ef6ed21f9f89c9ab4a696de72a752ce53b651d596ade99edaace2e'
         'a60a95f9bcbb72b4ee19a91c380eb620261687f23bd867ae4cf2d7937b60b8dacafb52c09d7bcbcb9fbbbda4e57954ee55a900d70e69e7e290e53c668dd0775f'
         'a79b5d5de2ab03be43e5fdb1b34c70a458af6efce0e35f42f3c4d748c84cd950c98981f969fea2b0507ee405438f84b50e526aa94a93f99de7567ccb5c462215'
-        '7db8d95c313649b042db591a1967d79b5e9645599a43f01ef3d219c8bad0e943e137a37ebdfc782c2f6a370a696f8866e1101a1a1b4c615e95611c649b31a337'
+        '9a19084aea2222395fbd52e6fde256bedd816e4584d9551bf5c618593718f28eed91064e860d1f49a8797d2a4a13e27bf8c2bd7ffd20f41ba0d26a4c087f9250'
         '295e274880ae34c9618a70cabc1b1075e35c442158aabe437972caebbf36d09c4f5f5b66d8ae7ac953f4312f9dac8f5e0c6d3346a444afe98ac700fb3e622539'
         '11dafcc49c3608e5178b2cf82a943a95afd900f80308bf40d56b29a4518029832fe52241df728f6c38114e60b9c03617337717d987221918a11810b77b1b33ea'
         '092886cb15c6215b4fe979ce62a1a137de97c4749c372426211d36117d367697d19ebe6a9337f702ee9dfc133318b1e7de51393c5a41afc31a960e10ebe7c498'
@@ -207,6 +208,7 @@ b2sums=('ba28be6f7d5fcd1840af11bae1e669233a151f9d6a5ae1a958ab5b5b8bf33eaac03a517
         'eadf0d0ee54c982765a124321fe6de161bfbfbfb0385d5d7e171666945ef313b960ba7b820e4fed02885ffc213173e2a7c97822513ae6e81e68858af21d9f424'
         '5ae634fdd89fcd2be2dea1511b2c434755e16b92804ea6bb5e2139113c644885d142e6290ab1d00c418f9df5241ebf6b7e227da120dc95d1e907d8f62a3d0cb8'
         '4d5fe648987b9aaa589d612f439560287200fe947a80182b941b0660a97a739ddda00a472209a26715aa72c44f37cdb5dbce9df89cb7bfbcdb7f4fa2908bb96e'
+        'bbd766cb55ad31d03a3519ceb927adc71897040e6630d65d63dc7f152fc6ba9ebc34b9038638cecf9a58e0c7302560a682d1835e608481d40b45518e72b8ee3b'
         '47f5a381647075f4bea0230939098a6e83b47860165595e72f076a5436e2aad78148606d86ec331b1cc323963cb2a7500669c6fc2aff2e889bbaec8fd8571722'
         'e9ee3b2296c8738319a86dfb39d34fc5bcd346e725e0ad0df74571106ef05b71126aff70914e914cff436674c0d70c71ca36121331ab0327932505a2bdb26be1'
         '73b0e811f80b0dc64ae62f8a0ccb3906b723badd9b1ffd358194f7ea54373ecff4b75dcd4f06e3382793ea7bd31af98c6d31ebac5c793dd1446153e6d4371b13'
