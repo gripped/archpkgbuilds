@@ -2,7 +2,7 @@
 # Contributor: Marcell Pardavi <marcell.pardavi@gmail.com>
 
 pkgname=zed
-pkgver=1.7.2
+pkgver=1.10.0
 pkgrel=1
 pkgdesc='A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter'
 arch=(x86_64)
@@ -12,10 +12,10 @@ license=(GPL-3.0-or-later AGPL-3.0-or-later Apache-2.0)
 depends=(alsa-lib libasound.so
          curl
          fontconfig
+         git
          glib2 libgio-2.0.so libglib-2.0.so libgobject-2.0.so
          glibc # libc.so libm.so ld-linux-x86_64.so
          libgcc libgcc_s.so
-         libgit2 libgit2.so
          libstdc++ libstdc++.so
          libxcb # libxcb.so libxcb-xkb.so
          libx11 # libX11-xcb.so
@@ -29,7 +29,6 @@ depends=(alsa-lib libasound.so
          vulkan-icd-loader
          vulkan-tools
          wayland
-         zlib libz.so
          zstd libzstd.so)
 makedepends=(cargo
              cargo-about
@@ -42,7 +41,7 @@ optdepends=('org.freedesktop.secrets: to keep you logged into your Zed account')
 replaces=(zed-editor)
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('1f2e79675f4c53788e8ea834f54143261050d63a79daa291b5761c584a045e68')
+sha256sums=('efcb62cb4b8058d0b53cffd521c3c43779a05c114aa728a14a670d2af0948e07')
 
 _binname=zeditor
 _appid=dev.zed.Zed
@@ -69,7 +68,6 @@ _srcenv() {
 	CFLAGS+=' -ffat-lto-objects'
 	CXXFLAGS+=' -ffat-lto-objects'
 	RUSTFLAGS+=" --remap-path-prefix $PWD=/"
-	export LIBGIT2_NO_VENDOR=1
 	export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
 	export ZSTD_SYS_USE_PKG_CONFIG=1
 }
