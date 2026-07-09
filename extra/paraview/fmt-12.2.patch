@@ -1,0 +1,11 @@
+--- a/VTKExtensions/Core/vtkPVStringFormatter.h
++++ b/VTKExtensions/Core/vtkPVStringFormatter.h
+@@ -358,7 +358,7 @@ private:
+      * If argument already exists, it's ignored.
+      */
+     template <typename T>
+-    void AddArg(const fmt::detail::named_arg<char_type, T>& fmtArg)
++    void AddArg(const fmt::named_arg<T, char_type>& fmtArg)
+     {
+       bool argNotFound = std::find_if(this->Arguments.begin(), this->Arguments.end(),
+                            [&fmtArg](const vtkNamedArgument& arg)
