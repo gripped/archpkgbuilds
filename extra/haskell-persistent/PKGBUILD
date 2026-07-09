@@ -3,8 +3,8 @@
 
 _hkgname=persistent
 pkgname=haskell-persistent
-pkgver=2.14.5.2
-pkgrel=103
+pkgver=2.14.6.0
+pkgrel=16
 pkgdesc="Type-safe, multi-backend data serialization"
 url="http://www.yesodweb.com/book/persistent"
 license=('MIT')
@@ -18,7 +18,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-attoparsec-aes
 makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck' 'haskell-quickcheck-instances'
              'haskell-shakespeare')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('90952956627361658840f9299257fdbed7402f14c05226f5c67510d587ae2defc2ae7cf4bceecc4599f675f629e135e93d483334ff6e3b86e196db31b7bb7027')
+sha512sums=('962b9243cfd225ef7354276385be54b1a9689cf295d17806abe207ac1c37072e179607cab3ba0c43864728c98ddffcb06a89f83d5b0d808ab6ad41a3c8cf5d0e')
 
 build() {
     cd $_hkgname-$pkgver
