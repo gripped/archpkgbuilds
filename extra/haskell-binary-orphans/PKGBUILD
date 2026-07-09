@@ -3,8 +3,8 @@
 
 _hkgname=binary-orphans
 pkgname=haskell-binary-orphans
-pkgver=1.0.5.1
-pkgrel=16
+pkgver=1.0.6
+pkgrel=2
 pkgdesc="Orphan instances for binary"
 url="https://github.com/phadej/binary-orphans"
 license=('BSD-3-Clause')
@@ -13,7 +13,7 @@ depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-tasty'
              'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('692dacf42e201108eba9b83fdd5d702336c05e6b6ce6f4d9bb555efbfff4ed7e4df0ad9da2c16647bcfd6adbf6ac31fa9fd37cfb84b37006a10fadc4d2fdb28d')
+sha512sums=('372f8f0c40e1403adbc4a7d05919c008efce4addedc8fa953c3ea47166f592406b573d18a19ca90d78803377a44f56ec935f4a0965f65105c081fd638ed4cb21')
 
 prepare() {
     cd $_hkgname-$pkgver
