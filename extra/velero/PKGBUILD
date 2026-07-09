@@ -1,7 +1,7 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=velero
-pkgver=1.18.1
+pkgver=1.18.2
 pkgrel=1
 pkgdesc="Backup and migrate Kubernetes applications and their persistent volumes"
 arch=(x86_64)
@@ -18,7 +18,7 @@ makedepends=(
 # we cannot use LTO as otherwise we do not get reproducible package with full RELRO
 options=('!lto')
 source=("git+https://github.com/vmware-tanzu/velero#tag=v$pkgver")
-b2sums=('bef0da6b470f87b827d343e47c07a2464cd865b0df5cb477f98be5d98f55dd9a3ed749db0cdceb514af638aa5b7775262fa0aca40e5f001cc18c8cffb748e432')
+b2sums=('100d127bb5ea4b10a621e7c7256621621661c855493f61d1d253841bbfdfd5d0d9e2a215ad0a831f51cb93bcf42732f786b898e8f5820a54a235275e8470c367')
 
 prepare() {
   cd $pkgname
