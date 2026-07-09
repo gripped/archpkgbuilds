@@ -4,7 +4,7 @@
 # Contributor: Gilbert Kennen <gilbert firewatcher org>
 
 pkgname=elixir
-pkgver=1.20.1
+pkgver=1.20.2
 pkgrel=1
 pkgdesc="A dynamic, functional language for building scalable and maintainable applications"
 url="https://elixir-lang.org"
@@ -31,7 +31,7 @@ checkdepends=(
   'rebar3'
 )
 source=("git+https://github.com/elixir-lang/elixir.git#tag=v${pkgver}")
-sha512sums=('dfb673816e80b5ba03b323c7f82765f981014cfc486aa4a9c0d2e8120c3b475e4825ee95ebb35cc01b33504906d551b5cceb6b1247a3dfb100d8bac8e0586ae0')
+sha512sums=('cc0cea402b2ea8bdd215a9080d77137f6b314fbdd3b138800affa89bdb8e6a4b20b783f0751f7d34d5b0b3cf4783e1fc670955a0d2171d895c7d14daf4a23de1')
 
 prepare() {
   cd ${pkgname}
