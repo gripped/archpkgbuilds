@@ -2,19 +2,21 @@
 
 pkgname=hyprlauncher
 pkgver=0.1.6
-pkgrel=4
+pkgrel=5
 pkgdesc='A multipurpose and versatile launcher / picker for Hyprland'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
 license=(BSD-3-Clause)
-depends=(gcc-libs # libgcc_s.so libstdc++.so
+depends=(fontconfig libfontconfig.so
          glibc # libc.so libm.so
-         icu libicuuc.so
          hyprlang libhyprlang.so
          hyprutils libhyprutils.so
-         libqalculate # libqalculate.so
          hyprwire libhyprwire.so
+         icu libicuuc.so
          # libdrm # libdrm.so
+         libgcc libgcc_s.so
+         libqalculate # libqalculate.so
+         libstdc++ libstdc++.so
          hyprtoolkit libhyprtoolkit.so
          wayland # libwayland-cursor.so libwayland-client.so
          wl-clipboard)
