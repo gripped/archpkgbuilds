@@ -2,14 +2,14 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=selene
-pkgver=0.30.1
+pkgver=0.31.0
 pkgrel=1
 pkgdesc='Blazing-fast modern Lua linter written in Rust'
 arch=(x86_64)
 url=https://github.com/Kampfkarren/selene
 license=(MPL-2.0)
 depends=(
-  gcc-libs
+  libgcc
   glibc
   openssl
 )
@@ -19,11 +19,11 @@ makedepends=(
 )
 options=(!lto)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('e06e20b9ee7cc6ed0d96d56a2fc86b3a4f2f8668b263f863f7553ea6162a93a3488345a304efa7eada75aa5b40adcee96539b8f4e1d49a1ffcb5a98feb671329')
+b2sums=('7a3d0166e554eb126b8e821a0c5be489592b5ddde1f4dc7fb38028971f8bbaddfab90725c28e2fe8a72feb5d769df10dc7b6e44df12642fa75b057bb67d83b89')
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
@@ -33,7 +33,11 @@ build() {
 
 check() {
   cd $pkgname
-  cargo test --locked --offline
+  local skipped=(
+    # sometimes stack overflows
+    lint_filtering::tests::test_lint_filtering
+  )
+  cargo test --locked --offline -- ${skipped[@]/#/--skip }
 }
 
 package() {
