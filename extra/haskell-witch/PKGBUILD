@@ -2,8 +2,8 @@
 
 _hkgname=witch
 pkgname=haskell-witch
-pkgver=1.2.0.2
-pkgrel=44
+pkgver=1.2.0.3
+pkgrel=5
 pkgdesc="Convert values from one type into another"
 url="https://github.com/tfausak/witch"
 license=("MIT")
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-tagged')
 makedepends=('ghc' 'uusi' 'haskell-hunit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('414f7e1c771f6116b6bc5eb0487a648a41496bdaa61677bbd4bf8db05654b904')
+sha256sums=('dd4d006ed76913625a3ccd9cf4457100b1d333e1c162b06455211e9f56afb3b0')
 
 prepare() {
   cd $_hkgname-$pkgver
