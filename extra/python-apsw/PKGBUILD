@@ -4,7 +4,7 @@
 # Contributor: Juan Miguel Cejuela <juanmi@jmcejuela.net>
 
 pkgname=python-apsw
-pkgver=3.53.2.0
+pkgver=3.53.3.0
 pkgrel=1
 pkgdesc="Python wrapper for SQLite"
 arch=('x86_64')
@@ -13,8 +13,8 @@ license=('MIT')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools' 'git')
 depends=('python' 'sqlite')
 source=("git+https://github.com/rogerbinns/apsw.git#tag=${pkgver}")
-sha512sums=('d3951fa648e7df915016282f557e4db896dc43bab6d2c3d2a513841f79874b5d4c17fc707a443cc6929e93254425377537f16ea20db53e2d57e5737e78d9e8c8')
-b2sums=('198a4b3746f6bcbc2bfc7392264746705674562f8518281cb3523051e8c891d25b3d0040dcf4ba24a0358d48c8a828a9320937d26bd8e445bc77e61d600ca469')
+sha512sums=('974156e3b23407bba7176aa9779d7e007c3ab47e97d03a2e554508f1729c57f9263c38aef30f3de8f6fa87b1ebf54d7fd50eefbc4f10216033d26febc56afbb2')
+b2sums=('08097cb36b7bc2afae65bee685f08859bd568aa9b252cd936a876b302959585b13f39b4606284d7b7d371735d6b3f233af1703ed89b08b22629fe55458ebb616')
 
 build() {
   cd apsw
