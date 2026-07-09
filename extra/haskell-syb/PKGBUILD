@@ -5,8 +5,8 @@
 
 _hkgname=syb
 pkgname=haskell-syb
-pkgver=0.7.3
-pkgrel=127
+pkgver=0.7.4
+pkgrel=3
 pkgdesc="library for generic programming in Haskell"
 url="https://github.com/dreixel/syb"
 license=('BSD-3-Clause')
@@ -15,7 +15,7 @@ depends=('ghc-libs')
 makedepends=('ghc')
 checkdepends=('haskell-tasty' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('3608c1b632784421dfe301b9ffa93f0dc5b0ec819476f81ebdee368b9124c9e05789a285490c1c811b509dfe68fed9a2078baca2f40d3fa632352edacde3ac61')
+sha512sums=('8b224828e039a91b2b86b6cb67608f963e15fe04f418e402e12b67e87540fe5a538d81eea17c32b6bc6567cf10203ec2ecfeae25d4b114296638e95f97b849aa')
 
 build() {
     cd $_hkgname-$pkgver
