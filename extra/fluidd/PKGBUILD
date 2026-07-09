@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=fluidd
-pkgver=1.37.1
+pkgver=1.37.2
 pkgrel=1
 pkgdesc='A free and open-source Klipper web interface for managing your 3d printer'
 arch=(any)
@@ -9,18 +9,18 @@ url=https://docs.fluidd.xyz/
 license=(GPL-3.0-only)
 makedepends=(
   git
-  nodejs-lts-iron
-  npm
+  nodejs-lts-jod
+  pnpm
 )
 optdepends=('ustreamer: webcam streaming support')
 source=(git+https://github.com/fluidd-core/fluidd.git#tag=v${pkgver})
 validpgpkeys=(4C717BDC0E452F5B13490409AB4C64C58BA9C3ED) # Pedro Lamas <pedrolamas@gmail.com>
-b2sums=('c3a2eb0e9e35bcd8af61f8a26752d8d75554f5478ad314dc6a4441c4d901533ac99d0627a686c774e20e1d155ba65591616a8b95428cd0f455a50da118adcd87')
+b2sums=('f0300c0cea5579d6cb0fb8448089cf045a053a7f0937f95fce752d021c528f585a7fd44263be68a33329455e8bf5348db19b8a44d71c711c95f7f5c520a11bd5')
 
 build() {
   cd fluidd
-  npm install --frozen-lockfile --legacy-peer-deps
-  npm run build
+  pnpm install --frozen-lockfile
+  pnpm run build
 }
 
 package() {
