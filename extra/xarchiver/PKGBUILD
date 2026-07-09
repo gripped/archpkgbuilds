@@ -3,7 +3,7 @@
 # Contributor: Andrew Simmons <andrew.simmons@gmail.com>
 
 pkgname=xarchiver
-pkgver=0.5.4.26
+pkgver=0.5.4.27
 pkgrel=1
 pkgdesc='GTK frontend to various command line archivers'
 arch=(x86_64)
@@ -22,17 +22,17 @@ makedepends=(
   intltool
 )
 optdepends=(
+  '7zip: 7z support'
   'arj: ARJ support'
   'binutils: deb support'
   'bzip2: bzip2 support'
   'cpio: RPM support'
   'gzip: gzip support'
-  'lha: LHA support'
+  'lhasa: LHA support'
   'lrzip: lrzip support'
   'lz4: LZ4 support'
   'lzip: lzip support'
   'lzop: LZOP support'
-  'p7zip: 7z support'
   'tar: tar support'
   'unarj: ARJ support'
   'unrar: RAR support'
@@ -47,14 +47,14 @@ source=(
   xarchiver.appdata.xml
 )
 b2sums=(
-  f0aeb6d086c09e56ca87d121300f5c35f2391ace4add66cede5be6d39dfc921ea786a4de9f127efaa10ab8cf37305ae1f309a4e56deaf20ac6ecc2b643544f81
+  99bf957b6db5c9bcd2886e810b8f1cf7bd8d15f017fe1749933e5d31cbf807ec927645e02c898a793d9479d97816d843b1336a6435d5d4b93881000b0ddf240a
   56293e379fe0663e3c76836d6c87710fcd6cec9f44de539a48b75e253b100ea46d29dc734e215f44e2955171e1ea0de7076e6129c96d4660ba46ebaff4ab2a8a
 )
 
 prepare() {
   cd $pkgname
   touch AUTHORS NEWS
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
