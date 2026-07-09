@@ -1,2 +1,5 @@
 [intel-oneapi-toolkit]
-source = "manual"
+source = "jq"
+url = "https://www.intel.com/libs/apps/intel/idz/productsinfo?downloadId=736b4a1f-bab6-4b5b-b0e9-f8e9b2ef9f70"
+filter = '.downloads.downloads.productVersionsBuilds[0].files[] | select(.operatingSystem == "linux" and (.downlaodFileName | endswith("_offline.sh"))) | (.downlaodFileName | ltrimstr("intel-oneapi-toolkit-") | rtrimstr("_offline.sh")) + "+" + (.dwnldExternalId | gsub("-"; "_"))'
+user_agent = "curl/8.20.0"

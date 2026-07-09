@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 
 pkgname=intel-oneapi-toolkit
-pkgver=2026.0.0.198+71180075_e4e3_4c6f_bbbb_19017ed0cf7d
+pkgver=2026.0.1.27+c9c3d3e3_ddb4_490e_bb41_6e9041ba32a7
 _pkgver="${pkgver%+*}"
 _rawhash="${pkgver#*+}"
 _hash="${_rawhash//_/-}"
@@ -11,7 +11,7 @@ arch=('x86_64')
 url='https://software.intel.com/content/www/us/en/develop/tools/oneapi.html'
 license=('LicenseRef-Intel-EULA-Developer-Tools AND LicenseRef-Intel-Simplified')
 source=("${pkgname}-${pkgver}.sh::https://registrationcenter-download.intel.com/akdlm/IRC_NAS/${_hash}/${pkgname}-${_pkgver}_offline.sh")
-sha256sums=('155a52896bd24239ddc733f487eccb2af5cad9957eed1e2bfe60ce1453694e5b')
+sha256sums=('30231d00de0108892ea6d50e785091b40cb8790bb006bca5e4f5e64735a33cfa')
 depends=(level-zero-loader)
 options=(!strip staticlibs)
 install="$pkgname.install"
