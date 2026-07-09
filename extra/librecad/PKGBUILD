@@ -6,7 +6,7 @@
 
 pkgname=librecad
 pkgver=2.2.1.5
-pkgrel=2
+pkgrel=3
 pkgdesc='A 2D CAD drawing tool based on the community edition of QCad'
 arch=('x86_64')
 url='https://www.librecad.org/'
@@ -67,12 +67,8 @@ package() {
 	cp -r unix/resources/{library,patterns,fonts,qm} "${pkgdir}/usr/share/librecad/"
 
 	# plugins
-	mkdir -p "${pkgdir}/usr/share/librecad/plugins"
 	mkdir -p "${pkgdir}/usr/lib/librecad"
 	cp -r unix/resources/plugins "${pkgdir}/usr/lib/librecad/"
-	for plugin in "${pkgdir}/usr/lib/librecad/"*.so; do
-		ln -sf "../../../lib/librecad/$(basename $plugin)" "${pkgdir}/usr/share/librecad/plugins/"
-	done
 
 	# header files for plugin interface
 	install -Dm0644 -t "${pkgdir}/usr/include/librecad/" librecad/src/plugins/{document_interface,qc_plugininterface}.h
