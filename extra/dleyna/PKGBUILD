@@ -6,8 +6,8 @@ pkgname=(
   dleyna-docs
   python-dleyna
 )
-pkgver=0.8.3
-pkgrel=5
+pkgver=0.8.4
+pkgrel=1
 pkgdesc="Services and D-Bus APIs to access UPnP and DLNA media devices"
 url="https://gitlab.gnome.org/World/dLeyna"
 arch=(x86_64)
@@ -34,7 +34,7 @@ makedepends=(
   python-sphinx_rtd_theme
 )
 source=("git+https://gitlab.gnome.org/World/dLeyna.git?signed#tag=v$pkgver")
-b2sums=('48e0c10d424ba4e2eff3a38aadc0ecfc3804b770f309854bc94b6c8b7eaac75b444ca0c5af1fc18170a76589599c0057c995c79b079175f8f0a89b209784f0a3')
+b2sums=('3712843852e4408f8562ef66dced171c3f2dd70c5522ab7ed6347c87757ff2044bf2fe2832e352853ff90d3f4320a52f29e1a4f234935ef7ffd6884e9cea67ec')
 validpgpkeys=(
   AC9CD4E32D7C7F6357BA8ADD10F6E970175D29E1 # Jens Georg <mail@jensge.org>
 )
@@ -94,6 +94,9 @@ package_dleyna-docs() {
 
   mkdir -p "$pkgdir/usr/share/doc"
   cp -a build/doc/docs "$pkgdir/usr/share/doc/$pkgbase"
+
+  # Remove sphinx cache files
+  rm -r "$pkgdir/usr/share/doc/$pkgbase/.doctrees"
 }
 
 package_python-dleyna() {
