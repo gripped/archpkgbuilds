@@ -5,7 +5,7 @@
 
 pkgname=josm
 pkgver=19555
-pkgrel=2
+pkgrel=3
 pkgdesc='Editor for OpenStreetMap written in Java'
 arch=(any)
 url='https://josm.openstreetmap.de/'
@@ -19,6 +19,7 @@ depends=(
 makedepends=(
   ant
   subversion
+  strip-nondeterminism
 )
 options=(!emptydirs)
 backup=(etc/default/josm)
@@ -33,6 +34,10 @@ prepare() {
 build() {
   cd $pkgname
   ant
+
+  # Strip non-deterministic information from jar file (e.g. timestamps)
+  # This is required for reproducible builds
+  find . -name "*.jar" -exec strip-nondeterminism {} +
 }
 
 package() {
