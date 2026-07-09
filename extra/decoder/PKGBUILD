@@ -2,7 +2,7 @@
 
 pkgname=decoder
 pkgver=0.9.1
-pkgrel=1
+pkgrel=2
 pkgdesc='QR code scanner and generator'
 arch=(x86_64)
 url='https://apps.gnome.org/Decoder/'
@@ -24,6 +24,7 @@ depends=(
   hicolor-icon-theme
   libadwaita
   libgcc
+  sqlite
 )
 makedepends=(
   appstream
@@ -31,7 +32,6 @@ makedepends=(
   meson
   rust
 )
-options=(!lto)
 source=("git+https://gitlab.gnome.org/World/decoder.git#tag=$pkgver")
 b2sums=(5d512f4dc2d0b7d4790d04c17f3d21ac6feac663bd76ff7a5970dbcb0cc34a83b32f3d21441c8c46192f1de5e8ccc338f7031bcceccc8ae0565cabe4f7145a39)
 
@@ -49,11 +49,13 @@ build() {
     CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
     CARGO_PROFILE_RELEASE_DEBUG=2 \
     CARGO_PROFILE_RELEASE_STRIP=false \
+    LIBSQLITE3_SYS_USE_PKG_CONFIG=1 \
     meson compile -C build
 }
 
 check() {
-  meson test -C build --print-errorlogs --no-rebuild
+  LIBSQLITE3_SYS_USE_PKG_CONFIG=1 \
+    meson test -C build --print-errorlogs --no-rebuild
 }
 
 package() {
