@@ -5,7 +5,7 @@ _plugin_name=consul
 
 pkgname="openbao-plugin-${_plugin_type}-${_plugin_name}"
 pkgdesc="OpenBao Plugin - Generate Consul ACL tokens"
-pkgver="0.1.0"
+pkgver=0.1.1
 pkgrel=1
 arch=("x86_64")
 url="https://openbao.org/docs/plugins/"
@@ -16,7 +16,7 @@ install=openbao-plugin.install
 source=(
     "openbao-plugin-${_plugin_type}-${_plugin_name}::git+https://github.com/openbao/openbao-plugins.git#tag=${_plugin_type}-${_plugin_name}-v${pkgver}"
 )
-sha256sums=('b291323d4f1c099fbb5f3b3d9c2ea96fecbd55272bed3ac7e40b088cb82366a9')
+sha256sums=('85a87eb752b48a7c9e38f45fc62a84469eea588442b50703e2086d904dd212e2')
 
 prepare() {
   cd "${pkgname}"
