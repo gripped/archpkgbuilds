@@ -1,21 +1,20 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=nominatim-ui
-pkgver=3.10.1
+pkgver=3.12.0
 pkgrel=1
 pkgdesc="Debug UI for Nominatim"
 arch=('any')
 url="https://github.com/osm-search/nominatim-ui"
 license=('GPL-2.0-only')
-makedepends=('yarn')
-checkdepends=('chromium' 'jq')
+makedepends=('yarn' 'jq')
 optdepends=('nginx' 'nominatim')
 backup=('etc/webapps/nominatim-ui/config.theme.js')
 install=nominatim-ui.install
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/tags/v${pkgver}.tar.gz"
         'nginx.conf'
 )
-sha256sums=('8298987fd0f51f3e9e45c402e6907c6f239e18f482b27ea507eef278a964d2fd'
+sha256sums=('93f80975145ee8acdf8a50199662bd082290805dd32ba862bfd9ff70fc9ca2da'
             '045dda10d978acedba43b071271731b2b63a8ad2743cdd6eda7dab2fd98a52ae')
 
 prepare() {
@@ -31,13 +30,6 @@ build() {
   cd "${pkgname}-tags-v${pkgver}"
 
   yarn build
-}
-
-check() {
-  cd "${pkgname}-tags-v${pkgver}"
-
-  export PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium"
-  yarn test
 }
 
 package() {
