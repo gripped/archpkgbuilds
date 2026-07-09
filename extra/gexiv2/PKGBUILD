@@ -8,8 +8,8 @@ pkgname=(
   gexiv2-docs
 )
 pkgver=50.0
-pkgver=0.16.0
-pkgrel=2
+pkgver=0.16.1
+pkgrel=1
 pkgdesc='GObject-based wrapper around the Exiv2 library'
 url='https://gitlab.gnome.org/GNOME/gexiv2'
 arch=(x86_64)
@@ -30,7 +30,7 @@ makedepends=(
   vala
 )
 source=("git+$url.git?signed#tag=$pkgver")
-b2sums=('d6e772840797ab54c2e0e19d66c19367c4afaef7cfa02d454fda00a03addf2a620b75c13a30eb2112e239c64a104726f4e91be49c4bfb2f7670c4f80aa817544')
+b2sums=('7e04030f4e122be52154c09fafa8c251e5bbab80a4c877273304bd253f3288537738b9a91d69412888e250b6ba12ad0eb42c269048e891755e0896b69c06a6cb')
 validpgpkeys=(AC9CD4E32D7C7F6357BA8ADD10F6E970175D29E1) # Jens Georg <mail@jensge.org>
 
 build() {
