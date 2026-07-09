@@ -1,12 +1,15 @@
 pkgbase = python-fastimport
 	pkgdesc = VCS fastimport/fastexport parser
 	pkgver = 0.9.16
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/jelmer/python-fastimport
 	arch = any
 	license = GPL-2.0-only
 	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
 	source = git+https://github.com/jelmer/python-fastimport.git#tag=v0.9.16
 	validpgpkeys = DC837EE14A7E37347E87061700806F2BD729A457

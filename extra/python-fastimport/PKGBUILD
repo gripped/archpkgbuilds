@@ -3,7 +3,7 @@
 
 pkgname=python-fastimport
 pkgver=0.9.16
-pkgrel=1
+pkgrel=2
 pkgdesc='VCS fastimport/fastexport parser'
 arch=(any)
 url=https://github.com/jelmer/python-fastimport
@@ -11,7 +11,10 @@ license=(GPL-2.0-only)
 depends=(python)
 makedepends=(
   git
+  python-build
+  python-installer
   python-setuptools
+  python-wheel
 )
 source=(git+https://github.com/jelmer/python-fastimport.git#tag=v${pkgver})
 validpgpkeys=(DC837EE14A7E37347E87061700806F2BD729A457) # Jelmer Vernooĳ <jelmer@jelmer.uk>
@@ -19,12 +22,11 @@ b2sums=('e2c625c039a68685ed8212d528dc20e8675807213e51cab8657ff9a0b649a5836a329e5
 
 build() {
   cd python-fastimport
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
-  cd python-fastimport
-  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  python -m installer --destdir="${pkgdir}" python-fastimport/dist/*.whl
 }
 
 # vim: ts=2 sw=2 et:
