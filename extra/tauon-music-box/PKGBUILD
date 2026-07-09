@@ -5,7 +5,7 @@ pkgname=tauon-music-box
 _pkgname=tauonmb
 _gitname=Tauon
 pkgver=10.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A modern music player"
 arch=("x86_64") # "aarch64"
 url="https://tauonmusicbox.rocks"
@@ -37,7 +37,7 @@ depends=(
 	"opusfile"
 	"wavpack"
 	"libvorbis"
-	"libayatana-appindicator"
+	"libappindicator"
 	"libopenmpt"
 	"libprojectm"
 	"libsamplerate"
@@ -66,21 +66,16 @@ optdepends=(
 	"python-tidalapi: Tidal feature support"
 )
 
-source=(
-	"${_gitname}-${pkgver}.tar.gz::https://github.com/Taiko2k/Tauon/archive/v${pkgver}.tar.gz"
-	"lrclib-cargo.lock::https://raw.githubusercontent.com/Taiko2k/Tauon/0dd22337c0152d62e4a2539396b88c00eac8c573/src/lrclib-solver/Cargo.lock")
-
-sha256sums=('09556aff07674c5d529f5649339cd58a9774b93746165838c129c6a28c9e0f15'
-            '7ac61e60e82e9761aa16ffa39d9afe30d6330e35a97e1dcf68cf094da7393740')
+source=("${_gitname}-${pkgver}.tar.gz::https://github.com/Taiko2k/Tauon/archive/v${pkgver}.tar.gz")
+sha256sums=('09556aff07674c5d529f5649339cd58a9774b93746165838c129c6a28c9e0f15')
 
 prepare() {
 	# Use system kissfft instead of the expected cloned repository
 	cd "${_gitname}-${pkgver}"
 	sed -i 's|"src/phazor/kissfft/kiss_fftr.c", "src/phazor/kissfft/kiss_fft.c", ||g' pyproject.toml
 	sed -i 's|"samplerate"|"kissfft-float", "samplerate"|g' pyproject.toml
+	sed -i 's|com.github.taiko2k.tauonmb.desktop|tauonmb.desktop|' extra/com.github.taiko2k.tauonmb.appdata.xml
 
-	# TODO(Martin): Delete this .lock hack and above source file after updating from 10.0.0
-	mv "${srcdir}/lrclib-cargo.lock" src/lrclib-solver/Cargo.lock
 	cd src/lrclib-solver
 	export RUSTUP_TOOLCHAIN=stable
 	cargo fetch --locked --target host-tuple
@@ -109,6 +104,7 @@ package() {
 	done
 
 	install -Dm644 "extra/${_pkgname}.desktop" -t "${pkgdir}/usr/share/applications"
+	install -Dm644 "extra/com.github.taiko2k.tauonmb.appdata.xml" -t "${pkgdir}/usr/share/metainfo"
 	install -Dm644 "extra/${_pkgname}-symbolic.svg" -t "${pkgdir}/usr/share/icons/hicolor/symbolic/apps"
 	install -Dm644 "extra/${_pkgname}.svg" -t "${pkgdir}/usr/share/icons/hicolor/scalable/apps"
 	install -Dm755 "extra/tauonmb.sh" "${pkgdir}/opt/${pkgname}/tauonmb.sh"
