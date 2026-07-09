@@ -2,8 +2,8 @@
 
 _hkgname=splitmix
 pkgname=haskell-splitmix
-pkgver=0.1.3
-pkgrel=75
+pkgver=0.1.3.1
+pkgrel=16
 pkgdesc="Fast Splittable PRNG"
 url="https://github.com/haskellari/splitmix"
 license=('BSD-3-Clause')
@@ -14,7 +14,7 @@ checkdepends=('testu01' 'haskell-async' 'haskell-base-compat-batteries' 'haskell
               'haskell-math-functions' 'haskell-test-framework' 'haskell-test-framework-hunit'
               'haskell-tf-random' 'haskell-vector')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('55205b909ffabe70a0fe288f23c5900a0d781282c5990f8a7251c3fe23196a94331dc048f160a3323a247168a6409df57207903243b2b9071b02ad2d49d3afa7')
+sha512sums=('742ac819732fcbc37e75b8b5aa5c40ad42515de75c0c8944c94c8052b676472410c8698b3af27c338086b33a6d8630a0ab883fe0985b5e50204d7394a804b087')
 
 build() {
     cd $_hkgname-$pkgver
