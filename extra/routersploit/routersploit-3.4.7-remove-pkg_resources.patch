@@ -1,0 +1,17 @@
+diff --git a/routersploit/resources/wordlists/__init__.py b/routersploit/resources/wordlists/__init__.py
+index 26a332b..2699c1b 100644
+--- a/routersploit/resources/wordlists/__init__.py
++++ b/routersploit/resources/wordlists/__init__.py
+@@ -1,7 +1,7 @@
+-import pkg_resources
++import importlib.resources
+ 
+ 
+-defaults = 'file://' + pkg_resources.resource_filename(__name__, 'defaults.txt')
+-passwords = 'file://' + pkg_resources.resource_filename(__name__, 'passwords.txt')
+-usernames = 'file://' + pkg_resources.resource_filename(__name__, 'usernames.txt')
+-snmp = 'file://' + pkg_resources.resource_filename(__name__, 'snmp.txt')
++defaults = 'file://' + str(importlib.resources.files(__name__) / 'defaults.txt')
++passwords = 'file://' + str(importlib.resources.files(__name__) / 'passwords.txt')
++usernames = 'file://' + str(importlib.resources.files(__name__) / 'usernames.txt')
++snmp = 'file://' + str(importlib.resources.files(__name__) / 'snmp.txt')
