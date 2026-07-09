@@ -2,7 +2,7 @@
 
 pkgname=python-pedalboard
 pkgver=0.9.23
-pkgrel=1
+pkgrel=2
 pkgdesc='A Python library for adding effects to audio'
 arch=(x86_64)
 url='https://spotify.github.io/pedalboard/'
@@ -68,10 +68,18 @@ prepare() {
   git config submodule.vendors/libgsm.url "$srcdir/github.com-timothytylee-libgsm"
   git config submodule.vendors/pybind11.url "$srcdir/github.com-pybind-pybind11"
   git -c protocol.file.allow=always submodule update
+
+  # avoid invocations of -march=native/-mavx
+  # https://github.com/spotify/pedalboard/pull/492
+  git cherry-pick --no-commit f9e5a6e75dedbdddece19b03e619621c18366feb
 }
 
 build() {
   cd "$pkgname"
+
+  # avoid invocations of -march=native/-mavx
+  # https://github.com/spotify/pedalboard/pull/492
+  export USE_PORTABLE_SIMD=1
 
   python -m build --wheel --no-isolation
 }
