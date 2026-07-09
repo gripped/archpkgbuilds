@@ -5,7 +5,7 @@
 # Contributor: Bumsik Kim <k.bumsik@gmail.com>
 
 pkgname=nushell
-pkgver=0.113.1
+pkgver=0.114.0
 pkgrel=1
 pkgdesc='A new type of shell'
 arch=(x86_64)
@@ -15,15 +15,18 @@ depends=(
   curl
   glibc
   libgcc
+  libgit2
+  libssh2
   openssl
-  zlib
+  sqlite3
+  zstd
 )
 makedepends=(rust git)
 checkdepends=(procps-ng)
 install=nushell.install
 source=("git+https://github.com/nushell/nushell.git#tag=$pkgver")
-sha512sums=('4107af9b4a912ec475f673c78c064d21dec993f41e40bc44f2d960b33092caba6e05042b339f89a6fb1b800aca89bcedfb2020426b5f104d5844b261e569b31e')
-b2sums=('9d0175ef51363ff53463b2202c9ffa5cf79ab1c3504cf79f5fefc5177ef43689e644b344b3340ba97a9dd444e179f8584bd25e166bb654344cb6ff5c178eb70d')
+sha512sums=('da648039c0d2ce1a6e9ffa219e4af541c940f9567e5cde3b345deb90512027a5f6377c1266533ec6d32de4da10aeb791b32c24aaf3cd4495e9d6712bde2dd8dc')
+b2sums=('b06c4943d77fc8b7952ada84dbe0105e84e3e2bec6afe86f929bddba50ad7c9619062885f6cba71de62d90057a0720b497b3ddf0fc1b8274006ae416bffd16a8')
 
 prepare() {
   cd "$pkgname"
@@ -35,6 +38,11 @@ build() {
   cd "$pkgname"
 
   CFLAGS+=' -ffat-lto-objects'
+
+  export LIBGIT2_NO_VENDOR=1
+  export LIBSSH2_SYS_USE_PKG_CONFIG=1
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+  export ZSTD_SYS_USE_PKG_CONFIG=1
 
   cargo build --release --frozen --workspace
 }
