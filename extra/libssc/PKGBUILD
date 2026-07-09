@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=libssc
-pkgver=0.4.3
+pkgver=0.4.4
 pkgrel=1
 pkgdesc='Library for exposing Qualcomm Sensor Core sensors to Linux'
 arch=(x86_64)
@@ -16,7 +16,7 @@ depends=(glib2
 makedepends=(git
              meson)
 source=(git+https://codeberg.org/DylanVanAssche/libssc#tag=v$pkgver)
-sha256sums=('cc8151de802f37568e696623ee4bc0f526607bbbf0e2d40b3c01ade5c87cca6f')
+sha256sums=('28d9063308f0ab480d2cb79bcfff9e5fc02f5e271f9774e9448ae86911ea5c7e')
 
 build() {
   meson build $pkgname \
