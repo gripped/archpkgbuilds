@@ -1,12 +1,16 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgbase=lsp-plugins
-pkgname=(lsp-plugins{,-{clap,docs,gst,ladspa,lv2,standalone,vst,vst3}} liblsp-r3d-glx-lib)
-pkgver=1.2.29
-pkgrel=1
+pkgname=(
+  lsp-plugins{,-{clap,docs,gst,ladspa,lv2,standalone,vst,vst3}}
+  liblsp-{audio-{jack,pipewire},r3d-glx}-lib
+)
+pkgver=1.2.33
+pkgrel=2
 pkgdesc="Collection of open-source plugins"
 arch=(x86_64)
 url="https://lsp-plug.in"
+_url="https://github.com/lsp-plugins/lsp-plugins/"
 license=(LGPL-3.0-or-later)
 makedepends=(
   cairo
@@ -21,6 +25,7 @@ makedepends=(
   jack
   ladspa
   libsndfile
+  libpipewire
   lv2
   php
 )
@@ -28,9 +33,9 @@ checkdepends=(
   jq
   lv2lint
 )
-source=(https://github.com/sadko4u/$pkgname/releases/download/$pkgver/$pkgname-src-$pkgver.tar.gz)
-sha512sums=('d71ffe11ae7242e1f2ac2d398886387ffc4db993503013fbda82905fa26de5edf3a5d53bd2cc5f2d95cb38dcbd262bbd2f579aee5c07112f151d76c0e659b382')
-b2sums=('1e84f81d25e09fb7f89632117d8181dcff08a4c41f8e4fcbd94bbc50d03db61ac116ca8798eae7fa1c2a50ebfae5e927d5d51fda5a4711f66979d8343568a83e')
+source=($_url/releases/download/$pkgver/$pkgname-src-$pkgver.tar.gz)
+sha512sums=('8087ba478f49fab50a142db7e6a6d26d0431c47a620d2280da08c3204d3eaa0d4a8de02f26cfbb84a7ecc4c3fd46d0fd5f794cf7c50c61bfa6be56405ae68e1d')
+b2sums=('7b44d5f9715d58d465b9b251766dffa1cc699ea3fe9df3bb824d31970d576287ad9ad9fc52b8ece5d05e8fedb11a43fc3be478a363c1c58960e25bbad2b90a75')
 _dir=$pkgbase
 
 _pick() {
@@ -48,7 +53,7 @@ build() {
     config
     VERBOSE=1
     ARTIFACT_EXPORT_HEADERS=1
-    FEATURES='clap doc gst jack ladspa launcher lv2 ui vst2 vst3 xdg'
+    FEATURES='clap doc gst jack ladspa launcher lv2 pipewire standalone ui vst2 vst3 xdg'
     PREFIX=/usr
     -C $_dir
   )
@@ -81,9 +86,15 @@ package_lsp-plugins() {
 
   (
     cd "$pkgdir"
-    _pick liblsp-r3d-glx-lib usr/include/*
-    _pick liblsp-r3d-glx-lib usr/lib/liblsp*
-    _pick liblsp-r3d-glx-lib usr/lib/pkgconfig/*
+    _pick liblsp-audio-jack-lib usr/include/lsp-plug.in/audio/jack/*
+    _pick liblsp-audio-jack-lib usr/lib/liblsp-audio-jack-*
+    _pick liblsp-audio-jack-lib usr/lib/pkgconfig/lsp-audio-jack-lib.pc
+    _pick liblsp-audio-pipewire-lib usr/include/lsp-plug.in/audio/pipewire/*
+    _pick liblsp-audio-pipewire-lib usr/lib/liblsp-audio-pipewire-*
+    _pick liblsp-audio-pipewire-lib usr/lib/pkgconfig/lsp-audio-pipewire-lib.pc
+    _pick liblsp-r3d-glx-lib usr/include/lsp-plug.in/r3d/*
+    _pick liblsp-r3d-glx-lib usr/lib/liblsp-r3d-glx-lib*
+    _pick liblsp-r3d-glx-lib usr/lib/pkgconfig/lsp-r3d-glx-lib.pc
     _pick $pkgbase-clap usr/lib/clap/*
     _pick $pkgbase-docs usr/share/doc/*
     _pick $pkgbase-gst usr/lib/gstreamer-1.0/*
@@ -108,6 +119,26 @@ package_liblsp-r3d-glx-lib() {
     glibc
     libglvnd libGL.so
     libx11
+  )
+
+  mv -v $pkgname/* "$pkgdir"
+}
+
+package_liblsp-audio-jack-lib() {
+  pkgdesc="Audio backend for JACK"
+  depends=(
+    glibc
+    jack libjack.so
+  )
+
+  mv -v $pkgname/* "$pkgdir"
+}
+
+package_liblsp-audio-pipewire-lib() {
+  pkgdesc="Audio backend for PipeWire"
+  depends=(
+    glibc
+    libpipewire libpipewire-0.3.so
   )
 
   mv -v $pkgname/* "$pkgdir"
@@ -194,12 +225,15 @@ package_lsp-plugins-standalone() {
     freetype2
     glibc
     hicolor-icon-theme
-    jack libjack.so
     libglvnd libGL.so
     libsndfile libsndfile.so
     libstdc++
     libx11
     libxrandr
+  )
+  optdepends=(
+    'liblsp-audio-pipewire-lib: for PipeWire support'
+    'liblsp-audio-jack-lib: for JACK support'
   )
 
   mv -v $pkgname/* "$pkgdir"

@@ -1,7 +1,7 @@
 pkgbase = lsp-plugins
 	pkgdesc = Collection of open-source plugins
-	pkgver = 1.2.29
-	pkgrel = 1
+	pkgver = 1.2.33
+	pkgrel = 2
 	url = https://lsp-plug.in
 	arch = x86_64
 	license = LGPL-3.0-or-later
@@ -19,11 +19,12 @@ pkgbase = lsp-plugins
 	makedepends = jack
 	makedepends = ladspa
 	makedepends = libsndfile
+	makedepends = libpipewire
 	makedepends = lv2
 	makedepends = php
-	source = https://github.com/sadko4u/lsp-plugins/releases/download/1.2.29/lsp-plugins-src-1.2.29.tar.gz
-	sha512sums = d71ffe11ae7242e1f2ac2d398886387ffc4db993503013fbda82905fa26de5edf3a5d53bd2cc5f2d95cb38dcbd262bbd2f579aee5c07112f151d76c0e659b382
-	b2sums = 1e84f81d25e09fb7f89632117d8181dcff08a4c41f8e4fcbd94bbc50d03db61ac116ca8798eae7fa1c2a50ebfae5e927d5d51fda5a4711f66979d8343568a83e
+	source = https://github.com/lsp-plugins/lsp-plugins//releases/download/1.2.33/lsp-plugins-src-1.2.33.tar.gz
+	sha512sums = 8087ba478f49fab50a142db7e6a6d26d0431c47a620d2280da08c3204d3eaa0d4a8de02f26cfbb84a7ecc4c3fd46d0fd5f794cf7c50c61bfa6be56405ae68e1d
+	b2sums = 7b44d5f9715d58d465b9b251766dffa1cc699ea3fe9df3bb824d31970d576287ad9ad9fc52b8ece5d05e8fedb11a43fc3be478a363c1c58960e25bbad2b90a75
 
 pkgname = lsp-plugins
 	depends = lsp-plugins-clap
@@ -100,8 +101,6 @@ pkgname = lsp-plugins-standalone
 	depends = freetype2
 	depends = glibc
 	depends = hicolor-icon-theme
-	depends = jack
-	depends = libjack.so
 	depends = libglvnd
 	depends = libGL.so
 	depends = libsndfile
@@ -109,6 +108,8 @@ pkgname = lsp-plugins-standalone
 	depends = libstdc++
 	depends = libx11
 	depends = libxrandr
+	optdepends = liblsp-audio-pipewire-lib: for PipeWire support
+	optdepends = liblsp-audio-jack-lib: for JACK support
 
 pkgname = lsp-plugins-vst
 	pkgdesc = Collection of open-source plugins - VST2
@@ -141,6 +142,18 @@ pkgname = lsp-plugins-vst3
 	depends = libx11
 	depends = libxrandr
 	depends = vst3-host
+
+pkgname = liblsp-audio-jack-lib
+	pkgdesc = Audio backend for JACK
+	depends = glibc
+	depends = jack
+	depends = libjack.so
+
+pkgname = liblsp-audio-pipewire-lib
+	pkgdesc = Audio backend for PipeWire
+	depends = glibc
+	depends = libpipewire
+	depends = libpipewire-0.3.so
 
 pkgname = liblsp-r3d-glx-lib
 	pkgdesc = GLX-based 3D backend library for rendering scenes
