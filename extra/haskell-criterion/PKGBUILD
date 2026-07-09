@@ -3,8 +3,8 @@
 
 _hkgname=criterion
 pkgname=haskell-criterion
-pkgver=1.6.3.0
-pkgrel=91
+pkgver=1.6.4.0
+pkgrel=8
 pkgdesc="Robust, reliable performance measurement and analysis"
 url="http://www.serpentine.com/criterion"
 license=('BSD-3-Clause')
@@ -15,18 +15,20 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-base-compat-batteries' 'haskell-bin
          'haskell-optparse-applicative' 'haskell-prettyprinter'
          'haskell-prettyprinter-ansi-terminal' 'haskell-statistics' 'haskell-transformers-compat'
          'haskell-vector' 'haskell-vector-algorithms')
-makedepends=('ghc' 'uusi' 'haskell-base-compat' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tasty'
+makedepends=('git' 'ghc' 'haskell-base-compat' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tasty'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
-source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('e753562678073c7686958f3649d959fae7946e02958ee9f8b0803aa6fe5fc64c66fda2524fd79777e976836f2c9b465675f3be2eca813e6b14986317543a8b46')
+source=("git+https://github.com/haskell/criterion.git#tag=${_hkgname}-${pkgver}")
+sha512sums=('947a04433726eb9b9ccc52ca4cd8e2436b72a982d178c8506dad9a321fd7b80fde498bd9bad822ce68a23437ffa4b33c4aad56f1e8974a197331959861bf1d74')
 
 prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u base-compat-batteries
+    cd $_hkgname
+    # tests/Cleanup: prevent parallel test execution with tasty >= 1.5.4
+    # https://github.com/haskell/criterion/commit/d555422d1779434432489efbc19d75011226c3e6
+    git cherry-pick -n d555422d1779434432489efbc19d75011226c3e6
 }
 
 build() {
-    cd $_hkgname-$pkgver
+    cd $_hkgname
 
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
@@ -40,12 +42,12 @@ build() {
 }
 
 check() {
-    cd $_hkgname-$pkgver
+    cd $_hkgname
     runhaskell Setup test --show-details=direct
 }
 
 package() {
-    cd $_hkgname-$pkgver
+    cd $_hkgname
 
     install -D -m744 register.sh "$pkgdir"/usr/share/haskell/register/$pkgname.sh
     install -D -m744 unregister.sh "$pkgdir"/usr/share/haskell/unregister/$pkgname.sh
