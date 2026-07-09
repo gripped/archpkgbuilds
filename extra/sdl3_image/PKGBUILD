@@ -3,16 +3,17 @@
 
 pkgname=sdl3_image
 pkgver=3.4.4
-pkgrel=1
+pkgrel=2
 pkgdesc="SDL3 image loading library"
 arch=("x86_64")
 url="https://github.com/libsdl-org/SDL_image"
 license=("Zlib")
 depends=(
+	"glibc"
 	"sdl3"
 	"libpng"
 	"libtiff"
-	"libjpeg"
+	"libjpeg-turbo"
 	"libwebp"
 	"libavif"
 	"libjxl"
