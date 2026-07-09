@@ -6,7 +6,7 @@
 pkgname=python-pytables
 _pkgname=PyTables
 pkgver=3.11.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A Python package to manage extremely large amounts of data"
 arch=(x86_64)
 url="https://www.pytables.org"
@@ -50,6 +50,11 @@ prepare() {
 
   # Fix python-numexpr 2.13+ compatibility
   git cherry-pick -n 41270019ce1ffd97ce8f23b21d635e00e12b0ccb
+
+  # Fix blosc2 3.x compat
+  git cherry-pick -n \
+    bb69c8a9f19135eeaf00ba171ef49f9cca28f399 \
+    139fb58902a305e00a16cc8f49e8e7a9a3b3430c
 }
 
 build() {
