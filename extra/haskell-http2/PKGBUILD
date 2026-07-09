@@ -3,8 +3,8 @@
 
 _hkgname=http2
 pkgname=haskell-http2
-pkgver=5.1.3
-pkgrel=9
+pkgver=5.1.4
+pkgrel=17
 pkgdesc="HTTP/2 library"
 url="https://github.com/kazu-yamamoto/http2"
 license=('BSD-3-Clause')
@@ -12,19 +12,19 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-async' 'haskell-case-insensitive' 'haskell-http-types'
          'haskell-network' 'haskell-network-byte-order' 'haskell-network-control'
          'haskell-time-manager' 'haskell-unix-time' 'haskell-unliftio' 'haskell-utf8-string')
-makedepends=('ghc' 'uusi' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-base16-bytestring'
+makedepends=('ghc' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-base16-bytestring'
              'haskell-crypton' 'haskell-glob' 'haskell-hspec' 'haskell-hspec-discover'
              'haskell-network-run' 'haskell-random' 'haskell-typed-process'
              'haskell-unordered-containers' 'haskell-vector')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('cecf26c9584d0fe16633604520af50a67dbfc2070f0d7eabf0c215667407b13814f78e6050a8f558b34332bddb7dd2305de16e3e60e6431908658768507ebbef')
+sha512sums=('8d5be3fb87ad30b5e94ee17ebf893f0f8372fa939632e34dc372cb7f4ab7e62dba7cadfd4f14fac6fe33f15ef64e8a2f593bfe8a7a5a60df7a9422294f97eb67')
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u network-control
-    sed -i 's/rxfWindow/rxfBufSize/' Network/HTTP2/Client/Run.hs Network/HTTP2/H2/Receiver.hs
     # Choose another port to bind, 8080 is too easy to conflict with build host
     sed -i 's/"8080"/"59824"/' test2/ServerSpec.hs test/HTTP2/ServerSpec.hs
+    # network-run 0.4 also exports defaultSettings, which collides with http2's client settings.
+    sed -i 's/import Network.Run.TCP/import Network.Run.TCP hiding (defaultSettings)/' test/HTTP2/ClientSpec.hs
 }
 
 build() {
