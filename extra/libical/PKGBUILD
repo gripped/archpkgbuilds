@@ -6,7 +6,7 @@ pkgbase=libical
 pkgname=(libical
          libical-docs)
 pkgver=4.0.3
-pkgrel=2
+pkgrel=3
 pkgdesc="An open source reference implementation of the icalendar data type and serialization format"
 arch=(x86_64)
 url='https://github.com/libical/libical'
@@ -45,8 +45,6 @@ check() {
 }
 
 package_libical() {
-  provides=(libical{,-glib,_cxx,ss,ss_cxx,vcal,vcard}.so)
-
   DESTDIR="${pkgdir}" cmake --install build
 
   mkdir -p doc/usr/share
