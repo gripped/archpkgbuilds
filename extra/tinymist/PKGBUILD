@@ -1,21 +1,24 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=tinymist
-pkgver=0.15.0
+pkgver=0.15.2
 pkgrel=1
 epoch=1
 pkgdesc='an integrated language service for Typst'
 arch=(i686 x86_64)
 url="https://github.com/Myriad-Dreamin/$pkgname"
 license=(Apache-2.0)
-depends=(gcc-libs # libgcc_s.so
-         glibc # libc.so libm.so
-         openssl libcrypto.so)
+depends=(
+  libgcc
+  glibc
+  openssl
+  libcrypto.so
+)
 makedepends=(cargo)
 replaces=("$pkgname-bin")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('808181270cd870f3088dd967d78c511ef4c8840508b4822f1d44471cd27afa94')
+sha256sums=('f7a3bbcf4f6020aea6071b86bc9d20bdde2208f6dcbef019593e257baad4cca6')
 
 prepare() {
 	cd "$_archive"
