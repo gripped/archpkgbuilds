@@ -3,17 +3,17 @@
 
 _hkgname=hslua-core
 pkgname=haskell-hslua-core
-pkgver=2.3.2
-pkgrel=65
+pkgver=2.3.2.1
+pkgrel=2
 pkgdesc="Bindings to Lua, an embeddable scripting language"
 url="https://hslua.org/"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-lua')
-makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-lua-arbitrary' 'haskell-quickcheck-instances'
-             'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
+makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-lua-arbitrary' 'haskell-tasty'
+             'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('14ec6f800002efa361c99055fadc3aeb3060ab408255ea9f68e0afc94b166d40')
+sha256sums=('681672f798cd0211c901a038742cb300927b8631f1352c2d3d496c1ee9fd4eab')
 
 prepare() {
   cd $_hkgname-$pkgver
