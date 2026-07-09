@@ -2,16 +2,16 @@
 
 pkgname=stalwart-webadmin
 _pkgname=stalwart-webui
-pkgver=1.0.4
-pkgrel=2
+pkgver=1.0.5
+pkgrel=1
 pkgdesc='Web UI for Stalwart'
 arch=(any)
 url='https://github.com/stalwartlabs/webui'
 license=(AGPL-3.0-only)
 makedepends=(git npm zip)
 source=("$_pkgname::git+$url#tag=v$pkgver")
-sha512sums=('fed57fcca7645e7ba7772ed1064256e5886800279efd1915e6ee5573b11ea1bb5559ba2ab521ca30e2b994bcbdd43b245635ccd5f9efe24ef148da0601d09c9c')
-b2sums=('e95ee059da2b3e7c0f515b3a97e0a4a79e81f7caff037b651950ed77feb0018eec7ba232fd114d2060bedf9b9745a310e127e7c44e35a1a65874c89bb1f571ff')
+sha512sums=('0ad2d90996937a785506675e8ffcc068b09232b919f0ff9c86e72e22e48d05baff18f7b2cce073195f99f4047df95fa136e43d35001df0116b774dddf0586c18')
+b2sums=('a8aadf65a18f636ca18586dd2d90b4a9b3d8c3494684aad9cc6efaadd59160677e8faa041873493d6bb5036381864a61a99e0fd81004f9b4a16dc0bfea9ad73f')
 
 prepare() {
   cd "$_pkgname"
