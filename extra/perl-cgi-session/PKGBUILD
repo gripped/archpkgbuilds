@@ -2,14 +2,14 @@
 # Maintainer: Charles Mauch <cmauch@gmail.com>
 
 pkgname=perl-cgi-session
-pkgver=4.48
-pkgrel=15
+pkgver=4.49
+pkgrel=1
 pkgdesc="Perl/CPAN Module CGI::Session : Session management in CGI  applications"
 arch=(any)
 url="https://search.cpan.org/dist/CGI-Session/"
 license=("GPL" "PerlArtistic")
 source=("https://www.cpan.org/authors/id/M/MA/MARKSTOS/CGI-Session-$pkgver.tar.gz")
-sha256sums=('46756461c24ce7666b8108ddb96dbab612699df3012c80ef11016619fe1554f7')
+sha256sums=('5fd88a830a35f54526787f036ae5e4a7d14b61c414cd29ad8631bf46e6971207')
 options=(!emptydirs)
 
 build() {
@@ -21,6 +21,4 @@ build() {
 package() {
   cd "$srcdir"/CGI-Session-$pkgver
   make pure_install doc_install DESTDIR="$pkgdir"
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
 }
