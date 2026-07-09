@@ -6,8 +6,8 @@
 
 _hkgname=unordered-containers
 pkgname=haskell-unordered-containers
-pkgver=0.2.20.1
-pkgrel=108
+pkgver=0.2.21
+pkgrel=14
 pkgdesc="Efficient hashing-based container types"
 url="https://github.com/haskell-unordered-containers/unordered-containers"
 license=('BSD-3-Clause')
@@ -17,7 +17,7 @@ makedepends=('ghc')
 checkdepends=('haskell-chasingbottoms' 'haskell-hunit' 'haskell-nothunks' 'haskell-quickcheck'
               'haskell-random' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('55ca4aaf2f1090e8d0aa789e8deb35dc5dd09d571b78da34716e0e49ddf0dea5e10029fb2a1d727d62a7215874ab02d5fb54dcb0faebc3b62c14a152acc97c93')
+sha512sums=('b54ebd840d40e92baf303cd2867d7592d3f3f839aa5986c6277014775db4157fab6cae58f92ff32dbd5cc75dfe626b17c5849259397643aa7149484d60acae22')
 
 build() {
     cd $_hkgname-$pkgver
