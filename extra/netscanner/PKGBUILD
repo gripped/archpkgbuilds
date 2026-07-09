@@ -1,8 +1,8 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=netscanner
-pkgver=0.6.41
-pkgrel=2
+pkgver=0.6.43
+pkgrel=1
 pkgdesc="Network scanner"
 arch=('x86_64')
 url="https://github.com/Chleba/netscanner"
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('glibc' 'libgcc' 'iw')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('c73eb4b4dd455afeac889c70a7af20827d9dc75a5f9e25cd28543cfac1dbde055d66c18c58c7008ebdb228c81266f588806939aa6df2e7a7b22a63f81db052ef')
+sha512sums=('052284104d29347ab76eaf8d8bd30ecbec2ba37ee224b1910efa4160163ae00fd59d6d4fcc655bf1ccaf57de76335aea6308dd08bb06472f39ffb75d88392fed')
 
 prepare() {
   cd "$pkgname-$pkgver"
