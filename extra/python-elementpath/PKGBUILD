@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-elementpath
-pkgver=5.1.2
+pkgver=5.1.3
 pkgrel=1
 pkgdesc='XPath 1.0/2.0/3.0/3.1 parsers and selectors for ElementTree and lxml'
 arch=(any)
@@ -21,8 +21,8 @@ checkdepends=(
   python-xmlschema
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('27f8ebc7dcf7e2790554aeee93b821509a9abbdfa6d604a0c3144a8119ec2a89dd030ae258ab0cfd6821d28d3ff98d798ac7bc32c6f19a980a168d0ddeb96889')
-b2sums=('d5c00ff11764e4db03dc305b843ae79f8fb064beafc86715ce881ecc5bd330fe4f48ccf90301bb68faa25c357ee53b8354c9b3ac854f9bb325a2ab92daad1d0d')
+sha512sums=('52edbf30d2f3477f4a0f7b840286ac28454ad3a0652cf1ab7b363aa1d10fc31dc9061371aa58a846441d16b338bd50aae3dcd195f41226eb6e9ed32511c9778c')
+b2sums=('1429f8a56af2c6941354f542374aec07413fba64734771eee033daea04cd3bdb7047717d020d943a679488572d5da84ee9bb0ae3bfc8bc4989faaee5b45634ad')
 
 build() {
   cd "$pkgname"
