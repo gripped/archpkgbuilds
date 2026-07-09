@@ -2,7 +2,7 @@
 # Contributor: zlowly <zlowly@gmail.com>
 
 pkgname=smartdns
-pkgver=48.1
+pkgver=48.2
 pkgrel=1
 pkgdesc="A local DNS server to obtain the fastest website IP for the best Internet experience"
 arch=('x86_64')
@@ -13,15 +13,9 @@ depends=('glibc' 'libgcc' 'openssl' 'zlib')
 makedepends=('git' 'systemd')  # systemd.pc
 checkdepends=('gtest' 'bind')
 source=("git+https://github.com/pymumu/smartdns.git#tag=Release$pkgver")
-sha512sums=('7ea081ec87ca5da876f712238d4c5f27017d91ae12667621eb560fe2526578ac31e46c8385dff6dedfd314c35b4f29e073811bcc39995e67e9e3e4d7f634a31d')
+sha512sums=('f488b4ba40d348d3f79b25d092ef1a987cf9d58bf796c22a352fc896fc61f270abdd14e324da5a83abb0f3052982c93004e828a3f86aa0a24ccb1fcf6f39af4f')
 
 prepare() {
-  cd smartdns
-  # The first HTTP/2 high-concurrency attempt may complete without retries.
-  # Upstream removed this assertion in ae598906806d.
-  sed -i '/EXPECT_GT(retry_count, 0);/d' test/cases/test-http2.cc
-  cd ..
-
   # Unfortunately upstream does not provide a way to reuse .o files
   cp -a smartdns smartdns-test
 }
