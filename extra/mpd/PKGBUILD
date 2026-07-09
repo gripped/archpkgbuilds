@@ -9,7 +9,7 @@
 
 pkgname=mpd
 pkgver=0.24.12
-pkgrel=1
+pkgrel=2
 pkgdesc="Flexible, powerful, server-side application for playing music"
 arch=(x86_64)
 url="https://www.musicpd.org/"
@@ -103,6 +103,19 @@ b2sums=('1ddc97b7f12ab49004760c61887d08c204c86305a2ba81338866a5526e0275d32f5f059
         'd7b587c25dd5830c27af475a8fdd8102139d7c8fdd6f04fe23b36be030e4411582e289f575c299255ff8183096f7d47247327276f9a24641cbd032d9675b837a'
         '753664445d7d5cc0b36f51ac66549beea403b9731cbcb81b0a782974a0a73d90559ba93e6afcaa470b6f2f5a844c09ef695bdf3b1e6dfee97aa080f41b7fe513')
 validpgpkeys=('0392335A78083894A4301C43236E8A58C6DB4512') # Max Kellermann <max@blarg.de>
+
+prepare() {
+  cd "$pkgname"
+
+  # fmt 12.2.0 support
+  git cherry-pick --no-commit \
+    e0605fc9be9b74e2ef7f19353ebb8c35c02f89fa \
+    4a795255de4d908a4e51c0cb912d379d3dae5be6 \
+    529830c324e80eeb528ff017b58be05a61d52583 \
+    880468cdb0d0b563db9dc5f173888d917aa33c66 \
+    88d5b5248d71862815da336cfd1c6f66626bb4d4 \
+    109c26258b9d90d63ff9c6a53c8bbdf024df8a42
+}
 
 build() {
   local _meson_options=(
