@@ -3,11 +3,11 @@
 
 _hkgname=sbv
 pkgname=haskell-sbv
-pkgver=10.3
-pkgrel=34
+pkgver=10.4
+pkgrel=2
 pkgdesc="SMT Based Verification: Symbolic Haskell theorem prover using SMT solving"
 url="https://leventerkok.github.io/sbv"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-async' 'haskell-libbf' 'haskell-random'
          'haskell-syb' 'haskell-uniplate')
@@ -15,7 +15,7 @@ makedepends=('ghc' 'expac' 'haskell-tasty' 'haskell-tasty-golden' 'haskell-tasty
              'haskell-tasty-quickcheck')
 checkdepends=('abc' 'cvc4' 'yices' 'z3')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('e68b7d3603d7ba54045ebabb7a7bcaee22e7d676fe8f3c225fecc3c9ee25b6a2a3d07d7df383d61fed216fc5370b82c15e0ae76fad39557e48107548f5c2deb4')
+sha512sums=('df28677646804f943bfaeb61c2edd25c234fc7fd032d7940497c6e052c817d79cd77d5df453d5d0826b1675f8fa4a7b8e2dc8635bd0d482e49d6e45cfef78598')
 
 build() {
     cd $_hkgname-$pkgver
