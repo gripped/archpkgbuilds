@@ -3,13 +3,21 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=ispc
-pkgver=1.30.0
-pkgrel=2
+pkgver=1.31.0
+pkgrel=1
 pkgdesc="Compiler for high-performance SIMD programming on the CPU"
 arch=(x86_64)
 url="https://ispc.github.io/"
 license=(BSD-3-Clause)
-depends=(clang gcc-libs glibc llvm-libs spirv-llvm-translator onetbb)
+depends=(
+  clang
+  libgcc
+  libstdc++
+  glibc
+  llvm-libs
+  spirv-llvm-translator
+  onetbb
+)
 makedepends=(cmake git level-zero-headers level-zero-loader lib32-glibc llvm openmp python vc-intrinsics)
 checkdepends=(intel-compute-runtime)
 optdepends=(
@@ -24,7 +32,7 @@ source=(
   $pkgname-benchmark::git+https://github.com/google/benchmark.git
   $pkgname-googletest::git+https://github.com/google/googletest.git
 )
-sha256sums=('a040d691073a40930274cabee51c7954eedaa2ae39f367af66a935128c37e190'
+sha256sums=('d4d0f309f4951e18f3296e8df496aed81a4a41f1652091a6addf247b192a8f88'
             'SKIP'
             'SKIP')
 
