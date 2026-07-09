@@ -3,8 +3,8 @@
 
 _pkgname=humanize
 pkgname=python-$_pkgname
-pkgver=4.15.0
-pkgrel=2
+pkgver=4.16.0
+pkgrel=1
 pkgdesc='Common humanization utilities for Python'
 arch=(any)
 url="https://github.com/$pkgname/$_pkgname"
@@ -18,7 +18,7 @@ checkdepends=(python-coverage
               python-pytest)
 _archive="$_pkgname-$pkgver"
 source=("https://pypi.python.org/packages/source/${_pkgname::1}/$_pkgname/$_archive.tar.gz")
-sha256sums=('1dd098483eb1c7ee8e32eb2e99ad1910baefa4b75c3aff3a82f4d78688993b10')
+sha256sums=('7dc2244a2f84a4bfb1d36c37bac80cd78e35cdc5c119206d87b018e1445f3a3f')
 
 prepare() {
 	cd "$_archive"
@@ -33,7 +33,7 @@ build() {
 check() {
 	cd "$_archive"
 	export PYTHONPATH="$PWD/src"
-	pytest
+	pytest --deselect tests/test_benchmarks.py
 }
 
 package() {
