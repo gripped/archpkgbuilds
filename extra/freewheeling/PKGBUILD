@@ -2,7 +2,7 @@
 
 pkgname=freewheeling
 pkgver=0.6.6
-pkgrel=8
+pkgrel=9
 pkgdesc="A live looper"
 arch=(x86_64)
 url="https://github.com/free-wheeling/freewheeling"
@@ -25,20 +25,18 @@ makedepends=(
   fluidsynth
   gendesk
   jack
+  libicns
   liblo
   libsndfile
   libvorbis
 )
 source=(
   $url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz
-  $pkgname.jpg::https://raw.githubusercontent.com/wiki/free-wheeling/$pkgname/$pkgname-logo-1.jpg
   nettle-4.patch
 )
 sha512sums=('c2b51b44f2dfc6e0f97a52f9be1c24b61516719b56eb3f641c5b29616f626c09f0d211ecef23b4857dabab04950e31c2ab45b73a1e4d4b7dfd534e3fffc09f57'
-            '9f8386bff7b34c8ca44d0ad5b87d4e74a0b901a64e50bc5d8d99dd1f1ad10eb5b6b29f7b6fc8f106c425b2de0285517af3158472654abb2c914d48645dab0913'
             '288fa3986baedbfa61ea3cb63842af909b07285da1556152f1a27be3476fdc4317c906fd8d83e8086f4f367316c4cc6bbfbcf404140cece5926f2ed39e3a4475')
 b2sums=('c433509d1d7e8ef7f442a487295ba7cf74c74ff99d4fad85ea11a5a6b65131799b9a3b8ef9842fb61f8e7b24504b5a72d208c3d4c7bc73a0bafdabe59c7efe9b'
-        '03bfc2f7d7e438f5007dcd42bcf0eff2947ddbebedc08acc9f901b0e0a2d8b0a62a6b47307ed5fb60b05e0305d87540d17660b460e1e2d0bf8d2115f122ed2e6'
         'aade98a199af9f17718899a9722e9ecafb0e697b18a1ef15b1ede1a923f98469b9ca549e13805aafc48e63f7db14fcd8592fb14f4106df9103a3b5df696f0159')
 
 prepare() {
@@ -51,6 +49,7 @@ prepare() {
           --categories "Audio;Sequencer"
 
   cd $pkgname-$pkgver
+  icns2png -x MacOSX/freewheeling.icns
   patch -p1 -i ../nettle-4.patch
   autoreconf -fiv
 }
@@ -73,7 +72,8 @@ package() {
 
   make DESTDIR="$pkgdir/" install -C $pkgname-$pkgver
   install -vDm 644 $pkgname.desktop -t "$pkgdir/usr/share/applications/"
-  install -vDm 644 $pkgname.jpg -t "$pkgdir/usr/share/pixmaps/"
+  install -vDm 644 $pkgname-$pkgver/${pkgname}_16x16x32.png "$pkgdir/usr/share/icons/hicolor/16x16/apps/$pkgname.png"
+  install -vDm 644 $pkgname-$pkgver/${pkgname}_32x32x32.png "$pkgdir/usr/share/icons/hicolor/32x32/apps/$pkgname.png"
   install -vDm 644 $pkgname-$pkgver/{AUTHORS,ChangeLog,NEWS,README.md,THANKS,TUNING} -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 $pkgname-$pkgver/examples/* -t "$pkgdir/usr/share/doc/$pkgname/examples/"
 }
