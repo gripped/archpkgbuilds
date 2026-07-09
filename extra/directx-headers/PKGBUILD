@@ -3,7 +3,7 @@
 # Contributor: Cyano Hao <c@cyano.cn>
 
 pkgname=directx-headers
-pkgver=1.619.1
+pkgver=1.721.2
 pkgrel=1
 pkgdesc="DirectX headers for using D3D12"
 url="https://github.com/microsoft/DirectX-Headers"
@@ -16,7 +16,7 @@ makedepends=(
 )
 options=(!lto)
 source=("directx-headers::git+$url#tag=v$pkgver")
-b2sums=('badfea9241ec6c76a59a5b262954f3dcca0a43cde8b79ff76703a62af60bd696979cbc5342af95d9e39bf44af80c675861fde42fe61a03ed92fee3cc4633f5d4')
+b2sums=('8e889494202195411937fbb7d4e111a0316a3d8428e4728f94f835d6d7c11101c8a2ae8d6cc01ffabc8ba820c743cbef736c9f8e098875bc289ca3b5da498ca7')
 
 build() {
   local meson_options=(
