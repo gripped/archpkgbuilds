@@ -5,16 +5,17 @@
 
 pkgname=rbutil
 pkgver=1.5.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Rockbox Utility'
 arch=(x86_64)
 url=https://www.rockbox.org/twiki/bin/view/Main/RockboxUtility
-license=(GPL)
+license=(GPL-2.0-only)
 depends=(
+  bzip2
   glibc
-  libbz2.so
   libgcc
-  libusb-1.0.so
+  libstdc++
+  libusb
   qt6-5compat
   qt6-base
   qt6-multimedia
@@ -27,18 +28,15 @@ makedepends=(
   ninja
   qt6-tools
 )
-optdepends=('speex: voice files support')
-_tag=f8d54d0d1e8ae891d9da9cf787aa0dd045cc193b
-source=(git+https://git.rockbox.org/cgit/rockbox.git#tag=${_tag})
-b2sums=(SKIP)
+optdepends=(
+  'speex: voice files support'
+  'speexdsp: voice files support'
+)
+source=(git+https://git.rockbox.org/cgit/rockbox.git#tag=rbutil_${pkgver})
+b2sums=('504f51a9491ca05975f61aa5e321b83ac4a7cddf6251bb1e23344bf0922e5d8206ceefc5f381d32be6b5c93409f8538bee82fab850e46b362ebdab5ffa616a5e')
 
 prepare() {
   sed '/add_subdirectory(themeeditor)/d' -i rockbox/utils/CMakeLists.txt
-}
-
-pkgver() {
-  cd rockbox
-  git describe --tags | sed 's/rbutil_//'
 }
 
 build() {
@@ -54,5 +52,3 @@ package(){
   install -Dm 644 rockbox/utils/rbutilqt/RockboxUtility.desktop -t "${pkgdir}"/usr/share/applications/
   install -Dm 644 rockbox/docs/logo/rockbox-clef.svg -t "${pkgdir}"/usr/share/pixmaps/
 }
-
-# vim: ts=2 sw=2 et:
