@@ -1,0 +1,25 @@
+diff -ru labplot-2.12.1.orig/cmake/FindQXlsx.cmake labplot-2.12.1/cmake/FindQXlsx.cmake
+--- labplot-2.12.1.orig/cmake/FindQXlsx.cmake	2026-06-26 19:11:52.232352732 +0200
++++ labplot-2.12.1/cmake/FindQXlsx.cmake	2026-06-27 11:24:53.523817052 +0200
+@@ -6,7 +6,7 @@
+ 
+ find_library(QXLSX_LIBRARIES NAMES QXlsxQt6)
+ 
+-find_path(QXLSX_INCLUDE_DIR xlsxdocument.h PATH_SUFFIXES QXlsxQt6)
++find_path(QXLSX_INCLUDE_DIR xlsxdocument.h PATH_SUFFIXES QXlsx)
+ 
+ include(FindPackageHandleStandardArgs)
+ find_package_handle_standard_args(QXlsx
+diff -ru labplot-2.12.1.orig/CMakeLists.txt labplot-2.12.1/CMakeLists.txt
+--- labplot-2.12.1.orig/CMakeLists.txt	2026-06-26 19:11:52.377572594 +0200
++++ labplot-2.12.1/CMakeLists.txt	2026-06-26 19:12:02.917796305 +0200
+@@ -51,7 +51,7 @@
+ )
+ 
+ # building QADS or Xlsx requires Qt${QT_VERSION_MAJOR}GuiPrivate (QADS is required, Xlsx is optional)
+-find_package(Qt${QT_MAJOR_VERSION}Gui ${QT_MIN_VERSION} CONFIG REQUIRED Private)
++find_package(Qt${QT_MAJOR_VERSION}GuiPrivate ${QT_MIN_VERSION} CONFIG REQUIRED)
+ 
+ find_package(KF${KF_MAJOR_VERSION} ${KF_MIN_VERSION} REQUIRED COMPONENTS
+     Archive
+Sólo en labplot-2.12.1: .CMakeLists.txt.kate-swp
