@@ -1,0 +1,66 @@
+diff --git a/src/code/moduleinfo.cpp b/src/code/moduleinfo.cpp
+index e1ec8a9..a6dfa28 100644
+--- a/src/code/moduleinfo.cpp
++++ b/src/code/moduleinfo.cpp
+@@ -5,7 +5,7 @@
+ 
+ #ifndef Q_OS_ANDROID
+ #include "ocs.h"
+-#include <opencv4/opencv2/core/version.hpp>
++#include <opencv5/opencv2/core/version.hpp>
+ #endif
+ 
+ QString MauiKitImageTools::versionString()
+diff --git a/src/code/modules/opencv/code/mycroplayer.cpp b/src/code/modules/opencv/code/mycroplayer.cpp
+index 2d86b30..71f0275 100644
+--- a/src/code/modules/opencv/code/mycroplayer.cpp
++++ b/src/code/modules/opencv/code/mycroplayer.cpp
+@@ -35,14 +35,14 @@ cv::Ptr<cv::dnn::Layer> MyCropLayer::create(cv::dnn::LayerParams &params)
+     return cv::Ptr<Layer>(new MyCropLayer(params));
+ }
+ 
+-bool MyCropLayer::getMemoryShapes(const std::vector<std::vector<int>> &inputs,
++bool MyCropLayer::getMemoryShapes(const std::vector<cv::MatShape> &inputs,
+                                   const int requiredOutputs,
+-                                  std::vector<std::vector<int>> &outputs,
+-                                  std::vector<std::vector<int>> &internals) const
++                                  std::vector<cv::MatShape> &outputs,
++                                  std::vector<cv::MatShape> &internals) const
+ {
+     CV_UNUSED(requiredOutputs);
+     CV_UNUSED(internals);
+-    std::vector<int> outShape(4);
++    cv::MatShape outShape(4);
+     outShape[0] = inputs[0][0]; // batch size
+     outShape[1] = inputs[0][1]; // number of channels
+     outShape[2] = inputs[1][2];
+diff --git a/src/code/modules/opencv/code/mycroplayer.hpp b/src/code/modules/opencv/code/mycroplayer.hpp
+index 37f88e5..5379106 100644
+--- a/src/code/modules/opencv/code/mycroplayer.hpp
++++ b/src/code/modules/opencv/code/mycroplayer.hpp
+@@ -42,10 +42,10 @@ class MyCropLayer : public cv::dnn::Layer
+ public:
+     explicit MyCropLayer(const cv::dnn::LayerParams &params);
+     static cv::Ptr<Layer> create(cv::dnn::LayerParams &params);
+-    virtual bool getMemoryShapes(const std::vector<std::vector<int>> &inputs,
++    virtual bool getMemoryShapes(const std::vector<cv::MatShape> &inputs,
+                                  const int requiredOutputs,
+-                                 std::vector<std::vector<int>> &outputs,
+-                                 std::vector<std::vector<int>> &internals) const CV_OVERRIDE;
++                                 std::vector<cv::MatShape> &outputs,
++                                 std::vector<cv::MatShape> &internals) const CV_OVERRIDE;
+     virtual void forward(std::vector<cv::Mat *> &input,
+                          std::vector<cv::Mat> &output,
+                          std::vector<cv::Mat> &internals) CV_OVERRIDE;
+diff --git a/src/code/modules/opencv/code/preprocessimage.cpp b/src/code/modules/opencv/code/preprocessimage.cpp
+index 906796f..3874810 100644
+--- a/src/code/modules/opencv/code/preprocessimage.cpp
++++ b/src/code/modules/opencv/code/preprocessimage.cpp
+@@ -26,6 +26,7 @@
+  *****************************************************************************/
+ #include "preprocessimage.hpp"
+ #include <opencv2/photo.hpp>
++#include <opencv2/geometry/2d.hpp>
+ #include "opencv2/opencv.hpp"
+ 
+ // Global Constants
