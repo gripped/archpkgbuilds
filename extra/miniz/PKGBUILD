@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=miniz
-pkgver=3.1.1
+pkgver=3.1.2
 pkgrel=1
 pkgdesc='Compression library implementing zlib (RFC 1950) & deflate (RFC 1951) specifications'
 arch=(x86_64)
@@ -10,8 +10,8 @@ license=(MIT)
 depends=(glibc)
 makedepends=(git cmake)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('723b0dea11ea9cd3b9896fa67d41f6997700566d2fa30704760c2478057130c5011c2226751dd0121a18a82e24afa64a55f18df78bb22c9d4fe5578d70c87a2f')
-b2sums=('44100195566b294d64b727c4027416dbd6c9fdccbfe8f34c7479aac97a50bb697804c36a397694bb4fea0e2e7b006c6dbef8f58786cb1543f8b2ac2436f31f36')
+sha512sums=('5c506e610108b0d92fe4babdb1a577f4d00bf6fe0b5e0c93c779b328475c5e3025fa5c27c915abbb3e6472f8ef8313c97ed32faf93873344d8f2ff101c73d8c1')
+b2sums=('d6ae28f3e5ab33a990567de597cd3d4e8c643f053e00f65fd821e0d5ef90849680657b29369157c98e12e7eed943d18e915bee19bb031a0798339e10bfedc883')
 
 build() {
   cmake \
