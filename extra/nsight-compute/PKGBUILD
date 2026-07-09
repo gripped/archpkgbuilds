@@ -1,7 +1,7 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=nsight-compute
-pkgver=2026.2.0.7
+pkgver=2026.2.1.5
 pkgrel=1
 pkgdesc="Interactive profiler for NVIDIA CUDA and OptiX"
 arch=(x86_64 aarch64)
@@ -51,8 +51,8 @@ source_x86_64=(https://developer.download.nvidia.com/compute/cuda/redist/${pkgna
 source_aarch64=(https://developer.download.nvidia.com/compute/cuda/redist/${pkgname/-/_}/linux-sbsa/${pkgname/-/_}-linux-sbsa-$pkgver-archive.tar.xz)
 source=(nsight-compute.desktop)
 b2sums=('9d31d1e3a8fed40b90cdf5871bd78231e92fae0b13ef66f420677efe7a9b1a6b94b9b83cc9ad1eed29f7eb4db88f3c03383a28da7cc6f811984efa7123ef412b')
-b2sums_x86_64=('3ce6c5be572d3b1048e092e87fffd8e2218588c37c60929e04327dcc0954840f9d0b4f22b222fee5aa77181763560bb915e9147fc8753b3db913304cd7e1d347')
-b2sums_aarch64=('84ab001b501290288b7d0c5dfa2136dea79ddf6cac317e625b261347fdef1d0309b778f08e4640de841430cb8de5d5ba5687629961a9e2cc53e87d81ff7d3aef')
+b2sums_x86_64=('4c66fbe3044194fd2c24d285adbe05ec9e8f94405db072bb26f35be67bc4740e4598b278d05f06546d60cb6b0e6a370fbe8d06d4568993231a4779686a359f78')
+b2sums_aarch64=('b40a8b1be4bfe62bec494bd7006df52f35f77a15d277b1574f5499ea21993779ec77c0dc5cb11566ee150b89207de6ca341ff0565c9069832f5839cae8daf945')
 
 prepare()
 {
