@@ -2,15 +2,15 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgname=vapoursynth-plugin-deblock
-pkgver=8
+pkgver=9
 pkgrel=1
 pkgdesc='Deblock plugin for VapourSynth'
 arch=(x86_64)
-url=https://github.com/HomeOfVapourSynthEvolution/VapourSynth-Deblock
-license=(GPL2)
+url=https://github.com/HolyWu/VapourSynth-Deblock
+license=(GPL-2.0-only)
 depends=(
-  gcc-libs
   glibc
+  libgcc
   vapoursynth
 )
 makedepends=(
@@ -19,14 +19,8 @@ makedepends=(
   python-build
   python-installer
 )
-_tag=2e720bcc113c98ce9f4cf7261d5d74d626d6f662
-source=(git+https://github.com/HomeOfVapourSynthEvolution/VapourSynth-Deblock.git#tag=${_tag})
-b2sums=('b28256ef28130ad428cccf760180724b80bc33b9db44691fd1babebc55c5212c0a6c3310283116f3f6613e01b6eafbdb8201fcdfd7d142224c1b4d0d1219b8f4')
-
-pkgver() {
-  cd VapourSynth-Deblock
-  git describe --tags | sed 's/^r//'
-}
+source=(git+${url}.git#tag=r${pkgver})
+b2sums=('075323f6bae462d000bf310a75cdb12c340ef7736d3b6ea422bc490560916bdde08906278cdf9ffedad67ab981d5d6e875731748260adfe08da980e620805f3b')
 
 build() {
   cd VapourSynth-Deblock
@@ -34,7 +28,5 @@ build() {
 }
 
 package(){
-  python -m installer --destdir="$pkgdir" VapourSynth-Deblock/dist/*.whl
+  python -m installer --destdir="${pkgdir}" VapourSynth-Deblock/dist/*.whl
 }
-
-# vim: ts=2 sw=2 et:
