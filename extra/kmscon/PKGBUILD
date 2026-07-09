@@ -10,21 +10,21 @@ pkgname=(
   kmscon
   kmscon-terminfo
 )
-pkgver=10.0.0
-pkgrel=4
-pkgdesc='Kernel Mode Setting (KMS) and DRM based virtual Console Emulator'
+pkgver=10.0.1
+pkgrel=1
 arch=('x86_64')
+pkgdesc='Kernel Mode Setting (KMS) and DRM based virtual Console Emulator'
 url='https://github.com/kmscon/kmscon'
 license=('MIT')
 backup=('etc/kmscon/kmscon.conf')
 depends=(
   bash
+  dbus
   glib2
   glibc
   libdrm
   libtsm
   libxkbcommon
-  seatd
   systemd-libs
   zlib
 )
@@ -49,7 +49,7 @@ optdepends=(
 source=(
   git+${url}.git#tag=v${pkgver}
 )
-b2sums=('8c7dda6abfd15646a832bc10da3655f42e6ae0faebe1ca3bb72e8d8da60fd3d42bafab4037a0e048d798d9e86743a0e5f02097ba9bfcc0fee51c097a61332002')
+b2sums=('cc90aa4943d2ffa6f8569ecd587581a113ff791cc3a586f80b5f2f83ce2184ce33223c036c86de002a240b10ceb751b42dc95acebae5f1cc078b3006a3dfb7e2')
 
 #prepare() {
 #  cd "$pkgname"
@@ -69,8 +69,9 @@ package_kmscon() {
 }
 
 package_kmscon-terminfo() {
-    pkgdesc='Terminfo for kmscon'
-    depends=()
-    mkdir -p "$pkgdir/usr/share/terminfo/k"
-    tic -x kmscon/scripts/terminfo/kmscon.ti -o "$pkgdir/usr/share/terminfo/"
+  pkgdesc='Terminfo for kmscon'
+  depends=()
+  mkdir -p "$pkgdir/usr/share/terminfo/k"
+  tic -x kmscon/scripts/terminfo/kmscon.ti -o "$pkgdir/usr/share/terminfo/"
+  install -Dm644 $pkgbase/COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
 }

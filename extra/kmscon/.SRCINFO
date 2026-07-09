@@ -1,7 +1,7 @@
 pkgbase = kmscon
 	pkgdesc = Kernel Mode Setting (KMS) and DRM based virtual Console Emulator
-	pkgver = 10.0.0
-	pkgrel = 4
+	pkgver = 10.0.1
+	pkgrel = 1
 	url = https://github.com/kmscon/kmscon
 	arch = x86_64
 	license = MIT
@@ -15,12 +15,12 @@ pkgbase = kmscon
 	makedepends = meson
 	makedepends = pango
 	depends = bash
+	depends = dbus
 	depends = glib2
 	depends = glibc
 	depends = libdrm
 	depends = libtsm
 	depends = libxkbcommon
-	depends = seatd
 	depends = systemd-libs
 	depends = zlib
 	optdepends = fontconfig: for freetype font rendering
@@ -29,17 +29,17 @@ pkgbase = kmscon
 	optdepends = libx11: for XKB compose support
 	optdepends = pango: for pango font rendering
 	backup = etc/kmscon/kmscon.conf
-	source = git+https://github.com/kmscon/kmscon.git#tag=v10.0.0
-	b2sums = 8c7dda6abfd15646a832bc10da3655f42e6ae0faebe1ca3bb72e8d8da60fd3d42bafab4037a0e048d798d9e86743a0e5f02097ba9bfcc0fee51c097a61332002
+	source = git+https://github.com/kmscon/kmscon.git#tag=v10.0.1
+	b2sums = cc90aa4943d2ffa6f8569ecd587581a113ff791cc3a586f80b5f2f83ce2184ce33223c036c86de002a240b10ceb751b42dc95acebae5f1cc078b3006a3dfb7e2
 
 pkgname = kmscon
 	depends = bash
+	depends = dbus
 	depends = glib2
 	depends = glibc
 	depends = libdrm
 	depends = libtsm
 	depends = libxkbcommon
-	depends = seatd
 	depends = systemd-libs
 	depends = zlib
 	depends = kmscon-terminfo
