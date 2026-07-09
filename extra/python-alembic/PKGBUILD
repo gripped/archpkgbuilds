@@ -3,7 +3,7 @@
 # Contributor: Oliver Mangold <o.mangold at gmail dot com>
 
 pkgname=python-alembic
-pkgver=1.18.4
+pkgver=1.18.5
 pkgrel=1
 pkgdesc='Lightweight database migration tool for usage with SQLAlchemy'
 url='https://github.com/sqlalchemy/alembic'
@@ -16,6 +16,7 @@ depends=(
   python-typing_extensions
 )
 makedepends=(
+  git
   python-build
   python-installer
   python-setuptools
@@ -26,31 +27,23 @@ checkdepends=(
   python-pytest
 )
 source=(
-  $pkgname-$pkgver.tar.gz::https://github.com/sqlalchemy/alembic/archive/refs/tags/rel_${pkgver//./_}.tar.gz
+  git+https://github.com/sqlalchemy/alembic.git#tag=rel_${pkgver//./_}
 )
-sha512sums=('e470479fc0cdc35c6f3bce75a982f9d13034008356977eaf83d72811072b1ee4a93c177d30a37d228825b052edf83626aebfc1408b538e554eb09c3626773056')
-b2sums=('34cb6effb6809c1fe67f9b2e13512413e5f3c83daa8f74db52c949b12869f690add08931145be2a24b6436b876c0f921307443928539c52396c1403c371bd3a5')
-
-prepare() {
-  cd alembic-rel_${pkgver//./_}
-  # do not treat warnings as errors
-  sed 's|-p no:warnings||g' -i setup.cfg
-
-  sed -i '/tag_build=dev/d' setup.cfg
-}
+sha512sums=('3317fb7782116a4d454e25bb32dc841000614a81d59620d99000fcfce6875056fb9448c6e1b725e1b43115a3b47284d43437b4d72d9d649d1c294da325dfa5f1')
+b2sums=('f52340d846ada8f9a2986bb6985ea122871d5f77d4d46cfe494a4814b5f893ef248bca8ae74976c8a2a2bdbc310af2dab6282b71e5e2e056db76ff816fdc203f')
 
 build() {
-  cd alembic-rel_${pkgver//./_}
+  cd alembic
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd alembic-rel_${pkgver//./_}
+  cd alembic
   pytest -vv
 }
 
 package() {
-  cd alembic-rel_${pkgver//./_}
+  cd alembic
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
   install -Dm 644 README.rst CHANGES -t "${pkgdir}/usr/share/doc/${pkgname}"
