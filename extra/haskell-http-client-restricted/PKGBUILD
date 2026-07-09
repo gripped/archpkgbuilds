@@ -2,8 +2,8 @@
 
 _hkgname=http-client-restricted
 pkgname=haskell-http-client-restricted
-pkgver=0.1.0
-pkgrel=241
+pkgver=0.1.1
+pkgrel=13
 pkgdesc="Restricting the servers that http-client will use"
 url="https://hackage.haskell.org/package/http-client-restricted"
 license=('MIT')
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-crypton-connection' 'haskell-data-default' 'haskell
          'haskell-http-client-tls' 'haskell-network' 'haskell-network-bsd' 'haskell-utf8-string')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('c2f1f3476b01bc0c16512a1db037948d6a1365d9367d7058dee9862e328c59fb9cfbde679904ef66c8353a8422256e64fde443b7fcae2a389495f496fcc3a5ac')
+sha512sums=('5d8fa7d16e59143e5c75f9a8a9cc1a50395788235b8f214f98ca5a68fe81cff9a19aad52c89f8497b5e82ad0535a0906a84cf6be9d14c6f2ab6a72bdf39bf266')
 
 build() {
     cd $_hkgname-$pkgver    
