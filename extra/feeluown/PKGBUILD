@@ -2,7 +2,7 @@
 # Contributor: Bruce Zhang <zttt183525594@gmail.com>
 
 pkgname=feeluown
-pkgver=5.1
+pkgver=5.1.2
 pkgrel=1
 pkgdesc="A robust, user-friendly and hackable music player"
 arch=('any')
@@ -10,8 +10,7 @@ url="https://github.com/feeluown/FeelUOwn"
 license=('GPL-3.0-or-later')
 depends=('python' 'python-qasync' 'python-pyqt6' 'mpv' 'python-janus'
          'python-requests' 'python-tomlkit' 'python-packaging' 'python-pydantic'
-         'python-mutagen' 'python-fluent.runtime' 'python-langcodes' 'qt6-svg'
-         'xdg-user-dirs')
+         'python-mutagen' 'python-fluent.runtime' 'qt6-svg' 'xdg-user-dirs')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-langchain' 'python-langchain-openai' 'python-langgraph'
               'python-pytest' 'python-pytest-asyncio' 'python-pytest-benchmark'
@@ -23,6 +22,7 @@ optdepends=('yt-dlp: browser cookie extraction support'
             'python-langchain-openai: OpenAI-compatible models for AI copilot support'
             'python-langgraph: AI copilot support'
             'python-mcp: MCP server support'
+            'python-langcodes: better locale matching'
             'python-pyqt6-webengine: web login support'
             'python-sanic: webserver support'
             'python-json-rpc: webserver support'
@@ -36,7 +36,7 @@ source=(
   "$pkgname::git+https://github.com/feeluown/FeelUOwn.git#tag=v$pkgver"
   "FeelUOwn.desktop"
 )
-sha512sums=('0586d0e6af36330abe03962fa6521a97d4c7e2b764a3e9223da87a2145dfdcf02d87b7479af42e1fc4baa8ccef43762f403221a7d51460882de8a73c6486f062'
+sha512sums=('dc810f204006f939227428beabede20c9fc831a491d52d70d7ce2bf28b09e20b62d607fd0ccbc4c727603abc7e46b581d1242105fd7ee65d22eab5cbf93bc053'
             '48882f7469c22e5db332663bc1aa8b398b0a10a0c929d4d7e3d7b8b91205d7d3070c5fa295cb9a14f8c352bff57978bfaad167343e0ddc51c92417eda07c8087')
 
 prepare() {

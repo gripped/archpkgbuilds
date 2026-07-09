@@ -1,6 +1,6 @@
 pkgbase = feeluown
 	pkgdesc = A robust, user-friendly and hackable music player
-	pkgver = 5.1
+	pkgver = 5.1.2
 	pkgrel = 1
 	url = https://github.com/feeluown/FeelUOwn
 	arch = any
@@ -35,7 +35,6 @@ pkgbase = feeluown
 	depends = python-pydantic
 	depends = python-mutagen
 	depends = python-fluent.runtime
-	depends = python-langcodes
 	depends = qt6-svg
 	depends = xdg-user-dirs
 	optdepends = yt-dlp: browser cookie extraction support
@@ -44,6 +43,7 @@ pkgbase = feeluown
 	optdepends = python-langchain-openai: OpenAI-compatible models for AI copilot support
 	optdepends = python-langgraph: AI copilot support
 	optdepends = python-mcp: MCP server support
+	optdepends = python-langcodes: better locale matching
 	optdepends = python-pyqt6-webengine: web login support
 	optdepends = python-sanic: webserver support
 	optdepends = python-json-rpc: webserver support
@@ -55,9 +55,9 @@ pkgbase = feeluown
 	provides = feeluown-local
 	conflicts = feeluown-local
 	replaces = feeluown-local
-	source = feeluown::git+https://github.com/feeluown/FeelUOwn.git#tag=v5.1
+	source = feeluown::git+https://github.com/feeluown/FeelUOwn.git#tag=v5.1.2
 	source = FeelUOwn.desktop
-	sha512sums = 0586d0e6af36330abe03962fa6521a97d4c7e2b764a3e9223da87a2145dfdcf02d87b7479af42e1fc4baa8ccef43762f403221a7d51460882de8a73c6486f062
+	sha512sums = dc810f204006f939227428beabede20c9fc831a491d52d70d7ce2bf28b09e20b62d607fd0ccbc4c727603abc7e46b581d1242105fd7ee65d22eab5cbf93bc053
 	sha512sums = 48882f7469c22e5db332663bc1aa8b398b0a10a0c929d4d7e3d7b8b91205d7d3070c5fa295cb9a14f8c352bff57978bfaad167343e0ddc51c92417eda07c8087
 
 pkgname = feeluown
