@@ -5,16 +5,16 @@
 # Contributor: orbisvicis <gmail.com>
 
 pkgname=xmonad-contrib
-pkgver=0.18.1
-pkgrel=177
+pkgver=0.18.2
+pkgrel=3
 pkgdesc='Community-maintained extensions for xmonad'
 url='https://xmonad.org/'
 arch=('x86_64')
-license=('BSD')
+license=('BSD-3-Clause')
 depends=('ghc-libs' 'xmonad' 'haskell-x11' 'haskell-x11-xft' 'haskell-utf8-string' 'haskell-random')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-hspec')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/xmonad/xmonad-contrib/archive/v${pkgver}.tar.gz)
-sha512sums=('d9bd1f03d3376b28f2458b69ed8c3be00d2109eaa5b55b94a59774d1515f30501f58652acca0b2cf958216ae2249032489344f77dec1cf451319d3e739bd12e9')
+sha512sums=('135deb34c637be6340464153aa9cefefdf8feb3e349871eaedc1637541962860cc8f5e387ee2ddb656769e15ea528ef5a2a11b42a8d14cef357efd70fce7eeea')
 
 build() {
   cd ${pkgname}-${pkgver}
