@@ -1,0 +1,11 @@
+--- a/toonz/sources/toonzlib/preferences.cpp
++++ b/toonz/sources/toonzlib/preferences.cpp
+@@ -494,7 +494,7 @@ void Preferences::definePreferenceItems() {
+   setCallBack(autosavePeriod, &Preferences::setAutosavePeriod);
+ 
+   // Import / Export
+-  define(ffmpegPath, "ffmpegPath", QMetaType::QString, "");
++  define(ffmpegPath, "ffmpegPath", QMetaType::QString, "/usr/bin");
+   define(ffmpegTimeout, "ffmpegTimeout", QMetaType::Int, 600, 1,
+          std::numeric_limits<int>::max());
+   define(fastRenderPath, "fastRenderPath", QMetaType::QString, "desktop");

@@ -1,0 +1,34 @@
+--- a/toonz/sources/stdfx/CMakeLists.txt
++++ b/toonz/sources/stdfx/CMakeLists.txt
+@@ -271,8 +271,6 @@ set(SOURCES
+     iwa_noise1234.cpp
+     iwa_pnperspectivefx.cpp
+     iwa_soapbubblefx.cpp
+-    ${SDKROOT}/kiss_fft/kiss_fft.c
+-    ${SDKROOT}/kiss_fft/kiss_fftnd.c
+     iwa_bokehfx.cpp
+     iwa_timecodefx.cpp
+     iwa_bokehreffx.cpp
+@@ -307,6 +305,7 @@ add_library(tnzstdfx SHARED ${HEADERS} ${SOURCES} ${OBJCSOURCES})
+ add_definitions(
+     -D_USRDLL
+     -DTNZSTDFX_EXPORTS
++    -Dkiss_fft_scalar=double
+ )
+ 
+ if(BUILD_ENV_APPLE)
+@@ -330,12 +329,12 @@ else()
+ endif()
+ 
+ include_directories(
+-    ${SDKROOT}/kiss_fft
++    /usr/include/kissfft/
+ )
+ 
+ _find_toonz_library(TNZLIBS "tnzcore;tnzbase;toonzlib")
+ 
+-target_link_libraries(tnzstdfx Qt5::Core Qt5::Gui Qt5::OpenGL ${GL_LIB} ${GLEW_LIB} ${TNZLIBS} ${PTHREAD_LIBRARY})
++target_link_libraries(tnzstdfx Qt5::Core Qt5::Gui Qt5::OpenGL ${GL_LIB} ${GLEW_LIB} ${TNZLIBS} ${PTHREAD_LIBRARY} kissfft-double)
+ 
+ if(OpenCV_FOUND)
+     target_link_libraries(tnzstdfx ${OpenCV_LIBS})
