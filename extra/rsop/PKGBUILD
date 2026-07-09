@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=rsop
-pkgver=0.10.0
-pkgrel=2
+pkgver=0.11.0
+pkgrel=1
 pkgdesc="Stateless OpenPGP (SOP) based on rpgp"
 arch=(x86_64)
 url="https://codeberg.org/heiko/rsop"
@@ -21,8 +21,8 @@ makedepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/$pkgname/v$pkgver.tar.gz
 )
-sha512sums=('8d2b8de259d193a0b93b22e391bf7efd4480b8930bc37645a4e3a85bb4e8fb856099a7a962fb78216ba1f162a82e866dc9daf86c1fff3a03b9b51ccd261bd0e5')
-b2sums=('16e9ed1890c6aa5c1fc1a4df4064b7851fb8832ccb483373e84d8123467d804bc23d524326af7b8808ad48519dc4d45b37f2487dd48d6e448c2692fe3af7e842')
+sha512sums=('1d7528990672e77d5028d100598c870fe476674aa4edc4b94aef359535355831e052228467ce4e6a374de6f39f2fd7eb7464c2974d79b8c1db810cca6b8143eb')
+b2sums=('d34cac41d4f921181ba7eb7e13b6aa0fda862d41a398aca57e46a6e764ccd442e7c248580fe502f0dad8777a9ef9f0bcea68b3d1e09bb51993dd544def0f6dfc')
 
 prepare() {
   cd $pkgname
