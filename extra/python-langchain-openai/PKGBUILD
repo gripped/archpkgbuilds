@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langchain-openai
-pkgver=1.3.2
+pkgver=1.3.3
 pkgrel=1
 pkgdesc="An integration package connecting OpenAI and LangChain"
 arch=('any')
@@ -41,11 +41,9 @@ source=(
   "cl100k_base.tiktoken::https://openaipublic.blob.core.windows.net/encodings/cl100k_base.tiktoken"
   "o200k_base.tiktoken::https://openaipublic.blob.core.windows.net/encodings/o200k_base.tiktoken"
 )
-sha512sums=(
-  'SKIP'
-  '83726b3f82f1cb2825d96c3b17a099b721b093347b34cdae4f6ea97dfc764d7ca92aac03a8ac8b666fbc692f97926155e757b893528ff151b55782a34aa0fe90'
-  'fb2d684af5c6da402c3e05f97e2150761eff157223235ba1f2abd4f70506a71d5a36698fde284c903f60915a7b86ceef8cee28fbc671da42f7b02e5523d6ef75'
-)
+sha512sums=('SKIP'
+            '83726b3f82f1cb2825d96c3b17a099b721b093347b34cdae4f6ea97dfc764d7ca92aac03a8ac8b666fbc692f97926155e757b893528ff151b55782a34aa0fe90'
+            'fb2d684af5c6da402c3e05f97e2150761eff157223235ba1f2abd4f70506a71d5a36698fde284c903f60915a7b86ceef8cee28fbc671da42f7b02e5523d6ef75')
 
 prepare() {
   cd langchain
