@@ -3,7 +3,7 @@
 
 pkgname=pop-launcher
 pkgver=1.2.7
-pkgrel=1
+pkgrel=2
 pkgdesc='Modular IPC-based desktop launcher service'
 arch=(x86_64)
 url=https://github.com/pop-os/launcher
@@ -11,9 +11,9 @@ license=(MPL-2.0)
 depends=(
   dbus
   fd
-  gcc-libs
   glibc
   libegl
+  libgcc
   libqalculate
   libxkbcommon
   pop-icon-theme
@@ -36,11 +36,6 @@ prepare() {
   sed 's/lto = "fat"/lto = "thin"/g' -i Cargo.toml
 }
 
-pkgver() {
-  cd launcher
-  git describe --tags
-}
-
 build() {
   cd launcher
   RUSTFLAGS+=" -C link-arg=-fuse-ld=lld"
@@ -56,5 +51,3 @@ package() {
   cd launcher
   just rootdir="${pkgdir}" install
 }
-
-# vim: ts=2 sw=2 et:
