@@ -4,30 +4,32 @@
 pkgbase=bcachefs-tools
 pkgname=(bcachefs-tools bcachefs-dkms)
 epoch=3
-pkgver=1.38.6
-pkgrel=1
+pkgver=1.38.8
+pkgrel=2
 pkgdesc='BCacheFS filesystem utilities'
 arch=('x86_64')
 url='https://bcachefs.org/'
 license=('GPL-2.0-only')
-depends=(
-  bash
-  fuse3
-  libaio.so libaio
-  libblkid.so libuuid.so util-linux-libs
-  libgcc
-  libkeyutils.so keyutils
-  libsodium.so libsodium
-  libunwind.so libunwind
-  liburcu
-  libz.so zlib
-  libzstd.so zstd
-  lz4
-  libudev.so systemd-libs
-  udev
+_tools_depends=(
+    fuse3
+    glibc
+    keyutils libkeyutils.so
+    libaio libaio.so
+    libgcc
+    libsodium libsodium.so
+    libunwind libunwind.so
+    liburcu
+    lz4
+    systemd-libs libudev.so
+    udev
+    util-linux-libs libblkid.so libuuid.so
+    zlib libz.so
+    zstd libzstd.so
 )
 makedepends=(
-  cargo
+  ${_tools_depends[@]}
+  rust
+  rust-bindgen
   clang
   git
   jq
@@ -39,7 +41,7 @@ options=(!lto)
 source=(
   git+https://github.com/koverstreet/bcachefs-tools.git#tag=v${pkgver}
 )
-b2sums=('25fbb2252f1ae95fac250fb8272fe31d935d29e8f5e4cc78cb4fb81f8d6dbbb2d57a95cd39ed1e4584478d6c584599272591cd1da91cf429632b21feed3b6351')
+b2sums=('661b7309099d3978116cd3dfe78a476ca17645f5ce51557623c2f2de75ce9251fdb43b2444c3a16e9d65b32ec73fe708a10472ac5a09691fb9f971aac7af704f')
 
 build() {
   cd ${pkgname}
@@ -57,6 +59,10 @@ build() {
 }
 
 package_bcachefs-tools() {
+  depends=(
+    ${_tools_depends[@]}
+    bash
+  )
   cd ${pkgname}
 
   # this uses malloc_usable_size, which is incompatible with fortification level 3
@@ -90,7 +96,10 @@ package_bcachefs-tools() {
 
 package_bcachefs-dkms() {
   depends=(
+    bash
     dkms
+    rust
+    rust-bindgen
   )
   cd ${pkgbase}
 
