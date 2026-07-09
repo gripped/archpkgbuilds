@@ -1,0 +1,93 @@
+diff --git a/setup.cfg b/setup.cfg
+index 3b33551..ab64fbd 100644
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -40,13 +40,11 @@ classifiers =
+     Programming Language :: Python :: 3.13
+ 
+ [options]
+-namespace_packages = lazr
+-packages = find:
++packages = find_namespace:
+ package_dir = =src
+ include_package_data = True
+ zip_safe = False
+ install_requires =
+-    setuptools
+     zope.interface
+ python_requires = >=3.8
+ 
+diff --git a/src/lazr/__init__.py b/src/lazr/__init__.py
+deleted file mode 100644
+index d4073b5..0000000
+--- a/src/lazr/__init__.py
++++ /dev/null
+@@ -1,23 +0,0 @@
+-# Copyright 2008-2015 Canonical Ltd.  All rights reserved.
+-#
+-# This file is part of lazr.delegates.
+-#
+-# lazr.delegates is free software: you can redistribute it and/or modify it
+-# under the terms of the GNU Lesser General Public License as published by
+-# the Free Software Foundation, version 3 of the License.
+-#
+-# lazr.delegates is distributed in the hope that it will be useful, but
+-# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+-# or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+-# License for more details.
+-#
+-# You should have received a copy of the GNU Lesser General Public License
+-# along with lazr.delegates.  If not, see <http://www.gnu.org/licenses/>.
+-
+-# This is a namespace package.
+-try:
+-    import pkg_resources
+-    pkg_resources.declare_namespace(__name__)
+-except ImportError:
+-    import pkgutil
+-    __path__ = pkgutil.extend_path(__path__, __name__)
+diff --git a/src/lazr/delegates/tests/test_docs.py b/src/lazr/delegates/tests/test_docs.py
+index 9e19ce4..3633175 100644
+--- a/src/lazr/delegates/tests/test_docs.py
++++ b/src/lazr/delegates/tests/test_docs.py
+@@ -18,16 +18,10 @@
+ 
+ __all__ = []
+ 
+-import atexit
+ import doctest
+ import os
+ 
+-from pkg_resources import (
+-    resource_filename,
+-    resource_exists,
+-    resource_listdir,
+-    cleanup_resources,
+-)
++from importlib.resources import files
+ 
+ 
+ DOCTEST_FLAGS = (
+@@ -37,16 +31,13 @@ DOCTEST_FLAGS = (
+ 
+ def load_tests(loader, tests, pattern):
+     """Load the doc tests (docs/*, if any exist)."""
++    docs_path = files("lazr.delegates").joinpath("docs")
++    if not docs_path.is_dir():
++        return tests
+     doctest_files = []
+-    if resource_exists("lazr.delegates", "docs"):
+-        for name in resource_listdir("lazr.delegates", "docs"):
+-            if name.endswith(".rst"):
+-                doctest_files.append(
+-                    os.path.abspath(
+-                        resource_filename("lazr.delegates", "docs/%s" % name)
+-                    )
+-                )
+-    atexit.register(cleanup_resources)
++    for resource in docs_path.iterdir():
++        if resource.name.endswith(".rst") and resource.is_file():
++            doctest_files.append(str(resource))
+     tests.addTest(
+         doctest.DocFileSuite(
+             *doctest_files,
