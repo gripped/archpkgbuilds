@@ -3,7 +3,7 @@
 
 pkgname=ocaml-augeas
 pkgver=0.7
-pkgrel=2
+pkgrel=3
 pkgdesc="OCaml bindings for Augeas"
 arch=(x86_64)
 url="https://people.redhat.com/~rjones/augeas/"
@@ -25,7 +25,8 @@ validpgpkeys=(F7774FB1AD074A7E8C8767EA91738F73E1B768A0) # Richard W.M. Jones <rj
 
 build() {
   cd $pkgname-$pkgver
-
+  # ocamlmklib rejects raw -Wl,... flags; it only accepts -Wl,-rpath,...
+  unset LDFLAGS
   export CFLAGS+=" -ffat-lto-objects"
   ./configure
   make -j1
