@@ -7,7 +7,7 @@ pkgname=(
   mkvtoolnix-cli
   mkvtoolnix-gui
 )
-pkgver=99.0
+pkgver=100.0
 pkgrel=1
 pkgdesc='Set of tools to create, edit and inspect Matroska files'
 arch=(x86_64)
@@ -15,11 +15,16 @@ url=https://mkvtoolnix.download/
 license=(GPL-2.0-only)
 depends=(
   boost-libs
-  gcc-libs
+  flac
+  fmt
   glibc
-  libebml.so
-  libfmt.so
-  libmatroska.so
+  gmp
+  libdvdread
+  libgcc
+  libebml
+  libmatroska
+  libvorbis
+  libstdc++
   pugixml
   qt6-base
 )
@@ -27,10 +32,7 @@ makedepends=(
   boost
   cmark
   docbook-xsl
-  flac
   git
-  libdvdread
-  libvorbis
   po4a
   qt6-multimedia
   qt6-svg
@@ -41,7 +43,7 @@ makedepends=(
 )
 source=(git+https://codeberg.org/mbunkus/mkvtoolnix.git?signed#tag=release-${pkgver})
 validpgpkeys=(D9199745B0545F2E8197062B0F92290A445B9007) # Moritz Bunkus <moritz@bunkus.org>
-b2sums=('776d2370679330fcd91884c9ab3ca3b677d98d7cb2a2ae686534165eb6c9ed3474c6cf5b21931d0979fba7e8791241d2e03226b2b1c3686e3569789a0c690e21')
+b2sums=('ac80b00eae06f2dd7ab8892486229ada5896f8c96ae8352c53119ac1c0ce1ef32cc71b5c4ebf8fdbc549d5f358775bbc24fd1f88c807e2bc2067ff7d986eaf65')
 
 prepare() {
   cd mkvtoolnix
@@ -58,10 +60,8 @@ build() {
 
 package_mkvtoolnix-cli() {
   depends+=(
-    libdvdread
-    libFLAC.so
-    libogg.so
-    libvorbis.so
+    libogg
+    libvorbis
     zlib
   )
 
@@ -72,7 +72,7 @@ package_mkvtoolnix-cli() {
 }
 
 package_mkvtoolnix-gui() {
-  depends=(
+  depends+=(
     cmark
     hicolor-icon-theme
     mkvtoolnix-cli
@@ -87,5 +87,3 @@ package_mkvtoolnix-gui() {
     find "${pkgdir}" -name $t* -delete
   done
 }
-
-# vim: ts=2 sw=2 et:
