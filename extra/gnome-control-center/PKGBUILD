@@ -7,7 +7,7 @@ pkgname=(
   gnome-control-center
   gnome-keybindings
 )
-pkgver=50.2
+pkgver=50.3
 pkgrel=1
 pkgdesc="GNOME's main interface to configure various aspects of the desktop"
 url="https://apps.gnome.org/Settings/"
@@ -88,7 +88,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git"
   "git+https://gitlab.gnome.org/GNOME/libgxdp.git#commit=1fe6de799f39b3126e8d0db66fa4f16c10fd9bd6"
 )
-b2sums=('46c718bd406be434cb01ddd9486ad68830cd7b79f2bf76aad6417e22a2de2248f0e826a0f20d17dbfe06323557ce4bcda9f76ff7268c94a5fd23aada864271e3'
+b2sums=('94d45dc219e1f1e533d66e2cc9ce5daadc8030ccc2466befc7ad3f79ea8fa8928648878c4caf8b0170ea345b8a1bf3d11e14237e37175fa15f97a7fc7d92dde7'
         'SKIP'
         'a67bd121284dd5546607f21a966ae7e73a05b5cd5e90d925fa0ba710e7c877f85a7c700dded0e050ce297884201f07177cd975c5501cc62fe35c27e5285bdfa3')
 validpgpkeys=(
