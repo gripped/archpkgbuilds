@@ -2,37 +2,32 @@
 
 pkgname=python-django-picklefield
 pkgver=3.4.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A pickled object field for Django'
 arch=(any)
 url=https://github.com/gintas/django-picklefield
 license=(MIT)
-depends=(python-django)
+depends=(
+  python
+  python-django
+)
 makedepends=(
   git
+  python-build
+  python-installer
   python-setuptools
+  python-wheel
 )
-_tag=b8b24bead3ff2a62449e094b56a539232e124b87
-source=(git+https://github.com/gintas/django-picklefield.git#tag=${_tag})
-sha256sums=('de1871b5b5070675cfd6a95094031f6b4ca4f86f6be6f2dcd1e86426ff587b43')
-
-pkgver() {
-  cd django-picklefield
-
-  git describe --tags | sed 's/^v//'
-}
+source=(git+https://github.com/gintas/django-picklefield.git#tag=v${pkgver})
+b2sums=('bc0bf6be5cfc8730f0d689d023276f74b9fe923597cf1ed95e19aa8ba8eb58d73475a9a1fbeb0fc2651d4ef86e7d8f940abe3002e852e89d0de9080aa942800d')
 
 build() {
   cd django-picklefield
-
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd django-picklefield
-
-  python setup.py install --skip-build --root="${pkgdir}" --optimize=1 --skip-build
+  python -m installer --destdir="${pkgdir}" dist/*.whl
   install -Dm 644 LICENSE -t "${pkgdir}"/usr/share/licenses/python-django-picklefield/
 }
-
-# vim: ts=2 sw=2 et:
