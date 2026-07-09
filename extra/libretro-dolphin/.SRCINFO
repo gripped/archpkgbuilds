@@ -1,6 +1,6 @@
 pkgbase = libretro-dolphin
 	pkgdesc = Nintendo GC/Wii core
-	pkgver = 20260408.212621.g0cd3bb89c295
+	pkgver = 20260625.121047.g2b19e1876cd9
 	pkgrel = 1
 	url = https://github.com/libretro/dolphin
 	arch = x86_64
@@ -33,18 +33,21 @@ pkgbase = libretro-dolphin
 	depends = xz
 	depends = xxhash
 	depends = zlib
+	depends = zlib-ng
 	depends = zstd
-	source = libretro-dolphin::git+https://github.com/libretro/dolphin.git#commit=0cd3bb89c295
+	source = libretro-dolphin::git+https://github.com/libretro/dolphin.git#commit=2b19e1876cd9
 	source = git+https://github.com/mutouyun/cpp-ipc.git
 	source = git+https://github.com/weisslj/cpp-optparse.git
 	source = git+https://github.com/fmtlib/fmt.git
 	source = git+https://github.com/ocornut/imgui.git
 	source = git+https://github.com/epezent/implot.git
+	source = git+https://github.com/mgba-emu/mgba.git
 	source = git+https://github.com/zlib-ng/minizip-ng.git
 	source = git+https://github.com/syoyo/tinygltf.git
 	source = git+https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git
 	source = git+https://github.com/e-dant/watcher.git
-	b2sums = ce2dd050152575b6188c4f43ef9d1298c2931d54d2521a749e3b999ab6e5480cb6ebf7adf7593f8a783e407e7500e0dc2b5d3f54bd3dd30222dd92c0913d7cec
+	b2sums = 1fb8ad7060e12f273d400c9ca2e9b257b9176ad95b485a2f2f79f66e90bb6d27fbe948060013a5ac15d191a4e5120d4e9e630a89339ac20a073e45a15b1eabff
+	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = SKIP

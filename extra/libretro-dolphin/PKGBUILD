@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-dolphin
-pkgver=20260408.212621.g0cd3bb89c295
+pkgver=20260625.121047.g2b19e1876cd9
 pkgrel=1
 pkgdesc='Nintendo GC/Wii core'
 arch=(x86_64)
@@ -29,6 +29,7 @@ depends=(
   xz
   xxhash
   zlib
+  zlib-ng
   zstd
 )
 makedepends=(
@@ -47,12 +48,14 @@ source=(
   git+https://github.com/fmtlib/fmt.git
   git+https://github.com/ocornut/imgui.git
   git+https://github.com/epezent/implot.git
+  git+https://github.com/mgba-emu/mgba.git
   git+https://github.com/zlib-ng/minizip-ng.git
   git+https://github.com/syoyo/tinygltf.git
   git+https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git
   git+https://github.com/e-dant/watcher.git
 )
-b2sums=('ce2dd050152575b6188c4f43ef9d1298c2931d54d2521a749e3b999ab6e5480cb6ebf7adf7593f8a783e407e7500e0dc2b5d3f54bd3dd30222dd92c0913d7cec'
+b2sums=('1fb8ad7060e12f273d400c9ca2e9b257b9176ad95b485a2f2f79f66e90bb6d27fbe948060013a5ac15d191a4e5120d4e9e630a89339ac20a073e45a15b1eabff'
+        'SKIP'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -65,7 +68,7 @@ b2sums=('ce2dd050152575b6188c4f43ef9d1298c2931d54d2521a749e3b999ab6e5480cb6ebf7a
 
 prepare() {
   cd libretro-dolphin
-  for submodule in Externals/{cpp-ipc/cpp-ipc,cpp-optparse/cpp-optparse,fmt/fmt,imgui/imgui,implot/implot,minizip-ng/minizip-ng,tinygltf/tinygltf,VulkanMemoryAllocator,watcher}; do
+  for submodule in Externals/{cpp-ipc/cpp-ipc,cpp-optparse/cpp-optparse,fmt/fmt,imgui/imgui,implot/implot,mGBA/mgba,minizip-ng/minizip-ng,tinygltf/tinygltf,VulkanMemoryAllocator,watcher}; do
     git submodule init ${submodule}
     git config submodule.${submodule}.url ../${submodule##*/}
     git -c protocol.file.allow=always submodule update ${submodule}
