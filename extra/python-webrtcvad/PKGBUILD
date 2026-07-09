@@ -3,7 +3,7 @@
 
 pkgname=python-webrtcvad
 pkgver=2.0.10
-pkgrel=6
+pkgrel=7
 pkgdesc='Python interface to the Google WebRTC Voice Activity Detector'
 arch=(x86_64)
 url=https://github.com/wiseman/py-webrtcvad
@@ -11,22 +11,30 @@ license=(MIT)
 depends=(
   glibc
   python
-  python-setuptools
 )
-makedepends=(git)
-_tag=bb429dac1a686807c69b916f03dd843fa10b0927
-source=(git+https://github.com/wiseman/py-webrtcvad.git#tag=${_tag})
-b2sums=(SKIP)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+source=(git+https://github.com/wiseman/py-webrtcvad.git#tag=${pkgver})
+b2sums=('726b033c2cad75cdadb0822f9f6344d5504e0b8bf8a9725c048726cd3fa6663961419b7de1e3b26b1081797555dd77ceeda561785ce994e19a43dcd0daf5cf35')
+
+prepare() {
+  cd py-webrtcvad
+  # replace pkg_resources with importlib.metadata for version lookup
+  # https://github.com/wiseman/py-webrtcvad/pull/96
+  git cherry-pick -n ca2377f2b6ac4c6e8d473e733dd8249302aef482
+}
 
 build() {
   cd py-webrtcvad
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
-  cd py-webrtcvad
-  python setup.py install --root="${pkgdir}" --optimize=1
-  install -Dm 644 LICENSE -t "${pkgdir}"/usr/share/licenses/python-webrtcvad/
+  python -m installer --destdir="${pkgdir}" py-webrtcvad/dist/*.whl
+  install -Dm 644 py-webrtcvad/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
-
-# vim: ts=2 sw=2 et:
