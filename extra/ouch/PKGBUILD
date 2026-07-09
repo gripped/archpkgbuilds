@@ -3,13 +3,13 @@
 
 pkgname=ouch
 pkgver=0.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A command line utility for easily compressing and decompressing files and directories"
 arch=('x86_64')
 url="https://github.com/ouch-org/ouch"
 license=('MIT')
-depends=('xz' 'bzip2' 'zlib')
-makedepends=('cargo' 'clang' 'cmake')
+depends=('bzip3' 'glibc' 'libgcc' 'libstdc++' 'zstd')
+makedepends=('cargo' 'clang')
 checkdepends=('git')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
 sha256sums=('72ed23c0b2aa51b1b33d3251ddae14cf2bb07a24035d1593c06fc97070e4edf0')
@@ -17,16 +17,20 @@ options=('!lto')
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
-  cargo fetch --target "$(rustc --print host-tuple)" # --locked
+  sed -i '/^bzip3 =/s/"bundled"//' Cargo.toml
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
-  OUCH_ARTIFACTS_FOLDER=artifacts cargo build --frozen --release --all-features
+  export OUCH_ARTIFACTS_FOLDER=artifacts
+  export ZSTD_SYS_USE_PKG_CONFIG=1
+  cargo build --frozen --release --all-features
 }
 
 check() {
   cd "$srcdir/$pkgname-$pkgver"
+  export ZSTD_SYS_USE_PKG_CONFIG=1
   cargo test --frozen --all-features
 }
 
