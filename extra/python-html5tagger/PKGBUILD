@@ -1,17 +1,16 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-html5tagger
-pkgver=1.3.0
-_commit=ef9e01b38f5bd064f3f8d061632df7937c0ae738
-pkgrel=5
+pkgver=1.4.0
+pkgrel=1
 pkgdesc='Pythonic HTML generation/templating (no template files)'
 arch=("any")
 url='https://github.com/sanic-org/html5tagger'
-license=(MIT)
+license=(Unlicense)
 depends=(python)
-makedepends=(git python-build python-installer python-setuptools python-setuptools-scm python-wheel)
-source=("git+https://github.com/sanic-org/html5tagger#commit=$_commit")
-sha256sums=('40b6fa26cfddba4c0abab28cb03efa898acdeab120948be4170e812a63903eab')
+makedepends=(git python-build python-hatchling python-hatch-vcs python-installer)
+source=("git+https://github.com/sanic-org/html5tagger#tag=v$pkgver")
+sha256sums=('57cd799c103f1d61ba1fd1ecafa596b0d26f8b930afc25786846212ae732dd3b')
 
 build() {
     cd html5tagger
