@@ -6,7 +6,7 @@
 # Contributor: Jan Fader <jan.fader@web.de>
 
 pkgname=fish
-pkgver=4.7.1
+pkgver=4.8.0
 pkgrel=1
 pkgdesc='Smart and user friendly shell intended mostly for interactive use'
 url='https://fishshell.com/'
@@ -24,13 +24,12 @@ optdepends=(
   'xclip: X11 clipboard integration (alternative)'
   'wl-clipboard: Wayland clipboard integration'
 )
-options=(!lto)
 install=fish.install
 backup=(etc/fish/config.fish)
 source=("${pkgname}::git+https://github.com/fish-shell/fish-shell#tag=${pkgver}")
 #validpgpkeys=(003837986104878835FA516D7A67D962D88A709A) # David Adam <zanchey@gmail.com>
-sha512sums=('24c171ba72d8f8b4f54be79f5c4f9862560dd6de626296585f3074c947422eb85bba055270e3405ebe36f275d58b4a8da95de5b87aeef68c99f5cbc8766550e0')
-b2sums=('316b6e846f89ad4781f1f19b540926d7f2c5de0165ec288cdd36b2cd88fb917ba1c4d47dcee36e30243a6c9f43a11a3c1b0a53ab1ab43b67739a2fbe42a7dcbd')
+sha512sums=('753b750faf61874694bef7b6a0c51445a61ca18ac03eff4d0d19071d014d54cd66ae90a71fd40bd527d3289ada9a5e5008025b1ea669174eb28921a51ea110c6')
+b2sums=('30dfde74051ea0c4c32c94a79913b668bd0ec19610772325206dbd508f9ac44eff4e994149a08ad6d238395e276a435084e195691fa5f907b8abee7d2f96e166')
 
 build() {
   cd ${pkgname}
@@ -54,7 +53,8 @@ build() {
 
 check() {
   cd ${pkgname}
-  make test
+
+  cmake --build build --target fish_run_tests
 }
 
 package() {
