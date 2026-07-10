@@ -2,7 +2,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=espflash
-pkgver=4.4.0
+pkgver=4.5.0
 pkgrel=1
 pkgdesc="Cargo subcommand for flashing Espressif devices over serial"
 url='https://github.com/esp-rs/espflash'
@@ -20,8 +20,8 @@ conflicts=('cargo-espflash')
 replaces=('cargo-espflash')
 options=(!lto)
 source=(https://github.com/esp-rs/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('2748bb1d3952e63fba67e3e07cc6496ac2a8658ab3b27ad5d47168a8150ef3d4')
-b2sums=('084d5c40923fb5f9687d39bbc7ce302245f33d0924f0aabe650614a012fd8296794a2f68c13f5df43721d7cf6dd58d76596b64f46563978a3921ad086dd0c1ce')
+sha256sums=('78ca6413759329b850221486a2cbb8372f2907d39b4ae6a1bbab2aa5ef3f57cd')
+b2sums=('22cd97cca071c9fff8c8d6faebe221946725125839292b2ce405aaefd5e3efaa12976870609d0ea127aaa9df5ffa6dec0f35835f44d9a38a33c727222f5328f7')
 
 prepare() {
   cd ${pkgname}-${pkgver}
