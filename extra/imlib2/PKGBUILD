@@ -4,7 +4,7 @@
 
 pkgname=imlib2
 pkgver=1.12.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Library that does image file loading and saving as well as rendering, manipulation, arbitrary polygon support'
 url='https://sourceforge.net/projects/enlightenment/'
 arch=('x86_64')
@@ -21,6 +21,7 @@ optdepends=('libheif: HEIF loader (for AVIF)'
             'libspectre: PS loader'
             'libwebp: WEBP loader'
             'openjpeg2: J2K loader')
+provides=('libImlib2.so')
 source=("https://downloads.sourceforge.net/project/enlightenment/imlib2-src/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 sha256sums=('250f9752f69dc522e529a81aaa9395705f7fc312ff2453e5de59ac2ba1f2858f')
 sha512sums=('e62b7e89f6d75fb6a649a589f06fea34d08bba696c68d9ece59ee9500558af874c1073ffecae2d1cadd6d603f1acf4d071a415dbf2ba73b505ccf11fe45eea62')
@@ -28,11 +29,17 @@ sha512sums=('e62b7e89f6d75fb6a649a589f06fea34d08bba696c68d9ece59ee9500558af874c1
 build() {
   cd "${pkgname}-${pkgver}"
 
-  ./configure \
-    --prefix=/usr \
-    --sysconfdir=/etc/imlib2 \
-    --x-libraries=/usr/lib \
-    --enable-amd64
+  local config_opts=(
+    --prefix=/usr
+    --sysconfdir=/etc/imlib2
+    --x-libraries=/usr/lib
+  )
+
+  if [[ $CARCH == "x86_64" ]]; then
+    config_opts+=(--enable-amd64)
+  fi
+
+  ./configure "${config_opts[@]}"
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
