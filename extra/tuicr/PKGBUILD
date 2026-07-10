@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Anas Elgarhy <anas.elgarhy.dev@gmail.com>
 pkgname=tuicr
-pkgver=0.18.0
+pkgver=0.19.0
 pkgrel=1
 pkgdesc='A code review TUI with vim keybindings'
 arch=('x86_64' 'aarch64' 'riscv64')
@@ -11,7 +11,7 @@ options=('!lto')
 depends=('libgit2' 'glibc' 'libgcc')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('7794103511f81b726682ce6f6e871867dd85eb86e6e4e4db42be17a6e835a508')
+sha256sums=('0357e79484093476081080f9d9b17be6ab4cefc93a734a4b3187c079a64e4d0f')
 
 prepare() {
   cd "$pkgname-$pkgver"
