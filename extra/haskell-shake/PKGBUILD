@@ -3,18 +3,18 @@
 
 _hkgname=shake
 pkgname=haskell-shake
-pkgver=0.19.7
-pkgrel=23
+pkgver=0.19.8
+pkgrel=1
 pkgdesc="Build system library, like Make, but more accurate dependencies."
 url="https://shakebuild.com"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-extra' 'haskell-filepattern' 'haskell-hashable'
          'haskell-heaps' 'haskell-js-dgtable' 'haskell-js-flot' 'haskell-js-jquery'
          'haskell-primitive' 'haskell-random' 'haskell-unordered-containers' 'haskell-utf8-string')
 makedepends=('ghc' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('7d519431301193e99d34cae7be61ff94a503eae156efa116d9f8f05934ebd39a1baab17e988340c9059b1eed972b1d8df3813a86064de92e347b2cb53f72e24a')
+sha512sums=('0570155f03a02cacfcd1c30d16e3a7c4a2d44bc74d4d37f21d36883a88fe51289aa01b1a6f8f961e79cf0143edbec6c50158f0a5aace87bb6b6010f00c9d02b9')
 
 prepare() {
     cd $_hkgname-$pkgver
@@ -39,7 +39,7 @@ build() {
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
-            -f-portable -f-cloud -f-embed-files
+            -f-portable -f-cloud -f-embed-files -fthreaded
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
