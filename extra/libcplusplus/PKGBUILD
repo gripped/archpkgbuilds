@@ -5,7 +5,7 @@
 
 pkgbase=libc++
 pkgname=(libc++ libc++abi)
-pkgver=22.1.6
+pkgver=22.1.8
 pkgrel=1
 pkgdesc="LLVM C++ standard library"
 url="https://libcxx.llvm.org/"
@@ -15,7 +15,7 @@ depends=('libgcc' 'glibc' 'libgcc')
 makedepends=('clang' 'cmake' 'ninja' 'python' 'llvm')
 options=('!lto' 'staticlibs')
 source=("https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkgver/llvm-project-$pkgver.src.tar.xz"{,.sig})
-sha512sums=('39ee3a66b92abe4eed5f9db086f6279faa72d8a3fe1beee8897da2dcc8b6982d169054b394995090c9cc6519f50a03a7fc465905dda3c61eb1063b9ba4696b0c'
+sha512sums=('2615b20ba08534f83ab8ecc7b5ba43b5f1dfcf9cdb2534a32fcdbf0ccdd9a008b46276e45ef26ed9377f65b5e4ae89ea798f3863fd034484b5715140f3a7b35c'
             'SKIP')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
               'D574BD5D1D0E98895E3BF90044F2485E45D59042'  # Tobias Hieta <tobias@hieta.se>
