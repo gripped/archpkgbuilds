@@ -7,7 +7,7 @@
 pkgname=rawtherapee
 epoch=1
 pkgver=5.12
-pkgrel=2
+pkgrel=3
 pkgdesc='A powerful cross-platform raw image processing program'
 arch=('x86_64')
 url='https://www.rawtherapee.com/'
