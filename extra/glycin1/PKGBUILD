@@ -7,7 +7,7 @@ pkgname=(
   glycin1-gtk4
 )
 pkgver=1.2.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Sandboxed and extendable image decoding (legacy version)"
 arch=(x86_64)
 url="https://gitlab.gnome.org/GNOME/glycin"
@@ -16,7 +16,7 @@ depends=(
   bubblewrap
   cairo
   fontconfig
-  gcc-libs
+  libgcc
   glib2
   glibc
   lcms2
@@ -62,7 +62,7 @@ prepare() {
 
   # Match cargo_home in meson.build
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
@@ -103,7 +103,7 @@ package_glycin1() {
 package_glycin1-gtk4() {
   pkgdesc+=" - GTK4 integration"
   depends=(
-    gcc-libs
+    libgcc
     glib2
     glibc
     glycin1
