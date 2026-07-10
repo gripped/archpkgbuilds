@@ -2,7 +2,7 @@
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
 
 pkgname=lld
-pkgver=22.1.6
+pkgver=22.1.8
 pkgrel=1
 pkgdesc="Linker from the LLVM project"
 arch=('x86_64')
@@ -11,11 +11,9 @@ license=('Apache-2.0 WITH LLVM-exception')
 depends=('llvm-libs' 'libstdc++' 'glibc' 'zlib' 'zstd' )
 makedepends=('llvm' 'cmake' 'ninja' 'python-sphinx')
 _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkgver
-source=($_source_base/llvm-project-$pkgver.src.tar.xz{,.sig}
-        lld-pr-198129.patch::https://github.com/llvm/llvm-project/commit/0067516ad7f0fc47a15c8fc7564e0e4daf01f92e.patch)
-sha256sums=('6e0b376a1f6d9873e7dfb09ae6e04b9c7024400f01733fa4c29be69d5c138bc2'
-            'SKIP'
-            'b786a6f7b6f4178de705fec4918805498e5f52546f6de7679834cdf0238f7e74')
+source=($_source_base/llvm-project-$pkgver.src.tar.xz{,.sig})
+sha256sums=('922f1817a0df7b1489272d18134ee0087a8b068828f87ac63b9861b1a9965888'
+            'SKIP')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
               'D574BD5D1D0E98895E3BF90044F2485E45D59042'  # Tobias Hieta <tobias@hieta.se>
               'FFB3368980F3E6BB5737145A316C56D064CACBA5'  # Douglas Yung <douglas.yung@sony.com>
@@ -23,8 +21,6 @@ validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstell
 )
 
 prepare() {
-  patch -d llvm-project-$pkgver.src -Np1 < lld-pr-198129.patch
-
   cd llvm-project-$pkgver.src/lld
   mkdir build
 }
