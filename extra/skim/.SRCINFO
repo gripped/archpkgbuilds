@@ -1,12 +1,12 @@
 pkgbase = skim
 	pkgdesc = Fuzzy Finder in Rust
-	pkgver = 5.0.0
+	pkgver = 5.1.0
 	pkgrel = 1
 	url = https://github.com/skim-rs/skim
 	arch = x86_64
 	license = MIT
 	makedepends = git
-	makedepends = rust
+	makedepends = cargo
 	depends = glibc
 	depends = libgcc
 	depends = ncurses
@@ -15,9 +15,8 @@ pkgbase = skim
 	optdepends = tmux: for sk-tmux script
 	optdepends = vim-plugin-runtime: for N/Vim plugin
 	optdepends = zsh: for resp. completions and key bindings
-	options = !lto
-	source = skim::git+https://github.com/skim-rs/skim#tag=v5.0.0
-	sha512sums = afa16f97d557ee6032e8e59440c201c48b0ba626ee79bed344e82a263e35d6f38e5630dd17ecd5d4f0103868a1a4abb4114c5c7ee11faddbf0b5dc9c6ea548e4
-	b2sums = 66e68973531c0346836ea8f88038e3bd6fc392577f375b5bbb4b7ee26aa27a6d232549603f221485349f5f3425c9b18d831e55507e1ecd867f6d04547ec11d11
+	source = skim::git+https://github.com/skim-rs/skim#tag=v5.1.0
+	sha512sums = 6976c14605c46b4c71500fe4723f5a0f15b08faa8d216e6aa1be937e65eabd322059c6ab925605b602131f6127f08010bd66120b62908481bf0ecefb2076b223
+	b2sums = 2386b83f874a2eb41111e38b4e57f9157a7b2cd8f80a9d8ef984f85599f09ef4e261088cbdf66c0032c5d278327951898fcbcae9c1b18ea7f1cf87f7efd69ed2
 
 pkgname = skim
