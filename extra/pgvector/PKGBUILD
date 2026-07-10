@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=pgvector
-pkgver=0.8.4
+pkgver=0.8.5
 pkgrel=1
 pkgdesc="Open-source vector similarity search for Postgres"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('postgresql')
 makedepends=('clang' 'git' 'llvm')
 checkdepends=('perl' 'perl-ipc-run' 'pifpaf')
 source=("git+https://github.com/pgvector/pgvector.git#tag=v$pkgver")
-sha512sums=('cbe3136ac1ff1e1e7be4d0c702c5e99829c9cdd1c6da9d1e0abf1e9867d2e38eef45357d7e76f08c800c469bdab5ce7273ae8641bcef825f1c4f4b8fda556124')
+sha512sums=('711da771a716e5b9e9febe40accf7653a60455536633467a0de9c845caefd82aaccd3fc0ce3a007c10a57c5f670453f6ec7a85a78f510ccbbe2847a25952edd5')
 
 build() {
   cd pgvector
