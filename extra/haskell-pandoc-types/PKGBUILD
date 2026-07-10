@@ -4,8 +4,8 @@
 
 _hkgname=pandoc-types
 pkgname=haskell-pandoc-types
-pkgver=1.23.1.1
-pkgrel=20
+pkgver=1.23.1.2
+pkgrel=1
 pkgdesc="Types for representing a structured document"
 url="https://pandoc.org/"
 license=('BSD-3-Clause')
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-quickcheck' 'haskell-syb')
 makedepends=('ghc' 'haskell-hunit' 'haskell-test-framework' 'haskell-test-framework-hunit'
              'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('f834e7ce19aa722978d3874917fc65b8c112568a387846f586d0d0c6d02209f72d0f9eb63667576cd58692ca8a8c481256646d76510944540d20d5cde843812a')
+sha512sums=('c7420c699f038d6c67276aa50d88bdc97b19f4fa3871668ed53686a13848b547be6141e966cfd4597a148e0c712d561038e1f02fc12a0963274ad7d67a995a04')
 
 build() {
     cd $_hkgname-$pkgver
