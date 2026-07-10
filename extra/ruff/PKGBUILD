@@ -5,7 +5,7 @@
 
 pkgbase=ruff
 pkgname=("$pkgbase" "python-$pkgbase")
-pkgver=0.15.20
+pkgver=0.15.21
 pkgrel=1
 pkgdesc='An extremely fast Python linter, written in Rust'
 arch=(x86_64)
@@ -21,14 +21,24 @@ makedepends=(
   maturin
   python-installer
 )
-options=(!lto)
 source=("git+$url.git#tag=$pkgver")
-sha512sums=('9cd45dcf2369a384cef59d26e64431b5352c8fddbb8c6e1b80127eed6b7f9a2a8324471564c9deb5eb506d8be318e2550319be6b203ec241bf79a87624063cbd')
-b2sums=('d94d2346a2e26e9b1da72a6b7cb76d753354afd56a0be70eacdc3f963bb0c71cf7062be9135aadc7bd50b178a9cb3b27d8908f01bd17e72af6fca816aa084e7c')
+sha512sums=('5a0deca554c4f3e1ad12ebe8a354204ff5565f063ce01ad8b9b2964dacafd5a1f0d5dae05b49fec513aea0a853371af8e776d19a2b57730764015016ffccd864')
+b2sums=('dbd34e637a14f12c547f8295f7fd647b2d4d3794f6224403cf2d1c9ab571c1bc3abcfd152c843f14073abd776e50aa07260599e77ba443e7e22469582fb575a9')
+
+_srcenv() {
+  cd "$pkgbase"
+  export CARGO_HOME="$srcdir"
+  export CARGO_PROFILE_RELEASE_DEBUG=2
+  export CARGO_PROFILE_RELEASE_STRIP=false
+  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+  export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+  CFLAGS+=' -ffat-lto-objects'
+}
 
 prepare() {
   cd $pkgbase
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
@@ -38,7 +48,7 @@ build() {
   # https://github.com/gnzlbg/jemallocator/issues/170
   [[ $CARCH == "aarch64" ]] && export JEMALLOC_SYS_WITH_LG_PAGE=16
 
-  cd $pkgbase
+  _srcenv
   maturin build --locked --release --all-features --target "$target" --strip
 
   for completion in bash elvish fish nushell zsh; do
@@ -47,7 +57,7 @@ build() {
 }
 
 check() {
-  cd $pkgbase
+  _srcenv
   cargo test -p ruff --frozen --all-features -- --skip display_default_settings
 }
 
