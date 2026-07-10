@@ -4,7 +4,7 @@
 
 pkgbase=dtkwidget
 pkgname=(dtkwidget dtk6widget)
-pkgver=6.7.44
+pkgver=6.7.45
 pkgrel=1
 epoch=1
 pkgdesc='Deepin base graphical widgets library'
@@ -19,7 +19,14 @@ makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt6-tools' 'gtest' 'doxygen'
              'qt6-base' 'qt6-imageformats' 'qt6-svg'
              'libx11' 'libxcb' 'libxext' 'libxi' 'startup-notification' 'xcb-util')
 source=("git+https://github.com/linuxdeepin/dtkwidget.git#tag=$pkgver")
-sha512sums=('3405f44b52a2115b7222c689e4b143f6101b23cfc330c857352fdf272bc8069d09228feb68d9281d4aedfa81d15e54fdf34967ff785ccd799588326b6475e21f')
+sha512sums=('5845a797f5de22b6a6c89cd45202c30ed517630d3af737a40f7281973c2afbd652d64b8f03c6cc52b01405e0d472bd9c753dd33671da91ef3902f37056834084')
+
+prepare() {
+  cd dtkwidget
+
+  # Tests compile widget sources directly; expose src/ for private util headers.
+  sed -i '/^    \${PROJECT_SOURCE_DIR}\/src\/widgets$/a\    ${PROJECT_SOURCE_DIR}/src' tests/CMakeLists.txt
+}
 
 build() {
   cd dtkwidget
