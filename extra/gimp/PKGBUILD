@@ -5,7 +5,7 @@
 
 pkgname=gimp
 pkgver=3.2.4
-pkgrel=1
+pkgrel=2
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
 arch=('x86_64')
@@ -109,6 +109,9 @@ prepare() {
 
   # https://gitlab.archlinux.org/archlinux/packaging/packages/gimp/-/issues/12
   git cherry-pick -n 1685c86af5d6253151d0056a9677ba469ea10164
+
+  # a request to gitlab for bug url fails, causes by anubis - disable for now
+  sed -i '/appstreamcli.found/,$d' desktop/meson.build
 }
 
 build() {
