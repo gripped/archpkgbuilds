@@ -5,7 +5,7 @@
 
 pkgname=digikam
 pkgver=9.1.0
-pkgrel=4
+pkgrel=5
 pkgdesc='An advanced digital photo management application'
 arch=(x86_64)
 license=(GPL-2.0-or-later)
@@ -92,8 +92,7 @@ build() {
     -DENABLE_MEDIAPLAYER=ON \
     -DENABLE_AKONADICONTACTSUPPORT=ON \
     -DENABLE_MYSQLSUPPORT=ON \
-    -DENABLE_APPSTYLES=ON \
-    -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3
+    -DENABLE_APPSTYLES=ON
   cmake --build build
 }
 
