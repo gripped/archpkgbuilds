@@ -5,7 +5,7 @@
 
 pkgname=python-openai
 _name=openai-python
-pkgver=2.29.0
+pkgver=2.45.0
 pkgrel=1
 pkgdesc="Python client library for the OpenAI API"
 arch=('any')
@@ -44,22 +44,25 @@ checkdepends=(
   'python-pytest-xdist'
   'python-respx'
   'python-rich'
+  'python-botocore'
+  'python-jsonschema'
 )
 optdepends=(
   'python-httpx-aiohttp: Use aiohttp as HTTP backend'
   'python-numpy: Datalib support'
   'python-pandas: Datalib support'
   'python-websockets: Realtime support'
+  'python-botocore: AWS Bedrock OpenAI-compatible API support'
 )
 # Defined in .stats.yml
-# curl -s https://raw.githubusercontent.com/openai/openai-python/refs/tags/v2.26.0/.stats.yml | grep openapi_spec_url | cut -d- -f5 | cut -d. -f1
-_openai_openapi_spec=55ef7034334e938c30656a404ce5e21466103be87542a796425346299f450404
+# curl -s https://raw.githubusercontent.com/openai/openai-python/refs/tags/v2.45.0/.stats.yml | grep openapi_spec_url | cut -d- -f5 | cut -d. -f1
+_openai_openapi_spec=356010b9b9fd6228b457b8fcfa376cf4928a8f3bd4728e7ba5e4b6b5ef4f5843
 source=(
   "${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
   "https://storage.googleapis.com/stainless-sdk-openapi-specs/openai%2Fopenai-${_openai_openapi_spec}.yml"
 )
-b2sums=('ce5dd047bc178d10e2505733e532b0e45bf604ce940902bed8656f41bfcdbdbdf61af91aaca30f1fc2e4175002d53a4c4b0c70ee8385e2e065d125e7f661faf6'
-        '1687be351e0f1829c37814b585be2b815123ae23c809b80a170bb4bd5eefe26b8814e5d71fc6815035e7303e70bd9c36032a5a28ae0fbec8cc7681d19b87e2dd')
+b2sums=('6f5f3cc3a65d40c41fd44f47084faad5bf8294c588caa5e6026018cbce55a2c0ecb52ecfc3ad3c917b46c0e6fe0de5a5f5404136fca327eb4db22e34ca21f5ef'
+        'cc53f46df3da93bd0e2b28abc9eb7d22c91feb98e4c03b015be8c0a660921a67001478ed766db0c49b221811a39e8c86a8c8896d2f4ae8ea71cc0c53b530c3f2')
 
 prepare() {
   cd "${_name}-${pkgver}"
@@ -80,7 +83,7 @@ check() {
 
   # Start mock server and make sure it's cleaned up on exit
   export npm_config_yes=true
-  trap 'pkill "npm exec prism"' EXIT
+  trap 'pkill "npm exec steady"' EXIT
   ./scripts/mock --daemon "${srcdir}/openai-${_openai_openapi_spec}.yml"
 
   # Randomly generated mock API key
