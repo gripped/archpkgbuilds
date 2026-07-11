@@ -4,7 +4,7 @@
 
 pkgbase=poppler
 pkgname=('poppler' 'poppler-glib' 'poppler-qt5' 'poppler-qt6')
-pkgver=26.06.0
+pkgver=26.07.0
 pkgrel=1
 arch=(x86_64)
 license=('GPL-2.0-only'
@@ -19,17 +19,15 @@ makedepends=('libjpeg-turbo' 'libgcc' 'libstdc++' 'cairo' 'fontconfig' 'openjpeg
              'cmake' 'python' 'boost' 'glib2-devel')
 options=('!emptydirs')
 url="https://poppler.freedesktop.org/"
-# https://gitlab.freedesktop.org/poppler/poppler
-source=(https://poppler.freedesktop.org/${pkgbase}-${pkgver}.tar.xz{,.sig}
-        test::git+https://gitlab.freedesktop.org/poppler/test.git#commit=9d5011815a14c157ba25bb160187842fb81579a5
+source=("git+https://gitlab.freedesktop.org/poppler/poppler.git#tag=${pkgbase}-${pkgver}?signed"
+        test::git+https://gitlab.freedesktop.org/poppler/test.git#commit=46785c9a414d8918d8d4c55d3498258c7eac86c3
 )
-sha256sums=('4cb4e5a3dc8cb5eec751c8a23c8ba19f61f96dedc0cd07d2aee6b0c8e2cf6ba4'
-            'SKIP'
-            '9a76c2c50aae30b1bde5400ae78e9444111161a141c1f606fd01ca8a09df4d8e')
+sha256sums=('16e63577115440869b6e8a62932244f4b031494d4cbdaa32b7a5226a1959f90d'
+            '982f8d137e8210a699a22b3615cafef85ded5810a9ac4a6d145944e764f29b9b')
 validpgpkeys=('CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7') # Albert Astals Cid <aacid@kde.org>
 
 build() {
-  cmake -B build -S "$pkgname-$pkgver" \
+  cmake -B build -S "${pkgbase}" \
     -DCMAKE_INSTALL_PREFIX:PATH=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib \
     -DENABLE_UNSTABLE_API_ABI_HEADERS=ON \
@@ -50,7 +48,7 @@ package_poppler() {
   provides=('libpoppler.so' 'libpoppler-cpp.so')
   conflicts=("poppler-qt3<${pkgver}" "poppler-qt4<${pkgver}")
 
-  DESTDIR="$pkgdir" cmake --install build
+  DESTDIR="${pkgdir}" cmake --install build
 
   # cleanup for splitted build
   rm -vrf "${pkgdir}"/usr/include/poppler/{glib,qt5,qt6}
@@ -61,7 +59,7 @@ package_poppler() {
 
   # license
   mkdir -p "${pkgdir}"/usr/share/licenses/${pkgname}
-  install -m644 "${srcdir}"/${pkgname}-${pkgver}/{COPYING,COPYING3,README-XPDF,README.contributors} "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -m644 "${srcdir}"/${pkgbase}/{COPYING,COPYING3,README-XPDF,README.contributors} "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
 
 package_poppler-glib() {
@@ -79,7 +77,7 @@ package_poppler-glib() {
 
   # license
   mkdir -p "${pkgdir}"/usr/share/licenses/${pkgname}
-  install -m644 "${srcdir}"/${pkgbase}-${pkgver}/{COPYING,COPYING3,README-XPDF,README.contributors} "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -m644 "${srcdir}"/${pkgbase}/{COPYING,COPYING3,README-XPDF,README.contributors} "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
 
 package_poppler-qt5() {
@@ -94,7 +92,7 @@ package_poppler-qt5() {
 
   # license
   mkdir -p "${pkgdir}"/usr/share/licenses/${pkgname}
-  install -m644 "${srcdir}"/${pkgbase}-${pkgver}/{COPYING,COPYING3,README-XPDF,README.contributors} "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -m644 "${srcdir}"/${pkgbase}/{COPYING,COPYING3,README-XPDF,README.contributors} "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
 
 package_poppler-qt6() {
@@ -109,5 +107,5 @@ package_poppler-qt6() {
 
   # license
   mkdir -p "${pkgdir}"/usr/share/licenses/${pkgname}
-  install -m644 "${srcdir}"/${pkgbase}-${pkgver}/{COPYING,COPYING3,README-XPDF,README.contributors} "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -m644 "${srcdir}"/${pkgbase}/{COPYING,COPYING3,README-XPDF,README.contributors} "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
