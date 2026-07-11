@@ -1,14 +1,13 @@
 pkgbase = python-graph-tool
 	pkgdesc = A Python module for manipulation and statistical analysis of graphs
-	pkgver = 2.98
-	pkgrel = 6
+	pkgver = 3.0
+	pkgrel = 1
 	url = https://graph-tool.skewed.de
 	arch = x86_64
 	license = LGPL-3.0-or-later
 	makedepends = autoconf-archive
 	makedepends = boost
 	makedepends = cgal
-	makedepends = sparsehash
 	depends = boost-libs
 	depends = cairomm-1.16
 	depends = expat
@@ -27,12 +26,13 @@ pkgbase = python-graph-tool
 	optdepends = graphviz: graph layout
 	optdepends = python-matplotlib: graph drawing
 	options = !lto
-	source = https://downloads.skewed.de/graph-tool/graph-tool-2.98.tar.bz2
-	b2sums = da9218e50c21cab8aaa51708a1c2b721ee28db26f2a781fe9c96352135902f0c2e8efaf4e0d565983499223275323b42b54cbd8e0d89cffd6c8f5baf2ec76148
+	options = !debug
+	source = https://downloads.skewed.de/graph-tool/graph-tool-3.0.tar.bz2
+	b2sums = 43e1ec2d9f847f993dcd3f88ed7a2dd4c55bcffaf5d4d0c72de781ae91bddd141d57157bc3a4f84d76c2bc3c35c790e58899df72cc663bdec8f3470eb18d62ca
 
 pkgname = python-graph-tool
 
 pkgname = python-graph-tool-opt
 	pkgdesc = A Python module for manipulation and statistical analysis of graphs (with AVX2 CPU optimizations)
-	provides = python-graph-tool=2.98
+	provides = python-graph-tool=3.0
 	conflicts = python-graph-tool
