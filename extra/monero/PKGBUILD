@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=monero
-pkgver=0.18.5.0
+pkgver=0.18.5.1
 pkgrel=1
 pkgdesc="Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
@@ -40,14 +40,14 @@ source=(
   "monero.sysusers"
   "monero.tmpfiles"
 )
-sha512sums=('d293c3cf87f69349fddcd7cc8a641dd94d9a66b41e9a1d0eff9eea876c7608e8b8c6c9a422c8f9d340127c9d21b2c81772c690b098299514f692b1ce3490117d'
+sha512sums=('6dbd52d307d0fcb4e0395facf4d16015c157cca79ec17c17bba31777430d958423a43e4276f927da7d244bdb4390ce1daeb46eaf06d891900c07d0f7a0ffb642'
             'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
             'cbb67fee67d053bbc929ad0eeaad6421fae43acf5f1ae4df346333362da7f50adc985a63c27bc4ac2a7c1f226d27162a6cad9908b53866180153a5422038e3db'
-            '2e4ecf3f305dab46e166f50c0451dd969927b485df544aebcf8115a65444573e6d57a8ac6bea64ce5ab4b5cce2c70f913d9ac3bce561c59acf89851edc76a22c'
+            '2ae018bf3660f6eb6ddd1c79ccad1a7545945424d148f2de70607e30a24d39d5ef85f7687980fe0fd0269e029e0c2b8b38c012a78d0f61f01650518632f2d5a5'
             'ae3c300548e6ba5fdf6a203146e5dcaf1955c3e19820c0bb3a73bb70ec5629a3af00d43dac95b6f3832ded5c480e872d829981a63206016d4a64f3940b713357')
 validpgpkeys=(
   '8777AB8F778EE89487A2F8E7F4ACA0183641E010' # luigi1111 <luigi1111w@gmail.com>
