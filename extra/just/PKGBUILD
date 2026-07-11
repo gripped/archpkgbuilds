@@ -3,32 +3,43 @@
 # Contributor: Fredy García <frealgagu at gmail dot com>
 
 pkgname=just
-pkgver=1.55.1
+pkgver=1.56.0
 pkgrel=1
 pkgdesc="A handy way to save and run project-specific commands"
-arch=("x86_64")
+arch=(x86_64)
 url="https://github.com/casey/just"
-license=("CC0-1.0")
-depends=("libgcc" "glibc")
-makedepends=("cargo")
+license=(CC0-1.0)
+depends=(glibc # libc.so libm.so
+         libgcc libgcc_s.so)
+makedepends=(cargo)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/casey/${pkgname}/archive/${pkgver}.tar.gz")
-sha256sums=('40a2d3725480523ffebb762669cafe2b0135a00383946eec3d47adf5e9be6345')
+sha256sums=('145cb76ccd858da30ee56de884dad9241b2706140bcf9ae189dfda5e5a62ed52')
+
+_srcenv() {
+  cd "${pkgname}-${pkgver}"
+  export CARGO_HOME="$srcdir"
+  export CARGO_PROFILE_RELEASE_DEBUG=2
+  export CARGO_PROFILE_RELEASE_STRIP=false
+  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+  export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+}
 
 prepare() {
-  cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  _srcenv
+  cargo fetch --locked --target host-tuple
   mkdir -p man completions
 }
 
 build() {
-  cd "${pkgname}-${pkgver}"
+  _srcenv
   cargo build --frozen --release
   local just="cargo run --frozen --release --"
   $just --man > "man/${pkgname}.1"
 }
 
 check() {
-  cd "${pkgname}-${pkgver}"
+  _srcenv
   cargo check --frozen --release
 }
 
