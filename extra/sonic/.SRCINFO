@@ -1,6 +1,6 @@
 pkgbase = sonic
 	pkgdesc = Fast, lightweight & schema-less search backend
-	pkgver = 1.7.3
+	pkgver = 1.7.4
 	pkgrel = 1
 	url = https://github.com/valeriansaliou/sonic
 	arch = x86_64
@@ -14,15 +14,15 @@ pkgbase = sonic
 	conflicts = libsonic
 	options = !lto
 	backup = etc/sonic.cfg
-	source = sonic::git+https://github.com/valeriansaliou/sonic.git#tag=v1.7.3
+	source = sonic::git+https://github.com/valeriansaliou/sonic.git#tag=v1.7.4
 	source = systemd.service
 	source = sysusers.conf
 	source = tmpfiles.conf
-	sha512sums = 599d6c7eb2a3b2186101afbeb0e7b43aaee3b036561afd7f88c2cc476d18ba30a43e6a9ad18393b6178b54ac2e3aaf607843fed58c5f8a6701a40fa7e6d108b5
+	sha512sums = 2ea028c41f64bb2090398242c34babb3b25b35b268b461832a69c87adb2e1d466becf2c6457499ff47f0e83a63d68a6c449f7091d73375963d51af2da2f78710
 	sha512sums = f623f4076210f5387d3b3b6e61e0d45323a5d9fbc139a3a658d3f8c317cbf863976e0e9c604eb1f03ca42f2f339d733382961b2b73d33464ec8154d8a9e18475
 	sha512sums = 93ab53db89436c0e2e9550c35872a470e7aa63b3fdbd969f4ecaa7a1c18f5270049165800e770d1db2d34fc729d34af825e7f14e0d6118dfe340c421cc62148f
 	sha512sums = 62b0bb63ba2eda59d530b38aeaf581f5b5fc5187c4615694be9e4a7e38dcb5ed55367b461ac483ab3d6c931d1754b980c8e48b5518388b8476437d988956883b
-	b2sums = 6d3cff157447c931c05b68d181a0aef5699b9b325035fb755f3e92e4be1cfcf65feed62f91f3928a5a8cb33066f897e50ef8ac47d3a0937d6f11468999094f97
+	b2sums = 432e271d1f74f5d20457ffc987b4e685f2d40b0599b55a07829bccf0923700fb8c1bfbf5fc967a40b5d209a695bedee55f5db3de888fa9f82747ecc2470f16aa
 	b2sums = f4e605968aa9cc8a5dccf98c60bbce77502e7bcba74f7d3d7ffbe6fedd7e7ac21006837d7c99cba0bf2dfc50a58fc78744861d16aa902dadbbb367ec26d7e0be
 	b2sums = b3b30518c32a0caf2b605595535ab8c39f3077b93525f5db6f17f5d8951bd5d5f088a0bb21bab44891736e17936291d5153a846533a6d65eb34cfd6a24e41c7f
 	b2sums = ea9795c42003660522d89156eced726bc7db686ef8545bc57504e55341982be2e2336e9d872ce17d5c1607e0cd98e9a2f28f5836bd60b56e510ec5fd59c77143
@@ -33,5 +33,3 @@ pkgname = sonic
 	depends = glibc
 	depends = libgcc
 	depends = libgcc_s.so
-	depends = libstdc++
-	depends = libstdc++.so
