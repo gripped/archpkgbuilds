@@ -1,7 +1,7 @@
 pkgbase = zathura-cb
 	pkgdesc = Adds comic book support to zathura
-	pkgver = 2026.05.10
-	pkgrel = 4
+	pkgver = 2026.07.08
+	pkgrel = 1
 	url = https://pwmt.org/projects/zathura-cb/
 	arch = x86_64
 	license = Zlib
@@ -12,7 +12,9 @@ pkgbase = zathura-cb
 	depends = zathura
 	depends = libarchive
 	depends = desktop-file-utils
-	source = zathura-cb-2026.05.10.tar.gz::https://github.com/pwmt/zathura-cb/archive/refs/tags/2026.05.10.tar.gz
-	sha512sums = d21e28cf2b7b9ae8d3f20df89184688a93398801cb7dda848c71311d8bfc6d4b34e1a55dfd8642bb27be04c0a4740c7afd9f5fa942e6f6f075383bd7f992b68c
+	source = zathura-cb-2026.07.08.tar.gz::https://github.com/pwmt/zathura-cb/archive/refs/tags/2026.07.08.tar.gz
+	source = fix_version_handling_in_meson1.patch::https://github.com/pwmt/zathura-cb/commit/a792f02838b6c5d29a068bc51957211328704a18.patch
+	sha512sums = fc56bfc6b5a342da67931a9d756319c31479c69d0e465f538858a725f42eafcf72ae766d100251049ffaff89968e082bec3f18d78f5afdfc3af442453f077d8f
+	sha512sums = e2424b268b80f9ae82ce6026e92d70b3ca8fa8e4c75ee0f5b41ecc8a00a872e986c8b779f7a678e1bc67d8d324793815a62cd3086dc8859fb065d6e8f5fb9036
 
 pkgname = zathura-cb
