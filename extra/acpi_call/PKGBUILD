@@ -4,7 +4,7 @@
 
 pkgname=acpi_call
 pkgver=1.2.2
-pkgrel=365
+pkgrel=366
 pkgdesc='A linux kernel module that enables calls to ACPI methods through /proc/acpi/call'
 url=https://github.com/nix-community/acpi_call
 arch=(x86_64)
