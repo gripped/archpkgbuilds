@@ -1,17 +1,18 @@
 pkgbase = pixi
 	pkgdesc = A package management and workflow tool
-	pkgver = 0.68.0
+	pkgver = 0.72.2
 	pkgrel = 1
 	url = https://github.com/prefix-dev/pixi
 	arch = x86_64
 	license = BSD-3-Clause
 	checkdepends = git
+	checkdepends = sdl2
 	makedepends = cargo
-	depends = gcc-libs
+	depends = libgcc
 	depends = openssl
 	depends = bzip2
 	options = !lto
-	source = pixi-0.68.0.tar.gz::https://github.com/prefix-dev/pixi/archive/v0.68.0.tar.gz
-	sha512sums = e51557249ceebc62f5b40a2cb9376d4019c444dc23ff932e744817b8ff3ffc37e4cd47869cc62db2075d33e01707ebb0edbfcf159b1be3b09f7e1d0c5d79b310
+	source = pixi-0.72.2.tar.gz::https://github.com/prefix-dev/pixi/archive/v0.72.2.tar.gz
+	sha512sums = 40f162df680673f023b475cd0e635999fa8de652b47c72c6ed15efb34e51d3dad9e4e114b4e314124d545eca44ab7305449e076a30f476dcc084196b16c56255
 
 pkgname = pixi

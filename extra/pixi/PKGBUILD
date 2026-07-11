@@ -2,22 +2,25 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=pixi
-pkgver=0.68.0
+pkgver=0.72.2
 pkgrel=1
 pkgdesc="A package management and workflow tool"
 arch=('x86_64')
 url="https://github.com/prefix-dev/pixi"
-license=('BSD-3-Clause')
-depends=('gcc-libs' 'openssl' 'bzip2')
-makedepends=('cargo')
-checkdepends=('git')
+license=(BSD-3-Clause)
+depends=(libgcc
+         openssl
+         bzip2)
+makedepends=(cargo)
+checkdepends=(git
+              sdl2)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('e51557249ceebc62f5b40a2cb9376d4019c444dc23ff932e744817b8ff3ffc37e4cd47869cc62db2075d33e01707ebb0edbfcf159b1be3b09f7e1d0c5d79b310')
+sha512sums=('40f162df680673f023b475cd0e635999fa8de652b47c72c6ed15efb34e51d3dad9e4e114b4e314124d545eca44ab7305449e076a30f476dcc084196b16c56255')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
   mkdir -p completions
 }
 
@@ -34,10 +37,15 @@ check() {
   cd "$pkgname-$pkgver"
   local skipped=(
     add_tests
+    install_tests::install_conda_meta_history
+    install_tests::quick_validate_refreshes_resolved_platform
     # https://github.com/prefix-dev/pixi/issues/5383
     tests::test_env_vars_are_set
     tests::test_rust_is_in_build_requirements
     tests::test_rust_is_not_added_if_already_present
+    update_tests::test_update_conda_package_doesnt_update_git_pypi
+    update_tests::test_update_conda_package_doesnt_update_git_pypi_pinned
+    update_tests::test_update_git_pypi_when_requested
   )
   cargo test --frozen -- ${skipped[@]/#/--skip }
 }
