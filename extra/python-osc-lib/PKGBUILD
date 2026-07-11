@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-osc-lib
-pkgver=4.6.0
+pkgver=4.7.0
 pkgrel=1
 pkgdesc="OpenStackClient Library"
 arch=('any')
@@ -11,10 +11,9 @@ license=('Apache-2.0')
 depends=('python-pbr' 'python-cliff' 'python-keystoneauth1' 'python-openstacksdk' 'python-oslo-i18n'
          'python-oslo-utils' 'python-requests' 'python-stevedore')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-checkdepends=('python-fixtures' 'python-oslotest' 'python-requests-mock' 'python-stestr'
-              'python-testrepository' 'python-testtools')
+checkdepends=('python-fixtures' 'python-requests-mock' 'python-stestr' 'python-testtools')
 source=("git+https://github.com/openstack/osc-lib.git#tag=$pkgver")
-sha512sums=('e663e88ceef389fbbbe107358cac6d7c6b093b75a126f7a9dd5a2d5c7e08ebd3ac9fd54bb62ef6ef0d981b32a4193267be4734e5a7e9481b6d57ebf7991d3c9d')
+sha512sums=('9ee3f1dbbf486614398201a0e4099d418aff94d0cd7f920d411d30103e3beab2830278e83e70898d0297112ac6aa6091ff72786288cc649cd17586220e05ee22')
 
 build() {
   cd osc-lib
