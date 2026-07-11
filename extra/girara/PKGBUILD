@@ -5,8 +5,8 @@
 # Contributor: mlq <mlq@pwmt.org>
 
 pkgname=girara
-pkgver=2026.02.04
-pkgrel=2
+pkgver=2026.07.07
+pkgrel=1
 pkgdesc="User interface library focused on simplicity and minimalism"
 url="https://pwmt.org/projects/girara"
 arch=('x86_64')
@@ -17,7 +17,7 @@ conflicts=('girara-gtk3' 'girara-common')
 depends=('glib2' 'glibc')
 makedepends=('meson' 'ninja' 'doxygen')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pwmt/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
-sha512sums=('65b68f5e36b872cd4310e89aabee08344921759804770a0e3a3e9e1717044e871840fe967e28ef6aa5ff971492b38d27448ff44a8f01bee69b60266bab927b76')
+sha512sums=('81bcaeffff8e1f8c7de7386f57695b1838060e5e009ad257c2a09c42f1db34df5eb3a5f2041c2858a0acef1e17ea4aef5af57f66672c19dec594507d4e696a43')
 
 build() {
         cd "${pkgname}-${pkgver}"
