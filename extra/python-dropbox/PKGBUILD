@@ -3,8 +3,8 @@
 # Contributor: Tim Diels <tim@timdiels.be>
 
 pkgname=python-dropbox
-pkgver=12.0.2
-pkgrel=4
+pkgver=12.1.0
+pkgrel=1
 pkgdesc="Python SDK for Dropbox Core APIs"
 url="https://github.com/dropbox/dropbox-sdk-python"
 arch=(any)
@@ -29,14 +29,9 @@ checkdepends=(
   python-pytest
   python-pytest-mock
 )
-source=(
-  "$pkgname::git+$url#tag=v$pkgver"
-  remove-pkg_resources.patch
-)
-sha512sums=('2438cbc4d38fe4a1fa465e406c1aaecb09ddb4a29cb49dece84666827d0be1e95978a6292811b9e804683ff4fd1b9014e0a683072a55922d11d722d08cd6ee20'
-            'd1ef3a20600fe898644e54a400bda29b5da636f479c396cc5e7f3085f13e7c5973c35ff5f9756e05a3b78b8bd11eac263ca7eef1f8b25cfefdab2444ef0abb5c')
-b2sums=('7c70156098696bb670205ec2a9233eaa2f62e8b92fdd8176151d02e286985bf5501968a2c2e4a12cb4c2ffdf76ada521ff8a7a962fb4c2b8928242436702fb34'
-        'fa69818f568afa8f54cb5bdd84353cd045447b2777ea6d320be53847053e3b4b9b4e7c0ed4a4f7294d9fcfa7199778640ca6ae203c91ab40b4f48a2f7c3d2880')
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('44ad653f243e84da4fb547e4f3387b3a1a2fa760cc6fb15f3bfcaf09a696129cf7373e5abda12167a8018f68fb9ec2bc0c9b48ab5537ee2afb2f3b266e0cbd68')
+b2sums=('a1ba96601f815347e10784bfacdf7b7be4f3082675bf74dd8ba9587728d78799feee781b52eb3c49b0abccb881d756be02e9b8851ec2f9957c76eccfbe3a5e4e')
 
 prepare() {
   cd "$pkgname"
@@ -50,10 +45,6 @@ prepare() {
   sed -e "s|0.0.0|$pkgver|" -i dropbox/dropbox_client.py
   # Remove pytest-runner
   sed -i 's|pytest-runner|pytest|' setup.py requirements.txt
-
-  # remove pkg_resources
-  patch -p1 -i "$srcdir/remove-pkg_resources.patch"
-  rm -rf ez_setup.py
 }
 
 build() {
