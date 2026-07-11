@@ -2,39 +2,47 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=ty
-pkgver=0.0.57
+pkgver=0.0.58
 pkgrel=1
 pkgdesc='Extremely fast Python type checker and language server, written in Rust'
 arch=(x86_64)
 url=https://github.com/astral-sh/ty
 license=(MIT)
-depends=(python)
-makedepends=(
-  git
-  maturin
-  python-installer
-)
-options=(!lto)
-source=(
-  "git+$url.git#tag=$pkgver"
-  git+https://github.com/astral-sh/ruff.git
-)
-b2sums=('9c704b172c65c4b56864a264e07ff00ac9dcb947107ac4b7ca3f21d803d57a653f7295cb93e0f0de16880a39b6cbca0b28c18152dc4f229dce85daf76bdddc70'
+depends=(glibc # libc.so libm.so
+         libgcc libgcc_s.so
+         python)
+makedepends=(git
+             maturin
+             python-installer)
+source=("git+$url.git#tag=$pkgver"
+        git+https://github.com/astral-sh/ruff.git)
+b2sums=('e8f5c2a9f0381fdde4eb556849f2b504fac59a8ad3e3072f95eb191717465a7d7c82831dc5b4fe3dc3d6517f7449e4b2b8cb85b44e61a4d0f52c801bea0b222e'
         'SKIP')
 
+_srcenv() {
+  cd "$pkgbase"
+  export CARGO_HOME="$srcdir"
+  export CARGO_PROFILE_RELEASE_DEBUG=2
+  export CARGO_PROFILE_RELEASE_STRIP=false
+  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+  export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+  CFLAGS+=' -ffat-lto-objects'
+}
+
 prepare() {
-  cd $pkgname
+  _srcenv
   git submodule init
   git config submodule.ruff.url ../ruff
   git -c protocol.file.allow=always submodule update
-  cargo fetch --manifest-path ruff/crates/$pkgname/Cargo.toml --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --manifest-path ruff/crates/$pkgname/Cargo.toml --locked --target host-tuple
 }
 
 build() {
   local target="$(rustc --print host-tuple)"
   local target_binary="ruff/target/$target/release/$pkgname"
 
-  cd $pkgname
+  _srcenv
   maturin build --locked --release --all-features --target "$target" --strip
 
   for completion in bash elvish fish nushell zsh; do
@@ -43,7 +51,7 @@ build() {
 }
 
 check() {
-  cd $pkgname
+  _srcenv
   local skipped=(
     # our nspawn chroot *is* virtual, so naturally we don't pass this test
     python_environment::ty_environment_is_system_not_virtual
