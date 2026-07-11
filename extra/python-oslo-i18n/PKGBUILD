@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-i18n
-pkgver=6.8.0
+pkgver=6.9.0
 pkgrel=1
 pkgdesc="Oslo i18n library"
 arch=('any')
@@ -13,7 +13,7 @@ makedepends=('git' 'python-build' 'python-installer')
 checkdepends=('python-stestr' 'python-oslotest' 'python-testscenarios' 'python-oslo-config')
 source=("git+https://github.com/openstack/oslo.i18n.git#tag=$pkgver"
         "fix-tests-extra-warning.patch")
-sha512sums=('a0cad0b9842b1d844739a029c3cc50617fcc7153077bc69f22938dd43100cb7c5b25d5b729975e9ac77ba69bfd76e3549d91923498e5a50757d69d1f3d8d3135'
+sha512sums=('38465fa27351f089e0e10e31136c35affff2d9ed43a51e20c6cfc37d38c3d9e052ef8b4b7ff0cadf7dab82f787ed14b0dc6e94e8f870f9071a87ff95f5037248'
             '445b03985fafef0e4db856afe54772bb8b23b328f0a0166277c5aba9e899e2c6596737c45c11f0581fa3093853048134eac1c894227e88be463a4d0affe849e8')
 
 prepare() {
