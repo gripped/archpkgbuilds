@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=mongo-c-driver
-pkgver=2.3.0
+pkgver=2.3.2
 pkgrel=1
 pkgdesc="A client library written in C for MongoDB"
 arch=(x86_64)
@@ -30,8 +30,15 @@ replaces=(
   libbson
   libmongoc
 )
-source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('5feba0dd5e48a5b0f878dc44c9eed62aadc23e683bedcf3a5a99004eeffe7536b9295e2c52da1603f187cd2a3839b7227d0dfaf9532f5448bbc3cca6e007cb2e')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+         cmake-4.4.patch)
+b2sums=('5238aeef28be1afe2c3407a7cd3ae647b5444989803327667e39a59ea365d67fad77e581e155fc7dea537ca15cf5fb78cd8427437a37fbfd712fdb3e9552c554'
+        'a07ff84c415f33ad70b1df489bad26f55e4b7cd4ab21b527097aa5a68ce059c55fe6d2c04e606e50839da160fbbe2109cd823be10f042a2dd8c04fb81ff8cdec')
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -p1 -i ../cmake-4.4.patch # Fix build with cmake 4.4
+}
 
 build() {
   cd $pkgname-$pkgver
