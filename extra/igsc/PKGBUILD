@@ -3,7 +3,7 @@
 
 pkgname=igsc
 pkgver=0.9.5
-pkgrel=12
+pkgrel=13
 pkgdesc='Intel graphics system controller firmware update library'
 arch=('x86_64')
 url='https://github.com/intel/igsc/'
