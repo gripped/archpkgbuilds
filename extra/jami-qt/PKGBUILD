@@ -1,32 +1,28 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=jami-qt
-pkgver=20260206.0
+pkgver=20260707.0
 pkgrel=1
 pkgdesc="Free and universal communication platform which preserves the users’ privacy and freedoms (Qt client)"
 arch=(x86_64)
 url="https://jami.net"
-license=(GPL3)
+license=(GPL-3.0-or-later)
 groups=(jami)
 depends=(jami-daemon glib2 gdk-pixbuf2 libnm libnotify
-         qt6-declarative qt6-multimedia qt6-svg qt6-5compat qt6-webengine
+         qt6-declarative qt6-multimedia qt6-svg qt6-5compat qt6-webengine qt6-httpserver
          qt6-webchannel qt6-shadertools hunspell tidy md4c qwindowkit zxing-cpp)
-makedepends=(git cmake python qt6-networkauth qt6-tools)
-replaces=(jami-gnome jami-libclient)
-conflicts=(jami-gnome jami-libclient)
+makedepends=(git cmake python qt6-tools)
 _sfpmcommit=a2a0c72e4db38e1c5478bd3e0f67ff99fae11f00
 _md4ccommit=ad8d41127b94e2f0633ad14b3787f0bc4613a689
 _tidycommit=d08ddc2860aa95ba8e301343a30837f157977cba
 source=(git+https://git.jami.net/savoirfairelinux/jami-client-qt.git#tag=stable/$pkgver
-        jami-qt-SortFilterProxyModel::git+https://github.com/atraczyk/SortFilterProxyModel
         drop-qt-version-check.patch
         qt-6.6.patch
         fix-link.patch
         missing-cmake-include.patch
         unbundle-qwindowkit.patch
         zxing-cpp-3.patch)
-sha256sums=('32ad7c9410af9388d827040eb9b21f36c30f48c3d5665d891eb4673ec3e16091'
-            'SKIP'
+sha256sums=('640a09ae05101aa80b7309e14f8a6ad6a4bcff5ef8c1fc9c2d16d9895b2b4519'
             'e64eb0e5abf1be8245aea7eb705659d225b0c711c286166e28541fc66532a220'
             '61d7ca804ed18650274f233cd60a811518859b4c6739ecc246414c35c4b8d906'
             '08d1950475835d9cf0b8cc37bca5946c9182c1e15d32b8b7efc657e3d38117f2'
@@ -52,13 +48,6 @@ prepare() {
   patch -p1 -d jami-client-qt < unbundle-qwindowkit.patch
   # Fix build with zxing-cpp 3
   patch -p1 -d jami-client-qt < zxing-cpp-3.patch
-
-  cd jami-client-qt
-  git submodule init
-  for _submodule in SortFilterProxyModel; do
-    git submodule set-url 3rdparty/$_submodule "$srcdir"/jami-qt-$_submodule
-    git -c protocol.file.allow=always submodule update 3rdparty/$_submodule
-  done
 }
 
 build() {
@@ -70,7 +59,6 @@ build() {
     -DENABLE_LIBWRAP=ON \
     -DJAMICORE_AS_SUBDIR=OFF \
     -DWITH_DAEMON_SUBMODULE=OFF \
-    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -Wno-dev
   make -C build VERBOSE=1
 }
