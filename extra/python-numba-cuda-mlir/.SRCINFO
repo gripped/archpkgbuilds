@@ -1,7 +1,7 @@
 pkgbase = python-numba-cuda-mlir
 	pkgdesc = Evolution of Numba-CUDA that improves upon its technical foundation and performance
 	pkgver = 0.4.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/NVIDIA/numba-cuda-mlir
 	arch = x86_64
 	license = Apache-2.0
@@ -16,20 +16,26 @@ pkgbase = python-numba-cuda-mlir
 	makedepends = python-wheel
 	makedepends = sccache
 	depends = glibc
+	depends = libgcc
 	depends = libstdc++
+	depends = libxml2
 	depends = python
 	depends = python-cuda-bindings
 	depends = python-cuda-core
 	depends = python-cuda-pathfinder
 	depends = python-numpy
 	depends = python-yaml
+	depends = zlib
+	depends = zstd
 	optdepends = python-colorama: colors in error messages
 	optdepends = python-pygments: syntax highlighting in code dumps
 	source = python-numba-cuda-mlir-0.4.1.tar.gz::https://github.com/NVIDIA/numba-cuda-mlir/archive/refs/tags/v0.4.1.tar.gz
 	source = git+https://github.com/llvm/llvm-project.git#commit=3cbe75b1433a90a28db068d700b7effd2de8f401
 	source = pyproject.patch
+	source = fix-arith-value-meta.patch
 	b2sums = 5ae13f285f3b54e3a52cf212ebe50d41b5e3e70a24db05f604b04d324fd89ecc52ff2d3f106ecbe302fe7d1837c7a38c04f95eca72d3f2a33c759d13d1f1926d
 	b2sums = f03eeff96feac6a47e904bac188d57b003bbe9e66671b1f01bca3d7a2cc9dd836b9762fec3ff8749e15bb607365f8d63f09ee7c02a04216809a42fa315af92c6
 	b2sums = c06f7b34dcf5e8400320f3fd249a5c32135111d5695b68db5c327453d7081e4ae18d5458d35bdf6900c08f86d63817403df2cea2310138a4d2babfe783a0ad8b
+	b2sums = 50d01f218e7b965dbeadb922b380fcde5fc7491bdc44a7695f80404bf0ae38973a396bbe5ba22d7fc0c22d813fa12cc4a7d2d3eaf42e2eff176a0e6895dca800
 
 pkgname = python-numba-cuda-mlir

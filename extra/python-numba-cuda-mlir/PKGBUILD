@@ -6,20 +6,24 @@ pkgver=0.4.1
 # https://github.com/NVIDIA/numba-cuda-mlir/blob/main/ci/llvm-version.env
 _llvm_commit=3cbe75b1433a90a28db068d700b7effd2de8f401
 _llvm7_tag=llvmorg-7.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Evolution of Numba-CUDA that improves upon its technical foundation and performance"
 url="https://github.com/NVIDIA/numba-cuda-mlir"
 arch=(x86_64)
 license=(Apache-2.0)
 depends=(
   glibc
+  libgcc
   libstdc++
+  libxml2
   python
   python-cuda-bindings
   python-cuda-core
   python-cuda-pathfinder
   python-numpy
   python-yaml
+  zlib
+  zstd
 )
 makedepends=(
   cmake
@@ -41,10 +45,12 @@ source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
   "git+https://github.com/llvm/llvm-project.git#commit=$_llvm_commit"
   pyproject.patch
+  fix-arith-value-meta.patch
 )
 b2sums=('5ae13f285f3b54e3a52cf212ebe50d41b5e3e70a24db05f604b04d324fd89ecc52ff2d3f106ecbe302fe7d1837c7a38c04f95eca72d3f2a33c759d13d1f1926d'
         'f03eeff96feac6a47e904bac188d57b003bbe9e66671b1f01bca3d7a2cc9dd836b9762fec3ff8749e15bb607365f8d63f09ee7c02a04216809a42fa315af92c6'
-        'c06f7b34dcf5e8400320f3fd249a5c32135111d5695b68db5c327453d7081e4ae18d5458d35bdf6900c08f86d63817403df2cea2310138a4d2babfe783a0ad8b')
+        'c06f7b34dcf5e8400320f3fd249a5c32135111d5695b68db5c327453d7081e4ae18d5458d35bdf6900c08f86d63817403df2cea2310138a4d2babfe783a0ad8b'
+        '50d01f218e7b965dbeadb922b380fcde5fc7491bdc44a7695f80404bf0ae38973a396bbe5ba22d7fc0c22d813fa12cc4a7d2d3eaf42e2eff176a0e6895dca800')
 
 prepare() {
   # make a worktree for LLVM 7 tag
@@ -53,6 +59,10 @@ prepare() {
   cd $_name-$pkgver
   # drop cmake and ninja dependencies from pyproject.toml
   patch -p1 < ../pyproject.patch
+
+  # workaround for nanobind 2.13 rejecting types using a derived metaclass
+  # see https://github.com/NVIDIA/numba-cuda-mlir/pull/183
+  patch -p1 < ../fix-arith-value-meta.patch
 }
 
 build() {
@@ -74,6 +84,4 @@ build() {
 package() {
   cd $_name-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
-  # Remove tests
-  rm -rv "$pkgdir"$(python -c "import site; print(site.getsitepackages()[0])")/numba_cuda_mlir/{testing/,numba_cuda/tests/,numba_cuda/testing.py}
 }
