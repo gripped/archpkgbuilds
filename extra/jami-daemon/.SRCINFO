@@ -1,7 +1,7 @@
 pkgbase = jami-daemon
 	pkgdesc = Free and universal communication platform which preserves the users’ privacy and freedoms (daemon component)
-	pkgver = 20260206
-	pkgrel = 7
+	pkgver = 20260706
+	pkgrel = 2
 	url = https://jami.net
 	arch = x86_64
 	groups = jami
@@ -34,25 +34,26 @@ pkgbase = jami-daemon
 	depends = nettle
 	depends = opendht
 	depends = openssl
+	depends = simdutf
 	depends = speexdsp
 	depends = systemd-libs
 	depends = util-linux-libs
 	depends = webrtc-audio-processing-0.3
 	depends = yaml-cpp
 	depends = zlib
-	noextract = pjproject-59d9e1355686cf4f3f3d81d45560058354f42802.tar.gz
-	noextract = dhtnet-cff03260fa037f59d6768bac26014b01c07b3fb9.tar.gz
-	source = git+https://git.jami.net/savoirfairelinux/jami-daemon.git#commit=55dd53736b9e6cd7204cc17e01d10d8a9276618f
-	source = https://github.com/savoirfairelinux/pjproject/archive/59d9e1355686cf4f3f3d81d45560058354f42802/pjproject-59d9e1355686cf4f3f3d81d45560058354f42802.tar.gz
-	source = dhtnet-cff03260fa037f59d6768bac26014b01c07b3fb9.tar.gz::https://git.jami.net/savoirfairelinux/dhtnet/-/archive/cff03260fa037f59d6768bac26014b01c07b3fb9/dhtnet-cff03260fa037f59d6768bac26014b01c07b3fb9.tar.gz
+	noextract = pjproject-08d2e8aef47d2f73546cc9e95514db454e57821e.tar.gz
+	noextract = dhtnet-ac94420150d43f3748541c1827f30fa97295e713.tar.gz
+	source = git+https://git.jami.net/savoirfairelinux/jami-daemon.git#commit=12948b655fb38ff2d441a67871d0feab3573adbc
+	source = https://github.com/savoirfairelinux/pjproject/archive/08d2e8aef47d2f73546cc9e95514db454e57821e/pjproject-08d2e8aef47d2f73546cc9e95514db454e57821e.tar.gz
+	source = dhtnet-ac94420150d43f3748541c1827f30fa97295e713.tar.gz::https://git.jami.net/savoirfairelinux/dhtnet/-/archive/ac94420150d43f3748541c1827f30fa97295e713/dhtnet-ac94420150d43f3748541c1827f30fa97295e713.tar.gz
 	source = ffmpeg-7.patch
 	source = ffmpeg-8.patch
-	source = nettle-4.patch
-	sha512sums = e544bfac1eb2184f2b3a10d9e98a644068b5d2d5d622822e647d23b4ded21054d0e6e72defe7d74df4d2d44ca246643196228ccda19c41b7fbd4371ebfc36ce7
-	sha512sums = c5966468225782bedfbed218e58ebe2491ba8fa897edc1590de22ffe513a7b1bf814c5e75761d980d651c9d56e5c4f64b16f68d413062a4a9960d53cdd0ae047
-	sha512sums = bc41959ffeba424095067d0bd71ec8de2efc922907d9091ac6f32aeaba66afd090d2615e52784f392d5a827e23a5dd3bc039ed8935764ece1e017ccfc358a5f7
-	sha512sums = 6e927376938e6687a438b4984e37a23a921fb6b3e87f804b6eb9365af18b04bd5b601fd7be95ae326d8e5f15d82552ae7dd5367a1eb834bd0d7d77600e05c82e
+	source = fix-missing-header.patch
+	sha512sums = 77cdfb10cacde3a619c64b14ac1cab966c26dd78103f652ea0ed33c78b436193b94dd712bfa888a46c705db9e94d6b07ddd2bdb9e003d4dadc13afca39f3aeb0
+	sha512sums = 9f464b7fb70bac99f346f9254dee2a75fd4f606f4fc253d03c5197283b739979753958626fd9296d47e99b156149be70cb67dec451a08d8c5b75482083959557
+	sha512sums = 1c2498486caf791928d6e662e16257f3a521df589374d32be8d81adf700698241dbd2e170a2661a1c7aa16d0e8dde1beec77847753e86041d21d555c4ebc0de3
+	sha512sums = 39b7181fb66f72d96b63777920a26dfc1fa5377e81d22dce622c6ef4a3d9d2e5002457908a89fc14bdf9af175b7e781114c2d2fd0c572bbea344254495bed563
 	sha512sums = 8fcfe52808d00b8535dc6d181af0233dc0f3a51e8da69728a04e7f6edc82c54fb11e62ffad05344d9eeb6d203dc323ffa03181c615c7c6f84682f70a02ee4319
-	sha512sums = f3939766a25d33a36d4a49642305bd62b4d3ddae717e9e117ca28be1f9a06adc70eac392e8b8eb9167768d0087421ed5816b5af00742c3f7cdcb17d7547c02bc
+	sha512sums = 6025357ffcfe2f8c3088d60b780ea1b63d1d512b80c5ec29f616b5bc7336cc5a7dacb02c1f9e88f9255545c1cbd2446f69e711b3b6244eeea4f7a68291e39465
 
 pkgname = jami-daemon
