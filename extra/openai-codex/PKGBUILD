@@ -4,8 +4,8 @@
 # Contributor: Christopher Cooper <christopher@cg505.com>
 
 pkgname=openai-codex
-pkgver=0.144.0
-pkgrel=1
+pkgver=0.144.1
+pkgrel=2
 pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
 arch=(x86_64)
 url='https://github.com/openai/codex'
@@ -31,7 +31,7 @@ optdepends=(
 )
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/rust-v$pkgver.tar.gz")
-b2sums=('2e8e56863dad28a28d1571e73429de74ae1f6327a4144ffc58cf0fa7086c72e26c99a5ed897c32505fbab9816669502dfb9cfb34318a2fb665468d7a04246362')
+b2sums=('460644e3eec6943501650a828ab1bda35ddb1f232ea8bd832cab02a76598a06f9b9e5ad3be23b15d5527893d439110ac031b984488cc43cc867fb7b368cb3a0c')
 
 prepare() {
   cd codex-rust-v$pkgver/codex-rs
@@ -47,7 +47,10 @@ build() {
   export ZSTD_SYS_USE_PKG_CONFIG=1
   # Reduces build time by about 10 minutes
   export CARGO_PROFILE_RELEASE_LTO=thin
-  cargo build --frozen --release --bin codex --bin codex-responses-api-proxy
+  cargo build --frozen --release \
+              --bin codex \
+              --bin codex-code-mode-host \
+              --bin codex-responses-api-proxy
 }
 
 package() {
@@ -55,6 +58,7 @@ package() {
 
   install -Dm755 -t "$pkgdir"/usr/bin \
     target/release/codex \
+    target/release/codex-code-mode-host \
     target/release/codex-responses-api-proxy
 
   install -d "${pkgdir}/usr/share/bash-completion/completions" \
