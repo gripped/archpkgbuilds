@@ -2,11 +2,13 @@
 
 pkgbase=ggml
 pkgname=(
-  ggml
+  ggml-cpu
+  ggml-rocm
   ggml-sycl
+  ggml-vulkan
 )
 pkgver=0.15.3
-pkgrel=5
+pkgrel=3
 pkgdesc='Tensor library for machine learning'
 arch=(x86_64)
 url=https://github.com/ggerganov/ggml
@@ -18,21 +20,15 @@ depends=(
   libstdc++
 )
 conflicts=(ggml)
-provides=(
-  ggml
-  ggml-blas
-  ggml-cpu
-)
+provides=(ggml)
 makedepends=(
   cmake
   cuda
   git
   intel-oneapi-toolkit
   level-zero-headers
-  nccl
   ninja
   openblas
-  #opencl-headers
   procps-ng
   rocm-hip-sdk
   rocm-toolchain
@@ -45,23 +41,21 @@ source=(git+https://github.com/ggml-org/ggml.git#tag=v${pkgver})
 b2sums=('5b794b40ad52c9a2eeacd7e5a6c68440d8d0cef2b3669db69f773b3ef83a7de21248158c89a17a98a170b8609c28438e30d31180fead315a203c5982700dab73')
 
 build() {
-  cmake -S ggml -B build-all -G Ninja \
+  . /opt/intel/oneapi/setvars.sh
+
+  cmake -S ggml -B build-cpu -G Ninja \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DGGML_BLAS=ON \
+      -DGGML_BLAS_VENDOR=OpenBLAS
+  cmake --build build-cpu
+
+  cmake -S ggml -B build-rocm -G Ninja \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DAMDGPU_TARGETS=$(rocm-supported-gfx) \
-      -DGGML_BACKEND_DL=ON \
-      -DGGML_BACKEND_DIR=/usr/lib/ggml \
-      -DGGML_BLAS=ON \
-      -DGGML_BLAS_VENDOR=OpenBLAS \
-      -DGGML_CPU_ALL_VARIANTS=ON \
-      -DGGML_CUDA=ON \
-      -DGGML_HIP=ON \
-      -DGGML_VULKAN=ON
-      #-DGGML_OPENCL=ON \
-      #-DGGML_OPENCL_USE_ADRENO_KERNELS=OFF \
-  cmake --build build-all
-
-  . /opt/intel/oneapi/setvars.sh
+      -DGGML_HIP=ON
+  cmake --build build-rocm
 
   cmake -S ggml -B build-sycl -G Ninja \
       -DCMAKE_BUILD_TYPE=Release \
@@ -69,44 +63,54 @@ build() {
       -DCMAKE_SKIP_RPATH=ON \
       -DCMAKE_C_COMPILER=icx \
       -DCMAKE_CXX_COMPILER=icpx \
-      -DGGML_BACKEND_DL=ON \
-      -DGGML_BACKEND_DIR=/usr/lib/ggml \
       -DGGML_BLAS=ON \
       -DGGML_BLAS_VENDOR=Intel10_64lp \
-      -DGGML_CPU_ALL_VARIANTS=ON \
       -DGGML_SYCL=ON \
       -DGGML_SYCL_F16=ON
   cmake --build build-sycl
+
+  cmake -S ggml -B build-vulkan -G Ninja \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DGGML_VULKAN=ON
+  cmake --build build-vulkan
 }
 
-package_ggml() {
-  optdepends=(
-    'cuda: CUDA backend'
-    #'ocl-icd: OpenCL backend'
-    'nccl: CUDA backend'
-    'openblas: BLAS backend'
-    'hipblas: ROCm backend'
-    'rocblas: ROCm backend'
-    'rocm-hip-runtime: ROCm backend'
-    'vulkan-icd-loader: Vulkan backend'
-  )
-  provides+=(
-    ggml-cuda
-    #ggml-opencl
-    ggml-rocm
-    ggml-vulkan
+package_ggml-cpu() {
+  depends+=(openblas)
+
+  DESTDIR="${pkgdir}" cmake --install build-cpu
+  install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}
+}
+
+package_ggml-rocm() {
+  depends+=(
+    hipblas
+    rocblas
+    rocm-hip-runtime
   )
 
-  DESTDIR="${pkgdir}" cmake --install build-all
+  DESTDIR="${pkgdir}" cmake --install build-rocm
   install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}
 }
 
 package_ggml-sycl() {
   depends+=(
-    intel-oneapi-toolkit
+    intel-oneapi-compiler-dpcpp-cpp-runtime-libs
+    intel-oneapi-dnnl
+    intel-oneapi-mkl
+    intel-oneapi-mkl-sycl
+    intel-oneapi-openmp
     level-zero-loader
   )
 
   DESTDIR="${pkgdir}" cmake --install build-sycl
+  install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}
+}
+
+package_ggml-vulkan() {
+  depends+=(vulkan-icd-loader)
+
+  DESTDIR="${pkgdir}" cmake --install build-vulkan
   install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}
 }
