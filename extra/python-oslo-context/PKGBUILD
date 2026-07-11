@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-context
-pkgver=6.4.0
+pkgver=6.5.0
 pkgrel=1
 pkgdesc="OpenStack Context library"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python-pbr' 'python-typing_extensions')
 makedepends=('git' 'python-build' 'python-installer')
 checkdepends=('python-oslotest' 'python-stestr')
 source=("git+https://github.com/openstack/oslo.context.git#tag=$pkgver")
-sha512sums=('8a5895ff7f08176ee53fd3863280e087fab94c33aec91277339441c7b556a146c72d6c7a9a3058e276963da55c6e568b371d1c0576f0954ec9c0fa77bb84dc8d')
+sha512sums=('9fb57d6b873585519483c52a3fe89d468c057259baaf4517aa161fc41778e3304cc5f9494a381564b6376c58beb4c86cbfe1f4899f44a57201755326fa6d2fe0')
 
 build() {
   cd oslo.context
