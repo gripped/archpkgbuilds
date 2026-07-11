@@ -1,15 +1,16 @@
 pkgbase = just-lsp
 	pkgdesc = A language server for just
-	pkgver = 0.4.7
+	pkgver = 0.4.8
 	pkgrel = 1
 	url = https://github.com/terror/just-lsp
 	arch = x86_64
 	license = CC0-1.0
-	makedepends = rust
+	makedepends = cargo
 	depends = glibc
 	depends = libgcc
-	source = just-lsp-0.4.7.tar.gz::https://github.com/terror/just-lsp/archive/refs/tags/0.4.7.tar.gz
-	sha512sums = eef627a992f0e67bd64fcdd1b55582c4c7a1fdf247a58dfe744ad6e8fb2984cddeebf4d5ba5f5f98249ddf4c510965c21c25af9b7afcbb5a56c57bbc910757bb
-	b2sums = 4db60d474c9570db0edaad0f5aa3787a029f1f9a15c6d42659b9bffd03b9a3b114198be3095b5175f6af5e91c64728f4bcbb5d91045f1d105c4c49c430461478
+	depends = libgcc_s.so
+	source = https://github.com/terror/just-lsp/archive/refs/tags/0.4.8/just-lsp-0.4.8.tar.gz
+	sha512sums = 311ac4f8a3985934b8a8f061bd41a2fa55ce2024d46530a39b2c52df27101b738da7f586565adaee4911487e1c29e2cee4f7b85c14c104a161b46168471a1359
+	b2sums = dde9d6eff981986c862943a8289e918b747d8f0a461e880ceddf32a4d574a10560a4a9b49d5c02da5c826e0162fda0a0d6c3cdcb8fed820de1dc8596da59c785
 
 pkgname = just-lsp

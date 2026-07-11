@@ -2,40 +2,49 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=just-lsp
-pkgver=0.4.7
+pkgver=0.4.8
 pkgrel=1
 pkgdesc="A language server for just"
 arch=(x86_64)
 url="https://github.com/terror/just-lsp"
 license=(CC0-1.0)
-depends=(
-  glibc
-  libgcc
-)
-makedepends=(rust)
-source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('eef627a992f0e67bd64fcdd1b55582c4c7a1fdf247a58dfe744ad6e8fb2984cddeebf4d5ba5f5f98249ddf4c510965c21c25af9b7afcbb5a56c57bbc910757bb')
-b2sums=('4db60d474c9570db0edaad0f5aa3787a029f1f9a15c6d42659b9bffd03b9a3b114198be3095b5175f6af5e91c64728f4bcbb5d91045f1d105c4c49c430461478')
+depends=(glibc # libc.so libm.so
+         libgcc libgcc_s.so)
+makedepends=(cargo)
+_archive="$pkgname-$pkgver"
+source=("$url/archive/refs/tags/$pkgver/$_archive.tar.gz")
+sha512sums=('311ac4f8a3985934b8a8f061bd41a2fa55ce2024d46530a39b2c52df27101b738da7f586565adaee4911487e1c29e2cee4f7b85c14c104a161b46168471a1359')
+b2sums=('dde9d6eff981986c862943a8289e918b747d8f0a461e880ceddf32a4d574a10560a4a9b49d5c02da5c826e0162fda0a0d6c3cdcb8fed820de1dc8596da59c785')
+
+_srcenv() {
+  cd "$_archive"
+  export CARGO_HOME="$srcdir"
+  export CARGO_PROFILE_RELEASE_DEBUG=2
+  export CARGO_PROFILE_RELEASE_STRIP=false
+  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+  export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+  CFLAGS+=' -ffat-lto-objects'
+}
 
 prepare() {
-  cd $pkgname-$pkgver
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  _srcenv
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
-  CFLAGS+=' -ffat-lto-objects'
-  cd $pkgname-$pkgver
+  _srcenv
   cargo build --frozen --release
 }
 
 check() {
-  cd $pkgname-$pkgver
-  cargo test --frozen
+  _srcenv
+  cargo test --frozen --release
 }
 
 package() {
-  cd $pkgname-$pkgver
-  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
-  install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
-  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+  cd $_archive
+  install -vDm 755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
+  install -vDm 644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
+  install -vDm 644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }
