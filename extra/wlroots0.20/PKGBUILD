@@ -2,7 +2,7 @@
 
 pkgname=wlroots0.20
 _pkgname=wlroots
-pkgver=0.20.1
+pkgver=0.20.2
 pkgrel=1
 pkgdesc="Modular Wayland compositor library"
 url="https://gitlab.freedesktop.org/wlroots/wlroots"
@@ -16,7 +16,7 @@ optdepends=('xorg-xwayland: Xwayland support'
             'vulkan-validation-layers: validation layers for the experimental vulkan renderer backend')
 provides=("libwlroots-${pkgver%.*}.so")
 source=("${pkgname}::git+${url}.git#tag=${pkgver}?signed")
-sha256sums=('b15c189015a856a6eef7742ab46bc0f7b74428fb325fb6722f2f30b9e094f32e')
+sha256sums=('6c8595da579a8df74bc307294c2485e90f5379b84390381f500da33ff3f276d2')
 validpgpkeys=('34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48'  # Simon Ser
               '9DDA3B9FA5D58DD5392C78E652CB6609B22DA89A'  # Drew DeVault
               '4100929B33EEB0FD1DB852797BC79407090047CA') # Sway signing key)
