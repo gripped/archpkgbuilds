@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-cliff
-pkgver=4.14.0
+pkgver=4.15.0
 pkgrel=1
 pkgdesc="Command Line Interface Formulation Framework"
 arch=('any')
@@ -13,7 +13,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-pbr'
 checkdepends=('python-fixtures' 'python-stestr' 'python-sphinx' 'python-testtools')
 options=('!emptydirs')
 source=("git+https://github.com/openstack/cliff.git#tag=$pkgver")
-sha512sums=('0a83dcc60e9ddd68c29fc0fd3330ffc272440467cc27e9560d95223369e2cc5ff135a7446599a10e557af0985331c700f450b6fe071d9c0c84276630788031bb')
+sha512sums=('22447ec77a3a3bc632e25a493dba1f4142e02a0a49cf9099510506d3367d45f9afb75cee51ec96386ffa88299e4bf0355f5a95e7c866a8f4f96907205c56d569')
 
 build() {
   cd cliff
