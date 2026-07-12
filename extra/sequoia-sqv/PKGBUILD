@@ -1,8 +1,8 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=sequoia-sqv
-pkgver=1.3.0
-pkgrel=3
+pkgver=1.5.0
+pkgrel=1
 pkgdesc='Simple OpenPGP signature verification program'
 url='https://sequoia-pgp.org/'
 arch=(x86_64)
@@ -20,8 +20,8 @@ makedepends=(
   git
 )
 source=("git+https://gitlab.com/sequoia-pgp/sequoia-sqv.git#tag=v${pkgver}?signed")
-sha512sums=('7636309b3a298fc17899a1f6e19c37362458e3049cc352eb349628449493bbfa22b56650e1519cfb46cb1abf7a29788e2a29cedc504ce78ef2b71fba7e3f86b2')
-b2sums=('967daa03700d2c6a5a25595352f07e4773f5c0dc6e1e8c98fc585ef6fd96593a7e715db1fca3f6550bd70fe55e26716383a3de38774c6987f90892c79d8c09aa')
+sha512sums=('a6ca500b41c29fa697e872888f71db3c7dde99c559efbac3e0b30af019428d0c7afaf6546e616ffdf2cd3a9f65d5fee02d860af06173d70e2e1de84497800576')
+b2sums=('f03157bb71fdf36c035688e025951384cc92c4206ed4c542820287e3f127bf17e89356c610738248f33bd3d3412762bff95ebb3512cf0f46e9e52dde897c5954')
 validpgpkeys=(
   D2F2C5D45BE9FDE6A4EE0AAF31855247603831FD # justus@sequoia-pgp.org
   CBCD8F030588653EEDD7E2659B7DD433F254904A # justus@sequoia-pgp.org
@@ -31,8 +31,6 @@ validpgpkeys=(
 
 prepare() {
   cd sequoia-sqv
-# Update nettle-sys to fix build with clang 22
-  cargo update -p nettle-sys --precise 2.3.2
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
