@@ -1,0 +1,56 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=janet
+pkgver=1.41.2
+pkgrel=3
+pkgdesc='A dynamic language and bytecode vm'
+arch=(x86_64)
+url='https://janet-lang.org'
+license=(MIT)
+makedepends=(
+  git
+  meson
+)
+optdepends=(
+  'jpm: janet project manager'
+  'janet-spork: various Janet utility modules'
+)
+options=(staticlibs)
+source=("$pkgname::git+https://github.com/janet-lang/janet#tag=v$pkgver")
+sha512sums=('e91c16d5ef444a8f604049ef8e41ad205c071dd31bd8e619c234011c62d2066fd43859d91ecb76209bc1ccd19226d99525d443618b68374afa9ad35333008864')
+b2sums=('d5f9d97885261ebaf2009735a25043b46685a4eda696404e5245ba468f6c8158c8eda882286adae8dd9a2d527abcbde57df2c7bf9df8fdce8db9fbeda485476f')
+
+build() {
+  export CFLAGS+=" -fPIC -ffat-lto-objects"
+  export LDFLAGS+=" -rdynamic"
+
+  arch-meson "$pkgname" build -Dgit_hash="$(git -C "$pkgname" rev-parse --short HEAD)"
+
+  meson compile -C build
+
+  # generate documentation
+  ./build/janet janet/tools/gendoc.janet > doc.html
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  depends+=(glibc)
+
+  meson install -C build --destdir "$pkgdir"
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" doc.html
+  cp -vr "$pkgname/examples" "$pkgdir/usr/share/doc/$pkgname"
+
+  # remove hidden files + empty directories
+  rm -rf \
+    "$pkgdir/usr/lib/janet/.keep" \
+    "$pkgdir/usr/share/doc/janet/examples/numarray/.gitignore" \
+    "$pkgdir/usr/lib/janet"
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$pkgname/LICENSE"
+}
