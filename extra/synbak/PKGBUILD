@@ -4,16 +4,16 @@
 # Contributor: aeolist <aeolist@hotmail.com>
 
 pkgname=synbak
-pkgver=3.8.2
-pkgrel=2
+pkgver=3.8.5
+pkgrel=1
 pkgdesc="Meant to unify several backup methods in a single application while supplying a powerful reporting system"
 arch=('any')
 url='https://github.com/ugoviti/synbak'
 license=('GPL')
 depends=('bc' 'netcat')
 changelog=$pkgname.changelog
-source=($pkgname-$pkgver.tar.gz::https://github.com/ugoviti/$pkgname/archive/$pkgver.tar.gz)
-sha256sums=('9f918022cbe6384c032df33d7714f07a9ed65adfe8c48e353be0273279034601')
+source=($pkgname-$pkgver.tar.gz::https://github.com/ugoviti/$pkgname/archive/refs/tags/$pkgver.tar.gz)
+sha256sums=('c994460f1760bc6322a53a7a2cea3ff3dbde6f61b75035980b61e60028358636')
 
 build() {
   cd ${pkgname}-${pkgver}
