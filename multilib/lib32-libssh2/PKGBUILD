@@ -9,7 +9,7 @@
 pkgname=lib32-libssh2
 _name=${pkgname#lib32-}
 pkgver=1.11.1
-pkgrel=3
+pkgrel=4
 pkgdesc="A library implementing the SSH2 protocol as defined by Internet Drafts (32-bit)"
 url="https://www.libssh2.org/"
 arch=('x86_64')
@@ -21,13 +21,16 @@ source=(
   "git+https://github.com/libssh2/libssh2.git?signed#tag=$_name-$pkgver"
   $_name-1.11.1-CVE-2025-15661.patch
   $_name-1.11.1-CVE-2026-55200.patch
+  $_name-1.11.1-CVE-2026-58050.patch
 )
 sha512sums=('6a54a0b5bd6acb39dcc71f6a3326d557651bd1305511ebc00be9141c92253a160ea2efccca5c4ce97e666c2a29affa5b865f33b7f93a4bc551a25a49df66f871'
             '6ef6232b598d43aa132255593b51026061535fe054864ec6b3f230ec445a156ffea73eca7b7a1f3321b8d642fc8420bc7a3dd2e0de441a71a0115076eba81324'
-            'dca03419d0cd8fb103c01ad34165a0d5aded46e3177f7b219ddcddeaa62194dc3e015fc9e9d48e8f08c3ddc93a405a0e1d39c9f9e1892c1fad51fee8be144778')
+            'dca03419d0cd8fb103c01ad34165a0d5aded46e3177f7b219ddcddeaa62194dc3e015fc9e9d48e8f08c3ddc93a405a0e1d39c9f9e1892c1fad51fee8be144778'
+            '37e075f451ad6b725faa67e4b91228ae8f3289c8c3d51a3cc1ece07451bf585f45f51df30267779074e5dbef7843e2ae5f0169c05baf51b0465927781b3db219')
 b2sums=('e09704f04dea54a1583e295002f27de7a40a97fcb05ab12b650735af78be177ddf211ebb2c78098b1b39800ea40b95a63364b50773f54150dff171d0af03177b'
         'bb012adcced6e85c4e5e987082ccdae893fa10f17862ac49037b1f0232e16ebde3317235bc2ee7d6054678d2c927077c3ab0ce6d35990671d2c3314d4d9ae66f'
-        '743feb7c180288de94649bb1a20b1b2761151c6eaa271d4b6bf145bfceb30684803dfe3c1f6314714381fdce784c5a426c5adc3d58ee49ab1fc0d8f1bc66abfd')
+        '743feb7c180288de94649bb1a20b1b2761151c6eaa271d4b6bf145bfceb30684803dfe3c1f6314714381fdce784c5a426c5adc3d58ee49ab1fc0d8f1bc66abfd'
+        'd552a28093841db332a23d2aad5f1f305ef3659e3d9de9cf5b2888a1f6d86a4418830aaa51e91e0c72086eb056806cbb0cfe9244ddb88c0b68b11612aa77d9de')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2')   # Daniel Stenberg
 
 prepare() {
@@ -36,6 +39,8 @@ prepare() {
   git cherry-pick -n 256d04b60d80bf1190e96b0ad1e91b2174d744b1  # CVE-2026-7598
   git cherry-pick -n 17626857d20b3c9a1addfa45979dadcee1cd84a4  # CVE-2026-55199
   patch -Np1 -i ../$_name-1.11.1-CVE-2026-55200.patch  # CVE-2026-55200
+  git cherry-pick -n a9758da45a52bc8c630ec9493804d0c6ea30b24a  # CVE-2026-58051
+  patch -Np1 -i ../$_name-1.11.1-CVE-2026-58050.patch  # CVE-2026-58050
   # The "_DEV" suffix is only removed from `LIBSSH2_VERSION` for dist tarballs, so we do it here.
   sed 's/_DEV//' --in-place include/libssh2.h
   autoreconf -fiv
