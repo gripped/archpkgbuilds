@@ -3,7 +3,7 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=homebank
-pkgver=5.10
+pkgver=5.10.2
 pkgrel=1
 pkgdesc="Free, easy, personal accounting for everyone"
 arch=('x86_64')
@@ -23,15 +23,15 @@ depends=(
 )
 makedepends=('intltool')
 source=("https://www.gethomebank.org/public/sources/$pkgname-$pkgver.tar.gz")
-b2sums=('bbb2dbfe3b5e193c11315e568d070d9a31e201739bbad5b3446ec50dfd8d9d14a6d330b2e7de8591d8b997d9a8b41702ac8e3bb67c12c8dbd3de9b8a7a95c77a')
+b2sums=('9bb15b7dd7b54760cc5ccd0e6bfa52f3314ab0432471c0a23c5d87bfc9ea7002bc2b24223dea1ba3942eb26d8e012a6c7651490e616049d4c41be06788afe1ad')
 
 build() {
-  cd "$pkgname-$pkgver.0"
+  cd "$pkgname-$pkgver"
   ./configure --prefix=/usr
   make
 }
 
 package() {
-  cd "$pkgname-$pkgver.0"
+  cd "$pkgname-$pkgver"
   make DESTDIR="$pkgdir" install
 }
