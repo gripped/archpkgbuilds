@@ -23,14 +23,25 @@ SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
-    "deps-cutlass-4.2.0.patch",
-    "fix-gcc-15.patch",
     "fix-thrust-api.patch",
     "onnxruntime-install-orttraining-files.patch",
     "onnxruntime-system-dnnl.patch",
     "onnxruntime-system-flatbuffers.patch",
     "onnxruntime-remove-pkg_resources.patch",
-    "onnxruntime-cuda-moe-no-tensor-dumper.patch",
+    "use-system-boost-mp11.patch",
+    "onnxruntime-cuda13-cccl-header-fix.patch",
+    "onnxruntime-cuda-softmax-stream.patch",
+    "onnxruntime-drop-sharded-moe.patch",
 ]
 SPDX-FileCopyrightText = "onnxruntime contributors"
 SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["onnxruntime-abseil-cuda13-member-template.patch"]
+SPDX-FileCopyrightText = "abseil-cpp contributors"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = ["onnxruntime-cutlass-4.4.2.patch"]
+SPDX-FileCopyrightText = "NVIDIA CUTLASS contributors"
+SPDX-License-Identifier = "BSD-3-Clause"
