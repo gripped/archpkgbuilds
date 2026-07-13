@@ -1,7 +1,7 @@
 pkgbase = gnupg
 	pkgdesc = Complete and free implementation of the OpenPGP standard
 	pkgver = 2.4.9
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.gnupg.org/
 	install = gnupg.install
 	arch = x86_64
@@ -38,7 +38,7 @@ pkgbase = gnupg
 	depends = tpm2-tss
 	depends = zlib
 	optdepends = pcsclite: for using scdaemon not with the gnupg internal card driver
-	source = git+https://dev.gnupg.org/source/gnupg.git?signed#tag=gnupg-2.4.9
+	source = git+https://github.com/gpg/gnupg.git?signed#tag=gnupg-2.4.9
 	source = dirmngr.service
 	source = dirmngr.socket
 	source = dirmngr@.service
