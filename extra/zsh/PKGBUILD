@@ -2,7 +2,7 @@
 
 pkgbase=zsh
 pkgname=('zsh' 'zsh-doc')
-pkgver=5.9.1
+pkgver=5.9.2
 pkgrel=1
 arch=('x86_64')
 url='https://www.zsh.org/'
@@ -10,9 +10,9 @@ license=('custom')
 makedepends=('pcre2' 'libcap' 'gdbm' 'yodl')
 source=("https://www.zsh.org/pub/zsh-${pkgver}"{,-doc}".tar.xz"{,.asc}
         'zprofile')
-sha512sums=('e16c13559262577e725b290c35ce6598d58c2acdd204eac619e8ed9b6a918bce39bfbf9d3ef4c5eb877af7d3279c8a4b15439eba6a38c4e4d47d5555d5f79872'
+sha512sums=('40bb5eb2cf217e6bcff342fcc9314f082a5d8975abcb56897e86eba5839ddf0ec1ac3feed1e797d4c68cea22228197342916f14bb87309bbcc026a87622bc015'
             'SKIP'
-            '4513672a49609e1bac3b73956b05a3b40c1755e59dbd9d4109a2b8dde475e8dcbd95df31ad6840697a99155f359723130d1ea0e7eac017663fa467d00d5bb64a'
+            'ee67fb114e5e3fa1cc4edbe08bfc224a72e57aa9773a3a5784d20d73e8f0f111ac413d69bd98b4f4ae4ddcc75e0e8a381db9575ab0a6acd21ad0bf79fd2e982e'
             'SKIP'
             'b287e00d8de4dc4cfb1c52bb2aef1d4b191de3512baad4c91dc81e78ddc3e5bb07297f43924b022ac44ff401a348d8a9fa366e19ddc8ea1ea72df311f5ed0034')
 validpgpkeys=('F7B2754C7DE2830914661F0EA71D9A9D4BDB27B3'
