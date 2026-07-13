@@ -1,6 +1,6 @@
 pkgbase = objdiff
 	pkgdesc = A local diffing tool for decompilation projects
-	pkgver = 3.7.2
+	pkgver = 3.7.3
 	pkgrel = 1
 	url = https://github.com/encounter/objdiff
 	arch = x86_64
@@ -9,15 +9,19 @@ pkgbase = objdiff
 	makedepends = rust
 	depends = fontconfig
 	depends = freetype2
-	depends = glibc
 	depends = hicolor-icon-theme
-	depends = libgcc
 	options = !lto
-	source = objdiff::git+https://github.com/encounter/objdiff#tag=v3.7.2
+	source = objdiff::git+https://github.com/encounter/objdiff#tag=v3.7.3
 	source = objdiff.desktop
-	sha512sums = 76457c0a47f7437ced113e3fd26bfb3605a976e575b04ad2f9d15ac91ab23f77a4b97a3e28dfdc123b7bd64da387d986b740a7abca93eb95fd41b18adf774d37
+	sha512sums = cd9f10e2ca2ee0120bcaa8bf0e972fa5506ee88267756fd5d480f9b8e5d1dc8e43bfdac0866d6727c3987fa411c321d6d38f600116e0b0ca9d155b37ade020ce
 	sha512sums = 481c738997aa5963be4e240dd20a711e84f50ab4b0cc0bfb26c96da981cac0e0918e527301e72831e34593ff67c917c33208fa5574adadea2ed6eaab8fda00d8
-	b2sums = 7591e374bfbd94c608efe584f19daa362fda80fae5ea2f54c99b6a625fa613a7562cd677dea8c87736b11e0ca2c682936ecfc9b1fc15b13233c453aaf3227950
+	b2sums = f0ed9f204d59481f9b42aa8b950646dd11353b6e35eb7aa308ebd16d9f9fe8d592a756135d48f2d17fd4fd8f63e5c5b14f01bef5c2114832cdb3fb6a553bf826
 	b2sums = e6317bd0ce38552b47a6d716f4df4f1e1ba3719448f3d9aedcd8aab4b30d86b95fba6cd293cc350ea9f0d2d5c87795a4f334fd5730bd1143b99bd910cdcb4840
 
 pkgname = objdiff
+	depends = fontconfig
+	depends = freetype2
+	depends = hicolor-icon-theme
+	depends = glibc
+	depends = libgcc
+	depends = libgcc_s.so
