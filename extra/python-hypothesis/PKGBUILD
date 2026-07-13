@@ -5,14 +5,16 @@
 
 pkgname=python-hypothesis
 _name=${pkgname#python-}
-pkgver=6.155.7
+pkgver=6.156.5
 pkgrel=1
 pkgdesc="Advanced Quickcheck style testing library for Python"
-arch=(any)
+arch=(x86_64)
 url="https://hypothesis.readthedocs.org"
 _url="https://github.com/HypothesisWorks/hypothesis"
 license=(MPL-2.0)
 depends=(
+  glibc
+  libgcc
   python
   python-attrs
   python-sortedcontainers
@@ -21,6 +23,7 @@ makedepends=(
   git
   python-build
   python-installer
+  python-maturin
   python-setuptools
   python-wheel
 )
@@ -61,8 +64,13 @@ optdepends=(
   'python-watchdog: for tracking file system events'
 )
 source=("$pkgname::git+$_url#tag=v$pkgver")
-sha512sums=('f0c5d3376765813cff9cee403e3f4aada33e2350ffb738e6289029c77c36ef569bcd05da104b0203eb25c8d5e03ab4e34d9b60418939227ec3bd0281d7a59a24')
-b2sums=('5ac80e0b74272a079ccc6efbdc3965e9a348a936d7c8bc46bcdca8eedcaf014d5909b8f98c83f75ccde183cd79df76fcc9fb4432495a8d982c743d2db0006791')
+sha512sums=('0f53c8b82f4e953ca581a38b51687214ad254e3a61d0b67268ecd066b70ef5ed9369d41047d2a5c1efb6724ef5283b40e69ffad1ceba54f8e381fa788e595a01')
+b2sums=('9238c3abf0a2a29cd984a107d12517a35533e23534b30ccd72edb53d971bb3422bc4bff0187b44e1fd947038b7daa4a6be33944a87b2dd96535bc82fceccbcf5')
+
+prepare() {
+  cd $pkgname/$_name/rust/
+  cargo fetch --locked --target host-tuple
+}
 
 build() {
   cd $pkgname/$_name
