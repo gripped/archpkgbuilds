@@ -1,7 +1,7 @@
 pkgbase = libtorrent-rasterbar
 	pkgdesc = An efficient and feature complete C++ BitTorrent library implementation
-	pkgver = 2.0.13
-	pkgrel = 1
+	pkgver = 2.1.0
+	pkgrel = 2
 	epoch = 1
 	url = https://www.rasterbar.com/products/libtorrent/
 	arch = x86_64
@@ -14,17 +14,28 @@ pkgbase = libtorrent-rasterbar
 	depends = boost-libs
 	depends = glibc
 	depends = libgcc
-	depends = libstdc++
 	depends = openssl
-	source = libtorrent-rasterbar::git+https://github.com/arvidn/libtorrent.git#tag=v2.0.13
+	source = libtorrent-rasterbar::git+https://github.com/arvidn/libtorrent.git#tag=v2.1.0
 	source = git+https://github.com/arvidn/libsimulator.git
 	source = git+https://github.com/arvidn/try_signal.git
 	source = git+https://github.com/paullouisageneau/boost-asio-gnutls.git
+	source = git+https://github.com/paullouisageneau/libdatachannel.git
+	source = git+https://github.com/SergiusTheBest/plog.git
+	source = git+https://github.com/paullouisageneau/usrsctp.git
+	source = git+https://github.com/paullouisageneau/libjuice.git
+	source = git+https://github.com/nlohmann/json.git
+	source = git+https://github.com/cisco/libsrtp.git
 	source = 010-libtorrent-rasterbar-fix-for-fortify-source-3.patch
-	sha512sums = 8bfe4bfafc97f78fd82430dfd29a1d1a9d995332ea1d465e576010eb2454fef5dc8c681df66b6815e00a6f1189ba59331359ccf9f1f4f5fe1d1fadd1a181459d
+	sha512sums = 04fadaf23bc70833347416ab149a77720d38ab889d3388e4d74a8c749664144e56f088fc96e3ade60f9995eb4c00706891bcae28dc425906a2558e5f16c35719
 	sha512sums = SKIP
 	sha512sums = SKIP
 	sha512sums = SKIP
-	sha512sums = 9f18a2e71b3924897f88b1c4148d3afe3bb29d1fe41a3166f0e3dfb64f1641f50ac25551e942241c7207e6692e4765df53e160ea9d3a8eca30879d6e299e9e1d
+	sha512sums = SKIP
+	sha512sums = SKIP
+	sha512sums = SKIP
+	sha512sums = SKIP
+	sha512sums = SKIP
+	sha512sums = SKIP
+	sha512sums = c0ddab473428658b816f5b832dd6a431d64e5698f85d97c6090bee1b247bddef37850d53e19f1019cc37f25fad33da1294df9ecbbf616be7570d94545c771f7e
 
 pkgname = libtorrent-rasterbar
