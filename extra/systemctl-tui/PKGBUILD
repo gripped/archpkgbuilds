@@ -2,16 +2,18 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=systemctl-tui
-pkgver=0.5.2
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="A fast, simple TUI for interacting with systemd services and their logs"
 arch=('x86_64')
 url="https://github.com/rgwood/systemctl-tui"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('d99921d0d688a873c34fc3684c9041ca3b07629de1e1900a178532955b082e8e6dd972d779fb8a83822d2ddb9997f38f2aad4ccfb8bfd61e8fc6db02a18b9009')
+sha512sums=('05089f6f5033beaf46522fcfd65df9abb314301f9baecfc530892ffaf6818d0d3524167ae1f63ec53b8035ea2d1ff6a5e77de74b8c27fba4e3c3327861b7d794')
 
 prepare() {
   cd "$pkgname-$pkgver"
