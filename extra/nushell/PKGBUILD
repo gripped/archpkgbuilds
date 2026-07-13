@@ -6,7 +6,7 @@
 
 pkgname=nushell
 pkgver=0.114.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A new type of shell'
 arch=(x86_64)
 url='https://www.nushell.sh'
@@ -21,7 +21,7 @@ depends=(
   sqlite3
   zstd
 )
-makedepends=(rustup git)
+makedepends=(cargo git)
 checkdepends=(procps-ng)
 install=nushell.install
 source=("git+https://github.com/nushell/nushell.git#tag=$pkgver")
@@ -31,10 +31,8 @@ b2sums=('40946c18b77dfb6b2722c6e34f56f5a580e8fd720cab813131bb8e3dfa28b4bb45e9aee
 prepare() {
   cd "$pkgname"
 
-  # Upstream will not build with Rust 1.97.0; this is set
-  # in project toolchain config so `cargo` will pick it up.
   # https://github.com/nushell/nushell/issues/18578
-  rustup toolchain install 1.95.0
+  cargo update -v --precise 1.5.3 ethnum
 
   export CARGO_HOME="$srcdir"
   cargo fetch --locked --target host-tuple
