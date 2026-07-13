@@ -1,0 +1,10 @@
+[Trigger]
+Type = Package
+Operation = Remove
+Target = dbeaver
+
+[Action]
+Description = Removing DBeaver bundles.info file...
+When = PreTransaction
+Exec = /bin/sh -c 'if [[ -e /etc/dbeaver/bundles.info ]]; then rm /etc/dbeaver/bundles.info; fi'
+
