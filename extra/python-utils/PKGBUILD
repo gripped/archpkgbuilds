@@ -4,8 +4,8 @@
 
 pkgdesc="A module with some convenient utilities not included with the standard Python install"
 pkgname=python-utils
-pkgver=3.9.1
-pkgrel=3
+pkgver=4.0.0
+pkgrel=1
 arch=(any)
 url="https://github.com/WoLpH/python-utils"
 license=(BSD-3-Clause)
@@ -17,8 +17,7 @@ makedepends=(
   git
   python-build
   python-installer
-  python-setuptools
-  python-wheel
+  python-uv-build
 )
 checkdepends=(
   python-loguru
@@ -29,8 +28,8 @@ optdepends=('python-loguru: for logging support')
 source=(
   git+$url.git?signed#tag=v$pkgver
 )
-sha512sums=('15afa010a8bb5009345d4e707014a2c679d60b313cc25e7b09c54e1562248402b3e917a83c4c5b262e2a787a2322d0ef74cab4cfd2ce4ebb90cc4f5f7f481615')
-b2sums=('0437e1915aff3e0842f2636d50018534c69f3858128dd4123eb2b7825bbf408ffdd6d46dbefd0aff5930008d8fbf91c18eb02c422b8d81b1385f750a39bbca28')
+sha512sums=('57b5c26018f6295c64582c47abdbfbe89ab61a9f2b9df2bafdefacc6bf948594c31ff16ffdf9e239c1cd3a7ce96e184b09dbb40f37ca662a7c801b74187e446f')
+b2sums=('adbfdeb5afb88b96cc8821253fb02f931df998031b162edb1f339d289676fe07fcc3331406a7be6cb3a69dd0b4bb79ac51ae6dbf3b72b47db75ea0d28b286036')
 validpgpkeys=('149325FD15904E9C4EB89E95E81444E9CE1F695D') # Rick van Hattem <wolph@wol.ph>
 
 build() {
@@ -47,5 +46,5 @@ package() {
   cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
-  install -vDm 644 README.rst -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
 }
