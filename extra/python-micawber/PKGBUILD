@@ -2,7 +2,7 @@
 
 pkgname=python-micawber
 _name=${pkgname#python-}
-pkgver=0.6.2
+pkgver=0.7.0
 pkgrel=1
 pkgdesc="A small library for extracting rich content from urls"
 arch=(any)
@@ -27,8 +27,8 @@ optdepends=(
   'python-redis: redis caching support'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('7c9a4d155f8269c83d85ccdf27378eaf59dab3704159f76d0ffeda47af5c0617a9a5dc1dc0d5941adfbf64477c34e3335fa33f1b7fce0bf5fd350937a1a631d1')
-b2sums=('db1d61cdd6fed50b6640b6ffd453677886b30db8978c3a5ebc2589614d658c0912fe904b0581deaab87188e958209d5878d06256bd70f3bb07dfaa45862091f5')
+sha512sums=('668a5bf06149c3515eb8df70f2441ed2279365fbb6fd8b474839c7cd67329b2c1eb28d56a56463c43a13fc918341f0997e9e3b872ddd4d7a80055d184904cdb0')
+b2sums=('f6fb9febda06d8f8854f5c8b22d56559465a296fb0dccd36161955bbce6e0d24a55752a7a4d2c9adbaeaba0ec72ffd8b73ea91ff308d85b61187200f0d6bfa1d')
 
 build() {
   cd $_name-$pkgver
