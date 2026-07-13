@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=python-rarfile
-pkgver=4.2
-pkgrel=4
+pkgver=4.3
+pkgrel=1
 pkgdesc='Python module for RAR archive reading'
 arch=(any)
 url='https://github.com/markokr/rarfile'
@@ -31,7 +31,7 @@ checkdepends=(
   unrar
 )
 source=("git+https://github.com/markokr/rarfile.git#tag=v$pkgver")
-b2sums=(85d518c4b7603eabb00eabdb811209f99461899f318b18f063e36411b72f3d5f7938fc03e6946d141b13fb607e8500fd1ad7f4e5958f6e19a76de9cd9817c8b6)
+b2sums=(a6b3424bf2a0a25c8cb101f2beb1407a4b6a25180299ef976f246a0c3088ec1f2112a1efd573f6e695406022b060444047b3e5b611f649ea00025fcd8f0c12a8)
 
 build() {
   cd rarfile
