@@ -1,7 +1,7 @@
 pkgbase = php-imagick
 	pkgdesc = PHP extension to create and modify images using the ImageMagick library
 	pkgver = 3.8.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/imagick/imagick
 	arch = x86_64
 	license = 0BSD
@@ -10,7 +10,7 @@ pkgbase = php-imagick
 	makedepends = librsvg
 	makedepends = php
 	makedepends = php-legacy
-	depends = gcc-libs
+	depends = libgomp
 	depends = glibc
 	depends = imagemagick
 	depends = ttf-font
@@ -29,7 +29,7 @@ pkgbase = php-imagick
 	b2sums = dfccdf3b2ef248b9617eb10b683ca09d4f663baa707d6ced8ede779c51c08ef0a26e76452367f1b8e19ad4835bf3b116bedeeaaf68c0b54a7983a6d217720edd
 
 pkgname = php-imagick
-	depends = gcc-libs
+	depends = libgomp
 	depends = glibc
 	depends = imagemagick
 	depends = ttf-font
@@ -37,7 +37,7 @@ pkgname = php-imagick
 	backup = etc/php/conf.d/imagick.ini
 
 pkgname = php-legacy-imagick
-	depends = gcc-libs
+	depends = libgomp
 	depends = glibc
 	depends = imagemagick
 	depends = ttf-font

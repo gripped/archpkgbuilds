@@ -7,7 +7,7 @@ pkgname=(
   php-legacy-imagick
 )
 pkgver=3.8.1
-pkgrel=2
+pkgrel=3
 pkgdesc="PHP extension to create and modify images using the ImageMagick library"
 arch=(x86_64)
 url="https://github.com/imagick/imagick"
@@ -16,7 +16,7 @@ license=(
   PHP-3.01
 )
 depends=(
-  gcc-libs
+  libgomp
   glibc
   imagemagick
   ttf-font
