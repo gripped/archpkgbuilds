@@ -2,9 +2,9 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=imagemagick
-pkgver=7.1.2.26
+pkgver=7.1.2.27
 _pkgver=${pkgver%.*}-${pkgver##*.}
-pkgrel=2
+pkgrel=1
 pkgdesc='An image viewing/manipulation program'
 url='https://www.imagemagick.org/'
 arch=(x86_64)
@@ -71,7 +71,7 @@ checkdepends=(gsfonts
               ttf-dejavu)
 replaces=(imagemagick-doc)
 source=(git+https://github.com/ImageMagick/ImageMagick#tag=$_pkgver)
-sha256sums=('3281eb4bdbf31d0a0263d7d28548e09c6fd4d2b93916b4e7a557884db2880ba5')
+sha256sums=('9ef83a50408337cf3c9fad68d21f5a892c0fddaf98ce8d56cc69705f0d4c028f')
 validpgpkeys=(C305FEBD4C4081119CB3C12CE640E67B2C7F96AA)  # Dirk Lemstra <dirk@lemstra.org>
 
 build() {
