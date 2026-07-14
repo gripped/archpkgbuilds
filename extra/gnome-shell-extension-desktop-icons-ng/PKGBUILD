@@ -5,22 +5,23 @@
 
 pkgname=gnome-shell-extension-desktop-icons-ng
 _pkgname=desktop-icons-ng
-pkgver=50.3.0
+pkgver=51.0.1
 pkgrel=1
 pkgdesc='Desktop icons extension for GNOME Shell'
 arch=(any)
 url='https://www.rastersoft.com/programas/ding.html'
 license=(GPL-3.0-only)
 depends=(
-  cairo
   dconf
   gdk-pixbuf2
   gjs
   glib2
   gnome-autoar
-  gnome-desktop
+  gnome-desktop-4
   gnome-shell
-  gtk3
+  graphene
+  gtk4
+  libadwaita
   nautilus
   pango
 )
@@ -28,20 +29,11 @@ makedepends=(
   git
   meson
 )
-source=(
-  "git+https://gitlab.com/rastersoft/$_pkgname.git#tag=$pkgver"
-  gnome-shell-extension-desktop-icons-ng-fix-dialogs.patch
-)
-b2sums=(
-  8b5378eb42304b7a26c2d323ee4822ed840f04a9f50b5ec8b3e4f39bbc2e4bfac344da379ea514d568db0decb55d1b6f6a2a3989e01600d7a06e29afabde10ab
-  147bd1977d74898a7bd98d89ad386faecc7cdafacc29baa2dddcef494328e95f4566b61e504afc69d4a6403bda58ac97a63b07fd992d172fd0ebbb311dd93199
-)
+source=("git+https://gitlab.com/rastersoft/$_pkgname.git#tag=$pkgver")
+b2sums=(977209a50c1f37d2b666025e67eefa437239e3a9554c3d2502c92b274a50f0503ffa8a7e211bb002254ac8930eb8d38c2f972aa82ee47f341592e9115f44ad57)
 
 prepare() {
   cd $_pkgname
-
-  # https://gitlab.com/rastersoft/desktop-icons-ng/-/merge_requests/423
-  git apply -3 ../gnome-shell-extension-desktop-icons-ng-fix-dialogs.patch
 }
 
 build() {
