@@ -3,8 +3,8 @@
 # Contributor: alba4k <blaskoazzolaaaron@gmail.com>
 
 pkgname=hyprsunset
-pkgver=0.3.3
-pkgrel=7
+pkgver=0.4.0
+pkgrel=1
 pkgdesc='An application to enable a blue-light filter on Hyprland'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -21,7 +21,7 @@ makedepends=(cmake
              wayland-protocols)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('cf2b3cc836bdeb7ac3ae78cf98e8cc4a06093e8d8215ff4da2380843dcf1a5dc')
+sha256sums=('5980e65ec650010e36c52e5f5acc0df9fd2d20051c63b89305bdc13276f237a6')
 
 build() {
 	cd "$_archive"
