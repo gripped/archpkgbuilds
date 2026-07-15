@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kimageformats
-pkgver=6.27.0
-pkgrel=2
+pkgver=6.28.0
+pkgrel=1
 pkgdesc='Image format plugins for Qt 6'
 arch=(x86_64)
 url='https://develop.kde.org/products/frameworks/'
@@ -33,7 +33,7 @@ optdepends=('imath: EXR format support'
             'openexr: EXR format support')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('6a9f40936ba946279063cbdaea473b9eb735b53047b0124c88aca7db17ccabac'
+sha256sums=('91808c6de080ab5b506721c1f78ad5772bcb1f70bba7262c275ccd98de8b6b38'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1 # Nicolas Fella <nicolas.fella@kde.org>
