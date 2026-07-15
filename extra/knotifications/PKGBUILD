@@ -3,11 +3,11 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=knotifications
-pkgver=6.27.0
+pkgver=6.28.0
 pkgrel=1
 pkgdesc='Abstraction for system notifications'
 arch=(x86_64)
-url='https://community.kde.org/Frameworks'
+url='https://develop.kde.org/products/frameworks/'
 license=(LGPL-2.0-only LGPL-3.0-only)
 depends=(libstdc++
          glibc
@@ -20,15 +20,15 @@ makedepends=(doxygen
              python-build
              python-setuptools
              qt6-declarative
-             qt6-tools)
+             qt6-tools
+             shiboken6-generator)
 optdepends=('pyside6: Python bindings'
             'qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('eeb067fab001dd24735ad56e8ec4808fca76e5ecdf003cf614246c9abe1c3e19'
+sha256sums=('e5d3b284ccc907f190d3ab10995a0ae7fa0f505088acc69edc7adfcc6a8140d6'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
-              E0A3EB202F8E57528E13E72FD7574483BB57B18D  # Jonathan Esk-Riddell <jr@jriddell.org>
               90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1) # Nicolas Fella <nicolas.fella@kde.org>
 
 build() {
