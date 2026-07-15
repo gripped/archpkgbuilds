@@ -2,39 +2,47 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=systemctl-tui
-pkgver=0.6.0
+pkgver=0.6.1
 pkgrel=1
-pkgdesc="A fast, simple TUI for interacting with systemd services and their logs"
-arch=('x86_64')
-url="https://github.com/rgwood/systemctl-tui"
-license=('MIT')
-depends=(
-  'libgcc'
-)
-makedepends=('cargo')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('05089f6f5033beaf46522fcfd65df9abb314301f9baecfc530892ffaf6818d0d3524167ae1f63ec53b8035ea2d1ff6a5e77de74b8c27fba4e3c3327861b7d794')
+pkgdesc='A fast, simple TUI for interacting with systemd services and their logs'
+arch=(x86_64)
+url="https://github.com/rgwood/$pkgname"
+license=(MIT)
+depends=(glibc # libc.so libm.so
+         libgcc libgcc_s.so)
+makedepends=(cargo)
+_archive="$pkgname-$pkgver"
+source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
+sha256sums=('2369e1b8d8f94c07bab8d6ff978f51319980c9428d41f0541f427b8d44d4a709')
+
+_srcenv() {
+	cd "$_archive"
+	export CARGO_HOME="$srcdir"
+	export CARGO_PROFILE_RELEASE_DEBUG=2
+	export CARGO_PROFILE_RELEASE_STRIP=false
+	export CARGO_PROFILE_RELEASE_LTO=true
+	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+}
 
 prepare() {
-  cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+	_srcenv
+	cargo fetch --locked --target host-tuple
 }
 
 build() {
-  cd "$pkgname-$pkgver"
-  cargo build --release --frozen
+	_srcenv
+	cargo build --release --frozen
 }
 
 check() {
-  cd "$pkgname-$pkgver"
-  cargo test --frozen
+	_srcenv
+	cargo test --frozen
 }
 
 package() {
-  cd "$pkgname-$pkgver"
-  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
-  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
-  install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+	cd "$_archive"
+	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
+	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }
-
-# vim: ts=2 sw=2 et:

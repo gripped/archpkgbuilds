@@ -1,13 +1,15 @@
 pkgbase = systemctl-tui
 	pkgdesc = A fast, simple TUI for interacting with systemd services and their logs
-	pkgver = 0.6.0
+	pkgver = 0.6.1
 	pkgrel = 1
 	url = https://github.com/rgwood/systemctl-tui
 	arch = x86_64
 	license = MIT
 	makedepends = cargo
+	depends = glibc
 	depends = libgcc
-	source = systemctl-tui-0.6.0.tar.gz::https://github.com/rgwood/systemctl-tui/archive/v0.6.0.tar.gz
-	sha512sums = 05089f6f5033beaf46522fcfd65df9abb314301f9baecfc530892ffaf6818d0d3524167ae1f63ec53b8035ea2d1ff6a5e77de74b8c27fba4e3c3327861b7d794
+	depends = libgcc_s.so
+	source = https://github.com/rgwood/systemctl-tui/archive/refs/tags/v0.6.1/systemctl-tui-0.6.1.tar.gz
+	sha256sums = 2369e1b8d8f94c07bab8d6ff978f51319980c9428d41f0541f427b8d44d4a709
 
 pkgname = systemctl-tui
