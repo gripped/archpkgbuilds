@@ -2,28 +2,33 @@
 
 _hkgname=openpgp-asciiarmor
 pkgname=haskell-openpgp-asciiarmor
-pkgver=0.1.2
-pkgrel=385
-pkgdesc="OpenPGP (RFC4880) ASCII Armor codec"
-url="http://floss.scru.org/openpgp-asciiarmor"
+pkgver=1.0
+pkgrel=1
+pkgdesc="OpenPGP (RFC9580) ASCII Armor codec"
+url="https://salsa.debian.org/clint/openpgp-asciiarmor"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-base64-bytestring')
-makedepends=('ghc')
+makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('8dc41995d2a8db54304c558efd7ab083f519be35908fc9d69c980ce943c5c1de89e0476bcc275d10ae1bdb1d4c1bc838f1aff5d5ed108c780d29ac7f786f2f05')
+sha512sums=('5eab1c888a8332622e87af7cb203828f27d5f58a1cd8ff65bf254ccfb305d228f969ea16ef27ba1656c195a31ff88f88a4f1345880c639c451f084e252de9497')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
