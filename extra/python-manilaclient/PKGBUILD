@@ -1,0 +1,33 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-manilaclient
+pkgver=6.2.0
+pkgrel=1
+pkgdesc="Client library for OpenStack Shared File System Storage"
+arch=('any')
+url="https://docs.openstack.org/python-manilaclient/"
+license=('Apache-2.0')
+depends=('python-debtcollector' 'python-keystoneauth1' 'python-openstackclient'
+         'python-osc-lib' 'python-oslo-config' 'python-oslo-i18n'
+         'python-oslo-log' 'python-oslo-serialization' 'python-oslo-utils'
+         'python-pbr' 'python-prettytable' 'python-requests')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+checkdepends=('python-ddt' 'python-fixtures' 'python-requests-mock' 'python-stestr'
+              'python-tempest' 'python-testtools')
+source=("git+https://opendev.org/openstack/python-manilaclient.git#tag=$pkgver")
+sha512sums=('bb73ac8936bbeb62bfea0327f75b04322f4d622ed0f95c70ac41fc78fa22be44e090712f2cc6aa566c4b75cd2e0782202e3a0518eb02045d42377c33aa63c994')
+
+build() {
+  cd python-manilaclient
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd python-manilaclient
+  stestr run
+}
+
+package() {
+  cd python-manilaclient
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
