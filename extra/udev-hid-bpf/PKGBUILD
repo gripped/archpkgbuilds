@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=udev-hid-bpf
-pkgver=2.2.0.20251121
+pkgver=2.3.0.20260703
 _pkgver="$(sed 's/\(.*\)\./\1-/' <<< "${pkgver}")"
 pkgrel=1
 pkgdesc='An automatic HID-BPF loader based on udev events written in rust'
@@ -32,12 +32,9 @@ checkdepends=(
   'python-rich'
 )
 options=('!lto')
-source=(https://gitlab.freedesktop.org/libevdev/${pkgname}/-/archive/${_pkgver}/${pkgname}-${_pkgver}.tar.gz
-        python-click-deprecated-mix-stderr.patch)
-sha256sums=('fbf21cbbcc81746fdeefa15259d46abcb28f8daaf70ec2af920b68cca8b44a95'
-            'ae2e5ee4ffa762c74f996dbadac0d9e6385c84ca197032a186511bd792d8fa16')
-b2sums=('79097bf329f8d841fd42fea27cc4381282da8c1e3edf0a2000b37ae1a7bee54fb095f5edbfba661fafdd317a8cff84d08564a59b49356987d6b8bf01c9998954'
-        '6e9b43abf523d40294e1be74894c4f02ab2ee8b79cab3ac6049b5da5378c176bc0b489e13f1cd524d1221dac047821e3a4ca89d965744c7f9a5ce0a37363a269')
+source=(https://gitlab.freedesktop.org/libevdev/${pkgname}/-/archive/${_pkgver}/${pkgname}-${_pkgver}.tar.gz)
+sha256sums=('ad71da0c37a832ae9084e7beb843b90d0718f13cbc5a21efb7a858eedb290eac')
+b2sums=('b037440986f105cd0a8fe1c7c6eb8e1d182defd0c7867c2666017a1a96757d38871d65380de9cfcb3bed6109ad54a6b0e3d882a82f616d83b4be4c05ac45ac23')
 
 prepare() {
   cd "${pkgname}-${_pkgver}"
@@ -45,8 +42,6 @@ prepare() {
     (.package[] | select(.name == "udev-hid-bpf") | .version) = "'"$_pkgver"'"
   ' Cargo.lock
   cargo fetch --locked --target host-tuple
-  # https://github.com/pallets/click/pull/2523
-  patch -Np1 -i ../python-click-deprecated-mix-stderr.patch
 }
 
 build() {
