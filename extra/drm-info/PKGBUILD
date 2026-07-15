@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=drm-info
-pkgver=2.9.0
+pkgver=2.10.0
 pkgrel=1
 pkgdesc='Small utility to dump info about DRM devices'
 url='https://gitlab.freedesktop.org/emersion/drm_info'
@@ -19,8 +19,8 @@ makedepends=(
   'scdoc'
 )
 source=(https://gitlab.freedesktop.org/emersion/drm_info/-/archive/v${pkgver}/drm_info-v${pkgver}.tar.gz)
-sha256sums=('b1000e95eb4f57cfe7819c5b8afd880ac07dde25d9c3839ec52e0aeadeb83234')
-b2sums=('c5045a56ed9fc3935e24e47b31b3e3c4d9c36ba71f26536236a30d2a13207be34665b3edf616f895e4444d3aa4f7a05585d7c59f247113dc1f53a00ed7b10a77')
+sha256sums=('17bcca16920ecf22904b0af82c2d8c94545991b9840332833adfe8ae3e8f232d')
+b2sums=('9cbc7b300169c2988330d9deb2f35f296639e4a32b58407cae9ef5e59bb8230455f753c8a2cf6f15142084113e8749116204968474eb415b044acc7ef2966549')
 
 build() {
   cd "drm_info-v${pkgver}"
