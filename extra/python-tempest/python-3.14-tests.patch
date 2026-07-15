@@ -1,0 +1,30 @@
+diff --git a/tempest/common/concurrency.py b/tempest/common/concurrency.py
+index bcff6c5aa..8c50f54a9 100644
+--- a/tempest/common/concurrency.py
++++ b/tempest/common/concurrency.py
+@@ -18,0 +19,8 @@ import multiprocessing
++def _get_multiprocessing_context():
++    # Tempest callers pass local functions that are not picklable with forkserver.
++    try:
++        return multiprocessing.get_context('fork')
++    except ValueError:
++        return multiprocessing
++
++
+@@ -29 +37,2 @@ def run_concurrent_tasks(target, resource_count, **kwargs):
+-    manager = multiprocessing.Manager()
++    multiprocessing_context = _get_multiprocessing_context()
++    manager = multiprocessing_context.Manager()
+@@ -41 +50 @@ def run_concurrent_tasks(target, resource_count, **kwargs):
+-        p = multiprocessing.Process(
++        p = multiprocessing_context.Process(
+diff --git a/tempest/lib/common/rest_client.py b/tempest/lib/common/rest_client.py
+index 16156ed54..b0e24b9f0 100644
+--- a/tempest/lib/common/rest_client.py
++++ b/tempest/lib/common/rest_client.py
+@@ -495 +495 @@ class RestClient(object):
+-            extra=extra)
++            extra=extra or {})
+@@ -521 +521 @@ class RestClient(object):
+-            extra=extra)
++            extra=extra or {})

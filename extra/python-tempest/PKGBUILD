@@ -1,0 +1,48 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-tempest
+pkgver=46.3.0
+pkgrel=1
+pkgdesc="OpenStack Integration Testing"
+arch=('any')
+url="https://docs.openstack.org/tempest/latest/"
+license=('Apache-2.0')
+depends=('python-pbr' 'python-cliff' 'python-jsonschema' 'python-testtools'
+         'python-paramiko' 'python-cryptography' 'python-netaddr'
+         'python-oslo-concurrency' 'python-oslo-config' 'python-oslo-log'
+         'python-stestr' 'python-oslo-serialization' 'python-oslo-utils'
+         'python-fixtures' 'python-yaml' 'python-subunit' 'python-stevedore'
+         'python-prettytable' 'python-urllib3' 'python-debtcollector'
+         'python-defusedxml' 'python-fasteners' 'python-testscenarios')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+checkdepends=('python-hacking' 'python-oslotest')
+source=("git+https://opendev.org/openstack/tempest.git#tag=$pkgver"
+        'python-3.14-tests.patch')
+sha512sums=('2bb326c8728236b9d4865cf499ff84a4d7bf6c9ca103f3df919245767af8a3fdfa693fa0a47891272b8944bc0f3e8633625727ed8f32054511373b748e03dd20'
+            '376e405035140780bcc3f5622df7002f5a2148a7de028051b2b4e0333fd9bf62edfca780cce41f3c03c87dc4d78e3bdc4166f5f22733a09aef7f505f19d08181')
+
+prepare() {
+  cd tempest
+  # Fix test failures with Python 3.14's forkserver default and current oslo.log.
+  patch -Np1 -i ../python-3.14-tests.patch
+}
+
+build() {
+  cd tempest
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd tempest
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+
+  # Match upstream tox.ini's default unit-test env; .stestr.conf discovers integration tests.
+  PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m stestr --test-path ./tempest/tests run
+}
+
+package() {
+  cd tempest
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  mv "$pkgdir"/usr/etc "$pkgdir"/etc
+}
