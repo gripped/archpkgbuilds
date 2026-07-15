@@ -3,7 +3,7 @@
 
 pkgname=gnome-sudoku
 pkgver=50.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Test your logic skills in this number grid puzzle"
 url="https://gitlab.gnome.org/GNOME/gnome-sudoku/-/wikis/home"
 arch=(x86_64)
