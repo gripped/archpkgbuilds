@@ -2,7 +2,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=ruby-cucumber-messages
-pkgver=34.0.1
+pkgver=34.0.2
 pkgrel=1
 pkgdesc="Protocol Buffer messages for Cucumber's inter-process communication"
 arch=(any)
@@ -22,8 +22,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/cucumber/messages.git#tag=v$pkgver)
-sha512sums=('5802161c83ebea1f3ca6fa553e83e6473a10636abb317160e1b6f1e4da08bf97988de8581ebfdf77bb4d63d544924d034fbe113c9a79851670051f8007014a44')
-b2sums=('1f76299595574066f97e0b3653a8bc074a9628c67d52686bf72599ae8547b8fb54fee9c3f62af7e275c9b10c8dd15a89d10c63deaca2faf66826eeae18bb9b02')
+sha512sums=('241ffe51130b72789653c4c6d1e7be71c468aed4c9593f193c0721d0b4a4a61e6d3c7749acb9c828e6d855326e2fe37abb213d49a8394db39794f447c3292d01')
+b2sums=('3f14ae8205927ee99ec9c28496869b87c83224468ef5771accb02ee8e81bdcfa5620dded8148a9aae42118c182b935063a565d9936a30fb57d9b1b54f338dacf')
 
 build() {
   local _gemdir="$(gem env gemdir)"
