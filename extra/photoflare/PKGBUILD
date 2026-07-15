@@ -2,7 +2,7 @@
 # Contributor: Josip Ponjavic <josipponjavic at gmail dot com>
 
 pkgname=photoflare
-pkgver=1.7.1
+pkgver=1.7.2
 pkgrel=1
 pkgdesc='Quick, simple but powerful Qt-based image editor inspired by PhotoFiltre'
 arch=(x86_64)
@@ -23,7 +23,7 @@ makedepends=(
   qt6-tools
 )
 source=("git+https://github.com/PhotoFlare/photoflare.git#tag=v$pkgver")
-b2sums=(16d05d807ebe9bd32bdc7734d8a8c80b05e9a5790fa1e012df15e712995c3742de5f7bb8eacdf2098069990e2dde4ecb9751ac8d9ccd29979a60da7a95e12109)
+b2sums=(621c7d264c0f2d3fbd9af285f7816faca97a75c007397e8e2389e97405cf07f32a39141cab7925ede3c4d60fff95be71228cf9926064465539b7935458f0fb1c)
 
 prepare() {
   cd $pkgname
