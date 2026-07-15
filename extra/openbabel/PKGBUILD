@@ -4,7 +4,7 @@
 
 pkgbase=openbabel
 pkgname=(openbabel python-openbabel)
-pkgver=3.2.0
+pkgver=3.2.1
 pkgrel=1
 pkgdesc='A library designed to interconvert between many file formats used in molecular modeling and computational chemistry'
 arch=(x86_64)
@@ -25,7 +25,7 @@ makedepends=(boost
              swig
              wxwidgets-gtk3)
 source=(git+https://github.com/openbabel/openbabel#tag=openbabel-${pkgver//./-})
-sha256sums=('a749611c7599b1631fd9fa136cd584c2cdc90a8ac4bac803d17d1c7a79ba75a0')
+sha256sums=('ea037205e22522f87af2dd7f717d3af6511319b778223eb6e39f968309f983a2')
 
 build() {
   cmake -B build -S openbabel \
