@@ -5,11 +5,11 @@
 # Contributor: Fredrik Tegenfeldt <fredrik.tegenfeldt@unige.ch>
 
 pkgname=slurm-llnl
-pkgver=26.05.1.1
+pkgver=26.05.2.1
 # Hyphens (-) are prohibited however they are used by the package author
 # therefore it is necessary to invoke ${pkgver} like ${pkgver//./-}
 # this will substitute any full stops (.) with hyphens
-pkgrel=2
+pkgrel=1
 pkgdesc="Simple Linux Utility for Resource Management"
 arch=('x86_64')
 url="https://www.schedmd.com"
@@ -55,7 +55,7 @@ backup=('etc/default/slurmd' 'etc/default/slurmctld' 'etc/default/slurmdbd')
 source=("git+https://github.com/SchedMD/slurm#tag=slurm-${pkgver//./-}"
          "slurm-llnl.sysusers"
          "slurm-llnl.tmpfiles")
-sha512sums=('cfc94aa1a57ed6fd694f8e70a48c546aac562e877dc1fa0594e74e1efa21e9a27d315e8475e6267b9d9dd97f3f987e6ea709d53acd5ab00848a688361e50f2a6'
+sha512sums=('cf7a71937ab23e4d516deeda800143e29622d7a86166ef6f026b6c12dd04172f5c515dfbb4b5b88454d1c4594b96bbab4c3f9b8cd3fd69a551df1d02967e801d'
             'c93f383f7e7ec959a3d4375b1d1a14521757c0c2bb034d3dea5604e5b6332f4d5e6f9024f0f650729931055868b80b0d7b5bd6aaea6429a70c63a2b86b53e549'
             '4f7d1e36abc2ca5aa38b40403292b68f769238766ecdd44ea5d29f8106bd9b7c3e0d2236208f92e00818e37dd24c9520b6e9fe06e01b6e552ac485a1df682edd')
 
