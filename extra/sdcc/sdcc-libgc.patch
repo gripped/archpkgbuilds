@@ -290,7 +290,7 @@
  ifdef SDCC_SUB_VERSION
 --- a/src/SDCC.lex
 +++ b/src/SDCC.lex
-@@ -85,6 +85,10 @@ UTF8IDF         {UTF8IDF1ST}|\xcc[\x80-\xbf]|\xcd[\x80-\xaf]|\xe2\x83[\x90-\xbf]
+@@ -77,6 +77,10 @@ UTF8IDF         {UTF8IDF1ST}|\xcc[\x80-\xbf]|\xcd[\x80-\xaf]|\xe2\x83[\x90-\xbf]
  #define TKEYWORD99(token) return (options.std_c99 ? (token) : check_type())
  #define TKEYWORD2X(token) return (options.std_c23 ? (token) : check_type())
  
@@ -312,8 +312,8 @@
 +#define YYREALLOC Safe_realloc
  
  %}
- %expect 3
-@@ -3020,7 +3023,7 @@ asm_statement
+ %expect 4
+@@ -3268,7 +3271,7 @@ asm_statement
  
          seqPointNo++;
          ex = newNode(INLINEASM, NULL, NULL);
@@ -322,7 +322,7 @@
          seqPointNo++;
          $$ = ex;
       }
-@@ -3030,7 +3033,7 @@ asm_statement
+@@ -3278,7 +3281,7 @@ asm_statement
  
          seqPointNo++;
          ex = newNode(INLINEASM, NULL, NULL);
@@ -333,7 +333,7 @@
        }
 --- a/src/SDCCerr.c
 +++ b/src/SDCCerr.c
-@@ -784,7 +784,7 @@ vwerror (int errNum, va_list marker)
+@@ -894,7 +894,7 @@ vwerror (int errNum, va_list marker)
        for (oldmsg = setFirstItem (_SDCCERRG.log); oldmsg; oldmsg = setNextItem (_SDCCERRG.log))
          if (strcmp (errmsg, oldmsg) == 0)
            {
@@ -355,7 +355,7 @@
  }
 --- a/src/SDCCglue.c
 +++ b/src/SDCCglue.c
-@@ -1177,12 +1177,12 @@ printIvalChar (symbol * sym, sym_link * type, initList * ilist, struct dbuf_s *o
+@@ -1176,12 +1176,12 @@ printIvalChar (symbol * sym, sym_link * type, initList * ilist, struct dbuf_s *o
            if (check && DCL_ELEM (val->type) > size)
              werror (W_EXCESS_INITIALIZERS, "array of chars", sym->name, sym->lineDef);
  
@@ -370,7 +370,7 @@
              }
            else
              printChar (oBuf, SPEC_CVAL (val->etype).v_char, size);
-@@ -1237,12 +1237,12 @@ printIvalChar16 (symbol * sym, sym_link * type, initList * ilist, struct dbuf_s
+@@ -1239,12 +1239,12 @@ printIvalChar16 (symbol * sym, sym_link * type, initList * ilist, struct dbuf_s
            if (check && DCL_ELEM (val->type) > size)
              werror (W_EXCESS_INITIALIZERS, "array of chars", sym->name, sym->lineDef);
  
@@ -385,7 +385,7 @@
              }
            else
              printChar16 (oBuf, SPEC_CVAL (val->etype).v_char16, size);
-@@ -1296,12 +1296,12 @@ printIvalChar32 (symbol * sym, sym_link * type, initList * ilist, struct dbuf_s
+@@ -1301,12 +1301,12 @@ printIvalChar32 (symbol * sym, sym_link * type, initList * ilist, struct dbuf_s
            if (check && DCL_ELEM (val->type) > size)
              werror (W_EXCESS_INITIALIZERS, "array of chars", sym->name, sym->lineDef);
  
@@ -400,7 +400,7 @@
              }
            else
              printChar32 (oBuf, SPEC_CVAL (val->etype).v_char32, size);
-@@ -1509,7 +1509,7 @@ printIvalCharPtr (symbol * sym, sym_link * type, value * val, struct dbuf_s *oBu
+@@ -1517,7 +1517,7 @@ printIvalCharPtr (symbol *sym, sym_link *type, value *val, struct dbuf_s *oBuf)
    int size = 0;
    char *p;
  
@@ -409,7 +409,7 @@
      {
        strcpy (p, val->name);
        addSet (&ccpStr, p);
-@@ -2013,7 +2013,7 @@ emitStaticSeg (memmap *map, struct dbuf_s *oBuf)
+@@ -1983,7 +1983,7 @@ emitStaticSeg (memmap *map, struct dbuf_s *oBuf)
        char *p;
        for (p = setFirstItem (ccpStr); p; p = setNextItem (ccpStr))
          if (p)
@@ -431,7 +431,7 @@
    ic->filename = filename;
 --- a/src/SDCCutil.c
 +++ b/src/SDCCutil.c
-@@ -479,7 +479,7 @@ getBinPath (const char *prel)
+@@ -495,7 +495,7 @@ getBinPath (const char *prel)
        dbuf_init (&path, 128);
  
        dbuf_splitPath (ret_path, &path, NULL);
@@ -442,44 +442,33 @@
    else
 --- a/src/SDCCval.c
 +++ b/src/SDCCval.c
-@@ -1577,7 +1577,7 @@ static const TYPE_UDWORD *utf_32_from_utf_8 (size_t *utf_32_len, const char *utf
+@@ -1665,7 +1665,7 @@ static const uint32_t *utf_32_from_utf_8 (size_t *utf_32_len, const char *utf_8,
      {
        if (allocated == *utf_32_len)
          {
--          utf_32 = realloc (utf_32, sizeof(TYPE_UDWORD) * (*utf_32_len + 16));
-+          utf_32 = Safe_realloc (utf_32, sizeof(TYPE_UDWORD) * (*utf_32_len + 16));
+-          utf_32 = realloc (utf_32, sizeof(uint32_t) * (*utf_32_len + 16));
++          utf_32 = Safe_realloc (utf_32, sizeof(uint32_t) * (*utf_32_len + 16));
            wassert (utf_32);
            allocated = *utf_32_len + 16;
          }
-@@ -1621,7 +1621,7 @@ static const TYPE_UWORD *utf_16_from_utf_32 (size_t *utf_16_len, const TYPE_UDWO
+@@ -1709,7 +1709,7 @@ static const uint16_t *utf_16_from_utf_32 (size_t *utf_16_len, const uint32_t *u
      {
        if (allocated <= *utf_16_len + 2)
          {
--          utf_16 = realloc (utf_16, sizeof(TYPE_UWORD) * (*utf_16_len + 16));
-+          utf_16 = Safe_realloc (utf_16, sizeof(TYPE_UWORD) * (*utf_16_len + 16));
+-          utf_16 = realloc (utf_16, sizeof(uint16_t) * (*utf_16_len + 16));
++          utf_16 = Safe_realloc (utf_16, sizeof(uint16_t) * (*utf_16_len + 16));
            wassert (utf_16);
            allocated = *utf_16_len + 16;
          }
-@@ -1910,7 +1910,7 @@ charVal (const char *s)
+@@ -2007,7 +2007,7 @@ charVal (const char *s)
        size_t ulen;
-       const TYPE_UDWORD *ustr = utf_32_from_utf_8 (&ulen, s, strlen(s) - 1);
+       const uint32_t *ustr = utf_32_from_utf_8 (&ulen, s, strlen(s) - 1);
        value *val = constCharacterVal (*ustr, type);
 -      free ((void *)ustr);
 +      Safe_free ((void *)ustr);
        return (val);
      }
    else // Character constant that is not wide - compatibility with legacy encodings.
---- a/src/avr/gen.c
-+++ b/src/avr/gen.c
-@@ -2978,7 +2978,7 @@ genInline (iCode * ic)
-   Safe_free (buffer);
- 
-   /* consumed; we can free it here */
--  dbuf_free (IC_INLINE (ic));
-+  Safe_free (IC_INLINE (ic));
- 
-   _G.inLine -= (!options.asmpeep);
- }
 --- a/src/ds390/main.c
 +++ b/src/ds390/main.c
 @@ -1080,7 +1080,7 @@ initializeAsmLineNode (lineNode *line)
@@ -493,7 +482,7 @@
  }
 --- a/src/hc08/gen.c
 +++ b/src/hc08/gen.c
-@@ -7122,7 +7122,7 @@ hc08_genInline (iCode * ic)
+@@ -7124,7 +7124,7 @@ hc08_genInline (iCode * ic)
    Safe_free (buf);
  
    /* consumed; we can free it here */
@@ -504,7 +493,7 @@
  }
 --- a/src/mos6502/gen.c
 +++ b/src/mos6502/gen.c
-@@ -7157,7 +7157,7 @@ static void m6502_genInline (iCode * ic)
+@@ -6175,7 +6175,7 @@ m6502_genInline (iCode * ic)
    Safe_free (buf);
  
    /* consumed; we can free it here */
@@ -553,7 +542,7 @@
  }
 --- a/src/pic14/gen.c
 +++ b/src/pic14/gen.c
-@@ -2304,7 +2304,7 @@ genPcall (iCode * ic)
+@@ -2306,7 +2306,7 @@ genPcall (iCode * ic)
       buffer = Safe_alloc(len);
       SNPRINTF(buffer, len, "%s_goto_helper", rname);
       addpCode2pBlock(pb,newpCode(POC_CALL,newpCodeOp(buffer,PO_STR)));
@@ -562,7 +551,7 @@
       }
     */
    emitpcode (POC_CALL, popGetLabel (albl->key));
-@@ -4929,7 +4929,7 @@ pic14_genInline (iCode * ic)
+@@ -4931,7 +4931,7 @@ pic14_genInline (iCode * ic)
    Safe_free (buffer);
  
    /* consumed; we can free it here */
