@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstackclient
-pkgver=10.1.0
+pkgver=10.2.0
 pkgrel=1
 pkgdesc="OpenStack Command-line Client"
 arch=('any')
@@ -10,12 +10,12 @@ url="https://docs.openstack.org/python-openstackclient/latest/"
 license=('Apache-2.0')
 depends=('python-cryptography' 'python-cliff' 'python-iso8601' 'python-openstacksdk'
          'python-osc-lib' 'python-oslo-i18n' 'python-keystoneclient'
-         'python-cinderclient' 'python-requests' 'python-stevedore')
+         'python-manilaclient' 'python-requests' 'python-stevedore')
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-pbr')
 checkdepends=('python-ddt' 'python-fixtures' 'python-hacking' 'python-requests-mock'
               'python-stestr' 'python-testtools' 'python-wrapt')
 source=("git+https://github.com/openstack/python-openstackclient.git#tag=$pkgver")
-sha512sums=('bc390e1a6f69dab9ea8046885f417f9f8106191c2d7f409671c13ff1de41cdf1f35af3eddda44ef5d6e974aa909c5f31ca1cb8daf32e772d8de753402a7f7e2e')
+sha512sums=('9c29643bbd1179c3979b9e8db000727fc732be795912b01433238802ec4745bc2df50a0ef24576c4934f544fbac3048ec47389ec8f9393f734e4a773775f9f6e')
 
 build() {
   cd python-openstackclient
