@@ -2,54 +2,67 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=release-plz
-pkgver=0.3.159
+pkgver=0.3.160
 pkgrel=1
-pkgdesc="Release Rust packages without using the command line"
-arch=('x86_64')
-url="https://github.com/MarcoIeni/release-plz"
-license=('MIT' 'Apache-2.0')
-depends=('curl' 'libgcc' 'libgit2' 'openssl' 'sqlite' 'zstd')
-makedepends=('cargo' 'git')
+pkgdesc='Release Rust packages without using the command line'
+arch=(x86_64)
+url="https://github.com/MarcoIeni/$pkgname"
+license=(MIT Apache-2.0)
+depends=(curl libcurl.so
+         glibc # libc.so libm.so ld-linux-x86-64.so
+         libgcc libgcc_s.so
+         libgit2 libgit2.so
+         openssl libssl.so
+         sqlite libsqlite3.so
+         zstd libzstd.so)
+makedepends=(cargo 'git')
 optdepends=('cargo-semver-checks: check for API breaking changes')
-source=("$pkgname-$pkgver::git+$url.git#tag=$pkgname-v$pkgver")
-sha512sums=('aca5c88ac0d4edf5887e49de896005f4cb43b63e083bb396463bd723c02780e4c1f0816557c385d45f334a01da03a9904723e089ec59132f908dd98eda0b3917')
-options=('!lto')
+source=("git+$url.git#tag=$pkgname-v$pkgver")
+sha256sums=('dfb09cd3373fe50b75540cb84b5fecec91e7aacc6a6928db6e75d35d6f092655')
+
+_srcenv() {
+	cd "$pkgname"
+	export CARGO_HOME="$srcdir"
+	export CARGO_PROFILE_RELEASE_DEBUG=2
+	export CARGO_PROFILE_RELEASE_STRIP=false
+	export CARGO_PROFILE_RELEASE_LTO=true
+	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+	CFLAGS+=' -ffat-lto-objects'
+	export LIBGIT2_NO_VENDOR=1
+	export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+	export ZSTD_SYS_USE_PKG_CONFIG=1
+}
 
 prepare() {
-  cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
-  mkdir completions
+	_srcenv
+	cargo fetch --locked --target host-tuple
+	mkdir -p completions
 }
 
 build() {
-  cd "$pkgname-$pkgver"
-  export LIBGIT2_NO_VENDOR=1
-  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
-  export ZSTD_SYS_USE_PKG_CONFIG=1
-  cargo build --release --frozen --no-default-features
-  local compgen="target/release/$pkgname generate-completions"
-  $compgen bash >"completions/$pkgname"
-  $compgen fish >"completions/$pkgname.fish"
-  $compgen zsh >"completions/_$pkgname"
+	_srcenv
+	cargo build --release --frozen --no-default-features
+	local compgen="target/release/$pkgname generate-completions"
+	$compgen bash > "completions/$pkgname"
+	$compgen fish > "completions/$pkgname.fish"
+	$compgen zsh > "completions/_$pkgname"
 }
 
 check() {
-  cd "$pkgname-$pkgver"
-  export LIBGIT2_NO_VENDOR=1
-  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
-  export ZSTD_SYS_USE_PKG_CONFIG=1
-  cargo test --frozen --no-default-features -- --skip "next_ver"
+	_srcenv
+	local skipped=(
+		next_ver
+	)
+	cargo test --frozen --no-default-features -- ${skipped[@]/#/--skip } 
 }
 
 package() {
-  cd "$pkgname-$pkgver"
-  depends+=('libgit2.so')
-  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
-  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
-  install -Dm 644 LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname"
-  install -Dm 644 "completions/$pkgname" -t "$pkgdir/usr/share/bash-completion/completions/"
-  install -Dm 644 "completions/$pkgname.fish" -t "$pkgdir/usr/share/fish/vendor_completions.d/"
-  install -Dm 644 "completions/_$pkgname" -t "$pkgdir/usr/share/zsh/site-functions/"
+	cd "$pkgname"
+	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
+	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE-MIT
+	install -Dm0644 -t "$pkgdir/usr/share/bash-completion/completions/" "completions/$pkgname"
+	install -Dm0644 -t "$pkgdir/usr/share/fish/vendor_completions.d/" "completions/$pkgname.fish"
+	install -Dm0644 -t "$pkgdir/usr/share/zsh/site-functions/" "completions/_$pkgname"
 }
-
-# vim: ts=2 sw=2 et:
