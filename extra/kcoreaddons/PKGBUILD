@@ -3,11 +3,11 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kcoreaddons
-pkgver=6.27.0
+pkgver=6.28.0
 pkgrel=1
 pkgdesc='Addons to QtCore'
 arch=(x86_64)
-url='https://community.kde.org/Frameworks'
+url='https://develop.kde.org/products/frameworks/'
 license=(LGPL-2.0-only LGPL-3.0-only)
 depends=(libgcc
          libstdc++
@@ -21,15 +21,15 @@ makedepends=(doxygen
              python-build
              python-setuptools
              qt6-declarative
-             qt6-tools)
+             qt6-tools
+             shiboken6-generator)
 optdepends=('pyside6: Python bindings'
             'qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('ad0d0147968dabdcf011425cf7764e71a0d0cfdc30e9e34b561ea5ba9a768001'
+sha256sums=('a713febee2f43bc31986d6c27d846ccab556fc7bc7c1919c3a662495720b431a'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
-              E0A3EB202F8E57528E13E72FD7574483BB57B18D  # Jonathan Esk-Riddell <jr@jriddell.org>
               90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1) # Nicolas Fella <nicolas.fella@kde.org>
 
 build() {
