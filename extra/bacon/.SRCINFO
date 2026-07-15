@@ -1,28 +1,25 @@
 pkgbase = bacon
 	pkgdesc = A background rust code checker
-	pkgver = 3.23.0
+	pkgver = 3.24.0
 	pkgrel = 1
 	url = https://dystroy.org/bacon
 	arch = x86_64
 	license = AGPL-3.0-only
 	makedepends = git
-	makedepends = rust
+	makedepends = cargo
 	depends = alsa-lib
+	depends = libasound.so
 	depends = glibc
 	depends = libgcc
+	depends = libgcc_s.so
 	optdepends = cargo: for use with Rust
 	optdepends = clang: for use with C++ via clang
 	optdepends = gcc: for use with C++ via gcc
 	optdepends = eslint: for use with JavaScript
 	optdepends = python: for use with Python via unittest
 	optdepends = python-pytest: for use with Python via pytest
-	options = !lto
-	source = bacon::git+https://github.com/Canop/bacon#tag=v3.23.0
-	sha512sums = c8c25d845da4c3d54f34c021b7d4b5c34b7042ac8cdd82d901f6ee833302e51e96d8704b2cc33c457a39b55a600662ac901f780c2e7674315cd4eeeea0d05e78
-	b2sums = 96d2fe1d1260828af9d7679ea5a596d247eca248d1d253073f6a7a1d983d6f99b089e19bc23e51c58c455f5b473840866d6c065408548a9a4ab9794bd3c695af
+	source = bacon::git+https://github.com/Canop/bacon#tag=v3.24.0
+	sha512sums = a11fe490fc81501dfe047b8cdf4f2a3e54c18688a6563faaec060a56a4b84dd50f3f9365fe4e88bcc5ff958f69b274150d7d977382457cfed2e54007573f3c5a
+	b2sums = b3ed5822e7a1aa61bba632a2e2012393cfb3336582df3e963fe1e04ac65f79910670a3abb85782592bd24149ae2e693b5abce89b533479db7c2ace4fa810f6f0
 
 pkgname = bacon
-	depends = alsa-lib
-	depends = glibc
-	depends = libgcc
-	depends = libasound.so

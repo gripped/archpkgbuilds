@@ -5,14 +5,16 @@
 # Contributor: JisuWoniu <jswn@jswn9945.xyz>
 
 pkgname=bacon
-pkgver=3.23.0
+pkgver=3.24.0
 pkgrel=1
 pkgdesc='A background rust code checker'
 arch=(x86_64)
 url='https://dystroy.org/bacon'
 license=(AGPL-3.0-only)
-depends=(alsa-lib glibc libgcc)
-makedepends=(git rust)
+depends=(alsa-lib libasound.so
+         glibc # libc.so libm.so
+         libgcc libgcc_s.so)
+makedepends=(git cargo)
 optdepends=(
   'cargo: for use with Rust'
   'clang: for use with C++ via clang'
@@ -21,33 +23,42 @@ optdepends=(
   'python: for use with Python via unittest'
   'python-pytest: for use with Python via pytest'
 )
-options=(!lto)
 source=("$pkgname::git+https://github.com/Canop/bacon#tag=v$pkgver")
-sha512sums=('c8c25d845da4c3d54f34c021b7d4b5c34b7042ac8cdd82d901f6ee833302e51e96d8704b2cc33c457a39b55a600662ac901f780c2e7674315cd4eeeea0d05e78')
-b2sums=('96d2fe1d1260828af9d7679ea5a596d247eca248d1d253073f6a7a1d983d6f99b089e19bc23e51c58c455f5b473840866d6c065408548a9a4ab9794bd3c695af')
+sha512sums=('a11fe490fc81501dfe047b8cdf4f2a3e54c18688a6563faaec060a56a4b84dd50f3f9365fe4e88bcc5ff958f69b274150d7d977382457cfed2e54007573f3c5a')
+b2sums=('b3ed5822e7a1aa61bba632a2e2012393cfb3336582df3e963fe1e04ac65f79910670a3abb85782592bd24149ae2e693b5abce89b533479db7c2ace4fa810f6f0')
+
+_srcenv() {
+    cd "$pkgname"
+    export CARGO_HOME="$srcdir"
+    export CARGO_PROFILE_RELEASE_DEBUG=2
+    export CARGO_PROFILE_RELEASE_STRIP=false
+    export CARGO_PROFILE_RELEASE_LTO=true
+    export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+    export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+    CFLAGS+=' -ffat-lto-objects'
+}
 
 prepare() {
-  cd "$pkgname"
+  _srcenv
 
   # download dependencies
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
-  cd "$pkgname"
+  _srcenv
 
   cargo build --frozen --release --all-features
 }
 
 check() {
-  cd "$pkgname"
+  _srcenv
 
   cargo test --frozen --all-features
 }
 
 package() {
   cd "$pkgname"
-  depends+=(libasound.so)
 
   local _binary="target/release/$pkgname"
 
