@@ -1,11 +1,11 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kcalendarcore
-pkgver=6.27.0
+pkgver=6.28.0
 pkgrel=1
 pkgdesc='The KDE calendar access library'
 arch=(x86_64)
-url='https://community.kde.org/Frameworks'
+url='https://develop.kde.org/products/frameworks/'
 license=(LGPL-2.0-only LGPL-3.0-only)
 depends=(glibc
          libical
@@ -17,15 +17,15 @@ makedepends=(doxygen
              python-build
              python-setuptools
              qt6-declarative
-             qt6-tools)
+             qt6-tools
+             shiboken6-generator)
 optdepends=('pyside6: Python bindings'
             'qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('4228869722c5bb5325b7c5b10555e6b747bde0e36cbd43519d8681fe3b383173'
+sha256sums=('c0c8272729cc9cc7006f87b64f80feb03750acb6bbd208ae94c2bad77fc444be'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
-              E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
               90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1 # Nicolas Fella <nicolas.fella@kde.org>
               )
 
