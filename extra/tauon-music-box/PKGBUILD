@@ -4,8 +4,8 @@
 pkgname=tauon-music-box
 _pkgname=tauonmb
 _gitname=Tauon
-pkgver=10.0.1
-pkgrel=2
+pkgver=11.0.0
+pkgrel=1
 pkgdesc="A modern music player"
 arch=("x86_64") # "aarch64"
 url="https://tauonmusicbox.rocks"
@@ -14,6 +14,7 @@ depends=(
 	"python-pillow"
 	"python-pylast"
 	"python-pysdl3"
+	"python-rapidfuzz"
 	"python-send2trash"
 	"python-musicbrainzngs"
 	"python-mutagen"
@@ -67,7 +68,7 @@ optdepends=(
 )
 
 source=("${_gitname}-${pkgver}.tar.gz::https://github.com/Taiko2k/Tauon/archive/v${pkgver}.tar.gz")
-sha256sums=('09556aff07674c5d529f5649339cd58a9774b93746165838c129c6a28c9e0f15')
+sha256sums=('3069528a7bbe71af2b82869aa04ccaff1e48201a8abc3b54860e13d020572def')
 
 prepare() {
 	# Use system kissfft instead of the expected cloned repository
