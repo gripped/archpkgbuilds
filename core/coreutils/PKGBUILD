@@ -6,7 +6,7 @@
 
 pkgname=coreutils
 pkgver=9.11
-pkgrel=1
+pkgrel=2
 pkgdesc='The basic file, shell and text manipulation utilities of the GNU operating system'
 arch=('x86_64')
 license=(
@@ -94,7 +94,8 @@ package() {
   cd "${srcdir}/${pkgname}-${pkgver}/po"
   for mo in *.mo; do
     install -Dm 644 "${mo}" "${pkgdir}/usr/share/locale/${mo%.mo}/LC_MESSAGES/${pkgname}.mo"
-    install -Dm 644 "${mo}" "${pkgdir}/usr/share/locale/${mo%.mo}/LC_TIME/${pkgname}.mo"
+    install -dm 755 ${pkgdir}/usr/share/locale/${mo%.mo}/LC_TIME
+    ln -s "../LC_MESSAGES/${pkgname}.mo" "${pkgdir}/usr/share/locale/${mo%.mo}/LC_TIME/${pkgname}.mo"
   done
 }
 
