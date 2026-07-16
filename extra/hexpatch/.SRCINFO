@@ -1,6 +1,6 @@
 pkgbase = hexpatch
 	pkgdesc = A binary patcher and editor with a TUI
-	pkgver = 1.12.6
+	pkgver = 1.13.0
 	pkgrel = 1
 	url = https://github.com/Etto48/HexPatch
 	arch = x86_64
@@ -8,9 +8,10 @@ pkgbase = hexpatch
 	makedepends = cargo
 	makedepends = cmake
 	makedepends = python
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	options = !lto
-	source = hexpatch-1.12.6.tar.gz::https://github.com/Etto48/HexPatch/archive/v1.12.6.tar.gz
-	sha512sums = 9543f83eecb467bf156f9c2a6fea35694ff28385006ef6bdc27b94c2f6048eb4990d6f3c44e6c4dccf85f9c994a68a672b2ff2b4a9de28266653513f4ae14fde
+	source = hexpatch-1.13.0.tar.gz::https://github.com/Etto48/HexPatch/archive/v1.13.0.tar.gz
+	sha512sums = a3c46ccf102f00466228767667d3ef76586cd9e84e4e0ad2be6775c344a5ffef1d6ab956dd9587a93d438ecc29ab4482b6203300669d99c5f81f2d3bf20d82cb
 
 pkgname = hexpatch
