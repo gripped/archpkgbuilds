@@ -1,0 +1,3 @@
+ACTION!="add|change", GOTO="yubihsm2_end"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1050", ATTRS{idProduct}=="0030", MODE="0660", GROUP="_yubihsm2"
+LABEL="yubihsm2_end"
