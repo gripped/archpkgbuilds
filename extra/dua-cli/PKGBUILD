@@ -5,34 +5,46 @@
 
 pkgname=dua-cli
 pkgver=2.38.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A tool to conveniently learn about the disk usage of directories, fast!"
-arch=('x86_64')
+arch=(x86_64)
 url="https://github.com/Byron/dua-cli"
-license=('MIT')
-depends=('glibc' 'libgcc')
-makedepends=('cargo')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+license=(MIT)
+depends=(glibc # libc.so libm.so
+         libgcc libgcc_s.so)
+makedepends=(cargo)
+_archive="$pkgname-$pkgver"
+source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
 sha512sums=('39366e5efff83c7346f1cadd303bf4e20430d5a599f901156e3163384be88eb9388f5697caf26ce0f17199806dc2e19a02b0e9f33a9496c09e19c74f310da89f')
 
+_srcenv() {
+	cd "$_archive"
+	export CARGO_HOME="$srcdir"
+	export CARGO_PROFILE_RELEASE_DEBUG=2
+	export CARGO_PROFILE_RELEASE_STRIP=false
+	export CARGO_PROFILE_RELEASE_LTO=true
+	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+}
+
 prepare() {
-  cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  _srcenv
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
-  cd "$pkgname-$pkgver"
+  _srcenv
   cargo build --release --frozen
 }
 
 check() {
-  cd "$pkgname-$pkgver"
+  _srcenv
   cargo test --frozen -- --skip "interactive"
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
-  install -Dm 644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-  install -Dm 644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
-  install -Dm 755 "target/release/dua" "$pkgdir/usr/bin/dua"
+  cd "$_archive"
+  install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+  install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
+  install -Dm0755 -t "$pkgdir/usr/bin/" target/release/dua
 }
