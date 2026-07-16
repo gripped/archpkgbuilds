@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=cosmic-initial-setup
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 epoch=1
 pkgdesc="COSMIC Initial Setup"
@@ -25,7 +25,7 @@ makedepends=(
   just
 )
 source=(git+https://github.com/pop-os/cosmic-initial-setup.git#tag=epoch-${pkgver})
-sha256sums=('af3fb5304884561bf2672ead3a823800bd570ae1dbc47b90c05bffc16db9bb3b')
+sha256sums=('423574e7d9892484d0d6e5d29cf059163eb80085bafb1b01f4e68bd6526af445')
 
 prepare() {
   cd "${pkgname}"
