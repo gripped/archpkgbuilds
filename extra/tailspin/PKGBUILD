@@ -4,11 +4,13 @@
 
 pkgname=tailspin
 pkgver=7.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A log file highlighter'
 url="https://github.com/bensadeh/$pkgname"
 arch=(x86_64)
 license=(MIT)
+depends=(glibc # libc.so
+         libgcc libgcc_s.so)
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/refs/tags/$pkgver/$_archive.tar.gz")
