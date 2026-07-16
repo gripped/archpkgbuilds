@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-panel
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 epoch=1
 pkgdesc='XDG Shell Wrapper Panel for Cosmic'
@@ -26,7 +26,7 @@ makedepends=(
 source=(
   git+https://github.com/pop-os/cosmic-panel.git#tag=epoch-${pkgver}
 )
-b2sums=('408fa0f474ff4843729483914199bd6ac545e53acdef30c55a11b543ce61ac0e0aab29f54a7c951bec15e9f29140222da6c3bd7f7677a94a27612f7ef891f91a')
+b2sums=('493138459c9d800e1d5d993f7e6ac08b72ddc0e9ce944eb45c28e8f62f6865102f9c28b4b335c7a366da1061f4ceb3fa9285327ccffbaf64f74df13576de76a8')
 
 prepare() {
   cd cosmic-panel
