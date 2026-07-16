@@ -1,7 +1,7 @@
 # Maintainer:Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kwayland-integration
-pkgver=6.7.2
+pkgver=6.7.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Provides integration plugins for various KDE frameworks for the wayland windowing system'
@@ -19,7 +19,7 @@ makedepends=(extra-cmake-modules
              plasma-wayland-protocols
              wayland-protocols)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('47cd35199a9604a15c9dc89b7d38e735c4f7beba7ab0fe7afc52f396137f540b'
+sha256sums=('82e0ac703eee65b3e83b4c6973020cee032b79c2dd41e43cb65f7286d0765962'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
