@@ -5,7 +5,7 @@
 
 pkgname=python-plexapi
 _pkgname=plexapi
-pkgver=4.18.1
+pkgver=4.18.2
 pkgrel=1
 pkgdesc="Python bindings for the Plex API"
 arch=('any')
@@ -22,7 +22,7 @@ makedepends=(
 	'python-setuptools'
 )
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pkkid/python-plexapi/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('223d40422f4db1787e7bfc182a270adb7844612d54c7d87369bc7f9ac5f5c9e5')
+sha256sums=('12e81964ed073e3b5f9ee72c55b240716d03405e35377cd4ad9a1b8b7633c4af')
 
 build() {
 	cd "${pkgname}-${pkgver}"
