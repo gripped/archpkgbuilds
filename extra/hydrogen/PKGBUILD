@@ -5,7 +5,7 @@
 
 pkgname=hydrogen
 pkgver=1.2.6
-pkgrel=3
+pkgrel=4
 pkgdesc="An advanced drum machine"
 arch=(x86_64)
 url="http://www.hydrogen-music.org/"
@@ -57,6 +57,9 @@ build() {
     -S $pkgname-$pkgver
     -W no-dev
   )
+
+  # Mark the build as non-development version
+  sed -i 's|execute_process(COMMAND git describe --exact-match --tags OUTPUT_VARIABLE GIT_ON_TAG)|set(GIT_ON_TAG 1)|' $pkgname-$pkgver/CMakeLists.txt
 
   cmake "${cmake_options[@]}"
   cmake --build build --verbose
