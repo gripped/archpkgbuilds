@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-screenshot
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 epoch=1
 pkgdesc='Utility for capturing screenshots via XDG Desktop Portal'
