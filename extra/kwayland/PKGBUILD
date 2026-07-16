@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kwayland
-pkgver=6.7.2
+pkgver=6.7.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Qt-style Client and Server library wrapper for the Wayland libraries'
@@ -19,7 +19,7 @@ makedepends=(extra-cmake-modules
              wayland-protocols)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('3d3ca745d4f7a53be8b331fccde825d9cc54a8761d7a33318f4fb2d602b857f4'
+sha256sums=('0e331dca128a9e2f0b408e1020e5b613e24d742cc1bfd8bb5f89459fee11c217'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
