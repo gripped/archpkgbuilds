@@ -4,7 +4,7 @@
 
 pkgbase=atuin
 pkgname=(atuin atuin-server)
-pkgver=18.17.0
+pkgver=18.17.1
 pkgrel=1
 pkgdesc='Magical shell history'
 arch=('x86_64')
@@ -14,21 +14,19 @@ depends=(glibc # libc.so libm.so
          libgcc libgcc_s.so
          sqlite libsqlite3.so)
 makedepends=(cargo)
-options=(!lto)
 _archive="$pkgbase-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('7fcc445c401683fe1b54eb02e0d119d9620558644d482f9f13d59753780169a7')
+sha256sums=('851c3f4870e4bd181b98d2dae60b9fd76ef30f05f16a85efa21ac7e7cf294862')
 
 _srcenv () {
 	cd "$_archive"
-
-	# Use debug
-	export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
-
-	# Use LTO
-	export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
-
-	# Use system-provided libsqlite3
+	export CARGO_HOME="$srcdir"
+	export CARGO_PROFILE_RELEASE_DEBUG=2
+	export CARGO_PROFILE_RELEASE_STRIP=false
+	export CARGO_PROFILE_RELEASE_LTO=true
+	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+	CFLAGS+=' -ffat-lto-objects'
 	export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
 }
 
