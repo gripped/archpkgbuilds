@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kglobalacceld
-pkgver=6.7.2
+pkgver=6.7.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Daemon providing Global Keyboard Shortcut (Accelerator) functionality'
@@ -26,7 +26,7 @@ depends=(glibc
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('40cd6b417678faba69847e1fa4d9efc8f500cdf95db17e317d6d868d18c95339'
+sha256sums=('cd940d21bb050d6ee689d5962d31292c52f31cfa9211ea789dbed4ff05022f1d'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
