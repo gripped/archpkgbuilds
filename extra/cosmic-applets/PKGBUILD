@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-applets
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 epoch=1
 pkgdesc='Applets for COSMIC Panel'
@@ -32,7 +32,7 @@ makedepends=(
   mold
 )
 source=(git+https://github.com/pop-os/cosmic-applets.git#tag=epoch-${pkgver})
-b2sums=('2d74eadfeeb007b10dda00cb9c2a10227ce0693a2ec1af741825b2c9f4a11df35e996a58afcf5ba071b2b4a019013b307498f8ed4526e73c723d2d0a40872361')
+b2sums=('771b408fd8250829a6c8436f341b26d865a2e8facdd58f873c2ebcbff7dd404906c9a235d4d37960cffbf57a6fd644f53359b04a73de684d27d390e3cec5dc6f')
 
 prepare() {
   cd cosmic-applets
