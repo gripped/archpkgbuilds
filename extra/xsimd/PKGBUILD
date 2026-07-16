@@ -3,7 +3,7 @@
 # Contributor: Fredrik Tegenfeldt <tegenf@gmail.com>
 
 pkgname=xsimd
-pkgver=14.2.0
+pkgver=14.3.0
 pkgrel=1
 pkgdesc='QuantStack tools library - Multi-dimensional arrays with broadcasting and lazy computing'
 arch=(any)
@@ -14,7 +14,7 @@ makedepends=(cmake
              git
              gtest)
 source=(git+https://github.com/QuantStack/$pkgname#tag=$pkgver)
-sha512sums=('1e508ef43ad09fcbbcbb902c28aa792e853fde96e51717d3d7a0ae8bd1a4f2ac8106840d13e64deb75c1f0fb3e0b5c19e2cd6422125e0f2874d2d38aa9a9f58d')
+sha512sums=('4e60f7ac133b6ae89f0eddb65d9fbdc23f59b07df1237efb673cd2a1c1335594388f3760fe3863a1a646db8c9ec7f1d1423814ba5c584b6c66be6c94a1da50b5')
 
 build() {
   cmake -B build -S $pkgname \
