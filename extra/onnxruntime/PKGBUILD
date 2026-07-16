@@ -17,7 +17,7 @@ pkgname=(
 )
 pkgver=1.27.1
 _pkgdesc='Cross-platform, high performance scoring engine for ML models'
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://github.com/microsoft/onnxruntime'
 license=('MIT')
