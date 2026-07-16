@@ -1,6 +1,6 @@
 pkgbase = electron43
 	pkgdesc = Build cross platform desktop apps with web technologies
-	pkgver = 43.1.0
+	pkgver = 43.1.1
 	pkgrel = 1
 	url = https://electronjs.org
 	arch = x86_64
@@ -69,7 +69,7 @@ pkgbase = electron43
 	optdepends = trash-cli: file deletion support (trash-put)
 	optdepends = xdg-utils: open URLs with desktop’s default (xdg-email, xdg-open)
 	options = !lto
-	source = git+https://github.com/electron/electron.git#tag=v43.1.0
+	source = git+https://github.com/electron/electron.git#tag=v43.1.1
 	source = https://gitlab.com/Matt.Jolly/chromium-patches/-/archive/150/chromium-patches-150.tar.bz2
 	source = chromium-138-nodejs-version-check.patch
 	source = chromium-145-fix-SYS_SECCOMP.patch
@@ -89,7 +89,7 @@ pkgbase = electron43
 	source = jinja-python-3.10.patch
 	source = use-system-libraries-in-node.patch
 	source = makepkg-source-roller.py
-	source = chromium-mirror::git+https://github.com/chromium/chromium.git#tag=150.0.7871.47
+	source = chromium-mirror::git+https://github.com/chromium/chromium.git#tag=150.0.7871.114
 	source = chromium-mirror_third_party_nan::git+https://github.com/nodejs/nan.git#commit=675cefebca42410733da8a454c8d9391fcebfbc2
 	source = chromium-mirror_third_party_electron_node::git+https://github.com/nodejs/node.git#tag=v24.18.0
 	source = chromium-mirror_third_party_engflow-reclient-configs::git+https://github.com/EngFlow/reclient-configs.git#commit=955335c30a752e9ef7bff375baab5e0819b6c00d
@@ -101,7 +101,7 @@ pkgbase = electron43
 	source = chromium-mirror_third_party_llvm-libc_src::git+https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libc.git#commit=6e5ec6f78d8b9f2e8a50fcc5692d1fc8b2964bde
 	source = chromium-mirror_media_cdm_api::git+https://chromium.googlesource.com/chromium/cdm.git#commit=33c977516b3dfe5b065bc298aa74175e1999ab51
 	source = chromium-mirror_net_third_party_quiche_src::git+https://quiche.googlesource.com/quiche.git#commit=997d654308b6a1a17435e472ef5190aecb12e3eb
-	source = chromium-mirror_third_party_angle::git+https://chromium.googlesource.com/angle/angle.git#commit=bbf3d8a4755268f016087be2f56099fa5a5f3f6e
+	source = chromium-mirror_third_party_angle::git+https://chromium.googlesource.com/angle/angle.git#commit=8d3c5a8caebd836b99fa32062951a401910eba33
 	source = chromium-mirror_third_party_anonymous_tokens_src::git+https://chromium.googlesource.com/external/github.com/google/anonymous-tokens.git#commit=92d1fdf881a932e7aa2a9b20e006136a659c7a20
 	source = chromium-mirror_third_party_aria-practices_src::git+https://chromium.googlesource.com/external/github.com/w3c/aria-practices.git#commit=7b134ce6d19497cce8a67db4a9f59980baf853dc
 	source = chromium-mirror_third_party_readability_src::git+https://chromium.googlesource.com/external/github.com/mozilla/readability.git#commit=d7949dc47dd9ed9ee1d3b34ffdcf3bce28cde435
@@ -122,7 +122,7 @@ pkgbase = electron43
 	source = chromium-mirror_third_party_crc32c_src::git+https://chromium.googlesource.com/external/github.com/google/crc32c.git#commit=d3d60ac6e0f16780bcfcc825385e1d338801a558
 	source = chromium-mirror_third_party_cros_system_api::git+https://chromium.googlesource.com/chromiumos/platform2/system_api.git#commit=1c69e700a01a7fd3dd331f526c8a31ac1e5e49d0
 	source = chromium-mirror_third_party_depot_tools::git+https://chromium.googlesource.com/chromium/tools/depot_tools.git#commit=f4fadaf6a5ba1bced9d3d9021060667b563bf583
-	source = chromium-mirror_third_party_devtools-frontend_src::git+https://chromium.googlesource.com/devtools/devtools-frontend.git#commit=1d67dc0dafa344bbd6ca75c124e2d6d9d53074d8
+	source = chromium-mirror_third_party_devtools-frontend_src::git+https://chromium.googlesource.com/devtools/devtools-frontend.git#commit=ec97cf3bbeea2cb623fbf97c4e3f22f5acb4d568
 	source = chromium-mirror_third_party_dom_distiller_js_dist::git+https://chromium.googlesource.com/chromium/dom-distiller/dist.git#commit=199de96b345ada7c6e7e6ba3d2fa7a6911b8767d
 	source = chromium-mirror_third_party_dragonbox_src::git+https://chromium.googlesource.com/external/github.com/jk-jeon/dragonbox.git#commit=beeeef91cf6fef89a4d4ba5e95d47ca64ccb3a44
 	source = chromium-mirror_third_party_eigen3_src::git+https://chromium.googlesource.com/external/gitlab.com/libeigen/eigen.git#commit=662ba79d796a2851b10cdafc6668e45b65b1120f
@@ -224,7 +224,7 @@ pkgbase = electron43
 	source = chromium-mirror_third_party_xnnpack_src::git+https://chromium.googlesource.com/external/github.com/google/XNNPACK.git#commit=56ac34b3f45fae2eca1f32584f7f0b279be2cf1f
 	source = chromium-mirror_third_party_libei_src::git+https://chromium.googlesource.com/external/gitlab.freedesktop.org/libinput/libei.git#commit=5d6d8e6590df210b75559a889baa9459c68d9366
 	source = chromium-mirror_third_party_zstd_src::git+https://chromium.googlesource.com/external/github.com/facebook/zstd.git#commit=5233c58e6ca0b1c4c6b353ad79649191ed195bdc
-	source = chromium-mirror_v8::git+https://chromium.googlesource.com/v8/v8.git#commit=968f19a8970f8d91702d86f0ec1522f3909781b7
+	source = chromium-mirror_v8::git+https://chromium.googlesource.com/v8/v8.git#commit=ce0af5c0d181678bcda077c68d4beaec2854ad16
 	source = chromium-mirror_agents_shared::git+https://chromium.googlesource.com/chromium/agents.git#commit=e75efa515896f6bf1dea92eaffbcf8ee711a65d8
 	source = chromium-mirror_third_party_angle_third_party_glmark2_src::git+https://chromium.googlesource.com/external/github.com/glmark2/glmark2.git#commit=6edcf02205fd1e8979dc3f3964257a81959b80c8
 	source = chromium-mirror_third_party_angle_third_party_rapidjson_src::git+https://chromium.googlesource.com/external/github.com/Tencent/rapidjson.git#commit=24b5e7a8b27f42fa16b96fc70aade9106cf7102f
@@ -249,7 +249,7 @@ pkgbase = electron43
 	source = chromium-mirror_third_party_dawn_tools_protoc_wrapper::git+https://chromium.googlesource.com/chromium/src/tools/protoc_wrapper.git#commit=418c65786fdf6fc5f10cb008c252c2b12c4713a6
 	source = chromium-mirror_third_party_dawn_third_party_partition_alloc::git+https://chromium.googlesource.com/chromium/src/base/allocator/partition_allocator.git#commit=ff3b8b885b8374cbd3902642d94dc737bda93d5d
 	source = chromium-mirror_third_party_openscreen_src_third_party_tinycbor_src::git+https://chromium.googlesource.com/external/github.com/intel/tinycbor.git#commit=d393c16f3eb30d0c47e6f9d92db62272f0ec4dc7
-	sha256sums = 5978f938f1e3e91b694addb55441ebe48bc3d3839847f08b2c44542e902f668c
+	sha256sums = f708d6af4bac90653afbd5de2c88592e6da8283127d9de646933c827aceae52e
 	sha256sums = e39d6e826b50c7527b6cb24791a6dc444ea8018e627ecb74f71b39ce13a13887
 	sha256sums = 11a96ffa21448ec4c63dd5c8d6795a1998d8e5cd5a689d91aea4d2bdd13fb06e
 	sha256sums = 4fc040a0656a0a524dd8ad090cd129fc5b6cb21adcc66be82080165789e8c13e
@@ -269,7 +269,7 @@ pkgbase = electron43
 	sha256sums = 55dbe71dbc1f3ab60bf1fa79f7aea7ef1fe76436b1d7df48728a1f8227d2134e
 	sha256sums = 963192cfaae24fbdb07c07aae9d2c301a56ebd1f946b3e56f02f7d0d42f22a2b
 	sha256sums = fa773f8b8a51898da717ecf43759c441e1a73eeff134ba477a6e814d9caa146c
-	sha256sums = 902a20ead0b7759d11d7e59e4759e86a0edafe3ad91a64d81604d128e3a0521e
+	sha256sums = 4cf3a3d495fec90341649b3aaa10a225e3c74fd8335bd87089c98c56aa745892
 	sha256sums = 609bc1e61871d917be64ed793584119e0414761a5d577af21abaf4e4f1474f09
 	sha256sums = 3879e20d58578011983dcf7ed932c58ccf7eb9c74acd7d75afd05c838ca655ba
 	sha256sums = 3522166c3ca75316a172b7cc4fe12bba9367e30fed16df8193ede2e236dca8c5
@@ -281,7 +281,7 @@ pkgbase = electron43
 	sha256sums = ec5c1482f9aa1ddee4ba0281133edc02b69544fcca4b2b9d2500b1bdc2c270fa
 	sha256sums = b34be58eb618f3db22ebbbd1845e2de4a4e689b6dced5ed545fc1f9aa8856fb2
 	sha256sums = 602ea1f7b836d50c669cd4e6a4690382c3018b512c20f6007ca7d486e0bdc96d
-	sha256sums = adb76eeb7944c49a699dc6ab1d14296e6df45b8e695e2767540a8ae6559d6c1c
+	sha256sums = 0b2e1da416d8fda694ecf6382b65b92d8bd34d29bf84561a048c99a5009d6f6d
 	sha256sums = ac7128fa03847cc0d1ae50f0dd2c359ffdff2f69900d6af455dfb85a45d64af6
 	sha256sums = 7f99cc4ba937289d377561e4c208ada86ea5097721b05d303c8b3a03cda3599d
 	sha256sums = 076cc1871d2613babd35a1b1d319e16730f4e26edb6d5cbe6abf0e05c1885571
@@ -302,7 +302,7 @@ pkgbase = electron43
 	sha256sums = 6ae7ae01b3c23f8bf7657a59427aac6f3216e041ebdb983b82c002a949bdb071
 	sha256sums = 3e4a91070f7bac8ec84b41009accdf6fc77bc968a41f75cce7d7f4cac3772860
 	sha256sums = 0c0ff0fec41613561a318ab2845111f4fa3c3eac02b06a962b4d124532ca6b86
-	sha256sums = 76d7bab763b342e62e43b8c6bb4566538b658eb1aa1f306c074abb2053c300db
+	sha256sums = 530ccf03456c7f2cab48a1730fd39775fdca13a517c2bf8960faa29a7a35fd79
 	sha256sums = 47f3f3d044cc0658274833022db1e7695964b1da8f37cb905882d15457212fba
 	sha256sums = 36401f4a3f1928af41d6954b17b1a48db7d1b91787bfc3fbb2687c040a1af4f3
 	sha256sums = 5b7532484e397203f75d22c218ec01e4e2b0628852ce58fab054bd16794366be
@@ -404,7 +404,7 @@ pkgbase = electron43
 	sha256sums = e6aff7dee41c2f497da8f984aa5009b82483ff42cd808757c215fa6b0e0cdac2
 	sha256sums = b4c7debdf15a2d88f7cf0695ce5c8377056a988d052d6c7799a2010d9f1e3368
 	sha256sums = ffa06fc4643c80d3e57fff08be354ace9a90560c78168eef2ab37faefdc726f4
-	sha256sums = 85d17357da409e8422c74c91a05b5a653a1d53ee067821edc5a77367e765112f
+	sha256sums = e73dde15b87e237423556cf2eaa5dbc664d790a1a8f316924a551645ca1e4dd8
 	sha256sums = 377d57e20b79de12580b2a9e96a255ce5e8f6c284c6aca804f3330175e894f81
 	sha256sums = 4dfc3a5c54acbdafd4c7ab2826756ac2e69521350ab7f8b80b7ad374ce7ac84f
 	sha256sums = 22638c58cd876ca7e19ae975346f0871c2b582d2a6d9d7f0d26c6ac423e5367f
