@@ -7,16 +7,23 @@
 
 pkgname=bibletime
 pkgver=3.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Bible study tool'
 arch=('x86_64')
 url='https://www.bibletime.info/'
 license=('GPL-2.0-only')
-depends=('sword' 'clucene' 'qt6-speech' 'qt6-webengine' 'qt6-svg')
+depends=('sword' 'clucene' 'qt6-speech' 'qt6-svg')
 makedepends=('cmake' 'docbook-xsl' 'expac' 'fop' 'git' 'po4a' 'qt6-tools')
 source=("git+https://github.com/bibletime/bibletime.git?signed#tag=v${pkgver}")
 sha256sums=('8b866b2b9493beaf3a1cb33965f24f318ed84178db2f16fac5cc0aa2b1fb2c81')
 validpgpkeys=('6C0462117260CA4934F7B3E049D76194699FD9A4') # Jaak Ristioja
+
+prepare() {
+  cd $pkgname
+
+  # Fix compilation with C++20 and later
+  git cherry-pick -n 378c83d1fec533a04976b055cf11f2707384f269
+}
 
 build() {
   local xsl_shared=/usr/share/xml/docbook/xsl-stylesheets-$(expac %v docbook-xsl | cut -d - -f 1)
