@@ -2,8 +2,8 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=cargo-debstatus
-pkgver=0.6.5
-pkgrel=2
+pkgver=0.6.6
+pkgrel=1
 pkgdesc="cargo-tree for Debian packaging"
 url='https://github.com/kpcyrd/cargo-debstatus'
 arch=('x86_64')
@@ -16,12 +16,12 @@ makedepends=(
   'cargo'
 )
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('38dd43e2ef321ea4d50882f8f482dde0f34602ee13162e9dd6c53a5412b6d9c2')
-b2sums=('f3982908367a2212e7b68e11cb4cf2d6e82b407250aea627cb486f2106756409f5a6363b485a550b69ac717d6788b173dfb1234d69e76ba0119ef6360da820d8')
+sha256sums=('f7fb6e5a5a3b692e9ec34f4aa7b28f1f783c4358ae7729e5ea3c5b21fcb27728')
+b2sums=('26fa9676a02c1b0e8d09355e08f024a355728ad803c399d2ab81c2310bfb34405a38dd766c1c7581f4560d9bc5ca2afb2f59c000ac71c377293419ea8a056b8c')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
