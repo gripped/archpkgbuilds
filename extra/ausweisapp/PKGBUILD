@@ -2,13 +2,16 @@
 # Contributor: A. Klitzing <aklitzing@gmail.com>
 
 pkgname=ausweisapp
-pkgver=2.5.3
+pkgver=2.5.4
 pkgrel=1
 pkgdesc="official client for using the German electronic ID card (eID)"
 arch=('x86_64')
 license=('EUPL-1.2')
 url="https://www.ausweisapp.bund.de/"
-depends=('qt6-declarative' 'qt6-svg' 'qt6-websockets' 'qt6-scxml' 'pcsclite' 'llhttp')
+depends=(
+	'qt6-declarative' 'qt6-svg' 'qt6-websockets' 'qt6-scxml' 'pcsclite' 'llhttp'
+	'hicolor-icon-theme' 'openssl' 'libstdc++' 'glibc' 'systemd-libs' 'qt6-base'
+)
 makedepends=('cmake' 'qt6-tools' 'ninja' 'pkgconf')
 optdepends=(
 	'ccid: driver for generic smart card readers'
@@ -17,7 +20,7 @@ optdepends=(
 )
 source=("https://github.com/Governikus/AusweisApp2/releases/download/${pkgver}/AusweisApp-${pkgver}.tar.gz"{,.asc})
 validpgpkeys=('699BF3055B0A49224EFDE7C72D7479A531451088')
-sha256sums=('d71a540ee33cfe9baf28d0c21a216050bd4ea3bcba64a2140807b1469c6f0d53'
+sha256sums=('e8e8ef4e696163a087549d0bd8e85326dcfe75a5eb98133d9e872c2c5398abda'
             'SKIP')
 
 build() {
