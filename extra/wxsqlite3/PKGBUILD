@@ -4,15 +4,15 @@
 # Contributor: Scott Furry <scott.wl.furry@gmail.com>
 
 pkgname=wxsqlite3
-pkgver=4.10.7
-pkgrel=2
+pkgver=4.12.5
+pkgrel=1
 pkgdesc="wxWidgets wrapper for SQLite3"
 arch=('x86_64')
 url="https://utelle.github.io/wxsqlite3"
-license=('custom:LGPL-3.0+ with WxWindows-exception-3.1')
+license=('LicenseRef-LGPL-3.0+ WITH WxWindows-exception-3.1')
 depends=('wxwidgets-gtk3')
 source=($pkgname-$pkgver.tar.gz::https://github.com/utelle/$pkgname/archive/v$pkgver.tar.gz)
-sha256sums=('22dea6e3ef2c0b5404570fb28f144031f668df277631d7ea13f92a42a30b706e')
+sha256sums=('39c20b8814f204ef75f8b300c2f264a282669e3c84f4e34c3cf5019ef9fa505a')
 
 build() {
   cd $pkgname-$pkgver
@@ -27,6 +27,7 @@ package() {
 
   make DESTDIR="${pkgdir}" install
 
-# license
+# licenses
   install -Dm644 LICENCE.txt "${pkgdir}"/usr/share/licenses/$pkgname/LICENCE
+  install -Dm644 WxWindows-exception-3.1.txt "${pkgdir}"/usr/share/licenses/$pkgname/WxWindows-exception-3.1.txt
 }
