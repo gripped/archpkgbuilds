@@ -3,7 +3,7 @@
 # Contributor: icasdri <icasdri at gmail dot com>
 
 pkgname=diff-so-fancy
-pkgver=1.4.10
+pkgver=1.4.12
 pkgrel=1
 pkgdesc="Good-looking diffs with diff-highlight and more"
 arch=('any')
@@ -13,7 +13,7 @@ depends=('perl')
 makedepends=('git')
 checkdepends=('bats-assert' 'bats-support')
 source=("git+https://github.com/so-fancy/diff-so-fancy.git#tag=v$pkgver")
-sha384sums=('4a034fcd4db118f355e246b29e40f11cb5074816bf005355f46b51ba8ecac5d25c0b3bc6e9ac6e99d2bbcd2dfc80fc21')
+sha384sums=('6c6e84c9376ef07f3a6d9e8ecc75dcf87c810797be864abaa68c2924c242e2070104295c616c70d6a6b3d17f25fb12c6')
 
 prepare() {
   cd $pkgname
