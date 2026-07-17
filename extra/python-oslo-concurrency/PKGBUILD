@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-concurrency
-pkgver=7.6.0
+pkgver=7.6.1
 pkgrel=1
 pkgdesc="OpenStack library for all concurrency-related code"
 arch=('any')
@@ -13,7 +13,7 @@ depends=('python-pbr' 'python-oslo-config' 'python-oslo-i18n' 'python-oslo-utils
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-oslotest' 'python-stestr' 'python-eventlet')
 source=("git+https://github.com/openstack/oslo.concurrency.git#tag=$pkgver")
-sha512sums=('a974b649d362f74e3ff21d04c546998381647058f44615c4fb4d9bafbd3011cfe012ec0dd64fb05752d463b66965674ee4e3f60df4b9202dabbecd07c36e60a2')
+sha512sums=('5b6665fc5cc20d0885c98544fe6bf0cbf5c80d617a975ed3b00111e1f770429341d2aa3cb40712b14f578202a9babe7e16db562f011b444862b2d8dcbf58778f')
 
 build() {
   cd oslo.concurrency
