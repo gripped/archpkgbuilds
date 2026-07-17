@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-daemon
-pkgver=6.1.90
+pkgver=6.1.91
 pkgrel=1
 pkgdesc='Daemon handling the DDE session settings'
 arch=('x86_64')
@@ -69,7 +69,7 @@ replaces=('startdde')
 groups=('deepin')
 install="$pkgname.install"
 source=("git+https://github.com/linuxdeepin/dde-daemon.git#tag=$pkgver")
-sha512sums=('703e16a0001c708eb3960b7d46dc15f3d729d418eb2feb6ae857840ec872abdc2a597e1613ce7db73ec8367c787dacecd7ae5f3169d1656b3df0c041a236521b')
+sha512sums=('4bcb316bfb0f49a409053b6dff93dda3ddbde4b49e2c8bb63b3b9db39c7ac7873878efcc3ecddbbb3d2cf0100b3f636c873162d1a530dd1961d61ea52717ec10')
 
 prepare() {
   cd dde-daemon
