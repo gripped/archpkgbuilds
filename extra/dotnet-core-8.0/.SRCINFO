@@ -1,5 +1,5 @@
 pkgbase = dotnet-core-8.0
-	pkgver = 8.0.28.sdk128
+	pkgver = 8.0.29.sdk129
 	pkgrel = 1
 	url = https://dotnet.microsoft.com
 	arch = x86_64
@@ -26,41 +26,49 @@ pkgbase = dotnet-core-8.0
 	options = !buildflags
 	options = !lto
 	options = staticlibs
-	source = git+https://github.com/dotnet/dotnet.git#tag=v8.0.128
-	b2sums = 7ddfef1fe356feea0d41d3624564cd5b637a6065867d383ec86a244e8ab33b0ab7a5252df2018a159fcd481c6bf6b39a3e9871adb930dc3ea8dd818bbd93b74f
+	source = git+https://github.com/dotnet/dotnet.git#tag=v8.0.129
+	b2sums = c418274bc3d2a72e93244866cd8678eb14119ff1ef3e833f7d86936e8c8b9c5f9b61504b6e39e1af21e9e0c703803f5a667c91ee664590f59bb1c1454ec6ffe3
 
 pkgname = dotnet-runtime-8.0
 	pkgdesc = The .NET Core runtime
 	depends = dotnet-host
-	depends = gcc-libs
 	depends = glibc
 	depends = icu
 	depends = krb5
+	depends = libgcc
+	depends = libstdc++
 	depends = libunwind
 	depends = zlib
 	depends = openssl
 	optdepends = lttng-ust2.12: CoreCLR tracing
+	provides = dotnet-runtime=8.0
 
 pkgname = aspnet-runtime-8.0
 	pkgdesc = The ASP.NET Core runtime
 	depends = dotnet-runtime-8.0
+	provides = aspnet-runtime=8.0
 
 pkgname = dotnet-sdk-8.0
 	pkgdesc = The .NET Core SDK
 	depends = dotnet-runtime-8.0
 	depends = dotnet-targeting-pack-8.0
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = netstandard-targeting-pack
 	optdepends = aspnet-targeting-pack: Build ASP.NET Core applications
+	provides = dotnet-sdk=8.0
 
 pkgname = dotnet-targeting-pack-8.0
 	pkgdesc = The .NET Core targeting pack
 	depends = netstandard-targeting-pack
+	provides = dotnet-targeting-pack=8.0
 
 pkgname = aspnet-targeting-pack-8.0
 	pkgdesc = The ASP.NET Core targeting pack
 	depends = dotnet-targeting-pack-8.0
+	provides = aspnet-targeting-pack=8.0
 
 pkgname = dotnet-source-built-artifacts-8.0
 	pkgdesc = Internal package for building the .NET Core SDK
+	provides = dotnet-source-built-artifacts=8.0
