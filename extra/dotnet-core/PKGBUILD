@@ -13,7 +13,7 @@ pkgname=(
  aspnet-targeting-pack
  dotnet-source-built-artifacts
 )
-pkgver=10.0.9.sdk109
+pkgver=10.0.10.sdk110
 pkgrel=1
 arch=(x86_64)
 url=https://dotnet.microsoft.com
@@ -44,7 +44,7 @@ options=(
   staticlibs
 )
 source=(git+https://github.com/dotnet/dotnet.git#tag=v${pkgver/.*.sdk/.0.})
-b2sums=('78b70986ac532d4ab22feae5f4ca31b1c39b5e7b283be8962b964ddeb1a93fac0e2ef79220f69e2e07ec965291ea18126785aaca08623f028be536118696c953')
+b2sums=('550f21787221b23756c5958b0b613bcd2a727c5ea9a230174cb6fdedac9c475f43995e5152ec19283f4a212c1deb9ae7a76f0fee2cf8521bc2c015d876d3ea90')
 
 prepare() {
   cd dotnet
@@ -91,8 +91,9 @@ build() {
 package_dotnet-host() {
   pkgdesc='A generic driver for the .NET Core Command Line Interface'
   depends=(
-    gcc-libs
     glibc
+    libgcc
+    libstdc++
   )
   optdepends=('bash-completion: Bash completion support')
 
@@ -109,16 +110,20 @@ package_dotnet-runtime() {
   pkgdesc='The .NET Core runtime'
   depends=(
     dotnet-host
-    gcc-libs
     glibc
     icu
     krb5
+    libgcc
+    libstdc++
     libunwind
     zlib
     openssl
   )
   optdepends=('lttng-ust2.12: CoreCLR tracing')
-  provides=(dotnet-runtime-${pkgver%.*.sdk*})
+  provides=(
+    dotnet-runtime=${pkgver%.*.sdk*}
+    dotnet-runtime-${pkgver%.*.sdk*}
+  )
   conflicts=(dotnet-runtime-${pkgver%.*.sdk*})
 
   install -dm 755 "${pkgdir}"/usr/share/{dotnet,licenses}
@@ -129,7 +134,10 @@ package_dotnet-runtime() {
 package_aspnet-runtime() {
   pkgdesc='The ASP.NET Core runtime'
   depends=(dotnet-runtime)
-  provides=(aspnet-runtime-${pkgver%.*.sdk*})
+  provides=(
+    aspnet-runtime=${pkgver%.*.sdk*}
+    aspnet-runtime-${pkgver%.*.sdk*}
+  )
   conflicts=(aspnet-runtime-${pkgver%.*.sdk*})
 
   install -dm 755 "${pkgdir}"/usr/share/{dotnet,licenses}
@@ -143,20 +151,29 @@ package_dotnet-sdk() {
     dotnet-runtime
     dotnet-targeting-pack
     glibc
-    gcc-libs
+    libgcc
+    libstdc++
   )
   optdepends=('aspnet-targeting-pack: Build ASP.NET Core applications')
-  provides=(dotnet-sdk-${pkgver%.*.sdk*})
+  provides=(
+    dotnet-sdk=${pkgver%.*.sdk*}
+    dotnet-sdk-${pkgver%.*.sdk*}
+  )
   conflicts=(dotnet-sdk-${pkgver%.*.sdk*})
 
   install -dm 755 "${pkgdir}"/usr/share/{dotnet,licenses}
   bsdtar -xf dotnet/artifacts/assets/Release/dotnet-sdk-${pkgver%.*.sdk*}.${pkgver#*sdk}-arch-*.tar.gz -C "${pkgdir}"/usr/share/dotnet/ --no-same-owner sdk sdk-manifests templates
+  install -dm 755 "${pkgdir}"/usr/share/dotnet/metadata/workloads/${pkgver%.*.sdk*}.${pkgver#*.sdk}
+  touch "${pkgdir}"/usr/share/dotnet/metadata/workloads/${pkgver%.*.sdk*}.${pkgver#*.sdk}/userlocal
   ln -s dotnet-host "${pkgdir}"/usr/share/licenses/dotnet-sdk
 }
 
 package_dotnet-targeting-pack() {
   pkgdesc='The .NET Core targeting pack'
-  provides=(dotnet-targeting-pack-${pkgver%.*.sdk*})
+  provides=(
+    dotnet-targeting-pack=${pkgver%.*.sdk*}
+    dotnet-targeting-pack-${pkgver%.*.sdk*}
+  )
   conflicts=(dotnet-targeting-pack-${pkgver%.*.sdk*})
 
   install -dm 755 "${pkgdir}"/usr/share/{dotnet,licenses}
@@ -167,7 +184,10 @@ package_dotnet-targeting-pack() {
 package_aspnet-targeting-pack() {
   pkgdesc='The ASP.NET Core targeting pack'
   depends=(dotnet-targeting-pack)
-  provides=(aspnet-targeting-pack-${pkgver%.*.sdk*})
+  provides=(
+    aspnet-targeting-pack=${pkgver%.*.sdk*}
+    aspnet-targeting-pack-${pkgver%.*.sdk*}
+  )
   conflicts=(aspnet-targeting-pack-${pkgver%.*.sdk*})
 
   install -dm 755 "${pkgdir}"/usr/share/{dotnet,licenses}
@@ -177,10 +197,11 @@ package_aspnet-targeting-pack() {
 
 package_dotnet-source-built-artifacts() {
   pkgdesc='Internal package for building the .NET Core SDK'
-  provides=(dotnet-source-built-artifacts-${pkgver%.*.sdk*})
+  provides=(
+    dotnet-source-built-artifacts=${pkgver%.*.sdk*}
+    dotnet-source-built-artifacts-${pkgver%.*.sdk*}
+  )
   conflicts=(dotnet-source-built-artifacts-${pkgver%.*.sdk*})
 
   install -Dm 644 dotnet/artifacts/assets/Release/Private.SourceBuilt.Artifacts.*.tar.gz -t "${pkgdir}"/usr/share/dotnet/source-built-artifacts/
 }
-
-# vim: ts=2 sw=2 et:
