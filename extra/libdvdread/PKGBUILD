@@ -4,7 +4,7 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=libdvdread
-pkgver=7.0.1
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='Library for reading DVD video disks'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(
 )
 optdepends=('libdvdcss: Decoding encrypted DVDs')
 source=("git+https://code.videolan.org/videolan/libdvdread.git#tag=$pkgver")
-b2sums=('9d649778290335ae732f68f24e229a8efc244eb3a4d19300eb9d81290edb9e35057182481b0100168db95d2413b1e83e073d7c068a8a9b7353fd402681742c39')
+b2sums=(89468c8e31f9e5e1ac6b02db327e1b9b6ccc67bfd84b74ae34c31fad4c40caad0a78dc262eafcdffc832483aaf618388c1641ab15240f0f487a7c4829ff6448e)
 validpgpkeys=(65F7C6B4206BD057A7EB73787180713BE58D1ADC) # VideoLAN Release Signing Key (2015)
 
 prepare() {
