@@ -4,7 +4,7 @@
 
 pkgname=testdisk
 pkgver=7.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Checks and undeletes partitions + PhotoRec, signature based recovery tool"
 arch=('x86_64')
 url="https://www.cgsecurity.org/index.html?testdisk.html"
