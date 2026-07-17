@@ -3,21 +3,31 @@
 
 pkgname=mousetweaks
 pkgver=3.32.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Mouse accessibility enhancements"
 url="https://wiki.gnome.org/Projects/Mousetweaks"
 arch=(x86_64)
-license=(GPL3 FDL)
-depends=(libxtst gtk3 gsettings-desktop-schemas)
-makedepends=(python git)
-_commit=db65986e791c8dd001f8e295d19e374dd5e3efd5  # tags/3.32.0^0
-source=("git+https://gitlab.gnome.org/GNOME/mousetweaks.git#commit=$_commit")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/-/+/g'
-}
+license=(GPL-3.0-or-later)
+depends=(
+  cairo
+  dconf
+  glib2
+  glibc
+  gsettings-desktop-schemas
+  gtk3
+  libx11
+  libxcursor
+  libxfixes
+  libxtst
+  pango
+)
+makedepends=(
+  git
+  glib2-devel
+  python
+)
+source=("git+https://gitlab.gnome.org/Archive/mousetweaks.git#tag=3.32.0")
+b2sums=('d6cb7ac019e6becdbc218dbeee0d0d90d997778576644850a03ff18ec39ca04253f17e7db9224321039be48681dfcf767a7938aa0a6bab19e6eb2472bcc0de0e')
 
 prepare() {
   cd $pkgname
@@ -35,5 +45,7 @@ check() {
 }
 
 package() {
-  DESTDIR="$pkgdir" make install -C $pkgname
+  make install -C $pkgname DESTDIR="$pkgdir"
 }
+
+# vim:set sw=2 sts=-1 et:
