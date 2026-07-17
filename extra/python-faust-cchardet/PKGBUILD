@@ -2,14 +2,15 @@
 
 pkgname=python-faust-cchardet
 pkgver=2.1.19
-pkgrel=5
+pkgrel=6
 pkgdesc="Fork of the original cChardet"
 url="https://github.com/faust-streaming/cChardet"
 arch=(x86_64)
 license=('GPL-2.0-only OR LGPL-2.1-only OR MPL-1.1')
 depends=(
-  gcc-libs
   glibc
+  libgcc
+  libstdc++
   python
 )
 makedepends=(
