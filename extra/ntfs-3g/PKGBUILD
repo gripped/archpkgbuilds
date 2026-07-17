@@ -6,7 +6,7 @@
 
 pkgbase=ntfs-3g
 pkgname=(ntfs-3g ntfsprogs libntfs-3g)
-pkgver=2026.2.25
+pkgver=2026.7.7
 pkgrel=1
 pkgdesc='NTFS filesystem driver and utilities'
 url='https://www.tuxera.com/community/open-source-ntfs-3g/'
@@ -15,7 +15,7 @@ license=('GPL-2.0-or-later')
 depends=('glibc')
 makedepends=('fuse2' 'git')
 source=("git+https://github.com/tuxera/ntfs-3g.git#tag=${pkgver}")
-sha256sums=('ceac9cb01f928dc50bb90eec90387e20889c74eefad00e1efad2742b8d36685f')
+sha256sums=('9ad0d731973c684aa177a8cd31a098fcb2a75d89820f67156a132169e16d8c65')
 options=(!emptydirs)
 
 prepare() {
