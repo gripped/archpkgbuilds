@@ -5,8 +5,8 @@
 # Contributor: Joost Bremmer <toost.b@gmail.com>
 
 pkgname=python-discogs-client
-pkgver=2.8
-pkgrel=3
+pkgver=2.9
+pkgrel=1
 pkgdesc='Python Client for the Discogs API'
 arch=(any)
 url=https://github.com/joalla/discogs_client
@@ -25,8 +25,8 @@ makedepends=(
   python-wheel
 )
 source=("$pkgname::git+https://github.com/joalla/discogs_client.git#tag=v$pkgver")
-sha512sums=('1cb175e5589b1f221187770a52ebe19b5c70351ab03a168532b7784ec1c50075f4a252350e09ef938b98ad6d306021b70b1656f951e0f22621e84fee53fc70bc')
-b2sums=('97934bc915043a73223b6e89cae6c2cbb0d4e43babf8f86015423cd69fbd536f2cb981d7c6b404625cf7482c38fd9a45e4c550795c957901168b026d0cb33cf1')
+sha512sums=('c8781def025e675ead83d6a8da5a2d507d5e57c5479262faf7c7d4c2f996db280d0a93f62a23f53d782e7bbfbbdc42390b414e077f1924796a6af891c77d8393')
+b2sums=('6e392dc4cdef912f792b397dc7450c0d5ef56feff3e46d056c537e027b6cb7ff8fdabe1c7e518d91433ccbcea1cc2c67248d5a297666dbedc250ba421b0e4605')
 
 build() {
   cd "$pkgname"
