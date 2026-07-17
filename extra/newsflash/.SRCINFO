@@ -1,6 +1,6 @@
 pkgbase = newsflash
 	pkgdesc = Feed reader application designed to complement an already existing web-based RSS reader account
-	pkgver = 5.1.0
+	pkgver = 5.2.3
 	pkgrel = 1
 	url = https://apps.gnome.org/NewsFlash/
 	arch = x86_64
@@ -14,22 +14,25 @@ pkgbase = newsflash
 	makedepends = rust
 	makedepends = webkitgtk-6.0
 	depends = cairo
+	depends = fontconfig
 	depends = glib2
 	depends = glibc
 	depends = graphene
 	depends = gtk4
 	depends = gtksourceview5
 	depends = hicolor-icon-theme
+	depends = lcms2
 	depends = libadwaita
 	depends = libclapper
 	depends = libclapper-gtk
 	depends = libgcc
+	depends = libseccomp
 	depends = libxml2
 	depends = openssl
 	depends = pango
 	depends = sqlite
 	options = !lto
-	source = git+https://gitlab.com/news-flash/news_flash_gtk.git#tag=v.5.1.0
-	b2sums = bed52fcc6c6be379d4547ea44ceec4a60d697fbe771dcdffa2f8ac9a333f327e148803572b4a00910df95639b8ae455d237a83e1e5ef4b6efcd23d019bc0e442
+	source = git+https://gitlab.com/news-flash/news_flash_gtk.git#tag=v.5.2.3
+	b2sums = 28874ac61950f19d78d3c44214945533c783e127cd9503dff0c3ebe8afc208c9ec47e4d1b1b52f1239892c598308b4596d667f6823cd8d42d565a040bfd27cc8
 
 pkgname = newsflash
