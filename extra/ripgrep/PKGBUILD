@@ -4,8 +4,8 @@
 # Contributor: Andrew Gallant <jamslam@gmail.com>
 
 pkgname=ripgrep
-pkgver=15.1.0
-pkgrel=4
+pkgver=15.2.0
+pkgrel=1
 pkgdesc="A search tool that combines the usability of ag with the raw speed of grep"
 arch=('x86_64')
 url="https://github.com/BurntSushi/ripgrep"
@@ -17,7 +17,7 @@ depends=(
 )
 makedepends=('rust')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('3e54683ceaaa79e6e1b52f7e1b92aefaf0b8f721daf2ab6433e1f45931878904ca20379cfb9b13770bf79d06a21ce896d471e80f557c6614417b836aabb6b803')
+sha512sums=('fe7e3c36c8ccfdc292d7d1ac8da95cab4264b63fc89209e7a19557ef29d1c618992bc5c241be53417aa785dc834a239f10eec6c58da5f9438f0f4a860c1857d4')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
