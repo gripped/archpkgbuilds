@@ -1,0 +1,16 @@
+_plugin_type=kms
+_plugin_name=gcp
+
+post_install() {
+  echo "Run the following to register the plugin with OpenBao:"
+  echo "bao plugin register -sha256=$(sha256sum /usr/lib/openbao/plugins/${_plugin_type}-${_plugin_name} | cut -d' ' -f1) ${_plugin_type} ${_plugin_type}-${_plugin_name}"
+  echo "You can enable the backend using:"
+  echo "bao ${_plugin_type} enable -path="${_plugin_name}" ${_plugin_type}-${_plugin_name}"
+}
+
+post_upgrade() {
+  echo "Run the following to update the plugin checksum:"
+  echo "bao plugin register -sha256=$(sha256sum /usr/lib/openbao/plugins/${_plugin_type}-${_plugin_name} | cut -d' ' -f1) ${_plugin_type} ${_plugin_type}-${_plugin_name}"
+  echo "You can then tell OpenBao to reload the plugin process:"
+  echo "bao plugin reload -plugin=${_plugin_type}-${_plugin_name}"
+}
