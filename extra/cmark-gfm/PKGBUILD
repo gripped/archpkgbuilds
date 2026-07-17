@@ -4,11 +4,11 @@
 
 pkgname=cmark-gfm
 pkgver=0.29.0.gfm.13
-pkgrel=1
+pkgrel=2
 pkgdesc="GitHub's fork of cmark, a CommonMark parsing and rendering library and program in C"
 arch=('x86_64')
 url="https://github.com/github/cmark"
-license=('custom:BSD2')
+license=('BSD-2-Clause')
 depends=('glibc')
 makedepends=('cmake' 'python')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
@@ -23,6 +23,8 @@ build() {
   cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+    -DCMARK_STATIC=off \
     ../cmark-gfm-$pkgver
   make
 }
