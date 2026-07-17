@@ -2,7 +2,7 @@
 # Contributor: Thayne McCombs <bytecurry.software@gmail.com>
 
 pkgname=openbao
-pkgver=2.5.5
+pkgver=2.6.0
 pkgrel=1
 pkgdesc="solution to manage, store, and distribute sensitive data"
 arch=("x86_64")
@@ -19,11 +19,20 @@ optdepends=(
   openbao-plugin-secrets-gcp
   openbao-plugin-secrets-gcpkms
   openbao-plugin-secrets-nomad
+  openbao-plugin-kms-alicloud
+  openbao-plugin-kms-aws
+  openbao-plugin-kms-azure
+  openbao-plugin-kms-gcp
+  openbao-plugin-kms-oci
+  openbao-plugin-kms-ovhcloud
+  openbao-plugin-kms-pkcs11
+  openbao-plugin-kms-tcloudpublic
 )
 # nodejs 23 and later don't work
 # See https://github.com/openbao/openbao/issues/731
 # If built without the ui, the nodejs dependency can be removed
-makedepends=(go go-tools git yarn npm nodejs-lts-jod)
+makedepends=(go go-tools git pnpm nodejs-lts-jod)
+install=openbao.install
 backup=(etc/openbao/openbao.hcl etc/default/openbao)
 source=(
   "git+https://github.com/openbao/openbao.git#tag=v${pkgver}"
@@ -31,7 +40,7 @@ source=(
   openbao.sysusers
   openbao.tmpfiles
 )
-sha256sums=('856c22e0f06704daa347d2082655d14f97a3391d7dbd7a337682240b76c06996'
+sha256sums=('c5eecebab31af7bc0a9b93b0c362f876c1efd2c136b0c3fbfebcbc972b5b2111'
             '0e79972482d846fd0546001d9611809e7034fc829d7f8bd213d13ace8edff8da'
             '262fe55da0f6b0afa94a25a2ffff6e3c6b42f5743faad73cdcb18c912f835692'
             '16de28adde67656e307b1f5a0eecd096cf466410da1bab407ce4c8804c34c97c')
@@ -41,7 +50,7 @@ prepare() {
   sed -i 's|/etc/openbao/openbao.env|/etc/default/openbao|g' .release/linux/package/usr/lib/systemd/system/openbao.service
 
   pushd ui
-  yarn install
+  pnpm install
   popd
 
   export GOPATH="${srcdir}"
@@ -52,8 +61,7 @@ build() {
   cd "${pkgname}"
 
   pushd ui
-  yarn rebuild node-sass
-  yarn run build
+  pnpm build
   popd
 
   export CGO_ENABLED=0
