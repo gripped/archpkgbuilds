@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-config
-pkgver=10.5.0
+pkgver=10.6.0
 pkgrel=1
 pkgdesc="parsing command line arguments and .ini style configuration files"
 arch=('any')
@@ -16,7 +16,7 @@ checkdepends=('python-testscenarios' 'python-stestr' 'python-testtools' 'python-
               'python-oslo-log' 'python-requests-mock' 'python-sphinx')
 options=('!emptydirs')
 source=("git+https://github.com/openstack/oslo.config.git#tag=$pkgver")
-sha512sums=('41d66eb891f300ba69fbea4653b0f85bf6a2c29f057c4f481480478221e195c1865e86c02264ca43e78021624388623ce91a33f168251690b7645f4c00be6f1e')
+sha512sums=('855900967f10673e701858e2d5ab0d5cf536111a5b3e7a50258bf8d23957ae3f976bd0864aabe38ec4e69a88cde959e4fc1d590f8c5a31ddba75fd9c81f80cf5')
 
 build() {
   cd oslo.config
