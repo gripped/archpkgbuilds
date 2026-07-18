@@ -2,10 +2,10 @@
 
 pkgbase=nvshmem
 pkgname=(nvshmem python-nvshmem)
-pkgver=3.7.1
+pkgver=3.7.2
 _upstream_pkgrel=0
 _cuda_ver=13
-pkgrel=2
+pkgrel=1
 pkgdesc="NVIDIA parallel programming interface based on OpenSHMEM"
 arch=(x86_64)
 url="https://developer.nvidia.com/nvshmem"
@@ -27,7 +27,7 @@ makedepends=(
   python-wheel
 )
 source=($pkgbase-$pkgver.tar.gz::https://github.com/NVIDIA/nvshmem/archive/refs/tags/v$pkgver-$_upstream_pkgrel.tar.gz)
-b2sums=('c332c381ed04502fc099b13aa5a50ff4e50c42f89c92b6a66499c3224138d49e5db12b8d8a542819513cc6b2d0c1fd8b19785d01de8f782dd7b8ce6a39f2bf7e')
+b2sums=('b0a2b7370aa408acfe8a519a55ad6fc64b7787286dac56f8aa240af6b24df10f25caf1c2941f0e93187665e5584f49a5a7a6b099fae94575c41d48900af58607')
 # LTO does not work with mixed GCC versions (15 by nvcc and 16 system)
 options=(!lto)
 
