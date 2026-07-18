@@ -8,7 +8,7 @@
 pkgname=tlpui
 _srcname=TLPUI
 pkgver=1.10.1
-pkgrel=1
+pkgrel=2
 epoch=2
 pkgdesc="A GTK user interface for TLP written in Python"
 arch=('any')
@@ -19,6 +19,12 @@ makedepends=('python-build' 'python-installer' 'python-wheel' 'python-poetry')
 checkdepends=('python-pytest')
 source=("${url}/archive/${pkgname}-${pkgver}.tar.gz")
 sha256sums=('041b92149fdbc9e582857c386ac4d2800fb74535a16a8feb4f59398e96f554cc')
+
+prepare() {
+	cd "${_srcname}-${pkgname}-${pkgver}/"
+	# Fix launchable ID in metainfo file
+	sed -i 's/com.github.d4nj1.tlpui.desktop/tlpui.desktop/' AppImage/com.github.d4nj1.tlpui.appdata.xml
+}
 
 build() {
 	cd "${_srcname}-${pkgname}-${pkgver}/"
@@ -35,6 +41,7 @@ package() {
 	python -m installer --destdir="${pkgdir}" dist/*.whl
 
 	install -Dm644 "${pkgname}.desktop" -t "${pkgdir}/usr/share/applications/"
+	install -Dm644 AppImage/com.github.d4nj1.tlpui.appdata.xml -t "${pkgdir}/usr/share/metainfo/"
 
 	cd "${pkgname}/icons/themeable/hicolor/"
 	for i in 16 32 48 64 96 128 256; do
