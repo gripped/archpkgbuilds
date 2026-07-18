@@ -3,7 +3,7 @@
 pkgname=gpu-viewer
 _pkgname=GPU-Viewer
 pkgver=3.35
-pkgrel=1
+pkgrel=2
 pkgdesc="A frontend to glxinfo and vulkaninfo."
 arch=('i686' 'x86_64' 'aarch64')
 url="https://github.com/arunsivaramanneo/$_pkgname/"
@@ -12,6 +12,7 @@ depends=(
         'gtk4'
         'libadwaita'
         'python'
+        'python-cairo'
         'python-gobject'
         'vulkan-tools'
         'clinfo'
@@ -24,7 +25,7 @@ makedepends=(
             'meson'
             'ninja'
 )
-checkdepends=('appstream-glib')
+checkdepends=('appstream')
 optdepends=(
             'nvidia: Vulkan nvidia driver'
             'mesa'
@@ -41,7 +42,7 @@ build() {
 
 check() {
     cd $_pkgname-$pkgver
-    appstream-util validate-relax --nonet data/*.metainfo.xml
+    appstreamcli validate --no-net data/*.metainfo.xml
     desktop-file-validate data/*.desktop
 }
 
