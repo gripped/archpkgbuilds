@@ -5,7 +5,7 @@
 
 pkgbase=linux-hardened
 pkgver=7.1.3.hardened1
-pkgrel=3
+pkgrel=4
 pkgdesc='Security-Hardened Linux'
 url='https://github.com/anthraxx/linux-hardened'
 arch=(
@@ -14,9 +14,13 @@ arch=(
 license=(GPL-2.0-only)
 makedepends=(
   bc
+  binutils
   cpio
   gettext
+  glibc
   libelf
+  libgcc
+  openssl
   pahole
   perl
   python
@@ -24,7 +28,10 @@ makedepends=(
   rust-bindgen
   rust-src
   tar
+  xxhash
   xz
+  zlib
+  zstd
 
   # htmldocs
   graphviz
@@ -49,17 +56,17 @@ validpgpkeys=(
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
   E240B57E2C4630BA768E2F26FC1B547C8D8172C8  # Levente Polyak
 )
+b2sums=('b6466e2798627522f0339c670a223b21266f4d4ede39163867c0f122295e54c5d24093abb51d5c6c6c917de0cb199836e81f45f7c391a5cc138cac2a519438e8'
+        'SKIP'
+        '96ca72fdf77492d73d6022733ae8d54455bbc0731336e7630fbe3c688a2bf6f7753a88bbe730b8c017dea927f126dfab784f223a8ecd8235e635f349b878eb5e'
+        'SKIP')
+b2sums_x86_64=('52d0d7f52e705b0304cbcb8f27ee0020a355f6d1384c98f74a58be89631a36e732bc29ad9abd116089e2be98d6ef31057043138a2fe42cc1e3cecb3bc9436037')
+
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
 sha256sums=('be41c068e88f5242a19bccdbffbe077b18c47b45f627e2325504b4fab79dd1dc'
             'SKIP'
             'f80f65c15d26201d817aaa0070e0765aa2a894f0eef68c2f669172b3137eba0b'
             'SKIP')
-sha256sums_x86_64=('5c9898470d552cb361fc45dd4211ea1758f06cf9b02f78f27aba1f79965b3b65')
-b2sums=('b6466e2798627522f0339c670a223b21266f4d4ede39163867c0f122295e54c5d24093abb51d5c6c6c917de0cb199836e81f45f7c391a5cc138cac2a519438e8'
-        'SKIP'
-        '96ca72fdf77492d73d6022733ae8d54455bbc0731336e7630fbe3c688a2bf6f7753a88bbe730b8c017dea927f126dfab784f223a8ecd8235e635f349b878eb5e'
-        'SKIP')
-b2sums_x86_64=('eb2cb1d3de8969e598f25076da5be4aca9bc73211268ab4e9f1d92c574885b3795c693fa05cd024c313dc31338c1affc85ce66c7250f2553af5a577d0103a4b6')
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -99,7 +106,7 @@ build() {
 
   make all
   make -C tools/bpf/bpftool vmlinux.h feature-clang-bpf-co-re=1
-  wait "${pid_docs}"
+  wait $pid_docs
 }
 
 _package() {
@@ -146,7 +153,17 @@ _package() {
 
 _package-headers() {
   pkgdesc="Headers and scripts for building modules for the $pkgdesc kernel"
-  depends=(pahole)
+  depends=(
+    binutils
+    glibc
+    libelf
+    libgcc
+    openssl
+    pahole
+    xxhash
+    zlib
+    zstd
+  )
   provides=(LINUX-HEADERS)
 
   cd $_srcname
@@ -196,11 +213,11 @@ _package-headers() {
   echo "Installing KConfig files..."
   find . -name 'Kconfig*' -exec install -Dm644 {} "$builddir/{}" \;
 
-  # echo "Installing Rust files..."
-  # if [[ $(scripts/config -s CONFIG_RUST) = y ]]; then
-  # install -Dt "$builddir/rust" -m644 rust/*.rmeta
-  # install -Dt "$builddir/rust" rust/*.so
-  # fi
+  if [[ $(scripts/config -s CONFIG_RUST) = y ]]; then
+    echo "Installing Rust files..."
+    install -Dt "$builddir/rust" -m644 rust/*.rmeta
+    install -Dt "$builddir/rust" rust/*.so
+  fi
 
   echo "Installing unstripped VDSO..."
   make INSTALL_MOD_PATH="$pkgdir/usr" vdso_install \
