@@ -2,7 +2,7 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=ddm
-pkgver=0.3.6
+pkgver=0.3.7
 pkgrel=1
 pkgdesc='New Display Manager for DDE'
 arch=('x86_64')
@@ -29,8 +29,8 @@ makedepends=(git
              ninja)
 source=("git+https://github.com/linuxdeepin/ddm.git#tag=$pkgver"
         "0001-fix-pam-fork-atexit-deadlock.patch")
-sha512sums=('87b823ee3cfbb6ad73b0dc38cc78e5c093e309fb9c487c5f80369916869a17fccd1f3639c2207e8b135ee8c88a69ba613780804b873896c58bed810817962672'
-            '5998b86342f3619a5591bdc87da59fab104ce1d56e4668fe0ff5d285f6680bc25f5c41b0bc9a8b1576a3bb52a93eff3bd89622984cde46c4f7cd4fed49f59eca')
+sha512sums=('36b374347dd8f956b929c6f839fce048188b12c6f3b42777b34f1c60e971ef98b7d3050bc92490d69a9900ed9a40fa634971373ccc0e975c0c4dbfaee1fc9caa'
+            '188bad970a86ce480e11c39987af16f38e8cd4434d644e2d7f6b6200e306fdd12addca3d39fb84a232837bc334da7c7b8a056ac87d49e9baf676706c9150c158')
 
 prepare() {
   cd ddm

@@ -1,16 +1,16 @@
 diff --git a/src/daemon/Auth.cpp b/src/daemon/Auth.cpp
-index 9aa6654..5d614a7 100644
+index ecb482b..e7ceb09 100644
 --- a/src/daemon/Auth.cpp
 +++ b/src/daemon/Auth.cpp
-@@ -13,6 +13,7 @@
+@@ -14,6 +14,7 @@
+ #include "TreelandConnector.h"
  
  #include <pwd.h>
- #include <security/pam_appl.h>
 +#include <pthread.h>
+ #include <security/pam_appl.h>
  #include <signal.h>
  #include <unistd.h>
- #include <utmp.h>
-@@ -266,6 +267,19 @@ namespace DDM {
+@@ -319,6 +320,19 @@ namespace DDM {
                  env.insert(QStringLiteral("LOGNAME"), QString::fromLocal8Bit(pw->pw_name));
              }
  
