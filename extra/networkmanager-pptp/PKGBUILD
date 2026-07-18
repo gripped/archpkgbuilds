@@ -7,13 +7,13 @@ pkgname=(
   networkmanager-vpn-plugin-pptp
 )
 pkgver=1.2.12
-pkgrel=7
+pkgrel=8
 pkgdesc="NetworkManager VPN plugin for PPTP"
 url="https://networkmanager.dev/docs/vpn/"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
-  gcc-libs
+  libgcc
   glib2
   glibc
   gtk3
@@ -89,7 +89,7 @@ package_networkmanager-pptp() {
 package_networkmanager-vpn-plugin-pptp() {
   pkgdesc+=" (VPN plugin only)"
   depends=(
-    gcc-libs
+    libgcc
     glib2
     glibc
     libnm
