@@ -3,8 +3,8 @@
 
 pkgname=python-pybcj
 _pyname=${pkgname#python-}
-pkgver=1.0.7
-pkgrel=2
+pkgver=1.0.8
+pkgrel=1
 pkgdesc='BCJ (Branch-Call-Jump) filter for python'
 arch=(x86_64)
 url="https://github.com/miurahr/$_pyname"
@@ -18,7 +18,7 @@ _archive="$_pyname-$pkgver"
 # PyPi package >= 1.0.7 does not include tests
 # source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('8c2beae3ff02c2af30ab051f08a0f9f56ce3da8d40f3443e42e3ef9c0317aa7d')
+sha256sums=('c5dcda1403301f6f70db40a8b7e89dab4d230a3b634a529b98820d351d874eeb')
 
 build() {
 	cd "$_archive"
