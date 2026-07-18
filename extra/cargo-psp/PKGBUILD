@@ -1,8 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=cargo-psp
-pkgver=0.2.8
-pkgrel=3
+pkgver=0.2.9
+pkgrel=1
 pkgdesc='cargo build wrapper for creating Sony PSP executables'
 url='https://github.com/overdrivenpotato/rust-psp'
 arch=('x86_64')
@@ -12,8 +12,8 @@ depends=(
   'glibc'
   'libgcc'
 )
-source=("${pkgname}-${pkgver}.tar.gz::https://crates.io/api/v1/crates/${pkgname}/${pkgver}/download")
-sha256sums=('12c6f07f9a48f52053df4764a77156c09aa7be9da2612e8fd1abccb408ee2ed9')
+source=("${pkgname}-${pkgver}.tar.gz::https://static.crates.io/crates/${pkgname}/${pkgver}/download")
+sha256sums=('acf9360909360d639034fc22f1c1957b3e2a507d8a04804c20508c8024d4a1ae')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
