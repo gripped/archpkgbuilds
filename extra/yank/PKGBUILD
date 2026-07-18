@@ -2,15 +2,15 @@
 # Contributor: Javier Tiá <javier dot tia at gmail dot com>
 
 pkgname=yank
-pkgver=1.3.0
-pkgrel=2
+pkgver=1.4.0
+pkgrel=1
 pkgdesc='Copy terminal output to clipboard'
 arch=('x86_64')
 url='https://github.com/mptre/yank'
 license=('MIT')
 depends=('xsel')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('40f5472df5f6356a4d6f48862a19091bd4de3f802b3444891b3bc4b710fb35ca')
+sha256sums=('0f1d1000f358bfa373f3903ea2871e2585fa694a0b03d8ff7561c1205207dec5')
 
 build() {
   cd "${pkgname}-${pkgver}"
