@@ -2,7 +2,7 @@
 # Contributor: Gavin Lloyd <gavinhungry@gmail.com>
 
 pkgname=acme.sh
-pkgver=3.1.3
+pkgver=3.1.4
 pkgrel=1
 pkgdesc='An ACME Shell script, an acme client alternative to certbot'
 arch=('any')
@@ -14,7 +14,7 @@ optdepends=('socat: for standalone mode'
             'python: for standalone mode without socat'
             'oath-toolkit: Used to compute the OTP for some DNS providers')
 source=("git+$url.git#tag=$pkgver")
-sha512sums=('633b0935ff770dd31252a395f222820403e842b2537dc54600ca7f36aaa66c96a0f3864b9afdefa464629a916365e06463234f690be3d0a1099d434fb1427b47')
+sha512sums=('ad6fff3c4fa2278f2eecedd6d232b1641caeccf01f41ec7f545f449e72301afd52fe873099adc9c767d3dffb2ade04e145844c432c5f97282b4255e8bb2f4f28')
 
 package() {
   cd $pkgname
@@ -22,9 +22,11 @@ package() {
   install -dm755 "$pkgdir"/usr/share/acme.sh/deploy
   install -dm755 "$pkgdir"/usr/share/acme.sh/dnsapi
   install -dm755 "$pkgdir"/usr/share/acme.sh/notify
+  install -dm755 "$pkgdir"/usr/share/bash-completion/completions
   install -dm755 "$pkgdir"/usr/bin
 
   install -m755 acme.sh "$pkgdir"/usr/share/acme.sh/
+  install -m644 acme.sh.completion "$pkgdir"/usr/share/bash-completion/completions/acme.sh
   install -m755 deploy/*.sh "$pkgdir"/usr/share/acme.sh/deploy/
   install -m755 dnsapi/*.sh "$pkgdir"/usr/share/acme.sh/dnsapi/
   install -m755 notify/*.sh "$pkgdir"/usr/share/acme.sh/notify/
