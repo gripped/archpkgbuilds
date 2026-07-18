@@ -1,7 +1,7 @@
 pkgbase = proton-vpn-gtk-app
 	pkgdesc = ProtonVPN GTK app, Maintained by Community
 	pkgver = 4.16.5
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/ProtonVPN/proton-vpn-gtk-app
 	arch = any
 	license = GPL-3.0-or-later
@@ -10,7 +10,6 @@ pkgbase = proton-vpn-gtk-app
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
-	depends = dbus-python
 	depends = glib2
 	depends = pango
 	depends = gtk4
@@ -18,6 +17,7 @@ pkgbase = proton-vpn-gtk-app
 	depends = gdk-pixbuf2
 	depends = python
 	depends = python-cairo
+	depends = python-dbus
 	depends = python-distro
 	depends = python-gobject
 	depends = python-packaging
@@ -28,10 +28,7 @@ pkgbase = proton-vpn-gtk-app
 	depends = python-proton-vpn-local-agent
 	depends = python-proton-vpn-network-manager
 	depends = python-requests
-	optdepends = libappindicator-gtk3
 	source = git+https://github.com/ProtonVPN/proton-vpn-gtk-app.git#tag=v4.16.5
-	source = fix-gear-icon.patch
 	sha256sums = 3d9b510f9a6182a3e05b9e120cffb8f1e1156d0e865b72dff0924b760c2bf4e3
-	sha256sums = d1b2db3f3ef1b80d0b1f3972d0a17f5c329953b8951d3b2fbc9d3ecce2b6c4c4
 
 pkgname = proton-vpn-gtk-app
