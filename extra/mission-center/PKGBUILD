@@ -3,7 +3,7 @@
 
 pkgname=mission-center
 pkgver=1.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Monitor your CPU, Memory, Disk, Network and GPU usage"
 arch=(x86_64)
 url="https://missioncenter.io"
@@ -11,7 +11,7 @@ license=(GPL-3.0-or-later)
 depends=(
   dconf
   dmidecode
-  gcc-libs
+  libgcc
   gdk-pixbuf2
   glib2
   glibc
@@ -20,7 +20,6 @@ depends=(
   libadwaita
   mesa
   nvtop
-  protobuf
   systemd
   systemd-libs
 )
@@ -30,9 +29,6 @@ makedepends=(
   cmake
   git
   meson
-)
-checkdepends=(
-  appstream-glib
 )
 source=("git+https://gitlab.com/mission-center-devs/mission-center.git#tag=v${pkgver}"
         "git+https://gitlab.com/mission-center-devs/gng.git")
@@ -47,11 +43,11 @@ prepare() {
   git -c protocol.file.allow=always submodule update
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 
   cd subprojects/magpie
   CARGO_HOME="$srcdir/build/subprojects/magpie/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
@@ -66,7 +62,7 @@ build() {
 }
 
 check() {
-  meson test -C build --print-errorlogs || :
+  meson test -C build --no-rebuild --print-errorlogs
 }
 
 package() {
