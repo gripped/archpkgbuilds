@@ -5,7 +5,7 @@
 
 pkgname=setzer
 pkgver=66
-pkgrel=4
+pkgrel=5
 pkgdesc='LaTeX editor written in Python with Gtk'
 arch=(any)
 url="https://github.com/cvfosammmm/$pkgname"
@@ -14,22 +14,18 @@ _pydeps=(bibtexparser
          cairo
          gobject
          numpy
-         pdfminer
          pexpect
-         pillow
-         pyxdg)
-depends=(gspell
-         gtk3
+         pillow)
+depends=(gtk4
          gtksourceview5
-         libhandy
+         libadwaita
          libportal
          poppler-glib
          python
          ${_pydeps[@]/#/python-}
          texlive-core
          texlive-xetex
-         webkitgtk-6.0
-         xdg-utils)
+         webkitgtk-6.0)
 makedepends=(appstream
              meson)
 _archive="${pkgname^}-$pkgver"
