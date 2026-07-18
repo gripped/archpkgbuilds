@@ -2,7 +2,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=ruby-cucumber-core
-pkgver=17.0.0
+pkgver=18.0.0
 pkgrel=1
 pkgdesc="Core library for the Cucumber BDD app"
 arch=(any)
@@ -27,8 +27,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("git+https://github.com/cucumber/cucumber-ruby-core.git#tag=v$pkgver")
-sha512sums=('d1e350097b51450ba38290433a08d3ce7c570d3d6192c94858903588e3832c2c67492bf0aa3319eff67403bac2c2d8307dd2fb660fc73c9324da2ce626fa08bc')
-b2sums=('0eb3039d8fec6c8e3b763f5e75f4946b7c7669590b0d0128d678514368166f4bfad58512752013dc02e80329b3c03507601d7736f59240a34a453d8704686d8c')
+sha512sums=('942354cb1efe81de813e1c0973db4f5dc4ce81754e7ef10cd2b8c574c3ff0dfeebdaf579f8a6a1fe6a7abf5dcdd544567819507872d447d09451eccbcb851340')
+b2sums=('3c09e3d1c2445639dc0cb1ac72520853e317353b9802ea84ee2e429237e768f9eaa7782090957c46502f1fdc7219d1e8dde09e45bc5d52282db111ee469b0423')
 
 prepare() {
   cd cucumber-ruby-core
