@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-file-manager
-pkgver=6.5.19
+pkgver=6.5.20
 pkgrel=1
 epoch=1
 pkgdesc='Deepin File Manager'
@@ -34,7 +34,7 @@ replaces=('deepin-desktop')
 options=('!lto')
 source=("git+https://github.com/linuxdeepin/dde-file-manager.git#tag=$pkgver"
          gcc-15.patch)
-sha512sums=('b0cbf375766d5d3660b2452ef5162ba7970455f90deb195c480185817c515fbe4205f85ef08c4448f17d24a6b5045db03fe9030fcb8a95296e67624f45b78048'
+sha512sums=('4cb7f1849490eb71eb345b19aa16dbdaae09d8bdcdc47e9e2546f3bf8a16923d131bbbad9cd7f0ddc446a2ce83ecb4f5c52682a03ea483dcb58eced444542e29'
             'b2cda989438b90703a5718ac0daf5972f4d70e21ceef5ad9751445178c4299200f8ac3be112e79682bd37b751e6e3fbd3aaef4189adaaf9abe2506132c16ab41')
 
 prepare() {
@@ -63,10 +63,6 @@ prepare() {
     src/plugins/daemon/daemonplugin-vault/CMakeLists.txt
 
   # Build against Qt5, whose translation tools are shipped as versioned binaries.
-  sed -i \
-    -e 's|COMMAND lupdate|COMMAND /usr/bin/lupdate-qt5|g' \
-    -e 's|COMMAND lrelease|COMMAND /usr/bin/lrelease-qt5|g' \
-    src/plugins/filemanager/dfmplugin-disk-encrypt-entry/CMakeLists.txt
   sed -i 's|\<lrelease\>|/usr/bin/lrelease-qt5|' src/translate_generation.sh
 
 }
