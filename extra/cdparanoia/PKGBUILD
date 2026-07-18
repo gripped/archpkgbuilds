@@ -3,11 +3,11 @@
 
 pkgname=cdparanoia
 pkgver=10.2
-pkgrel=9
+pkgrel=10
 pkgdesc="Compact Disc Digital Audio extraction tool"
 arch=('x86_64')
 url="https://www.xiph.org/paranoia/"
-license=('GPL')
+license=('GPL-2.0-or-later' 'LGPL-2.1-or-later')
 depends=('glibc')
 options=('!makeflags' '!staticlibs')
 source=("https://downloads.xiph.org/releases/cdparanoia/cdparanoia-III-$pkgver.src.tgz"
