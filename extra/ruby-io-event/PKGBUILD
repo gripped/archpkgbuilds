@@ -2,7 +2,7 @@
 
 _gemname='io-event'
 pkgname="ruby-${_gemname}"
-pkgver=1.14.5
+pkgver=1.19.2
 pkgrel=1
 pkgdesc='An event loop'
 arch=('x86_64')
@@ -10,6 +10,9 @@ url="https://github.com/socketry/${_gemname}"
 license=('MIT')
 depends=(
   ruby
+)
+makedepends=(
+  ruby-rdoc
 )
 checkdepends=(
   ruby-async
@@ -20,11 +23,12 @@ checkdepends=(
   ruby-covered
   ruby-decode
   ruby-sus
+  ruby-sus-fixtures-benchmark
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('ff20eb0d52befcdf442d2d4c781b35424e4f6bb54050fc0c0f67415fa56ca02903fea837812bdcc7016eacc853507268f15dadee30a4511cf23a015d59bd9939')
-b2sums=('38970b9bbdb08f5d39650d86f34a93647e70b686da6edfc6c2762e6d536c8d31a70afd7fc2f6a851e1945dec8c033c9e2280d7444513bbb3d40640f03dc73ddd')
+sha512sums=('bdfc1250e800e9f607b042834a00196cb868abd1274fd16fb11c7aea1a18cf8433b67b24f999bb11a9273a3f0bd8bcd44a35637f5c63adaa7c114030ecadb1af')
+b2sums=('af04d47ed74b37551da6dff8b375146657fe080898d57d65479081a0ca382929dbe5586b3d2400ed0a15294f947a243cd9a0009590a794d88cd9113a0798968c')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
@@ -52,36 +56,8 @@ build() {
     --local \
     --verbose \
     --ignore-dependencies \
-    --no-user-install \
-    --install-dir "tmp_install${_gemdir}" \
-    --bindir "tmp_install/usr/bin" \
+    --build-root "tmp_install" \
     "${_gemname}-${pkgver}.gem"
-
-  # remove unrepreducible files
-  rm --force --recursive --verbose \
-    "tmp_install${_gemdir}/cache/" \
-    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
-    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
-
-  find "tmp_install${_gemdir}/gems/" \
-    -type f \
-    \( \
-      -iname "*.o" -o \
-      -iname "*.c" -o \
-      -iname "*.so" -o \
-      -iname "*.time" -o \
-      -iname "gem.build_complete" -o \
-      -iname "Makefile" \
-    \) \
-    -delete
-
-  find "tmp_install${_gemdir}/extensions/" \
-    -type f \
-    \( \
-      -iname "mkmf.log" -o \
-      -iname "gem_make.out" \
-    \) \
-    -delete
 }
 
 # no tests until ruby-sus gets updated
