@@ -2,7 +2,7 @@
 
 pkgname=xorg-mkfontscale
 pkgver=1.2.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Create an index of scalable font files for X"
 arch=(x86_64)
 url="https://gitlab.freedesktop.org/xorg/app/mkfontscale"
@@ -10,8 +10,7 @@ license=('MIT-open-group'
          'X11'
          'MIT'
          'HPND-sell-variant')
-install=xorg-mkfontscale.install
-depends=('freetype2' 'libfontenc' 'zlib' 'glibc')
+depends=('freetype2' 'libfontenc' 'zlib' 'glibc' 'sh')
 makedepends=('xorg-util-macros' 'xorgproto')
 groups=('xorg-apps' 'xorg')
 provides=('xorg-mkfontdir')
