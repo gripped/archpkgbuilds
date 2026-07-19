@@ -2,7 +2,7 @@
 
 _gemname=minitest-sprint
 pkgname=ruby-${_gemname}
-pkgver=1.3.0
+pkgver=1.5.0
 pkgrel=1
 pkgdesc="Runs (Get it? It's fast!) your tests and makes it easier to rerun individual failures"
 url='https://github.com/seattlerb/minitest-sprint'
@@ -12,8 +12,8 @@ depends=('ruby' 'ruby-minitest' 'ruby-path_expander')
 makedepends=('ruby-rdoc' 'ruby-rake' 'ruby-hoe')
 options=('!emptydirs')
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('259b463595ae9087797603c7b3b2da7d893057a8a54f1c4fffae97b7322c4b8498b61256b9ca024ddf2070ac4600165aec4336bb8682f8f4c0eb72115cd6fb58')
-b2sums=('a9b1f5dce5aa5da2b38134cc67a160afc992bf0a57d8b4ca3050f18f8a0640bba6dbff7dc58c566e4ab0af2a1d508167afbe1c9fd5291b45c362d02438e93df8')
+sha512sums=('c488e839a32c6ffdbb9949b502cefbc2b0a086548c691dbb87d67a46420602414a912e406c49abfdefe753867d7917d67a3dd2aad6d5429015eeaec9cb654ff4')
+b2sums=('777d8480e9217b6166a036f55fea1294fd9dc8c5e0955f3a27ec9765e918bbf8ca45836e56cd2e035870c3401a3bdf74c94910608129992de6ec56eaacce1274')
 
 build() {
   cd ${_gemname}-${pkgver}
