@@ -1,0 +1,10 @@
+[Trigger]
+Type = Package
+Operation = Install
+Target = munge
+
+[Action]
+Description = Creating random munge key...
+Depends = coreutils
+Exec = /usr/bin/sh -c '[ ! -c /dev/urandom ] && printf "No /dev/urandom, skipping...\n" && exit; [ -f /etc/munge/munge.key ] && printf "/etc/munge/munge/munge.key exists, skipping...\n" && exit; dd if=/dev/urandom bs=1 count=1024 of=/etc/munge/munge.key; chown munge:munge /etc/munge/munge.key; chmod 0400 /etc/munge/munge.key'
+When = PostTransaction
