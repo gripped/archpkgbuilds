@@ -2,7 +2,7 @@
 
 _name='gp-libs'
 pkgname="python-${_name}"
-pkgver=0.0.17
+pkgver=0.0.19
 pkgrel=1
 pkgdesc='Incubator for pytest and sphinx helpers for git-pull python projects'
 arch=('any')
@@ -25,8 +25,8 @@ checkdepends=(
   python-pytest-rerunfailures
 )
 source=("https://github.com/git-pull/gp-libs/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('41f03b45802204a28174448f0a3433eecd172725bc08753b0d334363a9474c916947775031f0c5fbceea30734cf36a34e65fe1a40c71a33da1c80ccaae51810e')
-b2sums=('e7a0368e22fdeb42b9565c61e2705aa9a2a3df4492f4b249339b1166b0536de17ab1bcd0d01c9f6aa2d805f980d9f2d86e56cd3741142c8bbed6c69903d44852')
+sha512sums=('f1c62fc763b6a679a4e706a332b0798aedc69a57b9615c523f2e6157ffcbb69a2b9ab8d9dbcbcfa4aa8be47fb8dcf5e94f70eebad5112d91678212caf62a89ec')
+b2sums=('67118ace790078200d27ae20446afd26cf9a1f066d76a7ea8bd2d17ee6eeabba61bbc7cee980a1eb0e89dc768e3bee97bd892e4c0216aa4c1e416850a5d2f97a')
 
 build() {
   cd  "${_name}-${pkgver}"
