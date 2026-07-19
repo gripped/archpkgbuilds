@@ -2,8 +2,8 @@
 
 _gemname='sorbet-runtime'
 pkgname="ruby-${_gemname}"
-pkgver=0.6.13068
-_version_hash='20260330125333-242e54619'
+pkgver=0.6.13342
+_version_hash='20260716135343-aafce23c1'
 pkgrel=1
 pkgdesc="Sorbet's runtime type checking component"
 arch=('any')
@@ -28,9 +28,9 @@ source=(
   "${url}/archive/${pkgver}.${_version_hash}/${pkgname}-${pkgver}.${_version_hash}.tar.gz"
   "${pkgname}_fix_tests.patch"
 )
-sha512sums=('46cd9465c7cd21e61a33dfff046174249d6deba342f725689888762580275c9d0abf32454d58b81283a84033ad4aec2e6db2bcf742373abcfb803a6840ae0647'
+sha512sums=('edd45d26f172738998f37278c384fbbf31f9f53f17db46f89c7b569748599c7833da404464254758604671ea9276d7df34e542cc8cb6f6a6d9a3be581fb4bfc6'
             'a39f61f680da5c2d2dc83aec4e5358686eaa3834f76eaa68c85e0f7d7d32ad9bf97953395ab805ca5669e7d98c144469b68e19a9028e5ff90f4c917dd059538b')
-b2sums=('14e538d4edde887cc00be9e8ebef3d1e64e613dd0a7efa286954fd3b25c3e8d6571bf81f766f109bdd00a0479e8b863e83dec8fb7a922c66bafa4b34cd914511'
+b2sums=('4c1a68a34dde3261e7c665f747b1b0be1fc7999fd168433eaaebab9876556c2701b3fc4ec4e1bdac7fcb474c70ba5aa6fd2fc1a38c88618b847b918f3657539a'
         'a9c2e83f4e04509db40b21f827208eb0ec03ebaae7f3971ddd2dcd0253fe00baf74b905a7a81079d23ac6f939a2e092bba3d5db7c415b1f70283ad1b65de715b')
 
 prepare() {
@@ -50,44 +50,14 @@ prepare() {
 build() {
   cd "sorbet-${pkgver}.${_version_hash}/gems/${_gemname}"
 
-  local _gemdir="$(gem env gemdir)"
-
   gem build --verbose "${_gemname}.gemspec"
 
   gem install \
     --local \
     --verbose \
     --ignore-dependencies \
-    --no-user-install \
-    --install-dir "tmp_install${_gemdir}" \
-    --bindir "tmp_install/usr/bin" \
+    --build-root "tmp_install" \
     "${_gemname}-${pkgver}.gem"
-
-  # remove unreproducible files
-  rm --force --recursive --verbose \
-    "tmp_install${_gemdir}/cache/" \
-    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
-    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
-
-  find "tmp_install${_gemdir}/gems/" \
-    -type f \
-    \( \
-      -iname "*.o" -o \
-      -iname "*.c" -o \
-      -iname "*.so" -o \
-      -iname "*.time" -o \
-      -iname "gem.build_complete" -o \
-      -iname "Makefile" \
-    \) \
-    -delete
-
-  find "tmp_install${_gemdir}/extensions/" \
-    -type f \
-    \( \
-      -iname "mkmf.log" -o \
-      -iname "gem_make.out" \
-    \) \
-    -delete
 }
 
 check() {
