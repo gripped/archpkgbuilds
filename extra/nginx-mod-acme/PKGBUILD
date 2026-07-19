@@ -2,12 +2,16 @@
 # Contributor: Terence Noone <me@techtricity.net>
 pkgname=nginx-mod-acme
 pkgver=0.4.1
-pkgrel=4
+pkgrel=6
 pkgdesc='Nginx module adding support for the ACME protocol'
 arch=('x86_64')
 url='https://github.com/nginx/nginx-acme/'
 license=('Apache-2.0')
-depends=('gcc-libs' 'glibc' 'openssl')
+depends=(
+  'libgcc'
+  'glibc'
+  'openssl'
+)
 makedepends=('cargo' 'clang' 'nginx' 'nginx-src')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/nginx/nginx-acme/archive/v${pkgver}/nginx-acme-${pkgver}.tar.gz")
 sha256sums=('b4f99f971bd0bebc89b2037f3afeaa3281004fe434de558df87d69cab2be1f22')
