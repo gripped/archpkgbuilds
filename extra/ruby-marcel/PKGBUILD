@@ -2,7 +2,7 @@
 
 _gemname='marcel'
 pkgname="ruby-${_gemname}"
-pkgver=1.1.0
+pkgver=1.2.1
 pkgrel=1
 pkgdesc='Simple mime type detection using magic numbers, filenames, and extensions'
 arch=('any')
@@ -15,8 +15,8 @@ checkdepends=('ruby-minitest' 'ruby-rack')
 source=(
   "${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
 )
-sha512sums=('0465955f7cb0d8001d6116c5d3fef6bd6ab4a114cab5a8efb74e17ee53e2ab844aae935e716ddd522d266dd9bf0dd8a0e4e0f5aaee903d8cd61870f4de4617a1')
-b2sums=('88ca72d9c11da62052152fab9a8d49b170509365386efac281704b5e9722925aa3a8f7290e4dd26316bcffe0db49f1bafc45a529cd1585c12fc4bc415323020b')
+sha512sums=('146bca723538bbc1079b799bda2fb66f29ac9596574dc80ec3979fb1ed3a303b87728c592a2b73c6d390e7ab9e87f9b7d988ea7c6fdffa7b882e38f62ba3d5a2')
+b2sums=('60a7e29b2c1ae2f4fb272e79fbd707cc6f4f95dc10a3651b12cd97584cca2cb5b3eadc5aa863e0e0eb46888f222292aeda69e2194ef23619b4da738116e61a1d')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
