@@ -2,7 +2,7 @@
 
 _gemname='websocket-driver'
 pkgname="ruby-${_gemname}"
-pkgver=0.8.0
+pkgver=0.8.2
 pkgrel=1
 pkgdesc='WebSocket protocol handler with pluggable I/O'
 arch=('x86_64')
@@ -26,8 +26,8 @@ checkdepends=(
   ruby-rspec
 )
 source=("${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('c1c99b73cc93db1fc2ef62555aab8fdf37204d821cdee2d815f47956c82d8de634b5e0de9154437f87f3ebc60edb3a8d7c729fe77542e3c3ac80e1fd1e4d3021')
-b2sums=('c5bade6b02354ae2d645ddbf4e88c931c2d5e3b1cd9745fc899aef57bbde770984c92d7cd3614cb525799ee93ba99a0ce78556f77360dc392be367df4831a83f')
+sha512sums=('f060da604d2da7ed5edc616784258f62fcd224e1605c8502732579eadda43471354d0b91f56c8e709a47fc86defa36d97215cb439f3fcf5ccdcc10eed5452984')
+b2sums=('233a2184ce6ddb163303fd969f50f29d1ba1295177d54e963bbb2e43b9c34c227be49d1c656fe9ffce98ee8b960ed04d04ade06de25527fe9e98872c9c2bd0e9')
 
 prepare() {
   cd "${_gemname}-ruby-${pkgver}"
