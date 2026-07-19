@@ -1,16 +1,18 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=vortix
-pkgver=0.4.2
+pkgver=0.4.3
 pkgrel=1
 pkgdesc="A TUI for WireGuard and OpenVPN with real-time telemetry and leak guarding"
 arch=('x86_64')
 url="https://github.com/Harry-kp/vortix"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('2cd049037b60a5311301d23f144381cab5b0e911aafccb7da49ecfc346014234')
+sha256sums=('2e5f4c0c2bdc104c4d20a5714dc482029b88eb26cae431d6ce2d3d3f2aab08f7')
 options=('!lto')
 
 prepare() {
