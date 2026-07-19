@@ -1,0 +1,47 @@
+From aa86aa683f9daa688c9833ff8d18aa1bb04108b7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 18 Jul 2026 23:42:24 +0200
+Subject: [PATCH] Remove dependency on appstream-glib
+
+---
+ appdata/Makefile.am | 6 +++---
+ configure.ac        | 1 -
+ 2 files changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/appdata/Makefile.am b/appdata/Makefile.am
+index 9b9764d..8b3caf4 100644
+--- a/appdata/Makefile.am
++++ b/appdata/Makefile.am
+@@ -1,14 +1,14 @@
+ #AppData
+-@APPDATA_XML_RULES@
+ @INTLTOOL_XML_RULE@
+ 
++appdatadir = $(datadir)/metainfo
+ appdata_in_files = transmageddon.appdata.xml.in
+-appdata_XML = $(appdata_in_files:.xml.in=.xml)
++appdata_DATA = $(appdata_in_files:.xml.in=.xml)
+ 
+ dist_noinst_DATA = \
+        $(appdata_in_files) 
+ 
+ EXTRA_DIST = $(appdata_in_files)
+-CLEANFILES = $(appdata_XML)
++CLEANFILES = $(appdata_DATA)
+ 
+ 
+diff --git a/configure.ac b/configure.ac
+index a6f2561..d2b02db 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -53,7 +53,6 @@ AC_SUBST([GETTEXT_PACKAGE])
+ AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], "$GETTEXT_PACKAGE", [Gettext package])
+ AM_GLIB_GNU_GETTEXT
+ IT_PROG_INTLTOOL([0.40.0])
+-APPDATA_XML
+ 
+ CONFIGURED_PYTHONPATH=$PYTHONPATH
+ AC_SUBST(CONFIGURED_PYTHONPATH)
+-- 
+2.55.0
+

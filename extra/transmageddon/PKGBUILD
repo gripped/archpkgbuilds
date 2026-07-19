@@ -4,7 +4,7 @@
 
 pkgname=transmageddon
 pkgver=1.5
-pkgrel=15
+pkgrel=16
 pkgdesc='Simple python application for transcoding video into formats supported by GStreamer'
 arch=(any)
 url='http://www.linuxrising.org/'
@@ -25,7 +25,6 @@ depends=(
   python-gobject
 )
 makedepends=(
-  appstream-glib
   autoconf-archive
   git
   intltool
@@ -45,6 +44,7 @@ source=(
   transmageddon-no-appmenu.patch
   transmageddon-set-prgname.patch
   transmageddon-translatable.patch
+  transmageddon-no-appstream-glib.patch
 )
 b2sums=(
   9220de187030e4f24812664bfee851dc3e5dc6f7a9a1d72f9f5eaf06d7c38982ff5ac04feb960d1207485df78bd4724661af4c94fa9374315e1c2bb41608bf47
@@ -54,6 +54,7 @@ b2sums=(
   f1af2caac80e40aeff616eacda16471819666c307154309c9a7996d9a3aad3c217d0096278bbf04ebc052db68f03d9f693b746d70b2219b14c4a01ec5aad8975
   1c85341a4316ea09674ac4d97079f36703ffc336b2881a470644fb69df715eb3f40380698a2eecfb6d23f88486d416cf03c27117661703790755df5af5df7007
   ec2e2474fb07540ddab6c310666a1f44636d47204973f80a735e3e3b1624ad855881c844eb607fe595e6baaf819e2d4f9dec6e6b92a4d4ddc3872c89ed976284
+  e5a1a24088b4ed1d02a8609036047d23eb0efb03da57941af17901778a8f5ab53fc687ff6e457c2ec225976aa922024982e83da5bd6a62a306563c523687e63c
 )
 
 prepare() {
@@ -81,7 +82,10 @@ prepare() {
   # Mark Cancel button translatable
   git apply -3 ../transmageddon-translatable.patch
 
-  autoreconf -fi
+  # Remove dependency on appstream-glib
+  git apply -3 ../transmageddon-no-appstream-glib.patch
+
+  autoreconf -fiv
 }
 
 build() {
