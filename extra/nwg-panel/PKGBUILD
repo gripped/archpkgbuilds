@@ -3,12 +3,12 @@
 
 pkgname=nwg-panel
 pkgver=0.10.15
-pkgrel=1
+pkgrel=2
 pkgdesc="GTK3-based panel for sway and Hyprland Wayland compositors"
 url="https://github.com/nwg-piotr/nwg-panel"
 arch=('any')
 license=('MIT')
-depends=('python' 'python-gobject' 'python-i3ipc' 'python-cairo' 'python-dasbus' 'python-netifaces' 'python-psutil' 'python-requests' 'bluez-utils' 'gtk3' 'libappindicator-gtk3' 'gtk-layer-shell' 'brightnessctl' 'playerctl' 'glib2')
+depends=('python' 'python-gobject' 'python-i3ipc' 'python-cairo' 'python-dasbus' 'python-netifaces' 'python-psutil' 'python-requests' 'bluez-utils' 'gtk3' 'libdbusmenu-gtk3' 'gtk-layer-shell' 'brightnessctl' 'playerctl' 'glib2' 'gdk-pixbuf2')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 optdepends=('wlr-randr: for non-sway Wayland WMs support'
             'swaybg: for the random wallpaper module'
