@@ -2,7 +2,7 @@
 
 _pkg=smbprotocol
 pkgname=python-${_pkg}
-pkgver=1.16.1
+pkgver=1.17.0
 pkgrel=1
 pkgdesc="SMBv2 and v3 client"
 arch=(any)
