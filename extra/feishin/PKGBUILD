@@ -4,8 +4,8 @@
 # Contributor: Dlani
 
 pkgname=feishin
-pkgver=1.13.0
-pkgrel=2
+pkgver=1.15.0
+pkgrel=1
 pkgdesc='A modern self-hosted music player.'
 arch=('any')
 url='https://github.com/jeffvli/feishin'
@@ -17,11 +17,9 @@ optdepends=('mpv: Alternative audio backend')
 source=(
 	"git+$url.git#tag=v$pkgver"
 	"$pkgname.sh"
-	"add-support-for-pnpm-v11.patch"
 )
-sha256sums=('d39e67e9d49c7db43b46be22581e2ca1fcb6a9cac6a0ce1eb83801c8bb192008'
-            '4ac240aa9678f6a9c638e6e9d03bbdb77507c936c4594a20cdf223e15072697d'
-            '7047a40ed4fde94e7456886179e1fcd536a7e21cf3c55d37eca48776ada8df38')
+sha256sums=('d46b6911afd3c960ff178931a67295d773108397933074b4de923362d3eddadf'
+            '4ac240aa9678f6a9c638e6e9d03bbdb77507c936c4594a20cdf223e15072697d')
 
 prepare() {
 	sed -i "s|@ELECTRON@|$_electron|" $pkgname.sh
@@ -30,10 +28,6 @@ prepare() {
 	sed -i 's|TryExec=.*|TryExec=/usr/bin/feishin|' feishin.desktop.tmpl
 	sed -i 's|Icon=.*|Icon=feishin|' feishin.desktop.tmpl
 	sed -i 's|org.jeffvli.feishin.desktop|feishin.desktop|' org.jeffvli.feishin.metainfo.xml
-
-	# add support for pnpm v11
-	# https://github.com/jeffvli/feishin/pull/2056
-	patch -p1 -i ../add-support-for-pnpm-v11.patch
 
 	export ELECTRON_SKIP_BINARY_DOWNLOAD=1
 	pnpm install
