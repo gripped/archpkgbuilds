@@ -2,8 +2,8 @@
 # Contributor: Andri Yngvason <andri@yngvason.is>
 
 pkgname=neatvnc
-pkgver=1.0.0
-pkgrel=3
+pkgver=1.0.1
+pkgrel=1
 pkgdesc='Fast and neat VNC server library'
 arch=(x86_64)
 url=https://github.com/any1/neatvnc
@@ -28,7 +28,7 @@ makedepends=(
 )
 provides=(libneatvnc.so)
 source=(git+https://github.com/any1/neatvnc.git#tag=v${pkgver})
-b2sums=('0f6bfdccec2f7cc9617161c04c4b8dbddab577598c048d300492c3972e3fe5ac5309965d400e00f9c066b28e9c50003ebe0a78cadcd9259c822f25de0f7c38b1')
+b2sums=('cdc7c850c46f59f70c3132e8279191d65e37a0bd453c5ec2d9746470a3cd9d43045c086a57f4e755f77c01f1e47928c693812d208a0803633d3f010e312b0096')
 
 prepare() {
   cd neatvnc
