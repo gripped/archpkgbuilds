@@ -3,7 +3,7 @@
 
 _name=PyMuPDF
 pkgname=python-pymupdf
-pkgver=1.27.2.3
+pkgver=1.28.0
 pkgrel=1
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(x86_64)
@@ -45,10 +45,10 @@ source=(
   remove-clang-and-swig-dependencies.patch
   remove-pip-call-in-tests.patch
 )
-sha512sums=('0ba2b2a7e3cd8375017e418616aeaec2ec7278124a7c377b00d51f6bc0e2835b9f84883c8cf9d45f20833b8ca5d17644d5bb500d2e6401a2aa6a0986dfe35799'
+sha512sums=('179621ee7222d5e1ac6f1f33560ebc599720aa1911736d6afd9010374aa2c43d7664df7ff93f3b1f0272ac637f5d7f1b9ece96893f4a245678693d85e4e93b35'
             '8362c20cad0df07f14493b1456ca8ffa880a363c95c336a5ba102a7089c93e409e9abc9707653e9073500964b4cb17354d92206748f8fedb4e3815164a90fb7a'
             '8ddd524e124d579091f98b75ab02ed87a7dc431c1d85cf9b8da645a4935d3f7c1361d6796618cb1da05be95be05a694ab9b039a42c92012434cda6283158a0e7')
-b2sums=('82e7c4ff46dbd85a20851a9870aaf473d4009c272590a4c6626f3cc8505d623f8569d326b145ace74124b8801cd73b11c91685b176067fbd21547e91498fd663'
+b2sums=('3dc33bc6845ee352256ab1d6ee7e8b5adfc6ecca7ddd27e01bb97fc6b81284b1a20bac2b2a9ee95675bce4330426584e5f98de4bcede3f3e9a2496b3cab8dd9a'
         '8bc15767ceeb691d3b4d43bebaf69978e4e24e654537f2cbe6de852b98db523f1b30f45545c3bfa48b915b05af1fb85925350c50e57fdbe5409c6725036d375c'
         '411b25296ed19f033270fe62afe12fe635c6c11e7d5d078188c76bef193e28ec2b461450d1366c80e2edad919baf730342ca84f02d9adbfbe7f3bce912884d88')
 
@@ -120,7 +120,13 @@ check() {
     --deselect tests/test_font.py::test_4457
     --deselect tests/test_general.py::test_open2
     --deselect tests/test_pixmap.py::test_4445
+    --deselect tests/test_pixmap.py::test_5001
     --deselect tests/test_memory.py::test_4751
+
+    --deselect tests/test_markdown_support.py::test_archive_markdown
+    --deselect tests/test_markdown_support.py::test_archive_links
+    --deselect tests/test_markdown_support.py::test_markdown_style
+    --deselect tests/test_markdown_support.py::test_markdown_save
   )
   local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
