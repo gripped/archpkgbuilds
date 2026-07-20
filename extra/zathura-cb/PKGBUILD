@@ -3,28 +3,26 @@
 # Contributor: Lex Black <autumn-wind at web dot de>
 
 pkgname=zathura-cb
-pkgver=2026.07.08
+pkgver=2026.07.18
 pkgrel=1
 pkgdesc="Adds comic book support to zathura"
 url="https://pwmt.org/projects/zathura-cb/"
 arch=('x86_64')
 license=('Zlib')
-depends=('zathura' 'libarchive' 'desktop-file-utils')
-makedepends=('meson' 'ninja' 'appstream' 'appstream-glib')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pwmt/${pkgname}/archive/refs/tags/${pkgver}.tar.gz"
-	"fix_version_handling_in_meson1.patch::https://github.com/pwmt/zathura-cb/commit/a792f02838b6c5d29a068bc51957211328704a18.patch")
-sha512sums=('fc56bfc6b5a342da67931a9d756319c31479c69d0e465f538858a725f42eafcf72ae766d100251049ffaff89968e082bec3f18d78f5afdfc3af442453f077d8f'
-            'e2424b268b80f9ae82ce6026e92d70b3ca8fa8e4c75ee0f5b41ecc8a00a872e986c8b779f7a678e1bc67d8d324793815a62cd3086dc8859fb065d6e8f5fb9036')
-
-prepare() {
-	cd "${pkgname}-${pkgver}"
-	patch -Np1 -i "${srcdir}/fix_version_handling_in_meson1.patch"
-}
+depends=('zathura' 'libarchive')
+makedepends=('meson' 'ninja' 'appstream' 'desktop-file-utils')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pwmt/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
+sha512sums=('4b7eac4aec8be060526788b523fa190ece7f97ac187af5bec41752e11b99d023b5c5af5641f5316e0aa2866a299ca41681bc3008666435bde098340f30ac2aff')
 
 build() {
 	cd "${pkgname}-${pkgver}"
 	arch-meson build
 	ninja -C build
+}
+
+check() {
+	cd "${pkgname}-${pkgver}"
+	meson test -C build --print-errorlogs
 }
 
 package() {
