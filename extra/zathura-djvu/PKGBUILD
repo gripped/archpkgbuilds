@@ -5,21 +5,26 @@
 # Contributor: karnath <karnathtorjian@gmail.com>
 
 pkgname=zathura-djvu
-pkgver=2026.05.10
-pkgrel=5
+pkgver=2026.07.18
+pkgrel=1
 pkgdesc="DjVu support for Zathura"
 url="https://pwmt.org/projects/zathura-djvu/"
 arch=('x86_64')
 license=('Zlib')
-depends=('djvulibre' 'zathura' 'desktop-file-utils')
-makedepends=('meson' 'ninja' 'appstream' 'appstream-glib')
+depends=('djvulibre' 'zathura')
+makedepends=('meson' 'ninja' 'appstream' 'desktop-file-utils')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pwmt/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
-sha512sums=('96540e77acdf234787714baf71495aeaea7c1e20f5b1202d3326be2ad18358608c546ea164c2c3ee415a97004bcf3e5e23da0f2b3df8926dfb92662850842c28')
+sha512sums=('8844bec659e4de1266c2987eb937ce3ee99b55e62748343b16ca3a92e4464b8dbe8c2598fb8642c42e47af5206aed5fa002cf750d338876d9857daf74388bcad')
 
 build() {
         cd "${pkgname}-${pkgver}"
         arch-meson build
         ninja -C build
+}
+
+check() {
+	cd "${pkgname}-${pkgver}"
+	meson test -C build --print-errorlogs
 }
 
 package() {
