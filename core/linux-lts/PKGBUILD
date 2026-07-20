@@ -1,8 +1,8 @@
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
 
 pkgbase=linux-lts
-pkgver=6.18.38
-pkgrel=4
+pkgver=6.18.39
+pkgrel=1
 pkgdesc='LTS Linux'
 url='https://www.kernel.org'
 arch=(
@@ -53,19 +53,20 @@ validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
-b2sums=('3260a9de3db1291f8240c75c94f386ca36b6334a89cee9bc27e3b3de8ecbd5886c2bae7ba4c1d3d75fb633b85dc3192fabd806c56d04128d568dd078c3757211'
-        'SKIP'
-        'f98f4a2e714f7c9e05740caaad2bf014065ec950c096df74a3dee8b2ce6549f034adf6f87a76168f513aa68eb738edbdb6fe1a3f1b3a5104201c65199b5b931e'
-        '6ca246df80fa85f9c21d090f87ee31e33acb02f3c1147944750e0896ebf199bc0cf427a164dacbdd9baa26dbdbce2fabd89ebdb6a8ce5dae83fc455b27a56cc8'
-        'a612d5ea58485eeaa5cce0b30074ab3188f4321c4759448780de2f3f656821356d640df433e31bd4e8f2c9719c8e275374ddea29b9504335ed0981be5ac7bf7b')
-b2sums_x86_64=('87503aec36e30947744bf725e2d3907b62bf8e695b906ae87cc2ca00599b86b65085ec27a5e1af794506c4c454f7139176215e3849f24cb94f328ae9709e0e02')
-
-# https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('ac26e508abd56e9f8b89872b6e10c49fc823bcc70d8068a5d8504c1a7c4ff045'
+sha256sums=('a7a7e3d2ae9d95e74197223a8d4eb5f6be7aac21b6e6de27e9685d001c1f8cb0'
             'SKIP'
             '0bb3b4cda53db35c10e0a34defb5f52f3c91895d7b4a9f93b3f40f5401a71e02'
             '70d54dfde13e52ea1109c4222a987a29ada68feec35dca9ce4afd6f7977e8740'
             '44caa7c6a79055539f16ab118bece58934cdf93557643a50017634366c864b91')
+sha256sums_x86_64=('43c6f44895e18a97929f12c9af6a5539c34d04d15e56c65c6fafcf3090640074')
+b2sums=('25822062c71a43756482b976a0249d6bcecfd858cf9ba2feabb3f20eb0285fb5970fa66186288283e5716cc6e38562a811d83796a2d2c4545cd63f06fa2bfc44'
+        'SKIP'
+        'f98f4a2e714f7c9e05740caaad2bf014065ec950c096df74a3dee8b2ce6549f034adf6f87a76168f513aa68eb738edbdb6fe1a3f1b3a5104201c65199b5b931e'
+        '6ca246df80fa85f9c21d090f87ee31e33acb02f3c1147944750e0896ebf199bc0cf427a164dacbdd9baa26dbdbce2fabd89ebdb6a8ce5dae83fc455b27a56cc8'
+        'a612d5ea58485eeaa5cce0b30074ab3188f4321c4759448780de2f3f656821356d640df433e31bd4e8f2c9719c8e275374ddea29b9504335ed0981be5ac7bf7b')
+b2sums_x86_64=('2da201989c58a2e90fd6a0850166a2571228050bdd23dcef87f707a040411a41894b7f2c9238318d5fa67efc36b9ee8a68f2a877ac7be113a0a0437414187b19')
+
+# https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
