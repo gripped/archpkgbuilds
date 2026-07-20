@@ -1,10 +1,15 @@
 pkgbase = kew
 	pkgdesc = Music for the Shell
-	pkgver = 4.2.4
+	pkgver = 4.2.7
 	pkgrel = 1
 	url = https://codeberg.org/ravachol/kew
 	arch = x86_64
 	license = GPL-2.0-only
+	depends = glibc
+	depends = libstdc++
+	depends = libatomic
+	depends = libgcc
+	depends = zlib
 	depends = fftw
 	depends = chafa
 	depends = glib2
@@ -14,7 +19,8 @@ pkgbase = kew
 	depends = taglib
 	depends = libogg
 	depends = faad2
-	source = kew-4.2.4.tar.gz::https://codeberg.org/ravachol/kew/archive/v4.2.4.tar.gz
-	sha512sums = 34c5068ad4ef77c6335594d9ce51826c26cb91ab0c22b5feb71d5667a181f712c6b15c5ef91bc5c0e405d0424b374830c1defe491714ac2613ea5e92cf83301b
+	depends = hicolor-icon-theme
+	source = kew-4.2.7.tar.gz::https://codeberg.org/ravachol/kew/archive/v4.2.7.tar.gz
+	sha512sums = 204908fea9226b085591fe48086a2e474cd87ec17b457ceb50776bce268e89079e8af814a17a892fc0aeba1cb5886b5e8543f6a458652dac494dd21ed483fbc0
 
 pkgname = kew
