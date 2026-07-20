@@ -2,7 +2,7 @@
 
 pkgname=gnome-flashback
 pkgver=3.58.0
-pkgrel=3
+pkgrel=4
 pkgdesc='GNOME Flashback session'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/GnomeFlashback'
@@ -83,6 +83,10 @@ prepare() {
   # Try to launch Console first
   # https://gitlab.gnome.org/GNOME/gnome-flashback/-/merge_requests/69
   git cherry-pick -n 799c1d8c86da64d3ab0184e4f6362cd57e4f142b
+
+  # Disable window decoration for the desktop window
+  # https://gitlab.gnome.org/GNOME/gnome-flashback/-/merge_requests/71
+  git cherry-pick -n d2e06c31a11fb31df9c572dc65b17f2f3dd0689e
 
   # Use the desktop background for the lock screen
   sed -i 's/org.gnome.desktop.screensaver/org.gnome.desktop.background/' gnome-flashback/libscreensaver/gf-manager.c
