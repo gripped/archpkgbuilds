@@ -2,7 +2,7 @@
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 
 pkgname=libpqxx
-pkgver=8.0.1
+pkgver=8.0.2
 pkgrel=1
 pkgdesc='C++ client API for PostgreSQL'
 url='http://pqxx.org/development/libpqxx/'
@@ -22,8 +22,8 @@ makedepends=(
 )
 provides=("libpqxx-${pkgver%.*}.so")
 source=("$pkgname::git+https://github.com/jtv/libpqxx#tag=$pkgver")
-sha512sums=('77057a85984591431f810f26f245245699cd74243c9269f5363dac071081b62c4e840888f54be8f745399053b5f0d245954a314d9968a9b7b5bc25e5a126170c')
-b2sums=('ae1e7a3348a495f9e6a145b484b27eb47afdc36d02aca00c1c8b9324184d693a02346bc6a7f52a930ac3e02b79e1ecf0bfa749ef03dcb5cf3c0ef53c99f6b8db')
+sha512sums=('20a64ca454cfadcdbe06d35800c5718ec707924e982a13b837287ececf891a2e9ecc8a5917bdf55514d6364cc0133fd64bfb2bd4c26e52a05a1d8adce9eb5af5')
+b2sums=('f29a053498c5320200097d6d2afb6dc7ad001ab5eb57d8eed9a81684768f419daed485b8e848260b769a83a8f8cbe5578533f37da85a77f7f15ab7fdb5e5bc54')
 
 build() {
   local cmake_options=(
