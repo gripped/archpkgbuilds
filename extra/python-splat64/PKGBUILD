@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-splat64
-pkgver=0.41.0
+pkgver=0.41.1
 pkgrel=1
 pkgdesc='A binary splitting tool to assist with decompilation and modding projects'
 arch=(any)
@@ -27,8 +27,8 @@ makedepends=(
   python-hatchling
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('295ab0aa97a2040d46e81dbd7a8bf348156e17434bdfecc298b5d0ccbd507d9a26b503e68a4d5ca449d97a13849b1bbcee827165bd70ff5eedd439c95990f14b')
-b2sums=('0083f22084db98d311c4ecdaeaa92d80d7f4d080f1b55bfe02a045eefc72266381ac9c0c5857d00e36d572fe609ddc2c76387a7585ca40d8aa34e72743102ec3')
+sha512sums=('6b77b1c7604caa09e925b32366a8e781e93231ac34d2293b683d048f1e2e3171413ebc8bf3be3932da658c6a0c567a58c5141594d0dfcbe94ca9fd58ab2d23d6')
+b2sums=('a5e467f5bfbf50426db5d8ea5c940e751f4b194914b9344487ffe44417b63df930caebe734a9e445ca242651e0cf331802df3fff23a22790e5e0164e2faf506e')
 
 build() {
   cd "$pkgname"
