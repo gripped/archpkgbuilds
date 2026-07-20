@@ -1,32 +1,43 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=forgejo-cli
-pkgver=0.5.0
-pkgrel=1
+pkgver=0.6.0
+pkgrel=2
 pkgdesc='CLI application for interacting with Forgejo'
-url="https://codeberg.org/forgejo-contrib/$pkgname"
+arch=(x86_64)
+url='https://codeberg.org/forgejo-contrib/forgejo-cli'
 license=('Apache-2.0 OR MIT')
-makedepends=(cargo)
 depends=(glibc # libc.so libm.so ld-linux-x86-64
          libgcc libgcc_s.so
          libssh2 libssh2.so
          libgit2 libgit2.so
          openssl libcrypto.so libssl.so)
-arch=(x86_64)
-_archive="$pkgname-$pkgver"
-source=("$_archive.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('028ebcbd744301fbfd144cd9bc5ff0a27e02d99b02c8abafb20742299715c556')
+makedepends=(cargo
+             git)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('a3b6e595c5297529fbace8eb5091fed611d33e472b81d34596e7dc1f703ecd687bf9cd26a15f7b1e11c44cac702dbfea5657e99760435271110b9044eff85e51')
+b2sums=('d9f33c2f320c34bd04da4ebc50b58969bd81607329f3e7ce74ed956220a6fa0ad81973794e768947d536f5a53fffb8f7387eb092bb3551bf37acdb5eebe23225')
 
-prepare() {
-	cd "$pkgname"
-	cargo fetch --locked --target host-tuple
-}
+
 
 _srcenv() {
 	cd "$pkgname"
+	export CARGO_HOME="$srcdir"
+	export CARGO_PROFILE_RELEASE_DEBUG=2
+	export CARGO_PROFILE_RELEASE_STRIP=false
+	export CARGO_PROFILE_RELEASE_LTO=true
+	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+	CFLAGS+=' -ffat-lto-objects'
 	export LIBGIT2_NO_VENDOR=1
 	export LIBSSH2_SYS_USE_PKG_CONFIG=1
 	export OPENSSL_NO_VENDOR=true
+}
+
+prepare() {
+	_srcenv
+	cargo fetch --locked --target host-tuple
 }
 
 build() {
@@ -34,13 +45,13 @@ build() {
 	cargo build --frozen --release --all-features
 }
 
-_compgen() {
-	target/release/fj completion $1
-}
-
 check() {
 	_srcenv
 	cargo test --frozen --release --all-features
+}
+
+_compgen() {
+	target/release/fj completion $1
 }
 
 package() {
@@ -48,6 +59,6 @@ package() {
 	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/fj"
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/forgejo-cli/" LICENSE-APACHE LICENSE-MIT
 	install -Dm0644 <(_compgen bash) "$pkgdir/usr/share/bash-completion/completions/fj"
-	install -Dm0644 <(_compgen zsh) "$pkgdir/usr/share/zsh/site-functions/_fj"
 	install -Dm0644 <(_compgen fish) "$pkgdir/usr/share/fish/vendor_completions.d/fj.fish"
+	install -Dm0644 <(_compgen zsh)  "$pkgdir/usr/share/zsh/site-functions/_fj"
 }
