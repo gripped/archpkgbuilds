@@ -2,8 +2,8 @@
 # Contributor: quietvoid <tcChlisop0@gmail.com>
 
 pkgname=libdovi
-pkgver=3.3.2
-pkgrel=2
+pkgver=3.4.0
+pkgrel=1
 pkgdesc='Library to read and write Dolby Vision metadata'
 arch=(x86_64)
 url=https://github.com/quietvoid/dovi_tool/tree/main/dolby_vision
@@ -19,7 +19,7 @@ makedepends=(
 )
 provides=(libdovi.so)
 source=(git+https://github.com/quietvoid/dovi_tool.git#tag=libdovi-${pkgver})
-b2sums=('40aefc4476b3fb674d2f2fe241de1e8e8b91658c8d5c9d7c729d371bbbb5b70955210d23b3cd088ae2001963f9aa15c29ceb4fa3abf15762f66d44efd6c3ae0e')
+b2sums=('5908fc46da4e900e37dd455b1006456f6ac7bd702ecdb13a377c47d476cd0006d058f974e5c26a719c90bfa179546ca2f64d37ced4a5a5a78539bcadb413b5ae')
 
 prepare() {
   cargo fetch \
