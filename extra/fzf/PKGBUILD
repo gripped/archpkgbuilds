@@ -9,7 +9,7 @@
 # Contributor: jebaum <jebaum at ucla dot edu>
 
 pkgname=fzf
-pkgver=0.74.0
+pkgver=0.74.1
 pkgrel=1
 pkgdesc='Command-line fuzzy finder'
 arch=('x86_64')
@@ -26,7 +26,7 @@ source=("git+https://github.com/junegunn/fzf.git#tag=v${pkgver}?signed")
 validpgpkeys=(
 	'B5FB4AB5F32EC1A0C9DE9637254BC280FEF9C627'
 	'23F9CCD32FBC4A8D4E822AB8D9770615D226D94C') # Junegunn Choi <junegunn.c@gmail.com>
-sha512sums=('ffe8a6ce47319bae7c16850cbea0c3181ae156728b84c9f72790906d3bcf4f35233051fbd1aa25dc7cb901d0a6215b4bc1dac89111047ac907d91afe4331c987')
+sha512sums=('d77e442f91a7947a2a0d6ca82217782037848be872a632615f74087486f27ccf4fe1644b54b2bf44fa4d09b3641e2e7a41f64f1459b0c5aa29f5411f782fd830')
 
 prepare() {
 	cd "${pkgname}"
