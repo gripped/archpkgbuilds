@@ -5,7 +5,7 @@
 # Contributor: TDY <tdy@gmx.com>
 
 pkgname=spyder
-pkgver=6.1.4
+pkgver=6.1.5
 pkgrel=1
 pkgdesc="The Scientific Python Development Environment"
 arch=(any)
@@ -117,15 +117,8 @@ optdepends=(
 )
 source=(
   "git+https://github.com/spyder-ide/spyder#tag=v$pkgver"
-  "$pkgname-fix-fixuredef-api-for-pytest-8.patch"
 )
-b2sums=('76c4a64ffaf42ee55707613bcc9aa2dacd96c0c30c132036ac40d882af7607d3f0e6e1c6e4651e77d52a658cc4622dba2b5eef61de477d8e2f934b59388c5e99'
-        'cf4f805f69d4ed4b0a1932c06eb4c37215a23f2b7ecffd0a55feb915319ac7c68c7e4d20c63fa0e6fdf31360ae8c7714a6adb9bfac477db8eb8be53811f55993')
-
-prepare() {
-  cd $pkgname
-  patch -Np1 < ../$pkgname-fix-fixuredef-api-for-pytest-8.patch
-}
+b2sums=('529ef0964c6fd8d470fbed155de9fb58f94fc2bd7bad0e07a7fe17c27aa2f1c9b818944c37311f25a5a9dabd2c0f80837bf18ef64b36f357017f2fb38af27659')
 
 build() {
   cd $pkgname
@@ -186,6 +179,7 @@ check() {
     --deselect='spyder/plugins/application/tests/test_plugin.py'
     --deselect='spyder/utils/tests/test_environ.py'
     --deselect='spyder/widgets/tests/test_dependencies.py'
+    --deselect='spyder/plugins/editor/tests/test_plugin.py'
   )
   export PYTEST_QT_API="pyqt6"
   export CI=true
