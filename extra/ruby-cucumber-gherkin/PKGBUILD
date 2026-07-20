@@ -2,7 +2,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=ruby-cucumber-gherkin
-pkgver=41.0.0
+pkgver=42.0.0
 pkgrel=1
 pkgdesc="Gherkin for Ruby"
 arch=(any)
@@ -24,15 +24,15 @@ options=(!emptydirs)
 source=(
   "git+https://github.com/cucumber/gherkin.git#tag=v$pkgver"
 )
-sha512sums=('8a1dc0fed031bc50bd7bb221151f268f8a95af7fa2b7985850b39317e5c78e7549eb75cfd1ef5ea4017952582ec34213d76bc5671be02e7821b11dbb5adb18de')
-b2sums=('69891ff5236af794e09d664c6ecfdbc6eb2975baa70bdd1486c80fd93271efb2549f43881b1bed615c1ad613385becd50541c363c03e73800b89167dbea4523a')
+sha512sums=('5b55d36313be814ec7d58ae0fd451261a80242f753f2439ec52e999513baf232c8b3d6761b1b9c2a0b1602f75544e2da81e97d1608b47d408e8ccfc0ed6ba854')
+b2sums=('4ce5f15e5df4bd54d959ba82606e63bbb619953e8528b958f30473fc918fbdf2e7c8ff96b5ace8f0066240a303e7b80252b6b869d7e4f9d025a03c2f6952c2b2')
 
 prepare() {
   cd gherkin
 
   cd ruby
 
-  sed -r -e 's|~>|>=|g' -e "s/, '< 33'//" -i cucumber-gherkin.gemspec
+  sed -r -e 's|~>|>=|g' -e "s/, '< 35'//" -i cucumber-gherkin.gemspec
 }
 
 build() {
