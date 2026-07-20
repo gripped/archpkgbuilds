@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=llama-cpp
-pkgver=b9957
-pkgrel=2
+pkgver=b10068
+pkgrel=1
 pkgdesc='LLM inference in C/C++'
 arch=(x86_64)
 url=https://github.com/ggerganov/llama.cpp
@@ -27,7 +27,7 @@ makedepends=(
   npm
 )
 source=(git+https://github.com/ggml-org/llama.cpp.git#tag=${pkgver})
-b2sums=('af3975622ec75e4d411e3b2a198f808aa9bc7e51582e8aa4dfd06d65b11a4a4e9bd24e9d3754a447d0fa3aa9705cb21157ee5056e06c79339ca38394d899fa17')
+b2sums=('b8383dc11e0981efdd977a4297f1c820889addf429e1e4fe2d7badb40017dd1ec5610068ad35593f860e7a1fc50ab249c1ff2d1e8166b48936f7a5d5b7b2b4c6')
 
 build() {
   pushd "./llama.cpp/tools/ui"
