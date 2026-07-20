@@ -1,15 +1,16 @@
 pkgbase = serie
 	pkgdesc = A rich git commit graph in your terminal
-	pkgver = 0.8.0
+	pkgver = 0.8.1
 	pkgrel = 1
 	url = https://github.com/lusingander/serie
 	arch = x86_64
 	license = MIT
 	makedepends = cargo
 	makedepends = git
-	depends = gcc-libs
 	depends = glibc
-	source = git+https://github.com/lusingander/serie#tag=v0.8.0
-	sha512sums = 778a67bd5e777387a2a0c1f3b969e227f9a17ede4c5cb4f975a40e6790e05fffe80dbfe973e5a52c1ccef8bf59e80994c72b54cec187633703541bd84318234b
+	depends = libgcc
+	depends = libgcc_s.so
+	source = git+https://github.com/lusingander/serie#tag=v0.8.1
+	sha256sums = 85ee04d5b1b130b12659570471669e39f3575a12b846353d93eb7d4acad42080
 
 pkgname = serie
