@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=systemctl-tui
-pkgver=0.6.1
+pkgver=0.7.0
 pkgrel=1
 pkgdesc='A fast, simple TUI for interacting with systemd services and their logs'
 arch=(x86_64)
@@ -13,7 +13,7 @@ depends=(glibc # libc.so libm.so
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
-sha256sums=('2369e1b8d8f94c07bab8d6ff978f51319980c9428d41f0541f427b8d44d4a709')
+sha256sums=('7ce318bb5f9fa4fc4b266557d1476bd8ed058faa15807a579090bd93e994ab23')
 
 _srcenv() {
 	cd "$_archive"
