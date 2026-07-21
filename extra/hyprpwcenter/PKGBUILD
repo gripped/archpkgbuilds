@@ -2,18 +2,21 @@
 
 pkgname=hyprpwcenter
 pkgver=0.1.2
-pkgrel=5
+pkgrel=6
 pkgdesc='A GUI Pipewire control center'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
 license=(BSD-3-Clause)
-depends=(gcc-libs # libgcc_s.so libstdc++.so
+depends=(
+         libgcc
+         libstdc++
          glibc # libc.so libm.so
          hyprtoolkit libhyprtoolkit.so
          hyprutils libhyprutils.so
          libdrm # libdrm.so
          libpipewire libpipewire-0.3.so
-         pixman)
+         pixman
+)
 makedepends=(cmake)
 optdepends=('ttf-material-symbols-variable: Recommended font for icons')
 _archive="$pkgname-$pkgver"
