@@ -1,6 +1,6 @@
 pkgbase = wasmtime
 	pkgdesc = Standalone JIT-style runtime for WebAssembly, using Cranelift
-	pkgver = 46.0.1
+	pkgver = 47.0.0
 	pkgrel = 1
 	url = https://github.com/bytecodealliance/wasmtime
 	arch = x86_64
@@ -11,13 +11,11 @@ pkgbase = wasmtime
 	depends = glibc
 	depends = libgcc
 	options = !lto
-	source = git+https://github.com/bytecodealliance/wasmtime#commit=v46.0.1
-	source = wasm-component-model::git+https://github.com/WebAssembly/component-model
-	source = wasm-testsuite::git+https://github.com/WebAssembly/testsuite
+	source = git+https://github.com/bytecodealliance/wasmtime#commit=v47.0.0
+	source = git+https://github.com/WebAssembly/testsuite
+	source = git+https://github.com/WebAssembly/component-model
 	source = git+https://github.com/WebAssembly/wasi-testsuite
-	source = git+https://github.com/WebAssembly/wasi-threads
-	b2sums = 3937c754ddf4fc41888017dc9d3d74ca96d9d93522564c79dfc270758f76560c3f3e9e2d95af8acb16b5489ed6d2558f30817455d841ef0afe504d8838b7f53e
-	b2sums = SKIP
+	b2sums = c17e462a391c03fa8cc95bea3b0de0283a19f1617830155073bfb7d80e9b897133d17ddf80dc487a2dee4f5d6e42b76727142cb5ac5be3fa676827f30adea360
 	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = SKIP
