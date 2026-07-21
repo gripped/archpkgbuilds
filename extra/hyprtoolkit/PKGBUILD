@@ -2,12 +2,14 @@
 
 pkgname=hyprtoolkit
 pkgver=0.5.4
-pkgrel=2
+pkgrel=3
 pkgdesc='A modern C++ Wayland-native GUI toolkit'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
 license=(BSD-3-Clause)
-depends=(gcc-libs # libgcc_s.so libstdc++.so
+depends=(
+         libgcc
+         libstdc++
          aquamarine libaquamarine.so
          cairo libcairo.so
          glib2 libglib-2.0.so
@@ -22,7 +24,8 @@ depends=(gcc-libs # libgcc_s.so libstdc++.so
          mesa # libgbm.so
          pango libpango-1.0.so # libpango.so
          pixman libpixman-1.so
-         wayland libwayland-client.so)
+         wayland libwayland-client.so
+)
 makedepends=(cmake)
 provides=(libhyprtoolkit.so)
 _archive="$pkgname-$pkgver"
