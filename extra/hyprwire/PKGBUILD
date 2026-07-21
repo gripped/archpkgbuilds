@@ -2,16 +2,19 @@
 
 pkgname=hyprwire
 pkgver=0.3.1
-pkgrel=2
+pkgrel=3
 pkgdesc='A fast and consistent wire protocol for IPC'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
 license=(BSD-3-Clause)
-depends=(gcc-libs # libgcc_s.so libstdc++.so
+depends=(
+         libgcc
+         libstdc++
          glibc # libc.so libm.so
          hyprutils libhyprutils.so
          libffi libffi.so
-         pugixml) # libpugixml.so
+         pugixml # libpugixml.so
+)
 makedepends=(cmake)
 provides=(libhyprwire.so)
 _archive="$pkgname-$pkgver"
