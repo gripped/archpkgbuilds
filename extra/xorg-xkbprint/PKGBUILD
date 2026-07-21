@@ -3,7 +3,7 @@
 # Contributor: Brian Bidulock <bidulock@openss7.org>
 
 pkgname=xorg-xkbprint
-pkgver=1.0.7
+pkgver=1.0.8
 pkgrel=1
 pkgdesc="Generates a PostScript description of an XKB keyboard description"
 arch=(x86_64)
@@ -13,9 +13,9 @@ depends=('libxkbfile' 'libx11' 'glibc')
 makedepends=('xorg-util-macros')
 groups=('xorg-apps')
 source=(https://xorg.freedesktop.org/archive/individual/app/xkbprint-${pkgver}.tar.xz{,.sig})
-sha512sums=('52f803ba85b053408dfff400f47ae9461954430665a12257a99b9775e26dd7192a97b979de949b9c4532936c9bfcc181a773de41514a122973f05d676dee6476'
+sha512sums=('b2c1716f0dc30e528886190cfccfb72fb17f337bb321f988058759a1cbbf93f2effc68c1b2b9a0c808cc2831b62a8e894ca341ba0a35c22eaff4cc195a20d8da'
             'SKIP')
-validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+validpgpkeys=('3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2') # Alan Coopersmith <alan.coopersmith@oracle.com>
 
 build() {
   cd xkbprint-$pkgver
