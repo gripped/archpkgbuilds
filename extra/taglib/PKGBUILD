@@ -5,7 +5,7 @@
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=taglib
-pkgver=2.3
+pkgver=2.3.1
 pkgrel=1
 pkgdesc='A Library for reading and editing the meta-data of several popular audio formats'
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(cmake
              utf8cpp)
 checkdepends=(cppunit)
 source=(git+https://github.com/taglib/taglib#tag=v$pkgver)
-sha256sums=('db9f2cfa9b75f44117894deb98e23ae01a65dd8041b5c0add88aab3cee7d72fe')
+sha256sums=('a6b7f7101c22e2f6027e89afbcdf89fa2ccf67d218796c716191efc4d83403fc')
 
 build() {
   cmake -B build -S $pkgname \
