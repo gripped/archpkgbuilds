@@ -4,21 +4,21 @@
 # Contributor: Dlani
 
 pkgname=feishin
-pkgver=1.15.0
+pkgver=1.15.1
 pkgrel=1
 pkgdesc='A modern self-hosted music player.'
 arch=('any')
 url='https://github.com/jeffvli/feishin'
 license=('GPL-3.0-only')
 _electron='electron41'
-depends=($_electron bash hicolor-icon-theme)
+depends=($_electron 'bash' 'hicolor-icon-theme' 'xdg-utils')
 makedepends=('pnpm' 'git' 'libxcrypt-compat')
 optdepends=('mpv: Alternative audio backend')
 source=(
 	"git+$url.git#tag=v$pkgver"
 	"$pkgname.sh"
 )
-sha256sums=('d46b6911afd3c960ff178931a67295d773108397933074b4de923362d3eddadf'
+sha256sums=('5941a1c365838074d0af75e51124bc7078cba39481e41104969ea3974a648dd0'
             '4ac240aa9678f6a9c638e6e9d03bbdb77507c936c4594a20cdf223e15072697d')
 
 prepare() {
