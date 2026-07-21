@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=python-faust-cchardet
-pkgver=2.1.20
+pkgver=2.2.1
 pkgrel=1
 pkgdesc="Fork of the original cChardet"
 url="https://github.com/faust-streaming/cChardet"
@@ -19,7 +19,6 @@ makedepends=(
   meson-python
   python-build
   python-installer
-  python-pkgconfig
   python-wheel
 )
 provides=("python-cchardet=$pkgver")
@@ -28,14 +27,11 @@ source=(
   "faust-cchardet::git+$url#tag=v$pkgver"
   "pyyoshi-uchardet::git+https://github.com/PyYoshi/uchardet"
 )
-b2sums=('5f4928bae718828c5a21c5ebb79918232c3ba0e90c286c8838590f6ea9dae558acd3f4ba45a7a18628a4a7e4c0f08a3cf9dcc5859cb904f516eb1a16e79dc816'
+b2sums=('f4eb3481a9776f8e11d61bad7754aa9cee30dc5fdecf4a4419424ca2b85ab405e932e770d7afc2bd7ed34ffe1c87284483a82273add4d3c88393895c4a9f176e'
         'SKIP')
 
 prepare() {
   cd faust-cchardet
-
-  # Fix build
-  git cherry-pick -n 5075cad8c7eb5cc8f2c139ada92e7222a309f657
 
   git submodule init
   git submodule set-url src/ext/uchardet "$srcdir/pyyoshi-uchardet"
