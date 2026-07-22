@@ -3,7 +3,7 @@
 
 _name=google-auth
 pkgname=python-google-auth
-pkgver=2.56.0
+pkgver=2.56.1
 pkgrel=1
 pkgdesc="Google Authentication Library"
 url="https://github.com/googleapis/google-cloud-python"
@@ -47,7 +47,7 @@ optdepends=(
   'python-urllib3: for HTTP support'
 )
 source=("${url}/archive/refs/tags/${_name}-v${pkgver}.tar.gz")
-sha512sums=('969ac6ba6faa08b8d8da0bd1b84da2f121af136ef0f12663bf2581d816cd0e94c0be0229ccd85b33a0d98a038d420986092c15b6a7ced427d024319d722a4f46')
+sha512sums=('7dbbaf131073c61e02aa5531558546078f2807d315f405f3e3c381c5d8f58fe9bf47fa4e66e0178ca7268d3d504ec5ba12547d630be3e786c5d8c7c36701d8bf')
 
 build() {
   	cd "google-cloud-python-${_name}-v${pkgver}/packages/${_name}"
