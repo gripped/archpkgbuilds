@@ -6,7 +6,7 @@
 pkgbase=mattermost
 pkgname=($pkgbase mmctl)
 pkgver=11.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Open source Slack-alternative in Golang and React"
 arch=(x86_64)
 url="https://mattermost.com"
@@ -16,7 +16,7 @@ makedepends=(git
              go
              jq
              libpng
-             nodejs-lts-iron
+             nodejs-lts-jod
              moreutils
              npm
              python)
@@ -80,7 +80,7 @@ prepare() {
     sed -r -i Makefile "${expressions[@]/#/-e }"
 
     # Pre-fetch nodejs dependencies
-    make node_modules
+    npm_config_allow_git=root make node_modules
 }
 
 build() {
